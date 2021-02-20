@@ -253,7 +253,7 @@ public final class RunModelCreator {
 	 * @param editName	Name des Elements
 	 * @see #addElement(ModelElementPosition)
 	 */
-	private void addRunElementToRunModel(final RunElement element, final String editName) {
+	private synchronized void addRunElementToRunModel(final RunElement element, final String editName) {
 		runModel.elements.put(element.id,element);
 		runModel.namesToIDs.put(editName,element.id);
 	}

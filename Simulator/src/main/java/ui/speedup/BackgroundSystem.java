@@ -249,7 +249,7 @@ public class BackgroundSystem {
 
 		/* Prüfen */
 
-		final Object obj=RunModel.getRunModel(model,!canBackgroundProcess); /* !canBackgroundProcess == testOnly: Wenn wir später sowieso nicht simulieren können, dann hier auch keine Daten laden */
+		final Object obj=RunModel.getRunModel(model,!canBackgroundProcess,setup.useMultiCoreSimulation); /* !canBackgroundProcess == testOnly: Wenn wir später sowieso nicht simulieren können, dann hier auch keine Daten laden */
 		if (obj instanceof String) return (String)obj;
 
 		/* Simulieren */

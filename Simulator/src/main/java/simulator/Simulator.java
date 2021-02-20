@@ -56,7 +56,6 @@ public class Simulator extends SimulatorBase implements AnySimulator {
 	 */
 	private static boolean simulationStarted=false;
 
-
 	/**
 	 * Wurde bereits mindestens einmal {@link #start(boolean)}
 	 * oder {@link #start()} aufgerufen?
@@ -234,7 +233,7 @@ public class Simulator extends SimulatorBase implements AnySimulator {
 	public String prepare() {
 		prepareStatic(editModel.useFixedSeed);
 
-		final Object obj=RunModel.getRunModel(editModel,false);
+		final Object obj=RunModel.getRunModel(editModel,false,SetupData.getSetup().useMultiCoreSimulation);
 		if (obj instanceof String) return (String)obj;
 		runModel=(RunModel)obj;
 
@@ -387,7 +386,7 @@ public class Simulator extends SimulatorBase implements AnySimulator {
 		final SimData data;
 		final RunModel runModel;
 		if (numaAware && threadCount>1) {
-			final Object obj=RunModel.getRunModel(editModel,false);
+			final Object obj=RunModel.getRunModel(editModel,false,SetupData.getSetup().useMultiCoreSimulation);
 			runModel=(RunModel)obj;
 		} else {
 			runModel=this.runModel;

@@ -2236,7 +2236,7 @@ public class MainPanel extends MainPanelBase {
 	 */
 	private void commandModelCompareTwoInit() {
 		EditModel model=editorPanel.getModel();
-		Object obj=RunModel.getRunModel(model,true);
+		Object obj=RunModel.getRunModel(model,true,setup.useMultiCoreSimulation);
 		if (obj instanceof String) {
 			MsgBox.error(getOwnerWindow(),Language.tr("Compare.Error.ModelError.Title"),Language.tr("Compare.Error.ModelError.CannotCompare"));
 			return;
@@ -2265,7 +2265,7 @@ public class MainPanel extends MainPanelBase {
 			}
 
 			EditModel model=editorPanel.getModel();
-			Object obj=RunModel.getRunModel(model,true);
+			Object obj=RunModel.getRunModel(model,true,setup.useMultiCoreSimulation);
 			if (obj instanceof String) {
 				MsgBox.error(getOwnerWindow(),Language.tr("Compare.Error.ModelError.Title"),Language.tr("Compare.Error.ModelError.CannotKeep"));
 				return;

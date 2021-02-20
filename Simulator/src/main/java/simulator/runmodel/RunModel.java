@@ -20,6 +20,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Future;
+import java.util.concurrent.SynchronousQueue;
+import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 
 import org.apache.commons.math3.util.FastMath;
 
@@ -42,6 +47,7 @@ import ui.modeleditor.coreelements.ModelElement;
 import ui.modeleditor.coreelements.ModelElementBox;
 import ui.modeleditor.coreelements.ModelElementPosition;
 import ui.modeleditor.elements.ElementWithNewVariableNames;
+import ui.modeleditor.elements.ElementWithScript;
 import ui.modeleditor.elements.InteractiveElement;
 import ui.modeleditor.elements.ModelElementAnimationConnect;
 import ui.modeleditor.elements.ModelElementDispose;
@@ -60,7 +66,7 @@ import ui.modeleditor.elements.ModelElementSub;
  * Bediensationen sind per Referenzen verknüpft, nicht mehr nur durch Freitextfelder.
  * @author Alexander Herzog
  * @see EditModel
- * @see RunModel#getRunModel(EditModel, boolean)
+ * @see RunModel#getRunModel(EditModel, boolean, boolean)
  */
 public class RunModel {
 	/**
@@ -304,7 +310,7 @@ public class RunModel {
 	 * mittels der Funktion <code>getRunModel</code> in ein <code>RunModel</code> umgeformt werden. Dabei wird das
 	 * Modell auf Konsistenz geprüft und alle notwendigen Verknüpfungen werden hergestellt.
 	 * @see EditModel
-	 * @see RunModel#getRunModel(EditModel, boolean)
+	 * @see RunModel#getRunModel(EditModel, boolean, boolean)
 	 */
 	private RunModel() {
 		elements=new HashMap<>();
@@ -328,7 +334,7 @@ public class RunModel {
 	 * @param editModel	Editor-Modell dem die Daten entnommen werden soll
 	 * @param runModel	Laufzeit-Modell in das die entsprechenden Daten eingetragen werden sollen
 	 * @return	Liefert im Erfolgsfall <code>null</code>, sonst eine Fehlermeldung
-	 * @see #getRunModel(EditModel, boolean)
+	 * @see #getRunModel(EditModel, boolean, boolean)
 	 */
 	private static String initVariables(final EditModel editModel, final RunModel runModel) {
 		/* Variablenliste aufstellen */
@@ -377,7 +383,7 @@ public class RunModel {
 	 * @param editModel	Editor-Modell dem die Daten entnommen werden soll
 	 * @param runModel	Laufzeit-Modell in das die entsprechenden Daten eingetragen werden sollen
 	 * @return	Liefert im Erfolgsfall <code>null</code>, sonst eine Fehlermeldung
-	 * @see #getRunModel(EditModel, boolean)
+	 * @see #getRunModel(EditModel, boolean, boolean)
 	 */
 	private static String initGeneralData(final EditModel editModel, final RunModel runModel) {
 		if (!editModel.useClientCount && !editModel.useFinishTime && !(editModel.useTerminationCondition && !editModel.terminationCondition.trim().isEmpty()) && !editModel.useFinishConfidence) return Language.tr("Simulation.Creator.NoEndCriteria");
@@ -517,7 +523,7 @@ public class RunModel {
 	 * @param editModel	Editor-Modell dem die Daten entnommen werden soll
 	 * @param runModel	Laufzeit-Modell in das die entsprechenden Daten eingetragen werden sollen
 	 * @return	Liefert im Erfolgsfall <code>null</code>, sonst eine Fehlermeldung
-	 * @see #getRunModel(EditModel, boolean)
+	 * @see #getRunModel(EditModel, boolean, boolean)
 	 */
 	private static String initGeneralData2(final EditModel editModel, final RunModel runModel) {
 		/* Evtl. treffen weniger Kunden ein, als eingestellt ist (nämlich wenn nur Tabellenquellen verwendet werden). */
@@ -587,20 +593,39 @@ public class RunModel {
 	}
 
 	/**
+	 * Gibt an, ob die Übertragung vom Editor- zum Laufzeit-Element
+	 * für das angegebene Element im Hintergrund erfolgen kann.
+	 * @param element	Zu prüfendes Element
+	 * @return	Liefert <code>true</code>, wenn die Übertragung im Hintergrund erfolgen kann
+	 */
+	private static boolean runInBackgroundThread(final ModelElementBox element) {
+		if (element instanceof ElementWithScript) return true;
+		if (element instanceof ModelElementSourceTable) return true;
+		return false;
+	}
+
+	/**
 	 * Überträgt die Stationen aus dem Editor-Modell in das Laufzeit-Modell.
 	 * @param editModel	Editor-Modell dem die Daten entnommen werden soll
 	 * @param runModel	Laufzeit-Modell in das die entsprechenden Daten eingetragen werden sollen
 	 * @param testOnly	Wird hier <code>true</code> übergeben, so werden externe Datenquellen nicht wirklich geladen
+	 * @param allowBackgroundProcessing	Darf die Vorbereitung von benutzerdefiniertem Java-Code und von externen Tabellenquelle in eigene Threads ausgelagert werden?
 	 * @return	Liefert im Erfolgsfall <code>null</code>, sonst eine Fehlermeldung
-	 * @see #getRunModel(EditModel, boolean)
+	 * @see #getRunModel(EditModel, boolean, boolean)
 	 */
-	private static String initElementsData(final EditModel editModel, final RunModel runModel, final boolean testOnly) {
-		/* Liste der RunElemente aufbauen */
+	private static String initElementsData(final EditModel editModel, final RunModel runModel, final boolean testOnly, final boolean allowBackgroundProcessing) {
 		final RunModelCreator creator=new RunModelCreator(editModel,runModel,testOnly);
+		final List<ModelElement> elements=new ArrayList<>(editModel.surface.getElements());
+
+		/* Skript-Elemente auf der Hauptebene verarbeiten */
+		final ThreadPoolExecutor executorPool=new ThreadPoolExecutor(0,Runtime.getRuntime().availableProcessors(),2,TimeUnit.SECONDS,new SynchronousQueue<>());
+		final List<Future<String>> scriptProcessor=new ArrayList<>();
+
+		/* Normale Elemente verarbeiten */
 		boolean hasSource=false;
 		boolean hasDispose=false;
 		boolean allSourcesLimited=true;
-		for (ModelElement element : editModel.surface.getElements()) {
+		for (ModelElement element : elements) {
 			if (element instanceof ModelElementBox) {
 				final ModelElementBox boxElement=(ModelElementBox)element;
 				if (!boxElement.inputConnected()) continue; /* Keine einlaufende Ecke in Element -> kann ignoriert werden */
@@ -619,28 +644,47 @@ public class RunModel {
 				if (element instanceof ModelElementSourceDDE) hasSource=true;
 				if (element instanceof ModelElementDispose) hasDispose=true;
 				if (element instanceof ModelElementDisposeWithTable) hasDispose=true;
-				String error=creator.addElement(boxElement);
-				if (error!=null) return error;
+
+				if (allowBackgroundProcessing && runInBackgroundThread(boxElement)) {
+					scriptProcessor.add(executorPool.submit(()->creator.addElement(boxElement)));
+				} else {
+					final String error=creator.addElement(boxElement);
+					if (error!=null) return error;
+				}
 
 				if (element instanceof ModelElementSub) {
 					final ModelElementSub sub=(ModelElementSub)element;
 					final List<ModelElement> subElements=sub.getSubSurfaceReadOnly().getElements();
 					for (ModelElement subElement: subElements) if (subElement instanceof ModelElementBox) {
-						error=creator.addElement((ModelElementBox)subElement,sub);
-						if (error!=null) return error;
+						final ModelElementBox subBox=(ModelElementBox)subElement;
+						if (allowBackgroundProcessing && runInBackgroundThread(subBox)) {
+							scriptProcessor.add(executorPool.submit(()->creator.addElement(subBox,sub)));
+						} else {
+							final String error=creator.addElement(subBox,sub);
+							if (error!=null) return error;
+						}
 					}
 				}
 			} else {
 				if ((element instanceof InteractiveElement) && (element instanceof ModelElementPosition)) {
-					String error=creator.addElement((ModelElementPosition)element);
+					final String error=creator.addElement((ModelElementPosition)element);
 					if (error!=null) return error;
 				}
 			}
 		}
 
+		/* Sind Eingang und Ausgang vorhanden? */
 		if (!hasSource) return Language.tr("Simulation.Creator.NoSource");
 		if (!hasDispose) {
 			if (!allSourcesLimited || (!editModel.useFinishTime && !editModel.useTerminationCondition)) return Language.tr("Simulation.Creator.NoDispose");
+		}
+
+		/* Hintergrundverarbeitungen abschließen */
+		for (Future<String> future: scriptProcessor) try {
+			final String error=future.get();
+			if (error!=null) return error;
+		} catch (InterruptedException|ExecutionException e) {
+			return e.getMessage();
 		}
 
 		/* Verknüpfungen umstellen von IDs auf Referenzen */
@@ -664,7 +708,7 @@ public class RunModel {
 	 * @param editModel	Editor-Modell dem die Daten entnommen werden soll
 	 * @param runModel	Laufzeit-Modell in das die entsprechenden Daten eingetragen werden sollen
 	 * @return	Liefert im Erfolgsfall <code>null</code>, sonst eine Fehlermeldung
-	 * @see #getRunModel(EditModel, boolean)
+	 * @see #getRunModel(EditModel, boolean, boolean)
 	 */
 	private static String initAdditionalStatistics(final EditModel editModel, final RunModel runModel) {
 		if (!editModel.longRunStatistics.isActive()) return null;
@@ -678,16 +722,17 @@ public class RunModel {
 	 * und alle notwendigen Verknüpfungen werden hergestellt.
 	 * @param editModel	Editor-Modell, welches in ein Laufzeit-Modell umgewandelt werden soll
 	 * @param testOnly	Wird hier <code>true</code> übergeben, so werden externe Datenquellen nicht wirklich geladen
+	 * @param allowBackgroundProcessing	Darf die Vorbereitung von benutzerdefiniertem Java-Code und von externen Tabellenquelle in eigene Threads ausgelagert werden?
 	 * @return	Gibt im Erfolgsfall ein Objekt vom Typ <code>RunModel</code> zurück, sonst einen String mit einer Fehlermeldung.
 	 * @see EditModel
 	 */
-	public static Object getRunModel(final EditModel editModel, final boolean testOnly) {
+	public static Object getRunModel(final EditModel editModel, final boolean testOnly, final boolean allowBackgroundProcessing) {
 		RunModel runModel=new RunModel();
 
 		String error;
 		error=initVariables(editModel,runModel); if (error!=null) return error;
 		error=initGeneralData(editModel,runModel); if (error!=null) return error;
-		error=initElementsData(editModel,runModel,testOnly); if (error!=null) return error;
+		error=initElementsData(editModel,runModel,testOnly,allowBackgroundProcessing); if (error!=null) return error;
 		error=initGeneralData2(editModel,runModel); if (error!=null) return error; /* Hier brauchen wir die Variablennamen und die werden erst in initElementsData gesetzt. */
 		error=initAdditionalStatistics(editModel,runModel); if (error!=null) return error;
 
