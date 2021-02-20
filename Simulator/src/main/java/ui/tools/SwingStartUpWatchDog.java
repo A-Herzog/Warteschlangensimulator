@@ -82,6 +82,7 @@ public class SwingStartUpWatchDog {
 						thread=null;
 					}
 				});
+				timer.cancel();
 			}
 		},1000);
 	}
