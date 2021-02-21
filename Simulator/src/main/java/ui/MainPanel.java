@@ -129,6 +129,7 @@ import ui.dialogs.NotesDialog;
 import ui.dialogs.SelectElementByIdDialog;
 import ui.dialogs.SelectExampleDialog;
 import ui.dialogs.SetupDialog;
+import ui.dialogs.SimPrepareDialog;
 import ui.dialogs.StationStatisticsDialog;
 import ui.dialogs.VarianceAnalysisDialog;
 import ui.generator.ModelGeneratorDialog;
@@ -2393,7 +2394,7 @@ public class MainPanel extends MainPanelBase {
 		}
 
 		final StartAnySimulator starter=new StartAnySimulator(editModel,logging,loggingIDs,logType);
-		final String error=starter.prepare();
+		final String error=SimPrepareDialog.workString(this,()->starter.prepare());
 		if (error!=null) {
 			MsgBox.error(getOwnerWindow(),Language.tr("Window.Simulation.ModelIsFaulty"),"<html>"+Language.tr("Window.Simulation.ErrorInitializatingSimulation")+":<br>"+error+"</html>");
 			return null;
@@ -2438,7 +2439,7 @@ public class MainPanel extends MainPanelBase {
 		if (logging!=null) logger.setNextLogger(logging);
 		final Simulator simulator=new Simulator(editModel,logger,loggingIDs,logType);
 
-		String error=simulator.prepare();
+		String error=SimPrepareDialog.workString(this,()->simulator.prepare());
 		if (error!=null) {
 			if (!externalConnect) MsgBox.error(getOwnerWindow(),Language.tr("Window.Simulation.ModelIsFaulty"),"<html>"+Language.tr("Window.Simulation.ErrorInitializatingSimulation")+":<br>"+error+"</html>");
 			return error;
@@ -2617,7 +2618,8 @@ public class MainPanel extends MainPanelBase {
 			editModel=changedEditModel;
 		}
 
-		final Object obj=BackgroundSystem.getBackgroundSystem(editorPanel).getStartedSimulator(editModel,logging,loggingIDs,logType);
+		final EditModel editModelFinal=editModel;
+		final Object obj=SimPrepareDialog.workObject(this,()->BackgroundSystem.getBackgroundSystem(editorPanel).getStartedSimulator(editModelFinal,logging,loggingIDs,logType));
 		if (obj instanceof String) {
 			MsgBox.error(getOwnerWindow(),Language.tr("Window.Simulation.ModelIsFaulty"),"<html>"+Language.tr("Window.Simulation.ErrorInitializatingSimulation")+":<br>"+((String)obj)+"</html>");
 			return;

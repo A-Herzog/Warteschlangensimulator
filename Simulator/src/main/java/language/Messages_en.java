@@ -5816,8 +5816,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[13775] = "Displays a value as a bar during animation.";
     t[13784] = "Main.Menu.File.Settings.Mnemonic";
     t[13785] = "G";
-    t[13790] = "Surface.AnimationBar.XML.DataArea.Direction.Left";
-    t[13791] = "left";
+    t[13790] = "SimPrepare.Preparing";
+    t[13791] = "The model is being prepared.";
     t[13792] = "CommandLine.ParameterCompareVariance.Name";
     t[13793] = "ParameterSeriesVarianceAnalysis";
     t[13796] = "FindWarmUp.Info";
@@ -10024,6 +10024,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[23531] = "<p>Calculates the value of the density of the normal distribution at the location specified as the first parameter with the parameters &mu; and &sigma; according to the second and third parameters. &mu; is the expected value and &sigma; the standard deviation.</p>\n<p>Example: <tt>NormalDist(7;5;3;0)</tt> returns 0.10648266850745.</p>";
     t[23534] = "Statistic.Viewer.Toolbar.OpenTable.Hint";
     t[23535] = "Open table in external application.";
+    t[23536] = "SimPrepare.PleaseWait";
+    t[23537] = "Please wait...";
     t[23554] = "Surface.InputDB.Dialog.ColumnSortMode.Ascending";
     t[23555] = "Ascending";
     t[23556] = "ParameterCompare.Table.EditModel.Hint";
@@ -10032,14 +10034,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[23559] = "The pseudo variable \"t\" stands for the transfer time of the client.";
     t[23560] = "Surface.XML.Sequence.LoadErrorInfo";
     t[23561] = "While loading sequence \"%s\".";
-    t[23570] = "Editor.ClientDialog.Tab.Costs.Error";
-    t[23571] = "Invalid costs";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_5 (java.lang.String[] t) {
+    t[23570] = "Editor.ClientDialog.Tab.Costs.Error";
+    t[23571] = "Invalid costs";
     t[23574] = "Surface.SetStatisticsMode.XML.StatisticsMode.Mode";
     t[23575] = "Mode";
     t[23576] = "Main.Menu.Model.PluginFolder.Mnemonic";
@@ -12038,14 +12040,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[28249] = "Add image";
     t[28250] = "Simulation.Log.SetError.Info";
     t[28251] = "Client: %s, station: %s, new value for variable %s could not be calculated.";
-    t[28254] = "Main.Menu.View.Layers.Mnemonic";
-    t[28255] = "L";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_6 (java.lang.String[] t) {
+    t[28254] = "Main.Menu.View.Layers.Mnemonic";
+    t[28255] = "L";
     t[28260] = "Statistic.Viewer.Report.HTMLApp.JSError";
     t[28261] = "Javascript is needed for displaying this interactive statistics.";
     t[28262] = "Statistics.FailureTime.Variance";
@@ -14044,14 +14046,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[33157] = "A Git repository was created in the folder\n%s.";
     t[33160] = "Simulation.Element.OutputLog.Name";
     t[33161] = "Output (Log)";
-    t[33164] = "Surface.Output.XML.Element.TypeDescription.TransferTimeNumber";
-    t[33165] = "Transfer time of the client (as number of seconds)";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_7 (java.lang.String[] t) {
+    t[33164] = "Surface.Output.XML.Element.TypeDescription.TransferTimeNumber";
+    t[33165] = "Transfer time of the client (as number of seconds)";
     t[33166] = "CalculatorDialog.Plotter.Toolbar.Save.Hint";
     t[33167] = "Saves the graphics as a file.";
     t[33168] = "Schedule.Name";
@@ -16050,14 +16052,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[37789] = "high";
     t[37792] = "Color.F8F8FF";
     t[37793] = "Ghost white";
-    t[37796] = "UserTemplates.TemplatesDialog.Info";
-    t[37797] = "The available templates can be inserted into the model by double clicking them.";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_8 (java.lang.String[] t) {
+    t[37796] = "UserTemplates.TemplatesDialog.Info";
+    t[37797] = "The available templates can be inserted into the model by double clicking them.";
     t[37804] = "Main.Menu.AnalogValues";
     t[37805] = "Analog values in animation";
     t[37806] = "Surface.Action.XML.Record.Condition.Threshold";
@@ -17848,6 +17850,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[41893] = "Deletes the current list record.";
     t[41898] = "Simulation.Log.Matching";
     t[41899] = "Matching - client has to wait";
+    t[41906] = "Surface.AnimationBar.XML.DataArea.Direction.Left";
+    t[41907] = "left";
     t[41908] = "CommandLine.ServerWeb.Stopped";
     t[41909] = "Web-based simulation server stopped.";
     t[41910] = "Git.List.Tab.Server.Button.InitLocal";
@@ -18054,16 +18058,16 @@ public class Messages_en extends java.util.ResourceBundle {
     t[42383] = "Client: %s, station: %s";
     t[42386] = "SettingsDialog.Tabs.Statistics.QuantilLevels.Levels";
     t[42387] = "Levels";
-    t[42388] = "ExpressionBuilder.TrigonometricFunctions.ArcusSinus";
-    t[42389] = "Arcus sine";
-    t[42394] = "Simulation.Log.InputDDE.InfoClientDataString";
-    t[42395] = "Client: %s, station: %s, %s:=%s";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_9 (java.lang.String[] t) {
+    t[42388] = "ExpressionBuilder.TrigonometricFunctions.ArcusSinus";
+    t[42389] = "Arcus sine";
+    t[42394] = "Simulation.Log.InputDDE.InfoClientDataString";
+    t[42395] = "Client: %s, station: %s, %s:=%s";
     t[42398] = "Simulation.Log.LogicElseIf.ConditionFalse";
     t[42399] = "Client: %s, condition not fulfilled, forwarding to id=%d";
     t[42400] = "Main.Menu.Extras.FitDistribution.Mnemonic";

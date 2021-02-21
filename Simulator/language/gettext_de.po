@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-02-21 00:47+0100\n"
+"POT-Creation-Date: 2021-02-22 00:05+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -13654,6 +13654,12 @@ msgstr "Speichern erneut versuchen."
 
 msgid "SetupFailure.Title"
 msgstr "Einstellungen speichern fehlgeschlagen"
+
+msgid "SimPrepare.PleaseWait"
+msgstr "Bitte warten..."
+
+msgid "SimPrepare.Preparing"
+msgstr "Das Modell wird vorbereitet."
 
 msgid "Simulation.CalcError.Eval"
 msgstr "Für einen Vergleich konnte der Ausdruck %s nicht berechnet werden."

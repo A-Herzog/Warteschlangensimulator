@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-02-21 00:47+0100\n"
+"POT-Creation-Date: 2021-02-22 00:05+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -13649,6 +13649,12 @@ msgstr "Retry saving."
 
 msgid "SetupFailure.Title"
 msgstr "Saving settings failed"
+
+msgid "SimPrepare.PleaseWait"
+msgstr "Please wait..."
+
+msgid "SimPrepare.Preparing"
+msgstr "The model is being prepared."
 
 msgid "Simulation.CalcError.Eval"
 msgstr "For a comparison the expression %s could not be evaluated."
