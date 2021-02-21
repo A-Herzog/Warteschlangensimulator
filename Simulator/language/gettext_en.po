@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-02-20 19:58+0100\n"
+"POT-Creation-Date: 2021-02-21 00:47+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -3419,6 +3419,15 @@ msgstr "Model"
 msgid "Editor.Navigator"
 msgstr "Navigator"
 
+msgid "Editor.Navigator.Sorting"
+msgstr "Sorting"
+
+msgid "Editor.Navigator.Sorting.IDs"
+msgstr "IDs"
+
+msgid "Editor.Navigator.Sorting.Names"
+msgstr "Names"
+
 msgid "Editor.NewerVersion.Info"
 msgstr ""
 "The loaded model was created with the newer version %s of the simulator.\n"
@@ -6322,6 +6331,15 @@ msgstr "Element is on top level"
 
 msgid "FindElement.NoName"
 msgstr "no name defined"
+
+msgid "FindElement.Sorting"
+msgstr "Sorting"
+
+msgid "FindElement.Sorting.IDs"
+msgstr "IDs"
+
+msgid "FindElement.Sorting.Names"
+msgstr "Names"
 
 msgid "FindElement.Title"
 msgstr "Select element by ID"

@@ -25,6 +25,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import javax.swing.BorderFactory;
+import javax.swing.DefaultListModel;
+import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
@@ -33,7 +36,9 @@ import javax.swing.SwingUtilities;
 
 import language.Language;
 import systemtools.BaseDialog;
+import tools.IconListCellRenderer;
 import ui.help.Help;
+import ui.images.Images;
 import ui.modeleditor.ElementRendererTools;
 import ui.modeleditor.ModelSurface;
 import ui.modeleditor.coreelements.ModelElement;
@@ -56,32 +61,73 @@ public class SelectElementByIdDialog extends BaseDialog {
 	/** Modell-Haupt-Surface, welches alle Elemente enthält */
 	private final ModelSurface surface;
 	/** Alle im Modell vorhandenen IDs */
-	private int[] ids;
+	private final int[] ids;
+	/** Sortierung der Elemente */
+	private final JComboBox<String> listSorting;
 	/** Anzeige der Elemente */
-	//private final JList<JLabel> list;
 	private final JList<ElementRendererTools.InfoRecord> list;
+	/** Datenmodell für {@link #list} */
+	private final DefaultListModel<ElementRendererTools.InfoRecord> model;
 
 	/**
 	 * Konstruktor der Klasse <code>SelectElementByIdDialog</code>
 	 * @param owner	Übergeordnetes Element
 	 * @param surface	Modell-Haupt-Surface, welches alle Elemente enthält
 	 */
+	@SuppressWarnings("unchecked")
 	public SelectElementByIdDialog(final Component owner, final ModelSurface surface) {
 		super(owner,Language.tr("FindElement.Title"));
 		this.surface=surface;
 
+		/* Alle IDs auslesen */
+		List<Integer> idsList=new ArrayList<>();
+		for (ModelElement element: surface.getElements()) if (element instanceof ModelElementBox) {
+			idsList.add(element.getId());
+			if (element instanceof ModelElementSub) for (ModelElement sub: ((ModelElementSub)element).getSubSurface().getElements()) if (sub instanceof ModelElementBox) {
+				idsList.add(sub.getId());
+			}
+		}
+		ids=new int[idsList.size()];
+		for (int i=0;i<ids.length;i++) ids[i]=idsList.get(i);
+
+		/* GUI */
 		final JPanel content=createGUI(550,700,()->Help.topicModal(SelectElementByIdDialog.this,"SelectElementById"));
 		content.setLayout(new BorderLayout());
 
-		content.add(new JScrollPane(list=getList(surface)),BorderLayout.CENTER);
+		/* Sortierung */
+		final JPanel line=new JPanel(new FlowLayout(FlowLayout.LEFT));
+		content.add(line,BorderLayout.NORTH);
+		final JLabel label=new JLabel(Language.tr("FindElement.Sorting")+":");
+		label.setBorder(BorderFactory.createEmptyBorder(0,0,0,5));
+		line.add(label);
+		line.add(listSorting=new JComboBox<>(new String[]{
+				Language.tr("FindElement.Sorting.IDs"),
+				Language.tr("FindElement.Sorting.Names")
+		}));
+		label.setLabelFor(listSorting);
+		listSorting.setRenderer(new IconListCellRenderer(new Images[] {
+				Images.GENERAL_NUMBERS,
+				Images.GENERAL_FONT
+		}));
+		listSorting.addActionListener(e->updateList());
+
+		/* Liste */
+		final Object[] data=ElementRendererTools.buildListAndModel(null);
+		list=(JList<ElementRendererTools.InfoRecord>)data[0];
+		model=(DefaultListModel<ElementRendererTools.InfoRecord>)data[1];
+
+		content.add(new JScrollPane(list),BorderLayout.CENTER);
 		list.addMouseListener(new MouseAdapter() {
 			@Override public void mousePressed(MouseEvent e) {if (e.getClickCount()==2 && SwingUtilities.isLeftMouseButton(e)) {close(BaseDialog.CLOSED_BY_OK); e.consume(); return;}}
 		});
 
+		/* Info-Text unten */
 		JPanel panel=new JPanel(new FlowLayout(FlowLayout.LEFT));
 		content.add(panel,BorderLayout.SOUTH);
 		panel.add(new JLabel(getInfo(surface)));
 
+		/* Start */
+		updateList();
 		setLocationRelativeTo(this.owner);
 	}
 
@@ -114,25 +160,63 @@ public class SelectElementByIdDialog extends BaseDialog {
 	}
 
 	/**
-	 * Liefert eine Listendarstellung einer Stationen
-	 * @param surface	Haupt-Zeichenfläche
-	 * @return	Listendarstellung einer Stationen
+	 * Vergleichsfunktion bei Sortierung nach Stationsnamen.
+	 * @param id1	ID der ersten zu vergleichenden Station
+	 * @param id2	ID der zweiten zu vergleichenden Station
+	 * @return	Compare-Ergebnis
+	 * @see #updateList()
 	 */
-	private JList<ElementRendererTools.InfoRecord> getList(final ModelSurface surface) {
-		/* Alle IDs auslesen */
-		List<Integer> idsList=new ArrayList<>();
-		for (ModelElement element: surface.getElements()) if (element instanceof ModelElementBox) {
-			idsList.add(element.getId());
-			if (element instanceof ModelElementSub) for (ModelElement sub: ((ModelElementSub)element).getSubSurface().getElements()) if (sub instanceof ModelElementBox) {
-				idsList.add(sub.getId());
-			}
+	private int compareByName(final int id1, final int id2) {
+		final ModelElement e1=surface.getByIdIncludingSubModels(id1);
+		final ModelElement e2=surface.getByIdIncludingSubModels(id2);
+		if (!(e1 instanceof ModelElementBox)) return 0;
+		if (!(e2 instanceof ModelElementBox)) return 0;
+
+		String s;
+
+		final StringBuilder s1=new StringBuilder();
+		s=((ModelElementBox)e1).getTypeName();
+		if (s!=null && !s.isEmpty()) s1.append(s);
+		s1.append(" - ");
+		s=e1.getName();
+		if (s!=null && !s.isEmpty()) s1.append(s);
+
+		final StringBuilder s2=new StringBuilder();
+		s=((ModelElementBox)e2).getTypeName();
+		if (s!=null && !s.isEmpty()) s2.append(s);
+		s2.append(" - ");
+		s=e2.getName();
+		if (s!=null && !s.isEmpty()) s2.append(s);
+
+		return s1.toString().compareTo(s2.toString());
+	}
+
+	/**
+	 * Aktualisiert die Listendarstellung
+	 * (z.B. nach einer Änderung der Sortierreihenfolge).
+	 */
+	private void updateList() {
+		int[] ids=null;
+		final int index=listSorting.getSelectedIndex();
+
+		/* Sortieren nach IDs */
+		if (index==0) {
+			ids=Arrays.copyOf(this.ids,this.ids.length);
+			Arrays.sort(ids);
 		}
-		ids=new int[idsList.size()];
-		for (int i=0;i<ids.length;i++) ids[i]=idsList.get(i);
-		Arrays.sort(ids);
+
+		if (index==1) {
+			/* Sortieren nach Namen */
+			ids=Arrays.stream(this.ids).boxed().sorted((id1,id2)->compareByName(id1,id2)).mapToInt(Integer::intValue).toArray();
+		}
+
+		/* Fallback */
+		if (ids==null) {
+			ids=Arrays.copyOf(this.ids,this.ids.length);
+		}
 
 		/* ... und ausgeben */
-		return ElementRendererTools.buildList(surface,ids);
+		ElementRendererTools.buildList(surface,model,ids);
 	}
 
 	/**

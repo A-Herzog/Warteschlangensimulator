@@ -31,6 +31,7 @@ import java.util.List;
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.DefaultListCellRenderer;
+import javax.swing.DefaultListModel;
 import javax.swing.Icon;
 import javax.swing.JLabel;
 import javax.swing.JList;
@@ -408,6 +409,20 @@ public class ElementRendererTools {
 	}
 
 	/**
+	 * Erstellt eine Liste und ein Datenmodell dazu.
+	 * @param data	Datensätze, die initial in das Datenmodell aufgenommen werden sollen (kann <code>null</code> sein)
+	 * @return	2-elementiges Array aus Liste und Datenmodell
+	 */
+	public static Object[] buildListAndModel(final InfoRecord[] data) {
+		final DefaultListModel<ElementRendererTools.InfoRecord> model=new DefaultListModel<>();
+		if (data!=null) for (InfoRecord record: data) model.addElement(record);
+
+		final JList<ElementRendererTools.InfoRecord> list=new JList<>(model);
+		list.setCellRenderer(new InfoRecordListCellRenderer());
+		return new Object[] {list,model};
+	}
+
+	/**
 	 * Erstellt eine Listendarstellung mit Elementen und Beschreibungen.
 	 * @param data	Datensätze der Elemente
 	 * @return	Listendarstellung mit Elementen und Beschreibungen
@@ -429,6 +444,17 @@ public class ElementRendererTools {
 		for (int i=0;i<ids.length;i++) data.add(getRecord(mainSurface,ids[i]));
 
 		return ElementRendererTools.buildList(data);
+	}
+
+	/**
+	 * Trägt neue Datensätze in ein Modell ein (und löscht vorher die bisherigen)
+	 * @param mainSurface	Hauptzeichenfläche
+	 * @param model	Datenmodell in das die Datensätze eingetragen werden sollen
+	 * @param ids	IDs der anzuzeigenden Elemente (bestimmt auch die Reihenfolge in der Liste)
+	 */
+	public static void buildList(final ModelSurface mainSurface, final DefaultListModel<ElementRendererTools.InfoRecord> model, final int[] ids) {
+		model.clear();
+		for (int i=0;i<ids.length;i++) model.addElement(getRecord(mainSurface,ids[i]));
 	}
 
 	/**

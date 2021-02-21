@@ -56,6 +56,7 @@ import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBoxMenuItem;
+import javax.swing.JComboBox;
 import javax.swing.JComponent;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
@@ -93,6 +94,7 @@ import systemtools.BaseDialog;
 import systemtools.ImageTools;
 import systemtools.MsgBox;
 import tools.ButtonRotator;
+import tools.IconListCellRenderer;
 import tools.SetupData;
 import tools.SlidesGenerator;
 import ui.dialogs.BackgroundColorDialog;
@@ -266,6 +268,8 @@ public final class EditorPanel extends EditorPanelBase {
 	private JButton buttonFindModel;
 	/** Schaltfläche "Ansichten" */
 	private JButton buttonViews;
+	/** Schaltfläche "Navigator" */
+	private JButton buttonNavigator;
 
 	/** Zeichenfläche */
 	private ModelSurfacePanel surfacePanel;
@@ -291,12 +295,18 @@ public final class EditorPanel extends EditorPanelBase {
 
 	/** Panel rechts von der Zeichenfläche */
 	private JPanel rightArea;
+	/** Sortierreihenfolge in {@link #navigator} */
+	private JComboBox<String> navigatorSortSelect;
 	/** Listendarstellung der Elemente im Modell */
 	private JList<ModelElementBox> navigator;
 	/** Datenmodell für die Listendarstellung der Elemente im Modell */
 	private DefaultListModel<ModelElementBox> navigatorModel;
 	/** Renderer für die Listendarstellung der Elemente im Modell */
 	private ModelElementNavigatorListCellRenderer<ModelElementBox> navigatorRenderer;
+	/** Schaltfläche "Suchen" im Navigator-Bereich */
+	private JButton navigatorButtonSearch;
+	/** Schaltfläche "Elementenliste" im Navigator-Bereich */
+	private JButton navigatorButtonList;
 
 	/**
 	 * Konstruktor der Klasse <code>EditorPanel</code>
@@ -779,6 +789,8 @@ public final class EditorPanel extends EditorPanelBase {
 	 * @param fast	Schnell (d.h. ohne Animation) ein- oder ausblenden?
 	 */
 	public void setNavigatorVisible(final boolean navigatorVisible, final boolean fast) {
+		navigatorButtonSearch.setVisible(callbackElementSearch!=null);
+		navigatorButtonList.setVisible(callbackElementList!=null);
 		new PanelSlider(rightArea,navigatorVisible,fast || !SetupData.getSetup().useAnimations,()->fireNavigatorVisibleChanged());
 	}
 
@@ -959,6 +971,34 @@ public final class EditorPanel extends EditorPanelBase {
 	 * @see #rightArea
 	 */
 	private JComponent createNavigatorPanel() {
+		/* Äußerer Bereich */
+		rightArea=new JPanel(new BorderLayout());
+		rightArea.setVisible(false);
+
+		/* Top-Info im äußeren Bereich */
+		rightArea.add(getTopInfoPanel(Language.tr("Editor.Navigator"),Images.NAVIGATOR.getIcon(),null,e->setNavigatorVisible(false,false),"F12"),BorderLayout.NORTH);
+
+		/* Innerer Bereich */
+		final JPanel rightAreaInner=new JPanel(new BorderLayout());
+		rightArea.add(rightAreaInner,BorderLayout.CENTER);
+
+		/* Sortierung oben im inneren Bereich */
+		final JPanel line=new JPanel(new BorderLayout());
+		rightAreaInner.add(line,BorderLayout.NORTH);
+		final JLabel label=new JLabel(Language.tr("Editor.Navigator.Sorting")+":");
+		label.setBorder(BorderFactory.createEmptyBorder(0,5,0,5));
+		line.add(label,BorderLayout.WEST);
+		line.add(navigatorSortSelect=new JComboBox<>(new String[] {
+				Language.tr("Editor.Navigator.Sorting.IDs"),
+				Language.tr("Editor.Navigator.Sorting.Names")
+		}),BorderLayout.CENTER);
+		navigatorSortSelect.setRenderer(new IconListCellRenderer(new Images[] {
+				Images.GENERAL_NUMBERS,
+				Images.GENERAL_FONT
+		}));
+		navigatorSortSelect.addActionListener(e->updateNavigatorList());
+
+		/* Liste in der Mitte im inneren Bereich */
 		navigator=new JList<>();
 		navigator.setCellRenderer(navigatorRenderer=new ModelElementNavigatorListCellRenderer<>());
 		navigatorRenderer.setZoom(surfacePanel.getZoom());
@@ -975,12 +1015,22 @@ public final class EditorPanel extends EditorPanelBase {
 				}
 			}
 		});
+		rightAreaInner.add(new JScrollPane(navigator),BorderLayout.CENTER);
 
-		rightArea=new JPanel(new BorderLayout());
-		rightArea.add(getTopInfoPanel(Language.tr("Editor.Navigator"),Images.NAVIGATOR.getIcon(),null,e->setNavigatorVisible(false,false),"F12"),BorderLayout.NORTH);
+		/* Buttons unten im inneren Bereich */
+		final JToolBar toolbar=new JToolBar();
+		toolbar.setOrientation(SwingConstants.HORIZONTAL);
+		toolbar.setFloatable(false);
+		rightAreaInner.add(toolbar,BorderLayout.SOUTH);
 
-		rightArea.add(new JScrollPane(navigator),BorderLayout.CENTER);
-		rightArea.setVisible(false);
+		toolbar.add(navigatorButtonSearch=new JButton(Language.tr("Editor.ModelOverview.Search")));
+		navigatorButtonSearch.setToolTipText(Language.tr("Editor.ModelOverview.Search.Hint"));
+		navigatorButtonSearch.addActionListener(e->{if (callbackElementSearch!=null) callbackElementSearch.run();});
+		navigatorButtonSearch.setIcon(Images.GENERAL_FIND.getIcon());
+		toolbar.add(navigatorButtonList=new JButton(Language.tr("Editor.ModelOverview.List")));
+		navigatorButtonList.setToolTipText(Language.tr("Editor.ModelOverview.List.Hint"));
+		navigatorButtonList.addActionListener(e->{if (callbackElementList!=null) callbackElementList.run();});
+		navigatorButtonList.setIcon(Images.MODEL_LIST_ELEMENTS.getIcon());
 
 		return rightArea;
 	}
@@ -1262,8 +1312,51 @@ public final class EditorPanel extends EditorPanelBase {
 		buttonViews.addMouseListener(new MouseAdapter() {
 			@Override public void mousePressed(final MouseEvent e) {if (SwingUtilities.isRightMouseButton(e)) showViewPopup(buttonViews);}
 		});
+		zoomArea.add(buttonNavigator=createZoomAreaButton(Language.tr("Editor.ModelOverview.Navigator.Hint"),Images.NAVIGATOR.getIcon()));
+		buttonNavigator.addActionListener(e->setNavigatorVisible(!isNavigatorVisible(),false));
 
 		updateStatusBar();
+	}
+
+	/**
+	 * Vergleicht zwei Einträge für die Sortierung von {@link #navigator}
+	 * @param e1	Eintrag 1
+	 * @param e2	Eintrag 2
+	 * @return	Liefert die Compare-Reihenfolge
+	 * @see #updateNavigatorList()
+	 * @see #navigatorSortSelect
+	 */
+	private int navigatorCompare(final ModelElementBox e1, final ModelElementBox e2) {
+		final int index=navigatorSortSelect.getSelectedIndex();
+
+		if (index==0) {
+			/* Nach IDs */
+			return e1.getId()-e2.getId();
+		}
+
+		if (index==1) {
+			/* Nach Namen */
+			String s;
+
+			final StringBuilder s1=new StringBuilder();
+			s=e1.getTypeName();
+			if (s!=null && !s.isEmpty()) s1.append(s);
+			s1.append(" - ");
+			s=e1.getName();
+			if (s!=null && !s.isEmpty()) s1.append(s);
+
+			final StringBuilder s2=new StringBuilder();
+			s=e2.getTypeName();
+			if (s!=null && !s.isEmpty()) s2.append(s);
+			s2.append(" - ");
+			s=e2.getName();
+			if (s!=null && !s.isEmpty()) s2.append(s);
+
+			return s1.toString().compareTo(s2.toString());
+		}
+
+		/* Fallback */
+		return e1.getId()-e2.getId();
 	}
 
 	/**
@@ -1280,6 +1373,7 @@ public final class EditorPanel extends EditorPanelBase {
 				.filter(element->surface.isVisibleOnLayer(element))
 				.filter(element->element instanceof ModelElementBox)
 				.map(element->(ModelElementBox)element)
+				.sorted((e1,e2)->navigatorCompare(e1,e2))
 				.collect(Collectors.toList());
 		if (navigatorModel.getSize()!=boxElements.size()) {
 			navigatorModel.clear();
@@ -2026,14 +2120,18 @@ public final class EditorPanel extends EditorPanelBase {
 			button.addActionListener(e->{setNavigatorVisible(true,false); showNavigator.setVisible(false);});
 			button.setIcon(Images.NAVIGATOR.getIcon());
 		}
-		toolbar.add(button=new JButton(Language.tr("Editor.ModelOverview.Search")));
-		button.setToolTipText(Language.tr("Editor.ModelOverview.Search.Hint"));
-		button.addActionListener(e->{if (callbackElementSearch!=null) callbackElementSearch.run();});
-		button.setIcon(Images.GENERAL_FIND.getIcon());
-		toolbar.add(button=new JButton(Language.tr("Editor.ModelOverview.List")));
-		button.setToolTipText(Language.tr("Editor.ModelOverview.List.Hint"));
-		button.addActionListener(e->{if (callbackElementList!=null) callbackElementList.run();});
-		button.setIcon(Images.MODEL_LIST_ELEMENTS.getIcon());
+		if (callbackElementSearch!=null) {
+			toolbar.add(button=new JButton(Language.tr("Editor.ModelOverview.Search")));
+			button.setToolTipText(Language.tr("Editor.ModelOverview.Search.Hint"));
+			button.addActionListener(e->callbackElementSearch.run());
+			button.setIcon(Images.GENERAL_FIND.getIcon());
+		}
+		if (callbackElementList!=null) {
+			toolbar.add(button=new JButton(Language.tr("Editor.ModelOverview.List")));
+			button.setToolTipText(Language.tr("Editor.ModelOverview.List.Hint"));
+			button.addActionListener(e->callbackElementList.run());
+			button.setIcon(Images.MODEL_LIST_ELEMENTS.getIcon());
+		}
 		explorerFrame.add(toolbar,BorderLayout.SOUTH);
 
 		popup.add(explorerFrame);
