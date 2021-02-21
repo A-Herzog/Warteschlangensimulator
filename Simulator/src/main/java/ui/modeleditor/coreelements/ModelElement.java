@@ -542,7 +542,7 @@ public class ModelElement {
 	 * @return	Liste der wartenden Kunden
 	 */
 	private synchronized List<ModelElementAnimationInfoDialog.ClientInfo> getAnimationRunTimeWaitingClientData(final RunModel model, final RunElementDataWithWaitingClients data) {
-		final List<RunDataClient> clients=data.getWaitingClients();
+		final List<RunDataClient> clients=new ArrayList<>(data.getWaitingClients());
 		return ModelElementAnimationInfoDialog.ClientInfo.getList(this.model.animationImages,model,clients);
 	}
 
@@ -562,6 +562,7 @@ public class ModelElement {
 		final int size=clientsList.size();
 		for (int i=0;i<size;i++) {
 			final RunDataClient client=clientsList.get(i);
+			if (client==null) continue;
 			final int clientPosition=client.nextStationID;
 			/* Kunde an Station */
 			if (clientPosition==id) {

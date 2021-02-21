@@ -84,7 +84,7 @@ public class ModelElementAnimationInfoDialog extends BaseDialog {
 	private static final long serialVersionUID = 2428681388058860543L;
 
 	/** Timer für automatische Aktualisierungen */
-	private Timer timer=null;
+	private Timer timer;
 	/** Simulationsmodell mit Informationen zu den Stationen usw. */
 	private final RunModel model;
 	/** Anzuzeigender Text im Content-Bereich */
@@ -142,6 +142,10 @@ public class ModelElementAnimationInfoDialog extends BaseDialog {
 		final JPanel content=createGUI(()->Help.topicModal(ModelElementAnimationInfoDialog.this.owner,"AnimationStatistics"));
 		content.setLayout(new BorderLayout());
 
+		/* Größe für Listeneinträge */
+		final JLabel defaultSizeLabel=new JLabel("<html><body>Line1<br>Line2<br>Line3</body></html>");
+		defaultSizeLabel.setBorder(BorderFactory.createEmptyBorder(5,10,5,10));
+
 		/* Toolbar */
 		final JToolBar toolbar=new JToolBar();
 		toolbar.setFloatable(false);
@@ -191,6 +195,7 @@ public class ModelElementAnimationInfoDialog extends BaseDialog {
 					}
 				}
 			});
+			listWaiting.setPrototypeCellValue(defaultSizeLabel);
 			commandUpdateWaitingClientListOnly();
 		}
 
@@ -220,6 +225,7 @@ public class ModelElementAnimationInfoDialog extends BaseDialog {
 					}
 				}
 			});
+			listAll.setPrototypeCellValue(defaultSizeLabel);
 		}
 
 		/* Icons auf den Tabs */
@@ -259,8 +265,7 @@ public class ModelElementAnimationInfoDialog extends BaseDialog {
 	 * Befehl: Angezeigte Daten in die Zwischenablage kopieren
 	 */
 	private void commandCopy() {
-		buttonAutoUpdate.setSelected(false);
-		if (timer!=null) timer.cancel();
+		if (buttonAutoUpdate.isSelected()) commandAutoUpdate();
 
 		getToolkit().getSystemClipboard().setContents(new StringSelection(textArea.getText()),null);
 	}
@@ -269,8 +274,7 @@ public class ModelElementAnimationInfoDialog extends BaseDialog {
 	 * Befehl: Angezeigte Daten als Text speichern
 	 */
 	private void commandSave() {
-		buttonAutoUpdate.setSelected(false);
-		if (timer!=null) timer.cancel();
+		if (buttonAutoUpdate.isSelected()) commandAutoUpdate();
 
 		final JFileChooser fc=new JFileChooser();
 		CommonVariables.initialDirectoryToJFileChooser(fc);
@@ -339,6 +343,20 @@ public class ModelElementAnimationInfoDialog extends BaseDialog {
 	}
 
 	/**
+	 * Timer-Task zur Akualisierung der Daten
+	 * @see ModelElementAnimationInfoDialog#commandAutoUpdate()
+	 */
+	private class UpdateTimerTask extends TimerTask {
+		@Override
+		public void run() {
+			if (buttonAutoUpdate.isSelected()) SwingUtilities.invokeLater(()->{
+				commandUpdate();
+				scheduleNextUpdate();
+			});
+		}
+	}
+
+	/**
 	 * Befehl: Anzeige automatisch aktualisieren (an/aus)
 	 */
 	private void commandAutoUpdate() {
@@ -346,12 +364,19 @@ public class ModelElementAnimationInfoDialog extends BaseDialog {
 
 		if (buttonAutoUpdate.isSelected()) {
 			timer=new Timer("SimulationDataUpdate");
-			timer.schedule(new TimerTask() {
-				@Override public synchronized void run() {if (buttonAutoUpdate.isSelected()) commandUpdate();}
-			},100,250);
+			scheduleNextUpdate();
 		} else {
 			if (timer!=null) {timer.cancel(); timer=null;}
 		}
+	}
+
+	/**
+	 * Plant den nächsten Update-Schritt ein.
+	 * @see #commandAutoUpdate()
+	 * @see UpdateTimerTask
+	 */
+	private void scheduleNextUpdate() {
+		if (timer!=null) timer.schedule(new UpdateTimerTask(),250);
 	}
 
 	/**
@@ -538,7 +563,7 @@ public class ModelElementAnimationInfoDialog extends BaseDialog {
 		 */
 		public static List<ClientInfo> getList(final ModelAnimationImages animationImages, final RunModel model, final List<RunDataClient> clients) {
 			if (clients==null) return new ArrayList<>();
-			return clients.stream().map(client->new ClientInfo(animationImages,model,client)).collect(Collectors.toList());
+			return clients.stream().filter(client->client!=null).map(client->new ClientInfo(animationImages,model,client)).collect(Collectors.toList());
 		}
 	}
 
