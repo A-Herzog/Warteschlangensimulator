@@ -579,6 +579,11 @@ public class SetupData extends SetupBase {
 	public boolean paintTimeStamp;
 
 	/**
+	 * Skalierungsfaktor für Videoaufzeichnungen (0.01..1)
+	 */
+	public double animationFrameScale;
+
+	/**
 	 * Startet die Animation im Einzelschirttmodus
 	 */
 	public boolean animationStartPaused;
@@ -1069,6 +1074,7 @@ public class SetupData extends SetupBase {
 		autoConnect=ModelSurfacePanel.ConnectMode.OFF;
 		renameOnCopy=RenameOnCopyMode.SMART;
 		paintTimeStamp=true;
+		animationFrameScale=1.0;
 		animationStartPaused=false;
 		lastStart="";
 		visibleTemplateGroups="";
@@ -1639,6 +1645,12 @@ public class SetupData extends SetupBase {
 
 			if (name.equals("timestampinvideo")) {
 				paintTimeStamp=loadBoolean(e.getTextContent(),true);
+				continue;
+			}
+
+			if (name.equals("scalevideo")) {
+				final Double D=NumberTools.getPositiveDouble(e.getTextContent());
+				if (D!=null) animationFrameScale=Math.max(0.01,Math.min(1,D.doubleValue()));
 				continue;
 			}
 
@@ -2249,6 +2261,11 @@ public class SetupData extends SetupBase {
 		if (!paintTimeStamp) {
 			root.appendChild(node=doc.createElement("TimeStampInVideo"));
 			node.setTextContent("0");
+		}
+
+		if (animationFrameScale!=1.0) {
+			root.appendChild(node=doc.createElement("ScaleVideo"));
+			node.setTextContent(NumberTools.formatSystemNumber(animationFrameScale));
 		}
 
 		if (animationStartPaused) {
