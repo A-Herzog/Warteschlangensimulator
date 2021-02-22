@@ -111,6 +111,8 @@ public class ModelElementAnimationInfoDialog extends BaseDialog {
 	private final DefaultListModel<JLabel> listWaitingModel;
 	/** Liste der Datensätze der wartenden Kunden */
 	private List<ClientInfo> listWaitingData;
+	/** Infozeile zu {@link #listWaiting} */
+	private final JLabel listWaitingInfo;
 
 	/** Liste der Kunden */
 	private final JList<JLabel> listAll;
@@ -118,6 +120,8 @@ public class ModelElementAnimationInfoDialog extends BaseDialog {
 	private final DefaultListModel<JLabel> listAllModel;
 	/** Liste der Datensätze der Kunden */
 	private List<ClientInfo> listAllData;
+	/** InfoZeile zu {@link #listAll} */
+	private final JLabel listAllInfo;
 
 	/**
 	 * Konstruktor der Klasse <code>ModelElementAnimationInfoDialog</code>
@@ -175,6 +179,7 @@ public class ModelElementAnimationInfoDialog extends BaseDialog {
 		if (clientWaitingInfo==null) {
 			listWaiting=null;
 			listWaitingModel=null;
+			listWaitingInfo=null;
 		} else {
 			tabs.addTab(Language.tr("Surface.PopupMenu.SimulationStatisticsData.Tab.WaitingClients"),tab=new JPanel(new BorderLayout()));
 			tab.add(new JScrollPane(listWaiting=new JList<>(listWaitingModel=new DefaultListModel<>())),BorderLayout.CENTER);
@@ -196,6 +201,8 @@ public class ModelElementAnimationInfoDialog extends BaseDialog {
 				}
 			});
 			listWaiting.setPrototypeCellValue(defaultSizeLabel);
+			tab.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)),BorderLayout.SOUTH);
+			line.add(listWaitingInfo=new JLabel());
 			commandUpdateWaitingClientListOnly();
 		}
 
@@ -203,6 +210,7 @@ public class ModelElementAnimationInfoDialog extends BaseDialog {
 		if (clientInfo==null) {
 			listAll=null;
 			listAllModel=null;
+			listAllInfo=null;
 		} else {
 			tabs.addTab(Language.tr("Surface.PopupMenu.SimulationStatisticsData.Tab.AllClients"),tab=new JPanel(new BorderLayout()));
 			tab.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)),BorderLayout.NORTH);
@@ -226,6 +234,8 @@ public class ModelElementAnimationInfoDialog extends BaseDialog {
 				}
 			});
 			listAll.setPrototypeCellValue(defaultSizeLabel);
+			tab.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)),BorderLayout.SOUTH);
+			line.add(listAllInfo=new JLabel());
 		}
 
 		/* Icons auf den Tabs */
@@ -329,6 +339,10 @@ public class ModelElementAnimationInfoDialog extends BaseDialog {
 		listWaitingData=clientWaitingInfo.get();
 		listWaitingModel.clear();
 		if (listWaitingData!=null) listWaitingData.stream().map(clientInfo->clientInfo.buildLabel(images,true)).forEach(listWaitingModel::addElement);
+		if (listWaitingInfo!=null) {
+			final int size=listWaitingModel.size();
+			listWaitingInfo.setText(String.format((size==1)?Language.tr("Surface.PopupMenu.SimulationStatisticsData.Tab.WaitingClients.Info.Singular"):Language.tr("Surface.PopupMenu.SimulationStatisticsData.Tab.WaitingClients.Info.Plural"),size));
+		}
 	}
 
 	/**
@@ -340,6 +354,10 @@ public class ModelElementAnimationInfoDialog extends BaseDialog {
 		listAllData=clientInfo.get();
 		listAllModel.clear();
 		if (listAllData!=null) listAllData.stream().map(clientInfo->clientInfo.buildLabel(images,false)).forEach(listAllModel::addElement);
+		if (listAllInfo!=null) {
+			final int size=listAllModel.size();
+			listAllInfo.setText(String.format((size==1)?Language.tr("Surface.PopupMenu.SimulationStatisticsData.Tab.AllClients.Info.Singular"):Language.tr("Surface.PopupMenu.SimulationStatisticsData.Tab.AllClients.Info.Plural"),size));
+		}
 	}
 
 	/**

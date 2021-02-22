@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-02-22 00:05+0100\n"
+"POT-Creation-Date: 2021-02-22 10:21+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -24272,6 +24272,12 @@ msgstr ""
 "der Kunden im System durchlaufen werden muss, wird diese Liste nicht automatisch<br>\n"
 "mit den anderen Daten aktualisiert, sondern muss manuell aktualisiert werden."
 
+msgid "Surface.PopupMenu.SimulationStatisticsData.Tab.AllClients.Info.Plural"
+msgstr "An der Station befinden sich %s Kunden."
+
+msgid "Surface.PopupMenu.SimulationStatisticsData.Tab.AllClients.Info.Singular"
+msgstr "An der Station befindet sich %s Kunde."
+
 msgid "Surface.PopupMenu.SimulationStatisticsData.Tab.Data"
 msgstr "Daten"
 
@@ -24331,6 +24337,12 @@ msgstr "Kunde während Einschwingphase erzeugt"
 
 msgid "Surface.PopupMenu.SimulationStatisticsData.Tab.WaitingClients.Icon"
 msgstr "Icon"
+
+msgid "Surface.PopupMenu.SimulationStatisticsData.Tab.WaitingClients.Info.Plural"
+msgstr "An der Station warten %s Kunden."
+
+msgid "Surface.PopupMenu.SimulationStatisticsData.Tab.WaitingClients.Info.Singular"
+msgstr "An der Station wartet %s Kunde."
 
 msgid "Surface.PopupMenu.SimulationStatisticsData.Tab.WaitingClients.OnArrivalAtStation"
 msgstr "bei Ankunft an der Station"
