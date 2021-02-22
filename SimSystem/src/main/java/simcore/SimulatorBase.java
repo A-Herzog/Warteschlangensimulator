@@ -36,6 +36,12 @@ public abstract class SimulatorBase {
 	private boolean started=false;
 
 	/**
+	 * Wurde die Simulation per {@link #pauseExecution()} angehalten?
+	 * @see #isPaused()
+	 */
+	private boolean paused=false;
+
+	/**
 	 * Sollen die Simulationsdatenobjekte vorab (<code>false</code>) oder innerhalb der Threads (<code>true</code>) initialisiert werden.
 	 */
 	protected final boolean numaAware;
@@ -261,12 +267,23 @@ public abstract class SimulatorBase {
 	}
 
 	/**
+	 * Wurde die Simulation per {@link #pauseExecution()} angehalten?
+	 * @return	Ist die Simulation momentan pausiert?
+	 * @see #pauseExecution()
+	 * @see #resumeExecution()
+	 */
+	public boolean isPaused() {
+		return paused;
+	}
+
+	/**
 	 * Unterbricht die Simulation.<br>
 	 * Die Simulation wird nicht abgebrochen und kann später fortgesetzt werden.
 	 * @see #resumeExecution()
 	 * @see #stepExecution(boolean)
 	 */
 	public void pauseExecution() {
+		paused=true;
 		for (int i=0;i<threads.length;i++) if (threads[i]!=null) threads[i].pauseExecution();
 	}
 
@@ -275,6 +292,7 @@ public abstract class SimulatorBase {
 	 * @see #pauseExecution()
 	 */
 	public void resumeExecution() {
+		paused=false;
 		for (int i=0;i<threads.length;i++) if (threads[i]!=null) threads[i].resumeExecution();
 	}
 

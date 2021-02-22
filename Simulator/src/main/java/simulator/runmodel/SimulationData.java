@@ -26,6 +26,7 @@ import simcore.SimData;
 import simcore.eventcache.AssociativeEventCache;
 import simcore.eventmanager.LongRunMultiSortedArrayListEventManager;
 import simcore.logging.SimLogging;
+import simulator.Simulator;
 import simulator.coreelements.RunElement;
 import simulator.coreelements.RunElementData;
 import simulator.elements.RunElementThroughput;
@@ -58,6 +59,11 @@ public class SimulationData extends SimData {
 	 * (thread-lokal)
 	 */
 	public RunData runData;
+
+	/**
+	 * Simulator-Objekt in dem sich dieses Datenobjekt befindet
+	 */
+	public final Simulator simulator;
 
 	/**
 	 * Statistik-Objekt, welches während der Simulation die Daten sammelt
@@ -117,11 +123,12 @@ public class SimulationData extends SimData {
 	 * Konstruktor der Klasse <code>SimulationData</code>
 	 * @param threadNr		Gibt die Nummer des Threads an, für den das <code>SimDat</code>-Objekt erstellt wird.
 	 * @param threadCount	Anzahl der Rechenthreads
+	 * @param simulator	Simulator-Objekt in dem sich dieses Datenobjekt befindet
 	 * @param runModel	Laufzeit-Modell, welches die Basis der Simulation darstellt
 	 * @param useStatistics	Wird hier ein Wert ungleich <code>null</code> übergeben, so wird das angegebene Statistikobjekt verwendet. Sonst wird ein neues Statistikobjekt erstellt. Für eine normale Simulation sollte hier stets <code>null</code> übergeben werden.
 	 * @param dynamicLoadBalancer	Optional ein Load-Balancer für die Ankünfte über alle Threads (kann <code>null</code> sein)
 	 */
-	public SimulationData(final int threadNr, final int threadCount, final RunModel runModel, final Statistics useStatistics, final DynamicLoadBalancer dynamicLoadBalancer) {
+	public SimulationData(final int threadNr, final int threadCount, final Simulator simulator, final RunModel runModel, final Statistics useStatistics, final DynamicLoadBalancer dynamicLoadBalancer) {
 		/* langsam: super(new PriorityQueueEventManager(),new HashMapEventCache(),threadNr,threadCount); */
 		/* schneller: super(new LongRunMultiPriorityQueueEventManager(4),new HashMapEventCache(),threadNr,threadCount); */
 		/* ganz schnell: */
@@ -132,6 +139,8 @@ public class SimulationData extends SimData {
 		logDeparture=true;
 		logInfoStation=true;
 		logInfoSystem=true;
+
+		this.simulator=simulator;
 
 		this.runModel=runModel;
 		this.runData=new RunData(runModel,dynamicLoadBalancer);

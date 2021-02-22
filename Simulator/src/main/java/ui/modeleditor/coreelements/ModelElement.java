@@ -54,6 +54,7 @@ import org.w3c.dom.NodeList;
 import language.Language;
 import mathtools.NumberTools;
 import mathtools.distribution.tools.DistributionTools;
+import simulator.Simulator;
 import simulator.coreelements.RunElement;
 import simulator.coreelements.RunElementData;
 import simulator.editmodel.EditModel;
@@ -537,49 +538,63 @@ public class ModelElement {
 
 	/**
 	 * Stellt Statistikdaten über die an der Station wartenden Kunden zusammen.
+	 * @param simulator	Simulator um die Animation während des Auslesens anhalten zu können
 	 * @param model	Statische Simulationsmodelldaten
 	 * @param data	Datenobjekt für die aktuelle Station
 	 * @return	Liste der wartenden Kunden
 	 */
-	private synchronized List<ModelElementAnimationInfoDialog.ClientInfo> getAnimationRunTimeWaitingClientData(final RunModel model, final RunElementDataWithWaitingClients data) {
-		final List<RunDataClient> clients=new ArrayList<>(data.getWaitingClients());
-		return ModelElementAnimationInfoDialog.ClientInfo.getList(this.model.animationImages,model,clients);
+	private synchronized List<ModelElementAnimationInfoDialog.ClientInfo> getAnimationRunTimeWaitingClientData(final Simulator simulator, final RunModel model, final RunElementDataWithWaitingClients data) {
+		final boolean wasPaused=simulator.isPaused();
+		if (!wasPaused) simulator.pauseExecution();
+		try {
+			final List<RunDataClient> clients=new ArrayList<>(data.getWaitingClients());
+			return ModelElementAnimationInfoDialog.ClientInfo.getList(this.model.animationImages,model,clients);
+		} finally {
+			if (!wasPaused) simulator.resumeExecution();
+		}
 	}
 
 	/**
 	 * Stellt Statistikdaten über die an der Station befindlichen Kunden zusammen.
+	 * @param simulator	Simulator um die Animation während des Auslesens anhalten zu können
 	 * @param model	Statische Simulationsmodelldaten
 	 * @param clients	Datenobjekt, welche die Liste aller Kunden vorhält
 	 * @param id	Stations-ID der Station für die die Kundenliste ermittelt werden soll
 	 * @return	Liste der Kunden
 	 */
-	private synchronized List<ModelElementAnimationInfoDialog.ClientInfo> getAnimationRunTimeAllClientData(final RunModel model, final RunDataClients clients, final int id) {
-		final List<ModelElementAnimationInfoDialog.ClientInfo> list=new ArrayList<>();
+	private synchronized List<ModelElementAnimationInfoDialog.ClientInfo> getAnimationRunTimeAllClientData(final Simulator simulator, final RunModel model, final RunDataClients clients, final int id) {
+		final boolean wasPaused=simulator.isPaused();
+		if (!wasPaused) simulator.pauseExecution();
+		try {
+			final List<ModelElementAnimationInfoDialog.ClientInfo> list=new ArrayList<>();
 
-		final boolean searchInSub=(model.elementsFast[id] instanceof RunElementSub);
+			final boolean searchInSub=(model.elementsFast[id] instanceof RunElementSub);
 
-		final List<RunDataClient> clientsList=clients.requestClientsInUseList();
-		final int size=clientsList.size();
-		for (int i=0;i<size;i++) {
-			final RunDataClient client=clientsList.get(i);
-			if (client==null) continue;
-			final int clientPosition=client.nextStationID;
-			/* Kunde an Station */
-			if (clientPosition==id) {
-				list.add(new ModelElementAnimationInfoDialog.ClientInfo(this.model.animationImages,model,client));
-				continue;
-			}
-			/* Kunde an Station, die in dem betrachteten Untermodell liegt */
-			if (searchInSub && clientPosition>=0 && clientPosition<model.elementsFast.length) {
-				final RunElement station=model.elementsFast[clientPosition];
-				if (station!=null && station.parentId==id) {
+			final List<RunDataClient> clientsList=clients.requestClientsInUseList();
+			final int size=clientsList.size();
+			for (int i=0;i<size;i++) {
+				final RunDataClient client=clientsList.get(i);
+				if (client==null) continue;
+				final int clientPosition=client.nextStationID;
+				/* Kunde an Station */
+				if (clientPosition==id) {
 					list.add(new ModelElementAnimationInfoDialog.ClientInfo(this.model.animationImages,model,client));
 					continue;
 				}
+				/* Kunde an Station, die in dem betrachteten Untermodell liegt */
+				if (searchInSub && clientPosition>=0 && clientPosition<model.elementsFast.length) {
+					final RunElement station=model.elementsFast[clientPosition];
+					if (station!=null && station.parentId==id) {
+						list.add(new ModelElementAnimationInfoDialog.ClientInfo(this.model.animationImages,model,client));
+						continue;
+					}
+				}
 			}
-		}
 
-		return list;
+			return list;
+		} finally {
+			if (!wasPaused) simulator.resumeExecution();
+		}
 	}
 
 	/**
@@ -866,10 +881,10 @@ public class ModelElement {
 		if (element!=null) {
 			/* Liste der wartenden Kunden */
 			final RunElementData data=element.getData(simData);
-			if (data instanceof RunElementDataWithWaitingClients) clientWaitingInfo=()->getAnimationRunTimeWaitingClientData(simData.runModel,(RunElementDataWithWaitingClients)data);
+			if (data instanceof RunElementDataWithWaitingClients) clientWaitingInfo=()->getAnimationRunTimeWaitingClientData(simData.simulator,simData.runModel,(RunElementDataWithWaitingClients)data);
 
 			/* Liste aller Kunden */
-			clientAllInfo=()->getAnimationRunTimeAllClientData(simData.runModel,simData.runData.clients,id);
+			clientAllInfo=()->getAnimationRunTimeAllClientData(simData.simulator,simData.runModel,simData.runData.clients,id);
 		}
 
 		new ModelElementAnimationInfoDialog(owner,getContextMenuElementName()+" (id="+id+")",simData.runModel,()->getAnimationRunTimeStatisticsData(simData),clientWaitingInfo,clientAllInfo);

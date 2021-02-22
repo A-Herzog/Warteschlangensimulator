@@ -391,7 +391,7 @@ public class Simulator extends SimulatorBase implements AnySimulator {
 		} else {
 			runModel=this.runModel;
 		}
-		data=new SimulationData(threadNr,threadCount,runModel,null,dynamicLoadBalancer);
+		data=new SimulationData(threadNr,threadCount,this,runModel,null,dynamicLoadBalancer);
 
 		if (logging!=null) {
 			final SimulationData simData=(SimulationData)data;
@@ -509,7 +509,7 @@ public class Simulator extends SimulatorBase implements AnySimulator {
 		if (statistics==null) return null;
 		final Simulator simulator=new Simulator(statistics.editModel,null,null,logTypeFull);
 		if (simulator.prepare()!=null) return null;
-		final SimulationData simData=new SimulationData(0,simulator.threads.length,simulator.runModel,statistics,null);
+		final SimulationData simData=new SimulationData(0,simulator.threads.length,simulator,simulator.runModel,statistics,null);
 
 		simData.runData.initRun(0,simData,simData.runModel.recordIncompleteClients);
 		for (RunElement station: simData.runModel.elementsFast) if (station!=null) simData.runData.explicitInitStatistics(simData,station);
