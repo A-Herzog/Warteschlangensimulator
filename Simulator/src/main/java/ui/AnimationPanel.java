@@ -596,6 +596,7 @@ public class AnimationPanel extends JPanel implements RunModelAnimationViewer {
 	 * @param simulator	Simulator für das Modell (darf noch nicht gestartet worden sein)
 	 * @param logger	Logger, über den die Einzelschritt ausgaben angezeigt werden
 	 * @param recordFile	Videodatei, in der die Animation aufgezeichnet werden soll
+	 * @param scaleFrame	Skalierung der Bilder vor dem Übernehmen ins Video (0.01..1)
 	 * @param paintTimeStamp	Fügt bei der Aufzeichnung in das Video den jeweils aktuellen Simulationszeit-Wert ein
 	 * @param fastWarmUp	Ist <code>true</code>, wenn die Warm-up-Phase bei der Animation zunächst als Simulation vorab ausgeführt werden soll
 	 * @param zoom	Zoomfaktor für das Animations-Surface
@@ -607,7 +608,7 @@ public class AnimationPanel extends JPanel implements RunModelAnimationViewer {
 	 * @param startFullRecording	Wird die Animation im Pausemodus gestartet, so wird direkt der erste Schritt ausgeführt. Über diese Funktion kann angegeben werden, dass dieser Schritt im vollständigen Erfassungsmodus durchgeführt werden soll.
 	 * @see #makeAnimationModel(EditModel)
 	 */
-	public void setSimulator(final EditModel model, final Simulator simulator, final CallbackLoggerWithJS logger, final File recordFile, final boolean paintTimeStamp, final boolean fastWarmUp, final double zoom, final ModelSurface.Grid raster, final Point position, final Runnable animationDone, final Runnable sendToSimulation, final boolean startPaused, final boolean startFullRecording) {
+	public void setSimulator(final EditModel model, final Simulator simulator, final CallbackLoggerWithJS logger, final File recordFile, final double scaleFrame, final boolean paintTimeStamp, final boolean fastWarmUp, final double zoom, final ModelSurface.Grid raster, final Point position, final Runnable animationDone, final Runnable sendToSimulation, final boolean startPaused, final boolean startFullRecording) {
 		this.model=model;
 		this.startPaused=startPaused;
 		this.fastWarmUp=fastWarmUp;
@@ -634,7 +635,7 @@ public class AnimationPanel extends JPanel implements RunModelAnimationViewer {
 			encoder=new MJPEGSystem(recordFile,surfaceAnimator.useAdditionalFrames());
 			if (!encoder.isReady()) encoder=null;
 		}
-		surfaceAnimator.setRecordSystem(encoder,paintTimeStamp);
+		surfaceAnimator.setRecordSystem(encoder,scaleFrame,paintTimeStamp);
 
 		surfacePanel.getSurface().setAnimatorPanel(this);
 		surfacePanel.setZoom(zoom);
@@ -823,7 +824,7 @@ public class AnimationPanel extends JPanel implements RunModelAnimationViewer {
 		if (surfaceAnimator==null) return;
 		if (simulator==null) return;
 
-		surfaceAnimator.setRecordSystem(null,false);
+		surfaceAnimator.setRecordSystem(null,1.0,false);
 		simulationSuccessful=successful;
 		simulatorLock.acquireUninterruptibly();
 		try {
@@ -1450,7 +1451,7 @@ public class AnimationPanel extends JPanel implements RunModelAnimationViewer {
 		continueAsSimulation=true;
 		if (!running) playPause();
 
-		surfaceAnimator.setRecordSystem(null,false);
+		surfaceAnimator.setRecordSystem(null,1.0,false);
 		if (timer!=null) timer.cancel();
 		simulationSuccessful=false;
 		if (encoder!=null) {

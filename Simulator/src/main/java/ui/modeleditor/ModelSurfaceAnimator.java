@@ -65,6 +65,8 @@ public class ModelSurfaceAnimator extends ModelSurfaceAnimatorBase {
 	private final AnimationMoveMode mode;
 	/** Wird hier ein Wert ungleich <code>null</code> angegeben, so werden die gezeichneten Animationsschritte in dem übergebenen System aufgezeichnet */
 	private VideoSystem recordSystem;
+	/** Skalierung der Bilder vor dem Übernehmen ins Video (0.01..1) */
+	private double scaleFrame;
 	/** Fügt in das Video den jeweils aktuellen Simulationszeit-Wert ein */
 	private boolean paintTimeStamp;
 	/** Größe der Zeichenfläche (für die Aufzeichnung von Videos, {@link #recordStep(SimulationData)}) */
@@ -117,10 +119,12 @@ public class ModelSurfaceAnimator extends ModelSurfaceAnimatorBase {
 	/**
 	 * Stellt ein, ob und wenn ja in welchem Objekt die Animation aufgezeichnet werden soll
 	 * @param recordSystem	Wird hier ein Wert ungleich <code>null</code> übergeben, so werden die gezeichneten Animationsschritte in dem übergebenen System aufgezeichnet
+	 * @param scaleFrame	Skalierung der Bilder vor dem Übernehmen ins Video (0.01..1)
 	 * @param paintTimeStamp	Fügt in das Video den jeweils aktuellen Simulationszeit-Wert ein
 	 */
-	public void setRecordSystem(final VideoSystem recordSystem, final boolean paintTimeStamp) {
+	public void setRecordSystem(final VideoSystem recordSystem, final double scaleFrame, final boolean paintTimeStamp) {
 		this.recordSystem=recordSystem;
+		this.scaleFrame=Math.max(0.01,Math.min(1.0,scaleFrame));
 		this.paintTimeStamp=paintTimeStamp;
 	}
 
@@ -136,8 +140,14 @@ public class ModelSurfaceAnimator extends ModelSurfaceAnimatorBase {
 		for (ModelElement element: surfacePanel.getSurface().getElements()) if (!(element instanceof ModelElementAnimationConnect)) {
 			final Point p1=element.getPosition(true);
 			final Point p2=element.getLowerRightPosition();
-			if (p1!=null) {minX=FastMath.min(minX,p1.x); minY=FastMath.min(minY,p1.y);}
-			if (p2!=null) {maxX=FastMath.max(maxX,p2.x); maxY=FastMath.max(maxY,p2.y);}
+			if (p1!=null) {
+				if (p1.x>=0) minX=FastMath.min(minX,p1.x);
+				if (p1.y>=0) minY=FastMath.min(minY,p1.y);
+			}
+			if (p2!=null) {
+				maxX=FastMath.max(maxX,p2.x);
+				maxY=FastMath.max(maxY,p2.y);
+			}
 		}
 
 		surfaceSize=new Dimension((int)FastMath.ceil((maxX+minX)/8.0)*8,(int)FastMath.ceil((maxY+minY)/8.0)*8);
@@ -167,17 +177,43 @@ public class ModelSurfaceAnimator extends ModelSurfaceAnimatorBase {
 	}
 
 	/**
+	 * Cache für Zeichenflächen-Bilder in Originalgröße,
+	 * wenn skaliert aufgezeichnet werden soll.
+	 * @see #recordStep(SimulationData)
+	 */
+	private BufferedImage recordBigImage;
+
+	/**
 	 * Zeichnet einen Simulationsschritt auf
 	 * @param simData	Simulationsdatenobjekt
 	 */
 	private void recordStep(final SimulationData simData) {
-		final BufferedImage image=recordSystem.getImageObjectFromCache(surfaceSize.width,surfaceSize.height);
-		final Graphics graphics=image.getGraphics();
-		final Rectangle viewArea=new Rectangle(0,0,surfaceSize.width,surfaceSize.height);
+		final BufferedImage image;
 
-		surfacePanel.paintElements(graphics,viewArea,surfacePanel.getBackgroundImageMode(),true,surfacePanel.getRaster(),surfacePanel.getColors(),surfacePanel.getBackgroundImage(),surfacePanel.getBackgroundImageHash(),surfacePanel.getBackgroundImageScale(),false);
-		surfaceAddOnPaint(graphics,surfacePanel.getZoom());
-		if (paintTimeStamp) surfacePaintTime(graphics,viewArea,surfacePanel.getZoom(),simData.currentTime/1000);
+		if (scaleFrame==1.0) {
+			/* Direkt in das Ergebnisbild zeichnen */
+			image=recordSystem.getImageObjectFromCache(surfaceSize.width,surfaceSize.height);
+
+			final Graphics graphics=image.getGraphics();
+			final Rectangle viewArea=new Rectangle(0,0,surfaceSize.width,surfaceSize.height);
+			surfacePanel.paintElements(graphics,viewArea,surfacePanel.getBackgroundImageMode(),true,surfacePanel.getRaster(),surfacePanel.getColors(),surfacePanel.getBackgroundImage(),surfacePanel.getBackgroundImageHash(),surfacePanel.getBackgroundImageScale(),false);
+			surfaceAddOnPaint(graphics,surfacePanel.getZoom());
+			if (paintTimeStamp) surfacePaintTime(graphics,viewArea,surfacePanel.getZoom(),simData.currentTime/1000);
+		} else {
+			final int w=(int)Math.round(surfaceSize.width*scaleFrame);
+			final int h=(int)Math.round(surfaceSize.height*scaleFrame);
+			image=recordSystem.getImageObjectFromCache(w,h);
+
+			if (recordBigImage==null) recordBigImage=new BufferedImage(surfaceSize.width,surfaceSize.height,BufferedImage.TYPE_INT_RGB);
+
+			final Graphics graphics=recordBigImage.getGraphics();
+			final Rectangle viewArea=new Rectangle(0,0,surfaceSize.width,surfaceSize.height);
+			surfacePanel.paintElements(graphics,viewArea,surfacePanel.getBackgroundImageMode(),true,surfacePanel.getRaster(),surfacePanel.getColors(),surfacePanel.getBackgroundImage(),surfacePanel.getBackgroundImageHash(),surfacePanel.getBackgroundImageScale(),false);
+			surfaceAddOnPaint(graphics,surfacePanel.getZoom());
+			if (paintTimeStamp) surfacePaintTime(graphics,viewArea,surfacePanel.getZoom(),simData.currentTime/1000);
+
+			image.getGraphics().drawImage(recordBigImage,0,0,w,h,null);
+		}
 
 		recordSystem.addFrame(image,currentTime);
 	}

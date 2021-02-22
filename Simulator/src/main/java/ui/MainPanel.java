@@ -71,8 +71,6 @@ import javax.swing.JRadioButtonMenuItem;
 import javax.swing.JToolBar;
 import javax.swing.KeyStroke;
 import javax.swing.SwingUtilities;
-import javax.swing.filechooser.FileFilter;
-import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.filechooser.FileSystemView;
 
 import org.w3c.dom.Element;
@@ -114,6 +112,7 @@ import ui.calculator.QueueingCalculatorDialog;
 import ui.commandline.CommandLineSystem;
 import ui.compare.ComparePanel;
 import ui.compare.CompareSelectDialog;
+import ui.dialogs.AnimationRecordSetupDialog;
 import ui.dialogs.DataCheckDialog;
 import ui.dialogs.EdgeStyleSetupDialog;
 import ui.dialogs.FindBatchSizeDialog;
@@ -2454,6 +2453,7 @@ public class MainPanel extends MainPanelBase {
 				simulator,
 				logger,
 				recordFile,
+				setup.animationFrameScale,
 				setup.paintTimeStamp,
 				fastWarmUp,
 				editorPanel.getZoom(),
@@ -2497,25 +2497,10 @@ public class MainPanel extends MainPanelBase {
 	 * Befehl: Simulation - Animation als Video aufzeichnen
 	 */
 	private void commandSimulationAnimationRecord() {
-		final JFileChooser fc=new JFileChooser();
-		CommonVariables.initialDirectoryToJFileChooser(fc);
-		fc.setDialogTitle(Language.tr("Window.SelectVideoFile"));
-		final FileFilter avi=new FileNameExtensionFilter(Language.tr("FileType.VideoFile")+" (*.avi)","avi");
-		fc.addChoosableFileFilter(avi);
-		fc.setFileFilter(avi);
-		fc.setAcceptAllFileFilterUsed(false);
+		final AnimationRecordSetupDialog dialog=new AnimationRecordSetupDialog(this);
+		if (dialog.getClosedBy()!=BaseDialog.CLOSED_BY_OK) return;
 
-		if (fc.showSaveDialog(this)!=JFileChooser.APPROVE_OPTION) return;
-		CommonVariables.initialDirectoryFromJFileChooser(fc);
-		File file=fc.getSelectedFile();
-
-		if (file.getName().indexOf('.')<0) {
-			if (fc.getFileFilter()==avi) file=new File(file.getAbsoluteFile()+".avi");
-		}
-
-		if (file.exists()) {
-			if (!MsgBox.confirmOverwrite(getOwnerWindow(),file)) return;
-		}
+		final File file=dialog.getVideoFile();
 
 		commandSimulationAnimation(file,false,null,null,Simulator.logTypeFull);
 	}
