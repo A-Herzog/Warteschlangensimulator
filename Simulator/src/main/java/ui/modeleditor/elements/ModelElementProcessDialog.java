@@ -316,10 +316,12 @@ public class ModelElementProcessDialog extends ModelElementBaseDialog {
 
 		tab.add(resourceData=new MultiResourceTable(process,helpRunnable,readOnly,()->updateTabTitles()),BorderLayout.CENTER);
 
-		final JButton resourceButton=getOpenModelOperatorsButton();
-		if (resourceButton!=null) {
-			tab.add(sub=new JPanel(new FlowLayout(FlowLayout.LEFT)),BorderLayout.SOUTH);
-			sub.add(resourceButton);
+		if (!readOnly) {
+			final JButton resourceButton=getOpenModelOperatorsButton();
+			if (resourceButton!=null) {
+				tab.add(sub=new JPanel(new FlowLayout(FlowLayout.LEFT)),BorderLayout.SOUTH);
+				sub.add(resourceButton);
+			}
 		}
 
 		/* Tab "Kosten" */
