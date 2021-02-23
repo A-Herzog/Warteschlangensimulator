@@ -288,6 +288,19 @@ public abstract class SimulatorBase {
 	}
 
 	/**
+	 * Unterbricht die Simulation.<br>
+	 * Die Simulation wird nicht abgebrochen und kann später fortgesetzt werden.<br>
+	 * Im Gegensatz zu {@link #pauseExecution()} kehrt dieser Befehl erst zurück,
+	 * wenn die Threads auch wirklich angehalten haben.
+	 * @see #resumeExecution()
+	 * @see #stepExecution(boolean)
+	 */
+	public void pauseExecutionAndWait() {
+		pauseExecution();
+		for (int i=0;i<threads.length;i++) if (threads[i]!=null) threads[i].waitForPause();
+	}
+
+	/**
 	 * Setzt die unterbrochene Simulation fort.
 	 * @see #pauseExecution()
 	 */

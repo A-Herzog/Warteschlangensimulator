@@ -93,6 +93,12 @@ public final class SimThread extends Thread {
 	private volatile boolean pauseSimulation;
 
 	/**
+	 * Gibt an, ob der Thread gerade angehalten ist und auf Step-
+	 * oder Resume-Befehle wartet.
+	 */
+	private volatile boolean isInPauseMode;
+
+	/**
 	 * Weist den Simulationsthread an, fortzufahren.
 	 * @see #resumeExecution()
 	 * @see #stepExecution()
@@ -116,6 +122,7 @@ public final class SimThread extends Thread {
 	public SimThread(final SimData simData) {
 		super("SimThread-"+(simData.threadNr+1));
 		pauseSimulation=false;
+		isInPauseMode=false;
 		setDaemon(false);
 		simDataGetter=null;
 		this.simData=simData;
@@ -129,6 +136,7 @@ public final class SimThread extends Thread {
 	public SimThread(final Supplier<SimData> simDataGetter, final int threadNr) {
 		super("SimThread-"+(threadNr+1));
 		pauseSimulation=false;
+		isInPauseMode=false;
 		setDaemon(false);
 		this.simDataGetter=simDataGetter;
 	}
@@ -169,7 +177,9 @@ public final class SimThread extends Thread {
 				}
 				while (eventManager.executeNextEvents(simData,pauseSimulation?1:200000,1000)) {
 					if (pauseSimulation) synchronized (pauseObject) {
+						isInPauseMode=true;
 						try {while (!doStepOrContinue) pauseObject.wait(1000);} catch (InterruptedException e) {}
+						isInPauseMode=false;
 						doStepOrContinue=false;
 					}
 					if (abortSimulation || isInterrupted()) {
@@ -228,6 +238,16 @@ public final class SimThread extends Thread {
 		doStepOrContinue=false;
 		pauseSimulation=true;
 		if (eventManager!=null) eventManager.setPause();
+	}
+
+	/**
+	 * Wartet nach einem Aufruf von {@link #pauseExecution()} bis
+	 * der Thread auch wirklich den Pause-Status erreicht hat.
+	 */
+	public void waitForPause() {
+		while (!isInPauseMode) try {
+			Thread.sleep(5);
+		} catch (InterruptedException e) {}
 	}
 
 	/**

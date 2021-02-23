@@ -545,7 +545,7 @@ public class ModelElement {
 	 */
 	private synchronized List<ModelElementAnimationInfoDialog.ClientInfo> getAnimationRunTimeWaitingClientData(final Simulator simulator, final RunModel model, final RunElementDataWithWaitingClients data) {
 		final boolean wasPaused=simulator.isPaused();
-		if (!wasPaused) simulator.pauseExecution();
+		if (!wasPaused) simulator.pauseExecutionAndWait();
 		try {
 			final List<RunDataClient> clients=new ArrayList<>(data.getWaitingClients());
 			return ModelElementAnimationInfoDialog.ClientInfo.getList(this.model.animationImages,model,clients);
@@ -564,7 +564,7 @@ public class ModelElement {
 	 */
 	private synchronized List<ModelElementAnimationInfoDialog.ClientInfo> getAnimationRunTimeAllClientData(final Simulator simulator, final RunModel model, final RunDataClients clients, final int id) {
 		final boolean wasPaused=simulator.isPaused();
-		if (!wasPaused) simulator.pauseExecution();
+		if (!wasPaused) simulator.pauseExecutionAndWait();
 		try {
 			final List<ModelElementAnimationInfoDialog.ClientInfo> list=new ArrayList<>();
 
