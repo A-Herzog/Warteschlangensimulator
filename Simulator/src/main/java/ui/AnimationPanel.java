@@ -645,8 +645,14 @@ public class AnimationPanel extends JPanel implements RunModelAnimationViewer {
 		surfacePanel.setBackgroundImage(model.surfaceBackgroundImage,model.surfaceBackgroundImageScale,model.surfaceBackgroundImageMode);
 		setSurfacePosition(position);
 
+
 		final Timer positionTimer=new Timer("AnimationPanelLayoutTimer",false);
-		positionTimer.schedule(new TimerTask() {@Override public void run() {positionTimer.cancel(); setSurfacePosition(position);}},50,5000);
+		positionTimer.schedule(new TimerTask() {@Override public void run() {
+			positionTimer.cancel();
+			SwingUtilities.invokeLater(()->{
+				setSurfacePosition(position);
+			});
+		}},100,5000);
 
 		surfaceAnimator.calcSurfaceSize();
 		calculateMinimalTimeStep();
