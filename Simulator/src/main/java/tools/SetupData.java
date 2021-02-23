@@ -893,6 +893,76 @@ public class SetupData extends SetupBase {
 	public String quickAccessFilter;
 
 	/**
+	 * Sortierungsmöglichkeiten für die Elementenliste und den Navigator
+	 * @see SetupData#elementListSort
+	 */
+	public enum ElementListSort {
+		/**
+		 * Sortierung nach IDs
+		 */
+		SORT_BY_IDS("IDs",true),
+
+		/**
+		 * Sortierung nach Namen
+		 */
+		SORT_BY_NAMES("Names");
+
+		/**
+		 * XML-Bezeichner für die Sortierungsfolge
+		 * (zum Speichern in der Konfiguration)
+		 */
+		public final String xmlName;
+
+		/**
+		 * Ist dies die Standard-Sortierfolge
+		 * (die nicht gespeichert werden muss)?
+		 */
+		public boolean isDefault;
+
+		/**
+		 * Konstruktor des Enum
+		 * @param xmlName	XML-Bezeichner für die Sortierungsfolge
+		 * @param isDefault	Ist dies die Standard-Sortierfolge?
+		 */
+		ElementListSort(final String xmlName, final boolean isDefault) {
+			this.xmlName=xmlName;
+			this.isDefault=isDefault;
+		}
+
+		/**
+		 * Konstruktor des Enum
+		 * @param xmlName	XML-Bezeichner für die Sortierungsfolge
+		 */
+		ElementListSort(final String xmlName) {
+			this(xmlName,false);
+		}
+
+		/**
+		 * Liefert die Standard-Sortierfolge.
+		 * @return	Standard-Sortierfolge
+		 */
+		public static ElementListSort getDefault() {
+			for (ElementListSort record: values()) if (record.isDefault) return record;
+			return values()[0];
+		}
+
+		/**
+		 * Bestimmt die Sortierfolge basierend auf einem XML-Bezeichner
+		 * @param xmlName	XML-Bezeichner für den die zugehörige Sortierfolge bestimmt werden soll
+		 * @return	Sortierfolge (im Fehlerfall die Standard-Sortierfolge)
+		 */
+		public static ElementListSort getFromXMLName(final String xmlName) {
+			for (ElementListSort record: values()) if (record.xmlName.equalsIgnoreCase(xmlName)) return record;
+			return getDefault();
+		}
+	}
+
+	/**
+	 * Sortierreihenfolge für die Elementenliste und den Navigator
+	 */
+	public ElementListSort elementListSort;
+
+	/**
 	 * Option auf Statistik-Text-Viewer-Seiten: "Öffnen mit Word"
 	 */
 	public boolean openWord;
@@ -1135,6 +1205,7 @@ public class SetupData extends SetupBase {
 		parameterSeriesTableDigits=1;
 		parameterSeriesUpscale=0;
 		quickAccessFilter="";
+		elementListSort=ElementListSort.getDefault();
 		openWord=true;
 		openODT=false;
 		openExcel=true;
@@ -1876,6 +1947,11 @@ public class SetupData extends SetupBase {
 				continue;
 			}
 
+			if (name.equals("elementlistsort")) {
+				elementListSort=ElementListSort.getFromXMLName(e.getTextContent());
+				continue;
+			}
+
 			if (name.equals("openstatistics")) {
 				openWord=loadBoolean(e.getAttribute("docx"),true);
 				openODT=loadBoolean(e.getAttribute("odt"),false);
@@ -2479,6 +2555,11 @@ public class SetupData extends SetupBase {
 		if (quickAccessFilter!=null && !quickAccessFilter.isEmpty() && quickAccessFilter.contains("-")) {
 			root.appendChild(node=doc.createElement("QuickAccessFilter"));
 			node.setTextContent(quickAccessFilter);
+		}
+
+		if (!elementListSort.isDefault) {
+			root.appendChild(node=doc.createElement("ElementListSort"));
+			node.setTextContent(elementListSort.xmlName);
 		}
 
 		if (!openWord || openODT || !openExcel || openODS || openPDF) {

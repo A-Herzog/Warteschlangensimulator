@@ -2180,6 +2180,7 @@ public class MainPanel extends MainPanelBase {
 			final int id=dialog.getSelectedId();
 			if (id>0) editorPanel.selectAndScrollToElement(id);
 		}
+		editorPanel.updateNavigatorSorting();
 	}
 
 	/**

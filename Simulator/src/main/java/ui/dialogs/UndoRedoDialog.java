@@ -224,7 +224,7 @@ public class UndoRedoDialog extends BaseDialog {
 
 	/**
 	 * Renderer für die Liste der Elemente
-	 * @see SelectElementByIdDialog#list
+	 * @see UndoRedoDialog#list
 	 */
 	private class ElementListCellRenderer extends DefaultListCellRenderer {
 		/**

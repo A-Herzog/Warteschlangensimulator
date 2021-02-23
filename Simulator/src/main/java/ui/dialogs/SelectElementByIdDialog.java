@@ -37,6 +37,7 @@ import javax.swing.SwingUtilities;
 import language.Language;
 import systemtools.BaseDialog;
 import tools.IconListCellRenderer;
+import tools.SetupData;
 import ui.help.Help;
 import ui.images.Images;
 import ui.modeleditor.ElementRendererTools;
@@ -105,6 +106,11 @@ public class SelectElementByIdDialog extends BaseDialog {
 				Language.tr("FindElement.Sorting.Names")
 		}));
 		label.setLabelFor(listSorting);
+		switch (SetupData.getSetup().elementListSort) {
+		case SORT_BY_IDS: listSorting.setSelectedIndex(0); break;
+		case SORT_BY_NAMES: listSorting.setSelectedIndex(1); break;
+		default: listSorting.setSelectedIndex(0); break;
+		}
 		listSorting.setRenderer(new IconListCellRenderer(new Images[] {
 				Images.GENERAL_NUMBERS,
 				Images.GENERAL_FONT
@@ -217,6 +223,14 @@ public class SelectElementByIdDialog extends BaseDialog {
 
 		/* ... und ausgeben */
 		ElementRendererTools.buildList(surface,model,ids);
+
+		/* In Setup speichern */
+		final SetupData setup=SetupData.getSetup();
+		switch (index) {
+		case 0: setup.elementListSort=SetupData.ElementListSort.SORT_BY_IDS; break;
+		case 1: setup.elementListSort=SetupData.ElementListSort.SORT_BY_NAMES; break;
+		}
+		setup.saveSetup();
 	}
 
 	/**

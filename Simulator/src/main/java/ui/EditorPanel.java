@@ -795,6 +795,23 @@ public final class EditorPanel extends EditorPanelBase {
 	}
 
 	/**
+	 * Aktualisiert die Sortierung im Navigator gemäß dem Setup.
+	 */
+	public void updateNavigatorSorting() {
+		final int newIndex;
+		switch (SetupData.getSetup().elementListSort) {
+		case SORT_BY_IDS: newIndex=0; break;
+		case SORT_BY_NAMES: newIndex=1; break;
+		default: newIndex=0; break;
+		}
+
+		if (newIndex!=navigatorSortSelect.getSelectedIndex()) {
+			navigatorSortSelect.setSelectedIndex(newIndex);
+			updateNavigatorList();
+		}
+	}
+
+	/**
 	 * Erzeugt eine Schaltfläche mit um 90° gegen den Uhrzeigersinn rotierter Beschriftung.
 	 * @param toolbar	Symbolleiste in die die neue Schaltfläche eingefügt werden soll (kann <code>null</code> sein, dann wird die Schaltfläche in keine Symbolleiste eingefügt)
 	 * @param title	Beschriftung der Schaltfläche (darf nicht leer sein)
@@ -1016,6 +1033,7 @@ public final class EditorPanel extends EditorPanelBase {
 			}
 		});
 		rightAreaInner.add(new JScrollPane(navigator),BorderLayout.CENTER);
+		updateNavigatorSorting();
 
 		/* Buttons unten im inneren Bereich */
 		final JToolBar toolbar=new JToolBar();
@@ -1368,6 +1386,19 @@ public final class EditorPanel extends EditorPanelBase {
 		if (surfacePanel==null) return;
 		if (surfacePanel.isOperationRunning()) return;
 		final ModelSurface surface=surfacePanel.getSurface();
+		if (surface==null) return;
+
+		final SetupData setup=SetupData.getSetup();
+		final SetupData.ElementListSort newElementListSort;
+		switch (navigatorSortSelect.getSelectedIndex()) {
+		case 0: newElementListSort=SetupData.ElementListSort.SORT_BY_IDS; break;
+		case 1: newElementListSort=SetupData.ElementListSort.SORT_BY_NAMES; break;
+		default: newElementListSort=SetupData.ElementListSort.SORT_BY_IDS; break;
+		}
+		if (	setup.elementListSort!=newElementListSort) {
+			setup.elementListSort=newElementListSort;
+			setup.saveSetup();
+		}
 
 		final List<ModelElementBox> boxElements=surface.getElements().stream()
 				.filter(element->surface.isVisibleOnLayer(element))
