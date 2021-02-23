@@ -1893,7 +1893,7 @@ public final class EditorPanel extends EditorPanelBase {
 	 */
 	public BufferedImage getExportImage() {
 		final SetupData setup=SetupData.getSetup();
-		final BufferedImage image=surfacePanel.getImage(setup.imageSize,setup.imageSize);
+		final BufferedImage image=surfacePanel.getImageMinSize(setup.imageSize,setup.imageSize);
 		final Graphics g=image.getGraphics();
 		g.setClip(0,0,setup.imageSize,setup.imageSize);
 		return image;

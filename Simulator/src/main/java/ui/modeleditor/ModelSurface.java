@@ -890,8 +890,8 @@ public final class ModelSurface {
 		for (ModelElement element : elements) {
 			final Point point=element.getPosition(true);
 			if (point!=null) {
-				upperLeft.x=FastMath.min(upperLeft.x,point.x);
-				upperLeft.y=FastMath.min(upperLeft.y,point.y);
+				if (point.x>=0) upperLeft.x=FastMath.min(upperLeft.x,point.x);
+				if (point.y>=0) upperLeft.y=FastMath.min(upperLeft.y,point.y);
 			}
 		}
 

@@ -1418,8 +1418,8 @@ public final class ModelSurfacePanel extends JPanel {
 	/**
 	 * Liefert die Zeichenfläche als Bilddatei.<br>
 	 * Das Bild wird unter Beibehaltung des Seitenverhältnisses
-	 * auf die angegebene Größe skaliert. Beim Sklieren nach oben
-	 * wird jedoch der angegebene maximale Zoomfaktor nicht überschirtten.
+	 * auf die angegebene Größe skaliert. Beim Skalieren nach oben
+	 * wird jedoch der angegebene maximale Zoomfaktor nicht überschritten.
 	 * @param xSize	Größe in x-Richtung (werden für die x- und die y-Größe Werte kleiner oder gleich 0 angegeben, so wird die tatsächliche Größe verwendet)
 	 * @param ySize	Größe in y-Richtung (werden für die x- und die y-Größe Werte kleiner oder gleich 0 angegeben, so wird die tatsächliche Größe verwendet)
 	 * @param maxZoomFactor	Maximaler Zoomfaktor (oder &lt;0, wenn keine Begrenzung nach oben erfolgen soll)
@@ -1444,6 +1444,52 @@ public final class ModelSurfacePanel extends JPanel {
 
 		double imageZoom=Math.min(xSize/((double)xDraw),ySize/((double)yDraw));
 		if (maxZoomFactor>0 && imageZoom>maxZoomFactor) imageZoom=maxZoomFactor;
+
+		final int xSurfaceImage=(int)Math.ceil(p2.x*imageZoom);
+		final int ySurfaceImage=(int)Math.ceil(p2.y*imageZoom);
+
+		BufferedImage image=new BufferedImage(xSurfaceImage,ySurfaceImage,BufferedImage.TYPE_INT_RGB);
+		Graphics g=image.getGraphics();
+		g.setClip(0,0,xSurfaceImage,ySurfaceImage);
+		((Graphics2D)g).setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING,RenderingHints.VALUE_TEXT_ANTIALIAS_DEFAULT);
+		surface.drawToGraphics(g,new Rectangle(0,0,xSurfaceImage,ySurfaceImage),imageZoom,ModelSurface.BackgroundImageMode.OFF,true,ModelSurface.Grid.OFF,null,null,null,1.0,false);
+		if (additionalUserPaint!=null) {
+			g.setClip(new Rectangle(0,0,xSurfaceImage,ySurfaceImage));
+			additionalUserPaint.paint(g,imageZoom);
+		}
+
+		final int xRemove=(int)Math.round(p1.x*imageZoom);
+		final int yRemove=(int)Math.round(p1.y*imageZoom);
+
+		return image.getSubimage(xRemove,yRemove,xSurfaceImage-xRemove,ySurfaceImage-yRemove);
+	}
+
+	/**
+	 * Liefert die Zeichenfläche als Bilddatei.<br>
+	 * Das Bild wird unter Beibehaltung des Seitenverhältnisses
+	 * ggf. auf die angegebene Größe hochskaliert.
+	 * @param xSize	Größe in x-Richtung (werden für die x- und die y-Größe Werte kleiner oder gleich 0 angegeben, so wird die tatsächliche Größe verwendet)
+	 * @param ySize	Größe in y-Richtung (werden für die x- und die y-Größe Werte kleiner oder gleich 0 angegeben, so wird die tatsächliche Größe verwendet)
+	 * @return	Bild-Objekt
+	 */
+	public BufferedImage getImageMinSize(int xSize, int ySize) {
+		final Point p1=surface.getUpperLeftModelCorner();
+		final Point p2=surface.getLowerRightModelCorner();
+
+		p1.x=Math.max(0,p1.x-2);
+		p1.y=Math.max(0,p1.y-2);
+		p2.x++;
+		p2.y++;
+
+		final int xDraw=p2.x-p1.x;
+		final int yDraw=p2.y-p1.y;
+
+		if (xSize<=0 && ySize<=0) {
+			xSize=xDraw;
+			ySize=yDraw;
+		}
+
+		double imageZoom=Math.max(xSize/((double)xDraw),ySize/((double)yDraw));
 
 		final int xSurfaceImage=(int)Math.ceil(p2.x*imageZoom);
 		final int ySurfaceImage=(int)Math.ceil(p2.y*imageZoom);
