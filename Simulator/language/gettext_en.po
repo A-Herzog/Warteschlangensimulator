@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-02-22 13:50+0100\n"
+"POT-Creation-Date: 2021-02-24 22:06+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -24255,6 +24255,12 @@ msgstr "Last client leave: %s"
 msgid "Surface.PopupMenu.SimulationStatisticsData.Data.LastLeaveByClientType"
 msgstr "Last client leave of client type \"%s\": %s"
 
+msgid "Surface.PopupMenu.SimulationStatisticsData.EditClient"
+msgstr "Edit client data"
+
+msgid "Surface.PopupMenu.SimulationStatisticsData.EditClient.Error"
+msgstr "The client could not be found in the model."
+
 msgid "Surface.PopupMenu.SimulationStatisticsData.Save"
 msgstr "Save current simulation data..."
 
@@ -24271,12 +24277,6 @@ msgstr "Saves the data as a text file"
 
 msgid "Surface.PopupMenu.SimulationStatisticsData.Tab.AllClients"
 msgstr "All clients"
-
-msgid "Surface.PopupMenu.SimulationStatisticsData.Tab.AllClients.Info"
-msgstr ""
-"Since updating the list of clients at the station requires going through the<br>\n"
-"entire list of clients in the system, this list is not automatically updated<br>\n"
-"with the other data, but must be updated manually."
 
 msgid "Surface.PopupMenu.SimulationStatisticsData.Tab.AllClients.Info.Plural"
 msgstr "%s clients are at the stations."
@@ -24305,11 +24305,35 @@ msgstr "Costs"
 msgid "Surface.PopupMenu.SimulationStatisticsData.Tab.WaitingClients.Costs.Process"
 msgstr "Process time costs"
 
+msgid "Surface.PopupMenu.SimulationStatisticsData.Tab.WaitingClients.Costs.Process.ErrorInfo"
+msgstr ""
+"The specified process time costs \"%s\" are invalid.\n"
+"A number has to be specified."
+
+msgid "Surface.PopupMenu.SimulationStatisticsData.Tab.WaitingClients.Costs.Process.ErrorTitle"
+msgstr "Invalid process time costs"
+
 msgid "Surface.PopupMenu.SimulationStatisticsData.Tab.WaitingClients.Costs.Transfer"
 msgstr "Transfer time costs"
 
+msgid "Surface.PopupMenu.SimulationStatisticsData.Tab.WaitingClients.Costs.Transfer.ErrorInfo"
+msgstr ""
+"The specified transfer time costs \"%s\" are invalid.\n"
+"A number has to be specified."
+
+msgid "Surface.PopupMenu.SimulationStatisticsData.Tab.WaitingClients.Costs.Transfer.ErrorTitle"
+msgstr "Invalid transfer time costs"
+
 msgid "Surface.PopupMenu.SimulationStatisticsData.Tab.WaitingClients.Costs.Waiting"
 msgstr "Waiting time costs"
+
+msgid "Surface.PopupMenu.SimulationStatisticsData.Tab.WaitingClients.Costs.Waiting.ErrorInfo"
+msgstr ""
+"The specified waiting time costs \"%s\" are invalid.\n"
+"A number has to be specified."
+
+msgid "Surface.PopupMenu.SimulationStatisticsData.Tab.WaitingClients.Costs.Waiting.ErrorTitle"
+msgstr "Invalid waiting time costs"
 
 msgid "Surface.PopupMenu.SimulationStatisticsData.Tab.WaitingClients.CurrentStation"
 msgstr "Current station"
@@ -24329,6 +24353,67 @@ msgstr "text-based client data fields"
 msgid "Surface.PopupMenu.SimulationStatisticsData.Tab.WaitingClients.Field.Text.Short"
 msgstr "Text-based data fields"
 
+msgid "Surface.PopupMenu.SimulationStatisticsData.Tab.WaitingClients.FieldTable.Add"
+msgstr "Add record"
+
+msgid "Surface.PopupMenu.SimulationStatisticsData.Tab.WaitingClients.FieldTable.ColumnKey"
+msgstr "Keys"
+
+msgid "Surface.PopupMenu.SimulationStatisticsData.Tab.WaitingClients.FieldTable.ColumnValue"
+msgstr "Values"
+
+msgid "Surface.PopupMenu.SimulationStatisticsData.Tab.WaitingClients.FieldTable.Delete"
+msgstr "Delete record"
+
+msgid "Surface.PopupMenu.SimulationStatisticsData.Tab.WaitingClients.FieldTable.Delete.Info"
+msgstr "Do you really want to delete record \"%s\"?"
+
+msgid "Surface.PopupMenu.SimulationStatisticsData.Tab.WaitingClients.FieldTable.Delete.InfoNo"
+msgstr "Keep record."
+
+msgid "Surface.PopupMenu.SimulationStatisticsData.Tab.WaitingClients.FieldTable.Delete.InfoYes"
+msgstr "Delete record."
+
+msgid "Surface.PopupMenu.SimulationStatisticsData.Tab.WaitingClients.FieldTable.Edit"
+msgstr "Edit record"
+
+msgid "Surface.PopupMenu.SimulationStatisticsData.Tab.WaitingClients.FieldTable.EditKey"
+msgstr "Key"
+
+msgid "Surface.PopupMenu.SimulationStatisticsData.Tab.WaitingClients.FieldTable.EditKey.ErrorEmpty"
+msgstr "No key was specified."
+
+msgid "Surface.PopupMenu.SimulationStatisticsData.Tab.WaitingClients.FieldTable.EditKey.ErrorNumber"
+msgstr ""
+"The specified key \"%s\" is invalid.\n"
+"A non-negative integer number has to be specified.\n"
+"In addition, the key must not match a key of any other record."
+
+msgid "Surface.PopupMenu.SimulationStatisticsData.Tab.WaitingClients.FieldTable.EditKey.ErrorText"
+msgstr ""
+"The specified key \"%s\" is invalid.\n"
+"The key must not match a key of any other record."
+
+msgid "Surface.PopupMenu.SimulationStatisticsData.Tab.WaitingClients.FieldTable.EditKey.ErrorTitle"
+msgstr "Invalid key"
+
+msgid "Surface.PopupMenu.SimulationStatisticsData.Tab.WaitingClients.FieldTable.EditRecord.Title"
+msgstr "Edit record"
+
+msgid "Surface.PopupMenu.SimulationStatisticsData.Tab.WaitingClients.FieldTable.EditValue"
+msgstr "Value"
+
+msgid "Surface.PopupMenu.SimulationStatisticsData.Tab.WaitingClients.FieldTable.EditValue.ErrorEmpty"
+msgstr "No value was specified."
+
+msgid "Surface.PopupMenu.SimulationStatisticsData.Tab.WaitingClients.FieldTable.EditValue.ErrorNumber"
+msgstr ""
+"The specified value \"%s\" is invalid.\n"
+"A number has to be specified."
+
+msgid "Surface.PopupMenu.SimulationStatisticsData.Tab.WaitingClients.FieldTable.EditValue.ErrorTitle"
+msgstr "Invalid value"
+
 msgid "Surface.PopupMenu.SimulationStatisticsData.Tab.WaitingClients.General"
 msgstr "General"
 
@@ -24340,6 +24425,9 @@ msgstr "Record client to statistics"
 
 msgid "Surface.PopupMenu.SimulationStatisticsData.Tab.WaitingClients.General.IsWarmUp"
 msgstr "Client was created during warm-up phase"
+
+msgid "Surface.PopupMenu.SimulationStatisticsData.Tab.WaitingClients.ID"
+msgstr "ID"
 
 msgid "Surface.PopupMenu.SimulationStatisticsData.Tab.WaitingClients.Icon"
 msgstr "Icon"
@@ -24371,14 +24459,46 @@ msgstr "Times"
 msgid "Surface.PopupMenu.SimulationStatisticsData.Tab.WaitingClients.Times.Process"
 msgstr "Previous process time"
 
+msgid "Surface.PopupMenu.SimulationStatisticsData.Tab.WaitingClients.Times.Process.ErrorInfo"
+msgstr ""
+"The specified process time \"%s\" is invalid.\n"
+"A non-negative number has to be specified."
+
+msgid "Surface.PopupMenu.SimulationStatisticsData.Tab.WaitingClients.Times.Process.ErrorTitle"
+msgstr "Invalid process time"
+
 msgid "Surface.PopupMenu.SimulationStatisticsData.Tab.WaitingClients.Times.Residence"
 msgstr "Previous residence time"
+
+msgid "Surface.PopupMenu.SimulationStatisticsData.Tab.WaitingClients.Times.Residence.ErrorInfo"
+msgstr ""
+"The specified residence time \"%s\" is invalid.\n"
+"A non-negative number has to be specified."
+
+msgid "Surface.PopupMenu.SimulationStatisticsData.Tab.WaitingClients.Times.Residence.ErrorTitle"
+msgstr "Invalid residence time"
 
 msgid "Surface.PopupMenu.SimulationStatisticsData.Tab.WaitingClients.Times.Transfer"
 msgstr "Previous transfer time"
 
+msgid "Surface.PopupMenu.SimulationStatisticsData.Tab.WaitingClients.Times.Transfer.ErrorInfo"
+msgstr ""
+"The specified transfer time \"%s\" is invalid.\n"
+"A non-negative number has to be specified."
+
+msgid "Surface.PopupMenu.SimulationStatisticsData.Tab.WaitingClients.Times.Transfer.ErrorTitle"
+msgstr "Invalid transder time"
+
 msgid "Surface.PopupMenu.SimulationStatisticsData.Tab.WaitingClients.Times.Waiting"
 msgstr "Previous waiting time"
+
+msgid "Surface.PopupMenu.SimulationStatisticsData.Tab.WaitingClients.Times.Waiting.ErrorInfo"
+msgstr ""
+"The specified waiting time \"%s\" is invalid.\n"
+"A non-negative number has to be specified."
+
+msgid "Surface.PopupMenu.SimulationStatisticsData.Tab.WaitingClients.Times.Waiting.ErrorTitle"
+msgstr "Invalid waiting time"
 
 msgid "Surface.PopupMenu.SimulationStatisticsData.Tab.WaitingClients.Title"
 msgstr "Client data"
@@ -29336,6 +29456,12 @@ msgstr "The file format is unknown respectively is not matching to any of the fi
 
 #~ msgid "Surface.AnimationLCD.Dialog.Digits.Error.Title"
 #~ msgstr "Invalid number of digits"
+
+#~ msgid "Surface.PopupMenu.SimulationStatisticsData.Tab.AllClients.Info"
+#~ msgstr ""
+#~ "Since updating the list of clients at the station requires going through the<br>\n"
+#~ "entire list of clients in the system, this list is not automatically updated<br>\n"
+#~ "with the other data, but must be updated manually."
 
 #~ msgid "Surface.Sub.Dialog.NumberInput.Error.Info"
 #~ msgstr "The specified number of inputs in the sub model \"%s\" is invalid. A positive integer number has to be entered."

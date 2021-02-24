@@ -526,7 +526,7 @@ public class ModelElement {
 	 * @param simData	Simulationsdaten (Ist immer <code>!=null</code> bzw. wird nicht aufgerufen, wenn keine Simulationsdaten vorhanden sind)
 	 * @return	Statistikdaten (kann <code>null</code> sein, wenn für das Element keine Statistikdaten angezeigt werden sollen)
 	 */
-	protected synchronized String getAnimationRunTimeStatisticsData(final SimulationData simData) {
+	protected String getAnimationRunTimeStatisticsData(final SimulationData simData) {
 		final SimDataBuilder builder=new SimDataBuilder(simData,getId());
 		if (builder.results!=null) {
 			addInformationToAnimationRunTimeData(builder);
@@ -543,11 +543,13 @@ public class ModelElement {
 	 * @param data	Datenobjekt für die aktuelle Station
 	 * @return	Liste der wartenden Kunden
 	 */
-	private synchronized List<ModelElementAnimationInfoDialog.ClientInfo> getAnimationRunTimeWaitingClientData(final Simulator simulator, final RunModel model, final RunElementDataWithWaitingClients data) {
+	private List<ModelElementAnimationInfoDialog.ClientInfo> getAnimationRunTimeWaitingClientData(final Simulator simulator, final RunModel model, final RunElementDataWithWaitingClients data) {
+		final List<RunDataClient> clients=data.getWaitingClients();
+		if (clients.size()==0) return new ArrayList<>(); /* Die Größe abfragen können wir auch, ohne die Simulation anzuhalten. */
+
 		final boolean wasPaused=simulator.isPaused();
 		if (!wasPaused) simulator.pauseExecutionAndWait();
 		try {
-			final List<RunDataClient> clients=new ArrayList<>(data.getWaitingClients());
 			return ModelElementAnimationInfoDialog.ClientInfo.getList(this.model.animationImages,model,clients);
 		} finally {
 			if (!wasPaused) simulator.resumeExecution();
@@ -562,7 +564,7 @@ public class ModelElement {
 	 * @param id	Stations-ID der Station für die die Kundenliste ermittelt werden soll
 	 * @return	Liste der Kunden
 	 */
-	private synchronized List<ModelElementAnimationInfoDialog.ClientInfo> getAnimationRunTimeAllClientData(final Simulator simulator, final RunModel model, final RunDataClients clients, final int id) {
+	private List<ModelElementAnimationInfoDialog.ClientInfo> getAnimationRunTimeAllClientData(final Simulator simulator, final RunModel model, final RunDataClients clients, final int id) {
 		final boolean wasPaused=simulator.isPaused();
 		if (!wasPaused) simulator.pauseExecutionAndWait();
 		try {
@@ -876,6 +878,7 @@ public class ModelElement {
 
 		Supplier<List<ClientInfo>> clientWaitingInfo=null;
 		Supplier<List<ClientInfo>> clientAllInfo=null;
+		Function<Long,RunDataClient> getRealClient=null;
 		final RunElement element=simData.runModel.elements.get(id);
 
 		if (element!=null) {
@@ -885,9 +888,19 @@ public class ModelElement {
 
 			/* Liste aller Kunden */
 			clientAllInfo=()->getAnimationRunTimeAllClientData(simData.simulator,simData.runModel,simData.runData.clients,id);
+
+			/* Schreibzugriff auf das reale Kundenobjekt */
+			if (simData.simulator.isPaused()) {
+				getRealClient=nr->{
+					final List<RunDataClient> clientsList=simData.runData.clients.requestClientsInUseList();
+					final int size=clientsList.size();
+					for (int i=0;i<size;i++) if (clientsList.get(i).clientNumber==nr) return clientsList.get(i);
+					return null;
+				};
+			}
 		}
 
-		new ModelElementAnimationInfoDialog(owner,getContextMenuElementName()+" (id="+id+")",simData.runModel,()->getAnimationRunTimeStatisticsData(simData),clientWaitingInfo,clientAllInfo);
+		new ModelElementAnimationInfoDialog(owner,getContextMenuElementName()+" (id="+id+")",simData.runModel,model.animationImages,()->getAnimationRunTimeStatisticsData(simData),clientWaitingInfo,clientAllInfo,getRealClient);
 	}
 
 	/**

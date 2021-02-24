@@ -28,6 +28,7 @@ import java.util.Vector;
 
 import javax.swing.BoxLayout;
 import javax.swing.Icon;
+import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JList;
@@ -52,7 +53,7 @@ import ui.images.Images;
 import ui.modeleditor.AnimationImageSource;
 
 /**
- * Zeigt alle Daten zu einem einzelnen wartenden Kunden an
+ * Zeigt alle Daten zu einem einzelnen Kunden an.
  * @author Alexander Herzog
  * @see ModelElementAnimationInfoDialog
  */
@@ -64,16 +65,24 @@ public class ModelElementAnimationInfoClientDialog extends BaseDialog {
 	private static final long serialVersionUID=1193622479235152775L;
 
 	/**
+	 * Soll nach dem Schließen des Dialog der Kundendaten-Editor-Dialog geöffnet werden?
+	 */
+	private boolean showEditorDialog;
+
+	/**
 	 * Konstruktor der Klasse
 	 * @param owner	Übergeordnetes Element
 	 * @param model	Simulationsmodell mit Informationen zu den Stationen usw.
 	 * @param clientInfo	Daten zu dem anzuzeigenden Kunden
 	 * @param isWaitingClientsList	Handelt es sich um einen noch wartenden Kunden?
+	 * @param showEditButton	Soll angeboten werden, den Kundendaten-Editor-Dialog zu öffnen?
 	 */
-	public ModelElementAnimationInfoClientDialog(final Component owner, final RunModel model, final ModelElementAnimationInfoDialog.ClientInfo clientInfo, final boolean isWaitingClientsList) {
+	public ModelElementAnimationInfoClientDialog(final Component owner, final RunModel model, final ModelElementAnimationInfoDialog.ClientInfo clientInfo, final boolean isWaitingClientsList, final boolean showEditButton) {
 		super(owner,Language.tr("Surface.PopupMenu.SimulationStatisticsData.Tab.WaitingClients.Title"));
+		showEditorDialog=false;
 
 		/* GUI */
+		if (showEditButton) addUserButton(Language.tr("Surface.PopupMenu.SimulationStatisticsData.EditClient"),Images.GENERAL_EDIT.getIcon());
 		showCloseButton=true;
 		final JPanel content=createGUI(null);
 		content.setLayout(new BorderLayout());
@@ -89,6 +98,7 @@ public class ModelElementAnimationInfoClientDialog extends BaseDialog {
 		tabOuter.add(tab=new JPanel(),BorderLayout.NORTH);
 		tab.setLayout(new BoxLayout(tab,BoxLayout.PAGE_AXIS));
 		addInfo(tab,Language.tr("Surface.PopupMenu.SimulationStatisticsData.Tab.WaitingClients.RunningNumber"),""+clientInfo.number);
+		addInfo(tab,Language.tr("Surface.PopupMenu.SimulationStatisticsData.Tab.WaitingClients.ID"),""+clientInfo.id);
 		addInfo(tab,Language.tr("Surface.PopupMenu.SimulationStatisticsData.Tab.WaitingClients.ClientType"),""+clientInfo.typeName,"id="+clientInfo.typeId);
 		addInfo(tab,Language.tr("Surface.PopupMenu.SimulationStatisticsData.Tab.WaitingClients.Icon"),clientInfo.getIcon(new AnimationImageSource()));
 
@@ -258,7 +268,6 @@ public class ModelElementAnimationInfoClientDialog extends BaseDialog {
 		}
 
 		return list;
-
 	}
 
 	/**
@@ -334,5 +343,19 @@ public class ModelElementAnimationInfoClientDialog extends BaseDialog {
 		column.setMinWidth(30);
 		column.setPreferredWidth(width+2*spacing);
 		column.setWidth(width+2*spacing);
+	}
+
+	@Override
+	protected void userButtonClick(final int nr, final JButton button) {
+		showEditorDialog=true;
+		close(BaseDialog.CLOSED_BY_OK);
+	}
+
+	/**
+	 * Soll nach dem Schließen des Dialog der Kundendaten-Editor-Dialog geöffnet werden?
+	 * @return	Soll nach dem Schließen des Dialog der Kundendaten-Editor-Dialog geöffnet werden?
+	 */
+	public boolean getShowEditorDialog() {
+		return showEditorDialog;
 	}
 }

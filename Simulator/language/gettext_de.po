@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-02-22 13:50+0100\n"
+"POT-Creation-Date: 2021-02-24 22:06+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -24269,6 +24269,12 @@ msgstr "Letzter Kundenabgang: %s"
 msgid "Surface.PopupMenu.SimulationStatisticsData.Data.LastLeaveByClientType"
 msgstr "Letzter Kundenabgang von Kundentyp \"%s\": %s"
 
+msgid "Surface.PopupMenu.SimulationStatisticsData.EditClient"
+msgstr "Kundendaten bearbeiten"
+
+msgid "Surface.PopupMenu.SimulationStatisticsData.EditClient.Error"
+msgstr "Der Kunde konnte nicht im Modell gefunden werden."
+
 msgid "Surface.PopupMenu.SimulationStatisticsData.Save"
 msgstr "Aktuelle Simulationsdaten speichern..."
 
@@ -24286,12 +24292,6 @@ msgstr "Speichert die Daten als Textdatei"
 
 msgid "Surface.PopupMenu.SimulationStatisticsData.Tab.AllClients"
 msgstr "Alle Kunden"
-
-msgid "Surface.PopupMenu.SimulationStatisticsData.Tab.AllClients.Info"
-msgstr ""
-"Da für eine Aktualisierung der Liste der Kunden an der Station die gesamte Liste<br>\n"
-"der Kunden im System durchlaufen werden muss, wird diese Liste nicht automatisch<br>\n"
-"mit den anderen Daten aktualisiert, sondern muss manuell aktualisiert werden."
 
 msgid "Surface.PopupMenu.SimulationStatisticsData.Tab.AllClients.Info.Plural"
 msgstr "An der Station befinden sich %s Kunden."
@@ -24320,11 +24320,35 @@ msgstr "Kosten"
 msgid "Surface.PopupMenu.SimulationStatisticsData.Tab.WaitingClients.Costs.Process"
 msgstr "Bedienzeitkosten"
 
+msgid "Surface.PopupMenu.SimulationStatisticsData.Tab.WaitingClients.Costs.Process.ErrorInfo"
+msgstr ""
+"Die angegebenen Bedienzeitkosten \"%s\" sind ungültig.\n"
+"Es muss eine Zahl angegeben werden."
+
+msgid "Surface.PopupMenu.SimulationStatisticsData.Tab.WaitingClients.Costs.Process.ErrorTitle"
+msgstr "Ungültige Bedienzeitkosten"
+
 msgid "Surface.PopupMenu.SimulationStatisticsData.Tab.WaitingClients.Costs.Transfer"
 msgstr "Transferzeitkosten"
 
+msgid "Surface.PopupMenu.SimulationStatisticsData.Tab.WaitingClients.Costs.Transfer.ErrorInfo"
+msgstr ""
+"Die angegebenen Transferzeitkosten \"%s\" sind ungültig.\n"
+"Es muss eine Zahl angegeben werden."
+
+msgid "Surface.PopupMenu.SimulationStatisticsData.Tab.WaitingClients.Costs.Transfer.ErrorTitle"
+msgstr "Ungültige Transferzeitkosten"
+
 msgid "Surface.PopupMenu.SimulationStatisticsData.Tab.WaitingClients.Costs.Waiting"
 msgstr "Wartezeitkosten"
+
+msgid "Surface.PopupMenu.SimulationStatisticsData.Tab.WaitingClients.Costs.Waiting.ErrorInfo"
+msgstr ""
+"Die angegebenen Wartezeitkosten \"%s\" sind ungültig.\n"
+"Es muss eine Zahl angegeben werden."
+
+msgid "Surface.PopupMenu.SimulationStatisticsData.Tab.WaitingClients.Costs.Waiting.ErrorTitle"
+msgstr "Ungültige Wartezeitkosten"
 
 msgid "Surface.PopupMenu.SimulationStatisticsData.Tab.WaitingClients.CurrentStation"
 msgstr "Aktuelle Station"
@@ -24344,6 +24368,67 @@ msgstr "textbasierte Kundendatenfelder"
 msgid "Surface.PopupMenu.SimulationStatisticsData.Tab.WaitingClients.Field.Text.Short"
 msgstr "Textbasierte Datenfelder"
 
+msgid "Surface.PopupMenu.SimulationStatisticsData.Tab.WaitingClients.FieldTable.Add"
+msgstr "Datensatz hinzufügen"
+
+msgid "Surface.PopupMenu.SimulationStatisticsData.Tab.WaitingClients.FieldTable.ColumnKey"
+msgstr "Schlüssel"
+
+msgid "Surface.PopupMenu.SimulationStatisticsData.Tab.WaitingClients.FieldTable.ColumnValue"
+msgstr "Werte"
+
+msgid "Surface.PopupMenu.SimulationStatisticsData.Tab.WaitingClients.FieldTable.Delete"
+msgstr "Datensatz löschen"
+
+msgid "Surface.PopupMenu.SimulationStatisticsData.Tab.WaitingClients.FieldTable.Delete.Info"
+msgstr "Soll der Datensatz \"%s\" wirklich gelöscht werden?"
+
+msgid "Surface.PopupMenu.SimulationStatisticsData.Tab.WaitingClients.FieldTable.Delete.InfoNo"
+msgstr "Datensatz beibehalten."
+
+msgid "Surface.PopupMenu.SimulationStatisticsData.Tab.WaitingClients.FieldTable.Delete.InfoYes"
+msgstr "Datensatz löschen."
+
+msgid "Surface.PopupMenu.SimulationStatisticsData.Tab.WaitingClients.FieldTable.Edit"
+msgstr "Datensatz bearbeiten"
+
+msgid "Surface.PopupMenu.SimulationStatisticsData.Tab.WaitingClients.FieldTable.EditKey"
+msgstr "Schlüssel"
+
+msgid "Surface.PopupMenu.SimulationStatisticsData.Tab.WaitingClients.FieldTable.EditKey.ErrorEmpty"
+msgstr "Es wurde kein Schlüssel angegeben."
+
+msgid "Surface.PopupMenu.SimulationStatisticsData.Tab.WaitingClients.FieldTable.EditKey.ErrorNumber"
+msgstr ""
+"Der angegebene Schlüssel \"%s\" ist ungültig.\n"
+"Es muss eine nichtnegative Ganzzahl angegeben werden.\n"
+"Außerdem darf der Schlüssel keinem Schlüssel eines anderen Datensatzes entsprechen."
+
+msgid "Surface.PopupMenu.SimulationStatisticsData.Tab.WaitingClients.FieldTable.EditKey.ErrorText"
+msgstr ""
+"Der angegebene Schlüssel \"%s\" ist ungültig.\n"
+"Der Schlüssel darf keinem Schlüssel eines anderen Datensatzes entsprechen."
+
+msgid "Surface.PopupMenu.SimulationStatisticsData.Tab.WaitingClients.FieldTable.EditKey.ErrorTitle"
+msgstr "Ungültiger Schlüssel."
+
+msgid "Surface.PopupMenu.SimulationStatisticsData.Tab.WaitingClients.FieldTable.EditRecord.Title"
+msgstr "Datensatz bearbeiten"
+
+msgid "Surface.PopupMenu.SimulationStatisticsData.Tab.WaitingClients.FieldTable.EditValue"
+msgstr "Wert"
+
+msgid "Surface.PopupMenu.SimulationStatisticsData.Tab.WaitingClients.FieldTable.EditValue.ErrorEmpty"
+msgstr "Es wurde kein Wert angegeben."
+
+msgid "Surface.PopupMenu.SimulationStatisticsData.Tab.WaitingClients.FieldTable.EditValue.ErrorNumber"
+msgstr ""
+"Der angegebene Wert\"%s\" ist ungültig.\n"
+"Es muss eine Zahl angegeben werden."
+
+msgid "Surface.PopupMenu.SimulationStatisticsData.Tab.WaitingClients.FieldTable.EditValue.ErrorTitle"
+msgstr "Ungültiger Wert"
+
 msgid "Surface.PopupMenu.SimulationStatisticsData.Tab.WaitingClients.General"
 msgstr "Allgemeines"
 
@@ -24355,6 +24440,9 @@ msgstr "Kunde in Statistik erfassen"
 
 msgid "Surface.PopupMenu.SimulationStatisticsData.Tab.WaitingClients.General.IsWarmUp"
 msgstr "Kunde während Einschwingphase erzeugt"
+
+msgid "Surface.PopupMenu.SimulationStatisticsData.Tab.WaitingClients.ID"
+msgstr "ID"
 
 msgid "Surface.PopupMenu.SimulationStatisticsData.Tab.WaitingClients.Icon"
 msgstr "Icon"
@@ -24386,14 +24474,46 @@ msgstr "Zeiten"
 msgid "Surface.PopupMenu.SimulationStatisticsData.Tab.WaitingClients.Times.Process"
 msgstr "Bisherige Bedienzeit"
 
+msgid "Surface.PopupMenu.SimulationStatisticsData.Tab.WaitingClients.Times.Process.ErrorInfo"
+msgstr ""
+"Die angegebenen Bedienzeit \"%s\" ist ungültig.\n"
+"Es muss eine nichtnegative Zahl angegeben werden."
+
+msgid "Surface.PopupMenu.SimulationStatisticsData.Tab.WaitingClients.Times.Process.ErrorTitle"
+msgstr "Ungültige Bedienzeit"
+
 msgid "Surface.PopupMenu.SimulationStatisticsData.Tab.WaitingClients.Times.Residence"
 msgstr "Bisherige Verweilzeit"
+
+msgid "Surface.PopupMenu.SimulationStatisticsData.Tab.WaitingClients.Times.Residence.ErrorInfo"
+msgstr ""
+"Die angegebenen Verweilzeit \"%s\" ist ungültig.\n"
+"Es muss eine nichtnegative Zahl angegeben werden."
+
+msgid "Surface.PopupMenu.SimulationStatisticsData.Tab.WaitingClients.Times.Residence.ErrorTitle"
+msgstr "Ungültige Verweilzeit"
 
 msgid "Surface.PopupMenu.SimulationStatisticsData.Tab.WaitingClients.Times.Transfer"
 msgstr "Bisherige Transferzeit"
 
+msgid "Surface.PopupMenu.SimulationStatisticsData.Tab.WaitingClients.Times.Transfer.ErrorInfo"
+msgstr ""
+"Die angegebenen Transferzeit \"%s\" ist ungültig.\n"
+"Es muss eine nichtnegative Zahl angegeben werden."
+
+msgid "Surface.PopupMenu.SimulationStatisticsData.Tab.WaitingClients.Times.Transfer.ErrorTitle"
+msgstr "Ungültige Transferzeit"
+
 msgid "Surface.PopupMenu.SimulationStatisticsData.Tab.WaitingClients.Times.Waiting"
 msgstr "Bisherige Wartezeit"
+
+msgid "Surface.PopupMenu.SimulationStatisticsData.Tab.WaitingClients.Times.Waiting.ErrorInfo"
+msgstr ""
+"Die angegebenen Wartezeit \"%s\" ist ungültig.\n"
+"Es muss eine nichtnegative Zahl angegeben werden."
+
+msgid "Surface.PopupMenu.SimulationStatisticsData.Tab.WaitingClients.Times.Waiting.ErrorTitle"
+msgstr "Ungültige Wartezeit"
 
 msgid "Surface.PopupMenu.SimulationStatisticsData.Tab.WaitingClients.Title"
 msgstr "Kundendaten"
@@ -29373,6 +29493,12 @@ msgstr "Das Dateiformat wurde nicht erkannt bzw. passt zu keinem Dateiformat die
 
 #~ msgid "Surface.AnimationLCD.Dialog.Digits.Error.Title"
 #~ msgstr "Ungültige Anzahl an Ziffern"
+
+#~ msgid "Surface.PopupMenu.SimulationStatisticsData.Tab.AllClients.Info"
+#~ msgstr ""
+#~ "Da für eine Aktualisierung der Liste der Kunden an der Station die gesamte Liste<br>\n"
+#~ "der Kunden im System durchlaufen werden muss, wird diese Liste nicht automatisch<br>\n"
+#~ "mit den anderen Daten aktualisiert, sondern muss manuell aktualisiert werden."
 
 #~ msgid "Surface.Sub.Dialog.NumberInput.Error.Info"
 #~ msgstr "Der angegebene Wert \"%s\" für die Anzahl an Eingängen in das Untermodell ist ungültig. Es muss eine positive ganze Zahl angegeben werden."

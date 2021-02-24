@@ -20,6 +20,7 @@ import java.awt.Component;
 import java.awt.FlowLayout;
 import java.awt.datatransfer.StringSelection;
 import java.awt.event.ActionListener;
+import java.awt.event.InputEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
@@ -37,6 +38,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.function.Function;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
@@ -87,12 +89,25 @@ public class ModelElementAnimationInfoDialog extends BaseDialog {
 	private Timer timer;
 	/** Simulationsmodell mit Informationen zu den Stationen usw. */
 	private final RunModel model;
+	/** Benutzerdefinierte Animationsicons */
+	private final ModelAnimationImages modelImages;
+
+	/** Tabs über den Bereichen */
+	private final JTabbedPane tabs;
 	/** Anzuzeigender Text im Content-Bereich */
 	private final Supplier<String> info;
 	/** Liste mit an der Station wartenden Kunden abrufen (kann <code>null</code> sein) */
 	private final Supplier<List<ClientInfo>> clientWaitingInfo;
 	/** Liste mit an der Station befindlichen Kunden abrufen (kann <code>null</code> sein) */
 	private final Supplier<List<ClientInfo>> clientInfo;
+	/** Ermöglicht das Abrufen eines tatsächlichen Kunden-Objekts (kann <code>null</code> sein, wenn kein Schreibzugriff auf die realen Kunden möglich ist) */
+	private final Function<Long,RunDataClient> getRealClient;
+	/** Schaltfläche "Kopieren" */
+	private final JButton buttonCopy;
+	/** Schaltfläche "Speichern" */
+	private final JButton buttonSave;
+	/** Schaltfläche "Aktualisieren" */
+	private final JButton buttonUpdate;
 
 	/** Schaltfläche zum Umschalten zwischen automatischer und manueller Aktualisierung */
 	private final JButton buttonAutoUpdate;
@@ -106,38 +121,35 @@ public class ModelElementAnimationInfoDialog extends BaseDialog {
 	private final JTextArea textArea;
 
 	/** Liste der wartenden Kunden */
-	private final JList<JLabel> listWaiting;
-	/** Datenmodell für die Liste der wartenden Kunden */
-	private final DefaultListModel<JLabel> listWaitingModel;
-	/** Liste der Datensätze der wartenden Kunden */
-	private List<ClientInfo> listWaitingData;
+	private final JList<ClientInfo> listWaiting;
 	/** Infozeile zu {@link #listWaiting} */
 	private final JLabel listWaitingInfo;
 
 	/** Liste der Kunden */
-	private final JList<JLabel> listAll;
-	/** Datenmodell für die Liste der Kunden */
-	private final DefaultListModel<JLabel> listAllModel;
-	/** Liste der Datensätze der Kunden */
-	private List<ClientInfo> listAllData;
+	private final JList<ClientInfo> listAll;
 	/** InfoZeile zu {@link #listAll} */
 	private final JLabel listAllInfo;
 
 	/**
 	 * Konstruktor der Klasse <code>ModelElementAnimationInfoDialog</code>
 	 * @param owner	Übergeordnetes Fenster
-	 * @param title	Anzuzeigender Titel
+	 * @param title	Anzuzeigender Titel	 *
 	 * @param model	Simulationsmodell mit Informationen zu den Stationen usw.
+	 * @param modelImages	Benutzerdefinierte Animationsicons
 	 * @param info	Anzuzeigender Text im Content-Bereich
 	 * @param clientWaitingInfo	Optionale Liste mit an der Station wartenden Kunden (kann <code>null</code> sein)
 	 * @param clientInfo	Optionale Liste mit an der Station befindlichen Kunden (kann <code>null</code> sein)
+	 * @param getRealClient	Ermöglicht das Abrufen eines tatsächlichen Kunden-Objekts (kann <code>null</code> sein, wenn kein Schreibzugriff auf die realen Kunden möglich ist)
 	 */
-	public ModelElementAnimationInfoDialog(final Component owner, final String title, final RunModel model, final Supplier<String> info, final Supplier<List<ClientInfo>> clientWaitingInfo, final Supplier<List<ClientInfo>> clientInfo) {
+	@SuppressWarnings("unchecked")
+	public ModelElementAnimationInfoDialog(final Component owner, final String title, final RunModel model, final ModelAnimationImages modelImages, final Supplier<String> info, final Supplier<List<ClientInfo>> clientWaitingInfo, final Supplier<List<ClientInfo>> clientInfo, final Function<Long,RunDataClient> getRealClient) {
 		super(owner,title);
 		this.model=model;
+		this.modelImages=modelImages;
 		this.info=info;
 		this.clientWaitingInfo=clientWaitingInfo;
 		this.clientInfo=clientInfo;
+		this.getRealClient=getRealClient;
 
 		images=new AnimationImageSource();
 		timer=null;
@@ -154,20 +166,18 @@ public class ModelElementAnimationInfoDialog extends BaseDialog {
 		final JToolBar toolbar=new JToolBar();
 		toolbar.setFloatable(false);
 		content.add(toolbar,BorderLayout.NORTH);
-		addButton(toolbar,Language.tr("Dialog.Button.Copy"),Images.EDIT_COPY.getIcon(),Language.tr("Surface.PopupMenu.SimulationStatisticsData.CopyHint"),e->commandCopy());
-		addButton(toolbar,Language.tr("Dialog.Button.Save"),Images.GENERAL_SAVE.getIcon(),Language.tr("Surface.PopupMenu.SimulationStatisticsData.SaveHint"),e->commandSave());
-		toolbar.addSeparator();
-		addButton(toolbar,Language.tr("Surface.PopupMenu.SimulationStatisticsData.Update"),Images.ANIMATION_DATA_UPDATE.getIcon(),Language.tr("Surface.PopupMenu.SimulationStatisticsData.UpdateHint"),e->commandUpdate());
+		buttonCopy=addButton(toolbar,Language.tr("Dialog.Button.Copy"),Images.EDIT_COPY.getIcon(),Language.tr("Surface.PopupMenu.SimulationStatisticsData.CopyHint"),e->commandCopy());
+		buttonSave=addButton(toolbar,Language.tr("Dialog.Button.Save"),Images.GENERAL_SAVE.getIcon(),Language.tr("Surface.PopupMenu.SimulationStatisticsData.SaveHint"),e->commandSave());
+		buttonUpdate=addButton(toolbar,Language.tr("Surface.PopupMenu.SimulationStatisticsData.Update"),Images.ANIMATION_DATA_UPDATE.getIcon(),Language.tr("Surface.PopupMenu.SimulationStatisticsData.UpdateHint"),e->commandUpdate());
 		buttonAutoUpdate=addButton(toolbar,Language.tr("Surface.PopupMenu.SimulationStatisticsData.AutoUpdate"),Images.ANIMATION_DATA_UPDATE_AUTO.getIcon(),Language.tr("Surface.PopupMenu.SimulationStatisticsData.AutoUpdateHint"),e->commandAutoUpdate());
 		buttonUpdateClients=addButton(toolbar,Language.tr("Surface.PopupMenu.SimulationStatisticsData.UpdateClients"),Images.MODELPROPERTIES_CLIENTS.getIcon(),Language.tr("Surface.PopupMenu.SimulationStatisticsData.UpdateClientsHint"),e->commandUpdateClientList());
 		buttonUpdateClients.setVisible(false);
 
 		/* Tabs */
-		final JTabbedPane tabs=new JTabbedPane();
-		content.add(tabs,BorderLayout.CENTER);
+		content.add(tabs=new JTabbedPane(),BorderLayout.CENTER);
 
 		JPanel tab;
-		JPanel line;
+		Object[] data;
 
 		/* Text-Datenfeld */
 		tabs.addTab(Language.tr("Surface.PopupMenu.SimulationStatisticsData.Tab.Data"),tab=new JPanel(new BorderLayout()));
@@ -178,64 +188,24 @@ public class ModelElementAnimationInfoDialog extends BaseDialog {
 		/* Warteschlange */
 		if (clientWaitingInfo==null) {
 			listWaiting=null;
-			listWaitingModel=null;
 			listWaitingInfo=null;
 		} else {
 			tabs.addTab(Language.tr("Surface.PopupMenu.SimulationStatisticsData.Tab.WaitingClients"),tab=new JPanel(new BorderLayout()));
-			tab.add(new JScrollPane(listWaiting=new JList<>(listWaitingModel=new DefaultListModel<>())),BorderLayout.CENTER);
-			listWaiting.setCellRenderer(new JLabelRender());
-			listWaiting.addMouseListener(new MouseAdapter() {
-				@Override
-				public void mouseClicked(MouseEvent e) {
-					if (e.getClickCount()==2 && SwingUtilities.isLeftMouseButton(e)) commandShowWaitingClientData();
-				}
-			});
-			listWaiting.addKeyListener(new KeyAdapter() {
-				@Override
-				public void keyReleased(final KeyEvent e) {
-					if (e.getKeyCode()==KeyEvent.VK_ENTER) {
-						commandShowWaitingClientData();
-						e.consume();
-						return;
-					}
-				}
-			});
-			listWaiting.setPrototypeCellValue(defaultSizeLabel);
-			tab.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)),BorderLayout.SOUTH);
-			line.add(listWaitingInfo=new JLabel());
-			commandUpdateWaitingClientListOnly();
+			data=buildList(tab,true);
+			listWaiting=(JList<ClientInfo>)data[0];
+			listWaitingInfo=(JLabel)data[1];
+			commandUpdateWaitingClientList();
 		}
 
 		/* Allgemeine Kundenliste */
 		if (clientInfo==null) {
 			listAll=null;
-			listAllModel=null;
 			listAllInfo=null;
 		} else {
 			tabs.addTab(Language.tr("Surface.PopupMenu.SimulationStatisticsData.Tab.AllClients"),tab=new JPanel(new BorderLayout()));
-			tab.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)),BorderLayout.NORTH);
-			line.add(new JLabel("<html><body>"+Language.tr("Surface.PopupMenu.SimulationStatisticsData.Tab.AllClients.Info")+"</body></html>"));
-			tab.add(new JScrollPane(listAll=new JList<>(listAllModel=new DefaultListModel<>())),BorderLayout.CENTER);
-			listAll.setCellRenderer(new JLabelRender());
-			listAll.addMouseListener(new MouseAdapter() {
-				@Override
-				public void mouseClicked(MouseEvent e) {
-					if (e.getClickCount()==2 && SwingUtilities.isLeftMouseButton(e)) commandShowClientData();
-				}
-			});
-			listAll.addKeyListener(new KeyAdapter() {
-				@Override
-				public void keyReleased(final KeyEvent e) {
-					if (e.getKeyCode()==KeyEvent.VK_ENTER) {
-						commandShowClientData();
-						e.consume();
-						return;
-					}
-				}
-			});
-			listAll.setPrototypeCellValue(defaultSizeLabel);
-			tab.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)),BorderLayout.SOUTH);
-			line.add(listAllInfo=new JLabel());
+			data=buildList(tab,false);
+			listAll=(JList<ClientInfo>)data[0];
+			listAllInfo=(JLabel)data[1];
 		}
 
 		/* Icons auf den Tabs */
@@ -245,12 +215,68 @@ public class ModelElementAnimationInfoDialog extends BaseDialog {
 		if (clientInfo!=null) tabs.setIconAt(nr++,Images.MODELPROPERTIES_CLIENTS.getIcon());
 
 		/* Dialog starten */
-		tabs.addChangeListener(e->buttonUpdateClients.setVisible(this.clientInfo!=null && tabs.getSelectedIndex()==tabs.getTabCount()-1));
+		tabs.addChangeListener(e->{
+			final int index=tabs.getSelectedIndex();
+			final boolean isAllClientsTab=(this.clientInfo!=null && index==tabs.getTabCount()-1);
+			buttonCopy.setVisible(index==0);
+			buttonSave.setVisible(index==0);
+			buttonUpdate.setVisible(!isAllClientsTab);
+			buttonAutoUpdate.setVisible(!isAllClientsTab);
+			buttonUpdateClients.setVisible(isAllClientsTab);
+		});
 		setMinSizeRespectingScreensize(600,400);
 		setSizeRespectingScreensize(800,600);
 		setLocationRelativeTo(this.owner);
 		setResizable(true);
 		setVisible(true);
+	}
+
+	/**
+	 * Fügt eine Kundenliste in ein Panel ein
+	 * @param parent	Übergeordnetes Panel
+	 * @param isWaitingClientsList	Handelt es sich um wartende Kunden?
+	 * @return	2-elementiges Array aus Liste und aus Label mit weiteren Informationen unter der Liste
+	 */
+	private Object[] buildList(final JPanel parent, final boolean isWaitingClientsList) {
+		/* Neue Liste */
+		final JList<ClientInfo> list;
+		final JLabel info;
+
+		/* Anlegen und einfügen */
+		parent.add(new JScrollPane(list=new JList<>(new DefaultListModel<ClientInfo>())),BorderLayout.CENTER);
+		list.setCellRenderer(new JClientInfoRender(images,isWaitingClientsList));
+		list.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				if (e.getClickCount()==2 && SwingUtilities.isLeftMouseButton(e)) {
+					if (getRealClient!=null && e.getModifiersEx()==InputEvent.CTRL_DOWN_MASK) {
+						commandEditClientData(list);
+					} else {
+						commandShowClientData(list);
+					}
+				}
+			}
+		});
+		list.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyReleased(final KeyEvent e) {
+				if (e.getKeyCode()==KeyEvent.VK_ENTER) {
+					if (getRealClient!=null && e.getModifiersEx()==InputEvent.CTRL_DOWN_MASK) {
+						commandEditClientData(list);
+					} else {
+						commandShowClientData(list);
+					}
+					e.consume();
+					return;
+				}
+			}
+		});
+		list.setPrototypeCellValue(new ClientInfo(null,null,new RunDataClient(0,false,0)));
+		final JPanel line;
+		parent.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)),BorderLayout.SOUTH);
+		line.add(info=new JLabel());
+
+		return new Object[] {list,info};
 	}
 
 	/**
@@ -327,22 +353,31 @@ public class ModelElementAnimationInfoDialog extends BaseDialog {
 		textArea.setSelectionEnd(0);
 
 		/* Kundenliste */
-		commandUpdateWaitingClientListOnly();
+		commandUpdateWaitingClientList();
 	}
 
 	/**
 	 * Befehl: Liste der wartenden Kunden aktualisieren
 	 */
-	private void commandUpdateWaitingClientListOnly() {
+	private void commandUpdateWaitingClientList() {
 		if (clientWaitingInfo==null) return;
 
-		listWaitingData=clientWaitingInfo.get();
-		listWaitingModel.clear();
-		if (listWaitingData!=null) listWaitingData.stream().map(clientInfo->clientInfo.buildLabel(images,true)).forEach(listWaitingModel::addElement);
-		if (listWaitingInfo!=null) {
-			final int size=listWaitingModel.size();
-			listWaitingInfo.setText(String.format((size==1)?Language.tr("Surface.PopupMenu.SimulationStatisticsData.Tab.WaitingClients.Info.Singular"):Language.tr("Surface.PopupMenu.SimulationStatisticsData.Tab.WaitingClients.Info.Plural"),size));
-		}
+		final int index=listWaiting.getSelectedIndex();
+
+		final DefaultListModel<ClientInfo> model=new DefaultListModel<>();
+		new Thread(()->{
+			final List<ClientInfo> list=clientWaitingInfo.get();
+			if (list!=null) list.forEach(model::addElement);
+			SwingUtilities.invokeLater(()->{
+				listWaiting.setModel(model);
+				if (index>=0 && index<model.size()) listWaiting.setSelectedIndex(index);
+
+				if (listWaitingInfo!=null) {
+					final int size=model.size();
+					listWaitingInfo.setText(String.format((size==1)?Language.tr("Surface.PopupMenu.SimulationStatisticsData.Tab.WaitingClients.Info.Singular"):Language.tr("Surface.PopupMenu.SimulationStatisticsData.Tab.WaitingClients.Info.Plural"),size));
+				}
+			});
+		},"ProcessWaitingClientsList").start();
 	}
 
 	/**
@@ -351,24 +386,34 @@ public class ModelElementAnimationInfoDialog extends BaseDialog {
 	private void commandUpdateClientList() {
 		if (clientInfo==null) return;
 
-		listAllData=clientInfo.get();
-		listAllModel.clear();
-		if (listAllData!=null) listAllData.stream().map(clientInfo->clientInfo.buildLabel(images,false)).forEach(listAllModel::addElement);
-		if (listAllInfo!=null) {
-			final int size=listAllModel.size();
-			listAllInfo.setText(String.format((size==1)?Language.tr("Surface.PopupMenu.SimulationStatisticsData.Tab.AllClients.Info.Singular"):Language.tr("Surface.PopupMenu.SimulationStatisticsData.Tab.AllClients.Info.Plural"),size));
-		}
+		final int index=listAll.getSelectedIndex();
+
+		final DefaultListModel<ClientInfo> model=new DefaultListModel<>();
+		new Thread(()->{
+			final List<ClientInfo> list=clientInfo.get();
+			if (list!=null) list.forEach(model::addElement);
+			SwingUtilities.invokeLater(()->{
+				listAll.setModel(model);
+				if (index>=0 && index<model.size()) listAll.setSelectedIndex(index);
+
+				if (listAllInfo!=null) {
+					final int size=model.size();
+					listAllInfo.setText(String.format((size==1)?Language.tr("Surface.PopupMenu.SimulationStatisticsData.Tab.AllClients.Info.Singular"):Language.tr("Surface.PopupMenu.SimulationStatisticsData.Tab.AllClients.Info.Plural"),size));
+				}
+			});
+		},"ProcessAllClientsList").start();
 	}
 
 	/**
-	 * Timer-Task zur Akualisierung der Daten
+	 * Timer-Task zur Aktualisierung der Daten
 	 * @see ModelElementAnimationInfoDialog#commandAutoUpdate()
 	 */
 	private class UpdateTimerTask extends TimerTask {
 		@Override
 		public void run() {
 			if (buttonAutoUpdate.isSelected()) SwingUtilities.invokeLater(()->{
-				commandUpdate();
+				final boolean isAllClientsTab=(clientInfo!=null && tabs.getSelectedIndex()==tabs.getTabCount()-1);
+				if (!isAllClientsTab) commandUpdate();
 				scheduleNextUpdate();
 			});
 		}
@@ -398,26 +443,44 @@ public class ModelElementAnimationInfoDialog extends BaseDialog {
 	}
 
 	/**
-	 * Befehl: Daten zu dem gewählten wartenden Kunden anzeigen
+	 * Befehl: Daten zu dem gewählten (wartenden) Kunden anzeigen
+	 * @param list	Liste aus der der aktuell gewählte Kunde angezeigt werden soll
 	 */
-	private void commandShowWaitingClientData() {
-		final int index=listWaiting.getSelectedIndex();
+	private void commandShowClientData(final JList<ClientInfo> list) {
+		final int index=list.getSelectedIndex();
 		if (index<0) return;
-		if (buttonAutoUpdate.isSelected()) commandAutoUpdate();
 
-		final ClientInfo clientInfo=listWaitingData.get(index);
-		new ModelElementAnimationInfoClientDialog(this,model,clientInfo,true);
+		final ClientInfo clientInfo=list.getModel().getElementAt(index);
+		if (clientInfo==null) return;
+
+		final ModelElementAnimationInfoClientDialog infoDialog=new ModelElementAnimationInfoClientDialog(this,model,clientInfo,list==listWaiting,getRealClient!=null);
+		if (!infoDialog.getShowEditorDialog()) return;
+
+		commandEditClientData(list);
 	}
 
 	/**
-	 * Befehl: Daten zu dem gewählten Kunden anzeigen
+	 * Befehl: Editor zu dem gewählten (wartenden) Kunden anzeigen
+	 * @param list	Liste aus der der aktuell gewählte Kunde bearbeitet werden soll
 	 */
-	private void commandShowClientData() {
-		final int index=listAll.getSelectedIndex();
+	private void commandEditClientData(final JList<ClientInfo> list) {
+		final int index=list.getSelectedIndex();
 		if (index<0) return;
 
-		final ClientInfo clientInfo=listAllData.get(index);
-		new ModelElementAnimationInfoClientDialog(this,model,clientInfo,false);
+		final ClientInfo clientInfo=list.getModel().getElementAt(index);
+		if (clientInfo==null) return;
+
+		final RunDataClient client=getRealClient.apply(clientInfo.number);
+		if (client==null) {
+			MsgBox.error(this,Language.tr("Surface.PopupMenu.SimulationStatisticsData.EditClient"),Language.tr("Surface.PopupMenu.SimulationStatisticsData.EditClient.Error"));
+			return;
+		}
+
+		final ModelElementAnimationEditClientDialog editDialog=new ModelElementAnimationEditClientDialog(this,modelImages,model,client);
+		if (editDialog.getClosedBy()==BaseDialog.CLOSED_BY_OK) {
+			if (list==listWaiting) commandUpdateWaitingClientList();
+			if (list==listAll) commandUpdateClientList();
+		}
 	}
 
 	@Override
@@ -433,6 +496,8 @@ public class ModelElementAnimationInfoDialog extends BaseDialog {
 		/** Benutzerdefinierte Animationsicons */
 		private final ModelAnimationImages animationImages;
 
+		/** ID des Kunden */
+		public final long id;
 		/** Fortlaufende Nummer des Kunden */
 		public final long number;
 		/** Nummer des Kundentyps */
@@ -479,11 +544,12 @@ public class ModelElementAnimationInfoDialog extends BaseDialog {
 		public ClientInfo(final ModelAnimationImages animationImages, final RunModel model, final RunDataClient client)  {
 			this.animationImages=animationImages;
 
+			id=client.hashCode();
 			number=client.clientNumber;
 
 			typeId=client.type;
-			typeName=model.clientTypes[client.type];
-			icon=client.icon;
+			typeName=(model==null)?"A":model.clientTypes[client.type];
+			icon=(client.icon==null)?"":client.icon;
 
 			isWarmUp=client.isWarmUp;
 			inStatistics=client.inStatistics;
@@ -493,17 +559,17 @@ public class ModelElementAnimationInfoDialog extends BaseDialog {
 
 			currentPosition=client.nextStationID;
 
-			waitingTime=client.waitingTime;
-			transferTime=client.transferTime;
-			processTime=client.processTime;
-			residenceTime=client.residenceTime;
+			waitingTime=client.waitingTime/1000.0;
+			transferTime=client.transferTime/1000.0;
+			processTime=client.processTime/1000.0;
+			residenceTime=client.residenceTime/1000.0;
 
 			waitingCosts=client.waitingAdditionalCosts;
 			transferCosts=client.transferAdditionalCosts;
 			processCosts=client.processAdditionalCosts;
 
 			clientData=new HashMap<>();
-			for (int i=0;i<client.getMaxUserDataIndex();i++) {
+			for (int i=0;i<=client.getMaxUserDataIndex();i++) {
 				final double value=client.getUserData(i);
 				if (value!=0.0) clientData.put(i,value);
 			}
@@ -522,11 +588,15 @@ public class ModelElementAnimationInfoDialog extends BaseDialog {
 		 */
 		public JLabel buildLabel(final AnimationImageSource images, final boolean isWaitingClientsList) {
 			final StringBuilder text=new StringBuilder();
+
 			text.append("<html><body>");
 
 			text.append(Language.tr("Surface.PopupMenu.SimulationStatisticsData.Tab.WaitingClients.RunningNumber"));
 			text.append(": <b>");
 			text.append(number);
+			text.append("</b>, ");
+			text.append("id=<b>");
+			text.append(id);
 			text.append("</b>, ");
 			text.append(Language.tr("Surface.PopupMenu.SimulationStatisticsData.Tab.WaitingClients.ClientType"));
 			text.append(": <b>");
@@ -586,21 +656,40 @@ public class ModelElementAnimationInfoDialog extends BaseDialog {
 	}
 
 	/**
-	 * Renderer für die Einträge der Liste der wartenden Kunden {@link #list()}
+	 * Renderer für die Einträge der Liste der (wartenden) Kunden
+	 * @see ModelElementAnimationInfoDialog#listWaiting
+	 * @see ModelElementAnimationInfoDialog#listAll
 	 */
-	private static class JLabelRender implements ListCellRenderer<JLabel> {
+	private static class JClientInfoRender implements ListCellRenderer<ClientInfo> {
+		/** Objekt welches die Icons für die Animation vorhält */
+		private final AnimationImageSource images;
+		/** Handelt es sich um wartende Kunden? */
+		private final boolean isWaitingClientsList;
+
+		/**
+		 * Konstruktor der Klasse
+		 * @param images	Objekt welches die Icons für die Animation vorhält
+		 * @param isWaitingClientsList	Handelt es sich um wartende Kunden?
+		 */
+		public JClientInfoRender(final AnimationImageSource images, final boolean isWaitingClientsList) {
+			this.images=images;
+			this.isWaitingClientsList=isWaitingClientsList;
+		}
+
 		@Override
-		public Component getListCellRendererComponent(JList<? extends JLabel> list, JLabel value, int index, boolean isSelected, boolean cellHasFocus) {
+		public Component getListCellRendererComponent(JList<? extends ClientInfo> list, ClientInfo value, int index, boolean isSelected, boolean cellHasFocus) {
+			final JLabel label=value.buildLabel(images,isWaitingClientsList);
+
 			if (isSelected) {
-				value.setBackground(list.getSelectionBackground());
-				value.setForeground(list.getSelectionForeground());
-				value.setOpaque(true);
+				label.setBackground(list.getSelectionBackground());
+				label.setForeground(list.getSelectionForeground());
+				label.setOpaque(true);
 			} else {
-				value.setBackground(list.getBackground());
-				value.setForeground(list.getForeground());
-				value.setOpaque(false);
+				label.setBackground(list.getBackground());
+				label.setForeground(list.getForeground());
+				label.setOpaque(false);
 			}
-			return value;
+			return label;
 		}
 	}
 }

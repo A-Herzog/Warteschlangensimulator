@@ -527,6 +527,17 @@ public class RunDataClient {
 	}
 
 	/**
+	 * Ersetzt die Werte der Nutzerdaten-Text-Felder.
+	 * @param data	Zuordnung, die auf den Kunden übertragen werden soll.
+	 */
+	public void setUserDataStringsReplace(final Map<String,String> data) {
+		if (userDataStrings==null) userDataStrings=new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
+		userDataStrings.clear();
+		if (data==null) return;
+		userDataStrings.putAll(data);
+	}
+
+	/**
 	 * Liefert den Namen des Kunden (bestehend aus Typenname und ID) für das Logging
 	 * @param simData	Simulationsdatenobjekt
 	 * @return	Bezeichner dieses Kunden fürs Logging
