@@ -21,7 +21,9 @@ import java.io.Serializable;
 
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
+
+import org.fife.ui.rsyntaxtextarea.RSyntaxTextArea;
+import org.fife.ui.rsyntaxtextarea.SyntaxConstants;
 
 import language.Language;
 import systemtools.BaseDialog;
@@ -42,18 +44,27 @@ public class ModelSecurityCheckScriptDialog extends BaseDialog {
 	 * Konstruktor der Klasse
 	 * @param owner	Übergeordnetes visuelles Element (zur Ausrichtung des Dialogs)
 	 * @param stationName	Name der Station
+	 * @param scriptType	Skriptsprache (für passendes Syntax-Highlighting)
 	 * @param script	Anzuzeigendes Skript
 	 * @param help	Hilfe-Runnable
 	 */
-	public ModelSecurityCheckScriptDialog(final Component owner, final String stationName, final String script, final Runnable help) {
+	public ModelSecurityCheckScriptDialog(final Component owner, final String stationName, final ModelSecurityCheckDialog.CriticalType scriptType, final String script, final Runnable help) {
 		super(owner,Language.tr("ModelSecurityCheck.ScriptViewer")+" - "+stationName);
 
 		showCloseButton=true;
 		final JPanel content=createGUI(help);
 		content.setLayout(new BorderLayout());
-		final JTextArea viewer=new JTextArea(script);
-		viewer.setEditable(false);
-		content.add(new JScrollPane(viewer),BorderLayout.CENTER);
+
+		final RSyntaxTextArea editor=new RSyntaxTextArea();
+		editor.setText(script);
+		editor.setEditable(false);
+
+		switch (scriptType) {
+		case SCRIPT_JAVASCRIPT: editor.setSyntaxEditingStyle(SyntaxConstants.SYNTAX_STYLE_JAVASCRIPT); break;
+		case SCRIPT_JAVA: editor.setSyntaxEditingStyle(SyntaxConstants.SYNTAX_STYLE_JAVA); break;
+		default: /* Sollte nicht auftreten. Wenn doch, kein Highlighting. */ break;
+		}
+		content.add(new JScrollPane(editor),BorderLayout.CENTER);
 
 		/* Dialog starten */
 		setMinSizeRespectingScreensize(400,550);

@@ -26,6 +26,7 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.SwingUtilities;
 
 import language.Language;
 import simulator.editmodel.EditModel;
@@ -38,6 +39,7 @@ import ui.images.Images;
 import ui.modeleditor.ModelSurface;
 import ui.modeleditor.coreelements.ModelElement;
 import ui.modeleditor.coreelements.ModelElementBox;
+import ui.modeleditor.elements.ElementWithScript;
 import ui.modeleditor.elements.ModelElementDecideJS;
 import ui.modeleditor.elements.ModelElementDisposeWithTable;
 import ui.modeleditor.elements.ModelElementHoldJS;
@@ -101,6 +103,7 @@ public class ModelSecurityCheckDialog extends BaseDialog {
 		setResizable(true);
 		pack();
 		setLocationRelativeTo(getOwner());
+		SwingUtilities.invokeLater(()->focusOkButton());
 		setVisible(true);
 	}
 
@@ -111,6 +114,9 @@ public class ModelSecurityCheckDialog extends BaseDialog {
 	 * @see #getCriticalElements(ModelSurface)
 	 */
 	private static CriticalElement testElement(final ModelElementBox element) {
+		String script;
+		ElementWithScript.ScriptMode scriptMode;
+
 		if (element instanceof ModelElementOutput) {
 			return new CriticalElement(element,CriticalType.FILE_OUTPUT,((ModelElementOutput)element).getOutputFile());
 		}
@@ -127,19 +133,29 @@ public class ModelSecurityCheckDialog extends BaseDialog {
 			return new CriticalElement(element,CriticalType.FILE_OUTPUT,((ModelElementDisposeWithTable)element).getOutputFile());
 		}
 		if (element instanceof ModelElementSetJS) {
-			return new CriticalElement(element,CriticalType.SCRIPT,((ModelElementSetJS)element).getScript());
+			scriptMode=((ModelElementSetJS)element).getMode();
+			script=((ModelElementSetJS)element).getScript();
+			return new CriticalElement(element,scriptMode,script);
 		}
 		if (element instanceof ModelElementDecideJS) {
-			return new CriticalElement(element,CriticalType.SCRIPT,((ModelElementDecideJS)element).getScript());
+			scriptMode=((ModelElementDecideJS)element).getMode();
+			script=((ModelElementDecideJS)element).getScript();
+			return new CriticalElement(element,scriptMode,script);
 		}
 		if (element instanceof ModelElementHoldJS) {
-			return new CriticalElement(element,CriticalType.SCRIPT,((ModelElementHoldJS)element).getScript());
+			scriptMode=((ModelElementHoldJS)element).getMode();
+			script=((ModelElementHoldJS)element).getScript();
+			return new CriticalElement(element,scriptMode,script);
 		}
 		if (element instanceof ModelElementInputJS) {
-			return new CriticalElement(element,CriticalType.SCRIPT,((ModelElementInputJS)element).getScript());
+			scriptMode=((ModelElementInputJS)element).getMode();
+			script=((ModelElementInputJS)element).getScript();
+			return new CriticalElement(element,scriptMode,script);
 		}
 		if (element instanceof ModelElementOutputJS) {
-			return new CriticalElement(element,CriticalType.SCRIPT,((ModelElementOutputJS)element).getScript());
+			scriptMode=((ModelElementOutputJS)element).getMode();
+			script=((ModelElementOutputJS)element).getScript();
+			return new CriticalElement(element,scriptMode,script);
 		}
 
 		return null;
@@ -200,8 +216,10 @@ public class ModelSecurityCheckDialog extends BaseDialog {
 		DDE_OUTPUT,
 		/** Datenbankausgabe */
 		DB_OUTPUT,
-		/** Scripting */
-		SCRIPT
+		/** Scripting (Javascript) */
+		SCRIPT_JAVASCRIPT,
+		/** Scripting (Java) */
+		SCRIPT_JAVA
 	}
 
 	/**
@@ -250,6 +268,28 @@ public class ModelSecurityCheckDialog extends BaseDialog {
 				stationName=String.format(Language.tr("ModelSecurityCheck.Station.WithName"),station.getName(),station.getId());
 			}
 			this.type=type;
+			this.info=info;
+		}
+
+		/**
+		 * Konstruktor der Klasse
+		 * @param station	Station, die als kritisch eingestuft wurde
+		 * @param type	Was ist daran kritisch?
+		 * @param info	Zusätzliche Beschreibung
+		 */
+		public CriticalElement(final ModelElementBox station, final ElementWithScript.ScriptMode type, final String info) {
+			stationType=station.getTypeName();
+			stationId=station.getId();
+			if (station.getName().trim().isEmpty())	{
+				stationName=String.format(Language.tr("ModelSecurityCheck.Station.NoName"),station.getId());
+			} else {
+				stationName=String.format(Language.tr("ModelSecurityCheck.Station.WithName"),station.getName(),station.getId());
+			}
+			switch (type) {
+			case Javascript: this.type=CriticalType.SCRIPT_JAVASCRIPT; break;
+			case Java: this.type=CriticalType.SCRIPT_JAVA; break;
+			default: this.type=CriticalType.SCRIPT_JAVASCRIPT; break;
+			}
 			this.info=info;
 		}
 	}
@@ -304,7 +344,8 @@ public class ModelSecurityCheckDialog extends BaseDialog {
 				case DB_OUTPUT: return Language.tr("ModelSecurityCheck.CriticalType.DBOutput");
 				case DDE_OUTPUT: return Language.tr("ModelSecurityCheck.CriticalType.DDEOutput");
 				case FILE_OUTPUT: return Language.tr("ModelSecurityCheck.CriticalType.FileOutput");
-				case SCRIPT: return Language.tr("ModelSecurityCheck.CriticalType.Script");
+				case SCRIPT_JAVASCRIPT: return Language.tr("ModelSecurityCheck.CriticalType.Script");
+				case SCRIPT_JAVA: return Language.tr("ModelSecurityCheck.CriticalType.Script");
 				default: return "";
 				}
 			case 4:
@@ -312,17 +353,18 @@ public class ModelSecurityCheckDialog extends BaseDialog {
 				case DB_OUTPUT: return critical.info;
 				case DDE_OUTPUT: return Language.tr("ModelSecurityCheck.CriticalType.DDEOutput.Workbook")+": "+critical.info;
 				case FILE_OUTPUT: return Language.tr("ModelSecurityCheck.CriticalType.FileOutput.FileName")+": "+critical.info;
-				case SCRIPT: return Language.tr("ModelSecurityCheck.CriticalType.Script.Info");
+				case SCRIPT_JAVASCRIPT: return Language.tr("ModelSecurityCheck.CriticalType.Script.Info");
+				case SCRIPT_JAVA: return Language.tr("ModelSecurityCheck.CriticalType.Script.Info");
 				default: return "";
 				}
 			case 5:
-				if (critical.type==CriticalType.SCRIPT) {
+				if (critical.type==CriticalType.SCRIPT_JAVASCRIPT || critical.type==CriticalType.SCRIPT_JAVA) {
 					if (button[rowIndex]==null) {
 						button[rowIndex]=new JButton("");
 						button[rowIndex].setIcon(Images.GENERAL_SCRIPT.getIcon());
 						button[rowIndex].setToolTipText(Language.tr("ModelSecurityCheck.CriticalType.Script.Tooltip"));
 						button[rowIndex].addActionListener(e->{
-							new ModelSecurityCheckScriptDialog(ModelSecurityCheckDialog.this,critical.stationType+" - "+critical.stationName,critical.info,help);
+							new ModelSecurityCheckScriptDialog(ModelSecurityCheckDialog.this,critical.stationType+" - "+critical.stationName,critical.type,critical.info,help);
 						});
 					}
 					return button[rowIndex];

@@ -741,6 +741,13 @@ public class BaseDialog extends JDialog {
 	}
 
 	/**
+	 * Fokussiert die "Ok"-Schaltfläche (sofern diese vorhanden ist).
+	 */
+	protected final void focusOkButton() {
+		if (okButton!=null) okButton.requestFocusInWindow();
+	}
+
+	/**
 	 * Liefert eines der per <code>addUserButtons</code> angelegten Nutzer-Schaltflächen zurück
 	 * @param index	Index der Schaltfläche innerhalb der Nutzer-Schaltflächen
 	 * @return	Schaltflächen-Objekt oder <code>null</code>, wenn der Index außerhalb des zulässigen Bereichs liegt.
