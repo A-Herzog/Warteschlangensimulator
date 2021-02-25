@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-02-24 22:06+0100\n"
+"POT-Creation-Date: 2021-02-25 20:58+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -13675,6 +13675,9 @@ msgstr "Speichern erneut versuchen."
 
 msgid "SetupFailure.Title"
 msgstr "Einstellungen speichern fehlgeschlagen"
+
+msgid "SimPrepare.Downloading"
+msgstr "Die Datei wird heruntergeladen."
 
 msgid "SimPrepare.PleaseWait"
 msgstr "Bitte warten..."
@@ -28486,6 +28489,33 @@ msgstr "Anzahl"
 
 msgid "Transporters.Group.RowTitle.Name"
 msgstr "Name"
+
+msgid "URLLoader.Confirm.Info"
+msgstr ""
+"Soll jetzt die Adresse\n"
+"%s\n"
+"aufgerufen werden und die dort vorhandenen Daten heruntergeladen werden?"
+
+msgid "URLLoader.Confirm.InfoNo"
+msgstr "URL nicht aufrufen, keine Daten von dieser Adresse laden."
+
+msgid "URLLoader.Confirm.InfoYes"
+msgstr "URL aufrufen und Daten herunterladen."
+
+msgid "URLLoader.Confirm.Title"
+msgstr "Internetzugriff bestätigen"
+
+msgid "URLLoader.Error.InfoLoad"
+msgstr ""
+"Es ist ein Fehler beim Laden der Daten von\n"
+"%s\n"
+"aufgetreten."
+
+msgid "URLLoader.Error.InfoURLFile"
+msgstr "Der Link konnte nicht verarbeitet werden."
+
+msgid "URLLoader.Error.Title"
+msgstr "Laden fehlgeschlagen"
 
 msgid "UndoRedoSelect.CurrentStep"
 msgstr "Aktueller Zustand"

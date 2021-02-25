@@ -28,6 +28,7 @@ import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.Serializable;
 import java.nio.file.Files;
 import java.util.ArrayList;
@@ -891,6 +892,17 @@ public class ParameterComparePanel extends SpecialPanel {
 	}
 
 	/**
+	 * Versucht eine Datei, die per Drag&amp;Drop auf das Programmfenster gezogen wurde, zu laden
+	 * @param owner	Übergeordnetes Element (zum Ausrichten von Fehlermeldungen)
+	 * @param stream	Zu ladender Stream
+	 * @return	Gibt <code>true</code> zurück, wenn die Datei geladen werden konnte
+	 */
+	public final boolean dragDropLoadFile(final Component owner, final InputStream stream) {
+		if (!allowDispose()) return false;
+		return loadSetup(owner,stream,true);
+	}
+
+	/**
 	 * Prüft, ob die aktuellen Daten verworfen werden dürfen.
 	 * @return	Liefert <code>true</code>, wenn die Parameterreihen-Daten verworfen werden dürfen
 	 */
@@ -923,6 +935,35 @@ public class ParameterComparePanel extends SpecialPanel {
 			return false;
 		}
 
+		return processLoadedSetup(setup,forceLoad);
+	}
+
+	/**
+	 * Versucht eine Parameterreihenkonfiguration zu laden
+	 * @param owner	Übergeordnetes Element (zum Ausrichten von Fehlermeldungen)
+	 * @param stream	Zu ladender Stream
+	 * @param forceLoad	Wird hier <code>true</code> übergeben, so wird das Modell auch dann geladen, wenn es kein simulierbares Basismodell enthält.
+	 * @return	Gibt an, ob das Laden erfolgreich war.
+	 */
+	public boolean loadSetup(final Component owner, final InputStream stream, final boolean forceLoad) {
+		final ParameterCompareSetup setup=new ParameterCompareSetup(null);
+		final String error=setup.loadFromStream(stream);
+		if (error!=null) {
+			MsgBox.error(this,Language.tr("ParameterCompare.Settings.Load.Error"),error);
+			return false;
+		}
+
+		return processLoadedSetup(setup,forceLoad);
+	}
+
+	/**
+	 * Führt Verarbeitungen mit dem geladenen Parameterreihen-Konfigurationsobjekt
+	 * durch und lädt dieses in die GUI.
+	 * @param setup	In die GUI zu ladendes Parameterreihen-Konfigurationsobjekt
+	 * @param forceLoad	Wird hier <code>true</code> übergeben, so wird das Modell auch dann geladen, wenn es kein simulierbares Basismodell enthält.
+	 * @return	Gibt an, ob das Laden erfolgreich war.
+	 */
+	private boolean processLoadedSetup(final ParameterCompareSetup setup, final boolean forceLoad) {
 		final Statistics miniStatistics;
 		if (setup.getEditModel().surface.getElementCount()==0) {
 			miniStatistics=ParameterComparePanel.generateMiniStatistics(this,modelFromEditor,null);

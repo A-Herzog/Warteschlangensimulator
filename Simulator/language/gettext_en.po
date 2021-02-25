@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-02-24 22:06+0100\n"
+"POT-Creation-Date: 2021-02-25 20:58+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -13670,6 +13670,9 @@ msgstr "Retry saving."
 
 msgid "SetupFailure.Title"
 msgstr "Saving settings failed"
+
+msgid "SimPrepare.Downloading"
+msgstr "The file is being downloaded."
 
 msgid "SimPrepare.PleaseWait"
 msgstr "Please wait..."
@@ -28470,6 +28473,32 @@ msgstr "Count"
 
 msgid "Transporters.Group.RowTitle.Name"
 msgstr "Name"
+
+msgid "URLLoader.Confirm.Info"
+msgstr ""
+"Do you want to access\n"
+"%s\n"
+"and download the data available there?"
+
+msgid "URLLoader.Confirm.InfoNo"
+msgstr "Do not visit URL, do not load data from this address."
+
+msgid "URLLoader.Confirm.InfoYes"
+msgstr "Go to URL and download data."
+
+msgid "URLLoader.Confirm.Title"
+msgstr "Confirm Internet access"
+
+msgid "URLLoader.Error.InfoLoad"
+msgstr ""
+"An error occurred while loading the data from\n"
+"%s"
+
+msgid "URLLoader.Error.InfoURLFile"
+msgstr "The link could not be processed."
+
+msgid "URLLoader.Error.Title"
+msgstr "Loading failed"
 
 msgid "UndoRedoSelect.CurrentStep"
 msgstr "Current state"

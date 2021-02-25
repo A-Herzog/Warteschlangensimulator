@@ -33,6 +33,7 @@ import java.awt.event.MouseListener;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.InputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -1151,6 +1152,25 @@ public class OptimizerPanel extends SpecialPanel {
 
 		OptimizerSetup setup=new OptimizerSetup();
 		final String error=setup.loadFromFile(file);
+		if (error!=null) {
+			MsgBox.error(this,Language.tr("Optimizer.Settings.Load.Error"),error);
+			return false;
+		}
+
+		loadSetupToGUI(setup);
+		return true;
+	}
+
+	/**
+	 * Versucht eine Datei, die per Drag&amp;Drop auf das Programmfenster gezogen wurde, zu laden
+	 * @param stream	Zu ladender Stream
+	 * @return	Gibt <code>true</code> zurück, wenn die Datei geladen werden konnte
+	 */
+	public final boolean dragDropLoadFile(final InputStream stream) {
+		if (!allowDispose()) return false;
+
+		OptimizerSetup setup=new OptimizerSetup();
+		final String error=setup.loadFromStream(stream);
 		if (error!=null) {
 			MsgBox.error(this,Language.tr("Optimizer.Settings.Load.Error"),error);
 			return false;

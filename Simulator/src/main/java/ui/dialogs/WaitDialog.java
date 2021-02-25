@@ -43,15 +43,26 @@ import ui.images.Images;
  * Führt eine Methode, die einen String oder ein Objekt zurückliefert, aus und zeigt,
  * wenn die Ausführung länger dauert, einen "Bitte warten"-Dialog an.
  * @author Alexander Herzog
- * @see #workString(Component, Supplier)
- * @see #workObject(Component, Supplier)
+ * @see #workString(Component, Supplier, Mode)
+ * @see #workObject(Component, Supplier, Mode)
+ * @see #workBytes(Component, Supplier, Mode)
  */
-public class SimPrepareDialog extends JDialog {
+public class WaitDialog extends JDialog {
 	/**
 	 * Serialisierungs-ID der Klasse
 	 * @see Serializable
 	 */
 	private static final long serialVersionUID=2337255602031599538L;
+
+	/**
+	 * In dem "Bitte warten"-Dialog anzuzeigender Info-Text
+	 */
+	public enum Mode {
+		/** Das Modell wird vorbereitet. */
+		MODEL_PREPARE,
+		/** Eine Datei wird heruntergeladen. */
+		DOWNLOAD_FILE
+	}
 
 	/**
 	 * Nach einer wie langen Laufzeit des Model-Builder-Threads
@@ -63,10 +74,29 @@ public class SimPrepareDialog extends JDialog {
 	 * Konstruktor der Klasse
 	 * @param owner	Übergeordnetes Element
 	 * @param thread	Thread auf dessen Ende gewartet werden soll
+	 * @param mode	Anzuzeigender Info-Text
 	 */
-	private SimPrepareDialog(final Component owner, final Thread thread) {
+	private WaitDialog(final Component owner, final Thread thread, final Mode mode) {
 		super((owner instanceof Window)?((Window)owner):SwingUtilities.windowForComponent(owner),MainFrame.PROGRAM_NAME,Dialog.ModalityType.DOCUMENT_MODAL);
 		setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+
+		/* Konfiguration des Dialogs */
+		final String infoText;
+		final Images image;
+		switch (mode) {
+		case MODEL_PREPARE:
+			infoText=Language.tr("SimPrepare.Preparing");
+			image=Images.EXTRAS_QUEUE;
+			break;
+		case DOWNLOAD_FILE:
+			infoText=Language.tr("SimPrepare.Downloading");
+			image=Images.HELP_HOMEPAGE;
+			break;
+		default:
+			infoText=Language.tr("SimPrepare.Preparing");
+			image=Images.EXTRAS_QUEUE;
+			break;
+		}
 
 		/* GUI */
 		final Container content=getContentPane();
@@ -79,8 +109,8 @@ public class SimPrepareDialog extends JDialog {
 		JPanel line;
 		JLabel label;
 		top.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
-		line.add(label=new JLabel("<html><body style=\"margin-left: 20px;\">"+"<b>"+Language.tr("SimPrepare.Preparing")+"</b><br>"+Language.tr("SimPrepare.PleaseWait")+"</body></html>"));
-		final URL[] urls=Images.EXTRAS_QUEUE.getURLs();
+		line.add(label=new JLabel("<html><body style=\"margin-left: 20px;\">"+"<b>"+infoText+"</b><br>"+Language.tr("SimPrepare.PleaseWait")+"</body></html>"));
+		final URL[] urls=image.getURLs();
 		label.setIcon(new ImageIcon(urls[urls.length-1]));
 		label.setBorder(BorderFactory.createEmptyBorder(10,5,10,5));
 
@@ -101,17 +131,11 @@ public class SimPrepareDialog extends JDialog {
 	 * "Bitte warten"-Dialog an.
 	 * @param owner	Übergeordnetes Element
 	 * @param worker	Auszuführende Methode
+	 * @param mode	Anzuzeigender Info-Text in dem Dialog
 	 * @return	Rückgabewert der Methode
 	 */
-	public static String workString(final Component owner, final Supplier<String> worker) {
-		final WorkThread<String> thread=new WorkThread<>(worker);
-		thread.start();
-
-		try {thread.join(MS_BEFORE_SHOW_DIALOG);} catch (InterruptedException e) {}
-		if (!thread.isAlive()) return thread.result;
-
-		new SimPrepareDialog(owner,thread);
-		return thread.result;
+	public static String workString(final Component owner, final Supplier<String> worker, final Mode mode) {
+		return new WorkThread<>(worker).startAndWait(owner,mode);
 	}
 
 	/**
@@ -120,25 +144,32 @@ public class SimPrepareDialog extends JDialog {
 	 * "Bitte warten"-Dialog an.
 	 * @param owner	Übergeordnetes Element
 	 * @param worker	Auszuführende Methode
+	 * @param mode	Anzuzeigender Info-Text in dem Dialog
 	 * @return	Rückgabewert der Methode
 	 */
-	public static Object workObject(final Component owner, final Supplier<Object> worker) {
-		final WorkThread<Object> thread=new WorkThread<>(worker);
-		thread.start();
-
-		try {thread.join(MS_BEFORE_SHOW_DIALOG);} catch (InterruptedException e) {}
-		if (!thread.isAlive()) return thread.result;
-
-		new SimPrepareDialog(owner,thread);
-		return thread.result;
+	public static Object workObject(final Component owner, final Supplier<Object> worker, final Mode mode) {
+		return new WorkThread<>(worker).startAndWait(owner,mode);
 	}
 
 	/**
-	 * Hintergrund-Thread in dem die in {@link SimPrepareDialog#workString(Component, Supplier)}
-	 * übergebene Methode ausgeführt wird.
+	 * Führt eine bestimmte Methode, die ein Objekt zurückliefert,
+	 * aus und zeigt, wenn die Ausführung länger dauert, einen
+	 * "Bitte warten"-Dialog an.
+	 * @param owner	Übergeordnetes Element
+	 * @param worker	Auszuführende Methode
+	 * @param mode	Anzuzeigender Info-Text in dem Dialog
+	 * @return	Rückgabewert der Methode
+	 */
+	public static byte[] workBytes(final Component owner, final Supplier<byte[]> worker, final Mode mode) {
+		return new WorkThread<>(worker).startAndWait(owner,mode);
+	}
+
+	/**
+	 * Hintergrund-Thread in dem die übergebene Methode ausgeführt wird.
 	 * @param <T> Rückgabewert der auszuführenden Methode
 	 */
 	private static class WorkThread<T> extends Thread {
+
 		/**
 		 * Auszuführende Methode
 		 */
@@ -147,7 +178,7 @@ public class SimPrepareDialog extends JDialog {
 		/**
 		 * Rückgabewert der Methode
 		 */
-		public T result;
+		private T result;
 
 		/**
 		 * Konstruktor der Klasse
@@ -158,8 +189,22 @@ public class SimPrepareDialog extends JDialog {
 			this.worker=worker;
 		}
 
-		@Override public void run() {
+		@Override
+		public void run() {
 			result=worker.get();
+		}
+
+		/**
+		 * Startet den Thread und wartet auch gleich auf dessen Abschluss.
+		 * @param owner	Übergeordnetes Element
+		 * @param mode	Anzuzeigender Info-Text in dem Dialog
+		 * @return	Rückgabewert der Methode
+		 */
+		public T startAndWait(final Component owner, final Mode mode) {
+			start();
+			try {join(MS_BEFORE_SHOW_DIALOG);} catch (InterruptedException e) {}
+			if (isAlive()) new WaitDialog(owner,this,mode);
+			return result;
 		}
 	}
 }

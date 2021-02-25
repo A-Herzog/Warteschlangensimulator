@@ -39,6 +39,7 @@ import java.lang.management.ThreadMXBean;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Base64;
@@ -106,6 +107,7 @@ import systemtools.statistics.StatisticsBasePanel;
 import tools.ImagePrintable;
 import tools.Notifier;
 import tools.SetupData;
+import tools.URLLoader;
 import tools.UsageStatistics;
 import ui.calculator.CalculatorWindow;
 import ui.calculator.QueueingCalculatorDialog;
@@ -128,7 +130,7 @@ import ui.dialogs.NotesDialog;
 import ui.dialogs.SelectElementByIdDialog;
 import ui.dialogs.SelectExampleDialog;
 import ui.dialogs.SetupDialog;
-import ui.dialogs.SimPrepareDialog;
+import ui.dialogs.WaitDialog;
 import ui.dialogs.StationStatisticsDialog;
 import ui.dialogs.VarianceAnalysisDialog;
 import ui.generator.ModelGeneratorDialog;
@@ -633,7 +635,7 @@ public class MainPanel extends MainPanelBase {
 		addAction("SimulationFindWarmUpSize",e->commandSimulationFindWarmUpSize());
 		addAction("SimulationFindBatchSize",e->commandSimulationFindBatchSize());
 		addAction("SimulationParameterSeriesNew",e->commandSimulationParameterSeriesNew(null));
-		addAction("SimulationParameterSeriesLoad",e->commandSimulationParameterSeriesLoad(null));
+		addAction("SimulationParameterSeriesLoad",e->commandSimulationParameterSeriesLoad(null,null));
 		addAction("SimulationParameterSeriesVariance",e->commandSimulationParameterSeriesVariance());
 		addAction("SimulationScriptRunner",e->commandSimulationScriptRunner());
 		addAction("SimulationOptimizer",e->commandSimulationOptimizer());
@@ -1523,6 +1525,35 @@ public class MainPanel extends MainPanelBase {
 	}
 
 	/**
+	 * Versucht das Modell oder Statistikdaten aus HTML-Daten zu laden
+	 * @param data	Zu ladende Daten
+	 * @return	Liefert <code>true</code>, wenn der Ladevorgang erfolgreich war
+	 */
+	private boolean tryLoadHTML(final byte[] data) {
+		boolean firstLine=true;
+		boolean modelDataFollow=false;
+
+		final String text=new String(data,StandardCharsets.UTF_8);
+		final String[] lines=text.split("\n");
+
+		for (String line: lines) {
+			if (firstLine) {
+				if (!line.trim().equalsIgnoreCase("<!doctype html>")) return false;
+			} else {
+				if (modelDataFollow) {
+					if (!line.trim().startsWith("data:application/xml;base64,")) return false;
+					return processBase64ModelData(null,line.trim().substring("data:application/xml;base64,".length()));
+				} else {
+					if (line.trim().equalsIgnoreCase("QSModel")) modelDataFollow=true;
+				}
+			}
+			firstLine=false;
+		}
+
+		return false;
+	}
+
+	/**
 	 * Reagiert darauf, wenn eine Tabelle per Drag&amp;drop auf dem Programmfenster abgelegt wurde
 	 * und versucht daraus eine Tabellenquelle zu generieren.
 	 * @param file	Abgelegte Datei
@@ -1542,9 +1573,31 @@ public class MainPanel extends MainPanelBase {
 		return true; /* Auch dann true zurückgeben, wenn das Laden vom Nutzer abgebrochen wurde, da ja keine weitere Verarbeitung mehr erfolgen soll. */
 	}
 
+	/**
+	 * Versucht eine URL-Datei zu laden und zu interpretieren.
+	 * @param file	URL-Datei
+	 * @param errorMessageOnFail		Soll im Falle eines Fehlers eine Meldung ausgegeben werden?
+	 * @return	Liefert <code>true</code>, wenn der Ladevorgang erfolgreich war
+	 */
+	private boolean tryLoadURL(final File file, final boolean errorMessageOnFail) {
+		final URLLoader loader=new URLLoader(file);
+		final byte[] data=loader.process(this,errorMessageOnFail);
+		if (data==null) return false;
+
+		/* Modell aus HTML-Datei laden */
+		if (tryLoadHTML(data)) return true;
+
+		/* XML oder json laden */
+		return loadAnyXMLStream(new ByteArrayInputStream(data),errorMessageOnFail);
+	}
+
 	@Override
 	public boolean loadAnyFile(final File file, final Component dropComponent, final Point dropPosition, final boolean errorMessageOnFail) {
 		if (!checkFileExists(file,errorMessageOnFail)) return false;
+
+		if (file.toString().toUpperCase().endsWith(".URL")) {
+			return tryLoadURL(file,errorMessageOnFail);
+		}
 
 		/* Modell aus HTML-Datei laden */
 		if (tryLoadHTML(file)) return true;
@@ -1597,7 +1650,57 @@ public class MainPanel extends MainPanelBase {
 				return ((ParameterComparePanel)currentPanel).dragDropLoadFile(this,file);
 			} else {
 				if (!MsgBox.confirm(getOwnerWindow(),Language.tr("XML.ParameterCompareNotActive.Title"),Language.tr("XML.ParameterCompareNotActive.Info"),Language.tr("XML.ParameterCompareNotActive.YesInfo"),Language.tr("XML.ParameterCompareNotActive.NoInfo"))) return false;
-				return commandSimulationParameterSeriesLoad(file);
+				return commandSimulationParameterSeriesLoad(file,null);
+			}
+		}
+
+		/* Unbekanntes (XML-)Format */
+		if (errorMessageOnFail) MsgBox.error(getOwnerWindow(),Language.tr("XML.LoadErrorTitle"),Language.tr("XML.UnknownFileFormat"));
+
+		return false;
+	}
+
+	/**
+	 * Versucht ein Modell, eine Parameterreihe usw. aus einem xml-Datenstream zu laden
+	 * @param stream	Zu ladender Stream
+	 * @param errorMessageOnFail	Soll im Falle eines Fehlers eine Meldung ausgegeben werden?
+	 * @return	Gibt <code>true</code> zurück, wenn die Datei erfolgreich geladen werden konnte.
+	 */
+	private boolean loadAnyXMLStream(final InputStream stream, final boolean errorMessageOnFail) {
+		final XMLTools xml=new XMLTools(stream);
+		final Element root=xml.load();
+		if (root==null) {
+			if (errorMessageOnFail) MsgBox.error(getOwnerWindow(),Language.tr("XML.LoadErrorTitle"),xml.getError());
+			return false;
+		}
+
+		final String name=root.getNodeName();
+
+		for (String test: new EditModel().getRootNodeNames()) if (name.equalsIgnoreCase(test)) {
+			if (currentPanel!=editorPanel && currentPanel!=statisticsPanel && (welcomePanel==null || currentPanel!=welcomePanel)) return false; /* Nur wenn Hauptpanel aktiv */
+			return commandFileModelLoad(root,null);
+		}
+		for (String test: new Statistics().getRootNodeNames()) if (name.equalsIgnoreCase(test)) {
+			if (currentPanel!=editorPanel && currentPanel!=statisticsPanel && (welcomePanel==null || currentPanel!=welcomePanel)) return false; /* Nur wenn Hauptpanel aktiv */
+			return commandFileStatisticsLoad(root,null);
+		}
+
+		for (String test: new OptimizerSetup().getRootNodeNames()) if (name.equalsIgnoreCase(test)) {
+			if ((currentPanel instanceof OptimizerPanel)) {
+				return ((OptimizerPanel)currentPanel).dragDropLoadFile(stream);
+			} else {
+				if (!MsgBox.confirm(getOwnerWindow(),Language.tr("XML.OptimizerNotActive.Title"),Language.tr("XML.OptimizerNotActive.Info"),Language.tr("XML.OptimizerNotActive.YesInfo"),Language.tr("XML.OptimizerNotActive.NoInfo"))) return false;
+
+				if (!commandSimulationOptimizer()) return false;
+				return ((OptimizerPanel)currentPanel).dragDropLoadFile(stream);
+			}
+		}
+		for (String test: new ParameterCompareSetup(null).getRootNodeNames()) if (name.equalsIgnoreCase(test)) {
+			if ((currentPanel instanceof ParameterComparePanel)) {
+				return ((ParameterComparePanel)currentPanel).dragDropLoadFile(this,stream);
+			} else {
+				if (!MsgBox.confirm(getOwnerWindow(),Language.tr("XML.ParameterCompareNotActive.Title"),Language.tr("XML.ParameterCompareNotActive.Info"),Language.tr("XML.ParameterCompareNotActive.YesInfo"),Language.tr("XML.ParameterCompareNotActive.NoInfo"))) return false;
+				return commandSimulationParameterSeriesLoad(null,stream);
 			}
 		}
 
@@ -2394,7 +2497,7 @@ public class MainPanel extends MainPanelBase {
 		}
 
 		final StartAnySimulator starter=new StartAnySimulator(editModel,logging,loggingIDs,logType);
-		final String error=SimPrepareDialog.workString(this,()->starter.prepare());
+		final String error=WaitDialog.workString(this,()->starter.prepare(),WaitDialog.Mode.MODEL_PREPARE);
 		if (error!=null) {
 			MsgBox.error(getOwnerWindow(),Language.tr("Window.Simulation.ModelIsFaulty"),"<html>"+Language.tr("Window.Simulation.ErrorInitializatingSimulation")+":<br>"+error+"</html>");
 			return null;
@@ -2439,7 +2542,7 @@ public class MainPanel extends MainPanelBase {
 		if (logging!=null) logger.setNextLogger(logging);
 		final Simulator simulator=new Simulator(editModel,logger,loggingIDs,logType);
 
-		String error=SimPrepareDialog.workString(this,()->simulator.prepare());
+		String error=WaitDialog.workString(this,()->simulator.prepare(),WaitDialog.Mode.MODEL_PREPARE);
 		if (error!=null) {
 			if (!externalConnect) MsgBox.error(getOwnerWindow(),Language.tr("Window.Simulation.ModelIsFaulty"),"<html>"+Language.tr("Window.Simulation.ErrorInitializatingSimulation")+":<br>"+error+"</html>");
 			return error;
@@ -2605,7 +2708,7 @@ public class MainPanel extends MainPanelBase {
 		}
 
 		final EditModel editModelFinal=editModel;
-		final Object obj=SimPrepareDialog.workObject(this,()->BackgroundSystem.getBackgroundSystem(editorPanel).getStartedSimulator(editModelFinal,logging,loggingIDs,logType));
+		final Object obj=WaitDialog.workObject(this,()->BackgroundSystem.getBackgroundSystem(editorPanel).getStartedSimulator(editModelFinal,logging,loggingIDs,logType),WaitDialog.Mode.MODEL_PREPARE);
 		if (obj instanceof String) {
 			MsgBox.error(getOwnerWindow(),Language.tr("Window.Simulation.ModelIsFaulty"),"<html>"+Language.tr("Window.Simulation.ErrorInitializatingSimulation")+":<br>"+((String)obj)+"</html>");
 			return;
@@ -2816,7 +2919,7 @@ public class MainPanel extends MainPanelBase {
 	 * @param template	Parameterreihen-Vorlage	(kann <code>null</code> sein)
 	 * @return	Neues Parameterreihen-Panel
 	 * @see #commandSimulationParameterSeriesNew(ui.parameterseries.ParameterCompareTemplatesDialog.TemplateRecord)
-	 * @see #commandSimulationParameterSeriesLoad(File)
+	 * @see #commandSimulationParameterSeriesLoad(File, InputStream)
 	 */
 	private ParameterComparePanel getParameterComparePanel(final EditModel editModel, final Statistics miniStatistics, final ParameterCompareTemplatesDialog.TemplateRecord template) {
 		return new ParameterComparePanel(getOwnerWindow(),editModel,miniStatistics,()->{
@@ -2913,14 +3016,21 @@ public class MainPanel extends MainPanelBase {
 	/**
 	 * Befehl: Simulation - Parameterreihe simulieren - Parameterreihendaten laden
 	 * @param file	Dateiname der zu ladenden Parameterreihe (wird <code>null</code> angegbeben, so wird ein Dateiauswahldialog angezeigt)
+	 * @param stream	Wird ein Wert ungleich <code>null</code> angegeben, so wird die angegebene Datei ignoriert und die Daten werden aus dem Stream geladen
 	 * @return	Liefert <code>true</code>, wenn die Parameterreihenfunktion aktiviert werden konnte
 	 */
-	private boolean commandSimulationParameterSeriesLoad(File file) {
-		if (file==null) file=XMLTools.showLoadDialog(getParent(),Language.tr("ParameterCompare.Settings.Load"));
-		if (file==null) return false;
+	private boolean commandSimulationParameterSeriesLoad(File file, final InputStream stream) {
+		if (stream==null) {
+			if (file==null) file=XMLTools.showLoadDialog(getParent(),Language.tr("ParameterCompare.Settings.Load"));
+			if (file==null) return false;
+		}
 
 		final ParameterComparePanel parameterComparePanel=getParameterComparePanel(editorPanel.getModel(),null,null);
-		if (!parameterComparePanel.loadSetup(this,file,false)) return false;
+		if (stream==null) {
+			if (!parameterComparePanel.loadSetup(this,file,false)) return false;
+		} else {
+			if (!parameterComparePanel.loadSetup(this,stream,false)) return false;
+		}
 
 		checkAutoSave();
 		BackgroundSystem.getBackgroundSystem(editorPanel).stop();
