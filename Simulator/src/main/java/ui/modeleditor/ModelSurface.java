@@ -1372,7 +1372,8 @@ public final class ModelSurface {
 	}
 
 	/**
-	 * Liefert die höchste im Modell auftretenden id
+	 * Liefert die höchste im Modell auftretenden id.<br>
+	 * Sollte immer von der Hauptzeichenfläche aus aufgerufen werden!
 	 * @return	Höchste verwendete id
 	 */
 	public int getMaxId() {
@@ -1394,8 +1395,15 @@ public final class ModelSurface {
 		final ModelSurface temp=getSurfaceFromTransferData(stream);
 
 		/* IDs der einzufügenden Elemente anpassen */
-		int maxId=getMaxId();
-		for (ModelElement element: temp.elements) element.setId(element.getId()+maxId+1);
+		if (temp.elements.size()==1) {
+			final int nextID=getNextFreeId();
+			final ModelElement element=temp.elements.get(0);
+			element.setId(nextID);
+		} else {
+			int maxId;
+			if (parentSurface!=null) maxId=parentSurface.getMaxId(); else maxId=getMaxId();
+			for (ModelElement element: temp.elements) element.setId(element.getId()+maxId+1);
+		}
 
 		/* Obere linke Ecke der einzufügenden Elemente bestimmen */
 		Point upperLeft=new Point(ModelSurfacePanel.SIZE,ModelSurfacePanel.SIZE);

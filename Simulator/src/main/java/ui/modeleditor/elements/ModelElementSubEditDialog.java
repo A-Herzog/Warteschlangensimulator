@@ -55,10 +55,6 @@ public class ModelElementSubEditDialog extends BaseDialog {
 	 */
 	private static final long serialVersionUID = -6057942278443843417L;
 
-	/** Element vom Typ <code>EditModel</code> (wird benötigt, um die Liste der globalen Variablen zu laden) */
-	private final EditModel model;
-	/** Surface der obersten Ebene (enthält Ressourcen usw.) */
-	private final ModelSurface mainSurface;
 	/** Editor-Panel in dem das Untermodell bearbeitet werden kann */
 	private final EditorPanel editorPanel;
 
@@ -80,11 +76,9 @@ public class ModelElementSubEditDialog extends BaseDialog {
 		content.setBorder(null);
 		content.setLayout(new BorderLayout());
 
-		this.model=model;
-		this.mainSurface=mainSurface;
 		final EditModel ownModel=model.clone();
 		ownModel.resources=mainSurface.getResources().clone();
-		ownModel.surface=prepareSurface(subSurface,edgesIn,edgesOut);
+		ownModel.surface=subSurface.clone(false,null,null,mainSurface,model);
 
 		content.add(editorPanel=new EditorPanel(this,ownModel,false,readOnly,false,false),BorderLayout.CENTER);
 		editorPanel.setSavedViewsButtonVisible(false);
@@ -142,6 +136,36 @@ public class ModelElementSubEditDialog extends BaseDialog {
 			@Override public void actionPerformed(ActionEvent e) {editorPanel.scrollToTop();}
 		});
 
+		im.put(KeyStroke.getKeyStroke(KeyEvent.VK_F2,0),"templates");
+		am.put("templates",new AbstractAction() {
+			/**
+			 * Serialisierungs-ID der Klasse
+			 * @see Serializable
+			 */
+			private static final long serialVersionUID=1935060801261351379L;
+			@Override public void actionPerformed(ActionEvent e) {editorPanel.setTemplatesVisible(!editorPanel.isTemplatesVisible(),false);}
+		});
+
+		im.put(KeyStroke.getKeyStroke(KeyEvent.VK_F12,0),"navigator");
+		am.put("navigator",new AbstractAction() {
+			/**
+			 * Serialisierungs-ID der Klasse
+			 * @see Serializable
+			 */
+			private static final long serialVersionUID=-2815050201810091625L;
+			@Override public void actionPerformed(ActionEvent e) {editorPanel.setNavigatorVisible(!editorPanel.isNavigatorVisible(),false);}
+		});
+
+		im.put(KeyStroke.getKeyStroke(KeyEvent.VK_F12,InputEvent.CTRL_DOWN_MASK),"explorer");
+		am.put("explorer",new AbstractAction() {
+			/**
+			 * Serialisierungs-ID der Klasse
+			 * @see Serializable
+			 */
+			private static final long serialVersionUID=1935060801261351379L;
+			@Override public void actionPerformed(ActionEvent e) {editorPanel.showExplorer();}
+		});
+
 		setSizeRespectingScreensize(1024,768);
 		setResizable(true);
 		setMinSizeRespectingScreensize(800,600);
@@ -154,13 +178,16 @@ public class ModelElementSubEditDialog extends BaseDialog {
 	}
 
 	/**
-	 * Bereitet die Untermodell-Zeichenfläche vor
+	 * Bereitet die Untermodell-Zeichenfläche vor.
+	 * @param model	Element vom Typ <code>EditModel</code> (wird benötigt, um die Liste der globalen Variablen zu laden)
+	 * @param mainSurface	Surface der obersten Ebene (enthält Ressourcen usw.)
 	 * @param original	Original Untermodell-Zeichenfläche
+	 * @param readOnly	Wird dieser Parameter auf <code>true</code> gesetzt, so wird die "Ok"-Schaltfläche deaktiviert
 	 * @param edgesIn	IDs der von außen einlaufenden Kanten
 	 * @param edgesOut	IDs der nach außen auslaufenden Kanten
 	 * @return	Neue Untermodell-Zeichenfläche
 	 */
-	private ModelSurface prepareSurface(final ModelSurface original, final int[] edgesIn, final int[] edgesOut) {
+	public static ModelSurface prepareSurface(final EditModel model, final ModelSurface mainSurface, final ModelSurface original, final boolean readOnly, final int[] edgesIn, final int[] edgesOut) {
 		ModelSurface prepared=original.clone(false,null,null,mainSurface,model);
 
 		if (!readOnly) {

@@ -377,8 +377,8 @@ public final class ModelElementCatalog {
 				addElement(new ModelElementUserStatistic(null,null),null,GROUP_OTHERS);
 				addElement(new ModelElementAction(null,null),null,GROUP_OTHERS);
 				addElement(new ModelElementSub(null,null),null,GROUP_OTHERS);
-				addElement(new ModelElementSubIn(null,null,0,0));
-				addElement(new ModelElementSubOut(null,null,0,0));
+				addElement(new ModelElementSubIn(null,null,0,-1));
+				addElement(new ModelElementSubOut(null,null,0,-1));
 				addElement(new ModelElementReference(null,null),null,GROUP_OTHERS);
 			} catch (Exception e) {
 				e.printStackTrace();

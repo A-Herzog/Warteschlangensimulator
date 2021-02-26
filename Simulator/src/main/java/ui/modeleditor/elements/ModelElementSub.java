@@ -345,6 +345,9 @@ public class ModelElementSub extends ModelElementBox implements ElementWithNewCl
 
 		final AnimationPanel mainAnimationPanel=surface.getAnimationPanel();
 		if (mainAnimationPanel==null) {
+			/* Verbindungs-Stationen anpassen und bereits vor dem Aufruf des Dialogs in die Zeichenfläche, die von der Hauptzeichenfläche aus erreichbar ist, einfügen. */
+			subSurface=ModelElementSubEditDialog.prepareSurface(getModel(),surface,subSurface,readOnly,idsIn,idsOut);
+
 			/* Bearbeiten */
 			ModelSurface temp=subSurface.clone(false,null,null,subSurface.getParentSurface(),getModel());
 			final ModelElementSubEditDialog dialog=new ModelElementSubEditDialog(owner,getId(),getModel(),surface,subSurface,idsIn,idsOut,readOnly,wasTriggeredViaEditDialog);
@@ -536,6 +539,51 @@ public class ModelElementSub extends ModelElementBox implements ElementWithNewCl
 	}
 
 	/**
+	 * Stellt die Beschriftungen der Connect-Stationen in dem Untermodell ein
+	 * nach dem von außen eine Kante hinzugefügt wurde.
+	 */
+	private void updateConnectionStationNames() {
+		/* IDs der ein- und auslaufenden Kanten */
+		final int[] idsIn=new int[countConnectionsIn];
+		final ModelElementEdge[] edgesIn=getEdgesIn();
+		ModelElement element;
+		for (int i=0;i<countConnectionsIn;i++) {
+			idsIn[i]=-1;
+			if (i>=edgesIn.length) continue;
+			if (edgesIn[i]==null) continue;
+			element=edgesIn[i].getConnectionEnd();
+			if (element!=null) idsIn[i]=element.getId();
+		}
+		final int[] idsOut=new int[countConnectionsOut];
+		final ModelElementEdge[] edgesOut=getEdgesOut();
+		for (int i=0;i<countConnectionsOut;i++) {
+			idsOut[i]=-1;
+			if (i>=edgesOut.length) continue;
+			if (edgesOut[i]==null) continue;
+			element=edgesOut[i].getConnectionEnd();
+			if (element!=null) idsOut[i]=element.getId();
+		}
+
+		/* Beschriftungen der Connect-Stationen im Untermodell anpassen */
+		int countIn=0;
+		int countOut=0;
+		for (ModelElement e: subSurface.getElements()) {
+			if (e instanceof ModelElementSubIn) {
+				countIn++;
+				if (countIn<=edgesIn.length) {
+					((ModelElementSubConnect)e).setConnectionData(countIn-1,idsIn[countIn-1]);
+				}
+			}
+			if (e instanceof ModelElementSubOut) {
+				countOut++;
+				if (countOut<=edgesOut.length) {
+					((ModelElementSubConnect)e).setConnectionData(countOut-1,idsOut[countOut-1]);
+				}
+			}
+		}
+	}
+
+	/**
 	 * Fügt eine einlaufende Kante hinzu.
 	 * @param edge	Hinzuzufügende Kante
 	 * @return	Gibt <code>true</code> zurück, wenn die einlaufende Kante hinzugefügt werden konnte.
@@ -544,6 +592,7 @@ public class ModelElementSub extends ModelElementBox implements ElementWithNewCl
 	public boolean addEdgeIn(ModelElementEdge edge) {
 		if (edge!=null && connectionsIn.indexOf(edge)<0 && connectionsIn.size()<countConnectionsIn) {
 			connectionsIn.add(edge);
+			updateConnectionStationNames();
 			fireChanged();
 			return true;
 		}
@@ -571,6 +620,7 @@ public class ModelElementSub extends ModelElementBox implements ElementWithNewCl
 	public boolean addEdgeOut(ModelElementEdge edge) {
 		if (edge!=null && connectionsOut.indexOf(edge)<0 && connectionsOut.size()<countConnectionsOut) {
 			connectionsOut.add(edge);
+			updateConnectionStationNames();
 			fireChanged();
 			return true;
 		}

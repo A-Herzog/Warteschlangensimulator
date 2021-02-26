@@ -71,6 +71,11 @@ public class ModelElementSubConnect extends ModelElementBox {
 		fireChanged();
 	}
 
+	@Override
+	protected boolean getEqualsIncludesName() {
+		return false;
+	}
+
 	/**
 	 * Überprüft, ob das Element mit dem angegebenen Element inhaltlich identisch ist.
 	 * @param element	Element mit dem dieses Element verglichen werden soll.
@@ -82,7 +87,11 @@ public class ModelElementSubConnect extends ModelElementBox {
 		if (!(element instanceof ModelElementSubConnect)) return false;
 
 		if (((ModelElementSubConnect)element).connectionNr!=connectionNr) return false;
-		if (((ModelElementSubConnect)element).connectionStationID!=connectionStationID) return false;
+		/*
+		 * Das vergleichen wir nicht, da connectionStationID nach dem Kopieren immer erstmal -1 ist und erst später auf einen sinnvollen Wert gesetzt wird.
+		 * Da die Belegung von connectionStationID kanonisch ist, braucht diese nicht für den Vergleich herangezogen werden.
+		 */
+		/* if (((ModelElementSubConnect)element).connectionStationID!=connectionStationID) return false; */
 
 		return true;
 	}

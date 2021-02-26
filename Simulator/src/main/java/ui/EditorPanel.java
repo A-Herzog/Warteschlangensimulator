@@ -1616,7 +1616,7 @@ public final class EditorPanel extends EditorPanelBase {
 		warmUpTime=model.warmUpTime;
 		if (surfacePanel!=null) {
 			surfacePanel.setColors(model.surfaceColors); /* Reihenfolge ist wichtig. setSurface würde bedingt durch fireNotify Farbe von Modell aus surfacePanel überschreiben, daher erst Farbe aus Modell in surfacePanel übertragen. */
-			surfacePanel.setBackgroundImage(model.surfaceBackgroundImage,model.surfaceBackgroundImageScale,(isMainSurface || model.surfaceBackgroundImageInSubModels)?model.surfaceBackgroundImageMode:ModelSurface.BackgroundImageMode.OFF);
+			surfacePanel.setBackgroundImage((isMainSurface || model.surfaceBackgroundImageInSubModels)?model.surfaceBackgroundImage:null,model.surfaceBackgroundImageScale,model.surfaceBackgroundImageMode);
 			surfacePanel.setSurface(model,model.surface.clone(false,model.resources.clone(),model.schedules.clone(),model.surface.getParentSurface(),model),model.clientData,model.sequences);
 		}
 		if (model.surface.getElementCount()>0) setupInfoLabels(true);
