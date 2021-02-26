@@ -56,6 +56,8 @@ public class ModelElementSubAnimationDialog extends BaseDialog implements RunMod
 	private final ModelSurfacePanel surfacePanel;
 	/** Animator-System für {@link #surfacePanel} */
 	private final ModelSurfaceAnimator surfaceAnimator;
+	/** Animations-Panel der Haupt-Zeichenfläche */
+	private final AnimationPanel mainAnimationPanel;
 
 	/**
 	 * Gewählter Delay-Wert
@@ -79,6 +81,7 @@ public class ModelElementSubAnimationDialog extends BaseDialog implements RunMod
 	 */
 	public ModelElementSubAnimationDialog(final Component owner, final ModelSurface mainSurface, final ModelSurface subSurface, final AnimationPanel mainAnimationPanel) {
 		super(owner,Language.tr("Surface.Sub.Dialog.Title"),true);
+		this.mainAnimationPanel=mainAnimationPanel;
 
 		model=mainAnimationPanel.getSimulator().getEditModel();
 
@@ -86,9 +89,9 @@ public class ModelElementSubAnimationDialog extends BaseDialog implements RunMod
 		content.setBorder(null);
 		content.setLayout(new BorderLayout());
 		content.add(new JScrollPane(surfacePanel=new ModelSurfacePanel(true,false)),BorderLayout.CENTER);
-
+		surfacePanel.setColors(model.surfaceColors);
+		surfacePanel.setBackgroundImage(model.surfaceBackgroundImageInSubModels?model.surfaceBackgroundImage:null,model.surfaceBackgroundImageScale,model.surfaceBackgroundImageMode);
 		surfacePanel.setSurface(model,subSurface,model.clientData,model.sequences);
-		surfacePanel.setBackgroundImage(model.surfaceBackgroundImage,model.surfaceBackgroundImageScale,model.surfaceBackgroundImageInSubModels?model.surfaceBackgroundImageMode:ModelSurface.BackgroundImageMode.OFF);
 		final SetupData setup=SetupData.getSetup();
 		surfaceAnimator=new ModelSurfaceAnimator(null,surfacePanel,model.animationImages,ModelSurfaceAnimator.AnimationMoveMode.MODE_MULTI,setup.useMultiCoreAnimation,setup.animateResources);
 		surfaceAnimator.calcSurfaceSize();
@@ -97,6 +100,8 @@ public class ModelElementSubAnimationDialog extends BaseDialog implements RunMod
 		setMinSizeRespectingScreensize(800,600);
 		setResizable(true);
 		setLocationRelativeTo(this.owner); /* this.owner==ownerWindow; owner==nur JPanel oder sowas */
+
+		updateViewer(mainAnimationPanel.getSimData());
 	}
 
 	@Override
@@ -119,7 +124,16 @@ public class ModelElementSubAnimationDialog extends BaseDialog implements RunMod
 	public boolean updateViewer(SimulationData simData, RunDataClient client, boolean moveByTransport) {
 		surfacePanel.setAnimationSimulationData(simData);
 
-		long currentTime=System.currentTimeMillis();
+		if (mainAnimationPanel.isRunning()) {
+			if (surfaceAnimator.breakPointTest(client)) {
+				mainAnimationPanel.playPause();
+				surfaceAnimator.updateSurfaceAnimationDisplayElements(simData,true,false);
+				if (!moveByTransport) surfaceAnimator.process(simData,client,FastMath.min(20,delayInt/4));
+				surfacePanel.repaint();
+			}
+		}
+
+		final long currentTime=System.currentTimeMillis();
 		if (currentTime<=lastUpdateStep+5 && delayInt==0) {
 			surfaceAnimator.updateSurfaceAnimationDisplayElements(simData,false,true);
 			return true;

@@ -859,42 +859,43 @@ public class AnimationPanel extends JPanel implements RunModelAnimationViewer {
 
 	/**
 	 * Zeitpunkt der letzten Statuszeilen-Aktualisierung
-	 * @see #updateStatus(long)
+	 * @see #updateStatus(long, boolean)
 	 */
 	private long lastStatusUpdate;
 
 	/**
-	 * Anzahl an bislang simulierten Kundenankünften beim letzten Aufruf von {@link #updateStatus(long)}
-	 * @see #updateStatus(long)
+	 * Anzahl an bislang simulierten Kundenankünften beim letzten Aufruf von {@link #updateStatus(long, boolean)}
+	 * @see #updateStatus(long, boolean)
 	 */
 	private long lastStatusCurrent;
 
 	/**
 	 * Letzter Zeichenkettenwert für die bislang simulierten Kundenankünfte
 	 * @see #lastStatusCurrent
-	 * @see #updateStatus(long)
+	 * @see #updateStatus(long, boolean)
 	 */
 	private String lastStatusCurrentString;
 
 	/**
-	 * Gesamtanzahl an zu simulierenden Kundenankünften beim letzten Aufruf von {@link #updateStatus(long)}
-	 * @see #updateStatus(long)
+	 * Gesamtanzahl an zu simulierenden Kundenankünften beim letzten Aufruf von {@link #updateStatus(long, boolean)}
+	 * @see #updateStatus(long, boolean)
 	 */
 	private long lastStatusSum;
 
 	/**
 	 * Letzter Zeichenkettenwert für die Gesamtanzahl an zu simulierenden Kundenankünften
-	 * @see #updateStatus(long)
+	 * @see #updateStatus(long, boolean)
 	 */
 	private String lastStatusSumString;
 
 	/**
 	 * Aktualisiert die Anzeige in der Statuszeile
 	 * @param currentTime	Aktuelle Simulationszeit
+	 * @param forceUpdate	Aktualisierung erzwingen? (Sonst erfolgt eine Aktualisierung nur, wenn der zeitliche Abstand (in simulierter Zeit gemessen) zwischen letztem Update und aktuellem Wert groß genug ist)
 	 */
-	private void updateStatus(final long currentTime) {
+	private void updateStatus(final long currentTime, final boolean forceUpdate) {
 		final long time=System.currentTimeMillis();
-		if (time-lastStatusUpdate<20) return;
+		if (time-lastStatusUpdate<20 && !forceUpdate) return;
 		lastStatusUpdate=time;
 
 		long current=0;
@@ -962,7 +963,7 @@ public class AnimationPanel extends JPanel implements RunModelAnimationViewer {
 				try {
 					final long stepTime=lastTimeStep+i*(save_currentTime-lastTimeStep)/steps;
 					simData.currentTime=stepTime;
-					updateStatus(stepTime);
+					updateStatus(stepTime,false);
 					surfaceAnimator.updateSurfaceAnimationDisplayElements(simData,true,false);
 					Thread.sleep(delayMS);
 					if (speedChanged) break;
@@ -972,7 +973,7 @@ public class AnimationPanel extends JPanel implements RunModelAnimationViewer {
 		}
 		speedChanged=false;
 		lastTimeStep=simData.currentTime;
-		updateStatus(simData.currentTime);
+		updateStatus(simData.currentTime,false);
 	}
 
 	@Override
@@ -1000,7 +1001,16 @@ public class AnimationPanel extends JPanel implements RunModelAnimationViewer {
 
 		surfacePanel.setAnimationSimulationData(simData);
 
-		long currentTime=System.currentTimeMillis();
+		if (running) {
+			if (surfaceAnimator.breakPointTest(client)) {
+				playPause();
+				surfaceAnimator.updateSurfaceAnimationDisplayElements(simData,true,false);
+				if (!moveByTransport) surfaceAnimator.process(simData,client,FastMath.min(20,delayInt/4));
+				surfacePanel.repaint();
+			}
+		}
+
+		final long currentTime=System.currentTimeMillis();
 		if (currentTime<=lastUpdateStep+5 && delayInt==0 && encoder==null) {
 			surfaceAnimator.updateSurfaceAnimationDisplayElements(simData,false,true);
 			return true;
@@ -1016,7 +1026,7 @@ public class AnimationPanel extends JPanel implements RunModelAnimationViewer {
 			if (logger==null || !logger.isActive()) {
 				delaySystem(simData,delayInt/4); /* Verzögerungen von einem Ereignis zum nächsten ausschalten im Einzelschrittmodus. */
 			} else {
-				updateStatus(simData.currentTime); /* Aber Statuszeile muss aktualisiert werden. (Passiert sonst in delaySystem.) */
+				updateStatus(simData.currentTime,false); /* Aber Statuszeile muss aktualisiert werden. (Passiert sonst in delaySystem.) */
 			}
 			if (!moveByTransport) surfaceAnimator.process(simData,client,FastMath.min(20,delayInt/4));
 			surfacePanel.repaint(); /* Wichtig, sonst wird im Einzelschrittmodus der letzte Schritt nicht korrekt dargestellt (und Zahlenwerte an den Stationen stimmen nicht!) */
@@ -1058,13 +1068,21 @@ public class AnimationPanel extends JPanel implements RunModelAnimationViewer {
 			if (logger==null || !logger.isActive()) {
 				delaySystem(simData,delayInt/4); /* Verzögerungen von einem Ereignis zum nächsten ausschalten im Einzelschrittmodus. */
 			} else {
-				updateStatus(simData.currentTime); /* Aber Statuszeile muss aktualisiert werden. (Passiert sonst in delaySystem.) */
+				updateStatus(simData.currentTime,false); /* Aber Statuszeile muss aktualisiert werden. (Passiert sonst in delaySystem.) */
 			}
 			surfaceAnimator.process(simData,transporter,FastMath.min(20,delayInt/4));
 		} finally {
 			mutex.release();
 		}
 		return true;
+	}
+
+	/**
+	 * Liefert das Simulationsdatenobjekt (sofern ein solches bereits eingestellt ist).
+	 * @return	Simulationsdatenobjekt
+	 */
+	public SimulationData getSimData() {
+		return simData;
 	}
 
 	/**
@@ -1313,10 +1331,18 @@ public class AnimationPanel extends JPanel implements RunModelAnimationViewer {
 	}
 
 	/**
+	 * Gibt an, ob die Animation momentan läuft.
+	 * @return	Läuft die Animation momentan?
+	 */
+	public boolean isRunning() {
+		return running;
+	}
+
+	/**
 	 * Befehl: Animation anhalten oder fortsetzen
 	 * @see #buttonPlayPause
 	 */
-	private void playPause() {
+	public void playPause() {
 		simulatorLock.acquireUninterruptibly();
 		try {
 			if (running) {
@@ -1330,6 +1356,11 @@ public class AnimationPanel extends JPanel implements RunModelAnimationViewer {
 				if (simulator!=null) simulator.pauseExecution();
 
 				if (timer!=null) {timer.cancel(); timer=null;}
+
+				/* Wichtig, weil sonst das Modell intern weiter sein kann, als die Anzeige. Die Anzeige wird dann beim nächste regulären Repaint aktualisiert, was zu Verwirrungen führen kann. */
+				surfaceAnimator.process(simData,(RunDataClient)null,0);
+				updateStatus(simData.currentTime,true);
+				repaint();
 			} else {
 				/* Play */
 				if (surfaceAnimator!=null) surfaceAnimator.setFullRecording(false);

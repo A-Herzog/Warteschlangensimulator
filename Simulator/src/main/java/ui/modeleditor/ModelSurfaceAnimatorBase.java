@@ -2003,4 +2003,15 @@ public class ModelSurfaceAnimatorBase {
 		}
 		return sb.toString();
 	}
+
+	/**
+	 * Prüft, ob die Bewegung des Kunden einen Halt der Animation auslösen soll.
+	 * @param client	Kunde der sich bewegt hat
+	 * @return	Liefert <code>true</code>, wenn die Animation (sofern sie momentan fortwährend läuft) angehalten werden soll.
+	 */
+	public boolean breakPointTest(final RunDataClient client) {
+		if (client==null) return false;
+
+		return false;
+	}
 }
