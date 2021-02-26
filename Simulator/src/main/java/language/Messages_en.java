@@ -728,6 +728,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[1657] = "Add new layer.";
     t[1658] = "Surface.DistributionByClientTypeEditor.ByType";
     t[1659] = "Individual value for type";
+    t[1660] = "Statistics.Autokorrelation";
+    t[1661] = "Autocorrelation";
     t[1670] = "Surface.UserStatistic.XML.Record";
     t[1671] = "ModelElementUserStatisticsRecord";
     t[1672] = "Statistic.FastAccess.Template.Parameter.Expression";
@@ -2008,14 +2010,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[4801] = "Font";
     t[4802] = "AutoRestore.Dialog.DeleteAllTitle";
     t[4803] = "Clear all saved models";
-    t[4804] = "Main.Menu.Help.Support";
-    t[4805] = "Support";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_1 (java.lang.String[] t) {
+    t[4804] = "Main.Menu.Help.Support";
+    t[4805] = "Support";
     t[4810] = "Examples.RestrictedBuffer";
     t[4811] = "Restricted buffer between the stations";
     t[4812] = "Surface.SourceDB.Dialog.ClientTypes.LoadButton.ReplaceConfirm,InfoNo";
@@ -4014,14 +4016,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[9561] = "Invalid source destination combination";
     t[9564] = "Surface.AnimationRecord.Name";
     t[9565] = "Show recorded data";
-    t[9566] = "Surface.OutputDB.Name";
-    t[9567] = "Database output";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_2 (java.lang.String[] t) {
+    t[9566] = "Surface.OutputDB.Name";
+    t[9567] = "Database output";
     t[9572] = "ModelDescription.Delay.Expression";
     t[9573] = "Delay expression in general case";
     t[9576] = "JDataLoader.ImportErrorTooManyCells";
@@ -6020,14 +6022,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[14471] = "ModelElementCheckbox";
     t[14472] = "Surface.TransportSource.AverageTransportTimeGlobal";
     t[14473] = "Average transport time (global value for all destinations)";
-    t[14484] = "ScriptPopup.Output.SetFile";
-    t[14485] = "Select output file";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_3 (java.lang.String[] t) {
+    t[14484] = "ScriptPopup.Output.SetFile";
+    t[14485] = "Select output file";
     t[14490] = "Editor.Dialog.Sequences.Edit.Assignments.Delete";
     t[14491] = "Delete";
     t[14500] = "ModelLoadData.EditDialog.Title";
@@ -8026,14 +8028,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[19329] = "Limit requests";
     t[19334] = "Schedule.Day.Singular";
     t[19335] = "day";
-    t[19336] = "CommandLine.ResetConfig.Name";
-    t[19337] = "Reset";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_4 (java.lang.String[] t) {
+    t[19336] = "CommandLine.ResetConfig.Name";
+    t[19337] = "Reset";
     t[19342] = "Surface.PopupMenu.ParameterCompare.ChangeTransportTime.Short";
     t[19343] = "Conveyor transport time";
     t[19346] = "Main.Menu.Extras.ExecuteCommand";
@@ -9042,8 +9044,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[21755] = "For the %dth statistic record of id=%d no expression is specified.";
     t[21758] = "ModelDescription.Dialog.Title";
     t[21759] = "Model description";
-    t[21762] = "Statistics.Autokorrelation";
-    t[21763] = "Autocorrelation";
+    t[21762] = "Dialog.OpenURL.CopyURLInfo";
+    t[21763] = "Copy address to clipboard only, do not open web page.";
     t[21764] = "Main.Menu.CheckModel.Mnemonic";
     t[21765] = "C";
     t[21770] = "Surface.AnimationLCD.Dialog.Expression.Error.Title";
@@ -10032,14 +10034,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[24087] = "Filter (Javascript)";
     t[24088] = "ParameterCompare.Table.AddModelByAssistant.Column.InBaseModel";
     t[24089] = "In base model";
-    t[24090] = "Surface.InputJS.Dialog.FileName.Select";
-    t[24091] = "Select input file";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_5 (java.lang.String[] t) {
+    t[24090] = "Surface.InputJS.Dialog.FileName.Select";
+    t[24091] = "Select input file";
     t[24096] = "DistributionFitter.BestFitFor";
     t[24097] = "Best fit for";
     t[24102] = "Statistic.FastAccess.Template.StationCosts";
@@ -12038,14 +12040,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[29051] = "Paste";
     t[29052] = "ParameterCompare.Run.Error.ReadValue";
     t[29053] = "In step %d (model %s) the value of the input parameter %d (%s) could not be read.";
-    t[29054] = "ExpressionBuilder.ElementNoName";
-    t[29055] = "no name defined";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_6 (java.lang.String[] t) {
+    t[29054] = "ExpressionBuilder.ElementNoName";
+    t[29055] = "no name defined";
     t[29056] = "Window.Check.AutoFixConnection.InfoProcessDispose";
     t[29057] = "There is no connection between the process station id=%d and the exit station.\nThis connection can be added automatically.";
     t[29062] = "Optimizer.Tab.Target.Type.XMLElement.Button.Direct";
@@ -12206,6 +12208,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[29449] = "Edit parking lot";
     t[29454] = "Surface.Popup.AddLongRunStatistics.Process";
     t[29455] = "Number of clients in processing at the station";
+    t[29456] = "Dialog.OpenURL.CopyURL";
+    t[29457] = "Copy address";
     t[29460] = "ExpressionBuilder.SimulationCharacteristics.WaitingTimesAtStations.MinimalTime";
     t[29461] = "<p>Returns the minimal duration over all waiting times that have occurred at the station whose ID was specified in the parameter (over all client types).</p>";
     t[29466] = "Surface.Separate.Infotext";
@@ -14042,16 +14046,16 @@ public class Messages_en extends java.util.ResourceBundle {
     t[33899] = "Element";
     t[33908] = "Simulation.Element.DifferentialCounter.Name";
     t[33909] = "Difference counter";
-    t[33912] = "Surface.AnimationBarChart.HistogramWizard.Start";
-    t[33913] = "Starting value for the first bar";
-    t[33916] = "Surface.XML.TransportTransporterSource.ClientPriority";
-    t[33917] = "ModelElementTransporterPriority";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_7 (java.lang.String[] t) {
+    t[33912] = "Surface.AnimationBarChart.HistogramWizard.Start";
+    t[33913] = "Starting value for the first bar";
+    t[33916] = "Surface.XML.TransportTransporterSource.ClientPriority";
+    t[33917] = "ModelElementTransporterPriority";
     t[33922] = "Simulation.Creator.SubEdgeOutNotConnected";
     t[33923] = "The %dth output edge of element id=%d is connected to nothing.";
     t[33924] = "Surface.PopupMenu.QuickFix.Process.MaxBatchSize";
@@ -16048,16 +16052,16 @@ public class Messages_en extends java.util.ResourceBundle {
     t[38687] = "L";
     t[38688] = "Surface.InteractiveSlider.Dialog.MaxValue.ErrorTitle";
     t[38689] = "Invalid maximum value";
-    t[38690] = "PathEditor.ResetAll.ConfirmInfoNo";
-    t[38691] = "Keep connections.";
-    t[38692] = "Surface.PopupMenu.QuickFix.OutputDDE.Col";
-    t[38693] = "Set output column to \"A\"";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_8 (java.lang.String[] t) {
+    t[38690] = "PathEditor.ResetAll.ConfirmInfoNo";
+    t[38691] = "Keep connections.";
+    t[38692] = "Surface.PopupMenu.QuickFix.OutputDDE.Col";
+    t[38693] = "Set output column to \"A\"";
     t[38696] = "Surface.Database.Config.InfoUser";
     t[38697] = "Configuration: user-defined database";
     t[38702] = "Simulation.Creator.InvalidTransportTime";
@@ -18054,16 +18058,16 @@ public class Messages_en extends java.util.ResourceBundle {
     t[43621] = "ModelElementTransportResource";
     t[43624] = "Simulation.Creator.SourceNoName";
     t[43625] = "The clients created by element id=%d have no name.";
-    t[43628] = "Surface.SourceDDE.Name";
-    t[43629] = "Excel DDE source";
-    t[43642] = "Surface.ExpressionTableModel.Dialog.Pie";
-    t[43643] = "Edit pie segment";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_9 (java.lang.String[] t) {
+    t[43628] = "Surface.SourceDDE.Name";
+    t[43629] = "Excel DDE source";
+    t[43642] = "Surface.ExpressionTableModel.Dialog.Pie";
+    t[43643] = "Edit pie segment";
     t[43648] = "Surface.SourceDB.Dialog.Table.ErrorInfo";
     t[43649] = "No table from which the data are to be read has been selected.";
     t[43652] = "Resources.Group.EditName.Dialog.Tab.SetupTimes.Mode.Distribution";

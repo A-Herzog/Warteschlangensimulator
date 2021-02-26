@@ -18,6 +18,8 @@ package systemtools;
 import java.awt.Component;
 import java.io.File;
 
+import javax.swing.Icon;
+
 /**
  * Dieses Interface dient zur Abstraktion verschiedener Backends zur Anzeige von Meldungen gegenüber
  * der statischen Klasse <code>MsgBox</code>.<br>
@@ -26,7 +28,7 @@ import java.io.File;
  * verwendet werden soll.
  * @author Alexander Herzog
  * @see MsgBox
- * @version 1.1
+ * @version 1.2
  */
 public interface MsgBoxBackend {
 	/**
@@ -35,7 +37,7 @@ public interface MsgBoxBackend {
 	 * @param title	Titel der Meldung
 	 * @param message	Anzuzeigende Meldung
 	 */
-	public void info(Component parentComponent, String title, String message);
+	void info(Component parentComponent, String title, String message);
 
 	/**
 	 * Zeigt einen Warnungdialog an.
@@ -43,7 +45,7 @@ public interface MsgBoxBackend {
 	 * @param title	Titel der Meldung
 	 * @param message	Anzuzeigende Meldung
 	 */
-	public void warning(Component parentComponent, String title, String message);
+	void warning(Component parentComponent, String title, String message);
 
 	/**
 	 * Zeigt eine Fehlermeldung an.
@@ -51,7 +53,7 @@ public interface MsgBoxBackend {
 	 * @param title	Titel der Meldung
 	 * @param message	Anzuzeigende Meldung
 	 */
-	public void error(Component parentComponent, String title, String message);
+	void error(Component parentComponent, String title, String message);
 
 	/**
 	 * Zeigt einen Ja/Nein/Abbrechen-Dialog an.
@@ -63,7 +65,7 @@ public interface MsgBoxBackend {
 	 * @param infoCancel	Infotext für die "Abbrechen"-Option (muss nicht von allen Backends verwendet werden)
 	 * @return	Gibt eine der Ja/Nein/Abbrechen-Konstanten aus <code>JOptionPane</code> zurück.
 	 */
-	public int confirm(Component parentComponent, String title, String message, String infoYes, String infoNo, String infoCancel);
+	int confirm(Component parentComponent, String title, String message, String infoYes, String infoNo, String infoCancel);
 
 	/**
 	 * Zeigt einen "Sollen die nicht gespeicherten Daten jetzt gespeichert werden"-Dialog an; verwendet dafür
@@ -73,7 +75,7 @@ public interface MsgBoxBackend {
 	 * @param message	Anzuzeigende Meldung
 	 * @return Gibt eine der Ja/Nein/Abbrechen-Konstanten aus <code>JOptionPane</code> zurück.
 	 */
-	public int confirmSave(Component parentComponent, String title, String message);
+	int confirmSave(Component parentComponent, String title, String message);
 
 	/**
 	 * Zeigt einen Ja/Nein-Dialog an.
@@ -84,7 +86,7 @@ public interface MsgBoxBackend {
 	 * @param infoNo	Infotext für die "Nein"-Option (muss nicht von allen Backends verwendet werden)
 	 * @return	Gibt <code>true</code> zurück, wenn der Dialog mit "Ja" geschlossen wurde.
 	 */
-	public boolean confirm(Component parentComponent, String title, String message, String infoYes, String infoNo);
+	boolean confirm(Component parentComponent, String title, String message, String infoYes, String infoNo);
 
 	/**
 	 * Zeigt eine Abfrage an, ob die angegebene Datei überschrieben werden soll
@@ -92,7 +94,7 @@ public interface MsgBoxBackend {
 	 * @param file	Name der Datei, für die die Abfrage durchgeführt werden soll
 	 * @return	Gibt <code>true</code> zurück, wenn der Nutzer dem Überschreiben zugestimmt hat.
 	 */
-	public boolean confirmOverwrite(Component parentComponent, File file);
+	boolean confirmOverwrite(Component parentComponent, File file);
 
 	/**
 	 * Zeigt einen Auswahldialog mit verschiedenen Optionen an.
@@ -101,7 +103,8 @@ public interface MsgBoxBackend {
 	 * @param message	Anzuzeigende Meldung
 	 * @param options	Texte zu den Optionen
 	 * @param info	Erklärungen zu den Texten zu den Optionen
+	 * @param icons	Icons zu den Optionen (kann ggf. von dem Backend ignoriert werden)
 	 * @return	Gewählte Option (0-basierend); -1 für Abbruch
 	 */
-	public int options(Component parentComponent, String title, String message, String[] options, String[] info);
+	int options(Component parentComponent, String title, String message, String[] options, String[] info, Icon[] icons);
 }

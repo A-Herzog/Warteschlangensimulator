@@ -16,12 +16,17 @@
 package systemtools;
 
 import java.awt.Component;
+import java.awt.Toolkit;
+import java.awt.datatransfer.StringSelection;
 import java.io.File;
 import java.net.URI;
 import java.net.URL;
 import java.util.Locale;
 
+import javax.swing.Icon;
 import javax.swing.JOptionPane;
+
+import systemtools.images.SimToolsImages;
 
 /**
  * Diese Klasse stellt einen Ersatz für {@link JOptionPane} zur Verfügung.<br>
@@ -83,6 +88,10 @@ public class MsgBox {
 	public static String OpenURLInfoYes="Webseite im Standard-Browser öffnen.";
 	/** Bezeichner für die Erklärung der Nein-Schaltfläche des Homepage-Aufruf-Dialogs */
 	public static String OpenURLInfoNo="Webseite nicht aufrufen.";
+	/** Bezeichner für die Dialogschaltfläche "Adresse kopieren" im Homepage-Aufruf-Dialog */
+	public static String OptionCopyURL="Adresse kopieren";
+	/** Bezeichner für die Erklärung der "Adresse kopieren"-Schaltfläche des Homepage-Aufruf-Dialogs */
+	public static String OptionInfoCopyURL="Adresse nur in Zwischenablage kopieren, Webseite nicht aufrufen.";
 	/** Für die Dialoge aktuell gültige Landeseinstellung */
 	public static Locale ActiveLocale=Locale.getDefault();
 
@@ -202,7 +211,24 @@ public class MsgBox {
 	 * @return	Gibt <code>true</code> zurück, wenn der Nutzer dem Aufruf zugestimmt hat.
 	 */
 	public static boolean confirmOpenURL(Component parentComponent, URL url) {
-		return backend.confirm(parentComponent,TitleWarning,String.format(OpenURLInfo,url.toString()),OpenURLInfoYes,OpenURLInfoNo);
+		final int result=backend.options(
+				parentComponent,
+				TitleConfirmation,
+				String.format(OpenURLInfo,url.toString()),
+				new String[] {OptionYes,OptionNo,OptionCopyURL},
+				new String[] {OpenURLInfoYes,OpenURLInfoNo,OptionInfoCopyURL},
+				new Icon[] {
+						SimToolsImages.MSGBOX_YES.getIcon(),
+						SimToolsImages.MSGBOX_NO.getIcon(),
+						SimToolsImages.MSGBOX_COPY.getIcon()
+				});
+		switch (result) {
+		case -1: return false;
+		case 0: return true;
+		case 1: return false;
+		case 2: Toolkit.getDefaultToolkit().getSystemClipboard().setContents(new StringSelection(url.toString()),null); return false;
+		default: return false;
+		}
 	}
 
 	/**
@@ -212,7 +238,24 @@ public class MsgBox {
 	 * @return	Gibt <code>true</code> zurück, wenn der Nutzer dem Aufruf zugestimmt hat.
 	 */
 	public static boolean confirmOpenURL(Component parentComponent, URI uri) {
-		return backend.confirm(parentComponent,TitleWarning,String.format(OpenURLInfo,uri.toString()),OpenURLInfoYes,OpenURLInfoNo);
+		final int result=backend.options(
+				parentComponent,
+				TitleConfirmation,
+				String.format(OpenURLInfo,uri.toString()),
+				new String[] {OptionYes,OptionNo,OptionCopyURL},
+				new String[] {OpenURLInfoYes,OpenURLInfoNo,OptionInfoCopyURL},
+				new Icon[] {
+						SimToolsImages.MSGBOX_YES.getIcon(),
+						SimToolsImages.MSGBOX_NO.getIcon(),
+						SimToolsImages.MSGBOX_COPY.getIcon()
+				});
+		switch (result) {
+		case -1: return false;
+		case 0: return true;
+		case 1: return false;
+		case 2: Toolkit.getDefaultToolkit().getSystemClipboard().setContents(new StringSelection(uri.toString()),null); return false;
+		default: return false;
+		}
 	}
 
 	/**
@@ -222,7 +265,24 @@ public class MsgBox {
 	 * @return	Gibt <code>true</code> zurück, wenn der Nutzer dem Aufruf zugestimmt hat.
 	 */
 	public static boolean confirmOpenURL(Component parentComponent, String url) {
-		return backend.confirm(parentComponent,TitleWarning,String.format(OpenURLInfo,url),OpenURLInfoYes,OpenURLInfoNo);
+		final int result=backend.options(
+				parentComponent,
+				TitleConfirmation,
+				String.format(OpenURLInfo,url),
+				new String[] {OptionYes,OptionNo,OptionCopyURL},
+				new String[] {OpenURLInfoYes,OpenURLInfoNo,OptionInfoCopyURL},
+				new Icon[] {
+						SimToolsImages.MSGBOX_YES.getIcon(),
+						SimToolsImages.MSGBOX_NO.getIcon(),
+						SimToolsImages.MSGBOX_COPY.getIcon()
+				});
+		switch (result) {
+		case -1: return false;
+		case 0: return true;
+		case 1: return false;
+		case 2: Toolkit.getDefaultToolkit().getSystemClipboard().setContents(new StringSelection(url),null); return false;
+		default: return false;
+		}
 	}
 
 	/**
@@ -235,7 +295,7 @@ public class MsgBox {
 	 * @return	Gewählte Option (0-basierend); -1 für Abbruch
 	 */
 	public static int options(Component parentComponent, String title, String message, String[] options, String[] info) {
-		return backend.options(parentComponent,title,message,options,info);
+		return backend.options(parentComponent,title,message,options,info,null);
 	}
 
 }

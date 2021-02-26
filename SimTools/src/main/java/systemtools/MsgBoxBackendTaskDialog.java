@@ -21,6 +21,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.Icon;
 import javax.swing.JOptionPane;
 
 import org.oxbow.swingbits.dialog.task.CommandLink;
@@ -47,7 +48,7 @@ public class MsgBoxBackendTaskDialog implements MsgBoxBackend {
 	}
 
 	@Override
-	public void info(Component parentComponent, String title, String message) {
+	public void info(final Component parentComponent, final String title, final String message) {
 		final TaskDialog dialog=new TaskDialog(getWindow(parentComponent),MsgBox.TitleInformation);
 		dialog.setInstruction(title);
 		dialog.setText(message);
@@ -58,7 +59,7 @@ public class MsgBoxBackendTaskDialog implements MsgBoxBackend {
 	}
 
 	@Override
-	public void warning(Component parentComponent, String title, String message) {
+	public void warning(final Component parentComponent, final String title, final String message) {
 		final TaskDialog dialog=new TaskDialog(getWindow(parentComponent),MsgBox.TitleWarning);
 		dialog.setInstruction(title);
 		dialog.setText(message);
@@ -69,7 +70,7 @@ public class MsgBoxBackendTaskDialog implements MsgBoxBackend {
 	}
 
 	@Override
-	public void error(Component parentComponent, String title, String message) {
+	public void error(final Component parentComponent, final String title, final String message) {
 		final TaskDialog dialog=new TaskDialog(getWindow(parentComponent),MsgBox.TitleError);
 		dialog.setInstruction(title);
 		dialog.setText(message);
@@ -80,7 +81,7 @@ public class MsgBoxBackendTaskDialog implements MsgBoxBackend {
 	}
 
 	@Override
-	public int confirm(Component parentComponent, String title, String message, String infoYes, String infoNo, String infoCancel) {
+	public int confirm(final Component parentComponent, final String title, final String message, final String infoYes, final String infoNo, final String infoCancel) {
 		final int wahl=TaskDialogs.choice(getWindow(parentComponent),title,message,0,
 				new CommandLink(SimToolsImages.MSGBOX_YES.getIcon(),MsgBox.OptionYes,infoYes),
 				new CommandLink(SimToolsImages.MSGBOX_NO.getIcon(),MsgBox.OptionNo,infoNo),
@@ -94,7 +95,7 @@ public class MsgBoxBackendTaskDialog implements MsgBoxBackend {
 	}
 
 	@Override
-	public int confirmSave(Component parentComponent, String title, String message) {
+	public int confirmSave(final Component parentComponent, final String title, final String message) {
 		final int wahl=TaskDialogs.choice(getWindow(parentComponent),title,message,0,
 				new CommandLink(SimToolsImages.MSGBOX_YES_SAVE.getIcon(),MsgBox.OptionSaveYes,MsgBox.OptionSaveYesInfo),
 				new CommandLink(SimToolsImages.MSGBOX_NO.getIcon(),MsgBox.OptionSaveNo,MsgBox.OptionSaveNoInfo),
@@ -108,7 +109,7 @@ public class MsgBoxBackendTaskDialog implements MsgBoxBackend {
 	}
 
 	@Override
-	public boolean confirm(Component parentComponent, String title, String message, String infoYes, String infoNo) {
+	public boolean confirm(final Component parentComponent, final String title, final String message, final String infoYes, final String infoNo) {
 		final int wahl=TaskDialogs.choice(getWindow(parentComponent),title,message,0,
 				new CommandLink(SimToolsImages.MSGBOX_YES.getIcon(),MsgBox.OptionYes,infoYes),
 				new CommandLink(SimToolsImages.MSGBOX_NO.getIcon(),MsgBox.OptionNo,infoNo));
@@ -120,7 +121,7 @@ public class MsgBoxBackendTaskDialog implements MsgBoxBackend {
 	}
 
 	@Override
-	public boolean confirmOverwrite(Component parentComponent, File file) {
+	public boolean confirmOverwrite(final Component parentComponent, final File file) {
 		final int wahl=TaskDialogs.choice(getWindow(parentComponent),MsgBox.OverwriteTitle,String.format(MsgBox.OverwriteInfo,file.toString()),0,
 				new CommandLink(SimToolsImages.MSGBOX_YES_SAVE.getIcon(),MsgBox.OverwriteYes,MsgBox.OverwriteYesInfo),
 				new CommandLink(SimToolsImages.MSGBOX_NO.getIcon(),MsgBox.OverwriteNo,MsgBox.OverwriteNoInfo));
@@ -128,12 +129,16 @@ public class MsgBoxBackendTaskDialog implements MsgBoxBackend {
 	}
 
 	@Override
-	public int options(Component parentComponent, String title, String message, String[] options, String[] info) {
+	public int options(final Component parentComponent, final String title, final String message, final String[] options, final String[] info, final Icon[] icons) {
 		final List<CommandLink> commands=new ArrayList<>();
 
 		if (options==null || options.length==0) return 0;
-		for (int i=0;i<options.length;i++) commands.add(new CommandLink((options[i]==null)?"":options[i],(info==null || info.length<=i || info[i]==null)?"":info[i]));
-
+		for (int i=0;i<options.length;i++) {
+			final Icon icon=(icons==null || icons.length<=i || icons[i]==null)?null:icons[i];
+			final String text=(options[i]==null)?"":options[i];
+			final String add=(info==null || info.length<=i || info[i]==null)?"":info[i];
+			commands.add(new CommandLink(icon,text,add));
+		}
 		return TaskDialogs.choice(getWindow(parentComponent),title,message,0,commands);
 	}
 }

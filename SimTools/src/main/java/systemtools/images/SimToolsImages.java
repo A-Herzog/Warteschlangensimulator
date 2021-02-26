@@ -190,7 +190,10 @@ public enum SimToolsImages {
 	MSGBOX_NO("cancel.png"),
 
 	/** Symbol "Dialog-Button 'Abbruch/Zurück'" */
-	MSGBOX_CANCEL("arrow_redo2.png");
+	MSGBOX_CANCEL("arrow_redo2.png"),
+
+	/** Symbol "Dialog-Button 'Kopieren'" */
+	MSGBOX_COPY("page_copy.png");
 
 	/**
 	 * Dateiname des Icons

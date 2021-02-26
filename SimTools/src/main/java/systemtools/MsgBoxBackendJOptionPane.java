@@ -18,6 +18,7 @@ package systemtools;
 import java.awt.Component;
 import java.io.File;
 
+import javax.swing.Icon;
 import javax.swing.JOptionPane;
 
 /**
@@ -31,48 +32,48 @@ import javax.swing.JOptionPane;
  */
 public class MsgBoxBackendJOptionPane implements MsgBoxBackend {
 	@Override
-	public void info(Component parentComponent, String title, String message) {
+	public void info(final Component parentComponent, final String title, String message) {
 		if (message.toLowerCase().indexOf("<html>")>=0) message=message.replaceAll("\\n"," ");
 		JOptionPane.showMessageDialog(parentComponent,message,title,JOptionPane.INFORMATION_MESSAGE);
 	}
 
 	@Override
-	public void warning(Component parentComponent, String title, String message) {
+	public void warning(final Component parentComponent, final String title, String message) {
 		if (message.toLowerCase().indexOf("<html>")>=0) message=message.replaceAll("\\n"," ");
 		JOptionPane.showMessageDialog(parentComponent,message,title,JOptionPane.WARNING_MESSAGE);
 	}
 
 	@Override
-	public void error(Component parentComponent, String title, String message) {
+	public void error(final Component parentComponent, final String title, String message) {
 		if (message.toLowerCase().indexOf("<html>")>=0) message=message.replaceAll("\\n"," ");
 		JOptionPane.showMessageDialog(parentComponent,message,title,JOptionPane.ERROR_MESSAGE);
 	}
 
 	@Override
-	public int confirm(Component parentComponent, String title, String message, String infoYes, String infoNo, String infoCancel) {
+	public int confirm(final Component parentComponent, final String title, String message, final String infoYes, final String infoNo, final String infoCancel) {
 		if (message.toLowerCase().indexOf("<html>")>=0) message=message.replaceAll("\\n"," ");
 		return JOptionPane.showConfirmDialog(parentComponent,message,title,JOptionPane.YES_NO_CANCEL_OPTION,JOptionPane.QUESTION_MESSAGE);
 	}
 
 	@Override
-	public int confirmSave(Component parentComponent, String title, String message) {
+	public int confirmSave(final Component parentComponent, final String title, String message) {
 		if (message.toLowerCase().indexOf("<html>")>=0) message=message.replaceAll("\\n"," ");
 		return JOptionPane.showConfirmDialog(parentComponent,message,title,JOptionPane.YES_NO_CANCEL_OPTION,JOptionPane.QUESTION_MESSAGE);
 	}
 
 	@Override
-	public boolean confirm(Component parentComponent, String title, String message, String infoYes, String infoNo) {
+	public boolean confirm(final Component parentComponent, final String title, String message, final String infoYes, final String infoNo) {
 		if (message.toLowerCase().indexOf("<html>")>=0) message=message.replaceAll("\\n"," ");
 		return JOptionPane.showConfirmDialog(parentComponent,message,title,JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE)==JOptionPane.YES_OPTION;
 	}
 
 	@Override
-	public boolean confirmOverwrite(Component parentComponent, File file) {
+	public boolean confirmOverwrite(final Component parentComponent, final File file) {
 		return JOptionPane.showConfirmDialog(parentComponent,String.format(MsgBox.OverwriteInfo,file.toString()),MsgBox.TitleWarning,JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE)==JOptionPane.YES_OPTION;
 	}
 
 	@Override
-	public int options(Component parentComponent, String title, String message, String[] options, String[] info) {
+	public int options(final Component parentComponent, final String title, String message, final String[] options, final String[] info, final Icon[] icons) {
 		if (message.toLowerCase().indexOf("<html>")>=0) message=message.replaceAll("\\n"," ");
 		final int result=JOptionPane.showOptionDialog(parentComponent,message,title,JOptionPane.DEFAULT_OPTION,JOptionPane.QUESTION_MESSAGE,null,options,null);
 		if (result==JOptionPane.CLOSED_OPTION) return -1;

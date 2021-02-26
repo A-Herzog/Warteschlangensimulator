@@ -136,6 +136,8 @@ public class LanguageStaticLoader {
 		MsgBox.OpenURLInfo=Language.tr("Dialog.OpenURL.Info");
 		MsgBox.OpenURLInfoYes=Language.tr("Dialog.OpenURL.InfoYes");
 		MsgBox.OpenURLInfoNo=Language.tr("Dialog.OpenURL.InfoNo");
+		MsgBox.OptionCopyURL=Language.tr("Dialog.OpenURL.CopyURL");
+		MsgBox.OptionInfoCopyURL=Language.tr("Dialog.OpenURL.CopyURLInfo");
 		MsgBox.ActiveLocale=locale;
 
 		/* Verteilungen */
