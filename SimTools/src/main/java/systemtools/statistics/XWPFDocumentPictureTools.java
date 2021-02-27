@@ -106,7 +106,7 @@ public class XWPFDocumentPictureTools {
 	/**
 	 * Fügt ein Bild in ein docx-Dokument ein
 	 * @param doc	Aktives docx-Dokument, in das das Bild eingefügt werden soll
-	 * @param data	Bildaten, die in das Dokument eingefügt werden sollen
+	 * @param data	Bilddaten, die in das Dokument eingefügt werden sollen
 	 * @param pictureType	Kann z.B. <code>Document.PICTURE_TYPE_JPEG</code> sein
 	 * @param originalSizeX	Breite des Bildes (zur Berechnung des Seitenverhältnisses)
 	 * @param originalSizeY	Höhe des Bildes (zur Berechnung des Seitenverhältnisses)
@@ -132,7 +132,7 @@ public class XWPFDocumentPictureTools {
 	/**
 	 * Fügt ein Bild in ein docx-Dokument ein
 	 * @param doc	Aktives docx-Dokument, in das das Bild eingefügt werden soll
-	 * @param data	Bildaten, die in das Dokument eingefügt werden sollen
+	 * @param data	Bilddaten, die in das Dokument eingefügt werden sollen
 	 * @param pictureType	Kann z.B. <code>Document.PICTURE_TYPE_JPEG</code> sein
 	 * @param originalSizeX	Breite des Bildes (zur Berechnung des Seitenverhältnisses)
 	 * @param originalSizeY	Höhe des Bildes (zur Berechnung des Seitenverhältnisses)

@@ -367,8 +367,8 @@ public class PlotterPanel extends JPanel {
 		if (s.equals("docx")) {
 			try (XWPFDocument doc=new XWPFDocument()) {
 				try (ByteArrayOutputStream streamOut=new ByteArrayOutputStream()) {
-					try {if (!ImageIO.write(image,"jpg",streamOut)) return false;} catch (IOException e) {return false;}
-					if (!XWPFDocumentPictureTools.addPicture(doc,streamOut,Document.PICTURE_TYPE_JPEG,image.getWidth(),image.getHeight())) return false;
+					try {if (!ImageIO.write(image,"png",streamOut)) return false;} catch (IOException e) {return false;}
+					if (!XWPFDocumentPictureTools.addPicture(doc,streamOut,Document.PICTURE_TYPE_PNG,image.getWidth(),image.getHeight())) return false;
 				}
 				try (FileOutputStream out=new FileOutputStream(file)) {doc.write(out);} catch (IOException e) {return false;}
 				return true;

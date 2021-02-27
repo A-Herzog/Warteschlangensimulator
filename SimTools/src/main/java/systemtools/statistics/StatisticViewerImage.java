@@ -322,8 +322,8 @@ public class StatisticViewerImage implements StatisticViewer, Printable {
 	public boolean saveDOCX(XWPFDocument doc) {
 		BufferedImage image=getImage();
 		try (ByteArrayOutputStream streamOut=new ByteArrayOutputStream()) {
-			try {if (!ImageIO.write(image,"jpg",streamOut)) return false;} catch (IOException e) {return false;}
-			if (!XWPFDocumentPictureTools.addPicture(doc,streamOut,Document.PICTURE_TYPE_JPEG,image.getWidth(),image.getHeight())) return false;
+			try {if (!ImageIO.write(image,"png",streamOut)) return false;} catch (IOException e) {return false;}
+			if (!XWPFDocumentPictureTools.addPicture(doc,streamOut,Document.PICTURE_TYPE_PNG,image.getWidth(),image.getHeight())) return false;
 		} catch (IOException e) {return false;}
 		return true;
 	}

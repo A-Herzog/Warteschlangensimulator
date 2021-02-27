@@ -384,8 +384,8 @@ public class StyledTextBuilder {
 
 			if (additionalImage!=null) {
 				try (ByteArrayOutputStream streamOut=new ByteArrayOutputStream()) {
-					try {if (!ImageIO.write(additionalImage,"jpg",streamOut)) return false;} catch (IOException e) {return false;}
-					if (!XWPFDocumentPictureTools.addPicture(doc,streamOut,Document.PICTURE_TYPE_JPEG,additionalImage.getWidth(),additionalImage.getHeight())) return false;
+					try {if (!ImageIO.write(additionalImage,"png",streamOut)) return false;} catch (IOException e) {return false;}
+					if (!XWPFDocumentPictureTools.addPicture(doc,streamOut,Document.PICTURE_TYPE_PNG,additionalImage.getWidth(),additionalImage.getHeight())) return false;
 				} catch (IOException e) {return false;}
 			}
 
