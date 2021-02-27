@@ -132,7 +132,7 @@ public final class ModelSurface {
 
 	/**
 	 * Rasteranzeige auf der Zeichenfläche
-	 * @see ModelSurface#drawToGraphics(Graphics, Rectangle, double, BackgroundImageMode, boolean, Grid, Color[], BufferedImage, String, double, boolean)
+	 * @see ModelSurface#drawToGraphics(Graphics, Rectangle, double, boolean, BackgroundImageMode, boolean, Grid, Color[], BufferedImage, String, double, boolean)
 	 */
 	public enum Grid {
 		/** Keine Rasteranzeige */
@@ -567,7 +567,7 @@ public final class ModelSurface {
 
 	/**
 	 * Objekt für den die Darstellung des Farbverlaufs im Hintergrund
-	 * @see #drawBackgroundToGraphics(Graphics, Rectangle, double, BackgroundImageMode, boolean, Grid, Color[], BufferedImage, String, double)
+	 * @see #drawBackgroundToGraphics(Graphics, Rectangle, double, boolean ,BackgroundImageMode, boolean, Grid, Color[], BufferedImage, String, double)
 	 */
 	private final GradientFill gradient=new GradientFill();
 
@@ -576,6 +576,7 @@ public final class ModelSurface {
 	 * @param graphics	<code>Graphics</code>-Objekt, in das die Elemente gezeichnet werden sollen
 	 * @param drawRect	Tatsächlich sichtbarer Ausschnitt
 	 * @param zoom	Zoomfaktor
+	 * @param fillBackground	Soll der Hintergrund mit Farbe bzw. Farbverlauf oder weißem Hintergrund als Basis initialisiert werden?
 	 * @param showBackground	Hintergrund anzeigen?
 	 * @param showBoundingBox	Wenn Hintergrund aus: Wenigstens weißen Kasten? (bei svg-Export: aus, sonst: an)
 	 * @param raster	Raster anzeigen?
@@ -583,9 +584,9 @@ public final class ModelSurface {
 	 * @param backgroundImage	Optionales Hintergrundbild
 	 * @param backgroundImageHash	Optionaler zusätzliches Hash-Wert des optionales Hintergrundbildes (siehe {@link ScaledImageCache#getHash(java.awt.Image)}
 	 * @param backgroundImageScale	Skalierungsfaktor für das optionale Hintergrundbild
-	 * @see #drawToGraphics(Graphics, Rectangle, double, BackgroundImageMode, boolean, Grid, Color[], BufferedImage, String, double, boolean)
+	 * @see #drawToGraphics(Graphics, Rectangle, double, boolean, BackgroundImageMode, boolean, Grid, Color[], BufferedImage, String, double, boolean)
 	 */
-	private void drawBackgroundToGraphics(final Graphics graphics, final Rectangle drawRect, final double zoom, final BackgroundImageMode showBackground, final boolean showBoundingBox, final Grid raster, final Color[] colors, final BufferedImage backgroundImage, final String backgroundImageHash, final double backgroundImageScale) {
+	private void drawBackgroundToGraphics(final Graphics graphics, final Rectangle drawRect, final double zoom, final boolean fillBackground, final BackgroundImageMode showBackground, final boolean showBoundingBox, final Grid raster, final Color[] colors, final BufferedImage backgroundImage, final String backgroundImageHash, final double backgroundImageScale) {
 		Color backgroundColor=DEFAULT_BACKGROUND_COLOR;
 		Color backgroundColorGradient=null;
 		Color rasterColor=DEFAULT_RASTER_COLOR;
@@ -599,12 +600,14 @@ public final class ModelSurface {
 
 		/* Hintergrund */
 		if (showBackground!=BackgroundImageMode.OFF) {
-			if (backgroundColorGradient==null || useHighContrasts) {
-				graphics.setColor(backgroundColor);
-			} else {
-				gradient.set(graphics,drawRect,backgroundColor,backgroundColorGradient,true);
+			if (fillBackground) {
+				if (backgroundColorGradient==null || useHighContrasts) {
+					graphics.setColor(backgroundColor);
+				} else {
+					gradient.set(graphics,drawRect,backgroundColor,backgroundColorGradient,true);
+				}
+				graphics.fillRect(drawRect.x,drawRect.y,drawRect.width,drawRect.height);
 			}
-			graphics.fillRect(drawRect.x,drawRect.y,drawRect.width,drawRect.height);
 		} else {
 			if (showBoundingBox) {
 				graphics.setColor(Color.WHITE);
@@ -738,6 +741,7 @@ public final class ModelSurface {
 	 * @param graphics	<code>Graphics</code>-Objekt, in das die Elemente gezeichnet werden sollen
 	 * @param drawRect	Tatsächlich sichtbarer Ausschnitt
 	 * @param zoom	Zoomfaktor
+	 * @param fillBackground	Soll der Hintergrund mit Farbe bzw. Farbverlauf oder weißem Hintergrund als Basis initialisiert werden?
 	 * @param showBackground	Hintergrund anzeigen?
 	 * @param showBoundingBox	Wenn Hintergrund aus: Wenigstens weißen Kasten? (bei svg-Export: aus, sonst: an)
 	 * @param raster	Raster anzeigen?
@@ -747,13 +751,13 @@ public final class ModelSurface {
 	 * @param backgroundImageScale	Skalierungsfaktor für das optionale Hintergrundbild
 	 * @param showSelectionFrames	Rahmen anzeigen, wenn etwas ausgewählt ist
 	 */
-	public void drawToGraphics(final Graphics graphics, final Rectangle drawRect, final double zoom, final BackgroundImageMode showBackground, final boolean showBoundingBox, final Grid raster, final Color[] colors, final BufferedImage backgroundImage, final String backgroundImageHash, final double backgroundImageScale, final boolean showSelectionFrames) {
+	public void drawToGraphics(final Graphics graphics, final Rectangle drawRect, final double zoom, final boolean fillBackground, final BackgroundImageMode showBackground, final boolean showBoundingBox, final Grid raster, final Color[] colors, final BufferedImage backgroundImage, final String backgroundImageHash, final double backgroundImageScale, final boolean showSelectionFrames) {
 		if (graphics==null) return;
 
 		delayFireStateChangeListener=true;
 		needToFireStateChangeListener=false;
 		try {
-			drawBackgroundToGraphics(graphics,drawRect,zoom,showBackground,showBoundingBox,raster,colors,backgroundImage,backgroundImageHash,backgroundImageScale);
+			drawBackgroundToGraphics(graphics,drawRect,zoom,fillBackground,showBackground,showBoundingBox,raster,colors,backgroundImage,backgroundImageHash,backgroundImageScale);
 			/* final Rectangle smallerDrawRect=new Rectangle(drawRect.x,drawRect.y,drawRect.width-1,drawRect.height-1); */ /* sonst gibt's beim initialen Zeichnen evtl. eine Pixelzeile unter dem Scrollbalken */
 			drawRect.width--;
 			drawRect.height--;
@@ -1343,7 +1347,7 @@ public final class ModelSurface {
 		Graphics g=image.getGraphics();
 		g.setClip(p1.x,p1.y,p2.x-p1.x,p2.y-p1.y);
 		((Graphics2D)g).setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING,RenderingHints.VALUE_TEXT_ANTIALIAS_DEFAULT);
-		drawToGraphics(g,new Rectangle(p1.x,p1.y,p2.x-p1.x,p2.y-p1.y),1.0,BackgroundImageMode.OFF,true,Grid.OFF,null,null,null,1.0,false);
+		drawToGraphics(g,new Rectangle(p1.x,p1.y,p2.x-p1.x,p2.y-p1.y),1.0,false,BackgroundImageMode.OFF,true,Grid.OFF,null,null,null,1.0,false);
 
 		return image.getSubimage(p1.x,p1.y,p2.x-p1.x,p2.y-p1.y);
 	}

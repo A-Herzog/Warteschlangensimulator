@@ -1225,7 +1225,7 @@ public final class ModelSurfacePanel extends JPanel {
 		if (SetupData.getSetup().antialias) ((Graphics2D)g).setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING,RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
 
 		/* Surface zeichnet alle Elemente in Graphics-Objekt */
-		surface.drawToGraphics(g,viewArea,zoom,showBackground,showBoundingBox,raster,colors,backgroundImage,backgroundImageHash,backgroundImageScale,showSelectionFrames);
+		surface.drawToGraphics(g,viewArea,zoom,true,showBackground,showBoundingBox,raster,colors,backgroundImage,backgroundImageHash,backgroundImageScale,showSelectionFrames);
 	}
 
 	/**
@@ -1448,11 +1448,11 @@ public final class ModelSurfacePanel extends JPanel {
 		final int xSurfaceImage=(int)Math.ceil(p2.x*imageZoom);
 		final int ySurfaceImage=(int)Math.ceil(p2.y*imageZoom);
 
-		BufferedImage image=new BufferedImage(xSurfaceImage,ySurfaceImage,BufferedImage.TYPE_INT_RGB);
+		BufferedImage image=new BufferedImage(xSurfaceImage,ySurfaceImage,BufferedImage.TYPE_INT_ARGB);
 		Graphics g=image.getGraphics();
 		g.setClip(0,0,xSurfaceImage,ySurfaceImage);
 		((Graphics2D)g).setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING,RenderingHints.VALUE_TEXT_ANTIALIAS_DEFAULT);
-		surface.drawToGraphics(g,new Rectangle(0,0,xSurfaceImage,ySurfaceImage),imageZoom,ModelSurface.BackgroundImageMode.OFF,true,ModelSurface.Grid.OFF,null,null,null,1.0,false);
+		surface.drawToGraphics(g,new Rectangle(0,0,xSurfaceImage,ySurfaceImage),imageZoom,false,backgroundImageMode,true,ModelSurface.Grid.OFF,null,backgroundImage,backgroundImageHash,backgroundImageScale,false);
 		if (additionalUserPaint!=null) {
 			g.setClip(new Rectangle(0,0,xSurfaceImage,ySurfaceImage));
 			additionalUserPaint.paint(g,imageZoom);
@@ -1494,11 +1494,11 @@ public final class ModelSurfacePanel extends JPanel {
 		final int xSurfaceImage=(int)Math.ceil(p2.x*imageZoom);
 		final int ySurfaceImage=(int)Math.ceil(p2.y*imageZoom);
 
-		BufferedImage image=new BufferedImage(xSurfaceImage,ySurfaceImage,BufferedImage.TYPE_INT_RGB);
+		BufferedImage image=new BufferedImage(xSurfaceImage,ySurfaceImage,BufferedImage.TYPE_INT_ARGB);
 		Graphics g=image.getGraphics();
 		g.setClip(0,0,xSurfaceImage,ySurfaceImage);
 		((Graphics2D)g).setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING,RenderingHints.VALUE_TEXT_ANTIALIAS_DEFAULT);
-		surface.drawToGraphics(g,new Rectangle(0,0,xSurfaceImage,ySurfaceImage),imageZoom,ModelSurface.BackgroundImageMode.OFF,true,ModelSurface.Grid.OFF,null,null,null,1.0,false);
+		surface.drawToGraphics(g,new Rectangle(0,0,xSurfaceImage,ySurfaceImage),imageZoom,false,backgroundImageMode,true,ModelSurface.Grid.OFF,null,backgroundImage,backgroundImageHash,backgroundImageScale,false);
 		if (additionalUserPaint!=null) {
 			g.setClip(new Rectangle(0,0,xSurfaceImage,ySurfaceImage));
 			additionalUserPaint.paint(g,imageZoom);
@@ -1595,8 +1595,8 @@ public final class ModelSurfacePanel extends JPanel {
 	private boolean addImageToDOCX(final XWPFDocument docx, final int xSize, final int ySize) {
 		final BufferedImage image=getImage(xSize,ySize);
 		try (ByteArrayOutputStream streamOut=new ByteArrayOutputStream()) {
-			try {if (!ImageIO.write(image,"jpg",streamOut)) return false;} catch (IOException e) {return false;}
-			if (!XWPFDocumentPictureTools.addPicture(docx,streamOut,org.apache.poi.xwpf.usermodel.Document.PICTURE_TYPE_JPEG,image.getWidth(),image.getHeight())) return false;
+			try {if (!ImageIO.write(image,"png",streamOut)) return false;} catch (IOException e) {return false;}
+			if (!XWPFDocumentPictureTools.addPicture(docx,streamOut,org.apache.poi.xwpf.usermodel.Document.PICTURE_TYPE_PNG,image.getWidth(),image.getHeight())) return false;
 		} catch (IOException e) {return false;}
 		return true;
 	}
@@ -1697,9 +1697,22 @@ public final class ModelSurfacePanel extends JPanel {
 		/* gif, jpeg, png, bmp */
 		final int maxXSize=Math.min(MAX_IMAGE_SIZE,MAX_IMAGE_BIGGER_FACTOR*xSize);
 		final int maxYSize=Math.min(MAX_IMAGE_SIZE,MAX_IMAGE_BIGGER_FACTOR*ySize);
-		final BufferedImage image=getImageMaxFactor(maxXSize,maxYSize,10);
+		BufferedImage image=getImageMaxFactor(maxXSize,maxYSize,10);
 		if (format.equalsIgnoreCase("jpg")) format="jpeg";
-		try {return ImageIO.write(image,format.toLowerCase(),file);} catch (IOException e) {return false;}
+
+		format=format.toLowerCase();
+
+		if (format.equals("jpeg") || format.equals("bmp")) {
+			final BufferedImage image2=new BufferedImage(image.getWidth(),image.getHeight(),BufferedImage.TYPE_INT_RGB);
+			final Graphics2D g2=image2.createGraphics();
+			g2.setBackground(Color.WHITE);
+			g2.clearRect(0,0,image.getWidth(),image.getHeight());
+			g2.drawImage(image,0,0,null);
+			g2.dispose();
+			image=image2;
+		}
+
+		try {return ImageIO.write(image,format,file);} catch (IOException e) {return false;}
 	}
 
 	/**
