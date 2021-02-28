@@ -977,7 +977,7 @@ public class AnimationPanel extends JPanel implements RunModelAnimationViewer {
 	}
 
 	@Override
-	public boolean updateViewer(SimulationData simData) {
+	public boolean updateViewer(final SimulationData simData) {
 		if (subViewer!=null) subViewer.updateViewer(simData);
 		return updateViewer(simData,null,false);
 	}
@@ -990,7 +990,7 @@ public class AnimationPanel extends JPanel implements RunModelAnimationViewer {
 	private long lastUpdateStep=0;
 
 	@Override
-	public boolean updateViewer(SimulationData simData, RunDataClient client, boolean moveByTransport) {
+	public boolean updateViewer(SimulationData simData, final RunDataClient client, final boolean moveByTransport) {
 		if (abortRun) return false;
 		if (continueAsSimulation) return false;
 		if (surfaceAnimator==null) return true;
@@ -999,10 +999,10 @@ public class AnimationPanel extends JPanel implements RunModelAnimationViewer {
 
 		if (subViewer!=null) subViewer.updateViewer(simData,client,moveByTransport);
 
-		surfacePanel.setAnimationSimulationData(simData);
+		surfacePanel.setAnimationSimulationData(simData,surfaceAnimator);
 
 		if (running) {
-			if (surfaceAnimator.breakPointTest(client)) {
+			if (surfaceAnimator.testBreakPoints(simData,client)) {
 				playPause();
 				surfaceAnimator.updateSurfaceAnimationDisplayElements(simData,true,false);
 				if (!moveByTransport) surfaceAnimator.process(simData,client,FastMath.min(20,delayInt/4));
@@ -1042,7 +1042,7 @@ public class AnimationPanel extends JPanel implements RunModelAnimationViewer {
 	}
 
 	@Override
-	public boolean updateViewer(SimulationData simData, RunDataTransporter transporter) {
+	public boolean updateViewer(SimulationData simData, final RunDataTransporter transporter) {
 		if (abortRun) return false;
 		if (continueAsSimulation) return false;
 
@@ -1050,7 +1050,7 @@ public class AnimationPanel extends JPanel implements RunModelAnimationViewer {
 
 		if (subViewer!=null) subViewer.updateViewer(simData,transporter);
 
-		surfacePanel.setAnimationSimulationData(simData);
+		surfacePanel.setAnimationSimulationData(simData,surfaceAnimator);
 
 		long currentTime=System.currentTimeMillis();
 		if (currentTime<=lastUpdateStep+5 && delayInt==0 && encoder==null) {
@@ -1358,9 +1358,11 @@ public class AnimationPanel extends JPanel implements RunModelAnimationViewer {
 				if (timer!=null) {timer.cancel(); timer=null;}
 
 				/* Wichtig, weil sonst das Modell intern weiter sein kann, als die Anzeige. Die Anzeige wird dann beim nächste regulären Repaint aktualisiert, was zu Verwirrungen führen kann. */
-				surfaceAnimator.process(simData,(RunDataClient)null,0);
-				updateStatus(simData.currentTime,true);
-				repaint();
+				if (simData!=null) {
+					surfaceAnimator.process(simData,(RunDataClient)null,0);
+					updateStatus(simData.currentTime,true);
+					repaint();
+				}
 			} else {
 				/* Play */
 				if (surfaceAnimator!=null) surfaceAnimator.setFullRecording(false);
@@ -1986,6 +1988,15 @@ public class AnimationPanel extends JPanel implements RunModelAnimationViewer {
 		item.addActionListener(e->saveScreenshotSelectFile());
 
 		popupMenu.show(parent,0,parent.getHeight());
+	}
+
+	/**
+	 * Liefert das Animationssystem-Objekt.<br>
+	 * (Ist gedacht für Zugriffe auf die Haltepunkte.)
+	 * @return	Animationssystem-Objekt
+	 */
+	public ModelSurfaceAnimator getAnimator() {
+		return surfaceAnimator;
 	}
 
 	/**

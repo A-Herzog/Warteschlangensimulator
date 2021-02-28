@@ -65,6 +65,7 @@ import simulator.runmodel.RunDataClients;
 import simulator.runmodel.RunModel;
 import simulator.runmodel.SimulationData;
 import statistics.StatisticsLongRunPerformanceIndicator;
+import systemtools.BaseDialog;
 import systemtools.MsgBox;
 import ui.help.Help;
 import ui.images.Images;
@@ -73,6 +74,7 @@ import ui.modeleditor.ModelClientData;
 import ui.modeleditor.ModelLongRunStatisticsElement;
 import ui.modeleditor.ModelSequences;
 import ui.modeleditor.ModelSurface;
+import ui.modeleditor.ModelSurfaceAnimator;
 import ui.modeleditor.ModelSurfacePanel;
 import ui.modeleditor.coreelements.ModelElementAnimationInfoDialog.ClientInfo;
 import ui.modeleditor.descriptionbuilder.ModelDescriptionBuilder;
@@ -904,6 +906,22 @@ public class ModelElement {
 	}
 
 	/**
+	 * Zeigt einen Dialog zur Bearbeitung eines Haltepunktes für die aktuelle Station an.
+	 * @param owner	Übergeordnetes Element
+	 * @param simData	Simulationsdatenobjekt
+	 * @param animator	Animationssystem-Objekt
+	 */
+	private void showBreakPointDialog(final Component owner, final SimulationData simData, final ModelSurfaceAnimator animator) {
+		if (simData==null || animator==null) return;
+		final int id=getId();
+
+		final ModelBreakPointDialog dialog=new ModelBreakPointDialog(owner,model,simData,id,animator.getBreakPoint(id));
+		if (dialog.getClosedBy()==BaseDialog.CLOSED_BY_OK) {
+			animator.setBreakPoint(id,dialog.getBreakPoint());
+		}
+	}
+
+	/**
 	 * Bietet die Möglichkeit unter dem Menüpunkt für den Simulationdaten-Dialog noch weitere Menüpunkte anzuzeigen.
 	 * @param owner	Übergeordnetes Element
 	 * @param menu	Popup-Menü in das die weiteren Einträge eingefügt werden können
@@ -923,7 +941,7 @@ public class ModelElement {
 	 * Erstellt ein Panel in dem das Element und ein Infotext angezeigt werden.
 	 * (für die Einbettung in ein Kontextmenü).
 	 * @return	Panel in dem das Element und ein Infotext angezeigt werden
-	 * @see #showContextMenu(Component, Point, boolean, boolean, ModelSurfacePanel, Consumer, ModelClientData, ModelSequences, SimulationData)
+	 * @see #showContextMenu(Component, Point, boolean, boolean, ModelSurfacePanel, Consumer, ModelClientData, ModelSequences, SimulationData, ModelSurfaceAnimator)
 	 */
 	private JComponent getElementSymbol() {
 		final String info="<html><body>"+getContextMenuElementName()+"<br><b>id="+getId()+"</b></body></html>";
@@ -939,6 +957,14 @@ public class ModelElement {
 	}
 
 	/**
+	 * Sollen an der Station Haltepunkte gesetzt werden können?
+	 * @return	Sollen an der Station Haltepunkte gesetzt werden können?
+	 */
+	protected boolean canHandleBreakPoints() {
+		return false;
+	}
+
+	/**
 	 * Zeigt as Kontextmenü zu dem Element an einer bestimmten Stelle auf dem Bildschirm an
 	 * @param invoker	Aufrufendes Element (zu dem die Position des Kontextmenüs relativ ist)
 	 * @param point	Position, an der das Menü angezeigt werden soll
@@ -949,8 +975,9 @@ public class ModelElement {
 	 * @param clientData	Kundendaten-Objekt
 	 * @param sequences	Fertigungspläne-Liste
 	 * @param simData	Simulationsdaten (während der Animation, sonst <code>null</code>)
+	 * @param animator	Animationssystem-Objekt
 	 */
-	public final void showContextMenu(final Component invoker, final Point point, final boolean readOnly, final boolean allowEditOnReadOnly, final ModelSurfacePanel surfacePanel, final Consumer<ParameterCompareTemplatesDialog.TemplateRecord> buildParameterSeries, final ModelClientData clientData, final ModelSequences sequences, final SimulationData simData) {
+	public final void showContextMenu(final Component invoker, final Point point, final boolean readOnly, final boolean allowEditOnReadOnly, final ModelSurfacePanel surfacePanel, final Consumer<ParameterCompareTemplatesDialog.TemplateRecord> buildParameterSeries, final ModelClientData clientData, final ModelSequences sequences, final SimulationData simData, final ModelSurfaceAnimator animator) {
 		final JPopupMenu popupMenu=new JPopupMenu();
 		JMenu sub;
 		JMenuItem item;
@@ -1051,6 +1078,15 @@ public class ModelElement {
 			item.setIcon(Images.SIMULATION.getIcon());
 			popupMenu.add(item);
 			storeElementAnimationStatisticsData(invoker,popupMenu,simData);
+		}
+
+		/* Haltepunkte konfigurieren */
+		if (simData!=null && animator!=null && canHandleBreakPoints()) {
+
+			item=new JMenuItem(Language.tr("Surface.PopupMenu.BreakPoint"));
+			item.addActionListener(e->showBreakPointDialog(invoker,simData,animator));
+			item.setIcon(Images.ANIMATION_PAUSE.getIcon());
+			popupMenu.add(item);
 		}
 
 		/* Benutzerdefiniert Einträge */

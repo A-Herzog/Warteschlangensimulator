@@ -26,6 +26,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.Semaphore;
+import java.util.stream.Collectors;
 
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
@@ -47,6 +48,7 @@ import simulator.runmodel.RunDataTransporter;
 import simulator.runmodel.RunModel;
 import simulator.runmodel.SimulationData;
 import simulator.simparser.ExpressionCalc;
+import simulator.simparser.ExpressionMultiEval;
 import systemtools.ImageTools;
 import ui.modeleditor.coreelements.ModelElement;
 import ui.modeleditor.coreelements.ModelElementBox;
@@ -2005,13 +2007,202 @@ public class ModelSurfaceAnimatorBase {
 	}
 
 	/**
+	 * Liste der aktiven Haltepunkte
+	 * @see #getBreakPoints()
+	 * @see #setBreakPoints(List)
+	 * @see #testBreakPoints(SimulationData, RunDataClient)
+	 */
+	private List<BreakPoint> breakPoints;
+
+	/**
+	 * Liefert die Liste der aktuell aktiven Haltepunkte.
+	 * @return	Liste der Haltepunkte
+	 */
+	public List<BreakPoint> getBreakPoints() {
+		synchronized(this) {
+			if (breakPoints==null) return new ArrayList<>();
+			return breakPoints.stream().map(breakPoint->new BreakPoint(breakPoint)).collect(Collectors.toList());
+		}
+	}
+
+	/**
+	 * Liefert den Haltepunkt für eine bestimmte Station
+	 * @param stationID	ID der Station für die der Haltepunkt ermittelt werden soll
+	 * @return	Haltepunkt für die angegebene Station oder <code>null</code>, wenn kein Haltepunkt für die Station definiert ist
+	 */
+	public BreakPoint getBreakPoint(final int stationID) {
+		synchronized(this) {
+			if (breakPoints==null) return null;
+			return breakPoints.stream().filter(breakPoint->breakPoint.stationID==stationID).findFirst().orElse(null);
+		}
+	}
+
+	/**
+	 * Stellt eine neue Liste mit Haltepunkten ein.
+	 * @param breakPoints	Liste der Haltepunkte
+	 */
+	public void setBreakPoints(final List<BreakPoint> breakPoints) {
+		synchronized(this) {
+			if (breakPoints==null) {
+				this.breakPoints=null;
+			} else {
+				this.breakPoints=breakPoints.stream().map(breakPoint->new BreakPoint(breakPoint)).collect(Collectors.toList());
+			}
+		}
+	}
+
+	/**
+	 * Stellt einen Haltepunkt für eine Station ein.
+	 * @param stationID	ID der Station für die der Haltepunkt eingestellt werden soll
+	 * @param breakPoint	Haltepunkt oder auch <code>null</code>, wenn ein evtl. bestehender Haltepunkt für die Station gelöscht werden soll
+	 */
+	public void setBreakPoint(final int stationID, final BreakPoint breakPoint) {
+		synchronized(this) {
+			if (breakPoints==null) {
+				/* Liste ist leer */
+				if (breakPoint!=null) {
+					breakPoints=new ArrayList<>();
+					breakPoints.add(new BreakPoint(breakPoint));
+				}
+			} else {
+				/* Liste enthält Einträge */
+				final int size=breakPoints.size();
+				int index=-1;
+				for (int i=0;i<size;i++) if (breakPoints.get(i).stationID==stationID) {index=i; break;}
+				if (breakPoint==null) {
+					/* Breakpoint ggf. löschen */
+					if (index>=0) breakPoints.remove(index);
+				} else {
+					/* Breakpoint einfügen oder ersetzen */
+					if (index<0) {
+						breakPoints.add(new BreakPoint(breakPoint));
+					} else {
+						breakPoints.set(index,new BreakPoint(breakPoint));
+					}
+				}
+			}
+		}
+	}
+
+	/**
 	 * Prüft, ob die Bewegung des Kunden einen Halt der Animation auslösen soll.
+	 * @param simData	Simulationsdatenobjekt (wird benötigt, um Bedingungen prüfen zu können)
 	 * @param client	Kunde der sich bewegt hat
 	 * @return	Liefert <code>true</code>, wenn die Animation (sofern sie momentan fortwährend läuft) angehalten werden soll.
 	 */
-	public boolean breakPointTest(final RunDataClient client) {
+	public boolean testBreakPoints(final SimulationData simData, final RunDataClient client) {
 		if (client==null) return false;
 
+		synchronized(this) {
+			if (breakPoints!=null) {
+				final int size=breakPoints.size();
+				for (int i=0;i<size;i++) if (breakPoints.get(i).test(simData,client)) {
+					if (breakPoints.get(i).autoDelete) {
+						breakPoints.remove(i);
+						if (breakPoints.size()==0) breakPoints=null;
+					}
+					return true;
+				}
+			}
+		}
+
 		return false;
+	}
+
+	/**
+	 * Diese Klasse repräsentiert einen Haltepunkt.
+	 * @see ModelSurfaceAnimatorBase#breakPoints
+	 * @see ModelSurfaceAnimatorBase#getBreakPoints()
+	 * @see ModelSurfaceAnimatorBase#setBreakPoints(List)
+	 * @see ModelSurfaceAnimatorBase#testBreakPoints(SimulationData, RunDataClient)
+	 */
+	public static class BreakPoint {
+		/**
+		 * Station an der eine Kundenankunft einen Halt auslösen soll<br>
+		 * (muss einen gültigen Wert, also &ge;0 besitzen)
+		 */
+		public final int stationID;
+
+		/**
+		 * Typ des Kunden der einen Halt auslösen soll<br>
+		 * (Werte &lt;0 für "alle Kundentypen")
+		 */
+		public final int clientType;
+
+		/**
+		 * Bedingung, die für einen Halt erfüllt sein muss<br>
+		 * (kann <code>null</code> sein)
+		 */
+		public final String condition;
+
+		/**
+		 * Bedingungs-Baumstruktur zu {@link #condition}.<br>
+		 * Wird beim ersten Prüfen der Bedingung automatisch erstellt.
+		 * @see #condition
+		 * @see #test(SimulationData, RunDataClient)
+		 */
+		private ExpressionMultiEval conditionObj;
+
+		/**
+		 * Soll der Haltepunkt nach einmaliger Auslösung automatisch gelöscht werden?
+		 */
+		public final boolean autoDelete;
+
+		/**
+		 * Konstruktor der Klasse
+		 * @param stationID	Station an der eine Kundenankunft einen Halt auslösen soll (muss einen gültigen Wert, also &ge;0 besitzen)
+		 * @param clientType	Typ des Kunden der einen Halt auslösen soll (Werte &lt;0 für "alle Kundentypen")
+		 * @param condition	Bedingung, die für einen Halt erfüllt sein muss (kann <code>null</code> sein)
+		 * @param autoDelete	Soll der Haltepunkt nach einmaliger Auslösung automatisch gelöscht werden?
+		 */
+		public BreakPoint(final int stationID, final int clientType, final String condition, final boolean autoDelete) {
+			this.stationID=stationID;
+			this.clientType=clientType;
+			this.condition=condition;
+			this.autoDelete=autoDelete;
+		}
+
+		/**
+		 * Copy-Konstruktor
+		 * @param breakPoint	Zu kopierendes Haltepunkt-Objekt
+		 */
+		public BreakPoint(final BreakPoint breakPoint) {
+			stationID=breakPoint.stationID;
+			clientType=breakPoint.clientType;
+			condition=breakPoint.condition;
+			autoDelete=breakPoint.autoDelete;
+		}
+
+		/**
+		 * Prüft, ob die Bedingungen für diesen Haltepunkt erfüllt sind
+		 * @param simData	Simulationsdatenobjekt (wird benötigt, um Bedingungen prüfen zu können)
+		 * @param client	Kunde der sich bewegt hat (darf nicht <code>null</code> sein)
+		 * @return	Liefert <code>true</code>, wenn die Bedingungen des Haltepunktes erfüllt sind
+		 */
+		public boolean test(final SimulationData simData, final RunDataClient client) {
+			/* Richtige Station - immer prüfen */
+			if (client.nextStationID!=stationID) return false;
+
+			/* Richtiger Kundentyp - nur prüfen, wenn gesetzt */
+			if (clientType>=0) {
+				if (client.type!=clientType) return false;
+			}
+
+			/* Bedingung erfüllt - nur prüfen, wenn gesetzt */
+			if (condition!=null) {
+				if (conditionObj==null) {
+					conditionObj=new ExpressionMultiEval(simData.runModel.variableNames);
+					if (conditionObj.parse(condition)>=0) {
+						conditionObj=null;
+						return false;
+					}
+				}
+				if (conditionObj!=null) {
+					if (!conditionObj.eval(simData.runData.variableValues,simData,client)) return false;
+				}
+			}
+
+			return true;
+		}
 	}
 }

@@ -721,6 +721,11 @@ public class ModelElementBox extends ModelElementPosition implements ElementWith
 		return true;
 	}
 
+	@Override
+	protected boolean canHandleBreakPoints() {
+		return inputConnected();
+	}
+
 	/**
 	 * Sichert den Zugriff auf {@link #runDataInfo} und {@link #runDataInfoString} ab.
 	 * @see #runDataInfo

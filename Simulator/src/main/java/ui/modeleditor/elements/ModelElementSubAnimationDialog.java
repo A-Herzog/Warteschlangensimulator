@@ -58,6 +58,8 @@ public class ModelElementSubAnimationDialog extends BaseDialog implements RunMod
 	private final ModelSurfaceAnimator surfaceAnimator;
 	/** Animations-Panel der Haupt-Zeichenfläche */
 	private final AnimationPanel mainAnimationPanel;
+	/** Animationssystem-Objekt der Haupt-Zeichenfläche */
+	private final ModelSurfaceAnimator mainAnimator;
 
 	/**
 	 * Gewählter Delay-Wert
@@ -82,6 +84,7 @@ public class ModelElementSubAnimationDialog extends BaseDialog implements RunMod
 	public ModelElementSubAnimationDialog(final Component owner, final ModelSurface mainSurface, final ModelSurface subSurface, final AnimationPanel mainAnimationPanel) {
 		super(owner,Language.tr("Surface.Sub.Dialog.Title"),true);
 		this.mainAnimationPanel=mainAnimationPanel;
+		mainAnimator=mainAnimationPanel.getAnimator();
 
 		model=mainAnimationPanel.getSimulator().getEditModel();
 
@@ -105,7 +108,7 @@ public class ModelElementSubAnimationDialog extends BaseDialog implements RunMod
 	}
 
 	@Override
-	public boolean updateViewer(SimulationData simData) {
+	public boolean updateViewer(final SimulationData simData) {
 		return updateViewer(simData,null,false);
 	}
 
@@ -121,11 +124,11 @@ public class ModelElementSubAnimationDialog extends BaseDialog implements RunMod
 	private long lastUpdateStep=0;
 
 	@Override
-	public boolean updateViewer(SimulationData simData, RunDataClient client, boolean moveByTransport) {
-		surfacePanel.setAnimationSimulationData(simData);
+	public boolean updateViewer(SimulationData simData, final RunDataClient client, final boolean moveByTransport) {
+		surfacePanel.setAnimationSimulationData(simData,mainAnimator);
 
 		if (mainAnimationPanel.isRunning()) {
-			if (surfaceAnimator.breakPointTest(client)) {
+			if (surfaceAnimator.testBreakPoints(simData,client)) {
 				mainAnimationPanel.playPause();
 				surfaceAnimator.updateSurfaceAnimationDisplayElements(simData,true,false);
 				if (!moveByTransport) surfaceAnimator.process(simData,client,FastMath.min(20,delayInt/4));
@@ -150,8 +153,8 @@ public class ModelElementSubAnimationDialog extends BaseDialog implements RunMod
 	}
 
 	@Override
-	public boolean updateViewer(SimulationData simData, RunDataTransporter transporter) {
-		surfacePanel.setAnimationSimulationData(simData);
+	public boolean updateViewer(SimulationData simData, final RunDataTransporter transporter) {
+		surfacePanel.setAnimationSimulationData(simData,mainAnimator);
 
 		long currentTime=System.currentTimeMillis();
 		if (currentTime<=lastUpdateStep+5 && delayInt==0) {

@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-02-26 05:18+0100\n"
+"POT-Creation-Date: 2021-02-27 16:13+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -24047,6 +24047,33 @@ msgstr "Show recent values"
 
 msgid "Surface.PopupMenu.Arrange"
 msgstr "Arrange"
+
+msgid "Surface.PopupMenu.BreakPoint"
+msgstr "Break point..."
+
+msgid "Surface.PopupMenu.BreakPoint.Condition"
+msgstr "Condition"
+
+msgid "Surface.PopupMenu.BreakPoint.Condition.Error.Info"
+msgstr "The specified condition \"%s\" is invalid at character %d."
+
+msgid "Surface.PopupMenu.BreakPoint.Condition.Error.Title"
+msgstr "Invalid condition"
+
+msgid "Surface.PopupMenu.BreakPoint.Option.Active"
+msgstr "Pause animation if client arrives at this station"
+
+msgid "Surface.PopupMenu.BreakPoint.Option.AutoDelete"
+msgstr "Delete break point after one activation"
+
+msgid "Surface.PopupMenu.BreakPoint.Option.ClientType"
+msgstr "Client type"
+
+msgid "Surface.PopupMenu.BreakPoint.Option.ClientType.All"
+msgstr "All client types"
+
+msgid "Surface.PopupMenu.BreakPoint.Title"
+msgstr "Edit break point"
 
 msgid "Surface.PopupMenu.DefaultSizes"
 msgstr "Default sizes"

@@ -249,8 +249,11 @@ public final class ModelSurfacePanel extends JPanel {
 	private transient ModelClientData clientData;
 	/** Fertigungspläne aus {@link #model} */
 	private transient ModelSequences sequences;
-	/** Optionale (Animations-)Simulationsdaten ({@link #setAnimationSimulationData(SimulationData)}) */
+	/** Optionale (Animations-)Simulationsdaten ({@link #setAnimationSimulationData(SimulationData, ModelSurfaceAnimator)}) */
 	private transient SimulationData simData;
+	/** Optionales Animationssystem-Objekt der Hauptebene ({@link #setAnimationSimulationData(SimulationData, ModelSurfaceAnimator)}) */
+	private transient ModelSurfaceAnimator mainAnimator;
+
 	/** Reagiert auf {@link ModelSurface#addRedrawListener(Runnable)} */
 	private final transient Runnable requestRedrawListener;
 	/** Reagiert auf {@link ModelSurface#addRequestCopyListener(Runnable)} */
@@ -2278,9 +2281,11 @@ public final class ModelSurfacePanel extends JPanel {
 	 * Stellt die (Animations-)Simulationsdaten ein, so dass Statistikdaten während der Animation
 	 * über das Kontextmenü abgerufen werden können.
 	 * @param simData	Simulationsdaten (kann auch <code>null</code> sein, wenn keine Daten zur Verfügung gestellt werden sollen)
+	 * @param mainAnimator	Animationssystem-Objekt (kann auch <code>null</code> sein, wenn keine Daten zur Verfügung gestellt werden sollen)
 	 */
-	public void setAnimationSimulationData(final SimulationData simData) {
+	public void setAnimationSimulationData(final SimulationData simData, final ModelSurfaceAnimator mainAnimator) {
 		this.simData=simData;
+		this.mainAnimator=mainAnimator;
 	}
 
 	/**
@@ -2843,7 +2848,7 @@ public final class ModelSurfacePanel extends JPanel {
 					surface.setSelectedElement(element);
 					fireStateChangeListener();
 					element.setModel(model);
-					element.showContextMenu(ModelSurfacePanel.this,e.getPoint(),readOnly,allowChangeOperationsOnReadOnly,ModelSurfacePanel.this,template->fireBuildParameterSeries(template),clientData,sequences,simData);
+					element.showContextMenu(ModelSurfacePanel.this,e.getPoint(),readOnly,allowChangeOperationsOnReadOnly,ModelSurfacePanel.this,template->fireBuildParameterSeries(template),clientData,sequences,simData,mainAnimator);
 				}
 				fireSelectionListener();
 				e.consume();
@@ -3200,7 +3205,7 @@ public final class ModelSurfacePanel extends JPanel {
 					point.y=(int)Math.round(point.y*zoom);
 					point.translate(10,10);
 					element.setModel(model);
-					element.showContextMenu(ModelSurfacePanel.this,point,readOnly,allowChangeOperationsOnReadOnly,ModelSurfacePanel.this,template->fireBuildParameterSeries(template),clientData,sequences,simData);
+					element.showContextMenu(ModelSurfacePanel.this,point,readOnly,allowChangeOperationsOnReadOnly,ModelSurfacePanel.this,template->fireBuildParameterSeries(template),clientData,sequences,simData,mainAnimator);
 				} else {
 					if (showEditModelProperties) {
 						Container c=getParent();
