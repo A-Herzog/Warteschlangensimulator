@@ -65,14 +65,15 @@ public class RunElementSub extends RunElement {
 	public Object build(final EditModel editModel, final RunModel runModel, final ModelElement element, final ModelElementSub parent, final boolean testOnly) {
 		if (!(element instanceof ModelElementSub)) return null;
 
-		RunElementSub sub=new RunElementSub((ModelElementSub)element);
+		final ModelElementSub subElement=(ModelElementSub)element;
+		final RunElementSub sub=new RunElementSub(subElement);
 
 		final List<List<Integer>> list=new ArrayList<>();
 		ModelElementEdge[] edges;
 
 		/* Einlaufende Kanten */
-		edges=((ModelElementSub)element).getEdgesIn();
-		if (edges.length!=((ModelElementSub)element).getInputCount()) return String.format(Language.tr("Simulation.Creator.InputConnectionsNotMatching"),element.getId());
+		edges=subElement.getEdgesIn();
+		if (edges.length!=subElement.getInputCount()) return String.format(Language.tr("Simulation.Creator.InputConnectionsNotMatching"),element.getId());
 		if (edges.length==0) return String.format(Language.tr("Simulation.Creator.NoEdgeIn"),element.getId());
 		for (int i=0;i<edges.length;i++) {
 			final List<Integer> ids=findPreviousId(edges[i]);
@@ -81,16 +82,17 @@ public class RunElementSub extends RunElement {
 			list.add(ids);
 		}
 
-		sub.connectionInIds=new int[list.size()][];
-		for (int i=0;i<list.size();i++) {
+		final int size=list.size();
+		sub.connectionInIds=new int[size][];
+		for (int i=0;i<size;i++) {
 			final List<Integer> subList=list.get(i);
 			sub.connectionInIds[i]=new int[subList.size()];
 			for (int j=0;j<subList.size();j++) sub.connectionInIds[i][j]=subList.get(j);
 		}
 
 		/* Auslaufende Kanten */
-		edges=((ModelElementSub)element).getEdgesOut();
-		if (edges.length!=((ModelElementSub)element).getOutputCount()) return String.format(Language.tr("Simulation.Creator.OutputConnectionsNotMatching"),element.getId());
+		edges=subElement.getEdgesOut();
+		if (edges.length!=subElement.getOutputCount()) return String.format(Language.tr("Simulation.Creator.OutputConnectionsNotMatching"),element.getId());
 		if (edges.length==0) return String.format(Language.tr("Simulation.Creator.NoEdgeOut"),element.getId());
 		sub.connectionOutIds=new int[edges.length];
 		for (int i=0;i<edges.length;i++) {
@@ -100,12 +102,13 @@ public class RunElementSub extends RunElement {
 		}
 
 		/* Interne Verknüpfungen */
-		ModelSurface subSurface=((ModelElementSub)element).getSubSurface();
+		ModelSurface subSurface=subElement.getSubSurface();
+		List<ModelElement> subElements=subSurface.getElements();
 
 		/* Interne Verknüpfungen in das Submodell einlaufend */
 		sub.internInIds=new int[sub.connectionInIds.length];
 		Arrays.fill(sub.internInIds,-1);
-		for (ModelElement e: subSurface.getElements()) if (e instanceof ModelElementSubIn) {
+		for (ModelElement e: subElements) if (e instanceof ModelElementSubIn) {
 			int nr=((ModelElementSubIn)e).getConnectionNr();
 			int id=e.getId();
 			if (nr<0 || nr>=sub.internInIds.length) return String.format(Language.tr("Simulation.Creator.InternalInputConnectionsNotMatching"),element.getId());
@@ -116,7 +119,7 @@ public class RunElementSub extends RunElement {
 		/* Interne Verknüpfungen aus dem Submodell auslaufend */
 		sub.internOutIds=new int[sub.connectionOutIds.length];
 		Arrays.fill(sub.internOutIds,-1);
-		for (ModelElement e: subSurface.getElements()) if (e instanceof ModelElementSubOut) {
+		for (ModelElement e: subElements) if (e instanceof ModelElementSubOut) {
 			int nr=((ModelElementSubOut)e).getConnectionNr();
 			int id=e.getId();
 			if (nr<0 || nr>=sub.internOutIds.length) return String.format(Language.tr("Simulation.Creator.InternalOutputConnectionsNotMatching"),element.getId());
