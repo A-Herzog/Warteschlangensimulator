@@ -29,7 +29,6 @@ import org.apache.poi.openxml4j.opc.OPCPackage;
 import org.apache.poi.openxml4j.opc.PackageAccess;
 import org.apache.poi.ss.usermodel.DataFormatter;
 import org.apache.poi.ss.util.CellAddress;
-import org.apache.poi.ss.util.CellReference;
 import org.apache.poi.util.XMLHelper;
 import org.apache.poi.xssf.binary.XSSFBSheetHandler.SheetContentsHandler;
 import org.apache.poi.xssf.eventusermodel.ReadOnlySharedStringsTable;
@@ -184,7 +183,8 @@ public class TableXLSXReader {
 		@Override
 		public void startRow(int rowNum) {
 			endRow(-1);
-			outputMissingRows(rowNum-table.getSize(0));
+			final int missedRows=rowNum-table.getSize(0);
+			if (missedRows>0) outputMissingRows(missedRows);
 			row=new ArrayList<>();
 		}
 
@@ -200,8 +200,9 @@ public class TableXLSXReader {
 
 			if (cellReference==null) cellReference=new CellAddress(table.getSize(0),row.size()).formatAsString();
 
-			int thisCol=(new CellReference(cellReference)).getCol();
-			int missedCols=thisCol-row.size();
+			final int thisCol=Table.numberFromColumnNameIgnoreRowNumbers(cellReference);
+			/* Speicherintensiver: final int thisCol=new CellReference(cellReference).getCol(); */
+			final int missedCols=thisCol-row.size();
 			for (int i=0;i<missedCols;i++) row.add("");
 
 			row.add(formattedValue);

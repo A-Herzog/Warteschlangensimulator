@@ -2110,6 +2110,36 @@ public final class Table implements Cloneable {
 	}
 
 	/**
+	 * Wandelt eine Spaltenbezeichnung wie A in einen 0-basierenden wert um.
+	 * @param colName	Spaltenbezeichner A,B,...,Y,Z,AA,AB,...
+	 * @return	0-basierter Index der Spalte oder -1 im Falle eines Fehlers
+	 */
+	public static int numberFromColumnNameIgnoreRowNumbers(String colName) {
+		if (colName==null) return -1;
+		colName=colName.trim();
+		if (colName.isEmpty()) return -1;
+		final char[] c=colName.toCharArray();
+		int i=0,col=0;
+		while (i<c.length) {
+			if (c[i]>='A' && c[i]<='Z') {
+				col*=26;
+				col+=(c[i]-'A')+1;
+				i++;
+				continue;
+			}
+			if (c[i]>='a' && c[i]<='z') {
+				col*=26;
+				col+=(c[i]-'a')+1;
+				i++;
+				continue;
+			}
+			break;
+		}
+		/* if (i!=c.length) return -1; - Zahlen am Ende werden ignoriert */
+		return col-1;
+	}
+
+	/**
 	 * Wandelt eine Zellenbeschreibung wie A1 in ein Array aus Zeilen- und Spaltennummer (jeweils 0-basierend) um.
 	 * @param cellID	Bezeichner der Zelle
 	 * @return	Zweielementiges Array aus Zeilen- und Spaltennummer (jeweils 0-basierend) oder <code>null</code> im Fehlerfall
