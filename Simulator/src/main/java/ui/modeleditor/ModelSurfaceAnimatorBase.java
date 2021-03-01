@@ -1270,29 +1270,29 @@ public class ModelSurfaceAnimatorBase {
 		try {
 			drawMovingIcons=new ArrayList<>(pathList.size());
 			for (int i=0;i<pathList.size();i++) drawMovingIcons.add(null);
-		} finally {drawClientsMutex.release();}
 
-		int delayIntegrator=0;
-		for (int i=0;i<points-1;i++) {
-			drawClientsMutex.acquireUninterruptibly();
-			try {
+			int delayIntegrator=0;
+			for (int i=0;i<points-1;i++) {
 				for (int j=0;j<pathList.size();j++) {
 					drawMovingIcons.set(j,pathList.get(j).getDrawClient(i));
 				}
-			} finally {drawClientsMutex.release();}
-			doPaintSurface(simData);
+				doPaintSurface(simData);
 
-			while (delayIntegrator>10) {
-				try {
-					Thread.sleep(5);
-				} catch (InterruptedException e) {Thread.currentThread().interrupt(); break;}
-				delayIntegrator-=10;
+				while (delayIntegrator>10) {
+					try {
+						Thread.sleep(5);
+					} catch (InterruptedException e) {Thread.currentThread().interrupt(); break;}
+					delayIntegrator-=10;
+				}
+				delayIntegrator+=delay;
 			}
-			delayIntegrator+=delay;
+
+			drawMovingIcons=null;
+
+		} finally {
+			drawClientsMutex.release();
 		}
 
-		drawClientsMutex.acquireUninterruptibly();
-		try {drawMovingIcons=null;} finally {drawClientsMutex.release();}
 	}
 
 	/**

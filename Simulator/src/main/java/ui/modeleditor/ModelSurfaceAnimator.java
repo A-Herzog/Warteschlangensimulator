@@ -230,7 +230,7 @@ public class ModelSurfaceAnimator extends ModelSurfaceAnimatorBase {
 	 * @param client	Kunde, der sich bewegt hat (kann auch <code>null</code> sein)
 	 * @param delay	Verzögerung pro Animationsschritt
 	 */
-	public void process(final SimulationData simData, final RunDataClient client, int delay) {
+	public synchronized void process(final SimulationData simData, final RunDataClient client, int delay) {
 		currentTime=simData.currentTime;
 		preProcess(simData);
 
