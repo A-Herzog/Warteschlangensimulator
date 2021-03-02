@@ -32,7 +32,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ExecutorService;
-import java.util.concurrent.SynchronousQueue;
+import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
@@ -303,12 +303,16 @@ public abstract class JQuickAccessTextField extends JPlaceholderTextField {
 		}
 		lastRunner=new QuickAccessRunner(lastText);
 
-		if (executor==null) executor=new ThreadPoolExecutor(0,Integer.MAX_VALUE,5L,TimeUnit.SECONDS,new SynchronousQueue<>(),new ThreadFactory() {
-			@Override
-			public Thread newThread(Runnable r) {
-				return new Thread(r,"QuickAccess");
-			}
-		});
+		if (executor==null) {
+			final int coreCount=Runtime.getRuntime().availableProcessors();
+			executor=new ThreadPoolExecutor(coreCount,coreCount,2,TimeUnit.SECONDS,new LinkedBlockingQueue<>(),new ThreadFactory() {
+				@Override
+				public Thread newThread(Runnable r) {
+					return new Thread(r,"QuickAccess");
+				}
+			});
+			((ThreadPoolExecutor)executor).allowCoreThreadTimeOut(true);
+		}
 		executor.execute(lastRunner);
 	}
 

@@ -23,7 +23,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
-import java.util.concurrent.SynchronousQueue;
+import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -307,7 +307,9 @@ public abstract class OptimizerParallelBase extends OptimizerBase {
 		final boolean[] emergencyShutDown=new boolean[statistics.length];
 
 		/* Paralleles Erstellen der XML-Dokumente */
-		final ThreadPoolExecutor executorPool=new ThreadPoolExecutor(0,10,2,TimeUnit.SECONDS,new SynchronousQueue<>());
+		final int maxThreads=Math.min(10,Runtime.getRuntime().availableProcessors());
+		final ThreadPoolExecutor executorPool=new ThreadPoolExecutor(maxThreads,maxThreads,2,TimeUnit.SECONDS,new LinkedBlockingQueue<>());
+		executorPool.allowCoreThreadTimeOut(true);
 		final List<Future<Document>> documents=new ArrayList<>();
 		for (int i=0;i<statistics.length;i++) if (statistics[i]==null) {
 			documents.add(null);
@@ -379,6 +381,8 @@ public abstract class OptimizerParallelBase extends OptimizerBase {
 			/* Wert speichern */
 			resultsCache.add(new OptimizationResult(kernel.getControlVariablesForModel(i),values[i],!emergencyShutDown[i]));
 		}
+
+		executorPool.shutdown();
 
 		/* Nächster Optimierungsschritt */
 		initNextRun(values,emergencyShutDown);

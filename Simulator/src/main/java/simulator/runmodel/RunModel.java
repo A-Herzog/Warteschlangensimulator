@@ -22,7 +22,8 @@ import java.util.Map;
 import java.util.TreeMap;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
-import java.util.concurrent.SynchronousQueue;
+import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
@@ -618,7 +619,13 @@ public class RunModel {
 		final List<ModelElement> elements=new ArrayList<>(editModel.surface.getElements());
 
 		/* Skript-Elemente auf der Hauptebene verarbeiten */
-		final ThreadPoolExecutor executorPool=new ThreadPoolExecutor(0,Runtime.getRuntime().availableProcessors(),2,TimeUnit.SECONDS,new SynchronousQueue<>());
+		final int coreCount=Runtime.getRuntime().availableProcessors();
+		final ThreadPoolExecutor executorPool=new ThreadPoolExecutor(coreCount,coreCount,2,TimeUnit.SECONDS,new LinkedBlockingQueue<>(),new ThreadFactory() {
+			@Override
+			public Thread newThread(Runnable r) {
+				return new Thread(r,"Prepare model for simulation");
+			}
+		});
 		final List<Future<String>> scriptProcessor=new ArrayList<>();
 
 		/* Normale Elemente verarbeiten */
@@ -686,6 +693,7 @@ public class RunModel {
 		} catch (InterruptedException|ExecutionException e) {
 			return e.getMessage();
 		}
+		executorPool.shutdown();
 
 		/* Verknüpfungen umstellen von IDs auf Referenzen */
 		int maxID=0;
