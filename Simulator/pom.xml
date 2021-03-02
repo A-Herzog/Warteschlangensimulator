@@ -148,6 +148,12 @@
 		<artifactId>org.eclipse.jgit.ssh.jsch</artifactId>
 		<version>5.10.0.202012080955-r</version>
 	</dependency>
+	<!-- https://mvnrepository.com/artifact/org.json/json -->
+	<dependency>
+    		<groupId>org.json</groupId>
+    		<artifactId>json</artifactId>
+    		<version>20201115</version>
+	</dependency>
 	<!-- local -->
 	<dependency>
 		<groupId>JDDE.group</groupId>

@@ -89,6 +89,13 @@ This file lists the third-party components used by "Simulator" project and their
 - License: Eclipse Distribution License (New BSD License)
 - License URL: https://www.eclipse.org/org/documents/edl-v10.php
 
+### JSON In Java
+
+- Repository: https://mvnrepository.com/artifact/org.json/json/20201115
+- License: The JSON License
+- License URL: 	http://json.org/license.html 
+- Homepage: https://github.com/stleary/JSON-java
+
 ### MariaDB Java Client
 
 - Repository: https://mvnrepository.com/artifact/org.mariadb.jdbc/mariadb-java-client
@@ -3065,6 +3072,34 @@ Exhibit B - "Incompatible With Secondary Licenses" Notice
 
   This Source Code Form is "Incompatible With Secondary Licenses", as
   defined by the Mozilla Public License, v. 2.0.
+```
+
+### The JSON License
+
+URL: The JSON License
+
+```
+Copyright (c) 2002 JSON.org
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+The Software shall be used for Good, not Evil.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
 ```
 
 ### The MIT License

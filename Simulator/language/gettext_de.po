@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-02-27 16:13+0100\n"
+"POT-Creation-Date: 2021-03-01 00:05+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -28549,6 +28549,27 @@ msgstr "Der Link konnte nicht verarbeitet werden."
 
 msgid "URLLoader.Error.Title"
 msgstr "Laden fehlgeschlagen"
+
+msgid "URLLoader.Select.Branch"
+msgstr "Zweig"
+
+msgid "URLLoader.Select.FileSize"
+msgstr "Dateigröße"
+
+msgid "URLLoader.Select.NoFileSelected.Info"
+msgstr "Es wurde keine Datei zum Herunterladen ausgewählt."
+
+msgid "URLLoader.Select.NoFileSelected.Title"
+msgstr "Keine Datei ausgewählt"
+
+msgid "URLLoader.Select.Repository"
+msgstr "Repository"
+
+msgid "URLLoader.Select.Title"
+msgstr "Datei auswählen"
+
+msgid "URLLoader.Select.User"
+msgstr "Nutzer"
 
 msgid "UndoRedoSelect.CurrentStep"
 msgstr "Aktueller Zustand"
