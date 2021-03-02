@@ -98,7 +98,7 @@ public class StatisticViewerTimeBarChart extends StatisticViewerBarChart {
 		MODE_RESIDENCE_STATION_CLIENT,
 		/** Balkendiagramm zum Vergleich der Flussgrade zwischen den Stationen (zusätzlich ausdifferenziert nach Kundentypen) */
 		MODE_FLOW_FACTOR_STATION_CLIENT,
-		/** Balkendiagramm zum Vergleich der Auslastungen der Bedeinergruppen  */
+		/** Balkendiagramm zum Vergleich der Auslastungen der Bedienergruppen  */
 		MODE_RESOURCE_UTILIZATION,
 		/** Balkendiagramm zum Vergleich der Auslastungen der Transportergruppen  */
 		MODE_TRANSPORTER_UTILIZATION
@@ -224,8 +224,8 @@ public class StatisticViewerTimeBarChart extends StatisticViewerBarChart {
 		final StatisticsTimePerformanceIndicator[] indicators2=statistics.resourceInDownTime.getAll(StatisticsTimePerformanceIndicator.class);
 
 		for (int i=0;i<names.length;i++) {
-			final double part1=indicators1[i].getTimeMean();
-			final double part2=indicators2[i].getTimeMean();
+			final double part1=(i<indicators1.length && indicators1[i]!=null)?indicators1[i].getTimeMean():0;
+			final double part2=(i<indicators2.length && indicators2[i]!=null)?indicators2[i].getTimeMean():0;
 			data.addValue(part1,Language.tr("Statistics.UtilizationAndFailures.Utilization"),names[i]);
 			data.addValue(part2,Language.tr("Statistics.UtilizationAndFailures.Failure"),names[i]);
 			final ModelResource resource=statistics.editModel.resources.get(names[i]);
@@ -259,8 +259,8 @@ public class StatisticViewerTimeBarChart extends StatisticViewerBarChart {
 		final StatisticsTimePerformanceIndicator[] indicators2=statistics.transporterInDownTime.getAll(StatisticsTimePerformanceIndicator.class);
 
 		for (int i=0;i<names.length;i++) {
-			final double part1=indicators1[i].getTimeMean();
-			final double part2=indicators2[i].getTimeMean();
+			final double part1=(i<indicators1.length && indicators1[i]!=null)?indicators1[i].getTimeMean():0;
+			final double part2=(i<indicators2.length && indicators2[i]!=null)?indicators2[i].getTimeMean():0;
 			data.addValue(part1,Language.tr("Statistics.TransporterUtilization.Utilization"),names[i]);
 			data.addValue(part2,Language.tr("Statistics.TransporterUtilization.Failure"),names[i]);
 			final ModelTransporter transporter=statistics.editModel.transporters.get(names[i]);
