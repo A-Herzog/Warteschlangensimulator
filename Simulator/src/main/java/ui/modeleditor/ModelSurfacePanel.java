@@ -696,10 +696,10 @@ public final class ModelSurfacePanel extends JPanel {
 			element.setPosition(new Point(x,y));
 			surface.add(element);
 			setMode(ClickMode.MODE_NORMAL);
+		} else {
+			final ActionEvent event=FileDropperData.getActionEvent(null,file,this,point);
+			for (ActionListener listener: fileDropListeners) listener.actionPerformed(event);
 		}
-
-		final ActionEvent event=FileDropperData.getActionEvent(null,file,this,point);
-		for (ActionListener listener: fileDropListeners) listener.actionPerformed(event);
 	}
 
 	/**
