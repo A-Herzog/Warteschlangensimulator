@@ -27,6 +27,12 @@ import statistics.StatisticsPerformanceIndicator;
 import statistics.StatisticsTimePerformanceIndicator;
 import systemtools.statistics.StatisticViewerText;
 import ui.help.Help;
+import ui.modeleditor.ModelSurface;
+import ui.modeleditor.coreelements.ModelElement;
+import ui.modeleditor.elements.ModelElementSourceDB;
+import ui.modeleditor.elements.ModelElementSourceDDE;
+import ui.modeleditor.elements.ModelElementSourceTable;
+import ui.modeleditor.elements.ModelElementSub;
 
 /**
  * Dieser Viewer analysiert das Modell und gibt Hinweise zu Kenngrößen,
@@ -161,6 +167,58 @@ public class StatisticViewerRemarksText extends StatisticViewerText {
 		endParagraph();
 
 		return true;
+	}
+
+	/**
+	 * Testet, ob ein Modell über externe Kundendatenquellen verfügt.
+	 * @param surface	Zeichenfläche, deren Stationen (inkl. möglicher Untermodelle) untersucht werden sollen
+	 * @return	Liefert <code>true</code>, das Modell mindestens eine externe Kundendatenquellen besitzt
+	 */
+	private boolean hasExternalDataSource(final ModelSurface surface) {
+		for (ModelElement element: surface.getElements()) {
+			if (element instanceof ModelElementSub) if (hasExternalDataSource(((ModelElementSub)element).getSubSurface())) return true;
+
+			if (element instanceof ModelElementSourceTable) return true;
+			if (element instanceof ModelElementSourceDB) return true;
+			if (element instanceof ModelElementSourceDDE) return true;
+		}
+		return false;
+	}
+
+	/**
+	 * Prüft, ob es Einschwingphasen-bedingte Warnungen gibt.
+	 * @return	Liefert <code>true</code>, wenn die Methode Ausgaben erzeugt hat
+	 */
+	private boolean buildTextWarmUpWarnings() {
+		boolean headingPrinted=false;
+
+		/* Insgesamt am System eingetroffene Kunden */
+		long sum=0;
+		for (StatisticsDataPerformanceIndicator indicator: (StatisticsDataPerformanceIndicator[])statistics.clientsInterarrivalTime.getAll(StatisticsDataPerformanceIndicator.class)) sum+=indicator.getCount();
+
+		/* Einschwingphase vorhanden? */
+		final boolean hasWarmUp=(statistics.editModel.warmUpTime>0);
+
+		/* Sind externe Datenquellen angebunden? */
+		final boolean hasExternalDataSource=hasExternalDataSource(statistics.editModel.surface);
+
+		/* Warnung: Aufgrund von Einschwingphase überhaupt keine Kunden erfasst */
+		if (sum<=0 && hasWarmUp) {
+			if (!headingPrinted) {addHeading(2,Language.tr("Statistics.Warnings.Title")); headingPrinted=true;}
+			beginParagraph();
+			addLine(Language.tr("Statistics.SimulatedClients.Zero"));
+			endParagraph();
+		}
+
+		/* Warnung: Einschwingphase bei externen Datenquellen nicht sinnvoll */
+		if (hasWarmUp && hasExternalDataSource) {
+			if (!headingPrinted) {addHeading(2,Language.tr("Statistics.Warnings.Title")); headingPrinted=true;}
+			beginParagraph();
+			addLine(Language.tr("Statistics.SimulatedClients.ExternalSourceAndWarmUp"));
+			endParagraph();
+		}
+
+		return headingPrinted;
 	}
 
 	/**
@@ -526,6 +584,9 @@ public class StatisticViewerRemarksText extends StatisticViewerText {
 		boolean output=false;
 
 		if (buildTextError()) output=true;
+		if (testOnly && output) return true;
+
+		if (buildTextWarmUpWarnings()) output=true;
 		if (testOnly && output) return true;
 
 		if (buildTextLargeN()) output=true;

@@ -9568,6 +9568,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[22945] = "random number";
     t[22952] = "ParameterCompare.Table.DeleteModel.Confirm.InfoAll";
     t[22953] = "Do you really want to delete all simulation models from list?";
+    t[22956] = "Statistics.SimulatedClients.ExternalSourceAndWarmUp";
+    t[22957] = "Client arrivals are loaded from an external data source. Nevertheless, a warm-up phase is defined. As a result, some of the loaded clients are not included in the statistics.";
     t[22966] = "Surface.InputDB.Dialog.Mode.Loop";
     t[22967] = "Start table from beginning after end of file.";
     t[22970] = "Surface.AnimationRecord.ValueNumber";
@@ -10032,14 +10034,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[23999] = "Script result";
     t[24002] = "Editor.Dialog.Tab.OutputAnalysis.BatchMeans.Size.Auto";
     t[24003] = "Determine batch size automatically";
-    t[24014] = "Simulation.Creator.RoutingCondition.ClientType";
-    t[24015] = "The client type \"%s\" which is used at station id=%d for routing does not exist.";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_5 (java.lang.String[] t) {
+    t[24014] = "Simulation.Creator.RoutingCondition.ClientType";
+    t[24015] = "The client type \"%s\" which is used at station id=%d for routing does not exist.";
     t[24016] = "Surface.SectionEnd.Dialog.Title";
     t[24017] = "Edit enter section";
     t[24018] = "Window.BackgroundColor.Title";
@@ -12038,14 +12040,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[29007] = "Values";
     t[29020] = "Statistics.XML.Element.ClientMovement.Stations";
     t[29021] = "Movement";
-    t[29024] = "UserTemplates.TemplatesDialog.Delete";
-    t[29025] = "Delete";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_6 (java.lang.String[] t) {
+    t[29024] = "UserTemplates.TemplatesDialog.Delete";
+    t[29025] = "Delete";
     t[29026] = "Surface.Logic.Dialog.Condition";
     t[29027] = "Flow control condition";
     t[29028] = "Simulation.Element.Release.Name";
@@ -14044,14 +14046,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[33839] = "Adds a step to the sequence";
     t[33840] = "Color.9ACD32";
     t[33841] = "Yellow green";
-    t[33842] = "Optimizer.XML.StartValue";
-    t[33843] = "StartValue";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_7 (java.lang.String[] t) {
+    t[33842] = "Optimizer.XML.StartValue";
+    t[33843] = "StartValue";
     t[33844] = "Surface.Resource.EditName.Dialog.AddNew.Error.Info";
     t[33845] = "An operator group with the name \"%s\" already exists. Therefore, a new group with the same name can not be created.";
     t[33850] = "LogSimulation.StationIDs";
@@ -16050,14 +16052,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[38593] = "ModelElementAnimationPieDiagram";
     t[38594] = "ExpressionBuilder.SimulationCharacteristics.ClientData.isWarmUpClient.Info";
     t[38595] = "Gets 0 or 1 depending on whether the client was generated during the warm-up phase (1) or not (0).";
-    t[38622] = "Surface.TransportSource.XML.RouteBySequence";
-    t[38623] = "ModelElementTransportRouteBySequence";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_8 (java.lang.String[] t) {
+    t[38622] = "Surface.TransportSource.XML.RouteBySequence";
+    t[38623] = "ModelElementTransportRouteBySequence";
     t[38626] = "Transporter.Group.Edit.Dialog.Failure.Distribution.Edit";
     t[38627] = "Edit distribution";
     t[38632] = "Main.Menu.Help.SupportData.Mnemonic";
@@ -18056,14 +18058,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[43547] = "Edit valve setups";
     t[43556] = "Transporters.Group.Delete.NoInfo";
     t[43557] = "Keep transporter.";
-    t[43558] = "SettingsDialog.Tabs.Simulation.UseMultiCore";
-    t[43559] = "Use multiple CPU cores for simulation";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_9 (java.lang.String[] t) {
+    t[43558] = "SettingsDialog.Tabs.Simulation.UseMultiCore";
+    t[43559] = "Use multiple CPU cores for simulation";
     t[43564] = "ExpressionBuilder.MathematicalFunctions.Sign";
     t[43565] = "Sign";
     t[43570] = "Statistic.FastAccess.SelectXMLTag.InsertMethod.AtTheEndWithPrint";

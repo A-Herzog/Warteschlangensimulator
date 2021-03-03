@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-03-01 00:05+0100\n"
+"POT-Creation-Date: 2021-03-03 22:37+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18122,6 +18122,9 @@ msgstr "Anteil in dieser Gruppe"
 
 msgid "Statistics.SimulatedClients"
 msgstr "Simulierte Kunden"
+
+msgid "Statistics.SimulatedClients.ExternalSourceAndWarmUp"
+msgstr "Es werden Kundenankünfte aus einer externen Datenquelle geladen. Dennoch ist eine Einschwingphase definiert. Dadurch werden einige der geladenen Kunden nicht in der Statistik erfasst."
 
 msgid "Statistics.SimulatedClients.RepeatInfo"
 msgstr "in Summe über alle Wiederholungen der Simulation"

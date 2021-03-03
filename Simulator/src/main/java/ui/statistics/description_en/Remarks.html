@@ -24,6 +24,18 @@ these are output here. Since problems during the simulation often lead to unusab
 results, the cause of these messages should be corrected in any case.
 </p>
 
+<h3>External data sources and warm-up phase</h3>
+<p>
+If client arrivals are loaded from an external data source and a warm-up phase
+is used, some of the loaded clients are not included in the statistics. If this
+are combined in a model, a warning will be displayed here.
+</p>
+
+Werden Kundenankünfte aus einer externen Datenquelle geladen, so sollte keine
+Einschwingphase verwendet werden, da andernfalls einige der geladenen Kunden
+nicht in der Statistik erfasst werden. Werden in einem Modell externen Datenquellen
+und eine Einschwingphase kombiniert, so wird eine entsprechende Warnung ausgegeben.
+
 <h3>Many clients in the system</h3>
 <p>
 If there are very many clients at a station or in the system, this indicates an overload situation at the station or overall.

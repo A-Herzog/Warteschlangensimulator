@@ -9568,6 +9568,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[22945] = "Zufallszahl";
     t[22952] = "ParameterCompare.Table.DeleteModel.Confirm.InfoAll";
     t[22953] = "Sollen wirklich alle Simulationsmodelle aus der Liste gel\u00f6scht werden?";
+    t[22956] = "Statistics.SimulatedClients.ExternalSourceAndWarmUp";
+    t[22957] = "Es werden Kundenank\u00fcnfte aus einer externen Datenquelle geladen. Dennoch ist eine Einschwingphase definiert. Dadurch werden einige der geladenen Kunden nicht in der Statistik erfasst.";
     t[22966] = "Surface.InputDB.Dialog.Mode.Loop";
     t[22967] = "Tabelle nach Ende erneut von vorne einlesen.";
     t[22970] = "Surface.AnimationRecord.ValueNumber";
@@ -10032,14 +10034,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[23999] = "Skriptergebnis";
     t[24002] = "Editor.Dialog.Tab.OutputAnalysis.BatchMeans.Size.Auto";
     t[24003] = "Batch-Gr\u00f6\u00dfe automatisch bestimmen";
-    t[24014] = "Simulation.Creator.RoutingCondition.ClientType";
-    t[24015] = "Der Kundentyp \"%s\", der an Station id=%d als Verweisbedingung verwendet wird, existiert nicht.";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_5 (java.lang.String[] t) {
+    t[24014] = "Simulation.Creator.RoutingCondition.ClientType";
+    t[24015] = "Der Kundentyp \"%s\", der an Station id=%d als Verweisbedingung verwendet wird, existiert nicht.";
     t[24016] = "Surface.SectionEnd.Dialog.Title";
     t[24017] = "Bereich verlassen bearbeiten";
     t[24018] = "Window.BackgroundColor.Title";
@@ -12038,14 +12040,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[29007] = "Messwerte";
     t[29020] = "Statistics.XML.Element.ClientMovement.Stations";
     t[29021] = "Bewegung";
-    t[29024] = "UserTemplates.TemplatesDialog.Delete";
-    t[29025] = "L\u00f6schen";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_6 (java.lang.String[] t) {
+    t[29024] = "UserTemplates.TemplatesDialog.Delete";
+    t[29025] = "L\u00f6schen";
     t[29026] = "Surface.Logic.Dialog.Condition";
     t[29027] = "Flusssteuerungs-Bedingung";
     t[29028] = "Simulation.Element.Release.Name";
@@ -14044,14 +14046,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[33839] = "F\u00fcgt eine weitere Station zu dem Fertigungsplan hinzu";
     t[33840] = "Color.9ACD32";
     t[33841] = "Gelbgr\u00fcn";
-    t[33842] = "Optimizer.XML.StartValue";
-    t[33843] = "Startwert";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_7 (java.lang.String[] t) {
+    t[33842] = "Optimizer.XML.StartValue";
+    t[33843] = "Startwert";
     t[33844] = "Surface.Resource.EditName.Dialog.AddNew.Error.Info";
     t[33845] = "Es existiert bereits eine Bedienergruppe mit dem Namen \"%s\". Daher kann keine neue Gruppe mit demselben Namen angelegt werden.";
     t[33850] = "LogSimulation.StationIDs";
@@ -16050,14 +16052,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[38593] = "ModellElementAnimationTortenDiagramm";
     t[38594] = "ExpressionBuilder.SimulationCharacteristics.ClientData.isWarmUpClient.Info";
     t[38595] = "Liefert 0 oder 1 zur\u00fcck in Abh\u00e4ngigkeit davon, ob der Kunde w\u00e4hrend der Einschwingphase generiert wurde (1) oder nicht (0).";
-    t[38622] = "Surface.TransportSource.XML.RouteBySequence";
-    t[38623] = "ModellElementTransportRouteNachSequenz";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_8 (java.lang.String[] t) {
+    t[38622] = "Surface.TransportSource.XML.RouteBySequence";
+    t[38623] = "ModellElementTransportRouteNachSequenz";
     t[38626] = "Transporter.Group.Edit.Dialog.Failure.Distribution.Edit";
     t[38627] = "Verteilung bearbeiten";
     t[38632] = "Main.Menu.Help.SupportData.Mnemonic";
@@ -18056,14 +18058,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[43547] = "Ventilkonfigurationen bearbeiten";
     t[43556] = "Transporters.Group.Delete.NoInfo";
     t[43557] = "Transporter beibehalten.";
-    t[43558] = "SettingsDialog.Tabs.Simulation.UseMultiCore";
-    t[43559] = "Mehrere CPU-Kerne f\u00fcr Simulation nutzen";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_9 (java.lang.String[] t) {
+    t[43558] = "SettingsDialog.Tabs.Simulation.UseMultiCore";
+    t[43559] = "Mehrere CPU-Kerne f\u00fcr Simulation nutzen";
     t[43564] = "ExpressionBuilder.MathematicalFunctions.Sign";
     t[43565] = "Vorzeichen";
     t[43570] = "Statistic.FastAccess.SelectXMLTag.InsertMethod.AtTheEndWithPrint";
