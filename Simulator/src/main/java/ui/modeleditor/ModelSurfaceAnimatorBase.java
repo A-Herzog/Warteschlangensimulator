@@ -1266,7 +1266,7 @@ public class ModelSurfaceAnimatorBase {
 		int points=0;
 		for (AnimationPath path: pathList) points=FastMath.max(points,path.getPointCount());
 
-		if (multiCore) drawClientsMutex.acquireUninterruptibly();
+		if (multiCore && !slowMode) drawClientsMutex.acquireUninterruptibly();
 		try {
 			drawMovingIcons=new ArrayList<>(pathList.size());
 			for (int i=0;i<pathList.size();i++) drawMovingIcons.add(null);
@@ -1290,7 +1290,7 @@ public class ModelSurfaceAnimatorBase {
 			drawMovingIcons=null;
 
 		} finally {
-			if (multiCore) drawClientsMutex.release();
+			if (multiCore && !slowMode) drawClientsMutex.release();
 		}
 
 	}
