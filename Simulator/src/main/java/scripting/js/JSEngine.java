@@ -15,13 +15,15 @@
  */
 package scripting.js;
 
-import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
+import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import language.Language;
 
@@ -79,7 +81,15 @@ public abstract class JSEngine {
 	 */
 	public JSEngine(final int maxExecutionTimeMS, final JSOutputWriter output) {
 		this.maxExecutionTimeMS=maxExecutionTimeMS;
-		executorPool=new ThreadPoolExecutor(0,1,2,TimeUnit.SECONDS,new ArrayBlockingQueue<>(1));
+		final int coreCount=Runtime.getRuntime().availableProcessors();
+		executorPool=new ThreadPoolExecutor(coreCount,coreCount,2,TimeUnit.SECONDS,new LinkedBlockingQueue<>(),new ThreadFactory() {
+			private final AtomicInteger threadNumber=new AtomicInteger(1);
+			@Override
+			public Thread newThread(Runnable r) {
+				return new Thread(r,"JS Isolation Thread "+threadNumber.getAndIncrement());
+			}
+		});
+		executorPool.allowCoreThreadTimeOut(true);
 		lastResult="";
 		executionCount=0;
 		lastExecutionTimeMS=maxExecutionTimeMS+1;
@@ -182,6 +192,7 @@ public abstract class JSEngine {
 			lastResult=output.getResults();
 			return true;
 		} catch (InterruptedException | ExecutionException | TimeoutException e) {
+			result.cancel(true);
 			if (e instanceof TimeoutException) {
 				lastResult=Language.tr("Statistics.Filter.MaximumScriptRunTimeExceeded");
 			} else {
