@@ -130,9 +130,9 @@ import ui.dialogs.NotesDialog;
 import ui.dialogs.SelectElementByIdDialog;
 import ui.dialogs.SelectExampleDialog;
 import ui.dialogs.SetupDialog;
-import ui.dialogs.WaitDialog;
 import ui.dialogs.StationStatisticsDialog;
 import ui.dialogs.VarianceAnalysisDialog;
+import ui.dialogs.WaitDialog;
 import ui.generator.ModelGeneratorDialog;
 import ui.help.AutomaticHelpWindow;
 import ui.help.Help;
@@ -1239,7 +1239,9 @@ public class MainPanel extends MainPanelBase {
 				final Font font=memoryUsage.getFont();
 				memoryUsage.setFont(new Font(font.getFontName(),0,font.getSize()-2));
 				memoryUsage.addMouseListener(new MouseAdapter() {
-					@Override public void mousePressed(MouseEvent e) {System.gc();}
+					@Override public void mousePressed(MouseEvent e) {
+						if (e.getClickCount()==2 && SwingUtilities.isRightMouseButton(e)) memoryUsage.setVisible(false); else System.gc();
+					}
 				});
 				final Timer timer=new Timer("MemoryUsage",true);
 				timer.schedule(new TimerTask() {
