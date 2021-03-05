@@ -209,7 +209,7 @@ public enum Images {
 	/** Symbol "Authentifizierung - Aus" */
 	AUTH_OFF("cross.png"),
 
-	/** Symbol "Authentifizierung - Name&Passwort" */
+	/** Symbol "Authentifizierung - Name &amp; Passwort" */
 	AUTH_USER("user.png"),
 
 	/** Symbol "Authentifizierung - Schlüssel" */
