@@ -28,7 +28,9 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.swing.BoxLayout;
 import javax.swing.JCheckBox;
@@ -136,14 +138,14 @@ public class DistributionBySubTypeEditor extends JPanel {
 			subTypes=surface.getClientTypes().toArray(new String[0]);
 			break;
 		case MODE_TRANSPORT_DESTINATION:
-			List<String> destinations=new ArrayList<>();
+			final Set<String> destinations=new HashSet<>();
 			ModelSurface mainSurface=surface;
 			if (mainSurface.getParentSurface()!=null) mainSurface=mainSurface.getParentSurface();
 			for (ModelElement element: mainSurface.getElements()) {
-				if (element instanceof ModelElementTransportDestination && !element.getName().isEmpty() && destinations.indexOf(element.getName())<0) destinations.add(element.getName());
+				if (element instanceof ModelElementTransportDestination && !element.getName().isEmpty() && !destinations.contains(element.getName())) destinations.add(element.getName());
 				if (element instanceof ModelElementSub) {
 					for (ModelElement subelement: ((ModelElementSub)element).getSubSurface().getElements()) {
-						if (subelement instanceof ModelElementTransportDestination && !subelement.getName().isEmpty() && destinations.indexOf(subelement.getName())<0) destinations.add(subelement.getName());
+						if (subelement instanceof ModelElementTransportDestination && !subelement.getName().isEmpty() && !destinations.contains(subelement.getName())) destinations.add(subelement.getName());
 					}
 				}
 			}
