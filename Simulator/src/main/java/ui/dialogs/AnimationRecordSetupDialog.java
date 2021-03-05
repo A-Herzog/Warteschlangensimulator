@@ -200,7 +200,7 @@ public class AnimationRecordSetupDialog extends BaseDialog {
 
 		final double animationFrameScale=scaleSlider.getValue()/100.0;
 
-		if (timeStamp.isSelected()!=setup.paintTimeStamp || animationFrameScale!=setup.animationFrameScale) {
+		if (timeStamp.isSelected()!=setup.paintTimeStamp || Math.abs(animationFrameScale-setup.animationFrameScale)>0.001) {
 			setup.paintTimeStamp=timeStamp.isSelected();
 			setup.animationFrameScale=animationFrameScale;
 			setup.saveSetup();
