@@ -225,6 +225,13 @@ public final class ModelElementVertex extends ModelElementPosition implements Mo
 	 */
 	private int infoFontAscent;
 
+
+	/**
+	 * Füllfarbe
+	 * @see #drawToGraphics(Graphics, Rectangle, double, boolean)
+	 */
+	private static final Color fillColor=new Color(235,235,235);
+
 	/**
 	 * Zeichnet das Element in ein <code>Graphics</code>-Objekt
 	 * @param graphics	<code>Graphics</code>-Objekt in das das Element eingezeichnet werden soll
@@ -249,8 +256,8 @@ public final class ModelElementVertex extends ModelElementPosition implements Mo
 			}
 		}
 
-		drawRect(graphics,drawRect,zoom,borderColor,borderWidth,new Color(235,235,235),1);
-		drawRect(graphics,drawRect,zoom,borderColor,borderWidth,new Color(235,235,235),2);
+		drawRect(graphics,drawRect,zoom,borderColor,borderWidth,fillColor,1);
+		drawRect(graphics,drawRect,zoom,borderColor,borderWidth,fillColor,2);
 
 		if (setup.showIDs) {
 			if (infoFont==null || zoom!=infoFontZoom) {
