@@ -130,7 +130,7 @@ public class ExpressionCalc extends CalcSystem {
 	 */
 	private void prepareRunElementData() {
 		/* Daten zu den Elementen */
-		runElements=Arrays.copyOf(simData.runModel.elementsFast,simData.runModel.elementsFast.length);
+		runElements=simData.runModel.elementsFast;
 		runElementData=new RunElementData[runElements.length];
 		for (int i=0;i<runElements.length;i++) if (runElements[i]!=null) runElementData[i]=runElements[i].getData(simData);
 
