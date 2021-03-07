@@ -620,7 +620,9 @@ public class RunModel {
 
 		/* Skript-Elemente auf der Hauptebene verarbeiten */
 		final int coreCount=Runtime.getRuntime().availableProcessors();
-		final ThreadPoolExecutor executorPool=new ThreadPoolExecutor(coreCount,coreCount,2,TimeUnit.SECONDS,new LinkedBlockingQueue<>(),new ThreadFactory() {
+		final int maxThreadsByMemory=(int)Math.max(1,Runtime.getRuntime().maxMemory()/1024/1024/100); /* min. 100 MB pro Thread */
+		final int threadCount=Math.min(coreCount,maxThreadsByMemory);
+		final ThreadPoolExecutor executorPool=new ThreadPoolExecutor(threadCount,threadCount,2,TimeUnit.SECONDS,new LinkedBlockingQueue<>(),new ThreadFactory() {
 			@Override
 			public Thread newThread(Runnable r) {
 				return new Thread(r,"Prepare model for simulation");
