@@ -255,9 +255,7 @@ public final class ExpressionCalculatorDialog extends BaseDialog {
 		split.setBottomComponent(sub=new JPanel(new BorderLayout()));
 		sub.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)),BorderLayout.NORTH);
 		line.add(new JLabel(Language.tr("ExpressionCalculator.Results")+":"));
-		final RTextScrollPane scrollJava;
-		sub.add(scrollJava=new RTextScrollPane(scriptJavaScriptResults=new JTextArea("")),BorderLayout.CENTER);
-		scrollJava.setLineNumbersEnabled(true);
+		sub.add(new JScrollPane(scriptJavaScriptResults=new JTextArea("")),BorderLayout.CENTER);
 		scriptJavaScriptResults.setEditable(false);
 
 		split.setDividerLocation(0.66);
@@ -290,7 +288,9 @@ public final class ExpressionCalculatorDialog extends BaseDialog {
 			builder.addAutoCompleteFeature(ScriptPopup.ScriptFeature.Output);
 			builder.addFileDropper(new ButtonListener());
 			builder.setText((initialJava==null || initialJava.isEmpty())?DEFAULT_JAVA:initialJava);
-			tab.add(new JScrollPane(scriptJavaEdit=builder.get()),BorderLayout.CENTER);
+			final RTextScrollPane scrollJava;
+			tab.add(scrollJava=new RTextScrollPane(scriptJavaEdit=builder.get()),BorderLayout.CENTER);
+			scrollJava.setLineNumbersEnabled(true);
 			lastJava=scriptJavaEdit.getText();
 
 			split.setBottomComponent(sub=new JPanel(new BorderLayout()));
