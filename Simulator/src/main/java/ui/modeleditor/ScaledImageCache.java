@@ -18,6 +18,7 @@ package ui.modeleditor;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.awt.image.ColorModel;
+import java.awt.image.DataBuffer;
 import java.awt.image.DataBufferByte;
 import java.awt.image.WritableRaster;
 import java.math.BigInteger;
@@ -99,7 +100,9 @@ public class ScaledImageCache {
 	 */
 	public static String getHash(final Image image) {
 		if (image==null) return "0";
-		final byte[] pixels=((DataBufferByte)ImageTools.imageToBufferedImage(image).getRaster().getDataBuffer()).getData();
+		final DataBuffer dataBuffer=ImageTools.imageToBufferedImage(image).getRaster().getDataBuffer();
+		final byte[] pixels=((DataBufferByte)dataBuffer).getData();
+		if (!(dataBuffer instanceof DataBufferByte)) return null;
 
 		for (String algorithm: hashAlgorithms) try {
 			final MessageDigest m=MessageDigest.getInstance(algorithm);
