@@ -36,6 +36,7 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.function.Supplier;
+import java.util.stream.IntStream;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
@@ -77,6 +78,7 @@ import ui.infopanel.InfoPanel;
 import ui.infopanel.InfoPanelDialog;
 import ui.modeleditor.ModelElementBaseDialog;
 import ui.quickaccess.JPlaceholderTextField;
+import ui.script.ScriptEditorAreaBuilder;
 import xml.XMLTools;
 
 /**
@@ -144,10 +146,12 @@ public final class SetupDialog extends BaseDialog {
 	private final JComboBox<String> languages;
 	/** Zu verwendendes Theme */
 	private final JComboBox<String> lookAndFeel;
-	/** Schriftgröße */
+	/** Schriftgröße für Programmoberfläche */
 	private final JComboBox<String> fontSizes;
 	/** Hohe Kontraste verwenden? */
 	private final JCheckBox useHighContrasts;
+	/** Schriftgröße in Skript-Editorfeldern */
+	private final JComboBox<String> scriptFontSize;
 	/** Modelle automatisch speichern? */
 	private final JComboBox<String> autoSave;
 	/** Zuletzt verwendete Dateien merken? */
@@ -354,6 +358,10 @@ public final class SetupDialog extends BaseDialog {
 		}));
 		label.setLabelFor(fontSizes);
 		p.add(useHighContrasts=new JCheckBox(Language.tr("SettingsDialog.HighContrasts")));
+
+		mainarea.add(p=new JPanel(new FlowLayout(FlowLayout.LEFT)));
+		p.add(label=new JLabel(Language.tr("SettingsDialog.ScriptFontSize")+":"));
+		p.add(scriptFontSize=new JComboBox<>(getScriptFontSizesList()));
 
 		mainarea.add(p=new JPanel(new FlowLayout(FlowLayout.LEFT)));
 		p.add(new JLabel("<html><body>("+Language.tr("SettingsDialog.FontSizes.Info")+")</body></html>"));
@@ -1015,6 +1023,7 @@ public final class SetupDialog extends BaseDialog {
 		if (setup.scaleGUI>1.1) fontSizes.setSelectedIndex(3);
 		if (setup.scaleGUI>1.3) fontSizes.setSelectedIndex(4);
 		useHighContrasts.setSelected(setup.useHighContrasts);
+		scriptFontSize.setSelectedIndex(ScriptEditorAreaBuilder.getFontSize()-6);
 		switch (setup.autoSaveMode) {
 		case AUTOSAVE_OFF: autoSave.setSelectedIndex(0); break;
 		case AUTOSAVE_SIMULATION: autoSave.setSelectedIndex(1); break;
@@ -1220,6 +1229,15 @@ public final class SetupDialog extends BaseDialog {
 	}
 
 	/**
+	 * Erzeugt eine Liste mit möglichen Schriftgrößen in Skript-Editor-Feldern.
+	 * @return	Liste mit möglichen Schriftgrößen in Skript-Editor-Feldern
+	 * @see #scriptFontSize
+	 */
+	private String[] getScriptFontSizesList() {
+		return IntStream.range(6,31).mapToObj(String::valueOf).map(s->s.equals(""+ScriptEditorAreaBuilder.DEFAULT_FONT_SIZE)?(s+" ("+Language.tr("SettingsDialog.ScriptFontSize.Default")+")"):s).toArray(String[]::new);
+	}
+
+	/**
 	 * Führt eine Update-Prüfung durch.<br>
 	 * (Wird, wenn entsprechend konfiguriert, beim Aufruf des Dialogs ausgeführt oder kann über eine Schaltfläche manuell ausgelöst werden.)
 	 * @see #updateCheckButton
@@ -1275,6 +1293,7 @@ public final class SetupDialog extends BaseDialog {
 		case 4: setup.scaleGUI=1.5; break;
 		}
 		setup.useHighContrasts=useHighContrasts.isSelected();
+		setup.scriptFontSize=scriptFontSize.getSelectedIndex()+6;
 		switch (autoSave.getSelectedIndex()) {
 		case 0: setup.autoSaveMode=SetupData.AutoSaveMode.AUTOSAVE_OFF; break;
 		case 1: setup.autoSaveMode=SetupData.AutoSaveMode.AUTOSAVE_SIMULATION; break;
@@ -1535,6 +1554,7 @@ public final class SetupDialog extends BaseDialog {
 			lookAndFeel.setSelectedIndex(0);
 			fontSizes.setSelectedIndex(1);
 			useHighContrasts.setSelected(false);
+			scriptFontSize.setSelectedIndex(ScriptEditorAreaBuilder.DEFAULT_FONT_SIZE-6);
 			autoSave.setSelectedIndex(0);
 			useLastFiles.setSelected(true);
 			autoRestore.setSelected(false);

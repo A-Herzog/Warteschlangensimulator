@@ -42,6 +42,7 @@ import ui.MainFrame;
 import ui.infopanel.InfoPanel;
 import ui.modeleditor.ModelSurface;
 import ui.modeleditor.ModelSurfacePanel;
+import ui.script.ScriptEditorAreaBuilder;
 import ui.statistics.StatisticViewerOverviewText;
 import xml.XMLTools;
 
@@ -533,6 +534,11 @@ public class SetupData extends SetupBase {
 	 *  Skript für Rechner
 	 */
 	public String scriptCalculator;
+
+	/**
+	 * Schriftgröße in Skript-Eingabefeldern
+	 */
+	public int scriptFontSize;
 
 	/**
 	 * Zuletzt im Kommandozeilen-Befehle-Dialog verwendete Parameter
@@ -1139,6 +1145,7 @@ public class SetupData extends SetupBase {
 		lastFilterMode=0;
 		scriptScriptRunner="";
 		scriptCalculator="";
+		scriptFontSize=ScriptEditorAreaBuilder.DEFAULT_FONT_SIZE;
 		commandLineDialogParameters="";
 		backgroundSimulation=BackgroundProcessingMode.BACKGROUND_SIMULATION;
 		autoConnect=ModelSurfacePanel.ConnectMode.OFF;
@@ -1675,6 +1682,12 @@ public class SetupData extends SetupBase {
 
 			if (name.equals("calculatorscript")) {
 				scriptCalculator=e.getTextContent();
+				continue;
+			}
+
+			if (name.equals("scriptfontsize")) {
+				final Integer I=NumberTools.getNotNegativeInteger(e.getTextContent());
+				if (I!=null && I.intValue()>=6 && I.intValue()<=30) scriptFontSize=I.intValue();
 				continue;
 			}
 
@@ -2294,6 +2307,11 @@ public class SetupData extends SetupBase {
 		if (scriptCalculator!=null && !scriptCalculator.trim().isEmpty()) {
 			root.appendChild(node=doc.createElement("CalculatorScript"));
 			node.setTextContent(scriptCalculator);
+		}
+
+		if (scriptFontSize!=13) {
+			root.appendChild(node=doc.createElement("ScriptFontsize"));
+			node.setTextContent(""+scriptFontSize);
 		}
 
 		if (commandLineDialogParameters!=null && !commandLineDialogParameters.trim().isEmpty()) {

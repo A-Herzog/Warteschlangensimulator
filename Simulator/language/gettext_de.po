@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-03-03 22:37+0100\n"
+"POT-Creation-Date: 2021-03-08 00:14+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -13218,7 +13218,7 @@ msgid "SettingsDialog.ExcelDDEConnection.CustomRow.Info"
 msgstr "(Wenn leer, wird der Standard für ein deutsches Excel verwendet: \"Z\".)"
 
 msgid "SettingsDialog.FontSizes"
-msgstr "Schriftgrößen"
+msgstr "Schriftgröße für Programmoberfläche"
 
 msgid "SettingsDialog.FontSizes.Info"
 msgstr "Veränderungen des Themas und der Schriftgröße werden erst beim nächsten Programmstart wirksam."
@@ -13368,6 +13368,12 @@ msgstr "Aus"
 
 msgid "SettingsDialog.ProxySettings"
 msgstr "Proxy-Konfiguration"
+
+msgid "SettingsDialog.ScriptFontSize"
+msgstr "Schriftgröße in Skript-Editorfeldern"
+
+msgid "SettingsDialog.ScriptFontSize.Default"
+msgstr "Vorgabewert"
 
 msgid "SettingsDialog.SurfaceGlassInfos"
 msgstr "Halbtransparente Informationen auf der Zeichenfläche anzeigen"

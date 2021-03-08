@@ -15,6 +15,7 @@
  */
 package ui.script;
 
+import java.awt.Font;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
@@ -123,6 +124,9 @@ public class ScriptEditorAreaBuilder {
 	public RSyntaxTextArea get() {
 		/* Konstruktor */
 		final RSyntaxTextArea editor=new RSyntaxTextArea();
+
+		/* Schriftgröße */
+		setupFontSize(editor);
 
 		/* Text setzen */
 		if (initialText!=null && !initialText.isEmpty()) {
@@ -878,5 +882,35 @@ public class ScriptEditorAreaBuilder {
 		addAutoComplete(Language.tr("Statistic.FastAccess.Template.StatisticsXMLCV"),Language.tr("Statistic.FastAccess.Template.StatisticsXMLCV.Hint"),Images.SCRIPT_RECORD_STATISTICS.getIcon(),statisticsXmlCV);
 
 		addAutoComplete(Language.tr("Statistic.FastAccess.Template.StationID.Get"),Language.tr("Statistic.FastAccess.Template.StationID.Get.Tooltip"),Images.SCRIPT_RECORD_MODEL_EDIT.getIcon(),statisticsGetID);
+	}
+
+	/**
+	 * Standardschriftgröße für Skript-Editor-Felder
+	 * @see #getFontSize()
+	 * @see #setupFontSize(RSyntaxTextArea)
+	 * @see SetupData#scriptFontSize
+	 */
+	public static int DEFAULT_FONT_SIZE=13;
+
+	/**
+	 * Stellt die Schriftgröße für ein Code-Eingabefeld ein.
+	 * @param textArea	Code-Eingabefeld
+	 * @see #getFontSize()
+	 */
+	public static void setupFontSize(final RSyntaxTextArea textArea) {
+		final Font oldFont=textArea.getFont();
+		textArea.setFont(new Font(oldFont.getName(),oldFont.getStyle(),getFontSize()));
+	}
+
+	/**
+	 * Liefert die Schriftgröße für ein Code-Eingabefeld.
+	 * @return	Schriftgröße für ein Code-Eingabefeld
+	 * @see #setupFontSize(RSyntaxTextArea)
+	 * @see SetupData#scriptFontSize
+	 */
+	public static int getFontSize() {
+		int size=SetupData.getSetup().scriptFontSize;
+		if (size<6 || size>30) size=DEFAULT_FONT_SIZE;
+		return size;
 	}
 }

@@ -11964,6 +11964,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[28807] = "high";
     t[28810] = "Surface.Action.Dialog.Edit.Tabs.Trigger.Signal";
     t[28811] = "Signal";
+    t[28814] = "SettingsDialog.ScriptFontSize";
+    t[28815] = "Font size for scripting editor fields";
     t[28818] = "Editor.SurfaceTooltip.Generator";
     t[28819] = "Open model generator";
     t[28820] = "Simulation.Element.InputDB.Name";
@@ -12038,14 +12040,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[29003] = "<p>Returns the average proces time costs of the clients created at the station whose ID was specified in the parameter.</p>";
     t[29006] = "FitDialog.Tab.Values";
     t[29007] = "Values";
-    t[29020] = "Statistics.XML.Element.ClientMovement.Stations";
-    t[29021] = "Movement";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_6 (java.lang.String[] t) {
+    t[29020] = "Statistics.XML.Element.ClientMovement.Stations";
+    t[29021] = "Movement";
     t[29024] = "UserTemplates.TemplatesDialog.Delete";
     t[29025] = "Delete";
     t[29026] = "Surface.Logic.Dialog.Condition";
@@ -14044,14 +14046,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[33833] = "Show all";
     t[33838] = "Editor.Dialog.Sequences.Edit.Add.Hint";
     t[33839] = "Adds a step to the sequence";
-    t[33840] = "Color.9ACD32";
-    t[33841] = "Yellow green";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_7 (java.lang.String[] t) {
+    t[33840] = "Color.9ACD32";
+    t[33841] = "Yellow green";
     t[33842] = "Optimizer.XML.StartValue";
     t[33843] = "StartValue";
     t[33844] = "Surface.Resource.EditName.Dialog.AddNew.Error.Info";
@@ -16050,14 +16052,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[38583] = "At station id=%d assign analog value %s.";
     t[38592] = "Surface.AnimationPieChart.XML.Root";
     t[38593] = "ModelElementAnimationPieDiagram";
-    t[38594] = "ExpressionBuilder.SimulationCharacteristics.ClientData.isWarmUpClient.Info";
-    t[38595] = "Gets 0 or 1 depending on whether the client was generated during the warm-up phase (1) or not (0).";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_8 (java.lang.String[] t) {
+    t[38594] = "ExpressionBuilder.SimulationCharacteristics.ClientData.isWarmUpClient.Info";
+    t[38595] = "Gets 0 or 1 depending on whether the client was generated during the warm-up phase (1) or not (0).";
     t[38622] = "Surface.TransportSource.XML.RouteBySequence";
     t[38623] = "ModelElementTransportRouteBySequence";
     t[38626] = "Transporter.Group.Edit.Dialog.Failure.Distribution.Edit";
@@ -16353,7 +16355,7 @@ public class Messages_en extends java.util.ResourceBundle {
     t[39398] = "Surface.Set.Table.Edit.Mode.Expression.Expression";
     t[39399] = "Expression";
     t[39406] = "SettingsDialog.FontSizes";
-    t[39407] = "Font sizes";
+    t[39407] = "Font size for user-interface";
     t[39420] = "Statistic.Viewer.Toolbar.SelectNone";
     t[39421] = "None";
     t[39442] = "Surface.Line.Dialog.ArrowLineStart";
@@ -18056,14 +18058,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[43543] = "Split";
     t[43546] = "Surface.TankValveSetup.Dialog.Title";
     t[43547] = "Edit valve setups";
-    t[43556] = "Transporters.Group.Delete.NoInfo";
-    t[43557] = "Keep transporter.";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_9 (java.lang.String[] t) {
+    t[43556] = "Transporters.Group.Delete.NoInfo";
+    t[43557] = "Keep transporter.";
     t[43558] = "SettingsDialog.Tabs.Simulation.UseMultiCore";
     t[43559] = "Use multiple CPU cores for simulation";
     t[43564] = "ExpressionBuilder.MathematicalFunctions.Sign";
@@ -18262,6 +18264,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[44039] = "Assign string";
     t[44040] = "Surface.Source.XML.Threshold.Direction";
     t[44041] = "Direction";
+    t[44042] = "SettingsDialog.ScriptFontSize.Default";
+    t[44043] = "Default value";
     t[44052] = "Surface.InteractiveSlider.XML.Variable";
     t[44053] = "ModelElementSliderVariable";
     t[44054] = "SettingsDialog.Tabs.Simulation.Server.Port";

@@ -11964,6 +11964,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[28807] = "Hoch";
     t[28810] = "Surface.Action.Dialog.Edit.Tabs.Trigger.Signal";
     t[28811] = "Signal";
+    t[28814] = "SettingsDialog.ScriptFontSize";
+    t[28815] = "Schriftgr\u00f6\u00dfe in Skript-Editorfeldern";
     t[28818] = "Editor.SurfaceTooltip.Generator";
     t[28819] = "Modellgenerator aufrufen";
     t[28820] = "Simulation.Element.InputDB.Name";
@@ -12038,14 +12040,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[29003] = "<p>Liefert die mitteren bedienzeit-bedingten Kosten, die f\u00fcr Kunden, die an der Bedienstation, deren ID in dem Parameter angegeben wurde, erzeugt wurden, bisher entstanden sind.</p>";
     t[29006] = "FitDialog.Tab.Values";
     t[29007] = "Messwerte";
-    t[29020] = "Statistics.XML.Element.ClientMovement.Stations";
-    t[29021] = "Bewegung";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_6 (java.lang.String[] t) {
+    t[29020] = "Statistics.XML.Element.ClientMovement.Stations";
+    t[29021] = "Bewegung";
     t[29024] = "UserTemplates.TemplatesDialog.Delete";
     t[29025] = "L\u00f6schen";
     t[29026] = "Surface.Logic.Dialog.Condition";
@@ -14044,14 +14046,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[33833] = "Alle einblenden";
     t[33838] = "Editor.Dialog.Sequences.Edit.Add.Hint";
     t[33839] = "F\u00fcgt eine weitere Station zu dem Fertigungsplan hinzu";
-    t[33840] = "Color.9ACD32";
-    t[33841] = "Gelbgr\u00fcn";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_7 (java.lang.String[] t) {
+    t[33840] = "Color.9ACD32";
+    t[33841] = "Gelbgr\u00fcn";
     t[33842] = "Optimizer.XML.StartValue";
     t[33843] = "Startwert";
     t[33844] = "Surface.Resource.EditName.Dialog.AddNew.Error.Info";
@@ -16050,14 +16052,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[38583] = "An Station id=%d analogen Wert %s zuweisen.";
     t[38592] = "Surface.AnimationPieChart.XML.Root";
     t[38593] = "ModellElementAnimationTortenDiagramm";
-    t[38594] = "ExpressionBuilder.SimulationCharacteristics.ClientData.isWarmUpClient.Info";
-    t[38595] = "Liefert 0 oder 1 zur\u00fcck in Abh\u00e4ngigkeit davon, ob der Kunde w\u00e4hrend der Einschwingphase generiert wurde (1) oder nicht (0).";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_8 (java.lang.String[] t) {
+    t[38594] = "ExpressionBuilder.SimulationCharacteristics.ClientData.isWarmUpClient.Info";
+    t[38595] = "Liefert 0 oder 1 zur\u00fcck in Abh\u00e4ngigkeit davon, ob der Kunde w\u00e4hrend der Einschwingphase generiert wurde (1) oder nicht (0).";
     t[38622] = "Surface.TransportSource.XML.RouteBySequence";
     t[38623] = "ModellElementTransportRouteNachSequenz";
     t[38626] = "Transporter.Group.Edit.Dialog.Failure.Distribution.Edit";
@@ -16353,7 +16355,7 @@ public class Messages_de extends java.util.ResourceBundle {
     t[39398] = "Surface.Set.Table.Edit.Mode.Expression.Expression";
     t[39399] = "Ausdruck";
     t[39406] = "SettingsDialog.FontSizes";
-    t[39407] = "Schriftgr\u00f6\u00dfen";
+    t[39407] = "Schriftgr\u00f6\u00dfe f\u00fcr Programmoberfl\u00e4che";
     t[39420] = "Statistic.Viewer.Toolbar.SelectNone";
     t[39421] = "Keine";
     t[39442] = "Surface.Line.Dialog.ArrowLineStart";
@@ -18056,14 +18058,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[43543] = "Zerteilen";
     t[43546] = "Surface.TankValveSetup.Dialog.Title";
     t[43547] = "Ventilkonfigurationen bearbeiten";
-    t[43556] = "Transporters.Group.Delete.NoInfo";
-    t[43557] = "Transporter beibehalten.";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_9 (java.lang.String[] t) {
+    t[43556] = "Transporters.Group.Delete.NoInfo";
+    t[43557] = "Transporter beibehalten.";
     t[43558] = "SettingsDialog.Tabs.Simulation.UseMultiCore";
     t[43559] = "Mehrere CPU-Kerne f\u00fcr Simulation nutzen";
     t[43564] = "ExpressionBuilder.MathematicalFunctions.Sign";
@@ -18262,6 +18264,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[44039] = "Textzuweisung";
     t[44040] = "Surface.Source.XML.Threshold.Direction";
     t[44041] = "Richtung";
+    t[44042] = "SettingsDialog.ScriptFontSize.Default";
+    t[44043] = "Vorgabewert";
     t[44052] = "Surface.InteractiveSlider.XML.Variable";
     t[44053] = "ModellElementSchiebereglerVariable";
     t[44054] = "SettingsDialog.Tabs.Simulation.Server.Port";

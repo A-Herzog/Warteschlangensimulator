@@ -27,6 +27,7 @@ import org.fife.ui.rsyntaxtextarea.SyntaxConstants;
 
 import language.Language;
 import systemtools.BaseDialog;
+import ui.script.ScriptEditorAreaBuilder;
 
 /**
  * Zeigt ein Skript aus einer Station an
@@ -56,6 +57,7 @@ public class ModelSecurityCheckScriptDialog extends BaseDialog {
 		content.setLayout(new BorderLayout());
 
 		final RSyntaxTextArea editor=new RSyntaxTextArea();
+		ScriptEditorAreaBuilder.setupFontSize(editor);
 		editor.setText(script);
 		editor.setEditable(false);
 

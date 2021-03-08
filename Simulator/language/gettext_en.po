@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-03-03 22:37+0100\n"
+"POT-Creation-Date: 2021-03-08 00:14+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -13215,7 +13215,7 @@ msgid "SettingsDialog.ExcelDDEConnection.CustomRow.Info"
 msgstr "(If empty, the default for Englisch Excel is used: \"R\".)"
 
 msgid "SettingsDialog.FontSizes"
-msgstr "Font sizes"
+msgstr "Font size for user-interface"
 
 msgid "SettingsDialog.FontSizes.Info"
 msgstr "Changing the theme or the font size will take affect when restarting the program."
@@ -13365,6 +13365,12 @@ msgstr "Never"
 
 msgid "SettingsDialog.ProxySettings"
 msgstr "Proxy configuration"
+
+msgid "SettingsDialog.ScriptFontSize"
+msgstr "Font size for scripting editor fields"
+
+msgid "SettingsDialog.ScriptFontSize.Default"
+msgstr "Default value"
 
 msgid "SettingsDialog.SurfaceGlassInfos"
 msgstr "Display semi-transparent information on the drawing surface"
