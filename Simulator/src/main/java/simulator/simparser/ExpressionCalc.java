@@ -78,6 +78,10 @@ public class ExpressionCalc extends CalcSystem {
 	 * @see CalcSymbolSimData#getRunElementData()
 	 */
 	public RunElementData[] getRunElementData() {
+		if (runElementData==null && runElements!=null && simData!=null) { /* Lazy Initialisierung von runElementData (spart den Speicher für das Array ein, wenn nie auf RunElementData zugegriffen wird) */
+			runElementData=new RunElementData[runElements.length];
+			for (int i=0;i<runElements.length;i++) if (runElements[i]!=null) runElementData[i]=runElements[i].getData(simData);
+		}
 		return runElementData;
 	}
 
@@ -131,8 +135,11 @@ public class ExpressionCalc extends CalcSystem {
 	private void prepareRunElementData() {
 		/* Daten zu den Elementen */
 		runElements=simData.runModel.elementsFast;
+		/* runElementData wird erst in getRunElementData() (also nur bei Bedarf) initialisiert. */
+		/*
 		runElementData=new RunElementData[runElements.length];
 		for (int i=0;i<runElements.length;i++) if (runElements[i]!=null) runElementData[i]=runElements[i].getData(simData);
+		 */
 
 		/* Daten zu den Stationen */
 		resourceUsage=simData.runData.resources.getUsageStatistics(simData);
