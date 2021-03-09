@@ -2519,6 +2519,20 @@ public final class ModelSurfacePanel extends JPanel {
 	}
 
 	/**
+	 * Erzeugt ein Bild-Element auf der Zeichenfläche
+	 * @param image	Bild, das in dem Bild-Element angezeigt werden soll
+	 * @param position	Maus-Position bezogen auf dieses Objekt (d.h. nicht Zeichenflächen-Punkt)
+	 * @return	Gibt <code>true</code> zurück, wenn das Bild-Element hinzugefügt werden konnte
+	 */
+	public boolean addImageElement(final BufferedImage image, final Point position) {
+		final ModelElementImage element=new ModelElementImage(model,surface);
+		element.setImage(image);
+		element.setPosition(new Point((int)Math.round(position.x/zoom),(int)Math.round(position.y/zoom)));
+		surface.add(element);
+		return true;
+	}
+
+	/**
 	 * Befindet sich ein Punkt im dem Bereich
 	 *  eines Infotext-Links?
 	 * @param point	Zu prüfender Punkt

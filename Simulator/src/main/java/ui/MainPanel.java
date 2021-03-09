@@ -28,6 +28,7 @@ import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
@@ -50,6 +51,7 @@ import java.util.Set;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import javax.imageio.ImageIO;
 import javax.swing.AbstractAction;
 import javax.swing.AbstractButton;
 import javax.swing.BorderFactory;
@@ -1556,6 +1558,25 @@ public class MainPanel extends MainPanelBase {
 	}
 
 	/**
+	 * Versucht ein Bild aus einem Byte-Array zu laden
+	 * @param data	Zu ladende Daten
+	 * @param dropComponent	Komponente auf der die Tabelle abgelegt wurde
+	 * @param dropPosition	Position innerhalb der Komponente auf der die Tabelle abgelegt wurde
+	 * @return	Liefert <code>true</code>, wenn der Ladevorgang erfolgreich war
+	 */
+	private boolean tryLoadImage(final byte[] data, final Component dropComponent, final Point dropPosition) {
+		try (InputStream inputStream=new ByteArrayInputStream(data)) {
+			final BufferedImage image=ImageIO.read(inputStream);
+			if (image==null) return false;
+			if (!(dropComponent instanceof ModelSurfacePanel)) return false;
+			((ModelSurfacePanel)dropComponent).addImageElement(image,dropPosition);
+			return true;
+		} catch (IOException e) {
+			return false;
+		}
+	}
+
+	/**
 	 * Reagiert darauf, wenn eine Tabelle per Drag&amp;drop auf dem Programmfenster abgelegt wurde
 	 * und versucht daraus eine Tabellenquelle zu generieren.
 	 * @param file	Abgelegte Datei
@@ -1578,16 +1599,21 @@ public class MainPanel extends MainPanelBase {
 	/**
 	 * Versucht eine URL-Datei zu laden und zu interpretieren.
 	 * @param file	URL-Datei
+	 * @param dropComponent	Komponente auf der die Tabelle abgelegt wurde
+	 * @param dropPosition	Position innerhalb der Komponente auf der die Tabelle abgelegt wurde
 	 * @param errorMessageOnFail		Soll im Falle eines Fehlers eine Meldung ausgegeben werden?
 	 * @return	Liefert <code>true</code>, wenn der Ladevorgang erfolgreich war
 	 */
-	private boolean tryLoadURL(final File file, final boolean errorMessageOnFail) {
+	private boolean tryLoadURL(final File file, final Component dropComponent, final Point dropPosition, final boolean errorMessageOnFail) {
 		final URLLoader loader=new URLLoader(file);
 		final byte[] data=loader.process(this,errorMessageOnFail);
 		if (data==null) return false;
 
 		/* Modell aus HTML-Datei laden */
 		if (tryLoadHTML(data)) return true;
+
+		/* Bild laden */
+		if (tryLoadImage(data,dropComponent,dropPosition)) return true;
 
 		/* XML oder json laden */
 		return loadAnyXMLStream(new ByteArrayInputStream(data),errorMessageOnFail);
@@ -1598,7 +1624,7 @@ public class MainPanel extends MainPanelBase {
 		if (!checkFileExists(file,errorMessageOnFail)) return false;
 
 		if (file.toString().toUpperCase().endsWith(".URL")) {
-			return tryLoadURL(file,errorMessageOnFail);
+			return tryLoadURL(file,dropComponent,dropPosition,errorMessageOnFail);
 		}
 
 		/* Modell aus HTML-Datei laden */
