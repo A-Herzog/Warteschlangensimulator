@@ -11418,6 +11418,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[27423] = "Transferzeit";
     t[27426] = "ExpressionBuilder.ProbabilityDistributions.ExponentialDistribution.DistributionFunctionInfo";
     t[27427] = "<p>Berechnet den Wert der Verteilungsfunktion der Exponentialverteilung an der als ersten Parameter angegebenen Stelle und mit dem Verteilungsparameter &lambda; gem\u00e4\u00df dem Kehrwert des zweiten Parameters.</p>\n<p>Beispiel: <tt>ExpDist(5;2;1)</tt> liefert 0,9179150013761.</p>";
+    t[27428] = "Surface.Popup.AddNote";
+    t[27429] = "Notiz hinzuf\u00fcgen";
     t[27432] = "CommandLine.ServerWeb.Name";
     t[27433] = "ServerWeb";
     t[27434] = "ExpressionBuilder.SimulationCharacteristics.ClientData.Alternative";
@@ -12038,14 +12040,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[28999] = "Ben\u00f6tigte Rechenzeit pro Ereignis";
     t[29002] = "ExpressionBuilder.SimulationCharacteristics.Costs.ProcessAvg.Info";
     t[29003] = "<p>Liefert die mitteren bedienzeit-bedingten Kosten, die f\u00fcr Kunden, die an der Bedienstation, deren ID in dem Parameter angegeben wurde, erzeugt wurden, bisher entstanden sind.</p>";
-    t[29006] = "FitDialog.Tab.Values";
-    t[29007] = "Messwerte";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_6 (java.lang.String[] t) {
+    t[29006] = "FitDialog.Tab.Values";
+    t[29007] = "Messwerte";
     t[29020] = "Statistics.XML.Element.ClientMovement.Stations";
     t[29021] = "Bewegung";
     t[29024] = "UserTemplates.TemplatesDialog.Delete";
@@ -14044,14 +14046,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[33825] = "Bereich";
     t[33832] = "HintsDialog.Button.ShowAll";
     t[33833] = "Alle einblenden";
-    t[33838] = "Editor.Dialog.Sequences.Edit.Add.Hint";
-    t[33839] = "F\u00fcgt eine weitere Station zu dem Fertigungsplan hinzu";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_7 (java.lang.String[] t) {
+    t[33838] = "Editor.Dialog.Sequences.Edit.Add.Hint";
+    t[33839] = "F\u00fcgt eine weitere Station zu dem Fertigungsplan hinzu";
     t[33840] = "Color.9ACD32";
     t[33841] = "Gelbgr\u00fcn";
     t[33842] = "Optimizer.XML.StartValue";
@@ -16050,14 +16052,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[38581] = "von / nach";
     t[38582] = "ModelDescription.Action.Action.Analog";
     t[38583] = "An Station id=%d analogen Wert %s zuweisen.";
-    t[38592] = "Surface.AnimationPieChart.XML.Root";
-    t[38593] = "ModellElementAnimationTortenDiagramm";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_8 (java.lang.String[] t) {
+    t[38592] = "Surface.AnimationPieChart.XML.Root";
+    t[38593] = "ModellElementAnimationTortenDiagramm";
     t[38594] = "ExpressionBuilder.SimulationCharacteristics.ClientData.isWarmUpClient.Info";
     t[38595] = "Liefert 0 oder 1 zur\u00fcck in Abh\u00e4ngigkeit davon, ob der Kunde w\u00e4hrend der Einschwingphase generiert wurde (1) oder nicht (0).";
     t[38622] = "Surface.TransportSource.XML.RouteBySequence";
@@ -18056,14 +18058,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[43539] = "Verarbeitung fehlgeschlagen";
     t[43542] = "Simulation.Element.Split.Name";
     t[43543] = "Zerteilen";
-    t[43546] = "Surface.TankValveSetup.Dialog.Title";
-    t[43547] = "Ventilkonfigurationen bearbeiten";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_9 (java.lang.String[] t) {
+    t[43546] = "Surface.TankValveSetup.Dialog.Title";
+    t[43547] = "Ventilkonfigurationen bearbeiten";
     t[43556] = "Transporters.Group.Delete.NoInfo";
     t[43557] = "Transporter beibehalten.";
     t[43558] = "SettingsDialog.Tabs.Simulation.UseMultiCore";

@@ -11418,6 +11418,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[27423] = "transfer time";
     t[27426] = "ExpressionBuilder.ProbabilityDistributions.ExponentialDistribution.DistributionFunctionInfo";
     t[27427] = "<p>Calculates the value of the distribution function of the exponential distribution at the location specified as first parameter and with the distribution parameter &lambda; according to the reciprocal of the second parameter.</p>\n<p>Example: <tt>ExpDist(5;2;1)</tt> returns 0.9179150013761.</p>";
+    t[27428] = "Surface.Popup.AddNote";
+    t[27429] = "Add note";
     t[27432] = "CommandLine.ServerWeb.Name";
     t[27433] = "ServerWeb";
     t[27434] = "ExpressionBuilder.SimulationCharacteristics.ClientData.Alternative";
@@ -12038,14 +12040,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[28999] = "Needed calculation time per event";
     t[29002] = "ExpressionBuilder.SimulationCharacteristics.Costs.ProcessAvg.Info";
     t[29003] = "<p>Returns the average proces time costs of the clients created at the station whose ID was specified in the parameter.</p>";
-    t[29006] = "FitDialog.Tab.Values";
-    t[29007] = "Values";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_6 (java.lang.String[] t) {
+    t[29006] = "FitDialog.Tab.Values";
+    t[29007] = "Values";
     t[29020] = "Statistics.XML.Element.ClientMovement.Stations";
     t[29021] = "Movement";
     t[29024] = "UserTemplates.TemplatesDialog.Delete";
@@ -14044,14 +14046,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[33825] = "Range";
     t[33832] = "HintsDialog.Button.ShowAll";
     t[33833] = "Show all";
-    t[33838] = "Editor.Dialog.Sequences.Edit.Add.Hint";
-    t[33839] = "Adds a step to the sequence";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_7 (java.lang.String[] t) {
+    t[33838] = "Editor.Dialog.Sequences.Edit.Add.Hint";
+    t[33839] = "Adds a step to the sequence";
     t[33840] = "Color.9ACD32";
     t[33841] = "Yellow green";
     t[33842] = "Optimizer.XML.StartValue";
@@ -16050,14 +16052,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[38581] = "from / to";
     t[38582] = "ModelDescription.Action.Action.Analog";
     t[38583] = "At station id=%d assign analog value %s.";
-    t[38592] = "Surface.AnimationPieChart.XML.Root";
-    t[38593] = "ModelElementAnimationPieDiagram";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_8 (java.lang.String[] t) {
+    t[38592] = "Surface.AnimationPieChart.XML.Root";
+    t[38593] = "ModelElementAnimationPieDiagram";
     t[38594] = "ExpressionBuilder.SimulationCharacteristics.ClientData.isWarmUpClient.Info";
     t[38595] = "Gets 0 or 1 depending on whether the client was generated during the warm-up phase (1) or not (0).";
     t[38622] = "Surface.TransportSource.XML.RouteBySequence";
@@ -18056,14 +18058,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[43539] = "Processing failed";
     t[43542] = "Simulation.Element.Split.Name";
     t[43543] = "Split";
-    t[43546] = "Surface.TankValveSetup.Dialog.Title";
-    t[43547] = "Edit valve setups";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_9 (java.lang.String[] t) {
+    t[43546] = "Surface.TankValveSetup.Dialog.Title";
+    t[43547] = "Edit valve setups";
     t[43556] = "Transporters.Group.Delete.NoInfo";
     t[43557] = "Keep transporter.";
     t[43558] = "SettingsDialog.Tabs.Simulation.UseMultiCore";

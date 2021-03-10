@@ -123,6 +123,7 @@ import ui.modeleditor.elements.ModelElementAnimationTextValue;
 import ui.modeleditor.elements.ModelElementEdge;
 import ui.modeleditor.elements.ModelElementImage;
 import ui.modeleditor.elements.ModelElementInput;
+import ui.modeleditor.elements.ModelElementNote;
 import ui.modeleditor.elements.ModelElementSourceTable;
 import ui.modeleditor.elements.ModelElementSub;
 import ui.modeleditor.elements.ModelElementText;
@@ -2122,6 +2123,10 @@ public final class ModelSurfacePanel extends JPanel {
 				sub.setIcon(Images.MODELEDITOR_ELEMENT_ADD_VISUALIZATION.getIcon());
 				menu.add(sub);
 			}
+
+			menu.add(item=new JMenuItem(Language.tr("Surface.Popup.AddNote")));
+			item.setIcon(Images.MODEL_NOTES.getIcon());
+			item.addActionListener(e->startAddElement(new ModelElementNote(model,surface)));
 		}
 
 		menu.add(item=new JMenuItem(Language.tr("Main.Menu.File.ModelProperties")));
