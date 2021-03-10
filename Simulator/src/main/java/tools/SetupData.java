@@ -793,6 +793,14 @@ public class SetupData extends SetupBase {
 	public boolean modelSecurityAllowExecuteExternal;
 
 	/**
+	 * Soll ein Security-Manager, der die Rechte des Nutzercodes
+	 * einschränkt, aktiviert werden, wenn nutzerdefinierter
+	 * Java-Code verwendet wird? (Dies blockiert in diesem Fall
+	 * die Verwendung des Flight-Recorders.)
+	 */
+	public boolean useSecurityManagerForUserCode;
+
+	/**
 	 * Benachrichtigung beim Ende von Simulation, Parameterreihe oder Optimierung anzeigen
 	 * @see Notifier
 	 */
@@ -1191,6 +1199,7 @@ public class SetupData extends SetupBase {
 		cancelSimulationOnScriptError=true;
 		modelSecurity=ModelSecurity.ASK;
 		modelSecurityAllowExecuteExternal=false;
+		useSecurityManagerForUserCode=true;
 		notifyMode=NotifyMode.LONGRUN;
 		useProxy=false;
 		proxyHost="";
@@ -1867,6 +1876,11 @@ public class SetupData extends SetupBase {
 				continue;
 			}
 
+			if (name.equals("securitymanagerforusercode")) {
+				useSecurityManagerForUserCode=loadBoolean(e.getTextContent(),true);
+				continue;
+			}
+
 			if (name.equals("nofitymode")) {
 				final String text=e.getTextContent().toLowerCase();
 				if (text.equals("always")) {notifyMode=NotifyMode.ALWAYS; continue;}
@@ -2487,6 +2501,11 @@ public class SetupData extends SetupBase {
 		if (modelSecurityAllowExecuteExternal) {
 			root.appendChild(node=doc.createElement("ModelSecurityExternal"));
 			node.setTextContent("1");
+		}
+
+		if (!useSecurityManagerForUserCode) {
+			root.appendChild(node=doc.createElement("SecurityManagerForUserCode"));
+			node.setTextContent("0");
 		}
 
 		if (notifyMode!=NotifyMode.LONGRUN) {

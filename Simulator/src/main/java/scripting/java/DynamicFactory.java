@@ -18,6 +18,7 @@ package scripting.java;
 import java.util.concurrent.Semaphore;
 
 import language.Language;
+import tools.SetupData;
 
 /**
  * Diese Factory-Klasse ermöglicht das Erstellen von Ausführungsobjekten dynamische Methoden.
@@ -47,13 +48,24 @@ public final class DynamicFactory {
 	private static final Semaphore mutex=new Semaphore(1);
 
 	/**
+	 * Soll bei der Verwendung von nutzerdefiniertem Java-Code
+	 * ein Security-Manager aktiviert werden, der die Zugriffsmöglichkeiten
+	 * des nachgeladenen Codes reduziert? (Dies blockiert dann auch die
+	 * Verwendung des FlightRecorders.)
+	 * @return	Security-Manager aktivieren, wenn nutzerdefinierter Java-Code verwendet wird?
+	 */
+	private static boolean useSecurityManager() {
+		return SetupData.getSetup().useSecurityManagerForUserCode;
+	}
+
+	/**
 	 * Factory-Methode die die Singleton-Instanz dieser Klasse liefert
 	 * @return	Singleton-Instanz dieser Klasse
 	 */
 	public static DynamicFactory getFactory() {
 		mutex.acquireUninterruptibly();
 		try {
-			if (factory==null) factory=new DynamicFactory();
+			if (factory==null) factory=new DynamicFactory(useSecurityManager());
 			return factory;
 		} finally {
 			mutex.release();
@@ -63,10 +75,11 @@ public final class DynamicFactory {
 	/**
 	 * Dieser Konstruktor der Klasse kann nicht von außen aufgerufen werden.
 	 * Stattdessen kann per {@link DynamicFactory#getFactory()} eine Instanz abgerufen werden.
+	 * @param useSecurityManager	Soll ein Security-Manager aktiviert werden, um so den Handlungsspielraum des nutzerdefinierten Java-Codes zu begrenzen?
 	 */
-	private DynamicFactory() {
+	private DynamicFactory(final boolean useSecurityManager) {
 		setup=new SimDynamicSetup();
-		DynamicSecurity.getInstance();
+		if (useSecurityManager) DynamicSecurity.getInstance();
 	}
 
 	/**
