@@ -642,7 +642,11 @@ public class ModelSurfaceAnimatorBase {
 				SwingUtilities.invokeLater(paintRunner);
 			} else {
 				try {
-					SwingUtilities.invokeAndWait(paintRunner);
+					if (SwingUtilities.isEventDispatchThread()) {
+						paintRunner.run();
+					} else {
+						SwingUtilities.invokeAndWait(paintRunner);
+					}
 				} catch (InvocationTargetException | InterruptedException e) {Thread.currentThread().interrupt();}
 			}
 			fpsLastPaint=time;
