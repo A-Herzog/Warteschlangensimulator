@@ -362,7 +362,12 @@ public class StatisticViewerRemarksText extends StatisticViewerText {
 		boolean headingPrinted=false;
 
 		for (String name: statistics.resourceUtilization.getNames()) {
-			final double rho=((StatisticsTimePerformanceIndicator)statistics.resourceUtilization.get(name)).getTimeMean();
+			final StatisticsTimePerformanceIndicator i1=((StatisticsTimePerformanceIndicator)statistics.resourceCount.get(name));
+			final StatisticsTimePerformanceIndicator i2=((StatisticsTimePerformanceIndicator)statistics.resourceUtilization.get(name));
+			if (i1==null || i2==null) continue;
+			final double count=i1.getTimeMean();
+			final double load=i2.getTimeMean();
+			final double rho=load/count;
 			if (rho>=RHO) {
 				if (!headingPrinted) {addHeading(2,Language.tr("Statistics.ModelRemarks.LargeRho")); beginParagraph(); headingPrinted=true;}
 				addLine(String.format(Language.tr("Statistics.ModelRemarks.LargeRho.Group"),name,StatisticTools.formatPercent(rho)));
@@ -406,15 +411,29 @@ public class StatisticViewerRemarksText extends StatisticViewerText {
 		double sum=0;
 
 		for (String name: indicators1.getNames()) {
-			final StatisticsDataPerformanceIndicator indicator1=(StatisticsDataPerformanceIndicator)indicators1.get(name);
-			final StatisticsDataPerformanceIndicator indicator2=(StatisticsDataPerformanceIndicator)indicators2.get(name);
-			if (indicator1==null || indicator2==null) continue;
-			final double mean1=indicator1.getMean();
-			final double mean2=indicator2.getMean();
-			if (mean1==0.0 || mean2==0.0) continue;
+			final StatisticsPerformanceIndicator i1=indicators1.get(name);
+			final StatisticsPerformanceIndicator i2=indicators2.get(name);
+			if (i1==null || i2==null) continue;
 
-			count++;
-			sum+=(mean1/mean2);
+			if ((i1 instanceof StatisticsDataPerformanceIndicator) && (i2 instanceof StatisticsDataPerformanceIndicator)) {
+				final StatisticsDataPerformanceIndicator indicator1=(StatisticsDataPerformanceIndicator)i1;
+				final StatisticsDataPerformanceIndicator indicator2=(StatisticsDataPerformanceIndicator)i2;
+				final double mean1=indicator1.getMean();
+				final double mean2=indicator2.getMean();
+				if (mean1==0.0 || mean2==0.0) continue;
+				count++;
+				sum+=(mean1/mean2);
+			}
+
+			if ((i1 instanceof StatisticsTimePerformanceIndicator) && (i2 instanceof StatisticsTimePerformanceIndicator)) {
+				final StatisticsTimePerformanceIndicator indicator1=(StatisticsTimePerformanceIndicator)i1;
+				final StatisticsTimePerformanceIndicator indicator2=(StatisticsTimePerformanceIndicator)i2;
+				final double mean1=indicator1.getTimeMean();
+				final double mean2=indicator2.getTimeMean();
+				if (mean1==0.0 || mean2==0.0) continue;
+				count++;
+				sum+=(mean1/mean2);
+			}
 		}
 
 		return (count==0)?0:(sum/count);
@@ -559,9 +578,14 @@ public class StatisticViewerRemarksText extends StatisticViewerText {
 
 		final String[] names=statistics.resourceUtilization.getNames();
 		if (names.length>=3) {
-			final double mean=getMean(statistics.resourceUtilization);
+			final double mean=getMeanQuotient(statistics.resourceUtilization,statistics.resourceCount); /* Reihenfolge der Argumente ist so richtig */
 			for (String name: names) {
-				final double rho=((StatisticsTimePerformanceIndicator)statistics.resourceUtilization.get(name)).getTimeMean();
+				final StatisticsTimePerformanceIndicator i1=((StatisticsTimePerformanceIndicator)statistics.resourceCount.get(name));
+				final StatisticsTimePerformanceIndicator i2=((StatisticsTimePerformanceIndicator)statistics.resourceUtilization.get(name));
+				if (i1==null || i2==null) continue;
+				final double count=i1.getTimeMean();
+				final double load=i2.getTimeMean();
+				final double rho=load/count;
 				if (rho>=mean*RHO_FACTOR) {
 					if (!headingPrinted) {addHeading(2,Language.tr("Statistics.ModelRemarks.LargeRhoRelative")); beginParagraph(); headingPrinted=true;}
 					addLine(String.format(Language.tr("Statistics.ModelRemarks.LargeRhoRelative.Group"),name,StatisticTools.formatPercent(rho)));
