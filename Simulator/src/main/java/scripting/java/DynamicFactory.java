@@ -15,6 +15,8 @@
  */
 package scripting.java;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.concurrent.Semaphore;
 
 import language.Language;
@@ -149,7 +151,7 @@ public final class DynamicFactory {
 		switch (status) {
 		case COMPILE_ERROR: return Language.tr("Simulation.Java.Error.CompileError");
 		case LOAD_ERROR: return Language.tr("Simulation.Java.Error.LoadError");
-		case NO_COMPILER: return Language.tr("Simulation.Java.Error.NoCompiler.Internal");
+		case NO_COMPILER: return Language.tr("Simulation.Java.Error.NoCompiler.Internal")+" ("+System.getProperty("java.vm.name")+"; "+System.getProperty("java.version")+")";
 		case NO_INPUT_FILE_OR_DATA: return Language.tr("Simulation.Java.Error.NoInputFileOrData");
 		case NO_TEMP_FOLDER: return Language.tr("Simulation.Java.Error.NoTempFolder");
 		case OK: return Language.tr("Simulation.Java.Error.Ok");
@@ -210,9 +212,12 @@ public final class DynamicFactory {
 	public static boolean hasCompiler() {
 		if (hasCompiler) return hasCompiler;
 		try {
-			Class.forName("javax.tools.ToolProvider");
-		} catch (ClassNotFoundException e) {
-			hasCompiler=true;
+			final Class<?> cls=Class.forName("javax.tools.ToolProvider");
+			final Method method=cls.getMethod("getSystemJavaCompiler");
+			final Object compiler=method.invoke(null);
+			if (compiler==null) return false;
+		} catch (ClassNotFoundException | IllegalAccessException | IllegalArgumentException | InvocationTargetException | NoSuchMethodException | SecurityException e) {
+			hasCompiler=false;
 			return false;
 		}
 
