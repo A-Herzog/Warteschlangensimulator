@@ -641,13 +641,13 @@ public class ModelSurfaceAnimatorBase {
 				paintDone=false;
 				SwingUtilities.invokeLater(paintRunner);
 			} else {
-				try {
-					if (SwingUtilities.isEventDispatchThread()) {
-						paintRunner.run();
-					} else {
+				if (SwingUtilities.isEventDispatchThread()) {
+					paintRunner.run();
+				} else {
+					try {
 						SwingUtilities.invokeAndWait(paintRunner);
-					}
-				} catch (InvocationTargetException | InterruptedException e) {Thread.currentThread().interrupt();}
+					} catch (InvocationTargetException | InterruptedException e) {Thread.currentThread().interrupt();}
+				}
 			}
 			fpsLastPaint=time;
 		}
@@ -1270,33 +1270,43 @@ public class ModelSurfaceAnimatorBase {
 		int points=0;
 		for (AnimationPath path: pathList) points=FastMath.max(points,path.getPointCount());
 
+
 		if (multiCore && !slowMode) drawClientsMutex.acquireUninterruptibly();
 		try {
 			drawMovingIcons=new ArrayList<>(pathList.size());
 			for (int i=0;i<pathList.size();i++) drawMovingIcons.add(null);
-
-			int delayIntegrator=0;
-			for (int i=0;i<points-1;i++) {
-				for (int j=0;j<pathList.size();j++) {
-					drawMovingIcons.set(j,pathList.get(j).getDrawClient(i));
-				}
-				doPaintSurface(simData);
-
-				while (delayIntegrator>10) {
-					try {
-						Thread.sleep(5);
-					} catch (InterruptedException e) {Thread.currentThread().interrupt(); break;}
-					delayIntegrator-=10;
-				}
-				delayIntegrator+=delay;
-			}
-
-			drawMovingIcons=null;
-
 		} finally {
 			if (multiCore && !slowMode) drawClientsMutex.release();
 		}
 
+		int delayIntegrator=0;
+		for (int i=0;i<points-1;i++) {
+			if (multiCore && !slowMode) drawClientsMutex.acquireUninterruptibly();
+			try {
+				for (int j=0;j<pathList.size();j++) {
+					drawMovingIcons.set(j,pathList.get(j).getDrawClient(i));
+				}
+			} finally {
+				if (multiCore && !slowMode) drawClientsMutex.release();
+			}
+
+			doPaintSurface(simData);
+
+			while (delayIntegrator>10) {
+				try {
+					Thread.sleep(5);
+				} catch (InterruptedException e) {Thread.currentThread().interrupt(); break;}
+				delayIntegrator-=10;
+			}
+			delayIntegrator+=delay;
+		}
+
+		if (multiCore && !slowMode) drawClientsMutex.acquireUninterruptibly();
+		try {
+			drawMovingIcons=null;
+		} finally {
+			if (multiCore && !slowMode) drawClientsMutex.release();
+		}
 	}
 
 	/**
