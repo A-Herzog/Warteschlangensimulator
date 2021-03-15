@@ -606,6 +606,11 @@ public class RunModel {
 	}
 
 	/**
+	 * Zähler für die Nummerierung der Hintergrund-Kompiler-Threads
+	 */
+	private static int prepareThreadNr=0;
+
+	/**
 	 * Überträgt die Stationen aus dem Editor-Modell in das Laufzeit-Modell.
 	 * @param editModel	Editor-Modell dem die Daten entnommen werden soll
 	 * @param runModel	Laufzeit-Modell in das die entsprechenden Daten eingetragen werden sollen
@@ -619,13 +624,15 @@ public class RunModel {
 		final List<ModelElement> elements=new ArrayList<>(editModel.surface.getElements());
 
 		/* Skript-Elemente auf der Hauptebene verarbeiten */
+		prepareThreadNr=0;
 		final int coreCount=Runtime.getRuntime().availableProcessors();
 		final int maxThreadsByMemory=(int)Math.max(1,Runtime.getRuntime().maxMemory()/1024/1024/100); /* min. 100 MB pro Thread */
 		final int threadCount=Math.min(coreCount,maxThreadsByMemory);
 		final ThreadPoolExecutor executorPool=new ThreadPoolExecutor(threadCount,threadCount,2,TimeUnit.SECONDS,new LinkedBlockingQueue<>(),new ThreadFactory() {
 			@Override
 			public Thread newThread(Runnable r) {
-				return new Thread(r,"Prepare model for simulation");
+				prepareThreadNr++;
+				return new Thread(r,"Prepare model for simulation "+prepareThreadNr);
 			}
 		});
 		final List<Future<String>> scriptProcessor=new ArrayList<>();
@@ -654,7 +661,7 @@ public class RunModel {
 				if (element instanceof ModelElementDispose) hasDispose=true;
 				if (element instanceof ModelElementDisposeWithTable) hasDispose=true;
 
-				if (allowBackgroundProcessing && runInBackgroundThread(boxElement)) {
+				if (allowBackgroundProcessing && !testOnly && runInBackgroundThread(boxElement)) {
 					scriptProcessor.add(executorPool.submit(()->creator.addElement(boxElement)));
 				} else {
 					final String error=creator.addElement(boxElement);
@@ -666,7 +673,7 @@ public class RunModel {
 					final List<ModelElement> subElements=sub.getSubSurfaceReadOnly().getElements();
 					for (ModelElement subElement: subElements) if (subElement instanceof ModelElementBox) {
 						final ModelElementBox subBox=(ModelElementBox)subElement;
-						if (allowBackgroundProcessing && runInBackgroundThread(subBox)) {
+						if (allowBackgroundProcessing && !testOnly && runInBackgroundThread(subBox)) {
 							scriptProcessor.add(executorPool.submit(()->creator.addElement(subBox,sub)));
 						} else {
 							final String error=creator.addElement(subBox,sub);

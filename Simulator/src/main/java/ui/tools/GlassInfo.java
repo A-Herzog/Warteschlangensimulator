@@ -123,7 +123,7 @@ public class GlassInfo {
 		glassPane.setVisible(true);
 
 		/* Abschalt-Timer */
-		final Timer timer=new Timer("HideGlassInfoPanel");
+		final Timer timer=new Timer("HideGlassInfoPanel",true);
 		timer.schedule(new TimerTask() {
 			@Override
 			public void run() {

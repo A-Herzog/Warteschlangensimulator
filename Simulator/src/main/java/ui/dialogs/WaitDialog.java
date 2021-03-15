@@ -185,7 +185,7 @@ public class WaitDialog extends JDialog {
 		 * @param worker	Auszuführende Methode
 		 */
 		public WorkThread(final Supplier<T> worker) {
-			super("ModelPrepare");
+			super("ModelPrepareWaitDialog");
 			this.worker=worker;
 		}
 
