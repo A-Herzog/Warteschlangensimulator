@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-03-10 00:32+0100\n"
+"POT-Creation-Date: 2021-03-13 23:59+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -7740,6 +7740,12 @@ msgstr "Server services..."
 
 msgid "Main.Menu.Extras.SimulationServer.Mnemonic"
 msgstr "n"
+
+msgid "Main.Menu.Extras.SystemInfo"
+msgstr "System information..."
+
+msgid "Main.Menu.Extras.SystemInfo.Mnemonic"
+msgstr "S"
 
 msgid "Main.Menu.Extras.TestDatabaseConnection"
 msgstr "Test database connection..."
@@ -28155,6 +28161,102 @@ msgstr "ModelTransporterUnloadingDistribution"
 
 msgid "Surface.XML.Transporter.UnloadExpression"
 msgstr "ModelTransporterUnloadingExpression"
+
+msgid "SystemInfo.Close"
+msgstr "Close"
+
+msgid "SystemInfo.Close.Hint"
+msgstr "Closes this window."
+
+msgid "SystemInfo.DaemonThreads"
+msgstr "Background threads"
+
+msgid "SystemInfo.GC"
+msgstr "GC"
+
+msgid "SystemInfo.GC.Hint"
+msgstr "Executes a garbage collector run."
+
+msgid "SystemInfo.Load"
+msgstr "Load"
+
+msgid "SystemInfo.Load.CPUCount"
+msgstr "Number of logical CPU cores"
+
+msgid "SystemInfo.Load.Load"
+msgstr "Word load"
+
+msgid "SystemInfo.Load.LoadSystem"
+msgstr "System utilization"
+
+msgid "SystemInfo.Memory"
+msgstr "Memory"
+
+msgid "SystemInfo.Memory.Available"
+msgstr "Available"
+
+msgid "SystemInfo.Memory.Commited"
+msgstr "Commited"
+
+msgid "SystemInfo.Memory.Used"
+msgstr "Used"
+
+msgid "SystemInfo.ThreadCount"
+msgstr "Thread count"
+
+msgid "SystemInfo.ThreadCount.Background"
+msgstr "Number of background threads"
+
+msgid "SystemInfo.ThreadCount.Foreground"
+msgstr "Number of foreground threads"
+
+msgid "SystemInfo.ThreadCount.Info"
+msgstr "incl. Java VM threads"
+
+msgid "SystemInfo.ThreadCount.Peak"
+msgstr "Peak thread count"
+
+msgid "SystemInfo.Threads"
+msgstr "Threads"
+
+msgid "SystemInfo.Title"
+msgstr "System information"
+
+msgid "SystemInfo.Tools"
+msgstr "Settings"
+
+msgid "SystemInfo.Tools.Hint"
+msgstr "These settings are not available via the program settings dialog."
+
+msgid "SystemInfo.Tools.Info"
+msgstr "Some of these settings will take effect<br>only after restarting the program."
+
+msgid "SystemInfo.Tools.Simulation"
+msgstr "Simulation"
+
+msgid "SystemInfo.Tools.Simulation.LoadBalancer"
+msgstr "Use thread load balancer"
+
+msgid "SystemInfo.Tools.Simulation.SecurityManager"
+msgstr "Activate security manager on user-defined Java code"
+
+msgid "SystemInfo.Tools.Surface"
+msgstr "Drawing surface"
+
+msgid "SystemInfo.Tools.Surface.Antialias"
+msgstr "Use antialias"
+
+msgid "SystemInfo.Tools.UserInterface"
+msgstr "User interface"
+
+msgid "SystemInfo.Tools.UserInterface.MemoryUsage"
+msgstr "Show memory usage"
+
+msgid "SystemInfo.Tools.UserInterface.QuickAccess"
+msgstr "Show quick access"
+
+msgid "SystemInfo.Tools.UserInterface.QuickFilter"
+msgstr "Show quick filter"
 
 msgid "Table.BoolFalse"
 msgstr "FALSE"

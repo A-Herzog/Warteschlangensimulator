@@ -133,6 +133,7 @@ import ui.dialogs.SelectElementByIdDialog;
 import ui.dialogs.SelectExampleDialog;
 import ui.dialogs.SetupDialog;
 import ui.dialogs.StationStatisticsDialog;
+import ui.dialogs.SystemInfoWindow;
 import ui.dialogs.VarianceAnalysisDialog;
 import ui.dialogs.WaitDialog;
 import ui.generator.ModelGeneratorDialog;
@@ -651,6 +652,7 @@ public class MainPanel extends MainPanelBase {
 		addAction("ExtrasTestDatabaseConnection",e->commandExtrasTestDatabaseConnection());
 		addAction("ExtrasExecuteCommand",e->commandExtrasExecuteCommand());
 		addAction("ExtrasSimulationServer",e->commandExtrasSimulationServer());
+		addAction("ExtrasSystemInfo",e->commandExtrasSystemInfo());
 
 		/* Hilfe */
 		addAction("HelpHelp",e->commandHelpHelp());
@@ -1186,6 +1188,8 @@ public class MainPanel extends MainPanelBase {
 		createMenuItem(menu,Language.tr("Main.Menu.Extras.TestDatabaseConnection"),Images.EXTRAS_DATABASE_TEST.getIcon(),Language.tr("Main.Menu.Extras.TestDatabaseConnection.Mnemonic"),"ExtrasTestDatabaseConnection");
 		createMenuItem(menu,Language.tr("Main.Menu.Extras.ExecuteCommand"),Images.EXTRAS_COMMANDLINE.getIcon(),Language.tr("Main.Menu.Extras.ExecuteCommand.Mnemonic"),"ExtrasExecuteCommand");
 		createMenuItem(menu,Language.tr("Main.Menu.Extras.SimulationServer"),Images.EXTRAS_SERVER.getIcon(),Language.tr("Main.Menu.Extras.SimulationServer.Mnemonic"),"ExtrasSimulationServer");
+		menu.addSeparator();
+		createMenuItem(menu,Language.tr("Main.Menu.Extras.SystemInfo"),Images.EXTRAS_SYSTEM_INFO.getIcon(),Language.tr("Main.Menu.Extras.SystemInfo.Mnemonic"),"ExtrasSystemInfo");
 
 		/* Hilfe */
 		menubar.add(menu=new JMenu(Language.tr("Main.Menu.Help")));
@@ -3259,6 +3263,13 @@ public class MainPanel extends MainPanelBase {
 			setCurrentPanel(editorPanel);
 			enableMenuBar(true);
 		},this));
+	}
+
+	/**
+	 * Befehl: Extras - Systeminformationen
+	 */
+	private void commandExtrasSystemInfo() {
+		SystemInfoWindow.show(this);
 	}
 
 	/**

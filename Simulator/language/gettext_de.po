@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-03-10 00:32+0100\n"
+"POT-Creation-Date: 2021-03-13 23:59+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -7736,6 +7736,12 @@ msgstr "Serverdienste..."
 
 msgid "Main.Menu.Extras.SimulationServer.Mnemonic"
 msgstr "N"
+
+msgid "Main.Menu.Extras.SystemInfo"
+msgstr "Systeminformationen..."
+
+msgid "Main.Menu.Extras.SystemInfo.Mnemonic"
+msgstr "S"
 
 msgid "Main.Menu.Extras.TestDatabaseConnection"
 msgstr "Datenbankverbindung prüfen..."
@@ -28171,6 +28177,102 @@ msgstr "ModellTransporterEntladezeitVerteilung"
 
 msgid "Surface.XML.Transporter.UnloadExpression"
 msgstr "ModellTransporterEntladezeitAusdruck"
+
+msgid "SystemInfo.Close"
+msgstr "Schließen"
+
+msgid "SystemInfo.Close.Hint"
+msgstr "Schließt dieses Fenter"
+
+msgid "SystemInfo.DaemonThreads"
+msgstr "Hintergrund-Threads"
+
+msgid "SystemInfo.GC"
+msgstr "GC"
+
+msgid "SystemInfo.GC.Hint"
+msgstr "Führt einen Garbage-Collector-Lauf aus."
+
+msgid "SystemInfo.Load"
+msgstr "Auslastung"
+
+msgid "SystemInfo.Load.CPUCount"
+msgstr "Anzahl logische CPU-Kerne"
+
+msgid "SystemInfo.Load.Load"
+msgstr "Arbeitslast"
+
+msgid "SystemInfo.Load.LoadSystem"
+msgstr "Auslastung des Systems"
+
+msgid "SystemInfo.Memory"
+msgstr "Speicher"
+
+msgid "SystemInfo.Memory.Available"
+msgstr "Verfügbar"
+
+msgid "SystemInfo.Memory.Commited"
+msgstr "Reserviert"
+
+msgid "SystemInfo.Memory.Used"
+msgstr "Belegt"
+
+msgid "SystemInfo.ThreadCount"
+msgstr "Thread-Anzahl"
+
+msgid "SystemInfo.ThreadCount.Background"
+msgstr "Anzahl Hintergrund-Threads"
+
+msgid "SystemInfo.ThreadCount.Foreground"
+msgstr "Anzahl Vordergrund-Threads"
+
+msgid "SystemInfo.ThreadCount.Info"
+msgstr "inkl. Java-VM-Threads"
+
+msgid "SystemInfo.ThreadCount.Peak"
+msgstr "Maximalanzahl an aktiven Threads"
+
+msgid "SystemInfo.Threads"
+msgstr "Threads"
+
+msgid "SystemInfo.Title"
+msgstr "Systeminformationen"
+
+msgid "SystemInfo.Tools"
+msgstr "Einstellungen"
+
+msgid "SystemInfo.Tools.Hint"
+msgstr "Diese Einstellungen stehen nicht im normalen Programmeinstellungen-Dialog zur Verfügung."
+
+msgid "SystemInfo.Tools.Info"
+msgstr "Diese Einstellungen werden zum Teil erst<br>nach einem Neustart des Programms wirksam."
+
+msgid "SystemInfo.Tools.Simulation"
+msgstr "Simulation"
+
+msgid "SystemInfo.Tools.Simulation.LoadBalancer"
+msgstr "Thread-Load-Balancer verwenden"
+
+msgid "SystemInfo.Tools.Simulation.SecurityManager"
+msgstr "Security-Manager bei benutzerdefiniertem Java-Code aktivieren"
+
+msgid "SystemInfo.Tools.Surface"
+msgstr "Zeichenfläche"
+
+msgid "SystemInfo.Tools.Surface.Antialias"
+msgstr "Antialiasing verwenden"
+
+msgid "SystemInfo.Tools.UserInterface"
+msgstr "Programmoberfläche"
+
+msgid "SystemInfo.Tools.UserInterface.MemoryUsage"
+msgstr "Speicherbelegung anzeigen"
+
+msgid "SystemInfo.Tools.UserInterface.QuickAccess"
+msgstr "Schnellzugriff anzeigen"
+
+msgid "SystemInfo.Tools.UserInterface.QuickFilter"
+msgstr "Schnellfilter anzeigen"
 
 msgid "Table.BoolFalse"
 msgstr "FALSCH"

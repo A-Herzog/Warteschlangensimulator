@@ -47,6 +47,9 @@ public enum Images {
 	/** Symbol "Ende" */
 	GENERAL_EXIT("door_in.png"),
 
+	/** Symbol "Papierkorb" */
+	GENERAL_TRASH("bin_closed.png"),
+
 	/** Symbol "Zahlen" */
 	GENERAL_NUMBERS("Counter.png"),
 
@@ -825,6 +828,9 @@ public enum Images {
 
 	/** Symbol "Server" */
 	EXTRAS_SERVER("server.png"),
+
+	/** Symbol "Systeminformationen" */
+	EXTRAS_SYSTEM_INFO("monitor.png"),
 
 	/* Hilfe */
 
