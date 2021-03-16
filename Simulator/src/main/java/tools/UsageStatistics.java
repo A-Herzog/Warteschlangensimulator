@@ -28,7 +28,7 @@ import mathtools.NumberTools;
 public class UsageStatistics {
 	/** Instanz dieser Singleton-Klasse */
 	private static UsageStatistics instance;
-	/** {@link SetupData}-Instanz aus der die Daten entnommen werden und in die sie geschrieben werdne */
+	/** {@link SetupData}-Instanz aus der die Daten entnommen werden und in die sie geschrieben werden */
 	private final SetupData setup;
 	/** Anzahl der bislang simulierten Kundenanküfte */
 	private long clients;
