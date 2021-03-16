@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-03-13 23:59+0100\n"
+"POT-Creation-Date: 2021-03-16 21:14+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -2182,6 +2182,27 @@ msgstr "Two statistic files have to be selected to be compared."
 
 msgid "Compare.TooFewModels.Title"
 msgstr "Too few statistic files selected"
+
+msgid "CriticalStationsSignature.PublicKey"
+msgstr "SignaturePublicKey"
+
+msgid "CriticalStationsSignature.Root"
+msgstr "CriticalStationsSignature"
+
+msgid "CriticalStationsSignature.Station"
+msgstr "SignatureStation"
+
+msgid "CriticalStationsSignature.Station.Signature"
+msgstr "Signature"
+
+msgid "CriticalStationsSignature.Station.id"
+msgstr "id"
+
+msgid "CriticalStationsSignature.UserName"
+msgstr "SignatureUserName"
+
+msgid "CriticalStationsSignature.UserName.Signature"
+msgstr "Signature"
 
 msgid "DDE.Excel.Identifier.Col"
 msgstr "C"
@@ -9834,6 +9855,12 @@ msgstr "Loading the model was canceled due to security reasons."
 msgid "ModelSecurityCheck.ScriptViewer"
 msgstr "Script viewer"
 
+msgid "ModelSecurityCheck.Signature.AlwaysTrust"
+msgstr "Always trust models signed by this user and do not show this warning anymore."
+
+msgid "ModelSecurityCheck.Signature.Info"
+msgstr "The model was signed by user <b>%s</b>."
+
 msgid "ModelSecurityCheck.Station.NoName"
 msgstr "no name (id=%d)"
 
@@ -13330,6 +13357,12 @@ msgstr "Always allow loading"
 
 msgid "SettingsDialog.ModellSecurity.Ask"
 msgstr "Ask user"
+
+msgid "SettingsDialog.ModellSecurity.ClearTrustedUserList"
+msgstr "Clear trusted users list"
+
+msgid "SettingsDialog.ModellSecurity.ClearTrustedUserList.Info"
+msgstr "Deletes the list of users who are trusted and whose models are loaded without security warning."
 
 msgid "SettingsDialog.ModellSecurity.Hint"
 msgstr "Which stations are \"cricial stations\"?"

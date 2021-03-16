@@ -19,10 +19,13 @@ import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.FlowLayout;
 import java.io.Serializable;
+import java.security.PublicKey;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.BoxLayout;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -30,6 +33,8 @@ import javax.swing.SwingUtilities;
 
 import language.Language;
 import simulator.editmodel.EditModel;
+import simulator.editmodel.EditModelCertificate;
+import simulator.editmodel.EditModelCertificateStore;
 import systemtools.BaseDialog;
 import tools.JTableExt;
 import tools.JTableExtAbstractTableModel;
@@ -67,20 +72,43 @@ public class ModelSecurityCheckDialog extends BaseDialog {
 	private final Runnable help;
 
 	/**
+	 * Name der Nutzers, der das Modell signiert hat (kann <code>null</code> sein)
+	 */
+	private final String signatureUserName;
+
+	/**
+	 * Öffentlicher Schlüssel, der zum Signieren verwendet wurde (kann <code>null</code> sein)
+	 */
+	private final PublicKey signaturePublicKey;
+
+	/**
+	 * Soll dem verwendeten öffentlichen Schlüssel immer vertraut werden?
+	 */
+	private final JCheckBox alwaysTrust;
+
+	/**
 	 * Konstruktor der Klasse
 	 * @param owner	Übergeordnetes visuelles Element (zur Ausrichtung des Dialogs)
 	 * @param list	Liste mit den Sicherheitsrisiken
+	 * @param signatureUserName	Name der Nutzers, der das Modell signiert hat (kann <code>null</code> sein)
+	 * @param signaturePublicKey	Öffentlicher Schlüssel, der zum Signieren verwendet wurde (kann <code>null</code> sein)
 	 */
-	public ModelSecurityCheckDialog(final Component owner, final List<CriticalElement> list) {
+	public ModelSecurityCheckDialog(final Component owner, final List<CriticalElement> list, final String signatureUserName, final PublicKey signaturePublicKey) {
 		super(owner,Language.tr("ModelSecurityCheck.Title"));
+		this.signatureUserName=signatureUserName;
+		this.signaturePublicKey=signaturePublicKey;
 
+		/* GUI */
 		help=()->Help.topicModal(ModelSecurityCheckDialog.this.owner,"ModelSecurityCheck");
 		final JPanel content=createGUI(help);
 		content.setLayout(new BorderLayout());
-		JPanel top=new JPanel(new FlowLayout(FlowLayout.LEFT));
+
+		/* Erklärungszeile oben */
+		final JPanel top=new JPanel(new FlowLayout(FlowLayout.LEFT));
 		content.add(top,BorderLayout.NORTH);
 		top.add(new JLabel(String.format((list.size()==1)?Language.tr("ModelSecurityCheck.Info.Singular"):Language.tr("ModelSecurityCheck.Info.Plural"),list.size())));
 
+		/* Tabelle in der Mitte */
 		final JTableExt table=new JTableExt();
 		final ModelSecurityCheckTableModel tableModel=new ModelSecurityCheckTableModel(list);
 		table.setModel(tableModel);
@@ -98,6 +126,20 @@ public class ModelSecurityCheckDialog extends BaseDialog {
 		table.setIsPanelCellTable(5);
 		content.add(new JScrollPane(table),BorderLayout.CENTER);
 
+		/* Externem Nutzer / Zertifikat vertrauen */
+		if (signatureUserName!=null && !signatureUserName.trim().isEmpty() && signaturePublicKey!=null) {
+			JPanel line;
+			final JPanel bottom=new JPanel();
+			bottom.setLayout(new BoxLayout(bottom,BoxLayout.PAGE_AXIS));
+			content.add(bottom,BorderLayout.SOUTH);
+			bottom.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
+			line.add(new JLabel(String.format("<html><body>"+Language.tr("ModelSecurityCheck.Signature.Info")+"</body></html>",encodeHTML(signatureUserName))));
+			bottom.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
+			line.add(alwaysTrust=new JCheckBox(Language.tr("ModelSecurityCheck.Signature.AlwaysTrust")));
+		} else {
+			alwaysTrust=null;
+		}
+
 		/* Dialog starten */
 		setMinSizeRespectingScreensize(700,400);
 		setResizable(true);
@@ -105,6 +147,21 @@ public class ModelSecurityCheckDialog extends BaseDialog {
 		setLocationRelativeTo(getOwner());
 		SwingUtilities.invokeLater(()->focusOkButton());
 		setVisible(true);
+	}
+
+	/**
+	 * Wandelt die Zeichen "&amp;", "&lt;" und "&gt;" in ihre entsprechenden
+	 * HTML-Entitäten um.
+	 * @param line	Umzuwandelnder Text
+	 * @return	Umgewandelter Text
+	 */
+	private static String encodeHTML(final String line) {
+		if (line==null) return "";
+		String result;
+		result=line.replaceAll("&","&amp;");
+		result=result.replaceAll("<","&lt;");
+		result=result.replaceAll(">","&gt;");
+		return result;
 	}
 
 	/**
@@ -161,13 +218,21 @@ public class ModelSecurityCheckDialog extends BaseDialog {
 		return null;
 	}
 
+	@Override
+	protected void storeData() {
+		if (alwaysTrust!=null && alwaysTrust.isSelected()) {
+			final EditModelCertificateStore certStore=new EditModelCertificateStore();
+			certStore.registerTrustedPublicKey(signatureUserName,signaturePublicKey);
+		}
+	}
+
 	/**
 	 * Liefert Informationen zu den sicherheitskritischen Eigenschaften aller Stationen.
 	 * @param surface	Haupt-Zeichenfläche
 	 * @return	Liste mit allen sicherheitskritischen Eigenschaften (kann leer sein, ist aber nie <code>null</code>)
 	 * @see #doSecurityCheck(EditModel, Component)
 	 */
-	private static List<CriticalElement> getCriticalElements(final ModelSurface surface) {
+	public static List<CriticalElement> getCriticalElements(final ModelSurface surface) {
 		final List<CriticalElement> list=new ArrayList<>();
 
 		for (ModelElement element: surface.getElements()) if (element instanceof ModelElementBox) {
@@ -181,6 +246,19 @@ public class ModelSecurityCheckDialog extends BaseDialog {
 	}
 
 	/**
+	 * Name der Nutzers, der das Modell signiert hat (kann <code>null</code> sein)<br>
+	 * (Beim Interpretieren der Daten via {@link EditModelCertificate})
+	 */
+
+	private static String signatureExternalUserName;
+
+	/**
+	 * Öffentlicher Schlüssel, der zum Signieren verwendet wurde (kann <code>null</code> sein)<br>
+	 * (Beim Interpretieren der Daten via {@link EditModelCertificate})
+	 */
+	private static PublicKey signatureExternalPublicKey;
+
+	/**
 	 * Führt die Sicherheitsprüfung eines Modells durch und zeigt dabei nötigenfalls einen Dialog an.
 	 * @param model	Zu prüfendes Modell
 	 * @param owner Übergeordnetes visuelles Element (zur Ausrichtung des Dialogs)
@@ -192,6 +270,13 @@ public class ModelSecurityCheckDialog extends BaseDialog {
 		/* Alles erlauben? */
 		if (security==SetupData.ModelSecurity.ALLOWALL) return true;
 
+		/* Erlauben auf Basis einer Signatur? */
+		signatureExternalUserName=null;
+		signatureExternalPublicKey=null;
+		if (model.loadedModelCertificate!=null) {
+			if (!model.loadedModelCertificate.isSecurityWarningNeeded(model,(userName,publicKey)->{signatureExternalUserName=userName; signatureExternalPublicKey=publicKey; return false;})) return true;
+		}
+
 		/* Kritische Elemente suchen */
 		final List<CriticalElement> list=getCriticalElements(model.surface);
 		if (list.size()==0) return true;
@@ -200,7 +285,7 @@ public class ModelSecurityCheckDialog extends BaseDialog {
 		if (security==SetupData.ModelSecurity.STRICT) return false;
 
 		/* Dialog anzeigen */
-		final ModelSecurityCheckDialog dialog=new ModelSecurityCheckDialog(owner,list);
+		final ModelSecurityCheckDialog dialog=new ModelSecurityCheckDialog(owner,list,signatureExternalUserName,signatureExternalPublicKey);
 		return dialog.getClosedBy()==BaseDialog.CLOSED_BY_OK;
 	}
 

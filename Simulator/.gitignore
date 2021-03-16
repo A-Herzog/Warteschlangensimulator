@@ -11,3 +11,4 @@ build/Help/**/*.out
 build/Help/**/*.aux
 src/main/java/ui/res/Warteschlangennetz.png
 Simulator.cfg
+Certificate.cfg

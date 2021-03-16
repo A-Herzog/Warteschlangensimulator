@@ -64,6 +64,7 @@ import mathtools.NumberTools;
 import mathtools.distribution.swing.CommonVariables;
 import net.calc.ServerStatus;
 import scripting.js.JSEngineNames;
+import simulator.editmodel.EditModelCertificateStore;
 import simulator.examples.EditModelExamples;
 import systemtools.BaseDialog;
 import systemtools.GUITools;
@@ -453,6 +454,19 @@ public final class SetupDialog extends BaseDialog {
 		infoButton.setToolTipText(Language.tr("SettingsDialog.ModellSecurity.Hint"));
 		infoButton.setIcon(Images.HELP.getIcon());
 		infoButton.addActionListener(e->MsgBox.info(this,Language.tr("SettingsDialog.ModellSecurity"),Language.tr("SettingsDialog.ModellSecurity.Info")));
+		if (EditModelCertificateStore.certificateFileExists()) {
+			final EditModelCertificateStore certStore=new EditModelCertificateStore();
+			if (certStore.getTrustedPublicKeys().size()>0) {
+				infoToolbar.add(Box.createHorizontalStrut(10));
+				final JButton clearCertificatesButton=new JButton(Language.tr("SettingsDialog.ModellSecurity.ClearTrustedUserList"),Images.GENERAL_TRASH.getIcon());
+				clearCertificatesButton.setToolTipText(Language.tr("SettingsDialog.ModellSecurity.ClearTrustedUserList.Info"));
+				infoToolbar.add(clearCertificatesButton);
+				clearCertificatesButton.addActionListener(e->{
+					certStore.clearTrustedPublicKeys();
+					clearCertificatesButton.setEnabled(false);
+				});
+			}
+		}
 
 		mainarea.add(p=new JPanel(new FlowLayout(FlowLayout.LEFT)));
 		p.add(modelSecurityExternal=new JCheckBox(Language.tr("SettingsDialog.ModellSecurityExternal")));

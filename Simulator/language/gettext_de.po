@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-03-13 23:59+0100\n"
+"POT-Creation-Date: 2021-03-16 21:14+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -2184,6 +2184,27 @@ msgstr "Es müssen zwei Statistikdateien zum Vergleichen angegeben werden."
 
 msgid "Compare.TooFewModels.Title"
 msgstr "Zu wenig Statistikdateien angegeben"
+
+msgid "CriticalStationsSignature.PublicKey"
+msgstr "SignaturOeffentlicherSchluessel"
+
+msgid "CriticalStationsSignature.Root"
+msgstr "KiritischeStationenSignatur"
+
+msgid "CriticalStationsSignature.Station"
+msgstr "SignaturStation"
+
+msgid "CriticalStationsSignature.Station.Signature"
+msgstr "Signatur"
+
+msgid "CriticalStationsSignature.Station.id"
+msgstr "id"
+
+msgid "CriticalStationsSignature.UserName"
+msgstr "SignaturNutzername"
+
+msgid "CriticalStationsSignature.UserName.Signature"
+msgstr "Signatur"
 
 msgid "DDE.Excel.Identifier.Col"
 msgstr "S"
@@ -9830,6 +9851,12 @@ msgstr "Das Laden des Modells wurde aufgrund von Sicherheitseinstellungen abgebr
 msgid "ModelSecurityCheck.ScriptViewer"
 msgstr "Skriptansicht"
 
+msgid "ModelSecurityCheck.Signature.AlwaysTrust"
+msgstr "Von diesem Nutzer signierten Modellen immer vertrauen und diese Warnmeldung nicht anzeigen."
+
+msgid "ModelSecurityCheck.Signature.Info"
+msgstr "Das Modell wurde von Nutzer <b>%s</b> signiert."
+
 msgid "ModelSecurityCheck.Station.NoName"
 msgstr "kein Name (id=%d)"
 
@@ -13333,6 +13360,12 @@ msgstr "Laden immer zulassen"
 
 msgid "SettingsDialog.ModellSecurity.Ask"
 msgstr "Nachfragen"
+
+msgid "SettingsDialog.ModellSecurity.ClearTrustedUserList"
+msgstr "Liste vertrauenwürdiger Nutzer löschen"
+
+msgid "SettingsDialog.ModellSecurity.ClearTrustedUserList.Info"
+msgstr "Löscht die Liste der Nutzer, denen vertraut wird und deren Modelle ohne Sicherheitswarnung geladen werden."
 
 msgid "SettingsDialog.ModellSecurity.Hint"
 msgstr "Welche Stationen sind \"kritische Stationen\"?"

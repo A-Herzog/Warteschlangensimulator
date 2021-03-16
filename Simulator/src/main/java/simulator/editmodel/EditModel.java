@@ -382,6 +382,13 @@ public final class EditModel extends EditModelBase implements Cloneable  {
 	public SavedViews savedViews;
 
 	/**
+	 * Informationen zu den im Modell hinterlegten Signaturen.
+	 * (Wird nur beim Laden mit Daten befüllt. Wird nicht kopiert oder beim Vergleichen berücksichtigt.
+	 * Kann <code>null</code> sein, wenn in der Modelldatei keine Zertifikatdaten hinterlegt waren.)
+	 */
+	public EditModelCertificate loadedModelCertificate;
+
+	/**
 	 * Konstruktor der Klasse {@link EditModel}
 	 */
 	public EditModel() {
@@ -987,6 +994,12 @@ public final class EditModel extends EditModelBase implements Cloneable  {
 			return null;
 		}
 
+		if (EditModelCertificate.isCertificateNode(name)) {
+			loadedModelCertificate=new EditModelCertificate();
+			loadedModelCertificate.loadCertificateData(node);
+			return null;
+		}
+
 		return null;
 	}
 
@@ -1124,6 +1137,9 @@ public final class EditModel extends EditModelBase implements Cloneable  {
 		}
 
 		savedViews.addDataToXML(doc,node);
+
+		final EditModelCertificate cert=new EditModelCertificate();
+		cert.storeCertificateData(doc,node,this);
 	}
 
 	/**
@@ -1136,7 +1152,7 @@ public final class EditModel extends EditModelBase implements Cloneable  {
 
 	/**
 	 * Prüft, ob ein bestimmtes Element die Single-Core-only Simulation notwendig macht.
-	 * @param element	Element das betrachtet werdne soll
+	 * @param element	Element das betrachtet werden soll
 	 * @param reasons	Fügt mögliche Single-Core-Gründe zu dieser Liste hinzu
 	 * @see #getSingleCoreReason()
 	 */
