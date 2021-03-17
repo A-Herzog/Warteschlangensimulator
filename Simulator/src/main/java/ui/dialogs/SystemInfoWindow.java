@@ -324,6 +324,11 @@ public class SystemInfoWindow extends JFrame {
 		infoText.append("</span>");
 		lastMemoryCommitedMB=memoryCommitedMB;
 		lastMemoryUsedMB=memoryUsedMB;
+
+		try {
+			infoText.append(Language.tr("SystemInfo.GC")+": "+String.join(", ",ManagementFactory.getGarbageCollectorMXBeans().stream().map(gcMxBean->gcMxBean.getName()).toArray(String[]::new)));
+		} catch (RuntimeException e) {}
+
 		infoText.append("</p>\n");
 
 		/* Ausgabe: Arbeitslast */
