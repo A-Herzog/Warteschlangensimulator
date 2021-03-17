@@ -46,6 +46,7 @@
   <xs:element ref="ExterneDaten"/>
   <xs:element name="ModellPluginsVerzeichnis" type="xs:string"/>
   <xs:element ref="GespeicherteAnsicht"/>
+  <xs:element ref="KiritischeStationenSignatur"/>  
   
 </xs:choice></xs:sequence></xs:complexType></xs:element>
 
@@ -325,6 +326,25 @@
   <xs:attribute name="Y" type="xs:integer"  use="required"/>
   <xs:attribute name="Zoom" type="xs:string"  use="required"/>
 </xs:complexType></xs:element>
+
+<xs:element name="KiritischeStationenSignatur"><xs:complexType>
+  <xs:sequence minOccurs="1" maxOccurs="unbounded"><xs:choice>
+    <xs:element name="SignaturOeffentlicherSchluessel" type="xs:string" minOccurs="1" maxOccurs="1"/>  
+	<xs:element ref="SignaturStation" minOccurs="0" maxOccurs="unbounded"/>
+	<xs:element ref="SignaturNutzername" minOccurs="1" maxOccurs="1"/>
+  </xs:choice></xs:sequence>
+</xs:complexType></xs:element>
+
+<xs:element name="SignaturStation"><xs:complexType>
+  <xs:attribute name="id" type="xs:integer"  use="required"/>
+  <xs:attribute name="Signatur" type="xs:string"  use="required"/>
+</xs:complexType></xs:element>
+
+<xs:element name="SignaturNutzername"><xs:complexType><xs:simpleContent>
+  <xs:extension base="xs:string">
+    <xs:attribute name="Signatur" type="xs:string"  use="required"/>
+  </xs:extension>
+</xs:simpleContent></xs:complexType></xs:element>
 
 <xs:element name="ModelleVergleichenEingabe"><xs:complexType>
   <xs:sequence minOccurs="1" maxOccurs="1"><xs:choice>
@@ -2128,6 +2148,7 @@
   <xs:element ref="ExternalData"/>
   <xs:element name="ModelPluginsFolder" type="xs:string"/>  
   <xs:element ref="SavedView"/>
+  <xs:element ref="CriticalStationsSignature"/>
 </xs:choice></xs:sequence></xs:complexType></xs:element>
 
 <xs:element name="ModelClients"><xs:complexType><xs:simpleContent>
@@ -2406,6 +2427,25 @@
   <xs:attribute name="Y" type="xs:integer"  use="required"/>
   <xs:attribute name="Zoom" type="xs:string"  use="required"/>
 </xs:complexType></xs:element>
+
+<xs:element name="CriticalStationsSignature"><xs:complexType>
+  <xs:sequence minOccurs="1" maxOccurs="unbounded"><xs:choice>
+    <xs:element name="SignaturePublicKey" type="xs:string" minOccurs="1" maxOccurs="1"/>  
+	<xs:element ref="SignatureStation" minOccurs="0" maxOccurs="unbounded"/>
+	<xs:element ref="SignatureUserName" minOccurs="1" maxOccurs="1"/>
+  </xs:choice></xs:sequence>
+</xs:complexType></xs:element>
+
+<xs:element name="SignatureStation"><xs:complexType>
+  <xs:attribute name="id" type="xs:integer"  use="required"/>
+  <xs:attribute name="Signature" type="xs:string"  use="required"/>
+</xs:complexType></xs:element>
+
+<xs:element name="SignatureUserName"><xs:complexType><xs:simpleContent>
+  <xs:extension base="xs:string">
+    <xs:attribute name="Signature" type="xs:string"  use="required"/>
+  </xs:extension>
+</xs:simpleContent></xs:complexType></xs:element>
 
 <xs:element name="CompareModelsInput"><xs:complexType>
   <xs:sequence minOccurs="1" maxOccurs="1"><xs:choice>

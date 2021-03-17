@@ -4,7 +4,7 @@
 
 <!-- Beschreibung der Modell-Dateien -->
 
-<!ELEMENT Modell (ModellVersion | ModellName | ModellAutor | ModellAutorEMail | ModellBeschreibung | ModellAufwaermphase | ModellWiederholungen | ModellKunden | ModellAbbruchbedingung | ModellAbbruchzeit | ModellAbbruchKonfidenz | ModellZufallszahlenStartwert | ModellAutokorrelation | ModellBatchGroesse | ModellElemente | Ressourcen | KundentypenDaten | ModellZeitplaene | ModellZusatzStatistik | InitialeVariable | ModellFarbe | ModellHintergrundBild | ModellFertigungsplaene | ModellTransporterListe | ModellPfadsegmente | ModellAnimationsBilder | ModellStatistikVerteilungStunden | ModellBeiRechenfehlerAbbrechen | ModellKantenNormal | ModellKantenSelektiert | ModellElementVerbindungsdarstellungsart | ModellZeitabhaengigePruefungen | ModellPfadaufzeichnung | ModellUnvollstaendigeKundenAufzeichnung | Benutzervorlagen | ExterneDaten | ModellPluginsVerzeichnis | GespeicherteAnsicht)*>
+<!ELEMENT Modell (ModellVersion | ModellName | ModellAutor | ModellAutorEMail | ModellBeschreibung | ModellAufwaermphase | ModellWiederholungen | ModellKunden | ModellAbbruchbedingung | ModellAbbruchzeit | ModellAbbruchKonfidenz | ModellZufallszahlenStartwert | ModellAutokorrelation | ModellBatchGroesse | ModellElemente | Ressourcen | KundentypenDaten | ModellZeitplaene | ModellZusatzStatistik | InitialeVariable | ModellFarbe | ModellHintergrundBild | ModellFertigungsplaene | ModellTransporterListe | ModellPfadsegmente | ModellAnimationsBilder | ModellStatistikVerteilungStunden | ModellBeiRechenfehlerAbbrechen | ModellKantenNormal | ModellKantenSelektiert | ModellElementVerbindungsdarstellungsart | ModellZeitabhaengigePruefungen | ModellPfadaufzeichnung | ModellUnvollstaendigeKundenAufzeichnung | Benutzervorlagen | ExterneDaten | ModellPluginsVerzeichnis | GespeicherteAnsicht | KiritischeStationenSignatur)*>
 <!ATTLIST Modell
   xmlns	CDATA	#IMPLIED
   xmlns:xsi	CDATA	#IMPLIED
@@ -254,6 +254,19 @@
   X		CDATA	#REQUIRED
   Y		CDATA	#REQUIRED
   Zoom	CDATA	#REQUIRED
+>
+
+<!ELEMENT KiritischeStationenSignatur (SigunaturOeffentlicherSchluessel | SigunaturStation | SigunaturNutzername)*>
+
+<!ELEMENT SigunaturOeffentlicherSchluessel (#PCDATA)>
+<!ELEMENT SigunaturStation EMPTY>
+<!ATTLIST SigunaturStation
+  id		CDATA	#REQUIRED
+  Sigunatur	CDATA	#REQUIRED
+>
+<!ELEMENT SigunaturNutzername (#PCDATA)>
+<!ATTLIST SigunaturNutzername
+  Sigunatur	CDATA	#REQUIRED
 >
 
 
@@ -2162,7 +2175,7 @@
 
 <!-- Documentation of the model files -->
 
-<!ELEMENT Model (ModelVersion | ModelName | ModelAuthor | ModelAuthorEMail | ModelDescription | ModelWarmUpPhase | ModelRepeats | ModelClients |  ModelTerminationCondition | ModelTerminationTime | ModelTerminationConfidence | ModelRandomNumbersSeed | ModelAutocorrelation | ModelBatchSize | ModelElements | Resources | ClientTypeData | ModelSchedules | ModelAdditionalStatistics | InitialVariable | ModelColor | ModelBackgroundImage | ModelSequences | ModelTransporters | ModelPathSegments | ModelAnimationImages | ModelStatisticsDistributionHours | ModelStoppOnCalcError | ModelEdgesNormal | ModelEdgesSelected | ModelElementConnectionDrawStyle | ModelTimedChecks | ModelPathRecording | ModelRecordIncompleteClients | UserTemplates | ExternalData | ModelPluginsFolder | SavedView)*>
+<!ELEMENT Model (ModelVersion | ModelName | ModelAuthor | ModelAuthorEMail | ModelDescription | ModelWarmUpPhase | ModelRepeats | ModelClients |  ModelTerminationCondition | ModelTerminationTime | ModelTerminationConfidence | ModelRandomNumbersSeed | ModelAutocorrelation | ModelBatchSize | ModelElements | Resources | ClientTypeData | ModelSchedules | ModelAdditionalStatistics | InitialVariable | ModelColor | ModelBackgroundImage | ModelSequences | ModelTransporters | ModelPathSegments | ModelAnimationImages | ModelStatisticsDistributionHours | ModelStoppOnCalcError | ModelEdgesNormal | ModelEdgesSelected | ModelElementConnectionDrawStyle | ModelTimedChecks | ModelPathRecording | ModelRecordIncompleteClients | UserTemplates | ExternalData | ModelPluginsFolder | SavedView | CriticalStationsSignature)*>
 <!ATTLIST Model
   xmlns	CDATA	#IMPLIED
   xmlns:xsi	CDATA	#IMPLIED
@@ -2412,6 +2425,19 @@
   X		CDATA	#REQUIRED
   Y		CDATA	#REQUIRED
   Zoom	CDATA	#REQUIRED
+>
+
+<!ELEMENT CriticalStationsSignature (SignaturePublicKey | SignatureStation | SignatureUserName)*>
+
+<!ELEMENT SignaturePublicKey (#PCDATA)>
+<!ELEMENT SignatureStation EMPTY>
+<!ATTLIST SignatureStation
+  id		CDATA	#REQUIRED
+  Signature	CDATA	#REQUIRED
+>
+<!ELEMENT SignatureUserName (#PCDATA)>
+<!ATTLIST SignatureUserName
+  Signature	CDATA	#REQUIRED
 >
 
 
