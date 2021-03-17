@@ -3162,7 +3162,7 @@ public class MainPanel extends MainPanelBase {
 			return;
 		}
 
-		final ModelViewerFrame viewer=new ModelViewerFrame(getOwnerWindow(),statistics.editModel,null,()->{
+		final ModelViewerFrame viewer=new ModelViewerFrame(getOwnerWindow(),statistics.editModel,statistics,false,()->{
 			if (!isDiscardModelOk()) return;
 			editorPanel.setModel(statistics.editModel);
 			setCurrentPanel(editorPanel);
@@ -3450,7 +3450,6 @@ public class MainPanel extends MainPanelBase {
 		} catch (IOException | URISyntaxException e1) {
 			MsgBox.error(getOwnerWindow(),Language.tr("Window.Info.NoEMailProgram.Title"),String.format(Language.tr("Window.Info.NoEMailProgram.Info"),"mailto:"+MainPanel.AUTHOR_EMAIL));
 		}
-		return;
 	}
 
 	/**

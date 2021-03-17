@@ -1095,7 +1095,7 @@ public class ParameterComparePanel extends SpecialPanel {
 			item.setToolTipText(Language.tr("ParameterCompare.Toolbar.ShowBaseModel.Show.Tooltip"));
 			item.setIcon(Images.PARAMETERSERIES_SETUP_SHOW_BASE_MODEL.getIcon());
 			item.addActionListener(e->{
-				final ModelViewerFrame viewer=new ModelViewerFrame(getOwnerWindow(),setup.getEditModel(),null,()->commandLoadToEditor(setup.getEditModel(),false));
+				final ModelViewerFrame viewer=new ModelViewerFrame(getOwnerWindow(),setup.getEditModel(),null,false,()->commandLoadToEditor(setup.getEditModel(),false));
 				viewer.setVisible(true);
 			});
 

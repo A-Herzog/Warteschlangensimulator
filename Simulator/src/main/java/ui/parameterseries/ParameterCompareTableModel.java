@@ -567,7 +567,7 @@ public class ParameterCompareTableModel extends JTableExtAbstractTableModel {
 		Container c=table.getParent();
 		while (c!=null && !(c instanceof Window)) c=c.getParent();
 
-		final ModelViewerFrame viewer=new ModelViewerFrame((Window)c,statistics.editModel,statistics,()->{
+		final ModelViewerFrame viewer=new ModelViewerFrame((Window)c,statistics.editModel,statistics,true,()->{
 			if (loadToEditor!=null) loadToEditor.accept(statistics);
 		});
 

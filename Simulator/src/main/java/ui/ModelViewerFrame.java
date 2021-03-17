@@ -84,9 +84,10 @@ public class ModelViewerFrame extends JDialog {
 	 * @param owner	Übergeordnetes Fenster (an dem sich der Dialog ausrichtet)
 	 * @param model	Anzuzeigendes Modell
 	 * @param statistics Anzuzeigende Statistikinformationen (kann <code>null</code> sein, dann wird nur das Modell angezeigt)
+	 * @param showStatistics	Sollen die Statistikdaten in einem eigenen Panel angezeigt werden (<code>true</code>) oder sollen sie nur zur Anreicherung der Tooltips im Editor verwendet werden (<code>false</code>)
 	 * @param loadModel	Callback zum Laden des Modells in den Editor (wird hier <code>null</code> übergeben, so wird die Option zum Laden des Modells in den Editor nicht angeboten)
 	 */
-	public ModelViewerFrame(final Window owner, final EditModel model, final Statistics statistics, final Runnable loadModel) {
+	public ModelViewerFrame(final Window owner, final EditModel model, final Statistics statistics, final boolean showStatistics, final Runnable loadModel) {
 		super(owner,Language.tr("Viewer.Title"));
 		this.model=model;
 		this.loadModel=loadModel;
@@ -101,13 +102,13 @@ public class ModelViewerFrame extends JDialog {
 		buttonClose=createToolbarButton(toolbar,Language.tr("Dialog.Button.Close"),Language.tr("Viewer.Close.Hint"),Images.GENERAL_EXIT.getIcon());
 		toolbar.addSeparator();
 		buttonFileSaveModel=createToolbarButton(toolbar,Language.tr("Main.Toolbar.SaveModel"),Language.tr("Main.Toolbar.SaveModel.Hint"),Images.MODEL_SAVE.getIcon());
-		if (statistics!=null) {
+		if (statistics!=null && showStatistics) {
 			buttonFileSaveStatistics=createToolbarButton(toolbar,Language.tr("Main.Toolbar.SaveStatistics"),Language.tr("Main.Toolbar.SaveStatistics.Hint"),Images.STATISTICS_SAVE.getIcon());
 		} else {
 			buttonFileSaveStatistics=null;
 		}
 
-		if (statistics!=null) {
+		if (statistics!=null && showStatistics) {
 			toolbar.addSeparator();
 			buttonViewEditor=createToolbarButton(toolbar,Language.tr("Main.Toolbar.ShowEditor"),Language.tr("Main.Toolbar.ShowEditor.Hint"),Images.MODEL.getIcon());
 			buttonViewStatistics=createToolbarButton(toolbar,Language.tr("Main.Toolbar.ShowStatistics"),Language.tr("Main.Toolbar.ShowStatistics.Hint"),Images.STATISTICS.getIcon());
@@ -130,9 +131,13 @@ public class ModelViewerFrame extends JDialog {
 		content.add(editorPanel,BorderLayout.CENTER);
 
 		if (statistics!=null) {
-			statisticsPanel=new StatisticsPanel(1);
-			statisticsPanel.setStatistics(statistics);
-			editorPanel.setStatisticsGetter(()->statistics);
+			if (showStatistics) {
+				statisticsPanel=new StatisticsPanel(1);
+				statisticsPanel.setStatistics(statistics);
+			} else {
+				statisticsPanel=null;
+			}
+			editorPanel.setStatisticsGetter(()->statistics); // XXX
 			if (this.model==null) this.model=statistics.editModel;
 		} else {
 			statisticsPanel=null;
@@ -159,25 +164,6 @@ public class ModelViewerFrame extends JDialog {
 		button.addActionListener(new ButtonListener());
 		if (icon!=null) button.setIcon(icon);
 		return button;
-	}
-
-	/**
-	 * Konstruktor der Klasse <code>ModelViewerFrame</code>
-	 * @param owner	Übergeordnetes Fenster (an dem sich der Dialog ausrichtet)
-	 * @param model	Anzuzeigendes Modell
-	 */
-	public ModelViewerFrame(final Window owner, final EditModel model) {
-		this(owner,model,null,null);
-	}
-
-	/**
-	 * Konstruktor der Klasse <code>ModelViewerFrame</code>
-	 * @param owner	Übergeordnetes Fenster (an dem sich der Dialog ausrichtet)
-	 * @param model	Anzuzeigendes Modell
-	 * @param statistics Anzuzeigende Statistikinformationen (kann <code>null</code> sein, dann wird nur das Modell angezeigt)
-	 */
-	public ModelViewerFrame(final Window owner, final EditModel model, final Statistics statistics) {
-		this(owner,model,statistics,null);
 	}
 
 	/**

@@ -130,7 +130,7 @@ public class ComparePanel extends SpecialPanel {
 					if (allowLoadToEditor) {
 						loadToEditor=()->{loadModelIntoEditor=statisticData.editModel; close();};
 					}
-					ModelViewerFrame modelViewer=new ModelViewerFrame(owner,statisticData.editModel,statisticData,loadToEditor);
+					ModelViewerFrame modelViewer=new ModelViewerFrame(owner,statisticData.editModel,statisticData,true,loadToEditor);
 					modelViewer.setVisible(true);
 				});
 				popupMenu.add(item);
