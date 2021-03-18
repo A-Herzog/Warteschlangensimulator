@@ -137,7 +137,7 @@ public class ModelViewerFrame extends JDialog {
 			} else {
 				statisticsPanel=null;
 			}
-			editorPanel.setStatisticsGetter(()->statistics); // XXX
+			editorPanel.setStatisticsGetter(()->statistics);
 			if (this.model==null) this.model=statistics.editModel;
 		} else {
 			statisticsPanel=null;
@@ -245,7 +245,6 @@ public class ModelViewerFrame extends JDialog {
 				SwingUtilities.invokeLater(()->frame.toFront());
 				setVisible(false);
 				dispose();
-				return;
 			}
 		}
 	}
