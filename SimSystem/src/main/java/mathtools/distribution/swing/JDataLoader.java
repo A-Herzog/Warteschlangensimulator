@@ -409,7 +409,6 @@ public class JDataLoader extends JDialog {
 		 * @param table	Anzuzeigende Tabelle
 		 */
 		public ImportTableModel(final Table table) {
-			super();
 			this.table=table;
 		}
 

@@ -85,7 +85,6 @@ public class DescriptionViewer extends JPanel {
 	 * @param linkCallback	Callback an das Links (zur dialogbasierten Hilfe) übermittelt werden (kann <code>null</code> sein)
 	 */
 	public DescriptionViewer(final URL pageURL, final Consumer<String> linkCallback) {
-		super();
 		this.pageURL=pageURL;
 		this.linkCallback=linkCallback;
 		setLayout(new BorderLayout());

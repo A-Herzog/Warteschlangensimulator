@@ -161,7 +161,6 @@ public class FileDropper {
 		 * @param component	Komponenten, auf denen Dateien per Drag&amp;Drop abgelegt werden können sollen
 		 */
 		public FileDropListener(final Component component) {
-			super();
 			this.component=component;
 		}
 

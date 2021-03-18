@@ -71,7 +71,6 @@ abstract class HTMLFrame extends JFrame {
 	 * @see #getSpecialLink()
 	 */
 	public HTMLFrame(final Window owner, final String title, final Runnable specialLinks) {
-		super();
 		setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 		setTitle(title);
 

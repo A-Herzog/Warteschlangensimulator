@@ -79,7 +79,6 @@ public class StatisticTreeCellRenderer extends DefaultTreeCellRenderer {
 	 * Konstruktor der Klasse <code>StatisticTreeCellRenderer</code>
 	 */
 	public StatisticTreeCellRenderer() {
-		super();
 	}
 
 	/**

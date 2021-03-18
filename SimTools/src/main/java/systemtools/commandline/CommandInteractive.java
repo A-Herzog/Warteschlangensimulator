@@ -15,8 +15,7 @@ import java.util.List;
 public class CommandInteractive extends AbstractCommand {
 	@Override
 	public String[] getKeys() {
-		List<String> list=new ArrayList<>();
-		list.addAll(Arrays.asList(BaseCommandLineSystem.commandInteractiveName));
+		List<String> list=new ArrayList<>(Arrays.asList(BaseCommandLineSystem.commandInteractiveName));
 		for (String s: BaseCommandLineSystem.commandInteractiveNamesOtherLanguages) if (!list.contains(s)) list.add(s);
 		return list.toArray(new String[0]);
 	}

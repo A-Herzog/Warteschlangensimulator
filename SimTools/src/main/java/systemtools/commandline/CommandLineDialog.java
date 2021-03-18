@@ -330,7 +330,6 @@ public class CommandLineDialog extends BaseDialog {
 		 * @param args	Aufrufparameter
 		 */
 		public CommandWorkThread(String[] args) {
-			super();
 			this.args=args;
 		}
 

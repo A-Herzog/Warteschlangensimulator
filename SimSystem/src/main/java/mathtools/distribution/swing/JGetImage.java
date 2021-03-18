@@ -31,5 +31,5 @@ public interface JGetImage {
 	 * gezeichnet werden sollen.
 	 * @param g	{@link Graphics}-Objekt in das gezeichnet werden soll.
 	 */
-	public void paintToGraphics(Graphics g);
+	void paintToGraphics(Graphics g);
 }

@@ -32,5 +32,5 @@ public interface DistributionWithRandom {
 	 * @param generator	Generator für auf [0;1] gleichverteilte Zufallszahlen
 	 * @return	Zufallszahl gemäß der Verteilung
 	 */
-	public double random(final RandomGenerator generator);
+	double random(final RandomGenerator generator);
 }

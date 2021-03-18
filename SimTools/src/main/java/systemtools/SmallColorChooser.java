@@ -345,7 +345,6 @@ public class SmallColorChooser extends JPanel {
 	 * Initial wird als Farbe Schwarz ausgewählt.
 	 */
 	public SmallColorChooser() {
-		super();
 		enabled=true;
 		initNamedColors();
 		initUI();
@@ -688,7 +687,6 @@ public class SmallColorChooser extends JPanel {
 		 * @param color	Anzuzeigende Farbe
 		 */
 		public ColorBox(final Color color) {
-			super();
 			this.color=color;
 			final Dimension size=new Dimension(16,16);
 			setPreferredSize(size);

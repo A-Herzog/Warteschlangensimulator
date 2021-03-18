@@ -80,7 +80,6 @@ public class HTMLBrowserTextPane extends JTextPane implements HTMLBrowserPanel {
 	 * Konstruktor der Klasse <code>HTMLBrowserTextPane</code>
 	 */
 	public HTMLBrowserTextPane() {
-		super();
 		lastClickedURL=null;
 		lastClickedURLDescription="";
 		setEditable(false);

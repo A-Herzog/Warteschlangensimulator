@@ -329,7 +329,6 @@ public abstract class StatisticViewerJFreeChart implements StatisticViewer {
 		 * @param file	Ausgabedatei
 		 */
 		public SaveImageThread(File file) {
-			super();
 			this.file=file;
 			start();
 		}

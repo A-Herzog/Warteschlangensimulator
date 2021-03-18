@@ -70,7 +70,6 @@ public class CalcSystem extends CalcSystemBase {
 	 * Konstruktor der Klasse <code>CalcSystem</code>
 	 */
 	public CalcSystem() {
-		super();
 	}
 
 	/**

@@ -48,7 +48,6 @@ public class JCheckboxTable extends JTable {
 	 * @param caption	Optionale Überschrift über der Liste (darf <code>null</code> sein)
 	 */
 	public JCheckboxTable(String[] keys, boolean[] select, String caption) {
-		super();
 		setModel(new JCheckboxTableModel());
 
 		this.keys=Arrays.copyOf(keys,keys.length);

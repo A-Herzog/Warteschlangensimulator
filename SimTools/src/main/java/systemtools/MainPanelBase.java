@@ -171,7 +171,6 @@ public abstract class MainPanelBase extends JPanel {
 	 * @param programName	Name des Programms
 	 */
 	public MainPanelBase(final Window ownerWindow, final String programName) {
-		super();
 		this.ownerWindow=ownerWindow;
 		this.programName=programName;
 

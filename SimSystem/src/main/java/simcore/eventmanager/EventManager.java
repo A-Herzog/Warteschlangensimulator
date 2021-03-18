@@ -33,7 +33,7 @@ public interface EventManager {
 	/**
 	 * Führt zu einem direkten Abbruch der Ereignisschleife
 	 */
-	public void directAbortThread();
+	void directAbortThread();
 
 	/**
 	 * Führt das nächste Ereignis in der Liste aus.
@@ -44,13 +44,13 @@ public interface EventManager {
 	 * @see SimData
 	 * @see Event
 	 */
-	public boolean executeNextEvents(final SimData simData, final int maxExecuteEvents, final int maxRunTime);
+	boolean executeNextEvents(final SimData simData, final int maxExecuteEvents, final int maxRunTime);
 
 	/**
 	 * Fügt ein Ereignis in die Ereignisliste ein.
 	 * @param event Referenz auf das einzufügende Ereignis
 	 */
-	public void addEvent(final Event event);
+	void addEvent(final Event event);
 
 	/**
 	 * Löscht ein Ereignis aus der Warteschlange ohne es auszuführen. Da die Referenz auf das Ereignis nach dem Löschen
@@ -58,12 +58,12 @@ public interface EventManager {
 	 * @param event	Zu löschendes Ereignis
 	 * @param simData	Referenz auf das <code>SimData</code>-Objekt (wird benötigt zum recyceln des Ereignisses)
 	 */
-	public void deleteEvent(final Event event, final SimData simData);
+	void deleteEvent(final Event event, final SimData simData);
 
 	/**
 	 * Löscht alle Ereignisse aus allen Listen, ohne sie dabei zu recyceln.
 	 */
-	public void deleteAllEvents();
+	void deleteAllEvents();
 
 	/**
 	 * Wenn von Beginn an mehrere Ereignisse in die Ereignisliste eingefügt werden sollen, so ist es von
@@ -75,42 +75,42 @@ public interface EventManager {
 	 * dass bei seiner Ausführung das zweite in die Liste eingetragen werden soll usw.
 	 * @param	events	Ereignisse, die von Anfang an in der Ereignisliste stehen sollen
 	 */
-	public void addInitialEvents(final List<? extends Event> events);
+	void addInitialEvents(final List<? extends Event> events);
 
 	/**
 	 * Liefert die Anzahl der ausgeführten Ereignisse zurück.
 	 * @return Anzahl der ausgeführten Ereignisse
 	 */
-	public long eventCount();
+	long eventCount();
 
 	/**
 	 * Liefert die momentane Länge der Ereigniswarteschlange zurück.
 	 * @return Länge der Ereigniswarteschlange
 	 */
-	public int eventQueueLength();
+	int eventQueueLength();
 
 	/**
 	 * Informiert den EventManager darüber, dass ein neuer Tag begonnen hat.
 	 * Nicht alle EventManager müssen diese Information interpretieren. Lediglich bei mehreren Listen
 	 * muss hier ein Reset durchgeführt werden.
 	 */
-	public void resetTime();
+	void resetTime();
 
 	/**
 	 * Setzt den Zähler der ausgeführten Ereignisse zurück.
 	 */
-	public void resetCount();
+	void resetCount();
 
 	/**
 	 * Signalisiert, dass die Simulation unterbrochen werden soll und dass <code>executeNextEvents</code>
 	 * nach dem Ende der Ausführung des aktuellen Ereignisses direkt zurückkehren soll (und nicht erst
 	 * nach der angegebenen Anzahl an auszuführenden Ereignissen).
 	 */
-	public void setPause();
+	void setPause();
 
 	/**
 	 * Liefert für Debugging-Zwecke alle aktuellen Ereignisse zurück
 	 * @return	Liste mit allen aktuellen Ereignissen
 	 */
-	public List<Event> getAllEvents();
+	List<Event> getAllEvents();
 }

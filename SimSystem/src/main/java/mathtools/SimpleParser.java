@@ -39,7 +39,6 @@ public class SimpleParser extends CalcSystemBase {
 	 * Konstruktor der Klasse <code>SimpleParser</code>
 	 */
 	public SimpleParser() {
-		super();
 	}
 
 	/**

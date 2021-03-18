@@ -30,6 +30,6 @@ public interface ValueProcessorFunction {
 	 * @param value	Wert am Index
 	 * @return	Verarbeiteter Messwert
 	 */
-	public double process(int index, double value);
+	double process(int index, double value);
 
 }

@@ -27,13 +27,13 @@ import simcore.Event;
 public final class NoEventCache implements EventCache {
 
 	@Override
-	public final Event get(final Class<? extends Event> eventClass) {try {return eventClass.getConstructor().newInstance();} catch (Exception e) {return null;}}
+	public Event get(final Class<? extends Event> eventClass) {try {return eventClass.getConstructor().newInstance();} catch (Exception e) {return null;}}
 
 	@Override
-	public final void put(final Event event) {}
+	public void put(final Event event) {}
 
 	@Override
-	public final void clear() {}
+	public void clear() {}
 
 	@Override
 	public Event getOrNull(Class<? extends Event> eventClass) {return null;}

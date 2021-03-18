@@ -31,7 +31,7 @@ public interface HTMLBrowserPanel {
 	 * @param linkClickListener	Callback, das aufgerufen wird, wenn ein Link angeklickt wird
 	 * @param pageLoadListener	Runnable, das aufgerufen wird, wenn eine Seite geladen wurde
 	 */
-	public void init(final Runnable linkClickListener, final Runnable pageLoadListener);
+	void init(final Runnable linkClickListener, final Runnable pageLoadListener);
 
 	/**
 	 * Gibt an, welche Seite angezeigt werden soll

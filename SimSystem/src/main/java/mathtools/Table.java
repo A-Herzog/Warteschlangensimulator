@@ -435,8 +435,7 @@ public final class Table implements Cloneable {
 	public void setLine(final int index, final List<String> newLine) {
 		if (index<0) return;
 		while (index>=data.size()) data.add(new ArrayList<>());
-		final List<String> list=new ArrayList<>(newLine.size());
-		list.addAll(newLine);
+		final List<String> list=new ArrayList<>(newLine);
 		data.set(index,list);
 	}
 

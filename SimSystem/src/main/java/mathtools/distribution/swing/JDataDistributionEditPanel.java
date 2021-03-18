@@ -268,7 +268,6 @@ public class JDataDistributionEditPanel extends JPanel {
 	 * @param saveAsImageButtons Bietet, wenn auf <code>true</code> gesetzt, die Möglichkeit, die Verteilung als Grafik zu speichern (statt sonst nur als Tabelle).
 	 */
 	public JDataDistributionEditPanel(DataDistributionImpl distribution, PlotMode plotType, boolean editable, double editStep, boolean saveAsImageButtons) {
-		super();
 		changeListener=new ArrayList<>();
 		if (distribution==null) distribution=new DataDistributionImpl(1,1);
 		this.distribution=distribution.clone();
@@ -771,7 +770,6 @@ public class JDataDistributionEditPanel extends JPanel {
 		 * Konstruktor der Klasse
 		 */
 		public DataPlotter() {
-			super();
 			addMouseListener(this);
 			addMouseMotionListener(this);
 		}

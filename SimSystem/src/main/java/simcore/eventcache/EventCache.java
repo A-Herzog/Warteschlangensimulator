@@ -29,7 +29,7 @@ public interface EventCache {
 	 * Speichert das übergebene Ereignis im Cache. Das Ereignis darf danach nicht mehr verwendet werden.
 	 * @param event	Das zu recycelnde Ereignis
 	 */
-	public void put(final Event event);
+	void put(final Event event);
 
 	/**
 	 * Liefert ein Ereignis des im Parameter angegebenen Typs zurück. Wenn möglich wird das Ereignis aus dem
@@ -38,7 +38,7 @@ public interface EventCache {
 	 * @param eventClass Typ des gewünschten Ereignisobjektes
 	 * @return Liefert ein Ereignis des gewünschten Typs
 	 */
-	public Event get(final Class<? extends Event> eventClass);
+	Event get(final Class<? extends Event> eventClass);
 
 	/**
 	 * Liefert ein Ereignis des im Parameter angegebenen Typs zurück. Das Ereignis wird aus dem
@@ -46,10 +46,10 @@ public interface EventCache {
 	 * @param eventClass Typ des gewünschten Ereignisobjektes
 	 * @return Liefert ein Ereignis des gewünschten Typs
 	 */
-	public Event getOrNull(final Class<? extends Event> eventClass);
+	Event getOrNull(final Class<? extends Event> eventClass);
 
 	/**
 	 * Löscht den gesamten Cache.
 	 */
-	public void clear();
+	void clear();
 }
