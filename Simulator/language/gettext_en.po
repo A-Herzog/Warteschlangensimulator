@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-03-16 21:14+0100\n"
+"POT-Creation-Date: 2021-03-20 17:13+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -8364,6 +8364,84 @@ msgstr "Simulation results"
 
 msgid "Main.Menu.View.SimulationResults.Mnemonic"
 msgstr "S"
+
+msgid "Main.Menu.View.StatisticInfo"
+msgstr "Statistics on drawing surface"
+
+msgid "Main.Menu.View.StatisticInfo.Mnemonic"
+msgstr "S"
+
+msgid "Main.Menu.View.Statistics.HeatMap.Arrivals"
+msgstr "Heatmap: Number of arrivals at a station"
+
+msgid "Main.Menu.View.Statistics.HeatMap.Arrivals.Mnemonic"
+msgstr "a"
+
+msgid "Main.Menu.View.Statistics.HeatMap.FlowFactor"
+msgstr "Heatmap: Flow factor at a station"
+
+msgid "Main.Menu.View.Statistics.HeatMap.FlowFactor.Mnemonic"
+msgstr "F"
+
+msgid "Main.Menu.View.Statistics.HeatMap.NqAvg"
+msgstr "Heatmap: Average number of waiting clients at a station"
+
+msgid "Main.Menu.View.Statistics.HeatMap.NqAvg.Mnemonic"
+msgstr "w"
+
+msgid "Main.Menu.View.Statistics.HeatMap.NqMax"
+msgstr "Heatmap: Maximum number of waiting clients at a station"
+
+msgid "Main.Menu.View.Statistics.HeatMap.NqMax.Mnemonic"
+msgstr "w"
+
+msgid "Main.Menu.View.Statistics.HeatMap.Off"
+msgstr "Do not show heatmap"
+
+msgid "Main.Menu.View.Statistics.HeatMap.Off.Mnemonic"
+msgstr "n"
+
+msgid "Main.Menu.View.Statistics.HeatMap.Process"
+msgstr "Heatmap: Average process time at a station"
+
+msgid "Main.Menu.View.Statistics.HeatMap.Process.Mnemonic"
+msgstr "p"
+
+msgid "Main.Menu.View.Statistics.HeatMap.Residence"
+msgstr "Heatmap: Average residence time at a station"
+
+msgid "Main.Menu.View.Statistics.HeatMap.Residence.Mnemonic"
+msgstr "r"
+
+msgid "Main.Menu.View.Statistics.HeatMap.Transfer"
+msgstr "Heatmap: Average transfer time at a station"
+
+msgid "Main.Menu.View.Statistics.HeatMap.Transfer.Mnemonic"
+msgstr "t"
+
+msgid "Main.Menu.View.Statistics.HeatMap.Waiting"
+msgstr "Heatmap: Average waiting time at a station"
+
+msgid "Main.Menu.View.Statistics.HeatMap.Waiting.Mnemonic"
+msgstr "w"
+
+msgid "Main.Menu.View.Statistics.HeatMap.WipAvg"
+msgstr "Heatmap: Average number of clients at a station"
+
+msgid "Main.Menu.View.Statistics.HeatMap.WipAvg.Mnemonic"
+msgstr "c"
+
+msgid "Main.Menu.View.Statistics.HeatMap.WipMax"
+msgstr "Heatmap: Maximum number of clients at a station"
+
+msgid "Main.Menu.View.Statistics.HeatMap.WipMax.Mnemonic"
+msgstr "c"
+
+msgid "Main.Menu.View.Statistics.Info"
+msgstr "Statistics information in tooltips"
+
+msgid "Main.Menu.View.Statistics.Info.Mnemonic"
+msgstr "t"
 
 msgid "Main.Menu.View.TemplatesBar"
 msgstr "Show elements templates sidebar"

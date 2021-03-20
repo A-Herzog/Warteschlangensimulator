@@ -328,6 +328,9 @@ public enum Images {
 	/** Symbol "Modellüberblick" */
 	MODE_OVERVIEW("find.png"),
 
+	/** Symbol "Statistikinformationen im Modell-Editor" */
+	STATISTIC_INFO("chart_bar.png"),
+
 	/* Expression Builder */
 
 	/** Symbol "Expression-Builder" */

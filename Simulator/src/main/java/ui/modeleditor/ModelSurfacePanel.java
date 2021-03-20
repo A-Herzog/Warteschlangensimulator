@@ -461,6 +461,7 @@ public final class ModelSurfacePanel extends JPanel {
 		}
 		this.model=model;
 		this.surface=surface;
+		this.surface.setHeatMapIntensityGetter(heatMapIntensityGetter);
 		if (this.surface!=null) {
 			this.surface.addRedrawListener(requestRedrawListener);
 			this.surface.addRequestCopyListener(requestCopyListener);
@@ -1200,7 +1201,6 @@ public final class ModelSurfacePanel extends JPanel {
 		if (step<0) {
 			/* Undo */
 			for (int i=0;i<-step;i++) doUndo();
-			return;
 		}
 	}
 
@@ -2626,6 +2626,30 @@ public final class ModelSurfacePanel extends JPanel {
 	}
 
 	/**
+	 * Callback zur Ermittlung der HeatMap-Intensität für ein Element
+	 * (kann <code>null</code> sein)
+	 */
+	private Function<ModelElementBox,Double> heatMapIntensityGetter;
+
+	/**
+	 * Stellt das Callback zur Ermittlung der HeatMap-Intensität für ein Element ein.
+	 * @param heatMapIntensityGetter	Callback zur Ermittlung der HeatMap-Intensität für ein Element (<code>null</code>, wenn keine HeatMap gezeichnet werden soll)
+	 */
+	public void setHeatMapIntensityGetter(final Function<ModelElementBox,Double> heatMapIntensityGetter) {
+		this.heatMapIntensityGetter=heatMapIntensityGetter;
+		if (surface!=null) surface.setHeatMapIntensityGetter(heatMapIntensityGetter);
+	}
+
+	/**
+	 * Löscht das aktuelle Heatmap-Bild,
+	 * so dass die Heatmap beim nächsten Zeichnen neu angelegt wird.<br>
+	 * Dies ist nötig, wenn die Heatmap-Einstellungen verändert wurden.
+	 */
+	public void clearHeatMapCache() {
+		if (surface!=null) surface.clearHeatMapCache();
+	}
+
+	/**
 	 * Listener, die benachrichtigt werden sollen, wenn der Nutzer per Kontextmenü die Erstellung einer Parameterreihe auslöst
 	 * @see #fireBuildParameterSeries(ui.parameterseries.ParameterCompareTemplatesDialog.TemplateRecord)
 	 */
@@ -2871,7 +2895,6 @@ public final class ModelSurfacePanel extends JPanel {
 				}
 				fireSelectionListener();
 				e.consume();
-				return;
 			}
 		}
 
@@ -3364,7 +3387,6 @@ public final class ModelSurfacePanel extends JPanel {
 				if (element instanceof ModelElementPosition) {
 					showQuickFixPopup((ModelElementPosition)element);
 					e.consume();
-					return;
 				}
 			}
 		}

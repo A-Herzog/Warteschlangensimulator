@@ -297,6 +297,32 @@ public class MainPanel extends MainPanelBase {
 	private JRadioButtonMenuItem menuViewGridDots;
 	/** Menüpunkt "Ansicht" - "Raster" - "Linienraster" */
 	private JRadioButtonMenuItem menuViewGridLines;
+
+	/** Menüpunkt "Ansicht" - "Statistik auf Zeichenfläche" - "Statistikinformationen in Tooltips" */
+	private JCheckBoxMenuItem menuViewStatisticsTooltips;
+	/** Menüpunkt "Ansicht" - "Statistik auf Zeichenfläche" - "Keine Heatmap anzeigen" */
+	private JRadioButtonMenuItem menuViewStatisticsHeatMapOff;
+	/** Menüpunkt "Ansicht" - "Statistik auf Zeichenfläche" - "Heatmap: Mittlere Anzahl an Kunden an den Stationen" */
+	private JRadioButtonMenuItem menuViewStatisticsHeatMapWipAvg;
+	/** Menüpunkt "Ansicht" - "Statistik auf Zeichenfläche" - "Heatmap: Mittlere Anzahl an wartenden Kunden an den Stationen" */
+	private JRadioButtonMenuItem menuViewStatisticsHeatMapNqAvg;
+	/** Menüpunkt "Ansicht" - "Statistik auf Zeichenfläche" - "Heatmap: Maximale Anzahl an Kunden an den Stationen" */
+	private JRadioButtonMenuItem menuViewStatisticsHeatMapWipMax;
+	/** Menüpunkt "Ansicht" - "Statistik auf Zeichenfläche" - "Heatmap: Maximale Anzahl an wartenden Kunden an den Stationen" */
+	private JRadioButtonMenuItem menuViewStatisticsHeatMapNqMax;
+	/** Menüpunkt "Ansicht" - "Statistik auf Zeichenfläche" - "Heatmap: Anzahl an Kundenankünften an den Stationen" */
+	private JRadioButtonMenuItem menuViewStatisticsHeatMapArrivals;
+	/** Menüpunkt "Ansicht" - "Statistik auf Zeichenfläche" - "Heatmap: Mittlere Wartezeiten an den Stationen" */
+	private JRadioButtonMenuItem menuViewStatisticsHeatMapWaiting;
+	/** Menüpunkt "Ansicht" - "Statistik auf Zeichenfläche" - "Heatmap: Mittlere Transferzeiten an den Stationen" */
+	private JRadioButtonMenuItem menuViewStatisticsHeatMapTransfer;
+	/** Menüpunkt "Ansicht" - "Statistik auf Zeichenfläche" - "Heatmap: Mittlere Bedienzeiten an den Stationen" */
+	private JRadioButtonMenuItem menuViewStatisticsHeatMapProcess;
+	/** Menüpunkt "Ansicht" - "Statistik auf Zeichenfläche" - "Heatmap: Mittlere Verweilzeiten an den Stationen" */
+	private JRadioButtonMenuItem menuViewStatisticsHeatMapResidence;
+	/** Menüpunkt "Ansicht" - "Statistik auf Zeichenfläche" - "Heatmap: Flussgrad den Stationen" */
+	private JRadioButtonMenuItem menuViewStatisticsHeatMapFlowFactor;
+
 	/** Menüpunkt "Ansicht" - "IDs anzeigen" */
 	private JCheckBoxMenuItem menuViewShowIDs;
 	/** Menüpunkt "Ansicht" - "Stationsbeschreibungen in Tooltips" */
@@ -589,6 +615,18 @@ public class MainPanel extends MainPanelBase {
 		addAction("ViewRasterOff",e->commandViewRaster(ModelSurface.Grid.OFF));
 		addAction("ViewRasterDots",e->commandViewRaster(ModelSurface.Grid.DOTS));
 		addAction("ViewRasterRaster",e->commandViewRaster(ModelSurface.Grid.LINES));
+		addAction("ViewStatisticsInfo",e->commandViewStatisticsInfo());
+		addAction("ViewStatisticsHeatMapOff",e->commandViewStatisticsHeatMap(null));
+		addAction("ViewStatisticsHeatMapWipAvg",e->commandViewStatisticsHeatMap(EditorPanelStatistics.HeatMapMode.WIP_AVG));
+		addAction("ViewStatisticsHeatMapNqAvg",e->commandViewStatisticsHeatMap(EditorPanelStatistics.HeatMapMode.NQ_AVG));
+		addAction("ViewStatisticsHeatMapWipMax",e->commandViewStatisticsHeatMap(EditorPanelStatistics.HeatMapMode.WIP_MAX));
+		addAction("ViewStatisticsHeatMapNqMax",e->commandViewStatisticsHeatMap(EditorPanelStatistics.HeatMapMode.NQ_MAX));
+		addAction("ViewStatisticsHeatMapArrivals",e->commandViewStatisticsHeatMap(EditorPanelStatistics.HeatMapMode.ARRIVALS));
+		addAction("ViewStatisticsHeatMapWaiting",e->commandViewStatisticsHeatMap(EditorPanelStatistics.HeatMapMode.WAITING_TIME_AVG));
+		addAction("ViewStatisticsHeatMapTransfer",e->commandViewStatisticsHeatMap(EditorPanelStatistics.HeatMapMode.TRANSFER_TIME_AVG));
+		addAction("ViewStatisticsHeatMapProcess",e->commandViewStatisticsHeatMap(EditorPanelStatistics.HeatMapMode.PROCESS_TIME_AVG));
+		addAction("ViewStatisticsHeatMapResidence",e->commandViewStatisticsHeatMap(EditorPanelStatistics.HeatMapMode.RESIDENCE_TIME_AVG));
+		addAction("ViewStatisticsHeatMapFlowFactor",e->commandViewStatisticsHeatMap(EditorPanelStatistics.HeatMapMode.FLOW_FACTOR));
 		addAction("ViewShowIDs",e->commandViewIDs());
 		addAction("ViewShowStationDescriptions",e->commandViewStationDescriptions());
 		addAction("ViewGradients",e->commandViewGradients());
@@ -755,6 +793,20 @@ public class MainPanel extends MainPanelBase {
 		menuViewGridLines.setSelected(setup.grid==ModelSurface.Grid.LINES);
 		editorPanel.setRaster(setup.grid);
 
+		/* Ansicht - Statistik - Tooltips anzeigen */
+		menuViewStatisticsTooltips.setSelected(setup.statisticInTooltips);
+		menuViewStatisticsHeatMapOff.setSelected(setup.statisticHeatMap==EditorPanelStatistics.HeatMapMode.OFF || setup.statisticHeatMap==null);
+		menuViewStatisticsHeatMapWipAvg.setSelected(setup.statisticHeatMap==EditorPanelStatistics.HeatMapMode.WIP_AVG);
+		menuViewStatisticsHeatMapNqAvg.setSelected(setup.statisticHeatMap==EditorPanelStatistics.HeatMapMode.NQ_AVG);
+		menuViewStatisticsHeatMapWipMax.setSelected(setup.statisticHeatMap==EditorPanelStatistics.HeatMapMode.WIP_MAX);
+		menuViewStatisticsHeatMapNqMax.setSelected(setup.statisticHeatMap==EditorPanelStatistics.HeatMapMode.NQ_MAX);
+		menuViewStatisticsHeatMapArrivals.setSelected(setup.statisticHeatMap==EditorPanelStatistics.HeatMapMode.ARRIVALS);
+		menuViewStatisticsHeatMapWaiting.setSelected(setup.statisticHeatMap==EditorPanelStatistics.HeatMapMode.WAITING_TIME_AVG);
+		menuViewStatisticsHeatMapTransfer.setSelected(setup.statisticHeatMap==EditorPanelStatistics.HeatMapMode.TRANSFER_TIME_AVG);
+		menuViewStatisticsHeatMapProcess.setSelected(setup.statisticHeatMap==EditorPanelStatistics.HeatMapMode.PROCESS_TIME_AVG);
+		menuViewStatisticsHeatMapResidence.setSelected(setup.statisticHeatMap==EditorPanelStatistics.HeatMapMode.RESIDENCE_TIME_AVG);
+		menuViewStatisticsHeatMapFlowFactor.setSelected(setup.statisticHeatMap==EditorPanelStatistics.HeatMapMode.FLOW_FACTOR);
+
 		/* Ansicht - IDs */
 		menuViewShowIDs.setState(setup.showIDs);
 
@@ -818,6 +870,7 @@ public class MainPanel extends MainPanelBase {
 
 		/* Alles neu zeichnen */
 		getOwnerWindow().repaint();
+		editorPanel.resetHeatMapSettings();
 		editorPanel.repaint();
 
 		/* Ggf. andere Fenster benachrichtigen */
@@ -854,7 +907,11 @@ public class MainPanel extends MainPanelBase {
 
 		mainPanel.repaint();
 
-		if (editorPanelActive) SwingUtilities.invokeLater(()->{editorPanel.setVisible(false); editorPanel.setVisible(true);});
+		if (editorPanelActive) SwingUtilities.invokeLater(()->{
+			editorPanel.setVisible(false);
+			editorPanel.resetHeatMapSettings();
+			editorPanel.setVisible(true);
+		});
 
 		if (enabledOnEditorPanel!=null) for (JMenuItem item: enabledOnEditorPanel) item.setEnabled(editorPanelActive);
 		if (selectOnEditorPanel!=null) for (AbstractButton button: selectOnEditorPanel) button.setSelected(editorPanelActive);
@@ -945,6 +1002,17 @@ public class MainPanel extends MainPanelBase {
 		item.setForeground(Color.BLACK);
 		item.setEnabled(false);
 		return item;
+	}
+
+	/**
+	 * Legt einen neuen Radiobutton-Menüpunkt an und verknüpft ihn mit einem Action-Befehl.
+	 * @param parent	Übergeordnetes Menü-Element
+	 * @param mode	Heatmap-Modus zu dem der Menüpunkt erzeugt werden soll
+	 * @param actionCommand	Beim Aufruf zu verwendender Action-Befehl
+	 * @return	Neu erstellter Checkbox-Menüpunkt
+	 */
+	private JRadioButtonMenuItem createRadioButtonMenuItem(final JMenu parent, final EditorPanelStatistics.HeatMapMode mode, final String actionCommand) {
+		return createRadioButtonMenuItem(parent,mode.getName(),mode.getNameMnemonic(),actionCommand);
 	}
 
 	@Override
@@ -1064,6 +1132,23 @@ public class MainPanel extends MainPanelBase {
 		menuViewGridOff.setSelected(setup.grid==ModelSurface.Grid.OFF);
 		menuViewGridDots.setSelected(setup.grid==ModelSurface.Grid.DOTS);
 		menuViewGridLines.setSelected(setup.grid==ModelSurface.Grid.LINES);
+
+		menu.add(submenu=new JMenu(Language.tr("Main.Menu.View.StatisticInfo")));
+		setMnemonic(submenu,Language.tr("Main.Menu.View.StatisticInfo.Mnemonic"));
+		submenu.setIcon(Images.STATISTIC_INFO.getIcon());
+		enabledOnEditorPanel.add(menuViewStatisticsTooltips=createCheckBoxMenuItem(submenu,Language.tr("Main.Menu.View.Statistics.Info"),Language.tr("Main.Menu.View.Statistics.Info.Mnemonic"),"ViewStatisticsInfo"));
+		submenu.addSeparator();
+		enabledOnEditorPanel.add(menuViewStatisticsHeatMapOff=createRadioButtonMenuItem(submenu,EditorPanelStatistics.HeatMapMode.OFF,"ViewStatisticsHeatMapOff"));
+		enabledOnEditorPanel.add(menuViewStatisticsHeatMapWipAvg=createRadioButtonMenuItem(submenu,EditorPanelStatistics.HeatMapMode.WIP_AVG,"ViewStatisticsHeatMapWipAvg"));
+		enabledOnEditorPanel.add(menuViewStatisticsHeatMapNqAvg=createRadioButtonMenuItem(submenu,EditorPanelStatistics.HeatMapMode.NQ_AVG,"ViewStatisticsHeatMapNqAvg"));
+		enabledOnEditorPanel.add(menuViewStatisticsHeatMapWipMax=createRadioButtonMenuItem(submenu,EditorPanelStatistics.HeatMapMode.WIP_MAX,"ViewStatisticsHeatMapWipMax"));
+		enabledOnEditorPanel.add(menuViewStatisticsHeatMapNqMax=createRadioButtonMenuItem(submenu,EditorPanelStatistics.HeatMapMode.NQ_MAX,"ViewStatisticsHeatMapNqMax"));
+		enabledOnEditorPanel.add(menuViewStatisticsHeatMapArrivals=createRadioButtonMenuItem(submenu,EditorPanelStatistics.HeatMapMode.ARRIVALS,"ViewStatisticsHeatMapArrivals"));
+		enabledOnEditorPanel.add(menuViewStatisticsHeatMapWaiting=createRadioButtonMenuItem(submenu,EditorPanelStatistics.HeatMapMode.WAITING_TIME_AVG,"ViewStatisticsHeatMapWaiting"));
+		enabledOnEditorPanel.add(menuViewStatisticsHeatMapTransfer=createRadioButtonMenuItem(submenu,EditorPanelStatistics.HeatMapMode.TRANSFER_TIME_AVG,"ViewStatisticsHeatMapTransfer"));
+		enabledOnEditorPanel.add(menuViewStatisticsHeatMapProcess=createRadioButtonMenuItem(submenu,EditorPanelStatistics.HeatMapMode.PROCESS_TIME_AVG,"ViewStatisticsHeatMapProcess"));
+		enabledOnEditorPanel.add(menuViewStatisticsHeatMapResidence=createRadioButtonMenuItem(submenu,EditorPanelStatistics.HeatMapMode.RESIDENCE_TIME_AVG,"ViewStatisticsHeatMapResidence"));
+		enabledOnEditorPanel.add(menuViewStatisticsHeatMapFlowFactor=createRadioButtonMenuItem(submenu,EditorPanelStatistics.HeatMapMode.FLOW_FACTOR,"ViewStatisticsHeatMapFlowFactor"));
 		enabledOnEditorPanel.add(menuViewShowIDs=createCheckBoxMenuItem(menu,Language.tr("Main.Menu.View.ShowIDs"),Language.tr("Main.Menu.View.ShowIDs.Mnemonic"),"ViewShowIDs"));
 		menuViewShowIDs.setState(setup.showIDs);
 		enabledOnEditorPanel.add(menuViewShowStationDescription=createCheckBoxMenuItem(menu,Language.tr("Main.Menu.View.ShowStationDescriptions"),Language.tr("Main.Menu.View.ShowStationDescriptions.Mnemonic"),"ViewShowStationDescriptions"));
@@ -2114,6 +2199,25 @@ public class MainPanel extends MainPanelBase {
 	 */
 	private void commandViewRaster(final ModelSurface.Grid raster) {
 		setup.grid=raster;
+		setup.saveSetup();
+		reloadSetup();
+	}
+
+	/**
+	 * Befehl: Ansicht - Statistik auf Zeichenfläche - Statistikinformationen in Tooltips
+	 */
+	private void commandViewStatisticsInfo() {
+		setup.statisticInTooltips=!setup.statisticInTooltips;
+		setup.saveSetup();
+		reloadSetup();
+	}
+
+	/**
+	 * Befehl: Ansicht - Statistik auf Zeichenfläche - Heatmap
+	 * @param mode	Heatmap-Modus
+	 */
+	private void commandViewStatisticsHeatMap(final EditorPanelStatistics.HeatMapMode mode) {
+		setup.statisticHeatMap=mode;
 		setup.saveSetup();
 		reloadSetup();
 	}

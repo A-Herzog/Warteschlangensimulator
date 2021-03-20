@@ -15,6 +15,8 @@
  */
 package simulator.builder;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -113,6 +115,7 @@ import simulator.elements.RunElementTransportSource;
 import simulator.elements.RunElementTransportTransporterSource;
 import simulator.elements.RunElementUserStatistic;
 import simulator.runmodel.RunModel;
+import ui.modeleditor.coreelements.ModelElement;
 import ui.modeleditor.coreelements.ModelElementBox;
 import ui.modeleditor.coreelements.ModelElementPosition;
 import ui.modeleditor.elements.InteractiveElement;
@@ -245,6 +248,31 @@ public final class RunModelCreator {
 		templates.add(new RunElementInteractiveSlider(null));
 		templates.add(new RunElementInteractiveCheckbox(null));
 		templates.add(new RunElementInteractiveRadiobutton(null));
+	}
+
+	/**
+	 * Ermittelt den Laufzeit-Element-Namen für ein Editor-Element
+	 * @param element	Editor-Element
+	 * @return	Name des Laufzeit-Elements (der auch für die Statistik verwendet wird), der zu dem Editor-Element-Namen gehört
+	 */
+	public static String getName(final ModelElement element) {
+		final Class<?> elementClass=element.getClass();
+
+		for (RunElement run: templates) {
+			for (Constructor<?> constructor: run.getClass().getConstructors()) {
+				final Class<?>[] parameters=constructor.getParameterTypes();
+				if (parameters.length==1 && parameters[0].equals(elementClass)) {
+					try {
+						final RunElement instance=(RunElement)constructor.newInstance(element);
+						return instance.name;
+					} catch (InstantiationException|IllegalAccessException|IllegalArgumentException|InvocationTargetException e) {
+						return null;
+					}
+				}
+			}
+		}
+
+		return null;
 	}
 
 	/**

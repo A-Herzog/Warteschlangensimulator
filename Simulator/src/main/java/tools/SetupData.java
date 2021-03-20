@@ -38,6 +38,7 @@ import statistics.StatisticsDataPerformanceIndicator;
 import systemtools.GUITools;
 import systemtools.SetupBase;
 import systemtools.statistics.ChartSetup;
+import ui.EditorPanelStatistics;
 import ui.MainFrame;
 import ui.infopanel.InfoPanel;
 import ui.modeleditor.ModelSurface;
@@ -301,6 +302,17 @@ public class SetupData extends SetupBase {
 	 * Schrift auf der Zeichenfläche glätten
 	 */
 	public boolean antialias;
+
+	/**
+	 * Anzeige von Statistikdaten in Tooltips?
+	 */
+	public boolean statisticInTooltips;
+
+	/**
+	 * Anzeige von Heatmap-Statistikdaten auf der Zeichenfläche
+	 * @see ui.EditorPanelStatistics.HeatMapMode
+	 */
+	public EditorPanelStatistics.HeatMapMode statisticHeatMap;
 
 	/**
 	 * Gibt an, ob die Bilder bei HTML-Reports inline oder als separate Dateien ausgegeben werden sollen.
@@ -1114,6 +1126,8 @@ public class SetupData extends SetupBase {
 		showIDs=false;
 		showStationDescription=false;
 		antialias=true;
+		statisticInTooltips=true;
+		statisticHeatMap=EditorPanelStatistics.HeatMapMode.OFF;
 		imagesInline=true;
 		reportSettings="";
 		useLastFiles=true;
@@ -1533,6 +1547,21 @@ public class SetupData extends SetupBase {
 
 			if (name.equals("showstationdescription")) {
 				showStationDescription=loadBoolean(e.getTextContent(),false);
+				continue;
+			}
+
+			if (name.equals("antialias")) {
+				antialias=loadBoolean(e.getTextContent(),true);
+				continue;
+			}
+
+			if (name.equals("statisticintooltips")) {
+				statisticInTooltips=loadBoolean(e.getTextContent(),true);
+				continue;
+			}
+
+			if (name.equals("statisticheatmap")) {
+				statisticHeatMap=EditorPanelStatistics.HeatMapMode.fromName(e.getTextContent());
 				continue;
 			}
 
@@ -2175,6 +2204,16 @@ public class SetupData extends SetupBase {
 		if (!antialias) {
 			root.appendChild(node=doc.createElement("AntiAlias"));
 			node.setTextContent("0");
+		}
+
+		if (!statisticInTooltips) {
+			root.appendChild(node=doc.createElement("StatisticInTooltips"));
+			node.setTextContent("0");
+		}
+
+		if (statisticHeatMap!=null && statisticHeatMap!=EditorPanelStatistics.HeatMapMode.OFF) {
+			root.appendChild(node=doc.createElement("StatisticHeatMap"));
+			node.setTextContent(statisticHeatMap.xmlName);
 		}
 
 		if (reportSettings!=null && !reportSettings.isEmpty()) {

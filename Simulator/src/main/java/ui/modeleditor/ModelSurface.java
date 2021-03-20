@@ -16,6 +16,7 @@
 package ui.modeleditor;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
@@ -33,6 +34,7 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 import java.util.TreeSet;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 import org.apache.commons.math3.util.FastMath;
@@ -737,6 +739,72 @@ public final class ModelSurface {
 	}
 
 	/**
+	 * Callback zur Ermittlung der HeatMap-Intensität für ein Element
+	 * (kann <code>null</code> sein)
+	 */
+	private Function<ModelElementBox,Double> heatMapIntensityGetter;
+
+	/**
+	 * Stellt das Callback zur Ermittlung der HeatMap-Intensität für ein Element ein.
+	 * @param heatMapIntensityGetter	Callback zur Ermittlung der HeatMap-Intensität für ein Element (<code>null</code>, wenn keine HeatMap gezeichnet werden soll)
+	 */
+	public void setHeatMapIntensityGetter(final Function<ModelElementBox,Double> heatMapIntensityGetter) {
+		this.heatMapIntensityGetter=heatMapIntensityGetter;
+	}
+
+	/**
+	 * Internes System zur Darstellung einer Heatmap
+	 * @see #drawHeatMap(Graphics, Rectangle, double)
+	 */
+	private HeatMapImage heatMap;
+
+	/**
+	 * Löscht das aktuelle Heatmap-Bild,
+	 * so dass die Heatmap beim nächsten Zeichnen neu angelegt wird.<br>
+	 * Dies ist nötig, wenn die Heatmap-Einstellungen verändert wurden.
+	 */
+	public void clearHeatMapCache() {
+		if (heatMap!=null) heatMap.reset(0,0,0);
+	}
+
+	/**
+	 * Zeichnet eine Heatmap zu Elementen ein.
+	 * @param graphics	<code>Graphics</code>-Objekt, in das die Elemente gezeichnet werden sollen
+	 * @param drawRect	Tatsächlich sichtbarer Ausschnitt
+	 * @param zoom	Zoomfaktor
+	 * @see #drawToGraphics(Graphics, Rectangle, double, boolean, BackgroundImageMode, boolean, Grid, Color[], BufferedImage, String, double, boolean)
+	 */
+	private void drawHeatMap(final Graphics graphics, final Rectangle drawRect, final double zoom) {
+		if (heatMapIntensityGetter==null) return;
+
+		if (heatMap==null) heatMap=new HeatMapImage();
+		heatMap.reset(drawRect.width,drawRect.height,zoom);
+
+		final int zoomedFrameSize=(int)Math.round(HeatMapImage.HEAT_SCALE*zoom);
+
+		for (ModelElement element : elements) if (isVisibleOnLayer(element) && (element instanceof ModelElementBox)) {
+			final ModelElementBox box=(ModelElementBox)element;
+
+			final Point point=box.getPosition(true);
+			final Dimension size=box.getSize();
+			final int x=(int)Math.round(point.x*zoom);
+			final int y=(int)Math.round(point.y*zoom);
+			final int w=(int)Math.round(size.width*zoom);
+			final int h=(int)Math.round(size.height*zoom);
+
+			if (x-zoomedFrameSize>drawRect.x+drawRect.width) continue;
+			if (y-zoomedFrameSize>drawRect.y+drawRect.height) continue;
+			if (x+w+zoomedFrameSize<drawRect.x) continue;
+			if (y+h+zoomedFrameSize<drawRect.y) continue;
+
+			final Double intensity=heatMapIntensityGetter.apply(box);
+			if (intensity!=null && intensity>0) heatMap.box(x-drawRect.x,y-drawRect.y,w,h,intensity);
+		}
+
+		heatMap.draw(graphics,drawRect.x,drawRect.y);
+	}
+
+	/**
 	 * Zeichnet die Elemente in ein <code>Graphics</code>-Objekt
 	 * @param graphics	<code>Graphics</code>-Objekt, in das die Elemente gezeichnet werden sollen
 	 * @param drawRect	Tatsächlich sichtbarer Ausschnitt
@@ -757,13 +825,22 @@ public final class ModelSurface {
 		delayFireStateChangeListener=true;
 		needToFireStateChangeListener=false;
 		try {
+			/* Hintergrund zeichnen */
 			drawBackgroundToGraphics(graphics,drawRect,zoom,fillBackground,showBackground,showBoundingBox,raster,colors,backgroundImage,backgroundImageHash,backgroundImageScale);
-			/* final Rectangle smallerDrawRect=new Rectangle(drawRect.x,drawRect.y,drawRect.width-1,drawRect.height-1); */ /* sonst gibt's beim initialen Zeichnen evtl. eine Pixelzeile unter dem Scrollbalken */
+
+			/* Bereich verkleinern, sonst gibt's beim initialen Zeichnen evtl. eine Pixelzeile unter dem Scrollbalken */
 			drawRect.width--;
 			drawRect.height--;
+
+			/* Heatmap */
+			drawHeatMap(graphics,drawRect,zoom);
+
+			/* Elemente zeichnen */
 			for (ModelElement element : elements) if (isVisibleOnLayer(element)) {
 				element.drawToGraphics(graphics,/*smallerDrawRect*/drawRect,zoom,showSelectionFrames);
 			}
+
+			/* Bereich wiederherstellen */
 			drawRect.width++;
 			drawRect.height++;
 		} finally {
