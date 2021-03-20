@@ -1333,6 +1333,7 @@ public abstract class StatisticsBasePanel extends JPanel implements AbstractRepo
 		parent.remove(viewerComponent);
 
 		final JSplitPane split=new JSplitPane(JSplitPane.HORIZONTAL_SPLIT);
+		split.setContinuousLayout(true);
 		split.setLeftComponent(viewerComponent);
 		split.setRightComponent(additionalViewer.getViewer(true));
 		split.setBorder(BorderFactory.createEmptyBorder());
