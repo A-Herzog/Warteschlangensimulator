@@ -461,8 +461,8 @@ public final class ModelSurfacePanel extends JPanel {
 		}
 		this.model=model;
 		this.surface=surface;
-		this.surface.setHeatMapIntensityGetter(heatMapIntensityGetter);
 		if (this.surface!=null) {
+			this.surface.setHeatMapIntensityGetter(heatMapIntensityGetter);
 			this.surface.addRedrawListener(requestRedrawListener);
 			this.surface.addRequestCopyListener(requestCopyListener);
 			this.surface.addRequestCutListener(requestCutListener);
