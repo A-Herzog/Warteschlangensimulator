@@ -193,7 +193,7 @@ public class Language {
 	}
 
 	/**
-	 * Liefert eine Liste der Anteile (die in der Datei durch Semikollons getrennt sind) eines Language-Strings in der jeweils gewählten Sprache für einen Bezeichner.
+	 * Liefert eine Liste der Anteile (die in der Datei durch Semikollons getrennt sind) eines Language-Strings in allen Sprachen für einen Bezeichner.
 	 * @param id	Bezeichner
 	 * @return	Liste der Language-String-Anteile
 	 */

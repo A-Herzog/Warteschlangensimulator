@@ -19,8 +19,6 @@ import java.io.InputStream;
 import java.io.PrintStream;
 import java.lang.management.GarbageCollectorMXBean;
 import java.lang.management.ManagementFactory;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import language.Language;
@@ -37,10 +35,7 @@ import ui.modeleditor.ModelElementCatalogDescriptionBuilder;
 public class CommandGC extends AbstractCommand {
 	@Override
 	public String[] getKeys() {
-		List<String> list=new ArrayList<>();
-		list.addAll(Arrays.asList(Language.trAll("CommandLine.GC.Name")));
-		for (String s: Language.trOther("CommandLine.GC.Name")) if (!list.contains(s)) list.add(s);
-		return list.toArray(new String[0]);
+		return Language.trAll("CommandLine.GC.Name");
 	}
 
 	@Override
