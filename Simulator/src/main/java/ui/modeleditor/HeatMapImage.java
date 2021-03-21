@@ -134,7 +134,7 @@ public class HeatMapImage {
 	 */
 	private double calcIntensity(final int x, final int y, final int width, final int height, final int i, final int j) {
 		/* Punkt im Inneren des Bereichs? */
-		if (i>=x && i<=x+width && j>=y && j<=y+height) return 1.0;
+		if (i>=x && i<=x+width && j>=y && j<=y+height) return deltaToIntensity(1,zoom); /* eigentlich 1.0, das wirkt aber zu intensiv */
 
 		/* Über oder unter dem Bereich */
 		if (i>=x && i<=x+width) {
@@ -166,7 +166,7 @@ public class HeatMapImage {
 	private int mixColors(final int c1, final int c2) {
 		final int c1a=(c1 >> 24) & 0xFF;
 		final int c1r=((c1 & 0xFF0000) >> 16) & 0xFF;
-		final int c1g=((c1 & 0xFF00) >> 8) & 0XFF;
+		final int c1g=((c1 & 0xFF00) >> 8) & 0xFF;
 		final int c1b=c1 & 0xFF;
 		final double alpha1=c1a/255.0;
 
@@ -192,9 +192,11 @@ public class HeatMapImage {
 	 * @return	Mittlerer Farbwert
 	 */
 	private int meanColor(final int c1, final int c2) {
+		if (c1==c2) return c1;
+
 		final int c1a=(c1 >> 24) & 0xFF;
 		final int c1r=((c1 & 0xFF0000) >> 16) & 0xFF;
-		final int c1g=((c1 & 0xFF00) >> 8) & 0XFF;
+		final int c1g=((c1 & 0xFF00) >> 8) & 0xFF;
 		final int c1b=c1 & 0xFF;
 
 		final int c2a=(c2 >> 24) & 0xFF;
@@ -250,13 +252,18 @@ public class HeatMapImage {
 			final int rgbIndex=(j-minY)*areaW+(i-minX);
 			final int oldColor=rgbArray[rgbIndex];
 			final int newColor=(((int)(alpha*MAX_ALPHA) & 0xFF) << 24) | (rgb & 0xFFFFFF);
-			if (newColor==oldColor) continue;
 
 			heatMapHasData=true;
 
-			final int c1=mixColors(oldColor,newColor);
-			final int c2=mixColors(newColor,oldColor);
-			rgbArray[rgbIndex]=meanColor(c1,c2);
+			if (newColor==oldColor) {
+				/* Nur Deckkraft verstärken */
+				final int c=mixColors(oldColor,newColor);
+				rgbArray[rgbIndex]=c;
+			} else {
+				final int c1=mixColors(oldColor,newColor);
+				final int c2=mixColors(newColor,oldColor);
+				rgbArray[rgbIndex]=meanColor(c1,c2);
+			}
 		}
 
 		image.setRGB(minX,minY,maxX-minX+1,maxY-minY+1,rgbArray,0,areaW);

@@ -871,8 +871,8 @@ public class MainPanel extends MainPanelBase {
 		if (setup.openPDF) StatisticsBasePanel.viewerPrograms.add(StatisticsBasePanel.ViewerPrograms.PDF);
 
 		/* Alles neu zeichnen */
-		getOwnerWindow().repaint();
 		editorPanel.resetHeatMapSettings();
+		getOwnerWindow().repaint();
 		editorPanel.repaint();
 
 		/* Ggf. andere Fenster benachrichtigen */
@@ -913,6 +913,7 @@ public class MainPanel extends MainPanelBase {
 			editorPanel.setVisible(false);
 			editorPanel.resetHeatMapSettings();
 			editorPanel.setVisible(true);
+			editorPanel.repaint();
 		});
 
 		if (enabledOnEditorPanel!=null) for (JMenuItem item: enabledOnEditorPanel) item.setEnabled(editorPanelActive);

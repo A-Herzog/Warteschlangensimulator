@@ -760,6 +760,9 @@ public class EditorPanelStatistics {
 	public Double getHeatMapIntensity(final Statistics statistics, final ModelElementBox element, final HeatMapMode mode) {
 		if (mode==null || mode==HeatMapMode.OFF) return null;
 
+		/* Ist das noch dasselbe Statistikobjekt wie beim letzten Aufruf? Wenn nein, Caches löschen */
+		testStatistics(statistics);
+
 		final String nameStation=elementStatisticsName(element);
 		if (nameStation==null) return null;
 

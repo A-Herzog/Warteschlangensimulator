@@ -2507,7 +2507,7 @@ public final class EditorPanel extends EditorPanelBase {
 		if (statistics==null) return null;
 
 		final EditorPanelStatistics.HeatMapMode mode=SetupData.getSetup().statisticHeatMap;
-		if (mode==null) return null;
+		if (mode==null || mode==EditorPanelStatistics.HeatMapMode.OFF) return null;
 
 		return statisticsHelper.getHeatMapIntensity(statistics,element,mode);
 	}
