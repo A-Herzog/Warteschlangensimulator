@@ -82,7 +82,7 @@ public abstract class JSEngine {
 	public JSEngine(final int maxExecutionTimeMS, final JSOutputWriter output) {
 		this.maxExecutionTimeMS=maxExecutionTimeMS;
 		final int coreCount=Runtime.getRuntime().availableProcessors();
-		executorPool=new ThreadPoolExecutor(coreCount,coreCount,2,TimeUnit.SECONDS,new LinkedBlockingQueue<>(),new ThreadFactory() {
+		executorPool=new ThreadPoolExecutor(coreCount,coreCount,100,TimeUnit.MILLISECONDS,new LinkedBlockingQueue<>(),new ThreadFactory() {
 			private final AtomicInteger threadNumber=new AtomicInteger(1);
 			@Override
 			public Thread newThread(Runnable r) {
