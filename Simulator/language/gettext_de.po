@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-03-20 17:13+0100\n"
+"POT-Creation-Date: 2021-03-21 01:39+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -28328,6 +28328,9 @@ msgstr "Reserviert"
 msgid "SystemInfo.Memory.Used"
 msgstr "Belegt"
 
+msgid "SystemInfo.System"
+msgstr "Java-Laufzeitumgebung"
+
 msgid "SystemInfo.ThreadCount"
 msgstr "Thread-Anzahl"
 
@@ -28376,6 +28379,9 @@ msgstr "Antialiasing verwenden"
 msgid "SystemInfo.Tools.UserInterface"
 msgstr "Programmoberfläche"
 
+msgid "SystemInfo.Tools.UserInterface.Feedback"
+msgstr "Feedback-Link anzeigen"
+
 msgid "SystemInfo.Tools.UserInterface.MemoryUsage"
 msgstr "Speicherbelegung anzeigen"
 
@@ -28384,6 +28390,9 @@ msgstr "Schnellzugriff anzeigen"
 
 msgid "SystemInfo.Tools.UserInterface.QuickFilter"
 msgstr "Schnellfilter anzeigen"
+
+msgid "SystemInfo.UserDefinedCode"
+msgstr "Nutzerdefinierter Code"
 
 msgid "Table.BoolFalse"
 msgstr "FALSCH"
