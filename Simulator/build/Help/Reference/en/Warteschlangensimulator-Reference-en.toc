@@ -3,8 +3,9 @@
 \contentsline {section}{\numberline {1.2}Excel DDE source}{1}{section.1.2}%
 \contentsline {section}{\numberline {1.3}Exit}{2}{section.1.3}%
 \contentsline {section}{\numberline {1.4}Multi source}{2}{section.1.4}%
-\contentsline {section}{\numberline {1.5}Source}{3}{section.1.5}%
-\contentsline {section}{\numberline {1.6}Table source}{4}{section.1.6}%
+\contentsline {section}{\numberline {1.5}Save and exit}{3}{section.1.5}%
+\contentsline {section}{\numberline {1.6}Source}{4}{section.1.6}%
+\contentsline {section}{\numberline {1.7}Table source}{5}{section.1.7}%
 \contentsline {chapter}{\numberline {2}Processing}{7}{chapter.2}%
 \contentsline {section}{\numberline {2.1}Delay}{7}{section.2.1}%
 \contentsline {section}{\numberline {2.2}Process station}{7}{section.2.2}%
@@ -109,7 +110,8 @@
 \contentsline {section}{\numberline {13.3}Ellipse}{53}{section.13.3}%
 \contentsline {section}{\numberline {13.4}Image}{54}{section.13.4}%
 \contentsline {section}{\numberline {13.5}Line}{54}{section.13.5}%
-\contentsline {section}{\numberline {13.6}Rectangle}{54}{section.13.6}%
+\contentsline {section}{\numberline {13.6}note}{54}{section.13.6}%
+\contentsline {section}{\numberline {13.7}Rectangle}{54}{section.13.7}%
 \contentsline {chapter}{\numberline {14}Others}{55}{chapter.14}%
 \contentsline {section}{\numberline {14.1}Action}{55}{section.14.1}%
 \contentsline {section}{\numberline {14.2}Reference}{55}{section.14.2}%

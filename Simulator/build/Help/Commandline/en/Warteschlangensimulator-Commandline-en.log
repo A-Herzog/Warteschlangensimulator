@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.21 (MiKTeX 20.6.29) (preloaded format=pdflatex 2020.9.12)  11 JAN 2021 23:43
+This is pdfTeX, Version 3.14159265-2.6-1.40.21 (MiKTeX 20.6.29) (preloaded format=pdflatex 2020.9.12)  24 MAR 2021 00:06
 entering extended mode
 **./Warteschlangensimulator-Commandline-en.tex
 (Warteschlangensimulator-Commandline-en.tex
@@ -917,15 +917,26 @@ Package atveryend Info: Executing hook `AfterLastShipout' on input line 67.
  (Warteschlangensimulator-Commandline-en.aux)
 Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 67.
 Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 67.
-Package rerunfilecheck Info: File `Warteschlangensimulator-Commandline-en.out' 
-has not changed.
-(rerunfilecheck)             Checksum: 9DD8217F0EE9574ADDEB89FF8E820663;1114.
+
+
+Package rerunfilecheck Warning: File `Warteschlangensimulator-Commandline-en.ou
+t' has changed.
+(rerunfilecheck)                Rerun to get outlines right
+(rerunfilecheck)                or use package `bookmark'.
+
+Package rerunfilecheck Info: Checksums for `Warteschlangensimulator-Commandline
+-en.out':
+(rerunfilecheck)             Before: 9DD8217F0EE9574ADDEB89FF8E820663;1114
+(rerunfilecheck)             After:  91AA7C3E767B742F1F84441A7ACDE3EC;1312.
+
+LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
+
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 67.
  ) 
 Here is how much of TeX's memory you used:
- 11903 strings out of 491273
- 177521 string characters out of 3112170
- 319784 words of memory out of 3000000
+ 11906 strings out of 491273
+ 177557 string characters out of 3112170
+ 321106 words of memory out of 3000000
  17071 multiletter control sequences out of 15000+200000
  53181 words of font info for 46 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
@@ -939,10 +950,10 @@ ram Files/MiKTeX 2.9/fonts/type1/public/lm/lmr12.pfb><C:/Program Files/MiKTeX 2
 ic/lm/lmssbx10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/lm/lmtk10.pf
 b><C:/Program Files/MiKTeX 2.9/fonts/type1/public/lm/lmtt10.pfb><C:/Program Fil
 es/MiKTeX 2.9/fonts/type1/public/lm/lmtt9.pfb>
-Output written on Warteschlangensimulator-Commandline-en.pdf (9 pages, 1175704 
+Output written on Warteschlangensimulator-Commandline-en.pdf (9 pages, 1178496 
 bytes).
 PDF statistics:
- 186 PDF objects out of 1000 (max. 8388607)
- 29 named destinations out of 1000 (max. 500000)
+ 190 PDF objects out of 1000 (max. 8388607)
+ 32 named destinations out of 1000 (max. 500000)
  154 words of extra memory for PDF output out of 10000 (max. 10000000)
 

@@ -4,115 +4,117 @@
 \BOOKMARK [1][-]{section.1.2}{1.2 Excel DDE source}{chapter.1}% 4
 \BOOKMARK [1][-]{section.1.3}{1.3 Exit}{chapter.1}% 5
 \BOOKMARK [1][-]{section.1.4}{1.4 Multi source}{chapter.1}% 6
-\BOOKMARK [1][-]{section.1.5}{1.5 Source}{chapter.1}% 7
-\BOOKMARK [1][-]{section.1.6}{1.6 Table source}{chapter.1}% 8
-\BOOKMARK [0][-]{chapter.2}{2 Processing}{}% 9
-\BOOKMARK [1][-]{section.2.1}{2.1 Delay}{chapter.2}% 10
-\BOOKMARK [1][-]{section.2.2}{2.2 Process station}{chapter.2}% 11
-\BOOKMARK [0][-]{chapter.3}{3 Assignments}{}% 12
-\BOOKMARK [1][-]{section.3.1}{3.1 Assign string}{chapter.3}% 13
-\BOOKMARK [1][-]{section.3.2}{3.2 Batch counter}{chapter.3}% 14
-\BOOKMARK [1][-]{section.3.3}{3.3 Client statistics}{chapter.3}% 15
-\BOOKMARK [1][-]{section.3.4}{3.4 Costs}{chapter.3}% 16
-\BOOKMARK [1][-]{section.3.5}{3.5 Counter}{chapter.3}% 17
-\BOOKMARK [1][-]{section.3.6}{3.6 Difference counter}{chapter.3}% 18
-\BOOKMARK [1][-]{section.3.7}{3.7 Enter section}{chapter.3}% 19
-\BOOKMARK [1][-]{section.3.8}{3.8 Leave section}{chapter.3}% 20
-\BOOKMARK [1][-]{section.3.9}{3.9 Multi counter}{chapter.3}% 21
-\BOOKMARK [1][-]{section.3.10}{3.10 Script}{chapter.3}% 22
-\BOOKMARK [1][-]{section.3.11}{3.11 State}{chapter.3}% 23
-\BOOKMARK [1][-]{section.3.12}{3.12 Throughput}{chapter.3}% 24
-\BOOKMARK [1][-]{section.3.13}{3.13 Type assignment}{chapter.3}% 25
-\BOOKMARK [1][-]{section.3.14}{3.14 Variable}{chapter.3}% 26
-\BOOKMARK [0][-]{chapter.4}{4 Branching}{}% 27
-\BOOKMARK [1][-]{section.4.1}{4.1 Balking}{chapter.4}% 28
-\BOOKMARK [1][-]{section.4.2}{4.2 Decide}{chapter.4}% 29
-\BOOKMARK [1][-]{section.4.3}{4.3 Decide \(Skript\)}{chapter.4}% 30
-\BOOKMARK [1][-]{section.4.4}{4.4 Duplicate}{chapter.4}% 31
-\BOOKMARK [0][-]{chapter.5}{5 Barriers}{}% 32
-\BOOKMARK [1][-]{section.5.1}{5.1 Barrier}{chapter.5}% 33
-\BOOKMARK [1][-]{section.5.2}{5.2 Condition}{chapter.5}% 34
-\BOOKMARK [1][-]{section.5.3}{5.3 Condition \(Script\)}{chapter.5}% 35
-\BOOKMARK [1][-]{section.5.4}{5.4 Multi condition}{chapter.5}% 36
-\BOOKMARK [1][-]{section.5.5}{5.5 Pull barrier}{chapter.5}% 37
-\BOOKMARK [1][-]{section.5.6}{5.6 Release resource}{chapter.5}% 38
-\BOOKMARK [1][-]{section.5.7}{5.7 Seize resource}{chapter.5}% 39
-\BOOKMARK [1][-]{section.5.8}{5.8 Signal}{chapter.5}% 40
-\BOOKMARK [0][-]{chapter.6}{6 Batching}{}% 41
-\BOOKMARK [1][-]{section.6.1}{6.1 Batch}{chapter.6}% 42
-\BOOKMARK [1][-]{section.6.2}{6.2 Match}{chapter.6}% 43
-\BOOKMARK [1][-]{section.6.3}{6.3 Multi batch}{chapter.6}% 44
-\BOOKMARK [1][-]{section.6.4}{6.4 Pick up}{chapter.6}% 45
-\BOOKMARK [1][-]{section.6.5}{6.5 Separate}{chapter.6}% 46
-\BOOKMARK [1][-]{section.6.6}{6.6 Split}{chapter.6}% 47
-\BOOKMARK [0][-]{chapter.7}{7 Transport}{}% 48
-\BOOKMARK [1][-]{section.7.1}{7.1 Assign sequence}{chapter.7}% 49
-\BOOKMARK [1][-]{section.7.2}{7.2 Conveyor}{chapter.7}% 50
-\BOOKMARK [1][-]{section.7.3}{7.3 Parking lot}{chapter.7}% 51
-\BOOKMARK [1][-]{section.7.4}{7.4 Teleport transport destination}{chapter.7}% 52
-\BOOKMARK [1][-]{section.7.5}{7.5 Teleport transport source}{chapter.7}% 53
-\BOOKMARK [1][-]{section.7.6}{7.6 Transport destination}{chapter.7}% 54
-\BOOKMARK [1][-]{section.7.7}{7.7 Transport origin}{chapter.7}% 55
-\BOOKMARK [1][-]{section.7.8}{7.8 Transporter start}{chapter.7}% 56
-\BOOKMARK [1][-]{section.7.9}{7.9 Transporter way point}{chapter.7}% 57
-\BOOKMARK [0][-]{chapter.8}{8 Data input/output}{}% 58
-\BOOKMARK [1][-]{section.8.1}{8.1 Input}{chapter.8}% 59
-\BOOKMARK [1][-]{section.8.2}{8.2 Input \(DB\)}{chapter.8}% 60
-\BOOKMARK [1][-]{section.8.3}{8.3 Input \(DDE\)}{chapter.8}% 61
-\BOOKMARK [1][-]{section.8.4}{8.4 Input \(Script\)}{chapter.8}% 62
-\BOOKMARK [1][-]{section.8.5}{8.5 Output}{chapter.8}% 63
-\BOOKMARK [1][-]{section.8.6}{8.6 Output \(DB\)}{chapter.8}% 64
-\BOOKMARK [1][-]{section.8.7}{8.7 Output \(DDE\)}{chapter.8}% 65
-\BOOKMARK [1][-]{section.8.8}{8.8 Output \(Log\)}{chapter.8}% 66
-\BOOKMARK [1][-]{section.8.9}{8.9 Output \(Script\)}{chapter.8}% 67
-\BOOKMARK [1][-]{section.8.10}{8.10 Recording}{chapter.8}% 68
-\BOOKMARK [0][-]{chapter.9}{9 Flow control logic}{}% 69
-\BOOKMARK [1][-]{section.9.1}{9.1 Do}{chapter.9}% 70
-\BOOKMARK [1][-]{section.9.2}{9.2 Else}{chapter.9}% 71
-\BOOKMARK [1][-]{section.9.3}{9.3 ElseIf}{chapter.9}% 72
-\BOOKMARK [1][-]{section.9.4}{9.4 EndIf}{chapter.9}% 73
-\BOOKMARK [1][-]{section.9.5}{9.5 EndWhile}{chapter.9}% 74
-\BOOKMARK [1][-]{section.9.6}{9.6 If}{chapter.9}% 75
-\BOOKMARK [1][-]{section.9.7}{9.7 Until}{chapter.9}% 76
-\BOOKMARK [1][-]{section.9.8}{9.8 While}{chapter.9}% 77
-\BOOKMARK [0][-]{chapter.10}{10 Analog values}{}% 78
-\BOOKMARK [1][-]{section.10.1}{10.1 Analog value}{chapter.10}% 79
-\BOOKMARK [1][-]{section.10.2}{10.2 Change analog value}{chapter.10}% 80
-\BOOKMARK [1][-]{section.10.3}{10.3 Flow}{chapter.10}% 81
-\BOOKMARK [1][-]{section.10.4}{10.4 Flow \(signal\)}{chapter.10}% 82
-\BOOKMARK [1][-]{section.10.5}{10.5 Sensor}{chapter.10}% 83
-\BOOKMARK [1][-]{section.10.6}{10.6 Tank}{chapter.10}% 84
-\BOOKMARK [1][-]{section.10.7}{10.7 Valve setup}{chapter.10}% 85
-\BOOKMARK [0][-]{chapter.11}{11 Animation}{}% 86
-\BOOKMARK [1][-]{section.11.1}{11.1 Analogue scale display}{chapter.11}% 87
-\BOOKMARK [1][-]{section.11.2}{11.2 Animation image}{chapter.11}% 88
-\BOOKMARK [1][-]{section.11.3}{11.3 Icon: Person - blue}{chapter.11}% 89
-\BOOKMARK [1][-]{section.11.4}{11.4 LCD display}{chapter.11}% 90
-\BOOKMARK [1][-]{section.11.5}{11.5 Script result as text}{chapter.11}% 91
-\BOOKMARK [1][-]{section.11.6}{11.6 Show recorded data}{chapter.11}% 92
-\BOOKMARK [1][-]{section.11.7}{11.7 Simulation data as bar plot}{chapter.11}% 93
-\BOOKMARK [1][-]{section.11.8}{11.8 Simulation data as stacked bar plot}{chapter.11}% 94
-\BOOKMARK [1][-]{section.11.9}{11.9 Simulation data as text}{chapter.11}% 95
-\BOOKMARK [1][-]{section.11.10}{11.10 Simulation data bar chart}{chapter.11}% 96
-\BOOKMARK [1][-]{section.11.11}{11.11 Simulation data line chart}{chapter.11}% 97
-\BOOKMARK [1][-]{section.11.12}{11.12 Simulation data pie chart}{chapter.11}% 98
-\BOOKMARK [1][-]{section.11.13}{11.13 Simulation data traffic lights}{chapter.11}% 99
-\BOOKMARK [1][-]{section.11.14}{11.14 Simulation time}{chapter.11}% 100
-\BOOKMARK [1][-]{section.11.15}{11.15 Text by simulation data}{chapter.11}% 101
-\BOOKMARK [0][-]{chapter.12}{12 Animation - Interactive}{}% 102
-\BOOKMARK [1][-]{section.12.1}{12.1 Button}{chapter.12}% 103
-\BOOKMARK [1][-]{section.12.2}{12.2 Checkbox}{chapter.12}% 104
-\BOOKMARK [1][-]{section.12.3}{12.3 Radiobutton}{chapter.12}% 105
-\BOOKMARK [1][-]{section.12.4}{12.4 Slider}{chapter.12}% 106
-\BOOKMARK [0][-]{chapter.13}{13 Optical decorations}{}% 107
-\BOOKMARK [1][-]{section.13.1}{13.1 Connection vertex}{chapter.13}% 108
-\BOOKMARK [1][-]{section.13.2}{13.2 Description text}{chapter.13}% 109
-\BOOKMARK [1][-]{section.13.3}{13.3 Ellipse}{chapter.13}% 110
-\BOOKMARK [1][-]{section.13.4}{13.4 Image}{chapter.13}% 111
-\BOOKMARK [1][-]{section.13.5}{13.5 Line}{chapter.13}% 112
-\BOOKMARK [1][-]{section.13.6}{13.6 Rectangle}{chapter.13}% 113
-\BOOKMARK [0][-]{chapter.14}{14 Others}{}% 114
-\BOOKMARK [1][-]{section.14.1}{14.1 Action}{chapter.14}% 115
-\BOOKMARK [1][-]{section.14.2}{14.2 Reference}{chapter.14}% 116
-\BOOKMARK [1][-]{section.14.3}{14.3 Statistics}{chapter.14}% 117
-\BOOKMARK [1][-]{section.14.4}{14.4 Sub model}{chapter.14}% 118
+\BOOKMARK [1][-]{section.1.5}{1.5 Save and exit}{chapter.1}% 7
+\BOOKMARK [1][-]{section.1.6}{1.6 Source}{chapter.1}% 8
+\BOOKMARK [1][-]{section.1.7}{1.7 Table source}{chapter.1}% 9
+\BOOKMARK [0][-]{chapter.2}{2 Processing}{}% 10
+\BOOKMARK [1][-]{section.2.1}{2.1 Delay}{chapter.2}% 11
+\BOOKMARK [1][-]{section.2.2}{2.2 Process station}{chapter.2}% 12
+\BOOKMARK [0][-]{chapter.3}{3 Assignments}{}% 13
+\BOOKMARK [1][-]{section.3.1}{3.1 Assign string}{chapter.3}% 14
+\BOOKMARK [1][-]{section.3.2}{3.2 Batch counter}{chapter.3}% 15
+\BOOKMARK [1][-]{section.3.3}{3.3 Client statistics}{chapter.3}% 16
+\BOOKMARK [1][-]{section.3.4}{3.4 Costs}{chapter.3}% 17
+\BOOKMARK [1][-]{section.3.5}{3.5 Counter}{chapter.3}% 18
+\BOOKMARK [1][-]{section.3.6}{3.6 Difference counter}{chapter.3}% 19
+\BOOKMARK [1][-]{section.3.7}{3.7 Enter section}{chapter.3}% 20
+\BOOKMARK [1][-]{section.3.8}{3.8 Leave section}{chapter.3}% 21
+\BOOKMARK [1][-]{section.3.9}{3.9 Multi counter}{chapter.3}% 22
+\BOOKMARK [1][-]{section.3.10}{3.10 Script}{chapter.3}% 23
+\BOOKMARK [1][-]{section.3.11}{3.11 State}{chapter.3}% 24
+\BOOKMARK [1][-]{section.3.12}{3.12 Throughput}{chapter.3}% 25
+\BOOKMARK [1][-]{section.3.13}{3.13 Type assignment}{chapter.3}% 26
+\BOOKMARK [1][-]{section.3.14}{3.14 Variable}{chapter.3}% 27
+\BOOKMARK [0][-]{chapter.4}{4 Branching}{}% 28
+\BOOKMARK [1][-]{section.4.1}{4.1 Balking}{chapter.4}% 29
+\BOOKMARK [1][-]{section.4.2}{4.2 Decide}{chapter.4}% 30
+\BOOKMARK [1][-]{section.4.3}{4.3 Decide \(Skript\)}{chapter.4}% 31
+\BOOKMARK [1][-]{section.4.4}{4.4 Duplicate}{chapter.4}% 32
+\BOOKMARK [0][-]{chapter.5}{5 Barriers}{}% 33
+\BOOKMARK [1][-]{section.5.1}{5.1 Barrier}{chapter.5}% 34
+\BOOKMARK [1][-]{section.5.2}{5.2 Condition}{chapter.5}% 35
+\BOOKMARK [1][-]{section.5.3}{5.3 Condition \(Script\)}{chapter.5}% 36
+\BOOKMARK [1][-]{section.5.4}{5.4 Multi condition}{chapter.5}% 37
+\BOOKMARK [1][-]{section.5.5}{5.5 Pull barrier}{chapter.5}% 38
+\BOOKMARK [1][-]{section.5.6}{5.6 Release resource}{chapter.5}% 39
+\BOOKMARK [1][-]{section.5.7}{5.7 Seize resource}{chapter.5}% 40
+\BOOKMARK [1][-]{section.5.8}{5.8 Signal}{chapter.5}% 41
+\BOOKMARK [0][-]{chapter.6}{6 Batching}{}% 42
+\BOOKMARK [1][-]{section.6.1}{6.1 Batch}{chapter.6}% 43
+\BOOKMARK [1][-]{section.6.2}{6.2 Match}{chapter.6}% 44
+\BOOKMARK [1][-]{section.6.3}{6.3 Multi batch}{chapter.6}% 45
+\BOOKMARK [1][-]{section.6.4}{6.4 Pick up}{chapter.6}% 46
+\BOOKMARK [1][-]{section.6.5}{6.5 Separate}{chapter.6}% 47
+\BOOKMARK [1][-]{section.6.6}{6.6 Split}{chapter.6}% 48
+\BOOKMARK [0][-]{chapter.7}{7 Transport}{}% 49
+\BOOKMARK [1][-]{section.7.1}{7.1 Assign sequence}{chapter.7}% 50
+\BOOKMARK [1][-]{section.7.2}{7.2 Conveyor}{chapter.7}% 51
+\BOOKMARK [1][-]{section.7.3}{7.3 Parking lot}{chapter.7}% 52
+\BOOKMARK [1][-]{section.7.4}{7.4 Teleport transport destination}{chapter.7}% 53
+\BOOKMARK [1][-]{section.7.5}{7.5 Teleport transport source}{chapter.7}% 54
+\BOOKMARK [1][-]{section.7.6}{7.6 Transport destination}{chapter.7}% 55
+\BOOKMARK [1][-]{section.7.7}{7.7 Transport origin}{chapter.7}% 56
+\BOOKMARK [1][-]{section.7.8}{7.8 Transporter start}{chapter.7}% 57
+\BOOKMARK [1][-]{section.7.9}{7.9 Transporter way point}{chapter.7}% 58
+\BOOKMARK [0][-]{chapter.8}{8 Data input/output}{}% 59
+\BOOKMARK [1][-]{section.8.1}{8.1 Input}{chapter.8}% 60
+\BOOKMARK [1][-]{section.8.2}{8.2 Input \(DB\)}{chapter.8}% 61
+\BOOKMARK [1][-]{section.8.3}{8.3 Input \(DDE\)}{chapter.8}% 62
+\BOOKMARK [1][-]{section.8.4}{8.4 Input \(Script\)}{chapter.8}% 63
+\BOOKMARK [1][-]{section.8.5}{8.5 Output}{chapter.8}% 64
+\BOOKMARK [1][-]{section.8.6}{8.6 Output \(DB\)}{chapter.8}% 65
+\BOOKMARK [1][-]{section.8.7}{8.7 Output \(DDE\)}{chapter.8}% 66
+\BOOKMARK [1][-]{section.8.8}{8.8 Output \(Log\)}{chapter.8}% 67
+\BOOKMARK [1][-]{section.8.9}{8.9 Output \(Script\)}{chapter.8}% 68
+\BOOKMARK [1][-]{section.8.10}{8.10 Recording}{chapter.8}% 69
+\BOOKMARK [0][-]{chapter.9}{9 Flow control logic}{}% 70
+\BOOKMARK [1][-]{section.9.1}{9.1 Do}{chapter.9}% 71
+\BOOKMARK [1][-]{section.9.2}{9.2 Else}{chapter.9}% 72
+\BOOKMARK [1][-]{section.9.3}{9.3 ElseIf}{chapter.9}% 73
+\BOOKMARK [1][-]{section.9.4}{9.4 EndIf}{chapter.9}% 74
+\BOOKMARK [1][-]{section.9.5}{9.5 EndWhile}{chapter.9}% 75
+\BOOKMARK [1][-]{section.9.6}{9.6 If}{chapter.9}% 76
+\BOOKMARK [1][-]{section.9.7}{9.7 Until}{chapter.9}% 77
+\BOOKMARK [1][-]{section.9.8}{9.8 While}{chapter.9}% 78
+\BOOKMARK [0][-]{chapter.10}{10 Analog values}{}% 79
+\BOOKMARK [1][-]{section.10.1}{10.1 Analog value}{chapter.10}% 80
+\BOOKMARK [1][-]{section.10.2}{10.2 Change analog value}{chapter.10}% 81
+\BOOKMARK [1][-]{section.10.3}{10.3 Flow}{chapter.10}% 82
+\BOOKMARK [1][-]{section.10.4}{10.4 Flow \(signal\)}{chapter.10}% 83
+\BOOKMARK [1][-]{section.10.5}{10.5 Sensor}{chapter.10}% 84
+\BOOKMARK [1][-]{section.10.6}{10.6 Tank}{chapter.10}% 85
+\BOOKMARK [1][-]{section.10.7}{10.7 Valve setup}{chapter.10}% 86
+\BOOKMARK [0][-]{chapter.11}{11 Animation}{}% 87
+\BOOKMARK [1][-]{section.11.1}{11.1 Analogue scale display}{chapter.11}% 88
+\BOOKMARK [1][-]{section.11.2}{11.2 Animation image}{chapter.11}% 89
+\BOOKMARK [1][-]{section.11.3}{11.3 Icon: Person - blue}{chapter.11}% 90
+\BOOKMARK [1][-]{section.11.4}{11.4 LCD display}{chapter.11}% 91
+\BOOKMARK [1][-]{section.11.5}{11.5 Script result as text}{chapter.11}% 92
+\BOOKMARK [1][-]{section.11.6}{11.6 Show recorded data}{chapter.11}% 93
+\BOOKMARK [1][-]{section.11.7}{11.7 Simulation data as bar plot}{chapter.11}% 94
+\BOOKMARK [1][-]{section.11.8}{11.8 Simulation data as stacked bar plot}{chapter.11}% 95
+\BOOKMARK [1][-]{section.11.9}{11.9 Simulation data as text}{chapter.11}% 96
+\BOOKMARK [1][-]{section.11.10}{11.10 Simulation data bar chart}{chapter.11}% 97
+\BOOKMARK [1][-]{section.11.11}{11.11 Simulation data line chart}{chapter.11}% 98
+\BOOKMARK [1][-]{section.11.12}{11.12 Simulation data pie chart}{chapter.11}% 99
+\BOOKMARK [1][-]{section.11.13}{11.13 Simulation data traffic lights}{chapter.11}% 100
+\BOOKMARK [1][-]{section.11.14}{11.14 Simulation time}{chapter.11}% 101
+\BOOKMARK [1][-]{section.11.15}{11.15 Text by simulation data}{chapter.11}% 102
+\BOOKMARK [0][-]{chapter.12}{12 Animation - Interactive}{}% 103
+\BOOKMARK [1][-]{section.12.1}{12.1 Button}{chapter.12}% 104
+\BOOKMARK [1][-]{section.12.2}{12.2 Checkbox}{chapter.12}% 105
+\BOOKMARK [1][-]{section.12.3}{12.3 Radiobutton}{chapter.12}% 106
+\BOOKMARK [1][-]{section.12.4}{12.4 Slider}{chapter.12}% 107
+\BOOKMARK [0][-]{chapter.13}{13 Optical decorations}{}% 108
+\BOOKMARK [1][-]{section.13.1}{13.1 Connection vertex}{chapter.13}% 109
+\BOOKMARK [1][-]{section.13.2}{13.2 Description text}{chapter.13}% 110
+\BOOKMARK [1][-]{section.13.3}{13.3 Ellipse}{chapter.13}% 111
+\BOOKMARK [1][-]{section.13.4}{13.4 Image}{chapter.13}% 112
+\BOOKMARK [1][-]{section.13.5}{13.5 Line}{chapter.13}% 113
+\BOOKMARK [1][-]{section.13.6}{13.6 note}{chapter.13}% 114
+\BOOKMARK [1][-]{section.13.7}{13.7 Rectangle}{chapter.13}% 115
+\BOOKMARK [0][-]{chapter.14}{14 Others}{}% 116
+\BOOKMARK [1][-]{section.14.1}{14.1 Action}{chapter.14}% 117
+\BOOKMARK [1][-]{section.14.2}{14.2 Reference}{chapter.14}% 118
+\BOOKMARK [1][-]{section.14.3}{14.3 Statistics}{chapter.14}% 119
+\BOOKMARK [1][-]{section.14.4}{14.4 Sub model}{chapter.14}% 120

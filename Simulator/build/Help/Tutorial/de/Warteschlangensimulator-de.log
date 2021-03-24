@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.21 (MiKTeX 20.6.29) (preloaded format=pdflatex 2020.9.12)  11 JAN 2021 23:43
+This is pdfTeX, Version 3.14159265-2.6-1.40.21 (MiKTeX 20.6.29) (preloaded format=pdflatex 2020.9.12)  24 MAR 2021 00:06
 entering extended mode
 **./Warteschlangensimulator-de.tex
 (Warteschlangensimulator-de.tex
@@ -890,11 +890,11 @@ Kapitel 1.
 
 ]
 Kapitel 2.
-<ProgramWindow.png, id=109, 760.34062pt x 572.89032pt>
+<ProgramWindow.png, id=109, 1141.26375pt x 859.71187pt>
 File: ProgramWindow.png Graphic file (type png)
 <use ProgramWindow.png>
 Package pdftex.def Info: ProgramWindow.png  used on input line 57.
-(pdftex.def)             Requested size: 398.33858pt x 300.14252pt.
+(pdftex.def)             Requested size: 398.33858pt x 300.0641pt.
 LaTeX Font Info:    Trying to load font information for TS1+lmr on input line 6
 7.
 ("C:\Program Files\MiKTeX 2.9\tex/latex/lm\ts1lmr.fd"
@@ -910,11 +910,11 @@ File: t1lmss.fd 2009/10/30 v1.6 Font defs for Latin Modern
 
 ] [6]
 Kapitel 4.
-<ProgramWindowModel.png, id=130, 760.34062pt x 572.89032pt>
+<ProgramWindowModel.png, id=130, 1141.26375pt x 859.71187pt>
 File: ProgramWindowModel.png Graphic file (type png)
 <use ProgramWindowModel.png>
 Package pdftex.def Info: ProgramWindowModel.png  used on input line 124.
-(pdftex.def)             Requested size: 398.33858pt x 300.14252pt.
+(pdftex.def)             Requested size: 398.33858pt x 300.0641pt.
 [7
 
 
@@ -944,11 +944,11 @@ Package pdftex.def Info: DialogProcess.png  used on input line 162.
 
 [10 <./IconProcess.png> <./DialogProcess.png>] [11] [12]
 Kapitel 5.
-<ProgramWindowResults.png, id=165, 760.34062pt x 572.89032pt>
+<ProgramWindowResults.png, id=165, 1141.26375pt x 859.71187pt>
 File: ProgramWindowResults.png Graphic file (type png)
 <use ProgramWindowResults.png>
 Package pdftex.def Info: ProgramWindowResults.png  used on input line 212.
-(pdftex.def)             Requested size: 398.33858pt x 300.14252pt.
+(pdftex.def)             Requested size: 398.33858pt x 300.0641pt.
 [13
 
 
@@ -957,11 +957,11 @@ Package pdftex.def Info: ProgramWindowResults.png  used on input line 212.
 
 ]
 Kapitel 6.
-<DialogExpressionBuilder.png, id=183, 599.23875pt x 450.18187pt>
+<DialogExpressionBuilder.png, id=183, 888.31876pt x 670.00313pt>
 File: DialogExpressionBuilder.png Graphic file (type png)
 <use DialogExpressionBuilder.png>
 Package pdftex.def Info: DialogExpressionBuilder.png  used on input line 240.
-(pdftex.def)             Requested size: 398.33858pt x 299.25728pt.
+(pdftex.def)             Requested size: 398.33858pt x 300.43538pt.
 [17] [18 <./DialogExpressionBuilder.png>]
 Kapitel 7.
 <DialogModel.png, id=194, 621.07031pt x 578.16pt>
@@ -1029,7 +1029,7 @@ Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 435.
 Here is how much of TeX's memory you used:
  12005 strings out of 491273
  179361 string characters out of 3112170
- 327859 words of memory out of 3000000
+ 327862 words of memory out of 3000000
  17133 multiletter control sequences out of 15000+200000
  58356 words of font info for 46 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
@@ -1043,7 +1043,7 @@ nc/dvips/lm/lm-ts1.enc}<C:/Program Files/MiKTeX 2.9/fonts/type1/public/lm/lmbx1
 ic/lm/lmr12.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/lm/lmr9.pfb><C:
 /Program Files/MiKTeX 2.9/fonts/type1/public/lm/lmssbx10.pfb><C:/Program Files/
 MiKTeX 2.9/fonts/type1/public/lm/lmsy10.pfb>
-Output written on Warteschlangensimulator-de.pdf (28 pages, 1450002 bytes).
+Output written on Warteschlangensimulator-de.pdf (28 pages, 1574288 bytes).
 PDF statistics:
  290 PDF objects out of 1000 (max. 8388607)
  59 named destinations out of 1000 (max. 500000)
