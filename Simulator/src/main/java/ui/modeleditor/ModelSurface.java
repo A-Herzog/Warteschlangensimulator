@@ -571,7 +571,7 @@ public final class ModelSurface {
 	 * Objekt für den die Darstellung des Farbverlaufs im Hintergrund
 	 * @see #drawBackgroundToGraphics(Graphics, Rectangle, double, boolean ,BackgroundImageMode, boolean, Grid, Color[], BufferedImage, String, double)
 	 */
-	private final GradientFill gradient=new GradientFill();
+	private final GradientFill gradient=new GradientFill(false);
 
 	/**
 	 * Zeichnet den Hintergrund der Zeichenfläche
@@ -764,7 +764,7 @@ public final class ModelSurface {
 	 * Dies ist nötig, wenn die Heatmap-Einstellungen verändert wurden.
 	 */
 	public void clearHeatMapCache() {
-		if (heatMap!=null) heatMap.reset(0,0,0);
+		if (heatMap!=null) heatMap.reset(0,0,0,0,0,0);
 	}
 
 	/**
@@ -777,10 +777,17 @@ public final class ModelSurface {
 	private void drawHeatMap(final Graphics graphics, final Rectangle drawRect, final double zoom) {
 		if (heatMapIntensityGetter==null) return;
 
-		if (heatMap==null) heatMap=new HeatMapImage();
-		heatMap.reset(drawRect.width,drawRect.height,zoom);
+		final SetupData setup=SetupData.getSetup();
+		final int heatMapSize=setup.statisticHeatMapSize;
+		final double intensityMin=setup.statisticHeatMapIntensityMin;
+		final double intensityMax=setup.statisticHeatMapIntensityMax;
+		final Color colorLow=setup.statisticHeatMapColorLow;
+		final Color colorHigh=setup.statisticHeatMapColorHigh;
 
-		final int zoomedFrameSize=(int)Math.round(HeatMapImage.HEAT_SCALE*zoom);
+		if (heatMap==null) heatMap=new HeatMapImage();
+		heatMap.reset(drawRect.width,drawRect.height,heatMapSize,intensityMin,intensityMax,zoom);
+
+		final int zoomedFrameSize=(int)Math.round(heatMapSize*zoom);
 
 		for (ModelElement element : elements) if (isVisibleOnLayer(element) && (element instanceof ModelElementBox)) {
 			final ModelElementBox box=(ModelElementBox)element;
@@ -798,7 +805,7 @@ public final class ModelSurface {
 			if (y+h+zoomedFrameSize<drawRect.y) continue;
 
 			final Double intensity=heatMapIntensityGetter.apply(box);
-			if (intensity!=null && intensity>0) heatMap.box(x-drawRect.x,y-drawRect.y,w,h,intensity);
+			if (intensity!=null && intensity>0) heatMap.box(x-drawRect.x,y-drawRect.y,w,h,HeatMapImage.mixColors(colorLow,colorHigh,intensity),intensity);
 		}
 
 		heatMap.draw(graphics,drawRect.x,drawRect.y);

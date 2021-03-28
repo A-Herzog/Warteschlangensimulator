@@ -372,7 +372,7 @@ public class ModelElementEllipse extends ModelElementDecoration {
 				gradientFillRectangle.y=y;
 				gradientFillRectangle.width=w;
 				gradientFillRectangle.height=h;
-				if (gradientFill==null) gradientFill=new GradientFill();
+				if (gradientFill==null) gradientFill=new GradientFill(false);
 				gradientFill.set(g2,gradientFillRectangle,alphaColor.get(gradientColor,fillAlpha),alphaColor.get(fillColor,fillAlpha),true);
 			}
 			g2.fill(ellipse);

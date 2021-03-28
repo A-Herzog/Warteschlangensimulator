@@ -26,21 +26,32 @@ import java.awt.image.BufferedImage;
  */
 public class HeatMapImage {
 	/**
-	 * Maximale Größe für den Heatmap-Bereich in Pixeln
-	 * (bei einem Zoomfaktor von 100%)
+	 * Standardwert für die Deckkraft der Heatmap-Farbe bei einer Intensität von 0%
 	 */
-	public static final double HEAT_SCALE=50;
+	public static final double DEFAULT_INTENSITY_MIN=0;
 
 	/**
-	 * Deckkraft der Heatmap-Farbe bei einer Intensität von 100%
+	 * Standardwert für die Deckkraft der Heatmap-Farbe bei einer Intensität von 100%
 	 */
-	private static final double MAX_ALPHA=200;
+	public static final double DEFAULT_INTENSITY_MAX=0.75;
 
 	/**
 	 * Potenz mit der der Alpha-Wert mit dem Abstand vom Kernbereich abnimmt
 	 * @see #deltaToIntensity(double, double)
 	 */
 	private static final double DECREASE_FACTOR=0.5;
+
+	/**
+	 * Standardfarbe für "niedrigere Intensität"
+	 * @see #box(int, int, int, int, double)
+	 */
+	public static final Color DEFAULT_COLOR_LOW_INTENSITY=Color.RED;
+
+	/**
+	 * Standardfarbe für "hohe Intensität"
+	 * @see #box(int, int, int, int, double)
+	 */
+	public static final Color DEFAULT_COLOR_HIGH_INTENSITY=Color.BLUE;
 
 	/**
 	 * Breite des Bildes
@@ -56,6 +67,23 @@ public class HeatMapImage {
 	 * Zoomfaktor für die Größe der Heatmaps
 	 */
 	private double zoom;
+
+	/**
+	 * Maximale Größe für den Heatmap-Bereich in Pixeln
+	 * (bei einem Zoomfaktor von 100%)
+	 */
+	private int heatMapSize;
+
+	/**
+	 * Deckkraft der Heatmap-Farbe bei einer Intensität von 0%
+	 */
+	private double intensityMin;
+
+	/**
+	 * Deckkraft der Heatmap-Farbe bei einer Intensität von 100%
+	 */
+	private double intensityMax;
+
 
 	/**
 	 * Internes Bild in das die Heatmap gezeichnet werden soll
@@ -76,7 +104,7 @@ public class HeatMapImage {
 
 	/**
 	 * Farbwert für "transparent" zum Löschen der Grafik
-	 * @see #reset(int, int, double)
+	 * @see #reset(int, int, int, double, double, double)
 	 */
 	private static final Color TRANSPARENT_BLACK=new Color(0,0,0,0);
 
@@ -84,14 +112,20 @@ public class HeatMapImage {
 	 * Stellt Größe und Zoomfaktor des Grafikbereichs ein.
 	 * @param width	Breite des Grafikbereichs
 	 * @param height	Höhe des Grafikbereichs
+	 * @param heatMapSize	Maximale Größe für den Heatmap-Bereich in Pixeln (bei einem Zoomfaktor von 100%)
+	 * @param intensityMin	Deckkraft der Heatmap-Farbe bei einer Intensität von 0%
+	 * @param intensityMax	Deckkraft der Heatmap-Farbe bei einer Intensität von 100%
 	 * @param zoom	Zoomfaktor (wird nur zur Skalierung der Heatmap-Größe verwendet, die Pixelwerte für die Positionen ändern sich nicht)
 	 */
-	public void reset(final int width, final int height, final double zoom) {
+	public void reset(final int width, final int height, final int heatMapSize, final double intensityMin, final double intensityMax, final double zoom) {
 		this.imageWidth=width;
 		this.imageHeight=height;
+		this.heatMapSize=heatMapSize;
+		this.intensityMin=intensityMin;
+		this.intensityMax=intensityMax;
 		this.zoom=zoom;
 
-		if (imageWidth<=0 || imageHeight<=0 || zoom<=0) {
+		if (imageWidth<=0 || imageHeight<=0 || heatMapSize<=0 || zoom<=0 || intensityMin<0 || intensityMax<0) {
 			image=null;
 			return;
 		}
@@ -119,7 +153,7 @@ public class HeatMapImage {
 	 * @see #calcIntensity(int, int, int, int, int, int)
 	 */
 	private double deltaToIntensity(final double delta, final double zoom) {
-		return Math.max(0,1-Math.pow(delta/(zoom*HEAT_SCALE),DECREASE_FACTOR));
+		return Math.max(0,1-Math.pow(delta/(zoom*heatMapSize),DECREASE_FACTOR));
 	}
 
 	/**
@@ -233,7 +267,9 @@ public class HeatMapImage {
 		if (intensity<=0) return;
 		if (intensity>1) intensity=1;
 
-		final int heat=(int)Math.round(zoom*HEAT_SCALE);
+		intensity=intensityMin+(intensityMax-intensityMin)*intensity;
+
+		final int heat=(int)Math.round(zoom*heatMapSize);
 		final int minX=Math.max(0,x-heat);
 		final int minY=Math.max(0,y-heat);
 		final int maxX=Math.min(imageWidth-1,x+width+heat);
@@ -251,7 +287,8 @@ public class HeatMapImage {
 
 			final int rgbIndex=(j-minY)*areaW+(i-minX);
 			final int oldColor=rgbArray[rgbIndex];
-			final int newColor=(((int)(alpha*MAX_ALPHA) & 0xFF) << 24) | (rgb & 0xFFFFFF);
+
+			final int newColor=(((int)(alpha*255) & 0xFF) << 24) | (rgb & 0xFFFFFF);
 
 			heatMapHasData=true;
 
@@ -297,11 +334,7 @@ public class HeatMapImage {
 		if (intensity<=0) return;
 		if (intensity>1) intensity=1;
 
-		final int r=(int)Math.round(255*(1-intensity));
-		final int b=(int)Math.round(255*intensity);
-		final int rgb=(r << 16) | b;
-
-		box(x,y,width,height,rgb,intensity);
+		box(x,y,width,height,mixColors(DEFAULT_COLOR_LOW_INTENSITY.getRGB(),DEFAULT_COLOR_HIGH_INTENSITY.getRGB(),intensity),intensity);
 	}
 
 	/**
@@ -312,5 +345,44 @@ public class HeatMapImage {
 	 */
 	public void draw(final Graphics graphics, final int x, final int y) {
 		if (image!=null && heatMapHasData) graphics.drawImage(image,x,y,null);
+	}
+
+	/**
+	 * Mischt zwei Farbwerte (ohne Berücksichtigung der Deckkraft).
+	 * @param c1	Farbe 1
+	 * @param c2	Farbe 2
+	 * @param intensity	Wert zwischen 0 und 1 (0=nur Farbe 1, 1=nur Farbe 2)
+	 * @return	Mischfarbe (mit 100% Deckkraft)
+	 * @see #box(int, int, int, int, int, double)
+	 */
+	public static int mixColors(final Color c1, final Color c2, final double intensity) {
+		return mixColors(c1.getRGB(),c2.getRGB(),intensity);
+	}
+
+	/**
+	 * Mischt zwei Farbwerte (ohne Berücksichtigung der Deckkraft).
+	 * @param c1	Farbe 1
+	 * @param c2	Farbe 2
+	 * @param intensity	Wert zwischen 0 und 1 (0=nur Farbe 1, 1=nur Farbe 2)
+	 * @return	Mischfarbe (mit 100% Deckkraft)
+	 * @see #box(int, int, int, int, int, double)
+	 */
+	public static int mixColors(final int c1, final int c2, double intensity) {
+		if (intensity<0) return c1;
+		if (intensity>1) return c2;
+
+		final int c1r=((c1 & 0xFF0000) >> 16) & 0xFF;
+		final int c1g=((c1 & 0xFF00) >> 8) & 0xFF;
+		final int c1b=c1 & 0xFF;
+
+		final int c2r=((c2 & 0xFF0000) >> 16) & 0xFF;
+		final int c2g=((c2 & 0xFF00) >> 8) & 0xFF;
+		final int c2b=c2 & 0xFF;
+
+		final int r=Math.min(255,(int)Math.round(c2r*intensity+c1r*(1-intensity)));
+		final int g=Math.min(255,(int)Math.round(c2g*intensity+c1g*(1-intensity)));
+		final int b=Math.min(255,(int)Math.round(c2b*intensity+c1b*(1-intensity)));
+
+		return (0xFF << 24) | ((r & 0xFF) << 16) | ((g & 0xFF) << 8)  | ((b & 0xFF) << 0);
 	}
 }

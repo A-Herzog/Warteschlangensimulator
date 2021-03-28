@@ -150,7 +150,7 @@ public abstract class ShapeCache {
 			graphics.setClip(clip);
 		}
 		if (fillColor!=null) {
-			if (filler==null) filler=new GradientFill();
+			if (filler==null) filler=new GradientFill(false);
 			filler.set(graphics,objectRect,fillColor,false);
 			internFill(graphics,objectRect,0,0,false);
 		}

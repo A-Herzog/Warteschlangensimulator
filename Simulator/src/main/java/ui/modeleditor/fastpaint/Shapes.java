@@ -294,8 +294,8 @@ public class Shapes {
 					/* Nur unteren Bereich füllen */
 					graphics.fillRect(rect.x+offsetX,rect.y+offsetY+levelY,rect.width,rect.height-levelY); /* unten */
 				} else {
-					if (lowerFill==null) lowerFill=new GradientFill();
-					if (upperFill==null) upperFill=new GradientFill();
+					if (lowerFill==null) lowerFill=new GradientFill(false);
+					if (upperFill==null) upperFill=new GradientFill(false);
 					if (lowerColor==null) {
 						/* Farbe für oberen Bereich gesetzt; unten: Standard, oben: Farbe */
 						graphics.fillRect(rect.x+offsetX,rect.y+offsetY+levelY,rect.width,rect.height-levelY); /* unten */

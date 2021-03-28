@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-03-21 01:39+0100\n"
+"POT-Creation-Date: 2021-03-25 14:12+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -6965,6 +6965,24 @@ msgstr "Es sind %d veränderten Dateien vorhanden."
 msgid "Git.System.Status.Uncommited.One"
 msgstr "Es ist eine veränderte Datei vorhanden."
 
+msgid "HeatMapSetup.Intensity.High"
+msgstr "Maximale Intensität"
+
+msgid "HeatMapSetup.Intensity.High.Short"
+msgstr "hoch"
+
+msgid "HeatMapSetup.Intensity.Low"
+msgstr "Minimale Intensität"
+
+msgid "HeatMapSetup.Intensity.Low.Short"
+msgstr "niedrig"
+
+msgid "HeatMapSetup.Size"
+msgstr "Größe"
+
+msgid "HeatMapSetup.Title"
+msgstr "Heatmap konfigurieren"
+
 msgid "Help.Back.Info"
 msgstr "Zurück zur zuletzt angezeigten Hilfeseite."
 
@@ -8432,6 +8450,12 @@ msgstr "Heatmap: Maximale Anzahl an Kunden an den Stationen"
 
 msgid "Main.Menu.View.Statistics.HeatMap.WipMax.Mnemonic"
 msgstr "K"
+
+msgid "Main.Menu.View.Statistics.HeatMapSetup"
+msgstr "Heatmap konfigurieren..."
+
+msgid "Main.Menu.View.Statistics.HeatMapSetup.Mnemonic"
+msgstr "k"
 
 msgid "Main.Menu.View.Statistics.Info"
 msgstr "Statistikinformationen in Tooltips"

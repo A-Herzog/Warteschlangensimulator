@@ -569,7 +569,7 @@ public class ModelElementAnimationBar extends ModelElementPosition implements El
 			break;
 		}
 		if (r!=null) {
-			if (filler==null) filler=new GradientFill();
+			if (filler==null) filler=new GradientFill(false);
 			filler.set(g,r,barColor,true);
 			g.fill(r);
 		}

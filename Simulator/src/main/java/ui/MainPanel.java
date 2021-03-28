@@ -122,6 +122,7 @@ import ui.dialogs.EdgeStyleSetupDialog;
 import ui.dialogs.FindBatchSizeDialog;
 import ui.dialogs.FindElementDialog;
 import ui.dialogs.FitDialog;
+import ui.dialogs.HeatMapSetupDialog;
 import ui.dialogs.InfoDialog;
 import ui.dialogs.LicenseViewer;
 import ui.dialogs.LogSetupDialog;
@@ -629,6 +630,7 @@ public class MainPanel extends MainPanelBase {
 		addAction("ViewStatisticsHeatMapProcess",e->commandViewStatisticsHeatMap(EditorPanelStatistics.HeatMapMode.PROCESS_TIME_AVG));
 		addAction("ViewStatisticsHeatMapResidence",e->commandViewStatisticsHeatMap(EditorPanelStatistics.HeatMapMode.RESIDENCE_TIME_AVG));
 		addAction("ViewStatisticsHeatMapFlowFactor",e->commandViewStatisticsHeatMap(EditorPanelStatistics.HeatMapMode.FLOW_FACTOR));
+		addAction("ViewStatisticsHeatMapSetup",e->commandViewStatisticsHeatMapSetup());
 		addAction("ViewShowIDs",e->commandViewIDs());
 		addAction("ViewShowStationDescriptions",e->commandViewStationDescriptions());
 		addAction("ViewGradients",e->commandViewGradients());
@@ -1152,6 +1154,8 @@ public class MainPanel extends MainPanelBase {
 		enabledOnEditorPanel.add(menuViewStatisticsHeatMapProcess=createRadioButtonMenuItem(submenu,EditorPanelStatistics.HeatMapMode.PROCESS_TIME_AVG,"ViewStatisticsHeatMapProcess"));
 		enabledOnEditorPanel.add(menuViewStatisticsHeatMapResidence=createRadioButtonMenuItem(submenu,EditorPanelStatistics.HeatMapMode.RESIDENCE_TIME_AVG,"ViewStatisticsHeatMapResidence"));
 		enabledOnEditorPanel.add(menuViewStatisticsHeatMapFlowFactor=createRadioButtonMenuItem(submenu,EditorPanelStatistics.HeatMapMode.FLOW_FACTOR,"ViewStatisticsHeatMapFlowFactor"));
+		submenu.addSeparator();
+		enabledOnEditorPanel.add(createMenuItem(submenu,Language.tr("Main.Menu.View.Statistics.HeatMapSetup"),Language.tr("Main.Menu.View.Statistics.HeatMapSetup.Mnemonic"),"ViewStatisticsHeatMapSetup"));
 		enabledOnEditorPanel.add(menuViewShowIDs=createCheckBoxMenuItem(menu,Language.tr("Main.Menu.View.ShowIDs"),Language.tr("Main.Menu.View.ShowIDs.Mnemonic"),"ViewShowIDs"));
 		menuViewShowIDs.setState(setup.showIDs);
 		enabledOnEditorPanel.add(menuViewShowStationDescription=createCheckBoxMenuItem(menu,Language.tr("Main.Menu.View.ShowStationDescriptions"),Language.tr("Main.Menu.View.ShowStationDescriptions.Mnemonic"),"ViewShowStationDescriptions"));
@@ -2224,6 +2228,17 @@ public class MainPanel extends MainPanelBase {
 		setup.statisticHeatMap=mode;
 		setup.saveSetup();
 		reloadSetup();
+	}
+
+	/**
+	 * Befehl: Ansicht - Statistik auf Zeichenfläche - Heatmap konfigurieren
+	 */
+	private void commandViewStatisticsHeatMapSetup() {
+		final HeatMapSetupDialog dialog=new HeatMapSetupDialog(this);
+		if (dialog.getClosedBy()==BaseDialog.CLOSED_BY_OK) {
+			setup.saveSetup();
+			reloadSetup();
+		}
 	}
 
 	/**

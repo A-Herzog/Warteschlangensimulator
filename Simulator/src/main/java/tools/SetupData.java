@@ -15,6 +15,7 @@
  */
 package tools;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Frame;
 import java.awt.Point;
@@ -34,6 +35,7 @@ import language.LanguageStaticLoader;
 import language.Messages_Java11;
 import mathtools.NumberTools;
 import scripting.java.SimDynamicSetup;
+import simulator.editmodel.EditModel;
 import statistics.StatisticsDataPerformanceIndicator;
 import systemtools.GUITools;
 import systemtools.SetupBase;
@@ -41,6 +43,7 @@ import systemtools.statistics.ChartSetup;
 import ui.EditorPanelStatistics;
 import ui.MainFrame;
 import ui.infopanel.InfoPanel;
+import ui.modeleditor.HeatMapImage;
 import ui.modeleditor.ModelSurface;
 import ui.modeleditor.ModelSurfacePanel;
 import ui.script.ScriptEditorAreaBuilder;
@@ -313,6 +316,31 @@ public class SetupData extends SetupBase {
 	 * @see ui.EditorPanelStatistics.HeatMapMode
 	 */
 	public EditorPanelStatistics.HeatMapMode statisticHeatMap;
+
+	/**
+	 * Maximale Größe der Heatmap-Wolken (bezogen auf einen Zoomfaktor von 100%)
+	 */
+	public int statisticHeatMapSize;
+
+	/**
+	 * Deckkraft der Heatmap-Farbe bei einer Intensität von 0%
+	 */
+	public double statisticHeatMapIntensityMin;
+
+	/**
+	 * Deckkraft der Heatmap-Farbe bei einer Intensität von 100%
+	 */
+	public double statisticHeatMapIntensityMax;
+
+	/**
+	 * Heatmap-Farbe für niedrige Intensität
+	 */
+	public Color statisticHeatMapColorLow;
+
+	/**
+	 * Heatmap-Farbe für hohe Intensität
+	 */
+	public Color statisticHeatMapColorHigh;
 
 	/**
 	 * Gibt an, ob die Bilder bei HTML-Reports inline oder als separate Dateien ausgegeben werden sollen.
@@ -1128,6 +1156,11 @@ public class SetupData extends SetupBase {
 		antialias=true;
 		statisticInTooltips=true;
 		statisticHeatMap=EditorPanelStatistics.HeatMapMode.OFF;
+		statisticHeatMapSize=50;
+		statisticHeatMapIntensityMin=HeatMapImage.DEFAULT_INTENSITY_MIN;
+		statisticHeatMapIntensityMax=HeatMapImage.DEFAULT_INTENSITY_MAX;
+		statisticHeatMapColorLow=HeatMapImage.DEFAULT_COLOR_LOW_INTENSITY;
+		statisticHeatMapColorHigh=HeatMapImage.DEFAULT_COLOR_HIGH_INTENSITY;
 		imagesInline=true;
 		reportSettings="";
 		useLastFiles=true;
@@ -1562,6 +1595,17 @@ public class SetupData extends SetupBase {
 
 			if (name.equals("statisticheatmap")) {
 				statisticHeatMap=EditorPanelStatistics.HeatMapMode.fromName(e.getTextContent());
+				final Long L=NumberTools.getPositiveLong(e.getAttribute("Size"));
+				if (L!=null) statisticHeatMapSize=L.intValue();
+				final Color colorLow=EditModel.loadColor(e.getAttribute("ColorLow"));
+				if (colorLow!=null) statisticHeatMapColorLow=colorLow;
+				final Color colorHigh=EditModel.loadColor(e.getAttribute("ColorHigh"));
+				if (colorHigh!=null) statisticHeatMapColorHigh=colorHigh;
+				Double D;
+				D=NumberTools.getNotNegativeDouble(e.getAttribute("IntensityMin"));
+				if (D!=null && D<=1.0) statisticHeatMapIntensityMin=D;
+				D=NumberTools.getNotNegativeDouble(e.getAttribute("IntensityMax"));
+				if (D!=null && D<=1.0) statisticHeatMapIntensityMax=D;
 				continue;
 			}
 
@@ -2211,9 +2255,18 @@ public class SetupData extends SetupBase {
 			node.setTextContent("0");
 		}
 
-		if (statisticHeatMap!=null && statisticHeatMap!=EditorPanelStatistics.HeatMapMode.OFF) {
+		if ((statisticHeatMap!=null && statisticHeatMap!=EditorPanelStatistics.HeatMapMode.OFF) || statisticHeatMapSize!=50 || !HeatMapImage.DEFAULT_COLOR_LOW_INTENSITY.equals(statisticHeatMapColorLow) || !HeatMapImage.DEFAULT_COLOR_HIGH_INTENSITY.equals(statisticHeatMapColorHigh) || statisticHeatMapIntensityMin!=HeatMapImage.DEFAULT_INTENSITY_MIN  || statisticHeatMapIntensityMax!=HeatMapImage.DEFAULT_INTENSITY_MAX) {
 			root.appendChild(node=doc.createElement("StatisticHeatMap"));
-			node.setTextContent(statisticHeatMap.xmlName);
+			if (statisticHeatMap==null) {
+				node.setTextContent(EditorPanelStatistics.HeatMapMode.OFF.xmlName);
+			} else {
+				node.setTextContent(statisticHeatMap.xmlName);
+			}
+			if (statisticHeatMapSize!=50) node.setAttribute("Size",""+statisticHeatMapSize);
+			if (!HeatMapImage.DEFAULT_COLOR_LOW_INTENSITY.equals(statisticHeatMapColorLow)) node.setAttribute("ColorLow",EditModel.saveColor(statisticHeatMapColorLow));
+			if (!HeatMapImage.DEFAULT_COLOR_HIGH_INTENSITY.equals(statisticHeatMapColorHigh)) node.setAttribute("ColorHigh",EditModel.saveColor(statisticHeatMapColorHigh));
+			if (statisticHeatMapIntensityMin!=HeatMapImage.DEFAULT_INTENSITY_MIN) node.setAttribute("IntensityMin",NumberTools.formatSystemNumber(statisticHeatMapIntensityMin));
+			if (statisticHeatMapIntensityMax!=HeatMapImage.DEFAULT_INTENSITY_MAX) node.setAttribute("IntensityMax",NumberTools.formatSystemNumber(statisticHeatMapIntensityMax));
 		}
 
 		if (reportSettings!=null && !reportSettings.isEmpty()) {

@@ -518,7 +518,7 @@ public class ModelElementAnimationBarChart extends ModelElementPosition implemen
 
 		if (filler==null || filler.length!=dummyValue.length) {
 			filler=new GradientFill[dummyValue.length];
-			for (int i=0;i<filler.length;i++) filler[i]=new GradientFill();
+			for (int i=0;i<filler.length;i++) filler[i]=new GradientFill(false);
 		}
 
 		for (int i=0;i<dummyValue.length;i++) {
@@ -590,7 +590,7 @@ public class ModelElementAnimationBarChart extends ModelElementPosition implemen
 
 			if (filler==null || filler.length!=recordedValues.length) {
 				filler=new GradientFill[recordedValues.length];
-				for (int i=0;i<filler.length;i++) filler[i]=new GradientFill();
+				for (int i=0;i<filler.length;i++) filler[i]=new GradientFill(false);
 			}
 
 			for (int i=0;i<recordedValues.length;i++) {

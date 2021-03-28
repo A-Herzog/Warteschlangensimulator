@@ -41,6 +41,8 @@ public class GradientFill {
 	/** Farbverlauf beim letzten Aufruf von {@link #build(Rectangle, Color, Color, boolean)} */
 	private GradientPaint lastPaint;
 
+	/** Farbverlauf auch dann verwenden, wenn im Setup ausgeschaltet? */
+	private final boolean forceGradientFill;
 	/** Referenz auf das Setup-Singleton */
 	private final SetupData setup;
 	/** Referenz auf das Objekt zur Erstellung von helleren Farben */
@@ -48,8 +50,10 @@ public class GradientFill {
 
 	/**
 	 * Konstruktor der Klasse
+	 * @param forceGradientFill	Farbverlauf auch dann verwenden, wenn im Setup ausgeschaltet?
 	 */
-	public GradientFill() {
+	public GradientFill(final boolean forceGradientFill) {
+		this.forceGradientFill=forceGradientFill;
 		setup=SetupData.getSetup();
 		brighter=new BrighterColor();
 	}
@@ -98,7 +102,7 @@ public class GradientFill {
 	 * @param verticalGradient	Gibt an, ob der optionale Farbverlauf horizontal (<code>false</code>) oder vertikal (<code>true</code>) gezeichnet werden soll
 	 */
 	public synchronized void set(final Graphics graphics, final Rectangle objectRect, final Color fillColor, final boolean verticalGradient) {
-		if (!setup.useGradients) {
+		if (!forceGradientFill && !setup.useGradients) {
 			graphics.setColor(fillColor);
 			return;
 		}
@@ -122,7 +126,7 @@ public class GradientFill {
 	 * @param verticalGradient	Gibt an, ob der optionale Farbverlauf horizontal (<code>false</code>) oder vertikal (<code>true</code>) gezeichnet werden soll
 	 */
 	public synchronized void set(final Graphics graphics, final Rectangle objectRect, final Color fillColor1, final Color fillColor2, final boolean verticalGradient) {
-		if (!setup.useGradients) {
+		if (!forceGradientFill && !setup.useGradients) {
 			graphics.setColor(fillColor1);
 			return;
 		}

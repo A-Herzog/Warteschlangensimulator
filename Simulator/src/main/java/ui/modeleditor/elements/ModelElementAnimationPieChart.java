@@ -495,7 +495,7 @@ public class ModelElementAnimationPieChart extends ModelElementPosition implemen
 
 		if (filler==null || filler.length!=dummyValue.length) {
 			filler=new GradientFill[dummyValue.length];
-			for (int i=0;i<filler.length;i++) filler[i]=new GradientFill();
+			for (int i=0;i<filler.length;i++) filler[i]=new GradientFill(false);
 		}
 
 		g.setFont(FontCache.getFontCache().getFont(FontCache.defaultFamily,0,(int)FastMath.round(11*zoom)));
@@ -533,7 +533,7 @@ public class ModelElementAnimationPieChart extends ModelElementPosition implemen
 
 			if (filler==null || filler.length!=recordedValues.length) {
 				filler=new GradientFill[recordedValues.length];
-				for (int i=0;i<filler.length;i++) filler[i]=new GradientFill();
+				for (int i=0;i<filler.length;i++) filler[i]=new GradientFill(false);
 			}
 
 			g.setFont(FontCache.getFontCache().getFont(FontCache.defaultFamily,0,(int)FastMath.round(11*zoom)));
