@@ -764,6 +764,11 @@ public class SetupData extends SetupBase {
 	public String mqttTopic;
 
 	/**
+	 * Thema über das Statusmeldungen zur Auslastung an den MQTT-Broker übermittelt werden
+	 */
+	public String mqttLoadTopic;
+
+	/**
 	 * MQTT-Klienten beim Start des Programmes starten.
 	 */
 	public boolean mqttServerAutoStart;
@@ -1233,6 +1238,7 @@ public class SetupData extends SetupBase {
 		mqttBroker="tcp://localhost";
 		mqttVerifyCertificates=false;
 		mqttTopic=MainFrame.PROGRAM_NAME+"/task";
+		mqttLoadTopic=MainFrame.PROGRAM_NAME+"/info";
 		mqttServerAutoStart=false;
 		serverAuthName="";
 		serverAuthPassword="";
@@ -1898,6 +1904,7 @@ public class SetupData extends SetupBase {
 				mqttServerAutoStart=loadBoolean(e.getAttribute("AutoStart"),false);
 				mqttBroker=e.getAttribute("Broker");
 				mqttTopic=e.getAttribute("Topic");
+				mqttLoadTopic=e.getAttribute("TopicInfo");
 				mqttVerifyCertificates=loadBoolean(e.getAttribute("VerifyCertificates"),false);
 				continue;
 			}
@@ -2539,10 +2546,11 @@ public class SetupData extends SetupBase {
 			if (calcWebServerAutoStart) node.setAttribute("AutoStart","1");
 		}
 
-		if (mqttServerAutoStart || !mqttBroker.equals("tcp://localhost") || !mqttTopic.equals(MainFrame.PROGRAM_NAME+"/task") || mqttVerifyCertificates) {
+		if (mqttServerAutoStart || !mqttBroker.equals("tcp://localhost") || !mqttTopic.equals(MainFrame.PROGRAM_NAME+"/task") || !mqttLoadTopic.equals(MainFrame.PROGRAM_NAME+"/info") || mqttVerifyCertificates) {
 			root.appendChild(node=doc.createElement("NetworkMQTTSimulationServer"));
 			node.setAttribute("Broker",""+mqttBroker);
 			node.setAttribute("Topic",""+mqttTopic);
+			node.setAttribute("TopicInfo",""+mqttLoadTopic);
 			if (mqttVerifyCertificates) node.setAttribute("VerifyCertificates","1");
 			if (mqttServerAutoStart) node.setAttribute("AutoStart","1");
 		}

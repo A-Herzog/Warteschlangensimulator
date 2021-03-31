@@ -39,6 +39,8 @@ public class CommandServerMQTT extends AbstractCommand {
 	private boolean isQuit;
 	/** Anfrage-Thema auf das der Simulator antworten soll */
 	private String topic;
+	/** Informations-Thema über das der Simulator Statusinformationen zur Arbeitslast ausgibt (kann <code>null</code> oder leer sein) */
+	private String topicInfo;
 	/** Nutzername, den der Client angeben muss (kann <code>null</code> sein, wenn keine Authentifizierung stattfinden soll) */
 	private String authName;
 	/** Passwort, dass der Client angeben muss (kann <code>null</code> sein, wenn keine Authentifizierung stattfinden soll) */
@@ -64,14 +66,27 @@ public class CommandServerMQTT extends AbstractCommand {
 
 	@Override
 	public String prepare(String[] additionalArguments, InputStream in, PrintStream out) {
-		String s=parameterCountCheck(2,3,additionalArguments); if (s!=null) return s;
+		String s=parameterCountCheck(2,4,additionalArguments); if (s!=null) return s;
 
 		broker=MQTTBrokerURL.parseString(additionalArguments[0],SetupData.getSetup().mqttVerifyCertificates);
 		if (broker==null) return String.format(Language.tr("CommandLine.Server.InvalidBroker"),additionalArguments[0]);
 		topic=additionalArguments[1].trim();
 
 		if (additionalArguments.length==3) {
-			final String[] parts=additionalArguments[2].split(":");
+			final String arg=additionalArguments[2].trim();
+			final String[] parts=arg.split(":");
+			if (parts.length==2) {
+				authName=parts[0];
+				authPassword=parts[1];
+			} else {
+				topicInfo=arg;
+			}
+		}
+
+		if (additionalArguments.length==4) {
+			topicInfo=additionalArguments[2].trim();
+
+			final String[] parts=additionalArguments[3].split(":");
 			if (parts.length==2) {
 				authName=parts[0];
 				authPassword=parts[1];
@@ -89,7 +104,7 @@ public class CommandServerMQTT extends AbstractCommand {
 		final MQTTSimClient server=new MQTTSimClient();
 
 		/* Server starten */
-		final String error=server.start(broker,null,topic,authName,authPassword);
+		final String error=server.start(broker,null,topic,topicInfo,authName,authPassword);
 		if (error!=null) {
 			if (out!=null) out.println(error);
 			return;

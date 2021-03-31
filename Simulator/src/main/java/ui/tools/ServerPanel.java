@@ -136,6 +136,8 @@ public final class ServerPanel extends SpecialPanel {
 	private JCheckBox mqttBrokerVerify;
 	/** Eingabefeld - MQTT-Server- MQTT-Topic */
 	private JTextField mqttTopicEdit;
+	/** Eingabefeld - MQTT-Server- MQTT-Info-Topic */
+	private JTextField mqttLoadTopicEdit;
 	/** Option - MQTT-Server - "Autostart" */
 	private final JCheckBox mqttAutoStartCheckBox;
 
@@ -315,6 +317,10 @@ public final class ServerPanel extends SpecialPanel {
 		line.add(label=new JLabel(Language.tr("SimulationServer.Setup.MQTTTopic")+":"));
 		line.add(mqttTopicEdit=new JTextField(setupData.mqttTopic,15));
 		label.setLabelFor(mqttTopicEdit);
+
+		line.add(label=new JLabel(Language.tr("SimulationServer.Setup.MQTTInfoTopic")+":"));
+		line.add(mqttLoadTopicEdit=new JTextField(setupData.mqttLoadTopic,15));
+		label.setLabelFor(mqttLoadTopicEdit);
 
 		line.add(mqttAutoStartCheckBox=new JCheckBox(Language.tr("SimulationServer.Setup.MQTTAutoStart"),setupData.mqttServerAutoStart));
 		mqttAutoStartCheckBox.setToolTipText(Language.tr("SimulationServer.Setup.MQTTAutoStart.Hint"));
@@ -505,6 +511,7 @@ public final class ServerPanel extends SpecialPanel {
 		mqttBrokerEdit.setEnabled(!serverMQTT.isRunning());
 		mqttBrokerVerify.setEnabled(!serverMQTT.isRunning());
 		mqttTopicEdit.setEnabled(!serverMQTT.isRunning());
+		mqttLoadTopicEdit.setEnabled(!serverMQTT.isRunning());
 
 		/* Zugangsdaten für Web- und Fernsteuerungsserver */
 
@@ -708,10 +715,12 @@ public final class ServerPanel extends SpecialPanel {
 				return;
 			}
 
+			final String loadTopic=mqttLoadTopicEdit.getText().trim();
+
 			final String name=authNameEdit.getText().trim();
 			final String password=authPasswordEdit.getText().trim();
 
-			final String error=serverMQTT.start(broker,null,topic,name,password);
+			final String error=serverMQTT.start(broker,null,topic,loadTopic,name,password);
 			if (error!=null) MsgBox.error(this,Language.tr("SimulationServer.Setup.MQTTServer"),error);
 		}
 		setupButtons();
@@ -800,6 +809,7 @@ public final class ServerPanel extends SpecialPanel {
 		setup.mqttBroker=mqttBrokerEdit.getText().trim();
 		setup.mqttVerifyCertificates=mqttBrokerVerify.isSelected();
 		setup.mqttTopic=mqttTopicEdit.getText().trim();
+		setup.mqttLoadTopic=mqttLoadTopicEdit.getText().trim();
 		setup.mqttServerAutoStart=mqttAutoStartCheckBox.isSelected();
 
 		setup.serverAuthName=authNameEdit.getText().trim();
@@ -867,7 +877,7 @@ public final class ServerPanel extends SpecialPanel {
 		if (setup.mqttServerAutoStart) {
 			final MQTTSimClient serverMQTT=MQTTSimClient.getInstance();
 			final MQTTBrokerURL broker=MQTTBrokerURL.parseString(setup.mqttBroker,setup.mqttVerifyCertificates);
-			if (broker!=null) serverMQTT.start(broker,null,setup.mqttTopic,setup.serverAuthName,setup.serverAuthPassword);
+			if (broker!=null) serverMQTT.start(broker,null,setup.mqttTopic,setup.mqttLoadTopic,setup.serverAuthName,setup.serverAuthPassword);
 		}
 
 		if (setup.ddeServerAutoStart) {

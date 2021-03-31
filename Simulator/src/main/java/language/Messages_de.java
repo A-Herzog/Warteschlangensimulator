@@ -4105,7 +4105,7 @@ public class Messages_de extends java.util.ResourceBundle {
     t[9546] = "Surface.TransportTransporterSource.Dialog.Tab.Priorities";
     t[9547] = "Priorit\u00e4ten";
     t[9550] = "CommandLine.ServerMQTTFixed.Description.Long";
-    t[9551] = "Dieser Befehl erwartet drei oder vier weiteren Parameter:\ndie Adresse des zu verwendenden MQTT-Brokers,\nden Namen des MQTT-Topic, den Dateinamen\nder Modelldatei und\noptional Nutzername und Passwort getrennt durch \":\".";
+    t[9551] = "Dieser Befehl erwartet drei bis f\u00fcnf weiteren Parameter:\ndie Adresse des zu verwendenden MQTT-Brokers,\nden Namen des MQTT-Topic,\noptional den Namen des Statusmeldungen-Topics und \noptional Nutzername und Passwort getrennt durch \":\".";
     t[9552] = "Statistics.XML.Element.UtilizationCountParent";
     t[9553] = "StatistikRessourceAnzahlen";
     t[9554] = "SystemInfo.Title";
@@ -8447,7 +8447,7 @@ public class Messages_de extends java.util.ResourceBundle {
     t[19590] = "CalcWebServer.Simulation.Start";
     t[19591] = "Simulation gestartet";
     t[19592] = "CommandLine.ServerMQTT.Description.Long";
-    t[19593] = "Dieser Befehl erwartet zwei oder drei weiteren Parameter:\ndie Adresse des zu verwendenden MQTT-Brokers, den Namen des MQTT-Topic optional Nutzername und Passwort getrennt durch \":\".";
+    t[19593] = "Dieser Befehl erwartet zwei bis vier weiteren Parameter:\ndie Adresse des zu verwendenden MQTT-Brokers, den Namen\ndes MQTT-Topic und optional den Namen des\nStatusmeldungen-Topics und optional Nutzername und\nPasswort getrennt durch \":\".";
     t[19594] = "Statistic.Viewer.SpecialText.LoadData";
     t[19595] = "Statistikdaten von fr\u00fcherem Simulationslauf laden";
     t[19598] = "HintsDialog.Button.HideAll.Hint";
@@ -18712,6 +18712,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[43185] = "IstZeit";
     t[43186] = "Simulation.Creator.InvalidNumberDefaultValue";
     t[43187] = "Der an Station id=%d angegebene Vorgabewert \"%s\" ist ung\u00fcltig. Es muss eine Zahl angegeben werden.";
+    t[43188] = "SimulationServer.Setup.MQTTInfoTopic";
+    t[43189] = "Statusthema";
     t[43194] = "WebServer.Upload.ErrorWrongMode";
     t[43195] = "Das Programm muss sich im Modell-Editor- oder im Statistikanzeige-Modus befinden, damit ein Modell geladen werden kann.";
     t[43196] = "Editor.Dialog.Sequences.Copy.NewName.ErrorInfoInUse";

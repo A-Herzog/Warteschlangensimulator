@@ -124,16 +124,19 @@ number of available CPU cores.
 
 \textbf{Starts the program as MQTT-based simulation server.}
 
-This command expects two or three additional parameter:\\
-the address of the MQTT broker, the MQTT topic and optionally the user name and the password separated by "`:"`.
+This command expects two to four additional parameter:\\
+the address of the MQTT broker, the MQTT topic optionally\\
+the name of a status information topic and optionally\\
+the user name and the password separated by "`:"`.
 
 \section{\texttt{ServerMQTTFixed}}
 
 \textbf{Starts the program as MQTT-based simulation server for a fixed model.}
 
-This command expects two or three additional parameter:\\
+This command three to five additional parameter:\\
 the address of the MQTT broker, the MQTT topic, the file name\\
-of the model file to use and optionally\\
+of the model file to use, optionally the name of a status\\
+information topic and optionally\\
 the user name and the password separated by "`:"`.
 
 \section{\texttt{ServerMQTTTest}}

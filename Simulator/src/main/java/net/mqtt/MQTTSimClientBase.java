@@ -203,12 +203,24 @@ public abstract class MQTTSimClientBase {
 	 * @return	Liefert <code>true</code>, wenn die Nachricht an den MQTT-Broker übermittelt werden konnte
 	 */
 	protected boolean send(final String topic, final byte[] data, final List<UserProperty> userProperties) {
+		return send(topic,data,userProperties,2);
+	}
+
+	/**
+	 * Versendet eine Nachricht.
+	 * @param topic	Ziel-Thema
+	 * @param data	Zu sendende Nachricht
+	 * @param userProperties	Zusätzlich zu übermittelnde Eigenschaften
+	 * @param qos	MQTT Quality of Service (0 bis 2)
+	 * @return	Liefert <code>true</code>, wenn die Nachricht an den MQTT-Broker übermittelt werden konnte
+	 */
+	protected boolean send(final String topic, final byte[] data, final List<UserProperty> userProperties, final int qos) {
 		if (mqtt==null) return false;
 		if (topic==null || topic.trim().isEmpty()) return false;
 		if (data==null) return false;
 
 		final MqttMessage message=new MqttMessage(data);
-		message.setQos(2);
+		message.setQos(Math.max(0,Math.min(2,qos)));
 		if (userProperties!=null) {
 			final MqttProperties properties=new MqttProperties();
 			properties.getUserProperties().addAll(userProperties);

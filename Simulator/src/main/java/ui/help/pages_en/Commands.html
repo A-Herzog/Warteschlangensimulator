@@ -157,8 +157,10 @@ model to be loaded and optionally the user name and the password separated by ":
 <h3>SERVERMQTT</h3>
 <p>
 <b>Starts the program as MQTT-based simulation server.</b><br>
-This command expects two or three additional parameter:<br>
-the address of the MQTT broker, the MQTT topic and optionally the user name and the password separated by ":".
+This command expects two to four additional parameter:<br>
+the address of the MQTT broker, the MQTT topic optionally
+the name of a status information topic and optionally
+the user name and the password separated by ":".
 </p>
 
 <h3>SERVERMQTTTEST</h3>
@@ -172,10 +174,10 @@ the address of the MQTT broker, the MQTT topic and optionally the user name and 
 <p>
 <b>Starts the program as MQTT-based simulation server for a fixed model.</b><br>
 This command expects two or three additional parameter:<br>
-the address of the MQTT broker,
-the MQTT topic,
-the file name of the model file to use and
-optionally the user name and the password separated by ":".
+the address of the MQTT broker, the MQTT topic, the file name
+of the model file to use, optionally the name of a status
+information topic and optionally
+the user name and the password separated by ":".
 </p>
 
 <h3>FOLDER</h3>

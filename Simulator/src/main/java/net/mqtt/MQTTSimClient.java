@@ -15,8 +15,12 @@
  */
 package net.mqtt;
 
+import java.lang.management.ManagementFactory;
+import java.lang.management.ThreadMXBean;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ThreadFactory;
@@ -37,13 +41,13 @@ import simulator.editmodel.EditModel;
 public class MQTTSimClient extends MQTTSimClientBase {
 	/**
 	 * Anfrage-Thema auf das mit einem Echo an das Antwort-Thema geantwortet wird (kann <code>null</code> sein)<br>
-	 * (wird von {@link #start(MQTTBrokerURL, String, String)} bzw. {@link #start(MQTTBrokerURL, String, String, String, String)} gesetzt)
+	 * (wird von {@link #start(MQTTBrokerURL, String, String, String)} bzw. {@link #start(MQTTBrokerURL, String, String, String, String, String)} gesetzt)
 	 */
 	private String echoTopic;
 
 	/**
 	 * Anfrage-Thema über das Aufträge an den Simulator übergeben werden können (kann <code>null</code> sein)<br>
-	 * (wird von {@link #start(MQTTBrokerURL, String, String)} bzw. {@link #start(MQTTBrokerURL, String, String, String, String)} gesetzt)
+	 * (wird von {@link #start(MQTTBrokerURL, String, String, String)} bzw. {@link #start(MQTTBrokerURL, String, String, String, String, String)} gesetzt)
 	 */
 	private String workTopic;
 
@@ -52,6 +56,11 @@ public class MQTTSimClient extends MQTTSimClientBase {
 	 * Ist dieses Feld <code>null</code>, so können beliebige Modelle simuliert werden.
 	 */
 	private EditModel fixedModel;
+
+	/**
+	 * Optionaler Thread zur Ausgabe der Systemauslastung
+	 */
+	private LoadInfoThread loadInfoThread;
 
 	/**
 	 * System zur Ausführung von Aufgaben
@@ -88,12 +97,13 @@ public class MQTTSimClient extends MQTTSimClientBase {
 	 * @param broker	Netzwerkname des MQTT-Brokers (inkl. Protokoll und evtl. Port)
 	 * @param echoTopic	Anfrage-Thema auf das mit einem Echo an das Antwort-Thema geantwortet wird (kann <code>null</code> sein)
 	 * @param workTopic	Anfrage-Thema über das Aufträge an den Simulator übergeben werden können (kann <code>null</code> sein)
+	 * @param loadTopic	Thema über das regelmäßig Informationen zur Systemauslastung angegeben werden sollen (kann <code>null</code> sein)
 	 * @return	Liefert im Erfolgsfall <code>null</code>, sonst eine Fehlermeldung
-	 * @see #start(MQTTBrokerURL, String, String)
+	 * @see #start(MQTTBrokerURL, String, String, String)
 	 * @see #stop()
 	 */
-	public String start(final MQTTBrokerURL broker, final String echoTopic, final String workTopic) {
-		return start(broker,echoTopic,workTopic,null,null);
+	public String start(final MQTTBrokerURL broker, final String echoTopic, final String workTopic, final String loadTopic) {
+		return start(broker,echoTopic,workTopic,loadTopic,null,null);
 	}
 
 	/**
@@ -101,15 +111,21 @@ public class MQTTSimClient extends MQTTSimClientBase {
 	 * @param broker	Netzwerkname des MQTT-Brokers (inkl. Protokoll und evtl. Port)
 	 * @param echoTopic	Anfrage-Thema auf das mit einem Echo an das Antwort-Thema geantwortet wird (kann <code>null</code> sein)
 	 * @param workTopic	Anfrage-Thema über das Aufträge an den Simulator übergeben werden können (kann <code>null</code> sein)
+	 * @param loadTopic	Thema über das regelmäßig Informationen zur Systemauslastung angegeben werden sollen (kann <code>null</code> sein)
 	 * @param username	Nutzername zur Authentifizierung gegenüber dem Broker (kann <code>null</code> sein; nur wenn Name und Password nicht leer sind, werden diese übermittelt)
 	 * @param password	Passwort zur Authentifizierung gegenüber dem Broker (kann <code>null</code> sein; nur wenn Name und Password nicht leer sind, werden diese übermittelt)
 	 * @return	Liefert im Erfolgsfall <code>null</code>, sonst eine Fehlermeldung
-	 * @see #start(MQTTBrokerURL, String, String)
+	 * @see #start(MQTTBrokerURL, String, String, String)
 	 * @see #stop()
 	 */
-	public String start(final MQTTBrokerURL broker, final String echoTopic, final String workTopic, final String username, final String password) {
+	public String start(final MQTTBrokerURL broker, final String echoTopic, final String workTopic, final String loadTopic, final String username, final String password) {
 		this.echoTopic=echoTopic;
 		this.workTopic=workTopic;
+
+		if (loadTopic!=null && !loadTopic.trim().isEmpty()) {
+			loadInfoThread=new LoadInfoThread(loadTopic);
+			loadInfoThread.start();
+		}
 
 		return start(broker,new String[]{echoTopic,workTopic},username,password);
 	}
@@ -119,16 +135,22 @@ public class MQTTSimClient extends MQTTSimClientBase {
 	 * @param broker	Netzwerkname des MQTT-Brokers (inkl. Protokoll und evtl. Port)
 	 * @param echoTopic	Anfrage-Thema auf das mit einem Echo an das Antwort-Thema geantwortet wird (kann <code>null</code> sein)
 	 * @param workTopic	Anfrage-Thema über das Aufträge an den Simulator übergeben werden können (kann <code>null</code> sein)
+	 * @param loadTopic	Thema über das regelmäßig Informationen zur Systemauslastung angegeben werden sollen (kann <code>null</code> sein)
 	 * @param username	Nutzername zur Authentifizierung gegenüber dem Broker (kann <code>null</code> sein; nur wenn Name und Password nicht leer sind, werden diese übermittelt)
 	 * @param password	Passwort zur Authentifizierung gegenüber dem Broker (kann <code>null</code> sein; nur wenn Name und Password nicht leer sind, werden diese übermittelt)
 	 * @param fixedModel	Festgelegtes Modell, welches nur noch parametrisiert werden soll (kann <code>null</code> sein)
 	 * @return	Liefert im Erfolgsfall <code>null</code>, sonst eine Fehlermeldung
-	 * @see #start(MQTTBrokerURL, String, String)
+	 * @see #start(MQTTBrokerURL, String, String, String)
 	 * @see #stop()
 	 */
-	public String start(final MQTTBrokerURL broker, final String echoTopic, final String workTopic, final EditModel fixedModel, final String username, final String password) {
+	public String start(final MQTTBrokerURL broker, final String echoTopic, final String workTopic, final String loadTopic, final EditModel fixedModel, final String username, final String password) {
 		this.echoTopic=echoTopic;
 		this.workTopic=workTopic;
+
+		if (loadTopic!=null && !loadTopic.trim().isEmpty()) {
+			loadInfoThread=new LoadInfoThread(loadTopic);
+			loadInfoThread.start();
+		}
 
 		this.fixedModel=fixedModel;
 
@@ -182,6 +204,11 @@ public class MQTTSimClient extends MQTTSimClientBase {
 		} finally {
 			lock.unlock();
 		}
+
+		if (loadInfoThread!=null) {
+			loadInfoThread.interrupt();
+			loadInfoThread=null;
+		}
 	}
 
 	/**
@@ -214,5 +241,87 @@ public class MQTTSimClient extends MQTTSimClientBase {
 	public static synchronized MQTTSimClient getInstance() {
 		if (instance==null) instance=new MQTTSimClient();
 		return instance;
+	}
+
+	/**
+	 * Thread zur Ausgabe der Systemauslastung
+	 * @see MQTTSimClient#loadInfoThread
+	 */
+	private class LoadInfoThread extends Thread {
+		/**
+		 * Zeitintervall (in MS) in dem Auslastungsdaten ausgegeben werden sollen
+		 */
+		private static final int INFO_INTERVAL=2_000;
+
+		/**
+		 * Anzahl der logischen CPU-Kerne in diesem System
+		 */
+		private final int cpuCount=Runtime.getRuntime().availableProcessors();
+
+		/**
+		 * System zu Ermittlung der Thread-Daten
+		 */
+		private final ThreadMXBean threads=ManagementFactory.getThreadMXBean();
+
+		/**
+		 * Zeitpunkt des letzten Aufrufs von {@link #processInfo()}
+		 * @see #processInfo()
+		 */
+		private long lastTimeStamp;
+
+		/**
+		 * CPU-Zeit der Threads beim letzten Aufruf
+		 */
+		private Map<Long,Long> lastLoad;
+
+		/**
+		 * Thema über das regelmäßig Informationen zur Systemauslastung angegeben werden sollen
+		 */
+		private final String loadTopic;
+
+		/**
+		 * Konstruktor der Klasse
+		 * @param loadTopic	Thema über das regelmäßig Informationen zur Systemauslastung angegeben werden sollen
+		 */
+		public LoadInfoThread(final String loadTopic) {
+			super("MQTT Load Info Thread");
+			this.loadTopic=loadTopic;
+		}
+
+		/**
+		 * Sammelt die Daten zur Auslastung und gibt diese
+		 * über das eingestellte MQTT-Topic aus.
+		 */
+		private void processInfo() {
+			final Map<Long,Long> activeLoad=new HashMap<>();
+			final long timeStamp=System.currentTimeMillis();
+			long sum=0;
+			final Map<Long,Long> load=new HashMap<>();
+			for (long id: threads.getAllThreadIds()) {
+				final long l=threads.getThreadCpuTime(id);
+				load.put(id,l);
+				final long threadLoad=(lastLoad==null)?l:(l-lastLoad.getOrDefault(id,0L));
+				if (threadLoad>0) {
+					activeLoad.put(id,threadLoad);
+				}
+				sum+=threadLoad;
+			}
+			lastLoad=load;
+			final long delta=(timeStamp-lastTimeStamp)*1_000_000;
+			lastTimeStamp=timeStamp;
+			final double workLoadSystem=((double)sum)/delta/cpuCount;
+
+			final String result=Math.round(Math.min(1,workLoadSystem)*100)+"%";
+
+			send(loadTopic,result.getBytes(),null,0);
+		}
+
+		@Override
+		public void run() {
+			while (!isInterrupted()) {
+				try {sleep(INFO_INTERVAL);} catch (InterruptedException e) {}
+				processInfo();
+			}
+		}
 	}
 }

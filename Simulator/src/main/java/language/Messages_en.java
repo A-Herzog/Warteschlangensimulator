@@ -4105,7 +4105,7 @@ public class Messages_en extends java.util.ResourceBundle {
     t[9546] = "Surface.TransportTransporterSource.Dialog.Tab.Priorities";
     t[9547] = "Priorities";
     t[9550] = "CommandLine.ServerMQTTFixed.Description.Long";
-    t[9551] = "This command expects two or three additional parameter:\nthe address of the MQTT broker, the MQTT topic, the file name\nof the model file to use and optionally\nthe user name and the password separated by \":\".";
+    t[9551] = "This command three to five additional parameter:\nthe address of the MQTT broker, the MQTT topic, the file name\nof the model file to use, optionally the name of a status\ninformation topic and optionally\nthe user name and the password separated by \":\".";
     t[9552] = "Statistics.XML.Element.UtilizationCountParent";
     t[9553] = "StatisticsResourceNumbers";
     t[9554] = "SystemInfo.Title";
@@ -8447,7 +8447,7 @@ public class Messages_en extends java.util.ResourceBundle {
     t[19590] = "CalcWebServer.Simulation.Start";
     t[19591] = "Simulation started";
     t[19592] = "CommandLine.ServerMQTT.Description.Long";
-    t[19593] = "This command expects two or three additional parameter:\nthe address of the MQTT broker, the MQTT topic and optionally the user name and the password separated by \":\".";
+    t[19593] = "This command expects two to four additional parameter:\nthe address of the MQTT broker, the MQTT topic optionally\nthe name of a status information topic and optionally\nthe user name and the password separated by \":\".";
     t[19594] = "Statistic.Viewer.SpecialText.LoadData";
     t[19595] = "Load statistics from previous simulation run";
     t[19598] = "HintsDialog.Button.HideAll.Hint";
@@ -18712,6 +18712,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[43185] = "IsTime";
     t[43186] = "Simulation.Creator.InvalidNumberDefaultValue";
     t[43187] = "At station id=%id the given default value \"%s\" is invalid. A number has to be specified.";
+    t[43188] = "SimulationServer.Setup.MQTTInfoTopic";
+    t[43189] = "Status topic";
     t[43194] = "WebServer.Upload.ErrorWrongMode";
     t[43195] = "The program has to be in model editor or statistics viewer mode for a model to be uploaded.";
     t[43196] = "Editor.Dialog.Sequences.Copy.NewName.ErrorInfoInUse";

@@ -52,6 +52,13 @@ to the simulator. Together with the job message, a response topic must be specif
 (i.e. MQTT v5 is required), via which the simulator returns the results.
 </p>
 
+<p>
+Optionally, a second topic can be specified via which the simulator transmits information
+about the current system load to the server at regular intervals. While a name for the work
+topic has to be specified, the field for the status topic can be left empty. In this case
+there will be no output of the workload.
+</p>
+
 <h2>DDE-Server</h2>
 
 <p>

@@ -89,7 +89,7 @@ public class CommandServerMQTTTest extends AbstractCommand {
 		final MQTTSimClient server=new MQTTSimClient();
 
 		/* Server starten */
-		final String error=server.start(broker,topic,null,authName,authPassword);
+		final String error=server.start(broker,topic,null,null,authName,authPassword);
 		if (error!=null) {
 			if (out!=null) out.println(error);
 			return;
