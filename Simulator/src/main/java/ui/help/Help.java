@@ -18,10 +18,13 @@ package ui.help;
 import java.awt.Container;
 import java.net.URL;
 
+import javax.swing.JDialog;
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import language.Language;
 import systemtools.help.HelpBase;
+import ui.tools.WindowSizeStorage;
 
 /**
  * Ermöglicht die Anzeige von html-basierten Hilfeseiten.
@@ -102,5 +105,15 @@ public class Help extends HelpBase {
 		href=href.substring(key.length());
 
 		if (specialLinkListener!=null) specialLinkListener.specialLinkClicked(href);
+	}
+
+	@Override
+	protected void setupDialog(final JDialog dialog) {
+		WindowSizeStorage.window(dialog,"HelpDialog");
+	}
+
+	@Override
+	protected void setupWindow(final JFrame frame) {
+		WindowSizeStorage.window(frame,"HelpWindow");
 	}
 }
