@@ -19,7 +19,6 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.FlowLayout;
-import java.awt.SystemColor;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.ByteArrayInputStream;
@@ -33,6 +32,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import language.Language;
+import mathtools.NumberTools;
 import simulator.editmodel.EditModel;
 import systemtools.BaseDialog;
 import systemtools.MsgBox;
@@ -197,7 +197,7 @@ public class EditTemplateDialog extends BaseDialog {
 				return false;
 			}
 		} else {
-			editName.setBackground(SystemColor.text);
+			editName.setBackground(NumberTools.getTextFieldDefaultBackground());
 		}
 
 		return ok;

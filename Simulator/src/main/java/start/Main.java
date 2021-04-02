@@ -35,6 +35,7 @@ import ui.MainPanel;
 import ui.UpdateSystem;
 import ui.commandline.CommandLineSystem;
 import ui.modeleditor.elements.ModelElementImage;
+import ui.tools.FlatLaFHelper;
 import xml.XMLTools;
 
 /**
@@ -95,7 +96,6 @@ public class Main {
 		UpdateSystem.getUpdateSystem();
 	}
 
-
 	/**
 	 * Hauptroutine des gesamten Programms
 	 * @param args	Kommandozeilen-Parameter
@@ -126,8 +126,12 @@ public class Main {
 	private static final class RunSimulator implements Runnable {
 		@Override
 		public void run() {
-			GUITools.setupUI(SetupData.getSetup().lookAndFeel);
-			final double scaling=SetupData.getSetup().scaleGUI;
+			final SetupData setup=SetupData.getSetup();
+			FlatLaFHelper.init();
+			FlatLaFHelper.setCombinedMenuBar(setup.lookAndFeelCombinedMenu);
+			GUITools.setupUI(setup.lookAndFeel);
+			FlatLaFHelper.setup();
+			final double scaling=setup.scaleGUI;
 			GUITools.setupFontSize(scaling);
 			BaseDialog.windowScaling=scaling;
 			MsgBox.setBackend(new MsgBoxBackendTaskDialog());

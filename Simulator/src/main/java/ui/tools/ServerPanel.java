@@ -20,7 +20,6 @@ import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Desktop;
 import java.awt.FlowLayout;
-import java.awt.SystemColor;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -49,6 +48,7 @@ import javax.swing.SpinnerNumberModel;
 import javax.swing.SwingUtilities;
 
 import language.Language;
+import mathtools.NumberTools;
 import net.calc.SimulationServerGUIConnect;
 import net.dde.SimulationDDEServer;
 import net.mqtt.MQTTBrokerURL;
@@ -570,7 +570,7 @@ public final class ServerPanel extends SpecialPanel {
 			if (showErrorMessage) MsgBox.error(this,Language.tr("SimulationServer.Setup.Port.ErrorTitle"),String.format(Language.tr("SimulationServer.Setup.Port.ErrorInfoInvalidPort"),port));
 			return -1;
 		} else {
-			calcPortEditSpinner.setBackground(SystemColor.text);
+			calcPortEditSpinner.setBackground(NumberTools.getTextFieldDefaultBackground());
 		}
 
 		return port;
@@ -607,7 +607,7 @@ public final class ServerPanel extends SpecialPanel {
 			if (showErrorMessage) MsgBox.error(this,Language.tr("SimulationServer.Setup.Port.ErrorTitle"),String.format(Language.tr("SimulationServer.Setup.Port.ErrorInfoInvalidPort"),port));
 			return -1;
 		} else {
-			calcWebPortEditSpinner.setBackground(SystemColor.text);
+			calcWebPortEditSpinner.setBackground(NumberTools.getTextFieldDefaultBackground());
 		}
 
 		return port;
@@ -660,7 +660,7 @@ public final class ServerPanel extends SpecialPanel {
 			if (showErrorMessage) MsgBox.error(this,Language.tr("SimulationServer.Setup.Port.ErrorTitle"),String.format(Language.tr("SimulationServer.Setup.Port.ErrorInfoInvalidPort"),port));
 			return -1;
 		} else {
-			webPortEditSpinner.setBackground(SystemColor.text);
+			webPortEditSpinner.setBackground(NumberTools.getTextFieldDefaultBackground());
 		}
 
 		return port;

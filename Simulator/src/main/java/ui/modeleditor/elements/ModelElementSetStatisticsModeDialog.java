@@ -19,7 +19,6 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.FlowLayout;
-import java.awt.SystemColor;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.Serializable;
@@ -33,6 +32,7 @@ import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 
 import language.Language;
+import mathtools.NumberTools;
 import simulator.simparser.ExpressionMultiEval;
 import systemtools.MsgBox;
 import ui.infopanel.InfoPanel;
@@ -154,10 +154,10 @@ public class ModelElementSetStatisticsModeDialog extends ModelElementBaseDialog 
 					return false;
 				}
 			} else {
-				editCondition.setBackground(SystemColor.text);
+				editCondition.setBackground(NumberTools.getTextFieldDefaultBackground());
 			}
 		} else {
-			editCondition.setBackground(SystemColor.text);
+			editCondition.setBackground(NumberTools.getTextFieldDefaultBackground());
 		}
 
 		return ok;

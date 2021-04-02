@@ -20,7 +20,6 @@ import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.SystemColor;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.Serializable;
@@ -789,7 +788,7 @@ public final class ModelElementSourceRecordPanel extends JPanel {
 			}
 			ok=false;
 		} else {
-			nameEdit.setBackground(SystemColor.text);
+			nameEdit.setBackground(NumberTools.getTextFieldDefaultBackground());
 		}
 
 		switch (selectCard.getSelectedIndex()) {
@@ -806,7 +805,7 @@ public final class ModelElementSourceRecordPanel extends JPanel {
 				}
 				ok=false;
 			} else {
-				expression.setBackground(SystemColor.text);
+				expression.setBackground(NumberTools.getTextFieldDefaultBackground());
 			}
 			break;
 		case 2: /* Zeitplan */
@@ -828,7 +827,7 @@ public final class ModelElementSourceRecordPanel extends JPanel {
 				}
 				ok=false;
 			} else {
-				condition.setBackground(SystemColor.text);
+				condition.setBackground(NumberTools.getTextFieldDefaultBackground());
 			}
 			if (NumberTools.getPositiveDouble(conditionMinDistance,true)==null) {
 				if (showErrorMessage) {
@@ -848,7 +847,7 @@ public final class ModelElementSourceRecordPanel extends JPanel {
 				}
 				ok=false;
 			} else {
-				thresholdExpression.setBackground(SystemColor.text);
+				thresholdExpression.setBackground(NumberTools.getTextFieldDefaultBackground());
 			}
 			if (NumberTools.getDouble(thresholdExpressionValue,true)==null) {
 				if (showErrorMessage) {
@@ -878,7 +877,7 @@ public final class ModelElementSourceRecordPanel extends JPanel {
 			}
 			ok=false;
 		} else {
-			batchField.setBackground(SystemColor.text);
+			batchField.setBackground(NumberTools.getTextFieldDefaultBackground());
 		}
 
 		if (hasOwnArrivals) {

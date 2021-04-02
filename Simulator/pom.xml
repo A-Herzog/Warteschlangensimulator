@@ -154,6 +154,12 @@
     		<artifactId>json</artifactId>
     		<version>20201115</version>
 	</dependency>
+	<!-- https://mvnrepository.com/artifact/com.formdev/flatlaf -->
+	<dependency>
+    		<groupId>com.formdev</groupId>
+    		<artifactId>flatlaf</artifactId>
+    		<version>1.1.1</version>
+	</dependency>
 	<!-- local -->
 	<dependency>
 		<groupId>JDDE.group</groupId>

@@ -18,7 +18,6 @@ package ui.modelproperties;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.FlowLayout;
-import java.awt.SystemColor;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.Serializable;
@@ -29,6 +28,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import language.Language;
+import mathtools.NumberTools;
 import systemtools.BaseDialog;
 import systemtools.MsgBox;
 import ui.modeleditor.ModelElementBaseDialog;
@@ -133,7 +133,7 @@ public class ScheduleTableModelNameDialog extends BaseDialog {
 
 		errorLabel.setVisible(false);
 		pack();
-		nameEdit.setBackground(SystemColor.text);
+		nameEdit.setBackground(NumberTools.getTextFieldDefaultBackground());
 		return true;
 	}
 

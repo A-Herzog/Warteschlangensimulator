@@ -16,7 +16,6 @@
 package ui.modeleditor.elements;
 
 import java.awt.FlowLayout;
-import java.awt.SystemColor;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.Serializable;
@@ -379,7 +378,7 @@ public class ModelElementTankFlowDataPanel extends JPanel {
 				}
 			}
 		} else {
-			stopTimeEdit.setBackground(SystemColor.text);
+			stopTimeEdit.setBackground(NumberTools.getTextFieldDefaultBackground());
 		}
 
 		if (stopQuantity.isSelected()) {
@@ -392,7 +391,7 @@ public class ModelElementTankFlowDataPanel extends JPanel {
 				}
 			}
 		} else {
-			stopQuantityEdit.setBackground(SystemColor.text);
+			stopQuantityEdit.setBackground(NumberTools.getTextFieldDefaultBackground());
 		}
 
 		if (stopSignal.isSelected() && stopSignalCombo.getSelectedIndex()<0) {

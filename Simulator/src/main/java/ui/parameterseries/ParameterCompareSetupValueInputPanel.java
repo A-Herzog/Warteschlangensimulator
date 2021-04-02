@@ -19,7 +19,6 @@ import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.FlowLayout;
-import java.awt.SystemColor;
 import java.awt.Window;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -34,6 +33,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import language.Language;
+import mathtools.NumberTools;
 import simulator.editmodel.EditModel;
 import systemtools.MsgBox;
 import tools.IconListCellRenderer;
@@ -282,7 +282,7 @@ public class ParameterCompareSetupValueInputPanel extends JPanel {
 					return false;
 				}
 			} else {
-				nameEdit.setBackground(SystemColor.text);
+				nameEdit.setBackground(NumberTools.getTextFieldDefaultBackground());
 			}
 		}
 

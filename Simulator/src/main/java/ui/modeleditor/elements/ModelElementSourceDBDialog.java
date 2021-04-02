@@ -19,7 +19,6 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.FlowLayout;
-import java.awt.SystemColor;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.Serializable;
@@ -41,6 +40,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
 import language.Language;
+import mathtools.NumberTools;
 import simulator.db.DBConnect;
 import simulator.db.DBSettingsPanel;
 import systemtools.MsgBox;
@@ -332,7 +332,7 @@ public class ModelElementSourceDBDialog extends ModelElementBaseDialog {
 			if (showErrorMessages) MsgBox.error(this,Language.tr("Surface.SourceDB.Dialog.ClientTypes.ErrorTitle"),Language.tr("Surface.SourceDB.Dialog.ClientTypes.ErrorInfo"));
 			return false;
 		} else {
-			clientsEdit.setBackground(SystemColor.text);
+			clientsEdit.setBackground(NumberTools.getTextFieldDefaultBackground());
 			return true;
 		}
 	}

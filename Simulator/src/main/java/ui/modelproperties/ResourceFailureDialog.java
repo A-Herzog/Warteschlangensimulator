@@ -20,7 +20,6 @@ import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.FlowLayout;
-import java.awt.SystemColor;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.Serializable;
@@ -268,7 +267,7 @@ public class ResourceFailureDialog extends BaseDialog {
 				ok=false;
 			}
 		} else {
-			failureNumberEdit.setBackground(SystemColor.text);
+			failureNumberEdit.setBackground(NumberTools.getTextFieldDefaultBackground());
 		}
 
 		if (failureAvailable.isSelected()) {
@@ -281,7 +280,7 @@ public class ResourceFailureDialog extends BaseDialog {
 				ok=false;
 			}
 		} else {
-			failureAvailableEdit.setBackground(SystemColor.text);
+			failureAvailableEdit.setBackground(NumberTools.getTextFieldDefaultBackground());
 		}
 
 		if (failureWorking.isSelected()) {
@@ -294,13 +293,13 @@ public class ResourceFailureDialog extends BaseDialog {
 				ok=false;
 			}
 		} else {
-			failureWorkingEdit.setBackground(SystemColor.text);
+			failureWorkingEdit.setBackground(NumberTools.getTextFieldDefaultBackground());
 		}
 
 		if (failureExpression.isSelected()) {
 			final int i=ExpressionCalc.check(failureExpressionEdit.getText(),surface.getMainSurfaceVariableNames(model.getModelVariableNames(),false));
 			if (i<0) {
-				failureExpressionEdit.setBackground(SystemColor.text);
+				failureExpressionEdit.setBackground(NumberTools.getTextFieldDefaultBackground());
 			} else {
 				failureExpressionEdit.setBackground(Color.RED);
 				if (showErrorDialog) {
@@ -314,7 +313,7 @@ public class ResourceFailureDialog extends BaseDialog {
 		if (downTimeSelect.getSelectedIndex()==1) {
 			final int i=ExpressionCalc.check(downTimeExpression.getText(),surface.getMainSurfaceVariableNames(model.getModelVariableNames(),false));
 			if (i<0) {
-				downTimeExpression.setBackground(SystemColor.text);
+				downTimeExpression.setBackground(NumberTools.getTextFieldDefaultBackground());
 			} else {
 				downTimeExpression.setBackground(Color.RED);
 				if (showErrorDialog) {

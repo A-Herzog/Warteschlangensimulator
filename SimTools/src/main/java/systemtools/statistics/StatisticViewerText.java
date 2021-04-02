@@ -54,6 +54,7 @@ import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
 import javax.swing.JTextPane;
 import javax.swing.SwingUtilities;
+import javax.swing.UIManager;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.text.AbstractDocument.LeafElement;
@@ -140,6 +141,11 @@ public abstract class StatisticViewerText implements StatisticViewer {
 	private DescriptionViewer descriptionPane=null;
 
 	/**
+	 * Erfolgt die Darstellung im Dark-Modus?
+	 */
+	private final boolean isDark;
+
+	/**
 	 * Konstruktor der Klasse
 	 */
 	public StatisticViewerText() {
@@ -147,6 +153,9 @@ public abstract class StatisticViewerText implements StatisticViewer {
 		hints=new ArrayList<>();
 		lineTypes=new ArrayList<>();
 		indentLevel=new ArrayList<>();
+
+		final Color textBackground=UIManager.getColor("TextField.background");
+		isDark=(textBackground!=null && !textBackground.equals(Color.WHITE));
 	}
 
 	/**
@@ -204,7 +213,7 @@ public abstract class StatisticViewerText implements StatisticViewer {
 
 		textPane=new JTextPane();
 		textPane.setEditable(false);
-		textPane.setBackground(new Color(0xFF,0xFF,0xF8));
+		if (!isDark) textPane.setBackground(new Color(0xFF,0xFF,0xF8));
 		textPane.putClientProperty(JEditorPane.HONOR_DISPLAY_PROPERTIES,Boolean.TRUE);
 
 		/* Styles zusammenstellen */
@@ -220,18 +229,22 @@ public abstract class StatisticViewerText implements StatisticViewer {
 
 		style=doc.addStyle("default",defaultStyle);
 		StyleConstants.setFontSize(style,(int)Math.round((StyleConstants.getFontSize(style)+1)*GUITools.getScaleFactor()));
+		if (isDark) StyleConstants.setForeground(style,Color.LIGHT_GRAY);
 
 		style=doc.addStyle("h1",defaultStyle);
 		StyleConstants.setFontSize(style,(int)Math.round((StyleConstants.getFontSize(style)+4)*GUITools.getScaleFactor()));
 		StyleConstants.setBold(style,true);
+		if (isDark) StyleConstants.setForeground(style,Color.LIGHT_GRAY);
 
 		style=doc.addStyle("h2",defaultStyle);
 		StyleConstants.setBold(style,true);
 		StyleConstants.setFontSize(style,(int)Math.round((StyleConstants.getFontSize(style)+2)*GUITools.getScaleFactor()));
+		if (isDark) StyleConstants.setForeground(style,Color.LIGHT_GRAY);
 
 		style=doc.addStyle("h3",defaultStyle);
 		StyleConstants.setFontSize(style,(int)Math.round((StyleConstants.getFontSize(style)+1)*GUITools.getScaleFactor()));
 		StyleConstants.setUnderline(style,true);
+		if (isDark) StyleConstants.setForeground(style,Color.LIGHT_GRAY);
 
 		style=doc.addStyle("link",defaultStyle);
 		StyleConstants.setFontSize(style,(int)Math.round((StyleConstants.getFontSize(style)-1)*GUITools.getScaleFactor()));

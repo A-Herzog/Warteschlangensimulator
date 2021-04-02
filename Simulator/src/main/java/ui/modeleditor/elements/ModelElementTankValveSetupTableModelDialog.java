@@ -18,7 +18,6 @@ package ui.modeleditor.elements;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.FlowLayout;
-import java.awt.SystemColor;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.Serializable;
@@ -34,6 +33,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import language.Language;
+import mathtools.NumberTools;
 import simulator.editmodel.EditModel;
 import simulator.simparser.ExpressionCalc;
 import systemtools.BaseDialog;
@@ -207,7 +207,7 @@ public class ModelElementTankValveSetupTableModelDialog extends BaseDialog {
 				return false;
 			}
 		} else {
-			maxFlowEdit.setBackground(SystemColor.text);
+			maxFlowEdit.setBackground(NumberTools.getTextFieldDefaultBackground());
 		}
 
 		return ok;

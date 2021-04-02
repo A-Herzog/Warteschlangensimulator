@@ -23,7 +23,6 @@ import java.awt.FlowLayout;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Point;
-import java.awt.SystemColor;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -1252,12 +1251,12 @@ public class ModelPropertiesDialog extends BaseDialog {
 	 */
 	private int checkTerminationCondition() {
 		if (terminationCondition.getText().trim().isEmpty()) {
-			terminationCondition.setBackground(SystemColor.text);
+			terminationCondition.setBackground(NumberTools.getTextFieldDefaultBackground());
 			return -1;
 		}
 
 		final int error=ExpressionEval.check(terminationCondition.getText(),model.surface.getMainSurfaceVariableNames(model.getModelVariableNames(),false));
-		if (error>=0) terminationCondition.setBackground(Color.red); else terminationCondition.setBackground(SystemColor.text);
+		if (error>=0) terminationCondition.setBackground(Color.red); else terminationCondition.setBackground(NumberTools.getTextFieldDefaultBackground());
 		return error;
 	}
 
@@ -1309,7 +1308,7 @@ public class ModelPropertiesDialog extends BaseDialog {
 	 */
 	private boolean checkTimedChecks() {
 		if (!useTimedChecks.isSelected()) {
-			editTimedChecks.setBackground(SystemColor.text);
+			editTimedChecks.setBackground(NumberTools.getTextFieldDefaultBackground());
 			return true;
 		}
 		return (NumberTools.getPositiveDouble(editTimedChecks,true)!=null);

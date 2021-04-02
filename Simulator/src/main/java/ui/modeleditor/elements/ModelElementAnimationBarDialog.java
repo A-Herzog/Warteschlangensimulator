@@ -20,7 +20,6 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.SystemColor;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.Serializable;
@@ -238,7 +237,7 @@ public class ModelElementAnimationBarDialog extends ModelElementBaseDialog {
 					return false;
 				}
 			} else {
-				editExpression.setBackground(SystemColor.text);
+				editExpression.setBackground(NumberTools.getTextFieldDefaultBackground());
 			}
 		}
 

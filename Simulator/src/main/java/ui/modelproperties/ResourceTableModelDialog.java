@@ -20,7 +20,6 @@ import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.FlowLayout;
-import java.awt.SystemColor;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.Serializable;
@@ -425,7 +424,7 @@ public class ResourceTableModelDialog extends BaseDialog {
 		}
 
 		infoLabel.setText(info);
-		if (ok) inputField.setBackground(SystemColor.text); else inputField.setBackground(Color.red);
+		if (ok) inputField.setBackground(NumberTools.getTextFieldDefaultBackground()); else inputField.setBackground(Color.red);
 		if (!ok && showErrorDialog) {
 			MsgBox.error(this,Language.tr("Resources.Group.EditName.Dialog.ErrorName"),info);
 			return false;
@@ -488,7 +487,7 @@ public class ResourceTableModelDialog extends BaseDialog {
 				}
 				ok=false;
 			} else {
-				moveTimeField.setBackground(SystemColor.text);
+				moveTimeField.setBackground(NumberTools.getTextFieldDefaultBackground());
 			}
 		}
 

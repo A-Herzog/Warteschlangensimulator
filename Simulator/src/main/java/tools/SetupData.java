@@ -266,6 +266,11 @@ public class SetupData extends SetupBase {
 	public String lookAndFeel;
 
 	/**
+	 * Soll die Menüzeile wenn möglich in die Titelzeile integriert werden?
+	 */
+	public boolean lookAndFeelCombinedMenu;
+
+	/**
 	 * Modell automatisch speichern?
 	 */
 	public AutoSaveMode autoSaveMode;
@@ -1151,6 +1156,7 @@ public class SetupData extends SetupBase {
 		surfaceGlassInfos=true;
 		scaleGUI=1;
 		lookAndFeel="";
+		lookAndFeelCombinedMenu=true;
 		autoSaveMode=AutoSaveMode.AUTOSAVE_OFF;
 		hintDialogs="";
 		imageSize=2000;
@@ -1533,6 +1539,7 @@ public class SetupData extends SetupBase {
 
 			if (name.equals("lookandfeel")) {
 				lookAndFeel=e.getTextContent();
+				lookAndFeelCombinedMenu=loadBoolean(e.getAttribute("combinedMenu"),true);
 				continue;
 			}
 
@@ -2201,9 +2208,10 @@ public class SetupData extends SetupBase {
 			node.setTextContent(NumberTools.localNumberToSystemNumber(NumberTools.formatNumber(scaleGUI)));
 		}
 
-		if (lookAndFeel!=null && !lookAndFeel.trim().isEmpty()) {
+		if ((lookAndFeel!=null && !lookAndFeel.trim().isEmpty()) || !lookAndFeelCombinedMenu) {
 			root.appendChild(node=doc.createElement("LookAndFeel"));
-			node.setTextContent(lookAndFeel);
+			if (lookAndFeel!=null) node.setTextContent(lookAndFeel);
+			if (!lookAndFeelCombinedMenu) node.setAttribute("combinedMenu","0");
 		}
 
 		if (autoSaveMode!=AutoSaveMode.AUTOSAVE_OFF) {

@@ -21,7 +21,6 @@ import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.SystemColor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -42,6 +41,7 @@ import org.apache.commons.math3.distribution.AbstractRealDistribution;
 import org.apache.commons.math3.distribution.ExponentialDistribution;
 
 import language.Language;
+import mathtools.NumberTools;
 import mathtools.distribution.swing.JDistributionPanel;
 import simulator.editmodel.EditModel;
 import simulator.simparser.ExpressionCalc;
@@ -302,12 +302,12 @@ public class DistributionSetupTimesEditor extends JPanel {
 	 */
 	private void checkExpression() {
 		if (expressionEdit.getText().trim().isEmpty()) {
-			expressionEdit.setBackground(SystemColor.text);
+			expressionEdit.setBackground(NumberTools.getTextFieldDefaultBackground());
 			return;
 		}
 
 		final int error=ExpressionCalc.check(expressionEdit.getText(),surface.getMainSurfaceVariableNames(model.getModelVariableNames(),true));
-		if (error>=0) expressionEdit.setBackground(Color.red); else expressionEdit.setBackground(SystemColor.text);
+		if (error>=0) expressionEdit.setBackground(Color.red); else expressionEdit.setBackground(NumberTools.getTextFieldDefaultBackground());
 	}
 
 	/**

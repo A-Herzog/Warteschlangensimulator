@@ -45,6 +45,7 @@ import language.Language;
 import tools.SetupData;
 import ui.images.Images;
 import ui.modeleditor.ModelElementCatalog;
+import ui.tools.FlatLaFHelper;
 
 /**
  * Diese Klasse ermöglicht das Anzeigen von Informationstexten in Dialogen.
@@ -1343,8 +1344,12 @@ public class InfoPanel {
 		item.setIcon(Images.INFO_PANEL_CLOSE_ALL.getIcon());
 
 		final JPanel topInner=new JPanel(new BorderLayout());
-		topInner.setBorder(BorderFactory.createLineBorder(new Color(212,212,212)));
-		topInner.setBackground(new Color(250,250,245));
+		if (FlatLaFHelper.isDark()) {
+			topInner.setBorder(BorderFactory.createLineBorder(Color.GRAY));
+		} else {
+			topInner.setBorder(BorderFactory.createLineBorder(new Color(212,212,212)));
+			topInner.setBackground(new Color(250,250,245));
+		}
 
 		final JLabel label=new JLabel();
 		label.setIcon(Images.GENERAL_INFO.getIcon());
@@ -1363,13 +1368,17 @@ public class InfoPanel {
 		final JToolBar toolBar=new JToolBar(SwingConstants.HORIZONTAL);
 		toolBar.setFloatable(false);
 		final JButton button=new JButton(Language.tr("Editor.AddEdge.Hint.RemoveButton"));
-		button.setBackground(new Color(255,255,240));
+		if (!FlatLaFHelper.isDark()) {
+			button.setBackground(new Color(255,255,240));
+		}
 		button.setToolTipText(Language.tr("Editor.AddEdge.Hint.RemoveButton.Hint"));
 		button.setIcon(Images.INFO_PANEL_CLOSE_THIS.getIcon());
 		button.addActionListener(e->SwingUtilities.invokeLater(()->turnOffHint(topOuter,id)));
 		button.setComponentPopupMenu(removeAllMenu);
 		toolBar.add(button);
-		toolBar.setBackground(new Color(250,250,245));
+		if (!FlatLaFHelper.isDark()) {
+			toolBar.setBackground(new Color(250,250,245));
+		}
 		topInner.add(toolBar,BorderLayout.EAST);
 
 		SwingUtilities.invokeLater(()->{

@@ -58,6 +58,7 @@ import javax.swing.JPopupMenu;
 import javax.swing.JTextField;
 import javax.swing.JToolBar;
 import javax.swing.SwingUtilities;
+import javax.swing.UIManager;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
@@ -76,7 +77,7 @@ import swingtools.ImageIOFormatCheck;
  * Zeigt den grafischen Verlauf von Dichte und Verteilungsfunktion einer Verteilung
  * vom Typ <code>AbstractContinuousDistribution</code> an.
  * @author Alexander Herzog
- * @version 1.8
+ * @version 1.9
  * @see AbstractRealDistribution
  */
 public class JDistributionPanel extends JPanel implements JGetImage {
@@ -481,6 +482,19 @@ public class JDistributionPanel extends JPanel implements JGetImage {
 		private static final long serialVersionUID = 8083886665643583864L;
 
 		/**
+		 * Erfolgt die Darstellung im Dark-Modus?
+		 */
+		public boolean isDark;
+
+		/**
+		 * Konstruktor der Klasse
+		 */
+		public JDistributionPlotter() {
+			final Color textBackground=UIManager.getColor("TextField.background");
+			isDark=(textBackground!=null && !textBackground.equals(Color.WHITE));
+		}
+
+		/**
 		 * Berechnet die tatsächlich verfügbare Zeichenfläche
 		 * @return	Verfügbare Zeichenfläche
 		 */
@@ -516,13 +530,14 @@ public class JDistributionPanel extends JPanel implements JGetImage {
 		private void paintDistributionRect(final Graphics g, final Rectangle r, final Rectangle dataRect, final double maxXValue) {
 			int fontDelta=g.getFontMetrics().getAscent();
 
-			g.setColor(Color.white);
+			g.setColor(isDark?Color.GRAY:Color.WHITE);
 			g.fillRect(dataRect.x,dataRect.y,dataRect.width,dataRect.height);
 
-			g.setColor(Color.black);
+			g.setColor(Color.BLACK);
 			g.drawLine(dataRect.x,dataRect.y,dataRect.x,dataRect.y+dataRect.height);
 			g.drawLine(dataRect.x,dataRect.y+dataRect.height,dataRect.x+dataRect.width,dataRect.y+dataRect.height);
 
+			if (isDark) g.setColor(Color.WHITE);
 			if (!(distribution instanceof DataDistributionImpl)) g.drawString("1",r.x,r.y+fontDelta);
 			g.drawString("0",r.x,r.y+r.height);
 
@@ -619,7 +634,7 @@ public class JDistributionPanel extends JPanel implements JGetImage {
 		private void paintToRectangle(final Graphics g, Rectangle r, final double maxXValue) {
 			if (distribution==null) {paintNullDistribution(g,r); return;}
 
-			g.setColor(Color.WHITE);
+			g.setColor(isDark?Color.GRAY:Color.WHITE);
 			g.fillRect(r.x,r.y,r.x+r.width,r.y+r.height);
 			g.setColor(Color.GRAY);
 			g.drawRect(r.x,r.y,r.x+r.width,r.y+r.height);
@@ -662,7 +677,10 @@ public class JDistributionPanel extends JPanel implements JGetImage {
 		g.setClip(0,0,imageSize,imageSize);
 		Dimension d=plotter.getSize();
 		plotter.setSize(imageSize,imageSize);
+		final boolean dark=plotter.isDark;
+		plotter.isDark=false;
 		plotter.paint(g);
+		plotter.isDark=dark;
 		plotter.setSize(d);
 
 		try {ImageIO.write(image,format,file);} catch (IOException e) {return false;}
@@ -707,7 +725,10 @@ public class JDistributionPanel extends JPanel implements JGetImage {
 		g.setClip(0,0,imageSize,imageSize);
 		final Dimension d=plotter.getSize();
 		plotter.setSize(imageSize,imageSize);
+		final boolean dark=plotter.isDark;
+		plotter.isDark=false;
 		plotter.paint(g);
+		plotter.isDark=dark;
 		plotter.setSize(d);
 
 		/* see: https://bugs.openjdk.java.net/browse/JDK-8204188 */

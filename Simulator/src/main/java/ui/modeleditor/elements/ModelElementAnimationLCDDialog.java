@@ -19,7 +19,6 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.FlowLayout;
-import java.awt.SystemColor;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.Serializable;
@@ -33,6 +32,7 @@ import javax.swing.JTextField;
 import javax.swing.SpinnerNumberModel;
 
 import language.Language;
+import mathtools.NumberTools;
 import simulator.simparser.ExpressionCalc;
 import systemtools.MsgBox;
 import systemtools.SmallColorChooser;
@@ -171,7 +171,7 @@ public class ModelElementAnimationLCDDialog extends ModelElementBaseDialog {
 					return false;
 				}
 			} else {
-				editExpression.setBackground(SystemColor.text);
+				editExpression.setBackground(NumberTools.getTextFieldDefaultBackground());
 			}
 		}
 

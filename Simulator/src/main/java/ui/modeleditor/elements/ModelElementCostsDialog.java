@@ -18,7 +18,6 @@ package ui.modeleditor.elements;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
-import java.awt.SystemColor;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.Serializable;
@@ -29,6 +28,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import language.Language;
+import mathtools.NumberTools;
 import simulator.simparser.ExpressionCalc;
 import systemtools.MsgBox;
 import ui.infopanel.InfoPanel;
@@ -160,10 +160,10 @@ public class ModelElementCostsDialog extends ModelElementBaseDialog {
 				}
 				ok=false;
 			} else {
-				stationCosts.setBackground(SystemColor.text);
+				stationCosts.setBackground(NumberTools.getTextFieldDefaultBackground());
 			}
 		} else {
-			stationCosts.setBackground(SystemColor.text);
+			stationCosts.setBackground(NumberTools.getTextFieldDefaultBackground());
 		}
 
 		text=clientWaitingCosts.getText();
@@ -177,10 +177,10 @@ public class ModelElementCostsDialog extends ModelElementBaseDialog {
 				}
 				ok=false;
 			} else {
-				clientWaitingCosts.setBackground(SystemColor.text);
+				clientWaitingCosts.setBackground(NumberTools.getTextFieldDefaultBackground());
 			}
 		} else {
-			clientWaitingCosts.setBackground(SystemColor.text);
+			clientWaitingCosts.setBackground(NumberTools.getTextFieldDefaultBackground());
 		}
 
 		text=clientTransferCosts.getText();
@@ -194,10 +194,10 @@ public class ModelElementCostsDialog extends ModelElementBaseDialog {
 				}
 				ok=false;
 			} else {
-				clientTransferCosts.setBackground(SystemColor.text);
+				clientTransferCosts.setBackground(NumberTools.getTextFieldDefaultBackground());
 			}
 		} else {
-			clientTransferCosts.setBackground(SystemColor.text);
+			clientTransferCosts.setBackground(NumberTools.getTextFieldDefaultBackground());
 		}
 
 		text=clientProcessCosts.getText();
@@ -211,10 +211,10 @@ public class ModelElementCostsDialog extends ModelElementBaseDialog {
 				}
 				ok=false;
 			} else {
-				clientProcessCosts.setBackground(SystemColor.text);
+				clientProcessCosts.setBackground(NumberTools.getTextFieldDefaultBackground());
 			}
 		} else {
-			clientProcessCosts.setBackground(SystemColor.text);
+			clientProcessCosts.setBackground(NumberTools.getTextFieldDefaultBackground());
 		}
 
 		return ok;

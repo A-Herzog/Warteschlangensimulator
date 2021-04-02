@@ -18,7 +18,6 @@ package ui.modeleditor.elements;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
-import java.awt.SystemColor;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.Serializable;
@@ -28,6 +27,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import language.Language;
+import mathtools.NumberTools;
 import systemtools.BaseDialog;
 import systemtools.MsgBox;
 import ui.modeleditor.ModelElementBaseDialog;
@@ -118,7 +118,7 @@ public class VariablesTextsTableModelDialog extends BaseDialog {
 			if (showErrorMessage) MsgBox.error(this,Language.tr("Surface.AssignString.Table.Edit.Dialog.Key.Error.Title"),Language.tr("Surface.AssignString.Table.Edit.Dialog.Key.Error.Info"));
 			return false;
 		} else {
-			keyEdit.setBackground(SystemColor.text);
+			keyEdit.setBackground(NumberTools.getTextFieldDefaultBackground());
 			return true;
 		}
 	}

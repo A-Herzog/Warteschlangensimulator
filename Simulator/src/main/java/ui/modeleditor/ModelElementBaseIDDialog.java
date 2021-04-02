@@ -18,7 +18,6 @@ package ui.modeleditor;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.FlowLayout;
-import java.awt.SystemColor;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.Serializable;
@@ -116,7 +115,7 @@ public class ModelElementBaseIDDialog extends BaseDialog {
 			setInfo(Language.tr("Editor.DialogBase.ID.InvalidID.Info"));
 			return false;
 		} else {
-			editID.setBackground(SystemColor.text);
+			editID.setBackground(NumberTools.getTextFieldDefaultBackground());
 		}
 
 		if (I.intValue()==oldID) {

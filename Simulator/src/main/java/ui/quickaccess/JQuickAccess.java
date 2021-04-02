@@ -136,14 +136,15 @@ public class JQuickAccess {
 	/**
 	 * Legt ein QuickAccess-Eingabefeld ein an.
 	 * @param quickAccessProcessor Callback, das die Verarbeitung der Eingaben durchführen soll
+	 * @param compactMode	Soll das Eingabefeld die normale Breite (<code>false</code>) oder in einer schmalen Version (<code>true</code>) gezeichnet werden?
 	 * @return Neues QuickAccess-Eingabefeld
 	 */
-	public static JQuickAccessTextField buildQuickAccessField(final Function<String,List<JQuickAccessRecord>> quickAccessProcessor) {
+	public static JQuickAccessTextField buildQuickAccessField(final Function<String,List<JQuickAccessRecord>> quickAccessProcessor, final boolean compactMode) {
 		final KeyStroke ctrlE=KeyStroke.getKeyStroke('E',InputEvent.CTRL_DOWN_MASK);
 		final int modifiers=ctrlE.getModifiers();
 		String acceleratorText=(modifiers==0)?"":InputEvent.getModifiersExText(modifiers)+"+";
 		acceleratorText+=KeyEvent.getKeyText(ctrlE.getKeyCode());
-		final JQuickAccessTextField quickAccessTextField=new JQuickAccessTextField(14,Language.tr("QuickAccess")+" ("+acceleratorText+")",JQuickAccessTextField.PopupMode.DIRECT) {
+		final JQuickAccessTextField quickAccessTextField=new JQuickAccessTextField(compactMode?9:14,Language.tr("QuickAccess")+(compactMode?"":(" ("+acceleratorText+")")),JQuickAccessTextField.PopupMode.DIRECT) {
 			/**
 			 * Serialisierungs-ID der Klasse
 			 * @see Serializable
@@ -170,7 +171,7 @@ public class JQuickAccess {
 				}
 			}
 		});
-		quickAccessTextField.setToolTipText(Language.tr("QuickAccess.Hint"));
+		quickAccessTextField.setToolTipText(Language.tr("QuickAccess.Hint")+(compactMode?(" ("+acceleratorText+")"):""));
 
 		return quickAccessTextField;
 	}

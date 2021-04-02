@@ -19,7 +19,6 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.FlowLayout;
-import java.awt.SystemColor;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.Serializable;
@@ -374,7 +373,7 @@ public class TransporterTableModelDialog extends BaseDialog {
 		}
 
 		infoLabel.setText(info);
-		if (ok) inputField.setBackground(SystemColor.text); else inputField.setBackground(Color.red);
+		if (ok) inputField.setBackground(NumberTools.getTextFieldDefaultBackground()); else inputField.setBackground(Color.red);
 		if (!ok && showErrorDialog) {
 			MsgBox.error(this,Language.tr("Transporters.Group.Edit.Dialog.ErrorName"),info);
 			return false;
@@ -406,7 +405,7 @@ public class TransporterTableModelDialog extends BaseDialog {
 				return false;
 			}
 		} else {
-			expression.setBackground(SystemColor.text);
+			expression.setBackground(NumberTools.getTextFieldDefaultBackground());
 		}
 
 		if (!distancesTableModel.checkInput(showErrorDialog)) ok=false;

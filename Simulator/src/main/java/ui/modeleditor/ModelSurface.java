@@ -61,6 +61,7 @@ import ui.modeleditor.elements.ModelElementEdge;
 import ui.modeleditor.elements.ModelElementSignalTrigger;
 import ui.modeleditor.elements.ModelElementSub;
 import ui.modeleditor.fastpaint.GradientFill;
+import ui.tools.FlatLaFHelper;
 import xml.XMLData;
 
 /**
@@ -74,14 +75,29 @@ public final class ModelSurface {
 	public static final Color DEFAULT_BACKGROUND_COLOR=new Color(255,255,250);
 
 	/**
+	 * Standardhintergrundfarbe (unten) (für das dunkle Layout)
+	 */
+	public static final Color DEFAULT_DARK_BACKGROUND_COLOR=Color.DARK_GRAY;
+
+	/**
 	 * Standardhintergrundfarbe (oben)
 	 */
 	public static final Color DEFAULT_BACKGROUND_GRADIENT_COLOR=new Color(253,245,230);
 
 	/**
+	 * Standardhintergrundfarbe (oben) (für das dunkle Layout)
+	 */
+	public static final Color DEFAULT_DARK_BACKGROUND_GRADIENT_COLOR=new Color(68,68,68);
+
+	/**
 	 * Standardfarbe des Rasters
 	 */
 	public static final Color DEFAULT_RASTER_COLOR=new Color(240,240,240);
+
+	/**
+	 * Standardfarbe des Rasters (für das dunkle Layout)
+	 */
+	public static final Color DEFAULT_DARK_RASTER_COLOR=new Color(72,72,72);
 
 	/**
 	 * Zeitbasis für Bedien-, Transport-, Verzögerungs- usw. Zeiten.
@@ -573,6 +589,8 @@ public final class ModelSurface {
 	 */
 	private final GradientFill gradient=new GradientFill(false);
 
+
+
 	/**
 	 * Zeichnet den Hintergrund der Zeichenfläche
 	 * @param graphics	<code>Graphics</code>-Objekt, in das die Elemente gezeichnet werden sollen
@@ -596,6 +614,12 @@ public final class ModelSurface {
 			if (colors[0]!=null) backgroundColor=colors[0];
 			if (colors[1]!=null) rasterColor=colors[1];
 			if (colors.length==3) backgroundColorGradient=colors[2];
+		}
+
+		if (FlatLaFHelper.isDark()) {
+			if (backgroundColor.equals(DEFAULT_BACKGROUND_COLOR)) backgroundColor=DEFAULT_DARK_BACKGROUND_COLOR;
+			if (backgroundColorGradient!=null && backgroundColorGradient.equals(DEFAULT_BACKGROUND_GRADIENT_COLOR)) backgroundColorGradient=DEFAULT_DARK_BACKGROUND_GRADIENT_COLOR;
+			if (rasterColor.equals(DEFAULT_RASTER_COLOR)) rasterColor=DEFAULT_DARK_RASTER_COLOR;
 		}
 
 		final boolean useHighContrasts=SetupData.getSetup().useHighContrasts;

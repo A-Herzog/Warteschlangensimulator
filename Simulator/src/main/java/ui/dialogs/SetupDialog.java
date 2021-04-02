@@ -147,6 +147,8 @@ public final class SetupDialog extends BaseDialog {
 	private final JComboBox<String> languages;
 	/** Zu verwendendes Theme */
 	private final JComboBox<String> lookAndFeel;
+	/** Menü in Titelzeile kombinieren? (Für Flat-Look&amp;Feels unter Windows) */
+	private final JCheckBox lookAndFeelCombinedMenu;
 	/** Schriftgröße für Programmoberfläche */
 	private final JComboBox<String> fontSizes;
 	/** Hohe Kontraste verwenden? */
@@ -339,7 +341,9 @@ public final class SetupDialog extends BaseDialog {
 		LookAndFeels.add(Language.tr("SettingsDialog.LookAndFeel.System"));
 		LookAndFeels.addAll(Arrays.asList(GUITools.listLookAndFeels()));
 		p.add(lookAndFeel=new JComboBox<>(LookAndFeels.toArray(new String[0])));
-		label.setLabelFor(languages);
+		label.setLabelFor(lookAndFeel);
+		p.add(lookAndFeelCombinedMenu=new JCheckBox(Language.tr("SettingsDialog.LookAndFeel.MenuInWindowTitle")));
+		lookAndFeelCombinedMenu.setToolTipText(Language.tr("SettingsDialog.LookAndFeel.MenuInWindowTitle.Tooltip"));
 
 		mainarea.add(p=new JPanel(new FlowLayout(FlowLayout.LEFT)));
 		p.add(label=new JLabel(Language.tr("SettingsDialog.FontSizes")+":"));
@@ -1030,6 +1034,7 @@ public final class SetupDialog extends BaseDialog {
 			lookAndFeel.setSelectedIndex(i+1);
 			break;
 		}
+		lookAndFeelCombinedMenu.setSelected(setup.lookAndFeelCombinedMenu);
 
 		fontSizes.setSelectedIndex(1);
 		if (setup.scaleGUI<1) fontSizes.setSelectedIndex(0);
@@ -1298,6 +1303,7 @@ public final class SetupDialog extends BaseDialog {
 		setup.language=(languages.getSelectedIndex()==1)?"de":"en";
 
 		if (lookAndFeel.getSelectedIndex()==0) setup.lookAndFeel=""; else setup.lookAndFeel=(String)lookAndFeel.getSelectedItem();
+		setup.lookAndFeelCombinedMenu=lookAndFeelCombinedMenu.isSelected();
 
 		switch (fontSizes.getSelectedIndex()) {
 		case 0: setup.scaleGUI=0.9; break;
@@ -1566,6 +1572,7 @@ public final class SetupDialog extends BaseDialog {
 		switch (tabs.getSelectedIndex()) {
 		case 0: /* Seite: Benutzeroberfläche */
 			lookAndFeel.setSelectedIndex(0);
+			lookAndFeelCombinedMenu.setSelected(true);
 			fontSizes.setSelectedIndex(1);
 			useHighContrasts.setSelected(false);
 			scriptFontSize.setSelectedIndex(ScriptEditorAreaBuilder.DEFAULT_FONT_SIZE-6);

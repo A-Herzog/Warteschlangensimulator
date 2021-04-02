@@ -18,7 +18,6 @@ package ui.modeleditor.elements;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.FlowLayout;
-import java.awt.SystemColor;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.Serializable;
@@ -31,6 +30,7 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 
 import language.Language;
+import mathtools.NumberTools;
 import simulator.editmodel.EditModel;
 import simulator.simparser.ExpressionCalc;
 import systemtools.BaseDialog;
@@ -186,7 +186,7 @@ public class TransportResourceRecordPanel extends JPanel {
 			if (showErrorMessage) MsgBox.error(this,Language.tr("Surface.TransportSource.Dialog.Ressource.Priority.ErrorTitle"),String.format(Language.tr("Surface.TransportSource.Dialog.Ressource.Priority.ErrorInfo"),textResourcePriority.getText()));
 			ok=false;
 		} else {
-			textResourcePriority.setBackground(SystemColor.text);
+			textResourcePriority.setBackground(NumberTools.getTextFieldDefaultBackground());
 		}
 
 		return ok;

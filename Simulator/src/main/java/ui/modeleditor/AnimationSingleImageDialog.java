@@ -18,7 +18,6 @@ package ui.modeleditor;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
-import java.awt.SystemColor;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
@@ -31,6 +30,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import language.Language;
+import mathtools.NumberTools;
 import systemtools.BaseDialog;
 import systemtools.MsgBox;
 import ui.tools.ImageChooser;
@@ -123,7 +123,7 @@ public class AnimationSingleImageDialog extends BaseDialog {
 					return false;
 				}
 			} else {
-				nameEdit.setBackground(SystemColor.text);
+				nameEdit.setBackground(NumberTools.getTextFieldDefaultBackground());
 			}
 		}
 

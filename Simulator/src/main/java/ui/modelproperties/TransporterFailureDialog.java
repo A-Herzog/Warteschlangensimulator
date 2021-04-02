@@ -20,7 +20,6 @@ import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.FlowLayout;
-import java.awt.SystemColor;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.Serializable;
@@ -269,7 +268,7 @@ public class TransporterFailureDialog extends BaseDialog {
 				ok=false;
 			}
 		} else {
-			failureNumberEdit.setBackground(SystemColor.text);
+			failureNumberEdit.setBackground(NumberTools.getTextFieldDefaultBackground());
 		}
 
 		if (failureDistance.isSelected()) {
@@ -282,7 +281,7 @@ public class TransporterFailureDialog extends BaseDialog {
 				ok=false;
 			}
 		} else {
-			failureDistanceEdit.setBackground(SystemColor.text);
+			failureDistanceEdit.setBackground(NumberTools.getTextFieldDefaultBackground());
 		}
 
 		if (failureWorking.isSelected()) {
@@ -295,13 +294,13 @@ public class TransporterFailureDialog extends BaseDialog {
 				ok=false;
 			}
 		} else {
-			failureWorkingEdit.setBackground(SystemColor.text);
+			failureWorkingEdit.setBackground(NumberTools.getTextFieldDefaultBackground());
 		}
 
 		if (failureExpression.isSelected()) {
 			final int i=ExpressionCalc.check(failureExpressionEdit.getText(),surface.getMainSurfaceVariableNames(model.getModelVariableNames(),false));
 			if (i<0) {
-				failureExpressionEdit.setBackground(SystemColor.text);
+				failureExpressionEdit.setBackground(NumberTools.getTextFieldDefaultBackground());
 			} else {
 				failureExpressionEdit.setBackground(Color.RED);
 				if (showErrorDialog) {
@@ -315,7 +314,7 @@ public class TransporterFailureDialog extends BaseDialog {
 		if (downTimeSelect.getSelectedIndex()==1) {
 			final int i=ExpressionCalc.check(downTimeExpression.getText(),surface.getMainSurfaceVariableNames(model.getModelVariableNames(),false));
 			if (i<0) {
-				downTimeExpression.setBackground(SystemColor.text);
+				downTimeExpression.setBackground(NumberTools.getTextFieldDefaultBackground());
 			} else {
 				downTimeExpression.setBackground(Color.RED);
 				if (showErrorDialog) {

@@ -16,7 +16,6 @@
 package mathtools.distribution.swing;
 
 import java.awt.Color;
-import java.awt.SystemColor;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -314,7 +313,7 @@ public abstract class JDistributionEditorPanelRecord {
 		public AbstractRealDistribution getDistribution(final JTextField[] fields, final double maxXValue) {
 			final DataDistributionImpl distribution=DataDistributionImpl.createFromString(fields[0].getText(),(int)maxXValue);
 			if (distribution==null) {fields[0].setBackground(Color.red); return null;}
-			fields[0].setBackground(SystemColor.text);
+			fields[0].setBackground(NumberTools.getTextFieldDefaultBackground());
 			return distribution;
 		}
 	}

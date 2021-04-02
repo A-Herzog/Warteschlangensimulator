@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-03-30 22:40+0200\n"
+"POT-Creation-Date: 2021-04-02 02:43+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -7067,14 +7067,8 @@ msgstr "Speichernutzung (durch Anwendung)"
 msgid "InfoDialog.ShowLicenses"
 msgstr "Lizenzen"
 
-msgid "InfoDialog.ShowLicenses.Tooltip"
-msgstr "Zeigt die Lizenzen des Programms und der verwendeten Komponenten an."
-
 msgid "InfoDialog.ShowVersionHistory"
 msgstr "Versionsgeschichte"
-
-msgid "InfoDialog.ShowVersionHistory.Tooltip"
-msgstr "Zeigt die Versionsgeschichte an."
 
 msgid "InfoDialog.ThreadMemoryLimitation"
 msgstr "Aufgrund der Speicherbegrenzung werden nur %d der %d logischen Kerne für Simulationen verwendet."
@@ -13441,6 +13435,12 @@ msgstr "Leeres Modell"
 
 msgid "SettingsDialog.LookAndFeel"
 msgstr "Thema"
+
+msgid "SettingsDialog.LookAndFeel.MenuInWindowTitle"
+msgstr "Menü in Titelzeile"
+
+msgid "SettingsDialog.LookAndFeel.MenuInWindowTitle.Tooltip"
+msgstr "Nur für die Flat-Themen und nur unter Windows verfügbar"
 
 msgid "SettingsDialog.LookAndFeel.System"
 msgstr "Systemvorgabe"
@@ -29648,6 +29648,12 @@ msgstr "Das Dateiformat wurde nicht erkannt bzw. passt zu keinem Dateiformat die
 #~ "verwendete Sprach-Bibliothek: Gettext (github.com/jgettext/gettext-commons/releases)\n"
 #~ "verwendete Icon-Sammung: famfamfam (www.famfamfam.com)\n"
 #~ "verwendete Icon-Sammung: Fugue Icons (p.yusukekamiyamane.com)"
+
+#~ msgid "InfoDialog.ShowLicenses.Tooltip"
+#~ msgstr "Zeigt die Lizenzen des Programms und der verwendeten Komponenten an."
+
+#~ msgid "InfoDialog.ShowVersionHistory.Tooltip"
+#~ msgstr "Zeigt die Versionsgeschichte an."
 
 #~ msgid "License.Name.Full"
 #~ msgstr "Lizensierte Vollversion"

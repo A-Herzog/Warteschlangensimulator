@@ -19,7 +19,6 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.FlowLayout;
-import java.awt.SystemColor;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.Serializable;
@@ -32,6 +31,7 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 
 import language.Language;
+import mathtools.NumberTools;
 import simulator.simparser.ExpressionCalc;
 import systemtools.MsgBox;
 import tools.JTableExt;
@@ -140,7 +140,7 @@ public class ModelElementSeizeDialog extends ModelElementBaseDialog {
 			if (showErrorMessage) MsgBox.error(this,Language.tr("Surface.Seize.Dialog.ResourcePriority.Error.Title"),String.format(Language.tr("Surface.Seize.Dialog.ResourcePriority.Error.Info"),textResourcePriority.getText()));
 			ok=false;
 		} else {
-			textResourcePriority.setBackground(SystemColor.text);
+			textResourcePriority.setBackground(NumberTools.getTextFieldDefaultBackground());
 		}
 
 		return ok;

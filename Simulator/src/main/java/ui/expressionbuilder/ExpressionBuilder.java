@@ -20,7 +20,6 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.SystemColor;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
@@ -49,6 +48,7 @@ import javax.swing.tree.TreeNode;
 import javax.swing.tree.TreePath;
 
 import language.Language;
+import mathtools.NumberTools;
 import simulator.runmodel.RunModel;
 import simulator.simparser.ExpressionCalc;
 import simulator.simparser.ExpressionMultiEval;
@@ -367,7 +367,7 @@ public class ExpressionBuilder extends BaseDialog {
 		}
 
 		if (error<0) {
-			input.setBackground(SystemColor.text);
+			input.setBackground(NumberTools.getTextFieldDefaultBackground());
 		} else {
 			input.setBackground(Color.RED);
 			if (showErrorMessage) MsgBox.error(this,Language.tr("ExpressionBuilder.Error.Title"),String.format("<html><body>"+Language.tr("ExpressionBuilder.Error"),expression,error+1));

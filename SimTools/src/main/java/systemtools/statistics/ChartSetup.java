@@ -22,6 +22,8 @@ import java.awt.GradientPaint;
 import java.awt.Paint;
 import java.awt.Stroke;
 
+import javax.swing.UIManager;
+
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.StandardChartTheme;
 import org.jfree.chart.axis.CategoryAxis;
@@ -97,11 +99,18 @@ public class ChartSetup {
 	public Color outlineColor;
 
 	/**
+	 * Erfolgt die Darstellung im Dark-Modus?
+	 */
+	private final boolean isDark;
+
+	/**
 	 * Konstruktor der Klasse
 	 */
 	public ChartSetup() {
 		systemScale=GUITools.getScaleFactor();
 		userScale=1;
+		final Color textBackground=UIManager.getColor("TextField.background");
+		isDark=(textBackground!=null && !textBackground.equals(Color.WHITE));
 		reset();
 	}
 
@@ -220,6 +229,11 @@ public class ChartSetup {
 
 		chart.getLegend().setBackgroundPaint(null);
 		chart.getLegend().setItemFont(scaleSize(legendFont,scale));
+
+		if (isDark) {
+			chart.getTitle().setPaint(Color.LIGHT_GRAY);
+			chart.getLegend().setItemPaint(Color.LIGHT_GRAY);
+		}
 	}
 
 	/**
@@ -239,6 +253,13 @@ public class ChartSetup {
 		final double scale=(userScale==1.0)?systemScale:userScale;
 		axis.setLabelFont(scaleSize(axisLabelFont,scale));
 		axis.setTickLabelFont(scaleSize(axisValueFont,scale));
+
+		if (isDark) {
+			axis.setAxisLinePaint(Color.LIGHT_GRAY);
+			axis.setLabelPaint(Color.LIGHT_GRAY);
+			axis.setTickLabelPaint(Color.LIGHT_GRAY);
+			axis.setTickMarkPaint(Color.LIGHT_GRAY);
+		}
 	}
 
 	/**
@@ -249,6 +270,13 @@ public class ChartSetup {
 		final double scale=(userScale==1.0)?systemScale:userScale;
 		axis.setLabelFont(scaleSize(axisLabelFont,scale));
 		axis.setTickLabelFont(scaleSize(axisValueFont,scale));
+
+		if (isDark) {
+			axis.setAxisLinePaint(Color.LIGHT_GRAY);
+			axis.setLabelPaint(Color.LIGHT_GRAY);
+			axis.setTickLabelPaint(Color.LIGHT_GRAY);
+			axis.setTickMarkPaint(Color.LIGHT_GRAY);
+		}
 	}
 
 	/**

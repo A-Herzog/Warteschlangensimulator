@@ -1046,11 +1046,12 @@ public final class EditorPanel extends EditorPanelBase {
 	 */
 	private JPanel getTopInfoPanel(final String title, final Icon icon, final ActionListener actionLeft, final ActionListener actionRight, final String hotkey) {
 		final JPanel top=new JPanel(new BorderLayout());
-		top.setBackground(Color.LIGHT_GRAY);
+		top.setBackground(Color.GRAY);
 
 		final JLabel label=new JLabel(title);
 		final Font font=label.getFont();
-		label.setFont(new java.awt.Font(font.getFontName(),java.awt.Font.BOLD,font.getSize()+2));
+		label.setFont(new java.awt.Font(font.getFontName(),java.awt.Font.PLAIN,font.getSize()+3));
+		label.setForeground(Color.WHITE);
 		if (icon!=null) label.setIcon(icon);
 		final JPanel middle=new JPanel(new FlowLayout(FlowLayout.CENTER));
 		middle.setOpaque(false);

@@ -19,7 +19,6 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.FlowLayout;
-import java.awt.SystemColor;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.Serializable;
@@ -38,6 +37,7 @@ import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 
 import language.Language;
+import mathtools.NumberTools;
 import simulator.runmodel.RunModel;
 import simulator.simparser.ExpressionCalc;
 import simulator.simparser.symbols.CalcSymbolClientUserData;
@@ -195,7 +195,7 @@ public class VariablesTableModelDialog extends BaseDialog {
 		}
 
 		if (varNameOk) {
-			this.variable.setBackground(SystemColor.text);
+			this.variable.setBackground(NumberTools.getTextFieldDefaultBackground());
 		} else {
 			this.variable.setBackground(Color.red);
 			if (showErrorMessage) {
@@ -221,7 +221,7 @@ public class VariablesTableModelDialog extends BaseDialog {
 		}
 		final int error=ExpressionCalc.check(expression,namesList.toArray(new String[0]));
 		if (error<0) {
-			this.expression.setBackground(SystemColor.text);
+			this.expression.setBackground(NumberTools.getTextFieldDefaultBackground());
 		} else {
 			this.expression.setBackground(Color.red);
 			if (optionExpression!=null && optionExpression.isSelected()) {

@@ -19,7 +19,6 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.FlowLayout;
-import java.awt.SystemColor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -479,7 +478,7 @@ public class ModelElementProcessDialog extends ModelElementBaseDialog {
 			}
 			ok=false;
 		} else {
-			textResourcePriority.setBackground(SystemColor.text);
+			textResourcePriority.setBackground(NumberTools.getTextFieldDefaultBackground());
 		}
 
 		if (!tablePriorityModel.checkInput(showErrorMessage)) {
@@ -498,10 +497,10 @@ public class ModelElementProcessDialog extends ModelElementBaseDialog {
 				}
 				ok=false;
 			} else {
-				textCosts.setBackground(SystemColor.text);
+				textCosts.setBackground(NumberTools.getTextFieldDefaultBackground());
 			}
 		} else {
-			textCosts.setBackground(SystemColor.text);
+			textCosts.setBackground(NumberTools.getTextFieldDefaultBackground());
 		}
 
 		text=textCostsPerProcessSecond.getText();
@@ -515,10 +514,10 @@ public class ModelElementProcessDialog extends ModelElementBaseDialog {
 				}
 				ok=false;
 			} else {
-				textCostsPerProcessSecond.setBackground(SystemColor.text);
+				textCostsPerProcessSecond.setBackground(NumberTools.getTextFieldDefaultBackground());
 			}
 		} else {
-			textCostsPerProcessSecond.setBackground(SystemColor.text);
+			textCostsPerProcessSecond.setBackground(NumberTools.getTextFieldDefaultBackground());
 		}
 
 		text=textCostsPerPostProcessSecond.getText();
@@ -532,10 +531,10 @@ public class ModelElementProcessDialog extends ModelElementBaseDialog {
 				}
 				ok=false;
 			} else {
-				textCostsPerPostProcessSecond.setBackground(SystemColor.text);
+				textCostsPerPostProcessSecond.setBackground(NumberTools.getTextFieldDefaultBackground());
 			}
 		} else {
-			textCostsPerPostProcessSecond.setBackground(SystemColor.text);
+			textCostsPerPostProcessSecond.setBackground(NumberTools.getTextFieldDefaultBackground());
 		}
 
 		return ok;

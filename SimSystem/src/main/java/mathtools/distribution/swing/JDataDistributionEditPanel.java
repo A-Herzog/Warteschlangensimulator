@@ -24,7 +24,6 @@ import java.awt.Image;
 import java.awt.Insets;
 import java.awt.Point;
 import java.awt.Rectangle;
-import java.awt.SystemColor;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.StringSelection;
@@ -55,6 +54,7 @@ import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 import javax.swing.JTextField;
 import javax.swing.JToolBar;
+import javax.swing.UIManager;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
@@ -481,7 +481,7 @@ public class JDataDistributionEditPanel extends JPanel {
 	 */
 	private void updateDistributionFromEditLine() {
 		if (setDistributionFromString(editLine.getText())) {
-			editLine.setBackground(SystemColor.text);
+			editLine.setBackground(NumberTools.getTextFieldDefaultBackground());
 			repaint();
 		} else {
 			editLine.setBackground(Color.red);
@@ -767,11 +767,18 @@ public class JDataDistributionEditPanel extends JPanel {
 		private Rectangle lastR=null;
 
 		/**
+		 * Erfolgt die Darstellung im Dark-Modus?
+		 */
+		public boolean isDark;
+
+		/**
 		 * Konstruktor der Klasse
 		 */
 		public DataPlotter() {
 			addMouseListener(this);
 			addMouseMotionListener(this);
+			final Color textBackground=UIManager.getColor("TextField.background");
+			isDark=(textBackground!=null && !textBackground.equals(Color.WHITE));
 		}
 
 		/**
@@ -792,14 +799,14 @@ public class JDataDistributionEditPanel extends JPanel {
 		 * @see #paint(Graphics)
 		 */
 		private void paintFrame(Graphics g, Rectangle r, int padding) {
-			g.setColor(Color.WHITE);
+			g.setColor(isDark?Color.GRAY:Color.WHITE);
 			g.fillRect(r.x,r.y,r.width,r.height);
 
 			g.setColor(Color.BLACK);
 			g.drawLine(r.x,r.y,r.x,r.y+r.height);
 			g.drawLine(r.x,r.y+r.height,r.x+r.width,r.y+r.height);
 
-			g.setColor(Color.BLACK);
+			g.setColor(isDark?Color.WHITE:Color.BLACK);
 			g.drawString("0",r.x,r.y+r.height+padding+g.getFontMetrics().getAscent());
 			String s=NumberTools.formatNumber(distribution.upperBound);
 			g.drawString(s,r.x+r.width-g.getFontMetrics().stringWidth(s),r.y+r.height+padding+g.getFontMetrics().getAscent());

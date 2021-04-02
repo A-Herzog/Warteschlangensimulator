@@ -15,6 +15,7 @@
  */
 package ui.modeleditor.descriptionbuilder;
 
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.Toolkit;
 import java.awt.datatransfer.DataFlavor;
@@ -57,6 +58,7 @@ import mathtools.distribution.swing.CommonVariables;
 import systemtools.MsgBox;
 import systemtools.statistics.PDFWriter;
 import systemtools.statistics.XWPFDocumentPictureTools;
+import ui.tools.FlatLaFHelper;
 
 /**
  * Diese Klasse sammelt Textzeilen und Überschriften und erlaubt dann
@@ -164,6 +166,9 @@ public class StyledTextBuilder {
 	 * @param textPane	{@link JTextPane}-Element in das der Text geschrieben werden soll
 	 */
 	public void writeToTextPane(final JTextPane textPane) {
+		final boolean isDark=FlatLaFHelper.isDark();
+		if (isDark) textPane.setBackground(Color.DARK_GRAY);
+
 		/* Styles zusammenstellen */
 		StyledDocument doc=textPane.getStyledDocument();
 
@@ -172,18 +177,22 @@ public class StyledTextBuilder {
 
 		s=doc.addStyle("default",defaultStyle);
 		StyleConstants.setFontSize(s,StyleConstants.getFontSize(s)+1);
+		if (isDark) StyleConstants.setForeground(s,Color.LIGHT_GRAY);
 
 		s=doc.addStyle("h1",defaultStyle);
 		StyleConstants.setFontSize(s,StyleConstants.getFontSize(s)+4);
 		StyleConstants.setBold(s,true);
+		if (isDark) StyleConstants.setForeground(s,Color.LIGHT_GRAY);
 
 		s=doc.addStyle("h2",defaultStyle);
 		StyleConstants.setBold(s,true);
 		StyleConstants.setFontSize(s,StyleConstants.getFontSize(s)+2);
+		if (isDark) StyleConstants.setForeground(s,Color.LIGHT_GRAY);
 
 		s=doc.addStyle("h3",defaultStyle);
 		StyleConstants.setFontSize(s,StyleConstants.getFontSize(s)+1);
 		StyleConstants.setUnderline(s,true);
+		if (isDark) StyleConstants.setForeground(s,Color.LIGHT_GRAY);
 
 		/* Text einfügen */
 		for (int i=0;i<lines.size();i++) {

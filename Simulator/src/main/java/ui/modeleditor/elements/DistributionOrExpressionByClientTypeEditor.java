@@ -19,7 +19,6 @@ import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.FlowLayout;
-import java.awt.SystemColor;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.Serializable;
@@ -39,6 +38,7 @@ import org.apache.commons.math3.distribution.AbstractRealDistribution;
 import org.apache.commons.math3.distribution.ExponentialDistribution;
 
 import language.Language;
+import mathtools.NumberTools;
 import mathtools.distribution.swing.JDistributionPanel;
 import simulator.editmodel.EditModel;
 import simulator.runmodel.RunModel;
@@ -204,10 +204,10 @@ public class DistributionOrExpressionByClientTypeEditor extends JPanel {
 		if (!readOnly) {
 			String text=expressionEdit.getText().trim();
 			if (text.isEmpty()) {
-				expressionEdit.setBackground(SystemColor.text);
+				expressionEdit.setBackground(NumberTools.getTextFieldDefaultBackground());
 			} else {
 				final int index=ExpressionCalc.check(text,variables);
-				if (index>=0) expressionEdit.setBackground(Color.red); else expressionEdit.setBackground(SystemColor.text);
+				if (index>=0) expressionEdit.setBackground(Color.red); else expressionEdit.setBackground(NumberTools.getTextFieldDefaultBackground());
 			}
 		}
 	}

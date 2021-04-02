@@ -32,6 +32,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import language.Language;
+import mathtools.NumberTools;
 import simulator.simparser.ExpressionMultiEval;
 import systemtools.MsgBox;
 import tools.IconListCellRenderer;
@@ -168,7 +169,7 @@ public class ModelElementAnimationTrafficLightsDialog extends ModelElementBaseDi
 				return false;
 			}
 		} else {
-			expressionOne.setBackground(SystemColor.text);
+			expressionOne.setBackground(NumberTools.getTextFieldDefaultBackground());
 		}
 
 		if (numberOfLights.getSelectedIndex()==1) {
@@ -182,7 +183,7 @@ public class ModelElementAnimationTrafficLightsDialog extends ModelElementBaseDi
 					return false;
 				}
 			} else {
-				expressionTwo.setBackground(SystemColor.text);
+				expressionTwo.setBackground(NumberTools.getTextFieldDefaultBackground());
 			}
 		} else {
 			/* rot, grün */

@@ -18,7 +18,6 @@ package ui.modelproperties;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
-import java.awt.SystemColor;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.io.Serializable;
@@ -30,6 +29,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 
 import language.Language;
+import mathtools.NumberTools;
 import simulator.editmodel.EditModel;
 import systemtools.BaseDialog;
 import systemtools.MsgBox;
@@ -142,7 +142,7 @@ public class SequenceEditDialog extends BaseDialog {
 					return false;
 				}
 			} else {
-				nameEdit.setBackground(SystemColor.text);
+				nameEdit.setBackground(NumberTools.getTextFieldDefaultBackground());
 			}
 		}
 

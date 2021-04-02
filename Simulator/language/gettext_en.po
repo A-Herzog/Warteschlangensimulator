@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-03-30 22:40+0200\n"
+"POT-Creation-Date: 2021-04-02 02:43+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -7071,14 +7071,8 @@ msgstr "Memory usage (by application)"
 msgid "InfoDialog.ShowLicenses"
 msgstr "Licenses"
 
-msgid "InfoDialog.ShowLicenses.Tooltip"
-msgstr "Shows the licenses of the program and the used components."
-
 msgid "InfoDialog.ShowVersionHistory"
 msgstr "Version history"
-
-msgid "InfoDialog.ShowVersionHistory.Tooltip"
-msgstr "Shows the version history."
 
 msgid "InfoDialog.ThreadMemoryLimitation"
 msgstr "Due to memory limitations only %d of the %d locial cores will be used for simulations."
@@ -13438,6 +13432,12 @@ msgstr "Empty model"
 
 msgid "SettingsDialog.LookAndFeel"
 msgstr "Theme"
+
+msgid "SettingsDialog.LookAndFeel.MenuInWindowTitle"
+msgstr "Menu in window title"
+
+msgid "SettingsDialog.LookAndFeel.MenuInWindowTitle.Tooltip"
+msgstr "Only available when using a flat theme and using Windows"
 
 msgid "SettingsDialog.LookAndFeel.System"
 msgstr "System default"
@@ -29610,6 +29610,12 @@ msgstr "The file format is unknown respectively is not matching to any of the fi
 #~ "used multi language library: Gettext (github.com/jgettext/gettext-commons/releases)\n"
 #~ "used icon collection: famfamfam (www.famfamfam.com)\n"
 #~ "used icon collection: Fugue Icons (p.yusukekamiyamane.com)"
+
+#~ msgid "InfoDialog.ShowLicenses.Tooltip"
+#~ msgstr "Shows the licenses of the program and the used components."
+
+#~ msgid "InfoDialog.ShowVersionHistory.Tooltip"
+#~ msgstr "Shows the version history."
 
 #~ msgid "License.Name.Full"
 #~ msgstr "Licensed full version"

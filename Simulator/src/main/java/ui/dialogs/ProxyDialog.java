@@ -19,7 +19,6 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.FlowLayout;
-import java.awt.SystemColor;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.Serializable;
@@ -158,8 +157,8 @@ public class ProxyDialog extends BaseDialog {
 		boolean ok=true;
 
 		if (proxyModeOff.isSelected()) {
-			proxyHost.setBackground(SystemColor.text);
-			proxyPort.setBackground(SystemColor.text);
+			proxyHost.setBackground(NumberTools.getTextFieldDefaultBackground());
+			proxyPort.setBackground(NumberTools.getTextFieldDefaultBackground());
 		} else {
 			if (proxyHost.getText().trim().isEmpty()) {
 				ok=false;
@@ -169,7 +168,7 @@ public class ProxyDialog extends BaseDialog {
 					return false;
 				}
 			} else {
-				proxyHost.setBackground(SystemColor.text);
+				proxyHost.setBackground(NumberTools.getTextFieldDefaultBackground());
 			}
 			final Long L=NumberTools.getPositiveLong(proxyPort,true);
 			if (L==null) {

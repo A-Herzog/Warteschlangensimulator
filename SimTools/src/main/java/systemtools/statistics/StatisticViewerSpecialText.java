@@ -80,7 +80,7 @@ class StatisticViewerSpecialText extends StatisticViewerHTMLText {
 	}
 
 	/**
-	 * Konstruktor der Klasse <code>StatisticViewerSpecialHTMLText</code>
+	 * Konstruktor der Klasse
 	 * @param type Gibt an, was angezeigt werden soll (siehe {@link SpecialMode})
 	 * @param startSimulation <code>Runnable</code>-Objekt, das beim Klick auf "Simulation jetzt starten" ausgeführt werden soll.
 	 * @param loadStatistics <code>Runnable</code>-Objekt, das beim Klick auf "Statistikdaten laden" ausgeführt werden soll.
@@ -90,7 +90,7 @@ class StatisticViewerSpecialText extends StatisticViewerHTMLText {
 	}
 
 	/**
-	 * Konstruktor der Klasse <code>StatisticViewerSpecialHTMLText</code>
+	 * Konstruktor der Klasse
 	 * @param type Gibt an, was angezeigt werden soll (siehe {@link SpecialMode})
 	 */
 	public StatisticViewerSpecialText(SpecialMode type) {

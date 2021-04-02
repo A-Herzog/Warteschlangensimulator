@@ -1403,7 +1403,19 @@ public final class ModelSurfacePanel extends JPanel {
 	 * @return	Bild-Objekt
 	 */
 	public BufferedImage getImage(final int xSize, final int ySize) {
-		return getImageMaxFactor(xSize,ySize,-1);
+		return getImageMaxFactor(xSize,ySize,-1,false);
+	}
+
+	/**
+	 * Liefert die Zeichenfläche als Bilddatei.<br>
+	 * Das Bild wird unter Beibehaltung des Seitenverhältnisses
+	 * auf die angegebene Größe skaliert.
+	 * @param xSize	Größe in x-Richtung
+	 * @param ySize	Größe in y-Richtung
+	 * @return	Bild-Objekt
+	 */
+	public BufferedImage getImageWithBackground(final int xSize, final int ySize) {
+		return getImageMaxFactor(xSize,ySize,-1,true);
 	}
 
 	/**
@@ -1416,7 +1428,7 @@ public final class ModelSurfacePanel extends JPanel {
 	 * @return	Bild-Objekt
 	 */
 	public BufferedImage getImageMaxSize(final int xSizeMax, final int ySizeMax) {
-		return getImageMaxFactor(xSizeMax,ySizeMax,1);
+		return getImageMaxFactor(xSizeMax,ySizeMax,1,false);
 	}
 
 	/**
@@ -1427,9 +1439,10 @@ public final class ModelSurfacePanel extends JPanel {
 	 * @param xSize	Größe in x-Richtung (werden für die x- und die y-Größe Werte kleiner oder gleich 0 angegeben, so wird die tatsächliche Größe verwendet)
 	 * @param ySize	Größe in y-Richtung (werden für die x- und die y-Größe Werte kleiner oder gleich 0 angegeben, so wird die tatsächliche Größe verwendet)
 	 * @param maxZoomFactor	Maximaler Zoomfaktor (oder &lt;0, wenn keine Begrenzung nach oben erfolgen soll)
+	 * @param withBackground	Soll der Hintergrund in dem Bild dargestellt werden?
 	 * @return	Bild-Objekt
 	 */
-	public BufferedImage getImageMaxFactor(int xSize, int ySize, final double maxZoomFactor) {
+	public BufferedImage getImageMaxFactor(int xSize, int ySize, final double maxZoomFactor, final boolean withBackground) {
 		final Point p1=surface.getUpperLeftModelCorner();
 		final Point p2=surface.getLowerRightModelCorner();
 
@@ -1456,7 +1469,7 @@ public final class ModelSurfacePanel extends JPanel {
 		Graphics g=image.getGraphics();
 		g.setClip(0,0,xSurfaceImage,ySurfaceImage);
 		((Graphics2D)g).setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING,RenderingHints.VALUE_TEXT_ANTIALIAS_DEFAULT);
-		surface.drawToGraphics(g,new Rectangle(0,0,xSurfaceImage,ySurfaceImage),imageZoom,false,backgroundImageMode,true,ModelSurface.Grid.OFF,null,backgroundImage,backgroundImageHash,backgroundImageScale,false);
+		surface.drawToGraphics(g,new Rectangle(0,0,xSurfaceImage,ySurfaceImage),imageZoom,withBackground,backgroundImageMode,true,ModelSurface.Grid.OFF,null,backgroundImage,backgroundImageHash,backgroundImageScale,false);
 		if (additionalUserPaint!=null) {
 			g.setClip(new Rectangle(0,0,xSurfaceImage,ySurfaceImage));
 			additionalUserPaint.paint(g,imageZoom);
@@ -1701,7 +1714,7 @@ public final class ModelSurfacePanel extends JPanel {
 		/* gif, jpeg, png, bmp */
 		final int maxXSize=Math.min(MAX_IMAGE_SIZE,MAX_IMAGE_BIGGER_FACTOR*xSize);
 		final int maxYSize=Math.min(MAX_IMAGE_SIZE,MAX_IMAGE_BIGGER_FACTOR*ySize);
-		BufferedImage image=getImageMaxFactor(maxXSize,maxYSize,10);
+		BufferedImage image=getImageMaxFactor(maxXSize,maxYSize,10,false);
 		if (format.equalsIgnoreCase("jpg")) format="jpeg";
 
 		format=format.toLowerCase();
@@ -1794,7 +1807,7 @@ public final class ModelSurfacePanel extends JPanel {
 
 		final int maxXSize=Math.min(MAX_IMAGE_SIZE,xSize);
 		final int maxYSize=Math.min(MAX_IMAGE_SIZE,ySize);
-		final BufferedImage image=getImageMaxFactor(maxXSize,maxYSize,10);
+		final BufferedImage image=getImageMaxFactor(maxXSize,maxYSize,10,false);
 
 		ImageTools.copyImageToClipboard(image);
 	}

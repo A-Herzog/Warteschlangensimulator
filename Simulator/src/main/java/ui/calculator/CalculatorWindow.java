@@ -22,7 +22,6 @@ import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Graphics;
-import java.awt.SystemColor;
 import java.awt.Toolkit;
 import java.awt.Window;
 import java.awt.datatransfer.StringSelection;
@@ -241,7 +240,7 @@ public class CalculatorWindow extends JFrame {
 			for (int i=0;i<graphs.size();i++) {
 				final PlotterPanel.Graph graph=graphs.get(i);
 				final JTextField field=plotterField.get(i);
-				field.setBackground((field.getText().trim().isEmpty() || graph.isLastPlotOk())?SystemColor.text:Color.RED);
+				field.setBackground((field.getText().trim().isEmpty() || graph.isLastPlotOk())?NumberTools.getTextFieldDefaultBackground():Color.RED);
 			}
 		});
 		plotter.reload();

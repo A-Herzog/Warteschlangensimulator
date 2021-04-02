@@ -18,7 +18,6 @@ package ui.parameterseries;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.FlowLayout;
-import java.awt.SystemColor;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.Serializable;
@@ -33,6 +32,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import language.Language;
+import mathtools.NumberTools;
 import parser.MathCalcError;
 import simulator.simparser.ExpressionCalc;
 import systemtools.BaseDialog;
@@ -146,7 +146,7 @@ public class ParameterCompareConnectParametersDialog extends BaseDialog {
 			}
 			return false;
 		} else {
-			input.setBackground(SystemColor.text);
+			input.setBackground(NumberTools.getTextFieldDefaultBackground());
 			return true;
 		}
 	}

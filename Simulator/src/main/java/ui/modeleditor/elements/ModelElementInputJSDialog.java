@@ -19,7 +19,6 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.FlowLayout;
-import java.awt.SystemColor;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.File;
@@ -212,7 +211,7 @@ public class ModelElementInputJSDialog extends ModelElementBaseDialog {
 				return false;
 			}
 		} else {
-			fileNameEdit.setBackground(SystemColor.text);
+			fileNameEdit.setBackground(NumberTools.getTextFieldDefaultBackground());
 		}
 
 		/* Vorgabewert */
@@ -226,7 +225,7 @@ public class ModelElementInputJSDialog extends ModelElementBaseDialog {
 				}
 			}
 		} else {
-			defaultValueEdit.setBackground(SystemColor.text);
+			defaultValueEdit.setBackground(NumberTools.getTextFieldDefaultBackground());
 		}
 
 		/* Skript */

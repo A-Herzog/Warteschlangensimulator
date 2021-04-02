@@ -19,7 +19,6 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.FlowLayout;
-import java.awt.SystemColor;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.Serializable;
@@ -30,6 +29,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import language.Language;
+import mathtools.NumberTools;
 import simulator.editmodel.EditModel;
 import simulator.simparser.ExpressionCalc;
 import systemtools.BaseDialog;
@@ -141,7 +141,7 @@ public class BarStackTableModelDialog extends BaseDialog {
 					return false;
 				}
 			} else {
-				editExpression.setBackground(SystemColor.text);
+				editExpression.setBackground(NumberTools.getTextFieldDefaultBackground());
 			}
 		}
 

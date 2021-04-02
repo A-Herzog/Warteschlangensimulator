@@ -19,7 +19,6 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.FlowLayout;
-import java.awt.SystemColor;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.File;
@@ -40,6 +39,7 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 import language.Language;
+import mathtools.NumberTools;
 import mathtools.Table;
 import mathtools.distribution.tools.FileDropper;
 import systemtools.MsgBox;
@@ -268,7 +268,7 @@ public class ModelElementSourceTableDialog extends ModelElementBaseDialog {
 				return false;
 			}
 		} else {
-			tableEdit.setBackground(SystemColor.text);
+			tableEdit.setBackground(NumberTools.getTextFieldDefaultBackground());
 		}
 
 		if (clientsEdit.getText().trim().isEmpty()) {
@@ -279,7 +279,7 @@ public class ModelElementSourceTableDialog extends ModelElementBaseDialog {
 				return false;
 			}
 		} else {
-			clientsEdit.setBackground(SystemColor.text);
+			clientsEdit.setBackground(NumberTools.getTextFieldDefaultBackground());
 		}
 
 		return ok;

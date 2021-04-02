@@ -47,6 +47,7 @@ import systemtools.MsgBox;
 import ui.help.Help;
 import ui.images.Images;
 import ui.infopanel.InfoPanel;
+import ui.tools.FlatLaFHelper;
 
 /**
  * Diese Klasse stellt einen Dialog zur Anpassung einer Verteilung
@@ -74,6 +75,29 @@ public class FitDialog extends BaseDialog {
 					"<head>\n"+
 					"  <style type=\"text/css\">\n"+
 					"  body {font-family: Verdana, Lucida, sans-serif; background-color: #FFFFF3; margin: 2px;}\n"+
+					"  ul.big li {margin-bottom: 5px;}\n"+
+					"  ol.big li {margin-bottom: 5px;}\n"+
+					"  a {text-decoration: none;}\n"+
+					"  a.box {margin-top: 10px; margin-botton: 10px; border: 1px solid black; background-color: #DDDDDD; padding: 5px;}\n"+
+					"  h2 {margin-bottom: 0px;}\n"+
+					"  p.red {color: red;}\n"+
+					"  </style>\n"+
+					"</head>\n"+
+					"<body>\n";
+
+	/**
+	 * HTML-Kopf für die Ausgabe in {@link #inputValues} und {@link #outputText} (im dunklen Modus)
+	 * @see #inputValues
+	 * @see #outputText
+	 * @see #htmlHead
+	 * @see #htmlFoot
+	 */
+	private static final String htmlHeadDark=
+			"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\" \"http://www.w3.org/TR/html4/loose.dtd\">\n"+
+					"<html>\n"+
+					"<head>\n"+
+					"  <style type=\"text/css\">\n"+
+					"  body {font-family: Verdana, Lucida, sans-serif; background-color: #404040; margin: 2px; color: silver;}\n"+
 					"  ul.big li {margin-bottom: 5px;}\n"+
 					"  ol.big li {margin-bottom: 5px;}\n"+
 					"  a {text-decoration: none;}\n"+
@@ -158,7 +182,7 @@ public class FitDialog extends BaseDialog {
 		sp.setBorder(BorderFactory.createLineBorder(Color.GRAY));
 		inputValues.setEditable(false);
 		inputValues.setContentType("text/html");
-		inputValues.setText(htmlHead+Language.tr("FitDialog.PasteOrLoadValues")+htmlFoot);
+		inputValues.setText((FlatLaFHelper.isDark()?htmlHeadDark:htmlHead)+Language.tr("FitDialog.PasteOrLoadValues")+htmlFoot);
 
 		/* Dialogseite "Empirische Verteilung" */
 		tabs.addTab(Language.tr("FitDialog.Tab.EmpiricalDistribution"),p=new JPanel(new BorderLayout()));
@@ -180,7 +204,7 @@ public class FitDialog extends BaseDialog {
 		sp.setBorder(BorderFactory.createLineBorder(Color.GRAY));
 		outputText.setEditable(false);
 		outputText.setContentType("text/html");
-		outputText.setText(htmlHead+htmlFoot);
+		outputText.setText((FlatLaFHelper.isDark()?htmlHeadDark:htmlHead)+htmlFoot);
 
 		/* Dialogseite "Angepasste Verteilung" */
 		tabs.addTab(Language.tr("FitDalog.Tab.FittedDistribution"),p=new JPanel(new BorderLayout()));
@@ -238,7 +262,7 @@ public class FitDialog extends BaseDialog {
 			inputValuesMax=((DataDistributionImpl)obj[0]).densityData.length;
 			hasFloat=(Boolean)obj[1];
 
-			inputValues.setText(htmlHead+sb.toString()+htmlFoot);
+			inputValues.setText((FlatLaFHelper.isDark()?htmlHeadDark:htmlHead)+sb.toString()+htmlFoot);
 			inputValues.setSelectionStart(0);
 			inputValues.setSelectionEnd(0);
 
@@ -277,7 +301,7 @@ public class FitDialog extends BaseDialog {
 			outputReportHTML=fitter.getResult(true);
 			String info="";
 			if (hasFloat) info="<h2>"+Language.tr("Dialog.Title.Information")+"</h2><p>"+Language.tr("FitDialog.InfoValuesRounded")+"</p>";
-			outputText.setText(htmlHead+"<h2>"+Language.tr("FitDalog.FittedDistribution")+"</h2>"+outputReportHTML+info+htmlFoot);
+			outputText.setText((FlatLaFHelper.isDark()?htmlHeadDark:htmlHead)+"<h2>"+Language.tr("FitDalog.FittedDistribution")+"</h2>"+outputReportHTML+info+htmlFoot);
 			outputDistribution.setMaxXValue(inputValuesMax);
 			outputDistribution.setDistribution(fitter.getFitDistribution());
 		}

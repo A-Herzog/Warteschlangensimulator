@@ -19,7 +19,6 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.FlowLayout;
-import java.awt.SystemColor;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.Serializable;
@@ -184,7 +183,7 @@ public class OptimizerPanelAlgorithmParametersDialog extends BaseDialog {
 				return false;
 			}
 		} else {
-			serialChangeSpeed1.setBackground(SystemColor.text);
+			serialChangeSpeed1.setBackground(NumberTools.getTextFieldDefaultBackground());
 		}
 
 		D=NumberTools.getPositiveDouble(serialChangeSpeed2,true);
@@ -196,7 +195,7 @@ public class OptimizerPanelAlgorithmParametersDialog extends BaseDialog {
 				return false;
 			}
 		} else {
-			serialChangeSpeed2.setBackground(SystemColor.text);
+			serialChangeSpeed2.setBackground(NumberTools.getTextFieldDefaultBackground());
 		}
 
 		D=NumberTools.getPositiveDouble(serialChangeSpeed3,true);
@@ -208,7 +207,7 @@ public class OptimizerPanelAlgorithmParametersDialog extends BaseDialog {
 				return false;
 			}
 		} else {
-			serialChangeSpeed3.setBackground(SystemColor.text);
+			serialChangeSpeed3.setBackground(NumberTools.getTextFieldDefaultBackground());
 		}
 
 		D=NumberTools.getPositiveDouble(serialChangeSpeed4,true);
@@ -220,7 +219,7 @@ public class OptimizerPanelAlgorithmParametersDialog extends BaseDialog {
 				return false;
 			}
 		} else {
-			serialChangeSpeed4.setBackground(SystemColor.text);
+			serialChangeSpeed4.setBackground(NumberTools.getTextFieldDefaultBackground());
 		}
 
 		/* Generischer Algorithmus */
@@ -234,7 +233,7 @@ public class OptimizerPanelAlgorithmParametersDialog extends BaseDialog {
 				return false;
 			}
 		} else {
-			geneticPopulationSize.setBackground(SystemColor.text);
+			geneticPopulationSize.setBackground(NumberTools.getTextFieldDefaultBackground());
 		}
 
 		D=NumberTools.getPositiveDouble(geneticEvolutionPressure,true);
@@ -246,7 +245,7 @@ public class OptimizerPanelAlgorithmParametersDialog extends BaseDialog {
 				return false;
 			}
 		} else {
-			geneticEvolutionPressure.setBackground(SystemColor.text);
+			geneticEvolutionPressure.setBackground(NumberTools.getTextFieldDefaultBackground());
 		}
 
 		D=NumberTools.getPositiveDouble(geneticChangeSpeed1,true);
@@ -258,7 +257,7 @@ public class OptimizerPanelAlgorithmParametersDialog extends BaseDialog {
 				return false;
 			}
 		} else {
-			geneticChangeSpeed1.setBackground(SystemColor.text);
+			geneticChangeSpeed1.setBackground(NumberTools.getTextFieldDefaultBackground());
 		}
 
 		D=NumberTools.getPositiveDouble(geneticChangeSpeed2,true);
@@ -270,7 +269,7 @@ public class OptimizerPanelAlgorithmParametersDialog extends BaseDialog {
 				return false;
 			}
 		} else {
-			geneticChangeSpeed2.setBackground(SystemColor.text);
+			geneticChangeSpeed2.setBackground(NumberTools.getTextFieldDefaultBackground());
 		}
 
 		D=NumberTools.getPositiveDouble(geneticChangeSpeed3,true);
@@ -282,7 +281,7 @@ public class OptimizerPanelAlgorithmParametersDialog extends BaseDialog {
 				return false;
 			}
 		} else {
-			geneticChangeSpeed3.setBackground(SystemColor.text);
+			geneticChangeSpeed3.setBackground(NumberTools.getTextFieldDefaultBackground());
 		}
 
 		D=NumberTools.getPositiveDouble(geneticChangeSpeed4,true);
@@ -294,7 +293,7 @@ public class OptimizerPanelAlgorithmParametersDialog extends BaseDialog {
 				return false;
 			}
 		} else {
-			geneticChangeSpeed4.setBackground(SystemColor.text);
+			geneticChangeSpeed4.setBackground(NumberTools.getTextFieldDefaultBackground());
 		}
 
 		D=NumberTools.getPositiveDouble(geneticChangeSpeed5,true);
@@ -306,7 +305,7 @@ public class OptimizerPanelAlgorithmParametersDialog extends BaseDialog {
 				return false;
 			}
 		} else {
-			geneticChangeSpeed5.setBackground(SystemColor.text);
+			geneticChangeSpeed5.setBackground(NumberTools.getTextFieldDefaultBackground());
 		}
 
 		return ok;

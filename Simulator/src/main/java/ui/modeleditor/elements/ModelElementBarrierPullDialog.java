@@ -19,7 +19,6 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.FlowLayout;
-import java.awt.SystemColor;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.Serializable;
@@ -34,6 +33,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import language.Language;
+import mathtools.NumberTools;
 import simulator.simparser.ExpressionCalc;
 import systemtools.MsgBox;
 import ui.infopanel.InfoPanel;
@@ -205,7 +205,7 @@ public class ModelElementBarrierPullDialog extends ModelElementBaseDialog {
 					return false;
 				}
 			} else {
-				maxEdit.setBackground(SystemColor.text);
+				maxEdit.setBackground(NumberTools.getTextFieldDefaultBackground());
 			}
 		} else {
 			maxEdit.setBackground(Color.RED);

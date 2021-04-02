@@ -19,7 +19,6 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.FlowLayout;
-import java.awt.SystemColor;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.Serializable;
@@ -437,7 +436,7 @@ public class ModelElementActionRecordTableModelDialog extends BaseDialog {
 			if (triggerCondition.isSelected()) {
 				final int error=ExpressionMultiEval.check(conditionEdit.getText(),variables);
 				if (error<0) {
-					conditionEdit.setBackground(SystemColor.text);
+					conditionEdit.setBackground(NumberTools.getTextFieldDefaultBackground());
 				} else {
 					conditionEdit.setBackground(Color.RED);
 					ok=false;
@@ -455,14 +454,14 @@ public class ModelElementActionRecordTableModelDialog extends BaseDialog {
 					}
 				}
 			} else {
-				conditionEdit.setBackground(SystemColor.text);
-				conditionMinDistanceEdit.setBackground(SystemColor.text);
+				conditionEdit.setBackground(NumberTools.getTextFieldDefaultBackground());
+				conditionMinDistanceEdit.setBackground(NumberTools.getTextFieldDefaultBackground());
 			}
 
 			if (triggerThreshold.isSelected()) {
 				final int error=ExpressionCalc.check(thresholdExpressionEdit.getText(),variables);
 				if (error<0) {
-					thresholdExpressionEdit.setBackground(SystemColor.text);
+					thresholdExpressionEdit.setBackground(NumberTools.getTextFieldDefaultBackground());
 				} else {
 					thresholdExpressionEdit.setBackground(Color.RED);
 					ok=false;
@@ -480,8 +479,8 @@ public class ModelElementActionRecordTableModelDialog extends BaseDialog {
 					}
 				}
 			} else {
-				thresholdExpressionEdit.setBackground(SystemColor.text);
-				thresholdValueEdit.setBackground(SystemColor.text);
+				thresholdExpressionEdit.setBackground(NumberTools.getTextFieldDefaultBackground());
+				thresholdValueEdit.setBackground(NumberTools.getTextFieldDefaultBackground());
 			}
 
 			if (triggerSignal.isSelected()) {
@@ -502,7 +501,7 @@ public class ModelElementActionRecordTableModelDialog extends BaseDialog {
 			boolean varOk=ExpressionCalc.checkVariableName(varName);
 			for (String add: RunModel.additionalVariables) varOk=varOk && !varName.equalsIgnoreCase(add);
 			if (varOk) {
-				assignVariableEdit.setBackground(SystemColor.text);
+				assignVariableEdit.setBackground(NumberTools.getTextFieldDefaultBackground());
 			} else {
 				ok=false;
 				assignVariableEdit.setBackground(Color.RED);
@@ -513,7 +512,7 @@ public class ModelElementActionRecordTableModelDialog extends BaseDialog {
 			}
 			final int error=ExpressionCalc.check(assignExpressionEdit.getText(),getExtVariablesList(variables,varName));
 			if (error<0) {
-				assignExpressionEdit.setBackground(SystemColor.text);
+				assignExpressionEdit.setBackground(NumberTools.getTextFieldDefaultBackground());
 			} else {
 				assignExpressionEdit.setBackground(Color.RED);
 				ok=false;
@@ -523,8 +522,8 @@ public class ModelElementActionRecordTableModelDialog extends BaseDialog {
 				}
 			}
 		} else {
-			assignVariableEdit.setBackground(SystemColor.text);
-			assignExpressionEdit.setBackground(SystemColor.text);
+			assignVariableEdit.setBackground(NumberTools.getTextFieldDefaultBackground());
+			assignExpressionEdit.setBackground(NumberTools.getTextFieldDefaultBackground());
 		}
 
 		if (actionAnalog.isSelected()) {
@@ -537,7 +536,7 @@ public class ModelElementActionRecordTableModelDialog extends BaseDialog {
 			}
 			final int error=ExpressionCalc.check(analogExpressionEdit.getText(),variables);
 			if (error<0) {
-				analogExpressionEdit.setBackground(SystemColor.text);
+				analogExpressionEdit.setBackground(NumberTools.getTextFieldDefaultBackground());
 			} else {
 				analogExpressionEdit.setBackground(Color.RED);
 				ok=false;
@@ -547,7 +546,7 @@ public class ModelElementActionRecordTableModelDialog extends BaseDialog {
 				}
 			}
 		} else {
-			analogExpressionEdit.setBackground(SystemColor.text);
+			analogExpressionEdit.setBackground(NumberTools.getTextFieldDefaultBackground());
 		}
 
 		if (actionSignal.isSelected()) {
@@ -559,7 +558,7 @@ public class ModelElementActionRecordTableModelDialog extends BaseDialog {
 					return false;
 				}
 			} else {
-				signalNameEdit.setBackground(SystemColor.text);
+				signalNameEdit.setBackground(NumberTools.getTextFieldDefaultBackground());
 			}
 		}
 

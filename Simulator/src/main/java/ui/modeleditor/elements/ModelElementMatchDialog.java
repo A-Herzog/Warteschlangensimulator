@@ -18,7 +18,6 @@ package ui.modeleditor.elements;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.FlowLayout;
-import java.awt.SystemColor;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.Serializable;
@@ -234,7 +233,7 @@ public class ModelElementMatchDialog extends ModelElementBaseDialog {
 				return false;
 			}
 		} else {
-			newTypeField.setBackground(SystemColor.text);
+			newTypeField.setBackground(NumberTools.getTextFieldDefaultBackground());
 		}
 
 		if (optionTemporary.isSelected() && tempTypeField.getText().isEmpty()) {
@@ -245,7 +244,7 @@ public class ModelElementMatchDialog extends ModelElementBaseDialog {
 				return false;
 			}
 		} else {
-			tempTypeField.setBackground(SystemColor.text);
+			tempTypeField.setBackground(NumberTools.getTextFieldDefaultBackground());
 		}
 
 		if (optionPropertyNumber.isSelected()) {
@@ -267,7 +266,7 @@ public class ModelElementMatchDialog extends ModelElementBaseDialog {
 				return false;
 			}
 		} else {
-			optionPropertyTextField.setBackground(SystemColor.text);
+			optionPropertyTextField.setBackground(NumberTools.getTextFieldDefaultBackground());
 		}
 
 		return ok;

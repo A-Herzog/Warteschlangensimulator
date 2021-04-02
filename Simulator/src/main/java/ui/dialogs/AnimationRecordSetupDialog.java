@@ -19,7 +19,6 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.FlowLayout;
-import java.awt.SystemColor;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.io.File;
@@ -38,6 +37,7 @@ import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 import language.Language;
+import mathtools.NumberTools;
 import mathtools.distribution.swing.CommonVariables;
 import systemtools.BaseDialog;
 import systemtools.MsgBox;
@@ -183,7 +183,7 @@ public class AnimationRecordSetupDialog extends BaseDialog {
 				return false;
 			}
 		} else {
-			editVideo.setBackground(SystemColor.text);
+			editVideo.setBackground(NumberTools.getTextFieldDefaultBackground());
 		}
 
 		return ok;

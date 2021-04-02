@@ -20,7 +20,6 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.SystemColor;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.Serializable;
@@ -221,7 +220,7 @@ public class ModelElementAnimationBarStackDialog extends ModelElementBaseDialog 
 				ok=true;
 			}
 		} else {
-			editMaximum.setBackground(SystemColor.text);
+			editMaximum.setBackground(NumberTools.getTextFieldDefaultBackground());
 		}
 
 		return ok;

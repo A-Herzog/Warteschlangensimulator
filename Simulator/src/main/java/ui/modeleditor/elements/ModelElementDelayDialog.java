@@ -19,7 +19,6 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.FlowLayout;
-import java.awt.SystemColor;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.Serializable;
@@ -34,6 +33,7 @@ import javax.swing.JTextField;
 import org.apache.commons.math3.distribution.AbstractRealDistribution;
 
 import language.Language;
+import mathtools.NumberTools;
 import simulator.simparser.ExpressionCalc;
 import systemtools.MsgBox;
 import ui.infopanel.InfoPanel;
@@ -171,10 +171,10 @@ public class ModelElementDelayDialog extends ModelElementBaseDialog {
 				}
 				ok=false;
 			} else {
-				textCosts.setBackground(SystemColor.text);
+				textCosts.setBackground(NumberTools.getTextFieldDefaultBackground());
 			}
 		} else {
-			textCosts.setBackground(SystemColor.text);
+			textCosts.setBackground(NumberTools.getTextFieldDefaultBackground());
 		}
 
 		return ok;

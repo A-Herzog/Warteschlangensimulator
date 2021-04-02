@@ -20,7 +20,6 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.SystemColor;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.Serializable;
@@ -232,7 +231,7 @@ public class ModelElementAnimationBarChartDialog extends ModelElementBaseDialog 
 				ok=false;
 			}
 		} else {
-			minValueEdit.setBackground(SystemColor.text);
+			minValueEdit.setBackground(NumberTools.getTextFieldDefaultBackground());
 		}
 
 		Double maxValue=null;
@@ -254,7 +253,7 @@ public class ModelElementAnimationBarChartDialog extends ModelElementBaseDialog 
 				}
 			}
 		} else {
-			maxValueEdit.setBackground(SystemColor.text);
+			maxValueEdit.setBackground(NumberTools.getTextFieldDefaultBackground());
 		}
 
 		return ok;

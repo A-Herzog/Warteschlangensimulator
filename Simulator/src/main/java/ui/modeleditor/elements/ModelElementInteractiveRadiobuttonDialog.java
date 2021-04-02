@@ -18,7 +18,6 @@ package ui.modeleditor.elements;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
-import java.awt.SystemColor;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.Serializable;
@@ -129,7 +128,7 @@ public class ModelElementInteractiveRadiobuttonDialog extends ModelElementBaseDi
 				return false;
 			}
 		} else {
-			editVariable.setBackground(SystemColor.text);
+			editVariable.setBackground(NumberTools.getTextFieldDefaultBackground());
 		}
 
 		final Double valueChecked=NumberTools.getDouble(editValueChecked,true);

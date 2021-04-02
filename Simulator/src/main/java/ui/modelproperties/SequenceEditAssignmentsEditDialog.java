@@ -20,7 +20,6 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.SystemColor;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.io.Serializable;
@@ -142,7 +141,7 @@ public class SequenceEditAssignmentsEditDialog extends BaseDialog {
 				return false;
 			}
 		} else {
-			expressionEdit.setBackground(SystemColor.text);
+			expressionEdit.setBackground(NumberTools.getTextFieldDefaultBackground());
 		}
 
 		return ok;

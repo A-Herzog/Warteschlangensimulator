@@ -17,7 +17,6 @@ package ui.calculator;
 
 import java.awt.Color;
 import java.awt.FlowLayout;
-import java.awt.SystemColor;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
@@ -311,7 +310,7 @@ public class QueueingCalculatorInputPanel {
 	 */
 	public boolean isValueOk() {
 		final boolean ok=isValueOkIntern();
-		field.setBackground(ok?SystemColor.text:Color.RED);
+		field.setBackground(ok?NumberTools.getTextFieldDefaultBackground():Color.RED);
 		return ok;
 	}
 

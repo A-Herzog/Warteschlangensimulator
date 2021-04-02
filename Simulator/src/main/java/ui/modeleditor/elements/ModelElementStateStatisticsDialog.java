@@ -17,7 +17,6 @@ package ui.modeleditor.elements;
 
 import java.awt.Color;
 import java.awt.Component;
-import java.awt.SystemColor;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.Serializable;
@@ -27,6 +26,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import language.Language;
+import mathtools.NumberTools;
 import systemtools.MsgBox;
 import ui.infopanel.InfoPanel;
 import ui.modeleditor.ModelElementBaseDialog;
@@ -96,7 +96,7 @@ public class ModelElementStateStatisticsDialog extends ModelElementBaseDialog {
 			if (showErrorMessage) MsgBox.error(this,Language.tr("Surface.StateStatistics.Dialog.GroupName.Error.Title"),Language.tr("Surface.StateStatistics.Dialog.GroupName.Error.Info"));
 			return false;
 		}
-		groupName.setBackground(SystemColor.text);
+		groupName.setBackground(NumberTools.getTextFieldDefaultBackground());
 		return true;
 	}
 

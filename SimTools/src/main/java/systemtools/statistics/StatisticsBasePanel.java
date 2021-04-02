@@ -57,6 +57,7 @@ import javax.swing.JToolBar;
 import javax.swing.JTree;
 import javax.swing.KeyStroke;
 import javax.swing.SwingUtilities;
+import javax.swing.UIManager;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreeNode;
@@ -547,6 +548,11 @@ public abstract class StatisticsBasePanel extends JPanel implements AbstractRepo
 	protected final int numberOfViewers;
 
 	/**
+	 * Erfolgt die Darstellung im Dark-Modus?
+	 */
+	public final boolean isDark;
+
+	/**
 	 * Konstruktor der Klasse <code>StatisticsBasePanel</code>
 	 * @param numberOfViewers	Anzahl der nebeneinander anzuzeigenden Ergebnisse
 	 * @param title	Titel, der über der Baumstruktur angezeigt wird
@@ -563,6 +569,9 @@ public abstract class StatisticsBasePanel extends JPanel implements AbstractRepo
 		this.storeLastRoot=storeLastRoot;
 
 		statisticsXml=new XMLData[numberOfViewers];
+
+		final Color treeBackground=UIManager.getColor("Tree.background");
+		isDark=(treeBackground!=null && !treeBackground.equals(Color.WHITE));
 
 		/* Splitter initialisieren */
 
@@ -590,7 +599,8 @@ public abstract class StatisticsBasePanel extends JPanel implements AbstractRepo
 			@Override
 			protected void nodeSelected(StatisticNode node, DefaultMutableTreeNode treeNode) {updateDataPanel(node,treeNode);}
 		});
-		tree.setBackground(new Color(0xFF,0xFF,0xF8));
+		System.out.println();
+		if (!isDark) tree.setBackground(new Color(0xFF,0xFF,0xF8));
 		sp.setBorder(BorderFactory.createLineBorder(Color.GRAY,1));
 		treePanel.add(sp,BorderLayout.CENTER);
 

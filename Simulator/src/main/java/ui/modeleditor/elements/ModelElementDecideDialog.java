@@ -20,7 +20,6 @@ import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.FlowLayout;
-import java.awt.SystemColor;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.Serializable;
@@ -482,7 +481,7 @@ public final class ModelElementDecideDialog extends ModelElementBaseDialog {
 			final JTextField field=conditions.get(i);
 			final String condition=field.getText();
 			final int error=ExpressionMultiEval.check(condition,element.getSurface().getMainSurfaceVariableNames(element.getModel().getModelVariableNames(),true));
-			if (error>=0) field.setBackground(Color.red); else field.setBackground(SystemColor.text);
+			if (error>=0) field.setBackground(Color.red); else field.setBackground(NumberTools.getTextFieldDefaultBackground());
 
 			if (error>=0) {
 				if (showErrorDialog) {
@@ -555,7 +554,7 @@ public final class ModelElementDecideDialog extends ModelElementBaseDialog {
 				return false;
 			}
 		} else {
-			key.setBackground(SystemColor.text);
+			key.setBackground(NumberTools.getTextFieldDefaultBackground());
 		}
 
 		/* Werte */
@@ -568,7 +567,7 @@ public final class ModelElementDecideDialog extends ModelElementBaseDialog {
 					return false;
 				}
 			} else {
-				values.get(i).setBackground(SystemColor.text);
+				values.get(i).setBackground(NumberTools.getTextFieldDefaultBackground());
 			}
 		}
 

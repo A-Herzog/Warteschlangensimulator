@@ -19,7 +19,6 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.FlowLayout;
-import java.awt.SystemColor;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.Serializable;
@@ -363,7 +362,7 @@ public class ModelElementTransportTransporterSourceDialog extends ModelElementBa
 				return false;
 			}
 		} else {
-			requestPriority.setBackground(SystemColor.text);
+			requestPriority.setBackground(NumberTools.getTextFieldDefaultBackground());
 		}
 
 		/* Parkplatz: Kapazität */
@@ -386,7 +385,7 @@ public class ModelElementTransportTransporterSourceDialog extends ModelElementBa
 				return false;
 			}
 		} else {
-			waitingPriority.setBackground(SystemColor.text);
+			waitingPriority.setBackground(NumberTools.getTextFieldDefaultBackground());
 		}
 
 		/* Tab "Prioritäten" */

@@ -19,7 +19,6 @@ import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.FlowLayout;
-import java.awt.SystemColor;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.Serializable;
@@ -32,6 +31,7 @@ import org.apache.commons.math3.distribution.AbstractRealDistribution;
 import org.apache.commons.math3.distribution.ExponentialDistribution;
 
 import language.Language;
+import mathtools.NumberTools;
 import mathtools.distribution.swing.JDistributionPanel;
 import simulator.editmodel.EditModel;
 import simulator.simparser.ExpressionCalc;
@@ -181,7 +181,7 @@ public class TransporterTableModelDialogLoadingTimes extends JPanel {
 						return false;
 					}
 				} else {
-					expression.setBackground(SystemColor.text);
+					expression.setBackground(NumberTools.getTextFieldDefaultBackground());
 				}
 			}
 		}

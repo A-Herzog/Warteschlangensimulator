@@ -36,6 +36,7 @@ import javax.swing.Icon;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
+import javax.swing.UIManager;
 
 import language.Language;
 import tools.SetupData;
@@ -45,6 +46,7 @@ import ui.modeleditor.coreelements.ModelElement;
 import ui.modeleditor.coreelements.ModelElementPosition;
 import ui.modeleditor.elements.ModelElementSub;
 import ui.modeleditor.fastpaint.Shapes;
+import ui.tools.FlatLaFHelper;
 
 /**
  * Diese Klasse bietet statische Hilfsroutinen zum
@@ -157,6 +159,37 @@ public class ElementRendererTools {
 	}
 
 	/**
+	 * Hintergrundfarbe für Listeneinträge
+	 * @see #getBackgroundColor(boolean)
+	 */
+	private static final Color listBackgroundColor=UIManager.getColor("List.background");
+
+	/**
+	 * Hintergrundfarbe für selektierte Listeneinträge (Systemvorgabe)
+	 * @see #getBackgroundColor(boolean)
+	 */
+	private static final Color listBackgroundColorSelected=UIManager.getColor("List.selectionBackground");
+
+	/**
+	 * Hintergrundfarbe für selektierte Listeneinträge (dezentere Variante bei hellen Layouts)
+	 * @see #getBackgroundColor(boolean)
+	 */
+	private static final Color listBackgroundColorSelectedCustom=new Color(200,220,255);
+
+	/**
+	 * Liefert die Hintergrundfarben für einen Listeneintrag für ein Element
+	 * @param isSelected	Soll die Hintergrundfarbe für selektierte Eintäge verwendet werden?
+	 * @return	Hintergrundfarbe für den Listeneintrag
+	 */
+	public static Color getBackgroundColor(final boolean isSelected) {
+		if (FlatLaFHelper.isDark()) {
+			return isSelected?listBackgroundColorSelected:listBackgroundColor;
+		} else {
+			return isSelected?listBackgroundColorSelectedCustom:listBackgroundColor;
+		}
+	}
+
+	/**
 	 * Liefert den Listenzellen-Renderer für ein Element
 	 * @param element	Element das dargestellt werden soll (darf <code>null</code> sein)
 	 * @param zoom	Zoomfaktor für die Darstellung
@@ -166,7 +199,7 @@ public class ElementRendererTools {
 	 */
 	public static JPanel getElementRenderer(final ModelElementPosition element, final double zoom, final boolean showIDs, final boolean isSelected) {
 		final String name=ModelElementCatalog.getCatalog().getMenuNameWithDefault(element);
-		final Color backgroundColor=isSelected?(new Color(200,220,255)):Color.WHITE;
+		final Color backgroundColor=getBackgroundColor(isSelected);
 
 		final JPanel panel=new JPanel(new BorderLayout());
 		panel.setToolTipText(getTooltip(element));
@@ -516,7 +549,7 @@ public class ElementRendererTools {
 
 		@Override
 		public Component getListCellRendererComponent(JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
-			final Color backgroundColor=isSelected?(new Color(200,220,255)):Color.WHITE;
+			final Color backgroundColor=ElementRendererTools.getBackgroundColor(isSelected);
 
 			if (value instanceof InfoRecord) {
 				final InfoRecord infoRecord=(InfoRecord)value;

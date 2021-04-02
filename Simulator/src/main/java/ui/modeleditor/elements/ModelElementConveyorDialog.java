@@ -19,7 +19,6 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.FlowLayout;
-import java.awt.SystemColor;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.Serializable;
@@ -284,14 +283,14 @@ public final class ModelElementConveyorDialog extends ModelElementBaseDialog {
 				return false;
 			}
 		} else {
-			capacityNeededGlobal.setBackground(SystemColor.text);
+			capacityNeededGlobal.setBackground(NumberTools.getTextFieldDefaultBackground());
 		}
 
 		/* Kapazität - Benötigt individuell */
 		for (int i=0;i<capacityNeeded.size();i++) {
 			final JTextField field=capacityNeeded.get(i);
 			if (field.getText().trim().isEmpty()) {
-				field.setBackground(SystemColor.text);
+				field.setBackground(NumberTools.getTextFieldDefaultBackground());
 			} else {
 				error=ExpressionCalc.check(field.getText(),variables);
 				if (error>=0) {
@@ -302,7 +301,7 @@ public final class ModelElementConveyorDialog extends ModelElementBaseDialog {
 						return false;
 					}
 				} else {
-					field.setBackground(SystemColor.text);
+					field.setBackground(NumberTools.getTextFieldDefaultBackground());
 				}
 			}
 		}

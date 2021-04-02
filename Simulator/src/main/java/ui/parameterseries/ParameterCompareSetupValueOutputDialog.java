@@ -20,7 +20,6 @@ import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.FlowLayout;
-import java.awt.SystemColor;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.File;
@@ -36,6 +35,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import language.Language;
+import mathtools.NumberTools;
 import mathtools.distribution.tools.FileDropper;
 import mathtools.distribution.tools.FileDropperData;
 import simulator.editmodel.EditModel;
@@ -295,7 +295,7 @@ public class ParameterCompareSetupValueOutputDialog extends BaseDialog {
 				return false;
 			}
 		} else {
-			nameEdit.setBackground(SystemColor.text);
+			nameEdit.setBackground(NumberTools.getTextFieldDefaultBackground());
 		}
 
 		switch (modeCombo.getSelectedIndex()) {
@@ -317,7 +317,7 @@ public class ParameterCompareSetupValueOutputDialog extends BaseDialog {
 					return false;
 				}
 			} else {
-				scriptEditJS.setBackground(SystemColor.text);
+				scriptEditJS.setBackground(NumberTools.getTextFieldDefaultBackground());
 			}
 			break;
 		case 2:
@@ -329,7 +329,7 @@ public class ParameterCompareSetupValueOutputDialog extends BaseDialog {
 					return false;
 				}
 			} else {
-				scriptEditJava.setBackground(SystemColor.text);
+				scriptEditJava.setBackground(NumberTools.getTextFieldDefaultBackground());
 			}
 			break;
 		case 3:
@@ -342,7 +342,7 @@ public class ParameterCompareSetupValueOutputDialog extends BaseDialog {
 					return false;
 				}
 			} else {
-				expressionEdit.setBackground(SystemColor.text);
+				expressionEdit.setBackground(NumberTools.getTextFieldDefaultBackground());
 			}
 			break;
 		}

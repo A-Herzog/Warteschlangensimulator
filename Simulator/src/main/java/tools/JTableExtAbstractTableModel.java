@@ -35,6 +35,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JToolBar;
 import javax.swing.SwingConstants;
+import javax.swing.UIManager;
 import javax.swing.table.AbstractTableModel;
 
 /**
@@ -43,7 +44,7 @@ import javax.swing.table.AbstractTableModel;
  * angezeigt werden können.
  * @see JTableExt
  * @author Alexander Herzog
- * @version 1.3
+ * @version 1.4
  */
 public abstract class JTableExtAbstractTableModel extends AbstractTableModel {
 	/**
@@ -51,6 +52,21 @@ public abstract class JTableExtAbstractTableModel extends AbstractTableModel {
 	 * @see Serializable
 	 */
 	private static final long serialVersionUID = -4249212671820906541L;
+
+	/**
+	 * Hintergrundfarbe für einzelne Tabellenzellen
+	 * @see #getCellBackgroundColor()
+	 */
+	private Color cellBackgroundColor;
+
+	/**
+	 * Liefert die Hintergrundfarbe für die einzelnen Tabellenzellen.
+	 * @return	Hintergrundfarbe für einzelne Tabellenzellen
+	 */
+	protected Color getCellBackgroundColor() {
+		if (cellBackgroundColor==null) cellBackgroundColor=UIManager.getColor("Table.background");
+		return cellBackgroundColor;
+	}
 
 	/**
 	 * Erstellt ein Panel für eine Tabellenzelle aus mehreren Schaltflächen
@@ -177,7 +193,7 @@ public abstract class JTableExtAbstractTableModel extends AbstractTableModel {
 	protected final JPanel makePanel(final String text, final URL iconURL) {
 		JPanel p=new JPanel(new BorderLayout());
 		p.setBorder(BorderFactory.createEmptyBorder(5,5,5,5));
-		p.setBackground(Color.WHITE);
+		p.setBackground(getCellBackgroundColor());
 		final JLabel label=new JLabel(text);
 		if (iconURL!=null) label.setIcon(new ImageIcon(iconURL));
 		p.add(label,BorderLayout.CENTER);
@@ -193,7 +209,7 @@ public abstract class JTableExtAbstractTableModel extends AbstractTableModel {
 	protected final JPanel makePanelIcon(final String text, final Icon icon) {
 		JPanel p=new JPanel(new BorderLayout());
 		p.setBorder(BorderFactory.createEmptyBorder(5,5,5,5));
-		p.setBackground(Color.WHITE);
+		p.setBackground(getCellBackgroundColor());
 		final JLabel label=new JLabel(text);
 		if (icon!=null) label.setIcon(icon);
 		p.add(label,BorderLayout.CENTER);
@@ -208,7 +224,7 @@ public abstract class JTableExtAbstractTableModel extends AbstractTableModel {
 	protected final JPanel makePanel(final BufferedImage image) {
 		JPanel p=new JPanel(new BorderLayout());
 		p.setBorder(BorderFactory.createEmptyBorder(5,5,5,5));
-		p.setBackground(Color.WHITE);
+		p.setBackground(getCellBackgroundColor());
 		final JLabel label=new JLabel();
 		label.setIcon(new ImageIcon(image));
 		p.add(label,BorderLayout.CENTER);
@@ -248,7 +264,7 @@ public abstract class JTableExtAbstractTableModel extends AbstractTableModel {
 	protected final JPanel makeEditPanel(final URL labelIconURL, final String title, final URL iconURL, final ActionListener listener) {
 		JPanel p=new JPanel(new BorderLayout());
 		p.setBorder(BorderFactory.createEmptyBorder(5,5,5,5));
-		p.setBackground(Color.WHITE);
+		p.setBackground(getCellBackgroundColor());
 		final JLabel label=new JLabel(title);
 		if (labelIconURL!=null) label.setIcon(new ImageIcon(labelIconURL));
 		p.add(label,BorderLayout.CENTER);
@@ -268,7 +284,7 @@ public abstract class JTableExtAbstractTableModel extends AbstractTableModel {
 	protected final JPanel makeEditPanel(final URL labelIconURL, final String title, final Icon icon, final ActionListener listener) {
 		JPanel p=new JPanel(new BorderLayout());
 		p.setBorder(BorderFactory.createEmptyBorder(5,5,5,5));
-		p.setBackground(Color.WHITE);
+		p.setBackground(getCellBackgroundColor());
 		final JLabel label=new JLabel(title);
 		if (labelIconURL!=null) label.setIcon(new ImageIcon(labelIconURL));
 		p.add(label,BorderLayout.CENTER);
@@ -313,7 +329,7 @@ public abstract class JTableExtAbstractTableModel extends AbstractTableModel {
 	protected final JPanel makeEditPanelSmallBorder(final URL labelIconURL, final String title, final URL iconURL, final String hint, final ActionListener listener) {
 		JPanel p=new JPanel(new BorderLayout());
 		p.setBorder(BorderFactory.createEmptyBorder(1,1,1,1));
-		p.setBackground(Color.WHITE);
+		p.setBackground(getCellBackgroundColor());
 		final JLabel label=new JLabel(title);
 		if (labelIconURL!=null) label.setIcon(new ImageIcon(labelIconURL));
 		p.add(label,BorderLayout.CENTER);
@@ -336,7 +352,7 @@ public abstract class JTableExtAbstractTableModel extends AbstractTableModel {
 	protected final JPanel makeEditPanelSmallBorder(final URL labelIconURL, final String title, final Icon icon, final String hint, final ActionListener listener) {
 		JPanel p=new JPanel(new BorderLayout());
 		p.setBorder(BorderFactory.createEmptyBorder(1,1,1,1));
-		p.setBackground(Color.WHITE);
+		p.setBackground(getCellBackgroundColor());
 		final JLabel label=new JLabel(title);
 		if (labelIconURL!=null) label.setIcon(new ImageIcon(labelIconURL));
 		p.add(label,BorderLayout.CENTER);
@@ -359,7 +375,7 @@ public abstract class JTableExtAbstractTableModel extends AbstractTableModel {
 	protected final JPanel makeEditPanelSmallBorder(final Icon labelIcon, final String title, final Icon icon, final String hint, final ActionListener listener) {
 		JPanel p=new JPanel(new BorderLayout());
 		p.setBorder(BorderFactory.createEmptyBorder(1,1,1,1));
-		p.setBackground(Color.WHITE);
+		p.setBackground(getCellBackgroundColor());
 		final JLabel label=new JLabel(title);
 		if (labelIcon!=null) label.setIcon(labelIcon);
 		p.add(label,BorderLayout.CENTER);
@@ -419,7 +435,7 @@ public abstract class JTableExtAbstractTableModel extends AbstractTableModel {
 	protected final JPanel makeEditPanelSmallBorderIcon(final Icon labelIcon, final String title, final URL[] iconURL, final String[] hint, final ActionListener[] listener) {
 		JPanel p=new JPanel(new BorderLayout());
 		p.setBorder(BorderFactory.createEmptyBorder(1,1,1,1));
-		p.setBackground(Color.WHITE);
+		p.setBackground(getCellBackgroundColor());
 		final JLabel label=new JLabel(title);
 		if (labelIcon!=null) label.setIcon(labelIcon);
 		p.add(label,BorderLayout.CENTER);
@@ -450,7 +466,7 @@ public abstract class JTableExtAbstractTableModel extends AbstractTableModel {
 	protected final JPanel makeEditPanelSmallBorderIcon(final Icon labelIcon, final String title, final Icon[] icons, final String[] hint, final ActionListener[] listener) {
 		JPanel p=new JPanel(new BorderLayout());
 		p.setBorder(BorderFactory.createEmptyBorder(1,1,1,1));
-		p.setBackground(Color.WHITE);
+		p.setBackground(getCellBackgroundColor());
 		final JLabel label=new JLabel(title);
 		if (labelIcon!=null) label.setIcon(labelIcon);
 		p.add(label,BorderLayout.CENTER);
@@ -475,7 +491,7 @@ public abstract class JTableExtAbstractTableModel extends AbstractTableModel {
 	protected final JPanel makeEmptyPanel() {
 		JPanel p=new JPanel(new FlowLayout(FlowLayout.LEFT));
 		p.setBorder(BorderFactory.createEmptyBorder());
-		p.setBackground(Color.WHITE);
+		p.setBackground(getCellBackgroundColor());
 		return p;
 	}
 }

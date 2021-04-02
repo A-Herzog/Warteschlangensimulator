@@ -19,7 +19,6 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.FlowLayout;
-import java.awt.SystemColor;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.io.Serializable;
@@ -31,6 +30,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import language.Language;
+import mathtools.NumberTools;
 import simulator.simparser.ExpressionMultiEval;
 import systemtools.MsgBox;
 import ui.infopanel.InfoPanel;
@@ -126,7 +126,7 @@ public class ModelElementHoldJSDialog extends ModelElementBaseDialog {
 		final String text=condition.getText().trim();
 
 		if (text.isEmpty()) {
-			condition.setBackground(SystemColor.text);
+			condition.setBackground(NumberTools.getTextFieldDefaultBackground());
 			return true;
 		}
 
@@ -136,7 +136,7 @@ public class ModelElementHoldJSDialog extends ModelElementBaseDialog {
 			if (showErrorMessage) MsgBox.error(this,Language.tr("Surface.HoldJS.Dialog.Condition.Error.Title"),String.format(Language.tr("Surface.HoldJS.Dialog.Condition.Error.Info"),text,error+1));
 			return false;
 		}
-		condition.setBackground(SystemColor.text);
+		condition.setBackground(NumberTools.getTextFieldDefaultBackground());
 		return true;
 	}
 

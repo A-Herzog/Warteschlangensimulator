@@ -19,7 +19,6 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.FlowLayout;
-import java.awt.SystemColor;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.File;
@@ -224,7 +223,7 @@ public class ModelElementInputDialog extends ModelElementBaseDialog {
 				return false;
 			}
 		} else {
-			fileNameEdit.setBackground(SystemColor.text);
+			fileNameEdit.setBackground(NumberTools.getTextFieldDefaultBackground());
 		}
 
 		/* Vorgabewert */
@@ -238,7 +237,7 @@ public class ModelElementInputDialog extends ModelElementBaseDialog {
 				}
 			}
 		} else {
-			defaultValueEdit.setBackground(SystemColor.text);
+			defaultValueEdit.setBackground(NumberTools.getTextFieldDefaultBackground());
 		}
 
 		/* Variable */
@@ -264,7 +263,7 @@ public class ModelElementInputDialog extends ModelElementBaseDialog {
 		pack();
 
 		if (varNameOk) {
-			variableEdit.setBackground(SystemColor.text);
+			variableEdit.setBackground(NumberTools.getTextFieldDefaultBackground());
 		} else {
 			variableEdit.setBackground(Color.red);
 			if (showErrorMessage) {

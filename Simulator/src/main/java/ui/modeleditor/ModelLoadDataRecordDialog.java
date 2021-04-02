@@ -19,7 +19,6 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.FlowLayout;
-import java.awt.SystemColor;
 import java.io.Serializable;
 
 import javax.swing.JLabel;
@@ -27,6 +26,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import language.Language;
+import mathtools.NumberTools;
 import mathtools.Table;
 import simulator.editmodel.EditModel;
 import systemtools.BaseDialog;
@@ -123,7 +123,7 @@ public class ModelLoadDataRecordDialog extends BaseDialog {
 				return false;
 			}
 		} else {
-			cell.setBackground(SystemColor.text);
+			cell.setBackground(NumberTools.getTextFieldDefaultBackground());
 		}
 
 		if (!editor.checkData(showErrorMessage)) ok=false;

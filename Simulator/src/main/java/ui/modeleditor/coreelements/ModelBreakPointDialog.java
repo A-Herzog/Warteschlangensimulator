@@ -19,7 +19,6 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.FlowLayout;
-import java.awt.SystemColor;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.Serializable;
@@ -35,6 +34,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import language.Language;
+import mathtools.NumberTools;
 import simulator.editmodel.EditModel;
 import simulator.runmodel.SimulationData;
 import simulator.simparser.ExpressionMultiEval;
@@ -162,7 +162,7 @@ public class ModelBreakPointDialog extends BaseDialog {
 
 		final String condition=editCondition.getText().trim();
 		if (condition.isEmpty()) {
-			editCondition.setBackground(SystemColor.text);
+			editCondition.setBackground(NumberTools.getTextFieldDefaultBackground());
 		} else {
 			final int error=ExpressionMultiEval.check(condition,model.surface.getMainSurfaceVariableNames(model.getModelVariableNames(),false));
 			if (error>=0) {
@@ -173,7 +173,7 @@ public class ModelBreakPointDialog extends BaseDialog {
 				}
 				ok=false;
 			} else {
-				editCondition.setBackground(SystemColor.text);
+				editCondition.setBackground(NumberTools.getTextFieldDefaultBackground());
 			}
 		}
 

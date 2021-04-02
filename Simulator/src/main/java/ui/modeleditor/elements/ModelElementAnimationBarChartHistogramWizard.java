@@ -20,7 +20,6 @@ import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Graphics;
-import java.awt.SystemColor;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
@@ -435,7 +434,7 @@ public class ModelElementAnimationBarChartHistogramWizard extends BaseDialog {
 				}
 			}
 		} else {
-			editNr.setBackground(SystemColor.text);
+			editNr.setBackground(NumberTools.getTextFieldDefaultBackground());
 		}
 
 		I=NumberTools.getNotNegativeInteger(editStart,true);

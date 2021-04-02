@@ -18,7 +18,6 @@ package ui.modeleditor.coreelements;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
-import java.awt.SystemColor;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.Serializable;
@@ -155,7 +154,7 @@ public class ClientDataTableModelDialog extends BaseDialog {
 					return false;
 				}
 			} else {
-				editKey.setBackground(SystemColor.text);
+				editKey.setBackground(NumberTools.getTextFieldDefaultBackground());
 			}
 		}
 
@@ -177,7 +176,7 @@ public class ClientDataTableModelDialog extends BaseDialog {
 					return false;
 				}
 			} else {
-				editValue.setBackground(SystemColor.text);
+				editValue.setBackground(NumberTools.getTextFieldDefaultBackground());
 			}
 		}
 

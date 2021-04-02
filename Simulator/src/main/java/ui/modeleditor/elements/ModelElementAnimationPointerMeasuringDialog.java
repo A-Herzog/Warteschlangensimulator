@@ -19,7 +19,6 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.FlowLayout;
-import java.awt.SystemColor;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.Serializable;
@@ -176,7 +175,7 @@ public class ModelElementAnimationPointerMeasuringDialog extends ModelElementBas
 					return false;
 				}
 			} else {
-				editExpression.setBackground(SystemColor.text);
+				editExpression.setBackground(NumberTools.getTextFieldDefaultBackground());
 			}
 		}
 

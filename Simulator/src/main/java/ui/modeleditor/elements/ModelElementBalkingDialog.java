@@ -19,7 +19,6 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.FlowLayout;
-import java.awt.SystemColor;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.Serializable;
@@ -263,7 +262,7 @@ public class ModelElementBalkingDialog extends ModelElementBaseDialog {
 				}
 			}
 		} else {
-			probability.setBackground(SystemColor.text);
+			probability.setBackground(NumberTools.getTextFieldDefaultBackground());
 		}
 
 		if (optionCondition.isSelected()) {
@@ -276,10 +275,10 @@ public class ModelElementBalkingDialog extends ModelElementBaseDialog {
 					return false;
 				}
 			} else {
-				expression.setBackground(SystemColor.text);
+				expression.setBackground(NumberTools.getTextFieldDefaultBackground());
 			}
 		} else {
-			expression.setBackground(SystemColor.text);
+			expression.setBackground(NumberTools.getTextFieldDefaultBackground());
 		}
 
 		return ok;

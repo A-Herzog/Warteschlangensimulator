@@ -19,7 +19,6 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.FlowLayout;
-import java.awt.SystemColor;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.Serializable;
@@ -35,6 +34,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import language.Language;
+import mathtools.NumberTools;
 import simulator.elements.RunElementTeleportSource;
 import simulator.simparser.ExpressionMultiEval;
 import systemtools.MsgBox;
@@ -181,7 +181,7 @@ public class ModelElementHoldMultiDialog extends ModelElementBaseDialog {
 			final JTextField field=conditions.get(i);
 			final String condition=field.getText();
 			final int error=ExpressionMultiEval.check(condition,element.getSurface().getMainSurfaceVariableNames(element.getModel().getModelVariableNames(),false));
-			if (error>=0) field.setBackground(Color.red); else field.setBackground(SystemColor.text);
+			if (error>=0) field.setBackground(Color.red); else field.setBackground(NumberTools.getTextFieldDefaultBackground());
 
 			if (error>=0) {
 				if (showErrorDialog) {

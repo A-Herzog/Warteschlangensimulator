@@ -19,7 +19,6 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.FlowLayout;
-import java.awt.SystemColor;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.Serializable;
@@ -30,6 +29,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import language.Language;
+import mathtools.NumberTools;
 import simulator.editmodel.EditModel;
 import simulator.simparser.ExpressionCalc;
 import systemtools.BaseDialog;
@@ -124,7 +124,7 @@ public class UserStatisticTableModelDialog extends BaseDialog {
 				return false;
 			}
 		} else {
-			key.setBackground(SystemColor.text);
+			key.setBackground(NumberTools.getTextFieldDefaultBackground());
 		}
 
 		if (expression.getText().trim().isEmpty()) {
@@ -137,7 +137,7 @@ public class UserStatisticTableModelDialog extends BaseDialog {
 		} else {
 			final int error=ExpressionCalc.check(expression.getText().trim(),variableNames);
 			if (error<0) {
-				expression.setBackground(SystemColor.text);
+				expression.setBackground(NumberTools.getTextFieldDefaultBackground());
 			} else {
 				ok=false;
 				if (showErrorMessage) {

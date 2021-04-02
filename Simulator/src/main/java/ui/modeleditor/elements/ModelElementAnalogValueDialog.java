@@ -17,7 +17,6 @@ package ui.modeleditor.elements;
 
 import java.awt.Component;
 import java.awt.FlowLayout;
-import java.awt.SystemColor;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.Serializable;
@@ -267,7 +266,7 @@ public class ModelElementAnalogValueDialog extends ModelElementBaseDialog {
 				}
 			}
 		} else {
-			valueMin.setBackground(SystemColor.text);
+			valueMin.setBackground(NumberTools.getTextFieldDefaultBackground());
 		}
 
 		/* Maximalwert */
@@ -281,7 +280,7 @@ public class ModelElementAnalogValueDialog extends ModelElementBaseDialog {
 				}
 			}
 		} else {
-			valueMax.setBackground(SystemColor.text);
+			valueMax.setBackground(NumberTools.getTextFieldDefaultBackground());
 		}
 
 		/* Änderungsrate */

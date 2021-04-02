@@ -15,6 +15,7 @@
  */
 package systemtools.statistics;
 
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.Container;
 import java.awt.Cursor;
@@ -38,6 +39,7 @@ import javax.swing.JFileChooser;
 import javax.swing.JScrollPane;
 import javax.swing.JTextPane;
 import javax.swing.SwingUtilities;
+import javax.swing.UIManager;
 import javax.swing.event.HyperlinkEvent;
 import javax.swing.event.HyperlinkListener;
 import javax.swing.filechooser.FileFilter;
@@ -101,11 +103,40 @@ class StatisticViewerHTMLText implements StatisticViewer {
 					"<body>\n";
 
 	/**
+	 * HTML-Kopfbereich für die Anzeige des html-formatierten Textes in {@link #textPane} (im dunklen Modus).
+	 * @see #head
+	 * @see #foot
+	 * @see #textPane
+	 */
+	private static final String headDark=
+			"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\" \"http://www.w3.org/TR/html4/loose.dtd\">\n"+
+					"<html>\n"+
+					"<head>\n"+
+					"  <meta charset=\"utf-8\">\n"+
+					"  <meta name=\"author\" content=\"Alexander Herzog\">\n"+
+					"  <style type=\"text/css\">\n"+
+					"  body {font-family: Verdana, Lucida, sans-serif; background-color: #404040; margin: 2px; color: silver;}\n"+
+					"  ul.big li {margin-bottom: 5px;}\n"+
+					"  ol.big li {margin-bottom: 5px;}\n"+
+					"  a {text-decoration: none;}\n"+
+					"  a.box {margin-top: 10px; margin-botton: 10px; border: 1px solid black; background-color: #DDDDDD; padding: 5px;}\n"+
+					"  h2 {margin-bottom: 0px;}\n"+
+					"  p.red {color: red;}\n"+
+					"  </style>\n"+
+					"</head>\n"+
+					"<body>\n";
+
+	/**
 	 * HTML-Fußbereich für die Anzeige des html-formatierten Textes in {@link #textPane}.
 	 * @see #head
 	 * @see #textPane
 	 */
 	private static final String foot="</body></html>";
+
+	/**
+	 * Erfolgt die Darstellung im Dark-Modus?
+	 */
+	private final boolean isDark;
 
 	/**
 	 * Konstruktor der Klasse
@@ -115,6 +146,9 @@ class StatisticViewerHTMLText implements StatisticViewer {
 	public StatisticViewerHTMLText(String infoText, Runnable[] specialLinkListener) {
 		this.infoText=infoText;
 		this.specialLinkListener=specialLinkListener;
+
+		final Color textBackground=UIManager.getColor("TextField.background");
+		isDark=(textBackground!=null && !textBackground.equals(Color.WHITE));
 	}
 
 	/**
@@ -134,7 +168,7 @@ class StatisticViewerHTMLText implements StatisticViewer {
 		textPane.setEditable(false);
 		textPane.addHyperlinkListener(new LinkListener());
 		textPane.setContentType("text/html");
-		textPane.setText(head+infoText+foot);
+		textPane.setText((isDark?headDark:head)+infoText+foot);
 	}
 
 	@Override

@@ -18,7 +18,6 @@ package ui.modeleditor.elements;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
-import java.awt.SystemColor;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.Serializable;
@@ -29,6 +28,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import language.Language;
+import mathtools.NumberTools;
 import simulator.simparser.ExpressionEval;
 import systemtools.BaseDialog;
 import systemtools.MsgBox;
@@ -122,7 +122,7 @@ public class ExpressionTableModelTextDialog extends BaseDialog {
 				return false;
 			}
 		} else {
-			expressionEdit.setBackground(SystemColor.text);
+			expressionEdit.setBackground(NumberTools.getTextFieldDefaultBackground());
 		}
 
 		return ok;

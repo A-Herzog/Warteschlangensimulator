@@ -68,9 +68,9 @@ public class ModelExplorer extends JPanel {
 		final int xSize=Math.max(100,p2.x-p1.x);
 		final int ySize=Math.max(100,p2.y-p1.y);
 		if ((int)Math.round(((double)xSize)/ySize*maxYSize)>maxXSize) {
-			image=surfacePanel.getImage(maxXSize,(int)Math.round(((double)ySize)/xSize*maxXSize));
+			image=surfacePanel.getImageWithBackground(maxXSize,(int)Math.round(((double)ySize)/xSize*maxXSize));
 		} else {
-			image=surfacePanel.getImage((int)Math.round(((double)xSize)/ySize*maxYSize),maxYSize);
+			image=surfacePanel.getImageWithBackground((int)Math.round(((double)xSize)/ySize*maxYSize),maxYSize);
 		}
 
 		/* Größe einstellen */

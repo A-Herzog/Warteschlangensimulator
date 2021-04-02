@@ -18,7 +18,6 @@ package ui.modeleditor.elements;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.FlowLayout;
-import java.awt.SystemColor;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.Serializable;
@@ -361,7 +360,7 @@ public class ModelElementInputDBDialog extends ModelElementBaseDialog {
 				}
 			}
 		} else {
-			defaultValueEdit.setBackground(SystemColor.text);
+			defaultValueEdit.setBackground(NumberTools.getTextFieldDefaultBackground());
 		}
 
 		/* Variable */
@@ -388,7 +387,7 @@ public class ModelElementInputDBDialog extends ModelElementBaseDialog {
 		pack();
 
 		if (varNameOk) {
-			variableEdit.setBackground(SystemColor.text);
+			variableEdit.setBackground(NumberTools.getTextFieldDefaultBackground());
 		} else {
 			variableEdit.setBackground(Color.red);
 			if (showErrorMessages) {

@@ -18,7 +18,6 @@ package ui.parameterseries;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
-import java.awt.SystemColor;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.Serializable;
@@ -30,6 +29,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 
 import language.Language;
+import mathtools.NumberTools;
 import systemtools.BaseDialog;
 import systemtools.MsgBox;
 import tools.JTableExt;
@@ -116,7 +116,7 @@ public class ParameterCompareSetupModelDialog extends BaseDialog {
 				return false;
 			}
 		} else {
-			nameEdit.setBackground(SystemColor.text);
+			nameEdit.setBackground(NumberTools.getTextFieldDefaultBackground());
 		}
 
 		final String error=tableModel.checkData();

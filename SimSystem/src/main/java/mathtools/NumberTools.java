@@ -16,7 +16,6 @@
 package mathtools;
 
 import java.awt.Color;
-import java.awt.SystemColor;
 import java.awt.TextField;
 import java.text.DecimalFormatSymbols;
 import java.text.NumberFormat;
@@ -24,6 +23,7 @@ import java.text.ParseException;
 import java.util.Locale;
 
 import javax.swing.JTextField;
+import javax.swing.UIManager;
 
 import org.apache.commons.math3.util.FastMath;
 
@@ -853,7 +853,7 @@ public final class NumberTools {
 		if (field==null) return null;
 		final Integer i=getInteger(field.getText());
 		if (setColor) {
-			if (i==null) field.setBackground(Color.red); else field.setBackground(SystemColor.text);
+			if (i==null) field.setBackground(Color.red); else field.setBackground(getTextFieldDefaultBackground());
 		}
 		return i;
 	}
@@ -869,7 +869,7 @@ public final class NumberTools {
 		if (field==null) return null;
 		final Integer i=getInteger(field.getText());
 		if (setColor) {
-			if (i==null) field.setBackground(Color.red); else field.setBackground(SystemColor.text);
+			if (i==null) field.setBackground(Color.red); else field.setBackground(getTextFieldDefaultBackground());
 		}
 		return i;
 	}
@@ -900,7 +900,7 @@ public final class NumberTools {
 		if (field==null) return null;
 		final Integer i=getNotNegativeInteger(field.getText());
 		if (setColor) {
-			if (i==null) field.setBackground(Color.red); else field.setBackground(SystemColor.text);
+			if (i==null) field.setBackground(Color.red); else field.setBackground(getTextFieldDefaultBackground());
 		}
 		return i;
 	}
@@ -917,7 +917,7 @@ public final class NumberTools {
 		if (field==null) return null;
 		final Integer i=getNotNegativeInteger(field.getText());
 		if (setColor) {
-			if (i==null) field.setBackground(Color.red); else field.setBackground(SystemColor.text);
+			if (i==null) field.setBackground(Color.red); else field.setBackground(getTextFieldDefaultBackground());
 		}
 		return i;
 	}
@@ -948,7 +948,7 @@ public final class NumberTools {
 		if (field==null) return null;
 		final Short i=getNotNegativeShort(field.getText());
 		if (setColor) {
-			if (i==null) field.setBackground(Color.red); else field.setBackground(SystemColor.text);
+			if (i==null) field.setBackground(Color.red); else field.setBackground(getTextFieldDefaultBackground());
 		}
 		return i;
 	}
@@ -965,7 +965,7 @@ public final class NumberTools {
 		if (field==null) return null;
 		final Short i=getNotNegativeShort(field.getText());
 		if (setColor) {
-			if (i==null) field.setBackground(Color.red); else field.setBackground(SystemColor.text);
+			if (i==null) field.setBackground(Color.red); else field.setBackground(getTextFieldDefaultBackground());
 		}
 		return i;
 	}
@@ -996,7 +996,7 @@ public final class NumberTools {
 		if (field==null) return null;
 		final Long l=getNotNegativeLong(field.getText());
 		if (setColor) {
-			if (l==null) field.setBackground(Color.red); else field.setBackground(SystemColor.text);
+			if (l==null) field.setBackground(Color.red); else field.setBackground(getTextFieldDefaultBackground());
 		}
 		return l;
 	}
@@ -1013,7 +1013,7 @@ public final class NumberTools {
 		if (field==null) return null;
 		final Long l=getNotNegativeLong(field.getText());
 		if (setColor) {
-			if (l==null) field.setBackground(Color.red); else field.setBackground(SystemColor.text);
+			if (l==null) field.setBackground(Color.red); else field.setBackground(getTextFieldDefaultBackground());
 		}
 		return l;
 	}
@@ -1049,7 +1049,7 @@ public final class NumberTools {
 		if (field==null) return null;
 		final Long l=getLong(field.getText());
 		if (setColor) {
-			if (l==null) field.setBackground(Color.red); else field.setBackground(SystemColor.text);
+			if (l==null) field.setBackground(Color.red); else field.setBackground(getTextFieldDefaultBackground());
 		}
 		return l;
 	}
@@ -1065,7 +1065,7 @@ public final class NumberTools {
 		if (field==null) return null;
 		final Long l=getLong(field.getText());
 		if (setColor) {
-			if (l==null) field.setBackground(Color.red); else field.setBackground(SystemColor.text);
+			if (l==null) field.setBackground(Color.red); else field.setBackground(getTextFieldDefaultBackground());
 		}
 		return l;
 	}
@@ -1095,7 +1095,7 @@ public final class NumberTools {
 		if (field==null) return null;
 		final Double d=getIntDouble(field.getText());
 		if (setColor) {
-			if (d==null) field.setBackground(Color.red); else field.setBackground(SystemColor.text);
+			if (d==null) field.setBackground(Color.red); else field.setBackground(getTextFieldDefaultBackground());
 		}
 		return d;
 	}
@@ -1112,7 +1112,7 @@ public final class NumberTools {
 		if (field==null) return null;
 		final Double d=getIntDouble(field.getText());
 		if (setColor) {
-			if (d==null) field.setBackground(Color.red); else field.setBackground(SystemColor.text);
+			if (d==null) field.setBackground(Color.red); else field.setBackground(getTextFieldDefaultBackground());
 		}
 		return d;
 	}
@@ -1288,7 +1288,7 @@ public final class NumberTools {
 		if (field==null) return null;
 		final Double d=getDouble(field.getText());
 		if (setColor) {
-			if (d==null) field.setBackground(Color.red); else field.setBackground(SystemColor.text);
+			if (d==null) field.setBackground(Color.red); else field.setBackground(getTextFieldDefaultBackground());
 		}
 		return d;
 	}
@@ -1304,7 +1304,7 @@ public final class NumberTools {
 		if (field==null) return null;
 		final Double d=getDouble(field.getText());
 		if (setColor) {
-			if (d==null) field.setBackground(Color.red); else field.setBackground(SystemColor.text);
+			if (d==null) field.setBackground(Color.red); else field.setBackground(getTextFieldDefaultBackground());
 		}
 		return d;
 	}
@@ -1334,7 +1334,7 @@ public final class NumberTools {
 		if (field==null) return null;
 		final Long l=getPositiveLong(field.getText());
 		if (setColor) {
-			if (l==null) field.setBackground(Color.red); else field.setBackground(SystemColor.text);
+			if (l==null) field.setBackground(Color.red); else field.setBackground(getTextFieldDefaultBackground());
 		}
 		return l;
 	}
@@ -1351,7 +1351,7 @@ public final class NumberTools {
 		if (field==null) return null;
 		final Long l=getPositiveLong(field.getText());
 		if (setColor) {
-			if (l==null) field.setBackground(Color.red); else field.setBackground(SystemColor.text);
+			if (l==null) field.setBackground(Color.red); else field.setBackground(getTextFieldDefaultBackground());
 		}
 		return l;
 	}
@@ -1381,7 +1381,7 @@ public final class NumberTools {
 		if (field==null) return null;
 		final Double d=getPositiveIntDouble(field.getText());
 		if (setColor) {
-			if (d==null) field.setBackground(Color.red); else field.setBackground(SystemColor.text);
+			if (d==null) field.setBackground(Color.red); else field.setBackground(getTextFieldDefaultBackground());
 		}
 		return d;
 	}
@@ -1398,7 +1398,7 @@ public final class NumberTools {
 		if (field==null) return null;
 		final Double d=getPositiveIntDouble(field.getText());
 		if (setColor) {
-			if (d==null) field.setBackground(Color.red); else field.setBackground(SystemColor.text);
+			if (d==null) field.setBackground(Color.red); else field.setBackground(getTextFieldDefaultBackground());
 		}
 		return d;
 	}
@@ -1430,7 +1430,7 @@ public final class NumberTools {
 		if (field==null) return null;
 		final Double d=getNotNegativeDouble(field.getText());
 		if (setColor) {
-			if (d==null) field.setBackground(Color.red); else field.setBackground(SystemColor.text);
+			if (d==null) field.setBackground(Color.red); else field.setBackground(getTextFieldDefaultBackground());
 		}
 		return d;
 	}
@@ -1447,7 +1447,7 @@ public final class NumberTools {
 		if (field==null) return null;
 		final Double d=getNotNegativeDouble(field.getText());
 		if (setColor) {
-			if (d==null) field.setBackground(Color.red); else field.setBackground(SystemColor.text);
+			if (d==null) field.setBackground(Color.red); else field.setBackground(getTextFieldDefaultBackground());
 		}
 		return d;
 	}
@@ -1479,7 +1479,7 @@ public final class NumberTools {
 		Double d=getNotNegativeDouble(field.getText());
 		if (d!=null && d==0) d=null;
 		if (setColor) {
-			if (d==null) field.setBackground(Color.red); else field.setBackground(SystemColor.text);
+			if (d==null) field.setBackground(Color.red); else field.setBackground(getTextFieldDefaultBackground());
 		}
 		return d;
 	}
@@ -1497,7 +1497,7 @@ public final class NumberTools {
 		Double d=getNotNegativeDouble(field.getText());
 		if (d!=null && d==0) d=null;
 		if (setColor) {
-			if (d==null) field.setBackground(Color.red); else field.setBackground(SystemColor.text);
+			if (d==null) field.setBackground(Color.red); else field.setBackground(getTextFieldDefaultBackground());
 		}
 		return d;
 	}
@@ -1553,7 +1553,7 @@ public final class NumberTools {
 		if (field==null) return null;
 		final Double d=getProbability(field.getText());
 		if (setColor) {
-			if (d==null) field.setBackground(Color.red); else field.setBackground(SystemColor.text);
+			if (d==null) field.setBackground(Color.red); else field.setBackground(getTextFieldDefaultBackground());
 		}
 		return d;
 	}
@@ -1570,7 +1570,7 @@ public final class NumberTools {
 		if (field==null) return null;
 		final Double d=getProbability(field.getText());
 		if (setColor) {
-			if (d==null) field.setBackground(Color.red); else field.setBackground(SystemColor.text);
+			if (d==null) field.setBackground(Color.red); else field.setBackground(getTextFieldDefaultBackground());
 		}
 		return d;
 	}
@@ -1587,7 +1587,7 @@ public final class NumberTools {
 		if (field==null) return null;
 		final Double d=getExtProbability(field.getText());
 		if (setColor) {
-			if (d==null) field.setBackground(Color.red); else field.setBackground(SystemColor.text);
+			if (d==null) field.setBackground(Color.red); else field.setBackground(getTextFieldDefaultBackground());
 		}
 		return d;
 	}
@@ -1604,7 +1604,7 @@ public final class NumberTools {
 		if (field==null) return null;
 		final Double d=getExtProbability(field.getText());
 		if (setColor) {
-			if (d==null) field.setBackground(Color.red); else field.setBackground(SystemColor.text);
+			if (d==null) field.setBackground(Color.red); else field.setBackground(getTextFieldDefaultBackground());
 		}
 		return d;
 	}
@@ -1638,5 +1638,20 @@ public final class NumberTools {
 
 		if (minus) value=-value;
 		return value;
+	}
+
+	/**
+	 * Normale Hintergrundfarbe für Textfelder
+	 * @see #getTextFieldDefaultBackground()
+	 */
+	private static Color textFieldDefaultBackground;
+
+	/**
+	 * Liefert die normale Hintergrundfarbe für Textfelder.
+	 * @return	Normale Hintergrundfarbe für Textfelder
+	 */
+	public static synchronized Color getTextFieldDefaultBackground() {
+		if (textFieldDefaultBackground==null) textFieldDefaultBackground=	UIManager.getDefaults().getColor("TextField.background");
+		return textFieldDefaultBackground;
 	}
 }

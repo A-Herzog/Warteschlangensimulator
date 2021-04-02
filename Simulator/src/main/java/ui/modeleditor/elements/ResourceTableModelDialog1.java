@@ -18,7 +18,6 @@ package ui.modeleditor.elements;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.FlowLayout;
-import java.awt.SystemColor;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.Serializable;
@@ -231,8 +230,8 @@ public class ResourceTableModelDialog1 extends BaseDialog {
 	private boolean checkData(final boolean showErrorMessage) {
 		boolean ok=true;
 
-		textGroupName.setBackground(SystemColor.text);
-		textGroupSize.setBackground(SystemColor.text);
+		textGroupName.setBackground(NumberTools.getTextFieldDefaultBackground());
+		textGroupSize.setBackground(NumberTools.getTextFieldDefaultBackground());
 		if (optionNew==null || optionNew.isSelected()) {
 			final String name=textGroupName.getText().trim();
 

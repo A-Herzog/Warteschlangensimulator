@@ -16,7 +16,6 @@
 package mathtools;
 
 import java.awt.Color;
-import java.awt.SystemColor;
 import java.awt.TextField;
 
 import javax.swing.JTextField;
@@ -268,7 +267,7 @@ public final class TimeTools {
 		if (field==null) return null;
 		final Integer i=getTime(field.getText());
 		if (setColor) {
-			if (i==null) field.setBackground(Color.red); else field.setBackground(SystemColor.text);
+			if (i==null) field.setBackground(Color.red); else field.setBackground(NumberTools.getTextFieldDefaultBackground());
 		}
 		return i;
 	}
@@ -284,7 +283,7 @@ public final class TimeTools {
 		if (field==null) return null;
 		final Integer i=getTime(field.getText());
 		if (setColor) {
-			if (i==null) field.setBackground(Color.red); else field.setBackground(SystemColor.text);
+			if (i==null) field.setBackground(Color.red); else field.setBackground(NumberTools.getTextFieldDefaultBackground());
 		}
 		return i;
 	}
@@ -327,7 +326,7 @@ public final class TimeTools {
 		if (field==null) return null;
 		final Double d=getExactTime(field.getText());
 		if (setColor) {
-			if (d==null) field.setBackground(Color.red); else field.setBackground(SystemColor.text);
+			if (d==null) field.setBackground(Color.red); else field.setBackground(NumberTools.getTextFieldDefaultBackground());
 		}
 		return d;
 	}
@@ -343,7 +342,7 @@ public final class TimeTools {
 		if (field==null) return null;
 		final Double d=getExactTime(field.getText());
 		if (setColor) {
-			if (d==null) field.setBackground(Color.red); else field.setBackground(SystemColor.text);
+			if (d==null) field.setBackground(Color.red); else field.setBackground(NumberTools.getTextFieldDefaultBackground());
 		}
 		return d;
 	}
