@@ -258,7 +258,7 @@ public class SystemInfoWindow extends JFrame {
 			@Override public void run() {updataData();}
 		},UPDATE_SPEED,UPDATE_SPEED);
 
-		/* Dialog vorbereiten */
+		/* Fenster vorbereiten */
 		setSize((int)Math.round(480*BaseDialog.windowScaling),(int)Math.round(680*BaseDialog.windowScaling));
 		setMinimumSize(new Dimension((int)Math.round(480*BaseDialog.windowScaling),(int)Math.round(680*BaseDialog.windowScaling)));
 		pack();
@@ -527,7 +527,7 @@ public class SystemInfoWindow extends JFrame {
 	}
 
 	/**
-	 * Beim Schlieﬂen des Fensters das Skript speichern.
+	 * Aktionen beim Schlieﬂen des Fensters.
 	 */
 	private void closeWindow() {
 		timer.cancel();
