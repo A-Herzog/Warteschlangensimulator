@@ -123,6 +123,7 @@ import ui.dialogs.EdgeStyleSetupDialog;
 import ui.dialogs.FindBatchSizeDialog;
 import ui.dialogs.FindElementDialog;
 import ui.dialogs.FitDialog;
+import ui.dialogs.HeatMapSelectWindow;
 import ui.dialogs.HeatMapSetupDialog;
 import ui.dialogs.InfoDialog;
 import ui.dialogs.LicenseViewer;
@@ -178,6 +179,7 @@ import ui.speedup.BackgroundSystem;
 import ui.statistics.StatisticsPanel;
 import ui.statistics.analyticcompare.AnalyticInfo;
 import ui.tools.FlatLaFHelper;
+import ui.tools.GlassInfo;
 import ui.tools.ServerPanel;
 import ui.tools.SpecialPanel;
 import ui.tools.SwingStartUpWatchDog;
@@ -449,6 +451,8 @@ public class MainPanel extends MainPanelBase {
 		statisticsPanel=new StatisticsPanel(()->commandSimulationSimulation(null,null,null,Simulator.logTypeFull,null));
 		statisticsPanel.addFileDropListener(e->{if (e.getSource() instanceof FileDropperData) dropFile((FileDropperData)e.getSource());});
 		editorPanel.setStatisticsGetter(()->statisticsPanel.getStatistics());
+		editorPanel.setShowHeatMapSelectWindowCallback(()->commandViewStatisticsHeatMapSelect());
+
 		animationPanel=new AnimationPanel(ownerWindow);
 		specialPanel=null;
 
@@ -605,6 +609,7 @@ public class MainPanel extends MainPanelBase {
 		}
 		addAction("ViewStatisticsHeatMapPreviousMode",e->commandViewStatisticsHeatMapShift(-1));
 		addAction("ViewStatisticsHeatMapNextMode",e->commandViewStatisticsHeatMapShift(1));
+		addAction("ViewStatisticsHeatMapSelect",e->commandViewStatisticsHeatMapSelect());
 		addAction("ViewStatisticsHeatMapSetup",e->commandViewStatisticsHeatMapSetup());
 		addAction("ViewShowIDs",e->commandViewIDs());
 		addAction("ViewShowStationDescriptions",e->commandViewStationDescriptions());
@@ -777,6 +782,7 @@ public class MainPanel extends MainPanelBase {
 		int heatMapMode=0;
 		if (setup.statisticHeatMap!=null) heatMapMode=Arrays.asList(EditorPanelStatistics.HeatMapMode.values()).indexOf(setup.statisticHeatMap);
 		for (int i=0;i<menuViewStatisticsHeatMapMode.size();i++) menuViewStatisticsHeatMapMode.get(i).setSelected(heatMapMode==i);
+		HeatMapSelectWindow.updateSelection();
 
 		/* Ansicht - IDs */
 		menuViewShowIDs.setState(setup.showIDs);
@@ -1110,13 +1116,16 @@ public class MainPanel extends MainPanelBase {
 		submenu.setIcon(Images.STATISTIC_INFO.getIcon());
 		enabledOnEditorPanel.add(menuViewStatisticsTooltips=createCheckBoxMenuItem(submenu,Language.tr("Main.Menu.View.Statistics.Info"),Language.tr("Main.Menu.View.Statistics.Info.Mnemonic"),"ViewStatisticsInfo"));
 		submenu.addSeparator();
-
 		menuViewStatisticsHeatMapMode=new ArrayList<>();
 		for (EditorPanelStatistics.HeatMapMode mode: EditorPanelStatistics.HeatMapMode.values()) {
 			final JRadioButtonMenuItem item=createRadioButtonMenuItem(submenu,mode,"ViewStatisticsHeatMapMode"+mode.toString());
 			menuViewStatisticsHeatMapMode.add(item);
 			enabledOnEditorPanel.add(item);
 		}
+		submenu.addSeparator();
+		enabledOnEditorPanel.add(createMenuItemCtrlShift(submenu,Language.tr("Main.Menu.View.Statistics.HeatMapRotatePrevious"),Images.ARROW_UP.getIcon(),Language.tr("Main.Menu.View.Statistics.HeatMapRotatePrevious.Mnemonic"),KeyEvent.VK_G,"ViewStatisticsHeatMapPreviousMode"));
+		enabledOnEditorPanel.add(createMenuItemCtrlShift(submenu,Language.tr("Main.Menu.View.Statistics.HeatMapRotateNext"),Images.ARROW_DOWN.getIcon(),Language.tr("Main.Menu.View.Statistics.HeatMapRotateNext.Mnemonic"),KeyEvent.VK_H,"ViewStatisticsHeatMapNextMode"));
+		enabledOnEditorPanel.add(createMenuItem(submenu,Language.tr("Main.Menu.View.Statistics.HeatMapSelect"),Language.tr("Main.Menu.View.Statistics.HeatMapSelect.Mnemonic"),"ViewStatisticsHeatMapSelect"));
 		submenu.addSeparator();
 		enabledOnEditorPanel.add(createMenuItem(submenu,Language.tr("Main.Menu.View.Statistics.HeatMapSetup"),Language.tr("Main.Menu.View.Statistics.HeatMapSetup.Mnemonic"),"ViewStatisticsHeatMapSetup"));
 		enabledOnEditorPanel.add(menuViewShowIDs=createCheckBoxMenuItem(menu,Language.tr("Main.Menu.View.ShowIDs"),Language.tr("Main.Menu.View.ShowIDs.Mnemonic"),"ViewShowIDs"));
@@ -2213,9 +2222,20 @@ public class MainPanel extends MainPanelBase {
 		if (index<0) index=values.length-1;
 		if (index>=values.length) index=0;
 
+		/* Neuen Modus einstellen */
 		setup.statisticHeatMap=values[index];
 		setup.saveSetup();
 		reloadSetup();
+
+		/* Benachrichtigung anzeigen */
+		GlassInfo.info(this,values[index].getName(),650,true);
+	}
+
+	/**
+	 * Befehl: Ansicht - Statistik auf Zeichenfläche - Heatmap-Modus auswählen
+	 */
+	private void commandViewStatisticsHeatMapSelect() {
+		HeatMapSelectWindow.show(this,()->reloadSetup());
 	}
 
 	/**

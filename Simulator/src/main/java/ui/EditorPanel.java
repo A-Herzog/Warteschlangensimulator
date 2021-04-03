@@ -199,6 +199,13 @@ public final class EditorPanel extends EditorPanelBase {
 	private Supplier<Statistics> statisticsGetter;
 
 	/**
+	 * Callback welches im Bedarfsfall zum Aufrufen des Heatmap-Modus-Auswahl-Dialogs genutzt wird.
+	 * @see #setShowHeatMapSelectWindowCallback(Runnable)
+	 * @see #showHeatMapModesSelectWindow()
+	 */
+	private Runnable showHeatMapSelectWindowCallback;
+
+	/**
 	 * Callback-Methode, die aufgerufen werden soll, wenn in der Modell-Übersicht auf "Suchen" geklickt wird
 	 * @see #setElementSearchCallback(Runnable)
 	 */
@@ -1264,6 +1271,10 @@ public final class EditorPanel extends EditorPanelBase {
 			if (cmd.equals(ModelSurfacePanel.PROPERTIES_TYPE_LAYERS)) {
 				showLayersDialog();
 			}
+			if (cmd.equals(ModelSurfacePanel.PROPERTIES_TYPE_HEATMAP_MODES)) {
+				showHeatMapModesSelectWindow();
+				return;
+			}
 		});
 		surfacePanel.addResourceCountSetter((name,count)->changeResourceCount(name,count.intValue()));
 		surfacePanel.addZoomChangeListener(e->{
@@ -1668,6 +1679,13 @@ public final class EditorPanel extends EditorPanelBase {
 			setModelChanged(true);
 			setLastFile(file);
 		}
+	}
+
+	/**
+	 * Zeigt das Fenster zur Auswahl des Heatmap-Modus an.
+	 */
+	public void showHeatMapModesSelectWindow() {
+		if (showHeatMapSelectWindowCallback!=null) showHeatMapSelectWindowCallback.run();
 	}
 
 	/**
@@ -2462,6 +2480,14 @@ public final class EditorPanel extends EditorPanelBase {
 	 */
 	public void setStatisticsGetter(final Supplier<Statistics> statisticsGetter) {
 		this.statisticsGetter=statisticsGetter;
+	}
+
+	/**
+	 * Stellt ein Callback ein, welches aufgerufen wird, wenn der Heatmap-Modus-Auswahl-Dialog angezeigt werden soll.
+	 * @param showHeatMapSelectWindowCallback	Callback, welches aufgerufen wird, wenn der Heatmap-Modus-Auswahl-Dialog angezeigt werden soll
+	 */
+	public void setShowHeatMapSelectWindowCallback(final Runnable showHeatMapSelectWindowCallback) {
+		this.showHeatMapSelectWindowCallback=showHeatMapSelectWindowCallback;
 	}
 
 	/**

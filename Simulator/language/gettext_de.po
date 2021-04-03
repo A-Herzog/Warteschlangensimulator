@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-04-02 02:43+0200\n"
+"POT-Creation-Date: 2021-04-03 23:19+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -6968,6 +6968,9 @@ msgstr "Es sind %d veränderten Dateien vorhanden."
 msgid "Git.System.Status.Uncommited.One"
 msgstr "Es ist eine veränderte Datei vorhanden."
 
+msgid "HeatMapSelect.Title"
+msgstr "Heatmap-Modus auswählen"
+
 msgid "HeatMapSetup.Intensity.High"
 msgstr "Maximale Intensität"
 
@@ -8447,6 +8450,24 @@ msgstr "Heatmap: Maximale Anzahl an Kunden an den Stationen"
 
 msgid "Main.Menu.View.Statistics.HeatMap.WipMax.Mnemonic"
 msgstr "K"
+
+msgid "Main.Menu.View.Statistics.HeatMapRotateNext"
+msgstr "Nächster Heatmap-Modus"
+
+msgid "Main.Menu.View.Statistics.HeatMapRotateNext.Mnemonic"
+msgstr "N"
+
+msgid "Main.Menu.View.Statistics.HeatMapRotatePrevious"
+msgstr "Vorheriger Heatmap-Modus"
+
+msgid "Main.Menu.View.Statistics.HeatMapRotatePrevious.Mnemonic"
+msgstr "V"
+
+msgid "Main.Menu.View.Statistics.HeatMapSelect"
+msgstr "Heatmap-Modus auswählen..."
+
+msgid "Main.Menu.View.Statistics.HeatMapSelect.Mnemonic"
+msgstr "Heatmap-Modus auswählen..."
 
 msgid "Main.Menu.View.Statistics.HeatMapSetup"
 msgstr "Heatmap konfigurieren..."
@@ -29709,6 +29730,9 @@ msgstr "Das Dateiformat wurde nicht erkannt bzw. passt zu keinem Dateiformat die
 
 #~ msgid "Main.Menu.Help.ProgramInformation.Short"
 #~ msgstr "Info"
+
+#~ msgid "Main.Menu.View.Statistics.RotatePrevious.Mnemonic"
+#~ msgstr "a"
 
 #~ msgid "Player.File.FileNotFound.ErrorInfo"
 #~ msgstr ""

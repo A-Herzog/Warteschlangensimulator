@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-04-02 02:43+0200\n"
+"POT-Creation-Date: 2021-04-03 23:19+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -6972,6 +6972,9 @@ msgstr "There are %d changed files."
 msgid "Git.System.Status.Uncommited.One"
 msgstr "There is one changed files."
 
+msgid "HeatMapSelect.Title"
+msgstr "Select heatmap mode"
+
 msgid "HeatMapSetup.Intensity.High"
 msgstr "High intensity"
 
@@ -8451,6 +8454,24 @@ msgstr "Heatmap: Maximum number of clients at a station"
 
 msgid "Main.Menu.View.Statistics.HeatMap.WipMax.Mnemonic"
 msgstr "c"
+
+msgid "Main.Menu.View.Statistics.HeatMapRotateNext"
+msgstr "Next heatmap mode"
+
+msgid "Main.Menu.View.Statistics.HeatMapRotateNext.Mnemonic"
+msgstr "N"
+
+msgid "Main.Menu.View.Statistics.HeatMapRotatePrevious"
+msgstr "Previous heatmap mode"
+
+msgid "Main.Menu.View.Statistics.HeatMapRotatePrevious.Mnemonic"
+msgstr "P"
+
+msgid "Main.Menu.View.Statistics.HeatMapSelect"
+msgstr "Select heatmap mode..."
+
+msgid "Main.Menu.View.Statistics.HeatMapSelect.Mnemonic"
+msgstr "S"
 
 msgid "Main.Menu.View.Statistics.HeatMapSetup"
 msgstr "Setup heatmap..."

@@ -21,6 +21,9 @@ import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Window;
+import java.lang.reflect.InvocationTargetException;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -60,15 +63,21 @@ public class GlassInfo {
 
 	/**
 	 * Zuletzt angezeigte Meldung.
-	 * @see #info(Component, String, int)
+	 * @see #info(Component, String, int, boolean)
 	 */
 	private static String lastText;
 
 	/**
 	 * Zeitpunkt an dem {@link #lastText} eingeblendet wurde.
-	 * @see #info(Component, String, int)
+	 * @see #info(Component, String, int, boolean)
 	 */
 	private static long lastTime;
+
+	/**
+	 * Zuordnung von Glas-Panes zu Timern (um diese ggf. vorzeitig abbrechen zu können)
+	 * @see #info(Component, String, int, boolean)
+	 */
+	private static Map<Component,Timer> timers=new HashMap<>();
 
 	/**
 	 * Zeigt eine Meldung in Form eines halbtransparenten Overlays an.
@@ -77,6 +86,17 @@ public class GlassInfo {
 	 * @param width	Maximale Breite des Overlays
 	 */
 	public static void info(final Component parent, final String info, final int width) {
+		info(parent,info,width,false);
+	}
+
+	/**
+	 * Zeigt eine Meldung in Form eines halbtransparenten Overlays an.
+	 * @param parent	Element in dessen Elternfenster das Overlay angezeigt werden soll.
+	 * @param info	Auszugebender html-Text (ohne html-Start- und End-Tags)
+	 * @param width	Maximale Breite des Overlays
+	 * @param force	Anzeige erzwingen, auch wenn noch nicht genug Zeit zwischen der letzten Anzeige und dieser erfolgt ist?
+	 */
+	public static void info(final Component parent, final String info, final int width, final boolean force) {
 		if (info==null || info.trim().isEmpty()) return;
 		if (parent==null) return;
 
@@ -94,15 +114,19 @@ public class GlassInfo {
 		final JPanel glassPane=(JPanel)glass;
 
 		/* Wird bereits ein Informationstext angezeigt? */
-		if (glassPane.isVisible()) return;
+		if (glassPane.isVisible() && !force) return;
 
 		/* Text nicht zu häufig anzeigen */
-		if (info.equals(lastText) && lastTime+1000*(MIN_REPEAT_SECONDS+DISPLAY_SECONDS)>System.currentTimeMillis()) return;
+		if (!force && info.equals(lastText) && lastTime+1000*(MIN_REPEAT_SECONDS+DISPLAY_SECONDS)>System.currentTimeMillis()) return;
 		lastText=info;
 		lastTime=System.currentTimeMillis();
 
 		/* Bisherige Anzeige entfernen */
+		glassPane.setVisible(false);
 		glassPane.removeAll();
+		final Timer oldTimer=timers.get(glassPane);
+		if (oldTimer!=null) oldTimer.cancel();
+		timers.remove(glassPane);
 
 		/* Neue Ausgabe erstellen */
 		glassPane.setLayout(new BoxLayout(glassPane,BoxLayout.PAGE_AXIS));
@@ -121,15 +145,22 @@ public class GlassInfo {
 
 		/* Aktivieren */
 		glassPane.setVisible(true);
+		window.repaint();
 
 		/* Abschalt-Timer */
 		final Timer timer=new Timer("HideGlassInfoPanel",true);
 		timer.schedule(new TimerTask() {
 			@Override
 			public void run() {
-				glassPane.setVisible(false);
-				timer.cancel();
+				try {
+					SwingUtilities.invokeAndWait(()->{
+						glassPane.setVisible(false);
+						timer.cancel();
+						timers.remove(glassPane);
+					});
+				} catch (InvocationTargetException|InterruptedException e) {}
 			}
 		},1000*DISPLAY_SECONDS);
+		timers.put(glassPane,timer);
 	}
 }

@@ -1949,6 +1949,13 @@ public final class ModelSurfacePanel extends JPanel {
 	public static String PROPERTIES_TYPE_BACKGROUND="showModelBackgroundColor";
 
 	/**
+	 * Es soll das Fenster zur Auswahl des Heatmap-Modus angezeigt werden (wird als {@link ActionEvent#getActionCommand()} übergeben).
+	 * @see #addShowModelPropertiesListener(ActionListener)
+	 * @see #fireShowPropertiesDialog(String)
+	 */
+	public static String PROPERTIES_TYPE_HEATMAP_MODES="showHeadMapModeSelect";
+
+	/**
 	 * Es soll der Dialog zur Konfiguration der Ebenen anzeigt werden (wird als {@link ActionEvent#getActionCommand()} übergeben).
 	 * @see #addShowModelPropertiesListener(ActionListener)
 	 * @see #fireShowPropertiesDialog(String)
@@ -1961,6 +1968,7 @@ public final class ModelSurfacePanel extends JPanel {
 	 * @see #PROPERTIES_TYPE_PROPERTIES
 	 * @see #PROPERTIES_TYPE_PROPERTIES_OPERATORS
 	 * @see #PROPERTIES_TYPE_BACKGROUND
+	 * @see #PROPERTIES_TYPE_HEATMAP_MODES
 	 * @see #PROPERTIES_TYPE_LAYERS
 	 */
 	public void addShowModelPropertiesListener(final ActionListener showModelPropertiesListener) {
@@ -2150,9 +2158,16 @@ public final class ModelSurfacePanel extends JPanel {
 		item.setIcon(Images.EDIT_LAYERS.getIcon());
 		item.addActionListener(e->fireShowPropertiesDialog(PROPERTIES_TYPE_LAYERS));
 
-		menu.add(item=new JMenuItem(Language.tr("Main.Menu.View.BackgroundColor")));
-		item.setIcon(Images.EDIT_BACKGROUND_COLOR.getIcon());
-		item.addActionListener(e->fireShowPropertiesDialog(PROPERTIES_TYPE_BACKGROUND));
+		if (!readOnly) {
+
+			menu.add(item=new JMenuItem(Language.tr("Main.Menu.View.BackgroundColor")));
+			item.setIcon(Images.EDIT_BACKGROUND_COLOR.getIcon());
+			item.addActionListener(e->fireShowPropertiesDialog(PROPERTIES_TYPE_BACKGROUND));
+
+			menu.add(item=new JMenuItem(Language.tr("Main.Menu.View.Statistics.HeatMapSelect")));
+			item.addActionListener(e->fireShowPropertiesDialog(PROPERTIES_TYPE_HEATMAP_MODES));
+
+		}
 
 		menu.show(this,point.x,point.y);
 	}
