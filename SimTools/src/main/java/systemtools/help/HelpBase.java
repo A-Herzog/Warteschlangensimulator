@@ -16,6 +16,7 @@
 package systemtools.help;
 
 import java.awt.Container;
+import java.awt.Frame;
 import java.awt.Window;
 import java.io.Serializable;
 import java.net.URL;
@@ -215,6 +216,7 @@ public abstract class HelpBase {
 
 		helpFrame.showPage(topic);
 		if (!newWindow) {
+			if ((helpFrame.getExtendedState() & Frame.ICONIFIED)!=0) helpFrame.setState(Frame.NORMAL);
 			helpFrame.toFront();
 			helpFrame.repaint();
 		}

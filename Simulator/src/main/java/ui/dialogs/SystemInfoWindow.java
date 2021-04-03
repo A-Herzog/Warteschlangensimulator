@@ -172,6 +172,7 @@ public class SystemInfoWindow extends JFrame {
 			instance=new SystemInfoWindow(owner);
 			instance.setVisible(true);
 		} else {
+			if ((instance.getExtendedState() & ICONIFIED)!=0) instance.setState(NORMAL);
 			instance.toFront();
 		}
 	}

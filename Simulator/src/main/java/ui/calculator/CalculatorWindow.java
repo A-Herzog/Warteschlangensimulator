@@ -128,6 +128,7 @@ public class CalculatorWindow extends JFrame {
 		} else {
 			instance.setExpression(initialExpression);
 			instance.setDistribution(initialDistribution);
+			if ((instance.getExtendedState() & ICONIFIED)!=0) instance.setState(NORMAL);
 			instance.toFront();
 		}
 	}
