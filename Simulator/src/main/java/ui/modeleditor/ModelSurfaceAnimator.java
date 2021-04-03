@@ -225,30 +225,43 @@ public class ModelSurfaceAnimator extends ModelSurfaceAnimatorBase {
 	}
 
 	/**
+	 * Läuft gerade eine Verarbeitung in {@link #process(SimulationData, RunDataClient, int)}?<br>
+	 * Wird die process-Methode synchronized, so kann es einen Deadlock geben. Mit Hilfe dieser
+	 * Abfrage hingegen werden doppelte Zeichenbefehle notfalls einfach verworfen.
+	 */
+	private boolean inProcessClient=false;
+
+	/**
 	 * Teilt dem Animationssystem mit, dass sich ein Kunde bewegt hat oder es sonst Veränderungen im System gab.
 	 * @param simData	Simulationsdaten-Objekt
 	 * @param client	Kunde, der sich bewegt hat (kann auch <code>null</code> sein)
 	 * @param delay	Verzögerung pro Animationsschritt
 	 */
-	public synchronized void process(final SimulationData simData, final RunDataClient client, int delay) {
-		currentTime=simData.currentTime;
-		preProcess(simData);
+	public void process(final SimulationData simData, final RunDataClient client, int delay) {
+		if (inProcessClient) return;
+		inProcessClient=true;
+		try {
+			currentTime=simData.currentTime;
+			preProcess(simData);
 
-		if (client!=null) {
-			final RunElement lastStation=(client.lastStationID>=0)?simData.runModel.elementsFast[client.lastStationID]:null;
-			if (lastStation instanceof RunElementTransportSource) {
-				final RunElement nextStation=(client.nextStationID>=0)?simData.runModel.elementsFast[client.nextStationID]:null;
-				if (nextStation instanceof RunElementTransportDestination) {
-					/* Kunde wird über Transport-Elemente bewegt, nicht über eine Kante */
-					processSingle(simData,null,delay);
-					return;
+			if (client!=null) {
+				final RunElement lastStation=(client.lastStationID>=0)?simData.runModel.elementsFast[client.lastStationID]:null;
+				if (lastStation instanceof RunElementTransportSource) {
+					final RunElement nextStation=(client.nextStationID>=0)?simData.runModel.elementsFast[client.nextStationID]:null;
+					if (nextStation instanceof RunElementTransportDestination) {
+						/* Kunde wird über Transport-Elemente bewegt, nicht über eine Kante */
+						processSingle(simData,null,delay);
+						return;
+					}
 				}
 			}
-		}
 
-		switch (mode) {
-		case MODE_SINGLE: processSingle(simData,client,delay); break;
-		case MODE_MULTI: processMulti(simData,client,delay); break;
+			switch (mode) {
+			case MODE_SINGLE: processSingle(simData,client,delay); break;
+			case MODE_MULTI: processMulti(simData,client,delay); break;
+			}
+		} finally {
+			inProcessClient=false;
 		}
 	}
 
