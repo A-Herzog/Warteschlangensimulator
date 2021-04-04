@@ -654,6 +654,7 @@ public class ModelElementDelay extends ModelElementMultiInSingleOutBox implement
 			if (dist==null) return String.format(Language.tr("Surface.XML.ElementSubError"),name,node.getParentNode().getNodeName());
 			if (typ==null || typ.trim().isEmpty()) {
 				distributionGlobal=dist;
+				expressionGlobal=null;
 				loadGlobalProperties(node);
 			} else {
 				distributionByType.put(typ,dist);
@@ -666,6 +667,7 @@ public class ModelElementDelay extends ModelElementMultiInSingleOutBox implement
 			final String expression=content;
 			if (typ==null || typ.trim().isEmpty()) {
 				expressionGlobal=expression;
+				distributionGlobal=null;
 				loadGlobalProperties(node);
 			} else {
 				expressionByType.put(typ,expression);
