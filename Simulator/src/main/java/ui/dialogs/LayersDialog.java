@@ -131,7 +131,7 @@ public class LayersDialog extends BaseDialog {
 			}
 		});
 		list.addListSelectionListener(e->updateButtons());
-		updateList();
+		updateList(null);
 
 		/* Dialog starten */
 		setMinSizeRespectingScreensize(400,300);
@@ -172,8 +172,9 @@ public class LayersDialog extends BaseDialog {
 
 	/**
 	 * Aktualisiert die Liste der Ebenen.
+	 * @param selectByName	Nach dem Aufbau der Liste zu selektierende Ebene (wird <code>null</code> übergeben, so versucht die Funktion die vorher selektrierte Ebene wieder auszuwählen)
 	 */
-	private void updateList() {
+	private void updateList(final String selectByName) {
 		/* Daten aus Modell */
 		final List<String> layers=model.surface.getLayers();
 		final List<String> visibleLayers=model.surface.getVisibleLayers();
@@ -181,7 +182,11 @@ public class LayersDialog extends BaseDialog {
 
 		/* Bisher selektierte Ebene */
 		String lastSelected=null;
-		if (list.getSelectedIndex()>=0) lastSelected=layers.get(list.getSelectedIndex());
+		if (selectByName==null) {
+			if (list.getSelectedIndex()>=0 && list.getSelectedIndex()<layers.size()) lastSelected=layers.get(list.getSelectedIndex());
+		} else {
+			lastSelected=selectByName;
+		}
 
 		/* Neue Liste aufbauen */
 		int lastIndex=-1;
@@ -273,7 +278,7 @@ public class LayersDialog extends BaseDialog {
 		layers.add(name);
 		visibleLayers.add(name);
 		if (model.surface.getActiveLayer()==null) model.surface.setActiveLayer(name);
-		updateList();
+		updateList(name);
 		list.setSelectedIndex(layers.size()-1);
 		updateButtons();
 	}
@@ -310,7 +315,7 @@ public class LayersDialog extends BaseDialog {
 			if (j>=0) elementLayers.set(j,newName);
 		}
 
-		updateList();
+		updateList(newName);
 	}
 
 	/**
@@ -338,7 +343,7 @@ public class LayersDialog extends BaseDialog {
 			elementLayers.remove(layer);
 		}
 
-		updateList();
+		updateList(null);
 	}
 
 	/**
@@ -351,7 +356,7 @@ public class LayersDialog extends BaseDialog {
 		final List<String> visibleLayers=model.surface.getVisibleLayers();
 		if (visibleLayers.contains(layer)) visibleLayers.remove(layer); else visibleLayers.add(layer);
 
-		updateList();
+		updateList(null);
 	}
 
 	/**
@@ -361,7 +366,7 @@ public class LayersDialog extends BaseDialog {
 		final String layer=model.surface.getLayers().get(list.getSelectedIndex());
 		model.surface.setActiveLayer(layer);
 
-		updateList();
+		updateList(null);
 	}
 
 	/**
