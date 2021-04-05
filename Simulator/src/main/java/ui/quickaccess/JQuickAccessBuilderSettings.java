@@ -53,8 +53,10 @@ public class JQuickAccessBuilderSettings extends JQuickAccessBuilder {
 		page=SetupDialog.Page.UI;
 		map.put(Language.tr("SettingsDialog.Languages"),page);
 		map.put(Language.tr("SettingsDialog.LookAndFeel"),page);
+		map.put(Language.tr("SettingsDialog.LookAndFeel.MenuInWindowTitle"),page);
 		map.put(Language.tr("SettingsDialog.FontSizes"),page);
 		map.put(Language.tr("SettingsDialog.HighContrasts"),page);
+		map.put(Language.tr("SettingsDialog.ScriptFontSize"),page);
 		map.put(Language.tr("SettingsDialog.AutoSave"),page);
 		map.put(Language.tr("SettingsDialog.UseLastFiles"),page);
 		map.put(Language.tr("SettingsDialog.AutoRestore"),page);

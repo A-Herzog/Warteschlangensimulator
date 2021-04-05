@@ -1345,8 +1345,9 @@ public class MainPanel extends MainPanelBase {
 
 			/* QuickAccess */
 			if (setup.showQuickAccess) {
-				menubar.add(quickAccess=JQuickAccess.buildQuickAccessField(quickAccessText->getCurrentQuickAccessRecords(quickAccessText),FlatLaFHelper.isCombinedMenuBar()));
+				menubar.add(quickAccess=JQuickAccess.buildQuickAccessField(quickAccessText->getCurrentQuickAccessRecords(quickAccessText),false));
 				if (FlatLaFHelper.isCombinedMenuBar()) SwingUtilities.invokeLater(()->{
+					JQuickAccess.textFieldResizer(quickAccess,5,14);
 					final int h=quickAccess.getHeight();
 					if (h>25) quickAccess.setMaximumSize(new Dimension(quickAccess.getWidth(),h-2));
 				});

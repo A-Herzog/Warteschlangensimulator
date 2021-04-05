@@ -16,7 +16,11 @@
 package ui.quickaccess;
 
 import java.awt.Component;
+import java.awt.Container;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 import java.awt.event.InputEvent;
+import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -28,6 +32,7 @@ import java.util.function.Function;
 
 import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JPopupMenu;
+import javax.swing.JTextField;
 import javax.swing.KeyStroke;
 import javax.swing.SwingUtilities;
 
@@ -199,5 +204,51 @@ public class JQuickAccess {
 		for (int i=0;i<list.size();i++) if (filter.charAt(i)!='-') results.add(list.get(i));
 
 		return results;
+	}
+
+	/**
+	 * Konfiguriert ein Textfeld so, dass es je nach dem, ob es selektiert ist oder nicht,
+	 * verschiedene Größen erhält.
+	 * @param textField	Zu konfigurierendes Textfeld
+	 * @param sizeSmall	Größe im nicht-selektierten Fall (in Spalten)
+	 * @param sizeLarge	Größe im selektierten Fall (in Spalten)
+	 */
+	public static void textFieldResizer(final JTextField textField, final int sizeSmall, final int sizeLarge) {
+		textField.addFocusListener(new FocusListener() {
+			int count=0;
+
+			@Override
+			public void focusLost(FocusEvent e) {
+				setTextFieldSize(textField,sizeSmall);
+			}
+
+			@Override
+			public void focusGained(FocusEvent e) {
+				if (count>0) setTextFieldSize(textField,sizeLarge);
+				count++;
+			}
+		});
+		textField.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent e) {
+				setTextFieldSize(textField,sizeLarge);
+			}
+		});
+
+		setTextFieldSize(textField,sizeSmall);
+	}
+
+	/**
+	 * Stellt die Größe eines Textfeldes ein und sorgt dafür,
+	 * dass es in der neuen Größe sichtbar wird.
+	 * @param textField	Zu konfigurierendes Textfeld
+	 * @param size	Neue Größe (in Spalten)
+	 */
+	private static void setTextFieldSize(final JTextField textField, final int size) {
+		if (textField.getColumns()==size) return;
+		textField.setColumns(size);
+		textField.revalidate();
+		final Container c=textField.getParent();
+		if (c!=null) c.revalidate();
 	}
 }
