@@ -2337,9 +2337,12 @@ public class MainPanel extends MainPanelBase {
 	private void commandModelCheck() {
 		EditorPanelRepair.autoFix(editorPanel);
 
+		boolean isError=false;
 		String status;
+
 		int[] err=editorPanel.getModel().surface.checkDoubleIDs(false);
 		if (err.length>0) {
+			isError=true;
 			StringBuilder sb=new StringBuilder();
 			for (int e: err) {
 				if (sb.length()>0) sb.append(", ");
@@ -2360,7 +2363,12 @@ public class MainPanel extends MainPanelBase {
 			status=StartAnySimulator.testModel(editorPanel.getModel());
 			if (status==null) status="<span style=\"color: green;\">"+Language.tr("Window.Check.Ok")+"</span>"; else status=Language.tr("Window.Check.ErrorList")+"<br><span style=\"color: red\">"+status+"</span>";
 		}
-		MsgBox.error(getOwnerWindow(),Language.tr("Window.Check.Title"),"<html><body>"+status+"</body></html>");
+
+		if (isError) {
+			MsgBox.error(getOwnerWindow(),Language.tr("Window.Check.Title"),"<html><body>"+status+"</body></html>");
+		} else {
+			MsgBox.info(getOwnerWindow(),Language.tr("Window.Check.Title"),"<html><body>"+status+"</body></html>");
+		}
 	}
 
 	/**
