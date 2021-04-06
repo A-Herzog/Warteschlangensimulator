@@ -116,19 +116,22 @@ public abstract class JTableExtAbstractTableModel extends AbstractTableModel {
 			if (listener.length<i) {List<ActionListener> l=new ArrayList<>(Arrays.asList(listener)); l.add(null); listener=l.toArray(new ActionListener[0]);}
 		}
 
-		JPanel p=new JPanel(new BorderLayout());
-		JToolBar toolbar=new JToolBar(SwingConstants.HORIZONTAL);
+		final JPanel p=new JPanel(new BorderLayout());
+		p.setBackground(getCellBackgroundColor());
+		final JToolBar toolbar=new JToolBar(SwingConstants.HORIZONTAL);
+		toolbar.setBackground(getCellBackgroundColor());
 		toolbar.setFloatable(false);
 		p.add(toolbar,BorderLayout.CENTER);
 		p.setBorder(BorderFactory.createEmptyBorder());
 		for (int i=0;i<Math.min(title.length,Math.min(tooltip.length,Math.min(iconURL.length,listener.length)));i++) {
-			JButton button;
+			final JButton button;
 			if (iconURL[i]==null) {
 				if (title[i]==null || title[i].isEmpty()) title[i]="-";
 				button=new JButton(title[i]);
 			} else {
 				if (title[i]==null || title[i].isEmpty()) button=new JButton(new ImageIcon(iconURL[i])); else button=new JButton(title[i],new ImageIcon(iconURL[i]));
 			}
+			button.setBackground(getCellBackgroundColor());
 			button.addActionListener(listener[i]);
 			if (tooltip[i]!=null && !tooltip[i].isEmpty()) {
 				button.setToolTipText(tooltip[i]);
@@ -162,19 +165,22 @@ public abstract class JTableExtAbstractTableModel extends AbstractTableModel {
 			if (listener.length<i) {List<ActionListener> l=new ArrayList<>(Arrays.asList(listener)); l.add(null); listener=l.toArray(new ActionListener[0]);}
 		}
 
-		JPanel p=new JPanel(new BorderLayout());
-		JToolBar toolbar=new JToolBar(SwingConstants.HORIZONTAL);
+		final JPanel p=new JPanel(new BorderLayout());
+		p.setBackground(getCellBackgroundColor());
+		final JToolBar toolbar=new JToolBar(SwingConstants.HORIZONTAL);
+		toolbar.setBackground(getCellBackgroundColor());
 		toolbar.setFloatable(false);
 		p.add(toolbar,BorderLayout.CENTER);
 		p.setBorder(BorderFactory.createEmptyBorder());
 		for (int i=0;i<Math.min(title.length,Math.min(tooltip.length,Math.min(icons.length,listener.length)));i++) {
-			JButton button;
+			final JButton button;
 			if (icons[i]==null) {
 				if (title[i]==null || title[i].isEmpty()) title[i]="-";
 				button=new JButton(title[i]);
 			} else {
 				if (title[i]==null || title[i].isEmpty()) button=new JButton(icons[i]); else button=new JButton(title[i],icons[i]);
 			}
+			button.setBackground(getCellBackgroundColor());
 			button.addActionListener(listener[i]);
 			if (tooltip[i]!=null && !tooltip[i].isEmpty()) {
 				button.setToolTipText(tooltip[i]);
