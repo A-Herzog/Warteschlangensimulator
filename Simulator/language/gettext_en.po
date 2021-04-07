@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-04-03 23:19+0200\n"
+"POT-Creation-Date: 2021-04-06 19:51+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -12480,14 +12480,82 @@ msgstr "Edit schedule"
 msgid "Schedule.Edit"
 msgstr "Edit schedule"
 
+msgid "Schedule.EditDialog.Load"
+msgstr "Import"
+
+msgid "Schedule.EditDialog.Load.Clipboard"
+msgstr "Import schedule from clipboard"
+
+msgid "Schedule.EditDialog.Load.Clipboard.ErrorInfo"
+msgstr "The clipboard data could not be interpreted as a schedule."
+
+msgid "Schedule.EditDialog.Load.Clipboard.ErrorTitle"
+msgstr "Importing schedule from clipboard failed"
+
+msgid "Schedule.EditDialog.Load.File"
+msgstr "Load schedule from file..."
+
+msgid "Schedule.EditDialog.Load.File.ErrorDataInfo"
+msgstr ""
+"The data in the file\n"
+"%s\n"
+"could not be interpreted as a schedule."
+
+msgid "Schedule.EditDialog.Load.File.ErrorFileInfo"
+msgstr ""
+"The file\n"
+"%s\n"
+"could not be loaded."
+
+msgid "Schedule.EditDialog.Load.File.ErrorTitle"
+msgstr "Importing schedule from file failed"
+
+msgid "Schedule.EditDialog.Load.Hint"
+msgstr "Import schedule from clipboard or from file."
+
+msgid "Schedule.EditDialog.Range"
+msgstr "Range"
+
+msgid "Schedule.EditDialog.Range.Hint"
+msgstr "Shows a dialog to select the schedule area to be displayed."
+
+msgid "Schedule.EditDialog.Save"
+msgstr "Export"
+
+msgid "Schedule.EditDialog.Save.Clipboard"
+msgstr "Copy schedule to clipboard"
+
+msgid "Schedule.EditDialog.Save.File"
+msgstr "Save schedule to file..."
+
+msgid "Schedule.EditDialog.Save.File.ErrorInfo"
+msgstr ""
+"The schedule could not be saved to file\n"
+"%s."
+
+msgid "Schedule.EditDialog.Save.File.ErrorTitle"
+msgstr "Saving the schedule failed"
+
+msgid "Schedule.EditDialog.Save.Hint"
+msgstr "Export schedule to clipboard or file."
+
 msgid "Schedule.EditDialog.Settings"
-msgstr "Settings..."
+msgstr "Settings"
+
+msgid "Schedule.EditDialog.Settings.Hint"
+msgstr "Allows to configure additional data to the schedule."
 
 msgid "Schedule.EditDialog.TimeStepBack"
 msgstr "Back"
 
 msgid "Schedule.EditDialog.TimeStepBack.Hint"
 msgstr "Moves one time step back."
+
+msgid "Schedule.EditDialog.TimeStepEnd"
+msgstr "Last time slot"
+
+msgid "Schedule.EditDialog.TimeStepEnd.Hint"
+msgstr "Moves to the last time slot of the schedule."
 
 msgid "Schedule.EditDialog.TimeStepFurther"
 msgstr "Forward"

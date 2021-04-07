@@ -17,15 +17,30 @@ package ui.modelproperties;
 
 import java.awt.BorderLayout;
 import java.awt.Component;
+import java.awt.FlowLayout;
+import java.awt.datatransfer.DataFlavor;
+import java.awt.datatransfer.StringSelection;
+import java.awt.datatransfer.Transferable;
+import java.io.File;
 import java.io.Serializable;
 import java.util.List;
+import java.util.function.Consumer;
 
 import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JMenuItem;
 import javax.swing.JPanel;
+import javax.swing.JPopupMenu;
+import javax.swing.JSlider;
 import javax.swing.JToolBar;
 
 import language.Language;
+import mathtools.Table;
+import mathtools.TimeTools;
+import mathtools.distribution.tools.FileDropper;
+import mathtools.distribution.tools.FileDropperData;
 import systemtools.BaseDialog;
+import systemtools.MsgBox;
 import ui.images.Images;
 import ui.modeleditor.ModelSchedule;
 
@@ -54,12 +69,10 @@ public class ScheduleTableModelDataDialog extends BaseDialog {
 	/**  Wie soll der Plan nach seinem Ende fortgesetzt werden? */
 	private ModelSchedule.RepeatMode repeatMode;
 
-	/** Schaltfläche "An den Anfang" */
+	/** Schaltfläche "Anfang" */
 	private final JButton buttonHome;
 	/** Schaltfläche "Zurück" */
 	private final JButton buttonLeft;
-	/** Schaltfläche "Weiter" */
-	private final JButton buttonRight;
 	/** Panel in dem die Zeitslots des Zeitplans als Balken dargestellt werden */
 	private final SchedulePanel schedulePanel;
 
@@ -77,39 +90,81 @@ public class ScheduleTableModelDataDialog extends BaseDialog {
 		editorMaxY=schedule.getEditorMaxY();
 		repeatMode=schedule.getRepeatMode();
 
-		addUserButton(Language.tr("Schedule.EditDialog.Settings"),Images.GENERAL_SETUP.getIcon());
+		/* GUI */
+
 		final JPanel content=createGUI(help);
 		content.setLayout(new BorderLayout());
 
-		content.add(schedulePanel=new SchedulePanel(schedule.getSlots(),editorMaxY,durationPerSlot,20),BorderLayout.CENTER);
+		/* Zeitslot-Editor */
+
+		content.add(schedulePanel=new SchedulePanel(schedule.getSlots(),editorMaxY,durationPerSlot,40),BorderLayout.CENTER);
+
+		/* Toolbar */
 
 		final JToolBar toolBar=new JToolBar();
 		toolBar.setFloatable(false);
 		content.add(toolBar,BorderLayout.NORTH);
-		toolBar.add(buttonHome=new JButton(Language.tr("Schedule.EditDialog.ToTheStart")));
-		buttonHome.setToolTipText(Language.tr("Schedule.EditDialog.ToTheStart.Hint"));
-		buttonHome.addActionListener(e->{
+
+		toolBar.add(buttonHome=getButton(Language.tr("Schedule.EditDialog.ToTheStart"),Language.tr("Schedule.EditDialog.ToTheStart.Hint"),Images.GENERAL_HOME,button->{
 			schedulePanel.setStartPosition(0);
 			enableButtons();
-		});
-		buttonHome.setIcon(Images.GENERAL_HOME.getIcon());
+		}));
+		toolBar.add(buttonLeft=getButton(Language.tr("Schedule.EditDialog.TimeStepBack"),Language.tr("Schedule.EditDialog.TimeStepBack.Hint"),Images.ARROW_LEFT_SHORT,button->{
+			final int startSlot=schedulePanel.getStartPosition();
+			schedulePanel.setStartPosition(startSlot-1);
+			enableButtons();
+		}));
+		toolBar.add(getButton(Language.tr("Schedule.EditDialog.TimeStepFurther"),Language.tr("Schedule.EditDialog.TimeStepFurther.Hint"),Images.ARROW_RIGHT_SHORT,button->{
+			final int startSlot=schedulePanel.getStartPosition();
+			schedulePanel.setStartPosition(startSlot+1);
+			enableButtons();
+		}));
+		toolBar.add(getButton(Language.tr("Schedule.EditDialog.TimeStepEnd"),Language.tr("Schedule.EditDialog.TimeStepEnd.Hint"),Images.ARROW_RIGHT,button->{
+			final int slotCount=schedulePanel.getDisplaySlots();
+			final int lastUsedSlot=schedulePanel.getLastNonNullSlot();
+			schedulePanel.setStartPosition(Math.max(0,lastUsedSlot-slotCount+1));
+			enableButtons();
+		}));
+
 		toolBar.addSeparator();
-		toolBar.add(buttonLeft=new JButton(Language.tr("Schedule.EditDialog.TimeStepBack")));
-		buttonLeft.setToolTipText(Language.tr("Schedule.EditDialog.TimeStepBack.Hint"));
-		buttonLeft.addActionListener(e->{
-			schedulePanel.setStartPosition(schedulePanel.getStartPosition()-1);
-			enableButtons();
-		});
-		buttonLeft.setIcon(Images.ARROW_LEFT_SHORT.getIcon());
-		toolBar.add(buttonRight=new JButton(Language.tr("Schedule.EditDialog.TimeStepFurther")));
-		buttonRight.setToolTipText(Language.tr("Schedule.EditDialog.TimeStepFurther.Hint"));
-		buttonRight.addActionListener(e->{
-			schedulePanel.setStartPosition(schedulePanel.getStartPosition()+1);
-			enableButtons();
-		});
-		buttonRight.setIcon(Images.ARROW_RIGHT_SHORT.getIcon());
+
+		toolBar.add(getButton(Language.tr("Schedule.EditDialog.Settings"),Language.tr("Schedule.EditDialog.Settings.Hint"),Images.GENERAL_SETUP,button->commandSettingsDialog()));
+		toolBar.add(getButton(Language.tr("Schedule.EditDialog.Range"),Language.tr("Schedule.EditDialog.Range.Hint"),Images.MODELPROPERTIES_SCHEDULES,button->commandRangeDialog(button)));
+
+		toolBar.addSeparator();
+
+		toolBar.add(getButton(Language.tr("Schedule.EditDialog.Load"),Language.tr("Schedule.EditDialog.Load.Hint"),Images.GENERAL_SELECT_FILE,button->commandPopupLoad(button)));
+		toolBar.add(getButton(Language.tr("Schedule.EditDialog.Save"),Language.tr("Schedule.EditDialog.Save.Hint"),Images.GENERAL_SAVE,button->commandPopupSave(button)));
 
 		enableButtons();
+
+		/* Drag & Drop einrichten */
+
+		new FileDropper(this,e->{
+			final FileDropperData data=(FileDropperData)e.getSource();
+			loadFile(data.getFile());
+			data.dragDropConsumed();
+		});
+
+		/* Dialog starten */
+		setResizable(true);
+		setLocationRelativeTo(getOwner());
+		setVisible(true);
+	}
+
+	/**
+	 * Erstellt eine neue Schaltfläche.
+	 * @param name	Beschriftung (darf nicht <code>null</code> sein)
+	 * @param tooltip	Tooltip (kann <code>null</code> oder leer sein)
+	 * @param icon	Icon (darf nicht <code>null</code> sein)
+	 * @param action	Auszuführende Aktion
+	 * @return	Neue Schaltfläche
+	 */
+	private JButton getButton(final String name, final String tooltip, final Images icon, final Consumer<JButton> action) {
+		final JButton button=new JButton(name,icon.getIcon());
+		if (tooltip!=null && !tooltip.trim().isEmpty()) button.setToolTipText(tooltip);
+		if (action!=null) button.addActionListener(e->action.accept(button));
+		return button;
 	}
 
 	/**
@@ -134,8 +189,10 @@ public class ScheduleTableModelDataDialog extends BaseDialog {
 		originalSchedule.setSlots(data);
 	}
 
-	@Override
-	protected void userButtonClick(final int nr, final JButton button) {
+	/**
+	 * Zeigt den Dialog mit weiteren Einstellungen zu dem Zeitplan an.
+	 */
+	private void commandSettingsDialog() {
 		final ScheduleTableModelSetupDialog dialog=new ScheduleTableModelSetupDialog(this,help,durationPerSlot,editorMaxY,repeatMode);
 		dialog.setVisible(true);
 		if (dialog.getClosedBy()!=BaseDialog.CLOSED_BY_OK) return;
@@ -144,5 +201,120 @@ public class ScheduleTableModelDataDialog extends BaseDialog {
 		editorMaxY=dialog.getEditorMaxY();
 		repeatMode=dialog.getRepeatMode();
 		schedulePanel.setSetupData(editorMaxY,durationPerSlot);
+	}
+
+	/**
+	 * Zeigt einen Dialog zur Auswahl des anzuzeigenden Bereichs an.
+	 * @param parent	Button zur Ausrichtung des Popupmenüs
+	 */
+	private void commandRangeDialog(final JButton parent) {
+		final int initialPosition=schedulePanel.getStartPosition();
+		final int max=Math.max(initialPosition,schedulePanel.getLastNonNullSlot()-schedulePanel.getDisplaySlots());
+		if (max==0) return;
+
+		final JPopupMenu popup=new JPopupMenu();
+
+		final JPanel panel1=new JPanel(new FlowLayout(FlowLayout.LEFT));
+		popup.add(panel1);
+		final JPanel panel2=new JPanel(new FlowLayout(FlowLayout.LEFT));
+		popup.add(panel2);
+
+		final JSlider slider=new JSlider(0,max,initialPosition);
+		panel1.add(slider);
+
+		slider.setPaintTicks(true);
+		slider.setMajorTickSpacing((int)Math.round(Math.max(1,Math.ceil((max-1)/5.0))));
+		final int minor=(int)Math.round(Math.max(1,Math.ceil((max-1)/20.0)));
+		slider.setMinorTickSpacing(minor);
+		if (minor==1) slider.setSnapToTicks(true);
+
+		final JLabel label=new JLabel();
+		panel2.add(label);
+		label.setText(TimeTools.formatTime(durationPerSlot*initialPosition)+" - "+TimeTools.formatTime(durationPerSlot*(initialPosition+schedulePanel.getDisplaySlots())));
+
+		slider.addChangeListener(e->{
+			final int pos=slider.getValue();
+			schedulePanel.setStartPosition(pos);
+			label.setText(TimeTools.formatTime(durationPerSlot*pos)+" - "+TimeTools.formatTime(durationPerSlot*(pos+schedulePanel.getDisplaySlots())));
+		});
+
+		popup.show(parent,0,parent.getHeight());
+	}
+
+	/**
+	 * Zeigt ein Popupmenü zum Importieren eines Zeitplans an.
+	 * @param parent	Button zur Ausrichtung des Popupmenüs
+	 */
+	private void commandPopupLoad(final JButton parent) {
+		final JPopupMenu popup=new JPopupMenu();
+
+		JMenuItem item;
+
+		popup.add(item=new JMenuItem(Language.tr("Schedule.EditDialog.Load.Clipboard"),Images.EDIT_PASTE.getIcon()));
+		item.addActionListener(e->{
+			final Transferable content=getToolkit().getSystemClipboard().getContents(this);
+			if (content==null) return;
+			String stringContent=null;
+			try {stringContent=(String)content.getTransferData(DataFlavor.stringFlavor);} catch (Exception ex) {stringContent=null;}
+			if (stringContent==null) return;
+			final Table table=new Table();
+			table.load(stringContent);
+			if (!schedulePanel.setDataFromTable(table)) {
+				MsgBox.error(this,Language.tr("Schedule.EditDialog.Load.Clipboard.ErrorTitle"),Language.tr("Schedule.EditDialog.Load.Clipboard.ErrorInfo"));
+				return;
+			}
+			enableButtons();
+		});
+
+		popup.add(item=new JMenuItem(Language.tr("Schedule.EditDialog.Load.File"),Images.GENERAL_SELECT_FILE.getIcon()));
+		item.addActionListener(e->{
+			final File file=Table.showLoadDialog(this,Language.tr("Schedule.EditDialog.Load.File"));
+			if (file==null) return;
+			loadFile(file);
+		});
+
+		popup.show(parent,0,parent.getHeight());
+	}
+
+	/**
+	 * Lädt einen Zeitplan aus einer Datei.
+	 * @param file	Zu ladende Datei
+	 */
+	private void loadFile(final File file) {
+		final Table table=new Table();
+		if (!table.load(file)) {
+			MsgBox.error(this,Language.tr("Schedule.EditDialog.Load.File.ErrorTitle"),String.format(Language.tr("Schedule.EditDialog.Load.File.ErrorFileInfo"),file.toString()));
+			return;
+		}
+		if (!schedulePanel.setDataFromTable(table)) {
+			MsgBox.error(this,Language.tr("Schedule.EditDialog.Load.File.ErrorTitle"),String.format(Language.tr("Schedule.EditDialog.Load.File.ErrorDataInfo"),file.toString()));
+			return;
+		}
+		enableButtons();
+	}
+
+	/**
+	 * Zeigt ein Popupmenü zum Exportieren eines Zeitplans an.
+	 * @param parent	Button zur Ausrichtung des Popupmenüs
+	 */
+	private void commandPopupSave(final JButton parent) {
+		final JPopupMenu popup=new JPopupMenu();
+
+		JMenuItem item;
+
+		popup.add(item=new JMenuItem(Language.tr("Schedule.EditDialog.Save.Clipboard"),Images.EDIT_COPY.getIcon()));
+		item.addActionListener(e->{
+			getToolkit().getSystemClipboard().setContents(new StringSelection(schedulePanel.getDataAsTable().toString()),null);
+		});
+
+		popup.add(item=new JMenuItem(Language.tr("Schedule.EditDialog.Save.File"),Images.GENERAL_SAVE.getIcon()));
+		item.addActionListener(e->{
+			final File file=Table.showSaveDialog(this,Language.tr("Schedule.EditDialog.Save.File"));
+			if (file==null) return;
+			if (file.exists()) {if (!MsgBox.confirmOverwrite(this,file)) return;}
+			if (!schedulePanel.getDataAsTable().save(file)) MsgBox.error(this,Language.tr("Schedule.EditDialog.Save.File.ErrorTitle"),String.format(Language.tr("Schedule.EditDialog.Save.File.ErrorInfo"),file.toString()));
+		});
+
+		popup.show(parent,0,parent.getHeight());
 	}
 }

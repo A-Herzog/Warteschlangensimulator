@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-04-03 23:19+0200\n"
+"POT-Creation-Date: 2021-04-06 19:51+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -12483,14 +12483,83 @@ msgstr "Zeitplan bearbeiten"
 msgid "Schedule.Edit"
 msgstr "Zeitplan bearbeiten"
 
+msgid "Schedule.EditDialog.Load"
+msgstr "Importieren"
+
+msgid "Schedule.EditDialog.Load.Clipboard"
+msgstr "Zeitplan aus Zwischenablage importieren"
+
+msgid "Schedule.EditDialog.Load.Clipboard.ErrorInfo"
+msgstr "Die in der Zwischenablage enthaltenen Daten konnten nicht als Zeitplan interpretiert werden."
+
+msgid "Schedule.EditDialog.Load.Clipboard.ErrorTitle"
+msgstr "Importieren des Zeitplan aus der Zwischenablage fehlgeschlagen"
+
+msgid "Schedule.EditDialog.Load.File"
+msgstr "Zeitplan aus Datei laden..."
+
+msgid "Schedule.EditDialog.Load.File.ErrorDataInfo"
+msgstr ""
+"Die Daten in der Datei\n"
+"%s\n"
+"konnten nicht als Zeitplan interpretiert werden."
+
+msgid "Schedule.EditDialog.Load.File.ErrorFileInfo"
+msgstr ""
+"Die Datei\n"
+"%s\n"
+"konnte nicht geladen werden."
+
+msgid "Schedule.EditDialog.Load.File.ErrorTitle"
+msgstr "Importieren des Zeitplans fehlgeschlagen"
+
+msgid "Schedule.EditDialog.Load.Hint"
+msgstr "Zeitplan aus Zwischenablage oder Datei laden."
+
+msgid "Schedule.EditDialog.Range"
+msgstr "Bereich"
+
+msgid "Schedule.EditDialog.Range.Hint"
+msgstr "Ermöglicht die Auswahl des darzustellenden Zeitplan-Bereichs über einen Dialog."
+
+msgid "Schedule.EditDialog.Save"
+msgstr "Exportieren"
+
+msgid "Schedule.EditDialog.Save.Clipboard"
+msgstr "Zeitplan in Zwischenablage kopieren"
+
+msgid "Schedule.EditDialog.Save.File"
+msgstr "Zeitplan als Datei speichern..."
+
+msgid "Schedule.EditDialog.Save.File.ErrorInfo"
+msgstr ""
+"Der Zeitplan konnte nicht in der Datei\n"
+"%s\n"
+"gespeichert werden."
+
+msgid "Schedule.EditDialog.Save.File.ErrorTitle"
+msgstr "Speichern des Zeitplans fehlgeschlagen"
+
+msgid "Schedule.EditDialog.Save.Hint"
+msgstr "Zeitplan in Zwischenablage oder einer Datei speichern."
+
 msgid "Schedule.EditDialog.Settings"
-msgstr "Einstellungen..."
+msgstr "Einstellungen"
+
+msgid "Schedule.EditDialog.Settings.Hint"
+msgstr "Ermöglicht die Einstellung weiterer Daten zu dem Zeitplan."
 
 msgid "Schedule.EditDialog.TimeStepBack"
 msgstr "Zurück"
 
 msgid "Schedule.EditDialog.TimeStepBack.Hint"
 msgstr "Darstellung einen Zeitschritt zurück bewegen."
+
+msgid "Schedule.EditDialog.TimeStepEnd"
+msgstr "Ende"
+
+msgid "Schedule.EditDialog.TimeStepEnd.Hint"
+msgstr "Springt zu dem letzten Zeitslot des Zeitplans."
 
 msgid "Schedule.EditDialog.TimeStepFurther"
 msgstr "Weiter"
@@ -12502,7 +12571,7 @@ msgid "Schedule.EditDialog.Title"
 msgstr "Zeitplan \"%s\" bearbeiten"
 
 msgid "Schedule.EditDialog.ToTheStart"
-msgstr "An den Anfang"
+msgstr "Anfang"
 
 msgid "Schedule.EditDialog.ToTheStart.Hint"
 msgstr "Zurück zum ersten Zeitslot des Zeitplans."
@@ -12543,10 +12612,10 @@ msgid "Schedule.Number"
 msgstr "Anzahl"
 
 msgid "Schedule.Range"
-msgstr "Zeitdauer pro Abschnitt"
+msgstr "Anzeigebereich"
 
 msgid "Schedule.RangePerSection"
-msgstr "Anzeigebereich"
+msgstr "Zeitdauer pro Abschnitt"
 
 msgid "Schedule.Rename.Info"
 msgstr "Soll in diesen Elementen ebenfalls der neue Name eingetragen werden?"

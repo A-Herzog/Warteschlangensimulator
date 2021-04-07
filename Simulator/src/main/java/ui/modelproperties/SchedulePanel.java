@@ -32,6 +32,9 @@ import java.util.List;
 import javax.swing.JPanel;
 
 import language.Language;
+import mathtools.NumberTools;
+import mathtools.Table;
+import ui.tools.FlatLaFHelper;
 
 /**
  * Stellt innerhalb eines {@link ScheduleTableModelDataDialog} Dialogs
@@ -59,8 +62,8 @@ public class SchedulePanel extends JPanel {
 	private int editorMaxY;
 	/** Zeitspanne pro Zeitslot (für die Beschriftung unter den Slots) */
 	private int durationPerSlot;
-	/** Anzahl an gleichzeitig darzustellenden Slots */
-	private final int displaySlots;
+	/** Breite pro darzustellendem Slot */
+	private final int widthPerSlot;
 
 	/** Schriftart für Standardtexte */
 	private final Font fontDefault;
@@ -97,19 +100,25 @@ public class SchedulePanel extends JPanel {
 	private Point lastMousePoint;
 
 	/**
+	 * Erfolgt die Darstellung im Dark-Modus?
+	 */
+	public boolean isDark;
+
+	/**
 	 * Konstruktor der Klasse
 	 * @param data	Werte in den einzelnen Zeitslots
 	 * @param editorMaxY	Als Maximum anzuzeigender y-Wert
 	 * @param durationPerSlot	Zeitspanne pro Zeitslot (für die Beschriftung unter den Slots)
-	 * @param displaySlots	Anzahl an gleichzeitig darzustellenden Slots
+	 * @param widthPerSlot	Breite pro darzustellendem Slot
 	 */
-	public SchedulePanel(final List<Integer> data, final int editorMaxY, final int durationPerSlot, final int displaySlots) {
+	public SchedulePanel(final List<Integer> data, final int editorMaxY, final int durationPerSlot, final int widthPerSlot) {
 		super();
+		isDark=FlatLaFHelper.isDark();
 		this.data=data;
 		startPosition=0;
 		this.editorMaxY=10;
 		this.durationPerSlot=3600;
-		this.displaySlots=displaySlots;
+		this.widthPerSlot=widthPerSlot;
 		setSetupData(editorMaxY,durationPerSlot);
 		addMouseListener(new SchedulePanelMouseListener());
 		addMouseMotionListener(new SchedulePanelMouseListener());
@@ -125,6 +134,82 @@ public class SchedulePanel extends JPanel {
 	 */
 	public List<Integer> getData() {
 		return data;
+	}
+
+	/**
+	 * Liefert die aktuellen Werte der einzelnen Zeitslots als Tabelle
+	 * @return	Aktuelle Werte der Zeitslots als Tabelle
+	 */
+	public Table getDataAsTable() {
+		final Table table=new Table();
+		final int max=getLastNonNullSlot();
+		for (int i=0;i<=max;i++) {
+			final Integer I=data.get(i);
+			final int value=(I==null)?0:I.intValue();
+			table.addLine(new int[] {value});
+		}
+		return table;
+	}
+
+	/**
+	 * Lädt den Zeitplan aus einer Tabellenzeile.
+	 * @param line	Tabellenzeile der der Zeitplan entnommen werden soll.
+	 * @return	Liefert <code>true</code>, wenn der Zeitplan geladen werden konnte
+	 */
+	private boolean setDataFromTable(final List<String> line) {
+		if (line==null || line.size()==0) return false;
+
+		final int size=line.size();
+		final List<Integer> newData=new ArrayList<>(size);
+		for (int i=0;i<size;i++) {
+			final Integer I=NumberTools.getNotNegativeInteger(line.get(i));
+			if (I==null) return false;
+			newData.add(I);
+		}
+
+		data.clear();
+		data.addAll(newData);
+
+		return true;
+	}
+
+	/**
+	 * Lädt den Zeitplan aus einer Tabelle.
+	 * @param table	Tabelle der der Zeitplan entnommen werden soll.
+	 * @return	Liefert <code>true</code>, wenn der Zeitplan geladen werden konnte
+	 */
+	public boolean setDataFromTable(final Table table) {
+		if (table==null) return false;
+		final int rows=table.getSize(0);
+		final int cols=table.getSize(1);
+
+		if (rows==0 || cols==0) return false;
+		if (rows>1 && cols>1) return false;
+
+		final boolean ok;
+		if (rows>1) {
+			/* Daten in Zeilen */
+			ok=setDataFromTable(table.transpose().getLine(0));
+		} else {
+			/* Daten in Spalten */
+			ok=setDataFromTable(table.getLine(0));
+		}
+
+		if (ok) invalidate();
+		return ok;
+	}
+
+	/**
+	 * Liefert den Index des letzten Zeitslots, der einen Wert ungleich 0 enthält.
+	 * @return	Index des letzten Zeitslots, der einen Wert ungleich 0 enthält (kann -1 sein, wenn der Zeitplan insgesamt leer ist)
+	 */
+	public int getLastNonNullSlot() {
+		if (data==null) return -1;
+		for (int i=data.size()-1;i>=0;i--) {
+			final Integer I=data.get(i);
+			if (I!=null && I.intValue()!=0) return i;
+		}
+		return -1;
 	}
 
 	/**
@@ -156,6 +241,14 @@ public class SchedulePanel extends JPanel {
 	}
 
 	/**
+	 * Liefert die in Abhängigkeit von der Breite des Panels anzuzeigende Anzahl an Zeitslots.
+	 * @return	Anzuzeigende Anzahl an Zeitslots
+	 */
+	public int getDisplaySlots() {
+		return getWidth()/widthPerSlot;
+	}
+
+	/**
 	 * Zeichnet den Rahmen (Hintergrund für den gesamten Bereich)
 	 * @param g	Grafikausgabeobjekt
 	 * @see #paint(Graphics)
@@ -163,7 +256,7 @@ public class SchedulePanel extends JPanel {
 	private void paintFrame(final Graphics2D g) {
 		final Rectangle2D.Double rect=new Rectangle2D.Double(0,0,getWidth(),getHeight());
 
-		g.setColor(SystemColor.control);
+		g.setColor(isDark?Color.DARK_GRAY:SystemColor.control);
 		g.fill(rect);
 		/* kein Rahmen - g.setColor(Color.GRAY); g.draw(rect); */
 	}
@@ -176,7 +269,7 @@ public class SchedulePanel extends JPanel {
 	private void paintBox(final Graphics2D g) {
 		final Rectangle2D.Double rect=new Rectangle2D.Double(marginBoxLeft,marginBoxTop,boxWidth,boxHeight);
 
-		g.setColor(Color.WHITE);
+		g.setColor(isDark?Color.GRAY:Color.WHITE);
 		g.fill(rect);
 		g.setColor(Color.BLACK);
 		g.draw(rect);
@@ -190,7 +283,7 @@ public class SchedulePanel extends JPanel {
 	 */
 	private void paintTitle(final Graphics2D g, final String title) {
 		g.setFont(fontBold);
-		g.setColor(Color.BLACK);
+		g.setColor(isDark?Color.LIGHT_GRAY:Color.BLACK);
 
 		g.drawString(title,marginBoxLeft+(boxWidth-g.getFontMetrics().stringWidth(title))/2,fontHeight/2+fontYDelta);
 	}
@@ -201,8 +294,10 @@ public class SchedulePanel extends JPanel {
 	 * @see #paint(Graphics)
 	 */
 	private void paintAxis(final Graphics2D g) {
+		final int displaySlots=getDisplaySlots();
+
 		g.setFont(fontDefault);
-		g.setColor(Color.BLACK);
+		g.setColor(isDark?Color.LIGHT_GRAY:Color.BLACK);
 
 		/* "Anzahl" über y-Achse */
 		g.drawString(Language.tr("Schedule.Number"),fontHeight,fontHeight/2+fontYDelta);
@@ -238,6 +333,8 @@ public class SchedulePanel extends JPanel {
 	 * @see #paint(Graphics)
 	 */
 	private void paintData(final Graphics2D g) {
+		final int displaySlots=getDisplaySlots();
+
 		for (int i=0;i<displaySlots;i++) {
 			final int value=getDataValue(startPosition+i);
 
@@ -265,6 +362,7 @@ public class SchedulePanel extends JPanel {
 			}
 
 			if (markThisBox) {
+				g.setColor(isDark?Color.WHITE:Color.BLUE);
 				g.setFont(fontBold);
 				String mark=getSlotInfo(i)+" - "+getSlotInfo(i+1);
 				int xMark=x+(width-g.getFontMetrics().stringWidth(mark))/2;
@@ -315,6 +413,8 @@ public class SchedulePanel extends JPanel {
 
 	@Override
 	public void paint(final Graphics g) {
+		final int displaySlots=getDisplaySlots();
+
 		g.setFont(fontDefault);
 		fontYDelta=g.getFontMetrics().getAscent();
 		fontHeight=g.getFontMetrics().getAscent()+g.getFontMetrics().getDescent();
@@ -327,26 +427,26 @@ public class SchedulePanel extends JPanel {
 		boxWidth=getWidth()-marginBoxLeft-marginBoxRight;
 		boxHeight=getHeight()-marginBoxTop-marginBoxBottom;
 
-		final StringBuilder sb=new StringBuilder();
-		sb.append(Language.tr("Schedule.Range")+": ");
-		sb.append(getSlotInfo(0));
-		sb.append(" - ");
-		sb.append(getSlotInfo(displaySlots-1));
-		sb.append(", "+Language.tr("Schedule.RangePerSection")+": ");
+		final StringBuilder title=new StringBuilder();
+		title.append(Language.tr("Schedule.Range")+": ");
+		title.append(getSlotInfo(0));
+		title.append(" - ");
+		title.append(getSlotInfo(displaySlots));
+		title.append(", "+Language.tr("Schedule.RangePerSection")+": ");
 		int time=durationPerSlot;
 		if (time>=86400) {
 			int days=time/86400;
-			sb.append(days);
-			sb.append(" ");
-			if (days==1) sb.append(Language.tr("Schedule.Day.Singular")); else sb.append(Language.tr("Schedule.Day.Plural"));
+			title.append(days);
+			title.append(" ");
+			if (days==1) title.append(Language.tr("Schedule.Day.Singular")); else title.append(Language.tr("Schedule.Day.Plural"));
 			time-=days*86400;
-			if (time>0) sb.append(" "+Language.tr("Schedule.And")+" ");
+			if (time>0) title.append(" "+Language.tr("Schedule.And")+" ");
 		}
-		if (time>0) sb.append(String.format("%d:%02d",time/3600,time/60%60));
+		if (time>0) title.append(String.format("%d:%02d",time/3600,time/60%60));
 
 		paintFrame((Graphics2D)g);
 		paintBox((Graphics2D)g);
-		paintTitle((Graphics2D)g,sb.toString());
+		paintTitle((Graphics2D)g,title.toString());
 		paintAxis((Graphics2D)g);
 		paintData((Graphics2D)g);
 	}
@@ -359,6 +459,8 @@ public class SchedulePanel extends JPanel {
 	 * @return	Array aus Index des Zeitslots und neuem Wert für diesen Slot
 	 */
 	private int[] getSlotDataFromPosition(final int xMouse, final int yMouse) {
+		final int displaySlots=getDisplaySlots();
+
 		for (int i=0;i<displaySlots;i++) {
 			int x=1+marginBoxLeft+i*boxWidth/displaySlots;
 			int width=boxWidth/displaySlots-2;

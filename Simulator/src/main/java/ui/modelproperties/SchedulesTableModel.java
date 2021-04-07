@@ -410,7 +410,6 @@ public class SchedulesTableModel extends JTableExtAbstractTableModel {
 				break;
 			case 1:
 				ScheduleTableModelDataDialog dialog2=new ScheduleTableModelDataDialog(table,help,schedulesList.get(row));
-				dialog2.setVisible(true);
 				if (dialog2.getClosedBy()==BaseDialog.CLOSED_BY_OK) {
 					updateTable();
 				}
