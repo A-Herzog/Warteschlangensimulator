@@ -85,7 +85,7 @@ public class WayPointRecord {
 	}
 
 	/**
-	 * Liefer die Zielstation der Transporter, die diesen Wegpunkt passieren sollen
+	 * Liefert die Zielstation der Transporter, die diesen Wegpunkt passieren sollen
 	 * @return	Zielstation der Transporter, die diesen Wegpunkt passieren sollen
 	 */
 	public String getStationB() {
@@ -93,7 +93,7 @@ public class WayPointRecord {
 	}
 
 	/**
-	 * Liefer den Reihenfolgeindex zur Ansteuerung dieses Wegpunktes auf dem Weg von der Start- zur Zielstation
+	 * Liefert den Reihenfolgeindex zur Ansteuerung dieses Wegpunktes auf dem Weg von der Start- zur Zielstation
 	 * @return	Reihenfolgeindex zur Ansteuerung dieses Wegpunktes auf dem Weg von der Start- zur Zielstation
 	 */
 	public int getIndex() {

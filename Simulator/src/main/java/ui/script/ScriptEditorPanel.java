@@ -401,7 +401,7 @@ public class ScriptEditorPanel extends JPanel {
 	/**
 	 * Befehl: Skript laden
 	 * @param file	Zu ladende Datei (wird <code>null</code> übergeben, so wird ein Dateiauswahldialog angezeigt)
-	 * @return	Liefer <code>true</code>, wenn eine Datei geladen wurde
+	 * @return	Liefert <code>true</code>, wenn eine Datei geladen wurde
 	 */
 	private boolean commandLoad(File file) {
 		if (file==null) {

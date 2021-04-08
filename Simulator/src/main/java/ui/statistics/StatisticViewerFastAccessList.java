@@ -419,7 +419,7 @@ public class StatisticViewerFastAccessList extends StatisticViewerFastAccessBase
 
 	/**
 	 * Speichert das aktuelle Skript in einer Datei.
-	 * @return	Liefer <code>true</code>, wenn das Skript gespeichert werden konnte.
+	 * @return	Liefert <code>true</code>, wenn das Skript gespeichert werden konnte.
 	 */
 	private boolean saveToFile() {
 		final String fileName=ScriptTools.selectTextSaveFile(getParent(),null,null);

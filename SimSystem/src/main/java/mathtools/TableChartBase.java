@@ -599,7 +599,7 @@ public abstract class TableChartBase {
 		}
 
 		/**
-		 * Liefer die erste Zelle des Bereichs
+		 * Liefert die erste Zelle des Bereichs
 		 * @return	Erste Zelle des Bereichs
 		 * @see #toString()
 		 */

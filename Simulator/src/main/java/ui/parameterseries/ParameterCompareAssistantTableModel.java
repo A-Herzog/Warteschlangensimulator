@@ -299,7 +299,7 @@ public class ParameterCompareAssistantTableModel extends JTableExtAbstractTableM
 	}
 
 	/**
-	 * Liefer die Nummer des als nächstes anzupassenden Eingabeparameters
+	 * Liefert die Nummer des als nächstes anzupassenden Eingabeparameters
 	 * @param lastLevel	Zuvor angepasster Parameter
 	 * @return	Nummer des als nächstes anzupassenden Eingabeparameters
 	 */

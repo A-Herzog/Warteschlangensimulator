@@ -189,7 +189,7 @@ public class BackgroundSystem {
 	/**
 	 * Prüft, ob das Modell im Hintergrund simuliert werden kann.
 	 * @param model	Zu prüfendes Modell
-	 * @return	Liefer <code>true</code>, wenn das Modell im Hintergrund simuliert werden kann
+	 * @return	Liefert <code>true</code>, wenn das Modell im Hintergrund simuliert werden kann
 	 * @see #process(EditModel, boolean)
 	 */
 	private boolean canBackgroundProcess(final EditModel model) {

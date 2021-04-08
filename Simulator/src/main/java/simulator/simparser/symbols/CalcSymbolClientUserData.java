@@ -56,7 +56,7 @@ public class CalcSymbolClientUserData extends CalcSymbolSimData  {
 	 * Prüft, ob eine Zeichenkette mit einer bestimmten anderen Zeichenkette beginnt (ohne Berücksichtigung der Groß- und Kleinschreibung)
 	 * @param longText	Lange Zeichenkette
 	 * @param testText	Kurze Zeichenkette, die am Anfang der langen Zeichenkette gesucht werden soll
-	 * @return	Liefer <code>true</code>, wenn die lange Zeichenkette mit der zu suchenden Zeichenkette ohne Berücksichtigung der Groß- und Kleinschreibung beginnt
+	 * @return	Liefert <code>true</code>, wenn die lange Zeichenkette mit der zu suchenden Zeichenkette ohne Berücksichtigung der Groß- und Kleinschreibung beginnt
 	 */
 	private static boolean startsWithIgnoreCase(final String longText, final String testText) {
 		final int testLength=testText.length();

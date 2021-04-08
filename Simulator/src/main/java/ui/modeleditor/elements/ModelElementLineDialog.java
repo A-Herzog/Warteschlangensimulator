@@ -78,7 +78,7 @@ public class ModelElementLineDialog extends ModelElementBaseDialog {
 	}
 
 	/**
-	 * Liefer die Beschriftung für die Pfeil-Typ-Auswahlbox.
+	 * Liefert die Beschriftung für die Pfeil-Typ-Auswahlbox.
 	 * @param p	Punkt an Linienstart oder -ende
 	 * @param p1	Linienstart
 	 * @param p2	Linienende

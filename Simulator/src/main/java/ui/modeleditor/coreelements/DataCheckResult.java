@@ -190,7 +190,7 @@ public class DataCheckResult {
 	}
 
 	/**
-	 * Prüft die Verbindung zu einer Datenbank und liefer ein entsprechendes {@link DataCheckResult}-Objekt zurück.
+	 * Prüft die Verbindung zu einer Datenbank und liefert ein entsprechendes {@link DataCheckResult}-Objekt zurück.
 	 * @param element	Modell-Element auf das sich die Prüfung bezieht
 	 * @param dbSettings	Zu prüfende Datenbankverbindung
 	 * @return	Prüfungsergebnis
@@ -204,7 +204,7 @@ public class DataCheckResult {
 	}
 
 	/**
-	 * Prüft eine DDE-Verbindung und liefer ein entsprechendes {@link DataCheckResult}-Objekt zurück.
+	 * Prüft eine DDE-Verbindung und liefert ein entsprechendes {@link DataCheckResult}-Objekt zurück.
 	 * @param element	Modell-Element auf das sich die Prüfung bezieht
 	 * @param workbook	Arbeitsmappe auf die über die DDE-Verbindung zugegriffen werden soll
 	 * @param table	Tabelle auf die über die DDE-Verbindung zugegriffen werden soll
@@ -228,7 +228,7 @@ public class DataCheckResult {
 	}
 
 	/**
-	 * Prüft eine DDE-Verbindung und liefer ein entsprechendes {@link DataCheckResult}-Objekt zurück.
+	 * Prüft eine DDE-Verbindung und liefert ein entsprechendes {@link DataCheckResult}-Objekt zurück.
 	 * @param element	Modell-Element auf das sich die Prüfung bezieht
 	 * @param workbook	Arbeitsmappe auf die über die DDE-Verbindung zugegriffen werden soll
 	 * @param table	Tabelle auf die über die DDE-Verbindung zugegriffen werden soll
