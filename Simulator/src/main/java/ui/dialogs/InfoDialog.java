@@ -84,22 +84,6 @@ public class InfoDialog extends JDialog {
 	private static final long serialVersionUID = -4544783238672067726L;
 
 	/**
-	 * "Ok"-Schaltfläche
-	 */
-	private final JButton okButton;
-	/**
-	 * "Versionsgeschichte"-Schaltfläche
-	 * @see #showVersionHistory
-	 */
-	private final JButton versionHistoryButton;
-
-	/**
-	 * "Lizenzen"-Schaltfläche
-	 * @see #showLicenses
-	 */
-	private final JButton licenseButton;
-
-	/**
 	 * Auswahlfeld zum Ändern der Programmsprache
 	 */
 	private final JComboBox<String> languages;
@@ -186,24 +170,27 @@ public class InfoDialog extends JDialog {
 		mainarea.add(p=new JPanel(new FlowLayout(FlowLayout.LEFT))); p.add(p2=new JPanel());
 		p2.setLayout(new BoxLayout(p2,BoxLayout.Y_AXIS));
 
-		/* Programm und Autor */
-		List<String> text=new ArrayList<>();
-		text.add(MainFrame.PROGRAM_NAME+" "+version);
-		text.add("&copy; "+MainPanel.AUTHOR+" (<a href=\"mailto:"+MainPanel.AUTHOR_EMAIL+"\">"+MainPanel.AUTHOR_EMAIL+"</a>)");
-
-		text.add("");
+		/* Programm, Autor und Links */
+		final String htmlName=MainFrame.PROGRAM_NAME+" "+version;
+		final String htmlAuthor="&copy; "+MainPanel.AUTHOR+" (<a href=\"mailto:"+MainPanel.AUTHOR_EMAIL+"\" style=\"text-decoration: none;\">"+MainPanel.AUTHOR_EMAIL+"</a>)";
+		String htmlLinks=null;
+		if (!plainMode) {
+			htmlLinks="<a href=\"special:changelog\" style=\"text-decoration: none;\">"+Language.tr("InfoDialog.ShowVersionHistory")+"</a>"+
+					"&nbsp;&nbsp;"+
+					"<a href=\"special:license\" style=\"text-decoration: none;\">"+Language.tr("InfoDialog.ShowLicenses")+"</a>";
+		}
 
 		/* System-Informationen */
-		text.addAll(getSystemInfo());
+		final List<String> text=getSystemInfo();
 
 		/* Ausgabe */
 		StringBuilder sb=new StringBuilder();
-		sb.append("<html><body style=\"margin: 0px; padding: 0px; font-family: sans; background-color: transparent; font-size: "+Math.round(100*GUITools.getScaleFactor())+"%;\"><p style=\"margin-top: 0px; font-weight: bold; font-size: 120%;\">"+text.get(0)+"</p><p style=\"margin-top: 5px; margin-bottom: 5px; font-size: 100%;\">"+text.get(1)+"</p><p style=\"margin-top: 0px; font-size: 85%;\">");
-		for (int i=2;i<text.size();i++) {
-			if (i>2) sb.append("<br>");
-			sb.append(text.get(i));
-		}
-		sb.append("</p></body></html>");
+		sb.append("<html><body style=\"margin: 0px; padding: 0px; font-family: sans; background-color: transparent; font-size: "+Math.round(100*GUITools.getScaleFactor())+"%;\">");
+		sb.append("<p style=\"margin-top: 0px; font-weight: bold; font-size: 120%;\">"+htmlName+"</p>");
+		sb.append("<p style=\"margin-top: 5px; font-size: 110%;\">"+htmlAuthor+"</p>");
+		if (htmlLinks!=null) sb.append("<p style=\"margin-top: 5px; font-size: 110%;\">"+htmlLinks+"</p>");
+		sb.append("<p style=\"margin-top: 5px; font-size: 85%;\">"+String.join("<br>",text)+"</p>");
+		sb.append("</body></html>");
 		final String htmlInfoText=sb.toString();
 
 		p2.add(p3=new JPanel(new FlowLayout(FlowLayout.LEFT)));
@@ -221,6 +208,7 @@ public class InfoDialog extends JDialog {
 
 		add(p=new JPanel(new FlowLayout(FlowLayout.LEFT)),BorderLayout.SOUTH);
 		/* Ok-Button */
+		final JButton okButton;
 		p.add(okButton=new JButton(Language.tr("Dialog.Button.Ok")));
 		okButton.addActionListener(new ActionListener() {
 			@Override
@@ -241,18 +229,6 @@ public class InfoDialog extends JDialog {
 		getRootPane().setDefaultButton(okButton);
 
 		if (!plainMode) {
-			/* Version history */
-			p.add(versionHistoryButton=new JButton(Language.tr("InfoDialog.ShowVersionHistory")));
-			versionHistoryButton.setToolTipText(Language.tr("InfoDialog.ShowVersionHistory.Tooltip"));
-			versionHistoryButton.addActionListener(e->{showVersionHistory=true; setVisible(false); dispose();});
-			versionHistoryButton.setIcon(Images.GENERAL_CHANGELOG.getIcon());
-
-			/* Lizenzen */
-			p.add(licenseButton=new JButton(Language.tr("InfoDialog.ShowLicenses")));
-			licenseButton.setToolTipText(Language.tr("InfoDialog.ShowLicenses.Tooltip"));
-			licenseButton.addActionListener(e->{showLicenses=true; setVisible(false); dispose();});
-			licenseButton.setIcon(Images.GENERAL_LICENSE.getIcon());
-
 			/* Sprachschalter */
 			p.add(Box.createHorizontalStrut(5));
 			p.add(new JLabel(Language.tr("SettingsDialog.Languages")+":"));
@@ -262,8 +238,6 @@ public class InfoDialog extends JDialog {
 			SetupData setup=SetupData.getSetup();
 			if (setup.language==null || setup.language.isEmpty() || setup.language.equalsIgnoreCase("de")) languages.setSelectedIndex(1); else languages.setSelectedIndex(0);
 		} else {
-			versionHistoryButton=null;
-			licenseButton=null;
 			languages=null;
 		}
 
@@ -315,13 +289,21 @@ public class InfoDialog extends JDialog {
 	private class LinkListener implements HyperlinkListener {
 		@Override
 		public void hyperlinkUpdate(HyperlinkEvent e) {
-			if (e.getEventType()==HyperlinkEvent.EventType.ACTIVATED && e.getURL().toString().toLowerCase().startsWith("mailto:")) {
+			if (e.getEventType()!=HyperlinkEvent.EventType.ACTIVATED) return;
+			final String link=e.getDescription();
+
+			if (link.toLowerCase().startsWith("mailto:")) {
 				final URL url=e.getURL();
 				try {
 					Desktop.getDesktop().mail(url.toURI());
 				} catch (IOException | URISyntaxException e1) {
 					MsgBox.error(InfoDialog.this,Language.tr("Window.Info.NoEMailProgram.Title"),String.format(Language.tr("Window.Info.NoEMailProgram.Info"),url.toString()));
 				}
+			}
+
+			if (link.toLowerCase().startsWith("special:")) {
+				if (link.equalsIgnoreCase("special:changelog")) {showVersionHistory=true; setVisible(false); dispose();}
+				if (link.equalsIgnoreCase("special:license")) {showLicenses=true; setVisible(false); dispose();}
 			}
 		}
 	}
