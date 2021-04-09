@@ -256,7 +256,7 @@ public class OptimizerPanel extends SpecialPanel {
 		loadSetupButton=addUserButton(Language.tr("Optimizer.Toolbar.Load"),Language.tr("Optimizer.Toolbar.Load.Hint"),Images.OPTIMIZER_SETUP_LOAD.getIcon());
 		saveSetupButton=addUserButton(Language.tr("Optimizer.Toolbar.Save"),Language.tr("Optimizer.Toolbar.Save.Hint"),Images.OPTIMIZER_SETUP_SAVE.getIcon());
 		addSeparator();
-		startButton=addUserButton(Language.tr("Optimizer.Toolbar.Start"),Language.tr("Optimizer.Toolbar.Start.Hint"),Images.OPTIMIZER_RUN.getIcon());
+		startButton=addUserButton(Language.tr("Optimizer.Toolbar.Start"),Language.tr("Optimizer.Toolbar.Start.Hint")+" (F5)",Images.OPTIMIZER_RUN.getIcon());
 		addSeparator();
 		addCloseButton();
 		addSeparator();
@@ -275,6 +275,15 @@ public class OptimizerPanel extends SpecialPanel {
 			 */
 			private static final long serialVersionUID = 1738622101739292954L;
 			@Override public void actionPerformed(ActionEvent event) {Help.topicModal(OptimizerPanel.this,"Optimizer");}
+		});
+		getInputMap(WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("F5"),"runOptimization");
+		getActionMap().put("runOptimization",new AbstractAction("runOptimization") {
+			/**
+			 * Serialisierungs-ID der Klasse
+			 * @see Serializable
+			 */
+			private static final long serialVersionUID=-9193841490973101886L;
+			@Override public void actionPerformed(ActionEvent event) {userButtonClick(-1,startButton);}
 		});
 	}
 
@@ -939,11 +948,11 @@ public class OptimizerPanel extends SpecialPanel {
 	private void setGUIRunMode(final boolean run) {
 		if (run) {
 			startButton.setText(Language.tr("Optimizer.Toolbar.Stop"));
-			startButton.setToolTipText(Language.tr("Optimizer.Toolbar.Stop.Hint"));
+			startButton.setToolTipText(Language.tr("Optimizer.Toolbar.Stop.Hint")+" (F5)");
 			startButton.setIcon(Images.GENERAL_CANCEL.getIcon());
 		} else {
 			startButton.setText(Language.tr("Optimizer.Toolbar.Start"));
-			startButton.setToolTipText(Language.tr("Optimizer.Toolbar.Start.Hint"));
+			startButton.setToolTipText(Language.tr("Optimizer.Toolbar.Start.Hint")+" (F5)");
 			startButton.setIcon(Images.OPTIMIZER_RUN.getIcon());
 		}
 
