@@ -188,7 +188,7 @@ public class ParameterComparePanel extends SpecialPanel {
 		showBaseModel=addUserButton(Language.tr("ParameterCompare.Toolbar.ShowBaseModel"),Language.tr("ParameterCompare.Toolbar.ShowBaseModel.Hint"),Images.PARAMETERSERIES_SETUP_SHOW_BASE_MODEL.getIcon());
 		setupInput=addUserButton(Language.tr("ParameterCompare.Toolbar.SetupInput"),Language.tr("ParameterCompare.Toolbar.SetupInput.Hint"),Images.PARAMETERSERIES_SETUP_INPUT.getIcon());
 		setupOutput=addUserButton(Language.tr("ParameterCompare.Toolbar.SetupOutput"),Language.tr("ParameterCompare.Toolbar.SetupOutput.Hint"),Images.PARAMETERSERIES_SETUP_OUTPUT.getIcon());
-		startButton=addUserButton(Language.tr("ParameterCompare.Toolbar.Start"),Language.tr("ParameterCompare.Toolbar.Start.Hint"),Images.PARAMETERSERIES_RUN.getIcon());
+		startButton=addUserButton(Language.tr("ParameterCompare.Toolbar.Start"),Language.tr("ParameterCompare.Toolbar.Start.Hint")+" (F5)",Images.PARAMETERSERIES_RUN.getIcon());
 		processResults=addUserButton(Language.tr("ParameterCompare.Toolbar.ProcessResults"),Language.tr("ParameterCompare.Toolbar.ProcessResults.Hint"),Images.PARAMETERSERIES_PROCESS_RESULTS.getIcon());
 		addSeparator();
 		addCloseButton();
@@ -224,6 +224,15 @@ public class ParameterComparePanel extends SpecialPanel {
 			 */
 			private static final long serialVersionUID = 1738622101739292954L;
 			@Override public void actionPerformed(ActionEvent event) {commandHelp();}
+		});
+		getInputMap(WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("F5"),"runParameterSeries");
+		getActionMap().put("runParameterSeries",new AbstractAction("runParameterSeries") {
+			/**
+			 * Serialisierungs-ID der Klasse
+			 * @see Serializable
+			 */
+			private static final long serialVersionUID=9031636404602513127L;
+			@Override public void actionPerformed(ActionEvent event) {commandStart();}
 		});
 
 		/* Start der Verarbeitung */
@@ -445,11 +454,11 @@ public class ParameterComparePanel extends SpecialPanel {
 	private void setGUIRunMode(final boolean run) {
 		if (run) {
 			startButton.setText(Language.tr("ParameterCompare.Toolbar.Stop"));
-			startButton.setToolTipText(Language.tr("ParameterCompare.Toolbar.Stop.Hint"));
+			startButton.setToolTipText(Language.tr("ParameterCompare.Toolbar.Stop.Hint")+" (F5)");
 			startButton.setIcon(Images.GENERAL_CANCEL.getIcon());
 		} else {
 			startButton.setText(Language.tr("ParameterCompare.Toolbar.Start"));
-			startButton.setToolTipText(Language.tr("ParameterCompare.Toolbar.Start.Hint"));
+			startButton.setToolTipText(Language.tr("ParameterCompare.Toolbar.Start.Hint")+" (F5)");
 			startButton.setIcon(Images.PARAMETERSERIES_RUN.getIcon());
 		}
 
