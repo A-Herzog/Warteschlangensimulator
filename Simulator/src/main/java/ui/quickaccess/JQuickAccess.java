@@ -38,6 +38,7 @@ import javax.swing.SwingUtilities;
 
 import language.Language;
 import tools.SetupData;
+import ui.help.BookData;
 import ui.tools.InputContextFix;
 
 /**
@@ -69,6 +70,7 @@ public class JQuickAccess {
 		list.add(new JQuickAccessBuilderCalc(quickAccessText));
 		list.add(new JQuickAccessBuilderDistributions(quickAccessText));
 		list.add(new JQuickAccessBuilderSettings(quickAccessText));
+		if (BookData.getInstance().isDataAvailable()) list.add(new JQuickAccessBuilderBook(quickAccessText));
 	}
 
 	/**

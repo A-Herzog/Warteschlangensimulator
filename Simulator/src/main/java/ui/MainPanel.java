@@ -51,6 +51,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.function.Consumer;
 
 import javax.imageio.ImageIO;
 import javax.swing.AbstractAction;
@@ -141,6 +142,8 @@ import ui.dialogs.VarianceAnalysisDialog;
 import ui.dialogs.WaitDialog;
 import ui.generator.ModelGeneratorDialog;
 import ui.help.AutomaticHelpWindow;
+import ui.help.BookData;
+import ui.help.BookDataDialog;
 import ui.help.Help;
 import ui.images.Images;
 import ui.infopanel.InfoPanel;
@@ -161,6 +164,7 @@ import ui.parameterseries.ParameterCompareSetup;
 import ui.parameterseries.ParameterCompareTemplatesDialog;
 import ui.quickaccess.JQuickAccess;
 import ui.quickaccess.JQuickAccessBuilder;
+import ui.quickaccess.JQuickAccessBuilderBook;
 import ui.quickaccess.JQuickAccessBuilderCalc;
 import ui.quickaccess.JQuickAccessBuilderDistributions;
 import ui.quickaccess.JQuickAccessBuilderElementsList;
@@ -421,10 +425,11 @@ public class MainPanel extends MainPanelBase {
 		});
 		editorPanel.addSelectionListener(e->selectionChanged());
 		editorPanel.addLinkListener(link->{switch (link) {
-		case 0: commandHelpInteractiveTutorial(); break;
-		case 1: commandHelpTutorial(); break;
-		case 2: commandFileModelGenerator(); break;
-		case 3: commandFileModeExample(); break;
+		case INTERACTIVE_TUTORIAL: commandHelpInteractiveTutorial(); break;
+		case TUTORIAL: commandHelpTutorial(); break;
+		case GENERATOR: commandFileModelGenerator(); break;
+		case EXAMPLES: commandFileModeExample(); break;
+		case BOOK: commandHelpBook(null); break;
 		}});
 		editorPanel.addChangedStateListeners(()->{
 			setAdditionalTitleChangedMarker(editorPanel.isModelChanged());
@@ -689,6 +694,7 @@ public class MainPanel extends MainPanelBase {
 		addAction("HelpCommandLineReference",e->commandHelpCommandLineReference());
 		addAction("HelpHotkeyReference",e->commandHelpHotkeyReference());
 		addAction("HelpDistributionReference",e->commandHelpDistributionReference());
+		addAction("HelpTextbook",e->commandHelpBook(null));
 		addAction("HelpLiteratureHerzog",e->commandHelpLiterature(0));
 		addAction("HelpLiteratureGrossHarris",e->commandHelpLiterature(1));
 		addAction("HelpLiteratureBolch",e->commandHelpLiterature(1));
@@ -710,9 +716,9 @@ public class MainPanel extends MainPanelBase {
 	 * Reagiert auf Link-Klicks in {@link MainPanel#welcomePanel}
 	 * @see MainPanel#welcomePanel
 	 */
-	private class SpecialLink implements Help.SpecialLinkListener {
+	private class SpecialLink implements Consumer<String> {
 		@Override
-		public void specialLinkClicked(String href) {
+		public void accept(String href) {
 			if (href.equalsIgnoreCase("ModelEditor")) {setCurrentPanel(editorPanel); return;}
 			if (href.equalsIgnoreCase("Tutorial")) {setCurrentPanel(editorPanel); commandHelpTutorial(); return;}
 			if (href.equalsIgnoreCase("InteractiveTutorial")) {commandHelpInteractiveTutorial(); return;}
@@ -1267,18 +1273,19 @@ public class MainPanel extends MainPanelBase {
 		menu.addSeparator();
 		createMenuItem(menu,Language.tr("Main.Menu.Help.Tutorial"),Images.HELP_TUTORIAL.getIcon(),Language.tr("Main.Menu.Help.Tutorial.Mnemonic"),"HelpTurorial");
 		createMenuItem(menu,Language.tr("Main.Menu.Help.TutorialSlides"),Images.HELP_TUTORIAL.getIcon(),Language.tr("Main.Menu.Help.TutorialSlides.Mnemonic"),"HelpTurorialSlides");
-		createMenuItem(menu,Language.tr("Main.Menu.Help.TutorialVideo"),Images.HELP_TUTORIAL.getIcon(),Language.tr("Main.Menu.Help.TutorialVideo.Mnemonic"),"HelpTurorialVideo");
+		createMenuItem(menu,Language.tr("Main.Menu.Help.TutorialVideo"),Images.HELP_TUTORIAL_VIDEO.getIcon(),Language.tr("Main.Menu.Help.TutorialVideo.Mnemonic"),"HelpTurorialVideo");
 		menu.add(submenu=new JMenu(Language.tr("Main.Menu.Help.References")));
 		createMenuItem(submenu,Language.tr("Main.Menu.Help.ScriptingReference"),Images.HELP_SCRIPTING.getIcon(),Language.tr("Main.Menu.Help.ScriptingReference.Mnemonic"),"HelpScriptingReference");
 		createMenuItem(submenu,Language.tr("Main.Menu.Help.ElementReference"),Images.HELP_STATIONS_INTERACTIVE.getIcon(),Language.tr("Main.Menu.Help.ElementReference.Mnemonic"),"HelpElementReference");
 		createMenuItem(submenu,Language.tr("Main.Menu.Help.CommandLineReference"),Images.EXTRAS_COMMANDLINE.getIcon(),Language.tr("Main.Menu.Help.CommandLineReference.Mnemonic"),"HelpCommandLineReference");
 		createMenuItem(submenu,Language.tr("Main.Menu.Help.HotkeyReference"),Images.HELP_HOTKEY_REFERENCE.getIcon(),Language.tr("Main.Menu.Help.HotkeyReference.Mnemonic"),"HelpHotkeyReference");
 		createMenuItem(submenu,Language.tr("Main.Menu.Help.DistributionReference"),Images.EXPRESSION_BUILDER_DISTRIBUTION.getIcon(),Language.tr("Main.Menu.Help.DistributionReference.Mnemonic"),"HelpDistributionReference");
+		if (BookData.getInstance().isDataAvailable()) createMenuItemCtrl(menu,Language.tr("Main.Menu.Help.Textbook"),Images.HELP_BOOK.getIcon(),Language.tr("Main.Menu.Help.Textbook.Mnemonic"),KeyEvent.VK_F1,"HelpTextbook");
 		menu.add(submenu=new JMenu(Language.tr("Main.Menu.Help.RecommendedLiterature")));
-		/*
-		createMenuItem(submenu,Language.tr("Main.Menu.Help.RecommendedLiterature.Herzog"),Images.HELP_BOOK.getIcon(),Language.tr("Main.Menu.Help.RecommendedLiterature.Mnemonic.Herzog"),"HelpLiteratureHerzog");
-		submenu.addSeparator();
-		 */
+		if (BookData.getInstance().isDataAvailable()) {
+			createMenuItem(submenu,Language.tr("Main.Menu.Help.RecommendedLiterature.Herzog"),Images.HELP_BOOK.getIcon(),Language.tr("Main.Menu.Help.RecommendedLiterature.Mnemonic.Herzog"),"HelpLiteratureHerzog");
+			submenu.addSeparator();
+		}
 		createMenuItem(submenu,Language.tr("Main.Menu.Help.RecommendedLiterature.GrossHarris"),Images.HELP_BOOK.getIcon(),Language.tr("Main.Menu.Help.RecommendedLiterature.Mnemonic.GrossHarris"),"HelpLiteratureGrossHarris");
 		createMenuItem(submenu,Language.tr("Main.Menu.Help.RecommendedLiterature.Bolch"),Images.HELP_BOOK.getIcon(),Language.tr("Main.Menu.Help.RecommendedLiterature.Mnemonic.LiteratureBolch"),"HelpLiteratureBolch");
 		createMenuItem(submenu,Language.tr("Main.Menu.Help.RecommendedLiterature.LawKelton"),Images.HELP_BOOK.getIcon(),Language.tr("Main.Menu.Help.RecommendedLiterature.Mnemonic.LiteratureLawKelton"),"HelpLiteratureLawKelton");
@@ -1351,6 +1358,7 @@ public class MainPanel extends MainPanelBase {
 					final int h=quickAccess.getHeight();
 					if (h>25) quickAccess.setMaximumSize(new Dimension(quickAccess.getWidth(),h-2));
 				});
+				editorPanel.requestFocus();
 			}
 
 			/* Feedback */
@@ -1448,6 +1456,11 @@ public class MainPanel extends MainPanelBase {
 				list.addAll(builderSettings.getList(5));
 			}
 
+			if (builder instanceof JQuickAccessBuilderBook) {
+				final JQuickAccessBuilderBook builderBook=(JQuickAccessBuilderBook)builder;
+				builderBook.work(match->commandHelpBook(match));
+				list.addAll(builderBook.getList(10));
+			}
 		}
 
 		return list;
@@ -3521,6 +3534,14 @@ public class MainPanel extends MainPanelBase {
 	}
 
 	/**
+	 * Befehl: Hilfe - Lehrbuch
+	 * @param match	Direkt zu selektrierender Inhaltsverzeichnis- oder Sachverzeichniseintrag (kann <code>null</code> sein)
+	 */
+	private void commandHelpBook(final BookData.BookMatch match) {
+		new BookDataDialog(this,match);
+	}
+
+	/**
 	 * Befehl: Hilfe - Referenzen - Kommandozeilenbefehlsreferenz
 	 */
 	private void commandHelpCommandLineReference() {
@@ -3550,8 +3571,8 @@ public class MainPanel extends MainPanelBase {
 
 		switch (index) {
 		case 0:
-			/* ... */
-			url="";
+			/* Herzog: "Simulation mit dem Warteschlangensimulator" */
+			url=BookDataDialog.HOMEPAGE;
 			break;
 		case 1:
 			/* Gross/Harris: "Fundamentals of Queueing Theory" */

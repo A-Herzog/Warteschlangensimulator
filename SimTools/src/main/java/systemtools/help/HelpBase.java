@@ -91,7 +91,7 @@ public abstract class HelpBase {
 	/**
 	 * Übergeordnetes Element
 	 */
-	private final Container parent;
+	protected final Container parent;
 
 	/** Modaler Hilfe-Dialog */
 	private HTMLDialog helpDialog;

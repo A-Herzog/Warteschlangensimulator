@@ -861,6 +861,12 @@ public enum Images {
 	/** Symbol für Untereinträge von "Empfohlene Literatur" */
 	HELP_BOOK("book.png"),
 
+	/** Symbol für Untereinträge von "Inhaltsverzeichnis" */
+	HELP_BOOK_CONTENT("book_open.png"),
+
+	/** Symbol für Untereinträge von "Sachverzeichnis" */
+	HELP_BOOK_INDEX("book_key.png"),
+
 	/** Symbol "E-Mail" */
 	HELP_EMAIL("email.png"),
 

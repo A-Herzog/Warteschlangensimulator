@@ -17,6 +17,7 @@ package ui.help;
 
 import java.awt.Container;
 import java.net.URL;
+import java.util.function.Consumer;
 
 import javax.swing.JDialog;
 import javax.swing.JFrame;
@@ -67,9 +68,9 @@ public class Help extends HelpBase {
 
 	/**
 	 * Listener, der aufgerufen wird, wenn ein spezieller Link (beginnend mit "special:") angeklickt wird
-	 * @see #infoPanel(String, SpecialLinkListener)
+	 * @see #infoPanel(String, Consumer)
 	 */
-	private SpecialLinkListener specialLinkListener;
+	private Consumer<String> specialLinkListener;
 
 	/**
 	 * Erstellt ein Panel, in dem eine bestimmte Hilfe-Seite angezeigt wird
@@ -77,34 +78,47 @@ public class Help extends HelpBase {
 	 * @param listener	Listener, der aufgerufen wird, wenn ein spezieller Link (beginnend mit "special:") angeklickt wird
 	 * @return	Panel, welches die HTML-Seite enthält
 	 */
-	public static JPanel infoPanel(final String topic, final SpecialLinkListener listener) {
+	public static JPanel infoPanel(final String topic, final Consumer<String> listener) {
 		final Help help=new Help(null,null,true);
 		help.specialLinkListener=listener;
 		return help.getHTMLPanel(topic);
 	}
 
 	/**
-	 * Dieses Interface wird von <code>infoPanel</code> als Parameter verwendet.
-	 * Die Methode des Interfaces wird aufgerufen, wenn in dem HTML-Panel ein
-	 * Link, dessen Adresse mit "special:" beginnt, angeklickt wird.
-	 * @author Alexander Herzog
-	 * @see #infoPanel(String, SpecialLinkListener)
+	 * Verarbeitet einen Klick auf einen Buch-Aufruf-Link
+	 * @param href	Buch-Aufruf-Link
+	 * @see BookDataDialog
 	 */
-	public interface SpecialLinkListener {
-		/**
-		 * Wird aufgerufen, wenn ein Link zu einem besonderen, internen Ziel angeklickt wurde
-		 * @param href	Linkziel des angeklickten Links
-		 */
-		void specialLinkClicked(final String href);
+	private void processBookLink(final String href) {
+		final BookData.BookSection match=BookData.getInstance().getSection(href);
+		new BookDataDialog(parent,match);
 	}
 
-	@Override
-	protected void processSpecialLink(String href) {
-		final String key="special:";
-		if (!href.substring(0,Math.min(href.length(),key.length())).equalsIgnoreCase(key)) return;
-		href=href.substring(key.length());
+	/**
+	 * Prefix für Links zur Programmfunktionen
+	 * @see #specialLinkListener
+	 */
+	private static final String SPECIAL_KEY="special:";
 
-		if (specialLinkListener!=null) specialLinkListener.specialLinkClicked(href);
+	/**
+	 * Prefix für Links zu Buchkapiteln
+	 * @see #processBookLink(String)
+	 * @see BookDataDialog
+	 */
+	private static final String BOOK_KEY="book:";
+
+	@Override
+	protected void processSpecialLink(final String href) {
+		if (href==null) return;
+		final String hrefLower=href.toLowerCase();
+
+		if (hrefLower.startsWith(SPECIAL_KEY)) {
+			if (specialLinkListener!=null) specialLinkListener.accept(href.substring(SPECIAL_KEY.length()));
+		}
+
+		if (hrefLower.startsWith(BOOK_KEY)) {
+			processBookLink(href.substring(BOOK_KEY.length()));
+		}
 	}
 
 	@Override

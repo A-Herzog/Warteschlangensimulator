@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-04-06 19:51+0200\n"
+"POT-Creation-Date: 2021-04-09 21:48+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -694,6 +694,56 @@ msgstr "Simulation step %d: Simulation of model %s"
 
 msgid "Batch.Simulation.UserCancel"
 msgstr "The simulation of the parameter series was canceled by the user."
+
+msgid "BookData.AccessInfo"
+msgstr "The e-book pdf version can be linked directly to the simulator via the input field below. It is then directly available in addition to the online help. The quick access (Ctrl+E) can be used to search directly in the table of contents and the index and to open the respective matching pages in the pdf."
+
+msgid "BookData.BookName"
+msgstr "Textbook \"Simulation mit dem Warteschlangensimulator\" (in German)"
+
+msgid "BookData.BookPDF"
+msgstr "Book pdf file"
+
+msgid "BookData.BookPDF.Open"
+msgstr "Open e-book"
+
+msgid "BookData.BookPDF.SelectToolTip"
+msgstr "Select e-book pdf file"
+
+msgid "BookData.Homepage"
+msgstr "Homepage"
+
+msgid "BookData.NoBook.Info"
+msgstr ""
+"The pdf version of the book is not registered in the simulator settings.\n"
+"Therefore, the book cannot be opened directly."
+
+msgid "BookData.NoBook.Title"
+msgstr "E-Book-pdf not available"
+
+msgid "BookData.SelectPage.Info"
+msgstr "The term \"%s\" occurs in several chapters:"
+
+msgid "BookData.SelectPage.Title"
+msgstr "Select page"
+
+msgid "BookData.Tab.Book"
+msgstr "Book"
+
+msgid "BookData.Tab.Index"
+msgstr "Index"
+
+msgid "BookData.Tab.Index.ClickInfo"
+msgstr "By dobble clicking individual pages in the e-book can be opened directly."
+
+msgid "BookData.Tab.TOC"
+msgstr "Table of contents"
+
+msgid "BookData.Tab.TOC.ClickInfo"
+msgstr "By dobble clicking individual sections of the e-book can be opened directly."
+
+msgid "BookData.page"
+msgstr "page"
 
 msgid "BuildClientSourceTable.ColumnsInfo"
 msgstr "Double-click list record to edit table column usage:"
@@ -3525,6 +3575,9 @@ msgstr "Update view"
 
 msgid "Editor.SetupZoom"
 msgstr "Setup zoom factor"
+
+msgid "Editor.SurfaceTooltip.Book"
+msgstr "Textbook"
 
 msgid "Editor.SurfaceTooltip.ExamplesByDialog"
 msgstr "Load example model"
@@ -8008,11 +8061,17 @@ msgstr "Gutenschwager/Rabe/Spieckermann/Wenzel: \"Simulation in Produktion und L
 msgid "Main.Menu.Help.RecommendedLiterature.Hedtstueck"
 msgstr "Hedtstück: \"Simulation diskreter Prozesse\""
 
+msgid "Main.Menu.Help.RecommendedLiterature.Herzog"
+msgstr "Herzog: \"Simulation mit dem Warteschlangensimulator\""
+
 msgid "Main.Menu.Help.RecommendedLiterature.LawKelton"
 msgstr "Law/Kelton: \"Simulation Modeling & Analysis\""
 
 msgid "Main.Menu.Help.RecommendedLiterature.Mnemonic.GrossHarris"
 msgstr "Q"
+
+msgid "Main.Menu.Help.RecommendedLiterature.Mnemonic.Herzog"
+msgstr "H"
 
 msgid "Main.Menu.Help.RecommendedLiterature.Mnemonic.LiteratureBolch"
 msgstr "M"
@@ -8055,6 +8114,12 @@ msgstr "Generate problem report..."
 
 msgid "Main.Menu.Help.SupportData.Mnemonic"
 msgstr "p"
+
+msgid "Main.Menu.Help.Textbook"
+msgstr "Textbook about the simulator..."
+
+msgid "Main.Menu.Help.Textbook.Mnemonic"
+msgstr "T"
 
 msgid "Main.Menu.Help.Tutorial"
 msgstr "Tutorial (pdf)"
@@ -12058,6 +12123,15 @@ msgstr "Authentificate using user name and password"
 
 msgid "QuickAccess"
 msgstr "Quick access"
+
+msgid "QuickAccess.Book"
+msgstr "Textbook"
+
+msgid "QuickAccess.Book.Hint"
+msgstr "Opens the corresponding book chapter"
+
+msgid "QuickAccess.Book.Index"
+msgstr "Index"
 
 msgid "QuickAccess.Distributions"
 msgstr "Probability distribution"

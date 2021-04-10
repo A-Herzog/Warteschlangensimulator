@@ -1247,6 +1247,12 @@ public final class ModelSurfacePanel extends JPanel {
 	}
 
 	/**
+	 * Zeichenflächen-Links
+	 * @see #paintInfo(Graphics, Rectangle)
+	 */
+	private ModelSurfaceLinks surfaceLinks;
+
+	/**
 	 * Zeichnet die zusätzlichen Infotexte auf der Zeichenfläche ein.
 	 * @param g	Grafikausgabeobjekt
 	 * @param viewArea	Sichtbarer Bereich
@@ -1305,42 +1311,8 @@ public final class ModelSurfacePanel extends JPanel {
 
 		/* Links */
 
-		g.setColor(Color.BLUE.darker());
-		int y=infoPositions[2]+60;
-		linkPositions=new Rectangle[4];
-		for (int i=0;i<linkPositions.length;i++) {
-
-			String text="";
-			Image image=null;
-			switch (i) {
-			case 0:
-				text=Language.tr("Editor.SurfaceTooltip.InteractiveTutorial");
-				image=Images.HELP_TUTORIAL_INTERACTIVE.getImage();
-				break;
-			case 1:
-				text=Language.tr("Editor.SurfaceTooltip.Tutorial");
-				image=Images.HELP_TUTORIAL.getImage();
-				break;
-			case 2:
-				text=Language.tr("Editor.SurfaceTooltip.Generator");
-				image=Images.MODEL_GENERATOR.getImage();
-				break;
-			case 3:
-				text=Language.tr("Editor.SurfaceTooltip.ExamplesByDialog");
-				image=Images.MODEL.getImage();
-				break;
-			}
-
-			if (image!=null) g.drawImage(image,20,y-8,null);
-
-			int textY=y-lineH/2;
-			g.drawString(text,40,textY+lineYShift);
-			textY+=lineH;
-
-			linkPositions[i]=new Rectangle(20,y-8,20+g.getFontMetrics().stringWidth(text),lineH);
-
-			y+=40;
-		}
+		if (surfaceLinks==null) surfaceLinks=new ModelSurfaceLinks();
+		linkPositions=surfaceLinks.drawLinks(g,20,infoPositions[2]+60);
 
 		/* Font-Einstellungen zurücksetzen */
 
@@ -2355,16 +2327,16 @@ public final class ModelSurfacePanel extends JPanel {
 
 	/**
 	 * Listener die auf Klicks auf Zeichenflächen-Links reagieren sollen
-	 * @see #fireLinkListener(int)
+	 * @see #fireLinkListener(ui.modeleditor.ModelSurfaceLinks.Link)
 	 */
-	private transient List<Consumer<Integer>> linkListeners=new ArrayList<>();
+	private transient List<Consumer<ModelSurfaceLinks.Link>> linkListeners=new ArrayList<>();
 
 	/**
 	 * Fügt einen Listener hinzu, der benachrichtigt wird, wenn ein Zeichenflächen-Link angeklickt wird
 	 * @param linkListener	Zu benachrichtigender Listener
 	 */
 
-	public void addLinkListener(final Consumer<Integer> linkListener) {
+	public void addLinkListener(final Consumer<ModelSurfaceLinks.Link> linkListener) {
 		if (linkListeners.indexOf(linkListener)<0) linkListeners.add(linkListener);
 	}
 
@@ -2373,7 +2345,7 @@ public final class ModelSurfacePanel extends JPanel {
 	 * @param linkListener	In Zukunft nicht mehr zu benachrichtigender Listener
 	 * @return	Gibt <code>true</code> zurück, wenn der Listener erfolgreich aus der Liste entfernt werden konnte
 	 */
-	public boolean removeLinkListener(final Consumer<Integer> linkListener) {
+	public boolean removeLinkListener(final Consumer<ModelSurfaceLinks.Link> linkListener) {
 		return linkListeners.remove(linkListener);
 	}
 
@@ -2382,8 +2354,8 @@ public final class ModelSurfacePanel extends JPanel {
 	 * @param link	Nummer des Links
 	 * @see #linkListeners
 	 */
-	private void fireLinkListener(final int link) {
-		for (Consumer<Integer> linkListener: linkListeners) linkListener.accept(link);
+	private void fireLinkListener(final ModelSurfaceLinks.Link link) {
+		for (Consumer<ModelSurfaceLinks.Link> linkListener: linkListeners) linkListener.accept(link);
 	}
 
 	/**
@@ -2566,13 +2538,12 @@ public final class ModelSurfacePanel extends JPanel {
 	}
 
 	/**
-	 * Befindet sich ein Punkt im dem Bereich
-	 *  eines Infotext-Links?
+	 * Befindet sich ein Punkt im dem Bereich eines Infotext-Links?
 	 * @param point	Zu prüfender Punkt
-	 * @return	Liefert die 0-basierte Nummer der zugehörigen Infotextes oder -1, wenn sich der Punkt nicht im Bereich eines Infotextes befindet
+	 * @return	Liefert den Infotext-Link oder <code>null</code>, wenn sich der Punkt nicht im Bereich eines Infotextes befindet
 	 * @see #linkPositions
 	 */
-	private int emptyScreenLinkPosition(final Point point) {
+	private ModelSurfaceLinks.Link emptyScreenLinkPosition(final Point point) {
 		final Rectangle viewArea;
 		if (getParent() instanceof JViewport) {
 			final JViewport viewport=(JViewport)getParent();
@@ -2582,10 +2553,13 @@ public final class ModelSurfacePanel extends JPanel {
 		}
 
 		if (viewArea.x==0 && viewArea.y==0 && surface.count()==0 && useInfoPaint && linkPositions!=null) {
-			for (int i=0;i<linkPositions.length;i++) if (linkPositions[i]!=null && linkPositions[i].contains(point)) return i;
+			for (int i=0;i<linkPositions.length;i++) if (linkPositions[i]!=null && linkPositions[i].contains(point)) {
+				if (surfaceLinks==null) return null;
+				return surfaceLinks.getLink(i);
+			}
 		}
 
-		return -1;
+		return null;
 	}
 
 	/**
@@ -2729,8 +2703,8 @@ public final class ModelSurfacePanel extends JPanel {
 				ModelElement element=surface.getElementAtPosition(e.getPoint(),zoom);
 				if (element!=null && !surface.isVisibleOnLayer(element)) element=null;
 				if (element==null) {
-					final int link=emptyScreenLinkPosition(e.getPoint());
-					if (link>=0) {
+					final ModelSurfaceLinks.Link link=emptyScreenLinkPosition(e.getPoint());
+					if (link!=null) {
 						fireLinkListener(link);
 					} else {
 						operationRunning=true;
@@ -3104,7 +3078,7 @@ public final class ModelSurfacePanel extends JPanel {
 				if (element!=null && !surface.isVisibleOnLayer(element)) element=null;
 				if (element==null) {
 					setToolTipText(null);
-					final boolean handCursor=(emptyScreenLinkPosition(e.getPoint())>=0);
+					final boolean handCursor=(emptyScreenLinkPosition(e.getPoint())!=null);
 					setCursor(handCursor?Cursor.getPredefinedCursor(Cursor.HAND_CURSOR):Cursor.getDefaultCursor());
 				} else {
 					tooltip=null;

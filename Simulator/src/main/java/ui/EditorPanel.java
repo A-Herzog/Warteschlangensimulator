@@ -45,7 +45,6 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 import java.util.function.Consumer;
-import java.util.function.IntConsumer;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
@@ -101,6 +100,7 @@ import ui.modeleditor.ModelElementCatalogTransferHandler;
 import ui.modeleditor.ModelElementNavigatorListCellRenderer;
 import ui.modeleditor.ModelResource;
 import ui.modeleditor.ModelSurface;
+import ui.modeleditor.ModelSurfaceLinks;
 import ui.modeleditor.ModelSurfacePanel;
 import ui.modeleditor.SavedViews;
 import ui.modeleditor.ScaledImageCache;
@@ -2393,16 +2393,16 @@ public final class EditorPanel extends EditorPanelBase {
 
 	/**
 	 * Listener, die benachrichtigt werden, wenn ein Zeichenflächen-Link angeklickt wird
-	 * @see #fireLinkListener(int)
+	 * @see #fireLinkListener(ui.modeleditor.ModelSurfaceLinks.Link)
 	 */
-	private final List<IntConsumer> linkListeners=new ArrayList<>();
+	private final List<Consumer<ModelSurfaceLinks.Link>> linkListeners=new ArrayList<>();
 
 	/**
 	 * Fügt einen Listener hinzu, der benachrichtigt wird, wenn ein Zeichenflächen-Link angeklickt wird
 	 * @param linkListener	Zu benachrichtigender Listener
 	 */
 
-	public void addLinkListener(final IntConsumer linkListener) {
+	public void addLinkListener(final Consumer<ModelSurfaceLinks.Link> linkListener) {
 		if (linkListeners.indexOf(linkListener)<0) linkListeners.add(linkListener);
 	}
 
@@ -2411,7 +2411,7 @@ public final class EditorPanel extends EditorPanelBase {
 	 * @param linkListener	In Zukunft nicht mehr zu benachrichtigender Listener
 	 * @return	Gibt <code>true</code> zurück, wenn der Listener erfolgreich aus der Liste entfernt werden konnte
 	 */
-	public boolean removeLinkListener(final IntConsumer linkListener) {
+	public boolean removeLinkListener(final Consumer<ModelSurfaceLinks.Link> linkListener) {
 		return linkListeners.remove(linkListener);
 	}
 
@@ -2420,8 +2420,8 @@ public final class EditorPanel extends EditorPanelBase {
 	 * @param link	Nummer des angeklickten Zeichenflächen-Links
 	 * @see #linkListeners
 	 */
-	private void fireLinkListener(final int link) {
-		for (IntConsumer linkListener: linkListeners) linkListener.accept(link);
+	private void fireLinkListener(final ModelSurfaceLinks.Link link) {
+		for (Consumer<ModelSurfaceLinks.Link> linkListener: linkListeners) linkListener.accept(link);
 	}
 
 	/**

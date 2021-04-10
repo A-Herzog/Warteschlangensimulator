@@ -1107,6 +1107,11 @@ public class SetupData extends SetupBase {
 	public List<String> dynamicImportClasses;
 
 	/**
+	 * E-Book-pdf des Lehrbuchs zum Simulator
+	 */
+	public String eBook;
+
+	/**
 	 * Letzter Fehler
 	 * (Hier wird die Setup-Datei als Logdatei für solche Ereignisse verwendet.)
 	 */
@@ -1299,6 +1304,7 @@ public class SetupData extends SetupBase {
 		gitSetups.clear();
 		if (dynamicImportClasses==null) dynamicImportClasses=new ArrayList<>();
 		dynamicImportClasses.clear();
+		eBook="";
 		lastError=null;
 	}
 
@@ -2133,6 +2139,11 @@ public class SetupData extends SetupBase {
 				dynamicImportClasses.add(e.getTextContent());
 				continue;
 			}
+
+			if (name.equals("ebook")) {
+				eBook=e.getTextContent();
+				continue;
+			}
 		}
 
 		if (useLastFiles) {
@@ -2758,6 +2769,11 @@ public class SetupData extends SetupBase {
 		for (String cls: dynamicImportClasses) {
 			root.appendChild(node=doc.createElement("DynamicImportClass"));
 			node.setTextContent(cls);
+		}
+
+		if (eBook!=null && !eBook.trim().isEmpty()) {
+			root.appendChild(node=doc.createElement("eBook"));
+			node.setTextContent(eBook);
 		}
 	}
 
