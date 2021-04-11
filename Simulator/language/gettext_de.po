@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-04-09 21:48+0200\n"
+"POT-Creation-Date: 2021-04-11 21:19+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -7100,7 +7100,7 @@ msgid "InfoDialog.JSEngine"
 msgstr "Javascript-Umgebungen"
 
 msgid "InfoDialog.JavaCompiler"
-msgstr "Java Kompiler"
+msgstr "Java-Kompiler"
 
 msgid "InfoDialog.JavaCompiler.No"
 msgstr "nicht verfügbar (JRE)"
@@ -24308,7 +24308,19 @@ msgid "Surface.Popup.AddLongRunStatistics.WIP"
 msgstr "Anzahl an Kunden an der Station"
 
 msgid "Surface.Popup.AddNextStation"
-msgstr "Typische Folgestation hinzufügen"
+msgstr "Folgestation hinzufügen"
+
+msgid "Surface.Popup.AddNextStation.ByTraining"
+msgstr "Empfehlungen gemäß Nutzungsverhalten"
+
+msgid "Surface.Popup.AddNextStation.Info"
+msgstr ""
+"Wird die Umschalt-Taste beim Aufrufen<br>\n"
+"des Kontextmenüs gedrückt gehalten,<br>\n"
+"so erscheint direkt dieses Menü."
+
+msgid "Surface.Popup.AddNextStation.Typical"
+msgstr "Typische Folgestationen"
 
 msgid "Surface.Popup.AddNote"
 msgstr "Notiz hinzufügen"
@@ -28554,6 +28566,33 @@ msgstr "Diese Einstellungen stehen nicht im normalen Programmeinstellungen-Dialo
 
 msgid "SystemInfo.Tools.Info"
 msgstr "Diese Einstellungen werden zum Teil erst<br>nach einem Neustart des Programms wirksam."
+
+msgid "SystemInfo.Tools.NextStationTraining"
+msgstr "Trainingsdaten für Folgestationen"
+
+msgid "SystemInfo.Tools.NextStationTraining.DeleteData"
+msgstr "Trainingsdaten löschen..."
+
+msgid "SystemInfo.Tools.NextStationTraining.DeleteData.Info"
+msgstr "Sollen alle bisherigen Trainingsdaten wirklich gelöscht werden?"
+
+msgid "SystemInfo.Tools.NextStationTraining.DeleteData.InfoNo"
+msgstr "Trainingsdaten beibehalten."
+
+msgid "SystemInfo.Tools.NextStationTraining.DeleteData.InfoYes"
+msgstr "Trainingsdaten löschen und mit den Beispielmodellen neu initialisieren."
+
+msgid "SystemInfo.Tools.NextStationTraining.DeleteData.Title"
+msgstr "Trainingsdaten löschen"
+
+msgid "SystemInfo.Tools.NextStationTraining.ShowData"
+msgstr "Trainingsdaten anzeigen..."
+
+msgid "SystemInfo.Tools.NextStationTraining.ShowData.Info"
+msgstr "Die Zahlen geben an, wie viele Übergänge von welcher Station zu welcher Station in den bisherigen Modellen gezählt wurden."
+
+msgid "SystemInfo.Tools.NextStationTraining.ShowData.Title"
+msgstr "Trainingsdaten für Folgestationen"
 
 msgid "SystemInfo.Tools.Simulation"
 msgstr "Simulation"

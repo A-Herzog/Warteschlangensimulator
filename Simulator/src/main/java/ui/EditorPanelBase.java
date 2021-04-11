@@ -53,6 +53,7 @@ import language.Language;
 import mathtools.distribution.swing.JDistributionPanel;
 import simulator.editmodel.EditModel;
 import simulator.editmodel.EditModelBase;
+import simulator.editmodel.EditModelProcessor;
 import systemtools.MsgBox;
 import tools.SetupData;
 import ui.dialogs.ModelSecurityCheckDialog;
@@ -326,6 +327,7 @@ public abstract class EditorPanelBase extends JPanel {
 
 		if (!model.saveToFile(file)) return SAVE_MODEL_ERROR;
 
+		EditModelProcessor.getInstance().processModel(model);
 		GitTools.saveFile(this,model.author,model.authorEMail,file,GitSetup.GitSaveMode.MODELS);
 
 		lastFile=file;
@@ -352,6 +354,7 @@ public abstract class EditorPanelBase extends JPanel {
 
 		if (!model.saveToFile(file)) return SAVE_MODEL_ERROR;
 
+		EditModelProcessor.getInstance().processModel(model);
 		GitTools.saveFile(this,model.author,model.authorEMail,file,GitSetup.GitSaveMode.MODELS);
 
 		return null;

@@ -951,7 +951,7 @@ public final class SetupDialog extends BaseDialog {
 
 		mainarea.add(p=new JPanel(new FlowLayout(FlowLayout.LEFT)));
 		p.add(new JLabel(Language.tr("SettingsDialog.JDK.Info")+": "));
-		p.add(label=new JLabel("<html><body><a href=\""+Language.tr("SettingsDialog.JDK.Link")+"\">"+Language.tr("SettingsDialog.JDK.Link")+"</a></body></html>")); // "https://adoptopenjdk.net/"
+		p.add(label=new JLabel("<html><body><a href=\""+Language.tr("SettingsDialog.JDK.Link")+"\">"+Language.tr("SettingsDialog.JDK.Link")+"</a></body></html>"));
 		label.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 		label.addMouseListener(new MouseAdapter() {
 			@Override

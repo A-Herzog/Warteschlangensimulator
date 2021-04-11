@@ -56,7 +56,9 @@ import language.Language;
 import mathtools.NumberTools;
 import scripting.java.DynamicFactory;
 import scripting.js.JSEngineNames;
+import simulator.editmodel.EditModelProcessor;
 import systemtools.BaseDialog;
+import systemtools.MsgBox;
 import tools.SetupData;
 import ui.images.Images;
 import ui.tools.WindowSizeStorage;
@@ -488,8 +490,8 @@ public class SystemInfoWindow extends JFrame {
 	private void toolsPopup(final Component parent) {
 		final JPopupMenu menu=new JPopupMenu();
 
-		JMenuItem label;
-		JCheckBoxMenuItem item;
+		JMenuItem label, item;
+		JCheckBoxMenuItem check;
 
 		menu.add(label=new JMenuItem("<html>"+Language.tr("SystemInfo.Tools.Info")+"</html>"));
 		label.setEnabled(false);
@@ -497,32 +499,45 @@ public class SystemInfoWindow extends JFrame {
 		menu.add(label=new JMenuItem("<html><b>"+Language.tr("SystemInfo.Tools.Surface")+"</b></html>"));
 		label.setEnabled(false);
 
-		menu.add(item=new JCheckBoxMenuItem(Language.tr("SystemInfo.Tools.Surface.Antialias"),setup.antialias));
-		item.addActionListener(e->{setup.antialias=!setup.antialias; setup.saveSetup();});
+		menu.add(check=new JCheckBoxMenuItem(Language.tr("SystemInfo.Tools.Surface.Antialias"),setup.antialias));
+		check.addActionListener(e->{setup.antialias=!setup.antialias; setup.saveSetup();});
 
 		menu.add(label=new JMenuItem("<html><b>"+Language.tr("SystemInfo.Tools.UserInterface")+"</b></html>"));
 		label.setEnabled(false);
 
-		menu.add(item=new JCheckBoxMenuItem(Language.tr("SystemInfo.Tools.UserInterface.QuickFilter"),setup.showQuickFilter));
-		item.addActionListener(e->{setup.showQuickFilter=!setup.showQuickFilter; setup.saveSetup();});
+		menu.add(check=new JCheckBoxMenuItem(Language.tr("SystemInfo.Tools.UserInterface.QuickFilter"),setup.showQuickFilter));
+		check.addActionListener(e->{setup.showQuickFilter=!setup.showQuickFilter; setup.saveSetup();});
 
-		menu.add(item=new JCheckBoxMenuItem(Language.tr("SystemInfo.Tools.UserInterface.QuickAccess"),setup.showQuickAccess));
-		item.addActionListener(e->{setup.showQuickAccess=!setup.showQuickAccess; setup.saveSetup();});
+		menu.add(check=new JCheckBoxMenuItem(Language.tr("SystemInfo.Tools.UserInterface.QuickAccess"),setup.showQuickAccess));
+		check.addActionListener(e->{setup.showQuickAccess=!setup.showQuickAccess; setup.saveSetup();});
 
-		menu.add(item=new JCheckBoxMenuItem(Language.tr("SystemInfo.Tools.UserInterface.MemoryUsage"),setup.showMemoryUsage));
-		item.addActionListener(e->{setup.showMemoryUsage=!setup.showMemoryUsage; setup.saveSetup();});
+		menu.add(check=new JCheckBoxMenuItem(Language.tr("SystemInfo.Tools.UserInterface.MemoryUsage"),setup.showMemoryUsage));
+		check.addActionListener(e->{setup.showMemoryUsage=!setup.showMemoryUsage; setup.saveSetup();});
 
-		menu.add(item=new JCheckBoxMenuItem(Language.tr("SystemInfo.Tools.UserInterface.Feedback"),setup.showFeedbackButton));
-		item.addActionListener(e->{setup.showFeedbackButton=!setup.showFeedbackButton; setup.saveSetup();});
+		menu.add(check=new JCheckBoxMenuItem(Language.tr("SystemInfo.Tools.UserInterface.Feedback"),setup.showFeedbackButton));
+		check.addActionListener(e->{setup.showFeedbackButton=!setup.showFeedbackButton; setup.saveSetup();});
 
 		menu.add(label=new JMenuItem("<html><b>"+Language.tr("SystemInfo.Tools.Simulation")+"</b></html>"));
 		label.setEnabled(false);
 
-		menu.add(item=new JCheckBoxMenuItem(Language.tr("SystemInfo.Tools.Simulation.SecurityManager"),setup.useSecurityManagerForUserCode));
-		item.addActionListener(e->{setup.useSecurityManagerForUserCode=!setup.useSecurityManagerForUserCode; setup.saveSetup();});
+		menu.add(check=new JCheckBoxMenuItem(Language.tr("SystemInfo.Tools.Simulation.SecurityManager"),setup.useSecurityManagerForUserCode));
+		check.addActionListener(e->{setup.useSecurityManagerForUserCode=!setup.useSecurityManagerForUserCode; setup.saveSetup();});
 
-		menu.add(item=new JCheckBoxMenuItem(Language.tr("SystemInfo.Tools.Simulation.LoadBalancer"),setup.useDynamicThreadBalance));
-		item.addActionListener(e->{setup.useDynamicThreadBalance=!setup.useDynamicThreadBalance; setup.saveSetup();});
+		menu.add(check=new JCheckBoxMenuItem(Language.tr("SystemInfo.Tools.Simulation.LoadBalancer"),setup.useDynamicThreadBalance));
+		check.addActionListener(e->{setup.useDynamicThreadBalance=!setup.useDynamicThreadBalance; setup.saveSetup();});
+
+		menu.add(label=new JMenuItem("<html><b>"+Language.tr("SystemInfo.Tools.NextStationTraining")+"</b></html>"));
+		label.setEnabled(false);
+
+		menu.add(item=new JMenuItem(Language.tr("SystemInfo.Tools.NextStationTraining.ShowData"),Images.MODEL_ADD_STATION.getIcon()));
+		item.addActionListener(e->new SystemInfoWindowTrainingData(this));
+
+		menu.add(item=new JMenuItem(Language.tr("SystemInfo.Tools.NextStationTraining.DeleteData"),Images.EDIT_DELETE.getIcon()));
+		item.addActionListener(e->{
+			if (MsgBox.confirm(this,Language.tr("SystemInfo.Tools.NextStationTraining.DeleteData.Title"),Language.tr("SystemInfo.Tools.NextStationTraining.DeleteData.Info"),Language.tr("SystemInfo.Tools.NextStationTraining.DeleteData.InfoYes"),Language.tr("SystemInfo.Tools.NextStationTraining.DeleteData.InfoNo"))) {
+				EditModelProcessor.getInstance().reset();
+			}
+		});
 
 		menu.show(parent,0,parent.getHeight());
 	}

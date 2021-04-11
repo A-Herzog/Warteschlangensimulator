@@ -21,6 +21,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import language.Language;
+import simulator.editmodel.EditModelCertificateStore;
+import simulator.editmodel.EditModelProcessor;
 import systemtools.commandline.AbstractCommand;
 import tools.SetupData;
 import ui.UpdateSystem;
@@ -55,6 +57,11 @@ public class CommandReset extends AbstractCommand {
 	public void run(AbstractCommand[] allCommands, InputStream in, PrintStream out) {
 		SetupData.resetSetup();
 		UpdateSystem.reset();
+
+		final EditModelCertificateStore certStore=new EditModelCertificateStore();
+		certStore.clearTrustedPublicKeys();
+
+		EditModelProcessor.getInstance().reset();
 	}
 
 	@Override

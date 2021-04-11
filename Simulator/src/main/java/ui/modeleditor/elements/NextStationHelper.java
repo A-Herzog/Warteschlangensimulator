@@ -15,10 +15,15 @@
  */
 package ui.modeleditor.elements;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.function.Consumer;
 
 import javax.swing.JMenu;
+import javax.swing.JMenuItem;
 
+import language.Language;
+import simulator.editmodel.EditModelProcessor;
 import ui.modeleditor.coreelements.ModelElement;
 import ui.modeleditor.coreelements.ModelElementBox;
 
@@ -89,6 +94,34 @@ public class NextStationHelper {
 	}
 
 	/**
+	 * Fügt, wenn vorhanden, mögliche Folgestationen gemäß Nutzerverhalten in das Menü ein.
+	 * @param source	Ausgangsstation
+	 * @param parentMenu	Untermenü des Kontextmenüs, welches die Einträge aufnimmt
+	 * @param addNextStation	Callback, das aufgerufen werden kann, wenn ein Element zur Zeichenfläche hinzugefügt werden soll
+	 */
+	private static void nextStationLearned(final ModelElementBox source, final JMenu parentMenu, final Consumer<ModelElementBox> addNextStation) {
+		final List<Class<? extends ModelElementBox>> classes=EditModelProcessor.getInstance().getNextSuggestion(source.getClass());
+		if (classes==null || classes.size()==0) return;
+
+		final List<ModelElementBox> list=new ArrayList<>();
+
+		for (Class<? extends ModelElementBox> cls: classes) {
+			final ModelElementBox box=EditModelProcessor.getDummy(cls);
+			if (box!=null) list.add(box);
+		}
+
+		if (list.size()==0) return;
+
+		JMenuItem item;
+		parentMenu.add(item=new JMenuItem("<html><body><b>"+Language.tr("Surface.Popup.AddNextStation.ByTraining")+"</b></body></html>"));
+		item.setEnabled(false);
+		for (ModelElementBox box: list) source.addNextStationMenuItem(parentMenu,addNextStation,box);
+		parentMenu.addSeparator();
+		parentMenu.add(item=new JMenuItem("<html><body><b>"+Language.tr("Surface.Popup.AddNextStation.Typical")+"</b></body></html>"));
+		item.setEnabled(false);
+	}
+
+	/**
 	 * Mögliche Folgestationen (in einem Popupmenü) für Quell-Stationen
 	 * @param source	Ausgangsstation
 	 * @param parentMenu	Untermenü des Kontextmenüs, welches die Einträge aufnimmt
@@ -96,6 +129,8 @@ public class NextStationHelper {
 	 */
 	public static void nextStationsSource(final ModelElementBox source, final JMenu parentMenu, final Consumer<ModelElementBox> addNextStation) {
 		if (!source.canAddEdgeOut()) return;
+
+		nextStationLearned(source,parentMenu,addNextStation);
 
 		groupProcess(source,parentMenu,addNextStation);
 		parentMenu.addSeparator();
@@ -112,6 +147,8 @@ public class NextStationHelper {
 	 */
 	public static void nextStationsProcessing(final ModelElementBox source, final JMenu parentMenu, final Consumer<ModelElementBox> addNextStation) {
 		if (!source.canAddEdgeOut()) return;
+
+		nextStationLearned(source,parentMenu,addNextStation);
 
 		groupProcess(source,parentMenu,addNextStation);
 		parentMenu.addSeparator();
@@ -131,6 +168,8 @@ public class NextStationHelper {
 	public static void nextStationsAssign(final ModelElementBox source, final JMenu parentMenu, final Consumer<ModelElementBox> addNextStation) {
 		if (!source.canAddEdgeOut()) return;
 
+		nextStationLearned(source,parentMenu,addNextStation);
+
 		groupProcess(source,parentMenu,addNextStation);
 		parentMenu.addSeparator();
 		groupAssign(source,parentMenu,addNextStation);
@@ -148,6 +187,8 @@ public class NextStationHelper {
 	 */
 	public static void nextStationsDecide(final ModelElementBox source, final JMenu parentMenu, final Consumer<ModelElementBox> addNextStation) {
 		if (!source.canAddEdgeOut()) return;
+
+		nextStationLearned(source,parentMenu,addNextStation);
 
 		groupProcess(source,parentMenu,addNextStation);
 		parentMenu.addSeparator();
@@ -167,6 +208,8 @@ public class NextStationHelper {
 	public static void nextStationsHold(final ModelElementBox source, final JMenu parentMenu, final Consumer<ModelElementBox> addNextStation) {
 		if (!source.canAddEdgeOut()) return;
 
+		nextStationLearned(source,parentMenu,addNextStation);
+
 		groupProcess(source,parentMenu,addNextStation);
 		parentMenu.addSeparator();
 		groupAssign(source,parentMenu,addNextStation);
@@ -184,6 +227,8 @@ public class NextStationHelper {
 	 */
 	public static void nextStationsBatch(final ModelElementBox source, final JMenu parentMenu, final Consumer<ModelElementBox> addNextStation) {
 		if (!source.canAddEdgeOut()) return;
+
+		nextStationLearned(source,parentMenu,addNextStation);
 
 		groupProcess(source,parentMenu,addNextStation);
 		parentMenu.addSeparator();
@@ -203,6 +248,8 @@ public class NextStationHelper {
 	public static void nextStationsTransportTarget(final ModelElementBox source, final JMenu parentMenu, final Consumer<ModelElementBox> addNextStation) {
 		if (!source.canAddEdgeOut()) return;
 
+		nextStationLearned(source,parentMenu,addNextStation);
+
 		groupProcess(source,parentMenu,addNextStation);
 		parentMenu.addSeparator();
 		groupAssign(source,parentMenu,addNextStation);
@@ -221,6 +268,8 @@ public class NextStationHelper {
 	public static void nextStationsData(final ModelElementBox source, final JMenu parentMenu, final Consumer<ModelElementBox> addNextStation) {
 		if (!source.canAddEdgeOut()) return;
 
+		nextStationLearned(source,parentMenu,addNextStation);
+
 		groupProcess(source,parentMenu,addNextStation);
 		parentMenu.addSeparator();
 		groupAssign(source,parentMenu,addNextStation);
@@ -238,6 +287,8 @@ public class NextStationHelper {
 	 */
 	public static void nextStationsAnalog(final ModelElementBox source, final JMenu parentMenu, final Consumer<ModelElementBox> addNextStation) {
 		if (!source.canAddEdgeOut()) return;
+
+		nextStationLearned(source,parentMenu,addNextStation);
 
 		groupProcess(source,parentMenu,addNextStation);
 		parentMenu.addSeparator();

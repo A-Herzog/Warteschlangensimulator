@@ -941,7 +941,7 @@ public class ModelElement {
 	 * Erstellt ein Panel in dem das Element und ein Infotext angezeigt werden.
 	 * (für die Einbettung in ein Kontextmenü).
 	 * @return	Panel in dem das Element und ein Infotext angezeigt werden
-	 * @see #showContextMenu(Component, Point, boolean, boolean, ModelSurfacePanel, Consumer, ModelClientData, ModelSequences, SimulationData, ModelSurfaceAnimator)
+	 * @see #showContextMenu(Component, Point, boolean, boolean, boolean, ModelSurfacePanel, Consumer, ModelClientData, ModelSequences, SimulationData, ModelSurfaceAnimator)
 	 */
 	private JComponent getElementSymbol() {
 		final String info="<html><body>"+getContextMenuElementName()+"<br><b>id="+getId()+"</b></body></html>";
@@ -970,6 +970,7 @@ public class ModelElement {
 	 * @param point	Position, an der das Menü angezeigt werden soll
 	 * @param readOnly	Wird dieser Parameter auf <code>true</code> gesetzt, so können über das Kontextmenü keine Änderungen an dem Modell vorgenommen werden
 	 * @param allowEditOnReadOnly	Wird dieser Parameter auf <code>true</code> gesetzt, so kann auch im Read-Only-Modus über das Kontextmenü die Reihenfolge der Elemente variiert werden. Außerdem wird der Bearbeiten-Dialog im Nicht-Read-Only-Modus aufgerufen.
+	 * @param nextStationOnly	Soll das vollständige Menü angezeigt werden (<code>false</code>) oder nur das Menü zur Auswahl einer Folgestation (<code>true</code>), welches sonst Teil des vollständigen Menüs ist
 	 * @param surfacePanel	Zeichenfläche
 	 * @param buildParameterSeries	Callback das zum Aktivieren der Parameterreihenfunktion aufgerufen werden soll
 	 * @param clientData	Kundendaten-Objekt
@@ -977,7 +978,21 @@ public class ModelElement {
 	 * @param simData	Simulationsdaten (während der Animation, sonst <code>null</code>)
 	 * @param animator	Animationssystem-Objekt
 	 */
-	public final void showContextMenu(final Component invoker, final Point point, final boolean readOnly, final boolean allowEditOnReadOnly, final ModelSurfacePanel surfacePanel, final Consumer<ParameterCompareTemplatesDialog.TemplateRecord> buildParameterSeries, final ModelClientData clientData, final ModelSequences sequences, final SimulationData simData, final ModelSurfaceAnimator animator) {
+	public final void showContextMenu(final Component invoker, final Point point, final boolean readOnly, final boolean allowEditOnReadOnly, final boolean nextStationOnly, final ModelSurfacePanel surfacePanel, final Consumer<ParameterCompareTemplatesDialog.TemplateRecord> buildParameterSeries, final ModelClientData clientData, final ModelSequences sequences, final SimulationData simData, final ModelSurfaceAnimator animator) {
+		/* Nur das Folgestation-Menü anzeigen? */
+		if (nextStationOnly) {
+			final Consumer<ModelElementBox> addNextStation=e->surfacePanel.startAddElement((ModelElementBox)this,e);
+			final JMenu menu=new JMenu();
+			addNextStationContextMenuItems(menu,addNextStation);
+			final int count=menu.getMenuComponentCount();
+			if (count>0) {
+				final JPopupMenu popupMenu=new JPopupMenu();
+				for (int i=0;i<count;i++) popupMenu.add(menu.getMenuComponent(0));
+				popupMenu.show(invoker,point.x,point.y);
+				return;
+			}
+		}
+
 		final JPopupMenu popupMenu=new JPopupMenu();
 		JMenu sub;
 		JMenuItem item;
@@ -1060,6 +1075,11 @@ public class ModelElement {
 				final Consumer<ModelElementBox> addNextStation=e->surfacePanel.startAddElement((ModelElementBox)this,e);
 				addNextStationContextMenuItems(menu,addNextStation);
 				if (menu.getItemCount()>0) {
+					if (!nextStationOnly) {
+						menu.insert(item=new JMenuItem("<html><body><span style=\"font-size:90%\">"+Language.tr("Surface.Popup.AddNextStation.Info")+"</span></body></html>"),0);
+						item.setEnabled(false);
+						menu.insertSeparator(1);
+					}
 					menu.setIcon(Images.MODELEDITOR_ELEMENT_NEXT_STATIONS.getIcon());
 					popupMenu.add(menu);
 				}

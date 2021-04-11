@@ -2893,7 +2893,7 @@ public final class ModelSurfacePanel extends JPanel {
 					surface.setSelectedElement(element);
 					fireStateChangeListener();
 					element.setModel(model);
-					element.showContextMenu(ModelSurfacePanel.this,e.getPoint(),readOnly,allowChangeOperationsOnReadOnly,ModelSurfacePanel.this,template->fireBuildParameterSeries(template),clientData,sequences,simData,mainAnimator);
+					element.showContextMenu(ModelSurfacePanel.this,e.getPoint(),readOnly,allowChangeOperationsOnReadOnly,(e.getModifiersEx() & InputEvent.SHIFT_DOWN_MASK)==InputEvent.SHIFT_DOWN_MASK,ModelSurfacePanel.this,template->fireBuildParameterSeries(template),clientData,sequences,simData,mainAnimator);
 				}
 				fireSelectionListener();
 				e.consume();
@@ -3249,7 +3249,7 @@ public final class ModelSurfacePanel extends JPanel {
 					point.y=(int)Math.round(point.y*zoom);
 					point.translate(10,10);
 					element.setModel(model);
-					element.showContextMenu(ModelSurfacePanel.this,point,readOnly,allowChangeOperationsOnReadOnly,ModelSurfacePanel.this,template->fireBuildParameterSeries(template),clientData,sequences,simData,mainAnimator);
+					element.showContextMenu(ModelSurfacePanel.this,point,readOnly,allowChangeOperationsOnReadOnly,(e.getModifiersEx() & InputEvent.SHIFT_DOWN_MASK)==InputEvent.SHIFT_DOWN_MASK,ModelSurfacePanel.this,template->fireBuildParameterSeries(template),clientData,sequences,simData,mainAnimator);
 				} else {
 					if (showEditModelProperties) {
 						Container c=getParent();

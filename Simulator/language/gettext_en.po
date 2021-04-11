@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-04-09 21:48+0200\n"
+"POT-Creation-Date: 2021-04-11 21:19+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -24293,7 +24293,19 @@ msgid "Surface.Popup.AddLongRunStatistics.WIP"
 msgstr "Number of clients at the station"
 
 msgid "Surface.Popup.AddNextStation"
-msgstr "Add typical next station"
+msgstr "Add next station"
+
+msgid "Surface.Popup.AddNextStation.ByTraining"
+msgstr "Recommendations according to usage"
+
+msgid "Surface.Popup.AddNextStation.Info"
+msgstr ""
+"If shift is held down when<br>\n"
+"the context menu is opend,<br>\n"
+"this will menu appear directly."
+
+msgid "Surface.Popup.AddNextStation.Typical"
+msgstr "Typical next stations"
 
 msgid "Surface.Popup.AddNote"
 msgstr "Add note"
@@ -28537,6 +28549,33 @@ msgstr "These settings are not available via the program settings dialog."
 
 msgid "SystemInfo.Tools.Info"
 msgstr "Some of these settings will take effect<br>only after restarting the program."
+
+msgid "SystemInfo.Tools.NextStationTraining"
+msgstr "Training data for next stations"
+
+msgid "SystemInfo.Tools.NextStationTraining.DeleteData"
+msgstr "Delete training data..."
+
+msgid "SystemInfo.Tools.NextStationTraining.DeleteData.Info"
+msgstr "Do you really want to delete the training data?"
+
+msgid "SystemInfo.Tools.NextStationTraining.DeleteData.InfoNo"
+msgstr "Keep current training data."
+
+msgid "SystemInfo.Tools.NextStationTraining.DeleteData.InfoYes"
+msgstr "Delete training data and initialize new model using the example models."
+
+msgid "SystemInfo.Tools.NextStationTraining.DeleteData.Title"
+msgstr "Delete training data"
+
+msgid "SystemInfo.Tools.NextStationTraining.ShowData"
+msgstr "Show training data..."
+
+msgid "SystemInfo.Tools.NextStationTraining.ShowData.Info"
+msgstr "The numbers indicate how many connections from which station to which station were counted in the previous models."
+
+msgid "SystemInfo.Tools.NextStationTraining.ShowData.Title"
+msgstr "Training data for next stations"
 
 msgid "SystemInfo.Tools.Simulation"
 msgstr "Simulation"

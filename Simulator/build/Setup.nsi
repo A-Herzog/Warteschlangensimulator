@@ -254,6 +254,7 @@ Section "un.Uninstall" uninst
   Delete "$INSTDIR\Simulator.cfg"
   Delete "$INSTDIR\JDBC.cfg"
   Delete "$INSTDIR\Certificate.cfg"
+  Delete "$INSTDIR\Training.dat"
   Delete "$INSTDIR\JavaDDEx64.dll"
   Delete "$INSTDIR\JavaDDE.dll"
   Delete "$INSTDIR\Uninstall.exe"
