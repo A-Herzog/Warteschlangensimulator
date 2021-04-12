@@ -21,18 +21,26 @@ import java.awt.FlowLayout;
 import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.StringSelection;
 import java.awt.datatransfer.Transferable;
+import java.awt.event.ActionEvent;
+import java.awt.event.InputEvent;
+import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.Serializable;
 import java.util.List;
 import java.util.function.Consumer;
 
+import javax.swing.AbstractAction;
+import javax.swing.ActionMap;
+import javax.swing.InputMap;
 import javax.swing.JButton;
+import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 import javax.swing.JSlider;
 import javax.swing.JToolBar;
+import javax.swing.KeyStroke;
 
 import language.Language;
 import mathtools.Table;
@@ -146,6 +154,39 @@ public class ScheduleTableModelDataDialog extends BaseDialog {
 			data.dragDropConsumed();
 		});
 
+		/* Hotkeys registrieren */
+
+		final InputMap input=content.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
+		input.put(KeyStroke.getKeyStroke('C',InputEvent.CTRL_DOWN_MASK),"cmdCopy");
+		input.put(KeyStroke.getKeyStroke(KeyEvent.VK_INSERT,InputEvent.CTRL_DOWN_MASK),"cmdCopy");
+		input.put(KeyStroke.getKeyStroke('V',InputEvent.CTRL_DOWN_MASK),"cmdPaste");
+		input.put(KeyStroke.getKeyStroke(KeyEvent.VK_INSERT,InputEvent.SHIFT_DOWN_MASK),"cmdPaste");
+		final ActionMap actions=content.getActionMap();
+		actions.put("cmdCopy",new AbstractAction() {
+			/**
+			 * Serialisierungs-ID der Klasse
+			 * @see Serializable
+			 */
+			private static final long serialVersionUID=3318003178596230044L;
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				copyToClipboard();
+			}
+		});
+		actions.put("cmdPaste",new AbstractAction() {
+			/**
+			 * Serialisierungs-ID der Klasse
+			 * @see Serializable
+			 */
+			private static final long serialVersionUID=2269962377381294718L;
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				loadFromClipboard();
+			}
+		});
+
 		/* Dialog starten */
 		setResizable(true);
 		setLocationRelativeTo(getOwner());
@@ -251,20 +292,7 @@ public class ScheduleTableModelDataDialog extends BaseDialog {
 		JMenuItem item;
 
 		popup.add(item=new JMenuItem(Language.tr("Schedule.EditDialog.Load.Clipboard"),Images.EDIT_PASTE.getIcon()));
-		item.addActionListener(e->{
-			final Transferable content=getToolkit().getSystemClipboard().getContents(this);
-			if (content==null) return;
-			String stringContent=null;
-			try {stringContent=(String)content.getTransferData(DataFlavor.stringFlavor);} catch (Exception ex) {stringContent=null;}
-			if (stringContent==null) return;
-			final Table table=new Table();
-			table.load(stringContent);
-			if (!schedulePanel.setDataFromTable(table)) {
-				MsgBox.error(this,Language.tr("Schedule.EditDialog.Load.Clipboard.ErrorTitle"),Language.tr("Schedule.EditDialog.Load.Clipboard.ErrorInfo"));
-				return;
-			}
-			enableButtons();
-		});
+		item.addActionListener(e->loadFromClipboard());
 
 		popup.add(item=new JMenuItem(Language.tr("Schedule.EditDialog.Load.File"),Images.GENERAL_SELECT_FILE.getIcon()));
 		item.addActionListener(e->{
@@ -274,6 +302,26 @@ public class ScheduleTableModelDataDialog extends BaseDialog {
 		});
 
 		popup.show(parent,0,parent.getHeight());
+	}
+
+	/**
+	 * Versucht einen Zeitplan aus der Zwischenablage zu laden.
+	 */
+	private void loadFromClipboard() {
+		final Transferable content=getToolkit().getSystemClipboard().getContents(this);
+		if (content==null) return;
+		String stringContent=null;
+		try {stringContent=(String)content.getTransferData(DataFlavor.stringFlavor);} catch (Exception ex) {stringContent=null;}
+		if (stringContent==null) return;
+		final Table table=new Table();
+		table.load(stringContent);
+		if (!schedulePanel.setDataFromTable(table)) {
+			MsgBox.error(this,Language.tr("Schedule.EditDialog.Load.Clipboard.ErrorTitle"),Language.tr("Schedule.EditDialog.Load.Clipboard.ErrorInfo"));
+			return;
+		}
+		editorMaxY=Math.max(editorMaxY,schedulePanel.getData().stream().mapToInt(Integer::intValue).max().orElse(0));
+		schedulePanel.setSetupData(editorMaxY,durationPerSlot);
+		enableButtons();
 	}
 
 	/**
@@ -290,6 +338,8 @@ public class ScheduleTableModelDataDialog extends BaseDialog {
 			MsgBox.error(this,Language.tr("Schedule.EditDialog.Load.File.ErrorTitle"),String.format(Language.tr("Schedule.EditDialog.Load.File.ErrorDataInfo"),file.toString()));
 			return;
 		}
+		editorMaxY=Math.max(editorMaxY,schedulePanel.getData().stream().mapToInt(Integer::intValue).max().orElse(0));
+		schedulePanel.setSetupData(editorMaxY,durationPerSlot);
 		enableButtons();
 	}
 
@@ -303,9 +353,7 @@ public class ScheduleTableModelDataDialog extends BaseDialog {
 		JMenuItem item;
 
 		popup.add(item=new JMenuItem(Language.tr("Schedule.EditDialog.Save.Clipboard"),Images.EDIT_COPY.getIcon()));
-		item.addActionListener(e->{
-			getToolkit().getSystemClipboard().setContents(new StringSelection(schedulePanel.getDataAsTable().toString()),null);
-		});
+		item.addActionListener(e->copyToClipboard());
 
 		popup.add(item=new JMenuItem(Language.tr("Schedule.EditDialog.Save.File"),Images.GENERAL_SAVE.getIcon()));
 		item.addActionListener(e->{
@@ -316,5 +364,12 @@ public class ScheduleTableModelDataDialog extends BaseDialog {
 		});
 
 		popup.show(parent,0,parent.getHeight());
+	}
+
+	/**
+	 * Kopiert den Zeitplan in die Zwischenablage.
+	 */
+	private void copyToClipboard() {
+		getToolkit().getSystemClipboard().setContents(new StringSelection(schedulePanel.getDataAsTable().toString()),null);
 	}
 }
