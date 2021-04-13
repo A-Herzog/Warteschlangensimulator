@@ -23,6 +23,8 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import language.Language;
+import net.mqtt.MQTTBrokerURL;
+import net.mqtt.MQTTSimClient;
 import ui.MainFrame;
 
 /**
@@ -63,7 +65,7 @@ public class Notifier {
 	}
 
 	/**
-	 * Entfernt die letzte Benachrichtigung
+	 * Entfernt die letzte Benachrichtigung.
 	 * @return	Liefert <code>true</code>, wenn eine Benachrichtigung vorhanden war und entfernt werden konnte
 	 */
 	private static boolean removeLastNotify() {
@@ -120,6 +122,31 @@ public class Notifier {
 	}
 
 	/**
+	 * Sendet eine Meldung an den MQTT-Broker.
+	 * @param text	Zu sendende Meldung
+	 * @return	Liefert <code>true</code>, wenn die Meldung gesendet werden konnte
+	 */
+	private static boolean sendMQTTMessage(final String text) {
+		/* Daten für Verbindung zu MQTT-Server vorbereiten */
+		final MQTTSimClient serverMQTT=MQTTSimClient.getInstance();
+		final MQTTBrokerURL broker=MQTTBrokerURL.parseString(setup.mqttBroker,setup.mqttVerifyCertificates);
+		if (broker==null) return false;
+
+		/* Läuft der Client bereits? Dann Nachricht direkt senden */
+		if (serverMQTT.isRunning()) {
+			return serverMQTT.sendText(setup.notifyMQTTTopic,text,0);
+		}
+
+		/* Client starten, Nachricht senden, Client beenden */
+		if (serverMQTT.start(broker,null,null,null,setup.serverAuthName,setup.serverAuthPassword)!=null) return false;
+		try {
+			return serverMQTT.sendText(setup.notifyMQTTTopic,text,0);
+		} finally {
+			serverMQTT.stop();
+		}
+	}
+
+	/**
 	 * Liefert auf Basis des Nachrichtentyps die konkrete anzuzeigende Meldung
 	 * @param message	Nachrichtentyp
 	 * @return	Text der anzuzeigenden Meldung
@@ -149,10 +176,16 @@ public class Notifier {
 	 */
 	public static void run(final Message message, final long operationStartTimeMS) {
 		final long operationTimeMS=System.currentTimeMillis()-operationStartTimeMS;
+		final String messageString=getMessageString(message);
+
 		removeLastNotify();
 		if ((operationTimeMS>=MIN_NOTIFY_OPERATION_TIME && setup.notifyMode!=SetupData.NotifyMode.OFF) || setup.notifyMode==SetupData.NotifyMode.ALWAYS) {
 			/* if (setup.useAcusticNotify) playSound(); - TrayIcon.displayMessage gibt bereits einen Ton aus */
-			showMessage(getMessageString(message));
+			showMessage(messageString);
+		}
+
+		if (setup.notifyMQTT) {
+			sendMQTTMessage(messageString);
 		}
 	}
 

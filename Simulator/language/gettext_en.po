@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-04-11 21:19+0200\n"
+"POT-Creation-Date: 2021-04-12 13:53+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -13658,6 +13658,15 @@ msgstr ""
 "This means that opening and executing models represents a security risk.\n"
 "It is therefore recommended to activate this option only if absolutely necessary."
 
+msgid "SettingsDialog.NotifyMQTT"
+msgstr "Send MQTT notification when simulation is done"
+
+msgid "SettingsDialog.NotifyMQTT.Settings"
+msgstr "MQTT settings"
+
+msgid "SettingsDialog.NotifyMQTT.Settings.Title"
+msgstr "MQTT settings for end of simulation notify"
+
 msgid "SettingsDialog.NotifyMode"
 msgstr "Show notification when simulation is done"
 
@@ -16051,6 +16060,9 @@ msgstr "Requires (if a encrypted connection is used) that the certificate used b
 
 msgid "SimulationServer.Setup.MQTTInfoTopic"
 msgstr "Status topic"
+
+msgid "SimulationServer.Setup.MQTTNotifyTopic"
+msgstr "MQTT topic for notifications"
 
 msgid "SimulationServer.Setup.MQTTServer"
 msgstr "MQTT client"

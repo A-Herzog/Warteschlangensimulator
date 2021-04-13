@@ -175,8 +175,10 @@ public final class SetupDialog extends BaseDialog {
 	private final JComboBox<String> surfaceHelp;
 	/** Halbtransparente Informationen auf der Zeichenfläche anzeigen */
 	private final JCheckBox surfaceGlassInfos;
-	/** Benachrichtigungen zum Simulationsende */
+	/** Benachrichtigungen im System-Tray zum Simulationsende */
 	private final JComboBox<String> notifyMode;
+	/** Benachrichtigungen per MQTT zum Simulationsende senden */
+	private final JCheckBox notifyMQTT;
 	/** Schaltfläche zum Öffnen des Dialogs in dem die weiteren Hilfe-Panel konfiguriert werden können */
 	private String hintDialogs;
 
@@ -517,10 +519,13 @@ public final class SetupDialog extends BaseDialog {
 		label.setLabelFor(notifyMode);
 
 		mainarea.add(p=new JPanel(new FlowLayout(FlowLayout.LEFT)));
-		button=new JButton(Language.tr("SettingsDialog.Tabs.ProgramStart.DialogAdvice"));
-		button.setIcon(Images.GENERAL_INFO.getIcon());
+		p.add(notifyMQTT=new JCheckBox(Language.tr("SettingsDialog.NotifyMQTT")));
+		p.add(button=new JButton(Language.tr("SettingsDialog.NotifyMQTT.Settings"),Images.SERVER_MQTT.getIcon()));
+		button.addActionListener(e->showMQTTSettings());
+
+		mainarea.add(p=new JPanel(new FlowLayout(FlowLayout.LEFT)));
+		p.add(button=new JButton(Language.tr("SettingsDialog.Tabs.ProgramStart.DialogAdvice"),Images.GENERAL_INFO.getIcon()));
 		button.addActionListener(e->showHintsDialog());
-		p.add(button);
 
 		/* Seite: Leistung */
 
@@ -1085,6 +1090,7 @@ public final class SetupDialog extends BaseDialog {
 		case LONGRUN: notifyMode.setSelectedIndex(1); break;
 		case ALWAYS: notifyMode.setSelectedIndex(2); break;
 		}
+		notifyMQTT.setSelected(setup.notifyMQTT);
 		hintDialogs=setup.hintDialogs;
 
 		/* Seite: Leistung */
@@ -1349,6 +1355,7 @@ public final class SetupDialog extends BaseDialog {
 		case 1: setup.notifyMode=SetupData.NotifyMode.LONGRUN; break;
 		case 2: setup.notifyMode=SetupData.NotifyMode.ALWAYS; break;
 		}
+		setup.notifyMQTT=notifyMQTT.isSelected();
 		setup.hintDialogs=hintDialogs;
 		InfoPanel.getInstance().loadSetup(setup.hintDialogs);
 
@@ -1502,6 +1509,14 @@ public final class SetupDialog extends BaseDialog {
 	}
 
 	/**
+	 * Zeigt einen Dialog an zur Konfiguration der MQTT-Verbindung
+	 * (für Benachrichtigungen nach dem Abschluss einer Simulation).
+	 */
+	private void showMQTTSettings() {
+		new SetupDialogMQTTSettings(this);
+	}
+
+	/**
 	 * Zeigt den Dialog zur Auswahl, in welchen Festern die Info-Texte
 	 * angezeigt werden sollen, an.
 	 */
@@ -1587,6 +1602,7 @@ public final class SetupDialog extends BaseDialog {
 			surfaceHelp.setSelectedIndex(1);
 			surfaceGlassInfos.setSelected(true);
 			notifyMode.setSelectedIndex(1);
+			notifyMQTT.setSelected(false);
 			hintDialogs="";
 			break;
 		case 1: /* Seite: Leistung */

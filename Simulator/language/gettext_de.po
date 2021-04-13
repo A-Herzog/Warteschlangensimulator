@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-04-11 21:19+0200\n"
+"POT-Creation-Date: 2021-04-12 13:53+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -13662,6 +13662,15 @@ msgstr ""
 "Damit stellt das Öffnen und Ausführungen von Modellen ein Sicherheitsrisiko dar.\n"
 "Es wird daher empfohlen, diese Option nur zu aktivieren, wenn dies unbedingt notwendig ist."
 
+msgid "SettingsDialog.NotifyMQTT"
+msgstr "Benachrichtigung zu Simulationsende per MQTT senden"
+
+msgid "SettingsDialog.NotifyMQTT.Settings"
+msgstr "MQTT-Einstellungen"
+
+msgid "SettingsDialog.NotifyMQTT.Settings.Title"
+msgstr "MQTT-Einstellungen für Benachrichtigungen am Simulationsende"
+
 msgid "SettingsDialog.NotifyMode"
 msgstr "Benachrichtigung zu Simulationsende anzeigen"
 
@@ -16058,6 +16067,9 @@ msgstr "Verlangt (wenn eine verschlüsselte Verbindung verwendet wird), dass das
 
 msgid "SimulationServer.Setup.MQTTInfoTopic"
 msgstr "Statusthema"
+
+msgid "SimulationServer.Setup.MQTTNotifyTopic"
+msgstr "MQTT-Thema für Benachrichtigungen"
 
 msgid "SimulationServer.Setup.MQTTServer"
 msgstr "MQTT-Klient"

@@ -17,6 +17,7 @@ package net.mqtt;
 
 import java.lang.management.ManagementFactory;
 import java.lang.management.ThreadMXBean;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -213,7 +214,7 @@ public class MQTTSimClient extends MQTTSimClientBase {
 
 	/**
 	 * Sendet die MQTT-Antwort nach dem Ende der Simulation.
-	 * @param responseTopic	MQTT-Antwort-Thema	 *
+	 * @param responseTopic	MQTT-Antwort-Thema
 	 * @param future	Simulationsobjekt (kann auch im Fehler-Ende-Status sein)
 	 * @param userProperties	Zusätzlich zu übermittelnde Eigenschaften
 	 */
@@ -226,6 +227,17 @@ public class MQTTSimClient extends MQTTSimClientBase {
 		} finally {
 			lock.unlock();
 		}
+	}
+
+	/**
+	 * Sendet einen Text über eine bestehende Verbindung zum MQTT-Broker
+	 * @param topic	MQTT-Thema an das die Nachricht gesendet werden soll
+	 * @param text	Zu sendender Text
+	 * @param qos	MQTT Quality of Service (0 bis 2)
+	 * @return	Liefert <code>true</code>, wenn die Nachricht an den MQTT-Broker übermittelt werden konnte
+	 */
+	public boolean sendText(final String topic, final String text, final int qos) {
+		return send(topic,text.getBytes(StandardCharsets.UTF_8),null,qos);
 	}
 
 	/**

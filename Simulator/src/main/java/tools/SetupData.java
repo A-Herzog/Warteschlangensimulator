@@ -851,10 +851,22 @@ public class SetupData extends SetupBase {
 	public boolean useSecurityManagerForUserCode;
 
 	/**
-	 * Benachrichtigung beim Ende von Simulation, Parameterreihe oder Optimierung anzeigen
+	 * Benachrichtigung beim Ende von Simulation, Parameterreihe oder Optimierung in System-Tray anzeigen?
 	 * @see Notifier
 	 */
 	public NotifyMode notifyMode;
+
+	/**
+	 * Benachrichtigung beim Ende von Simulation, Parameterreihe oder Optimierung über MQTT senden?
+	 * @see #notifyMQTTTopic
+	 */
+	public boolean notifyMQTT;
+
+	/**
+	 * MQTT-Topic über das Benachrichtigung beim Ende von Simulation, Parameterreihe oder Optimierung gesendet werden sollen
+	 * @see #notifyMQTT
+	 */
+	public String notifyMQTTTopic;
 
 	/**
 	 * Proxy-Server verwenden ja/nein (unabhängig von den anderen Proxy-Einstellungen kann die Server-Verwendung deaktiviert werden)
@@ -1265,6 +1277,8 @@ public class SetupData extends SetupBase {
 		modelSecurityAllowExecuteExternal=false;
 		useSecurityManagerForUserCode=true;
 		notifyMode=NotifyMode.LONGRUN;
+		notifyMQTT=false;
+		notifyMQTTTopic=MainFrame.PROGRAM_NAME+"/notify";
 		useProxy=false;
 		proxyHost="";
 		proxyPort=8080;
@@ -1982,6 +1996,12 @@ public class SetupData extends SetupBase {
 				continue;
 			}
 
+			if (name.equals("nofitymqtt")) {
+				notifyMQTT=loadBoolean(e.getAttribute("active"),false);
+				notifyMQTTTopic=e.getTextContent();
+				continue;
+			}
+
 			if (name.equals("proxy")) {
 				useProxy=loadBoolean(e.getAttribute("Active"),false);
 				proxyHost=e.getTextContent();
@@ -2634,6 +2654,12 @@ public class SetupData extends SetupBase {
 			case LONGRUN: node.setTextContent("LongRun"); break;
 			case OFF: node.setTextContent("Off"); break;
 			}
+		}
+
+		if (notifyMQTT || !notifyMQTTTopic.equals(MainFrame.PROGRAM_NAME+"/notify")) {
+			root.appendChild(node=doc.createElement("NofityMQTT"));
+			node.setAttribute("active",notifyMQTT?"1":"0");
+			node.setTextContent(notifyMQTTTopic);
 		}
 
 		if (useProxy || !proxyHost.isEmpty() || proxyPort!=8080 || !proxyUser.isEmpty() || !proxyPassword.isEmpty()) {
