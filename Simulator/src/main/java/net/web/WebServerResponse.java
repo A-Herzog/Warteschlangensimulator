@@ -210,9 +210,11 @@ public class WebServerResponse {
 	 */
 	public boolean setText(final InputStream stream, final Mime mime, final boolean utf8encode) throws IOException {
 		if (stream==null) return false;
-		byte[] data=new byte[stream.available()];
+		final int size=stream.available();
+		byte[] data=new byte[size];
+		int read=0;
+		while (read<size) read+=stream.read(data,read,size-read);
 		final String s=new String(data);
-		stream.read(data);
 		if (utf8encode) data=utf8encode(s).getBytes();
 
 		this.data=data;

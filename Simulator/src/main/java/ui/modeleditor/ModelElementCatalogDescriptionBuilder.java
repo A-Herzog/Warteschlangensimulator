@@ -719,7 +719,8 @@ public class ModelElementCatalogDescriptionBuilder {
 				final int size=input.available();
 				if (size==0) return "Error reading resource "+resName;
 				final byte[] bytes=new byte[size];
-				if (input.read(bytes)<size) return "Error reading resource "+resName;
+				int read=0;
+				while (read<size) read+=input.read(bytes,read,size-read);
 				lines=new String(bytes).split("\\\n");
 			}
 		} catch (IOException e1) {

@@ -65,7 +65,8 @@ public class DynamicClassExternalCompiler extends DynamicClassFileBased {
 			try (InputStream input=process.getInputStream()) {
 				final int available=input.available();
 				final byte[] b=new byte[available];
-				input.read(b);
+				int read=0;
+				while (read<available) read+=input.read(b,read,available-read);
 				final String s=new String(b).trim();
 				if (!s.isEmpty()) return s;
 			}
@@ -73,7 +74,8 @@ public class DynamicClassExternalCompiler extends DynamicClassFileBased {
 			try (InputStream error=process.getErrorStream()) {
 				final int available=error.available();
 				final byte[] b=new byte[available];
-				error.read(b);
+				int read=0;
+				while (read<available) read+=error.read(b,read,available-read);
 				final String s=new String(b).trim();
 				if (!s.isEmpty()) return s;
 			}

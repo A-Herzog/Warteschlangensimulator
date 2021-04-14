@@ -695,7 +695,8 @@ public final class XMLTools {
 			if (stream==null || stream.available()<2 || !stream.markSupported()) return FileType.XML;
 			try {
 				final byte[] b=new byte[2];
-				if (stream.read(b)<2) return FileType.XML;
+				int read=0;
+				while (read<2) read+=stream.read(b,read,2-read);
 
 				if (b[0]=='P' && b[1]=='K') return FileType.ZIP_XML;
 				if (b[0]=='{' && b[1]=='"') return FileType.JSON;
@@ -781,12 +782,10 @@ public final class XMLTools {
 
 			ByteArrayOutputStream byteOutput1;
 			try {
-				byte[] buf=new byte[stream.available()];
-				if (stream.read(buf)!=buf.length) {
-					final String s=(file==null)?"":file.toString();
-					lastError=String.format(errorXMLProcessFile,s);
-					return null;
-				}
+				final int size=stream.available();
+				byte[] buf=new byte[size];
+				int read=0;
+				while (read<size) read+=stream.read(buf,read,size-read);
 				byteOutput1=new ByteArrayOutputStream();
 				byteOutput1.write(buf);
 			} catch (IOException e1) {

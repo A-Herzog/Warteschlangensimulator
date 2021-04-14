@@ -358,8 +358,8 @@ public final class MultiTable {
 		try {
 			final int size=stream.available();
 			final byte[] data=new byte[size];
-			if (stream.read(data)!=size) return false;
-
+			int read=0;
+			while (read<size) read+=stream.read(data,read,size-read);
 			try (ByteArrayInputStream byteArray=new ByteArrayInputStream(data)) {
 				return loadByteArray(byteArray);
 			}
