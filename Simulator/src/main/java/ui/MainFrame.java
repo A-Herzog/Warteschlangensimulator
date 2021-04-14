@@ -169,7 +169,7 @@ public class MainFrame extends MainFrameBase {
 	private class ReloadWindow implements Runnable {
 		@Override
 		public void run() {
-			processReload();
+			if (!processReload()) return;
 			ReloadManager.notify(MainFrame.this,MainFrame.ReloadMode.FULL);
 		}
 	}
@@ -178,9 +178,12 @@ public class MainFrame extends MainFrameBase {
 	 * Speichert die aktuellen Einstellungen des Hauptfensters,
 	 * baut das Hauptfenster ab, erzeugt es neu und lädt die
 	 * Einstellungen wieder in das Fenster.
+	 * @return	Konnte ein Reloaded durchgeführt werden?
 	 */
-	private void processReload() {
-		if (!(getMainPanel() instanceof MainPanel)) return;
+	private boolean processReload() {
+		if (!(getMainPanel() instanceof MainPanel)) return false;
+
+		if (!((MainPanel)getMainPanel()).allowReloadWindow()) return false;
 
 		final Object[] store=((MainPanel)getMainPanel()).getAllData();
 
@@ -192,6 +195,8 @@ public class MainFrame extends MainFrameBase {
 		setMainPanel(newMainPanel);
 		newMainPanel.setReloadWindow(new ReloadWindow());
 		newMainPanel.setAllData(store);
+
+		return true;
 	}
 
 	/**

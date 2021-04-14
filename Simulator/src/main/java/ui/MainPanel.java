@@ -20,10 +20,12 @@ import java.awt.Component;
 import java.awt.Container;
 import java.awt.Cursor;
 import java.awt.Desktop;
+import java.awt.Dialog;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Point;
 import java.awt.SystemColor;
+import java.awt.Window;
 import java.awt.event.ActionEvent;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
@@ -853,7 +855,8 @@ public class MainPanel extends MainPanelBase {
 
 		/* Alles neu zeichnen */
 		editorPanel.resetHeatMapSettings();
-		getOwnerWindow().repaint();
+		final Window ownerWindow=getOwnerWindow();
+		if (ownerWindow!=null) repaint();
 		editorPanel.repaint();
 
 		/* Ggf. andere Fenster benachrichtigen */
@@ -1549,6 +1552,34 @@ public class MainPanel extends MainPanelBase {
 		} else {
 			return isDiscardModelOk();
 		}
+	}
+
+	/**
+	 * Kann das Panel in seiner aktuellen Form serialisiert und neu geladen werden?
+	 * @return	Liefert <code>true</code>, wenn das Panel in seiner aktuellen Form per {@link #getAllData()} gespeichert werden kann
+	 */
+	public boolean allowReloadWindow() {
+		/* Editor oder Statistikansicht aktiv? */
+		if (currentPanel!=editorPanel && currentPanel!=statisticsPanel) return false;
+
+		/* Offener modaler Dialog, der von diesem Fenster ausgeht? */
+		final Window[] windows=Window.getWindows();
+		if(windows!=null) for(Window window: windows) {
+			if (!window.isShowing()) continue;
+			if (!(window instanceof Dialog)) continue;
+			final Dialog dialog=(Dialog)window;
+			if (!dialog.isModal()) continue;
+
+			Container c=dialog.getParent();
+			while (c!=null) {
+				if (c==ownerWindow) return false;
+				c=c.getParent();
+			}
+
+			return true;
+		}
+
+		return true;
 	}
 
 	/**
