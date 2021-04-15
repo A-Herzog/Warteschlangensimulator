@@ -49,6 +49,7 @@ import ui.modeleditor.fastpaint.Shapes;
 import ui.modeleditor.outputbuilder.HTMLOutputBuilder;
 import ui.modeleditor.outputbuilder.SpecialOutputBuilder;
 import ui.speedup.BackgroundSystem;
+import ui.tools.FlatLaFHelper;
 
 /**
  * Schieberegler, über den während der Animation eine Variable auf verschiedene Werte,
@@ -365,6 +366,12 @@ public class ModelElementInteractiveSlider extends ModelElementPosition implemen
 	}
 
 	/**
+	 * Farbe für den Schieberegler-Balken
+	 * @see #drawSlider(Graphics2D, Rectangle, double)
+	 */
+	private Color sliderColor;
+
+	/**
 	 * Zeichnet den eigentlichen Schieberegler
 	 * @param graphics	Grafik-Objekt, in das gezeichnet werden soll
 	 * @param rectangle	Größe des Elements
@@ -399,7 +406,8 @@ public class ModelElementInteractiveSlider extends ModelElementPosition implemen
 		graphics.setColor(Color.GRAY);
 		graphics.drawLine(rectangle.x,m,rectangle.x+rectangle.width,m);
 
-		graphics.setColor(Color.BLUE);
+		if (sliderColor==null) sliderColor=FlatLaFHelper.isDark()?new Color(72,209,204):Color.BLUE;
+		graphics.setColor(sliderColor);
 		if (percent>1) percent=1;
 		if (percent<0) percent=0;
 		final int pos=rectangle.x+(int)Math.round(rectangle.width*percent);

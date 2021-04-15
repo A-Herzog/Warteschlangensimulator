@@ -48,6 +48,7 @@ import ui.modeleditor.coreelements.ModelElementEdgeOut;
 import ui.modeleditor.coreelements.ModelElementPosition;
 import ui.modeleditor.fastpaint.Shapes;
 import ui.modeleditor.outputbuilder.SpecialOutputBuilder;
+import ui.tools.FlatLaFHelper;
 
 /**
  * Verbindungsecke, um Verbindungskante optisch schöner auszurichten
@@ -230,7 +231,7 @@ public final class ModelElementVertex extends ModelElementPosition implements Mo
 	 * Füllfarbe
 	 * @see #drawToGraphics(Graphics, Rectangle, double, boolean)
 	 */
-	private static final Color fillColor=new Color(235,235,235);
+	private Color fillColor;
 
 	/**
 	 * Zeichnet das Element in ein <code>Graphics</code>-Objekt
@@ -256,6 +257,7 @@ public final class ModelElementVertex extends ModelElementPosition implements Mo
 			}
 		}
 
+		if (fillColor==null) fillColor=FlatLaFHelper.isDark()?Color.GRAY:new Color(235,235,235);
 		drawRect(graphics,drawRect,zoom,borderColor,borderWidth,fillColor,1);
 		drawRect(graphics,drawRect,zoom,borderColor,borderWidth,fillColor,2);
 

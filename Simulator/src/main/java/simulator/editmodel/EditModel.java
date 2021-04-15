@@ -81,6 +81,7 @@ import ui.modeleditor.elements.ModelElementSourceRecord;
 import ui.modeleditor.elements.ModelElementSourceTable;
 import ui.modeleditor.elements.ModelElementSub;
 import ui.modeleditor.templates.UserTemplates;
+import ui.tools.FlatLaFHelper;
 
 /**
  * Editor-Modell<br>
@@ -389,6 +390,11 @@ public final class EditModel extends EditModelBase implements Cloneable  {
 	public EditModelCertificate loadedModelCertificate;
 
 	/**
+	 * Farbe für Kanten im dunklen Modus
+	 */
+	public static final Color BLACK_COLOR_IN_DARK_MODE=new Color(195,195,195);
+
+	/**
 	 * Konstruktor der Klasse {@link EditModel}
 	 */
 	public EditModel() {
@@ -404,7 +410,7 @@ public final class EditModel extends EditModelBase implements Cloneable  {
 		animationImages=new ModelAnimationImages();
 		distributionRecordHours=1;
 		stoppOnCalcError=false;
-		edgePainterNormal=new ComplexLine(1,Color.BLACK,0);
+		edgePainterNormal=new ComplexLine(1,FlatLaFHelper.isDark()?BLACK_COLOR_IN_DARK_MODE:Color.BLACK,0);
 		edgePainterSelected=new ComplexLine(1,Color.GREEN,0);
 		edgeLineMode=ModelElementEdge.LineMode.MULTI_LINE_ROUNDED;
 		timedChecksDelta=-1;
@@ -487,7 +493,7 @@ public final class EditModel extends EditModelBase implements Cloneable  {
 		animationImages.clear();
 		distributionRecordHours=1;
 		stoppOnCalcError=false;
-		edgePainterNormal.set(1,Color.BLACK,0);
+		edgePainterNormal.set(1,FlatLaFHelper.isDark()?BLACK_COLOR_IN_DARK_MODE:Color.BLACK,0);
 		edgePainterSelected.set(1,Color.GREEN,0);
 		edgeLineMode=ModelElementEdge.LineMode.MULTI_LINE_ROUNDED;
 		timedChecksDelta=-1;

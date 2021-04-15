@@ -46,6 +46,7 @@ import ui.modeleditor.coreelements.ModelElementPosition;
 import ui.modeleditor.fastpaint.Shapes;
 import ui.modeleditor.outputbuilder.HTMLOutputBuilder;
 import ui.modeleditor.outputbuilder.SpecialOutputBuilder;
+import ui.tools.FlatLaFHelper;
 
 /**
  * Zeigt während der Animation das Ergebnis eines Rechneausdrucks als Text an.
@@ -489,6 +490,12 @@ public class ModelElementAnimationTextValue extends ModelElementPosition impleme
 	private Font lastFontTitle;
 
 	/**
+	 * Farbe für den Titel über dem eigentlichen Text
+	 * @see #drawToGraphics(Graphics, Rectangle, double, boolean)
+	 */
+	private Color titleColor;
+
+	/**
 	 * Zeichnet das Element in ein <code>Graphics</code>-Objekt
 	 * @param graphics	<code>Graphics</code>-Objekt in das das Element eingezeichnet werden soll
 	 * @param drawRect	Tatsächlich sichtbarer Ausschnitt
@@ -541,7 +548,8 @@ public class ModelElementAnimationTextValue extends ModelElementPosition impleme
 			int y=(int)FastMath.round(point.y*zoom)+graphics.getFontMetrics().getAscent();
 			graphics.drawString(text,x,y);
 		} else {
-			graphics.setColor(Color.BLACK);
+			if (titleColor==null) titleColor=FlatLaFHelper.isDark()?EditModel.BLACK_COLOR_IN_DARK_MODE:Color.BLACK;
+			graphics.setColor(titleColor);
 			graphics.setFont(lastFontTitle);
 			int y=(int)FastMath.round(point.y*zoom)+graphics.getFontMetrics().getAscent();
 			graphics.drawString(title,x,y);

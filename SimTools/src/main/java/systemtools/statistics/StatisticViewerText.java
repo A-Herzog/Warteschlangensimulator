@@ -248,7 +248,7 @@ public abstract class StatisticViewerText implements StatisticViewer {
 
 		style=doc.addStyle("link",defaultStyle);
 		StyleConstants.setFontSize(style,(int)Math.round((StyleConstants.getFontSize(style)-1)*GUITools.getScaleFactor()));
-		StyleConstants.setForeground(style,Color.BLUE);
+		if (isDark) StyleConstants.setForeground(style,new Color(128,128,225)); else StyleConstants.setForeground(style,Color.BLUE);
 
 		/* Text einfügen */
 

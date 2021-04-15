@@ -15,6 +15,7 @@
  */
 package ui.modeleditor.elements;
 
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -47,6 +48,7 @@ import ui.modeleditor.coreelements.ModelElementEdgeOut;
 import ui.modeleditor.coreelements.ModelElementPosition;
 import ui.modeleditor.outputbuilder.HTMLOutputBuilder;
 import ui.modeleditor.outputbuilder.SpecialOutputBuilder;
+import ui.tools.FlatLaFHelper;
 
 /**
  * Verbindungskante zwischen zwei Modell-Elementen
@@ -721,6 +723,12 @@ public final class ModelElementEdge extends ModelElement {
 	private Font lastFont;
 
 	/**
+	 * Farbe für Kantenbeschriftungen
+	 * @see #drawText(Graphics, Point, double)
+	 */
+	private Color textColor;
+
+	/**
 	 * Gibt {@link #getName()} aus.
 	 * @param graphics	Ausgabe-Grafikobjekt
 	 * @param middle	Mittelpunkt des Textes
@@ -734,6 +742,8 @@ public final class ModelElementEdge extends ModelElement {
 				lastZoomFont=zoom;
 			}
 			graphics.setFont(lastFont);
+			if (textColor==null) textColor=FlatLaFHelper.isDark()?EditModel.BLACK_COLOR_IN_DARK_MODE:Color.BLACK;
+			graphics.setColor(textColor);
 			graphics.drawString(text,middle.x-graphics.getFontMetrics().stringWidth(text)/2,middle.y+graphics.getFontMetrics().getAscent());
 		}
 	}

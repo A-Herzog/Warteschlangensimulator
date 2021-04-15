@@ -26,6 +26,7 @@ import java.util.function.Supplier;
 import language.Language;
 import ui.help.BookData;
 import ui.images.Images;
+import ui.tools.FlatLaFHelper;
 
 /**
  * Diese Klasse stellt Zeichenflächen-Links für die
@@ -140,7 +141,11 @@ public class ModelSurfaceLinks {
 		final int lineH=graphics.getFontMetrics().getAscent()+graphics.getFontMetrics().getDescent();
 		final int lineYShift=graphics.getFontMetrics().getAscent();
 
-		graphics.setColor(Color.BLUE.darker());
+		if (FlatLaFHelper.isDark()) {
+			graphics.setColor(new Color(128,128,225));
+		} else {
+			graphics.setColor(Color.BLUE.darker());
+		}
 		int y=yStart;
 
 		for (int i=0;i<linkPositions.length;i++) {
