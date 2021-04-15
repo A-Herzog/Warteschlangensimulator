@@ -39,10 +39,12 @@ import org.w3c.dom.Document;
 import language.Language;
 import mathtools.Table;
 import simulator.editmodel.EditModel;
+import simulator.editmodel.EditModelDark;
 import systemtools.MsgBox;
 import tools.SetupData;
 import ui.EditorPanel;
 import ui.commandline.CommandBenchmark;
+import ui.tools.FlatLaFHelper;
 
 /**
  * Liefert Beispielmodelle
@@ -189,15 +191,6 @@ public class EditModelExamples {
 	}
 
 	/**
-	 * Liefert eine Liste mit allen für den Player verfügbaren Beispielen.
-	 * @return	Liste mit allen für den Player verfügbaren Beispielen
-	 */
-	public static String[] getPlayerExamplesList() {
-		final EditModelExamples examples=new EditModelExamples();
-		return examples.list.stream().filter(example->example.availableForPlayer).map(example->example.names[1]+" / "+example.names[0]).toArray(String[]::new);
-	}
-
-	/**
 	 * Liefert den Index des Beispiels basieren auf dem Namen
 	 * @param name	Name des Beispiels zu dem der Index bestimmt werden soll
 	 * @return	Index des Beispiels oder -1, wenn es kein Beispiel mit diesem Namen gibt
@@ -243,29 +236,6 @@ public class EditModelExamples {
 	}
 
 	/**
-	 * Liefert ein bestimmtes Beispiel über seine Nummer aus der Namesliste (<code>getPlayerExamplesList()</code>)
-	 * @param index	Index des Beispiels, das zurückgeliefert werden soll
-	 * @param languageKey	Sprache des Beispiels; "de" oder "en"
-	 * @return	Beispiel oder <code>null</code>, wenn sich der Index außerhalb des gültigen Bereichs befindet
-	 * @see EditModelExamples#getPlayerExamplesList()
-	 */
-	public static EditModel getPlayerExampleByIndex(final int index, final String languageKey) {
-		final EditModelExamples examples=new EditModelExamples();
-		final Example[] list=examples.list.stream().filter(example->example.availableForPlayer).toArray(Example[]::new);
-
-		if (index<0 || index>=list.length) return null;
-		final String fileName=list[index].file;
-
-		final EditModel editModel=new EditModel();
-		try (InputStream in=EditModelExamples.class.getResourceAsStream("examples_"+languageKey+"/"+fileName)) {
-			editModel.loadFromStream(in);
-			return editModel;
-		} catch (IOException e) {
-			return null;
-		}
-	}
-
-	/**
 	 * Prüft, ob das übergebene Modell mit einem der Beispielmodelle übereinstimmt.<br>
 	 * Es werden dabei alle Sprachen für den Vergleich herangezogen.
 	 * @param editModel	Model, bei dem geprüft werden soll, ob es mit einem der Beispiele übereinstimmt
@@ -279,6 +249,10 @@ public class EditModelExamples {
 			try (InputStream in=EditModelExamples.class.getResourceAsStream("examples_"+lang+"/"+examples.list.get(i).file)) {
 				testModel.loadFromStream(in);
 				if (testModel.equalsEditModel(editModel)) return i;
+				if (FlatLaFHelper.isDark()) {
+					EditModelDark.processModel(testModel,EditModelDark.ColorMode.LIGHT,EditModelDark.ColorMode.DARK);
+					if (testModel.equalsEditModel(editModel)) return i;
+				}
 			} catch (IOException e) {return -1;}
 		}
 		return -1;
@@ -317,6 +291,7 @@ public class EditModelExamples {
 						}
 						return;
 					}
+					if (FlatLaFHelper.isDark()) EditModelDark.processModel(editModel,EditModelDark.ColorMode.LIGHT,EditModelDark.ColorMode.DARK);
 					if (listener!=null) listener.accept(editModel);
 				} catch (IOException e1) {}
 			});

@@ -36,6 +36,7 @@ import javax.swing.tree.TreePath;
 
 import language.Language;
 import simulator.editmodel.EditModel;
+import simulator.editmodel.EditModelDark;
 import simulator.examples.EditModelExamples;
 import systemtools.BaseDialog;
 import systemtools.MsgBox;
@@ -43,6 +44,7 @@ import ui.EditorPanel;
 import ui.help.Help;
 import ui.images.Images;
 import ui.infopanel.InfoPanel;
+import ui.tools.FlatLaFHelper;
 
 /**
  * Ermöglicht die Auswahl eines zu ladenden Beispiels über einen Dialog mit Vorschau
@@ -181,6 +183,7 @@ public final class SelectExampleDialog extends BaseDialog {
 			if (model==null) {
 				final int index=EditModelExamples.getExampleIndexFromName(name);
 				model=EditModelExamples.getExampleByIndex(SelectExampleDialog.this,index);
+				if (FlatLaFHelper.isDark()) EditModelDark.processModel(model,EditModelDark.ColorMode.LIGHT,EditModelDark.ColorMode.DARK);
 			}
 			return model;
 		}

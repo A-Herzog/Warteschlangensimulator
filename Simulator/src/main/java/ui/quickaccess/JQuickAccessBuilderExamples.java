@@ -20,8 +20,10 @@ import java.util.function.Consumer;
 
 import language.Language;
 import simulator.editmodel.EditModel;
+import simulator.editmodel.EditModelDark;
 import simulator.examples.EditModelExamples;
 import ui.images.Images;
+import ui.tools.FlatLaFHelper;
 
 /**
  * Erstellt Schnellzugriffeinträge basierend auf den Beispielmodellen
@@ -63,6 +65,7 @@ public class JQuickAccessBuilderExamples extends JQuickAccessBuilder {
 		if (index<0) return;
 		final EditModel model=EditModelExamples.getExampleByIndex(owner,index);
 		if (model==null) return;
+		if (FlatLaFHelper.isDark()) EditModelDark.processModel(model,EditModelDark.ColorMode.LIGHT,EditModelDark.ColorMode.DARK);
 		loader.accept(model);
 	}
 }
