@@ -203,6 +203,7 @@ public class RunData {
 	/**
 	 * Cache für die "Verteilung der Anzahl an Kunden an den Stationen (erfasst nach Kundentypen)"-Statistikobjekte
 	 * @see Statistics#clientsInSystemByClient
+	 * @see #logClientsInSystemChange(SimulationData, int, int)
 	 */
 	private IndicatorAccessCacheClientTypes cacheClientsInSystemByType;
 
@@ -236,9 +237,18 @@ public class RunData {
 	private int[] clientsAtStationQueueByType;
 
 	/**
-	 * Speichert, wie viele Kunden pro Kundentyp sich momentan im System befinden.
+	 * Speichert, wie viele Kunden pro Kundentyp sich momentan im System befinden.<br>
+	 * Achtung: Wird erst bei der ersten Kundenankunft initialisiert.
 	 */
-	private int[] clientsInSystemByType;
+	public int[] clientsInSystemByType;
+
+	/**
+	 * Speichert, wie viele Kunden pro Kundentyp sich momentan im System in irgendeiner Warteschlange befinden.<br>
+	 * Achtung: Wird erst bei der ersten Kundenankunft initialisiert.
+	 * @see #logClientEntersStationQueue(SimulationData, RunElement, RunElementData, RunDataClient)
+	 * @see #logClientLeavesStationQueue(SimulationData, RunElement, RunElementData, RunDataClient)
+	 */
+	public int[] clientsInQueuesByType;
 
 	/**
 	 * Hält den Cache der momentan nicht verwendeten <code>RunDataClient</code>-Objekte vor und
@@ -774,6 +784,9 @@ public class RunData {
 	 * @param client	Aktueller Kunde
 	 */
 	public void logClientEntersStationQueue(final SimulationData simData, final RunElement station, RunElementData stationData, final RunDataClient client) {
+		if (clientsInQueuesByType==null) clientsInQueuesByType=new int[simData.runModel.clientTypes.length];
+		clientsInQueuesByType[client.type]=FastMath.max(0,clientsInQueuesByType[client.type]+1);
+
 		if (stationData==null) stationData=station.getData(simData);
 		final int count1=clientsAtStationQueue(simData,station,stationData,1); /* Anzahl an Kunden an Station auch in WarmUp-Phase aktualisieren */
 		final int count2=clientsAtStationQueue(simData,client,1);
@@ -815,6 +828,9 @@ public class RunData {
 	 * @param client	Aktueller Kunde
 	 */
 	public void logClientLeavesStationQueue(final SimulationData simData, final RunElement station, RunElementData stationData, final RunDataClient client) {
+		if (clientsInQueuesByType==null) clientsInQueuesByType=new int[simData.runModel.clientTypes.length];
+		clientsInQueuesByType[client.type]=FastMath.max(0,clientsInQueuesByType[client.type]-1);
+
 		if (stationData==null) stationData=station.getData(simData);
 		final int count1=clientsAtStationQueue(simData,station,stationData,-1); /* Anzahl an Kunden an Station auch in WarmUp-Phase aktualisieren */
 		final int count2=clientsAtStationQueue(simData,client,-1);

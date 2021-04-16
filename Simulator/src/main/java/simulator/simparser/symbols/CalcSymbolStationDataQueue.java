@@ -23,8 +23,8 @@ import simulator.coreelements.RunElementData;
 import simulator.coreelements.RunElementMultiQueueData;
 import simulator.elements.RunElementAssign;
 import simulator.elements.RunElementSource;
+import simulator.runmodel.SimulationData;
 import simulator.simparser.coresymbols.CalcSymbolSimData;
-import statistics.StatisticsTimePerformanceIndicator;
 
 /**
  * Im Falle von zwei Parametern:<br>
@@ -51,23 +51,58 @@ public class CalcSymbolStationDataQueue extends CalcSymbolSimData {
 
 	@Override
 	protected double calc(double[] parameters) throws MathCalcError {
+		final SimulationData simData=getSimData();
+
 		if (parameters.length==0) {
+			final int[] count=simData.runData.clientsInQueuesByType;
+			if (count==null) return 0.0;
+			double sum=0.0;
+			for (int c: count) sum+=c;
+			return sum;
+
+			/*
+			Funktioniert nicht während Warmup:
 			return getSimData().statistics.clientsInSystemQueues.getCurrentState();
+			 */
 		}
 
 		if (parameters.length==1) {
 			final RunElement element=getRunElementForID(parameters[0]);
 			if (element instanceof RunElementSource) {
 				final String name=((RunElementSource)element).clientTypeName;
+
+				final Integer I=simData.runModel.clientTypesMap.get(name);
+				if (I==null) return 0.0;
+
+				final int[] count=simData.runData.clientsInQueuesByType;
+				if (count==null) return 0.0;
+
+				return count[I];
+
+				/*
+				Funktioniert nicht während Warmup:
 				final StatisticsTimePerformanceIndicator indicator=(StatisticsTimePerformanceIndicator)getSimData().statistics.clientsInSystemByClient.getOrNull(name);
 				if (indicator==null) return 0.0;
 				return indicator.getCurrentState();
+				 */
 			}
 			if (element instanceof RunElementAssign) {
 				final String name=((RunElementAssign)element).clientTypeName;
+
+				final Integer I=simData.runModel.clientTypesMap.get(name);
+				if (I==null) return 0.0;
+
+				final int[] count=simData.runData.clientsInQueuesByType;
+				if (count==null) return 0.0;
+
+				return count[I];
+
+				/*
+				Funktioniert nicht während Warmup:
 				final StatisticsTimePerformanceIndicator indicator=(StatisticsTimePerformanceIndicator)getSimData().statistics.clientsInSystemByClient.getOrNull(name);
 				if (indicator==null) return 0.0;
 				return indicator.getCurrentState();
+				 */
 			}
 
 			final RunElementData data=getRunElementDataForID(parameters[0]);
@@ -88,23 +123,58 @@ public class CalcSymbolStationDataQueue extends CalcSymbolSimData {
 
 	@Override
 	protected double calcOrDefault(final double[] parameters, final double fallbackValue) {
+		final SimulationData simData=getSimData();
+
 		if (parameters.length==0) {
+			final int[] count=simData.runData.clientsInQueuesByType;
+			if (count==null) return 0.0;
+			double sum=0.0;
+			for (int c: count) sum+=c;
+			return sum;
+
+			/*
+			Funktioniert nicht während Warmup:
 			return getSimData().statistics.clientsInSystemQueues.getCurrentState();
+			 */
 		}
 
 		if (parameters.length==1) {
 			final RunElement element=getRunElementForID(parameters[0]);
 			if (element instanceof RunElementSource) {
 				final String name=((RunElementSource)element).clientTypeName;
+
+				final Integer I=simData.runModel.clientTypesMap.get(name);
+				if (I==null) return 0.0;
+
+				final int[] count=simData.runData.clientsInQueuesByType;
+				if (count==null) return 0.0;
+
+				return count[I];
+
+				/*
+				Funktioniert nicht während Warmup:
 				final StatisticsTimePerformanceIndicator indicator=(StatisticsTimePerformanceIndicator)getSimData().statistics.clientsInSystemByClient.getOrNull(name);
 				if (indicator==null) return 0;
 				return indicator.getCurrentState();
+				 */
 			}
 			if (element instanceof RunElementAssign) {
 				final String name=((RunElementAssign)element).clientTypeName;
+
+				final Integer I=simData.runModel.clientTypesMap.get(name);
+				if (I==null) return 0.0;
+
+				final int[] count=simData.runData.clientsInQueuesByType;
+				if (count==null) return 0.0;
+
+				return count[I];
+
+				/*
+				Funktioniert nicht während Warmup:
 				final StatisticsTimePerformanceIndicator indicator=(StatisticsTimePerformanceIndicator)getSimData().statistics.clientsInSystemByClient.getOrNull(name);
 				if (indicator==null) return 0;
 				return indicator.getCurrentState();
+				 */
 			}
 
 			final RunElementData data=getRunElementDataForID(parameters[0]);

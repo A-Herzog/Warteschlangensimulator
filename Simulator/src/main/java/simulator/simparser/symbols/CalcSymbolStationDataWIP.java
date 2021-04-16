@@ -16,9 +16,8 @@
 package simulator.simparser.symbols;
 
 import simulator.coreelements.RunElementData;
+import simulator.runmodel.SimulationData;
 import simulator.simparser.coresymbols.CalcSymbolStationData;
-import statistics.StatisticsPerformanceIndicator;
-import statistics.StatisticsTimePerformanceIndicator;
 
 /**
  * Im Falle von einem Parameter:<br>
@@ -47,7 +46,18 @@ public class CalcSymbolStationDataWIP extends CalcSymbolStationData {
 
 	@Override
 	protected double calcAll() {
-		return getSimData().statistics.clientsInSystem.getCurrentState();
+		final SimulationData simData=getSimData();
+
+		final int[] count=simData.runData.clientsInSystemByType;
+		if (count==null) return 0.0;
+		double sum=0.0;
+		for (int c: count) sum+=c;
+		return sum;
+
+		/*
+		Funktioniert nicht während Warmup:
+		return simData.statistics.clientsInSystem.getCurrentState();
+		 */
 	}
 
 	@Override
@@ -57,9 +67,22 @@ public class CalcSymbolStationDataWIP extends CalcSymbolStationData {
 
 	@Override
 	protected double calcSingleClient(final String name) {
+		final SimulationData simData=getSimData();
+
+		final Integer I=simData.runModel.clientTypesMap.get(name);
+		if (I==null) return 0.0;
+
+		final int[] count=simData.runData.clientsInSystemByType;
+		if (count==null) return 0.0;
+
+		return count[I];
+
+		/*
+		Funktioniert nicht während Warmup:
 		StatisticsPerformanceIndicator indicator=getSimData().statistics.clientsInSystemByClient.get(name);
 		if (indicator==null) return 0.0;
 		return ((StatisticsTimePerformanceIndicator)indicator).getCurrentState();
+		 */
 	}
 
 	@Override
