@@ -22,6 +22,7 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.LayoutManager;
 import java.awt.Point;
 import java.awt.Rectangle;
 import java.io.Serializable;
@@ -43,8 +44,10 @@ import tools.SetupData;
 import ui.dialogs.FindElementDialog;
 import ui.dialogs.SelectElementByIdDialog;
 import ui.modeleditor.coreelements.ModelElement;
+import ui.modeleditor.coreelements.ModelElementBox;
 import ui.modeleditor.coreelements.ModelElementPosition;
 import ui.modeleditor.elements.ModelElementSub;
+import ui.modeleditor.fastpaint.GradientFill;
 import ui.modeleditor.fastpaint.Shapes;
 import ui.tools.FlatLaFHelper;
 
@@ -63,10 +66,31 @@ import ui.tools.FlatLaFHelper;
  */
 public class ElementRendererTools {
 	/**
+	 * Gradientendarstellung für den Hintergrund
+	 */
+	public enum GradientStyle {
+		/**
+		 * Keine Gradienten verwenden
+		 */
+		OFF,
+
+		/**
+		 * Gradient für die Darstellung der Liste auf der linken Fensterseite verwenden
+		 * @see ElementRendererTools#listBackgroundColorGradientLeft
+		 */
+		LEFT,
+
+		/**
+		 * Gradient für die Darstellung der Liste auf der rechten Fensterseite verwenden
+		 * @see ElementRendererTools#listBackgroundColorGradientRight
+		 */
+		RIGHT
+	}
+
+	/**
 	 * Referenz auf das Setup-Singleton.
 	 */
 	private static final SetupData setup=SetupData.getSetup();
-
 
 	/**
 	 * Konstruktor der Klasse<br>
@@ -160,32 +184,52 @@ public class ElementRendererTools {
 
 	/**
 	 * Hintergrundfarbe für Listeneinträge
-	 * @see #getBackgroundColor(boolean)
+	 * @see #getBackgroundColor(boolean, GradientStyle)
 	 */
-	private static final Color listBackgroundColor=UIManager.getColor("List.background");
+	private static final Color[] listBackgroundColor=new Color[] {UIManager.getColor("List.background")};
+
+	/**
+	 * Hintergrundfarben-Gradient für Listeneinträge (Liste links am linken Fensterrand)
+	 * @see #getBackgroundColor(boolean, GradientStyle)
+	 */
+	private static final Color[] listBackgroundColorGradientLeft=new Color[] {new Color(149,230,190),new Color(118,196,173)};
+
+	/**
+	 * Hintergrundfarben-Gradient für Listeneinträge (Liste links am rechten Fensterrand)
+	 * @see #getBackgroundColor(boolean, GradientStyle)
+	 */
+	private static final Color[] listBackgroundColorGradientRight=new Color[] {new Color(149,230,190),new Color(118,196,173)};
 
 	/**
 	 * Hintergrundfarbe für selektierte Listeneinträge (Systemvorgabe)
-	 * @see #getBackgroundColor(boolean)
+	 * @see #getBackgroundColor(boolean, GradientStyle)
 	 */
-	private static final Color listBackgroundColorSelected=UIManager.getColor("List.selectionBackground");
+	private static final Color[] listBackgroundColorSelected=new Color[] {UIManager.getColor("List.selectionBackground")};
 
 	/**
 	 * Hintergrundfarbe für selektierte Listeneinträge (dezentere Variante bei hellen Layouts)
-	 * @see #getBackgroundColor(boolean)
+	 * @see #getBackgroundColor(boolean, GradientStyle)
 	 */
-	private static final Color listBackgroundColorSelectedCustom=new Color(200,220,255);
+	private static final Color[] listBackgroundColorSelectedCustom=new Color[] {new Color(200,220,255)};
 
 	/**
 	 * Liefert die Hintergrundfarben für einen Listeneintrag für ein Element
-	 * @param isSelected	Soll die Hintergrundfarbe für selektierte Eintäge verwendet werden?
+	 * @param isSelected	Soll die Hintergrundfarbe für selektierte Einträge verwendet werden?
+	 * @param useGradient	Sollen Farbverläufe im Hintergrund verwendet werden?
 	 * @return	Hintergrundfarbe für den Listeneintrag
 	 */
-	public static Color getBackgroundColor(final boolean isSelected) {
+	public static Color[] getBackgroundColor(final boolean isSelected, final GradientStyle useGradient) {
 		if (FlatLaFHelper.isDark()) {
 			return isSelected?listBackgroundColorSelected:listBackgroundColor;
 		} else {
-			return isSelected?listBackgroundColorSelectedCustom:listBackgroundColor;
+			if (isSelected) return listBackgroundColorSelectedCustom;
+			if (setup.useHighContrasts || useGradient==null) return listBackgroundColor;
+			switch (useGradient) {
+			case OFF: return listBackgroundColor;
+			case LEFT: return listBackgroundColorGradientLeft;
+			case RIGHT: return listBackgroundColorGradientRight;
+			default: return listBackgroundColor;
+			}
 		}
 	}
 
@@ -195,21 +239,28 @@ public class ElementRendererTools {
 	 * @param zoom	Zoomfaktor für die Darstellung
 	 * @param showIDs	IDs an den Stationen anzeigen?
 	 * @param isSelected	Soll das Element markiert dargestellt werden?
+	 * @param useGradient	Sollen Farbverläufe im Hintergrund verwendet werden?
 	 * @return	Listenzellen-Renderer für das Element
 	 */
-	public static JPanel getElementRenderer(final ModelElementPosition element, final double zoom, final boolean showIDs, final boolean isSelected) {
+	public static JPanel getElementRenderer(final ModelElementPosition element, final double zoom, final boolean showIDs, final boolean isSelected, final GradientStyle useGradient) {
 		final String name=ModelElementCatalog.getCatalog().getMenuNameWithDefault(element);
-		final Color backgroundColor=getBackgroundColor(isSelected);
+		final Color[] backgroundColors=getBackgroundColor(isSelected,useGradient);
 
 		final JPanel panel=new JPanel(new BorderLayout());
 		panel.setToolTipText(getTooltip(element));
 
-		final JPanel info=new JPanel(new FlowLayout(FlowLayout.CENTER));
-		info.setBackground(backgroundColor);
+		final GradientPanel info=new GradientPanel(new FlowLayout(FlowLayout.CENTER));
+		if (backgroundColors!=null) {
+			if (backgroundColors.length>1) {
+				info.setBackgroundColors(backgroundColors[0],backgroundColors[1]);
+			} else {
+				info.setBackgroundColors(backgroundColors[0],null);
+			}
+		}
 		panel.add(info,BorderLayout.SOUTH);
 		info.add(new JLabel(name));
 
-		final RendererPanel renderer=new RendererPanel(element,backgroundColor,showIDs,zoom);
+		final RendererPanel renderer=new RendererPanel(element,backgroundColors,showIDs,zoom);
 		final Dimension d=ElementRendererTools.getElementBoxSize(element,zoom,showIDs);
 		renderer.setSize(d);
 		renderer.setPreferredSize(d);
@@ -225,23 +276,30 @@ public class ElementRendererTools {
 	 * @param element	Element das dargestellt werden soll (darf <code>null</code> sein)
 	 * @param infoText	Neben dem Element anzuzeigender Info-Text (wird in {@link JLabel} gerendert, d.h. kann html enthalten, darf <code>null</code> sein)
 	 * @param showIDs	IDs an den Stationen anzeigen?
-	 * @param backgroundColor	Hintergrundfarbe des Panels (kann <code>null</code> sein, dann wird die Standardhintergrundfarbe verwendet)
+	 * @param backgroundColors	Hintergrundfarbe des Panels (kann <code>null</code> sein, dann wird die Standardhintergrundfarbe verwendet)
 	 * @param maxWidth	Maximale Breite der Darstellung des Elements (bei Werten &le;0 wird die Angabe ignoriert)
 	 * @param maxHeight	Maximale Höhe der Darstellung des Elements (bei Werten &le;0 wird die Angabe ignoriert)
 	 * @return	Listenzellen-Renderer für das Element
 	 */
-	public static JPanel getElementRenderer(final ModelElementPosition element, final String infoText, final boolean showIDs, final Color backgroundColor, final int maxWidth, final int maxHeight) {
+	public static JPanel getElementRenderer(final ModelElementPosition element, final String infoText, final boolean showIDs, final Color[] backgroundColors, final int maxWidth, final int maxHeight) {
 		final JPanel panel=new JPanel(new BorderLayout());
 		panel.setToolTipText(getTooltip(element));
 
 		if (infoText!=null) {
-			final JPanel info=new JPanel(new FlowLayout(FlowLayout.LEFT));
-			if (backgroundColor!=null) info.setBackground(backgroundColor);
+			final GradientPanel info=new GradientPanel(new FlowLayout(FlowLayout.LEFT));
+			if (backgroundColors!=null) {
+				if (backgroundColors.length>1) {
+					info.setBackgroundColors(backgroundColors[0],backgroundColors[1]);
+				} else {
+					info.setBackgroundColors(backgroundColors[0],null);
+				}
+			}
 			panel.add(info,BorderLayout.CENTER);
+			info.setOpaque(false);
 			info.add(new JLabel(infoText));
 		}
 
-		final RendererPanel renderer=new RendererPanel(element,backgroundColor,showIDs,1.0);
+		final RendererPanel renderer=new RendererPanel(element,backgroundColors,showIDs,1.0);
 		final Dimension d=ElementRendererTools.getElementBoxSize(element,1.0,showIDs);
 
 		if (maxWidth>=0 && d.width>maxWidth) {
@@ -331,7 +389,7 @@ public class ElementRendererTools {
 
 	/**
 	 * Renderer für ein Stations-Bild (ohne Beschriftung oder ähnliches)
-	 * @see ElementRendererTools#getElementRenderer(ModelElementPosition, double, boolean, boolean)
+	 * @see ElementRendererTools#getElementRenderer(ModelElementPosition, double, boolean, boolean, GradientStyle)
 	 */
 	private static class RendererPanel extends JPanel {
 		/**
@@ -348,7 +406,7 @@ public class ElementRendererTools {
 		/**
 		 * Hintergrundfarbe für das Panel
 		 */
-		private final Color backgroundColor;
+		private final Color[] backgroundColors;
 
 		/**
 		 * IDs an den Stationen anzeigen?
@@ -361,20 +419,37 @@ public class ElementRendererTools {
 		private final double maxZoom;
 
 		/**
+		 * Zeichen-Hilfsobjekt für Gradienten
+		 * @see #paint(Graphics)
+		 */
+		private final GradientFill gradient;
+
+		/**
+		 * Cache des Rechteck-Objektes zur Bestimmung der Ränder
+		 * des Gradientenbereichs
+		 * @see #gradient
+		 * @see #paint(Graphics)
+		 */
+		private final Rectangle rect;
+
+		/**
 		 * Konstruktor der Klasse
 		 * @param element	Darzustellendes Element (darf <code>null</code> sein)
-		 * @param backgroundColor	Hintergrundfarbe für das Panel
+		 * @param backgroundColors	Hintergrundfarbe für das Panel
 		 * @param showIDs	IDs an den Stationen anzeigen?
 		 * @param maxZoom	Maximal zu verwendender Zoomfaktor
 		 */
-		public RendererPanel(final ModelElementPosition element, final Color backgroundColor, final boolean showIDs, final double maxZoom) {
+		public RendererPanel(final ModelElementPosition element, final Color[] backgroundColors, final boolean showIDs, final double maxZoom) {
 			super();
 			setLayout(new BoxLayout(this,BoxLayout.PAGE_AXIS));
 
 			this.element=element;
-			this.backgroundColor=backgroundColor;
+			this.backgroundColors=backgroundColors;
 			this.showIDs=showIDs;
 			this.maxZoom=maxZoom;
+
+			gradient=new GradientFill(false);
+			rect=new Rectangle();
 		}
 
 		@Override
@@ -383,9 +458,18 @@ public class ElementRendererTools {
 			final int width=getWidth();
 			final int height=getHeight();
 
-			if (backgroundColor!=null) {
-				graphics.setBackground(backgroundColor);
-				graphics.clearRect(0,0,width,height);
+			if (backgroundColors!=null) {
+				if (backgroundColors.length==1 || backgroundColors[1]==null) {
+					/* Farbe */
+					graphics.setBackground(backgroundColors[0]);
+					graphics.clearRect(0,0,width,height);
+				} else {
+					/* Farbverlauf */
+					rect.width=getWidth();
+					rect.height=getHeight();
+					gradient.set(g,rect,backgroundColors[0],backgroundColors[1],false);
+					graphics.fillRect(0,0,width,height);
+				}
 			}
 
 			if (element!=null) {
@@ -433,36 +517,39 @@ public class ElementRendererTools {
 	/**
 	 * Erstellt eine Listendarstellung mit Elementen und Beschreibungen.
 	 * @param data	Datensätze der Elemente
+	 * @param useGradient	Sollen Farbverläufe im Hintergrund verwendet werden?
 	 * @return	Listendarstellung mit Elementen und Beschreibungen
 	 */
-	public static JList<InfoRecord> buildList(final List<InfoRecord> data) {
+	public static JList<InfoRecord> buildList(final List<InfoRecord> data, final GradientStyle useGradient) {
 		final JList<ElementRendererTools.InfoRecord> list=new JList<>(data.toArray(new ElementRendererTools.InfoRecord[0]));
-		list.setCellRenderer(new InfoRecordListCellRenderer());
+		list.setCellRenderer(new InfoRecordListCellRenderer(useGradient));
 		return list;
 	}
 
 	/**
 	 * Erstellt eine Liste und ein Datenmodell dazu.
 	 * @param data	Datensätze, die initial in das Datenmodell aufgenommen werden sollen (kann <code>null</code> sein)
+	 * @param useGradient	Sollen Farbverläufe im Hintergrund verwendet werden?
 	 * @return	2-elementiges Array aus Liste und Datenmodell
 	 */
-	public static Object[] buildListAndModel(final InfoRecord[] data) {
+	public static Object[] buildListAndModel(final InfoRecord[] data, final GradientStyle useGradient) {
 		final DefaultListModel<ElementRendererTools.InfoRecord> model=new DefaultListModel<>();
 		if (data!=null) for (InfoRecord record: data) model.addElement(record);
 
 		final JList<ElementRendererTools.InfoRecord> list=new JList<>(model);
-		list.setCellRenderer(new InfoRecordListCellRenderer());
+		list.setCellRenderer(new InfoRecordListCellRenderer(useGradient));
 		return new Object[] {list,model};
 	}
 
 	/**
 	 * Erstellt eine Listendarstellung mit Elementen und Beschreibungen.
 	 * @param data	Datensätze der Elemente
+	 * @param useGradient	Sollen Farbverläufe im Hintergrund verwendet werden?
 	 * @return	Listendarstellung mit Elementen und Beschreibungen
 	 */
-	public static JList<InfoRecord> buildList(final InfoRecord[] data) {
+	public static JList<InfoRecord> buildList(final InfoRecord[] data, final GradientStyle useGradient) {
 		final JList<ElementRendererTools.InfoRecord> list=new JList<>(data);
-		list.setCellRenderer(new InfoRecordListCellRenderer());
+		list.setCellRenderer(new InfoRecordListCellRenderer(useGradient));
 		return list;
 	}
 
@@ -470,13 +557,14 @@ public class ElementRendererTools {
 	 * Erstellt eine Listendarstellung mit Elementen und Beschreibungen.
 	 * @param mainSurface	Hauptzeichenfläche
 	 * @param ids	IDs der anzuzeigenden Elemente (bestimmt auch die Reihenfolge in der Liste)
+	 * @param useGradient	Sollen Farbverläufe im Hintergrund verwendet werden?
 	 * @return	Listendarstellung mit Elementen und Beschreibungen
 	 */
-	public static JList<InfoRecord> buildList(final ModelSurface mainSurface, final int[] ids) {
+	public static JList<InfoRecord> buildList(final ModelSurface mainSurface, final int[] ids, final GradientStyle useGradient) {
 		final List<ElementRendererTools.InfoRecord> data=new ArrayList<>();
 		for (int i=0;i<ids.length;i++) data.add(getRecord(mainSurface,ids[i]));
 
-		return ElementRendererTools.buildList(data);
+		return ElementRendererTools.buildList(data,useGradient);
 	}
 
 	/**
@@ -547,14 +635,27 @@ public class ElementRendererTools {
 		 */
 		private static final long serialVersionUID=-8887474065442536966L;
 
+		/**
+		 * Sollen Farbverläufe im Hintergrund verwendet werden?
+		 */
+		private final GradientStyle useGradient;
+
+		/**
+		 * Konstruktor der Klasse
+		 * @param useGradient	Sollen Farbverläufe im Hintergrund verwendet werden?
+		 */
+		public InfoRecordListCellRenderer(final GradientStyle useGradient) {
+			this.useGradient=useGradient;
+		}
+
 		@Override
 		public Component getListCellRendererComponent(JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
-			final Color backgroundColor=ElementRendererTools.getBackgroundColor(isSelected);
+			final Color[] backgroundColors=ElementRendererTools.getBackgroundColor(isSelected,useGradient);
 
 			if (value instanceof InfoRecord) {
 				final InfoRecord infoRecord=(InfoRecord)value;
 				if (infoRecord.element instanceof ModelElementPosition) {
-					return getElementRenderer((ModelElementPosition)infoRecord.element,infoRecord.info,infoRecord.showIDs,backgroundColor,-1,-1);
+					return getElementRenderer((ModelElementPosition)infoRecord.element,infoRecord.info,infoRecord.showIDs,backgroundColors,-1,-1);
 				} else {
 					/* Fallback für Kanten usw., die sich nicht von ModelElementPosition ableiten */
 					if (infoRecord.element!=null) {
@@ -563,6 +664,143 @@ public class ElementRendererTools {
 				}
 			}
 			return super.getListCellRendererComponent(list,value,index,isSelected,cellHasFocus);
+		}
+	}
+
+	/**
+	 * Panel mit optional einem Farbgradienten als Hintergrund
+	 * @author Alexander Herzog
+	 */
+	public static class GradientPanel extends JPanel {
+		/**
+		 * Serialisierungs-ID der Klasse
+		 * @see Serializable
+		 */
+		private static final long serialVersionUID=-1705199321405719435L;
+
+		/**
+		 * Hintergrundfarben
+		 * (nur ein Wert belegt: Farbe, beide belegt: Gradient)
+		 * @see #setBackgroundColors(Color, Color)
+		 */
+		private final Color[] background;
+
+		/**
+		 * Zeichen-Hilfsobjekt für Gradienten
+		 * @see #paintComponent(Graphics)
+		 */
+		private final GradientFill gradient;
+
+		/**
+		 * Cache des Rechteck-Objektes zur Bestimmung der Ränder
+		 * des Gradientenbereichs
+		 * @see #gradient
+		 * @see #paintComponent(Graphics)
+		 */
+		private final Rectangle rect;
+
+		/**
+		 * Konstruktor der Klasse
+		 * @param layout	Zu verwendender Layout-Manager
+		 */
+		public GradientPanel(final LayoutManager layout) {
+			super(layout);
+			background=new Color[2];
+			gradient=new GradientFill(false);
+			rect=new Rectangle();
+		}
+
+		@Override
+		protected void paintComponent(Graphics g) {
+			if (background[0]!=null) {
+				rect.width=getWidth();
+				rect.height=getHeight();
+				gradient.set(g,rect,background[0],background[1],false);
+				g.fillRect(0,0,rect.width,rect.height);
+
+			}
+			super.paintComponent(g);
+		}
+
+		/**
+		 * Stellt die Hintergrundfarben ein
+		 * @param color1	Farbe 1 (muss ungleich <code>null</code> sein)
+		 * @param color2	Farbe 2; wird ein Wert ungleich <code>null</code> angegeben, so wird ein Gradient gezeichnet; ansonsten wird Farbe 1 als Hintergrundfarbe verwendet
+		 */
+		public void setBackgroundColors(final Color color1, final Color color2) {
+			if (color2==null) {
+				setBackground(color1);
+				background[0]=null;
+				background[1]=null;
+			} else {
+				setBackground(new Color(0,0,0,0));
+				setOpaque(false);
+				background[0]=color1;
+				background[1]=color2;
+			}
+		}
+	}
+
+	/**
+	 * Listendarstellung für Elementenlisten
+	 * (Ergänzung gegenüber {@link JList}: Der Hintergrund des ungenutzten Bereiches kann optional als Gradient gezeichnet werden.)
+	 * @param <E>	Typen der darzustellenden Elemente (sollte {@link ModelElementPosition} oder {@link ModelElementBox} sein)
+	 */
+	public static class ElementList<E> extends JList<E> {
+		/**
+		 * Serialisierungs-ID der Klasse
+		 * @see Serializable
+		 */
+		private static final long serialVersionUID=3091995985124192305L;
+		/**
+		 * Sollen Farbverläufe im Hintergrund verwendet werden?
+		 */
+		private final boolean useGradient;
+
+		/**
+		 * Hintergrundfarben
+		 * (nur ein Wert belegt: Farbe, beide belegt: Gradient)
+		 */
+		private final Color[] background;
+
+		/**
+		 * Zeichen-Hilfsobjekt für Gradienten
+		 * @see #paintComponent(Graphics)
+		 */
+		private final GradientFill gradient;
+
+		/**
+		 * Cache des Rechteck-Objektes zur Bestimmung der Ränder
+		 * des Gradientenbereichs
+		 * @see #gradient
+		 * @see #paintComponent(Graphics)
+		 */
+		private final Rectangle rect;
+
+		/**
+		 * Konstruktor der Klasse
+		 * @param useGradient	Sollen Farbverläufe im Hintergrund verwendet werden?
+		 */
+		public ElementList(final GradientStyle useGradient) {
+			this.useGradient=(useGradient!=null && useGradient!=GradientStyle.OFF) && !SetupData.getSetup().useHighContrasts;
+			gradient=new GradientFill(false);
+			rect=new Rectangle();
+			background=ElementRendererTools.getBackgroundColor(false,this.useGradient?useGradient:GradientStyle.OFF);
+			if (this.useGradient) {
+				setBackground(null);
+				setOpaque(false);
+			}
+		}
+
+		@Override
+		protected void paintComponent(Graphics g) {
+			if (useGradient && background.length==2 && background[1]!=null) {
+				rect.width=getWidth();
+				rect.height=getHeight();
+				gradient.set(g,rect,background[0],background[1],false);
+				g.fillRect(0,0,rect.width,rect.height);
+			}
+			super.paintComponent(g);
 		}
 	}
 }

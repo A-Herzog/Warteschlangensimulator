@@ -140,7 +140,7 @@ public class FindElementDialog extends BaseDialog {
 
 		resultsIds=new ArrayList<>();
 		content.add(new JScrollPane(resultsList=new JList<>(resultsModel=new DefaultListModel<>())),BorderLayout.CENTER);
-		resultsList.setCellRenderer(new ElementRendererTools.InfoRecordListCellRenderer());
+		resultsList.setCellRenderer(new ElementRendererTools.InfoRecordListCellRenderer(ElementRendererTools.GradientStyle.OFF));
 		resultsList.addMouseListener(new MouseAdapter() {
 			@Override public void mousePressed(MouseEvent e) {if (e.getClickCount()==2 && SwingUtilities.isLeftMouseButton(e)) {close(BaseDialog.CLOSED_BY_OK); e.consume(); return;}}
 		});

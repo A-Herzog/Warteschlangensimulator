@@ -94,6 +94,7 @@ import ui.dialogs.LayersDialog;
 import ui.images.Images;
 import ui.infopanel.InfoPanel;
 import ui.modeleditor.DrawIOExport;
+import ui.modeleditor.ElementRendererTools;
 import ui.modeleditor.ModelElementCatalog;
 import ui.modeleditor.ModelElementCatalogListCellRenderer;
 import ui.modeleditor.ModelElementCatalogTransferHandler;
@@ -896,8 +897,8 @@ public final class EditorPanel extends EditorPanelBase {
 			buttonRedo.setEnabled(false);
 		}
 
-		templates=new JList<>();
-		templates.setCellRenderer(templatesRenderer=new ModelElementCatalogListCellRenderer<>());
+		templates=new ElementRendererTools.ElementList<>(ElementRendererTools.GradientStyle.OFF);
+		templates.setCellRenderer(templatesRenderer=new ModelElementCatalogListCellRenderer<>(ElementRendererTools.GradientStyle.OFF));
 		if (setup.onlyOneOpenTemplatesGroup) enforceOnlyOneGroupOpen();
 
 		templates.setModel(ModelElementCatalog.getCatalog().getTemplatesListModel(setup.visibleTemplateGroups,setup.openTemplateGroups,"",model.surface.getParentSurface()!=null));
@@ -1005,8 +1006,8 @@ public final class EditorPanel extends EditorPanelBase {
 		navigatorSortSelect.addActionListener(e->updateNavigatorList());
 
 		/* Liste in der Mitte im inneren Bereich */
-		navigator=new JList<>();
-		navigator.setCellRenderer(navigatorRenderer=new ModelElementNavigatorListCellRenderer<>());
+		navigator=new ElementRendererTools.ElementList<>(ElementRendererTools.GradientStyle.OFF);
+		navigator.setCellRenderer(navigatorRenderer=new ModelElementNavigatorListCellRenderer<>(ElementRendererTools.GradientStyle.OFF));
 		navigatorRenderer.setZoom(surfacePanel.getZoom());
 		navigator.setModel(navigatorModel=new DefaultListModel<>());
 

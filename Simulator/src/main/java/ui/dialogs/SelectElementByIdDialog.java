@@ -118,7 +118,7 @@ public class SelectElementByIdDialog extends BaseDialog {
 		listSorting.addActionListener(e->updateList());
 
 		/* Liste */
-		final Object[] data=ElementRendererTools.buildListAndModel(null);
+		final Object[] data=ElementRendererTools.buildListAndModel(null,ElementRendererTools.GradientStyle.OFF);
 		list=(JList<ElementRendererTools.InfoRecord>)data[0];
 		model=(DefaultListModel<ElementRendererTools.InfoRecord>)data[1];
 

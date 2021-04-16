@@ -29,10 +29,23 @@ import ui.modeleditor.coreelements.ModelElementBox;
  */
 public class ModelElementNavigatorListCellRenderer<E extends ModelElementBox> implements ListCellRenderer<E> {
 	/**
+	 * Sollen Farbverläufe im Hintergrund verwendet werden?
+	 */
+	private final ElementRendererTools.GradientStyle useGradient;
+
+	/**
 	 * Zoomlevel
 	 * @see #setZoom(double)
 	 */
 	private double zoom=1.0;
+
+	/**
+	 * Konstruktor der Klasse
+	 * @param useGradient	Sollen Farbverläufe im Hintergrund verwendet werden?
+	 */
+	public ModelElementNavigatorListCellRenderer(final ElementRendererTools.GradientStyle useGradient) {
+		this.useGradient=useGradient;
+	}
 
 	/**
 	 * Stellt den Zoomlevel ein
@@ -44,6 +57,6 @@ public class ModelElementNavigatorListCellRenderer<E extends ModelElementBox> im
 
 	@Override
 	public Component getListCellRendererComponent(JList<? extends E> list, E value, int index, boolean isSelected, boolean cellHasFocus) {
-		return ElementRendererTools.getElementRenderer(value,zoom,true,isSelected);
+		return ElementRendererTools.getElementRenderer(value,zoom,true,isSelected,useGradient);
 	}
 }

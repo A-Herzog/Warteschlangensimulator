@@ -649,6 +649,7 @@ public class ModelElement {
 	public static final JPanel createContextMenuSliderDistribution(final String title, final ModelSurface.TimeBase timeBase, final double value, final int minMaxValue, final Function<Integer,AbstractRealDistribution> change) {
 		final JPanel panel=new JPanel(new BorderLayout());
 		panel.setBorder(BorderFactory.createEmptyBorder(10,5+32,10,5));
+		panel.setOpaque(false);
 
 		final String timeBaseName=(timeBase==null)?"":("; "+Language.tr("ModelDescription.TimeBase")+": "+ModelSurface.getTimeBaseString(timeBase));
 
@@ -694,6 +695,7 @@ public class ModelElement {
 
 		final JPanel panel=new JPanel(new BorderLayout());
 		panel.setBorder(BorderFactory.createEmptyBorder(10,5+32,10,5));
+		panel.setOpaque(false);
 
 		final String timeBaseName=(timeBase==null)?"":("; "+Language.tr("ModelDescription.TimeBase")+": "+ModelSurface.getTimeBaseString(timeBase));
 
@@ -735,6 +737,7 @@ public class ModelElement {
 	public static final JPanel createContextMenuSliderValue(final String title, final double value, final int minMaxValue, final Function<Integer,String> change) {
 		final JPanel panel=new JPanel(new BorderLayout());
 		panel.setBorder(BorderFactory.createEmptyBorder(10,5+32,10,5));
+		panel.setOpaque(false);
 
 		panel.add(new JLabel("<html><body><b>"+title+"</b></body></html>"),BorderLayout.NORTH);
 		final int intValue=Math.max(1,(int)Math.round(value));
@@ -769,6 +772,7 @@ public class ModelElement {
 	public static final JPanel createContextMenuSliderProbability(final String title, final double initialValue, final DoubleConsumer change) {
 		final JPanel panel=new JPanel(new BorderLayout());
 		panel.setBorder(BorderFactory.createEmptyBorder(10,5+32,10,5));
+		panel.setOpaque(false);
 
 		panel.add(new JLabel("<html><body><b>"+title+"</b></body></html>"),BorderLayout.NORTH);
 		final JSlider slider=new JSlider(0,1000,(int)Math.round(initialValue*1000));
@@ -1000,8 +1004,11 @@ public class ModelElement {
 
 		/* Darstellung des Elements */
 		final JPanel panel=new JPanel(new BorderLayout());
-		panel.add(getElementSymbol(),BorderLayout.WEST);
+		final JComponent symbol=getElementSymbol();
+		symbol.setOpaque(false);
+		panel.add(symbol,BorderLayout.WEST);
 		panel.setBorder(BorderFactory.createEmptyBorder(0,0,5,0));
+		panel.setOpaque(false);
 		popupMenu.add(panel);
 		/* Führt zu falscher Anordnung, wenn weitere Panels im Menü vorhanden sind: popupMenu.add(label); */
 

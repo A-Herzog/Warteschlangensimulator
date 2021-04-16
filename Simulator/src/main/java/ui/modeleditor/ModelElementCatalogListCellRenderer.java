@@ -37,10 +37,23 @@ import ui.modeleditor.coreelements.ModelElementPosition;
  */
 public class ModelElementCatalogListCellRenderer<E extends ModelElementPosition> implements ListCellRenderer<E> {
 	/**
+	 * Sollen Farbverläufe im Hintergrund verwendet werden?
+	 */
+	private final ElementRendererTools.GradientStyle useGradient;
+
+	/**
 	 * Zoomlevel
 	 * @see #setZoom(double)
 	 */
 	private double zoom=1.0;
+
+	/**
+	 * Konstruktor der Klasse
+	 * @param useGradient	Sollen Farbverläufe im Hintergrund verwendet werden?
+	 */
+	public ModelElementCatalogListCellRenderer(final ElementRendererTools.GradientStyle useGradient) {
+		this.useGradient=useGradient;
+	}
 
 	/**
 	 * Zoomlevel einstellen
@@ -103,7 +116,7 @@ public class ModelElementCatalogListCellRenderer<E extends ModelElementPosition>
 		}
 
 		if (groupOpen) {
-			return ElementRendererTools.getElementRenderer(value,zoom,false,isSelected);
+			return ElementRendererTools.getElementRenderer(value,zoom,false,isSelected,useGradient);
 		} else {
 			return ElementRendererTools.getEmptyRenderer();
 		}
