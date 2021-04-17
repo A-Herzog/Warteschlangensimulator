@@ -137,16 +137,17 @@ public class ModelSurfaceAnimator extends ModelSurfaceAnimatorBase {
 		int minY=Integer.MAX_VALUE;
 		int maxX=0;
 		int maxY=0;
+		final double zoom=surfacePanel.getZoom();
 		for (ModelElement element: surfacePanel.getSurface().getElements()) if (!(element instanceof ModelElementAnimationConnect)) {
 			final Point p1=element.getPosition(true);
 			final Point p2=element.getLowerRightPosition();
 			if (p1!=null) {
-				if (p1.x>=0) minX=FastMath.min(minX,p1.x);
-				if (p1.y>=0) minY=FastMath.min(minY,p1.y);
+				if (p1.x>=0) minX=FastMath.min(minX,(int)Math.round(p1.x*zoom));
+				if (p1.y>=0) minY=FastMath.min(minY,(int)Math.round(p1.y*zoom));
 			}
 			if (p2!=null) {
-				maxX=FastMath.max(maxX,p2.x);
-				maxY=FastMath.max(maxY,p2.y);
+				maxX=FastMath.max(maxX,(int)Math.round(p2.x*zoom));
+				maxY=FastMath.max(maxY,(int)Math.round(p2.y*zoom));
 			}
 		}
 
