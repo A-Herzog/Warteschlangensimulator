@@ -15,6 +15,7 @@
  */
 package ui.parameterseries;
 
+import java.awt.Window;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -24,6 +25,7 @@ import language.Language;
 import simulator.StartAnySimulator;
 import simulator.editmodel.EditModel;
 import simulator.simparser.ExpressionCalc;
+import tools.Notifier;
 import tools.SetupData;
 
 /**
@@ -31,6 +33,9 @@ import tools.SetupData;
  * @author Alexander Herzog
  */
 public class ParameterCompareRunner {
+	/** Übergeordnetes Fenster */
+	private final Window parentWindow;
+
 	/** Wird aufgerufen, wenn Ergebnisse vorliegen und die Tabelle angepasst werden soll */
 	private final Consumer<Integer> updateTable;
 	/** Wird aufgerufen, wenn die Verarbeitung beendet wurde (sowohl wenn alle Modelle erfolgreich zu Ende simuliert wurden als auch wenn die Verarbeitung abgebrochen wurde) */
@@ -66,15 +71,27 @@ public class ParameterCompareRunner {
 
 	/**
 	 * Konstruktor der Klasse
+	 * @param parentWindow	Übergeordnetes Fenster
+	 * @param updateTable	Wird aufgerufen, wenn Ergebnisse vorliegen und die Tabelle angepasst werden soll
+	 * @param whenDone	Wird aufgerufen, wenn die Verarbeitung beendet wurde (sowohl wenn alle Modelle erfolgreich zu Ende simuliert wurden als auch wenn die Verarbeitung abgebrochen wurde)
+	 * @param logOutput	Wird aufgerufen, wenn Logging-Daten ausgegeben werden sollen
+	 */
+	public ParameterCompareRunner(final Window parentWindow, final Consumer<Integer> updateTable, final Consumer<Boolean> whenDone, final Consumer<String> logOutput) {
+		this.parentWindow=parentWindow;
+		this.updateTable=updateTable;
+		this.whenDone=whenDone;
+		this.logOutput=logOutput;
+		canceled=false;
+	}
+
+	/**
+	 * Konstruktor der Klasse
 	 * @param updateTable	Wird aufgerufen, wenn Ergebnisse vorliegen und die Tabelle angepasst werden soll
 	 * @param whenDone	Wird aufgerufen, wenn die Verarbeitung beendet wurde (sowohl wenn alle Modelle erfolgreich zu Ende simuliert wurden als auch wenn die Verarbeitung abgebrochen wurde)
 	 * @param logOutput	Wird aufgerufen, wenn Logging-Daten ausgegeben werden sollen
 	 */
 	public ParameterCompareRunner(final Consumer<Integer> updateTable, final Consumer<Boolean> whenDone, final Consumer<String> logOutput) {
-		this.updateTable=updateTable;
-		this.whenDone=whenDone;
-		this.logOutput=logOutput;
-		canceled=false;
+		this(null,updateTable,whenDone,logOutput);
 	}
 
 	/**
@@ -234,16 +251,26 @@ public class ParameterCompareRunner {
 			ParameterCompareRunnerModel nextWaiting=null;
 			boolean threadStarted=false;
 
+			int waiting=0;
 			int running=0;
+			int done=0;
 			for (ParameterCompareRunnerModel runner: modelRunner) {
 				if (runner==null) continue;
 				final ParameterCompareRunnerModel.Status status=runner.getStatus();
 				if (nextWaiting==null && status==ParameterCompareRunnerModel.Status.STATUS_WAITING) nextWaiting=runner;
-				if (status==ParameterCompareRunnerModel.Status.STATUS_RUNNING) running++;
+				switch (status) {
+				case STATUS_CANCELED: done++; break;
+				case STATUS_DONE: done++; break;
+				case STATUS_RUNNING: running++; break;
+				case STATUS_WAITING: waiting++; break;
+				}
 			}
+
+			if (parentWindow!=null) Notifier.setSimulationProgress(parentWindow,(int)Math.round(100.0*(done+0.5*running)/(waiting+running+done)));
 
 			if (nextWaiting==null && running==0) {
 				/* Alles erledigt */
+				if (parentWindow!=null) Notifier.setSimulationProgress(parentWindow,-1);
 				logOutput(String.format(Language.tr("Batch.Simulation.Done1"),modelRunner.length));
 				final double time=(System.currentTimeMillis()-startTime)/1000.0;
 				logOutput(String.format(Language.tr("Batch.Simulation.Done2"),Math.round(time),Math.round(time/modelRunner.length)));
@@ -259,6 +286,7 @@ public class ParameterCompareRunner {
 					logOutput(String.format(Language.tr("Batch.Simulation.RunNoValue"),nextWaiting.getNr()+1,nextWaiting.getName()));
 				} else {
 					/* Abbruch wegen Fehler */
+					if (parentWindow!=null) Notifier.setSimulationProgress(parentWindow,-1);
 					logOutput(error);
 					logOutput(String.format(Language.tr("Batch.Simulation.ErrorCancelNr"),nextWaiting.getNr()+1,nextWaiting.getName()));
 					cancelAll();
@@ -271,6 +299,7 @@ public class ParameterCompareRunner {
 
 			if (canceled) {
 				/* Nutzerabbruch */
+				if (parentWindow!=null) Notifier.setSimulationProgress(parentWindow,-1);
 				logOutput(Language.tr("Batch.Simulation.UserCancel"));
 				cancelAll();
 				done(false);

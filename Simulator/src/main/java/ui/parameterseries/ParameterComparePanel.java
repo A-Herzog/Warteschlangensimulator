@@ -425,7 +425,7 @@ public class ParameterComparePanel extends SpecialPanel {
 		logOutput.setText("");
 
 		final long simulationStartTime=System.currentTimeMillis();
-		runner=new ParameterCompareRunner(row->table.updateTableContentOnly(row),b->{setGUIRunMode(false); if (b) Notifier.run(Notifier.Message.PARAMETER_SERIES_DONE,simulationStartTime);},s->logOutput(s));
+		runner=new ParameterCompareRunner(owner,row->table.updateTableContentOnly(row),b->{setGUIRunMode(false); if (b) Notifier.run(Notifier.Message.PARAMETER_SERIES_DONE,simulationStartTime);},s->logOutput(s));
 		String error=runner.check(setup);
 		if (error!=null) {
 			runner=null;

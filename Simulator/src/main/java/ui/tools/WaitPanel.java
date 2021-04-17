@@ -16,7 +16,9 @@
 package ui.tools;
 
 import java.awt.BorderLayout;
+import java.awt.Container;
 import java.awt.Dimension;
+import java.awt.Window;
 import java.awt.event.ActionEvent;
 import java.io.Serializable;
 import java.util.Timer;
@@ -42,6 +44,7 @@ import net.calc.SimulationClient;
 import simulator.AnySimulator;
 import simulator.Simulator;
 import simulator.StartAnySimulator;
+import tools.Notifier;
 import ui.images.Images;
 
 /**
@@ -68,6 +71,9 @@ public class WaitPanel extends JPanel {
 	/** Art der Simulation */
 	private static final OperationMode operationMode=OperationMode.MODE_SINGLE_LONG_RUN;
 
+	/** Übergeordnetes Fenster */
+	private Window parentWindow;
+
 	/**
 	 * Wurde die Simulation erfolgreich beendet?
 	 * @see #finalizeSimulation(boolean)
@@ -89,6 +95,8 @@ public class WaitPanel extends JPanel {
 	private JLabel statusbar;
 	/** Fortschrittsbalken */
 	private JProgressBar progress;
+	/** Maximalwert für den Fortschrittsbalken */
+	private int progressMax;
 	/** "Abbrechen"-Schaltfläche */
 	private JButton cancel;
 
@@ -157,6 +165,18 @@ public class WaitPanel extends JPanel {
 	}
 
 	/**
+	 * Versucht das übergeordnete Fenster zu ermitteln.
+	 * @see #parentWindow
+	 */
+	private void findParentWindow() {
+		Container c=getParent();
+		while (c!=null) {
+			if (c instanceof Window) {parentWindow=(Window)c; return;}
+			c=c.getParent();
+		}
+	}
+
+	/**
 	 * Bricht die Simulation ab.
 	 */
 	public void abortSimulation() {
@@ -198,8 +218,8 @@ public class WaitPanel extends JPanel {
 		}
 		info2.setText("");
 		switch (operationMode) {
-		case MODE_MULTI_DAYS: progress.setMaximum(1000); break;
-		case MODE_SINGLE_LONG_RUN: progress.setMaximum(Math.max(1,(int)(simulator.getCountClients()/1000))); break;
+		case MODE_MULTI_DAYS: progress.setMaximum(progressMax=1000); break;
+		case MODE_SINGLE_LONG_RUN: progress.setMaximum(progressMax=Math.max(1,(int)(simulator.getCountClients()/1000))); break;
 		}
 
 		progress.setValue(0);
@@ -226,6 +246,8 @@ public class WaitPanel extends JPanel {
 		simulationSuccessful=successful;
 		simulator.finalizeRun();
 		simulator=null;
+		if (parentWindow==null) findParentWindow();
+		Notifier.setSimulationProgress(parentWindow,-1);
 		if (simulationDone!=null) SwingUtilities.invokeLater(simulationDone);
 	}
 
@@ -272,7 +294,11 @@ public class WaitPanel extends JPanel {
 				}
 			}
 		}
-		progress.setValue((int)Math.round(1000.0*day/days));
+
+		final int c=(int)Math.round(1000.0*day/days);
+		progress.setValue(c);
+		if (parentWindow==null) findParentWindow();
+		Notifier.setSimulationProgress(parentWindow,100*c/progressMax);
 	}
 
 	/**
@@ -345,7 +371,7 @@ public class WaitPanel extends JPanel {
 			} else {
 				progress.setStringPainted(true);
 				progress.setIndeterminate(false);
-				progress.setMaximum(100);
+				progress.setMaximum(progressMax=100);
 				progress.setValue(timeProgressPercent);
 			}
 		} else {
@@ -388,7 +414,10 @@ public class WaitPanel extends JPanel {
 					}
 				}
 			}
-			progress.setValue((int)(current/1000));
+			final int c=(int)(current/1000);
+			progress.setValue(c);
+			if (parentWindow==null) findParentWindow();
+			Notifier.setSimulationProgress(parentWindow,100*c/progressMax);
 		}
 	}
 
