@@ -61,6 +61,7 @@ import systemtools.BaseDialog;
 import systemtools.MsgBox;
 import tools.SetupData;
 import ui.images.Images;
+import ui.tools.FlatLaFHelper;
 import ui.tools.WindowSizeStorage;
 
 /**
@@ -93,6 +94,12 @@ public class SystemInfoWindow extends JFrame {
 	 * Anzahl der logischen CPU-Kerne in diesem System
 	 */
 	private final int cpuCount=Runtime.getRuntime().availableProcessors();
+
+	/**
+	 * Farbe für markierte Zeilen
+	 * @see #updataData()
+	 */
+	private final String markColor;
 
 	/**
 	 * Name der Java-Variante
@@ -188,6 +195,13 @@ public class SystemInfoWindow extends JFrame {
 		super(Language.tr("SystemInfo.Title"));
 		setIconImage(Images.EXTRAS_SYSTEM_INFO.getImage());
 		setup=SetupData.getSetup();
+
+		/* Farbe für markierte Zeilen */
+		if (FlatLaFHelper.isDark()) {
+			markColor="#589DF6";
+		} else {
+			markColor="blue";
+		}
 
 		/* Übergeordnetes Fenster */
 		Component o=owner;
@@ -359,14 +373,14 @@ public class SystemInfoWindow extends JFrame {
 		infoText.append("<p>\n");
 		infoText.append(Language.tr("SystemInfo.Memory.Available")+": "+NumberTools.formatLong(memoryAvailableMB)+" MB<br>\n");
 		if (lastMemoryCommitedMB!=memoryCommitedMB) {
-			infoText.append("<span style=\"color: blue;\">");
+			infoText.append("<span style=\"color: "+markColor+";\">");
 		} else {
 			if (memoryCommitedMB>0.9*memoryAvailableMB) infoText.append("<span style=\"color: red;\">"); else infoText.append("<span>");
 		}
 		infoText.append(Language.tr("SystemInfo.Memory.Commited")+": "+NumberTools.formatLong(memoryCommitedMB)+" MB<br>\n");
 		infoText.append("</span>");
 		if (lastMemoryUsedMB!=memoryUsedMB) {
-			infoText.append("<span style=\"color: blue;\">");
+			infoText.append("<span style=\"color: "+markColor+";\">");
 		} else {
 			if (memoryUsedMB>0.9*memoryAvailableMB) infoText.append("<span style=\"color: red;\">"); else infoText.append("<span>");
 		}
@@ -385,7 +399,7 @@ public class SystemInfoWindow extends JFrame {
 		infoText.append("<h4>"+Language.tr("SystemInfo.Load")+"</h4>\n");
 		infoText.append("<p>\n");
 		if (workLoadSystem>0) {
-			if (workLoadSystem>0.5) infoText.append("<span style=\"color: red;\">"); else infoText.append("<span style=\"color: blue;\">");
+			if (workLoadSystem>0.5) infoText.append("<span style=\"color: red;\">"); else infoText.append("<span style=\"color: "+markColor+";\">");
 		} else {
 			infoText.append("<span>");
 		}
@@ -393,7 +407,7 @@ public class SystemInfoWindow extends JFrame {
 		infoText.append("</span>");
 		infoText.append(Language.tr("SystemInfo.Load.CPUCount")+": "+cpuCount+"<br>\n");
 		if (workLoadSystem>0) {
-			if (workLoadSystem>0.5) infoText.append("<span style=\"color: red;\">"); else infoText.append("<span style=\"color: blue;\">");
+			if (workLoadSystem>0.5) infoText.append("<span style=\"color: red;\">"); else infoText.append("<span style=\"color: "+markColor+";\">");
 		} else {
 			infoText.append("<span>");
 		}
@@ -419,7 +433,7 @@ public class SystemInfoWindow extends JFrame {
 			final Thread thread=threadsList.stream().filter(t->t.getId()==id).findFirst().orElseGet(()->null);
 			if (thread==null || thread.isDaemon()) continue;
 			if (!activeIDs.contains(id) && thread.getContextClassLoader()==null) continue;
-			if (activeIDs.contains(id)) infoText.append("<span style=\"color: blue;\">"); else infoText.append("<span>");
+			if (activeIDs.contains(id)) infoText.append("<span style=\"color: "+markColor+";\">"); else infoText.append("<span>");
 			final String name=info.getThreadName();
 			if (name.equals("DestroyJavaVM helper thread")) continue; /* OpenJ9 */
 			infoText.append(name);
@@ -463,7 +477,7 @@ public class SystemInfoWindow extends JFrame {
 				infoText.append("<p>\n");
 				first=false;
 			}
-			if (activeIDs.contains(id)) infoText.append("<span style=\"color: blue;\">"); else infoText.append("<span>");
+			if (activeIDs.contains(id)) infoText.append("<span style=\"color: "+markColor+";\">"); else infoText.append("<span>");
 			infoText.append(name);
 			infoText.append("</span>");
 			infoText.append("<span style=\"color: gray;\">");

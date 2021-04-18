@@ -184,6 +184,13 @@ public final class ServerPanel extends SpecialPanel {
 
 		final SetupData setupData=SetupData.getSetup();
 
+		final String linkColor;
+		if (FlatLaFHelper.isDark()) {
+			linkColor="#589DF6";
+		} else {
+			linkColor="blue";
+		}
+
 		serverCalc=SimulationServerGUIConnect.getInstance();
 		serverCalcWeb=CalcWebServer.getInstance();
 		serverWeb=SimulatorWebServer.getInstance(mainPanel);
@@ -262,7 +269,7 @@ public final class ServerPanel extends SpecialPanel {
 		line.add(calcWebAutoStartCheckBox=new JCheckBox(Language.tr("SimulationServer.Setup.CalcWebAutoStart"),setupData.calcWebServerAutoStart));
 		calcWebAutoStartCheckBox.setToolTipText(Language.tr("SimulationServer.Setup.CalcWebAutoStart.Hint"));
 
-		line.add(calcWebOpenBrowserButton=new JLabel("<html><body><span style=\"color: blue; text-decoration: underline;\">"+Language.tr("SimulationServer.Setup.OpenBrowser")+"</span></body></html>"));
+		line.add(calcWebOpenBrowserButton=new JLabel("<html><body><span style=\"color: "+linkColor+"; text-decoration: underline;\">"+Language.tr("SimulationServer.Setup.OpenBrowser")+"</span></body></html>"));
 		calcWebOpenBrowserButton.setToolTipText(Language.tr("SimulationServer.Setup.OpenBrowser.Hint"));
 		calcWebOpenBrowserButton.setBorder(BorderFactory.createEmptyBorder(0,10,0,0));
 		calcWebOpenBrowserButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -291,7 +298,7 @@ public final class ServerPanel extends SpecialPanel {
 		line.add(webAutoStartCheckBox=new JCheckBox(Language.tr("SimulationServer.Setup.WebAutoStart"),setupData.webServerAutoStart));
 		webAutoStartCheckBox.setToolTipText(Language.tr("SimulationServer.Setup.WebAutoStart.Hint"));
 
-		line.add(webOpenBrowserButton=new JLabel("<html><body><span style=\"color: blue; text-decoration: underline;\">"+Language.tr("SimulationServer.Setup.OpenBrowser")+"</span></body></html>"));
+		line.add(webOpenBrowserButton=new JLabel("<html><body><span style=\"color: "+linkColor+"; text-decoration: underline;\">"+Language.tr("SimulationServer.Setup.OpenBrowser")+"</span></body></html>"));
 		webOpenBrowserButton.setToolTipText(Language.tr("SimulationServer.Setup.OpenBrowser.Hint"));
 		webOpenBrowserButton.setBorder(BorderFactory.createEmptyBorder(0,10,0,0));
 		webOpenBrowserButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));

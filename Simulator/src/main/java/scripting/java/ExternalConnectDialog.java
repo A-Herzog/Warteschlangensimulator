@@ -34,6 +34,7 @@ import systemtools.MsgBox;
 import tools.SetupData;
 import ui.help.Help;
 import ui.images.Images;
+import ui.tools.FlatLaFHelper;
 
 /**
  * Über diesen Dialog können die verfügbaren Klassen und Methoden
@@ -117,8 +118,15 @@ public class ExternalConnectDialog extends BaseDialog {
 		/* Infobereich */
 		content.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)),BorderLayout.SOUTH);
 
+		final String linkColor;
+		if (FlatLaFHelper.isDark()) {
+			linkColor="#589DF6";
+		} else {
+			linkColor="blue";
+		}
+
 		JLabel label;
-		line.add(label=new JLabel("<html><body><span style=\"color: blue; text-decoration: underline;\">"+Language.tr("ExternalConnect.Dialog.ExamplesLink")+"</span></body></html>"));
+		line.add(label=new JLabel("<html><body><span style=\"color: "+linkColor+"; text-decoration: underline;\">"+Language.tr("ExternalConnect.Dialog.ExamplesLink")+"</span></body></html>"));
 		label.setToolTipText(Language.tr("ExternalConnect.Dialog.ExamplesLink.Hint"));
 		label.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		label.addMouseListener(new MouseAdapter() {
