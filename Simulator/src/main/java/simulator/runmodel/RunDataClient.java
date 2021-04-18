@@ -465,10 +465,88 @@ public class RunDataClient {
 		if (userData==null) userData=new double[index+1];
 		if (userDataInUse==null) userDataInUse=new boolean[index+1];
 		if (userData.length<=index) userData=Arrays.copyOf(userData,index+1);
-		if (userDataInUse.length<=index) userDataInUse=Arrays.copyOf(userDataInUse,index+1);
+		if (userDataInUse.length<=index) userDataInUse=Arrays.copyOf(userDataInUse,index+1); /* Nur für die Statistik wichtig. Nicht genutzte Felder sind immer 0. */
 
 		userData[index]=value;
 		userDataInUse[index]=true;
+	}
+
+	/**
+	 * Liefert alle numerischen Kundendaten.
+	 * @param destArray	Array in das, wenn passend, die Daten kopiert werden
+	 * @return	Neues Array oder inhaltlich aktualisiertes bisheriges Array
+	 * @see #copyUserDataInUse(boolean[])
+	 * @see #setUserData(double[], boolean[])
+	 */
+	public double[] copyUserData(double[] destArray) {
+		if (userData==null) {
+			if (destArray!=null) Arrays.fill(destArray,0);
+			return destArray;
+		}
+
+		final int userDataLength=userData.length;
+
+		if (destArray!=null && destArray.length>=userDataLength) {
+			for (int i=0;i<userDataLength;i++) destArray[i]=userData[i];
+			for (int i=userDataLength;i<destArray.length;i++) destArray[i]=0.0;
+		} else {
+			destArray=Arrays.copyOf(userData,userDataLength);
+		}
+
+		return destArray;
+	}
+
+	/**
+	 * Liefert die Nutzungsflags für alle numerischen Kundendaten.
+	 * @param destArray	Array in das, wenn passend, die Daten kopiert werden
+	 * @return	Neues Array oder inhaltlich aktualisiertes bisheriges Array
+	 * @see #copyUserDataInUse(boolean[])
+	 * @see #setUserData(double[], boolean[])
+	 */
+	public boolean[] copyUserDataInUse(boolean[] destArray) {
+		if (userData==null) {
+			if (destArray!=null) Arrays.fill(destArray,false);
+			return destArray;
+		}
+
+		final int userDataInUseLength=userDataInUse.length;
+
+		if (destArray!=null && destArray.length>=userDataInUseLength) {
+			for (int i=0;i<userDataInUseLength;i++) destArray[i]=userDataInUse[i];
+			for (int i=userDataInUseLength;i<destArray.length;i++) destArray[i]=false;
+		} else {
+			destArray=Arrays.copyOf(userDataInUse,userDataInUseLength);
+		}
+
+		return destArray;
+	}
+
+	/**
+	 * Stellt alle numerischen Kundendaten inkl. der zugehörigen Nutzungsflags ein.
+	 * @param userData	Numerische Kundendaten
+	 * @param userDataInUse	Nutzungsflags zu den Daten
+	 * @see #copyUserData(double[])
+	 * @see #copyUserDataInUse(boolean[])
+	 */
+	public void setUserData(final double[] userData, final boolean[] userDataInUse) {
+		if (userData!=null) {
+			if (this.userData!=null && this.userData.length>=userData.length) {
+				final int size=userData.length;
+				for (int i=0;i<size;i++) this.userData[i]=userData[i];
+				for (int i=size;i<this.userData.length;i++) this.userData[i]=0.0;
+			} else {
+				this.userData=Arrays.copyOf(userData,userData.length);
+			}
+		}
+		if (userDataInUse!=null) {
+			if (this.userDataInUse!=null && this.userDataInUse.length>=userDataInUse.length) {
+				final int size=userDataInUse.length;
+				for (int i=0;i<size;i++) this.userDataInUse[i]=userDataInUse[i];
+				for (int i=size;i<this.userDataInUse.length;i++) this.userDataInUse[i]=false;
+			} else {
+				this.userDataInUse=Arrays.copyOf(userDataInUse,userDataInUse.length);
+			}
+		}
 	}
 
 	/**
@@ -514,6 +592,15 @@ public class RunDataClient {
 	public Set<String> getUserDataStringKeys() {
 		if (userDataStrings==null) return new HashSet<>();
 		return userDataStrings.keySet();
+	}
+
+	/**
+	 * Liefert eine Kopie aller Nutzerdaten-Texte.
+	 * @return	Kopie aller Nutzerdaten-Texte
+	 */
+	public Map<String,String> getUserDataStringsCopy() {
+		if (userDataStrings==null) return null;
+		return new HashMap<>(userDataStrings);
 	}
 
 	/**

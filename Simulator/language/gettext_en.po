@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-04-12 13:53+0200\n"
+"POT-Creation-Date: 2021-04-18 00:31+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -9446,6 +9446,15 @@ msgstr "Client types to be loaded from table"
 
 msgid "ModelDescription.SourceTable.Table"
 msgstr "Input table"
+
+msgid "ModelDescription.Split.CopyClientData"
+msgstr "Copy client data fields to new client objects"
+
+msgid "ModelDescription.Split.CopyClientData.No"
+msgstr "No"
+
+msgid "ModelDescription.Split.CopyClientData.Yes"
+msgstr "Yes"
 
 msgid "ModelDescription.StateStatistics.Group"
 msgstr "Statistics group"
@@ -26607,6 +26616,9 @@ msgstr "ModelElementTableSource"
 msgid "Surface.SourceTable.XML.TableFileName"
 msgstr "ModelElementTableFile"
 
+msgid "Surface.Split.Dialog.CopyClientData"
+msgstr "Copy client data fields to new client objects"
+
 msgid "Surface.Split.Dialog.Title"
 msgstr "Edit split"
 
@@ -26618,6 +26630,9 @@ msgstr "Split"
 
 msgid "Surface.Split.Tooltip"
 msgstr "Splits a client into one or more new clients."
+
+msgid "Surface.Split.XML.CopyClientData"
+msgstr "ModelElementSplitCopyClientData"
 
 msgid "Surface.Split.XML.Root"
 msgstr "ModelElementSplit"

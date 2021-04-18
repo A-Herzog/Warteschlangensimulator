@@ -55,6 +55,11 @@ public class ModelElementSplit extends ModelElementMultiInSingleOutBox implement
 	private final List<ModelElementSourceRecord> records;
 
 	/**
+	 * Sollen die Kundendatenfelder auf die neuen Ankunftsdatensätze übertragen werden?
+	 */
+	private boolean copyClientData;
+
+	/**
 	 * Konstruktor der Klasse <code>ModelElementSet</code>
 	 * @param model	Modell zu dem dieses Element gehören soll (kann später nicht mehr geändert werden)
 	 * @param surface	Zeichenfläche zu dem dieses Element gehören soll (kann später nicht mehr geändert werden)
@@ -62,6 +67,7 @@ public class ModelElementSplit extends ModelElementMultiInSingleOutBox implement
 	public ModelElementSplit(final EditModel model, final ModelSurface surface) {
 		super(model,surface,Shapes.ShapeType.SHAPE_ARROW_RIGHT_DOUBLE);
 		records=new ArrayList<>();
+		copyClientData=false;
 	}
 
 	/**
@@ -102,6 +108,23 @@ public class ModelElementSplit extends ModelElementMultiInSingleOutBox implement
 		records.add(record);
 	}
 
+
+	/**
+	 * Sollen die Kundendatenfelder auf die neuen Ankunftsdatensätze übertragen werden?
+	 * @return	Kundendatenfelder auf die neuen Ankunftsdatensätze übertragen
+	 */
+	public boolean isCopyClientData() {
+		return copyClientData;
+	}
+
+	/**
+	 * Sollen die Kundendatenfelder auf die neuen Ankunftsdatensätze übertragen werden?
+	 * @param copyClientData	Kundendatenfelder auf die neuen Ankunftsdatensätze übertragen
+	 */
+	public void setCopyClientData(boolean copyClientData) {
+		this.copyClientData=copyClientData;
+	}
+
 	/**
 	 * Überprüft, ob das Element mit dem angegebenen Element inhaltlich identisch ist.
 	 * @param element	Element mit dem dieses Element verglichen werden soll.
@@ -111,9 +134,12 @@ public class ModelElementSplit extends ModelElementMultiInSingleOutBox implement
 	public boolean equalsModelElement(ModelElement element) {
 		if (!super.equalsModelElement(element)) return false;
 		if (!(element instanceof ModelElementSplit)) return false;
+		final ModelElementSplit split=(ModelElementSplit)element;
 
-		if (((ModelElementSplit)element).records.size()!=records.size()) return false;
-		for (int i=0;i<records.size();i++) if (!((ModelElementSplit)element).records.get(i).equalsRecord(records.get(i))) return false;
+		if (split.records.size()!=records.size()) return false;
+		for (int i=0;i<records.size();i++) if (!split.records.get(i).equalsRecord(records.get(i))) return false;
+
+		if (split.copyClientData!=copyClientData) return false;
 
 		return true;
 	}
@@ -126,12 +152,14 @@ public class ModelElementSplit extends ModelElementMultiInSingleOutBox implement
 	public void copyDataFrom(ModelElement element) {
 		super.copyDataFrom(element);
 		if (element instanceof ModelElementSplit) {
+			final ModelElementSplit copySource=(ModelElementSplit)element;
 			records.clear();
-			for (int i=0;i<((ModelElementSplit)element).records.size();i++) {
-				ModelElementSourceRecord record=((ModelElementSplit)element).records.get(i).clone();
+			for (int i=0;i<copySource.records.size();i++) {
+				final ModelElementSourceRecord record=copySource.records.get(i).clone();
 				record.addChangeListener(()->fireChanged());
 				records.add(record);
 			}
+			copyClientData=copySource.copyClientData;
 		}
 	}
 
@@ -243,6 +271,11 @@ public class ModelElementSplit extends ModelElementMultiInSingleOutBox implement
 			node.appendChild(sub=doc.createElement(Language.trPrimary("Surface.Split.XML.Source")));
 			record.saveToXML(doc,sub);
 		}
+
+		if (copyClientData) {
+			node.appendChild(sub=doc.createElement(Language.trPrimary("Surface.Split.XML.CopyClientData")));
+			sub.setTextContent("1");
+		}
 	}
 
 	/**
@@ -263,6 +296,13 @@ public class ModelElementSplit extends ModelElementMultiInSingleOutBox implement
 			if (error!=null) return error;
 			record.addChangeListener(()->fireChanged());
 			records.add(record);
+			return null;
+		}
+
+		if (Language.trAll("Surface.Split.XML.CopyClientData",name)) {
+			final String copyClientDataString=node.getTextContent();
+			if (!copyClientDataString.isEmpty() && !copyClientDataString.equals("0")) copyClientData=true;
+			return null;
 		}
 
 		return null;
@@ -294,6 +334,8 @@ public class ModelElementSplit extends ModelElementMultiInSingleOutBox implement
 		for (ModelElementSourceRecord record: records) {
 			record.buildDescriptionProperty(descriptionBuilder);
 		}
+
+		descriptionBuilder.addProperty(Language.tr("ModelDescription.Split.CopyClientData"),copyClientData?Language.tr("ModelDescription.Split.CopyClientData.Yes"):Language.tr("ModelDescription.Split.CopyClientData.No"),10000);
 	}
 
 	@Override

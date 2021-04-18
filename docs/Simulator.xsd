@@ -880,6 +880,7 @@
 <xs:element name="ModellElementZerteilen"><xs:complexType><xs:complexContent><xs:extension base="ModellElementVerbundenBasis">
   <xs:sequence minOccurs="0" maxOccurs="unbounded"><xs:choice>
     <xs:element ref="ModellElementZerteilenDaten"/>
+	<xs:element name="ModellElementZerteilenKundendatenKopieren" type="xs:string"/>
   </xs:choice></xs:sequence>
 </xs:extension></xs:complexContent></xs:complexType></xs:element>
 
@@ -2981,6 +2982,7 @@
 <xs:element name="ModelElementSplit"><xs:complexType><xs:complexContent><xs:extension base="ModelElementConnectedBase">
   <xs:sequence minOccurs="0" maxOccurs="unbounded"><xs:choice>
     <xs:element ref="ModelElementSplitData"/>
+	<xs:element name="ModelElementSplitCopyClientData" type="xs:string"/>
   </xs:choice></xs:sequence>
 </xs:extension></xs:complexContent></xs:complexType></xs:element>
 

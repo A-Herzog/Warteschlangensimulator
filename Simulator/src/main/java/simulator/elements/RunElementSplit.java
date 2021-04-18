@@ -17,6 +17,7 @@ package simulator.elements;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import language.Language;
 import simulator.builder.RunModelCreatorStatus;
@@ -39,6 +40,9 @@ import ui.modeleditor.elements.ModelElementSub;
 public class RunElementSplit extends RunElementPassThrough {
 	/** Datensätze gemäß denen die neuen Kunden, die sich aus dem Zerlegen bestehender Kunden ergeben haben, erzeugt werden sollen */
 	private RunElementSourceRecord[] records;
+
+	/** Sollen die Kundendatenfelder auf die neuen Ankunftsdatensätze übertragen werden? */
+	private boolean copyClientData;
 
 	/**
 	 * Konstruktor der Klasse
@@ -67,6 +71,9 @@ public class RunElementSplit extends RunElementPassThrough {
 			list.add(record);
 		}
 		split.records=list.toArray(new RunElementSourceRecord[0]);
+
+		/* Kundendatenfelder kopieren? */
+		split.copyClientData=splitElement.isCopyClientData();
 
 		return split;
 	}
@@ -137,8 +144,11 @@ public class RunElementSplit extends RunElementPassThrough {
 	 * @param index	Index in {@link #records} gemäß dem der neue Kunde generiert werden soll
 	 * @param isWarmUpClient	Handelt es sich bei dem eingetroffenen Kunden um einen Warm-up-Kunden
 	 * @param isLastClient	Ist der eingetroffene Kunde als letzter Kunde markiert
+	 * @param userData	Ggf. einzustellende numerische Kundendaten (kann <code>null</code> sein)
+	 * @param userDataInUse	Ggf. einzustellende Nutzungsflags zu den numerischen Kundendaten (kann <code>null</code> sein)
+	 * @param userDataStrings	Ggf. einzustellende Text-Kundendaten (kann <code>null</code> sein)
 	 */
-	private void processArrivalEvent(final SimulationData simData, final int index, final boolean isWarmUpClient, final boolean isLastClient) {
+	private void processArrivalEvent(final SimulationData simData, final int index, final boolean isWarmUpClient, final boolean isLastClient, final double[] userData, final boolean[] userDataInUse, final Map<String,String> userDataStrings) {
 		final RunElementSplitData data=getData(simData);
 
 		boolean batchArrivals=true;
@@ -165,6 +175,12 @@ public class RunElementSplit extends RunElementPassThrough {
 			final RunDataClient newClient=simData.runData.clients.getClient(records[index].clientType,simData);
 			newClient.isWarmUp=isWarmUpClient;
 			newClient.isLastClient=isLastClient;
+
+			/* Kundendaten übertragen */
+			if (copyClientData) {
+				newClient.setUserData(userData,userDataInUse);
+				newClient.setUserDataStrings(userDataStrings);
+			}
 
 			/* Zahlen und Strings zuweisen */
 			records[index].writeStringsToClient(newClient);
@@ -193,7 +209,18 @@ public class RunElementSplit extends RunElementPassThrough {
 
 	@Override
 	public void processArrival(final SimulationData simData, final RunDataClient client) {
+		double[] userData=null;
+		boolean[] userDataInUse=null;
+		Map<String,String> userDataStrings=null;
+		if (copyClientData) {
+			final RunElementSplitData data=getData(simData);
+			userData=data.tempUserData=client.copyUserData(data.tempUserData);
+			userDataInUse=data.tempUserDataInUse=client.copyUserDataInUse(data.tempUserDataInUse);
+			userDataStrings=client.getUserDataStringsCopy();
+		}
+
 		disposeOldClient(simData,client);
-		for (int index=0;index<records.length;index++) processArrivalEvent(simData,index,client.isWarmUp,client.isLastClient);
+
+		for (int index=0;index<records.length;index++) processArrivalEvent(simData,index,client.isWarmUp,client.isLastClient,userData,userDataInUse,userDataStrings);
 	}
 }

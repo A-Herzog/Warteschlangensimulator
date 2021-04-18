@@ -17,8 +17,10 @@ package ui.modeleditor.elements;
 
 import java.awt.BorderLayout;
 import java.awt.Component;
+import java.awt.FlowLayout;
 import java.io.Serializable;
 
+import javax.swing.JCheckBox;
 import javax.swing.JComponent;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -45,6 +47,11 @@ public class ModelElementSplitDialog extends ModelElementBaseDialog {
 	 * Tabelle zur Anzeige und Konfiguration der Kunden-Teil-Quellen-Daten
 	 */
 	private ModelElementSourceMultiTableModel recordsTableModel;
+
+	/**
+	 * Sollen die Kundendatenfelder auf die neuen Ankunftsdatensätze übertragen werden?
+	 */
+	private JCheckBox copyClientData;
 
 	/**
 	 * Konstruktor der Klasse
@@ -75,19 +82,22 @@ public class ModelElementSplitDialog extends ModelElementBaseDialog {
 
 	@Override
 	protected JComponent getContentPanel() {
+		final ModelElementSplit split=(ModelElementSplit)element;
+
 		final JPanel content=new JPanel(new BorderLayout());
 
 		final JTableExt recordsTable;
 		content.add(new JScrollPane(recordsTable=new JTableExt()),BorderLayout.CENTER);
-		if (element instanceof ModelElementSplit) {
-			recordsTable.setModel(recordsTableModel=new ModelElementSourceMultiTableModel(recordsTable,((ModelElementSplit)element).getRecords(),false,element,element.getModel(),element.getSurface(),readOnly,helpRunnable));
-		}
-
+		recordsTable.setModel(recordsTableModel=new ModelElementSourceMultiTableModel(recordsTable,split.getRecords(),false,element,element.getModel(),element.getSurface(),readOnly,helpRunnable));
 		recordsTable.getColumnModel().getColumn(0).setMaxWidth(200);
 		recordsTable.getColumnModel().getColumn(0).setMinWidth(200);
 		recordsTable.setIsPanelCellTable(0);
 		recordsTable.setIsPanelCellTable(1);
 		recordsTable.setEnabled(!readOnly);
+
+		final JPanel line=new JPanel(new FlowLayout(FlowLayout.LEFT));
+		content.add(line,BorderLayout.SOUTH);
+		line.add(copyClientData=new JCheckBox(Language.tr("Surface.Split.Dialog.CopyClientData"),split.isCopyClientData()));
 
 		return content;
 	}
@@ -100,6 +110,10 @@ public class ModelElementSplitDialog extends ModelElementBaseDialog {
 	@Override
 	protected void storeData() {
 		super.storeData();
-		recordsTableModel.storeData((ModelElementSplit)element);
+
+		final ModelElementSplit split=(ModelElementSplit)element;
+
+		recordsTableModel.storeData(split);
+		split.setCopyClientData(copyClientData.isSelected());
 	}
 }

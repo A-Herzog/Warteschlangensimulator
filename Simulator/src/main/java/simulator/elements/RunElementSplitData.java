@@ -17,6 +17,7 @@ package simulator.elements;
 
 import simulator.coreelements.RunElement;
 import simulator.coreelements.RunElementData;
+import simulator.runmodel.RunDataClient;
 import simulator.simparser.ExpressionCalc;
 
 /**
@@ -30,6 +31,18 @@ public class RunElementSplitData extends RunElementData {
 	public final RunElementSourceRecord.SourceSetExpressions[] setData;
 	/** Ausdrücke zur Berechnung der Batch-Größen (kann <code>null</code> sein) */
 	public final ExpressionCalc[] batchSizes;
+
+	/**
+	 * Cache für das Array zum Übertragen der Kundendaten
+	 * @see RunDataClient#copyUserData(double[])
+	 */
+	public double[] tempUserData;
+
+	/**
+	 * Cache für das Array zum Übertragen der Nutzungsflags der Kundendaten
+	 * @see RunDataClient#copyUserDataInUse(boolean[])
+	 */
+	public boolean[] tempUserDataInUse;
 
 	/**
 	 * Konstruktor der Klasse <code>RunElementSplitData</code>

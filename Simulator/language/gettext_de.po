@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-04-12 13:53+0200\n"
+"POT-Creation-Date: 2021-04-18 00:31+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -9442,6 +9442,15 @@ msgstr "Aus der Tabelle zu ladende Kundentypen"
 
 msgid "ModelDescription.SourceTable.Table"
 msgstr "Eingabetabelle"
+
+msgid "ModelDescription.Split.CopyClientData"
+msgstr "Kundendatenfelder auf neue Kundenobjekte übertragen"
+
+msgid "ModelDescription.Split.CopyClientData.No"
+msgstr "Nein"
+
+msgid "ModelDescription.Split.CopyClientData.Yes"
+msgstr "Ja"
 
 msgid "ModelDescription.StateStatistics.Group"
 msgstr "Statistikgruppe"
@@ -26623,6 +26632,9 @@ msgstr "ModellElementTabellenQuelle"
 msgid "Surface.SourceTable.XML.TableFileName"
 msgstr "ModellElementTabellenDatei"
 
+msgid "Surface.Split.Dialog.CopyClientData"
+msgstr "Kundendatenfelder auf neue Kundenobjekte übertragen"
+
 msgid "Surface.Split.Dialog.Title"
 msgstr "Zerteilen bearbeiten"
 
@@ -26634,6 +26646,9 @@ msgstr "Zerteilen"
 
 msgid "Surface.Split.Tooltip"
 msgstr "Zerteilt einen Kunden in einen oder mehrere neue Kunden."
+
+msgid "Surface.Split.XML.CopyClientData"
+msgstr "ModellElementZerteilenKundendatenKopieren"
 
 msgid "Surface.Split.XML.Root"
 msgstr "ModellElementZerteilen"

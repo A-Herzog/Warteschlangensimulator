@@ -674,7 +674,7 @@
   Typ   CDATA	#IMPLIED
 >
 
-<!ELEMENT ModellElementZerteilen (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementBoxSchriftGross | ModellElementBoxSchriftKlein | ModellElementEbene | ModellElementHintergrundfarbe | ModellElementStationsbild | ModellElementVerbindung | ModellElementZerteilenDaten)*>
+<!ELEMENT ModellElementZerteilen (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementBoxSchriftGross | ModellElementBoxSchriftKlein | ModellElementEbene | ModellElementHintergrundfarbe | ModellElementStationsbild | ModellElementVerbindung | ModellElementZerteilenDaten | ModellElementZerteilenKundendatenKopieren)*>
 <!ATTLIST ModellElementZerteilen
   id			CDATA	#REQUIRED
   geschuetzt	CDATA	#IMPLIED
@@ -682,6 +682,7 @@
   SymbolSpiegeln	CDATA	#IMPLIED
 >
 <!ELEMENT ModellElementZerteilenDaten (ModellElementName | ModellElementBatch | ModellElementVariablenzuweisung | ModellElementZuweisungTextEintrag)*>
+<!ELEMENT ModellElementZerteilenKundendatenKopieren (#PCDATA)>
 
 <!ELEMENT ModellElementDuplizieren (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementBoxSchriftGross | ModellElementBoxSchriftKlein | ModellElementEbene | ModellElementHintergrundfarbe | ModellElementStationsbild | ModellElementVerbindung)*>
 <!ATTLIST ModellElementDuplizieren
@@ -2844,7 +2845,7 @@
   Type  CDATA	#IMPLIED
 >
 
-<!ELEMENT ModelElementSplit (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBoxFontLarge | ModelElementBoxFontSmall | ModelElementLayer | ModelElementBackgroundColor | ModelElementStationimage | ModelElementConnection | ModelElementSplitData)*>
+<!ELEMENT ModelElementSplit (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBoxFontLarge | ModelElementBoxFontSmall | ModelElementLayer | ModelElementBackgroundColor | ModelElementStationimage | ModelElementConnection | ModelElementSplitData | ModelElementSplitCopyClientData)*>
 <!ATTLIST ModelElementSplit
   id		CDATA	#REQUIRED
   protected	CDATA	#IMPLIED
@@ -2852,6 +2853,7 @@
   MirrorSymbol	CDATA	#IMPLIED
 >
 <!ELEMENT ModelElementSplitData (ModelElementName | ModelElementBatchData | ModelElementAssignmentData | ModelElementAssignmentTextRecord)*>
+<!ELEMENT ModelElementSplitCopyClientData (#PCDATA)>
 
 <!ELEMENT ModelElementDuplicate (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBoxFontLarge | ModelElementBoxFontSmall | ModelElementLayer | ModelElementBackgroundColor | ModelElementStationimage | ModelElementConnection)*>
 <!ATTLIST ModelElementDuplicate
