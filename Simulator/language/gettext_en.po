@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-04-18 00:31+0200\n"
+"POT-Creation-Date: 2021-04-19 00:15+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -24469,6 +24469,12 @@ msgstr "Parameter series: change average inter-arrival time"
 msgid "Surface.PopupMenu.ParameterCompare.ChangeInterarrivalTime.Short"
 msgstr "Average inter-arrival time"
 
+msgid "Surface.PopupMenu.ParameterCompare.ChangeOperatorCount"
+msgstr "Parameter series: change operator count"
+
+msgid "Surface.PopupMenu.ParameterCompare.ChangeOperatorCount.Short"
+msgstr "Number of operators"
+
 msgid "Surface.PopupMenu.ParameterCompare.ChangeServiceTime"
 msgstr "Parameter series: change average service time"
 
@@ -24486,6 +24492,12 @@ msgstr "Parameter series: change conveyor transport time"
 
 msgid "Surface.PopupMenu.ParameterCompare.ChangeTransportTime.Short"
 msgstr "Conveyor transport time"
+
+msgid "Surface.PopupMenu.ParameterCompare.ChangeVariableValue"
+msgstr "Parameter series: change value of variable"
+
+msgid "Surface.PopupMenu.ParameterCompare.ChangeVariableValue.Short"
+msgstr "Variable value"
 
 msgid "Surface.PopupMenu.Properties"
 msgstr "Properties"

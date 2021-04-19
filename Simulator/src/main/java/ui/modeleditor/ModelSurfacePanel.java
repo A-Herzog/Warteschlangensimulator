@@ -74,6 +74,7 @@ import java.util.function.Function;
 
 import javax.imageio.ImageIO;
 import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
@@ -108,6 +109,7 @@ import systemtools.statistics.XWPFDocumentPictureTools;
 import tools.SetupData;
 import ui.EditorPanel;
 import ui.MainFrame;
+import ui.ModelChanger;
 import ui.dialogs.UndoRedoDialog;
 import ui.images.Images;
 import ui.modeleditor.coreelements.ModelElement;
@@ -128,6 +130,8 @@ import ui.modeleditor.elements.ModelElementSourceTable;
 import ui.modeleditor.elements.ModelElementSub;
 import ui.modeleditor.elements.ModelElementText;
 import ui.parameterseries.ParameterCompareTemplatesDialog;
+import ui.parameterseries.ParameterCompareTemplatesDialog.TemplateMode;
+import ui.parameterseries.ParameterCompareTemplatesDialog.TemplateRecord;
 import ui.tools.GlassInfo;
 
 /**
@@ -2087,9 +2091,11 @@ public final class ModelSurfacePanel extends JPanel {
 	private void showModelContextMenu(final Point point) {
 		final JPopupMenu menu=new JPopupMenu();
 
+		JMenu subMenu;
 		JMenuItem item;
 
 		if (!readOnly) {
+			/* Slider für Bedieneranzahl */
 			int groupCount=0;
 			for (final ModelResource resource: model.resources.getResources()) {
 				if (resource.getMode()!=ModelResource.Mode.MODE_NUMBER) continue;
@@ -2110,6 +2116,7 @@ public final class ModelSurfacePanel extends JPanel {
 			}
 			if (groupCount>0) menu.addSeparator();
 
+			/* Visualisierung hinzufügen */
 			final JMenu sub=new JMenu(Language.tr("Surface.Popup.AddVisualization"));
 			addVisualizationContextMenuItems(sub);
 			if (sub.getItemCount()>0) {
@@ -2117,27 +2124,81 @@ public final class ModelSurfacePanel extends JPanel {
 				menu.add(sub);
 			}
 
+			/* Notiz hinzufügen */
 			menu.add(item=new JMenuItem(Language.tr("Surface.Popup.AddNote")));
 			item.setIcon(Images.MODEL_NOTES.getIcon());
 			item.addActionListener(e->startAddElement(new ModelElementNote(model,surface)));
 		}
 
+		/* Modelleigenschaften */
 		menu.add(item=new JMenuItem(Language.tr("Main.Menu.File.ModelProperties")));
 		item.setIcon(Images.MODEL.getIcon());
 		item.addActionListener(e->fireShowPropertiesDialog(PROPERTIES_TYPE_PROPERTIES));
 
+		/* Ebenen */
 		menu.add(item=new JMenuItem(Language.tr("Main.Menu.View.Layers")));
 		item.setIcon(Images.EDIT_LAYERS.getIcon());
 		item.addActionListener(e->fireShowPropertiesDialog(PROPERTIES_TYPE_LAYERS));
 
 		if (!readOnly) {
+			final AnimationImageSource imageSource=new AnimationImageSource();
 
+			/* Hintergrundfarbe */
 			menu.add(item=new JMenuItem(Language.tr("Main.Menu.View.BackgroundColor")));
 			item.setIcon(Images.EDIT_BACKGROUND_COLOR.getIcon());
 			item.addActionListener(e->fireShowPropertiesDialog(PROPERTIES_TYPE_BACKGROUND));
 
+			/* Heatmaptyp */
 			menu.add(item=new JMenuItem(Language.tr("Main.Menu.View.Statistics.HeatMapSelect")));
 			item.addActionListener(e->fireShowPropertiesDialog(PROPERTIES_TYPE_HEATMAP_MODES));
+
+			/* Parameterreihe: Anzahl an Bedienern */
+			subMenu=new JMenu(Language.tr("Surface.PopupMenu.ParameterCompare.ChangeOperatorCount"));
+			subMenu.setIcon(Images.PARAMETERSERIES.getIcon());
+			for (ModelResource resource: model.resources.getResources()) {
+				if (resource.getMode()==ModelResource.Mode.MODE_NUMBER && resource.getCount()>0) {
+					String icon=resource.getIcon();
+					if (icon==null || icon.trim().isEmpty()) icon=ModelSurfaceAnimatorBase.DEFAULT_OPERATOR_ICON_NAME;
+					subMenu.add(item=new JMenuItem(resource.getName(),new ImageIcon(imageSource.get(icon,model.animationImages,16))));
+					item.addActionListener(e->{
+						final TemplateRecord record=new TemplateRecord(TemplateMode.MODE_OPERATORS,Language.tr("Surface.PopupMenu.ParameterCompare.ChangeOperatorCount.Short"));
+						record.input.setMode(ModelChanger.Mode.MODE_RESOURCE);
+						record.input.setTag(resource.getName());
+						fireBuildParameterSeries(record);
+					});
+				}
+			}
+			if (subMenu.getItemCount()>0) {
+				if (subMenu.getItemCount()>1) {
+					menu.add(subMenu);
+				} else {
+					item=new JMenuItem(Language.tr("Surface.PopupMenu.ParameterCompare.ChangeOperatorCount")+" - "+subMenu.getItem(0).getText(),Images.PARAMETERSERIES.getIcon());
+					item.addActionListener(subMenu.getItem(0).getActionListeners()[0]);
+					menu.add(item);
+				}
+			}
+
+			/* Parameterreihe: Variablenwerte */
+			subMenu=new JMenu(Language.tr("Surface.PopupMenu.ParameterCompare.ChangeVariableValue"));
+			subMenu.setIcon(Images.PARAMETERSERIES.getIcon());
+			for (String name: model.getModelVariableNames()) {
+				subMenu.add(item=new JMenuItem(name,Images.EXPRESSION_BUILDER_VARIABLE.getIcon()));
+				item.addActionListener(e->{
+					final TemplateRecord record=new TemplateRecord(TemplateMode.MODE_VARIABLES,Language.tr("Surface.PopupMenu.ParameterCompare.ChangeVariableValue.Short"));
+					record.input.setMode(ModelChanger.Mode.MODE_VARIABLE);
+					record.input.setTag(name);
+					fireBuildParameterSeries(record);
+				});
+			}
+			if (subMenu.getItemCount()>0) {
+				if (subMenu.getItemCount()>1) {
+					menu.add(subMenu);
+				} else {
+					item=new JMenuItem(Language.tr("Surface.PopupMenu.ParameterCompare.ChangeVariableValue")+" - "+subMenu.getItem(0).getText(),Images.PARAMETERSERIES.getIcon());
+					item.addActionListener(subMenu.getItem(0).getActionListeners()[0]);
+					menu.add(item);
+				}
+			}
 
 		}
 

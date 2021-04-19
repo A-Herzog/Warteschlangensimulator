@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-04-18 00:31+0200\n"
+"POT-Creation-Date: 2021-04-19 00:15+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -24484,6 +24484,12 @@ msgstr "Parameterreihe: Mittlere Zwischenankunftszeiten variieren"
 msgid "Surface.PopupMenu.ParameterCompare.ChangeInterarrivalTime.Short"
 msgstr "Mittlere Zwischenankunftszeit"
 
+msgid "Surface.PopupMenu.ParameterCompare.ChangeOperatorCount"
+msgstr "Parameterreihe: Anzahl an Bedienern variieren"
+
+msgid "Surface.PopupMenu.ParameterCompare.ChangeOperatorCount.Short"
+msgstr "Anzahl an Bedienern"
+
 msgid "Surface.PopupMenu.ParameterCompare.ChangeServiceTime"
 msgstr "Parameterreihe: Mittlere Bedienzeit variieren"
 
@@ -24501,6 +24507,12 @@ msgstr "Parameterreihe: Fließband-Transportzeit variieren"
 
 msgid "Surface.PopupMenu.ParameterCompare.ChangeTransportTime.Short"
 msgstr "Fließband-Transportzeit"
+
+msgid "Surface.PopupMenu.ParameterCompare.ChangeVariableValue"
+msgstr "Parameterreihe: Initiale Variablenwerte"
+
+msgid "Surface.PopupMenu.ParameterCompare.ChangeVariableValue.Short"
+msgstr "Variablenwert"
 
 msgid "Surface.PopupMenu.Properties"
 msgstr "Eigenschaften"
