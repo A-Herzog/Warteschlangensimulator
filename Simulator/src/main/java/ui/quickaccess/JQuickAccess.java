@@ -17,6 +17,7 @@ package ui.quickaccess;
 
 import java.awt.Component;
 import java.awt.Container;
+import java.awt.FocusTraversalPolicy;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.awt.event.InputEvent;
@@ -217,24 +218,14 @@ public class JQuickAccess {
 	 */
 	public static void textFieldResizer(final JTextField textField, final int sizeSmall, final int sizeLarge) {
 		textField.addFocusListener(new FocusListener() {
-			int count=0;
-
-			@Override
-			public void focusLost(FocusEvent e) {
-				setTextFieldSize(textField,sizeSmall);
-			}
-
-			@Override
-			public void focusGained(FocusEvent e) {
-				if (count>0) setTextFieldSize(textField,sizeLarge);
-				count++;
-			}
+			@Override public void focusLost(FocusEvent e) {setTextFieldSize(textField,sizeSmall);}
+			@Override public void focusGained(FocusEvent e) {setTextFieldSize(textField,sizeLarge);}
 		});
 		textField.addKeyListener(new KeyAdapter() {
-			@Override
-			public void keyPressed(KeyEvent e) {
-				setTextFieldSize(textField,sizeLarge);
-			}
+			@Override public void keyPressed(KeyEvent e) {setTextFieldSize(textField,sizeLarge);}
+		});
+		textField.addMouseListener(new MouseAdapter() {
+			@Override public void mousePressed(MouseEvent e) {setTextFieldSize(textField,sizeLarge);}
 		});
 
 		setTextFieldSize(textField,sizeSmall);
@@ -252,5 +243,80 @@ public class JQuickAccess {
 		textField.revalidate();
 		final Container c=textField.getParent();
 		if (c!=null) c.revalidate();
+	}
+
+	/**
+	 * Liefert eine Fokussierreihenfolge, die das QuickAccess-Feld nicht enthält,
+	 * so dass es nicht ständig ausversehen den Fokus erhält.
+	 * @return	Fokussierreihenfolge für die Menüzeile
+	 */
+	public static FocusTraversalPolicy getMenuTraversalPolicy() {
+		return new FocusTraversalPolicy() {
+			@Override
+			public Component getLastComponent(Container aContainer) {
+				int nr=aContainer.getComponentCount();
+				while (nr>=0) {
+					final Component component=aContainer.getComponent(nr);
+					if (!(component instanceof JTextField)) return component;
+					nr--;
+				}
+				return null;
+			}
+
+			@Override
+			public Component getFirstComponent(Container aContainer) {
+				final int count=aContainer.getComponentCount();
+				for (int i=0;i<count;i++) {
+					final Component component=aContainer.getComponent(i);
+					if (!(component instanceof JTextField)) return component;
+				}
+				return null;
+			}
+
+			@Override
+			public Component getDefaultComponent(Container aContainer) {
+				return getFirstComponent(aContainer);
+			}
+
+			private int getIndex(Container aContainer, Component aComponent) {
+				final int count=aContainer.getComponentCount();
+				for (int i=0;i<count;i++) if (aContainer.getComponent(i)==aComponent) return i;
+				return -1;
+			}
+
+			@Override
+			public Component getComponentBefore(Container aContainer, Component aComponent) {
+				final int index=getIndex(aContainer,aComponent);
+				if (index<0) return null;
+
+				final int count=aContainer.getComponentCount();
+				int nr=index-1;
+				if (nr<0) nr=count-1;
+				while (nr!=index) {
+					final Component component=aContainer.getComponent(nr);
+					if (!(component instanceof JTextField)) return component;
+					nr--;
+					if (nr<0) nr=count-1;
+				}
+				return null;
+			}
+
+			@Override
+			public Component getComponentAfter(Container aContainer, Component aComponent) {
+				final int index=getIndex(aContainer,aComponent);
+				if (index<0) return null;
+
+				final int count=aContainer.getComponentCount();
+				int nr=index+1;
+				if (nr>=count) nr=0;
+				while (nr!=index) {
+					final Component component=aContainer.getComponent(nr);
+					if (!(component instanceof JTextField)) return component;
+					nr++;
+					if (nr>=count) nr=0;
+				}
+				return null;
+			}
+		};
 	}
 }

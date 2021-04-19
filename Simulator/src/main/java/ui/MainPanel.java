@@ -1362,6 +1362,8 @@ public class MainPanel extends MainPanelBase {
 					final int h=quickAccess.getHeight();
 					if (h>25) quickAccess.setMaximumSize(new Dimension(quickAccess.getWidth(),h-2));
 				});
+				menubar.setFocusTraversalPolicy(JQuickAccess.getMenuTraversalPolicy());
+				menubar.setFocusCycleRoot(true);
 				editorPanel.requestFocus();
 			}
 
