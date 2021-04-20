@@ -11956,6 +11956,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[27413] = "Anzahl";
     t[27416] = "Optimizer.OptimizationCanceled";
     t[27417] = "Abbruch der Optimierung.";
+    t[27420] = "SystemInfo.Tools.UserInterface.Font.Info";
+    t[27421] = "Programmschriftart (z.B. \"Arial\"), leer f\u00fcr Betriebssystemvorgabe";
     t[27426] = "Surface.AnimationDiagram.Dialog.Appearance.FillBackground";
     t[27427] = "Hintergrund ausf\u00fcllen";
     t[27428] = "Surface.AnimationPointerMeasuring.Dialog.Expression.ErrorInvalidExpression.Info";
@@ -12038,14 +12040,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[27597] = "Bedienzeitkosten der Kunden";
     t[27598] = "Statistic.FastAccess.Template.StationID.Get.Tooltip";
     t[27599] = "Liefert die ID einer Station basierend auf dem Namen der Station.";
-    t[27600] = "Surface.TransportSource.Dialog.Tab.RoutingTargets.Add";
-    t[27601] = "Transportziel hinzuf\u00fcgen";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_6 (java.lang.String[] t) {
+    t[27600] = "Surface.TransportSource.Dialog.Tab.RoutingTargets.Add";
+    t[27601] = "Transportziel hinzuf\u00fcgen";
     t[27602] = "Surface.TeleportSource.XML.Destination";
     t[27603] = "ModellElementTeleportStartZuZiel";
     t[27604] = "Statistics.VarianceClientsInSystemWaiting";
@@ -14044,14 +14046,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[32241] = "Auge";
     t[32248] = "Surface.AssignString.Table.Edit.Dialog.Key.Error.Info";
     t[32249] = "Der Schl\u00fcssel einer Zuweisung darf nicht leer sein.";
-    t[32252] = "CommandLine.SetNUMA.Info.NUMA.On";
-    t[32253] = "an";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_7 (java.lang.String[] t) {
+    t[32252] = "CommandLine.SetNUMA.Info.NUMA.On";
+    t[32253] = "an";
     t[32254] = "BuildClientSourceTable.InputTable.Error.NoFile.Title";
     t[32255] = "Keine Eingabetabelle angegeben";
     t[32256] = "Surface.AnalogAssign.Infotext";
@@ -16050,14 +16052,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[36859] = "Stellt ein, ob der aktuelle Kunde in der Statistik erfasst werden soll";
     t[36866] = "ParameterCompare.DialogHint";
     t[36867] = "Mit Hilfe der Parameterreihenfunktion kann die Auswirkung der Variation eines oder mehrerer Parameter auf die Kenngr\u00f6\u00dfen des Systems untersucht werden. Definieren Sie zun\u00e4chst \u00fcber die Eingangsparameter-Schaltfl\u00e4che die zu variierenden Gr\u00f6\u00dfen, w\u00e4hlen Sie dann \u00fcber die Ausgabewerte-Funktion, welche Kenngr\u00f6\u00dfen in jedem Schritt ausgegeben werden sollen. Anschlie\u00dfend k\u00f6nnen Sie \u00fcber die Schaltfl\u00e4chen unter der Tabelle Modelle, bei denen die gew\u00e4hlten Eingangsparameter variiert werden, erstellen und diese \u00fcber \"Simulation starten\" simulieren.";
-    t[36870] = "Surface.PopupMenu.SimulationStatisticsData.Tab.WaitingClients.Times.Transfer";
-    t[36871] = "Bisherige Transferzeit";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_8 (java.lang.String[] t) {
+    t[36870] = "Surface.PopupMenu.SimulationStatisticsData.Tab.WaitingClients.Times.Transfer";
+    t[36871] = "Bisherige Transferzeit";
     t[36872] = "SettingsDialog.AutoRestore";
     t[36873] = "Zuletzt bearbeitetes Modell beim n\u00e4chsten Programmstart wiederherstellen";
     t[36874] = "Surface.AnalogAssign.Tooltip";
@@ -17672,6 +17674,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[40487] = "AusfallNachGearbeiteterZeit";
     t[40490] = "CommandLine.SetMaxThreads.Info.MultiCore.OldState.No";
     t[40491] = "deaktiviert";
+    t[40504] = "SystemInfo.Tools.UserInterface.Font";
+    t[40505] = "Programmschriftart...";
     t[40510] = "Statistics.Utilization.Variance";
     t[40511] = "Varianz der Anzahl an belegten Bedienern";
     t[40512] = "Simulation.Log.Balking.NoQueueAtTarget";
@@ -18054,16 +18058,16 @@ public class Messages_de extends java.util.ResourceBundle {
     t[41315] = "ModellElementDatenbankQuelle";
     t[41316] = "ParameterCompare.Templates.Minimum";
     t[41317] = "Minimaler Wert";
-    t[41320] = "ParameterCompare.Run.Error.WriteValueMessage";
-    t[41321] = "In Schritt %d (Modell %s) konnte der Wert des Eingabeparameters %d \"%s\" nicht ver\u00e4ndert werden:";
-    t[41324] = "Git.List.Tab.StoreFiles.Button.All";
-    t[41325] = "Alle w\u00e4hlen";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_9 (java.lang.String[] t) {
+    t[41320] = "ParameterCompare.Run.Error.WriteValueMessage";
+    t[41321] = "In Schritt %d (Modell %s) konnte der Wert des Eingabeparameters %d \"%s\" nicht ver\u00e4ndert werden:";
+    t[41324] = "Git.List.Tab.StoreFiles.Button.All";
+    t[41325] = "Alle w\u00e4hlen";
     t[41334] = "Simulation.Creator.AnalogFlow.NoSignalName";
     t[41335] = "An Element id=%d wurde kein Name f\u00fcr das Ausl\u00f6sesignal angegeben.";
     t[41336] = "Simulation.Creator.InvalidResourceInterDownTimeExpression";

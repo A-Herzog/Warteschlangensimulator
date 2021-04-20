@@ -42,6 +42,7 @@ import ui.modeleditor.ModelClientData;
 import ui.modeleditor.ModelSequences;
 import ui.modeleditor.ModelSurface;
 import ui.modeleditor.coreelements.ModelElement;
+import ui.modeleditor.coreelements.ModelElementBox;
 import ui.modeleditor.coreelements.ModelElementPosition;
 import ui.modeleditor.descriptionbuilder.ModelDescriptionBuilder;
 import ui.modeleditor.fastpaint.Shapes;
@@ -236,7 +237,7 @@ public class ModelElementInteractiveRadiobutton extends ModelElementPosition imp
 
 		if (infoFont==null || zoom!=infoFontZoom) {
 			infoFontZoom=zoom;
-			infoFont=new Font(Font.DIALOG,0,(int)FastMath.round(10*zoom));
+			infoFont=new Font(ModelElementBox.DEFAULT_FONT_TYPE,Font.PLAIN,(int)FastMath.round(10*zoom));
 			graphics.setFont(infoFont);
 			infoFontAscent=graphics.getFontMetrics().getAscent();
 			infoFontHeight=infoFontAscent+graphics.getFontMetrics().getDescent();

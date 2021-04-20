@@ -63,7 +63,7 @@ public class FontCache {
 		WIN_VERDANA("Verdana");
 
 		/** Name der Schriftart (aus Font-Objekt-Sicht) */
-		public final String name;
+		public String name;
 
 		/** Lokalisierter Name der Schriftart (kann <code>null</code> sein) */
 		private final Supplier<String> localName;
@@ -100,7 +100,7 @@ public class FontCache {
 	/**
 	 * Standardschriftart
 	 */
-	public static final FontFamily defaultFamily=FontFamily.DIALOG;
+	public static FontFamily defaultFamily=FontFamily.DIALOG;
 
 	/**
 	 * Zuordnung von Schriftarten (Name, Größe, Stil) zu den

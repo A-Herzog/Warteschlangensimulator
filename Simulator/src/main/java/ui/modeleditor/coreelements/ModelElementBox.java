@@ -91,13 +91,18 @@ public class ModelElementBox extends ModelElementPosition implements ElementWith
 	 * Standardschriftart für große Texte in der Elementenbox
 	 * @see #boxFontLarge
 	 */
-	public static final Font DEFAULT_FONT_LARGE=new Font(Font.DIALOG,Font.BOLD,13);
+	public static Font DEFAULT_FONT_LARGE=new Font(Font.DIALOG,Font.BOLD,13);
 
 	/**
 	 * Standardschriftart für kleine Texte in der Elementenbox
 	 * @see #boxFontSmall
 	 */
-	public static final Font DEFAULT_FONT_SMALL=new Font(Font.DIALOG,Font.PLAIN,11);
+	public static Font DEFAULT_FONT_SMALL=new Font(Font.DIALOG,Font.PLAIN,11);
+
+	/**
+	 * Standardmäßige Schriftart für alle möglichen Beschriftungen
+	 */
+	public static String DEFAULT_FONT_TYPE=Font.DIALOG;
 
 	/**
 	 * Schriftart für große Texte in der Elementenbox
@@ -571,7 +576,7 @@ public class ModelElementBox extends ModelElementPosition implements ElementWith
 			if (info!=null || infoMulti!=null) {
 				if (infoFont==null || zoom!=infoFontZoom) {
 					infoFontZoom=zoom;
-					infoFont=new Font(Font.DIALOG,0,(int)FastMath.round(10*zoom));
+					infoFont=new Font(DEFAULT_FONT_TYPE,Font.PLAIN,(int)FastMath.round(10*zoom));
 					graphics.setFont(infoFont);
 					infoFontAscent=graphics.getFontMetrics().getAscent();
 					infoFontHeight=infoFontAscent+graphics.getFontMetrics().getDescent();

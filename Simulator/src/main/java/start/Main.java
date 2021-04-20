@@ -14,6 +14,7 @@
  * limitations under the License.
  */
 package start;
+import java.awt.Font;
 import java.io.File;
 import java.lang.reflect.InvocationTargetException;
 
@@ -34,6 +35,8 @@ import ui.MainFrame;
 import ui.MainPanel;
 import ui.UpdateSystem;
 import ui.commandline.CommandLineSystem;
+import ui.modeleditor.coreelements.ModelElementBox;
+import ui.modeleditor.elements.FontCache;
 import ui.modeleditor.elements.ModelElementImage;
 import ui.tools.FlatLaFHelper;
 import xml.XMLTools;
@@ -135,6 +138,13 @@ public class Main {
 			GUITools.setupFontSize(scaling);
 			BaseDialog.windowScaling=scaling;
 			MsgBox.setBackend(new MsgBoxBackendTaskDialog());
+			if (setup.fontName!=null && !setup.fontName.trim().isEmpty()) {
+				GUITools.setFontName(setup.fontName);
+				ModelElementBox.DEFAULT_FONT_LARGE=new Font(setup.fontName,ModelElementBox.DEFAULT_FONT_LARGE.getStyle(),ModelElementBox.DEFAULT_FONT_LARGE.getSize());
+				ModelElementBox.DEFAULT_FONT_SMALL=new Font(setup.fontName,ModelElementBox.DEFAULT_FONT_SMALL.getStyle(),ModelElementBox.DEFAULT_FONT_SMALL.getSize());
+				ModelElementBox.DEFAULT_FONT_TYPE=setup.fontName;
+				FontCache.defaultFamily.name=setup.fontName;
+			}
 			new MainFrame(loadFile,null);
 		}
 	}

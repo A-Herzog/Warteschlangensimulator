@@ -586,6 +586,11 @@ public class SetupData extends SetupBase {
 	public int scriptFontSize;
 
 	/**
+	 * Optional eine abweichende programmweite Schriftart
+	 */
+	public String fontName;
+
+	/**
 	 * Zuletzt im Kommandozeilen-Befehle-Dialog verwendete Parameter
 	 */
 	public String commandLineDialogParameters;
@@ -1229,6 +1234,7 @@ public class SetupData extends SetupBase {
 		scriptScriptRunner="";
 		scriptCalculator="";
 		scriptFontSize=ScriptEditorAreaBuilder.DEFAULT_FONT_SIZE;
+		fontName="";
 		commandLineDialogParameters="";
 		backgroundSimulation=BackgroundProcessingMode.BACKGROUND_SIMULATION;
 		autoConnect=ModelSurfacePanel.ConnectMode.OFF;
@@ -1803,6 +1809,11 @@ public class SetupData extends SetupBase {
 			if (name.equals("scriptfontsize")) {
 				final Integer I=NumberTools.getNotNegativeInteger(e.getTextContent());
 				if (I!=null && I.intValue()>=6 && I.intValue()<=30) scriptFontSize=I.intValue();
+				continue;
+			}
+
+			if (name.equals("fontname")) {
+				fontName=e.getTextContent();
 				continue;
 			}
 
@@ -2464,6 +2475,11 @@ public class SetupData extends SetupBase {
 		if (scriptFontSize!=13) {
 			root.appendChild(node=doc.createElement("ScriptFontsize"));
 			node.setTextContent(""+scriptFontSize);
+		}
+
+		if (fontName!=null && !fontName.trim().isEmpty()) {
+			root.appendChild(node=doc.createElement("FontName"));
+			node.setTextContent(fontName);
 		}
 
 		if (commandLineDialogParameters!=null && !commandLineDialogParameters.trim().isEmpty()) {

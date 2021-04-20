@@ -39,6 +39,7 @@ import simulator.runmodel.RunDataTransporter;
 import simulator.runmodel.SimulationData;
 import ui.mjpeg.VideoSystem;
 import ui.modeleditor.coreelements.ModelElement;
+import ui.modeleditor.coreelements.ModelElementBox;
 import ui.modeleditor.elements.ModelElementAnimationConnect;
 import ui.modeleditor.elements.ModelElementAnimationForceMove;
 
@@ -166,7 +167,7 @@ public class ModelSurfaceAnimator extends ModelSurfaceAnimatorBase {
 	private void surfacePaintTime(final Graphics graphics, final Rectangle area, final double zoom, final long time) {
 		final String timeCode=TimeTools.formatLongTime(time);
 
-		graphics.setFont(new Font(Font.DIALOG,0,(int)FastMath.round(10*zoom)));
+		graphics.setFont(new Font(ModelElementBox.DEFAULT_FONT_TYPE,Font.PLAIN,(int)FastMath.round(10*zoom)));
 		final FontMetrics metrics=graphics.getFontMetrics();
 
 		graphics.setColor(new Color(220,220,220,128));

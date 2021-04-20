@@ -43,6 +43,7 @@ import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 import javax.swing.JProgressBar;
@@ -58,6 +59,7 @@ import scripting.java.DynamicFactory;
 import scripting.js.JSEngineNames;
 import simulator.editmodel.EditModelProcessor;
 import systemtools.BaseDialog;
+import systemtools.GUITools;
 import systemtools.MsgBox;
 import tools.SetupData;
 import ui.images.Images;
@@ -531,6 +533,9 @@ public class SystemInfoWindow extends JFrame {
 		menu.add(check=new JCheckBoxMenuItem(Language.tr("SystemInfo.Tools.UserInterface.Feedback"),setup.showFeedbackButton));
 		check.addActionListener(e->{setup.showFeedbackButton=!setup.showFeedbackButton; setup.saveSetup();});
 
+		menu.add(item=new JMenuItem(Language.tr("SystemInfo.Tools.UserInterface.Font"),Images.GENERAL_FONT.getIcon()));
+		item.addActionListener(e->selectProgramFont());
+
 		menu.add(label=new JMenuItem("<html><b>"+Language.tr("SystemInfo.Tools.Simulation")+"</b></html>"));
 		label.setEnabled(false);
 
@@ -554,6 +559,19 @@ public class SystemInfoWindow extends JFrame {
 		});
 
 		menu.show(parent,0,parent.getHeight());
+	}
+
+	/**
+	 * Zeigt einen Dialog zur Auswahl der Programmschriftart an.
+	 * @see SetupData#fontName
+	 * @see GUITools#setFontName(String)
+	 */
+	private void selectProgramFont() {
+		final String newFontName=JOptionPane.showInputDialog(this,Language.tr("SystemInfo.Tools.UserInterface.Font.Info"),setup.fontName);
+		if (newFontName!=null) {
+			setup.fontName=newFontName.trim();
+			setup.saveSetup();
+		}
 	}
 
 	/**

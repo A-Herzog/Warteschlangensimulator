@@ -42,6 +42,7 @@ import ui.modeleditor.ModelElementCatalog;
 import ui.modeleditor.ModelSurface;
 import ui.modeleditor.ModelSurfacePanel;
 import ui.modeleditor.coreelements.ModelElement;
+import ui.modeleditor.coreelements.ModelElementBox;
 import ui.modeleditor.coreelements.ModelElementEdgeMultiIn;
 import ui.modeleditor.coreelements.ModelElementEdgeMultiOut;
 import ui.modeleditor.coreelements.ModelElementEdgeOut;
@@ -738,7 +739,7 @@ public final class ModelElementEdge extends ModelElement {
 		final String text=getName();
 		if (text!=null && !text.isEmpty()) {
 			if (zoom!=lastZoomFont || lastFont==null) {
-				lastFont=new Font(Font.DIALOG,0,(int)Math.round(11*zoom));
+				lastFont=new Font(ModelElementBox.DEFAULT_FONT_TYPE,Font.PLAIN,(int)Math.round(11*zoom));
 				lastZoomFont=zoom;
 			}
 			graphics.setFont(lastFont);

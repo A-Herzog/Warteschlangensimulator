@@ -43,6 +43,7 @@ import ui.images.Images;
 import ui.modeleditor.ModelSurface;
 import ui.modeleditor.ModelSurfacePanel;
 import ui.modeleditor.coreelements.ModelElement;
+import ui.modeleditor.coreelements.ModelElementBox;
 import ui.modeleditor.coreelements.ModelElementEdgeMultiIn;
 import ui.modeleditor.coreelements.ModelElementEdgeOut;
 import ui.modeleditor.coreelements.ModelElementPosition;
@@ -264,7 +265,7 @@ public final class ModelElementVertex extends ModelElementPosition implements Mo
 		if (setup.showIDs) {
 			if (infoFont==null || zoom!=infoFontZoom) {
 				infoFontZoom=zoom;
-				infoFont=new Font(Font.DIALOG,0,(int)FastMath.round(10*zoom));
+				infoFont=new Font(ModelElementBox.DEFAULT_FONT_TYPE,Font.PLAIN,(int)FastMath.round(10*zoom));
 				graphics.setFont(infoFont);
 				infoFontAscent=graphics.getFontMetrics().getAscent();
 			} else {
