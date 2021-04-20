@@ -22,6 +22,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.List;
 import java.util.concurrent.locks.ReentrantLock;
 import java.util.function.Consumer;
@@ -258,10 +259,13 @@ public class CalcFuture {
 			try (DataInputStream data=new DataInputStream(fileInput)) {
 				int size=data.available();
 				final byte[] result=new byte[size];
-				if (data.read(result)<size) return null;
+				int read=0;
+				while (read<size) read+=data.read(result);
 				return result;
 			}
-		} catch (IOException e) {return null;}
+		} catch (IOException e) {
+			return null;
+		}
 	}
 
 	/**
@@ -474,6 +478,42 @@ public class CalcFuture {
 	}
 
 	/**
+	 * Versucht ein Modell aus html-Daten zu laden
+	 * @param data	html-Daten als Bytes
+	 * @return	Liefert im Erfolgsfall das Modell, sonst <code>null</code>
+	 * @see #run()
+	 */
+	private EditModel tryLoadHTML(final byte[] data) {
+		if (data==null || data.length==0) return null;
+		final String text=new String(data);
+
+		boolean firstLine=true;
+		boolean modelDataFollow=false;
+
+		final String[] lines=text.split("\n");
+		if (lines==null) return null;
+
+		for (String line: lines) {
+			if (firstLine) {
+				if (!line.trim().equalsIgnoreCase("<!doctype html>")) return null;
+			} else {
+				if (modelDataFollow) {
+					if (!line.trim().startsWith("data:application/xml;base64,")) return null;
+					final String base64data=line.trim().substring("data:application/xml;base64,".length());
+					final ByteArrayInputStream inputStream=new ByteArrayInputStream(Base64.getDecoder().decode(base64data));
+					final EditModel model=new EditModel();
+					if (model.loadFromStream(inputStream,FileType.AUTO)==null) return model;
+				} else {
+					if (line.trim().equalsIgnoreCase("QSModel")) modelDataFollow=true;
+				}
+			}
+			firstLine=false;
+		}
+
+		return null;
+	}
+
+	/**
 	 * Führt die Verarbeitung aus.<br>
 	 * Diese Methode kann über einen anderen Thread ausgeführt werden.
 	 */
@@ -486,6 +526,13 @@ public class CalcFuture {
 
 		if (originalModel==null) {
 			/* Normale Betriebsart, Modell oder Parameterreihen-Setup laden */
+
+			final EditModel htmlBasedModel=tryLoadHTML(input);
+			if (htmlBasedModel!=null) {
+				simulationType=SimulationType.MODEL;
+				runModel(htmlBasedModel);
+				return;
+			}
 
 			final EditModel model=new EditModel();
 			if (model.loadFromStream(new ByteArrayInputStream(input),FileType.AUTO)==null) {
