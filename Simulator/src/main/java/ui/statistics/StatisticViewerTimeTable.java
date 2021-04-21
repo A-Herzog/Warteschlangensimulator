@@ -426,7 +426,8 @@ public class StatisticViewerTimeTable extends StatisticViewerTable {
 			for (int j=0;j<dists.size();j++) {
 				double value=dists.get(j).densityData[i];
 				line.add(StatisticTools.formatNumber(value));
-				line.add(StatisticTools.formatPercent(value/sum.get(j),3));
+				final double s=sum.get(j);
+				if (s==0.0) line.add("0%"); else line.add(StatisticTools.formatPercent(value/s,3));
 			}
 			table.addLine(line);
 		}

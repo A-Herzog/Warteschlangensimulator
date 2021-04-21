@@ -14611,7 +14611,7 @@ public class Messages_de extends java.util.ResourceBundle {
     t[33554] = "Resources.Group.EditName.Dialog.Failure.Expression";
     t[33555] = "Ausfallabst\u00e4nde gem\u00e4\u00df Ausdruck";
     t[33556] = "Statistic.Viewer.Report.HTMLApp.Info";
-    t[33557] = "W\u00e4hlen Sie in der Baumstruktur links die anzuzeigende Rubrik aus.";
+    t[33557] = "W\u00e4hlen Sie in der Baumstruktur die anzuzeigende Rubrik aus.";
     t[33560] = "Surface.XML.TimeBase.Seconds";
     t[33561] = "Sekunden";
     t[33564] = "Surface.Process.XML.TimeCosts.ProcessingSecond";

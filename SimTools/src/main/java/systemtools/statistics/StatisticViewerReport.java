@@ -493,10 +493,9 @@ public class StatisticViewerReport extends StatisticViewerSpecialBase {
 		for (int i=0;i<Math.min(path.size()-1,current.size()-1);i++) if (path.get(i).equals(current.get(i))) matching++; else break;
 
 		for (int i=matching;i<current.size()-1;i++) {
-			for (int j=1;j<i;j++) sb.append("&nbsp;&nbsp;");
-			sb.append("<b>");
+			sb.append("<div class=\"treegroup\" style=\"padding-left: "+((i+1)/2.0)+"em;\">");
 			sb.append(current.get(i));
-			sb.append("</b><br>\n");
+			sb.append("</div>\n");
 		}
 
 		path.clear();
@@ -544,8 +543,9 @@ public class StatisticViewerReport extends StatisticViewerSpecialBase {
 			final String[] currentPath=fullPathes.get(i).split("\n");
 			addTreeParents(lastPath,Arrays.asList(currentPath),sb);
 
-			for (int j=1;j<currentPath.length;j++) sb.append("&nbsp;&nbsp;");
-			sb.append("<a onclick=\"show("+(i+1)+");\">"+htmlIconForViewer(viewers.get(i))+currentPath[currentPath.length-1]+"</a><br>\n");
+			sb.append("<a onclick=\"show("+(i+1)+",this);\" class=\"treeitem\" style=\"padding-left: "+(currentPath.length/2.0)+"em;\">");
+			sb.append(htmlIconForViewer(viewers.get(i))+currentPath[currentPath.length-1]);
+			sb.append("</a>\n");
 		}
 
 		return sb.toString();
@@ -577,8 +577,10 @@ public class StatisticViewerReport extends StatisticViewerSpecialBase {
 		if (modelName==null || modelName.trim().isEmpty()) title=StatisticsBasePanel.viewersReportSaveHTMLAppTitle; else title=modelName+" - "+StatisticsBasePanel.viewersReportSaveHTMLAppTitle;
 		bw.write("<h1 class=\"main\">"+title+"</h1>"); bw.newLine();
 		bw.write("<div class=\"page\">"); bw.newLine();
-		bw.write("<div style=\"flex-grow: 1; resize: horizontal;\">"+buildTree(viewers,fullPathes)+"</div>"); bw.newLine();
-		bw.write("<div style=\"flex-grow: 3;\">"); bw.newLine();
+		bw.write("<div class=\"tree\">"); bw.newLine();
+		bw.write(buildTree(viewers,fullPathes));
+		bw.write("</div>"); bw.newLine();
+		bw.write("<div class=\"topics\">"); bw.newLine();
 		bw.write(sb.toString()); bw.newLine();
 		bw.write("</div>"); bw.newLine();
 		bw.write("</div>"); bw.newLine();
@@ -586,7 +588,15 @@ public class StatisticViewerReport extends StatisticViewerSpecialBase {
 		bw.write("<script type=\"text/javascript\">"); bw.newLine();
 		bw.write("<!--"); bw.newLine();
 		bw.write("'use strict';"); bw.newLine();
-		bw.write("function show(id) {"); bw.newLine();
+		bw.write("var lastShow=null;"); bw.newLine();
+		bw.write("function show(id,element) {"); bw.newLine();
+		bw.write("  if (lastShow!=null) {"); bw.newLine();
+		bw.write("    lastShow.style.color=\"\";"); bw.newLine();
+		bw.write("    lastShow.style.backgroundColor=\"\";"); bw.newLine();
+		bw.write("  }"); bw.newLine();
+		bw.write("  lastShow=element;"); bw.newLine();
+		bw.write("  element.style.color=\"red\";"); bw.newLine();
+		bw.write("  element.style.backgroundColor=\"rgba(255,0,0,0.05)\";"); bw.newLine();
 		bw.write("  var divs=document.getElementsByClassName(\"topic\");"); bw.newLine();
 		bw.write("  for (var i=0;i<divs.length;i++) divs[i].style.display=(divs[i].id==\"topic\"+id)?\"block\":\"none\";"); bw.newLine();
 		bw.write("}"); bw.newLine();
@@ -688,12 +698,22 @@ public class StatisticViewerReport extends StatisticViewerSpecialBase {
 	private static String[] addStyles=new String[] {
 			"body {margin: 0; padding: 0; height: 100%; width: 100%; position: absolute;}",
 			"h1.main {color: white; background-color: blue; margin: 0px; padding: 5px 25px;}",
-			".page {display: flex; flex-flow: col nowrap; margin: 0; height: 92%;}",
-			".page div {height: 100%; padding: 2px; overflow: scroll;}",
-			".page div a {cursor: pointer; text-decoration: none; color: blue;}",
-			".page div a:hover {text-decoration: underline;}",
-			".topic {overflow: visible !important;}",
-			"a img {margin-right: 2px; vertical-align:middle;}"
+			".page {display: flex; flex-flow: column nowrap; margin: 0; height: 92%;}",
+			".page > div {height: 100%; padding: 2px; overflow: scroll;}",
+			".page > div a {cursor: pointer; text-decoration: none; color: blue;}",
+			".page > div a:hover {text-decoration: underline;}",
+			".tree {flex-grow: 1; resize: vertical;}",
+			".treegroup {font-weight: bold;}",
+			".treeitem {padding: 5px 0px; display: block;}",
+			".treeitem:hover {background-color: rgba(128,128,255,0.15);}",
+			".topics {flex-grow: 3;}",
+			".topic {overflow: visible !important; padding: 2px 5px;}",
+			".topic img {max-width: 100%;}",
+			"a img {margin-right: 3px; vertical-align:middle;}",
+			"@media all and (min-width: 50em) {",
+			"  .page {flex-flow: row nowrap;}",
+			"  .tree {resize: horizontal;}",
+			"}"
 	};
 
 	/**

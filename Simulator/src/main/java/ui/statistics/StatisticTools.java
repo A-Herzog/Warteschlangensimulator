@@ -66,11 +66,13 @@ public class StatisticTools {
 	 * @return Zahl als Zeichenkette
 	 */
 	public static String formatPercent(final double number)  {
-		sb1.setLength(0);
-		sb2.setLength(0);
-		sb2.append(NumberTools.formatNumber(number*100,Math.max(1,setup.statisticsPercentDigits),sb1));
-		sb2.append('%');
-		return sb2.toString();
+		synchronized(sb1) {
+			sb1.setLength(0);
+			sb2.setLength(0);
+			sb2.append(NumberTools.formatNumber(number*100,Math.max(1,setup.statisticsPercentDigits),sb1));
+			sb2.append('%');
+			return sb2.toString();
+		}
 		/* return NumberTools.formatPercent(number,Math.max(1,setup.statisticsPercentDigits)); */
 	}
 
@@ -81,11 +83,13 @@ public class StatisticTools {
 	 * @return Zahl als Zeichenkette
 	 */
 	public static String formatPercent(final double number, final int minDigits)  {
-		sb1.setLength(0);
-		sb2.setLength(0);
-		sb2.append(NumberTools.formatNumber(number*100,Math.max(minDigits,Math.max(1,setup.statisticsPercentDigits)),sb1));
-		sb2.append('%');
-		return sb2.toString();
+		synchronized(sb1) {
+			sb1.setLength(0);
+			sb2.setLength(0);
+			sb2.append(NumberTools.formatNumber(number*100,Math.max(minDigits,Math.max(1,setup.statisticsPercentDigits)),sb1));
+			sb2.append('%');
+			return sb2.toString();
+		}
 		/* return NumberTools.formatPercent(number,Math.max(minDigits,Math.max(1,setup.statisticsPercentDigits))); */
 	}
 

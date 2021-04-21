@@ -14611,7 +14611,7 @@ public class Messages_en extends java.util.ResourceBundle {
     t[33554] = "Resources.Group.EditName.Dialog.Failure.Expression";
     t[33555] = "Distances between downtimes by expression";
     t[33556] = "Statistic.Viewer.Report.HTMLApp.Info";
-    t[33557] = "Please select the category to be displayed from the tree structure on the left.";
+    t[33557] = "Please select the category to be displayed from the tree structure.";
     t[33560] = "Surface.XML.TimeBase.Seconds";
     t[33561] = "Seconds";
     t[33564] = "Surface.Process.XML.TimeCosts.ProcessingSecond";

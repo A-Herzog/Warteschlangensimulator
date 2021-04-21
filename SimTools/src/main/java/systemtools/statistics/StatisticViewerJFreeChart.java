@@ -314,7 +314,15 @@ public abstract class StatisticViewerJFreeChart implements StatisticViewer {
 	private BufferedImage getBufferedImage() {
 		if (chartPanel==null) firstChartRequest();
 		final int imageSize=getImageSize();
-		return chart.createBufferedImage(imageSize,imageSize);
+
+		chartSetup.setUserScale(Math.max(1,Math.min(5,imageSize/750)));
+		chartSetup.setupAll(chart);
+		try {
+			return chart.createBufferedImage(imageSize,imageSize);
+		} finally {
+			chartSetup.setUserScale(1);
+			chartSetup.setupAll(chart);
+		}
 	}
 
 	/**
