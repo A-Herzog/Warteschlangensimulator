@@ -29,7 +29,7 @@ import javax.swing.plaf.FontUIResource;
 /**
  * Diese Klasse stellt ein paar statische Funktionen zur Initialisierung der grafischen Oberfläche zur Verfügung.
  * @author Alexander Herzog
- * @version 1.3
+ * @version 1.4
  */
 public class GUITools {
 	/**
@@ -170,6 +170,24 @@ public class GUITools {
 					defaults.put(key,new Font(font.getName(),font.getStyle(),newSize));
 				}
 			}
+		}
+	}
+
+	/**
+	 * Stellt programmweit eine andere Schriftart ein.
+	 * @param fontName	Name der Schriftart
+	 */
+	public static void setFontName(final String fontName) {
+		if (fontName==null || fontName.trim().isEmpty()) return;
+
+		for (Object key: UIManager.getDefaults().keySet()) {
+			if (!(key instanceof String)) continue;
+			final String keyString=(String)key;
+			if (!keyString.toLowerCase().contains("font")) continue;
+			final Font oldFont=UIManager.getFont(key);
+			if (oldFont==null) continue;
+			final Font newFont=new Font(fontName,oldFont.getStyle(),oldFont.getSize());
+			UIManager.put(key,newFont);
 		}
 	}
 }
