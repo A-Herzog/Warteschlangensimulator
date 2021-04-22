@@ -228,6 +228,9 @@ public class ResourceTableModelDialog extends BaseDialog {
 		panel.add(selectSchedule=new JComboBox<>(scheduleNames));
 		selectSchedule.addActionListener(e->optionSchedule.setSelected(true));
 
+		tab.add(panel=new JPanel(new FlowLayout(FlowLayout.LEFT)));
+		panel.add(new JLabel(Language.tr("Resources.Group.EditName.Dialog.Number.Schedule.Info")));
+
 		group=new ButtonGroup();
 		group.add(optionNumber);
 		group.add(optionInfinite);

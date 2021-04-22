@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-04-21 20:52+0200\n"
+"POT-Creation-Date: 2021-04-22 20:37+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -3397,6 +3397,20 @@ msgstr "Dialog nicht schließen."
 
 msgid "Editor.DialogBase.OpenModelResources.InfoYes"
 msgstr "Dialog schließen und Ressourcenübersicht aufrufen."
+
+msgid "Editor.DialogBase.OpenModelSchedules"
+msgstr "Zeitpläne anzeigen"
+
+msgid "Editor.DialogBase.OpenModelSchedules.Info"
+msgstr ""
+"Soll dieser Dialog jetzt per \"Ok\" geschossen werden und\n"
+"die modellweite Übersicht über alle Zeitpläne aufgerufen werden?"
+
+msgid "Editor.DialogBase.OpenModelSchedules.InfoNo"
+msgstr "Dialog nicht schließen."
+
+msgid "Editor.DialogBase.OpenModelSchedules.InfoYes"
+msgstr "Dialog schließen und Zeitpläneübersicht aufrufen."
 
 msgid "Editor.DialogBase.OpenModelTranporters"
 msgstr "Modelltransporter anzeigen"
@@ -12429,6 +12443,9 @@ msgstr "Es wurde eingestellt, dass die Anzahl an Bedienern gemäß einem Zeitpla
 
 msgid "Resources.Group.EditName.Dialog.Number.Schedule.Error.Title"
 msgstr "Kein Zeitplan gewählt"
+
+msgid "Resources.Group.EditName.Dialog.Number.Schedule.Info"
+msgstr "(Zeitpläne können im Modelleigenschaften-Dialog auf der Seite \"Zeitpläne\" definiert werden.)"
 
 msgid "Resources.Group.EditName.Dialog.Tab.Costs"
 msgstr "Kosten"

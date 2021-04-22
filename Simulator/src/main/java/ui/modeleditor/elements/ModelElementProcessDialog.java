@@ -414,22 +414,6 @@ public class ModelElementProcessDialog extends ModelElementBaseDialog {
 	}
 
 	/**
-	 * Soll unmittelbar nach dem Schließen dieses Dialogs der Modelleigenschaften-Dialog zur Bearbeitung der Ressourcen geöffnet werden?
-	 * @see #isRequestOpenResourceDialog()
-	 */
-	private boolean requestOpenResourceDialog=false;
-
-	/**
-	 * Liefert <code>true</code>, wenn der Dialog mit der Anweisung geschlossen wurde,
-	 * den Modelleigenschaften-Dialog zur Bearbeitung der Ressourcen zu öffnen.
-	 * Der Aufrufer dieses dialogs muss prüfen, ob diese Methode <code>true</code> liefert.
-	 * @return	Soll unmittelbar nach dem Schließen dieses Dialogs der Modelleigenschaften-Dialog zur Bearbeitung der Ressourcen geöffnet werden?
-	 */
-	public boolean isRequestOpenResourceDialog() {
-		return requestOpenResourceDialog;
-	}
-
-	/**
 	 * Prüft die Eingaben im Dialog.
 	 * @param showErrorMessage	Soll im Fehlerfall eine Fehlermeldung ausgegeben werden?
 	 * @return	Liefert <code>true</code>, wenn alle Eingaben in Ordnung sind

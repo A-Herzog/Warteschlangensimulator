@@ -21,9 +21,12 @@ import java.awt.event.ActionListener;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Function;
+import java.util.function.Supplier;
 
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.table.TableCellEditor;
 
 import language.Language;
@@ -67,6 +70,8 @@ public class ModelElementSourceMultiTableModel extends JTableExtAbstractTableMod
 	private final ModelSurface surface;
 	/** Element, dessen Zuweisungen bearbeitet werden sollen (für den ExpressionBuilder und um die Variablenliste zusammenzustellen) */
 	private final ModelElement element;
+	/** Callback zum Erstellen der Schaltfläche zum Aufrufen der Zeitpläne */
+	private final Function<Supplier<Boolean>,JButton> getSchedulesButton;
 	/**
 	 * Kundendaten
 	 * @see #setClientData(ModelClientData)
@@ -93,10 +98,12 @@ public class ModelElementSourceMultiTableModel extends JTableExtAbstractTableMod
 	 * @param surface	Zeichenoberfläche
 	 * @param readOnly	Gibt an, ob die Daten bearbeitet werden dürfen (<code>false</code>) oder nicht (<code>true</code>).
 	 * @param help	Hilfe-Callback welches aufgerufen wird, wenn in einem der untergeordneten Dialoge auf die "Hilfe"-Schaltfläche geklickt wird.
+	 * @param getSchedulesButton	Callback zum Erstellen der Schaltfläche zum Aufrufen der Zeitpläne
 	 */
-	public ModelElementSourceMultiTableModel(final JTableExt table, final List<ModelElementSourceRecord> records, final boolean hasOwnArrivals, final ModelElement element, final EditModel model, final ModelSurface surface, final boolean readOnly, final Runnable help) {
+	public ModelElementSourceMultiTableModel(final JTableExt table, final List<ModelElementSourceRecord> records, final boolean hasOwnArrivals, final ModelElement element, final EditModel model, final ModelSurface surface, final boolean readOnly, final Runnable help, final Function<Supplier<Boolean>,JButton> getSchedulesButton) {
 		super();
 		this.help=help;
+		this.getSchedulesButton=getSchedulesButton;
 		this.table=table;
 		this.readOnly=readOnly;
 		this.model=model;
@@ -326,7 +333,7 @@ public class ModelElementSourceMultiTableModel extends JTableExtAbstractTableMod
 			if (nr==0) {
 				/* Add / Edit */
 				ModelElementSourceRecord record=(row<0)?new ModelElementSourceRecord(true,hasOwnArrivals):records.get(row);
-				ModelElementSourceMultiTableModelDialog dialog=new ModelElementSourceMultiTableModelDialog(table,record,element,model,surface,clientData,help);
+				ModelElementSourceMultiTableModelDialog dialog=new ModelElementSourceMultiTableModelDialog(table,record,element,model,surface,clientData,help,getSchedulesButton);
 				dialog.setVisible(true);
 				if (dialog.getClosedBy()==BaseDialog.CLOSED_BY_OK) {
 					if (row<0) records.add(record);

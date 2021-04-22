@@ -1919,6 +1919,13 @@ public final class ModelSurfacePanel extends JPanel {
 	public static String PROPERTIES_TYPE_PROPERTIES_TRANSPORTERS="showModelPropertiesTransporters";
 
 	/**
+	 * Es soll der Modelleigenschaftendialog mit der Zeitpläne-Seite angezeigt werden (wird als {@link ActionEvent#getActionCommand()} übergeben).
+	 * @see #addShowModelPropertiesListener(ActionListener)
+	 * @see #fireShowPropertiesDialog(String)
+	 */
+	public static String PROPERTIES_TYPE_PROPERTIES_SCHEDULES="showModelPropertiesSchedules";
+
+	/**
 	 * Es soll der Dialog zur Konfiguration der Hintergrundfarbe angezeigt werden (wird als {@link ActionEvent#getActionCommand()} übergeben).
 	 * @see #addShowModelPropertiesListener(ActionListener)
 	 * @see #fireShowPropertiesDialog(String)

@@ -35,6 +35,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
 import javax.swing.Box;
@@ -805,6 +806,36 @@ public abstract class ModelElementBaseDialog extends BaseDialog {
 			if (close(BaseDialog.CLOSED_BY_OK)) SwingUtilities.invokeLater(()->{
 				surfacePanel.fireShowPropertiesDialog(ModelSurfacePanel.PROPERTIES_TYPE_PROPERTIES_TRANSPORTERS);
 			});
+		});
+
+		return resourceButton;
+	}
+
+	/**
+	 * Liefert ein Button, welches beim Anklicken den Dialog (nach Rückfrage) per Ok schließt und die Zeitpläne-Seite im Modelleigenschaften-Dialog öffnet.
+	 * @param childDialogCloser	Optionales Callback über das zunächst die Close-Routine eines untergeordneten Dialogs aufgerufen werden kann
+	 * @return	Button oder <code>null</code>, wenn kein Callback zum Aufruf des Modelleigenschaften-Dialogs verfügbar ist
+	 */
+	protected final JButton getOpenModelSchedulesButton(final Supplier<Boolean> childDialogCloser) {
+		if (surfacePanel==null) return null;
+
+		final JButton resourceButton=new JButton(Language.tr("Editor.DialogBase.OpenModelSchedules"));
+		resourceButton.setIcon(Images.MODELPROPERTIES_SCHEDULES.getIcon());
+		resourceButton.addActionListener(e->{
+			if (!MsgBox.confirm(ModelElementBaseDialog.this,Language.tr("Editor.DialogBase.OpenModelSchedules"),Language.tr("Editor.DialogBase.OpenModelSchedules.Info"),Language.tr("Editor.DialogBase.OpenModelSchedules.InfoYes"),Language.tr("Editor.DialogBase.OpenModelSchedules.InfoNo"))) return;
+			if (childDialogCloser!=null) {
+				if (childDialogCloser.get()) {
+					SwingUtilities.invokeLater(()->{
+						if (close(BaseDialog.CLOSED_BY_OK)) SwingUtilities.invokeLater(()->{
+							surfacePanel.fireShowPropertiesDialog(ModelSurfacePanel.PROPERTIES_TYPE_PROPERTIES_SCHEDULES);
+						});
+					});
+				}
+			} else {
+				if (close(BaseDialog.CLOSED_BY_OK)) SwingUtilities.invokeLater(()->{
+					surfacePanel.fireShowPropertiesDialog(ModelSurfacePanel.PROPERTIES_TYPE_PROPERTIES_SCHEDULES);
+				});
+			}
 		});
 
 		return resourceButton;

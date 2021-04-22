@@ -88,7 +88,7 @@ public class ModelElementSplitDialog extends ModelElementBaseDialog {
 
 		final JTableExt recordsTable;
 		content.add(new JScrollPane(recordsTable=new JTableExt()),BorderLayout.CENTER);
-		recordsTable.setModel(recordsTableModel=new ModelElementSourceMultiTableModel(recordsTable,split.getRecords(),false,element,element.getModel(),element.getSurface(),readOnly,helpRunnable));
+		recordsTable.setModel(recordsTableModel=new ModelElementSourceMultiTableModel(recordsTable,split.getRecords(),false,element,element.getModel(),element.getSurface(),readOnly,helpRunnable,childDialog->getOpenModelSchedulesButton(childDialog)));
 		recordsTable.getColumnModel().getColumn(0).setMaxWidth(200);
 		recordsTable.getColumnModel().getColumn(0).setMinWidth(200);
 		recordsTable.setIsPanelCellTable(0);

@@ -23,6 +23,7 @@ import java.awt.FlowLayout;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.Serializable;
+import java.util.function.Supplier;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
@@ -213,8 +214,9 @@ public final class ModelElementSourceRecordPanel extends JPanel {
 	 * @param surface	Zeichenoberfl‰che
 	 * @param helpRunnable	Hilfe-Runnable
 	 * @param hasOwnArrivals	Gibt an, ob diese Quelle von sich aus Kunden generiert (<code>true</code>) oder nur von auﬂen angestoﬂen wird (<code>false</code>).
+	 * @param getSchedulesButton	Callback zum Erstellen der Schaltfl‰che zum Aufrufen der Zeitpl‰ne
 	 */
-	public ModelElementSourceRecordPanel(final boolean readOnly, final EditModel model, final ModelSurface surface, final Runnable helpRunnable, final boolean hasOwnArrivals) {
+	public ModelElementSourceRecordPanel(final boolean readOnly, final EditModel model, final ModelSurface surface, final Supplier<JButton> getSchedulesButton, final Runnable helpRunnable, final boolean hasOwnArrivals) {
 		super();
 		this.readOnly=readOnly;
 		this.model=model;
@@ -348,6 +350,14 @@ public final class ModelElementSourceRecordPanel extends JPanel {
 		scheduleNames=surface.getSchedules().getScheduleNames();
 		sub.add(schedule=new JComboBox<>(scheduleNames));
 		schedule.setEnabled(!readOnly);
+
+		if (!readOnly && getSchedulesButton!=null) {
+			final JButton schedulesButton=getSchedulesButton.get();
+			if (schedulesButton!=null) {
+				panel.add(sub=new JPanel(new FlowLayout(FlowLayout.LEFT)));
+				sub.add(schedulesButton);
+			}
+		}
 
 		/* Karte: Bedingung */
 
@@ -809,7 +819,7 @@ public final class ModelElementSourceRecordPanel extends JPanel {
 			}
 			break;
 		case 2: /* Zeitplan */
-			if (schedule.getSelectedIndex()<0) {
+			if (schedule.getSelectedIndex()<0 && schedule.getItemCount()>0) {
 				if (showErrorMessage) {
 					MsgBox.error(this,Language.tr("Surface.Source.Dialog.Schedule.Error.Title"),Language.tr("Surface.Source.Dialog.Schedule.Error.Info"));
 					return false;

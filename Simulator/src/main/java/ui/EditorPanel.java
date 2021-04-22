@@ -1265,6 +1265,10 @@ public final class EditorPanel extends EditorPanelBase {
 				showModelPropertiesDialog(ModelPropertiesDialog.InitialPage.TRANSPORTERS);
 				return;
 			}
+			if (cmd.equals(ModelSurfacePanel.PROPERTIES_TYPE_PROPERTIES_SCHEDULES)) {
+				showModelPropertiesDialog(ModelPropertiesDialog.InitialPage.SCHEDULES);
+				return;
+			}
 			if (cmd.equals(ModelSurfacePanel.PROPERTIES_TYPE_BACKGROUND)) {
 				showBackgroundColorDialog();
 				return;

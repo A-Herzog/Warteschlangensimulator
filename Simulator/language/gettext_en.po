@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-04-21 20:52+0200\n"
+"POT-Creation-Date: 2021-04-22 20:37+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -3394,6 +3394,20 @@ msgstr "Do not close dialog."
 
 msgid "Editor.DialogBase.OpenModelResources.InfoYes"
 msgstr "Close dialog and open resources list."
+
+msgid "Editor.DialogBase.OpenModelSchedules"
+msgstr "Show schedules"
+
+msgid "Editor.DialogBase.OpenModelSchedules.Info"
+msgstr ""
+"Do you want to close this dialog by \"Ok\" and\n"
+"open the model-wide schedules list?"
+
+msgid "Editor.DialogBase.OpenModelSchedules.InfoNo"
+msgstr "Do not close dialog."
+
+msgid "Editor.DialogBase.OpenModelSchedules.InfoYes"
+msgstr "Close dialog and open schedules list."
 
 msgid "Editor.DialogBase.OpenModelTranporters"
 msgstr "Show model transporters"
@@ -12426,6 +12440,9 @@ msgstr "You have chosen to set up the number of operators by a schudule, but no 
 
 msgid "Resources.Group.EditName.Dialog.Number.Schedule.Error.Title"
 msgstr "No schedule selected"
+
+msgid "Resources.Group.EditName.Dialog.Number.Schedule.Info"
+msgstr "(Schedules can be defined on the model properties dialog on the page \"Schedules\".)"
 
 msgid "Resources.Group.EditName.Dialog.Tab.Costs"
 msgstr "Costs"
