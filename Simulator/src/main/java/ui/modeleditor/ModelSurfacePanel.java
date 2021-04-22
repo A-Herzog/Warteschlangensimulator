@@ -80,6 +80,7 @@ import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 import javax.swing.JViewport;
+import javax.swing.KeyStroke;
 import javax.swing.SwingUtilities;
 
 import org.apache.batik.dom.GenericDOMImplementation;
@@ -2132,11 +2133,13 @@ public final class ModelSurfacePanel extends JPanel {
 
 		/* Modelleigenschaften */
 		menu.add(item=new JMenuItem(Language.tr("Main.Menu.File.ModelProperties")));
+		item.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F2,InputEvent.CTRL_DOWN_MASK));
 		item.setIcon(Images.MODEL.getIcon());
 		item.addActionListener(e->fireShowPropertiesDialog(PROPERTIES_TYPE_PROPERTIES));
 
 		/* Ebenen */
 		menu.add(item=new JMenuItem(Language.tr("Main.Menu.View.Layers")));
+		item.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F9,InputEvent.CTRL_DOWN_MASK+InputEvent.SHIFT_DOWN_MASK));
 		item.setIcon(Images.EDIT_LAYERS.getIcon());
 		item.addActionListener(e->fireShowPropertiesDialog(PROPERTIES_TYPE_LAYERS));
 
@@ -2150,6 +2153,7 @@ public final class ModelSurfacePanel extends JPanel {
 
 			/* Heatmaptyp */
 			menu.add(item=new JMenuItem(Language.tr("Main.Menu.View.Statistics.HeatMapSelect")));
+			item.setAccelerator(KeyStroke.getKeyStroke('H',InputEvent.CTRL_DOWN_MASK+InputEvent.SHIFT_DOWN_MASK));
 			item.addActionListener(e->fireShowPropertiesDialog(PROPERTIES_TYPE_HEATMAP_MODES));
 
 			/* Parameterreihe: Anzahl an Bedienern */
