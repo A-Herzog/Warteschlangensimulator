@@ -121,7 +121,7 @@ public class DBConnectDialog extends BaseDialog {
 		settingsPanel.storeData();
 		final StringBuilder sb=new StringBuilder();
 
-		try (DBConnect connect=new DBConnect(settings,false)) {
+		try (DBConnect connect=new DBConnect(settings,true)) {
 			if (connect.getInitError()!=null) sb.append(connect.getInitError()); else {
 				sb.append(Language.tr("Surface.Database.TestDialog.Info.Connection")+"\n");
 				final String[] list=connect.listTables();

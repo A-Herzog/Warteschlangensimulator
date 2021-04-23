@@ -113,7 +113,21 @@ public class DBConntectSetupTemplates {
 				null,
 				false,
 				DBConnectSetup.ProcessSettings.ACCESS,
-				DBConnectSetup.SelectSource.FILE_ACCESS);
+				DBConnectSetup.SelectSource.FILE_ACCESS),
+
+		/**
+		 * Apache Derby
+		 */
+		DERBY(
+				"Derby",
+				"org.apache.derby.jdbc.AutoloadedDriver",
+				"derby",
+				"select st.tablename from sys.systables st LEFT OUTER join sys.sysschemas ss on (st.schemaid = ss.schemaid) where ss.schemaname ='APP'",
+				null,
+				false,
+				DBConnectSetup.ProcessSettings.DERBY,
+				DBConnectSetup.SelectSource.FOLDER
+				);
 
 		/** Name des Datenbank-Servers */
 		public final String name;

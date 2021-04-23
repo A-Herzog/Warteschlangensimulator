@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-04-22 20:37+0200\n"
+"POT-Creation-Date: 2021-04-23 00:09+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -21956,6 +21956,9 @@ msgstr "Verbindungseinstellungen"
 msgid "Surface.Database.Config.ButtonHintAccess"
 msgstr "Access-Datenbankdatei auswählen"
 
+msgid "Surface.Database.Config.ButtonHintDerby"
+msgstr "Derby-Datebankverzeichnis auswählen"
+
 msgid "Surface.Database.Config.ButtonHintFile"
 msgstr "Datei auswählen"
 
@@ -21970,6 +21973,9 @@ msgstr "SQLite-Datenbankdatei auswählen"
 
 msgid "Surface.Database.Config.InfoAccess"
 msgstr "Konfiguration: Access-Datei"
+
+msgid "Surface.Database.Config.InfoDerby"
+msgstr "Konfiguration: Derby-Verzeichnis"
 
 msgid "Surface.Database.Config.InfoFirebird"
 msgstr "Konfiguration: Format //HostName:3050/DBDatei.fdb"

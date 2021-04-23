@@ -183,7 +183,7 @@ public class DBConnect implements Closeable {
 	 * @param user	Optional notwendiger Nutzername für den Zugriff auf die Datenbank
 	 * @param password	Optional notwendiges Passwort für den Zugriff auf die Datenbank
 	 * @param settings	Optionale weitere Einstellungen für dne Zugriff auf die Datenbank
-	 * @param allowCreateLocalFile	Soll im Bedarfsfall eine lokale Datenbankdatei / ein lokales Datenbanverzeichnis angelegt werden dürfen
+	 * @param allowCreateLocalFile	Soll im Bedarfsfall eine lokale Datenbankdatei / ein lokales Datenbankverzeichnis angelegt werden dürfen
 	 * @return	Liefert im Erfolgsfall ein Verbindungs-Objekt, sonst <code>null</code>
 	 * @see #initError
 	 */
@@ -197,7 +197,10 @@ public class DBConnect implements Closeable {
 		if (password==null) password="";
 		if (settings==null) settings="";
 
-		if (!allowCreateLocalFile) {
+		String configAddon="";
+		if (allowCreateLocalFile) {
+			if (type.processSettings.createFileConfig!=null) configAddon=type.processSettings.createFileConfig;
+		} else {
 			if (!localDataTest(type,config)) return null;
 		}
 
@@ -212,9 +215,9 @@ public class DBConnect implements Closeable {
 					final String[] parts=settings.split("=");
 					if (parts.length==2) properties.setProperty(parts[0].trim(),parts[1].trim());
 				}
-				return DriverManager.getConnection("jdbc:"+type.connector+":"+config,properties);
+				return DriverManager.getConnection("jdbc:"+type.connector+":"+config+configAddon,properties);
 			} else {
-				return DriverManager.getConnection("jdbc:"+type.connector+":"+config);
+				return DriverManager.getConnection("jdbc:"+type.connector+":"+config+configAddon);
 			}
 		} catch (SQLException e) {
 			initError=e.getMessage();
@@ -355,6 +358,10 @@ public class DBConnect implements Closeable {
 			return buildColumnNamesList(result);
 		} catch (SQLException e) {}
 
+		try (ResultSet result=statement.executeQuery("SELECT * FROM "+exactTableName+" fetch first 1 rows only")) {
+			return buildColumnNamesList(result);
+		} catch (SQLException e) {}
+
 		try (ResultSet result=statement.executeQuery("select rdb$field_name from rdb$relation_fields where rdb$relation_name='"+exactTableName+"';")) {
 			return buildColumnNamesListFirebird(result);
 		} catch (SQLException e) {}
@@ -476,13 +483,17 @@ public class DBConnect implements Closeable {
 		}
 
 		/* Iterator bauen */
+		final String selectCols=String.join(", ",selectColumns.toArray(new String[0])).replace(";","");
+		final String primary=selectColumns.get(0);
+		final List<String> secondary=new ArrayList<>(selectColumns); secondary.remove(0);
 		try {
-			final String selectCols=String.join(", ",selectColumns.toArray(new String[0])).replace(";","");
-			final String primary=selectColumns.get(0);
-			final List<String> secondary=new ArrayList<>(selectColumns); secondary.remove(0);
 			return new TableReadDoubleIterator(statement.executeQuery("SELECT "+selectCols+" FROM "+exactTableName+orderQuery+";"),primary,secondary.toArray(new String[0]));
-		} catch (SQLException e) {
-			return new TableReadDoubleIterator();
+		} catch (SQLException e1) {
+			try {
+				return new TableReadDoubleIterator(statement.executeQuery("SELECT "+selectCols+" FROM "+exactTableName+orderQuery),primary,secondary.toArray(new String[0]));
+			} catch (SQLException e2) {
+				return new TableReadDoubleIterator();
+			}
 		}
 	}
 

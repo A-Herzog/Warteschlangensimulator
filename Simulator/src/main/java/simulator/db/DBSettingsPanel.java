@@ -204,6 +204,10 @@ public class DBSettingsPanel extends JPanel {
 				labelConfig.setText(Language.tr("Surface.Database.Config.InfoAccess"));
 				buttonConfig.setToolTipText(Language.tr("Surface.Database.Config.ButtonHintAccess"));
 				break;
+			case DERBY:
+				labelConfig.setText(Language.tr("Surface.Database.Config.InfoDerby"));
+				buttonConfig.setToolTipText(Language.tr("Surface.Database.Config.ButtonHintDerby"));
+				break;
 			}
 		}
 

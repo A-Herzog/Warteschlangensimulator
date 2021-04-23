@@ -35,9 +35,10 @@ public class DBConnectSetup {
 	 */
 	public enum ProcessSettings {
 		/** Keine zusätzliche Verarbeitung */
-		NONE(null,s->s),
+		NONE(null,s->s,null),
 		/** Access-Anpassungen vornehmen */
-		ACCESS("Access",s->"//"+s.replace("\\","/"));
+		ACCESS("Access",s->"//"+s.replace("\\","/"),null),
+		DERBY("Derby",s->s,";create=true");
 
 		/** Name für den Enum-Eintrag */
 		public final String name;
@@ -45,14 +46,17 @@ public class DBConnectSetup {
 		/** Vorverarbeitungsmethode */
 		public final Function<String,String> processcor;
 
+		public final String createFileConfig;
+
 		/**
 		 * Konstruktor der Klasse
 		 * @param name	Name für den Enum-Eintrag
 		 * @param processcor	Vorverarbeitungsmethode
 		 */
-		ProcessSettings(final String name, final Function<String,String> processcor) {
+		ProcessSettings(final String name, final Function<String,String> processcor, final String createFileConfig) {
 			this.name=name;
 			this.processcor=processcor;
+			this.createFileConfig=createFileConfig;
 		}
 	}
 
