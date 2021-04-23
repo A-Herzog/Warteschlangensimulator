@@ -15012,6 +15012,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[34475] = "Name";
     t[34480] = "CalculatorDialog.Plotter.BuildExpression";
     t[34481] = "Ausdruck bearbeiten";
+    t[34482] = "SystemInfo.GCDelta";
+    t[34483] = "Zeit seit letzer Garbage collection";
     t[34484] = "Statistics.XML.Element.ProcessStationsByClientType";
     t[34485] = "StatistikBedienzeitenStationenKunden";
     t[34486] = "Simulation.Creator.InputConnectionsNotMatching";
@@ -16050,14 +16052,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[36823] = "Alle";
     t[36826] = "Statistics.Counter";
     t[36827] = "Z\u00e4hler";
-    t[36828] = "Update.Status.NewVersion";
-    t[36829] = "Es ist die neue Version %s verf\u00fcgbar.";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_8 (java.lang.String[] t) {
+    t[36828] = "Update.Status.NewVersion";
+    t[36829] = "Es ist die neue Version %s verf\u00fcgbar.";
     t[36838] = "Statistics.XML.Disribution.StepWideError";
     t[36839] = "Die in dem Element \"%s\" angegebene Schrittweite ist ung\u00fcltig.";
     t[36840] = "Surface.AnimationPointerMeasuring.Tooltip";
@@ -18056,14 +18058,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[41263] = "Wahl der Ausgabe als normale Zahl";
     t[41264] = "Simulation.Log.InputDDE.Info";
     t[41265] = "Kunde: %s, Station: %s, %s:=%s";
-    t[41270] = "Animation.Toolbar.Speed.Maximal";
-    t[41271] = "Maximal";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_9 (java.lang.String[] t) {
+    t[41270] = "Animation.Toolbar.Speed.Maximal";
+    t[41271] = "Maximal";
     t[41280] = "Main.Menu.SimulationCheckServerConnection.Mnemonic";
     t[41281] = "p";
     t[41292] = "Optimizer.Optimizer";

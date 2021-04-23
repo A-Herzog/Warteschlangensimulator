@@ -15012,6 +15012,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[34475] = "Name";
     t[34480] = "CalculatorDialog.Plotter.BuildExpression";
     t[34481] = "Build expression";
+    t[34482] = "SystemInfo.GCDelta";
+    t[34483] = "Time since last garbage collection";
     t[34484] = "Statistics.XML.Element.ProcessStationsByClientType";
     t[34485] = "StatisticsProcessTimesStationsClients";
     t[34486] = "Simulation.Creator.InputConnectionsNotMatching";
@@ -16050,14 +16052,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[36823] = "All";
     t[36826] = "Statistics.Counter";
     t[36827] = "Counter";
-    t[36828] = "Update.Status.NewVersion";
-    t[36829] = "The new version %s is available.";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_8 (java.lang.String[] t) {
+    t[36828] = "Update.Status.NewVersion";
+    t[36829] = "The new version %s is available.";
     t[36838] = "Statistics.XML.Disribution.StepWideError";
     t[36839] = "The step wide specified in element \"%s\" is invalid.";
     t[36840] = "Surface.AnimationPointerMeasuring.Tooltip";
@@ -18056,14 +18058,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[41263] = "Using floating point notation for numbers";
     t[41264] = "Simulation.Log.InputDDE.Info";
     t[41265] = "Client: %s, station: %s, %s:=%s";
-    t[41270] = "Animation.Toolbar.Speed.Maximal";
-    t[41271] = "Maximal";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_9 (java.lang.String[] t) {
+    t[41270] = "Animation.Toolbar.Speed.Maximal";
+    t[41271] = "Maximal";
     t[41280] = "Main.Menu.SimulationCheckServerConnection.Mnemonic";
     t[41281] = "v";
     t[41292] = "Optimizer.Optimizer";

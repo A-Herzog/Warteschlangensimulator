@@ -1,5 +1,5 @@
 /**
- * Copyright 2021 Alexander Hbrerzog
+ * Copyright 2021 Alexander Herzog
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,6 +24,7 @@ import java.awt.Window;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.Serializable;
+import java.lang.management.GarbageCollectorMXBean;
 import java.lang.management.ManagementFactory;
 import java.lang.management.MemoryMXBean;
 import java.lang.management.MemoryUsage;
@@ -31,6 +32,7 @@ import java.lang.management.ThreadInfo;
 import java.lang.management.ThreadMXBean;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.Timer;
@@ -91,6 +93,20 @@ public class SystemInfoWindow extends JFrame {
 	 * System zu Ermittlung der Thread-Daten
 	 */
 	private final ThreadMXBean threads=ManagementFactory.getThreadMXBean();
+
+	/**
+	 * Liste der aktiven Garbage Collectoren<br>
+	 * (Wird erst in {@link #updataData()} gesetzt, da dies evtl. scheitern kann.)
+	 * @see #updataData()
+	 */
+	private List<GarbageCollectorMXBean> gcList;
+
+	/**
+	 * Zeichenkette mit den Namen der aktiven Garbage Collectoren<br>
+	 * (Wird erst in {@link #updataData()} gesetzt, da dies evtl. scheitern kann.)
+	 * @see #updataData()
+	 */
+	private String gcNames;
 
 	/**
 	 * Anzahl der logischen CPU-Kerne in diesem System
@@ -310,6 +326,18 @@ public class SystemInfoWindow extends JFrame {
 	private long lastMemoryCommitedMB;
 
 	/**
+	 * Anzahl der Garbage Collector Läufe
+	 * @see #updataData()
+	 */
+	private long lastCollectionCount;
+
+	/**
+	 * Zeitpunkt des letzten Garbage Collector Laufs
+	 * @see #updataData()
+	 */
+	private long lastCollectionTime;
+
+	/**
 	 * Aktualisiert die Daten in {@link #infoLabel}
 	 * @see #infoLabel
 	 * @see #timer
@@ -392,7 +420,21 @@ public class SystemInfoWindow extends JFrame {
 		lastMemoryUsedMB=memoryUsedMB;
 
 		try {
-			infoText.append(Language.tr("SystemInfo.GC")+": "+String.join(", ",ManagementFactory.getGarbageCollectorMXBeans().stream().map(gcMxBean->gcMxBean.getName()).toArray(String[]::new)));
+			if (gcList==null) gcList=ManagementFactory.getGarbageCollectorMXBeans();
+			if (gcNames==null) gcNames=String.join(", ",gcList.stream().map(gcMxBean->gcMxBean.getName()).toArray(String[]::new));
+
+			infoText.append(Language.tr("SystemInfo.GC")+": "+gcNames+"<br>\n");
+			final long collectionCount=gcList.stream().mapToLong(gcMxBean->gcMxBean.getCollectionCount()).sum();
+			final long time=System.currentTimeMillis();
+
+			if (lastCollectionTime>0) infoText.append(Language.tr("SystemInfo.GCDelta")+": "+((time-lastCollectionTime)/1000)+" "+Language.tr("Statistics.Seconds")+"<br>\n");
+
+			if (lastCollectionCount!=collectionCount) {
+				lastCollectionCount=collectionCount;
+				lastCollectionTime=time;
+			}
+
+
 		} catch (RuntimeException e) {}
 
 		infoText.append("</p>\n");
