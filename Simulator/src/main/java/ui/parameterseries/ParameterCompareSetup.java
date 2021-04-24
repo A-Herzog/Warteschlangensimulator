@@ -17,7 +17,17 @@ package ui.parameterseries;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Future;
+import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.ThreadFactory;
+import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import org.apache.commons.math3.analysis.interpolation.SplineInterpolator;
 import org.apache.commons.math3.analysis.polynomials.PolynomialSplineFunction;
@@ -29,6 +39,10 @@ import mathtools.NumberTools;
 import mathtools.Table;
 import mathtools.TimeTools;
 import simulator.editmodel.EditModel;
+import statistics.StatisticsLongRunPerformanceIndicator;
+import statistics.StatisticsMultiPerformanceIndicator;
+import ui.statistics.StatisticTools;
+import ui.statistics.StatisticViewerOverviewText;
 import xml.XMLData;
 
 /**
@@ -484,6 +498,285 @@ public final class ParameterCompareSetup extends XMLData implements Cloneable {
 		}
 
 		return table;
+	}
+
+	/**
+	 * Liefert die Laufzeitstatistikdaten als Tabelle als {@link Table}-Objekt
+	 * @return	Laufzeitstatistikdaten als Tabelle (oder <code>null</code>, wenn keien Laufzeitstatistik aufgezeichnet wurde)
+	 */
+	public Table getLongRunTableData() {
+		final Table table=new Table();
+
+		final double[] quantilLevels=StatisticViewerOverviewText.getQuantilLevels();
+		final Map<String,LongRunData> data=getLongRunData(quantilLevels);
+		if (data==null || data.size()==0) return null;
+
+		final String[] names=data.keySet().stream().sorted().toArray(String[]::new);
+
+		/* Überschriften */
+		final List<String> heading1=new ArrayList<>();
+		final List<String> heading2=new ArrayList<>();
+		heading1.add("");
+		heading1.add("");
+		heading2.add("");
+		heading2.add("");
+		for (String name: names) {
+			/* Namen */
+			heading1.add(name);
+			for (int i=2;i<=3+quantilLevels.length;i++) heading1.add("");
+			/* Eigentliche Spaltenüberschriften */
+			heading2.add(Language.tr("ParameterCompare.Table.Info.Minimum"));
+			heading2.add(Language.tr("ParameterCompare.Table.Info.Mean"));
+			heading2.add(Language.tr("ParameterCompare.Table.Info.Maximum"));
+			for (double quantilLevel: quantilLevels) heading2.add(StatisticTools.formatPercent(quantilLevel)+"-"+Language.tr("Statistics.Quantil"));
+		}
+		table.addLine(heading1);
+		table.addLine(heading2);
+
+		/* Daten */
+		final long stepWideSec=editModel.longRunStatistics.getStepWideSec();
+		final int rowCount=data.values().stream().mapToInt(indicator->indicator.getRowCount()).max().orElse(0);
+		for (int interval=0;interval<rowCount;interval++) {
+			final List<String> line=new ArrayList<>();
+			/* Zeitbereich */
+			line.add(TimeTools.formatLongTime(stepWideSec*interval));
+			line.add(TimeTools.formatLongTime(stepWideSec*(interval+1)-1));
+			/* Kenngrößen */
+			for (String name: names) {
+				final LongRunData indicator=data.get(name);
+				line.add(NumberTools.formatNumberMax(indicator.getMin(interval)));
+				line.add(NumberTools.formatNumberMax(indicator.getMean(interval)));
+				line.add(NumberTools.formatNumberMax(indicator.getMax(interval)));
+				for (int nr=0;nr<quantilLevels.length;nr++) line.add(NumberTools.formatNumberMax(indicator.getQuantil(interval,nr)));
+			}
+			table.addLine(line);
+		}
+
+		return table;
+	}
+
+	/**
+	 * Berechnet die zusammengefassten Laufzeitstatistikdaten für die einzelnen Laufzeitstatistikindikatoren
+	 * @param quantilLevels	Auszugebende Quantilwerte (darf nicht <code>null</code> sein)
+	 * @return	Zuordnung von Laufzeitstatistikindikatorennamen zu den jeweiligen Daten
+	 * @see LongRunData
+	 */
+	private Map<String,LongRunData> getLongRunData(final double[] quantilLevels) {
+		final Map<String,LongRunData> data=new HashMap<>();
+
+		/* Threading-System vorbereiten */
+		final int coreCount=Runtime.getRuntime().availableProcessors();
+		final ExecutorService executor=new ThreadPoolExecutor(coreCount,coreCount,5,TimeUnit.SECONDS,new LinkedBlockingQueue<>(),new ThreadFactory() {
+			private final AtomicInteger threadNumber=new AtomicInteger(1);
+			@Override
+			public Thread newThread(Runnable r) {
+				return new Thread(r,"Long run data loader "+threadNumber.getAndIncrement());
+			}
+		});
+		((ThreadPoolExecutor)executor).allowCoreThreadTimeOut(true);
+
+		/* Parallele Verarbeitung starten */
+		final List<Future<Map<String,LongRunData>>> results=new ArrayList<>();
+		for (ParameterCompareSetupModel model: models) if (model.isStatisticsAvailable()) {
+			results.add(executor.submit(()->{
+				final Map<String,LongRunData> subData=new HashMap<>();
+				final StatisticsMultiPerformanceIndicator longRunStatistics=model.getStatistics().longRunStatistics;
+				for (String name: longRunStatistics.getNames()) {
+					final LongRunData longRunData=new LongRunData(quantilLevels);
+					longRunData.process((StatisticsLongRunPerformanceIndicator)longRunStatistics.get(name));
+					subData.put(name,longRunData);
+				}
+				return subData;
+			}));
+		}
+
+		/* Zu Gesamtstatistik hinzufügen */
+		for (Future<Map<String,LongRunData>> result: results) {
+			final Map<String,LongRunData> subData;
+			try {subData=result.get();} catch (InterruptedException|ExecutionException e) {return null;}
+
+			for (String name: subData.keySet()) {
+				LongRunData longRunData=data.get(name);
+				if (longRunData==null) data.put(name,longRunData=new LongRunData(quantilLevels));
+				longRunData.process(subData.get(name));
+			}
+		}
+
+		return data;
+	}
+
+	/**
+	 * Zusammengefasste Laufzeitstatistikdaten für einen Laufzeitstatistikindikator
+	 */
+	private static class LongRunData {
+		/**
+		 * Auszugebende Quantilwerte (darf nicht <code>null</code> sein)
+		 */
+		private final double[] quantilLevels;
+
+		/**
+		 * Erfasste Werte pro Datenreihe und pro Intervall
+		 */
+		private final List<double[]> values;
+
+		/**
+		 * Wurde die Verarbeitung durch {@link #processLoadedData()} abgeschlossen?
+		 * @see #processLoadedData()
+		 */
+		private boolean processingDone;
+
+		/**
+		 * Minimaler Wert pro Intervall
+		 * @see #processLoadedData()
+		 * @see #getMin(int)
+		 */
+		private double[] min;
+
+		/**
+		 * Mittelwert pro Intervall
+		 * @see #processLoadedData()
+		 * @see #getMean(int)
+		 */
+		private double[] mean;
+
+		/**
+		 * Maximaler Wert pro Intervall
+		 * @see #processLoadedData()
+		 * @see #getMax(int)
+		 */
+		private double[] max;
+
+		/**
+		 * Quantile pro Intervall
+		 * @see #processLoadedData()
+		 * @see #getQuantil(int, int)
+		 * @see #quantilLevels
+		 */
+		private double[][] quantil;
+
+		/**
+		 * Konstruktor der Klasse
+		 * @param quantilLevels	Auszugebende Quantilwerte (darf nicht <code>null</code> sein)
+		 */
+		public LongRunData(final double[] quantilLevels) {
+			this.quantilLevels=quantilLevels;
+			values=new ArrayList<>();
+		}
+
+		/**
+		 * Fügt einen weiteren Datensatz hinzu.
+		 * @param statistics	Neuer Datensatz
+		 */
+		private void process(final StatisticsLongRunPerformanceIndicator statistics) {
+			values.add(statistics.getValues());
+			processingDone=false;
+		}
+
+		/**
+		 * Fügt weitere Datensätze aus einem anderen {@link LongRunData}-Objekt hinzu.
+		 * @param otherLongRunData	Anderes {@link LongRunData}-Objekt dessen Daten hinzugefügt werden sollen
+		 */
+		private void process(final LongRunData otherLongRunData) {
+			values.addAll(otherLongRunData.values);
+			processingDone=false;
+		}
+
+		/**
+		 * Liefer die Anzahl der erfassten Zeitschritte.
+		 * @return	Anzahl der erfassten Zeitschritte
+		 */
+		public int getRowCount() {
+			return values.stream().mapToInt(row->row.length).max().orElse(0);
+		}
+
+		/**
+		 * Ermittelt die Kenngrößen aus den geladenen Daten.
+		 * @see #values
+		 */
+		private void processLoadedData() {
+			if (processingDone) return;
+			processingDone=true;
+
+			final int rowCount=getRowCount();
+
+			this.min=new double[rowCount];
+			this.mean=new double[rowCount];
+			this.max=new double[rowCount];
+			this.quantil=new double[rowCount][];
+
+			for (int interval=0;interval<rowCount;interval++) {
+				double min=Double.MAX_VALUE;
+				double max=-Double.MAX_VALUE;
+				int count=0;
+				double sum=0;
+				final List<Double> rowData=new ArrayList<>();
+				for (double[] row: values) if (interval<row.length) {
+					final double value=row[interval];
+					if (value<min) min=value;
+					if (value>max) max=value;
+					count++;
+					sum+=value;
+					rowData.add(value);
+				}
+				this.min[interval]=min;
+				this.mean[interval]=sum/Math.max(count,1);
+				this.max[interval]=max;
+
+				final double[] sorted=rowData.stream().mapToDouble(Double::doubleValue).sorted().toArray();
+				final double[] quantil=new double[quantilLevels.length];
+				for (int i=0;i<quantilLevels.length;i++) {
+					quantil[i]=sorted[(int)Math.floor(quantilLevels[i]*(sorted.length-1))];
+				}
+				this.quantil[interval]=quantil;
+			}
+		}
+
+		/**
+		 * Liefert das Minimum für ein Intervall.
+		 * @param interval	Nummer des Intervalls
+		 * @return	Minimum
+		 */
+		public double getMin(final int interval) {
+			processLoadedData();
+			if (interval<0 || interval>=min.length) return 0;
+			return min[interval];
+		}
+
+		/**
+		 * Liefert den Mittelwert für ein Intervall.
+		 * @param interval	Nummer des Intervalls
+		 * @return	Mittelwert
+		 */
+		public double getMean(final int interval) {
+			processLoadedData();
+			if (interval<0 || interval>=mean.length) return 0;
+			return mean[interval];
+		}
+
+		/**
+		 * Liefert das Maximum für ein Intervall.
+		 * @param interval	Nummer des Intervalls
+		 * @return	Maximum
+		 */
+		public double getMax(final int interval) {
+			processLoadedData();
+			if (interval<0 || interval>=max.length) return 0;
+			return max[interval];
+		}
+
+		/**
+		 * Liefert einen Quantilswert für ein Intervall.
+		 * @param interval	Nummer des Intervalls
+		 * @param nr	Nummer des Quantilswers (zu den im Konstruktor angegebenen Quantil-Levels)
+		 * @return	Quantilswert
+		 */
+		public double getQuantil(final int interval, final int nr) {
+			processLoadedData();
+			if (interval<0 || interval>=quantil.length) return 0;
+			final double[] quantilData=quantil[interval];
+			if (nr<0 || nr>=quantilData.length) return 0;
+			return quantilData[nr];
+		}
 	}
 
 	/**

@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-04-24 00:05+0200\n"
+"POT-Creation-Date: 2021-04-24 20:50+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -3109,6 +3109,13 @@ msgstr "Stationsübergänge zählen"
 
 msgid "Editor.Dialog.Tab.RunTimeStatistics"
 msgstr "Laufzeitstatistik"
+
+msgid "Editor.Dialog.Tab.RunTimeStatistics.Info"
+msgstr ""
+"Wird eine Varianzanalyse (über den Menüpunkt Simulation - Parameterreihe simulieren) ausgeführt,\n"
+"so können im Folgenden über Ergebnisse verarbeiten - Laufzeitstatistik als Tabelle speichern\n"
+"Minima, Maxima, Mittelwerte und Quantile über die hier angegebenen Kenngrößen pro Intervall\n"
+"ausgegeben werden."
 
 msgid "Editor.Dialog.Tab.RunTimeStatistics.InfoText"
 msgstr "Der Simulator kann während der Simulation in regelmäßigen Abständen den Wert beliebiger Ausdrücke aufzeichnen. Auf dieser Dialogseite kann eingestellt werden, welche Ausdrücke in welchen Abständen erfasst werden sollen."
@@ -11786,7 +11793,7 @@ msgid "ParameterCompare.Toolbar.ProcessResults.ClearStatistics.InfoYes"
 msgstr "Ergebnisse verwerfen."
 
 msgid "ParameterCompare.Toolbar.ProcessResults.CompareStatistics"
-msgstr "Ergebnisse vergleichen"
+msgstr "Ergebnisse vergleichen..."
 
 msgid "ParameterCompare.Toolbar.ProcessResults.Hint"
 msgstr "Bietet Funktionen an, um die Simulationsergebnisse zu filtern und zu speichern."
@@ -11834,7 +11841,22 @@ msgid "ParameterCompare.Toolbar.ProcessResults.ResultsChart.WindowSize.Hint"
 msgstr "Verändert die Fenstergröße."
 
 msgid "ParameterCompare.Toolbar.ProcessResults.ResultsChartSave"
-msgstr "Diagramme speichern"
+msgstr "Diagramme speichern..."
+
+msgid "ParameterCompare.Toolbar.ProcessResults.ResultsLongRun"
+msgstr "Laufzeitstatistik als Tabelle speichern..."
+
+msgid "ParameterCompare.Toolbar.ProcessResults.ResultsLongRun.Save"
+msgstr "Laufzeitstatistik speichern"
+
+msgid "ParameterCompare.Toolbar.ProcessResults.ResultsLongRun.Save.ErrorInfo"
+msgstr ""
+"Die Tabelle konnte nicht in der Datei\n"
+"%s\n"
+"gespeichert werden."
+
+msgid "ParameterCompare.Toolbar.ProcessResults.ResultsLongRun.Save.ErrorTitle"
+msgstr "Fehler beim Speichern der Tabelle"
 
 msgid "ParameterCompare.Toolbar.ProcessResults.ResultsTable.Copy"
 msgstr "Tabelle kopieren"
@@ -11846,7 +11868,7 @@ msgid "ParameterCompare.Toolbar.ProcessResults.ResultsTable.ODS"
 msgstr "Tabelle in OpenOffice/LibreOffice öffnen"
 
 msgid "ParameterCompare.Toolbar.ProcessResults.ResultsTable.Save"
-msgstr "Tabelle speichern"
+msgstr "Tabelle speichern..."
 
 msgid "ParameterCompare.Toolbar.ProcessResults.ResultsTable.Save.ErrorInfo"
 msgstr ""
@@ -11882,10 +11904,10 @@ msgid "ParameterCompare.Toolbar.ProcessResults.ResultsTable.Setup.Interpolation3
 msgstr "Beim Exportieren sehr viele Zwischenwerte per Interpolation hinzufügen"
 
 msgid "ParameterCompare.Toolbar.ProcessResults.RunScript"
-msgstr "Skript auf alle Ergebnisse anwenden"
+msgstr "Skript auf alle Ergebnisse anwenden..."
 
 msgid "ParameterCompare.Toolbar.ProcessResults.SaveStatistics"
-msgstr "Statistikdaten in Dateien speichern"
+msgstr "Statistikdaten in Dateien speichern..."
 
 msgid "ParameterCompare.Toolbar.ProcessResults.SaveStatistics.Log.Failed"
 msgstr "Speichern von Statistik zu Modell %s in Datei %s ist fehlgeschlagen."
@@ -14039,6 +14061,9 @@ msgstr "Bitte warten..."
 
 msgid "SimPrepare.Preparing"
 msgstr "Das Modell wird vorbereitet."
+
+msgid "SimPrepare.ProcessData"
+msgstr "Die Daten werden verarbeitet."
 
 msgid "Simulation.CalcError.Eval"
 msgstr "Für einen Vergleich konnte der Ausdruck %s nicht berechnet werden."

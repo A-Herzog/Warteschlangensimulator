@@ -983,7 +983,8 @@ public class ModelPropertiesDialog extends BaseDialog {
 
 		/* Schrittweite */
 
-		JPanel line=new JPanel(new FlowLayout(FlowLayout.LEFT)); content.add(line,BorderLayout.NORTH);
+		JPanel line=new JPanel(new FlowLayout(FlowLayout.LEFT));
+		content.add(line,BorderLayout.NORTH);
 		JLabel label=new JLabel(Language.tr("Editor.Dialog.Tab.RunTimeStatistics.StepWide")+":");
 		line.add(label);
 		line.add(stepWideEdit=new JTextField(10));
@@ -1033,6 +1034,12 @@ public class ModelPropertiesDialog extends BaseDialog {
 		table.setIsPanelCellTable(0);
 		table.setIsPanelCellTable(1);
 		content.add(new JScrollPane(table),BorderLayout.CENTER);
+
+		/* Infopanel */
+
+		line=new JPanel(new FlowLayout(FlowLayout.LEFT));
+		content.add(line,BorderLayout.SOUTH);
+		line.add(new JLabel("<html><body>"+Language.tr("Editor.Dialog.Tab.RunTimeStatistics.Info").replace("\n","<br>\n")+"</body></html>"));
 	}
 
 	/**

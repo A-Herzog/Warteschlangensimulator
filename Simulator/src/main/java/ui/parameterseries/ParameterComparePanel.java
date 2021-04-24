@@ -86,6 +86,7 @@ import tools.SetupData;
 import ui.MainFrame;
 import ui.ModelChanger;
 import ui.ModelViewerFrame;
+import ui.dialogs.WaitDialog;
 import ui.help.Help;
 import ui.images.Images;
 import ui.infopanel.InfoPanel;
@@ -514,6 +515,25 @@ public class ParameterComparePanel extends SpecialPanel {
 	}
 
 	/**
+	 * Befehl: (Popup) Laufzeitdaten speichern
+	 */
+	private void commandPopupLongRunSave() {
+		final Table table=(Table)WaitDialog.workObject(this,()->setup.getLongRunTableData(),WaitDialog.Mode.PROCESS_DATA);
+		if (table==null) return;
+
+		final File file=Table.showSaveDialog(this,Language.tr("ParameterCompare.Toolbar.ProcessResults.ResultsLongRun.Save"),null);
+		if (file==null) return;
+
+		if (file.exists()) {
+			if (!MsgBox.confirmOverwrite(this,file)) return;
+		}
+
+		if (!table.save(file)) {
+			MsgBox.error(this,Language.tr("ParameterCompare.Toolbar.ProcessResults.ResultsLongRun.Save.ErrorTitle"),String.format(Language.tr("ParameterCompare.Toolbar.ProcessResults.ResultsLongRun.Save.ErrorInfo"),file.toString()));
+		}
+	}
+
+	/**
 	 * Befehl: (Popup) Statistikdaten in Dateien speichern
 	 */
 	private void commandPopupSaveStatistics() {
@@ -746,14 +766,23 @@ public class ParameterComparePanel extends SpecialPanel {
 
 		boolean hasResults=false;
 		for (ParameterCompareSetupModel model: setup.getModels()) if (model.isStatisticsAvailable()) {hasResults=true; break;}
+
 		if (hasResults) {
+			/* Alle Ergebnisse löschen */
 			addMenuItem(menu,Language.tr("ParameterCompare.Toolbar.ProcessResults.ClearStatistics"),Images.PARAMETERSERIES_PROCESS_RESULTS_CLEAR.getIcon(),e->commandPopupClearStatistics());
+
+			/* Statistikdaten in Dateien speichern */
 			addMenuItem(menu,Language.tr("ParameterCompare.Toolbar.ProcessResults.SaveStatistics"),Images.GENERAL_SAVE.getIcon(),e->commandPopupSaveStatistics());
+
+			/* Ergebnisse vergleichen */
 			addMenuItem(menu,Language.tr("ParameterCompare.Toolbar.ProcessResults.CompareStatistics"),Images.PARAMETERSERIES_PROCESS_RESULTS_COMPARE.getIcon(),e->commandPopupCompareStatistics());
+
+			/* Skript auf alle Ergebnisse anwenden */
 			addMenuItem(menu,Language.tr("ParameterCompare.Toolbar.ProcessResults.RunScript"),Images.PARAMETERSERIES_PROCESS_RESULTS_SCRIPT.getIcon(),e->commandPopupRunScript());
 			menu.addSeparator();
 		}
 
+		/* Tabellenanzeige konfigurieren */
 		menu.add(sub=new JMenu(Language.tr("ParameterCompare.Toolbar.ProcessResults.ResultsTable.Setup")));
 		sub.setIcon(Images.GENERAL_SETUP.getIcon());
 		buttonGroup=new ButtonGroup();
@@ -783,8 +812,13 @@ public class ParameterComparePanel extends SpecialPanel {
 		radioItem.addActionListener(e->setupInterpolation(3));
 		buttonGroup.add(radioItem);
 
+		/* Tabelle kopieren */
 		addMenuItem(menu,Language.tr("ParameterCompare.Toolbar.ProcessResults.ResultsTable.Copy"),Images.EDIT_COPY.getIcon(),e->commandPopupTableCopy());
+
+		/* Tabelle speichern */
 		addMenuItem(menu,Language.tr("ParameterCompare.Toolbar.ProcessResults.ResultsTable.Save"),Images.GENERAL_SAVE.getIcon(),e->commandPopupTableSave());
+
+		/* Tabelle in ... öffnen */
 		if (StatisticsBasePanel.viewerPrograms.contains(StatisticsBasePanel.ViewerPrograms.EXCEL)) {
 			addMenuItem(menu,Language.tr("ParameterCompare.Toolbar.ProcessResults.ResultsTable.Excel"),SimToolsImages.SAVE_TABLE_EXCEL.getIcon(),e->commandPopupTableExcel());
 		}
@@ -793,14 +827,29 @@ public class ParameterComparePanel extends SpecialPanel {
 		}
 
 		if (hasResults && setup.getOutput().size()>0) {
+			/* Diagramm anzeigen */
 			menu.add(sub=new JMenu(Language.tr("ParameterCompare.Toolbar.ProcessResults.ResultsChart")));
 			sub.setIcon(Images.PARAMETERSERIES_PROCESS_RESULTS_CHARTS.getIcon());
 			for (final ParameterCompareSetupValueOutput output: setup.getOutput()) {
 				addMenuItem(sub,output.getName(),Images.PARAMETERSERIES_PROCESS_RESULTS_CHARTS.getIcon(),e->commandShowResultsChart(output));
 			}
+
+			/* Diagramm speichern */
 			addMenuItem(menu,Language.tr("ParameterCompare.Toolbar.ProcessResults.ResultsChartSave"),null,e->commandPopupChartsSave());
 		}
 
+		/* Laufzeitstatistik speichern */
+		if (hasResults) {
+			boolean hasLongRunStatistics=false;
+			for (ParameterCompareSetupModel model: setup.getModels()) if (model.isStatisticsAvailable()) {
+				if (model.getStatistics().longRunStatistics.size()>0) hasLongRunStatistics=true;
+				break;
+			}
+			if (hasLongRunStatistics) addMenuItem(menu,Language.tr("ParameterCompare.Toolbar.ProcessResults.ResultsLongRun"),SimToolsImages.SAVE_TABLE.getIcon(),e->commandPopupLongRunSave());
+		}
+
+
+		/* Menü anzeigen */
 		menu.show(processResults,0,processResults.getHeight());
 	}
 
