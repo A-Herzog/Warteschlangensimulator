@@ -41,18 +41,33 @@ public class ModelDescriptionBuilderSingleStation extends ModelDescriptionBuilde
 		description=new StringBuilder();
 	}
 
+	/**
+	 * Wandelt die Zeichen "&amp;", "&lt;" und "&gt;" in ihre entsprechenden
+	 * HTML-Entitäten um.
+	 * @param line	Umzuwandelnder Text
+	 * @return	Umgewandelter Text
+	 */
+	private String encodeHTML(final String line) {
+		if (line==null) return "";
+		String result;
+		result=line.replaceAll("&","&amp;");
+		result=result.replaceAll("<","&lt;");
+		result=result.replaceAll(">","&gt;");
+		return result;
+	}
+
 	@Override
 	protected void processStation(ModelElementBox station, Map<Integer,List<String[]>> properties) {
 		for (int key: properties.keySet().stream().mapToInt(I->I.intValue()).sorted().toArray()) {
 			for (String[] property: properties.get(key)) {
-				final String heading=property[0];
+				final String heading=encodeHTML(property[0]);
 				final String[] lines=property[1].split("\\\n");
 				if (description.length()>0) description.append("<br>\n");
 				if (lines.length==1) {
-					description.append("<b>"+heading+"</b>: "+lines[0]);
+					description.append("<b>"+heading+"</b>: "+encodeHTML(lines[0]));
 				} else {
 					description.append("<b>"+heading+"</b>:");
-					for (String line: lines) description.append("<br>\n"+line);
+					for (String line: lines) description.append("<br>\n"+encodeHTML(line));
 				}
 			}
 		}
