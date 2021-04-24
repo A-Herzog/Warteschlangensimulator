@@ -61,7 +61,9 @@ public class WaitDialog extends JDialog {
 		/** Das Modell wird vorbereitet. */
 		MODEL_PREPARE,
 		/** Eine Datei wird heruntergeladen. */
-		DOWNLOAD_FILE
+		DOWNLOAD_FILE,
+		/** Daten werden verarbeitet. */
+		PROCESS_DATA
 	}
 
 	/**
@@ -91,6 +93,10 @@ public class WaitDialog extends JDialog {
 		case DOWNLOAD_FILE:
 			infoText=Language.tr("SimPrepare.Downloading");
 			image=Images.HELP_HOMEPAGE;
+			break;
+		case PROCESS_DATA:
+			infoText=Language.tr("SimPrepare.ProcessData");
+			image=Images.EXTRAS_QUEUE;
 			break;
 		default:
 			infoText=Language.tr("SimPrepare.Preparing");
