@@ -38,6 +38,7 @@ public class DBConnectSetup {
 		NONE(null,s->s,null),
 		/** Access-Anpassungen vornehmen */
 		ACCESS("Access",s->"//"+s.replace("\\","/"),null),
+		/** Apache DerbyAnpassungen vornehmen */
 		DERBY("Derby",s->s,";create=true");
 
 		/** Name für den Enum-Eintrag */
@@ -46,12 +47,14 @@ public class DBConnectSetup {
 		/** Vorverarbeitungsmethode */
 		public final Function<String,String> processcor;
 
+		/** Zusätzliche Konfiguration zum Erstellen einer Datenbankdatei */
 		public final String createFileConfig;
 
 		/**
 		 * Konstruktor der Klasse
 		 * @param name	Name für den Enum-Eintrag
 		 * @param processcor	Vorverarbeitungsmethode
+		 * @param createFileConfig	Zusätzliche Konfiguration zum Erstellen einer Datenbankdatei
 		 */
 		ProcessSettings(final String name, final Function<String,String> processcor, final String createFileConfig) {
 			this.name=name;
