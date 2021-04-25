@@ -401,6 +401,13 @@ public class RunData {
 		/* State Change direkt zu Beginn auslösen, damit sich Elemente, die dies zum verzögerten Init benötigen direkt am Anfang initialisieren können. */
 		fireStateChangeNotify(simData);
 
+		/* Ist eine Abbruchzeit gesetzt, dann sicherstellen, dass zu diesem Zeitpunkt auch ein Ereignis ausgeführt wird. */
+		if (runModel.terminationTime>0) {
+			final SystemChangeEvent event=(SystemChangeEvent)simData.getEvent(SystemChangeEvent.class);
+			event.init(runModel.terminationTime*1000);
+			simData.eventManager.addEvent(event);
+		}
+
 		if (recordIncompleteClients) clients.requestFastClientsInUseList();
 	}
 
@@ -1612,7 +1619,7 @@ public class RunData {
 
 		/* Simulationsende über Zeitpunkt */
 		if (simData.runModel.terminationTime>=0) {
-			if (simData.currentTime>simData.runModel.terminationTime*1000) {
+			if (simData.currentTime>=simData.runModel.terminationTime*1000) {
 				/* Logging */
 				if (simData.loggingActive && simData.logInfoSystem) simData.logEventExecution(Color.BLACK,Language.tr("Simulation.Log.EndOfSimulation"),-1,Language.tr("Simulation.Log.EndOfSimulation.Time"));
 
