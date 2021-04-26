@@ -130,6 +130,9 @@ public class ModelElementAnimationInfoDialog extends BaseDialog {
 	/** InfoZeile zu {@link #listAll} */
 	private final JLabel listAllInfo;
 
+	/** Handelt es sich um den ersten Aufruf des "Alle Kunden"-Tabs? */
+	private boolean firstAllClientsTabCall=true;
+
 	/**
 	 * Konstruktor der Klasse <code>ModelElementAnimationInfoDialog</code>
 	 * @param owner	Übergeordnetes Fenster
@@ -223,6 +226,10 @@ public class ModelElementAnimationInfoDialog extends BaseDialog {
 			buttonUpdate.setVisible(!isAllClientsTab);
 			buttonAutoUpdate.setVisible(!isAllClientsTab);
 			buttonUpdateClients.setVisible(isAllClientsTab);
+			if (isAllClientsTab && getRealClient!=null && firstAllClientsTabCall) {
+				firstAllClientsTabCall=false;
+				commandUpdateClientList();
+			}
 		});
 		setMinSizeRespectingScreensize(600,400);
 		setSizeRespectingScreensize(800,600);
