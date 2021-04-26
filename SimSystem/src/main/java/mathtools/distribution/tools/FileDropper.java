@@ -33,7 +33,6 @@ import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
-import java.util.Iterator;
 import java.util.List;
 import java.util.function.Function;
 
@@ -173,16 +172,16 @@ public class FileDropper {
 		@Override
 		public void dragOver(DropTargetDragEvent dropTargetDragEvent) {}
 
-		@SuppressWarnings("unchecked")
 		@Override
 		public void drop(DropTargetDropEvent dropTargetDropEvent) {
 			try {
 				Transferable tr=dropTargetDropEvent.getTransferable();
 				if (tr.isDataFlavorSupported (DataFlavor.javaFileListFlavor)) {
 					dropTargetDropEvent.acceptDrop(DnDConstants.ACTION_COPY_OR_MOVE);
-					final List<File> fileList=(List<File>)(tr.getTransferData(DataFlavor.javaFileListFlavor));
-					final Iterator<File> iterator=fileList.iterator();
-					while (iterator.hasNext()) if (dropFile(iterator.next(),component,dropTargetDropEvent.getLocation())) break;
+					final Object obj=tr.getTransferData(DataFlavor.javaFileListFlavor);
+					if (obj instanceof List) for (Object entry: ((List<?>)obj)) if (entry instanceof File) {
+						if (dropFile((File)entry,component,dropTargetDropEvent.getLocation())) break;
+					}
 					dropTargetDropEvent.getDropTargetContext().dropComplete(true);
 				} else {
 					dropTargetDropEvent.rejectDrop();

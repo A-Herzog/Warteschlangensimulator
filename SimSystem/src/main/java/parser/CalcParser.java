@@ -253,10 +253,8 @@ public final class CalcParser {
 	public Object parse(final String text) {
 		/* In Tokens zerlegen */
 		final Object obj=splitString(text);
-		if (obj instanceof List<?>) {
-			@SuppressWarnings("unchecked")
-			List<Object> list=(List<Object>)obj;
-			return parse(list);
+		if (obj instanceof List) {
+			return parse((List<?>)obj);
 		} else {
 			return obj;
 		}
@@ -306,7 +304,7 @@ public final class CalcParser {
 	 * @see #parse(String)
 	 * @see #buildSub(List)
 	 */
-	private Object parse(List<Object> list) {
+	private Object parse(List<?> list) {
 		List<Object> temp, buffer;
 
 		/* Klammern verarbeiten */
@@ -412,7 +410,7 @@ public final class CalcParser {
 	 * @return	Objektbaum
 	 * @see #parse(List)
 	 */
-	private Object buildTree(final List<Object> list) {
+	private Object buildTree(final List<?> list) {
 		CalcSymbolFunction prioSym;
 		int prio, prioIndex;
 		while (list.size()>1) {

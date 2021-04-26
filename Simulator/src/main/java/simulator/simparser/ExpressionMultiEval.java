@@ -130,16 +130,15 @@ public class ExpressionMultiEval {
 	 * @return	Baumstruktur
 	 * @see #parseToTree(String)
 	 */
-	private List<String> getParseTree(final List<Object> tokens) {
+	private List<String> getParseTree(final List<?> tokens) {
 		List<String> symbols=new ArrayList<>();
 		for (Object obj: tokens) {
 			if (obj instanceof String) {
 				symbols.add((String)obj);
 				continue;
 			}
-			if (obj instanceof List<?>) {
-				@SuppressWarnings("unchecked")
-				final List<Object> subList=(List<Object>)obj;
+			if (obj instanceof List) {
+				final List<?> subList=(List<?>)obj;
 				final List<String> sub=getParseTree(subList);
 				for (String s: sub) symbols.add("  "+s);
 				continue;
@@ -165,12 +164,11 @@ public class ExpressionMultiEval {
 	 * @return	Anzahl an Zeichen
 	 * @see #parseTokens(List)
 	 */
-	@SuppressWarnings("unchecked")
-	private int getSubCharCount(final List<Object> tokens) {
+	private int getSubCharCount(final List<?> tokens) {
 		int count=0;
 		for (Object obj: tokens) {
 			if (obj instanceof String) {count+=((String)obj).length(); continue;}
-			if (obj instanceof List<?>) {count+=getSubCharCount((List<Object>)obj); continue;}
+			if (obj instanceof List) {count+=getSubCharCount((List<?>)obj); continue;}
 		}
 		return count;
 	}
@@ -181,8 +179,8 @@ public class ExpressionMultiEval {
 	 * @return	Baumstruktur
 	 * @see #parse(String)
 	 */
-	private Object parseTokens(final List<Object> tokens) {
-		List<Object> result=new ArrayList<>();
+	private Object parseTokens(final List<?> tokens) {
+		final List<Object> result=new ArrayList<>();
 		int parsedChars=0;
 
 		for (Object obj: tokens) {
@@ -210,10 +208,9 @@ public class ExpressionMultiEval {
 				parsedChars+=str.length();
 				continue;
 			}
-			if (obj instanceof List<?>) {
+			if (obj instanceof List) {
 				parsedChars++;
-				@SuppressWarnings("unchecked")
-				final List<Object> subList=(List<Object>)obj;
+				final List<?> subList=(List<?>)obj;
 				final Object o=parseTokens(subList);
 				if (o instanceof Integer) {
 					return parsedChars+((Integer)o);
@@ -245,15 +242,14 @@ public class ExpressionMultiEval {
 	 * @param condition	Vergleichsausdruck, der in dieses Auswerteobjekt geladen werden soll
 	 * @return	Liefert -1, wenn der Vergleichsausdruck erfolgreich geladen werden konnte, ansonsten die 0-basierende Fehlerstelle innerhalb des Strings.
 	 */
-	@SuppressWarnings("unchecked")
 	public int parse(final String condition) {
 		this.condition=condition;
 		if (condition==null || condition.isEmpty()) return 0;
 		List<Object> tokens=tokenize(condition);
 		Object obj=parseTokens(tokens);
 		if (obj instanceof Integer) return (Integer)obj;
-		if (obj instanceof List<?>) {
-			expressionTree=((List<Object>)obj).toArray(new Object[0]);
+		if (obj instanceof List) {
+			expressionTree=((List<?>)obj).toArray();
 			return -1;
 		}
 		return 0;
@@ -311,10 +307,9 @@ public class ExpressionMultiEval {
 				bIsSet=true;
 			}
 
-			if (obj instanceof List<?>) {
-				@SuppressWarnings("unchecked")
-				List<Object> subList=(List<Object>)obj;
-				b=evalTree(subList.toArray(new Object[0]),variableValues,simData,client)^lastIsNot;
+			if (obj instanceof List) {
+				final List<?> subList=(List<?>)obj;
+				b=evalTree(subList.toArray(),variableValues,simData,client)^lastIsNot;
 				lastIsNot=false;
 				bIsSet=true;
 			}

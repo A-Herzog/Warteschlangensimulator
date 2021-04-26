@@ -64,7 +64,6 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 import java.util.TooManyListenersException;
@@ -721,10 +720,11 @@ public final class ModelSurfacePanel extends JPanel {
 				dt.addDropTargetListener(new DropTargetAdapter() {
 					private boolean dropFileList(final DropTargetDropEvent dtde, final Transferable transfer) {
 						try {
-							@SuppressWarnings("unchecked")
-							final List<File> fileList=(List<File>)(transfer.getTransferData(DataFlavor.javaFileListFlavor));
-							final Iterator<File> iterator=fileList.iterator();
-							if (iterator.hasNext()) dropFile(iterator.next(),dtde.getLocation());
+							final Object obj=transfer.getTransferData(DataFlavor.javaFileListFlavor);
+							if (obj instanceof List) for (Object entry: ((List<?>)obj)) if (entry instanceof File) {
+								dropFile((File)entry,dtde.getLocation());
+								break;
+							}
 							return true;
 						} catch (UnsupportedFlavorException | IOException e) {return false;}
 					}
@@ -1840,12 +1840,9 @@ public final class ModelSurfacePanel extends JPanel {
 		if (transferable.isDataFlavorSupported(DataFlavor.javaFileListFlavor)) {
 			Object list=null;
 			try {list=transferable.getTransferData(DataFlavor.javaFileListFlavor);} catch (UnsupportedFlavorException | IOException e) {list=null;}
-			if (list instanceof List<?>) {
-				@SuppressWarnings("unchecked")
-				List<File> fileList=(List<File>)list;
-
-				final Iterator<File> iterator=fileList.iterator();
-				if (iterator.hasNext()) dropFile(iterator.next(),null);
+			if (list instanceof List) for (Object entry: (List<?>)list) if (entry instanceof File) {
+				dropFile((File)entry,null);
+				break;
 			}
 		}
 

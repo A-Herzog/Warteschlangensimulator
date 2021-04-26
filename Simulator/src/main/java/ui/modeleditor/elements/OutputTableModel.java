@@ -316,7 +316,6 @@ public class OutputTableModel extends JTableExtAbstractTableModel {
 			this(0,ActionIndex.ACTION_ADD,null);
 		}
 
-		@SuppressWarnings("unchecked")
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			switch (actionIndex) {
@@ -326,7 +325,7 @@ public class OutputTableModel extends JTableExtAbstractTableModel {
 				updateTable();
 				break;
 			case ACTION_COMBO_CHANGE:
-				mode.set(row,intToMode(((JComboBox<String>)object).getSelectedIndex()));
+				mode.set(row,intToMode(((JComboBox<?>)object).getSelectedIndex()));
 				updateTable();
 				break;
 			case ACTION_UP:

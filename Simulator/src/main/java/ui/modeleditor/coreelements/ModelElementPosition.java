@@ -617,12 +617,11 @@ public class ModelElementPosition extends ModelElement {
 	 * @param fixer	Liste der Korrektoren die erweitert werden soll
 	 * @see #addEdgeOutFixes(List)
 	 */
-	@SuppressWarnings("rawtypes")
-	protected final void findEdgesTo(Class[] types, final List<RunModelFixer> fixer) {
+	protected final void findEdgesTo(Class<?>[] types, final List<RunModelFixer> fixer) {
 		if (types==null || types.length==0) return;
 		int count=0;
 		for (ModelElement element: surface.getElements()) {
-			for (Class cls: types) {
+			for (Class<?> cls: types) {
 				if (cls.isInstance(element)) {
 					final String elementName;
 					if (element.getName().isEmpty()) {

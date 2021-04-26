@@ -83,8 +83,7 @@ public class ModelElementCatalogTransferHandler extends TransferHandler {
 	protected Transferable createTransferable(JComponent c) {
 		/* Prüfen ob die Quelle brauchbar ist */
 		if (!(c instanceof JList)) return null;
-		@SuppressWarnings("rawtypes")
-		Object obj=((JList)c).getSelectedValue();
+		final Object obj=((JList<?>)c).getSelectedValue();
 		if (obj instanceof ModelElementListGroup) return null;
 		if (!(obj instanceof ModelElementPosition)) return null;
 

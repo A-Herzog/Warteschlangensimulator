@@ -33,56 +33,51 @@ public class QuickFixNextElements {
 	/**
 	 * Sinnvolle Folgestationen für Quellen
 	 */
-	@SuppressWarnings("rawtypes")
-	public static final Class[] source=new Class[]{
-			ModelElementDecide.class,
-			ModelElementDuplicate.class,
-			ModelElementProcess.class,
-			ModelElementDelay.class,
-			ModelElementHold.class,
-			ModelElementHoldJS.class,
-			ModelElementBarrier.class,
-			ModelElementBarrierPull.class,
-			ModelElementBalking.class,
-			ModelElementSet.class,
-			ModelElementSetJS.class,
+	public static final Class<?>[] source=new Class<?>[]{
+		ModelElementDecide.class,
+		ModelElementDuplicate.class,
+		ModelElementProcess.class,
+		ModelElementDelay.class,
+		ModelElementHold.class,
+		ModelElementHoldJS.class,
+		ModelElementBarrier.class,
+		ModelElementBarrierPull.class,
+		ModelElementBalking.class,
+		ModelElementSet.class,
+		ModelElementSetJS.class,
 	};
 
 	/**
 	 * Sinnvolle Folgestationen für Bedienstationen (und Verzögerungsstationen)
 	 */
-	@SuppressWarnings("rawtypes")
-	public static final Class[] process=new Class[]{
-			ModelElementDispose.class,
-			ModelElementDisposeWithTable.class
+	public static final Class<?>[] process=new Class<?>[]{
+		ModelElementDispose.class,
+		ModelElementDisposeWithTable.class
 
 	};
 
 	/**
 	 * Sinnvolle Folgestationen für Zurückschrecken-Stationen
 	 */
-	@SuppressWarnings("rawtypes")
-	public static final Class[] balking=new Class[]{
-			ModelElementProcess.class
+	public static final Class<?>[] balking=new Class<?>[]{
+		ModelElementProcess.class
 	};
 
 	/**
 	 * Sinnvolle Folgestationen für Bedingung-Stationen und ähnliche
 	 */
-	@SuppressWarnings("rawtypes")
-	public static final Class[] hold=new Class[]{
-			ModelElementProcess.class,
-			ModelElementDelay.class
+	public static final Class<?>[] hold=new Class<?>[]{
+		ModelElementProcess.class,
+		ModelElementDelay.class
 	};
 
 	/**
 	 * Sinnvolle Folgestationen für Verzweigungen und Duplizieren-Stationen
 	 */
-	@SuppressWarnings("rawtypes")
-	public static final Class[] duplicate=new Class[] {
-			ModelElementAssign.class,
-			ModelElementAssignString.class,
-			ModelElementProcess.class,
-			ModelElementDelay.class
+	public static final Class<?>[] duplicate=new Class<?>[] {
+		ModelElementAssign.class,
+		ModelElementAssignString.class,
+		ModelElementProcess.class,
+		ModelElementDelay.class
 	};
 }

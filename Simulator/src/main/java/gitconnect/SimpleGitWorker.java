@@ -615,7 +615,7 @@ public class SimpleGitWorker implements Closeable {
 	 * in Bezug auf die Serverzugangsdaten.
 	 * @param transport	Transport-basierter Befehl
 	 */
-	private void setupTransportCommand(@SuppressWarnings("rawtypes") final TransportCommand transport) {
+	private void setupTransportCommand(final TransportCommand<?,?> transport) {
 		if (remoteName!=null) transport.setCredentialsProvider(new UsernamePasswordCredentialsProvider(remoteName,remotePassword));
 		if (keyFile!=null) transport.setTransportConfigCallback(getTransportConfigCallback());
 	}

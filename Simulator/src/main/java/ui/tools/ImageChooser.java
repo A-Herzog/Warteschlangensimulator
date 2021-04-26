@@ -39,7 +39,6 @@ import java.io.File;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 import java.util.TooManyListenersException;
@@ -140,10 +139,10 @@ public class ImageChooser extends JPanel {
 					/* Datei(en) abgelegt */
 					if (transfer.isDataFlavorSupported(DataFlavor.javaFileListFlavor)) {
 						try {
-							@SuppressWarnings("unchecked")
-							final List<File> fileList=(List<File>)(transfer.getTransferData(DataFlavor.javaFileListFlavor));
-							final Iterator<File> iterator=fileList.iterator();
-							while (iterator.hasNext()) if (dropFile(iterator.next())) break;
+							final Object obj=transfer.getTransferData(DataFlavor.javaFileListFlavor);
+							if (obj instanceof List) for (Object entry: ((List<?>)obj)) if (entry instanceof File) {
+								if (dropFile((File)entry)) break;
+							}
 							return;
 						} catch (UnsupportedFlavorException | IOException e) {return;}
 					}

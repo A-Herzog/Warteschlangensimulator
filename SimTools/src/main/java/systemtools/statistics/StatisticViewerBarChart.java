@@ -164,8 +164,7 @@ public class StatisticViewerBarChart extends StatisticViewerJFreeChart {
 
 			for (int i=0;i<data.getRowCount();i++) {
 				line=new ArrayList<>(1+data.getColumnCount());
-				@SuppressWarnings("rawtypes")
-				final Comparable rowKey=data.getRowKey(i);
+				final Comparable<?> rowKey=data.getRowKey(i);
 				line.add(rowKey.toString());
 				for (int j=0;j<data.getColumnCount();j++) {
 					final Number num=data.getValue(rowKey,data.getColumnKey(j));

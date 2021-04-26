@@ -817,7 +817,6 @@ public class ModelSurfaceAnimatorBase {
 	 * @param currentTime	Aktuelle Simulationszeit
 	 * @return	Liste mit den statischen Animations-Icons
 	 */
-	@SuppressWarnings("unchecked")
 	private List<DrawIcon> getStaticDrawIconsList(final RunDataClient[] clientsList, final Object skipClients, final RunDataTransporter skipTransporter, final RunDataResourceOperator[] operatorsList, final RunDataTransporter[] transporersList, final long currentTime) {
 		if (staticDrawList==null) {
 			staticDrawList=new ArrayList<>(10000);
@@ -847,8 +846,8 @@ public class ModelSurfaceAnimatorBase {
 
 			boolean skip=false;
 			if (skipClients!=null) {
-				if (skipClients instanceof List<?>) {
-					for (MoveClient skipClient: (List<MoveClient>)skipClients) if (client==skipClient.client) {skip=true; break;}
+				if (skipClients instanceof List) {
+					for (Object skipClient: (List<?>)skipClients) if ((skipClient instanceof MoveClient) && client==((MoveClient)skipClient).client) {skip=true; break;}
 				}
 				if (skipClients instanceof MoveClient) {
 					if (client==((MoveClient)skipClients).client) {skip=true; break;}

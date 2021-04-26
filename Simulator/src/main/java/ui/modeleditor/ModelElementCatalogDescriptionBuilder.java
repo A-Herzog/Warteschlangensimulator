@@ -62,8 +62,7 @@ import ui.modeleditor.fastpaint.Shapes;
  */
 public class ModelElementCatalogDescriptionBuilder {
 	/** Klasse zu der der Ressourcenpfad relativ sein soll */
-	@SuppressWarnings("rawtypes")
-	private final Class helpFolderRelativeClass;
+	private final Class<?> helpFolderRelativeClass;
 	/** Relativer Ressourcenpfad zu den Hilfeseiten in der aktuellen Sprache */
 	private final String helpFolder;
 	/** Text "siehe Seite" für Verweise */
@@ -84,7 +83,7 @@ public class ModelElementCatalogDescriptionBuilder {
 	 * @param removeRefs	Seitennamen zu denen keine Verlinkungen erfolgen sollen
 	 * @param replaceQuotationMarks	Sollen Anführungszeichen in die deutsche Variante überführt werden?
 	 */
-	public ModelElementCatalogDescriptionBuilder(@SuppressWarnings("rawtypes") final Class helpFolderRelativeClass, final String helpFolder, final String seePageString, final String[] elementString, final String[] removeRefs, final boolean replaceQuotationMarks) {
+	public ModelElementCatalogDescriptionBuilder(final Class<?> helpFolderRelativeClass, final String helpFolder, final String seePageString, final String[] elementString, final String[] removeRefs, final boolean replaceQuotationMarks) {
 		this.helpFolderRelativeClass=helpFolderRelativeClass;
 		if (helpFolder==null) this.helpFolder=""; else {
 			if (helpFolder.endsWith("/")) this.helpFolder=helpFolder.substring(0,helpFolder.length()-1); else this.helpFolder=helpFolder;
