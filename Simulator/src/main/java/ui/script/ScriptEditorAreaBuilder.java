@@ -19,6 +19,8 @@ import java.awt.Font;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
@@ -32,14 +34,17 @@ import org.fife.ui.autocomplete.CompletionCellRenderer;
 import org.fife.ui.autocomplete.DefaultCompletionProvider;
 import org.fife.ui.rsyntaxtextarea.RSyntaxTextArea;
 import org.fife.ui.rsyntaxtextarea.SyntaxConstants;
+import org.fife.ui.rsyntaxtextarea.Theme;
 
 import language.Language;
 import mathtools.distribution.tools.FileDropper;
+import net.dde.DDEConnect;
 import tools.SetupData;
 import ui.images.Images;
 import ui.modeleditor.ModelElementBaseDialog;
 import ui.script.ScriptPopup.ScriptFeature;
 import ui.script.ScriptPopup.ScriptMode;
+import ui.tools.FlatLaFHelper;
 
 /**
  * Diese Klasse erstellt und konfiguriert ein
@@ -124,6 +129,16 @@ public class ScriptEditorAreaBuilder {
 	public RSyntaxTextArea get() {
 		/* Konstruktor */
 		final RSyntaxTextArea editor=new RSyntaxTextArea();
+
+		/* Wenn nötig Dark Theme */
+		if (FlatLaFHelper.isDark()) {
+			try (InputStream inputStream=Theme.class.getResourceAsStream("themes/dark.xml")) {
+				final Theme theme=Theme.load(inputStream);
+				theme.apply(editor);
+			} catch (IOException e1) {
+				/* Wenn das Theme nicht verfügbar ist, weisen wir eben nichts zu. */
+			}
+		}
 
 		/* Schriftgröße */
 		setupFontSize(editor);
@@ -608,6 +623,7 @@ public class ScriptEditorAreaBuilder {
 		String outputNewLine="";
 		String outputTab="";
 		String outputCancel="";
+		String outputPrintlnDDE="";
 
 		if (language==ScriptMode.Javascript) {
 			final String obj=fileMode?"FileOutput":"Output";
@@ -627,6 +643,7 @@ public class ScriptEditorAreaBuilder {
 			outputNewLine=obj+".newLine();";
 			outputTab=obj+".tab();";
 			outputCancel=obj+".cancel();";
+			outputPrintlnDDE=obj+".printlnDDE(\"Workbook\",\"Table\",\"Cell\",\"Text\");";
 		}
 
 		if (language==ScriptMode.Java) {
@@ -647,6 +664,7 @@ public class ScriptEditorAreaBuilder {
 			outputNewLine=obj+".newLine();";
 			outputTab=obj+".tab();";
 			outputCancel=obj+".cancel();";
+			outputPrintlnDDE=obj+".printlnDDE(\"Workbook\",\"Table\",\"Cell\",\"Text\");";
 		}
 
 		if (fileMode) {
@@ -655,6 +673,9 @@ public class ScriptEditorAreaBuilder {
 
 		addAutoComplete(Language.tr("ScriptPopup.Output.Print"),Language.tr("ScriptPopup.Output.Print.Hint"),Images.SCRIPT_RECORD_TEXT.getIcon(),outputPrint);
 		addAutoComplete(Language.tr("ScriptPopup.Output.Println"),Language.tr("ScriptPopup.Output.Println.Hint"),Images.SCRIPT_RECORD_TEXT.getIcon(),outputPrintln);
+		if (new DDEConnect().available() && !fileMode) {
+			addAutoComplete(Language.tr("ScriptPopup.Output.PrintlnDDE"),Language.tr("ScriptPopup.Output.PrintlnDDE.Hint"),Images.SCRIPT_DDE.getIcon(),outputPrintlnDDE);
+		}
 
 		addAutoComplete(Language.tr("ScriptPopup.Output.NewLine"),Language.tr("ScriptPopup.Output.NewLine.Hint"),Images.SCRIPT_RECORD_TEXT.getIcon(),outputNewLine);
 		addAutoComplete(Language.tr("ScriptPopup.Output.Tab"),Language.tr("ScriptPopup.Output.Tab.Hint"),Images.SCRIPT_RECORD_TEXT.getIcon(),outputTab);

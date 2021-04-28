@@ -27,6 +27,7 @@ import javax.swing.JPopupMenu;
 import javax.swing.JTextArea;
 
 import language.Language;
+import net.dde.DDEConnect;
 import simulator.editmodel.EditModel;
 import simulator.elements.RunElementTank;
 import simulator.statistics.Statistics;
@@ -633,6 +634,7 @@ public class ScriptPopup {
 		String outputNewLine="";
 		String outputTab="";
 		String outputCancel="";
+		String outputPrintlnDDE="";
 
 		if (scriptMode==ScriptMode.Javascript) {
 			final String obj=fileMode?"FileOutput":"Output";
@@ -651,6 +653,7 @@ public class ScriptPopup {
 			outputNewLine=obj+".newLine();";
 			outputTab=obj+".tab();";
 			outputCancel=obj+".cancel();";
+			outputPrintlnDDE=obj+".printlnDDE(\"Workbook\",\"Table\",\"Cell\",\"Text\");";
 		}
 
 		if (scriptMode==ScriptMode.Java) {
@@ -670,6 +673,7 @@ public class ScriptPopup {
 			outputNewLine=obj+".newLine();";
 			outputTab=obj+".tab();";
 			outputCancel=obj+".cancel();";
+			outputPrintlnDDE=obj+".printlnDDE(\"Workbook\",\"Table\",\"Cell\",\"Text\");";
 		}
 
 		final ScriptPopupItemSub group;
@@ -690,6 +694,9 @@ public class ScriptPopup {
 		}
 		group.addChild(new ScriptPopupItemCommand(Language.tr("ScriptPopup.Output.Print"),Language.tr("ScriptPopup.Output.Print.Hint"),Images.SCRIPT_RECORD_TEXT.getIcon(),outputPrint));
 		group.addChild(new ScriptPopupItemCommand(Language.tr("ScriptPopup.Output.Println"),Language.tr("ScriptPopup.Output.Println.Hint"),Images.SCRIPT_RECORD_TEXT.getIcon(),outputPrintln));
+		if (new DDEConnect().available() && !fileMode) {
+			group.addChild(new ScriptPopupItemCommand(Language.tr("ScriptPopup.Output.PrintlnDDE"),Language.tr("ScriptPopup.Output.PrintlnDDE.Hint"),Images.SCRIPT_DDE.getIcon(),outputPrintlnDDE));
+		}
 		group.addSeparator();
 		group.addChild(new ScriptPopupItemCommand(Language.tr("ScriptPopup.Output.NewLine"),Language.tr("ScriptPopup.Output.NewLine.Hint"),null,outputNewLine));
 		group.addChild(new ScriptPopupItemCommand(Language.tr("ScriptPopup.Output.Tab"),Language.tr("ScriptPopup.Output.Tab.Hint"),null,outputTab));
@@ -710,6 +717,8 @@ public class ScriptPopup {
 		sub.addChild(new ScriptPopupItemCommand(Language.tr("ScriptPopup.Output.Separator.Semicolon"),Language.tr("ScriptPopup.Output.Separator.Semicolon.Hint"),null,outputSeparatorSemicolon));
 		sub.addChild(new ScriptPopupItemCommand(Language.tr("ScriptPopup.Output.Separator.Line"),Language.tr("ScriptPopup.Output.Separator.Line.Hint"),null,outputSeparatorLine));
 		sub.addChild(new ScriptPopupItemCommand(Language.tr("ScriptPopup.Output.Separator.Tabs"),Language.tr("ScriptPopup.Output.Separator.Tabs.Hint"),null,outputSeparatorTabs));
+		sub.addSeparator();
+
 
 		if (group!=parent) parent.addChild(group);
 	}

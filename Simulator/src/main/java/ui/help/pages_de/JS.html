@@ -649,6 +649,11 @@ Das <tt>Output</tt>-Objekt stellt Funktionen zur Ausgabe der gefilterten Ergebni
   <li><tt>Output.cancel()</tt><br>
   Setzt den Abbruch-Status. (Nach einem Abbruch werden Dateiausgaben nicht mehr ausgeführt.)
   </li>
+  <li><tt>Output.printlnDDE("Arbeitsmappe","Tabelle","Zelle","Ausdruck")</tt><br>
+  Dieser  Befehl steht nur zur Verfügung, wenn DDE verfügbar ist, d.h. unter Windows.
+  Er gibt den übergebenen Ausdruck per DDE in der angegebenen Tabelle in Excel aus.
+  Zahlenwerte werden dabei gemäß den per <tt>Output.setFormat</tt> vorgenommenen Einstellungen formatiert.
+  </li>
 </ul>
 
 

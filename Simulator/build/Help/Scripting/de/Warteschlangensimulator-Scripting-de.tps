@@ -11,8 +11,8 @@ MaxPos.x=-1
 MaxPos.y=-1
 NormalPos.left=4
 NormalPos.top=36
-NormalPos.right=3577
-NormalPos.bottom=1680
+NormalPos.right=3272
+NormalPos.bottom=1510
 Class=LaTeXView
 Document=Warteschlangensimulator-Scripting-de.tex
 
@@ -29,14 +29,14 @@ MaxPos.x=-1
 MaxPos.y=-1
 NormalPos.left=4
 NormalPos.top=36
-NormalPos.right=3577
-NormalPos.bottom=1680
+NormalPos.right=3272
+NormalPos.bottom=1510
 Class=LaTeXView
 Document=ScriptingJS.tex
 
 [Frame1_View0,0]
-TopLine=429
-Cursor=18549
+TopLine=734
+Cursor=31443
 
 [Frame2]
 Flags=0
@@ -47,16 +47,16 @@ MaxPos.x=-1
 MaxPos.y=-1
 NormalPos.left=4
 NormalPos.top=36
-NormalPos.right=3577
-NormalPos.bottom=1680
+NormalPos.right=3272
+NormalPos.bottom=1510
 Class=LaTeXView
 Document=ScriptingJava.tex
 
 [Frame2_View0,0]
-TopLine=519
-Cursor=21881
+TopLine=721
+Cursor=31794
 
 [SessionInfo]
 FrameCount=3
-ActiveFrame=2
+ActiveFrame=1
 

@@ -128,6 +128,7 @@ public class DynamicSecurity {
 			restrictedPermissions.add(new RuntimePermission("getProtectionDomain"));
 			restrictedPermissions.add(new RuntimePermission("accessDeclaredMembers")); /* Brauchen wir für Aufrufe über ExternalConnect */
 			restrictedPermissions.add(new ReflectPermission("suppressAccessChecks")); /* Den brauchen wir für GraalVM */
+			restrictedPermissions.add(new RuntimePermission("modifyThread")); /* Brauchen wir für die DDE-Ausgabe */
 			allPermissions=new Permissions();
 			allPermissions.add(new AllPermission());
 		}

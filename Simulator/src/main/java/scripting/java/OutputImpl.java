@@ -24,7 +24,9 @@ import java.util.function.Consumer;
 
 import language.Language;
 import mathtools.NumberTools;
+import mathtools.Table;
 import mathtools.TimeTools;
+import net.dde.DDEConnect;
 
 /**
  * Implementierungsklasse f¸r das Interface {@link OutputInterface}
@@ -199,40 +201,49 @@ public class OutputImpl implements OutputInterface {
 	 * @see #getOutputDouble()
 	 * @see #print(Object)
 	 */
-	private void printDouble(double value) {
+	private void printDouble(final double value) {
+		addOutputMain(processDouble(value));
+		outputPlainDouble=value;
+	}
+
+	/**
+	 * Wandelt eine Flieﬂkommazahl gem‰ﬂ den aktuellen Einstellungen in eine Zeichenkette um.
+	 * @param value	Umzuwandelnde Flieﬂkommazahl
+	 * @return	Ausgabezeichenkette
+	 * @see #printDouble(double)
+	 */
+	private String processDouble(final double value) {
 		if (time) {
 			if (systemNumbers) {
-				addOutputMain(TimeTools.formatExactSystemTime(value));
+				return TimeTools.formatExactSystemTime(value);
 			} else {
-				addOutputMain(TimeTools.formatExactTime(value));
+				return TimeTools.formatExactTime(value);
 			}
 		} else {
 			if (outputTemp==null) outputTemp=new StringBuilder();
 
 			if (systemNumbers) {
 				if (percent) {
-					addOutputMain(NumberTools.formatSystemNumber(value*100,outputTemp)+"%");
+					return NumberTools.formatSystemNumber(value*100,outputTemp)+"%";
 				} else {
-					addOutputMain(NumberTools.formatSystemNumber(value,outputTemp));
+					return NumberTools.formatSystemNumber(value,outputTemp);
 				}
 			} else {
 				if (percent) {
 					if (digits<1 || digits>13) {
-						addOutputMain(NumberTools.formatNumberMax(value*100,outputTemp)+"%");
+						return NumberTools.formatNumberMax(value*100,outputTemp)+"%";
 					} else {
-						addOutputMain(NumberTools.formatNumber(value*100,digits,outputTemp)+"%");
+						return  NumberTools.formatNumber(value*100,digits,outputTemp)+"%";
 					}
 				} else {
 					if (digits<1 || digits>13) {
-						addOutputMain(NumberTools.formatNumberMax(value,outputTemp));
+						return NumberTools.formatNumberMax(value,outputTemp);
 					} else {
-						addOutputMain(NumberTools.formatNumber(value,digits,outputTemp));
+						return  NumberTools.formatNumber(value,digits,outputTemp);
 					}
 				}
 			}
 		}
-
-		outputPlainDouble=value;
 	}
 
 	@Override
@@ -299,5 +310,27 @@ public class OutputImpl implements OutputInterface {
 	 */
 	public double getOutputDouble() {
 		return outputPlainDouble;
+	}
+
+	@Override
+	public boolean printlnDDE(final String workbook, final String table, final String cell, final Object obj) {
+		if (canceled) return false;
+		if (obj==null || workbook==null || table==null || cell==null) return false;
+
+		String outputString=null;
+		if (obj instanceof String) outputString=(String)obj;
+		if (obj instanceof Number) outputString=processDouble((((Number)obj).doubleValue()));
+		if (obj instanceof Boolean) outputString=((Boolean)obj).toString();
+		if (outputString==null) return false;
+
+		final int[] cellNumbers=Table.cellIDToNumbers(cell);
+		if (cellNumbers==null) return false;
+
+		final DDEConnect connect=new DDEConnect();
+		try {
+			return connect.setData(workbook,table,cellNumbers[0],cellNumbers[1],outputString);
+		} finally {
+			connect.closeSetDataConnection();
+		}
 	}
 }

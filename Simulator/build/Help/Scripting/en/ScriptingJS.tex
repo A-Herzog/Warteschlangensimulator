@@ -696,13 +696,13 @@ available digits are being printed.
 \cmd{Output.print("{}Expression")}:\\
 Outputs the passed expression.
 Strings will be written directly. Numbers are formated according to the format
-defined via \cmd{Output.setFormat}.
+defined via \cm{Output.setFormat}.
 
 \item
 \cmd{Output.println("{}Expression")}:\\
 Outputs the passed expression and adds a line break after the expression.
 Strings will be written directly. Numbers are formated according to the format
-defined via \cmd{Output.setFormat}.
+defined via \cm{Output.setFormat}.
 
 \item
 \cmd{Output.newLine()}:\\
@@ -716,6 +716,12 @@ Outputs a tabulator.
 \item
 \cmd{Output.cancel()}:\\
 Sets the cancel status. (When output is canceled to further file output will be performed.)
+
+\item
+\cmd{Output.printlnDDE("{}Workbook","{}Table","{}Cell","{}Expression")}:\\
+This command is only available if DDE is available, i.e. under Windows.
+It outputs the passed expression via DDE in the specified table in Excel.
+Numbers are formated according to the format defined via \cm{Output.setFormat}.
 
 \end{itemize}
 

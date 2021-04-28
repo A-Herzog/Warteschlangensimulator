@@ -624,6 +624,11 @@ The <tt>Output</tt> object provides functions for output of filtered results:
   <li><tt>Output.cancel()</tt><br>
   Sets the cancel status. (When output is canceled to further file output will be performed.)
   </li>
+  <li><tt>Output.printlnDDE("Workbook","Table","Cell","Expression")</tt><br>
+  This command is only available if DDE is available, i.e. under Windows.
+  It outputs the passed expression via DDE in the specified table in Excel.
+  Numbers are formated according to the format defined via <tt>Output.setFormat</tt>.
+  </li>
 </ul>
 
 

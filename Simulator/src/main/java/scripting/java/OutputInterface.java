@@ -72,4 +72,14 @@ public interface OutputInterface {
 	 * @param file	Ausgabedatei
 	 */
 	void setFile(final Object file);
+
+	/**
+	 * Gibt einen String oder eine Zahl über eine DDE-Verbindung aus.
+	 * @param workbook	Ziel-Excel-Arbeitsmappe
+	 * @param table	Ziel-Excel-Tabelle in der Arbeitsmappe
+	 * @param cell	Ziel-Excel-Zelle in der Tabelle
+	 * @param obj	Auszugebendes Objekt
+	 * @return	Gibt an, ob der Zellenwert an Excel übermittelt werden konnte
+	 */
+	boolean printlnDDE(final String workbook, final String table, final String cell, final Object obj);
 }

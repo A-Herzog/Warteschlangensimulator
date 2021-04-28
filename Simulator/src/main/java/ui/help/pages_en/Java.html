@@ -616,6 +616,11 @@ The <tt>OutputInterface</tt> interface provides functions for output of filtered
   <li><tt>void cancel()</tt><br>
   Sets the cancel status. (When output is canceled to further file output will be performed.)
   </li>
+  <li><tt>printlnDDE(final String workbook, final String table, final String cell, final Object obj)</tt><br>
+  This command is only available if DDE is available, i.e. under Windows.
+  It outputs the passed expression via DDE in the specified table in Excel.
+  Numbers are formated according to the format defined via <tt>setFormat</tt>.
+  </li>
 </ul>
 
 

@@ -690,7 +690,7 @@ kann angegeben werden, ob Zahlenwerte als Prozentangabe ausgegeben werden sollen
 der Wert mit 100 multipliziert und ein "\%"-Zeichen an die Zahl angefügt. Voreingestellt ist stets die
 Ausgabe in lokaler Notation und die Ausgabe als normale Fließkommazahl (also nicht als Prozentwert).
 
-Folgende Parameter können \cmd{Output.setFormat} übergeben werden:
+Folgende Parameter können \cm{Output.setFormat} übergeben werden:
 \begin{itemize}
 \item
 \cmd{System}:\\
@@ -744,13 +744,13 @@ negativer Wert bedeutet, dass alle verfügbaren Nachkommastellen ausgegeben.
 \cmd{Output.print("{}Ausdruck")}:\\
 Gibt den übergebenen Ausdruck aus.
 Zeichenketten werden direkt ausgegeben. Zahlenwerte werden gemäß den per
-\cmd{Output.setFormat} vorgenommenen Einstellungen formatiert.
+\cm{Output.setFormat} vorgenommenen Einstellungen formatiert.
 
 \item
 \cmd{Output.println("{}Ausdruck")}:\\
 Gibt den übergebenen Ausdruck aus und fügt dabei einen Zeilenumbruch an.
 Zeichenketten werden direkt ausgegeben. Zahlenwerte werden gemäß den per
-\cmd{Output.setFormat} vorgenommenen Einstellungen formatiert.
+\cm{Output.setFormat} vorgenommenen Einstellungen formatiert.
 
 \item
 \cmd{Output.newLine()}:\\
@@ -764,6 +764,12 @@ Gibt einen Tabulator aus.
 \item
 \cmd{Output.cancel()}:\\
 Setzt den Abbruch-Status. (Nach einem Abbruch werden Dateiausgaben nicht mehr ausgeführt.)
+
+\item
+\cmd{Output.printlnDDE("{}Arbeitsmappe","{}Tabelle","{}Zelle","{}Ausdruck")}:\\
+Dieser  Befehl steht nur zur Verfügung, wenn DDE verfügbar ist, d.h. unter Windows.
+Er gibt den übergebenen Ausdruck per DDE in der angegebenen Tabelle in Excel aus.
+Zahlenwerte werden dabei gemäß den per \cm{Output.setFormat} vorgenommenen Einstellungen formatiert.
 
 \end{itemize}
 

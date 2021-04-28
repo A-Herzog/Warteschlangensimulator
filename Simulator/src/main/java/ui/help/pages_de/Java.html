@@ -644,6 +644,11 @@ Das <tt>OutputInterface</tt>-Interface stellt Funktionen zur Ausgabe der gefilte
   <li><tt>void cancel()</tt><br>
   Setzt den Abbruch-Status. (Nach einem Abbruch werden Dateiausgaben nicht mehr ausgeführt.)
   </li>
+  <li><tt>printlnDDE(final String workbook, final String table, final String cell, final Object obj)</tt><br>
+  Dieser  Befehl steht nur zur Verfügung, wenn DDE verfügbar ist, d.h. unter Windows.
+  Er gibt den übergebenen Ausdruck per DDE in der angegebenen Tabelle in Excel aus.
+  Zahlenwerte werden dabei gemäß den per <tt>setFormat</tt> vorgenommenen Einstellungen formatiert.
+  </li>
 </ul>
 
 

@@ -761,6 +761,12 @@ Gibt einen Tabulator aus.
 \cmd{void cancel()}:\\
 Setzt den Abbruch-Status. (Nach einem Abbruch werden Dateiausgaben nicht mehr ausgeführt.)
 
+\item
+\cmd{printlnDDE(final String workbook, final String table, final String cell, final Object obj)}:\\
+Dieser  Befehl steht nur zur Verfügung, wenn DDE verfügbar ist, d.h. unter Windows.
+Er gibt den übergebenen Ausdruck per DDE in der angegebenen Tabelle in Excel aus.
+Zahlenwerte werden dabei gemäß den per \cm{setFormat} vorgenommenen Einstellungen formatiert.
+
 \end{itemize}
 
 

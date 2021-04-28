@@ -1115,6 +1115,9 @@ public enum Images {
 	/** Symbol "Skriptdatei" */
 	SCRIPT_FILE("plugin.png"),
 
+	/** Script "DDE-Ausgabe zu Excel" */
+	SCRIPT_DDE("comment.png"),
+
 	/* Verteilung anpassen */
 
 	/** Symbol "Verteilung anpassen - Seite 'Werte'" */

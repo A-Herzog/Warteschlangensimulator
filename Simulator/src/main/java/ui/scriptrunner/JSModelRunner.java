@@ -129,10 +129,10 @@ public class JSModelRunner {
 		canceled=true;
 		if (scriptRunner!=null) scriptRunner.cancel();
 		if (dynamicRunner!=null) {
-			dynamicRunner.parameter.output.cancel();
-			dynamicRunner.parameter.fileoutput.cancel();
-			dynamicRunner.parameter.model.cancel();
-			dynamicRunner.parameter.statistics.cancel();
+			if (dynamicRunner.parameter.output!=null) dynamicRunner.parameter.output.cancel();
+			if (dynamicRunner.parameter.fileoutput!=null) dynamicRunner.parameter.fileoutput.cancel();
+			if (dynamicRunner.parameter.model!=null) dynamicRunner.parameter.model.cancel();
+			if (dynamicRunner.parameter.statistics!=null) dynamicRunner.parameter.statistics.cancel();
 		}
 	}
 
