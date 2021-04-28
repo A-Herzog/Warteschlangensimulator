@@ -122,6 +122,7 @@ import ui.modeleditor.elements.ModelElementSourceRecord;
 import ui.modeleditor.elements.ModelElementSub;
 import ui.modeleditor.elements.ModelElementTank;
 import ui.modelproperties.ModelPropertiesDialog;
+import ui.tools.FlatLaFHelper;
 import ui.tools.GlassInfo;
 
 /**
@@ -417,7 +418,7 @@ public class AnimationPanel extends JPanel implements RunModelAnimationViewer {
 		statusPanel.add(logArea=new JPanel(new BorderLayout()),BorderLayout.SOUTH);
 		logArea.setVisible(false);
 		logArea.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-		logArea.setBackground(Color.WHITE);
+		logArea.setBackground(FlatLaFHelper.isDark()?Color.DARK_GRAY:Color.WHITE);
 		logArea.add(logLabel=new JLabel(),BorderLayout.CENTER);
 		logLabel.setBorder(BorderFactory.createEmptyBorder(2,5,2,5));
 		final JToolBar logToolBar=new JToolBar(SwingConstants.VERTICAL);
@@ -1657,9 +1658,9 @@ public class AnimationPanel extends JPanel implements RunModelAnimationViewer {
 		}
 		if (logTextPlain.length()<MAX_LOG_VIEWER_SIZE) {
 			if (data.id>=0) {
-				logText.append(data.time+": <b><span style=\"background-color: #"+colorCode+";\">&nbsp; "+data.event+" (id="+data.id+")"+" &nbsp;</span></b> "+data.info);
+				logText.append(data.time+": <b><span style=\"background-color: #"+colorCode+"; color: black;\">&nbsp; "+data.event+" (id="+data.id+")"+" &nbsp;</span></b> "+data.info);
 			} else {
-				logText.append(data.time+": <b><span style=\"background-color: #"+colorCode+";\">&nbsp; "+data.event+" &nbsp;</span></b> "+data.info);
+				logText.append(data.time+": <b><span style=\"background-color: #"+colorCode+"; color: black;\">&nbsp; "+data.event+" &nbsp;</span></b> "+data.info);
 			}
 			logTextPlain.append(data.time+": "+data.event+" - "+data.info);
 		}
