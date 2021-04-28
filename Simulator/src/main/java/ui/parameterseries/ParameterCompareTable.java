@@ -16,16 +16,26 @@
 package ui.parameterseries;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.function.Consumer;
 
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JTable;
 import javax.swing.JViewport;
+import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
+import javax.swing.UIManager;
+import javax.swing.border.MatteBorder;
+import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
 
 import simulator.statistics.Statistics;
@@ -72,8 +82,26 @@ public class ParameterCompareTable extends JPanel {
 			 */
 			private static final long serialVersionUID = -2516207553359526401L;
 			@Override public Dimension getPreferredSize() {
+
+				int preferredHeight=0;
+				final int count=table.getColumnModel().getColumnCount();
+				for (int i=0;i<count;i++) {
+					final TableColumn column=table.getColumnModel().getColumn(i);
+
+					final TableCellRenderer headerRenderer=column.getHeaderRenderer();
+					final Component rendererComponent=(headerRenderer==null)?null:(column.getHeaderRenderer().getTableCellRendererComponent(table,column.getHeaderValue(),false,false,0,i));
+					if (rendererComponent!=null) {
+						final int colWidth=column.getWidth();
+						final int width=rendererComponent.getPreferredSize().width;
+						int height=rendererComponent.getPreferredSize().height;
+						if (colWidth<width) height=(int)Math.round(height*Math.min(2,((double)width/colWidth)));
+						preferredHeight=Math.max(preferredHeight,height);
+					}
+
+				}
+
 				final Dimension d=super.getPreferredSize();
-				d.height=(int)Math.round(d.height*1.75);
+				d.height=(int)Math.round(Math.max(preferredHeight,d.height)*1.2);
 				return d;
 			}
 		});
@@ -149,6 +177,12 @@ public class ParameterCompareTable extends JPanel {
 	}
 
 	/**
+	 * Spaltenüberschriften-Renderer
+	 * @see #updateTable()
+	 */
+	private List<HeaderRenderer> headerRenderer=new ArrayList<>();
+
+	/**
 	 * Aktualisiert die Tabelle, nach dem Änderungen an den Einstellungen vorgenommen wurden.
 	 */
 	public void updateTable() {
@@ -163,6 +197,39 @@ public class ParameterCompareTable extends JPanel {
 			final TableColumn column=table.getColumnModel().getColumn(i);
 			column.setMaxWidth((i==count-1)?LAST_COL_WIDTH:Integer.MAX_VALUE);
 			column.setMinWidth((i==count-1)?LAST_COL_WIDTH:0);
+
+			while (headerRenderer.size()<i+1) headerRenderer.add(new HeaderRenderer());
+			column.setHeaderRenderer(headerRenderer.get(i));
+		}
+	}
+
+	/**
+	 * Renderer für die Spaltenüberschriften<br>
+	 * (Ist notwendig, um bei mehrzeiligen Überschriften die Höhen richtig berechnen zu können.)
+	 */
+	private class HeaderRenderer extends JLabel implements TableCellRenderer {
+		/**
+		 * Serialisierungs-ID der Klasse
+		 * @see Serializable
+		 */
+		private static final long serialVersionUID=-4800517654665040694L;
+
+		/**
+		 * Konstruktor der Klasse
+		 */
+		public HeaderRenderer() {
+			setVerticalAlignment(SwingConstants.TOP);
+			setVerticalTextPosition(SwingConstants.TOP);
+
+			setBorder(new MatteBorder(0,0,1,1,(Color)UIManager.getDefaults().get("Table.gridColor")));
+			setForeground((Color)UIManager.getDefaults().get("TableHeader.foreground"));
+			setBackground((Color)UIManager.getDefaults().get("TableHeader.background"));
+		}
+
+		@Override
+		public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+			setText((String)value);
+			return this;
 		}
 	}
 
