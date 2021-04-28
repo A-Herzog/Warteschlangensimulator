@@ -295,6 +295,12 @@ public class Statistics extends StatisticsBase {
 	 */
 	public final StatisticsMultiPerformanceIndicator resourceInDownTime;
 
+	/**
+	 * Auslastung der Ressourcen (wird am Ende aus {@link #resourceCount} und {@link #resourceUtilization} berechnet.
+	 * @see #calc()
+	 */
+	public final StatisticsMultiPerformanceIndicator resourceRho;
+
 	/* ====================================================
 	 * Transporter
 	 * ====================================================
@@ -549,6 +555,7 @@ public class Statistics extends StatisticsBase {
 		addPerformanceIndicator(resourceCount=new StatisticsMultiPerformanceIndicator(Language.trAll("Statistics.XML.Element.UtilizationCountParent"),new StatisticsTimePerformanceIndicator(Language.trAll("Statistics.XML.Element.UtilizationCount"))));
 		addPerformanceIndicator(resourceUtilization=new StatisticsMultiPerformanceIndicator(Language.trAll("Statistics.XML.Element.Utilization"),new StatisticsTimePerformanceIndicator(Language.trAll("Statistics.XML.Element.UtilizationResource"))));
 		addPerformanceIndicator(resourceInDownTime=new StatisticsMultiPerformanceIndicator(Language.trAll("Statistics.XML.Element.InDownTime"),new StatisticsTimePerformanceIndicator(Language.trAll("Statistics.XML.Element.UtilizationResource"))));
+		addPerformanceIndicator(resourceRho=new StatisticsMultiPerformanceIndicator(Language.trAll("Statistics.XML.Element.Rho"),new StatisticsSimpleValuePerformanceIndicator(Language.trAll("Statistics.XML.Element.UtilizationResourceRho"))));
 
 		/* Transporter */
 		addPerformanceIndicator(transporterUtilization=new StatisticsMultiPerformanceIndicator(Language.trAll("Statistics.XML.Element.UtilizationTransporter"),new StatisticsTimePerformanceIndicator(Language.trAll("Statistics.XML.Element.UtilizationTransporterType"))));
@@ -607,6 +614,20 @@ public class Statistics extends StatisticsBase {
 	 */
 	public Statistics() {
 		this(-1,CorrelationMode.CORRELATION_MODE_OFF,1,false,1);
+	}
+
+	@Override
+	public void calc() {
+		for (String name: resourceUtilization.getNames()) {
+			final StatisticsTimePerformanceIndicator utilization=(StatisticsTimePerformanceIndicator)resourceUtilization.getOrNull(name);
+			final StatisticsTimePerformanceIndicator count=(StatisticsTimePerformanceIndicator)resourceCount.getOrNull(name);
+			final double utilizationMean=utilization.getTimeMean();
+			final double countMean=count.getTimeMean();
+			if (utilizationMean>0.0 && countMean>0.0) {
+				final StatisticsSimpleValuePerformanceIndicator rho=(StatisticsSimpleValuePerformanceIndicator)resourceRho.get(name);
+				rho.set(utilizationMean/countMean);
+			}
+		}
 	}
 
 	/**

@@ -471,12 +471,20 @@ public class ListPopup {
 		/* Auslastung */
 
 		if (statistics.editModel.resources.getResources().length>0) {
-			sub=getSubList(list,Language.tr("Statistic.FastAccess.Template.ResourceUtilization"),null,Images.SCRIPT_RECORD_DATA_RESOURCE.getIcon());
+			sub=getSubList(list,Language.tr("Statistic.FastAccess.Template.ResourceUtilization")+" ("+Language.tr("Statistic.FastAccess.Template.ResourceUtilization.AverageNumber")+")",null,Images.SCRIPT_RECORD_DATA_RESOURCE.getIcon());
 			final String xmlMain=Language.tr("Statistics.XML.Element.Utilization");
 			for (ModelResource resource: statistics.editModel.resources.getResources()) {
 				final String name=resource.getName();
 				xmlSub=Language.tr("Statistics.XML.Element.UtilizationResource")+"["+Language.tr("Statistics.XML.Type")+"=\""+name+"\"]";
 				tryAddRecord(sub,allowAdd,name,null,null,XMLMode.XML_NUMBER,xmlMain+"->"+xmlSub+"->"+mean);
+			}
+		}
+		if (statistics.resourceRho.size()>0) {
+			sub=getSubList(list,Language.tr("Statistic.FastAccess.Template.ResourceUtilization")+" ("+Language.tr("Statistic.FastAccess.Template.ResourceUtilization.rho")+")",null,Images.SCRIPT_RECORD_DATA_RESOURCE.getIcon());
+			final String xmlMain=Language.tr("Statistics.XML.Element.Rho");
+			for (String name: statistics.resourceRho.getNames()) {
+				xmlSub=Language.tr("Statistics.XML.Element.UtilizationResourceRho")+"["+Language.tr("Statistics.XML.Type")+"=\""+name+"\"]";
+				tryAddRecord(sub,allowAdd,name,null,null,XMLMode.XML_NUMBER,xmlMain+"->"+xmlSub+"->"+value);
 			}
 		}
 

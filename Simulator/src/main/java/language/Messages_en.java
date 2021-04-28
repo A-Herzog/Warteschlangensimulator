@@ -8090,6 +8090,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[18609] = "Symbol - female";
     t[18612] = "LoadCalculator.Units.Part";
     t[18613] = "Part";
+    t[18614] = "Surface.SourceDB.Dialog.ClientTypes.LoadButton.ReplaceConfirm,InfoNo";
+    t[18615] = "Keep previous client types list unchanged.";
     t[18616] = "Resources.Group.EditName.Dialog.Tab.Count";
     t[18617] = "Number and appearance";
     t[18620] = "Simulation.Creator.AnalogFlow.SourceDestinationNotConnected";
@@ -9424,6 +9426,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[21509] = "Client: %s, station: %s, %s:=%s";
     t[21510] = "Animation.Icon.WaterDrop";
     t[21511] = "Water drop";
+    t[21516] = "Statistics.XML.Element.UtilizationResourceRho";
+    t[21517] = "StatisticsResourceRho";
     t[21528] = "Optimizer.Prepare.Title.ParameterCompare";
     t[21529] = "Parameter series is prepared";
     t[21534] = "InfoDialog.JSEngine";
@@ -9936,6 +9940,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[22689] = "Outgoing edge %d";
     t[22690] = "Surface.Database.TestDialog.UserDBConfigFile.Hint";
     t[22691] = "Opens the configuration file in which user-defined JDBC connectors can be set up.";
+    t[22694] = "Statistic.FastAccess.Template.ResourceUtilization.rho";
+    t[22695] = "rho";
     t[22710] = "Simulation.Element.SetJS.Name";
     t[22711] = "Javascript";
     t[22722] = "Window.Check.AutoFixConnection.Title";
@@ -10028,18 +10034,18 @@ public class Messages_en extends java.util.ResourceBundle {
     t[22903] = "The specified id \"%s\" is invalid. A non-negative integer number has to be specified.";
     t[22908] = "Surface.OutputDB.Table.EditKey";
     t[22909] = "Edit key";
-    t[22910] = "ModelGenerator.Counter.Success";
-    t[22911] = "Success";
-    t[22914] = "ExpressionBuilder.ProbabilityDistributions.InverseGaussianDistribution.RandomNumberInfo";
-    t[22915] = "<p>Generates a random number according to the inverse gaussian distribution with the parameters according to the first (lambda) and second (mu; mean) parameters.</p>";
-    t[22916] = "Surface.Source.XML.Expression.ClientCount";
-    t[22917] = "ClientCount";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_5 (java.lang.String[] t) {
+    t[22910] = "ModelGenerator.Counter.Success";
+    t[22911] = "Success";
+    t[22914] = "ExpressionBuilder.ProbabilityDistributions.InverseGaussianDistribution.RandomNumberInfo";
+    t[22915] = "<p>Generates a random number according to the inverse gaussian distribution with the parameters according to the first (lambda) and second (mu; mean) parameters.</p>";
+    t[22916] = "Surface.Source.XML.Expression.ClientCount";
+    t[22917] = "ClientCount";
     t[22918] = "Surface.TankFlowBySignal.Tooltip";
     t[22919] = "Initiales the flow between two tanks by a signal.";
     t[22920] = "Surface.Resource.NumberIncrease";
@@ -12034,18 +12040,18 @@ public class Messages_en extends java.util.ResourceBundle {
     t[27535] = "F distribution";
     t[27536] = "Surface.AnalogAssign.XML.ChangeID";
     t[27537] = "TargetID";
-    t[27540] = "ExpressionCalculator.Toolbar.Load.Hint";
-    t[27541] = "Loads a Javascript from a file";
-    t[27542] = "Statistics.Utilization.FailureInfo.Transporters";
-    t[27543] = "For this transporter type failures / down times are defined. Because the transporters do not move during these times, these times are recorded as idle times.";
-    t[27544] = "Statistics.XML.Distribution";
-    t[27545] = "Distribution";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_6 (java.lang.String[] t) {
+    t[27540] = "ExpressionCalculator.Toolbar.Load.Hint";
+    t[27541] = "Loads a Javascript from a file";
+    t[27542] = "Statistics.Utilization.FailureInfo.Transporters";
+    t[27543] = "For this transporter type failures / down times are defined. Because the transporters do not move during these times, these times are recorded as idle times.";
+    t[27544] = "Statistics.XML.Distribution";
+    t[27545] = "Distribution";
     t[27550] = "ExpressionBuilder.ExponentialAndLogarithmFunctions.2Logarithm";
     t[27551] = "Logarithm to base 2";
     t[27560] = "ExpressionBuilder.SimulationCharacteristics.ResidenceTimesAtStations";
@@ -12862,8 +12868,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[29367] = "Service time";
     t[29372] = "Surface.XML.Database.Mode.ErrorUnknown";
     t[29373] = "Unknown database connection type \"%s\".";
-    t[29376] = "Surface.SourceDB.Dialog.ClientTypes.LoadButton.ReplaceConfirm,InfoNo";
-    t[29377] = "Keep previous client types list unchanged.";
+    t[29376] = "Statistics.XML.Element.Rho";
+    t[29377] = "StatisticsUtilizationRho";
     t[29378] = "ExpressionBuilder.SimulationCharacteristics.WaitingTimesAtStations.HistogramMultiple";
     t[29379] = "<p>Returns the fraction of clients, who had to wait at the station whose ID is specified for the specified range of seconds (exclusive the lower and inclusive the upper bound).</p>";
     t[29382] = "InfoDialog.Is64Bit.Yes";
@@ -14040,18 +14046,18 @@ public class Messages_en extends java.util.ResourceBundle {
     t[32187] = "Maximum";
     t[32188] = "Simulation.Creator.InvalidCounterExpression";
     t[32189] = "At station id=%d the counter condition %d \"%s\" is invalid at character %d.";
-    t[32194] = "Surface.PopupMenu.SimulationStatisticsData.Tab.WaitingClients.FieldTable.ColumnKey";
-    t[32195] = "Keys";
-    t[32204] = "Surface.Output.XML.Element.Data";
-    t[32205] = "Data";
-    t[32206] = "SettingsDialog.UpdateCheck";
-    t[32207] = "Check now";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_7 (java.lang.String[] t) {
+    t[32194] = "Surface.PopupMenu.SimulationStatisticsData.Tab.WaitingClients.FieldTable.ColumnKey";
+    t[32195] = "Keys";
+    t[32204] = "Surface.Output.XML.Element.Data";
+    t[32205] = "Data";
+    t[32206] = "SettingsDialog.UpdateCheck";
+    t[32207] = "Check now";
     t[32210] = "Editor.Dialog.Tab.RunTimeStatistics.InfoText";
     t[32211] = "The simulator can record the value of arbitrary expressions at regular intervals during the simulation. On this dialog page you can set which expressions should be recorded at which intervals.";
     t[32212] = "ExpressionBuilder.SimulationCharacteristics.ProcessingTimesAtStations.Quantil";
@@ -16046,18 +16052,18 @@ public class Messages_en extends java.util.ResourceBundle {
     t[36789] = "Multiply";
     t[36790] = "ProxySettings.ProxyOff";
     t[36791] = "Direct connection, do not use a proxy server";
-    t[36800] = "CommandLine.Server.InvalidBroker";
-    t[36801] = "The sepcified MQTT broker address \"%s\" is invalid.";
-    t[36802] = "Statistics.XML.Mean";
-    t[36803] = "Mean";
-    t[36804] = "Surface.UserStatistic.XML.Record.Key";
-    t[36805] = "Key";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_8 (java.lang.String[] t) {
+    t[36800] = "CommandLine.Server.InvalidBroker";
+    t[36801] = "The sepcified MQTT broker address \"%s\" is invalid.";
+    t[36802] = "Statistics.XML.Mean";
+    t[36803] = "Mean";
+    t[36804] = "Surface.UserStatistic.XML.Record.Key";
+    t[36805] = "Key";
     t[36806] = "Window.Layers.Title";
     t[36807] = "Layers";
     t[36818] = "Main.Menu.View.ScrollTopLeft";
@@ -18052,18 +18058,18 @@ public class Messages_en extends java.util.ResourceBundle {
     t[41201] = "Client sources are the starting point of the client's movement through the system. Clients can be generated at a source according to inter-arrival times, expressions, etc.";
     t[41212] = "Optimizer.Tab.Optimization.Kernel.Parameters.Tab.Genetic.EvolutionPressure";
     t[41213] = "Evolution pressure";
-    t[41214] = "ExpressionBuilder.ProbabilityDistributions.JohnsonSUDistribution.DensityInfo";
-    t[41215] = "<p>Calculates the value of the density of the Johnson SU distribution at the location specified as the first parameter with the parameters &gamma;, &xi;, &delta; and &lambda; according to the second to fifth parameters.</p>";
-    t[41228] = "Surface.AnimationTrafficLights.Dialog.ConditionFor.Green";
-    t[41229] = "Condition for \"green\"";
-    t[41234] = "Surface.ExpressionTableModel.Dialog.Pie";
-    t[41235] = "Edit pie segment";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_9 (java.lang.String[] t) {
+    t[41214] = "ExpressionBuilder.ProbabilityDistributions.JohnsonSUDistribution.DensityInfo";
+    t[41215] = "<p>Calculates the value of the density of the Johnson SU distribution at the location specified as the first parameter with the parameters &gamma;, &xi;, &delta; and &lambda; according to the second to fifth parameters.</p>";
+    t[41228] = "Surface.AnimationTrafficLights.Dialog.ConditionFor.Green";
+    t[41229] = "Condition for \"green\"";
+    t[41234] = "Surface.ExpressionTableModel.Dialog.Pie";
+    t[41235] = "Edit pie segment";
     t[41246] = "Surface.PopupMenu.QuickFix.Batch.SetFixed1";
     t[41247] = "Set batch size to 1";
     t[41248] = "Statistics.MinimumUserTime";
@@ -18906,6 +18912,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[43219] = "Invalid input.";
     t[43226] = "URLLoader.Confirm.InfoNo";
     t[43227] = "Do not visit URL, do not load data from this address.";
+    t[43230] = "Statistic.FastAccess.Template.ResourceUtilization.AverageNumber";
+    t[43231] = "average number";
     t[43236] = "Surface.TankFlowPanel.SourceDestination.ErrorSameTitle";
     t[43237] = "Invalid source destination combination";
     t[43238] = "Statistics.Schedule";

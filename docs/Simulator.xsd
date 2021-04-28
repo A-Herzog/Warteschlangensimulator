@@ -1790,6 +1790,7 @@
   <xs:element ref="StatistikRessourceAnzahlen"/>
   <xs:element ref="StatistikAuslastung"/>
   <xs:element ref="StatistikPausenzeiten"/>
+  <xs:element ref="StatistikAuslastungRho"/>
   <xs:element ref="StatistikTransporterAuslastung"/>
   <xs:element ref="StatistikTransporterPausenzeiten"/>
   <xs:element ref="StatistikZaehler"/>
@@ -1897,6 +1898,8 @@
 
 <xs:element name="StatistikRessource" type="StatistikBasis"/>
 
+<xs:element name="StatistikRessourceRho" type="StatistikBasis"/>
+
 <xs:element name="StatistikTransporter" type="StatistikBasis"/>
 
 <xs:element name="StatistikZaehlerName"><xs:complexType>
@@ -1984,6 +1987,9 @@
 </xs:choice></xs:sequence></xs:complexType></xs:element>
 <xs:element name="StatistikPausenzeiten"><xs:complexType><xs:sequence minOccurs="0" maxOccurs="unbounded"><xs:choice>
   <xs:element ref="StatistikRessource" minOccurs="0" maxOccurs="unbounded"/>
+</xs:choice></xs:sequence></xs:complexType></xs:element>
+<xs:element name="StatistikAuslastungRho"><xs:complexType><xs:sequence minOccurs="0" maxOccurs="unbounded"><xs:choice>
+  <xs:element ref="StatistikRessourceRho" minOccurs="0" maxOccurs="unbounded"/>
 </xs:choice></xs:sequence></xs:complexType></xs:element>
 <xs:element name="StatistikTransporterAuslastung"><xs:complexType><xs:sequence minOccurs="0" maxOccurs="unbounded"><xs:choice>
   <xs:element ref="StatistikTransporter" minOccurs="0" maxOccurs="unbounded"/>
@@ -3892,6 +3898,7 @@
   <xs:element ref="StatisticsResourceNumbers"/>
   <xs:element ref="StatisticsUtilization"/>
   <xs:element ref="StatisticsDownTime"/>
+  <xs:element ref="StatisticsUtilizationRho"/>
   <xs:element ref="StatisticsTransporterUtilization"/>
   <xs:element ref="StatisticsTransporterDownTimes"/>
   <xs:element ref="StatisticsCounter"/>
@@ -3999,6 +4006,8 @@
 
 <xs:element name="StatisticsResource" type="StatisticsBase"/>
 
+<xs:element name="StatisticsResourceRho" type="StatisticsBase"/>
+
 <xs:element name="StatisticsTransporter" type="StatisticsBase"/>
 
 <xs:element name="StatisticsCounterName"><xs:complexType>
@@ -4086,6 +4095,9 @@
 </xs:choice></xs:sequence></xs:complexType></xs:element>
 <xs:element name="StatisticsDownTime"><xs:complexType><xs:sequence minOccurs="0" maxOccurs="unbounded"><xs:choice>
   <xs:element ref="StatisticsResource" minOccurs="0" maxOccurs="unbounded"/>
+</xs:choice></xs:sequence></xs:complexType></xs:element>
+<xs:element name="StatisticsUtilizationRho"><xs:complexType><xs:sequence minOccurs="0" maxOccurs="unbounded"><xs:choice>
+  <xs:element ref="StatisticsResourceRho" minOccurs="0" maxOccurs="unbounded"/>
 </xs:choice></xs:sequence></xs:complexType></xs:element>
 <xs:element name="StatisticsTransporterUtilization"><xs:complexType><xs:sequence minOccurs="0" maxOccurs="unbounded"><xs:choice>
   <xs:element ref="StatisticsTransporter" minOccurs="0" maxOccurs="unbounded"/>

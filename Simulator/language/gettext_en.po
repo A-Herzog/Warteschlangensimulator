@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-04-24 20:50+0200\n"
+"POT-Creation-Date: 2021-04-27 14:07+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16688,6 +16688,12 @@ msgstr "Resource costs"
 msgid "Statistic.FastAccess.Template.ResourceUtilization"
 msgstr "Resource utilization"
 
+msgid "Statistic.FastAccess.Template.ResourceUtilization.AverageNumber"
+msgstr "average number"
+
+msgid "Statistic.FastAccess.Template.ResourceUtilization.rho"
+msgstr "rho"
+
 msgid "Statistic.FastAccess.Template.ResourceWorkCosts"
 msgstr "Resource working costs"
 
@@ -19203,6 +19209,9 @@ msgstr "StatisticsResourcesAvailabilityCosts"
 msgid "Statistics.XML.Element.ResourceWorkCosts"
 msgstr "StatisticsResourcesWorkTimeCosts"
 
+msgid "Statistics.XML.Element.Rho"
+msgstr "StatisticsUtilizationRho"
+
 msgid "Statistics.XML.Element.Simulation"
 msgstr "SimulationData"
 
@@ -19235,6 +19244,9 @@ msgstr "StatisticsResourceNumbers"
 
 msgid "Statistics.XML.Element.UtilizationResource"
 msgstr "StatisticsResource"
+
+msgid "Statistics.XML.Element.UtilizationResourceRho"
+msgstr "StatisticsResourceRho"
 
 msgid "Statistics.XML.Element.UtilizationTransporter"
 msgstr "StatisticsTransporterUtilization"

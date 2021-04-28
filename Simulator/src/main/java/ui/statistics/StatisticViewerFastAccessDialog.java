@@ -473,6 +473,7 @@ public class StatisticViewerFastAccessDialog extends BaseDialog {
 				Language.trPrimary("XML.Statistic.BaseElement")+","+Language.trPrimary("Statistics.XML.Element.UtilizationCountParent")+","+Language.trPrimary("Statistics.XML.Element.UtilizationCount"),
 				Language.trPrimary("XML.Statistic.BaseElement")+","+Language.trPrimary("Statistics.XML.Element.Utilization")+","+Language.trPrimary("Statistics.XML.Element.UtilizationResource"),
 				Language.trPrimary("XML.Statistic.BaseElement")+","+Language.trPrimary("Statistics.XML.Element.InDownTime")+","+Language.trPrimary("Statistics.XML.Element.UtilizationResource"),
+				Language.trPrimary("XML.Statistic.BaseElement")+","+Language.trPrimary("Statistics.XML.Element.Rho")+","+Language.trPrimary("Statistics.XML.Element.UtilizationResourceRho"),
 
 				/* Transporter */
 				Language.trPrimary("XML.Statistic.BaseElement")+","+Language.trPrimary("Statistics.XML.Element.UtilizationTransporter")+","+Language.trPrimary("Statistics.XML.Element.UtilizationTransporterType"),
