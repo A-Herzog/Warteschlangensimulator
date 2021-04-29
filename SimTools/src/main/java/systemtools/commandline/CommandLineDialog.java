@@ -42,6 +42,7 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.JTextPane;
 import javax.swing.ScrollPaneConstants;
+import javax.swing.UIManager;
 
 import systemtools.BaseDialog;
 import systemtools.JTextAreaOutputStream;
@@ -285,8 +286,8 @@ public class CommandLineDialog extends BaseDialog {
 	 * @see CommandLineDialog#command
 	 */
 	private class ComboActionListener implements ActionListener {
-		/** Kopfbereich für die Ausgabe der Informationen zu dem aktuell gewählten Befehl */
-		private static final String head=
+		/** Kopfbereich für die Ausgabe der Informationen zu dem aktuell gewählten Befehl (heller Modus) */
+		private static final String headLight=
 				"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\" \"http://www.w3.org/TR/html4/loose.dtd\">\n"+
 						"<html>\n"+
 						"<head>\n"+
@@ -296,6 +297,31 @@ public class CommandLineDialog extends BaseDialog {
 						"  </style>\n"+
 						"</head>\n"+
 						"<body>\n";
+
+		/** Kopfbereich für die Ausgabe der Informationen zu dem aktuell gewählten Befehl (dunkler Modus) */
+		private static final String headDark=
+				"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\" \"http://www.w3.org/TR/html4/loose.dtd\">\n"+
+						"<html>\n"+
+						"<head>\n"+
+						"  <style type=\"text/css\">\n"+
+						"  body {font-family: Verdana, Lucida, sans-serif; background-color: darkgray; margin: 2px; padding: 5px;}\n"+
+						"  h2 {margin-bottom: 0px;}\n"+
+						"  </style>\n"+
+						"</head>\n"+
+						"<body>\n";
+
+		/**
+		 * Erfolgt die Darstellung im Dark-Modus?
+		 */
+		private final boolean isDark;
+
+		/**
+		 * Konstruktor der Klasse
+		 */
+		public ComboActionListener()  {
+			final Color textBackground=UIManager.getColor("TextField.background");
+			isDark=(textBackground!=null && !textBackground.equals(Color.WHITE));
+		}
 
 		/** Fußbereich für die Ausgabe der Informationen zu dem aktuell gewählten Befehl */
 		private static final String footer="</body></html>";
@@ -312,7 +338,7 @@ public class CommandLineDialog extends BaseDialog {
 			for (String s: cmd.getLongDescription()) {sb.append("<br>"); sb.append(s);}
 			sb.append("</p>");
 
-			viewer.setText(head+sb.toString()+footer);
+			viewer.setText((isDark?headDark:headLight)+sb.toString()+footer);
 		}
 	}
 
