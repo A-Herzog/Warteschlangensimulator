@@ -243,13 +243,13 @@ public class MainPanel extends MainPanelBase {
 	public static final String VERSION="4.8.0";
 
 	/** Aktuelle Unterversionsnummer in der Java 8 Versionsreihe */
-	private static final int JAVA8_SECURE_MIN_VERSION=282;
+	private static final int JAVA8_SECURE_MIN_VERSION=292;
 	/** Aktuelle Unterversionsnummer in der Java 9 Versionsreihe */
 	private static final int JAVA9_SECURE_MIN_VERSION=4;
 	/** Aktuelle Unterversionsnummer in der Java 10 Versionsreihe */
 	private static final int JAVA10_SECURE_MIN_VERSION=2;
 	/** Aktuelle Unterversionsnummer in der Java 11 Versionsreihe */
-	private static final int JAVA11_SECURE_MIN_VERSION=10;
+	private static final int JAVA11_SECURE_MIN_VERSION=11;
 	/** Aktuelle Unterversionsnummer in der Java 12 Versionsreihe */
 	private static final int JAVA12_SECURE_MIN_VERSION=2;
 	/** Aktuelle Unterversionsnummer in der Java 13 Versionsreihe */
@@ -259,7 +259,7 @@ public class MainPanel extends MainPanelBase {
 	/** Aktuelle Unterversionsnummer in der Java 15 Versionsreihe */
 	private static final int JAVA15_SECURE_MIN_VERSION=2;
 	/** Aktuelle Unterversionsnummer in der Java 16 Versionsreihe */
-	private static final int JAVA16_SECURE_MIN_VERSION=0;
+	private static final int JAVA16_SECURE_MIN_VERSION=1;
 
 	/**
 	 * Bezeichnung für "ungespeichertes Modell" in der Titelzeile für ein neues Modell, welches noch keinen Namen besitzt
@@ -1902,30 +1902,31 @@ public class MainPanel extends MainPanelBase {
 			}},7500);
 		} else {
 			final UpdateSystem update=UpdateSystem.getUpdateSystem();
+			boolean showingMessage=false;
 			if (setup.autoUpdate==SetupData.AutoUpdate.SEARCH || (setup.autoUpdate==SetupData.AutoUpdate.INSTALL && !update.isAutomaticUpdatePossible())) {
 				update.checkUpdateNow(true);
 				if (update.isNewVersionAvailable()==UpdateSystem.NewVersionAvailableStatus.NEW_VERSION_AVAILABLE) {
 					final JPanel panel=setMessagePanel(Language.tr("Dialog.Title.Info"),update.getInfoString(),"https://"+WEB_URL,MessagePanelIcon.INFO);
 					panel.setBackground(Color.GREEN);
 					new Timer("HideUpdateInfoPanel").schedule(new TimerTask() {@Override public void run() {setMessagePanel(null,null,null);}},7500);
+					showingMessage=true;
 				}
-			} else {
-				if (!setup.testJavaVersion) return;
-				final int[] ver=getJavaVersion();
-				boolean ok=true;
-				if (ver[0]==8 && ver[1]<JAVA8_SECURE_MIN_VERSION) ok=false;
-				if (ver[0]==9 && ver[1]<JAVA9_SECURE_MIN_VERSION) ok=false;
-				if (ver[0]==10 && ver[1]<JAVA10_SECURE_MIN_VERSION) ok=false;
-				if (ver[0]==11 && ver[1]<JAVA11_SECURE_MIN_VERSION) ok=false;
-				if (ver[0]==12 && ver[1]<JAVA12_SECURE_MIN_VERSION) ok=false;
-				if (ver[0]==13 && ver[1]<JAVA13_SECURE_MIN_VERSION) ok=false;
-				if (ver[0]==14 && ver[1]<JAVA14_SECURE_MIN_VERSION) ok=false;
-				if (ver[0]==15 && ver[1]<JAVA15_SECURE_MIN_VERSION) ok=false;
-				if (ver[0]==16 && ver[1]<JAVA16_SECURE_MIN_VERSION) ok=false;
-				if (ok) return;
-				setMessagePanel(Language.tr("Dialog.Title.Warning"),Language.tr("Window.JavaSecurityWarnung"),Language.tr("Window.JavaSecurityWarnung.Link"),MessagePanelIcon.WARNING);
-				new Timer("HideSecurityInfoPanel").schedule(new TimerTask() {@Override public void run() {setMessagePanel(null,null,null);}},7500);
 			}
+			if (!setup.testJavaVersion || showingMessage) return;
+			final int[] ver=getJavaVersion();
+			boolean ok=true;
+			if (ver[0]==8 && ver[1]<JAVA8_SECURE_MIN_VERSION) ok=false;
+			if (ver[0]==9 && ver[1]<JAVA9_SECURE_MIN_VERSION) ok=false;
+			if (ver[0]==10 && ver[1]<JAVA10_SECURE_MIN_VERSION) ok=false;
+			if (ver[0]==11 && ver[1]<JAVA11_SECURE_MIN_VERSION) ok=false;
+			if (ver[0]==12 && ver[1]<JAVA12_SECURE_MIN_VERSION) ok=false;
+			if (ver[0]==13 && ver[1]<JAVA13_SECURE_MIN_VERSION) ok=false;
+			if (ver[0]==14 && ver[1]<JAVA14_SECURE_MIN_VERSION) ok=false;
+			if (ver[0]==15 && ver[1]<JAVA15_SECURE_MIN_VERSION) ok=false;
+			if (ver[0]==16 && ver[1]<JAVA16_SECURE_MIN_VERSION) ok=false;
+			if (ok) return;
+			setMessagePanel(Language.tr("Dialog.Title.Warning"),Language.tr("Window.JavaSecurityWarnung"),Language.tr("Window.JavaSecurityWarnung.Link"),MessagePanelIcon.WARNING);
+			new Timer("HideSecurityInfoPanel").schedule(new TimerTask() {@Override public void run() {setMessagePanel(null,null,null);}},7500);
 		}
 	}
 
