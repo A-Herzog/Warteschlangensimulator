@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-04-28 11:20+0200\n"
+"POT-Creation-Date: 2021-04-29 21:47+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1964,6 +1964,29 @@ msgstr "ServerMQTTTest"
 
 msgid "CommandLine.ServerMQTTTest.Stopped"
 msgstr "MQTT-based test server stopped."
+
+msgid "CommandLine.ServerSocket.Description.Long"
+msgstr ""
+"This command expects one additional parameter:\n"
+"the port to be used."
+
+msgid "CommandLine.ServerSocket.Description.Short"
+msgstr "Starts the program as socket-based simulation server."
+
+msgid "CommandLine.ServerSocket.InvalidPortNumber"
+msgstr "The specified port number %s is invalid."
+
+msgid "CommandLine.ServerSocket.Name"
+msgstr "ServerSocket"
+
+msgid "CommandLine.ServerSocket.StartError"
+msgstr "Could not start socket simulation server on port %d."
+
+msgid "CommandLine.ServerSocket.Started"
+msgstr "Started socket simulation server on port %d."
+
+msgid "CommandLine.ServerSocket.Stopped"
+msgstr "Socket simulation server stopped."
 
 msgid "CommandLine.ServerWeb.Description.Long"
 msgstr ""
@@ -16157,6 +16180,18 @@ msgstr "The specified port number %d is not in the valid range. An integer numbe
 msgid "SimulationServer.Setup.Port.ErrorTitle"
 msgstr "Invalid port"
 
+msgid "SimulationServer.Setup.SocketAutoStart"
+msgstr "Auto start"
+
+msgid "SimulationServer.Setup.SocketAutoStart.Hint"
+msgstr "Auto start socket server when program is started."
+
+msgid "SimulationServer.Setup.SocketServer"
+msgstr "Socket server"
+
+msgid "SimulationServer.Setup.SocketServer.MessageStartError"
+msgstr "The socket-based simulation server could not be started."
+
 msgid "SimulationServer.Setup.TLSInfo"
 msgstr "Configure encryption"
 
@@ -16238,6 +16273,9 @@ msgstr "running"
 msgid "SimulationServer.Status.Server"
 msgstr "Simulation server"
 
+msgid "SimulationServer.Status.Socket"
+msgstr "Socket"
+
 msgid "SimulationServer.Status.Web"
 msgstr "Remote control"
 
@@ -16276,6 +16314,18 @@ msgstr "Stop MQTT client"
 
 msgid "SimulationServer.Toolbar.MQTTStop.Hint"
 msgstr "Stops the MQTT client"
+
+msgid "SimulationServer.Toolbar.SocketStart"
+msgstr "Start socket server"
+
+msgid "SimulationServer.Toolbar.SocketStart.Hint"
+msgstr "Starts the socket-based simulation server"
+
+msgid "SimulationServer.Toolbar.SocketStop"
+msgstr "Stop socket server"
+
+msgid "SimulationServer.Toolbar.SocketStop.Hint"
+msgstr "Stops the socket-based simulation server"
 
 msgid "SimulationServer.Toolbar.Start"
 msgstr "Start simulation server"

@@ -823,6 +823,16 @@ public class SetupData extends SetupBase {
 	public String customExcelColName;
 
 	/**
+	 * Socket-Server beim Start des Programmes starten.
+	 */
+	public boolean socketServerAutoStart;
+
+	/**
+	 * Beim letzten Aufruf des Socket-Servers verwendeter Port
+	 */
+	public int socketServerPort;
+
+	/**
 	 * Pfad zur JDK-Umgebung (die den Java-Kompiler javac enthält)
 	 */
 	public String javaJDKPath;
@@ -1276,6 +1286,8 @@ public class SetupData extends SetupBase {
 		ddeServerAutoStart=false;
 		customExcelRowName="";
 		customExcelColName="";
+		socketServerAutoStart=false;
+		socketServerPort=1000;
 		javaJDKPath="";
 		jsEngine="";
 		cancelSimulationOnScriptError=true;
@@ -1966,6 +1978,12 @@ public class SetupData extends SetupBase {
 				continue;
 			}
 
+			if (name.equals("socketserver")) {
+				socketServerAutoStart=loadBoolean(e.getAttribute("AutoStart"),false);
+				final Integer I=NumberTools.getNotNegativeInteger(e.getAttribute("Port"));
+				if (I!=null && I.intValue()>=1 && I.intValue()<=65535) socketServerPort=I.intValue();
+			}
+
 			if (name.equals("jdk")) {
 				javaJDKPath=e.getTextContent();
 				continue;
@@ -2627,6 +2645,12 @@ public class SetupData extends SetupBase {
 			root.appendChild(node=doc.createElement("ExcelDDE"));
 			if (customExcelRowName!=null && !customExcelRowName.trim().isEmpty()) node.setAttribute("RowIdentifier",""+customExcelRowName);
 			if (customExcelColName!=null && !customExcelColName.trim().isEmpty()) node.setAttribute("ColumnIdentifier",""+customExcelColName);
+		}
+
+		if (socketServerAutoStart || socketServerPort!=1000) {
+			root.appendChild(node=doc.createElement("SocketServer"));
+			node.setAttribute("Port",""+webServerPort);
+			if (socketServerAutoStart) node.setAttribute("AutoStart","1");
 		}
 
 		if (!javaJDKPath.isEmpty())  {

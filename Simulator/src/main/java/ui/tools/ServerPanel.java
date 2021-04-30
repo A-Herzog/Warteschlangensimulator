@@ -53,6 +53,7 @@ import net.calc.SimulationServerGUIConnect;
 import net.dde.SimulationDDEServer;
 import net.mqtt.MQTTBrokerURL;
 import net.mqtt.MQTTSimClient;
+import net.socket.SocketServerCalc;
 import net.web.SimulatorWebServer;
 import net.webcalc.CalcWebServer;
 import systemtools.BaseDialog;
@@ -87,6 +88,8 @@ public final class ServerPanel extends SpecialPanel {
 	private final MQTTSimClient serverMQTT;
 	/** Objekt für den DDE-Server */
 	private final SimulationDDEServer serverDDE;
+	/** Objekt für den Socket-Server */
+	private final SocketServerCalc serverSocket;
 
 	/** Schaltfläche Simulationsserver starten/stoppen */
 	private final JButton startStopCalcButton;
@@ -98,6 +101,8 @@ public final class ServerPanel extends SpecialPanel {
 	private final JButton startStopMQTTButton;
 	/** Schaltfläche DDE-Server starten/stoppen */
 	private final JButton startStopDDEButton;
+	/** Schaltfläche Socket-Server starten/stoppen */
+	private final JButton startStopSocketButton;
 	/** "Hilfe"-Schaltfläche */
 	private final JButton helpButton;
 
@@ -152,6 +157,13 @@ public final class ServerPanel extends SpecialPanel {
 	/** Option - DDE-Server - "Autostart" */
 	private final JCheckBox ddeAutoStartCheckBox;
 
+	/** Eingabefeld - Socket-Server - Port */
+	private final JSpinner socketPortEditSpinner;
+	/** Eingabefeld - Socket-Server - Port (Modell) */
+	private final SpinnerModel socketPortEdit;
+	/** Option - Socket-Server - "Autostart" */
+	private final JCheckBox socketAutoStartCheckBox;
+
 	/** Ausgabebereich für Meldungen des Rechenservers */
 	private final JTextArea calcOutput;
 
@@ -165,6 +177,8 @@ public final class ServerPanel extends SpecialPanel {
 	private final JLabel mqttStatusBar;
 	/** Statuszeilen-Infofeld für den DDE-Server */
 	private final JLabel ddeStatusBar;
+	/** Statuszeilen-Infofeld für den Socket-Server */
+	private final JLabel socketStatusBar;
 
 	/**
 	 * Notify-Objekt das von {@link ReloadManager} benachrichtigt
@@ -196,6 +210,7 @@ public final class ServerPanel extends SpecialPanel {
 		serverWeb=SimulatorWebServer.getInstance(mainPanel);
 		serverMQTT=MQTTSimClient.getInstance();
 		serverDDE=SimulationDDEServer.getInstance(mainPanel);
+		serverSocket=SocketServerCalc.getInstance();
 		notifyRunner=new NotifyRunner();
 		ReloadManager.addBroadcastReceiver(NotifyRunner.id,notifyRunner);
 
@@ -212,6 +227,7 @@ public final class ServerPanel extends SpecialPanel {
 		startStopWebButton=addUserButton(Language.tr("SimulationServer.Toolbar.WebStart"),Language.tr("SimulationServer.Toolbar.WebStart.Hint"),null);
 		startStopMQTTButton=addUserButton(Language.tr("SimulationServer.Toolbar.MQTTStart"),Language.tr("SimulationServer.Toolbar.MQTTStart.Hint"),null);
 		startStopDDEButton=addUserButton(Language.tr("SimulationServer.Toolbar.DDEStart"),Language.tr("SimulationServer.Toolbar.DDEStart.Hint"),null);
+		startStopSocketButton=addUserButton(Language.tr("SimulationServer.Toolbar.SocketStart"),Language.tr("SimulationServer.Toolbar.SocketStart.Hint"),null);
 		addCloseButton();
 		helpButton=addUserButton(Language.tr("Main.Toolbar.Help"),Language.tr("Main.Toolbar.Help.Hint"),Images.HELP.getIcon());
 
@@ -365,6 +381,24 @@ public final class ServerPanel extends SpecialPanel {
 		line.add(ddeAutoStartCheckBox=new JCheckBox(Language.tr("SimulationServer.Setup.DDEAutoStart"),setupData.ddeServerAutoStart));
 		ddeAutoStartCheckBox.setToolTipText(Language.tr("SimulationServer.Setup.DDEAutoStart.Hint"));
 
+		/* Socket-Server */
+
+		setup.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
+		line.add(new JLabel("<html><body><b>"+Language.tr("SimulationServer.Setup.SocketServer")+":</b></body></html>"));
+		line.add(Box.createHorizontalStrut(5));
+
+		line.add(label=new JLabel(Language.tr("SimulationServer.Setup.Port")+":"));
+		socketPortEditSpinner=new JSpinner(socketPortEdit=new SpinnerNumberModel(1,1,65535,1));
+		editor=new JSpinner.NumberEditor(socketPortEditSpinner,"###0.###");
+		editor.getFormat().setGroupingUsed(false);
+		socketPortEdit.setValue(setupData.socketServerPort);
+		socketPortEditSpinner.setEditor(editor);
+		line.add(socketPortEditSpinner);
+		label.setLabelFor(socketPortEditSpinner);
+
+		line.add(socketAutoStartCheckBox=new JCheckBox(Language.tr("SimulationServer.Setup.SocketAutoStart"),setupData.socketServerAutoStart));
+		socketAutoStartCheckBox.setToolTipText(Language.tr("SimulationServer.Setup.SocketAutoStart.Hint"));
+
 		/* Infotext über Ausgabebereich */
 
 		setup.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
@@ -399,6 +433,9 @@ public final class ServerPanel extends SpecialPanel {
 		statusPanel.add(ddeStatusBar=new JLabel(""));
 		ddeStatusBar.setBorder(BorderFactory.createEmptyBorder(0,5,0,0));
 		ddeStatusBar.setIcon(Images.SERVER_DDE.getIcon());
+		statusPanel.add(socketStatusBar=new JLabel(""));
+		socketStatusBar.setBorder(BorderFactory.createEmptyBorder(0,5,0,0));
+		socketStatusBar.setIcon(Images.SERVER_SOCKET.getIcon());
 
 		/* F1-Hotkey */
 
@@ -545,6 +582,21 @@ public final class ServerPanel extends SpecialPanel {
 		}
 		if (icon!=null) startStopDDEButton.setIcon(icon);
 
+		/* Socket-Server */
+
+		if (serverSocket.isRunning()) {
+			startStopSocketButton.setText(Language.tr("SimulationServer.Toolbar.SocketStop"));
+			startStopSocketButton.setToolTipText(Language.tr("SimulationServer.Toolbar.SocketStop.Hint"));
+			icon=Images.SERVER_SOCKET_STOP.getIcon();
+		} else {
+			startStopSocketButton.setText(Language.tr("SimulationServer.Toolbar.SocketStart"));
+			startStopSocketButton.setToolTipText(Language.tr("SimulationServer.Toolbar.SocketStart.Hint"));
+			icon=Images.SERVER_SOCKET_START.getIcon();
+		}
+		if (icon!=null) startStopSocketButton.setIcon(icon);
+
+		socketPortEditSpinner.setEnabled(!serverSocket.isRunning());
+
 		/* Statusleiste */
 
 		calcStatusBar.setText(getServerStatus(serverCalc.isServerRunning(),Language.tr("SimulationServer.Status.Server")));
@@ -552,6 +604,7 @@ public final class ServerPanel extends SpecialPanel {
 		webStatusBar.setText(getServerStatus(serverWeb.isRunning(),Language.tr("SimulationServer.Status.Web")));
 		mqttStatusBar.setText(getServerStatus(serverMQTT.isRunning(),Language.tr("SimulationServer.Status.MQTT")));
 		ddeStatusBar.setText(getServerStatus(serverDDE.isRunning(),Language.tr("SimulationServer.Status.DDE")));
+		socketStatusBar.setText(getServerStatus(serverSocket.isRunning(),Language.tr("SimulationServer.Status.Socket")));
 
 		/* Andere Fenster benachrichtigen */
 		if (triggerNotifiy) {
@@ -567,6 +620,7 @@ public final class ServerPanel extends SpecialPanel {
 	private int checkCalcPort(final boolean showErrorMessage) {
 		final Integer I=(Integer)calcPortEdit.getValue();
 		if (I==null) {
+			calcPortEditSpinner.setBackground(Color.RED);
 			if (showErrorMessage) MsgBox.error(this,Language.tr("SimulationServer.Setup.Port.ErrorTitle"),String.format(Language.tr("SimulationServer.Setup.Port.ErrorInfoInvalidNumber"),((JSpinner.DefaultEditor)calcPortEditSpinner.getEditor()).getTextField().getText()));
 			return -1;
 		}
@@ -604,6 +658,7 @@ public final class ServerPanel extends SpecialPanel {
 	private int checkCalcWebPort(final boolean showErrorMessage) {
 		final Integer I=(Integer)calcWebPortEdit.getValue();
 		if (I==null) {
+			calcWebPortEditSpinner.setBackground(Color.RED);
 			if (showErrorMessage) MsgBox.error(this,Language.tr("SimulationServer.Setup.Port.ErrorTitle"),String.format(Language.tr("SimulationServer.Setup.Port.ErrorInfoInvalidNumber"),((JSpinner.DefaultEditor)calcWebPortEditSpinner.getEditor()).getTextField().getText()));
 			return -1;
 		}
@@ -657,6 +712,7 @@ public final class ServerPanel extends SpecialPanel {
 	private int checkWebPort(final boolean showErrorMessage) {
 		final Integer I=(Integer)webPortEdit.getValue();
 		if (I==null) {
+			webPortEditSpinner.setBackground(Color.RED);
 			if (showErrorMessage) MsgBox.error(this,Language.tr("SimulationServer.Setup.Port.ErrorTitle"),String.format(Language.tr("SimulationServer.Setup.Port.ErrorInfoInvalidNumber"),((JSpinner.DefaultEditor)webPortEditSpinner.getEditor()).getTextField().getText()));
 			return -1;
 		}
@@ -748,6 +804,48 @@ public final class ServerPanel extends SpecialPanel {
 	}
 
 	/**
+	 * Prüft, ob der angegebene Port für den Socket-Server gültig ist.
+	 * @param showErrorMessage	Soll im Fehlerfall eine Fehlermeldung ausgegeben werden?
+	 * @return	Ist der angegebene Port gültig?
+	 */
+	private int checkSocketPort(final boolean showErrorMessage) {
+		final Integer I=(Integer)socketPortEdit.getValue();
+		if (I==null) {
+			socketPortEditSpinner.setBackground(Color.RED);
+			if (showErrorMessage) MsgBox.error(this,Language.tr("SimulationServer.Setup.Port.ErrorTitle"),String.format(Language.tr("SimulationServer.Setup.Port.ErrorInfoInvalidNumber"),((JSpinner.DefaultEditor)webPortEditSpinner.getEditor()).getTextField().getText()));
+			return -1;
+		}
+
+		final int port=I.intValue();
+		if (port<1 || port>65535) {
+			socketPortEditSpinner.setBackground(Color.RED);
+			if (showErrorMessage) MsgBox.error(this,Language.tr("SimulationServer.Setup.Port.ErrorTitle"),String.format(Language.tr("SimulationServer.Setup.Port.ErrorInfoInvalidPort"),port));
+			return -1;
+		} else {
+			socketPortEditSpinner.setBackground(NumberTools.getTextFieldDefaultBackground());
+		}
+
+		return port;
+	}
+
+	/**
+	 * Befehl: Socket-Server starten/stoppen
+	 */
+	private void commandStartStopSocket() {
+		if (serverSocket.isRunning()) {
+			serverSocket.stop();
+		} else {
+			final int port=checkSocketPort(true);
+			if (port>0) {
+				if (!serverSocket.start(port)) {
+					MsgBox.error(this,Language.tr("SimulationServer.Setup.SocketServer"),Language.tr("SimulationServer.Setup.SocketServer.MessageStartError"));
+				}
+			}
+		}
+		setupButtons();
+	}
+
+	/**
 	 * Befehl: Hilfe
 	 */
 	private void commandHelp() {
@@ -824,6 +922,9 @@ public final class ServerPanel extends SpecialPanel {
 
 		setup.ddeServerAutoStart=ddeAutoStartCheckBox.isSelected();
 
+		i=checkSocketPort(false); if (i>0) setup.socketServerPort=i;
+		setup.socketServerAutoStart=socketAutoStartCheckBox.isSelected();
+
 		setup.saveSetup();
 
 		ReloadManager.removeBroadcastReceiver(notifyRunner);
@@ -838,6 +939,7 @@ public final class ServerPanel extends SpecialPanel {
 		if (button==startStopWebButton) {commandStartStopWeb(); return;}
 		if (button==startStopMQTTButton) {commandStartStoppMQTT(); return;}
 		if (button==startStopDDEButton) {commandStartStopDDE(); return;}
+		if (button==startStopSocketButton) {commandStartStopSocket(); return;}
 		if (button==helpButton) {commandHelp(); return;}
 	}
 
@@ -890,6 +992,11 @@ public final class ServerPanel extends SpecialPanel {
 		if (setup.ddeServerAutoStart) {
 			final SimulationDDEServer serverDDE=SimulationDDEServer.getInstance(mainPanel);
 			serverDDE.start();
+		}
+
+		if (setup.socketServerAutoStart) {
+			final SocketServerCalc serverSocket=SocketServerCalc.getInstance();
+			serverSocket.start(setup.socketServerPort);
 		}
 	}
 

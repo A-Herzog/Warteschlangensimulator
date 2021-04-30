@@ -65,6 +65,7 @@ public class CommandLineSystem extends BaseCommandLineSystem {
 		list.add(new CommandServerMQTT());
 		list.add(new CommandServerMQTTTest());
 		list.add(new CommandServerMQTTFixed());
+		list.add(new CommandServerSocket());
 		list.add(new CommandVersion());
 		list.add(new CommandSetMaxThreads());
 		list.add(new CommandSetNUMA());

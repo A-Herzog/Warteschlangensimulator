@@ -127,3 +127,8 @@ MQTTTest.py:
 
 Python example script demonstrating how to connect to MQTT client in
 Warteschlangensimulator to submit models to be simulated and to receive results.
+
+SocketTest.py:
+
+Python example script demonstrating how to connect to Warteschlangensimulator
+socket server to submit models to be simulated and to receive results.

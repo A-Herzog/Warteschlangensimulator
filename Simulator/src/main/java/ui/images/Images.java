@@ -945,6 +945,15 @@ public enum Images {
 	/** Symbol "DDE-Server- stoppen" */
 	SERVER_DDE_STOP("comment_delete.png"),
 
+	/** Symbol "Socket-Server" */
+	SERVER_SOCKET("connect.png"),
+
+	/** Symbol "Socket-Server - starten" */
+	SERVER_SOCKET_START("connect.png"),
+
+	/** Symbol "Socket-Server- stoppen" */
+	SERVER_SOCKET_STOP("disconnect.png"),
+
 	/* Info-Panel */
 
 	/** Symbol "Infoleiste - ausblenden - für diesen Eintrag" */
