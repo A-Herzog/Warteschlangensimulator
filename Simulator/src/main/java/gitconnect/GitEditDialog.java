@@ -550,7 +550,7 @@ public class GitEditDialog extends BaseDialog {
 			return;
 		}
 
-		MsgBox.error(this,Language.tr("Git.List.Tab.Server.Button.Status"),"<html><body>"+setup.getRepositoryStatus().replace("\n","<br>")+"</body></html>");
+		MsgBox.info(this,Language.tr("Git.List.Tab.Server.Button.Status"),"<html><body>"+setup.getRepositoryStatus().replace("\n","<br>")+"</body></html>");
 	}
 
 	/**
@@ -582,7 +582,7 @@ public class GitEditDialog extends BaseDialog {
 		}
 
 		if (!setup.hasCommitsToPush()) {
-			MsgBox.error(this,Language.tr("Git.List.Push"),Language.tr("Git.List.Push.NoCommitsToPush"));
+			MsgBox.info(this,Language.tr("Git.List.Push"),Language.tr("Git.List.Push.NoCommitsToPush"));
 			return;
 		}
 
@@ -676,7 +676,7 @@ public class GitEditDialog extends BaseDialog {
 		final GitSetup setup=getNewSetup();
 
 		if (setup.serverURL.trim().isEmpty()) {
-			MsgBox.info(this,Language.tr("Git.List.Tab.Server.Button.Test"),Language.tr("Git.List.Tab.Server.Button.Test.Error.NoServerURL"));
+			MsgBox.error(this,Language.tr("Git.List.Tab.Server.Button.Test"),Language.tr("Git.List.Tab.Server.Button.Test.Error.NoServerURL"));
 			return;
 		}
 
@@ -684,7 +684,7 @@ public class GitEditDialog extends BaseDialog {
 		if (error==null) {
 			MsgBox.info(this,Language.tr("Git.List.Tab.Server.Button.Test"),String.format(Language.tr("Git.List.Tab.Server.Button.Test.Success"),setup.serverURL));
 		} else {
-			MsgBox.info(this,Language.tr("Git.List.Tab.Server.Button.Test"),String.format(Language.tr("Git.List.Tab.Server.Button.Test.Error"),setup.serverURL,error));
+			MsgBox.error(this,Language.tr("Git.List.Tab.Server.Button.Test"),String.format(Language.tr("Git.List.Tab.Server.Button.Test.Error"),setup.serverURL,error));
 		}
 	}
 
@@ -695,7 +695,7 @@ public class GitEditDialog extends BaseDialog {
 		final GitSetup setup=getNewSetup();
 
 		if (setup.serverURL.trim().isEmpty()) {
-			MsgBox.info(this,Language.tr("Git.List.Tab.Server.Button.Clone"),Language.tr("Git.List.Tab.Server.Button.Test.Error.NoServerURL"));
+			MsgBox.error(this,Language.tr("Git.List.Tab.Server.Button.Clone"),Language.tr("Git.List.Tab.Server.Button.Test.Error.NoServerURL"));
 			return;
 		}
 
@@ -703,7 +703,7 @@ public class GitEditDialog extends BaseDialog {
 		if (error==null) {
 			MsgBox.info(this,Language.tr("Git.List.Tab.Server.Button.Clone"),String.format(Language.tr("Git.List.Tab.Server.Button.Clone.Success"),setup.serverURL,setup.localFolder));
 		} else {
-			MsgBox.info(this,Language.tr("Git.List.Tab.Server.Button.Clone"),String.format(Language.tr("Git.List.Tab.Server.Button.Clone.Error"),setup.serverURL,setup.localFolder,error));
+			MsgBox.error(this,Language.tr("Git.List.Tab.Server.Button.Clone"),String.format(Language.tr("Git.List.Tab.Server.Button.Clone.Error"),setup.serverURL,setup.localFolder,error));
 		}
 		commandTestLocalFolder();
 	}
