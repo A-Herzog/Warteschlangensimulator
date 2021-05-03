@@ -65,6 +65,7 @@ import javax.swing.JTextField;
 import javax.swing.JToolBar;
 import javax.swing.KeyStroke;
 import javax.swing.SwingUtilities;
+import javax.swing.UIManager;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
@@ -74,6 +75,7 @@ import org.jfree.chart.JFreeChart;
 import org.jfree.chart.axis.LogarithmicAxis;
 import org.jfree.chart.axis.NumberAxis;
 import org.jfree.chart.axis.NumberTickUnit;
+import org.jfree.chart.axis.ValueAxis;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.plot.XYPlot;
 import org.jfree.chart.renderer.xy.XYLineAndShapeRenderer;
@@ -536,7 +538,25 @@ public class OptimizerPanel extends SpecialPanel {
 				true
 				);
 		chartPanel.setPopupMenu(null);
+
 		chart.setBackgroundPaint(null);
+
+		final Color textBackground=UIManager.getColor("TextField.background");
+		final boolean isDark=(textBackground!=null && !textBackground.equals(Color.WHITE));
+		if (isDark) {
+			ValueAxis axis;
+			axis=((XYPlot)chart.getPlot()).getDomainAxis();
+			axis.setAxisLinePaint(Color.LIGHT_GRAY);
+			axis.setLabelPaint(Color.LIGHT_GRAY);
+			axis.setTickLabelPaint(Color.LIGHT_GRAY);
+			axis.setTickMarkPaint(Color.LIGHT_GRAY);
+			axis=((XYPlot)chart.getPlot()).getRangeAxis();
+			axis.setAxisLinePaint(Color.LIGHT_GRAY);
+			axis.setLabelPaint(Color.LIGHT_GRAY);
+			axis.setTickLabelPaint(Color.LIGHT_GRAY);
+			axis.setTickMarkPaint(Color.LIGHT_GRAY);
+		}
+
 		final TextTitle t=chart.getTitle();
 		if (t!=null) {Font f=t.getFont(); t.setFont(new Font(f.getFontName(),Font.PLAIN,f.getSize()-4));}
 

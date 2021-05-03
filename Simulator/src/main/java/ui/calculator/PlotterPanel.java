@@ -48,6 +48,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.JToolBar;
 import javax.swing.SwingConstants;
+import javax.swing.UIManager;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
@@ -56,6 +57,7 @@ import org.apache.poi.xwpf.usermodel.XWPFDocument;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
+import org.jfree.chart.axis.ValueAxis;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.plot.XYPlot;
 import org.jfree.chart.renderer.xy.XYItemRenderer;
@@ -238,11 +240,29 @@ public class PlotterPanel extends JPanel {
 				true   /* tooltips */
 				);
 		chartPanel.setPopupMenu(null);
+
 		chart.setBackgroundPaint(null);
-		/* chart.getPlot().setBackgroundPaint(Color.WHITE); */
 		chart.getPlot().setBackgroundPaint(new GradientPaint(1,0,new Color(0xFA,0xFA,0xFF),1,150,new Color(0xEA,0xEA,0xFF)));
+
+		final Color textBackground=UIManager.getColor("TextField.background");
+		final boolean isDark=(textBackground!=null && !textBackground.equals(Color.WHITE));
+		if (isDark) {
+			ValueAxis axis;
+			axis=((XYPlot)chart.getPlot()).getDomainAxis();
+			axis.setAxisLinePaint(Color.LIGHT_GRAY);
+			axis.setLabelPaint(Color.LIGHT_GRAY);
+			axis.setTickLabelPaint(Color.LIGHT_GRAY);
+			axis.setTickMarkPaint(Color.LIGHT_GRAY);
+			axis=((XYPlot)chart.getPlot()).getRangeAxis();
+			axis.setAxisLinePaint(Color.LIGHT_GRAY);
+			axis.setLabelPaint(Color.LIGHT_GRAY);
+			axis.setTickLabelPaint(Color.LIGHT_GRAY);
+			axis.setTickMarkPaint(Color.LIGHT_GRAY);
+		}
+
 		TextTitle t=chart.getTitle();
 		if (t!=null) {Font f=t.getFont(); t.setFont(new Font(f.getFontName(),Font.PLAIN,f.getSize()-4));}
+
 		return chartPanel;
 	}
 
