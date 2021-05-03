@@ -93,7 +93,7 @@ public class SetupDialogMQTTSettings extends BaseDialog {
 		JPanel line;
 
 		/* Broker */
-		data=ModelElementBaseDialog.getInputPanel(Language.tr("SimulationServer.Setup.MQTTBroker")+":",setup.mqttBroker,50);
+		data=ModelElementBaseDialog.getInputPanel(Language.tr("SimulationServer.Setup.MQTTBroker")+":",setup.mqttBroker,40);
 		content.add((JPanel)data[0]);
 		editBroker=(JTextField)data[1];
 
@@ -103,17 +103,17 @@ public class SetupDialogMQTTSettings extends BaseDialog {
 		checkCertificate.setToolTipText(Language.tr("SimulationServer.Setup.MQTTBrokerVerify.Hint"));
 
 		/* Nutzername */
-		data=ModelElementBaseDialog.getInputPanel(Language.tr("SimulationServer.Setup.AuthName")+":",setup.serverAuthName,50);
+		data=ModelElementBaseDialog.getInputPanel(Language.tr("SimulationServer.Setup.AuthName")+":",setup.serverAuthName,25);
 		content.add((JPanel)data[0]);
 		editName=(JTextField)data[1];
 
 		/* Passwort */
-		data=ModelElementBaseDialog.getInputPanel(Language.tr("SimulationServer.Setup.AuthPassword")+":",setup.serverAuthPassword,50);
+		data=ModelElementBaseDialog.getInputPanel(Language.tr("SimulationServer.Setup.AuthPassword")+":",setup.serverAuthPassword,25);
 		content.add((JPanel)data[0]);
 		editPassword=(JTextField)data[1];
 
 		/* Topic */
-		data=ModelElementBaseDialog.getInputPanel(Language.tr("SimulationServer.Setup.MQTTNotifyTopic")+":",setup.notifyMQTTTopic,50);
+		data=ModelElementBaseDialog.getInputPanel(Language.tr("SimulationServer.Setup.MQTTNotifyTopic")+":",setup.notifyMQTTTopic,30);
 		content.add((JPanel)data[0]);
 		editTopic=(JTextField)data[1];
 
