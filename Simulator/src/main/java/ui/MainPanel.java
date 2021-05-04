@@ -545,8 +545,9 @@ public class MainPanel extends MainPanelBase {
 		/* Hotkeys */
 		final InputMap input=getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
 		input.put(KeyStroke.getKeyStroke('E',InputEvent.CTRL_DOWN_MASK),"ctrlE");
-		input.put(KeyStroke.getKeyStroke('3',InputEvent.CTRL_DOWN_MASK),"ctrlE");
-		input.put(KeyStroke.getKeyStroke('P',InputEvent.CTRL_DOWN_MASK+InputEvent.SHIFT_DOWN_MASK),"ctrlE");
+		input.put(KeyStroke.getKeyStroke('3',InputEvent.CTRL_DOWN_MASK),"ctrlE"); /* Eclipse Style */
+		input.put(KeyStroke.getKeyStroke('P',InputEvent.CTRL_DOWN_MASK+InputEvent.SHIFT_DOWN_MASK),"ctrlE"); /* Visual Studio Code Style */
+		input.put(KeyStroke.getKeyStroke('M',InputEvent.CTRL_DOWN_MASK+InputEvent.ALT_DOWN_MASK),"ctrlE"); /* (Fast) Microsoft Office Style (korrekt wäre Alt+M, aber das kollidiert mit "&Modell" */
 		addAction("ctrlE",e->{if (quickAccess!=null && quickAccess.isVisible()) {quickAccess.requestFocus(); quickAccess.selectAll();}});
 
 		/* Datei */
