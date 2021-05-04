@@ -326,8 +326,10 @@ public class StatisticViewerMovementTable extends StatisticViewerTable {
 		final JButton[] superButtons=super.getAdditionalButton();
 		if (superButtons!=null) buttons.addAll(Arrays.asList(superButtons));
 
+		JButton button;
+
 		if (mode.hasSankey) {
-			final JButton button=new JButton(Language.tr("Statistics.ClientMovement.Sankey"));
+			buttons.add(button=new JButton(Language.tr("Statistics.ClientMovement.Sankey")));
 			button.setToolTipText(Language.tr("Statistics.ClientMovement.Sankey.Tooltip"));
 			button.setIcon(Images.STATISTICS_DIAGRAM_SANKEY.getIcon());
 			button.addActionListener(e->{
@@ -342,7 +344,13 @@ public class StatisticViewerMovementTable extends StatisticViewerTable {
 					break;
 				}
 			});
-			buttons.add(button);
+		}
+
+		if (mode==Mode.CLIENT_PATHS) {
+			buttons.add(button=new JButton(Language.tr("Statistics.ClientMovement.Visualization")));
+			button.setToolTipText(Language.tr("Statistics.ClientMovement.Visualization.Tooltip"));
+			button.setIcon(Images.MODELPROPERTIES_PATH_RECORDING.getIcon());
+			button.addActionListener(e->new StatisticViewerMovementVisualizationDialog(getViewer(false),statistics));
 		}
 
 		return buttons.toArray(new JButton[0]);

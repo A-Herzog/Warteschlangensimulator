@@ -16,6 +16,7 @@
 package ui.statistics;
 
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -248,23 +249,36 @@ public class StatisticViewerMovementText extends StatisticViewerText {
 
 	@Override
 	public JButton[] getAdditionalButton() {
-		if (!mode.hasSankey) return null;
+		final List<JButton> buttons=new ArrayList<>();
 
-		final JButton button=new JButton(Language.tr("Statistics.ClientMovement.Sankey"));
-		button.setToolTipText(Language.tr("Statistics.ClientMovement.Sankey.Tooltip"));
-		button.setIcon(Images.STATISTICS_DIAGRAM_SANKEY.getIcon());
-		button.addActionListener(e->{
-			switch (mode) {
-			case STATION_TRANSITION:
-				new CreateSankey(getViewer(false),StatisticViewerMovementTable.getClientMovementTable(statistics),CreateSankey.Mode.STATION_TRANSITION);
-				break;
-			case CLIENT_PATHS:
-				new CreateSankey(getViewer(false),StatisticViewerMovementTable.getClientPathsTable(statistics,false),CreateSankey.Mode.CLIENT_PATHS);
-				break;
-			default:
-				break;
-			}
-		});
-		return new JButton[]{button};
+		JButton button;
+
+		if (mode.hasSankey) {
+			buttons.add(button=new JButton(Language.tr("Statistics.ClientMovement.Sankey")));
+			button.setToolTipText(Language.tr("Statistics.ClientMovement.Sankey.Tooltip"));
+			button.setIcon(Images.STATISTICS_DIAGRAM_SANKEY.getIcon());
+			button.addActionListener(e->{
+				switch (mode) {
+				case STATION_TRANSITION:
+					new CreateSankey(getViewer(false),StatisticViewerMovementTable.getClientMovementTable(statistics),CreateSankey.Mode.STATION_TRANSITION);
+					break;
+				case CLIENT_PATHS:
+					new CreateSankey(getViewer(false),StatisticViewerMovementTable.getClientPathsTable(statistics,false),CreateSankey.Mode.CLIENT_PATHS);
+					break;
+				default:
+					break;
+				}
+			});
+		}
+
+		if (mode==Mode.CLIENT_PATHS) {
+			buttons.add(button=new JButton(Language.tr("Statistics.ClientMovement.Visualization")));
+			button.setToolTipText(Language.tr("Statistics.ClientMovement.Visualization.Tooltip"));
+			button.setIcon(Images.MODELPROPERTIES_PATH_RECORDING.getIcon());
+			button.addActionListener(e->new StatisticViewerMovementVisualizationDialog(getViewer(false),statistics));
+		}
+
+		if (buttons.size()==0) return null;
+		return buttons.toArray(new JButton[0]);
 	}
 }

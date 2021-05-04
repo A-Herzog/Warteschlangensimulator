@@ -329,6 +329,48 @@ public class ModelElement {
 	}
 
 	/**
+	 * Zeichenmodus
+	 */
+	public enum DrawMode {
+		/**
+		 * Element normal zeichnen (ggf. selektiert)
+		 */
+		NORMAL,
+
+		/**
+		 * Element hervorgehoben zeichnen (mögliche Selektion kann dabei ignoriert werden)
+		 */
+		HIGHLIGHTED,
+
+		/**
+		 * Element reduziert zeichnen (mögliche Selektion kann dabei ignoriert werden)
+		 */
+		GRAYED_OUT
+	}
+
+	/**
+	 * Zeichenmodus
+	 */
+	protected DrawMode drawMode=DrawMode.NORMAL;
+
+	/**
+	 * Liefert den aktuellen Zeichenmodus.
+	 * @return	Aktuelle Zeichenmodus
+	 */
+	public DrawMode getDrawMode() {
+		return drawMode;
+	}
+
+	/**
+	 * Stellt einen neuen Zeichenmodus ein.
+	 * @param drawMode	Neuer Zeichenmodus
+	 */
+	public void setDrawMode(final DrawMode drawMode) {
+		if (drawMode==null) this.drawMode=DrawMode.NORMAL; else this.drawMode=drawMode;
+		fireChanged();
+	}
+
+	/**
 	 * Gibt für die Klasse an, ob der Name bei Vergleichen mit einbezogen werden soll.<br>
 	 * (Für normale Elemente sollte hier <code>true</code> zurückgegeben werden. Nur für Kanten usw. ist <code>false</code> sinnvoll.)
 	 * @return	Gibt an, ob der Name des Elements bei Vergleichen mit einbezogen werden soll.
@@ -369,6 +411,7 @@ public class ModelElement {
 		name=element.name;
 		description=element.description;
 		selected=element.selected;
+		drawMode=element.drawMode;
 
 		layers.clear();
 		layers.addAll(element.getLayers());

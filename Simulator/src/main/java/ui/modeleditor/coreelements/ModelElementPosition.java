@@ -375,8 +375,32 @@ public class ModelElementPosition extends ModelElement {
 		final Shape saveClip=graphics.getClip();
 		try {
 			setClip(graphics,drawRect,objectRect);
-			final int w=(borderWidth==0)?0:(int)(Math.max(1,Math.round(borderWidth*zoom)));
-			drawElementShape(graphics,drawRect,objectRect,borderColor,w,fillColor,zoom,stage);
+			final int w;
+			final Color borderColorToUse;
+			final Color fillColorToUse;
+			switch (drawMode) {
+			case NORMAL:
+				w=(borderWidth==0)?0:(int)(Math.max(1,Math.round(borderWidth*zoom)));
+				borderColorToUse=borderColor;
+				fillColorToUse=fillColor;
+				break;
+			case HIGHLIGHTED:
+				w=3*((borderWidth==0)?0:(int)(Math.max(1,Math.round(borderWidth*zoom))));
+				borderColorToUse=Color.RED;
+				fillColorToUse=fillColor;
+				break;
+			case GRAYED_OUT:
+				w=1;
+				borderColorToUse=Color.GRAY;
+				fillColorToUse=Color.WHITE;
+				break;
+			default:
+				w=(borderWidth==0)?0:(int)(Math.max(1,Math.round(borderWidth*zoom)));
+				borderColorToUse=borderColor;
+				fillColorToUse=fillColor;
+				break;
+			}
+			drawElementShape(graphics,drawRect,objectRect,borderColorToUse,w,fillColorToUse,zoom,stage);
 		} finally {
 			graphics.setClip(saveClip);
 		}

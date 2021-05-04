@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-04-29 21:47+0200\n"
+"POT-Creation-Date: 2021-05-03 21:56+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17615,6 +17615,36 @@ msgstr "Kundenbewegungen als Sankey-Diagramm exportieren"
 
 msgid "Statistics.ClientMovement.To"
 msgstr "Nach"
+
+msgid "Statistics.ClientMovement.Visualization"
+msgstr "Pfade anzeigen"
+
+msgid "Statistics.ClientMovement.Visualization.Copy"
+msgstr "Modell als Bild in die Zwischenablage kopieren"
+
+msgid "Statistics.ClientMovement.Visualization.ListDown"
+msgstr "Nächster Pfad"
+
+msgid "Statistics.ClientMovement.Visualization.ListUp"
+msgstr "Vorheriger Pfad"
+
+msgid "Statistics.ClientMovement.Visualization.Path"
+msgstr "Pfad"
+
+msgid "Statistics.ClientMovement.Visualization.Save"
+msgstr "Modell als Bild speichern"
+
+msgid "Statistics.ClientMovement.Visualization.Title"
+msgstr "Pfade visualisieren"
+
+msgid "Statistics.ClientMovement.Visualization.Tools"
+msgstr "Modell als Bild exportieren"
+
+msgid "Statistics.ClientMovement.Visualization.Tooltip"
+msgstr "Zeigt die einzelnen Pfade direkt im Modell an."
+
+msgid "Statistics.ClientMovement.Visualization.UnknownStation"
+msgstr "unbekannte Station"
 
 msgid "Statistics.ClientPathLengths"
 msgstr "Pfadlängen"

@@ -515,8 +515,8 @@ public class Statistics extends StatisticsBase {
 		addPerformanceIndicator(stationsInterleavingTimeByClientType=new StatisticsMultiPerformanceIndicator(Language.trAll("Statistics.XML.Element.InterLeavingStationsByClientType"),new StatisticsDataPerformanceIndicator(nameStation,secondsToRecordInDistributions,secondsToRecordInDistributions,-1,batchSize,true)));
 
 		/* Kundenbewegungen zwischen den Stationen */
-		addPerformanceIndicator(stationTransition=new StatisticsMultiPerformanceIndicator(Language.trAll("Statistics.XML.Element.ClientMovement"),new StatisticsSimpleCountPerformanceIndicator(Language.trAll("Statistics.XML.Element.ClientMovement.Stations"),false)));
-		addPerformanceIndicator(clientPaths=new StatisticsMultiPerformanceIndicator(Language.trAll("Statistics.XML.Element.ClientPaths"),new StatisticsSimpleCountPerformanceIndicator(Language.trAll("Statistics.XML.Element.ClientPaths.Path"),false)));
+		addPerformanceIndicator(stationTransition=new StatisticsMultiPerformanceIndicator(Language.trAll("Statistics.XML.Element.ClientMovement"),new StatisticsSimpleCountPerformanceIndicator(Language.trAll("Statistics.XML.Element.ClientMovement.Stations"),false))); /* kein Grouping, da "->" sonst als Trenner zwischen Name und Gruppe herangezogen würde */
+		addPerformanceIndicator(clientPaths=new StatisticsMultiPerformanceIndicator(Language.trAll("Statistics.XML.Element.ClientPaths"),new StatisticsSimpleCountPerformanceIndicator(Language.trAll("Statistics.XML.Element.ClientPaths.Path"),false))); /* kein Grouping, da "->" sonst als Trenner zwischen Name und Gruppe herangezogen würde */
 
 		/* Zeiten pro Kundentyp */
 		addPerformanceIndicator(clientsWaitingTimes=new StatisticsMultiPerformanceIndicator(Language.trAll("Statistics.XML.Element.WaitingClients"),new StatisticsDataPerformanceIndicator(nameClientType,secondsToRecordInDistributions,secondsToRecordInDistributions,rangeFull,batchSize,true)));

@@ -527,6 +527,13 @@ public final class ModelElementEdge extends ModelElement {
 	private static final double CUBIC_CURVE_CTRL_FACTOR=0.5;
 
 	/**
+	 * Zeichensystem, welches in den Modi {@link ui.modeleditor.coreelements.ModelElement.DrawMode#HIGHLIGHTED}
+	 * und {@link ui.modeleditor.coreelements.ModelElement.DrawMode#GRAYED_OUT} verwendet wird.
+	 * @see #drawToGraphics(Graphics, Rectangle, double, boolean)
+	 */
+	private final ComplexLine specialPainter=new ComplexLine();
+
+	/**
 	 * Zeichnet das Element in ein <code>Graphics</code>-Objekt
 	 * @param graphics	<code>Graphics</code>-Objekt in das das Element eingezeichnet werden soll
 	 * @param drawRect	Tatsächlich sichtbarer Ausschnitt
@@ -549,7 +556,23 @@ public final class ModelElementEdge extends ModelElement {
 		middle.y=(p1.y+p2.y)/2;
 
 		/* Linienstil */
-		final ComplexLine painter=(isSelected() && showSelectionFrames)?(getModel().edgePainterSelected):(getModel().edgePainterNormal);
+		final ComplexLine painter;
+		switch (drawMode) {
+		case NORMAL:
+			painter=(isSelected() && showSelectionFrames)?(getModel().edgePainterSelected):(getModel().edgePainterNormal);
+			break;
+		case GRAYED_OUT:
+			specialPainter.set(1,Color.GRAY,getModel().edgePainterNormal.getType());
+			painter=specialPainter;
+			break;
+		case HIGHLIGHTED:
+			specialPainter.set(3*getModel().edgePainterNormal.getWidth(),Color.RED,getModel().edgePainterNormal.getType());
+			painter=specialPainter;
+			break;
+		default:
+			painter=(isSelected() && showSelectionFrames)?(getModel().edgePainterSelected):(getModel().edgePainterNormal);
+			break;
+		}
 
 		/* Linie(n) zeichnen */
 		switch (getDrawLineMode(points)) {
