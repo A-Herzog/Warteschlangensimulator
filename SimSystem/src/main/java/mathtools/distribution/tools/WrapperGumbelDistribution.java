@@ -70,9 +70,9 @@ public class WrapperGumbelDistribution extends AbstractDistributionWrapper {
 	}
 
 	@Override
-	public AbstractRealDistribution getDistributionForFit(double mean, double sd) {
+	public AbstractRealDistribution getDistributionForFit(double mean, double sd, final double min, final double max) {
 		if (sd<=0) return null;
-		return super.getDistributionForFit(mean,sd);
+		return super.getDistributionForFit(mean,sd,min,max);
 	}
 
 	@Override

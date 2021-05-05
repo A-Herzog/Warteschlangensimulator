@@ -301,12 +301,14 @@ public class DistributionFitter {
 
 		final double mean=samples.getMean();
 		final double sd=samples.getStandardDeviation();
+		final double min=dist.getMin();
+		final double max=dist.getMax(); /* dist enthält die Messwerte; samples.getMax() würde hingegen den maximalen Dichte-Werte für ein Intervall angeben, nicht das höchste Intervall mit einem Dichtewert größer als 0 */
 
 		outputPlain.append(ComparedDistributions+"\n");
 		outputHTML.append("<h3>"+ComparedDistributions+"</h3>\n");
 
 		for (String name: DistributionTools.getDistributionNames()) {
-			calcMatch(DistributionTools.getWrapper(name),mean,sd);
+			calcMatch(DistributionTools.getWrapper(name),mean,sd,min,max);
 		}
 
 		outputPlain.append("\n");
@@ -529,12 +531,14 @@ public class DistributionFitter {
 	 * Versucht eine Verteilung an die Messwerte anzupassen und berechnet dann,
 	 * wenn die Anpassung möglich ist, die Abweichung
 	 * @param wrapper	Typ der Verteilung
+	 * @param min	Minimal aufgetretener Messwert
+	 * @param max	Maximal aufgetretener Messwert
 	 * @param mean	Einzustellender Erwartungswert
 	 * @param sd	Einzustellende Standardabweichung
 	 */
-	private void calcMatch(final AbstractDistributionWrapper wrapper, final double mean, final double sd) {
+	private void calcMatch(final AbstractDistributionWrapper wrapper, final double mean, final double sd, final double min, final double max) {
 		if (wrapper==null) return;
-		final AbstractRealDistribution fit=wrapper.getDistributionForFit(mean,sd);
+		final AbstractRealDistribution fit=wrapper.getDistributionForFit(mean,sd,min,max);
 		if (fit!=null) calcMatch(fit);
 	}
 

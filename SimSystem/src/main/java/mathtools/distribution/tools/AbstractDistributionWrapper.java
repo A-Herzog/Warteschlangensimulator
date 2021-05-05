@@ -35,7 +35,7 @@ public abstract class AbstractDistributionWrapper {
 
 	/**
 	 * Kann bei diesen Verteilungen der Erwartungswert direkt eingestellt werden?
-	 * @see AbstractDistributionWrapper#setMean(AbstractRealDistribution, double)
+	 * @see #setMean(AbstractRealDistribution, double)
 	 */
 	public final boolean canSetMean;
 
@@ -46,9 +46,15 @@ public abstract class AbstractDistributionWrapper {
 
 	/**
 	 * Klassen bei diesen Verteilungen die Standardabweichung direkt eingestellt werden?
-	 * @see AbstractDistributionWrapper#setStandardDeviation(AbstractRealDistribution, double)
+	 * @see #setStandardDeviation(AbstractRealDistribution, double)
 	 */
 	public final boolean canSetStandardDeviation;
+
+	/**
+	 * Kann eine Verteilung direkt erstellt werden?
+	 * @see #getDistribution(double, double)
+	 */
+	public final boolean canBuildDistributionFromMeanAndSD;
 
 	/**
 	 * Gibt an, ob die Standardabweichung exakt eingestellt werden kann (<code>true</code>) oder ob er intern z.B. auf eine Ganzzahl gerundet wird (<code>false</code>)
@@ -67,6 +73,7 @@ public abstract class AbstractDistributionWrapper {
 		this.canSetStandardDeviation=canSetStandardDeviation;
 		canSetMeanExact=canSetMeanExact();
 		canSetStandardDeviationExact=canSetStandardDeviationExact();
+		canBuildDistributionFromMeanAndSD=canSetMean && canSetStandardDeviation && canBuildDistributionDirect();
 	}
 
 	/**
@@ -167,6 +174,17 @@ public abstract class AbstractDistributionWrapper {
 	}
 
 	/**
+	 * Kann eine Verteilung direkt erstellt werden, sofern Erwartungswert und Standardabweichung direkt gesetzt werden können?
+	 * @return	Kann eine Verteilung direkt erstellt werden, sofern Erwartungswert und Standardabweichung direkt gesetzt werden können?
+	 * @see #canBuildDistributionFromMeanAndSD
+	 * @see #canSetMean
+	 * @see #canSetStandardDeviation
+	 */
+	protected boolean canBuildDistributionDirect() {
+		return true;
+	}
+
+	/**
 	 * Versucht eine Verteilung vom vorliegenden Typ aus angegebenem Erwartungswert und angegebener Standardabweichung zu erstellen
 	 * @param mean	Erwartungswert
 	 * @param sd	Standardabweichung
@@ -188,9 +206,11 @@ public abstract class AbstractDistributionWrapper {
 	 * {@link AbstractDistributionWrapper#getDistribution(double, double)}.
 	 * @param mean	Erwartungswert
 	 * @param sd	Standardabweichung
+	 * @param min	Minimal aufgetretener Messwert (muss vom Fitter nicht zwingend berücksichtigt werden)
+	 * @param max	Maximal aufgetretener Messwert (muss vom Fitter nicht zwingend berücksichtigt werden)
 	 * @return	Neue Verteilung oder <code>null</code>, wenn das so nicht möglich oder nicht sinnvoll ist
 	 */
-	public AbstractRealDistribution getDistributionForFit(final double mean, final double sd) {
+	public AbstractRealDistribution getDistributionForFit(final double mean, final double sd, final double min, final double max) {
 		return getDistribution(mean,sd);
 	}
 

@@ -119,7 +119,7 @@ class DistributionToolsTests {
 			assertNotNull(wrapper.getThumbnailImage());
 
 			assertNotNull(wrapper.getDefaultDistribution());
-			if (wrapper.canSetMean && wrapper.canSetStandardDeviation) {
+			if (wrapper.canBuildDistributionFromMeanAndSD) {
 				assertNotNull(wrapper.getDistribution(100,50));
 			}
 		}

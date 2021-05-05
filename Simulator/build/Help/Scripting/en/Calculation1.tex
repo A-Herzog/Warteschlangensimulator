@@ -534,30 +534,6 @@ Generates a random number based on this distribution but limits the range of the
 
 
 
-\section{Erlang distribution with parameters \texorpdfstring{$n$}{n} and \texorpdfstring{$\lambda=l$}{l}}
-
-\begin{itemize}
-
-\item
-\cmd{ErlangDist(x;n;l;0)}:
-Calculates the probability density at $x$.
-
-\item
-\cmd{ErlangDist(x;n;l;1)}:
-Calculates the cumulative distribution function at $x$.
-
-\item
-\cmd{ErlangDist(n;b)}:
-Generates a random number based on this distribution.
-
-\item
-\cmd{ErlangDistRange(min;max;n;b)}:
-Generates a random number based on this distribution but limits the range of the value to $min\ldots max$.
-
-\end{itemize}
-
-
-
 \section{Gamma distribution with mean \texorpdfstring{$a$}{a} and standard deviation \texorpdfstring{$b$}{b}}
 
 \begin{itemize}
@@ -582,6 +558,30 @@ Generates a random number based on this distribution but limits the range of the
 
 
 
+\section{Erlang distribution with parameters \texorpdfstring{$n$}{n} and \texorpdfstring{$\lambda=l$}{l}}
+
+\begin{itemize}
+
+\item
+\cmd{ErlangDist(x;n;l;0)}:
+Calculates the probability density at $x$.
+
+\item
+\cmd{ErlangDist(x;n;l;1)}:
+Calculates the cumulative distribution function at $x$.
+
+\item
+\cmd{ErlangDist(n;b)}:
+Generates a random number based on this distribution.
+
+\item
+\cmd{ErlangDistRange(min;max;n;b)}:
+Generates a random number based on this distribution but limits the range of the value to $min\ldots max$.
+
+\end{itemize}
+
+
+
 \section{Beta distribution in the interval \texorpdfstring{$[a;b]$}{[a;b]} and with parameters \texorpdfstring{$\alpha=c$}{c} and \texorpdfstring{$\beta=d$}{d}}
 
 \begin{itemize}
@@ -596,6 +596,26 @@ Calculates the cumulative distribution function at $x$.
 
 \item
 \cmd{BetaDist(a;b;c;d)}:
+Generates a random number based on this distribution.
+
+\end{itemize}
+
+
+
+\section{Beta distribution in the interval \texorpdfstring{$[a;b]$}{[a;b]} and with mean \texorpdfstring{$c$}{c} and standard deviation \texorpdfstring{$d$}{d}}
+
+\begin{itemize}
+
+\item
+\cmd{BetaDistDirect(x;a;b;c;d;0)}:
+Calculates the probability density at $x$.
+
+\item
+\cmd{BetaDistDirect(x;a;b;c;d;1)}:
+Calculates the cumulative distribution function at $x$.
+
+\item
+\cmd{BetaDistDirect(a;b;c;d)}:
 Generates a random number based on this distribution.
 
 \end{itemize}

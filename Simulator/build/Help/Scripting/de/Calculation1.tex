@@ -535,30 +535,6 @@ Erzeugt eine Zufallszahl gemäß der Verteilung und stellt dabei sicher, dass si
 
 
 
-\section{Erlang-Verteilung mit Parametern \texorpdfstring{$n$}{n} und \texorpdfstring{$\lambda=l$}{l}}
-
-\begin{itemize}
-
-\item
-\cmd{ErlangDist(x;n;l;0)}:
-Berechnet die Dichte an der Stelle $x$.
-
-\item
-\cmd{ErlangDist(x;n;l;1)}:
-Berechnet den Wert der Verteilungsfunktion an der Stelle $x$.
-
-\item
-\cmd{ErlangDist(n;b)}:
-Erzeugt eine Zufallszahl gemäß der Verteilung.
-
-\item
-\cmd{ErlangDistRange(min;max;n;b)}:
-Erzeugt eine Zufallszahl gemäß der Verteilung und stellt dabei sicher, dass sich das Ergebnis in dem Bereich von $min$ bis $max$ befindet.
-
-\end{itemize}
-
-
-
 \section{Gamma-Verteilung mit Mittelwert \texorpdfstring{$a$}{a} und Standardabweichung \texorpdfstring{$b$}{b}}
 
 \begin{itemize}
@@ -583,6 +559,30 @@ Erzeugt eine Zufallszahl gemäß der Verteilung und stellt dabei sicher, dass si
 
 
 
+\section{Erlang-Verteilung mit Parametern \texorpdfstring{$n$}{n} und \texorpdfstring{$\lambda=l$}{l}}
+
+\begin{itemize}
+
+\item
+\cmd{ErlangDist(x;n;l;0)}:
+Berechnet die Dichte an der Stelle $x$.
+
+\item
+\cmd{ErlangDist(x;n;l;1)}:
+Berechnet den Wert der Verteilungsfunktion an der Stelle $x$.
+
+\item
+\cmd{ErlangDist(n;b)}:
+Erzeugt eine Zufallszahl gemäß der Verteilung.
+
+\item
+\cmd{ErlangDistRange(min;max;n;b)}:
+Erzeugt eine Zufallszahl gemäß der Verteilung und stellt dabei sicher, dass sich das Ergebnis in dem Bereich von $min$ bis $max$ befindet.
+
+\end{itemize}
+
+
+
 \section{Beta-Verteilung in dem Intervall \texorpdfstring{$[a;b]$}{[a;b]} und mit Parametern \texorpdfstring{$\alpha=c$}{c} und \texorpdfstring{$\beta=d$}{d}}
 
 \begin{itemize}
@@ -597,6 +597,26 @@ Berechnet den Wert der Verteilungsfunktion an der Stelle $x$.
 
 \item
 \cmd{BetaDist(a;b;c;d)}:
+Erzeugt eine Zufallszahl gemäß der Verteilung.
+
+\end{itemize}
+
+
+
+\section{Beta-Verteilung in dem Intervall \texorpdfstring{$[a;b]$}{[a;b]} und mit Mittelwert \texorpdfstring{$c$}{c} und Standardabweichung \texorpdfstring{$d$}{d}}
+
+\begin{itemize}
+
+\item
+\cmd{BetaDistDirect(x;a;b;c;d;0)}:
+Berechnet die Dichte an der Stelle $x$.
+
+\item
+\cmd{BetaDistDirect(x;a;b;c;d;1)}:
+Berechnet den Wert der Verteilungsfunktion an der Stelle $x$.
+
+\item
+\cmd{BetaDistDirect(a;b;c;d)}:
 Erzeugt eine Zufallszahl gemäß der Verteilung.
 
 \end{itemize}

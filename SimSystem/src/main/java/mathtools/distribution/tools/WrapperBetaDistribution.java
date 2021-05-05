@@ -31,7 +31,7 @@ public class WrapperBetaDistribution extends AbstractDistributionWrapper {
 	 * Konstruktor der Klasse
 	 */
 	public WrapperBetaDistribution() {
-		super(ExtBetaDistributionImpl.class);
+		super(ExtBetaDistributionImpl.class,true,true);
 	}
 
 	@Override
@@ -56,6 +56,11 @@ public class WrapperBetaDistribution extends AbstractDistributionWrapper {
 	}
 
 	@Override
+	protected boolean canBuildDistributionDirect() {
+		return false; /* Auch wenn Erwartungswert und Standardabweichung eingestellt werden können, so kann (weil die Grenzen dann fehlen würden) doch nicht direkt eine Verteilung aus diesen beiden erstellt werden. */
+	}
+
+	@Override
 	public AbstractRealDistribution getDistribution(double mean, double sd) {
 		return null;
 	}
@@ -66,13 +71,31 @@ public class WrapperBetaDistribution extends AbstractDistributionWrapper {
 	}
 
 	@Override
+	public AbstractRealDistribution getDistributionForFit(final double mean, final double sd, final double min, final double max) {
+		if (sd<=0) return null;
+		if (min>=max) return null;
+		if (mean<min || mean>max) return null;
+
+		final double mean2=(mean-min)/(max-min);
+		final double sd2=sd/(max-min);
+
+		if (mean2<=0) return null;
+
+		final double v=sd2*sd2;
+		final double alpha=mean2*mean2/v-mean2*mean2*mean2/v-mean2;
+		final double beta=alpha*(1/mean2-1);
+
+		return new ExtBetaDistributionImpl(min,max,alpha,beta);
+	}
+
+	@Override
 	protected AbstractRealDistribution setMeanInt(AbstractRealDistribution distribution, double mean) {
-		return null;
+		return getDistributionForFit(mean,Math.sqrt(distribution.getNumericalVariance()),distribution.getSupportLowerBound(),distribution.getSupportUpperBound());
 	}
 
 	@Override
 	protected AbstractRealDistribution setStandardDeviationInt(AbstractRealDistribution distribution, double sd) {
-		return null;
+		return getDistributionForFit(distribution.getNumericalMean(),Math.sqrt(distribution.getNumericalVariance()),distribution.getSupportLowerBound(),distribution.getSupportUpperBound());
 	}
 
 	@Override

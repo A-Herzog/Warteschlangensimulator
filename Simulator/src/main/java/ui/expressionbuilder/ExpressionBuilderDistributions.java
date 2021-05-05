@@ -290,6 +290,14 @@ public class ExpressionBuilderDistributions {
 				Language.tr("ExpressionBuilder.ProbabilityDistributions.BetaDistribution.DistributionFunctionInfo"),
 				Language.tr("ExpressionBuilder.ProbabilityDistributions.BetaDistribution.RandomNumberInfo"));
 
+		/* Beta-Verteilung - Direkt */
+
+		addDist(group,filterUpper,"BetaDistDirect","a;b;alpha;beta",
+				Language.tr("ExpressionBuilder.ProbabilityDistributions.BetaDistributionDirect"),
+				Language.tr("ExpressionBuilder.ProbabilityDistributions.BetaDistributionDirect.DensityInfo"),
+				Language.tr("ExpressionBuilder.ProbabilityDistributions.BetaDistributionDirect.DistributionFunctionInfo"),
+				Language.tr("ExpressionBuilder.ProbabilityDistributions.BetaDistributionDirect.RandomNumberInfo"));
+
 		/* Weibull-Verteilung */
 
 		addDist(group,filterUpper,"WeibullDist","scale;form;beta",

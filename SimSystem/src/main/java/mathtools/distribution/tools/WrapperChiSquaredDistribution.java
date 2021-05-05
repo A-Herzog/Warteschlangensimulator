@@ -61,9 +61,9 @@ public class WrapperChiSquaredDistribution extends AbstractDistributionWrapper {
 	}
 
 	@Override
-	public AbstractRealDistribution getDistributionForFit(final double mean, final double sd) {
+	public AbstractRealDistribution getDistributionForFit(final double mean, final double sd, final double min, final double max) {
 		if (mean<=0) return null;
-		return super.getDistributionForFit(mean,sd);
+		return super.getDistributionForFit(mean,sd,min,max);
 	}
 
 	@Override

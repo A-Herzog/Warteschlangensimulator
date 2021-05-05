@@ -5620,8 +5620,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[12953] = "Execute command-line command";
     t[12956] = "SettingsDialog.ExcelDDEConnection.CustomRow.Info";
     t[12957] = "(If empty, the default for Englisch Excel is used: \"R\".)";
-    t[12964] = "ExpressionBuilder.SimulationCharacteristics.CompositeComparisons.And.Info";
-    t[12965] = "<p>Returns \"true\" if both the expression left and the expression to the right of the && operator are \"true\".</p>";
+    t[12964] = "ExpressionBuilder.ProbabilityDistributions.BetaDistributionDirect.RandomNumberInfo";
+    t[12965] = "<p>Generates a random number according to the beta distribution with lower bound, upper bound, mean and standard deviation specified in parameters one to four.</p>\n<p>Example: <tt>BetaDistDirect(0;10;5;5)</tt>.</p>";
     t[12966] = "Statistic.FastAccess.Template.Expression.Tooltip";
     t[12967] = "Inserts the result of a calculation expression.";
     t[12968] = "Color.008B8B";
@@ -9506,6 +9506,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[21625] = "%s is entered by client %s.";
     t[21628] = "Surface.TransportTransporterSource.Dialog.SectionEnd.SectionStart";
     t[21629] = "Section to be left";
+    t[21630] = "ExpressionBuilder.ProbabilityDistributions.BetaDistributionDirect";
+    t[21631] = "Beta distribution (direct characteristics)";
     t[21632] = "Setup.SaveError.Title";
     t[21633] = "Configuration could not be saved";
     t[21640] = "Surface.AnimationClock.Dialog.Expression.ErrorNoExpression.Info";
@@ -10032,14 +10034,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[22835] = "Edit assignment";
     t[22836] = "Statistics.ResultsAutocorrelation";
     t[22837] = "Autocorrelation of the waiting times";
-    t[22838] = "Surface.Line.Infotext";
-    t[22839] = "Lines are only used for optional decoration of models and do not have any impact on simulation or animation.";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_5 (java.lang.String[] t) {
+    t[22838] = "Surface.Line.Infotext";
+    t[22839] = "Lines are only used for optional decoration of models and do not have any impact on simulation or animation.";
     t[22840] = "Editor.Dialog.Tab.Clients.Color.UserDefined";
     t[22841] = "Custom color in diagrams";
     t[22844] = "CommandLine.Filter.Done.CouldNotSave";
@@ -12038,14 +12040,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[27441] = "Only available when using a flat theme and using Windows";
     t[27444] = "Surface.InputDDE.XML.EofMode.Loop";
     t[27445] = "Loop";
-    t[27446] = "Editor.Dialog.Tab.Clients.Color.Automatic";
-    t[27447] = "Automatic selection of the color in diagrams";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_6 (java.lang.String[] t) {
+    t[27446] = "Editor.Dialog.Tab.Clients.Color.Automatic";
+    t[27447] = "Automatic selection of the color in diagrams";
     t[27450] = "Statistic.FastAccess.Template.SaveStatistics.Tooltip";
     t[27451] = "Saves the statistic results as an XML file";
     t[27454] = "Surface.Duplicate.NewClientType";
@@ -12180,6 +12182,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[27743] = "There is no connection between the delay station id=%d and the exit station.\nThis connection can be added automatically.";
     t[27744] = "Surface.Process.Dialog.Tab.Operators.Alternative.Down";
     t[27745] = "Checks the current operator setup at an earlier time when selecting an available operator setup.";
+    t[27746] = "ExpressionBuilder.SimulationCharacteristics.CompositeComparisons.And.Info";
+    t[27747] = "<p>Returns \"true\" if both the expression left and the expression to the right of the && operator are \"true\".</p>";
     t[27748] = "Statistic.Viewer.Context.Width.All";
     t[27749] = "Column width - all columns";
     t[27750] = "Surface.InteractiveCheckbox.Dialog.ValueUnchecked.ErrorTitle";
@@ -14042,16 +14046,16 @@ public class Messages_en extends java.util.ResourceBundle {
     t[32085] = "Column";
     t[32090] = "UserTemplates.TemplatesDialog.Edit";
     t[32091] = "Edit";
-    t[32092] = "Surface.PopupMenu.BreakPoint";
-    t[32093] = "Break point...";
-    t[32094] = "Simulation.CommandLine.Progress2.Shorter";
-    t[32095] = "%sK of %sK clients, %sM e., %sK e./sec.%s";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_7 (java.lang.String[] t) {
+    t[32092] = "Surface.PopupMenu.BreakPoint";
+    t[32093] = "Break point...";
+    t[32094] = "Simulation.CommandLine.Progress2.Shorter";
+    t[32095] = "%sK of %sK clients, %sM e., %sK e./sec.%s";
     t[32098] = "Main.Toolbar.ShowModelForTheseResults.Hint";
     t[32099] = "Displays the model that belongs to these simulation results";
     t[32108] = "SettingsDialog.Tabs.DefaultFormats";
@@ -14840,8 +14844,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[33931] = "Show model resources";
     t[33932] = "ParameterCompare.Toolbar.Save.Hint";
     t[33933] = "Saves the configuration to a file";
-    t[33936] = "Optimizer.XML.Target";
-    t[33937] = "OptimizerTarget";
+    t[33936] = "ExpressionBuilder.ProbabilityDistributions.BetaDistributionDirect.DistributionFunctionInfo";
+    t[33937] = "<p>Calculates the value of the distribution function of the beta distribution at the location specified as first parameter with lower bound, upper bound, mean and standard deviation specified in parameters two to five.</p>\n<p>Example: <tt>BetaDistDirect(7;0;10;5;2;1)</tt> returns 0.81942684533674.</p>";
     t[33938] = "ExpressionBuilder.ProbabilityDistributions.ErlangDistribution.DistributionFunctionInfo";
     t[33939] = "<p>Calculates the value of the distribution function of the Erlang distribution at the location specified as first parameter with the parameters n and &lambda; according to the second and third parameters.</p>\n<p>Example: <tt>ErlangDist(7;5;3;1)</tt> returns 0.087695308502.</p>";
     t[33942] = "Resources.Group.EditName.Dialog.DownTime.Expression.Label";
@@ -16048,16 +16052,16 @@ public class Messages_en extends java.util.ResourceBundle {
     t[36699] = "Flow factors by stations and client types";
     t[36700] = "Surface.InputDB.XML.EofMode.Loop";
     t[36701] = "Loop";
-    t[36702] = "Surface.AnimationBarStack.Dialog.FrameWidth";
-    t[36703] = "Frame width";
-    t[36704] = "Surface.Box.Name";
-    t[36705] = "Box";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_8 (java.lang.String[] t) {
+    t[36702] = "Surface.AnimationBarStack.Dialog.FrameWidth";
+    t[36703] = "Frame width";
+    t[36704] = "Surface.Box.Name";
+    t[36705] = "Box";
     t[36706] = "Surface.TeleportSource.Infotext";
     t[36707] = "Transfers the arriving clients without any delay to the defined teleport destination.";
     t[36708] = "Statistics.ErlangCompare.Operators.Available";
@@ -17232,6 +17236,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[39303] = "Erlang C comparison model";
     t[39318] = "ExpressionBuilder.SimulationCharacteristics.TransferTimesOverAll";
     t[39319] = "Transfer times over all client types and stations";
+    t[39320] = "ExpressionBuilder.ProbabilityDistributions.BetaDistributionDirect.DensityInfo";
+    t[39321] = "<p>Calculates the value of the density of the beta distribution at the location specified as first parameter with lower bound, upper bound, mean value and standard deviation according to the second to fiveth parameters.</p>\n<p>Example: <tt>BetaDistDirect(7;0;10;5;2;0)</tt> returns 1,31344828230159.</p>";
     t[39322] = "ModelGenerator.SelectQueue.Shortest";
     t[39323] = "Shortest queue";
     t[39326] = "Surface.Match.Dialog.OptionsBatching";
@@ -18052,18 +18058,18 @@ public class Messages_en extends java.util.ResourceBundle {
     t[41105] = "To station";
     t[41112] = "ParameterCompare.ScriptRunner.Results.Save";
     t[41113] = "Save";
-    t[41114] = "Editor.DialogBase.LineWidth.Pixel";
-    t[41115] = "pixel";
-    t[41120] = "Simulator.Creator.UnknownParserSymbol";
-    t[41121] = "Unknown symbol";
-    t[41122] = "Editor.Dialog.Tab.RunTimeStatisticsTable.Delete.ConfirmTitle";
-    t[41123] = "Delete expression";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_9 (java.lang.String[] t) {
+    t[41114] = "Editor.DialogBase.LineWidth.Pixel";
+    t[41115] = "pixel";
+    t[41120] = "Simulator.Creator.UnknownParserSymbol";
+    t[41121] = "Unknown symbol";
+    t[41122] = "Editor.Dialog.Tab.RunTimeStatisticsTable.Delete.ConfirmTitle";
+    t[41123] = "Delete expression";
     t[41124] = "ModelSecurityCheck.Column.StationID";
     t[41125] = "ID";
     t[41126] = "Window.ErrorNoGraphics";
@@ -18628,6 +18634,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[42431] = "Excel DDE source";
     t[42444] = "Surface.Decide.XML.Key.MultiTextValues";
     t[42445] = "MultiValues";
+    t[42446] = "Optimizer.XML.Target";
+    t[42447] = "OptimizerTarget";
     t[42448] = "FileType.DIF";
     t[42449] = "dif files";
     t[42450] = "Surface.Rectangle.XML.Root";

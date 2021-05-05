@@ -90,6 +90,7 @@ import parser.symbols.distributions.CalcSymbolDiscreteDistributionBinomial;
 import parser.symbols.distributions.CalcSymbolDiscreteDistributionHyperGeom;
 import parser.symbols.distributions.CalcSymbolDiscreteDistributionPoisson;
 import parser.symbols.distributions.CalcSymbolDistributionBeta;
+import parser.symbols.distributions.CalcSymbolDistributionBetaDirect;
 import parser.symbols.distributions.CalcSymbolDistributionCauchy;
 import parser.symbols.distributions.CalcSymbolDistributionChi;
 import parser.symbols.distributions.CalcSymbolDistributionChiSquare;
@@ -242,6 +243,7 @@ public class CalcSymbolList {
 			addSymbol(new CalcSymbolDistributionGamma());
 			addSymbol(new CalcSymbolDistributionGammaDirect());
 			addSymbol(new CalcSymbolDistributionBeta());
+			addSymbol(new CalcSymbolDistributionBetaDirect());
 			addSymbol(new CalcSymbolDistributionWeibull());
 			addSymbol(new CalcSymbolDistributionCauchy());
 			addSymbol(new CalcSymbolDistributionChiSquare());

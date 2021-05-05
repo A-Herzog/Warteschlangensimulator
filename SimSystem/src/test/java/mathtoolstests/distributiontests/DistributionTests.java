@@ -231,7 +231,7 @@ class DistributionTests {
 		assertEquals(defaultBeta.cumulativeProbability(2.0/3.0),beta.cumulativeProbability(6));
 		assertEquals(defaultBeta.cumulativeProbability(3.0/3.0),beta.cumulativeProbability(7));
 
-		testDistributionTools(beta);
+		testDistributionTools(new ExtBetaDistributionImpl(1,200,2,3)); /* obere Grenze ist wichtig, da beim Test versucht wird, den Erwartungswert 123 einzustellen */
 		testDistributionParameters(beta,new double[] {2,3,4,7});
 	}
 

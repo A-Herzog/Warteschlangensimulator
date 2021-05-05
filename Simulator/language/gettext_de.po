@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-05-03 21:56+0200\n"
+"POT-Creation-Date: 2021-05-05 23:43+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -4341,6 +4341,18 @@ msgstr "<p>Berechnet den Wert der Verteilungsfunktion der Beta-Verteilung an der
 
 msgid "ExpressionBuilder.ProbabilityDistributions.BetaDistribution.RandomNumberInfo"
 msgstr "<p>Erzeugt eine Zufallszahl gemäß der Beta-Verteilung über das Intervall [a;b] mit den Parametern &alpha; und &beta; gemäß dem ersten bis vierten Parameter.</p>"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.BetaDistributionDirect"
+msgstr "Beta-Verteilung (direkte Kenngrößen)"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.BetaDistributionDirect.DensityInfo"
+msgstr "<p>Berechnet den Wert der Dichte der Beta-Verteilung an der als ersten Parameter angegebenen Stelle mit unterer Grenze, obererer Grenze, Erwartungswert und Standardabweichung gemäß dem zweiten bis fünftem Parameter.</p><p>Beispiel: <tt>BetaDistDirect(7;0;10;5;2;0)</tt> liefert 1,31344828230159.</p>"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.BetaDistributionDirect.DistributionFunctionInfo"
+msgstr "<p>Berechnet den Wert der Verteilungsfunktion der Beta-Verteilung an der als ersten Parameter angegebenen Stelle mit unterer Grenze, obererer Grenze, Erwartungswert und Standardabweichung gemäß dem zweiten bis fünftem Parameter.</p><p>Beispiel: <tt>BetaDistDirect(7;0;10;5;2;1)</tt> liefert 0,81942684533674.</p>"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.BetaDistributionDirect.RandomNumberInfo"
+msgstr "<p>Erzeugt eine Zufallszahl gemäß der Beta-Verteilung mit unterer Grenze, obererer Grenze, Erwartungswert und Standardabweichung gemäß dem ersten bis viertem Parameter.</p><p>Beispiel: <tt>BetaDistDirect(0;10;5;5)</tt>.</p>"
 
 msgid "ExpressionBuilder.ProbabilityDistributions.BinomialDistribution"
 msgstr "Binomial-Verteilung"

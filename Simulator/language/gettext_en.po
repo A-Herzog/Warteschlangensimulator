@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-05-03 21:56+0200\n"
+"POT-Creation-Date: 2021-05-05 23:43+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -4341,6 +4341,24 @@ msgstr "<p>Calculates the value of the distribution function of the beta distrib
 
 msgid "ExpressionBuilder.ProbabilityDistributions.BetaDistribution.RandomNumberInfo"
 msgstr "<p>Generates a random number according to the beta distribution over the interval [a;b] with the parameters &alpha; and &beta; according to the first to fourth parameters.</p>"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.BetaDistributionDirect"
+msgstr "Beta distribution (direct characteristics)"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.BetaDistributionDirect.DensityInfo"
+msgstr ""
+"<p>Calculates the value of the density of the beta distribution at the location specified as first parameter with lower bound, upper bound, mean value and standard deviation according to the second to fiveth parameters.</p>\n"
+"<p>Example: <tt>BetaDistDirect(7;0;10;5;2;0)</tt> returns 1,31344828230159.</p>"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.BetaDistributionDirect.DistributionFunctionInfo"
+msgstr ""
+"<p>Calculates the value of the distribution function of the beta distribution at the location specified as first parameter with lower bound, upper bound, mean and standard deviation specified in parameters two to five.</p>\n"
+"<p>Example: <tt>BetaDistDirect(7;0;10;5;2;1)</tt> returns 0.81942684533674.</p>"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.BetaDistributionDirect.RandomNumberInfo"
+msgstr ""
+"<p>Generates a random number according to the beta distribution with lower bound, upper bound, mean and standard deviation specified in parameters one to four.</p>\n"
+"<p>Example: <tt>BetaDistDirect(0;10;5;5)</tt>.</p>"
 
 msgid "ExpressionBuilder.ProbabilityDistributions.BinomialDistribution"
 msgstr "Binomial distribution"
