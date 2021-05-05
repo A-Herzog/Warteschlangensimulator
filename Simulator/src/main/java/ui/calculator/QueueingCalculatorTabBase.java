@@ -42,6 +42,7 @@ import javax.swing.JTextField;
 import language.Language;
 import systemtools.MsgBox;
 import ui.images.Images;
+import ui.tools.FlatLaFHelper;
 
 /**
  * Die Objekte dieser Klasse stellen die Tabs im {@link QueueingCalculatorDialog} dar.
@@ -179,8 +180,15 @@ public abstract class QueueingCalculatorTabBase extends JPanel {
 	private void addTopInfo(final JPanel parent, final String text) {
 		final JPanel line;
 		parent.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
-		line.setBackground(Color.LIGHT_GRAY);
-		line.add(new JLabel("<html><body><b>"+text+"</b></body></html>"));
+		final String color;
+		if (FlatLaFHelper.isDark()) {
+			line.setBackground(Color.GRAY);
+			color="white";
+		} else {
+			line.setBackground(Color.LIGHT_GRAY);
+			color="black";
+		}
+		line.add(new JLabel("<html><body><span color=\""+color+"\"><b>"+text+"</b></span></body></html>"));
 		parent.add(Box.createVerticalStrut(10));
 	}
 
