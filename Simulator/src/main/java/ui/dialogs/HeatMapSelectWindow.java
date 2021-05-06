@@ -30,12 +30,15 @@ import java.util.List;
 
 import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.WindowConstants;
 
 import language.Language;
+import systemtools.BaseDialog;
+import systemtools.images.SimToolsImages;
 import tools.SetupData;
 import ui.EditorPanelStatistics;
 import ui.images.Images;
@@ -158,6 +161,22 @@ public class HeatMapSelectWindow extends JFrame {
 			button.addActionListener(e->selectMode(modeFinal));
 		}
 		updateSelectedMode();
+
+		/* Zeile unten */
+		final JPanel bottom=new JPanel(new FlowLayout(FlowLayout.LEFT));
+		all.add(bottom,BorderLayout.SOUTH);
+		JButton button;
+		bottom.add(button=new JButton(BaseDialog.buttonTitleClose,SimToolsImages.EXIT.getIcon()));
+		button.addActionListener(e->{closeWindow(); setVisible(false);});
+		bottom.add(button=new JButton(Language.tr("Main.Menu.View.Statistics.HeatMapSetup"),Images.GENERAL_TOOLS.getIcon()));
+		button.addActionListener(e->{
+
+			final HeatMapSetupDialog dialog=new HeatMapSetupDialog(this);
+			if (dialog.getClosedBy()==BaseDialog.CLOSED_BY_OK) {
+				setup.saveSetup();
+				if (updateEditor!=null) updateEditor.run();
+			}
+		});
 
 		/* Fenster vorbereiten */
 		setResizable(false);
