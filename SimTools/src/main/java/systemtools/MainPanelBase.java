@@ -238,7 +238,7 @@ public abstract class MainPanelBase extends JPanel {
 		this.closeRequest=closeRequest;
 
 		if (dropTargetRegister!=null) {
-			/* Erst später registieren, da es sonst Probleme mit initialen Drag-Over-Ereignissen geben kann. */
+			/* Erst später registrieren, da es sonst Probleme mit initialen Drag-Over-Ereignissen geben kann. */
 			SwingUtilities.invokeLater(()->{
 				dropTargetRegister.registerJComponent(toolBar);
 				dropTargetRegister.registerJComponent(mainPanel);
@@ -1506,6 +1506,15 @@ public abstract class MainPanelBase extends JPanel {
 	}
 
 	/**
+	 * Erzeugt ein {@link JButton}-Element.
+	 * @param title	Titel des Elements
+	 * @return	Neues Button
+	 */
+	protected JButton getButton(final String title) {
+		return new JButton(title);
+	}
+
+	/**
 	 * Legt einen neuen Symbolleisten-Eintrag an und senden Aufrufe des Buttons an {@link #action(Object)}.
 	 * @param toolbar	Übergeordnetes Symbolleisten-Element
 	 * @param title	Name des neuen Symbolleisten-Eintrags
@@ -1514,7 +1523,7 @@ public abstract class MainPanelBase extends JPanel {
 	 * @return	Neu erstellter Symbolleisten-Eintrag
 	 */
 	protected final JButton createToolbarButtonAction(final JToolBar toolbar, final String title, final String hint, final Icon icon) {
-		JButton button=new JButton(title);
+		JButton button=getButton(title);
 		toolbar.add(button);
 		if (hint!=null) button.setToolTipText(hint);
 		button.addActionListener(actionListener);
@@ -1544,7 +1553,7 @@ public abstract class MainPanelBase extends JPanel {
 	 * @return	Neu erstellter Symbolleisten-Eintrag
 	 */
 	protected final JButton createToolbarButton(final JToolBar toolbar, final String title, final String hint, final Icon icon, final String actionCommand) {
-		JButton button=new JButton(title);
+		JButton button=getButton(title);
 		toolbar.add(button);
 		if (hint!=null) button.setToolTipText(hint);
 		button.setActionCommand(actionCommand);
@@ -1706,7 +1715,7 @@ public abstract class MainPanelBase extends JPanel {
 					}
 				});
 			}
-			errorLabel.setText("<html>"+intro+message+htmlLink+"</html>");
+			errorLabel.setText("<html><span color=\"black\">"+intro+message+htmlLink+"</span></html>");
 			errorLabel.setIcon(icon.icon);
 		}
 		return errorPanel;
