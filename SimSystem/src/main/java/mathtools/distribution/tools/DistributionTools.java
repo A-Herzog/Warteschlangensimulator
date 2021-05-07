@@ -122,6 +122,12 @@ public final class DistributionTools {
 	/** Hyperbolische Sekanten-Verteilung */
 	public static String[] DistHyperbolicSecant=new String[]{"Hyperbolische Sekanten-Verteilung"};
 
+	/** Sägezahnverteilung (links) */
+	public static String[] DistSawtoothLeft=new String[]{"Linke Sägezahn-Verteilung"};
+
+	/** Sägezahnverteilung (rechts) */
+	public static String[] DistSawtoothRight=new String[]{"Rechte Sägezahn-Verteilung"};
+
 	/** Warnung "unbekannte Verteilung" */
 	public static String DistUnknown="unbekannte Verteilung";
 
@@ -197,7 +203,9 @@ public final class DistributionTools {
 				new WrapperGumbelDistribution(),
 				new WrapperFatigueLifeDistribution(),
 				new WrapperFrechetDistribution(),
-				new WrapperHyperbolicSecantDistribution()
+				new WrapperHyperbolicSecantDistribution(),
+				new WrapperSawtoothLeftDistribution(),
+				new WrapperSawtoothRightDistribution()
 		};
 	}
 

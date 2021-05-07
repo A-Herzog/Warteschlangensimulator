@@ -44,6 +44,8 @@ import mathtools.distribution.ParetoDistributionImpl;
 import mathtools.distribution.PertDistributionImpl;
 import mathtools.distribution.PowerDistributionImpl;
 import mathtools.distribution.RayleighDistributionImpl;
+import mathtools.distribution.SawtoothLeftDistribution;
+import mathtools.distribution.SawtoothRightDistribution;
 import mathtools.distribution.TriangularDistributionImpl;
 import mathtools.distribution.tools.AbstractDistributionWrapper;
 import mathtools.distribution.tools.DistributionTools;
@@ -72,6 +74,8 @@ import mathtools.distribution.tools.WrapperParetoDistribution;
 import mathtools.distribution.tools.WrapperPertDistribution;
 import mathtools.distribution.tools.WrapperPowerDistribution;
 import mathtools.distribution.tools.WrapperRayleighDistribution;
+import mathtools.distribution.tools.WrapperSawtoothLeftDistribution;
+import mathtools.distribution.tools.WrapperSawtoothRightDistribution;
 import mathtools.distribution.tools.WrapperTriangularDistribution;
 import mathtools.distribution.tools.WrapperUniformRealDistribution;
 import mathtools.distribution.tools.WrapperWeibullDistribution;
@@ -204,6 +208,8 @@ public abstract class JDistributionEditorPanelRecord {
 		list.add(new FatigueLifeDistribution());
 		list.add(new FrechetDistribution());
 		list.add(new HyperbolicSecantDistribution());
+		list.add(new SawtoothLeftDistributionPanel());
+		list.add(new SawtoothRightDistributionPanel());
 		return list;
 	}
 
@@ -1021,6 +1027,62 @@ public abstract class JDistributionEditorPanelRecord {
 			final Double d1=NumberTools.getPositiveDouble(fields[0],true); if (d1==null) return null;
 			final Double d2=NumberTools.getPositiveDouble(fields[1],true); if (d2==null) return null;
 			return new HyperbolicSecantDistributionImpl(d1,d2);
+		}
+	}
+
+	/** Sägezahnverteilung (links) */
+	private static class SawtoothLeftDistributionPanel extends JDistributionEditorPanelRecord {
+		/** Konstruktor der Klasse */
+		public SawtoothLeftDistributionPanel() {
+			super(new WrapperSawtoothLeftDistribution(),new String[]{JDistributionEditorPanel.DistUniformStart,JDistributionEditorPanel.DistUniformEnd});
+		}
+
+		@Override
+		public String[] getEditValues(double meanD, String mean, double stdD, String std, String lower, String upper, double maxXValue) {
+			return new String[]{lower,upper};
+		}
+
+		@Override
+		public String[] getValues(AbstractRealDistribution distribution) {
+			return new String[] {
+					NumberTools.formatNumberMax(Math.max(0,((SawtoothLeftDistribution)distribution).a)),
+					NumberTools.formatNumberMax(Math.max(0,((SawtoothLeftDistribution)distribution).b))
+			};
+		}
+
+		@Override
+		public AbstractRealDistribution getDistribution(JTextField[] fields, double maxXValue) {
+			final Double d1=NumberTools.getNotNegativeDouble(fields[0],true); if (d1==null) return null;
+			final Double d2=NumberTools.getNotNegativeDouble(fields[1],true); if (d2==null) return null;
+			return new SawtoothLeftDistribution(d1,d2);
+		}
+	}
+
+	/** Sägezahnverteilung (rechts) */
+	private static class SawtoothRightDistributionPanel extends JDistributionEditorPanelRecord {
+		/** Konstruktor der Klasse */
+		public SawtoothRightDistributionPanel() {
+			super(new WrapperSawtoothRightDistribution(),new String[]{JDistributionEditorPanel.DistUniformStart,JDistributionEditorPanel.DistUniformEnd});
+		}
+
+		@Override
+		public String[] getEditValues(double meanD, String mean, double stdD, String std, String lower, String upper, double maxXValue) {
+			return new String[]{lower,upper};
+		}
+
+		@Override
+		public String[] getValues(AbstractRealDistribution distribution) {
+			return new String[] {
+					NumberTools.formatNumberMax(Math.max(0,((SawtoothRightDistribution)distribution).a)),
+					NumberTools.formatNumberMax(Math.max(0,((SawtoothRightDistribution)distribution).b))
+			};
+		}
+
+		@Override
+		public AbstractRealDistribution getDistribution(JTextField[] fields, double maxXValue) {
+			final Double d1=NumberTools.getNotNegativeDouble(fields[0],true); if (d1==null) return null;
+			final Double d2=NumberTools.getNotNegativeDouble(fields[1],true); if (d2==null) return null;
+			return new SawtoothRightDistribution(d1,d2);
 		}
 	}
 }

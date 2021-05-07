@@ -264,15 +264,6 @@ public class ExpressionBuilderDistributions {
 				Language.tr("ExpressionBuilder.ProbabilityDistributions.GammaDistribution.RandomNumberInfo"),
 				Language.tr("ExpressionBuilder.ProbabilityDistributions.GammaDistribution.RandomNumberRangeInfo"));
 
-		/* Erlang-Verteilung */
-
-		addDist(group,filterUpper,"ErlangDist","n;lambda",
-				Language.tr("ExpressionBuilder.ProbabilityDistributions.ErlangDistribution"),
-				Language.tr("ExpressionBuilder.ProbabilityDistributions.ErlangDistribution.DensityInfo"),
-				Language.tr("ExpressionBuilder.ProbabilityDistributions.ErlangDistribution.DistributionFunctionInfo"),
-				Language.tr("ExpressionBuilder.ProbabilityDistributions.ErlangDistribution.RandomNumberInfo"),
-				Language.tr("ExpressionBuilder.ProbabilityDistributions.ErlangDistribution.RandomNumberRangeInfo"));
-
 		/* Gamma-Verteilung - Direkt */
 
 		addDist(group,filterUpper,"GammaDistDirect","mean;sd",
@@ -281,6 +272,15 @@ public class ExpressionBuilderDistributions {
 				Language.tr("ExpressionBuilder.ProbabilityDistributions.GammaDistributionDirect.DistributionFunctionInfo"),
 				Language.tr("ExpressionBuilder.ProbabilityDistributions.GammaDistributionDirect.RandomNumberInfo"),
 				Language.tr("ExpressionBuilder.ProbabilityDistributions.GammaDistributionDirect.RandomNumberRangeInfo"));
+
+		/* Erlang-Verteilung */
+
+		addDist(group,filterUpper,"ErlangDist","n;lambda",
+				Language.tr("ExpressionBuilder.ProbabilityDistributions.ErlangDistribution"),
+				Language.tr("ExpressionBuilder.ProbabilityDistributions.ErlangDistribution.DensityInfo"),
+				Language.tr("ExpressionBuilder.ProbabilityDistributions.ErlangDistribution.DistributionFunctionInfo"),
+				Language.tr("ExpressionBuilder.ProbabilityDistributions.ErlangDistribution.RandomNumberInfo"),
+				Language.tr("ExpressionBuilder.ProbabilityDistributions.ErlangDistribution.RandomNumberRangeInfo"));
 
 		/* Beta-Verteilung */
 
@@ -292,7 +292,7 @@ public class ExpressionBuilderDistributions {
 
 		/* Beta-Verteilung - Direkt */
 
-		addDist(group,filterUpper,"BetaDistDirect","a;b;alpha;beta",
+		addDist(group,filterUpper,"BetaDistDirect","a;b;mean;sd",
 				Language.tr("ExpressionBuilder.ProbabilityDistributions.BetaDistributionDirect"),
 				Language.tr("ExpressionBuilder.ProbabilityDistributions.BetaDistributionDirect.DensityInfo"),
 				Language.tr("ExpressionBuilder.ProbabilityDistributions.BetaDistributionDirect.DistributionFunctionInfo"),
@@ -464,6 +464,38 @@ public class ExpressionBuilderDistributions {
 				Language.tr("ExpressionBuilder.ProbabilityDistributions.HyperbolicSecantDistribution.DistributionFunctionInfo"),
 				Language.tr("ExpressionBuilder.ProbabilityDistributions.HyperbolicSecantDistribution.RandomNumberInfo"),
 				Language.tr("ExpressionBuilder.ProbabilityDistributions.HyperbolicSecantDistribution.RandomNumberRangeInfo"));
+
+		/* Linke Sägezahn-Verteilung */
+
+		addDist(group,filterUpper,"LeftSawtoothDist","a;b",
+				Language.tr("ExpressionBuilder.ProbabilityDistributions.LeftSawtoothDistribution"),
+				Language.tr("ExpressionBuilder.ProbabilityDistributions.LeftSawtoothDistribution.DensityInfo"),
+				Language.tr("ExpressionBuilder.ProbabilityDistributions.LeftSawtoothDistribution.DistributionFunctionInfo"),
+				Language.tr("ExpressionBuilder.ProbabilityDistributions.LeftSawtoothDistribution.RandomNumberInfo"));
+
+		/* Linke Sägezahn-Verteilung - Direkt */
+
+		addDist(group,filterUpper,"LeftSawtoothDistDirect","a;b",
+				Language.tr("ExpressionBuilder.ProbabilityDistributions.LeftSawtoothDistributionDirect"),
+				Language.tr("ExpressionBuilder.ProbabilityDistributions.LeftSawtoothDistributionDirect.DensityInfo"),
+				Language.tr("ExpressionBuilder.ProbabilityDistributions.LeftSawtoothDistributionDirect.DistributionFunctionInfo"),
+				Language.tr("ExpressionBuilder.ProbabilityDistributions.LeftSawtoothDistributionDirect.RandomNumberInfo"));
+
+		/* Rechte Sägezahn-Verteilung */
+
+		addDist(group,filterUpper,"RightSawtoothDist","a;b",
+				Language.tr("ExpressionBuilder.ProbabilityDistributions.RightSawtoothDistribution"),
+				Language.tr("ExpressionBuilder.ProbabilityDistributions.RightSawtoothDistribution.DensityInfo"),
+				Language.tr("ExpressionBuilder.ProbabilityDistributions.RightSawtoothDistribution.DistributionFunctionInfo"),
+				Language.tr("ExpressionBuilder.ProbabilityDistributions.RightSawtoothDistribution.RandomNumberInfo"));
+
+		/* Rechte Sägezahn-Verteilung - Direkt */
+
+		addDist(group,filterUpper,"RightSawtoothDistDirect","a;b",
+				Language.tr("ExpressionBuilder.ProbabilityDistributions.RightSawtoothDistributionDirect"),
+				Language.tr("ExpressionBuilder.ProbabilityDistributions.RightSawtoothDistributionDirect.DensityInfo"),
+				Language.tr("ExpressionBuilder.ProbabilityDistributions.RightSawtoothDistributionDirect.DistributionFunctionInfo"),
+				Language.tr("ExpressionBuilder.ProbabilityDistributions.RightSawtoothDistributionDirect.RandomNumberInfo"));
 
 		/* Empirische Verteilung */
 

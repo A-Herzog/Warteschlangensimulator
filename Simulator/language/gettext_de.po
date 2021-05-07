@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-05-05 23:43+0200\n"
+"POT-Creation-Date: 2021-05-07 12:29+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -2607,6 +2607,12 @@ msgstr "Bereich"
 msgid "Distribution.Rayleigh"
 msgstr "Rayleigh-Verteilung"
 
+msgid "Distribution.SawtoothLeft"
+msgstr "Linke Sägezahnverteilung"
+
+msgid "Distribution.SawtoothRight"
+msgstr "Rechte Sägezahnverteilung"
+
 msgid "Distribution.Scale"
 msgstr "Skalierung"
 
@@ -4697,6 +4703,30 @@ msgstr ""
 "<p>Erzeugt eine Zufallszahl gemäß der Laplace-Verteilung mit den Parametern gemäß dem dritten(Mittelwert) und viertem (Skalierungsfaktor) Parameter.</p>\n"
 "<p>Der erste und zweite Parameter geben den Bereich an, in dem sich die Zufallszahl befinden soll.</p>"
 
+msgid "ExpressionBuilder.ProbabilityDistributions.LeftSawtoothDistribution"
+msgstr "Linke Sägezahnverteilung"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.LeftSawtoothDistribution.DensityInfo"
+msgstr "<p>Berechnet den Wert der Dichte der linken Sägezahnverteilung an der als ersten Parameter angegebenen Stelle. Der Trägerbereich der Verteilung wird dabei über den zweiten und dritten Parameter festgelegt.</p>"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.LeftSawtoothDistribution.DistributionFunctionInfo"
+msgstr "<p>Berechnet den Wert der Verteilungsfunktion der linken Sägezahnverteilung an der als ersten Parameter angegebenen Stelle. Der Trägerbereich der Verteilung wird dabei über den zweiten und dritten Parameter festgelegt.</p>"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.LeftSawtoothDistribution.RandomNumberInfo"
+msgstr "<p>Erzeugt eine Zufallszahl gemäß der linken Sägezahnverteilung mit Trägerbereich gemäß dem ersten und zweiten Parameter.</p>"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.LeftSawtoothDistributionDirect"
+msgstr "Linke Sägezahnverteilung (direkte Kenngrößen)"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.LeftSawtoothDistributionDirect.DensityInfo"
+msgstr "<p>Berechnet den Wert der Dichte der linken Sägezahnverteilung an der als ersten Parameter angegebenen Stelle mit den Parametern gemäß dem zweiten (Mittelwert) und dritten (Standardabweichung) Parameter.</p>"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.LeftSawtoothDistributionDirect.DistributionFunctionInfo"
+msgstr "<p>Berechnet den Wert der Verteilungsfunktion der linken Sägezahnverteilung an der als ersten Parameter angegebenen Stelle mit dem Parameter gemäß dem zweiten (Mittelwert) und dritten (Standardabweichung) Parameter.</p>"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.LeftSawtoothDistributionDirect.RandomNumberInfo"
+msgstr "<p>Erzeugt eine Zufallszahl gemäß der linken Sägezahnverteilung mit den Parametern gemäß dem ersten (Mittelwert) und zweiten (Standardabweichung) Parameter.</p>"
+
 msgid "ExpressionBuilder.ProbabilityDistributions.LogLogisticDistribution"
 msgstr "Log-Logistische Verteilung"
 
@@ -4844,6 +4874,30 @@ msgid "ExpressionBuilder.ProbabilityDistributions.RayleighDistribution.RandomNum
 msgstr ""
 "<p>Erzeugt eine Zufallszahl gemäß der Rayleigh-Verteilung mit dem Parameter gemäß dem (Mittelwert) dritten Parameter.</p>\n"
 "<p>Der erste und zweite Parameter geben den Bereich an, in dem sich die Zufallszahl befinden soll.</p>"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.RightSawtoothDistribution"
+msgstr "Rechte Sägezahnverteilung"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.RightSawtoothDistribution.DensityInfo"
+msgstr "<p>Berechnet den Wert der Dichte der rechten Sägezahnverteilung an der als ersten Parameter angegebenen Stelle. Der Trägerbereich der Verteilung wird dabei über den zweiten und dritten Parameter festgelegt.</p>"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.RightSawtoothDistribution.DistributionFunctionInfo"
+msgstr "<p>Berechnet den Wert der Verteilungsfunktion der rechten Sägezahnverteilung an der als ersten Parameter angegebenen Stelle. Der Trägerbereich der Verteilung wird dabei über den zweiten und dritten Parameter festgelegt.</p>"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.RightSawtoothDistribution.RandomNumberInfo"
+msgstr "<p>Erzeugt eine Zufallszahl gemäß der rechten Sägezahnverteilung mit Trägerbereich gemäß dem ersten und zweiten Parameter.</p>"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.RightSawtoothDistributionDirect"
+msgstr "Rechte Sägezahnverteilung (direkte Kenngrößen)"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.RightSawtoothDistributionDirect.DensityInfo"
+msgstr "<p>Berechnet den Wert der Dichte der rechten Sägezahnverteilung an der als ersten Parameter angegebenen Stelle mit den Parametern gemäß dem zweiten (Mittelwert) und dritten (Standardabweichung) Parameter.</p>"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.RightSawtoothDistributionDirect.DistributionFunctionInfo"
+msgstr "<p>Berechnet den Wert der Verteilungsfunktion der rechten Sägezahnverteilung an der als ersten Parameter angegebenen Stelle mit dem Parameter gemäß dem zweiten (Mittelwert) und dritten (Standardabweichung) Parameter.</p>"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.RightSawtoothDistributionDirect.RandomNumberInfo"
+msgstr "<p>Erzeugt eine Zufallszahl gemäß der rechten Sägezahnverteilung mit den Parametern gemäß dem ersten (Mittelwert) und zweiten (Standardabweichung) Parameter.</p>"
 
 msgid "ExpressionBuilder.ProbabilityDistributions.TriangularDistribution"
 msgstr "Dreiecksverteilung"

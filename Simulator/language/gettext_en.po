@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-05-05 23:43+0200\n"
+"POT-Creation-Date: 2021-05-07 12:29+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -2605,6 +2605,12 @@ msgstr "range"
 msgid "Distribution.Rayleigh"
 msgstr "Rayleigh distribution"
 
+msgid "Distribution.SawtoothLeft"
+msgstr "Left sawtooth distribution"
+
+msgid "Distribution.SawtoothRight"
+msgstr "Right sawtooth distribution"
+
 msgid "Distribution.Scale"
 msgstr "Scale"
 
@@ -4709,6 +4715,30 @@ msgstr ""
 "<p>Generates a random number according to the Laplace distribution with the parameters according to the third (mean) and fourth (scale) parameters.</p>\n"
 "<p>The first and second parameter specify the range in which the random number should be located.</p>"
 
+msgid "ExpressionBuilder.ProbabilityDistributions.LeftSawtoothDistribution"
+msgstr "Left sawtooth distribution"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.LeftSawtoothDistribution.DensityInfo"
+msgstr "<p>Calculates the value of the density of the left sawtooth distribution at the location specified as the first parameter. The support of the distribution is defined by the second and third parameter.</p>"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.LeftSawtoothDistribution.DistributionFunctionInfo"
+msgstr "<p>Calculates the value of the distribution function of the left sawtooth distribution at the location specified as the first parameter. The support of the distribution is defined by the second and third parameter.</p>"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.LeftSawtoothDistribution.RandomNumberInfo"
+msgstr "<p>Generates a random number according to the left sawtooth distribution with support defined in the first and the second parameter.</p>"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.LeftSawtoothDistributionDirect"
+msgstr "Left sawtooth distribution (direct characteristics)"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.LeftSawtoothDistributionDirect.DensityInfo"
+msgstr "<p>Calculates the value of the density of the left sawtooth distribution at the location specified as the first parameter with the parameters according to the second (mean) and third (standard deviation) parameters.</p>"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.LeftSawtoothDistributionDirect.DistributionFunctionInfo"
+msgstr "<p>Calculates the value of the distribution function of the left sawtooth distribution at the location specified as the first parameter with the parameters according to the second (mean) and third (standard deviation) parameters.</p>"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.LeftSawtoothDistributionDirect.RandomNumberInfo"
+msgstr "<p>Generates a random number according to the left sawtooth distribution with the parameters according to the first (mean) and second (standard deviation) parameters.</p>"
+
 msgid "ExpressionBuilder.ProbabilityDistributions.LogLogisticDistribution"
 msgstr "Log-logistic distribution"
 
@@ -4856,6 +4886,30 @@ msgid "ExpressionBuilder.ProbabilityDistributions.RayleighDistribution.RandomNum
 msgstr ""
 "<p>Generates a random number according to the Rayleigh distribution with the parameters according to the (mean) third parameter.</p>\n"
 "<p>The first and second parameter specify the range in which the random number should be located.</p>"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.RightSawtoothDistribution"
+msgstr "Right sawtooth distribution"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.RightSawtoothDistribution.DensityInfo"
+msgstr "<p>Calculates the value of the density of the right sawtooth distribution at the location specified as the first parameter. The support of the distribution is defined by the second and third parameter.</p>"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.RightSawtoothDistribution.DistributionFunctionInfo"
+msgstr "<p>Calculates the value of the distribution function of the right sawtooth distribution at the location specified as the first parameter. The support of the distribution is defined by the second and third parameter.</p>"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.RightSawtoothDistribution.RandomNumberInfo"
+msgstr "<p>Generates a random number according to the right sawtooth distribution with support defined in the first and the second parameter.</p>"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.RightSawtoothDistributionDirect"
+msgstr "Right sawtooth distribution (direct characteristics)"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.RightSawtoothDistributionDirect.DensityInfo"
+msgstr "<p>Calculates the value of the density of the right sawtooth distribution at the location specified as the first parameter with the parameters according to the second (mean) and third (standard deviation) parameters.</p>"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.RightSawtoothDistributionDirect.DistributionFunctionInfo"
+msgstr "<p>Calculates the value of the distribution function of the right sawtooth distribution at the location specified as the first parameter with the parameters according to the second (mean) and third (standard deviation) parameters.</p>"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.RightSawtoothDistributionDirect.RandomNumberInfo"
+msgstr "<p>Generates a random number according to the right sawtooth distribution with the parameters according to the first (mean) and second (standard deviation) parameters.</p>"
 
 msgid "ExpressionBuilder.ProbabilityDistributions.TriangularDistribution"
 msgstr "Triangular distribution"

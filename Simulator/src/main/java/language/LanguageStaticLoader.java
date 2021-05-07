@@ -171,6 +171,8 @@ public class LanguageStaticLoader {
 		DistributionTools.DistFatigueLife=Language.trAll("Distribution.FatigueLife");
 		DistributionTools.DistFrechet=Language.trAll("Distribution.Frechet");
 		DistributionTools.DistHyperbolicSecant=Language.trAll("Distribution.HyperbolicSecant");
+		DistributionTools.DistSawtoothLeft=Language.trAll("Distribution.SawtoothLeft");
+		DistributionTools.DistSawtoothRight=Language.trAll("Distribution.SawtoothRight");
 		DistributionTools.DistUnknown=Language.tr("Distribution.Unknown");
 		DistributionTools.DistDataPoint=Language.tr("Distribution.DataPoint");
 		DistributionTools.DistDataPoints=Language.tr("Distribution.DataPoints");

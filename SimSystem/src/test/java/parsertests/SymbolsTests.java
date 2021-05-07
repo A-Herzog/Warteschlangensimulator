@@ -2574,6 +2574,66 @@ class SymbolsTests {
 			assertTrue(false);
 		}
 
+		/* Betaverteilung - Direct */
+
+		calc=new CalcSystem("BetaDistDirect(x;a;b;c;d;0)",new String[]{"x","a","b","c","d"});
+		assertTrue(calc.parse()<0);
+		try {
+			D=calc.calc(new double[]{0,1,3,2.5,0.5});
+			assertEquals(0,D);
+		} catch (MathCalcError e) {
+			assertTrue(false);
+		}
+
+		calc=new CalcSystem("BetaDistDirect(x;a;b;c;d;0)",new String[]{"x","a","b","c","d"});
+		assertTrue(calc.parse()<0);
+		try {
+			D=calc.calc(new double[]{2,1,3,2.5,0.5});
+			assertTrue(D>0);
+		} catch (MathCalcError e) {
+			assertTrue(false);
+		}
+
+		calc=new CalcSystem("BetaDistDirect(x;a;b;c;d;0)",new String[]{"x","a","b","c","d"});
+		assertTrue(calc.parse()<0);
+		try {
+			D=calc.calc(new double[]{4,1,3,2.5,0.5});
+			assertEquals(0,D);
+		} catch (MathCalcError e) {
+			assertTrue(false);
+		}
+
+		calc=new CalcSystem("BetaDistDirect(x;a;b;c;d;1)",new String[]{"x","a","b","c","d"});
+		assertTrue(calc.parse()<0);
+		try {
+			D=calc.calc(new double[]{0,1,3,2.5,0.5});
+			assertEquals(0,D);
+		} catch (MathCalcError e) {
+			assertTrue(false);
+		}
+
+		calc=new CalcSystem("BetaDistDirect(x;a;b;c;d;1)",new String[]{"x","a","b","c","d"});
+		assertTrue(calc.parse()<0);
+		try {
+			D=calc.calc(new double[]{4,1,3,2.5,0.5});
+			assertEquals(1,D);
+		} catch (MathCalcError e) {
+			assertTrue(false);
+		}
+
+		final CalcSystem calc1a=new CalcSystem("BetaDistDirect(x;a;b;c;d;2)",new String[]{"x","a","b","c","d"});
+		assertTrue(calc1a.parse()<0);
+		assertThrows(MathCalcError.class,()->calc1a.calc(new double[]{-0.1,5}));
+
+		calc=new CalcSystem("BetaDistDirect(a;b;c;d)",new String[]{"a","b","c","d"});
+		assertTrue(calc.parse()<0);
+		try {
+			calc.calc(new double[]{1,3,2.5,0.5});
+			/* Keine Interpretation des Zahlenwertes */
+		} catch (MathCalcError e) {
+			assertTrue(false);
+		}
+
 		/* Cauchyverteilung */
 
 		calc=new CalcSystem("CauchyDist(x;a;b;0)",new String[]{"x","a","b"});
@@ -3891,6 +3951,214 @@ class SymbolsTests {
 		assertTrue(calc.parse()<0);
 		try {
 			calc.calc(new double[]{1});
+			/* Keine Interpretation des Zahlenwertes */
+		} catch (MathCalcError e) {
+			assertTrue(false);
+		}
+
+		/* Linke Sägezahnverteilung */
+
+		calc=new CalcSystem("LeftSawtoothDist(x;a;b;0)",new String[]{"x","a","b"});
+		assertTrue(calc.parse()<0);
+		try {
+			D=calc.calc(new double[]{500,900,2700});
+			assertEquals(0,D);
+		} catch (MathCalcError e) {
+			assertTrue(false);
+		}
+
+		calc=new CalcSystem("LeftSawtoothDist(x;a;b;0)",new String[]{"x","a","b"});
+		assertTrue(calc.parse()<0);
+		try {
+			D=calc.calc(new double[]{1000,900,2700});
+			assertTrue(D>0);
+		} catch (MathCalcError e) {
+			assertTrue(false);
+		}
+
+		calc=new CalcSystem("LeftSawtoothDist(x;a;b;0)",new String[]{"x","a","b"});
+		assertTrue(calc.parse()<0);
+		try {
+			D=calc.calc(new double[]{3000,900,2700});
+			assertEquals(0,D);
+		} catch (MathCalcError e) {
+			assertTrue(false);
+		}
+
+		calc=new CalcSystem("LeftSawtoothDist(x;a;b;1)",new String[]{"x","a","b"});
+		assertTrue(calc.parse()<0);
+		try {
+			D=calc.calc(new double[]{500,900,2700});
+			assertEquals(0,D);
+		} catch (MathCalcError e) {
+			assertTrue(false);
+		}
+
+		calc=new CalcSystem("LeftSawtoothDist(x;a;b;1)",new String[]{"x","a","b"});
+		assertTrue(calc.parse()<0);
+		try {
+			D=calc.calc(new double[]{1800,900,2700});
+			assertTrue(D>0);
+			assertTrue(D<1);
+		} catch (MathCalcError e) {
+			assertTrue(false);
+		}
+
+		calc=new CalcSystem("LeftSawtoothDist(x;a;b;1)",new String[]{"x","a","b"});
+		assertTrue(calc.parse()<0);
+		try {
+			D=calc.calc(new double[]{3000,900,2700});
+			assertEquals(1,D);
+		} catch (MathCalcError e) {
+			assertTrue(false);
+		}
+
+		final CalcSystem calc26=new CalcSystem("LeftSawtoothDist(x;a;b;2)",new String[]{"x","a","b"});
+		assertTrue(calc26.parse()<0);
+		assertThrows(MathCalcError.class,()->calc26.calc(new double[]{3000,900,2700}));
+
+		calc=new CalcSystem("LeftSawtoothDist(a;b)",new String[]{"a","b"});
+		assertTrue(calc.parse()<0);
+		try {
+			calc.calc(new double[]{900,2700});
+			/* Keine Interpretation des Zahlenwertes */
+		} catch (MathCalcError e) {
+			assertTrue(false);
+		}
+
+		/* Linke Sägezahnverteilung - Direct */
+
+		calc=new CalcSystem("LeftSawtoothDistDirect(x;a;b;0)",new String[]{"x","a","b"});
+		assertTrue(calc.parse()<0);
+		try {
+			D=calc.calc(new double[]{1000,900,2700});
+			assertTrue(D>0);
+		} catch (MathCalcError e) {
+			assertTrue(false);
+		}
+
+		calc=new CalcSystem("LeftSawtoothDistDirect(x;a;b;1)",new String[]{"x","a","b"});
+		assertTrue(calc.parse()<0);
+		try {
+			D=calc.calc(new double[]{1800,900,2700});
+			assertTrue(D>0);
+			assertTrue(D<1);
+		} catch (MathCalcError e) {
+			assertTrue(false);
+		}
+
+		final CalcSystem calc27=new CalcSystem("LeftSawtoothDist(x;a;b;2)",new String[]{"x","a","b"});
+		assertTrue(calc27.parse()<0);
+		assertThrows(MathCalcError.class,()->calc27.calc(new double[]{3000,900,2700}));
+
+		calc=new CalcSystem("LeftSawtoothDistDirect(a;b)",new String[]{"a","b"});
+		assertTrue(calc.parse()<0);
+		try {
+			calc.calc(new double[]{900,2700});
+			/* Keine Interpretation des Zahlenwertes */
+		} catch (MathCalcError e) {
+			assertTrue(false);
+		}
+
+		/* Rechte Sägezahnverteilung */
+
+		calc=new CalcSystem("RightSawtoothDist(x;a;b;0)",new String[]{"x","a","b"});
+		assertTrue(calc.parse()<0);
+		try {
+			D=calc.calc(new double[]{500,900,2700});
+			assertEquals(0,D);
+		} catch (MathCalcError e) {
+			assertTrue(false);
+		}
+
+		calc=new CalcSystem("RightSawtoothDist(x;a;b;0)",new String[]{"x","a","b"});
+		assertTrue(calc.parse()<0);
+		try {
+			D=calc.calc(new double[]{1000,900,2700});
+			assertTrue(D>0);
+		} catch (MathCalcError e) {
+			assertTrue(false);
+		}
+
+		calc=new CalcSystem("RightSawtoothDist(x;a;b;0)",new String[]{"x","a","b"});
+		assertTrue(calc.parse()<0);
+		try {
+			D=calc.calc(new double[]{3000,900,2700});
+			assertEquals(0,D);
+		} catch (MathCalcError e) {
+			assertTrue(false);
+		}
+
+		calc=new CalcSystem("RightSawtoothDist(x;a;b;1)",new String[]{"x","a","b"});
+		assertTrue(calc.parse()<0);
+		try {
+			D=calc.calc(new double[]{500,900,2700});
+			assertEquals(0,D);
+		} catch (MathCalcError e) {
+			assertTrue(false);
+		}
+
+		calc=new CalcSystem("RightSawtoothDist(x;a;b;1)",new String[]{"x","a","b"});
+		assertTrue(calc.parse()<0);
+		try {
+			D=calc.calc(new double[]{1800,900,2700});
+			assertTrue(D>0);
+			assertTrue(D<1);
+		} catch (MathCalcError e) {
+			assertTrue(false);
+		}
+
+		calc=new CalcSystem("RightSawtoothDist(x;a;b;1)",new String[]{"x","a","b"});
+		assertTrue(calc.parse()<0);
+		try {
+			D=calc.calc(new double[]{3000,900,2700});
+			assertEquals(1,D);
+		} catch (MathCalcError e) {
+			assertTrue(false);
+		}
+
+		final CalcSystem calc28=new CalcSystem("RightSawtoothDist(x;a;b;2)",new String[]{"x","a","b"});
+		assertTrue(calc28.parse()<0);
+		assertThrows(MathCalcError.class,()->calc28.calc(new double[]{3000,900,2700}));
+
+		calc=new CalcSystem("RightSawtoothDist(a;b)",new String[]{"a","b"});
+		assertTrue(calc.parse()<0);
+		try {
+			calc.calc(new double[]{900,2700});
+			/* Keine Interpretation des Zahlenwertes */
+		} catch (MathCalcError e) {
+			assertTrue(false);
+		}
+
+		/* Rechte Sägezahnverteilung - Direct */
+
+		calc=new CalcSystem("RightSawtoothDistDirect(x;a;b;0)",new String[]{"x","a","b"});
+		assertTrue(calc.parse()<0);
+		try {
+			D=calc.calc(new double[]{1000,900,2700});
+			assertTrue(D>0);
+		} catch (MathCalcError e) {
+			assertTrue(false);
+		}
+
+		calc=new CalcSystem("RightSawtoothDistDirect(x;a;b;1)",new String[]{"x","a","b"});
+		assertTrue(calc.parse()<0);
+		try {
+			D=calc.calc(new double[]{1800,900,2700});
+			assertTrue(D>0);
+			assertTrue(D<1);
+		} catch (MathCalcError e) {
+			assertTrue(false);
+		}
+
+		final CalcSystem calc29=new CalcSystem("RightSawtoothDist(x;a;b;2)",new String[]{"x","a","b"});
+		assertTrue(calc29.parse()<0);
+		assertThrows(MathCalcError.class,()->calc29.calc(new double[]{3000,900,2700}));
+
+		calc=new CalcSystem("RightSawtoothDistDirect(a;b)",new String[]{"a","b"});
+		assertTrue(calc.parse()<0);
+		try {
+			calc.calc(new double[]{900,2700});
 			/* Keine Interpretation des Zahlenwertes */
 		} catch (MathCalcError e) {
 			assertTrue(false);

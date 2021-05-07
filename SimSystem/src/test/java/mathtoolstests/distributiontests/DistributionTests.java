@@ -49,6 +49,8 @@ import mathtools.distribution.ParetoDistributionImpl;
 import mathtools.distribution.PertDistributionImpl;
 import mathtools.distribution.PowerDistributionImpl;
 import mathtools.distribution.RayleighDistributionImpl;
+import mathtools.distribution.SawtoothLeftDistribution;
+import mathtools.distribution.SawtoothRightDistribution;
 import mathtools.distribution.TriangularDistributionImpl;
 import mathtools.distribution.tools.DistributionRandomNumber;
 import mathtools.distribution.tools.DistributionTools;
@@ -1364,6 +1366,204 @@ class DistributionTests {
 
 		testDistributionTools(rayleigh);
 		testDistributionParameters(rayleigh,new double[] {3});
+	}
+
+	/**
+	 * Test: Sägezahnverteilung (links)
+	 * @see SawtoothLeftDistribution
+	 */
+	@Test
+	void testSawtoothLeftDistribution() {
+		SawtoothLeftDistribution sawtooth;
+
+		sawtooth=new SawtoothLeftDistribution(5,10);
+		assertEquals(5,sawtooth.a);
+		assertEquals(10,sawtooth.b);
+		assertEquals(0,sawtooth.density(4));
+		assertEquals(0,sawtooth.density(11));
+		assertTrue(sawtooth.density(6)>0);
+		assertTrue(sawtooth.density(9)>0);
+		assertEquals(0,sawtooth.cumulativeProbability(4));
+		assertEquals(1,sawtooth.cumulativeProbability(11));
+		assertEquals(-Double.MAX_VALUE,sawtooth.inverseCumulativeProbability(-1));
+		assertEquals(Double.MAX_VALUE,sawtooth.inverseCumulativeProbability(2));
+		assertEquals(6.0,sawtooth.inverseCumulativeProbability(sawtooth.cumulativeProbability(6)));
+		assertEquals(9.0,sawtooth.inverseCumulativeProbability(sawtooth.cumulativeProbability(9)));
+		assertEquals((2*sawtooth.a+sawtooth.b)/3.0,sawtooth.getNumericalMean());
+		assertEquals(5,sawtooth.getSupportLowerBound());
+		assertEquals(10,sawtooth.getSupportUpperBound());
+		assertTrue(sawtooth.isSupportLowerBoundInclusive());
+		assertTrue(sawtooth.isSupportUpperBoundInclusive());
+		assertTrue(sawtooth.isSupportConnected());
+
+		sawtooth=sawtooth.clone();
+
+		assertEquals(5,sawtooth.a);
+		assertEquals(10,sawtooth.b);
+		assertEquals(0,sawtooth.density(4));
+		assertEquals(0,sawtooth.density(11));
+		assertTrue(sawtooth.density(6)>0);
+		assertTrue(sawtooth.density(9)>0);
+		assertEquals(0,sawtooth.cumulativeProbability(4));
+		assertEquals(1,sawtooth.cumulativeProbability(11));
+		assertEquals(-Double.MAX_VALUE,sawtooth.inverseCumulativeProbability(-1));
+		assertEquals(Double.MAX_VALUE,sawtooth.inverseCumulativeProbability(2));
+		assertEquals(6.0,sawtooth.inverseCumulativeProbability(sawtooth.cumulativeProbability(6)));
+		assertEquals(9.0,sawtooth.inverseCumulativeProbability(sawtooth.cumulativeProbability(9)));
+		assertEquals((2*sawtooth.a+sawtooth.b)/3.0,sawtooth.getNumericalMean());
+		assertEquals(5,sawtooth.getSupportLowerBound());
+		assertEquals(10,sawtooth.getSupportUpperBound());
+		assertTrue(sawtooth.isSupportLowerBoundInclusive());
+		assertTrue(sawtooth.isSupportUpperBoundInclusive());
+		assertTrue(sawtooth.isSupportConnected());
+
+		sawtooth=new SawtoothLeftDistribution(sawtooth);
+
+		assertEquals(5,sawtooth.a);
+		assertEquals(10,sawtooth.b);
+		assertEquals(0,sawtooth.density(4));
+		assertEquals(0,sawtooth.density(11));
+		assertTrue(sawtooth.density(6)>0);
+		assertTrue(sawtooth.density(9)>0);
+		assertEquals(0,sawtooth.cumulativeProbability(4));
+		assertEquals(1,sawtooth.cumulativeProbability(11));
+		assertEquals(-Double.MAX_VALUE,sawtooth.inverseCumulativeProbability(-1));
+		assertEquals(Double.MAX_VALUE,sawtooth.inverseCumulativeProbability(2));
+		assertEquals(6.0,sawtooth.inverseCumulativeProbability(sawtooth.cumulativeProbability(6)));
+		assertEquals(9.0,sawtooth.inverseCumulativeProbability(sawtooth.cumulativeProbability(9)));
+		assertEquals((2*sawtooth.a+sawtooth.b)/3.0,sawtooth.getNumericalMean());
+		assertEquals(5,sawtooth.getSupportLowerBound());
+		assertEquals(10,sawtooth.getSupportUpperBound());
+		assertTrue(sawtooth.isSupportLowerBoundInclusive());
+		assertTrue(sawtooth.isSupportUpperBoundInclusive());
+		assertTrue(sawtooth.isSupportConnected());
+
+		sawtooth=(SawtoothLeftDistribution)DistributionTools.cloneDistribution(sawtooth);
+
+		assertEquals(5,sawtooth.a);
+		assertEquals(10,sawtooth.b);
+		assertEquals(0,sawtooth.density(4));
+		assertEquals(0,sawtooth.density(11));
+		assertTrue(sawtooth.density(6)>0);
+		assertTrue(sawtooth.density(9)>0);
+		assertEquals(0,sawtooth.cumulativeProbability(4));
+		assertEquals(1,sawtooth.cumulativeProbability(11));
+		assertEquals(-Double.MAX_VALUE,sawtooth.inverseCumulativeProbability(-1));
+		assertEquals(Double.MAX_VALUE,sawtooth.inverseCumulativeProbability(2));
+		assertEquals(6.0,sawtooth.inverseCumulativeProbability(sawtooth.cumulativeProbability(6)));
+		assertEquals(9.0,sawtooth.inverseCumulativeProbability(sawtooth.cumulativeProbability(9)));
+		assertEquals((2*sawtooth.a+sawtooth.b)/3.0,sawtooth.getNumericalMean());
+		assertEquals(5,sawtooth.getSupportLowerBound());
+		assertEquals(10,sawtooth.getSupportUpperBound());
+		assertTrue(sawtooth.isSupportLowerBoundInclusive());
+		assertTrue(sawtooth.isSupportUpperBoundInclusive());
+		assertTrue(sawtooth.isSupportConnected());
+
+		testDistributionTools(sawtooth);
+		testDistributionParameters(sawtooth,new double[] {5,10});
+
+		double rnd=sawtooth.random(new DummyRandomGenerator(0.5));
+		assertTrue(rnd>=sawtooth.a);
+		assertTrue(rnd<=sawtooth.b);
+	}
+
+	/**
+	 * Test: Sägezahnverteilung (rechts)
+	 * @see SawtoothRightDistribution
+	 */
+	@Test
+	void testSawtoothRightDistribution() {
+		SawtoothRightDistribution sawtooth;
+
+		sawtooth=new SawtoothRightDistribution(5,10);
+		assertEquals(5,sawtooth.a);
+		assertEquals(10,sawtooth.b);
+		assertEquals(0,sawtooth.density(4));
+		assertEquals(0,sawtooth.density(11));
+		assertTrue(sawtooth.density(6)>0);
+		assertTrue(sawtooth.density(9)>0);
+		assertEquals(0,sawtooth.cumulativeProbability(4));
+		assertEquals(1,sawtooth.cumulativeProbability(11));
+		assertEquals(-Double.MAX_VALUE,sawtooth.inverseCumulativeProbability(-1));
+		assertEquals(Double.MAX_VALUE,sawtooth.inverseCumulativeProbability(2));
+		assertEquals(6.0,sawtooth.inverseCumulativeProbability(sawtooth.cumulativeProbability(6)));
+		assertEquals(9.0,sawtooth.inverseCumulativeProbability(sawtooth.cumulativeProbability(9)));
+		assertEquals((sawtooth.a+2*sawtooth.b)/3.0,sawtooth.getNumericalMean());
+		assertEquals(5,sawtooth.getSupportLowerBound());
+		assertEquals(10,sawtooth.getSupportUpperBound());
+		assertTrue(sawtooth.isSupportLowerBoundInclusive());
+		assertTrue(sawtooth.isSupportUpperBoundInclusive());
+		assertTrue(sawtooth.isSupportConnected());
+
+		sawtooth=sawtooth.clone();
+
+		assertEquals(5,sawtooth.a);
+		assertEquals(10,sawtooth.b);
+		assertEquals(0,sawtooth.density(4));
+		assertEquals(0,sawtooth.density(11));
+		assertTrue(sawtooth.density(6)>0);
+		assertTrue(sawtooth.density(9)>0);
+		assertEquals(0,sawtooth.cumulativeProbability(4));
+		assertEquals(1,sawtooth.cumulativeProbability(11));
+		assertEquals(-Double.MAX_VALUE,sawtooth.inverseCumulativeProbability(-1));
+		assertEquals(Double.MAX_VALUE,sawtooth.inverseCumulativeProbability(2));
+		assertEquals(6.0,sawtooth.inverseCumulativeProbability(sawtooth.cumulativeProbability(6)));
+		assertEquals(9.0,sawtooth.inverseCumulativeProbability(sawtooth.cumulativeProbability(9)));
+		assertEquals((sawtooth.a+2*sawtooth.b)/3.0,sawtooth.getNumericalMean());
+		assertEquals(5,sawtooth.getSupportLowerBound());
+		assertEquals(10,sawtooth.getSupportUpperBound());
+		assertTrue(sawtooth.isSupportLowerBoundInclusive());
+		assertTrue(sawtooth.isSupportUpperBoundInclusive());
+		assertTrue(sawtooth.isSupportConnected());
+
+		sawtooth=new SawtoothRightDistribution(sawtooth);
+
+		assertEquals(5,sawtooth.a);
+		assertEquals(10,sawtooth.b);
+		assertEquals(0,sawtooth.density(4));
+		assertEquals(0,sawtooth.density(11));
+		assertTrue(sawtooth.density(6)>0);
+		assertTrue(sawtooth.density(9)>0);
+		assertEquals(0,sawtooth.cumulativeProbability(4));
+		assertEquals(1,sawtooth.cumulativeProbability(11));
+		assertEquals(-Double.MAX_VALUE,sawtooth.inverseCumulativeProbability(-1));
+		assertEquals(Double.MAX_VALUE,sawtooth.inverseCumulativeProbability(2));
+		assertEquals(6.0,sawtooth.inverseCumulativeProbability(sawtooth.cumulativeProbability(6)));
+		assertEquals(9.0,sawtooth.inverseCumulativeProbability(sawtooth.cumulativeProbability(9)));
+		assertEquals((sawtooth.a+2*sawtooth.b)/3.0,sawtooth.getNumericalMean());
+		assertEquals(5,sawtooth.getSupportLowerBound());
+		assertEquals(10,sawtooth.getSupportUpperBound());
+		assertTrue(sawtooth.isSupportLowerBoundInclusive());
+		assertTrue(sawtooth.isSupportUpperBoundInclusive());
+		assertTrue(sawtooth.isSupportConnected());
+
+		sawtooth=(SawtoothRightDistribution)DistributionTools.cloneDistribution(sawtooth);
+
+		assertEquals(5,sawtooth.a);
+		assertEquals(10,sawtooth.b);
+		assertEquals(0,sawtooth.density(4));
+		assertEquals(0,sawtooth.density(11));
+		assertTrue(sawtooth.density(6)>0);
+		assertTrue(sawtooth.density(9)>0);
+		assertEquals(0,sawtooth.cumulativeProbability(4));
+		assertEquals(1,sawtooth.cumulativeProbability(11));
+		assertEquals(-Double.MAX_VALUE,sawtooth.inverseCumulativeProbability(-1));
+		assertEquals(Double.MAX_VALUE,sawtooth.inverseCumulativeProbability(2));
+		assertEquals(6.0,sawtooth.inverseCumulativeProbability(sawtooth.cumulativeProbability(6)));
+		assertEquals(9.0,sawtooth.inverseCumulativeProbability(sawtooth.cumulativeProbability(9)));
+		assertEquals((sawtooth.a+2*sawtooth.b)/3.0,sawtooth.getNumericalMean());
+		assertEquals(5,sawtooth.getSupportLowerBound());
+		assertEquals(10,sawtooth.getSupportUpperBound());
+		assertTrue(sawtooth.isSupportLowerBoundInclusive());
+		assertTrue(sawtooth.isSupportUpperBoundInclusive());
+		assertTrue(sawtooth.isSupportConnected());
+
+		testDistributionTools(sawtooth);
+		testDistributionParameters(sawtooth,new double[] {5,10});
+
+		double rnd=sawtooth.random(new DummyRandomGenerator(0.5));
+		assertTrue(rnd>=sawtooth.a);
+		assertTrue(rnd<=sawtooth.b);
 	}
 
 	/**
