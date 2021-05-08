@@ -31,6 +31,7 @@ import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.im.InputContext;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.File;
@@ -187,6 +188,7 @@ import ui.statistics.StatisticsPanel;
 import ui.statistics.analyticcompare.AnalyticInfo;
 import ui.tools.FlatLaFHelper;
 import ui.tools.GlassInfo;
+import ui.tools.InputContextFix;
 import ui.tools.ServerPanel;
 import ui.tools.SpecialPanel;
 import ui.tools.SwingStartUpWatchDog;
@@ -960,6 +962,22 @@ public class MainPanel extends MainPanelBase {
 		 */
 
 		return toolbar;
+	}
+
+	@Override
+	protected JButton getButton(final String title) {
+		return new JButton(title) {
+			/**
+			 * Serialisierungs-ID der Klasse
+			 * @see Serializable
+			 */
+			private static final long serialVersionUID=-6245238308392345332L;
+
+			@Override
+			public InputContext getInputContext() {
+				return new InputContextFix(super.getInputContext());
+			}
+		};
 	}
 
 	/**

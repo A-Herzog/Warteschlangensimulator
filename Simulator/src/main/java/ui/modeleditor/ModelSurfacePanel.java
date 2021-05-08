@@ -49,6 +49,7 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
+import java.awt.im.InputContext;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -133,6 +134,7 @@ import ui.parameterseries.ParameterCompareTemplatesDialog;
 import ui.parameterseries.ParameterCompareTemplatesDialog.TemplateMode;
 import ui.parameterseries.ParameterCompareTemplatesDialog.TemplateRecord;
 import ui.tools.GlassInfo;
+import ui.tools.InputContextFix;
 
 /**
  * Zeichenfläche für die Modell-Elemente<br>
@@ -429,6 +431,11 @@ public final class ModelSurfacePanel extends JPanel {
 	 */
 	public ModelSurfacePanel() {
 		this(false,false);
+	}
+
+	@Override
+	public InputContext getInputContext() {
+		return new InputContextFix(super.getInputContext());
 	}
 
 	/**

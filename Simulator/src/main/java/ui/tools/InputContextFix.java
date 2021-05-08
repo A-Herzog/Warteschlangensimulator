@@ -18,6 +18,7 @@ package ui.tools;
 import java.awt.AWTEvent;
 import java.awt.Component;
 import java.awt.event.FocusEvent;
+import java.awt.event.MouseEvent;
 import java.awt.im.InputContext;
 import java.beans.Transient;
 import java.lang.Character.Subset;
@@ -43,6 +44,11 @@ import javax.swing.JTextField;
  */
 public class InputContextFix extends InputContext {
 	/**
+	 * Wie viele Sekunden nach dem Programmstart soll diese Schutzfunktion aktiv bleiben?
+	 */
+	private final static long CRITICAL_SECONDS=10;
+
+	/**
 	 * Original-Input-Context an den die Funktionsaufrufe weiter geleitet werden
 	 */
 	private final InputContext originalInputContext;
@@ -53,11 +59,25 @@ public class InputContextFix extends InputContext {
 	private final int javaVersion;
 
 	/**
+	 * Zeitpunkt zu dem diese Umleitung aktiviert wurde.
+	 */
+	private final long startTime;
+
+	/**
+	 * Wurde die Umleitung bereits deaktiviert?
+	 * (Dann muss nicht mehr bei jedem Ereignis erneut geprüft werden, ob sie jetzt deaktiviert werden kann.)
+	 */
+	private boolean backToNormal;
+
+	/**
 	 * Konstruktor der Klasse
 	 * @param originalInputContext	Original-Input-Context an den die Funktionsaufrufe weiter geleitet werden
 	 */
 	public InputContextFix(final InputContext originalInputContext) {
 		this.originalInputContext=originalInputContext;
+
+		startTime=System.currentTimeMillis();
+		backToNormal=false;
 
 		/* Schutzfunktion soll nur bei Java&gt;11 verwendet werden */
 		final String version=System.getProperty("java.version");
@@ -107,9 +127,17 @@ public class InputContextFix extends InputContext {
 
 	@Override
 	public void dispatchEvent(AWTEvent event) {
-		/* Diese Ereignisse führen in Java&gt;11 dazu, dass der AWT-Thread innerhalb einer nativen Methode blockiert. Daher müssen wir sie ausfiltern. */
-		final int id=event.getID();
-		if ((javaVersion>11) && (id==FocusEvent.FOCUS_LOST || id==FocusEvent.FOCUS_GAINED)) return;
+		if (!backToNormal && javaVersion>11) {
+			final long time=System.currentTimeMillis();
+			if (time>startTime+CRITICAL_SECONDS*1000L) {
+				backToNormal=true;
+			} else {
+				/* Diese Ereignisse führen in Java&gt;11 dazu, dass der AWT-Thread innerhalb einer nativen Methode blockiert. Daher müssen wir sie ausfiltern. */
+				final int id=event.getID();
+				if (id==FocusEvent.FOCUS_LOST || id==FocusEvent.FOCUS_GAINED) return;
+				if (id==MouseEvent.MOUSE_ENTERED || id==MouseEvent.MOUSE_MOVED) return;
+			}
+		}
 
 		originalInputContext.dispatchEvent(event);
 	}

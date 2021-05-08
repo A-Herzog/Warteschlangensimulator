@@ -335,6 +335,11 @@ public final class EditorPanel extends EditorPanelBase {
 		fireTemplatesVisibleChanged();
 	}
 
+	@Override
+	public InputContext getInputContext() {
+		return new InputContextFix(super.getInputContext());
+	}
+
 	/**
 	 * Stellt ein, ob die Statuszeile-Schaltfläche für gespeicherte Ansichten sichtbar sein soll.
 	 * @param visible	Gespeicherte Ansichten Schatlfläche sichtbar ja/nein
