@@ -1455,7 +1455,7 @@ public class Messages_en extends java.util.ResourceBundle {
     t[3250] = "SavedView.XML.X";
     t[3251] = "X";
     t[3252] = "Main.Menu.Help.RecommendedLiterature.GrossHarris";
-    t[3253] = "Gross/Harris: \"Fundamentals of Queueing Theory\"";
+    t[3253] = "Shortle/Thompson/Gross/Harris: \"Fundamentals of Queueing Theory\"";
     t[3254] = "Simulation.Log.Output";
     t[3255] = "Output";
     t[3256] = "Animation.IconDialog.Single.Icon.Error";
