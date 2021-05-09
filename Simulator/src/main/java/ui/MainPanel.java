@@ -551,6 +551,8 @@ public class MainPanel extends MainPanelBase {
 		input.put(KeyStroke.getKeyStroke('P',InputEvent.CTRL_DOWN_MASK+InputEvent.SHIFT_DOWN_MASK),"ctrlE"); /* Visual Studio Code Style */
 		input.put(KeyStroke.getKeyStroke('M',InputEvent.CTRL_DOWN_MASK+InputEvent.ALT_DOWN_MASK),"ctrlE"); /* (Fast) Microsoft Office Style (korrekt wäre Alt+M, aber das kollidiert mit "&Modell" */
 		addAction("ctrlE",e->{if (quickAccess!=null && quickAccess.isVisible()) {quickAccess.requestFocus(); quickAccess.selectAll();}});
+		input.put(KeyStroke.getKeyStroke(KeyEvent.VK_PAGE_UP,InputEvent.ALT_DOWN_MASK),"ViewEditor"); /* (Fast) Eclipse Style (korrekt wäre Strg+BildAb, aber das kollidiert mit "Element in den Hintergrund" */
+		input.put(KeyStroke.getKeyStroke(KeyEvent.VK_PAGE_DOWN,InputEvent.ALT_DOWN_MASK),"ViewStatistics"); /* (Fast) Eclipse Style (korrekt wäre Strg+BildAuf, aber das kollidiert mit "Element in den Vordergrund" */
 
 		/* Datei */
 		addAction("FileNew",e->commandFileModelNew());
