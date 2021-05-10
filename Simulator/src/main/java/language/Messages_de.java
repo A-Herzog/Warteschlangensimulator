@@ -2032,6 +2032,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[4647] = "Die f\u00fcr das %s. zu vergleichende Modell angegebene Statistikdatei\n%s\nexistiert nicht.";
     t[4650] = "Surface.BarrierPull.Dialog.Title";
     t[4651] = "Pull-Schranke bearbeiten";
+    t[4654] = "Statistics.ErlangCCompare.NoSimResults";
+    t[4655] = "Keine Simulationsergebnisse";
     t[4656] = "Surface.AnimationBar.Tooltip";
     t[4657] = "Balkendarstellung eines Wertes, die w\u00e4hrend der Animation des Modells aktualisiert wird.";
     t[4660] = "Git.List.Pull.Hint";
@@ -4014,14 +4016,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[9245] = "RuestzeitenVerteilung";
     t[9252] = "Animation.Toolbar.Tools";
     t[9253] = "Einstellungen";
-    t[9254] = "Statistics.AnalogStatistics";
-    t[9255] = "Analoge Werte";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_2 (java.lang.String[] t) {
+    t[9254] = "Statistics.AnalogStatistics";
+    t[9255] = "Analoge Werte";
     t[9266] = "Surface.TankFlowByClient.Tooltip";
     t[9267] = "L\u00f6st einen Fluss zwischen zwei Tanks aus.";
     t[9272] = "Animation.Icon.SymbolMale";
@@ -6020,14 +6022,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[13887] = "Volllastanteil (bezogen auf h\u00f6chste gemessene Bedieneranzahl)";
     t[13908] = "ExpressionBuilder.Rounding";
     t[13909] = "Runden";
-    t[13920] = "Surface.OutputLog.XML.Root";
-    t[13921] = "ModellElementAusgabeLog";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_3 (java.lang.String[] t) {
+    t[13920] = "Surface.OutputLog.XML.Root";
+    t[13921] = "ModellElementAusgabeLog";
     t[13922] = "ExpressionBuilder.SimulationCharacteristics.ProcessingTimesAtStations.AverageTime";
     t[13923] = "<p>Liefert die mittlere Dauer \u00fcber alle Bedienzeiten, die an der Bedienstation, deren ID in dem Parameter angegeben wurde, entstanden sind (\u00fcber alle Kundentypen).</p>";
     t[13924] = "Surface.Source.Dialog.CalculationOfTheInterarrivalTimes.Expression";
@@ -7102,8 +7104,10 @@ public class Messages_de extends java.util.ResourceBundle {
     t[16405] = "Transporterausfall l\u00f6schen";
     t[16406] = "Editor.Dialog.Sequences.Copy.Title";
     t[16407] = "Fertigungsplan kopieren";
-    t[16410] = "Surface.ErrorInfo.NoTransporterTypeSelected";
-    t[16411] = "Kein Transportertyp gew\u00e4hlt";
+    t[16408] = "Statistics.ErlangCCompare.NoSimResults.Info1";
+    t[16409] = "Es wurde noch keine Simulation durchgef\u00fchrt.";
+    t[16410] = "Statistics.ErlangCCompare.NoSimResults.Info2";
+    t[16411] = "Daher ist kein Vergleich zwischen analytischen und Simulationsergebnissen m\u00f6glich.";
     t[16414] = "Animation.Icon.ColorOrange";
     t[16415] = "Farbe - Orange";
     t[16420] = "ParameterCompare.Table.DeleteModel.Hint";
@@ -8024,16 +8028,16 @@ public class Messages_de extends java.util.ResourceBundle {
     t[18405] = "Minimum";
     t[18416] = "Git.List.Tab.Server.Button.Branches";
     t[18417] = "Zweige";
-    t[18420] = "Surface.AnimationBarStack.XML.DataArea.Direction.Down";
-    t[18421] = "nach unten";
-    t[18422] = "Simulation.Log.AssignSequence.Info";
-    t[18423] = "Kunde: id=%d, Fertigungsplan: %s, Station: %s";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_4 (java.lang.String[] t) {
+    t[18420] = "Surface.AnimationBarStack.XML.DataArea.Direction.Down";
+    t[18421] = "nach unten";
+    t[18422] = "Simulation.Log.AssignSequence.Info";
+    t[18423] = "Kunde: id=%d, Fertigungsplan: %s, Station: %s";
     t[18424] = "SettingsDialog.Tabs.BackupFiles";
     t[18425] = "Sicherheitskopien von Modelldateien anlegen";
     t[18434] = "Surface.AnimationTextSelect.Tooltip";
@@ -10030,16 +10034,16 @@ public class Messages_de extends java.util.ResourceBundle {
     t[22793] = "Eingabeparameter l\u00f6schen";
     t[22794] = "Surface.PopupMenu.SimulationStatisticsData.Tab.WaitingClients.General.IsWarmUp";
     t[22795] = "Kunde w\u00e4hrend Einschwingphase erzeugt";
-    t[22796] = "SettingsDialog.AutoSave.Simulation";
-    t[22797] = "Nur vor Simulation/Animation";
-    t[22802] = "Examples.OperatorsAsSimulationObjects";
-    t[22803] = "Bediener als Simulationsobjekte";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_5 (java.lang.String[] t) {
+    t[22796] = "SettingsDialog.AutoSave.Simulation";
+    t[22797] = "Nur vor Simulation/Animation";
+    t[22802] = "Examples.OperatorsAsSimulationObjects";
+    t[22803] = "Bediener als Simulationsobjekte";
     t[22808] = "CriticalStationsSignature.Station";
     t[22809] = "SignaturStation";
     t[22810] = "Optimizer.XML.RangeMinimum";
@@ -12036,16 +12040,16 @@ public class Messages_de extends java.util.ResourceBundle {
     t[27383] = "Zeilenumbruch";
     t[27390] = "Statistic.FastAccess.Template.TransferTime.ByStation";
     t[27391] = "Transferzeit an einer Station";
-    t[27396] = "ExpressionBuilder.ProbabilityDistributions.GammaDistribution.DensityInfo";
-    t[27397] = "<p>Berechnet den Wert der Dichte der Gamma-Verteilung an der als ersten Parameter angegebenen Stelle mit den Parametern &alpha; und &beta; gem\u00e4\u00df dem zweiten und dritten Parameter.</p>\n<p>Beispiel: <tt>GammaDist(7;5;3;0)</tt> liefert 0,03992278718149.</p><p>Es gelten <tt>&alpha;=mean<sup>2</sup>/sd<sup>2</sup></tt> und <tt>&beta;=sd<sup>2</sup>/mean</tt>.</p>";
-    t[27400] = "Surface.Process.Dialog.TimeIs.WaitingTime";
-    t[27401] = "Wartezeit";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_6 (java.lang.String[] t) {
+    t[27396] = "ExpressionBuilder.ProbabilityDistributions.GammaDistribution.DensityInfo";
+    t[27397] = "<p>Berechnet den Wert der Dichte der Gamma-Verteilung an der als ersten Parameter angegebenen Stelle mit den Parametern &alpha; und &beta; gem\u00e4\u00df dem zweiten und dritten Parameter.</p>\n<p>Beispiel: <tt>GammaDist(7;5;3;0)</tt> liefert 0,03992278718149.</p><p>Es gelten <tt>&alpha;=mean<sup>2</sup>/sd<sup>2</sup></tt> und <tt>&beta;=sd<sup>2</sup>/mean</tt>.</p>";
+    t[27400] = "Surface.Process.Dialog.TimeIs.WaitingTime";
+    t[27401] = "Wartezeit";
     t[27406] = "Optimizer.Tab.Optimization.Kernel.Parameters.Tab.Genetic.ChangeRate1.ErrorTitle";
     t[27407] = "Ungpltige \u00c4nderungsrate in der ersten und zweiten Runde";
     t[27412] = "Surface.XML.Transporter.Count.Count";
@@ -14042,16 +14046,16 @@ public class Messages_de extends java.util.ResourceBundle {
     t[32023] = "Wartezeiten nach Kundentypen";
     t[32026] = "Simulation.ClientMovement.NoStationSelectedErrorInfo";
     t[32027] = "Es wurden keinen Stationen, die in das Sansky-Diagramm aufgenommen werden sollen, ausgew\u00e4hlt.";
-    t[32028] = "Surface.Conveyor.Dialog.CapacityNeeded.ErrorTitle";
-    t[32029] = "Ung\u00fcltige ben\u00f6tigte Kapazit\u00e4t pro Kunde";
-    t[32032] = "ModelDescription.Process.CancelTime.ClientType";
-    t[32033] = "Abbruchzeit f\u00fcr Kundentyp \"%s\"";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_7 (java.lang.String[] t) {
+    t[32028] = "Surface.Conveyor.Dialog.CapacityNeeded.ErrorTitle";
+    t[32029] = "Ung\u00fcltige ben\u00f6tigte Kapazit\u00e4t pro Kunde";
+    t[32032] = "ModelDescription.Process.CancelTime.ClientType";
+    t[32033] = "Abbruchzeit f\u00fcr Kundentyp \"%s\"";
     t[32034] = "Simulation.Creator.AnalogNoValves";
     t[32035] = "An Element id=%d wurden keine Ventile definiert.";
     t[32036] = "Surface.CounterMulti.Table.Heading.CounterName";
@@ -16048,16 +16052,16 @@ public class Messages_de extends java.util.ResourceBundle {
     t[36647] = "Verschiebt den gew\u00e4hlten Eingabeparameter um einen Platz nach unten in der Liste";
     t[36650] = "Surface.Process.XML.Operators.Group";
     t[36651] = "Gruppe";
-    t[36654] = "Surface.Note.Dialog.Title";
-    t[36655] = "Notiz bearbeiten";
-    t[36656] = "Color.FFC0CB";
-    t[36657] = "Pink";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_8 (java.lang.String[] t) {
+    t[36654] = "Surface.Note.Dialog.Title";
+    t[36655] = "Notiz bearbeiten";
+    t[36656] = "Color.FFC0CB";
+    t[36657] = "Pink";
     t[36658] = "Surface.Decide.Dialog.OutgoingEdge.Key.ErrorMissing.Title";
     t[36659] = "Kein Schl\u00fcssel angegeben";
     t[36660] = "ModelDescription.InteractiveRadiobutton.Description.Value";
@@ -18004,6 +18008,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[40911] = "<p>Berechnet den Wert der Dichte der Pareto-Verteilung an der als ersten Parameter angegebenen Stelle mit den Parametern gem\u00e4\u00df dem zweiten (Skalierung) und dritten (Form) Parameter.</p>";
     t[40926] = "Statistic.FastAccess.Template.Reset";
     t[40927] = "Modell zur\u00fccksetzen";
+    t[40928] = "Surface.ErrorInfo.NoTransporterTypeSelected";
+    t[40929] = "Kein Transportertyp gew\u00e4hlt";
     t[40936] = "AutoRestore.Dialog.DeleteAllInfo";
     t[40937] = "Sollen wirklich alle zuvor gespeicherten Modelle gel\u00f6scht werden?";
     t[40938] = "Surface.CounterMulti.XML.Counter";
@@ -18052,18 +18058,18 @@ public class Messages_de extends java.util.ResourceBundle {
     t[41013] = "Das Modell enth\u00e4lt keine passenden Stationen.";
     t[41024] = "Statistics.OverviewFilter.None";
     t[41025] = "Keine";
-    t[41028] = "Main.Menu.Help.AutomaticHelpWindow";
-    t[41029] = "Hilfe zu aktuellem Element anzeigen";
-    t[41038] = "Statistics.DistributionOfNumberOfClientsAtStationQueuesByClientTypes";
-    t[41039] = "Verteilung der Anzahlen an Kunden in den Warteschlangen an den Stationen (nach Kundentypen)";
-    t[41044] = "Simulation.Element.TankValveSetup.Name";
-    t[41045] = "Ventil-Setup";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_9 (java.lang.String[] t) {
+    t[41028] = "Main.Menu.Help.AutomaticHelpWindow";
+    t[41029] = "Hilfe zu aktuellem Element anzeigen";
+    t[41038] = "Statistics.DistributionOfNumberOfClientsAtStationQueuesByClientTypes";
+    t[41039] = "Verteilung der Anzahlen an Kunden in den Warteschlangen an den Stationen (nach Kundentypen)";
+    t[41044] = "Simulation.Element.TankValveSetup.Name";
+    t[41045] = "Ventil-Setup";
     t[41050] = "Statistics.DistributionOfStationsWaitingTimes";
     t[41051] = "Verteilung der Wartezeiten an den Stationen";
     t[41058] = "Optimizer.Tab.Target.Type.Script";

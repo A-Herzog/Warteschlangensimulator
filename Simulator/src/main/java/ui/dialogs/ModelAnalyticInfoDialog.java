@@ -107,6 +107,7 @@ public class ModelAnalyticInfoDialog extends BaseDialog {
 		buildTextModelInfo(analyticInfo);
 		if (simulationResults!=null) buildTextSimResults(simulationResults);
 		buildTextAnalytic(analyticInfo,simulationResults);
+		if (simulationResults==null) buidlTextNoSimResultsInfo();
 	}
 
 	/**
@@ -139,7 +140,7 @@ public class ModelAnalyticInfoDialog extends BaseDialog {
 		textBuilder.addLine("E[NQ]="+NumberTools.formatNumber(simulationResults.ENQ));
 		textBuilder.addLine("E[NS]="+NumberTools.formatNumber(simulationResults.ENS));
 		textBuilder.addLine("E[N]="+NumberTools.formatNumber(simulationResults.EN));
-		textBuilder.beginParagraph();
+		textBuilder.endParagraph();
 
 		textBuilder.addHeading(3,Language.tr("Statistics.ErlangCompare.Times"));
 		textBuilder.beginParagraph();
@@ -153,6 +154,18 @@ public class ModelAnalyticInfoDialog extends BaseDialog {
 			textBuilder.addLines(simulationResults.resourceInfo);
 			textBuilder.endParagraph();
 		}
+	}
+
+	/**
+	 * Gibt einen Hinweis aus, dass noch keine Simulation stattgefunden hat und das daher
+	 * kein Vergleich mit Simulationsergebnissen möglich ist.
+	 */
+	private void buidlTextNoSimResultsInfo() {
+		textBuilder.addHeading(1,Language.tr("Statistics.ErlangCCompare.NoSimResults"));
+		textBuilder.beginParagraph();
+		textBuilder.addLine(Language.tr("Statistics.ErlangCCompare.NoSimResults.Info1"));
+		textBuilder.addLine(Language.tr("Statistics.ErlangCCompare.NoSimResults.Info2"));
+		textBuilder.endParagraph();
 	}
 
 	/**

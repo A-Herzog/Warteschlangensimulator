@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-05-08 20:53+0200\n"
+"POT-Creation-Date: 2021-05-10 10:31+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17977,6 +17977,15 @@ msgstr "Simulation abgebrochen"
 
 msgid "Statistics.ErlangCCompare"
 msgstr "Erlang-C-Vergleich"
+
+msgid "Statistics.ErlangCCompare.NoSimResults"
+msgstr "Keine Simulationsergebnisse"
+
+msgid "Statistics.ErlangCCompare.NoSimResults.Info1"
+msgstr "Es wurde noch keine Simulation durchgeführt."
+
+msgid "Statistics.ErlangCCompare.NoSimResults.Info2"
+msgstr "Daher ist kein Vergleich zwischen analytischen und Simulationsergebnissen möglich."
 
 msgid "Statistics.ErlangCCompare.NotCompareable"
 msgstr "Die Simulationsergebnisse des aktuellen Modells können nicht den Ergebnissen einer Erlang-C-Rechnung gegenübergestellt werden."
