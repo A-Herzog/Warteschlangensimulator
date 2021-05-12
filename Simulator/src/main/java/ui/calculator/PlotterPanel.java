@@ -428,6 +428,10 @@ public class PlotterPanel extends JPanel {
 				maxY=Math.max(maxY,range[1]);
 			}
 		}
+		if (minY==0 && maxY==0) {
+			minY=0;
+			maxY=1;
+		}
 		if (minY>maxY) {
 			minY=-1;
 			maxY=1;
