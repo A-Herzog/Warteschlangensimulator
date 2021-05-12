@@ -29,6 +29,7 @@ import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import javax.swing.AbstractAction;
 import javax.swing.BorderFactory;
@@ -43,6 +44,7 @@ import javax.swing.JToolBar;
 import javax.swing.KeyStroke;
 import javax.swing.SwingUtilities;
 
+import systemtools.BaseDialog;
 import systemtools.MsgBox;
 import systemtools.images.SimToolsImages;
 
@@ -78,6 +80,9 @@ public abstract class HTMLPanel extends JPanel {
 
 	/** "Inhalt anzeigen"-Schaltfläche */
 	private final JButton buttonContent;
+
+	/** "Suchen"-Schaltfläche */
+	private final JButton buttonSearch;
 
 	/** Panel zur Anzeige des Hilfetextes */
 	private HTMLBrowserPanel textPane;
@@ -143,8 +148,11 @@ public abstract class HTMLPanel extends JPanel {
 		buttonNext=addButton(HelpBase.buttonNext,HelpBase.buttonNextInfo,SimToolsImages.HELP_NEXT.getIcon());
 		buttonNext.setVisible(showBackAndNext);
 		buttonNext.setEnabled(false);
-		buttonContent=addButton(HelpBase.buttonContent,HelpBase.buttonContentInfo,SimToolsImages.HELP_FIND.getIcon());
+		buttonContent=addButton(HelpBase.buttonContent,HelpBase.buttonContentInfo,SimToolsImages.HELP_FIND_IN_PAGE.getIcon());
 		buttonContent.setVisible(false);
+		buttonSearch=addButton(HelpBase.buttonSearch,HelpBase.buttonSearchInfo,SimToolsImages.HELP_SEARCH.getIcon());
+		buttonSearch.setVisible(IndexSystem.getInstance().isReady());
+
 		if (showBackAndNext) add(toolBar,BorderLayout.NORTH);
 
 		textPane=getHTMLBrowser();
@@ -276,7 +284,7 @@ public abstract class HTMLPanel extends JPanel {
 	 * @return Gibt <code>true</code> zurück, wenn die Seite erfolgreich geladen und angezeigt werden konnte.
 	 */
 	public boolean loadPage(String res) {
-		return loadPage(HTMLPanel.class.getResource(res));
+		return loadPage(getPageURL(res));
 	}
 
 	/**
@@ -345,6 +353,7 @@ public abstract class HTMLPanel extends JPanel {
 	 * @see HTMLPanel#buttonNext
 	 * @see HTMLPanel#buttonHome
 	 * @see HTMLPanel#buttonContent
+	 * @see HTMLPanel#buttonSearch
 	 */
 	private final class ButtonListener implements ActionListener {
 		@Override
@@ -379,6 +388,25 @@ public abstract class HTMLPanel extends JPanel {
 				initContentPopup();
 				contentPopup.show(buttonContent,0,buttonContent.getBounds().height);
 				return;
+			}
+
+			if (e.getSource()==buttonSearch) {
+				final HTMLPanelSearchDialog searchDialog=new HTMLPanelSearchDialog(HTMLPanel.this);
+				if (searchDialog.getClosedBy()==BaseDialog.CLOSED_BY_OK) {
+					final Set<String> results=searchDialog.getResult();
+					if (results!=null && results.size()>0) {
+						final String[] pages=results.toArray(new String[0]);
+						if (pages.length==1) {
+							loadPage(pages[0]);
+						} else {
+							final HTMLPanelSelectDialog selectDialog=new HTMLPanelSelectDialog(HTMLPanel.this,results);
+							if (selectDialog.getClosedBy()==BaseDialog.CLOSED_BY_OK) {
+								final String page=selectDialog.getSelectedPage();
+								if (page!=null) loadPage(page);
+							}
+						}
+					}
+				}
 			}
 
 			if (e.getSource() instanceof JMenuItem) {

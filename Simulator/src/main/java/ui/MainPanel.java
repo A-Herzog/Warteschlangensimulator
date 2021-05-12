@@ -111,6 +111,7 @@ import systemtools.MainPanelBase;
 import systemtools.MsgBox;
 import systemtools.commandline.CommandLineDialog;
 import systemtools.help.HelpBase;
+import systemtools.help.IndexSystem;
 import systemtools.statistics.StatisticsBasePanel;
 import tools.ImagePrintable;
 import tools.Notifier;
@@ -173,6 +174,7 @@ import ui.quickaccess.JQuickAccessBuilderCalc;
 import ui.quickaccess.JQuickAccessBuilderDistributions;
 import ui.quickaccess.JQuickAccessBuilderElementsList;
 import ui.quickaccess.JQuickAccessBuilderExamples;
+import ui.quickaccess.JQuickAccessBuilderHelp;
 import ui.quickaccess.JQuickAccessBuilderLastFiles;
 import ui.quickaccess.JQuickAccessBuilderMenu;
 import ui.quickaccess.JQuickAccessBuilderModelProperties;
@@ -513,8 +515,14 @@ public class MainPanel extends MainPanelBase {
 				}
 			}
 
-			if (!fileLoadedOnLoad && !isReload && setup.startModel.isEmpty() && !isAutoRestore) {
-				BackgroundPrepareCompiledClasses.run();
+			/* Zeitverzögerte Startaktionen */
+			if (!isReload) {
+				if (!fileLoadedOnLoad && setup.startModel.isEmpty() && !isAutoRestore) BackgroundPrepareCompiledClasses.run();
+				final IndexSystem indexSystem=IndexSystem.getInstance();
+				indexSystem.addLanguage("de","pages_de");
+				indexSystem.addLanguage("en","pages_en");
+				indexSystem.init(Help.class);
+				indexSystem.setLanguage(Language.getCurrentLanguage());
 			}
 
 			/* Wird zu früh eine Datei auf das Programmfenster gezogen, so blockiert die Swing Event Queue. Dann kann das Programm nur noch abgebrochen werden. */
@@ -841,6 +849,7 @@ public class MainPanel extends MainPanelBase {
 			invalidate();
 			if (reloadWindow!=null) SwingUtilities.invokeLater(()->repaint());
 		}
+		IndexSystem.getInstance().setLanguage(Language.getCurrentLanguage());
 
 		/* Background-System neu einstellen */
 		if (setup.backgroundSimulation!=BackgroundSystem.getBackgroundSystem(editorPanel).getLastBackgroundMode()) {
@@ -1487,6 +1496,12 @@ public class MainPanel extends MainPanelBase {
 				final JQuickAccessBuilderBook builderBook=(JQuickAccessBuilderBook)builder;
 				builderBook.work(match->commandHelpBook(match));
 				list.addAll(builderBook.getList(10));
+			}
+
+			if (builder instanceof JQuickAccessBuilderHelp) {
+				final JQuickAccessBuilderHelp builderHelp=(JQuickAccessBuilderHelp)builder;
+				builderHelp.work(this,5,5);
+				list.addAll(builderHelp.getList(10));
 			}
 		}
 

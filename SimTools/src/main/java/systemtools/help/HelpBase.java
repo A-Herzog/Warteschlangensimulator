@@ -52,6 +52,26 @@ public abstract class HelpBase {
 	public static String buttonContent="Inhalt dieser Seite";
 	/** Bezeichnung für den Tooltip für die Schaltfläche "Inhalt dieser Seite" */
 	public static String buttonContentInfo="Zeigt die Abschnittsüberschriften dieser Seite an";
+	/** Bezeichnung für die Schaltfläche "Suchen" */
+	public static String buttonSearch="Suchen";
+	/** Bezeichnung für den Tooltip für die Schaltfläche "Suchen" */
+	public static String buttonSearchInfo="Ermöglicht die Suche in der gesamten Hilfe";
+	/** Beschriftung für das Suchbegriff-Eingabefeld im Suchdialog */
+	public static String buttonSearchString="Suchbegriff";
+	/** Fehlermeldung, wenn in dem Suchdialog auf "Ok" geklickt wurde, aber kein Treffer ausgewählt ist. */
+	public static String buttonSearchNoHitSelected="Es wurde kein Suchtreffer ausgewählt.";
+	/** Beschriftung für Suchtreffer über den Seitentitel */
+	public static String buttonSearchResultTypePage="Seite";
+	/** Beschriftung für Suchtreffer über den Seiteninhalt */
+	public static String buttonSearchResultTypeIndex="Seiteninhalt";
+	/** Beschriftung für Zielseite bei Suchtreffer über den Seiteninhalt */
+	public static String buttonSearchResultOnPage="auf Seite \"%s\" gefunden";
+	/** Beschriftung für einen Index-Suchtreffer, der auf einer Seite gefunden wurde */
+	public static String buttonSearchResultCountSingular="auf %d Seite gefunden";
+	/** Beschriftung für einen Index-Suchtreffer, der auf mehreren Seiten gefunden wurde */
+	public static String buttonSearchResultCountPlural="auf %d Seiten gefunden";
+	/** Beschriftung für Auswahl des konkreten Suchtreffers */
+	public static String buttonSearchResultSelect="Passende Seiten zu dem Suchtreffer:";
 	/** Titel der Fehlermeldung "Kein E-Mail-Programm festgelegt" */
 	public static String errorNoEMailTitle="Kein E-Mail-Programm festgelegt";
 	/** Inhalt Fehlermeldung "Kein E-Mail-Programm festgelegt" */

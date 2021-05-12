@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-05-10 10:31+0200\n"
+"POT-Creation-Date: 2021-05-11 00:18+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -7176,6 +7176,36 @@ msgstr "Shows a list of the section captions from this help page"
 msgid "Help.Forward.Info"
 msgstr "Goes forward to the next help page."
 
+msgid "Help.Search"
+msgstr "Search"
+
+msgid "Help.Search.Info"
+msgstr "Allows you to search the complete help"
+
+msgid "Help.Search.NoHitSelected"
+msgstr "No search hit was selected."
+
+msgid "Help.Search.ResultCountPlural"
+msgstr "found on %d pages"
+
+msgid "Help.Search.ResultCountSingular"
+msgstr "found on %d page"
+
+msgid "Help.Search.ResultOnPage"
+msgstr "found on page \"%s\""
+
+msgid "Help.Search.ResultSelect"
+msgstr "Matching pages for the search hit:"
+
+msgid "Help.Search.SearchString"
+msgstr "Search keyword"
+
+msgid "Help.Search.Type.Index"
+msgstr "Page content"
+
+msgid "Help.Search.Type.Page"
+msgstr "Page"
+
 msgid "Help.StartPage"
 msgstr "Start page"
 
@@ -12294,6 +12324,12 @@ msgstr "Formula"
 
 msgid "QuickAccess.Expression.Hint"
 msgstr "Opens the calculator dialog"
+
+msgid "QuickAccess.Help"
+msgstr "Help"
+
+msgid "QuickAccess.Help.Hint"
+msgstr "Opens a help page."
 
 msgid "QuickAccess.Hint"
 msgstr "Search for program functions, station types, example models etc."

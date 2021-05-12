@@ -476,6 +476,16 @@ public class LanguageStaticLoader {
 		HelpBase.buttonNextInfo=Language.tr("Help.Forward.Info");
 		HelpBase.buttonContent=Language.tr("Help.Content");
 		HelpBase.buttonContentInfo=Language.tr("Help.Content.Info");
+		HelpBase.buttonSearch=Language.tr("Help.Search");
+		HelpBase.buttonSearchInfo=Language.tr("Help.Search.Info");
+		HelpBase.buttonSearchString=Language.tr("Help.Search.SearchString");
+		HelpBase.buttonSearchNoHitSelected=Language.tr("Help.Search.NoHitSelected");
+		HelpBase.buttonSearchResultTypePage=Language.tr("Help.Search.Type.Page");
+		HelpBase.buttonSearchResultTypeIndex=Language.tr("Help.Search.Type.Index");
+		HelpBase.buttonSearchResultOnPage=Language.tr("Help.Search.ResultOnPage");
+		HelpBase.buttonSearchResultCountSingular=Language.tr("Help.Search.ResultCountSingular");
+		HelpBase.buttonSearchResultCountPlural=Language.tr("Help.Search.ResultCountPlural");
+		HelpBase.buttonSearchResultSelect=Language.tr("Help.Search.ResultSelect");
 		HelpBase.errorNoEMailTitle=Language.tr("Window.Info.NoEMailProgram.Title");
 		HelpBase.errorNoEMailInfo=Language.tr("Window.Info.NoHTMLPrint.Info");
 		HelpBase.errorNoInternetTitle=Language.tr("Window.Info.NoInternetConnection");

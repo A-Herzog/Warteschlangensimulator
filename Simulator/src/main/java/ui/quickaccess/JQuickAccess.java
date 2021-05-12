@@ -71,6 +71,7 @@ public class JQuickAccess {
 		list.add(new JQuickAccessBuilderCalc(quickAccessText));
 		list.add(new JQuickAccessBuilderDistributions(quickAccessText));
 		list.add(new JQuickAccessBuilderSettings(quickAccessText));
+		list.add(new JQuickAccessBuilderHelp(quickAccessText));
 		if (BookData.getInstance().isDataAvailable()) list.add(new JQuickAccessBuilderBook(quickAccessText));
 	}
 

@@ -78,7 +78,7 @@ public class JQuickAccessBuilder {
 	 * @see #test(String, String)
 	 * @see #testPlainResult(String, String)
 	 */
-	private String buildResultText(final String pre, final String text, final int index1, final int index2) {
+	protected String buildResultText(final String pre, final String text, final int index1, final int index2) {
 		final StringBuilder sb=new StringBuilder();
 		sb.append("<html><body>");
 
