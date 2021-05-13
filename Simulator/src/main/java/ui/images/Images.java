@@ -42,6 +42,9 @@ public enum Images {
 	GENERAL_SETUP("wrench.png"),
 
 	/** Symbol "Speichern" */
+	GENERAL_LOAD("folder_page_white.png"),
+
+	/** Symbol "Speichern" */
 	GENERAL_SAVE("disk.png"),
 
 	/** Symbol "Ende" */

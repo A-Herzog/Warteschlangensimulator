@@ -43,6 +43,7 @@ import mathtools.Table;
 import mathtools.distribution.tools.FileDropper;
 import systemtools.BaseDialog;
 import systemtools.MsgBox;
+import ui.dialogs.WaitDialog;
 import ui.help.Help;
 import ui.images.Images;
 import ui.infopanel.InfoPanel;
@@ -133,7 +134,7 @@ public class ClientInputTableDialog extends BaseDialog {
 		line.add(button=new JButton(Images.GENERAL_SELECT_TABLE_IN_FILE.getIcon()),BorderLayout.EAST);
 		button.setToolTipText(Language.tr("BuildClientSourceTable.InputTable.Select"));
 		button.addActionListener(e->selectInputTable());
-		FileDropper.addFileDropper(this,editInput);
+		FileDropper.addFileDropper(line,editInput);
 
 		data=ModelElementBaseDialog.getInputPanel(Language.tr("BuildClientSourceTable.OutputTable")+":","");
 		setup.add(line=(JPanel)data[0]);
@@ -141,7 +142,7 @@ public class ClientInputTableDialog extends BaseDialog {
 		line.add(button=new JButton(Images.GENERAL_SELECT_TABLE_IN_FILE.getIcon()),BorderLayout.EAST);
 		button.setToolTipText(Language.tr("BuildClientSourceTable.OutputTable.Select"));
 		button.addActionListener(e->selectOutputTable());
-		FileDropper.addFileDropper(this,editOutput);
+		FileDropper.addFileDropper(line,editOutput);
 
 		setup.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
 		line.add(new JLabel(Language.tr("BuildClientSourceTable.ColumnsInfo")));
@@ -180,7 +181,7 @@ public class ClientInputTableDialog extends BaseDialog {
 	 * @see #editOutput
 	 */
 	private void selectOutputTable() {
-		final File file=Table.showLoadDialog(this,Language.tr("BuildClientSourceTable.OutputTable.Select"));
+		final File file=Table.showSaveDialog(this,Language.tr("BuildClientSourceTable.OutputTable.Select"));
 		if (file!=null) {
 			editOutput.setText(file.toString());
 		}
@@ -213,12 +214,12 @@ public class ClientInputTableDialog extends BaseDialog {
 		listData.clear();
 
 		processor=new ClientInputTableProcessor();
-		if (!processor.loadTable(new File(newInputTable))) {
-			processor=null;
-			return;
-		}
 
-		for (ClientInputTableProcessor.ColumnSetup columnSetup: processor.getColumns()) listData.addElement(columnSetup);
+		WaitDialog.workString(this,()->{
+			if (!processor.loadTable(new File(newInputTable))) {processor=null; return null;}
+			for (ClientInputTableProcessor.ColumnSetup columnSetup: processor.getColumns()) listData.addElement(columnSetup);
+			return null;
+		},WaitDialog.Mode.LOAD_DATA);
 	}
 
 	@Override
@@ -261,7 +262,7 @@ public class ClientInputTableDialog extends BaseDialog {
 			return;
 		}
 
-		if (!result.save(editOutput.getText())) {
+		if (!WaitDialog.workBoolean(this,()->result.save(editOutput.getText()),WaitDialog.Mode.SAVE_DATA)) {
 			MsgBox.error(this,Language.tr("BuildClientSourceTable.OutputTable.Error.Save.Title"),String.format(Language.tr("BuildClientSourceTable.OutputTable.Error.Save.Info"),editOutput.getText()));
 			return;
 		}

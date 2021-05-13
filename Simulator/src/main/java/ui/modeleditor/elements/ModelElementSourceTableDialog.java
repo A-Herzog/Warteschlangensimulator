@@ -43,6 +43,7 @@ import mathtools.NumberTools;
 import mathtools.Table;
 import mathtools.distribution.tools.FileDropper;
 import systemtools.MsgBox;
+import ui.dialogs.WaitDialog;
 import ui.images.Images;
 import ui.infopanel.InfoPanel;
 import ui.inputprocessor.ClientInputTableDialog;
@@ -220,7 +221,7 @@ public class ModelElementSourceTableDialog extends ModelElementBaseDialog {
 			return;
 		}
 		final Table table=new Table();
-		if (!table.load(tableFile)) {
+		if (!WaitDialog.workBoolean(this,()->table.load(tableFile),WaitDialog.Mode.LOAD_DATA)) {
 			MsgBox.error(this,Language.tr("Surface.SourceTable.Dialog.ClientTypes.LoadButton"),Language.tr("Surface.SourceTable.Dialog.ClientTypes.LoadButton.ErrorTableLoad"));
 			return;
 		}

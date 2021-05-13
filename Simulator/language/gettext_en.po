@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-05-13 00:08+0200\n"
+"POT-Creation-Date: 2021-05-14 00:22+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -14191,6 +14191,9 @@ msgstr "Saving settings failed"
 msgid "SimPrepare.Downloading"
 msgstr "The file is being downloaded."
 
+msgid "SimPrepare.LoadData"
+msgstr "Data is being loaded."
+
 msgid "SimPrepare.PleaseWait"
 msgstr "Please wait..."
 
@@ -14199,6 +14202,9 @@ msgstr "The model is being prepared."
 
 msgid "SimPrepare.ProcessData"
 msgstr "Data processing is running."
+
+msgid "SimPrepare.SaveData"
+msgstr "Data is being saved."
 
 msgid "Simulation.CalcError.Eval"
 msgstr "For a comparison the expression %s could not be evaluated."

@@ -24,6 +24,7 @@ import java.awt.FlowLayout;
 import java.awt.Window;
 import java.io.Serializable;
 import java.net.URL;
+import java.util.function.BooleanSupplier;
 import java.util.function.Supplier;
 
 import javax.swing.BorderFactory;
@@ -63,7 +64,11 @@ public class WaitDialog extends JDialog {
 		/** Eine Datei wird heruntergeladen. */
 		DOWNLOAD_FILE,
 		/** Daten werden verarbeitet. */
-		PROCESS_DATA
+		PROCESS_DATA,
+		/** Daten werden geladen. */
+		LOAD_DATA,
+		/** Daten werden gespeichert. */
+		SAVE_DATA
 	}
 
 	/**
@@ -71,6 +76,11 @@ public class WaitDialog extends JDialog {
 	 * soll der "Bitte warten"-Dialog angezeigt werden?
 	 */
 	private static final int MS_BEFORE_SHOW_DIALOG=500;
+
+	/**
+	 * Thread auf dessen Ende gewartet werden soll
+	 */
+	private final Thread thread;
 
 	/**
 	 * Konstruktor der Klasse
@@ -81,6 +91,7 @@ public class WaitDialog extends JDialog {
 	private WaitDialog(final Component owner, final Thread thread, final Mode mode) {
 		super((owner instanceof Window)?((Window)owner):SwingUtilities.windowForComponent(owner),MainFrame.PROGRAM_NAME,Dialog.ModalityType.DOCUMENT_MODAL);
 		setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+		this.thread=thread;
 
 		/* Konfiguration des Dialogs */
 		final String infoText;
@@ -97,6 +108,14 @@ public class WaitDialog extends JDialog {
 		case PROCESS_DATA:
 			infoText=Language.tr("SimPrepare.ProcessData");
 			image=Images.EXTRAS_QUEUE;
+			break;
+		case LOAD_DATA:
+			infoText=Language.tr("SimPrepare.LoadData");
+			image=Images.GENERAL_LOAD;
+			break;
+		case SAVE_DATA:
+			infoText=Language.tr("SimPrepare.SaveData");
+			image=Images.GENERAL_SAVE;
 			break;
 		default:
 			infoText=Language.tr("SimPrepare.Preparing");
@@ -124,11 +143,30 @@ public class WaitDialog extends JDialog {
 		setMinimumSize(new Dimension(300,0));
 		pack();
 		setLocationRelativeTo(this.getOwner());
-		SwingUtilities.invokeLater(()->{
-			try {thread.join();} catch (InterruptedException e) {}
-			setVisible(false);
-		});
+		SwingUtilities.invokeLater(()->closeTest());
 		setVisible(true);
+	}
+
+	/**
+	 * Prüft, ob {@link #thread} mittlerweile beendet wurde
+	 * und schließt dann den Dialog. Ansonsten wartet die Methode
+	 * etwas und ruft sich dann über den AWT-Thread erneut auf
+	 * (so dass auch andere GUI-Ereignisse abgearbeitet werden können).
+	 */
+	private void closeTest() {
+		if (!thread.isAlive()) {
+			setVisible(false);
+			return;
+		}
+
+		try {thread.join(50);} catch (InterruptedException e) {}
+
+		if (!thread.isAlive()) {
+			setVisible(false);
+			return;
+		}
+
+		SwingUtilities.invokeLater(()->closeTest());
 	}
 
 	/**
@@ -168,6 +206,19 @@ public class WaitDialog extends JDialog {
 	 */
 	public static byte[] workBytes(final Component owner, final Supplier<byte[]> worker, final Mode mode) {
 		return new WorkThread<>(worker).startAndWait(owner,mode);
+	}
+
+	/**
+	 * Führt eine bestimmte Methode, die einen boolschen Wert zurückliefert,
+	 * aus und zeigt, wenn die Ausführung länger dauert, einen
+	 * "Bitte warten"-Dialog an.
+	 * @param owner	Übergeordnetes Element
+	 * @param worker	Auszuführende Methode
+	 * @param mode	Anzuzeigender Info-Text in dem Dialog
+	 * @return	Rückgabewert der Methode
+	 */
+	public static boolean workBoolean(final Component owner, final BooleanSupplier worker, final Mode mode) {
+		return new WorkThread<>(()->worker.getAsBoolean()).startAndWait(owner,mode);
 	}
 
 	/**
