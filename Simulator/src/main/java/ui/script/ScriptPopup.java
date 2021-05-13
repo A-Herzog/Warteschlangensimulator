@@ -290,7 +290,13 @@ public class ScriptPopup {
 		final ScriptPopupItemSub group=new ScriptPopupItemSub(Language.tr("ScriptPopup.Runtime"),Language.tr("ScriptPopup.Runtime.Hint"),Images.SCRIPT_RECORD_RUNTIME.getIcon());
 
 		group.addChild(new ScriptPopupItemCommand(Language.tr("ScriptPopup.Runtime.Calc"),Language.tr("ScriptPopup.Runtime.Calc.Hint"),Images.SCRIPT_RECORD_EXPRESSION.getIcon(),runtimeCalc));
-		group.addChild(new ScriptPopupItemExpressionBuilder(Language.tr("ScriptPopup.Runtime.CalcByExpressionBuilder"),Language.tr("ScriptPopup.Runtime.CalcByExpressionBuilder.Hint"),statistics,scriptMode));
+		if (statistics!=null) {
+			group.addChild(new ScriptPopupItemExpressionBuilder(Language.tr("ScriptPopup.Runtime.CalcByExpressionBuilder"),Language.tr("ScriptPopup.Runtime.CalcByExpressionBuilder.Hint"),statistics,scriptMode));
+		} else {
+			if (model!=null) {
+				group.addChild(new ScriptPopupItemExpressionBuilder(Language.tr("ScriptPopup.Runtime.CalcByExpressionBuilder"),Language.tr("ScriptPopup.Runtime.CalcByExpressionBuilder.Hint"),model,false,false,scriptMode));
+			}
+		}
 		group.addChild(new ScriptPopupItemCommand(Language.tr("ScriptPopup.Runtime.Time"),Language.tr("ScriptPopup.Runtime.Time.Hint"),Images.SCRIPT_RECORD_TIME.getIcon(),runtimeTime));
 		group.addChild(new ScriptPopupItemCommand(Language.tr("ScriptPopup.Runtime.LoadValue"),Language.tr("ScriptPopup.Runtime.LoadValue.Hint"),Images.SCRIPT_RECORD_INPUT.getIcon(),runtimeLoad));
 		if (SetupData.getSetup().modelSecurityAllowExecuteExternal) {
@@ -319,7 +325,8 @@ public class ScriptPopup {
 		String systemWarmUp="";
 		String systemWIP="";
 		String systemNQ="";
-		String systemVar="";
+		String systemVarGet="";
+		String systemVarSet="";
 		String systemSetAnalogValue="";
 		String systemSetAnalogRate="";
 		String systemSetAnalogMaxFlow="";
@@ -334,7 +341,8 @@ public class ScriptPopup {
 			systemWarmUp="Simulation.isWarmUp();";
 			systemWIP="Simulation.getWIP(%s)";
 			systemNQ="Simulation.getNQ(%s)";
-			systemVar="Simulation.set(\"%s\",123)";
+			systemVarGet="Simulation.calc(\"%s\")";
+			systemVarSet="Simulation.set(\"%s\",123)";
 			systemSetAnalogValue="Simulation.setValue(%s,123)";
 			systemSetAnalogRate="Simulation.setRate(%s,Wert)";
 			systemSetAnalogMaxFlow="Simulation.setValveMaxFlow(%s,1,123)";
@@ -350,7 +358,8 @@ public class ScriptPopup {
 			systemWarmUp="sim.getSystem().isWarmUp();";
 			systemWIP="sim.getSystem().getWIP(%s);";
 			systemNQ="sim.getSystem().getNQ(%s);";
-			systemVar="sim.getSystem().set(\"%s\",123);";
+			systemVarGet="sim.getSystem().calc(\"%s\");";
+			systemVarSet="sim.getSystem().set(\"%s\",123);";
 			systemSetAnalogValue="sim.getSystem().setAnalogValue(%s,123);";
 			systemSetAnalogRate="sim.getSystem().setAnalogRate(%s,123);";
 			systemSetAnalogMaxFlow="sim.getSystem().setAnalogValveMaxFlow(%s,1,123);";
@@ -362,6 +371,13 @@ public class ScriptPopup {
 		final ScriptPopupItemSub group=new ScriptPopupItemSub(Language.tr("ScriptPopup.Simulation"),Language.tr("ScriptPopup.Simulation.Hint"),Images.SIMULATION.getIcon());
 		ScriptPopupItemSub sub;
 		group.addChild(new ScriptPopupItemCommand(Language.tr("ScriptPopup.Simulation.Calc"),Language.tr("ScriptPopup.Simulation.Calc.Hint"),Images.SCRIPT_RECORD_EXPRESSION.getIcon(),systemCalc));
+		if (statistics!=null) {
+			group.addChild(new ScriptPopupItemExpressionBuilder(Language.tr("ScriptPopup.Runtime.CalcByExpressionBuilder"),Language.tr("ScriptPopup.Runtime.CalcByExpressionBuilder.Hint"),statistics,scriptMode));
+		} else {
+			if (model!=null) {
+				group.addChild(new ScriptPopupItemExpressionBuilder(Language.tr("ScriptPopup.Runtime.CalcByExpressionBuilder"),Language.tr("ScriptPopup.Runtime.CalcByExpressionBuilder.Hint"),model,true,false,scriptMode));
+			}
+		}
 		group.addChild(new ScriptPopupItemCommand(Language.tr("ScriptPopup.Simulation.Log"),Language.tr("ScriptPopup.Simulation.Log.Hint"),Images.SCRIPT_RECORD_TEXT.getIcon(),systemLog));
 		group.addChild(new ScriptPopupItemCommand(Language.tr("ScriptPopup.Simulation.Time"),Language.tr("ScriptPopup.Simulation.Time.Hint"),Images.SCRIPT_RECORD_TIME.getIcon(),systemTime));
 		group.addChild(new ScriptPopupItemCommand(Language.tr("ScriptPopup.Simulation.IsWarmUp"),Language.tr("ScriptPopup.Simulation.IsWarmUp.Hint"),null,systemWarmUp));
@@ -369,7 +385,8 @@ public class ScriptPopup {
 		group.addChild(new ScriptPopupItemCommandID(Language.tr("ScriptPopup.Simulation.getWIP"),Language.tr("ScriptPopup.Simulation.getWIP.Hint"),Images.SCRIPT_RECORD_DATA_STATION.getIcon(),systemWIP,owner,model,help,true,true));
 		group.addChild(new ScriptPopupItemCommandID(Language.tr("ScriptPopup.Simulation.getNQ"),Language.tr("ScriptPopup.Simulation.getNQ.Hint"),Images.SCRIPT_RECORD_DATA_STATION_QUEUE.getIcon(),systemNQ,owner,model,help,true,true));
 		group.addSeparator();
-		group.addChild(new ScriptPopupItemCommandSetVariable(Language.tr("ScriptPopup.Simulation.setVariable"),Language.tr("ScriptPopup.Simulation.setVariable.Hint"),Images.SCRIPT_RECORD_VARIABLE.getIcon(),systemVar,owner,model,help));
+		group.addChild(new ScriptPopupItemCommandVariable(Language.tr("ScriptPopup.Simulation.getVariable"),Language.tr("ScriptPopup.Simulation.getVariable.Hint"),Images.SCRIPT_RECORD_VARIABLE.getIcon(),systemVarGet,owner,model,help));
+		group.addChild(new ScriptPopupItemCommandVariable(Language.tr("ScriptPopup.Simulation.setVariable"),Language.tr("ScriptPopup.Simulation.setVariable.Hint"),Images.SCRIPT_RECORD_VARIABLE.getIcon(),systemVarSet,owner,model,help));
 		group.addChild(sub=new ScriptPopupItemSub(Language.tr("ScriptPopup.Simulation.AnalogValue"),Language.tr("ScriptPopup.Simulation.AnalogValue.Hint"),Images.SCRIPT_RECORD_ANALOG_VALUE.getIcon()));
 		sub.addChild(new ScriptPopupItemCommandID(Language.tr("ScriptPopup.Simulation.setAnalogValue"),Language.tr("ScriptPopup.Simulation.setAnalogValue.Hint"),null,systemSetAnalogValue,owner,model,help,new Class<?>[]{
 			ModelElementAnalogValue.class,
@@ -468,6 +485,13 @@ public class ScriptPopup {
 		final ScriptPopupItemSub group=new ScriptPopupItemSub(Language.tr("ScriptPopup.Client"),Language.tr("ScriptPopup.Client.Hint"),Images.SCRIPT_RECORD_DATA_CLIENT.getIcon());
 		ScriptPopupItemSub sub;
 		group.addChild(new ScriptPopupItemCommand(Language.tr("ScriptPopup.Client.Calc"),Language.tr("ScriptPopup.Client.Calc.Hint"),Images.SCRIPT_RECORD_EXPRESSION.getIcon(),clientCalc));
+		if (statistics!=null) {
+			group.addChild(new ScriptPopupItemExpressionBuilder(Language.tr("ScriptPopup.Runtime.CalcByExpressionBuilder"),Language.tr("ScriptPopup.Runtime.CalcByExpressionBuilder.Hint"),statistics,scriptMode));
+		} else {
+			if (model!=null) {
+				group.addChild(new ScriptPopupItemExpressionBuilder(Language.tr("ScriptPopup.Runtime.CalcByExpressionBuilder"),Language.tr("ScriptPopup.Runtime.CalcByExpressionBuilder.Hint"),model,true,true,scriptMode));
+			}
+		}
 		group.addSeparator();
 		group.addChild(new ScriptPopupItemCommand(Language.tr("ScriptPopup.Client.getTypeName"),Language.tr("ScriptPopup.Client.getTypeName.Hint"),null,clientTypeName));
 		group.addChild(new ScriptPopupItemCommand(Language.tr("ScriptPopup.Client.getNumber"),Language.tr("ScriptPopup.Client.getNumber.Hint"),null,clientNumber));

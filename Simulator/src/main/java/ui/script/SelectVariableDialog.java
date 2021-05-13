@@ -33,7 +33,7 @@ import systemtools.MsgBox;
 /**
  * Dialog zur Auswahl einer im Modell vorhandenen Variable
  * @author Alexander Herzog
- * @see ScriptPopupItemCommandSetVariable
+ * @see ScriptPopupItemCommandVariable
  */
 public class SelectVariableDialog extends BaseDialog {
 	/**
@@ -89,7 +89,7 @@ public class SelectVariableDialog extends BaseDialog {
 	 * @param help	Hilfe-Runnable
 	 */
 	public SelectVariableDialog(final Component owner, final EditModel model, final Runnable help) {
-		this(owner,model.getModelVariableNames(),help);
+		this(owner,model.surface.getMainSurfaceVariableNames(model.getModelVariableNames(),false),help);
 	}
 
 	/**

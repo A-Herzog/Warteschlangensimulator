@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-05-11 00:18+0200\n"
+"POT-Creation-Date: 2021-05-13 00:08+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -13463,6 +13463,12 @@ msgstr "Number of operators in down time in a group"
 
 msgid "ScriptPopup.Simulation.getResourceDown.Hint"
 msgstr "Gets the number of operators in down time in a group"
+
+msgid "ScriptPopup.Simulation.getVariable"
+msgstr "Get variable value"
+
+msgid "ScriptPopup.Simulation.getVariable.Hint"
+msgstr "Gets the value of a simulation variable"
 
 msgid "ScriptPopup.Simulation.getWIP"
 msgstr "Clients at station"

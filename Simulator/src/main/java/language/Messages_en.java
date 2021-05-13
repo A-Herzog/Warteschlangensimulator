@@ -12110,6 +12110,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[29329] = "Table column";
     t[29332] = "ModelDescription.Match.PropertyMode.Number";
     t[29333] = "ClientData(%d)";
+    t[29336] = "Statistic.FastAccess.Template.AnalogValues";
+    t[29337] = "Analog value";
     t[29346] = "Surface.AnimationTextJS.XML.Script.Language";
     t[29347] = "Language";
     t[29348] = "Surface.Source.XML.Threshold.Count";
@@ -13144,6 +13146,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[31797] = "unknown distribution";
     t[31802] = "ExpressionBuilder.SimulationCharacteristics.AnalogCurrentValveMaximumFlow";
     t[31803] = "Current maximum flow";
+    t[31806] = "ScriptPopup.Simulation.getVariable.Hint";
+    t[31807] = "Gets the value of a simulation variable";
     t[31812] = "Optimizer.ControlVariableEdit.Error.InitialValueNotInRange";
     t[31813] = "The specified initial value is invalid. The initial value has to be in the range of the lower to the upper bound.";
     t[31822] = "Main.Menu.AnalogValues";
@@ -14042,16 +14046,16 @@ public class Messages_en extends java.util.ResourceBundle {
     t[33921] = "Load client types from database table";
     t[33924] = "Resources.Group.EditName.Dialog.Number.Schedule.Error.Title";
     t[33925] = "No schedule selected";
-    t[33926] = "Surface.Process.XML.Batch.Minimum";
-    t[33927] = "Minimum";
-    t[33930] = "Surface.AnimationPieChart.Dialog.Title";
-    t[33931] = "Edit simulation data pie chart";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_7 (java.lang.String[] t) {
+    t[33926] = "Surface.Process.XML.Batch.Minimum";
+    t[33927] = "Minimum";
+    t[33930] = "Surface.AnimationPieChart.Dialog.Title";
+    t[33931] = "Edit simulation data pie chart";
     t[33932] = "Main.Menu.Edit.Undo";
     t[33933] = "Undo";
     t[33934] = "Simulation.Log.Balking.NoQueueAtTarget";
@@ -16048,16 +16052,16 @@ public class Messages_en extends java.util.ResourceBundle {
     t[38717] = "The specified trigger condition \"%s\" is invalid at a character %d.";
     t[38726] = "Statistics.CostsForResources.Working.Single";
     t[38727] = "Costs for the busy time of the resource";
-    t[38742] = "Statistics.Transporter.InfoCount";
-    t[38743] = "Number of transporters of this type in the system";
-    t[38744] = "SettingsDialog.Tabs.BackupFiles.Heading";
-    t[38745] = "Security";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_8 (java.lang.String[] t) {
+    t[38742] = "Statistics.Transporter.InfoCount";
+    t[38743] = "Number of transporters of this type in the system";
+    t[38744] = "SettingsDialog.Tabs.BackupFiles.Heading";
+    t[38745] = "Security";
     t[38746] = "Statistic.Viewer.Chart.InSeconds";
     t[38747] = "in seconds";
     t[38752] = "Surface.AnimationBar.Dialog.Bar.up";
@@ -16484,8 +16488,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[39721] = "Checkbox which triggers an action if clicked during animation.";
     t[39722] = "ParameterCompare.Settings.Input.Mode.XML.ErrorTitle";
     t[39723] = "No xml element selected";
-    t[39728] = "Statistic.FastAccess.Template.AnalogValues";
-    t[39729] = "Analog value";
+    t[39728] = "ScriptPopup.Simulation.getVariable";
+    t[39729] = "Get variable value";
     t[39730] = "ExpressionBuilder.ProbabilityDistributions.NormalDistribution.RandomNumberRangeInfo";
     t[39731] = "<p>Generates a random number according to the normal distribution with the parameters &mu; and &sigma; according to the third and fourth parameters. &mu; is the expected value and &sigma; the standard deviation.</p>\n<p>The first and second parameter specify the range in which the random number should be located.</p>";
     t[39732] = "Statistics.ClientMovement.Visualization.ListUp";
@@ -18054,16 +18058,16 @@ public class Messages_en extends java.util.ResourceBundle {
     t[43395] = "Drawing surface";
     t[43400] = "Surface.Note.XML.Root";
     t[43401] = "ModelElementNote";
-    t[43404] = "Color.FFFFFF";
-    t[43405] = "White";
-    t[43410] = "Surface.Delay.Dialog.DelayExpression";
-    t[43411] = "Delay by expression";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_9 (java.lang.String[] t) {
+    t[43404] = "Color.FFFFFF";
+    t[43405] = "White";
+    t[43410] = "Surface.Delay.Dialog.DelayExpression";
+    t[43411] = "Delay by expression";
     t[43414] = "Surface.Resource.EditName.Dialog.AddNew.Name";
     t[43415] = "Name";
     t[43424] = "ExpressionBuilder.SimulationCharacteristics.CompositeComparisons.Or.Info";

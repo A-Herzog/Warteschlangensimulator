@@ -12110,6 +12110,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[29329] = "Tabellenspalte";
     t[29332] = "ModelDescription.Match.PropertyMode.Number";
     t[29333] = "ClientData(%d)";
+    t[29336] = "Statistic.FastAccess.Template.AnalogValues";
+    t[29337] = "Analoger Wert";
     t[29346] = "Surface.AnimationTextJS.XML.Script.Language";
     t[29347] = "Sprache";
     t[29348] = "Surface.Source.XML.Threshold.Count";
@@ -13144,6 +13146,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[31797] = "unbekannte Verteilung";
     t[31802] = "ExpressionBuilder.SimulationCharacteristics.AnalogCurrentValveMaximumFlow";
     t[31803] = "Aktueller Maximaldurchfluss";
+    t[31806] = "ScriptPopup.Simulation.getVariable.Hint";
+    t[31807] = "Liefert den Wert einer Simulationsvariable";
     t[31812] = "Optimizer.ControlVariableEdit.Error.InitialValueNotInRange";
     t[31813] = "Der angegebene Startwert ist ung\u00fcltig. Der Startwert muss sich in dem Bereich von der unteren bis zur oberen Grenze befinden.";
     t[31822] = "Main.Menu.AnalogValues";
@@ -14042,16 +14046,16 @@ public class Messages_de extends java.util.ResourceBundle {
     t[33921] = "Kundentypen aus Datenbanktabelle laden";
     t[33924] = "Resources.Group.EditName.Dialog.Number.Schedule.Error.Title";
     t[33925] = "Kein Zeitplan gew\u00e4hlt";
-    t[33926] = "Surface.Process.XML.Batch.Minimum";
-    t[33927] = "Minimum";
-    t[33930] = "Surface.AnimationPieChart.Dialog.Title";
-    t[33931] = "Simulationsdaten-Tortendiagramm bearbeiten";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_7 (java.lang.String[] t) {
+    t[33926] = "Surface.Process.XML.Batch.Minimum";
+    t[33927] = "Minimum";
+    t[33930] = "Surface.AnimationPieChart.Dialog.Title";
+    t[33931] = "Simulationsdaten-Tortendiagramm bearbeiten";
     t[33932] = "Main.Menu.Edit.Undo";
     t[33933] = "R\u00fcckg\u00e4ngig";
     t[33934] = "Simulation.Log.Balking.NoQueueAtTarget";
@@ -16048,16 +16052,16 @@ public class Messages_de extends java.util.ResourceBundle {
     t[38717] = "Die angegebene Ausl\u00f6sebedingung \"%s\" ist ab Zeichen %d fehlerhaft.";
     t[38726] = "Statistics.CostsForResources.Working.Single";
     t[38727] = "Kosten f\u00fcr die Arbeitszeit der Ressource";
-    t[38742] = "Statistics.Transporter.InfoCount";
-    t[38743] = "Anzahl an Transportern dieses Typs im System";
-    t[38744] = "SettingsDialog.Tabs.BackupFiles.Heading";
-    t[38745] = "Sicherheit";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_8 (java.lang.String[] t) {
+    t[38742] = "Statistics.Transporter.InfoCount";
+    t[38743] = "Anzahl an Transportern dieses Typs im System";
+    t[38744] = "SettingsDialog.Tabs.BackupFiles.Heading";
+    t[38745] = "Sicherheit";
     t[38746] = "Statistic.Viewer.Chart.InSeconds";
     t[38747] = "in Sekunden";
     t[38752] = "Surface.AnimationBar.Dialog.Bar.up";
@@ -16484,8 +16488,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[39721] = "Checkbox, die w\u00e4hrend der Animation eine Aktion ausl\u00f6st, wenn sie angeklickt wird.";
     t[39722] = "ParameterCompare.Settings.Input.Mode.XML.ErrorTitle";
     t[39723] = "Kein XML-Element gew\u00e4hlt";
-    t[39728] = "Statistic.FastAccess.Template.AnalogValues";
-    t[39729] = "Analoger Wert";
+    t[39728] = "ScriptPopup.Simulation.getVariable";
+    t[39729] = "Variablenwert auslesen";
     t[39730] = "ExpressionBuilder.ProbabilityDistributions.NormalDistribution.RandomNumberRangeInfo";
     t[39731] = "<p>Erzeugt eine Zufallszahl gem\u00e4\u00df der Normalverteilung mit den Parametern &mu; und &sigma; gem\u00e4\u00df dem dritten und vierten Parameter. &mu; ist dabei der Erwartungswert und &sigma; die Standardabweichung.</p>\n<p>Der erste und zweite Parameter geben den Bereich an, in dem sich die Zufallszahl befinden soll.</p>";
     t[39732] = "Statistics.ClientMovement.Visualization.ListUp";
@@ -18054,16 +18058,16 @@ public class Messages_de extends java.util.ResourceBundle {
     t[43395] = "Zeichenfl\u00e4che";
     t[43400] = "Surface.Note.XML.Root";
     t[43401] = "ModellElementNotiz";
-    t[43404] = "Color.FFFFFF";
-    t[43405] = "Wei\u00df";
-    t[43410] = "Surface.Delay.Dialog.DelayExpression";
-    t[43411] = "Verz\u00f6gerung gem\u00e4\u00df Ausdruck";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_9 (java.lang.String[] t) {
+    t[43404] = "Color.FFFFFF";
+    t[43405] = "Wei\u00df";
+    t[43410] = "Surface.Delay.Dialog.DelayExpression";
+    t[43411] = "Verz\u00f6gerung gem\u00e4\u00df Ausdruck";
     t[43414] = "Surface.Resource.EditName.Dialog.AddNew.Name";
     t[43415] = "Name";
     t[43424] = "ExpressionBuilder.SimulationCharacteristics.CompositeComparisons.Or.Info";

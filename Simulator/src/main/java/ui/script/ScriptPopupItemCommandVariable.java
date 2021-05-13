@@ -27,7 +27,7 @@ import systemtools.BaseDialog;
  * @author Alexander Herzog
  * @see ScriptPopupItemCommandModel
  */
-public class ScriptPopupItemCommandSetVariable extends ScriptPopupItemCommandModel {
+public class ScriptPopupItemCommandVariable extends ScriptPopupItemCommandModel {
 	/**
 	 * Konstruktor der Klasse
 	 * @param name	Name des Eintrags (kann <code>null</code> sein)
@@ -38,7 +38,7 @@ public class ScriptPopupItemCommandSetVariable extends ScriptPopupItemCommandMod
 	 * @param model	Editor-Modell dem die Daten entnommen werden sollen
 	 * @param help	Hilfe-Runnable (für Dialog)
 	 */
-	public ScriptPopupItemCommandSetVariable(final String name, final String hint, final Icon icon, final String command, final Component owner, final EditModel model, final Runnable help) {
+	public ScriptPopupItemCommandVariable(final String name, final String hint, final Icon icon, final String command, final Component owner, final EditModel model, final Runnable help) {
 		super(name,hint,icon,command,owner,model,help);
 	}
 

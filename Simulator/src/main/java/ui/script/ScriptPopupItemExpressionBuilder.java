@@ -16,9 +16,11 @@
 package ui.script;
 
 import java.util.HashMap;
+import java.util.Map;
 
 import javax.swing.JTextArea;
 
+import simulator.editmodel.EditModel;
 import simulator.statistics.Statistics;
 import systemtools.BaseDialog;
 import ui.expressionbuilder.ExpressionBuilder;
@@ -31,8 +33,14 @@ import ui.modeleditor.ModelSurface;
  * @see ScriptPopupItemCommandModel
  */
 public class ScriptPopupItemExpressionBuilder extends ScriptPopupItem {
-	/** Statistik-Objekt aus dessen XML-Repräsentation die Daten ausgewählt werden sollen */
-	private final Statistics statistics;
+	/** Modell, dem die Daten entnommen werden sollen */
+	private final EditModel model;
+	/** Zeichenfläche aus der die Daten entnommen werden sollen */
+	private final ModelSurface mainSurface;
+	/** Sind Laufzeitdaten vorhanden? */
+	private final boolean hasModelData;
+	/** Sind Kunden-Laufzeitdaten vorhanden? */
+	private final boolean hasClientData;
 	/** Ausgabe als Java- oder als Javascript-Befehl */
 	private final ScriptPopup.ScriptMode scriptMode;
 
@@ -45,7 +53,28 @@ public class ScriptPopupItemExpressionBuilder extends ScriptPopupItem {
 	 */
 	public ScriptPopupItemExpressionBuilder(final String name, final String hint, final Statistics statistics, final ScriptPopup.ScriptMode scriptMode) {
 		super(name,hint,Images.EXPRESSION_BUILDER.getIcon());
-		this.statistics=statistics;
+		model=statistics.editModel;
+		this.mainSurface=statistics.editModel.surface;
+		hasModelData=false;
+		hasClientData=false;
+		this.scriptMode=scriptMode;
+	}
+
+	/**
+	 * Konstruktor der Klasse
+	 * @param name	Name des Eintrags (kann <code>null</code> sein)
+	 * @param hint	Tooltip des Eintrags (kann <code>null</code> sein)
+	 * @param model	Editor-Modell für das die Daten ausgewählt werden sollen
+	 * @param hasModelData	Sind Kunden-Laufzeitdaten vorhanden?
+	 * @param hasClientData	Sind Kunden-Laufzeitdaten vorhanden?
+	 * @param scriptMode	Ausgabe als Java- oder als Javascript-Befehl
+	 */
+	public ScriptPopupItemExpressionBuilder(final String name, final String hint, final EditModel model, final boolean hasModelData, final boolean hasClientData, final ScriptPopup.ScriptMode scriptMode) {
+		super(name,hint,Images.EXPRESSION_BUILDER.getIcon());
+		this.model=model;
+		this.mainSurface=model.surface;
+		this.hasModelData=hasModelData;
+		this.hasClientData=hasClientData;
 		this.scriptMode=scriptMode;
 	}
 
@@ -66,8 +95,17 @@ public class ScriptPopupItemExpressionBuilder extends ScriptPopupItem {
 
 	@Override
 	public void insertIntoTextArea(final JTextArea textArea, final Runnable update) {
-		final ModelSurface mainSurface=statistics.editModel.surface;
-		final ExpressionBuilder builder=new ExpressionBuilder(null,"",false,new String[0],new HashMap<>(),ExpressionBuilder.getStationIDs(mainSurface),ExpressionBuilder.getStationNameIDs(mainSurface),false,true,false);
+		final String[] variables;
+		final Map<String, String> initialVariables;
+		if (hasModelData) {
+			variables=mainSurface.getMainSurfaceVariableNames(model.getModelVariableNames(),hasClientData);
+			initialVariables=model.getInitialVariablesWithValues();
+		} else {
+			variables=new String[0];
+			initialVariables=new HashMap<>();
+		}
+
+		final ExpressionBuilder builder=new ExpressionBuilder(null,"",false,variables,initialVariables,ExpressionBuilder.getStationIDs(mainSurface),ExpressionBuilder.getStationNameIDs(mainSurface),false,!hasModelData,false);
 		builder.setVisible(true);
 		if (builder.getClosedBy()!=BaseDialog.CLOSED_BY_OK) return;
 
