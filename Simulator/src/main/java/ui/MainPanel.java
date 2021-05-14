@@ -442,7 +442,6 @@ public class MainPanel extends MainPanelBase {
 			setAdditionalTitleChangedMarker(editorPanel.isModelChanged());
 			menuModelLoadExternalDataOnStart.setSelected(editorPanel.getModelExternalData().isActive());
 			selectionChanged();
-
 		});
 		editorPanel.addBuildParameterSeriesListener(template->commandSimulationParameterSeriesNew(template));
 		editorPanel.addTemplatesVisibleChangeListener(()->{

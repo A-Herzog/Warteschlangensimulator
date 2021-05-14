@@ -157,9 +157,11 @@ public class MainFrame extends MainFrameBase {
 
 	@Override
 	protected void logException(final String info) {
-		SetupData setup=SetupData.getSetup();
-		setup.lastError=info;
-		setup.saveSetup();
+		try {
+			SetupData setup=SetupData.getSetup();
+			setup.lastError=info;
+			setup.saveSetup();
+		} catch (OutOfMemoryError e) {}
 	}
 
 	/**

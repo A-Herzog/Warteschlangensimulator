@@ -82,7 +82,7 @@ public class SystemInfoWindow extends JFrame {
 	/**
 	 * Aktualisierungsgeschwindigkeit für die Daten (in Millisekunden)
 	 */
-	private static final int UPDATE_SPEED=250;
+	private static final int UPDATE_SPEED=500;
 
 	/**
 	 * System zu Ermittlung der Arbeitsspeicher-Daten
@@ -96,15 +96,15 @@ public class SystemInfoWindow extends JFrame {
 
 	/**
 	 * Liste der aktiven Garbage Collectoren<br>
-	 * (Wird erst in {@link #updataData()} gesetzt, da dies evtl. scheitern kann.)
-	 * @see #updataData()
+	 * (Wird erst in {@link #updateData()} gesetzt, da dies evtl. scheitern kann.)
+	 * @see #updateData()
 	 */
 	private List<GarbageCollectorMXBean> gcList;
 
 	/**
 	 * Zeichenkette mit den Namen der aktiven Garbage Collectoren<br>
-	 * (Wird erst in {@link #updataData()} gesetzt, da dies evtl. scheitern kann.)
-	 * @see #updataData()
+	 * (Wird erst in {@link #updateData()} gesetzt, da dies evtl. scheitern kann.)
+	 * @see #updateData()
 	 */
 	private String gcNames;
 
@@ -115,7 +115,7 @@ public class SystemInfoWindow extends JFrame {
 
 	/**
 	 * Farbe für markierte Zeilen
-	 * @see #updataData()
+	 * @see #updateData()
 	 */
 	private final String markColor;
 
@@ -153,26 +153,26 @@ public class SystemInfoWindow extends JFrame {
 	/**
 	 * {@link StringBuilder} in dem die Daten zur Anzeige in {@link #infoLabel}
 	 * zusammengesetzt werden
-	 * @see #updataData()
+	 * @see #updateData()
 	 * @see #infoLabel
 	 */
 	private StringBuilder infoText;
 
 	/**
 	 * Label zur Anzeige der Systeminformationen
-	 * @see #updataData()
+	 * @see #updateData()
 	 */
 	private JLabel infoLabel;
 
 	/**
 	 * Anzeige eines Prozentbalken zur Speicherauslastung
-	 * @see #updataData()
+	 * @see #updateData()
 	 */
 	private JProgressBar statusMemory;
 
 	/**
 	 * Anzeige eines Prozentbalken zur CPU-Auslastung
-	 * @see #updataData()
+	 * @see #updateData()
 	 */
 	private JProgressBar statusCPU;
 
@@ -290,7 +290,7 @@ public class SystemInfoWindow extends JFrame {
 		infoText=new StringBuilder();
 		timer=new Timer("SystemInfoUpdate",true);
 		timer.schedule(new TimerTask() {
-			@Override public void run() {updataData();}
+			@Override public void run() {updateData();}
 		},UPDATE_SPEED,UPDATE_SPEED);
 
 		/* Fenster vorbereiten */
@@ -303,8 +303,8 @@ public class SystemInfoWindow extends JFrame {
 	}
 
 	/**
-	 * Zeitpunkt des letzten Aufrufs von {@link #updataData()}
-	 * @see #updataData()
+	 * Zeitpunkt des letzten Aufrufs von {@link #updateData()}
+	 * @see #updateData()
 	 */
 	private long lastTimeStamp;
 
@@ -314,26 +314,26 @@ public class SystemInfoWindow extends JFrame {
 	private Map<Long,Long> lastLoad;
 
 	/**
-	 * Belegter Speicher (in MB) beim letzten Aufruf von {@link #updataData()}
-	 * @see #updataData()
+	 * Belegter Speicher (in MB) beim letzten Aufruf von {@link #updateData()}
+	 * @see #updateData()
 	 */
 	private long lastMemoryUsedMB;
 
 	/**
-	 * Reservierter Speicher (in MB) beim letzten Aufruf von {@link #updataData()}
-	 * @see #updataData()
+	 * Reservierter Speicher (in MB) beim letzten Aufruf von {@link #updateData()}
+	 * @see #updateData()
 	 */
 	private long lastMemoryCommitedMB;
 
 	/**
 	 * Anzahl der Garbage Collector Läufe
-	 * @see #updataData()
+	 * @see #updateData()
 	 */
 	private long lastCollectionCount;
 
 	/**
 	 * Zeitpunkt des letzten Garbage Collector Laufs
-	 * @see #updataData()
+	 * @see #updateData()
 	 */
 	private long lastCollectionTime;
 
@@ -342,7 +342,37 @@ public class SystemInfoWindow extends JFrame {
 	 * @see #infoLabel
 	 * @see #timer
 	 */
-	private void updataData() {
+	private void updateData() {
+		try {
+			updateDataInternal();
+		} catch (OutOfMemoryError e) {}
+	}
+
+	/**
+	 * IDs der aktiven Threads
+	 * @see #updateDataInternal()
+	 */
+	private final Set<Long> activeIDs=new HashSet<>();
+
+	/**
+	 * Rechenzeiten der aktiven Threads
+	 * @see #updateDataInternal()
+	 */
+	private final Map<Long,Long> activeLoad=new HashMap<>();
+
+	/**
+	 * Ausgabetext beim letzten Aufruf von {@link #updateDataInternal()}
+	 * @see #updateDataInternal()
+	 */
+	private String oldText;
+
+	/**
+	 * Aktualisiert die Daten in {@link #infoLabel}.<br>
+	 * Diese Methode wird durch ein try...catch in {@link #updateData()} abgesichert.
+	 * @see #infoLabel
+	 * @see #timer
+	 */
+	private void updateDataInternal() {
 		/* Arbeitsspeicherdaten ermitteln */
 		final MemoryUsage memoryHeap=memory.getHeapMemoryUsage();
 		final MemoryUsage memoryNonHeap=memory.getNonHeapMemoryUsage();
@@ -353,8 +383,8 @@ public class SystemInfoWindow extends JFrame {
 		statusMemory.setString(Language.tr("SystemInfo.Memory")+" ("+NumberTools.formatPercent(((double)memoryUsedMB)/memoryAvailableMB)+")");
 
 		/* Auslastung ermitteln */
-		final Set<Long> activeIDs=new HashSet<>();
-		final Map<Long,Long> activeLoad=new HashMap<>();
+		activeIDs.clear();
+		activeLoad.clear();
 		final long timeStamp=System.currentTimeMillis();
 		long sum=0;
 		final Map<Long,Long> load=new HashMap<>();
@@ -427,7 +457,7 @@ public class SystemInfoWindow extends JFrame {
 			final long collectionCount=gcList.stream().mapToLong(gcMxBean->gcMxBean.getCollectionCount()).sum();
 			final long time=System.currentTimeMillis();
 
-			if (lastCollectionTime>0) infoText.append(Language.tr("SystemInfo.GCDelta")+": "+((time-lastCollectionTime)/1000)+" "+Language.tr("Statistics.Seconds")+"<br>\n");
+			if (lastCollectionTime>0) infoText.append(Language.tr("SystemInfo.GCDelta")+": "+(5*((time-lastCollectionTime)/5000))+" "+Language.tr("Statistics.Seconds")+"<br>\n");
 
 			if (lastCollectionCount!=collectionCount) {
 				lastCollectionCount=collectionCount;
@@ -538,7 +568,10 @@ public class SystemInfoWindow extends JFrame {
 
 		/* Ergebnisse anzeigen */
 		final String newText=infoText.toString();
-		SwingUtilities.invokeLater(()->infoLabel.setText(newText));
+		if (!newText.equals(oldText)) {
+			SwingUtilities.invokeLater(()->infoLabel.setText(newText));
+			oldText=newText;
+		}
 	}
 
 	/**

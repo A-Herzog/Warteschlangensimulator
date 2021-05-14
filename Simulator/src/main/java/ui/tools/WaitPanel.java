@@ -441,16 +441,18 @@ public class WaitPanel extends JPanel {
 
 		@Override
 		public void run() {
-			if (abortRun) simulator.cancel();
-			if (abortRun || !simulator.isRunning()) {finalizeSimulation(!abortRun); return;}
+			try {
+				if (abortRun) simulator.cancel();
+				if (abortRun || !simulator.isRunning()) {finalizeSimulation(!abortRun); return;}
 
-			countTimerIntervals++;
-			if (countTimerIntervals%20!=0) return;
+				countTimerIntervals++;
+				if (countTimerIntervals%20!=0) return;
 
-			switch (mode) {
-			case MODE_MULTI_DAYS: updateInfoDayMode(); break;
-			case MODE_SINGLE_LONG_RUN: updateInfoLongRun(); break;
-			}
+				switch (mode) {
+				case MODE_MULTI_DAYS: updateInfoDayMode(); break;
+				case MODE_SINGLE_LONG_RUN: updateInfoLongRun(); break;
+				}
+			} catch (Exception e) {abortRun=true;} catch (OutOfMemoryError e) {abortRun=true;}
 		}
 	}
 }
