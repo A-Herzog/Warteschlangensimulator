@@ -22,8 +22,10 @@
   <li>Apache Derby databases can now be accessed.</li>
   <li>At split stations, client data can now optionally be transferred to the new client objects.</li>
   <li>The parameter series function now allows storage of interval-wise summaries of long run statistics data across all models.</li>
-  <li>Distribution fitting (input analysis) now also supports erlang and beta distribution.</li>
+  <li>Distribution fitting (input analysis) now also supports Erlang and beta distribution.</li>
   <li>Suggestions for follow-up stations are now also generated on the basis of previous models.</li>
+  <li>Reduced memory consumption when loading and saving large csv tables.</li>
+  <li>Reduced memory consumption when saving large xlsx tables.</li>
   <li>In scripts, outputs can now be sent to Excel via DDE.</li>
   <li>The simulation web server can now accept models in html format.</li>
   <li>Optional MQTT notifications when a simulation has been completed.</li>
@@ -37,6 +39,7 @@
   <li>[Fix] If a termination time was set to end the simulation, the simulation was not actually ended until the next system status change after this time.</li>
   <li>[Fix] The dialog for creating a calculation expression script command in script input fields could not be invoked.</li>
   <li>[Fix] The dialog for creating a variable query command in script input fields did not always display all variables.</li>
+  <li>[Fix] The output format used for csv files was not correctly recognized by Excel with regard to umlauts, etc.</li>
   <li>[Fix] The warning about an outdated Java version was not displayed in all configuration variations.</li>  
 </ul>
 

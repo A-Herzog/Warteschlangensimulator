@@ -24,6 +24,8 @@
   <li>Die Parameterreihenfunktion erlaubt nun das intervallweise zusammengefasste Speichern von Laufzeitstatistikdaten über alle Modelle hinweg.</li>
   <li>Die Verteilungsanpassung (Input-Analyse) unterstützt nun auch die Erlang- und die Beta-Verteilung.</li>
   <li>Vorschläge für Folgestationen werden nun auch auf Basis früherer Modelle erstellt.</li>
+  <li>Geringerer Speicherbedarf beim Laden und Speichern von großen csv-Tabellen.</li>
+  <li>Geringerer Speicherbedarf beim Speichern von großen xlsx-Tabellen.</li>  
   <li>In Skripten können nun Ausgaben per DDE an Excel gesandt werden.</li> 
   <li>Der Simulationswebserver kann nun auch Modelle im html-Format entgegennehmen.</li>
   <li>Optionale MQTT-Benachrichtigungen, wenn eine Simulation abgeschlossen wurde.</li> 
@@ -37,6 +39,7 @@
   <li>[Fix] Wurde ein Zeitpunkt zum Beenden der Simulation eingestellt, so wurde die Simulation erst bei der nächsten Systemstatus-Veränderung nach diesem Zeitpunkt tatsächlich beendet.</li>
   <li>[Fix] Der Dialog zur Erstellung eines Rechenausdruck-Skriptbefehls in Skript-Eingabefeldern konnte nicht aufgerufen werden.</li> 
   <li>[Fix] Der Dialog zur Erstellungen eines Variablenabfrage-Befehl in Skript-Eingabefeldern zeigte nicht immer alle Variablen an.</li>
+  <li>[Fix] Das verwendete Ausgabeformat für csv-Dateien wurde von Excel in Bezug auf Umlaute usw. nicht korrekt erkannt.</li>
   <li>[Fix] Die Warnung zu einer veralteten Java-Version wurde nicht in allen Konfigurationsvarianten sicher angezeigt.</li>  
 </ul>
 

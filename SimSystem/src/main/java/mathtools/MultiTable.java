@@ -36,6 +36,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.streaming.SXSSFWorkbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
 import org.apache.poi.xwpf.usermodel.XWPFParagraph;
@@ -510,7 +511,7 @@ public final class MultiTable {
 		if (file==null) return false;
 
 		/* Tabellendokument anlegen */
-		try (Workbook wb=new XSSFWorkbook()) {
+		try (Workbook wb=new SXSSFWorkbook()) { /* Streaming-Variante */
 
 			/* Tabellendokument füllen */
 			List<String> usedNames=new ArrayList<>();
@@ -534,6 +535,7 @@ public final class MultiTable {
 
 			/* In Datei schreiben */
 			try (FileOutputStream fo=new FileOutputStream(file)) {wb.write(fo);}
+			if (wb instanceof SXSSFWorkbook) ((SXSSFWorkbook)wb).dispose();
 			return true;
 
 		} catch (IOException e) {return false;}

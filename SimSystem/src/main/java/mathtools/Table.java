@@ -18,6 +18,7 @@ package mathtools;
 import java.awt.Component;
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -26,6 +27,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
+import java.io.OutputStreamWriter;
 import java.math.BigDecimal;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -37,12 +39,10 @@ import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.DateFormat;
-import java.text.DecimalFormatSymbols;
-import java.text.NumberFormat;
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.function.Consumer;
 
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileFilter;
@@ -56,6 +56,7 @@ import org.apache.poi.ss.usermodel.DateUtil;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.streaming.SXSSFWorkbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
 import org.apache.poi.xwpf.usermodel.XWPFTable;
@@ -73,7 +74,7 @@ import mathtools.distribution.swing.CommonVariables;
  * Die Klasse {@link Table} kapselt eine Tabelle aus {@link String}-Objekten.
  * Die Klasse stellt Methoden zum Lesen und Schreiben von Tabellen-Dateien zur Verfügung.
  * @author Alexander Herzog
- * @version 4.3
+ * @version 4.4
  */
 public final class Table implements Cloneable {
 	/** Bezeichner beim Speichern für "wahr" */
@@ -126,7 +127,7 @@ public final class Table implements Cloneable {
 	/**
 	 * Maximale Anzahl an Zeilen beim Export als Excel-Datei.
 	 */
-	public static final int MAX_EXCEL_ROW_COUNT=131_072; /* Excel kann 1_048_576, aber das ist für POI zu viel. */
+	public static final int MAX_EXCEL_ROW_COUNT=524_288; /* =2^19. Excel kann 2^20=1_048_576, aber das ist für POI zu viel. */
 
 	/**
 	 * Speicherhaltung in Zeilen- oder in Spaltenform
@@ -580,23 +581,60 @@ public final class Table implements Cloneable {
 	}
 
 	/**
-	 * Liefert die gesamte Tabelle als Tabulator-getrennte Spalten zurück
-	 * @return	Tabelle als Text
+	 * Gibt die Tabelle als Tabulator-getrennte Spalten aus
+	 * @param output	Ausgabeobjekt
+	 * @throws IOException	Reicht Exceptions des Ausgabeobjektes durch
 	 */
-	public String toStringTabs() {
-		if (mode==IndexMode.COLS) {Table t=transpose(); return t.toString();}
-		final StringBuilder sb=new StringBuilder();
+	public void toStringTabs(final Appendable output) throws IOException {
+		final List<List<String>> data;
+		if (mode==IndexMode.COLS) {
+			Table t=transpose();
+			data=t.data;
+		} else {
+			data=this.data;
+		}
+
 		final int size1=data.size();
 		for (int i=0;i<size1;i++) {
 			final List<String> v=data.get(i);
 			final int size2=v.size();
 			for (int j=0;j<size2;j++) {
-				sb.append(v.get(j));
-				if (j<size2-1) sb.append("\t");
+				output.append(v.get(j));
+				if (j<size2-1) output.append("\t");
 			}
-			if (i<size1-1) sb.append("\n");
+			if (i<size1-1) output.append("\n");
 		}
-		return sb.toString();
+	}
+
+	/**
+	 * Liefert die gesamte Tabelle als Tabulator-getrennte Spalten zurück
+	 * @return	Tabelle als Text
+	 */
+	public String toStringTabs() {
+		final StringBuilder result=new StringBuilder();
+		try {
+			toStringTabs(result);
+		} catch (IOException e) {
+			return "";
+		}
+		return result.toString();
+	}
+
+	/**
+	 * Gibt die Tabelle im CSV-Format (im Excel-Format) aus
+	 * @param output	Ausgabeobjekt
+	 * @throws IOException	Reicht Exceptions des Ausgabeobjektes durch
+	 */
+	public void toStringCSV(final Appendable output) throws IOException {
+		final int size=data.size();
+		int maxCols=0;
+		for (int i=0;i<size;i++) maxCols=Math.max(maxCols,data.get(i).size());
+
+		final StringBuilder line=new StringBuilder();
+		for (int i=0;i<size;i++) {
+			output.append(toCSV(data.get(i),maxCols,line));
+			if (i<size-1) output.append('\n');
+		}
 	}
 
 	/**
@@ -604,17 +642,29 @@ public final class Table implements Cloneable {
 	 * @return	Tabelle als Text
 	 */
 	public String toStringCSV() {
+		final StringBuilder result=new StringBuilder();
+		try {
+			toStringCSV(result);
+		} catch (IOException e) {
+			return "";
+		}
+		return result.toString();
+	}
+
+	/**
+	 * Gibt die Tabelle im CSV-Format (im R-Format) aus
+	 * @param output	Ausgabeobjekt
+	 * @throws IOException	Reicht Exceptions des Ausgabeobjektes durch
+	 */
+	public void toStringCSVR(final Appendable output) throws IOException {
 		final int size=data.size();
 		int maxCols=0;
 		for (int i=0;i<size;i++) maxCols=Math.max(maxCols,data.get(i).size());
 
-		final StringBuilder sb=new StringBuilder();
 		for (int i=0;i<size;i++) {
-			sb.append(toCSV(data.get(i),maxCols));
-			if (i<size-1) sb.append("\n");
+			output.append(toCSVR(data.get(i),maxCols));
+			if (i<size-1) output.append("\n");
 		}
-
-		return sb.toString();
 	}
 
 	/**
@@ -622,17 +672,13 @@ public final class Table implements Cloneable {
 	 * @return	Tabelle als Text
 	 */
 	public String toStringCSVR() {
-		final int size=data.size();
-		int maxCols=0;
-		for (int i=0;i<size;i++) maxCols=Math.max(maxCols,data.get(i).size());
-
-		final StringBuilder sb=new StringBuilder();
-		for (int i=0;i<size;i++) {
-			sb.append(toCSVR(data.get(i),maxCols));
-			if (i<size-1) sb.append("\n");
+		final StringBuilder result=new StringBuilder();
+		try {
+			toStringCSVR(result);
+		} catch (IOException e) {
+			return "";
 		}
-
-		return sb.toString();
+		return result.toString();
 	}
 
 	@Override
@@ -1389,17 +1435,13 @@ public final class Table implements Cloneable {
 		}
 
 		if (saveMode==SaveMode.SAVEMODE_CSVR) {
-			final List<String> lines=loadTextLinesFromFile(file);
-			if (lines==null) return false;
-			for (String line: lines) data.add(fromCSVR(line));
+			if (!loadTextLinesFromFile(file,line->data.add(fromCSVR(line)))) return false;
 			makeSquare();
 			return true;
 		}
 
 		/* saveMode==SaveMode.SAVEMODE_CSV + Fallback */
-		final List<String> lines=loadTextLinesFromFile(file);
-		if (lines==null) return false;
-		for (String line: lines) data.add(fromCSV(line));
+		if (!loadTextLinesFromFile(file,line->data.add(fromCSV(line)))) return false;
 		makeSquare();
 		return true;
 	}
@@ -1410,12 +1452,32 @@ public final class Table implements Cloneable {
 	 * @return	Liefert im Erfolgsfall den Text, sonst <code>null</code>
 	 */
 	public static List<String> loadTextLinesFromFile(final File input) {
-		final List<String> result=new ArrayList<>();
-		try (final BufferedReader br=new BufferedReader(new InputStreamReader(new FileInputStream(input),StandardCharsets.UTF_8))) {
-			String s;
-			while ((s=br.readLine())!=null) result.add(s);
-		} catch (IOException e) {return null;}
-		return result;
+		try {
+			return Files.readAllLines(input.toPath(),StandardCharsets.UTF_8);
+		} catch (IOException e) {
+			return null;
+		}
+	}
+
+	/**
+	 * Lädt einen Text aus einer UTF-8-formatierten Datei.
+	 * @param input	Quelldatei aus der der Text geladen werden soll
+	 * @param lineProcessor	Callback zur direkten Verarbeitung der einzelnen Zeilen
+	 * @return	Gibt an, ob das Laden erfolgreich war
+	 */
+	public static boolean loadTextLinesFromFile(final File input, final Consumer<String> lineProcessor) {
+		try (InputStream stream=new FileInputStream(input)) {
+			try (InputStreamReader reader=new InputStreamReader(stream,StandardCharsets.UTF_8)) {
+				try (BufferedReader bufferedReader=new BufferedReader(reader)) {
+					while (bufferedReader.ready()) {
+						lineProcessor.accept(bufferedReader.readLine());
+					}
+					return true;
+				}
+			}
+		} catch (IOException e) {
+			return false;
+		}
 	}
 
 	/**
@@ -1430,7 +1492,7 @@ public final class Table implements Cloneable {
 	}
 
 	/**
-	 * Verlängt einzelne Zeilen der Tabelle, so dass alle dieselbe Länge haben.
+	 * Verlängert einzelne Zeilen der Tabelle, so dass alle dieselbe Länge haben.
 	 */
 	private void makeSquare() {
 		if (data==null || data.isEmpty()) return;
@@ -1462,22 +1524,38 @@ public final class Table implements Cloneable {
 	 * Wandelt eine Tabellenzeile in einen CSV-String um
 	 * @param line	Tabellenzeile
 	 * @param maxCols	Anzahl an Spalten (enthält die Tabellenzeile weniger Spalten, so werden leere Spalten angefügt)
+	 * @param recycleStringBuilder	Wiederzuverwendendes {@link StringBuilder}-Objekt (kann <code>null</code> sein, dann wird ein lokaler Builder angelegt)
 	 * @return Tabellenzeile als CSV-String
 	 */
-	private static String toCSV(final List<String> line, final int maxCols) {
-		final StringBuilder sb=new StringBuilder();
+	private static String toCSV(final List<String> line, final int maxCols, final StringBuilder recycleStringBuilder) {
+		final StringBuilder sb;
+		if (recycleStringBuilder==null) {
+			sb=new StringBuilder();
+		} else {
+			sb=recycleStringBuilder;
+			sb.setLength(0);
+		}
 
 		final int size=line.size();
 		for (int i=0;i<size;i++) {
-			String cell=line.get(i);
-			cell=cell.replace("\"","\"\"");
-			if (cell.indexOf('"')!=-1 || cell.indexOf(';')!=-1) cell='"'+cell+'"';
-			if (cell.equalsIgnoreCase("id")) cell='"'+cell+'"';
-			sb.append(cell);
+			final String cell=line.get(i);
+			if (cell.indexOf('"')!=-1 || cell.indexOf(';')!=-1) {
+				sb.append('"');
+				sb.append(cell.replace("\"","\"\""));
+				sb.append('"');
+			} else {
+				if (cell.equalsIgnoreCase("id")) {
+					sb.append('"');
+					sb.append(cell);
+					sb.append('"');
+				} else {
+					sb.append(cell);
+				}
+			}
 			if (i<size-1) sb.append(";");
 		}
 
-		for (int i=size+1;i<=maxCols;i++) sb.append(";");
+		for (int i=size+1;i<=maxCols;i++) sb.append(';');
 		return sb.toString();
 	}
 
@@ -1515,36 +1593,18 @@ public final class Table implements Cloneable {
 	 */
 	public static Double convertToNumeric(String cell) {
 		boolean isPercent=false;
-		boolean minus=false;
 
-		if (cell.endsWith(" %")) {
-			isPercent=true;
-			cell=cell.substring(0,cell.length()-2);
-		}
 		if (cell.endsWith("%")) {
 			isPercent=true;
-			cell=cell.substring(0,cell.length()-1);
-		}
-		if (cell.startsWith("-")) {
-			minus=true;
-			cell=cell.substring(1);
-		}
-
-		for (int i=0;i<cell.length();i++) {
-			char c=cell.charAt(i);
-			if ((c<'0' || c>'9') && c!='.' && c!=',' && c!=' ') return null;
+			if (cell.endsWith(" %")) {
+				cell=cell.substring(0,cell.length()-2);
+			} else {
+				cell=cell.substring(0,cell.length()-1);
+			}
 		}
 
-		char c=DecimalFormatSymbols.getInstance().getDecimalSeparator();
-		if (c==',') cell=cell.replace('.',',');
-		if (c=='.') cell=cell.replace(',','.');
-
-		try {
-			double d=NumberFormat.getInstance().parse(cell).doubleValue();
-			if (isPercent) d/=100;
-			if (minus) d=-d;
-			return d;
-		} catch (ParseException e) {return null;}
+		final Double D=NumberTools.getPlainDouble(cell);
+		if (isPercent) return D/100; else return D;
 	}
 
 	/**
@@ -1560,14 +1620,19 @@ public final class Table implements Cloneable {
 
 		final int rowCount=Math.min(data.size(),MAX_EXCEL_ROW_COUNT);
 		for (int i=0;i<rowCount;i++) {
-			Row row=sheet.createRow(i);
+			final Row row=sheet.createRow(i);
 			List<String> r=data.get(i);
-			for (int j=0;j<r.size();j++) {
-				Cell cell=row.createCell(j);
-				String s=r.get(j);
-				Double d=convertToNumeric(s);
-				if (d==null) cell.setCellValue(s); else cell.setCellValue(d);
-				if (s.endsWith("%")) cell.setCellStyle(stylePercent);
+			final int colCount=r.size();
+			for (int j=0;j<colCount;j++) {
+				final Cell cell=row.createCell(j);
+				final String cellData=r.get(j);
+				final Double cellDataNumber=convertToNumeric(cellData);
+				if (cellDataNumber==null) {
+					cell.setCellValue(cellData);
+				} else {
+					cell.setCellValue(cellDataNumber);
+					if (cellData.endsWith("%")) cell.setCellStyle(stylePercent);
+				}
 			}
 		}
 	}
@@ -1902,19 +1967,45 @@ public final class Table implements Cloneable {
 		}
 
 		if (saveMode==SaveMode.SAVEMODE_TABS) {
-			return saveTextToFile(toStringTabs(),file);
+			try(OutputStream stream=new FileOutputStream(file)) {
+				try (OutputStreamWriter writer=new OutputStreamWriter(stream,StandardCharsets.UTF_8)) {
+					try (BufferedWriter bufferedWriter=new BufferedWriter(writer)) {
+						bufferedWriter.write('\ufeff'); /* BOM - brauchen wir, damit Excel die UTF8-Datei auch als solche erkennt */
+						toStringTabs(bufferedWriter);
+						return true;
+					}
+				}
+			} catch (IOException e) {
+				return false;
+			}
 		}
 
 		if (saveMode==SaveMode.SAVEMODE_CSV) {
-			int maxCols=0;
-			for (int i=0;i<data.size();i++) maxCols=Math.max(maxCols,data.get(i).size());
-			return saveTextToFile(toStringCSV(),file);
+			try(OutputStream stream=new FileOutputStream(file)) {
+				try (OutputStreamWriter writer=new OutputStreamWriter(stream,StandardCharsets.UTF_8)) {
+					try (BufferedWriter bufferedWriter=new BufferedWriter(writer)) {
+						bufferedWriter.write('\ufeff'); /* BOM - brauchen wir, damit Excel die UTF8-Datei auch als solche erkennt */
+						toStringCSV(bufferedWriter);
+						return true;
+					}
+				}
+			} catch (IOException e) {
+				return false;
+			}
 		}
 
 		if (saveMode==SaveMode.SAVEMODE_CSVR) {
-			int maxCols=0;
-			for (int i=0;i<data.size();i++) maxCols=Math.max(maxCols,data.get(i).size());
-			return saveTextToFile(toStringCSVR(),file);
+			try(OutputStream stream=new FileOutputStream(file)) {
+				try (OutputStreamWriter writer=new OutputStreamWriter(stream,StandardCharsets.UTF_8)) {
+					try (BufferedWriter bufferedWriter=new BufferedWriter(writer)) {
+						bufferedWriter.write('\ufeff'); /* BOM - brauchen wir, damit Excel die UTF8-Datei auch als solche erkennt */
+						toStringCSVR(bufferedWriter);
+						return true;
+					}
+				}
+			} catch (IOException e) {
+				return false;
+			}
 		}
 
 		if (saveMode==SaveMode.SAVEMODE_ODS) {
@@ -1932,10 +2023,11 @@ public final class Table implements Cloneable {
 		}
 
 		if (saveMode==SaveMode.SAVEMODE_XLSX) {
-			try (Workbook wb=new XSSFWorkbook()) {
+			try (Workbook wb=new SXSSFWorkbook(100)) { /* Streaming-Variante */
 				final Sheet sheet=wb.createSheet(TableFileTableName);
 				saveToSheet(wb,sheet);
 				try (FileOutputStream fo=new FileOutputStream(file)) {wb.write(fo);}
+				if (wb instanceof SXSSFWorkbook) ((SXSSFWorkbook)wb).dispose();
 			} catch (IOException e) {return false;}
 			return true;
 		}
