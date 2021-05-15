@@ -30,6 +30,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.io.Serializable;
+import java.util.List;
 import java.util.function.Supplier;
 
 import javax.swing.BorderFactory;
@@ -252,9 +253,9 @@ public class ModelPropertiesDialog extends BaseDialog {
 	/* Dialogseite "Kunden" */
 
 	/** Datenmodell für {@link #clientColorsList} */
-	private DefaultListModel<JLabel> clientColorsListModel;
+	private DefaultListModel<ClientRecord> clientColorsListModel;
 	/** Liste mit den vorhandenen Kundentypen */
-	private JList<JLabel> clientColorsList;
+	private JList<ClientRecord> clientColorsList;
 
 	/* Dialogseite "Bediener" */
 
@@ -796,8 +797,39 @@ public class ModelPropertiesDialog extends BaseDialog {
 	private void updateClientDataList() {
 		final int selected=clientColorsList.getSelectedIndex();
 		clientColorsListModel.clear();
-		for (String clientType: model.surface.getClientTypes()) clientColorsListModel.addElement(getLabel(clientType));
+		final List<String> clientTypes=model.surface.getClientTypes();
+		if (clientTypes.size()>0) clientColorsList.setPrototypeCellValue(new ClientRecord(clientTypes.get(0)));
+		for (String clientType: clientTypes) clientColorsListModel.addElement(new ClientRecord(clientType));
 		clientColorsList.setSelectedIndex(selected);
+	}
+
+	/**
+	 * Datensatz für einen Eintrag in {@link ModelPropertiesDialog#clientColorsListModel}.<br>
+	 * Die Labels für die Einträge werden durch diese Abstraktionsschicht erst bei Bedarf erstellt.
+	 */
+	private class ClientRecord {
+		/** Name des Kundentyps */
+		private final String name;
+		/** Label zur Darstellung in der Liste */
+		private JLabel label;
+
+		/**
+		 * Konstruktor der Klasse
+		 * @param name	Name des Kundentyps
+		 */
+		public ClientRecord(final String name) {
+			this.name=name;
+		}
+
+		/**
+		 * Generiert oder liefert das bereits generierte Label
+		 * zur Darstellung der Kundentypdaten in der Liste
+		 * @return	Label für den Listeneintrag
+		 */
+		public JLabel getJLabel() {
+			if (label==null) label=getLabel(name);
+			return label;
+		}
 	}
 
 	/**
@@ -878,6 +910,9 @@ public class ModelPropertiesDialog extends BaseDialog {
 			if (value instanceof JLabel) {
 				((ElementListCellRenderer)renderer).setText(((JLabel)value).getText());
 				((ElementListCellRenderer)renderer).setIcon(((JLabel)value).getIcon());
+			}
+			if (value instanceof ClientRecord) {
+				renderer=((ClientRecord)value).getJLabel();
 			}
 			return renderer;
 		}
