@@ -101,6 +101,9 @@ public enum Images {
 	/** Symbol "An" */
 	GENERAL_ON("accept.png"),
 
+	/** Symbol "Zeit" */
+	GENERAL_TIME("time.png"),
+
 	/** Symbol "Script" */
 	GENERAL_SCRIPT("page_white_code_red.png"),
 

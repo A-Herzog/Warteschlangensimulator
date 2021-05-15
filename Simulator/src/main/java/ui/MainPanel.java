@@ -152,6 +152,7 @@ import ui.help.BookDataDialog;
 import ui.help.Help;
 import ui.images.Images;
 import ui.infopanel.InfoPanel;
+import ui.inputprocessor.ClientInputTableDialog;
 import ui.modeleditor.AnimationImageDialog;
 import ui.modeleditor.ModelLoadData;
 import ui.modeleditor.ModelLoadDataDialog;
@@ -691,6 +692,7 @@ public class MainPanel extends MainPanelBase {
 		addAction("ExtrasCalculator",e->commandExtrasCalculator(null,null));
 		addAction("ExtrasQueueingCalculator",e->commandExtrasQueueingCalculator());
 		addAction("ExtrasFit",e->commandExtrasFit());
+		addAction("ExtrasInputTableProcessor",e->commandExtrasInputTableProcessor());
 		addAction("ExtrasTestDatabaseConnection",e->commandExtrasTestDatabaseConnection());
 		addAction("ExtrasExecuteCommand",e->commandExtrasExecuteCommand());
 		addAction("ExtrasSimulationServer",e->commandExtrasSimulationServer());
@@ -1286,7 +1288,9 @@ public class MainPanel extends MainPanelBase {
 		menu.addSeparator();
 		createMenuItem(menu,Language.tr("Main.Menu.Extras.Calculator"),Images.EXTRAS_CALCULATOR.getIcon(),Language.tr("Main.Menu.Extras.Calculator.Mnemonic"),KeyEvent.VK_F11,"ExtrasCalculator");
 		createMenuItem(menu,Language.tr("Main.Menu.Extras.QueueingCalculator"),Images.EXTRAS_QUEUE.getIcon(),Language.tr("Main.Menu.Extras.QueueingCalculator.Mnemonic"),"ExtrasQueueingCalculator");
+		menu.addSeparator();
 		createMenuItem(menu,Language.tr("Main.Menu.Extras.FitDistribution"),Images.EXTRAS_FIT_DISTRIBUTION.getIcon(),Language.tr("Main.Menu.Extras.FitDistribution.Mnemonic"),"ExtrasFit");
+		createMenuItem(menu,Language.tr("Main.Menu.Extras.InputTableProcessor"),Images.GENERAL_TABLE.getIcon(),Language.tr("Main.Menu.Extras.InputTableProcessor.Mnemonic"),"ExtrasInputTableProcessor");
 		menu.addSeparator();
 		createMenuItem(menu,Language.tr("Main.Menu.Extras.TestDatabaseConnection"),Images.EXTRAS_DATABASE_TEST.getIcon(),Language.tr("Main.Menu.Extras.TestDatabaseConnection.Mnemonic"),"ExtrasTestDatabaseConnection");
 		createMenuItem(menu,Language.tr("Main.Menu.Extras.ExecuteCommand"),Images.EXTRAS_COMMANDLINE.getIcon(),Language.tr("Main.Menu.Extras.ExecuteCommand.Mnemonic"),"ExtrasExecuteCommand");
@@ -3460,6 +3464,13 @@ public class MainPanel extends MainPanelBase {
 	private void commandExtrasFit() {
 		final FitDialog dialog=new FitDialog(this);
 		dialog.setVisible(true);
+	}
+
+	/**
+	 * Befehl: Extras- Tabelle für Tabellenquelle aufbereiten
+	 */
+	private void commandExtrasInputTableProcessor() {
+		new ClientInputTableDialog(this);
 	}
 
 	/**

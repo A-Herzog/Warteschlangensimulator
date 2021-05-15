@@ -112,6 +112,10 @@ public class ClientInputTableDialog extends BaseDialog {
 		JButton button;
 
 		/* GUI */
+		addUserButton(Language.tr("BuildClientSourceTable.SelectAll"),Images.EDIT_ADD.getIcon());
+		addUserButton(Language.tr("BuildClientSourceTable.SelectNone"),Images.EDIT_DELETE.getIcon());
+		getUserButton(0).setToolTipText(Language.tr("BuildClientSourceTable.SelectAll.Hint"));
+		getUserButton(1).setToolTipText(Language.tr("BuildClientSourceTable.SelectNone.Hint"));
 		final JPanel all=createGUI(()->Help.topicModal(this,"ProcessClientTable"));
 		all.setLayout(new BorderLayout());
 		InfoPanel.addTopPanel(all,InfoPanel.globalProcessClientTable);
@@ -160,6 +164,8 @@ public class ClientInputTableDialog extends BaseDialog {
 
 		/* Dialog starten */
 		setSizeRespectingScreensize(600,800);
+		setMinSizeRespectingScreensize(600,800);
+		setResizable(true);
 		setLocationRelativeTo(getOwner());
 		setVisible(true);
 	}
@@ -193,10 +199,24 @@ public class ClientInputTableDialog extends BaseDialog {
 	private void editColumnSetup() {
 		if (list.getSelectedIndex()<0 || processor==null) return;
 
-		final ClientInputTableProcessor.ColumnSetup column=processor.getColumns()[list.getSelectedIndex()];
+		final int index=list.getSelectedIndex();
+		final ClientInputTableProcessor.ColumnSetup column=processor.getColumns()[index];
 
+		final ClientInputTableProcessor.ColumnMode oldMode=column.mode;
 		final ClientInputTableEditDialog dialog=new ClientInputTableEditDialog(this,column);
 		if (dialog.getClosedBy()==BaseDialog.CLOSED_BY_OK) {
+			if (column.mode!=oldMode) {
+				if (column.mode==ClientInputTableProcessor.ColumnMode.ARRIVALS) {
+					for (int i=0;i<processor.getColumns().length;i++) if (i!=index && processor.getColumns()[i].mode==ClientInputTableProcessor.ColumnMode.ARRIVALS) {
+						processor.getColumns()[i].mode=ClientInputTableProcessor.ColumnMode.OFF;
+					}
+				}
+				if (column.mode==ClientInputTableProcessor.ColumnMode.CLIENT_TYPES) {
+					for (int i=0;i<processor.getColumns().length;i++) if (i!=index && processor.getColumns()[i].mode==ClientInputTableProcessor.ColumnMode.CLIENT_TYPES) {
+						processor.getColumns()[i].mode=ClientInputTableProcessor.ColumnMode.OFF;
+					}
+				}
+			}
 			list.updateUI();
 		}
 	}
@@ -223,7 +243,16 @@ public class ClientInputTableDialog extends BaseDialog {
 	}
 
 	@Override
+	protected void userButtonClick(final int nr, final JButton button) {
+		for (ClientInputTableProcessor.ColumnSetup columnSetup: processor.getColumns()) {
+			columnSetup.mode=(nr==0)?columnSetup.initialMode:ClientInputTableProcessor.ColumnMode.OFF;
+		}
+		list.updateUI();
+	}
+
+	@Override
 	protected boolean checkData() {
+		/* Eingabetabelle */
 		final String inputTable=editInput.getText().trim();
 		if (inputTable.isEmpty()) {
 			MsgBox.error(this,Language.tr("BuildClientSourceTable.InputTable.Error.NoFile.Title"),Language.tr("BuildClientSourceTable.InputTable.Error.NoFile.Info"));
@@ -234,18 +263,36 @@ public class ClientInputTableDialog extends BaseDialog {
 			MsgBox.error(this,Language.tr("BuildClientSourceTable.InputTable.Error.DoesNotExist.Title"),String.format(Language.tr("BuildClientSourceTable.InputTable.Error.DoesNotExist.Info"),inputTable));
 			return false;
 		}
-
 		if (processor==null) {
 			MsgBox.error(this,Language.tr("BuildClientSourceTable.InputTable.Error.Process.Title"),String.format(Language.tr("BuildClientSourceTable.InputTable.Error.Process.Info"),inputTable));
 			return false;
 		}
 
+		/* Ausgabetabelle */
 		final String outputTable=editOutput.getText().trim();
 		if (outputTable.isEmpty()) {
 			MsgBox.error(this,Language.tr("BuildClientSourceTable.OutputTable.Error.NoFile.Title"),Language.tr("BuildClientSourceTable.OutputTable.Error.NoFile.Info"));
 			return false;
 		}
 
+		/* Konfiguration */
+		boolean hasArrivalsCol=false;
+		boolean hasTypesCol=false;
+		for (ClientInputTableProcessor.ColumnSetup columnSetup: processor.getColumns()) {
+			if (columnSetup.mode==ClientInputTableProcessor.ColumnMode.ARRIVALS) hasArrivalsCol=true;
+			if (columnSetup.mode==ClientInputTableProcessor.ColumnMode.CLIENT_TYPES) hasTypesCol=true;
+			if (hasArrivalsCol && hasTypesCol) break;
+		}
+		if (!hasArrivalsCol) {
+			MsgBox.error(this,Language.tr("BuildClientSourceTable.ProcessError.NoArrivalsCol.Title"),Language.tr("BuildClientSourceTable.ProcessError.NoArrivalsCol.Info"));
+			return false;
+		}
+		if (!hasTypesCol) {
+			MsgBox.error(this,Language.tr("BuildClientSourceTable.ProcessError.NoTypesCol.Title"),Language.tr("BuildClientSourceTable.ProcessError.NoTypesCol.Info"));
+			return false;
+		}
+
+		/* Ausgabetabelle überschreiben? */
 		final File outputFile=new File(outputTable);
 		if (outputFile.exists()) {
 			if (!MsgBox.confirmOverwrite(this,outputFile)) return false;
@@ -286,7 +333,7 @@ public class ClientInputTableDialog extends BaseDialog {
 				final ClientInputTableProcessor.ColumnSetup setup=(ClientInputTableProcessor.ColumnSetup)value;
 				final ColumnSetupRender columnSetupRender=(ColumnSetupRender)renderer;
 				columnSetupRender.setText(setup.getHTMLInfo());
-				columnSetupRender.setIcon(Images.GENERAL_TABLE.getIcon());
+				columnSetupRender.setIcon(setup.getIcon());
 				columnSetupRender.setBorder(BorderFactory.createEmptyBorder(5,5,5,5));
 			}
 			return renderer;

@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-05-14 00:22+0200\n"
+"POT-Creation-Date: 2021-05-14 01:53+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -768,6 +768,12 @@ msgstr "Ungültiger Index für die Zahleneigenschaft"
 msgid "BuildClientSourceTable.Edit.Mode"
 msgstr "Interpretation der Werte in der Spalte"
 
+msgid "BuildClientSourceTable.Edit.Mode.Arrivals"
+msgstr "Ankunftszeitpunkte oder Abstände"
+
+msgid "BuildClientSourceTable.Edit.Mode.ClientType"
+msgstr "Kundentypen"
+
 msgid "BuildClientSourceTable.Edit.Mode.Number"
 msgstr "Werte als Zahleneigenschaften importieren"
 
@@ -834,17 +840,47 @@ msgstr "Speichern der Ausgabetabelle fehlgeschlagen"
 msgid "BuildClientSourceTable.OutputTable.Select"
 msgstr "Ausgabetabelle auswählen"
 
+msgid "BuildClientSourceTable.ProcessError.NoArrivalsCol.Info"
+msgstr "Es wurde keine Spalte angegeben, aus der die Ankunfts- oder Zwischenankunftszeiten geladen werden sollen."
+
+msgid "BuildClientSourceTable.ProcessError.NoArrivalsCol.Title"
+msgstr "Keine Ankunftszeiten-Spalte angegeben"
+
+msgid "BuildClientSourceTable.ProcessError.NoTypesCol.Info"
+msgstr "Es wurde keine Spalte angegeben, aus der Kundentypen geladen werden sollen."
+
+msgid "BuildClientSourceTable.ProcessError.NoTypesCol.Title"
+msgstr "Keine Kundentypen-Spalte angegeben"
+
+msgid "BuildClientSourceTable.SelectAll"
+msgstr "Alle"
+
+msgid "BuildClientSourceTable.SelectAll.Hint"
+msgstr "Alle Tabellen spalten zum Übertragen auswählen."
+
+msgid "BuildClientSourceTable.SelectNone"
+msgstr "Keine"
+
+msgid "BuildClientSourceTable.SelectNone.Hint"
+msgstr "Alle Tabellenspalten abwählen."
+
 msgid "BuildClientSourceTable.Setup.Column"
 msgstr "Spalte"
 
 msgid "BuildClientSourceTable.Setup.ColumnName"
 msgstr "Name"
 
+msgid "BuildClientSourceTable.Setup.Mode.Arrivals"
+msgstr "Ankunftszeitpunkte oder Abstände"
+
+msgid "BuildClientSourceTable.Setup.Mode.ClientTypes"
+msgstr "Kundentypen"
+
 msgid "BuildClientSourceTable.Setup.Mode.Number"
 msgstr "Als Zahlenwerte laden"
 
 msgid "BuildClientSourceTable.Setup.Mode.Off"
-msgstr "Micht verwenden"
+msgstr "Nicht verwenden"
 
 msgid "BuildClientSourceTable.Setup.Mode.Text"
 msgstr "Als Textwerte laden"
@@ -7941,6 +7977,12 @@ msgstr "Verteilung anpassen..."
 
 msgid "Main.Menu.Extras.FitDistribution.Mnemonic"
 msgstr "V"
+
+msgid "Main.Menu.Extras.InputTableProcessor"
+msgstr "Tabelle für Tabellenquelle aufbereiten..."
+
+msgid "Main.Menu.Extras.InputTableProcessor.Mnemonic"
+msgstr "T"
 
 msgid "Main.Menu.Extras.KeepModel"
 msgstr "Aktuelles Modell für späteren Vergleich festhalten"

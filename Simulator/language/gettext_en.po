@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-05-14 00:22+0200\n"
+"POT-Creation-Date: 2021-05-14 01:53+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -768,6 +768,12 @@ msgstr "Invalid index for the number property"
 msgid "BuildClientSourceTable.Edit.Mode"
 msgstr "Interpretation of the values in the column"
 
+msgid "BuildClientSourceTable.Edit.Mode.Arrivals"
+msgstr "Arrival times or inter-arrival times"
+
+msgid "BuildClientSourceTable.Edit.Mode.ClientType"
+msgstr "Client types"
+
 msgid "BuildClientSourceTable.Edit.Mode.Number"
 msgstr "Import values as number properties"
 
@@ -834,11 +840,41 @@ msgstr "Saving output table failed"
 msgid "BuildClientSourceTable.OutputTable.Select"
 msgstr "Select output table"
 
+msgid "BuildClientSourceTable.ProcessError.NoArrivalsCol.Info"
+msgstr "No column for loading the arrival or inter-arrival times was specified."
+
+msgid "BuildClientSourceTable.ProcessError.NoArrivalsCol.Title"
+msgstr "No arrival column specified"
+
+msgid "BuildClientSourceTable.ProcessError.NoTypesCol.Info"
+msgstr "No column for loading the client types was specified."
+
+msgid "BuildClientSourceTable.ProcessError.NoTypesCol.Title"
+msgstr "No client type column specified"
+
+msgid "BuildClientSourceTable.SelectAll"
+msgstr "All"
+
+msgid "BuildClientSourceTable.SelectAll.Hint"
+msgstr "Select all table columns for transfer."
+
+msgid "BuildClientSourceTable.SelectNone"
+msgstr "None"
+
+msgid "BuildClientSourceTable.SelectNone.Hint"
+msgstr "Unselect all table columns."
+
 msgid "BuildClientSourceTable.Setup.Column"
 msgstr "Column"
 
 msgid "BuildClientSourceTable.Setup.ColumnName"
 msgstr "name"
+
+msgid "BuildClientSourceTable.Setup.Mode.Arrivals"
+msgstr "Arrival times or inter-arrival times"
+
+msgid "BuildClientSourceTable.Setup.Mode.ClientTypes"
+msgstr "Client types"
 
 msgid "BuildClientSourceTable.Setup.Mode.Number"
 msgstr "Use as numbers"
@@ -7950,6 +7986,12 @@ msgstr "Fit distribution..."
 
 msgid "Main.Menu.Extras.FitDistribution.Mnemonic"
 msgstr "F"
+
+msgid "Main.Menu.Extras.InputTableProcessor"
+msgstr "Prepare table for table source..."
+
+msgid "Main.Menu.Extras.InputTableProcessor.Mnemonic"
+msgstr "t"
 
 msgid "Main.Menu.Extras.KeepModel"
 msgstr "Keep current model for later comparison"

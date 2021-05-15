@@ -106,21 +106,29 @@ public class ClientInputTableEditDialog extends BaseDialog {
 		if (column.isNumeric) {
 			modes=new String[] {
 					Language.tr("BuildClientSourceTable.Edit.Mode.Off"),
+					Language.tr("BuildClientSourceTable.Edit.Mode.Arrivals"),
+					Language.tr("BuildClientSourceTable.Edit.Mode.ClientType"),
 					Language.tr("BuildClientSourceTable.Edit.Mode.Number"),
-					Language.tr("BuildClientSourceTable.Edit.Mode.Text")
+					Language.tr("BuildClientSourceTable.Edit.Mode.Text"),
 			};
 			modesIcons=new Images[] {
 					Images.GENERAL_OFF,
+					Images.GENERAL_TIME,
+					Images.MODELPROPERTIES_CLIENTS,
 					Images.GENERAL_NUMBERS,
 					Images.GENERAL_FONT
 			};
 		} else {
 			modes=new String[] {
 					Language.tr("BuildClientSourceTable.Edit.Mode.Off"),
+					Language.tr("BuildClientSourceTable.Edit.Mode.Arrivals"),
+					Language.tr("BuildClientSourceTable.Edit.Mode.ClientType"),
 					Language.tr("BuildClientSourceTable.Edit.Mode.Text")
 			};
 			modesIcons=new Images[] {
 					Images.GENERAL_OFF,
+					Images.GENERAL_TIME,
+					Images.MODELPROPERTIES_CLIENTS,
 					Images.GENERAL_FONT
 			};
 		}
@@ -133,7 +141,9 @@ public class ClientInputTableEditDialog extends BaseDialog {
 		label.setLabelFor(mode);
 		switch (column.mode) {
 		case OFF: mode.setSelectedIndex(0); break;
-		case NUMBER: mode.setSelectedIndex(1); break;
+		case ARRIVALS: mode.setSelectedIndex(1); break;
+		case CLIENT_TYPES: mode.setSelectedIndex(2); break;
+		case NUMBER: mode.setSelectedIndex(3); break;
 		case TEXT: mode.setSelectedIndex(column.isNumeric?2:1); break;
 		}
 		mode.addActionListener(e->modeChanged());
@@ -160,7 +170,7 @@ public class ClientInputTableEditDialog extends BaseDialog {
 	 * @see #mode
 	 */
 	private void modeChanged() {
-		indexPanel.setVisible(column.isNumeric && mode.getSelectedIndex()==1);
+		indexPanel.setVisible(column.isNumeric && mode.getSelectedIndex()==3);
 		checkData(false);
 	}
 
@@ -195,11 +205,13 @@ public class ClientInputTableEditDialog extends BaseDialog {
 	protected void storeData() {
 		switch (mode.getSelectedIndex()) {
 		case 0: column.mode=ClientInputTableProcessor.ColumnMode.OFF; break;
-		case 1: column.mode=column.isNumeric?ClientInputTableProcessor.ColumnMode.NUMBER:ClientInputTableProcessor.ColumnMode.TEXT; break;
-		case 2: column.mode=ClientInputTableProcessor.ColumnMode.TEXT; break;
+		case 1: column.mode=ClientInputTableProcessor.ColumnMode.ARRIVALS; break;
+		case 2: column.mode=ClientInputTableProcessor.ColumnMode.CLIENT_TYPES; break;
+		case 3: column.mode=column.isNumeric?ClientInputTableProcessor.ColumnMode.NUMBER:ClientInputTableProcessor.ColumnMode.TEXT; break;
+		case 4: column.mode=ClientInputTableProcessor.ColumnMode.TEXT; break;
 		}
 
-		if (column.isNumeric && mode.getSelectedIndex()==1) {
+		if (column.isNumeric && mode.getSelectedIndex()==3) {
 			column.index=NumberTools.getNotNegativeLong(index,true).intValue();
 		}
 	}

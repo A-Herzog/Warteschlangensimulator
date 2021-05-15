@@ -19,10 +19,13 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.Icon;
+
 import language.Language;
 import mathtools.NumberTools;
 import mathtools.Table;
 import simulator.simparser.symbols.CalcSymbolClientUserData;
+import ui.images.Images;
 
 /**
  * Wandelt eine einfache Tabelle in eine Tabelle, die von einer Tabellenquelle verarbeitet werden kann, um.
@@ -61,9 +64,23 @@ public class ClientInputTableProcessor {
 		final Table cols=table.transpose();
 		final List<List<String>> colData=cols.getData();
 		final List<ColumnSetup> columns=new ArrayList<>();
+
+		List<String> columnData;
+
+		/* Ankunftszeitpunkte (Spalte A) */
+		columnData=colData.get(0);
+		if (columnData==null || columnData.size()<2) return false;
+		columns.add(new ColumnSetup(columnData,0,ColumnMode.ARRIVALS));
+
+		/* Kundentypen (Spalte B) */
+		columnData=colData.get(1);
+		if (columnData==null || columnData.size()<2) return false;
+		columns.add(new ColumnSetup(columnData,1,ColumnMode.CLIENT_TYPES));
+
+		/* Weitere Datenspalten */
 		int indexCounter=0;
 		for (int i=2;i<colData.size();i++) {
-			final List<String> columnData=colData.get(i);
+			columnData=colData.get(i);
 			if (columnData==null || columnData.size()<2) continue;
 			if (columnData.get(0).trim().isEmpty()) continue;
 			final ColumnSetup column=new ColumnSetup(columnData,i);
@@ -91,27 +108,50 @@ public class ClientInputTableProcessor {
 	public Table process() {
 		if (table==null) return null;
 
+		/* Ankunftszeiten- und Kundentyp-Spalte bestimmen */
+		int colArrival=-1;
+		int colType=-1;
+		for (ColumnSetup setup: columns) {
+			if (setup.mode==ColumnMode.ARRIVALS) colArrival=setup.colNr;
+			if (setup.mode==ColumnMode.CLIENT_TYPES) colType=setup.colNr;
+			if (colArrival>=0 && colType>=0) break;
+		}
+		if (colArrival<0 || colType<0) return null;
+
+		/* Verarbeitung der Tabelle */
 		final Table results=new Table();
 		final List<List<String>> data=table.getData();
 		final int rows=table.getSize(0);
-		for (int i=1;i<rows;i++) results.addLine(processRow(data.get(i)));
+		for (int i=1;i<rows;i++) results.addLine(processRow(data.get(i),colArrival,colType));
 		return results;
 	}
 
 	/**
 	 * Verarbeitet eine einzelne Tabellenzeile
 	 * @param row	Zu verarbeitende Tabellenzeile
+	 * @param colArrival	Ankunftszeiten-Spalte
+	 * @param colType	Kundentyp-Spalte
 	 * @return	Neue Tabellenzeile
 	 * @see #process()
 	 */
-	private List<String> processRow(final List<String> row) {
+	private List<String> processRow(final List<String> row, final int colArrival, final int colType) {
 		final List<String> line=new ArrayList<>();
 
-		if (row.size()>=2) {
-			line.add(row.get(0));
-			line.add(row.get(1));
+		/* Ankunftszeit */
+		if (colArrival>=0 && row.size()>colArrival) {
+			line.add(row.get(colArrival));
+		} else {
+			line.add("");
 		}
 
+		/* Kundentyp */
+		if (colType>=0 && row.size()>colType) {
+			line.add(row.get(colType));
+		} else {
+			line.add("");
+		}
+
+		/* Datenspalten */
 		for (ColumnSetup setup: columns) {
 			if (setup.colNr>=row.size()) continue;
 			final String value=row.get(setup.colNr).trim();
@@ -126,6 +166,9 @@ public class ClientInputTableProcessor {
 			case TEXT:
 				line.add(CalcSymbolClientUserData.CLIENT_DATA_COMMANDS[0]+"(\""+setup.name+"\")="+value);
 				break;
+			default:
+				/* Spalte ist Zeiten- oder Kundentypenspalte */
+				break;
 			}
 		}
 
@@ -138,6 +181,10 @@ public class ClientInputTableProcessor {
 	public enum ColumnMode {
 		/** Tabellenspalte nicht verwenden */
 		OFF,
+		/** Ankunftszeitpunkte */
+		ARRIVALS,
+		/** Kundentypen */
+		CLIENT_TYPES,
 		/** Tabellenspalte als numerische Werte verwenden */
 		NUMBER,
 		/** Tabellenspalte als Textwerte verwenden */
@@ -170,6 +217,12 @@ public class ClientInputTableProcessor {
 		public int index;
 
 		/**
+		 * Automatisch voreingestellter Modus
+		 * @see #mode
+		 */
+		public final ColumnMode initialMode;
+
+		/**
 		 * Wie soll die Spalte verwendet werden?
 		 * @see ColumnMode
 		 */
@@ -190,10 +243,30 @@ public class ClientInputTableProcessor {
 			this.isNumeric=isNumeric;
 
 			if (isNumeric) mode=ColumnMode.NUMBER; else mode=ColumnMode.TEXT;
+			initialMode=mode;
 		}
 
 		/**
-		 * Liefert eine html-Beschreibung der Konfiguration für die aktuelle Spalte
+		 * Konstruktor der Klasse
+		 * @param col	Zugehörige Datenspalte (inkl. Überschrift im ersten Eintrag)
+		 * @param nr	0-basierte Nummer der Tabellenspalte
+		 * @param mode	Wie soll die Spalte verwendet werden?
+		 */
+		public ColumnSetup(final List<String> col, final int nr, final ColumnMode mode) {
+			colNr=nr;
+			name=col.get(0).trim();
+
+			boolean isNumeric=true;
+			final int size=col.size();
+			for (int i=1;i<size;i++) if (NumberTools.getDouble(col.get(i))==null) {isNumeric=false; break;}
+			this.isNumeric=isNumeric;
+
+			this.mode=mode;
+			initialMode=mode;
+		}
+
+		/**
+		 * Liefert eine html-Beschreibung der Konfiguration für die aktuelle Spalte.
 		 * @return	html-Beschreibung der Konfiguration für die aktuelle Spalte
 		 */
 		public String getHTMLInfo() {
@@ -215,6 +288,16 @@ public class ClientInputTableProcessor {
 				result.append(Language.tr("BuildClientSourceTable.Setup.Mode.Off"));
 				result.append("</span>");
 				break;
+			case ARRIVALS:
+				result.append("<span color=\"blue\"><b>");
+				result.append(Language.tr("BuildClientSourceTable.Setup.Mode.Arrivals"));
+				result.append("</b></span>");
+				break;
+			case CLIENT_TYPES:
+				result.append("<span color=\"blue\"><b>");
+				result.append(Language.tr("BuildClientSourceTable.Setup.Mode.ClientTypes"));
+				result.append("</b></span>");
+				break;
 			case NUMBER:
 				result.append(Language.tr("BuildClientSourceTable.Setup.Mode.Number"));
 				result.append(": <tt>");
@@ -235,6 +318,21 @@ public class ClientInputTableProcessor {
 
 			result.append("</body></html>");
 			return result.toString();
+		}
+
+		/**
+		 * Liefert das Icon der Konfiguration für die aktuelle Spalte.
+		 * @return	Icon der Konfiguration für die aktuelle Spalte
+		 */
+		public Icon getIcon() {
+			switch (mode) {
+			case OFF: return Images.GENERAL_OFF.getIcon();
+			case ARRIVALS: return Images.GENERAL_TIME.getIcon();
+			case CLIENT_TYPES: return Images.MODELPROPERTIES_CLIENTS.getIcon();
+			case NUMBER: return Images.GENERAL_NUMBERS.getIcon();
+			case TEXT: return Images.GENERAL_FONT.getIcon();
+			default: return Images.GENERAL_TABLE.getIcon();
+			}
 		}
 	}
 }
