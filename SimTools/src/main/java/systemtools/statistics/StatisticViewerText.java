@@ -668,7 +668,7 @@ public abstract class StatisticViewerText implements StatisticViewer {
 	protected abstract void buildText();
 
 	@Override
-	public void copyToClipboard(final Clipboard clipboard) {
+	public Transferable getTransferable() {
 		if (textPane==null) {
 			buildText();
 			initTextPane();
@@ -701,7 +701,13 @@ public abstract class StatisticViewerText implements StatisticViewer {
 			}
 		};
 
-		clipboard.setContents(transfer,null);
+		return transfer;
+	}
+
+	@Override
+	public void copyToClipboard(final Clipboard clipboard) {
+		final Transferable transferable=getTransferable();
+		if (transferable!=null) clipboard.setContents(transferable,null);
 	}
 
 	@Override

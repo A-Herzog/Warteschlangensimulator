@@ -16,14 +16,17 @@
 package systemtools.statistics;
 
 import java.awt.datatransfer.StringSelection;
+import java.awt.datatransfer.Transferable;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.Serializable;
 
+import javax.swing.JComponent;
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
 import javax.swing.JTree;
 import javax.swing.SwingUtilities;
+import javax.swing.TransferHandler;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.DefaultMutableTreeNode;
@@ -64,6 +67,8 @@ public class StatisticTree extends JTree {
 		setCellRenderer(new StatisticTreeCellRenderer());
 		addTreeSelectionListener(new TreeSelectionChanged());
 		if (commandLineCommand!=null && !commandLineCommand.isEmpty()) addMouseListener(new TreeMouseListener());
+		setDragEnabled(true);
+		setTransferHandler(new StatisticTreeTransferHandler());
 	}
 
 	/**
@@ -131,7 +136,7 @@ public class StatisticTree extends JTree {
 	 */
 	public final boolean selectNode(DefaultMutableTreeNode node) {
 		if (node==null) return false;
-		TreePath path=new TreePath(node.getPath());
+		final TreePath path=new TreePath(node.getPath());
 		setSelectionPath(path);
 		scrollPathToVisible(path);
 		return true;
@@ -237,6 +242,44 @@ public class StatisticTree extends JTree {
 					return;
 				}
 			}
+		}
+	}
+
+	/**
+	 * Ermöglicht es, Daten von einzelnen Viewern per Drag&amp;Drop
+	 * aus der Baumstruktur in andere Anwendungen zu übertragen.
+	 */
+	private class StatisticTreeTransferHandler extends TransferHandler {
+		/**
+		 * Serialisierungs-ID der Klasse
+		 * @see Serializable
+		 */
+		private static final long serialVersionUID=-1581460374664214749L;
+
+		@Override
+		public int getSourceActions(JComponent c) {
+			return TransferHandler.COPY;
+		}
+
+		@Override
+		protected Transferable createTransferable(JComponent c) {
+			/* Viewer finden */
+			final TreePath path=getSelectionPath();
+			if (path==null || path.getPathCount()==0) return null;
+			final Object obj=path.getLastPathComponent();
+			if (!(obj instanceof DefaultMutableTreeNode)) return null;
+			final Object userObj=((DefaultMutableTreeNode)obj).getUserObject();
+			if (!(userObj instanceof StatisticNode)) return null;
+			final StatisticViewer[] viewers=((StatisticNode)userObj).viewer;
+			if (viewers==null || viewers.length!=1) return null;
+			final StatisticViewer viewer=viewers[0];
+
+			/* Transferobjekt generieren */
+			if (!viewer.getCanDo(StatisticViewer.CanDoAction.CAN_DO_COPY)) return null;
+			final Transferable transferable=viewer.getTransferable();
+			if (transferable==null) return null;
+
+			return transferable;
 		}
 	}
 }

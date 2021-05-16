@@ -20,6 +20,7 @@ import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.StringSelection;
+import java.awt.datatransfer.Transferable;
 import java.io.File;
 
 import javax.swing.JScrollPane;
@@ -136,8 +137,14 @@ public class StatisticViewerFastAccess extends StatisticViewerSpecialBase {
 	}
 
 	@Override
-	public void copyToClipboard(Clipboard clipboard) {
-		clipboard.setContents(new StringSelection(results.getText()),null);
+	public Transferable getTransferable() {
+		return new StringSelection(results.getText());
+	}
+
+	@Override
+	public void copyToClipboard(final Clipboard clipboard) {
+		final Transferable transferable=getTransferable();
+		if (transferable!=null) clipboard.setContents(transferable,null);
 	}
 
 	@Override

@@ -52,7 +52,7 @@ import systemtools.statistics.XWPFDocumentPictureTools;
 /**
  * Diese klasse stellt ein statische Hilfsfunktionen zum Kopieren und Speichern von Bildern zur Verfügung.
  * @author Alexander Herzog
- * @version 1.1
+ * @version 1.2
  */
 public class ImageTools {
 
@@ -64,6 +64,16 @@ public class ImageTools {
 	private ImageTools() {}
 
 	/**
+	 * Liefert ein {@link Transferable}-Objekt für eine Grafik
+	 * (um diese per Drag&amp;Drop zu exportieren oder zu kopieren).
+	 * @param image	Bild
+	 * @return	Transfer-Objekt für das Bild
+	 */
+	public static Transferable getTransferable(final BufferedImage image) {
+		return getTransferable(image,image.getWidth(),image.getHeight());
+	}
+
+	/**
 	 * Kopiert ein Bild in die Zwischenablage
 	 * @param image	Zu kopierendes Bild
 	 */
@@ -72,13 +82,15 @@ public class ImageTools {
 	}
 
 	/**
-	 * Kopiert ein Bild in die Zwischenablage
-	 * @param image	Zu kopierendes Bild
+	 * Liefert ein {@link Transferable}-Objekt für eine Grafik
+	 * (um diese per Drag&amp;Drop zu exportieren oder zu kopieren).
+	 * @param image	Bild
 	 * @param width	Breite des Bildes
 	 * @param height	Höhe des Bildes
+	 * @return	Transfer-Objekt für das Bild
 	 */
-	public static void copyImageToClipboard(final Image image, final int width, final int height) {
-		if (image==null || width<=0 || height<=0) return;
+	public static Transferable getTransferable(final Image image, final int width, final int height) {
+		if (image==null || width<=0 || height<=0) return null;
 
 		/* see: https://bugs.openjdk.java.net/browse/JDK-8204188 */
 
@@ -89,7 +101,18 @@ public class ImageTools {
 		g2.drawImage(image,0,0,null);
 		g2.dispose();
 
-		Toolkit.getDefaultToolkit().getSystemClipboard().setContents(new TransferableImage(image2),null);
+		return new TransferableImage(image2);
+	}
+
+	/**
+	 * Kopiert ein Bild in die Zwischenablage
+	 * @param image	Zu kopierendes Bild
+	 * @param width	Breite des Bildes
+	 * @param height	Höhe des Bildes
+	 */
+	public static void copyImageToClipboard(final Image image, final int width, final int height) {
+		final Transferable transferable=getTransferable(image,width,height);
+		if (transferable!=null) Toolkit.getDefaultToolkit().getSystemClipboard().setContents(transferable,null);
 	}
 
 	/**

@@ -21,6 +21,7 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.datatransfer.Clipboard;
+import java.awt.datatransfer.Transferable;
 import java.awt.image.BufferedImage;
 import java.awt.print.PageFormat;
 import java.awt.print.Printable;
@@ -128,14 +129,20 @@ public class StatisticViewerImage implements StatisticViewer, Printable {
 	}
 
 	@Override
-	public void copyToClipboard(Clipboard clipboard) {
+	public Transferable getTransferable() {
 		if (panel==null) panelNeeded();
 		final int imageSize=getImageSize();
 		final Image image=panel.createImage(imageSize,imageSize);
 		Graphics g=image.getGraphics();
 		g.setClip(0,0,imageSize,imageSize);
-		if (panel instanceof JGetImage) ((JGetImage)panel).paintToGraphics(g); else	panel.paint(g);
-		ImageTools.copyImageToClipboard(image,imageSize,imageSize);
+		if (panel instanceof JGetImage) ((JGetImage)panel).paintToGraphics(g); else panel.paint(g);
+		return ImageTools.getTransferable(image,imageSize,imageSize);
+	}
+
+	@Override
+	public void copyToClipboard(final Clipboard clipboard) {
+		final Transferable transferable=getTransferable();
+		if (transferable!=null) clipboard.setContents(transferable,null);
 	}
 
 	@Override

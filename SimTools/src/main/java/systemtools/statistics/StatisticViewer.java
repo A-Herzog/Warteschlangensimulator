@@ -18,6 +18,7 @@ package systemtools.statistics;
 import java.awt.Component;
 import java.awt.Container;
 import java.awt.datatransfer.Clipboard;
+import java.awt.datatransfer.Transferable;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.IOException;
@@ -156,6 +157,13 @@ public interface StatisticViewer {
 	 * @return	Wurde bereits per {@link #getViewer(boolean)} ein Viewer erzeugt?
 	 */
 	boolean isViewerGenerated();
+
+	/**
+	 * Liefert ein {@link Transferable}-Objekt für den Viewer.
+	 * Dieser ist dann verfügbar, wenn auch ein Kopieren möglich ist.
+	 * @return	{@link Transferable}-Objekt für den Viewer
+	 */
+	Transferable getTransferable();
 
 	/**
 	 * Kopiert die Daten in der aktuellen Variante in die Zwischenablage.

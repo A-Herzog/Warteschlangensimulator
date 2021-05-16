@@ -20,6 +20,7 @@ import java.awt.Container;
 import java.awt.Desktop;
 import java.awt.Font;
 import java.awt.datatransfer.Clipboard;
+import java.awt.datatransfer.Transferable;
 import java.awt.image.BufferedImage;
 import java.awt.print.PrinterJob;
 import java.io.BufferedWriter;
@@ -214,18 +215,24 @@ public abstract class StatisticViewerJFreeChart implements StatisticViewer {
 	}
 
 	@Override
-	public void copyToClipboard(final Clipboard clipboard) {
+	public Transferable getTransferable() {
 		if (chartPanel==null) firstChartRequest();
 		final int imageSize=getImageSize();
 
 		chartSetup.setUserScale(Math.max(1,Math.min(5,imageSize/750)));
 		chartSetup.setupAll(chart);
 		try {
-			ImageTools.copyImageToClipboard(ImageTools.drawToImage(chart,imageSize,imageSize));
+			return ImageTools.getTransferable(ImageTools.drawToImage(chart,imageSize,imageSize));
 		} finally {
 			chartSetup.setUserScale(1);
 			chartSetup.setupAll(chart);
 		}
+	}
+
+	@Override
+	public void copyToClipboard(final Clipboard clipboard) {
+		final Transferable transferable=getTransferable();
+		if (transferable!=null) clipboard.setContents(transferable,null);
 	}
 
 	@Override

@@ -1187,7 +1187,7 @@ public abstract class StatisticsBasePanel extends JPanel implements AbstractRepo
 
 		Icon icon=null;
 		if (treeNode!=null) {
-			final Image image=new StatisticTreeCellRenderer().getIcon(treeNode);
+			final Image image=StatisticTreeCellRenderer.getIcon(treeNode);
 			if (image!=null) icon=new ImageIcon(image);
 		}
 		updateViewer(viewer,lastViewer,info,icon);

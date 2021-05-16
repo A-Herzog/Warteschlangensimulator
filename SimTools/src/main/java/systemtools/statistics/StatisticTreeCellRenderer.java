@@ -133,7 +133,7 @@ public class StatisticTreeCellRenderer extends DefaultTreeCellRenderer {
 	 * @return	Icon-URL zu dem passenden Icon
 	 * @see StatisticNode
 	 */
-	public Image getIcon(Object value) {
+	public static Image getIcon(Object value) {
 		if (value==null) return null;
 		if (!(value instanceof DefaultMutableTreeNode)) return null;
 		if (!(((DefaultMutableTreeNode)value).getUserObject() instanceof StatisticNode)) return null;

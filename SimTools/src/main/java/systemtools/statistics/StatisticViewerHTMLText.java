@@ -22,6 +22,7 @@ import java.awt.Cursor;
 import java.awt.Desktop;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.StringSelection;
+import java.awt.datatransfer.Transferable;
 import java.awt.print.PrinterException;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -192,8 +193,14 @@ class StatisticViewerHTMLText implements StatisticViewer {
 	}
 
 	@Override
-	public void copyToClipboard(Clipboard clipboard) {
-		clipboard.setContents(new StringSelection(head+infoText+foot),null);
+	public Transferable getTransferable() {
+		return new StringSelection(head+infoText+foot);
+	}
+
+	@Override
+	public void copyToClipboard(final Clipboard clipboard) {
+		final Transferable transferable=getTransferable();
+		if (transferable!=null) clipboard.setContents(transferable,null);
 	}
 
 	@Override

@@ -21,6 +21,7 @@ import java.awt.Desktop;
 import java.awt.FontMetrics;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.StringSelection;
+import java.awt.datatransfer.Transferable;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.print.PrinterException;
@@ -548,15 +549,20 @@ public class StatisticViewerTable implements StatisticViewer {
 	}
 
 	@Override
-	public void copyToClipboard(Clipboard clipboard) {
+	public Transferable getTransferable() {
 		if (columnNames.isEmpty()) buildTable();
 		initData();
 		final StringBuilder s=new StringBuilder();
 		addListToStringBuilder(s,columnNames);
 		final int size=data.size();
 		for (int i=0;i<size;i++) addListToStringBuilder(s,data.get(i));
-		StringSelection cont=new StringSelection(s.toString());
-		clipboard.setContents(cont,null);
+		return new StringSelection(s.toString());
+	}
+
+	@Override
+	public void copyToClipboard(Clipboard clipboard) {
+		final Transferable transferable=getTransferable();
+		if (transferable!=null) clipboard.setContents(transferable,null);
 	}
 
 	@Override

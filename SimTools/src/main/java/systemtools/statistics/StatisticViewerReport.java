@@ -22,6 +22,7 @@ import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.StringSelection;
+import java.awt.datatransfer.Transferable;
 import java.awt.image.BufferedImage;
 import java.io.BufferedWriter;
 import java.io.ByteArrayOutputStream;
@@ -221,10 +222,16 @@ public class StatisticViewerReport extends StatisticViewerSpecialBase {
 	}
 
 	@Override
-	public void copyToClipboard(Clipboard clipboard) {
+	public Transferable getTransferable() {
 		final StringWriter st=new StringWriter();
 		writeReportToBufferedWriter(st,null,FileFormat.FORMAT_HTML_INLINE,false);
-		clipboard.setContents(new StringSelection(st.toString()),null);
+		return new StringSelection(st.toString());
+	}
+
+	@Override
+	public void copyToClipboard(final Clipboard clipboard) {
+		final Transferable transferable=getTransferable();
+		if (transferable!=null) clipboard.setContents(transferable,null);
 	}
 
 	/**
