@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-05-14 01:53+0200\n"
+"POT-Creation-Date: 2021-05-16 00:07+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -3661,6 +3661,15 @@ msgstr "Keine gespeicherten Ansichten vorhanden."
 
 msgid "Editor.SavedViews.Update"
 msgstr "Ansicht aktualisieren"
+
+msgid "Editor.SavedViews.Update.Info"
+msgstr "Soll die Ansicht \"%s\" wirklich aktualisiert werden?"
+
+msgid "Editor.SavedViews.Update.InfoNo"
+msgstr "Ansicht nicht aktualisieren."
+
+msgid "Editor.SavedViews.Update.InfoYes"
+msgstr "Ansicht aktualisieren."
 
 msgid "Editor.SetupZoom"
 msgstr "Zoomfaktor einstellen"

@@ -137,6 +137,15 @@ public class SavedViews {
 	}
 
 	/**
+	 * Stellt ein, welche Ansicht als aktuell angesehen werden soll.
+	 * @param view	Als aktuell einzustellende Ansicht
+	 */
+	public void setSelected(final SavedView view) {
+		list.forEach(v->v.setSelected(false));
+		if (view!=null) view.setSelected(true);
+	}
+
+	/**
 	 * Diese Klasse kapselt eine einzelne gespeicherte Ansicht.
 	 * @see SavedViews#list
 	 */
@@ -157,6 +166,11 @@ public class SavedViews {
 		private double zoom;
 
 		/**
+		 * Ist die Ansicht gerade aktiv?
+		 */
+		private boolean selected;
+
+		/**
 		 * Konstruktor der Klasse
 		 * @param name	Name der gespeicherten Ansicht
 		 */
@@ -164,6 +178,7 @@ public class SavedViews {
 			this.name=name;
 			location=new Point();
 			zoom=1.0;
+			selected=false;
 		}
 
 		/**
@@ -176,6 +191,7 @@ public class SavedViews {
 			this.name=name;
 			this.location=new Point(location);
 			this.zoom=zoom;
+			selected=false;
 		}
 
 		/**
@@ -187,6 +203,7 @@ public class SavedViews {
 			this.name=name;
 			this.location=new Point(surfacePanel.getTopPosition());
 			this.zoom=surfacePanel.getZoom();
+			selected=false;
 		}
 
 		/**
@@ -197,6 +214,7 @@ public class SavedViews {
 			this.name=copySource.name;
 			this.location=new Point(copySource.location);
 			this.zoom=copySource.zoom;
+			this.selected=copySource.selected;
 		}
 
 		/**
@@ -208,6 +226,7 @@ public class SavedViews {
 			if (!savedView.name.equals(name)) return false;
 			if (!savedView.location.equals(location)) return false;
 			if (savedView.zoom!=zoom) return false;
+			/* Selected wird für equals nicht verwendet */
 			return true;
 		}
 
@@ -241,6 +260,24 @@ public class SavedViews {
 		 */
 		public double getZoom() {
 			return zoom;
+		}
+
+		/**
+		 * Ist die Ansicht gerade aktiv?
+		 * @return	Ist die Ansicht gerade aktiv?
+		 * @see #setSelected(boolean)
+		 */
+		public boolean isSelected() {
+			return selected;
+		}
+
+		/**
+		 * Stellt ein, ob die aktuelle Ansicht als aktiv angesehen werden soll.
+		 * @param selected	Ist die Ansicht gerade aktiv?
+		 * @see #isSelected()
+		 */
+		public void setSelected(boolean selected) {
+			this.selected=selected;
 		}
 
 		/**

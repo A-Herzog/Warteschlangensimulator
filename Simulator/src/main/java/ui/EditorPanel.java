@@ -48,11 +48,14 @@ import java.util.function.Consumer;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
+import javax.swing.AbstractAction;
+import javax.swing.Action;
 import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.DefaultListModel;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
+import javax.swing.InputMap;
 import javax.swing.JButton;
 import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JComboBox;
@@ -321,6 +324,36 @@ public final class EditorPanel extends EditorPanelBase {
 
 		guiReady=true;
 		fireTemplatesVisibleChanged();
+		initSavedViewsHotkeys();
+	}
+
+	/**
+	 * Diese Klasse ermöglicht, in {@link Action}-Objekten
+	 * {@link Runnable}-Objekte zu verwenden.
+	 */
+	private static class FunctionalAction extends AbstractAction {
+		/**
+		 * Serialisierungs-ID der Klasse
+		 * @see Serializable
+		 */
+		private static final long serialVersionUID=4732521392075012400L;
+
+		/**
+		 * Auszuführendes Callback
+		 */
+		private final Runnable lambda;
+
+		/**
+		 * Konstruktor der Klasse
+		 * @param lambda	Auszuführendes Callback
+		 */
+		public FunctionalAction(final Runnable lambda) {
+			this.lambda=lambda;
+		}
+
+		@Override public void actionPerformed(ActionEvent e) {
+			lambda.run();
+		}
 	}
 
 	/**
@@ -333,6 +366,20 @@ public final class EditorPanel extends EditorPanelBase {
 		this.owner=(owner==null)?this:owner;
 		guiReady=true;
 		fireTemplatesVisibleChanged();
+		initSavedViewsHotkeys();
+	}
+
+	/**
+	 * Initialisiert die Hotkeys zum Wechseln der aktuellen gespeicherten Ansicht.
+	 */
+	private void initSavedViewsHotkeys() {
+		final InputMap inputMap=getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
+		final KeyStroke strokePreviousView=KeyStroke.getKeyStroke('W',InputEvent.CTRL_DOWN_MASK+InputEvent.SHIFT_DOWN_MASK);
+		final KeyStroke strokeNextView=KeyStroke.getKeyStroke('V',InputEvent.CTRL_DOWN_MASK+InputEvent.SHIFT_DOWN_MASK);
+		inputMap.put(strokePreviousView,"PreviousSavedView");
+		inputMap.put(strokeNextView,"NextSavedView");
+		getActionMap().put("PreviousSavedView",new FunctionalAction(()->savedViewSelect(-1)));
+		getActionMap().put("NextSavedView",new FunctionalAction(()->savedViewSelect(1)));
 	}
 
 	@Override
@@ -520,9 +567,25 @@ public final class EditorPanel extends EditorPanelBase {
 		final List<SavedViews.SavedView> views=model.savedViews.getViews();
 
 		/* Ansicht laden */
-		for (SavedViews.SavedView view: views) {
+
+		boolean nothingSelected=!views.stream().filter(v->v.isSelected()).findFirst().isPresent();
+		for (int i=0;i<views.size();i++) {
+			final SavedViews.SavedView view=views.get(i);
 			menu.add(item=new JMenuItem(view.getName(),Images.ZOOM_VIEW.getIcon()));
-			item.addActionListener(e->view.set(surfacePanel));
+			item.addActionListener(e->{view.set(surfacePanel); model.savedViews.setSelected(view);});
+			if (view.isSelected()) {
+				final Font font=item.getFont();
+				item.setFont(new Font(font.getName(),Font.BOLD,font.getSize()));
+			}
+
+			if (nothingSelected) {
+				if (i==0) item.setAccelerator(KeyStroke.getKeyStroke('V',InputEvent.CTRL_DOWN_MASK+InputEvent.SHIFT_DOWN_MASK));
+			} else {
+				final boolean nextIsSelected=(views.size()>2) && (views.get((i==views.size()-1)?0:(i+1)).isSelected());
+				final boolean previousIsSelected=(views.size()>1) && (views.get((i==0)?(views.size()-1):(i-1)).isSelected());
+				if (nextIsSelected) item.setAccelerator(KeyStroke.getKeyStroke('W',InputEvent.CTRL_DOWN_MASK+InputEvent.SHIFT_DOWN_MASK));
+				if (previousIsSelected) item.setAccelerator(KeyStroke.getKeyStroke('V',InputEvent.CTRL_DOWN_MASK+InputEvent.SHIFT_DOWN_MASK));
+			}
 		}
 
 		if (readOnly) {
@@ -544,7 +607,7 @@ public final class EditorPanel extends EditorPanelBase {
 				sub.setIcon(Images.ZOOM_VIEWS.getIcon());
 				for (SavedViews.SavedView view: views) {
 					sub.add(item=new JMenuItem(view.getName()));
-					item.addActionListener(e->view.update(surfacePanel));
+					item.addActionListener(e->savedViewUpdate(view,surfacePanel));
 				}
 				/* Ansicht löschen */
 				menu.add(sub=new JMenu(Language.tr("Editor.SavedViews.Delete")));
@@ -558,6 +621,28 @@ public final class EditorPanel extends EditorPanelBase {
 
 		final Dimension size=menu.getPreferredSize();
 		menu.show(parent,20-size.width,-size.height);
+	}
+
+	/**
+	 * Wechselt die gespeicherte Ansicht.
+	 * @param delta	Verschiebung der aktiven Ansicht nach oben (-1) oder unten (1)
+	 */
+	private void savedViewSelect(final int delta) {
+		final List<SavedViews.SavedView> views=model.savedViews.getViews();
+		if (views.size()==0) return;
+
+		int selected=-1;
+		for (int i=0;i<views.size();i++) if (views.get(i).isSelected()) {selected=i; break;}
+		if (selected<0) {
+			selected=0;
+		} else {
+			selected+=delta;
+			if (selected<0) selected=views.size()-1;
+			if (selected>=views.size()) selected=0;
+		}
+		final SavedViews.SavedView selectedView=views.get(selected);
+		model.savedViews.setSelected(selectedView);
+		selectedView.set(surfacePanel);
 	}
 
 	/**
@@ -583,6 +668,17 @@ public final class EditorPanel extends EditorPanelBase {
 			}
 			model.savedViews.getViews().add(new SavedViews.SavedView(selectedName,surfacePanel));
 			return;
+		}
+	}
+
+	/**
+	 * Aktualisiert eine gespeicherte Ansicht.
+	 * @param view	Zu aktualisierende Ansicht
+	 * @param surfacePanel	Zeichenfläche
+	 */
+	private void savedViewUpdate(final SavedViews.SavedView view, final ModelSurfacePanel surfacePanel) {
+		if (MsgBox.confirm(this,Language.tr("Editor.SavedViews.Update"),String.format(Language.tr("Editor.SavedViews.Update.Info"),view.getName()),Language.tr("Editor.SavedViews.Update.InfoYes"),Language.tr("Editor.SavedViews.Update.InfoNo"))) {
+			view.update(surfacePanel);
 		}
 	}
 
