@@ -22,6 +22,7 @@ import org.apache.commons.math3.util.FastMath;
 import language.Language;
 import mathtools.NumberTools;
 import scripting.java.ExternalConnect;
+import scripting.java.RuntimeData;
 import simcore.SimData;
 import simcore.eventcache.AssociativeEventCache;
 import simcore.eventmanager.LongRunMultiSortedArrayListEventManager;
@@ -120,6 +121,11 @@ public class SimulationData extends SimData {
 	public ExternalConnect pluginsConnect;
 
 	/**
+	 * Globales Datenobjekt für über alle Stationen hinweg gemeinsam genutzte Skript-Daten
+	 */
+	public RuntimeData runtimeData;
+
+	/**
 	 * Konstruktor der Klasse <code>SimulationData</code>
 	 * @param threadNr		Gibt die Nummer des Threads an, für den das <code>SimDat</code>-Objekt erstellt wird.
 	 * @param threadCount	Anzahl der Rechenthreads
@@ -175,6 +181,8 @@ public class SimulationData extends SimData {
 		if (runModel.pluginsFolder!=null && !runModel.pluginsFolder.trim().isEmpty()) {
 			pluginsConnect=new ExternalConnect(new File(runModel.pluginsFolder));
 		}
+
+		runtimeData=new RuntimeData();
 
 		this.dynamicLoadBalancer=dynamicLoadBalancer;
 	}

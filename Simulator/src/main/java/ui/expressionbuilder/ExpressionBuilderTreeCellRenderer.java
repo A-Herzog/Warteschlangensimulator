@@ -54,6 +54,8 @@ class ExpressionBuilderTreeCellRenderer extends DefaultTreeCellRenderer {
 	private Image iconSimData=null;
 	/** Icon für Stations-IDs */
 	private Image iconStationID=null;
+	/** Icon für Scripting-Map-Abfrage */
+	private Image iconGlobalMap=null;
 	/** Icon für Kundendaten */
 	private Image iconClientData=null;
 
@@ -68,6 +70,7 @@ class ExpressionBuilderTreeCellRenderer extends DefaultTreeCellRenderer {
 		iconDistribution=Images.EXPRESSION_BUILDER_DISTRIBUTION.getImage();
 		iconSimData=Images.EXPRESSION_BUILDER_SIMDATA.getImage();
 		iconStationID=Images.EXPRESSION_BUILDER_STATION_ID.getImage();
+		iconGlobalMap=Images.EXPRESSION_BUILDER_GLOBAL_MAP.getImage();
 		iconClientData=Images.EXPRESSION_BUILDER_CLIENT_DATA.getImage();
 	}
 
@@ -128,6 +131,7 @@ class ExpressionBuilderTreeCellRenderer extends DefaultTreeCellRenderer {
 		case TYPE_DISTRIBUTION: return iconDistribution;
 		case TYPE_SIMDATA: return iconSimData;
 		case TYPE_STATION_ID: return iconStationID;
+		case TYPE_GLOBAL_MAP: return iconGlobalMap;
 		case TYPE_CLIENTDATA: return iconClientData;
 		}
 

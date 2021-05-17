@@ -83,6 +83,7 @@ public class ExpressionBuilderAutoComplete {
 		case TYPE_FUNCTION: return Images.EXPRESSION_BUILDER_FUNCTION.getIcon();
 		case TYPE_SIMDATA: return Images.EXPRESSION_BUILDER_SIMDATA.getIcon();
 		case TYPE_STATION_ID: return Images.EXPRESSION_BUILDER_STATION_ID.getIcon();
+		case TYPE_GLOBAL_MAP: return Images.EXPRESSION_BUILDER_GLOBAL_MAP.getIcon();
 		case TYPE_VARIABLE: return Images.EXPRESSION_BUILDER_VARIABLE.getIcon();
 		default: return Images.EXPRESSION_BUILDER.getIcon();
 		}

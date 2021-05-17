@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-05-16 00:07+0200\n"
+"POT-Creation-Date: 2021-05-17 19:36+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -5341,6 +5341,12 @@ msgstr "<p>Liefert die aktuelle Simulationszeit gemessen in Sekunden seit Beginn
 
 msgid "ExpressionBuilder.SimulationCharacteristics.DownNumber"
 msgstr "Anzahl in Pause"
+
+msgid "ExpressionBuilder.SimulationCharacteristics.GlobalMap.Info"
+msgstr "Fragt ein Datenfeld aus der über Scripting-Elemente belegten Zuordnung \"getMapGlobal()\" ab."
+
+msgid "ExpressionBuilder.SimulationCharacteristics.GlobalMapKeys"
+msgstr "Daten aus Scripting-Zuordnung abfragen"
 
 msgid "ExpressionBuilder.SimulationCharacteristics.HistogramMultiple"
 msgstr "Bereich"
@@ -13388,6 +13394,18 @@ msgstr "Wert über Netzwerk laden"
 
 msgid "ScriptPopup.Runtime.LoadValue.Hint"
 msgstr "Lädt einen numerischen Wert über eine http- oder https-Verbindung"
+
+msgid "ScriptPopup.Runtime.MapGlobal"
+msgstr "Globale Zuordnung"
+
+msgid "ScriptPopup.Runtime.MapGlobal.Hint"
+msgstr "Liefert die modellweit gültige Zuordnung zur Speicherung beliebiger Werte."
+
+msgid "ScriptPopup.Runtime.MapLocal"
+msgstr "Lokale Zuordnung"
+
+msgid "ScriptPopup.Runtime.MapLocal.Hint"
+msgstr "Liefert die stations-lokale Zuordnung zur Speicherung beliebiger Werte."
 
 msgid "ScriptPopup.Runtime.Time"
 msgstr "Computerzeit"

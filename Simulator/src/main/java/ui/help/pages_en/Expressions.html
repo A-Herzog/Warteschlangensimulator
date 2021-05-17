@@ -350,17 +350,6 @@ one of these probability distributions:
   <tr><td>HyperbolicSecantDist(a;b)</td><td>Generates a random number based on this distribution</td></tr>
   <tr><td>HyperbolicSecantDistRange(min;max;a;b)</td><td>Generates a random number based on this distribution but limits the range of the value to min...max.</td></tr>
     
-  <tr><td colspan="2"><b>Distribution based on empirical values</b></td></tr>
-  <tr><td>EmpiricalDensity(x;value1;value2;value3;...;max)</td><td>Calculates the probability density at x. The specified values will be used for the density in the range from 0 to max.</td></tr>
-  <tr><td>EmpiricalDistribution(x;value1;value2;value3;...;max)</td><td>Calculates the cumulative distribution function at x. The specified values will be used for the density in the range from 0 to max.</td></tr>
-  <tr><td>EmpiricalRandom(value1;value2;value3;...;max)</td><td>Generates a random number based on this distribution. The specified values will be used for the density in the range from 0 to max.</td></tr>
-  <tr><td>EmpiricalDistributionMean(value1;value2;value3;...;max)</td><td>Calculates the expected value of the distribution.</td></tr>
-  <tr><td>EmpiricalDistributionMedian(value1;value2;value3;...;max)</td><td>Calculates the median of the distribution.</td></tr>
-  <tr><td>EmpiricalDistributionQuantil(value1;value2;value3;...;max;p)</td><td>Calculates the quantil for the probability p of the distribution.</td></tr>
-  <tr><td>EmpiricalDistributionSD(value1;value2;value3;...;max)</td><td>Calculates the standard deviation of the distribution.</td></tr>
-  <tr><td>EmpiricalDistributionVar(value1;value2;value3;...;max)</td><td>Calculates the variance of the distribution.</td></tr>
-  <tr><td>EmpiricalDistributionCV(value1;value2;value3;...;max)</td><td>Calculates the coefficient of variation of the distribution.</td></tr>
-  
   <tr><td colspan="2"><b>Left sawtooth distribution over [a;b]</b></td></tr>
   <tr><td>LeftSawtoothDist(x;a;b;0)</td><td>Calculates the probability density at x</td></tr>
   <tr><td>LeftSawtoothDist(x;a;b;1)</td><td>Calculates the cumulative distribution function at x</td></tr>
@@ -380,6 +369,17 @@ one of these probability distributions:
   <tr><td>RightSawtoothDistDirect(x;a;b;0)</td><td>Calculates the probability density at x</td></tr>
   <tr><td>RightSawtoothDistDirect(x;a;b;1)</td><td>Calculates the cumulative distribution function at x</td></tr>
   <tr><td>RightSawtoothDistDirect(a;b)</td><td>Generates a random number based on this distribution</td></tr>
+    
+  <tr><td colspan="2"><b>Distribution based on empirical values</b></td></tr>
+  <tr><td>EmpiricalDensity(x;value1;value2;value3;...;max)</td><td>Calculates the probability density at x. The specified values will be used for the density in the range from 0 to max.</td></tr>
+  <tr><td>EmpiricalDistribution(x;value1;value2;value3;...;max)</td><td>Calculates the cumulative distribution function at x. The specified values will be used for the density in the range from 0 to max.</td></tr>
+  <tr><td>EmpiricalRandom(value1;value2;value3;...;max)</td><td>Generates a random number based on this distribution. The specified values will be used for the density in the range from 0 to max.</td></tr>
+  <tr><td>EmpiricalDistributionMean(value1;value2;value3;...;max)</td><td>Calculates the expected value of the distribution.</td></tr>
+  <tr><td>EmpiricalDistributionMedian(value1;value2;value3;...;max)</td><td>Calculates the median of the distribution.</td></tr>
+  <tr><td>EmpiricalDistributionQuantil(value1;value2;value3;...;max;p)</td><td>Calculates the quantil for the probability p of the distribution.</td></tr>
+  <tr><td>EmpiricalDistributionSD(value1;value2;value3;...;max)</td><td>Calculates the standard deviation of the distribution.</td></tr>
+  <tr><td>EmpiricalDistributionVar(value1;value2;value3;...;max)</td><td>Calculates the variance of the distribution.</td></tr>
+  <tr><td>EmpiricalDistributionCV(value1;value2;value3;...;max)</td><td>Calculates the coefficient of variation of the distribution.</td></tr>
 
 </table>
 
@@ -443,6 +443,8 @@ using the Allen-Cunneen approximation formula:
   <tr><td>WiederholungenAnzahl()</td></tr>
     
   <tr><td>$("Name")</td><td>Gets the ID of the element with the name which is enter between the quotation marks. If there is not station with this name, the function will return -1.</td></tr>
+  
+  <tr><td>§("Key")</td><td>Returns the value from the map which can be accessed by <tt>getMapGlobal()</tt> at scripting elements.</td></tr>
 
 
 

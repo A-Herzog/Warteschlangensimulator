@@ -241,6 +241,16 @@ In case of an error -1 will be returned.
 Executing external programs by scripts is disabled by default. If can be activated
 in the program settings dialog.
 
+\item
+\cmd{Map<String,Object> getMapLocal()}:\\
+Returns a station-local mapping into which values can be written and from which values can be read.
+The values stored here are retained beyond the execution of the current script.  
+
+\item
+\cmd{Map<String,Object> getMapGlobal()}:\\
+Returns a model wide mapping into which values can be written and from which values can be read.
+The values stored here are retained beyond the execution of the current script.
+
 \end{itemize}
 
 

@@ -360,6 +360,9 @@ public enum Images {
 	/** Symbol im Expression-Builder "Stations-ID aus Name bestimmen" */
 	EXPRESSION_BUILDER_STATION_ID("station.png"),
 
+	/** Symbol im Expression-Builder "Daten aus Scripting-Zuordnung abfragen" */
+	EXPRESSION_BUILDER_GLOBAL_MAP("page_white_code_red.png"),
+
 	/** Symbol im Expression-Builder "Kundenspezifische Simulationsdaten" */
 	EXPRESSION_BUILDER_CLIENT_DATA("user.png"),
 

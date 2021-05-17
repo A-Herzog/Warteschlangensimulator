@@ -17,7 +17,9 @@ package simulator.simparser;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import parser.CalcSystem;
 import parser.MathCalcError;
@@ -156,6 +158,7 @@ public class ExpressionCalc extends CalcSystem {
 	static {
 		functions=new ArrayList<>(256);
 
+		functions.add(new CalcSymbolScriptMap());
 		functions.add(new CalcSymbolStationText());
 
 		functions.add(new CalcSymbolSimDataSimTime());
@@ -399,11 +402,11 @@ public class ExpressionCalc extends CalcSystem {
 	}
 
 	/**
-	 * Übersetzungsindex von Stationsnamen zur internen Nummerierung.
+	 * Übersetzungsindex von internen Nummern zu Texten.
 	 * @see #parse(String)
 	 * @see #getStationIDFromTranslationIndex(int)
 	 */
-	private List<String> stationTranslation;
+	private Map<String,List<String>> textTranslation;
 
 	/**
 	 * Cache zur Übersetzung von Stations-Übersetzungs-Indices
@@ -411,6 +414,23 @@ public class ExpressionCalc extends CalcSystem {
 	 *  @see #getStationIDFromTranslationIndex(int)
 	 */
 	private int[] stationTranslationCache;
+
+	/**
+	 * Aktueller Modus beim Parsen
+	 * @see ExpressionCalc#parse(String)
+	 */
+	private enum Mode {
+		/** Zeichen an primären Parser durchreichen */
+		NORMAL,
+		/** Erstes Startzeichen für Textausdruck erkannt */
+		START_STEP1,
+		/** Zweites Startzeichen für Textausdruck erkannt */
+		START_STEP2,
+		/** Innerhalb eines Textausdrucks */
+		TEXT_CONTENT,
+		/** Escape-Zeichen innerhalb eines Textausdrucks erkannt */
+		ESCAPE
+	}
 
 	/**
 	 * Speichert das {@link StringBuilder}-Objekt für eine spätere
@@ -423,9 +443,11 @@ public class ExpressionCalc extends CalcSystem {
 	public int parse(final String text) {
 		if (text==null || text.isEmpty()) return 0;
 
-		if (text.indexOf('$')<0) return super.parse(text);
+		if (text.indexOf('$')<0 && text.indexOf('§')<0) return super.parse(text);
 
-		int mode=0;
+		char type=' ';
+		Mode mode=Mode.NORMAL;
+		char delimiter=' ';
 
 		if (parseStringBuilder==null) parseStringBuilder=new StringBuilder(); else parseStringBuilder.setLength(0);
 		final StringBuilder sb=parseStringBuilder;
@@ -435,62 +457,43 @@ public class ExpressionCalc extends CalcSystem {
 			final char c=text.charAt(i);
 
 			switch (mode) {
-			case 0:
+			case NORMAL:
 				sb.append(c);
-				if (c=='$') mode=1;
+				if (c=='$' || c=='§') {
+					type=c;
+					mode=Mode.START_STEP1;
+				}
 				break;
-			case 1:
+			case START_STEP1:
 				sb.append(c);
-				if (c=='(') mode=2; else mode=0;
+				if (c=='(') mode=Mode.START_STEP2; else mode=Mode.NORMAL;
 				break;
-			case 2:
-				if (c=='"') {mode=3; break;}
-				if (c=='\'') {mode=5; break;}
-				mode=0; sb.append(c);
+			case START_STEP2:
+				if (c=='"' || c=='\'') {delimiter=c; mode=Mode.TEXT_CONTENT; break;}
+				mode=Mode.NORMAL; sb.append(c);
 				break;
-			case 3:
-				if (c=='"') {
-					if (stationTranslation==null) stationTranslation=new ArrayList<>();
-					if (sub==null) stationTranslation.add(""); else stationTranslation.add(sub.toString());
+			case TEXT_CONTENT:
+				if (c==delimiter) {
+					if (textTranslation==null) textTranslation=new HashMap<>();
+					final List<String> list=textTranslation.computeIfAbsent(""+type,k->new ArrayList<>());
+					if (sub==null) list.add(""); else list.add(sub.toString());
 					sub=null;
-					sb.append(""+(stationTranslation.size()-1));
-					mode=0;
+					sb.append(""+(list.size()-1));
+					mode=Mode.NORMAL;
 				} else {
 					if (c=='\\') {
-						mode=4;
+						mode=Mode.ESCAPE;
 					} else {
 						if (sub==null) sub=new StringBuilder();
 						sub.append(c);
 					}
 				}
 				break;
-			case 4:
+			case ESCAPE:
 				if (sub==null) sub=new StringBuilder();
-				if (c=='"') sub.append('"'); else {sub.append('\\'); sub.append(c);}
-				mode=3;
+				if (c==delimiter) sub.append(delimiter); else {sub.append('\\'); sub.append(c);}
+				mode=Mode.TEXT_CONTENT;
 				break;
-			case 5:
-				if (c=='\'') {
-					if (stationTranslation==null) stationTranslation=new ArrayList<>();
-					if (sub==null) stationTranslation.add(""); else stationTranslation.add(sub.toString());
-					sub=null;
-					sb.append(""+(stationTranslation.size()-1));
-					mode=0;
-				} else {
-					if (c=='\\') {
-						mode=6;
-					} else {
-						if (sub==null) sub=new StringBuilder();
-						sub.append(c);
-					}
-				}
-				break;
-			case 6:
-				if (sub==null) sub=new StringBuilder();
-				if (c=='\'') sub.append('\''); else {sub.append('\\'); sub.append(c);}
-				mode=5;
-				break;
-
 			}
 		}
 		return super.parse(sb.toString());
@@ -515,19 +518,35 @@ public class ExpressionCalc extends CalcSystem {
 	 * @return	Stations-ID oder -1, wenn es keine Station mit dem angegebenen Namen gibt
 	 */
 	public int getStationIDFromTranslationIndex(final int index) {
-		if (stationTranslation==null || stationTranslation.isEmpty()) return -1;
+		if (textTranslation==null) return -1;
+		final List<String> list=textTranslation.get("$");
+		if (list==null) return -1;
 		if (simData==null) return -1;
 
 		if (stationTranslationCache==null) {
-			stationTranslationCache=new int[stationTranslation.size()];
+			stationTranslationCache=new int[list.size()];
 			Arrays.fill(stationTranslationCache,-2);
 		}
 
 		if (index<0 || index>=stationTranslationCache.length) return -1;
 
-		if (stationTranslationCache[index]==-2) stationTranslationCache[index]=getStationIDFromName(stationTranslation.get(index));
+		if (stationTranslationCache[index]==-2) stationTranslationCache[index]=getStationIDFromName(list.get(index));
 
 		return stationTranslationCache[index];
+	}
+
+	/**
+	 * Liefert einen Text, der beim Parsen durch einen Index ersetzt wurde.
+	 * @param key	Startzeichen für die Textbereichs-Erkennung
+	 * @param index	Index in dem Rechenausdruck
+	 * @return	Ursprünglicher Text an der Stelle
+	 */
+	public String getTextContent(final String key, final int index) {
+		if (textTranslation==null) return null;
+		final List<String> list=textTranslation.get(key);
+		if (list==null) return null;
+		if (index<0 || index>=list.size()) return null;
+		return list.get(index);
 	}
 
 	/**

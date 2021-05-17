@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-05-16 00:07+0200\n"
+"POT-Creation-Date: 2021-05-17 19:36+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -5355,6 +5355,12 @@ msgstr "<p>Returns the current simulation time measured in seconds since the sim
 
 msgid "ExpressionBuilder.SimulationCharacteristics.DownNumber"
 msgstr "Number down"
+
+msgid "ExpressionBuilder.SimulationCharacteristics.GlobalMap.Info"
+msgstr "Queries a data field from the \"getMapGlobal()\" map populated by scripting elements."
+
+msgid "ExpressionBuilder.SimulationCharacteristics.GlobalMapKeys"
+msgstr "Get data from global scripting map"
 
 msgid "ExpressionBuilder.SimulationCharacteristics.HistogramMultiple"
 msgstr "Range"
@@ -13388,6 +13394,18 @@ msgstr "Load value via network"
 
 msgid "ScriptPopup.Runtime.LoadValue.Hint"
 msgstr "Loads a numerical value via a http/https connection"
+
+msgid "ScriptPopup.Runtime.MapGlobal"
+msgstr "Global map"
+
+msgid "ScriptPopup.Runtime.MapGlobal.Hint"
+msgstr "Returns the model-wide map for storing any values."
+
+msgid "ScriptPopup.Runtime.MapLocal"
+msgstr "Local map"
+
+msgid "ScriptPopup.Runtime.MapLocal.Hint"
+msgstr "Returns the station local map for storing any values."
 
 msgid "ScriptPopup.Runtime.Time"
 msgstr "Computer time"

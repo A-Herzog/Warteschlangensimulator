@@ -85,7 +85,7 @@ public class SimulationImpl implements SimulationInterface {
 
 	@Override
 	public RuntimeInterface getRuntime() {
-		if (runtime==null) runtime=new RuntimeImpl();
+		if (runtime==null) runtime=new RuntimeImpl(system.getMapGlobal());
 		return runtime;
 	}
 

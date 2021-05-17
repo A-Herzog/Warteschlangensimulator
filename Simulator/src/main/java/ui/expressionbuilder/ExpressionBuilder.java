@@ -267,7 +267,7 @@ public class ExpressionBuilder extends BaseDialog {
 	}
 
 	/**
-	 * Fügt die Stationds-IDs zur Baumstruktur hinzu
+	 * Fügt die Stations-IDs zur Baumstruktur hinzu
 	 * @param root	Wurzelelement der Baumstruktur
 	 * @param filterUpper	Filtertext (kann <code>null</code> sein); ist ein Filtertext angegeben, so wird ein Eintrag nur in die Baumstruktur aufgenommen, wenn er zum Filtertext passt
 	 */
@@ -300,6 +300,17 @@ public class ExpressionBuilder extends BaseDialog {
 	}
 
 	/**
+	 * Fügt die Stations-IDs zur Baumstruktur hinzu
+	 * @param root	Wurzelelement der Baumstruktur
+	 * @param filterUpper	Filtertext (kann <code>null</code> sein); ist ein Filtertext angegeben, so wird ein Eintrag nur in die Baumstruktur aufgenommen, wenn er zum Filtertext passt
+	 */
+	private void buildTreeDataGlobalMapKeys(final DefaultMutableTreeNode root, final String filterUpper) {
+		DefaultMutableTreeNode group=new DefaultMutableTreeNode(Language.tr("ExpressionBuilder.SimulationCharacteristics.GlobalMapKeys"));
+		addTreeNode(group,filterUpper,Language.tr("ExpressionBuilder.SimulationCharacteristics.GlobalMapKeys"),"§(\"key\")","<p>"+Language.tr("ExpressionBuilder.SimulationCharacteristics.GlobalMap.Info")+"</p>",ExpressionSymbolType.TYPE_GLOBAL_MAP);
+		if (group.getChildCount()>0) root.add(group);
+	}
+
+	/**
 	 * Erstellt die Baumstruktur
 	 * @param filter	Optionaler Filter (kann <code>null</code> sein)
 	 * @return	Wurzelelement der neuen Baumstruktur
@@ -316,6 +327,7 @@ public class ExpressionBuilder extends BaseDialog {
 		if (!noSimulator) {
 			ExpressionBuilderSimulationData.build(root,pathsToOpen,statisticsOnly,hasClientData,filterUpper);
 			buildTreeDataStationIDs(root,filterUpper);
+			buildTreeDataGlobalMapKeys(root,filterUpper);
 		}
 		if (isCompare) ExpressionBuilderCompare.build(root,pathsToOpen,filterUpper);
 
@@ -424,6 +436,11 @@ public class ExpressionBuilder extends BaseDialog {
 		 * Abfrage der ID einer Station basierend auf ihrem Namen
 		 */
 		TYPE_STATION_ID,
+
+		/**
+		 * Abfrage von Daten aus der globalen Zuordnung im Scripting-System
+		 */
+		TYPE_GLOBAL_MAP,
 
 		/**
 		 * Funktion zur Abfrage von kundenspezifischen Simulationsdaten

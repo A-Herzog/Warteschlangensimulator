@@ -252,9 +252,11 @@ public final class DynamicMethod {
 		} catch (SecurityException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
 			if (e instanceof InvocationTargetException) {
 				final Throwable e2=((InvocationTargetException)e).getTargetException();
-				error=e2.getClass().getName()+": "+e2.getMessage();
+				final String msg=e2.getMessage();
+				if (msg==null) error=e2.getClass().getName(); else error=e2.getClass().getName()+": "+msg;
 			} else {
-				error=e.getClass().getName()+": "+e.getMessage();
+				final String msg=e.getMessage();
+				if (msg==null) error=e.getClass().getName(); else error=e.getClass().getName()+": "+msg;
 			}
 			return DynamicStatus.RUN_ERROR;
 		}

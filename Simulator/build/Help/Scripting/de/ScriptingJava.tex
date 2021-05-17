@@ -258,7 +258,17 @@ Führt ein externes Programm aus und liefert den Rückgabecode des Programms zur
 Im Fehlerfall wird -1 zurückgeliefert.
 Die Ausführung externer Programme durch Skripte ist standardmäßig deaktiviert
 und muss zunächst im Einstellungen-Dialog aktiviert.
-	
+
+\item
+\cmd{Map<String,Object> getMapLocal()}:\\
+Liefert eine stations-lokale Zuordnung, in die Werte geschrieben und aus der Werte gelesen werden können.
+Die hier gespeicherten Werte bleiben über die Ausführung des aktuellen Skriptes hinaus erhalten.
+
+\item
+\cmd{Map<String,Object> getMapGlobal()}:\\
+Liefert eine modellweite Zuordnung, in die Werte geschrieben und aus der Werte gelesen werden können.
+Die hier gespeicherten Werte bleiben über die Ausführung des aktuellen Skriptes hinaus erhalten.
+
 \end{itemize}
 
 

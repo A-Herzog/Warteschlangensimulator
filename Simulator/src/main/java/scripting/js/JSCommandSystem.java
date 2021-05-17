@@ -32,6 +32,7 @@ import language.Language;
 import mathtools.NumberTools;
 import mathtools.TimeTools;
 import parser.MathCalcError;
+import scripting.java.RuntimeData;
 import simulator.coreelements.RunElement;
 import simulator.elements.RunElementAnalogValue;
 import simulator.elements.RunElementTank;
@@ -972,5 +973,27 @@ public final class JSCommandSystem extends JSBaseCommand {
 		} else {
 			simData.runModel.elementsFast[currentStation].log(simData,"Log",obj.toString());
 		}
+	}
+
+	/**
+	 * Stations-lokales Datenobjekt für Skript-Daten
+	 */
+	private RuntimeData mapLocal=new RuntimeData();
+
+	/**
+	 * Liefert das Stations-lokales Datenobjekt für Skript-Daten.
+	 * @return	Stations-lokales Datenobjekt für Skript-Daten
+	 */
+	public Map<String,Object> getMapLocal() {
+		return mapLocal.get();
+	}
+
+	/**
+	 * Liefert das globale Datenobjekt für über alle Stationen hinweg gemeinsam genutzte Skript-Daten.
+	 * @return	Globales Datenobjekt für über alle Stationen hinweg gemeinsam genutzte Skript-Daten
+	 */
+	public Map<String,Object> getMapGlobal() {
+		if (simData==null) return null;
+		return simData.runtimeData.get();
 	}
 }

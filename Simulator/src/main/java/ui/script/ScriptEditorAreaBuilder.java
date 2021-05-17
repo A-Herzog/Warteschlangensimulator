@@ -173,7 +173,12 @@ public class ScriptEditorAreaBuilder {
 		}
 
 		/* AutoComplete */
-		autoCompleteProvider=new DefaultCompletionProvider();
+		autoCompleteProvider=new DefaultCompletionProvider() {
+			@Override
+			protected boolean isValidChar(char ch) {
+				return super.isValidChar(ch) || ch=='.'; /* Autovervollständigung nicht abbrechen, wenn ein "." getippt wird. */
+			}
+		};
 		if (language==ScriptMode.Javascript) {
 			addAutoComplete(Language.tr("Statistic.FastAccess.Template.JSEngineName"),Language.tr("Statistic.FastAccess.Template.JSEngineName.Hint"),Images.SCRIPT_RECORD_TEXT.getIcon(),"JS_ENGINE_NAME");
 		}
@@ -231,6 +236,8 @@ public class ScriptEditorAreaBuilder {
 		String runtimeExecute1="";
 		String runtimeExecute2="";
 		String runtimeExecute3="";
+		String runtimeMapLocal="";
+		String runtimeMapGlobal="";
 
 		if (language==ScriptMode.Javascript && features.contains(ScriptFeature.JSSystem)) {
 			runtimeCalc="System.calc(\"1+2\");";
@@ -239,6 +246,8 @@ public class ScriptEditorAreaBuilder {
 			runtimeExecute1="System.execute(\"program.exe\");";
 			runtimeExecute2="System.executeAndReturnOutput(\"program.exe\");";
 			runtimeExecute3="System.executeAndWait(\"program.exe\");";
+			runtimeMapLocal="System.getMapLocal()";
+			runtimeMapGlobal="System.getMapGlobal()";
 		}
 
 		if (language==ScriptMode.Java) {
@@ -248,6 +257,8 @@ public class ScriptEditorAreaBuilder {
 			runtimeExecute1="sim.getRuntime().execute(\"program.exe\");";
 			runtimeExecute2="sim.getRuntime().executeAndReturnOutput(\"program.exe\");";
 			runtimeExecute3="sim.getRuntime().executeAndWait(\"program.exe\");";
+			runtimeMapLocal="sim.getRuntime().getMapLocal()";
+			runtimeMapGlobal="sim.getRuntime().getMapGlobal()";
 		}
 
 		addAutoComplete(Language.tr("ScriptPopup.Runtime.Calc"),Language.tr("ScriptPopup.Runtime.Calc.Hint"),Images.SCRIPT_RECORD_EXPRESSION.getIcon(),runtimeCalc);
@@ -258,6 +269,8 @@ public class ScriptEditorAreaBuilder {
 			addAutoComplete(Language.tr("ScriptPopup.Runtime.ExecuteAndReturnOutput"),Language.tr("ScriptPopup.Runtime.ExecuteAndReturnOutput.Hint"),Images.SCRIPT_RECORD_EXECUTE_PROGRAM.getIcon(),runtimeExecute2);
 			addAutoComplete(Language.tr("ScriptPopup.Runtime.ExecuteAndWait"),Language.tr("ScriptPopup.Runtime.ExecuteAndWait.Hint"),Images.SCRIPT_RECORD_EXECUTE_PROGRAM.getIcon(),runtimeExecute3);
 		}
+		addAutoComplete(Language.tr("ScriptPopup.Runtime.MapLocal"),Language.tr("ScriptPopup.Runtime.MapLocal.Hint"),Images.SCRIPT_RECORD_EXPRESSION.getIcon(),runtimeMapLocal);
+		addAutoComplete(Language.tr("ScriptPopup.Runtime.MapGlobal"),Language.tr("ScriptPopup.Runtime.MapGlobal.Hint"),Images.SCRIPT_RECORD_EXPRESSION.getIcon(),runtimeMapGlobal);
 	}
 
 	/**

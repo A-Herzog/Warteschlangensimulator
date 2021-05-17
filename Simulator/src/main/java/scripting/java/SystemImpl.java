@@ -304,4 +304,13 @@ public class SystemImpl implements SystemInterface {
 			simData.runModel.elementsFast[currentStation].log(simData,"Log",obj.toString());
 		}
 	}
+
+	/**
+	 * Liefert das globale Datenobjekt für über alle Stationen hinweg gemeinsam genutzte Skript-Daten.
+	 * @return	Globales Datenobjekt für über alle Stationen hinweg gemeinsam genutzte Skript-Daten
+	 */
+	public RuntimeData getMapGlobal() {
+		if (simData==null) return null;
+		return simData.runtimeData;
+	}
 }

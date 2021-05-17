@@ -164,11 +164,11 @@ public class ExternalConnect {
 	 * @param data	Benutzerdatenobjekt, das an die Nutzer-Methode weitergereicht wird
 	 * @return	Rückgabewert der Nutzer-Methode (liefert <code>null</code>, wenn der Aufruf nicht möglich war)
 	 */
-	public Object runFunction(final String className, final String functionName, final SystemInterface systemData, final Object data) {
+	public Object runFunction(final String className, final String functionName, final SystemImpl systemData, final Object data) {
 		final RunRecord runRecord=getRunRecord(className,functionName);
 		if (runRecord==null) return null;
 
-		if (runtime==null) runtime=new RuntimeImpl();
+		if (runtime==null) runtime=new RuntimeImpl(systemData.getMapGlobal());
 
 		return runRecord.run(runtime,systemData,data);
 	}

@@ -347,17 +347,6 @@ auf Basis einer dieser Wahrscheinlichkeitsverteilungen berechnet werden:
   <tr><td>HyperbolicSecantDist(a;b)</td><td>Erzeugt eine Zufallszahl gemäß der Verteilung</td></tr>
   <tr><td>HyperbolicSecantDistRange(min;max;a;b)</td><td>Erzeugt eine Zufallszahl gemäß der Verteilung und stellt dabei sicher, dass sich das Ergebnis in dem Bereich von min bis max befindet.</td></tr>
 
-  <tr><td colspan="2"><b>Verteilung aus empirischen Daten</b></td></tr>
-  <tr><td>EmpirischeDichte(x;wert1;wert2;wert3;...;max)</td><td>Berechnet die Dichte an der Stelle x. Die angegebenen Werte werden dabei auf den Bereich von 0 bis max verteilt.</td></tr>
-  <tr><td>EmpirischeVerteilung(x;wert1;wert2;wert3;...;max)</td><td>Berechnet den Wert der Verteilungsfunktion an der Stelle x. Die angegebenen Werte werden dabei auf den Bereich von 0 bis max verteilt.</td></tr>
-  <tr><td>EmpirischeZufallszahl(wert1;wert2;wert3;...;max)</td><td>Erzeugt eine Zufallszahl gemäß der Verteilung. Die angegebenen Werte werden dabei auf den Bereich von 0 bis max verteilt.</td></tr>
-  <tr><td>EmpirischeVerteilungMittelwert(wert1;wert2;wert3;...;max)</td><td>Liefert den Erwartungswert der Verteilung.</td></tr>
-  <tr><td>EmpirischeVerteilungMedian(wert1;wert2;wert3;...;max)</td><td>Liefert den Median der Verteilung.</td></tr>
-  <tr><td>EmpirischeVerteilungQuantil(wert1;wert2;wert3;...;max;p)</td><td>Liefert das Quantil zur Wahrscheinlichkeit p der Verteilung.</td></tr>
-  <tr><td>EmpirischeVerteilungSD(wert1;wert2;wert3;...;max)</td><td>Liefert die Standardabweichung der Verteilung.</td></tr>
-  <tr><td>EmpirischeVerteilungVar(wert1;wert2;wert3;...;max)</td><td>Liefert die Varianz der Verteilung.</td></tr>
-  <tr><td>EmpirischeVerteilungCV(wert1;wert2;wert3;...;max)</td><td>Liefert den Variationskoeffizient der Verteilung.</td></tr>
-  
   <tr><td colspan="2"><b>Linke Sägezahnverteilung über [a;b]</b></td></tr>
   <tr><td>LeftSawtoothDist(x;a;b;0)</td><td>Berechnet die Dichte an der Stelle x</td></tr>
   <tr><td>LeftSawtoothDist(x;a;b;1)</td><td>Berechnet den Wert der Verteilungsfunktion an der Stelle x</td></tr>
@@ -377,6 +366,17 @@ auf Basis einer dieser Wahrscheinlichkeitsverteilungen berechnet werden:
   <tr><td>RightSawtoothDistDirect(x;a;b;0)</td><td>Berechnet die Dichte an der Stelle x</td></tr>
   <tr><td>RightSawtoothDistDirect(x;a;b;1)</td><td>Berechnet den Wert der Verteilungsfunktion an der Stelle x</td></tr>
   <tr><td>RightSawtoothDistDirect(a;b)</td><td>Erzeugt eine Zufallszahl gemäß der Verteilung</td></tr>
+
+  <tr><td colspan="2"><b>Verteilung aus empirischen Daten</b></td></tr>
+  <tr><td>EmpirischeDichte(x;wert1;wert2;wert3;...;max)</td><td>Berechnet die Dichte an der Stelle x. Die angegebenen Werte werden dabei auf den Bereich von 0 bis max verteilt.</td></tr>
+  <tr><td>EmpirischeVerteilung(x;wert1;wert2;wert3;...;max)</td><td>Berechnet den Wert der Verteilungsfunktion an der Stelle x. Die angegebenen Werte werden dabei auf den Bereich von 0 bis max verteilt.</td></tr>
+  <tr><td>EmpirischeZufallszahl(wert1;wert2;wert3;...;max)</td><td>Erzeugt eine Zufallszahl gemäß der Verteilung. Die angegebenen Werte werden dabei auf den Bereich von 0 bis max verteilt.</td></tr>
+  <tr><td>EmpirischeVerteilungMittelwert(wert1;wert2;wert3;...;max)</td><td>Liefert den Erwartungswert der Verteilung.</td></tr>
+  <tr><td>EmpirischeVerteilungMedian(wert1;wert2;wert3;...;max)</td><td>Liefert den Median der Verteilung.</td></tr>
+  <tr><td>EmpirischeVerteilungQuantil(wert1;wert2;wert3;...;max;p)</td><td>Liefert das Quantil zur Wahrscheinlichkeit p der Verteilung.</td></tr>
+  <tr><td>EmpirischeVerteilungSD(wert1;wert2;wert3;...;max)</td><td>Liefert die Standardabweichung der Verteilung.</td></tr>
+  <tr><td>EmpirischeVerteilungVar(wert1;wert2;wert3;...;max)</td><td>Liefert die Varianz der Verteilung.</td></tr>
+  <tr><td>EmpirischeVerteilungCV(wert1;wert2;wert3;...;max)</td><td>Liefert den Variationskoeffizient der Verteilung.</td></tr>
 
 </table>
 
@@ -440,6 +440,8 @@ Allen-Cunneen-Approximationsformel berechnet werden:
   <tr><td>RepeatCount()</td></tr>
   
   <tr><td>$("Name")</td><td>Liefert die ID des Elements mit dem Namen, der innerhalb der Anführungszeichen steht. Existiert keine Station mit dem angegebenen Namen, so liefert die Funktion -1.</td></tr>
+  
+  <tr><td>§("Schlüssel")</td><td>Liefert den Wert eines über <tt>getMapGlobal()</tt> in einem Scripting-Element eingestellten Zuordnungswertes.</td></tr>
   
   
   
