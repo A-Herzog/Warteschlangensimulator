@@ -587,11 +587,18 @@ public class SystemInfoWindow extends JFrame {
 		menu.add(label=new JMenuItem("<html>"+Language.tr("SystemInfo.Tools.Info")+"</html>"));
 		label.setEnabled(false);
 
+		/* Zeichenfläche */
+
 		menu.add(label=new JMenuItem("<html><b>"+Language.tr("SystemInfo.Tools.Surface")+"</b></html>"));
 		label.setEnabled(false);
 
 		menu.add(check=new JCheckBoxMenuItem(Language.tr("SystemInfo.Tools.Surface.Antialias"),setup.antialias));
 		check.addActionListener(e->{setup.antialias=!setup.antialias; setup.saveSetup();});
+
+		menu.add(check=new JCheckBoxMenuItem(Language.tr("SystemInfo.Tools.Surface.BackgroundTooltips"),setup.showBackgroundTooltips));
+		check.addActionListener(e->{setup.showBackgroundTooltips=!setup.showBackgroundTooltips; setup.saveSetup();});
+
+		/* Programmoberfläche */
 
 		menu.add(label=new JMenuItem("<html><b>"+Language.tr("SystemInfo.Tools.UserInterface")+"</b></html>"));
 		label.setEnabled(false);
@@ -611,6 +618,8 @@ public class SystemInfoWindow extends JFrame {
 		menu.add(item=new JMenuItem(Language.tr("SystemInfo.Tools.UserInterface.Font"),Images.GENERAL_FONT.getIcon()));
 		item.addActionListener(e->selectProgramFont());
 
+		/* Simulation */
+
 		menu.add(label=new JMenuItem("<html><b>"+Language.tr("SystemInfo.Tools.Simulation")+"</b></html>"));
 		label.setEnabled(false);
 
@@ -619,6 +628,8 @@ public class SystemInfoWindow extends JFrame {
 
 		menu.add(check=new JCheckBoxMenuItem(Language.tr("SystemInfo.Tools.Simulation.LoadBalancer"),setup.useDynamicThreadBalance));
 		check.addActionListener(e->{setup.useDynamicThreadBalance=!setup.useDynamicThreadBalance; setup.saveSetup();});
+
+		/* Trainingsdaten für Folgestationen */
 
 		menu.add(label=new JMenuItem("<html><b>"+Language.tr("SystemInfo.Tools.NextStationTraining")+"</b></html>"));
 		label.setEnabled(false);

@@ -317,6 +317,11 @@ public class SetupData extends SetupBase {
 	public boolean statisticInTooltips;
 
 	/**
+	 * Tooltips auf der Zeichenfläche auch dann anzeigen, wenn durch einen offenen Dialog blockiert ist.
+	 */
+	public boolean showBackgroundTooltips;
+
+	/**
 	 * Anzeige von Heatmap-Statistikdaten auf der Zeichenfläche
 	 * @see ui.EditorPanelStatistics.HeatMapMode
 	 */
@@ -1198,6 +1203,7 @@ public class SetupData extends SetupBase {
 		showStationDescription=false;
 		antialias=true;
 		statisticInTooltips=true;
+		showBackgroundTooltips=false;
 		statisticHeatMap=EditorPanelStatistics.HeatMapMode.OFF;
 		statisticHeatMapSize=50;
 		statisticHeatMapIntensityMin=HeatMapImage.DEFAULT_INTENSITY_MIN;
@@ -1641,6 +1647,11 @@ public class SetupData extends SetupBase {
 
 			if (name.equals("statisticintooltips")) {
 				statisticInTooltips=loadBoolean(e.getTextContent(),true);
+				continue;
+			}
+
+			if (name.equals("backgroundtooltips")) {
+				showBackgroundTooltips=loadBoolean(e.getTextContent(),false);
 				continue;
 			}
 
@@ -2328,6 +2339,11 @@ public class SetupData extends SetupBase {
 		if (!statisticInTooltips) {
 			root.appendChild(node=doc.createElement("StatisticInTooltips"));
 			node.setTextContent("0");
+		}
+
+		if (showBackgroundTooltips) {
+			root.appendChild(node=doc.createElement("BackgroundTooltips"));
+			node.setTextContent("1");
 		}
 
 		if ((statisticHeatMap!=null && statisticHeatMap!=EditorPanelStatistics.HeatMapMode.OFF) || statisticHeatMapSize!=50 || !HeatMapImage.DEFAULT_COLOR_LOW_INTENSITY.equals(statisticHeatMapColorLow) || !HeatMapImage.DEFAULT_COLOR_HIGH_INTENSITY.equals(statisticHeatMapColorHigh) || statisticHeatMapIntensityMin!=HeatMapImage.DEFAULT_INTENSITY_MIN  || statisticHeatMapIntensityMax!=HeatMapImage.DEFAULT_INTENSITY_MAX) {

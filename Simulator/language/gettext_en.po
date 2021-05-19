@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-05-17 19:36+0200\n"
+"POT-Creation-Date: 2021-05-18 15:58+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -28975,6 +28975,9 @@ msgstr "Drawing surface"
 
 msgid "SystemInfo.Tools.Surface.Antialias"
 msgstr "Use antialias"
+
+msgid "SystemInfo.Tools.Surface.BackgroundTooltips"
+msgstr "Show tooltips while dialog is open"
 
 msgid "SystemInfo.Tools.UserInterface"
 msgstr "User interface"

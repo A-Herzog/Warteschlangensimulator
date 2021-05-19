@@ -27,10 +27,12 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.GraphicsEnvironment;
 import java.awt.Image;
+import java.awt.MouseInfo;
 import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.RenderingHints;
 import java.awt.Toolkit;
+import java.awt.Window;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.Transferable;
@@ -41,6 +43,9 @@ import java.awt.dnd.DropTargetAdapter;
 import java.awt.dnd.DropTargetDropEvent;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -67,6 +72,8 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.TooManyListenersException;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
@@ -75,6 +82,7 @@ import java.util.function.Function;
 import javax.imageio.ImageIO;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
+import javax.swing.JDialog;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
@@ -1717,6 +1725,53 @@ public final class ModelSurfacePanel extends JPanel {
 	}
 
 	/**
+	 * Erzeugt einen Timer, der dafür sorgt, dass auch dann Tooltips für die Zeichenfläche
+	 * angezeigt werden können, wenn diese durch ein anderes modales Fenster blockiert ist.
+	 * @return	Timer zur Prüfung und Anzeige von Tooltips
+	 */
+	private Timer buildTooltipTimer() {
+		final Window ownWindow=SwingUtilities.getWindowAncestor(ModelSurfacePanel.this);
+		final Timer timer=new Timer("BackgroundTooltipUpdater");
+		timer.scheduleAtFixedRate(new TimerTask() {
+			private int lastX;
+			private int lastY;
+			@Override
+			public void run() {
+				final Point pScreen=MouseInfo.getPointerInfo().getLocation();
+				if (lastX==pScreen.x && lastY==pScreen.y) return; /* Für Tooltips muss die Maus ruhig stehen, daher keine unnötigen Events senden. */
+				lastX=pScreen.x;
+				lastY=pScreen.y;
+				final Point pLocal=new Point(pScreen);
+				SwingUtilities.convertPointFromScreen(pLocal,ModelSurfacePanel.this);
+
+				/* Keinen Tooltip anzeigen, wenn anderen Fenster an der aktuellen Mausposition ist */
+				for (Window wnd: ownWindow.getOwnedWindows()) {
+					if (!(wnd instanceof JDialog)) continue;
+					if (!wnd.isDisplayable()) continue;
+					if (!wnd.isVisible()) continue;
+					final Point location=wnd.getLocationOnScreen();
+					final Dimension size=wnd.getSize();
+					if (pScreen.x>=location.x && pScreen.x<=location.x+size.width && pScreen.y>=location.y && pScreen.y<=location.y+size.height) return; /* Mauszeiger in anderem Fenster */
+				}
+
+				/* Mausbewegung an eigene Ereignisbehandlung durchreichen */
+				final MouseEvent event=new MouseEvent(ModelSurfacePanel.this,MouseEvent.MOUSE_MOVED,System.currentTimeMillis(),0,pLocal.x,pLocal.y,pScreen.x,pScreen.y,0,false,0);
+				ModelSurfacePanel.this.dispatchEvent(event);
+			}
+		},500,100);
+		return timer;
+	}
+
+	/**
+	 * Fokus-Listener, der beim Aufruf eines Element-Bearbeiten-Dialogs
+	 * aktiviert und danach wieder deaktiviert wird. Auf diese Weise
+	 * können der Tooltip-Timer deaktiviert und nach dem Dialog notwendige
+	 * Updates durchgeführt werden.
+	 * @see #showElementProperties(ModelElement, int)
+	 */
+	private FocusListener focusListener;
+
+	/**
 	 * Ruft den Modelleigenschaften-Dialog einer Station auf.
 	 * @param element	Aktuelle Station
 	 * @param modifieres	Gedrückte Umschalt-Tasten
@@ -1730,6 +1785,18 @@ public final class ModelSurfacePanel extends JPanel {
 		dragCopyElement=null;
 		dragStartElementPosition=null;
 		element.setModel(model);
+
+		final Timer timer=SetupData.getSetup().showBackgroundTooltips?buildTooltipTimer():null;
+
+		focusListener=new FocusAdapter() {
+			@Override
+			public void focusGained(FocusEvent e) {
+				fireStateChangeListener(); /* Die Aufrufe unten funktionieren nicht, da die Methode sofort zurückkehrt und die Dialog erst per invokeLater sichtbar werden. */
+				removeFocusListener(focusListener);
+				if (timer!=null) timer.cancel();
+			}
+		};
+		addFocusListener(focusListener);
 
 		/* Simulationsdaten */
 		if ((modifieres & InputEvent.CTRL_DOWN_MASK)!=0 && (modifieres & InputEvent.SHIFT_DOWN_MASK)!=0 && (modifieres & InputEvent.ALT_DOWN_MASK)==0) {

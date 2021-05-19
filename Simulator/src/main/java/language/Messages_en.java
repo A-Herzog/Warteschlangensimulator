@@ -8420,6 +8420,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[19123] = "<p>Generates a random number according to the Johnson SU distribution with the parameters &gamma;, &xi;, &delta; and &lambda; according to the third to sixth parameters.</p>\n<p>The first and second parameter specify the range in which the random number should be located.</p>";
     t[19124] = "NotesDialog.Status.Main";
     t[19125] = "The note is on the <b>main surface</b>.";
+    t[19134] = "SystemInfo.Tools.Surface.BackgroundTooltips";
+    t[19135] = "Show tooltips while dialog is open";
     t[19136] = "ModelDescription.Database.Type";
     t[19137] = "Database type";
     t[19140] = "QuickAccess.Book.Hint";
@@ -10032,14 +10034,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[22821] = "Logic EndIf";
     t[22822] = "Surface.HoldMulti.XML.Connection.Condition";
     t[22823] = "Condition";
-    t[22824] = "CommandLine.Dialog.Results";
-    t[22825] = "Results";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_5 (java.lang.String[] t) {
+    t[22824] = "CommandLine.Dialog.Results";
+    t[22825] = "Results";
     t[22830] = "Surface.PopupMenu.SimulationStatisticsData.Data.LastArrivalByClientTypeType";
     t[22831] = "Last client arrival of client type \"%s\": %s";
     t[22838] = "Simulation.Creator.OutputDDE.NoWorkbook";
@@ -12038,14 +12040,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[27439] = "unlimited";
     t[27444] = "Surface.Action.Dialog.Edit.Tabs.Action.Analog.Expression";
     t[27445] = "New value";
-    t[27448] = "ParameterCompare.Toolbar.New";
-    t[27449] = "New";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_6 (java.lang.String[] t) {
+    t[27448] = "ParameterCompare.Toolbar.New";
+    t[27449] = "New";
     t[27452] = "Surface.Decide.XML.Mode";
     t[27453] = "ModelElementDecideMode";
     t[27454] = "ParameterCompare.Table.DeleteModel.Confirm.Info";
@@ -14044,14 +14046,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[31903] = "Sensor";
     t[31906] = "SimPrepare.Downloading";
     t[31907] = "The file is being downloaded.";
-    t[31908] = "Surface.OutputDDE.XML.Table";
-    t[31909] = "ModelElementOutputDDETable";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_7 (java.lang.String[] t) {
+    t[31908] = "Surface.OutputDDE.XML.Table";
+    t[31909] = "ModelElementOutputDDETable";
     t[31912] = "Simulation.Log.TransporterFailure.WorkTime";
     t[31913] = "%s-%d: down time after busy time starts at %s, duration: %s";
     t[31914] = "Main.Menu.View.ModelAnalyticModelCompare.Mnemonic";
@@ -16050,14 +16052,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[36529] = "Edit slider";
     t[36530] = "Surface.Process.XML.Connection.Status.WaitingCancelation";
     t[36531] = "WaitingCancelation";
-    t[36534] = "Color.FDF5E6";
-    t[36535] = "Old lace";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_8 (java.lang.String[] t) {
+    t[36534] = "Color.FDF5E6";
+    t[36535] = "Old lace";
     t[36556] = "CommandLine.BuildCommandlineDescriptions.Name";
     t[36557] = "BuildCLIReference";
     t[36558] = "QuickAccess.Settings.Hint";
@@ -18056,14 +18058,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[41125] = "<p>Returns the squared coefficient of variation over all processing times for all clients.</p>";
     t[41126] = "Surface.HoldJS.Dialog.Condition.Error.Title";
     t[41127] = "Invalid condition";
-    t[41128] = "Dialog.SaveNow.Yes.Info";
-    t[41129] = "Saves the current data before they are discarded.";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_9 (java.lang.String[] t) {
+    t[41128] = "Dialog.SaveNow.Yes.Info";
+    t[41129] = "Saves the current data before they are discarded.";
     t[41138] = "SettingsDialog.AnimationWarmUp.Ask";
     t[41139] = "Ask if to skip at statistics visualizations";
     t[41142] = "Surface.Tank.Dialog.Valve.Delete.Info";
