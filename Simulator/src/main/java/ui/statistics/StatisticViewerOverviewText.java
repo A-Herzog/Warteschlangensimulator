@@ -479,7 +479,10 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 		if (statistics.simulationData.runRepeatCount>1) repeatInfo=" ("+Language.tr("Statistics.SimulatedClients.RepeatInfo")+")";
 		addLine(Language.tr("Statistics.SimulatedClients")+": "+NumberTools.formatLong(sum)+repeatInfo);
 		if (statistics.simulationData.runRepeatCount>1) addLine(Language.tr("Statistics.SystemData.RepeatCount")+": "+NumberTools.formatLong(statistics.simulationData.runRepeatCount));
-		if (sum==0 && statistics.editModel.warmUpTime>0) addLine(Language.tr("Statistics.SimulatedClients.Zero"));
+		if (sum==0 && statistics.editModel.warmUpTime>0) {
+			addLine(Language.tr("Statistics.SimulatedClients.Zero"));
+			addLine(String.format(Language.tr("Statistics.SimulatedClients.Zero.Info"),NumberTools.formatLong(Math.round(statistics.editModel.clientCount*statistics.editModel.warmUpTime))));
+		}
 		addModeLink(Mode.MODE_MODEL);
 		endParagraph();
 
@@ -1113,16 +1116,21 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 		if (statistics.editModel.useClientCount) {
 			addHeading(2,Language.tr("Statistics.SimulatedClients"));
 			beginParagraph();
-
 			long sum=0;
 			for (StatisticsDataPerformanceIndicator indicator: (StatisticsDataPerformanceIndicator[])statistics.clientsInterarrivalTime.getAll(StatisticsDataPerformanceIndicator.class)) sum+=indicator.getCount();
 			String repeatInfo="";
 			if (statistics.simulationData.runRepeatCount>1) repeatInfo=" ("+Language.tr("Statistics.SimulatedClients.RepeatInfo")+")";
 			addLine(Language.tr("Statistics.SimulatedClients")+": "+NumberTools.formatLong(sum)+repeatInfo);
 			if (statistics.simulationData.runRepeatCount>1) addLine(Language.tr("Statistics.SystemData.RepeatCount")+": "+NumberTools.formatLong(statistics.simulationData.runRepeatCount));
-
 			addLine(Language.tr("Statistics.SimulatedClients.WarmUp")+": "+NumberTools.formatLong(FastMath.round(statistics.editModel.clientCount*statistics.editModel.warmUpTime))+" ("+StatisticTools.formatPercent(statistics.editModel.warmUpTime)+")");
 			endParagraph();
+			if (sum==0 && statistics.editModel.warmUpTime>0) {
+				beginParagraph();
+				addLine(Language.tr("Statistics.SimulatedClients.Zero"));
+				addLine(String.format(Language.tr("Statistics.SimulatedClients.Zero.Info"),NumberTools.formatLong(Math.round(statistics.editModel.clientCount*statistics.editModel.warmUpTime))));
+				addLine(Language.tr("Statistics.SimulatedClients.Zero.Info2"));
+				endParagraph();
+			}
 		}
 
 		outputEmergencyShutDownInfo(false);

@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-05-20 00:07+0200\n"
+"POT-Creation-Date: 2021-05-21 00:08+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18796,6 +18796,12 @@ msgstr "Additionally in advance as warm-up phase"
 
 msgid "Statistics.SimulatedClients.Zero"
 msgstr "Possibly. the simulation was ended before the warm-up phase (in which the clients are not recorded in the statistics) was completed."
+
+msgid "Statistics.SimulatedClients.Zero.Info"
+msgstr "A warm-up phase of length %s has been defined. Only after the completion of this warm-up phase does the statistics recording begin."
+
+msgid "Statistics.SimulatedClients.Zero.Info2"
+msgstr "The length of the warm-up phase can be defined in the model properties dialog on the \"Simulation\" page. If arrivals from external sources are loaded, the warm-up phase should be set to 0."
 
 msgid "Statistics.SimulationModel"
 msgstr "Simulation model"

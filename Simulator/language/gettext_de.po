@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-05-20 00:07+0200\n"
+"POT-Creation-Date: 2021-05-21 00:08+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18801,6 +18801,12 @@ msgstr "Zusätzlich vorab als Einschwingphase"
 
 msgid "Statistics.SimulatedClients.Zero"
 msgstr "Evtl. wurde die Simulation beendet, bevor die Einschwingphase (deren Kunden nicht in der Statistik erfasst werden) abgeschlossen wurde."
+
+msgid "Statistics.SimulatedClients.Zero.Info"
+msgstr "Es wurde eine Einschwingphase der Länge %s eingestellt. Erst nach dem Abschluss dieser Einschwingphase beginnt die Statistikaufzeichnung."
+
+msgid "Statistics.SimulatedClients.Zero.Info2"
+msgstr "Die Länge der Einschwingphase kann im Modelleigenschaften-Dialog auf der Seite \"Simulation\" eingestellt werden. Werden Ankünfte aus externen Quellen geladne, so sollte die Einschwingphase auf 0 gesetzt werden."
 
 msgid "Statistics.SimulationModel"
 msgstr "Simulationsmodell"
