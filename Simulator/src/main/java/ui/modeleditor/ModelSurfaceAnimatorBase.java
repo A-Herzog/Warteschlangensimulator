@@ -36,6 +36,7 @@ import org.apache.commons.math3.util.FastMath;
 import language.Language;
 import mathtools.NumberTools;
 import parser.MathCalcError;
+import scripting.java.DynamicErrorInfo;
 import scripting.java.DynamicFactory;
 import scripting.java.DynamicRunner;
 import scripting.java.DynamicStatus;
@@ -2006,7 +2007,10 @@ public class ModelSurfaceAnimatorBase {
 	public String runJava(final String script) {
 		if (storedSimData==null) return Language.tr("Animation.NoSimulationDataAvailable");
 		final DynamicRunner runner=DynamicFactory.getFactory().load(script);
-		if (runner.getStatus()!=DynamicStatus.OK) return DynamicFactory.getLongStatusText(runner);
+		if (runner.getStatus()!=DynamicStatus.OK) {
+			new DynamicErrorInfo(surfacePanel,runner);
+			return "";
+		}
 		runner.parameter.system=new SystemImpl(storedSimData,-1);
 		final StringBuilder sb=new StringBuilder();
 		runner.parameter.output=new OutputImpl(s->sb.append(s),false);

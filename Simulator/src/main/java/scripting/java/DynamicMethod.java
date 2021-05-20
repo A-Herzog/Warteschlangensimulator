@@ -142,9 +142,14 @@ public final class DynamicMethod {
 			for (String line: imports) sb.append("import "+line+";\n");
 			sb.append("\n");
 		}
-		sb.append("public class "+className+" {\n");
-		sb.append("public "+removeModifiers(methodText));
-		sb.append("\n}\n");
+		sb.append("public class "+className+" { /* Class name is random. */ \n");
+		sb.append("  /* --- User code starts here. --- */\n");
+		final String method="public "+removeModifiers(methodText);
+		for (String line: method.split("\\n")) {
+			sb.append("  "+line+"\n");
+		}
+		sb.append("  /* --- User code ends here. --- */\n");
+		sb.append("}\n");
 		classText=sb.toString();
 	}
 
@@ -263,10 +268,18 @@ public final class DynamicMethod {
 	}
 
 	/**
-	 * Liefert den Textinhalt der Methode
+	 * Liefert den Textinhalt der Methode.
 	 * @return	Textinhalt der Methode
 	 */
 	public String getScript() {
 		return methodText;
+	}
+
+	/**
+	 * Liefert den vollständigen Text der Klasse.
+	 * @return	Text der Klasse
+	 */
+	public String getFullClass() {
+		return classText;
 	}
 }

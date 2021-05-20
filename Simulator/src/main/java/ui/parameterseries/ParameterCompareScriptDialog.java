@@ -25,6 +25,7 @@ import java.util.function.Consumer;
 import javax.swing.JPanel;
 
 import language.Language;
+import scripting.java.DynamicErrorInfo;
 import scripting.java.DynamicFactory;
 import scripting.java.DynamicRunner;
 import scripting.java.DynamicStatus;
@@ -129,7 +130,8 @@ public class ParameterCompareScriptDialog extends BaseDialog {
 		case Java:
 			final DynamicRunner runner=DynamicFactory.getFactory().load(script);
 			if (runner.getStatus()!=DynamicStatus.OK) {
-				MsgBox.error(this,Language.tr("ParameterCompare.ScriptRunner.Script.Run.Error.Title"),String.format(Language.tr("ParameterCompare.ScriptRunner.Script.Run.Error.Info"),DynamicFactory.getLongStatusText(runner)));
+				new DynamicErrorInfo(this,runner);
+				scriptPanel.showEditorTab();
 				return false;
 			}
 			runner.parameter.system=new SystemImpl(Simulator.getSimulationDataFromStatistics(model.getStatistics()),-1);

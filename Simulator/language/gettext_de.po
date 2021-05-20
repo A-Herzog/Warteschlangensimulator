@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-05-18 15:58+0200\n"
+"POT-Creation-Date: 2021-05-20 00:07+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -15366,6 +15366,9 @@ msgstr "Ok, kein Fehler."
 msgid "Simulation.Java.Error.RunError"
 msgstr "Laufzeitfehler"
 
+msgid "Simulation.Java.Error.Title"
+msgstr "Fehler in Java-Code"
+
 msgid "Simulation.Java.Error.UnkownInputFormat"
 msgstr "Unbekanntes Datenformat für die Eingabedatei. (Es muss sich um eine java- oder eine class-Datei handeln.)"
 
@@ -23116,9 +23119,6 @@ msgstr "Die angegebene Bedingung \"%s\" ist ab Zeichen %d fehlerhaft."
 msgid "Surface.HoldJS.Dialog.Condition.Error.Title"
 msgstr "Ungültige Bedingung"
 
-msgid "Surface.HoldJS.Dialog.Language.JavaError"
-msgstr "Java-Fehler"
-
 msgid "Surface.HoldJS.Dialog.Script"
 msgstr "Auszuführendes Skript"
 
@@ -30442,6 +30442,9 @@ msgstr "Das Dateiformat wurde nicht erkannt bzw. passt zu keinem Dateiformat die
 
 #~ msgid "Surface.AnimationLCD.Dialog.Digits.Error.Title"
 #~ msgstr "Ungültige Anzahl an Ziffern"
+
+#~ msgid "Surface.HoldJS.Dialog.Language.JavaError"
+#~ msgstr "Java-Fehler"
 
 #~ msgid "Surface.PopupMenu.SimulationStatisticsData.Tab.AllClients.Info"
 #~ msgstr ""

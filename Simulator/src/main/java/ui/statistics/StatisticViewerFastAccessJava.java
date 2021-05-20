@@ -31,6 +31,7 @@ import org.w3c.dom.Document;
 
 import language.Language;
 import mathtools.distribution.tools.FileDropperData;
+import scripting.java.DynamicErrorInfo;
 import scripting.java.DynamicFactory;
 import scripting.java.DynamicRunner;
 import scripting.java.DynamicStatus;
@@ -151,7 +152,7 @@ public class StatisticViewerFastAccessJava extends StatisticViewerFastAccessBase
 
 		final DynamicRunner runner=DynamicFactory.getFactory().load(text);
 		if (runner.getStatus()!=DynamicStatus.OK) {
-			MsgBox.error(this,Language.tr("Statistic.FastAccess.JavaErrorTitle"),DynamicFactory.getLongStatusText(runner));
+			new DynamicErrorInfo(this,runner);
 			return;
 		}
 		if (results==null) results=new StringBuilder(); else results.setLength(0);

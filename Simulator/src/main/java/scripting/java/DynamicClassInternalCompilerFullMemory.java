@@ -85,7 +85,7 @@ public class DynamicClassInternalCompilerFullMemory extends DynamicClassBase {
 				final String[] lines=text.split("\\n");
 				if (lines==null || lines.length==0 || lines.length<lineNr) continue;
 				if (sb.length()>0) sb.append("\n");
-				sb.append(String.format(Language.tr("Simulation.Java.Error.CompileError.Line"),lineNr-2)+":\n");
+				sb.append(String.format(Language.tr("Simulation.Java.Error.CompileError.Line"),lineNr+1)+":\n");
 				sb.append(lines[(int)lineNr]);
 				sb.append("\n");
 				sb.append(String.format(Language.tr("Simulation.Java.Error.CompileError.Column"),colNr+1)+": ");

@@ -44,7 +44,9 @@ import org.fife.ui.rtextarea.RTextScrollPane;
 import language.Language;
 import mathtools.distribution.swing.CommonVariables;
 import mathtools.distribution.tools.FileDropperData;
+import scripting.java.DynamicErrorInfo;
 import scripting.java.DynamicFactory;
+import scripting.java.DynamicRunner;
 import scripting.js.JSRunDataFilterTools;
 import simulator.editmodel.EditModel;
 import simulator.statistics.Statistics;
@@ -575,13 +577,9 @@ public class ScriptEditorPanel extends JPanel {
 			return true;
 		case 1: /* Java */
 			if (!DynamicFactory.isWindows() && !DynamicFactory.isInMemoryProcessing()) return true;
-			final Object error=DynamicFactory.getFactory().test(scriptEditJava.getText(),false);
-			if (error instanceof String) {
-				MsgBox.error(this,Language.tr("Surface.HoldJS.Dialog.Language.JavaError"),(String)error);
-				return false;
-			} else {
-				return true;
-			}
+			final DynamicRunner runner=DynamicFactory.getFactory().test(scriptEditJava.getText());
+			if (!runner.isOk()) new DynamicErrorInfo(this,runner);
+			return runner.isOk();
 		default:
 			return true;
 		}

@@ -242,7 +242,14 @@ public abstract class ScriptPanel extends JPanel {
 	}
 
 	/**
-	 * Wechselt auf die Ausgabe-Seite
+	 * Wechselt auf die Editor-Seite.
+	 */
+	public void showEditorTab() {
+		tabs.setSelectedIndex(0);
+	}
+
+	/**
+	 * Wechselt auf die Ausgabe-Seite.
 	 */
 	public void showResultsTab() {
 		tabs.setSelectedIndex(1);

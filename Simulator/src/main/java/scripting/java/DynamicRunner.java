@@ -23,6 +23,8 @@ package scripting.java;
 public class DynamicRunner {
 	/** Text, der als java-Methode interpretiert werden soll. Der Text muss mit dem Rückgabewert beginnen, darf also keinen Access-Modifier enthalten. */
 	private String script;
+	/** Vollständiger Klassentext der java-Methode */
+	private String classText;
 	/** Status der Kompilierung */
 	private DynamicStatus status;
 	/** Optionale zusätzliche Fehlermeldung	(kann <code>null</code> sein) */
@@ -39,11 +41,13 @@ public class DynamicRunner {
 	/**
 	 * Konstruktor für den Fall, dass der Runner nur als Fehlerobjekt verwendet werden soll.
 	 * @param script	Text, der als java-Methode interpretiert werden soll. Der Text muss mit dem Rückgabewert beginnen, darf also keinen Access-Modifier enthalten.
+	 * @param classText	Vollständiger Klassentext der java-Methode
 	 * @param status	Status der Kompilierung
 	 * @param error	Optionale zusätzliche Fehlermeldung	(kann <code>null</code> sein)
 	 */
-	public DynamicRunner(final String script, final DynamicStatus status, final String error) {
+	public DynamicRunner(final String script, final String classText, final DynamicStatus status, final String error) {
 		this.script=script;
+		this.classText=classText;
 		this.status=status;
 		this.error=error;
 		method=null;
@@ -56,6 +60,7 @@ public class DynamicRunner {
 	 */
 	public DynamicRunner(final DynamicRunner prototypeRunner) {
 		script=prototypeRunner.script;
+		classText=prototypeRunner.classText;
 		status=DynamicStatus.OK;
 		error=null;
 		method=prototypeRunner.method;
@@ -68,6 +73,7 @@ public class DynamicRunner {
 	 */
 	public DynamicRunner(final DynamicMethod method) {
 		script=method.getScript();
+		classText=method.getFullClass();
 		status=DynamicStatus.OK;
 		error=null;
 		this.method=method;
@@ -101,6 +107,15 @@ public class DynamicRunner {
 	}
 
 	/**
+	 * Gibt an, ob der Status "Ok" ist.
+	 * @return	Liefert <code>true</code>, wenn der Status "Ok" ist.
+	 * @see #getStatus()
+	 */
+	public boolean isOk() {
+		return status==DynamicStatus.OK;
+	}
+
+	/**
 	 * Liefert einen optionalen zusätzlichen Fehlertext zur Kompilierung oder zum Aufruf.
 	 * @return	Optionaler zusätzlicher Fehlertext zur Kompilierung oder zum Aufruf (kann auch im Falle eines Fehlers <code>null</code> sein)
 	 */
@@ -114,5 +129,13 @@ public class DynamicRunner {
 	 */
 	public String getScript() {
 		return script;
+	}
+
+	/**
+	 * Liefert den vollständigen Text der Klasse.
+	 * @return	Text der Klasse
+	 */
+	public String getFullClass() {
+		return classText;
 	}
 }

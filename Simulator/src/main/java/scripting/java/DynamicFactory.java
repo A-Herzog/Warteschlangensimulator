@@ -94,24 +94,42 @@ public final class DynamicFactory {
 		final DynamicMethod dynamicMethod=new DynamicMethod(setup,script);
 		if (loadMethod) {
 			final DynamicStatus status=dynamicMethod.load();
-			if (status!=DynamicStatus.OK) return new DynamicRunner(script,status,dynamicMethod.getError());
+			if (status!=DynamicStatus.OK) return new DynamicRunner(script,dynamicMethod.getFullClass(),status,dynamicMethod.getError());
 			return new DynamicRunner(dynamicMethod);
 		} else {
 			final DynamicStatus status=dynamicMethod.test();
-			return new DynamicRunner(script,status,dynamicMethod.getError());
+			return new DynamicRunner(script,dynamicMethod.getFullClass(),status,dynamicMethod.getError());
 		}
 	}
 
 	/**
 	 * Prüft ein Skript auf Korrektheit.
 	 * @param script	Zu prüfendes Skript
+	 * @return	Liefert das Skript-Objekt, welches ggf. einen Fehlerstatus besitzt, zurück
+	 */
+	public DynamicRunner test(final String script) {
+		return testIntern(script,true);
+	}
+
+	/**
+	 * Prüft ein Skript auf Korrektheit.
+	 * @param script	Zu prüfendes Skript
 	 * @param longMessage	Im Falle eines Fehlers die Zeile "Java-Fehler" als erstes mit ausgeben.
-	 * @return	Gibt im Erfolgsfall <code>null</code> zurück, sonst eine Fehlermeldung.
+	 * @return	Gibt im Erfolgsfall das Skript-Objekt zurück, sonst eine Fehlermeldung.
 	 */
 	public Object test(final String script, final boolean longMessage) {
 		final DynamicRunner runner=testIntern(script,true);
-		if (runner.getStatus()==DynamicStatus.OK) return runner;
+		if (runner.isOk()) return runner;
+		return getErrorMessage(runner,longMessage);
+	}
 
+	/**
+	 * Erzeugt eine Fehlermeldung basierend auf dem Fehlercode in einem Skript-Objekt
+	 * @param runner	Skript-Objekt
+	 * @param longMessage	Im Falle eines Fehlers die Zeile "Java-Fehler" als erstes mit ausgeben.
+	 * @return	Fehlermeldung
+	 */
+	public static String getErrorMessage(final DynamicRunner runner, final boolean longMessage) {
 		final StringBuilder sb=new StringBuilder();
 		if (longMessage) sb.append(Language.tr("Simulation.Java.Error")+"\n");
 		sb.append(getStatusText(runner.getStatus())+"\n");
@@ -125,11 +143,11 @@ public final class DynamicFactory {
 	 * @return	{@link DynamicRunner}-Objekt welches das geladene Skript oder eine Fehlermeldung enthält.
 	 */
 	public DynamicRunner load(final String script) {
-		if (!hasCompiler()) return new DynamicRunner(script,DynamicStatus.NO_COMPILER,null);
+		if (!hasCompiler()) return new DynamicRunner(script,script,DynamicStatus.NO_COMPILER,null);
 
 		final DynamicMethod dynamicMethod=new DynamicMethod(setup,script);
 		final DynamicStatus status=dynamicMethod.load();
-		if (status!=DynamicStatus.OK) return new DynamicRunner(script,status,dynamicMethod.getError());
+		if (status!=DynamicStatus.OK) return new DynamicRunner(script,dynamicMethod.getFullClass(),status,dynamicMethod.getError());
 		return new DynamicRunner(dynamicMethod);
 	}
 
