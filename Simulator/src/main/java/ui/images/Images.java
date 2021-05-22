@@ -1058,6 +1058,9 @@ public enum Images {
 	/** Symbol "Schnellfilter-Modus - Liste mit Anweisungen" */
 	SCRIPT_MODE_LIST("text_list_bullets.png"),
 
+	/** Symbol "Zuordnung" */
+	SCRIPT_MAP("application_tile_horizontal.png"),
+
 	/** Symbol "Skript-Ausdruck - Text" */
 	SCRIPT_RECORD_TEXT("font.png"),
 

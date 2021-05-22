@@ -28,8 +28,30 @@ import simulator.runmodel.SimulationData;
  * @see RuntimeImpl#mapLocal
  */
 public class RuntimeData extends ThreadLocal<Map<String,Object>> {
+	/**
+	 * Beim letzten Aufruf von {@link #get()} ermittelter Wert
+	 * @see #get()
+	 * @see #getLastRequest()
+	 */
+	private Map<String,Object> lastRequest;
+
 	@Override
 	protected Map<String,Object> initialValue() {
 		return new HashMap<>();
+	}
+
+	@Override
+	public Map<String,Object> get() {
+		return lastRequest=super.get();
+	}
+
+	/**
+	 * Liefert den Wert, der bei der letzten Abfrage per {@link #get()}
+	 * geliefert wurde (kann <code>null</code> sein, wenn {@link #get()}
+	 * noch nie aufgerufen wurde).
+	 * @return Objekt gemäß dem letzten {@link #get()}-Aufruf (muss also nicht zu diesem Thread gehören)
+	 */
+	public Map<String,Object> getLastRequest() {
+		return lastRequest;
 	}
 }

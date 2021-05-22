@@ -1060,6 +1060,24 @@ public abstract class ModelElementBaseDialog extends BaseDialog {
 	}
 
 	/**
+	 * Erstellt ein Panel, in dem sich ein Label und eine ComboBox ohne Edit-Möglichkeit befinden
+	 * @param labelText	Beschriftungstext, der vor der ComboBox stehen soll
+	 * 	 * @param values	Mögliche Auswahlwerte für die ComboBox
+	 * @return	Liefert ein 2-elementiges Array: <code>JPanel</code>-Objekt, in dem sich Label und ComboBox befinden, und <code>JComboBox</code> vom Typ <code>String</code>
+	 */
+	public static Object[] getComboBoxPanel(final String labelText, final Collection<String> values) {
+		final JPanel panel=new JPanel(new FlowLayout(FlowLayout.LEFT));
+		final JLabel label=new JLabel(labelText);
+		panel.add(label);
+		final JComboBox<String> comboBox=new JComboBox<>(values.toArray(new String[0]));
+		comboBox.setEditable(false);
+		panel.add(comboBox);
+		label.setLabelFor(comboBox);
+
+		return new Object[]{panel,comboBox};
+	}
+
+	/**
 	 * Erstellt eine ComboBox zur Auswahl einer Schriftart
 	 * @param initialValue	Initial auszuwählende Schriftart (darf <code>null</code> sein)
 	 * @return	ComboBox zur Auswahl einer Schriftart

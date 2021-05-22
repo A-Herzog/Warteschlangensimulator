@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-05-21 00:08+0200\n"
+"POT-Creation-Date: 2021-05-21 09:22+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -6275,6 +6275,60 @@ msgstr "Java-Code ausführen"
 
 msgid "ExpressionCalculator.Tab.Javascript"
 msgstr "Javascript ausführen"
+
+msgid "ExpressionCalculator.Tab.Map"
+msgstr "Zuordnung"
+
+msgid "ExpressionCalculator.Tab.Map.Add"
+msgstr "Hinzufügen"
+
+msgid "ExpressionCalculator.Tab.Map.Column.Key"
+msgstr "Schlüssel"
+
+msgid "ExpressionCalculator.Tab.Map.Column.Key.InvalidInfo"
+msgstr "Der angegebene Schlüssel ist ungültig."
+
+msgid "ExpressionCalculator.Tab.Map.Column.Key.InvalidTitle"
+msgstr "Ungültiger Schlüssel"
+
+msgid "ExpressionCalculator.Tab.Map.Column.Type"
+msgstr "Typ"
+
+msgid "ExpressionCalculator.Tab.Map.Column.Value"
+msgstr "Wert"
+
+msgid "ExpressionCalculator.Tab.Map.Column.Value.InvalidInfo"
+msgstr "Der angegebene Wert ist ungültig."
+
+msgid "ExpressionCalculator.Tab.Map.Column.Value.InvalidTitle"
+msgstr "Ungültiger Wert"
+
+msgid "ExpressionCalculator.Tab.Map.Column.Value.New"
+msgstr "Neuer Wert"
+
+msgid "ExpressionCalculator.Tab.Map.Column.Value.Old"
+msgstr "Bisheriger Wert"
+
+msgid "ExpressionCalculator.Tab.Map.Delete"
+msgstr "Löschen"
+
+msgid "ExpressionCalculator.Tab.Map.Delete.ConfirmInfo"
+msgstr "Soll der Eintrag \"%s\" wirklich gelöscht werden?"
+
+msgid "ExpressionCalculator.Tab.Map.Delete.ConfirmInfoNo"
+msgstr "Eintrag beibehalten."
+
+msgid "ExpressionCalculator.Tab.Map.Delete.ConfirmInfoYes"
+msgstr "Eintrag löschen."
+
+msgid "ExpressionCalculator.Tab.Map.Delete.ConfirmTitle"
+msgstr "Eintrag löschen"
+
+msgid "ExpressionCalculator.Tab.Map.Edit"
+msgstr "Bearbeiten"
+
+msgid "ExpressionCalculator.Tab.Map.Edit.Title"
+msgstr "Eintrag bearbeiten"
 
 msgid "ExpressionCalculator.Title"
 msgstr "Berechnungen im Simulationskontext"
