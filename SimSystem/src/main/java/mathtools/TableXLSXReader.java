@@ -18,8 +18,13 @@ package mathtools;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
+import java.util.Map;
 
 import javax.xml.parsers.ParserConfigurationException;
 
@@ -28,6 +33,7 @@ import org.apache.poi.openxml4j.exceptions.OpenXML4JException;
 import org.apache.poi.openxml4j.opc.OPCPackage;
 import org.apache.poi.openxml4j.opc.PackageAccess;
 import org.apache.poi.ss.usermodel.DataFormatter;
+import org.apache.poi.ss.usermodel.RichTextString;
 import org.apache.poi.ss.util.CellAddress;
 import org.apache.poi.util.XMLHelper;
 import org.apache.poi.xssf.binary.XSSFBSheetHandler.SheetContentsHandler;
@@ -82,13 +88,22 @@ public class TableXLSXReader {
 	 * @return	Liefert im Erfolgsfall <code>true</code>
 	 */
 	private boolean processSheet(final String name, final StylesTable styles, final ReadOnlySharedStringsTable strings, InputStream stream, Table useTable) {
-		final DataFormatter formatter=new DataFormatter();
 		final InputSource sheetSource=new InputSource(stream);
 		final Table table=(useTable==null)?new Table():useTable;
 
 		try {
 			final XMLReader sheetParser=XMLHelper.newXMLReader();
-			final ContentHandler handler=new XSSFSheetXMLHandler(styles,null,strings,new SheetToTable(table),formatter,false);
+
+			DateFormat formatter;
+
+			formatter=DateFormat.getDateInstance(DateFormat.MEDIUM,Locale.getDefault());
+			styles.putNumberFormat((short)14,((SimpleDateFormat)formatter).toPattern());
+
+			formatter=DateFormat.getDateInstance(DateFormat.LONG,Locale.getDefault());
+			styles.putNumberFormat((short)15,((SimpleDateFormat)formatter).toPattern());
+
+			final ContentHandler handler=new XSSFSheetXMLHandler(styles,null,strings,new SheetToTable(table),new CachedDataFormatter(),false);
+
 			sheetParser.setContentHandler(handler);
 			sheetParser.parse(sheetSource);
 		} catch(ParserConfigurationException | SAXException | IOException e) {
@@ -107,11 +122,10 @@ public class TableXLSXReader {
 	 */
 	private boolean processOPCPacakge(final OPCPackage xlsxPackage, final Table table) {
 		try {
-			final ReadOnlySharedStringsTable strings=new ReadOnlySharedStringsTable(xlsxPackage);
+			final CachedReadOnlySharedStringsTable strings=new CachedReadOnlySharedStringsTable(xlsxPackage);
 			final XSSFReader xssfReader=new XSSFReader(xlsxPackage);
 			final StylesTable styles=xssfReader.getStylesTable();
 			final XSSFReader.SheetIterator iter=(XSSFReader.SheetIterator) xssfReader.getSheetsData();
-
 			while (iter.hasNext()) try (InputStream stream=iter.next()) {
 				if (!processSheet(iter.getSheetName(),styles,strings,stream,table)) return false;
 				if (table!=null) return true;
@@ -155,13 +169,15 @@ public class TableXLSXReader {
 
 	/**
 	 * Transformation eines XLSX-Tabellenblattes in eine {@link Table}-basierte Tabelle
+	 * (über einen {@link SheetContentsHandler})
 	 * @see TableXLSXReader#processSheet(String, StylesTable, ReadOnlySharedStringsTable, InputStream, Table)
+	 * @see SheetContentsHandler
 	 */
 	private static class SheetToTable implements SheetContentsHandler {
 		/** Ziel-Tabelle */
 		private final Table table;
 		/** Aktuell in Verarbeitung befindliche Zeile */
-		private List<String> row;
+		private final List<String> row;
 
 		/**
 		 * Konstruktor der Klasse
@@ -169,6 +185,7 @@ public class TableXLSXReader {
 		 */
 		private SheetToTable(final Table table) {
 			this.table=table;
+			row=new ArrayList<>();
 		}
 
 		/**
@@ -185,19 +202,18 @@ public class TableXLSXReader {
 			endRow(-1);
 			final int missedRows=rowNum-table.getSize(0);
 			if (missedRows>0) outputMissingRows(missedRows);
-			row=new ArrayList<>();
 		}
 
 		@Override
 		public void endRow(int rowNum) {
-			if (row!=null) table.addLine(row);
-			row=null;
+			if (row.size()>0) {
+				table.addLine(row);
+				row.clear();
+			}
 		}
 
 		@Override
 		public void cell(String cellReference, String formattedValue, XSSFComment comment) {
-			if (row==null) return;
-
 			if (cellReference==null) cellReference=new CellAddress(table.getSize(0),row.size()).formatAsString();
 
 			final int thisCol=Table.numberFromColumnNameIgnoreRowNumbers(cellReference);
@@ -211,6 +227,70 @@ public class TableXLSXReader {
 		@Override
 		public void hyperlinkCell(String cellReference, String formattedValue, String arg2, String arg3, XSSFComment comment) {
 			cell(cellReference,formattedValue,comment);
+		}
+	}
+
+	/**
+	 * Klasse zur Formatierung von Zahlen; baut auf {@link DataFormatter} auf und
+	 * versucht so viele Aufrufe des eigentlichen Formaters durch Cacheing usw. zu vermeiden.
+	 */
+	private class CachedDataFormatter extends DataFormatter {
+		/** Format-Index für normale Zahlen ohne besondere Formatierung (nur diese werden gecacht) */
+		private static final int CACHE_FORMAT_INDEX=0;
+		/** Format-Zeichenkette für normale Zahlen ohne besondere Formatierung (nur diese werden gecacht) */
+		private static final String CACHE_FORMAT_STRING="General";
+		/** Maximale Ganzzahl, die gecacht wird. */
+		private static final int MAX_CACHE=1_000_000;
+
+		/** Cache für die Ganzzahlen von 0 bis einschließlich {@link #MAX_CACHE} */
+		private final String[] cache=new String[MAX_CACHE+1];
+
+		@Override
+		public String formatRawCellContents(double value, int formatIndex, String formatString) {
+			if (formatIndex!=CACHE_FORMAT_INDEX || !formatString.equals(CACHE_FORMAT_STRING)) return super.formatRawCellContents(value,formatIndex,formatString);
+
+			if ((value%1)!=0) return super.formatRawCellContents(value,formatIndex,formatString);
+			final int i=(int)value;
+
+			if (i>=0) {
+				if (i<=MAX_CACHE) {
+					String formated=cache[i];
+					if (formated==null) formated=cache[i]=Integer.toString(i); /* formated=super.formatRawCellContents(value,formatIndex,formatString); */
+					return formated;
+				} else {
+					return Integer.toString(i); /* formated=super.formatRawCellContents(value,formatIndex,formatString); */
+				}
+			} else {
+				return super.formatRawCellContents(value,formatIndex,formatString);
+			}
+		}
+	}
+
+	/**
+	 * Diese Klasse baut auf {@link ReadOnlySharedStringsTable} auf und versucht Ergebnisse
+	 * zwischenzuspeichern, um Aufrufe von {@link #getItemAt} der Basisklasse zu vermeiden.
+	 */
+	private class CachedReadOnlySharedStringsTable extends ReadOnlySharedStringsTable {
+		/**
+		 * Konstruktor der Klasse
+		 * @param pkg The {@link OPCPackage} to use as basis for the shared-strings table.
+		 * @throws IOException If reading the data from the package fails.
+		 * @throws SAXException if parsing the XML data fails.
+		 */
+		public CachedReadOnlySharedStringsTable(final OPCPackage pkg) throws IOException, SAXException {
+			super(pkg);
+		}
+
+		/**
+		 * Cache
+		 */
+		private final Map<Integer,RichTextString> cache=new HashMap<>();
+
+		@Override
+		public RichTextString getItemAt(int idx) {
+			RichTextString result=cache.get(idx);
+			if (result==null) cache.put(idx,result=super.getItemAt(idx));
+			return result;
 		}
 	}
 }

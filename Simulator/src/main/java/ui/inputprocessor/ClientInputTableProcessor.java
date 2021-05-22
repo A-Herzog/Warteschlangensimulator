@@ -176,6 +176,21 @@ public class ClientInputTableProcessor {
 	}
 
 	/**
+	 * Wandelt die Zeichen "&amp;", "&lt;" und "&gt;" in ihre entsprechenden
+	 * HTML-Entitäten um.
+	 * @param line	Umzuwandelnder Text
+	 * @return	Umgewandelter Text
+	 */
+	private static String encodeHTML(final String line) {
+		if (line==null) return "";
+		String result;
+		result=line.replaceAll("&","&amp;");
+		result=result.replaceAll("<","&lt;");
+		result=result.replaceAll(">","&gt;");
+		return result;
+	}
+
+	/**
 	 * Wie soll die Tabellenspalte verwendet werden?
 	 */
 	public enum ColumnMode {
@@ -195,7 +210,7 @@ public class ClientInputTableProcessor {
 	 * Datensatz für eine Spalte
 	 * @see ClientInputTableProcessor#getColumns()
 	 */
-	public static class ColumnSetup {
+	public class ColumnSetup {
 		/**
 		 * 0-basierte Nummer der Tabellenspalte
 		 */
@@ -266,6 +281,42 @@ public class ClientInputTableProcessor {
 		}
 
 		/**
+		 * Liefert die ersten Werte nach der Überschrift in einer Spalte
+		 * @param col	Spaltennummer (0-basierend)
+		 * @param maxRows	Maximalanzahl an zu liefernden Werten
+		 * @return	Werte in den Zeilen unterhalb der Überschrift (kann leer sein, ist aber nie <code>null</code>)
+		 */
+		private String[] getDataForCol(final int col, final int maxRows) {
+			final List<String> results=new ArrayList<>();
+			for (int i=1;i<=Math.min(maxRows,table.getSize(0)-1);i++) {
+				final List<String> line=table.getLine(i);
+				if (line.size()<=col) break;
+				results.add(encodeHTML(line.get(col)));
+			}
+			return results.toArray(new String[0]);
+		}
+
+		/**
+		 * Speichert in {@link #getIcon()} generierte Daten.
+		 * @see #getInfo()
+		 */
+		private String storedInfo;
+
+		/**
+		 * Liefert die ersten drei Einträge in der aktuellen Spalte.
+		 * @return	Erste Einträge (ohne Überschrift) in der aktuellen Spalte
+		 */
+		public String getInfo() {
+			if (storedInfo==null) {
+				final String[] data=getDataForCol(colNr,3);
+				storedInfo=String.join(", ",data);
+				if (!storedInfo.isEmpty()) storedInfo+=", ";
+				storedInfo+="...";
+			}
+			return storedInfo;
+		}
+
+		/**
 		 * Liefert eine html-Beschreibung der Konfiguration für die aktuelle Spalte.
 		 * @return	html-Beschreibung der Konfiguration für die aktuelle Spalte
 		 */
@@ -287,16 +338,25 @@ public class ClientInputTableProcessor {
 				result.append("<span color=\"red\">");
 				result.append(Language.tr("BuildClientSourceTable.Setup.Mode.Off"));
 				result.append("</span>");
+				result.append(" (");
+				result.append(getInfo());
+				result.append(")");
 				break;
 			case ARRIVALS:
 				result.append("<span color=\"blue\"><b>");
 				result.append(Language.tr("BuildClientSourceTable.Setup.Mode.Arrivals"));
 				result.append("</b></span>");
+				result.append(" (");
+				result.append(getInfo());
+				result.append(")");
 				break;
 			case CLIENT_TYPES:
 				result.append("<span color=\"blue\"><b>");
 				result.append(Language.tr("BuildClientSourceTable.Setup.Mode.ClientTypes"));
 				result.append("</b></span>");
+				result.append(" (");
+				result.append(getInfo());
+				result.append(")");
 				break;
 			case NUMBER:
 				result.append(Language.tr("BuildClientSourceTable.Setup.Mode.Number"));
@@ -304,7 +364,9 @@ public class ClientInputTableProcessor {
 				result.append(CalcSymbolClientUserData.CLIENT_DATA_COMMANDS[0]);
 				result.append("(");
 				result.append(index);
-				result.append(")=...</tt>");
+				result.append(")=");
+				result.append(getInfo());
+				result.append("</tt>");
 				break;
 			case TEXT:
 				result.append(Language.tr("BuildClientSourceTable.Setup.Mode.Text"));
@@ -312,7 +374,9 @@ public class ClientInputTableProcessor {
 				result.append(CalcSymbolClientUserData.CLIENT_DATA_COMMANDS[0]);
 				result.append("(\"");
 				result.append(name);
-				result.append("\")=...</tt>");
+				result.append("\")=");
+				result.append(getInfo());
+				result.append("</tt>");
 				break;
 			}
 

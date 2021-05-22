@@ -81,23 +81,27 @@ public class CalcSymbolClientUserData extends CalcSymbolSimData  {
 		if (test==null) return null;
 		test=test.trim();
 		if (test.isEmpty()) return null;
+		final int len=test.length();
 
 		/* Name ok? */
-		boolean ok=false;
+		int startPos=-1;
 		for (String name: CLIENT_DATA_COMMANDS) if (startsWithIgnoreCase(test,name)) {
-			ok=true;
-			test=test.substring(name.length()).trim();
+			startPos=name.length();
+			while (test.charAt(startPos)==' ' && startPos<len) startPos++;
 			break;
 		}
-		if (!ok) return null;
+		if (startPos<0) return null;
 
 		/* Klammern */
-		if (test.length()<3) return null;
-		if ((!test.startsWith("(") || !test.endsWith(")")) && (!test.startsWith("[") || !test.endsWith("]")) && (!test.startsWith("{") || !test.endsWith("}"))) return null;
-		test=test.substring(1,test.length()-1).trim();
-		if (test.isEmpty()) return null;
+		if (len<startPos+3) return null;
+		final char c1=test.charAt(startPos);
+		final char c2=test.charAt(len-1);
 
-		return test;
+		if ((c1=='(' && c2==')') || (c1=='[' && c2==']') || (c1=='{' && c2=='}')) {
+			return test.substring(startPos+1,len-1).trim();
+		} else {
+			return null;
+		}
 	}
 
 	/**
@@ -108,9 +112,10 @@ public class CalcSymbolClientUserData extends CalcSymbolSimData  {
 	 */
 	public static int testClientData(final String test) {
 		final String parameter=testClientDataBase(test);
-		if (parameter==null) return -1;
+		if (parameter==null || parameter.isEmpty()) return -1;
 
-		if (parameter.startsWith("\"") || parameter.startsWith("'")) return -1;
+		final char c=parameter.charAt(0);
+		if (c=='"' || c=='\'') return -1;
 
 		/* Umwandeln in Zahl */
 		final Integer I=NumberTools.getNotNegativeInteger(parameter);
@@ -130,10 +135,16 @@ public class CalcSymbolClientUserData extends CalcSymbolSimData  {
 		if (parameter==null) return null;
 
 		/* Zeichenkette in Anführungszeichen */
-		if (parameter.length()<3) return null;
-		if ((!parameter.startsWith("\"") || !parameter.endsWith("\"")) && (!parameter.startsWith("'") || !parameter.endsWith("'"))) return null;
-		final String result=parameter.substring(1,parameter.length()-1).trim();
-		if (result.isEmpty()) return null;
-		return result;
+		final int len=parameter.length();
+		if (len<3) return null;
+		final char c1=parameter.charAt(0);
+		final char c2=parameter.charAt(len-1);
+		if ((c1=='"' && c2=='"') || (c1=='\"' && c2=='\"')) {
+			final String result=parameter.substring(1,len-1).trim();
+			if (result.isEmpty()) return null;
+			return result;
+		} else {
+			return null;
+		}
 	}
 }

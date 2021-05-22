@@ -11688,6 +11688,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[26649] = "StandardDeviation";
     t[26656] = "CommandLine.ServerWebFixedModel.Description.Short";
     t[26657] = "Starts the program as web-based simulation server for a fixed model.";
+    t[26668] = "BuildClientSourceTable.Edit.FirstValues";
+    t[26669] = "First values";
     t[26680] = "Editor.Dialog.Tab.OutputAnalysis.BatchMeans.Size.Error";
     t[26681] = "The specified batch size for confidence interval calculations \"%s\" is invalid. A positive integer number has to be specified.";
     t[26684] = "ParameterCompare.Table.SortModels.ErrorNoInput.Title";
@@ -12038,14 +12040,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[27421] = "Text";
     t[27424] = "ModelDescription.Batch.Mode";
     t[27425] = "Mode";
-    t[27426] = "Simulation.Java.Error.Title";
-    t[27427] = "Error in Java code";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_6 (java.lang.String[] t) {
+    t[27426] = "Simulation.Java.Error.Title";
+    t[27427] = "Error in Java code";
     t[27428] = "Editor.SavedViews.Add.DefaultName";
     t[27429] = "View";
     t[27430] = "Optimizer.ControlVariableEdit.Error.InvalidInitialValue";
@@ -14044,14 +14046,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[31871] = "Java files";
     t[31872] = "Surface.Process.Dialog.CostsPerPostProcessingSecond.ErrorInfo";
     t[31873] = "The specified costs per post processing second \"%s\" are invalid at character %d.";
-    t[31876] = "Surface.Batch.Dialog.SendAsNewClient.Error.Title";
-    t[31877] = "Missing name for client type";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_7 (java.lang.String[] t) {
+    t[31876] = "Surface.Batch.Dialog.SendAsNewClient.Error.Title";
+    t[31877] = "Missing name for client type";
     t[31878] = "Surface.PopupMenu.SimulationStatisticsData.SaveError.Title";
     t[31879] = "Error saaving data";
     t[31886] = "Surface.XML.Transporter.Count";
@@ -16050,14 +16052,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[36479] = "ModelElementName";
     t[36480] = "Surface.Decide.XML.Mode.ByQueueLengthProcess";
     t[36481] = "ProcessStationMinimumNQ";
-    t[36494] = "Surface.BarrierPull.Dialog.MaxNumber";
-    t[36495] = "Maximum number of clients in segment";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_8 (java.lang.String[] t) {
+    t[36494] = "Surface.BarrierPull.Dialog.MaxNumber";
+    t[36495] = "Maximum number of clients in segment";
     t[36496] = "Surface.PopupMenu.RemoveAllEdges";
     t[36497] = "Remove all edges";
     t[36498] = "Optimizer.ControlVariableEdit.Error.NoVariableTitle";
@@ -18056,14 +18058,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[41065] = "Fit distribution";
     t[41066] = "Statistics.VarianceClientsInSystem";
     t[41067] = "Variance of the number of clients in the system";
-    t[41068] = "ExpressionBuilder.SimulationCharacteristics.ProcessingTimesOverAll.Median";
-    t[41069] = "<p>Returns the median of the durations over all processing times for all clients.</p>";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_9 (java.lang.String[] t) {
+    t[41068] = "ExpressionBuilder.SimulationCharacteristics.ProcessingTimesOverAll.Median";
+    t[41069] = "<p>Returns the median of the durations over all processing times for all clients.</p>";
     t[41070] = "Optimizer.Tab.Optimization.Kernel";
     t[41071] = "Optimizer algorithm";
     t[41076] = "Schedule.Number";

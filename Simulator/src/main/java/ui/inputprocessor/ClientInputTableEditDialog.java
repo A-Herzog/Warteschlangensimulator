@@ -99,6 +99,9 @@ public class ClientInputTableEditDialog extends BaseDialog {
 		content.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
 		line.add(new JLabel("<html><body>"+Language.tr("BuildClientSourceTable.Edit.Name")+": <b>"+column.name+"</b></body></html>"));
 
+		content.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
+		line.add(new JLabel("<html><body>"+Language.tr("BuildClientSourceTable.Edit.FirstValues")+": <b>"+column.getInfo()+"</b></body></html>")); // FIXME (0) Language "Erste Werte" "First values"
+
 		/* Modus */
 		final String[] modes;
 		final Images[] modesIcons;

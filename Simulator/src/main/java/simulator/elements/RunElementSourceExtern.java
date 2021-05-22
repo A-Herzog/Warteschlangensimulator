@@ -150,9 +150,10 @@ public abstract class RunElementSourceExtern extends RunElement implements RunSo
 		}
 
 		/* Sortieren und ausgeben */
+		final Arrival[] dummy=new Arrival[0];
 		arrivals=new Arrival[types.length][];
 		for (int i=0;i<types.length;i++) {
-			final Arrival[] list=arrivalsList.get(i).toArray(new Arrival[0]);
+			final Arrival[] list=arrivalsList.get(i).toArray(dummy);
 			if (!isSorted) Arrays.sort(list,(a1,a2)->{
 				final long l=a1.time-a2.time;
 				if (l<0) return -1;
@@ -431,6 +432,20 @@ public abstract class RunElementSourceExtern extends RunElement implements RunSo
 			final String part1=cell.substring(0,pos);
 			final String part2=cell.substring(pos+1);
 
+			final int index=CalcSymbolClientUserData.testClientData(part1);
+			if (index>=0) {
+				data[0]=index;
+				data[1]=part2;
+				return true;
+			}
+
+			final String key=CalcSymbolClientUserData.testClientDataString(part1);
+			if (key!=null) {
+				data[0]=key;
+				data[1]=part2;
+				return true;
+			}
+
 			final String part1Lower=part1.toLowerCase();
 
 			if (part1Lower.equals("w")) {
@@ -469,22 +484,16 @@ public abstract class RunElementSourceExtern extends RunElement implements RunSo
 				return true;
 			}
 
-			final int index=CalcSymbolClientUserData.testClientData(part1);
-			if (index>=0) {
-				data[0]=index;
-				data[1]=part2;
-				return true;
-			}
-
-			final String key=CalcSymbolClientUserData.testClientDataString(part1);
-			if (key!=null) {
-				data[0]=key;
-				data[1]=part2;
-				return true;
-			}
-
 			return false;
 		}
+
+		/**
+		 * Recycling eines Objektes, das sonst bei jedem Aufruf
+		 * von {@link #loadData(List, int)}, d.h. für jede Zeile
+		 * erneut erstellt werden müsste.
+		 * @see #loadData(List, int)
+		 */
+		final Object[] loadDataLineParts=new Object[2];
 
 		/**
 		 * Verarbeitet eine Tabellenzeile
@@ -497,27 +506,28 @@ public abstract class RunElementSourceExtern extends RunElement implements RunSo
 			List<String> dataFormula=null;
 
 			final int size=line.size();
-			final Object[] data=new Object[2];
 			for (int i=startColumn;i<size;i++) {
 				final String cell=line.get(i).trim();
 				if (cell.isEmpty()) continue;
 
-				if (!processCell(cell,data)) return i;
+				if (!processCell(cell,loadDataLineParts)) return i;
 
-				if (data[0] instanceof Integer) {
+				if (loadDataLineParts[0] instanceof Integer) {
 					/* Numerischer Wert (der noch berechnet werden will) */
 					if (dataIndex==null || dataFormula==null) {
 						dataIndex=new ArrayList<>();
 						dataFormula=new ArrayList<>();
 					}
-					dataIndex.add((Integer)data[0]);
-					dataFormula.add((String)data[1]);
+					dataIndex.add((Integer)loadDataLineParts[0]);
+					dataFormula.add((String)loadDataLineParts[1]);
+					continue;
 				}
 
-				if (data[0] instanceof String) {
+				if (loadDataLineParts[0] instanceof String) {
 					/* Key=Value Zuweisung */
 					if (dataKeyValue==null) dataKeyValue=new HashedMap<>();
-					dataKeyValue.put((String)data[0],(String)data[1]);
+					dataKeyValue.put((String)loadDataLineParts[0],(String)loadDataLineParts[1]);
+					continue;
 				}
 			}
 

@@ -141,6 +141,7 @@ public class WaitDialog extends JDialog {
 
 		/* Fenster vorbereiten */
 		setMinimumSize(new Dimension(300,0));
+		setResizable(false);
 		pack();
 		setLocationRelativeTo(this.getOwner());
 		SwingUtilities.invokeLater(()->closeTest());
