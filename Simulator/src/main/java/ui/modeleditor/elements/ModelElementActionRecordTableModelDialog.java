@@ -29,6 +29,7 @@ import java.util.List;
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
+import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -77,6 +78,9 @@ public class ModelElementActionRecordTableModelDialog extends BaseDialog {
 	private static final String bold1="<html><body><b>";
 	/** HTML-Fuß für die Ausgabe von fett dargestelltem Text */
 	private static final String bold2="</b></body></html>";
+
+	/** Ist die Teilaktion aktiv? */
+	private final JCheckBox activeCheckBox;
 
 	/** Art der Bedingung: Rechenausdruck-Bedingung */
 	private final JRadioButton triggerCondition;
@@ -145,8 +149,16 @@ public class ModelElementActionRecordTableModelDialog extends BaseDialog {
 		variables=surface.getMainSurfaceVariableNames(model.getModelVariableNames(),false);
 		buildAnalogIDNames(surface);
 
+		/* GUI */
 		final JPanel content=createGUI(help);
 		content.setLayout(new BorderLayout());
+
+		/* Aktivierung */
+		final JPanel setup=new JPanel(new FlowLayout(FlowLayout.LEFT));
+		content.add(setup,BorderLayout.NORTH);
+		setup.add(activeCheckBox=new JCheckBox(Language.tr("Surface.Action.Dialog.Edit.Active"),record.isActive()));
+
+		/* Tabs */
 		final JTabbedPane tabs=new JTabbedPane();
 		content.add(tabs,BorderLayout.CENTER);
 
@@ -578,6 +590,8 @@ public class ModelElementActionRecordTableModelDialog extends BaseDialog {
 
 	@Override
 	protected void storeData() {
+		/* Aktiv */
+		record.setActive(activeCheckBox.isSelected());
 
 		if (record.getActionMode()==ModelElementActionRecord.ActionMode.TRIGGER_AND_ACTION) {
 			/* Auslöser */

@@ -1390,6 +1390,7 @@
 >
 <!ELEMENT ModellElementAktionDatensatz (#PCDATA)>
 <!ATTLIST ModellElementAktionDatensatz
+  Aktiv						CDATA	#IMPLIED
   Bedingungstyp             CDATA	#REQUIRED
   Aktionstyp                CDATA	#IMPLIED
   Bedingung                 CDATA   #IMPLIED
@@ -3568,6 +3569,7 @@
 >
 <!ELEMENT ModelElementActionRecord (#PCDATA)>
 <!ATTLIST ModelElementActionRecord
+  Active		             CDATA	#IMPLIED
   ConditionType             CDATA	#IMPLIED
   ActionType                CDATA	#REQUIRED
   Condition                 CDATA   #IMPLIED

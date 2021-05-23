@@ -27,6 +27,7 @@ import simulator.runmodel.RunDataClient;
 import simulator.runmodel.RunModel;
 import simulator.runmodel.SimulationData;
 import ui.modeleditor.coreelements.ModelElement;
+import ui.modeleditor.elements.ModelElementActionRecord;
 import ui.modeleditor.elements.ModelElementInteractiveButton;
 import ui.modeleditor.elements.ModelElementSub;
 
@@ -61,7 +62,9 @@ public class RunElementInteractiveButton extends RunElement {
 
 		button.records=new ArrayList<>();
 		for (int i=0;i<buttonElement.getRecordsList().size();i++) {
-			final RunElementActionRecord record=new RunElementActionRecord(buttonElement.getRecordsList().get(i),id);
+			final ModelElementActionRecord editRecord=buttonElement.getRecordsList().get(i);
+			if (!editRecord.isActive()) continue;
+			final RunElementActionRecord record=new RunElementActionRecord(editRecord,id);
 			final String error=record.build(editModel,runModel,testOnly);
 			if (error!=null) return error+" ("+String.format(Language.tr("Simulation.Creator.Action.ErrorInfo"),buttonElement.getId(),i+1)+")";
 			button.records.add(record);
@@ -118,11 +121,14 @@ public class RunElementInteractiveButton extends RunElement {
 		/* Logging */
 		if (simData.loggingActive) log(simData,Language.tr("Simulation.Log.InteractiveButton"),String.format(Language.tr("Simulation.Log.InteractiveButton.Info"),name));
 
+		boolean actionsTriggered=false;
 		for (int i=0;i<data.records.length;i++) {
 			final RunElementActionRecord record=data.records[i];
 			/* Aktion auslösen */
 			record.runAction(simData,name,logTextColor);
+			actionsTriggered=true;
 		}
+		if (actionsTriggered) simData.runData.fireStateChangeNotify(simData);
 	}
 
 	/**

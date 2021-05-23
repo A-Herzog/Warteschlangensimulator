@@ -27,6 +27,7 @@ import simulator.runmodel.RunModel;
 import simulator.runmodel.SimulationData;
 import ui.modeleditor.coreelements.ModelElement;
 import ui.modeleditor.elements.ModelElementAction;
+import ui.modeleditor.elements.ModelElementActionRecord;
 import ui.modeleditor.elements.ModelElementSub;
 
 /**
@@ -60,7 +61,9 @@ public class RunElementAction extends RunElement implements StateChangeListener,
 
 		action.records=new ArrayList<>();
 		for (int i=0;i<actionElement.getRecordsList().size();i++) {
-			final RunElementActionRecord record=new RunElementActionRecord(actionElement.getRecordsList().get(i),id);
+			final ModelElementActionRecord editRecord=actionElement.getRecordsList().get(i);
+			if (!editRecord.isActive()) continue;
+			final RunElementActionRecord record=new RunElementActionRecord(editRecord,id);
 			final String error=record.build(editModel,runModel,testOnly);
 			if (error!=null) return error+" ("+String.format(Language.tr("Simulation.Creator.Action.ErrorInfo"),actionElement.getId(),i+1)+")";
 			action.records.add(record);
@@ -132,6 +135,7 @@ public class RunElementAction extends RunElement implements StateChangeListener,
 	public void signalNotify(SimulationData simData, String signalName) {
 		final RunElementActionData data=getData(simData);
 
+		boolean actionsTriggered=false;
 		for (int i=0;i<data.records.length;i++) {
 			final RunElementActionRecord record=data.records[i];
 			if (record.checkTriggerSignal(signalName)) {
@@ -140,7 +144,9 @@ public class RunElementAction extends RunElement implements StateChangeListener,
 
 				/* Aktion auslösen */
 				record.runAction(simData,name,logTextColor);
+				actionsTriggered=true;
 			}
 		}
+		if (actionsTriggered) simData.runData.fireStateChangeNotify(simData);
 	}
 }

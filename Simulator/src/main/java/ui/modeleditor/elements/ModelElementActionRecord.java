@@ -95,6 +95,11 @@ public class ModelElementActionRecord {
 	}
 
 	/**
+	 * Gibt an, ob der Datensatz aktiv ist.
+	 */
+	private boolean active;
+
+	/**
 	 * Gibt an, ob der Datensatz Ursache und Wirkung oder nur Wirkung enthält
 	 */
 	private final ActionMode actionMode;
@@ -144,6 +149,7 @@ public class ModelElementActionRecord {
 	 * @param actionMode	Gibt an, ob der Datensatz Ursache und Wirkung oder nur Wirkung enthält
 	 */
 	public ModelElementActionRecord(final ActionMode actionMode) {
+		active=true;
 		this.actionMode=actionMode;
 		conditionType=ConditionType.CONDITION_CONDITION;
 		actionType=ActionType.ACTION_ASSIGN;
@@ -172,6 +178,7 @@ public class ModelElementActionRecord {
 		this((copySource==null)?ActionMode.TRIGGER_AND_ACTION:copySource.actionMode);
 
 		if (copySource!=null) {
+			active=copySource.active;
 			conditionType=copySource.conditionType;
 			actionType=copySource.actionType;
 
@@ -199,6 +206,8 @@ public class ModelElementActionRecord {
 	 */
 	public boolean equalsRecord(final ModelElementActionRecord otherRecord) {
 		if (otherRecord==null) return false;
+
+		if (active!=otherRecord.active) return false;
 
 		if (actionMode==ActionMode.TRIGGER_AND_ACTION) {
 			if (conditionType!=otherRecord.conditionType) return false;
@@ -241,6 +250,22 @@ public class ModelElementActionRecord {
 		}
 
 		return true;
+	}
+
+	/**
+	 * Gibt an, ob der Datensatz aktiv ist.
+	 * @return	Ist der Datensatz aktiv?
+	 */
+	public boolean isActive() {
+		return active;
+	}
+
+	/**
+	 * Stellt ein, ob der Datensatz aktiv ist.
+	 * @param active	Ist der Datensatz aktiv?
+	 */
+	public void setActive(boolean active) {
+		this.active=active;
 	}
 
 	/**
@@ -549,6 +574,7 @@ public class ModelElementActionRecord {
 	public void saveToXML(final Document doc, final Element parent) {
 		Element node;
 		parent.appendChild(node=doc.createElement(Language.trPrimary("Surface.Action.XML.Record")));
+		node.setAttribute(Language.trPrimary("Surface.Action.XML.Record.Active"),active?"1":"0");
 
 		String type;
 
@@ -629,6 +655,8 @@ public class ModelElementActionRecord {
 	 * @return	Tritt ein Fehler auf, so wird die Fehlermeldung als String zurückgegeben. Im Erfolgsfall wird <code>null</code> zurückgegeben.
 	 */
 	public String loadFromXML(final Element node) {
+		final String activeString=Language.trAllAttribute("Surface.Action.XML.Record.Active",node);
+		if (activeString.equals("0")) active=false;
 
 		if (actionMode==ActionMode.TRIGGER_AND_ACTION) {
 			/* Typ der Bedingung */
@@ -709,6 +737,10 @@ public class ModelElementActionRecord {
 	 */
 	public void buildDescription(final ModelDescriptionBuilder descriptionBuilder, final int level) {
 		String s;
+
+		if (!active) {
+			descriptionBuilder.addProperty(Language.tr("ModelDescription.Action.EnabledStatus"),Language.tr("ModelDescription.Action.EnabledStatus.IsDisabled"),level);
+		}
 
 		if (actionMode==ActionMode.TRIGGER_AND_ACTION) {
 			/* Bedingung */

@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-05-23 00:16+0200\n"
+"POT-Creation-Date: 2021-05-23 22:52+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -8963,10 +8963,10 @@ msgid "ModelDescription.Action.Condition.Threshold.Value"
 msgstr "Wert"
 
 msgid "ModelDescription.Action.EnabledStatus"
-msgstr ""
+msgstr "Aktivierungsstatus"
 
 msgid "ModelDescription.Action.EnabledStatus.IsDisabled"
-msgstr ""
+msgstr "Deaktiviert"
 
 msgid "ModelDescription.AnalogAssign.Rate"
 msgstr "Zuweisung einer neuen Änderungsrate an id=%d"
@@ -19838,10 +19838,13 @@ msgid "Surface.Action.Dialog.Delete.ConfirmTitle"
 msgstr "Aktion löschen"
 
 msgid "Surface.Action.Dialog.Disable"
-msgstr ""
+msgstr "Deaktivieren"
 
 msgid "Surface.Action.Dialog.Edit"
 msgstr "Aktion bearbeiten"
+
+msgid "Surface.Action.Dialog.Edit.Active"
+msgstr "Aktiv"
 
 msgid "Surface.Action.Dialog.Edit.Tabs.Action"
 msgstr "Aktion"
@@ -19964,7 +19967,7 @@ msgid "Surface.Action.Dialog.Edit.Tabs.Trigger.ThresholdValue.ErrorTitle"
 msgstr "Ungültiger Schwellenwert"
 
 msgid "Surface.Action.Dialog.Enable"
-msgstr ""
+msgstr "Aktivieren"
 
 msgid "Surface.Action.Dialog.Info.ActionAnalog"
 msgstr "Aktion: In Element id=%d analogen Wert auf <b>%s</b> setzen."
@@ -19989,6 +19992,9 @@ msgstr "Minimaler Auslöseabstand"
 
 msgid "Surface.Action.Dialog.Info.Condition.MinDistance.Seconds"
 msgstr "Sekunden"
+
+msgid "Surface.Action.Dialog.Info.IsDeactivated"
+msgstr "Aktion ist deaktiviert."
 
 msgid "Surface.Action.Dialog.Info.Signal"
 msgstr "Signal"
@@ -20046,6 +20052,9 @@ msgstr "Java"
 
 msgid "Surface.Action.XML.Record.ActionType.Signal"
 msgstr "Signal"
+
+msgid "Surface.Action.XML.Record.Active"
+msgstr "aktiv"
 
 msgid "Surface.Action.XML.Record.Condition.Condition"
 msgstr "Bedingung"

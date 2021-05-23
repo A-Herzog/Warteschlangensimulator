@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-05-23 00:16+0200\n"
+"POT-Creation-Date: 2021-05-23 22:52+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -8972,10 +8972,10 @@ msgid "ModelDescription.Action.Condition.Threshold.Value"
 msgstr "value"
 
 msgid "ModelDescription.Action.EnabledStatus"
-msgstr ""
+msgstr "Activation status"
 
 msgid "ModelDescription.Action.EnabledStatus.IsDisabled"
-msgstr ""
+msgstr "Disabled"
 
 msgid "ModelDescription.AnalogAssign.Rate"
 msgstr "Assignment of a new change rate at id=%d"
@@ -19833,10 +19833,13 @@ msgid "Surface.Action.Dialog.Delete.ConfirmTitle"
 msgstr "Delete action"
 
 msgid "Surface.Action.Dialog.Disable"
-msgstr ""
+msgstr "Disable"
 
 msgid "Surface.Action.Dialog.Edit"
 msgstr "Edit action"
+
+msgid "Surface.Action.Dialog.Edit.Active"
+msgstr "Active"
 
 msgid "Surface.Action.Dialog.Edit.Tabs.Action"
 msgstr "Action"
@@ -19959,7 +19962,7 @@ msgid "Surface.Action.Dialog.Edit.Tabs.Trigger.ThresholdValue.ErrorTitle"
 msgstr "Invalid threshold value"
 
 msgid "Surface.Action.Dialog.Enable"
-msgstr ""
+msgstr "Enable"
 
 msgid "Surface.Action.Dialog.Info.ActionAnalog"
 msgstr "Action: In element id=%d set analog value to <b>%s</b>."
@@ -19984,6 +19987,9 @@ msgstr "Minimum trigger distance"
 
 msgid "Surface.Action.Dialog.Info.Condition.MinDistance.Seconds"
 msgstr "seconds"
+
+msgid "Surface.Action.Dialog.Info.IsDeactivated"
+msgstr "Action is deactivated."
 
 msgid "Surface.Action.Dialog.Info.Signal"
 msgstr "Signal"
@@ -20041,6 +20047,9 @@ msgstr "Java"
 
 msgid "Surface.Action.XML.Record.ActionType.Signal"
 msgstr "Signal"
+
+msgid "Surface.Action.XML.Record.Active"
+msgstr "active"
 
 msgid "Surface.Action.XML.Record.Condition.Condition"
 msgstr "Condition"

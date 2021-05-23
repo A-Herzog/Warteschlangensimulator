@@ -394,7 +394,10 @@ public class RunElementActionRecord {
 		}
 
 		lastThresholdCheckValue=newValue;
-		lastThresholdCheckTime=simData.currentTime;
+		if (trigger)
+			lastThresholdCheckTime=simData.currentTime;
+		else
+			lastThresholdCheckTime=simData.currentTime-1;
 		return trigger;
 	}
 

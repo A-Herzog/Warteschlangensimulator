@@ -121,59 +121,64 @@ public class ModelElementActionRecordTableModel extends JTableExtAbstractTableMo
 	 * @see #getValueAt(int, int)
 	 */
 	private String getActionText(final ModelElementActionRecord record) {
-		final StringBuilder sb=new StringBuilder();
+		final StringBuilder result=new StringBuilder();
 
-		sb.append("<html><body>");
+		result.append("<html><body>");
+
+		if (!record.isActive()) {
+			result.append("<span style=\"color: red\"><b>"+Language.tr("Surface.Action.Dialog.Info.IsDeactivated")+"</b></span>");
+			result.append("<br>");
+		}
 
 		if (actionMode==ModelElementActionRecord.ActionMode.TRIGGER_AND_ACTION) {
 			switch (record.getConditionType()) {
 			case CONDITION_CONDITION:
-				sb.append(Language.tr("Surface.Action.Dialog.Info.Condition")+": ");
-				sb.append("<b>"+record.getCondition()+"</b> ");
-				sb.append("("+Language.tr("Surface.Action.Dialog.Info.Condition.MinDistance")+": "+NumberTools.formatNumber(record.getConditionMinDistance())+" "+Language.tr("Surface.Action.Dialog.Info.Condition.MinDistance.Seconds")+")");
+				result.append(Language.tr("Surface.Action.Dialog.Info.Condition")+": ");
+				result.append("<b>"+record.getCondition()+"</b> ");
+				result.append("("+Language.tr("Surface.Action.Dialog.Info.Condition.MinDistance")+": "+NumberTools.formatNumber(record.getConditionMinDistance())+" "+Language.tr("Surface.Action.Dialog.Info.Condition.MinDistance.Seconds")+")");
 				break;
 			case CONDITION_THRESHOLD:
-				sb.append(Language.tr("Surface.Action.Dialog.Info.ThresholdCondition")+": ");
-				sb.append("<b>"+record.getThresholdExpression()+"</b> ");
+				result.append(Language.tr("Surface.Action.Dialog.Info.ThresholdCondition")+": ");
+				result.append("<b>"+record.getThresholdExpression()+"</b> ");
 				switch (record.getThresholdDirection()) {
 				case THRESHOLD_DOWN:
-					sb.append(" ("+String.format(Language.tr("Surface.Action.Dialog.Info.ThresholdCondition.Down"),NumberTools.formatNumber(record.getThresholdValue()))+")");
+					result.append(" ("+String.format(Language.tr("Surface.Action.Dialog.Info.ThresholdCondition.Down"),NumberTools.formatNumber(record.getThresholdValue()))+")");
 					break;
 				case THRESHOLD_UP:
-					sb.append(" ("+String.format(Language.tr("Surface.Action.Dialog.Info.ThresholdCondition.Up"),NumberTools.formatNumber(record.getThresholdValue()))+")");
+					result.append(" ("+String.format(Language.tr("Surface.Action.Dialog.Info.ThresholdCondition.Up"),NumberTools.formatNumber(record.getThresholdValue()))+")");
 					break;
 				}
 				break;
 			case CONDITION_SIGNAL:
-				sb.append(Language.tr("Surface.Action.Dialog.Info.Signal")+": ");
-				sb.append("<b>"+record.getConditionSignal()+"</b> ");
+				result.append(Language.tr("Surface.Action.Dialog.Info.Signal")+": ");
+				result.append("<b>"+record.getConditionSignal()+"</b> ");
 				break;
 			}
-			sb.append("<br>");
+			result.append("<br>");
 		}
 
 		switch (record.getActionType()) {
 		case ACTION_ANALOG_VALUE:
-			sb.append(String.format(Language.tr("Surface.Action.Dialog.Info.ActionAnalog"),record.getAnalogID(),record.getAnalogValue()));
+			result.append(String.format(Language.tr("Surface.Action.Dialog.Info.ActionAnalog"),record.getAnalogID(),record.getAnalogValue()));
 			break;
 		case ACTION_ASSIGN:
-			sb.append(String.format(Language.tr("Surface.Action.Dialog.Info.ActionAssign"),record.getAssignVariable(),record.getAssignExpression()));
+			result.append(String.format(Language.tr("Surface.Action.Dialog.Info.ActionAssign"),record.getAssignVariable(),record.getAssignExpression()));
 			break;
 		case ACTION_SCRIPT:
 			switch (record.getScriptMode()) {
-			case Javascript: sb.append(Language.tr("Surface.Action.Dialog.Info.ActionJS")); break;
-			case Java: sb.append(Language.tr("Surface.Action.Dialog.Info.ActionJava")); break;
-			default: sb.append(Language.tr("Surface.Action.Dialog.Info.ActionJS")); break;
+			case Javascript: result.append(Language.tr("Surface.Action.Dialog.Info.ActionJS")); break;
+			case Java: result.append(Language.tr("Surface.Action.Dialog.Info.ActionJava")); break;
+			default: result.append(Language.tr("Surface.Action.Dialog.Info.ActionJS")); break;
 			}
 			break;
 		case ACTION_SIGNAL:
-			sb.append(String.format(Language.tr("Surface.Action.Dialog.Info.ActionSignal"),record.getSignalName()));
+			result.append(String.format(Language.tr("Surface.Action.Dialog.Info.ActionSignal"),record.getSignalName()));
 			break;
 		}
 
-		sb.append("</body></html>");
+		result.append("</body></html>");
 
-		return sb.toString();
+		return result.toString();
 	}
 
 	@Override
@@ -183,14 +188,26 @@ public class ModelElementActionRecordTableModel extends JTableExtAbstractTableMo
 			return "";
 		}
 
+		final ModelElementActionRecord record=records.get(rowIndex);
+
 		if (columnIndex==0) {
 			/* Action anzeigen */
-			return getActionText(records.get(rowIndex));
+			return getActionText(record);
 		} else {
 			/* Steuerbuttons anzeigen */
 			final List<String> tooltip=new ArrayList<>();
 			final List<Icon> icons=new ArrayList<>();
 			final List<ActionListener> listener=new ArrayList<>();
+
+			if (record.isActive()) {
+				tooltip.add(Language.tr("Surface.Action.Dialog.Disable"));
+				icons.add(Images.GENERAL_OFF.getIcon());
+				listener.add(new EditButtonListener(rowIndex,Command.CMD_DISABLE));
+			} else {
+				tooltip.add(Language.tr("Surface.Action.Dialog.Enable"));
+				icons.add(Images.GENERAL_ON.getIcon());
+				listener.add(new EditButtonListener(rowIndex,Command.CMD_ENABLE));
+			}
 
 			tooltip.add(Language.tr("Surface.Action.Dialog.Edit"));
 			icons.add(Images.GENERAL_SETUP.getIcon());
@@ -245,6 +262,10 @@ public class ModelElementActionRecordTableModel extends JTableExtAbstractTableMo
 	 * @see EditButtonListener
 	 */
 	private enum Command {
+		/** Eintrag aktivieren */
+		CMD_ENABLE,
+		/** Eintrag Deaktivieren */
+		CMD_DISABLE,
 		/** Eintrag hinzufügen */
 		CMD_ADD,
 		/** Eintrag bearbeiten */
@@ -284,6 +305,14 @@ public class ModelElementActionRecordTableModel extends JTableExtAbstractTableMo
 			ModelElementActionRecordTableModelDialog dialog;
 
 			switch (command) {
+			case CMD_ENABLE:
+				records.get(row).setActive(true);
+				updateTable();
+				break;
+			case CMD_DISABLE:
+				records.get(row).setActive(false);
+				updateTable();
+				break;
 			case CMD_ADD:
 				updateTable();
 				record=new ModelElementActionRecord(actionMode);

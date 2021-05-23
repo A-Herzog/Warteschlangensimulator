@@ -1504,6 +1504,7 @@
 </xs:extension></xs:complexContent></xs:complexType></xs:element>
 <xs:element name="ModellElementAktionDatensatz"><xs:complexType><xs:simpleContent>
   <xs:extension base="xs:string">
+    <xs:attribute name="Aktiv" type="xs:string"/>
     <xs:attribute name="Bedingungstyp" type="xs:string"/>
     <xs:attribute name="Aktionstyp" type="xs:string" use="required"/>
     <xs:attribute name="Bedingung" type="xs:string"/>
@@ -3612,6 +3613,7 @@
 </xs:extension></xs:complexContent></xs:complexType></xs:element>
 <xs:element name="ModelElementActionRecord"><xs:complexType><xs:simpleContent>
   <xs:extension base="xs:string">
+    <xs:attribute name="Active" type="xs:string"/>
     <xs:attribute name="ConditionType" type="xs:string"/>
     <xs:attribute name="ActionType" type="xs:string" use="required"/>
     <xs:attribute name="Condition" type="xs:string"/>
