@@ -18,6 +18,7 @@ package simulator.builder;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import language.Language;
 import mathtools.NumberTools;
@@ -170,10 +171,10 @@ public class RunModelFixerHelper {
 			return Arrays.asList(((ModelElementSource)element).getRecord());
 		}
 		if (element instanceof ModelElementSourceMulti)  {
-			return ((ModelElementSourceMulti)element).getRecords();
+			return ((ModelElementSourceMulti)element).getRecords().stream().filter(record->record.isActive()).collect(Collectors.toList());
 		}
 		if (element instanceof ModelElementSplit) {
-			return ((ModelElementSplit)element).getRecords();
+			return ((ModelElementSplit)element).getRecords().stream().filter(record->record.isActive()).collect(Collectors.toList());
 		}
 
 		return null;
@@ -191,7 +192,7 @@ public class RunModelFixerHelper {
 	}
 
 	/**
-	 * Korrektur für "Ein notwendige Kundendatensatz-Name fehlt."
+	 * Korrektur für "Ein notwendiger Kundendatensatz-Name fehlt."
 	 * @param element	Element an dem der Fehler aufgetreten ist
 	 * @param status	Zugehöriger Status für diesen Fehler
 	 * @return	Liste der möglichen Schnellkorrekturen

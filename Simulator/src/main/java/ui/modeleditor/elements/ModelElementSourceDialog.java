@@ -104,7 +104,7 @@ public final class ModelElementSourceDialog extends ModelElementBaseDialog {
 	 */
 	@Override
 	protected JComponent getContentPanel() {
-		recordPanel=new ModelElementSourceRecordPanel(readOnly,element.getModel(),element.getSurface(),()->getOpenModelSchedulesButton(null),helpRunnable,true);
+		recordPanel=new ModelElementSourceRecordPanel(readOnly,element.getModel(),element.getSurface(),()->getOpenModelSchedulesButton(null),helpRunnable,true,false);
 		recordPanel.setData(((ModelElementSource)element).getRecord(),element);
 		return recordPanel;
 	}

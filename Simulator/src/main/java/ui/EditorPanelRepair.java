@@ -190,6 +190,7 @@ public class EditorPanelRepair {
 			if (element instanceof ModelElementSourceMulti) {
 				source.add((ModelElementSourceMulti)element);
 				if (!needsDispose) for (ModelElementSourceRecord record: ((ModelElementSourceMulti)element).getRecords()) {
+					if (!record.isActive()) continue;
 					needsDispose=needsDispose || !isLimitedSource(record);
 				}
 				continue;

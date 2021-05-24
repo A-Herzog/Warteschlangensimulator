@@ -653,7 +653,10 @@ public class RunModel {
 				if (element instanceof ModelElementAnimationConnect) runModel.isAnimation=true;
 				if (element instanceof ModelElementSourceMulti && !((ModelElementSourceMulti)element).getRecords().isEmpty()) {
 					hasSource=true;
-					for (ModelElementSourceRecord record: ((ModelElementSourceMulti)element).getRecords()) allSourcesLimited=allSourcesLimited && isLimitedSource(record);
+					for (ModelElementSourceRecord record: ((ModelElementSourceMulti)element).getRecords()) {
+						if (!record.isActive()) continue;
+						allSourcesLimited=allSourcesLimited && isLimitedSource(record);
+					}
 				}
 				if (element instanceof ModelElementSourceTable) hasSource=true;
 				if (element instanceof ModelElementSourceDB) hasSource=true;

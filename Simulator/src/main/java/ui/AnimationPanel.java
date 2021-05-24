@@ -582,7 +582,7 @@ public class AnimationPanel extends JPanel implements RunModelAnimationViewer {
 				min=calculateMinimalTimeStepFromRecord(record,min);
 			}
 			if (element instanceof ModelElementSourceMulti) for (ModelElementSourceRecord record: ((ModelElementSourceMulti)element).getRecords()) {
-				min=calculateMinimalTimeStepFromRecord(record,min);
+				if (record.isActive()) min=calculateMinimalTimeStepFromRecord(record,min);
 			}
 		}
 

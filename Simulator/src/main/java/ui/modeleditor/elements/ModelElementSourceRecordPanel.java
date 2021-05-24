@@ -29,6 +29,7 @@ import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -75,6 +76,8 @@ public final class ModelElementSourceRecordPanel extends JPanel {
 
 	/** Gibt an, ob diese Quelle von sich aus Kunden generiert (<code>true</code>) oder nur von außen angestoßen wird (<code>false</code>). */
 	private final boolean hasOwnArrivals;
+	/** Kann der Datensatz deaktiviert werden? */
+	private final boolean hasActivation;
 	/** Nur-Lese-Status */
 	private final boolean readOnly;
 	/** Element vom Typ <code>EditModel</code> (wird benötigt, um die Liste der globalen Variablen zu laden) */
@@ -104,6 +107,8 @@ public final class ModelElementSourceRecordPanel extends JPanel {
 	private final JTextField nameEdit;
 	/** Dialog zum Bearbeiten der Kundentypeigenschaften aufrufen ({@link #editClientData()}) */
 	private final JButton nameButton;
+	/** Ist der Datensatz aktiv? */
+	private final JCheckBox activeCheckBox;
 
 	/** Registerreiter der Dialogs */
 	private final JTabbedPane tabs;
@@ -209,20 +214,22 @@ public final class ModelElementSourceRecordPanel extends JPanel {
 
 	/**
 	 * Konstruktor der Klasse <code>ModelElementSourceRecordPanel</code>
-	 * @param readOnly	Gibt an, ob die Daten nur angezeigt (<code>true</code>) oder auch bearbeitet weden dürfen (<code>false</code>)
+	 * @param readOnly	Gibt an, ob die Daten nur angezeigt (<code>true</code>) oder auch bearbeitet werden dürfen (<code>false</code>)
 	 * @param model	Element vom Typ <code>EditModel</code> (wird benötigt, um die Liste der globalen Variablen zu laden)
 	 * @param surface	Zeichenoberfläche
 	 * @param helpRunnable	Hilfe-Runnable
-	 * @param hasOwnArrivals	Gibt an, ob diese Quelle von sich aus Kunden generiert (<code>true</code>) oder nur von außen angestoßen wird (<code>false</code>).
 	 * @param getSchedulesButton	Callback zum Erstellen der Schaltfläche zum Aufrufen der Zeitpläne
+	 * @param hasOwnArrivals	Gibt an, ob diese Quelle von sich aus Kunden generiert (<code>true</code>) oder nur von außen angestoßen wird (<code>false</code>).
+	 * @param hasActivation	Kann der Datensatz deaktiviert werden?
 	 */
-	public ModelElementSourceRecordPanel(final boolean readOnly, final EditModel model, final ModelSurface surface, final Supplier<JButton> getSchedulesButton, final Runnable helpRunnable, final boolean hasOwnArrivals) {
+	public ModelElementSourceRecordPanel(final boolean readOnly, final EditModel model, final ModelSurface surface, final Supplier<JButton> getSchedulesButton, final Runnable helpRunnable, final boolean hasOwnArrivals, final boolean hasActivation) {
 		super();
 		this.readOnly=readOnly;
 		this.model=model;
 		this.surface=surface;
 		this.helpRunnable=helpRunnable;
 		this.hasOwnArrivals=hasOwnArrivals;
+		this.hasActivation=hasActivation;
 		setLayout(new BorderLayout());
 
 		Object[] data;
@@ -245,6 +252,11 @@ public final class ModelElementSourceRecordPanel extends JPanel {
 		buttons.add(nameButton=new JButton());
 		nameButton.setToolTipText(Language.tr("Surface.Source.Dialog.ClientTypeSettings"));
 		nameButton.addActionListener(e->editClientData());
+		if (hasActivation) {
+			buttons.add(activeCheckBox=new JCheckBox(Language.tr("Surface.Source.Dialog.Active")));
+		} else {
+			activeCheckBox=null;
+		}
 
 		add(tabs=new JTabbedPane(),BorderLayout.CENTER);
 		tabs.setTabLayoutPolicy(JTabbedPane.SCROLL_TAB_LAYOUT);
@@ -601,10 +613,16 @@ public final class ModelElementSourceRecordPanel extends JPanel {
 		lastRecord=record;
 		lastName=record.getName();
 
+		/* Name */
 		if (record.hasName()) {
 			namePanel.setVisible(true);
 			nameEdit.setText(record.getName());
 			ModelElementBaseDialog.setClientIcon(record.getName(),nameButton,model);
+		}
+
+		/* Aktivierungsstatus */
+		if (hasActivation) {
+			activeCheckBox.setSelected(record.isActive());
 		}
 
 		/* Combobox einstellen */
@@ -933,8 +951,14 @@ public final class ModelElementSourceRecordPanel extends JPanel {
 	 * @param record	Datensatz-Objekt, in das die Daten eingetragen werden sollen
 	 */
 	public void getData(final ModelElementSourceRecord record) {
+		/* Name */
 		if (nameEdit.isVisible()) {
 			record.setName(nameEdit.getText());
+		}
+
+		/* Aktiv */
+		if (hasActivation) {
+			record.setActive(activeCheckBox.isSelected());
 		}
 
 		Double D;

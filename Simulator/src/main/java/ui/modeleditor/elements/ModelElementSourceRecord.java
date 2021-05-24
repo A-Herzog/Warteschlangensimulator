@@ -40,6 +40,11 @@ import ui.modeleditor.descriptionbuilder.ModelDescriptionBuilder;
  */
 public final class ModelElementSourceRecord implements Cloneable {
 	/**
+	 * Kann der Datensatz deaktiviert werden?
+	 */
+	private final boolean hasActivation;
+
+	/**
 	 * Gibt an, ob das Element selbst Ankünfte produziert (normale Quelle)
 	 * oder nur von außen getriggert wird (Zerteilen-Station).
 	 */
@@ -67,6 +72,11 @@ public final class ModelElementSourceRecord implements Cloneable {
 		/** Freigabe des nächsten Kunden aus Basis von Signalen */
 		NEXT_SIGNAL
 	}
+
+	/**
+	 * Ist der Datensatz aktiv?
+	 */
+	private boolean active;
 
 	/**
 	 * Namen des Datensatzes
@@ -215,13 +225,16 @@ public final class ModelElementSourceRecord implements Cloneable {
 	/**
 	 * Konstruktor der Klasse <code>ModelElementSourceRecord</code>
 	 * @param hasName	Gibt an, ob der Datensatz sich selbst um seinen Namen kümmern soll (beim Laden und Speichern).
+	 * @param hasActivation	Kann der Datensatz deaktiviert werden?
 	 * @param hasOwnArrivals	Gibt an, ob diese Quelle von sich aus Kunden generiert oder nur von außen angestoßen wird
 	 */
-	public ModelElementSourceRecord(final boolean hasName, final boolean hasOwnArrivals) {
+	public ModelElementSourceRecord(final boolean hasName, final boolean hasActivation, final boolean hasOwnArrivals) {
+		this.hasActivation=hasActivation;
 		this.hasOwnArrivals=hasOwnArrivals;
 		if (hasName) name=""; else name=null;
 		saveName=name;
 
+		active=true;
 		timeBase=ModelSurface.TimeBase.TIMEBASE_SECONDS;
 		nextMode=NextMode.NEXT_DISTRIBUTION;
 		distribution=new ExponentialDistribution(null,60,ExponentialDistribution.DEFAULT_INVERSE_ABSOLUTE_ACCURACY);
@@ -276,6 +289,22 @@ public final class ModelElementSourceRecord implements Cloneable {
 		if (index<0) return false;
 		changeListener.remove(listener);
 		return true;
+	}
+
+	/**
+	 * Ist der Datensatz aktiv?
+	 * @return	Ist der Datensatz aktiv?
+	 */
+	public boolean isActive() {
+		return active;
+	}
+
+	/**
+	 * Stellt ein, ob der Datensatz aktiv sein soll.
+	 * @param active	Ist der Datensatz aktiv?
+	 */
+	public void setActive(boolean active) {
+		this.active=active;
 	}
 
 	/**
@@ -653,6 +682,10 @@ public final class ModelElementSourceRecord implements Cloneable {
 	 * @return	Gibt <code>true</code> zurück, wenn die beiden Datensätze identisch sind.
 	 */
 	public boolean equalsRecord(final ModelElementSourceRecord record) {
+		if (hasActivation) {
+			if (active!=record.active) return false;
+		}
+
 		if (hasOwnArrivals) {
 			if (record.timeBase!=timeBase) return false;
 			if (nextMode!=record.nextMode) return false;
@@ -720,7 +753,8 @@ public final class ModelElementSourceRecord implements Cloneable {
 	 * @param record	Datensatz, von dem alle Einstellungen übernommen werden sollen
 	 */
 	public void copyDataFrom(ModelElementSourceRecord record) {
-		/* hasOwnArrivals wird bereits im Konstruktor gesetzt */
+		/* hasActivation und hasOwnArrivals werden bereits im Konstruktor gesetzt */
+		active=record.active;
 		name=record.name;
 		saveName=name;
 		timeBase=record.timeBase;
@@ -751,7 +785,7 @@ public final class ModelElementSourceRecord implements Cloneable {
 	 */
 	@Override
 	public ModelElementSourceRecord clone() {
-		final ModelElementSourceRecord record=new ModelElementSourceRecord(hasName(),hasOwnArrivals);
+		final ModelElementSourceRecord record=new ModelElementSourceRecord(hasName(),hasActivation,hasOwnArrivals);
 		record.copyDataFrom(this);
 		return record;
 	}
@@ -777,6 +811,12 @@ public final class ModelElementSourceRecord implements Cloneable {
 	 */
 	public void saveToXML(final Document doc, final Element node) {
 		Element sub;
+
+		if (hasActivation && !active) {
+			sub=doc.createElement(Language.trPrimary("Surface.Source.XML.Active"));
+			node.appendChild(sub);
+			sub.setTextContent("0");
+		}
 
 		if (name!=null && !name.trim().isEmpty()) {
 			sub=doc.createElement(Language.trPrimary("Surface.XML.Element.Name"));
@@ -862,6 +902,14 @@ public final class ModelElementSourceRecord implements Cloneable {
 	 * @see #loadPropertyFromXML(Element)
 	 */
 	private String loadProperty(final String name, final String content, final Element node) {
+		if (hasActivation) {
+			if (Language.trAll("Surface.Source.XML.Active",name)) {
+				final String activeString=content.trim();
+				if (activeString.equals("0")) active=false;
+				return null;
+			}
+		}
+
 		if (this.name!=null) {
 			if (Language.trAll("Surface.XML.Element.Name",name)) {
 				this.name=content.trim();

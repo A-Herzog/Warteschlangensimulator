@@ -291,7 +291,7 @@ public class ModelElementSplit extends ModelElementMultiInSingleOutBox implement
 		if (error!=null) return error;
 
 		if (Language.trAll("Surface.Split.XML.Source",name)) {
-			ModelElementSourceRecord record=new ModelElementSourceRecord(true,false);
+			ModelElementSourceRecord record=new ModelElementSourceRecord(true,true,false);
 			error=record.loadFromXML(node);
 			if (error!=null) return error;
 			record.addChangeListener(()->fireChanged());
@@ -312,6 +312,7 @@ public class ModelElementSplit extends ModelElementMultiInSingleOutBox implement
 	public String[] getNewClientTypes() {
 		final List<String> list=new ArrayList<>();
 		for (ModelElementSourceRecord record: records) {
+			if (!record.isActive()) continue;
 			final String name=record.getName();
 			if (list.indexOf(name)<0) list.add(name);
 		}

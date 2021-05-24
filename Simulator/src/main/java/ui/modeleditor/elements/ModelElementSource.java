@@ -82,7 +82,7 @@ public class ModelElementSource extends ModelElementBox implements ElementWithNe
 	public ModelElementSource(final EditModel model, final ModelSurface surface) {
 		super(model,surface,Shapes.ShapeType.SHAPE_ARROW_RIGHT);
 		setName(Language.tr("Surface.Source.DefaultGroupName"));
-		record=new ModelElementSourceRecord(false,true);
+		record=new ModelElementSourceRecord(false,false,true);
 		record.addChangeListener(()->fireChanged());
 	}
 

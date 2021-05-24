@@ -733,6 +733,7 @@
 
 <xs:element name="ModellElementMehrfachQuelleDaten"><xs:complexType>
   <xs:sequence minOccurs="0" maxOccurs="unbounded"><xs:choice>
+    <xs:element name="ModellElementQuelleAktiv" type="xs:string"/>
     <xs:element name="ModellElementName" type="xs:string"/>
     <xs:element ref="ModellElementVerteilung"/>
     <xs:element ref="ModellElementAusdruck"/>
@@ -886,6 +887,7 @@
 
 <xs:element name="ModellElementZerteilenDaten"><xs:complexType>
   <xs:sequence minOccurs="0" maxOccurs="unbounded"><xs:choice>
+    <xs:element name="ModellElementQuelleAktiv" type="xs:string"/>
     <xs:element name="ModellElementName" type="xs:string"/>
 	<xs:element ref="ModellElementBatch"/>
 	<xs:element ref="ModellElementVariablenzuweisung"/>
@@ -2841,8 +2843,9 @@
 </xs:extension></xs:complexContent></xs:complexType></xs:element>
 
 <xs:element name="ModelElementMultiSourceData"><xs:complexType>
-  <xs:sequence minOccurs="0" maxOccurs="unbounded"><xs:choice>
-  <xs:element name="ModelElementName" type="xs:string"/>
+  <xs:sequence minOccurs="0" maxOccurs="unbounded"><xs:choice>    
+	<xs:element name="ModelElementSourceActive" type="xs:string"/>
+    <xs:element name="ModelElementName" type="xs:string"/>
     <xs:element ref="ModelElementDistribution"/>
     <xs:element ref="ModelElementExpression"/>
 	<xs:element ref="ModelElementSchedule"/>
@@ -2995,7 +2998,8 @@
 
 <xs:element name="ModelElementSplitData"><xs:complexType>
   <xs:sequence minOccurs="0" maxOccurs="unbounded"><xs:choice>
-  <xs:element name="ModelElementName" type="xs:string"/>
+    <xs:element name="ModelElementSourceActive" type="xs:string"/>
+    <xs:element name="ModelElementName" type="xs:string"/>
 	<xs:element ref="ModelElementBatchData"/>
 	<xs:element ref="ModelElementAssignmentData"/>
 	<xs:element ref="ModelElementAssignmentTextRecord"/>

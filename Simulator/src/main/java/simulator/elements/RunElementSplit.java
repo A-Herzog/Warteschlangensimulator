@@ -65,6 +65,7 @@ public class RunElementSplit extends RunElementPassThrough {
 		/* Neue Kundentypen */
 		final List<RunElementSourceRecord> list=new ArrayList<>();
 		for (ModelElementSourceRecord editRecord: ((ModelElementSplit)element).getRecords()) {
+			if (!editRecord.isActive()) continue;
 			final RunElementSourceRecord record=new RunElementSourceRecord();
 			final RunModelCreatorStatus error=record.load(editRecord,null,element.getId(),editModel,runModel,list.size());
 			if (!error.isOk()) return error.message;
@@ -89,6 +90,7 @@ public class RunElementSplit extends RunElementPassThrough {
 
 		/* Neue Kundentypen */
 		for (ModelElementSourceRecord editRecord: ((ModelElementSplit)element).getRecords()) {
+			if (!editRecord.isActive()) continue;
 			final RunModelCreatorStatus error=RunElementSourceRecord.test(editRecord,null,element.getId());
 			if (!error.isOk()) return error;
 		}

@@ -209,6 +209,7 @@ public class ParameterCompareInputValuesTemplates {
 				if (!(element instanceof ModelElementSourceMulti)) continue;
 				final ModelElementSourceMulti source=(ModelElementSourceMulti)element;
 				for (int i=0;i<source.getRecords().size();i++) {
+					if (!source.getRecords().get(i).isActive()) continue;
 					if (source.getRecords().get(i).getNextMode()!=ModelElementSourceRecord.NextMode.NEXT_DISTRIBUTION) continue;
 					if (!DistributionTools.canSetMean(source.getRecords().get(i).getInterarrivalTimeDistribution())) continue;
 					final ParameterCompareSetupValueInput input=new ParameterCompareSetupValueInput();

@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-05-23 22:52+0200\n"
+"POT-Creation-Date: 2021-05-24 22:12+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -24168,6 +24168,9 @@ msgstr "Das angegebene Konfidenzniveau für den Abschluss der Simulation \"%s\" 
 msgid "Surface.Model.ErrorWarmUp"
 msgstr "Der angegebene Wert \"%s\" für die Dauer der Aufwärmphase ist ungültig. Es muss ein nichtnegativer Anteil angegeben werden."
 
+msgid "Surface.MultiSourceTable.Activate"
+msgstr "Aktivieren"
+
 msgid "Surface.MultiSourceTable.Add"
 msgstr "Kundenankünfte hinzufügen"
 
@@ -24176,6 +24179,9 @@ msgstr "Kundentyp"
 
 msgid "Surface.MultiSourceTable.ColumnData"
 msgstr "Konfiguration"
+
+msgid "Surface.MultiSourceTable.Deactivate"
+msgstr "Deaktivieren"
 
 msgid "Surface.MultiSourceTable.Delete"
 msgstr "Kundenquelle löschen"
@@ -24239,6 +24245,9 @@ msgstr "den folgenden Schwellenwert unterschreitet:"
 
 msgid "Surface.MultiSourceTable.Info.NextThreshold.Up"
 msgstr "den folgenden Schwellenwert überschreitet:"
+
+msgid "Surface.MultiSourceTable.IsDeactivated"
+msgstr "deaktiviert"
 
 msgid "Surface.Note.Dialog.Icon"
 msgstr "Icon auf Zeichenfläche"
@@ -26385,6 +26394,9 @@ msgstr "Mittlere Zwischenankunftszeit"
 msgid "Surface.Source.DefaultGroupName"
 msgstr "Kunden"
 
+msgid "Surface.Source.Dialog.Active"
+msgstr "Aktiv"
+
 msgid "Surface.Source.Dialog.ArrivalCount"
 msgstr "Anzahl an Ankunftsereignissen insgesamt"
 
@@ -26735,6 +26747,9 @@ msgstr "nicht verbunden"
 
 msgid "Surface.Source.Tooltip"
 msgstr "Quelle, die Ankünfte eines bestimmten Typs generiert."
+
+msgid "Surface.Source.XML.Active"
+msgstr "ModellElementQuelleAktiv"
 
 msgid "Surface.Source.XML.Batch"
 msgstr "ModellElementBatch"

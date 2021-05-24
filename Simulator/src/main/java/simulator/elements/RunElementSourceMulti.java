@@ -67,6 +67,7 @@ public class RunElementSourceMulti extends RunElement implements StateChangeList
 
 		final List<RunElementSourceRecord> list=new ArrayList<>();
 		for (ModelElementSourceRecord editRecord: ((ModelElementSourceMulti)element).getRecords()) {
+			if (!editRecord.isActive()) continue;
 			final RunElementSourceRecord record=new RunElementSourceRecord();
 			final RunModelCreatorStatus error=record.load(editRecord,null,element.getId(),editModel,runModel,list.size());
 			if (!error.isOk()) return error.message;
@@ -87,6 +88,7 @@ public class RunElementSourceMulti extends RunElement implements StateChangeList
 		if (findNextId(((ModelElementSourceMulti)element).getEdgeOut())<0) return RunModelCreatorStatus.noEdgeOut(element);
 
 		for (ModelElementSourceRecord editRecord: ((ModelElementSourceMulti)element).getRecords()) {
+			if (!editRecord.isActive()) continue;
 			final RunModelCreatorStatus error=RunElementSourceRecord.test(editRecord,null,element.getId());
 			if (!error.isOk()) return error;
 		}

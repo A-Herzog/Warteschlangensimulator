@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-05-23 22:52+0200\n"
+"POT-Creation-Date: 2021-05-24 22:12+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -24157,6 +24157,9 @@ msgstr "The specified confidence level for termination of the simulation \"%s\" 
 msgid "Surface.Model.ErrorWarmUp"
 msgstr "The value \"%s\" for the duration of the warm-up phase is invald. A non-negative fraction has to be specified."
 
+msgid "Surface.MultiSourceTable.Activate"
+msgstr "Activate"
+
 msgid "Surface.MultiSourceTable.Add"
 msgstr "Add client arrivals"
 
@@ -24165,6 +24168,9 @@ msgstr "Client type"
 
 msgid "Surface.MultiSourceTable.ColumnData"
 msgstr "Configuration"
+
+msgid "Surface.MultiSourceTable.Deactivate"
+msgstr "Deactivate"
 
 msgid "Surface.MultiSourceTable.Delete"
 msgstr "Delete client source"
@@ -24228,6 +24234,9 @@ msgstr "falls below threshold value"
 
 msgid "Surface.MultiSourceTable.Info.NextThreshold.Up"
 msgstr "exceeds threshold value"
+
+msgid "Surface.MultiSourceTable.IsDeactivated"
+msgstr "deactivated"
 
 msgid "Surface.Note.Dialog.Icon"
 msgstr "Icon on drawing surface"
@@ -26373,6 +26382,9 @@ msgstr "Average inter-arrival time"
 msgid "Surface.Source.DefaultGroupName"
 msgstr "Clients"
 
+msgid "Surface.Source.Dialog.Active"
+msgstr "Active"
+
 msgid "Surface.Source.Dialog.ArrivalCount"
 msgstr "Number of arrival events in total"
 
@@ -26723,6 +26735,9 @@ msgstr "not connected"
 
 msgid "Surface.Source.Tooltip"
 msgstr "Source that generates arrivals of a certain type."
+
+msgid "Surface.Source.XML.Active"
+msgstr "ModelElementSourceActive"
 
 msgid "Surface.Source.XML.Batch"
 msgstr "ModelElementBatchData"

@@ -66,15 +66,16 @@ public class ModelElementSourceMultiTableModelDialog extends BaseDialog {
 	 * @param clientData	Datenelement, welches die modellweite Kundentypenliste vorhält (falls sich durch die Veränderung des Datensatzes Kundentypnamen ändern)
 	 * @param helpRunnable	Hilfe-Callback
 	 * @param getSchedulesButton	Callback zum Erstellen der Schaltfläche zum Aufrufen der Zeitpläne
+	 * @param hasActivation	Kann der Datensatz deaktiviert werden?
 	 */
-	public ModelElementSourceMultiTableModelDialog(final Component owner, final ModelElementSourceRecord record, final ModelElement element, final EditModel model, final ModelSurface surface, final ModelClientData clientData, final Runnable helpRunnable, final Function<Supplier<Boolean>,JButton> getSchedulesButton) {
+	public ModelElementSourceMultiTableModelDialog(final Component owner, final ModelElementSourceRecord record, final ModelElement element, final EditModel model, final ModelSurface surface, final ModelClientData clientData, final Runnable helpRunnable, final Function<Supplier<Boolean>,JButton> getSchedulesButton, final boolean hasActivation) {
 		super(owner,Language.tr("Surface.MultiSourceTable.Dialog"));
 		this.clientData=clientData;
 
 		final JPanel content=createGUI(helpRunnable);
 		content.setLayout(new BoxLayout(content,BoxLayout.PAGE_AXIS));
 
-		content.add(recordPanel=new ModelElementSourceRecordPanel(false,model,surface,()->getSchedulesButton.apply(()->close(BaseDialog.CLOSED_BY_OK)),helpRunnable,record.hasOwnArrivals()),BorderLayout.CENTER);
+		content.add(recordPanel=new ModelElementSourceRecordPanel(false,model,surface,()->getSchedulesButton.apply(()->close(BaseDialog.CLOSED_BY_OK)),helpRunnable,record.hasOwnArrivals(),hasActivation),BorderLayout.CENTER);
 		recordPanel.setData(record,element);
 
 		setMinSizeRespectingScreensize(700,625);

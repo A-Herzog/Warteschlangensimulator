@@ -81,7 +81,7 @@ public class ModelElementSourceMultiDialog extends ModelElementBaseDialog {
 		final JTableExt recordsTable;
 		content.add(new JScrollPane(recordsTable=new JTableExt()),BorderLayout.CENTER);
 		if (element instanceof ModelElementSourceMulti) {
-			recordsTable.setModel(recordsTableModel=new ModelElementSourceMultiTableModel(recordsTable,((ModelElementSourceMulti)element).getRecords(),true,element,element.getModel(),element.getSurface(),readOnly,helpRunnable,childDialog->getOpenModelSchedulesButton(childDialog)));
+			recordsTable.setModel(recordsTableModel=new ModelElementSourceMultiTableModel(recordsTable,((ModelElementSourceMulti)element).getRecords(),true,true,element,element.getModel(),element.getSurface(),readOnly,helpRunnable,childDialog->getOpenModelSchedulesButton(childDialog)));
 		}
 
 		recordsTable.getColumnModel().getColumn(0).setMaxWidth(200);

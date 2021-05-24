@@ -1174,6 +1174,7 @@ public final class EditModel extends EditModelBase implements Cloneable  {
 			boolean usesMaxArrival=false;
 			boolean usesMaxArrivalClient=false;
 			for (ModelElementSourceRecord record : ((ModelElementSourceMulti)element).getRecords()) {
+				if (!record.isActive()) continue;
 				if (record.getMaxArrivalCount()>0) usesMaxArrival=true;
 				if (record.getMaxArrivalClientCount()>0) usesMaxArrivalClient=true;
 			}

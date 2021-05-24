@@ -344,7 +344,7 @@ public class ModelElementSourceMulti extends ModelElementBox implements ElementW
 		}
 
 		if (Language.trAll("Surface.SourceMulti.XML.Source",name)) {
-			ModelElementSourceRecord record=new ModelElementSourceRecord(true,true);
+			ModelElementSourceRecord record=new ModelElementSourceRecord(true,true,true);
 			error=record.loadFromXML(node);
 			if (error!=null) return error;
 			record.addChangeListener(()->fireChanged());
@@ -390,6 +390,7 @@ public class ModelElementSourceMulti extends ModelElementBox implements ElementW
 	public String[] getNewClientTypes() {
 		final List<String> list=new ArrayList<>();
 		for (ModelElementSourceRecord record: records) {
+			if (!record.isActive()) continue;
 			final String name=record.getName();
 			if (list.indexOf(name)<0) list.add(name);
 		}

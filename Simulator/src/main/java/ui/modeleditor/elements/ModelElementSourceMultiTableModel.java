@@ -56,6 +56,8 @@ public class ModelElementSourceMultiTableModel extends JTableExtAbstractTableMod
 	 */
 	private static final long serialVersionUID = -8059012715680468181L;
 
+	/** Kann der Datensatz deaktiviert werden? */
+	private final boolean hasActivation;
 	/** Gibt an, ob die Quelle selbst Kunden erzeugen können soll oder ob sie jeweils von außen angestoßen wird */
 	private final boolean hasOwnArrivals;
 	/** Tabelle in der das Datenmodell zum Einsatz kommen soll */
@@ -93,6 +95,7 @@ public class ModelElementSourceMultiTableModel extends JTableExtAbstractTableMod
 	 * @param table	Tabelle in der das Datenmodell zum Einsatz kommen soll
 	 * @param records	Datensätze, die bearbeitet werden sollen
 	 * @param hasOwnArrivals	Gibt an, ob die Quelle selbst Kunden erzeugen können soll oder ob sie jeweils von außen angestoßen wird
+	 * @param hasActivation	Kann der Datensatz deaktiviert werden?
 	 * @param element	Element, dessen Zuweisungen bearbeitet werden sollen (für den ExpressionBuilder und um die Variablenliste zusammenzustellen)
 	 * @param model	Element vom Typ <code>EditModel</code> (wird benötigt, um die Liste der globalen Variablen zu laden)
 	 * @param surface	Zeichenoberfläche
@@ -100,7 +103,7 @@ public class ModelElementSourceMultiTableModel extends JTableExtAbstractTableMod
 	 * @param help	Hilfe-Callback welches aufgerufen wird, wenn in einem der untergeordneten Dialoge auf die "Hilfe"-Schaltfläche geklickt wird.
 	 * @param getSchedulesButton	Callback zum Erstellen der Schaltfläche zum Aufrufen der Zeitpläne
 	 */
-	public ModelElementSourceMultiTableModel(final JTableExt table, final List<ModelElementSourceRecord> records, final boolean hasOwnArrivals, final ModelElement element, final EditModel model, final ModelSurface surface, final boolean readOnly, final Runnable help, final Function<Supplier<Boolean>,JButton> getSchedulesButton) {
+	public ModelElementSourceMultiTableModel(final JTableExt table, final List<ModelElementSourceRecord> records, final boolean hasOwnArrivals, final boolean hasActivation, final ModelElement element, final EditModel model, final ModelSurface surface, final boolean readOnly, final Runnable help, final Function<Supplier<Boolean>,JButton> getSchedulesButton) {
 		super();
 		this.help=help;
 		this.getSchedulesButton=getSchedulesButton;
@@ -110,6 +113,7 @@ public class ModelElementSourceMultiTableModel extends JTableExtAbstractTableMod
 		this.surface=surface;
 		this.element=element;
 		this.hasOwnArrivals=hasOwnArrivals;
+		this.hasActivation=hasActivation;
 
 		imageSource=new AnimationImageSource();
 
@@ -251,13 +255,23 @@ public class ModelElementSourceMultiTableModel extends JTableExtAbstractTableMod
 			String icon=clientData.getIcon(record.getName());
 			if (icon==null || icon.trim().isEmpty()) icon=ModelSurfaceAnimatorBase.DEFAULT_CLIENT_ICON_NAME;
 			final Image image=imageSource.get(icon,model.animationImages,16);
-			return makeEditPanelSmallBorderIcon(
-					new ImageIcon(image),
-					record.getName(),
-					new Icon[]{Images.GENERAL_SETUP.getIcon(),Images.EDIT_DELETE.getIcon()},
-					new String[]{Language.tr("Surface.MultiSourceTable.Edit"),Language.tr("Surface.MultiSourceTable.Delete")},
-					new ActionListener[]{new EditButtonListener(0,rowIndex),new EditButtonListener(1,rowIndex)}
-					);
+			if (hasActivation) {
+				return makeEditPanelSmallBorderIcon(
+						new ImageIcon(image),
+						record.getName()+(record.isActive()?"":(" ("+Language.tr("Surface.MultiSourceTable.IsDeactivated")+")")),
+						new Icon[]{record.isActive()?Images.GENERAL_OFF.getIcon():Images.GENERAL_ON.getIcon(),Images.GENERAL_SETUP.getIcon(),Images.EDIT_DELETE.getIcon()},
+						new String[]{record.isActive()?Language.tr("Surface.MultiSourceTable.Deactivate"):Language.tr("Surface.MultiSourceTable.Activate"),Language.tr("Surface.MultiSourceTable.Edit"),Language.tr("Surface.MultiSourceTable.Delete")},
+						new ActionListener[]{new EditButtonListener(record.isActive()?2:3,rowIndex),new EditButtonListener(0,rowIndex),new EditButtonListener(1,rowIndex)}
+						);
+			} else {
+				return makeEditPanelSmallBorderIcon(
+						new ImageIcon(image),
+						record.getName(),
+						new Icon[]{Images.GENERAL_SETUP.getIcon(),Images.EDIT_DELETE.getIcon()},
+						new String[]{Language.tr("Surface.MultiSourceTable.Edit"),Language.tr("Surface.MultiSourceTable.Delete")},
+						new ActionListener[]{new EditButtonListener(0,rowIndex),new EditButtonListener(1,rowIndex)}
+						);
+			}
 		case 1:
 			return makePanel(getInfoText(record),null);
 		default:
@@ -330,21 +344,30 @@ public class ModelElementSourceMultiTableModel extends JTableExtAbstractTableMod
 		public void actionPerformed(ActionEvent e) {
 			if (readOnly) return;
 
-			if (nr==0) {
-				/* Add / Edit */
-				ModelElementSourceRecord record=(row<0)?new ModelElementSourceRecord(true,hasOwnArrivals):records.get(row);
-				ModelElementSourceMultiTableModelDialog dialog=new ModelElementSourceMultiTableModelDialog(table,record,element,model,surface,clientData,help,getSchedulesButton);
+			switch (nr) {
+			case 0: /* Add / Edit */
+				ModelElementSourceRecord record=(row<0)?new ModelElementSourceRecord(true,hasActivation,hasOwnArrivals):records.get(row);
+				ModelElementSourceMultiTableModelDialog dialog=new ModelElementSourceMultiTableModelDialog(table,record,element,model,surface,clientData,help,getSchedulesButton,hasActivation);
 				dialog.setVisible(true);
 				if (dialog.getClosedBy()==BaseDialog.CLOSED_BY_OK) {
 					if (row<0) records.add(record);
 					updateTable();
 				}
-			} else {
-				/* Delete */
+				break;
+			case 1: /* Delete */
 				final String name=records.get(row).getName();
 				if (!MsgBox.confirm(table,Language.tr("Surface.MultiSourceTable.Delete.Confirmation.Title"),String.format(Language.tr("Surface.MultiSourceTable.Delete.Confirmation.Info"),name),Language.tr("Surface.MultiSourceTable.Delete.Confirmation.YesInfo"),Language.tr("Surface.MultiSourceTable.Delete.Confirmation.NoInfo"))) return;
 				records.remove(row);
 				updateTable();
+				break;
+			case 2: /* Aus */
+				records.get(row).setActive(false);
+				updateTable();
+				break;
+			case 3: /* An */
+				records.get(row).setActive(true);
+				updateTable();
+				break;
 			}
 		}
 	}
