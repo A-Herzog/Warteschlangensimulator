@@ -269,8 +269,8 @@ public class ScriptEditorAreaBuilder {
 			addAutoComplete(Language.tr("ScriptPopup.Runtime.ExecuteAndReturnOutput"),Language.tr("ScriptPopup.Runtime.ExecuteAndReturnOutput.Hint"),Images.SCRIPT_RECORD_EXECUTE_PROGRAM.getIcon(),runtimeExecute2);
 			addAutoComplete(Language.tr("ScriptPopup.Runtime.ExecuteAndWait"),Language.tr("ScriptPopup.Runtime.ExecuteAndWait.Hint"),Images.SCRIPT_RECORD_EXECUTE_PROGRAM.getIcon(),runtimeExecute3);
 		}
-		addAutoComplete(Language.tr("ScriptPopup.Runtime.MapLocal"),Language.tr("ScriptPopup.Runtime.MapLocal.Hint"),Images.SCRIPT_RECORD_EXPRESSION.getIcon(),runtimeMapLocal);
-		addAutoComplete(Language.tr("ScriptPopup.Runtime.MapGlobal"),Language.tr("ScriptPopup.Runtime.MapGlobal.Hint"),Images.SCRIPT_RECORD_EXPRESSION.getIcon(),runtimeMapGlobal);
+		addAutoComplete(Language.tr("ScriptPopup.Runtime.MapLocal"),Language.tr("ScriptPopup.Runtime.MapLocal.Hint"),Images.SCRIPT_MAP.getIcon(),runtimeMapLocal);
+		addAutoComplete(Language.tr("ScriptPopup.Runtime.MapGlobal"),Language.tr("ScriptPopup.Runtime.MapGlobal.Hint"),Images.SCRIPT_MAP.getIcon(),runtimeMapGlobal);
 	}
 
 	/**
