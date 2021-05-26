@@ -3182,8 +3182,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[7141] = "verf\u00fcgbar (JDK)";
     t[7144] = "Surface.ExpressionTableModel.ColumnAppearance";
     t[7145] = "Darstellung";
-    t[7148] = "Statistic.Viewer.Toolbar.OpenTable.Hint";
-    t[7149] = "Tabelle in externer Anwendung anzeigen.";
+    t[7148] = "ScriptPopup.Simulation.DelayStationData.Hint";
+    t[7149] = "Listet die Kunden an einer Verz\u00f6gerungs-Station auf und erm\u00f6glicht die individuelle Freigabe.";
     t[7150] = "SystemInfo.Title";
     t[7151] = "Systeminformationen";
     t[7152] = "ParameterCompare.Toolbar.ProcessResults.ResultsChart.Settings.Hint";
@@ -11606,6 +11606,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[26437] = "Ausgabeelement hinzuf\u00fcgen";
     t[26440] = "Surface.Separate.XML.Root";
     t[26441] = "ModellElementTrennen";
+    t[26442] = "ScriptPopup.Simulation.DelayStationData";
+    t[26443] = "Kunden an Verz\u00f6gerung-Stationen";
     t[26448] = "Simulation.Creator.EmptyCounterNameElse";
     t[26449] = "In Station id=%d wurde kein Z\u00e4hlername f\u00fcr den Fall, dass keine Bedingung erf\u00fcllt ist, angegeben.";
     t[26450] = "Surface.Batch.Dialog.SendAsNewClient";
@@ -11936,6 +11938,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[27123] = "Langsam";
     t[27124] = "Wait.Status.DayK.WIPZero";
     t[27125] = "%s von %s Wiederholungen simuliert / %sK Ereignisse / %sK Ereignisse pro Sekunde";
+    t[27128] = "Surface.Delay.Dialog.HasClientsList";
+    t[27129] = "Kundenliste f\u00fcr Scripting-Zugriff an der Station f\u00fchren";
     t[27132] = "Simulation.Log.BatchingDisposeForOldClients";
     t[27133] = "Zusammenfassen - Ende f\u00fcr bisherige Kunden";
     t[27138] = "SimulationServer.Setup.TLSInfo.DialogInfo";
@@ -12036,16 +12040,16 @@ public class Messages_de extends java.util.ResourceBundle {
     t[27365] = "Die %d. Bedingung ist an Zeichen %d fehlerhaft.";
     t[27366] = "Surface.PopupMenu.SimulationStatisticsData.Tab.AllClients.Info.Plural";
     t[27367] = "An der Station befinden sich %s Kunden.";
-    t[27368] = "ScriptPopup.Simulation.Calc";
-    t[27369] = "Ausdruck berechnen";
-    t[27372] = "Simulation.Creator.LogicNoEnd";
-    t[27373] = "F\u00fcr das Flusssteuerungslogikelement id=%d wurde kein Abschlusselement gefunden.";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_6 (java.lang.String[] t) {
+    t[27368] = "ScriptPopup.Simulation.Calc";
+    t[27369] = "Ausdruck berechnen";
+    t[27372] = "Simulation.Creator.LogicNoEnd";
+    t[27373] = "F\u00fcr das Flusssteuerungslogikelement id=%d wurde kein Abschlusselement gefunden.";
     t[27376] = "Surface.AnimationTrafficLights.Dialog.ConditionError.InfoRed";
     t[27377] = "Die eingegebene Bedingung \"%s\" f\u00fcr das rote Licht ist an Zeichen %d fehlerhaft.";
     t[27380] = "Surface.DDE.Column";
@@ -14042,16 +14046,16 @@ public class Messages_de extends java.util.ResourceBundle {
     t[31823] = "Ausdruck \"%s\"";
     t[31826] = "ModelGenerator.WaitingTimeToleranceDistribution";
     t[31827] = "Wartezeittoleranzverteilung";
-    t[31828] = "Surface.AnimationPointerMeasuring.Dialog.MinValue";
-    t[31829] = "Minimalwert f\u00fcr Skala";
-    t[31836] = "ExpressionBuilder.SimulationCharacteristics.Costs.ProcessAvg.Info";
-    t[31837] = "<p>Liefert die mitteren bedienzeit-bedingten Kosten, die f\u00fcr Kunden, die an der Bedienstation, deren ID in dem Parameter angegeben wurde, erzeugt wurden, bisher entstanden sind.</p>";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_7 (java.lang.String[] t) {
+    t[31828] = "Surface.AnimationPointerMeasuring.Dialog.MinValue";
+    t[31829] = "Minimalwert f\u00fcr Skala";
+    t[31836] = "ExpressionBuilder.SimulationCharacteristics.Costs.ProcessAvg.Info";
+    t[31837] = "<p>Liefert die mitteren bedienzeit-bedingten Kosten, die f\u00fcr Kunden, die an der Bedienstation, deren ID in dem Parameter angegeben wurde, erzeugt wurden, bisher entstanden sind.</p>";
     t[31838] = "SettingsDialog.JSEngine.Nashorn";
     t[31839] = "Javascript-Umgebung des Java-Laufzeitsystems";
     t[31840] = "Surface.SourceDDE.XML.Table";
@@ -16048,16 +16052,16 @@ public class Messages_de extends java.util.ResourceBundle {
     t[36423] = "Aus";
     t[36428] = "Statistics.Transporter.InfoCapacity";
     t[36429] = "Kapazit\u00e4t der Transporter dieses Typs";
-    t[36434] = "Statistics.ErlangCompare.Info.Source.CV";
-    t[36435] = "Der Variationskoeffizient der Zwischenankunftszeiten betr\u00e4gt %s. Die Formel geht jedoch von 1,0 aus.";
-    t[36444] = "Simulation.Creator.InternalErrorLogicElement";
-    t[36445] = "Interner Fehler: Von Element id=%d konnte keine Kopie erstellt werden.";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_8 (java.lang.String[] t) {
+    t[36434] = "Statistics.ErlangCompare.Info.Source.CV";
+    t[36435] = "Der Variationskoeffizient der Zwischenankunftszeiten betr\u00e4gt %s. Die Formel geht jedoch von 1,0 aus.";
+    t[36444] = "Simulation.Creator.InternalErrorLogicElement";
+    t[36445] = "Interner Fehler: Von Element id=%d konnte keine Kopie erstellt werden.";
     t[36456] = "Schedule.Delete.Confirmation";
     t[36457] = "Soll der Zeitplan \"%s\" wirklich gel\u00f6scht werden?";
     t[36460] = "Surface.Match.XML.MatchMode.Collect";
@@ -17032,6 +17036,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[38751] = "Es wurden w\u00e4hrend der Simulation keine Autokorrelationsdaten erfasst.";
     t[38754] = "Distribution.SawtoothLeft";
     t[38755] = "Linke S\u00e4gezahnverteilung";
+    t[38756] = "Statistic.Viewer.Toolbar.OpenTable.Hint";
+    t[38757] = "Tabelle in externer Anwendung anzeigen.";
     t[38758] = "Simulation.Log.Transporter";
     t[38759] = "Transporter";
     t[38760] = "Transporter.Group.Edit.Dialog.FailureTitle";
@@ -18052,18 +18058,18 @@ public class Messages_de extends java.util.ResourceBundle {
     t[41001] = "Neuer Kundentyp";
     t[41002] = "ParameterCompare.ConnectParameters.NoModels.Title";
     t[41003] = "Keine Modelle vorhanden";
-    t[41010] = "LogSimulation.LogFile.Select";
-    t[41011] = "Logdatei ausw\u00e4hlen";
-    t[41016] = "XML.ErrorProcessingStream";
-    t[41017] = "Es ist ein Fehler beim Verarbeiten des Datenstroms aufgetreten.";
-    t[41020] = "Simulation.Log.CounterMulti";
-    t[41021] = "Mehrfachz\u00e4hler";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_9 (java.lang.String[] t) {
+    t[41010] = "LogSimulation.LogFile.Select";
+    t[41011] = "Logdatei ausw\u00e4hlen";
+    t[41016] = "XML.ErrorProcessingStream";
+    t[41017] = "Es ist ein Fehler beim Verarbeiten des Datenstroms aufgetreten.";
+    t[41020] = "Simulation.Log.CounterMulti";
+    t[41021] = "Mehrfachz\u00e4hler";
     t[41022] = "Animation.SkipWarmUp";
     t[41023] = "In dem Modell ist eine Einschwingphase eingetragen und es werden gleichzeitg<br>Elemente zur Visualisierung von Statistikdaten w\u00e4hrend der Animation verwendet.<br>Die Visualisierungselemente werden, abh\u00e4ngig von dem gew\u00e4hlten Ausdruck, evtl. keine<br>Daten anzeigen k\u00f6nnen, bis die Einschwingphase (%s Kundenank\u00fcnfte) abgeschlossen ist.<br>Soll die Einschwingphase temopr\u00e4r f\u00fcr diese Animation deaktiviert werden?";
     t[41024] = "Surface.SourceTable.Dialog.ClientTypes.ErrorTitle";
@@ -18648,6 +18654,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[42315] = "Zeitplan l\u00f6schen.";
     t[42324] = "Statistics.AverageNumberOfClientsByStations";
     t[42325] = "Mittlere Anzahl an Kunden (nach Stationen)";
+    t[42326] = "Surface.Delay.XML.ClientsList";
+    t[42327] = "ModellElementVerzoegerungKundenliste";
     t[42328] = "Main.Menu.View.ShowGradients";
     t[42329] = "Farbverl\u00e4ufe verwenden";
     t[42330] = "JDistributionEditor.Copy.Graphics";
@@ -19262,6 +19270,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[43807] = "Richtung";
     t[43810] = "Statistic.FastAccess.Template.StatisticsXMLArray";
     t[43811] = "XML-Array";
+    t[43816] = "Surface.Delay.Dialog.HasClientsList.Tooltip";
+    t[43817] = "Dies ist nur notwendig, wenn per Skript auf die Liste der Kunden an dieser Station zugegriffen werden soll. Dies verlangsamt die Simulation.";
     t[43818] = "Batch.Parameter.XMLTag.NoElementFound";
     t[43819] = "Es wurden kein Element, das zu dem Selektor %s passt, gefunden.";
     t[43822] = "Surface.Decide.Dialog.DecideBy.Sequence";

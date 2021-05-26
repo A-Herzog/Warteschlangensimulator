@@ -312,6 +312,21 @@ The following methods are available in this interface:
   Outputs the passed message to the logging system (if logging is enabled).
 </ul>
 
+<h3>Release clients at delay stations</h3>
+
+<p>
+If a list of clients at a delay station is recorded, this list can be queried using the
+following function and individual clients can be selectively released before their
+specified delay time has expired.
+</p>
+
+<ul>
+  <li><tt>ClientsInterface getDelayStationData(final int id)</tt><br>
+  Returns an object implementing <tt>ClientsInterface</tt> which represents the list
+  of clients at the delay station <tt>id</tt>. If the id is invalid, <tt>null</tt>
+  will be returned.
+</ul>
+
 
 
 <h2>ClientInterface accessible via sim.getClient()</h2>

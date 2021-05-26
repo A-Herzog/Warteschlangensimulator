@@ -15,50 +15,34 @@
  */
 package scripting.js;
 
-import java.util.Arrays;
-import java.util.List;
-
-import simulator.runmodel.RunDataClient;
+import simulator.elements.RunElementDelay;
 import simulator.runmodel.SimulationData;
 
 /**
- * Stellt das "Clients"-Objekt in Javascript-Umgebungen zur Verfügung (für Kunden an einer Bedingung(Skript)-Station)
+ * Stellt das "Clients"-Objekt in Javascript-Umgebungen zur Verfügung (für Kunden an einer Verzögerung-Station)
  * @author Alexander Herzog
  */
-public final class JSCommandClients extends JSCommandClientsBase {
-	/** Gibt an, welche Kunden freigegeben werden sollen */
-	private boolean[] releaseClients;
+public final class JSCommandClientsDelay extends JSCommandClientsBase {
+	/**
+	 * Zu dieser Kundenliste gehörende Verzögerung-Station
+	 */
+	private RunElementDelay delay;
 
 	/**
 	 * Konstruktor der Klasse <code>JSCommandClients</code>
 	 */
-	public JSCommandClients() {
+	public JSCommandClientsDelay() {
 		super();
 	}
 
 	/**
 	 * Stellt die Simulationsdaten und die Liste der wartenden Kunden für die Abfrage durch das Javascript-Verknüpfungs-Objekt ein
 	 * @param simData	Simulationsdaten-Objekt (kann auch <code>null</code> sein)
-	 * @param clients	Liste der wartenden Kunden
+	 * @param delay	Zu dieser Kundenliste gehörende Verzögerung-Station
 	 */
-	@Override
-	public void setSimulationData(final SimulationData simData, final List<RunDataClient> clients) {
-		super.setSimulationData(simData,clients);
-		if (releaseClients!=null && releaseClients.length>=count) {
-			Arrays.fill(releaseClients,false);
-		} else {
-			releaseClients=new boolean[count*2];
-		}
-	}
-
-	/**
-	 * Gibt an, welche der Kunden freigegeben werden sollen.<br>
-	 * Achtung: Das Array kann <b>länger</b> als das Kundenarray sein!
-	 * @return	Array mit Angaben darüber, welche Kunden freigegeben werden sollen
-	 * @see JSCommandClients#setSimulationData(SimulationData, List)
-	 */
-	public boolean[] getSimulationData() {
-		return releaseClients;
+	public void setSimulationData(final SimulationData simData, final RunElementDelay delay) {
+		this.delay=delay;
+		super.setSimulationData(simData,delay.getClientsAtStation(simData));
 	}
 
 	/**
@@ -67,6 +51,6 @@ public final class JSCommandClients extends JSCommandClientsBase {
 	 */
 	public void release(final int index) {
 		if (index<0 || index>=count) return;
-		releaseClients[index]=true;
+		delay.releaseClientNow(simData,clients.get(index));
 	}
 }

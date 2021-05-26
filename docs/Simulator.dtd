@@ -623,7 +623,7 @@
 <!ELEMENT ModellElementKostenKundenBedienzeit (#PCDATA)>
 <!ELEMENT ModellElementKostenStation (#PCDATA)>
 
-<!ELEMENT ModellElementVerzoegerung (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementBoxSchriftGross | ModellElementBoxSchriftKlein | ModellElementEbene | ModellElementHintergrundfarbe | ModellElementStationsbild | ModellElementVerbindung | ModellElementVerteilung | ModellElementAusdruck | ModellElementVerzoegerungKosten)*>
+<!ELEMENT ModellElementVerzoegerung (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementBoxSchriftGross | ModellElementBoxSchriftKlein | ModellElementEbene | ModellElementHintergrundfarbe | ModellElementStationsbild | ModellElementVerbindung | ModellElementVerteilung | ModellElementAusdruck | ModellElementVerzoegerungKosten | ModellElementVerzoegerungKundenliste)*>
 <!ATTLIST ModellElementVerzoegerung
   id			CDATA	#REQUIRED
   geschuetzt	CDATA	#IMPLIED
@@ -631,6 +631,7 @@
   SymbolSpiegeln	CDATA	#IMPLIED
 >
 <!ELEMENT ModellElementVerzoegerungKosten (#PCDATA)>
+<!ELEMENT ModellElementVerzoegerungKundenliste (#PCDATA)>
 
 <!ELEMENT ModellElementTrennen (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementBoxSchriftGross | ModellElementBoxSchriftKlein | ModellElementEbene | ModellElementHintergrundfarbe | ModellElementStationsbild | ModellElementVerbindung)*>
 <!ATTLIST ModellElementTrennen
@@ -2803,7 +2804,7 @@
 <!ELEMENT ModelElementCostsClientsProcessingTime (#PCDATA)>
 <!ELEMENT ModelElementCostsStation (#PCDATA)>
 
-<!ELEMENT ModelElementDelay (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBoxFontLarge | ModelElementBoxFontSmall | ModelElementLayer | ModelElementBackgroundColor | ModelElementStationimage | ModelElementConnection | ModelElementDistribution | ModelElementExpression | ModelElementDelayCosts)*>
+<!ELEMENT ModelElementDelay (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBoxFontLarge | ModelElementBoxFontSmall | ModelElementLayer | ModelElementBackgroundColor | ModelElementStationimage | ModelElementConnection | ModelElementDistribution | ModelElementExpression | ModelElementDelayCosts | ModelElementDelayClientsList)*>
 <!ATTLIST ModelElementDelay
   id		CDATA	#REQUIRED
   protected	CDATA	#IMPLIED
@@ -2811,6 +2812,7 @@
   MirrorSymbol	CDATA	#IMPLIED
 >
 <!ELEMENT ModelElementDelayCosts (#PCDATA)>
+<!ELEMENT ModelElementDelayClientsList (#PCDATA)>
 
 <!ELEMENT ModelElementSeparate (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBoxFontLarge | ModelElementBoxFontSmall | ModelElementLayer | ModelElementBackgroundColor | ModelElementStationimage | ModelElementConnection)*>
 <!ATTLIST ModelElementSeparate

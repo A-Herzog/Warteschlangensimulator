@@ -24,6 +24,8 @@ import java.awt.event.KeyListener;
 import java.io.Serializable;
 import java.util.Map;
 
+import javax.swing.BoxLayout;
+import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
@@ -63,6 +65,8 @@ public class ModelElementDelayDialog extends ModelElementBaseDialog {
 	private DistributionOrExpressionByClientTypeEditor distributions;
 	/** Eingabefeld für die Kosten pro Bedienvorgang */
 	private JTextField textCosts;
+	/** Soll eine Liste der Kunden an der Station geführt werden? */
+	private JCheckBox hasClientsList;
 
 	/**
 	 * Konstruktor der Klasse
@@ -96,6 +100,7 @@ public class ModelElementDelayDialog extends ModelElementBaseDialog {
 	protected JComponent getContentPanel() {
 		final JPanel content=new JPanel(new BorderLayout());
 
+		final ModelElementDelay delayElement=(ModelElementDelay)element;
 		variables=element.getSurface().getMainSurfaceVariableNames(element.getModel().getModelVariableNames(),true);
 
 		JPanel sub;
@@ -106,7 +111,7 @@ public class ModelElementDelayDialog extends ModelElementBaseDialog {
 		sub.add(label=new JLabel(Language.tr("Surface.Delay.Dialog.TimeBase")+":"));
 		sub.add(timeBase=new JComboBox<>(ModelSurface.getTimeBaseStrings()));
 		timeBase.setEnabled(!readOnly);
-		timeBase.setSelectedIndex(((ModelElementDelay)element).getTimeBase().id);
+		timeBase.setSelectedIndex(delayElement.getTimeBase().id);
 		label.setLabelFor(timeBase);
 
 		sub.add(label=new JLabel(Language.tr("Surface.Delay.Dialog.DelayTimeIs")));
@@ -118,7 +123,7 @@ public class ModelElementDelayDialog extends ModelElementBaseDialog {
 		}));
 
 		processTimeType.setEnabled(!readOnly);
-		switch (((ModelElementDelay)element).getDelayType()) {
+		switch (delayElement.getDelayType()) {
 		case DELAY_TYPE_WAITING: processTimeType.setSelectedIndex(0); break;
 		case DELAY_TYPE_TRANSFER: processTimeType.setSelectedIndex(1); break;
 		case DELAY_TYPE_PROCESS: processTimeType.setSelectedIndex(2); break;
@@ -128,14 +133,18 @@ public class ModelElementDelayDialog extends ModelElementBaseDialog {
 
 		/* Daten aus Element laden */
 		content.add(distributions=new DistributionOrExpressionByClientTypeEditor(element.getModel(),element.getSurface(),readOnly,Language.tr("Surface.Delay.Dialog.DelayDistribution"),Language.tr("Surface.Delay.Dialog.DelayExpression")),BorderLayout.CENTER);
-		distributions.setData(((ModelElementDelay)element).getDelayTime(),((ModelElementDelay)element).getDelayExpression());
-		for (String clientType : distributions.getClientTypes()) distributions.setData(clientType,((ModelElementDelay)element).getDelayTime(clientType),((ModelElementDelay)element).getDelayExpression(clientType));
+		distributions.setData(delayElement.getDelayTime(),delayElement.getDelayExpression());
+		for (String clientType: distributions.getClientTypes()) distributions.setData(clientType,delayElement.getDelayTime(clientType),delayElement.getDelayExpression(clientType));
 
+		/* Bereich unten */
+		final JPanel bottom=new JPanel();
+		bottom.setLayout(new BoxLayout(bottom,BoxLayout.PAGE_AXIS));
+		content.add(bottom,BorderLayout.SOUTH);
 
 		/* Kosten */
-		final Object[] data=getInputPanel(Language.tr("Surface.Delay.Dialog.CostsPerClient")+":",((ModelElementDelay)element).getCosts());
+		final Object[] data=getInputPanel(Language.tr("Surface.Delay.Dialog.CostsPerClient")+":",delayElement.getCosts());
 		textCosts=(JTextField)data[1];
-		content.add(sub=(JPanel)data[0],BorderLayout.SOUTH);
+		bottom.add(sub=(JPanel)data[0]);
 		textCosts.setEditable(!readOnly);
 		textCosts.addKeyListener(new KeyListener() {
 			@Override public void keyTyped(KeyEvent e) {checkData(false);}
@@ -143,6 +152,11 @@ public class ModelElementDelayDialog extends ModelElementBaseDialog {
 			@Override public void keyPressed(KeyEvent e) {checkData(false);}
 		});
 		((JPanel)data[0]).add(getExpressionEditButton(this,textCosts,false,true,element.getModel(),element.getSurface()),BorderLayout.EAST);
+
+		/* Kundenliste führen? */
+		bottom.add(sub=new JPanel(new FlowLayout(FlowLayout.LEFT)));
+		sub.add(hasClientsList=new JCheckBox(Language.tr("Surface.Delay.Dialog.HasClientsList"),delayElement.hasClientsList()));
+		hasClientsList.setToolTipText(Language.tr("Surface.Delay.Dialog.HasClientsList.Tooltip"));
 
 		/* GUI aufbauen */
 		distributions.start();
@@ -198,16 +212,20 @@ public class ModelElementDelayDialog extends ModelElementBaseDialog {
 	@Override
 	protected void storeData() {
 		super.storeData();
-		((ModelElementDelay)element).setTimeBase(ModelSurface.TimeBase.byId(timeBase.getSelectedIndex()));
-		((ModelElementDelay)element).setDelayTime(distributions.getGlobalDistribution(),distributions.getGlobalExpression());
+
+		final ModelElementDelay delayElement=(ModelElementDelay)element;
+
+		delayElement.setTimeBase(ModelSurface.TimeBase.byId(timeBase.getSelectedIndex()));
+		delayElement.setDelayTime(distributions.getGlobalDistribution(),distributions.getGlobalExpression());
 		switch (processTimeType.getSelectedIndex()) {
-		case 0: ((ModelElementDelay)element).setDelayType(ModelElementDelay.DelayType.DELAY_TYPE_WAITING); break;
-		case 1: ((ModelElementDelay)element).setDelayType(ModelElementDelay.DelayType.DELAY_TYPE_TRANSFER); break;
-		case 2: ((ModelElementDelay)element).setDelayType(ModelElementDelay.DelayType.DELAY_TYPE_PROCESS); break;
-		case 3: ((ModelElementDelay)element).setDelayType(ModelElementDelay.DelayType.DELAY_TYPE_NOTHING); break;
+		case 0: delayElement.setDelayType(ModelElementDelay.DelayType.DELAY_TYPE_WAITING); break;
+		case 1: delayElement.setDelayType(ModelElementDelay.DelayType.DELAY_TYPE_TRANSFER); break;
+		case 2: delayElement.setDelayType(ModelElementDelay.DelayType.DELAY_TYPE_PROCESS); break;
+		case 3: delayElement.setDelayType(ModelElementDelay.DelayType.DELAY_TYPE_NOTHING); break;
 		}
-		for(Map.Entry<String,AbstractRealDistribution> entry: distributions.getDistributions().entrySet()) ((ModelElementDelay)element).setDelayTime(entry.getKey(),entry.getValue(),null);
-		for(Map.Entry<String,String> entry: distributions.getExpressions().entrySet()) ((ModelElementDelay)element).setDelayTime(entry.getKey(),null,entry.getValue());
-		((ModelElementDelay)element).setCosts(textCosts.getText());
+		for(Map.Entry<String,AbstractRealDistribution> entry: distributions.getDistributions().entrySet()) delayElement.setDelayTime(entry.getKey(),entry.getValue(),null);
+		for(Map.Entry<String,String> entry: distributions.getExpressions().entrySet()) delayElement.setDelayTime(entry.getKey(),null,entry.getValue());
+		delayElement.setCosts(textCosts.getText());
+		delayElement.setHasClientsList(hasClientsList.isSelected());
 	}
 }

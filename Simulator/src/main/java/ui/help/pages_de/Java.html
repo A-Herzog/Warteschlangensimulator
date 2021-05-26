@@ -329,6 +329,21 @@ späteren Filterung der Ergebnisse nicht verwendet werden. Das Interface stellt 
   Gibt die übergebene Meldung im Logging-System aus (sofern eine Logaufzeichnung aktiviert ist).
 </ul>
 
+<h3>Kunden an Verzögerungen-Stationen freigeben</h3>
+
+<p>
+Wurde an einer Verzögerung-Station eingestellt, dass eine Liste der aktuell dort befindlichen Kunden
+mitgeführt werden soll, so kann diese Liste über die folgende Funktion abgefragt werden und es können
+selektiv einzelne Kunden vor Ablauf ihrer angegebenen Verzögerungszeit freigegeben werden.
+</p>
+
+<ul>
+  <li><tt>ClientsInterface getDelayStationData(final int id)</tt><br>
+  Liefert ein Objekt, welches <tt>ClientsInterface</tt> implementiert und die Liste
+  der Kunden an Verzögerungs-Station <tt>id</tt> repräsentiert. Ist die ID ungültig
+  so wird <tt>null</tt> zurückgeliefert. 
+</ul>
+
 
 
 <h2>ClientInterface abrufbar über sim.getClient()</h2>

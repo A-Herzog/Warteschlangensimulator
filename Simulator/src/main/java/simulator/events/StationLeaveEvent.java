@@ -262,8 +262,9 @@ public class StationLeaveEvent extends Event {
 	 * @param client	Kunde der die Station verlassen soll
 	 * @param station	Station die verlassen werden soll
 	 * @param timeDelta	Zeitpunkt (in Millisekunden ab der aktuellen Zeit) an der das Ereignis ausgeführt werden soll
+	 * @return	Liefert das erzeugte und bereits in die Ereignisliste eingefügte Ereignis zurück
 	 */
-	public static void addLeaveEvent(final SimulationData simData, final RunDataClient client, final RunElement station, final long timeDelta) {
+	public static StationLeaveEvent addLeaveEvent(final SimulationData simData, final RunDataClient client, final RunElement station, final long timeDelta) {
 		/* addLeaveEvent(simData,client,station,timeDelta,true); - true = logStationLeave bei Ausführung des Events */
 
 		/* Station-Event-Objekt holen */
@@ -279,6 +280,8 @@ public class StationLeaveEvent extends Event {
 
 		/* Zur Ereignisliste hinzufügen */
 		simData.eventManager.addEvent(leaveStation);
+
+		return leaveStation;
 	}
 
 	/**

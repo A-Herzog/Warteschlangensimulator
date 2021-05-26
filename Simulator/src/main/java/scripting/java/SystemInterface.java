@@ -149,4 +149,11 @@ public interface SystemInterface {
 	 * @param obj	Zu erfassende Meldung
 	 */
 	void log(final Object obj);
+
+	/**
+	 * Liefert die Liste der Kunden an einer Verzögerung-Station.
+	 * @param id	ID der Verzögerung-Station
+	 * @return	Liste der Kunden an der Station oder <code>null</code>, wenn keine Kundenliste ermittelt werden konnte
+	 */
+	ClientsInterface getDelayStationData(final int id);
 }

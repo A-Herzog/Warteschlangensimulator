@@ -15,8 +15,13 @@
  */
 package simulator.elements;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import simulator.coreelements.RunElement;
 import simulator.coreelements.RunElementData;
+import simulator.events.StationLeaveEvent;
+import simulator.runmodel.RunDataClient;
 import simulator.simparser.ExpressionCalc;
 
 /**
@@ -37,26 +42,37 @@ public class RunElementDelayData extends RunElementData {
 	public final ExpressionCalc costs;
 
 	/**
+	 * Liste der Kunden an der Station (kann <code>null</code> sein)
+	 */
+	public final Map<RunDataClient,StationLeaveEvent> clientsList;
+
+	/**
 	 * Konstruktor der Klasse <code>RunElementDelayData</code>
 	 * @param station	Station zu diesem Datenelement
 	 * @param expresionStrings	Ausdruck zur Verzögerung der Kunden (einzelne Einträge können <code>null</code> sein, wenn eine Verteilung verwendet werden soll)
 	 * @param variableNames	Liste der global verfügbaren Variablennamen
 	 * @param costs	Kosten pro Bedienvorgang (kann <code>null</code> sein)
+	 * @param hasClientsList	Soll eine Liste der Kunden an der Station geführt werden?
 	 */
-	public RunElementDelayData(final RunElement station, final String[] expresionStrings, final String[] variableNames, final String costs) {
+	public RunElementDelayData(final RunElement station, final String[] expresionStrings, final String[] variableNames, final String costs, final boolean hasClientsList) {
 		super(station);
 
+		/* Verzögerungsausdrucke */
 		expression=new ExpressionCalc[expresionStrings.length];
 		for (int i=0;i<expresionStrings.length;i++) if (expresionStrings[i]!=null) {
 			expression[i]=new ExpressionCalc(variableNames);
 			expression[i].parse(expresionStrings[i]);
 		}
 
+		/* Kosten pro Bedienung */
 		if (costs==null || costs.trim().isEmpty()) {
 			this.costs=null;
 		} else {
 			this.costs=new ExpressionCalc(variableNames);
 			this.costs.parse(costs);
 		}
+
+		/* Liste der Kunden an der Station (kann <code>null</code> sein) */
+		clientsList=hasClientsList?new HashMap<>():null;
 	}
 }

@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-05-24 22:12+0200\n"
+"POT-Creation-Date: 2021-05-26 20:44+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -13524,6 +13524,12 @@ msgstr "Calculate expression"
 msgid "ScriptPopup.Simulation.Calc.Hint"
 msgstr "Calculates an expression in the context of the simulation"
 
+msgid "ScriptPopup.Simulation.DelayStationData"
+msgstr "Clients at delay stations"
+
+msgid "ScriptPopup.Simulation.DelayStationData.Hint"
+msgstr "Lists and releases clients at a delay station."
+
 msgid "ScriptPopup.Simulation.Hint"
 msgstr "Execute commands in the context of the simulation"
 
@@ -22733,6 +22739,12 @@ msgstr "transfer time"
 msgid "Surface.Delay.Dialog.DelayTimeIs.WaitingTime"
 msgstr "waiting time"
 
+msgid "Surface.Delay.Dialog.HasClientsList"
+msgstr "List clients for scripting access at the station"
+
+msgid "Surface.Delay.Dialog.HasClientsList.Tooltip"
+msgstr "This is only needed if the list of clients at this station is to be accessed via scripts. This slows down the simulation."
+
 msgid "Surface.Delay.Dialog.TimeBase"
 msgstr "Time base"
 
@@ -22747,6 +22759,9 @@ msgstr "Delay"
 
 msgid "Surface.Delay.Tooltip"
 msgstr "Delays client passing this ellement according to a given distribution."
+
+msgid "Surface.Delay.XML.ClientsList"
+msgstr "ModelElementDelayClientsList"
 
 msgid "Surface.Delay.XML.Costs"
 msgstr "ModelElementDelayCosts"

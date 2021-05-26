@@ -518,6 +518,21 @@ it contains can be accessed in read-only mode:
   Outputs the passed message to the logging system (if logging is enabled).
 </ul>
 
+<h3>Release clients at delay stations</h3>
+
+<p>
+If a list of clients at a delay station is recorded, this list can be queried using the
+following function and individual clients can be selectively released before their
+specified delay time has expired.
+</p>
+
+<ul>
+  <li><tt>getDelayStationData(id)</tt><br>
+  Returns an object which offers the methods described in <b>Accessing client-specific data</b>
+  for accessing the list of clients at the delay station <tt>id</tt>. If the id is invalid, <tt>null</tt>
+  will be returned.
+</ul>
+
 
 
 <h2>Clients</h2>

@@ -35,6 +35,7 @@ import parser.MathCalcError;
 import scripting.java.RuntimeData;
 import simulator.coreelements.RunElement;
 import simulator.elements.RunElementAnalogValue;
+import simulator.elements.RunElementDelay;
 import simulator.elements.RunElementTank;
 import simulator.runmodel.RunDataClient;
 import simulator.runmodel.SimulationData;
@@ -56,6 +57,8 @@ public final class JSCommandSystem extends JSBaseCommand {
 	private RunDataClient client;
 	/** Eingangsgröße (z.B. aus einer Datei geladener Zahlenwert) */
 	private double inputValue;
+	/** Liste von Kundenlisten für bestimmte Verzögerung-Stationen */
+	private final Map<Integer,JSCommandClientsDelay> delayInterfaces;
 	/**
 	 * Zuordnung von Rechenausdruck-Zeichenketten und bereits erstellten passenden Objekten
 	 * @see #getExpression(String)
@@ -73,6 +76,7 @@ public final class JSCommandSystem extends JSBaseCommand {
 		expressionCache=new HashMap<>();
 		inputValue=0.0;
 		currentStation=-1;
+		delayInterfaces=new HashMap<>();
 	}
 
 	/**
@@ -995,5 +999,26 @@ public final class JSCommandSystem extends JSBaseCommand {
 	public Map<String,Object> getMapGlobal() {
 		if (simData==null) return null;
 		return simData.runtimeData.get();
+	}
+
+	/**
+	 * Liefert die Liste der Kunden an einer Verzögerung-Station.
+	 * @param id	ID der Verzögerung-Station
+	 * @return	Liste der Kunden an der Station oder <code>null</code>, wenn keine Kundenliste ermittelt werden konnte
+	 */
+	public JSCommandClientsDelay getDelayStationData(final int id) {
+		final RunElement element=simData.runModel.elementsFast[id];
+		if (!(element instanceof RunElementDelay)) return null;
+		final RunElementDelay delayElement=(RunElementDelay)element;
+
+		JSCommandClientsDelay delayCommand=delayInterfaces.get(id);
+		if (delayCommand==null) {
+			delayCommand=new JSCommandClientsDelay();
+			delayInterfaces.put(id,delayCommand);
+		}
+
+		delayCommand.setSimulationData(simData,delayElement);
+
+		return delayCommand;
 	}
 }

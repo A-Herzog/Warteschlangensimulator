@@ -408,6 +408,21 @@ Gibt die übergebene Meldung im Logging-System aus (sofern eine Logaufzeichnung 
 
 \end{itemize}
 
+\section{Kunden an Verzögerungen-Stationen freigeben}
+
+Wurde an einer Verzögerung-Station eingestellt, dass eine Liste der aktuell dort befindlichen Kunden
+mitgeführt werden soll, so kann diese Liste über die folgende Funktion abgefragt werden und es können
+selektiv einzelne Kunden vor Ablauf ihrer angegebenen Verzögerungszeit freigegeben werden.
+
+\begin{itemize}
+
+\item
+\cmd{ClientsInterface getDelayStationData(final int id)}:\\
+Liefert ein Objekt, welches \cm{ClientsInterface} implementiert und die Liste
+der Kunden an Verzögerungs-Station \cm{id} repräsentiert. Ist die ID ungültig
+so wird \cm{null} zurückgeliefert. 
+\end{itemize}
+
 
 
 \chapter{\texttt{ClientInterface} abrufbar über \texttt{sim.getClient()}}

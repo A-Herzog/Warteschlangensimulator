@@ -833,6 +833,7 @@
 
 <xs:element name="ModellElementVerzoegerung"><xs:complexType><xs:complexContent><xs:extension base="ModellElementVerbundenBasis">
   <xs:sequence minOccurs="0" maxOccurs="unbounded"><xs:choice>
+    <xs:element name="ModellElementVerzoegerungKundenliste" type="xs:string"/>
     <xs:element name="ModellElementVerzoegerungKosten" type="xs:string"/>
 	<xs:element ref="ModellElementVerteilung"/>
     <xs:element ref="ModellElementAusdruck"/>
@@ -2944,6 +2945,7 @@
 
 <xs:element name="ModelElementDelay"><xs:complexType><xs:complexContent><xs:extension base="ModelElementConnectedBase">
   <xs:sequence minOccurs="0" maxOccurs="unbounded"><xs:choice>
+    <xs:element name="ModelElementDelayClientsList" type="xs:string"/>
     <xs:element name="ModelElementDelayCosts" type="xs:string"/>
 	<xs:element ref="ModelElementDistribution"/>
     <xs:element ref="ModelElementExpression"/>

@@ -86,7 +86,7 @@ public class JSRunSimulationData {
 		final JSBuilder builder=new JSBuilder(2_000);
 		builder.addBinding("Simulation",simulatorCommand);
 		if (hasOutput) builder.addBinding("Output",outputCommand=new JSCommandOutput(builder.output,false));
-		if (hasMultiClientData) builder.addBinding("Clients",clientsCommand=new JSCommandClients(builder.output));
+		if (hasMultiClientData) builder.addBinding("Clients",clientsCommand=new JSCommandClients());
 		runner=builder.build();
 		if (runner==null) return false;
 		final boolean initOk=runner.initScript(script);

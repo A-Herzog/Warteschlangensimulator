@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-05-24 22:12+0200\n"
+"POT-Creation-Date: 2021-05-26 20:44+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -13524,6 +13524,12 @@ msgstr "Ausdruck berechnen"
 msgid "ScriptPopup.Simulation.Calc.Hint"
 msgstr "Berechnet einen Ausdruck im Kontext der Simulation"
 
+msgid "ScriptPopup.Simulation.DelayStationData"
+msgstr "Kunden an Verzögerung-Stationen"
+
+msgid "ScriptPopup.Simulation.DelayStationData.Hint"
+msgstr "Listet die Kunden an einer Verzögerungs-Station auf und ermöglicht die individuelle Freigabe."
+
 msgid "ScriptPopup.Simulation.Hint"
 msgstr "Befehle im Kontext der Simulation ausführen"
 
@@ -22744,6 +22750,12 @@ msgstr "Transferzeit"
 msgid "Surface.Delay.Dialog.DelayTimeIs.WaitingTime"
 msgstr "Wartezeit"
 
+msgid "Surface.Delay.Dialog.HasClientsList"
+msgstr "Kundenliste für Scripting-Zugriff an der Station führen"
+
+msgid "Surface.Delay.Dialog.HasClientsList.Tooltip"
+msgstr "Dies ist nur notwendig, wenn per Skript auf die Liste der Kunden an dieser Station zugegriffen werden soll. Dies verlangsamt die Simulation."
+
 msgid "Surface.Delay.Dialog.TimeBase"
 msgstr "Zeitbasis"
 
@@ -22758,6 +22770,9 @@ msgstr "Verzögerung"
 
 msgid "Surface.Delay.Tooltip"
 msgstr "Verzögert die Kunden, die dieses Element durchlaufen, gemäß einer vorgegebenen Verteilung."
+
+msgid "Surface.Delay.XML.ClientsList"
+msgstr "ModellElementVerzoegerungKundenliste"
 
 msgid "Surface.Delay.XML.Costs"
 msgstr "ModellElementVerzoegerungKosten"

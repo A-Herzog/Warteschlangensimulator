@@ -134,6 +134,13 @@ public class ModelElementDelay extends ModelElementMultiInSingleOutBox implement
 	private String costs;
 
 	/**
+	 * Soll eine Liste der Kunden an der Station geführt werden?
+	 * @see #hasClientsList()
+	 * @see #setHasClientsList(boolean)
+	 */
+	private boolean hasClientsList;
+
+	/**
 	 * Konstruktor der Klasse <code>ModelElementDelay</code>
 	 * @param model	Modell zu dem dieses Element gehören soll (kann später nicht mehr geändert werden)
 	 * @param surface	Zeichenfläche zu dem dieses Element gehören soll (kann später nicht mehr geändert werden)
@@ -147,6 +154,7 @@ public class ModelElementDelay extends ModelElementMultiInSingleOutBox implement
 		distributionByType=new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
 		expressionByType=new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
 		costs="";
+		hasClientsList=false;
 	}
 
 	/**
@@ -293,6 +301,22 @@ public class ModelElementDelay extends ModelElementMultiInSingleOutBox implement
 	}
 
 	/**
+	 * Soll eine Liste der Kunden an der Station geführt werden?
+	 * @return	Soll eine Liste der Kunden an der Station geführt werden?
+	 */
+	public boolean hasClientsList() {
+		return hasClientsList;
+	}
+
+	/**
+	 * Stellt ein, ob an der Station eine Liste der Kunden geführt werden soll.
+	 * @param hasClientsList	Soll eine Liste der Kunden an der Station geführt werden?
+	 */
+	public void setHasClientsList(final boolean hasClientsList) {
+		this.hasClientsList=hasClientsList;
+	}
+
+	/**
 	 * Überprüft, ob das Element mit dem angegebenen Element inhaltlich identisch ist.
 	 * @param element	Element mit dem dieses Element verglichen werden soll.
 	 * @return	Gibt <code>true</code> zurück, wenn die beiden Elemente identisch sind.
@@ -301,22 +325,23 @@ public class ModelElementDelay extends ModelElementMultiInSingleOutBox implement
 	public boolean equalsModelElement(ModelElement element) {
 		if (!super.equalsModelElement(element)) return false;
 		if (!(element instanceof ModelElementDelay)) return false;
+		final ModelElementDelay otherDelay=(ModelElementDelay)element;
 
-		if (((ModelElementDelay)element).timeBase!=timeBase) return false;
-		if (((ModelElementDelay)element).delayType!=delayType) return false;
+		if (otherDelay.timeBase!=timeBase) return false;
+		if (otherDelay.delayType!=delayType) return false;
 
 		if (distributionGlobal!=null) {
-			if (((ModelElementDelay)element).distributionGlobal==null) return false;
-			if (!DistributionTools.compare(distributionGlobal,((ModelElementDelay)element).distributionGlobal)) return false;
+			if (otherDelay.distributionGlobal==null) return false;
+			if (!DistributionTools.compare(distributionGlobal,otherDelay.distributionGlobal)) return false;
 		} else {
 			if (expressionGlobal!=null) {
-				if (((ModelElementDelay)element).expressionGlobal==null) return false;
-				if (!expressionGlobal.equals(((ModelElementDelay)element).expressionGlobal)) return false;
+				if (otherDelay.expressionGlobal==null) return false;
+				if (!expressionGlobal.equals(otherDelay.expressionGlobal)) return false;
 			}
 		}
 
 		final Map<String,AbstractRealDistribution> mapA=distributionByType;
-		final Map<String,AbstractRealDistribution> mapB=((ModelElementDelay)element).distributionByType;
+		final Map<String,AbstractRealDistribution> mapB=otherDelay.distributionByType;
 
 		for (Map.Entry<String,AbstractRealDistribution> entry : mapA.entrySet()) {
 			if (!DistributionTools.compare(entry.getValue(),mapB.get(entry.getKey()))) return false;
@@ -327,7 +352,7 @@ public class ModelElementDelay extends ModelElementMultiInSingleOutBox implement
 		}
 
 		final Map<String,String> mapC=expressionByType;
-		final Map<String,String> mapD=((ModelElementDelay)element).expressionByType;
+		final Map<String,String> mapD=otherDelay.expressionByType;
 
 		for (Map.Entry<String,String> entry : mapC.entrySet()) {
 			final String c=entry.getValue();
@@ -349,7 +374,9 @@ public class ModelElementDelay extends ModelElementMultiInSingleOutBox implement
 			}
 		}
 
-		if (!Objects.equals(costs,((ModelElementDelay)element).costs)) return false;
+		if (!Objects.equals(costs,otherDelay.costs)) return false;
+
+		if (hasClientsList!=otherDelay.hasClientsList) return false;
 
 		return true;
 	}
@@ -362,27 +389,31 @@ public class ModelElementDelay extends ModelElementMultiInSingleOutBox implement
 	public void copyDataFrom(ModelElement element) {
 		super.copyDataFrom(element);
 		if (element instanceof ModelElementDelay) {
-			timeBase=((ModelElementDelay)element).timeBase;
-			delayType=((ModelElementDelay)element).delayType;
+			final ModelElementDelay copySource=(ModelElementDelay)element;
+
+			timeBase=copySource.timeBase;
+			delayType=copySource.delayType;
 
 			distributionGlobal=null;
-			if (((ModelElementDelay)element).distributionGlobal!=null) distributionGlobal=DistributionTools.cloneDistribution(((ModelElementDelay)element).distributionGlobal);
+			if (copySource.distributionGlobal!=null) distributionGlobal=DistributionTools.cloneDistribution(copySource.distributionGlobal);
 			expressionGlobal=null;
-			if (((ModelElementDelay)element).expressionGlobal!=null) expressionGlobal=((ModelElementDelay)element).expressionGlobal;
+			if (copySource.expressionGlobal!=null) expressionGlobal=copySource.expressionGlobal;
 
 			distributionByType.clear();
-			for (Map.Entry<String,AbstractRealDistribution> entry : ((ModelElementDelay)element).distributionByType.entrySet()) {
+			for (Map.Entry<String,AbstractRealDistribution> entry : copySource.distributionByType.entrySet()) {
 				final AbstractRealDistribution dist=entry.getValue();
 				if (dist!=null) distributionByType.put(entry.getKey(),DistributionTools.cloneDistribution(dist));
 			}
 
 			expressionByType.clear();
-			for (Map.Entry<String,String> entry : ((ModelElementDelay)element).expressionByType.entrySet()) {
+			for (Map.Entry<String,String> entry : copySource.expressionByType.entrySet()) {
 				final String expression=entry.getValue();
 				if (expression!=null) expressionByType.put(entry.getKey(),expression);
 			}
 
-			costs=((ModelElementDelay)element).costs;
+			costs=copySource.costs;
+
+			hasClientsList=copySource.hasClientsList;
 		}
 	}
 
@@ -591,6 +622,11 @@ public class ModelElementDelay extends ModelElementMultiInSingleOutBox implement
 
 		Element sub;
 
+		if (hasClientsList) {
+			node.appendChild(sub=doc.createElement(Language.trPrimary("Surface.Delay.XML.ClientsList")));
+			sub.setTextContent("1");
+		}
+
 		if (distributionGlobal!=null) {
 			node.appendChild(sub=doc.createElement(Language.trPrimary("Surface.Delay.XML.Distribution")));
 			sub.setTextContent(DistributionTools.distributionToString(distributionGlobal));
@@ -647,6 +683,11 @@ public class ModelElementDelay extends ModelElementMultiInSingleOutBox implement
 	protected String loadProperty(final String name, final String content, final Element node) {
 		String error=super.loadProperty(name,content,node);
 		if (error!=null) return error;
+
+		if (Language.trAll("Surface.Delay.XML.ClientsList",name)) {
+			hasClientsList=content.trim().equals("1");
+			return null;
+		}
 
 		if (Language.trAll("Surface.Delay.XML.Distribution",name)) {
 			final String typ=Language.trAllAttribute("Surface.Delay.XML.Distribution.ClientType",node);

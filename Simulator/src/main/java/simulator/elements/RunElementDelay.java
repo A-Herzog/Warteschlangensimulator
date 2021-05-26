@@ -15,6 +15,10 @@
  */
 package simulator.elements;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
 import org.apache.commons.math3.distribution.AbstractRealDistribution;
 import org.apache.commons.math3.util.FastMath;
 
@@ -51,6 +55,8 @@ public class RunElementDelay extends RunElementPassThrough {
 	private ModelElementDelay.DelayType delayType;
 	/** Kosten pro Bedienvorgang */
 	private String costs;
+	/** Soll eine Liste der Kunden an der Station geführt werden? */
+	private boolean hasClientsList;
 
 	/**
 	 * Konstruktor der Klasse
@@ -120,6 +126,9 @@ public class RunElementDelay extends RunElementPassThrough {
 			delay.costs=text;
 		}
 
+		/* Soll eine Liste der Kunden an der Station geführt werden? */
+		delay.hasClientsList=delayElement.hasClientsList();
+
 		return delay;
 	}
 
@@ -140,7 +149,7 @@ public class RunElementDelay extends RunElementPassThrough {
 		RunElementDelayData data;
 		data=(RunElementDelayData)(simData.runData.getStationData(this));
 		if (data==null) {
-			data=new RunElementDelayData(this,expression,simData.runModel.variableNames,costs);
+			data=new RunElementDelayData(this,expression,simData.runModel.variableNames,costs,hasClientsList);
 			simData.runData.setStationData(this,data);
 		}
 		return data;
@@ -169,6 +178,54 @@ public class RunElementDelay extends RunElementPassThrough {
 		/* Logging */
 		if (simData.loggingActive) log(simData,Language.tr("Simulation.Log.Delay"),String.format(Language.tr("Simulation.Log.Delay.Info"),client.logInfo(simData),name,TimeTools.formatExactTime(delayTime)));
 
+		/* Erfassung der Zeit in der Statistik */
+		client.lastWaitingStart=simData.currentTime;
+
+		/* Kosten in Statistik erfassen */
+		if (costs!=null) {
+			simData.runData.setClientVariableValues(client);
+			double c=0;
+			try {
+				c=getData(simData).costs.calc(simData.runData.variableValues);
+			} catch (MathCalcError e) {
+				simData.calculationErrorStation(getData(simData).expression[client.type],this);
+				c=0;
+			}
+			simData.runData.logStationCosts(simData,this,c);
+		}
+
+		/* Kunde zur nächsten Station leiten */
+		final StationLeaveEvent event=StationLeaveEvent.addLeaveEvent(simData,client,this,delayTimeMS);
+
+		/* Kunden und Ereignis in Liste der Kunden speichern (sofern wir so eine Liste führen) */
+		if (hasClientsList) {
+			final Map<RunDataClient,StationLeaveEvent> clientsList=getData(simData).clientsList;
+			if (clientsList!=null) clientsList.put(client,event);
+		}
+	}
+
+	@Override
+	public void processLeave(SimulationData simData, RunDataClient client) {
+		/* Kunde aus der Liste der Kunden an der Station entfernen (sofern wir so eine Liste führen) */
+		if (hasClientsList) {
+			final Map<RunDataClient,StationLeaveEvent> clientsList=getData(simData).clientsList;
+			if (clientsList!=null) clientsList.remove(client);
+		}
+
+		/* Zeitdauer an der Station in der Statistik erfassen */
+		final long delayTimeMS=simData.currentTime-client.lastWaitingStart;
+		logDelay(simData,client,delayTimeMS);
+
+		super.processLeave(simData,client);
+	}
+
+	/**
+	 * Erfasst die Verzögerungszeit in der Statistik
+	 * @param simData	Simulationsdatenobjekt
+	 * @param client	Aktueller Kunde
+	 * @param delayTimeMS	Verzögerungszeit in MS
+	 */
+	public void logDelay(final SimulationData simData, final RunDataClient client, final long delayTimeMS) {
 		/* Bedienzeit in Statistik */
 		switch (delayType) {
 		case DELAY_TYPE_WAITING:
@@ -201,21 +258,50 @@ public class RunElementDelay extends RunElementPassThrough {
 			simData.runData.logStationProcess(simData,this,client,0,0,0,delayTimeMS); /* nicht erfassen */
 			break;
 		}
+	}
 
-		/* Kosten in Statistik erfassen */
-		if (costs!=null) {
-			simData.runData.setClientVariableValues(client);
-			double c=0;
-			try {
-				c=getData(simData).costs.calc(simData.runData.variableValues);
-			} catch (MathCalcError e) {
-				simData.calculationErrorStation(getData(simData).expression[client.type],this);
-				c=0;
-			}
-			simData.runData.logStationCosts(simData,this,c);
-		}
+	/**
+	 * Leere Liste
+	 * @see #getClientsAtStation(SimulationData)
+	 */
+	private static final List<RunDataClient> emptyList=new ArrayList<>(1);
 
-		/* Kunde zur nächsten Station leiten */
-		StationLeaveEvent.addLeaveEvent(simData,client,this,delayTimeMS);
+	/**
+	 * Liefert die Liste der Kunden an dieser Station (sofern eine solche Liste geführt wird)
+	 * @param simData	Simulationsdatenobjekt
+	 * @return	Liste der Kunden (ist nie <code>null</code>, aber kann leer sein, insbesondere wenn keine solche Liste geführt wird)
+	 */
+	public List<RunDataClient> getClientsAtStation(final SimulationData simData) {
+		/* Führen wir eine Kundenliste? */
+		if (!hasClientsList) return emptyList;
+		final Map<RunDataClient,StationLeaveEvent> clientsList=getData(simData).clientsList;
+		if (clientsList==null) return emptyList;
+
+		/* Als Liste ausgeben */
+		return new ArrayList<>(clientsList.keySet());
+	}
+
+	/**
+	 * Gibt einen Kunden an dieser Station sofort frei.
+	 * @param simData	Simulationsdatenobjekt
+	 * @param client	Freizugebender Kunde
+	 * @return	Liefert <code>true</code>, wenn sich der Kunde an der Station befindet und freigegeben werden konnte
+	 * @see #getClientsAtStation(SimulationData)
+	 */
+	public boolean releaseClientNow(final SimulationData simData, final RunDataClient client) {
+		/* Führen wir eine Kundenliste? */
+		if (!hasClientsList) return false;
+		final Map<RunDataClient,StationLeaveEvent> clientsList=getData(simData).clientsList;
+		if (clientsList==null) return false;
+
+		/* Altes Ereignis finden und löschen */
+		final StationLeaveEvent oldEvent=clientsList.get(client);
+		if (oldEvent==null) return false;
+		simData.eventManager.deleteEvent(oldEvent,simData);
+
+		/* Neues Ereignis anlegen */
+		final StationLeaveEvent newEvent=StationLeaveEvent.addLeaveEvent(simData,client,this,0);
+		clientsList.put(client,newEvent);
+		return true;
 	}
 }

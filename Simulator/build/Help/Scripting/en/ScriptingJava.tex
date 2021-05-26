@@ -393,6 +393,22 @@ Outputs the passed message to the logging system (if logging is enabled).
 
 \end{itemize}
 
+\section{Release clients at delay stations}
+
+If a list of clients at a delay station is recorded, this list can be queried using the
+following function and individual clients can be selectively released before their
+specified delay time has expired.
+
+\begin{itemize}
+
+\item
+\cmd{ClientsInterface getDelayStationData(final int id)</tt><br>
+Returns an object implementing \cm{ClientsInterface} which represents the list
+of clients at the delay station \cm{id}. If the id is invalid, \cm{null}
+will be returned.
+  
+\end{itemize}
+
 
 
 \chapter{\texttt{ClientInterface} accessible via \texttt{sim.getClient()}}

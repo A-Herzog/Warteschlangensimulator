@@ -25,6 +25,7 @@ import mathtools.NumberTools;
 import parser.MathCalcError;
 import simulator.coreelements.RunElement;
 import simulator.elements.RunElementAnalogValue;
+import simulator.elements.RunElementDelay;
 import simulator.elements.RunElementTank;
 import simulator.runmodel.RunModel;
 import simulator.runmodel.SimulationData;
@@ -43,6 +44,8 @@ public class SystemImpl implements SystemInterface {
 	private final RunModel runModel;
 	/** ID der aktuellen Station */
 	private final int currentStation;
+	/** Liste von Kundenlisten für bestimmte Verzögerung-Stationen */
+	private final Map<Integer,ClientsDelayImpl> delayInterfaces;
 
 	/**
 	 * Zuordnung von Rechenausdruck-Zeichenketten und bereits erstellten passenden Objekten
@@ -59,6 +62,7 @@ public class SystemImpl implements SystemInterface {
 		this.simData=simData;
 		runModel=simData.runModel;
 		this.currentStation=currentStation;
+		delayInterfaces=new HashMap<>();
 	}
 
 	/**
@@ -312,5 +316,19 @@ public class SystemImpl implements SystemInterface {
 	public RuntimeData getMapGlobal() {
 		if (simData==null) return null;
 		return simData.runtimeData;
+	}
+
+	@Override
+	public ClientsInterface getDelayStationData(final int id) {
+		ClientsDelayImpl delayInterface=delayInterfaces.get(id);
+		if (delayInterface==null) {
+			final RunElement element=simData.runModel.elementsFast[id];
+			if (!(element instanceof RunElementDelay)) return null;
+			delayInterface=new ClientsDelayImpl(simData,(RunElementDelay)element);
+			delayInterfaces.put(id,delayInterface);
+		}
+
+		delayInterface.updateClients();
+		return delayInterface;
 	}
 }
