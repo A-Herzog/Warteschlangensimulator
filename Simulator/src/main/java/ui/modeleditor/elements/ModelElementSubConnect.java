@@ -36,7 +36,7 @@ import ui.modeleditor.fastpaint.Shapes;
  * @see ModelElementSubIn
  * @see ModelElementSubOut
  */
-public class ModelElementSubConnect extends ModelElementBox {
+public abstract class ModelElementSubConnect extends ModelElementBox {
 	/**
 	 * 0-basierende Nummer des Ein- bzw. Ausgangs
 	 */
@@ -68,8 +68,14 @@ public class ModelElementSubConnect extends ModelElementBox {
 	public void setConnectionData(int connectionNr, int connectionStationID) {
 		this.connectionNr=connectionNr;
 		this.connectionStationID=connectionStationID;
+		updateName();
 		fireChanged();
 	}
+
+	/**
+	 * Aktualisiert den Namen des Elements basiert auf dem verknüpften Element außerhalb des Untermodells.
+	 */
+	public abstract void updateName();
 
 	@Override
 	protected boolean getEqualsIncludesName() {

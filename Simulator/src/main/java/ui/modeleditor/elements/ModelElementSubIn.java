@@ -67,6 +67,10 @@ public class ModelElementSubIn extends ModelElementSubConnect implements ModelEl
 		if (connectionStationID<0) setName(Language.tr("Surface.SubConnect.NotConnected")); else setName(Language.tr("Surface.SubConnect.FromID")+"="+connectionStationID);
 	}
 
+	public void updateName() {
+		if (connectionStationID<0) setName(Language.tr("Surface.SubConnect.NotConnected")); else setName(Language.tr("Surface.SubConnect.FromID")+"="+connectionStationID);
+	}
+
 	/**
 	 * Überprüft, ob das Element mit dem angegebenen Element inhaltlich identisch ist.
 	 * @param element	Element mit dem dieses Element verglichen werden soll.

@@ -53,8 +53,15 @@ public class RunElementSubConnect extends RunElement {
 	@Override
 	public Object build(final EditModel editModel, final RunModel runModel, final ModelElement element, final ModelElementSub parent, final boolean testOnly) {
 		if (!(element instanceof ModelElementSubConnect)) return null;
+		final ModelElementSubConnect editConnect=(ModelElementSubConnect)element;
 
-		RunElementSubConnect connect=new RunElementSubConnect((ModelElementSubConnect)element);
+		/* Notwendigenfalls den namen des Elements korrigieren */
+		if (parent!=null) {
+			parent.updateConnectionStationNames();
+			editConnect.updateName();
+		}
+
+		RunElementSubConnect connect=new RunElementSubConnect(editConnect);
 
 		if (element instanceof ModelElementSubIn) {
 			/* In das Untermodell einlaufend */

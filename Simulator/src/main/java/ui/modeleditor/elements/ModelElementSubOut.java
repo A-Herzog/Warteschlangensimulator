@@ -73,6 +73,10 @@ public class ModelElementSubOut extends ModelElementSubConnect implements ModelE
 		if (connectionStationID<0) setName(Language.tr("Surface.SubConnect.NotConnected")); else setName(Language.tr("Surface.SubConnect.ToID")+"="+connectionStationID);
 	}
 
+	public void updateName() {
+		if (connectionStationID<0) setName(Language.tr("Surface.SubConnect.NotConnected")); else setName(Language.tr("Surface.SubConnect.ToID")+"="+connectionStationID);
+	}
+
 	/**
 	 * Überprüft, ob das Element mit dem angegebenen Element inhaltlich identisch ist.
 	 * @param element	Element mit dem dieses Element verglichen werden soll.

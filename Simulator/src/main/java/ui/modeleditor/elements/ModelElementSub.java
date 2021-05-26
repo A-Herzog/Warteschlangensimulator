@@ -542,7 +542,7 @@ public class ModelElementSub extends ModelElementBox implements ElementWithNewCl
 	 * Stellt die Beschriftungen der Connect-Stationen in dem Untermodell ein
 	 * nach dem von außen eine Kante hinzugefügt wurde.
 	 */
-	private void updateConnectionStationNames() {
+	public void updateConnectionStationNames() {
 		/* IDs der ein- und auslaufenden Kanten */
 		final int[] idsIn=new int[countConnectionsIn];
 		final ModelElementEdge[] edgesIn=getEdgesIn();
