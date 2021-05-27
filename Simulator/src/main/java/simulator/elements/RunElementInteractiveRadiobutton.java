@@ -94,6 +94,7 @@ public class RunElementInteractiveRadiobutton extends RunElement {
 	 */
 	public void triggered(final SimulationData simData) {
 		simData.runData.variableValues[variableIndex]=valueChecked;
+		simData.runData.updateVariableValueForStatistics(simData,variableIndex);
 		simData.runData.fireStateChangeNotify(simData);
 	}
 

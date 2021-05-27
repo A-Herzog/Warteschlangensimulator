@@ -30,6 +30,7 @@ import statistics.StatisticsDataCollector;
 import statistics.StatisticsDataPerformanceIndicator;
 import statistics.StatisticsDataPerformanceIndicatorWithNegativeValues;
 import statistics.StatisticsMultiPerformanceIndicator;
+import statistics.StatisticsTimeContinuousPerformanceIndicator;
 import statistics.StatisticsTimePerformanceIndicator;
 import systemtools.statistics.StatisticViewerTable;
 import tools.SetupData;
@@ -158,7 +159,10 @@ public class StatisticViewerTimeTable extends StatisticViewerTable {
 		MODE_CLIENT_DATA_DISTRIBUTION,
 
 		/** Tabelle mit den an den Datenaufzeichnung-Stationen erfassten Werten */
-		MODE_VALUE_RECORDING
+		MODE_VALUE_RECORDING,
+
+		/** Statistik über die globalen Variablen */
+		MODE_USER_VARIABLES
 	}
 
 	/**
@@ -299,6 +303,26 @@ public class StatisticViewerTimeTable extends StatisticViewerTable {
 				line.add(StatisticTools.formatNumber(data.getQuantil(p)));
 			}
 		}
+
+		return line.toArray(new String[0]);
+	}
+
+	/**
+	 * Erzeugt eine Datenzeile.
+	 * @param col1	Inhalt für Spalte 1 (kann <code>null</code> sein)
+	 * @param data	Statistikobjekt dem Mittelwert usw. entnommen werden sollen
+	 * @return	Datenzeile
+	 */
+	private String[] getDataLine(final String col1, final StatisticsTimeContinuousPerformanceIndicator data) {
+		final List<String> line=new ArrayList<>();
+
+		if (col1!=null) line.add(col1);
+		line.add(StatisticTools.formatNumber(data.getTimeMean()));
+		line.add(StatisticTools.formatNumber(data.getTimeSD()));
+		line.add(StatisticTools.formatNumber(data.getTimeVar()));
+		line.add(StatisticTools.formatNumber(data.getTimeCV()));
+		line.add(StatisticTools.formatNumber(data.getTimeMin()));
+		line.add(StatisticTools.formatNumber(data.getTimeMax()));
 
 		return line.toArray(new String[0]);
 	}
@@ -890,6 +914,33 @@ public class StatisticViewerTimeTable extends StatisticViewerTable {
 		setData(table.transpose(),headers);
 	}
 
+	/**
+	 * Ausgabe von
+	 * Statistik über die globalen Variablen
+	 * @see Mode#MODE_USER_VARIABLES
+	 */
+	private void buildUserVariablesTables() {
+		final Table table=new Table();
+		final List<String> headers=new ArrayList<>();
+		headers.add(Language.tr("Statistics.XML.StateTime.Name"));
+		headers.add("E");
+		headers.add("Std");
+		headers.add("Var");
+		headers.add("CV");
+		headers.add("Min");
+		headers.add("Max");
+
+		for (String name: statistics.userVariables.getNames()) {
+			final StatisticsTimeContinuousPerformanceIndicator indicator=(StatisticsTimeContinuousPerformanceIndicator)(statistics.userVariables.get(name));
+			table.addLine(getDataLine(name,indicator));
+		}
+
+		setData(table,headers);
+
+		/* Infotext  */
+		addDescription("Variables");
+	}
+
 	@Override
 	protected void buildTable() {
 		switch (mode) {
@@ -941,6 +992,7 @@ public class StatisticViewerTimeTable extends StatisticViewerTable {
 		case MODE_CLIENT_DATA: buildClientDataTable(); break;
 		case MODE_CLIENT_DATA_DISTRIBUTION: buildClientDataDistributionTable(); break;
 		case MODE_VALUE_RECORDING: buildValueRecordingTable(); break;
+		case MODE_USER_VARIABLES: buildUserVariablesTables(); break;
 		}
 	}
 }

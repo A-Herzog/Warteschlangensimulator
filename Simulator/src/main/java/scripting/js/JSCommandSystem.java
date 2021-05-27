@@ -649,12 +649,13 @@ public final class JSCommandSystem extends JSBaseCommand {
 		if (simData==null) return;
 		if (index>=0) {
 			simData.runData.variableValues[index]=value;
+			simData.runData.updateVariableValueForStatistics(simData,index);
 			/* Pseudovariable: Wartezeit */
 			if (client!=null && index==simData.runData.variableValues.length-3) client.waitingTime=FastMath.max(0,FastMath.round(value*1000));
 			/* Pseudovariable: Transferzeit */
 			if (client!=null && index==simData.runData.variableValues.length-2) client.transferTime=FastMath.max(0,FastMath.round(value*1000));
 			/* Pseudovariable: Bedienzeit */
-			if (client!=null && index==simData.runData.variableValues.length-1)	client.processTime=FastMath.max(0,FastMath.round(value*1000));
+			if (client!=null && index==simData.runData.variableValues.length-1) client.processTime=FastMath.max(0,FastMath.round(value*1000));
 		} else {
 			client.setUserData(-index-2,value);
 		}

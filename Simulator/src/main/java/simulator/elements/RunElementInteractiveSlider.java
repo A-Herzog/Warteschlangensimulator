@@ -122,6 +122,7 @@ public class RunElementInteractiveSlider extends RunElement {
 
 		/* Aktion auslösen */
 		simData.runData.variableValues[variableIndex]=value;
+		simData.runData.updateVariableValueForStatistics(simData,variableIndex);
 		simData.runData.fireStateChangeNotify(simData);
 	}
 

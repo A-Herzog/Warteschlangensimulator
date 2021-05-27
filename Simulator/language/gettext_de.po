@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-05-26 20:44+0200\n"
+"POT-Creation-Date: 2021-05-27 11:12+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17188,6 +17188,9 @@ msgstr "Globale Variable verändern"
 msgid "Statistic.FastAccess.Template.Variable.Set.Tooltip"
 msgstr "Stellt den Initialwert einer globalen Variable ein."
 
+msgid "Statistic.FastAccess.Template.Variables"
+msgstr "Durchschnittlicher Wert einer globalen Variable"
+
 msgid "Statistic.FastAccess.Template.WaitingTime"
 msgstr "Wartezeit über alle Kunden"
 
@@ -19276,6 +19279,9 @@ msgstr "Verlauf"
 msgid "Statistics.ValueRecording.XYPlot"
 msgstr "X-Y-Darstellung"
 
+msgid "Statistics.Variables"
+msgstr "Globale Variablen"
+
 msgid "Statistics.Variance"
 msgstr "Varianz"
 
@@ -19803,6 +19809,12 @@ msgstr "WerteSumme2"
 
 msgid "Statistics.XML.ValuesSquaredError"
 msgstr "Das WerteSumme2-Attribut im \"%s\"-Element muss eine nicht-negative Zahl sein, ist aber \"%s\"."
+
+msgid "Statistics.XML.Variables"
+msgstr "StatistikVariablen"
+
+msgid "Statistics.XML.VariablesKey"
+msgstr "StatistikVariablenName"
 
 msgid "Statistics.XML.Warning"
 msgstr "StatistikModellWarnung"

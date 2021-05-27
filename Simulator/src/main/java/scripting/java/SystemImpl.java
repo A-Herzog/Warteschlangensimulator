@@ -141,6 +141,7 @@ public class SystemImpl implements SystemInterface {
 
 		if (varValue instanceof Integer) {
 			simData.runData.variableValues[index]=(Integer)varValue;
+			simData.runData.updateVariableValueForStatistics(simData,index);
 			return;
 		}
 		if (varValue instanceof Long) {

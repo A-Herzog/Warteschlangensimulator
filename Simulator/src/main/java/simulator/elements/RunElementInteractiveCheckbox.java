@@ -102,6 +102,7 @@ public class RunElementInteractiveCheckbox extends RunElement {
 		} else {
 			simData.runData.variableValues[variableIndex]=valueChecked;
 		}
+		simData.runData.updateVariableValueForStatistics(simData,variableIndex);
 		simData.runData.fireStateChangeNotify(simData);
 	}
 

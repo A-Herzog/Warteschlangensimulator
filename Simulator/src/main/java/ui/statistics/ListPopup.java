@@ -533,10 +533,21 @@ public class ListPopup {
 			}
 		}
 
+		/* Variablenwerte */
+
+		if (statistics.userVariables.getNames().length>0) {
+			sub=getSubList(list,Language.tr("Statistic.FastAccess.Template.Variables"),null,Images.EXPRESSION_BUILDER_VARIABLE.getIcon());
+			final String xmlMain=Language.tr("Statistics.XML.Variables");
+			for (String name: statistics.userVariables.getNames()) {
+				xmlSub=Language.tr("Statistics.XML.VariablesKey")+"["+Language.tr("Statistics.XML.Type")+"=\""+name+"\"]";
+				tryAddRecord(sub,allowAdd,name,null,null,XMLMode.XML_NUMBER,xmlMain+"->"+xmlSub+"->"+mean);
+			}
+		}
+
 		/* Analoge Werte */
 
 		if (statistics.analogStatistics.getNames().length>0) {
-			sub=getSubList(list,Language.tr("Statistic.FastAccess.Template.AnalogValues"),null,null);
+			sub=getSubList(list,Language.tr("Statistic.FastAccess.Template.AnalogValues"),null,Images.SCRIPT_RECORD_ANALOG_VALUE.getIcon());
 			final String xmlMain=Language.tr("Statistics.XML.AnalogStatistics");
 			for (String name: statistics.analogStatistics.getNames()) {
 				xmlSub=Language.tr("Statistics.XML.AnalogStatisticsName")+"["+Language.tr("Statistics.XML.Type")+"=\""+name+"\"]";

@@ -34,6 +34,7 @@ import statistics.StatisticsSimpleValuePerformanceIndicator;
 import statistics.StatisticsSimulationBaseData;
 import statistics.StatisticsStateTimePerformanceIndicator;
 import statistics.StatisticsTimeAnalogPerformanceIndicator;
+import statistics.StatisticsTimeContinuousPerformanceIndicator;
 import statistics.StatisticsTimePerformanceIndicator;
 import statistics.StatisticsValuePerformanceIndicator;
 
@@ -398,6 +399,16 @@ public class Statistics extends StatisticsBase {
 	public final StatisticsMultiPerformanceIndicator userStatistics;
 
 	/* ====================================================
+	 * Variablenwerte
+	 * ====================================================
+	 */
+
+	/**
+	 * Werte der nutzerdefinierten Variablen
+	 */
+	public final StatisticsMultiPerformanceIndicator userVariables;
+
+	/* ====================================================
 	 * Zustände
 	 * ====================================================
 	 */
@@ -580,6 +591,9 @@ public class Statistics extends StatisticsBase {
 
 		/* Nutzerdefinierte Statistik */
 		addPerformanceIndicator(userStatistics=new StatisticsMultiPerformanceIndicator(Language.trAll("Statistics.XML.UserStatistics"),new StatisticsDataPerformanceIndicator(Language.trAll("Statistics.XML.UserStatisticsKey"),secondsToRecordInDistributions,secondsToRecordInDistributions,-1,batchSize,true)));
+
+		/* Nutzerdefinierte Variablen */
+		addPerformanceIndicator(userVariables=new StatisticsMultiPerformanceIndicator(Language.trAll("Statistics.XML.Variables"),new StatisticsTimeContinuousPerformanceIndicator(Language.trAll("Statistics.XML.VariablesKey"))));
 
 		/* Zustände */
 		addPerformanceIndicator(stateStatistics=new StatisticsMultiPerformanceIndicator(Language.trAll("Statistics.XML.StateStatistics"),new StatisticsStateTimePerformanceIndicator(Language.trAll("Statistics.XML.StateStatisticsKey"))));

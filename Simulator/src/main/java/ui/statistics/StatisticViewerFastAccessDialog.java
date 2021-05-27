@@ -499,6 +499,9 @@ public class StatisticViewerFastAccessDialog extends BaseDialog {
 				/* Nutzerdefinierte Statistik */
 				Language.trPrimary("XML.Statistic.BaseElement")+","+Language.trPrimary("Statistics.XML.UserStatistics")+","+Language.trPrimary("Statistics.XML.UserStatisticsKey"),
 
+				/* Variablen */
+				Language.trPrimary("XML.Statistic.BaseElement")+","+Language.trPrimary("Statistics.XML.Variables")+","+Language.trPrimary("Statistics.XML.VariablesKey"),
+
 				/* Zustände */
 				Language.trPrimary("XML.Statistic.BaseElement")+","+Language.trPrimary("Statistics.XML.StateStatistics")+","+Language.trPrimary("Statistics.XML.StateStatisticsKey"),
 

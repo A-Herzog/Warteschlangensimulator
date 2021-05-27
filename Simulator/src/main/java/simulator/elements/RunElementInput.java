@@ -404,6 +404,7 @@ public class RunElementInput extends RunElementPassThrough {
 			if (!done) {
 				/* Reguläre Variable speichern */
 				simData.runData.variableValues[variableIndex]=valueDouble;
+				simData.runData.updateVariableValueForStatistics(simData,variableIndex);
 			}
 			/* Logging */
 			if (simData.loggingActive) log(simData,Language.tr("Simulation.Log.Input"),String.format(Language.tr("Simulation.Log.Input.Info"),client.logInfo(simData),name,simData.runModel.variableNames[variableIndex],NumberTools.formatNumber(valueDouble)));

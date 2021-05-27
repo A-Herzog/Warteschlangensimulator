@@ -45,6 +45,7 @@ import statistics.StatisticsSimpleCountPerformanceIndicator;
 import statistics.StatisticsSimpleValuePerformanceIndicator;
 import statistics.StatisticsStateTimePerformanceIndicator;
 import statistics.StatisticsTimeAnalogPerformanceIndicator;
+import statistics.StatisticsTimeContinuousPerformanceIndicator;
 import statistics.StatisticsTimePerformanceIndicator;
 import statistics.StatisticsValuePerformanceIndicator;
 import systemtools.BaseDialog;
@@ -126,7 +127,9 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 		/** Auslastung der Transportergruppen */
 		MODE_TRANSPORTER_UTILIZATION,
 		/** Statistik über die Kundendatenfelder */
-		MODE_CLIENT_DATA
+		MODE_CLIENT_DATA,
+		/** Statistik über die globalen Variablen */
+		MODE_USER_VARIABLES
 	}
 
 	/**
@@ -3073,6 +3076,31 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 		addDescription("ClientData");
 	}
 
+	/**
+	 * Ausgabe von
+	 * Statistik über die globalen Variablen
+	 * @see Mode#MODE_USER_VARIABLES
+	 */
+	private void buildUserVariables() {
+		addHeading(1,Language.tr("Statistics.Variables"));
+
+		for (String name: statistics.userVariables.getNames()) {
+			final StatisticsTimeContinuousPerformanceIndicator indicator=(StatisticsTimeContinuousPerformanceIndicator)statistics.userVariables.get(name);
+			addHeading(2,name);
+			beginParagraph();
+			addLine(Language.tr("Statistics.Average")+"="+StatisticTools.formatNumber(indicator.getTimeMean()),xmlMean(indicator));
+			addLine(Language.tr("Statistics.StdDev")+"="+StatisticTools.formatNumber(indicator.getTimeSD()),fastAccessBuilder.getXMLSelector(indicator,IndicatorMode.SD));
+			addLine(Language.tr("Statistics.Variance")+"="+StatisticTools.formatNumber(indicator.getTimeVar()));
+			addLine(Language.tr("Statistics.CV")+"="+StatisticTools.formatNumber(indicator.getTimeCV()),fastAccessBuilder.getXMLSelector(indicator,IndicatorMode.CV));
+			addLine(Language.tr("Statistics.Minimum")+"="+StatisticTools.formatNumber(indicator.getTimeMin()),fastAccessBuilder.getXMLSelector(indicator,IndicatorMode.MINIMUM));
+			addLine(Language.tr("Statistics.Maximum")+"="+StatisticTools.formatNumber(indicator.getTimeMax()),fastAccessBuilder.getXMLSelector(indicator,IndicatorMode.MAXIMUM));
+			endParagraph();
+		}
+
+		/* Infotext  */
+		addDescription("Variables");
+	}
+
 	@Override
 	protected void buildText() {
 		switch (mode) {
@@ -3098,6 +3126,7 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 		case MODE_USER_STATISTICS: buildUserStatistics(); break;
 		case MODE_TRANSPORTER_UTILIZATION: buildTransporterUtilization(); break;
 		case MODE_CLIENT_DATA: buildClientData(); break;
+		case MODE_USER_VARIABLES: buildUserVariables(); break;
 		}
 	}
 

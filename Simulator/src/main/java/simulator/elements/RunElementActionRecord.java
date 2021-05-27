@@ -451,6 +451,7 @@ public class RunElementActionRecord {
 			simData.runData.setClientVariableValues(null);
 			try {
 				simData.runData.variableValues[assignVariableIndex]=assignExpressionObj.calc(simData.runData.variableValues,simData,null);
+				simData.runData.updateVariableValueForStatistics(simData,assignVariableIndex);
 			} catch (MathCalcError e) {
 				simData.calculationErrorStation(assignExpressionObj,stationLogName);
 			}

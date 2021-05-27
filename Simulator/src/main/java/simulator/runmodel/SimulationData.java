@@ -40,6 +40,7 @@ import statistics.StatisticsMultiPerformanceIndicator;
 import statistics.StatisticsSimpleCountPerformanceIndicator;
 import statistics.StatisticsStateTimePerformanceIndicator;
 import statistics.StatisticsTimeAnalogPerformanceIndicator;
+import statistics.StatisticsTimeContinuousPerformanceIndicator;
 import statistics.StatisticsTimePerformanceIndicator;
 import statistics.StatisticsValuePerformanceIndicator;
 import tools.SetupData;
@@ -233,6 +234,16 @@ public class SimulationData extends SimData {
 	}
 
 	/**
+	 * Setzt alle Daten (nach dem Ende der Einschwingphase) in einem Statistikobjekt zurück.
+	 * @param indicators	Statistikobjekt
+	 * @param time	Referenzzeit für den Start in der Erfassung von folgenden Daten in dem Statistikobjekt
+	 * @see #endWarmUp()
+	 */
+	private void resetAllTimeContinuousPerformanceIndicators(final StatisticsMultiPerformanceIndicator indicators, final double time) {
+		for (StatisticsTimeContinuousPerformanceIndicator indicator: (StatisticsTimeContinuousPerformanceIndicator[])indicators.getAll(StatisticsTimeContinuousPerformanceIndicator.class)) indicator.setTime(time);
+	}
+
+	/**
 	 * Wird beim Erreichen des Endes der Einschwingphase durch eine Kundenquelle aufgerufen.
 	 */
 	public void endWarmUp() {
@@ -291,6 +302,8 @@ public class SimulationData extends SimData {
 			indicator.setTime(currentTime);
 		}
 		resetAllDataPerformanceIndicators(statistics.userStatistics);
+		resetAllTimeContinuousPerformanceIndicators(statistics.userVariables,time);
+		for (int i=0;i<runModel.variableNames.length-3;i++) runData.updateVariableValueForStatistics(this,i);
 		for (StatisticsStateTimePerformanceIndicator indicator: (StatisticsStateTimePerformanceIndicator[])statistics.stateStatistics.getAll(StatisticsStateTimePerformanceIndicator.class)) indicator.reset();
 		for (StatisticsTimeAnalogPerformanceIndicator indicator: (StatisticsTimeAnalogPerformanceIndicator[])statistics.analogStatistics.getAll(StatisticsTimeAnalogPerformanceIndicator.class)) {
 			final double value=indicator.getCurrentState();

@@ -197,6 +197,7 @@ public class RunElementSet extends RunElementPassThrough {
 					if (!done) {
 						/* Reguläre Variable speichern */
 						simData.runData.variableValues[index]=d;
+						simData.runData.updateVariableValueForStatistics(simData,index);
 					}
 
 					/* Logging */

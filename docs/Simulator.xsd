@@ -1809,6 +1809,7 @@
   <xs:element ref="StatistikRessourcenLeerlaufKosten"/>
   <xs:element ref="StatistikLaufzeitWerte"/>
   <xs:element ref="StatistikBenutzerdefiniert"/>
+  <xs:element ref="StatistikVariablen"/>
   <xs:element ref="StatistikStatusZeit"/>
   <xs:element ref="StatistikAnalogWert"/>
   <xs:element ref="StatistikDurchsatz"/>
@@ -2024,6 +2025,10 @@
   <xs:element ref="StatistikBenutzerdefiniertDatensatz" minOccurs="0" maxOccurs="unbounded"/>
 </xs:choice></xs:sequence></xs:complexType></xs:element>
 <xs:element name="StatistikBenutzerdefiniertDatensatz" type="StatistikBasis"/>
+<xs:element name="StatistikVariablen"><xs:complexType><xs:sequence minOccurs="0" maxOccurs="unbounded"><xs:choice>
+  <xs:element ref="StatistikVariablenName" minOccurs="0" maxOccurs="unbounded"/>
+</xs:choice></xs:sequence></xs:complexType></xs:element>
+<xs:element name="StatistikVariablenName" type="StatistikBasis"/>
 <xs:element name="StatistikStatusZeit"><xs:complexType><xs:sequence minOccurs="0" maxOccurs="unbounded"><xs:choice>
   <xs:element ref="StatistikStatusZeitEintrag" minOccurs="0" maxOccurs="unbounded"/>
 </xs:choice></xs:sequence></xs:complexType></xs:element>
@@ -3921,6 +3926,7 @@
   <xs:element ref="StatisticsResourcesIdleTimeCosts"/>
   <xs:element ref="StatisticsRunTimeValues"/>
   <xs:element ref="StatisticsUserDefined"/>
+  <xs:element ref="StatisticsVariables"/>
   <xs:element ref="StatisticsStatusTime"/>
   <xs:element ref="StatisticsAnalogValue"/>
   <xs:element ref="StatisticsThroughput"/>
@@ -4136,6 +4142,10 @@
   <xs:element ref="StatisticsUserDefinedRecord" minOccurs="0" maxOccurs="unbounded"/>
 </xs:choice></xs:sequence></xs:complexType></xs:element>
 <xs:element name="StatisticsUserDefinedRecord" type="StatisticsBase"/>
+<xs:element name="StatisticsVariables"><xs:complexType><xs:sequence minOccurs="0" maxOccurs="unbounded"><xs:choice>
+  <xs:element ref="StatisticsVariablesName" minOccurs="0" maxOccurs="unbounded"/>
+</xs:choice></xs:sequence></xs:complexType></xs:element>
+<xs:element name="StatisticsVariablesName" type="StatisticsBase"/>
 <xs:element name="StatisticsStatusTime"><xs:complexType><xs:sequence minOccurs="0" maxOccurs="unbounded"><xs:choice>
   <xs:element ref="StatisticsStatusTimeRecord" minOccurs="0" maxOccurs="unbounded"/>
 </xs:choice></xs:sequence></xs:complexType></xs:element>

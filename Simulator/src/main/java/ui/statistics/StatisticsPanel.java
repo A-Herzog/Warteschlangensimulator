@@ -427,6 +427,18 @@ public class StatisticsPanel extends StatisticsBasePanel {
 	}
 
 	/**
+	 * Sind Variablenwertaufzeichnungen in den Statistiken enthalten?
+	 * @param statistics	Zu prüfende Statistikdaten
+	 * @return	Liefert <code>true</code>, wenn in mindestens einem Statistikobjekt Variablendaten enthalten sind
+	 */
+	private boolean testVariablesAvailable(final Statistics[] statistics) {
+		for (Statistics statistic: statistics) {
+			if (statistic.userVariables.size()>0) return true;
+		}
+		return false;
+	}
+
+	/**
 	 * Sind Zähler-Daten in den Statistiken enthalten?
 	 * @param statistics	Zu prüfende Statistikdaten
 	 * @return	Liefert <code>true</code>, wenn in mindestens einem Statistikobjekt Zähler-Daten enthalten sind
@@ -1564,6 +1576,22 @@ public class StatisticsPanel extends StatisticsBasePanel {
 			viewer=new ArrayList<>();
 			for(Statistics statistic : statistics) viewer.add(new StatisticViewerUserStatisticLineChart(statistic));
 			group.addChild(new StatisticNode(Language.tr("Statistics.UserStatistics"),viewer));
+
+		}
+
+		/* Variablenwerte */
+
+		if (testVariablesAvailable(statistics)) {
+
+			root.addChild(group=new StatisticNode(Language.tr("Statistics.Variables")));
+
+			viewer=new ArrayList<>();
+			for(Statistics statistic : statistics) viewer.add(new StatisticViewerOverviewText(statistic,StatisticViewerOverviewText.Mode.MODE_USER_VARIABLES,(m,s)->fastAccess.addXML(m,s)));
+			group.addChild(new StatisticNode(Language.tr("Statistics.Variables"),viewer));
+
+			viewer=new ArrayList<>();
+			for(Statistics statistic : statistics) viewer.add(new StatisticViewerTimeTable(statistic,StatisticViewerTimeTable.Mode.MODE_USER_VARIABLES));
+			group.addChild(new StatisticNode(Language.tr("Statistics.Variables"),viewer));
 
 		}
 

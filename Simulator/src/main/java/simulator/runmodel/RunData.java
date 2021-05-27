@@ -50,6 +50,7 @@ import statistics.StatisticsDataPerformanceIndicator;
 import statistics.StatisticsMultiPerformanceIndicator;
 import statistics.StatisticsPerformanceIndicator;
 import statistics.StatisticsSimpleCountPerformanceIndicator;
+import statistics.StatisticsTimeContinuousPerformanceIndicator;
 import statistics.StatisticsTimePerformanceIndicator;
 import statistics.StatisticsValuePerformanceIndicator;
 import ui.modeleditor.ModelResources;
@@ -97,6 +98,13 @@ public class RunData {
 	 * Zugriff auf die stationsabhängigen Daten beschleunigen, in dem diese direkt nach IDs sortiert in
 	 * einem Array gespeichert werden und nicht jedes Mal die HashMap nach dem Namen durchsucht werden muss.
 	 */
+
+	/**
+	 * Cache für die Variablenbelegungs-Statistik
+	 * @see Statistics#userVariables
+	 * @see #updateVariableValueForStatistics(SimulationData, int)
+	 */
+	private StatisticsTimeContinuousPerformanceIndicator[] cacheVariableStatistics;
 
 	/**
 	 * Cache für die "Zwischenankunftszeiten der Kunden (bei den "Kundenquelle"-Elementen)"-Statistikobjekte
@@ -353,12 +361,17 @@ public class RunData {
 	 * @param recordIncompleteClients	Sollen auch Kunden, die das System am Ende noch nicht verlassen haben, in der Statistik erfasst werden können (<code>true</code>). Dies verlangsamt die Simulation.
 	 */
 	public void initRun(final long nr, final SimulationData simData, final boolean recordIncompleteClients) {
+		cacheVariableStatistics=new StatisticsTimeContinuousPerformanceIndicator[variableValues.length-3];
 		for (int i=0;i<variableValues.length;i++) {
 			variableValues[i]=0;
 			if (runModel.variableInitialValues[i]!=null) {
 				try {
 					variableValues[i]=runModel.variableInitialValues[i].calc();
 				} catch (MathCalcError e) {}
+			}
+			if (i<cacheVariableStatistics.length) {
+				cacheVariableStatistics[i]=(StatisticsTimeContinuousPerformanceIndicator)simData.statistics.userVariables.get(runModel.variableNames[i]);
+				cacheVariableStatistics[i].set(0,variableValues[i]);
 			}
 		}
 
@@ -428,6 +441,9 @@ public class RunData {
 
 		/* Anzahl an Kunden im System letztmalig erfassen */
 		clients.finalizeNumberOfClientsInSystem(simData);
+
+		/* Variablenwerte letztmalig erfassen */
+		for (int i=0;i<variableValues.length-3;i++) updateVariableValueForStatistics(simData,i);
 
 		/* Kunden zwangsweise aus dem System austragen (funktioniert nur, wenn auch die Erfassung der aktuellen Kunden aktiv ist) */
 		if (disposeClients) clients.disposeAll(simData);
@@ -2028,5 +2044,16 @@ public class RunData {
 			currentArrivalPackage--;
 			return currentArrivalPackage<0;
 		}
+	}
+
+	/**
+	 * Erfasst die Veränderung eines Variablenwertes für die Statistik
+	 * @param simData	Simulationsdatenobjekt
+	 * @param nr	Index des Variablenwertes
+	 * @see #variableValues
+	 */
+	public void updateVariableValueForStatistics(final SimulationData simData, final int nr) {
+		if (nr<0 || nr>=cacheVariableStatistics.length) return;
+		cacheVariableStatistics[nr].set(simData.currentTime,variableValues[nr]);
 	}
 }
