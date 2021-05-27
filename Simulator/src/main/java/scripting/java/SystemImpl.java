@@ -152,10 +152,12 @@ public class SystemImpl implements SystemInterface {
 		}
 		if (varValue instanceof Long) {
 			simData.runData.variableValues[index]=(Long)varValue;
+			simData.runData.updateVariableValueForStatistics(simData,index);
 			return;
 		}
 		if (varValue instanceof Double) {
 			simData.runData.variableValues[index]=(Double)varValue;
+			simData.runData.updateVariableValueForStatistics(simData,index);
 			return;
 		}
 		if (varValue instanceof String) {
@@ -164,6 +166,7 @@ public class SystemImpl implements SystemInterface {
 			try {
 				final double d=calc.calc(simData.runData.variableValues,simData,null);
 				simData.runData.variableValues[index]=d;
+				simData.runData.updateVariableValueForStatistics(simData,index);
 			} catch (MathCalcError e) {}
 			return;
 		}
