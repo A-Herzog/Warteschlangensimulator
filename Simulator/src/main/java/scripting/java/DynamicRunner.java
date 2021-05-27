@@ -16,7 +16,7 @@
 package scripting.java;
 
 /**
- * Ruft eine dynmiasche Methode mit einem bestimmten Parameter auf.
+ * Ruft eine dynamische Methode mit einem bestimmten Parameter auf.
  * @author Alexander Herzog
  * @see DynamicMethod
  */
