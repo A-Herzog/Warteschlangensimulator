@@ -323,6 +323,11 @@ public class RunData {
 	private final DynamicLoadBalancer dynamicLoadBalancer;
 
 	/**
+	 * Globale Zuordnung für diesen Thread
+	 */
+	private Map<String,Object> runtimeMapGlobal;
+
+	/**
 	 * Konstruktor der Klasse <code>RunData</code>
 	 * @param runModel	Globales Laufzeitmodell, auf dessen Basis hier die Laufzeitdaten vorbereitet werden können (z.B. Arrays in passender Größe angelegt werden usw.)
 	 * @param dynamicLoadBalancer	Optional ein Load-Balancer für die Ankünfte über alle Threads (kann <code>null</code> sein)
@@ -352,6 +357,15 @@ public class RunData {
 				}
 			}
 		}
+	}
+
+	/**
+	 * Liefert die globale Zuordnung für diesen Thread.
+	 * @return	Globale Zuordnung für diesen Thread
+	 */
+	public Map<String,Object> getMapGlobal() {
+		if (runtimeMapGlobal==null) runtimeMapGlobal=new HashMap<>();
+		return runtimeMapGlobal;
 	}
 
 	/**

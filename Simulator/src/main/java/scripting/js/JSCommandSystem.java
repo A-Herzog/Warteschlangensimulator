@@ -70,7 +70,7 @@ public final class JSCommandSystem extends JSBaseCommand {
 
 	/**
 	 * Konstruktor der Klasse <code>JSFilterCommandSystem</code>
-	 * 	 */
+	 */
 	public JSCommandSystem() {
 		super(null);
 		expressionCache=new HashMap<>();
@@ -81,9 +81,9 @@ public final class JSCommandSystem extends JSBaseCommand {
 
 	/**
 	 * Stellt die Simulationsdaten und den aktuellen Kunden für die Abfrage durch das Javascript-Verknüpfungs-Objekt ein
-	 * @param simData	Simulationsdaten-Objekt (kann auch <code>null</code> sein)
-	 * @param currentStation	ID der aktuellen Station
-	 * @param client	Aktueller Kunde (kann auch <code>null</code> sein)
+	 * @param simData Simulationsdaten-Objekt (kann auch <code>null</code> sein)
+	 * @param currentStation ID der aktuellen Station
+	 * @param client Aktueller Kunde (kann auch <code>null</code> sein)
 	 */
 	public void setSimulationData(final SimulationData simData, final int currentStation, final RunDataClient client) {
 		this.simData=simData;
@@ -93,7 +93,7 @@ public final class JSCommandSystem extends JSBaseCommand {
 
 	/**
 	 * Stellt eine Eingangsgröße für die Abfrage durch das Javascript-Verknüpfungs-Objekt ein
-	 * @param value	Eingangsgröße (z.B. aus einer Datei geladener Zahlenwert)
+	 * @param value Eingangsgröße (z.B. aus einer Datei geladener Zahlenwert)
 	 */
 	public void setSimulationInputValue(final double value) {
 		inputValue=value;
@@ -101,8 +101,8 @@ public final class JSCommandSystem extends JSBaseCommand {
 
 	/**
 	 * Versucht eine Zeichenkette in ein Rechenobjekt umzuwandeln.
-	 * @param text	Zeichenkette, die die Formel enthält
-	 * @return	Liefert im Erfolgsfall ein Rechenobjekt, sonst eine Fehlermeldung
+	 * @param text Zeichenkette, die die Formel enthält
+	 * @return Liefert im Erfolgsfall ein Rechenobjekt, sonst eine Fehlermeldung
 	 */
 	private Object getExpression(final String text) {
 		ExpressionCalc expression=expressionCache.get(text);
@@ -121,8 +121,8 @@ public final class JSCommandSystem extends JSBaseCommand {
 
 	/**
 	 * Berechnet den übergebenen String und liefert das Ergebnis als Double
-	 * @param obj	Zu berechnender String
-	 * @return	Liefert das Ergebnis der Berechnung als Double oder eine Fehlermeldung als String oder <code>null</code>, wenn kein String als Parameter übergeben wurde
+	 * @param obj Zu berechnender String
+	 * @return Liefert das Ergebnis der Berechnung als Double oder eine Fehlermeldung als String oder <code>null</code>, wenn kein String als Parameter übergeben wurde
 	 */
 	public Object calc(final Object obj) {
 		if (obj instanceof Integer) return obj;
@@ -151,7 +151,7 @@ public final class JSCommandSystem extends JSBaseCommand {
 	 * diese Funktion die aktuelle Simulationszeiten als Doublewert in Sekunden. Ist kein
 	 * Simulationsdaten-Objekt eingetragen, so liefert die Funktion die aktuelle Computerzeit
 	 * in Millisekunden für Laufzeitmessungen.
-	 * @return	Long-Wert, welcher die aktuelle Zeit liefert
+	 * @return Long-Wert, welcher die aktuelle Zeit liefert
 	 * @see JSCommandSystem#setSimulationData(SimulationData, int, RunDataClient)
 	 */
 	public Object time() {
@@ -166,7 +166,7 @@ public final class JSCommandSystem extends JSBaseCommand {
 
 	/**
 	 * Gibt an, ob sich die Simulation noch in der Einschwingphase befindet.
-	 * @return	Gibt <code>true</code> zurück, wenn sich das System noch in der Einschwingphase befindet
+	 * @return Gibt <code>true</code> zurück, wenn sich das System noch in der Einschwingphase befindet
 	 */
 	public boolean isWarmUp() {
 		if (simData==null) return false;
@@ -175,7 +175,7 @@ public final class JSCommandSystem extends JSBaseCommand {
 
 	/**
 	 * Gibt an, ob der Kunde während der Einschwingphase generiert wurde.
-	 * @return	Gibt <code>true</code> zurück, wenn der Kunde während der Einschwingphase generiert wurde
+	 * @return Gibt <code>true</code> zurück, wenn der Kunde während der Einschwingphase generiert wurde
 	 */
 	public boolean isWarmUpClient() {
 		if (simData==null || client==null) return false;
@@ -186,7 +186,7 @@ public final class JSCommandSystem extends JSBaseCommand {
 	 * Gibt an, ob der Kunde in der Statistik erfasst werden soll.<br>
 	 * Diese Einstellung ist unabhängig von der Einschwingphase. Ein Kunde wird nur erfasst, wenn er außerhalb
 	 * der Einschwingphase generiert wurde und hier nicht falsch zurückgeliefert wird.
-	 * @return	Erfassung des Kunden in der Statistik
+	 * @return Erfassung des Kunden in der Statistik
 	 */
 	public boolean isClientInStatistics() {
 		if (simData==null || client==null) return false;
@@ -197,7 +197,7 @@ public final class JSCommandSystem extends JSBaseCommand {
 	 * Stellt ein, ob der Kunde in der Statistik erfasst werden soll.<br>
 	 * Diese Einstellung ist unabhängig von der Einschwingphase. Ein Kunde wird nur erfasst, wenn er außerhalb
 	 * der Einschwingphase generiert wurde und hier nicht falsch eingestellt wurde.
-	 * @param inStatistics	Erfassung des Kunden in der Statistik
+	 * @param inStatistics Erfassung des Kunden in der Statistik
 	 */
 	public void setClientInStatistics(final boolean inStatistics) {
 		if (simData==null || client==null) return;
@@ -206,7 +206,7 @@ public final class JSCommandSystem extends JSBaseCommand {
 
 	/**
 	 * Liefert die bei 1 beginnende, fortlaufende Nummer des aktuellen Kunden.
-	 * @return	Fortlaufende Nummer des Kunden
+	 * @return Fortlaufende Nummer des Kunden
 	 */
 	public long clientNumber() {
 		if (simData==null || client==null) return 0;
@@ -215,7 +215,7 @@ public final class JSCommandSystem extends JSBaseCommand {
 
 	/**
 	 * Liefert den Namen des aktuellen Kunden
-	 * @return	Name des Kunden
+	 * @return Name des Kunden
 	 * @see JSCommandSystem#setSimulationData(SimulationData, int, RunDataClient)
 	 */
 	public String clientTypeName() {
@@ -247,7 +247,7 @@ public final class JSCommandSystem extends JSBaseCommand {
 
 	/**
 	 * Stellt die bisherige Wartezeit des Kunden, der die Verarbeitung des Skripts ausgelöst hat, ein.
-	 * @param seconds	Neue Wartezeit (in Sekunden)
+	 * @param seconds Neue Wartezeit (in Sekunden)
 	 */
 	public void clientWaitingSecondsSet(final double seconds) {
 		final long l=(long)(seconds*1000+0.5);
@@ -278,7 +278,7 @@ public final class JSCommandSystem extends JSBaseCommand {
 
 	/**
 	 * Stellt die bisherige Transferzeit des Kunden, der die Verarbeitung des Skripts ausgelöst hat, ein.
-	 * @param seconds	Neue Transferzeit (in Sekunden)
+	 * @param seconds Neue Transferzeit (in Sekunden)
 	 */
 	public void clientTransferSecondsSet(final double seconds) {
 		final long l=(long)(seconds*1000+0.5);
@@ -309,7 +309,7 @@ public final class JSCommandSystem extends JSBaseCommand {
 
 	/**
 	 * Stellt die bisherige Bedienzeit des Kunden, der die Verarbeitung des Skripts ausgelöst hat, ein.
-	 * @param seconds	Neue Bedienzeit (in Sekunden)
+	 * @param seconds Neue Bedienzeit (in Sekunden)
 	 */
 	public void clientProcessSecondsSet(final double seconds) {
 		final long l=(long)(seconds*1000+0.5);
@@ -340,7 +340,7 @@ public final class JSCommandSystem extends JSBaseCommand {
 
 	/**
 	 * Stellt die bisherige Verweilzeit des Kunden, der die Verarbeitung des Skripts ausgelöst hat, ein.
-	 * @param seconds	Neue Verweilzeit (in Sekunden)
+	 * @param seconds Neue Verweilzeit (in Sekunden)
 	 */
 	public void clientResidenceSecondsSet(final double seconds) {
 		client.residenceTime=FastMath.round(FastMath.max(0,seconds)*1000);
@@ -348,8 +348,8 @@ public final class JSCommandSystem extends JSBaseCommand {
 
 	/**
 	 * Liefert einen zu dem Kunden gespeicherten Zahlenwert
-	 * @param index	Index zu dem der Zahlenwert abgerufen werden soll
-	 * @return	Zahlenwert zu dem Index für den Kunden. (Ist kein Wert für den Index gesetzt, so wird 0.0 zurückgeliefert.)
+	 * @param index Index zu dem der Zahlenwert abgerufen werden soll
+	 * @return Zahlenwert zu dem Index für den Kunden. (Ist kein Wert für den Index gesetzt, so wird 0.0 zurückgeliefert.)
 	 */
 	public double getClientValue(final int index) {
 		if (simData==null || client==null) return 0.0;
@@ -358,8 +358,8 @@ public final class JSCommandSystem extends JSBaseCommand {
 
 	/**
 	 * Stellt einen zu einem Kunden gespeicherten Zahlenwert ein
-	 * @param index	Index zu dem der Zahlenwert eingestellt werden soll
-	 * @param value	Zahlenwert zu dem Index für den Kunden
+	 * @param index Index zu dem der Zahlenwert eingestellt werden soll
+	 * @param value Zahlenwert zu dem Index für den Kunden
 	 */
 	public void setClientValue(final int index, final int value) {
 		if (simData==null || client==null) return;
@@ -368,8 +368,8 @@ public final class JSCommandSystem extends JSBaseCommand {
 
 	/**
 	 * Stellt einen zu einem Kunden gespeicherten Zahlenwert ein
-	 * @param index	Index zu dem der Zahlenwert eingestellt werden soll
-	 * @param value	Zahlenwert zu dem Index für den Kunden
+	 * @param index Index zu dem der Zahlenwert eingestellt werden soll
+	 * @param value Zahlenwert zu dem Index für den Kunden
 	 */
 	public void setClientValue(final int index, final double value) {
 		if (simData==null || client==null) return;
@@ -378,8 +378,8 @@ public final class JSCommandSystem extends JSBaseCommand {
 
 	/**
 	 * Stellt einen zu einem Kunden gespeicherten Zahlenwert ein
-	 * @param index	Index zu dem der Zahlenwert eingestellt werden soll
-	 * @param value	Zahlenwert zu dem Index für den Kunden
+	 * @param index Index zu dem der Zahlenwert eingestellt werden soll
+	 * @param value Zahlenwert zu dem Index für den Kunden
 	 */
 	public void setClientValue(final int index, final Object value) {
 		if (simData==null || client==null) return;
@@ -391,19 +391,18 @@ public final class JSCommandSystem extends JSBaseCommand {
 
 	/**
 	 * Liefert einen zu dem Kunden gespeicherten Textwert
-	 * @param key	Schlüssel zu dem der Textwert abgerufen werden soll
-	 * @return	Textwert zu dem Schlüssel für den Kunden. (Ist kein Wert für den Schlüssel gesetzt, so wird ein leerer String zurückgeliefert.)
+	 * @param key Schlüssel zu dem der Textwert abgerufen werden soll
+	 * @return Textwert zu dem Schlüssel für den Kunden. (Ist kein Wert für den Schlüssel gesetzt, so wird ein leerer String zurückgeliefert.)
 	 */
 	public String getClientText(final String key) {
 		if (simData==null || client==null) return "";
 		return client.getUserDataString(key);
 	}
 
-
 	/**
 	 * Stellt einen Textwert für einen Kunden ein
-	 * @param key	Schlüssel zu dem der Textwert eingestellt werden soll
-	 * @param value	Textwert der zu dem Schlüssel hinterlegt werden soll
+	 * @param key Schlüssel zu dem der Textwert eingestellt werden soll
+	 * @param value Textwert der zu dem Schlüssel hinterlegt werden soll
 	 */
 	public void setClientText(final String key, final String value) {
 		if (simData==null || client==null) return;
@@ -414,7 +413,7 @@ public final class JSCommandSystem extends JSBaseCommand {
 	/**
 	 * Handelt es sich bei dem aktuellen Kunden um einen temporären Batch,
 	 * so liefert diese Funktion die Anzahl der Kunden, die sich in dem Batch befinden.
-	 * @return	Anzahl an Kunden im Batch oder 0, wenn es sich nicht um einen temporären Batch handelt.
+	 * @return Anzahl an Kunden im Batch oder 0, wenn es sich nicht um einen temporären Batch handelt.
 	 */
 	public int batchSize() {
 		if (simData==null || client==null) return 0;
@@ -427,8 +426,8 @@ public final class JSCommandSystem extends JSBaseCommand {
 	 * Liefert den internen Kunden in dem aktuellen temporären Batch
 	 * oder <code>null</code>, wenn kein Kundenobjekt vorhanden ist
 	 * oder der aktuelle Kunden überhaupt kein temporärer Batch ist.
-	 * @param batchIndex	0-basierter Index des Kunden in dem Batch (Werte von 0 bis {@link #batchSize()}-1)
-	 * @return	Interner Kunde oder im Fehlerfall null
+	 * @param batchIndex 0-basierter Index des Kunden in dem Batch (Werte von 0 bis {@link #batchSize()}-1)
+	 * @return Interner Kunde oder im Fehlerfall null
 	 */
 	private RunDataClient getBatchClient(final int batchIndex) {
 		if (simData==null || client==null) return null;
@@ -437,8 +436,8 @@ public final class JSCommandSystem extends JSBaseCommand {
 
 	/**
 	 * Liefert den Namen eines der Kunden in dem aktuellen Batch.
-	 * @param	batchIndex 0-basierter Index des Kunden in dem Batch (Werte von 0 bis {@link #batchSize()}-1)
-	 * @return	Name des Kunden oder <code>null</code>, wenn der Index ungültig ist.
+	 * @param batchIndex 0-basierter Index des Kunden in dem Batch (Werte von 0 bis {@link #batchSize()}-1)
+	 * @return Name des Kunden oder <code>null</code>, wenn der Index ungültig ist.
 	 */
 	public String batchClientTypeName(final int batchIndex) {
 		final RunDataClient batchClient=getBatchClient(batchIndex);
@@ -448,7 +447,7 @@ public final class JSCommandSystem extends JSBaseCommand {
 
 	/**
 	 * Liefert die bisherige Wartezeit eines der Kunden in dem aktuellen Batch in Sekunden als Zahlenwert
-	 * @param	batchIndex 0-basierter Index des Kunden in dem Batch (Werte von 0 bis {@link #batchSize()}-1)
+	 * @param batchIndex 0-basierter Index des Kunden in dem Batch (Werte von 0 bis {@link #batchSize()}-1)
 	 * @return Bisherige Wartezeit des Kunden
 	 * @see JSCommandSystem#setSimulationData(SimulationData, int, RunDataClient)
 	 * @see JSCommandSystem#batchClientWaitingTime(int)
@@ -461,7 +460,7 @@ public final class JSCommandSystem extends JSBaseCommand {
 
 	/**
 	 * Liefert die bisherige Wartezeit eines der Kunden in dem aktuellen Batch in formatierter Form als Zeichenkette
-	 * @param	batchIndex 0-basierter Index des Kunden in dem Batch (Werte von 0 bis {@link #batchSize()}-1)
+	 * @param batchIndex 0-basierter Index des Kunden in dem Batch (Werte von 0 bis {@link #batchSize()}-1)
 	 * @return Bisherige Wartezeit des Kunden
 	 * @see JSCommandSystem#setSimulationData(SimulationData, int, RunDataClient)
 	 * @see JSCommandSystem#batchClientWaitingSeconds(int)
@@ -474,7 +473,7 @@ public final class JSCommandSystem extends JSBaseCommand {
 
 	/**
 	 * Liefert die bisherige Transferzeit eines der Kunden in dem aktuellen Batch in Sekunden als Zahlenwert
-	 * @param	batchIndex 0-basierter Index des Kunden in dem Batch (Werte von 0 bis {@link #batchSize()}-1)
+	 * @param batchIndex 0-basierter Index des Kunden in dem Batch (Werte von 0 bis {@link #batchSize()}-1)
 	 * @return Bisherige Transferzeit des Kunden
 	 * @see JSCommandSystem#setSimulationData(SimulationData, int, RunDataClient)
 	 * @see JSCommandSystem#batchClientTransferTime(int)
@@ -487,7 +486,7 @@ public final class JSCommandSystem extends JSBaseCommand {
 
 	/**
 	 * Liefert die bisherige Transferzeit eines der Kunden in dem aktuellen Batch in formatierter Form als Zeichenkette
-	 * @param	batchIndex 0-basierter Index des Kunden in dem Batch (Werte von 0 bis {@link #batchSize()}-1)
+	 * @param batchIndex 0-basierter Index des Kunden in dem Batch (Werte von 0 bis {@link #batchSize()}-1)
 	 * @return Bisherige Transferzeit des Kunden
 	 * @see JSCommandSystem#setSimulationData(SimulationData, int, RunDataClient)
 	 * @see JSCommandSystem#batchClientTransferSeconds(int)
@@ -500,7 +499,7 @@ public final class JSCommandSystem extends JSBaseCommand {
 
 	/**
 	 * Liefert die bisherige Bedienzeit eines der Kunden in dem aktuellen Batch in Sekunden als Zahlenwert
-	 * @param	batchIndex 0-basierter Index des Kunden in dem Batch (Werte von 0 bis {@link #batchSize()}-1)
+	 * @param batchIndex 0-basierter Index des Kunden in dem Batch (Werte von 0 bis {@link #batchSize()}-1)
 	 * @return Bisherige Bedienzeit des Kunden
 	 * @see JSCommandSystem#setSimulationData(SimulationData, int, RunDataClient)
 	 * @see JSCommandSystem#batchClientProcessTime(int)
@@ -513,7 +512,7 @@ public final class JSCommandSystem extends JSBaseCommand {
 
 	/**
 	 * Liefert die bisherige Bedienzeit eines der Kunden in dem aktuellen Batch in formatierter Form als Zeichenkette
-	 * @param	batchIndex 0-basierter Index des Kunden in dem Batch (Werte von 0 bis {@link #batchSize()}-1)
+	 * @param batchIndex 0-basierter Index des Kunden in dem Batch (Werte von 0 bis {@link #batchSize()}-1)
 	 * @return Bisherige Bedienzeit des Kunden
 	 * @see JSCommandSystem#setSimulationData(SimulationData, int, RunDataClient)
 	 * @see JSCommandSystem#batchClientProcessSeconds(int)
@@ -526,7 +525,7 @@ public final class JSCommandSystem extends JSBaseCommand {
 
 	/**
 	 * Liefert die bisherige Verweilzeit eines der Kunden in dem aktuellen Batch in Sekunden als Zahlenwert
-	 * @param	batchIndex 0-basierter Index des Kunden in dem Batch (Werte von 0 bis {@link #batchSize()}-1)
+	 * @param batchIndex 0-basierter Index des Kunden in dem Batch (Werte von 0 bis {@link #batchSize()}-1)
 	 * @return Bisherige Verweilzeit des Kunden
 	 * @see JSCommandSystem#setSimulationData(SimulationData, int, RunDataClient)
 	 * @see JSCommandSystem#batchClientResidenceTime(int)
@@ -539,7 +538,7 @@ public final class JSCommandSystem extends JSBaseCommand {
 
 	/**
 	 * Liefert die bisherige Verweilzeit eines der Kunden in dem aktuellen Batch in formatierter Form als Zeichenkette
-	 * @param	batchIndex 0-basierter Index des Kunden in dem Batch (Werte von 0 bis {@link #batchSize()}-1)
+	 * @param batchIndex 0-basierter Index des Kunden in dem Batch (Werte von 0 bis {@link #batchSize()}-1)
 	 * @return Bisherige Verweilzeit des Kunden
 	 * @see JSCommandSystem#setSimulationData(SimulationData, int, RunDataClient)
 	 * @see JSCommandSystem#batchClientResidenceSeconds(int)
@@ -552,9 +551,9 @@ public final class JSCommandSystem extends JSBaseCommand {
 
 	/**
 	 * Liefert einen zu einem der Kunden in dem aktuellen Batch einen gespeicherten Zahlenwert
-	 * @param	batchIndex 0-basierter Index des Kunden in dem Batch (Werte von 0 bis {@link #batchSize()}-1)
-	 * @param index	Index zu dem der Zahlenwert abgerufen werden soll
-	 * @return	Zahlenwert zu dem Index für den Kunden. (Ist kein Wert für den Index gesetzt, so wird 0.0 zurückgeliefert.)
+	 * @param batchIndex 0-basierter Index des Kunden in dem Batch (Werte von 0 bis {@link #batchSize()}-1)
+	 * @param index Index zu dem der Zahlenwert abgerufen werden soll
+	 * @return Zahlenwert zu dem Index für den Kunden. (Ist kein Wert für den Index gesetzt, so wird 0.0 zurückgeliefert.)
 	 */
 	public double getBatchClientValue(final int batchIndex, final int index) {
 		final RunDataClient batchClient=client.getBatchData(batchIndex);
@@ -565,9 +564,9 @@ public final class JSCommandSystem extends JSBaseCommand {
 
 	/**
 	 * Liefert zu einem der Kunden in dem aktuellen Batch einen gespeicherten Textwert
-	 * @param	batchIndex 0-basierter Index des Kunden in dem Batch (Werte von 0 bis {@link #batchSize()}-1)
-	 * @param key	Schlüssel zu dem der Textwert abgerufen werden soll
-	 * @return	Textwert zu dem Schlüssel für den Kunden. (Ist kein Wert für den Schlüssel gesetzt, so wird ein leerer String zurückgeliefert.)
+	 * @param batchIndex 0-basierter Index des Kunden in dem Batch (Werte von 0 bis {@link #batchSize()}-1)
+	 * @param key Schlüssel zu dem der Textwert abgerufen werden soll
+	 * @return Textwert zu dem Schlüssel für den Kunden. (Ist kein Wert für den Schlüssel gesetzt, so wird ein leerer String zurückgeliefert.)
 	 */
 	public String getBatchClientText(final int batchIndex, final String key) {
 		final RunDataClient batchClient=client.getBatchData(batchIndex);
@@ -577,8 +576,8 @@ public final class JSCommandSystem extends JSBaseCommand {
 
 	/**
 	 * Liefert die Anzahl an Kunden an einer Station
-	 * @param id	ID der Station
-	 * @return	Anzahl an Kunden an der Station
+	 * @param id ID der Station
+	 * @return Anzahl an Kunden an der Station
 	 */
 	public int getWIP(final int id) {
 		if (simData==null) return 0;
@@ -590,8 +589,8 @@ public final class JSCommandSystem extends JSBaseCommand {
 
 	/**
 	 * Liefert die Anzahl an Kunden in der Warteschlange an einer Station
-	 * @param id	ID der Station
-	 * @return	Anzahl an Kunden in der Warteschlange an der Station
+	 * @param id ID der Station
+	 * @return Anzahl an Kunden in der Warteschlange an der Station
 	 */
 	public int getNQ(final int id) {
 		if (simData==null) return 0;
@@ -603,7 +602,7 @@ public final class JSCommandSystem extends JSBaseCommand {
 
 	/**
 	 * Liefert die Anzahl an Kunden an allen Stationen zusammen
-	 * @return	Anzahl an Kunden an allen Stationen zusammen
+	 * @return Anzahl an Kunden an allen Stationen zusammen
 	 */
 	public int getWIP() {
 		if (simData==null) return 0;
@@ -613,7 +612,7 @@ public final class JSCommandSystem extends JSBaseCommand {
 
 	/**
 	 * Liefert die Anzahl an Kunden in der Warteschlange an allen Stationen zusammen
-	 * @return	Anzahl an Kunden in der Warteschlange an allen Stationen zusammen
+	 * @return Anzahl an Kunden in der Warteschlange an allen Stationen zusammen
 	 */
 	public int getNQ() {
 		if (simData==null) return 0;
@@ -623,8 +622,8 @@ public final class JSCommandSystem extends JSBaseCommand {
 
 	/**
 	 * Liefert den Index einer Variable in RunModel#variableName
-	 * @param variableName	Name der Variable
-	 * @return	Index der Variable (kann -1 für "nicht gefunden" und -2-x für  Kundendatenfeld x sein)
+	 * @param variableName Name der Variable
+	 * @return Index der Variable (kann -1 für "nicht gefunden" und -2-x für Kundendatenfeld x sein)
 	 */
 	private int getVariableIndex(final String variableName) {
 		if (simData==null) return -1;
@@ -641,8 +640,8 @@ public final class JSCommandSystem extends JSBaseCommand {
 
 	/**
 	 * Stellt den Wert einer Variable ein.
-	 * @param index	Index der Variable ({@link #getVariableIndex(String)})
-	 * @param value	Neuer Wert für die Variable
+	 * @param index Index der Variable ({@link #getVariableIndex(String)})
+	 * @param value Neuer Wert für die Variable
 	 * @see #getVariableIndex(String)
 	 */
 	private void setValueInt(final int index, final double value) {
@@ -663,8 +662,8 @@ public final class JSCommandSystem extends JSBaseCommand {
 
 	/**
 	 * Setzt den Wert einer Simulator-Variable. Die Variable muss bereits existieren, sonst erfolgt keine Zuweisung.
-	 * @param varName	Name der Variable
-	 * @param varValue	Neuer Wert (Integer, Double oder String, der dann zunächst interpretiert wird)
+	 * @param varName Name der Variable
+	 * @param varValue Neuer Wert (Integer, Double oder String, der dann zunächst interpretiert wird)
 	 */
 	public void set(final Object varName, final Object varValue) {
 		if (simData==null) return;
@@ -693,15 +692,16 @@ public final class JSCommandSystem extends JSBaseCommand {
 			try {
 				final double d=calc.calc(simData.runData.variableValues,simData,null);
 				setValueInt(index,d);
-			} catch (MathCalcError e) {}
+			} catch (MathCalcError e) {
+			}
 			return;
 		}
 	}
 
 	/**
 	 * Liefert basierend auf einer ID die zugehörige Station.
-	 * @param id	ID für die die Station gesucht werden soll
-	 * @return	Stationsobjekt oder <code>null</code>, wenn keine zu der ID passende Station gefunden wurde
+	 * @param id ID für die die Station gesucht werden soll
+	 * @return Stationsobjekt oder <code>null</code>, wenn keine zu der ID passende Station gefunden wurde
 	 */
 	private RunElement getRunElement(final int id) {
 		if (id<0 || id>=simData.runModel.elementsFast.length) return null;
@@ -710,8 +710,8 @@ public final class JSCommandSystem extends JSBaseCommand {
 
 	/**
 	 * Liefert basierend auf einer ID die zugehörige Station.
-	 * @param id	ID für die die Station gesucht werden soll
-	 * @return	Stationsobjekt oder <code>null</code>, wenn keine zu der ID passende Station gefunden wurde
+	 * @param id ID für die die Station gesucht werden soll
+	 * @return Stationsobjekt oder <code>null</code>, wenn keine zu der ID passende Station gefunden wurde
 	 */
 	private RunElement getRunElement(final Object id) {
 		if (id==null) return null;
@@ -733,8 +733,8 @@ public final class JSCommandSystem extends JSBaseCommand {
 
 	/**
 	 * Berechnet einen Ausdruck im Kontext der Simulation.
-	 * @param value	Zu berechnender Ausdruck
-	 * @return	Ergebnis der Berechnung oder <code>null</code>, wenn der Ausdruck nicht berechnet werden konnte
+	 * @param value Zu berechnender Ausdruck
+	 * @return Ergebnis der Berechnung oder <code>null</code>, wenn der Ausdruck nicht berechnet werden konnte
 	 */
 	private Double evaluateValue(final Object value) {
 		if (value instanceof Double) return (Double)value;
@@ -754,8 +754,8 @@ public final class JSCommandSystem extends JSBaseCommand {
 
 	/**
 	 * Stellt den aktuellen Wert an einem "Analoger Wert"- oder "Tank"-Element ein.
-	 * @param elementID	ID des Elements an dem der Wert eingestellt werden soll
-	 * @param value	Neuer Wert (Zahl oder berechenbarer Ausdruck)
+	 * @param elementID ID des Elements an dem der Wert eingestellt werden soll
+	 * @param value Neuer Wert (Zahl oder berechenbarer Ausdruck)
 	 */
 	public void setValue(final Object elementID, final Object value) {
 		if (simData==null) return;
@@ -772,8 +772,8 @@ public final class JSCommandSystem extends JSBaseCommand {
 
 	/**
 	 * Stellt die aktuelle Änderungsrate an einem "Analoger Wert"-Element ein.
-	 * @param elementID	ID des Elements an dem die Änderungsrate eingestellt werden soll
-	 * @param value	Neuer Wert (Zahl oder berechenbarer Ausdruck)
+	 * @param elementID ID des Elements an dem die Änderungsrate eingestellt werden soll
+	 * @param value Neuer Wert (Zahl oder berechenbarer Ausdruck)
 	 */
 	public void setRate(final Object elementID, final Object value) {
 		if (simData==null) return;
@@ -789,9 +789,9 @@ public final class JSCommandSystem extends JSBaseCommand {
 
 	/**
 	 * Stellt den maximalen Durchfluss an einem Ventil eines Tanks ein
-	 * @param elementID	ID des Tanks an dem der maximale Durchfluss an einem Ventil eingestellt werden soll
-	 * @param valveNr	1-basierte Nummer des Ventils
-	 * @param value	Neuer Wert (Zahl oder berechenbarer Ausdruck)
+	 * @param elementID ID des Tanks an dem der maximale Durchfluss an einem Ventil eingestellt werden soll
+	 * @param valveNr 1-basierte Nummer des Ventils
+	 * @param value Neuer Wert (Zahl oder berechenbarer Ausdruck)
 	 */
 	public void setValveMaxFlow(final Object elementID, final Object valveNr, final Object value) {
 		if (simData==null) return;
@@ -813,7 +813,7 @@ public final class JSCommandSystem extends JSBaseCommand {
 
 	/**
 	 * Liefert den eingestellten aktuellen Eingabewert (z.B. aus einer Eingabedatei)
-	 * @return	Eingabewert
+	 * @return Eingabewert
 	 */
 	public double getInput() {
 		return inputValue;
@@ -821,9 +821,9 @@ public final class JSCommandSystem extends JSBaseCommand {
 
 	/**
 	 * Lädt einen einzelnen Wert von einer Internetadresse
-	 * @param url	Aufzurufende URL
-	 * @param errorValue	Wert der im Fehlerfall zurückgeliefert werden soll
-	 * @return	Gelesener Wert oder <code>errorValue</code> im Fehlerfall
+	 * @param url Aufzurufende URL
+	 * @param errorValue Wert der im Fehlerfall zurückgeliefert werden soll
+	 * @return Gelesener Wert oder <code>errorValue</code> im Fehlerfall
 	 */
 	public double getInput(final String url, final double errorValue) {
 		URL urlObj=null;
@@ -842,8 +842,8 @@ public final class JSCommandSystem extends JSBaseCommand {
 
 	/**
 	 * Führt einen externen Befehl aus und kehrt sofort zurück.
-	 * @param commandLine	Auszuführender Befehl
-	 * @return	Liefert <code>true</code>, wenn der Befehl ausgeführt werden konnte
+	 * @param commandLine Auszuführender Befehl
+	 * @return Liefert <code>true</code>, wenn der Befehl ausgeführt werden konnte
 	 */
 	public boolean execute(final String commandLine) {
 		/* Sicherheitsprüfung */
@@ -861,8 +861,8 @@ public final class JSCommandSystem extends JSBaseCommand {
 
 	/**
 	 * Führt einen externen Befehl aus und liefert die Ausgabe zurück.
-	 * @param commandLine	Auszuführender Befehl
-	 * @return	Liefert im Erfolgsfall die Ausgabe zurück, sonst <code>null</code>
+	 * @param commandLine Auszuführender Befehl
+	 * @return Liefert im Erfolgsfall die Ausgabe zurück, sonst <code>null</code>
 	 */
 	public String executeAndReturnOutput(final String commandLine) {
 		/* Sicherheitsprüfung */
@@ -875,22 +875,22 @@ public final class JSCommandSystem extends JSBaseCommand {
 			p.waitFor();
 
 			final StringBuilder result=new StringBuilder();
-			try (Reader reader = new BufferedReader(new InputStreamReader(p.getInputStream(),StandardCharsets.UTF_8))) {
+			try (Reader reader=new BufferedReader(new InputStreamReader(p.getInputStream(),StandardCharsets.UTF_8))) {
 				int c=0;
 				while ((c=reader.read())!=-1) {
 					result.append((char)c);
 				}
 			}
 			return result.toString();
-		} catch (IOException | InterruptedException e) {
+		} catch (IOException|InterruptedException e) {
 			return null;
 		}
 	}
 
 	/**
 	 * Führt einen externen Befehl aus und wartet auf den Abschluss.
-	 * @param commandLine	Auszuführender Befehl
-	 * @return	Liefert im Erfolgsfall den Rückgabecode, sonst -1.
+	 * @param commandLine Auszuführender Befehl
+	 * @return Liefert im Erfolgsfall den Rückgabecode, sonst -1.
 	 */
 	public int executeAndWait(final String commandLine) {
 		/* Sicherheitsprüfung */
@@ -901,14 +901,14 @@ public final class JSCommandSystem extends JSBaseCommand {
 			final Process p=Runtime.getRuntime().exec(commandLine);
 			if (p==null) return -1;
 			return p.waitFor();
-		} catch (IOException | InterruptedException e) {
+		} catch (IOException|InterruptedException e) {
 			return -1;
 		}
 	}
 
 	/**
 	 * Liefert die Anzahl an vorhandenen Bedienern über alle Bedienergruppen.
-	 * @return	Anzahl an vorhandenen Bedienern über alle Bedienergruppen
+	 * @return Anzahl an vorhandenen Bedienern über alle Bedienergruppen
 	 */
 	public int getAllResourceCount() {
 		if (simData==null) return 0;
@@ -917,8 +917,8 @@ public final class JSCommandSystem extends JSBaseCommand {
 
 	/**
 	 * Liefert die Anzahl an vorhandenen Bedienern in einer bestimmten Bedienergruppe.
-	 * @param resourceId	1-basierende ID der Bedienergruppe
-	 * @return	Anzahl an vorhandenen Bedienern
+	 * @param resourceId 1-basierende ID der Bedienergruppe
+	 * @return Anzahl an vorhandenen Bedienern
 	 */
 	public int getResourceCount(final int resourceId) {
 		if (simData==null) return 0;
@@ -927,9 +927,9 @@ public final class JSCommandSystem extends JSBaseCommand {
 
 	/**
 	 * Stellt die Anzahl an vorhandenen Bedienern in einer bestimmten Bedienergruppe ein.
-	 * @param resourceId	1-basierende ID der Bedienergruppe
-	 * @param count	Anzahl an vorhandenen Bedienern
-	 * @return	Liefert <code>true</code> zurück, wenn die Anzahl verändert werden konnte.
+	 * @param resourceId 1-basierende ID der Bedienergruppe
+	 * @param count Anzahl an vorhandenen Bedienern
+	 * @return Liefert <code>true</code> zurück, wenn die Anzahl verändert werden konnte.
 	 */
 	public boolean setResourceCount(final int resourceId, final int count) {
 		if (simData==null) return false;
@@ -938,8 +938,8 @@ public final class JSCommandSystem extends JSBaseCommand {
 
 	/**
 	 * Gibt an, wie viele Bediener eines bestimmten Typs zu einem Zeitpunkt in Ausfallzeit sind
-	 * @param resourceId	1-basierender Index der Bedienergruppe
-	 * @return	Anzahl an Bedienern
+	 * @param resourceId 1-basierender Index der Bedienergruppe
+	 * @return Anzahl an Bedienern
 	 */
 	public int getResourceDown(final int resourceId) {
 		if (simData==null) return 0;
@@ -948,7 +948,7 @@ public final class JSCommandSystem extends JSBaseCommand {
 
 	/**
 	 * Gibt an, wie viele Bediener zu einem Zeitpunkt insgesamt in Ausfallzeit sind
-	 * @return	Anzahl an Bedienern
+	 * @return Anzahl an Bedienern
 	 */
 	public int getAllResourceDown() {
 		if (simData==null) return 0;
@@ -957,7 +957,7 @@ public final class JSCommandSystem extends JSBaseCommand {
 
 	/**
 	 * Löst ein Signal aus.
-	 * @param signalName	Name des Signal
+	 * @param signalName Name des Signal
 	 */
 	public void signal(final String signalName) {
 		if (simData==null || signalName==null || signalName.trim().isEmpty()) return;
@@ -967,7 +967,7 @@ public final class JSCommandSystem extends JSBaseCommand {
 
 	/**
 	 * Erfasst eine Meldung in der Logging-Ausgabe.
-	 * @param obj	Zu erfassende Meldung
+	 * @param obj Zu erfassende Meldung
 	 */
 	public void log(final Object obj) {
 		if (obj==null) return;
@@ -987,7 +987,7 @@ public final class JSCommandSystem extends JSBaseCommand {
 
 	/**
 	 * Liefert das Stations-lokales Datenobjekt für Skript-Daten.
-	 * @return	Stations-lokales Datenobjekt für Skript-Daten
+	 * @return Stations-lokales Datenobjekt für Skript-Daten
 	 */
 	public Map<String,Object> getMapLocal() {
 		return mapLocal.get();
@@ -995,17 +995,17 @@ public final class JSCommandSystem extends JSBaseCommand {
 
 	/**
 	 * Liefert das globale Datenobjekt für über alle Stationen hinweg gemeinsam genutzte Skript-Daten.
-	 * @return	Globales Datenobjekt für über alle Stationen hinweg gemeinsam genutzte Skript-Daten
+	 * @return Globales Datenobjekt für über alle Stationen hinweg gemeinsam genutzte Skript-Daten
 	 */
 	public Map<String,Object> getMapGlobal() {
 		if (simData==null) return null;
-		return simData.runtimeData.get();
+		return simData.runData.getMapGlobal();
 	}
 
 	/**
 	 * Liefert die Liste der Kunden an einer Verzögerung-Station.
-	 * @param id	ID der Verzögerung-Station
-	 * @return	Liste der Kunden an der Station oder <code>null</code>, wenn keine Kundenliste ermittelt werden konnte
+	 * @param id ID der Verzögerung-Station
+	 * @return Liste der Kunden an der Station oder <code>null</code>, wenn keine Kundenliste ermittelt werden konnte
 	 */
 	public JSCommandClientsDelay getDelayStationData(final int id) {
 		final RunElement element=simData.runModel.elementsFast[id];

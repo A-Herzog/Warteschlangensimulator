@@ -172,14 +172,6 @@ The following methods are available in this object:
   <u>Notice:</u> Executing external programs by scripts is disabled by default. If can be activated
   in the <a href="Setup.html">program settings dialog</a>.
   </li>
-  <li><tt>System.getMapLocal()</tt><br>
-  Returns a station-local mapping into which values can be written and from which values can be read.
-  The values stored here are retained beyond the execution of the current script.  
-  </li> 
-  <li><tt>System.getMapGlobal()</tt><br>
-  Returns a model wide mapping into which values can be written and from which values can be read.
-  The values stored here are retained beyond the execution of the current script.
-  </li>  
 </ul>
 
 
@@ -232,6 +224,16 @@ The following methods are in this object available:
   <li><tt>Simulation.isWarmUp()</tt><br>
   Gets true of false depending if the simulation is in the warm-up phase.
   </li>
+  
+  <li><tt>Simulation.getMapLocal()</tt><br>
+  Returns a station-local mapping into which values can be written and from which values can be read.
+  The values stored here are retained beyond the execution of the current script.  
+  </li> 
+  <li><tt>Simulation.getMapGlobal()</tt><br>
+  Returns a model wide mapping into which values can be written and from which values can be read.
+  The values stored here are retained beyond the execution of the current script.
+  </li>  
+  
 </ul>
 
 <h3>Accessing client-specific data</h3>

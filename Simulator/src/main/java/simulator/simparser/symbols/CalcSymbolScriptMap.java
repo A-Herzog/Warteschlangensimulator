@@ -18,6 +18,7 @@ package simulator.simparser.symbols;
 import org.apache.commons.math3.util.FastMath;
 
 import parser.MathCalcError;
+import simulator.runmodel.RunData;
 import simulator.runmodel.SimulationData;
 import simulator.simparser.ExpressionCalc;
 import simulator.simparser.coresymbols.CalcSymbolSimData;
@@ -28,7 +29,7 @@ import simulator.simparser.coresymbols.CalcSymbolSimData;
  * Zeichenketten zu Index-Werten. Dieser Index-Wert wird der Funktion als Parameter
  * übergeben.
  * @see ExpressionCalc#getTextContent(String, int)
- * @see SimulationData#runtimeData
+ * @see RunData#getMapGlobal()
  * @author Alexander Herzog
  */
 public class CalcSymbolScriptMap extends CalcSymbolSimData {
@@ -55,7 +56,7 @@ public class CalcSymbolScriptMap extends CalcSymbolSimData {
 		final SimulationData simData=((ExpressionCalc)calcSystem).getSimData();
 		if (simData==null) throw error();
 
-		final Object obj=simData.runtimeData.get().get(key);
+		final Object obj=simData.runData.getMapGlobal().get(key);
 		if (!(obj instanceof Number)) return 0; /* Kein passender Wert in Zuordnung soll als "0", nicht als Fehler interpretiert werden. */
 
 		return ((Number)obj).doubleValue();
@@ -73,7 +74,7 @@ public class CalcSymbolScriptMap extends CalcSymbolSimData {
 		final SimulationData simData=((ExpressionCalc)calcSystem).getSimData();
 		if (simData==null) return fallbackValue;
 
-		final Object obj=simData.runtimeData.get().get(key);
+		final Object obj=simData.runData.getMapGlobal().get(key);
 		if (!(obj instanceof Number)) return fallbackValue;
 
 		return ((Number)obj).doubleValue();

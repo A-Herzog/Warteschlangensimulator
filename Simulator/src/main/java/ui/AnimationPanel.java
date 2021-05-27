@@ -1860,7 +1860,7 @@ public class AnimationPanel extends JPanel implements RunModelAnimationViewer {
 		final ExpressionCalculatorDialog dialog=new ExpressionCalculatorDialog(
 				this,
 				simulator.getEditModel(),
-				simData.runtimeData.getLastRequest(),
+				simData.runData.getMapGlobal(),
 				s->calculateExpression(s),
 				s->runJavaScript(s),
 				s->runJava(s),

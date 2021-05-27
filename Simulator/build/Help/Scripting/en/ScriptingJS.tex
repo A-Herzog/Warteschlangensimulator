@@ -215,16 +215,6 @@ In case of an error -1 will be returned.
 Executing external programs by scripts is disabled by default. If can be activated
 in the program settings dialog.
 
-\item
-\cmd{System.getMapLocal()}:\\
-Returns a station-local mapping into which values can be written and from which values can be read.
-The values stored here are retained beyond the execution of the current script.  
-
-\item
-\cmd{System.getMapGlobal()}:\\
-Returns a model wide mapping into which values can be written and from which values can be read.
-The values stored here are retained beyond the execution of the current script.
-
 \end{itemize}
 
 
@@ -278,6 +268,16 @@ in the program settings dialog.
 \item
 \cmd{Simulation.isWarmUp()}:\\
 Gets true of false depending if the simulation is in the warm-up phase.
+
+\item
+\cmd{Simulation.getMapLocal()}:\\
+Returns a station-local mapping into which values can be written and from which values can be read.
+The values stored here are retained beyond the execution of the current script.  
+
+\item
+\cmd{Simulation.getMapGlobal()}:\\
+Returns a model wide mapping into which values can be written and from which values can be read.
+The values stored here are retained beyond the execution of the current script.
 
 \end{itemize}
 

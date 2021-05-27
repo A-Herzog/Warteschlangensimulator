@@ -15,6 +15,8 @@
  */
 package scripting.java;
 
+import java.util.Map;
+
 /**
  * Teil-Interface, damit Nutzer-Java-Codes auf simulationsabhängige Daten zugreifen kann.
  * @author Alexander Herzog
@@ -156,4 +158,17 @@ public interface SystemInterface {
 	 * @return	Liste der Kunden an der Station oder <code>null</code>, wenn keine Kundenliste ermittelt werden konnte
 	 */
 	ClientsInterface getDelayStationData(final int id);
+
+
+	/**
+	 * Liefert das Stations-lokales Datenobjekt für Skript-Daten.
+	 * @return	Stations-lokales Datenobjekt für Skript-Daten
+	 */
+	Map<String,Object> getMapLocal();
+
+	/**
+	 * Liefert das globale Datenobjekt für über alle Stationen hinweg gemeinsam genutzte Skript-Daten.
+	 * @return	Globales Datenobjekt für über alle Stationen hinweg gemeinsam genutzte Skript-Daten
+	 */
+	Map<String,Object> getMapGlobal();
 }

@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-05-27 11:12+0200\n"
+"POT-Creation-Date: 2021-05-28 00:19+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -13458,18 +13458,6 @@ msgstr "Load value via network"
 msgid "ScriptPopup.Runtime.LoadValue.Hint"
 msgstr "Loads a numerical value via a http/https connection"
 
-msgid "ScriptPopup.Runtime.MapGlobal"
-msgstr "Global map"
-
-msgid "ScriptPopup.Runtime.MapGlobal.Hint"
-msgstr "Returns the model-wide map for storing any values."
-
-msgid "ScriptPopup.Runtime.MapLocal"
-msgstr "Local map"
-
-msgid "ScriptPopup.Runtime.MapLocal.Hint"
-msgstr "Returns the station local map for storing any values."
-
 msgid "ScriptPopup.Runtime.Time"
 msgstr "Computer time"
 
@@ -13547,6 +13535,18 @@ msgstr "Message"
 
 msgid "ScriptPopup.Simulation.Log.Hint"
 msgstr "Records a message to the logging output."
+
+msgid "ScriptPopup.Simulation.MapGlobal"
+msgstr "Global map"
+
+msgid "ScriptPopup.Simulation.MapGlobal.Hint"
+msgstr "Returns the model-wide map for storing any values."
+
+msgid "ScriptPopup.Simulation.MapLocal"
+msgstr "Local map"
+
+msgid "ScriptPopup.Simulation.MapLocal.Hint"
+msgstr "Returns the station local map for storing any values."
 
 msgid "ScriptPopup.Simulation.Resources"
 msgstr "Operators"
@@ -30429,6 +30429,18 @@ msgstr "The file format is unknown respectively is not matching to any of the fi
 
 #~ msgid "Player.Mode.File"
 #~ msgstr "Use model file / Modelldatei verwenden"
+
+#~ msgid "ScriptPopup.Runtime.MapGlobal"
+#~ msgstr "Global map"
+
+#~ msgid "ScriptPopup.Runtime.MapGlobal.Hint"
+#~ msgstr "Returns the model-wide map for storing any values."
+
+#~ msgid "ScriptPopup.Runtime.MapLocal"
+#~ msgstr "Local map"
+
+#~ msgid "ScriptPopup.Runtime.MapLocal.Hint"
+#~ msgstr "Returns the station local map for storing any values."
 
 #~ msgid "SettingsDialog.Tabs.License"
 #~ msgstr "License"

@@ -18,14 +18,13 @@ package scripting.java;
 import java.util.HashMap;
 import java.util.Map;
 
-import simulator.runmodel.SimulationData;
+import scripting.js.JSCommandSystem;
 
 /**
  * Klasse zur Speicherung von stationsbezogenen und modellweiten Skript-Daten
  * @author Alexander Herzog
- * @see SimulationData#runtimeData
- * @see RuntimeImpl#mapGlobal
- * @see RuntimeImpl#mapLocal
+ * @see SystemImpl#mapLocal
+ * @see JSCommandSystem#mapLocal
  */
 public class RuntimeData extends ThreadLocal<Map<String,Object>> {
 	/**

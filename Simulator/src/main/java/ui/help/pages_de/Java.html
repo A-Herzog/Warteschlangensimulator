@@ -192,14 +192,6 @@ Es ist immer verfügbar. Das Interface stellt folgende Methoden zur Verfügung:
   <u>Hinweis:</u> Die Ausführung externer Programme durch Skripte ist standardmäßig deaktiviert
   und muss zunächst im <a href="Setup.html">Einstellungen-Dialog</a> aktiviert.
   </li>
-  <li><tt>Map&lt;String,Object&gt; getMapLocal()</tt><br>
-  Liefert eine stations-lokale Zuordnung, in die Werte geschrieben und aus der Werte gelesen werden können.
-  Die hier gespeicherten Werte bleiben über die Ausführung des aktuellen Skriptes hinaus erhalten.
-  </li> 
-  <li><tt>Map&lt;String,Object&gt; getMapGlobal()</tt><br>
-  Liefert eine modellweite Zuordnung, in die Werte geschrieben und aus der Werte gelesen werden können.
-  Die hier gespeicherten Werte bleiben über die Ausführung des aktuellen Skriptes hinaus erhalten.
-  </li>
 </ul>
 
 
@@ -230,6 +222,15 @@ späteren Filterung der Ergebnisse nicht verwendet werden. Das Interface stellt 
   
   <li><tt>boolean isWarmUp()</tt><br>
   Liefert wahr oder falsch zurück in Abhängigkeit, ob sich die Simulation noch in der Einschwingphase befindet.
+  </li>
+  
+  <li><tt>Map&lt;String,Object&gt; getMapLocal()</tt><br>
+  Liefert eine stations-lokale Zuordnung, in die Werte geschrieben und aus der Werte gelesen werden können.
+  Die hier gespeicherten Werte bleiben über die Ausführung des aktuellen Skriptes hinaus erhalten.
+  </li> 
+  <li><tt>Map&lt;String,Object&gt; getMapGlobal()</tt><br>
+  Liefert eine modellweite Zuordnung, in die Werte geschrieben und aus der Werte gelesen werden können.
+  Die hier gespeicherten Werte bleiben über die Ausführung des aktuellen Skriptes hinaus erhalten.
   </li>
 </ul>
 

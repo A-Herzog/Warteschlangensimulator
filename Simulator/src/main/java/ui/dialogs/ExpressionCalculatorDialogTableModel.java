@@ -135,12 +135,24 @@ public class ExpressionCalculatorDialogTableModel extends JTableExtAbstractTable
 	 * @return	Zeichenkette zu dem Objekt
 	 */
 	public static String processValue(final Object obj) {
-		if (obj instanceof Double) return NumberTools.formatNumber((Double)obj);
+		if (obj instanceof Byte) return NumberTools.formatLong((Byte)obj);
+		if (obj instanceof Short) return NumberTools.formatLong((Short)obj);
 		if (obj instanceof Integer) return NumberTools.formatLong((Integer)obj);
 		if (obj instanceof Long) return NumberTools.formatLong((Long)obj);
+		if (obj instanceof Float) return NumberTools.formatNumber((Float)obj);
+		if (obj instanceof Double) return NumberTools.formatNumber((Double)obj);
 		if (obj instanceof Number) return ((Number)obj).toString();
 		if (obj instanceof String) return encodeHTML((String)obj);
 		if (obj instanceof Object[]) return encodeHTML(Arrays.toString(((Object[])obj)));
+		if (obj instanceof byte[]) return encodeHTML(Arrays.toString(((byte[])obj)));
+		if (obj instanceof short[]) return encodeHTML(Arrays.toString(((short[])obj)));
+		if (obj instanceof int[]) return encodeHTML(Arrays.toString(((int[])obj)));
+		if (obj instanceof long[]) return encodeHTML(Arrays.toString(((long[])obj)));
+		if (obj instanceof float[]) return encodeHTML(Arrays.toString(((float[])obj)));
+		if (obj instanceof double[]) return encodeHTML(Arrays.toString(((double[])obj)));
+		if (obj instanceof boolean[]) return encodeHTML(Arrays.toString(((boolean[])obj)));
+		if (obj instanceof char[]) return encodeHTML(Arrays.toString(((char[])obj)));
+		if (obj instanceof String[]) return encodeHTML(Arrays.toString(((String[])obj)));
 		return encodeHTML(""+obj);
 	}
 

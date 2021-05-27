@@ -46,6 +46,10 @@ public class SystemImpl implements SystemInterface {
 	private final int currentStation;
 	/** Liste von Kundenlisten für bestimmte Verzögerung-Stationen */
 	private final Map<Integer,ClientsDelayImpl> delayInterfaces;
+	/** Stationslokale Daten */
+	private final RuntimeData mapLocal;
+	/** Modellweite Daten */
+	private final Map<String,Object> mapGlobal;
 
 	/**
 	 * Zuordnung von Rechenausdruck-Zeichenketten und bereits erstellten passenden Objekten
@@ -63,6 +67,8 @@ public class SystemImpl implements SystemInterface {
 		runModel=simData.runModel;
 		this.currentStation=currentStation;
 		delayInterfaces=new HashMap<>();
+		mapLocal=new RuntimeData();
+		mapGlobal=(simData==null)?null:(simData.runData.getMapGlobal());
 	}
 
 	/**
@@ -310,15 +316,6 @@ public class SystemImpl implements SystemInterface {
 		}
 	}
 
-	/**
-	 * Liefert das globale Datenobjekt für über alle Stationen hinweg gemeinsam genutzte Skript-Daten.
-	 * @return	Globales Datenobjekt für über alle Stationen hinweg gemeinsam genutzte Skript-Daten
-	 */
-	public RuntimeData getMapGlobal() {
-		if (simData==null) return null;
-		return simData.runtimeData;
-	}
-
 	@Override
 	public ClientsInterface getDelayStationData(final int id) {
 		ClientsDelayImpl delayInterface=delayInterfaces.get(id);
@@ -331,5 +328,15 @@ public class SystemImpl implements SystemInterface {
 
 		delayInterface.updateClients();
 		return delayInterface;
+	}
+
+	@Override
+	public Map<String,Object> getMapLocal() {
+		return mapLocal.get();
+	}
+
+	@Override
+	public Map<String,Object> getMapGlobal() {
+		return mapGlobal;
 	}
 }

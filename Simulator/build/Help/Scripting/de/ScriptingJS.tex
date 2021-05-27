@@ -249,16 +249,6 @@ Führt ein externes Programm aus und liefert den Rückgabecode des Programms zur
 Im Fehlerfall wird -1 zurückgeliefert.
 Die Ausführung externer Programme durch Skripte ist standardmäßig deaktiviert
 und muss zunächst im Einstellungen-Dialog aktiviert.
-
-\item
-\cmd{System.getMapLocal()}:\\
-Liefert eine stations-lokale Zuordnung, in die Werte geschrieben und aus der Werte gelesen werden können.
-Die hier gespeicherten Werte bleiben über die Ausführung des aktuellen Skriptes hinaus erhalten.
-
-\item
-\cmd{System.getMapGlobal()}:\\
-Liefert eine modellweite Zuordnung, in die Werte geschrieben und aus der Werte gelesen werden können.
-Die hier gespeicherten Werte bleiben über die Ausführung des aktuellen Skriptes hinaus erhalten.
 	
 \end{itemize}
 
@@ -314,6 +304,16 @@ und muss zunächst im Einstellungen-Dialog aktiviert.
 \item
 \cmd{Simulation.isWarmUp()}:\\
 Liefert wahr oder falsch zurück in Abhängigkeit, ob sich die Simulation noch in der Einschwingphase befindet.
+
+\item
+\cmd{Simulation.getMapLocal()}:\\
+Liefert eine stations-lokale Zuordnung, in die Werte geschrieben und aus der Werte gelesen werden können.
+Die hier gespeicherten Werte bleiben über die Ausführung des aktuellen Skriptes hinaus erhalten.
+
+\item
+\cmd{Simulation.getMapGlobal()}:\\
+Liefert eine modellweite Zuordnung, in die Werte geschrieben und aus der Werte gelesen werden können.
+Die hier gespeicherten Werte bleiben über die Ausführung des aktuellen Skriptes hinaus erhalten.
 
 \end{itemize}
 

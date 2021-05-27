@@ -163,8 +163,18 @@ public class OutputImpl implements OutputInterface {
 			return;
 		}
 
+		if (obj instanceof Float) {
+			printDouble((Float)obj);
+			return;
+		}
+
 		if (obj instanceof Integer) {
 			printDouble((Integer)obj);
+			return;
+		}
+
+		if (obj instanceof Long) {
+			printDouble((Long)obj);
 			return;
 		}
 

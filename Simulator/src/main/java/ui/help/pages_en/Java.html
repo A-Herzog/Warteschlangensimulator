@@ -174,14 +174,6 @@ The <tt>RuntimeInterface</tt> is always available. The following methods are ava
   <u>Notice:</u> Executing external programs by scripts is disabled by default. If can be activated
   in the <a href="Setup.html">program settings dialog</a>.
   </li>
-  <li><tt>Map&lt;String,Object&gt; getMapLocal()</tt><br>
-  Returns a station-local mapping into which values can be written and from which values can be read.
-  The values stored here are retained beyond the execution of the current script.  
-  </li> 
-  <li><tt>Map&lt;String,Object&gt; getMapGlobal()</tt><br>
-  Returns a model wide mapping into which values can be written and from which values can be read.
-  The values stored here are retained beyond the execution of the current script.
-  </li>
 </ul>
 
 
@@ -211,6 +203,15 @@ The following methods are available in this interface:
   
   <li><tt>boolean isWarmUp()</tt><br>
   Gets true of false depending if the simulation is in the warm-up phase.
+  </li>
+  
+  <li><tt>Map&lt;String,Object&gt; getMapLocal()</tt><br>
+  Returns a station-local mapping into which values can be written and from which values can be read.
+  The values stored here are retained beyond the execution of the current script.  
+  </li> 
+  <li><tt>Map&lt;String,Object&gt; getMapGlobal()</tt><br>
+  Returns a model wide mapping into which values can be written and from which values can be read.
+  The values stored here are retained beyond the execution of the current script.
   </li>
 </ul>
 

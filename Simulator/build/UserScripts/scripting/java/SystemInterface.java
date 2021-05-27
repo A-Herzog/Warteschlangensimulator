@@ -15,6 +15,8 @@
  */
 package scripting.java;
 
+import java.util.Map;
+
 /**
  * Interface for accessing simulation dependent data.
  * @author Alexander Herzog
@@ -148,4 +150,24 @@ public interface SystemInterface {
 	 * @param obj	Message to be logged
 	 */
 	void log(final Object obj);
+	
+	
+	/**
+	 * Returns the list of all clients at a delay station.
+	 * @param id	ID of the delay station
+	 * @return	List of all clients at the station or <code>null</code>, if no clients list is available for this id
+	 */
+	ClientsInterface getDelayStationData(final int id);
+
+	/**
+	 * Returns a station local data object for script data.
+	 * @return	Station local data object for script data
+	 */
+	Map<String,Object> getMapLocal();
+
+	/**
+	 * Returns the global data object for script data.
+	 * @return	Global data object for script data
+	 */
+	Map<String,Object> getMapGlobal();
 }

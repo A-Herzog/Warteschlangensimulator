@@ -24,6 +24,7 @@ import java.io.Serializable;
 import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
 import javax.swing.text.BadLocationException;
 
 import org.fife.ui.rsyntaxtextarea.RSyntaxTextArea;
@@ -87,10 +88,21 @@ public class DynamicErrorInfo extends BaseDialog {
 		final ScriptEditorAreaBuilder builder=new ScriptEditorAreaBuilder(ScriptPopup.ScriptMode.Java,true,null);
 		final RSyntaxTextArea editor=builder.get();
 		editor.setText(runner.getFullClass());
-		content.add(new RTextScrollPane (editor),BorderLayout.CENTER);
+		RTextScrollPane scrollPane=new RTextScrollPane(editor);
+		content.add(scrollPane,BorderLayout.CENTER);
+
+		/* Fehlerzeile hervorheben */
 		if (lineNr>0) try {
 			editor.addLineHighlight(lineNr-1,errorColor);
 		} catch (BadLocationException e) {}
+
+		/* Zu richtiger Zeile scrollen */
+		SwingUtilities.invokeLater(()->{
+			try {
+				final int y=editor.yForLine(lineNr-1);
+				scrollPane.getVerticalScrollBar().setValue(y);
+			} catch (BadLocationException e) {}
+		});
 
 		/* Dialog starten */
 		setMinSizeRespectingScreensize(800,600);

@@ -335,8 +335,8 @@ public class ScriptPopup {
 		String systemResourceGet="";
 		String systemResourceSet="";
 
-		String runtimeMapLocal="";
-		String runtimeMapGlobal="";
+		String systemMapLocal="";
+		String systemMapGlobal="";
 
 		String clientsCount="";
 		String clientsRelease="";
@@ -367,9 +367,8 @@ public class ScriptPopup {
 			systemResourceGetAll="Simulation.getAllResourceCount()";
 			systemResourceGet="Simulation.getResourceCount(resourceId)";
 			systemResourceSet="Simulation.setResourceCount(resourceId,123)";
-
-			runtimeMapLocal="System.getMapLocal()";
-			runtimeMapGlobal="System.getMapGlobal()";
+			systemMapLocal="Simulation.getMapLocal()";
+			systemMapGlobal="Simulation.getMapGlobal()";
 
 			clientsCount="Simulation.getDelayStationData(%s).count();";
 			clientsRelease="Simulation.getDelayStationData(%s).release(index);";
@@ -401,9 +400,8 @@ public class ScriptPopup {
 			systemResourceGetAll="sim.getSystem().getAllResourceCount();";
 			systemResourceGet="sim.getSystem().getResourceCount(resourceId);";
 			systemResourceSet="sim.getSystem().setResourceCount(resourceId,123);";
-
-			runtimeMapLocal="sim.getRuntime().getMapLocal()";
-			runtimeMapGlobal="sim.getRuntime().getMapGlobal()";
+			systemMapLocal="sim.getSystem().getMapLocal()";
+			systemMapGlobal="sim.getSystem().getMapGlobal()";
 
 			clientsCount="sim.getSystem().getDelayStationData(%s).count();";
 			clientsRelease="sim.getSystem().getDelayStationData(%s).release(index);";
@@ -482,8 +480,8 @@ public class ScriptPopup {
 
 		/* Zuordnungen */
 
-		group.addChild(new ScriptPopupItemCommand(Language.tr("ScriptPopup.Runtime.MapLocal"),Language.tr("ScriptPopup.Runtime.MapLocal.Hint"),Images.SCRIPT_MAP.getIcon(),runtimeMapLocal));
-		group.addChild(new ScriptPopupItemCommand(Language.tr("ScriptPopup.Runtime.MapGlobal"),Language.tr("ScriptPopup.Runtime.MapGlobal.Hint"),Images.SCRIPT_MAP.getIcon(),runtimeMapGlobal));
+		group.addChild(new ScriptPopupItemCommand(Language.tr("ScriptPopup.Simulation.MapLocal"),Language.tr("ScriptPopup.Simulation.MapLocal.Hint"),Images.SCRIPT_MAP.getIcon(),systemMapLocal));
+		group.addChild(new ScriptPopupItemCommand(Language.tr("ScriptPopup.Simulation.MapGlobal"),Language.tr("ScriptPopup.Simulation.MapGlobal.Hint"),Images.SCRIPT_MAP.getIcon(),systemMapGlobal));
 
 		parent.addChild(group);
 	}

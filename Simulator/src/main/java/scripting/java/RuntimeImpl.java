@@ -46,22 +46,9 @@ public class RuntimeImpl implements RuntimeInterface {
 	private Map<String,ExpressionCalc> expressionCache;
 
 	/**
-	 * Stationslokale Daten
-	 */
-	private final RuntimeData mapLocal;
-
-	/**
-	 * Modellweite Daten
-	 */
-	private final RuntimeData mapGlobal;
-
-	/**
 	 * Konstruktor der Klasse
-	 * @param mapGlobal	Objekt für die modellweiten Daten
 	 */
-	public RuntimeImpl(final RuntimeData mapGlobal) {
-		mapLocal=new RuntimeData();
-		this.mapGlobal=mapGlobal;
+	public RuntimeImpl() {
 	}
 
 	/**
@@ -167,15 +154,5 @@ public class RuntimeImpl implements RuntimeInterface {
 		} catch (IOException | InterruptedException e) {
 			return -1;
 		}
-	}
-
-	@Override
-	public Map<String,Object> getMapLocal() {
-		return mapLocal.get();
-	}
-
-	@Override
-	public Map<String,Object> getMapGlobal() {
-		return mapGlobal.get();
 	}
 }

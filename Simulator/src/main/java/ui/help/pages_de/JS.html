@@ -189,14 +189,6 @@ Simulation steht das <tt>System</tt>-Objekt nicht zur Verfügung. Das Objekt ste
   <u>Hinweis:</u> Die Ausführung externer Programme durch Skripte ist standardmäßig deaktiviert
   und muss zunächst im <a href="Setup.html">Einstellungen-Dialog</a> aktiviert.
   </li>
-  <li><tt>System.getMapLocal()</tt><br>
-  Liefert eine stations-lokale Zuordnung, in die Werte geschrieben und aus der Werte gelesen werden können.
-  Die hier gespeicherten Werte bleiben über die Ausführung des aktuellen Skriptes hinaus erhalten.
-  </li> 
-  <li><tt>System.getMapGlobal()</tt><br>
-  Liefert eine modellweite Zuordnung, in die Werte geschrieben und aus der Werte gelesen werden können.
-  Die hier gespeicherten Werte bleiben über die Ausführung des aktuellen Skriptes hinaus erhalten.
-  </li>
 </ul>
 
 
@@ -251,6 +243,16 @@ späteren Filterung der Ergebnisse nicht verwendet werden. Das Objekt stellt fol
   <li><tt>Simulation.isWarmUp()</tt><br>
   Liefert wahr oder falsch zurück in Abhängigkeit, ob sich die Simulation noch in der Einschwingphase befindet.
   </li>
+  
+  <li><tt>Simulation.getMapLocal()</tt><br>
+  Liefert eine stations-lokale Zuordnung, in die Werte geschrieben und aus der Werte gelesen werden können.
+  Die hier gespeicherten Werte bleiben über die Ausführung des aktuellen Skriptes hinaus erhalten.
+  </li> 
+  <li><tt>Simulation.getMapGlobal()</tt><br>
+  Liefert eine modellweite Zuordnung, in die Werte geschrieben und aus der Werte gelesen werden können.
+  Die hier gespeicherten Werte bleiben über die Ausführung des aktuellen Skriptes hinaus erhalten.
+  </li>
+  
 </ul>
 
 <h3>Zugriff auf kundenspezifische Daten</h3>

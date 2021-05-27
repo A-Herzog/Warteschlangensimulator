@@ -236,8 +236,6 @@ public class ScriptEditorAreaBuilder {
 		String runtimeExecute1="";
 		String runtimeExecute2="";
 		String runtimeExecute3="";
-		String runtimeMapLocal="";
-		String runtimeMapGlobal="";
 
 		if (language==ScriptMode.Javascript && features.contains(ScriptFeature.JSSystem)) {
 			runtimeCalc="System.calc(\"1+2\");";
@@ -246,8 +244,6 @@ public class ScriptEditorAreaBuilder {
 			runtimeExecute1="System.execute(\"program.exe\");";
 			runtimeExecute2="System.executeAndReturnOutput(\"program.exe\");";
 			runtimeExecute3="System.executeAndWait(\"program.exe\");";
-			runtimeMapLocal="System.getMapLocal()";
-			runtimeMapGlobal="System.getMapGlobal()";
 		}
 
 		if (language==ScriptMode.Java) {
@@ -257,8 +253,6 @@ public class ScriptEditorAreaBuilder {
 			runtimeExecute1="sim.getRuntime().execute(\"program.exe\");";
 			runtimeExecute2="sim.getRuntime().executeAndReturnOutput(\"program.exe\");";
 			runtimeExecute3="sim.getRuntime().executeAndWait(\"program.exe\");";
-			runtimeMapLocal="sim.getRuntime().getMapLocal()";
-			runtimeMapGlobal="sim.getRuntime().getMapGlobal()";
 		}
 
 		addAutoComplete(Language.tr("ScriptPopup.Runtime.Calc"),Language.tr("ScriptPopup.Runtime.Calc.Hint"),Images.SCRIPT_RECORD_EXPRESSION.getIcon(),runtimeCalc);
@@ -269,8 +263,6 @@ public class ScriptEditorAreaBuilder {
 			addAutoComplete(Language.tr("ScriptPopup.Runtime.ExecuteAndReturnOutput"),Language.tr("ScriptPopup.Runtime.ExecuteAndReturnOutput.Hint"),Images.SCRIPT_RECORD_EXECUTE_PROGRAM.getIcon(),runtimeExecute2);
 			addAutoComplete(Language.tr("ScriptPopup.Runtime.ExecuteAndWait"),Language.tr("ScriptPopup.Runtime.ExecuteAndWait.Hint"),Images.SCRIPT_RECORD_EXECUTE_PROGRAM.getIcon(),runtimeExecute3);
 		}
-		addAutoComplete(Language.tr("ScriptPopup.Runtime.MapLocal"),Language.tr("ScriptPopup.Runtime.MapLocal.Hint"),Images.SCRIPT_MAP.getIcon(),runtimeMapLocal);
-		addAutoComplete(Language.tr("ScriptPopup.Runtime.MapGlobal"),Language.tr("ScriptPopup.Runtime.MapGlobal.Hint"),Images.SCRIPT_MAP.getIcon(),runtimeMapGlobal);
 	}
 
 	/**
@@ -284,6 +276,8 @@ public class ScriptEditorAreaBuilder {
 		String systemCalc="";
 		String systemTime="";
 		String systemWarmUp="";
+		String systemMapLocal="";
+		String systemMapGlobal="";
 		String systemWIP="";
 		String systemNQ="";
 		String systemWIPAll="";
@@ -319,6 +313,8 @@ public class ScriptEditorAreaBuilder {
 			systemCalc="Simulation.calc(\"1+2\");";
 			systemTime="Simulation.time();";
 			systemWarmUp="Simulation.isWarmUp();";
+			systemMapLocal="Simulation.getMapLocal()";
+			systemMapGlobal="Simulation.getMapGlobal()";
 			systemWIP="Simulation.getWIP(id);";
 			systemNQ="Simulation.getNQ(id);";
 			systemWIPAll="Simulation.getWIP();";
@@ -353,6 +349,8 @@ public class ScriptEditorAreaBuilder {
 			systemCalc="sim.getSystem().calc(\"1+2\");";
 			systemTime="sim.getSystem().getTime();";
 			systemWarmUp="sim.getSystem().isWarmUp();";
+			systemMapLocal="sim.getSystem().getMapLocal()";
+			systemMapGlobal="sim.getSystem().getMapGlobal()";
 			systemWIP="sim.getSystem().getWIP(id);";
 			systemNQ="sim.getSystem().getNQ(id);";
 			systemWIPAll="sim.getSystem().getWIP();";
@@ -387,6 +385,8 @@ public class ScriptEditorAreaBuilder {
 		addAutoComplete(Language.tr("ScriptPopup.Simulation.Calc"),Language.tr("ScriptPopup.Simulation.Calc.Hint"),Images.SCRIPT_RECORD_EXPRESSION.getIcon(),systemCalc);
 		addAutoComplete(Language.tr("ScriptPopup.Simulation.Time"),Language.tr("ScriptPopup.Simulation.Time.Hint"),Images.SCRIPT_RECORD_TIME.getIcon(),systemTime);
 		addAutoComplete(Language.tr("ScriptPopup.Simulation.IsWarmUp"),Language.tr("ScriptPopup.Simulation.IsWarmUp.Hint"),Images.SCRIPT_RECORD_STATISTICS.getIcon(),systemWarmUp);
+		addAutoComplete(Language.tr("ScriptPopup.Simulation.MapLocal"),Language.tr("ScriptPopup.Simulation.MapLocal.Hint"),Images.SCRIPT_MAP.getIcon(),systemMapLocal);
+		addAutoComplete(Language.tr("ScriptPopup.Simulation.MapGlobal"),Language.tr("ScriptPopup.Simulation.MapGlobal.Hint"),Images.SCRIPT_MAP.getIcon(),systemMapGlobal);
 
 		addAutoComplete(Language.tr("ScriptPopup.Simulation.getWIP"),Language.tr("ScriptPopup.Simulation.getWIP.Hint"),Images.SCRIPT_RECORD_DATA_STATION.getIcon(),systemWIP);
 		addAutoComplete(Language.tr("ScriptPopup.Simulation.getNQ"),Language.tr("ScriptPopup.Simulation.getNQ.Hint"),Images.SCRIPT_RECORD_DATA_STATION_QUEUE.getIcon(),systemNQ);

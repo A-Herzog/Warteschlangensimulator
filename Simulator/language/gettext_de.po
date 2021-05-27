@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-05-27 11:12+0200\n"
+"POT-Creation-Date: 2021-05-28 00:19+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -13458,18 +13458,6 @@ msgstr "Wert über Netzwerk laden"
 msgid "ScriptPopup.Runtime.LoadValue.Hint"
 msgstr "Lädt einen numerischen Wert über eine http- oder https-Verbindung"
 
-msgid "ScriptPopup.Runtime.MapGlobal"
-msgstr "Globale Zuordnung"
-
-msgid "ScriptPopup.Runtime.MapGlobal.Hint"
-msgstr "Liefert die modellweit gültige Zuordnung zur Speicherung beliebiger Werte."
-
-msgid "ScriptPopup.Runtime.MapLocal"
-msgstr "Lokale Zuordnung"
-
-msgid "ScriptPopup.Runtime.MapLocal.Hint"
-msgstr "Liefert die stations-lokale Zuordnung zur Speicherung beliebiger Werte."
-
 msgid "ScriptPopup.Runtime.Time"
 msgstr "Computerzeit"
 
@@ -13547,6 +13535,18 @@ msgstr "Meldung"
 
 msgid "ScriptPopup.Simulation.Log.Hint"
 msgstr "Erfasst eine Meldung in der Logging-Ausgabe."
+
+msgid "ScriptPopup.Simulation.MapGlobal"
+msgstr "Globale Zuordnung"
+
+msgid "ScriptPopup.Simulation.MapGlobal.Hint"
+msgstr "Liefert die modellweit gültige Zuordnung zur Speicherung beliebiger Werte."
+
+msgid "ScriptPopup.Simulation.MapLocal"
+msgstr "Lokale Zuordnung"
+
+msgid "ScriptPopup.Simulation.MapLocal.Hint"
+msgstr "Liefert die stations-lokale Zuordnung zur Speicherung beliebiger Werte."
 
 msgid "ScriptPopup.Simulation.Resources"
 msgstr "Bediener"
@@ -30467,6 +30467,18 @@ msgstr "Das Dateiformat wurde nicht erkannt bzw. passt zu keinem Dateiformat die
 
 #~ msgid "Player.Mode.File"
 #~ msgstr "Use model file / Modelldatei verwenden"
+
+#~ msgid "ScriptPopup.Runtime.MapGlobal"
+#~ msgstr "Globale Zuordnung"
+
+#~ msgid "ScriptPopup.Runtime.MapGlobal.Hint"
+#~ msgstr "Liefert die modellweit gültige Zuordnung zur Speicherung beliebiger Werte."
+
+#~ msgid "ScriptPopup.Runtime.MapLocal"
+#~ msgstr "Lokale Zuordnung"
+
+#~ msgid "ScriptPopup.Runtime.MapLocal.Hint"
+#~ msgstr "Liefert die stations-lokale Zuordnung zur Speicherung beliebiger Werte."
 
 #~ msgid "SettingsDialog.Tabs.License"
 #~ msgstr "Lizenz"
