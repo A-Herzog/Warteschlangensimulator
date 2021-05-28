@@ -477,6 +477,7 @@ public class RunElementActionRecord {
 					simData.doEmergencyShutDown(DynamicFactory.getLongStatusText(javaRunner));
 				}
 			}
+			simData.runData.updateMapValuesForStatistics(simData);
 			break;
 		case ACTION_SIGNAL:
 			simData.runData.fireSignal(simData,signalName);

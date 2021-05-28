@@ -224,6 +224,7 @@ public class RunElementHoldJS extends RunElementPassThrough implements StateChan
 						removed++;
 					}
 				}
+				simData.runData.updateMapValuesForStatistics(simData);
 			}
 
 			/* Warten weitere Kunden? - Wenn ja in einer ms ein weiterer Check, ob die Bedingung noch erfüllt ist. */

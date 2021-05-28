@@ -458,6 +458,7 @@ public class RunData {
 
 		/* Variablenwerte letztmalig erfassen */
 		for (int i=0;i<variableValues.length-3;i++) updateVariableValueForStatistics(simData,i);
+		updateMapValuesForStatistics(simData);
 
 		/* Kunden zwangsweise aus dem System austragen (funktioniert nur, wenn auch die Erfassung der aktuellen Kunden aktiv ist) */
 		if (disposeClients) clients.disposeAll(simData);
@@ -2069,5 +2070,82 @@ public class RunData {
 	public void updateVariableValueForStatistics(final SimulationData simData, final int nr) {
 		if (nr<0 || nr>=cacheVariableStatistics.length) return;
 		cacheVariableStatistics[nr].set(simData.currentTime,variableValues[nr]);
+	}
+
+	/**
+	 * Erfasst einen Zuordnungs-Eintrag in der Statistik
+	 * @param simData	Simulationsdatenobjekt
+	 * @param parentName	Bezeichner für die Werte
+	 * @param entry	Zu erfassender Eintrag
+	 * @param addOn	Ergänzung zum Namen (kann leer sein, darf aber nicht <code>null</code> sein)
+	 * @param value	Zu erfassender Wert
+	 */
+	private void recordMapVariableValue(final SimulationData simData, final String parentName, final Map.Entry<?,?> entry, final String addOn, final double value) {
+		((StatisticsTimeContinuousPerformanceIndicator)simData.statistics.userVariables.get(parentName+entry.getKey().toString()+addOn)).set(simData.currentTime,value);
+	}
+
+	/**
+	 * Aktualisiert die Werte einer Zuordnung in der Statistik
+	 * @param parentName	Bezeichner für die Werte
+	 * @param map	Zu erfassende Zuordnung
+	 * @param simData	Simulationsdatenobjekt
+	 * @see #updateMapValuesForStatistics(SimulationData)
+	 */
+	private void processMapForStatistics(final String parentName, final Map<?,?> map, final SimulationData simData) {
+		for (Map.Entry<?,?> entry: map.entrySet()) {
+			final Object value=entry.getValue();
+			if (value instanceof Number) {
+				recordMapVariableValue(simData,parentName,entry,"",((Number)value).doubleValue());
+				continue;
+			}
+			if (value instanceof byte[]) {
+				final byte[] arr=(byte[])value;
+				for (int i=0;i<arr.length;i++) recordMapVariableValue(simData,parentName,entry,"["+i+"]",arr[i]);
+				continue;
+			}
+			if (value instanceof short[]) {
+				final short[] arr=(short[])value;
+				for (int i=0;i<arr.length;i++) recordMapVariableValue(simData,parentName,entry,"["+i+"]",arr[i]);
+				continue;
+			}
+			if (value instanceof int[]) {
+				final int[] arr=(int[])value;
+				for (int i=0;i<arr.length;i++) recordMapVariableValue(simData,parentName,entry,"["+i+"]",arr[i]);
+				continue;
+			}
+			if (value instanceof long[]) {
+				final long[] arr=(long[])value;
+				for (int i=0;i<arr.length;i++) recordMapVariableValue(simData,parentName,entry,"["+i+"]",arr[i]);
+				continue;
+			}
+			if (value instanceof float[]) {
+				final float[] arr=(float[])value;
+				for (int i=0;i<arr.length;i++) recordMapVariableValue(simData,parentName,entry,"["+i+"]",arr[i]);
+				continue;
+			}
+			if (value instanceof double[]) {
+				final double[] arr=(double[])value;
+				for (int i=0;i<arr.length;i++) recordMapVariableValue(simData,parentName,entry,"["+i+"]",arr[i]);
+				continue;
+			}
+			if (value instanceof Map<?,?>) {
+				processMapForStatistics(parentName+entry.getKey().toString()+"->",(Map<?,?>)value,simData);
+				continue;
+			}
+			if (value instanceof Map<?,?>[]) {
+				final Map<?,?>[] arr=(Map<?,?>[])value;
+				for (int i=0;i<arr.length;i++) processMapForStatistics(parentName+entry.getKey().toString()+"["+i+"]->",arr[i],simData);
+				continue;
+			}
+		}
+	}
+
+	/**
+	 * Aktualisiert die Werte der globalen Zuordnung in der Statistik
+	 * @param simData	Simulationsdatenobjekt
+	 */
+	public void updateMapValuesForStatistics(final SimulationData simData) {
+		if (runtimeMapGlobal==null) return;
+		processMapForStatistics("map->",runtimeMapGlobal,simData);
 	}
 }

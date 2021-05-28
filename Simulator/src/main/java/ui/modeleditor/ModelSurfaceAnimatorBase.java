@@ -1996,7 +1996,11 @@ public class ModelSurfaceAnimatorBase {
 		final JSRunSimulationData jsRunner=new JSRunSimulationData(true,false);
 		jsRunner.compile(script);
 		jsRunner.setSimulationDataNoClient(storedSimData,-1);
-		return jsRunner.runCompiled();
+		try {
+			return jsRunner.runCompiled();
+		} finally {
+			storedSimData.runData.updateMapValuesForStatistics(storedSimData);
+		}
 	}
 
 	/**
@@ -2020,6 +2024,7 @@ public class ModelSurfaceAnimatorBase {
 			if (sb.length()>0) sb.append("\n");
 			sb.append(result.toString());
 		}
+		storedSimData.runData.updateMapValuesForStatistics(storedSimData);
 		return sb.toString();
 	}
 

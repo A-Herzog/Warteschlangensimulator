@@ -195,6 +195,7 @@ public class RunElementInputJS extends RunElementPassThrough {
 			}
 			logJS(simData,data.script,result); /* Immer ausführen; Entscheidung Erfassen ja/nein erfolgt in logJS */
 		}
+		simData.runData.updateMapValuesForStatistics(simData);
 
 		return true;
 	}

@@ -129,6 +129,7 @@ public class RunElementSetJS extends RunElementPassThrough {
 			}
 			logJS(simData,data.script,result); /* Immer ausführen; Entscheidung Erfassen ja/nein erfolgt in logJS */
 		}
+		simData.runData.updateMapValuesForStatistics(simData);
 
 		/* Kunde zur nächsten Station leiten */
 		StationLeaveEvent.addLeaveEvent(simData,client,this,0);

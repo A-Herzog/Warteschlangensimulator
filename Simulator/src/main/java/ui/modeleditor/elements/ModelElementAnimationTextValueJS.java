@@ -625,6 +625,7 @@ public class ModelElementAnimationTextValueJS extends ModelElementPosition imple
 			}
 			result=animationOutput.toString();
 		}
+		simData.runData.updateMapValuesForStatistics(simData);
 
 		drawLock.acquireUninterruptibly();
 		try {

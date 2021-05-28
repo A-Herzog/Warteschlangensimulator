@@ -128,6 +128,7 @@ public class RunElementDecideByScriptData extends RunElementData {
 				if (simData.runModel.cancelSimulationOnScriptError) simData.doEmergencyShutDown(String.format(Language.tr("Simulation.Log.DecideByScript.ErrorNoNumber"),station.name,result));
 				return 0;
 			}
+			simData.runData.updateMapValuesForStatistics(simData);
 			return (int)FastMath.round(D);
 		}
 	}
@@ -161,6 +162,7 @@ public class RunElementDecideByScriptData extends RunElementData {
 				if (simData.runModel.cancelSimulationOnScriptError) simData.doEmergencyShutDown(String.format(Language.tr("Simulation.Log.DecideByScript.ErrorNoNumber"),station.name,result));
 				return 0;
 			}
+			simData.runData.updateMapValuesForStatistics(simData);
 			return (int)FastMath.round(D);
 		}
 	}
