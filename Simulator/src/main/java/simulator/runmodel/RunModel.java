@@ -637,75 +637,80 @@ public class RunModel {
 		});
 		final List<Future<String>> scriptProcessor=new ArrayList<>();
 
-		/* Normale Elemente verarbeiten */
-		boolean hasSource=false;
-		boolean hasDispose=false;
-		boolean allSourcesLimited=true;
-		for (ModelElement element : elements) {
-			if (element instanceof ModelElementBox) {
-				final ModelElementBox boxElement=(ModelElementBox)element;
-				if (!boxElement.inputConnected()) continue; /* Keine einlaufende Ecke in Element -> kann ignoriert werden */
+		try {
 
-				if (element instanceof ModelElementSource) {
-					hasSource=true;
-					allSourcesLimited=allSourcesLimited && isLimitedSource(((ModelElementSource)element).getRecord());
-				}
-				if (element instanceof ModelElementAnimationConnect) runModel.isAnimation=true;
-				if (element instanceof ModelElementSourceMulti && !((ModelElementSourceMulti)element).getRecords().isEmpty()) {
-					hasSource=true;
-					for (ModelElementSourceRecord record: ((ModelElementSourceMulti)element).getRecords()) {
-						if (!record.isActive()) continue;
-						allSourcesLimited=allSourcesLimited && isLimitedSource(record);
+			/* Normale Elemente verarbeiten */
+			boolean hasSource=false;
+			boolean hasDispose=false;
+			boolean allSourcesLimited=true;
+			for (ModelElement element : elements) {
+				if (element instanceof ModelElementBox) {
+					final ModelElementBox boxElement=(ModelElementBox)element;
+					if (!boxElement.inputConnected()) continue; /* Keine einlaufende Ecke in Element -> kann ignoriert werden */
+
+					if (element instanceof ModelElementSource) {
+						hasSource=true;
+						allSourcesLimited=allSourcesLimited && isLimitedSource(((ModelElementSource)element).getRecord());
 					}
-				}
-				if (element instanceof ModelElementSourceTable) hasSource=true;
-				if (element instanceof ModelElementSourceDB) hasSource=true;
-				if (element instanceof ModelElementSourceDDE) hasSource=true;
-				if (element instanceof ModelElementDispose) hasDispose=true;
-				if (element instanceof ModelElementDisposeWithTable) hasDispose=true;
-
-				if (allowBackgroundProcessing && !testOnly && runInBackgroundThread(boxElement)) {
-					scriptProcessor.add(executorPool.submit(()->creator.addElement(boxElement)));
-				} else {
-					final String error=creator.addElement(boxElement);
-					if (error!=null) return error;
-				}
-
-				if (element instanceof ModelElementSub) {
-					final ModelElementSub sub=(ModelElementSub)element;
-					final List<ModelElement> subElements=sub.getSubSurfaceReadOnly().getElements();
-					for (ModelElement subElement: subElements) if (subElement instanceof ModelElementBox) {
-						final ModelElementBox subBox=(ModelElementBox)subElement;
-						if (allowBackgroundProcessing && !testOnly && runInBackgroundThread(subBox)) {
-							scriptProcessor.add(executorPool.submit(()->creator.addElement(subBox,sub)));
-						} else {
-							final String error=creator.addElement(subBox,sub);
-							if (error!=null) return error;
+					if (element instanceof ModelElementAnimationConnect) runModel.isAnimation=true;
+					if (element instanceof ModelElementSourceMulti && !((ModelElementSourceMulti)element).getRecords().isEmpty()) {
+						hasSource=true;
+						for (ModelElementSourceRecord record: ((ModelElementSourceMulti)element).getRecords()) {
+							if (!record.isActive()) continue;
+							allSourcesLimited=allSourcesLimited && isLimitedSource(record);
 						}
 					}
-				}
-			} else {
-				if ((element instanceof InteractiveElement) && (element instanceof ModelElementPosition)) {
-					final String error=creator.addElement((ModelElementPosition)element);
-					if (error!=null) return error;
+					if (element instanceof ModelElementSourceTable) hasSource=true;
+					if (element instanceof ModelElementSourceDB) hasSource=true;
+					if (element instanceof ModelElementSourceDDE) hasSource=true;
+					if (element instanceof ModelElementDispose) hasDispose=true;
+					if (element instanceof ModelElementDisposeWithTable) hasDispose=true;
+
+					if (allowBackgroundProcessing && !testOnly && runInBackgroundThread(boxElement)) {
+						scriptProcessor.add(executorPool.submit(()->creator.addElement(boxElement)));
+					} else {
+						final String error=creator.addElement(boxElement);
+						if (error!=null) return error;
+					}
+
+					if (element instanceof ModelElementSub) {
+						final ModelElementSub sub=(ModelElementSub)element;
+						final List<ModelElement> subElements=sub.getSubSurfaceReadOnly().getElements();
+						for (ModelElement subElement: subElements) if (subElement instanceof ModelElementBox) {
+							final ModelElementBox subBox=(ModelElementBox)subElement;
+							if (allowBackgroundProcessing && !testOnly && runInBackgroundThread(subBox)) {
+								scriptProcessor.add(executorPool.submit(()->creator.addElement(subBox,sub)));
+							} else {
+								final String error=creator.addElement(subBox,sub);
+								if (error!=null) return error;
+							}
+						}
+					}
+				} else {
+					if ((element instanceof InteractiveElement) && (element instanceof ModelElementPosition)) {
+						final String error=creator.addElement((ModelElementPosition)element);
+						if (error!=null) return error;
+					}
 				}
 			}
-		}
 
-		/* Sind Eingang und Ausgang vorhanden? */
-		if (!hasSource) return Language.tr("Simulation.Creator.NoSource");
-		if (!hasDispose) {
-			if (!allSourcesLimited || (!editModel.useFinishTime && !editModel.useTerminationCondition)) return Language.tr("Simulation.Creator.NoDispose");
-		}
+			/* Sind Eingang und Ausgang vorhanden? */
+			if (!hasSource) return Language.tr("Simulation.Creator.NoSource");
+			if (!hasDispose) {
+				if (!allSourcesLimited || (!editModel.useFinishTime && !editModel.useTerminationCondition)) return Language.tr("Simulation.Creator.NoDispose");
+			}
 
-		/* Hintergrundverarbeitungen abschließen */
-		for (Future<String> future: scriptProcessor) try {
-			final String error=future.get();
-			if (error!=null) return error;
-		} catch (InterruptedException|ExecutionException e) {
-			return e.getMessage();
+			/* Hintergrundverarbeitungen abschließen */
+			for (Future<String> future: scriptProcessor) try {
+				final String error=future.get();
+				if (error!=null) return error;
+			} catch (InterruptedException|ExecutionException e) {
+				return e.getMessage();
+			}
+
+		} finally {
+			executorPool.shutdown();
 		}
-		executorPool.shutdown();
 
 		/* Verknüpfungen umstellen von IDs auf Referenzen */
 		int maxID=0;
