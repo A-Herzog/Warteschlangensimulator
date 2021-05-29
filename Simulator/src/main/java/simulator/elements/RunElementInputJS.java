@@ -107,7 +107,7 @@ public class RunElementInputJS extends RunElementPassThrough {
 
 		if (input.modeScript==ModelElementInputJS.ScriptMode.Java && !testOnly) {
 			final Object runner=DynamicFactory.getFactory().test(input.script,true);
-			if (runner instanceof String) return runner;
+			if (runner instanceof String) return String.format(Language.tr("Simulation.Creator.ScriptError"),element.getId())+"\n"+runner;
 			input.jRunner=(DynamicRunner)runner;
 		}
 

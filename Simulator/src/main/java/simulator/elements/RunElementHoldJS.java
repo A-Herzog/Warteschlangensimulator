@@ -84,7 +84,7 @@ public class RunElementHoldJS extends RunElementPassThrough implements StateChan
 
 		if (hold.mode==ModelElementHoldJS.ScriptMode.Java && !testOnly) {
 			final Object runner=DynamicFactory.getFactory().test(hold.script,true);
-			if (runner instanceof String) return runner;
+			if (runner instanceof String) return String.format(Language.tr("Simulation.Creator.ScriptError"),element.getId())+"\n"+runner;
 			hold.jRunner=(DynamicRunner)runner;
 		}
 

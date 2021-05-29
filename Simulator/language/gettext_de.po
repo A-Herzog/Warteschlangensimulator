@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-05-29 13:59+0200\n"
+"POT-Creation-Date: 2021-05-30 00:46+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -14960,6 +14960,9 @@ msgstr "Die Bedingung \"%s\", die an Station id=%d für das Routing verwendet wi
 
 msgid "Simulation.Creator.RoutingStation"
 msgstr "Unbekannte Zielstation \"%s\" für das Routing von Element id=%d aus."
+
+msgid "Simulation.Creator.ScriptError"
+msgstr "Beim Vorbereiten des Skripts an Station id=%d ist der folgende Fehler aufgetreten:"
 
 msgid "Simulation.Creator.SeizeArrival"
 msgstr "Kunde stellt sich an Warteschlange"

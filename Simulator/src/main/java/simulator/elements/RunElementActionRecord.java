@@ -221,7 +221,7 @@ public class RunElementActionRecord {
 			scriptMode=editRecord.getScriptMode();
 			if (scriptMode==ModelElementActionRecord.ScriptMode.Java && !testOnly) {
 				final Object runner=DynamicFactory.getFactory().test(script,true);
-				if (runner instanceof String) return (String)runner;
+				if (runner instanceof String) return String.format(Language.tr("Simulation.Creator.ScriptError"),stationID)+"\n"+runner;
 				javaRunner=(DynamicRunner)runner;
 			}
 			break;

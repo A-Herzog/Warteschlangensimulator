@@ -82,7 +82,7 @@ public class RunElementDecideByScript extends RunElement {
 
 		if (decide.mode==ModelElementDecideJS.ScriptMode.Java && !testOnly) {
 			final Object runner=DynamicFactory.getFactory().test(decide.script,true);
-			if (runner instanceof String) return runner;
+			if (runner instanceof String) return String.format(Language.tr("Simulation.Creator.ScriptError"),element.getId())+"\n"+runner;
 			decide.jRunner=(DynamicRunner)runner;
 		}
 
