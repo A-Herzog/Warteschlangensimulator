@@ -375,17 +375,19 @@ public class RunData {
 	 * @param recordIncompleteClients	Sollen auch Kunden, die das System am Ende noch nicht verlassen haben, in der Statistik erfasst werden können (<code>true</code>). Dies verlangsamt die Simulation.
 	 */
 	public void initRun(final long nr, final SimulationData simData, final boolean recordIncompleteClients) {
-		cacheVariableStatistics=new StatisticsTimeContinuousPerformanceIndicator[variableValues.length-3];
-		for (int i=0;i<variableValues.length;i++) {
-			variableValues[i]=0;
-			if (runModel.variableInitialValues[i]!=null) {
-				try {
-					variableValues[i]=runModel.variableInitialValues[i].calc();
-				} catch (MathCalcError e) {}
-			}
-			if (i<cacheVariableStatistics.length) {
-				cacheVariableStatistics[i]=(StatisticsTimeContinuousPerformanceIndicator)simData.statistics.userVariables.get(runModel.variableNames[i]);
-				cacheVariableStatistics[i].set(0,variableValues[i]);
+		if (simData.runModel.recordVariableValuesToStatistic) {
+			cacheVariableStatistics=new StatisticsTimeContinuousPerformanceIndicator[variableValues.length-3];
+			for (int i=0;i<variableValues.length;i++) {
+				variableValues[i]=0;
+				if (runModel.variableInitialValues[i]!=null) {
+					try {
+						variableValues[i]=runModel.variableInitialValues[i].calc();
+					} catch (MathCalcError e) {}
+				}
+				if (i<cacheVariableStatistics.length) {
+					cacheVariableStatistics[i]=(StatisticsTimeContinuousPerformanceIndicator)simData.statistics.userVariables.get(runModel.variableNames[i]);
+					cacheVariableStatistics[i].set(0,variableValues[i]);
+				}
 			}
 		}
 
@@ -2068,6 +2070,7 @@ public class RunData {
 	 * @see #variableValues
 	 */
 	public void updateVariableValueForStatistics(final SimulationData simData, final int nr) {
+		if (cacheVariableStatistics==null) return;
 		if (nr<0 || nr>=cacheVariableStatistics.length) return;
 		cacheVariableStatistics[nr].set(simData.currentTime,variableValues[nr]);
 	}
@@ -2145,7 +2148,7 @@ public class RunData {
 	 * @param simData	Simulationsdatenobjekt
 	 */
 	public void updateMapValuesForStatistics(final SimulationData simData) {
-		if (runtimeMapGlobal==null) return;
+		if (!simData.runModel.recordMapValueToStatistic || runtimeMapGlobal==null) return;
 		processMapForStatistics("map->",runtimeMapGlobal,simData);
 	}
 }

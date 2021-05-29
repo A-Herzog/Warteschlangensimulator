@@ -262,6 +262,25 @@ public final class EditModel extends EditModelBase implements Cloneable  {
 	public final List<String> globalVariablesExpressions;
 
 	/**
+	 * Art der Erfassung der Werte der globalen Variablen in der Statistik
+	 * @see EditModel#variableRecord
+	 *
+	 */
+	public enum VariableRecord {
+		/** Variablen und Zuordnungswerte nicht erfassen */
+		OFF,
+		/** Variablen erfassen, Zuordnungswerte nicht erfassen */
+		VARIABLES,
+		/** Variablen und Zuordnungswerte erfassen */
+		MAPS_VARIABLES
+	}
+
+	/**
+	 * Art der Erfassung der Werte der globalen Variablen in der Statistik
+	 */
+	public VariableRecord variableRecord;
+
+	/**
 	 * Liste der Fertigungspläne
 	 */
 	public final ModelSequences sequences;
@@ -404,6 +423,7 @@ public final class EditModel extends EditModelBase implements Cloneable  {
 		longRunStatistics=new ModelLongRunStatistics();
 		globalVariablesNames=new ArrayList<>();
 		globalVariablesExpressions=new ArrayList<>();
+		variableRecord=VariableRecord.OFF;
 		sequences=new ModelSequences();
 		transporters=new ModelTransporters();
 		pathSegments=new ModelPaths();
@@ -482,6 +502,7 @@ public final class EditModel extends EditModelBase implements Cloneable  {
 		collectWaitingTimes=false;
 		globalVariablesNames.clear();
 		globalVariablesExpressions.clear();
+		variableRecord=VariableRecord.OFF;
 		for (int i=0;i<surfaceColors.length;i++) surfaceColors[i]=DEFAULT_COLORS[i];
 		surfaceBackgroundImage=null;
 		surfaceBackgroundImageScale=1.0;
@@ -542,6 +563,7 @@ public final class EditModel extends EditModelBase implements Cloneable  {
 		clone.collectWaitingTimes=collectWaitingTimes;
 		clone.globalVariablesNames.addAll(globalVariablesNames);
 		clone.globalVariablesExpressions.addAll(globalVariablesExpressions);
+		clone.variableRecord=variableRecord;
 		for (int i=0;i<surfaceColors.length;i++) clone.surfaceColors[i]=surfaceColors[i];
 		clone.surfaceBackgroundImage=surfaceBackgroundImage; /* Bild wird wenn immer neu zugewiesen, ist quasi immutable, daher reicht eine Referenz statt ScaledImageCache.copyImage(surfaceBackgroundImage); */
 		clone.surfaceBackgroundImageScale=surfaceBackgroundImageScale;
@@ -603,7 +625,7 @@ public final class EditModel extends EditModelBase implements Cloneable  {
 		if (finishTime!=otherModel.finishTime) return false;
 		if (useFinishConfidence!=otherModel.useFinishConfidence) return false;
 		if (finishConfidenceHalfWidth!=otherModel.finishConfidenceHalfWidth) return false;
-		if (finishConfidenceLevel!=otherModel.finishConfidenceLevel) return false;
+		if (Math.abs(finishConfidenceLevel-otherModel.finishConfidenceLevel)>0.000001) return false;
 		if (useFixedSeed!=otherModel.useFixedSeed) return false;
 		if (fixedSeed!=otherModel.fixedSeed) return false;
 		if (!surface.equalsModelSurface(otherModel.surface,ignoreAnimationData)) return false;
@@ -619,6 +641,7 @@ public final class EditModel extends EditModelBase implements Cloneable  {
 		for (int i=0;i<globalVariablesNames.size();i++) if (!globalVariablesNames.get(i).equals(otherModel.globalVariablesNames.get(i))) return false;
 		if (globalVariablesExpressions.size()!=otherModel.globalVariablesExpressions.size()) return false;
 		for (int i=0;i<globalVariablesExpressions.size();i++) if (!globalVariablesExpressions.get(i).equals(otherModel.globalVariablesExpressions.get(i))) return false;
+		if (variableRecord!=otherModel.variableRecord) return false;
 		for (int i=0;i<surfaceColors.length;i++) if (!Objects.equals(surfaceColors[i],otherModel.surfaceColors[i])) return false;
 		if (!ScaledImageCache.compare(surfaceBackgroundImage,otherModel.surfaceBackgroundImage)) return false;
 		if (surfaceBackgroundImageScale!=otherModel.surfaceBackgroundImageScale) return false;
@@ -830,6 +853,13 @@ public final class EditModel extends EditModelBase implements Cloneable  {
 				globalVariablesNames.add(varName);
 				globalVariablesExpressions.add(text);
 			}
+			return null;
+		}
+
+		if (Language.trAll("Surface.XML.VariableRecording",name)) {
+			if (Language.trAll("Surface.XML.VariableRecording.Off",text)) variableRecord=VariableRecord.OFF;
+			if (Language.trAll("Surface.XML.VariableRecording.Variables",text)) variableRecord=VariableRecord.VARIABLES;
+			if (Language.trAll("Surface.XML.VariableRecording.VariablesAndMaps",text)) variableRecord=VariableRecord.MAPS_VARIABLES;
 			return null;
 		}
 
@@ -1062,6 +1092,15 @@ public final class EditModel extends EditModelBase implements Cloneable  {
 			node.appendChild(sub=doc.createElement(Language.trPrimary("Surface.XML.GlobalVariable")));
 			sub.setAttribute(Language.trPrimary("Surface.XML.GlobalVariable.Name"),globalVariablesNames.get(i));
 			sub.setTextContent(globalVariablesExpressions.get(i));
+		}
+
+		if (variableRecord!=VariableRecord.OFF) {
+			node.appendChild(sub=doc.createElement(Language.trPrimary("Surface.XML.VariableRecording")));
+			switch (variableRecord) {
+			case OFF: sub.setTextContent(Language.tr("Surface.XML.VariableRecording.Off")); break;
+			case VARIABLES: sub.setTextContent(Language.tr("Surface.XML.VariableRecording.Variables")); break;
+			case MAPS_VARIABLES: sub.setTextContent(Language.tr("Surface.XML.VariableRecording.VariablesAndMaps")); break;
+			}
 		}
 
 		if (surfaceColors!=null && surfaceColors.length>=2 && surfaceColors[0]!=null && surfaceColors[1]!=null && !Objects.deepEquals(surfaceColors,DEFAULT_COLORS)) {

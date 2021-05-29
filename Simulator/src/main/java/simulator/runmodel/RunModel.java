@@ -160,6 +160,18 @@ public class RunModel {
 	public static final String[] additionalVariables=new String[]{"w","t","p"};
 
 	/**
+	 * Variablenwerte in der Statistik erfassen?
+	 * @see RunData#updateVariableValueForStatistics(SimulationData, int)
+	 */
+	public boolean recordVariableValuesToStatistic;
+
+	/**
+	 * Werte der globalen Zuordnung in der Statistik erfassen?
+	 * @see RunData#updateMapValuesForStatistics(SimulationData)
+	 */
+	public boolean recordMapValueToStatistic;
+
+	/**
 	 * Liste der Modell-Elemente des Laufzeitmodells
 	 * @see RunModel#elementsFast
 	 */
@@ -373,6 +385,10 @@ public class RunModel {
 			for (int j=0;j<runModel.variableNames.length;j++) if (runModel.variableNames[j].equals(varName)) {index=j; break;}
 			if (index>=0) runModel.variableInitialValues[index]=calc;
 		}
+
+		/* Konfiguration zur Erfassung der Variablenwerte in der Statistik */
+		runModel.recordVariableValuesToStatistic=(editModel.variableRecord==EditModel.VariableRecord.VARIABLES) || (editModel.variableRecord==EditModel.VariableRecord.MAPS_VARIABLES);
+		runModel.recordMapValueToStatistic=(editModel.variableRecord==EditModel.VariableRecord.MAPS_VARIABLES);
 
 		return null;
 	}

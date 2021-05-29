@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-05-28 00:19+0200\n"
+"POT-Creation-Date: 2021-05-29 13:59+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -3038,6 +3038,18 @@ msgstr "Initial variable values"
 
 msgid "Editor.Dialog.Tab.InitialVariableValues.InfoText"
 msgstr "Variables are used at many element for flow control. On this page values for some variables at simulation start can be defined."
+
+msgid "Editor.Dialog.Tab.InitialVariableValues.RecordVariables"
+msgstr "Record to statistics"
+
+msgid "Editor.Dialog.Tab.InitialVariableValues.RecordVariables.Off"
+msgstr "Do not record variable and map values"
+
+msgid "Editor.Dialog.Tab.InitialVariableValues.RecordVariables.Variables"
+msgstr "Record variable values"
+
+msgid "Editor.Dialog.Tab.InitialVariableValues.RecordVariables.VariablesAndMaps"
+msgstr "Record variable and map values"
 
 msgid "Editor.Dialog.Tab.ModelDescription"
 msgstr "Model description"
@@ -28984,6 +28996,18 @@ msgstr "ModelTransporterUnloadingDistribution"
 
 msgid "Surface.XML.Transporter.UnloadExpression"
 msgstr "ModelTransporterUnloadingExpression"
+
+msgid "Surface.XML.VariableRecording"
+msgstr "ModelVariableRecording"
+
+msgid "Surface.XML.VariableRecording.Off"
+msgstr "Off"
+
+msgid "Surface.XML.VariableRecording.Variables"
+msgstr "Variables"
+
+msgid "Surface.XML.VariableRecording.VariablesAndMaps"
+msgstr "VariablesAndMap"
 
 msgid "SystemInfo.Close"
 msgstr "Close"

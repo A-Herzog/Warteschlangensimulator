@@ -284,6 +284,9 @@ public class ModelPropertiesDialog extends BaseDialog {
 	/** Datenmodell für die Liste der initialen Variablenwerte */
 	private VariablesTableModel variablesTableModel;
 
+	/** Art der Erfassung der Werte der globalen Variablen in der Statistik */
+	private JComboBox<String> variableRecording;
+
 	/* Dialogseite "Laufzeitstatistik" */
 
 	/** Eingabefeld "Zeitspanne pro Erfassungsintervall" */
@@ -1007,6 +1010,28 @@ public class ModelPropertiesDialog extends BaseDialog {
 		final Object[] data=VariablesTableModel.buildTable(model,readOnly,help);
 		content.add((JScrollPane)data[0],BorderLayout.CENTER);
 		variablesTableModel=(VariablesTableModel)data[1];
+
+		final JPanel setup=new JPanel(new FlowLayout(FlowLayout.LEFT));
+		content.add(setup,BorderLayout.SOUTH);
+		final JLabel label=new JLabel(Language.tr("Editor.Dialog.Tab.InitialVariableValues.RecordVariables")+":");
+		setup.add(label);
+		setup.add(variableRecording=new JComboBox<>(new String[] {
+				Language.tr("Editor.Dialog.Tab.InitialVariableValues.RecordVariables.Off"),
+				Language.tr("Editor.Dialog.Tab.InitialVariableValues.RecordVariables.Variables"),
+				Language.tr("Editor.Dialog.Tab.InitialVariableValues.RecordVariables.VariablesAndMaps")
+		}));
+		variableRecording.setRenderer(new IconListCellRenderer(new Images[] {
+				Images.GENERAL_OFF,
+				Images.EXPRESSION_BUILDER_VARIABLE,
+				Images.SCRIPT_MAP
+		}));
+		label.setLabelFor(variableRecording);
+		switch (model.variableRecord) {
+		case OFF: variableRecording.setSelectedIndex(0); break;
+		case VARIABLES: variableRecording.setSelectedIndex(1); break;
+		case MAPS_VARIABLES: variableRecording.setSelectedIndex(2); break;
+		default: variableRecording.setSelectedIndex(0); break;
+		}
 	}
 
 	/**
@@ -1578,6 +1603,11 @@ public class ModelPropertiesDialog extends BaseDialog {
 		/* Initiale Variablen */
 
 		variablesTableModel.storeData();
+		switch (variableRecording.getSelectedIndex()) {
+		case 0: model.variableRecord=EditModel.VariableRecord.OFF; break;
+		case 1: model.variableRecord=EditModel.VariableRecord.VARIABLES; break;
+		case 2: model.variableRecord=EditModel.VariableRecord.MAPS_VARIABLES; break;
+		}
 
 		/* Laufzeitstatistik */
 

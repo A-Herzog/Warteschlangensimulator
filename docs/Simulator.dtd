@@ -4,7 +4,7 @@
 
 <!-- Beschreibung der Modell-Dateien -->
 
-<!ELEMENT Modell (ModellVersion | ModellName | ModellAutor | ModellAutorEMail | ModellBeschreibung | ModellAufwaermphase | ModellWiederholungen | ModellKunden | ModellAbbruchbedingung | ModellAbbruchzeit | ModellAbbruchKonfidenz | ModellZufallszahlenStartwert | ModellAutokorrelation | ModellBatchGroesse | ModellElemente | Ressourcen | KundentypenDaten | ModellZeitplaene | ModellZusatzStatistik | InitialeVariable | ModellFarbe | ModellHintergrundBild | ModellFertigungsplaene | ModellTransporterListe | ModellPfadsegmente | ModellAnimationsBilder | ModellStatistikVerteilungStunden | ModellBeiRechenfehlerAbbrechen | ModellKantenNormal | ModellKantenSelektiert | ModellElementVerbindungsdarstellungsart | ModellZeitabhaengigePruefungen | ModellPfadaufzeichnung | ModellUnvollstaendigeKundenAufzeichnung | Benutzervorlagen | ExterneDaten | ModellPluginsVerzeichnis | GespeicherteAnsicht | KiritischeStationenSignatur)*>
+<!ELEMENT Modell (ModellVersion | ModellName | ModellAutor | ModellAutorEMail | ModellBeschreibung | ModellAufwaermphase | ModellWiederholungen | ModellKunden | ModellAbbruchbedingung | ModellAbbruchzeit | ModellAbbruchKonfidenz | ModellZufallszahlenStartwert | ModellAutokorrelation | ModellBatchGroesse | ModellElemente | Ressourcen | KundentypenDaten | ModellZeitplaene | ModellZusatzStatistik | InitialeVariable | ModellVariablenAufzeichnen | ModellFarbe | ModellHintergrundBild | ModellFertigungsplaene | ModellTransporterListe | ModellPfadsegmente | ModellAnimationsBilder | ModellStatistikVerteilungStunden | ModellBeiRechenfehlerAbbrechen | ModellKantenNormal | ModellKantenSelektiert | ModellElementVerbindungsdarstellungsart | ModellZeitabhaengigePruefungen | ModellPfadaufzeichnung | ModellUnvollstaendigeKundenAufzeichnung | Benutzervorlagen | ExterneDaten | ModellPluginsVerzeichnis | GespeicherteAnsicht | KiritischeStationenSignatur)*>
 <!ATTLIST Modell
   xmlns	CDATA	#IMPLIED
   xmlns:xsi	CDATA	#IMPLIED
@@ -116,6 +116,8 @@
 <!ATTLIST InitialeVariable
   Name	CDATA	#REQUIRED
 >
+
+<!ELEMENT ModellVariablenAufzeichnen (#PCDATA)*>
 
 <!ELEMENT ModellFarbe EMPTY>
 <!ATTLIST ModellFarbe
@@ -2199,7 +2201,7 @@
 
 <!-- Documentation of the model files -->
 
-<!ELEMENT Model (ModelVersion | ModelName | ModelAuthor | ModelAuthorEMail | ModelDescription | ModelWarmUpPhase | ModelRepeats | ModelClients |  ModelTerminationCondition | ModelTerminationTime | ModelTerminationConfidence | ModelRandomNumbersSeed | ModelAutocorrelation | ModelBatchSize | ModelElements | Resources | ClientTypeData | ModelSchedules | ModelAdditionalStatistics | InitialVariable | ModelColor | ModelBackgroundImage | ModelSequences | ModelTransporters | ModelPathSegments | ModelAnimationImages | ModelStatisticsDistributionHours | ModelStoppOnCalcError | ModelEdgesNormal | ModelEdgesSelected | ModelElementConnectionDrawStyle | ModelTimedChecks | ModelPathRecording | ModelRecordIncompleteClients | UserTemplates | ExternalData | ModelPluginsFolder | SavedView | CriticalStationsSignature)*>
+<!ELEMENT Model (ModelVersion | ModelName | ModelAuthor | ModelAuthorEMail | ModelDescription | ModelWarmUpPhase | ModelRepeats | ModelClients |  ModelTerminationCondition | ModelTerminationTime | ModelTerminationConfidence | ModelRandomNumbersSeed | ModelAutocorrelation | ModelBatchSize | ModelElements | Resources | ClientTypeData | ModelSchedules | ModelAdditionalStatistics | InitialVariable | ModelVariableRecording | ModelColor | ModelBackgroundImage | ModelSequences | ModelTransporters | ModelPathSegments | ModelAnimationImages | ModelStatisticsDistributionHours | ModelStoppOnCalcError | ModelEdgesNormal | ModelEdgesSelected | ModelElementConnectionDrawStyle | ModelTimedChecks | ModelPathRecording | ModelRecordIncompleteClients | UserTemplates | ExternalData | ModelPluginsFolder | SavedView | CriticalStationsSignature)*>
 <!ATTLIST Model
   xmlns	CDATA	#IMPLIED
   xmlns:xsi	CDATA	#IMPLIED
@@ -2311,6 +2313,8 @@
 <!ATTLIST InitialVariable
   Name	CDATA	#REQUIRED
 >
+
+<!ELEMENT ModelVariableRecording (#PCDATA)*>
 
 <!ELEMENT ModelColor EMPTY>
 <!ATTLIST ModelColor

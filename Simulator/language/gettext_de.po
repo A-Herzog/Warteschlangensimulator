@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-05-28 00:19+0200\n"
+"POT-Creation-Date: 2021-05-29 13:59+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -3041,6 +3041,18 @@ msgstr "Initiale Variablenwerte"
 
 msgid "Editor.Dialog.Tab.InitialVariableValues.InfoText"
 msgstr "Variable können in vielen Elementen zur Ablaufsteuerung verwendet werden. Auf dieser Seite können Werte, die einzelne Variablen zu Simulationsbeginn besitzen sollen, festgelegt werden."
+
+msgid "Editor.Dialog.Tab.InitialVariableValues.RecordVariables"
+msgstr "Erfassung in der Statistik"
+
+msgid "Editor.Dialog.Tab.InitialVariableValues.RecordVariables.Off"
+msgstr "Variablen und Zuordnungsdaten nicht erfassen"
+
+msgid "Editor.Dialog.Tab.InitialVariableValues.RecordVariables.Variables"
+msgstr "Variablenwerte erfassen"
+
+msgid "Editor.Dialog.Tab.InitialVariableValues.RecordVariables.VariablesAndMaps"
+msgstr "Variablen und Zuordnungsdaten erfassen"
 
 msgid "Editor.Dialog.Tab.ModelDescription"
 msgstr "Modellbeschreibung"
@@ -28997,6 +29009,18 @@ msgstr "ModellTransporterEntladezeitVerteilung"
 
 msgid "Surface.XML.Transporter.UnloadExpression"
 msgstr "ModellTransporterEntladezeitAusdruck"
+
+msgid "Surface.XML.VariableRecording"
+msgstr "ModellVariablenAufzeichnen"
+
+msgid "Surface.XML.VariableRecording.Off"
+msgstr "Aus"
+
+msgid "Surface.XML.VariableRecording.Variables"
+msgstr "Variablen"
+
+msgid "Surface.XML.VariableRecording.VariablesAndMaps"
+msgstr "VariablenUndZuordnung"
 
 msgid "SystemInfo.Close"
 msgstr "Schließen"
