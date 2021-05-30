@@ -92,6 +92,7 @@ import simulator.elements.RunModelAnimationViewer;
 import simulator.logging.CallbackLoggerWithJS;
 import simulator.runmodel.RunDataClient;
 import simulator.runmodel.RunDataTransporter;
+import simulator.runmodel.RunModel;
 import simulator.runmodel.SimulationData;
 import swingtools.ImageIOFormatCheck;
 import systemtools.MsgBox;
@@ -1857,9 +1858,24 @@ public class AnimationPanel extends JPanel implements RunModelAnimationViewer {
 	 * @see ExpressionCalculatorDialog
 	 */
 	private void calcExpression() {
+		final List<String> variables=new ArrayList<>();
+		final Map<String,Integer> variableIndices=new HashMap<>();
+		for (int i=0;i<simData.runModel.variableNames.length;i++) {
+			final String name=simData.runModel.variableNames[i];
+			boolean isAdditionalVariable=false;
+			for (String additionalVariable: RunModel.additionalVariables) if (name.equalsIgnoreCase(additionalVariable)) {isAdditionalVariable=true; break;}
+			if (isAdditionalVariable) continue;
+			variables.add(name);
+			variableIndices.put(name,i);
+		}
+		variables.sort(String::compareTo);
+
 		final ExpressionCalculatorDialog dialog=new ExpressionCalculatorDialog(
 				this,
 				simulator.getEditModel(),
+				variables.toArray(new String[0]),
+				name->simData.runData.variableValues[variableIndices.get(name)],
+				(name,value)->{simData.runData.variableValues[variableIndices.get(name)]=value; simData.runData.updateVariableValueForStatistics(simData,variableIndices.get(name));},
 				simData.runData.getMapGlobal(),
 				s->calculateExpression(s),
 				s->runJavaScript(s),
@@ -1870,10 +1886,14 @@ public class AnimationPanel extends JPanel implements RunModelAnimationViewer {
 				lastCaluclationJava
 				);
 		dialog.setVisible(true);
+
 		lastCaluclationTab=dialog.getLastMode();
 		lastCaluclationExpression=dialog.getLastExpression();
 		lastCaluclationJavaScript=dialog.getLastJavaScript();
 		lastCaluclationJava=dialog.getLastJava();
+
+		simData.runData.updateMapValuesForStatistics(simData);
+		simData.runData.fireStateChangeNotify(simData);
 	}
 
 	/**

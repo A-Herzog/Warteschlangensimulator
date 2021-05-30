@@ -28,6 +28,7 @@ import java.awt.event.KeyListener;
 import java.io.File;
 import java.io.Serializable;
 import java.util.Map;
+import java.util.function.BiConsumer;
 import java.util.function.Function;
 import java.util.function.UnaryOperator;
 
@@ -124,6 +125,11 @@ public final class ExpressionCalculatorDialog extends BaseDialog {
 	 */
 	private final JTextField resultsEdit;
 
+	/**
+	 * Tabellendaten für die Variablen-Tabelle
+	 */
+	private final ExpressionCalculatorDialogVariablesTableModel variablesTableModel;
+
 	/** "Neu"-Schaltfläche für den Javascript-Code */
 	private final JButton buttonJavaScriptNew;
 	/** "Laden"-Schaltfläche für den Javascript-Code */
@@ -163,9 +169,17 @@ public final class ExpressionCalculatorDialog extends BaseDialog {
 	private String lastJava="";
 
 	/**
+	 * Tabellendaten für die Zuordnungs-Tabelle
+	 */
+	private final ExpressionCalculatorDialogTableModel mapTableModel;
+
+	/**
 	 * Konstruktor der Klasse
 	 * @param owner	Übergeordnetes Element
 	 * @param model	Editor-Modell als Information für den Expression-Builder
+	 * @param variableNames	Namen der globalen Variablen (kann <code>null</code> sein)
+	 * @param getVariable	Callback zum Abrufen eines Variablenwertes
+	 * @param setVariable	Callback zum Einstellen eines Variablenwertes
 	 * @param mapGlobal	Zuordnung der globalen Scripting-Werte (kann <code>null</code> sein)
 	 * @param calc	Funktion, die die Berechnungen erlaubt
 	 * @param runJavaScript	Funktion, die die Javascript-Ausführungen erlaubt
@@ -176,7 +190,7 @@ public final class ExpressionCalculatorDialog extends BaseDialog {
 	 * @param initialJava	Startwert für das Java-Eingabefeld
 	 * @see ExpressionCalculatorDialog#getLastExpression()
 	 */
-	public ExpressionCalculatorDialog(final Component owner, final EditModel model, final Map<String,Object> mapGlobal, final Function<String,Double> calc, final UnaryOperator<String> runJavaScript, final UnaryOperator<String> runJava, final int initialTab, final String initialExpression, final String initialJavaScript, final String initialJava) {
+	public ExpressionCalculatorDialog(final Component owner, final EditModel model, final String[] variableNames, final Function<String,Double> getVariable, final BiConsumer<String,Double> setVariable, final Map<String,Object> mapGlobal, final Function<String,Double> calc, final UnaryOperator<String> runJavaScript, final UnaryOperator<String> runJava, final int initialTab, final String initialExpression, final String initialJavaScript, final String initialJava) {
 		super(owner,Language.tr("ExpressionCalculator.Title"));
 		this.model=model;
 		this.calc=calc;
@@ -225,6 +239,18 @@ public final class ExpressionCalculatorDialog extends BaseDialog {
 		button.setPreferredSize(new Dimension(size.height,size.height));
 		button.addActionListener(e->copyResultToClipboard());
 		line.add(button,BorderLayout.EAST);
+
+		/* Variablen */
+
+		if (variableNames!=null && variableNames.length>0) {
+			tabs.add(Language.tr("ExpressionCalculator.Tab.Variables"),sub=new JPanel(new BorderLayout()));
+			final JTableExt variablesTable=new JTableExt();
+			variablesTable.setModel(variablesTableModel=new ExpressionCalculatorDialogVariablesTableModel(variablesTable,variableNames,getVariable,setVariable));
+			variablesTable.setIsPanelCellTable(1);
+			sub.add(new JScrollPane(variablesTable),BorderLayout.CENTER);
+		} else {
+			variablesTableModel=null;
+		}
 
 		/* Javascript */
 
@@ -321,7 +347,7 @@ public final class ExpressionCalculatorDialog extends BaseDialog {
 		if (mapGlobal!=null) {
 			tabs.add(Language.tr("ExpressionCalculator.Tab.Map"),sub=new JPanel(new BorderLayout()));
 			final JTableExt mapTable=new JTableExt();
-			mapTable.setModel(new ExpressionCalculatorDialogTableModel(mapTable,mapGlobal));
+			mapTable.setModel(mapTableModel=new ExpressionCalculatorDialogTableModel(mapTable,mapGlobal));
 			mapTable.getColumnModel().getColumn(0).setMaxWidth(125);
 			mapTable.getColumnModel().getColumn(0).setMinWidth(125);
 			mapTable.getColumnModel().getColumn(2).setMinWidth(150);
@@ -330,12 +356,17 @@ public final class ExpressionCalculatorDialog extends BaseDialog {
 			mapTable.getColumnModel().getColumn(3).setMaxWidth(100);
 			mapTable.setIsPanelCellTable(3);
 			sub.add(new JScrollPane(mapTable),BorderLayout.CENTER);
+		} else {
+			mapTableModel=null;
 		}
 
 		/* Icons für Tabs */
 
 		int index=0;
 		tabs.setIconAt(index++,Images.SCRIPT_MODE_EXPRESSION.getIcon());
+		if (variableNames!=null && variableNames.length>0) {
+			tabs.setIconAt(index++,Images.EXPRESSION_BUILDER_VARIABLE.getIcon());
+		}
 		tabs.setIconAt(index++,Images.SCRIPT_MODE_JAVASCRIPT.getIcon());
 		if (DynamicFactory.isWindows() || DynamicFactory.isInMemoryProcessing()) {
 			tabs.setIconAt(index++,Images.SCRIPT_MODE_JAVA.getIcon());
@@ -350,7 +381,7 @@ public final class ExpressionCalculatorDialog extends BaseDialog {
 
 		recalc();
 
-		setMinSizeRespectingScreensize(550,400);
+		setMinSizeRespectingScreensize(750,400);
 		pack();
 		size=getSize();
 		setSize(size);
@@ -577,6 +608,10 @@ public final class ExpressionCalculatorDialog extends BaseDialog {
 	private void commandRunJavaScript() {
 		final String s=runJavaScript.apply(scriptJavaScriptEdit.getText().trim());
 		scriptJavaScriptResults.setText(s);
+
+		recalc();
+		variablesTableModel.updateTable();
+		mapTableModel.updateTable();
 	}
 
 	/**
@@ -585,6 +620,10 @@ public final class ExpressionCalculatorDialog extends BaseDialog {
 	private void commandRunJava() {
 		final String s=runJava.apply(scriptJavaEdit.getText().trim());
 		scriptJavaResults.setText(s);
+
+		recalc();
+		variablesTableModel.updateTable();
+		mapTableModel.updateTable();
 	}
 
 	/**

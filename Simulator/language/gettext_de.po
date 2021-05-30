@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-05-30 00:46+0200\n"
+"POT-Creation-Date: 2021-05-30 00:58+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -6344,6 +6344,24 @@ msgstr "Bearbeiten"
 
 msgid "ExpressionCalculator.Tab.Map.Edit.Title"
 msgstr "Eintrag bearbeiten"
+
+msgid "ExpressionCalculator.Tab.Variables"
+msgstr "Variablen"
+
+msgid "ExpressionCalculator.Tab.Variables.Column.Name"
+msgstr "Name"
+
+msgid "ExpressionCalculator.Tab.Variables.Column.Value"
+msgstr "Wert"
+
+msgid "ExpressionCalculator.Tab.Variables.Edit.Error.Info"
+msgstr "Der angegebene Wert \"%s\" für die Variable \"%s\" ist ungültig. Es muss eine Zahl angegeben werden."
+
+msgid "ExpressionCalculator.Tab.Variables.Edit.Error.Title"
+msgstr "Ungültiger Wert"
+
+msgid "ExpressionCalculator.Tab.Variables.Edit.Label"
+msgstr "Wert der Variable \"%s\" bearbeiten:"
 
 msgid "ExpressionCalculator.Title"
 msgstr "Berechnungen im Simulationskontext"
