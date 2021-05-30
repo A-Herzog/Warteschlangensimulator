@@ -139,7 +139,7 @@ public class CalcSymbolClientUserData extends CalcSymbolSimData  {
 		if (len<3) return null;
 		final char c1=parameter.charAt(0);
 		final char c2=parameter.charAt(len-1);
-		if ((c1=='"' && c2=='"') || (c1=='\"' && c2=='\"')) {
+		if ((c1=='"' && c2=='"') || (c1=='\'' && c2=='\'')) {
 			final String result=parameter.substring(1,len-1).trim();
 			if (result.isEmpty()) return null;
 			return result;

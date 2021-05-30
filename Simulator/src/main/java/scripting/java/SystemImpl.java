@@ -64,7 +64,7 @@ public class SystemImpl implements SystemInterface {
 	 */
 	public SystemImpl(final SimulationData simData, final int currentStation) {
 		this.simData=simData;
-		runModel=simData.runModel;
+		runModel=(simData==null)?null:simData.runModel;
 		this.currentStation=currentStation;
 		delayInterfaces=new HashMap<>();
 		mapLocal=new RuntimeData();
