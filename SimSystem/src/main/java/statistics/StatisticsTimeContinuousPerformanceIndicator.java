@@ -248,7 +248,7 @@ public final class StatisticsTimeContinuousPerformanceIndicator extends Statisti
 	 */
 	public double getTimeVar() {
 		if (sum<2) return 0;
-		return valueSumSquared/(sum-1)-(valueSum*valueSum)/sum/(sum-1);
+		return Math.max(0,valueSumSquared/(sum-1)-(valueSum*valueSum)/sum/(sum-1));
 	}
 
 	/**

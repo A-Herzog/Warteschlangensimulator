@@ -492,7 +492,7 @@ public final class StatisticsTimePerformanceIndicator extends StatisticsPerforma
 	public double getTimeVar() {
 		/* So würde ggf. abgeschnitten werden: double sd=getReadOnlyDistribution().getStandardDeviation(); return sd*sd; */
 		if (sum<2) return 0;
-		return valueSumSquared/(sum-1)-(valueSum*valueSum)/sum/(sum-1);
+		return Math.max(0,valueSumSquared/(sum-1)-(valueSum*valueSum)/sum/(sum-1));
 	}
 
 	/**
