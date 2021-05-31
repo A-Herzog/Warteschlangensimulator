@@ -80,7 +80,9 @@ public class ModelElementActionRecord {
 		/** Aktion: Analogwert ändern */
 		ACTION_ANALOG_VALUE,
 		/** Aktion: Skript ausführen */
-		ACTION_SCRIPT
+		ACTION_SCRIPT,
+		/** Aktion: Simulation beenden */
+		ACTION_STOP,
 	}
 
 	/**
@@ -246,6 +248,9 @@ public class ModelElementActionRecord {
 			break;
 		case ACTION_SIGNAL:
 			if (!Objects.equals(signalName,otherRecord.signalName)) return false;
+			break;
+		case ACTION_STOP:
+			/* Keine weiteren Einstellungen */
 			break;
 		}
 
@@ -567,6 +572,13 @@ public class ModelElementActionRecord {
 	}
 
 	/**
+	 * Stellt ein, das die Aktion darin bestehen soll, die Simulation zu beenden.
+	 */
+	public void setStopSimulation() {
+		actionType=ActionType.ACTION_STOP;
+	}
+
+	/**
 	 * Speichert die Eigenschaften des Datensatzes als Untereinträge eines xml-Knotens
 	 * @param doc	Übergeordnetes xml-Dokument
 	 * @param parent	Übergeordneter xml-Knoten, in dessen Kindelementen die Daten des Objekts gespeichert werden sollen
@@ -601,6 +613,7 @@ public class ModelElementActionRecord {
 			}
 			break;
 		case ACTION_SIGNAL: type=Language.trPrimary("Surface.Action.XML.Record.ActionType.Signal"); break;
+		case ACTION_STOP: type=Language.trPrimary("Surface.Action.XML.Record.ActionType.Stopp"); break;
 		default: type=""; break;
 		}
 		node.setAttribute(Language.trPrimary("Surface.Action.XML.Record.ActionType"),type);
@@ -646,6 +659,9 @@ public class ModelElementActionRecord {
 		case ACTION_SIGNAL:
 			node.setTextContent(signalName);
 			break;
+		case ACTION_STOP:
+			/* Keine weiteren Einstellungen */
+			break;
 		}
 	}
 
@@ -673,6 +689,7 @@ public class ModelElementActionRecord {
 		if (Language.trAll("Surface.Action.XML.Record.ActionType.JS",actionTypeString)) {actionType=ActionType.ACTION_SCRIPT; scriptMode=ScriptMode.Javascript;}
 		if (Language.trAll("Surface.Action.XML.Record.ActionType.Java",actionTypeString)) {actionType=ActionType.ACTION_SCRIPT; scriptMode=ScriptMode.Java;}
 		if (Language.trAll("Surface.Action.XML.Record.ActionType.Signal",actionTypeString)) actionType=ActionType.ACTION_SIGNAL;
+		if (Language.trAll("Surface.Action.XML.Record.ActionType.Stopp",actionTypeString)) actionType=ActionType.ACTION_STOP;
 
 		if (actionMode==ActionMode.TRIGGER_AND_ACTION) {
 			/* Bedingung */
@@ -724,6 +741,9 @@ public class ModelElementActionRecord {
 			break;
 		case ACTION_SIGNAL:
 			signalName=node.getTextContent();
+			break;
+		case ACTION_STOP:
+			/* Keine weiteren Einstellungen */
 			break;
 		}
 
@@ -780,6 +800,9 @@ public class ModelElementActionRecord {
 			break;
 		case ACTION_SIGNAL:
 			s=Language.tr("ModelDescription.Action.Action.Signal")+": "+signalName;
+			break;
+		case ACTION_STOP:
+			s=Language.tr("Surface.Action.Dialog.Edit.Tabs.Action.EndSimulation");
 			break;
 		}
 		descriptionBuilder.addProperty(Language.tr("ModelDescription.Action.Action"),s,level+1);

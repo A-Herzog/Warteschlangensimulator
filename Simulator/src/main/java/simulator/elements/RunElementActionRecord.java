@@ -228,6 +228,9 @@ public class RunElementActionRecord {
 		case ACTION_SIGNAL:
 			signalName=editRecord.getSignalName();
 			break;
+		case ACTION_STOP:
+			/* Keine weiteren Einstellungen. */
+			break;
 		}
 
 		return null;
@@ -264,10 +267,13 @@ public class RunElementActionRecord {
 			if (editRecord.getAssignVariable().trim().isEmpty()) Language.tr("Simulation.Creator.Action.NoVariableName");
 			break;
 		case ACTION_SCRIPT:
-			/* hier nichts zu prüfen */
+			/* nicht vorzubereiten */
 			break;
 		case ACTION_SIGNAL:
 			if (editRecord.getSignalName().trim().isEmpty()) Language.tr("Simulation.Creator.Action.NoSignalName");
+			break;
+		case ACTION_STOP:
+			/* nicht vorzubereiten */
 			break;
 		default:
 			return Language.tr("Simulation.Creator.Action.ErrorUnknownAction");
@@ -332,6 +338,9 @@ public class RunElementActionRecord {
 			}
 			break;
 		case ACTION_SIGNAL:
+			/* nicht vorzubereiten */
+			break;
+		case ACTION_STOP:
 			/* nicht vorzubereiten */
 			break;
 		}
@@ -481,6 +490,9 @@ public class RunElementActionRecord {
 			break;
 		case ACTION_SIGNAL:
 			simData.runData.fireSignal(simData,signalName);
+			break;
+		case ACTION_STOP:
+			simData.doShutDown();
 			break;
 		}
 	}

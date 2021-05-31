@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-05-31 00:20+0200\n"
+"POT-Creation-Date: 2021-06-01 00:04+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19937,6 +19937,9 @@ msgstr "The variable name specified for assignment \"%s\" is invalid."
 msgid "Surface.Action.Dialog.Edit.Tabs.Action.Assign.Variable.ErrorTitle"
 msgstr "Invalid variable name"
 
+msgid "Surface.Action.Dialog.Edit.Tabs.Action.EndSimulation"
+msgstr "Terminate simulation"
+
 msgid "Surface.Action.Dialog.Edit.Tabs.Action.JS"
 msgstr "Run script"
 
@@ -20039,6 +20042,9 @@ msgstr "Minimum trigger distance"
 msgid "Surface.Action.Dialog.Info.Condition.MinDistance.Seconds"
 msgstr "seconds"
 
+msgid "Surface.Action.Dialog.Info.EndSimulation"
+msgstr "Action: Terminate simulation"
+
 msgid "Surface.Action.Dialog.Info.IsDeactivated"
 msgstr "Action is deactivated."
 
@@ -20098,6 +20104,9 @@ msgstr "Java"
 
 msgid "Surface.Action.XML.Record.ActionType.Signal"
 msgstr "Signal"
+
+msgid "Surface.Action.XML.Record.ActionType.Stopp"
+msgstr "Stopp"
 
 msgid "Surface.Action.XML.Record.Active"
 msgstr "active"

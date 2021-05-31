@@ -97,6 +97,8 @@ public class ModelElementActionRecordTableModelDialog extends BaseDialog {
 	private final JRadioButton actionSignal;
 	/** Art der auszulösenden Aktion: Skriptausführung */
 	private final JRadioButton actionScript;
+	/** Art der auszulösenden Aktion: Simulation beenden */
+	private final JRadioButton actionStop;
 
 	/** Eingabefeld für die Bedingung im Fall {@link #triggerCondition} */
 	private final JTextField conditionEdit;
@@ -327,6 +329,12 @@ public class ModelElementActionRecordTableModelDialog extends BaseDialog {
 		signalNameEdit=(JTextField)data[1];
 		addKeyListener(signalNameEdit,()->actionSignal.setSelected(true));
 
+		/* Simulation beenden */
+
+		tab.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
+		line.add(actionStop=new JRadioButton(bold1+Language.tr("Surface.Action.Dialog.Edit.Tabs.Action.EndSimulation")+bold2));
+		actionStop.addActionListener(e->checkData(false));
+
 		/* Javascript ausführen */
 
 		tab.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
@@ -347,6 +355,7 @@ public class ModelElementActionRecordTableModelDialog extends BaseDialog {
 		case ACTION_ANALOG_VALUE: actionAnalog.setSelected(true); break;
 		case ACTION_SIGNAL: actionSignal.setSelected(true); break;
 		case ACTION_SCRIPT: actionScript.setSelected(true); break;
+		case ACTION_STOP: actionStop.setSelected(true); break;
 		}
 
 		buttonGroup=new ButtonGroup();
@@ -354,6 +363,7 @@ public class ModelElementActionRecordTableModelDialog extends BaseDialog {
 		buttonGroup.add(actionAnalog);
 		buttonGroup.add(actionSignal);
 		buttonGroup.add(actionScript);
+		buttonGroup.add(actionStop);
 
 		/* Icons */
 
@@ -634,6 +644,10 @@ public class ModelElementActionRecordTableModelDialog extends BaseDialog {
 			case Javascript: record.setScriptMode(ModelElementActionRecord.ScriptMode.Javascript); break;
 			case Java: record.setScriptMode(ModelElementActionRecord.ScriptMode.Java); break;
 			}
+		}
+
+		if (actionStop.isSelected()) {
+			record.setStopSimulation();
 		}
 	}
 }

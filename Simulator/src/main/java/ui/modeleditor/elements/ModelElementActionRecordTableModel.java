@@ -174,6 +174,9 @@ public class ModelElementActionRecordTableModel extends JTableExtAbstractTableMo
 		case ACTION_SIGNAL:
 			result.append(String.format(Language.tr("Surface.Action.Dialog.Info.ActionSignal"),record.getSignalName()));
 			break;
+		case ACTION_STOP:
+			result.append(Language.tr("Surface.Action.Dialog.Info.EndSimulation"));
+			break;
 		}
 
 		result.append("</body></html>");

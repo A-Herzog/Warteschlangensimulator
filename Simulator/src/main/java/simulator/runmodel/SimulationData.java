@@ -370,7 +370,7 @@ public class SimulationData extends SimData {
 	}
 
 	/**
-	 * Bricht die Simulation sofort ohne dies als Fehler zu verbuchen.
+	 * Bricht die Simulation sofort ab, ohne dies als Fehler zu verbuchen.
 	 */
 	public void doShutDown() {
 		if (eventManager!=null) eventManager.deleteAllEvents();

@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-05-31 00:20+0200\n"
+"POT-Creation-Date: 2021-06-01 00:04+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19942,6 +19942,9 @@ msgstr "Der für die Zuweisung angegebene Variablenname \"%s\" ist ungültig."
 msgid "Surface.Action.Dialog.Edit.Tabs.Action.Assign.Variable.ErrorTitle"
 msgstr "Ungültiger Variablenname"
 
+msgid "Surface.Action.Dialog.Edit.Tabs.Action.EndSimulation"
+msgstr "Simulation beenden"
+
 msgid "Surface.Action.Dialog.Edit.Tabs.Action.JS"
 msgstr "Skript ausführen"
 
@@ -20044,6 +20047,9 @@ msgstr "Minimaler Auslöseabstand"
 msgid "Surface.Action.Dialog.Info.Condition.MinDistance.Seconds"
 msgstr "Sekunden"
 
+msgid "Surface.Action.Dialog.Info.EndSimulation"
+msgstr "Aktion: Beendet die Simulation."
+
 msgid "Surface.Action.Dialog.Info.IsDeactivated"
 msgstr "Aktion ist deaktiviert."
 
@@ -20103,6 +20109,9 @@ msgstr "Java"
 
 msgid "Surface.Action.XML.Record.ActionType.Signal"
 msgstr "Signal"
+
+msgid "Surface.Action.XML.Record.ActionType.Stopp"
+msgstr "Stopp"
 
 msgid "Surface.Action.XML.Record.Active"
 msgstr "aktiv"
