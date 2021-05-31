@@ -187,6 +187,8 @@ public class ScriptEditorPanel extends JPanel {
 	private final JButton buttonLoad;
 	/** "Speichern"-Schaltfläche */
 	private final JButton buttonSave;
+	/** "Prüfen"-Schaltfläche */
+	private final JButton buttonCheck;
 	/** "Tools"-Schaltfläche */
 	private final JButton buttonTools;
 	/** "Hilfe"-Schaltfläche */
@@ -270,6 +272,7 @@ public class ScriptEditorPanel extends JPanel {
 		buttonSave=addToolbarButton(toolbar,Language.tr("Surface.ScriptEditor.Save"),Images.SCRIPT_SAVE.getIcon(),Language.tr("Surface.ScriptEditor.Save.Hint"),readOnly);
 		addCustomToolbarButtons(toolbar);
 		toolbar.addSeparator();
+		buttonCheck=addToolbarButton(toolbar,Language.tr("Surface.ScriptEditor.Check"),Images.SIMULATION_CHECK.getIcon(),Language.tr("Surface.ScriptEditor.Check.Hint"),readOnly);
 		buttonTools=addToolbarButton(toolbar,Language.tr("Surface.ScriptEditor.Tools"),Images.SCRIPT_TOOLS.getIcon(),Language.tr("Surface.ScriptEditor.Tools.Hint"),readOnly);
 		toolbar.addSeparator();
 		buttonHelp=addToolbarButton(toolbar,Language.tr("Main.Toolbar.Help"),Images.HELP.getIcon(),Language.tr("Surface.ScriptEditor.Help.Hint"),readOnly);
@@ -353,6 +356,7 @@ public class ScriptEditorPanel extends JPanel {
 	 */
 	private void languageChanged() {
 		scriptEditMultiLayout.show(scriptEditMulti,""+languageCombo.getSelectedIndex());
+		buttonCheck.setVisible(languageCombo.getSelectedIndex()==1 && DynamicFactory.isWindows() && DynamicFactory.isInMemoryProcessing());
 	}
 
 	/**
@@ -545,6 +549,16 @@ public class ScriptEditorPanel extends JPanel {
 
 			if (e.getSource()==buttonSave) {
 				if (commandSave()) fireKeyAction();
+				return;
+			}
+
+			if (e.getSource()==buttonCheck) {
+				final DynamicRunner runner=DynamicFactory.getFactory().test(scriptEditJava.getText());
+				if (runner.isOk()) {
+					MsgBox.info(ScriptEditorPanel.this,Language.tr("Surface.ScriptEditor.Check.Success.Title"),Language.tr("Surface.ScriptEditor.Check.Success.Info"));
+				} else {
+					new DynamicErrorInfo(ScriptEditorPanel.this,runner);
+				}
 				return;
 			}
 
