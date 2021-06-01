@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-06-01 00:04+0200\n"
+"POT-Creation-Date: 2021-06-01 15:31+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -2756,6 +2756,15 @@ msgstr "Auf die Zeichenfläche klicken, um das neue Element zu platzieren."
 
 msgid "Editor.AddElement.PlaceTemplateElement"
 msgstr "Auf die Zeichenfläche klicken, um die neuen Elemente aus der Vorlage einzufügen."
+
+msgid "Editor.AnimationData.Info"
+msgstr "Zeigt einen Dialog zum Zugriff auf die Daten der laufenden Animation an."
+
+msgid "Editor.AnimationData.OnlyWhenStepping"
+msgstr "Der Datendialog kann nur angezeigt werden, während die Animation angehalten ist."
+
+msgid "Editor.AnimationData.Short"
+msgstr "Daten"
 
 msgid "Editor.Check.Error"
 msgstr "Modell ist fehlerhaft."

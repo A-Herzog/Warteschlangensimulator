@@ -102,6 +102,7 @@ import tools.SetupData;
 import tools.UsageStatistics;
 import ui.dialogs.AnimationJSInfoDialog;
 import ui.dialogs.ExpressionCalculatorDialog;
+import ui.dialogs.LayersDialog;
 import ui.dialogs.NextEventsViewerDialog;
 import ui.images.Images;
 import ui.mjpeg.AnimationRecordWaitDialog;
@@ -250,6 +251,8 @@ public class AnimationPanel extends JPanel implements RunModelAnimationViewer {
 
 	/** Schaltfläche "Modell" */
 	private final JButton buttonProperties;
+	/** Schaltfläche "Aktuelle Daten" */
+	private final JButton buttonCurrentData;
 
 	/* Statusleiste */
 
@@ -352,7 +355,7 @@ public class AnimationPanel extends JPanel implements RunModelAnimationViewer {
 		buttonAbort=createToolbarButton(toolBar,Language.tr("Animation.Toolbar.Stop"),Language.tr("Animation.Toolbar.Stop.Info")+" ("+keyStrokeToString(KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE,0))+")",Images.GENERAL_CANCEL.getIcon());
 		toolBar.addSeparator();
 
-		buttonScreenshot=createToolbarButton(toolBar,Language.tr("Animation.Toolbar.Image"),Language.tr("Animation.Toolbar.Image.Info"),Images.ANIMATION_SCREENSHOT.getIcon());
+		buttonScreenshot=createToolbarButton(toolBar,Language.tr("Animation.Toolbar.Image"),Language.tr("Animation.Toolbar.Image.Info")+" ("+keyStrokeToString(KeyStroke.getKeyStroke(KeyEvent.VK_S,InputEvent.CTRL_DOWN_MASK+InputEvent.SHIFT_DOWN_MASK))+")",Images.ANIMATION_SCREENSHOT.getIcon());
 		updateScreenshotButtonHint();
 		buttonExport=createToolbarButton(toolBar,Language.tr("Animation.Toolbar.Export"),Language.tr("Animation.Toolbar.Export.Info"),Images.ANIMATION_EXPORT.getIcon());
 
@@ -364,7 +367,7 @@ public class AnimationPanel extends JPanel implements RunModelAnimationViewer {
 		buttonPlayPause=createToolbarButton(toolBar,Language.tr("Animation.Toolbar.Pause"),Language.tr("Animation.Toolbar.Pause.Info")+" ("+keyStrokeToString(KeyStroke.getKeyStroke(KeyEvent.VK_F6,0))+")",Images.ANIMATION_PAUSE.getIcon());
 		buttonStep=createToolbarButton(toolBar,Language.tr("Animation.Toolbar.Step"),Language.tr("Animation.Toolbar.Step.Info")+" ("+keyStrokeToString(KeyStroke.getKeyStroke(KeyEvent.VK_F7,0))+")",Images.ANIMATION_STEP.getIcon());
 		buttonStep.setEnabled(false);
-		buttonSpeed=createToolbarButton(toolBar,Language.tr("Animation.Toolbar.Speed"),Language.tr("Animation.Toolbar.Speed.Info")+" ("+keyStrokeToString(KeyStroke.getKeyStroke(KeyEvent.VK_ADD,InputEvent.CTRL_DOWN_MASK))+"/"+keyStrokeToString(KeyStroke.getKeyStroke(KeyEvent.VK_SUBTRACT,InputEvent.CTRL_DOWN_MASK))+")",Images.ANIMATION_SPEED.getIcon());
+		buttonSpeed=createToolbarButton(toolBar,Language.tr("Animation.Toolbar.Speed"),Language.tr("Animation.Toolbar.Speed.Info")+" ("+keyStrokeToString(KeyStroke.getKeyStroke(KeyEvent.VK_ADD,InputEvent.CTRL_DOWN_MASK+InputEvent.SHIFT_DOWN_MASK))+"/"+keyStrokeToString(KeyStroke.getKeyStroke(KeyEvent.VK_SUBTRACT,InputEvent.CTRL_DOWN_MASK+InputEvent.SHIFT_DOWN_MASK))+")",Images.ANIMATION_SPEED.getIcon());
 
 		addUserButtons(toolBar);
 
@@ -377,11 +380,35 @@ public class AnimationPanel extends JPanel implements RunModelAnimationViewer {
 		leftToolBar.setFloatable(false);
 		add(leftToolBar,BorderLayout.WEST);
 
-		buttonProperties=createRotatedToolbarButton(leftToolBar,Language.tr("Editor.ModelProperties.Short"),Language.tr("Editor.ModelProperties.Info"),Images.MODEL.getIcon());
+		buttonProperties=createRotatedToolbarButton(leftToolBar,Language.tr("Editor.ModelProperties.Short"),Language.tr("Editor.ModelProperties.Info")+" ("+keyStrokeToString(KeyStroke.getKeyStroke(KeyEvent.VK_F2,InputEvent.CTRL_DOWN_MASK))+")",Images.MODEL.getIcon());
+		buttonCurrentData=createRotatedToolbarButton(leftToolBar,Language.tr("Editor.AnimationData.Short"),Language.tr("Editor.AnimationData.Info")+" ("+keyStrokeToString(KeyStroke.getKeyStroke(KeyEvent.VK_F3,0))+")",Images.ANIMATION_EVALUATE_EXPRESSION.getIcon());
 
 		/* Surface in der Mitte */
 		content.add(new RulerPanel(surfacePanel=new ModelSurfacePanel(true,false),SetupData.getSetup().showRulers),BorderLayout.CENTER);
 		surfacePanel.addZoomChangeListener(e->zoomChanged());
+		surfacePanel.addShowModelPropertiesListener(e->{
+			final String cmd=e.getActionCommand();
+			if (cmd.equals(ModelSurfacePanel.PROPERTIES_TYPE_PROPERTIES)) {
+				showModelPropertiesDialog(null);
+				return;
+			}
+			if (cmd.equals(ModelSurfacePanel.PROPERTIES_TYPE_PROPERTIES_OPERATORS)) {
+				showModelPropertiesDialog(ModelPropertiesDialog.InitialPage.OPERATORS);
+				return;
+			}
+			if (cmd.equals(ModelSurfacePanel.PROPERTIES_TYPE_PROPERTIES_TRANSPORTERS)) {
+				showModelPropertiesDialog(ModelPropertiesDialog.InitialPage.TRANSPORTERS);
+				return;
+			}
+			if (cmd.equals(ModelSurfacePanel.PROPERTIES_TYPE_PROPERTIES_SCHEDULES)) {
+				showModelPropertiesDialog(ModelPropertiesDialog.InitialPage.SCHEDULES);
+				return;
+			}
+			if (cmd.equals(ModelSurfacePanel.PROPERTIES_TYPE_LAYERS)) {
+				final LayersDialog dialog=new LayersDialog(this,model,true);
+				dialog.setVisible(true);
+			}
+		});
 
 		/* Statusbar unten */
 		final JPanel statusPanel=new JPanel(new BorderLayout());
@@ -430,7 +457,7 @@ public class AnimationPanel extends JPanel implements RunModelAnimationViewer {
 		logNext=createToolbarButton(logToolBar,"",Language.tr("Animation.Log.Next"),Images.ARROW_DOWN.getIcon());
 		logCurrent=createToolbarButton(logToolBar,"",Language.tr("Animation.Log.Current"),Images.ARROW_DOWN_END.getIcon());
 		logCopy=createToolbarButton(logToolBar,"",Language.tr("Animation.Log.Copy"),Images.EDIT_COPY.getIcon());
-		logExpression=createToolbarButton(logToolBar,"",Language.tr("Animation.Log.Expression"),Images.ANIMATION_EVALUATE_EXPRESSION.getIcon());
+		logExpression=createToolbarButton(logToolBar,"",Language.tr("Animation.Log.Expression")+" ("+keyStrokeToString(KeyStroke.getKeyStroke(KeyEvent.VK_F3,0))+")",Images.ANIMATION_EVALUATE_EXPRESSION.getIcon());
 		logJS=createToolbarButton(logToolBar,"",Language.tr("Animation.Log.JS"),Images.ANIMATION_EVALUATE_SCRIPT.getIcon());
 		logEvents=createToolbarButton(logToolBar,"",Language.tr("Animation.Log.Events"),Images.ANIMATION_LIST_NEXT_EVENTS.getIcon());
 
@@ -439,6 +466,13 @@ public class AnimationPanel extends JPanel implements RunModelAnimationViewer {
 
 		final InputMap input=getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
 		input.put(KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE,0),"keyEscape");
+		input.put(KeyStroke.getKeyStroke(KeyEvent.VK_C,InputEvent.CTRL_DOWN_MASK),"keyCtrlC");
+		input.put(KeyStroke.getKeyStroke(KeyEvent.VK_S,InputEvent.CTRL_DOWN_MASK),"keyCtrlS");
+		input.put(KeyStroke.getKeyStroke(KeyEvent.VK_S,InputEvent.CTRL_DOWN_MASK+InputEvent.SHIFT_DOWN_MASK),"keyCtrlShiftS");
+		input.put(KeyStroke.getKeyStroke(KeyEvent.VK_V,InputEvent.CTRL_DOWN_MASK+InputEvent.SHIFT_DOWN_MASK),"keyCtrlShiftV");
+		input.put(KeyStroke.getKeyStroke(KeyEvent.VK_W,InputEvent.CTRL_DOWN_MASK+InputEvent.SHIFT_DOWN_MASK),"keyCtrlShiftW");
+		input.put(KeyStroke.getKeyStroke(KeyEvent.VK_F2,InputEvent.CTRL_DOWN_MASK),"keyCtrlF2");
+		input.put(KeyStroke.getKeyStroke(KeyEvent.VK_F3,0),"keyF3");
 		input.put(KeyStroke.getKeyStroke(KeyEvent.VK_F5,0),"keyF5");
 		input.put(KeyStroke.getKeyStroke(KeyEvent.VK_F6,0),"keyF6");
 		input.put(KeyStroke.getKeyStroke(KeyEvent.VK_F7,0),"keyF7");
@@ -446,16 +480,32 @@ public class AnimationPanel extends JPanel implements RunModelAnimationViewer {
 		input.put(KeyStroke.getKeyStroke(KeyEvent.VK_ADD,InputEvent.CTRL_DOWN_MASK),"ctrlPlus");
 		input.put(KeyStroke.getKeyStroke(KeyEvent.VK_MINUS,InputEvent.CTRL_DOWN_MASK),"ctrlMinus");
 		input.put(KeyStroke.getKeyStroke(KeyEvent.VK_SUBTRACT,InputEvent.CTRL_DOWN_MASK),"ctrlMinus");
-		addAction("keyEscape",e->{
-			if (buttonAbort.isEnabled()) {
-				closeRequest(); buttonAbort.setEnabled(false);
-			}
-		});
+		input.put(KeyStroke.getKeyStroke(KeyEvent.VK_MULTIPLY,InputEvent.CTRL_DOWN_MASK),"ctrlMultiply");
+		input.put(KeyStroke.getKeyStroke(KeyEvent.VK_NUMPAD0,InputEvent.CTRL_DOWN_MASK),"ctrl0");
+		input.put(KeyStroke.getKeyStroke(KeyEvent.VK_HOME,InputEvent.CTRL_DOWN_MASK),"ctrlHome");
+		input.put(KeyStroke.getKeyStroke(KeyEvent.VK_PLUS,InputEvent.CTRL_DOWN_MASK+InputEvent.SHIFT_DOWN_MASK),"ctrlShiftPlus");
+		input.put(KeyStroke.getKeyStroke(KeyEvent.VK_ADD,InputEvent.CTRL_DOWN_MASK+InputEvent.SHIFT_DOWN_MASK),"ctrlShiftPlus");
+		input.put(KeyStroke.getKeyStroke(KeyEvent.VK_MINUS,InputEvent.CTRL_DOWN_MASK+InputEvent.SHIFT_DOWN_MASK),"ctrlShiftMinus");
+		input.put(KeyStroke.getKeyStroke(KeyEvent.VK_SUBTRACT,InputEvent.CTRL_DOWN_MASK+InputEvent.SHIFT_DOWN_MASK),"ctrlShiftMinus");
+
+		addAction("keyEscape",e->{if (buttonAbort.isEnabled()) {closeRequest(); buttonAbort.setEnabled(false);}});
+		addAction("keyCtrlC",e->commandCopyToClipboard());
+		addAction("keyCtrlS",e->saveScreenshotSelectFile());
+		addAction("keyCtrlShiftS",e->saveScreenshot());
+		addAction("keyCtrlShiftV",e->savedViewSelect(1));
+		addAction("keyCtrlShiftW",e->savedViewSelect(-1));
+		addAction("keyCtrlF2",e->showModelPropertiesDialog(null));
+		addAction("keyF3",e->calcExpression());
 		addAction("keyF5",e->finishAsSimulation());
 		addAction("keyF6",e->playPause());
 		addAction("keyF7",e->step(false));
-		addAction("ctrlPlus",e->speed(1));
-		addAction("ctrlMinus",e->speed(-1));
+		addAction("ctrlPlus",e->zoomIn());
+		addAction("ctrlMinus",e->zoomOut());
+		addAction("ctrlMultiply",e->zoomDefault());
+		addAction("ctrl0",e->centerModel());
+		addAction("ctrlHome",e->scrollToTop());
+		addAction("ctrlShiftPlus",e->speed(1));
+		addAction("ctrlShiftMinus",e->speed(-1));
 	}
 
 	/**
@@ -1160,11 +1210,54 @@ public class AnimationPanel extends JPanel implements RunModelAnimationViewer {
 	}
 
 	/**
+	 * Verringert den Zoomfaktor.
+	 */
+	public void zoomOut() {
+		if (surfacePanel==null) return;
+		surfacePanel.zoomOut();
+		labelZoom.setText(Math.round(100*surfacePanel.getZoom())+"% ");
+	}
+
+	/**
+	 * Vergrößert den Zoomfaktor.
+	 */
+	public void zoomIn() {
+		if (surfacePanel==null) return;
+		surfacePanel.zoomIn();
+		labelZoom.setText(Math.round(100*surfacePanel.getZoom())+"% ");
+	}
+
+	/**
+	 * Stellt den Standard-Zoomfaktor wieder her.
+	 */
+	public void zoomDefault() {
+		if (surfacePanel==null) return;
+		surfacePanel.zoomDefault();
+		labelZoom.setText(Math.round(100*surfacePanel.getZoom())+"% ");
+	}
+
+	/**
 	 * Liefert den aktuell eingestellten Zoomfaktor
 	 * @return Aktueller Zoomfaktor
 	 */
 	public double getZoom() {
 		return surfacePanel.getZoom();
+	}
+
+	/**
+	 * Zentriert das Modell auf der Zeichenfläche.
+	 */
+	public void centerModel() {
+		if (surfacePanel==null) return;
+		surfacePanel.centerModel();
+	}
+
+	/**
+	 * Scrollt ganz nach oben links.
+	 */
+	public void scrollToTop() {
+		if (surfacePanel==null) return;
+		surfacePanel.scrollToTop();
 	}
 
 	/**
@@ -1237,12 +1330,35 @@ public class AnimationPanel extends JPanel implements RunModelAnimationViewer {
 	}
 
 	/**
+	 * Wechselt die gespeicherte Ansicht.
+	 * @param delta	Verschiebung der aktiven Ansicht nach oben (-1) oder unten (1)
+	 */
+	private void savedViewSelect(final int delta) {
+		final List<SavedViews.SavedView> views=model.savedViews.getViews();
+		if (views.size()==0) return;
+
+		int selected=-1;
+		for (int i=0;i<views.size();i++) if (views.get(i).isSelected()) {selected=i; break;}
+		if (selected<0) {
+			selected=0;
+		} else {
+			selected+=delta;
+			if (selected<0) selected=views.size()-1;
+			if (selected>=views.size()) selected=0;
+		}
+		final SavedViews.SavedView selectedView=views.get(selected);
+		model.savedViews.setSelected(selectedView);
+		selectedView.set(surfacePanel);
+	}
+
+	/**
 	 * Zeigt den Modelleigenschaften-Dialog (im Nur-Lese-Modus) an.
+	 * @param initialPage	Beim Aufruf des Dialogs anzuzeigende Seite (darf <code>null</code> sein)
 	 * @see ModelPropertiesDialog
 	 */
-	private void showModelPropertiesDialog() {
+	private void showModelPropertiesDialog(final ModelPropertiesDialog.InitialPage initialPage) {
 		if (model==null) return;
-		final ModelPropertiesDialog dialog=new ModelPropertiesDialog(this,model,true,null);
+		final ModelPropertiesDialog dialog=new ModelPropertiesDialog(this,model,true,initialPage);
 		dialog.setVisible(true);
 	}
 
@@ -1355,6 +1471,7 @@ public class AnimationPanel extends JPanel implements RunModelAnimationViewer {
 				buttonPlayPause.setText(Language.tr("Animation.Toolbar.Play"));
 				buttonPlayPause.setToolTipText(Language.tr("Animation.Toolbar.Play.Info")+" ("+keyStrokeToString(KeyStroke.getKeyStroke(KeyEvent.VK_F6,0))+")");
 				buttonPlayPause.setIcon(Images.ANIMATION_PLAY.getIcon());
+				buttonCurrentData.setEnabled(true);
 				if (simulator!=null) simulator.pauseExecution();
 
 				if (timer!=null) {timer.cancel(); timer=null;}
@@ -1380,6 +1497,7 @@ public class AnimationPanel extends JPanel implements RunModelAnimationViewer {
 				buttonPlayPause.setText(Language.tr("Animation.Toolbar.Pause"));
 				buttonPlayPause.setToolTipText(Language.tr("Animation.Toolbar.Pause.Info")+" ("+keyStrokeToString(KeyStroke.getKeyStroke(KeyEvent.VK_F6,0))+")");
 				buttonPlayPause.setIcon(Images.ANIMATION_PAUSE.getIcon());
+				buttonCurrentData.setEnabled(false);
 				if (simulator!=null) simulator.resumeExecution();
 
 				timer=new Timer("AnimationCancelCheck",false);
@@ -1587,6 +1705,7 @@ public class AnimationPanel extends JPanel implements RunModelAnimationViewer {
 		final Window window=SwingUtilities.getWindowAncestor(getParent());
 
 		final File file=showExportDialog(getParent(),Language.tr("Editor.ExportModel"));
+		if (file==null) return;
 
 		if (file.exists()) {
 			if (!MsgBox.confirmOverwrite(window,file)) return;
@@ -1786,7 +1905,7 @@ public class AnimationPanel extends JPanel implements RunModelAnimationViewer {
 	private void updateScreenshotButtonHint() {
 		String folder=FileSystemView.getFileSystemView().getHomeDirectory().toString();
 		if (setup.imagePathAnimation!=null && !setup.imagePathAnimation.trim().isEmpty()) folder=setup.imagePathAnimation.trim();
-		buttonScreenshot.setToolTipText(Language.tr("Animation.Toolbar.Image.Info")+" ("+Language.tr("Animation.Toolbar.Image.Info.Folder")+": "+folder+")");
+		buttonScreenshot.setToolTipText(Language.tr("Animation.Toolbar.Image.Info")+" ("+Language.tr("Animation.Toolbar.Image.Info.Folder")+": "+folder+")"+" ("+keyStrokeToString(KeyStroke.getKeyStroke(KeyEvent.VK_S,InputEvent.CTRL_DOWN_MASK+InputEvent.SHIFT_DOWN_MASK))+")");
 	}
 
 	/**
@@ -1858,6 +1977,11 @@ public class AnimationPanel extends JPanel implements RunModelAnimationViewer {
 	 * @see ExpressionCalculatorDialog
 	 */
 	private void calcExpression() {
+		if (running) {
+			MsgBox.error(this,Language.tr("Editor.AnimationData.Short"),Language.tr("Editor.AnimationData.OnlyWhenStepping"));
+			return;
+		}
+
 		final List<String> variables=new ArrayList<>();
 		final Map<String,Integer> variableIndices=new HashMap<>();
 		for (int i=0;i<simData.runModel.variableNames.length;i++) {
@@ -1995,6 +2119,13 @@ public class AnimationPanel extends JPanel implements RunModelAnimationViewer {
 	}
 
 	/**
+	 * Kopiert das aktuelle Animationsbild in die Zwischenablage.
+	 */
+	private void commandCopyToClipboard() {
+		surfacePanel.copyToClipboardAsImage(setup.imageSize,setup.imageSize);
+	}
+
+	/**
 	 * Zeigt ein Popupmenü mit Funktionen zum Export des Modells an.
 	 * @param parent	Übergeordnetes Element zur Ausrichtung des Menüs
 	 * @see #buttonExport
@@ -2004,9 +2135,11 @@ public class AnimationPanel extends JPanel implements RunModelAnimationViewer {
 		JMenuItem item;
 
 		popupMenu.add(item=new JMenuItem(Language.tr("Animation.Toolbar.Export.Copy"),Images.EDIT_COPY.getIcon()));
-		item.addActionListener(e->surfacePanel.copyToClipboardAsImage(setup.imageSize,setup.imageSize));
+		item.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_C,InputEvent.CTRL_DOWN_MASK));
+		item.addActionListener(e->commandCopyToClipboard());
 
 		popupMenu.add(item=new JMenuItem(Language.tr("Animation.Toolbar.Export.Save"),Images.GENERAL_SAVE.getIcon()));
+		item.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S,InputEvent.CTRL_DOWN_MASK));
 		item.addActionListener(e->saveScreenshotSelectFile());
 
 		popupMenu.show(parent,0,parent.getHeight());
@@ -2049,7 +2182,8 @@ public class AnimationPanel extends JPanel implements RunModelAnimationViewer {
 			if (source==menuScreenshotModeHome) {commandScreenshotModeHome(); return;}
 			if (source==menuScreenshotModeCustom) {commandScreenshotModeCustom(); return;}
 			if (source==menuShowLog) {toggleShowSingleStepLogData(); return;}
-			if (source==buttonProperties) {showModelPropertiesDialog(); return;}
+			if (source==buttonProperties) {showModelPropertiesDialog(null); return;}
+			if (source==buttonCurrentData) {calcExpression(); return;}
 			if (source==logPrevious) {displayLogMessage(-1); return;}
 			if (source==logNext) {displayLogMessage(1); return;}
 			if (source==logCurrent) {displayLogMessage(0); return;}

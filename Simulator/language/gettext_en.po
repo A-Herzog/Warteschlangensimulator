@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-06-01 00:04+0200\n"
+"POT-Creation-Date: 2021-06-01 15:31+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -2754,6 +2754,15 @@ msgstr "Click on the model surface to place the new element."
 
 msgid "Editor.AddElement.PlaceTemplateElement"
 msgstr "Click on the model surface to insert the new elements from template."
+
+msgid "Editor.AnimationData.Info"
+msgstr "Displays a dialog for accessing the data of the running animation."
+
+msgid "Editor.AnimationData.OnlyWhenStepping"
+msgstr "The data dialog can only be displayed while the animation is paused."
+
+msgid "Editor.AnimationData.Short"
+msgstr "Data"
 
 msgid "Editor.Check.Error"
 msgstr "The model is invalid."
