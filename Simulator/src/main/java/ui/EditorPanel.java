@@ -374,10 +374,13 @@ public final class EditorPanel extends EditorPanelBase {
 	 */
 	private void initSavedViewsHotkeys() {
 		final InputMap inputMap=getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
+		final KeyStroke strokeAddEgde=KeyStroke.getKeyStroke(KeyEvent.VK_F3,InputEvent.CTRL_DOWN_MASK);
 		final KeyStroke strokePreviousView=KeyStroke.getKeyStroke('W',InputEvent.CTRL_DOWN_MASK+InputEvent.SHIFT_DOWN_MASK);
 		final KeyStroke strokeNextView=KeyStroke.getKeyStroke('V',InputEvent.CTRL_DOWN_MASK+InputEvent.SHIFT_DOWN_MASK);
+		inputMap.put(strokeAddEgde,"ToggleAddEdge");
 		inputMap.put(strokePreviousView,"PreviousSavedView");
 		inputMap.put(strokeNextView,"NextSavedView");
+		getActionMap().put("ToggleAddEdge",new FunctionalAction(()->toggleAddEdge()));
 		getActionMap().put("PreviousSavedView",new FunctionalAction(()->savedViewSelect(-1)));
 		getActionMap().put("NextSavedView",new FunctionalAction(()->savedViewSelect(1)));
 	}
@@ -986,7 +989,7 @@ public final class EditorPanel extends EditorPanelBase {
 		if (!readOnly) {
 			final String hotkeyToggleTemplates=keyStrokeToString(KeyStroke.getKeyStroke(KeyEvent.VK_F2,0));
 			buttonTemplates=createRotatedToolbarButton(leftToolbar,Language.tr("Editor.ToggleTemplates.Short"),Language.tr("Editor.ToggleTemplates.Info")+" ("+hotkeyToggleTemplates+")",Images.ELEMENTTEMPLATES.getIcon());
-			buttonAddEdge=createRotatedToolbarButton(leftToolbar,Language.tr("Editor.AddEdge.Short"),Language.tr("Editor.AddEdge.Info"),Images.EDIT_EDGES_ADD.getIcon());
+			buttonAddEdge=createRotatedToolbarButton(leftToolbar,Language.tr("Editor.AddEdge.Short"),Language.tr("Editor.AddEdge.Info")+" ("+keyStrokeToString(KeyStroke.getKeyStroke(KeyEvent.VK_F3,InputEvent.CTRL_DOWN_MASK))+")",Images.EDIT_EDGES_ADD.getIcon());
 			buttonAddEdge.setEnabled(!readOnly);
 		}
 
@@ -1431,7 +1434,7 @@ public final class EditorPanel extends EditorPanelBase {
 		buttonViews.addMouseListener(new MouseAdapter() {
 			@Override public void mousePressed(final MouseEvent e) {if (SwingUtilities.isRightMouseButton(e)) showViewPopup(buttonViews);}
 		});
-		zoomArea.add(buttonNavigator=createZoomAreaButton(Language.tr("Editor.ModelOverview.Navigator.Hint"),Images.NAVIGATOR.getIcon()));
+		zoomArea.add(buttonNavigator=createZoomAreaButton(Language.tr("Editor.ModelOverview.Navigator.Hint")+" ("+keyStrokeToString(KeyStroke.getKeyStroke(KeyEvent.VK_F12,0))+")",Images.NAVIGATOR.getIcon()));
 		buttonNavigator.addActionListener(e->setNavigatorVisible(!isNavigatorVisible(),false));
 
 		updateStatusBar();
@@ -1718,7 +1721,7 @@ public final class EditorPanel extends EditorPanelBase {
 		if (surfacePanel!=null) {
 			surfacePanel.setColors(model.surfaceColors); /* Reihenfolge ist wichtig. setSurface würde bedingt durch fireNotify Farbe von Modell aus surfacePanel überschreiben, daher erst Farbe aus Modell in surfacePanel übertragen. */
 			surfacePanel.setBackgroundImage((isMainSurface || model.surfaceBackgroundImageInSubModels)?model.surfaceBackgroundImage:null,model.surfaceBackgroundImageScale,model.surfaceBackgroundImageMode);
-			surfacePanel.setSurface(model,model.surface.clone(false,model.resources.clone(),model.schedules.clone(),model.surface.getParentSurface(),model),model.clientData,model.sequences);
+			surfacePanel.setSurface(model,model.surface.clone(false,model.resources.clone(),model.schedules.clone(),model.surface.getParentSurface(),model),model.clientData,model.sequences);			
 		}
 		if (model.surface.getElementCount()>0) setupInfoLabels(true);
 	}
@@ -1863,6 +1866,18 @@ public final class EditorPanel extends EditorPanelBase {
 	}
 
 	/**
+	 * Schaltet die Funktion zum Hinzufügen von Kanten ein oder aus.
+	 */
+	private void toggleAddEdge() {
+		setupInfoLabels(true);
+		if (surfacePanel.getMode()==ModelSurfacePanel.ClickMode.MODE_ADD_EDGE_STEP1 || surfacePanel.getMode()==ModelSurfacePanel.ClickMode.MODE_ADD_EDGE_STEP2) {
+			surfacePanel.cancelAdd();
+		} else {
+			surfacePanel.startAddEdge();
+		}
+	}
+
+	/**
 	 * Listener für Klicks auf die verschiedenen Symbolleisten-Schaltflächen
 	 * @see EditorPanel#toolbarListener
 	 */
@@ -1873,15 +1888,7 @@ public final class EditorPanel extends EditorPanelBase {
 
 			if (source==buttonProperties) {setupInfoLabels(true); repaint(); showModelPropertiesDialog(null); return;}
 			if (source==buttonTemplates) {setTemplatesVisible(!isTemplatesVisible(),false); return;}
-			if (source==buttonAddEdge) {
-				setupInfoLabels(true);
-				if (surfacePanel.getMode()==ModelSurfacePanel.ClickMode.MODE_ADD_EDGE_STEP1 || surfacePanel.getMode()==ModelSurfacePanel.ClickMode.MODE_ADD_EDGE_STEP2) {
-					surfacePanel.cancelAdd();
-					return;
-				}
-				surfacePanel.startAddEdge();
-				return;
-			}
+			if (source==buttonAddEdge) {toggleAddEdge(); return;}
 			if (source==buttonZoomOut) {zoomOut(); return;}
 			if (source==buttonZoomIn) {zoomIn(); return;}
 			if (source==buttonZoomDefault) {zoomDefault(); return;}
