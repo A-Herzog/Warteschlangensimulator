@@ -121,6 +121,11 @@ public class ModelElementSourceTableDialog extends ModelElementBaseDialog {
 		content.add(top,BorderLayout.NORTH);
 		top.setLayout(new BoxLayout(top,BoxLayout.PAGE_AXIS));
 
+		/* Hinweis zu Einschwingphase */
+
+		final JPanel warmUpAdvice=getWarmUpInfoPanel();
+		if (warmUpAdvice!=null) top.add(warmUpAdvice);
+
 		/* Tabellendatei */
 
 		final Object[] data=getInputPanel(Language.tr("Surface.SourceTable.Dialog.Table")+":",source.getInputFile());

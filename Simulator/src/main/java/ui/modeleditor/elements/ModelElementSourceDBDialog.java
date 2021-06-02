@@ -142,11 +142,17 @@ public class ModelElementSourceDBDialog extends ModelElementBaseDialog {
 		JPanel line;
 		JLabel label;
 
-		/* Oben: Datenbank */
-
 		final JPanel top=new JPanel();
 		content.add(top,BorderLayout.NORTH);
 		top.setLayout(new BoxLayout(top,BoxLayout.PAGE_AXIS));
+
+		/* Hinweis zu Einschwingphase */
+
+		final JPanel warmUpAdvice=getWarmUpInfoPanel();
+		if (warmUpAdvice!=null) top.add(warmUpAdvice);
+
+		/* Oben: Datenbank */
+
 		top.add(db=new DBSettingsPanel(source.getDb(),readOnly));
 		db.addChangeListener(()->dbSettingsChanged());
 

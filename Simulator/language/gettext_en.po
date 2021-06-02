@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-06-01 15:31+0200\n"
+"POT-Creation-Date: 2021-06-02 00:20+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -3520,6 +3520,12 @@ msgstr "Close dialog and open transporters list."
 
 msgid "Editor.DialogBase.Protected.Tooltip"
 msgstr "Protect element against deletion"
+
+msgid "Editor.DialogBase.WarmUpExternalSourceWarning.Button"
+msgstr "Disable warm-up phases"
+
+msgid "Editor.DialogBase.WarmUpExternalSourceWarning.Info"
+msgstr "A warm-up phase of %s client arrivals is used in the model.<br>Warm-up phases and sources that use external data should not be combined."
 
 msgid "Editor.DragDropTableLoad.Info"
 msgstr "Tables can be used in client sources and in input elements."

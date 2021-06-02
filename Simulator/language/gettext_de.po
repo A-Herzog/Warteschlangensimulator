@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-06-01 15:31+0200\n"
+"POT-Creation-Date: 2021-06-02 00:20+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -3524,6 +3524,12 @@ msgstr "Dialog schließen und Transporterübersicht aufrufen."
 
 msgid "Editor.DialogBase.Protected.Tooltip"
 msgstr "Element vor Löschversuchen schützen"
+
+msgid "Editor.DialogBase.WarmUpExternalSourceWarning.Button"
+msgstr "Einschwingphase deaktivieren"
+
+msgid "Editor.DialogBase.WarmUpExternalSourceWarning.Info"
+msgstr "In dem Modell ist eine Einschwingphase von %s Kundenankünften aktiviert.<br>Einschwingphasen und Quellen, die externe Daten nutzen, sollten nicht kombiniert werden."
 
 msgid "Editor.DragDropTableLoad.Info"
 msgstr "Tabellen können in Kundenquellen und in Eingabe-Elementen verwendet werden."

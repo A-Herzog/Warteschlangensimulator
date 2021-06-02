@@ -50,6 +50,7 @@ import simulator.runmodel.RunModel;
 import simulator.simparser.symbols.CalcSymbolClientUserData;
 import tools.SetupData;
 import ui.AnimationPanel;
+import ui.EditorPanel;
 import ui.modeleditor.coreelements.ModelElement;
 import ui.modeleditor.coreelements.ModelElementBox;
 import ui.modeleditor.coreelements.ModelElementPosition;
@@ -251,6 +252,14 @@ public final class ModelSurface {
 	 * @see #setAnimatorPanel(AnimationPanel)
 	 */
 	private AnimationPanel animationPanel;
+
+	/**
+	 * Speichert die Referenz auf ein {@link EditorPanel}.
+	 * Diese wird über {@link #getEditorPanel()} extern verwendet.
+	 * @see #getEditorPanel()
+	 * @see #setEditorPanel(EditorPanel)
+	 */
+	private EditorPanel editorPanel;
 
 	/** Liste der vorhandenen Ebenen */
 	private final List<String> layers;
@@ -2006,12 +2015,32 @@ public final class ModelSurface {
 	}
 
 	/**
-	 * Liefert das aktuelle für dieses Element eingestellte <code>AnimationPanel</code>
-	 * @return Aktuelles <code>AnimationPanel</code>
+	 * Liefert das aktuelle für dieses Element eingestellte {@link AnimationPanel}
+	 * @return Aktuelles {@link AnimationPanel}
 	 * @see #setAnimatorPanel(AnimationPanel)
 	 */
 	public AnimationPanel getAnimationPanel() {
 		return animationPanel;
+	}
+
+	/**
+	 * Definiert ein {@link EditorPanel}, welches die Darstellung des aktuellen Surface-Elements
+	 * verwendet wird. Dieser Wert wird nicht von dem Objekt selbst verwendet, sondern kann über die
+	 * {@link #getEditorPanel()}-Methode abgefragt werden.
+	 * @param editorPanel	Editor-Panel für dieses Element
+	 * @see #getEditorPanel()
+	 */
+	public void setEditorPanel(final EditorPanel editorPanel) {
+		this.editorPanel=editorPanel;
+	}
+
+	/**
+	 * Liefert das aktuelle für dieses Element eingestellte {@link EditorPanel}
+	 * @return Aktuelles {@link EditorPanel}
+	 * @see #setEditorPanel(EditorPanel)
+	 */
+	public EditorPanel getEditorPanel() {
+		return editorPanel;
 	}
 
 	/**

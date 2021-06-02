@@ -38,6 +38,7 @@ import java.util.Map;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
+import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListCellRenderer;
@@ -56,9 +57,11 @@ import javax.swing.undo.CannotUndoException;
 import javax.swing.undo.UndoManager;
 
 import language.Language;
+import mathtools.NumberTools;
 import simulator.editmodel.EditModel;
 import systemtools.BaseDialog;
 import systemtools.MsgBox;
+import ui.EditorPanel;
 import ui.expressionbuilder.ExpressionBuilder;
 import ui.expressionbuilder.ExpressionBuilderAutoComplete;
 import ui.help.Help;
@@ -70,6 +73,7 @@ import ui.modeleditor.coreelements.ModelElementPosition;
 import ui.modeleditor.elements.ComplexLine;
 import ui.modeleditor.elements.FontCache;
 import ui.quickaccess.JPlaceholderTextField;
+import ui.tools.FlatLaFHelper;
 
 /**
  * Basisklasse zur Erstellung von Dialogen zur Bearbeitung der Eigenschaften eines <code>ModellElement</code>-Objekts
@@ -1172,5 +1176,49 @@ public abstract class ModelElementBaseDialog extends BaseDialog {
 		final Image image=imageSource.get(model.clientData.getIcon(clientTypeName),model.animationImages,16);
 		button.setIcon(new ImageIcon(image));
 		button.setPreferredSize(new Dimension(26,26));
+	}
+
+	/**
+	 * Liefert ein Hinweis-Panel, dass Einschwingphasen und Quellen mit
+	 * externen Daten nicht kombiniert werden sollten und bietet die
+	 * Möglichkeit an, die Einschwingphase auszuschalten.<br>
+	 * (Sollte daher nur in die Dialoge von Quellen mit externen Daten eingefügt werden.)
+	 * @return	Panel mit Hinweis oder <code>null</code>, wenn keine Einschwingphase vorgesehen ist
+	 */
+	public JPanel getWarmUpInfoPanel() {
+		final EditModel model=element.getModel();
+		if (model.warmUpTime==0) return null;
+
+		ModelSurface surface=element.getSurface();
+		if (surface.getParentSurface()!=null) surface=surface.getParentSurface();
+		final EditorPanel editorPanel=surface.getEditorPanel();
+		if (editorPanel==null) return null;
+
+		final JPanel result=new JPanel(new BorderLayout());
+		result.setBorder(BorderFactory.createLineBorder(Color.RED));
+		if (FlatLaFHelper.isDark()) {
+			result.setBackground(new Color(128,32,32));
+		} else {
+			result.setBackground(new Color(255,230,230));
+		}
+
+		final JPanel infoPanel=new JPanel(new FlowLayout(FlowLayout.LEFT));
+		infoPanel.setOpaque(false);
+		result.add(infoPanel,BorderLayout.CENTER);
+		infoPanel.add(new JLabel(String.format("<html><body>"+Language.tr("Editor.DialogBase.WarmUpExternalSourceWarning.Info")+"</body></html>",NumberTools.formatLong(Math.round(model.warmUpTime*model.clientCount)))));
+
+		final JPanel buttonPanel=new JPanel(new FlowLayout(FlowLayout.LEFT));
+		buttonPanel.setOpaque(false);
+		result.add(buttonPanel,BorderLayout.EAST);
+		final JButton button=new JButton(Language.tr("Editor.DialogBase.WarmUpExternalSourceWarning.Button"));
+		buttonPanel.add(button);
+		button.addActionListener(e->{
+			editorPanel.setWarmUpTime(0.0);
+			result.setVisible(false);
+		});
+
+		return result;
+
+
 	}
 }

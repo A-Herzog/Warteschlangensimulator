@@ -1721,7 +1721,8 @@ public final class EditorPanel extends EditorPanelBase {
 		if (surfacePanel!=null) {
 			surfacePanel.setColors(model.surfaceColors); /* Reihenfolge ist wichtig. setSurface würde bedingt durch fireNotify Farbe von Modell aus surfacePanel überschreiben, daher erst Farbe aus Modell in surfacePanel übertragen. */
 			surfacePanel.setBackgroundImage((isMainSurface || model.surfaceBackgroundImageInSubModels)?model.surfaceBackgroundImage:null,model.surfaceBackgroundImageScale,model.surfaceBackgroundImageMode);
-			surfacePanel.setSurface(model,model.surface.clone(false,model.resources.clone(),model.schedules.clone(),model.surface.getParentSurface(),model),model.clientData,model.sequences);			
+			surfacePanel.setSurface(model,model.surface.clone(false,model.resources.clone(),model.schedules.clone(),model.surface.getParentSurface(),model),model.clientData,model.sequences);
+			surfacePanel.getSurface().setEditorPanel(this);
 		}
 		if (model.surface.getElementCount()>0) setupInfoLabels(true);
 	}
@@ -2692,4 +2693,22 @@ public final class EditorPanel extends EditorPanelBase {
 	private void fireBuildParameterSeries(final ParameterCompareTemplatesDialog.TemplateRecord template) {
 		buildParameterSeriesListeners.stream().forEach(listener->listener.accept(template));
 	}
+
+	/**
+	 * Liefert die Länge der Einschwingphase.
+	 * @return	Länge der Einschwingphase
+	 */
+	public double getWarmUpTime() {
+		return warmUpTime;
+	}
+
+	/**
+	 * Stellt die Länge der Einschwingphase ein.
+	 * @param warmUpTime	Länge der Einschwingphase
+	 */
+	public void setWarmUpTime(double warmUpTime) {
+		this.warmUpTime=warmUpTime;
+	}
+
+
 }

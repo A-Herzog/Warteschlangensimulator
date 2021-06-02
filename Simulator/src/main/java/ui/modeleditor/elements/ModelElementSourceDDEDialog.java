@@ -104,6 +104,11 @@ public class ModelElementSourceDDEDialog extends ModelElementBaseDialog {
 		content.add(top,BorderLayout.NORTH);
 		top.setLayout(new BoxLayout(top,BoxLayout.PAGE_AXIS));
 
+		/* Hinweis zu Einschwingphase */
+
+		final JPanel warmUpAdvice=getWarmUpInfoPanel();
+		if (warmUpAdvice!=null) top.add(warmUpAdvice);
+
 		top.add(editDDE=new DDEEditPanel(this,source,readOnly,helpRunnable));
 
 		/* Center: Kundentypnamen */

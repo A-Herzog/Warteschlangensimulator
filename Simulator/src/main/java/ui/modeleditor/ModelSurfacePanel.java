@@ -473,6 +473,8 @@ public final class ModelSurfacePanel extends JPanel {
 	private void setSurfaceNoUndoCheck(final EditModel model, final ModelSurface surface) {
 		if (surface==this.surface) return;
 
+		final EditorPanel editorPanel=(this.surface==null)?null:this.surface.getEditorPanel();
+
 		if (this.surface!=null) {
 			this.surface.removeRedrawListener(requestRedrawListener);
 			this.surface.removeRequestCopyListener(requestCopyListener);
@@ -486,6 +488,7 @@ public final class ModelSurfacePanel extends JPanel {
 			this.surface.addRequestCopyListener(requestCopyListener);
 			this.surface.addRequestCutListener(requestCutListener);
 			model.surface=surface;
+			this.surface.setEditorPanel(editorPanel);
 		}
 		SwingUtilities.invokeLater(()->{
 			repaint();
@@ -506,7 +509,6 @@ public final class ModelSurfacePanel extends JPanel {
 		if (clientData!=null) this.clientData=clientData;
 		if (sequences!=null) this.sequences=sequences;
 		checkIfModelChanged(false);
-
 	}
 
 	/**
