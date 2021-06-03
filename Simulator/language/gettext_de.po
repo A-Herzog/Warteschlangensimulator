@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-06-02 00:20+0200\n"
+"POT-Creation-Date: 2021-06-03 00:12+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -6297,8 +6297,41 @@ msgstr "Es wurde kein zu berechnender Ausdruck angegeben."
 msgid "ExpressionCalculator.Results.NoResult"
 msgstr "Der Ausdruck kann nicht berechnet werden."
 
+msgid "ExpressionCalculator.Tab.Clients"
+msgstr "Kunden"
+
+msgid "ExpressionCalculator.Tab.Clients.AverageWaitingTime"
+msgstr "Mittlere Wartezeit der Kunden"
+
+msgid "ExpressionCalculator.Tab.Clients.CurrentNumberInSystem"
+msgstr "Aktuelle Anzahl an Kunden im System"
+
+msgid "ExpressionCalculator.Tab.Clients.CurrentNumberInSystemWaiting"
+msgstr "Aktuelle Anzahl an wartenden Kunden im System"
+
+msgid "ExpressionCalculator.Tab.Clients.Info.Plural"
+msgstr "Es befinden sich %s Kunden im System."
+
+msgid "ExpressionCalculator.Tab.Clients.Info.Singular"
+msgstr "Es befindet sich %s Kunde im System."
+
+msgid "ExpressionCalculator.Tab.Clients.ProcessWaitingTime"
+msgstr "Mittlere Bedienzeit der Kunden"
+
+msgid "ExpressionCalculator.Tab.Clients.ResidenceWaitingTime"
+msgstr "Mittlere Verweilzeit der Kunden"
+
+msgid "ExpressionCalculator.Tab.Clients.SystemInWarmUpPhase"
+msgstr "System in Einschwingphase"
+
+msgid "ExpressionCalculator.Tab.Clients.TransferWaitingTime"
+msgstr "Mittlere Transferzeit der Kunden"
+
 msgid "ExpressionCalculator.Tab.Expression"
 msgstr "Ausdruck berechnen"
+
+msgid "ExpressionCalculator.Tab.GeneralData"
+msgstr "Allgemeine Daten"
 
 msgid "ExpressionCalculator.Tab.Java"
 msgstr "Java-Code ausführen"

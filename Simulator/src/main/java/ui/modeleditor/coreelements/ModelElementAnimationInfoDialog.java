@@ -667,7 +667,7 @@ public class ModelElementAnimationInfoDialog extends BaseDialog {
 	 * @see ModelElementAnimationInfoDialog#listWaiting
 	 * @see ModelElementAnimationInfoDialog#listAll
 	 */
-	private static class JClientInfoRender implements ListCellRenderer<ClientInfo> {
+	public static class JClientInfoRender implements ListCellRenderer<ClientInfo> {
 		/** Objekt welches die Icons für die Animation vorhält */
 		private final AnimationImageSource images;
 		/** Handelt es sich um wartende Kunden? */

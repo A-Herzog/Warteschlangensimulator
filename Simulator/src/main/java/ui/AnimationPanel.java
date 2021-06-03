@@ -47,6 +47,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.Semaphore;
 import java.util.function.Consumer;
+import java.util.stream.Collectors;
 
 import javax.swing.AbstractAction;
 import javax.swing.ActionMap;
@@ -114,6 +115,7 @@ import ui.modeleditor.ModelSurfaceAnimatorBase;
 import ui.modeleditor.ModelSurfacePanel;
 import ui.modeleditor.SavedViews;
 import ui.modeleditor.coreelements.ModelElement;
+import ui.modeleditor.coreelements.ModelElementAnimationInfoDialog.ClientInfo;
 import ui.modeleditor.elements.ElementWithAnimationDisplay;
 import ui.modeleditor.elements.ModelElementAnalogValue;
 import ui.modeleditor.elements.ModelElementAnimationConnect;
@@ -1994,14 +1996,24 @@ public class AnimationPanel extends JPanel implements RunModelAnimationViewer {
 		}
 		variables.sort(String::compareTo);
 
+		final EditModel editModel=simulator.getEditModel();
+
 		final ExpressionCalculatorDialog dialog=new ExpressionCalculatorDialog(
 				this,
-				simulator.getEditModel(),
+				editModel,
+				simData.runModel,
 				variables.toArray(new String[0]),
 				name->simData.runData.variableValues[variableIndices.get(name)],
 				(name,value)->{simData.runData.variableValues[variableIndices.get(name)]=value; simData.runData.updateVariableValueForStatistics(simData,variableIndices.get(name));},
 				simData.runData.getMapGlobal(),
 				s->calculateExpression(s),
+				()->simData.runData.clients.requestClientsInUseList().stream().map(client->new ClientInfo(editModel.animationImages,simData.runModel,client)).collect(Collectors.toList()),
+				nr->{
+					final List<RunDataClient> clientsList=simData.runData.clients.requestClientsInUseList();
+					final int size=clientsList.size();
+					for (int i=0;i<size;i++) if (clientsList.get(i).clientNumber==nr) return clientsList.get(i);
+					return null;
+				},
 				s->runJavaScript(s),
 				s->runJava(s),
 				lastCaluclationTab,

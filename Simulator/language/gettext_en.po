@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-06-02 00:20+0200\n"
+"POT-Creation-Date: 2021-06-03 00:12+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -6311,8 +6311,41 @@ msgstr "No expression to be evaluated has be entered."
 msgid "ExpressionCalculator.Results.NoResult"
 msgstr "The expression could not be evaluated."
 
+msgid "ExpressionCalculator.Tab.Clients"
+msgstr "Clients"
+
+msgid "ExpressionCalculator.Tab.Clients.AverageWaitingTime"
+msgstr "Average waiting time of the clients"
+
+msgid "ExpressionCalculator.Tab.Clients.CurrentNumberInSystem"
+msgstr "Current number in system"
+
+msgid "ExpressionCalculator.Tab.Clients.CurrentNumberInSystemWaiting"
+msgstr "Current number in system (waiting)"
+
+msgid "ExpressionCalculator.Tab.Clients.Info.Plural"
+msgstr "%s clients are in the system."
+
+msgid "ExpressionCalculator.Tab.Clients.Info.Singular"
+msgstr "%s client is in the system."
+
+msgid "ExpressionCalculator.Tab.Clients.ProcessWaitingTime"
+msgstr "Average process time of the clients"
+
+msgid "ExpressionCalculator.Tab.Clients.ResidenceWaitingTime"
+msgstr "Average residence time of the clients"
+
+msgid "ExpressionCalculator.Tab.Clients.SystemInWarmUpPhase"
+msgstr "System in warm-up phase"
+
+msgid "ExpressionCalculator.Tab.Clients.TransferWaitingTime"
+msgstr "Average transfer time of the clients"
+
 msgid "ExpressionCalculator.Tab.Expression"
 msgstr "Evaluate expression"
+
+msgid "ExpressionCalculator.Tab.GeneralData"
+msgstr "General data"
 
 msgid "ExpressionCalculator.Tab.Java"
 msgstr "Run Java code"

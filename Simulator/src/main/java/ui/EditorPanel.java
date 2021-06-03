@@ -2709,6 +2709,4 @@ public final class EditorPanel extends EditorPanelBase {
 	public void setWarmUpTime(double warmUpTime) {
 		this.warmUpTime=warmUpTime;
 	}
-
-
 }
