@@ -96,33 +96,36 @@ public class InputContextFix extends InputContext {
 
 	@Override
 	public boolean selectInputMethod(Locale locale) {
+		if (originalInputContext==null) return false;
 		return originalInputContext.selectInputMethod(locale);
 	}
 
 	@Override
 	public Locale getLocale() {
+		if (originalInputContext==null) return Locale.getDefault();
 		return originalInputContext.getLocale();
 	}
 
 	@Override
 	public void setCharacterSubsets(Subset[] subsets) {
-		originalInputContext.setCharacterSubsets(subsets);
+		if (originalInputContext!=null) originalInputContext.setCharacterSubsets(subsets);
 	}
 
 	@Override
 	public void setCompositionEnabled(boolean enable) {
-		originalInputContext.setCompositionEnabled(enable);
+		if (originalInputContext!=null) originalInputContext.setCompositionEnabled(enable);
 	}
 
 	@Override
 	@Transient
 	public boolean isCompositionEnabled() {
+		if (originalInputContext==null) return false;
 		return originalInputContext.isCompositionEnabled();
 	}
 
 	@Override
 	public void reconvert() {
-		originalInputContext.reconvert();
+		if (originalInputContext!=null) originalInputContext.reconvert();
 	}
 
 	@Override
@@ -139,26 +142,27 @@ public class InputContextFix extends InputContext {
 			}
 		}
 
-		originalInputContext.dispatchEvent(event);
+		if (originalInputContext!=null) originalInputContext.dispatchEvent(event);
 	}
 
 	@Override
 	public void removeNotify(Component client) {
-		originalInputContext.removeNotify(client);
+		if (originalInputContext!=null) originalInputContext.removeNotify(client);
 	}
 
 	@Override
 	public void endComposition() {
-		originalInputContext.endComposition();
+		if (originalInputContext!=null) originalInputContext.endComposition();
 	}
 
 	@Override
 	public void dispose() {
-		originalInputContext.dispose();
+		if (originalInputContext!=null) originalInputContext.dispose();
 	}
 
 	@Override
 	public Object getInputMethodControlObject() {
+		if (originalInputContext==null) return null;
 		return originalInputContext.getInputMethodControlObject();
 	}
 }
