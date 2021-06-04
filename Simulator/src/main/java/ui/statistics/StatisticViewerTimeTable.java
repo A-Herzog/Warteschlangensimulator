@@ -96,6 +96,8 @@ public class StatisticViewerTimeTable extends StatisticViewerTable {
 
 		/** Warte- und Bedienzeiten der Kunden (Übersichtstabelle) */
 		MODE_OVERVIEW_CLIENTS_WAITINGPROCESSING,
+		/** Vergleich der Flussgrade zwischen den Kundentypen */
+		MODE_FLOW_FACTOR_CLIENTS,
 		/** Verteilung der Wartezeiten der Kunden */
 		MODE_DISTRIBUTION_CLIENTS_WAITING,
 		/** Verteilung der Transportzeiten der Kunden */
@@ -106,8 +108,12 @@ public class StatisticViewerTimeTable extends StatisticViewerTable {
 		MODE_DISTRIBUTION_CLIENTS_RESIDENCE,
 		/** Warte- und Bedienzeiten an den Stationen (Übersichtstabelle) */
 		MODE_OVERVIEW_STATIONSMODE_OVERVIEW_CLIENTS,
+		/** Vergleich der Flussgrade zwischen den Stationen */
+		MODE_FLOW_FACTOR_STATION,
 		/** Warte- und Bedienzeiten an den Stationen nach Kundentypen ausdifferenziert (Übersichtstabelle) */
 		MODE_OVERVIEW_STATIONSCLIENTMODE_OVERVIEW_CLIENTS,
+		/** Vergleich der Flussgrade zwischen den Stationen (zusätzlich ausdifferenziert nach Kundentypen) */
+		MODE_FLOW_FACTOR_STATION_CLIENT,
 		/** Verteilung der Wartezeiten an den Stationen */
 		MODE_DISTRIBUTION_STATIONS_WAITING,
 		/** Verteilung der Transportzeiten an den Stationen */
@@ -419,6 +425,32 @@ public class StatisticViewerTimeTable extends StatisticViewerTable {
 		} else {
 			addDescription("TableOverviewOther");
 		}
+	}
+
+	/**
+	 * Erstellt eine Tabelle mit Flussgraden (=Verweilzeit/Bedienzeit)
+	 * @param indicatorProcessing	Bedienzeiten
+	 * @param indicatorResidence	Verweilzeiten
+	 * @param label	Beschriftung der Namens-Spalte
+	 */
+	private void buildFlowFactorTable(final StatisticsMultiPerformanceIndicator indicatorProcessing, final StatisticsMultiPerformanceIndicator indicatorResidence, final String label) {
+		final Table table=new Table();
+		final String[] types=indicatorProcessing.getNames();
+
+		setData(table,columnNames);
+
+		for (String type : types) {
+			final StatisticsDataPerformanceIndicator processing=(StatisticsDataPerformanceIndicator)indicatorProcessing.get(type);
+			final StatisticsDataPerformanceIndicator residence=(StatisticsDataPerformanceIndicator)indicatorResidence.get(type);
+			if (processing.getMean()==0) continue;
+			final double flowFactor=residence.getMean()/processing.getMean();
+			table.addLine(new String[] {type,StatisticTools.formatNumber(flowFactor)});
+		}
+
+		setData(table,new String[] {label, Language.tr("Statistics.FlowFactor")});
+
+		/* Infotext  */
+		addDescription("TableFlowFactor");
 	}
 
 	/**
@@ -962,12 +994,15 @@ public class StatisticViewerTimeTable extends StatisticViewerTable {
 		case MODE_DISTRIBUTION_STATIONS_INTERLEAVE: buildTimesDistributionTable(statistics.stationsInterleavingTime,Language.tr("Statistics.DistanceInSeconds")); break;
 		case MODE_DISTRIBUTION_STATIONS_INTERLEAVE_CLIENTS: buildTimesDistributionTable(statistics.stationsInterleavingTimeByClientType,Language.tr("Statistics.DistanceInSeconds")); break;
 		case MODE_OVERVIEW_CLIENTS_WAITINGPROCESSING: buildTimesOverviewTable(statistics.clientsWaitingTimes,statistics.clientsTransferTimes,statistics.clientsProcessingTimes,statistics.clientsResidenceTimes,Language.tr("Statistics.WaitingTime"),Language.tr("Statistics.TransferTime"),Language.tr("Statistics.ProcessTime"),Language.tr("Statistics.ResidenceTime"),Language.tr("Statistics.ClientType"),true,false); break;
+		case MODE_FLOW_FACTOR_CLIENTS: buildFlowFactorTable(statistics.clientsProcessingTimes,statistics.clientsResidenceTimes,Language.tr("Statistics.ClientType")); break;
 		case MODE_DISTRIBUTION_CLIENTS_WAITING: buildTimesDistributionTable(statistics.clientsWaitingTimes,Language.tr("Statistics.Seconds")); break;
 		case MODE_DISTRIBUTION_CLIENTS_TRANSFER: buildTimesDistributionTable(statistics.clientsTransferTimes,Language.tr("Statistics.Seconds")); break;
 		case MODE_DISTRIBUTION_CLIENTS_PROCESSING: buildTimesDistributionTable(statistics.clientsProcessingTimes,Language.tr("Statistics.Seconds")); break;
 		case MODE_DISTRIBUTION_CLIENTS_RESIDENCE: buildTimesDistributionTable(statistics.clientsResidenceTimes,Language.tr("Statistics.Seconds")); break;
 		case MODE_OVERVIEW_STATIONSMODE_OVERVIEW_CLIENTS: buildTimesOverviewTable(statistics.stationsWaitingTimes,statistics.stationsTransferTimes,statistics.stationsProcessingTimes,statistics.stationsResidenceTimes,Language.tr("Statistics.WaitingTime"),Language.tr("Statistics.TransferTime"),Language.tr("Statistics.ProcessTime"),Language.tr("Statistics.ResidenceTime"),Language.tr("Statistics.Station"),true,false); break;
+		case MODE_FLOW_FACTOR_STATION: buildFlowFactorTable(statistics.stationsProcessingTimes,statistics.stationsResidenceTimes,Language.tr("Statistics.Station")); break;
 		case MODE_OVERVIEW_STATIONSCLIENTMODE_OVERVIEW_CLIENTS: buildTimesOverviewTable(statistics.stationsWaitingTimesByClientType,statistics.stationsTransferTimesByClientType,statistics.stationsProcessingTimesByClientType,statistics.stationsResidenceTimesByClientType,Language.tr("Statistics.WaitingTime"),Language.tr("Statistics.TransferTime"),Language.tr("Statistics.ProcessTime"),Language.tr("Statistics.ResidenceTime"),Language.tr("Statistics.StationClient"),true,false); break;
+		case MODE_FLOW_FACTOR_STATION_CLIENT: buildFlowFactorTable(statistics.stationsProcessingTimesByClientType,statistics.stationsResidenceTimesByClientType,Language.tr("Statistics.StationClient")); break;
 		case MODE_DISTRIBUTION_STATIONS_WAITING: buildTimesDistributionTable(statistics.stationsWaitingTimes,Language.tr("Statistics.Seconds")); break;
 		case MODE_DISTRIBUTION_STATIONS_TRANSFER: buildTimesDistributionTable(statistics.stationsTransferTimes,Language.tr("Statistics.Seconds")); break;
 		case MODE_DISTRIBUTION_STATIONS_PROCESSING: buildTimesDistributionTable(statistics.stationsProcessingTimes,Language.tr("Statistics.Seconds")); break;

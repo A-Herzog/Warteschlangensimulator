@@ -1147,6 +1147,12 @@ public class StatisticsPanel extends StatisticsBasePanel {
 
 			if (testMultiClientTypes(statistics)) {
 
+				if (testMultiTypesPositive(statistics,statistic->statistic.clientsProcessingTimes)) {
+					viewer=new ArrayList<>();
+					for(Statistics statistic : statistics) viewer.add(new StatisticViewerTimeTable(statistic,StatisticViewerTimeTable.Mode.MODE_FLOW_FACTOR_CLIENTS));
+					group.addChild(new StatisticNode(Language.tr("Statistics.ClientsFlowFactor"),viewer));
+				}
+
 				if (testMultiTypesPositive(statistics,statistic->statistic.clientsWaitingTimes)) {
 					viewer=new ArrayList<>();
 					for(Statistics statistic : statistics) viewer.add(new StatisticViewerTimeBarChart(statistic,StatisticViewerTimeBarChart.Mode.MODE_WAITING_CLIENTS));
@@ -1277,6 +1283,12 @@ public class StatisticsPanel extends StatisticsBasePanel {
 
 		if (testMultiStations(statistics)) {
 
+			if (testMultiTypesPositive(statistics,statistic->statistic.stationsProcessingTimes)) {
+				viewer=new ArrayList<>();
+				for(Statistics statistic : statistics) viewer.add(new StatisticViewerTimeTable(statistic,StatisticViewerTimeTable.Mode.MODE_FLOW_FACTOR_STATION));
+				group.addChild(new StatisticNode(Language.tr("Statistics.StationsFlowFactor"),viewer));
+			}
+
 			if (testMultiTypesPositive(statistics,statistic->statistic.stationsWaitingTimes)) {
 				viewer=new ArrayList<>();
 				for(Statistics statistic : statistics) viewer.add(new StatisticViewerTimeBarChart(statistic,StatisticViewerTimeBarChart.Mode.MODE_WAITING_STATION));
@@ -1319,6 +1331,11 @@ public class StatisticsPanel extends StatisticsBasePanel {
 			for(Statistics statistic : statistics) viewer.add(new StatisticViewerTimeTable(statistic,StatisticViewerTimeTable.Mode.MODE_OVERVIEW_STATIONSCLIENTMODE_OVERVIEW_CLIENTS));
 			group.addChild(new StatisticNode(Language.tr("Statistics.WaitingTransferProcessTimesAtStationsClients.Short"),viewer));
 
+			if (testMultiTypesPositive(statistics,statistic->statistic.stationsProcessingTimesByClientType)) {
+				viewer=new ArrayList<>();
+				for(Statistics statistic : statistics) viewer.add(new StatisticViewerTimeTable(statistic,StatisticViewerTimeTable.Mode.MODE_FLOW_FACTOR_STATION_CLIENT));
+				group.addChild(new StatisticNode(Language.tr("Statistics.StationsClientsFlowFactor.Short"),viewer));
+			}
 
 			if (testMultiTypesPositive(statistics,statistic->statistic.stationsWaitingTimesByClientType)) {
 				viewer=new ArrayList<>();
