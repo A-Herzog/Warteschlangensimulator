@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-06-03 00:12+0200\n"
+"POT-Creation-Date: 2021-06-04 00:05+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -7412,6 +7412,9 @@ msgstr "Weitere Dialoge"
 
 msgid "HintsDialog.TreeNodeStations"
 msgstr "Elemente"
+
+msgid "InfoDialog.BuildDate"
+msgstr "Erstellungsdatum"
 
 msgid "InfoDialog.Is64Bit"
 msgstr "64-bittige Java-Umgebung"

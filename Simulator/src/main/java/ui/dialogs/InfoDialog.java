@@ -27,11 +27,17 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.Serializable;
 import java.lang.management.ManagementFactory;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Enumeration;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.FutureTask;
@@ -39,6 +45,7 @@ import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
+import java.util.jar.Manifest;
 
 import javax.swing.AbstractAction;
 import javax.swing.BorderFactory;
@@ -110,6 +117,13 @@ public class InfoDialog extends JDialog {
 	 */
 	public static List<String> getSystemInfo() {
 		final List<String> list=new ArrayList<>();
+
+		/* Erstellungsdatum */
+		final Date buildDate=getBuildDate();
+		if (buildDate!=null) {
+			DateFormat formatter=DateFormat.getDateInstance();
+			list.add(Language.tr("InfoDialog.BuildDate")+": "+formatter.format(buildDate));
+		}
 
 		/* Java-Version */
 		list.add(Language.tr("InfoDialog.JavaVersion")+": "+System.getProperty("java.version")+" ("+System.getProperty("java.vm.name")+")");
@@ -267,6 +281,37 @@ public class InfoDialog extends JDialog {
 		inputMap.put(stroke,"ESCAPE");
 		rootPane.getActionMap().put("ESCAPE",new CloseListener());
 		return rootPane;
+	}
+
+	/**
+	 * Liefert - wenn vorhanden - das Build-Datum aus der Manifest-Datei (aus der jar-Datei).
+	 * @return	Erstellungsdatum, wenn der Simulator aus einer jar heraus gestartet wurde, sonst <code>null</code>
+	 */
+	private static Date getBuildDate() {
+		final Enumeration<URL> resources;
+		try {
+			resources=InfoDialog.class.getClassLoader().getResources("META-INF/MANIFEST.MF");
+		} catch (IOException e1) {
+			return null;
+		}
+		while (resources.hasMoreElements()) {
+			try {
+				final URL url=resources.nextElement();
+				if (!url.toString().endsWith("/Simulator.jar!/META-INF/MANIFEST.MF")) continue;
+				try (InputStream stream=url.openStream()) {
+					final Manifest manifest=new Manifest(stream);
+					final String dateTimeString=manifest.getMainAttributes().getValue("Build-Time");
+					if (dateTimeString==null) return null;
+
+					final SimpleDateFormat dateTime=new SimpleDateFormat("yyyy-MM-dd HH:mm");
+					return dateTime.parse(dateTimeString);
+				}
+			} catch (IOException | ParseException e) {
+				return null;
+			}
+		}
+
+		return null;
 	}
 
 	/**

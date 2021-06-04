@@ -8,7 +8,8 @@
   <properties>
   	<maven.compiler.source>1.8</maven.compiler.source>
     <maven.compiler.target>1.8</maven.compiler.target>
-    <project.build.sourceEncoding>WINDOWS-1252</project.build.sourceEncoding>
+    <project.build.sourceEncoding>WINDOWS-1252</project.build.sourceEncoding>    
+    <maven.build.timestamp.format>yyyy-MM-dd HH:mm</maven.build.timestamp.format>
   </properties>
   
   <dependencies>
@@ -219,11 +220,14 @@
           <archive>
             <addMavenDescriptor>false</addMavenDescriptor>
             <manifest>
-              <addClasspath>true</addClasspath>
+				<addClasspath>true</addClasspath>
                 <classpathLayoutType>custom</classpathLayoutType>
                 <customClasspathLayout>libs/$${artifact.artifactId}.$${artifact.extension}</customClasspathLayout>
-              <mainClass>start.Main</mainClass>
+              	<mainClass>start.Main</mainClass>
             </manifest>
+            <manifestEntries>
+            		<Build-Time>${maven.build.timestamp}</Build-Time>
+            	</manifestEntries>
           </archive>
         </configuration>
       </plugin>
