@@ -15,16 +15,22 @@
  */
 package systemtools.help;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.nio.charset.StandardCharsets;
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.nio.file.FileSystem;
+import java.nio.file.FileSystems;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
+import java.util.stream.Stream;
 
 /**
  * Scanner zur Indizierung der Hilfe-Dateien.
@@ -58,29 +64,27 @@ class IndexScanner {
 	}
 
 	/**
-	 * Lädt eine Ressource als Zeichenkette.
-	 * @param cls	Ausgangspunkt für die relativen Namen der Ressourcen
-	 * @param resource	Pfad zur Ressource (relativ zu der angegebenen Klasse)
-	 * @return	Liefert im Erfolgsfall den Inhalt als Zeichenkette, sonst <code>null</code>
+	 * Erfasst alle Dateien in einem Verzeichnis.
+	 * @param dataPath	Zu erfassendes Verzeichnis
+	 * @param index	Index-Objekt im dem die Daten erfasst werden sollen
 	 */
-	private static String loadResource(final Class<?> cls, final String resource) {
-		final StringBuilder text=new StringBuilder();
-		try (InputStream stream=cls.getResourceAsStream(resource)) {
-			try (BufferedReader reader=new BufferedReader(new InputStreamReader(stream,StandardCharsets.UTF_8))) {
-				String line;
-				while ((line=reader.readLine())!=null) {
-					if (text.length()>0) text.append(' ');
-					text.append(line);
-				}
+	private void scanPath(final Path dataPath, final Index index) {
+		try (Stream<Path> walk=Files.walk(dataPath,1)) {
+			final Iterator<Path> iterator=walk.iterator();
+			while (iterator.hasNext()) {
+				final Path file=iterator.next();
+				final String name=file.getFileName().toString();
+				if (!isScanFile(name)) continue;
+				final String text=String.join("\n",Files.lines(file).toArray(String[]::new));
+				if (text!=null) index.scan(name,text);
 			}
-		} catch (Exception e) {
-			return null;
+		} catch (IOException e) {
+			return;
 		}
-		return text.toString();
 	}
 
 	/**
-	 * Erfasst alle Dateien in einem Verzeichnis
+	 * Erfasst alle Dateien in einem Verzeichnis.
 	 * @param language	Sprachbezeichner über den später auf die Daten zugegriffen werden kann
 	 * @param folder	Zu erfassendes Verzeichnis
 	 * @param cls	Ausgangspunkt für die relativen Namen der Ressourcen
@@ -88,22 +92,22 @@ class IndexScanner {
 	public void scan(final String language, final String folder, final Class<?> cls) {
 		if (folder==null || folder.trim().isEmpty() || language==null || language.trim().isEmpty()) return;
 
-		final String path=folder.endsWith(""+File.separatorChar)?folder:(folder+File.separatorChar);
+		final Index index=new Index(folder+"/");
 
-		final Index index=new Index(path);
-
-		/* Dateien laden */
-		try (InputStream stream=cls.getResourceAsStream(path)) {
-			try (BufferedReader reader=new BufferedReader(new InputStreamReader(stream))) {
-				String resource;
-				while ((resource=reader.readLine())!=null) {
-					if (!isScanFile(resource)) continue;
-					final String text=loadResource(cls, path+resource);
-					if (text!=null) index.scan(resource,text);
-				}
+		/* Pfad ermitteln */
+		final URI uri;
+		try {uri=cls.getResource(folder+"/").toURI();} catch (URISyntaxException e) {return;}
+		if (uri.getScheme().equals("jar")) {
+			try (FileSystem fileSystem=FileSystems.newFileSystem(uri, Collections.<String, Object>emptyMap())) {
+				final String[] parts=cls.getName().split("\\.");
+				final StringBuilder path=new StringBuilder();
+				for (int i=0;i<parts.length-1;i++) {path.append(parts[i]); path.append("/");}
+				scanPath(fileSystem.getPath("/"+path.toString()+folder+"/"),index);
+			} catch (IOException e) {
+				return;
 			}
-		} catch (Exception e) {
-			return;
+		} else {
+			scanPath(Paths.get(uri),index);
 		}
 
 		/* Bestimmte Tokens löschen */
