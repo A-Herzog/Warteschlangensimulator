@@ -356,7 +356,7 @@ public class ScriptEditorPanel extends JPanel {
 	 */
 	private void languageChanged() {
 		scriptEditMultiLayout.show(scriptEditMulti,""+languageCombo.getSelectedIndex());
-		buttonCheck.setVisible(languageCombo.getSelectedIndex()==1 && DynamicFactory.isWindows() && DynamicFactory.isInMemoryProcessing());
+		buttonCheck.setVisible(languageCombo.getSelectedIndex()==1 && (DynamicFactory.isWindows() || DynamicFactory.isInMemoryProcessing()));
 	}
 
 	/**
