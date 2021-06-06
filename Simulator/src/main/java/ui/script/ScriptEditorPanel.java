@@ -21,20 +21,28 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.InputEvent;
+import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.AbstractAction;
 import javax.swing.Box;
 import javax.swing.Icon;
+import javax.swing.InputMap;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JComponent;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
+import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JPopupMenu;
 import javax.swing.JToolBar;
+import javax.swing.KeyStroke;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
@@ -50,6 +58,7 @@ import scripting.java.DynamicRunner;
 import scripting.js.JSRunDataFilterTools;
 import simulator.editmodel.EditModel;
 import simulator.statistics.Statistics;
+import systemtools.BaseDialog;
 import systemtools.MsgBox;
 import tools.IconListCellRenderer;
 import ui.help.Help;
@@ -187,6 +196,8 @@ public class ScriptEditorPanel extends JPanel {
 	private final JButton buttonLoad;
 	/** "Speichern"-Schaltfläche */
 	private final JButton buttonSave;
+	/** "Suchen"-Schaltfläche */
+	private final JButton buttonSearch;
 	/** "Prüfen"-Schaltfläche */
 	private final JButton buttonCheck;
 	/** "Tools"-Schaltfläche */
@@ -205,12 +216,17 @@ public class ScriptEditorPanel extends JPanel {
 	private final JComboBox<String> languageCombo;
 
 	/**
-	 * Zu letzt eingestelltes oder gespeichertes Skript
+	 * Zuletzt eingestelltes oder gespeichertes Skript
 	 * (zur Prüfung, ob das aktuelle Skript im Editor
 	 * ohne Sicherheitsabfrage verworfen werden darf)
 	 * @see #allowDiscard()
 	 */
 	private String lastScript="";
+
+	/**
+	 * Bisheriges Setup für die Suche
+	 */
+	private ScriptEditorAreaBuilder.SearchSetup lastSearchSetup=null;
 
 	/**
 	 * Konstruktor der Klasse
@@ -272,8 +288,9 @@ public class ScriptEditorPanel extends JPanel {
 		buttonSave=addToolbarButton(toolbar,Language.tr("Surface.ScriptEditor.Save"),Images.SCRIPT_SAVE.getIcon(),Language.tr("Surface.ScriptEditor.Save.Hint"),readOnly);
 		addCustomToolbarButtons(toolbar);
 		toolbar.addSeparator();
-		buttonCheck=addToolbarButton(toolbar,Language.tr("Surface.ScriptEditor.Check"),Images.SIMULATION_CHECK.getIcon(),Language.tr("Surface.ScriptEditor.Check.Hint"),readOnly);
+		buttonSearch=addToolbarButton(toolbar,Language.tr("Surface.ScriptEditor.Search"),Images.GENERAL_FIND.getIcon(),Language.tr("Surface.ScriptEditor.Search.Hint"),false);
 		buttonTools=addToolbarButton(toolbar,Language.tr("Surface.ScriptEditor.Tools"),Images.SCRIPT_TOOLS.getIcon(),Language.tr("Surface.ScriptEditor.Tools.Hint"),readOnly);
+		buttonCheck=addToolbarButton(toolbar,Language.tr("Surface.ScriptEditor.Check"),Images.SIMULATION_CHECK.getIcon(),Language.tr("Surface.ScriptEditor.Check.Hint"),readOnly);
 		toolbar.addSeparator();
 		buttonHelp=addToolbarButton(toolbar,Language.tr("Main.Toolbar.Help"),Images.HELP.getIcon(),Language.tr("Surface.ScriptEditor.Help.Hint"),readOnly);
 
@@ -307,6 +324,31 @@ public class ScriptEditorPanel extends JPanel {
 		languageCombo.addActionListener(e->languageChanged());
 		languageCombo.setEnabled(!readOnly);
 		languageChanged();
+
+		/* Hotkey registrieren */
+		final InputMap inputMap=getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
+		inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_F,InputEvent.CTRL_DOWN_MASK),"CtrlF");
+		inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_F3,0),"F3");
+		getActionMap().put("CtrlF",new AbstractAction() {
+			/**
+			 * Serialisierungs-ID der Klasse
+			 * @see Serializable
+			 */
+			private static final long serialVersionUID=-3416116159118494680L;
+
+			@Override
+			public void actionPerformed(ActionEvent e) {commandSearch();}
+		});
+		getActionMap().put("F3",new AbstractAction() {
+			/**
+			 * Serialisierungs-ID der Klasse
+			 * @see Serializable
+			 */
+			private static final long serialVersionUID=-4245259259848720255L;
+
+			@Override
+			public void actionPerformed(ActionEvent e) {commandSearchAgain();}
+		});
 	}
 
 	/**
@@ -492,10 +534,82 @@ public class ScriptEditorPanel extends JPanel {
 	}
 
 	/**
+	 * Zeigt ein Popup mit Suchfunktionen an.
+	 */
+	private void commandSearchPopup() {
+		final JPopupMenu popup=new JPopupMenu();
+
+		JMenuItem item;
+
+		popup.add(item=new JMenuItem(Language.tr("Surface.ScriptEditor.Search.Search"),Images.GENERAL_FIND.getIcon()));
+		item.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F,InputEvent.CTRL_DOWN_MASK));
+		item.addActionListener(e->commandSearch());
+
+		if (lastSearchSetup!=null) {
+			popup.add(item=new JMenuItem(Language.tr("Surface.ScriptEditor.Search.SearchAgain")));
+			item.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F3,0));
+			item.addActionListener(e->commandSearchAgain());
+		}
+
+		popup.addSeparator();
+
+		popup.add(item=new JMenuItem(Language.tr("Surface.ScriptEditor.Search.RemoveMarkOccurrence"),Images.EDIT_DELETE.getIcon()));
+		item.addActionListener(e->commandSearchRemoveHighlight());
+
+		popup.show(buttonSearch,0,buttonSearch.getHeight());
+	}
+
+	/**
+	 * Befehl: Suchen
+	 */
+	private void commandSearch() {
+		RSyntaxTextArea textArea=null;
+		switch (languageCombo.getSelectedIndex()) {
+		case 0: textArea=scriptEditJavascript; break;
+		case 1: textArea=scriptEditJava; break;
+		}
+		if (textArea==null) return;
+
+		final ScriptEditorPanelSearchDialog dialog=new ScriptEditorPanelSearchDialog(this,lastSearchSetup);
+		if (dialog.getClosedBy()!=BaseDialog.CLOSED_BY_OK) return;
+		lastSearchSetup=dialog.getNewSearchSetup();
+
+		ScriptEditorAreaBuilder.search(textArea,lastSearchSetup);
+	}
+
+	/**
+	 * Befehl: Weitersuchen
+	 */
+	private void commandSearchAgain() {
+		RSyntaxTextArea textArea=null;
+		switch (languageCombo.getSelectedIndex()) {
+		case 0: textArea=scriptEditJavascript; break;
+		case 1: textArea=scriptEditJava; break;
+		}
+		if (textArea==null) return;
+
+		ScriptEditorAreaBuilder.search(textArea,lastSearchSetup);
+	}
+
+	/**
+	 * Befehl: Markierungen der Suchtreffer entfernen
+	 */
+	private void commandSearchRemoveHighlight() {
+		RSyntaxTextArea textArea=null;
+		switch (languageCombo.getSelectedIndex()) {
+		case 0: textArea=scriptEditJavascript; break;
+		case 1: textArea=scriptEditJava; break;
+		}
+		if (textArea==null) return;
+
+		ScriptEditorAreaBuilder.search(textArea,null);
+	}
+
+	/**
 	 * Zeigt ein Popupmenü mit Befehlsvorschlägen an.
 	 * @see #buttonTools
 	 */
-	private void commandPopup() {
+	private void commandToolsPopup() {
 		ScriptPopup.ScriptMode mode=ScriptPopup.ScriptMode.Javascript;
 		switch (languageCombo.getSelectedIndex()) {
 		case 0: mode=ScriptPopup.ScriptMode.Javascript; break;
@@ -518,8 +632,9 @@ public class ScriptEditorPanel extends JPanel {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			if (readOnly) return;
+			final Object source=e.getSource();
 
-			if (e.getSource() instanceof FileDropperData) {
+			if (source instanceof FileDropperData) {
 				final FileDropperData data=(FileDropperData)e.getSource();
 				final File file=data.getFile();
 				if (file.isFile()) {
@@ -529,7 +644,7 @@ public class ScriptEditorPanel extends JPanel {
 				return;
 			}
 
-			if (e.getSource()==buttonNew) {
+			if (source==buttonNew) {
 				if (allowDiscard()) {
 					setCurrentScript(null);
 					scriptEditJavascript.setText("");
@@ -540,19 +655,23 @@ public class ScriptEditorPanel extends JPanel {
 				return;
 			}
 
-			if (e.getSource()==buttonLoad) {
+			if (source==buttonLoad) {
 				if (allowDiscard()) {
 					if (commandLoad(null)) fireKeyAction();
 				}
 				return;
 			}
 
-			if (e.getSource()==buttonSave) {
+			if (source==buttonSave) {
 				if (commandSave()) fireKeyAction();
 				return;
 			}
 
-			if (e.getSource()==buttonCheck) {
+			if (source==buttonSearch) {
+				commandSearchPopup();
+			}
+
+			if (source==buttonCheck) {
 				final DynamicRunner runner=DynamicFactory.getFactory().test(scriptEditJava.getText());
 				if (runner.isOk()) {
 					MsgBox.info(ScriptEditorPanel.this,Language.tr("Surface.ScriptEditor.Check.Success.Title"),Language.tr("Surface.ScriptEditor.Check.Success.Info"));
@@ -562,12 +681,12 @@ public class ScriptEditorPanel extends JPanel {
 				return;
 			}
 
-			if (e.getSource()==buttonTools) {
-				commandPopup();
+			if (source==buttonTools) {
+				commandToolsPopup();
 				return;
 			}
 
-			if (e.getSource()==buttonHelp) {
+			if (source==buttonHelp) {
 				switch (languageCombo.getSelectedIndex()) {
 				case 0:
 					Help.topicModal(ScriptEditorPanel.this,"JS");

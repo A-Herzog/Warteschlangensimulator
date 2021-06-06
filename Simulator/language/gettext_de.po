@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-06-04 00:05+0200\n"
+"POT-Creation-Date: 2021-06-06 01:45+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -26147,6 +26147,39 @@ msgstr "Speichern"
 
 msgid "Surface.ScriptEditor.Save.Hint"
 msgstr "Speichert das Skript in einer Datei."
+
+msgid "Surface.ScriptEditor.Search"
+msgstr "Suchen"
+
+msgid "Surface.ScriptEditor.Search.Forward"
+msgstr "Vorwärts suchen"
+
+msgid "Surface.ScriptEditor.Search.Hint"
+msgstr "Sucht in dem Programmcode nach einer Zeichenkette."
+
+msgid "Surface.ScriptEditor.Search.MatchCase"
+msgstr "Groß- und Kleinschreibung beachten"
+
+msgid "Surface.ScriptEditor.Search.NotHit"
+msgstr "Der Suchbegriff \"%s\" wurde nicht gefunden."
+
+msgid "Surface.ScriptEditor.Search.RegularExpression"
+msgstr "Suchbegriff ist regulärer Ausdruck"
+
+msgid "Surface.ScriptEditor.Search.RemoveMarkOccurrence"
+msgstr "Suchtreffer-Markierungen entfernen"
+
+msgid "Surface.ScriptEditor.Search.Search"
+msgstr "Suchen..."
+
+msgid "Surface.ScriptEditor.Search.SearchAgain"
+msgstr "Weitersuchen"
+
+msgid "Surface.ScriptEditor.Search.SearchString"
+msgstr "Suchbegriff"
+
+msgid "Surface.ScriptEditor.Search.WholeWord"
+msgstr "Nur ganze Wörter"
 
 msgid "Surface.ScriptEditor.Tools"
 msgstr "Befehl"

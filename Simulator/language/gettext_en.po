@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-06-04 00:05+0200\n"
+"POT-Creation-Date: 2021-06-06 01:45+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -26135,6 +26135,39 @@ msgstr "Save"
 
 msgid "Surface.ScriptEditor.Save.Hint"
 msgstr "Saves the script to a file."
+
+msgid "Surface.ScriptEditor.Search"
+msgstr "Search"
+
+msgid "Surface.ScriptEditor.Search.Forward"
+msgstr "Search forward"
+
+msgid "Surface.ScriptEditor.Search.Hint"
+msgstr "Searches for a string in the program code."
+
+msgid "Surface.ScriptEditor.Search.MatchCase"
+msgstr "Case sensitive"
+
+msgid "Surface.ScriptEditor.Search.NotHit"
+msgstr "The search string \"%s\" was not found."
+
+msgid "Surface.ScriptEditor.Search.RegularExpression"
+msgstr "Search string is regular expression"
+
+msgid "Surface.ScriptEditor.Search.RemoveMarkOccurrence"
+msgstr "Remove mark occurrence"
+
+msgid "Surface.ScriptEditor.Search.Search"
+msgstr "Search..."
+
+msgid "Surface.ScriptEditor.Search.SearchAgain"
+msgstr "Search again"
+
+msgid "Surface.ScriptEditor.Search.SearchString"
+msgstr "Search string"
+
+msgid "Surface.ScriptEditor.Search.WholeWord"
+msgstr "Whole words only"
 
 msgid "Surface.ScriptEditor.Tools"
 msgstr "Commands"

@@ -35,10 +35,13 @@ import org.fife.ui.autocomplete.DefaultCompletionProvider;
 import org.fife.ui.rsyntaxtextarea.RSyntaxTextArea;
 import org.fife.ui.rsyntaxtextarea.SyntaxConstants;
 import org.fife.ui.rsyntaxtextarea.Theme;
+import org.fife.ui.rtextarea.SearchContext;
+import org.fife.ui.rtextarea.SearchEngine;
 
 import language.Language;
 import mathtools.distribution.tools.FileDropper;
 import net.dde.DDEConnect;
+import systemtools.MsgBox;
 import tools.SetupData;
 import ui.images.Images;
 import ui.modeleditor.ModelElementBaseDialog;
@@ -1002,5 +1005,72 @@ public class ScriptEditorAreaBuilder {
 		int size=SetupData.getSetup().scriptFontSize;
 		if (size<6 || size>30) size=DEFAULT_FONT_SIZE;
 		return size;
+	}
+
+	/**
+	 * Sucht nach einem Text in einem Textfeld.
+	 * @param textArea	Textfeld
+	 * @param setup	Suchkonfiguration
+	 */
+	public static void search(final RSyntaxTextArea textArea, final SearchSetup setup) {
+		if (setup==null || setup.text==null || setup.text.length()==0) {
+			SearchEngine.find(textArea,new SearchContext());
+			return;
+		}
+
+		final SearchContext context=new SearchContext();
+		context.setSearchFor(setup.text);
+		context.setMatchCase(setup.matchCase);
+		context.setRegularExpression(setup.regex);
+		context.setSearchForward(setup.forward);
+		context.setSearchWrap(true);
+		context.setWholeWord(setup.wholeWord);
+
+		final boolean found=SearchEngine.find(textArea,context).wasFound();
+		if (!found) {
+			MsgBox.error(textArea,Language.tr("Surface.ScriptEditor.Search"),String.format(Language.tr("Surface.ScriptEditor.Search.NotHit"),setup.text));
+		}
+	}
+
+	/**
+	 * Suchkonfiguration
+	 * @see ScriptEditorAreaBuilder#search(RSyntaxTextArea, SearchSetup)
+	 * @see ScriptEditorPanelSearchDialog
+	 */
+	public static class SearchSetup {
+		/** Suchbegriff */
+		public final String text;
+		/** Groß- und Kleinschreibung beachten */
+		public final boolean matchCase;
+		/** Suchbegriff ist regulärer Ausdruck */
+		public final boolean regex;
+		/** Vorwärts suchen */
+		public final boolean forward;
+		/** Nur ganze Wörter */
+		public final boolean wholeWord;
+
+		/**
+		 * Konstruktor der Klasse
+		 * @param text	Suchbegriff
+		 * @param matchCase	Groß- und Kleinschreibung beachten
+		 * @param regex	Suchbegriff ist regulärer Ausdruck
+		 * @param forward	Vorwärts suchen
+		 * @param wholeWord	Nur ganze Wörter
+		 */
+		public SearchSetup(final String text, final boolean matchCase, final boolean regex, final boolean forward, final boolean wholeWord) {
+			this.text=text;
+			this.matchCase=matchCase;
+			this.regex=regex;
+			this.forward=forward;
+			this.wholeWord=wholeWord;
+		}
+
+		/**
+		 * Liefert eine Vorgabe-Suchkonfiguration
+		 * @return	Vorgabe-Suchkonfiguration
+		 */
+		public static SearchSetup getDefaultSetup() {
+			return new SearchSetup("",false,false,true,false);
+		}
 	}
 }
