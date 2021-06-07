@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-06-06 01:45+0200\n"
+"POT-Creation-Date: 2021-06-07 23:58+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -13640,6 +13640,12 @@ msgstr "Signal auslösen"
 
 msgid "ScriptPopup.Simulation.Signal.Hint"
 msgstr "Löst das Signal, dessen Name angegeben wurde, aus."
+
+msgid "ScriptPopup.Simulation.TerminateSimulation"
+msgstr "Simulation beenden"
+
+msgid "ScriptPopup.Simulation.TerminateSimulation.Hint"
+msgstr "Beendet die Simulation sofort."
 
 msgid "ScriptPopup.Simulation.Time"
 msgstr "Simulationszeit"

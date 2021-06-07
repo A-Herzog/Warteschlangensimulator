@@ -342,4 +342,9 @@ public class SystemImpl implements SystemInterface {
 	public Map<String,Object> getMapGlobal() {
 		return mapGlobal;
 	}
+
+	@Override
+	public void terminateSimulation(final String message) {
+		if (message!=null) simData.doEmergencyShutDown(message); else simData.doShutDown();
+	}
 }

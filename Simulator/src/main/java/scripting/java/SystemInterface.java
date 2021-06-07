@@ -171,4 +171,10 @@ public interface SystemInterface {
 	 * @return	Globales Datenobjekt für über alle Stationen hinweg gemeinsam genutzte Skript-Daten
 	 */
 	Map<String,Object> getMapGlobal();
+
+	/**
+	 * Beendet die Simulation sofort.
+	 * @param message	Optionale Nachricht, die als Fehlermeldung ausgegeben wird (kann <code>null</code> sein, dann wird die Simulation ohne Fehler beendet).
+	 */
+	void terminateSimulation(final String message);
 }

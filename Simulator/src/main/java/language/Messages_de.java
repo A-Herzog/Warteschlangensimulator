@@ -11906,6 +11906,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[27477] = "Darstellung";
     t[27482] = "Statistics.XML.StdDev";
     t[27483] = "Standardabweichung";
+    t[27484] = "ScriptPopup.Simulation.TerminateSimulation.Hint";
+    t[27485] = "Beendet die Simulation sofort.";
     t[27486] = "Main.Menu.View.Statistics.HeatMapSetup";
     t[27487] = "Heatmap konfigurieren...";
     t[27490] = "ExpressionBuilder.SimulationCharacteristics.CompositeComparisons.Or.Info";
@@ -12038,14 +12040,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[27831] = "Brief";
     t[27834] = "Git.List.Tab.Server";
     t[27835] = "Server";
-    t[27838] = "ParameterCompare.Toolbar.ShowBaseModel.LoadFromEditorr.TooltipEqual";
-    t[27839] = "Das Basismodell stimmt mit dem Modell im Modell-Editor \u00fcberein.";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_6 (java.lang.String[] t) {
+    t[27838] = "ParameterCompare.Toolbar.ShowBaseModel.LoadFromEditorr.TooltipEqual";
+    t[27839] = "Das Basismodell stimmt mit dem Modell im Modell-Editor \u00fcberein.";
     t[27840] = "Simulation.Log.Station";
     t[27841] = "Station";
     t[27844] = "Surface.Source.XML.Threshold.Direction.Up";
@@ -14044,14 +14046,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[32581] = "Der angegebene Wert \"%s\" f\u00fcr die Batch-Gr\u00f6\u00dfe ist ab Zeichen %d ung\u00fcltig.";
     t[32584] = "Schedule.InUseAlsoByResource.Multiple";
     t[32585] = "Au\u00dferdem wird der Zeitplan durch die folgenden Bedienergruppen verwendet:";
-    t[32586] = "AutoRestore.Dialog.DeleteAllInfoYes";
-    t[32587] = "Alle Modelle l\u00f6schen.";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_7 (java.lang.String[] t) {
+    t[32586] = "AutoRestore.Dialog.DeleteAllInfoYes";
+    t[32587] = "Alle Modelle l\u00f6schen.";
     t[32588] = "Transporters.Group.Edit.Dialog.Distances.Paste.ErrorTableSize";
     t[32589] = "Die Tabelle hat die falsche Gr\u00f6\u00dfe.\nDie Tabelle muss entweder das Format %dx%d oder %dx%d besitzen.";
     t[32598] = "LoadCalculator.Tab.ErlangB.Link.Info";
@@ -16050,14 +16052,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[37099] = "Die Kenngr\u00f6\u00dfen der ersten und der zweiten H\u00e4lfe der Simulation weichen stark von einander ab (%s in Bezug auf die Wartezeit \u00fcber alle Kunden). Die Simulationslaufzeit ist f\u00fcr eine Longrun-Simulation daher wahrscheinlich zu kurz gew\u00e4hlt.";
     t[37102] = "ParameterCompare.Settings.Input.Mode.Resource.Label";
     t[37103] = "Name der Ressource";
-    t[37110] = "ExpressionBuilder.StatisticalFunctions.Median";
-    t[37111] = "Median";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_8 (java.lang.String[] t) {
+    t[37110] = "ExpressionBuilder.StatisticalFunctions.Median";
+    t[37111] = "Median";
     t[37114] = "Surface.XML.EdgePainter.Selected";
     t[37115] = "ModellKantenSelektiert";
     t[37118] = "Animation.Icon.Disk";
@@ -17110,6 +17112,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[39705] = "Automatisch gespeichertes Modell zum Laden ausw\u00e4hlen";
     t[39706] = "Surface.InputDDE.XML.EofMode.Terminate";
     t[39707] = "Beenden";
+    t[39708] = "ScriptPopup.Simulation.TerminateSimulation";
+    t[39709] = "Simulation beenden";
     t[39710] = "Statistics.CostsForResources.Working.All";
     t[39711] = "Kosten f\u00fcr die Arbeitszeit der Ressourcen";
     t[39720] = "SystemInfo.Tools.NextStationTraining.DeleteData.Info";
@@ -18054,16 +18058,16 @@ public class Messages_de extends java.util.ResourceBundle {
     t[41905] = "Die angegebene Priorit\u00e4t zum Anfordern freier Transporter \"%s\" ist ab Zeichen %d fehlerhaft.";
     t[41906] = "Surface.AnalogAssign.Dialog.ID.Name";
     t[41907] = "Station id=%d \"%s\"";
-    t[41908] = "Color.0000CD";
-    t[41909] = "Mittleres Blau";
-    t[41912] = "ParameterCompare.Settings.Load.Error";
-    t[41913] = "Fehler beim Laden der Einstellungen";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_9 (java.lang.String[] t) {
+    t[41908] = "Color.0000CD";
+    t[41909] = "Mittleres Blau";
+    t[41912] = "ParameterCompare.Settings.Load.Error";
+    t[41913] = "Fehler beim Laden der Einstellungen";
     t[41916] = "Statistics.ModelRemarks.LargeRho.Group";
     t[41917] = "Hohe Auslastung der Bedienergruppe \"%s\": rho=%s";
     t[41918] = "Surface.SetJS.Infotext";

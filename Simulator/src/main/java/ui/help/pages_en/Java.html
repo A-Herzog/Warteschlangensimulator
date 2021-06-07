@@ -213,6 +213,10 @@ The following methods are available in this interface:
   Returns a model wide mapping into which values can be written and from which values can be read.
   The values stored here are retained beyond the execution of the current script.
   </li>
+  <li><tt>void terminateSimulation(final String message)</tt><br>
+  Terminates the simulation. If <tt>null</tt> is passed as message, the simulation is terminated normally.
+  In case of a message, the simulation will be terminated with the corresponding error message.
+  </li>
 </ul>
 
 <h3>Accessing parameters of the simulation model</h3>

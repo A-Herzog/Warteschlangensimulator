@@ -279,6 +279,11 @@ The values stored here are retained beyond the execution of the current script.
 Returns a model wide mapping into which values can be written and from which values can be read.
 The values stored here are retained beyond the execution of the current script.
 
+\item
+\cmd{Simulation.terminateSimulation(message)}:\\
+Beendet die Simulation. Wird als Nachricht \cm{null} übergeben, so wird die Simulation normal
+beendet. Im Falle einer Nachricht wird die Simulation mit der entsprechenden Fehlermeldung abgebrochen.
+
 \end{itemize}
 
 \section{Accessing client-specific data}

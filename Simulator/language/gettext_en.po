@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-06-06 01:45+0200\n"
+"POT-Creation-Date: 2021-06-07 23:58+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -13640,6 +13640,12 @@ msgstr "Trigger signal"
 
 msgid "ScriptPopup.Simulation.Signal.Hint"
 msgstr "Triggers the signal with the entered name."
+
+msgid "ScriptPopup.Simulation.TerminateSimulation"
+msgstr "Terminate simulation"
+
+msgid "ScriptPopup.Simulation.TerminateSimulation.Hint"
+msgstr "Terminates the simulation immediately."
 
 msgid "ScriptPopup.Simulation.Time"
 msgstr "Simulation time"

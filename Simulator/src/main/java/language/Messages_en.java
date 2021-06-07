@@ -11906,6 +11906,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[27477] = "Appearance";
     t[27482] = "Statistics.XML.StdDev";
     t[27483] = "StandardDeviation";
+    t[27484] = "ScriptPopup.Simulation.TerminateSimulation.Hint";
+    t[27485] = "Terminates the simulation immediately.";
     t[27486] = "Main.Menu.View.Statistics.HeatMapSetup";
     t[27487] = "Setup heatmap...";
     t[27490] = "ExpressionBuilder.SimulationCharacteristics.CompositeComparisons.Or.Info";
@@ -12038,14 +12040,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[27831] = "Letter";
     t[27834] = "Git.List.Tab.Server";
     t[27835] = "Server";
-    t[27838] = "ParameterCompare.Toolbar.ShowBaseModel.LoadFromEditorr.TooltipEqual";
-    t[27839] = "The base model already equals the model editor model.";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_6 (java.lang.String[] t) {
+    t[27838] = "ParameterCompare.Toolbar.ShowBaseModel.LoadFromEditorr.TooltipEqual";
+    t[27839] = "The base model already equals the model editor model.";
     t[27840] = "Simulation.Log.Station";
     t[27841] = "Station";
     t[27844] = "Surface.Source.XML.Threshold.Direction.Up";
@@ -14044,14 +14046,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[32581] = "The specified value \"%s\" for the batch size is invalid at character %d.";
     t[32584] = "Schedule.InUseAlsoByResource.Multiple";
     t[32585] = "Additionally the schedule is in use by the following operator groups:";
-    t[32586] = "AutoRestore.Dialog.DeleteAllInfoYes";
-    t[32587] = "Clear all models.";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_7 (java.lang.String[] t) {
+    t[32586] = "AutoRestore.Dialog.DeleteAllInfoYes";
+    t[32587] = "Clear all models.";
     t[32588] = "Transporters.Group.Edit.Dialog.Distances.Paste.ErrorTableSize";
     t[32589] = "The table has an invalid size.\nThe table has to be %dx%d or %dx%d.";
     t[32598] = "LoadCalculator.Tab.ErlangB.Link.Info";
@@ -16050,14 +16052,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[37099] = "The performance indicators of the first and the second half of the simulation differ considerably from each other (%s for the waiting times of all clients). Therefore, the simulation duration is probably too short for a long-run simulation.";
     t[37102] = "ParameterCompare.Settings.Input.Mode.Resource.Label";
     t[37103] = "Name of the resource";
-    t[37110] = "ExpressionBuilder.StatisticalFunctions.Median";
-    t[37111] = "Median";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_8 (java.lang.String[] t) {
+    t[37110] = "ExpressionBuilder.StatisticalFunctions.Median";
+    t[37111] = "Median";
     t[37114] = "Surface.XML.EdgePainter.Selected";
     t[37115] = "ModelEdgesSelected";
     t[37118] = "Animation.Icon.Disk";
@@ -17110,6 +17112,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[39705] = "Select auto saved model for loading";
     t[39706] = "Surface.InputDDE.XML.EofMode.Terminate";
     t[39707] = "Terminate";
+    t[39708] = "ScriptPopup.Simulation.TerminateSimulation";
+    t[39709] = "Terminate simulation";
     t[39710] = "Statistics.CostsForResources.Working.All";
     t[39711] = "Costs for the busy time of the resources";
     t[39720] = "SystemInfo.Tools.NextStationTraining.DeleteData.Info";
@@ -18054,16 +18058,16 @@ public class Messages_en extends java.util.ResourceBundle {
     t[41905] = "The specified priority for requesting free transporters \"%s\" is invalid at character %d.";
     t[41906] = "Surface.AnalogAssign.Dialog.ID.Name";
     t[41907] = "Station id=%d \"%s\"";
-    t[41908] = "Color.0000CD";
-    t[41909] = "Medium blue";
-    t[41912] = "ParameterCompare.Settings.Load.Error";
-    t[41913] = "Error loading settings";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_9 (java.lang.String[] t) {
+    t[41908] = "Color.0000CD";
+    t[41909] = "Medium blue";
+    t[41912] = "ParameterCompare.Settings.Load.Error";
+    t[41913] = "Error loading settings";
     t[41916] = "Statistics.ModelRemarks.LargeRho.Group";
     t[41917] = "High utilization of the operators group \"%s\": rho=%s";
     t[41918] = "Surface.SetJS.Infotext";

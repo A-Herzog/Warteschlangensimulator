@@ -280,6 +280,11 @@ The values stored here are retained beyond the execution of the current script.
 \cmd{Map<String,Object> getMapGlobal()}:\\
 Returns a model wide mapping into which values can be written and from which values can be read.
 The values stored here are retained beyond the execution of the current script.
+
+\item
+\cmd{void terminateSimulation(final String message)}:\\
+Terminates the simulation. If \cm{null} is passed as message, the simulation is terminated normally.
+In case of a message, the simulation will be terminated with the corresponding error message.
 	
 \end{itemize}
 

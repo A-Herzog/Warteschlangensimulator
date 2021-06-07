@@ -1003,6 +1003,14 @@ public final class JSCommandSystem extends JSBaseCommand {
 	}
 
 	/**
+	 * Beendet die Simulation sofort.
+	 * @param message	Optionale Nachricht, die als Fehlermeldung ausgegeben wird (kann <code>null</code> sein, dann wird die Simulation ohne Fehler beendet).
+	 */
+	public void terminateSimulation(final String message) {
+		if (message!=null) simData.doEmergencyShutDown(message); else simData.doShutDown();
+	}
+
+	/**
 	 * Liefert die Liste der Kunden an einer Verzögerung-Station.
 	 * @param id ID der Verzögerung-Station
 	 * @return Liste der Kunden an der Station oder <code>null</code>, wenn keine Kundenliste ermittelt werden konnte
