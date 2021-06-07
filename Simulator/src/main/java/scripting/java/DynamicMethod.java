@@ -15,6 +15,7 @@
  */
 package scripting.java;
 
+import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.concurrent.Semaphore;
@@ -61,6 +62,12 @@ public final class DynamicMethod {
 	 * @see #getError()
 	 */
 	private String error;
+
+	/**
+	 * Geladene Klasse
+	 * @see #load()
+	 */
+	private Class<?> dynamicClass;
 
 	/**
 	 * Instanz der geladenen Klasse
@@ -116,6 +123,7 @@ public final class DynamicMethod {
 	 * @param methodText	Vollständiger Text der Methode inkl. möglichen Modifizierern vor dem Namen der Methode
 	 * @return	Text der Methode ohne Modifizierer vor dem Namen
 	 */
+	/*
 	private String removeModifiers(String methodText) {
 		methodText=methodText.trim();
 		if (methodText.toLowerCase().startsWith("public ")) methodText=methodText.substring(7).trim();
@@ -125,6 +133,7 @@ public final class DynamicMethod {
 		if (methodText.toLowerCase().startsWith("final ")) methodText=methodText.substring(6).trim();
 		return methodText;
 	}
+	 */
 
 	/**
 	 * Konstruktor der Klasse
@@ -144,13 +153,39 @@ public final class DynamicMethod {
 		}
 		sb.append("public class "+className+" { /* Class name is random. */ \n");
 		sb.append("  /* --- User code starts here. --- */\n");
-		final String method="public "+removeModifiers(methodText);
+		final String method=/* "public "+removeModifiers(...*/ methodText;
 		for (String line: method.split("\\n")) {
 			sb.append("  "+line+"\n");
 		}
 		sb.append("  /* --- User code ends here. --- */\n");
 		sb.append("}\n");
 		classText=sb.toString();
+	}
+
+	/**
+	 * Copy-Konstruktor (aber mit neuer Objekt-Instanz)
+	 * @param prototypeMethod	Vorhandene dynamisch geladene Methode (Klasse wird übernommen, aber eine neue Instanz des inneren Objektes erstellt)
+	 */
+	public DynamicMethod(final DynamicMethod prototypeMethod) {
+		setup=prototypeMethod.setup;
+		methodText=prototypeMethod.methodText;
+		className=prototypeMethod.className;
+		classText=prototypeMethod.classText;
+		error=prototypeMethod.error;
+
+		if (prototypeMethod.dynamicClass==null) {
+			prototypeMethod.load();
+		}
+
+		if (prototypeMethod.dynamicClass!=null) {
+			dynamicClass=prototypeMethod.dynamicClass;
+
+			try {
+				final Constructor<?> construct=dynamicClass.getDeclaredConstructor();
+				dynamicObject=construct.newInstance();
+			} catch (NoSuchMethodException | SecurityException | InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
+			}
+		}
 	}
 
 	/**
@@ -190,7 +225,10 @@ public final class DynamicMethod {
 		try (final DynamicClassBase dynamicClass=getDynamicClassClass().getConstructor(DynamicSetup.class).newInstance(setup)) {
 			final DynamicStatus result=dynamicClass.prepareAndLoad(classText);
 			error=dynamicClass.getError();
-			if (result==DynamicStatus.OK) dynamicObject=dynamicClass.getLoadedObject();
+			if (result==DynamicStatus.OK) {
+				this.dynamicClass=dynamicClass.getLoadedClass();
+				dynamicObject=dynamicClass.getLoadedObject();
+			}
 			return result;
 		} catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException	| NoSuchMethodException | SecurityException e) {
 			error=e.getMessage();
@@ -226,9 +264,23 @@ public final class DynamicMethod {
 
 		if (dynamicObject==null) return false;
 
-		for (Method method: dynamicObject.getClass().getMethods()) {
+		final Class<? extends Object> cls=dynamicObject.getClass();
+		for (Method method: cls.getDeclaredMethods()) {
+			if (method.getParameterCount()!=1) continue;
+			if (method.getParameterTypes()[0]!=SimulationInterface.class) continue;
+
+			method.setAccessible(true);
+			/* Brauchen wir nicht, da wir nur die hier deklarierten Methoden betrachten: if (method.getDeclaringClass().getName().equals(className)) {dynamicMethod=method; return true;} */
+			dynamicMethod=method;
+			return true;
+		}
+		/*
+		Fragt auch die in Object deklarierten Methoden ab:
+		for (Method method: cls.getMethods()) {
+			System.out.println(method.toString());
 			if (method.getDeclaringClass().getName().equals(className)) {dynamicMethod=method; return true;}
 		}
+		 */
 
 		return false;
 	}

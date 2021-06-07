@@ -98,7 +98,15 @@ public abstract class DynamicClassBase implements Closeable, AutoCloseable {
 	}
 
 	/**
-	 * Liefert eine Instanz der geladenen Klasse
+	 * Liefert die geladene Klasse.
+	 * @return	Geladenen Klasse oder <code>null</code>, wenn diese nicht verfügbar ist.
+	 */
+	public final Class<?> getLoadedClass() {
+		return loadedClass;
+	}
+
+	/**
+	 * Liefert eine Instanz der geladenen Klasse.
 	 * @return	Instanz der geladenen Klasse oder <code>null</code>, wenn dies nicht möglich ist.
 	 */
 	public final Object getLoadedObject() {

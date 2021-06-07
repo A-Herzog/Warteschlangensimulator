@@ -63,7 +63,7 @@ public class DynamicRunner {
 		classText=prototypeRunner.classText;
 		status=DynamicStatus.OK;
 		error=null;
-		method=prototypeRunner.method;
+		method=new DynamicMethod(prototypeRunner.method);
 		parameter=new SimulationImpl();
 	}
 
