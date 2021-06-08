@@ -377,17 +377,17 @@ public class RunData {
 	public void initRun(final long nr, final SimulationData simData, final boolean recordIncompleteClients) {
 		if (simData.runModel.recordVariableValuesToStatistic) {
 			cacheVariableStatistics=new StatisticsTimeContinuousPerformanceIndicator[variableValues.length-3];
-			for (int i=0;i<variableValues.length;i++) {
-				variableValues[i]=0;
-				if (runModel.variableInitialValues[i]!=null) {
-					try {
-						variableValues[i]=runModel.variableInitialValues[i].calc();
-					} catch (MathCalcError e) {}
-				}
-				if (i<cacheVariableStatistics.length) {
-					cacheVariableStatistics[i]=(StatisticsTimeContinuousPerformanceIndicator)simData.statistics.userVariables.get(runModel.variableNames[i]);
-					cacheVariableStatistics[i].set(0,variableValues[i]);
-				}
+		}
+		for (int i=0;i<variableValues.length;i++) {
+			variableValues[i]=0;
+			if (runModel.variableInitialValues[i]!=null) {
+				try {
+					variableValues[i]=runModel.variableInitialValues[i].calc();
+				} catch (MathCalcError e) {}
+			}
+			if (cacheVariableStatistics!=null && i<cacheVariableStatistics.length) {
+				cacheVariableStatistics[i]=(StatisticsTimeContinuousPerformanceIndicator)simData.statistics.userVariables.get(runModel.variableNames[i]);
+				cacheVariableStatistics[i].set(0,variableValues[i]);
 			}
 		}
 
