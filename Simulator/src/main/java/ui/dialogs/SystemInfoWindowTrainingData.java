@@ -20,6 +20,7 @@ import java.awt.Component;
 import java.awt.FlowLayout;
 import java.io.Serializable;
 
+import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -28,6 +29,8 @@ import javax.swing.JTextArea;
 import language.Language;
 import simulator.editmodel.EditModelProcessor;
 import systemtools.BaseDialog;
+import systemtools.MsgBox;
+import ui.images.Images;
 
 /**
  * In diesem Dialog werden die Trainingsdaten der Nächst-Station-Vorschlagsfunktion angezeigt.
@@ -50,6 +53,7 @@ public class SystemInfoWindowTrainingData extends BaseDialog {
 		super(owner,Language.tr("SystemInfo.Tools.NextStationTraining.ShowData.Title"));
 
 		/* GUI */
+		addUserButton(Language.tr("SystemInfo.Tools.NextStationTraining.DeleteData.Short"),Images.EDIT_DELETE.getIcon());
 		showCloseButton=true;
 		final JPanel content=createGUI(null);
 		content.setLayout(new BorderLayout());
@@ -70,5 +74,13 @@ public class SystemInfoWindowTrainingData extends BaseDialog {
 		setResizable(true);
 		setLocationRelativeTo(getOwner());
 		setVisible(true);
+	}
+
+	@Override
+	protected void userButtonClick(final int nr, final JButton button) {
+		if (MsgBox.confirm(this,Language.tr("SystemInfo.Tools.NextStationTraining.DeleteData.Title"),Language.tr("SystemInfo.Tools.NextStationTraining.DeleteData.Info"),Language.tr("SystemInfo.Tools.NextStationTraining.DeleteData.InfoYes"),Language.tr("SystemInfo.Tools.NextStationTraining.DeleteData.InfoNo"))) {
+			EditModelProcessor.getInstance().reset();
+			close(BaseDialog.CLOSED_BY_OK);
+		}
 	}
 }

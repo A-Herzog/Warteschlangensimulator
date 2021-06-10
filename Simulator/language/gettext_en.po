@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-06-07 23:58+0200\n"
+"POT-Creation-Date: 2021-06-08 20:37+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -29230,6 +29230,9 @@ msgstr "Keep current training data."
 
 msgid "SystemInfo.Tools.NextStationTraining.DeleteData.InfoYes"
 msgstr "Delete training data and initialize new model using the example models."
+
+msgid "SystemInfo.Tools.NextStationTraining.DeleteData.Short"
+msgstr "Delete training data"
 
 msgid "SystemInfo.Tools.NextStationTraining.DeleteData.Title"
 msgstr "Delete training data"

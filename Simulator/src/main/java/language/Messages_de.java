@@ -8822,6 +8822,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[20249] = "Table";
     t[20252] = "Color.FFF8DC";
     t[20253] = "Cornsilk";
+    t[20254] = "SystemInfo.Tools.NextStationTraining.DeleteData.Short";
+    t[20255] = "Trainingsdaten l\u00f6schen";
     t[20260] = "Editor.Dialog.Sequences.Edit.Column.Nr";
     t[20261] = "Schritt";
     t[20264] = "UserTemplates.AddDialog.TitleEdit";
@@ -10032,14 +10034,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[23063] = "ModellElementAnimationLCDZiffern";
     t[23066] = "Surface.PopupMenu.SimulationStatisticsData.Tab.WaitingClients.Field.Text.Short";
     t[23067] = "Textbasierte Datenfelder";
-    t[23068] = "Surface.Output.XML.Element.TypeDescription.ProcessTime";
-    t[23069] = "Bisherige Bedienzeit des Kunden (als Zeitangabe)";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_5 (java.lang.String[] t) {
+    t[23068] = "Surface.Output.XML.Element.TypeDescription.ProcessTime";
+    t[23069] = "Bisherige Bedienzeit des Kunden (als Zeitangabe)";
     t[23074] = "CommandLine.Filter.Done.Error.CouldNotProcess";
     t[23075] = "Der Filter konnte nicht verarbeitet werden.";
     t[23082] = "Git.List.Tab.LocalFolder.LocalFolder.Select";
@@ -12038,14 +12040,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[27829] = "Normal";
     t[27830] = "Animation.Icon.Letter";
     t[27831] = "Brief";
-    t[27834] = "Git.List.Tab.Server";
-    t[27835] = "Server";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_6 (java.lang.String[] t) {
+    t[27834] = "Git.List.Tab.Server";
+    t[27835] = "Server";
     t[27838] = "ParameterCompare.Toolbar.ShowBaseModel.LoadFromEditorr.TooltipEqual";
     t[27839] = "Das Basismodell stimmt mit dem Modell im Modell-Editor \u00fcberein.";
     t[27840] = "Simulation.Log.Station";
@@ -14044,14 +14046,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[32577] = "Vorgabewert verwenden";
     t[32580] = "Surface.Source.Dialog.BatchSize.Error.Info";
     t[32581] = "Der angegebene Wert \"%s\" f\u00fcr die Batch-Gr\u00f6\u00dfe ist ab Zeichen %d ung\u00fcltig.";
-    t[32584] = "Schedule.InUseAlsoByResource.Multiple";
-    t[32585] = "Au\u00dferdem wird der Zeitplan durch die folgenden Bedienergruppen verwendet:";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_7 (java.lang.String[] t) {
+    t[32584] = "Schedule.InUseAlsoByResource.Multiple";
+    t[32585] = "Au\u00dferdem wird der Zeitplan durch die folgenden Bedienergruppen verwendet:";
     t[32586] = "AutoRestore.Dialog.DeleteAllInfoYes";
     t[32587] = "Alle Modelle l\u00f6schen.";
     t[32588] = "Transporters.Group.Edit.Dialog.Distances.Paste.ErrorTableSize";
@@ -16050,14 +16052,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[37091] = "Ung\u00fcltiger Name f\u00fcr Ebene";
     t[37098] = "Statistics.Warnings.SimulationRunNotLongEnough";
     t[37099] = "Die Kenngr\u00f6\u00dfen der ersten und der zweiten H\u00e4lfe der Simulation weichen stark von einander ab (%s in Bezug auf die Wartezeit \u00fcber alle Kunden). Die Simulationslaufzeit ist f\u00fcr eine Longrun-Simulation daher wahrscheinlich zu kurz gew\u00e4hlt.";
-    t[37102] = "ParameterCompare.Settings.Input.Mode.Resource.Label";
-    t[37103] = "Name der Ressource";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_8 (java.lang.String[] t) {
+    t[37102] = "ParameterCompare.Settings.Input.Mode.Resource.Label";
+    t[37103] = "Name der Ressource";
     t[37110] = "ExpressionBuilder.StatisticalFunctions.Median";
     t[37111] = "Median";
     t[37114] = "Surface.XML.EdgePainter.Selected";
@@ -18056,14 +18058,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[41899] = "Nachkommastellen f\u00fcr Prozentwerte";
     t[41904] = "Surface.TransportParking.Dialog.WaitingPriority.ErrorInfo";
     t[41905] = "Die angegebene Priorit\u00e4t zum Anfordern freier Transporter \"%s\" ist ab Zeichen %d fehlerhaft.";
-    t[41906] = "Surface.AnalogAssign.Dialog.ID.Name";
-    t[41907] = "Station id=%d \"%s\"";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_9 (java.lang.String[] t) {
+    t[41906] = "Surface.AnalogAssign.Dialog.ID.Name";
+    t[41907] = "Station id=%d \"%s\"";
     t[41908] = "Color.0000CD";
     t[41909] = "Mittleres Blau";
     t[41912] = "ParameterCompare.Settings.Load.Error";
