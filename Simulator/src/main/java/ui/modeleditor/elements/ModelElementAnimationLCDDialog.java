@@ -82,6 +82,7 @@ public class ModelElementAnimationLCDDialog extends ModelElementBaseDialog {
 	@Override
 	protected void setDialogSize() {
 		setMinSizeRespectingScreensize(600,0);
+		pack();
 	}
 
 	@Override
