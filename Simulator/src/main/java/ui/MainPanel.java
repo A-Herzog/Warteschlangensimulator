@@ -154,6 +154,7 @@ import ui.images.Images;
 import ui.infopanel.InfoPanel;
 import ui.inputprocessor.ClientInputTableDialog;
 import ui.modeleditor.AnimationImageDialog;
+import ui.modeleditor.FilePathHelper;
 import ui.modeleditor.ModelLoadData;
 import ui.modeleditor.ModelLoadDataDialog;
 import ui.modeleditor.ModelSurface;
@@ -2784,6 +2785,8 @@ public class MainPanel extends MainPanelBase {
 			editModel.repeatCount=1;
 		}
 
+		FilePathHelper.checkFilePaths(editModel,editorPanel.getLastFile());
+
 		checkAutoSave();
 
 		final File folder=(editorPanel.getLastFile()==null)?null:editorPanel.getLastFile().getParentFile();
@@ -2953,6 +2956,10 @@ public class MainPanel extends MainPanelBase {
 		if (simModel==null) EditorPanelRepair.autoFix(editorPanel);
 
 		EditModel editModel=(simModel==null)?editorPanel.getModel():simModel;
+
+		if (simModel==null) {
+			FilePathHelper.checkFilePaths(editModel,editorPanel.getLastFile());
+		}
 
 		checkAutoSave();
 
