@@ -159,7 +159,6 @@ public interface SystemInterface {
 	 */
 	ClientsInterface getDelayStationData(final int id);
 
-
 	/**
 	 * Liefert das Stations-lokales Datenobjekt für Skript-Daten.
 	 * @return	Stations-lokales Datenobjekt für Skript-Daten

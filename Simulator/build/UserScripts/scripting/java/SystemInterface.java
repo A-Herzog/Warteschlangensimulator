@@ -151,7 +151,6 @@ public interface SystemInterface {
 	 */
 	void log(final Object obj);
 	
-	
 	/**
 	 * Returns the list of all clients at a delay station.
 	 * @param id	ID of the delay station
@@ -170,4 +169,10 @@ public interface SystemInterface {
 	 * @return	Global data object for script data
 	 */
 	Map<String,Object> getMapGlobal();
+
+	/**
+	 * Terminates the simulation.
+	 * @param message	Optional error message. If <code>null</code> is passed, the simulation will be terminated without error.
+	 */
+	void terminateSimulation(final String message);
 }
