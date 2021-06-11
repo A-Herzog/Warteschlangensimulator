@@ -16,6 +16,7 @@
 package ui.modeleditor.elements;
 
 import java.awt.Graphics;
+import java.awt.Point;
 import java.awt.Rectangle;
 import java.util.List;
 
@@ -54,6 +55,7 @@ public class ModelElementAnimationConnect extends ModelElementBox {
 	 */
 	public ModelElementAnimationConnect(final EditModel model, final ModelSurface surface) {
 		super(model,surface,Shapes.ShapeType.SHAPE_RECTANGLE);
+		setPosition(new Point(-100,-100));
 	}
 
 	@Override
