@@ -127,6 +127,7 @@ public class SequenceEditTableModel extends JTableExtAbstractTableModel {
 		button.setToolTipText(hint);
 		button.addActionListener(e->command.run());
 		button.setIcon(icon);
+		button.setOpaque(false);
 		return button;
 	}
 
@@ -140,10 +141,12 @@ public class SequenceEditTableModel extends JTableExtAbstractTableModel {
 		if (columnIndex!=1 && columnIndex!=2) return "";
 
 		final JPanel panel=new JPanel(new BorderLayout());
+		panel.setOpaque(false);
 
 		if (columnIndex==1) {
 			final JToolBar toolbar=new JToolBar(SwingConstants.HORIZONTAL);
 			toolbar.setFloatable(false);
+			toolbar.setOpaque(false);
 			panel.add(toolbar,BorderLayout.CENTER);
 			toolbar.add(getButton(Language.tr("Editor.Dialog.Sequences.Edit.Add"),Language.tr("Editor.Dialog.Sequences.Edit.Add.Hint"),Images.EDIT_ADD.getIcon(),()->commandAdd()));
 		}
