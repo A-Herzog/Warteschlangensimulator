@@ -175,8 +175,10 @@ Function GetJRE
   ;  3b- jre in the registry
   ;  4a- in C:\Program Files\AdoptOpenJDK and its subfolders  
   ;  4b- in C:\Program Files\Java and its subfolders
-  ;  4c- in C:\Program Files\Amazon Corretto and its subfolders
-  ;  4d- in C:\Program Files and its subfolders
+  ;  4c- in C:\Program Files\Amazon Corretto and its subfolders  
+  ;  4d- in C:\Program Files\Zulu and its subfolders
+  ;  4e- in C:\Program Files\Microsoft and its subfolders  
+  ;  4f- in C:\Program Files and its subfolders
   ;  5 - assume javaw.exe in current dir or PATH
  
   Push $R0
@@ -234,6 +236,18 @@ Function GetJRE
   
   ; Unter "C:\Program Files\Amazon Corretto" suchen
   !insertmacro CallFindFiles "$PROGRAMFILES64\Amazon Corretto" javaw.exe FindJava
+  StrCmp $9 "" +3 0
+  StrCpy $R0 $9
+  Goto JreFound
+  
+  ; Unter "C:\Program Files\Zulu" suchen
+  !insertmacro CallFindFiles "$PROGRAMFILES64\Zulu" javaw.exe FindJava
+  StrCmp $9 "" +3 0
+  StrCpy $R0 $9
+  Goto JreFound
+  
+  ; Unter "C:\Program Files\Microsoft" suchen
+  !insertmacro CallFindFiles "$PROGRAMFILES64\Microsoft" javaw.exe FindJava
   StrCmp $9 "" +3 0
   StrCpy $R0 $9
   Goto JreFound
