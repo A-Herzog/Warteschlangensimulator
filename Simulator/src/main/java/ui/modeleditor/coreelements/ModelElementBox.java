@@ -46,6 +46,7 @@ import mathtools.NumberTools;
 import simulator.coreelements.RunElement;
 import simulator.coreelements.RunElementData;
 import simulator.editmodel.EditModel;
+import simulator.editmodel.FullTextSearch;
 import simulator.runmodel.SimulationData;
 import systemtools.BaseDialog;
 import tools.SetupData;
@@ -2131,5 +2132,19 @@ public class ModelElementBox extends ModelElementPosition implements ElementWith
 		item.addActionListener(e->addNextStation.accept(nextStationTemplate));
 		parentMenu.add(item);
 		return item;
+	}
+
+	/**
+	 * Sucht einen Text in den Daten des Elements.
+	 * @param searcher	Such-System
+	 * @see FullTextSearch
+	 */
+	@Override
+	public void search(final FullTextSearch searcher) {
+		super.search(searcher);
+
+		/* Schriftgrößen */
+		searcher.testInteger(this,Language.tr("Editor.DialogBase.Search.FontSize.Small"),boxFontSmall.getSize(),newFontSize->{if (newFontSize>0) boxFontSmall=boxFontSmall.deriveFont((float)newFontSize);});
+		searcher.testInteger(this,Language.tr("Editor.DialogBase.Search.FontSize.Large"),boxFontLarge.getSize(),newFontSize->{if (newFontSize>0) boxFontSmall=boxFontLarge.deriveFont((float)newFontSize);});
 	}
 }

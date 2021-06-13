@@ -35,6 +35,7 @@ import org.w3c.dom.Element;
 import language.Language;
 import mathtools.NumberTools;
 import simulator.editmodel.EditModel;
+import simulator.editmodel.FullTextSearch;
 import simulator.runmodel.SimulationData;
 import simulator.simparser.ExpressionEval;
 import ui.images.Images;
@@ -718,5 +719,18 @@ public class ModelElementAnimationTextSelect extends ModelElementPosition implem
 	@Override
 	public void specialOutput(final SpecialOutputBuilder outputBuilder) {
 		if (outputBuilder instanceof HTMLOutputBuilder) specialOutputHTML((HTMLOutputBuilder)outputBuilder);
+	}
+
+	@Override
+	public void search(final FullTextSearch searcher) {
+		super.search(searcher);
+
+		for (int i=0;i<textExpressions.size();i++) {
+			final int index=i;
+			searcher.testString(this,Language.tr("Editor.DialogBase.Search.Condition"),textExpressions.get(index),newCondition->textExpressions.set(index,newCondition));
+			searcher.testString(this,String.format(Language.tr("Editor.DialogBase.Search.ValueForCondition"),textExpressions.get(index)),textValues.get(index),newValue->textValues.set(index,newValue));
+		}
+		searcher.testString(this,Language.tr("Surface.AnimationTextSelect.Dialog.DefaultValue"),textDefault,newTextDefault->{textDefault=newTextDefault;});
+		searcher.testInteger(this,Language.tr("Editor.DialogBase.Search.FontSize"),textSize,newFontSize->{if (newFontSize>0) textSize=newFontSize;});
 	}
 }

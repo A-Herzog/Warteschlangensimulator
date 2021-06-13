@@ -33,6 +33,7 @@ import org.w3c.dom.Element;
 import language.Language;
 import mathtools.NumberTools;
 import simulator.editmodel.EditModel;
+import simulator.editmodel.FullTextSearch;
 import simulator.runmodel.RunModelFixer;
 import ui.images.Images;
 import ui.modeleditor.ModelClientData;
@@ -437,5 +438,12 @@ public class ModelElementSourceMulti extends ModelElementBox implements ElementW
 	@Override
 	protected void addEdgeOutFixes(final List<RunModelFixer> fixer) {
 		findEdgesTo(QuickFixNextElements.source,fixer);
+	}
+
+	@Override
+	public void search(final FullTextSearch searcher) {
+		super.search(searcher);
+
+		for (ModelElementSourceRecord record: records) record.search(searcher,this);
 	}
 }

@@ -23,6 +23,8 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 import language.Language;
+import simulator.editmodel.FullTextSearch;
+import ui.modeleditor.coreelements.ModelElementBox;
 
 /**
  * Diese Klasse hält die konkreten Daten für eine Variablenzuweisung vor.
@@ -236,5 +238,25 @@ public final class ModelElementSetRecord implements Cloneable {
 		}
 
 		return list;
+	}
+
+	/**
+	 * Sucht einen Text in den Daten der Variablenzuweisung.
+	 * @param searcher	Such-System
+	 * @param station	Station an der dieser Datensatz verwendet wird
+	 * @see FullTextSearch
+	 */
+	public void search(final FullTextSearch searcher, final ModelElementBox station) {
+		for (int i=0;i<variables.size();i++) {
+			final int index=i;
+			final String name=variables.get(index);
+			final String expression=expressions.get(index);
+			searcher.testString(station,Language.tr("Editor.DialogBase.Search.Set.Variable.Name"),name,newVariableName->variables.set(index,newVariableName));
+			if (expression.equals(SPECIAL_WAITING)) continue;
+			if (expression.equals(SPECIAL_TRANSFER)) continue;
+			if (expression.equals(SPECIAL_PROCESS)) continue;
+			if (expression.equals(SPECIAL_RESIDENCE)) continue;
+			searcher.testString(station,String.format(Language.tr("Editor.DialogBase.Search.Set.Variable.Expression"),name),expression,newExpression->expressions.set(index,newExpression));
+		}
 	}
 }

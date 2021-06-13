@@ -28,6 +28,8 @@ import org.w3c.dom.Element;
 
 import language.Language;
 import mathtools.distribution.tools.DistributionTools;
+import simulator.editmodel.FullTextSearch;
+import ui.modeleditor.coreelements.ModelElementBox;
 import ui.modeleditor.descriptionbuilder.ModelDescriptionBuilder;
 
 /**
@@ -451,5 +453,32 @@ public final class DistributionSystem implements Cloneable {
 		obj=get();
 		if (obj instanceof AbstractRealDistribution) descriptionBuilder.addProperty(labelGeneralCase,ModelDescriptionBuilder.getDistributionInfo((AbstractRealDistribution)obj),position);
 		if (obj instanceof String) descriptionBuilder.addProperty(labelGeneralCase,Language.tr("ModelDescription.Expression")+": "+(String)obj,position);
+	}
+
+	/**
+	 * Sucht einen Text in den Daten dieses Datensatzes.
+	 * @param searcher	Such-System
+	 * @param station	Station an der dieser Datensatz verwendet wird
+	 * @param typeName	Bestimmung (z.B. "Bedienzeiten") dieses Datensatzes
+	 * @see FullTextSearch
+	 */
+	public void search(final FullTextSearch searcher, final ModelElementBox station, final String typeName) {
+		/* Globale Werte */
+		if (expression!=null) {
+			searcher.testString(station,typeName+" - "+Language.tr("Editor.DialogBase.Search.GlobalExpression"),expression,newExpression->{expression=newExpression;});
+		} else {
+			searcher.testDistribution(station,typeName+" - "+Language.tr("Editor.DialogBase.Search.GlobalDistribution"),distribution);
+		}
+
+		/* Kundentypspezifische Werte */
+		for (Map.Entry<String,String> expression: expressionByType.entrySet()) {
+			final String clientType=expression.getKey();
+			searcher.testString(station,typeName+" - "+String.format(Language.tr("Editor.DialogBase.Search.ClientTypeExpression"),clientType),expression.getValue(),newExpression->expressionByType.put(clientType,newExpression));
+		}
+		for (Map.Entry<String,AbstractRealDistribution> distribution: distributionByType.entrySet()) {
+			final String clientType=distribution.getKey();
+			if (expressionByType.get(clientType)!=null) continue;
+			searcher.testDistribution(station,typeName+" - "+String.format(Language.tr("Editor.DialogBase.Search.ClientTypeDistribution"),clientType),distribution.getValue());
+		}
 	}
 }

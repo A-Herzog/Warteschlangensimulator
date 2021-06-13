@@ -22,6 +22,8 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 import language.Language;
+import simulator.editmodel.FullTextSearch;
+import ui.modeleditor.coreelements.ModelElementBox;
 
 /**
  * Diese Klasse hält die konkreten Daten für die Textzuweisungen vor.
@@ -201,5 +203,21 @@ public final class ModelElementAssignStringRecord implements Cloneable {
 		final List<String> list=new ArrayList<>();
 		for (int i=0;i<Math.min(keys.size(),values.size());i++) list.add(keys.get(i)+":="+values.get(i));
 		return list;
+	}
+
+	/**
+	 * Sucht einen Text in den Daten der Textzuweisung.
+	 * @param searcher	Such-System
+	 * @param station	Station an der dieser Datensatz verwendet wird
+	 * @see FullTextSearch
+	 */
+	public void search(final FullTextSearch searcher, final ModelElementBox station) {
+		for (int i=0;i<keys.size();i++) {
+			final int index=i;
+			final String key=keys.get(index);
+			final String value=values.get(index);
+			searcher.testString(station,Language.tr("Editor.DialogBase.Search.Set.Key.Name"),key,newKey->keys.set(index,newKey));
+			searcher.testString(station,String.format(Language.tr("Editor.DialogBase.Search.Set.Key.Value"),key),value,newValue->values.set(index,newValue));
+		}
 	}
 }

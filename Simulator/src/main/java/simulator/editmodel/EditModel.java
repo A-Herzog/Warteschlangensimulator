@@ -1454,4 +1454,127 @@ public final class EditModel extends EditModelBase implements Cloneable  {
 		if (templates==null) templates=new UserTemplates();
 		return templates;
 	}
+
+	/**
+	 * Benennt eine Ebene um (und passt den Namen auch in allen Stationen an)
+	 * @param oldName	Alter Name der Ebene
+	 * @param newName	Neuer Name der Ebene
+	 */
+	public void renameLayer(final String oldName, final String newName) {
+		/* Daten aus Modell */
+		final List<String> layers=surface.getLayers();
+		final List<String> visibleLayers=surface.getVisibleLayers();
+		final String activeLayer=surface.getActiveLayer();
+
+		/* Layer umbenennen */
+		final int index1=layers.indexOf(oldName);
+		if (index1>=0) layers.set(index1,newName);
+		final int index2=visibleLayers.indexOf(oldName);
+		if (index2>=0) visibleLayers.set(index2,newName);
+		if (Objects.equals(activeLayer,oldName)) surface.setActiveLayer(newName);
+
+		/* Elemente anpassen */
+		for (ModelElement element: surface.getElementsIncludingSubModels()) {
+			final List<String> elementLayers=element.getLayers();
+			final int j=elementLayers.indexOf(oldName);
+			if (j>=0) elementLayers.set(j,newName);
+		}
+	}
+
+	/**
+	 * Sucht einen Text in den Daten des Modells.
+	 * @param searcher	Such-System
+	 * @see FullTextSearch
+	 */
+	public void search(final FullTextSearch searcher) {
+		/* Name */
+		searcher.testString(Language.tr("Editor.Dialog.Tab.ModelDescription.NameOfTheModel"),name,newName->{name=newName;});
+
+		/* Beschreibung */
+		searcher.testString(Language.tr("Editor.Dialog.Tab.ModelDescription.ModelDescription"),description,newDescription->{description=newDescription;});
+
+		/* Autor */
+		searcher.testString(Language.tr("Editor.Dialog.Tab.ModelDescription.Author"),author,newAuthor->{author=newAuthor;});
+
+		/* E-Mail-Adresse */
+		searcher.testString(Language.tr("Editor.Dialog.Tab.ModelDescription.AuthorEMail"),authorEMail,newAuthorEMail->{authorEMail=newAuthorEMail;});
+
+		/* Anzahl der zu simulierenden Kundenankünfte */
+		if (useClientCount) searcher.testLong(Language.tr("Editor.Dialog.Tab.Simulation.NumberOfArrivals"),clientCount,newClientCount->{if (newClientCount>0) clientCount=newClientCount;});
+
+		/* Länge der Einschwingphase (als Anteil der Kundenankünfte), bevor die Statistikzählung beginnt. */
+		searcher.testDouble(Language.tr("Editor.Dialog.Tab.Simulation.WarmUpPhase"),warmUpTime,newWarmUpTime->{if (newWarmUpTime>=0) warmUpTime=newWarmUpTime;});
+
+		/* Gibt an, wie oft der Simulationslauf als Ganzes wiederholt werden soll. */
+		searcher.testInteger(Language.tr("Editor.Dialog.Tab.Simulation.RepeatCount.Value"),repeatCount,newRepeatCount->{if (newRepeatCount>0) repeatCount=newRepeatCount;});
+
+		/* Bedingung, die, wenn Sie erfüllt ist, das Simulationsende auslöst. */
+		if (useTerminationCondition) searcher.testString(Language.tr("Editor.Dialog.Tab.Simulation.Condition"),terminationCondition,newTerminationCondition->{terminationCondition=newTerminationCondition;});
+
+		/* Zeitpunkt, zu dem die Simulation beendet werden soll. */
+		if (useFinishTime) searcher.testLong(Language.tr("Editor.Dialog.Tab.Simulation.Time"),finishTime,newFinishTime->{if (newFinishTime>0) finishTime=newFinishTime;});
+
+		if (useFinishConfidence) {
+			/* Abbruch bei Erreichen des Batch-Means-Konfidenzradius für die Wartezeiten */
+			if (finishConfidenceHalfWidth>0) searcher.testDouble(Language.tr("Editor.Dialog.Tab.OutputAnalysis.FinishConfidence.HalfWidth"),finishConfidenceHalfWidth,newFinishConfidenceHalfWidth->{if (newFinishConfidenceHalfWidth>0) finishConfidenceHalfWidth=newFinishConfidenceHalfWidth;});
+			/* Abbruch bei Erreichen des Batch-Means-Konfidenzradius für die Wartezeiten für das angegebene Niveau */
+			if (finishConfidenceLevel>0) searcher.testDouble(Language.tr("Editor.Dialog.Tab.OutputAnalysis.FinishConfidence.Level"),finishConfidenceLevel,newFinishConfidenceLevel->{if (newFinishConfidenceLevel>0) finishConfidenceLevel=newFinishConfidenceLevel;});
+		}
+
+		/* Stationen */
+		for (ModelElement element: surface.getElements()) element.search(searcher);
+
+		/* Ebenen */
+		for (String layer: surface.getLayers()) searcher.testString(Language.tr("Window.Layers.List.Layer"),layer,newName->renameLayer(layer,newName));
+
+		/* Ressourcen (Bediener) */
+		for (ModelResource resource: resources.getResources()) resource.search(searcher);
+
+		/* Farben der Kundentypen in der Statistik */
+		for (String clientType: surface.getClientTypes()) clientData.search(searcher,clientType) ;
+
+		/* Zeitpläne */
+		schedules.search(searcher);
+
+		/* Fester Seed für den Zufallszahlengenerator */
+		if (useFixedSeed) searcher.testLong(Language.tr("Editor.Dialog.Tab.Simulation.FixedSeed"),fixedSeed,newFixedSeed->{fixedSeed=newFixedSeed;});
+
+		/* Zusätzliche Laufzeitstatistik */
+		longRunStatistics.search(searcher);
+
+		/* Autokorrelation der Messwerte */
+		if (correlationMode!=Statistics.CorrelationMode.CORRELATION_MODE_OFF) searcher.testInteger(Language.tr("Editor.Dialog.Tab.OutputAnalysis.RecordAutocorrelation.Range"),correlationRange,newCorrelationRange->{if (newCorrelationRange>0) correlationRange=newCorrelationRange;});
+
+		/* Batch-Means-Größe */
+		if (batchMeansSize>1) searcher.testInteger(Language.tr("Editor.DialogBase.Search.BatchMeansSize"),batchMeansSize,newBatchMeansSize->{if (newBatchMeansSize>1) batchMeansSize=newBatchMeansSize;});
+
+		/* Startwerte für globale Variablen */
+		for (int i=0;i<globalVariablesNames.size();i++) {
+			final int index=i;
+			final String name=globalVariablesNames.get(index);
+			searcher.testString(Language.tr("Editor.DialogBase.Search.Variable"),name,newName->globalVariablesNames.set(index,newName));
+			searcher.testString(String.format(Language.tr("Editor.DialogBase.Search.Variable.InitialValue"),name),globalVariablesExpressions.get(index),newExpression->globalVariablesExpressions.set(index,newExpression));
+		}
+
+		/* Fertigungspläne */
+		sequences.search(searcher);
+
+		/* Transporter */
+		transporters.search(searcher);
+
+		/* Hintergrundbild */
+		searcher.testDouble(Language.tr("Editor.DialogBase.Search.BackgroundImageScaling"),surfaceBackgroundImageScale,newSurfaceBackgroundImageScale->{if (newSurfaceBackgroundImageScale>0) surfaceBackgroundImageScale=newSurfaceBackgroundImageScale;});
+
+		/* Maximaler Sekundenwert für die Verteilungsstatistik (Angabe in Stunden) */
+		searcher.testInteger(Language.tr("Editor.DialogBase.Search.MaximumDistributionHours"),distributionRecordHours,newDistributionRecordHours->{if (newDistributionRecordHours>=0) distributionRecordHours=newDistributionRecordHours;});
+
+		/* Zeitabstand in dem für Bedingung- und ähnliche Stationen zusätzliche zeitabhängige Checks durchgeführt werden sollen */
+		if (timedChecksDelta>0) searcher.testInteger(Language.tr("Editor.DialogBase.Search.TimedChecksDelta"),timedChecksDelta,newTimedChecksDelta->{if (newTimedChecksDelta>0) timedChecksDelta=newTimedChecksDelta;});
+
+		/* Dynamisch zu Simulationsbeginn in das Modell zu ladenden Daten */
+		modelLoadData.search(searcher);
+
+		/* Verzeichnis für optionale externe Java-Klassendateien */
+		searcher.testString(Language.tr("Editor.DialogBase.Search.PluginsFolder"),pluginsFolder,newPluginsFolder->{pluginsFolder=newPluginsFolder;});
+	}
 }

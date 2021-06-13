@@ -34,6 +34,7 @@ import language.Language;
 import mathtools.NumberTools;
 import mathtools.TimeTools;
 import simulator.editmodel.EditModel;
+import simulator.editmodel.FullTextSearch;
 import simulator.runmodel.SimulationData;
 import simulator.simparser.ExpressionCalc;
 import tools.DateTools;
@@ -883,5 +884,15 @@ public class ModelElementAnimationTextValue extends ModelElementPosition impleme
 	@Override
 	public void specialOutput(final SpecialOutputBuilder outputBuilder) {
 		if (outputBuilder instanceof HTMLOutputBuilder) specialOutputHTML((HTMLOutputBuilder)outputBuilder);
+	}
+
+	@Override
+	public void search(final FullTextSearch searcher) {
+		super.search(searcher);
+
+		if (mode==ModeExpression.MODE_EXPRESSION_NUMBER || mode==ModeExpression.MODE_EXPRESSION_PERCENT) {
+			searcher.testString(this,Language.tr("Editor.DialogBase.Search.OutputExpression"),expression,newExpression->{expression=newExpression;});
+		}
+		searcher.testInteger(this,Language.tr("Editor.DialogBase.Search.FontSize"),textSize,newFontSize->{if (newFontSize>0) textSize=newFontSize;});
 	}
 }

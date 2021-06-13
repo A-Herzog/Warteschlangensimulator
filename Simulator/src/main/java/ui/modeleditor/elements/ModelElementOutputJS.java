@@ -29,6 +29,7 @@ import org.w3c.dom.Element;
 
 import language.Language;
 import simulator.editmodel.EditModel;
+import simulator.editmodel.FullTextSearch;
 import ui.images.Images;
 import ui.modeleditor.ModelClientData;
 import ui.modeleditor.ModelSequences;
@@ -351,5 +352,13 @@ public class ModelElementOutputJS extends ModelElementMultiInSingleOutBox implem
 		if (!outputFile.trim().isEmpty()) {
 			descriptionBuilder.addProperty(Language.tr("ModelDescription.OutputJS.File"),outputFile,2000);
 		}
+	}
+
+	@Override
+	public void search(final FullTextSearch searcher) {
+		super.search(searcher);
+
+		searcher.testString(this,Language.tr("Editor.DialogBase.Search.Script"),script,newScript->{script=newScript;});
+		searcher.testString(this,Language.tr("Editor.DialogBase.Search.OutputFile"),outputFile,newOutputFile->{outputFile=newOutputFile;});
 	}
 }

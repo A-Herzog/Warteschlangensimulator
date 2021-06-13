@@ -33,6 +33,7 @@ import org.w3c.dom.Element;
 import language.Language;
 import mathtools.NumberTools;
 import simulator.editmodel.EditModel;
+import simulator.editmodel.FullTextSearch;
 import ui.images.Images;
 import ui.modeleditor.ModelClientData;
 import ui.modeleditor.ModelSequences;
@@ -359,6 +360,19 @@ public class ModelElementTankValveSetup extends ModelElementMultiInSingleOutBox 
 			}
 
 			return null;
+		}
+	}
+
+	@Override
+	public void search(final FullTextSearch searcher) {
+		super.search(searcher);
+
+		for (ValveSetup valveSetup: valveSetups) {
+			if (searcher.isTestIDs()) {
+				searcher.testInteger(this,Language.tr("Editor.DialogBase.Search.TankID"),valveSetup.tankId);
+			}
+			searcher.testInteger(this,Language.tr("Editor.DialogBase.Search.ValveNr"),valveSetup.valveNr,newValveNr->{if (newValveNr>=0) valveSetup.valveNr=newValveNr;});
+			searcher.testString(this,String.format(Language.tr("Editor.DialogBase.Search.MaxFlow"),valveSetup.tankId,valveSetup.valveNr),valveSetup.maxFlow);
 		}
 	}
 }

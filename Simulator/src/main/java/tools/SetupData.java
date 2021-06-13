@@ -1144,6 +1144,26 @@ public class SetupData extends SetupBase {
 	public String eBook;
 
 	/**
+	 * Suchen und Ersetzen: Groß- und Kleinschreibung beachten
+	 */
+	public boolean searchAndReplaceCaseSensitive;
+
+	/**
+	 * Suchen und Ersetzen: Auch nach Stations-IDs suchen
+	 */
+	public boolean searchAndReplaceStationIDs;
+
+	/**
+	 * Suchen und Ersetzen: Nur gesamte Begriffe vergleichen
+	 */
+	public boolean searchAndReplaceFullMatchOnly;
+
+	/**
+	 * Suchen und Ersetzen: Ist regulärer Ausdruck
+	 */
+	public boolean searchAndReplaceRegularExpression;
+
+	/**
 	 * Letzter Fehler
 	 * (Hier wird die Setup-Datei als Logdatei für solche Ereignisse verwendet.)
 	 */
@@ -1343,6 +1363,11 @@ public class SetupData extends SetupBase {
 		if (dynamicImportClasses==null) dynamicImportClasses=new ArrayList<>();
 		dynamicImportClasses.clear();
 		eBook="";
+		searchAndReplaceCaseSensitive=false;
+		searchAndReplaceStationIDs=false;
+		searchAndReplaceFullMatchOnly=false;
+		searchAndReplaceRegularExpression=false;
+
 		lastError=null;
 	}
 
@@ -2204,6 +2229,13 @@ public class SetupData extends SetupBase {
 				eBook=e.getTextContent();
 				continue;
 			}
+
+			if (name.equals("searchandreplace")) {
+				searchAndReplaceCaseSensitive=loadBoolean(e.getAttribute("CaseSensitive"),false);
+				searchAndReplaceStationIDs=loadBoolean(e.getAttribute("StationIDs"),false);
+				searchAndReplaceFullMatchOnly=loadBoolean(e.getAttribute("FullMatchOnly"),false);
+				searchAndReplaceRegularExpression=loadBoolean(e.getAttribute("RegularExpression"),false);
+			}
 		}
 
 		if (useLastFiles) {
@@ -2519,11 +2551,6 @@ public class SetupData extends SetupBase {
 		if (commandLineDialogParameters!=null && !commandLineDialogParameters.trim().isEmpty()) {
 			root.appendChild(node=doc.createElement("CommandLineParameters"));
 			node.setTextContent(commandLineDialogParameters);
-		}
-
-		if (lastError!=null && !lastError.trim().isEmpty()) {
-			root.appendChild(node=doc.createElement("LastError"));
-			node.setTextContent(lastError);
 		}
 
 		if (backgroundSimulation!=BackgroundProcessingMode.BACKGROUND_SIMULATION) {
@@ -2856,6 +2883,19 @@ public class SetupData extends SetupBase {
 		if (eBook!=null && !eBook.trim().isEmpty()) {
 			root.appendChild(node=doc.createElement("eBook"));
 			node.setTextContent(eBook);
+		}
+
+		if (searchAndReplaceCaseSensitive || searchAndReplaceStationIDs || searchAndReplaceFullMatchOnly || searchAndReplaceRegularExpression) {
+			root.appendChild(node=doc.createElement("SearchAndReplace"));
+			if (searchAndReplaceCaseSensitive) node.setAttribute("CaseSensitive","1");
+			if (searchAndReplaceStationIDs) node.setAttribute("StationIDs","1");
+			if (searchAndReplaceFullMatchOnly) node.setAttribute("FullMatchOnly","1");
+			if (searchAndReplaceRegularExpression) node.setAttribute("RegularExpression","1");
+		}
+
+		if (lastError!=null && !lastError.trim().isEmpty()) {
+			root.appendChild(node=doc.createElement("LastError"));
+			node.setTextContent(lastError);
 		}
 	}
 

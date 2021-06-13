@@ -36,6 +36,7 @@ import org.w3c.dom.Element;
 import language.Language;
 import mathtools.NumberTools;
 import simulator.editmodel.EditModel;
+import simulator.editmodel.FullTextSearch;
 import ui.images.Images;
 import ui.modeleditor.ModelClientData;
 import ui.modeleditor.ModelSequences;
@@ -640,5 +641,15 @@ public class ModelElementHoldMulti extends ModelElementBox implements ModelEleme
 		this.connectionsOut.addAll(connectionsOut);
 
 		return true;
+	}
+
+	@Override
+	public void search(final FullTextSearch searcher) {
+		super.search(searcher);
+
+		for (Map.Entry<Integer,String> condition: conditions.entrySet()) {
+			final Integer id=condition.getKey();
+			searcher.testString(this,String.format(Language.tr("Editor.DialogBase.Search.ConditionToID"),id.intValue()),condition.getValue(),newCondition->conditions.put(id,newCondition));
+		}
 	}
 }

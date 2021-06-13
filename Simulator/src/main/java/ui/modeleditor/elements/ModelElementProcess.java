@@ -41,6 +41,7 @@ import language.Language;
 import mathtools.NumberTools;
 import mathtools.distribution.tools.DistributionTools;
 import simulator.editmodel.EditModel;
+import simulator.editmodel.FullTextSearch;
 import simulator.runmodel.RunModelFixer;
 import ui.ModelChanger;
 import ui.images.Images;
@@ -1536,5 +1537,46 @@ public class ModelElementProcess extends ModelElementBox implements ModelDataRen
 	@Override
 	protected void addEdgeOutFixes(final List<RunModelFixer> fixer) {
 		findEdgesTo(QuickFixNextElements.process,fixer);
+	}
+
+	@Override
+	public void search(final FullTextSearch searcher) {
+		super.search(searcher);
+
+		/* Batch-Größen */
+		searcher.testInteger(this,Language.tr("Surface.Process.Dialog.MinimumBatchSize"),batchMin,newBatchMin->{if (newBatchMin>=1) batchMin=newBatchMin;});
+		searcher.testInteger(this,Language.tr("Surface.Process.Dialog.MaximumBatchSize"),batchMax,newBatchMax->{if (newBatchMax>=1) batchMax=newBatchMax;});
+
+		/* Bedienzeiten */
+		working.search(searcher,this,Language.tr("Surface.Process.Dialog.Tab.ProcessingTimes"));
+
+		/* Nachbearbeitungszeiten */
+		postProcessing.search(searcher,this,Language.tr("Surface.Process.Dialog.Tab.PostProcessingTimes"));
+
+		/* Wartezeittoleranzen */
+		cancel.search(searcher,this,Language.tr("Surface.Process.Dialog.Tab.WaitingTimeTolerances"));
+
+		/* Rüstzeiten */
+		setupTimes.search(searcher,this,Language.tr("Surface.Process.Dialog.Tab.SetupTimes"));
+
+		/* Prioritäten */
+		for (Map.Entry<String,String> clientPriority: priority.entrySet()) {
+			final String clientType=clientPriority.getKey();
+			searcher.testString(this,String.format(Language.tr("Editor.DialogBase.Search.PriorityForClientType"),clientType),clientPriority.getValue(),newPriority->priority.put(clientType,newPriority));
+		}
+
+		/* Ressourcenzuordnung -> keine Suche */
+
+		/* Ressorcen-Priorisierungs-Formel */
+		searcher.testString(this,Language.tr("Surface.Process.Dialog.ResourcePriority"),resourcePriority,newResourcePriority->{resourcePriority=newResourcePriority;});
+
+		/* Kosten pro Bedienvorgang */
+		searcher.testString(this,Language.tr("Surface.Process.Dialog.CostsPerClient"),costs,newCosts->{costs=newCosts;});
+
+		/* Kosten pro Bediensekunde */
+		searcher.testString(this,Language.tr("Surface.Process.Dialog.CostsPerProcessingSecond"),costsPerProcessSecond,newCostsPerProcessSecond->{costsPerProcessSecond=newCostsPerProcessSecond;});
+
+		/* Kosten pro Nachbearbeitungssekunde */
+		searcher.testString(this,Language.tr("Surface.Process.Dialog.CostsPerPostProcessingSecond"),costsPerPostProcessSecond,newCostsPerPostProcessSecond->{costsPerPostProcessSecond=newCostsPerPostProcessSecond;});
 	}
 }

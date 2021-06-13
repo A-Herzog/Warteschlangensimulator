@@ -33,6 +33,7 @@ import org.w3c.dom.Element;
 import language.Language;
 import mathtools.NumberTools;
 import simulator.editmodel.EditModel;
+import simulator.editmodel.FullTextSearch;
 import simulator.runmodel.RunModelFixer;
 import ui.images.Images;
 import ui.modeleditor.ModelClientData;
@@ -592,5 +593,12 @@ public class ModelElementDecideJS extends ModelElementBox implements ModelElemen
 	@Override
 	protected void addEdgeOutFixes(final List<RunModelFixer> fixer) {
 		findEdgesTo(QuickFixNextElements.duplicate,fixer);
+	}
+
+	@Override
+	public void search(final FullTextSearch searcher) {
+		super.search(searcher);
+
+		searcher.testString(this,Language.tr("Editor.DialogBase.Search.Script"),script,newScript->{script=newScript;});
 	}
 }

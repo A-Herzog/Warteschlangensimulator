@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-06-08 20:37+0200\n"
+"POT-Creation-Date: 2021-06-13 18:54+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -3521,6 +3521,372 @@ msgstr "Close dialog and open transporters list."
 msgid "Editor.DialogBase.Protected.Tooltip"
 msgstr "Protect element against deletion"
 
+msgid "Editor.DialogBase.Search.ArrivalRecord.Name"
+msgstr "Name of the client type"
+
+msgid "Editor.DialogBase.Search.AssignedVariable"
+msgstr "Variable to which the assignment is to be made"
+
+msgid "Editor.DialogBase.Search.BackgroundImageScaling"
+msgstr "Background image scale factor"
+
+msgid "Editor.DialogBase.Search.BalkingExpressionClientType"
+msgstr "Balking expression for client type \"%s\""
+
+msgid "Editor.DialogBase.Search.BalkingExpressionGlobal"
+msgstr "Balking expression"
+
+msgid "Editor.DialogBase.Search.BalkingProbabilityClientType"
+msgstr "Balking probability for client type \"%s\""
+
+msgid "Editor.DialogBase.Search.BalkingProbabilityGlobal"
+msgstr "Balking probability"
+
+msgid "Editor.DialogBase.Search.BatchMeansSize"
+msgstr "Batch means size"
+
+msgid "Editor.DialogBase.Search.BorderWidth"
+msgstr "Border width"
+
+msgid "Editor.DialogBase.Search.ClientType.CostsProcess"
+msgstr "Process time costs for client type \"%s\""
+
+msgid "Editor.DialogBase.Search.ClientType.CostsTransfer"
+msgstr "Transfer time costs for client type \"%s\""
+
+msgid "Editor.DialogBase.Search.ClientType.CostsWaiting"
+msgstr "Waiting time costs for client type \"%s\""
+
+msgid "Editor.DialogBase.Search.ClientTypeClientTypeDistribution"
+msgstr "Distribution for client types \"%s\" -> \"%s\""
+
+msgid "Editor.DialogBase.Search.ClientTypeClientTypeExpression"
+msgstr "Expression for client types \"%s\" -> \"%s\""
+
+msgid "Editor.DialogBase.Search.ClientTypeDistribution"
+msgstr "Distribution for client type \"%s\""
+
+msgid "Editor.DialogBase.Search.ClientTypeExpression"
+msgstr "Expression for client type \"%s\""
+
+msgid "Editor.DialogBase.Search.ClientTypeName"
+msgstr "Client type name"
+
+msgid "Editor.DialogBase.Search.Condition"
+msgstr "Condition"
+
+msgid "Editor.DialogBase.Search.ConditionForCounter"
+msgstr "Condition for counter \"%s\""
+
+msgid "Editor.DialogBase.Search.ConditionToID"
+msgstr "Condition for connection to ID=%d"
+
+msgid "Editor.DialogBase.Search.Costs"
+msgstr "Costs"
+
+msgid "Editor.DialogBase.Search.Description"
+msgstr "Station description"
+
+msgid "Editor.DialogBase.Search.Expression"
+msgstr "Expression"
+
+msgid "Editor.DialogBase.Search.ExpressionForAnalogStation"
+msgstr "Expression to be assigned to station ID=%d"
+
+msgid "Editor.DialogBase.Search.ExpressionForKey"
+msgstr "Expression for key \"%s\""
+
+msgid "Editor.DialogBase.Search.FlowDestinationStationID"
+msgstr "ID of the destination station for the flow"
+
+msgid "Editor.DialogBase.Search.FlowDestinationValveNr"
+msgstr "Destination valve number for the flow"
+
+msgid "Editor.DialogBase.Search.FlowOriginStationID"
+msgstr "ID of the source station for the flow"
+
+msgid "Editor.DialogBase.Search.FlowOriginValveNr"
+msgstr "Source valve number for the flow"
+
+msgid "Editor.DialogBase.Search.FontSize"
+msgstr "Font size"
+
+msgid "Editor.DialogBase.Search.FontSize.Large"
+msgstr "Large font size"
+
+msgid "Editor.DialogBase.Search.FontSize.Small"
+msgstr "Small font size"
+
+msgid "Editor.DialogBase.Search.ForClientType"
+msgstr "for client type \"%s\""
+
+msgid "Editor.DialogBase.Search.GlobalDistribution"
+msgstr "Distribution"
+
+msgid "Editor.DialogBase.Search.GlobalExpression"
+msgstr "Expression"
+
+msgid "Editor.DialogBase.Search.ID"
+msgstr "Station ID"
+
+msgid "Editor.DialogBase.Search.IDForAnalogAssign"
+msgstr "Station ID for assigning expression \"%s\""
+
+msgid "Editor.DialogBase.Search.InputFile"
+msgstr "Input file"
+
+msgid "Editor.DialogBase.Search.InterarrivalArrival.ArrivalClientCount"
+msgstr "Number of client arrivals"
+
+msgid "Editor.DialogBase.Search.InterarrivalArrival.ArrivalCount"
+msgstr "Number of arrivals"
+
+msgid "Editor.DialogBase.Search.InterarrivalArrival.BatchSize"
+msgstr "Arrival batch size"
+
+msgid "Editor.DialogBase.Search.InterarrivalArrival.BatchSize.Rate"
+msgstr "Rate for arrival batch size %d"
+
+msgid "Editor.DialogBase.Search.InterarrivalArrival.Condition"
+msgstr "Arrival condition"
+
+msgid "Editor.DialogBase.Search.InterarrivalArrival.Condition.MinDistance"
+msgstr "Arrival condition minimal check time span"
+
+msgid "Editor.DialogBase.Search.InterarrivalArrival.Distribution"
+msgstr "Inter-arrival distribution"
+
+msgid "Editor.DialogBase.Search.InterarrivalArrival.Expression"
+msgstr "Inter-arrival expression"
+
+msgid "Editor.DialogBase.Search.InterarrivalArrival.Schedule"
+msgstr "Arrival schedule"
+
+msgid "Editor.DialogBase.Search.InterarrivalArrival.Signal"
+msgstr "Inter-arrival signal"
+
+msgid "Editor.DialogBase.Search.InterarrivalArrival.Threshold.Expression"
+msgstr "Inter-arrival threshold expression"
+
+msgid "Editor.DialogBase.Search.InterarrivalArrival.Threshold.Value"
+msgstr "Inter-arrival threshold value"
+
+msgid "Editor.DialogBase.Search.Key"
+msgstr "Key"
+
+msgid "Editor.DialogBase.Search.LineWidth"
+msgstr "Line width"
+
+msgid "Editor.DialogBase.Search.LineWidthForExpression"
+msgstr "Line width for expression \"%s\""
+
+msgid "Editor.DialogBase.Search.MaxFlow"
+msgstr "New maximum flow at tank ID=%d at valve %d"
+
+msgid "Editor.DialogBase.Search.MaxValue"
+msgstr "Maximum value"
+
+msgid "Editor.DialogBase.Search.MaxValueForExpression"
+msgstr "Maximum value for expression \"%s\""
+
+msgid "Editor.DialogBase.Search.MaximumDistributionHours"
+msgstr "Maximum number of hours to be recorded in distributions for statistics"
+
+msgid "Editor.DialogBase.Search.MinValue"
+msgstr "Minimum value"
+
+msgid "Editor.DialogBase.Search.MinValueForExpression"
+msgstr "Minimum value for expression \"%s\""
+
+msgid "Editor.DialogBase.Search.Name"
+msgstr "Station name"
+
+msgid "Editor.DialogBase.Search.NewClientType"
+msgstr "New client type"
+
+msgid "Editor.DialogBase.Search.Note"
+msgstr "Note"
+
+msgid "Editor.DialogBase.Search.OutputExpression"
+msgstr "Expression to output"
+
+msgid "Editor.DialogBase.Search.OutputFile"
+msgstr "Output file"
+
+msgid "Editor.DialogBase.Search.OutputText"
+msgstr "Text to output"
+
+msgid "Editor.DialogBase.Search.PluginsFolder"
+msgstr "Folder for external Java class files"
+
+msgid "Editor.DialogBase.Search.PriorityForClientType"
+msgstr "Priority for client type \"%s\""
+
+msgid "Editor.DialogBase.Search.Resource.CostsPerActiveHour"
+msgstr "Costs per active hour in operators group \"%s\""
+
+msgid "Editor.DialogBase.Search.Resource.CostsPerIdleHour"
+msgstr "Costs per idle hour in operators group \"%s\""
+
+msgid "Editor.DialogBase.Search.Resource.CostsPerProcessHour"
+msgstr "Costs per working hour in operators group \"%s\""
+
+msgid "Editor.DialogBase.Search.Resource.Count"
+msgstr "Number of operators in group \"%s\""
+
+msgid "Editor.DialogBase.Search.Resource.Failure.AvailableTime"
+msgstr "Failure by presence at group \"%s\""
+
+msgid "Editor.DialogBase.Search.Resource.Failure.DownTimeDistribution"
+msgstr "Downtimes by distribution at group \"%s\""
+
+msgid "Editor.DialogBase.Search.Resource.Failure.DownTimeExpression"
+msgstr "Downtimes by expression at group \"%s\""
+
+msgid "Editor.DialogBase.Search.Resource.Failure.InterDownTimeDistribution"
+msgstr "Distances between downtimes by distribution at group \"%s\""
+
+msgid "Editor.DialogBase.Search.Resource.Failure.InterDownTimeExpression"
+msgstr "Distances between downtimes by expression at group \"%s\""
+
+msgid "Editor.DialogBase.Search.Resource.Failure.ServedNumber"
+msgstr "Failure by number of served clients at group \"%s\""
+
+msgid "Editor.DialogBase.Search.Resource.Failure.WorkingTime"
+msgstr "Failure by busy time at group \"%s\""
+
+msgid "Editor.DialogBase.Search.Resource.Name"
+msgstr "Name of the operator group"
+
+msgid "Editor.DialogBase.Search.Resource.Schedule"
+msgstr "Schedule for operators group \"%s\""
+
+msgid "Editor.DialogBase.Search.Resource.SetupTimesDistribution"
+msgstr "Setup times distribution for operators group \"%s\""
+
+msgid "Editor.DialogBase.Search.Resource.SetupTimesExpression"
+msgstr "Setup times expression for operators group \"%s\""
+
+msgid "Editor.DialogBase.Search.Script"
+msgstr "Script"
+
+msgid "Editor.DialogBase.Search.SequenceName"
+msgstr "Name of a sequence"
+
+msgid "Editor.DialogBase.Search.Set.Key.Name"
+msgstr "Key for text assignment"
+
+msgid "Editor.DialogBase.Search.Set.Key.Value"
+msgstr "Value to be assigned to key \"%s\""
+
+msgid "Editor.DialogBase.Search.Set.Variable.Expression"
+msgstr "Expression for assignment to variable \"%s\""
+
+msgid "Editor.DialogBase.Search.Set.Variable.Name"
+msgstr "Variable name for value assignment"
+
+msgid "Editor.DialogBase.Search.SignalToStartFlow"
+msgstr "Signal to start the flow"
+
+msgid "Editor.DialogBase.Search.Table"
+msgstr "Table"
+
+msgid "Editor.DialogBase.Search.TableClientTypeColumn"
+msgstr "Client types table column"
+
+msgid "Editor.DialogBase.Search.TableColumn"
+msgstr "Table column"
+
+msgid "Editor.DialogBase.Search.TableFileName"
+msgstr "Table file name"
+
+msgid "Editor.DialogBase.Search.TableInfoColumn"
+msgstr "Additional information table column"
+
+msgid "Editor.DialogBase.Search.TableLoadColumn"
+msgstr "Table column to be loaded"
+
+msgid "Editor.DialogBase.Search.TableStartRow"
+msgstr "Start table row"
+
+msgid "Editor.DialogBase.Search.TableWorkbook"
+msgstr "Work book"
+
+msgid "Editor.DialogBase.Search.TankID"
+msgstr "ID of the corresponding tank"
+
+msgid "Editor.DialogBase.Search.Threshold"
+msgstr "Threshold"
+
+msgid "Editor.DialogBase.Search.TimedChecksDelta"
+msgstr "Time interval for timed condition checks"
+
+msgid "Editor.DialogBase.Search.TransportDestination"
+msgstr "Transport destination"
+
+msgid "Editor.DialogBase.Search.TransportDestination.ForClientType"
+msgstr "Client type for transport target selection"
+
+msgid "Editor.DialogBase.Search.TransportDestination.ForCondition"
+msgstr "Condition for transport target selection"
+
+msgid "Editor.DialogBase.Search.TransporterGroup.Capacity"
+msgstr "Capacity of the transporters in group \"%s\""
+
+msgid "Editor.DialogBase.Search.TransporterGroup.DistancesExpression"
+msgstr "Expression for calculating the distances for transporter group \"%s\""
+
+msgid "Editor.DialogBase.Search.TransporterGroup.Failure.Distance"
+msgstr "Failure by diven distance at transporter group \"%s\""
+
+msgid "Editor.DialogBase.Search.TransporterGroup.Failure.DownTimeDistribution"
+msgstr "Downtimes by distribution at transporter group \"%s\""
+
+msgid "Editor.DialogBase.Search.TransporterGroup.Failure.DownTimeExpression"
+msgstr "Downtimes by expression at transporter group \"%s\""
+
+msgid "Editor.DialogBase.Search.TransporterGroup.Failure.InterDownTimeDistribution"
+msgstr "Distances between downtimes by distribution at transporter group \"%s\""
+
+msgid "Editor.DialogBase.Search.TransporterGroup.Failure.InterDownTimeExpression"
+msgstr "Distances between downtimes by expression at transporter group \"%s\""
+
+msgid "Editor.DialogBase.Search.TransporterGroup.Failure.ServedNumber"
+msgstr "Failure by number of served clients at transporter group \"%s\""
+
+msgid "Editor.DialogBase.Search.TransporterGroup.Failure.WorkingTime"
+msgstr "Failure by busy time at transporter group \"%s\""
+
+msgid "Editor.DialogBase.Search.TransporterGroup.LoadDistribution"
+msgstr "Loading times distribution for transporter group \"%s\""
+
+msgid "Editor.DialogBase.Search.TransporterGroup.LoadExpression"
+msgstr "Loading times expression for transporter group \"%s\""
+
+msgid "Editor.DialogBase.Search.TransporterGroup.Name"
+msgstr "Name of a transporter group"
+
+msgid "Editor.DialogBase.Search.TransporterGroup.UnloadDistribution"
+msgstr "Unloading times distribution for transporter group \"%s\""
+
+msgid "Editor.DialogBase.Search.TransporterGroup.UnloadExpression"
+msgstr "Unloading times expression for transporter group \"%s\""
+
+msgid "Editor.DialogBase.Search.ValueForCondition"
+msgstr "Value for condition \"%s\""
+
+msgid "Editor.DialogBase.Search.ValveMaximumFlow"
+msgstr "Maximum flow at valve %d"
+
+msgid "Editor.DialogBase.Search.ValveNr"
+msgstr "Number of the corresponding valve"
+
+msgid "Editor.DialogBase.Search.Variable"
+msgstr "Globale variable"
+
+msgid "Editor.DialogBase.Search.Variable.InitialValue"
+msgstr "Initial value for global variable \"%s\""
+
 msgid "Editor.DialogBase.WarmUpExternalSourceWarning.Button"
 msgstr "Disable warm-up phases"
 
@@ -6685,6 +7051,69 @@ msgstr ""
 msgid "Filter.Save.Title"
 msgstr "Save changed filter"
 
+msgid "FindAndReplace.Option.CaseSensitive"
+msgstr "Search case sensitive"
+
+msgid "FindAndReplace.Option.FullMatchOnly"
+msgstr "Full string matches only"
+
+msgid "FindAndReplace.Option.RegularExpression"
+msgstr "Search string is regular expression"
+
+msgid "FindAndReplace.Option.StationIDs"
+msgstr "Find station IDs"
+
+msgid "FindAndReplace.Replace"
+msgstr "Replace"
+
+msgid "FindAndReplace.ReplaceInfo.Plural"
+msgstr "%d hits can be changed directly via \"Replace\"."
+
+msgid "FindAndReplace.ReplaceInfo.Singular"
+msgstr "%d hit can be changed directly via \"Replace\"."
+
+msgid "FindAndReplace.ReplaceString"
+msgstr "Replace string"
+
+msgid "FindAndReplace.Result.Content"
+msgstr "Content"
+
+msgid "FindAndReplace.Result.DescriptionOfTheLocation"
+msgstr "Description of the location"
+
+msgid "FindAndReplace.ResultInfo.NoResults"
+msgstr "No matches were found for the search term."
+
+msgid "FindAndReplace.ResultInfo.Plural"
+msgstr "There were %d hits found for the search term."
+
+msgid "FindAndReplace.ResultInfo.Singular"
+msgstr "There was %d hit found for the search term."
+
+msgid "FindAndReplace.Search"
+msgstr "Search"
+
+msgid "FindAndReplace.SearchString"
+msgstr "Search string"
+
+msgid "FindAndReplace.Select.All"
+msgstr "Select all"
+
+msgid "FindAndReplace.Select.None"
+msgstr "Unselect all"
+
+msgid "FindAndReplace.Table.Match"
+msgstr "Match"
+
+msgid "FindAndReplace.Table.Model"
+msgstr "Model"
+
+msgid "FindAndReplace.Table.Station"
+msgstr "Station"
+
+msgid "FindAndReplace.Title"
+msgstr "Search and replace"
+
 msgid "FindBatchSizeSimulation.Info"
 msgstr ""
 "When clicking ok, a simulation run is started in which the autocorrelation of the waiting times is determined.\n"
@@ -8674,6 +9103,12 @@ msgstr "Model overview"
 msgid "Main.Menu.View.Explorer.Mnemonic"
 msgstr "o"
 
+msgid "Main.Menu.View.FindAndReplace"
+msgstr "Search and replace..."
+
+msgid "Main.Menu.View.FindAndReplace.Mnemonic"
+msgstr "r"
+
 msgid "Main.Menu.View.FindElement"
 msgstr "Find element by ID or name..."
 
@@ -10316,6 +10751,12 @@ msgid "ModelLoadData.ProcessError.WriteErrorInfo"
 msgstr ""
 "For record %d the new value %s could not be written into the model:\n"
 "%s"
+
+msgid "ModelLoadData.Search.Table"
+msgstr "Table in workbook \"%s\" for external data"
+
+msgid "ModelLoadData.Search.Workbook"
+msgstr "Workbook for external data"
 
 msgid "ModelLoadData.XML.Active"
 msgstr "Active"
@@ -19964,6 +20405,9 @@ msgstr "No analog element at which the value is to be changed has been selected.
 msgid "Surface.Action.Dialog.Edit.Tabs.Action.Analog.Element.ErrorTitle"
 msgstr "No analog element selected"
 
+msgid "Surface.Action.Dialog.Edit.Tabs.Action.Analog.Element.ID"
+msgstr "ID of the corresponding analog value element"
+
 msgid "Surface.Action.Dialog.Edit.Tabs.Action.Analog.Expression"
 msgstr "New value"
 
@@ -21182,6 +21626,9 @@ msgstr "No data recording station has been selected."
 
 msgid "Surface.AnimationRecord.Dialog.Data.SelectRecord.Error.Title"
 msgstr "No data recording station selected"
+
+msgid "Surface.AnimationRecord.Dialog.Data.SelectRecord.ID"
+msgstr "ID of the corresponding data recording station"
 
 msgid "Surface.AnimationRecord.Dialog.Title"
 msgstr "Edit data recording display"
@@ -30264,12 +30711,6 @@ msgstr "Elements of this layer are visible"
 msgid "Window.Layers.List.Layer"
 msgstr "Layer"
 
-msgid "Window.Layers.Rename.ErrorInfo"
-msgstr "The specified new name for the layer is already in use by another layer."
-
-msgid "Window.Layers.Rename.ErrorTitle"
-msgstr "Invalid name for layer"
-
 msgid "Window.Layers.Rename.Hint"
 msgstr "Rename layer."
 
@@ -30731,3 +31172,9 @@ msgstr "The file format is unknown respectively is not matching to any of the fi
 
 #~ msgid "Window.Animation.Done.Title"
 #~ msgstr "Animation finished"
+
+#~ msgid "Window.Layers.Rename.ErrorInfo"
+#~ msgstr "The specified new name for the layer is already in use by another layer."
+
+#~ msgid "Window.Layers.Rename.ErrorTitle"
+#~ msgstr "Invalid name for layer"

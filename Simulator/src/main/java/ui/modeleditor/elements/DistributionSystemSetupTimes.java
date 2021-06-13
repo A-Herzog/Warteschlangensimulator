@@ -26,6 +26,8 @@ import org.w3c.dom.Element;
 
 import language.Language;
 import mathtools.distribution.tools.DistributionTools;
+import simulator.editmodel.FullTextSearch;
+import ui.modeleditor.coreelements.ModelElementBox;
 
 /**
  * Diese Klasse kapselt die Rüstzeiten für ein <code>ModelElementProcess</code>-Objekt.
@@ -354,5 +356,28 @@ public final class DistributionSystemSetupTimes implements Cloneable {
 			}
 		}
 		return expressions;
+	}
+
+	/**
+	 * Sucht einen Text in den Daten dieses Datensatzes.
+	 * @param searcher	Such-System
+	 * @param station	Station an der dieser Datensatz verwendet wird
+	 * @param typeName	Bestimmung (z.B. "Bedienzeiten") dieses Datensatzes
+	 * @see FullTextSearch
+	 */
+	public void search(final FullTextSearch searcher, final ModelElementBox station, final String typeName) {
+		for (Map.Entry<String,Map<String,Object>> entry1: data.entrySet()) {
+			final String clientType1=entry1.getKey();
+			for (Map.Entry<String,Object> entry2: entry1.getValue().entrySet()) {
+				final String clientType2=entry2.getKey();
+				final Object value=entry2.getValue();
+				if (value instanceof String) {
+					searcher.testString(station,String.format(Language.tr("Editor.DialogBase.Search.ClientTypeClientTypeExpression"),clientType1,clientType2),(String)value,newValue->data.get(clientType1).put(clientType2,newValue));
+				}
+				if (value instanceof AbstractRealDistribution) {
+					searcher.testDistribution(station,String.format(Language.tr("Editor.DialogBase.Search.ClientTypeClientTypeDistribution"),clientType1,clientType2),(AbstractRealDistribution)value);
+				}
+			}
+		}
 	}
 }

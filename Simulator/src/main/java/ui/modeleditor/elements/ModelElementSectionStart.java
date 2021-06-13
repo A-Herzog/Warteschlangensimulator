@@ -52,7 +52,6 @@ public class ModelElementSectionStart extends ModelElementMultiInSingleOutBox {
 	 * Konstruktor der Klasse <code>ModelElementSectionStart</code>
 	 * @param model	Modell zu dem dieses Element gehören soll (kann später nicht mehr geändert werden)
 	 * @param surface	Zeichenfläche zu dem dieses Element gehören soll (kann später nicht mehr geändert werden)
-
 	 */
 	public ModelElementSectionStart(final EditModel model, final ModelSurface surface) {
 		super(model,surface,Shapes.ShapeType.SHAPE_RECTANGLE);

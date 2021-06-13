@@ -34,6 +34,7 @@ import org.w3c.dom.Element;
 import language.Language;
 import mathtools.NumberTools;
 import simulator.editmodel.EditModel;
+import simulator.editmodel.FullTextSearch;
 import ui.images.Images;
 import ui.modeleditor.ModelClientData;
 import ui.modeleditor.ModelSequences;
@@ -481,5 +482,13 @@ public class ModelElementAnimationPointerMeasuring extends ModelElementAnimation
 
 		outputBuilder.addJSUserFunction("drawAnimationPointerMeasuring",builder->getHTMLAnimationPointerMeasuring(builder));
 		outputBuilder.outputBody.append("drawAnimationPointerMeasuring({x: "+p.x+",y: "+p.y+",w: "+s.width+",h: "+s.height+"});\n");
+	}
+
+	@Override
+	public void search(final FullTextSearch searcher) {
+		super.search(searcher);
+
+		searcher.testInteger(this,Language.tr("Editor.DialogBase.Search.MinValue"),minValue,newMinValue->{minValue=newMinValue;});
+		searcher.testInteger(this,Language.tr("Editor.DialogBase.Search.MaxValue"),maxValue,newMaxValue->{maxValue=newMaxValue;});
 	}
 }

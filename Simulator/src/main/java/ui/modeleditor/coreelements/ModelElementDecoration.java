@@ -32,6 +32,7 @@ import org.w3c.dom.Element;
 import language.Language;
 import mathtools.NumberTools;
 import simulator.editmodel.EditModel;
+import simulator.editmodel.FullTextSearch;
 import ui.modeleditor.ModelSurface;
 import ui.modeleditor.fastpaint.Shapes;
 
@@ -244,5 +245,18 @@ public class ModelElementDecoration extends ModelElementPosition {
 		}
 
 		return null;
+	}
+
+	/**
+	 * Sucht einen Text in den Daten des Elements.
+	 * @param searcher	Such-System
+	 * @see FullTextSearch
+	 */
+	@Override
+	public void search(final FullTextSearch searcher) {
+		super.search(searcher);
+
+		/* Linienbreite */
+		searcher.testInteger(this,Language.tr("Editor.DialogBase.Search.LineWidth"),lineWidth,newLineWidth->{if (newLineWidth>=getMinLineWidth()) setLineWidth(newLineWidth);});
 	}
 }

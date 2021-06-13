@@ -31,6 +31,7 @@ import org.w3c.dom.Element;
 import language.Language;
 import mathtools.NumberTools;
 import simulator.editmodel.EditModel;
+import simulator.editmodel.FullTextSearch;
 import simulator.elements.RunElementCounterData;
 import simulator.runmodel.RunModelFixer;
 import ui.images.Images;
@@ -325,5 +326,12 @@ public class ModelElementCounter extends ModelElementMultiInSingleOutBox {
 	@Override
 	protected void addEdgeOutFixes(final List<RunModelFixer> fixer) {
 		findEdgesTo(QuickFixNextElements.hold,fixer);
+	}
+
+	@Override
+	public void search(final FullTextSearch searcher) {
+		super.search(searcher);
+
+		searcher.testString(this,Language.tr("Surface.Counter.Dialog.GroupName"),groupName,newGroupName->{groupName=newGroupName;});
 	}
 }

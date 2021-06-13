@@ -29,6 +29,7 @@ import org.w3c.dom.Element;
 
 import language.Language;
 import simulator.editmodel.EditModel;
+import simulator.editmodel.FullTextSearch;
 import ui.images.Images;
 import ui.modeleditor.ModelClientData;
 import ui.modeleditor.ModelSequences;
@@ -380,5 +381,12 @@ public class ModelElementSetStatisticsMode extends ModelElementMultiInSingleOutB
 			if (condition!=null) descriptionBuilder.addProperty(Language.tr("ModelDescription.SetStatisticsMode.Condition"),condition,2000);
 			break;
 		}
+	}
+
+	@Override
+	public void search(final FullTextSearch searcher) {
+		super.search(searcher);
+
+		searcher.testString(this,Language.tr("Surface.SetStatisticsMode.Dialog.Condition"),condition,newCondition->{condition=newCondition;});
 	}
 }

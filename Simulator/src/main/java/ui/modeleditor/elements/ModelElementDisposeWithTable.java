@@ -33,6 +33,7 @@ import org.w3c.dom.Element;
 import language.Language;
 import mathtools.NumberTools;
 import simulator.editmodel.EditModel;
+import simulator.editmodel.FullTextSearch;
 import ui.images.Images;
 import ui.modeleditor.ModelClientData;
 import ui.modeleditor.ModelSequences;
@@ -462,5 +463,13 @@ public class ModelElementDisposeWithTable extends ModelElementBox implements Mod
 		this.connections.addAll(connectionsIn);
 
 		return true;
+	}
+
+	@Override
+	public void search(final FullTextSearch searcher) {
+		super.search(searcher);
+
+		/* Tabellendateiname */
+		searcher.testString(this,Language.tr("Editor.DialogBase.Search.TableFileName"),clientsOutputTable,newClientsOutputTable->{clientsOutputTable=newClientsOutputTable;});
 	}
 }

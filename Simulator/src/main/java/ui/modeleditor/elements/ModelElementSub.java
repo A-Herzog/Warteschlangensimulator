@@ -35,6 +35,7 @@ import org.w3c.dom.Element;
 import language.Language;
 import mathtools.NumberTools;
 import simulator.editmodel.EditModel;
+import simulator.editmodel.FullTextSearch;
 import systemtools.BaseDialog;
 import ui.AnimationPanel;
 import ui.images.Images;
@@ -836,5 +837,12 @@ public class ModelElementSub extends ModelElementBox implements ElementWithNewCl
 		this.connectionsOut.addAll(connectionsOut);
 
 		return true;
+	}
+
+	@Override
+	public void search(final FullTextSearch searcher) {
+		super.search(searcher);
+
+		for (ModelElement element: subSurface.getElements()) element.search(searcher);
 	}
 }

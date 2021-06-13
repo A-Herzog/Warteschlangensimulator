@@ -33,6 +33,7 @@ import org.w3c.dom.Element;
 import language.Language;
 import mathtools.NumberTools;
 import simulator.editmodel.EditModel;
+import simulator.editmodel.FullTextSearch;
 import ui.images.Images;
 import ui.modeleditor.ModelClientData;
 import ui.modeleditor.ModelSequences;
@@ -349,6 +350,19 @@ public class ModelElementAnalogAssign extends ModelElementMultiInSingleOutBox {
 				descriptionBuilder.addProperty(String.format(Language.tr("ModelDescription.AnalogAssign.Rate"),changeID.get(i).intValue()),changeExpression.get(i),1000);
 				break;
 			}
+		}
+	}
+
+	@Override
+	public void search(final FullTextSearch searcher) {
+		super.search(searcher);
+
+		for (int i=0;i<changeExpression.size();i++) {
+			final int index=i;
+			if (searcher.isTestIDs()) {
+				searcher.testInteger(this,String.format(Language.tr("Editor.DialogBase.Search.IDForAnalogAssign"),changeExpression.get(index)),changeID.get(index));
+			}
+			searcher.testString(this,String.format(Language.tr("Editor.DialogBase.Search.ExpressionForAnalogStation"),changeID.get(index).intValue()),changeExpression.get(index),newExpression->changeExpression.set(index,newExpression));
 		}
 	}
 }

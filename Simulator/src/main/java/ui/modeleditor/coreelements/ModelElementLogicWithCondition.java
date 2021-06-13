@@ -22,6 +22,7 @@ import org.w3c.dom.Element;
 
 import language.Language;
 import simulator.editmodel.EditModel;
+import simulator.editmodel.FullTextSearch;
 import ui.modeleditor.ModelClientData;
 import ui.modeleditor.ModelSequences;
 import ui.modeleditor.ModelSurface;
@@ -162,5 +163,12 @@ public abstract class ModelElementLogicWithCondition extends ModelElementLogic {
 		super.buildDescription(descriptionBuilder);
 
 		if (!condition.trim().isEmpty()) descriptionBuilder.addProperty(Language.tr("ModelDescription.Logic.Condition"),condition,1000);
+	}
+
+	@Override
+	public void search(final FullTextSearch searcher) {
+		super.search(searcher);
+
+		searcher.testString(this,Language.tr("Surface.Logic.Dialog.Condition"),condition,newCondition->{condition=newCondition;});
 	}
 }

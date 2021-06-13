@@ -35,6 +35,7 @@ import org.w3c.dom.Element;
 import language.Language;
 import mathtools.NumberTools;
 import simulator.editmodel.EditModel;
+import simulator.editmodel.FullTextSearch;
 import simulator.runmodel.RunModelFixer;
 import ui.images.Images;
 import ui.modeleditor.ModelClientData;
@@ -107,13 +108,6 @@ public class ModelElementDecide extends ModelElementBox implements ModelDataRena
 	private DecideMode mode=DecideMode.MODE_CHANCE;
 
 	/**
-	 * Schlüssel gemäß dessen Werten die Verzweigung erfolgen soll
-	 * @see #getKey()
-	 * @see #setKey(String)
-	 */
-	private String key;
-
-	/**
 	 * Liste der Raten für die Verzweigungen
 	 * @see #getRates()
 	 */
@@ -126,6 +120,19 @@ public class ModelElementDecide extends ModelElementBox implements ModelDataRena
 	private final List<String> conditions;
 
 	/**
+	 * Liste der Namen der Kundentypen für die Verzweigungen
+	 * @see #getClientTypes()
+	 */
+	private final List<String> clientTypes;
+
+	/**
+	 * Schlüssel gemäß dessen Werten die Verzweigung erfolgen soll
+	 * @see #getKey()
+	 * @see #setKey(String)
+	 */
+	private String key;
+
+	/**
 	 * Verzweigungswerte
 	 * @see #getValues()
 	 */
@@ -136,12 +143,6 @@ public class ModelElementDecide extends ModelElementBox implements ModelDataRena
 	 * @see #values
 	 */
 	private boolean multiTextValues;
-
-	/**
-	 * Liste der Namen der Kundentypen für die Verzweigungen
-	 * @see #getClientTypes()
-	 */
-	private final List<String> clientTypes;
 
 	/**
 	 * Liste mit neuen Kundentypen gemäß den Ausgängen (leere Strings stehen für "keine Änderung")
@@ -1126,5 +1127,53 @@ public class ModelElementDecide extends ModelElementBox implements ModelDataRena
 	@Override
 	protected void addEdgeOutFixes(final List<RunModelFixer> fixer) {
 		findEdgesTo(QuickFixNextElements.duplicate,fixer);
+	}
+
+	@Override
+	public void search(final FullTextSearch searcher) {
+		super.search(searcher);
+
+		switch (mode) {
+		case MODE_CHANCE:
+			for (int i=0;i<rates.size();i++) {
+				final int index=i;
+				searcher.testDouble(this,Language.tr("Surface.Decide.Dialog.OutgoingEdge")+" "+(i+1),rates.get(i),newRate->{if (newRate>=0) rates.set(index,newRate);});
+			}
+			break;
+		case MODE_CONDITION:
+			for (int i=0;i<conditions.size();i++) {
+				final int index=i;
+				searcher.testString(this,Language.tr("Surface.Decide.Dialog.OutgoingEdge")+" "+(i+1),conditions.get(i),newCondition->conditions.set(index,newCondition));
+			}
+			break;
+		case MODE_CLIENTTYPE:
+			for (int i=0;i<clientTypes.size();i++) {
+				final int index=i;
+				searcher.testString(this,Language.tr("Surface.Decide.Dialog.OutgoingEdge")+" "+(i+1),clientTypes.get(i),newClientType->clientTypes.set(index,newClientType));
+			}
+			break;
+		case MODE_SEQUENCE:
+			/* Keine Konfiguration */
+			break;
+		case MODE_SHORTEST_QUEUE_NEXT_STATION:
+			/* Keine Konfiguration */
+			break;
+		case MODE_SHORTEST_QUEUE_PROCESS_STATION:
+			/* Keine Konfiguration */
+			break;
+		case MODE_MIN_CLIENTS_NEXT_STATION:
+			/* Keine Konfiguration */
+			break;
+		case MODE_MIN_CLIENTS_PROCESS_STATION:
+			/* Keine Konfiguration */
+			break;
+		case MODE_KEY_VALUE:
+			searcher.testString(this,Language.tr("Surface.Decide.Dialog.OutgoingEdge.Key"),key,newKey->{key=newKey;});
+			for (int i=0;i<values.size();i++) {
+				final int index=i;
+				searcher.testString(this,Language.tr("Surface.Decide.Dialog.OutgoingEdge")+" "+(i+1),values.get(i),newValue->values.set(index,newValue));
+			}
+			break;
+		}
 	}
 }

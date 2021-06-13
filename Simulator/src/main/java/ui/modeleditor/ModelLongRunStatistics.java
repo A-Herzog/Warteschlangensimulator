@@ -24,6 +24,7 @@ import org.w3c.dom.NodeList;
 
 import language.Language;
 import mathtools.NumberTools;
+import simulator.editmodel.FullTextSearch;
 
 /**
  * Hält alle Datensätze für die Erfassung von Laufzeitstatistik-Daten vor
@@ -195,5 +196,14 @@ public final class ModelLongRunStatistics implements Cloneable {
 		}
 
 		return null;
+	}
+
+	/**
+	 * Sucht einen Text in den Daten der Laufzeitstatistik.
+	 * @param searcher	Such-System
+	 * @see FullTextSearch
+	 */
+	public void search(final FullTextSearch searcher) {
+		for (ModelLongRunStatisticsElement record: data) record.search(searcher);
 	}
 }

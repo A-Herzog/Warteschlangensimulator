@@ -35,6 +35,7 @@ import org.w3c.dom.Element;
 import language.Language;
 import mathtools.NumberTools;
 import simulator.editmodel.EditModel;
+import simulator.editmodel.FullTextSearch;
 import simulator.runmodel.RunModelFixer;
 import ui.images.Images;
 import ui.modeleditor.ModelClientData;
@@ -592,5 +593,13 @@ public class ModelElementBalking extends ModelElementBox implements ModelElement
 	@Override
 	protected void addEdgeOutFixes(final List<RunModelFixer> fixer) {
 		findEdgesTo(QuickFixNextElements.balking,fixer);
+	}
+
+	@Override
+	public void search(final FullTextSearch searcher) {
+		super.search(searcher);
+
+		globalData.search(searcher,this);
+		for (ModelElementBalkingData record: clientData) record.search(searcher,this);
 	}
 }

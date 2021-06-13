@@ -30,6 +30,7 @@ import org.w3c.dom.Element;
 
 import language.Language;
 import simulator.editmodel.EditModel;
+import simulator.editmodel.FullTextSearch;
 import simulator.runmodel.RunModelFixer;
 import ui.images.Images;
 import ui.modeleditor.ModelClientData;
@@ -350,5 +351,12 @@ public class ModelElementBarrierPull extends ModelElementMultiInSingleOutBox imp
 	@Override
 	protected void addEdgeOutFixes(final List<RunModelFixer> fixer) {
 		findEdgesTo(QuickFixNextElements.hold,fixer);
+	}
+
+	@Override
+	public void search(final FullTextSearch searcher) {
+		super.search(searcher);
+
+		searcher.testString(this,Language.tr("Surface.BarrierPull.Dialog.MaxNumber"),nextMax,newNextMax->{nextMax=newNextMax;});
 	}
 }

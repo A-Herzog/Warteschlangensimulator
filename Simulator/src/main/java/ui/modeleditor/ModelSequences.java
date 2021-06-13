@@ -22,6 +22,8 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
+import simulator.editmodel.FullTextSearch;
+
 /**
  * Daten für alle Fertigungspläne
  * @author Alexander Herzog
@@ -128,5 +130,14 @@ public final class ModelSequences implements Cloneable {
 		}
 
 		return null;
+	}
+
+	/**
+	 * Sucht einen Text in den Daten der Fertigungspläne.
+	 * @param searcher	Such-System
+	 * @see FullTextSearch
+	 */
+	public void search(final FullTextSearch searcher) {
+		for (ModelSequence sequence: sequences) sequence.search(searcher);
 	}
 }

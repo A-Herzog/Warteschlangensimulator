@@ -31,6 +31,7 @@ import org.w3c.dom.Element;
 
 import language.Language;
 import simulator.editmodel.EditModel;
+import simulator.editmodel.FullTextSearch;
 import ui.images.Images;
 import ui.modeleditor.ModelClientData;
 import ui.modeleditor.ModelDataRenameListener;
@@ -344,5 +345,12 @@ public class ModelElementSplit extends ModelElementMultiInSingleOutBox implement
 		if (isRenameType(oldName,newName,type,ModelDataRenameListener.RenameType.RENAME_TYPE_SIGNAL)) {
 			for (ModelElementSourceRecord record: records) record.signalRenamed(oldName,newName);
 		}
+	}
+
+	@Override
+	public void search(final FullTextSearch searcher) {
+		super.search(searcher);
+
+		for (ModelElementSourceRecord record: records) record.search(searcher,this);
 	}
 }

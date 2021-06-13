@@ -22,6 +22,8 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
+import simulator.editmodel.FullTextSearch;
+
 /**
  * Daten für alle Transportergruppen
  * @author Alexander Herzog
@@ -154,5 +156,14 @@ public final class ModelTransporters implements Cloneable {
 		}
 
 		return null;
+	}
+
+	/**
+	 * Sucht einen Text in den Daten der Transportergruppen.
+	 * @param searcher	Such-System
+	 * @see FullTextSearch
+	 */
+	public void search(final FullTextSearch searcher) {
+		for (ModelTransporter group: transporters) group.search(searcher);
 	}
 }

@@ -31,6 +31,7 @@ import org.w3c.dom.Element;
 import language.Language;
 import mathtools.NumberTools;
 import simulator.editmodel.EditModel;
+import simulator.editmodel.FullTextSearch;
 import simulator.elements.RunElementDifferentialCounterData;
 import ui.images.Images;
 import ui.modeleditor.ModelClientData;
@@ -320,5 +321,12 @@ public class ModelElementDifferentialCounter extends ModelElementMultiInSingleOu
 		final String value;
 		if (change>0) value="+"+NumberTools.formatLong(change); else value=NumberTools.formatLong(change);
 		descriptionBuilder.addProperty(Language.tr("ModelDescription.DifferentialCounter.Change"),value,1000);
+	}
+
+	@Override
+	public void search(final FullTextSearch searcher) {
+		super.search(searcher);
+
+		searcher.testInteger(this,Language.tr("Surface.DifferentialCounter.Dialog.Increment"),change,newChange->{change=newChange;});
 	}
 }

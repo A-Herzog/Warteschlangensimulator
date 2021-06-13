@@ -23,6 +23,7 @@ import org.w3c.dom.Element;
 import language.Language;
 import mathtools.NumberTools;
 import mathtools.distribution.tools.DistributionTools;
+import simulator.editmodel.FullTextSearch;
 
 /**
  * Enth‰lt die Daten zu einem Ausfall eines Transporters in einer Transportergruppe
@@ -421,5 +422,38 @@ public final class ModelTransporterFailure implements Cloneable {
 		}
 
 		return null;
+	}
+
+	/**
+	 * Sucht einen Text in den Daten des Ausfall-Datensatzes.
+	 * @param searcher	Such-System
+	 * @param transporterGroupName	Name der Transportergruppe zu der dieser Ausfall gehˆrt
+	 * @see FullTextSearch
+	 */
+	public void search(final FullTextSearch searcher, final String transporterGroupName) {
+		/* Bestimmung der Ausfall-Abst‰nde */
+		switch (modeFailure) {
+		case FAILURE_BY_NUMBER:
+			searcher.testInteger(Language.tr("Editor.DialogBase.Search.TransporterGroup.Failure.ServedNumber"),servedNumber,newServedNumber->{if (newServedNumber>0) servedNumber=newServedNumber;});
+			break;
+		case FAILURE_BY_DISTANCE:
+			searcher.testDouble(Language.tr("Editor.DialogBase.Search.TransporterGroup.Failure.Distance"),servedTimeOrDistance,newServedTimeOrDistance->{if (newServedTimeOrDistance>0) servedTimeOrDistance=newServedTimeOrDistance;});
+			break;
+		case FAILURE_BY_WORKING_TIME:
+			searcher.testDouble(Language.tr("Editor.DialogBase.Search.TransporterGroup.Failure.WorkingTime"),servedTimeOrDistance,newServedTimeOrDistance->{if (newServedTimeOrDistance>0) servedTimeOrDistance=newServedTimeOrDistance;});
+			break;
+		case FAILURE_BY_DISTRIBUTION:
+			searcher.testDistribution(Language.tr("Editor.DialogBase.Search.TransporterGroup.Failure.InterDownTimeDistribution"),interDownTimeDistribution);
+			break;
+		case FAILURE_BY_EXPRESSION:
+			searcher.testString(Language.tr("Editor.DialogBase.Search.TransporterGroup.Failure.InterDownTimeExpression"),interDownTimeExpression);
+			break;
+		}
+
+		/* Verteilung der Pausen/Ausfallzeiten der Bediener dieser Transportergruppe */
+		searcher.testDistribution(Language.tr("Editor.DialogBase.Search.TransporterGroup.Failure.DownTimeDistribution"),downTimeDistribution);
+
+		/* Ausdruck gem‰ﬂ dessen die Pausen/Ausfallzeiten der Transporter dieser Transportergruppe bestimmt werden sollen */
+		searcher.testString(Language.tr("Editor.DialogBase.Search.TransporterGroup.Failure.DownTimeExpression"),downTimeExpression);
 	}
 }

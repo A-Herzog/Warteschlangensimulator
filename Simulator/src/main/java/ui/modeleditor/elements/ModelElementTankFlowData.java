@@ -20,6 +20,8 @@ import org.w3c.dom.Element;
 
 import language.Language;
 import mathtools.NumberTools;
+import simulator.editmodel.FullTextSearch;
+import ui.modeleditor.coreelements.ModelElementBox;
 import ui.modeleditor.descriptionbuilder.ModelDescriptionBuilder;
 
 /**
@@ -467,6 +469,39 @@ public final class ModelElementTankFlowData implements Cloneable {
 			break;
 		case STOP_BY_SIGNAL:
 			descriptionBuilder.addProperty(Language.tr("ModelDescription.FlowData.StopCondition"),String.format(Language.tr("ModelDescription.FlowData.StopCondition.Signal"),stopSignal),position+2);
+			break;
+		}
+	}
+
+	/**
+	 * Sucht einen Text in den Daten dieses Datensatzes.
+	 * @param searcher	Such-System
+	 * @param station	Station an der dieser Datensatz verwendet wird
+	 * @see FullTextSearch
+	 */
+	public void search(final FullTextSearch searcher, final ModelElementBox station) {
+		/* Start und Ziel des Flusses */
+		if (searcher.isTestIDs()) {
+			if (searcher.isTestIDs()) {
+				searcher.testInteger(station,Language.tr("Editor.DialogBase.Search.FlowOriginStationID"),sourceID);
+			}
+			searcher.testInteger(station,Language.tr("Editor.DialogBase.Search.FlowOriginValveNr"),sourceValveNr,newValveNr->{if (newValveNr>=0) sourceValveNr=newValveNr;});
+			if (searcher.isTestIDs()) {
+				searcher.testInteger(station,Language.tr("Editor.DialogBase.Search.FlowDestinationStationID"),destinationID);
+			}
+			searcher.testInteger(station,Language.tr("Editor.DialogBase.Search.FlowDestinationValveNr"),destinationValveNr,newValveNr->{if (newValveNr>=0) destinationValveNr=newValveNr;});
+		}
+
+		/* Stopp des Flusses */
+		switch (stopCondition) {
+		case STOP_BY_TIME:
+			searcher.testDouble(station,Language.tr("Surface.TankFlowPanel.StopCondition.Time"),stopTime,newStopTime->{if (newStopTime>0) stopTime=newStopTime;});
+			break;
+		case STOP_BY_QUANTITY:
+			searcher.testDouble(station,Language.tr("Surface.TankFlowPanel.StopCondition.Quantity"),stopQuantity,newStopQuantity->{if (newStopQuantity>0) stopQuantity=newStopQuantity;});
+			break;
+		case STOP_BY_SIGNAL:
+			searcher.testString(station,Language.tr("Surface.TankFlowPanel.StopCondition.Signal"),stopSignal,newStopSignal->{stopSignal=newStopSignal;});
 			break;
 		}
 	}

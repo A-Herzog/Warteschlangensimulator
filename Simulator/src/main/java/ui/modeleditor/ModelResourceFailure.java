@@ -23,6 +23,7 @@ import org.w3c.dom.Element;
 import language.Language;
 import mathtools.NumberTools;
 import mathtools.distribution.tools.DistributionTools;
+import simulator.editmodel.FullTextSearch;
 
 /**
  * Diese Klasse enth‰lt die Informationen ¸ber einen Ressourcenausfall vor.
@@ -461,5 +462,38 @@ public final class ModelResourceFailure implements Cloneable {
 
 		if (dataLoadedPart1 && dataLoadedPart2) return null;
 		return String.format(Language.tr("Surface.Resource.NoData"),s,resourceName);
+	}
+
+	/**
+	 * Sucht einen Text in den Daten des Ausfall-Datensatzes.
+	 * @param searcher	Such-System
+	 * @param resourceName	Name der Bedienergruppe zu der dieser Ausfall gehˆrt
+	 * @see FullTextSearch
+	 */
+	public void search(final FullTextSearch searcher, final String resourceName) {
+		/* Bestimmung der Ausfall-Abst‰nde */
+		switch (modeFailure) {
+		case FAILURE_BY_NUMBER:
+			searcher.testInteger(Language.tr("Editor.DialogBase.Search.Resource.Failure.ServedNumber"),servedNumber,newServedNumber->{if (newServedNumber>0) servedNumber=newServedNumber;});
+			break;
+		case FAILURE_BY_AVAILABLE_TIME:
+			searcher.testDouble(Language.tr("Editor.DialogBase.Search.Resource.Failure.AvailableTime"),servedTime,newServedTime->{if (newServedTime>0) servedTime=newServedTime;});
+			break;
+		case FAILURE_BY_WORKING_TIME:
+			searcher.testDouble(Language.tr("Editor.DialogBase.Search.Resource.Failure.WorkingTime"),servedTime,newServedTime->{if (newServedTime>0) servedTime=newServedTime;});
+			break;
+		case FAILURE_BY_DISTRIBUTION:
+			searcher.testDistribution(Language.tr("Editor.DialogBase.Search.Resource.Failure.InterDownTimeDistribution"),interDownTimeDistribution);
+			break;
+		case FAILURE_BY_EXPRESSION:
+			searcher.testString(Language.tr("Editor.DialogBase.Search.Resource.Failure.InterDownTimeExpression"),interDownTimeExpression);
+			break;
+		}
+
+		/* Verteilung der Pausen/Ausfallzeiten der Bediener dieser Ressource */
+		searcher.testDistribution(Language.tr("Editor.DialogBase.Search.Resource.Failure.DownTimeDistribution"),downTimeDistribution);
+
+		/* Ausdruck gem‰ﬂ dessen die Pausen/Ausfallzeiten der Bediener dieser Ressource bestimmt werden sollen */
+		searcher.testString(Language.tr("Editor.DialogBase.Search.Resource.Failure.DownTimeExpression"),downTimeExpression);
 	}
 }

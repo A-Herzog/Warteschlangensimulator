@@ -27,6 +27,7 @@ import org.w3c.dom.Element;
 import language.Language;
 import mathtools.NumberTools;
 import simulator.editmodel.EditModel;
+import simulator.editmodel.FullTextSearch;
 import simulator.elements.RunElementTransportParking;
 import simulator.elements.RunElementTransportParkingData;
 import simulator.runmodel.RunDataTransporters;
@@ -391,5 +392,19 @@ public class ModelElementTransportParking extends ModelElementBox implements Mod
 		if (connectionsOut.size()>0) return false;
 
 		return false;
+	}
+
+	@Override
+	public void search(final FullTextSearch searcher) {
+		super.search(searcher);
+
+		/* Transportertyp, der hier parken kann */
+		searcher.testString(this,Language.tr("Surface.TransportParking.Dialog.TransporterType"),transporterType,newTransporterType->{transporterType=newTransporterType;});
+
+		/* Anzahl an Transportern, die hier parken können */
+		searcher.testInteger(this,Language.tr("Surface.TransportParking.Dialog.WaitingCapacity"),waitingCapacity,newWaitingCapacity->{if (newWaitingCapacity>0) waitingCapacity=newWaitingCapacity;});
+
+		/* Priorität mit der verfügbare Transporter angezogen werden */
+		searcher.testString(this,Language.tr("Surface.TransportParking.Dialog.WaitingPriority"),waitingPriority);
 	}
 }

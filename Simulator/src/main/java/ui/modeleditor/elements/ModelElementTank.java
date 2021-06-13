@@ -36,6 +36,7 @@ import language.Language;
 import mathtools.NumberTools;
 import simulator.coreelements.RunElementData;
 import simulator.editmodel.EditModel;
+import simulator.editmodel.FullTextSearch;
 import simulator.elements.RunElementTankData;
 import simulator.elements.RunElementTankFlow;
 import simulator.runmodel.SimulationData;
@@ -697,5 +698,25 @@ public class ModelElementTank extends ModelElementBox {
 		if (connectionsOut.size()>0) return false;
 
 		return false;
+	}
+
+	@Override
+	public void search(final FullTextSearch searcher) {
+		super.search(searcher);
+
+		/* Kapazität des Tanks */
+		searcher.testDouble(this,Language.tr("Surface.Tank.Dialog.Capacity"),capacity,newCapacity->{if (newCapacity>0) capacity=newCapacity;});
+
+		/* Initialwert */
+		searcher.testDouble(this,Language.tr("Surface.Tank.Dialog.InitialValue"),initialValue,newInitialValue->{initialValue=newInitialValue;});
+
+		/* Liste der Ventile */
+		for (int i=0;i<valves.size();i++) {
+			final int index=i;
+			searcher.testDouble(this,String.format(Language.tr("Editor.DialogBase.Search.ValveMaximumFlow"),index),valves.get(index).initialValue,newMaxFlow->{if (newMaxFlow>0) valves.get(index).initialValue=newMaxFlow;});
+		}
+
+		/* Gibt an, wie häufig das System über die Änderung des Wertes benachrichtigt werden soll (in Sekunden). */
+		searcher.testDouble(this,Language.tr("Surface.Tank.Dialog.AnalogNotify"),analogNotify,newAnalogNotify->{if (newAnalogNotify>0) analogNotify=newAnalogNotify;});
 	}
 }

@@ -34,6 +34,7 @@ import org.w3c.dom.Element;
 import language.Language;
 import mathtools.NumberTools;
 import simulator.editmodel.EditModel;
+import simulator.editmodel.FullTextSearch;
 import ui.images.Images;
 import ui.modeleditor.ModelClientData;
 import ui.modeleditor.ModelSequences;
@@ -886,5 +887,28 @@ public class ModelElementMatch extends ModelElementBox implements ElementWithNew
 		this.connectionOut=connectionsOut.get(0);
 
 		return true;
+	}
+
+	@Override
+	public void search(final FullTextSearch searcher) {
+		super.search(searcher);
+
+		/* Abzugleichende Eigenschaft */
+		switch (matchPropertyMode) {
+		case NONE:
+			/* Keine zu prüfenden Daten */
+			break;
+		case NUMBER:
+			searcher.testInteger(this,Language.tr("Surface.Match.Dialog.OptionProperty.Number"),matchPropertyNumber,newMatchPropertyNumber->{if (newMatchPropertyNumber>=0) matchPropertyNumber=newMatchPropertyNumber;});
+			break;
+		case TEXT:
+			searcher.testString(this,Language.tr("Surface.Match.Dialog.OptionProperty.Text"),matchPropertyString,newMatchPropertyString->{matchPropertyString=newMatchPropertyString;});
+			break;
+		}
+
+		/* Neuer Kundentyp */
+		if (matchMode!=MatchMode.MATCH_MODE_COLLECT) {
+			searcher.testString(this,Language.tr("Editor.DialogBase.Search.NewClientType"),newClientType,newNewClientType->{newClientType=newNewClientType;});
+		}
 	}
 }

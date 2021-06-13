@@ -32,6 +32,7 @@ import org.w3c.dom.Element;
 import language.Language;
 import mathtools.NumberTools;
 import simulator.editmodel.EditModel;
+import simulator.editmodel.FullTextSearch;
 import ui.images.Images;
 import ui.modeleditor.ModelClientData;
 import ui.modeleditor.ModelDataRenameListener;
@@ -439,5 +440,12 @@ public class ModelElementTeleportSource extends ModelElementBox implements Model
 		this.connections.addAll(connectionsIn);
 
 		return true;
+	}
+
+	@Override
+	public void search(final FullTextSearch searcher) {
+		super.search(searcher);
+
+		searcher.testString(this,Language.tr("Surface.TeleportSource.Dialog.Target"),destination,newDestination->{destination=newDestination;});
 	}
 }

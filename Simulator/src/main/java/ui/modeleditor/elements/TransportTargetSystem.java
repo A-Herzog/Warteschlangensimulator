@@ -22,6 +22,8 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 import language.Language;
+import simulator.editmodel.FullTextSearch;
+import ui.modeleditor.coreelements.ModelElementBox;
 import ui.modeleditor.descriptionbuilder.ModelDescriptionBuilder;
 
 /**
@@ -340,5 +342,27 @@ public final class TransportTargetSystem implements Cloneable {
 
 		/* Standardziel */
 		descriptionBuilder.addProperty(Language.tr("ModelDescription.TransportTargetSystem.DefaultRouting"),defaultStation,102000);
+	}
+
+	/**
+	 * Sucht einen Text in den Daten dieses Datensatzes.
+	 * @param searcher	Such-System
+	 * @param station	Station an der dieser Datensatz verwendet wird
+	 * @see FullTextSearch
+	 */
+	public void search(final FullTextSearch searcher, final ModelElementBox station) {
+		switch (mode) {
+		case ROUTING_MODE_EXPLICITE:
+			for (TransportTargetRecord record: routing) record.search(searcher,station);
+			break;
+		case ROUTING_MODE_TEXT_PROPERTY:
+			searcher.testString(station,Language.tr("Surface.TransportSource.Dialog.Property"),property,newProperty->{property=newProperty;});
+			break;
+		case ROUTING_MODE_SEQUENCE:
+			/* Keine zu prüfenden Einstellungen */
+			break;
+		}
+
+		searcher.testString(station,Language.tr("Surface.TransportSource.Dialog.DefaultStation"),defaultStation,newDefaultStation->{defaultStation=newDefaultStation;});
 	}
 }

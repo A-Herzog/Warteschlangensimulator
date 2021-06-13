@@ -27,6 +27,7 @@ import org.w3c.dom.Element;
 import language.Language;
 import mathtools.NumberTools;
 import simulator.editmodel.EditModel;
+import simulator.editmodel.FullTextSearch;
 import ui.images.Images;
 import ui.modeleditor.ModelClientData;
 import ui.modeleditor.ModelSequences;
@@ -403,5 +404,16 @@ public class ModelElementTankSensor extends ModelElementBox implements ModelElem
 		if (connectionsOut.size()>0) return false;
 
 		return false;
+	}
+
+	@Override
+	public void search(final FullTextSearch searcher) {
+		super.search(searcher);
+
+		if (searcher.isTestIDs()) {
+			searcher.testInteger(this,Language.tr("Editor.DialogBase.Search.TankID"),tankId);
+		}
+
+		searcher.testDouble(this,Language.tr("Editor.DialogBase.Search.Threshold"),threshold,newThreshold->{threshold=newThreshold;});
 	}
 }

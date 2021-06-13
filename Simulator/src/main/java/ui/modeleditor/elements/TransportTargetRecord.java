@@ -16,6 +16,8 @@
 package ui.modeleditor.elements;
 
 import language.Language;
+import simulator.editmodel.FullTextSearch;
+import ui.modeleditor.coreelements.ModelElementBox;
 
 /**
  * Speichert die Daten zu einem möglichen Routing-Ziel und der
@@ -122,5 +124,24 @@ public final class TransportTargetRecord implements Cloneable {
 		route.routingCondition=expression;
 		route.station=station;
 		return route;
+	}
+
+	/**
+	 * Sucht einen Text in den Daten dieses Datensatzes.
+	 * @param searcher	Such-System
+	 * @param station	Station an der dieser Datensatz verwendet wird
+	 * @see FullTextSearch
+	 */
+	public void search(final FullTextSearch searcher, final ModelElementBox station) {
+		switch (routingMode) {
+		case ROUTING_MODE_CLIENT_TYPE:
+			searcher.testString(station,Language.tr("Editor.DialogBase.Search.TransportDestination.ForClientType"),routingCondition,newClientType->{routingCondition=newClientType;});
+			break;
+		case ROUTING_MODE_EXPRESSION:
+			searcher.testString(station,Language.tr("Editor.DialogBase.Search.TransportDestination.ForCondition"),routingCondition,newCondition->{routingCondition=newCondition;});
+			break;
+		}
+
+		searcher.testString(station,Language.tr("Editor.DialogBase.Search.TransportDestination"),this.station,newDestinationStation->{this.station=newDestinationStation;});
 	}
 }

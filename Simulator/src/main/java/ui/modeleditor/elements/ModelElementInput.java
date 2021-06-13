@@ -33,6 +33,7 @@ import org.w3c.dom.Element;
 
 import language.Language;
 import simulator.editmodel.EditModel;
+import simulator.editmodel.FullTextSearch;
 import ui.images.Images;
 import ui.modeleditor.ModelClientData;
 import ui.modeleditor.ModelSequences;
@@ -498,5 +499,16 @@ public class ModelElementInput extends ModelElementMultiInSingleOutBox implement
 	@Override
 	public DataCheckResult checkExternalData() {
 		return DataCheckResult.checkFile(this,inputFile);
+	}
+
+	@Override
+	public void search(final FullTextSearch searcher) {
+		super.search(searcher);
+
+		searcher.testString(this,Language.tr("Editor.DialogBase.Search.InputFile"),inputFile,newInputFile->{inputFile=newInputFile;});
+		searcher.testString(this,Language.tr("Editor.DialogBase.Search.AssignedVariable"),variable,newVariable->{variable=newVariable;});
+		if (eofMode==EofModes.EOF_MODE_DEFAULT_VALUE) {
+			searcher.testString(this,Language.tr("Surface.Input.Dialog.Mode.DefaultValue"),defaultValue,newDefaultValue->{defaultValue=newDefaultValue;});
+		}
 	}
 }

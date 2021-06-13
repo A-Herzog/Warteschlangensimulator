@@ -38,6 +38,7 @@ import org.w3c.dom.Element;
 
 import language.Language;
 import simulator.editmodel.EditModel;
+import simulator.editmodel.FullTextSearch;
 import ui.images.Images;
 import ui.modeleditor.AnimationImageSource;
 import ui.modeleditor.ModelClientData;
@@ -479,5 +480,12 @@ public class ModelElementNote extends ModelElementPosition {
 	@Override
 	public void specialOutput(final SpecialOutputBuilder outputBuilder) {
 		if (outputBuilder instanceof HTMLOutputBuilder) specialOutputHTML((HTMLOutputBuilder)outputBuilder);
+	}
+
+	@Override
+	public void search(final FullTextSearch searcher) {
+		super.search(searcher);
+
+		searcher.testString(this,Language.tr("Editor.DialogBase.Search.Note"),note,newNote->setNote(newNote));
 	}
 }

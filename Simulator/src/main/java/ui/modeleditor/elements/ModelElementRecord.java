@@ -30,6 +30,7 @@ import org.w3c.dom.Element;
 
 import language.Language;
 import simulator.editmodel.EditModel;
+import simulator.editmodel.FullTextSearch;
 import ui.images.Images;
 import ui.modeleditor.ModelClientData;
 import ui.modeleditor.ModelSequences;
@@ -324,5 +325,13 @@ public class ModelElementRecord extends ModelElementMultiInSingleOutBox {
 		if (expression2!=null && !expression2.isEmpty()) {
 			descriptionBuilder.addProperty(Language.tr("ModelDescription.Record.Expression2"),expression2,2200);
 		}
+	}
+
+	@Override
+	public void search(final FullTextSearch searcher) {
+		super.search(searcher);
+
+		searcher.testString(this,Language.tr("Surface.Record.Dialog.Expression1"),expression1,newExpression1->{expression1=newExpression1;});
+		searcher.testString(this,Language.tr("Surface.Record.Dialog.Expression2"),expression2,newExpression2->{expression2=newExpression2;});
 	}
 }

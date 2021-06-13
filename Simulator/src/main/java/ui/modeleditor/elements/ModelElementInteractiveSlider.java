@@ -36,6 +36,7 @@ import org.w3c.dom.Element;
 import language.Language;
 import mathtools.NumberTools;
 import simulator.editmodel.EditModel;
+import simulator.editmodel.FullTextSearch;
 import simulator.elements.RunElementInteractiveSlider;
 import simulator.runmodel.SimulationData;
 import ui.images.Images;
@@ -759,5 +760,15 @@ public class ModelElementInteractiveSlider extends ModelElementPosition implemen
 	@Override
 	public void specialOutput(final SpecialOutputBuilder outputBuilder) {
 		if (outputBuilder instanceof HTMLOutputBuilder) specialOutputHTML((HTMLOutputBuilder)outputBuilder);
+	}
+
+	@Override
+	public void search(final FullTextSearch searcher) {
+		super.search(searcher);
+
+		searcher.testString(this,Language.tr("Editor.DialogBase.Search.Variable"),variable,newVariable->{variable=newVariable;});
+		searcher.testDouble(this,Language.tr("Editor.DialogBase.Search.MinValue"),minValue,newMinValue->{minValue=newMinValue;});
+		searcher.testDouble(this,Language.tr("Editor.DialogBase.Search.MaxValue"),maxValue,newMaxValue->{maxValue=newMaxValue;});
+		searcher.testDouble(this,Language.tr("Surface.InteractiveSlider.Dialog.StepWide"),step,newStep->{if (newStep>0) step=newStep;});
 	}
 }

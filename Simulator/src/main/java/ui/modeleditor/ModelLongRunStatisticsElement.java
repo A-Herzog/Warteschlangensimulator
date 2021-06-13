@@ -21,6 +21,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 import language.Language;
+import simulator.editmodel.FullTextSearch;
 import statistics.StatisticsLongRunPerformanceIndicator;
 import statistics.StatisticsLongRunPerformanceIndicator.Mode;
 
@@ -155,5 +156,14 @@ public final class ModelLongRunStatisticsElement implements Cloneable {
 		default:
 			return "";
 		}
+	}
+
+	/**
+	 * Sucht einen Text in den Daten des Laufzeitstatistik-Elements.
+	 * @param searcher	Such-System
+	 * @see FullTextSearch
+	 */
+	public void search(final FullTextSearch searcher) {
+		searcher.testString(Language.tr("Editor.Dialog.Tab.RunTimeStatistics"),expression,newExpression->{expression=newExpression;});
 	}
 }

@@ -38,6 +38,7 @@ import org.w3c.dom.Element;
 import language.Language;
 import mathtools.NumberTools;
 import simulator.editmodel.EditModel;
+import simulator.editmodel.FullTextSearch;
 import simulator.runmodel.SimulationData;
 import simulator.simparser.ExpressionCalc;
 import tools.SetupData;
@@ -984,5 +985,15 @@ public class ModelElementAnimationBar extends ModelElementPosition implements El
 		sizesMenu.add(sizeItem(8,5));
 		sizesMenu.add(sizeItem(12,5));
 		sizesMenu.add(sizeItem(16,5));
+	}
+
+	@Override
+	public void search(final FullTextSearch searcher) {
+		super.search(searcher);
+
+		searcher.testString(this,Language.tr("Editor.DialogBase.Search.Expression"),expression,newExpression->{expression=newExpression;});
+		searcher.testDouble(this,Language.tr("Editor.DialogBase.Search.MinValue"),minValue,newMinValue->{minValue=newMinValue;});
+		searcher.testDouble(this,Language.tr("Editor.DialogBase.Search.MaxValue"),maxValue,newMaxValue->{maxValue=newMaxValue;});
+		searcher.testInteger(this,Language.tr("Editor.DialogBase.Search.BorderWidth"),borderWidth,newBorderWidth->{if (newBorderWidth>=0) borderWidth=newBorderWidth;});
 	}
 }

@@ -33,6 +33,7 @@ import language.Language;
 import mathtools.NumberTools;
 import simulator.coreelements.RunElementData;
 import simulator.editmodel.EditModel;
+import simulator.editmodel.FullTextSearch;
 import simulator.elements.RunElementAnalogValueData;
 import simulator.runmodel.SimulationData;
 import ui.images.Images;
@@ -670,5 +671,25 @@ public class ModelElementAnalogValue extends ModelElementBox {
 		if (!connectionsOut.isEmpty()) return false;
 
 		return false;
+	}
+
+	@Override
+	public void search(final FullTextSearch searcher) {
+		super.search(searcher);
+
+		/* Initialwert */
+		searcher.testDouble(this,Language.tr("Surface.AnalogValue.Dialog.InitialValue"),initialValue,newInitialValue->{initialValue=newInitialValue;});
+
+		/* Minimalen Wert, den der analoge Wert annehmen kann */
+		if (valueMinUse) searcher.testDouble(this,Language.tr("Surface.AnalogValue.Dialog.MinimumValue"),valueMin,newValueMin->{valueMin=newValueMin;});
+
+		/* Maximalen Wert, den der analoge Wert annehmen kann */
+		if (valueMaxUse) searcher.testDouble(this,Language.tr("Surface.AnalogValue.Dialog.MaximumValue"),valueMax,newValueMax->{valueMax=newValueMax;});
+
+		/* Änderungsrate (bezogen auf die Zeiteinheit Sekunde) */
+		searcher.testDouble(this,Language.tr("Surface.AnalogValue.Dialog.ChangeRate"),changeRatePerSecond,newChangeRatePerSecond->{changeRatePerSecond=newChangeRatePerSecond;});
+
+		/* Gibt an, wie häufig das System über die Änderung des Wertes benachrichtigt werden soll (in Sekunden). */
+		searcher.testDouble(this,Language.tr("Surface.AnalogValue.Dialog.AnalogNotify"),analogNotify,newAnalogNotify->{if (newAnalogNotify>0) analogNotify=newAnalogNotify;});
 	}
 }

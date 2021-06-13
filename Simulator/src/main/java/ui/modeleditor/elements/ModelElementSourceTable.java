@@ -33,6 +33,7 @@ import org.w3c.dom.Element;
 import language.Language;
 import mathtools.NumberTools;
 import simulator.editmodel.EditModel;
+import simulator.editmodel.FullTextSearch;
 import ui.images.Images;
 import ui.modeleditor.ModelClientData;
 import ui.modeleditor.ModelSequences;
@@ -501,5 +502,19 @@ public class ModelElementSourceTable extends ModelElementBox implements ElementW
 		this.connection=connectionsOut.get(0);
 
 		return true;
+	}
+
+	@Override
+	public void search(final FullTextSearch searcher) {
+		super.search(searcher);
+
+		/* Tabellendateiname */
+		searcher.testString(this,Language.tr("Editor.DialogBase.Search.TableFileName"),tableFileName,newTableFileName->{tableFileName=newTableFileName;});
+
+		/* Kundentypen */
+		for (int i=0;i<clientTypeNames.size();i++) {
+			final int index=i;
+			searcher.testString(this,Language.tr("Editor.DialogBase.Search.ClientTypeName"),clientTypeNames.get(index),newClientTypeName->clientTypeNames.set(index,newClientTypeName));
+		}
 	}
 }

@@ -35,6 +35,7 @@ import org.w3c.dom.Element;
 import language.Language;
 import mathtools.NumberTools;
 import simulator.editmodel.EditModel;
+import simulator.editmodel.FullTextSearch;
 import ui.ModelChanger;
 import ui.images.Images;
 import ui.modeleditor.ModelClientData;
@@ -416,5 +417,12 @@ public class ModelElementBatch extends ModelElementMultiInSingleOutBox implement
 		super.buildDescription(descriptionBuilder);
 
 		batchRecord.buildDescription(null,descriptionBuilder,1000);
+	}
+
+	@Override
+	public void search(final FullTextSearch searcher) {
+		super.search(searcher);
+
+		batchRecord.search(searcher,this,null);
 	}
 }

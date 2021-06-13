@@ -29,6 +29,7 @@ import org.w3c.dom.Element;
 
 import language.Language;
 import simulator.editmodel.EditModel;
+import simulator.editmodel.FullTextSearch;
 import ui.images.Images;
 import ui.modeleditor.ModelClientData;
 import ui.modeleditor.ModelSequences;
@@ -275,5 +276,12 @@ public class ModelElementAction extends ModelElementBox implements ModelElementS
 		if (!connectionsOut.isEmpty()) return false;
 
 		return false;
+	}
+
+	@Override
+	public void search(final FullTextSearch searcher) {
+		super.search(searcher);
+
+		for (ModelElementActionRecord record: records) record.search(searcher,this);
 	}
 }

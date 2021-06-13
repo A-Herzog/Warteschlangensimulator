@@ -40,6 +40,7 @@ import mathtools.NumberTools;
 import mathtools.Table;
 import simulator.coreelements.RunElement;
 import simulator.editmodel.EditModel;
+import simulator.editmodel.FullTextSearch;
 import simulator.elements.RunElementRecord;
 import simulator.runmodel.SimulationData;
 import statistics.StatisticsDataCollector;
@@ -668,5 +669,18 @@ public class ModelElementAnimationRecord extends ModelElementAnimationDiagramBas
 	protected void storeElementAnimationStatisticsData(final Component owner, final JPopupMenu menu, final SimulationData simData) {
 		if (simData==null) return;
 		ModelElementAnimationTableDialog.buildPopupMenuItem(owner,menu,getAnimationRunTimeTableData(simData));
+	}
+
+	@Override
+	public void search(final FullTextSearch searcher) {
+		super.search(searcher);
+
+		/* Name des {@link ModelElementRecord}-Elements dessen Daten angezeigt werden sollen */
+		if (searcher.isTestIDs()) {
+			searcher.testInteger(this,Language.tr("Surface.AnimationRecord.Dialog.Data.SelectRecord.ID"),recordId);
+		}
+
+		/* Anzahl der anzuzeigenden Datenpunkte */
+		searcher.testInteger(this,Language.tr("Surface.AnimationRecord.Dialog.Data.DisplayPoints"),displayPoints,newDisplayPoints->{if (newDisplayPoints>0) displayPoints=newDisplayPoints;});
 	}
 }

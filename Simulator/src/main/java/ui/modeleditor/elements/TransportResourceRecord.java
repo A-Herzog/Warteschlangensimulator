@@ -24,7 +24,9 @@ import org.w3c.dom.NodeList;
 
 import language.Language;
 import mathtools.NumberTools;
+import simulator.editmodel.FullTextSearch;
 import ui.modeleditor.ModelSurface;
+import ui.modeleditor.coreelements.ModelElementBox;
 import ui.modeleditor.descriptionbuilder.ModelDescriptionBuilder;
 
 /**
@@ -288,5 +290,21 @@ public final class TransportResourceRecord implements Cloneable {
 
 		/* Verzögerte Ressourcenfreigabe */
 		delayedRelease.buildDescriptionProperty(descriptionBuilder,Language.tr("ModelDescription.TransportResourceRecord.DelayedRelease.ClientType"),Language.tr("ModelDescription.TransportResourceRecord.DelayedRelease.GeneralCase"),4000);
+	}
+
+	/**
+	 * Sucht einen Text in den Daten dieses Datensatzes.
+	 * @param searcher	Such-System
+	 * @param station	Station an der dieser Datensatz verwendet wird
+	 * @see FullTextSearch
+	 */
+	public void search(final FullTextSearch searcher, final ModelElementBox station) {
+		/* Ressourcenzuordnung -> keine Suche */
+
+		/* Ressorcen-Priorisierungs-Formel */
+		searcher.testString(station,Language.tr("Surface.TransportSource.Dialog.Ressource.Priority"),resourcePriority,newResourcePriority->{resourcePriority=newResourcePriority;});
+
+		/* Verzögerte Ressourcenfreigabe */
+		delayedRelease.search(searcher,station,Language.tr("Surface.TransportSource.Dialog.Ressource.DelayedRelease.Button"));
 	}
 }

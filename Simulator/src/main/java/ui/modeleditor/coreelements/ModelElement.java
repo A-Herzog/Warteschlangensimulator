@@ -58,6 +58,7 @@ import simulator.Simulator;
 import simulator.coreelements.RunElement;
 import simulator.coreelements.RunElementData;
 import simulator.editmodel.EditModel;
+import simulator.editmodel.FullTextSearch;
 import simulator.elements.RunElementDataWithWaitingClients;
 import simulator.elements.RunElementSub;
 import simulator.runmodel.RunDataClient;
@@ -1522,5 +1523,20 @@ public class ModelElement {
 	@Override
 	public String toString() {
 		return super.toString()+" (id="+id+")";
+	}
+
+	/**
+	 * Sucht einen Text in den Daten des Elements.
+	 * @param searcher	Such-System
+	 * @see FullTextSearch
+	 */
+	public void search(final FullTextSearch searcher) {
+		if (searcher.isTestIDs()) searcher.testInteger(this,Language.tr("Editor.DialogBase.Search.ID"),id);
+
+		/* Name */
+		searcher.testString(this,Language.tr("Editor.DialogBase.Search.Name"),name,newName->setName(newName));
+
+		/* Beschreibung */
+		searcher.testString(this,Language.tr("Editor.DialogBase.Search.Description"),description,newDescriptiong->setDescription(newDescriptiong));
 	}
 }

@@ -24,6 +24,7 @@ import org.w3c.dom.Element;
 
 import language.Language;
 import mathtools.NumberTools;
+import simulator.editmodel.FullTextSearch;
 
 /**
  * Diese Klasse bildet einen Zeitplan (für Schichten oder für Kundenankünfte) ab.
@@ -396,5 +397,14 @@ public final class ModelSchedule implements Cloneable {
 		int max=0;
 		for (int slot: slots) max=Math.max(max,slot);
 		return max;
+	}
+
+	/**
+	 * Sucht einen Text in den Daten des Zeitplans.
+	 * @param searcher	Such-System
+	 * @see FullTextSearch
+	 */
+	public void search(final FullTextSearch searcher) {
+		searcher.testString(Language.tr("Schedule.Dialog.Name"),name,newName->{name=newName;});
 	}
 }

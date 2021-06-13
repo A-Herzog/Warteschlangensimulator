@@ -36,6 +36,7 @@ import org.w3c.dom.Element;
 import language.Language;
 import mathtools.NumberTools;
 import simulator.editmodel.EditModel;
+import simulator.editmodel.FullTextSearch;
 import simulator.elements.RunElementTransportTransporterSource;
 import simulator.elements.RunElementTransportTransporterSourceData;
 import simulator.runmodel.RunDataTransporters;
@@ -814,5 +815,37 @@ public class ModelElementTransportTransporterSource extends ModelElementBox impl
 		this.connections.addAll(connectionsIn);
 
 		return true;
+	}
+
+	@Override
+	public void search(final FullTextSearch searcher) {
+		super.search(searcher);
+
+		/* Einstellungen-Objekt mit den Daten zu den Transportzielen */
+		transportTargetSystem.search(searcher,this);
+
+		/* Transportertyp, der hier parken kann */
+		searcher.testString(this,Language.tr("Surface.TransportTransporterSource.Dialog.TransporterType"),transporterType,newTransporterType->{transporterType=newTransporterType;});
+
+		/* Anzahl an wartenden Kunden ab denen ein Transporter angefordert wird */
+		searcher.testInteger(this,Language.tr("Surface.TransportTransporterSource.Dialog.RequestMinWaiting"),requestMinWaiting,newRequestMinWaiting->{if (newRequestMinWaiting>0) requestMinWaiting=newRequestMinWaiting;});
+
+		/* Priorität mit der verfügbare Transporter im Bedarfsfall angezogen werden */
+		searcher.testString(this,Language.tr("Surface.TransportTransporterSource.Dialog.RequestPriority"),requestPriority,newRequestPriority->{requestPriority=newRequestPriority;});
+
+		/* Anzahl an Transportern, die hier parken können */
+		searcher.testInteger(this,Language.tr("Surface.TransportTransporterSource.Dialog.WaitingCapacity"),waitingCapacity,newWaitingCapacity->{if (newWaitingCapacity>=0) waitingCapacity=newWaitingCapacity;});
+
+		/* Priorität mit der verfügbare Transporter angezogen werden */
+		searcher.testString(this,Language.tr("Surface.TransportTransporterSource.Dialog.WaitingPriority"),waitingPriority);
+
+		/* Daten der Kundentypenprioritäten bei der Zuweisung zu Transportern */
+		for (Map.Entry<String,String> record: clientPriority.entrySet()) {
+			final String clientType=record.getKey();
+			searcher.testString(this,String.format(Language.tr("Editor.DialogBase.Search.PriorityForClientType"),clientType),record.getValue(),newPriority->clientPriority.put(clientType,newPriority));
+		}
+
+		/* Namen der zugehörigen "Bereich betreten"-Station */
+		searcher.testString(this,Language.tr("Surface.TransportTransporterSource.Dialog.SectionEnd.SectionStart"),sectionStartName,newSectionStartName->{sectionStartName=newSectionStartName;});
 	}
 }

@@ -23,6 +23,7 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
 import language.Language;
+import simulator.editmodel.FullTextSearch;
 
 /**
  * Daten eines Fertigungsplans
@@ -150,5 +151,14 @@ public final class ModelSequence implements Cloneable {
 		}
 
 		return null;
+	}
+
+	/**
+	 * Sucht einen Text in den Daten des Fertigungsplans.
+	 * @param searcher	Such-System
+	 * @see FullTextSearch
+	 */
+	public void search(final FullTextSearch searcher) {
+		searcher.testString(Language.tr("Editor.DialogBase.Search.SequenceName"),name,newName->{name=newName;});
 	}
 }

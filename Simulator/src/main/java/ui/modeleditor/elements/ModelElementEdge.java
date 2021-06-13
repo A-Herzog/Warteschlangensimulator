@@ -37,6 +37,7 @@ import org.w3c.dom.Element;
 import language.Language;
 import mathtools.NumberTools;
 import simulator.editmodel.EditModel;
+import simulator.editmodel.FullTextSearch;
 import ui.images.Images;
 import ui.modeleditor.ModelElementCatalog;
 import ui.modeleditor.ModelSurface;
@@ -1210,5 +1211,13 @@ public final class ModelElementEdge extends ModelElement {
 	@Override
 	protected boolean canSetDeleteProtection() {
 		return false;
+	}
+
+	@Override
+	public void search(final FullTextSearch searcher) {
+		if (searcher.isTestIDs()) {
+			searcher.testInteger(this,Language.tr("Editor.DialogBase.Search.ID"),getId());
+		}
+		/* Nicht nach Name und Beschreibung suchen, daher kein super-Aufruf. */
 	}
 }

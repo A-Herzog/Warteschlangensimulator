@@ -40,6 +40,7 @@ import scripting.java.OutputImpl;
 import scripting.java.SystemImpl;
 import scripting.js.JSRunSimulationData;
 import simulator.editmodel.EditModel;
+import simulator.editmodel.FullTextSearch;
 import simulator.runmodel.SimulationData;
 import ui.images.Images;
 import ui.modeleditor.ModelClientData;
@@ -738,5 +739,13 @@ public class ModelElementAnimationTextValueJS extends ModelElementPosition imple
 	@Override
 	public void specialOutput(final SpecialOutputBuilder outputBuilder) {
 		if (outputBuilder instanceof HTMLOutputBuilder) specialOutputHTML((HTMLOutputBuilder)outputBuilder);
+	}
+
+	@Override
+	public void search(final FullTextSearch searcher) {
+		super.search(searcher);
+
+		searcher.testString(this,Language.tr("Editor.DialogBase.Search.Script"),script,newScript->{script=newScript;});
+		searcher.testInteger(this,Language.tr("Editor.DialogBase.Search.FontSize"),textSize,newFontSize->{if (newFontSize>0) textSize=newFontSize;});
 	}
 }

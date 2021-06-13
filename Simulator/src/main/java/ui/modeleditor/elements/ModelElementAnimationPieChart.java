@@ -42,6 +42,7 @@ import language.Language;
 import mathtools.NumberTools;
 import mathtools.Table;
 import simulator.editmodel.EditModel;
+import simulator.editmodel.FullTextSearch;
 import simulator.runmodel.SimulationData;
 import simulator.simparser.ExpressionCalc;
 import ui.images.Images;
@@ -995,5 +996,16 @@ public class ModelElementAnimationPieChart extends ModelElementPosition implemen
 		sizesMenu.add(sizeItem(8,5));
 		sizesMenu.add(sizeItem(12,5));
 		sizesMenu.add(sizeItem(16,5));
+	}
+
+	@Override
+	public void search(final FullTextSearch searcher) {
+		super.search(searcher);
+
+		for (int i=0;i<expression.size();i++) {
+			final int index=i;
+			searcher.testString(this,Language.tr("Editor.DialogBase.Search.Expression"),expression.get(index),newExpression->expression.set(index,newExpression));
+		}
+		searcher.testInteger(this,Language.tr("Editor.DialogBase.Search.BorderWidth"),borderWidth,newBorderWidth->{if (newBorderWidth>=0) borderWidth=newBorderWidth;});
 	}
 }

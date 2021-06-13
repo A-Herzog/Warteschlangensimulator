@@ -21,6 +21,8 @@ import org.w3c.dom.NodeList;
 
 import language.Language;
 import mathtools.NumberTools;
+import simulator.editmodel.FullTextSearch;
+import ui.modeleditor.coreelements.ModelElementBox;
 import ui.modeleditor.descriptionbuilder.ModelDescriptionBuilder;
 
 /**
@@ -303,5 +305,18 @@ public final class ModelElementBarrierSignalOption implements Cloneable {
 
 		/* Ergebnis ausgeben */
 		descriptionBuilder.addProperty(propertyName,sb.toString(),1000);
+	}
+
+	/**
+	 * Sucht einen Text in den Daten des Elements.
+	 * @param searcher	Such-System
+	 * @param station	Station an der dieser Datensatz verwendet wird
+	 * @see FullTextSearch
+	 */
+	public void search(final FullTextSearch searcher, final ModelElementBox station) {
+		searcher.testString(station,Language.tr("Surface.Barrier.Dialog.ReleaseSignal"),signalName,newSignalName->{signalName=newSignalName;});
+		searcher.testString(station,Language.tr("Surface.Barrier.Dialog.ClientType"),clientType,newClientType->{clientType=newClientType;});
+		searcher.testInteger(station,Language.tr("Surface.Barrier.Dialog.ClientsToBeReleaseBeforeBarrierActivates"),initialClients,newInitialClients->{if (newInitialClients>=0) initialClients=newInitialClients;});
+		if (clientsPerSignal>0) searcher.testInteger(station,Language.tr("Surface.Barrier.Dialog.ClientsPerRelease"),clientsPerSignal,newClientsPerSignal->{if (newClientsPerSignal>0) clientsPerSignal=newClientsPerSignal;});
 	}
 }

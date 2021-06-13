@@ -30,6 +30,7 @@ import org.w3c.dom.Element;
 import language.Language;
 import mathtools.NumberTools;
 import simulator.editmodel.EditModel;
+import simulator.editmodel.FullTextSearch;
 import ui.images.Images;
 import ui.modeleditor.ModelClientData;
 import ui.modeleditor.ModelSequences;
@@ -522,6 +523,21 @@ public class ModelElementPickUp extends ModelElementMultiInSingleOutBox implemen
 		/* Neuer Kundentyp */
 		if ((batchMode==BatchMode.BATCH_MODE_TEMPORARY || batchMode==BatchMode.BATCH_MODE_PERMANENT) && !newClientType.trim().isEmpty()) {
 			descriptionBuilder.addProperty(Language.tr("ModelDescription.PickUp.NewClientType"),newClientType,3000);
+		}
+	}
+
+	@Override
+	public void search(final FullTextSearch searcher) {
+		super.search(searcher);
+
+		/* Andere Warteschlange */
+		if (searcher.isTestIDs()) {
+			searcher.testInteger(this,Language.tr("Surface.PickUp.Dialog.Queue"),queueID);
+		}
+
+		/* Neuer Kundentyp */
+		if (batchMode!=BatchMode.BATCH_MODE_COLLECT) {
+			searcher.testString(this,Language.tr("Editor.DialogBase.Search.NewClientType"),newClientType,newNewClientType->{newClientType=newNewClientType;});
 		}
 	}
 }

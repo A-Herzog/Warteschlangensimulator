@@ -22,6 +22,8 @@ import org.w3c.dom.Element;
 
 import language.Language;
 import mathtools.NumberTools;
+import simulator.editmodel.FullTextSearch;
+import ui.modeleditor.coreelements.ModelElementBox;
 import ui.modeleditor.descriptionbuilder.ModelDescriptionBuilder;
 
 /**
@@ -806,5 +808,51 @@ public class ModelElementActionRecord {
 			break;
 		}
 		descriptionBuilder.addProperty(Language.tr("ModelDescription.Action.Action"),s,level+1);
+	}
+
+	/**
+	 * Sucht einen Text in den Daten dieses Datensatzes.
+	 * @param searcher	Such-System
+	 * @param station	Station an der dieser Datensatz verwendet wird
+	 * @see FullTextSearch
+	 */
+	public void search(final FullTextSearch searcher, final ModelElementBox station) {
+		/* Ursache */
+		if (actionMode==ActionMode.TRIGGER_AND_ACTION) switch (conditionType) {
+		case CONDITION_CONDITION:
+			searcher.testString(station,Language.tr("Surface.Action.Dialog.Edit.Tabs.Trigger.Condition"),condition,newCondition->{condition=newCondition;});
+			searcher.testDouble(station,Language.tr("Surface.Action.Dialog.Edit.Tabs.Trigger.Condition.MinDistance"),conditionMinDistance,newConditionMinDistance->{if(newConditionMinDistance>0) conditionMinDistance=newConditionMinDistance;});
+			break;
+		case CONDITION_THRESHOLD:
+			searcher.testString(station,Language.tr("Surface.Action.Dialog.Edit.Tabs.Trigger.ThresholdExpression"),thresholdExpression,newThresholdExpression->{thresholdExpression=newThresholdExpression;});
+			searcher.testDouble(station,Language.tr("Surface.Action.Dialog.Edit.Tabs.Trigger.ThresholdValue"),thresholdValue,newThresholdValue->{thresholdValue=newThresholdValue;});
+			break;
+		case CONDITION_SIGNAL:
+			searcher.testString(station,Language.tr("Surface.Action.Dialog.Edit.Tabs.Trigger.Signal"),conditionSignal,newConditionSignal->{conditionSignal=newConditionSignal;});
+			break;
+		}
+
+		/* Wirkung */
+		switch (actionType) {
+		case ACTION_ASSIGN:
+			searcher.testString(station,Language.tr("Surface.Action.Dialog.Edit.Tabs.Action.Assign.Variable"),assignVariable,newAssignVariable->{assignVariable=newAssignVariable;});
+			searcher.testString(station,Language.tr("Surface.Action.Dialog.Edit.Tabs.Action.Assign.Expression"),assignExpression,newAssignExpression->{assignExpression=newAssignExpression;});
+			break;
+		case ACTION_SIGNAL:
+			searcher.testString(station,Language.tr("Surface.Action.Dialog.Edit.Tabs.Action.Signal.Name"),signalName,newSignalName->{signalName=newSignalName;});
+			break;
+		case ACTION_ANALOG_VALUE:
+			if (searcher.isTestIDs()) {
+				searcher.testInteger(station,Language.tr("Surface.Action.Dialog.Edit.Tabs.Action.Analog.Element.ID"),analogID);
+			}
+			searcher.testString(station,Language.tr("Surface.Action.Dialog.Edit.Tabs.Action.Analog.Expression"),analogValue);
+			break;
+		case ACTION_SCRIPT:
+			searcher.testString(station,Language.tr("Editor.DialogBase.Search.Script"),script,newScript->{script=newScript;});
+			break;
+		case ACTION_STOP:
+			/* Keine zu prüfenden Einstellungen */
+			break;
+		}
 	}
 }

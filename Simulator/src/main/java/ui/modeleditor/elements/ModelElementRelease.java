@@ -29,6 +29,7 @@ import org.w3c.dom.Element;
 
 import language.Language;
 import simulator.editmodel.EditModel;
+import simulator.editmodel.FullTextSearch;
 import ui.images.Images;
 import ui.modeleditor.ModelClientData;
 import ui.modeleditor.ModelDataRenameListener;
@@ -349,5 +350,12 @@ public class ModelElementRelease extends ModelElementMultiInSingleOutBox impleme
 
 		/* Verzögerte Freigabe */
 		releaseDelay.buildDescriptionProperty(descriptionBuilder,Language.tr("ModelDescription.Release.DelayedRelease.ClientType"),Language.tr("ModelDescription.Release.DelayedRelease.GeneralCase"),3000);
+	}
+
+	@Override
+	public void search(final FullTextSearch searcher) {
+		super.search(searcher);
+
+		releaseDelay.search(searcher,this,Language.tr("Surface.Release.Dialog.DelayedRelease"));
 	}
 }

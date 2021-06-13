@@ -32,6 +32,7 @@ import org.w3c.dom.Element;
 import language.Language;
 import mathtools.NumberTools;
 import simulator.editmodel.EditModel;
+import simulator.editmodel.FullTextSearch;
 import ui.images.Images;
 import ui.modeleditor.ModelClientData;
 import ui.modeleditor.ModelDataRenameListener;
@@ -387,5 +388,14 @@ public class ModelElementSeize extends ModelElementMultiInSingleOutBox implement
 		} else {
 			descriptionBuilder.addProperty(Language.tr("ModelDescription.Seize.ResourcePriority"),ModelElementProcess.DEFAULT_RESOURCE_PRIORITY,2000);
 		}
+	}
+
+	@Override
+	public void search(final FullTextSearch searcher) {
+		super.search(searcher);
+
+		/* Ressourcenzuordnung -> keine Suche */
+
+		searcher.testString(this,Language.tr("Surface.Seize.Dialog.ResourcePriority"),resourcePriority,newResourcePriority->{resourcePriority=newResourcePriority;});
 	}
 }

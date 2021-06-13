@@ -39,6 +39,7 @@ import org.w3c.dom.Element;
 import language.Language;
 import mathtools.NumberTools;
 import simulator.editmodel.EditModel;
+import simulator.editmodel.FullTextSearch;
 import ui.ModelChanger;
 import ui.images.Images;
 import ui.modeleditor.ModelClientData;
@@ -738,5 +739,25 @@ public class ModelElementConveyor extends ModelElementMultiInSingleOutBox implem
 		/* Daten übertragen */
 		final String needed=getCapacityNeeded(oldName);
 		setCapacityNeeded(newName,needed);
+	}
+
+	@Override
+	public void search(final FullTextSearch searcher) {
+		super.search(searcher);
+
+		/* Auf dem Fließband verfügbare Kapazität */
+		searcher.testDouble(this,Language.tr("Surface.Conveyor.Dialog.CapacityAvailable"),capacityAvailable,newCapacityAvailable->{if (newCapacityAvailable>0) capacityAvailable=newCapacityAvailable;});
+
+		/* Im allgemeinen gültige Formel zur Bestimmung des Platzbedarfes  */
+		searcher.testString(this,Language.tr("Surface.Conveyor.Dialog.CapacityNeededGlobal"),capacityNeededGlobal,newCapacityNeededGlobal->{capacityNeededGlobal=newCapacityNeededGlobal;});
+
+		/* Formel zur Bestimmung des Platzbedarfes */
+		if (capacityNeeded!=null) for (Map.Entry<String,String> capacityNeededClientType: capacityNeeded.entrySet()) {
+			final String clientType=capacityNeededClientType.getKey();
+			searcher.testString(this,String.format(Language.tr("Surface.Conveyor.Dialog.CapacityNeeded"),clientType),capacityNeededClientType.getValue(),newNeededCapacity->capacityNeeded.put(clientType,newNeededCapacity));
+		}
+
+		/* Zeit, die notwendig ist, um einen Kunden von der einen zur anderen Seite des Fließbandes zu befördern */
+		searcher.testDouble(this,Language.tr("Surface.Conveyor.Dialog.TransportTime"),transportTime,newTransportTime->{if (newTransportTime>=0) transportTime=newTransportTime;});
 	}
 }

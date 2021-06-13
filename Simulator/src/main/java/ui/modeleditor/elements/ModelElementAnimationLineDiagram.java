@@ -40,6 +40,7 @@ import mathtools.NumberTools;
 import mathtools.Table;
 import mathtools.TimeTools;
 import simulator.editmodel.EditModel;
+import simulator.editmodel.FullTextSearch;
 import simulator.runmodel.SimulationData;
 import simulator.simparser.ExpressionCalc;
 import ui.images.Images;
@@ -839,5 +840,18 @@ public class ModelElementAnimationLineDiagram extends ModelElementAnimationDiagr
 		sizesMenu.add(sizeItem(8,5));
 		sizesMenu.add(sizeItem(12,5));
 		sizesMenu.add(sizeItem(16,5));
+	}
+
+	@Override
+	public void search(final FullTextSearch searcher) {
+		super.search(searcher);
+
+		for (int i=0;i<expression.size();i++) {
+			final int index=i;
+			searcher.testString(this,Language.tr("Editor.DialogBase.Search.Expression"),expression.get(index),newExpression->expression.set(index,newExpression));
+			searcher.testDouble(this,String.format(Language.tr("Editor.DialogBase.Search.MinValueForExpression"),expression.get(index)),minValue.get(index),newMinValue->minValue.set(index,newMinValue));
+			searcher.testDouble(this,String.format(Language.tr("Editor.DialogBase.Search.MaxValueForExpression"),expression.get(index)),maxValue.get(index),newMaxValue->maxValue.set(index,newMaxValue));
+			searcher.testInteger(this,String.format(Language.tr("Editor.DialogBase.Search.LineWidthForExpression"),expression.get(index)),expressionWidth.get(index),newLineWidth->{if (newLineWidth>0) expressionWidth.set(index,newLineWidth);});
+		}
 	}
 }

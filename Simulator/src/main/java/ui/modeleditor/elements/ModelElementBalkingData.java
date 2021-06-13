@@ -20,6 +20,8 @@ import org.w3c.dom.Element;
 
 import language.Language;
 import mathtools.NumberTools;
+import simulator.editmodel.FullTextSearch;
+import ui.modeleditor.coreelements.ModelElementBox;
 import ui.modeleditor.descriptionbuilder.ModelDescriptionBuilder;
 
 /**
@@ -265,6 +267,28 @@ public class ModelElementBalkingData {
 				descriptionBuilder.addProperty(Language.tr("ModelDescription.Balking.Expression"),expression,level);
 			} else {
 				descriptionBuilder.addProperty(String.format(Language.tr("ModelDescription.Balking.ExpressionClientType"),clientType),expression,level);
+			}
+		}
+	}
+
+	/**
+	 * Sucht einen Text in den Daten des Elements.
+	 * @param searcher	Such-System
+	 * @param station	Station an der dieser Datensatz verwendet wird
+	 * @see FullTextSearch
+	 */
+	public void search(final FullTextSearch searcher, final ModelElementBox station) {
+		if (expression!=null) {
+			if (clientType==null || clientType.trim().isEmpty()) {
+				searcher.testString(station,Language.tr("Editor.DialogBase.Search.BalkingExpressionGlobal"),expression,newExpression->{expression=newExpression;});
+			} else {
+				searcher.testString(station,String.format(Language.tr("Editor.DialogBase.Search.BalkingExpressionClientType"),clientType),expression,newExpression->{expression=newExpression;});
+			}
+		} else {
+			if (clientType==null || clientType.trim().isEmpty()) {
+				searcher.testDouble(station,Language.tr("Editor.DialogBase.Search.BalkingProbabilityGlobal"),probability,newProbability->{if (newProbability>=0) probability=newProbability;});
+			} else {
+				searcher.testDouble(station,String.format(Language.tr("Editor.DialogBase.Search.BalkingProbabilityClientType"),clientType),probability,newProbability->{if (newProbability>=0) probability=newProbability;});
 			}
 		}
 	}

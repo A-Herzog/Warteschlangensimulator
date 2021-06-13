@@ -35,6 +35,7 @@ import org.w3c.dom.Element;
 import language.Language;
 import mathtools.NumberTools;
 import simulator.editmodel.EditModel;
+import simulator.editmodel.FullTextSearch;
 import ui.images.Images;
 import ui.modeleditor.ModelSurface;
 import ui.modeleditor.coreelements.ModelElement;
@@ -47,7 +48,7 @@ import ui.modeleditor.outputbuilder.SpecialOutputBuilder;
  * Basisklasse für Liniendiagramme und ähnliche Elemente
  * @author Alexander Herzog
  */
-public abstract class ModelElementAnimationDiagramBase extends ModelElementPosition	implements ElementWithAnimationDisplay {
+public abstract class ModelElementAnimationDiagramBase extends ModelElementPosition implements ElementWithAnimationDisplay {
 	/**
 	 * Größe der Markierungsboxen an den Ecken des Elements
 	 * @see #drawBorderBox(Graphics2D, Point, double)
@@ -470,5 +471,12 @@ public abstract class ModelElementAnimationDiagramBase extends ModelElementPosit
 	@Override
 	public void specialOutput(final SpecialOutputBuilder outputBuilder) {
 		if (outputBuilder instanceof HTMLOutputBuilder) specialOutputHTML((HTMLOutputBuilder)outputBuilder);
+	}
+
+	@Override
+	public void search(final FullTextSearch searcher) {
+		super.search(searcher);
+
+		searcher.testInteger(this,Language.tr("Editor.DialogBase.Search.BorderWidth"),borderWidth,newBorderWidth->{if (newBorderWidth>=0) borderWidth=newBorderWidth;});
 	}
 }

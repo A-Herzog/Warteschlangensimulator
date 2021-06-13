@@ -44,6 +44,7 @@ import org.w3c.dom.Element;
 import language.Language;
 import mathtools.NumberTools;
 import simulator.editmodel.EditModel;
+import simulator.editmodel.FullTextSearch;
 import simulator.runmodel.SimulationData;
 import simulator.simparser.ExpressionEval;
 import ui.images.Images;
@@ -729,5 +730,16 @@ public class ModelElementAnimationImage extends ModelElementPosition implements 
 	@Override
 	public void specialOutput(final SpecialOutputBuilder outputBuilder) {
 		if (outputBuilder instanceof HTMLOutputBuilder) specialOutputHTML((HTMLOutputBuilder)outputBuilder);
+	}
+
+	@Override
+	public void search(final FullTextSearch searcher) {
+		super.search(searcher);
+
+		for (int i=0;i<expression.size();i++) {
+			final int index=i;
+			searcher.testString(this,Language.tr("Editor.DialogBase.Search.Expression"),expression.get(index),newExpression->expression.set(index,newExpression));
+		}
+		searcher.testInteger(this,Language.tr("Editor.DialogBase.Search.BorderWidth"),borderWidth,newBorderWidth->{if (newBorderWidth>=0) borderWidth=newBorderWidth;});
 	}
 }

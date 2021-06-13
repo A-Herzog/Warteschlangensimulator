@@ -27,6 +27,7 @@ import org.w3c.dom.Element;
 
 import language.Language;
 import simulator.editmodel.EditModel;
+import simulator.editmodel.FullTextSearch;
 import simulator.elements.RunElementInteractiveButton;
 import simulator.runmodel.SimulationData;
 import ui.images.Images;
@@ -294,5 +295,12 @@ public class ModelElementInteractiveButton extends ModelElementBox implements El
 			if (signal!=null && !signal.isEmpty()) signalNames.add(signal);
 		}
 		return signalNames.toArray(new String[0]);
+	}
+
+	@Override
+	public void search(final FullTextSearch searcher) {
+		super.search(searcher);
+
+		for (ModelElementActionRecord record: records) record.search(searcher,this);
 	}
 }

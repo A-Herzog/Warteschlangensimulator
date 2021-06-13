@@ -34,6 +34,7 @@ import org.w3c.dom.Element;
 import language.Language;
 import mathtools.NumberTools;
 import simulator.editmodel.EditModel;
+import simulator.editmodel.FullTextSearch;
 import ui.images.Images;
 import ui.modeleditor.ModelClientData;
 import ui.modeleditor.ModelSequences;
@@ -544,5 +545,12 @@ public class ModelElementAnimationLCD extends ModelElementAnimationCustomDrawExp
 
 		outputBuilder.addJSUserFunction("drawAnimationLCD",builder->getHTMLAnimationLCD(builder));
 		outputBuilder.outputBody.append("drawAnimationLCD({x: "+p.x+",y: "+p.y+",w: "+s.width+",h: "+s.height+"},"+digits+");\n");
+	}
+
+	@Override
+	public void search(final FullTextSearch searcher) {
+		super.search(searcher);
+
+		searcher.testInteger(this,Language.tr("Surface.AnimationLCD.Dialog.Digits"),digits,newDigits->{if (newDigits>0) digits=newDigits;});
 	}
 }

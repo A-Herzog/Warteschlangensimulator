@@ -288,32 +288,11 @@ public class LayersDialog extends BaseDialog {
 	 * @param index	Index der Ebene in der Liste
 	 */
 	private void commandRename(final int index) {
-		/* Daten aus Modell */
-		final List<String> layers=model.surface.getLayers();
-		final List<String> visibleLayers=model.surface.getVisibleLayers();
-		final String activeLayer=model.surface.getActiveLayer();
-
-		/* Neuen Namen abfragen */
-		final String currentName=layers.get(index);
-		final String newName=JOptionPane.showInputDialog(this,Language.tr("Window.Layers.Rename.RenameLayerLabel"),currentName);
+		final String oldName=model.surface.getLayers().get(index);
+		final String newName=JOptionPane.showInputDialog(this,Language.tr("Window.Layers.Rename.RenameLayerLabel"),oldName);
 		if (newName==null) return;
-		if (!newName.equals(currentName) && model.surface.getLayers().contains(newName)) {
-			MsgBox.error(this,Language.tr("Window.Layers.Rename.ErrorTitle"),Language.tr("Window.Layers.Rename.ErrorInfo"));
-			return;
-		}
 
-		/* Layer umbenennen */
-		layers.set(index,newName);
-		int i=visibleLayers.indexOf(currentName);
-		if (i>=0) visibleLayers.set(i,newName);
-		if (Objects.equals(activeLayer,currentName)) model.surface.setActiveLayer(newName);
-
-		/* Elemente anpassen */
-		for (ModelElement element: model.surface.getElementsIncludingSubModels()) {
-			final List<String> elementLayers=element.getLayers();
-			final int j=elementLayers.indexOf(currentName);
-			if (j>=0) elementLayers.set(j,newName);
-		}
+		model.renameLayer(oldName,newName);
 
 		updateList(newName);
 	}

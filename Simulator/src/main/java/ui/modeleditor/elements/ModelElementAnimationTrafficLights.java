@@ -31,6 +31,7 @@ import org.w3c.dom.Element;
 
 import language.Language;
 import simulator.editmodel.EditModel;
+import simulator.editmodel.FullTextSearch;
 import simulator.runmodel.SimulationData;
 import simulator.simparser.ExpressionMultiEval;
 import ui.images.Images;
@@ -463,6 +464,16 @@ public class ModelElementAnimationTrafficLights extends ModelElementAnimationCus
 		} else {
 			outputBuilder.addJSUserFunction("drawAnimationTrafficLightsTwo",builder->getHTMLAnimationTrafficLightsTwo(builder));
 			outputBuilder.outputBody.append("drawAnimationTrafficLightsTwo({x: "+p.x+",y: "+p.y+",w: "+s.width+",h: "+s.height+"});\n");
+		}
+	}
+
+	@Override
+	public void search(final FullTextSearch searcher) {
+		super.search(searcher);
+
+		searcher.testString(this,Language.tr("Editor.DialogBase.Search.Expression"),expressionOne,newExpression->{expressionOne=newExpression;});
+		if (threeLights) {
+			searcher.testString(this,Language.tr("Editor.DialogBase.Search.Expression"),expressionTwo,newExpression->{expressionTwo=newExpression;});
 		}
 	}
 }

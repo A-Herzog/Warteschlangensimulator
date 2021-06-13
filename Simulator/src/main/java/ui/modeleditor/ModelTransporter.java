@@ -29,6 +29,7 @@ import org.w3c.dom.NodeList;
 import language.Language;
 import mathtools.NumberTools;
 import mathtools.distribution.tools.DistributionTools;
+import simulator.editmodel.FullTextSearch;
 
 /**
  * Daten einer Transportergruppe
@@ -635,5 +636,36 @@ public final class ModelTransporter implements Cloneable {
 		}
 
 		return null;
+	}
+
+	/**
+	 * Sucht einen Text in den Daten der Transportergruppe.
+	 * @param searcher	Such-System
+	 * @see FullTextSearch
+	 */
+	public void search(final FullTextSearch searcher) {
+		/* Name der Transportergruppe */
+		searcher.testString(Language.tr("Editor.DialogBase.Search.TransporterGroup.Name"),name,newName->{name=newName;});
+
+		/* Kapazität eines Transporters dieses Typs */
+		searcher.testInteger(String.format(Language.tr("Editor.DialogBase.Search.TransporterGroup.Capacity"),name),capacity,newCapacity->{if (newCapacity>0) capacity=newCapacity;});
+
+		/* Ausdruck zur Umrechnung der Entfernungen zu Transferzeiten */
+		searcher.testString(String.format(Language.tr("Editor.DialogBase.Search.TransporterGroup.DistancesExpression"),name),expression,newExpression->{expression=newExpression;});
+
+		/* Ausfälle */
+		for (ModelTransporterFailure failure: failures) failure.search(searcher,name);
+
+		/* Beladungszeit-Verteilung */
+		searcher.testDistribution(String.format(Language.tr("Editor.DialogBase.Search.TransporterGroup.LoadDistribution"),name),loadDistribution);
+
+		/* Beladungszeit-Rechenausdruck */
+		searcher.testString(String.format(Language.tr("Editor.DialogBase.Search.TransporterGroup.LoadExpression"),name),loadExpression,newLoadExpression->{loadExpression=newLoadExpression;});
+
+		/* Entladungszeit-Verteilung */
+		searcher.testDistribution(String.format(Language.tr("Editor.DialogBase.Search.TransporterGroup.UnloadDistribution"),name),unloadDistribution);
+
+		/* Entladungszeit-Rechenausdruck */
+		searcher.testString(String.format(Language.tr("Editor.DialogBase.Search.TransporterGroup.UnloadExpression"),name),unloadExpression,newUnloadExpression->{unloadExpression=newUnloadExpression;});
 	}
 }

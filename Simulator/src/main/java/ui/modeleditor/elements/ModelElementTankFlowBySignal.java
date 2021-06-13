@@ -26,6 +26,7 @@ import org.w3c.dom.Element;
 
 import language.Language;
 import simulator.editmodel.EditModel;
+import simulator.editmodel.FullTextSearch;
 import ui.images.Images;
 import ui.modeleditor.ModelClientData;
 import ui.modeleditor.ModelSequences;
@@ -279,5 +280,14 @@ public class ModelElementTankFlowBySignal extends ModelElementBox {
 		if (connectionsOut.size()>0) return false;
 
 		return false;
+	}
+
+	@Override
+	public void search(final FullTextSearch searcher) {
+		super.search(searcher);
+
+		data.search(searcher,this);
+
+		searcher.testString(this,Language.tr("Editor.DialogBase.Search.SignalToStartFlow"),signalName,newSignalName->{signalName=newSignalName;});
 	}
 }

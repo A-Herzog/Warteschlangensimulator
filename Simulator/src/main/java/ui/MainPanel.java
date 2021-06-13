@@ -138,6 +138,7 @@ import ui.dialogs.ModelAnalyticInfoDialog;
 import ui.dialogs.ModelDescriptionDialog;
 import ui.dialogs.ModelLoadDataWarningsDialog;
 import ui.dialogs.NotesDialog;
+import ui.dialogs.FindAndReplaceDialog;
 import ui.dialogs.SelectElementByIdDialog;
 import ui.dialogs.SelectExampleDialog;
 import ui.dialogs.SetupDialog;
@@ -606,6 +607,7 @@ public class MainPanel extends MainPanelBase {
 		addAction("EditAlignCenter",e->editorPanel.alignSelectedElementsCenter());
 		addAction("EditAlignRight",e->editorPanel.alignSelectedElementsRight());
 		addAction("EditFindElement",e->commandEditFindElement());
+		addAction("EditFindAndReplace",e->commandEditFindAndReplace());
 		addAction("EditQuickAccess",e->{if (quickAccess!=null && quickAccess.isVisible()) quickAccess.requestFocus();});
 		addAction("EditAutoConnectOff",e->commandEditToggleAutoConnect(ModelSurfacePanel.ConnectMode.OFF));
 		addAction("EditAutoConnectAuto",e->commandEditToggleAutoConnect(ModelSurfacePanel.ConnectMode.AUTO));
@@ -1109,6 +1111,7 @@ public class MainPanel extends MainPanelBase {
 		enabledOnEditorPanel.add(createMenuItem(submenu,Language.tr("Main.Menu.Edit.Align.Right"),Images.ALIGN_RIGHT.getIcon(),Language.tr("Main.Menu.Edit.Align.Right.Mnemonic"),"EditAlignRight"));
 		menu.addSeparator();
 		enabledOnEditorPanel.add(createMenuItemCtrl(menu,Language.tr("Main.Menu.View.FindElement"),Images.GENERAL_FIND.getIcon(),Language.tr("Main.Menu.View.FindElement.Mnemonic"),KeyEvent.VK_F,"EditFindElement"));
+		enabledOnEditorPanel.add(createMenuItemCtrlShift(menu,Language.tr("Main.Menu.View.FindAndReplace"),Images.GENERAL_FONT.getIcon(),Language.tr("Main.Menu.View.FindAndReplace.Mnemonic"),KeyEvent.VK_F,"EditFindAndReplace"));
 		createMenuItemCtrl(menu,Language.tr("Main.Menu.View.QuickAccess"),Language.tr("Main.Menu.View.QuickAccess.Mnemonic"),KeyEvent.VK_E,"EditQuickAccess");
 		menu.addSeparator();
 		menu.add(submenu=new JMenu(Language.tr("Main.Menu.Edit.AutoConnect")));
@@ -2235,6 +2238,24 @@ public class MainPanel extends MainPanelBase {
 			final int id=dialog.getSelectedId();
 			if (id>0) editorPanel.selectAndScrollToElement(id);
 		}
+	}
+
+	/**
+	 * Befehl: Bearbeiten - Suchen und Ersetzen
+	 */
+	private void commandEditFindAndReplace() {
+		final FindAndReplaceDialog dialog=new FindAndReplaceDialog(this,editorPanel.getModel());
+		if (dialog.getClosedBy()==BaseDialog.CLOSED_BY_OK) {
+			final EditModel model=dialog.getModel();
+			if (model!=null) {
+				final File file=editorPanel.getLastFile();
+				editorPanel.setModel(model);
+				editorPanel.setLastFile(file);
+				editorPanel.setModelChanged(true);
+			}
+		}
+		final int id=dialog.getSelectedId();
+		if (id>0) editorPanel.selectAndScrollToElement(id);
 	}
 
 	/**

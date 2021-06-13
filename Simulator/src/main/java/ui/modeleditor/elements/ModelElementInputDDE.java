@@ -31,6 +31,7 @@ import org.w3c.dom.Element;
 import language.Language;
 import mathtools.NumberTools;
 import simulator.editmodel.EditModel;
+import simulator.editmodel.FullTextSearch;
 import ui.images.Images;
 import ui.modeleditor.ModelClientData;
 import ui.modeleditor.ModelSequences;
@@ -598,5 +599,22 @@ public class ModelElementInputDDE extends ModelElementMultiInSingleOutBox implem
 	@Override
 	public DataCheckResult checkExternalData() {
 		return DataCheckResult.checkDDE(this,workbook,table);
+	}
+
+	@Override
+	public void search(final FullTextSearch searcher) {
+		super.search(searcher);
+
+		/* Tabelleneinstellungen */
+		searcher.testString(this,Language.tr("Editor.DialogBase.Search.TableWorkbook"),workbook,newWorkbook->{workbook=newWorkbook;});
+		searcher.testString(this,Language.tr("Editor.DialogBase.Search.Table"),table,newTable->{table=newTable;});
+		searcher.testInteger(this,Language.tr("Editor.DialogBase.Search.TableStartRow"),startRow,newStartRow->{if (newStartRow>=1) startRow=newStartRow;});
+		searcher.testString(this,Language.tr("Editor.DialogBase.Search.TableColumn"),column,newColumn->{column=newColumn;});
+
+		/* Zuweisung */
+		searcher.testString(this,Language.tr("Editor.DialogBase.Search.AssignedVariable"),variable,newVariable->{variable=newVariable;});
+		if (eofMode==EofModes.EOF_MODE_DEFAULT_VALUE) {
+			searcher.testString(this,Language.tr("Surface.InputDDE.Dialog.Mode.DefaultValue"),defaultValue,newDefaultValue->{defaultValue=newDefaultValue;});
+		}
 	}
 }

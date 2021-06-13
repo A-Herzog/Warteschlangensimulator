@@ -33,6 +33,7 @@ import language.Language;
 import mathtools.NumberTools;
 import mathtools.TimeTools;
 import simulator.editmodel.EditModel;
+import simulator.editmodel.FullTextSearch;
 import simulator.elements.RunElementUserStatisticData;
 import simulator.statistics.Statistics;
 import statistics.StatisticsDataPerformanceIndicator;
@@ -389,7 +390,6 @@ public class ModelElementUserStatistic extends ModelElementMultiInSingleOutBox {
 		return "ModelElementUserStatistic";
 	}
 
-
 	/**
 	 * Erstellt eine Beschreibung für das aktuelle Element
 	 * @param descriptionBuilder	Description-Builder, der die Beschreibungsdaten zusammenfasst
@@ -403,6 +403,17 @@ public class ModelElementUserStatistic extends ModelElementMultiInSingleOutBox {
 			sb.append(String.format(Language.tr("ModelDescription.UserStatistic.Expression"),expression.get(i)));
 			if (isTime.get(i)) sb.append(Language.tr("ModelDescription.UserStatistic.IsTime"));
 			descriptionBuilder.addProperty(String.format(Language.tr("ModelDescription.UserStatistic.Record"),key.get(i)),sb.toString(),1000);
+		}
+	}
+
+	@Override
+	public void search(final FullTextSearch searcher) {
+		super.search(searcher);
+
+		for (int i=0;i<key.size();i++) {
+			final int index=i;
+			searcher.testString(this,Language.tr("Editor.DialogBase.Search.Key"),key.get(index),newKey->key.set(index,newKey));
+			searcher.testString(this,String.format(Language.tr("Editor.DialogBase.Search.ExpressionForKey"),key.get(index)),expression.get(index),newExpression->expression.set(index,newExpression));
 		}
 	}
 }

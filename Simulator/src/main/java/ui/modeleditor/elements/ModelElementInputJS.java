@@ -30,6 +30,7 @@ import org.w3c.dom.Element;
 import language.Language;
 import mathtools.NumberTools;
 import simulator.editmodel.EditModel;
+import simulator.editmodel.FullTextSearch;
 import ui.images.Images;
 import ui.modeleditor.ModelClientData;
 import ui.modeleditor.ModelSequences;
@@ -471,5 +472,16 @@ public class ModelElementInputJS extends ModelElementMultiInSingleOutBox impleme
 			break;
 		}
 		descriptionBuilder.addProperty(Language.tr("ModelDescription.InputJS.EOFMode"),modeInfo,3000);
+	}
+
+	@Override
+	public void search(final FullTextSearch searcher) {
+		super.search(searcher);
+
+		searcher.testString(this,Language.tr("Editor.DialogBase.Search.Script"),script,newScript->{script=newScript;});
+		searcher.testString(this,Language.tr("Editor.DialogBase.Search.InputFile"),inputFile,newInputFile->{inputFile=newInputFile;});
+		if (eofMode==EofModes.EOF_MODE_DEFAULT_VALUE) {
+			searcher.testDouble(this,Language.tr("Surface.InputJS.Dialog.Mode.DefaultValue"),defaultValue,newDefaultValue->{defaultValue=newDefaultValue;});
+		}
 	}
 }

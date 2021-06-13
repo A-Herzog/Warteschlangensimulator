@@ -88,6 +88,16 @@ public class ElementRendererTools {
 	}
 
 	/**
+	 * Allgemeiner HTML-Vorspann (damit eine Zeichenkette als html-Daten erkannt und interpretiert wird)
+	 */
+	public static final String htmlHead="<html><body>";
+
+	/**
+	 * Allgemeiner HTML-Abspann (damit eine Zeichenkette als html-Daten erkannt und interpretiert wird)
+	 */
+	public static final String htmlFoot="</body></html>";
+
+	/**
 	 * Referenz auf das Setup-Singleton.
 	 */
 	private static final SetupData setup=SetupData.getSetup();
@@ -330,12 +340,22 @@ public class ElementRendererTools {
 	 */
 	public static JPanel getIconRenderer(final Icon icon, final String infoText, final boolean isSelected) {
 		final Color backgroundColor=isSelected?(new Color(200,220,255)):Color.WHITE;
+		return getIconRenderer(icon,infoText,backgroundColor);
+	}
 
+	/**
+	 * Liefert einen Listenzellen-Renderer für ein Icon.
+	 * @param icon	Anzuzeigendes Icon (darf <code>null</code> sein)
+	 * @param infoText	Neben dem Element anzuzeigender Info-Text (wird in {@link JLabel} gerendert, d.h. kann html enthalten, darf <code>null</code> sein)
+	 * @param backgroundColor	Zu verwendende Hintergrundfarbe (<code>null</code> wird als transparenter Hintergrund interpretiert)
+	 * @return	Listenzellen-Renderer für das Icon
+	 */
+	public static JPanel getIconRenderer(final Icon icon, final String infoText, final Color backgroundColor) {
 		final JPanel panel=new JPanel(new BorderLayout());
 
 		if (infoText!=null) {
 			final JPanel info=new JPanel(new FlowLayout(FlowLayout.LEFT));
-			info.setBackground(backgroundColor);
+			if (backgroundColor==null) info.setOpaque(false); else info.setBackground(backgroundColor);
 			panel.add(info,BorderLayout.CENTER);
 			info.add(new JLabel(infoText));
 		}
@@ -347,8 +367,10 @@ public class ElementRendererTools {
 				@Override
 				public void paint(final Graphics g) {
 					final Graphics2D graphics=(Graphics2D)g;
-					graphics.setBackground(backgroundColor);
-					graphics.clearRect(0,0,getWidth(),getHeight());
+					if (backgroundColor!=null) {
+						graphics.setBackground(backgroundColor);
+						graphics.clearRect(0,0,getWidth(),getHeight());
+					}
 					icon.paintIcon(this,graphics,0,0);
 				}
 			};
@@ -360,6 +382,8 @@ public class ElementRendererTools {
 			panel.add(iconPanel,BorderLayout.WEST);
 		}
 
+		if (backgroundColor==null) panel.setOpaque(false);
+
 		return panel;
 	}
 
@@ -370,7 +394,7 @@ public class ElementRendererTools {
 	 */
 	public static JPanel getErrorRenderer(final String unknownClassName) {
 		final JPanel panel=new JPanel(new FlowLayout(FlowLayout.LEFT));
-		panel.add(new JLabel("<html><span style=\"color: red\">"+unknownClassName+"</span></html>"));
+		panel.add(new JLabel(htmlHead+"<span style=\"color: red\">"+unknownClassName+"</span>"+htmlFoot));
 		return panel;
 	}
 
@@ -479,6 +503,27 @@ public class ElementRendererTools {
 	}
 
 	/**
+	 * Liefert eine HTML-Beschreibung zu einer Station.
+	 * @param element	Station zu der die Beschreibung erstellt werden soll
+	 * @param parent	Übergeordnete Station (d.h. eine Untermodell-Station); kann <code>null</code> sein
+	 * @return	HTML-Beschreibung der Station
+	 */
+	public static String getElementHTMLInfo(final ModelElement element, final ModelElementSub parent) {
+		final StringBuilder info=new StringBuilder();
+		info.append("<b><span style=\"font-size: larger;\">");
+		info.append(element.getContextMenuElementName());
+		info.append("</span> (");
+		final String name=element.getName();
+		if (name.isEmpty()) info.append(Language.tr("FindElement.NoName")); else info.append(name);
+		info.append(")</b><br><span style=\"color: orange;\">");
+		info.append("id="+element.getId());
+		info.append("</span><br><span style=\"color: blue;\"><i>");
+		if (parent==null) info.append(Language.tr("FindElement.Level.Top")); else info.append(String.format(Language.tr("FindElement.Level.Sub"),parent.getId()));
+		info.append("</span></i>");
+		return info.toString();
+	}
+
+	/**
 	 * Liefert ein Beschreibungs-Label zu einer Station
 	 * @param surface	Haupt-Zeichenfläche
 	 * @param id	ID der Station
@@ -490,8 +535,10 @@ public class ElementRendererTools {
 		ModelElementSub parent=null;
 		for (ModelElement el: surface.getElements()) {
 			if (el.getId()==id) {element=el; break;}
-			if (el instanceof ModelElementSub) for (ModelElement sub: ((ModelElementSub)el).getSubSurface().getElements()) {
-				if (sub.getId()==id) {parent=(ModelElementSub)el; element=sub; break;}
+			if (el instanceof ModelElementSub) {
+				for (ModelElement sub: ((ModelElementSub)el).getSubSurface().getElements()) {
+					if (sub.getId()==id) {parent=(ModelElementSub)el; element=sub; break;}
+				}
 				if (parent!=null) break;
 			}
 		}
@@ -499,19 +546,7 @@ public class ElementRendererTools {
 		if (element==null) return new ElementRendererTools.InfoRecord(null,"");
 
 		/* Text aufbauen */
-		final StringBuilder sb=new StringBuilder();
-		sb.append("<b><span style=\"font-size: larger;\">");
-		sb.append(element.getContextMenuElementName());
-		sb.append("</span> (");
-		final String name=element.getName();
-		if (name.isEmpty()) sb.append(Language.tr("FindElement.NoName")); else sb.append(name);
-		sb.append(")</b><br><span style=\"color: orange;\">");
-		sb.append("id="+element.getId());
-		sb.append("</span><br><span style=\"color: blue;\"><i>");
-		if (parent==null) sb.append(Language.tr("FindElement.Level.Top")); else sb.append(String.format(Language.tr("FindElement.Level.Sub"),parent.getId()));
-		sb.append("</span></i>");
-
-		return new ElementRendererTools.InfoRecord(element,"<html><body>"+sb.toString()+"</body></html>");
+		return new ElementRendererTools.InfoRecord(element,htmlHead+getElementHTMLInfo(element,parent)+htmlFoot);
 	}
 
 	/**

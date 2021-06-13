@@ -35,6 +35,7 @@ import language.Language;
 import mathtools.NumberTools;
 import simulator.db.DBSettings;
 import simulator.editmodel.EditModel;
+import simulator.editmodel.FullTextSearch;
 import simulator.runmodel.RunModelFixer;
 import ui.images.Images;
 import ui.modeleditor.ModelClientData;
@@ -626,5 +627,22 @@ public class ModelElementSourceDB extends ModelElementBox implements ElementWith
 	@Override
 	protected void addEdgeOutFixes(final List<RunModelFixer> fixer) {
 		findEdgesTo(QuickFixNextElements.source,fixer);
+	}
+
+	@Override
+	public void search(final FullTextSearch searcher) {
+		super.search(searcher);
+
+		/* Tabelleneinstellungen */
+		searcher.testString(this,Language.tr("Editor.DialogBase.Search.Table"),table,newTable->{table=newTable;});
+		searcher.testString(this,Language.tr("Editor.DialogBase.Search.TableLoadColumn"),loadColumn,newLoadColumn->{loadColumn=newLoadColumn;});
+		searcher.testString(this,Language.tr("Editor.DialogBase.Search.TableClientTypeColumn"),clientTypeColumn,newClientTypeColumn->{clientTypeColumn=newClientTypeColumn;});
+		searcher.testString(this,Language.tr("Editor.DialogBase.Search.TableInfoColumn"),infoColumn,newInfoColumn->{infoColumn=newInfoColumn;});
+
+		/* Kundentypen */
+		for (int i=0;i<clientTypeNames.size();i++) {
+			final int index=i;
+			searcher.testString(this,Language.tr("Editor.DialogBase.Search.ClientTypeName"),clientTypeNames.get(index),newClientTypeName->clientTypeNames.set(index,newClientTypeName));
+		}
 	}
 }

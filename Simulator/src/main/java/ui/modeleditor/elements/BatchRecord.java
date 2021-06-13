@@ -22,6 +22,8 @@ import org.w3c.dom.NodeList;
 
 import language.Language;
 import mathtools.NumberTools;
+import simulator.editmodel.FullTextSearch;
+import ui.modeleditor.coreelements.ModelElementBox;
 import ui.modeleditor.descriptionbuilder.ModelDescriptionBuilder;
 
 /**
@@ -472,6 +474,35 @@ public class BatchRecord implements Cloneable {
 		/* Neuer Kundentyp */
 		if ((batchMode==BatchMode.BATCH_MODE_TEMPORARY || batchMode==BatchMode.BATCH_MODE_PERMANENT) && !newClientType.trim().isEmpty()) {
 			descriptionBuilder.addProperty(Language.tr("ModelDescription.Batch.NewClientType"),newClientType,level+2);
+		}
+	}
+
+	/**
+	 * Sucht einen Text in den Daten dieses Datensatzes.
+	 * @param searcher	Such-System
+	 * @param station	Station an der dieser Datensatz verwendet wird
+	 * @param clientType	Kundentyp für den dieser Datensatz gilt (kann <code>null</code> sein; dann gilt er für alle Kundentypen)
+	 * @see FullTextSearch
+	 */
+	public void search(final FullTextSearch searcher, final ModelElementBox station, final String clientType) {
+		final String addon;
+		if (clientType==null) {
+			addon="";
+		} else {
+			addon=" "+String.format(Language.tr("Editor.DialogBase.Search.ForClientType"),clientType);
+		}
+
+		/* Batch-Größe */
+		if (batchSizeMode==BatchSizeMode.FIXED) {
+			searcher.testInteger(station,Language.tr("Surface.Batch.Dialog.BatchSizeFixed")+addon,batchSizeFixed,newBatchSizeFixed->{if (newBatchSizeFixed>0) batchSizeFixed=newBatchSizeFixed;});
+		} else {
+			searcher.testInteger(station,Language.tr("Surface.Batch.Dialog.BatchSizeMin")+addon,batchSizeMin,newBatchSizeMin->{if (newBatchSizeMin>0) batchSizeMin=newBatchSizeMin;});
+			searcher.testInteger(station,Language.tr("Surface.Batch.Dialog.BatchSizeMax")+addon,batchSizeMax,newBatchSizeMax->{if (newBatchSizeMax>0) batchSizeMax=newBatchSizeMax;});
+		}
+
+		/* Neuer Kundentyp */
+		if (batchMode!=BatchMode.BATCH_MODE_COLLECT) {
+			searcher.testString(station,Language.tr("Editor.DialogBase.Search.NewClientType"),newClientType,newNewClientType->{newClientType=newNewClientType;});
 		}
 	}
 }

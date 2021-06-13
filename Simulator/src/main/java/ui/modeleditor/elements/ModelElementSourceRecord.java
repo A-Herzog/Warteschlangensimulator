@@ -29,7 +29,9 @@ import org.w3c.dom.NodeList;
 import language.Language;
 import mathtools.NumberTools;
 import mathtools.distribution.tools.DistributionTools;
+import simulator.editmodel.FullTextSearch;
 import ui.modeleditor.ModelSurface;
+import ui.modeleditor.coreelements.ModelElementBox;
 import ui.modeleditor.descriptionbuilder.ModelDescriptionBuilder;
 
 /**
@@ -1243,5 +1245,65 @@ public final class ModelElementSourceRecord implements Cloneable {
 
 		/* Ergebnis ausgeben */
 		descriptionBuilder.addProperty(propertyName,sb.toString(),1000);
+	}
+
+	/**
+	 * Sucht einen Text in den Daten des Ankunftsdatensatzes.
+	 * @param searcher	Such-System
+	 * @param station	Station an der dieser Datensatz verwendet wird
+	 * @see FullTextSearch
+	 */
+	public void search(final FullTextSearch searcher, final ModelElementBox station) {
+		/* Name */
+		if (hasName()) {
+			searcher.testString(station,Language.tr("Editor.DialogBase.Search.ArrivalRecord.Name"),name,newName->{name=newName;});
+		}
+
+		/* Abstände zwischen den Ankünften */
+		switch (nextMode) {
+		case NEXT_DISTRIBUTION:
+			searcher.testDistribution(station,Language.tr("Editor.DialogBase.Search.InterarrivalArrival.Distribution"),distribution);
+			break;
+		case NEXT_EXPRESSION:
+			searcher.testString(station,Language.tr("Editor.DialogBase.Search.InterarrivalArrival.Expression"),expression,newExpression->{expression=newExpression;});
+			break;
+		case NEXT_SCHEDULE:
+			searcher.testString(station,Language.tr("Editor.DialogBase.Search.InterarrivalArrival.Schedule"),expression,newSchedule->{schedule=newSchedule;});
+			break;
+		case NEXT_CONDITION:
+			searcher.testString(station,Language.tr("Editor.DialogBase.Search.InterarrivalArrival.Condition"),condition,newCondition->{condition=newCondition;});
+			searcher.testDouble(station,Language.tr("Editor.DialogBase.Search.InterarrivalArrival.Condition.MinDistance"),conditionMinDistance,newConditionMinDistance->{if (newConditionMinDistance>0) conditionMinDistance=newConditionMinDistance;});
+			break;
+		case NEXT_SIGNAL:
+			for (int i=0;i<signalNames.size();i++) {
+				final int index=i;
+				searcher.testString(station,Language.tr("Editor.DialogBase.Search.InterarrivalArrival.Signal"),signalNames.get(index),newSignalName->signalNames.set(index,newSignalName));
+			}
+			break;
+		case NEXT_THRESHOLD:
+			searcher.testString(station,Language.tr("Editor.DialogBase.Search.InterarrivalArrival.Threshold.Expression"),thresholdExpression,newThresholdExpression->{thresholdExpression=newThresholdExpression;});
+			searcher.testDouble(station,Language.tr("Editor.DialogBase.Search.InterarrivalArrival.Threshold.Value"),thresholdValue,newThresholdValue->{thresholdValue=newThresholdValue;});
+			break;
+		}
+
+		/* Batch-Ankünfte */
+		if (batchSize!=null) {
+			searcher.testString(station,Language.tr("Editor.DialogBase.Search.InterarrivalArrival.BatchSize"),batchSize,newBatchSize->{batchSize=newBatchSize;});
+		} else {
+			if (batchSizeRates!=null) for (int i=0;i<batchSizeRates.length;i++) {
+				final int index=i;
+				searcher.testDouble(station,String.format(Language.tr("Editor.DialogBase.Search.InterarrivalArrival.BatchSize.Rate"),i+1),batchSizeRates[i],newRate->{if (newRate>=0) batchSizeRates[index]=newRate;});
+			}
+		}
+
+		/* Anzahl an Ankünften */
+		if (maxArrivalCount>0) searcher.testLong(station,Language.tr("Editor.DialogBase.Search.InterarrivalArrival.ArrivalCount"),maxArrivalCount,newMaxArrivalCount->{if (newMaxArrivalCount>0) maxArrivalCount=newMaxArrivalCount;});
+		if (maxArrivalClientCount>0) searcher.testLong(station,Language.tr("Editor.DialogBase.Search.InterarrivalArrival.ArrivalClientCount"),maxArrivalClientCount,newMaxArrivalClientCount->{if (newMaxArrivalClientCount>0) maxArrivalClientCount=newMaxArrivalClientCount;});
+
+		/* Zahlen-Zuweisungen */
+		setRecord.search(searcher,station);
+
+		/* Text-Zuweisungen */
+		stringRecord.search(searcher,station);
 	}
 }

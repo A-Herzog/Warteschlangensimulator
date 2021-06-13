@@ -36,6 +36,7 @@ import org.w3c.dom.Element;
 import language.Language;
 import mathtools.NumberTools;
 import simulator.editmodel.EditModel;
+import simulator.editmodel.FullTextSearch;
 import simulator.elements.RunElementInteractiveCheckbox;
 import simulator.runmodel.SimulationData;
 import ui.images.Images;
@@ -563,5 +564,14 @@ public class ModelElementInteractiveCheckbox extends ModelElementPosition implem
 	@Override
 	public void specialOutput(final SpecialOutputBuilder outputBuilder) {
 		if (outputBuilder instanceof HTMLOutputBuilder) specialOutputHTML((HTMLOutputBuilder)outputBuilder);
+	}
+
+	@Override
+	public void search(final FullTextSearch searcher) {
+		super.search(searcher);
+
+		searcher.testString(this,Language.tr("Editor.DialogBase.Search.Variable"),variable,newVariable->{variable=newVariable;});
+		searcher.testDouble(this,Language.tr("Surface.InteractiveCheckbox.Dialog.ValueChecked"),valueChecked,newValueChecked->{valueChecked=newValueChecked;});
+		searcher.testDouble(this,Language.tr("Surface.InteractiveCheckbox.Dialog.ValueUnchecked"),valueUnchecked,newValueUnchecked->{valueUnchecked=newValueUnchecked;});
 	}
 }

@@ -35,6 +35,7 @@ import org.w3c.dom.Element;
 import language.Language;
 import mathtools.NumberTools;
 import simulator.editmodel.EditModel;
+import simulator.editmodel.FullTextSearch;
 import simulator.elements.RunElementInteractiveRadiobutton;
 import simulator.runmodel.SimulationData;
 import ui.images.Images;
@@ -525,5 +526,13 @@ public class ModelElementInteractiveRadiobutton extends ModelElementPosition imp
 	@Override
 	public void specialOutput(final SpecialOutputBuilder outputBuilder) {
 		if (outputBuilder instanceof HTMLOutputBuilder) specialOutputHTML((HTMLOutputBuilder)outputBuilder);
+	}
+
+	@Override
+	public void search(final FullTextSearch searcher) {
+		super.search(searcher);
+
+		searcher.testString(this,Language.tr("Editor.DialogBase.Search.Variable"),variable,newVariable->{variable=newVariable;});
+		searcher.testDouble(this,Language.tr("Surface.InteractiveRadiobutton.Dialog.ValueChecked"),valueChecked,newValueChecked->{valueChecked=newValueChecked;});
 	}
 }

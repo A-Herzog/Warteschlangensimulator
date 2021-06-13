@@ -29,6 +29,7 @@ import org.w3c.dom.NodeList;
 import language.Language;
 import mathtools.NumberTools;
 import simulator.editmodel.EditModel;
+import simulator.editmodel.FullTextSearch;
 
 /**
  * Diese Klasse hält die Informationen für das Editor-Modell vor
@@ -506,5 +507,27 @@ public final class ModelClientData implements Cloneable {
 
 		costs=costsProcessMap.get(oldName);
 		if (costs!=null) costsProcessMap.put(newName,costs);
+	}
+
+	/**
+	 * Sucht einen Text in den Daten einer Kundengruppe.
+	 * @param searcher	Such-System
+	 * @param clientType	Name der Kundengruppe
+	 * @see FullTextSearch
+	 */
+	public void search(final FullTextSearch searcher, final String clientType) {
+		Double D;
+
+		/* Wartezeitkosten */
+		D=costsWaitingMap.get(clientType);
+		if (D!=null) searcher.testDouble(String.format(Language.tr("Editor.DialogBase.Search.ClientType.CostsWaiting"),clientType),D,newCosts->costsWaitingMap.put(clientType,newCosts));
+
+		/* Transferzeitkosten */
+		D=costsTransferMap.get(clientType);
+		if (D!=null) searcher.testDouble(String.format(Language.tr("Editor.DialogBase.Search.ClientType.CostsTransfer"),clientType),D,newCosts->costsTransferMap.put(clientType,newCosts));
+
+		/* Bedienzeitkosten */
+		D=costsProcessMap.get(clientType);
+		if (D!=null) searcher.testDouble(String.format(Language.tr("Editor.DialogBase.Search.ClientType.CostsProcess"),clientType),D,newCosts->costsProcessMap.put(clientType,newCosts));
 	}
 }

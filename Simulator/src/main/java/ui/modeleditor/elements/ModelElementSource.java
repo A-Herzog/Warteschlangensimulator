@@ -37,6 +37,7 @@ import language.Language;
 import mathtools.NumberTools;
 import mathtools.distribution.tools.DistributionTools;
 import simulator.editmodel.EditModel;
+import simulator.editmodel.FullTextSearch;
 import simulator.runmodel.RunModelFixer;
 import simulator.simparser.ExpressionCalc;
 import ui.ModelChanger;
@@ -512,5 +513,12 @@ public class ModelElementSource extends ModelElementBox implements ElementWithNe
 	@Override
 	protected void addEdgeOutFixes(final List<RunModelFixer> fixer) {
 		findEdgesTo(QuickFixNextElements.source,fixer);
+	}
+
+	@Override
+	public void search(final FullTextSearch searcher) {
+		super.search(searcher);
+
+		record.search(searcher,this);
 	}
 }

@@ -33,6 +33,7 @@ import org.w3c.dom.Element;
 import language.Language;
 import mathtools.NumberTools;
 import simulator.editmodel.EditModel;
+import simulator.editmodel.FullTextSearch;
 import simulator.elements.RunElementCounterMulti;
 import simulator.elements.RunElementCounterMultiData;
 import simulator.runmodel.RunModelFixer;
@@ -373,5 +374,18 @@ public class ModelElementCounterMulti extends ModelElementMultiInSingleOutBox {
 	@Override
 	protected void addEdgeOutFixes(final List<RunModelFixer> fixer) {
 		findEdgesTo(QuickFixNextElements.hold,fixer);
+	}
+
+	@Override
+	public void search(final FullTextSearch searcher) {
+		super.search(searcher);
+
+		searcher.testString(this,Language.tr("Surface.Counter.Dialog.GroupName"),groupName,newGroupName->{groupName=newGroupName;});
+
+		for (int i=0;i<conditions.size();i++) {
+			final int index=i;
+			searcher.testString(this,String.format(Language.tr("Editor.DialogBase.Search.ConditionForCounter"),counterNames.get(index)),conditions.get(index),newCondition->conditions.set(index,newCondition));
+			searcher.testString(this,Language.tr("Surface.CounterMulti.Table.Heading.CounterName"),counterNames.get(index),newCounterName->counterNames.set(index,newCounterName));
+		}
 	}
 }

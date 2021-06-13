@@ -18,9 +18,11 @@ package ui.modeleditor.coreelements;
 import java.awt.Dimension;
 import java.util.Objects;
 
+import language.Language;
 import mathtools.NumberTools;
 import parser.MathCalcError;
 import simulator.editmodel.EditModel;
+import simulator.editmodel.FullTextSearch;
 import simulator.runmodel.SimulationData;
 import simulator.simparser.ExpressionCalc;
 import ui.modeleditor.ModelSurface;
@@ -123,5 +125,12 @@ public abstract class ModelElementAnimationCustomDrawExpression extends ModelEle
 	@Override
 	protected void updateDrawData(final SimulationData simData) {
 		setAnimationDouble(getDrawExpression(simData));
+	}
+
+	@Override
+	public void search(final FullTextSearch searcher) {
+		super.search(searcher);
+
+		searcher.testString(this,Language.tr("Editor.DialogBase.Search.Expression"),expression,newExpression->{expression=newExpression;});
 	}
 }

@@ -29,6 +29,7 @@ import org.w3c.dom.Element;
 
 import language.Language;
 import simulator.editmodel.EditModel;
+import simulator.editmodel.FullTextSearch;
 import ui.images.Images;
 import ui.modeleditor.ModelClientData;
 import ui.modeleditor.ModelSequences;
@@ -286,5 +287,12 @@ public class ModelElementSectionEnd extends ModelElementMultiInSingleOutBox {
 		super.buildDescription(descriptionBuilder);
 
 		if (sectionStartName!=null && !sectionStartName.trim().isEmpty()) descriptionBuilder.addProperty(Language.tr("ModelDescription.SectionEnd.SectionStartName"),sectionStartName,1000);
+	}
+
+	@Override
+	public void search(final FullTextSearch searcher) {
+		super.search(searcher);
+
+		searcher.testString(this,Language.tr("Surface.SectionEnd.Dialog.SectionStart"),sectionStartName,newSectionStartName->{sectionStartName=newSectionStartName;});
 	}
 }

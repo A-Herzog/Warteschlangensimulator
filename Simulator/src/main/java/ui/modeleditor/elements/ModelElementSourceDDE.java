@@ -34,6 +34,7 @@ import org.w3c.dom.Element;
 import language.Language;
 import mathtools.NumberTools;
 import simulator.editmodel.EditModel;
+import simulator.editmodel.FullTextSearch;
 import simulator.runmodel.RunModelFixer;
 import ui.images.Images;
 import ui.modeleditor.ModelClientData;
@@ -603,5 +604,22 @@ public class ModelElementSourceDDE extends ModelElementBox implements ElementWit
 	@Override
 	protected void addEdgeOutFixes(final List<RunModelFixer> fixer) {
 		findEdgesTo(QuickFixNextElements.source,fixer);
+	}
+
+	@Override
+	public void search(final FullTextSearch searcher) {
+		super.search(searcher);
+
+		/* Tabelleneinstellungen */
+		searcher.testString(this,Language.tr("Editor.DialogBase.Search.TableWorkbook"),workbook,newWorkbook->{workbook=newWorkbook;});
+		searcher.testString(this,Language.tr("Editor.DialogBase.Search.Table"),table,newTable->{table=newTable;});
+		searcher.testInteger(this,Language.tr("Editor.DialogBase.Search.TableStartRow"),startRow,newStartRow->{if (newStartRow>=1) startRow=newStartRow;});
+		searcher.testString(this,Language.tr("Editor.DialogBase.Search.TableLoadColumn"),column,newColumn->{column=newColumn;});
+
+		/* Kundentypen */
+		for (int i=0;i<clientTypeNames.size();i++) {
+			final int index=i;
+			searcher.testString(this,Language.tr("Editor.DialogBase.Search.ClientTypeName"),clientTypeNames.get(index),newClientTypeName->clientTypeNames.set(index,newClientTypeName));
+		}
 	}
 }

@@ -33,6 +33,7 @@ import org.w3c.dom.Element;
 
 import language.Language;
 import simulator.editmodel.EditModel;
+import simulator.editmodel.FullTextSearch;
 import ui.images.Images;
 import ui.modeleditor.ModelClientData;
 import ui.modeleditor.ModelDataRenameListener;
@@ -358,5 +359,12 @@ public class ModelElementBatchMulti extends ModelElementMultiInSingleOutBox impl
 				batchRecords.put(newName,record);
 			}
 		}
+	}
+
+	@Override
+	public void search(final FullTextSearch searcher) {
+		super.search(searcher);
+
+		for (Map.Entry<String,BatchRecord> batchRecord: batchRecords.entrySet()) batchRecord.getValue().search(searcher,this,batchRecord.getKey());
 	}
 }

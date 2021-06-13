@@ -31,6 +31,7 @@ import org.w3c.dom.Element;
 import language.Language;
 import mathtools.NumberTools;
 import simulator.editmodel.EditModel;
+import simulator.editmodel.FullTextSearch;
 import ui.images.Images;
 import ui.modeleditor.ModelClientData;
 import ui.modeleditor.ModelDataRenameListener;
@@ -437,5 +438,14 @@ public class ModelElementTransportSourceRouter extends ModelElementBox implement
 		this.connections.addAll(connectionsIn);
 
 		return true;
+	}
+
+	@Override
+	public void search(final FullTextSearch searcher) {
+		super.search(searcher);
+
+		transportTimeRecord.search(searcher,this);
+
+		searcher.testString(this,Language.tr("Surface.TransportSourceRouter.Dialog.DefaultStation"),defaultStation,newDefaultStation->{defaultStation=newDefaultStation;});
 	}
 }

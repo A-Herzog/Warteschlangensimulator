@@ -27,6 +27,7 @@ import org.w3c.dom.NodeList;
 import language.Language;
 import mathtools.NumberTools;
 import mathtools.distribution.tools.DistributionTools;
+import simulator.editmodel.FullTextSearch;
 
 /**
  * Daten zu einer einzelnen Ressource
@@ -592,5 +593,37 @@ public final class ModelResource implements Cloneable {
 		}
 
 		return null;
+	}
+
+	/**
+	 * Sucht einen Text in den Daten der Bedienergruppe.
+	 * @param searcher	Such-System
+	 * @see FullTextSearch
+	 */
+	public void search(final FullTextSearch searcher) {
+		/* Name */
+		searcher.testString(Language.tr("Editor.DialogBase.Search.Resource.Name"),name);
+
+		/* Anzahl */
+		switch (modeCount) {
+		case MODE_NUMBER:
+			if (count>0) searcher.testInteger(String.format(Language.tr("Editor.DialogBase.Search.Resource.Count"),name),count,newCount->{if (newCount>0) count=newCount;});
+			break;
+		case MODE_SCHEDULE:
+			searcher.testString(String.format(Language.tr("Editor.DialogBase.Search.Resource.Schedule"),name),schedule);
+			break;
+		}
+
+		/* Kosten */
+		searcher.testDouble(String.format(Language.tr("Editor.DialogBase.Search.Resource.CostsPerActiveHour"),name),costsPerActiveHour,newCostsPerActiveHour->{costsPerActiveHour=newCostsPerActiveHour;});
+		searcher.testDouble(String.format(Language.tr("Editor.DialogBase.Search.Resource.CostsPerProcessHour"),name),costsPerProcessHour,newCostsPerProcessHour->{costsPerProcessHour=newCostsPerProcessHour;});
+		searcher.testDouble(String.format(Language.tr("Editor.DialogBase.Search.Resource.CostsPerIdleHour"),name),costsPerIdleHour,newCostsPerIdleHour->{costsPerIdleHour=newCostsPerIdleHour;});
+
+		/* Ausfälle */
+		for (ModelResourceFailure failure: failures) failure.search(searcher,name);
+
+		/* Rüstzeiten */
+		searcher.testDistribution(String.format(Language.tr("Editor.DialogBase.Search.Resource.SetupTimesDistribution"),name),moveTimesDistribution);
+		searcher.testString(String.format(Language.tr("Editor.DialogBase.Search.Resource.SetupTimesExpression"),name),moveTimesExpression,newMoveTimesExpression->setMoveTimes(newMoveTimesExpression));
 	}
 }

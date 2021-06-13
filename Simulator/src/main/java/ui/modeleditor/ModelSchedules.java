@@ -24,6 +24,7 @@ import org.w3c.dom.NodeList;
 
 import language.Language;
 import simulator.editmodel.EditModel;
+import simulator.editmodel.FullTextSearch;
 
 /**
  * Diese Klasse kapselt die Zeitpläne innerhalb eines Modells.
@@ -186,5 +187,14 @@ public final class ModelSchedules implements Cloneable {
 		}
 
 		return null;
+	}
+
+	/**
+	 * Sucht einen Text in den Daten der Zeitpläne.
+	 * @param searcher	Such-System
+	 * @see FullTextSearch
+	 */
+	public void search(final FullTextSearch searcher) {
+		for (ModelSchedule schedule: schedules) schedule.search(searcher);
 	}
 }

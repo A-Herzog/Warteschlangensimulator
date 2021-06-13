@@ -35,6 +35,7 @@ import org.w3c.dom.Element;
 import language.Language;
 import mathtools.NumberTools;
 import simulator.editmodel.EditModel;
+import simulator.editmodel.FullTextSearch;
 import ui.images.Images;
 import ui.modeleditor.ModelClientData;
 import ui.modeleditor.ModelDataRenameListener;
@@ -591,5 +592,22 @@ public class ModelElementTransportSource extends ModelElementBox implements Mode
 		this.connections.addAll(connectionsIn);
 
 		return true;
+	}
+
+	@Override
+	public void search(final FullTextSearch searcher) {
+		super.search(searcher);
+
+		/* Datensatz zu den Transportzeiten */
+		transportTimeRecord.search(searcher,this);
+
+		/* Einstellungen-Objekt mit den Daten zu den Transportzielen */
+		transportTargetSystem.search(searcher,this);
+
+		/* Objekt mit den Einstellungen zur Ressourcennutzung für den Transport */
+		transportResourceRecord.search(searcher,this);
+
+		/* Namen der zugehörigen "Bereich betreten"-Station */
+		searcher.testString(this,Language.tr("Surface.TransportSource.Dialog.SectionEnd.SectionStart"),sectionStartName,newSectionStartName->{sectionStartName=newSectionStartName;});
 	}
 }

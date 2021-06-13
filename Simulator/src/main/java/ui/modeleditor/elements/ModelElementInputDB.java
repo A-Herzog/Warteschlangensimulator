@@ -32,6 +32,7 @@ import simulator.db.DBConnect;
 import simulator.db.DBConnect.SortMode;
 import simulator.db.DBSettings;
 import simulator.editmodel.EditModel;
+import simulator.editmodel.FullTextSearch;
 import ui.images.Images;
 import ui.modeleditor.ModelClientData;
 import ui.modeleditor.ModelSequences;
@@ -638,5 +639,21 @@ public class ModelElementInputDB extends ModelElementMultiInSingleOutBox impleme
 	@Override
 	public DataCheckResult checkExternalData() {
 		return DataCheckResult.checkDB(this,db);
+	}
+
+	@Override
+	public void search(final FullTextSearch searcher) {
+		super.search(searcher);
+
+		/* Tabelleneinstellungen */
+		searcher.testString(this,Language.tr("Editor.DialogBase.Search.Table"),table,newTable->{table=newTable;});
+		searcher.testString(this,Language.tr("Editor.DialogBase.Search.TableLoadColumn"),loadColumn,newLoadColumn->{loadColumn=newLoadColumn;});
+		searcher.testString(this,Language.tr("Surface.InputDB.Dialog.ColumnSort"),sortColumn,newSortColumn->{sortColumn=newSortColumn;});
+
+		/* Zuweisung */
+		searcher.testString(this,Language.tr("Editor.DialogBase.Search.AssignedVariable"),variable,newVariable->{variable=newVariable;});
+		if (eofMode==EofModes.EOF_MODE_DEFAULT_VALUE) {
+			searcher.testString(this,Language.tr("Surface.InputDB.Dialog.Mode.DefaultValue"),defaultValue,newDefaultValue->{defaultValue=newDefaultValue;});
+		}
 	}
 }

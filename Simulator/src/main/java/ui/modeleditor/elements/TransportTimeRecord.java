@@ -19,7 +19,9 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 import language.Language;
+import simulator.editmodel.FullTextSearch;
 import ui.modeleditor.ModelSurface;
+import ui.modeleditor.coreelements.ModelElementBox;
 import ui.modeleditor.descriptionbuilder.ModelDescriptionBuilder;
 
 /**
@@ -29,7 +31,6 @@ import ui.modeleditor.descriptionbuilder.ModelDescriptionBuilder;
  * @see ModelElementTransportSource
  */
 public final class TransportTimeRecord implements Cloneable {
-
 	/**
 	 * @see TransportTimeRecord#getDelayType()
 	 * @see TransportTimeRecord#setDelayType(DelayType)
@@ -256,5 +257,15 @@ public final class TransportTimeRecord implements Cloneable {
 			descriptionBuilder.addProperty(Language.tr("ModelDescription.TransportTimeRecord.TimeMode"),Language.tr("ModelDescription.TransportTimeRecord.TimeMode.Nothing"),3000);
 			break;
 		}
+	}
+
+	/**
+	 * Sucht einen Text in den Daten dieses Datensatzes.
+	 * @param searcher	Such-System
+	 * @param station	Station an der dieser Datensatz verwendet wird
+	 * @see FullTextSearch
+	 */
+	public void search(final FullTextSearch searcher, final ModelElementBox station) {
+		transportTime.search(searcher,station,Language.tr("Surface.TransportSource.Dialog.TransportTime"));
 	}
 }

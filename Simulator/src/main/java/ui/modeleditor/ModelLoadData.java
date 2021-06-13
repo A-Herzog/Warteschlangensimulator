@@ -30,6 +30,7 @@ import mathtools.NumberTools;
 import mathtools.Table;
 import net.dde.DDEConnect;
 import simulator.editmodel.EditModel;
+import simulator.editmodel.FullTextSearch;
 import ui.parameterseries.ParameterCompareSetupValueInput;
 import ui.parameterseries.ParameterCompareTools;
 
@@ -581,5 +582,15 @@ public final class ModelLoadData implements Cloneable {
 		}
 
 		return changedModel;
+	}
+
+	/**
+	 * Sucht einen Text in den Daten dieser Klasse.
+	 * @param searcher	Such-System
+	 * @see FullTextSearch
+	 */
+	public void search(final FullTextSearch searcher) {
+		searcher.testString(Language.tr("ModelLoadData.Search.Workbook"),workbook,newWorkbook->{workbook=newWorkbook;});
+		searcher.testString(String.format(Language.tr("ModelLoadData.Search.Table"),workbook),table,newTable->{table=newTable;});
 	}
 }

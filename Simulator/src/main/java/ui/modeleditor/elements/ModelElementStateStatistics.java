@@ -32,6 +32,7 @@ import language.Language;
 import mathtools.NumberTools;
 import mathtools.TimeTools;
 import simulator.editmodel.EditModel;
+import simulator.editmodel.FullTextSearch;
 import simulator.elements.RunElementStateStatisticsData;
 import statistics.StatisticsStateTimePerformanceIndicator;
 import ui.images.Images;
@@ -295,5 +296,12 @@ public class ModelElementStateStatistics extends ModelElementMultiInSingleOutBox
 		super.buildDescription(descriptionBuilder);
 
 		if (!groupName.trim().isEmpty()) descriptionBuilder.addProperty(Language.tr("ModelDescription.StateStatistics.Group"),groupName,1000);
+	}
+
+	@Override
+	public void search(final FullTextSearch searcher) {
+		super.search(searcher);
+
+		searcher.testString(this,Language.tr("Surface.StateStatistics.Dialog.GroupName"),groupName,newGroupName->{groupName=newGroupName;});
 	}
 }

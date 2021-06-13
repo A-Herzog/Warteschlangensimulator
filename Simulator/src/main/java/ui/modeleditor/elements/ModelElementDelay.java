@@ -39,6 +39,7 @@ import org.w3c.dom.Element;
 import language.Language;
 import mathtools.distribution.tools.DistributionTools;
 import simulator.editmodel.EditModel;
+import simulator.editmodel.FullTextSearch;
 import simulator.runmodel.RunModelFixer;
 import ui.ModelChanger;
 import ui.images.Images;
@@ -82,7 +83,6 @@ public class ModelElementDelay extends ModelElementMultiInSingleOutBox implement
 		/** Die Verzögerung soll nicht erfasst werden. */
 		DELAY_TYPE_NOTHING
 	}
-
 
 	/**
 	 * Verwendete Zeitbasis (ob die Verteilungswerte Sekunden-, Minuten- oder Stunden-Angaben darstellen sollen)
@@ -812,5 +812,31 @@ public class ModelElementDelay extends ModelElementMultiInSingleOutBox implement
 	@Override
 	protected void addEdgeOutFixes(final List<RunModelFixer> fixer) {
 		findEdgesTo(QuickFixNextElements.process,fixer);
+	}
+
+	@Override
+	public void search(final FullTextSearch searcher) {
+		super.search(searcher);
+
+		/* Globale Werte */
+		if (expressionGlobal!=null) {
+			searcher.testString(this,Language.tr("Editor.DialogBase.Search.GlobalExpression"),expressionGlobal,newExpressionGlobal->{expressionGlobal=newExpressionGlobal;});
+		} else {
+			searcher.testDistribution(this,Language.tr("Editor.DialogBase.Search.GlobalDistribution"),distributionGlobal);
+		}
+
+		/* Kundentypspezifische Werte */
+		for (Map.Entry<String,String> expression: expressionByType.entrySet()) {
+			final String clientType=expression.getKey();
+			searcher.testString(this,String.format(Language.tr("Editor.DialogBase.Search.ClientTypeExpression"),clientType),expression.getValue(),newExpression->expressionByType.put(clientType,newExpression));
+		}
+		for (Map.Entry<String,AbstractRealDistribution> distribution: distributionByType.entrySet()) {
+			final String clientType=distribution.getKey();
+			if (expressionByType.get(clientType)!=null) continue;
+			searcher.testDistribution(this,String.format(Language.tr("Editor.DialogBase.Search.ClientTypeDistribution"),clientType),distribution.getValue());
+		}
+
+		/* Kosten */
+		searcher.testString(this,Language.tr("Editor.DialogBase.Search.Costs"),costs,newCosts->{costs=newCosts;});
 	}
 }
