@@ -19,7 +19,6 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Container;
-import java.awt.Desktop;
 import java.awt.FlowLayout;
 import java.awt.Point;
 import java.awt.Window;
@@ -29,10 +28,7 @@ import java.awt.event.InputEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
-import java.io.IOException;
 import java.io.Serializable;
-import java.net.URI;
-import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.function.Consumer;
 
@@ -56,6 +52,7 @@ import javax.swing.JToolBar;
 import javax.swing.KeyStroke;
 import javax.swing.SwingUtilities;
 
+import mathtools.distribution.swing.JOpenURL;
 import systemtools.MainFrameBase.DropTargetRegister;
 import systemtools.images.SimToolsImages;
 
@@ -1706,12 +1703,7 @@ public abstract class MainPanelBase extends JPanel {
 				errorLabel.addMouseListener(new MouseAdapter() {
 					@Override
 					public void mouseClicked(final MouseEvent e) {
-						if (SwingUtilities.isLeftMouseButton(e)) {
-							try {
-								if (!MsgBox.confirmOpenURL(MainPanelBase.this,link)) return;
-								Desktop.getDesktop().browse(new URI(link));
-							} catch (IOException | URISyntaxException e1) {}
-						}
+						if (SwingUtilities.isLeftMouseButton(e)) JOpenURL.open(MainPanelBase.this,link);
 					}
 				});
 			}

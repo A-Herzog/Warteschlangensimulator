@@ -18,12 +18,10 @@ package ui.dialogs;
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Cursor;
-import java.awt.Desktop;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.Serializable;
-import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.util.Arrays;
 import java.util.List;
@@ -43,8 +41,8 @@ import org.commonmark.parser.Parser;
 import org.commonmark.renderer.html.HtmlRenderer;
 
 import language.Language;
+import mathtools.distribution.swing.JOpenURL;
 import systemtools.BaseDialog;
-import systemtools.MsgBox;
 import tools.SetupData;
 
 /**
@@ -282,12 +280,8 @@ public class LicenseViewer extends BaseDialog{
 		}
 
 		if (e.getEventType()==HyperlinkEvent.EventType.ACTIVATED) {
-			try {
-				if (!MsgBox.confirmOpenURL(this,e.getURL())) return;
-				Desktop.getDesktop().browse(e.getURL().toURI());
-			} catch (IOException | URISyntaxException e1) {
-				MsgBox.error(getOwner(),Language.tr("Window.Info.NoInternetConnection"),String.format(Language.tr("Window.Info.NoInternetConnection.Address"),e.getURL().toString()));
-			}
+			JOpenURL.open(this,e.getURL());
+			return;
 		}
 	}
 }

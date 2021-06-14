@@ -53,6 +53,7 @@ import org.apache.poi.xwpf.usermodel.XWPFDocument;
 import mathtools.NumberTools;
 import mathtools.Table;
 import mathtools.distribution.swing.CommonVariables;
+import mathtools.distribution.swing.JOpenURL;
 import systemtools.MsgBox;
 
 /**
@@ -339,10 +340,7 @@ class StatisticViewerHTMLText implements StatisticViewer {
 								MsgBox.error(textPane,StatisticsBasePanel.mailErrorTitle,String.format(StatisticsBasePanel.mailErrorInfo,e.getURL().toString()));
 							}
 						} else {
-							if (!MsgBox.confirmOpenURL(textPane,e.getURL())) return;
-							try {Desktop.getDesktop().browse(e.getURL().toURI());} catch (IOException | URISyntaxException e1) {
-								MsgBox.error(textPane,StatisticsBasePanel.internetErrorTitle,String.format(StatisticsBasePanel.internetErrorInfo,e.getURL().toString()));
-							}
+							JOpenURL.open(textPane,e.getURL());
 						}
 					}
 				}

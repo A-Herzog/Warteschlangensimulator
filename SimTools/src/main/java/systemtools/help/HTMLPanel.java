@@ -44,6 +44,7 @@ import javax.swing.JToolBar;
 import javax.swing.KeyStroke;
 import javax.swing.SwingUtilities;
 
+import mathtools.distribution.swing.JOpenURL;
 import systemtools.BaseDialog;
 import systemtools.MsgBox;
 import systemtools.images.SimToolsImages;
@@ -476,10 +477,7 @@ public abstract class HTMLPanel extends JPanel {
 					}
 				} else {
 					if (s.toLowerCase().startsWith("http://") || s.toLowerCase().startsWith("https://")) {
-						if (!MsgBox.confirmOpenURL(HTMLPanel.this,url)) return;
-						try {Desktop.getDesktop().browse(url.toURI());} catch (IOException | URISyntaxException e1) {
-							MsgBox.error(HTMLPanel.this,HelpBase.errorNoInternetTitle,String.format(HelpBase.errorNoInternetInfo,url.toString()));
-						}
+						JOpenURL.open(HTMLPanel.this,url);
 					} else {
 						s=url.toString();
 						s=s.substring(s.lastIndexOf('/')+1);

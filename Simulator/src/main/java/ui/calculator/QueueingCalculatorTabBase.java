@@ -18,16 +18,12 @@ package ui.calculator;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Cursor;
-import java.awt.Desktop;
 import java.awt.FlowLayout;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.io.IOException;
 import java.io.Serializable;
-import java.net.URI;
-import java.net.URISyntaxException;
 import java.net.URL;
 
 import javax.swing.BorderFactory;
@@ -40,7 +36,7 @@ import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
 
 import language.Language;
-import systemtools.MsgBox;
+import mathtools.distribution.swing.JOpenURL;
 import ui.images.Images;
 import ui.tools.FlatLaFHelper;
 
@@ -206,13 +202,7 @@ public abstract class QueueingCalculatorTabBase extends JPanel {
 		final JLabel info;
 		line.add(info=new JLabel("<html><body><a href=\"\">"+text+"</a></body></html>"));
 		info.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				if (!MsgBox.confirmOpenURL(QueueingCalculatorTabBase.this,link)) return;
-				try {Desktop.getDesktop().browse(new URI(link));} catch (IOException | URISyntaxException e1) {
-					MsgBox.error(QueueingCalculatorTabBase.this,Language.tr("Window.Info.NoInternetConnection"),String.format(Language.tr("Window.Info.NoInternetConnection.ModelOverview"),link));
-				}
-			}
+			@Override public void mouseClicked(MouseEvent e) {JOpenURL.open(QueueingCalculatorTabBase.this,link);}
 		});
 		info.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		info.setAlignmentX(0);

@@ -16,9 +16,11 @@
 package systemtools;
 
 import java.awt.Component;
+import java.awt.Desktop;
 import java.awt.Toolkit;
 import java.awt.datatransfer.StringSelection;
 import java.io.File;
+import java.io.IOException;
 import java.net.URI;
 import java.net.URL;
 import java.util.Locale;
@@ -26,6 +28,7 @@ import java.util.Locale;
 import javax.swing.Icon;
 import javax.swing.JOptionPane;
 
+import mathtools.distribution.swing.JOpenURL;
 import systemtools.images.SimToolsImages;
 
 /**
@@ -92,6 +95,10 @@ public class MsgBox {
 	public static String OptionCopyURL="Adresse kopieren";
 	/** Bezeichner für die Erklärung der "Adresse kopieren"-Schaltfläche des Homepage-Aufruf-Dialogs */
 	public static String OptionInfoCopyURL="Adresse nur in Zwischenablage kopieren, Webseite nicht aufrufen.";
+	/** Bezeichner für den Titel der URL-Fehlermeldung */
+	public static String OpenURLErrorTitle="Keine Internet-Verbindung möglich";
+	/** Bezeichner für den Inhalt der URL-Fehlermeldung */
+	public static String OpenURLErrorMessage="Die angegebene Adresse\n%s\nkonnte nicht aufgerufen werden.";
 	/** Für die Dialoge aktuell gültige Landeseinstellung */
 	public static Locale ActiveLocale=Locale.getDefault();
 
@@ -108,6 +115,15 @@ public class MsgBox {
 
 	static {
 		backend=new MsgBoxBackendJOptionPane();
+
+		JOpenURL.openURI=(parent,uri)->{
+			try {
+				if (!MsgBox.confirmOpenURL(parent,uri.toURL())) return;
+				Desktop.getDesktop().browse(uri);
+			} catch (IOException e) {
+				MsgBox.error(parent,OpenURLErrorTitle,String.format(OpenURLErrorMessage,uri.toString()));
+			}
+		};
 	}
 
 	/**
@@ -205,12 +221,18 @@ public class MsgBox {
 	}
 
 	/**
+	 * Ist es zulässig, eine URL zu öffnen?
+	 */
+	public static boolean allowOpenURL=true;
+
+	/**
 	 * Zeigt eine Warnung an, dass eine externe Webseite im Browser geöffnet werden soll
+	 * (mit Möglichkeit zum Öffnen der Seite)
 	 * @param parentComponent	Übergeordnetes Element
 	 * @param url	Aufzurufende URL
 	 * @return	Gibt <code>true</code> zurück, wenn der Nutzer dem Aufruf zugestimmt hat.
 	 */
-	public static boolean confirmOpenURL(Component parentComponent, URL url) {
+	private static boolean confirmOpenURLWithOpen(final Component parentComponent, final URL url) {
 		final int result=backend.options(
 				parentComponent,
 				TitleConfirmation,
@@ -228,6 +250,46 @@ public class MsgBox {
 		case 1: return false;
 		case 2: Toolkit.getDefaultToolkit().getSystemClipboard().setContents(new StringSelection(url.toString()),null); return false;
 		default: return false;
+		}
+	}
+
+	/**
+	 * Zeigt eine Warnung an, dass eine externe Webseite im Browser geöffnet werden soll
+	 * (ohne Möglichkeit zum Öffnen der Seite)
+	 * @param parentComponent	Übergeordnetes Element
+	 * @param url	Aufzurufende URL
+	 * @return	Gibt <code>true</code> zurück, wenn der Nutzer dem Aufruf zugestimmt hat.
+	 */
+	private static boolean confirmOpenURLWithoutOpen(final Component parentComponent, final URL url) {
+		final int result=backend.options(
+				parentComponent,
+				TitleConfirmation,
+				String.format(OpenURLInfo,url.toString()),
+				new String[] {OptionNo,OptionCopyURL},
+				new String[] {OpenURLInfoNo,OptionInfoCopyURL},
+				new Icon[] {
+						SimToolsImages.MSGBOX_NO.getIcon(),
+						SimToolsImages.MSGBOX_COPY.getIcon()
+				});
+		switch (result) {
+		case -1: return false;
+		case 0: return false;
+		case 1: Toolkit.getDefaultToolkit().getSystemClipboard().setContents(new StringSelection(url.toString()),null); return false;
+		default: return false;
+		}
+	}
+
+	/**
+	 * Zeigt eine Warnung an, dass eine externe Webseite im Browser geöffnet werden soll
+	 * @param parentComponent	Übergeordnetes Element
+	 * @param url	Aufzurufende URL
+	 * @return	Gibt <code>true</code> zurück, wenn der Nutzer dem Aufruf zugestimmt hat.
+	 */
+	public static boolean confirmOpenURL(final Component parentComponent, final URL url) {
+		if (allowOpenURL) {
+			return confirmOpenURLWithOpen(parentComponent,url);
+		} else {
+			return confirmOpenURLWithoutOpen(parentComponent,url);
 		}
 	}
 

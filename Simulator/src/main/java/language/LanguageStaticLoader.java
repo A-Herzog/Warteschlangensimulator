@@ -138,6 +138,8 @@ public class LanguageStaticLoader {
 		MsgBox.OpenURLInfoNo=Language.tr("Dialog.OpenURL.InfoNo");
 		MsgBox.OptionCopyURL=Language.tr("Dialog.OpenURL.CopyURL");
 		MsgBox.OptionInfoCopyURL=Language.tr("Dialog.OpenURL.CopyURLInfo");
+		MsgBox.OpenURLErrorTitle=Language.tr("Window.Info.NoInternetConnection");
+		MsgBox.OpenURLErrorMessage=Language.tr("Window.Info.NoInternetConnection.Address");
 		MsgBox.ActiveLocale=locale;
 
 		/* Verteilungen */

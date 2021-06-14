@@ -90,6 +90,7 @@ import mathtools.NumberTools;
 import mathtools.Table;
 import mathtools.Table.SaveMode;
 import mathtools.distribution.swing.CommonVariables;
+import mathtools.distribution.swing.JOpenURL;
 import mathtools.distribution.tools.AbstractDistributionWrapper;
 import mathtools.distribution.tools.FileDropperData;
 import net.calc.ServerStatus;
@@ -126,6 +127,7 @@ import ui.compare.CompareSelectDialog;
 import ui.dialogs.AnimationRecordSetupDialog;
 import ui.dialogs.DataCheckDialog;
 import ui.dialogs.EdgeStyleSetupDialog;
+import ui.dialogs.FindAndReplaceDialog;
 import ui.dialogs.FindBatchSizeDialog;
 import ui.dialogs.FindElementDialog;
 import ui.dialogs.FitDialog;
@@ -138,7 +140,6 @@ import ui.dialogs.ModelAnalyticInfoDialog;
 import ui.dialogs.ModelDescriptionDialog;
 import ui.dialogs.ModelLoadDataWarningsDialog;
 import ui.dialogs.NotesDialog;
-import ui.dialogs.FindAndReplaceDialog;
 import ui.dialogs.SelectElementByIdDialog;
 import ui.dialogs.SelectExampleDialog;
 import ui.dialogs.SetupDialog;
@@ -3556,12 +3557,8 @@ public class MainPanel extends MainPanelBase {
 		}
 
 		final String network="https://"+HOME_URL+"/Warteschlangensimulator/"+fileName;
-		try {
-			if (!MsgBox.confirmOpenURL(this,network)) return;
-			Desktop.getDesktop().browse(new URI(network));
-		} catch (IOException | URISyntaxException e1) {
-			MsgBox.error(getOwnerWindow(),Language.tr("Window.Info.NoInternetConnection"),String.format(Language.tr("Window.Info.NoInternetConnection.Address"),network));
-		}
+
+		JOpenURL.open(this,network);
 	}
 
 	/**
@@ -3569,12 +3566,7 @@ public class MainPanel extends MainPanelBase {
 	 * @param url	URL der aufzurufenden Webseite
 	 */
 	private void openWebpage(final String url) {
-		try {
-			if (!MsgBox.confirmOpenURL(this,url)) return;
-			Desktop.getDesktop().browse(new URI(url));
-		} catch (IOException | URISyntaxException e1) {
-			MsgBox.error(getOwnerWindow(),Language.tr("Window.Info.NoInternetConnection"),String.format(Language.tr("Window.Info.NoInternetConnection.Address"),url));
-		}
+		JOpenURL.open(this,url);
 	}
 
 	/**

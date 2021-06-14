@@ -18,13 +18,11 @@ package systemtools.statistics;
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Cursor;
-import java.awt.Desktop;
 import java.awt.Dimension;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.io.IOException;
 import java.io.Serializable;
-import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.function.Consumer;
 
@@ -39,7 +37,7 @@ import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
 import javax.swing.event.HyperlinkEvent;
 
-import systemtools.MsgBox;
+import mathtools.distribution.swing.JOpenURL;
 import systemtools.images.SimToolsImages;
 
 /**
@@ -206,10 +204,7 @@ public class DescriptionViewer extends JPanel {
 				final String linkLower=description.toLowerCase();
 
 				if (linkLower.startsWith("http://") || linkLower.startsWith("https://")) {
-					if (!MsgBox.confirmOpenURL(DescriptionViewer.this,description)) return;
-					try {Desktop.getDesktop().browse(new URL(description).toURI());} catch (IOException | URISyntaxException e1) {
-						MsgBox.error(this,StatisticsBasePanel.internetErrorTitle,String.format(StatisticsBasePanel.internetErrorInfo,description));
-					}
+					JOpenURL.open(this,description);
 					return;
 				}
 
