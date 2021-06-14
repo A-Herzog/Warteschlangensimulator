@@ -1070,6 +1070,21 @@ public class ScriptEditorAreaBuilder {
 		}
 
 		/**
+		 * Konstruktor der Klasse
+		 * @param matchCase	Groß- und Kleinschreibung beachten
+		 * @param regex	Suchbegriff ist regulärer Ausdruck
+		 * @param forward	Vorwärts suchen
+		 * @param wholeWord	Nur ganze Wörter
+		 */
+		public SearchSetup(final boolean matchCase, final boolean regex, final boolean forward, final boolean wholeWord) {
+			this.text="";
+			this.matchCase=matchCase;
+			this.regex=regex;
+			this.forward=forward;
+			this.wholeWord=wholeWord;
+		}
+
+		/**
 		 * Liefert eine Vorgabe-Suchkonfiguration
 		 * @return	Vorgabe-Suchkonfiguration
 		 */

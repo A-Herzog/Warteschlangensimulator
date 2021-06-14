@@ -1164,6 +1164,26 @@ public class SetupData extends SetupBase {
 	public boolean searchAndReplaceRegularExpression;
 
 	/**
+	 * Suchen in Skript-Eingabefeld: Groß- und Kleinschreibung beachten
+	 */
+	public boolean scriptSearchMatchCase;
+
+	/**
+	 * Suchen in Skript-Eingabefeld: Suchbegriff ist regulärer Ausdruck
+	 */
+	public boolean scriptSearchRegex;
+
+	/**
+	 * Suchen in Skript-Eingabefeld: Vorwärts suchen
+	 */
+	public boolean scriptSearchForward;
+
+	/**
+	 * Suchen in Skript-Eingabefeld: Nur ganze Wörter
+	 */
+	public boolean scriptSearchWholeWord;
+
+	/**
 	 * Letzter Fehler
 	 * (Hier wird die Setup-Datei als Logdatei für solche Ereignisse verwendet.)
 	 */
@@ -1367,7 +1387,10 @@ public class SetupData extends SetupBase {
 		searchAndReplaceStationIDs=false;
 		searchAndReplaceFullMatchOnly=false;
 		searchAndReplaceRegularExpression=false;
-
+		scriptSearchMatchCase=false;
+		scriptSearchRegex=false;
+		scriptSearchForward=true;
+		scriptSearchWholeWord=false;
 		lastError=null;
 	}
 
@@ -2236,6 +2259,13 @@ public class SetupData extends SetupBase {
 				searchAndReplaceFullMatchOnly=loadBoolean(e.getAttribute("FullMatchOnly"),false);
 				searchAndReplaceRegularExpression=loadBoolean(e.getAttribute("RegularExpression"),false);
 			}
+
+			if (name.equals("scriptsearch")) {
+				scriptSearchMatchCase=loadBoolean(e.getAttribute("CaseSensitive"),false);
+				scriptSearchRegex=loadBoolean(e.getAttribute("RegularExpression"),false);
+				scriptSearchForward=loadBoolean(e.getAttribute("Forward"),true);
+				scriptSearchWholeWord=loadBoolean(e.getAttribute("WholeWord"),false);
+			}
 		}
 
 		if (useLastFiles) {
@@ -2891,6 +2921,14 @@ public class SetupData extends SetupBase {
 			if (searchAndReplaceStationIDs) node.setAttribute("StationIDs","1");
 			if (searchAndReplaceFullMatchOnly) node.setAttribute("FullMatchOnly","1");
 			if (searchAndReplaceRegularExpression) node.setAttribute("RegularExpression","1");
+		}
+
+		if (scriptSearchMatchCase || scriptSearchRegex || !scriptSearchForward || scriptSearchWholeWord) {
+			root.appendChild(node=doc.createElement("ScriptSearch"));
+			if (scriptSearchMatchCase) node.setAttribute("CaseSensitive","1");
+			if (scriptSearchRegex) node.setAttribute("RegularExpression","1");
+			if (!scriptSearchForward) node.setAttribute("Forward","1");
+			if (scriptSearchWholeWord) node.setAttribute("WholeWord","1");
 		}
 
 		if (lastError!=null && !lastError.trim().isEmpty()) {

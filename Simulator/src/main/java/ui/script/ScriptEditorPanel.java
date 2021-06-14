@@ -61,6 +61,7 @@ import simulator.statistics.Statistics;
 import systemtools.BaseDialog;
 import systemtools.MsgBox;
 import tools.IconListCellRenderer;
+import tools.SetupData;
 import ui.help.Help;
 import ui.images.Images;
 
@@ -260,6 +261,7 @@ public class ScriptEditorPanel extends JPanel {
 		final JPanel sub=new JPanel(new BorderLayout());
 		add(sub,BorderLayout.CENTER);
 
+		/* Toolbar */
 		toolbar=new JToolBar();
 		toolbar.setFloatable(false);
 		sub.add(toolbar,BorderLayout.NORTH);
@@ -294,6 +296,7 @@ public class ScriptEditorPanel extends JPanel {
 		toolbar.addSeparator();
 		buttonHelp=addToolbarButton(toolbar,Language.tr("Main.Toolbar.Help"),Images.HELP.getIcon(),Language.tr("Surface.ScriptEditor.Help.Hint"),readOnly);
 
+		/* Eingabebereich */
 		ScriptEditorAreaBuilder builder;
 
 		builder=new ScriptEditorAreaBuilder(ScriptPopup.ScriptMode.Javascript,readOnly,e->fireKeyAction());
@@ -570,9 +573,19 @@ public class ScriptEditorPanel extends JPanel {
 		}
 		if (textArea==null) return;
 
+		final SetupData setup=SetupData.getSetup();
+		if (lastSearchSetup==null) {
+			lastSearchSetup=new ScriptEditorAreaBuilder.SearchSetup(setup.scriptSearchMatchCase,setup.scriptSearchRegex,setup.scriptSearchForward,setup.scriptSearchWholeWord);
+		}
+
 		final ScriptEditorPanelSearchDialog dialog=new ScriptEditorPanelSearchDialog(this,lastSearchSetup);
 		if (dialog.getClosedBy()!=BaseDialog.CLOSED_BY_OK) return;
 		lastSearchSetup=dialog.getNewSearchSetup();
+		setup.scriptSearchMatchCase=lastSearchSetup.matchCase;
+		setup.scriptSearchRegex=lastSearchSetup.regex;
+		setup.scriptSearchForward=lastSearchSetup.forward;
+		setup.scriptSearchWholeWord=lastSearchSetup.wholeWord;
+		setup.saveSetup();
 
 		ScriptEditorAreaBuilder.search(textArea,lastSearchSetup);
 	}
