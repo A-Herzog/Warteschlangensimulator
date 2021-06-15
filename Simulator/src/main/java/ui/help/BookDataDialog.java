@@ -29,8 +29,6 @@ import java.awt.event.MouseEvent;
 import java.io.File;
 import java.io.IOException;
 import java.io.Serializable;
-import java.net.URI;
-import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.List;
 import java.util.Map;
@@ -62,6 +60,7 @@ import org.oxbow.swingbits.util.swing.AncestorAdapter;
 
 import language.Language;
 import mathtools.distribution.swing.CommonVariables;
+import mathtools.distribution.swing.JOpenURL;
 import mathtools.distribution.tools.FileDropper;
 import mathtools.distribution.tools.FileDropperData;
 import systemtools.BaseDialog;
@@ -86,10 +85,10 @@ public class BookDataDialog extends BaseDialog {
 	/**
 	 * Adresse von der das Buch bezogen werden kann
 	 */
-	public static final String HOMEPAGE="https://Springer-URL";
+	public static final String HOMEPAGE="https://www.springer.com/gp/book/9783658346676";
 
 	/**
-	 * Timer zur zeitgesteuerten Prüfung, ob die angegeben pdf-Datei existiert
+	 * Timer zur zeitgesteuerten Prüfung, ob die angegebene pdf-Datei existiert
 	 */
 	private final Timer timer;
 
@@ -347,8 +346,8 @@ public class BookDataDialog extends BaseDialog {
 		/* Dialog starten */
 		pdfEditUpdate();
 		setResizable(true);
-		setMinSizeRespectingScreensize(850,650);
-		setSizeRespectingScreensize(850,650);
+		setMinSizeRespectingScreensize(1024,800);
+		setSizeRespectingScreensize(1024,800);
 		setLocationRelativeTo(getOwner());
 		WindowSizeStorage.window(this,"book");
 		setVisible(true);
@@ -381,12 +380,7 @@ public class BookDataDialog extends BaseDialog {
 	 * @param url	URL der aufzurufenden Webseite
 	 */
 	private void openWebpage(final String url) {
-		try {
-			if (!MsgBox.confirmOpenURL(this,url)) return;
-			Desktop.getDesktop().browse(new URI(url));
-		} catch (IOException | URISyntaxException e1) {
-			MsgBox.error(this,Language.tr("Window.Info.NoInternetConnection"),String.format(Language.tr("Window.Info.NoInternetConnection.Address"),url));
-		}
+		JOpenURL.open(this,url);
 	}
 
 	/**

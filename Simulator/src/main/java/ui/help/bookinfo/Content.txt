@@ -1,0 +1,3 @@
+Dieses Buch verknüpft die mathematischen Grundlagen der Warteschlangentheorie mit der Modellierung praktischer Problemstellungen, der Anwendung entsprechender Simulationen und der validen Auswertung ihrer Ergebnisse. In zahlreichen konkreten Beispielen und Fragestellungen kommt der frei verfügbare Warteschlangensimulator zum Einsatz, so dass alles nachvollzogen und für eigene Zwecke adaptiert werden kann.
+
+Das Buch bildet somit eine solide Basis für den erfolgreichen Einsatz von Warteschlangensimulationen, etwa zur Planung von Produktions- und Logistikprozessen: Mathematiker erhalten hier neue Impulse und Anwender aus der industriellen Praxis einen gut zugänglichen Einstieg in das Thema.
