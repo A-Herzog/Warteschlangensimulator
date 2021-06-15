@@ -1185,8 +1185,8 @@ public enum Images {
 	/** Symbol "Dateiformat 'Verschlüsselte XML-Datei'" */
 	SETUP_PAGE_FILE_FORMATS_CRYPT("lock.png"),
 
-	/** Symbol "Einstellungen - Seite 'Lizenz'" */
-	SETUP_PAGE_LICENSE("key.png"),
+	/** Symbol "Einstellungen - Seite 'Sicherheit'" */
+	SETUP_PAGE_SECURITY("lock.png"),
 
 	/** Symbol "Einstellungen - Seite 'Update'" */
 	SETUP_PAGE_UPDATE("arrow_refresh.png"),

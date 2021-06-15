@@ -873,6 +873,9 @@ public class MainPanel extends MainPanelBase {
 		if (setup.openODS) StatisticsBasePanel.viewerPrograms.add(StatisticsBasePanel.ViewerPrograms.ODS);
 		if (setup.openPDF) StatisticsBasePanel.viewerPrograms.add(StatisticsBasePanel.ViewerPrograms.PDF);
 
+		/* Öffnen von Links erlauben/verbieten */
+		MsgBox.allowOpenURL=setup.allowToOpenLinks;
+
 		/* Alles neu zeichnen */
 		editorPanel.resetHeatMapSettings();
 		final Window ownerWindow=getOwnerWindow();

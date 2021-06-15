@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-06-13 18:54+0200\n"
+"POT-Creation-Date: 2021-06-15 21:06+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -14478,6 +14478,15 @@ msgstr "Modelle mit potentiell kritischen Stationen"
 msgid "SettingsDialog.ModellSecurity.AllowAll"
 msgstr "Laden immer zulassen"
 
+msgid "SettingsDialog.ModellSecurity.AllowOpenLinks"
+msgstr "Beim Anklicken von Links"
+
+msgid "SettingsDialog.ModellSecurity.AllowOpenLinks.Ask"
+msgstr "Fragen, ob diese aufgerufen werden sollen"
+
+msgid "SettingsDialog.ModellSecurity.AllowOpenLinks.Prohibited"
+msgstr "Auruf des Links generell verbieten"
+
 msgid "SettingsDialog.ModellSecurity.Ask"
 msgstr "Nachfragen"
 
@@ -14497,6 +14506,15 @@ msgstr ""
 "wirken können. Konkret sind dies die Stationen, die Werte in Dateien\n"
 "oder in Datenbanken schreiben sowie alle Stationen, die Javascript-\n"
 "oder Java-Code ausführen können."
+
+msgid "SettingsDialog.ModellSecurity.Internet"
+msgstr "Internetverbindung"
+
+msgid "SettingsDialog.ModellSecurity.ModelsSecurity"
+msgstr "Simulationsmodelle"
+
+msgid "SettingsDialog.ModellSecurity.SignModels"
+msgstr "Modelle, die Skripte enthalten, signieren"
 
 msgid "SettingsDialog.ModellSecurity.Strict"
 msgstr "Laden immer verbieten"
@@ -30647,12 +30665,6 @@ msgstr ""
 "%s\n"
 "konnte nicht aufgerufen werden."
 
-msgid "Window.Info.NoInternetConnection.ModelOverview"
-msgstr ""
-"Die Modell-Übersicht\n"
-"%s\n"
-"konnte nicht aufgerufen werden."
-
 msgid "Window.JavaSecurityWarnung"
 msgstr "Die von Ihnen verwendete Java-Version ist veraltet und enthält möglicherweise Sicherheitslücken. Update:"
 
@@ -31210,6 +31222,12 @@ msgstr "Das Dateiformat wurde nicht erkannt bzw. passt zu keinem Dateiformat die
 
 #~ msgid "Window.Animation.Done.Title"
 #~ msgstr "Animation beendet"
+
+#~ msgid "Window.Info.NoInternetConnection.ModelOverview"
+#~ msgstr ""
+#~ "Die Modell-Übersicht\n"
+#~ "%s\n"
+#~ "konnte nicht aufgerufen werden."
 
 #~ msgid "Window.Layers.Rename.ErrorInfo"
 #~ msgstr "Der angegebene neue Name für die Ebene wird bereits für eine andere Ebene verwendet."

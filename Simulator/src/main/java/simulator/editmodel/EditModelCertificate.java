@@ -81,6 +81,9 @@ public class EditModelCertificate {
 	 * @param model	Modell dessen Daten mit Zertifikaten abgesichert werden sollen
 	 */
 	public void storeCertificateData(final Document doc, final Element parentNode, final EditModel model) {
+		/* Sollen Modelle signiert werden? */
+		if (!SetupData.getSetup().signModels) return;
+
 		/* Kritische Elemente identifizieren */
 		final List<ModelSecurityCheckDialog.CriticalElement> criticalElements=ModelSecurityCheckDialog.getCriticalElements(model.surface);
 		if (criticalElements.size()==0) return;

@@ -138,28 +138,6 @@ In this selection field, you can set whether such an example model is to be load
 (Default value for this option: "Empty model".)
 </p>
 
-<h3>Models containing potentially critical stations</h3>
-<p>
-From this dropdown box one can select the program behavior when trying to load a
-model containing stations which can have influences on the system (this are stations
-with script execution and with file or database output). The available options are
-to always allow loading, to always deny loading or to ask the user.
-</p>
-<p>
-(Default value for this option: "ask user".)
-</p>
-
-<h3>Allow scripts to execute external programs</h3>
-<p>
-If this option is enabled, external programs can be called from scripts and the respective return value can be further used in the script.
-If scripts can call external programs, then in principle arbitrary changes to the computer are possible.
-This means that opening and executing models represents a security risk.
-It is therefore recommended to activate this option only if absolutely necessary.
-</p>
-<p>
-(This option is disabled by default.)
-</p>
-
 <h3>Show hints on drawing surface</h3>
 <p>
 If the drawing surface is empty, hints for the usage of the vertical
@@ -573,6 +551,50 @@ the simulation time is displayed in the status bar, but the status bar is not pa
 </p>
 <p>
 (This option is enabled by default.)
+</p>
+
+
+
+<h2><img src="../images/lock.png">&nbsp; Security</h2>
+
+<h3>Models containing potentially critical stations</h3>
+<p>
+From this dropdown box one can select the program behavior when trying to load a
+model containing stations which can have influences on the system (this are stations
+with script execution and with file or database output). The available options are
+to always allow loading, to always deny loading or to ask the user.
+</p>
+<p>
+(Default value for this option: "ask user".)
+</p>
+
+<h3>Sign models containing scripts</h3>
+<p>
+If this option is enabled, models that contain critical stations such as scripts will be signed when saving,
+so that no security question has to be asked when loading these models on the same computer.
+</p>
+<p>
+(This option is enabled by default.)
+</p>
+
+<h3>Allow scripts to execute external programs</h3>
+<p>
+If this option is enabled, external programs can be called from scripts and the respective return value can be further used in the script.
+If scripts can call external programs, then in principle arbitrary changes to the computer are possible.
+This means that opening and executing models represents a security risk.
+It is therefore recommended to activate this option only if absolutely necessary.
+</p>
+<p>
+(This option is disabled by default.)
+</p>
+
+<h3>When clicking on links</h3>
+<p>
+If a link is clicked in the simulator, it is passed to the default browser after a showing
+a confirmation dialog. This setting can be used to completely prohibit calling a browser.
+</p>
+<p>
+(Default value for this option: "ask user".)
 </p>
 
 

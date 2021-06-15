@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-06-13 18:54+0200\n"
+"POT-Creation-Date: 2021-06-15 21:06+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -14478,6 +14478,15 @@ msgstr "Models containing potentially critical stations"
 msgid "SettingsDialog.ModellSecurity.AllowAll"
 msgstr "Always allow loading"
 
+msgid "SettingsDialog.ModellSecurity.AllowOpenLinks"
+msgstr "When clicking on links"
+
+msgid "SettingsDialog.ModellSecurity.AllowOpenLinks.Ask"
+msgstr "Ask if the link is to be opened"
+
+msgid "SettingsDialog.ModellSecurity.AllowOpenLinks.Prohibited"
+msgstr "Prohibit opening a link"
+
 msgid "SettingsDialog.ModellSecurity.Ask"
 msgstr "Ask user"
 
@@ -14497,6 +14506,15 @@ msgstr ""
 "Specifically, these are the stations that write values to\n"
 "files or databases and all stations that can execute\n"
 "Javascript or Java code."
+
+msgid "SettingsDialog.ModellSecurity.Internet"
+msgstr "Internet connection"
+
+msgid "SettingsDialog.ModellSecurity.ModelsSecurity"
+msgstr "Simulation models"
+
+msgid "SettingsDialog.ModellSecurity.SignModels"
+msgstr "Sign models containing scripts"
 
 msgid "SettingsDialog.ModellSecurity.Strict"
 msgstr "Always deny loading"
@@ -30632,11 +30650,6 @@ msgstr ""
 "%s\n"
 "could not be opened."
 
-msgid "Window.Info.NoInternetConnection.ModelOverview"
-msgstr ""
-"Unable to open the model overview\n"
-"%s."
-
 msgid "Window.JavaSecurityWarnung"
 msgstr "The Java version you ware using is outdated and may be contains security vulnerabilities. Update:"
 
@@ -31172,6 +31185,11 @@ msgstr "The file format is unknown respectively is not matching to any of the fi
 
 #~ msgid "Window.Animation.Done.Title"
 #~ msgstr "Animation finished"
+
+#~ msgid "Window.Info.NoInternetConnection.ModelOverview"
+#~ msgstr ""
+#~ "Unable to open the model overview\n"
+#~ "%s."
 
 #~ msgid "Window.Layers.Rename.ErrorInfo"
 #~ msgstr "The specified new name for the layer is already in use by another layer."

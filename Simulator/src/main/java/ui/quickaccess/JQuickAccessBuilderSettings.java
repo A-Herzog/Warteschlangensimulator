@@ -63,8 +63,6 @@ public class JQuickAccessBuilderSettings extends JQuickAccessBuilder {
 		map.put(Language.tr("SettingsDialog.WindowSizeProgrmStart"),page);
 		map.put(Language.tr("SettingsDialog.TemplatesPanel"),page);
 		map.put(Language.tr("SettingsDialog.LoadModelOnProgramStart"),page);
-		map.put(Language.tr("SettingsDialog.ModellSecurity"),page);
-		map.put(Language.tr("SettingsDialog.ModellSecurityExternal"),page);
 		map.put(Language.tr("SettingsDialog.SurfaceHelp"),page);
 		map.put(Language.tr("SettingsDialog.SurfaceGlassInfos"),page);
 		map.put(Language.tr("SettingsDialog.NotifyMode"),page);
@@ -114,6 +112,14 @@ public class JQuickAccessBuilderSettings extends JQuickAccessBuilder {
 		map.put(Language.tr("SettingsDialog.ImageResolution"),page);
 		map.put(Language.tr("SettingsDialog.ImageAnimation"),page);
 		map.put(Language.tr("SettingsDialog.Tabs.Simulation.PaintTimeStamp"),page);
+
+		/* Seite: Sicherheit */
+
+		page=SetupDialog.Page.SECURITY;
+		map.put(Language.tr("SettingsDialog.ModellSecurity"),page);
+		map.put(Language.tr("SettingsDialog.ModellSecurity.SignModels"),page);
+		map.put(Language.tr("SettingsDialog.ModellSecurityExternal"),page);
+		map.put(Language.tr("SettingsDialog.ModellSecurity.AllowOpenLinks"),page);
 
 		/* Seite: Update */
 

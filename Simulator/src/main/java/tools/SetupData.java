@@ -858,9 +858,19 @@ public class SetupData extends SetupBase {
 	public ModelSecurity modelSecurity;
 
 	/**
+	 * Modelle, die Skripte enthalten, signieren
+	 */
+	public boolean signModels;
+
+	/**
 	 * Erlaubt das Ausführen externer Programme durch Skripte
 	 */
 	public boolean modelSecurityAllowExecuteExternal;
+
+	/**
+	 * Verhalten beim Anklicken von Links
+	 */
+	public boolean allowToOpenLinks;
 
 	/**
 	 * Soll ein Security-Manager, der die Rechte des Nutzercodes
@@ -1338,7 +1348,9 @@ public class SetupData extends SetupBase {
 		jsEngine="";
 		cancelSimulationOnScriptError=true;
 		modelSecurity=ModelSecurity.ASK;
+		signModels=true;
 		modelSecurityAllowExecuteExternal=false;
+		allowToOpenLinks=true;
 		useSecurityManagerForUserCode=true;
 		notifyMode=NotifyMode.LONGRUN;
 		notifyMQTT=false;
@@ -2063,11 +2075,17 @@ public class SetupData extends SetupBase {
 				if (text.equals("allowall")) {modelSecurity=ModelSecurity.ALLOWALL; continue;}
 				if (text.equals("ask")) {modelSecurity=ModelSecurity.ASK; continue;}
 				if (text.equals("strict")) {modelSecurity=ModelSecurity.STRICT; continue;}
+				signModels=loadBoolean(e.getAttribute("SignModels"),true);
 				continue;
 			}
 
 			if (name.equals("modelsecurityexternal")) {
 				modelSecurityAllowExecuteExternal=loadBoolean(e.getTextContent(),false);
+				continue;
+			}
+
+			if (name.equals("allowtoopenlinks")) {
+				allowToOpenLinks=loadBoolean(e.getTextContent(),true);
 				continue;
 			}
 
@@ -2741,18 +2759,24 @@ public class SetupData extends SetupBase {
 			node.setTextContent("0");
 		}
 
-		if (modelSecurity!=ModelSecurity.ASK) {
+		if (modelSecurity!=ModelSecurity.ASK || !signModels) {
 			root.appendChild(node=doc.createElement("ModelSecurity"));
 			switch (modelSecurity) {
 			case ALLOWALL: node.setTextContent("AllowAll"); break;
 			case ASK: node.setTextContent("Ask"); break;
 			case STRICT: node.setTextContent("Strict"); break;
 			}
+			if (!signModels) node.setAttribute("SignModels","0");
 		}
 
 		if (modelSecurityAllowExecuteExternal) {
 			root.appendChild(node=doc.createElement("ModelSecurityExternal"));
 			node.setTextContent("1");
+		}
+
+		if (!allowToOpenLinks) {
+			root.appendChild(node=doc.createElement("AllowToOpenLinks"));
+			node.setTextContent("0");
 		}
 
 		if (!useSecurityManagerForUserCode) {
