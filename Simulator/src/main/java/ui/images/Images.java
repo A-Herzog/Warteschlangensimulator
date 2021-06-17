@@ -888,6 +888,9 @@ public enum Images {
 	/** Symbol "Tastenkombinationsreferenz (pdf)" */
 	HELP_HOTKEY_REFERENCE("keyboard.png"),
 
+	/** Symbol "Datenschutz" */
+	HELP_DATA_PRIVACY("lock.png"),
+
 	/* Bilder */
 
 	/** Symbol "Bild - Laden" */

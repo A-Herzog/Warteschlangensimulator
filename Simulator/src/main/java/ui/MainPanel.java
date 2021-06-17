@@ -126,6 +126,7 @@ import ui.compare.ComparePanel;
 import ui.compare.CompareSelectDialog;
 import ui.dialogs.AnimationRecordSetupDialog;
 import ui.dialogs.DataCheckDialog;
+import ui.dialogs.DataPrivacyDialog;
 import ui.dialogs.EdgeStyleSetupDialog;
 import ui.dialogs.FindAndReplaceDialog;
 import ui.dialogs.FindBatchSizeDialog;
@@ -728,6 +729,7 @@ public class MainPanel extends MainPanelBase {
 		addAction("HelpHomepage",e->commandHelpHomepage());
 		addAction("HelpUpdates",e->commandFileSetup(SetupDialog.Page.UPDATES));
 		addAction("HelpUsageStatistics",e->commandHelpUsageStatistics());
+		addAction("HelpDataPrivacy",e->commandHelpDataPrivacy());
 		addAction("HelpLicense",e->commandHelpLicenseInfo());
 		addAction("HelpInfo",e->commandHelpInfo());
 		addAction("HelpFix",e->commandHelpFix(fixButton));
@@ -1342,6 +1344,7 @@ public class MainPanel extends MainPanelBase {
 		createMenuItem(menu,Language.tr("Main.Menu.Help.SupportData"),Images.HELP_BUG_REPORT.getIcon(),Language.tr("Main.Menu.Help.SupportData.Mnemonic"),"HelpSupportData");
 		createMenuItem(menu,Language.tr("Main.Menu.Help.Homepage"),Images.HELP_HOMEPAGE.getIcon(),Language.tr("Main.Menu.Help.Homepage.Mnemonic"),"HelpHomepage");
 		createMenuItem(menu,Language.tr("Main.Menu.Help.Updates"),Images.SETUP_PAGE_UPDATE.getIcon(),Language.tr("Main.Menu.Help.Updates.Mnemonic"),"HelpUpdates");
+		createMenuItem(menu,Language.tr("Main.Menu.Help.DataPrivacy"),Images.HELP_DATA_PRIVACY.getIcon(),Language.tr("Main.Menu.Help.DataPrivacy.Mnemonic"),"HelpDataPrivacy");
 		menu.addSeparator();
 		createMenuItem(menu,Language.tr("Main.Menu.Help.UsageStatistics"),Language.tr("Main.Menu.Help.UsageStatistics.Mnemonic"),"HelpUsageStatistics");
 		createMenuItem(menu,Language.tr("Main.Menu.Help.LicenseInformation"),Language.tr("Main.Menu.Help.LicenseInformation.Mnemonic"),"HelpLicense");
@@ -3741,6 +3744,13 @@ public class MainPanel extends MainPanelBase {
 	 */
 	private void commandHelpUsageStatistics() {
 		MsgBox.info(getOwnerWindow(),Language.tr("UsageStatistics.Title"),String.format(Language.tr("UsageStatistics.Info"),NumberTools.formatLong(UsageStatistics.getInstance().getSimulationClients())));
+	}
+
+	/**
+	 * Befehl: Hilfe - Datenschutz
+	 */
+	private void commandHelpDataPrivacy() {
+		new DataPrivacyDialog(this);
 	}
 
 	/**

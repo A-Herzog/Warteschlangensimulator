@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-06-15 21:06+0200\n"
+"POT-Creation-Date: 2021-06-16 13:37+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -2347,6 +2347,29 @@ msgstr "Die angegebene Eingabedatei existiert nicht."
 
 msgid "DataCheck.NoInputFile"
 msgstr "Keine Eingabedatei angegeben."
+
+msgid "DataPrivacy.GitHub.DataPrivavy"
+msgstr "GitHub Datenschutzerklärung"
+
+msgid "DataPrivacy.GitHub.DataPrivavy.URL"
+msgstr "https://docs.github.com/en/github/site-policy/github-privacy-statement"
+
+msgid "DataPrivacy.GitHub.Info"
+msgstr ""
+"Updates für den Warteschlangensimulator werden auf GitHub bereitgestellt.<br>\n"
+"Daher muss der Simulator für eine Updateprüfung Kontakt mit dem GitHub-Server aufnehmen.<br>\n"
+"Um eine Antwort des Servers zu ermöglichen, werden folgende personenbezogene Informationen<br>\n"
+"bei der Anfrage übermittelt: IP-Adresse des lokalen Rechners.<br>\n"
+"Die Verarbeitung der Daten durch GitHub erfolgt gemäß der GitHub-Datenschutzerklärung:"
+
+msgid "DataPrivacy.Internet"
+msgstr "Internet"
+
+msgid "DataPrivacy.LocalSettings"
+msgstr "Lokale Einstellungen"
+
+msgid "DataPrivacy.Title"
+msgstr "Datenschutzeinstellungen bearbeiten"
 
 msgid "DateTimeEditor.Month"
 msgstr "Monat"
@@ -8739,6 +8762,12 @@ msgstr "K"
 
 msgid "Main.Menu.Help.CommandLineReference.pdf"
 msgstr "Warteschlangensimulator-Commandline-de.pdf"
+
+msgid "Main.Menu.Help.DataPrivacy"
+msgstr "Datenschutz..."
+
+msgid "Main.Menu.Help.DataPrivacy.Mnemonic"
+msgstr "D"
 
 msgid "Main.Menu.Help.DistributionReference"
 msgstr "Verteilungs-XML-Referenz (pdf)"
