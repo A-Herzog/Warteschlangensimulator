@@ -139,8 +139,9 @@ public class FindAndReplaceDialog extends BaseDialog {
 	 * Konstruktor der Klasse
 	 * @param owner	Übergeordnetes Element
 	 * @param model	Modell in dem gesucht werden soll
+	 * @param initialSearchTerm	Suchbegriff für initial auszuführende Suche (kann <code>null</code> sein)
 	 */
-	public FindAndReplaceDialog(final Component owner, final EditModel model) {
+	public FindAndReplaceDialog(final Component owner, final EditModel model, final String initialSearchTerm) {
 		super(owner,Language.tr("FindAndReplace.Title"));
 		setup=SetupData.getSetup();
 		this.model=model.clone();
@@ -168,6 +169,7 @@ public class FindAndReplaceDialog extends BaseDialog {
 		final JButton buttonSearch=new JButton(Language.tr("FindAndReplace.Search"),Images.GENERAL_FIND.getIcon());
 		line.add(buttonSearch,BorderLayout.EAST);
 		buttonSearch.addActionListener(e->doSearch());
+		if (initialSearchTerm!=null) editSearchString.setText(initialSearchTerm);
 
 		/* Option: Groß- und Kleinschreibung beachten */
 		setup.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
@@ -229,6 +231,9 @@ public class FindAndReplaceDialog extends BaseDialog {
 		/* Anzeige der Treffer */
 		content.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)),BorderLayout.SOUTH);
 		line.add(info=new JLabel());
+
+		/* Evtl. direkt eine Suche ausführen */
+		if (initialSearchTerm!=null) doSearch();
 
 		/* Dialog starten */
 		setMinSizeRespectingScreensize(800,700);

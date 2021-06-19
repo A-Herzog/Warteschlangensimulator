@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-06-16 13:37+0200\n"
+"POT-Creation-Date: 2021-06-18 00:35+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -12994,6 +12994,18 @@ msgstr "Formel"
 
 msgid "QuickAccess.Expression.Hint"
 msgstr "Öffnet den Dialog zur Berechnung von Ausdrücken"
+
+msgid "QuickAccess.FullTextSearch"
+msgstr "Volltextsuche"
+
+msgid "QuickAccess.FullTextSearch.Hint"
+msgstr "Suche des Textes im gesamten Modell"
+
+msgid "QuickAccess.FullTextSearch.Result.Plural"
+msgstr "Suchbegriff wurde %d mal im Modell gefunden"
+
+msgid "QuickAccess.FullTextSearch.Result.Singular"
+msgstr "Suchbegriff wurde %d mal im Modell gefunden"
 
 msgid "QuickAccess.Help"
 msgstr "Hilfe"

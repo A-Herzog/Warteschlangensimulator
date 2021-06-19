@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-06-16 13:37+0200\n"
+"POT-Creation-Date: 2021-06-18 00:35+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -12995,6 +12995,18 @@ msgstr "Formula"
 
 msgid "QuickAccess.Expression.Hint"
 msgstr "Opens the calculator dialog"
+
+msgid "QuickAccess.FullTextSearch"
+msgstr "Full text search"
+
+msgid "QuickAccess.FullTextSearch.Hint"
+msgstr "Search of the text in the entire model"
+
+msgid "QuickAccess.FullTextSearch.Result.Plural"
+msgstr "Search term was found %d times in the model"
+
+msgid "QuickAccess.FullTextSearch.Result.Singular"
+msgstr "Search term was found %d time in the model"
 
 msgid "QuickAccess.Help"
 msgstr "Help"

@@ -179,6 +179,7 @@ import ui.quickaccess.JQuickAccessBuilderCalc;
 import ui.quickaccess.JQuickAccessBuilderDistributions;
 import ui.quickaccess.JQuickAccessBuilderElementsList;
 import ui.quickaccess.JQuickAccessBuilderExamples;
+import ui.quickaccess.JQuickAccessBuilderFullTextSearch;
 import ui.quickaccess.JQuickAccessBuilderHelp;
 import ui.quickaccess.JQuickAccessBuilderLastFiles;
 import ui.quickaccess.JQuickAccessBuilderMenu;
@@ -609,7 +610,7 @@ public class MainPanel extends MainPanelBase {
 		addAction("EditAlignCenter",e->editorPanel.alignSelectedElementsCenter());
 		addAction("EditAlignRight",e->editorPanel.alignSelectedElementsRight());
 		addAction("EditFindElement",e->commandEditFindElement());
-		addAction("EditFindAndReplace",e->commandEditFindAndReplace());
+		addAction("EditFindAndReplace",e->commandEditFindAndReplace(null));
 		addAction("EditQuickAccess",e->{if (quickAccess!=null && quickAccess.isVisible()) quickAccess.requestFocus();});
 		addAction("EditAutoConnectOff",e->commandEditToggleAutoConnect(ModelSurfacePanel.ConnectMode.OFF));
 		addAction("EditAutoConnectAuto",e->commandEditToggleAutoConnect(ModelSurfacePanel.ConnectMode.AUTO));
@@ -1517,6 +1518,12 @@ public class MainPanel extends MainPanelBase {
 				builderHelp.work(this,5,5);
 				list.addAll(builderHelp.getList(10));
 			}
+
+			if (builder instanceof JQuickAccessBuilderFullTextSearch) {
+				final JQuickAccessBuilderFullTextSearch builderSearch=(JQuickAccessBuilderFullTextSearch)builder;
+				builderSearch.work(editorPanel.model,searchString->commandEditFindAndReplace(searchString));
+				list.addAll(builderSearch.getList(1));
+			}
 		}
 
 		return list;
@@ -2249,9 +2256,10 @@ public class MainPanel extends MainPanelBase {
 
 	/**
 	 * Befehl: Bearbeiten - Suchen und Ersetzen
+	 * @param initialSearchTerm	Suchbegriff für initial auszuführende Suche (kann <code>null</code> sein)
 	 */
-	private void commandEditFindAndReplace() {
-		final FindAndReplaceDialog dialog=new FindAndReplaceDialog(this,editorPanel.getModel());
+	private void commandEditFindAndReplace(final String initialSearchTerm) {
+		final FindAndReplaceDialog dialog=new FindAndReplaceDialog(this,editorPanel.getModel(),initialSearchTerm);
 		if (dialog.getClosedBy()==BaseDialog.CLOSED_BY_OK) {
 			final EditModel model=dialog.getModel();
 			if (model!=null) {
