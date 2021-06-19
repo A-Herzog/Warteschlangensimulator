@@ -19,7 +19,6 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.awt.Image;
 import java.awt.Point;
 import java.awt.Toolkit;
@@ -272,6 +271,8 @@ public class AnimationPanel extends JPanel implements RunModelAnimationViewer {
 	private JButton buttonZoomDefault;
 	/** Schaltfläche "Modell zentrieren" */
 	private JButton buttonFindModel;
+	/** Schaltfläche "Dashboard" */
+	private JButton buttonDashboard;
 	/** Schaltfläche "Ansichten" */
 	private JButton buttonViews;
 
@@ -311,9 +312,10 @@ public class AnimationPanel extends JPanel implements RunModelAnimationViewer {
 	/**
 	 * Unter-Animator-Element ein, welches ebenfalls bei Animationsschritten benachrichtigt werden soll<br>
 	 * (Kann <code>null</code> sein, wenn ein Untermodell-Fenster offen ist)
-	 * @see #setSubViewer(RunModelAnimationViewer)
+	 * @see #addSubViewer(RunModelAnimationViewer)
+	 * @see #removeSubViewer(RunModelAnimationViewer)
 	 */
-	private RunModelAnimationViewer subViewer;
+	private Set<RunModelAnimationViewer> subViewers;
 
 	/**
 	 * Erzeugt eine kleine Schaltfläche für die Zoom-Symbolleiste unten rechts in der Statusleiste
@@ -342,6 +344,8 @@ public class AnimationPanel extends JPanel implements RunModelAnimationViewer {
 		infoMJPEG=", "+Language.tr("Animation.ImagesRecorded");
 		infoNoSum=Language.tr("Animation.SimulatedTime.Unlimited");
 		infoSum=Language.tr("Animation.SimulatedTime.Limited");
+
+		subViewers=new HashSet<>();
 
 		model=null;
 		mutex=new Semaphore(1);
@@ -420,7 +424,8 @@ public class AnimationPanel extends JPanel implements RunModelAnimationViewer {
 		statusPanel.add(statusBarOuter,BorderLayout.CENTER);
 		statusBarOuter.add(statusBar=new JLabel(""),BorderLayout.WEST);
 		statusBar.setBorder(BorderFactory.createEmptyBorder(0,5,0,0));
-		JPanel zoomArea=new JPanel(new FlowLayout(FlowLayout.LEFT,0,0));
+		final JToolBar zoomArea=new JToolBar(SwingConstants.HORIZONTAL);
+		zoomArea.setFloatable(false);
 
 		final JPanel progressBarOuter=new JPanel(new BorderLayout());
 		statusBarOuter.add(progressBarOuter,BorderLayout.CENTER);
@@ -440,6 +445,8 @@ public class AnimationPanel extends JPanel implements RunModelAnimationViewer {
 		zoomArea.add(buttonZoomIn=createZoomAreaButton(Language.tr("Main.Menu.View.ZoomIn")+" ("+keyStrokeToString(KeyStroke.getKeyStroke(KeyEvent.VK_ADD,InputEvent.CTRL_DOWN_MASK))+")",Images.ZOOM_IN.getIcon()));
 		zoomArea.add(buttonZoomDefault=createZoomAreaButton(Language.tr("Main.Menu.View.ZoomDefault")+" ("+keyStrokeToString(KeyStroke.getKeyStroke(KeyEvent.VK_MULTIPLY,InputEvent.CTRL_DOWN_MASK))+")",Images.ZOOM.getIcon()));
 		zoomArea.add(buttonFindModel=createZoomAreaButton(Language.tr("Main.Menu.View.CenterModel")+" ("+keyStrokeToString(KeyStroke.getKeyStroke(KeyEvent.VK_NUMPAD0,InputEvent.CTRL_DOWN_MASK))+")",Images.ZOOM_CENTER_MODEL.getIcon()));
+		zoomArea.addSeparator();
+		zoomArea.add(buttonDashboard=createZoomAreaButton(Language.tr("Main.Menu.View.Dashboard")+" ("+keyStrokeToString(KeyStroke.getKeyStroke(KeyEvent.VK_F12,InputEvent.CTRL_DOWN_MASK+InputEvent.SHIFT_DOWN_MASK))+")",Images.MODELEDITOR_ELEMENT_ANIMATION_BAR_CHART.getIcon()));
 		zoomArea.add(buttonViews=createZoomAreaButton(Language.tr("Main.Menu.View.Views"),Images.ZOOM_VIEWS.getIcon()));
 		buttonViews.addMouseListener(new MouseAdapter() {
 			@Override public void mousePressed(final MouseEvent e) {if (SwingUtilities.isRightMouseButton(e)) showViewPopup(buttonViews);}
@@ -478,6 +485,7 @@ public class AnimationPanel extends JPanel implements RunModelAnimationViewer {
 		input.put(KeyStroke.getKeyStroke(KeyEvent.VK_F5,0),"keyF5");
 		input.put(KeyStroke.getKeyStroke(KeyEvent.VK_F6,0),"keyF6");
 		input.put(KeyStroke.getKeyStroke(KeyEvent.VK_F7,0),"keyF7");
+		input.put(KeyStroke.getKeyStroke(KeyEvent.VK_F12,InputEvent.CTRL_DOWN_MASK+InputEvent.SHIFT_DOWN_MASK),"ctrlShiftkeyF12");
 		input.put(KeyStroke.getKeyStroke(KeyEvent.VK_PLUS,InputEvent.CTRL_DOWN_MASK),"ctrlPlus");
 		input.put(KeyStroke.getKeyStroke(KeyEvent.VK_ADD,InputEvent.CTRL_DOWN_MASK),"ctrlPlus");
 		input.put(KeyStroke.getKeyStroke(KeyEvent.VK_MINUS,InputEvent.CTRL_DOWN_MASK),"ctrlMinus");
@@ -501,6 +509,7 @@ public class AnimationPanel extends JPanel implements RunModelAnimationViewer {
 		addAction("keyF5",e->finishAsSimulation());
 		addAction("keyF6",e->playPause());
 		addAction("keyF7",e->step(false));
+		addAction("ctrlShiftkeyF12",e->showDashboard());
 		addAction("ctrlPlus",e->zoomIn());
 		addAction("ctrlMinus",e->zoomOut());
 		addAction("ctrlMultiply",e->zoomDefault());
@@ -666,6 +675,8 @@ public class AnimationPanel extends JPanel implements RunModelAnimationViewer {
 		this.model=model;
 		this.startPaused=startPaused;
 		this.fastWarmUp=fastWarmUp;
+
+		buttonDashboard.setVisible(model.getDiagramsDashboardOrNull()!=null);
 
 		if (!running) {
 			simulatorLock.acquireUninterruptibly();
@@ -900,6 +911,7 @@ public class AnimationPanel extends JPanel implements RunModelAnimationViewer {
 			encoder=null;
 		}
 		surfaceAnimator=null;
+		animationTerminated();
 		if (animationDone!=null) SwingUtilities.invokeLater(animationDone);
 	}
 
@@ -1032,7 +1044,9 @@ public class AnimationPanel extends JPanel implements RunModelAnimationViewer {
 
 	@Override
 	public boolean updateViewer(final SimulationData simData) {
-		if (subViewer!=null) subViewer.updateViewer(simData);
+		synchronized(subViewers) {
+			for (RunModelAnimationViewer subViewer: subViewers) subViewer.updateViewer(simData);
+		}
 		return updateViewer(simData,null,false);
 	}
 
@@ -1051,7 +1065,9 @@ public class AnimationPanel extends JPanel implements RunModelAnimationViewer {
 
 		surfaceAnimator.setSlowMode(running && delayInt>0 && (hasAnalogElements || hasConveyorElements) && setup.useSlowModeAnimation);
 
-		if (subViewer!=null) subViewer.updateViewer(simData,client,moveByTransport);
+		synchronized(subViewers) {
+			for (RunModelAnimationViewer subViewer: subViewers) subViewer.updateViewer(simData,client,moveByTransport);
+		}
 
 		surfacePanel.setAnimationSimulationData(simData,surfaceAnimator);
 
@@ -1102,7 +1118,9 @@ public class AnimationPanel extends JPanel implements RunModelAnimationViewer {
 
 		surfaceAnimator.setSlowMode(running && delayInt>0);
 
-		if (subViewer!=null) subViewer.updateViewer(simData,transporter);
+		synchronized(subViewers) {
+			for (RunModelAnimationViewer subViewer: subViewers) subViewer.updateViewer(simData,transporter);
+		}
 
 		surfacePanel.setAnimationSimulationData(simData,surfaceAnimator);
 
@@ -1329,6 +1347,13 @@ public class AnimationPanel extends JPanel implements RunModelAnimationViewer {
 
 		final Dimension size=menu.getPreferredSize();
 		menu.show(parent,20-size.width,-size.height);
+	}
+
+	/**
+	 * Zeigt den Diagramme-Dashboard-Dialog an.
+	 */
+	private void showDashboard() {
+		model.getDiagramsDashboardOrNull().showSubEditDialog(AnimationPanel.this,true,false);
 	}
 
 	/**
@@ -1621,6 +1646,7 @@ public class AnimationPanel extends JPanel implements RunModelAnimationViewer {
 			encoder=null;
 		}
 
+		animationTerminated();
 		if (animationDone!=null) SwingUtilities.invokeLater(animationDone);
 		if (sendToSimulation!=null) SwingUtilities.invokeLater(sendToSimulation);
 	}
@@ -1932,9 +1958,24 @@ public class AnimationPanel extends JPanel implements RunModelAnimationViewer {
 	/**
 	 * Stellt ein Unter-Animator-Element ein, welches ebenfalls bei Animationsschritten benachrichtigt werden soll
 	 * @param subViewer	Unter-Animator-Element (kann auch <code>null</code> sein, wenn kein zusätzliches Element benachrichtigt werden soll)
+	 * @see #removeSubViewer(RunModelAnimationViewer)
 	 */
-	public void setSubViewer(final RunModelAnimationViewer subViewer) {
-		this.subViewer=subViewer;
+	public void addSubViewer(final RunModelAnimationViewer subViewer) {
+		synchronized(subViewers) {
+			this.subViewers.add(subViewer);
+		}
+	}
+
+	/**
+	 * Trägt ein Unter-Animator-Element aus der Liste der zu benachrichtigenden Elemente aus.
+	 * @param subViewer	Nicht mehr zu benachrichtigendes Unter-Animator-Element
+	 * @see #addSubViewer(RunModelAnimationViewer)
+	 * @return	Gibt an, ob das Unter-Animator-Element aus der Liste ausgetragen werden konnte
+	 */
+	public boolean removeSubViewer(final RunModelAnimationViewer subViewer) {
+		synchronized(subViewers) {
+			return subViewers.remove(subViewer);
+		}
 	}
 
 	/**
@@ -2178,6 +2219,7 @@ public class AnimationPanel extends JPanel implements RunModelAnimationViewer {
 			if (source==buttonZoomIn) {surfacePanel.zoomIn(); zoomChanged(); return;}
 			if (source==buttonZoomDefault) {surfacePanel.zoomDefault(); zoomChanged(); return;}
 			if (source==buttonFindModel) {surfacePanel.centerModel(); return;}
+			if (source==buttonDashboard) {showDashboard(); return;}
 			if (source==buttonViews) {showViewPopup(buttonViews); return;}
 			if (source==buttonAbort) {closeRequest(); buttonAbort.setEnabled(false); return;}
 			if (source==buttonScreenshot) {saveScreenshot(); return;}
@@ -2204,5 +2246,14 @@ public class AnimationPanel extends JPanel implements RunModelAnimationViewer {
 			if (source==logJS) {showJSResults(); return;}
 			if (source==logEvents) {showEventslist(); return;}
 		}
+	}
+
+	@Override
+	public void animationTerminated() {
+		final HashSet<RunModelAnimationViewer> viewers=new HashSet<>();
+		synchronized(subViewers) {
+			viewers.addAll(subViewers);
+		}
+		for (RunModelAnimationViewer subViewer: viewers) subViewer.animationTerminated();
 	}
 }

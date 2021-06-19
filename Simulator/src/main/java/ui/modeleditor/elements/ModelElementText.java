@@ -172,6 +172,11 @@ public final class ModelElementText extends ModelElementPosition {
 		return Images.MODELEDITOR_ELEMENT_TEXT.getIcon();
 	}
 
+	@Override
+	public boolean isVisualOnly() {
+		return true;
+	}
+
 	/**
 	 * Tooltip für den "Element hinzufügen"-Dropdown-Menü-Eintrag.
 	 * @return Tooltip für den "Element hinzufügen"-Dropdown-Menüeintrag

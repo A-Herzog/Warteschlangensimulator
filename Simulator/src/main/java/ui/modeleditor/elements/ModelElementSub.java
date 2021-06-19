@@ -67,6 +67,11 @@ public class ModelElementSub extends ModelElementBox implements ElementWithNewCl
 	private List<ModelElementEdge> connectionsOut;
 
 	/**
+	 * Soll das Element auf der Zeichenfläche sichtbar sein?
+	 */
+	private final boolean visible;
+
+	/**
 	 * Untermodell
 	 * @see #getSubSurface()
 	 */
@@ -85,12 +90,23 @@ public class ModelElementSub extends ModelElementBox implements ElementWithNewCl
 	private List<Integer> connectionsOutIds=null;
 
 	/**
-	 * Konstruktor der Klasse <code>ModelElementMultiInSingleOutBox</code>
+	 * Konstruktor der Klasse
 	 * @param model	Modell zu dem dieses Element gehören soll (kann später nicht mehr geändert werden)
 	 * @param surface	Zeichenfläche zu dem dieses Element gehören soll (kann später nicht mehr geändert werden)
 	 */
 	public ModelElementSub(final EditModel model, final ModelSurface surface) {
-		super(model,surface,Shapes.ShapeType.SHAPE_RECTANGLE);
+		this(model,surface,true);
+	}
+
+	/**
+	 * Konstruktor der Klasse
+	 * @param model	Modell zu dem dieses Element gehören soll (kann später nicht mehr geändert werden)
+	 * @param surface	Zeichenfläche zu dem dieses Element gehören soll (kann später nicht mehr geändert werden)
+	 * @param visible	Soll das Element auf der Zeichenfläche sichtbar sein?
+	 */
+	public ModelElementSub(final EditModel model, final ModelSurface surface, final boolean visible) {
+		super(model,surface,visible?Shapes.ShapeType.SHAPE_RECTANGLE:Shapes.ShapeType.SHAPE_NONE);
+		this.visible=visible;
 		countConnectionsIn=0;
 		countConnectionsOut=0;
 		connectionsIn=new ArrayList<>();
@@ -167,25 +183,26 @@ public class ModelElementSub extends ModelElementBox implements ElementWithNewCl
 	public void copyDataFrom(ModelElement element) {
 		super.copyDataFrom(element);
 		if (element instanceof ModelElementSub) {
+			final ModelElementSub copySource=(ModelElementSub)element;
 
-			countConnectionsIn=((ModelElementSub)element).countConnectionsIn;
-			countConnectionsOut=((ModelElementSub)element).countConnectionsOut;
+			countConnectionsIn=copySource.countConnectionsIn;
+			countConnectionsOut=copySource.countConnectionsOut;
 
 			connectionsIn.clear();
-			final List<ModelElementEdge> connectionsIn2=((ModelElementSub)element).connectionsIn;
+			final List<ModelElementEdge> connectionsIn2=copySource.connectionsIn;
 			if (connectionsIn2!=null) {
 				connectionsInIds=new ArrayList<>();
 				for (int i=0;i<connectionsIn2.size();i++) connectionsInIds.add(connectionsIn2.get(i).getId());
 			}
 
 			connectionsOut.clear();
-			final List<ModelElementEdge> connectionsOut2=((ModelElementSub)element).connectionsOut;
+			final List<ModelElementEdge> connectionsOut2=copySource.connectionsOut;
 			if (connectionsOut2!=null) {
 				connectionsOutIds=new ArrayList<>();
 				for (int i=0;i<connectionsOut2.size();i++) connectionsOutIds.add(connectionsOut2.get(i).getId());
 			}
 
-			subSurface=((ModelElementSub)element).subSurface.clone(false,null,null,surface,getModel());
+			subSurface=copySource.subSurface.clone(false,null,null,surface,getModel());
 		}
 	}
 
@@ -211,8 +228,10 @@ public class ModelElementSub extends ModelElementBox implements ElementWithNewCl
 
 		ModelElement element;
 
-		if (countConnectionsIn==0) countConnectionsIn=1;
-		if (countConnectionsOut==0) countConnectionsOut=1;
+		if (visible) {
+			if (countConnectionsIn==0) countConnectionsIn=1;
+			if (countConnectionsOut==0) countConnectionsOut=1;
+		}
 
 		if (connectionsInIds!=null) {
 			for (int i=0;i<connectionsInIds.size();i++) {
@@ -288,8 +307,10 @@ public class ModelElementSub extends ModelElementBox implements ElementWithNewCl
 	@Override
 	public Runnable getProperties(final Component owner, final boolean readOnly, final ModelClientData clientData, final ModelSequences sequences) {
 		return ()->{
-			if (countConnectionsIn==0) countConnectionsIn=1;
-			if (countConnectionsOut==0) countConnectionsOut=1;
+			if (visible) {
+				if (countConnectionsIn==0) countConnectionsIn=1;
+				if (countConnectionsOut==0) countConnectionsOut=1;
+			}
 			final ModelElementSubDialog dialog=new ModelElementSubDialog(owner,ModelElementSub.this,readOnly);
 			fireChanged();
 			if (dialog.getClosedBy()==BaseDialog.CLOSED_BY_OK && dialog.getOpenEditor()) {
@@ -318,11 +339,13 @@ public class ModelElementSub extends ModelElementBox implements ElementWithNewCl
 	 * @param wasTriggeredViaEditDialog	Wurde der Dialog auf dem Umweg über den Untermodell-Bearbeiten-Dialog aufgerufen? (Wenn ja, wird auf der Untermodell-Zeichenfläche ein Hinweis zum direkten Aufruf angezeigt.)
 	 */
 	public void showSubEditDialog(final Component owner, final boolean readOnly, final boolean wasTriggeredViaEditDialog) {
-		/* Ggf. Anzahl der Ein- und Ausgänge auf mindestens 1 setzen */
-		if (countConnectionsIn==0) countConnectionsIn=1;
-		if (countConnectionsOut==0) countConnectionsOut=1;
-		setInputCount(countConnectionsIn);
-		setOutputCount(countConnectionsOut);
+		if (visible) {
+			/* Ggf. Anzahl der Ein- und Ausgänge auf mindestens 1 setzen */
+			if (countConnectionsIn==0) countConnectionsIn=1;
+			if (countConnectionsOut==0) countConnectionsOut=1;
+			setInputCount(countConnectionsIn);
+			setOutputCount(countConnectionsOut);
+		}
 
 		final int[] idsIn=new int[countConnectionsIn];
 		final ModelElementEdge[] edgesIn=getEdgesIn();
@@ -351,7 +374,7 @@ public class ModelElementSub extends ModelElementBox implements ElementWithNewCl
 
 			/* Bearbeiten */
 			ModelSurface temp=subSurface.clone(false,null,null,subSurface.getParentSurface(),getModel());
-			final ModelElementSubEditDialog dialog=new ModelElementSubEditDialog(owner,getId(),getModel(),surface,subSurface,idsIn,idsOut,readOnly,wasTriggeredViaEditDialog);
+			final ModelElementSubEditDialog dialog=new ModelElementSubEditDialog(owner,getId(),getModel(),surface,subSurface,idsIn,idsOut,readOnly,wasTriggeredViaEditDialog,visible);
 			dialog.setVisible(true);
 			if (dialog.getClosedBy()==BaseDialog.CLOSED_BY_OK) {
 				subSurface=dialog.getSurface();
@@ -363,10 +386,17 @@ public class ModelElementSub extends ModelElementBox implements ElementWithNewCl
 			fireChanged();
 		} else {
 			/* Ansicht der Animation */
-			final ModelElementSubAnimationDialog dialog=new ModelElementSubAnimationDialog(owner,surface,subSurface,mainAnimationPanel);
-			mainAnimationPanel.setSubViewer(dialog);
-			dialog.setVisible(true);
-			mainAnimationPanel.setSubViewer(null);
+			if (visible) {
+				/* Normaler Dialog für Untermodelle */
+				final ModelElementSubAnimationDialog dialog=new ModelElementSubAnimationDialog(owner,surface,subSurface,mainAnimationPanel);
+				mainAnimationPanel.addSubViewer(dialog);
+				dialog.setVisible(true);
+				mainAnimationPanel.removeSubViewer(dialog);
+			} else {
+				final ModelElementSubAnimationDashboardWindow window=new ModelElementSubAnimationDashboardWindow(owner,surface,subSurface,mainAnimationPanel);
+				mainAnimationPanel.addSubViewer(window);
+				window.setVisible(true);
+			}
 		}
 	}
 
@@ -455,9 +485,11 @@ public class ModelElementSub extends ModelElementBox implements ElementWithNewCl
 
 		Element sub;
 
-		node.appendChild(sub=doc.createElement(Language.trPrimary("Surface.Sub.XML.ConnectionCount")));
-		sub.setAttribute(Language.trPrimary("Surface.Sub.XML.ConnectionCount.In"),""+countConnectionsIn);
-		sub.setAttribute(Language.trPrimary("Surface.Sub.XML.ConnectionCount.Out"),""+countConnectionsOut);
+		if (countConnectionsIn>0 || countConnectionsOut>0 || visible) {
+			node.appendChild(sub=doc.createElement(Language.trPrimary("Surface.Sub.XML.ConnectionCount")));
+			sub.setAttribute(Language.trPrimary("Surface.Sub.XML.ConnectionCount.In"),""+countConnectionsIn);
+			sub.setAttribute(Language.trPrimary("Surface.Sub.XML.ConnectionCount.Out"),""+countConnectionsOut);
+		}
 
 		if (connectionsIn!=null) for (ModelElementEdge element: connectionsIn) {
 			node.appendChild(sub=doc.createElement(Language.trPrimary("Surface.XML.Connection")));
@@ -491,17 +523,19 @@ public class ModelElementSub extends ModelElementBox implements ElementWithNewCl
 		}
 
 		if (Language.trAll("Surface.Sub.XML.ConnectionCount",name)) {
-			final String inString=Language.trAllAttribute("Surface.Sub.XML.ConnectionCount.In",node);
-			final String outString=Language.trAllAttribute("Surface.Sub.XML.ConnectionCount.Out",node);
-			if (!inString.isEmpty()) {
-				final Long in=NumberTools.getPositiveLong(inString);
-				if (in==null) return String.format(Language.tr("Surface.XML.AttributeSubError"),Language.trPrimary("Surface.Sub.XML.ConnectionCount.In"),name,node.getParentNode().getNodeName());
-				countConnectionsIn=(int)(long)in;
-			}
-			if (!outString.isEmpty()) {
-				final Long out=NumberTools.getPositiveLong(outString);
-				if (out==null) return String.format(Language.tr("Surface.XML.AttributeSubError"),Language.trPrimary("Surface.Sub.XML.ConnectionCount.Out"),name,node.getParentNode().getNodeName());
-				countConnectionsOut=(int)(long)out;
+			if (visible) {
+				final String inString=Language.trAllAttribute("Surface.Sub.XML.ConnectionCount.In",node);
+				final String outString=Language.trAllAttribute("Surface.Sub.XML.ConnectionCount.Out",node);
+				if (!inString.isEmpty()) {
+					final Long in=NumberTools.getPositiveLong(inString);
+					if (in==null) return String.format(Language.tr("Surface.XML.AttributeSubError"),Language.trPrimary("Surface.Sub.XML.ConnectionCount.In"),name,node.getParentNode().getNodeName());
+					countConnectionsIn=(int)(long)in;
+				}
+				if (!outString.isEmpty()) {
+					final Long out=NumberTools.getPositiveLong(outString);
+					if (out==null) return String.format(Language.tr("Surface.XML.AttributeSubError"),Language.trPrimary("Surface.Sub.XML.ConnectionCount.Out"),name,node.getParentNode().getNodeName());
+					countConnectionsOut=(int)(long)out;
+				}
 			}
 			return null;
 		}

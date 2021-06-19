@@ -142,6 +142,11 @@ public class ModelElementAnimationImage extends ModelElementPosition implements 
 		return Images.MODELEDITOR_ELEMENT_ANIMATION_IMAGE.getIcon();
 	}
 
+	@Override
+	public boolean isVisualOnly() {
+		return true;
+	}
+
 	/**
 	 * Tooltip für den "Element hinzufügen"-Dropdown-Menü-Eintrag.
 	 * @return Tooltip für den "Element hinzufügen"-Dropdown-Menüeintrag

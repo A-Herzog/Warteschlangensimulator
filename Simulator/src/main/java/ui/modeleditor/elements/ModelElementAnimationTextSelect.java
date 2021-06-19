@@ -146,6 +146,11 @@ public class ModelElementAnimationTextSelect extends ModelElementPosition implem
 		return Images.MODELEDITOR_ELEMENT_ANIMATION_TEXT_SELECT.getIcon();
 	}
 
+	@Override
+	public boolean isVisualOnly() {
+		return true;
+	}
+
 	/**
 	 * Tooltip für den "Element hinzufügen"-Dropdown-Menü-Eintrag.
 	 * @return Tooltip für den "Element hinzufügen"-Dropdown-Menüeintrag

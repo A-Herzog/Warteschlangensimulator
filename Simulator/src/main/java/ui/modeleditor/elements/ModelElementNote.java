@@ -97,6 +97,11 @@ public class ModelElementNote extends ModelElementPosition {
 		return Images.MODELEDITOR_ELEMENT_TEXT.getIcon();
 	}
 
+	@Override
+	public boolean isVisualOnly() {
+		return true;
+	}
+
 	/**
 	 * Wandelt die Zeichen "&amp;", "&lt;" und "&gt;" in ihre entsprechenden
 	 * HTML-Entitäten um.

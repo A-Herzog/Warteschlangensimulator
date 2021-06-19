@@ -197,6 +197,11 @@ public class ModelElementAnimationBar extends ModelElementPosition implements El
 		return Images.MODELEDITOR_ELEMENT_ANIMATION_BAR.getIcon();
 	}
 
+	@Override
+	public boolean isVisualOnly() {
+		return true;
+	}
+
 	/**
 	 * Tooltip für den "Element hinzufügen"-Dropdown-Menü-Eintrag.
 	 * @return Tooltip für den "Element hinzufügen"-Dropdown-Menüeintrag

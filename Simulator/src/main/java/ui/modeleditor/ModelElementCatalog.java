@@ -381,6 +381,7 @@ public final class ModelElementCatalog {
 				addElement(new ModelElementSub(null,null),null,GROUP_OTHERS);
 				addElement(new ModelElementSubIn(null,null,0,-1));
 				addElement(new ModelElementSubOut(null,null,0,-1));
+				addElementHidden(new ModelElementDashboard(null,null),null);
 				addElement(new ModelElementReference(null,null),null,GROUP_OTHERS);
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -544,26 +545,39 @@ public final class ModelElementCatalog {
 	}
 
 	/**
+	 * Welche Elemente sollen in der Liste angezeigt werden?
+	 */
+	public enum TemplatesListMode {
+		/** Alle verfügbaren Elemente anzeigen */
+		FULL,
+		/** Nur die Elemente, die in ein Untermodell eingefügt werden dürfen, anzeigen */
+		SUB_MODEL,
+		/** Nur die Elemente, die in ein Diagramm-Dashboard-Untermodell eingefügt werden dürfen, anzeigen */
+		SUB_DASHBOARD
+	}
+
+	/**
 	 * Liefert ein Liste mit Einträgen für alle Modell-Element-Vorlagen
 	 * @param visibleGroups Sichtbare Gruppen; es werden nur Elemente in den Gruppen ausgegeben, die sichtbar sein sollen (kann leer oder <code>null</code> sein)
 	 * @param openGroups	Ausgeklappte Gruppen; Elemente in nicht offenen Gruppen werden eingeklappt (kann leer oder <code>null</code> sein)
 	 * @param filter	Filter-String; es werden nur Elemente ausgegeben, die zu dem Filter passen (kann leer oder <code>null</code> sein)
-	 * @param isSubModel	Gibt an, ob die Vorlagen für ein Submodell (d.h. dann ohne das Submodell-Element) ausgegeben werden soll
+	 * @param templatesListMode	Gibt an, ob die Vorlagen für ein Submodell (d.h. dann ohne das Submodell-Element) ausgegeben werden soll
 	 * @return	Liste für eine Auswahlliste zum Einfügen von neuen Elementen
-	 * @see #getTemplatesListModel(String, String, String, boolean)
+	 * @see #getTemplatesListModel(String, String, String, TemplatesListMode)
 	 */
-	private List<ModelElementPosition> getTemplatesList(final String visibleGroups, final String openGroups, final String filter, final boolean isSubModel) {
+	private List<ModelElementPosition> getTemplatesList(final String visibleGroups, final String openGroups, final String filter, final TemplatesListMode templatesListMode) {
 		List<ModelElementPosition> list=new ArrayList<>();
 
 		int index=0;
 		for (String groupName: GROUP_ORDER) {
-			if (visibleGroups!=null && visibleGroups.length()>index) {
-				if (visibleGroups.charAt(index)=='0' || visibleGroups.charAt(index)=='-') {index++; continue;}
-			}
-
 			boolean showSub=true;
-			if (openGroups!=null && openGroups.length()>index) {
-				if (openGroups.charAt(index)=='0' || openGroups.charAt(index)=='-') showSub=false;
+			if (templatesListMode!=TemplatesListMode.SUB_DASHBOARD) {
+				if (visibleGroups!=null && visibleGroups.length()>index) {
+					if (visibleGroups.charAt(index)=='0' || visibleGroups.charAt(index)=='-') {index++; continue;}
+				}
+				if (openGroups!=null && openGroups.length()>index) {
+					if (openGroups.charAt(index)=='0' || openGroups.charAt(index)=='-') showSub=false;
+				}
 			}
 
 			Map<String,ModelElementPosition> elements=elementsGroups.get(groupName);
@@ -579,7 +593,17 @@ public final class ModelElementCatalog {
 					if (filter!=null && !filter.trim().isEmpty()) {
 						if (!name.toLowerCase().contains(filter.trim().toLowerCase())) continue;
 					}
-					if (isSubModel && !element.canAddToSub()) continue;
+					switch (templatesListMode) {
+					case FULL:
+						/* Alle Element einfügen */
+						break;
+					case SUB_MODEL:
+						if (!element.canAddToSub()) continue;
+						break;
+					case SUB_DASHBOARD:
+						if (!element.isVisualOnly()) continue;
+						break;
+					}
 					if (first) {list.add(new ModelElementListGroup(index,groupName,showSub,sub)); first=false;}
 					list.add(element);
 				}
@@ -596,12 +620,12 @@ public final class ModelElementCatalog {
 	 * @param visibleGroups Sichtbare Gruppen; es werden nur Elemente in den Gruppen ausgegeben, die sichtbar sein sollen (kann leer oder <code>null</code> sein)
 	 * @param openGroups	Ausgeklappte Gruppen; Elemente in nicht offenen Gruppen werden eingeklappt (kann leer oder <code>null</code> sein)
 	 * @param filter	Filter-String; es werden nur Elemente ausgegeben, die zu dem Filter passen (kann leer oder <code>null</code> sein)
-	 * @param isSubModel	Gibt an, ob die Vorlagen für ein Submodell (d.h. dann ohne das Submodell-Element) ausgegeben werden soll
+	 * @param templatesListMode	Gibt an, ob die Vorlagen für ein Submodell (d.h. dann ohne das Submodell-Element) ausgegeben werden soll
 	 * @return	Listenmodell für eine Auswahlliste zum Einfügen von neuen Elementen
 	 */
-	public DefaultListModel<ModelElementPosition> getTemplatesListModel(final String visibleGroups, final String openGroups, final String filter, final boolean isSubModel) {
+	public DefaultListModel<ModelElementPosition> getTemplatesListModel(final String visibleGroups, final String openGroups, final String filter, final TemplatesListMode templatesListMode) {
 		final DefaultListModel<ModelElementPosition> model=new DefaultListModel<>();
-		for (ModelElementPosition element: getTemplatesList(visibleGroups,openGroups,filter,isSubModel)) model.addElement(element);
+		for (ModelElementPosition element: getTemplatesList(visibleGroups,openGroups,filter,templatesListMode)) model.addElement(element);
 		return model;
 	}
 

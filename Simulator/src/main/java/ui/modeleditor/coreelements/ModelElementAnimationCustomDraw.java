@@ -375,4 +375,9 @@ public abstract class ModelElementAnimationCustomDraw extends ModelElementPositi
 
 		return true;
 	}
+
+	@Override
+	public boolean isVisualOnly() {
+		return true;
+	}
 }

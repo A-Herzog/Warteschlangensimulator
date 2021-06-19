@@ -488,6 +488,9 @@ public class InfoPanel {
 	/** Info-ID für den "Untermodell"-Bearbeiten-Dialog (Gruppe "Sonstiges") */
 	public static final String stationSub=groupElement+"Sub";
 
+	/** Info-ID für den "Dashboard"-Bearbeiten-Dialog (Gruppe "Sonstiges") */
+	public static final String stationDashboard=groupElement+"Dashboard";
+
 	/** Info-ID für den "Referenz"-Bearbeiten-Dialog (Gruppe "Sonstiges") */
 	public static final String stationReference=groupElement+"Reference";
 
@@ -1142,6 +1145,10 @@ public class InfoPanel {
 		register(stationSub,
 				()->Language.tr("HintsDialog.TreeNodeStations")+"|"+ModelElementCatalog.GROUP_OTHERS+"|"+Language.tr("Surface.Sub.Name"),
 				()->Language.tr("Surface.Sub.Infotext"));
+
+		register(stationDashboard,
+				()->Language.tr("HintsDialog.TreeNodeStations")+"|"+ModelElementCatalog.GROUP_OTHERS+"|"+Language.tr("Surface.Dashboard.Name"),
+				()->Language.tr("Surface.Dashboard.Infotext"));
 
 		register(stationReference,
 				()->Language.tr("HintsDialog.TreeNodeStations")+"|"+ModelElementCatalog.GROUP_OTHERS+"|"+Language.tr("Surface.Reference.Name"),

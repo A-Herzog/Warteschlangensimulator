@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-06-18 00:35+0200\n"
+"POT-Creation-Date: 2021-06-19 21:03+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -9110,6 +9110,12 @@ msgstr "Modell zentrieren"
 
 msgid "Main.Menu.View.CenterModel.Mnemonic"
 msgstr " "
+
+msgid "Main.Menu.View.Dashboard"
+msgstr "Diagramme-Dashboard"
+
+msgid "Main.Menu.View.Dashboard.Mnemonic"
+msgstr "D"
 
 msgid "Main.Menu.View.EdgeSettings"
 msgstr "Verbindungskanten konfigurieren..."
@@ -22974,6 +22980,24 @@ msgstr "Es wurde keine Arbeitsmappe, aus der die Daten geladen werden sollen, an
 
 msgid "Surface.DDE.Workbook.ErrorTitle"
 msgstr "Keine Arbeitsmappe angegeben"
+
+msgid "Surface.Dashboard.Dialog.Title"
+msgstr "Diagramme-Dashboard bearbeiten"
+
+msgid "Surface.Dashboard.Dialog.Title.Animation"
+msgstr "Diagramme-Dashboard"
+
+msgid "Surface.Dashboard.Infotext"
+msgstr "Das Diagramm-Dashboard bietet eine spezielle Zeichenfläche, auf der nur Diagramme und ähnliche Elemente eingefügt werden können. Diese Zeichenfläche kann während einer laufenden Animation parallel geöffnet sein."
+
+msgid "Surface.Dashboard.Name"
+msgstr "Diagramme-Dashboard"
+
+msgid "Surface.Dashboard.Tooltip"
+msgstr "Zeichenfläche für Diagramme"
+
+msgid "Surface.Dashboard.XML.Root"
+msgstr "ModellElementDiagrammDashboard"
 
 msgid "Surface.Database.Config"
 msgstr "Verbindungseinstellungen"

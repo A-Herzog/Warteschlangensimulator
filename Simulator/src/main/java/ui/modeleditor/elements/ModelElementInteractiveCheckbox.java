@@ -112,6 +112,11 @@ public class ModelElementInteractiveCheckbox extends ModelElementPosition implem
 		return Images.MODELEDITOR_ELEMENT_INTERACTIVE_CHECKBOX.getIcon();
 	}
 
+	@Override
+	public boolean isVisualOnly() {
+		return true;
+	}
+
 	/**
 	 * Tooltip für den "Element hinzufügen"-Dropdown-Menü-Eintrag.
 	 * @return Tooltip für den "Element hinzufügen"-Dropdown-Menüeintrag

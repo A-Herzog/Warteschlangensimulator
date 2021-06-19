@@ -71,6 +71,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -131,6 +132,7 @@ import ui.modeleditor.elements.FontCache;
 import ui.modeleditor.elements.ModelElementAnimationBar;
 import ui.modeleditor.elements.ModelElementAnimationLineDiagram;
 import ui.modeleditor.elements.ModelElementAnimationTextValue;
+import ui.modeleditor.elements.ModelElementDashboard;
 import ui.modeleditor.elements.ModelElementEdge;
 import ui.modeleditor.elements.ModelElementImage;
 import ui.modeleditor.elements.ModelElementInput;
@@ -644,6 +646,27 @@ public final class ModelSurfacePanel extends JPanel {
 		if (surface==null || !(getParent() instanceof JViewport)) return;
 		final JViewport viewport=(JViewport)getParent();
 		viewport.setViewPosition(topPosition);
+	}
+
+	/**
+	 * Zeigt den Dialog zur Konfiguration des Diagramme-Dashboards an.
+	 */
+	public void showDashboard() {
+		final ModelElementDashboard dashboard;
+
+		/* Schon ein entsprechendes Element vorhanden? */
+		final Optional<ModelElementDashboard> dashboardOptional=surface.getElements().stream().filter(element->element instanceof ModelElementDashboard).map(element->((ModelElementDashboard)element)).findFirst();
+		if (dashboardOptional.isPresent()) {
+			dashboard=dashboardOptional.get();
+		} else {
+			/* Ggf. neues Element anlegen */
+			dashboard=new ModelElementDashboard(model,surface);
+			surface.add(dashboard);
+		}
+
+		dashboard.showSubEditDialog(this,false,false);
+
+		if (dashboard.getSubSurface().getElementCount()==0) surface.remove(dashboard);
 	}
 
 	/**

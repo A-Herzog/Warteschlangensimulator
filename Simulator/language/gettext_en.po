@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-06-18 00:35+0200\n"
+"POT-Creation-Date: 2021-06-19 21:03+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -9119,6 +9119,12 @@ msgstr "Center model"
 
 msgid "Main.Menu.View.CenterModel.Mnemonic"
 msgstr " "
+
+msgid "Main.Menu.View.Dashboard"
+msgstr "Charts dashboard"
+
+msgid "Main.Menu.View.Dashboard.Mnemonic"
+msgstr "D"
 
 msgid "Main.Menu.View.EdgeSettings"
 msgstr "Setup connection edges..."
@@ -22969,6 +22975,24 @@ msgstr "No workbook from which the data is to be loaded was specified."
 
 msgid "Surface.DDE.Workbook.ErrorTitle"
 msgstr "No workbook specified"
+
+msgid "Surface.Dashboard.Dialog.Title"
+msgstr "Edit charts dashboard"
+
+msgid "Surface.Dashboard.Dialog.Title.Animation"
+msgstr "Charts dashboard"
+
+msgid "Surface.Dashboard.Infotext"
+msgstr "The charts dashboard provides a special drawing surface where only diagrams and similar elements can be inserted. This drawing surface can be open in parallel during a running animation."
+
+msgid "Surface.Dashboard.Name"
+msgstr "Charts dashboard"
+
+msgid "Surface.Dashboard.Tooltip"
+msgstr "Drawing surface for charts"
+
+msgid "Surface.Dashboard.XML.Root"
+msgstr "ModelElementChartDashboard"
 
 msgid "Surface.Database.Config"
 msgstr "Connection settings"

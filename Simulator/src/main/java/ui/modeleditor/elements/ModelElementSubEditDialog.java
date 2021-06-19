@@ -37,6 +37,7 @@ import simulator.editmodel.EditModel;
 import systemtools.BaseDialog;
 import ui.EditorPanel;
 import ui.help.Help;
+import ui.infopanel.InfoPanel;
 import ui.modeleditor.ModelSurface;
 import ui.modeleditor.coreelements.ModelElement;
 import ui.tools.GlassInfo;
@@ -69,20 +70,29 @@ public class ModelElementSubEditDialog extends BaseDialog {
 	 * @param edgesOut	Aus dem untergeordneten Modell auslaufende Ecken (mit ids)
 	 * @param readOnly	Wird dieser Parameter auf <code>true</code> gesetzt, so wird die "Ok"-Schaltfläche deaktiviert
 	 * @param wasTriggeredViaEditDialog	Wurde der Dialog auf dem Umweg über den Untermodell-Bearbeiten-Dialog aufgerufen? (Wenn ja, wird auf der Untermodell-Zeichenfläche ein Hinweis zum direkten Aufruf angezeigt.)
+	 * @param isFullSubModel	Handelt es sich um ein vollwertiges Untermodell (<code>true</code>) oder um die Diagramm-Anzeige (<code>false</code>)
 	 */
-	public ModelElementSubEditDialog(final Component owner, final int id, final EditModel model, final ModelSurface mainSurface, final ModelSurface subSurface, final int[] edgesIn, final int[] edgesOut, final boolean readOnly, final boolean wasTriggeredViaEditDialog) {
-		super(owner,Language.tr("Surface.Sub.Dialog.Title"),readOnly);
-		JPanel content=createGUI(()->Help.topicModal(ModelElementSubEditDialog.this,"ModelElementSub"));
-		content.setBorder(null);
-		content.setLayout(new BorderLayout());
+	public ModelElementSubEditDialog(final Component owner, final int id, final EditModel model, final ModelSurface mainSurface, final ModelSurface subSurface, final int[] edgesIn, final int[] edgesOut, final boolean readOnly, final boolean wasTriggeredViaEditDialog, final boolean isFullSubModel) {
+		super(owner,isFullSubModel?Language.tr("Surface.Sub.Dialog.Title"):Language.tr("Surface.Dashboard.Dialog.Title"),readOnly);
 
+		/* Modell */
 		final EditModel ownModel=model.clone();
 		ownModel.resources=mainSurface.getResources().clone();
 		ownModel.surface=subSurface.clone(false,null,null,mainSurface,model);
 
+		/* GUI */
+		final JPanel all=createGUI(()->Help.topicModal(ModelElementSubEditDialog.this,isFullSubModel?"ModelElementSub":"ModelElementDashboard"));
+		all.setLayout(new BorderLayout());
+		InfoPanel.addTopPanel(all,isFullSubModel?InfoPanel.stationSub:InfoPanel.stationDashboard);
+		final JPanel content=new JPanel(new BorderLayout());
+		all.add(content,BorderLayout.CENTER);
+
+		/* Zeichenfläche */
 		content.add(editorPanel=new EditorPanel(this,ownModel,false,readOnly,false,false),BorderLayout.CENTER);
 		editorPanel.setSavedViewsButtonVisible(false);
+		if (!isFullSubModel) editorPanel.setRestrictedCatalog(true);
 
+		/* Hotkeys */
 		final InputMap im=content.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
 		final ActionMap am=content.getActionMap();
 
@@ -166,6 +176,7 @@ public class ModelElementSubEditDialog extends BaseDialog {
 			@Override public void actionPerformed(ActionEvent e) {editorPanel.showExplorer();}
 		});
 
+		/* Dialog starten */
 		setSizeRespectingScreensize(1024,768);
 		setResizable(true);
 		setMinSizeRespectingScreensize(800,600);

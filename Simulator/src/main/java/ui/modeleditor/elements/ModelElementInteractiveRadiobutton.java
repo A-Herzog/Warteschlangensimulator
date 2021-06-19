@@ -105,6 +105,11 @@ public class ModelElementInteractiveRadiobutton extends ModelElementPosition imp
 		return Images.MODELEDITOR_ELEMENT_INTERACTIVE_RADIOBUTTON.getIcon();
 	}
 
+	@Override
+	public boolean isVisualOnly() {
+		return true;
+	}
+
 	/**
 	 * Tooltip für den "Element hinzufügen"-Dropdown-Menü-Eintrag.
 	 * @return Tooltip für den "Element hinzufügen"-Dropdown-Menüeintrag

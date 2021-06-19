@@ -17,10 +17,19 @@ package ui.modeleditor.elements;
 
 import java.awt.BorderLayout;
 import java.awt.Component;
+import java.awt.Container;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.Window;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.io.Serializable;
 
+import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.WindowConstants;
 
 import org.apache.commons.math3.util.FastMath;
 
@@ -31,25 +40,25 @@ import simulator.runmodel.RunDataClient;
 import simulator.runmodel.RunDataTransporter;
 import simulator.runmodel.SimulationData;
 import systemtools.BaseDialog;
+import systemtools.images.SimToolsImages;
 import tools.SetupData;
 import ui.AnimationPanel;
-import ui.help.Help;
 import ui.modeleditor.ModelSurface;
 import ui.modeleditor.ModelSurfaceAnimator;
 import ui.modeleditor.ModelSurfacePanel;
 import ui.tools.WindowSizeStorage;
 
 /**
- * In diesem Dialog wird die Animation eines Unter-Modells dargestellt.
+ * In diesem Dialog wird die Animation des Diagramm-Dashboards dargestellt.
  * @author Alexander Herzog
- * @see ModelElementSub
+ * @see ModelElementDashboard
  */
-public class ModelElementSubAnimationDialog extends BaseDialog implements RunModelAnimationViewer {
+public class ModelElementSubAnimationDashboardWindow extends JFrame implements RunModelAnimationViewer {
 	/**
 	 * Serialisierungs-ID der Klasse
 	 * @see Serializable
 	 */
-	private static final long serialVersionUID = 2350842116679968356L;
+	private static final long serialVersionUID=-7075930103341643138L;
 
 	/** Editor-Modell */
 	private final EditModel model;
@@ -82,16 +91,36 @@ public class ModelElementSubAnimationDialog extends BaseDialog implements RunMod
 	 * @param subSurface	Hier darzustellende Unter-Zeichenfläche
 	 * @param mainAnimationPanel	Animations-Panel der Haupt-Zeichenfläche
 	 */
-	public ModelElementSubAnimationDialog(final Component owner, final ModelSurface mainSurface, final ModelSurface subSurface, final AnimationPanel mainAnimationPanel) {
-		super(owner,Language.tr("Surface.Sub.Dialog.Title"),true);
+	public ModelElementSubAnimationDashboardWindow(final Component owner, final ModelSurface mainSurface, final ModelSurface subSurface, final AnimationPanel mainAnimationPanel) {
+		super(Language.tr("Surface.Dashboard.Dialog.Title.Animation"));
+
 		this.mainAnimationPanel=mainAnimationPanel;
 		mainAnimator=mainAnimationPanel.getAnimator();
-
 		model=mainAnimationPanel.getSimulator().getEditModel();
 
-		final JPanel content=createGUI(()->Help.topicModal(ModelElementSubAnimationDialog.this,"ModelElementSub"));
+		/* Aktionen bei Schließen des Fensters */
+		setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+		addWindowListener(new WindowAdapter(){
+			@Override public void windowClosing(WindowEvent e){
+				mainAnimationPanel.removeSubViewer(ModelElementSubAnimationDashboardWindow.this);
+			}
+		});
+
+		/* GUI */
+		final Container all=getContentPane();
+		all.setLayout(new BorderLayout());
+
+		/* Buttons unten */
+		final JPanel buttons=new JPanel(new FlowLayout(FlowLayout.LEFT));
+		all.add(buttons,BorderLayout.SOUTH);
+		final JButton closeButton=new JButton(BaseDialog.buttonTitleClose,SimToolsImages.EXIT.getIcon());
+		buttons.add(closeButton);
+		closeButton.addActionListener(e->animationTerminated());
+
+		/* Zentrales Panel */
+		final JPanel content=new JPanel(new BorderLayout());
+		all.add(content,BorderLayout.CENTER);
 		content.setBorder(null);
-		content.setLayout(new BorderLayout());
 		content.add(new JScrollPane(surfacePanel=new ModelSurfacePanel(true,false)),BorderLayout.CENTER);
 		surfacePanel.setColors(model.surfaceColors);
 		surfacePanel.setBackgroundImage(model.surfaceBackgroundImageInSubModels?model.surfaceBackgroundImage:null,model.surfaceBackgroundImageScale,model.surfaceBackgroundImageMode);
@@ -101,16 +130,22 @@ public class ModelElementSubAnimationDialog extends BaseDialog implements RunMod
 		surfaceAnimator.calcSurfaceSize();
 		delayInt=mainAnimationPanel.getDelayIntern();
 
-		setMinSizeRespectingScreensize(800,600);
+		/* Fenster vorbereiten */
+		setSize((int)Math.round(800*BaseDialog.windowScaling),(int)Math.round(600*BaseDialog.windowScaling));
+		setMinimumSize(new Dimension((int)Math.round(800*BaseDialog.windowScaling),(int)Math.round(600*BaseDialog.windowScaling)));
 		setResizable(true);
-		setLocationRelativeTo(this.owner); /* this.owner==ownerWindow; owner==nur JPanel oder sowas */
-		WindowSizeStorage.window(this,"submodel-animation");
+		Component o=owner;
+		while (o!=null && !(o instanceof Window)) o=o.getParent();
+		final Window ownerWindow=(Window)o;
+		setLocationRelativeTo(ownerWindow);
+		WindowSizeStorage.window(this,"dashboard");
 
+		/* Daten eintragen */
 		updateViewer(mainAnimationPanel.getSimData());
 	}
 
 	@Override
-	public boolean updateViewer(final SimulationData simData) {
+	public boolean updateViewer(SimulationData simData) {
 		return updateViewer(simData,null,false);
 	}
 
@@ -126,7 +161,7 @@ public class ModelElementSubAnimationDialog extends BaseDialog implements RunMod
 	private long lastUpdateStep=0;
 
 	@Override
-	public boolean updateViewer(SimulationData simData, final RunDataClient client, final boolean moveByTransport) {
+	public boolean updateViewer(SimulationData simData, RunDataClient client, boolean moveByTransport) {
 		surfacePanel.setAnimationSimulationData(simData,mainAnimator);
 
 		if (mainAnimationPanel.isRunning()) {
@@ -155,7 +190,7 @@ public class ModelElementSubAnimationDialog extends BaseDialog implements RunMod
 	}
 
 	@Override
-	public boolean updateViewer(SimulationData simData, final RunDataTransporter transporter) {
+	public boolean updateViewer(SimulationData simData, RunDataTransporter transporter) {
 		surfacePanel.setAnimationSimulationData(simData,mainAnimator);
 
 		long currentTime=System.currentTimeMillis();
@@ -176,6 +211,7 @@ public class ModelElementSubAnimationDialog extends BaseDialog implements RunMod
 
 	@Override
 	public void animationTerminated() {
-		close(BaseDialog.CLOSED_BY_CANCEL);
+		setVisible(false);
+		dispose();
 	}
 }

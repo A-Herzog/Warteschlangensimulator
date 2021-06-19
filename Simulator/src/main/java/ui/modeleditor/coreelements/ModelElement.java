@@ -1467,6 +1467,15 @@ public class ModelElement {
 	}
 
 	/**
+	 * Darf dieses Element in das Diagramm-Dashboard eingefügt werden?
+	 * Diese Methode muss nur überschrieben werden, wenn dieses Standardverhalten (=Einfügen in Diagramm-Dashboard nicht zulässig) für ein besonderes Element verändert werden soll.
+	 * @return	Gibt <code>true</code> zurück, wenn das Element in das Diagramm-Dashboard eingefügt werden darf.
+	 */
+	public boolean isVisualOnly() {
+		return false;
+	}
+
+	/**
 	 * Liefert den Namen (ohne Pfad und ohne ".html"-Erweiterung) der zu diesem Element gehörigen Hilfeseite
 	 * @return	Name der zugehörigen Hilfeseite (oder <code>null</code>, wenn zu diesem Element keine Hilfe vorhanden ist)
 	 */

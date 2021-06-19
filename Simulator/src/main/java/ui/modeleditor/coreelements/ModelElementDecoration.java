@@ -81,6 +81,11 @@ public class ModelElementDecoration extends ModelElementPosition {
 		return null; /* Die Elemente können zu groß werden, daher hier keine Vorschau. */
 	}
 
+	@Override
+	public boolean isVisualOnly() {
+		return true;
+	}
+
 	/**
 	 * Liefert die aktuelle Breite der Linie
 	 * @return	Aktuelle breite der Linie

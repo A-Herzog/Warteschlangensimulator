@@ -165,6 +165,11 @@ public class ModelElementAnimationBarStack extends ModelElementPosition implemen
 		return Images.MODELEDITOR_ELEMENT_ANIMATION_BAR_STACK.getIcon();
 	}
 
+	@Override
+	public boolean isVisualOnly() {
+		return true;
+	}
+
 	/**
 	 * Tooltip für den "Element hinzufügen"-Dropdown-Menü-Eintrag.
 	 * @return Tooltip für den "Element hinzufügen"-Dropdown-Menüeintrag

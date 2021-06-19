@@ -71,6 +71,11 @@ public class ModelElementInteractiveButton extends ModelElementBox implements El
 		return Images.MODELEDITOR_ELEMENT_INTERACTIVE_BUTTON.getIcon();
 	}
 
+	@Override
+	public boolean isVisualOnly() {
+		return true;
+	}
+
 	/**
 	 * Tooltip für den "Element hinzufügen"-Dropdown-Menü-Eintrag.
 	 * @return Tooltip für den "Element hinzufügen"-Dropdown-Menüeintrag

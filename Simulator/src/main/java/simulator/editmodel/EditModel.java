@@ -28,6 +28,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Optional;
 
 import javax.imageio.ImageIO;
 
@@ -62,6 +63,7 @@ import ui.modeleditor.elements.ComplexLine;
 import ui.modeleditor.elements.ElementNoRemoteSimulation;
 import ui.modeleditor.elements.ElementWithScript;
 import ui.modeleditor.elements.ModelElementAnimationConnect;
+import ui.modeleditor.elements.ModelElementDashboard;
 import ui.modeleditor.elements.ModelElementDisposeWithTable;
 import ui.modeleditor.elements.ModelElementEdge;
 import ui.modeleditor.elements.ModelElementInput;
@@ -1576,5 +1578,15 @@ public final class EditModel extends EditModelBase implements Cloneable  {
 
 		/* Verzeichnis für optionale externe Java-Klassendateien */
 		searcher.testString(Language.tr("Editor.DialogBase.Search.PluginsFolder"),pluginsFolder,newPluginsFolder->{pluginsFolder=newPluginsFolder;});
+	}
+
+	/**
+	 * Liefert das Diagramme-Dashboard-Element (sofern vorhanden).
+	 * @return	Globales Diagramme-Dashboard-Element oder <code>null</code>, wenn kein solches vorhanden ist
+	 * @see ModelElementDashboard
+	 */
+	public ModelElementDashboard getDiagramsDashboardOrNull() {
+		final Optional<ModelElementDashboard> dashboardOptional=surface.getElements().stream().filter(element->element instanceof ModelElementDashboard).map(element->((ModelElementDashboard)element)).findFirst();
+		return dashboardOptional.orElseGet(()->null);
 	}
 }

@@ -113,6 +113,11 @@ public class ModelElementAnimationRecord extends ModelElementAnimationDiagramBas
 		dataColor=Color.BLUE;
 	}
 
+	@Override
+	public boolean isVisualOnly() {
+		return true;
+	}
+
 	/**
 	 * Tooltip für den "Element hinzufügen"-Dropdown-Menü-Eintrag.
 	 * @return Tooltip für den "Element hinzufügen"-Dropdown-Menüeintrag

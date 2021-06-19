@@ -567,6 +567,7 @@
   <xs:element ref="ModellElementUntermodell"/>
   <xs:element ref="ModellElementUntermodellEingang"/>
   <xs:element ref="ModellElementUntermodellAusgang"/>
+  <xs:element ref="ModellElementDiagrammDashboard"/>
   <xs:element ref="ModellElementReferenz"/>
   <xs:element ref="ModellElementSchaltflaeche"/>
   <xs:element ref="ModellElementSchieberegler"/>  
@@ -1714,6 +1715,12 @@
 
 <xs:element name="ModellElementUntermodellAusgang" type="ModellElementVerbundenBasis"/>
 
+<xs:element name="ModellElementDiagrammDashboard"><xs:complexType><xs:complexContent><xs:extension base="ModellElementVerbundenBasis">
+  <xs:sequence minOccurs="0" maxOccurs="unbounded"><xs:choice>
+    <xs:element ref="ModellElemente"/>
+  </xs:choice></xs:sequence>
+</xs:extension></xs:complexContent></xs:complexType></xs:element>
+
 <xs:element name="ModellElementReferenz"><xs:complexType><xs:complexContent><xs:extension base="ModellElementVerbundenBasis">
   <xs:sequence minOccurs="0" maxOccurs="unbounded"><xs:choice>
     <xs:element name="ModellElementReferenzID" type="xs:integer"/>
@@ -2685,6 +2692,7 @@
   <xs:element ref="ModelElementSubModel"/>
   <xs:element ref="ModelElementSubModelInput"/>
   <xs:element ref="ModelElementSubModelOutput"/>
+  <xs:element ref="ModelElementChartDashboard"/>
   <xs:element ref="ModelElementReference"/>
   <xs:element ref="ModelElementButton"/>
   <xs:element ref="ModelElementSlider"/>
@@ -3831,6 +3839,12 @@
 <xs:element name="ModelElementSubModelInput" type="ModelElementConnectedBase"/>
 
 <xs:element name="ModelElementSubModelOutput" type="ModelElementConnectedBase"/>
+
+<xs:element name="ModelElementChartDashboard"><xs:complexType><xs:complexContent><xs:extension base="ModelElementConnectedBase">
+  <xs:sequence minOccurs="0" maxOccurs="unbounded"><xs:choice>
+    <xs:element ref="ModelElements"/>
+  </xs:choice></xs:sequence>
+</xs:extension></xs:complexContent></xs:complexType></xs:element>
 
 <xs:element name="ModelElementReference"><xs:complexType><xs:complexContent><xs:extension base="ModelElementConnectedBase">
   <xs:sequence minOccurs="0" maxOccurs="unbounded"><xs:choice>

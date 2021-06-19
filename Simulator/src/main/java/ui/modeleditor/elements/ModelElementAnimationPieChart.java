@@ -161,6 +161,11 @@ public class ModelElementAnimationPieChart extends ModelElementPosition implemen
 		return Images.MODELEDITOR_ELEMENT_ANIMATION_PIE_CHART.getIcon();
 	}
 
+	@Override
+	public boolean isVisualOnly() {
+		return true;
+	}
+
 	/**
 	 * Tooltip für den "Element hinzufügen"-Dropdown-Menü-Eintrag.
 	 * @return Tooltip für den "Element hinzufügen"-Dropdown-Menüeintrag

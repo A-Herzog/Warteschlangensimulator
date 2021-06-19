@@ -59,4 +59,9 @@ public interface RunModelAnimationViewer {
 	 * @see TransporterMoveListener
 	 */
 	boolean updateViewer(final SimulationData simData, final RunDataTransporter transporter);
+
+	/**
+	 * Wird aufgerufen, wenn die Animation beendet wurde.
+	 */
+	void animationTerminated();
 }

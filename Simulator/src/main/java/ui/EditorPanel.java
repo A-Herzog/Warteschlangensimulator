@@ -259,6 +259,8 @@ public final class EditorPanel extends EditorPanelBase {
 	private JButton buttonZoomDefault;
 	/** Schaltfläche "Modell zentrieren" */
 	private JButton buttonFindModel;
+	/** Schaltfläche "Dashboard" */
+	private JButton buttonDashboard;
 	/** Schaltfläche "Ansichten" */
 	private JButton buttonViews;
 	/** Schaltfläche "Navigator" */
@@ -283,6 +285,13 @@ public final class EditorPanel extends EditorPanelBase {
 	private JPlaceholderTextField leftAreaQuickFilter;
 	/** Popupmenü-Schaltfläche für die Vorlagenliste */
 	private JButton leftAreaTemplatesFilterButton;
+
+	/**
+	 * Soll die Liste der Vorlagen auf Elemente, die in das
+	 * Diagramm-Dashboard eingefügt werden dürfen, eingeschränkt werden?
+	 * @see #setRestrictedCatalog(boolean)
+	 */
+	private boolean restrictedCatalog;
 
 	/* Ausklapp-Panel rechts */
 
@@ -313,6 +322,7 @@ public final class EditorPanel extends EditorPanelBase {
 	public EditorPanel(final Component owner, final EditModel model, final boolean isMainSurface, final boolean readOnly, final boolean showEditModelProperties, final boolean canUndo) {
 		super(model,isMainSurface,readOnly);
 		this.owner=(owner==null)?this:owner;
+		restrictedCatalog=false;
 		buttonProperties.setVisible(showEditModelProperties);
 		surfacePanel.setShowEditModelProperties(showEditModelProperties);
 		if (!canUndo) {
@@ -364,6 +374,7 @@ public final class EditorPanel extends EditorPanelBase {
 	public EditorPanel(final Component owner) {
 		super();
 		this.owner=(owner==null)?this:owner;
+		restrictedCatalog=false;
 		guiReady=true;
 		fireTemplatesVisibleChanged();
 		initSavedViewsHotkeys();
@@ -396,6 +407,18 @@ public final class EditorPanel extends EditorPanelBase {
 	 */
 	public void setSavedViewsButtonVisible(final boolean visible) {
 		buttonViews.setVisible(visible);
+	}
+
+	/**
+	 * Soll die Liste der Vorlagen auf Elemente, die in das Diagramm-Dashboard eingefügt werden dürfen, eingeschränkt werden?
+	 * @param restrictedCatalog	Vorlagenliste einschränken?
+	 */
+	public void setRestrictedCatalog(final boolean restrictedCatalog) {
+		this.restrictedCatalog=restrictedCatalog;
+		buttonAddEdge.setVisible(!restrictedCatalog);
+		leftAreaTemplatesFilterButton.setVisible(!restrictedCatalog);
+		leftAreaTemplatesFilterButton.setVisible(!restrictedCatalog && isMainSurface);
+		updateTemplatesFilter();
 	}
 
 	@Override
@@ -555,6 +578,13 @@ public final class EditorPanel extends EditorPanelBase {
 	 */
 	public void setTopPosition(final Point topPosition) {
 		surfacePanel.setTopPosition(topPosition);
+	}
+
+	/**
+	 * Zeigt den Dialog zur Konfiguration des Diagramme-Dashboards an.
+	 */
+	public void showDashboard() {
+		surfacePanel.showDashboard();
 	}
 
 	/**
@@ -1005,7 +1035,7 @@ public final class EditorPanel extends EditorPanelBase {
 		templates.setCellRenderer(templatesRenderer=new ModelElementCatalogListCellRenderer<>(ElementRendererTools.GradientStyle.OFF));
 		if (setup.onlyOneOpenTemplatesGroup) enforceOnlyOneGroupOpen();
 
-		templates.setModel(ModelElementCatalog.getCatalog().getTemplatesListModel(setup.visibleTemplateGroups,setup.openTemplateGroups,"",model.surface.getParentSurface()!=null));
+		templates.setModel(ModelElementCatalog.getCatalog().getTemplatesListModel(setup.visibleTemplateGroups,setup.openTemplateGroups,"",(model.surface.getParentSurface()!=null)?ModelElementCatalog.TemplatesListMode.SUB_MODEL:ModelElementCatalog.TemplatesListMode.FULL));
 
 		templates.setDragEnabled(true);
 		templates.setTransferHandler(new ModelElementCatalogTransferHandler(()->getZoom()));
@@ -1244,8 +1274,10 @@ public final class EditorPanel extends EditorPanelBase {
 			}
 		}
 
-		setup.openTemplateGroups=sb.toString();
-		setup.saveSetup();
+		if (!restrictedCatalog) {
+			setup.openTemplateGroups=sb.toString();
+			setup.saveSetup();
+		}
 	}
 
 	/**
@@ -1258,7 +1290,11 @@ public final class EditorPanel extends EditorPanelBase {
 		final String filter=(leftAreaQuickFilter!=null)?leftAreaQuickFilter.getText().trim():"";
 		final String visibleGroups=setup.visibleTemplateGroups;
 		final String openGroups=setup.openTemplateGroups;
-		templates.setModel(ModelElementCatalog.getCatalog().getTemplatesListModel(visibleGroups,openGroups,filter,getModel().surface.getParentSurface()!=null));
+		if (restrictedCatalog) {
+			templates.setModel(ModelElementCatalog.getCatalog().getTemplatesListModel(visibleGroups,openGroups,filter,ModelElementCatalog.TemplatesListMode.SUB_DASHBOARD));
+		} else {
+			templates.setModel(ModelElementCatalog.getCatalog().getTemplatesListModel(visibleGroups,openGroups,filter,(model.surface.getParentSurface()!=null)?ModelElementCatalog.TemplatesListMode.SUB_MODEL:ModelElementCatalog.TemplatesListMode.FULL));
+		}
 		setTemplatesVisible(isTemplatesVisible(),false);
 	}
 
@@ -1405,11 +1441,12 @@ public final class EditorPanel extends EditorPanelBase {
 
 		main.add(createNavigatorPanel(),BorderLayout.EAST);
 
-		JPanel statusPanel=new JPanel(new BorderLayout());
+		final JPanel statusPanel=new JPanel(new BorderLayout());
 		add(statusPanel,BorderLayout.SOUTH);
 		statusPanel.add(statusBar=new JLabel(""),BorderLayout.CENTER);
 		statusBar.setBorder(BorderFactory.createEmptyBorder(0,5,0,0));
-		JPanel zoomArea=new JPanel(new FlowLayout(FlowLayout.LEFT,0,0));
+		final JToolBar zoomArea=new JToolBar(SwingConstants.HORIZONTAL);
+		zoomArea.setFloatable(false);
 		statusPanel.add(zoomArea,BorderLayout.EAST);
 		statusBar.addMouseListener(new MouseAdapter() {
 			@Override
@@ -1430,6 +1467,9 @@ public final class EditorPanel extends EditorPanelBase {
 		zoomArea.add(buttonZoomIn=createZoomAreaButton(Language.tr("Main.Menu.View.ZoomIn")+" ("+keyStrokeToString(KeyStroke.getKeyStroke(KeyEvent.VK_ADD,InputEvent.CTRL_DOWN_MASK))+")",Images.ZOOM_IN.getIcon()));
 		zoomArea.add(buttonZoomDefault=createZoomAreaButton(Language.tr("Main.Menu.View.ZoomDefault")+" ("+keyStrokeToString(KeyStroke.getKeyStroke(KeyEvent.VK_MULTIPLY,InputEvent.CTRL_DOWN_MASK))+")",Images.ZOOM.getIcon()));
 		zoomArea.add(buttonFindModel=createZoomAreaButton(Language.tr("Main.Menu.View.CenterModel")+" ("+keyStrokeToString(KeyStroke.getKeyStroke(KeyEvent.VK_NUMPAD0,InputEvent.CTRL_DOWN_MASK))+")",Images.ZOOM_CENTER_MODEL.getIcon()));
+		zoomArea.addSeparator();
+		zoomArea.add(buttonDashboard=createZoomAreaButton(Language.tr("Main.Menu.View.Dashboard")+" ("+keyStrokeToString(KeyStroke.getKeyStroke(KeyEvent.VK_F12,InputEvent.CTRL_DOWN_MASK+InputEvent.SHIFT_DOWN_MASK))+")",Images.MODELEDITOR_ELEMENT_ANIMATION_BAR_CHART.getIcon()));
+		buttonDashboard.setVisible(isMainSurface);
 		zoomArea.add(buttonViews=createZoomAreaButton(Language.tr("Main.Menu.View.Views"),Images.ZOOM_VIEWS.getIcon()));
 		buttonViews.addMouseListener(new MouseAdapter() {
 			@Override public void mousePressed(final MouseEvent e) {if (SwingUtilities.isRightMouseButton(e)) showViewPopup(buttonViews);}
@@ -1874,7 +1914,7 @@ public final class EditorPanel extends EditorPanelBase {
 		if (surfacePanel.getMode()==ModelSurfacePanel.ClickMode.MODE_ADD_EDGE_STEP1 || surfacePanel.getMode()==ModelSurfacePanel.ClickMode.MODE_ADD_EDGE_STEP2) {
 			surfacePanel.cancelAdd();
 		} else {
-			surfacePanel.startAddEdge();
+			if (buttonAddEdge.isVisible()) surfacePanel.startAddEdge();
 		}
 	}
 
@@ -1894,6 +1934,7 @@ public final class EditorPanel extends EditorPanelBase {
 			if (source==buttonZoomIn) {zoomIn(); return;}
 			if (source==buttonZoomDefault) {zoomDefault(); return;}
 			if (source==buttonFindModel) {centerModel(); return;}
+			if (source==buttonDashboard) {showDashboard(); return;}
 			if (source==buttonViews) {showViewPopup(buttonViews); return;}
 			if (source==buttonUndo) {doUndo(); return;}
 			if (source==buttonRedo) {doRedo(); return;}
@@ -2314,8 +2355,11 @@ public final class EditorPanel extends EditorPanelBase {
 				sb.append(open?'X':'-');
 			}
 		}
-		setup.openTemplateGroups=sb.toString();
-		setup.saveSetup();
+
+		if (!restrictedCatalog) {
+			setup.openTemplateGroups=sb.toString();
+			setup.saveSetup();
+		}
 	}
 
 	/**

@@ -55,6 +55,11 @@ public abstract class ModelElementAnimationCustomDrawExpression extends ModelEle
 		expression="";
 	}
 
+	@Override
+	public boolean isVisualOnly() {
+		return true;
+	}
+
 	/**
 	 * Überprüft, ob das Element mit dem angegebenen Element inhaltlich identisch ist.
 	 * @param element	Element mit dem dieses Element verglichen werden soll.

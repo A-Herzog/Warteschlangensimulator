@@ -625,6 +625,7 @@ public class MainPanel extends MainPanelBase {
 		addAction("ViewTemplatesBar",e->editorPanel.setTemplatesVisible(!editorPanel.isTemplatesVisible(),false));
 		addAction("ViewNavigator",e->editorPanel.setNavigatorVisible(!editorPanel.isNavigatorVisible(),false));
 		addAction("ViewExplorer",e->editorPanel.showExplorer());
+		addAction("ViewDashboard",e->editorPanel.showDashboard());
 		addAction("ViewRulers",e->commandViewRulers());
 		addAction("ViewRasterOff",e->commandViewRaster(ModelSurface.Grid.OFF));
 		addAction("ViewRasterDots",e->commandViewRaster(ModelSurface.Grid.DOTS));
@@ -1150,6 +1151,7 @@ public class MainPanel extends MainPanelBase {
 		enabledOnEditorPanel.add(menuViewNavigator=createCheckBoxMenuItemIcon(menu,Language.tr("Main.Menu.View.NavigatorBar"),Images.NAVIGATOR.getIcon(),Language.tr("Main.Menu.View.NavigatorBar.Mnemonic"),KeyEvent.VK_F12,"ViewNavigator"));
 		menuViewNavigator.setState(editorPanel.isNavigatorVisible());
 		createMenuItemCtrl(menu,Language.tr("Main.Menu.View.Explorer"),Images.MODE_OVERVIEW.getIcon(),Language.tr("Main.Menu.View.Explorer.Mnemonic"),KeyEvent.VK_F12,"ViewExplorer");
+		enabledOnEditorPanel.add(createMenuItemCtrlShift(menu,Language.tr("Main.Menu.View.Dashboard"),Images.MODELEDITOR_ELEMENT_ANIMATION_BAR_CHART.getIcon(),Language.tr("Main.Menu.View.Dashboard.Mnemonic"),KeyEvent.VK_F12,"ViewDashboard"));
 		menu.addSeparator();
 		enabledOnEditorPanel.add(menuViewRulers=createCheckBoxMenuItemIcon(menu,Language.tr("Main.Menu.View.ShowRulers"),Images.EDIT_VIEW_RULERS.getIcon(),Language.tr("Main.Menu.View.ShowIDs.Mnemonic"),"ViewRulers"));
 		menuViewRulers.setState(setup.showRulers);

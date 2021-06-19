@@ -50,7 +50,7 @@ import ui.modeleditor.outputbuilder.SpecialOutputBuilder;
 import ui.tools.FlatLaFHelper;
 
 /**
- * Zeigt während der Animation das Ergebnis eines Rechneausdrucks als Text an.
+ * Zeigt während der Animation das Ergebnis eines Rechnenausdrucks als Text an.
  * @author Alexander Herzog
  */
 public class ModelElementAnimationTextValue extends ModelElementPosition implements ElementWithAnimationDisplay {
@@ -191,6 +191,11 @@ public class ModelElementAnimationTextValue extends ModelElementPosition impleme
 	@Override
 	public Icon getAddElementIcon() {
 		return Images.MODELEDITOR_ELEMENT_ANIMATION_TEXT_VALUE.getIcon();
+	}
+
+	@Override
+	public boolean isVisualOnly() {
+		return true;
 	}
 
 	/**
