@@ -185,4 +185,26 @@ public class FlatLaFHelper {
 			 */
 		}
 	}
+
+	/**
+	 * Stellt die Farbe für die kombinierte Titel- und Menüzeile ein.
+	 * @param color	Farbe
+	 */
+	public static void setTitleColor(final Color color) {
+		UIManager.put("TitlePane.background",color);
+		UIManager.put("TitlePane.inactiveBackground",color.darker());
+		UIManager.put("TitlePane.foreground",Color.WHITE);
+		UIManager.put("TitlePane.inactiveForeground",Color.LIGHT_GRAY);
+		UIManager.put("TitlePane.activeForeground",Color.WHITE);
+		UIManager.put("MenuBar.foreground",Color.WHITE);
+		UIManager.put("TitlePane.embeddedForeground",Color.WHITE);
+	}
+
+	/**
+	 * Stellt die Farbe für die kombinierte Titel- und Menüzeile ein.
+	 * @param color	Farbe (wird vorher noch abgedunkelt)
+	 */
+	public static void setTitleColorDarker(final Color color) {
+		setTitleColor(color.darker().darker());
+	}
 }
