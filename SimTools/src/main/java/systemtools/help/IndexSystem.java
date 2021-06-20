@@ -15,6 +15,8 @@
  */
 package systemtools.help;
 
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
@@ -37,11 +39,16 @@ public class IndexSystem {
 	private static final int INIT_WAIT_SECONDS=2;
 
 	/**
+	 * Beim Lesen der Hilfedateien zu verwendender Zeichensatz.
+	 */
+	private Charset charset;
+
+	/**
 	 * Zu indizierende Ordner.
 	 * @see #addLanguage(String, String)
 	 * @see #init(Class)
 	 */
-	private Map<String,String> indexFolders;
+	private final Map<String,String> indexFolders;
 
 	/**
 	 * Ist der Indizierungs-Thread mit seiner Arbeit fertig?
@@ -68,6 +75,7 @@ public class IndexSystem {
 	 */
 	private IndexSystem() {
 		indexFolders=new HashMap<>();
+		charset=StandardCharsets.UTF_8;
 		ready=false;
 	}
 
@@ -88,6 +96,14 @@ public class IndexSystem {
 	public void addLanguage(final String language, final String folder) {
 		indexFolders.put(language,folder);
 		if (currentLanguage==null) currentLanguage=language;
+	}
+
+	/**
+	 * Stellt den beim Lesen der Hilfedateien zu verwendenden Zeichensatz sein
+	 * @param charset	Beim Lesen der Hilfedateien zu verwendender Zeichensatz
+	 */
+	public void setCharset(final Charset charset) {
+		if (charset==null) this.charset=StandardCharsets.UTF_8; else this.charset=charset;
 	}
 
 	/**
@@ -121,7 +137,7 @@ public class IndexSystem {
 	 * @see #init(Class)
 	 */
 	private void initIntern(final Class<?> cls) {
-		scanner=new IndexScanner();
+		scanner=new IndexScanner(charset);
 		for (Map.Entry<String,String> entry: indexFolders.entrySet()) {
 			scanner.scan(entry.getKey(),entry.getValue(),cls);
 		}

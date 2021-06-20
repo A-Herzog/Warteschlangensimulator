@@ -18,6 +18,8 @@ package systemtools.help;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.FileSystem;
 import java.nio.file.FileSystems;
 import java.nio.file.Files;
@@ -44,10 +46,24 @@ class IndexScanner {
 	private final Map<String,Index> data;
 
 	/**
+	 * Beim Lesen der Hilfedateien zu verwendender Zeichensatz.
+	 */
+	private final Charset charset;
+
+	/**
+	 * Konstruktor der Klasse
+	 * @param charset	Beim Lesen der Hilfedateien zu verwendender Zeichensatz
+	 */
+	public IndexScanner(final Charset charset) {
+		data=new HashMap<>();
+		this.charset=charset;
+	}
+
+	/**
 	 * Konstruktor der Klasse
 	 */
 	public IndexScanner() {
-		data=new HashMap<>();
+		this(StandardCharsets.UTF_8);
 	}
 
 	/**
@@ -75,7 +91,7 @@ class IndexScanner {
 				final Path file=iterator.next();
 				final String name=file.getFileName().toString();
 				if (!isScanFile(name)) continue;
-				final String text=String.join("\n",Files.lines(file).toArray(String[]::new));
+				final String text=String.join("\n",Files.lines(file,charset).toArray(String[]::new));
 				if (text!=null) index.scan(name,text);
 			}
 		} catch (IOException e) {
