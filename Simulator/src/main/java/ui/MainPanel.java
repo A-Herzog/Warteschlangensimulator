@@ -2251,8 +2251,12 @@ public class MainPanel extends MainPanelBase {
 		final FindElementDialog dialog=new FindElementDialog(this,editorPanel.getModel().surface);
 		dialog.setVisible(true);
 		if (dialog.getClosedBy()==BaseDialog.CLOSED_BY_OK) {
-			final int id=dialog.getSelectedId();
-			if (id>0) editorPanel.selectAndScrollToElement(id);
+			if (dialog.isOpenFindAndReplaceDialog()) {
+				commandEditFindAndReplace(null);
+			} else {
+				final int id=dialog.getSelectedId();
+				if (id>0) editorPanel.selectAndScrollToElement(id);
+			}
 		}
 	}
 

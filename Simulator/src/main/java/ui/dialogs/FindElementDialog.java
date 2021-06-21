@@ -28,6 +28,7 @@ import java.util.List;
 
 import javax.swing.BoxLayout;
 import javax.swing.DefaultListModel;
+import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -77,6 +78,8 @@ public class FindElementDialog extends BaseDialog {
 	private final List<Integer> resultsIds;
 	/** Ausgabefeld für Informationen zu den Suchergebnissen (Anzahl der Treffer usw.) */
 	private final JLabel resultsInfo;
+	/** Soll nach dem Schließen dieses Dialog der Volltextsuche-Dialog geöffnet werden? */
+	private boolean openFindAndReplaceDialog;
 
 	/**
 	 * Konstruktor der Klasse
@@ -88,6 +91,7 @@ public class FindElementDialog extends BaseDialog {
 		this.surface=surface;
 
 		showCloseButton=true;
+		addUserButton(Language.tr("Main.Menu.View.FindAndReplace"),Images.GENERAL_FONT.getIcon());
 		final JPanel all=createGUI(()->Help.topicModal(getOwner(),"FindElement"));
 		all.setLayout(new BorderLayout());
 		InfoPanel.addTopPanel(all,InfoPanel.globalFindElement);
@@ -299,5 +303,19 @@ public class FindElementDialog extends BaseDialog {
 		}
 
 		return -1;
+	}
+
+	@Override
+	protected void userButtonClick(final int nr, final JButton button) {
+		openFindAndReplaceDialog=true;
+		close(BaseDialog.CLOSED_BY_OK);
+	}
+
+	/**
+	 * Soll nach dem Schließen dieses Dialog der Volltextsuche-Dialog geöffnet werden?
+	 * @return	Volltextsuche-Dialog öffnen?
+	 */
+	public boolean isOpenFindAndReplaceDialog() {
+		return openFindAndReplaceDialog;
 	}
 }
