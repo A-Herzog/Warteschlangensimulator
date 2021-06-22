@@ -21,7 +21,6 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="MainUnit"/>
-        <IsVisibleTab Value="True"/>
         <CursorPos X="18" Y="5"/>
         <UsageCount Value="24"/>
         <Loaded Value="True"/>
@@ -29,9 +28,10 @@
       </Unit1>
       <Unit2>
         <Filename Value="findjava.pas"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="1"/>
-        <TopLine Value="82"/>
-        <CursorPos X="26" Y="80"/>
+        <TopLine Value="109"/>
+        <CursorPos Y="182"/>
         <UsageCount Value="12"/>
         <Loaded Value="True"/>
       </Unit2>
