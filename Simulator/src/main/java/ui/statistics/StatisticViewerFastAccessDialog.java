@@ -311,7 +311,7 @@ public class StatisticViewerFastAccessDialog extends BaseDialog {
 	 * @see StatisticViewerFastAccessDialog#contentTable
 	 * @see StatisticViewerFastAccessDialog#attributeTable
 	 */
-	private class DefaultReadOnlyTableModel extends DefaultTableModel {
+	private static class DefaultReadOnlyTableModel extends DefaultTableModel {
 		/**
 		 * Serialisierungs-ID der Klasse
 		 * @see Serializable

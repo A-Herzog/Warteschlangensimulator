@@ -85,12 +85,7 @@ public class MQTTSimClient extends MQTTSimClientBase {
 		lock=new ReentrantLock();
 		list=new ArrayList<>();
 
-		executor=new ThreadPoolExecutor(0,1,5000,TimeUnit.MILLISECONDS,new LinkedBlockingQueue<>(),new ThreadFactory() {
-			@Override
-			public Thread newThread(Runnable r) {
-				return new Thread(r,"MQTTSim Request Processor");
-			}
-		});
+		executor=new ThreadPoolExecutor(0,1,5000,TimeUnit.MILLISECONDS,new LinkedBlockingQueue<>(),(ThreadFactory)r->new Thread(r,"MQTTSim Request Processor"));
 	}
 
 	/**

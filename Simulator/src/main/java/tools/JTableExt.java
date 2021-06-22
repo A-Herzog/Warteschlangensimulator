@@ -238,7 +238,7 @@ public final class JTableExt extends JTable {
 	 * Editor für die Zellen
 	 * @see JTableExt#setPanelRendererAndEditor()
 	 */
-	private final class CellEditorExt extends AbstractCellEditor implements TableCellEditor {
+	private static final class CellEditorExt extends AbstractCellEditor implements TableCellEditor {
 		/**
 		 * Serialisierungs-ID der Klasse
 		 * @see Serializable

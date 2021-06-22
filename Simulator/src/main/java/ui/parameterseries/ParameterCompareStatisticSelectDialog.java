@@ -226,7 +226,7 @@ public class ParameterCompareStatisticSelectDialog extends BaseDialog {
 	 * Renderer für die Liste {@link ParameterCompareStatisticSelectDialog#list}
 	 * @see ParameterCompareStatisticSelectDialog#list
 	 */
-	private class JCheckBoxCellRenderer implements ListCellRenderer<JCheckBox> {
+	private static class JCheckBoxCellRenderer implements ListCellRenderer<JCheckBox> {
 		@Override
 		public Component getListCellRendererComponent(JList<? extends JCheckBox> list, JCheckBox value, int index, boolean isSelected, boolean cellHasFocus) {
 			value.setForeground(list.getForeground());

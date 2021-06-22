@@ -465,9 +465,7 @@ public class ModelElementImage extends ModelElementDecoration {
 
 	static {
 		final int coreCount=Runtime.getRuntime().availableProcessors();
-		loadService=new ThreadPoolExecutor(coreCount,coreCount,2,TimeUnit.SECONDS,new LinkedBlockingQueue<>(),new ThreadFactory() {
-			@Override public Thread newThread(Runnable r) {return new Thread(r,"Model Element Image Loader");}
-		});
+		loadService=new ThreadPoolExecutor(coreCount,coreCount,2,TimeUnit.SECONDS,new LinkedBlockingQueue<>(),(ThreadFactory)r->new Thread(r,"Model Element Image Loader"));
 		((ThreadPoolExecutor)loadService).allowCoreThreadTimeOut(true);
 	}
 
@@ -515,22 +513,19 @@ public class ModelElementImage extends ModelElementDecoration {
 
 		if (Language.trAll("Surface.Image.XML.Data",name)) {
 
-			final Callable<Integer> loader=new Callable<Integer>() {
-				@Override
-				public Integer call() throws Exception {
+			final Callable<Integer> loader=()-> {
+				try {
+					final ByteArrayInputStream stream=new ByteArrayInputStream(Base64.getDecoder().decode(content));
+					final boolean useCache=ImageIO.getUseCache();
 					try {
-						final ByteArrayInputStream stream=new ByteArrayInputStream(Base64.getDecoder().decode(content));
-						final boolean useCache=ImageIO.getUseCache();
-						try {
-							ImageIO.setUseCache(false); /* Wird benötigt, wenn im Stream nicht gesprungen werden kann, was bei einem ByteArrayInputStream nun definitiv möglich ist.  */
-							final BufferedImage image=ImageIO.read(stream);
-							if (image!=null) ModelElementImage.this.image=image;
-						} finally {
-							ImageIO.setUseCache(useCache);
-						}
-					} catch (IOException | IllegalArgumentException e) {}
-					return null;
-				}
+						ImageIO.setUseCache(false); /* Wird benötigt, wenn im Stream nicht gesprungen werden kann, was bei einem ByteArrayInputStream nun definitiv möglich ist.  */
+						final BufferedImage image=ImageIO.read(stream);
+						if (image!=null) ModelElementImage.this.image=image;
+					} finally {
+						ImageIO.setUseCache(useCache);
+					}
+				} catch (IOException | IllegalArgumentException e) {}
+				return null;
 			};
 
 			if (USE_BACKGROUND_LOAD) {

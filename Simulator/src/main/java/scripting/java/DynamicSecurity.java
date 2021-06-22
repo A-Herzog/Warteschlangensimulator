@@ -107,7 +107,7 @@ public class DynamicSecurity {
 	 * des dynamisch nachgeladenen benutzerdefinierten Codes.
 	 * @see DynamicSecurity#setPolicy()
 	 */
-	private class DynamicSecurityPolicy extends Policy {
+	private static class DynamicSecurityPolicy extends Policy {
 		/** Regelsatz: begrenzter Zugriff */
 		private final Permissions restrictedPermissions;
 		/** Regelsatz: vollständiger Zugriff */

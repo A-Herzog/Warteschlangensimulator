@@ -453,7 +453,7 @@ public abstract class OptimizerParallelBase extends OptimizerBase {
 	 * @see OptimizerParallelBase#resultsCache
 	 * @see OptimizerParallelBase#getCachedResult(double[])
 	 */
-	private class OptimizationResult {
+	private static class OptimizationResult {
 		/** Kontrollvariablen-Setup */
 		private final double[] control;
 		/** Ergebnis der Simulation */

@@ -577,7 +577,7 @@ public class ModelElementAnimationBarChartHistogramWizard extends BaseDialog {
 	/**
 	 * Histogramm-Datensatz
 	 */
-	private class HistogramType {
+	private static class HistogramType {
 		/** Name für die Liste */
 		public final String name;
 		/** Rechenbefehl zur Abfrage der jeweiligen Daten */
@@ -606,7 +606,7 @@ public class ModelElementAnimationBarChartHistogramWizard extends BaseDialog {
 	 * @see ModelElementAnimationBarChartHistogramWizard#idsTransporter
 	 * @see ModelElementAnimationBarChartHistogramWizard#idsStatistics
 	 */
-	private class HistogramIDRecord {
+	private static class HistogramIDRecord {
 		/** Name der Station */
 		public final String name;
 		/** ID der Station bzw. Gruppe */

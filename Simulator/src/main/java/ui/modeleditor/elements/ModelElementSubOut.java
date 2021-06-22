@@ -73,6 +73,7 @@ public class ModelElementSubOut extends ModelElementSubConnect implements ModelE
 		if (connectionStationID<0) setName(Language.tr("Surface.SubConnect.NotConnected")); else setName(Language.tr("Surface.SubConnect.ToID")+"="+connectionStationID);
 	}
 
+	@Override
 	public void updateName() {
 		if (connectionStationID<0) setName(Language.tr("Surface.SubConnect.NotConnected")); else setName(Language.tr("Surface.SubConnect.ToID")+"="+connectionStationID);
 	}

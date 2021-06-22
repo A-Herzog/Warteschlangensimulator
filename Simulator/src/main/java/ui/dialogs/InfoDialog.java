@@ -23,7 +23,6 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Window;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.IOException;
@@ -93,7 +92,7 @@ public class InfoDialog extends JDialog {
 	/**
 	 * Auswahlfeld zum Ändern der Programmsprache
 	 */
-	private final JComboBox<String> languages;
+	private JComboBox<String> languages;
 
 	/**
 	 * Dieses Feld wird auf <code>true</code> gesetzt, wenn der Dialog nicht über "Ok"
@@ -168,12 +167,7 @@ public class InfoDialog extends JDialog {
 		mainarea.add(p=new JPanel(new FlowLayout(FlowLayout.CENTER))); p.add(image=new JLabel());
 		image.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 
-		final ExecutorService executor=new ThreadPoolExecutor(0,1,1,TimeUnit.SECONDS,new LinkedBlockingQueue<>(),new ThreadFactory() {
-			@Override
-			public Thread newThread(Runnable r) {
-				return new Thread(r,"Image loader");
-			}
-		});
+		final ExecutorService executor=new ThreadPoolExecutor(0,1,1,TimeUnit.SECONDS,new LinkedBlockingQueue<>(),(ThreadFactory)r->new Thread(r,"Image loader"));
 		executor.execute(new FutureTask<Integer>(()->{
 			final URL url=MainFrame.class.getResource("res/Warteschlangennetz.png");
 			if (url!=null) image.setIcon(new ImageIcon(url)); else image.setVisible(false);
@@ -224,20 +218,17 @@ public class InfoDialog extends JDialog {
 		/* Ok-Button */
 		final JButton okButton;
 		p.add(okButton=new JButton(Language.tr("Dialog.Button.Ok")));
-		okButton.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				if (languages!=null) {
-					String lang=(languages.getSelectedIndex()==1)?"de":"en";
-					SetupData setup=SetupData.getSetup();
-					if (!setup.language.equals(lang)) {
-						setup.language=lang;
-						setup.saveSetupWithWarning(InfoDialog.this);
-					}
+		okButton.addActionListener(e-> {
+			if (languages!=null) {
+				String lang=(languages.getSelectedIndex()==1)?"de":"en";
+				SetupData setup=SetupData.getSetup();
+				if (!setup.language.equals(lang)) {
+					setup.language=lang;
+					setup.saveSetupWithWarning(InfoDialog.this);
 				}
-				setVisible(false);
-				dispose();
 			}
+			setVisible(false);
+			dispose();
 		});
 		okButton.setIcon(Images.MSGBOX_OK.getIcon());
 		getRootPane().setDefaultButton(okButton);

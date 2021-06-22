@@ -690,7 +690,7 @@ public class JDistributionPanel extends JPanel implements JGetImage {
 	 * Zwischenablagen-Datenobjekt für ein Bild
 	 * @see JDistributionPanel#copyImageToClipboard(Clipboard, int)
 	 */
-	private class TransferableImage implements Transferable{
+	private static class TransferableImage implements Transferable{
 		/**
 		 * Auszugebendes Bild
 		 */

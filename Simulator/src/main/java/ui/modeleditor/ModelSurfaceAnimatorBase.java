@@ -1395,7 +1395,7 @@ public class ModelSurfaceAnimatorBase {
 	/**
 	 * Repräsentiert ein Icon während der Animation
 	 */
-	private class DrawIcon {
+	private static class DrawIcon {
 		/** x-Position des Icons */
 		public final int x;
 		/** y-Position des Icons */
@@ -1519,7 +1519,7 @@ public class ModelSurfaceAnimatorBase {
 	 * @see ModelSurfaceAnimatorBase#animate(MoveClient, int, SimulationData)
 	 * @see ModelSurfaceAnimatorBase#getMoveClientList(RunDataClient)
 	 */
-	protected class MoveClient {
+	protected static class MoveClient {
 		/** Kunde, dessen Bewegung animiert werden soll */
 		public final RunDataClient client;
 		/** ID der Ausgangsstation */

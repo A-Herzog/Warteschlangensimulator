@@ -394,7 +394,7 @@ public class JDataLoader extends JDialog {
 	 * Tabellenmodell für die Vorschautabelle für die zu ladenden Daten
 	 * @see #model
 	 */
-	private class ImportTableModel extends AbstractTableModel {
+	private static class ImportTableModel extends AbstractTableModel {
 		/**
 		 * Serialisierungs-ID der Klasse
 		 * @see Serializable

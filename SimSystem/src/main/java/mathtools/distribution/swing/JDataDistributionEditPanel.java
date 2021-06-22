@@ -584,7 +584,7 @@ public class JDataDistributionEditPanel extends JPanel {
 	 * Zwischenablagen-Datenobjekt für ein Bild
 	 * @see JDataDistributionEditPanel#copyImageToClipboard(Clipboard, int)
 	 */
-	private class TransferableImage implements Transferable{
+	private static class TransferableImage implements Transferable{
 		/**
 		 * Auszugebendes Bild
 		 */

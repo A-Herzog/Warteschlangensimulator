@@ -146,7 +146,7 @@ public class HTMLBrowserTextPane extends JTextPane implements HTMLBrowserPanel {
 	 * html-Element innerhalb der Darstellung
 	 * @see HTMLBrowserTextPane#scanElement(Element)
 	 */
-	private final class ElementPos {
+	private static final class ElementPos {
 		/** HTML-Element */
 		private final Element element;
 		/** Überschriften-Ebene (h1=1, h2=2, ...) */

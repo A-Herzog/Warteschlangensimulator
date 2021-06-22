@@ -301,7 +301,7 @@ public class PathBuilder {
 	/**
 	 * Repräsentiert eine einzelne Verbindung
 	 */
-	private class Connection {
+	private static class Connection {
 		/** Ausgangsstation */
 		public final ModelElement previous;
 		/** Liste der Zielstationen */

@@ -452,7 +452,7 @@ public class WaitPanel extends JPanel {
 				case MODE_MULTI_DAYS: updateInfoDayMode(); break;
 				case MODE_SINGLE_LONG_RUN: updateInfoLongRun(); break;
 				}
-			} catch (Exception e) {abortRun=true;} catch (OutOfMemoryError e) {abortRun=true;}
+			} catch (Exception | OutOfMemoryError e) {abortRun=true;}
 		}
 	}
 }

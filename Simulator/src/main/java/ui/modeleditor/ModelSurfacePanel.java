@@ -59,12 +59,10 @@ import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.Serializable;
-import java.io.UnsupportedEncodingException;
 import java.io.Writer;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
@@ -94,7 +92,6 @@ import javax.swing.SwingUtilities;
 
 import org.apache.batik.dom.GenericDOMImplementation;
 import org.apache.batik.svggen.SVGGraphics2D;
-import org.apache.batik.svggen.SVGGraphics2DIOException;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
 import org.apache.poi.xwpf.usermodel.XWPFParagraph;
 import org.apache.poi.xwpf.usermodel.XWPFRun;
@@ -1572,7 +1569,7 @@ public final class ModelSurfacePanel extends JPanel {
 		try (FileOutputStream fileWriter=new FileOutputStream(file)) {
 			final Writer out=new OutputStreamWriter(fileWriter,StandardCharsets.UTF_8);
 			svgGenerator.stream(out,true);
-		} catch (UnsupportedEncodingException | SVGGraphics2DIOException | FileNotFoundException e1) {return false;} catch (IOException e) {
+		} catch (IOException e) {
 			return false;
 		}
 

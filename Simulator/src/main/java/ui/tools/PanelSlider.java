@@ -17,8 +17,6 @@ package ui.tools;
 
 import java.awt.Container;
 import java.awt.Dimension;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 import javax.swing.JPanel;
 import javax.swing.Timer;
@@ -126,10 +124,7 @@ public class PanelSlider {
 	private void startTimer(final int delta) {
 		this.delta=delta;
 		step=0;
-		timer=new Timer(STEP_DELAY,new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {processStep();}
-		});
+		timer=new Timer(STEP_DELAY,e->processStep());
 		timer.start();
 	}
 

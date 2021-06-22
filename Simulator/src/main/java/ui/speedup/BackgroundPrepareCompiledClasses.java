@@ -45,13 +45,10 @@ public class BackgroundPrepareCompiledClasses {
 		final SetupData.BackgroundProcessingMode backgroundMode=setup.backgroundSimulation;
 		if (!setup.serverUse && (backgroundMode==SetupData.BackgroundProcessingMode.BACKGROUND_SIMULATION || backgroundMode==SetupData.BackgroundProcessingMode.BACKGROUND_SIMULATION_ALWAYS)) {
 
-			final ScheduledExecutorService scheduler=new ScheduledThreadPoolExecutor(1,new ThreadFactory() {
-				@Override
-				public Thread newThread(Runnable r) {
-					final Thread t=new Thread(r,"Precompile Simulator classes");
-					t.setDaemon(true);
-					return t;
-				}
+			final ScheduledExecutorService scheduler=new ScheduledThreadPoolExecutor(1,(ThreadFactory)r-> {
+				final Thread t=new Thread(r,"Precompile Simulator classes");
+				t.setDaemon(true);
+				return t;
 			});
 			scheduler.schedule(()->work(),START_DELAY,TimeUnit.MILLISECONDS);
 			scheduler.shutdown();

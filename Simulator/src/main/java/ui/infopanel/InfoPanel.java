@@ -1527,7 +1527,7 @@ public class InfoPanel {
 	 * Repräsentiert einen Hinweisdatensatz
 	 * @author Alexander Herzog
 	 */
-	public class Item {
+	public static class Item {
 		/**
 		 * ID des Hinweisdatensatzes (für den Aufruf von {@link InfoPanel#addTopPanel(Container, String)} oder von {@link InfoPanel#addTopPanelAndGetNewContent(Container, String)} und zum Speichern der Einstellungen)
 		 */

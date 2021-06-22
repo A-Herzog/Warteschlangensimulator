@@ -305,12 +305,7 @@ public abstract class JQuickAccessTextField extends JPlaceholderTextField {
 
 		if (executor==null) {
 			final int coreCount=Runtime.getRuntime().availableProcessors();
-			executor=new ThreadPoolExecutor(coreCount,coreCount,2,TimeUnit.SECONDS,new LinkedBlockingQueue<>(),new ThreadFactory() {
-				@Override
-				public Thread newThread(Runnable r) {
-					return new Thread(r,"QuickAccess");
-				}
-			});
+			executor=new ThreadPoolExecutor(coreCount,coreCount,2,TimeUnit.SECONDS,new LinkedBlockingQueue<>(),(ThreadFactory)r->new Thread(r,"QuickAccess"));
 			((ThreadPoolExecutor)executor).allowCoreThreadTimeOut(true);
 		}
 		executor.execute(lastRunner);

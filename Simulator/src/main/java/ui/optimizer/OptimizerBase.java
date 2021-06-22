@@ -359,7 +359,7 @@ public abstract class OptimizerBase {
 	 * @author Alexander Herzog
 	 * @see OptimizerBase#getResults()
 	 */
-	public class OptimizationRunResults {
+	public static class OptimizationRunResults {
 		/**
 		 * Ergebnisse der aktuellen Runde
 		 */

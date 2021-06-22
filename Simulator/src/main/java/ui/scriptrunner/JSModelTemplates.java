@@ -307,7 +307,7 @@ public class JSModelTemplates {
 	/**
 	 * Skript-Vorlagen-Datensatz
 	 */
-	private class Record {
+	private static class Record {
 		/** Name der Vorlage */
 		public final String name;
 		/** Skriptcode der Vorlage */

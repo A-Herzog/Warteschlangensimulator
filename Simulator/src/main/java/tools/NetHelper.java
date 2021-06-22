@@ -31,9 +31,7 @@ import java.security.cert.X509Certificate;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.HttpsURLConnection;
-import javax.net.ssl.SSLSession;
 
 /**
  * Diese Klasse bietet Hilfsroutinen zur Herstellung von Netzwerkverbindungen an.
@@ -130,12 +128,7 @@ public class NetHelper {
 				final HttpsURLConnection https=(HttpsURLConnection)connect;
 
 				/* Hostname prüfen */
-				https.setHostnameVerifier(new HostnameVerifier() {
-					@Override
-					public boolean verify(String hostname, SSLSession session) {
-						return true;
-					}
-				});
+				https.setHostnameVerifier((hostname, session)->true);
 			}
 
 			/* Verbindung öffnen */

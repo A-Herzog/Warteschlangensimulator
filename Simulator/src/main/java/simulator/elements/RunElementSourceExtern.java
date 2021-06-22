@@ -401,7 +401,7 @@ public abstract class RunElementSourceExtern extends RunElement implements RunSo
 	 * @see RunElementSourceExtern#loadTable(Table, List, boolean)
 	 * @see RunElementSourceExtern#processArrivalEvent(SimulationData, boolean, int)
 	 */
-	private class Arrival {
+	private static class Arrival {
 		/** Ankunftszeit in MS */
 		public final long time;
 		/** Kundendatenfelder-Indices für die Zuweisungen der Ergebnisse von {@link #dataFormula} (Werte &ge;0 für Datenfelder, -1=w, -2=t, -3=p, -4=wKosten, -5=tKosten, -6=pKosten */

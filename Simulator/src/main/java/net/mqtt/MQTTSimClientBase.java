@@ -23,9 +23,7 @@ import java.security.cert.X509Certificate;
 import java.util.List;
 
 import javax.net.SocketFactory;
-import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.SSLContext;
-import javax.net.ssl.SSLSession;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
 
@@ -147,7 +145,7 @@ public abstract class MQTTSimClientBase {
 				if (broker.secured!=MQTTBrokerURL.SecurityMode.ON_NO_VALIDATION) {
 					options.setHttpsHostnameVerificationEnabled(false);
 				}
-				options.setSSLHostnameVerifier(new HostnameVerifier() {@Override public boolean verify(String hostname, SSLSession session) {return true;}});
+				options.setSSLHostnameVerifier((hostname, session)->true);
 			}
 
 			mqtt.connect(options);

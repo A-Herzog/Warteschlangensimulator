@@ -982,7 +982,7 @@ public class ListPopup {
 	 * der die Auswahl von Statistikdaten (im Skript-Kontext) ermöglicht.
 	 * @author Alexander Herzog
 	 */
-	public class ScriptHelperRecord {
+	public static class ScriptHelperRecord {
 		/**
 		 * Vollständiger Name
 		 */
@@ -1059,7 +1059,7 @@ public class ListPopup {
 	 * Hält die Daten für ein Untermenü für das Popupmenü vor.
 	 * @see ListPopup#addSub(JMenu, ScriptHelperSub, Consumer)
 	 */
-	private class ScriptHelperSub {
+	private static class ScriptHelperSub {
 		/** Name des Untermenüs */
 		public final String title;
 		/** Tooltip für das Untermenü */

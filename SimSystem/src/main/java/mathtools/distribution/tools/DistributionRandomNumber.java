@@ -185,7 +185,7 @@ public final class DistributionRandomNumber {
 			final double alpha=((GammaDistribution)distribution).getShape();
 			final double beta=((GammaDistribution)distribution).getScale();
 			if (Math.abs(alpha-1)<0.00000001) {
-				/* Ist Exp-Verteilung mit E=1/beta */
+				/* Ist Exp-Verteilung mit E=1/(1/beta) */
 				return -Math.log(1-generator.nextDouble())*beta; /* StrictMath.log ist schneller als FastMath. Math.log laut Code StrictMath.log auf, aber in Wirklichkeit scheint hier der Compiler Magic zu machen, so dass Math.log schneller ist. */
 			}
 			return randomGammaDirect(alpha,beta);

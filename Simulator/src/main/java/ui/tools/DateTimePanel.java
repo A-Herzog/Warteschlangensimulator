@@ -91,7 +91,7 @@ public class DateTimePanel extends JPanel {
 	 * Klasse zur Formatierung von Datumsangaben
 	 * @see JDatePickerImpl
 	 */
-	private class DateLabelFormatter extends AbstractFormatter {
+	private static class DateLabelFormatter extends AbstractFormatter {
 		/**
 		 * Serialisierungs-ID der Klasse
 		 * @see Serializable

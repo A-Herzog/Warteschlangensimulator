@@ -197,7 +197,7 @@ public class MJPEGGenerator {
 	/**
 	 * AVI-Datenblock "RIFF" (RIFF-Datenkopf)
 	 */
-	private class RIFFHeader
+	private static class RIFFHeader
 	{
 		/** Kennung für den Datenblock */
 		public byte[] fcc = new byte[]{'R','I','F','F'};
@@ -297,7 +297,7 @@ public class MJPEGGenerator {
 	/**
 	 * AVI-Datenblock "LIST" (Stream-Liste)
 	 */
-	private class AVIStreamList
+	private static class AVIStreamList
 	{
 		/** Kennung für den Datenblock */
 		public byte[] fcc = new byte[]{'L','I','S','T'};
@@ -471,7 +471,7 @@ public class MJPEGGenerator {
 	/**
 	 * AVI-Datenblock für die Film-Liste
 	 */
-	private class AVIMovieList
+	private static class AVIMovieList
 	{
 		/** Kennung für den Datenblock */
 		public byte[] fcc = new byte[]{'L','I','S','T'};
@@ -542,7 +542,7 @@ public class MJPEGGenerator {
 	/**
 	 * AVI-Datenblock für den Index
 	 */
-	private class AVIIndex
+	private static class AVIIndex
 	{
 		/** Kennung für den Datenblock */
 		public byte[] fcc = new byte[]{'0','0','d','b'};
@@ -571,7 +571,7 @@ public class MJPEGGenerator {
 	/**
 	 * AVI-Datenblock "JUNK"
 	 */
-	private class AVIJunk
+	private static class AVIJunk
 	{
 		/** Kennung für den Datenblock */
 		public byte[] fcc = new byte[]{'J','U','N','K'};

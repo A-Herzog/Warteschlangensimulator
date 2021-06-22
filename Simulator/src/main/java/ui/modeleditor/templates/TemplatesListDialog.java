@@ -287,7 +287,7 @@ public final class TemplatesListDialog extends BaseDialog {
 	/**
 	 * Datensatz zu einer Vorlage
 	 */
-	private class ListRecord {
+	private static class ListRecord {
 		/** Vorlage */
 		public UserTemplate template;
 		/** Globale Vorlage (<code>true</code>) oder modellspezifisch (<code>false</code>)? */

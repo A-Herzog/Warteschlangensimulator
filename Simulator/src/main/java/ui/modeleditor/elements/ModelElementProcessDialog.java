@@ -19,8 +19,6 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.FlowLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.Serializable;
@@ -162,13 +160,10 @@ public class ModelElementProcessDialog extends ModelElementBaseDialog {
 		timeBase[index].setSelectedIndex(((ModelElementProcess)element).getTimeBase().id);
 		label.setLabelFor(timeBase[index]);
 
-		timeBase[index].addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				if (!(e.getSource() instanceof JComboBox<?>)) return;
-				final int index=((JComboBox<String>)e.getSource()).getSelectedIndex();
-				for (int i=0;i<timeBase.length;i++) if (timeBase[i]!=null && timeBase[i].getSelectedIndex()!=index) timeBase[i].setSelectedIndex(index);
-			}
+		timeBase[index].addActionListener(e-> {
+			if (!(e.getSource() instanceof JComboBox<?>)) return;
+			final int index1=((JComboBox<String>)e.getSource()).getSelectedIndex();
+			for (int i=0;i<timeBase.length;i++) if (timeBase[i]!=null && timeBase[i].getSelectedIndex()!=index1) timeBase[i].setSelectedIndex(index1);
 		});
 
 		return sub;

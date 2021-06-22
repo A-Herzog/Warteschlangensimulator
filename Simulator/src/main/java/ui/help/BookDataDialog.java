@@ -355,7 +355,7 @@ public class BookDataDialog extends BaseDialog {
 
 	@Override
 	public void setVisible(boolean b) {
-		if (b==false) timer.stop();
+		if (!b) timer.stop();
 		super.setVisible(b);
 	}
 

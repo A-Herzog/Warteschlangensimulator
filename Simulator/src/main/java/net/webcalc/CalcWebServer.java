@@ -102,12 +102,7 @@ public class CalcWebServer extends WebServer {
 		list=new ArrayList<>();
 		this.model=model;
 
-		executor=new ThreadPoolExecutor(0,1,5000,TimeUnit.MILLISECONDS,new LinkedBlockingQueue<>(),new ThreadFactory() {
-			@Override
-			public Thread newThread(Runnable r) {
-				return new Thread(r,"WebSim Request Processor");
-			}
-		});
+		executor=new ThreadPoolExecutor(0,1,5000,TimeUnit.MILLISECONDS,new LinkedBlockingQueue<>(),(ThreadFactory)r->new Thread(r,"WebSim Request Processor"));
 
 		idCounter=0;
 

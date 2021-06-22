@@ -282,7 +282,7 @@ public class ModelDescriptionBuilderTable extends ModelDescriptionBuilder {
 	 * Tabellendaten zu einer einzelnen Station
 	 * @see ModelDescriptionBuilderTable#tables
 	 */
-	private class StationTable {
+	private static class StationTable {
 		/** Name der Station */
 		public final String name;
 		/** Eigenschaften der Station */

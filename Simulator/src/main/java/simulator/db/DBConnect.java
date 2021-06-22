@@ -605,7 +605,7 @@ public class DBConnect implements Closeable {
 	/**
 	 * Iterator-Klasse für {@link Double}-Werte aus einer Tabellenspalte
 	 */
-	private class TableReadDoubleIterator implements Iterator<Double> {
+	private static class TableReadDoubleIterator implements Iterator<Double> {
 		/** SQL-Antwort */
 		private final ResultSet result;
 		/** Liste mit allen in der Tabelle vorhandenen Spaltennamen */
@@ -720,7 +720,7 @@ public class DBConnect implements Closeable {
 	/**
 	 * Iterator-Klasse für {@link String}-Werte aus einer Tabellenspalte
 	 */
-	private class TableReadStringIterator implements Iterator<String> {
+	private static class TableReadStringIterator implements Iterator<String> {
 		/** SQL-Antwort */
 		private final ResultSet result;
 		/** Liste mit allen in der Tabelle vorhandenen Spaltennamen */

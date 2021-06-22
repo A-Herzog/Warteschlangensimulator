@@ -373,7 +373,7 @@ public class SimpleParser extends CalcSystemBase {
 	 * @see VariableSymbol
 	 * @see FunctionSymbol
 	 */
-	private abstract class Symbol {
+	private abstract static class Symbol {
 		/**
 		 * Führt die eigentliche Berechnung durch.
 		 * @param variableValues	Liste mit den Werten der Variablen.

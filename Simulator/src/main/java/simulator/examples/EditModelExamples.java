@@ -384,9 +384,7 @@ public class EditModelExamples {
 		final String saveLanguage=setup.language;
 
 		final String[] names=Language.getLanguages();
-		final Runnable[] changers=Arrays.asList(names).stream().map(name->new Runnable() {
-			@Override public void run() {setup.setLanguage(name);}
-		}).toArray(Runnable[]::new);
+		final Runnable[] changers=Arrays.asList(names).stream().map(name->(Runnable)()->setup.setLanguage(name)).toArray(Runnable[]::new);
 		runLanguageTest(names,changers);
 
 		setup.setLanguage(saveLanguage);

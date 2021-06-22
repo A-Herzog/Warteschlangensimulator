@@ -67,6 +67,7 @@ public class ModelElementSubIn extends ModelElementSubConnect implements ModelEl
 		if (connectionStationID<0) setName(Language.tr("Surface.SubConnect.NotConnected")); else setName(Language.tr("Surface.SubConnect.FromID")+"="+connectionStationID);
 	}
 
+	@Override
 	public void updateName() {
 		if (connectionStationID<0) setName(Language.tr("Surface.SubConnect.NotConnected")); else setName(Language.tr("Surface.SubConnect.FromID")+"="+connectionStationID);
 	}

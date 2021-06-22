@@ -791,7 +791,7 @@ public final class CreateSankey extends BaseDialog {
 	/**
 	 * Renderer für die Auswahlliste der Stationen
 	 */
-	private class JCheckBoxCellRenderer implements ListCellRenderer<JCheckBox> {
+	private static class JCheckBoxCellRenderer implements ListCellRenderer<JCheckBox> {
 		@Override
 		public Component getListCellRendererComponent(JList<? extends JCheckBox> list, JCheckBox value, int index, boolean isSelected, boolean cellHasFocus) {
 			value.setForeground(list.getForeground());

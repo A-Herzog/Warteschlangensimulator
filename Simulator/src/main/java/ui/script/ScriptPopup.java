@@ -486,7 +486,7 @@ public class ScriptPopup {
 		group.addChild(new ScriptPopupItemCommand(Language.tr("ScriptPopup.Simulation.MapGlobal"),Language.tr("ScriptPopup.Simulation.MapGlobal.Hint"),Images.SCRIPT_MAP.getIcon(),systemMapGlobal));
 
 		group.addSeparator();
-		
+
 		/* Simulation abbrechen */
 
 		group.addChild(new ScriptPopupItemCommand(Language.tr("ScriptPopup.Simulation.TerminateSimulation"),Language.tr("ScriptPopup.Simulation.TerminateSimulation.Hint"),Images.GENERAL_CANCEL.getIcon(),systemTerminateSimulation));

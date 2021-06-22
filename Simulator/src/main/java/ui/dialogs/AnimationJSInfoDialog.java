@@ -75,7 +75,7 @@ public class AnimationJSInfoDialog extends BaseDialog {
 	/**
 	 * Renderer für einen einzelnen Eintrag in der Liste der JS-Ergebnisse.
 	 */
-	private class JSDataListCellRenderer implements ListCellRenderer<CallbackLoggerWithJS.JSData> {
+	private static class JSDataListCellRenderer implements ListCellRenderer<CallbackLoggerWithJS.JSData> {
 		/**
 		 * Standard-Zellen-Renderer;
 		 * wird in {@link #getListCellRendererComponent(JList, JSData, int, boolean, boolean)} angepasst.

@@ -60,7 +60,6 @@ import org.eclipse.jgit.transport.PushResult;
 import org.eclipse.jgit.transport.RemoteRefUpdate;
 import org.eclipse.jgit.transport.SshSessionFactory;
 import org.eclipse.jgit.transport.SshTransport;
-import org.eclipse.jgit.transport.Transport;
 import org.eclipse.jgit.transport.URIish;
 import org.eclipse.jgit.transport.UsernamePasswordCredentialsProvider;
 import org.eclipse.jgit.util.FS;
@@ -601,12 +600,9 @@ public class SimpleGitWorker implements Closeable {
 			}
 		};
 
-		return new TransportConfigCallback() {
-			@Override
-			public void configure(final Transport transport) {
-				final SshTransport sshTransport=(SshTransport)transport;
-				sshTransport.setSshSessionFactory(sshSessionFactory);
-			}
+		return transport-> {
+			final SshTransport sshTransport=(SshTransport)transport;
+			sshTransport.setSshSessionFactory(sshSessionFactory);
 		};
 	}
 
