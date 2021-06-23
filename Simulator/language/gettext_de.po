@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-06-19 21:03+0200\n"
+"POT-Creation-Date: 2021-06-23 10:00+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19589,6 +19589,9 @@ msgstr "System"
 
 msgid "Statistics.SystemData"
 msgstr "Systemdaten"
+
+msgid "Statistics.SystemData.ClientsPerSecond"
+msgstr "Kunden pro Sekunde"
 
 msgid "Statistics.SystemData.EditUser"
 msgstr "Autor des Modells"

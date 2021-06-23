@@ -12190,6 +12190,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[27635] = "waiting time";
     t[27636] = "Editor.SavedViews.Add.ErrorNameInUse";
     t[27637] = "The name \"%s\" is already in use for a view.";
+    t[27646] = "Statistics.SystemData.ClientsPerSecond";
+    t[27647] = "Clients per second";
     t[27648] = "ParameterCompare.Settings.Input.List.Delete";
     t[27649] = "Delete";
     t[27660] = "Simulation.Log.MatchDisposeClient";
@@ -14044,14 +14046,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[31969] = "The model will be simulated %d times.";
     t[31976] = "Optimizer.Error.CouldNotStart";
     t[31977] = "Could not start optimization";
-    t[31982] = "Surface.Resource.ErrorFailureNumber";
-    t[31983] = "The specified value \"%s\" for the number of clients to be served before a failure occures for the resource type \"%s\" is invalid. A positive integer number has to be entered.";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_7 (java.lang.String[] t) {
+    t[31982] = "Surface.Resource.ErrorFailureNumber";
+    t[31983] = "The specified value \"%s\" for the number of clients to be served before a failure occures for the resource type \"%s\" is invalid. A positive integer number has to be entered.";
     t[31984] = "Surface.Decide.XML.Mode.ByClientsAtStationNext";
     t[31985] = "MinimumN";
     t[31986] = "Surface.Conveyor.Dialog.AnimationDirection.RightToLeft";
@@ -16050,14 +16052,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[36513] = "Count";
     t[36518] = "Surface.SourceDB.Dialog.ColumnClientType.ErrorInfo";
     t[36519] = "No table column which contains the names of the client types has been selected.";
-    t[36520] = "Simulation.Creator.UnknownTransporterName";
-    t[36521] = "At element id=%d the undefined transporter type \"%s\" is used.";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_8 (java.lang.String[] t) {
+    t[36520] = "Simulation.Creator.UnknownTransporterName";
+    t[36521] = "At element id=%d the undefined transporter type \"%s\" is used.";
     t[36522] = "SimulationServer.Toolbar.MQTTStop.Hint";
     t[36523] = "Stops the MQTT client";
     t[36528] = "Surface.InputDDE.XML.EofMode.DefaultValue";
@@ -18056,14 +18058,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[41187] = "Status of connection";
     t[41188] = "Surface.SourceTable.Dialog.ClientTypes";
     t[41189] = "Load client types from table";
-    t[41190] = "Simulation.Creator.InvalidMatchPropertyIndex";
-    t[41191] = "At station id=%d the invalid client data index %d was specified for the client data matching. A non-negative integer number has to be specified.";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_9 (java.lang.String[] t) {
+    t[41190] = "Simulation.Creator.InvalidMatchPropertyIndex";
+    t[41191] = "At station id=%d the invalid client data index %d was specified for the client data matching. A non-negative integer number has to be specified.";
     t[41192] = "Surface.SourceDB.Name";
     t[41193] = "Database source";
     t[41194] = "Simulation.Creator.Action.ErrorUnknownTrigger";
@@ -20062,14 +20064,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[45861] = "Standard deviation of the residence times";
     t[45864] = "Surface.Delay.Dialog.DelayTimeIs";
     t[45865] = "Delay time is";
-    t[45872] = "ExpressionBuilder.SimulationCharacteristics.TransporterUtilization.HistogramSingle";
-    t[45873] = "<p>Returns the fraction of time, at which the number of busy transporters of the type whos group ID is specified had a specified value.</p>";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_10 (java.lang.String[] t) {
+    t[45872] = "ExpressionBuilder.SimulationCharacteristics.TransporterUtilization.HistogramSingle";
+    t[45873] = "<p>Returns the fraction of time, at which the number of busy transporters of the type whos group ID is specified had a specified value.</p>";
     t[45876] = "Main.Menu.File.Quit.Mnemonic";
     t[45877] = "Q";
     t[45878] = "SystemInfo.UserDefinedCode";

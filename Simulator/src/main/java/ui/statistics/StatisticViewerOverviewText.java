@@ -1691,6 +1691,7 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 	 * @see Mode#MODE_SYSTEM_INFO
 	 */
 	private void buildSystemInfo() {
+		/* Basisdaten */
 		addHeading(1,Language.tr("Statistics.SystemData"));
 		beginParagraph();
 		addLine(Language.tr("Statistics.SystemData.Version")+": "+statistics.editModel.version);
@@ -1703,6 +1704,7 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 		addLine(Language.tr("Statistics.SystemData.RunUser")+": "+statistics.simulationData.runUser);
 		endParagraph();
 
+		/* Laufzeit */
 		beginParagraph();
 		addLine(Language.tr("Statistics.SystemData.RunTime")+": "+NumberTools.formatLong(statistics.simulationData.runTime)+" ms");
 		final DataDistributionImpl threads=new DataDistributionImpl(1000,statistics.simulationData.threadRunTimes);
@@ -1719,12 +1721,14 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 		if (statistics.simulationData.numaAwareMode) addLine(Language.tr("Statistics.SystemData.NUMAMode"));
 		endParagraph();
 
+		/* Kunden */
 		beginParagraph();
 		long sum=0;
 		for (StatisticsDataPerformanceIndicator indicator: (StatisticsDataPerformanceIndicator[])statistics.clientsInterarrivalTime.getAll(StatisticsDataPerformanceIndicator.class)) sum+=indicator.getCount();
 		addLine(Language.tr("Statistics.SystemData.SimulatedArrivals")+": "+NumberTools.formatLong(sum));
 		String s;
 		if (sum>0) {
+			addLine(Language.tr("Statistics.SystemData.ClientsPerSecond")+": "+NumberTools.formatLong(sum*1000/statistics.simulationData.runTime));
 			double d=((double)statistics.simulationData.runTime)*statistics.simulationData.runThreads/sum;
 			s=NumberTools.formatNumber(d,2);
 			if (s.equals("0")) {
