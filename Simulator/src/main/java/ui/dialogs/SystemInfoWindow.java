@@ -644,6 +644,13 @@ public class SystemInfoWindow extends JFrame {
 			}
 		});
 
+		/* Thread-Anzahl abhängige Leistung ermitteln */
+
+		menu.addSeparator();
+
+		menu.add(item=new JMenuItem(Language.tr("ThreadCalibration.Menu"),Images.SIMULATION.getIcon()));
+		item.addActionListener(e->new ThreadCalibrationDialog(this,null));
+
 		menu.show(parent,0,parent.getHeight());
 	}
 

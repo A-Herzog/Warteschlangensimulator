@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-06-23 10:00+0200\n"
+"POT-Creation-Date: 2021-06-24 14:15+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -14458,9 +14458,6 @@ msgstr "Ungültige Bildgröße angegeben"
 
 msgid "SettingsDialog.JDK.Info"
 msgstr "Empfohlene Download-Adresse für Java-Laufzeitumgebungen"
-
-msgid "SettingsDialog.JDK.Link"
-msgstr "https://adoptopenjdk.net/"
 
 msgid "SettingsDialog.JSEngine"
 msgstr "Bevorzugte Javascript-Umgebung"
@@ -29858,6 +29855,66 @@ msgstr "Die angegebene Endzelle \"%s\" ist ungültig."
 msgid "Table.TableFileTableName"
 msgstr "Daten"
 
+msgid "ThreadCalibration.Dialog.CopyResults"
+msgstr "Ergebnisse kopieren"
+
+msgid "ThreadCalibration.Dialog.ModelToUse"
+msgstr "Zu verwendendes Modell"
+
+msgid "ThreadCalibration.Dialog.ModelToUse.CallcenterExampleModel"
+msgstr "Callcenter-Beispielmodell"
+
+msgid "ThreadCalibration.Dialog.ModelToUse.CurrentModelInEditor"
+msgstr "Aktuelles Modell aus dem Editor"
+
+msgid "ThreadCalibration.Dialog.RunTime"
+msgstr "Ungefähre Gesamtlaufzeit der Analyse"
+
+msgid "ThreadCalibration.Dialog.RunTime.Info"
+msgstr "Je länger die Laufzeit gewählt wird, desto präziser sind die Ergebnisse."
+
+msgid "ThreadCalibration.Dialog.Start"
+msgstr "Start"
+
+msgid "ThreadCalibration.Dialog.Title"
+msgstr "Thread-anzahlabhängige Leistung ermitteln"
+
+msgid "ThreadCalibration.Menu"
+msgstr "Thread-anzahlabhängige Leistung ermitteln..."
+
+msgid "ThreadCalibration.Results.ClientsPerSecond"
+msgstr "Kunden/Sekunde"
+
+msgid "ThreadCalibration.Results.NumberOfThreads"
+msgstr "Anzahl Threads"
+
+msgid "ThreadCalibration.Status.Canceled"
+msgstr "Kalibrierung abgebrochen."
+
+msgid "ThreadCalibration.Status.CoolDown"
+msgstr "CPU-Abkühlphase (%d Sekunden)"
+
+msgid "ThreadCalibration.Status.Done"
+msgstr "Kalibrierung erfolgreich abgeschlossen."
+
+msgid "ThreadCalibration.Status.NumberOfArrivals"
+msgstr "Verwendung des Modells mit %s Ankünften"
+
+msgid "ThreadCalibration.Status.Precompiling"
+msgstr "Vorabkompilierung der Simulationsklassen"
+
+msgid "ThreadCalibration.Status.Runtime"
+msgstr "Laufzeit: %d Sekunden, Kunden/Sekunde: %s"
+
+msgid "ThreadCalibration.Status.Start"
+msgstr "Thread-Anzahl Kalibrierung gestartet."
+
+msgid "ThreadCalibration.Status.StartSimulation"
+msgstr "Simulation des Modells mit %d Threads und %s Ankünften"
+
+msgid "ThreadCalibration.Status.WarningThreadNumberMismatch"
+msgstr "Warnung: Für die Simulation wurden %d Threads eingestellt, aber es wurden nur %d verwendet."
+
 msgid "Transporter.Failure.Add"
 msgstr "Ausfall hinzufügen"
 
@@ -30736,9 +30793,6 @@ msgstr ""
 msgid "Window.JavaSecurityWarnung"
 msgstr "Die von Ihnen verwendete Java-Version ist veraltet und enthält möglicherweise Sicherheitslücken. Update:"
 
-msgid "Window.JavaSecurityWarnung.Link"
-msgstr "https://adoptopenjdk.net/"
-
 msgid "Window.LanguageAutomatic"
 msgstr "Die Programmsprache wurde passend zur Betriebssystemsprache auf <b>Deutsch</b> eingestellt. Sie können dies über <b>Datei|Einstellungen</b> verändern."
 
@@ -31160,6 +31214,9 @@ msgstr "Das Dateiformat wurde nicht erkannt bzw. passt zu keinem Dateiformat die
 #~ msgid "ScriptPopup.Runtime.MapLocal.Hint"
 #~ msgstr "Liefert die stations-lokale Zuordnung zur Speicherung beliebiger Werte."
 
+#~ msgid "SettingsDialog.JDK.Link"
+#~ msgstr "https://adoptopenjdk.net/"
+
 #~ msgid "SettingsDialog.Tabs.License"
 #~ msgstr "Lizenz"
 
@@ -31296,6 +31353,9 @@ msgstr "Das Dateiformat wurde nicht erkannt bzw. passt zu keinem Dateiformat die
 #~ "Die Modell-Übersicht\n"
 #~ "%s\n"
 #~ "konnte nicht aufgerufen werden."
+
+#~ msgid "Window.JavaSecurityWarnung.Link"
+#~ msgstr "https://adoptopenjdk.net/"
 
 #~ msgid "Window.Layers.Rename.ErrorInfo"
 #~ msgstr "Der angegebene neue Name für die Ebene wird bereits für eine andere Ebene verwendet."

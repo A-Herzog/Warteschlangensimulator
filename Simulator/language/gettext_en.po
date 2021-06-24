@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-06-23 10:00+0200\n"
+"POT-Creation-Date: 2021-06-24 14:15+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -14458,9 +14458,6 @@ msgstr "Invalid image size entered"
 
 msgid "SettingsDialog.JDK.Info"
 msgstr "Recommended download address for Java runtime environments"
-
-msgid "SettingsDialog.JDK.Link"
-msgstr "https://adoptopenjdk.net/"
 
 msgid "SettingsDialog.JSEngine"
 msgstr "Preferred Javascript engine"
@@ -29845,6 +29842,66 @@ msgstr "The given end cell \"%s\" is invalid."
 msgid "Table.TableFileTableName"
 msgstr "Data"
 
+msgid "ThreadCalibration.Dialog.CopyResults"
+msgstr "Copy results"
+
+msgid "ThreadCalibration.Dialog.ModelToUse"
+msgstr "Model to use"
+
+msgid "ThreadCalibration.Dialog.ModelToUse.CallcenterExampleModel"
+msgstr "Call center example model"
+
+msgid "ThreadCalibration.Dialog.ModelToUse.CurrentModelInEditor"
+msgstr "Current model in editor"
+
+msgid "ThreadCalibration.Dialog.RunTime"
+msgstr "Approximate total runtime of the analysis"
+
+msgid "ThreadCalibration.Dialog.RunTime.Info"
+msgstr "The longer the runtime is selected, the more precise the results."
+
+msgid "ThreadCalibration.Dialog.Start"
+msgstr "Start"
+
+msgid "ThreadCalibration.Dialog.Title"
+msgstr "Calculate number of threads dependent performance"
+
+msgid "ThreadCalibration.Menu"
+msgstr "Calculate number of threads dependent performance..."
+
+msgid "ThreadCalibration.Results.ClientsPerSecond"
+msgstr "Clients/second"
+
+msgid "ThreadCalibration.Results.NumberOfThreads"
+msgstr "Number of threads"
+
+msgid "ThreadCalibration.Status.Canceled"
+msgstr "Calibration canceled."
+
+msgid "ThreadCalibration.Status.CoolDown"
+msgstr "CPU cool down phase (%d seconds)"
+
+msgid "ThreadCalibration.Status.Done"
+msgstr "Calibration successfully finished."
+
+msgid "ThreadCalibration.Status.NumberOfArrivals"
+msgstr "Using model with %s arrivals"
+
+msgid "ThreadCalibration.Status.Precompiling"
+msgstr "Precompiling simulation classes"
+
+msgid "ThreadCalibration.Status.Runtime"
+msgstr "Runtime: %d seconds, clients/second: %s"
+
+msgid "ThreadCalibration.Status.Start"
+msgstr "Thread number calibation started."
+
+msgid "ThreadCalibration.Status.StartSimulation"
+msgstr "Simulating model using %d threads and %s arrivals"
+
+msgid "ThreadCalibration.Status.WarningThreadNumberMismatch"
+msgstr "Warning: Simulation was set up to use %d threads, but %d threads were used."
+
 msgid "Transporter.Failure.Add"
 msgstr "Add failure"
 
@@ -30721,9 +30778,6 @@ msgstr ""
 msgid "Window.JavaSecurityWarnung"
 msgstr "The Java version you ware using is outdated and may be contains security vulnerabilities. Update:"
 
-msgid "Window.JavaSecurityWarnung.Link"
-msgstr "https://adoptopenjdk.net/"
-
 msgid "Window.LanguageAutomatic"
 msgstr "The program language was set to <b>English</b>. You can change this via <b>File|Preferences</b>."
 
@@ -31123,6 +31177,9 @@ msgstr "The file format is unknown respectively is not matching to any of the fi
 #~ msgid "ScriptPopup.Runtime.MapLocal.Hint"
 #~ msgstr "Returns the station local map for storing any values."
 
+#~ msgid "SettingsDialog.JDK.Link"
+#~ msgstr "https://adoptopenjdk.net/"
+
 #~ msgid "SettingsDialog.Tabs.License"
 #~ msgstr "License"
 
@@ -31258,6 +31315,9 @@ msgstr "The file format is unknown respectively is not matching to any of the fi
 #~ msgstr ""
 #~ "Unable to open the model overview\n"
 #~ "%s."
+
+#~ msgid "Window.JavaSecurityWarnung.Link"
+#~ msgstr "https://adoptopenjdk.net/"
 
 #~ msgid "Window.Layers.Rename.ErrorInfo"
 #~ msgstr "The specified new name for the layer is already in use by another layer."
