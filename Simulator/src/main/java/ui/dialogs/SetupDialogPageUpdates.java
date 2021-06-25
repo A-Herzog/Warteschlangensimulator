@@ -79,12 +79,12 @@ public class SetupDialogPageUpdates extends SetupDialogPage {
 		/* Update URL */
 		line=addLine();
 		line.add(new JLabel(Language.tr("SettingsDialog.JDK.Info")+": "));
-		line.add(label=new JLabel("<html><body><a href=\""+Language.tr("SettingsDialog.JDK.Link")+"\">"+Language.tr("SettingsDialog.JDK.Link")+"</a></body></html>"));
+		line.add(label=new JLabel("<html><body><a href=\"https://"+MainPanel.JDK_URL+"\">https://"+MainPanel.JDK_URL+"</a></body></html>"));
 		label.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 		label.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(final MouseEvent e) {
-				if (SwingUtilities.isLeftMouseButton(e)) JOpenURL.open(SetupDialogPageUpdates.this,Language.tr("SettingsDialog.JDK.Link"));
+				if (SwingUtilities.isLeftMouseButton(e)) JOpenURL.open(SetupDialogPageUpdates.this,"https://"+MainPanel.JDK_URL);
 			}
 		});
 

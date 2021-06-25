@@ -248,6 +248,11 @@ public class MainPanel extends MainPanelBase {
 	public static final String UPDATE_API_URL="api.github.com/repos/A-Herzog/Warteschlangensimulator/releases/latest";
 
 	/**
+	 * Adresse zum Download von OpenJDK-Paketen
+	 */
+	public static final String JDK_URL="adoptopenjdk.net/";
+
+	/**
 	 * Programmversion
 	 */
 	public static final String VERSION="4.8.0";
@@ -1984,7 +1989,7 @@ public class MainPanel extends MainPanelBase {
 			if (ver[0]==15 && ver[1]<JAVA15_SECURE_MIN_VERSION) ok=false;
 			if (ver[0]==16 && ver[1]<JAVA16_SECURE_MIN_VERSION) ok=false;
 			if (ok) return;
-			setMessagePanel(Language.tr("Dialog.Title.Warning"),Language.tr("Window.JavaSecurityWarnung"),Language.tr("Window.JavaSecurityWarnung.Link"),MessagePanelIcon.WARNING);
+			setMessagePanel(Language.tr("Dialog.Title.Warning"),Language.tr("Window.JavaSecurityWarnung"),"https://"+MainPanel.JDK_URL,MessagePanelIcon.WARNING);
 			new Timer("HideSecurityInfoPanel").schedule(new TimerTask() {@Override public void run() {setMessagePanel(null,null,null);}},7500);
 		}
 	}
