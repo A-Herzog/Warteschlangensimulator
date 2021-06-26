@@ -338,7 +338,8 @@ public final class ExpressionCalculatorDialog extends BaseDialog {
 		final StringBuilder generalData=new StringBuilder();
 		generalData.append("<html><body>");
 
-		generalData.append(Language.tr("ExpressionBuilder.SimulationCharacteristics.CurrentTime")+": <b>"+StatisticTools.formatNumber(calc.apply("TNow()"))+"</b>\n");
+		d=calc.apply("TNow()");
+		generalData.append(Language.tr("ExpressionBuilder.SimulationCharacteristics.CurrentTime")+": <b>"+StatisticTools.formatNumber(d)+"</b> (<b>"+StatisticTools.formatExactTime(d)+"</b>)\n");
 		generalData.append("<br>\n");
 		generalData.append("<br>\n");
 
@@ -349,6 +350,7 @@ public final class ExpressionCalculatorDialog extends BaseDialog {
 		generalData.append("("+Language.tr("Statistics.Average")+": <b>"+StatisticTools.formatNumber(calc.apply("WIP_avg()"))+"</b>)");
 		generalData.append("<br>\n");
 		generalData.append("<br>\n");
+
 		d=calc.apply("Wartezeit_avg()");
 		generalData.append(Language.tr("ExpressionCalculator.Tab.Clients.AverageWaitingTime")+": <b>"+StatisticTools.formatNumber(d)+"</b> (<b>"+StatisticTools.formatExactTime(d)+"</b>)\n");
 		generalData.append("<br>\n");
@@ -362,6 +364,7 @@ public final class ExpressionCalculatorDialog extends BaseDialog {
 		generalData.append(Language.tr("ExpressionCalculator.Tab.Clients.ResidenceWaitingTime")+": <b>"+StatisticTools.formatNumber(d)+"</b> (<b>"+StatisticTools.formatExactTime(d)+"</b>)\n");
 		generalData.append("<br>\n");
 		generalData.append("<br>\n");
+
 		d=calc.apply("isWarmUp()");
 		generalData.append(Language.tr("ExpressionCalculator.Tab.Clients.SystemInWarmUpPhase")+": <b>"+((d>0)?Language.tr("Dialog.Button.Yes"):Language.tr("Dialog.Button.No"))+"</b>\n");
 		generalData.append("<br>\n");
