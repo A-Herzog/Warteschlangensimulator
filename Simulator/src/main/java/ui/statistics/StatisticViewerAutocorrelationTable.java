@@ -141,7 +141,7 @@ public class StatisticViewerAutocorrelationTable extends StatisticViewerTable {
 		if (individualData) {
 			final String[] col=new String[maxDistance.length+1];
 			col[0]=Language.tr("Statistics.Maximum");
-			for (int i=0;i<maxDistance.length;i++) col[i+1]=NumberTools.formatLong(maxDistance[i]);
+			for (int i=0;i<maxDistance.length;i++) col[i+1]=NumberTools.formatLongNoGrouping(maxDistance[i]);
 			table.addLine(col);
 		}
 
@@ -180,7 +180,7 @@ public class StatisticViewerAutocorrelationTable extends StatisticViewerTable {
 		final List<String> line=new ArrayList<>();
 		if (statistics.clientsAllWaitingTimes.isCorrelationAvailable()) {
 			final int length=statistics.clientsAllWaitingTimes.getCorrelationData().length;
-			for (int i=0;i<length;i++) line.add(NumberTools.formatLong(i*StatisticsDataPerformanceIndicator.CORRELATION_RANGE_STEPPING));
+			for (int i=0;i<length;i++) line.add(NumberTools.formatLongNoGrouping(i*StatisticsDataPerformanceIndicator.CORRELATION_RANGE_STEPPING));
 		}
 		table.addLine(line);
 
