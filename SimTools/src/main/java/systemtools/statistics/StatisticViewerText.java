@@ -146,6 +146,13 @@ public abstract class StatisticViewerText implements StatisticViewer {
 	private final boolean isDark;
 
 	/**
+	 * Maximalanzahl an zurück zu liefernden Suchtreffern
+	 * @see #search(Component)
+	 * @see #searchInElement(Element, String, List)
+	 */
+	private static final int MAX_SEARCH_HITS=1_000;
+
+	/**
 	 * Konstruktor der Klasse
 	 */
 	public StatisticViewerText() {
@@ -1583,8 +1590,11 @@ public abstract class StatisticViewerText implements StatisticViewer {
 	 * @see #getCaretPositions(String)
 	 */
 	private void searchInElement(final Element element, final String searchLower, final List<Integer> hits) {
+		if (hits.size()>=MAX_SEARCH_HITS) return;
+
 		for (int i=0;i<element.getElementCount();i++) {
 			searchInElement(element.getElement(i),searchLower,hits);
+			if (hits.size()>=MAX_SEARCH_HITS) return;
 		}
 
 		if (element instanceof LeafElement) {
@@ -1598,6 +1608,7 @@ public abstract class StatisticViewerText implements StatisticViewer {
 					index=textLower.indexOf(searchLower,index+1);
 					if (index<0) break;
 					hits.add(start+index);
+					if (hits.size()>=MAX_SEARCH_HITS) return;
 				}
 			} catch (BadLocationException e) {}
 		}
@@ -1651,7 +1662,7 @@ public abstract class StatisticViewerText implements StatisticViewer {
 		}
 
 		final String search=JOptionPane.showInputDialog(owner,StatisticsBasePanel.viewersToolbarSearchTitle);
-		if (search==null) {
+		if (search==null || search.trim().isEmpty()) {
 			textPane.getHighlighter().removeAllHighlights();
 			return;
 		}
