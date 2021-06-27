@@ -61,4 +61,22 @@ public interface RuntimeInterface {
 	 * @return	Returns the return code if successful, -1 otherwise
 	 */
 	int executeAndWait(final String commandLine);
+	
+		/**
+	 * Returns a station local data object for script data.<br>
+	 * This method should <b>not</b> be used from this interface.
+	 * This is a bug, but must be kept for compatibility with existing models.
+	 * The method of the same name in the {@link SystemInterface} should be used.
+	 * @return	Station local data object for script data
+	 */
+	Map<String,Object> getMapLocal();
+
+	/**
+	 * Returns the global data object for script data.<br>
+	 * This method should <b>not</b> be used from this interface.
+	 * This is a bug, but must be kept for compatibility with existing models.
+	 * The method of the same name in the {@link SystemInterface} should be used.
+	 * @return	Global data object for script data
+	 */
+	Map<String,Object> getMapGlobal();
 }

@@ -39,7 +39,7 @@ import simulator.simparser.ExpressionCalc;
  */
 public class SystemImpl implements SystemInterface {
 	/** Simulationsdatenobjekt, dessen Daten bereitgestellt werden sollen */
-	private final SimulationData simData;
+	public final SimulationData simData;
 	/** Laufzeitmodell */
 	private final RunModel runModel;
 	/** ID der aktuellen Station */

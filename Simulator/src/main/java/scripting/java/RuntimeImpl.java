@@ -28,6 +28,7 @@ import java.util.Map;
 import language.Language;
 import mathtools.NumberTools;
 import parser.MathCalcError;
+import simulator.runmodel.SimulationData;
 import simulator.simparser.ExpressionCalc;
 import tools.NetHelper;
 import tools.SetupData;
@@ -45,10 +46,19 @@ public class RuntimeImpl implements RuntimeInterface {
 	 */
 	private Map<String,ExpressionCalc> expressionCache;
 
+	/** Stationslokale Daten */
+	private final RuntimeData mapLocal;
+
+	/** Modellweite Daten */
+	private final Map<String,Object> mapGlobal;
+
 	/**
 	 * Konstruktor der Klasse
+	 * @param simData	Simulationsdatenobjekt, dessen Daten bereitgestellt werden sollen (wird nur für die globale Zuordnung verwendet)
 	 */
-	public RuntimeImpl() {
+	public RuntimeImpl(final SimulationData simData) {
+		mapLocal=new RuntimeData();
+		mapGlobal=(simData==null)?null:(simData.runData.getMapGlobal());
 	}
 
 	/**
@@ -154,5 +164,15 @@ public class RuntimeImpl implements RuntimeInterface {
 		} catch (IOException | InterruptedException e) {
 			return -1;
 		}
+	}
+
+	@Override
+	public Map<String,Object> getMapLocal() {
+		return mapLocal.get();
+	}
+
+	@Override
+	public Map<String,Object> getMapGlobal() {
+		return mapGlobal;
 	}
 }

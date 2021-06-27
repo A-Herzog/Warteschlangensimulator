@@ -168,7 +168,7 @@ public class ExternalConnect {
 		final RunRecord runRecord=getRunRecord(className,functionName);
 		if (runRecord==null) return null;
 
-		if (runtime==null) runtime=new RuntimeImpl();
+		if (runtime==null) runtime=new RuntimeImpl((systemData==null)?null:systemData.simData);
 
 		return runRecord.run(runtime,systemData,data);
 	}

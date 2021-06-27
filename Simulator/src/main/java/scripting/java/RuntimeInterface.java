@@ -15,6 +15,8 @@
  */
 package scripting.java;
 
+import java.util.Map;
+
 /**
  * Teil-Interface, damit Nutzer-Java-Codes auf allgemeine, simulationsunabhängige Daten zugreifen kann.
  * @author Alexander Herzog
@@ -62,4 +64,22 @@ public interface RuntimeInterface {
 	 * @return	Liefert im Erfolgsfall den Rückgabecode, sonst -1.
 	 */
 	int executeAndWait(final String commandLine);
+
+	/**
+	 * Liefert das Stations-lokales Datenobjekt für Skript-Daten.<br>
+	 * Diese Methode sollte <b>nicht</b> verwendet werden. Es handelt sich hier um einen Fehler,
+	 * der aber aus Kompatibilitätsgründen zu bestehenden Modellen beibehalten werden muss.
+	 * Es sollte die gleichnamige Methode im {@link SystemInterface} verwendet werden.
+	 * @return	Stations-lokales Datenobjekt für Skript-Daten
+	 */
+	Map<String,Object> getMapLocal();
+
+	/**
+	 * Liefert das globale Datenobjekt für über alle Stationen hinweg gemeinsam genutzte Skript-Daten.<br>
+	 * Diese Methode sollte <b>nicht</b> verwendet werden. Es handelt sich hier um einen Fehler,
+	 * der aber aus Kompatibilitätsgründen zu bestehenden Modellen beibehalten werden muss.
+	 * Es sollte die gleichnamige Methode im {@link SystemInterface} verwendet werden.
+	 * @return	Globales Datenobjekt für über alle Stationen hinweg gemeinsam genutzte Skript-Daten
+	 */
+	Map<String,Object> getMapGlobal();
 }
