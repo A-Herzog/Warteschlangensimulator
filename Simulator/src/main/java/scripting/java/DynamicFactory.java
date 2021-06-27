@@ -87,19 +87,18 @@ public final class DynamicFactory {
 	/**
 	 * Prüft ein Skript auf Korrektheit.
 	 * @param script	Zu prüfendes Skript
-	 * @param loadMethod	Nur Testen (<code>false</code>) oder im Erfolgsfall Methode auch laden (<code>true</code>)
 	 * @return	Ergebnis der Prüfung als {@link DynamicRunner}-Objekt
 	 */
-	private DynamicRunner testIntern(final String script, final boolean loadMethod) {
+	private DynamicRunner testIntern(final String script) {
+		final DynamicMethod cachedDynamicMethod=JavaCodeCache.getJavaCodeCache().getCachedMethod(script);
+		if (cachedDynamicMethod!=null) return new DynamicRunner(cachedDynamicMethod);
+
 		final DynamicMethod dynamicMethod=new DynamicMethod(setup,script);
-		if (loadMethod) {
-			final DynamicStatus status=dynamicMethod.load();
-			if (status!=DynamicStatus.OK) return new DynamicRunner(script,dynamicMethod.getFullClass(),status,dynamicMethod.getError());
-			return new DynamicRunner(dynamicMethod);
-		} else {
-			final DynamicStatus status=dynamicMethod.test();
-			return new DynamicRunner(script,dynamicMethod.getFullClass(),status,dynamicMethod.getError());
-		}
+
+		final DynamicStatus status=dynamicMethod.load();
+		if (status!=DynamicStatus.OK) return new DynamicRunner(script,dynamicMethod.getFullClass(),status,dynamicMethod.getError());
+		JavaCodeCache.getJavaCodeCache().storeMethod(script,dynamicMethod);
+		return new DynamicRunner(dynamicMethod);
 	}
 
 	/**
@@ -108,7 +107,7 @@ public final class DynamicFactory {
 	 * @return	Liefert das Skript-Objekt, welches ggf. einen Fehlerstatus besitzt, zurück
 	 */
 	public DynamicRunner test(final String script) {
-		return testIntern(script,true);
+		return testIntern(script);
 	}
 
 	/**
@@ -118,7 +117,7 @@ public final class DynamicFactory {
 	 * @return	Gibt im Erfolgsfall das Skript-Objekt zurück, sonst eine Fehlermeldung.
 	 */
 	public Object test(final String script, final boolean longMessage) {
-		final DynamicRunner runner=testIntern(script,true);
+		final DynamicRunner runner=testIntern(script);
 		if (runner.isOk()) return runner;
 		return getErrorMessage(runner,longMessage);
 	}
@@ -145,9 +144,13 @@ public final class DynamicFactory {
 	public DynamicRunner load(final String script) {
 		if (!hasCompiler()) return new DynamicRunner(script,script,DynamicStatus.NO_COMPILER,null);
 
+		final DynamicMethod cachedDynamicMethod=JavaCodeCache.getJavaCodeCache().getCachedMethod(script);
+		if (cachedDynamicMethod!=null) return new DynamicRunner(cachedDynamicMethod);
+
 		final DynamicMethod dynamicMethod=new DynamicMethod(setup,script);
 		final DynamicStatus status=dynamicMethod.load();
 		if (status!=DynamicStatus.OK) return new DynamicRunner(script,dynamicMethod.getFullClass(),status,dynamicMethod.getError());
+		JavaCodeCache.getJavaCodeCache().storeMethod(script,dynamicMethod);
 		return new DynamicRunner(dynamicMethod);
 	}
 
