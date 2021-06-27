@@ -343,7 +343,7 @@ public class ExpressionCalc extends CalcSystem {
 	public double calcOrDefault(double[] variableValues, final SimulationData simData, final RunDataClient client, final double fallbackValue) {
 		if (isConstValue()) return getConstValue();
 
-		if (simData!=null && (runElementData==null || runElements==null || this.simData!=simData)) {
+		if (simData!=null && (runElements==null || this.simData!=simData)) {
 			this.simData=simData;
 			prepareRunElementData();
 		}
