@@ -1045,7 +1045,9 @@ public class AnimationPanel extends JPanel implements RunModelAnimationViewer {
 	@Override
 	public boolean updateViewer(final SimulationData simData) {
 		synchronized(subViewers) {
-			for (RunModelAnimationViewer subViewer: subViewers) subViewer.updateViewer(simData);
+			if (subViewers.size()>0) { /* Andernfalls würde auch bei einer leeren SubViewer-Liste jedes Mal ein Iterator erstellt */
+				for (RunModelAnimationViewer subViewer: subViewers) subViewer.updateViewer(simData);
+			}
 		}
 		return updateViewer(simData,null,false);
 	}
@@ -1066,7 +1068,9 @@ public class AnimationPanel extends JPanel implements RunModelAnimationViewer {
 		surfaceAnimator.setSlowMode(running && delayInt>0 && (hasAnalogElements || hasConveyorElements) && setup.useSlowModeAnimation);
 
 		synchronized(subViewers) {
-			for (RunModelAnimationViewer subViewer: subViewers) subViewer.updateViewer(simData,client,moveByTransport);
+			if (subViewers.size()>0) { /* Andernfalls würde auch bei einer leeren SubViewer-Liste jedes Mal ein Iterator erstellt */
+				for (RunModelAnimationViewer subViewer: subViewers) subViewer.updateViewer(simData,client,moveByTransport);
+			}
 		}
 
 		surfacePanel.setAnimationSimulationData(simData,surfaceAnimator);
@@ -1119,7 +1123,9 @@ public class AnimationPanel extends JPanel implements RunModelAnimationViewer {
 		surfaceAnimator.setSlowMode(running && delayInt>0);
 
 		synchronized(subViewers) {
-			for (RunModelAnimationViewer subViewer: subViewers) subViewer.updateViewer(simData,transporter);
+			if (subViewers.size()>0) { /* Andernfalls würde auch bei einer leeren SubViewer-Liste jedes Mal ein Iterator erstellt */
+				for (RunModelAnimationViewer subViewer: subViewers) subViewer.updateViewer(simData,transporter);
+			}
 		}
 
 		surfacePanel.setAnimationSimulationData(simData,surfaceAnimator);
