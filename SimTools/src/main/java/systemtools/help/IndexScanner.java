@@ -89,7 +89,10 @@ class IndexScanner {
 			final Iterator<Path> iterator=walk.iterator();
 			while (iterator.hasNext()) {
 				final Path file=iterator.next();
-				final String name=file.getFileName().toString();
+				if (file==null) continue;
+				final Path fileName=file.getFileName();
+				if (fileName==null) continue;
+				final String name=fileName.toString();
 				if (!isScanFile(name)) continue;
 				final String text=String.join("\n",Files.lines(file,charset).toArray(String[]::new));
 				if (text!=null) index.scan(name,text);
