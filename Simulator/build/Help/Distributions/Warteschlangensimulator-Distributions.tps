@@ -17,7 +17,7 @@ Class=LaTeXView
 Document=Warteschlangensimulator-Distributions.tex
 
 [Frame0_View0,0]
-TopLine=400
+TopLine=399
 Cursor=10848
 
 [SessionInfo]

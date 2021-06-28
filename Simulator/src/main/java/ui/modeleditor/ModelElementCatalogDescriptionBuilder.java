@@ -919,7 +919,7 @@ public class ModelElementCatalogDescriptionBuilder {
 	 * Bei der Übertragung nicht zu berücksichtigende Links.
 	 * @see #buildLanguageLaTeX(String, String, PrintStream)
 	 */
-	private static final String[] removeRefsStatic=new String[]{"JS","Java","EditorModelDialog","PathEditorDialog","ModelElementEdge"};
+	private static final String[] removeRefsStatic=new String[]{"JS","Java","EditorModelDialog","PathEditorDialog","ModelElementEdge","ProcessClientTable","Notes"};
 
 	/**
 	 * Erstellt basierend auf den HTML-Hilfe-Seiten zu den Elementen eine LaTeX-Dokumentation

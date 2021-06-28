@@ -423,7 +423,7 @@ selektiv einzelne Kunden vor Ablauf ihrer angegebenen Verzögerungszeit freigege
 
 \item
 \cmd{ClientsInterface getDelayStationData(final int id)}:\\
-Liefert ein Objekt, welches \cm{ClientsInterface} implementiert und die Liste
+Liefert ein Objekt, welches das Interface \cm{ClientsInterface} implementiert und die Liste
 der Kunden an Verzögerungs-Station \cm{id} repräsentiert. Ist die ID ungültig
 so wird \cm{null} zurückgeliefert. 
 \end{itemize}
@@ -792,7 +792,7 @@ Gibt einen Tabulator aus.
 Setzt den Abbruch-Status. (Nach einem Abbruch werden Dateiausgaben nicht mehr ausgeführt.)
 
 \item
-\cmd{printlnDDE(final String workbook, final String table, final String cell, final Object obj)}:\\
+\cmd{printlnDDE(final String workbook, final String table, final String cell,\\final Object obj)}:\\
 Dieser  Befehl steht nur zur Verfügung, wenn DDE verfügbar ist, d.h. unter Windows.
 Er gibt den übergebenen Ausdruck per DDE in der angegebenen Tabelle in Excel aus.
 Zahlenwerte werden dabei gemäß den per \cm{setFormat} vorgenommenen Einstellungen formatiert.

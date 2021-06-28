@@ -407,7 +407,7 @@ specified delay time has expired.
 \begin{itemize}
 
 \item
-\cmd{ClientsInterface getDelayStationData(final int id)</tt><br>
+\cmd{ClientsInterface getDelayStationData(final int id)}:\\
 Returns an object implementing \cm{ClientsInterface} which represents the list
 of clients at the delay station \cm{id}. If the id is invalid, \cm{null}
 will be returned.
@@ -758,7 +758,7 @@ Outputs a tabulator.
 Sets the cancel status. (When output is canceled to further file output will be performed.)
 
 \item
-\cmd{printlnDDE(final String workbook, final String table, final String cell, final Object obj)}:\\
+\cmd{printlnDDE(final String workbook, final String table, final String cell,\\final Object obj)}:\\
 This command is only available if DDE is available, i.e. under Windows.
 It outputs the passed expression via DDE in the specified table in Excel.
 Numbers are formated according to the format defined via \cm{setFormat}.

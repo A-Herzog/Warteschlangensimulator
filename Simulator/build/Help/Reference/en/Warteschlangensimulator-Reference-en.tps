@@ -10,9 +10,9 @@ MinPos.y=-1
 MaxPos.x=-1
 MaxPos.y=-1
 NormalPos.left=4
-NormalPos.top=26
-NormalPos.right=1657
-NormalPos.bottom=789
+NormalPos.top=36
+NormalPos.right=3272
+NormalPos.bottom=1510
 Class=LaTeXView
 Document=Warteschlangensimulator-Reference-en.tex
 
@@ -28,15 +28,15 @@ MinPos.y=-1
 MaxPos.x=-1
 MaxPos.y=-1
 NormalPos.left=4
-NormalPos.top=26
-NormalPos.right=1657
-NormalPos.bottom=789
+NormalPos.top=36
+NormalPos.right=3272
+NormalPos.bottom=1510
 Class=LaTeXView
 Document=Reference.tex
 
 [Frame1_View0,0]
-TopLine=1784
-Cursor=75142
+TopLine=1908
+Cursor=80470
 
 [SessionInfo]
 FrameCount=2

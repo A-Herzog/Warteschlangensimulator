@@ -23,29 +23,34 @@
 \contentsline {section}{\numberline {9.6}Normalverteilung mit Mittelwert $a$ und Standardabweichung $b$}{20}{section.9.6}%
 \contentsline {section}{\numberline {9.7}Lognormalverteilung mit Mittelwert $a$ und Standardabweichung $b$}{20}{section.9.7}%
 \contentsline {section}{\numberline {9.8}Gamma-Verteilung mit Parametern $\alpha =a$ und $\beta =b$}{20}{section.9.8}%
-\contentsline {section}{\numberline {9.9}Erlang-Verteilung mit Parametern $n$ und $\lambda =l$}{20}{section.9.9}%
-\contentsline {section}{\numberline {9.10}Gamma-Verteilung mit Mittelwert $a$ und Standardabweichung $b$}{21}{section.9.10}%
+\contentsline {section}{\numberline {9.9}Gamma-Verteilung mit Mittelwert $a$ und Standardabweichung $b$}{20}{section.9.9}%
+\contentsline {section}{\numberline {9.10}Erlang-Verteilung mit Parametern $n$ und $\lambda =l$}{21}{section.9.10}%
 \contentsline {section}{\numberline {9.11}Beta-Verteilung in dem Intervall $[a;b]$ und mit Parametern $\alpha =c$ und $\beta =d$}{21}{section.9.11}%
-\contentsline {section}{\numberline {9.12}Weibull-Verteilung mit Parametern Scale=$a$ und Form=$b$}{21}{section.9.12}%
-\contentsline {section}{\numberline {9.13}Cauchy-Verteilung mit Mittelwert $a$ und Scale=$b$}{21}{section.9.13}%
-\contentsline {section}{\numberline {9.14}Chi$^2$-Verteilung mit $n$ Freiheitsgraden}{21}{section.9.14}%
-\contentsline {section}{\numberline {9.15}Chi-Verteilung mit $n$ Freiheitsgraden}{22}{section.9.15}%
-\contentsline {section}{\numberline {9.16}F-Verteilung mit $a$ Freiheitsgraden im Zähler und $b$ Freiheitsgraden im Nenner}{22}{section.9.16}%
-\contentsline {section}{\numberline {9.17}Johnson-SU-Verteilung mit den Parametern $\gamma =a$, $\xi =b$, $\delta =c$ und $\lambda =d$}{22}{section.9.17}%
-\contentsline {section}{\numberline {9.18}Dreiecksverteilung über $[a;c]$ mit der höchsten Wahrscheinlichkeitsdichte bei $b$}{22}{section.9.18}%
-\contentsline {section}{\numberline {9.19}Pert-Verteilung über $[a;c]$ mit der höchsten Wahrscheinlichkeitsdichte bei $b$}{22}{section.9.19}%
-\contentsline {section}{\numberline {9.20}Laplace-Verteilung mit Mittelwert $mu$ und Skalierungsfaktor $b$}{23}{section.9.20}%
-\contentsline {section}{\numberline {9.21}Pareto-Verteilung mit Skalierungsparameter $x_{\rm min}=xmin$ und Formparameter $\alpha =a$}{23}{section.9.21}%
-\contentsline {section}{\numberline {9.22}Logistische Verteilung mit Mittelwert $\mu =mu$ und Skalierungsparameter $s$}{23}{section.9.22}%
-\contentsline {section}{\numberline {9.23}Inverse Gauß-Verteilung mit $\lambda =l$ und Mittelwert $mu$}{23}{section.9.23}%
-\contentsline {section}{\numberline {9.24}Rayleigh-Verteilung mit Mittelwert $mu$}{23}{section.9.24}%
-\contentsline {section}{\numberline {9.25}Log-Logistische Verteilung mit $\alpha $ und Mittelwert $\beta $}{24}{section.9.25}%
-\contentsline {section}{\numberline {9.26}Potenzverteilung auf dem Bereich $[a;b]$ mit Exponent $c$}{24}{section.9.26}%
-\contentsline {section}{\numberline {9.27}Gumbel-Verteilung mit Erwartungswert $a$ und Standardabweichung $b$}{24}{section.9.27}%
-\contentsline {section}{\numberline {9.28}Fatigue-Life-Verteilung mit Lageparameter $\mu $, Skalierungsparameter $\beta $ und Formparameter $\gamma $}{24}{section.9.28}%
-\contentsline {section}{\numberline {9.29}Frechet-Verteilung mit Lageparameter $\delta $, Skalierungsparameter $\beta $ und Formparameter $\alpha $}{24}{section.9.29}%
-\contentsline {section}{\numberline {9.30}Hyperbolische Sekanten-Verteilung mit Mittelwert $a$ und Standardabweichung $b$}{25}{section.9.30}%
-\contentsline {section}{\numberline {9.31}Verteilung aus empirischen Daten}{25}{section.9.31}%
+\contentsline {section}{\numberline {9.12}Beta-Verteilung in dem Intervall $[a;b]$ und mit Mittelwert $c$ und Standardabweichung $d$}{21}{section.9.12}%
+\contentsline {section}{\numberline {9.13}Weibull-Verteilung mit Parametern Scale=$a$ und Form=$b$}{21}{section.9.13}%
+\contentsline {section}{\numberline {9.14}Cauchy-Verteilung mit Mittelwert $a$ und Scale=$b$}{21}{section.9.14}%
+\contentsline {section}{\numberline {9.15}Chi$^2$-Verteilung mit $n$ Freiheitsgraden}{22}{section.9.15}%
+\contentsline {section}{\numberline {9.16}Chi-Verteilung mit $n$ Freiheitsgraden}{22}{section.9.16}%
+\contentsline {section}{\numberline {9.17}F-Verteilung mit $a$ Freiheitsgraden im Zähler und $b$ Freiheitsgraden im Nenner}{22}{section.9.17}%
+\contentsline {section}{\numberline {9.18}Johnson-SU-Verteilung mit den Parametern $\gamma =a$, $\xi =b$, $\delta =c$ und $\lambda =d$}{22}{section.9.18}%
+\contentsline {section}{\numberline {9.19}Dreiecksverteilung über $[a;c]$ mit der höchsten Wahrscheinlichkeitsdichte bei $b$}{22}{section.9.19}%
+\contentsline {section}{\numberline {9.20}Pert-Verteilung über $[a;c]$ mit der höchsten Wahrscheinlichkeitsdichte bei $b$}{23}{section.9.20}%
+\contentsline {section}{\numberline {9.21}Laplace-Verteilung mit Mittelwert $mu$ und Skalierungsfaktor $b$}{23}{section.9.21}%
+\contentsline {section}{\numberline {9.22}Pareto-Verteilung mit Skalierungsparameter $x_{\rm min}=xmin$ und Formparameter $\alpha =a$}{23}{section.9.22}%
+\contentsline {section}{\numberline {9.23}Logistische Verteilung mit Mittelwert $\mu =mu$ und Skalierungsparameter $s$}{23}{section.9.23}%
+\contentsline {section}{\numberline {9.24}Inverse Gauß-Verteilung mit $\lambda =l$ und Mittelwert $mu$}{23}{section.9.24}%
+\contentsline {section}{\numberline {9.25}Rayleigh-Verteilung mit Mittelwert $mu$}{24}{section.9.25}%
+\contentsline {section}{\numberline {9.26}Log-Logistische Verteilung mit $\alpha $ und Mittelwert $\beta $}{24}{section.9.26}%
+\contentsline {section}{\numberline {9.27}Potenzverteilung auf dem Bereich $[a;b]$ mit Exponent $c$}{24}{section.9.27}%
+\contentsline {section}{\numberline {9.28}Gumbel-Verteilung mit Erwartungswert $a$ und Standardabweichung $b$}{24}{section.9.28}%
+\contentsline {section}{\numberline {9.29}Fatigue-Life-Verteilung mit Lageparameter $\mu $, Skalierungsparameter $\beta $ und Formparameter $\gamma $}{24}{section.9.29}%
+\contentsline {section}{\numberline {9.30}Frechet-Verteilung mit Lageparameter $\delta $, Skalierungsparameter $\beta $ und Formparameter $\alpha $}{25}{section.9.30}%
+\contentsline {section}{\numberline {9.31}Hyperbolische Sekanten-Verteilung mit Mittelwert $a$ und Standardabweichung $b$}{25}{section.9.31}%
+\contentsline {section}{\numberline {9.32}Linke Sägezahnverteilung über $[a;b]$}{25}{section.9.32}%
+\contentsline {section}{\numberline {9.33}Linke Sägezahnverteilung über mit Erwartungswert $a$ und Standardabweichung $b$}{25}{section.9.33}%
+\contentsline {section}{\numberline {9.34}Rechte Sägezahnverteilung über $[a;b]$}{25}{section.9.34}%
+\contentsline {section}{\numberline {9.35}Rechte Sägezahnverteilung über mit Erwartungswert $a$ und Standardabweichung $b$}{26}{section.9.35}%
+\contentsline {section}{\numberline {9.36}Verteilung aus empirischen Daten}{26}{section.9.36}%
 \contentsline {chapter}{\numberline {10}Erlang-C-Rechner}{27}{chapter.10}%
 \contentsline {chapter}{\numberline {11}Allen-Cunneen-Approximationsformel}{29}{chapter.11}%
 \contentsline {chapter}{\numberline {12}Zugriff auf die Modelleigenschaften}{31}{chapter.12}%
@@ -65,11 +70,11 @@
 \contentsline {section}{\numberline {12.6}Wartezeiten}{37}{section.12.6}%
 \contentsline {subsection}{\numberline {12.6.1}Wartezeiten an einer Station}{37}{subsection.12.6.1}%
 \contentsline {subsection}{\numberline {12.6.2}Wartezeiten über alle Kundentypen}{38}{subsection.12.6.2}%
-\contentsline {subsection}{\numberline {12.6.3}Wartezeiten für einen Kundentypen}{38}{subsection.12.6.3}%
+\contentsline {subsection}{\numberline {12.6.3}Wartezeiten für einen Kundentypen}{39}{subsection.12.6.3}%
 \contentsline {section}{\numberline {12.7}Transferzeiten}{39}{section.12.7}%
 \contentsline {subsection}{\numberline {12.7.1}Transferzeiten an einer Station}{39}{subsection.12.7.1}%
 \contentsline {subsection}{\numberline {12.7.2}Transferzeiten über alle Kundentypen}{40}{subsection.12.7.2}%
-\contentsline {subsection}{\numberline {12.7.3}Transferzeiten für einen Kundentypen}{40}{subsection.12.7.3}%
+\contentsline {subsection}{\numberline {12.7.3}Transferzeiten für einen Kundentypen}{41}{subsection.12.7.3}%
 \contentsline {section}{\numberline {12.8}Bedienzeiten}{41}{section.12.8}%
 \contentsline {subsection}{\numberline {12.8.1}Bedienzeiten an einer Station}{41}{subsection.12.8.1}%
 \contentsline {subsection}{\numberline {12.8.2}Bedienzeiten über alle Kundentypen}{42}{subsection.12.8.2}%
@@ -101,12 +106,13 @@
 \contentsline {chapter}{\numberline {16}\texttt {Simulation}-Objekt}{63}{chapter.16}%
 \contentsline {section}{\numberline {16.1}Basisfunktionen}{63}{section.16.1}%
 \contentsline {section}{\numberline {16.2}Zugriff auf kundenspezifische Daten}{64}{section.16.2}%
-\contentsline {section}{\numberline {16.3}Temporäre Batche}{65}{section.16.3}%
-\contentsline {section}{\numberline {16.4}Zugriff auf Parameter des Simulationsmodells}{66}{section.16.4}%
+\contentsline {section}{\numberline {16.3}Temporäre Batche}{66}{section.16.3}%
+\contentsline {section}{\numberline {16.4}Zugriff auf Parameter des Simulationsmodells}{67}{section.16.4}%
 \contentsline {section}{\numberline {16.5}Zugriff auf den aktuellen Eingabewert}{67}{section.16.5}%
 \contentsline {section}{\numberline {16.6}Anzahl an Bedienern in einer Ressource}{67}{section.16.6}%
 \contentsline {section}{\numberline {16.7}Signale auslösen}{68}{section.16.7}%
 \contentsline {section}{\numberline {16.8}Meldung in Logging ausgeben}{68}{section.16.8}%
+\contentsline {section}{\numberline {16.9}Kunden an Verzögerungen-Stationen freigeben}{68}{section.16.9}%
 \contentsline {chapter}{\numberline {17}\texttt {Clients}-Objekt}{69}{chapter.17}%
 \contentsline {chapter}{\numberline {18}\texttt {Output}-Objekt}{71}{chapter.18}%
 \contentsline {chapter}{\numberline {19}\texttt {FileOutput}-Objekt}{73}{chapter.19}%
@@ -124,9 +130,10 @@
 \contentsline {section}{\numberline {24.1}Basisfunktionen}{87}{section.24.1}%
 \contentsline {section}{\numberline {24.2}Zugriff auf Parameter des Simulationsmodells}{87}{section.24.2}%
 \contentsline {section}{\numberline {24.3}Anzahl an Bedienern in einer Ressource}{88}{section.24.3}%
-\contentsline {section}{\numberline {24.4}Signale auslösen}{88}{section.24.4}%
-\contentsline {section}{\numberline {24.5}Externen Code aufrufen}{88}{section.24.5}%
+\contentsline {section}{\numberline {24.4}Signale auslösen}{89}{section.24.4}%
+\contentsline {section}{\numberline {24.5}Externen Code aufrufen}{89}{section.24.5}%
 \contentsline {section}{\numberline {24.6}Meldung in Logging ausgeben}{89}{section.24.6}%
+\contentsline {section}{\numberline {24.7}Kunden an Verzögerungen-Stationen freigeben}{89}{section.24.7}%
 \contentsline {chapter}{\numberline {25}\texttt {ClientInterface} abrufbar über \texttt {sim.getClient()}}{91}{chapter.25}%
 \contentsline {section}{\numberline {25.1}Temporäre Batche}{92}{section.25.1}%
 \contentsline {chapter}{\numberline {26}\texttt {InputValueInterface} abrufbar über \texttt {sim.getInputValue()}}{95}{chapter.26}%

@@ -11,13 +11,13 @@ MaxPos.x=-1
 MaxPos.y=-1
 NormalPos.left=4
 NormalPos.top=36
-NormalPos.right=3577
-NormalPos.bottom=1680
+NormalPos.right=3272
+NormalPos.bottom=1510
 Class=LaTeXView
 Document=Warteschlangensimulator-Commandline-de.tex
 
 [Frame0_View0,0]
-TopLine=0
+TopLine=11
 Cursor=2345
 
 [Frame1]
@@ -29,14 +29,14 @@ MaxPos.x=-1
 MaxPos.y=-1
 NormalPos.left=4
 NormalPos.top=36
-NormalPos.right=3577
-NormalPos.bottom=1680
+NormalPos.right=3272
+NormalPos.bottom=1510
 Class=LaTeXView
 Document=Reference.tex
 
 [Frame1_View0,0]
 TopLine=78
-Cursor=4490
+Cursor=2932
 
 [SessionInfo]
 FrameCount=2

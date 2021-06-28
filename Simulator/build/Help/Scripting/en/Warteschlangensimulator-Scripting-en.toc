@@ -22,29 +22,34 @@
 \contentsline {section}{\numberline {9.6}Normal distribution with mean $a$ and standard deviation $b$}{20}{section.9.6}%
 \contentsline {section}{\numberline {9.7}Log-normal distribution with mean $a$ and standard deviation $b$}{20}{section.9.7}%
 \contentsline {section}{\numberline {9.8}Gamma distribution with parameters $\alpha =a$ and $\beta =b$}{20}{section.9.8}%
-\contentsline {section}{\numberline {9.9}Erlang distribution with parameters $n$ and $\lambda =l$}{20}{section.9.9}%
-\contentsline {section}{\numberline {9.10}Gamma distribution with mean $a$ and standard deviation $b$}{21}{section.9.10}%
+\contentsline {section}{\numberline {9.9}Gamma distribution with mean $a$ and standard deviation $b$}{20}{section.9.9}%
+\contentsline {section}{\numberline {9.10}Erlang distribution with parameters $n$ and $\lambda =l$}{21}{section.9.10}%
 \contentsline {section}{\numberline {9.11}Beta distribution in the interval $[a;b]$ and with parameters $\alpha =c$ and $\beta =d$}{21}{section.9.11}%
-\contentsline {section}{\numberline {9.12}Weibull distribution with parameters Scale=$a$ and Form=$b$}{21}{section.9.12}%
-\contentsline {section}{\numberline {9.13}Cauchy distribution with mean $a$ and Scale=$b$}{21}{section.9.13}%
-\contentsline {section}{\numberline {9.14}Chi$^2$ distribution with $n$ degrees of freedom}{21}{section.9.14}%
-\contentsline {section}{\numberline {9.15}Chi distribution with $n$ degrees of freedom}{22}{section.9.15}%
-\contentsline {section}{\numberline {9.16}F distribution with $a$ degrees of freedom for the numerator and $b$ degrees of freedom for the denominator}{22}{section.9.16}%
-\contentsline {section}{\numberline {9.17}Johnson SU distribution with parameters $\gamma =a$, $\xi =b$, $\delta =c$ and $\lambda =d$}{22}{section.9.17}%
-\contentsline {section}{\numberline {9.18}Triangular distribution over $[a;c]$ with most likely value $b$}{22}{section.9.18}%
-\contentsline {section}{\numberline {9.19}Pert distribution over $[a;c]$ with most likely value $b$}{22}{section.9.19}%
-\contentsline {section}{\numberline {9.20}Laplace distribution with mean $mu$ and scale factor $b$}{23}{section.9.20}%
-\contentsline {section}{\numberline {9.21}Pareto distribution with scale parameter $x_{\rm min}=xmin$ and shape parameter $\alpha =a$}{23}{section.9.21}%
-\contentsline {section}{\numberline {9.22}Logistic distribution with mean $\mu =mu$ and scale parameter $s$}{23}{section.9.22}%
-\contentsline {section}{\numberline {9.23}Inverse gaussian distribution with $\lambda =l$ and mean $mu$}{23}{section.9.23}%
-\contentsline {section}{\numberline {9.24}Rayleigh distribution with mean $mu$}{23}{section.9.24}%
-\contentsline {section}{\numberline {9.25}Log-Logistic distribution with $\alpha $ and mean $\beta $}{24}{section.9.25}%
-\contentsline {section}{\numberline {9.26}Power distribution on $[a;b]$ with exponent $c$}{24}{section.9.26}%
-\contentsline {section}{\numberline {9.27}Gumbel distribution with expected value $a$ and standard deviation $b$}{24}{section.9.27}%
-\contentsline {section}{\numberline {9.28}Fatigue life distribution with location parameter $\mu $, scale parameter $\beta $ and form parameter $\gamma $}{24}{section.9.28}%
-\contentsline {section}{\numberline {9.29}Frechet distribution with location parameter $\delta $, scale parameter $\beta $ and form parameter $\alpha $}{24}{section.9.29}%
-\contentsline {section}{\numberline {9.30}Hyperbolic secant distribution with mean $a$ and standard deviation $b$}{25}{section.9.30}%
-\contentsline {section}{\numberline {9.31}Distribution based on empirical values}{25}{section.9.31}%
+\contentsline {section}{\numberline {9.12}Beta distribution in the interval $[a;b]$ and with mean $c$ and standard deviation $d$}{21}{section.9.12}%
+\contentsline {section}{\numberline {9.13}Weibull distribution with parameters Scale=$a$ and Form=$b$}{21}{section.9.13}%
+\contentsline {section}{\numberline {9.14}Cauchy distribution with mean $a$ and Scale=$b$}{21}{section.9.14}%
+\contentsline {section}{\numberline {9.15}Chi$^2$ distribution with $n$ degrees of freedom}{22}{section.9.15}%
+\contentsline {section}{\numberline {9.16}Chi distribution with $n$ degrees of freedom}{22}{section.9.16}%
+\contentsline {section}{\numberline {9.17}F distribution with $a$ degrees of freedom for the numerator and $b$ degrees of freedom for the denominator}{22}{section.9.17}%
+\contentsline {section}{\numberline {9.18}Johnson SU distribution with parameters $\gamma =a$, $\xi =b$, $\delta =c$ and $\lambda =d$}{22}{section.9.18}%
+\contentsline {section}{\numberline {9.19}Triangular distribution over $[a;c]$ with most likely value $b$}{22}{section.9.19}%
+\contentsline {section}{\numberline {9.20}Pert distribution over $[a;c]$ with most likely value $b$}{23}{section.9.20}%
+\contentsline {section}{\numberline {9.21}Laplace distribution with mean $mu$ and scale factor $b$}{23}{section.9.21}%
+\contentsline {section}{\numberline {9.22}Pareto distribution with scale parameter $x_{\rm min}=xmin$ and shape parameter $\alpha =a$}{23}{section.9.22}%
+\contentsline {section}{\numberline {9.23}Logistic distribution with mean $\mu =mu$ and scale parameter $s$}{23}{section.9.23}%
+\contentsline {section}{\numberline {9.24}Inverse gaussian distribution with $\lambda =l$ and mean $mu$}{23}{section.9.24}%
+\contentsline {section}{\numberline {9.25}Rayleigh distribution with mean $mu$}{23}{section.9.25}%
+\contentsline {section}{\numberline {9.26}Log-Logistic distribution with $\alpha $ and mean $\beta $}{24}{section.9.26}%
+\contentsline {section}{\numberline {9.27}Power distribution on $[a;b]$ with exponent $c$}{24}{section.9.27}%
+\contentsline {section}{\numberline {9.28}Gumbel distribution with expected value $a$ and standard deviation $b$}{24}{section.9.28}%
+\contentsline {section}{\numberline {9.29}Fatigue life distribution with location parameter $\mu $, scale parameter $\beta $ and form parameter $\gamma $}{24}{section.9.29}%
+\contentsline {section}{\numberline {9.30}Frechet distribution with location parameter $\delta $, scale parameter $\beta $ and form parameter $\alpha $}{25}{section.9.30}%
+\contentsline {section}{\numberline {9.31}Hyperbolic secant distribution with mean $a$ and standard deviation $b$}{25}{section.9.31}%
+\contentsline {section}{\numberline {9.32}Left sawtooth distribution over $[a;b]$}{25}{section.9.32}%
+\contentsline {section}{\numberline {9.33}Left sawtooth distribution with mean $a$ and standard deviation $b$}{25}{section.9.33}%
+\contentsline {section}{\numberline {9.34}Right sawtooth distribution over $[a;b]$}{25}{section.9.34}%
+\contentsline {section}{\numberline {9.35}Right sawtooth distribution with mean $a$ and standard deviation $b$}{25}{section.9.35}%
+\contentsline {section}{\numberline {9.36}Distribution based on empirical values}{26}{section.9.36}%
 \contentsline {chapter}{\numberline {10}Erlang C calculator}{27}{chapter.10}%
 \contentsline {chapter}{\numberline {11}Allen-Cunneen approximation formula}{29}{chapter.11}%
 \contentsline {chapter}{\numberline {12}Accessing model properties}{31}{chapter.12}%
@@ -103,8 +108,9 @@
 \contentsline {section}{\numberline {16.4}Accessing parameters of the simulation model}{64}{section.16.4}%
 \contentsline {section}{\numberline {16.5}Accessing the current input value}{65}{section.16.5}%
 \contentsline {section}{\numberline {16.6}Number of operators in a resource}{65}{section.16.6}%
-\contentsline {section}{\numberline {16.7}Fire signal}{65}{section.16.7}%
-\contentsline {section}{\numberline {16.8}Output message in logging}{65}{section.16.8}%
+\contentsline {section}{\numberline {16.7}Fire signal}{66}{section.16.7}%
+\contentsline {section}{\numberline {16.8}Output message in logging}{66}{section.16.8}%
+\contentsline {section}{\numberline {16.9}Release clients at delay stations}{66}{section.16.9}%
 \contentsline {chapter}{\numberline {17}\texttt {Clients} object}{67}{chapter.17}%
 \contentsline {chapter}{\numberline {18}\texttt {Output} object}{69}{chapter.18}%
 \contentsline {chapter}{\numberline {19}\texttt {FileOutput} object}{71}{chapter.19}%
@@ -125,8 +131,9 @@
 \contentsline {section}{\numberline {24.2}Accessing parameters of the simulation model}{85}{section.24.2}%
 \contentsline {section}{\numberline {24.3}Number of operators in a resource}{86}{section.24.3}%
 \contentsline {section}{\numberline {24.4}Trigger signal}{86}{section.24.4}%
-\contentsline {section}{\numberline {24.5}Run external code}{86}{section.24.5}%
+\contentsline {section}{\numberline {24.5}Run external code}{87}{section.24.5}%
 \contentsline {section}{\numberline {24.6}Output message in logging}{87}{section.24.6}%
+\contentsline {section}{\numberline {24.7}Release clients at delay stations}{87}{section.24.7}%
 \contentsline {chapter}{\numberline {25}\texttt {ClientInterface} accessible via \texttt {sim.getClient()}}{89}{chapter.25}%
 \contentsline {section}{\numberline {25.1}Temporary batches}{90}{section.25.1}%
 \contentsline {chapter}{\numberline {26}\texttt {InputValueInterface} accessible via \texttt {sim.getInputValue()}}{93}{chapter.26}%
