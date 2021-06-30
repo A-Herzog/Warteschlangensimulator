@@ -4,9 +4,16 @@
 # Other instances will be able to outsource
 # simulation tasks to this server.
 
-if [ -f "../Simulator.jar" ]
+if [ -z "$JAVA_HOME" ]
 then
-	java -jar ../Simulator.jar server 8183
+	JAVA_RUN="java"
+else
+	JAVA_RUN="${JAVA_HOME}/bin/java"
+fi
+
+if [ -f "../../Simulator.jar" ]
+then
+	${JAVA_RUN} -jar ../../Simulator.jar server 8183
 else
 	echo English:
 	echo This file has to be run from its own directory to find the simulator.

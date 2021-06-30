@@ -6,7 +6,7 @@ rem Results are appended to benchmark-results.txt.
 rem Führt einen Benchmark-Läufe unter Verwendung von 1,2,... bis zur angegebenen Anzahl an CPU-Kernen durch.
 rem Die Ergebnisse werden an die Datei benchmark-results.txt angehängt.
 
-if exist ../Simulator.jar goto work1
+if exist ../../Simulator.jar goto work1
 echo English:
 echo This file has to be run from its own directory to find the simulator.
 echo Deutsch:

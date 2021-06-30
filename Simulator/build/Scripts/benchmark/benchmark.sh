@@ -13,7 +13,7 @@ else
 	JAVA_RUN="${JAVA_HOME}/bin/java"
 fi
 
-if [ -f "../Simulator.jar" ]
+if [ -f "../../Simulator.jar" ]
 then
 	if [ "$1" == "" ]
 	then
@@ -28,10 +28,10 @@ then
 		then
 			rm benchmark-statistics.xml
 		fi
-		${JAVA_RUN} -jar ../Simulator.jar SetMaxThreads $1
-		${JAVA_RUN} -jar ../Simulator.jar Simulation benchmark-model.xml benchmark-statistics.xml
-		${JAVA_RUN} -jar ../Simulator.jar Filter benchmark-statistics.xml benchmark-filter.js benchmark-results.txt
-		${JAVA_RUN} -jar ../Simulator.jar SetMaxThreads 0
+		${JAVA_RUN} -jar ../../Simulator.jar SetMaxThreads $1
+		${JAVA_RUN} -jar ../../Simulator.jar Simulation benchmark-model.xml benchmark-statistics.xml
+		${JAVA_RUN} -jar ../../Simulator.jar Filter benchmark-statistics.xml benchmark-filter.js benchmark-results.txt
+		${JAVA_RUN} -jar ../../Simulator.jar SetMaxThreads 0
 		if [ -f "benchmark-statistics.xml" ]
 		then
 			rm benchmark-statistics.xml

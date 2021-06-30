@@ -6,7 +6,7 @@
 # Führt einen einzelnen Benchmark-Lauf unter Verwendung der angegebenen Anzahl an CPU-Kernen durch.
 # Die Ergebnisse werden an die Datei benchmark-results.txt angehängt.
 
-if [ -f "../Simulator.jar" ]
+if [ -f "../../Simulator.jar" ]
 then
 	if [ "$1" == "" ]
 	then
@@ -21,10 +21,10 @@ then
 		then
 			rm benchmark-statistics.xml
 		fi
-		../Simulator SetMaxThreads $1
-		../Simulator Simulation benchmark-model.xml benchmark-statistics.xml
-		../Simulator Filter benchmark-statistics.xml benchmark-filter.js benchmark-results.txt
-		../Simulator SetMaxThreads 0
+		../../Simulator SetMaxThreads $1
+		../../Simulator Simulation benchmark-model.xml benchmark-statistics.xml
+		../../Simulator Filter benchmark-statistics.xml benchmark-filter.js benchmark-results.txt
+		../../Simulator SetMaxThreads 0
 		if [ -f "benchmark-statistics.xml" ]
 		then
 			rm benchmark-statistics.xml

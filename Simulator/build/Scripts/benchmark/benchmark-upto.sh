@@ -6,7 +6,7 @@
 # Führt einen Benchmark-Läufe unter Verwendung von 1,2,... bis zur angegebenen Anzahl an CPU-Kernen durch.
 # Die Ergebnisse werden an die Datei benchmark-results.txt angehängt.
 
-if [ -f "../Simulator.jar" ]
+if [ -f "../../Simulator.jar" ]
 then
 	if [ "$1" == "" ]
 	then
@@ -19,7 +19,7 @@ then
 	else
 		for ((x=1;x<=$1;x++))
 		do	
-			./benchmark-native.sh $x
+			./benchmark.sh $x
 		done
 	fi
 else

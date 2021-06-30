@@ -4,9 +4,9 @@
 
 # Aktiviert den NUMA-Modus im Warteschlangensimulator.
 
-if [ -f "../Simulator.jar" ]
+if [ -f "../../Simulator.jar" ]
 then
-	java -jar ../Simulator.jar SetNUMA 1
+	java -jar ../../Simulator.jar SetNUMA 1
 else
 	echo English:
 	echo This file has to be run from its own directory to find the simulator.

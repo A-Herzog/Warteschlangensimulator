@@ -5,7 +5,7 @@ rem Simulation requests can be send to the
 rem simulator and statistics results can be
 rem downloaded or viewed by any web browser.
 
-if exist ../Simulator.jar goto work
+if exist ..\..\Simulator.jar goto work
 echo English:
 echo This file has to be run from its own directory to find the simulator.
 echo Deutsch:
@@ -14,7 +14,7 @@ echo um den Simulator finden zu können.
 goto end
 
 :work
-java -jar ..\Simulator.jar serverWeb 80
+java -jar ..\..\Simulator.jar serverWeb 80
 
 rem The command needs one parameter:
 rem The port number to listen on for requests.

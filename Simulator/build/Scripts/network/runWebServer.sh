@@ -5,9 +5,16 @@
 # simulator and statistics results can be
 # downloaded or viewed by any web browser.
 
-if [ -f "../Simulator.jar" ]
+if [ -z "$JAVA_HOME" ]
 then
-	java -jar ../Simulator.jar serverWeb 8000
+	JAVA_RUN="java"
+else
+	JAVA_RUN="${JAVA_HOME}/bin/java"
+fi
+
+if [ -f "../../Simulator.jar" ]
+then
+	${JAVA_RUN} -jar ../../Simulator.jar serverWeb 8000
 else
 	echo English:
 	echo This file has to be run from its own directory to find the simulator.

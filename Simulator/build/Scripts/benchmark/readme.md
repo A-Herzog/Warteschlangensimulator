@@ -1,4 +1,12 @@
-benchmark:
+# Benchmark tools
+
+This readme file describes how to use the scripts in this directory.
+
+Diese Readme-Datei beschreibt, wie die Skripte in diesem Verzeichnis verwendet werden können.
+
+
+
+## benchmark
 
 Performs a single benchmark run using the specified number of CPU cores.
 Results are appended to benchmark-results.txt.
@@ -8,7 +16,7 @@ Die Ergebnisse werden an die Datei benchmark-results.txt angehängt.
 
 
 
-benchmark-upto:
+## benchmark-upto
 
 Performs benchmarks runs using the 1,2,... up to the specified number of CPU cores.
 Results are appended to benchmark-result.txt.
@@ -18,7 +26,7 @@ Die Ergebnisse werden an die Datei benchmark-result.txt angehängt.
 
 
 
-benchmark-native-upto:
+## benchmark-native-upto
 
 Uses Graal native image version of simulator (created by compile-native.sh).
 
@@ -30,7 +38,7 @@ Die Ergebnisse werden an die Datei benchmark-result.txt angehängt.
 
 
 
-bechmark-multi:
+## bechmark-multi
 
 Performs multiple benchmarks runs each using the same specified number of CPU cores.
 Results are appended to benchmark-result.txt.
@@ -40,7 +48,7 @@ Die Ergebnisse werden an die Datei benchmark-result.txt angehängt.
 
 
 
-variance_analysis:
+## variance_analysis
 
 Performs a variance analysis of the variance_analysis-model.xml model.
 For this purpose, the number of client arrivals is successively increased
@@ -56,7 +64,7 @@ X für die Anzahl an Ankünften (in Millionen) steht.
 
 
 
-benchmark-result.txt:
+## benchmark-result.txt
 
 Per simulation a line continaing the following tabulator separated values is added to the file:
 - Used number of threads
@@ -67,7 +75,7 @@ Per simulation a line continaing the following tabulator separated values is add
 - Average (net) runtime of the threads in seconds (*)
 - Runtime of the slowest thread in seconds (*)
 - Relative proportion by which the slowest is slower than the fastest (*)
-Values marked with (*) use a decimal point or a decimal comma depending
+Values marked with (\*) use a decimal point or a decimal comma depending
 on the country setting detected by Java.
 
 Pro Simulation wird eine Zeile mit den folgenden Werten, die durch Tabulatoren
@@ -80,12 +88,12 @@ getrennt werden, ausgegeben:
 - Mittlere (netto) Laufzeit der Threads in Sekunden (*)
 - Laufzeit des langsamsten Threads in Sekunden (*)
 - Relativer Anteil um den der langsamste Thread langsamer als der schnellste ist (*)
-Bei den mit (*) markierten Werten wird abhängig von der von Java detektierten
+Bei den mit (\*) markierten Werten wird abhängig von der von Java detektierten
 Landeseinstellung ein Dezimalkomma oder ein Dezimalpunkt verwendet.
 
 
 
-activate-numa:
+## activate-numa
 
 Activates NUMA mode in Warteschlangensimulator.
 
@@ -93,42 +101,8 @@ Aktiviert den NUMA-Modus im Warteschlangensimulator.
 
 
 
-runSimServer:
+## compile-native
 
-Example script how to use the simulator in simulation server mode.
+Compiles Warteschlangensimulator to a native Linux-based image using Graal AOT compiler.
 
-
-
-runWebServer:
-
-Example script how to use the simulator in web server mode.
-
-
-
-docker-web-build:
-
-Builds a docker image for running Warteschlangensimulator
-in web server mode on port 81.
-
-
-
-docker-sim-build:
-
-Builds a docker image for running Warteschlangensimulator
-in server mode on port 81.
-
-
-
-filter.py:
-
-Python script for running a filter script on multiple statistics files.
-
-MQTTTest.py:
-
-Python example script demonstrating how to connect to MQTT client in
-Warteschlangensimulator to submit models to be simulated and to receive results.
-
-SocketTest.py:
-
-Python example script demonstrating how to connect to Warteschlangensimulator
-socket server to submit models to be simulated and to receive results.
+Verwendet den Graal-AOT-Kompiler um den Warteschlangensimulator in ein natives Linux-Programm zu übersetzen.

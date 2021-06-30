@@ -1,7 +1,8 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!DOCTYPE Modell SYSTEM "https://qs.highfives.io/xml/Simulator.dtd">
-<Modell xmlns="https://qs.highfives.io" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://qs.highfives.io https://qs.highfives.io/xml/Simulator.xsd">
-  <ModellVersion>3.7.0</ModellVersion>
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE Modell SYSTEM "https://a-herzog.github.io/Warteschlangensimulator/Simulator.dtd">
+<Modell xmlns="https://a-herzog.github.io" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://a-herzog.github.io https://a-herzog.github.io/Warteschlangensimulator/Simulator.xsd">
+  <!-- Diese Datei wurde mit Warteschlangensimulator erstellt. Download-Adresse: https://github.com/A-Herzog/Warteschlangensimulator -->
+  <ModellVersion>4.9.0</ModellVersion>
   <ModellAutor>Alexander Herzog</ModellAutor>
   <ModellKunden Aktiv="1">500000000</ModellKunden>
   <ModellAufwaermphase>0</ModellAufwaermphase>

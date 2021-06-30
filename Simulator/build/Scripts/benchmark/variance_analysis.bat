@@ -12,7 +12,7 @@ rem and for each number 100 simulations are performed. For each number of
 rem client arrivals an output file variance_analysis-resultsX.xlsx is created,
 rem where X stands for the number of arrivals (in millions).
 
-if exist ../Simulator.jar goto work1
+if exist ../../Simulator.jar goto work1
 echo English:
 echo This file has to be run from its own directory to find the simulator.
 echo Deutsch:
@@ -54,9 +54,9 @@ goto end
 if exist variance_analysis-series.xml del variance_analysis-series.xml
 if exist variance_analysis-results.xml del variance_analysis-results.xml
 for /L %%G in (%1,%2,%3) do (
-	java -jar ../Simulator.jar ParameterreiheVarianzanalyse variance_analysis-model.xml variance_analysis-series.xml 100 %%G000000
-	java -jar ../Simulator.jar Parameterreihe variance_analysis-series.xml variance_analysis-results.xml
-	java -jar ../Simulator.jar ParameterreiheTabelle variance_analysis-results.xml variance_analysis-results%%G.xlsx
+	java -jar ../../Simulator.jar ParameterreiheVarianzanalyse variance_analysis-model.xml variance_analysis-series.xml 100 %%G000000
+	java -jar ../../Simulator.jar Parameterreihe variance_analysis-series.xml variance_analysis-results.xml
+	java -jar ../../Simulator.jar ParameterreiheTabelle variance_analysis-results.xml variance_analysis-results%%G.xlsx
 	if exist variance_analysis-series.xml del variance_analysis-series.xml
 	if exist variance_analysis-results.xml del variance_analysis-results.xml
 )
