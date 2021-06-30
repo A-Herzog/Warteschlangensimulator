@@ -16,10 +16,17 @@
 package ui.statistics;
 
 import java.awt.Color;
+import java.io.Serializable;
 import java.net.URL;
+import java.text.NumberFormat;
 import java.util.Map;
 
+import org.jfree.chart.labels.StandardCategoryToolTipGenerator;
+import org.jfree.chart.renderer.category.BarRenderer;
+import org.jfree.data.category.CategoryDataset;
+
 import language.Language;
+import mathtools.NumberTools;
 import simulator.statistics.Statistics;
 import statistics.StatisticsDataPerformanceIndicator;
 import statistics.StatisticsMultiPerformanceIndicator;
@@ -101,7 +108,9 @@ public class StatisticViewerTimeBarChart extends StatisticViewerBarChart {
 		/** Balkendiagramm zum Vergleich der Auslastungen der Bedienergruppen  */
 		MODE_RESOURCE_UTILIZATION,
 		/** Balkendiagramm zum Vergleich der Auslastungen der Transportergruppen  */
-		MODE_TRANSPORTER_UTILIZATION
+		MODE_TRANSPORTER_UTILIZATION,
+		/** Ankünfte pro Thread */
+		MODE_SYSTEM_INFO_THREAD_BALANCE
 	}
 
 	/**
@@ -281,6 +290,60 @@ public class StatisticViewerTimeBarChart extends StatisticViewerBarChart {
 		setOutlineColor(Color.BLACK);
 	}
 
+	/**
+	 * Balkendiagramm zum Vergleich der Anzahl an Ankünften pro Thread
+	 * @see Mode#MODE_SYSTEM_INFO_THREAD_BALANCE
+	 */
+	private void threadBalanceChartRequest() {
+		initBarChart(Language.tr("Statistics.SystemData.ThreadBalance"));
+		setupBarChart(Language.tr("Statistics.SystemData.ThreadBalance"),Language.tr("Statistics.SystemData.ThreadBalance.Thread"),Language.tr("Statistics.SystemData.ThreadBalance.NumberOfArrivals"),false);
+
+		final long[] data=statistics.simulationData.threadDynamicBalanceData;
+		long sum=0;
+		for (long value: data) sum+=value;
+		final long mean=sum/data.length;
+		final long finalSum=sum;
+
+		for (int i=0;i<data.length;i++) {
+			this.data.addValue(data[i],Language.tr("Statistics.SystemData.ThreadBalance"),""+(i+1));
+		}
+
+		plot.getRendererForDataset(this.data).setSeriesPaint(0,Color.BLUE);
+
+		/* Tooltips */
+		final int count=this.data.getRowCount();
+		final BarRenderer renderer=(BarRenderer)plot.getRenderer();
+		for (int i=0;i<count;i++) {
+			renderer.setSeriesToolTipGenerator(i,new StandardCategoryToolTipGenerator(StandardCategoryToolTipGenerator.DEFAULT_TOOL_TIP_FORMAT_STRING,NumberFormat.getInstance(NumberTools.getLocale())) {
+				/**
+				 * Serialisierungs-ID der Klasse
+				 * @see Serializable
+				 */
+				private static final long serialVersionUID=-7177093326504217396L;
+
+				@Override
+				public String generateToolTip(CategoryDataset dataset, int row, int column) {
+					final StringBuilder info=new StringBuilder();
+					info.append(Language.tr("Statistics.SystemData.ThreadBalance.Thread"));
+					info.append(" ");
+					info.append(column+1);
+					info.append(": ");
+					info.append(NumberTools.formatLong(data[column]));
+					info.append(" (");
+					info.append(StatisticTools.formatPercent(((double)data[column])/finalSum));
+					info.append(", ");
+					info.append(Language.tr("Statistics.SystemData.ThreadBalance.DeviationFromAverage"));
+					info.append("=");
+					info.append(NumberTools.formatLong(data[column]-mean));
+					info.append(")");
+					return info.toString();
+				}
+			});
+		}
+
+		setOutlineColor(Color.BLACK);
+	}
+
 	@Override
 	protected void firstChartRequest() {
 		Map<String,Color> colorMap;
@@ -397,6 +460,10 @@ public class StatisticViewerTimeBarChart extends StatisticViewerBarChart {
 		case MODE_TRANSPORTER_UTILIZATION:
 			transporterUtilizationChartRequest();
 			addDescription("PlotBarCompareUtilizationTransporters");
+			break;
+		case MODE_SYSTEM_INFO_THREAD_BALANCE:
+			threadBalanceChartRequest();
+			addDescription("ThreadBalance");
 			break;
 		}
 	}

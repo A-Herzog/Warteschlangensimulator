@@ -135,6 +135,22 @@ public final class DataDistributionImpl extends AbstractRealDistribution impleme
 	 * @see #densityData
 	 * @see #cumulativeDensity
 	 */
+	public DataDistributionImpl(final double upperBound, final long[] data) {
+		super(null);
+		this.upperBound=upperBound;
+		argumentScaleFactor=data.length/((upperBound==86399)?86400:upperBound);
+		densityData=new double[data.length];
+		for (int i=0;i<data.length;i++) densityData[i]=data[i];
+		updateCumulativeDensity();
+	}
+
+	/**
+	 * Konstruktor der Klasse <code>DataDistributionImpl</code>
+	 * @param upperBound	Gibt die Obergrenze des Trägers der Dichte an
+	 * @param data	Verwendet diese Daten als Dichte
+	 * @see #densityData
+	 * @see #cumulativeDensity
+	 */
 	public DataDistributionImpl(final double upperBound, final Double[] data) {
 		super(null);
 		this.upperBound=upperBound;

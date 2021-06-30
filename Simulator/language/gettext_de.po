@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-06-24 14:15+0200\n"
+"POT-Creation-Date: 2021-06-28 10:09+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19635,6 +19635,18 @@ msgstr "Simulierte Kundenankünfte (ohne Warm-Up-Phase)"
 msgid "Statistics.SystemData.SimulatedEvents"
 msgstr "Simulierte Ereignisse"
 
+msgid "Statistics.SystemData.ThreadBalance"
+msgstr "Ankünfte pro Thread"
+
+msgid "Statistics.SystemData.ThreadBalance.DeviationFromAverage"
+msgstr "Abweichung vom Durchschnitt"
+
+msgid "Statistics.SystemData.ThreadBalance.NumberOfArrivals"
+msgstr "Anzahl an Ankünften"
+
+msgid "Statistics.SystemData.ThreadBalance.Thread"
+msgstr "Thread"
+
 msgid "Statistics.SystemData.ThreadDynamicBalance"
 msgstr "Maximaler relativer Unterschied an simulierten Kunden zwischen den Threads"
 
@@ -20309,6 +20321,9 @@ msgstr "StatistikThreads"
 
 msgid "Statistics.XML.RunThreads.DynamicBalance"
 msgstr "DynamischeThreadBalance"
+
+msgid "Statistics.XML.RunThreads.DynamicBalanceData"
+msgstr "DynamischeThreadBalanceDaten"
 
 msgid "Statistics.XML.RunThreads.Error"
 msgstr "Der Wert in dem Element \"%s\" muss eine positive Ganzzahl sein, ist aber \"%s\"."

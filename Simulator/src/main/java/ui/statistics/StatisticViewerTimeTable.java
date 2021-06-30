@@ -168,7 +168,10 @@ public class StatisticViewerTimeTable extends StatisticViewerTable {
 		MODE_VALUE_RECORDING,
 
 		/** Statistik über die globalen Variablen */
-		MODE_USER_VARIABLES
+		MODE_USER_VARIABLES,
+
+		/** Ankünfte pro Thread */
+		MODE_SYSTEM_INFO_THREAD_BALANCE
 	}
 
 	/**
@@ -951,7 +954,7 @@ public class StatisticViewerTimeTable extends StatisticViewerTable {
 	 * Statistik über die globalen Variablen
 	 * @see Mode#MODE_USER_VARIABLES
 	 */
-	private void buildUserVariablesTables() {
+	private void buildUserVariablesTable() {
 		final Table table=new Table();
 		final List<String> headers=new ArrayList<>();
 		headers.add(Language.tr("Statistics.XML.StateTime.Name"));
@@ -971,6 +974,38 @@ public class StatisticViewerTimeTable extends StatisticViewerTable {
 
 		/* Infotext  */
 		addDescription("Variables");
+	}
+
+	/**
+	 * Ausgabe von
+	 * Ankünfte pro Thread
+	 * @see Mode#MODE_SYSTEM_INFO_THREAD_BALANCE
+	 */
+	private void buildThreadBalanceInfoTable() {
+		final Table table=new Table();
+		final List<String> headers=new ArrayList<>();
+		headers.add(Language.tr("Statistics.SystemData.ThreadBalance.Thread"));
+		headers.add(Language.tr("Statistics.SystemData.ThreadBalance.NumberOfArrivals"));
+		headers.add(Language.tr("Statistics.Part"));
+		headers.add(Language.tr("Statistics.SystemData.ThreadBalance.DeviationFromAverage"));
+
+		final long[] data=statistics.simulationData.threadDynamicBalanceData;
+		long sum=0;
+		for (long value: data) sum+=value;
+		final long mean=sum/data.length;
+		final String[] line=new String[4];
+		for (int i=0;i<data.length;i++) {
+			line[0]=""+(i+1);
+			line[1]=NumberTools.formatLongNoGrouping(data[i]);
+			line[2]=StatisticTools.formatPercent(((double)data[i])/sum);
+			line[3]=NumberTools.formatLongNoGrouping(data[i]-mean);
+			table.addLine(line);
+		}
+
+		setData(table,headers);
+
+		/* Infotext  */
+		addDescription("ThreadBalance");
 	}
 
 	@Override
@@ -1027,7 +1062,8 @@ public class StatisticViewerTimeTable extends StatisticViewerTable {
 		case MODE_CLIENT_DATA: buildClientDataTable(); break;
 		case MODE_CLIENT_DATA_DISTRIBUTION: buildClientDataDistributionTable(); break;
 		case MODE_VALUE_RECORDING: buildValueRecordingTable(); break;
-		case MODE_USER_VARIABLES: buildUserVariablesTables(); break;
+		case MODE_USER_VARIABLES: buildUserVariablesTable(); break;
+		case MODE_SYSTEM_INFO_THREAD_BALANCE: buildThreadBalanceInfoTable(); break;
 		}
 	}
 }

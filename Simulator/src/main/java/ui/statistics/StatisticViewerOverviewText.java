@@ -92,6 +92,8 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 		MODE_MODEL_DESCRIPTION,
 		/** Informationen zum Simulationssystem */
 		MODE_SYSTEM_INFO,
+		/** Ankünfte pro Thread */
+		MODE_SYSTEM_INFO_THREAD_BALANCE,
 		/** Zwischenankunftszeiten der Kunden am System */
 		MODE_INTERARRIVAL_CLIENTS,
 		/** Zwischenankunftszeiten der Kunden an den Stationen */
@@ -1769,6 +1771,40 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 	}
 
 	/**
+	 * Ausgabe von
+	 * Ankünfte pro Threads
+	 * @see Mode#MODE_SYSTEM_INFO_THREAD_BALANCE
+	 */
+	private void buildThreadBalanceInfo() {
+		addHeading(1,Language.tr("Statistics.SystemData.ThreadBalance"));
+		beginParagraph();
+		final long[] data=statistics.simulationData.threadDynamicBalanceData;
+		long sum=0;
+		for (long value: data) sum+=value;
+		final long mean=sum/data.length;
+		for (int i=0;i<data.length;i++) {
+			final StringBuilder line=new StringBuilder();
+			line.append(Language.tr("Statistics.SystemData.ThreadBalance.Thread"));
+			line.append(" ");
+			line.append(i+1);
+			line.append(": ");
+			line.append(NumberTools.formatLong(data[i]));
+			line.append(" (");
+			line.append(StatisticTools.formatPercent(((double)data[i])/sum));
+			line.append(", ");
+			line.append(Language.tr("Statistics.SystemData.ThreadBalance.DeviationFromAverage"));
+			line.append("=");
+			line.append(NumberTools.formatLong(data[i]-mean));
+			line.append(")");
+			addLine(line.toString());
+		}
+		endParagraph();
+
+		/* Infotext  */
+		addDescription("ThreadBalance");
+	}
+
+	/**
 	 * Erstellt die Ausgabe für einen Kundentyp.
 	 * @param waitingTime	Wartezeiten für den Kundentyp
 	 * @param transferTime	Transferzeiten für den Kundentyp
@@ -3112,6 +3148,7 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 		case MODE_MODEL: buildModelInfo(); break;
 		case MODE_MODEL_DESCRIPTION: buildModelDescription(); break;
 		case MODE_SYSTEM_INFO: buildSystemInfo(); break;
+		case MODE_SYSTEM_INFO_THREAD_BALANCE: buildThreadBalanceInfo(); break;
 		case MODE_INTERARRIVAL_CLIENTS: buildInterarrivalSystem(); break;
 		case MODE_INTERARRIVAL_STATIONS: buildInterarrivalStations(); break;
 		case MODE_INTERLEAVE_CLIENTS: buildInterleaveSystem(); break;

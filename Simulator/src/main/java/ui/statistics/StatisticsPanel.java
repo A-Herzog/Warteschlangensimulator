@@ -645,7 +645,19 @@ public class StatisticsPanel extends StatisticsBasePanel {
 			}
 		}
 		return false;
+	}
 
+	/**
+	 * Sind Daten zur Verteilung der Kunden auf die Threads enthalten?
+	 * @param statistics	Zu prüfende Statistikdaten
+	 * @return	Liefert <code>true</code>, wenn in mindestens einem Statistikobjekt Daten zur Verteilung der Daten auf die Threads enthalten sind
+	 */
+	private boolean testThreadBalanceData(final Statistics[] statistics) {
+		for (Statistics statistic: statistics) {
+			final long[] data=statistic.simulationData.threadDynamicBalanceData;
+			if (data.length>0 || data[0]!=0L) return true;
+		}
+		return false;
 	}
 
 	/**
@@ -1706,6 +1718,22 @@ public class StatisticsPanel extends StatisticsBasePanel {
 		viewer=new ArrayList<>();
 		for(Statistics statistic : statistics) viewer.add(new StatisticViewerOverviewText(statistic,StatisticViewerOverviewText.Mode.MODE_SYSTEM_INFO,(m,s)->fastAccess.addXML(m,s)));
 		root.addChild(new StatisticNode(Language.tr("Statistics.SystemData"),viewer));
+
+		if (testThreadBalanceData(statistics)) {
+			root.addChild(group=new StatisticNode(Language.tr("Statistics.SystemData.ThreadBalance"),true));
+
+			viewer=new ArrayList<>();
+			for(Statistics statistic : statistics) viewer.add(new StatisticViewerOverviewText(statistic,StatisticViewerOverviewText.Mode.MODE_SYSTEM_INFO_THREAD_BALANCE,(m,s)->fastAccess.addXML(m,s)));
+			group.addChild(new StatisticNode(Language.tr("Statistics.SystemData.ThreadBalance"),viewer));
+
+			viewer=new ArrayList<>();
+			for(Statistics statistic : statistics) viewer.add(new StatisticViewerTimeTable(statistic,StatisticViewerTimeTable.Mode.MODE_SYSTEM_INFO_THREAD_BALANCE));
+			group.addChild(new StatisticNode(Language.tr("Statistics.SystemData.ThreadBalance"),viewer));
+
+			viewer=new ArrayList<>();
+			for(Statistics statistic : statistics) viewer.add(new StatisticViewerTimeBarChart(statistic,StatisticViewerTimeBarChart.Mode.MODE_SYSTEM_INFO_THREAD_BALANCE));
+			group.addChild(new StatisticNode(Language.tr("Statistics.SystemData.ThreadBalance"),viewer));
+		}
 	}
 
 	/**

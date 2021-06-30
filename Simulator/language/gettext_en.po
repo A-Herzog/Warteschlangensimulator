@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-06-24 14:15+0200\n"
+"POT-Creation-Date: 2021-06-28 10:09+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19630,6 +19630,18 @@ msgstr "Simulated client arrivals (without warm-up phase)"
 msgid "Statistics.SystemData.SimulatedEvents"
 msgstr "Simulated events"
 
+msgid "Statistics.SystemData.ThreadBalance"
+msgstr "Arrivals per Thread"
+
+msgid "Statistics.SystemData.ThreadBalance.DeviationFromAverage"
+msgstr "Deviation from average"
+
+msgid "Statistics.SystemData.ThreadBalance.NumberOfArrivals"
+msgstr "Number of arrivals"
+
+msgid "Statistics.SystemData.ThreadBalance.Thread"
+msgstr "Thread"
+
 msgid "Statistics.SystemData.ThreadDynamicBalance"
 msgstr "Maximum relative difference in simulated clients between the threads"
 
@@ -20304,6 +20316,9 @@ msgstr "StatisticsThreads"
 
 msgid "Statistics.XML.RunThreads.DynamicBalance"
 msgstr "DynamicThreadBalance"
+
+msgid "Statistics.XML.RunThreads.DynamicBalanceData"
+msgstr "DynamicThreadBalanceData"
 
 msgid "Statistics.XML.RunThreads.Error"
 msgstr "The value in the \"%s\" element has to be a positive integer value but is \"%s\"."

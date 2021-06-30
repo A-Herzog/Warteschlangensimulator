@@ -52,6 +52,8 @@ public final class StatisticsSimulationBaseData extends StatisticsPerformanceInd
 	public static String[] xmlNameNUMA=new String[]{"NUMAModus"};
 	/** XML-Attribut für "DynamischeThreadBalance" */
 	public static String[] xmlNameDynamicBalance=new String[]{"DynamischeThreadBalance"};
+	/** XML-Attribut für "DynamischeThreadBalanceDaten" */
+	public static String[] xmlNameDynamicBalanceData=new String[]{"DynamischeThreadBalanceDaten"};
 	/** XML-Attribut für "StatistikThreadLaufzeiten" */
 	public static String[] xmlNameRunThreadTimes=new String[]{"StatistikThreadLaufzeiten"};
 	/** Fehlermeldung, wenn das "StatistikThreadLaufzeiten"-Attribut nicht gelesen werden konnte. */
@@ -108,6 +110,11 @@ public final class StatisticsSimulationBaseData extends StatisticsPerformanceInd
 	 * Maximale relative Abweichung an simulierten Kunden pro Thread (bei der Verwendung einer dynamischen Thread-Balance)
 	 */
 	public double threadDynamicBalance;
+
+	/**
+	 * Anzahl an Kundenankünften pro Thread (bei der Verwendung einer dynamischen Thread-Balance)
+	 */
+	public long[] threadDynamicBalanceData;
 
 	/**
 	 * Anzahl der Ereignisse, die (in Summe über alle Threads) während der Simulation ausgeführt wurden.
@@ -179,6 +186,7 @@ public final class StatisticsSimulationBaseData extends StatisticsPerformanceInd
 		warnings=null;
 		threadRunTimes=new int[]{0};
 		threadDynamicBalance=0.0;
+		threadDynamicBalanceData=new long[]{0};
 	}
 
 	/**
@@ -205,6 +213,7 @@ public final class StatisticsSimulationBaseData extends StatisticsPerformanceInd
 		}
 		threadRunTimes=Arrays.copyOf(source.threadRunTimes,source.threadRunTimes.length);
 		threadDynamicBalance=source.threadDynamicBalance;
+		threadDynamicBalanceData=Arrays.copyOf(threadDynamicBalanceData,threadDynamicBalanceData.length);
 	}
 
 	/**
@@ -264,6 +273,10 @@ public final class StatisticsSimulationBaseData extends StatisticsPerformanceInd
 		child.setTextContent(""+runThreads);
 		if (numaAwareMode) child.setAttribute(xmlNameNUMA[0],"1");
 		if (threadDynamicBalance>0) child.setAttribute(xmlNameDynamicBalance[0],NumberTools.formatSystemNumber(threadDynamicBalance));
+		if (threadDynamicBalanceData.length>1 || threadDynamicBalanceData[0]!=0L) {
+			final DataDistributionImpl dist=new DataDistributionImpl(threadDynamicBalanceData.length,threadDynamicBalanceData);
+			child.setAttribute(xmlNameDynamicBalanceData[0],dist.storeToString());
+		}
 
 		if (threadRunTimes.length>1 || threadRunTimes[0]!=0) {
 			node.appendChild(child=doc.createElement(xmlNameRunThreadTimes[0]));
@@ -332,6 +345,17 @@ public final class StatisticsSimulationBaseData extends StatisticsPerformanceInd
 						break;
 					}
 				}
+
+				for (String test: xmlNameDynamicBalanceData) {
+					final String attr=e.getAttribute(test);
+					if (!attr.isEmpty()) {
+						final DataDistributionImpl dist=DataDistributionImpl.createFromString(attr,1000);
+						threadDynamicBalanceData=new long[dist.densityData.length];
+						for (int j=0;j<dist.densityData.length;j++) threadDynamicBalanceData[j]=Math.round(dist.densityData[j]);
+						break;
+					}
+				}
+
 				continue;
 			}
 			if (multiCompare(name,xmlNameRunThreadTimes)) {

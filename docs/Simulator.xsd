@@ -1841,6 +1841,7 @@
   <xs:extension base="xs:string">
 	<xs:attribute name="NUMAModus" type="xs:string"/>
 	<xs:attribute name="DynamischeThreadBalance" type="xs:string"/>
+	<xs:attribute name="DynamischeThreadBalanceDaten" type="xs:string"/>
   </xs:extension>
 </xs:simpleContent></xs:complexType></xs:element>
 
@@ -3966,6 +3967,7 @@
   <xs:extension base="xs:string">
 	<xs:attribute name="NUMAMode" type="xs:string"/>
 	<xs:attribute name="DynamicThreadBalance" type="xs:string"/>
+	<xs:attribute name="DynamicThreadBalanceData" type="xs:string"/>
   </xs:extension>
 </xs:simpleContent></xs:complexType></xs:element>
 

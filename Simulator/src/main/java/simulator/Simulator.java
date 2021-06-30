@@ -267,6 +267,25 @@ public class Simulator extends SimulatorBase implements AnySimulator {
 	}
 
 	/**
+	 * Liefert die Anzahl an Kundenankünften pro Thread (bei der Verwendung einer dynamischen Thread-Balance).
+	 * @return	Kundenankünfte pro Thread (oder <code>null</code>, wenn keine Verteilung der Kundenankünfte ermittelt werden konnte)
+	 */
+	private long[] getBalancerData() {
+		if (dynamicLoadBalancer==null) return null;
+
+		long sum=0;
+		final long[] results=new long[threadCount];
+		for (int i=0;i<threadCount;i++) {
+			final long clients=((SimulationData)threads[i].simData).runData.clientsArrived;
+			results[i]=clients;
+			sum+=clients;
+		}
+		if (sum==0) return null;
+
+		return results;
+	}
+
+	/**
 	 * Schreibt am Simulationsende die Basisdaten des Simulationsprozesses
 	 * in die Statistik
 	 * @param statistics	Statistik in die die Daten geschrieben werden sollen
@@ -285,6 +304,8 @@ public class Simulator extends SimulatorBase implements AnySimulator {
 		statistics.simulationData.numaAwareMode=getNUMAAware();
 		statistics.simulationData.threadRunTimes=getThreadRuntimes();
 		statistics.simulationData.threadDynamicBalance=getBalancerInfo();
+		final long[] balanceData=getBalancerData();
+		if (balanceData!=null) statistics.simulationData.threadDynamicBalanceData=balanceData;
 	}
 
 	/**
