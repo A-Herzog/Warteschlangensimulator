@@ -43,6 +43,7 @@ import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 import javax.swing.JToolBar;
 import javax.swing.KeyStroke;
+import javax.swing.SwingUtilities;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
@@ -352,6 +353,24 @@ public class ScriptEditorPanel extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent e) {commandSearchAgain();}
 		});
+
+
+		/* Ggf. Java-Code direkt beim Öffnen des Editor prüfen */
+		if (mode==ScriptMode.Java) {
+			SwingUtilities.invokeLater(()->testJavaCodeAtStartUp(script));
+		}
+	}
+
+	/**
+	 * Versucht den angegebenen Java-Code zu übersetzen (und im Erfolgsfall in den Cache aufzunehmen)
+	 * @param script	Zu übersetzender Java-Code
+	 */
+	private void testJavaCodeAtStartUp(final String script) {
+		final Thread testThread=new Thread(()->{
+			if (!DynamicFactory.isWindows() && !DynamicFactory.isInMemoryProcessing()) return;
+			DynamicFactory.getFactory().test(script);
+		},"Java code background tester");
+		testThread.start();
 	}
 
 	/**
