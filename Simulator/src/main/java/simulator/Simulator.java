@@ -33,6 +33,7 @@ import simcore.SimData;
 import simcore.SimThread;
 import simcore.SimulatorBase;
 import simcore.logging.SimLogging;
+import simulator.StartAnySimulator.PrepareError;
 import simulator.coreelements.RunElement;
 import simulator.editmodel.EditModel;
 import simulator.runmodel.DynamicLoadBalancer;
@@ -230,11 +231,11 @@ public class Simulator extends SimulatorBase implements AnySimulator {
 	 * Bereitet die Simulation vor
 	 * @return	Liefert <code>null</code> zurück, wenn die Simulation erfolgreich vorbereitet werden konnte, sonst eine Fehlermeldung
 	 */
-	public String prepare() {
+	public PrepareError prepare() {
 		prepareStatic(editModel.useFixedSeed);
 
 		final Object obj=RunModel.getRunModel(editModel,false,SetupData.getSetup().useMultiCoreSimulation);
-		if (obj instanceof String) return (String)obj;
+		if (obj instanceof StartAnySimulator.PrepareError) return (StartAnySimulator.PrepareError)obj;
 		runModel=(RunModel)obj;
 
 		if (SetupData.getSetup().useDynamicThreadBalance) {

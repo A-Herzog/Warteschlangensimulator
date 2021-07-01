@@ -250,7 +250,7 @@ public class BackgroundSystem {
 		/* Prüfen */
 
 		final Object obj=RunModel.getRunModel(model,!canBackgroundProcess,setup.useMultiCoreSimulation); /* !canBackgroundProcess == testOnly: Wenn wir später sowieso nicht simulieren können, dann hier auch keine Daten laden */
-		if (obj instanceof String) return (String)obj;
+		if (obj instanceof StartAnySimulator.PrepareError) return ((StartAnySimulator.PrepareError)obj).error;
 
 		/* Simulieren */
 
@@ -261,7 +261,7 @@ public class BackgroundSystem {
 
 		if (!startProcessing) return null;
 		lastModel=model.clone();
-		final String error=StartAnySimulator.testModel(lastModel);
+		final StartAnySimulator.PrepareError error=StartAnySimulator.testModel(lastModel);
 		/* lastStarter=new StartAnySimulator(lastModel);
 		final String error=lastStarter.prepare(); */
 		if (error!=null) {
@@ -269,7 +269,7 @@ public class BackgroundSystem {
 			lastSimulator=null;
 			lastStarter=null;
 			stop(true);
-			return error;
+			return error.error;
 		}
 
 		lastStarter=new StartAnySimulator(lastModel);
@@ -324,12 +324,12 @@ public class BackgroundSystem {
 	 * @param logging	Optionales Logging-System (kann <code>null</code> sein)
 	 * @param loggingIDs	Liste der Stations-IDs deren Ereignisse beim Logging erfasst werden sollen (nur von Bedeutung, wenn das Logging als solches aktiv ist; kann <code>null</code> sein, dann werden die Ereignisse aller Stationen erfasst)
 	 * @param logType	Welche Arten von Ereignissen sollen erfasst werden? (<code>null</code> bedeutet: alles erfassen)
-	 * @return	Liefert im Erfolgsfall ein {@link AnySimulator}-Objekt; im Fehlerfall eine Fehlermeldung als Zeichenkette.
+	 * @return	Liefert im Erfolgsfall ein {@link AnySimulator}-Objekt; im Fehlerfall eine Fehlermeldung als <code>PrepareError</code>-Objekt
 	 */
 	public Object getNewStartedSimulator(final EditModel editModel, final SimLogging logging, final int[] loggingIDs, final Set<Simulator.LogType> logType) {
 		lastUsage=System.currentTimeMillis();
 		final StartAnySimulator starter=new StartAnySimulator(editModel,logging,loggingIDs,logType);
-		final String error=starter.prepare();
+		final StartAnySimulator.PrepareError error=starter.prepare();
 		if (error!=null) return error;
 		return starter.start();
 	}
@@ -339,8 +339,8 @@ public class BackgroundSystem {
 	 * @param editModel	Editor-Modell das simuliert werden soll
 	 * @param logging	Optionales Logging-System (kann <code>null</code> sein)
 	 * @param loggingIDs	Liste der Stations-IDs deren Ereignisse beim Logging erfasst werden sollen (nur von Bedeutung, wenn das Logging als solches aktiv ist; kann <code>null</code> sein, dann werden die Ereignisse aller Stationen erfasst)
-	 * @return	Liefert im Erfolgsfall ein {@link AnySimulator}-Objekt; im Fehlerfall eine Fehlermeldung als Zeichenkette.
 	 * @param logType	Welche Arten von Ereignissen sollen erfasst werden? (<code>null</code> bedeutet: alles erfassen)
+	 * @return	Liefert im Erfolgsfall ein {@link AnySimulator}-Objekt; im Fehlerfall eine Fehlermeldung als <code>PrepareError</code>-Objekt.
 	 */
 	public Object getStartedSimulator(final EditModel editModel, final SimLogging logging, final int[] loggingIDs, final Set<Simulator.LogType> logType) {
 		lastUsage=System.currentTimeMillis();

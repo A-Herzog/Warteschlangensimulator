@@ -139,10 +139,10 @@ public abstract class AbstractSimulationCommand extends AbstractCommand {
 			}
 		}
 		final StartAnySimulator starter=new StartAnySimulator(maxThreads,editModel);
-		final String error=starter.prepare();
+		final StartAnySimulator.PrepareError error=starter.prepare();
 		if (error!=null) {
-			if (out!=null) out.println(BaseCommandLineSystem.errorBig+": "+Language.tr("CommandLine.Error.PreparationOfModel")+": "+error);
-			return error;
+			if (out!=null) out.println(BaseCommandLineSystem.errorBig+": "+Language.tr("CommandLine.Error.PreparationOfModel")+": "+error.error);
+			return error.error;
 		}
 
 		/* Simulation starten */

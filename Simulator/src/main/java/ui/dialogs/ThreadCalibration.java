@@ -22,6 +22,7 @@ import language.Language;
 import mathtools.NumberTools;
 import mathtools.Table;
 import simulator.Simulator;
+import simulator.StartAnySimulator;
 import simulator.editmodel.EditModel;
 import simulator.examples.EditModelExamples;
 import simulator.statistics.Statistics;
@@ -186,9 +187,9 @@ public class ThreadCalibration {
 
 		/* Modell vorbereiten */
 		final Simulator simulator=new Simulator(setup.useMultiCoreSimulationMaxCount,model,null,null,null);
-		final String error=simulator.prepare();
+		final StartAnySimulator.PrepareError error=simulator.prepare();
 		if (error!=null) {
-			output(error);
+			output(error.error);
 			return -1;
 		}
 

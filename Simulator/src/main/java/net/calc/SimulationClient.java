@@ -88,8 +88,8 @@ public class SimulationClient implements AnySimulator {
 	 * @return	Liefert <code>null</code> zurück, wenn die Simulation erfolgreich vorbereitet werden konnte, sonst eine Fehlermeldung
 	 */
 	public String prepare() {
-		final String modelError=StartAnySimulator.testModel(model);
-		if (modelError!=null) return modelError;
+		final StartAnySimulator.PrepareError modelError=StartAnySimulator.testModel(model);
+		if (modelError!=null) return modelError.error;
 
 		transfer=net.start();
 		if (transfer==null) {

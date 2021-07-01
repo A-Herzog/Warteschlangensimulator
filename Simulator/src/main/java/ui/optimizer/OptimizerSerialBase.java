@@ -96,10 +96,10 @@ public abstract class OptimizerSerialBase extends OptimizerBase {
 	 */
 	private synchronized void runModel(final int stepNr, final EditModel model) {
 		final StartAnySimulator starter=new StartAnySimulator(model);
-		final String error=starter.prepare();
+		final StartAnySimulator.PrepareError error=starter.prepare();
 		if (error!=null) {
 			logOutput("  "+Language.tr("Optimizer.Error.ErrorStartingSimulation")+":");
-			logOutput("  "+error);
+			logOutput("  "+error.error);
 			logOutput(Language.tr("Optimizer.OptimizationCanceled"));
 			done(false);
 		} else {

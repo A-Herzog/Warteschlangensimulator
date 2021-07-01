@@ -131,8 +131,8 @@ public class StartAnySimulator {
 	 * Prüft das Modell und bereitet die Simulation vor.
 	 * @return	Gibt im Erfolgsfall <code>null</code> zurück, sonst eine Fehlermeldung.
 	 */
-	public String prepare() {
-		final String prepareError=testModel(editModel);
+	public PrepareError prepare() {
+		final PrepareError prepareError=testModel(editModel);
 		if (prepareError!=null) return prepareError;
 
 		if (isRemoveSimulateable(editModel)) {
@@ -183,7 +183,7 @@ public class StartAnySimulator {
 	 * @param editModel	Zu prüfendes Modell
 	 * @return	Gibt im Erfolgsfall <code>null</code> zurück, sonst eine Fehlermeldung.
 	 */
-	public static String testModel(final EditModel editModel) {
+	public static PrepareError testModel(final EditModel editModel) {
 		/*
 		Evtl. langsam, weil Quelltabellen unnötiger Weise komplett geladen werden:
 		Simulator simulator=new Simulator(editModel,null);
@@ -191,7 +191,7 @@ public class StartAnySimulator {
 		 */
 
 		final Object obj=RunModel.getRunModel(editModel,true,SetupData.getSetup().useMultiCoreSimulation);
-		if (obj instanceof String) return (String)obj;
+		if (obj instanceof StartAnySimulator.PrepareError) return (StartAnySimulator.PrepareError)obj;
 		return null;
 	}
 
@@ -218,5 +218,32 @@ public class StartAnySimulator {
 	public static boolean isRemoveSimulateable(final EditModel editModel) {
 		if (editModel.modelLoadData.willChangeModel()) return false;
 		return isRemoveSimulateable(editModel.surface);
+	}
+
+	/**
+	 * Diese Klasse beschreibt die Daten zu einem Fehler
+	 * beim Erstellen eines Laufzeitmodells.
+	 */
+	public static class PrepareError {
+		/**
+		 * Fehlermeldung
+		 */
+		public final String error;
+
+		/**
+		 * ID der Station, an der der Fehler aufgetreten ist.<br>
+		 * (Kann -1 sein, wenn der Fehler keiner Station zugeordnet werden kann.)
+		 */
+		public final int id;
+
+		/**
+		 * Konstruktor der Klasse
+		 * @param error	Fehlermeldung
+		 * @param id	ID der Station, an der der Fehler aufgetreten ist. (Kann -1 sein, wenn der Fehler keiner Station zugeordnet werden kann.)
+		 */
+		public PrepareError(final String error, final int id) {
+			this.error=error;
+			this.id=id;
+		}
 	}
 }

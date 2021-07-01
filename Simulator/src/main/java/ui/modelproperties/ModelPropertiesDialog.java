@@ -1275,12 +1275,12 @@ public class ModelPropertiesDialog extends BaseDialog {
 	 * @param content	Inhalt des zugehörigen Tabs
 	 */
 	private void addStatusTab(final JPanel content) {
-		final String error=StartAnySimulator.testModel(model);
+		final StartAnySimulator.PrepareError error=StartAnySimulator.testModel(model);
 		final StringBuilder sb=new StringBuilder();
 		sb.append("<html><body style=\"margin: 10px;\">");
 		if (error!=null) {
 			sb.append("<p style=\"margin-bottom: 10px\">"+Language.tr("Editor.Dialog.Tab.SimulationSystem.Error")+"</p>");
-			sb.append("<p>"+Language.tr("Editor.Dialog.Tab.SimulationSystem.ErrorInfo")+":<br><b>"+error+"</b></p>");
+			sb.append("<p>"+Language.tr("Editor.Dialog.Tab.SimulationSystem.ErrorInfo")+":<br><b>"+error.error+"</b></p>");
 		} else {
 			sb.append("<p style=\"margin-bottom: 10px\">"+Language.tr("Editor.Dialog.Tab.SimulationSystem.Ok")+"</p>");
 

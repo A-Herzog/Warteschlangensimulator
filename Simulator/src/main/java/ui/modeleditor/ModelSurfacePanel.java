@@ -1798,7 +1798,7 @@ public final class ModelSurfacePanel extends JPanel {
 	 * @param element	Aktuelle Station
 	 * @param modifieres	Gedrückte Umschalt-Tasten
 	 */
-	private void showElementProperties(final ModelElement element, final int modifieres) {
+	public void showElementProperties(final ModelElement element, final int modifieres) {
 		if (element==null) return;
 		surface.setSelectedArea(null,zoom);
 		surface.setSelectedElement(element);

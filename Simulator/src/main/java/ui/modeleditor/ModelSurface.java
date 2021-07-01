@@ -425,11 +425,29 @@ public final class ModelSurface {
 	}
 
 	/**
-	 * Liefert ein bestimmte Element basierend auf der ID des Elements zurück.
+	 * Liefert ein bestimmtes Element basierend auf der ID des Elements zurück.
 	 * @param id	ID des Elements, welches geliefert werden soll
 	 * @return	Gibt im Erfolgsfall das Element zurück oder <code>null</code>, wenn es kein Element mit der angegebenen ID gibt.
 	 */
 	public ModelElement getByIdIncludingSubModels(final int id) {
+		if (id<0) return null;
+		for (ModelElement element: elements) {
+			if (element.getId()==id) return element;
+			if (element instanceof ModelElementSub) {
+				final ModelElement element2=((ModelElementSub)element).getSubSurface().getById(id);
+				if (element2!=null) return element2;
+			}
+		}
+		return null;
+	}
+
+	/**
+	 * Liefert ein bestimmtes Element basierend auf der ID des Elements zurück.<br>
+	 * Bei Elementen in Untermodellen wird das Untermodellelement auf der Hauptfläche geliefert.
+	 * @param id	ID des Elements, welches geliefert werden soll
+	 * @return	Gibt im Erfolgsfall das Element zurück oder <code>null</code>, wenn es kein Element mit der angegebenen ID gibt.
+	 */
+	public ModelElement getByIdIncludingSubModelsButGetParent(final int id) {
 		if (id<0) return null;
 		for (ModelElement element: elements) {
 			if (element.getId()==id) return element;

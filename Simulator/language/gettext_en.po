@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-06-28 10:09+0200\n"
+"POT-Creation-Date: 2021-06-30 08:19+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -30721,6 +30721,15 @@ msgstr "The model is error-free and can be simulated."
 
 msgid "Window.Check.PleaseRerun"
 msgstr "Please run the model checker again to test whether the model is also correct with regard to the simulation."
+
+msgid "Window.Check.StationDialog.InfoNo"
+msgstr "Do not open any dialog."
+
+msgid "Window.Check.StationDialog.InfoYes"
+msgstr "Open station edit dialog."
+
+msgid "Window.Check.StationDialog.Question"
+msgstr "Do you want to open the dialog for editing the station now?"
 
 msgid "Window.Check.Title"
 msgstr "Model check"

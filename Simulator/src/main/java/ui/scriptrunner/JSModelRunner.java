@@ -26,6 +26,7 @@ import scripting.java.ModelImpl;
 import scripting.java.OutputImpl;
 import scripting.java.StatisticsImpl;
 import scripting.js.JSRunComplexScript;
+import simulator.StartAnySimulator;
 import simulator.editmodel.EditModel;
 import simulator.runmodel.RunModel;
 import tools.SetupData;
@@ -85,7 +86,7 @@ public class JSModelRunner {
 		if (model==null) return null;
 
 		Object obj=RunModel.getRunModel(model,true,SetupData.getSetup().useMultiCoreSimulation);
-		if (obj instanceof String) return (String)obj;
+		if (obj instanceof StartAnySimulator.PrepareError) return ((StartAnySimulator.PrepareError)obj).error;
 
 		return null;
 	}

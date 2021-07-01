@@ -31,6 +31,7 @@ import org.apache.commons.math3.util.FastMath;
 
 import language.Language;
 import mathtools.NumberTools;
+import simulator.StartAnySimulator;
 import simulator.builder.RunModelCreator;
 import simulator.coreelements.RunElement;
 import simulator.editmodel.EditModel;
@@ -635,7 +636,7 @@ public class RunModel {
 	 * @return	Liefert im Erfolgsfall <code>null</code>, sonst eine Fehlermeldung
 	 * @see #getRunModel(EditModel, boolean, boolean)
 	 */
-	private static String initElementsData(final EditModel editModel, final RunModel runModel, final boolean testOnly, final boolean allowBackgroundProcessing) {
+	private static StartAnySimulator.PrepareError initElementsData(final EditModel editModel, final RunModel runModel, final boolean testOnly, final boolean allowBackgroundProcessing) {
 		final RunModelCreator creator=new RunModelCreator(editModel,runModel,testOnly);
 		final List<ModelElement> elements=new ArrayList<>(editModel.surface.getElements());
 
@@ -648,7 +649,7 @@ public class RunModel {
 			prepareThreadNr++;
 			return new Thread(r,"Prepare model for simulation "+prepareThreadNr);
 		});
-		final List<Future<String>> scriptProcessor=new ArrayList<>();
+		final List<Future<StartAnySimulator.PrepareError>> scriptProcessor=new ArrayList<>();
 
 		try {
 
@@ -680,10 +681,14 @@ public class RunModel {
 					if (element instanceof ModelElementDisposeWithTable) hasDispose=true;
 
 					if (allowBackgroundProcessing && !testOnly && runInBackgroundThread(boxElement)) {
-						scriptProcessor.add(executorPool.submit(()->creator.addElement(boxElement)));
+						scriptProcessor.add(executorPool.submit(()->{
+							final String err=creator.addElement(boxElement);
+							if (err==null) return null;
+							return new StartAnySimulator.PrepareError(err,boxElement.getId());
+						}));
 					} else {
 						final String error=creator.addElement(boxElement);
-						if (error!=null) return error;
+						if (error!=null) return new StartAnySimulator.PrepareError(error,boxElement.getId());
 					}
 
 					if (element instanceof ModelElementSub) {
@@ -692,33 +697,37 @@ public class RunModel {
 						for (ModelElement subElement: subElements) if (subElement instanceof ModelElementBox) {
 							final ModelElementBox subBox=(ModelElementBox)subElement;
 							if (allowBackgroundProcessing && !testOnly && runInBackgroundThread(subBox)) {
-								scriptProcessor.add(executorPool.submit(()->creator.addElement(subBox,sub)));
+								scriptProcessor.add(executorPool.submit(()->{
+									final String err=creator.addElement(subBox,sub);
+									if (err==null) return null;
+									return new StartAnySimulator.PrepareError(err,subBox.getId());
+								}));
 							} else {
 								final String error=creator.addElement(subBox,sub);
-								if (error!=null) return error;
+								if (error!=null) return new StartAnySimulator.PrepareError(error,subBox.getId());
 							}
 						}
 					}
 				} else {
 					if ((element instanceof InteractiveElement) && (element instanceof ModelElementPosition)) {
 						final String error=creator.addElement((ModelElementPosition)element);
-						if (error!=null) return error;
+						if (error!=null) return new StartAnySimulator.PrepareError(error,element.getId());
 					}
 				}
 			}
 
 			/* Sind Eingang und Ausgang vorhanden? */
-			if (!hasSource) return Language.tr("Simulation.Creator.NoSource");
+			if (!hasSource) return new StartAnySimulator.PrepareError(Language.tr("Simulation.Creator.NoSource"),-1);
 			if (!hasDispose) {
-				if (!allSourcesLimited || (!editModel.useFinishTime && !editModel.useTerminationCondition)) return Language.tr("Simulation.Creator.NoDispose");
+				if (!allSourcesLimited || (!editModel.useFinishTime && !editModel.useTerminationCondition)) return new StartAnySimulator.PrepareError(Language.tr("Simulation.Creator.NoDispose"),-1);
 			}
 
 			/* Hintergrundverarbeitungen abschließen */
-			for (Future<String> future: scriptProcessor) try {
-				final String error=future.get();
+			for (Future<StartAnySimulator.PrepareError> future: scriptProcessor) try {
+				final StartAnySimulator.PrepareError error=future.get();
 				if (error!=null) return error;
 			} catch (InterruptedException|ExecutionException e) {
-				return e.getMessage();
+				return new StartAnySimulator.PrepareError(e.getMessage(),-1);
 			}
 
 		} finally {
@@ -729,7 +738,7 @@ public class RunModel {
 		int maxID=0;
 		for (Map.Entry<Integer,RunElement> entry : runModel.elements.entrySet()) {
 			final RunElement element=entry.getValue();
-			if (element.id<0) return String.format(Language.tr("Simulation.Creator.NegativeID"),element.getClass().getName());
+			if (element.id<0) return new StartAnySimulator.PrepareError(String.format(Language.tr("Simulation.Creator.NegativeID"),element.getClass().getName()),element.id);
 			if (element.id>maxID) maxID=element.id;
 			element.prepareRun(runModel);
 		}
@@ -761,18 +770,18 @@ public class RunModel {
 	 * @param editModel	Editor-Modell, welches in ein Laufzeit-Modell umgewandelt werden soll
 	 * @param testOnly	Wird hier <code>true</code> übergeben, so werden externe Datenquellen nicht wirklich geladen
 	 * @param allowBackgroundProcessing	Darf die Vorbereitung von benutzerdefiniertem Java-Code und von externen Tabellenquelle in eigene Threads ausgelagert werden?
-	 * @return	Gibt im Erfolgsfall ein Objekt vom Typ <code>RunModel</code> zurück, sonst einen String mit einer Fehlermeldung.
+	 * @return	Gibt im Erfolgsfall ein Objekt vom Typ <code>RunModel</code> zurück, sonst <code>PrepareError</code>-Objekt mit einer Fehlermeldung.
 	 * @see EditModel
 	 */
 	public static Object getRunModel(final EditModel editModel, final boolean testOnly, final boolean allowBackgroundProcessing) {
 		RunModel runModel=new RunModel();
 
 		String error;
-		error=initVariables(editModel,runModel); if (error!=null) return error;
-		error=initGeneralData(editModel,runModel); if (error!=null) return error;
-		error=initElementsData(editModel,runModel,testOnly,allowBackgroundProcessing); if (error!=null) return error;
-		error=initGeneralData2(editModel,runModel); if (error!=null) return error; /* Hier brauchen wir die Variablennamen und die werden erst in initElementsData gesetzt. */
-		error=initAdditionalStatistics(editModel,runModel); if (error!=null) return error;
+		error=initVariables(editModel,runModel); if (error!=null) return new StartAnySimulator.PrepareError(error,-1);
+		error=initGeneralData(editModel,runModel); if (error!=null) return new StartAnySimulator.PrepareError(error,-1);
+		final StartAnySimulator.PrepareError prepareError=initElementsData(editModel,runModel,testOnly,allowBackgroundProcessing); if (prepareError!=null) return prepareError;
+		error=initGeneralData2(editModel,runModel); if (error!=null) return new StartAnySimulator.PrepareError(error,-1); /* Hier brauchen wir die Variablennamen und die werden erst in initElementsData gesetzt. */
+		error=initAdditionalStatistics(editModel,runModel); if (error!=null) return new StartAnySimulator.PrepareError(error,-1);
 
 		return runModel;
 	}

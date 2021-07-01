@@ -216,8 +216,8 @@ public class SocketServerTask {
 		}
 
 		final StartAnySimulator starter=new StartAnySimulator(model,null,null,Simulator.logTypeFull);
-		final String prepareError=starter.prepare();
-		if (prepareError!=null) {setResult(prepareError.getBytes()); return;}
+		final StartAnySimulator.PrepareError prepareError=starter.prepare();
+		if (prepareError!=null) {setResult(prepareError.error.getBytes()); return;}
 		synchronized(SocketServerTask.this) {
 			simulator=starter.start();
 		}

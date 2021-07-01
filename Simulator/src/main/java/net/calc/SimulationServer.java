@@ -127,9 +127,9 @@ public class SimulationServer extends NetServer {
 
 		/* Starten */
 		final Simulator simulator=new Simulator(model,null,null,Simulator.logTypeFull);
-		final String prepareError=simulator.prepare();
+		final StartAnySimulator.PrepareError prepareError=simulator.prepare();
 		if (prepareError!=null) {
-			returnError(transfer,log,prepareError);
+			returnError(transfer,log,prepareError.error);
 			return null;
 		}
 

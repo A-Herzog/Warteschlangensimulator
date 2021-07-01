@@ -1785,6 +1785,15 @@ public final class EditorPanel extends EditorPanelBase {
 	}
 
 	/**
+	 * Öffnet den Editor-Dialog für ein Element.
+	 * @param id	ID des Elements für den der Dialog angezeigt werden soll
+	 */
+	public void getByIdIncludingSubModelsButGetParent(final int id) {
+		final ModelElement element=surfacePanel.getSurface().getByIdIncludingSubModelsButGetParent(id);
+		surfacePanel.showElementProperties(element,0);
+	}
+
+	/**
 	 * Listener, die benachrichtigt werden, wenn der Modelleigenschaften-Dialog geschlossen wird und eine weitere Aktion ausgeführt werden soll
 	 * @see #fireNextAction(ui.modelproperties.ModelPropertiesDialog.NextAction)
 	 */

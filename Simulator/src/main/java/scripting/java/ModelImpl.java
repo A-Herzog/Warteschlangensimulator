@@ -259,9 +259,9 @@ public class ModelImpl implements ModelInterface {
 
 		if (model.modelLoadData.willChangeModel()) addOutput(Language.tr("ModelLoadData.IncompatibleWarning.ScriptRunner"));
 		final StartAnySimulator starter=new StartAnySimulator(model);
-		final String error=starter.prepare();
+		final StartAnySimulator.PrepareError error=starter.prepare();
 		if (error!=null) {
-			addOutput(error);
+			addOutput(error.error);
 			return false;
 		}
 

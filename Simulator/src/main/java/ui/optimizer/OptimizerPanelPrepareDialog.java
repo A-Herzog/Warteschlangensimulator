@@ -179,8 +179,8 @@ public final class OptimizerPanelPrepareDialog extends JDialog {
 		/* Simulation starten */
 
 		final StartAnySimulator starter=new StartAnySimulator(simpleModel);
-		error=starter.prepare();
-		if (error!=null) {
+		final StartAnySimulator.PrepareError prepareError=starter.prepare();
+		if (prepareError!=null) {
 			simulator=null;
 			return;
 		}

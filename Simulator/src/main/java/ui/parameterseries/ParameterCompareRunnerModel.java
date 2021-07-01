@@ -320,17 +320,18 @@ public class ParameterCompareRunnerModel {
 	 */
 	public String start() {
 		final StartAnySimulator starter=new StartAnySimulator(changedModel);
-		final String error=starter.prepare();
+		final StartAnySimulator.PrepareError error=starter.prepare();
 		if (error!=null) {
 			simulator=null;
 			status=Status.STATUS_DONE;
 			model.setInProcess(-1);
+			return error.error;
 		} else {
 			status=Status.STATUS_RUNNING;
 			model.setInProcess(0);
 			simulator=starter.start();
+			return null;
 		}
-		return error;
 	}
 
 	/**

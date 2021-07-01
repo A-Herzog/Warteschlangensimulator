@@ -132,10 +132,10 @@ public abstract class OptimizerParallelBase extends OptimizerBase {
 		for (int i=0;i<model.length;i++) {
 			if (model[i]==null) continue;
 			final StartAnySimulator starter=new StartAnySimulator(model[i]);
-			final String error=StartAnySimulator.testModel(model[i]);
+			final StartAnySimulator.PrepareError error=StartAnySimulator.testModel(model[i]);
 			if (error!=null) {
 				logOutput("  "+Language.tr("Optimizer.Error.ErrorStartingSimulation")+":");
-				logOutput("  "+error);
+				logOutput("  "+error.error);
 				logOutput(Language.tr("Optimizer.OptimizationCanceled"));
 				done(false);
 				return false;
@@ -166,10 +166,10 @@ public abstract class OptimizerParallelBase extends OptimizerBase {
 		int started=0;
 		for (int i=0;i<simulator.length;i++) if (simulator[i] instanceof StartAnySimulator) {
 			final StartAnySimulator starter=(StartAnySimulator)simulator[i];
-			final String error=starter.prepare();
+			final StartAnySimulator.PrepareError error=starter.prepare();
 			if (error!=null) {
 				logOutput("  "+Language.tr("Optimizer.Error.ErrorStartingSimulation")+":");
-				logOutput("  "+error);
+				logOutput("  "+error.error);
 				logOutput(Language.tr("Optimizer.OptimizationCanceled"));
 				done(false);
 				return;
@@ -222,10 +222,10 @@ public abstract class OptimizerParallelBase extends OptimizerBase {
 		while (true) {
 			if (simulator[runningSimulatorNr.get()] instanceof StartAnySimulator) {
 				final StartAnySimulator starter=(StartAnySimulator)simulator[runningSimulatorNr.get()];
-				final String error=starter.prepare();
+				final StartAnySimulator.PrepareError error=starter.prepare();
 				if (error!=null) {
 					logOutput("  "+Language.tr("Optimizer.Error.ErrorStartingSimulation")+":");
-					logOutput("  "+error);
+					logOutput("  "+error.error);
 					logOutput(Language.tr("Optimizer.OptimizationCanceled"));
 					done(false);
 					return;
@@ -251,10 +251,10 @@ public abstract class OptimizerParallelBase extends OptimizerBase {
 					runningSimulatorNr.incrementAndGet();
 					if (simulator[runningSimulatorNr.get()] instanceof StartAnySimulator) {
 						final StartAnySimulator starter=(StartAnySimulator)simulator[runningSimulatorNr.get()];
-						final String error=starter.prepare();
+						final StartAnySimulator.PrepareError error=starter.prepare();
 						if (error!=null) {
 							logOutput("  "+Language.tr("Optimizer.Error.ErrorStartingSimulation")+":");
-							logOutput("  "+error);
+							logOutput("  "+error.error);
 							logOutput(Language.tr("Optimizer.OptimizationCanceled"));
 							done(true);
 							return;

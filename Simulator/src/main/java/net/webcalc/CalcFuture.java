@@ -439,8 +439,11 @@ public class CalcFuture {
 		}
 
 		final StartAnySimulator starter=new StartAnySimulator(model,null,null,Simulator.logTypeFull);
-		final String prepareError=starter.prepare();
-		if (prepareError!=null) {setError(prepareError); return;}
+		final StartAnySimulator.PrepareError prepareError=starter.prepare();
+		if (prepareError!=null) {
+			setError(prepareError.error);
+			return;
+		}
 		addMessage(Language.tr("CalcWebServer.Simulation.Start")+" - "+DateTools.formatUserDate(System.currentTimeMillis(),true));
 		simulator=starter.start();
 		try {

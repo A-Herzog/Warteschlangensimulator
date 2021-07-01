@@ -150,8 +150,8 @@ public class ParameterCompareRunner {
 	private String checkIntern(final ParameterCompareSetup setup) {
 		/* Modell testen */
 		final EditModel editModel=setup.getEditModel();
-		final String error=StartAnySimulator.testModel(editModel);
-		if (error!=null) return error;
+		final StartAnySimulator.PrepareError error=StartAnySimulator.testModel(editModel);
+		if (error!=null) return error.error;
 
 		/* Prüfen, ob Parameterreihen-Modelle vorhanden sind */
 		if (setup.getModels().size()==0) return Language.tr("ParameterCompare.Run.Error.NoModels");

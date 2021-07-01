@@ -861,10 +861,10 @@ public class CalcWebServer extends WebServer {
 
 		/* Simulation durchführen */
 		final StartAnySimulator starter=new StartAnySimulator(changedEditModel,null,null,Simulator.logTypeFull);
-		final String prepareError=starter.prepare();
+		final StartAnySimulator.PrepareError prepareError=starter.prepare();
 		if (prepareError!=null) {
 			final WebServerResponse response=new WebServerResponse();
-			response.setText(prepareError,WebServerResponse.Mime.TEXT,true);
+			response.setText(prepareError.error,WebServerResponse.Mime.TEXT,true);
 			return response;
 		}
 		final AnySimulator simulator=starter.start();
