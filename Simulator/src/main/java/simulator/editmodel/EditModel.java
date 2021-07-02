@@ -38,7 +38,6 @@ import org.w3c.dom.Element;
 import language.Language;
 import mathtools.NumberTools;
 import mathtools.TimeTools;
-import simulator.editmodel.EditModel.VariableRecord;
 import simulator.runmodel.RunModel;
 import simulator.statistics.Statistics;
 import simulator.statistics.Statistics.CorrelationMode;
