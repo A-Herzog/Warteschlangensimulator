@@ -116,7 +116,7 @@ public final class CommandFilter extends AbstractSimulationCommand {
 			error=!dataFilter.getLastSuccess();
 			break;
 		case Java:
-			final DynamicRunner runner=DynamicFactory.getFactory().load(commands);
+			final DynamicRunner runner=DynamicFactory.getFactory().load(commands,null);
 			if (runner.getStatus()!=DynamicStatus.OK) {
 				error=true;
 				result=DynamicFactory.getLongStatusText(runner);

@@ -2010,7 +2010,7 @@ public class ModelSurfaceAnimatorBase {
 	 */
 	public String runJava(final String script) {
 		if (storedSimData==null) return Language.tr("Animation.NoSimulationDataAvailable");
-		final DynamicRunner runner=DynamicFactory.getFactory().load(script);
+		final DynamicRunner runner=DynamicFactory.getFactory().load(script,storedSimData.runModel.javaImports);
 		if (runner.getStatus()!=DynamicStatus.OK) {
 			new DynamicErrorInfo(surfacePanel,runner);
 			return "";

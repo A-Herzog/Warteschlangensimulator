@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-06-30 08:19+0200\n"
+"POT-Creation-Date: 2021-07-01 11:21+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -3693,6 +3693,9 @@ msgstr "Inter-arrival threshold expression"
 
 msgid "Editor.DialogBase.Search.InterarrivalArrival.Threshold.Value"
 msgstr "Inter-arrival threshold value"
+
+msgid "Editor.DialogBase.Search.JavaImports"
+msgstr "Imports for user-defined Java code"
 
 msgid "Editor.DialogBase.Search.Key"
 msgstr "Key"
@@ -8075,6 +8078,15 @@ msgstr "Execute script"
 msgid "JSRunner.Toolbar.Start.Hint"
 msgstr "Starts the execution of the script"
 
+msgid "JavaImports.DialogHint"
+msgstr "The Java classes specified here will be made available via import commands in user-defined Java code."
+
+msgid "JavaImports.Reset"
+msgstr "Restore default imports"
+
+msgid "JavaImports.Title"
+msgstr "Edit imports for user-defined Java code"
+
 msgid "LicenseViewer.FileError"
 msgstr "File %s could not be loaded."
 
@@ -8996,6 +9008,12 @@ msgstr "Update model when starting simulation"
 
 msgid "Main.Menu.Model.ExternalData.LoadOnStart.Mnemonic"
 msgstr "U"
+
+msgid "Main.Menu.Model.JavaImports"
+msgstr "Imports for user-defined Java code..."
+
+msgid "Main.Menu.Model.JavaImports.Mnemonic"
+msgstr "J"
 
 msgid "Main.Menu.Model.Mnemonic"
 msgstr "M"
@@ -29205,6 +29223,9 @@ msgstr "InitialVariable"
 
 msgid "Surface.XML.GlobalVariable.Name"
 msgstr "Name"
+
+msgid "Surface.XML.JavaImports"
+msgstr "ModelJavaImports"
 
 msgid "Surface.XML.Layer"
 msgstr "ModelLayer"

@@ -87,37 +87,40 @@ public final class DynamicFactory {
 	/**
 	 * Prüft ein Skript auf Korrektheit.
 	 * @param script	Zu prüfendes Skript
+	 * @param imports	Zu importierende Klassen (kann leer oder <code>null</code> sein, dann wird {@link SimDynamicSetup#defaultImports} verwendet)
 	 * @return	Ergebnis der Prüfung als {@link DynamicRunner}-Objekt
 	 */
-	private DynamicRunner testIntern(final String script) {
-		final DynamicMethod cachedDynamicMethod=JavaCodeCache.getJavaCodeCache().getCachedMethod(script);
+	private DynamicRunner testIntern(final String script, final String imports) {
+		final DynamicMethod cachedDynamicMethod=JavaCodeCache.getJavaCodeCache().getCachedMethod(script,imports);
 		if (cachedDynamicMethod!=null) return new DynamicRunner(cachedDynamicMethod);
 
-		final DynamicMethod dynamicMethod=new DynamicMethod(setup,script);
+		final DynamicMethod dynamicMethod=new DynamicMethod(setup,script,imports);
 
 		final DynamicStatus status=dynamicMethod.load();
 		if (status!=DynamicStatus.OK) return new DynamicRunner(script,dynamicMethod.getFullClass(),status,dynamicMethod.getError());
-		JavaCodeCache.getJavaCodeCache().storeMethod(script,dynamicMethod);
+		JavaCodeCache.getJavaCodeCache().storeMethod(script,imports,dynamicMethod);
 		return new DynamicRunner(dynamicMethod);
 	}
 
 	/**
 	 * Prüft ein Skript auf Korrektheit.
 	 * @param script	Zu prüfendes Skript
+	 * @param imports	Zu importierende Klassen (kann leer oder <code>null</code> sein, dann wird {@link SimDynamicSetup#defaultImports} verwendet)
 	 * @return	Liefert das Skript-Objekt, welches ggf. einen Fehlerstatus besitzt, zurück
 	 */
-	public DynamicRunner test(final String script) {
-		return testIntern(script);
+	public DynamicRunner test(final String script, final String imports) {
+		return testIntern(script,imports);
 	}
 
 	/**
 	 * Prüft ein Skript auf Korrektheit.
 	 * @param script	Zu prüfendes Skript
+	 * @param imports	Zu importierende Klassen (kann leer oder <code>null</code> sein, dann wird {@link SimDynamicSetup#defaultImports} verwendet)
 	 * @param longMessage	Im Falle eines Fehlers die Zeile "Java-Fehler" als erstes mit ausgeben.
 	 * @return	Gibt im Erfolgsfall das Skript-Objekt zurück, sonst eine Fehlermeldung.
 	 */
-	public Object test(final String script, final boolean longMessage) {
-		final DynamicRunner runner=testIntern(script);
+	public Object test(final String script, final String imports, final boolean longMessage) {
+		final DynamicRunner runner=testIntern(script,imports);
 		if (runner.isOk()) return runner;
 		return getErrorMessage(runner,longMessage);
 	}
@@ -139,18 +142,19 @@ public final class DynamicFactory {
 	/**
 	 * Prüft das Skript und lädt es im Erfolgsfall.
 	 * @param script	Zu ladendes Skript
+	 * @param imports	Zu importierende Klassen (kann leer oder <code>null</code> sein, dann wird {@link SimDynamicSetup#defaultImports} verwendet)
 	 * @return	{@link DynamicRunner}-Objekt welches das geladene Skript oder eine Fehlermeldung enthält.
 	 */
-	public DynamicRunner load(final String script) {
+	public DynamicRunner load(final String script, final String imports) {
 		if (!hasCompiler()) return new DynamicRunner(script,script,DynamicStatus.NO_COMPILER,null);
 
-		final DynamicMethod cachedDynamicMethod=JavaCodeCache.getJavaCodeCache().getCachedMethod(script);
+		final DynamicMethod cachedDynamicMethod=JavaCodeCache.getJavaCodeCache().getCachedMethod(script,imports);
 		if (cachedDynamicMethod!=null) return new DynamicRunner(cachedDynamicMethod);
 
-		final DynamicMethod dynamicMethod=new DynamicMethod(setup,script);
+		final DynamicMethod dynamicMethod=new DynamicMethod(setup,script,imports);
 		final DynamicStatus status=dynamicMethod.load();
 		if (status!=DynamicStatus.OK) return new DynamicRunner(script,dynamicMethod.getFullClass(),status,dynamicMethod.getError());
-		JavaCodeCache.getJavaCodeCache().storeMethod(script,dynamicMethod);
+		JavaCodeCache.getJavaCodeCache().storeMethod(script,imports,dynamicMethod);
 		return new DynamicRunner(dynamicMethod);
 	}
 

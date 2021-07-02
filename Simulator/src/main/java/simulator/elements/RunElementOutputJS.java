@@ -80,7 +80,7 @@ public class RunElementOutputJS extends RunElementPassThrough {
 		output.mode=outputElement.getMode();
 
 		if (output.mode==ModelElementOutputJS.ScriptMode.Java && !testOnly) {
-			final Object runner=DynamicFactory.getFactory().test(output.script,true);
+			final Object runner=DynamicFactory.getFactory().test(output.script,runModel.javaImports,true);
 			if (runner instanceof String) return String.format(Language.tr("Simulation.Creator.ScriptError"),element.getId())+"\n"+runner;
 			output.jRunner=(DynamicRunner)runner;
 		}

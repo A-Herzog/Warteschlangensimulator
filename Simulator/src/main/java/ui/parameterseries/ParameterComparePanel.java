@@ -318,7 +318,7 @@ public class ParameterComparePanel extends SpecialPanel {
 	}
 
 	/**
-	 * Berechnet dwn Ergebniswert für einen Ausgabeparameter
+	 * Berechnet den Ergebniswert für einen Ausgabeparameter
 	 * @param statistics	Statistikdaten auf deren Basis der Ergebniswert berechnet werden soll
 	 * @param output	Ausgabeparameter
 	 * @return	Wert des Ausgabeparameters
@@ -343,7 +343,7 @@ public class ParameterComparePanel extends SpecialPanel {
 		case MODE_SCRIPT_JAVA:
 			script=getScript(output.getTag());
 			if (script==null) return null;
-			final DynamicRunner runner=DynamicFactory.getFactory().load(script);
+			final DynamicRunner runner=DynamicFactory.getFactory().load(script,null);
 			if (runner.getStatus()!=DynamicStatus.OK) return null;
 
 			final StringBuilder results=new StringBuilder();

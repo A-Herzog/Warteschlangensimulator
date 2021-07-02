@@ -220,7 +220,7 @@ public class RunElementActionRecord {
 			script=editRecord.getScript();
 			scriptMode=editRecord.getScriptMode();
 			if (scriptMode==ModelElementActionRecord.ScriptMode.Java && !testOnly) {
-				final Object runner=DynamicFactory.getFactory().test(script,true);
+				final Object runner=DynamicFactory.getFactory().test(script,runModel.javaImports,true);
 				if (runner instanceof String) return String.format(Language.tr("Simulation.Creator.ScriptError"),stationID)+"\n"+runner;
 				javaRunner=(DynamicRunner)runner;
 			}
@@ -329,7 +329,7 @@ public class RunElementActionRecord {
 				break;
 			case Java:
 				if (javaRunner==null) {
-					javaRunner=DynamicFactory.getFactory().load(script);
+					javaRunner=DynamicFactory.getFactory().load(script,simData.runModel.javaImports);
 				} else {
 					javaRunner=DynamicFactory.getFactory().load(javaRunner);
 				}

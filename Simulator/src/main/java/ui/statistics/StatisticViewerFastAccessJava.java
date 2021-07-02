@@ -150,7 +150,7 @@ public class StatisticViewerFastAccessJava extends StatisticViewerFastAccessBase
 		}
 		lastInterpretedFilterText=text;
 
-		final DynamicRunner runner=DynamicFactory.getFactory().load(text);
+		final DynamicRunner runner=DynamicFactory.getFactory().load(text,null);
 		if (runner.getStatus()!=DynamicStatus.OK) {
 			new DynamicErrorInfo(this,runner);
 			return;

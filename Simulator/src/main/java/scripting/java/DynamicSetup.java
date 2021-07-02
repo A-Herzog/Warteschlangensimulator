@@ -89,9 +89,10 @@ public interface DynamicSetup {
 
 	/**
 	 * Liste mit Imports (ohne das "Import"-Schlüsselwort und ohne abschließendes ";")
+	 * @param userImports	Optionale nutzerdefinierte Imports (kann <code>null</code> oder leer sein)
 	 * @return	Liste mit Imports (darf <code>null</code> oder leer sein)
 	 */
-	String[] getImports();
+	String[] getImports(final String userImports);
 
 	/**
 	 * Zu verwendender Class-Path

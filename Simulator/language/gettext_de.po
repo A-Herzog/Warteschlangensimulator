@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-06-30 08:19+0200\n"
+"POT-Creation-Date: 2021-07-01 11:21+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -3697,6 +3697,9 @@ msgstr "Ankunftsschwellenwertausdruck"
 
 msgid "Editor.DialogBase.Search.InterarrivalArrival.Threshold.Value"
 msgstr "Ankunftsschwellenwert"
+
+msgid "Editor.DialogBase.Search.JavaImports"
+msgstr "Imports für nutzerdefinierten Java-Code"
 
 msgid "Editor.DialogBase.Search.Key"
 msgstr "Schlüssel"
@@ -8066,6 +8069,15 @@ msgstr "Ausführung starten"
 msgid "JSRunner.Toolbar.Start.Hint"
 msgstr "Startet die Ausführung des Javascript Programms"
 
+msgid "JavaImports.DialogHint"
+msgstr "Die hier angegebenen Klassen werden über Import-Anweisungen in nutzerdefiniertem Java-Code zur Verfügung gestellt."
+
+msgid "JavaImports.Reset"
+msgstr "Standard imports wiederherstellen"
+
+msgid "JavaImports.Title"
+msgstr "Imports für nutzerdefinierten Java-Code bearbeiten"
+
 msgid "LicenseViewer.FileError"
 msgstr "Die Datei %s konnte nicht geladen werden."
 
@@ -8987,6 +8999,12 @@ msgstr "Modell jeweils vor Simulationsstart aktualisieren"
 
 msgid "Main.Menu.Model.ExternalData.LoadOnStart.Mnemonic"
 msgstr "a"
+
+msgid "Main.Menu.Model.JavaImports"
+msgstr "Imports für nutzerdefinierten Java-Code..."
+
+msgid "Main.Menu.Model.JavaImports.Mnemonic"
+msgstr "J"
 
 msgid "Main.Menu.Model.Mnemonic"
 msgstr "M"
@@ -29218,6 +29236,9 @@ msgstr "InitialeVariable"
 
 msgid "Surface.XML.GlobalVariable.Name"
 msgstr "Name"
+
+msgid "Surface.XML.JavaImports"
+msgstr "ModellJavaImports"
 
 msgid "Surface.XML.Layer"
 msgstr "ModellEbene"

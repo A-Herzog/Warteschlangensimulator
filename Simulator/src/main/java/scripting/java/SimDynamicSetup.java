@@ -48,17 +48,19 @@ public class SimDynamicSetup implements DynamicSetup {
 		return "SimHelperClass";
 	}
 
+	/**
+	 * Vorgabewerte für die Imports
+	 */
+	public static final String defaultImports=String.join("\n","scripting.java.*", "java.lang.*", "java.math.*", "java.util.*", "java.util.function.*", "java.util.stream.*");
+
 	@Override
-	public String[] getImports() {
+	public String[] getImports(final String userImports) {
 		final List<String> list=new ArrayList<>();
-		list.addAll(Arrays.asList(
-				"scripting.java.*",
-				"java.lang.*",
-				"java.math.*",
-				"java.util.*",
-				"java.util.function.*",
-				"java.util.stream.*"
-				));
+		if (userImports==null || userImports.trim().isEmpty()) {
+			list.addAll(Arrays.asList(defaultImports.split("\\n")));
+		} else {
+			list.addAll(Arrays.asList(userImports.split("\\n")));
+		}
 		list.addAll(SetupData.getSetup().dynamicImportClasses);
 		return list.toArray(new String[0]);
 	}

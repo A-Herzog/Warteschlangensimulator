@@ -68,7 +68,7 @@ public class RunElementSetJS extends RunElementPassThrough {
 		set.mode=setElement.getMode();
 
 		if (set.mode==ModelElementSetJS.ScriptMode.Java && !testOnly) {
-			final Object runner=DynamicFactory.getFactory().test(set.script,true);
+			final Object runner=DynamicFactory.getFactory().test(set.script,runModel.javaImports,true);
 			if (runner instanceof String) return String.format(Language.tr("Simulation.Creator.ScriptError"),element.getId())+"\n"+runner;
 			set.jRunner=(DynamicRunner)runner;
 		}

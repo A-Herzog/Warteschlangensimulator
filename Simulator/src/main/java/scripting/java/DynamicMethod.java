@@ -139,14 +139,15 @@ public final class DynamicMethod {
 	 * Konstruktor der Klasse
 	 * @param setup	Einstellungen zum Laden der Methode
 	 * @param methodText	Text, der als java-Methode interpretiert werden soll. Der Text muss mit dem Rückgabewert beginnen, darf also keinen Access-Modifier enthalten.
+	 * @param userImports	Optionale nutzerdefinierte Imports (kann <code>null</code> oder leer sein)
 	 */
-	public DynamicMethod(final DynamicSetup setup, final String methodText) {
+	public DynamicMethod(final DynamicSetup setup, final String methodText, final String userImports) {
 		this.setup=setup;
 		this.methodText=methodText;
 		className=setup.getTempClassName()+getNextClassID();
 
 		final StringBuilder sb=new StringBuilder();
-		final String[] imports=setup.getImports();
+		final String[] imports=setup.getImports(userImports);
 		if (imports!=null && imports.length>0) {
 			for (String line: imports) sb.append("import "+line+";\n");
 			sb.append("\n");

@@ -63,7 +63,7 @@ public class RunElementSetJSData extends RunElementData {
 		case Java:
 			jsRunner=null;
 			if (jRunner==null) {
-				javaRunner=DynamicFactory.getFactory().load(script);
+				javaRunner=DynamicFactory.getFactory().load(script,simData.runModel.javaImports);
 			} else {
 				javaRunner=DynamicFactory.getFactory().load(jRunner);
 			}

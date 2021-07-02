@@ -22,16 +22,23 @@ import java.util.Map;
  * Diese Klasse hält bereits einmal übersetzten Java-Code vor, so dass derselbe
  * Skriptcode nicht immer wieder erneut übersetzt werden muss.
  * @author Alexander Herzog
- * @see DynamicFactory#load(String)
- * @see DynamicFactory#testIntern(String)
+ * @see DynamicFactory#load(String, String)
+ * @see DynamicFactory#testIntern(String, String)
  */
 public class JavaCodeCache {
 	/**
-	 * Zuordnung von Skripttexten zu übersetzten Methoden
-	 * @see #getCachedMethod(String)
-	 * @see #storeMethod(String, DynamicMethod)
+	 * Zuordnung von Skripttexten zu übersetzten Methoden (inkl. der Möglichkeit verschiedene Imports zu berücksichtigen)
+	 * @see #getCachedMethod(String, String)
+	 * @see #storeMethod(String, String, DynamicMethod)
 	 */
-	private final Map<String,DynamicMethod> map;
+	private final Map<String,Map<String,DynamicMethod>> map;
+
+	/**
+	 * Zuordnung von Skripttexten zu übersetzten Methoden (für den Fall, dass keine nutzerdefinierten Imports vorhanden sind)
+	 * @see #getCachedMethod(String, String)
+	 * @see #storeMethod(String, String, DynamicMethod)
+	 */
+	private final Map<String,DynamicMethod> mapNoUserImports;
 
 	/**
 	 * Konstruktor der Klasse<br>
@@ -40,6 +47,7 @@ public class JavaCodeCache {
 	 */
 	private JavaCodeCache() {
 		map=new HashMap<>();
+		mapNoUserImports=new HashMap<>();
 	}
 
 	/**
@@ -61,11 +69,18 @@ public class JavaCodeCache {
 	 * Prüft, ob für ein Skript bereits eine Übersetzung vorliegt
 	 * und liefert diese ggf. zurück.
 	 * @param script	Skript für das die übersetzte Methode abgefragt werden soll
+	 * @param imports	Optionale nutzerdefinierte Imports (kann <code>null</code> oder leer sein)
 	 * @return	Liefert im Erfolgsfall die übersetzte Methode, sonst <code>null</code>
 	 */
-	public DynamicMethod getCachedMethod(final String script) {
+	public DynamicMethod getCachedMethod(final String script, final String imports) {
 		synchronized(this) {
-			final DynamicMethod dynamicMethod=map.get(script);
+			final DynamicMethod dynamicMethod;
+			if (imports==null || imports.trim().isEmpty()) {
+				dynamicMethod=mapNoUserImports.get(script);
+			} else {
+				final Map<String,DynamicMethod> methodsMap=map.computeIfAbsent(imports,i->new HashMap<>());
+				dynamicMethod=methodsMap.get(script);
+			}
 			if (dynamicMethod==null) return null;
 			return new DynamicMethod(dynamicMethod);
 		}
@@ -74,11 +89,17 @@ public class JavaCodeCache {
 	/**
 	 * Speichert eine übersetzte Methode für ein Skript im Cache
 	 * @param script	Skript für das eine Methode hinterlegt werden soll
+	 * @param imports	Optionale nutzerdefinierte Imports (kann <code>null</code> oder leer sein)
 	 * @param method	Übersetzte Methode, die zu dem Skript gespeichert werden soll
 	 */
-	public void storeMethod(final String script, final DynamicMethod method) {
+	public void storeMethod(final String script, final String imports, final DynamicMethod method) {
 		synchronized(this) {
-			map.put(script,method);
+			if (imports==null || imports.trim().isEmpty()) {
+				mapNoUserImports.put(script,method);
+			} else {
+				final Map<String,DynamicMethod> methodsMap=map.computeIfAbsent(imports,i->new HashMap<>());
+				methodsMap.put(script,method);
+			}
 		}
 	}
 }

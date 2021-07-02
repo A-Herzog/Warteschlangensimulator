@@ -185,6 +185,9 @@ public class ScriptEditorPanel extends JPanel {
 	private final Runnable helpRunnalbe;
 	/** Optionales Modell-Objekt, welches für den Aufbau eines Vorlagen-Popup-Menüs verwendet wird */
 	private final EditModel model;
+	/** Optionale nutzerdefinierte Imports (kann <code>null</code> oder leer sein) */
+	private final String userImports;
+
 	/** Optionales Statistik-Objekt, welches für den Aufbau eines Vorlagen-Popup-Menüs verwendet wird */
 	private final Statistics statistics;
 	/** Skriptfunktionen, die im Vorlagen-Popupmenü angeboten werden sollen */
@@ -248,6 +251,7 @@ public class ScriptEditorPanel extends JPanel {
 		this.readOnly=readOnly;
 		this.helpRunnalbe=helpRunnalbe;
 		this.model=model;
+		if (model==null) userImports=null; else userImports=model.javaImports;
 		this.statistics=statistics;
 		this.scriptFeatures=scriptFeatures;
 
@@ -368,7 +372,7 @@ public class ScriptEditorPanel extends JPanel {
 	private void testJavaCodeAtStartUp(final String script) {
 		final Thread testThread=new Thread(()->{
 			if (!DynamicFactory.isWindows() && !DynamicFactory.isInMemoryProcessing()) return;
-			DynamicFactory.getFactory().test(script);
+			DynamicFactory.getFactory().test(script,userImports);
 		},"Java code background tester");
 		testThread.start();
 	}
@@ -704,7 +708,7 @@ public class ScriptEditorPanel extends JPanel {
 			}
 
 			if (source==buttonCheck) {
-				final DynamicRunner runner=DynamicFactory.getFactory().test(scriptEditJava.getText());
+				final DynamicRunner runner=DynamicFactory.getFactory().test(scriptEditJava.getText(),userImports);
 				if (runner.isOk()) {
 					MsgBox.info(ScriptEditorPanel.this,Language.tr("Surface.ScriptEditor.Check.Success.Title"),Language.tr("Surface.ScriptEditor.Check.Success.Info"));
 				} else {
@@ -742,7 +746,7 @@ public class ScriptEditorPanel extends JPanel {
 			return true;
 		case 1: /* Java */
 			if (!DynamicFactory.isWindows() && !DynamicFactory.isInMemoryProcessing()) return true;
-			final DynamicRunner runner=DynamicFactory.getFactory().test(scriptEditJava.getText());
+			final DynamicRunner runner=DynamicFactory.getFactory().test(scriptEditJava.getText(),userImports);
 			if (!runner.isOk()) new DynamicErrorInfo(this,runner);
 			return runner.isOk();
 		default:

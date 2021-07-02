@@ -46,6 +46,7 @@
   <xs:element ref="Benutzervorlagen"/>
   <xs:element ref="ExterneDaten"/>
   <xs:element name="ModellPluginsVerzeichnis" type="xs:string"/>
+  <xs:element name="ModellJavaImports" type="xs:string"/>
   <xs:element ref="GespeicherteAnsicht"/>
   <xs:element ref="KiritischeStationenSignatur"/>  
   
@@ -2172,7 +2173,8 @@
   <xs:element name="ModelRecordIncompleteClients" type="xs:string"/>
   <xs:element ref="UserTemplates"/>
   <xs:element ref="ExternalData"/>
-  <xs:element name="ModelPluginsFolder" type="xs:string"/>  
+  <xs:element name="ModelPluginsFolder" type="xs:string"/>
+  <xs:element name="ModelJavaImports" type="xs:string"/>
   <xs:element ref="SavedView"/>
   <xs:element ref="CriticalStationsSignature"/>
 </xs:choice></xs:sequence></xs:complexType></xs:element>

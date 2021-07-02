@@ -102,7 +102,7 @@ public class JSModelRunner {
 				scriptRunner.run(script);
 				break;
 			case Java:
-				final DynamicRunner runner=DynamicFactory.getFactory().load(script);
+				final DynamicRunner runner=DynamicFactory.getFactory().load(script,model.javaImports);
 				if (runner.getStatus()!=DynamicStatus.OK) {
 					output(DynamicFactory.getLongStatusText(runner));
 				} else {

@@ -51,6 +51,7 @@ import java.util.Base64;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -135,6 +136,7 @@ import ui.dialogs.FitDialog;
 import ui.dialogs.HeatMapSelectWindow;
 import ui.dialogs.HeatMapSetupDialog;
 import ui.dialogs.InfoDialog;
+import ui.dialogs.JavaImportsDialog;
 import ui.dialogs.LicenseViewer;
 import ui.dialogs.LogSetupDialog;
 import ui.dialogs.ModelAnalyticInfoDialog;
@@ -666,6 +668,7 @@ public class MainPanel extends MainPanelBase {
 		addAction("ModelExternalDataLoadNow",e->commandModelExternalDataLoadNow());
 		addAction("ModelExternalDataLoadOnStart",e->commandModelExternalDataLoadOnStart());
 		addAction("ModelPluginFolder",e->commandModelPluginFolder());
+		addAction("ModelJavaImports",e->commandModelJavaImports());
 		addAction("ModelListElements",e->commandModelListElements());
 		addAction("ModelModelDescription",e->commandModelDescription());
 		addAction("ModelModelNotes",e->commandModelNotes());
@@ -1223,6 +1226,7 @@ public class MainPanel extends MainPanelBase {
 		menuModelLoadExternalDataOnStart=createCheckBoxMenuItem(submenu,Language.tr("Main.Menu.Model.ExternalData.LoadOnStart"),Language.tr("Main.Menu.Model.ExternalData.LoadOnStart.Mnemonic"),"ModelExternalDataLoadOnStart");
 
 		createMenuItem(menu,Language.tr("Main.Menu.Model.PluginFolder"),Images.MODEL_PLUGINS.getIcon(),Language.tr("Main.Menu.Model.PluginFolder.Mnemonic"),"ModelPluginFolder");
+		createMenuItem(menu,Language.tr("Main.Menu.Model.JavaImports"),Images.SCRIPT_MODE_JAVA.getIcon(),Language.tr("Main.Menu.Model.JavaImports.Mnemonic"),"ModelJavaImports");
 
 		menu.addSeparator();
 		enabledOnEditorPanel.add(createMenuItem(menu,Language.tr("Main.Menu.View.ListElements"),Images.MODEL_LIST_ELEMENTS.getIcon(),Language.tr("Main.Menu.View.ListElements.Mnemonic"),"ModelListElements"));
@@ -2586,6 +2590,24 @@ public class MainPanel extends MainPanelBase {
 			final String newPluginsFolder=dialog.getFolder();
 			if (!newPluginsFolder.equals(model.pluginsFolder)) {
 				model.pluginsFolder=newPluginsFolder;
+				final File file=editorPanel.getLastFile();
+				editorPanel.setModel(model);
+				editorPanel.setLastFile(file);
+				editorPanel.setModelChanged(true);
+			}
+		}
+	}
+
+	/**
+	 * Befehl: Modell - Imports für nutzerdefinierten Java-Code
+	 */
+	private void commandModelJavaImports() {
+		final EditModel model=editorPanel.getModel();
+		final JavaImportsDialog dialog=new JavaImportsDialog(this,model.javaImports);
+		if (dialog.getClosedBy()==BaseDialog.CLOSED_BY_OK) {
+			final String newJavaImports=dialog.getImports();
+			if (!Objects.equals(model.javaImports,newJavaImports)) {
+				model.javaImports=newJavaImports;
 				final File file=editorPanel.getLastFile();
 				editorPanel.setModel(model);
 				editorPanel.setLastFile(file);

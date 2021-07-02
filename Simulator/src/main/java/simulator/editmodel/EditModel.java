@@ -38,6 +38,7 @@ import org.w3c.dom.Element;
 import language.Language;
 import mathtools.NumberTools;
 import mathtools.TimeTools;
+import simulator.editmodel.EditModel.VariableRecord;
 import simulator.runmodel.RunModel;
 import simulator.statistics.Statistics;
 import simulator.statistics.Statistics.CorrelationMode;
@@ -399,6 +400,11 @@ public final class EditModel extends EditModelBase implements Cloneable  {
 	public String pluginsFolder;
 
 	/**
+	 * Optionale nutzerdefinierte Imports (kann <code>null</code> oder leer sein)
+	 */
+	public String javaImports;
+
+	/**
 	 * Gespeicherte Ansichten
 	 */
 	public SavedViews savedViews;
@@ -441,6 +447,7 @@ public final class EditModel extends EditModelBase implements Cloneable  {
 		recordIncompleteClients=false;
 		modelLoadData=new ModelLoadData();
 		pluginsFolder="";
+		javaImports="";
 		savedViews=new SavedViews();
 		resetData();
 	}
@@ -526,6 +533,7 @@ public final class EditModel extends EditModelBase implements Cloneable  {
 		templates=null;
 		modelLoadData.clear();
 		pluginsFolder="";
+		javaImports="";
 		savedViews.clear();
 	}
 
@@ -587,6 +595,7 @@ public final class EditModel extends EditModelBase implements Cloneable  {
 		if (templates!=null) clone.templates=templates.clone();
 		clone.modelLoadData.copyDataFrom(modelLoadData);
 		clone.pluginsFolder=pluginsFolder;
+		clone.javaImports=javaImports;
 		clone.savedViews.copyFrom(savedViews);
 
 		return clone;
@@ -664,6 +673,7 @@ public final class EditModel extends EditModelBase implements Cloneable  {
 		if (recordIncompleteClients!=otherModel.recordIncompleteClients) return false;
 		if (!modelLoadData.equalsModelLoadData(otherModel.modelLoadData)) return false;
 		if (!pluginsFolder.equalsIgnoreCase(otherModel.pluginsFolder)) return false;
+		if (!javaImports.equalsIgnoreCase(otherModel.javaImports)) return false;
 		if (!savedViews.equalsSavedViews(savedViews)) return false;
 
 		if (templates==null) {
@@ -1026,6 +1036,11 @@ public final class EditModel extends EditModelBase implements Cloneable  {
 			return null;
 		}
 
+		if (Language.trAll("Surface.XML.JavaImports",name)) {
+			javaImports=text;
+			return null;
+		}
+
 		for (String test: SavedViews.XML_NODE_NAME) if (name.equalsIgnoreCase(test)) {
 			final String error=savedViews.loadFromXML(node);
 			if (error!=null) return error;
@@ -1181,6 +1196,11 @@ public final class EditModel extends EditModelBase implements Cloneable  {
 		if (pluginsFolder!=null && !pluginsFolder.trim().isEmpty()) {
 			node.appendChild(sub=doc.createElement(Language.trPrimary("Surface.XML.PluginsFolder")));
 			sub.setTextContent(pluginsFolder);
+		}
+
+		if (javaImports!=null && !javaImports.trim().isEmpty()) {
+			node.appendChild(sub=doc.createElement(Language.trPrimary("Surface.XML.JavaImports")));
+			sub.setTextContent(javaImports);
 		}
 
 		savedViews.addDataToXML(doc,node);
@@ -1578,6 +1598,9 @@ public final class EditModel extends EditModelBase implements Cloneable  {
 
 		/* Verzeichnis für optionale externe Java-Klassendateien */
 		searcher.testString(Language.tr("Editor.DialogBase.Search.PluginsFolder"),pluginsFolder,newPluginsFolder->{pluginsFolder=newPluginsFolder;});
+
+		/* Nutzerdefinierte Imports für Java-Code */
+		searcher.testString(Language.tr("Editor.DialogBase.Search.JavaImports"),javaImports,newJavaImports->{javaImports=newJavaImports;});
 	}
 
 	/**

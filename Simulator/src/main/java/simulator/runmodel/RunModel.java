@@ -320,6 +320,11 @@ public class RunModel {
 	public String pluginsFolder;
 
 	/**
+	 * Optionale nutzerdefinierte Imports (kann <code>null</code> oder leer sein)
+	 */
+	public String javaImports;
+
+	/**
 	 * Ein <code>RunModel</code> kann nicht direkt erzeugt werden, sondern es kann nur ein <code>EditModel</code>
 	 * mittels der Funktion <code>getRunModel</code> in ein <code>RunModel</code> umgeformt werden. Dabei wird das
 	 * Modell auf Konsistenz geprüft und alle notwendigen Verknüpfungen werden hergestellt.
@@ -512,6 +517,9 @@ public class RunModel {
 
 		/* Plugins-Verzeichnis */
 		runModel.pluginsFolder=editModel.pluginsFolder;
+
+		/* Optionale nutzerdefinierte Imports (kann <code>null</code> oder leer sein) */
+		runModel.javaImports=editModel.javaImports;
 
 		return null;
 	}

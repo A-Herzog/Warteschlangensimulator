@@ -678,7 +678,7 @@ public class ModelElementAnimationTextValueJS extends ModelElementPosition imple
 			break;
 		case Java:
 			jsRunner=null;
-			javaRunner=DynamicFactory.getFactory().load(script);
+			javaRunner=DynamicFactory.getFactory().load(script,simData.runModel.javaImports);
 			javaRunner.parameter.system=new SystemImpl(simData,getId());
 			javaRunner.parameter.client=new ClientImpl(simData);
 			animationOutput=new StringBuilder();

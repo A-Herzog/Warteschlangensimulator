@@ -1144,7 +1144,7 @@ public class SetupData extends SetupBase {
 
 	/**
 	 * Zusätzlich zu importierende Klassen für dynamisch generierte Klassen
-	 * @see SimDynamicSetup#getImports()
+	 * @see SimDynamicSetup#getImports(String)
 	 */
 	public List<String> dynamicImportClasses;
 
