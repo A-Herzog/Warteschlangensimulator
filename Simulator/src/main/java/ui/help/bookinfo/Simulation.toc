@@ -1,0 +1,259 @@
+\babel@toc {ngerman}{}
+\contentsline {chapter}{\numberline {1}Einleitung}{1}{chapter.1}%
+\contentsline {chapter}{\numberline {2}Simulation}{3}{chapter.2}%
+\contentsline {section}{\numberline {2.1}Modellierung}{4}{section.2.1}%
+\contentsline {subsection}{\numberline {2.1.1}Bonini-Paradoxon}{5}{subsection.2.1.1}%
+\contentsline {subsection}{\numberline {2.1.2}Experimentierfähiges Modell}{7}{subsection.2.1.2}%
+\contentsline {subsection}{\numberline {2.1.3}Kopplung von Modell und Realität}{10}{subsection.2.1.3}%
+\contentsline {section}{\numberline {2.2}Simulationsmethoden}{12}{section.2.2}%
+\contentsline {subsection}{\numberline {2.2.1}Deterministische Simulation}{13}{subsection.2.2.1}%
+\contentsline {subsection}{\numberline {2.2.2}Stochastische Simulation}{14}{subsection.2.2.2}%
+\contentsline {subsection}{\numberline {2.2.3}Statische und dynamische Simulation}{14}{subsection.2.2.3}%
+\contentsline {subsection}{\numberline {2.2.4}Kontinuierliche und diskrete Simulation}{15}{subsection.2.2.4}%
+\contentsline {subsection}{\numberline {2.2.5}Lokale und verteilte Simulation}{15}{subsection.2.2.5}%
+\contentsline {subsection}{\numberline {2.2.6}Ereignisorientierte Simulation}{16}{subsection.2.2.6}%
+\contentsline {section}{\numberline {2.3}Einsatzgebiete ereignisorientierter stochastischer Simulation}{16}{section.2.3}%
+\contentsline {subsection}{\numberline {2.3.1}Wann ist Simulation notwendig?}{17}{subsection.2.3.1}%
+\contentsline {subsection}{\numberline {2.3.2}Wann sind Simulationsmethoden einsetzbar?}{20}{subsection.2.3.2}%
+\contentsline {subsection}{\numberline {2.3.3}Wo wird Simulation eingesetzt?}{22}{subsection.2.3.3}%
+\contentsline {subsection}{\numberline {2.3.4}Das Unerwartete erwarten}{25}{subsection.2.3.4}%
+\contentsline {section}{\numberline {2.4}Monte-Carlo-Methoden}{26}{section.2.4}%
+\contentsline {subsection}{\numberline {2.4.1}Monte-Carlo-Integration}{29}{subsection.2.4.1}%
+\contentsline {subsection}{\numberline {2.4.2}Excel-Beispiele}{32}{subsection.2.4.2}%
+\contentsline {subsection}{\numberline {2.4.3}Monte-Carlo Online-Rechner}{35}{subsection.2.4.3}%
+\contentsline {subsection}{\numberline {2.4.4}Monte-Carlo-Simulation}{35}{subsection.2.4.4}%
+\contentsline {section}{\numberline {2.5}Gesetz der großen Zahlen}{37}{section.2.5}%
+\contentsline {subsection}{\numberline {2.5.1}Konvergenzgeschwindigkeit}{38}{subsection.2.5.1}%
+\contentsline {section}{\numberline {2.6}Funktionsweise ereignisorientierter stochastischer Simulation}{40}{section.2.6}%
+\contentsline {subsection}{\numberline {2.6.1}Ereignisse und Regeln}{40}{subsection.2.6.1}%
+\contentsline {subsection}{\numberline {2.6.2}Regelsatz für ein einfaches Callcenter-System}{41}{subsection.2.6.2}%
+\contentsline {subsection}{\numberline {2.6.3}Ablauf des Simulationsprozesses}{44}{subsection.2.6.3}%
+\contentsline {paragraph}{Ausgangssituation (zum Zeitpunkt $t<100$):}{44}{section*.23}%
+\contentsline {subsection}{\numberline {2.6.4}Komponenten eines ereignisorientierten stochastischen Simulators}{47}{subsection.2.6.4}%
+\contentsline {chapter}{\numberline {3}Warteschlangentheorie}{49}{chapter.3}%
+\contentsline {section}{\numberline {3.1}Determinismus versus reale Welt}{49}{section.3.1}%
+\contentsline {subsection}{\numberline {3.1.1}Getaktete Bediensysteme}{50}{subsection.3.1.1}%
+\contentsline {subsection}{\numberline {3.1.2}Stochastische Bedienzeiten}{51}{subsection.3.1.2}%
+\contentsline {subsection}{\numberline {3.1.3}Stochastische Zwischenankunftszeiten}{51}{subsection.3.1.3}%
+\contentsline {subsection}{\numberline {3.1.4}Erste Ergebnisse}{52}{subsection.3.1.4}%
+\contentsline {section}{\numberline {3.2}Grundbegriffe der Warteschlangentheorie}{53}{section.3.2}%
+\contentsline {subsection}{\numberline {3.2.1}Grundmodell der Warteschlangentheorie}{55}{subsection.3.2.1}%
+\contentsline {subsection}{\numberline {3.2.2}Arbeitslast und Auslastung}{57}{subsection.3.2.2}%
+\contentsline {subsection}{\numberline {3.2.3}Warteschlangenlänge und Anzahl an Kunden im System}{57}{subsection.3.2.3}%
+\contentsline {subsection}{\numberline {3.2.4}Kendall-Notation}{58}{subsection.3.2.4}%
+\contentsline {subsection}{\numberline {3.2.5}Stationär und transient}{63}{subsection.3.2.5}%
+\contentsline {subsection}{\numberline {3.2.6}Wartezeit und Warteschlangenlänge}{64}{subsection.3.2.6}%
+\contentsline {section}{\numberline {3.3}Markov-Modelle}{68}{section.3.3}%
+\contentsline {subsection}{\numberline {3.3.1}Bediensysteme als Markov-Ketten}{70}{subsection.3.3.1}%
+\contentsline {subsection}{\numberline {3.3.2}Bestimmung der Wartezeitenverteilung bei Markov-Modellen}{72}{subsection.3.3.2}%
+\contentsline {section}{\numberline {3.4}Erlang-B- und Erlang-C-Formel}{73}{section.3.4}%
+\contentsline {subsection}{\numberline {3.4.1}M/M/1-System}{74}{subsection.3.4.1}%
+\contentsline {subsection}{\numberline {3.4.2}Wirtschaftlichkeitsbetrachtung auf Basis eines M/M/1-Systems}{77}{subsection.3.4.2}%
+\contentsline {subsection}{\numberline {3.4.3}M/M/c-System}{80}{subsection.3.4.3}%
+\contentsline {subsection}{\numberline {3.4.4}Economy of Scale}{83}{subsection.3.4.4}%
+\contentsline {subsection}{\numberline {3.4.5}M/M/c/c-System}{85}{subsection.3.4.5}%
+\contentsline {subsection}{\numberline {3.4.6}Berechnung der Modelle}{87}{subsection.3.4.6}%
+\contentsline {section}{\numberline {3.5}Modelle mit allgemeinen Verteilungen}{87}{section.3.5}%
+\contentsline {subsection}{\numberline {3.5.1}GI/G/c-System}{88}{subsection.3.5.1}%
+\contentsline {subsection}{\numberline {3.5.2}GI(bI)/G(bS)/c-System}{90}{subsection.3.5.2}%
+\contentsline {subsection}{\numberline {3.5.3}Warteschlangen Online-Rechner}{92}{subsection.3.5.3}%
+\contentsline {section}{\numberline {3.6}System-Design}{93}{section.3.6}%
+\contentsline {chapter}{\numberline {4}Eingabeparameter}{97}{chapter.4}%
+\contentsline {section}{\numberline {4.1}Mittelwert und Erwartungswert}{98}{section.4.1}%
+\contentsline {subsection}{\numberline {4.1.1}Wofür wurden die Daten ursprünglich erfasst?}{99}{subsection.4.1.1}%
+\contentsline {subsection}{\numberline {4.1.2}Statistik, Stochastik und zurück}{101}{subsection.4.1.2}%
+\contentsline {subsection}{\numberline {4.1.3}Umgang mit Ausreißerwerten}{104}{subsection.4.1.3}%
+\contentsline {section}{\numberline {4.2}Streumaße}{107}{section.4.2}%
+\contentsline {subsection}{\numberline {4.2.1}Stichprobenvarianz}{108}{subsection.4.2.1}%
+\contentsline {subsection}{\numberline {4.2.2}Stichprobenstandardabweichung}{109}{subsection.4.2.2}%
+\contentsline {subsection}{\numberline {4.2.3}Variationskoeffizient}{109}{subsection.4.2.3}%
+\contentsline {section}{\numberline {4.3}Verteilungsanpassung}{113}{section.4.3}%
+\contentsline {subsection}{\numberline {4.3.1}Verteilungsfunktionen im Warteschlangensimulator}{114}{subsection.4.3.1}%
+\contentsline {subsection}{\numberline {4.3.2}Eigenschaften einiger wichtiger Verteilungsfunktionen}{115}{subsection.4.3.2}%
+\contentsline {subsection}{\numberline {4.3.3}Automatisierte Verteilungsanpassung mit dem Warteschlangensimulator}{117}{subsection.4.3.3}%
+\contentsline {section}{\numberline {4.4}Kalibrierung}{121}{section.4.4}%
+\contentsline {subsection}{\numberline {4.4.1}Funktionsweise der Parameterkalibrierung}{125}{subsection.4.4.1}%
+\contentsline {chapter}{\numberline {5}Modellierung mit dem Warteschlangensimulator}{127}{chapter.5}%
+\contentsline {section}{\numberline {5.1}Voraussetzungen und Installation}{127}{section.5.1}%
+\contentsline {subsection}{\numberline {5.1.1}Systemvoraussetzungen}{127}{subsection.5.1.1}%
+\contentsline {subsection}{\numberline {5.1.2}Download und Installation des Warteschlangensimulators}{129}{subsection.5.1.2}%
+\contentsline {section}{\numberline {5.2}Programmoberfläche}{130}{section.5.2}%
+\contentsline {subsection}{\numberline {5.2.1}Modell-Editor und Simulationsergebnisse}{130}{subsection.5.2.1}%
+\contentsline {subsection}{\numberline {5.2.2}Modell- und Statistikdateien}{131}{subsection.5.2.2}%
+\contentsline {subsection}{\numberline {5.2.3}Vertikale Symbolleiste des Modell-Editors}{132}{subsection.5.2.3}%
+\contentsline {subsection}{\numberline {5.2.4}Zeichenfläche des Modell-Editors}{133}{subsection.5.2.4}%
+\contentsline {section}{\numberline {5.3}Erstellung eines ersten Modells}{134}{section.5.3}%
+\contentsline {subsection}{\numberline {5.3.1}Station: Kundenquelle}{138}{subsection.5.3.1}%
+\contentsline {paragraph}{Allgemeine Einstellungen}{139}{section*.50}%
+\contentsline {paragraph}{Einstellungen für Kundenquellen}{140}{section*.51}%
+\contentsline {subsection}{\numberline {5.3.2}Rechenausdrücke erstellen}{142}{subsection.5.3.2}%
+\contentsline {paragraph}{Wichtige Funktionen und Variablen}{144}{section*.52}%
+\contentsline {subsection}{\numberline {5.3.3}Station: Bedienstation}{146}{subsection.5.3.3}%
+\contentsline {subsection}{\numberline {5.3.4}Station: Ausgang}{152}{subsection.5.3.4}%
+\contentsline {subsubsection}{\numberline {5.3.4.1}Notausgang}{153}{subsubsection.5.3.4.1}%
+\contentsline {subsection}{\numberline {5.3.5}Modelleigenschaftendialog}{154}{subsection.5.3.5}%
+\contentsline {subsection}{\numberline {5.3.6}Schnelle Variation von Parametern}{161}{subsection.5.3.6}%
+\contentsline {subsection}{\numberline {5.3.7}Online-Hilfe}{162}{subsection.5.3.7}%
+\contentsline {subsection}{\numberline {5.3.8}Modellgenerator}{163}{subsection.5.3.8}%
+\contentsline {section}{\numberline {5.4}Simulation, Animation und Ergebnisausgabe}{164}{section.5.4}%
+\contentsline {subsection}{\numberline {5.4.1}Simulation von Modellen}{166}{subsection.5.4.1}%
+\contentsline {subsection}{\numberline {5.4.2}Vergleich Simulationsergebnisse und analytische Rechnungen}{170}{subsection.5.4.2}%
+\contentsline {subsection}{\numberline {5.4.3}Animation von Modellen}{172}{subsection.5.4.3}%
+\contentsline {chapter}{\numberline {6}Interpretation der Ergebnisse}{177}{chapter.6}%
+\contentsline {section}{\numberline {6.1}Mittelwerte und Varianzen}{178}{section.6.1}%
+\contentsline {section}{\numberline {6.2}Konfidenzintervalle}{179}{section.6.2}%
+\contentsline {subsection}{\numberline {6.2.1}Konfidenzintervalle bei Bediensystemen / Output-Analyse}{180}{subsection.6.2.1}%
+\contentsline {subsection}{\numberline {6.2.2}Grenzen der Genauigkeit}{184}{subsection.6.2.2}%
+\contentsline {section}{\numberline {6.3}Poisson Arrivals See Time Averages}{185}{section.6.3}%
+\contentsline {chapter}{\numberline {7}Typische Fragestellungen}{187}{chapter.7}%
+\contentsline {section}{\numberline {7.1}Streuung und Verteilungstyp der Bedienzeiten}{187}{section.7.1}%
+\contentsline {subsection}{\numberline {7.1.1}Variation der Bedienzeitverteilung}{189}{subsection.7.1.1}%
+\contentsline {subsection}{\numberline {7.1.2}Bus-Stopp-Paradoxon}{191}{subsection.7.1.2}%
+\contentsline {subsection}{\numberline {7.1.3}Homogenisierung des Kundenankunftsstroms}{192}{subsection.7.1.3}%
+\contentsline {section}{\numberline {7.2}Ungeduldige Kunden und Wiederholer}{193}{section.7.2}%
+\contentsline {subsection}{\numberline {7.2.1}Ungeduldige Kunden}{194}{subsection.7.2.1}%
+\contentsline {subsection}{\numberline {7.2.2}Wiederholer}{202}{subsection.7.2.2}%
+\contentsline {subsection}{\numberline {7.2.3}Weiterleitungen und Netze}{210}{subsection.7.2.3}%
+\contentsline {section}{\numberline {7.3}Economy of Scale}{212}{section.7.3}%
+\contentsline {section}{\numberline {7.4}Prioritäten}{213}{section.7.4}%
+\contentsline {subsection}{\numberline {7.4.1}Prioritäten im Warteschlangensimulator}{214}{subsection.7.4.1}%
+\contentsline {subsection}{\numberline {7.4.2}Kundenprioritäten innerhalb eines Kundentyps}{216}{subsection.7.4.2}%
+\contentsline {subsection}{\numberline {7.4.3}Priorisierung nach Lieferterminen}{222}{subsection.7.4.3}%
+\contentsline {subsection}{\numberline {7.4.4}Kundenprioritäten bei mehreren Kundentypen}{224}{subsection.7.4.4}%
+\contentsline {section}{\numberline {7.5}Zuweisungsstrategien}{231}{section.7.5}%
+\contentsline {subsection}{\numberline {7.5.1}Einfluss der Varianz der Bedienzeiten}{236}{subsection.7.5.1}%
+\contentsline {section}{\numberline {7.6}Push-/Pull-Produktion}{238}{section.7.6}%
+\contentsline {subsection}{\numberline {7.6.1}Push-Produktion bzw.\ schiebende Produktion}{238}{subsection.7.6.1}%
+\contentsline {subsection}{\numberline {7.6.2}Pull-Produktion bzw.\ ziehende Produktion}{238}{subsection.7.6.2}%
+\contentsline {subsection}{\numberline {7.6.3}Pull-Produktion im Warteschlangensimulator}{239}{subsection.7.6.3}%
+\contentsline {subsection}{\numberline {7.6.4}Vergleich von Push- und Pull-Produktion}{245}{subsection.7.6.4}%
+\contentsline {subsection}{\numberline {7.6.5}Dilemma der Ablaufplanung}{249}{subsection.7.6.5}%
+\contentsline {subsection}{\numberline {7.6.6}Begrenzung des Bestands bei komplexeren Produktionen / Umgang mit Ausfällen}{250}{subsection.7.6.6}%
+\contentsline {section}{\numberline {7.7}Gemeinsame Lager}{251}{section.7.7}%
+\contentsline {subsection}{\numberline {7.7.1}Modellierung eines gemeinsamen Lagers}{252}{subsection.7.7.1}%
+\contentsline {subsection}{\numberline {7.7.2}Werkstattfertigung versus strenger Fließfertigung}{255}{subsection.7.7.2}%
+\contentsline {subsection}{\numberline {7.7.3}Auswirkung der Größe des gemeinsamen Lagers}{256}{subsection.7.7.3}%
+\contentsline {subsection}{\numberline {7.7.4}Reservierung von Lagerkapazität}{258}{subsection.7.7.4}%
+\contentsline {section}{\numberline {7.8}Warteschlangenlängenabhängige Bedienzeiten}{260}{section.7.8}%
+\contentsline {section}{\numberline {7.9}Bedieneranzahl nach Warteschlangenlänge}{262}{section.7.9}%
+\contentsline {chapter}{\numberline {8}Fortgeschrittene Funktionen}{267}{chapter.8}%
+\contentsline {section}{\numberline {8.1}Kunden- und Bedienertypen}{267}{section.8.1}%
+\contentsline {subsection}{\numberline {8.1.1}Kundentypen}{267}{subsection.8.1.1}%
+\contentsline {subsection}{\numberline {8.1.2}Bedienertypen}{270}{subsection.8.1.2}%
+\contentsline {subsection}{\numberline {8.1.3}Beispiel für Kundentypen mit verschiedenen Eigenschaften}{274}{subsection.8.1.3}%
+\contentsline {subsection}{\numberline {8.1.4}Beispiel für geteilte Nutzung von Ressourcen}{275}{subsection.8.1.4}%
+\contentsline {subsection}{\numberline {8.1.5}Beispiel für geteilte Nutzung von Ressourcen -- mit Bedienalternativen}{278}{subsection.8.1.5}%
+\contentsline {section}{\numberline {8.2}Batch-Ankünfte und Batch-Bedienungen}{280}{section.8.2}%
+\contentsline {subsection}{\numberline {8.2.1}Batch-Ankünfte}{282}{subsection.8.2.1}%
+\contentsline {subsection}{\numberline {8.2.2}Batch-Bedienungen}{286}{subsection.8.2.2}%
+\contentsline {subsection}{\numberline {8.2.3}Batch-Bedienungen und Kundentypen}{289}{subsection.8.2.3}%
+\contentsline {subsection}{\numberline {8.2.4}Kombinierte Batch-Ankünfte und Batch-Bedienungen}{290}{subsection.8.2.4}%
+\contentsline {subsection}{\numberline {8.2.5}Temporäre und permanente Batch-Bildung}{291}{subsection.8.2.5}%
+\contentsline {subsection}{\numberline {8.2.6}Bedienungen mit kundentypabhängigen Batch-Größen}{299}{subsection.8.2.6}%
+\contentsline {subsection}{\numberline {8.2.7}Zerteilen-Stationen}{300}{subsection.8.2.7}%
+\contentsline {subsection}{\numberline {8.2.8}Zusammenführen-Stationen}{302}{subsection.8.2.8}%
+\contentsline {subsection}{\numberline {8.2.9}Ausleiten-Stationen}{306}{subsection.8.2.9}%
+\contentsline {section}{\numberline {8.3}Transporte}{307}{section.8.3}%
+\contentsline {subsection}{\numberline {8.3.1}Direkte Transporte}{307}{subsection.8.3.1}%
+\contentsline {subsection}{\numberline {8.3.2}Transporte mit Transportern}{313}{subsection.8.3.2}%
+\contentsline {subsection}{\numberline {8.3.3}Fertigungspläne}{323}{subsection.8.3.3}%
+\contentsline {subsection}{\numberline {8.3.4}Fließbandtransporte}{325}{subsection.8.3.4}%
+\contentsline {subsection}{\numberline {8.3.5}Teleport-Transporte}{327}{subsection.8.3.5}%
+\contentsline {section}{\numberline {8.4}Zeitpläne}{328}{section.8.4}%
+\contentsline {subsection}{\numberline {8.4.1}Kundenankünfte nach Zeitplänen}{328}{subsection.8.4.1}%
+\contentsline {subsection}{\numberline {8.4.2}Schichtpläne für Ressourcen}{330}{subsection.8.4.2}%
+\contentsline {subsection}{\numberline {8.4.3}Erfassung des zeitlichen Verlaufs von Kenngrößen}{332}{subsection.8.4.3}%
+\contentsline {section}{\numberline {8.5}Rüstzeiten und Kampagnen}{335}{section.8.5}%
+\contentsline {section}{\numberline {8.6}Ausfälle}{342}{section.8.6}%
+\contentsline {subsection}{\numberline {8.6.1}Ausfälle versus Puffer}{343}{subsection.8.6.1}%
+\contentsline {subsection}{\numberline {8.6.2}Ausfälle versus warteschlangenabhängige Bedienzeiten}{347}{subsection.8.6.2}%
+\contentsline {section}{\numberline {8.7}Kosten}{350}{section.8.7}%
+\contentsline {subsection}{\numberline {8.7.1}Kosten der Bedienstationen}{351}{subsection.8.7.1}%
+\contentsline {subsection}{\numberline {8.7.2}Kosten der Bediener}{351}{subsection.8.7.2}%
+\contentsline {subsection}{\numberline {8.7.3}Kosten der Kunden}{352}{subsection.8.7.3}%
+\contentsline {subsection}{\numberline {8.7.4}Sonstige Kosten}{353}{subsection.8.7.4}%
+\contentsline {section}{\numberline {8.8}Zeitkontinuierliche Werte}{355}{section.8.8}%
+\contentsline {subsection}{\numberline {8.8.1}Analoger-Wert-Stationen}{356}{subsection.8.8.1}%
+\contentsline {subsection}{\numberline {8.8.2}Tank-Stationen}{358}{subsection.8.8.2}%
+\contentsline {subsection}{\numberline {8.8.3}Verwendung der Simulationszeit}{361}{subsection.8.8.3}%
+\contentsline {section}{\numberline {8.9}Geschlossene Warteschlangennetze}{364}{section.8.9}%
+\contentsline {subsection}{\numberline {8.9.1}Modellierung von geschlossenen Warteschlangennetzen}{364}{subsection.8.9.1}%
+\contentsline {subsection}{\numberline {8.9.2}Statistikerfassung bei geschlossenen Warteschlangennetzen}{367}{subsection.8.9.2}%
+\contentsline {section}{\numberline {8.10}Flusssteuerung}{367}{section.8.10}%
+\contentsline {subsection}{\numberline {8.10.1}Verzweigungen}{368}{subsection.8.10.1}%
+\contentsline {subsection}{\numberline {8.10.2}Schleifen}{369}{subsection.8.10.2}%
+\contentsline {section}{\numberline {8.11}Exakt reproduzierbare Ergebnisse}{370}{section.8.11}%
+\contentsline {section}{\numberline {8.12}Weitere Stationstypen}{371}{section.8.12}%
+\contentsline {subsection}{\numberline {8.12.1}Aktionen}{372}{subsection.8.12.1}%
+\contentsline {subsection}{\numberline {8.12.2}Referenzen}{372}{subsection.8.12.2}%
+\contentsline {subsection}{\numberline {8.12.3}Untermodelle}{373}{subsection.8.12.3}%
+\contentsline {subsection}{\numberline {8.12.4}Interaktive Animationselemente}{373}{subsection.8.12.4}%
+\contentsline {chapter}{\numberline {9}Automatisierung}{377}{chapter.9}%
+\contentsline {section}{\numberline {9.1}Aufzeichnung von Simulationsläufen}{377}{section.9.1}%
+\contentsline {subsection}{\numberline {9.1.1}Aufzeichnung der Ereignisse}{378}{subsection.9.1.1}%
+\contentsline {subsection}{\numberline {9.1.2}Logging-Ausgabe während der Animation}{378}{subsection.9.1.2}%
+\contentsline {subsection}{\numberline {9.1.3}Auswertung von Ausdrücken und Ausführung von Skripten während der Animation}{380}{subsection.9.1.3}%
+\contentsline {subsection}{\numberline {9.1.4}Aufzeichnung von Animationsvideos}{381}{subsection.9.1.4}%
+\contentsline {section}{\numberline {9.2}Reportgenerierung und Filterung der Ergebnisse}{381}{section.9.2}%
+\contentsline {subsection}{\numberline {9.2.1}Zusammenfassungen}{382}{subsection.9.2.1}%
+\contentsline {subsection}{\numberline {9.2.2}Filtern der Ergebnisse}{382}{subsection.9.2.2}%
+\contentsline {section}{\numberline {9.3}Ein- und Ausgabe-Stationen}{385}{section.9.3}%
+\contentsline {subsection}{\numberline {9.3.1}Tabellenquellen}{385}{subsection.9.3.1}%
+\contentsline {subsection}{\numberline {9.3.2}Laden von Werten während der Simulation}{387}{subsection.9.3.2}%
+\contentsline {subsection}{\numberline {9.3.3}Speichern von Werten während der Simulation}{388}{subsection.9.3.3}%
+\contentsline {subsection}{\numberline {9.3.4}Datenaufzeichnung-Stationen}{389}{subsection.9.3.4}%
+\contentsline {section}{\numberline {9.4}Modelle vergleichen}{390}{section.9.4}%
+\contentsline {section}{\numberline {9.5}Parameterreihen}{392}{section.9.5}%
+\contentsline {subsection}{\numberline {9.5.1}Beispiel}{397}{subsection.9.5.1}%
+\contentsline {subsection}{\numberline {9.5.2}Automatisierung von Simulationen mit Skripten}{402}{subsection.9.5.2}%
+\contentsline {subsection}{\numberline {9.5.3}Varianzanalyse}{403}{subsection.9.5.3}%
+\contentsline {section}{\numberline {9.6}Optimierer}{405}{section.9.6}%
+\contentsline {subsection}{\numberline {9.6.1}Optimierungsalgorithmen}{407}{subsection.9.6.1}%
+\contentsline {subsection}{\numberline {9.6.2}Beispiel}{408}{subsection.9.6.2}%
+\contentsline {section}{\numberline {9.7}Netzwerksimulation}{411}{section.9.7}%
+\contentsline {subsection}{\numberline {9.7.1}Client für Netzwerksimulation}{412}{subsection.9.7.1}%
+\contentsline {subsection}{\numberline {9.7.2}Server für Netzwerksimulation}{413}{subsection.9.7.2}%
+\contentsline {subsection}{\numberline {9.7.3}Webserver}{413}{subsection.9.7.3}%
+\contentsline {section}{\numberline {9.8}Kommandozeilenbetrieb}{414}{section.9.8}%
+\contentsline {subsection}{\numberline {9.8.1}Aufrufarten des Warteschlangensimulators}{415}{subsection.9.8.1}%
+\contentsline {subsection}{\numberline {9.8.2}Simulation}{416}{subsection.9.8.2}%
+\contentsline {subsection}{\numberline {9.8.3}Ergebnisse verarbeiten}{418}{subsection.9.8.3}%
+\contentsline {subsection}{\numberline {9.8.4}Parameterreihen}{420}{subsection.9.8.4}%
+\contentsline {subsection}{\numberline {9.8.5}Optimierung}{421}{subsection.9.8.5}%
+\contentsline {subsection}{\numberline {9.8.6}Serverbetrieb}{421}{subsection.9.8.6}%
+\contentsline {subsection}{\numberline {9.8.7}Interaktiver Kommandozeilenmodus}{423}{subsection.9.8.7}%
+\contentsline {chapter}{\numberline {A}Wahrscheinlichkeitsverteilungen}{425}{appendix.A}%
+\contentsline {section}{\numberline {A.1}Definitionen}{426}{section.A.1}%
+\contentsline {subsection}{\numberline {A.1.1}Verteilungsfunktion}{426}{subsection.A.1.1}%
+\contentsline {subsection}{\numberline {A.1.2}Dichte}{427}{subsection.A.1.2}%
+\contentsline {subsection}{\numberline {A.1.3}Kenngrößen der Wahrscheinlichkeitsverteilungen}{427}{subsection.A.1.3}%
+\contentsline {section}{\numberline {A.2}Gleichverteilung}{428}{section.A.2}%
+\contentsline {section}{\numberline {A.3}Dreiecksverteilung}{429}{section.A.3}%
+\contentsline {section}{\numberline {A.4}Exponentialverteilung}{431}{section.A.4}%
+\contentsline {section}{\numberline {A.5}Normalverteilung}{432}{section.A.5}%
+\contentsline {subsection}{\numberline {A.5.1}Standardnormalverteilung}{435}{subsection.A.5.1}%
+\contentsline {subsection}{\numberline {A.5.2}Zentraler Grenzwertsatz}{435}{subsection.A.5.2}%
+\contentsline {subsection}{\numberline {A.5.3}3-Sigma-Regel}{436}{subsection.A.5.3}%
+\contentsline {section}{\numberline {A.6}Lognormalverteilung}{437}{section.A.6}%
+\contentsline {section}{\numberline {A.7}Gamma-Verteilung}{438}{section.A.7}%
+\contentsline {section}{\numberline {A.8}Erlang-Verteilung}{439}{section.A.8}%
+\contentsline {chapter}{\numberline {B}Zufallszahlen}{441}{appendix.B}%
+\contentsline {section}{\numberline {B.1}Pseudozufallszahlen}{441}{section.B.1}%
+\contentsline {section}{\numberline {B.2}Linearer Kongruenzgenerator}{444}{section.B.2}%
+\contentsline {section}{\numberline {B.3}Tests auf Zufall}{446}{section.B.3}%
+\contentsline {section}{\numberline {B.4}Zufallszahlen gemäß bestimmter Verteilungen}{450}{section.B.4}%
+\contentsline {chapter}{\numberline {C}Beweise der Erlang-Formeln}{453}{appendix.C}%
+\contentsline {section}{\numberline {C.1}Exponentialverteilung}{454}{section.C.1}%
+\contentsline {paragraph}{Schritt 1: Funktionalgleichung zur Beschreibung der Gedächtnislosigkeit}{457}{section*.178}%
+\contentsline {paragraph}{Schritt 2: Explizite Darstellung für $G(t)$}{458}{section*.179}%
+\contentsline {paragraph}{Schritt 3: Nachweis, dass $0<G(1)<1$ gilt}{458}{section*.180}%
+\contentsline {section}{\numberline {C.2}Faltung von Wahrscheinlichkeitsverteilungen}{459}{section.C.2}%
+\contentsline {section}{\numberline {C.3}Erlang-Verteilung}{459}{section.C.3}%
+\contentsline {section}{\numberline {C.4}Geburts- und Todesprozesse}{462}{section.C.4}%
+\contentsline {section}{\numberline {C.5}Erlang-C-Formel}{467}{section.C.5}%
+\contentsline {section}{\numberline {C.6}Erlang-B-Formel}{470}{section.C.6}%
+\contentsline {chapter}{\numberline {D}Glossar}{471}{appendix.D}%
+\contentsline {chapter}{\numberline {E}Formelsammlung}{493}{appendix.E}%
+\contentsline {chapter}{\numberline {F}Bezeichnungen}{503}{appendix.F}%
+\contentsline {chapter}{Literaturverzeichnis}{505}{appendix*.313}%
+\contentsline {chapter}{Sachverzeichnis}{509}{section*.314}%
