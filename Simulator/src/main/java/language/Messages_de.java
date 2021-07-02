@@ -16534,6 +16534,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[37463] = "Laden fehlgeschlagen";
     t[37464] = "Compare.ReplaceKeptModel.NoInfo";
     t[37465] = "Das bisher festgehaltene Modell wird weiterhin behalten. Es werden keine Ver\u00e4nderungen vorgenommen.";
+    t[37468] = "UsageStatistics.GitHubStarInfo";
+    t[37469] = "Wenn der Simulator f\u00fcr Sie n\u00fctzlich ist<br>und wenn Sie einen GitHub-Account besitzen,<br>k\u00f6nnen Sie ihm dort gerne einen Stern geben:";
     t[37474] = "ExpressionCalculator.Tab.Clients.ProcessWaitingTime";
     t[37475] = "Mittlere Bedienzeit der Kunden";
     t[37478] = "Statistics.XML.Element.CounterBatchName";
@@ -18056,14 +18058,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[41037] = "Farbverl\u00e4ufe verwenden";
     t[41038] = "Animation.SkipWarmUp.OptionDefault";
     t[41039] = "Modell nicht ver\u00e4ndern";
-    t[41046] = "Surface.Decide.Condition";
-    t[41047] = "Bedingung";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_9 (java.lang.String[] t) {
+    t[41046] = "Surface.Decide.Condition";
+    t[41047] = "Bedingung";
     t[41048] = "Dialog.Button.Paste.InfoImage";
     t[41049] = "F\u00fcgt ein Bild aus der Zwischenablage ein";
     t[41054] = "Main.Menu.View.ShowIDs.Mnemonic";
@@ -20062,14 +20064,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[45695] = "Ung\u00fcltige \u00c4nderungsrate in der ersten Runde";
     t[45696] = "Editor.Dialog.Sequences.Edit.Assignments.Delete.Confirm.InfoYes";
     t[45697] = "Kundenvariablen-Zuweisung l\u00f6schen.";
-    t[45700] = "Simulation.Creator.ReleaseInvalidResource";
-    t[45701] = "Die f\u00fcr die Ressourcenfreigabe an Element id=%d angegebenen Ressourcen sind ung\u00fcltig.";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_10 (java.lang.String[] t) {
+    t[45700] = "Simulation.Creator.ReleaseInvalidResource";
+    t[45701] = "Die f\u00fcr die Ressourcenfreigabe an Element id=%d angegebenen Ressourcen sind ung\u00fcltig.";
     t[45706] = "Surface.Counter.Tooltip";
     t[45707] = "Z\u00e4hlt f\u00fcr die Statistik wie viele Kunden das Element durchquert haben.";
     t[45714] = "Surface.Decide.Dialog.OutgoingEdge.ClientType.ErrorMissing.Info";

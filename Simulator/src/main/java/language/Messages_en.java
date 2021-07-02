@@ -16534,6 +16534,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[37463] = "Loading failed";
     t[37464] = "Compare.ReplaceKeptModel.NoInfo";
     t[37465] = "The already kept model with stay kept. Nothing will be changed.";
+    t[37468] = "UsageStatistics.GitHubStarInfo";
+    t[37469] = "If the simulator is useful to you<br>and if you have a GitHub account,<br>feel free to give it a star there:";
     t[37474] = "ExpressionCalculator.Tab.Clients.ProcessWaitingTime";
     t[37475] = "Average process time of the clients";
     t[37478] = "Statistics.XML.Element.CounterBatchName";
@@ -18056,14 +18058,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[41037] = "Use color gradients";
     t[41038] = "Animation.SkipWarmUp.OptionDefault";
     t[41039] = "Do not change model.";
-    t[41046] = "Surface.Decide.Condition";
-    t[41047] = "Condition";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_9 (java.lang.String[] t) {
+    t[41046] = "Surface.Decide.Condition";
+    t[41047] = "Condition";
     t[41048] = "Dialog.Button.Paste.InfoImage";
     t[41049] = "Pastes an image from the clipboard";
     t[41054] = "Main.Menu.View.ShowIDs.Mnemonic";
@@ -20062,14 +20064,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[45695] = "Invalid change rate in the first round";
     t[45696] = "Editor.Dialog.Sequences.Edit.Assignments.Delete.Confirm.InfoYes";
     t[45697] = "Delete client variable assignment.";
-    t[45700] = "Simulation.Creator.ReleaseInvalidResource";
-    t[45701] = "The resources specified for the release resource element id=%d are invalid.";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_10 (java.lang.String[] t) {
+    t[45700] = "Simulation.Creator.ReleaseInvalidResource";
+    t[45701] = "The resources specified for the release resource element id=%d are invalid.";
     t[45706] = "Surface.Counter.Tooltip";
     t[45707] = "Counts for the statistics how many clients have passed the element.";
     t[45714] = "Surface.Decide.Dialog.OutgoingEdge.ClientType.ErrorMissing.Info";

@@ -148,6 +148,7 @@ import ui.dialogs.SelectExampleDialog;
 import ui.dialogs.SetupDialog;
 import ui.dialogs.StationStatisticsDialog;
 import ui.dialogs.SystemInfoWindow;
+import ui.dialogs.UsageStatisticsDialog;
 import ui.dialogs.VarianceAnalysisDialog;
 import ui.dialogs.WaitDialog;
 import ui.generator.ModelGeneratorDialog;
@@ -3821,7 +3822,7 @@ public class MainPanel extends MainPanelBase {
 	 * Befehl: Hilfe - Nutzungsstatistik
 	 */
 	private void commandHelpUsageStatistics() {
-		MsgBox.info(getOwnerWindow(),Language.tr("UsageStatistics.Title"),String.format(Language.tr("UsageStatistics.Info"),NumberTools.formatLong(UsageStatistics.getInstance().getSimulationClients())));
+		new UsageStatisticsDialog(this);
 	}
 
 	/**
