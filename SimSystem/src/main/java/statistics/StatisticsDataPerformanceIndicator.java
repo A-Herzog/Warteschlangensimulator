@@ -79,6 +79,16 @@ public final class StatisticsDataPerformanceIndicator extends StatisticsPerforma
 	public static String xmlNameBatchMeansVarError="Das BatchVarianz-Attribut im \"%s\"-Element eine nicht-negative Zahl sein, ist aber \"%s\".";
 	/** XML-Attribut für "MittelwertKonfidenzRadius" */
 	public static String[] xmlNameMeanBatchHalfWide=new String[]{"MittelwertKonfidenzRadius"};
+	/** XML-Attribut für "LaufAnzahl" */
+	public static String[] xmlNameRunCount=new String[]{"LaufAnzahl"};
+	/** Fehlermeldung, wenn das "LaufAnzahl"-Attribut nicht gelesen werden konnte. */
+	public static String xmlNameRunCountError="Das LaufAnzahl-Attribut im \"%s\"-Element muss eine positive Ganzzahl sein, ist aber \"%s\".";
+	/** XML-Attribut für "LaufVarianz" */
+	public static String[] xmlNameRunVar=new String[]{"LaufVarianz"};
+	/** Fehlermeldung, wenn das "LaufVarianz"-Attribut nicht gelesen werden konnte. */
+	public static String xmlNameRunVarError="Das LaufVarianz-Attribut im \"%s\"-Element eine nicht-negative Zahl sein, ist aber \"%s\".";
+	/** XML-Attribut für "LaufMittelwertKonfidenzRadius" */
+	public static String[] xmlNameRunHalfWide=new String[]{"LaufMittelwertKonfidenzRadius"};
 	/** XML-Attribut für "Quantil" */
 	public static String xmlNameQuantil="Quantil";
 
@@ -189,9 +199,9 @@ public final class StatisticsDataPerformanceIndicator extends StatisticsPerforma
 	private double batchMeansSum2;
 
 	/**
-	 * Varianz zwischen den Batch-Mittelwerten
-	 * Wird von StatisticsDataPerformanceIndicator#getBatchVar() berechnet und dann hier gespeichert.
-	 * @see StatisticsDataPerformanceIndicator#getBatchVar()
+	 * Varianz zwischen den Batch-Mittelwerten<br>
+	 * Wird von {@link #getBatchVar()} berechnet und dann hier gespeichert.
+	 * @see #getBatchVar()
 	 */
 	private double batchMeansVar;
 
@@ -204,6 +214,28 @@ public final class StatisticsDataPerformanceIndicator extends StatisticsPerforma
 	 * Anzahl der bereits aufgezeichneten Daten, die für die Berechnung des Mittelwertes des nächsten Batches herangezogen werden sollen
 	 */
 	private int batchTempCount;
+
+	/**
+	 * Anzahl an erfassten Teil-Simulationsläufen
+	 */
+	private int runCount;
+
+	/**
+	 * Summe der Werte pro erfasstem Teil-Simulationslauf
+	 */
+	private double runSum;
+
+	/**
+	 * Summe der quadrierten Werte pro erfasstem Teil-Simulationslauf
+	 */
+	private double runSum2;
+
+	/**
+	 * Varianz zwischen den Teil-Simulationslauf Mittelwerten<br>
+	 * Wird von {@link #getRunVar()} berechnet.
+	 * @see #getRunVar()
+	 */
+	private double runVar;
 
 	/**
 	 * Obergrenze des Trägers der Häufigkeitsverteilung
@@ -457,7 +489,7 @@ public final class StatisticsDataPerformanceIndicator extends StatisticsPerforma
 				max=moreDataStatistics.max;
 			} else {
 				min=Math.min(min,moreDataStatistics.min);
-				max=Math.min(max,moreDataStatistics.max);
+				max=Math.max(max,moreDataStatistics.max);
 			}
 		}
 
@@ -497,6 +529,12 @@ public final class StatisticsDataPerformanceIndicator extends StatisticsPerforma
 			batchSize=moreDataStatistics.batchSize;
 		}
 		if (moreDataStatistics.batchMeansVar>0) batchMeansVar=moreDataStatistics.batchMeansVar;
+
+		/* Daten zu einzelnen Teil-Simulationsläufen */
+		runCount+=moreDataStatistics.runCount;
+		runSum+=moreDataStatistics.runSum;
+		runSum2+=moreDataStatistics.runSum2;
+		if (moreDataStatistics.runVar>0) runVar=moreDataStatistics.runVar;
 	}
 
 	/**
@@ -531,6 +569,12 @@ public final class StatisticsDataPerformanceIndicator extends StatisticsPerforma
 			batchMeansSum2=0;
 		}
 		batchMeansVar=0;
+
+		/* Daten zu einzelnen Teil-Simulationsläufen */
+		runCount=0;
+		runSum=0;
+		runSum2=0;
+		runVar=0;
 	}
 
 	/**
@@ -570,6 +614,12 @@ public final class StatisticsDataPerformanceIndicator extends StatisticsPerforma
 		batchMeansSum=data.batchMeansSum;
 		batchMeansSum2=data.batchMeansSum2;
 		batchMeansVar=data.batchMeansVar;
+
+		/* Daten zu einzelnen Teil-Simulationsläufen */
+		runCount=data.runCount;
+		runSum=data.runSum;
+		runSum2=data.runSum2;
+		runVar=data.runVar;
 	}
 
 	/**
@@ -906,7 +956,7 @@ public final class StatisticsDataPerformanceIndicator extends StatisticsPerforma
 	}
 
 	/**
-	 * Liefert die Standardabweichung zwischen den Batches<br>
+	 * Liefert die Standardabweichung zwischen den Batches.<br>
 	 * (Setzt voraus, dass das System Bache aufgezeichnet hat.)
 	 * @return	Standardabweichung zwischen den Batches
 	 */
@@ -915,7 +965,7 @@ public final class StatisticsDataPerformanceIndicator extends StatisticsPerforma
 	}
 
 	/**
-	 * Liefert die Standardabweichung zwischen den Batches<br>
+	 * Liefert die Standardabweichung zwischen den Batches.<br>
 	 * Die internen Zähler werden dabei nicht finalisiert, so dass weitere Messwerte hinzugefügt werden können.<br>
 	 * (Setzt voraus, dass das System Bache aufgezeichnet hat.)
 	 * @return	Standardabweichung zwischen den Batches
@@ -926,6 +976,92 @@ public final class StatisticsDataPerformanceIndicator extends StatisticsPerforma
 		final double xMean=getMean();
 		final int b=batchMeansCount;
 		return StrictMath.sqrt(1.0/b/(b-1)*(batchMeansSum2-2*xMean*batchMeansSum+b*xMean*xMean));
+	}
+
+	/**
+	 * Beendet einen Simulationslauf für die Erfassung der
+	 * Konfidenzdaten über mehrere Teil-Simulationsläufe hinweg.
+	 */
+	public void finishRun() {
+		final double value=(count>0)?(sum/count):0;
+		runCount++;
+		runSum+=value;
+		runSum2+=(value*value);
+	}
+
+	/**
+	 * Liefert die Anzahl an erfassten Teil-Simulationsläufen.
+	 * @return	Anzahl an erfassten Teil-Simulationsläufen
+	 */
+	public int getRunCount() {
+		return runCount;
+	}
+
+	/**
+	 * Liefert die Varianz zwischen den Teil-Simulationsläufen.<br>
+	 * (Setzt voraus, dass das System Daten zu Teil-Simulationsläufen aufgezeichnet hat.)
+	 * @return	Varianz zwischen den Teil-Simulationsläufen
+	 */
+	public double getRunVar() {
+		if (runVar==0.0) {
+			if (runCount<2) return 0;
+			final double xMean=getMean();
+			final int b=runCount;
+			runVar=1.0/b/(b-1)*(runSum2-2*xMean*runSum+b*xMean*xMean);
+		}
+		return runVar;
+	}
+
+	/**
+	 * Liefert die Standardabweichung zwischen den Teil-Simulationsläufen.<br>
+	 * (Setzt voraus, dass das System Daten zu Teil-Simulationsläufen aufgezeichnet hat.)
+	 * @return	Standardabweichung zwischen den Teil-Simulationsläufen
+	 */
+	public double getRunSD() {
+		return StrictMath.sqrt(getRunVar());
+	}
+
+	/**
+	 * Halbe Breite des Konfidenzintervalls für den Mittelwert (unter Berücksichtigung der Teil-Simulationsläufe)<br>
+	 * Das Konfidenzintervall geht dann von <code>getMean()-getRunConfidenceHalfWide(alpha)</code> bis <code>getMean()+getRunConfidenceHalfWide(alpha)</code>
+	 * @param alpha	Konfidenzniveau (z.B. alpha=0.05 oder alpha=0.01)
+	 * @return	Halbe Breite des Konfidenzintervalls
+	 */
+	public double getRunConfidenceHalfWide(final double alpha) {
+		if (min==max) return 0;
+		final int b=runCount;
+		if (b==0) return 0; /* Keine Läufe erfasst */
+		if (b==1) return 0; /* Sorry, aber TDistribution(0) geht auch nicht. */
+		final TDistribution dist=new TDistribution(b-1);
+		final double t=dist.inverseCumulativeProbability(1-alpha/2);
+		final double sd=getRunSD();
+		return t*sd; /* Division durch sqrt(b) steckt schon in getRunSD() */
+	}
+
+	/**
+	 * Halbe Breite des Konfidenzintervalls für den Mittelwert (unter Berücksichtigung der Teil-Simulationsläufe) (mehrere Konfidenzniveaus gleichzeitig)<br>
+	 * Das Konfidenzintervall geht dann von <code>getMean()-getRunConfidenceHalfWide(alpha)</code> bis <code>getMean()+getRunConfidenceHalfWide(alpha)</code>
+	 * @param alpha	Konfidenzniveaus (z.B. alpha=0.05 oder alpha=0.01)
+	 * @return	Halbe Breite der Konfidenzintervalle
+	 */
+	public double[] getRunConfidenceHalfWide(final double[] alpha) {
+		if (alpha==null || alpha.length==0) return new double[0];
+		if (count==0) return new double[alpha.length];
+		if (min==max) return new double[alpha.length];
+
+		final int b=runCount;
+		if (b==0) return new double[alpha.length]; /* Keine Läufe erfasst */
+		if (b==1) return new double[alpha.length]; /* Sorry, aber TDistribution(0) geht auch nicht. */
+
+		final TDistribution dist=new TDistribution(b-1);
+		final double sd=getRunSD();
+
+		final double[] results=new double[alpha.length];
+		for (int i=0;i<alpha.length;i++) {
+			final double t=dist.inverseCumulativeProbability(1-alpha[i]/2);
+			results[i]=t*sd; /* Division durch sqrt(b) steckt schon in getBatchSD() */
+		}
+		return results;
 	}
 
 	/**
@@ -1088,6 +1224,16 @@ public final class StatisticsDataPerformanceIndicator extends StatisticsPerforma
 			}
 		}
 
+		if (runCount>0) {
+			node.setAttribute(xmlNameRunCount[0],""+runCount);
+			node.setAttribute(xmlNameRunVar[0],NumberTools.formatSystemNumber(getRunVar()));
+			for (double level: CONFIDENCE_SAVE_LEVEL) {
+				String s=String.valueOf(Math.round((1-level)*100));
+				double radius=NumberTools.reduceDigits(getRunConfidenceHalfWide(level),8);
+				node.setAttribute(xmlNameRunHalfWide[0]+s,NumberTools.formatSystemNumber(radius));
+			}
+		}
+
 		if (hasDistribution) {
 			if (dist==null) initDistribution();
 			final double[] quantils=getQuantil(storeQuantilValues);
@@ -1180,6 +1326,20 @@ public final class StatisticsDataPerformanceIndicator extends StatisticsPerforma
 			Double D=NumberTools.getNotNegativeDouble(NumberTools.systemNumberToLocalNumber(value));
 			if (D==null) return String.format(xmlNameBatchMeansVarError,node.getNodeName(),value);
 			batchMeansVar=D.doubleValue();
+		}
+
+		value=getAttributeValue(node,xmlNameRunCount);
+		if (!value.isEmpty()) {
+			Long L=NumberTools.getPositiveLong(value);
+			if (L==null) return String.format(xmlNameRunCountError,node.getNodeName(),value);
+			runCount=L.intValue();
+		}
+
+		value=getAttributeValue(node,xmlNameRunVar);
+		if (!value.isEmpty()) {
+			Double D=NumberTools.getNotNegativeDouble(NumberTools.systemNumberToLocalNumber(value));
+			if (D==null) return String.format(xmlNameRunVarError,node.getNodeName(),value);
+			runVar=D.doubleValue();
 		}
 
 		return null;

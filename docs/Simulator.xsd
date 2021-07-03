@@ -1877,6 +1877,11 @@
     <xs:attribute name="MittelwertKonfidenzRadius90" type="xs:string"/>
     <xs:attribute name="MittelwertKonfidenzRadius95" type="xs:string"/>
     <xs:attribute name="MittelwertKonfidenzRadius99" type="xs:string"/>
+    <xs:attribute name="LaufAnzahl" type="xs:string"/>
+    <xs:attribute name="LaufVarianz" type="xs:string"/>
+    <xs:attribute name="LaufMittelwertKonfidenzRadius90" type="xs:string"/>
+    <xs:attribute name="LaufMittelwertKonfidenzRadius95" type="xs:string"/>
+    <xs:attribute name="LaufMittelwertKonfidenzRadius99" type="xs:string"/>	
 	<xs:attribute name="Zaehler" type="xs:string"/>
     <xs:attribute name="Nenner" type="xs:string"/>
 	<xs:attribute name="Quotient" type="xs:string"/>
@@ -4004,6 +4009,11 @@
     <xs:attribute name="MeanConfidenceRadius90" type="xs:string"/>
     <xs:attribute name="MeanConfidenceRadius95" type="xs:string"/>
     <xs:attribute name="MeanConfidenceRadius99" type="xs:string"/>
+    <xs:attribute name="RunCount" type="xs:string"/>
+    <xs:attribute name="RunVariance" type="xs:string"/>
+    <xs:attribute name="RunMeanConfidenceRadius90" type="xs:string"/>
+    <xs:attribute name="RunMeanConfidenceRadius95" type="xs:string"/>
+    <xs:attribute name="RunMeanConfidenceRadius99" type="xs:string"/>
 	<xs:attribute name="Numerator" type="xs:string"/>
     <xs:attribute name="Denominator" type="xs:string"/>
 	<xs:attribute name="Quotient" type="xs:string"/>	

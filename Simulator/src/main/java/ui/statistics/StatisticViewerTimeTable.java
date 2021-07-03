@@ -259,7 +259,8 @@ public class StatisticViewerTimeTable extends StatisticViewerTable {
 
 		if (confidenceLevels!=null) {
 			final double mean=data.getMean();
-			final double[] halfWidth=data.getBatchMeanConfidenceHalfWide(confidenceLevels);
+			double[] halfWidth=data.getBatchMeanConfidenceHalfWide(confidenceLevels);
+			if (halfWidth.length==0) halfWidth=data.getRunConfidenceHalfWide(confidenceLevels);
 			for (int i=0;i<halfWidth.length;i++) line.add(String.format("[%s;%s]",StatisticTools.formatNumber(mean-halfWidth[i]),StatisticTools.formatNumber(mean+halfWidth[i])));
 		}
 
@@ -356,18 +357,21 @@ public class StatisticViewerTimeTable extends StatisticViewerTable {
 	private boolean hasConfidence(final StatisticsMultiPerformanceIndicator indicator1, final StatisticsMultiPerformanceIndicator indicator2, final StatisticsMultiPerformanceIndicator indicator3) {
 		String[] names=indicator1.getNames();
 		if (names.length==0) return false;
-		if (((StatisticsDataPerformanceIndicator)indicator1.get(names[0])).getBatchCount()<2) return false;
+		final StatisticsDataPerformanceIndicator dataIndicator1=(StatisticsDataPerformanceIndicator)indicator1.get(names[0]);
+		if (dataIndicator1.getBatchCount()<2 && (statistics.simulationData.runRepeatCount<2 || dataIndicator1.getRunCount()<2)) return false;
 
 		if (indicator2!=null) {
 			names=indicator2.getNames();
 			if (names.length==0) return false;
-			if (((StatisticsDataPerformanceIndicator)indicator2.get(names[0])).getBatchCount()<2) return false;
+			final StatisticsDataPerformanceIndicator dataIndicator2=(StatisticsDataPerformanceIndicator)indicator2.get(names[0]);
+			if (dataIndicator2.getBatchCount()<2 && (statistics.simulationData.runRepeatCount<2 || dataIndicator2.getRunCount()<2)) return false;
 		}
 
 		if (indicator3!=null) {
 			names=indicator3.getNames();
 			if (names.length==0) return false;
-			if (((StatisticsDataPerformanceIndicator)indicator3.get(names[0])).getBatchCount()<2) return false;
+			final StatisticsDataPerformanceIndicator dataIndicator3=(StatisticsDataPerformanceIndicator)indicator3.get(names[0]);
+			if (dataIndicator3.getBatchCount()<2 && (statistics.simulationData.runRepeatCount<2 || dataIndicator3.getRunCount()<2)) return false;
 		}
 
 		return true;

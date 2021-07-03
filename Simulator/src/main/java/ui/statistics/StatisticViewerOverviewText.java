@@ -234,23 +234,45 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 	 * @param indicator	Staitstikobjekt für das die Konfidenzdaten ausgegeben werden sollen
 	 */
 	private void outputConfidenceData(final StatisticsDataPerformanceIndicator indicator) {
-		if (indicator.getBatchCount()<1) return;
+		/* Batch-Means-Konfidenzintervalle */
+		if (indicator.getBatchCount()>1) {
+			beginParagraph();
+			final double m=indicator.getMean();
+			for (double level: getConfidenceLevels()) {
+				final double w=indicator.getBatchMeanConfidenceHalfWide(level);
+				addLine(String.format(
+						Language.tr("Statistics.Confidence.Level"),
+						StatisticTools.formatPercent(1-level),
+						StatisticTools.formatNumber(m-w),
+						StatisticTools.formatNumber(m+w),
+						StatisticTools.formatNumber(w)
+						));
 
-		beginParagraph();
-		final double m=indicator.getMean();
-		for (double level: getConfidenceLevels()) {
-			final double w=indicator.getBatchMeanConfidenceHalfWide(level);
-			addLine(String.format(
-					Language.tr("Statistics.Confidence.Level"),
-					StatisticTools.formatPercent(1-level),
-					StatisticTools.formatNumber(m-w),
-					StatisticTools.formatNumber(m+w),
-					StatisticTools.formatNumber(w)
-					));
-
+			}
+			addLine(String.format(Language.tr("Statistics.Confidence.Info"),NumberTools.formatLong(indicator.getBatchCount()),NumberTools.formatLong(indicator.getBatchSize()),StatisticTools.formatNumber(indicator.getBatchSD())));
+			endParagraph();
+			return;
 		}
-		addLine(String.format(Language.tr("Statistics.Confidence.Info"),NumberTools.formatLong(indicator.getBatchCount()),NumberTools.formatLong(indicator.getBatchSize()),StatisticTools.formatNumber(indicator.getBatchSD())));
-		endParagraph();
+
+		/* Konfidenzintervall auf Basis der Wiederholungen der Simulation */
+		if (statistics.simulationData.runRepeatCount>1 && indicator.getRunCount()>1) {
+			beginParagraph();
+			final double m=indicator.getMean();
+			for (double level: getConfidenceLevels()) {
+				final double w=indicator.getRunConfidenceHalfWide(level);
+				addLine(String.format(
+						Language.tr("Statistics.Confidence.Level"),
+						StatisticTools.formatPercent(1-level),
+						StatisticTools.formatNumber(m-w),
+						StatisticTools.formatNumber(m+w),
+						StatisticTools.formatNumber(w)
+						));
+
+			}
+			addLine(String.format(Language.tr("Statistics.Confidence.InfoRun"),NumberTools.formatLong(indicator.getRunCount()),StatisticTools.formatNumber(indicator.getRunSD())));
+			endParagraph();
+			return;
+		}
 	}
 
 	/**

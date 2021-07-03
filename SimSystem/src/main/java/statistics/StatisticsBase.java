@@ -107,4 +107,13 @@ public abstract class StatisticsBase extends XMLData {
 		final Optional<StatisticsMultiPerformanceIndicator> result=performanceIndicators.stream().filter(i->i instanceof StatisticsMultiPerformanceIndicator).map(i->(StatisticsMultiPerformanceIndicator)i).filter(i->i.contains(indicator)).findFirst();
 		return result.orElse(null);
 	}
+
+	/**
+	 * Liefert eine Liste aller registrierten Kenngrößen zurück.
+	 * @return	Liste aller registrierten Kenngrößen
+	 * @see #addPerformanceIndicator(StatisticsPerformanceIndicator)
+	 */
+	public List<StatisticsPerformanceIndicator> getAllPerformanceIndicators() {
+		return performanceIndicators;
+	}
 }

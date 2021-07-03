@@ -102,14 +102,28 @@ public class StatisticViewerUserStatisticTable extends StatisticViewerTable {
 	}
 
 	/**
-	 * Besitzt ein Statistik-Indikator Konfidenzintervall-Informationen
+	 * Besitzt ein Statistik-Indikator Konfidenzintervall-Informationen (auf Batch-Means-Basis)?
 	 * @param indicator	Statistik-Indikator
 	 * @return	Liegen Konfidenzintervall-Informationen vor?
 	 */
-	private boolean hasConfidence(final StatisticsMultiPerformanceIndicator indicator) {
+	private boolean hasConfidenceBatchMeans(final StatisticsMultiPerformanceIndicator indicator) {
 		String[] names=indicator.getNames();
 		if (names.length==0) return false;
 		if (((StatisticsDataPerformanceIndicator)indicator.get(names[0])).getBatchCount()<2) return false;
+
+		return true;
+	}
+
+	/**
+	 * Besitzt ein Statistik-Indikator Konfidenzintervall-Informationen (über Teil-Simulationsläufe)?
+	 * @param indicator	Statistik-Indikator
+	 * @return	Liegen Konfidenzintervall-Informationen vor?
+	 */
+	private boolean hasConfidenceRun(final StatisticsMultiPerformanceIndicator indicator) {
+		String[] names=indicator.getNames();
+		if (statistics.simulationData.runRepeatCount<2) return false;
+		if (names.length==0) return false;
+		if (((StatisticsDataPerformanceIndicator)indicator.get(names[0])).getRunCount()<2) return false;
 
 		return true;
 	}
@@ -119,7 +133,8 @@ public class StatisticViewerUserStatisticTable extends StatisticViewerTable {
 	 * @see Mode#MODE_DEFAULT
 	 */
 	private void buildDefaultTable() {
-		final boolean hasConfidence=hasConfidence(statistics.userStatistics);
+		final boolean hasConfidenceBatchMeans=hasConfidenceBatchMeans(statistics.userStatistics);
+		final boolean hasConfidenceRun=!hasConfidenceBatchMeans && hasConfidenceRun(statistics.userStatistics);
 		final double[] confidenceLevels=StatisticViewerOverviewText.getConfidenceLevels();
 
 		final List<String> cols=new ArrayList<>();
@@ -137,7 +152,10 @@ public class StatisticViewerUserStatisticTable extends StatisticViewerTable {
 				cols.add(StatisticTools.formatPercent(p)+" "+Language.tr("Statistics.Quantil"));
 			}
 		}
-		if (hasConfidence) for (double level: confidenceLevels) {
+		if (hasConfidenceBatchMeans) for (double level: confidenceLevels) {
+			cols.add(String.format(Language.tr("Statistics.ConfidenceLevel"),StatisticTools.formatPercent(1-level)));
+		}
+		if (hasConfidenceRun) for (double level: confidenceLevels) {
 			cols.add(String.format(Language.tr("Statistics.ConfidenceLevel"),StatisticTools.formatPercent(1-level)));
 		}
 
@@ -160,9 +178,14 @@ public class StatisticViewerUserStatisticTable extends StatisticViewerTable {
 						row.add(StatisticTools.formatNumber(indicator.getQuantil(p)));
 					}
 				}
-				if (hasConfidence) {
+				if (hasConfidenceBatchMeans) {
 					final double mean=indicator.getMean();
 					final double[] halfWidth=indicator.getBatchMeanConfidenceHalfWide(confidenceLevels);
+					for (int i=0;i<halfWidth.length;i++) row.add(String.format("[%s;%s]",StatisticTools.formatNumber(mean-halfWidth[i]),StatisticTools.formatNumber(mean+halfWidth[i])));
+				}
+				if (hasConfidenceRun) {
+					final double mean=indicator.getMean();
+					final double[] halfWidth=indicator.getRunConfidenceHalfWide(confidenceLevels);
 					for (int i=0;i<halfWidth.length;i++) row.add(String.format("[%s;%s]",StatisticTools.formatNumber(mean-halfWidth[i]),StatisticTools.formatNumber(mean+halfWidth[i])));
 				}
 			} else {
@@ -178,9 +201,14 @@ public class StatisticViewerUserStatisticTable extends StatisticViewerTable {
 						row.add(StatisticTools.formatNumber(indicator.getQuantil(p)));
 					}
 				}
-				if (hasConfidence) {
+				if (hasConfidenceBatchMeans) {
 					final double mean=indicator.getMean();
 					final double[] halfWidth=indicator.getBatchMeanConfidenceHalfWide(confidenceLevels);
+					for (int i=0;i<halfWidth.length;i++) row.add(String.format("[%s;%s]",StatisticTools.formatNumber(mean-halfWidth[i]),StatisticTools.formatNumber(mean+halfWidth[i])));
+				}
+				if (hasConfidenceRun) {
+					final double mean=indicator.getMean();
+					final double[] halfWidth=indicator.getRunConfidenceHalfWide(confidenceLevels);
 					for (int i=0;i<halfWidth.length;i++) row.add(String.format("[%s;%s]",StatisticTools.formatNumber(mean-halfWidth[i]),StatisticTools.formatNumber(mean+halfWidth[i])));
 				}
 			}

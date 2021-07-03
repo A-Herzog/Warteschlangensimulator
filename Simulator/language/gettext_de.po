@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-02 07:53+0200\n"
+"POT-Creation-Date: 2021-07-03 17:28+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18592,6 +18592,9 @@ msgstr "Obere Abschätzung der Konfidenzintervalle für die Wartezeit aller Kund
 msgid "Statistics.Confidence.Info"
 msgstr "(Die Basis für die Berechnung der Konfidenzintervalle stellen %s Batche zu je %s Messwerten dar. Die Standardabweichung zwischen den Batchen beträgt %s.)"
 
+msgid "Statistics.Confidence.InfoRun"
+msgstr "(Die Basis für die Berechnung der Konfidenzintervalle stellen %s Wiederholungen der Simulation dar. Die Standardabweichung zwischen den Wiederholungen beträgt %s.)"
+
 msgid "Statistics.Confidence.InfoThread"
 msgstr "Die Batch-Means-Erfassung der Konfidenzintervalle ist deaktiviert. Die obigen Abschätzungen wurden unter Ausnutzung der Multi-Thread Simulation (%s Threads) ermittelt. Die tatsächlichen, per Batch-Means ermittelten Konfidenzintervalle fallen üblicherweise kleiner aus."
 
@@ -20316,6 +20319,18 @@ msgstr "Quotient"
 msgid "Statistics.XML.Root"
 msgstr "Statistik"
 
+msgid "Statistics.XML.Run"
+msgstr "LaufVarianz"
+
+msgid "Statistics.XML.Run.Error"
+msgstr "Das LaufVarianz-Attribut im \"%s\"-Element eine nicht-negative Zahl sein, ist aber \"%s\"."
+
+msgid "Statistics.XML.RunCount"
+msgstr "LaufAnzahl"
+
+msgid "Statistics.XML.RunCount.Error"
+msgstr "Das LaufAnzahl-Attribut im \"%s\"-Element muss eine positive Ganzzahl sein, ist aber \"%s\"."
+
 msgid "Statistics.XML.RunDate"
 msgstr "StatistikLaufdatum"
 
@@ -20324,6 +20339,9 @@ msgstr "StatistikEreignisse"
 
 msgid "Statistics.XML.RunEvents.Error"
 msgstr "Der Wert in dem Element \"%s\" muss eine nicht-negative Ganzzahl sein, ist aber \"%s\"."
+
+msgid "Statistics.XML.RunHalfWide"
+msgstr "LaufMittelwertKonfidenzRadius"
 
 msgid "Statistics.XML.RunOS"
 msgstr "StatistikSystem"

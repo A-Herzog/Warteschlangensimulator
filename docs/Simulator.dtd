@@ -1728,6 +1728,11 @@
   MittelwertKonfidenzRadius90	CDATA	#IMPLIED
   MittelwertKonfidenzRadius95	CDATA	#IMPLIED
   MittelwertKonfidenzRadius99	CDATA	#IMPLIED
+  LaufAnzahl					CDATA	#IMPLIED
+  LaufVarianz					CDATA	#IMPLIED
+  LaufMittelwertKonfidenzRadius90	CDATA	#IMPLIED
+  LaufMittelwertKonfidenzRadius95	CDATA	#IMPLIED
+  LaufMittelwertKonfidenzRadius99	CDATA	#IMPLIED
   WerteSumme                    CDATA	#IMPLIED
   WerteSumme2                   CDATA	#IMPLIED
   Quantil10						CDATA	#IMPLIED
@@ -1761,6 +1766,11 @@
   MittelwertKonfidenzRadius90	CDATA	#IMPLIED
   MittelwertKonfidenzRadius95	CDATA	#IMPLIED
   MittelwertKonfidenzRadius99	CDATA	#IMPLIED
+  LaufAnzahl					CDATA	#IMPLIED
+  LaufVarianz					CDATA	#IMPLIED
+  LaufMittelwertKonfidenzRadius90	CDATA	#IMPLIED
+  LaufMittelwertKonfidenzRadius95	CDATA	#IMPLIED
+  LaufMittelwertKonfidenzRadius99	CDATA	#IMPLIED
   WerteSumme                    CDATA	#IMPLIED
   WerteSumme2                   CDATA	#IMPLIED
   Quantil10						CDATA	#IMPLIED
@@ -1947,6 +1957,11 @@
   MittelwertKonfidenzRadius90	CDATA	#IMPLIED
   MittelwertKonfidenzRadius95	CDATA	#IMPLIED
   MittelwertKonfidenzRadius99	CDATA	#IMPLIED
+  LaufAnzahl					CDATA	#IMPLIED
+  LaufVarianz					CDATA	#IMPLIED
+  LaufMittelwertKonfidenzRadius90	CDATA	#IMPLIED
+  LaufMittelwertKonfidenzRadius95	CDATA	#IMPLIED
+  LaufMittelwertKonfidenzRadius99	CDATA	#IMPLIED
   Quantil10						CDATA	#IMPLIED
   Quantil25						CDATA	#IMPLIED
   Quantil50						CDATA	#IMPLIED
@@ -2091,6 +2106,11 @@
   MittelwertKonfidenzRadius90	CDATA	#IMPLIED
   MittelwertKonfidenzRadius95	CDATA	#IMPLIED
   MittelwertKonfidenzRadius99	CDATA	#IMPLIED
+  LaufAnzahl					CDATA	#IMPLIED
+  LaufVarianz					CDATA	#IMPLIED
+  LaufMittelwertKonfidenzRadius90	CDATA	#IMPLIED
+  LaufMittelwertKonfidenzRadius95	CDATA	#IMPLIED
+  LaufMittelwertKonfidenzRadius99	CDATA	#IMPLIED
   Quantil10						CDATA	#IMPLIED
   Quantil25						CDATA	#IMPLIED
   Quantil50						CDATA	#IMPLIED
@@ -3934,6 +3954,11 @@
   MeanConfidenceRadius90	CDATA	#IMPLIED
   MeanConfidenceRadius95	CDATA	#IMPLIED
   MeanConfidenceRadius99	CDATA	#IMPLIED
+  RunCount					CDATA	#IMPLIED
+  RunVariance				CDATA	#IMPLIED
+  RunMeanConfidenceRadius90	CDATA	#IMPLIED
+  RunMeanConfidenceRadius95	CDATA	#IMPLIED
+  RunMeanConfidenceRadius99	CDATA	#IMPLIED
   ValuesSum                 CDATA	#IMPLIED
   ValuesSum2                CDATA	#IMPLIED
   Quantil10					CDATA	#IMPLIED
@@ -3967,6 +3992,11 @@
   MeanConfidenceRadius90	CDATA	#IMPLIED
   MeanConfidenceRadius95	CDATA	#IMPLIED
   MeanConfidenceRadius99	CDATA	#IMPLIED
+  RunCount					CDATA	#IMPLIED
+  RunVariance				CDATA	#IMPLIED
+  RunMeanConfidenceRadius90	CDATA	#IMPLIED
+  RunMeanConfidenceRadius95	CDATA	#IMPLIED
+  RunMeanConfidenceRadius99	CDATA	#IMPLIED
   ValuesSum                 CDATA	#IMPLIED
   ValuesSum2                CDATA	#IMPLIED
   Quantil10					CDATA	#IMPLIED
@@ -4154,6 +4184,11 @@
   MeanConfidenceRadius90	CDATA	#IMPLIED
   MeanConfidenceRadius95	CDATA	#IMPLIED
   MeanConfidenceRadius99	CDATA	#IMPLIED
+  RunCount					CDATA	#IMPLIED
+  RunVariance				CDATA	#IMPLIED
+  RunMeanConfidenceRadius90	CDATA	#IMPLIED
+  RunMeanConfidenceRadius95	CDATA	#IMPLIED
+  RunMeanConfidenceRadius99	CDATA	#IMPLIED
   Quantil10					CDATA	#IMPLIED
   Quantil25					CDATA	#IMPLIED
   Quantil50					CDATA	#IMPLIED
@@ -4298,6 +4333,11 @@
   MeanConfidenceRadius90	CDATA	#IMPLIED
   MeanConfidenceRadius95	CDATA	#IMPLIED
   MeanConfidenceRadius99	CDATA	#IMPLIED
+  RunCount					CDATA	#IMPLIED
+  RunVariance				CDATA	#IMPLIED
+  RunMeanConfidenceRadius90	CDATA	#IMPLIED
+  RunMeanConfidenceRadius95	CDATA	#IMPLIED
+  RunMeanConfidenceRadius99	CDATA	#IMPLIED
   Quantil10					CDATA	#IMPLIED
   Quantil25					CDATA	#IMPLIED
   Quantil50					CDATA	#IMPLIED

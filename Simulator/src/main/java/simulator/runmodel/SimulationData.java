@@ -36,6 +36,7 @@ import simulator.statistics.Statistics;
 import statistics.StatisticsDataPerformanceIndicator;
 import statistics.StatisticsLongRunPerformanceIndicator;
 import statistics.StatisticsMultiPerformanceIndicator;
+import statistics.StatisticsPerformanceIndicator;
 import statistics.StatisticsSimpleCountPerformanceIndicator;
 import statistics.StatisticsStateTimePerformanceIndicator;
 import statistics.StatisticsTimeAnalogPerformanceIndicator;
@@ -332,6 +333,8 @@ public class SimulationData extends SimData {
 		super.terminateCleanUp(now);
 		runData.doneRun(now,this,runModel.recordIncompleteClients);
 
+		statisticDayDone(statistics);
+
 		if (lastDaysStatistics!=null) {
 			/* Wenn es schon Statistik von Vorgängertagen gibt, diese mit diesem Tag zusammenführen */
 			statistics.addData(lastDaysStatistics);
@@ -343,6 +346,28 @@ public class SimulationData extends SimData {
 	public void finalTerminateCleanUp(long eventCount) {
 		super.finalTerminateCleanUp(eventCount);
 		for (Map.Entry<Integer,RunElement> entry: runModel.elements.entrySet()) entry.getValue().finalCleanUp(this);
+	}
+
+	/**
+	 * Erfasst den Abschluss eines Teil-Simulationslaufes in der Statistik
+	 * für die Berechnung der Konfidenzintervalle auf Basis der unabhängigen
+	 * Teil-Simulationsläufe.
+	 * @param statistics	Statistikobjekt
+	 */
+	private void statisticDayDone(final Statistics statistics) {
+		for (StatisticsPerformanceIndicator indicator: statistics.getAllPerformanceIndicators()) {
+			if (indicator instanceof StatisticsMultiPerformanceIndicator) {
+				final StatisticsMultiPerformanceIndicator multi=(StatisticsMultiPerformanceIndicator)indicator;
+				final StatisticsPerformanceIndicator[] sub=multi.getAll();
+				if (sub!=null && sub.length>0 && (sub[0] instanceof StatisticsDataPerformanceIndicator)) for (StatisticsPerformanceIndicator subData: sub) {
+					((StatisticsDataPerformanceIndicator)subData).finishRun();
+				}
+			}
+
+			if (indicator instanceof StatisticsDataPerformanceIndicator) {
+				((StatisticsDataPerformanceIndicator)indicator).finishRun();
+			}
+		}
 	}
 
 	@Override

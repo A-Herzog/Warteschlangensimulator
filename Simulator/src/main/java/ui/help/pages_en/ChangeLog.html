@@ -11,11 +11,13 @@
 
 <h2>Version 5.0.0 (2021-10-xx)</h2>
 <ul>
+  <li>If multiple repetitions are performed within a simulation, confidence intervals determined on this basis are now output.</li>
   <li>Display of the number of simulated arrivals per thread in the statistics</li>
   <li>Option to directly open station edit dialog from model check dialog</li>
   <li>For user-defined Java code, the imports to be used can now be configured.</li>
   <li>Faster Java code check if code is not changed in script editor dialogs</li>
   <li>Linking online help and quick access search with textbook</li>
+  <li>[Fix] If a simulation was parallelized over multiple CPU cores, the maximum values for times given in the statistics could be too low.</li>
   <li>[Fix] Until now, the number of arrivals was one too low in the warm-up phase and one too high in the regular simulation.</li>
 </ul>
 

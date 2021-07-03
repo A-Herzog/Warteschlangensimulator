@@ -938,6 +938,11 @@ public class LanguageStaticLoader {
 		StatisticsDataPerformanceIndicator.xmlNameBatchMeansVar=Language.trAll("Statistics.XML.BatchMeans");
 		StatisticsDataPerformanceIndicator.xmlNameBatchMeansVarError=Language.tr("Statistics.XML.BatchMeans.Error");
 		StatisticsDataPerformanceIndicator.xmlNameMeanBatchHalfWide=Language.trAll("Statistics.XML.MeanBatchHalfWide");
+		StatisticsDataPerformanceIndicator.xmlNameRunCount=Language.trAll("Statistics.XML.RunCount");
+		StatisticsDataPerformanceIndicator.xmlNameRunCountError=Language.tr("Statistics.XML.RunCount.Error");
+		StatisticsDataPerformanceIndicator.xmlNameRunVar=Language.trAll("Statistics.XML.Run");
+		StatisticsDataPerformanceIndicator.xmlNameRunVarError=Language.tr("Statistics.XML.Run.Error");
+		StatisticsDataPerformanceIndicator.xmlNameRunHalfWide=Language.trAll("Statistics.XML.RunHalfWide");
 		StatisticsDataPerformanceIndicator.xmlNameQuantil=Language.tr("Statistics.XML.Quantil");
 		StatisticsDataPerformanceIndicatorWithNegativeValues.xmlNameCount=Language.trAll("Statistics.XML.Count");
 		StatisticsDataPerformanceIndicatorWithNegativeValues.xmlNameCountError=Language.tr("Statistics.XML.Count.Error");

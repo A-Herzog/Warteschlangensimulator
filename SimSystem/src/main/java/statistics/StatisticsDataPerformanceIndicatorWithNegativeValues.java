@@ -318,7 +318,7 @@ public final class StatisticsDataPerformanceIndicatorWithNegativeValues extends 
 				max=moreDataStatistics.max;
 			} else {
 				min=Math.min(min,moreDataStatistics.min);
-				max=Math.min(max,moreDataStatistics.max);
+				max=Math.max(max,moreDataStatistics.max);
 			}
 		}
 
