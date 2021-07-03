@@ -170,6 +170,20 @@ public class RunElementSource extends RunElement implements StateChangeListener,
 		}
 
 		for (int i=1;i<=batchSize;i++) {
+			/* Evtl. WarmUp-Zeit beenden */
+			if (simData.runData.isWarmUp) {
+				/* Warm-Up-Phasenlänge wird nicht durch Threadanzahl geteilt, sondern auf jedem Kern wird die angegebene Anzahl simuliert */
+				if (simData.runData.clientsArrived>=warmUpClients) {
+					simData.runData.isWarmUp=false;
+					simData.endWarmUp();
+					simData.runData.clientsArrived=0;
+					data.arrivalCount=0;
+					data.arrivalClientCount=0;
+					/* Logging */
+					if (simData.loggingActive) log(simData,Language.tr("Simulation.Log.WarmUpEnd"),Language.tr("Simulation.Log.WarmUpEnd.Info"));
+					/* Warm-up-Status für Kunden wieder entfernen */
+				}
+			}
 
 			/* Kunde anlegen */
 			final RunDataClient newClient=simData.runData.clients.getClient(record.clientType,simData);
@@ -187,20 +201,6 @@ public class RunElementSource extends RunElement implements StateChangeListener,
 
 			/* Logging */
 			if (simData.loggingActive) log(simData,Language.tr("Simulation.Log.SourceArrival"),String.format(Language.tr("Simulation.Log.SourceArrival.Info"),newClient.logInfo(simData),simData.runData.getWarmUpStatus(),name,simData.runData.clientsArrived));
-
-			/* Evtl. WarmUp-Zeit beenden */
-			if (simData.runData.isWarmUp) {
-				/* Warm-Up-Phasenlänge wird nicht durch Threadanzahl geteilt, sondern auf jedem Kern wird die angegebene Anzahl simuliert */
-				if (simData.runData.clientsArrived>=warmUpClients) {
-					simData.runData.isWarmUp=false;
-					simData.endWarmUp();
-					simData.runData.clientsArrived=0;
-					data.arrivalCount=0;
-					data.arrivalClientCount=0;
-					/* Logging */
-					if (simData.loggingActive) log(simData,Language.tr("Simulation.Log.WarmUpEnd"),Language.tr("Simulation.Log.WarmUpEnd.Info"));
-				}
-			}
 
 			/* Zwischenankunftszeiten in der Statistik erfassen */
 			simData.runData.logStationArrival(simData.currentTime,simData,this,data,newClient);
