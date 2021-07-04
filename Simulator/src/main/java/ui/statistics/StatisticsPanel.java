@@ -655,7 +655,7 @@ public class StatisticsPanel extends StatisticsBasePanel {
 	private boolean testThreadBalanceData(final Statistics[] statistics) {
 		for (Statistics statistic: statistics) {
 			final long[] data=statistic.simulationData.threadDynamicBalanceData;
-			if (data.length>0 || data[0]!=0L) return true;
+			if (data.length>0 && data[0]!=0L) return true;
 		}
 		return false;
 	}
@@ -1072,7 +1072,6 @@ public class StatisticsPanel extends StatisticsBasePanel {
 				for(Statistics statistic : statistics) viewer.add(new StatisticViewerMovementTable(statistic,StatisticViewerMovementTable.Mode.CLIENT_PATH_LENGTHS_DISTRIBUTION));
 				group.addChild(new StatisticNode(Language.tr("Statistics.ClientPathLengthsDistribution"),viewer));
 			}
-
 		}
 
 		/* Kunden an den Station */
