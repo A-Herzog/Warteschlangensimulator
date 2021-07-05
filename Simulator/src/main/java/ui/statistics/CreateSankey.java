@@ -156,7 +156,7 @@ public final class CreateSankey extends BaseDialog {
 		this.mode=mode;
 		stationNameStart=Language.tr("Simulation.ClientMovement.Start").toUpperCase();
 		stationNameEnd=Language.tr("Simulation.ClientMovement.End").toUpperCase();
-		this.stations=getStationsList();
+		this.stations=new ArrayList<>(getStationsList(table,mode,stationNameStart,stationNameEnd));
 
 		addUserButton(Language.tr("Simulation.ClientMovement.SelectAll"),Images.EDIT_ADD.getIcon());
 		addUserButton(Language.tr("Simulation.ClientMovement.SelectNone"),Images.EDIT_DELETE.getIcon());
@@ -253,10 +253,14 @@ public final class CreateSankey extends BaseDialog {
 
 	/**
 	 * Erstellt die Liste der Stationen.
+	 * @param table	Tabelle mit den Verknüpfungsdaten
+	 * @param mode	Auf welcher Basis soll das Sankey-Diagramm erzeugt werden?
+	 * @param stationNameStart	Name für die virtuelle Startstation
+	 * @param stationNameEnd		Name für die virtuelle Endstation
 	 * @return	Liste der Stationen
 	 * @see #stations
 	 */
-	private List<String> getStationsList() {
+	private static Set<String> getStationsList(final Table table, final Mode mode, final String stationNameStart, final String stationNameEnd) {
 		final Set<String> stations=new HashSet<>();
 		final int rows=table.getSize(0);
 
@@ -281,7 +285,7 @@ public final class CreateSankey extends BaseDialog {
 			break;
 		}
 
-		return new ArrayList<>(stations);
+		return stations;
 	}
 
 	/**
@@ -566,7 +570,7 @@ public final class CreateSankey extends BaseDialog {
 	 * @param table	Tabelle mit Verknüpfungsdaten
 	 * @return	Zuordnung von Start- und Zielstation zu der Anzahl an jeweiligen Übergängen
 	 */
-	private Map<String,Map<String,Long>> buildMapFromTransitions(final Table table) {
+	private static Map<String,Map<String,Long>> buildMapFromTransitions(final Table table) {
 		final Map<String,Map<String,Long>> allConnections=new HashMap<>();
 
 		final int rows=table.getSize(0);
@@ -617,7 +621,7 @@ public final class CreateSankey extends BaseDialog {
 	 * @param count	Anzahl an Kunden
 	 * @see #buildSelectedStationsMap(Map, Set)
 	 */
-	private void addConnection(final Map<String,Map<String,Long>> connections, final String from, final String to, final long count) {
+	private static void addConnection(final Map<String,Map<String,Long>> connections, final String from, final String to, final long count) {
 		Map<String,Long> sub=connections.get(from);
 		if (sub==null) connections.put(from,sub=new HashMap<>());
 		final Long L=sub.get(to);
@@ -635,7 +639,7 @@ public final class CreateSankey extends BaseDialog {
 	 * @param count	Anzahl an Kunden
 	 * @see #buildSelectedStationsMap(Map, Set)
 	 */
-	private void addConnectionIndirect(final Map<String,Map<String,Long>> allConnections, final Set<String> usedStations, final Map<String,Map<String,Long>> connections, final String from, final String to, final long count) {
+	private static void addConnectionIndirect(final Map<String,Map<String,Long>> allConnections, final Set<String> usedStations, final Map<String,Map<String,Long>> connections, final String from, final String to, final long count) {
 		/* from->to existiert nicht, daher Kunden aufteilen auf die to->... Ausgänge */
 
 		final Map<String,Long> sub=allConnections.get(to);
@@ -665,7 +669,7 @@ public final class CreateSankey extends BaseDialog {
 	 * @return	Zuordnung der Kundenübergänge zwischen den betrachteten Stationen
 	 * @see #storeData()
 	 */
-	private Map<String,Map<String,Long>> buildSelectedStationsMap(Map<String,Map<String,Long>> allConnections, final Set<String> usedStations) {
+	private static Map<String,Map<String,Long>> buildSelectedStationsMap(Map<String,Map<String,Long>> allConnections, final Set<String> usedStations) {
 		final Map<String,Map<String,Long>> realConnections=new HashMap<>();
 
 		for (Map.Entry<String,Map<String,Long>> entry1: allConnections.entrySet()) {
@@ -691,10 +695,12 @@ public final class CreateSankey extends BaseDialog {
 	 * Berechnet die Anzahl an Kundenübergängen zwischen bestimmten Stationen
 	 * @param table	Tabelle der die Übergangsdaten entnommen werden sollen
 	 * @param usedStations	Tatsächlich betrachtete Stationen
+	 * @param stationNameStart	Name für die virtuelle Startstation
+	 * @param stationNameEnd		Name für die virtuelle Endstation
 	 * @return	Zuordnung der Kundenübergänge zwischen den betrachteten Stationen
 	 * @see #storeData()
 	 */
-	private Map<String,Map<String,Long>> buildMapFromPaths(final Table table, final Set<String> usedStations) {
+	private static Map<String,Map<String,Long>> buildMapFromPaths(final Table table, final Set<String> usedStations, final String stationNameStart, final String stationNameEnd) {
 		final Map<String,Map<String,Long>> connections=new HashMap<>();
 
 		final int rows=table.getSize(0);
@@ -713,6 +719,51 @@ public final class CreateSankey extends BaseDialog {
 		return connections;
 	}
 
+	/**
+	 * Stellt eine Zuordnung mit allen Verbindungen zusammen.
+	 * @param table	Tabelle mit den Verknüpfungsdaten
+	 * @param mode	Auf welcher Basis soll das Sankey-Diagramm erzeugt werden?
+	 * @return	Zuordnung mit allen Verbindungen
+	 */
+	public static Map<String,Map<String,Long>> getConnections(final Table table, final Mode mode) {
+		final String stationNameStart=Language.tr("Simulation.ClientMovement.Start").toUpperCase();
+		final String stationNameEnd=Language.tr("Simulation.ClientMovement.End").toUpperCase();
+		final Set<String> usedStations=getStationsList(table,mode,stationNameStart,stationNameEnd);
+		if (mode==Mode.CLIENT_PATHS) {
+			usedStations.add(stationNameStart);
+			usedStations.add(stationNameEnd);
+		}
+		return getConnections(table,mode,usedStations,stationNameStart,stationNameEnd);
+	}
+
+	/**
+	 * Stellt eine Zuordnung mit allen Verbindungen zusammen.
+	 * @param table	Tabelle mit den Verknüpfungsdaten
+	 * @param mode	Auf welcher Basis soll das Sankey-Diagramm erzeugt werden?
+	 * @param usedStations	Tatsächlich betrachtete Stationen
+	 * @param stationNameStart	Name für die virtuelle Startstation
+	 * @param stationNameEnd		Name für die virtuelle Endstation
+	 * @return	Zuordnung mit allen Verbindungen
+	 */
+	public static Map<String,Map<String,Long>> getConnections(final Table table, final Mode mode, final Set<String> usedStations, final String stationNameStart, final String stationNameEnd) {
+		final Map<String,Map<String,Long>> realConnections;
+
+		switch (mode) {
+		case STATION_TRANSITION:
+			final Map<String,Map<String,Long>> allConnections=buildMapFromTransitions(table);
+			realConnections=buildSelectedStationsMap(allConnections,usedStations);
+			break;
+		case CLIENT_PATHS:
+			realConnections=buildMapFromPaths(table,usedStations,stationNameStart,stationNameEnd);
+			break;
+		default:
+			realConnections=null;
+			break;
+		}
+
+		return realConnections;
+	}
+
 	@Override
 	public void storeData() {
 		/* Verwendete Stationen */
@@ -725,19 +776,7 @@ public final class CreateSankey extends BaseDialog {
 
 		/* Daten vorbereiten */
 
-		final Map<String,Map<String,Long>> realConnections;
-		switch (mode) {
-		case STATION_TRANSITION:
-			final Map<String,Map<String,Long>> allConnections=buildMapFromTransitions(table);
-			realConnections=buildSelectedStationsMap(allConnections,new HashSet<>(usedStations));
-			break;
-		case CLIENT_PATHS:
-			realConnections=buildMapFromPaths(table,new HashSet<>(usedStations));
-			break;
-		default:
-			realConnections=null;
-			break;
-		}
+		final Map<String,Map<String,Long>> realConnections=getConnections(table,mode,new HashSet<>(usedStations),stationNameStart,stationNameEnd);
 		if (realConnections==null) return;
 		final List<long[]> data=getSankeyConnectionData(realConnections,usedStations);
 

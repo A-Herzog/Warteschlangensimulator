@@ -1072,6 +1072,10 @@ public class StatisticsPanel extends StatisticsBasePanel {
 				for(Statistics statistic : statistics) viewer.add(new StatisticViewerMovementTable(statistic,StatisticViewerMovementTable.Mode.CLIENT_PATH_LENGTHS_DISTRIBUTION));
 				group.addChild(new StatisticNode(Language.tr("Statistics.ClientPathLengthsDistribution"),viewer));
 			}
+
+			viewer=new ArrayList<>();
+			for(Statistics statistic : statistics) viewer.add(new StatisticViewerMovementSankey(statistic));
+			group.addChild(new StatisticNode(Language.tr("Statistics.ClientMovement"),viewer));
 		}
 
 		/* Kunden an den Station */

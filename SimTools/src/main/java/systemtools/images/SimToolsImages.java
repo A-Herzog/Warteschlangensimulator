@@ -181,6 +181,9 @@ public enum SimToolsImages {
 	/** Symbol in der Statistik "Schichtplan" */
 	STATISTICS_DIAGRAM_SHIFT_PLAN("time.png"),
 
+	/** Symbol in der Statistik "Sankey-Diagramm" */
+	STATISTICS_DIAGRAM_SANKEY("chart_organisation.png"),
+
 	/** Symbol in "Schriftart" */
 	STATISTICS_DIAGRAM_FONT_SIZE("font.png"),
 

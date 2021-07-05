@@ -87,7 +87,10 @@ public interface StatisticViewer {
 		IMAGE_TYPE_XY,
 
 		/** Der Viewer ist vom Typ "Grafik" (siehe <code>getType</code>) und zeigt einen Schichtplan (horizontales Balkendiagramm) an. */
-		IMAGE_TYPE_SHIFTPLAN
+		IMAGE_TYPE_SHIFTPLAN,
+
+		/** Der Viewer ist vom Typ "Grafik" (siehe <code>getType</code>) und zeigt ein Sankey-Diagramm an. */
+		IMAGE_TYPE_SANKEY
 	}
 
 	/**

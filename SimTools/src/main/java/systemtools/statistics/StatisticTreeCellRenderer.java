@@ -57,6 +57,8 @@ public class StatisticTreeCellRenderer extends DefaultTreeCellRenderer {
 	private static final Image iconImageXY;
 	/** Icon für Schichtplanseiten */
 	private static final Image iconImageShiftPlan;
+	/** Icon für Sankey-Diagramme */
+	private static final Image iconImageSankey;
 	/** Icon für Reportgeneratorseiten */
 	private static final Image iconReport;
 	/** Icon für sonstige Infoseiten */
@@ -71,6 +73,7 @@ public class StatisticTreeCellRenderer extends DefaultTreeCellRenderer {
 		iconImagePicture=SimToolsImages.STATISTICS_DIAGRAM_PICTURE.getImage();
 		iconImageXY=SimToolsImages.STATISTICS_DIAGRAM_XY.getImage();
 		iconImageShiftPlan=SimToolsImages.STATISTICS_DIAGRAM_SHIFT_PLAN.getImage();
+		iconImageSankey=SimToolsImages.STATISTICS_DIAGRAM_SANKEY.getImage();
 		iconReport=SimToolsImages.STATISTICS_REPORT.getImage();
 		iconSpecial=SimToolsImages.STATISTICS_SPECIAL.getImage();
 	}
@@ -156,6 +159,7 @@ public class StatisticTreeCellRenderer extends DefaultTreeCellRenderer {
 		case IMAGE_TYPE_PICTURE: return iconImagePicture;
 		case IMAGE_TYPE_XY: return iconImageXY;
 		case IMAGE_TYPE_SHIFTPLAN: return iconImageShiftPlan;
+		case IMAGE_TYPE_SANKEY: return iconImageSankey;
 		default: return iconImageLine;
 		}
 	}
