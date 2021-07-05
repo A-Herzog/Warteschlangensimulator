@@ -34,6 +34,7 @@ import simulator.logging.MultiTypeTextLogger;
 import simulator.simparser.ExpressionCalc;
 import simulator.statistics.Statistics;
 import statistics.StatisticsDataPerformanceIndicator;
+import statistics.StatisticsDataPerformanceIndicatorWithNegativeValues;
 import statistics.StatisticsLongRunPerformanceIndicator;
 import statistics.StatisticsMultiPerformanceIndicator;
 import statistics.StatisticsPerformanceIndicator;
@@ -204,7 +205,12 @@ public class SimulationData extends SimData {
 	 * @see #endWarmUp()
 	 */
 	private void resetAllDataPerformanceIndicators(final StatisticsMultiPerformanceIndicator indicators) {
-		for (StatisticsDataPerformanceIndicator indicator: (StatisticsDataPerformanceIndicator[])indicators.getAll(StatisticsDataPerformanceIndicator.class)) indicator.reset();
+		if (indicators.getTemplateClass()==StatisticsDataPerformanceIndicator.class) {
+			for (StatisticsDataPerformanceIndicator indicator: (StatisticsDataPerformanceIndicator[])indicators.getAll(StatisticsDataPerformanceIndicator.class)) indicator.reset();
+		}
+		if (indicators.getTemplateClass()==StatisticsDataPerformanceIndicatorWithNegativeValues.class) {
+			for (StatisticsDataPerformanceIndicatorWithNegativeValues indicator: (StatisticsDataPerformanceIndicatorWithNegativeValues[])indicators.getAll(StatisticsDataPerformanceIndicatorWithNegativeValues.class)) indicator.reset();
+		}
 	}
 
 	/**
@@ -352,6 +358,24 @@ public class SimulationData extends SimData {
 	 * Erfasst den Abschluss eines Teil-Simulationslaufes in der Statistik
 	 * für die Berechnung der Konfidenzintervalle auf Basis der unabhängigen
 	 * Teil-Simulationsläufe.
+	 * @param indicator	Statistik-Teil-Indikator
+	 */
+	private void statisticDayDone(final StatisticsPerformanceIndicator indicator) {
+		if (indicator instanceof StatisticsDataPerformanceIndicator) {
+			((StatisticsDataPerformanceIndicator)indicator).finishRun();
+			return;
+		}
+
+		if (indicator instanceof StatisticsDataPerformanceIndicatorWithNegativeValues) {
+			((StatisticsDataPerformanceIndicatorWithNegativeValues)indicator).finishRun();
+			return;
+		}
+	}
+
+	/**
+	 * Erfasst den Abschluss eines Teil-Simulationslaufes in der Statistik
+	 * für die Berechnung der Konfidenzintervalle auf Basis der unabhängigen
+	 * Teil-Simulationsläufe.
 	 * @param statistics	Statistikobjekt
 	 */
 	private void statisticDayDone(final Statistics statistics) {
@@ -359,14 +383,11 @@ public class SimulationData extends SimData {
 			if (indicator instanceof StatisticsMultiPerformanceIndicator) {
 				final StatisticsMultiPerformanceIndicator multi=(StatisticsMultiPerformanceIndicator)indicator;
 				final StatisticsPerformanceIndicator[] sub=multi.getAll();
-				if (sub!=null && sub.length>0 && (sub[0] instanceof StatisticsDataPerformanceIndicator)) for (StatisticsPerformanceIndicator subData: sub) {
-					((StatisticsDataPerformanceIndicator)subData).finishRun();
-				}
+				if (sub!=null) for (StatisticsPerformanceIndicator subData: sub) statisticDayDone(subData);
+
 			}
 
-			if (indicator instanceof StatisticsDataPerformanceIndicator) {
-				((StatisticsDataPerformanceIndicator)indicator).finishRun();
-			}
+			statisticDayDone(indicator);
 		}
 	}
 

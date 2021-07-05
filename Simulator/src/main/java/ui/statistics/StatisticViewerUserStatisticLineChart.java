@@ -21,7 +21,7 @@ import java.net.URL;
 import language.Language;
 import mathtools.distribution.DataDistributionImpl;
 import simulator.statistics.Statistics;
-import statistics.StatisticsDataPerformanceIndicator;
+import statistics.StatisticsDataPerformanceIndicatorWithNegativeValues;
 import systemtools.statistics.StatisticViewerLineChart;
 import ui.help.Help;
 import ui.modeleditor.coreelements.ModelElement;
@@ -103,7 +103,7 @@ public class StatisticViewerUserStatisticLineChart extends StatisticViewerLineCh
 
 		int i=0;
 		for (String name: statistics.userStatistics.getNames()) {
-			final StatisticsDataPerformanceIndicator indicator=(StatisticsDataPerformanceIndicator)statistics.userStatistics.get(name);
+			final StatisticsDataPerformanceIndicatorWithNegativeValues indicator=(StatisticsDataPerformanceIndicatorWithNegativeValues)statistics.userStatistics.get(name);
 			final DataDistributionImpl dist=indicator.getDistribution();
 			if (dist!=null) addSeriesTruncated(name,COLORS[i++%COLORS.length],dist,1800);
 		}

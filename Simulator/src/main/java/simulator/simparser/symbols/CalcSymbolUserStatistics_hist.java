@@ -19,7 +19,7 @@ import org.apache.commons.math3.util.FastMath;
 
 import mathtools.distribution.DataDistributionImpl;
 import simulator.simparser.coresymbols.CalcSymbolUserStatistics;
-import statistics.StatisticsDataPerformanceIndicator;
+import statistics.StatisticsDataPerformanceIndicatorWithNegativeValues;
 
 /**
  * Im Falle von drei Parametern:<br>
@@ -46,7 +46,7 @@ public class CalcSymbolUserStatistics_hist extends CalcSymbolUserStatistics {
 	}
 
 	@Override
-	protected double processHistogram(final StatisticsDataPerformanceIndicator indicator, final int value) {
+	protected double processHistogram(final StatisticsDataPerformanceIndicatorWithNegativeValues indicator, final int value) {
 		final DataDistributionImpl dist=indicator.getDistribution();
 		if (dist==null) return 0.0;
 		if (value<0 || value>=dist.densityData.length) return 0.0;
@@ -56,7 +56,7 @@ public class CalcSymbolUserStatistics_hist extends CalcSymbolUserStatistics {
 	}
 
 	@Override
-	protected double processHistogram(final StatisticsDataPerformanceIndicator indicator, int value1, int value2) {
+	protected double processHistogram(final StatisticsDataPerformanceIndicatorWithNegativeValues indicator, int value1, int value2) {
 		final DataDistributionImpl dist=indicator.getDistribution();
 		if (dist==null) return 0.0;
 
@@ -76,7 +76,7 @@ public class CalcSymbolUserStatistics_hist extends CalcSymbolUserStatistics {
 	}
 
 	@Override
-	protected double processIndicator(StatisticsDataPerformanceIndicator indicator) {
+	protected double processIndicator(StatisticsDataPerformanceIndicatorWithNegativeValues indicator) {
 		return 0;
 	}
 }

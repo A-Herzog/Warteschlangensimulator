@@ -16,7 +16,7 @@
 package simulator.simparser.symbols;
 
 import simulator.simparser.coresymbols.CalcSymbolUserStatistics;
-import statistics.StatisticsDataPerformanceIndicator;
+import statistics.StatisticsDataPerformanceIndicatorWithNegativeValues;
 
 /**
  * Liefert die Standardabweichung des Statistikeintrags <code>nr</code> (2. Parameter) (1-basierend) an Statistik-Station id (1. Parameter).
@@ -37,7 +37,7 @@ public class CalcSymbolUserStatistics_std extends CalcSymbolUserStatistics {
 	}
 
 	@Override
-	protected double processIndicator(StatisticsDataPerformanceIndicator indicator) {
+	protected double processIndicator(StatisticsDataPerformanceIndicatorWithNegativeValues indicator) {
 		return indicator.getSD();
 	}
 }

@@ -36,7 +36,7 @@ import simulator.editmodel.EditModel;
 import simulator.editmodel.FullTextSearch;
 import simulator.elements.RunElementUserStatisticData;
 import simulator.statistics.Statistics;
-import statistics.StatisticsDataPerformanceIndicator;
+import statistics.StatisticsDataPerformanceIndicatorWithNegativeValues;
 import ui.images.Images;
 import ui.modeleditor.ModelClientData;
 import ui.modeleditor.ModelSequences;
@@ -362,7 +362,7 @@ public class ModelElementUserStatistic extends ModelElementMultiInSingleOutBox {
 	protected void addInformationToAnimationRunTimeData(final SimDataBuilder builder) {
 		final String[] keys=((RunElementUserStatisticData)builder.data).getKeys();
 		final boolean[] isTime=((RunElementUserStatisticData)builder.data).getIsTime();
-		final StatisticsDataPerformanceIndicator[] indicators=((RunElementUserStatisticData)builder.data).getIndicators();
+		final StatisticsDataPerformanceIndicatorWithNegativeValues[] indicators=((RunElementUserStatisticData)builder.data).getIndicators();
 
 		for (int i=0;i<keys.length;i++) if (indicators[i]!=null) {
 			builder.results.append("\n"+keys[i]+":\n");

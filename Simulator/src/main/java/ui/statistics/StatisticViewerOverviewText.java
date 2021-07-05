@@ -276,6 +276,52 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 	}
 
 	/**
+	 * Gibt Konfidenzdaten (sofern diese vorliegen) aus.
+	 * @param indicator	Staitstikobjekt für das die Konfidenzdaten ausgegeben werden sollen
+	 */
+	private void outputConfidenceData(final StatisticsDataPerformanceIndicatorWithNegativeValues indicator) {
+		/* Batch-Means-Konfidenzintervalle */
+		if (indicator.getBatchCount()>1) {
+			beginParagraph();
+			final double m=indicator.getMean();
+			for (double level: getConfidenceLevels()) {
+				final double w=indicator.getBatchMeanConfidenceHalfWide(level);
+				addLine(String.format(
+						Language.tr("Statistics.Confidence.Level"),
+						StatisticTools.formatPercent(1-level),
+						StatisticTools.formatNumber(m-w),
+						StatisticTools.formatNumber(m+w),
+						StatisticTools.formatNumber(w)
+						));
+
+			}
+			addLine(String.format(Language.tr("Statistics.Confidence.Info"),NumberTools.formatLong(indicator.getBatchCount()),NumberTools.formatLong(indicator.getBatchSize()),StatisticTools.formatNumber(indicator.getBatchSD())));
+			endParagraph();
+			return;
+		}
+
+		/* Konfidenzintervall auf Basis der Wiederholungen der Simulation */
+		if (statistics.simulationData.runRepeatCount>1 && indicator.getRunCount()>1) {
+			beginParagraph();
+			final double m=indicator.getMean();
+			for (double level: getConfidenceLevels()) {
+				final double w=indicator.getRunConfidenceHalfWide(level);
+				addLine(String.format(
+						Language.tr("Statistics.Confidence.Level"),
+						StatisticTools.formatPercent(1-level),
+						StatisticTools.formatNumber(m-w),
+						StatisticTools.formatNumber(m+w),
+						StatisticTools.formatNumber(w)
+						));
+
+			}
+			addLine(String.format(Language.tr("Statistics.Confidence.InfoRun"),NumberTools.formatLong(indicator.getRunCount()),StatisticTools.formatNumber(indicator.getRunSD())));
+			endParagraph();
+			return;
+		}
+	}
+
+	/**
 	 * Gibt die über die Thread-Aufteilung ermittelten Konfidenzdaten aus.
 	 */
 	private void outputThreadConfidenceData() {
@@ -1235,11 +1281,11 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 	}
 
 	/**
-	 * Gibt Quantil-Informationen zu einem Zahlen-Statistikobjekt aus.
+	 * Gibt Quantil-Informationen zu einem Zeit-Statistikobjekt aus.
 	 * @param identifier	Bezeichner für das Statistikobjekt (z.B. "W")
 	 * @param indicator	Statistikobjekt
 	 */
-	private void outputQuantilInfoNumber(final String identifier, final StatisticsDataPerformanceIndicator indicator) {
+	private void outputQuantilInfoTime(final String identifier, final StatisticsDataPerformanceIndicatorWithNegativeValues indicator) {
 		if (!SetupData.getSetup().showQuantils) return;
 		if (indicator.getDistribution()==null) return;
 
@@ -1253,7 +1299,7 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 			final String name=Language.tr("Statistics.Quantil")+"["+identifier+","+StatisticTools.formatPercent(p)+"]=";
 			final double value=indicator.getQuantil(p);
 			if (value>=upperBound) hitMax=true;
-			addLine(name+StatisticTools.formatNumber(value),fastAccessBuilder.getXMLSelector(indicator,IndicatorMode.quantil(p)));
+			addLine(name+timeAndNumber(value),fastAccessBuilder.getXMLSelector(indicator,IndicatorMode.quantil(p)));
 		}
 		endParagraph();
 
@@ -3069,7 +3115,7 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 		}
 
 		for (String name: statistics.userStatistics.getNames()) {
-			final StatisticsDataPerformanceIndicator indicator=(StatisticsDataPerformanceIndicator)statistics.userStatistics.get(name);
+			final StatisticsDataPerformanceIndicatorWithNegativeValues indicator=(StatisticsDataPerformanceIndicatorWithNegativeValues)statistics.userStatistics.get(name);
 			addHeading(2,name);
 			beginParagraph();
 			addLine(Language.tr("Statistics.NumberOfClients")+": "+NumberTools.formatLong(indicator.getCount())+repeatInfo,xmlCount(indicator));
@@ -3083,8 +3129,6 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 				endParagraph();
 
 				outputQuantilInfoTime("X",indicator);
-
-				outputConfidenceData(indicator);
 
 				outputConfidenceData(indicator);
 			} else {

@@ -21,7 +21,7 @@ import simulator.coreelements.RunElementData;
 import simulator.runmodel.RunDataClient;
 import simulator.runmodel.SimulationData;
 import simulator.simparser.ExpressionCalc;
-import statistics.StatisticsDataPerformanceIndicator;
+import statistics.StatisticsDataPerformanceIndicatorWithNegativeValues;
 
 /**
  * Laufzeitdaten eines <code>RunElementUserStatistic</code>-Laufzeit-Objekts
@@ -37,7 +37,7 @@ public class RunElementUserStatisticData extends RunElementData {
 	/** Array der Ausdrücke die ausgewertet und in der Nutzerdaten-Statistik erfasst werden sollen */
 	private final ExpressionCalc[] expressions;
 	/** Statistikobjekte für die verschiedenen Bezeichner {@link #keys} (wird von {@link #processClient(SimulationData, RunDataClient)} nach Bedarf gefüllt) */
-	private final StatisticsDataPerformanceIndicator[] indicators;
+	private final StatisticsDataPerformanceIndicatorWithNegativeValues[] indicators;
 
 	/**
 	 * Konstruktor der Klasse <code>RunElementUserStatisticData</code>
@@ -57,7 +57,7 @@ public class RunElementUserStatisticData extends RunElementData {
 			this.expressions[i]=new ExpressionCalc(variableNames);
 			this.expressions[i].parse(expressions[i]);
 		}
-		indicators=new StatisticsDataPerformanceIndicator[expressions.length];
+		indicators=new StatisticsDataPerformanceIndicatorWithNegativeValues[expressions.length];
 	}
 
 	/**
@@ -79,7 +79,7 @@ public class RunElementUserStatisticData extends RunElementData {
 			}
 
 			/* Indikator holen wenn nötig */
-			if (indicators[i]==null) indicators[i]=(StatisticsDataPerformanceIndicator)simData.statistics.userStatistics.get(keys[i]);
+			if (indicators[i]==null) indicators[i]=(StatisticsDataPerformanceIndicatorWithNegativeValues)simData.statistics.userStatistics.get(keys[i]);
 
 			/* Wert eintragen */
 			indicators[i].add(value);
@@ -106,7 +106,7 @@ public class RunElementUserStatisticData extends RunElementData {
 	 * Liefert eine Liste der Statistikobjekte, in die Nutzerdaten-Statistikdaten eingetragen werden (einzelne Einträge können <code>null</code> sein, wenn noch keine Datum erfasst wurde)
 	 * @return	Liste der Statistikobjekte
 	 */
-	public StatisticsDataPerformanceIndicator[] getIndicators() {
+	public StatisticsDataPerformanceIndicatorWithNegativeValues[] getIndicators() {
 		return indicators;
 	}
 }

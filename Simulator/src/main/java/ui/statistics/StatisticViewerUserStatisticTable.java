@@ -24,7 +24,7 @@ import mathtools.NumberTools;
 import mathtools.Table;
 import mathtools.distribution.DataDistributionImpl;
 import simulator.statistics.Statistics;
-import statistics.StatisticsDataPerformanceIndicator;
+import statistics.StatisticsDataPerformanceIndicatorWithNegativeValues;
 import statistics.StatisticsMultiPerformanceIndicator;
 import systemtools.statistics.StatisticViewerTable;
 import tools.SetupData;
@@ -109,7 +109,7 @@ public class StatisticViewerUserStatisticTable extends StatisticViewerTable {
 	private boolean hasConfidenceBatchMeans(final StatisticsMultiPerformanceIndicator indicator) {
 		String[] names=indicator.getNames();
 		if (names.length==0) return false;
-		if (((StatisticsDataPerformanceIndicator)indicator.get(names[0])).getBatchCount()<2) return false;
+		if (((StatisticsDataPerformanceIndicatorWithNegativeValues)indicator.get(names[0])).getBatchCount()<2) return false;
 
 		return true;
 	}
@@ -123,7 +123,7 @@ public class StatisticViewerUserStatisticTable extends StatisticViewerTable {
 		String[] names=indicator.getNames();
 		if (statistics.simulationData.runRepeatCount<2) return false;
 		if (names.length==0) return false;
-		if (((StatisticsDataPerformanceIndicator)indicator.get(names[0])).getRunCount()<2) return false;
+		if (((StatisticsDataPerformanceIndicatorWithNegativeValues)indicator.get(names[0])).getRunCount()<2) return false;
 
 		return true;
 	}
@@ -162,7 +162,7 @@ public class StatisticViewerUserStatisticTable extends StatisticViewerTable {
 		final Table table=new Table();
 		for (String name: statistics.userStatistics.getNames()) {
 			final List<String> row=new ArrayList<>();
-			final StatisticsDataPerformanceIndicator indicator=(StatisticsDataPerformanceIndicator)statistics.userStatistics.get(name);
+			final StatisticsDataPerformanceIndicatorWithNegativeValues indicator=(StatisticsDataPerformanceIndicatorWithNegativeValues)statistics.userStatistics.get(name);
 			row.add(name);
 			row.add(NumberTools.formatLong(indicator.getCount()));
 			if (isUserStatisticsTime(name)) {
@@ -236,7 +236,7 @@ public class StatisticViewerUserStatisticTable extends StatisticViewerTable {
 		for (String type: types) {
 			headers.add(Language.tr("Statistics.NumberOfClients")+" - "+type);
 			headers.add(Language.tr("Statistics.PartOfClients")+" - "+type);
-			final DataDistributionImpl dist=((StatisticsDataPerformanceIndicator)(statistics.userStatistics.get(type))).getDistribution();
+			final DataDistributionImpl dist=((StatisticsDataPerformanceIndicatorWithNegativeValues)(statistics.userStatistics.get(type))).getDistribution();
 			if (dist!=null) dists.add(dist);
 		}
 

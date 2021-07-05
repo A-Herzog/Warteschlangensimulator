@@ -94,6 +94,14 @@ public final class StatisticsMultiPerformanceIndicator extends StatisticsPerform
 	}
 
 	/**
+	 * Liefert die Klasse des Vorlagen-Objektes zurück
+	 * @return	Klasse des Vorlagen-Objektes
+	 */
+	public Class<? extends StatisticsPerformanceIndicator> getTemplateClass() {
+		return template.getClass();
+	}
+
+	/**
 	 * Erstellt einen neuen Sub-Indikator
 	 * @return	Neues Objekt vom Typ <code>StatisticsPerformanceIndicator</code>
 	 */

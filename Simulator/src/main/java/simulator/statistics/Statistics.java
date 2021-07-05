@@ -590,7 +590,7 @@ public class Statistics extends StatisticsBase {
 		addPerformanceIndicator(longRunStatistics=new StatisticsMultiPerformanceIndicator(Language.trAll("Statistics.XML.Expression"),new StatisticsLongRunPerformanceIndicator(nameExpression)));
 
 		/* Nutzerdefinierte Statistik */
-		addPerformanceIndicator(userStatistics=new StatisticsMultiPerformanceIndicator(Language.trAll("Statistics.XML.UserStatistics"),new StatisticsDataPerformanceIndicator(Language.trAll("Statistics.XML.UserStatisticsKey"),secondsToRecordInDistributions,secondsToRecordInDistributions,-1,batchSize,true)));
+		addPerformanceIndicator(userStatistics=new StatisticsMultiPerformanceIndicator(Language.trAll("Statistics.XML.UserStatistics"),new StatisticsDataPerformanceIndicatorWithNegativeValues(Language.trAll("Statistics.XML.UserStatisticsKey"),secondsToRecordInDistributions,secondsToRecordInDistributions,batchSize,true)));
 
 		/* Nutzerdefinierte Variablen */
 		addPerformanceIndicator(userVariables=new StatisticsMultiPerformanceIndicator(Language.trAll("Statistics.XML.Variables"),new StatisticsTimeContinuousPerformanceIndicator(Language.trAll("Statistics.XML.VariablesKey"))));
