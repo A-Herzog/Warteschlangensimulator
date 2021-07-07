@@ -192,14 +192,15 @@ public class InfoDialog extends JDialog {
 		final List<String> text=getSystemInfo();
 
 		/* Ausgabe */
-		StringBuilder sb=new StringBuilder();
-		sb.append("<html><body style=\"margin: 0px; padding: 0px; font-family: sans; background-color: transparent; font-size: "+Math.round(100*GUITools.getScaleFactor())+"%;\">");
-		sb.append("<p style=\"margin-top: 0px; font-weight: bold; font-size: 120%;\">"+htmlName+"</p>");
-		sb.append("<p style=\"margin-top: 5px; font-size: 110%;\">"+htmlAuthor+"</p>");
-		if (htmlLinks!=null) sb.append("<p style=\"margin-top: 5px; font-size: 110%;\">"+htmlLinks+"</p>");
-		sb.append("<p style=\"margin-top: 5px; font-size: 85%;\">"+String.join("<br>",text)+"</p>");
-		sb.append("</body></html>");
-		final String htmlInfoText=sb.toString();
+		final StringBuilder infoText=new StringBuilder();
+		infoText.append("<html><body style=\"margin: 0px; padding: 0px; font-family: sans; background-color: transparent; font-size: "+Math.round(100*GUITools.getScaleFactor())+"%;\">");
+		infoText.append("<p style=\"margin-top: 0px; font-weight: bold; font-size: 120%;\">"+htmlName+"</p>");
+		if (!MainPanel.RELEASE_BUILD) infoText.append("<p style=\"margin-top: 0px; font-weight: bold; font-size: 110%; color: red;\">"+Language.tr("Editor.SurfaceTooltip.NonReleaseBuild")+"</p>");
+		infoText.append("<p style=\"margin-top: 5px; font-size: 110%;\">"+htmlAuthor+"</p>");
+		if (htmlLinks!=null) infoText.append("<p style=\"margin-top: 5px; font-size: 110%;\">"+htmlLinks+"</p>");
+		infoText.append("<p style=\"margin-top: 5px; font-size: 85%;\">"+String.join("<br>",text)+"</p>");
+		infoText.append("</body></html>");
+		final String htmlInfoText=infoText.toString();
 
 		p2.add(p3=new JPanel(new FlowLayout(FlowLayout.LEFT)));
 		final JTextPane label=new JTextPane();

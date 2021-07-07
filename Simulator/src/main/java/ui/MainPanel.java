@@ -260,6 +260,11 @@ public class MainPanel extends MainPanelBase {
 	 */
 	public static final String VERSION="4.9.0";
 
+	/**
+	 * Ist dies ein offizieller Release-Build?
+	 */
+	public static final boolean RELEASE_BUILD=false;
+
 	/** Aktuelle Unterversionsnummer in der Java 8 Versionsreihe */
 	private static final int JAVA8_SECURE_MIN_VERSION=292;
 	/** Aktuelle Unterversionsnummer in der Java 9 Versionsreihe */

@@ -16,6 +16,7 @@
 package ui.modeleditor;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Rectangle;
@@ -24,6 +25,7 @@ import java.util.List;
 import java.util.function.Supplier;
 
 import language.Language;
+import ui.MainPanel;
 import ui.help.BookData;
 import ui.images.Images;
 import ui.tools.FlatLaFHelper;
@@ -162,6 +164,15 @@ public class ModelSurfaceLinks {
 			linkPositions[i]=new Rectangle(20,y-8,20+graphics.getFontMetrics().stringWidth(text),lineH);
 
 			y+=40;
+		}
+
+		if (!MainPanel.RELEASE_BUILD) {
+			int textY=y-lineH/2;
+			graphics.setColor(Color.RED);
+			final Font saveFont=graphics.getFont();
+			graphics.setFont(saveFont.deriveFont(Font.BOLD));
+			graphics.drawString(Language.tr("Editor.SurfaceTooltip.NonReleaseBuild"),xStart+20,textY+lineYShift);
+			graphics.setFont(saveFont);
 		}
 
 		return linkPositions;
