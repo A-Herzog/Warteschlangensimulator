@@ -75,7 +75,7 @@ public class ModelElementSourceDDEDialog extends ModelElementBaseDialog {
 	protected void setDialogSize() {
 		setMinSizeRespectingScreensize(550,600);
 		pack();
-		if (getHeight()>750) setSize(getWidth(),750);
+		setMaxSizeRespectingScreensize(1024,768);
 	}
 
 	/**

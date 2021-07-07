@@ -91,9 +91,9 @@ public class ModelElementSourceTableDialog extends ModelElementBaseDialog {
 	 */
 	@Override
 	protected void setDialogSize() {
-		setMinSizeRespectingScreensize(550,450);
+		setMinSizeRespectingScreensize(550,750);
 		pack();
-		if (getHeight()>750) setSize(getWidth(),750);
+		setMaxSizeRespectingScreensize(1024,768);
 	}
 
 	/**

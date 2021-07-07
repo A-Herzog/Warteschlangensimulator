@@ -167,6 +167,14 @@ public class ModelElementAnimationPieChartDialog extends ModelElementBaseDialog 
 		setMinSizeRespectingScreensize(600,800);
 		setResizable(true);
 		pack();
+		setMaxSizeRespectingScreensize(1024,768);
+	}
+
+	/**
+	 * Stellt die Größe des Dialogfensters unmittelbar vor dem Sicherbarmachen ein.
+	 */
+	@Override
+	protected void setDialogSizeLater() {
 	}
 
 	/**

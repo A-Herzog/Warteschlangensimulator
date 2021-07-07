@@ -79,8 +79,16 @@ public class ModelElementActionDialog extends ModelElementBaseDialog {
 	@Override
 	protected void setDialogSize() {
 		setMinSizeRespectingScreensize(650,550);
-		pack();
 		setResizable(true);
+		pack();
+		setMaxSizeRespectingScreensize(1024,768);
+	}
+
+	/**
+	 * Stellt die Größe des Dialogfensters unmittelbar vor dem Sicherbarmachen ein.
+	 */
+	@Override
+	protected void setDialogSizeLater() {
 	}
 
 	/**

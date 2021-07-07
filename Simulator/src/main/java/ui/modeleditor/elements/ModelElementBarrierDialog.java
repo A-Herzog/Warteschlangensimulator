@@ -58,6 +58,15 @@ public class ModelElementBarrierDialog extends ModelElementBaseDialog {
 	@Override
 	protected void setDialogSize() {
 		setSizeRespectingScreensize(650,525);
+		pack();
+		setMaxSizeRespectingScreensize(1024,768);
+	}
+
+	/**
+	 * Stellt die Größe des Dialogfensters unmittelbar vor dem Sicherbarmachen ein.
+	 */
+	@Override
+	protected void setDialogSizeLater() {
 	}
 
 	@Override

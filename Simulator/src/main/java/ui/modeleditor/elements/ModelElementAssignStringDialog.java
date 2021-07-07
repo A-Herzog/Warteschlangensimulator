@@ -57,6 +57,15 @@ public class ModelElementAssignStringDialog extends ModelElementBaseDialog {
 	@Override
 	protected void setDialogSize() {
 		setSizeRespectingScreensize(800,600);
+		pack();
+		setMaxSizeRespectingScreensize(1024,768);
+	}
+
+	/**
+	 * Stellt die Größe des Dialogfensters unmittelbar vor dem Sicherbarmachen ein.
+	 */
+	@Override
+	protected void setDialogSizeLater() {
 	}
 
 	@Override

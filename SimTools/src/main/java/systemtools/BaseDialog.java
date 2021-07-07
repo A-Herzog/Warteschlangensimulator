@@ -56,7 +56,7 @@ import systemtools.images.SimToolsImages;
 /**
  * Diese Klasse stellt einige Basisfunktionen zum Erstellen von Dialogen bereit.
  * @author Alexander Herzog
- * @version 2.0
+ * @version 2.1
  */
 public class BaseDialog extends JDialog {
 	/**
@@ -244,6 +244,20 @@ public class BaseDialog extends JDialog {
 		ySize=(int)Math.round(ySize*windowScaling);
 		Rectangle area=getGraphicsConfiguration().getBounds();
 		setMinimumSize(new Dimension(Math.min(area.width-50,xSize),Math.min(area.height-50,ySize)));
+	}
+
+	/**
+	 * Verkleinert das Fenster wenn nötig auf die angegebene Größe.<br>
+	 * Der Nutzer wird nicht daran gehindert, das Fenster später manuell zu vergrößern.
+	 * @param xSize	Maximale Ausdehnung in x-Richtung des Fensters.
+	 * @param ySize	Maximale Ausdehnung in y-Richtung des Fensters.
+	 */
+	protected final void setMaxSizeRespectingScreensize(int xSize, int ySize) {
+		xSize=(int)Math.round(xSize*windowScaling);
+		ySize=(int)Math.round(ySize*windowScaling);
+		final int x=getWidth();
+		final int y=getHeight();
+		setSize(Math.min(xSize,x),Math.min(ySize,y));
 	}
 
 	@Override

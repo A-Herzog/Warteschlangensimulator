@@ -84,6 +84,15 @@ public class ModelElementAnimationTextSelectDialog extends ModelElementBaseDialo
 	protected void setDialogSize() {
 		setMinSizeRespectingScreensize(800,600);
 		setResizable(true);
+		pack();
+		setMaxSizeRespectingScreensize(1024,768);
+	}
+
+	/**
+	 * Stellt die Größe des Dialogfensters unmittelbar vor dem Sicherbarmachen ein.
+	 */
+	@Override
+	protected void setDialogSizeLater() {
 	}
 
 	@Override

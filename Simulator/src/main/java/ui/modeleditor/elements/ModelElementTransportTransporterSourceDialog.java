@@ -109,6 +109,14 @@ public class ModelElementTransportTransporterSourceDialog extends ModelElementBa
 		setMinSizeRespectingScreensize(750,650);
 		pack();
 		setResizable(true);
+		setMaxSizeRespectingScreensize(1024,768);
+	}
+
+	/**
+	 * Stellt die Größe des Dialogfensters unmittelbar vor dem Sicherbarmachen ein.
+	 */
+	@Override
+	protected void setDialogSizeLater() {
 	}
 
 	@Override

@@ -70,6 +70,7 @@ public class ModelElementSeizeDialog extends ModelElementBaseDialog {
 		setMinSizeRespectingScreensize(800,600);
 		setResizable(true);
 		pack();
+		setMaxSizeRespectingScreensize(1024,768);
 	}
 
 	/**

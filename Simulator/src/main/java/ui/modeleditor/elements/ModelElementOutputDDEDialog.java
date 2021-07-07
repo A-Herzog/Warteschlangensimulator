@@ -69,6 +69,14 @@ public class ModelElementOutputDDEDialog extends ModelElementBaseDialog {
 		setMinSizeRespectingScreensize(800,600);
 		pack();
 		setResizable(true);
+		setMaxSizeRespectingScreensize(1024,768);
+	}
+
+	/**
+	 * Stellt die Größe des Dialogfensters unmittelbar vor dem Sicherbarmachen ein.
+	 */
+	@Override
+	protected void setDialogSizeLater() {
 	}
 
 	@Override
