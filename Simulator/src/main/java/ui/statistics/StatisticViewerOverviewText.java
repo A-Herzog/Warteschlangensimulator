@@ -322,6 +322,32 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 	}
 
 	/**
+	 * Gibt Konfidenzdaten (sofern diese vorliegen) aus.
+	 * @param indicator	Staitstikobjekt für das die Konfidenzdaten ausgegeben werden sollen
+	 */
+	private void outputConfidenceData(final StatisticsTimePerformanceIndicator indicator) {
+		/* Konfidenzintervall auf Basis der Wiederholungen der Simulation */
+		if (statistics.simulationData.runRepeatCount>1 && indicator.getRunCount()>1) {
+			beginParagraph();
+			final double m=indicator.getTimeMean();
+			for (double level: getConfidenceLevels()) {
+				final double w=indicator.getRunConfidenceHalfWide(level);
+				addLine(String.format(
+						Language.tr("Statistics.Confidence.Level"),
+						StatisticTools.formatPercent(1-level),
+						StatisticTools.formatNumber(m-w),
+						StatisticTools.formatNumber(m+w),
+						StatisticTools.formatNumber(w)
+						));
+
+			}
+			addLine(String.format(Language.tr("Statistics.Confidence.InfoRun"),NumberTools.formatLong(indicator.getRunCount()),StatisticTools.formatNumber(indicator.getRunSD())));
+			endParagraph();
+			return;
+		}
+	}
+
+	/**
 	 * Gibt die über die Thread-Aufteilung ermittelten Konfidenzdaten aus.
 	 */
 	private void outputThreadConfidenceData() {
@@ -2250,6 +2276,8 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 
 		outputQuantilInfoNumber("N",statistics.clientsInSystem);
 
+		outputConfidenceData(statistics.clientsInSystem);
+
 		/* Kunden an den Stationen */
 
 		addHeading(2,Language.tr("Statistics.NumberOfClientsAtStations"));
@@ -2273,6 +2301,8 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 				outputShortStateDistribution("N",indicator);
 
 				outputQuantilInfoNumber("N",indicator);
+
+				outputConfidenceData(indicator);
 			}
 		}
 
@@ -2297,6 +2327,8 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 					outputShortStateDistribution("N",indicator);
 
 					outputQuantilInfoNumber("N",indicator);
+
+					outputConfidenceData(indicator);
 				}
 			}
 		}
@@ -2322,6 +2354,8 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 					outputShortStateDistribution("N",indicator);
 
 					outputQuantilInfoNumber("N",indicator);
+
+					outputConfidenceData(indicator);
 				}
 			}
 		}
@@ -2341,6 +2375,8 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 		outputShortStateDistribution("NQ",statistics.clientsInSystemQueues);
 
 		outputQuantilInfoNumber("NQ",statistics.clientsInSystemQueues);
+
+		outputConfidenceData(statistics.clientsInSystemQueues);
 
 		/* Kunden an den Stationen (wartend) */
 
@@ -2362,6 +2398,8 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 				outputShortStateDistribution("NQ",indicator);
 
 				outputQuantilInfoNumber("NQ",indicator);
+
+				outputConfidenceData(indicator);
 			}
 		}
 
@@ -2386,6 +2424,8 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 					outputShortStateDistribution("NQ",indicator);
 
 					outputQuantilInfoNumber("NQ",indicator);
+
+					outputConfidenceData(indicator);
 				}
 			}
 		}
@@ -2411,6 +2451,8 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 					outputShortStateDistribution("NQ",indicator);
 
 					outputQuantilInfoNumber("NQ",indicator);
+
+					outputConfidenceData(indicator);
 				}
 			}
 		}
@@ -2509,6 +2551,8 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 					endParagraph();
 				}
 			}
+
+			outputConfidenceData(indicator);
 		}
 
 		/* Infotext  */
@@ -2567,6 +2611,8 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 				}
 				endParagraph();
 			}
+
+			outputConfidenceData(indicator);
 		}
 
 		/* Infotext  */
@@ -2646,6 +2692,7 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 					addLine(Language.tr("Statistics.MinimumNumber")+"="+StatisticTools.formatNumber(indicator.getTimeMin()),fastAccessBuilder.getXMLSelector(indicator,IndicatorMode.MINIMUM));
 					addLine(Language.tr("Statistics.MaximumNumber")+"="+StatisticTools.formatNumber(indicator.getTimeMax()),fastAccessBuilder.getXMLSelector(indicator,IndicatorMode.MAXIMUM));
 					endParagraph();
+					outputConfidenceData(indicator);
 				} else {
 					addLine(name+" "+Language.tr("Statistics.Average")+": "+StatisticTools.formatNumber(indicator.getTimeMean()),xmlMean(indicator));
 				}

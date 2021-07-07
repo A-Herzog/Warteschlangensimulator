@@ -17,6 +17,7 @@ package statistics;
 
 import java.util.Arrays;
 
+import org.apache.commons.math3.distribution.TDistribution;
 import org.w3c.dom.Element;
 
 import mathtools.NumberTools;
@@ -136,6 +137,28 @@ public final class StatisticsTimePerformanceIndicator extends StatisticsPerforma
 	 * @see StatisticsTimePerformanceIndicator#setTime
 	 */
 	private boolean explicitTimeInit=false;
+
+	/**
+	 * Anzahl an erfassten Teil-Simulationsläufen
+	 */
+	private int runCount;
+
+	/**
+	 * Summe der Werte pro erfasstem Teil-Simulationslauf
+	 */
+	private double runSum;
+
+	/**
+	 * Summe der quadrierten Werte pro erfasstem Teil-Simulationslauf
+	 */
+	private double runSum2;
+
+	/**
+	 * Varianz zwischen den Teil-Simulationslauf Mittelwerten<br>
+	 * Wird von {@link #getRunVar()} berechnet.
+	 * @see #getRunVar()
+	 */
+	private double runVar;
 
 	/**
 	 * Konstruktor der Klasse <code>StatisticsTimePerformanceIndicator</code>
@@ -264,6 +287,12 @@ public final class StatisticsTimePerformanceIndicator extends StatisticsPerforma
 		valueSumSquared+=moreCountStatistics.valueSumSquared;
 
 		lastTimeMean=-1;
+
+		/* Daten zu einzelnen Teil-Simulationsläufen */
+		runCount+=moreCountStatistics.runCount;
+		runSum+=moreCountStatistics.runSum;
+		runSum2+=moreCountStatistics.runSum2;
+		if (moreCountStatistics.runVar>0) runVar=moreCountStatistics.runVar;
 	}
 
 	/**
@@ -285,6 +314,12 @@ public final class StatisticsTimePerformanceIndicator extends StatisticsPerforma
 		valueSumSquared=0;
 
 		lastTimeMean=-1;
+
+		/* Daten zu einzelnen Teil-Simulationsläufen */
+		runCount=0;
+		runSum=0;
+		runSum2=0;
+		runVar=0;
 	}
 
 	/**
@@ -294,22 +329,30 @@ public final class StatisticsTimePerformanceIndicator extends StatisticsPerforma
 	@Override
 	protected void copyDataFrom(final StatisticsPerformanceIndicator indicator) {
 		if (!(indicator instanceof StatisticsTimePerformanceIndicator)) return;
-		lastState=((StatisticsTimePerformanceIndicator)indicator).lastState;
-		lastTime=((StatisticsTimePerformanceIndicator)indicator).lastTime;
-		if (((StatisticsTimePerformanceIndicator)indicator).stateTime!=null) {
-			stateTime=Arrays.copyOf(((StatisticsTimePerformanceIndicator)indicator).stateTime,((StatisticsTimePerformanceIndicator)indicator).stateTime.length);
-		}
-		time0=((StatisticsTimePerformanceIndicator)indicator).time0;
-		timeMax=((StatisticsTimePerformanceIndicator)indicator).timeMax;
-		timeMaxState=((StatisticsTimePerformanceIndicator)indicator).timeMaxState;
+		final StatisticsTimePerformanceIndicator time=(StatisticsTimePerformanceIndicator)indicator;
 
-		min=((StatisticsTimePerformanceIndicator)indicator).min;
-		max=((StatisticsTimePerformanceIndicator)indicator).max;
-		sum=((StatisticsTimePerformanceIndicator)indicator).sum;
-		valueSum=((StatisticsTimePerformanceIndicator)indicator).valueSum;
-		valueSumSquared=((StatisticsTimePerformanceIndicator)indicator).valueSumSquared;
+		lastState=time.lastState;
+		lastTime=time.lastTime;
+		if (time.stateTime!=null) {
+			stateTime=Arrays.copyOf(time.stateTime,time.stateTime.length);
+		}
+		time0=time.time0;
+		timeMax=time.timeMax;
+		timeMaxState=time.timeMaxState;
+
+		min=time.min;
+		max=time.max;
+		sum=time.sum;
+		valueSum=time.valueSum;
+		valueSumSquared=time.valueSumSquared;
 
 		lastTimeMean=-1;
+
+		/* Daten zu einzelnen Teil-Simulationsläufen */
+		runCount=time.runCount;
+		runSum=time.runSum;
+		runSum2=time.runSum2;
+		runVar=time.runVar;
 	}
 
 	/**
@@ -556,6 +599,98 @@ public final class StatisticsTimePerformanceIndicator extends StatisticsPerforma
 		}
 	}
 
+	/**
+	 * Beendet einen Simulationslauf für die Erfassung der
+	 * Konfidenzdaten über mehrere Teil-Simulationsläufe hinweg.
+	 */
+	public void finishRun() {
+		final double value=getTimeMean();
+		runCount++;
+		runSum+=value;
+		runSum2+=(value*value);
+	}
+
+	/**
+	 * Liefert die Anzahl an erfassten Teil-Simulationsläufen.
+	 * @return	Anzahl an erfassten Teil-Simulationsläufen
+	 */
+	public int getRunCount() {
+		return runCount;
+	}
+
+	/**
+	 * Liefert die Varianz zwischen den Teil-Simulationsläufen.<br>
+	 * (Setzt voraus, dass das System Daten zu Teil-Simulationsläufen aufgezeichnet hat.)
+	 * @return	Varianz zwischen den Teil-Simulationsläufen
+	 */
+	public double getRunVar() {
+		if (runVar==0.0) {
+			if (runCount<2) return 0;
+			final double xMean=getTimeMean();
+			final int b=runCount;
+			runVar=1.0/b/(b-1)*(runSum2-2*xMean*runSum+b*xMean*xMean);
+		}
+		return runVar;
+	}
+
+	/**
+	 * Liefert die Standardabweichung zwischen den Teil-Simulationsläufen.<br>
+	 * (Setzt voraus, dass das System Daten zu Teil-Simulationsläufen aufgezeichnet hat.)
+	 * @return	Standardabweichung zwischen den Teil-Simulationsläufen
+	 */
+	public double getRunSD() {
+		return StrictMath.sqrt(getRunVar());
+	}
+
+	/**
+	 * Halbe Breite des Konfidenzintervalls für den Mittelwert (unter Berücksichtigung der Teil-Simulationsläufe)<br>
+	 * Das Konfidenzintervall geht dann von <code>getMean()-getRunConfidenceHalfWide(alpha)</code> bis <code>getMean()+getRunConfidenceHalfWide(alpha)</code>
+	 * @param alpha	Konfidenzniveau (z.B. alpha=0.05 oder alpha=0.01)
+	 * @return	Halbe Breite des Konfidenzintervalls
+	 */
+	public double getRunConfidenceHalfWide(final double alpha) {
+		if (min==max) return 0;
+		final int b=runCount;
+		if (b==0) return 0; /* Keine Läufe erfasst */
+		if (b==1) return 0; /* Sorry, aber TDistribution(0) geht auch nicht. */
+		final TDistribution dist=new TDistribution(b-1);
+		final double t=dist.inverseCumulativeProbability(1-alpha/2);
+		final double sd=getRunSD();
+		return t*sd; /* Division durch sqrt(b) steckt schon in getRunSD() */
+	}
+
+	/**
+	 * Halbe Breite des Konfidenzintervalls für den Mittelwert (unter Berücksichtigung der Teil-Simulationsläufe) (mehrere Konfidenzniveaus gleichzeitig)<br>
+	 * Das Konfidenzintervall geht dann von <code>getMean()-getRunConfidenceHalfWide(alpha)</code> bis <code>getMean()+getRunConfidenceHalfWide(alpha)</code>
+	 * @param alpha	Konfidenzniveaus (z.B. alpha=0.05 oder alpha=0.01)
+	 * @return	Halbe Breite der Konfidenzintervalle
+	 */
+	public double[] getRunConfidenceHalfWide(final double[] alpha) {
+		if (alpha==null || alpha.length==0) return new double[0];
+		if (sum==0) return new double[alpha.length];
+		if (min==max) return new double[alpha.length];
+
+		final int b=runCount;
+		if (b==0) return new double[alpha.length]; /* Keine Läufe erfasst */
+		if (b==1) return new double[alpha.length]; /* Sorry, aber TDistribution(0) geht auch nicht. */
+
+		final TDistribution dist=new TDistribution(b-1);
+		final double sd=getRunSD();
+
+		final double[] results=new double[alpha.length];
+		for (int i=0;i<alpha.length;i++) {
+			final double t=dist.inverseCumulativeProbability(1-alpha[i]/2);
+			results[i]=t*sd; /* Division durch sqrt(b) steckt schon in getBatchSD() */
+		}
+		return results;
+	}
+
+	/**
+	 * Konfidenzintervall-Levels zum Speichern in der xml-Datei
+	 * @see #addToXMLIntern(Element, StringBuilder)
+	 */
+	private static final double[] CONFIDENCE_SAVE_LEVEL=new double[]{0.1,0.05,0.01};
+
 	@Override
 	protected void addToXMLIntern(final Element node, final StringBuilder recycleStringBuilder) {
 		if (stateTime==null) {
@@ -596,6 +731,16 @@ public final class StatisticsTimePerformanceIndicator extends StatisticsPerforma
 				node.setAttribute(xmlNameQuantil+Math.round(storeQuantilValues[i]*100),""+quantils[i]);
 			}
 		}
+
+		if (runCount>0) {
+			node.setAttribute(StatisticsDataPerformanceIndicator.xmlNameRunCount[0],""+runCount);
+			node.setAttribute(StatisticsDataPerformanceIndicator.xmlNameRunVar[0],NumberTools.formatSystemNumber(getRunVar()));
+			for (double level: CONFIDENCE_SAVE_LEVEL) {
+				String s=String.valueOf(Math.round((1-level)*100));
+				double radius=NumberTools.reduceDigits(getRunConfidenceHalfWide(level),8);
+				node.setAttribute(StatisticsDataPerformanceIndicator.xmlNameRunHalfWide[0]+s,NumberTools.formatSystemNumber(radius));
+			}
+		}
 	}
 
 	@Override
@@ -634,6 +779,20 @@ public final class StatisticsTimePerformanceIndicator extends StatisticsPerforma
 			final Integer max=NumberTools.getInteger(value);
 			if (max==null) return String.format(xmlNameMaxError,node.getNodeName(),value);
 			this.max=max;
+		}
+
+		value=getAttributeValue(node,StatisticsDataPerformanceIndicator.xmlNameRunCount);
+		if (!value.isEmpty()) {
+			Long L=NumberTools.getPositiveLong(value);
+			if (L==null) return String.format(StatisticsDataPerformanceIndicator.xmlNameRunCountError,node.getNodeName(),value);
+			runCount=L.intValue();
+		}
+
+		value=getAttributeValue(node,StatisticsDataPerformanceIndicator.xmlNameRunVar);
+		if (!value.isEmpty()) {
+			Double D=NumberTools.getNotNegativeDouble(NumberTools.systemNumberToLocalNumber(value));
+			if (D==null) return String.format(StatisticsDataPerformanceIndicator.xmlNameRunVarError,node.getNodeName(),value);
+			runVar=D.doubleValue();
 		}
 
 		return null;

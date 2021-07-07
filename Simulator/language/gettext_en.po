@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-03 17:28+0200\n"
+"POT-Creation-Date: 2021-07-07 08:52+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -4115,6 +4115,9 @@ msgstr "Can be used as target element for a connection edge"
 
 msgid "Editor.SurfaceTooltip.InteractiveTutorial"
 msgstr "Show interactive tutorial"
+
+msgid "Editor.SurfaceTooltip.NonReleaseBuild"
+msgstr "This is a test version not intended for productive use."
 
 msgid "Editor.SurfaceTooltip.NotEdge1"
 msgstr "Cannot be used as starting element for a connection edge"

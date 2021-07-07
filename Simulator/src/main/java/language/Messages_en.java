@@ -3280,8 +3280,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[7353] = "Large font";
     t[7354] = "Surface.Balking.Dialog.Expression.Error.Title";
     t[7355] = "Invalid balking condition";
-    t[7356] = "ExpressionBuilder.ClientsAtStation.VarianceOfTheNumber";
-    t[7357] = "<p>Returns the variance of the number of clients at the station whose ID is specified in the parameter.</p>\n<p>Alternatively, the ID of a client source can be specified, in which case the results refer to the clients which are created created at the selected source.</p>";
+    t[7356] = "Editor.SurfaceTooltip.NonReleaseBuild";
+    t[7357] = "This is a test version not intended for productive use.";
     t[7358] = "Editor.Dialog.Sequences.ListInfo.One";
     t[7359] = "1 step in the sequence";
     t[7360] = "Surface.AnimationBarStack.XML.DataArea.Direction";
@@ -17368,6 +17368,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[39419] = "Heatmap: Average number of waiting clients at a station";
     t[39420] = "Statistic.Viewer.Toolbar.SelectNone";
     t[39421] = "None";
+    t[39440] = "ExpressionBuilder.ClientsAtStation.VarianceOfTheNumber";
+    t[39441] = "<p>Returns the variance of the number of clients at the station whose ID is specified in the parameter.</p>\n<p>Alternatively, the ID of a client source can be specified, in which case the results refer to the clients which are created created at the selected source.</p>";
     t[39442] = "Surface.Line.Dialog.ArrowLineStart";
     t[39443] = "Line start";
     t[39444] = "Surface.ExpressionTableModelText.Delete.Confirmation.Title";
@@ -18056,14 +18058,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[41017] = "ModelSequenceStep";
     t[41018] = "Surface.Action.XML.Record.Condition.Condition";
     t[41019] = "Condition";
-    t[41020] = "Statistics.XML.StateStatistics";
-    t[41021] = "StatisticsStatusTime";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_9 (java.lang.String[] t) {
+    t[41020] = "Statistics.XML.StateStatistics";
+    t[41021] = "StatisticsStatusTime";
     t[41026] = "ExpressionBuilder.ClientsInSystem.StandardDeviationOfTheNumber";
     t[41027] = "<p>Returns the squared coefficient of variation of the number of clients in the system.</p>";
     t[41028] = "Surface.Split.XML.Source";
@@ -20062,14 +20064,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[45653] = "ModelBatchSize";
     t[45656] = "ParameterCompare.Toolbar.Load.Hint";
     t[45657] = "Loads the configuration from file";
-    t[45664] = "SettingsDialog.Tabs.ProgramStart.WelcomePage";
-    t[45665] = "Show welcome page";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_10 (java.lang.String[] t) {
+    t[45664] = "SettingsDialog.Tabs.ProgramStart.WelcomePage";
+    t[45665] = "Show welcome page";
     t[45666] = "LogSimulation.OptionColor";
     t[45667] = "Use colors of the stations as text color for the corresponding records";
     t[45670] = "Resources.Group.EditName.Dialog.Tab.SetupTimes.Mode.Off";

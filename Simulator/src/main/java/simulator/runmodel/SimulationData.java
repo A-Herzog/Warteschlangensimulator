@@ -370,6 +370,11 @@ public class SimulationData extends SimData {
 			((StatisticsDataPerformanceIndicatorWithNegativeValues)indicator).finishRun();
 			return;
 		}
+
+		if (indicator instanceof StatisticsTimePerformanceIndicator) {
+			((StatisticsTimePerformanceIndicator)indicator).finishRun();
+			return;
+		}
 	}
 
 	/**

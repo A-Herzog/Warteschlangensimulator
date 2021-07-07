@@ -30,6 +30,7 @@ import statistics.StatisticsDataCollector;
 import statistics.StatisticsDataPerformanceIndicator;
 import statistics.StatisticsDataPerformanceIndicatorWithNegativeValues;
 import statistics.StatisticsMultiPerformanceIndicator;
+import statistics.StatisticsPerformanceIndicator;
 import statistics.StatisticsTimeContinuousPerformanceIndicator;
 import statistics.StatisticsTimePerformanceIndicator;
 import systemtools.statistics.StatisticViewerTable;
@@ -295,9 +296,10 @@ public class StatisticViewerTimeTable extends StatisticViewerTable {
 	 * Erzeugt eine Datenzeile.
 	 * @param col1	Inhalt für Spalte 1 (kann <code>null</code> sein)
 	 * @param data	Statistikobjekt dem Mittelwert usw. entnommen werden sollen
+	 * @param confidenceLevels	Niveaus zu denen Konfidenzintervallgrößen ausgegeben werden sollen (kann <code>null</code> sein)
 	 * @return	Datenzeile
 	 */
-	private String[] getDataLine(final String col1, final StatisticsTimePerformanceIndicator data) {
+	private String[] getDataLine(final String col1, final StatisticsTimePerformanceIndicator data, final double[] confidenceLevels) {
 		final List<String> line=new ArrayList<>();
 
 		if (col1!=null) line.add(col1);
@@ -312,6 +314,12 @@ public class StatisticViewerTimeTable extends StatisticViewerTable {
 			for (double p: levels) {
 				line.add(StatisticTools.formatNumber(data.getQuantil(p)));
 			}
+		}
+
+		if (confidenceLevels!=null) {
+			final double mean=data.getTimeMean();
+			final double[] halfWidth=data.getRunConfidenceHalfWide(confidenceLevels);
+			for (int i=0;i<halfWidth.length;i++) line.add(String.format("[%s;%s]",StatisticTools.formatNumber(mean-halfWidth[i]),StatisticTools.formatNumber(mean+halfWidth[i])));
 		}
 
 		return line.toArray(new String[0]);
@@ -510,16 +518,29 @@ public class StatisticViewerTimeTable extends StatisticViewerTable {
 	private void buildCountOverviewTable(final StatisticsMultiPerformanceIndicator indicators, final StatisticsTimePerformanceIndicator system, final String type) {
 		final Table table=new Table();
 
+		boolean hasConfidence=(statistics.simulationData.runRepeatCount>1);
 		if (system!=null) {
-			table.addLine(getDataLine(Language.tr("Statistics.System"),system));
+			if (system.getRunCount()<2) hasConfidence=false;
+		}
+
+		if (hasConfidence) for (StatisticsPerformanceIndicator indicator: indicators.getAll()) {
+			if (((StatisticsTimePerformanceIndicator)indicator).getRunCount()<2) {hasConfidence=false; break;}
+		}
+
+		final double[] confidenceLevels=StatisticViewerOverviewText.getConfidenceLevels();
+
+		if (system!=null) {
+			hasConfidence=(statistics.simulationData.runRepeatCount>1 && system.getRunCount()>1);
+			table.addLine(getDataLine(Language.tr("Statistics.System"),system,confidenceLevels));
 		}
 
 		for (String station: indicators.getNames()) {
 			final StatisticsTimePerformanceIndicator indicator=(StatisticsTimePerformanceIndicator)(indicators.get(station));
-			table.addLine(getDataLine(fullStationName(station),indicator));
+			hasConfidence=(statistics.simulationData.runRepeatCount>1 && indicator.getRunCount()>1);
+			table.addLine(getDataLine(fullStationName(station),indicator,confidenceLevels));
 		}
 
-		setData(table,getColumnNames(Language.tr("Statistics.Station"),null,"["+type+"]",null));
+		setData(table,getColumnNames(Language.tr("Statistics.Station"),null,"["+type+"]",hasConfidence?confidenceLevels:null));
 
 		/* Infotext  */
 		if (type.equals("N")) addDescription("TableCountOverviewN");

@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-03 17:28+0200\n"
+"POT-Creation-Date: 2021-07-07 08:52+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -4119,6 +4119,9 @@ msgstr "Als Zielelement für Verbindungskante nutzbar"
 
 msgid "Editor.SurfaceTooltip.InteractiveTutorial"
 msgstr "Interaktive Einführung anzeigen"
+
+msgid "Editor.SurfaceTooltip.NonReleaseBuild"
+msgstr "Dies ist eine nicht für den Produktivbetrieb bestimmte Testversion."
 
 msgid "Editor.SurfaceTooltip.NotEdge1"
 msgstr "Nicht als Ausgangselement für Verbindungskante nutzbar"
