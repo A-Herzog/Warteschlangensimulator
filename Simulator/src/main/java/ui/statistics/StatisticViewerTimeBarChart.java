@@ -221,7 +221,7 @@ public class StatisticViewerTimeBarChart extends StatisticViewerBarChart {
 	}
 
 	/**
-	 * Balkendiagramm zum Vergleich der Auslastungen der Bedeinergruppen
+	 * Balkendiagramm zum Vergleich der Auslastungen der Bedienergruppen
 	 * @see Mode#MODE_RESOURCE_UTILIZATION
 	 */
 	private void resourceUtilizationChartRequest() {

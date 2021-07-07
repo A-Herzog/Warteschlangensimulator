@@ -33,6 +33,7 @@ import org.jfree.chart.plot.FastScatterPlot;
 import org.jfree.chart.plot.PiePlot;
 import org.jfree.chart.plot.Plot;
 import org.jfree.chart.plot.XYPlot;
+import org.jfree.chart.title.LegendTitle;
 import org.jfree.chart.title.TextTitle;
 import org.w3c.dom.Element;
 
@@ -219,20 +220,28 @@ public class ChartSetup {
 	 */
 	public void setupChart(final JFreeChart chart) {
 		final double scale=(userScale==1.0)?systemScale:userScale;
+		final Plot plot=chart.getPlot();
+		final LegendTitle legend=chart.getLegend();
 
-		chart.getPlot().setBackgroundPaint(getPaint(backgroundColor1,backgroundColor2));
-		chart.getPlot().setOutlineStroke(outlineStroke);
-		chart.getPlot().setOutlinePaint(outlineColor);
+		if (isDark) {
+			plot.setBackgroundPaint(Color.DARK_GRAY);
+		} else {
+			plot.setBackgroundPaint(getPaint(backgroundColor1,backgroundColor2));
+		}
+		plot.setOutlineStroke(outlineStroke);
+		plot.setOutlinePaint(outlineColor);
 
 		final TextTitle textTitle=chart.getTitle();
 		if (textTitle!=null) textTitle.setFont(scaleSize(titleFont,scale));
 
-		chart.getLegend().setBackgroundPaint(null);
-		chart.getLegend().setItemFont(scaleSize(legendFont,scale));
+		if (legend!=null) {
+			legend.setBackgroundPaint(null);
+			legend.setItemFont(scaleSize(legendFont,scale));
+		}
 
 		if (isDark) {
 			chart.getTitle().setPaint(Color.LIGHT_GRAY);
-			chart.getLegend().setItemPaint(Color.LIGHT_GRAY);
+			if (legend!=null) legend.setItemPaint(Color.LIGHT_GRAY);
 		}
 	}
 
