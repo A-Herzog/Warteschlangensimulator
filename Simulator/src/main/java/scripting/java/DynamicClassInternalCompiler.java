@@ -32,9 +32,10 @@ public class DynamicClassInternalCompiler extends DynamicClassFileBased {
 	/**
 	 * Konstruktor der Klasse
 	 * @param setup	Einstellungen zum Laden der Methode
+	 * @param additionalClassPath	Optionaler zusätzlicher über den Classloader bereit zu stellender Classpath (kann <code>null</code> sein)
 	 */
-	public DynamicClassInternalCompiler(final DynamicSetup setup) {
-		super(setup);
+	public DynamicClassInternalCompiler(final DynamicSetup setup, final String additionalClassPath) {
+		super(setup,additionalClassPath);
 	}
 
 	@Override

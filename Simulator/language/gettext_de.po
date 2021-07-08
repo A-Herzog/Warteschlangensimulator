@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-07 08:52+0200\n"
+"POT-Creation-Date: 2021-07-08 00:21+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -6872,6 +6872,39 @@ msgstr "Befehl"
 msgid "ExpressionCalculator.Toolbar.ToolsJava.Hint"
 msgstr "Skriptbefehl einfügen"
 
+msgid "ExternalConnect.Dialog.Compile"
+msgstr "Kompilieren"
+
+msgid "ExternalConnect.Dialog.Compile.ErrorNoFolder"
+msgstr "Es wurde kein Verzeichnis mit externen Java-Dateien gewählt."
+
+msgid "ExternalConnect.Dialog.Compile.ErrorNotDirectory"
+msgstr ""
+"Das angegebene Verzeichnis\n"
+"%s\n"
+"ist kein Verzeichnis."
+
+msgid "ExternalConnect.Dialog.Compile.ResultsTitle"
+msgstr "Ergebnisse der Verarbeitung"
+
+msgid "ExternalConnect.Dialog.Compile.StatusDone"
+msgstr "Verarbeitung abgeschlossen."
+
+msgid "ExternalConnect.Dialog.Compile.StatusErrorMulti"
+msgstr "%d Dateien konnten nicht kompiliert werden."
+
+msgid "ExternalConnect.Dialog.Compile.StatusErrorOne"
+msgstr "%d Datei konnte nicht kompiliert werden."
+
+msgid "ExternalConnect.Dialog.Compile.StatusSuccessMulti"
+msgstr "%d Dateien erfolgreich kompiliert."
+
+msgid "ExternalConnect.Dialog.Compile.StatusSuccessOne"
+msgstr "%d Datei erfolgreich kompiliert."
+
+msgid "ExternalConnect.Dialog.Compile.Tooltip"
+msgstr "Kompiliert alle Java-Dateien in dem gewählten Verzeichnis."
+
 msgid "ExternalConnect.Dialog.ExamplesLink"
 msgstr "Beispielverzeichnis öffnen"
 
@@ -6892,6 +6925,9 @@ msgstr "Verzeichnis"
 
 msgid "ExternalConnect.Dialog.Folder.Tooltip"
 msgstr "Verzeichnis auswählen"
+
+msgid "ExternalConnect.Dialog.RereadFolder.Tooltip"
+msgstr "Verzeichnis neu einlesen."
 
 msgid "ExternalConnect.Dialog.Title"
 msgstr "Java-Plugins-Verzeichnis"

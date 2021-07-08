@@ -49,10 +49,23 @@ public abstract class DynamicClassBase implements Closeable, AutoCloseable {
 	private Class<?> loadedClass=null;
 
 	/**
+	 * Einstellungen zum Laden der Methode
+	 */
+	protected final DynamicSetup setup;
+
+	/**
+	 * Optionaler zusätzlicher über den Classloader bereit zu stellender Classpath (kann <code>null</code> sein)
+	 */
+	protected final String additionalClassPath;
+
+	/**
 	 * Konstruktor der Klasse
 	 * @param setup	Einstellungen zum Laden der Methode
+	 * @param additionalClassPath	Optionaler zusätzlicher über den Classloader bereit zu stellender Classpath (kann <code>null</code> sein)
 	 */
-	public DynamicClassBase(final DynamicSetup setup) {
+	public DynamicClassBase(final DynamicSetup setup, final String additionalClassPath) {
+		this.setup=setup;
+		this.additionalClassPath=additionalClassPath;
 	}
 
 	/**

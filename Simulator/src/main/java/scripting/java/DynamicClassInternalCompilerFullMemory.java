@@ -15,8 +15,15 @@
  */
 package scripting.java;
 
+import java.io.File;
 import java.io.IOException;
+import java.io.StringWriter;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLClassLoader;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import javax.tools.Diagnostic;
 import javax.tools.DiagnosticCollector;
@@ -24,6 +31,7 @@ import javax.tools.JavaCompiler;
 import javax.tools.JavaCompiler.CompilationTask;
 import javax.tools.JavaFileManager;
 import javax.tools.JavaFileObject;
+import javax.tools.StandardJavaFileManager;
 import javax.tools.ToolProvider;
 
 import language.Language;
@@ -40,11 +48,13 @@ public class DynamicClassInternalCompilerFullMemory extends DynamicClassBase {
 	/**
 	 * Konstruktor der Klasse
 	 * @param setup	Einstellungen zum Laden der Methode
+	 * @param additionalClassPath	Optionaler zusätzlicher über den Classloader bereit zu stellender Classpath (kann <code>null</code> sein)
 	 */
-	public DynamicClassInternalCompilerFullMemory(final DynamicSetup setup) {
-		super(setup);
+	public DynamicClassInternalCompilerFullMemory(final DynamicSetup setup, final String additionalClassPath) {
+		super(setup,additionalClassPath);
 	}
 
+	@SuppressWarnings("resource")
 	@Override
 	public Object prepare(String text) {
 		/* Daten vorhanden? */
@@ -61,13 +71,31 @@ public class DynamicClassInternalCompilerFullMemory extends DynamicClassBase {
 		if (compiler==null) return DynamicStatus.NO_COMPILER;
 
 		/* Vorbereiten */
-		try (final JavaFileManager fileManager=new ClassFileManager<JavaFileManager>(compiler.getStandardFileManager(null,null,null))) {
+		URLClassLoader urlLoader=null;
+		if (additionalClassPath!=null) {
+			try {
+				final File folder=new File(additionalClassPath);
+				urlLoader=new URLClassLoader(new URL[]{folder.toURI().toURL()});
+			} catch (MalformedURLException e1) {
+				return DynamicStatus.COMPILE_ERROR;
+			}
+		}
+
+		try (final JavaFileManager fileManager=new ClassFileManager<JavaFileManager>(compiler.getStandardFileManager(null,null,null),urlLoader)) {
 			final DiagnosticCollector<JavaFileObject> diagnostics=new DiagnosticCollector<>();
 			final JavaFileObject file=new CharSequenceJavaFileObject(className,text);
 			final Iterable<? extends JavaFileObject> compilationUnits=Arrays.asList(file);
 
+			final List<String> options=new ArrayList<>();
+			options.add("-cp");
+			if (additionalClassPath!=null) {
+				options.add(System.getProperty("java.class.path")+File.pathSeparatorChar+additionalClassPath);
+			} else {
+				options.add(System.getProperty("java.class.path"));
+			}
+
 			/* Übersetzen */
-			final CompilationTask task=compiler.getTask(null,fileManager,diagnostics,null,null,compilationUnits);
+			final CompilationTask task=compiler.getTask(null,fileManager,diagnostics,options,null,compilationUnits);
 
 			if (task.call()) {
 				/* Klasse laden */
@@ -110,5 +138,52 @@ public class DynamicClassInternalCompilerFullMemory extends DynamicClassBase {
 
 		setLoadedClass((Class<?>)classData);
 		return DynamicStatus.OK;
+	}
+
+	/**
+	 * Handelt es sich bei der verwendeten Java-Umgebung um Java 8?
+	 * @return	Liefert <code>true</code>, wenn Java 8 verwendet wird, und <code>false</code> bei einer Java-Version &ge;9
+	 */
+	private static boolean isJava8() {
+		final String version=System.getProperty("java.version");
+		if (version==null) return true;
+		return version.startsWith("1.8");
+	}
+
+	/**
+	 * Übersetzt eine java-Datei (aus dem Dateisystem) in eine class-Datei (auch im Dateisystem),
+	 * d.h. verhält sich so wie ein Aufruf von "javac".
+	 * @param file	Eingabe-java-Datei
+	 * @param baseFolder	Verzeichnis für den Klassenpfad (wird als "-cp " übergeben)
+	 * @return	Liefert im Erfolgsfall <code>null</code>, sonst eine Fehlermeldung
+	 */
+	public static String compileJavaToClass(final File file, final File baseFolder) {
+		try {
+			final JavaCompiler compiler=ToolProvider.getSystemJavaCompiler();
+			if (compiler==null) return DynamicFactory.getStatusText(DynamicStatus.NO_COMPILER);
+			try (StandardJavaFileManager fileManager=compiler.getStandardFileManager(null,null,null)) {
+
+				Iterable<? extends JavaFileObject> compilationUnits1=fileManager.getJavaFileObjects(file);
+
+				final StringWriter writer=new StringWriter();
+
+				final List<String> options=new ArrayList<>();
+				options.add("-cp");
+				options.add(baseFolder.toString());
+				if (!isJava8()) options.add("--release=8");
+
+				compiler.getTask(writer,fileManager,null,options,null,compilationUnits1).call().booleanValue();
+
+				final String result=writer.getBuffer().toString();
+				if (result==null || result.trim().isEmpty()) return null;
+				return result;
+
+			} catch (IOException e) {
+				return e.getMessage();
+			}
+
+		} catch (NoClassDefFoundError e) {
+			return e.getMessage();
+		}
 	}
 }

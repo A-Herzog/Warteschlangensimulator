@@ -37,9 +37,10 @@ public class DynamicClassInternalCompilerHalfMemory extends DynamicClassFileBase
 	/**
 	 * Konstruktor der Klasse
 	 * @param setup	Einstellungen zum Laden der Methode
+	 * @param additionalClassPath	Optionaler zusätzlicher über den Classloader bereit zu stellender Classpath (kann <code>null</code> sein)
 	 */
-	public DynamicClassInternalCompilerHalfMemory(final DynamicSetup setup) {
-		super(setup);
+	public DynamicClassInternalCompilerHalfMemory(final DynamicSetup setup, final String additionalClassPath) {
+		super(setup,additionalClassPath);
 	}
 
 	@Override

@@ -23,6 +23,8 @@ import java.net.URLClassLoader;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.commons.codec.Charsets;
 
@@ -40,9 +42,10 @@ public abstract class DynamicClassFileBased extends DynamicClassBase {
 	/**
 	 * Konstruktor der Klasse
 	 * @param setup	Einstellungen zum Laden der Methode
+	 * @param additionalClassPath	Optionaler zusätzlicher über den Classloader bereit zu stellender Classpath (kann <code>null</code> sein)
 	 */
-	public DynamicClassFileBased(final DynamicSetup setup) {
-		super(setup);
+	public DynamicClassFileBased(final DynamicSetup setup, final String additionalClassPath) {
+		super(setup,additionalClassPath);
 		tempFolderName=setup.getTempFolderName();
 		classPath=setup.getClassPath();
 	}
@@ -113,13 +116,14 @@ public abstract class DynamicClassFileBased extends DynamicClassBase {
 	 * @param classFile	Zu ladende class-Datei
 	 * @return	Liefert im Erfolgsfall ein Objekt von einem von {@link Class} abgeleiteten Typ zurück. Im Fehlerfall <code>null</code> oder ein String, der eine detaillierte Fehlermeldung enthält.
 	 */
-	private static Object loadClassFile(final File classFile) {
+	private Object loadClassFile(final File classFile) {
 		if (classFile==null) return null;
 
 		/* URL an der sich die Klassendatei befindet */
-		URL[] folderURLs;
+		final List<URL> folderURLs=new ArrayList<>();
 		try {
-			folderURLs=new URL[]{classFile.getParentFile().toURI().toURL()};
+			folderURLs.add(classFile.getParentFile().toURI().toURL());
+			if (additionalClassPath!=null) folderURLs.add(new File(additionalClassPath).toURI().toURL());
 		} catch (MalformedURLException e1) {
 			return null;
 		}
@@ -131,7 +135,7 @@ public abstract class DynamicClassFileBased extends DynamicClassBase {
 		className=className.substring(0,index);
 
 		/* Klasse laden */
-		try (final URLClassLoader loader=new URLClassLoader(folderURLs)) {
+		try (final URLClassLoader loader=new URLClassLoader(folderURLs.toArray(new URL[0]))) {
 			return loader.loadClass(className);
 		} catch (ClassNotFoundException | UnsupportedClassVersionError | IOException e) {
 			return e.getMessage();

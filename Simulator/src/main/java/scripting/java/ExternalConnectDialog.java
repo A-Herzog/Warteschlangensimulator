@@ -70,7 +70,7 @@ public class ExternalConnectDialog extends BaseDialog {
 	private final JTextField folder;
 
 	/**
-	 * Zuletzt in {@link #updateTree()} verwendetes Verzeichnis.
+	 * Zuletzt in {@link #updateTree(boolean)} verwendetes Verzeichnis.
 	 */
 	private String lastFolder;
 
@@ -87,22 +87,27 @@ public class ExternalConnectDialog extends BaseDialog {
 	public ExternalConnectDialog(final Component owner, final String initialFolder) {
 		super(owner,Language.tr("ExternalConnect.Dialog.Title"));
 
+		addUserButton(Language.tr("ExternalConnect.Dialog.Compile"),Images.PARAMETERSERIES_OUTPUT_MODE_SCRIPT_JAVA.getIcon());
+		getUserButton(0).setToolTipText(Language.tr("ExternalConnect.Dialog.Compile.Tooltip"));
 		final JPanel content=createGUI(()->Help.topicModal(this,"ExternalConnect"));
 		content.	setLayout(new BorderLayout());
 
+		JPanel line;
+		JPanel sub;
+		JButton button;
+
 		/* Verzeichnisauswahl */
-		JPanel line=new JPanel(new BorderLayout());
-		content.add(line,BorderLayout.NORTH);
+		content.add(line=new JPanel(new BorderLayout()),BorderLayout.NORTH);
 		line.add(new JLabel(Language.tr("ExternalConnect.Dialog.Folder")+": "),BorderLayout.WEST);
 		line.add(folder=new JTextField((initialFolder==null)?"":initialFolder),BorderLayout.CENTER);
 		folder.addKeyListener(new KeyListener() {
-			@Override public void keyTyped(KeyEvent e) {updateTree();	}
-			@Override public void keyReleased(KeyEvent e) {updateTree();}
-			@Override public void keyPressed(KeyEvent e) {updateTree();}
+			@Override public void keyTyped(KeyEvent e) {updateTree(false);}
+			@Override public void keyReleased(KeyEvent e) {updateTree(false);}
+			@Override public void keyPressed(KeyEvent e) {updateTree(false);}
 		});
-		final JButton button=new JButton(Images.GENERAL_SELECT_FOLDER.getIcon());
+		line.add(sub=new JPanel(new FlowLayout(FlowLayout.LEFT)),BorderLayout.EAST);
+		sub.add(button=new JButton(Images.GENERAL_SELECT_FOLDER.getIcon()));
 		button.setToolTipText(Language.tr("ExternalConnect.Dialog.Folder.Tooltip"));
-		line.add(button,BorderLayout.EAST);
 		button.addActionListener(e->{
 			final JFileChooser fc=new JFileChooser();
 			CommonVariables.initialDirectoryToJFileChooser(fc);
@@ -110,11 +115,14 @@ public class ExternalConnectDialog extends BaseDialog {
 			if (!oldFolder.trim().isEmpty() && new File(oldFolder).isDirectory()) fc.setCurrentDirectory(new File(oldFolder));
 			fc.setDialogTitle(Language.tr("ExternalConnect.Dialog.Folder.Tooltip"));
 			fc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-			if (fc.showSaveDialog(owner)!=JFileChooser.APPROVE_OPTION) return;
+			if (fc.showOpenDialog(owner)!=JFileChooser.APPROVE_OPTION) return;
 			CommonVariables.initialDirectoryFromJFileChooser(fc);
 			folder.setText(fc.getSelectedFile().toString());
-			updateTree();
+			updateTree(false);
 		});
+		sub.add(button=new JButton(Images.GENERAL_UPDATE.getIcon()),BorderLayout.EAST);
+		button.setToolTipText(Language.tr("ExternalConnect.Dialog.RereadFolder.Tooltip"));
+		button.addActionListener(e->updateTree(true));
 
 		/* Ansicht der Klassen und Methoden */
 		content.add(new JScrollPane(tree=new JTree()),BorderLayout.CENTER);
@@ -152,7 +160,7 @@ public class ExternalConnectDialog extends BaseDialog {
 		});
 
 		/* Wenn ein Startverzeichnis übergeben wurde, dieses gleich einlesen */
-		updateTree();
+		updateTree(true);
 
 		/* Dialog starten */
 		setMinSizeRespectingScreensize(500,600);
@@ -165,12 +173,13 @@ public class ExternalConnectDialog extends BaseDialog {
 	/**
 	 * Aktualisiert nach einer Veränderung in {@link #folder}
 	 * die Baumstruktur in {@link #tree}.
+	 * @param force	Neu einlesen erzwingen (<code>true</code>) oder nur neu einlesen, wenn seit dem letzten Aufruf ein anderes Verzeichnis gewählt wurde (<code>false</code>)
 	 * @see #folder
 	 * @see #tree
 	 */
-	private void updateTree() {
+	private void updateTree(final boolean force) {
 		final String newFolder=folder.getText().trim();
-		if (lastFolder!=null && newFolder.equals(lastFolder)) return;
+		if (lastFolder!=null && newFolder.equals(lastFolder) && !force) return;
 		lastFolder=newFolder;
 
 		final ExternalConnect connect=new ExternalConnect(new File(newFolder));
@@ -222,6 +231,94 @@ public class ExternalConnectDialog extends BaseDialog {
 
 		if (!ok) {
 			MsgBox.error(this,Language.tr("ExternalConnect.Dialog.ExamplesLink.ErrorTitle"),String.format(Language.tr("ExternalConnect.Dialog.ExamplesLink.ErrorInfo"),folder1.toString()));
+		}
+	}
+
+	@Override
+	protected void userButtonClick(final int nr, final JButton button) {
+		/* Verzeichnis mit den zu kompilierenden Java-Dateien */
+		final String folderName=getFolder();
+		if (folderName.isEmpty()) {
+			MsgBox.error(this,Language.tr("Simulation.Java.Error.CompileError"),Language.tr("ExternalConnect.Dialog.Compile.ErrorNoFolder"));
+			return;
+		}
+		final File folder=new File(folderName);
+		if (!folder.isDirectory()) {
+			MsgBox.error(this,Language.tr("Simulation.Java.Error.CompileError"),String.format(Language.tr("ExternalConnect.Dialog.Compile.ErrorNotDirectory"),folderName));
+			return;
+		}
+
+		/* Java-Kompiler */
+		if (!DynamicFactory.hasCompiler()) {
+			MsgBox.error(this,Language.tr("Simulation.Java.Error.CompileError"),DynamicFactory.getStatusText(DynamicStatus.NO_COMPILER));
+			return;
+		}
+
+		/* Verarbeitung */
+		compileSuccessCount=0;
+		compileErrorCount=0;
+		final StringBuilder result=new StringBuilder();
+		compileFolder(folder,folder,result);
+		result.append("\n");
+		result.append(Language.tr("ExternalConnect.Dialog.Compile.StatusDone")+"\n");
+		result.append(String.format((compileSuccessCount==1)?Language.tr("ExternalConnect.Dialog.Compile.StatusSuccessOne"):Language.tr("ExternalConnect.Dialog.Compile.StatusSuccessMulti"),compileSuccessCount)+"\n");
+		result.append(String.format((compileErrorCount==1)?Language.tr("ExternalConnect.Dialog.Compile.StatusErrorOne"):Language.tr("ExternalConnect.Dialog.Compile.StatusErrorMulti"),compileErrorCount)+"\n");
+
+		updateTree(true);
+
+		/* Ergebnisse anzeigen */
+		new ExternalConnectCompileResultsDialog(this,result.toString());
+	}
+
+	/**
+	 * Zähler für die erfolgreich übersetzten Dateien
+	 * @see #compileFolder(File, File, StringBuilder)
+	 * @see #compileFile(File, File, StringBuilder)
+	 */
+	private int compileSuccessCount;
+
+	/**
+	 * Zähler für die beim Übersetzten aufgetretenen Fehler
+	 * @see #compileFolder(File, File, StringBuilder)
+	 * @see #compileFile(File, File, StringBuilder)
+	 */
+	private int compileErrorCount;
+
+	/**
+	 * Übersetzt alle Dateien in einem Verzeichnis (und seinen Unterverzeichnissen).
+	 * @param folder	Verzeichnis das die java-Dateien enthält
+	 * @param baseFolder	Klassenpfad-Basisverzeichnis
+	 * @param result	Nimmt mögliche Ausgaben zu Erfolg oder Fehlermeldungen auf
+	 */
+	private void compileFolder(final File folder, final File baseFolder, final StringBuilder result) {
+		final String[] list=folder.list();
+		if (list==null) return;
+
+		for (String record: list) {
+			final File file=new File(folder,record);
+			if (file.isDirectory()) compileFolder(file,baseFolder,result);
+		}
+
+		for (String record: list) {
+			if (record.toLowerCase().endsWith(".java")) compileFile(new File(folder,record),baseFolder,result);
+		}
+	}
+
+	/**
+	 * Übersetzt eine einzelne Dateien.
+	 * @param file	Zu kompilierende Datei
+	 * @param baseFolder	Klassenpfad-Basisverzeichnis
+	 * @param result	Nimmt mögliche Ausgaben zu Erfolg oder Fehlermeldungen auf
+	 */
+	private void compileFile(final File file, final File baseFolder, final StringBuilder result) {
+		result.append(file.toString()+"\n");
+
+		final String compileResult=DynamicClassInternalCompilerFullMemory.compileJavaToClass(file,baseFolder);
+		if (compileResult==null) {
+			compileSuccessCount++;
+		} else {
+			compileErrorCount++;
+			result.append(compileResult);
 		}
 	}
 }

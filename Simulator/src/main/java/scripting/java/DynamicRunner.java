@@ -57,13 +57,14 @@ public class DynamicRunner {
 	/**
 	 * Copy-Konstruktor (aber mit neuem Parameter-Set)
 	 * @param prototypeRunner	Vorhandener Runner von dem die Methode übernommen werden soll
+	 * @param additionalClassPath	Optionaler zusätzlicher über den Classloader bereit zu stellender Classpath (kann <code>null</code> sein)
 	 */
-	public DynamicRunner(final DynamicRunner prototypeRunner) {
+	public DynamicRunner(final DynamicRunner prototypeRunner, final String additionalClassPath) {
 		script=prototypeRunner.script;
 		classText=prototypeRunner.classText;
 		status=DynamicStatus.OK;
 		error=null;
-		method=new DynamicMethod(prototypeRunner.method);
+		method=new DynamicMethod(prototypeRunner.method,additionalClassPath);
 		parameter=new SimulationImpl();
 	}
 

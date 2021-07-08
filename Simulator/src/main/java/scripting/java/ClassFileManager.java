@@ -36,12 +36,19 @@ public class ClassFileManager<M extends JavaFileManager> extends ForwardingJavaF
 	private JavaClassObject jclassObject;
 
 	/**
+	 * Zusätzlicher bzw. normaler Classloader
+	 */
+	private final ClassLoader additionalClassLoader;
+
+	/**
 	 * Will initialize the manager with the specified
 	 * standard java file manager
 	 * @param standardManager	delegate to this file manager
+	 * @param additionalClassLoader	Zusätzlicher bzw. normaler Classloader
 	 */
-	public ClassFileManager(final M standardManager) {
+	public ClassFileManager(final M standardManager, final ClassLoader additionalClassLoader) {
 		super(standardManager);
+		this.additionalClassLoader=additionalClassLoader;
 	}
 
 	/**
@@ -55,11 +62,14 @@ public class ClassFileManager<M extends JavaFileManager> extends ForwardingJavaF
 	public ClassLoader getClassLoader(Location location) {
 		return new SecureClassLoader() {
 			@Override
-			protected Class<?> findClass(String name)
-					throws ClassNotFoundException {
-				byte[] b = jclassObject.getBytes();
-				return super.defineClass(name, jclassObject
-						.getBytes(), 0, b.length);
+			protected Class<?> findClass(String name) throws ClassNotFoundException {
+				try {
+					final byte[] b=jclassObject.getBytes();
+					return super.defineClass(name, jclassObject.getBytes(),0,b.length);
+				} catch (NoClassDefFoundError e) {
+					if (additionalClassLoader!=null) return additionalClassLoader.loadClass(name);
+					throw e;
+				}
 			}
 		};
 	}

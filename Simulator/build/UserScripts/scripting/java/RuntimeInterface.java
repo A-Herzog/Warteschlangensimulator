@@ -15,6 +15,8 @@
  */
 package scripting.java;
 
+import java.util.Map;
+
 /**
  * Interface for accessing simulation independent data.
  * @author Alexander Herzog

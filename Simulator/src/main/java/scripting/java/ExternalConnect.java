@@ -8,6 +8,7 @@ import java.lang.reflect.Parameter;
 import java.net.URL;
 import java.net.URLClassLoader;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -45,6 +46,16 @@ public class ExternalConnect {
 	private static final String EXTENSION=".class";
 
 	/**
+	 * Dateien die bei der Verarbeitung nicht berücksichtigt werden sollen
+	 * (d.h. in denen nicht nach passenden Plugin-Methoden gesucht werden soll)
+	 */
+	private static final String[] IGNORE_FILES=new String[] {
+			"ClientsInterface",
+			"RuntimeInterface",
+			"SystemInterface"
+	};
+
+	/**
 	 * Konstruktor der Klasse
 	 * @param folder	Verzeichnis der Klassendateien
 	 */
@@ -52,13 +63,15 @@ public class ExternalConnect {
 		this.folder=folder;
 		informationMap=new HashMap<>();
 		runnerMap=new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
-		processFiles();
+		processFiles(folder,new String[0]);
 	}
 
 	/**
 	 * Erfasst alle Klassendateien in einem Verzeichnis.
+	 * @param folder	Verzeichnis
+	 * @param packages	Pfad in Bezug auf die Package-Darstellung der Klassen in dem Verzeichnis
 	 */
-	private void processFiles() {
+	private void processFiles(final File folder, final String[] packages) {
 		if (folder==null) return;
 		if (!folder.isDirectory()) return;
 		final String[] fileList=folder.list();
@@ -66,27 +79,47 @@ public class ExternalConnect {
 
 		for (String fileName: fileList) {
 			final File file=new File(folder,fileName);
-			if (!file.isFile()) continue;
-			if (!file.getName().toLowerCase().endsWith(EXTENSION)) continue;
-			final String shortFileName=fileName.substring(0,fileName.toLowerCase().lastIndexOf(EXTENSION));
+			if (file.isFile()) {
+				final String name=file.getName();
+				if (!name.toLowerCase().endsWith(EXTENSION)) continue;
 
-			final List<String> list=processFile(folder,shortFileName);
-			if (list!=null && list.size()>0) informationMap.put(shortFileName,list);
+				boolean ignore=false;
+				for (String ignoreFile: IGNORE_FILES) if (name.equalsIgnoreCase(ignoreFile+EXTENSION)) {ignore=true; break;}
+				if (ignore) continue;
+
+				final String shortFileName=fileName.substring(0,fileName.toLowerCase().lastIndexOf(EXTENSION));
+
+				final List<String> list=processFile(this.folder,file,packages,shortFileName);
+				if (folder.equals(this.folder)) {
+					if (list!=null && list.size()>0) informationMap.put(shortFileName,list);
+				}
+			}
+
+			if (file.isDirectory()) {
+				final String[] subPackages=Arrays.copyOf(packages,packages.length+1);
+				subPackages[subPackages.length-1]=file.getName();
+				processFiles(file,subPackages);
+			}
 		}
 	}
 
 	/**
 	 * Liest die passenden Methodennamen aus einer Klassendatei aus.
-	 * @param folder	Verzeichnis
+	 * @param folder	Basisverzeichnis aus Package-Sicht
+	 * @param file	Zu verarbeitende Datei
+	 * @param packages	Pfad in Bezug auf die Package-Darstellung der Klasse
 	 * @param shortFileName	Dateiname der Klasse ohne Erweiterung
 	 * @return	Liste der Methoden in der Klassendatei
 	 */
-	private List<String> processFile(final File folder, final String shortFileName) {
+	private List<String> processFile(final File folder, final File file, final String[] packages, final String shortFileName) {
 		final List<String> list=new ArrayList<>();
 
 		try (final URLClassLoader loader=new URLClassLoader(new URL[]{folder.toURI().toURL()})) {
-			final Class<?> cls=loader.loadClass(shortFileName);
+			String packagesString=String.join(".",packages);
+			if (!packagesString.isEmpty()) packagesString=packagesString+".";
+			final Class<?> cls=loader.loadClass(packagesString+shortFileName);
 
+			/* Plugin-Methoden suchen */
 			for (Method m: cls.getMethods()) {
 				final Parameter[] p=m.getParameters();
 				if (p.length!=3) continue;
@@ -96,7 +129,8 @@ public class ExternalConnect {
 				if (m.getReturnType()!=Object.class) continue;
 				list.add(m.getName());
 			}
-		} catch (ClassNotFoundException | SecurityException | IOException | IllegalArgumentException e) {
+		} catch (ClassNotFoundException | SecurityException | IOException | IllegalArgumentException | NoClassDefFoundError e) {
+			e.printStackTrace();
 		}
 
 		return list;

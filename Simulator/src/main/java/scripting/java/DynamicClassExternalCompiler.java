@@ -31,9 +31,10 @@ public class DynamicClassExternalCompiler extends DynamicClassFileBased {
 	/**
 	 * Konstruktor der Klasse
 	 * @param setup	Einstellungen zum Laden der Methode
+	 * @param additionalClassPath	Optionaler zusätzlicher über den Classloader bereit zu stellender Classpath (kann <code>null</code> sein)
 	 */
-	public DynamicClassExternalCompiler(final DynamicSetup setup) {
-		super(setup);
+	public DynamicClassExternalCompiler(final DynamicSetup setup, final String additionalClassPath) {
+		super(setup,additionalClassPath);
 		JDKPath=setup.getJDKPath();
 	}
 

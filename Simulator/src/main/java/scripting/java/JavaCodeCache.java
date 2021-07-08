@@ -23,19 +23,19 @@ import java.util.Map;
  * Skriptcode nicht immer wieder erneut übersetzt werden muss.
  * @author Alexander Herzog
  * @see DynamicFactory#load(String, String)
- * @see DynamicFactory#testIntern(String, String)
+ * @see DynamicFactory#testIntern(String, String, String)
  */
 public class JavaCodeCache {
 	/**
 	 * Zuordnung von Skripttexten zu übersetzten Methoden (inkl. der Möglichkeit verschiedene Imports zu berücksichtigen)
-	 * @see #getCachedMethod(String, String)
+	 * @see #getCachedMethod(String, String, String)
 	 * @see #storeMethod(String, String, DynamicMethod)
 	 */
 	private final Map<String,Map<String,DynamicMethod>> map;
 
 	/**
 	 * Zuordnung von Skripttexten zu übersetzten Methoden (für den Fall, dass keine nutzerdefinierten Imports vorhanden sind)
-	 * @see #getCachedMethod(String, String)
+	 * @see #getCachedMethod(String, String, String)
 	 * @see #storeMethod(String, String, DynamicMethod)
 	 */
 	private final Map<String,DynamicMethod> mapNoUserImports;
@@ -70,9 +70,10 @@ public class JavaCodeCache {
 	 * und liefert diese ggf. zurück.
 	 * @param script	Skript für das die übersetzte Methode abgefragt werden soll
 	 * @param imports	Optionale nutzerdefinierte Imports (kann <code>null</code> oder leer sein)
+	 * @param additionalClassPath	Optionaler zusätzlicher über den Classloader bereit zu stellender Classpath (kann <code>null</code> sein)
 	 * @return	Liefert im Erfolgsfall die übersetzte Methode, sonst <code>null</code>
 	 */
-	public DynamicMethod getCachedMethod(final String script, final String imports) {
+	public DynamicMethod getCachedMethod(final String script, final String imports, final String additionalClassPath) {
 		synchronized(this) {
 			final DynamicMethod dynamicMethod;
 			if (imports==null || imports.trim().isEmpty()) {
@@ -82,7 +83,7 @@ public class JavaCodeCache {
 				dynamicMethod=methodsMap.get(script);
 			}
 			if (dynamicMethod==null) return null;
-			return new DynamicMethod(dynamicMethod);
+			return new DynamicMethod(dynamicMethod,additionalClassPath);
 		}
 	}
 

@@ -140,6 +140,9 @@ public enum Images {
 	/** Symbol "Tabelle" */
 	GENERAL_TABLE("Table.png"),
 
+	/** Symbol "Aktualisieren" */
+	GENERAL_UPDATE("arrow_refresh.png"),
+
 	/** Symbol "Dialog-Button 'Ok'" */
 	MSGBOX_OK("accept.png"),
 

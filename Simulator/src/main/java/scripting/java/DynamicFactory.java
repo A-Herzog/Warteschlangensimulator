@@ -88,15 +88,16 @@ public final class DynamicFactory {
 	 * Prüft ein Skript auf Korrektheit.
 	 * @param script	Zu prüfendes Skript
 	 * @param imports	Zu importierende Klassen (kann leer oder <code>null</code> sein, dann wird {@link SimDynamicSetup#defaultImports} verwendet)
+	 * @param additionalClassPath	Optionaler zusätzlicher über den Classloader bereit zu stellender Classpath (kann <code>null</code> sein)
 	 * @return	Ergebnis der Prüfung als {@link DynamicRunner}-Objekt
 	 */
-	private DynamicRunner testIntern(final String script, final String imports) {
-		final DynamicMethod cachedDynamicMethod=JavaCodeCache.getJavaCodeCache().getCachedMethod(script,imports);
+	private DynamicRunner testIntern(final String script, final String imports, final String additionalClassPath) {
+		final DynamicMethod cachedDynamicMethod=JavaCodeCache.getJavaCodeCache().getCachedMethod(script,imports,additionalClassPath);
 		if (cachedDynamicMethod!=null) return new DynamicRunner(cachedDynamicMethod);
 
 		final DynamicMethod dynamicMethod=new DynamicMethod(setup,script,imports);
 
-		final DynamicStatus status=dynamicMethod.load();
+		final DynamicStatus status=dynamicMethod.load(additionalClassPath);
 		if (status!=DynamicStatus.OK) return new DynamicRunner(script,dynamicMethod.getFullClass(),status,dynamicMethod.getError());
 		JavaCodeCache.getJavaCodeCache().storeMethod(script,imports,dynamicMethod);
 		return new DynamicRunner(dynamicMethod);
@@ -109,7 +110,9 @@ public final class DynamicFactory {
 	 * @return	Liefert das Skript-Objekt, welches ggf. einen Fehlerstatus besitzt, zurück
 	 */
 	public DynamicRunner test(final String script, final String imports) {
-		return testIntern(script,imports);
+		final String additionalClassPath=null; // XXX
+
+		return testIntern(script,imports,additionalClassPath);
 	}
 
 	/**
@@ -120,7 +123,9 @@ public final class DynamicFactory {
 	 * @return	Gibt im Erfolgsfall das Skript-Objekt zurück, sonst eine Fehlermeldung.
 	 */
 	public Object test(final String script, final String imports, final boolean longMessage) {
-		final DynamicRunner runner=testIntern(script,imports);
+		final String additionalClassPath=null; // XXX
+
+		final DynamicRunner runner=testIntern(script,imports,additionalClassPath);
 		if (runner.isOk()) return runner;
 		return getErrorMessage(runner,longMessage);
 	}
@@ -146,13 +151,15 @@ public final class DynamicFactory {
 	 * @return	{@link DynamicRunner}-Objekt welches das geladene Skript oder eine Fehlermeldung enthält.
 	 */
 	public DynamicRunner load(final String script, final String imports) {
+		final String additionalClassPath=null; // XXX
+
 		if (!hasCompiler()) return new DynamicRunner(script,script,DynamicStatus.NO_COMPILER,null);
 
-		final DynamicMethod cachedDynamicMethod=JavaCodeCache.getJavaCodeCache().getCachedMethod(script,imports);
+		final DynamicMethod cachedDynamicMethod=JavaCodeCache.getJavaCodeCache().getCachedMethod(script,imports,additionalClassPath);
 		if (cachedDynamicMethod!=null) return new DynamicRunner(cachedDynamicMethod);
 
 		final DynamicMethod dynamicMethod=new DynamicMethod(setup,script,imports);
-		final DynamicStatus status=dynamicMethod.load();
+		final DynamicStatus status=dynamicMethod.load(additionalClassPath);
 		if (status!=DynamicStatus.OK) return new DynamicRunner(script,dynamicMethod.getFullClass(),status,dynamicMethod.getError());
 		JavaCodeCache.getJavaCodeCache().storeMethod(script,imports,dynamicMethod);
 		return new DynamicRunner(dynamicMethod);
@@ -164,7 +171,8 @@ public final class DynamicFactory {
 	 * @return	Kopie des Runners
 	 */
 	public DynamicRunner load(final DynamicRunner prototypeRunner) {
-		return new DynamicRunner(prototypeRunner);
+		final String additionalClassPath=null; // XXX
+		return new DynamicRunner(prototypeRunner,additionalClassPath);
 	}
 
 	/**

@@ -65,14 +65,14 @@ public final class DynamicMethod {
 
 	/**
 	 * Geladene Klasse
-	 * @see #load()
+	 * @see #load(String)
 	 */
 	private Class<?> dynamicClass;
 
 	/**
 	 * Instanz der geladenen Klasse
 	 * @see #getDynamicObject()
-	 * @see #load()
+	 * @see #load(String)
 	 */
 	private Object dynamicObject;
 
@@ -166,8 +166,9 @@ public final class DynamicMethod {
 	/**
 	 * Copy-Konstruktor (aber mit neuer Objekt-Instanz)
 	 * @param prototypeMethod	Vorhandene dynamisch geladene Methode (Klasse wird übernommen, aber eine neue Instanz des inneren Objektes erstellt)
+	 * @param additionalClassPath	Optionaler zusätzlicher über den Classloader bereit zu stellender Classpath (kann <code>null</code> sein)
 	 */
-	public DynamicMethod(final DynamicMethod prototypeMethod) {
+	public DynamicMethod(final DynamicMethod prototypeMethod, final String additionalClassPath) {
 		setup=prototypeMethod.setup;
 		methodText=prototypeMethod.methodText;
 		className=prototypeMethod.className;
@@ -175,7 +176,7 @@ public final class DynamicMethod {
 		error=prototypeMethod.error;
 
 		if (prototypeMethod.dynamicClass==null) {
-			prototypeMethod.load();
+			prototypeMethod.load(additionalClassPath);
 		}
 
 		if (prototypeMethod.dynamicClass!=null) {
@@ -192,8 +193,8 @@ public final class DynamicMethod {
 	/**
 	 * Liefert die Klasse, die zum Kompilieren und Laden der Klasse verwendet werden soll.
 	 * @return	Klasse, die zum Kompilieren und Laden der Klasse verwendet werden soll.
-	 * @see #test()
-	 * @see #load()
+	 * @see #test(String)
+	 * @see #load(String)
 	 */
 	private Class<? extends DynamicClassBase> getDynamicClassClass() {
 		return setup.getCompileMode().dynamicLoaderClass;
@@ -201,12 +202,13 @@ public final class DynamicMethod {
 
 	/**
 	 * Prüft, ob die Methode in Ordnung ist.
+	 * @param additionalClassPath	Optionaler zusätzlicher über den Classloader bereit zu stellender Classpath (kann <code>null</code> sein)
 	 * @return	Statuscode, der den Erfolg beschreibt.
 	 * @see DynamicStatus
 	 * @see DynamicMethod#getError()
 	 */
-	public DynamicStatus test() {
-		try (final DynamicClassBase dynamicClass=getDynamicClassClass().getConstructor(DynamicSetup.class).newInstance(setup)) {
+	public DynamicStatus test(final String additionalClassPath) {
+		try (final DynamicClassBase dynamicClass=getDynamicClassClass().getConstructor(DynamicSetup.class).newInstance(setup,additionalClassPath)) {
 			final Object result=dynamicClass.prepare(classText);
 			error=dynamicClass.getError();
 			if (result instanceof DynamicStatus) return (DynamicStatus)result;
@@ -218,12 +220,13 @@ public final class DynamicMethod {
 
 	/**
 	 * Versucht die Methode zu laden.
+	 * @param additionalClassPath	Optionaler zusätzlicher über den Classloader bereit zu stellender Classpath (kann <code>null</code> sein)
 	 * @return	Statuscode, der den Erfolg beschreibt.
 	 * @see DynamicStatus
 	 * @see DynamicMethod#getError()
 	 */
-	public DynamicStatus load() {
-		try (final DynamicClassBase dynamicClass=getDynamicClassClass().getConstructor(DynamicSetup.class).newInstance(setup)) {
+	public DynamicStatus load(final String additionalClassPath) {
+		try (final DynamicClassBase dynamicClass=getDynamicClassClass().getConstructor(DynamicSetup.class).newInstance(setup,additionalClassPath)) {
 			final DynamicStatus result=dynamicClass.prepareAndLoad(classText);
 			error=dynamicClass.getError();
 			if (result==DynamicStatus.OK) {
@@ -241,8 +244,8 @@ public final class DynamicMethod {
 	 * Liefert optional eine zusätzliche Fehlermeldung, wenn das Laden nicht erfolgreich war.
 	 * @return	Optionale zusätzliche Fehlermeldung
 	 * @see DynamicStatus
-	 * @see DynamicMethod#test()
-	 * @see DynamicMethod#load()
+	 * @see DynamicMethod#test(String)
+	 * @see DynamicMethod#load(String)
 	 */
 	public String getError() {
 		return error;
