@@ -31,6 +31,7 @@ import javax.swing.event.TableModelEvent;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.TableCellEditor;
 import javax.swing.table.TableCellRenderer;
+import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
 import javax.swing.table.TableModel;
 
@@ -119,6 +120,19 @@ public final class JTableExt extends JTable {
 	private void prepare() {
 		putClientProperty("terminateEditOnFocusLost",Boolean.TRUE);
 		getTableHeader().setReorderingAllowed(false);
+		getTableHeader().setResizingAllowed(true);
+		SwingUtilities.invokeLater(()->{
+			final TableColumnModel columnModel=getColumnModel();
+			for (int i=0;i<columnModel.getColumnCount();i++) {
+				final TableColumn column=columnModel.getColumn(i);
+				if (column.getMinWidth()>0) {
+					column.setMinWidth(Math.min(50,column.getMinWidth()));
+				} else {
+					column.setMinWidth(20);
+				}
+				if (column.getMaxWidth()<Integer.MAX_VALUE) column.setMaxWidth(column.getMaxWidth()*2);
+			}
+		});
 	}
 
 	/**

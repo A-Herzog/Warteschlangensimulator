@@ -196,7 +196,7 @@ public class ParameterCompareTable extends JPanel {
 		for (int i=0;i<count;i++) {
 			final TableColumn column=table.getColumnModel().getColumn(i);
 			column.setMaxWidth((i==count-1)?LAST_COL_WIDTH:Integer.MAX_VALUE);
-			column.setMinWidth((i==count-1)?LAST_COL_WIDTH:0);
+			column.setMinWidth((i==count-1)?LAST_COL_WIDTH:40);
 
 			while (headerRenderer.size()<i+1) headerRenderer.add(new HeaderRenderer());
 			column.setHeaderRenderer(headerRenderer.get(i));
