@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-08 00:21+0200\n"
+"POT-Creation-Date: 2021-07-09 16:58+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -6926,11 +6926,23 @@ msgstr "Verzeichnis"
 msgid "ExternalConnect.Dialog.Folder.Tooltip"
 msgstr "Verzeichnis auswählen"
 
+msgid "ExternalConnect.Dialog.Mode"
+msgstr "Bereitstellungsmodus"
+
+msgid "ExternalConnect.Dialog.Mode.Full"
+msgstr "Über Plugin-Schnittstelle und direkt als Import"
+
+msgid "ExternalConnect.Dialog.Mode.PluginOnly"
+msgstr "Über Plugin-Schnittstelle"
+
 msgid "ExternalConnect.Dialog.RereadFolder.Tooltip"
 msgstr "Verzeichnis neu einlesen."
 
 msgid "ExternalConnect.Dialog.Title"
 msgstr "Java-Plugins-Verzeichnis"
+
+msgid "ExternalConnect.Dialog.TreeInfo"
+msgstr "Im Plugin-Verzeichnis gefundene Klassen, die die Plugin-Schnittstelle unterstützen"
 
 msgid "FastAccessBuilder.Add.Java"
 msgstr "Zu Schnellzugriff - Java hinzufügen"
@@ -29407,6 +29419,9 @@ msgstr "Nach"
 
 msgid "Surface.XML.PluginsFolder"
 msgstr "ModellPluginsVerzeichnis"
+
+msgid "Surface.XML.PluginsFolder.AllowClassLoading"
+msgstr "KlassenLadenZulaessig"
 
 msgid "Surface.XML.RecordIncompleteClients"
 msgstr "ModellUnvollstaendigeKundenAufzeichnung"

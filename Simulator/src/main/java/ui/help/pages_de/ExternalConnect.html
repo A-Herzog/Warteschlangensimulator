@@ -10,15 +10,71 @@
 <h1>Java-Plugins-Verzeichnis Dialog</h1>
 
 <p>
-In den Skript-Stationen kann von dem internen Java-Code aus Java-Code in externen
-Klassendateien aufgerufen werden. Dafür steht der Befehl
-<tt>sim.getSystem().runPlugin("className","methodName",data)</tt> zur Verfügung
-(siehe auch <a href="Java.html">Dokumentation der Java-Befehle</a>).
-In diesem Dialog kann das Verzeichnis gewählt werden, in dem die externen Klassendateien
-gesucht werden sollen. In dem Ausgabebereich in der Mitte des Dialogs werden die
-jeweils gefundenen Klassendateien und die darin enthaltenen, passenden Methoden
-aufgelistet.
+In den Skript-Stationen kann von dem internen Java-Code aus Java-Code in externen Klassendateien aufgerufen werden.
+Dafür stehen zwei Methoden zur Verfügung:
 </p>
+
+
+
+<h2>Plugin-Schnittstelle</h2>
+
+<p>
+Externe Klassen können Methoden mit folgender Signatur implementieren:
+</p>
+
+<p><tt>
+public Object methodName(final scripting.java.RuntimeInterface runtime, final scripting.java.SystemInterface system, final Object data)
+</tt></p>
+
+<p>
+Auf diese Methoden kann im internen Java-Code über folgende Methode zugegriffen werden:
+</p>
+
+<p><tt>sim.getSystem().runPlugin("className","methodName",data)</tt></p>
+
+<p>
+Wird in dem Dialog ein Verzeichnis gewählt, so werden in der Listenansicht automatisch
+die jeweils gefundenen Klassendateien und die darin enthaltenen, passenden Methoden
+aufgelistet. Es werden dabei nur die Klassen aufgelistet, die Methoden gemäß der oben
+beschriebenen Signatur enthalten.
+</p>
+
+
+
+<h2>Import externer Klassen</h2>
+
+<p>
+Externe Klassen, die sich in dem angegebenen Verzeichnis bzw. dessen Unterverzeichnissen befinden,
+können direkt über <tt>import</tt>-Anweisungen verfügbar gemacht werden. Zu beachten ist dabei,
+dass sich die Klassen nicht in dem angegebenen Plugin-Verzeichnis selbst befinden dürfen, sondern
+in dessen Unterverzeichnissen und dass in den Klassen ein passender <tt>package</tt>-Bezeichner
+eingetragen sein muss.
+</p>
+
+<p>
+Der Import erfolgt automatisch durch den Simulator. Es müssen keine manuellen <tt>import</tt>-Konfigurationen
+vorgenommen werden. Es muss nur das Basisverzeichnis, in dem sich die externen Klassen befinden, angegeben werden.
+</p>
+
+<p>
+Die per <tt>import</tt> verfügbaren Klassen werden möglicherweise <b>nicht</b> in der Listenansicht
+in diesem Dialog dargestellt. Aufgelistet werden nur die Klassen, die Methoden für den Zugriff über
+die Plugin-Schnittstelle bereitstellen.
+</p>
+
+
+
+<h2>Allgemeine Hinweise</h2>
+
+<ul>
+  <li>Eine allgemeine Dokumentation der verfügbaren Java-Befehle steht
+  auf der Hilfe-Seite <a href="Java.html">Dokumentation der Java-Befehle</a>
+  zur Verfügung.</li>
+  <li>Wurde eine Klassendatei erstmalig durch den Simulator geladen bzw. verwendet,
+  so kann diese bis zum Beenden des Simulators gesperrt bleiben. Das bedeutet, dass
+  insbesondere nicht sichergestellt ist, dass <tt>class</tt>-Dateien im Plugins-Verzeichnis
+  zur Laufzeit des Simulators ausgetauscht werden können.</li>
+</ul>
   
 </body>
 </html>

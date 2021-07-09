@@ -22,6 +22,7 @@ import javax.swing.SwingUtilities;
 import scripting.java.DynamicFactory;
 import scripting.java.DynamicRunner;
 import scripting.java.DynamicStatus;
+import scripting.java.ImportSettingsBuilder;
 import scripting.java.ModelImpl;
 import scripting.java.OutputImpl;
 import scripting.java.StatisticsImpl;
@@ -46,6 +47,8 @@ public class JSModelRunner {
 	private final String script;
 	/** Editor-Modell auf dessen Basis die JS-Datenreihe erstellt werden soll */
 	private final EditModel model;
+	/** Einstellungen zu Import und Classpath für Skripte */
+	private final ImportSettingsBuilder scriptSettings;
 	/** Wird aufgerufen, wenn Log-Ausgaben erfolgen sollen. */
 	private final Consumer<String> outputNotify;
 	/** Wird aufgerufen, wenn die Skriptausführung abgeschlossen wurde. */
@@ -72,6 +75,7 @@ public class JSModelRunner {
 	public JSModelRunner(final EditModel model, final ScriptEditorPanel.ScriptMode mode, final String script, final Consumer<String> outputNotify, final Runnable doneNotify) {
 		canceled=false;
 		this.model=model;
+		scriptSettings=new ImportSettingsBuilder(model);
 		this.mode=mode;
 		this.script=script;
 		this.outputNotify=outputNotify;
@@ -102,7 +106,7 @@ public class JSModelRunner {
 				scriptRunner.run(script);
 				break;
 			case Java:
-				final DynamicRunner runner=DynamicFactory.getFactory().load(script,(model==null)?null:model.javaImports);
+				final DynamicRunner runner=DynamicFactory.getFactory().load(script,scriptSettings);
 				if (runner.getStatus()!=DynamicStatus.OK) {
 					output(DynamicFactory.getLongStatusText(runner));
 				} else {

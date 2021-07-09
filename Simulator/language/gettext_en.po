@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-08 00:21+0200\n"
+"POT-Creation-Date: 2021-07-09 16:58+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -6940,11 +6940,23 @@ msgstr "Folder"
 msgid "ExternalConnect.Dialog.Folder.Tooltip"
 msgstr "Select folder"
 
+msgid "ExternalConnect.Dialog.Mode"
+msgstr "Provisioning mode"
+
+msgid "ExternalConnect.Dialog.Mode.Full"
+msgstr "Via plugin interface and directly as import"
+
+msgid "ExternalConnect.Dialog.Mode.PluginOnly"
+msgstr "Via plugin interface"
+
 msgid "ExternalConnect.Dialog.RereadFolder.Tooltip"
 msgstr "Reread directory."
 
 msgid "ExternalConnect.Dialog.Title"
 msgstr "Java plugins folder"
+
+msgid "ExternalConnect.Dialog.TreeInfo"
+msgstr "Classes found in the plugin directory that support the plugin interface"
 
 msgid "FastAccessBuilder.Add.Java"
 msgstr "Add to fast access - Java"
@@ -29394,6 +29406,9 @@ msgstr "To"
 
 msgid "Surface.XML.PluginsFolder"
 msgstr "ModelPluginsFolder"
+
+msgid "Surface.XML.PluginsFolder.AllowClassLoading"
+msgstr "AllowClassLoading"
 
 msgid "Surface.XML.RecordIncompleteClients"
 msgstr "ModelRecordIncompleteClients"

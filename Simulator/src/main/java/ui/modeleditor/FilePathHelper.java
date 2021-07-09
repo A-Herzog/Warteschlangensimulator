@@ -46,11 +46,19 @@ public class FilePathHelper {
 	 * @param modelFile	Dateiname der Modelldatei dessen Pfad für Anpassungen verwendet wird
 	 */
 	public static void checkFilePaths(final EditModel model, final File modelFile) {
+		/* Pfade in den Elementen */
 		for (ModelElement element1: model.surface.getElements()) {
 			checkElement(element1,modelFile);
 			if (element1 instanceof ModelElementSub) for (ModelElement element2: ((ModelElementSub)element1).getSubSurface().getElements()) {
 				checkElement(element2,modelFile);
 			}
+		}
+
+		/* Pfade im Modell als solches */
+		if (model.pluginsFolder!=null && !model.pluginsFolder.trim().isEmpty()) {
+			final String oldPluginsFolder=model.pluginsFolder.trim();
+			final String newPluginsFolder=checkInputFolder(oldPluginsFolder,modelFile);
+			if (!newPluginsFolder.equals(oldPluginsFolder)) model.pluginsFolder=newPluginsFolder;
 		}
 	}
 
@@ -135,5 +143,27 @@ public class FilePathHelper {
 
 		final File newFile=new File(newPath,file.getName());
 		return newFile.toString();
+	}
+
+	/**
+	 * Überprüft das Eingabeverzeichnis auf Existenz und ändert ggf. den Pfad gemäß dem Modelldateipfad
+	 * @param folderName	Pfad und Name des Eingabeverzeichnisses das geprüft werden soll
+	 * @param modelFile	Pfad und Name der Modelldatei (als Pfad-Basis)
+	 * @return	Wurden keine Anpassungen vorgenommen, so wird einfach <code>folderName</code> ausgegeben, sonst der angepasste Pfad.
+	 */
+	public static String checkInputFolder(final String folderName, final File modelFile) {
+		if (folderName==null || folderName.isEmpty()) return "";
+		if (modelFile==null) return folderName;
+
+		final File folder=new File(folderName);
+		if (folder.isDirectory()) return folderName;
+
+		final File newPath=modelFile.getParentFile();
+		if (newPath==null) return folderName;
+
+		final File newFolder=new File(newPath,folder.getName());
+		if (newFolder.isDirectory()) return newFolder.toString();
+
+		return folderName;
 	}
 }

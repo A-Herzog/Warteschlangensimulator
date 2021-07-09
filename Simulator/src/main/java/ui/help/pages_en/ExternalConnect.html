@@ -10,14 +10,63 @@
 <h1>Java plugins folder dialog</h1>
 
 <p>
-In Java code used at script stations can call Java code in external
-class files. For calling external methods the command
-<tt>sim.getSystem().runPlugin("className","methodName",data)</tt> is available
-(also see <a href="Java.html">documentation of the Java commands</a>).
-In this dialog the folder where the external class files are located can be defined.
-In the output panel in the middle of the dialog the class files with their
-matching methods from this folder as displayed.
+In Java code used at script stations can call Java code in external class files.
+Two techniques are available for this purpose:
 </p>
+
+<h2>Plugin interface</h2>
+
+<p>
+External classes can implement methods with the following signature:
+</p>
+
+<p><tt>
+public Object methodName(final scripting.java.RuntimeInterface runtime, final scripting.java.SystemInterface system, final Object data)
+</tt></p>
+
+<p>
+These methods can be accessed in the internal Java code via the following method:
+</p>
+
+<p><tt>sim.getSystem().runPlugin("className","methodName",data)</tt></p>
+
+<p>
+If a directory is selected in the dialog, the class files found in each case
+and the matching methods contained therein are automatically listed in the list view.
+Only those classes are listed which contain methods according to the signature described above.
+</p>
+
+
+
+<h2>Import of external classes</h2>
+
+<p>
+External classes located in the specified directory or its subdirectories can be made available directly via
+<tt>import</tt> statements. Note that the classes must not be located in the specified plugin directory itself,
+but in its subdirectories, and that a suitable <tt>package</tt> identifier has to be specified in the classes.
+</p>
+
+<p>
+The import is done automatically by the simulator. No manual <tt>import</tt> configurations have to be made.
+Only the base directory where the external classes are located has to be specified.
+</p>
+
+<p>
+The classes available via <tt>import</tt> may <b>not</b> be shown in the list view in this dialog.
+Only the classes that provide methods for access via the plugin interface are listed.
+</p>
+
+
+
+<h2>General information</h2>
+
+<ul>
+  <li>A general documentation of the available Java commands is available on the help page
+  <a href="Java.html">Documentation of Java commands</a>.</li>
+  <li>If a class file was loaded or used by the simulator for the first time, it can remain
+  locked until the simulator is terminated. This means that in particular it is not ensured
+  that <tt>class</tt> files in the plugins directory can be exchanged at runtime of the simulator.</li>
+</ul>
   
 </body>
 </html>

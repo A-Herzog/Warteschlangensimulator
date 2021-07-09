@@ -77,7 +77,7 @@ public class RunElementOutputJSData extends RunElementData {
 			if (jRunner==null) {
 				javaRunner=DynamicFactory.getFactory().load(script,simData.runModel.javaImports);
 			} else {
-				javaRunner=DynamicFactory.getFactory().load(jRunner);
+				javaRunner=DynamicFactory.getFactory().load(jRunner,simData.runModel.javaImports);
 			}
 			javaRunner.parameter.system=new SystemImpl(simData,station.id);
 			javaRunner.parameter.client=new ClientImpl(simData);

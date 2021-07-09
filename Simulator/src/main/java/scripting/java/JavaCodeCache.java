@@ -22,7 +22,7 @@ import java.util.Map;
  * Diese Klasse hält bereits einmal übersetzten Java-Code vor, so dass derselbe
  * Skriptcode nicht immer wieder erneut übersetzt werden muss.
  * @author Alexander Herzog
- * @see DynamicFactory#load(String, String)
+ * @see DynamicFactory#load(String, String, String)
  * @see DynamicFactory#testIntern(String, String, String)
  */
 public class JavaCodeCache {

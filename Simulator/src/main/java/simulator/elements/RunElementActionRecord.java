@@ -331,7 +331,7 @@ public class RunElementActionRecord {
 				if (javaRunner==null) {
 					javaRunner=DynamicFactory.getFactory().load(script,simData.runModel.javaImports);
 				} else {
-					javaRunner=DynamicFactory.getFactory().load(javaRunner);
+					javaRunner=DynamicFactory.getFactory().load(javaRunner,simData.runModel.javaImports);
 				}
 				javaRunner.parameter.system=new SystemImpl(simData,stationID);
 				break;

@@ -107,27 +107,46 @@ public final class DynamicFactory {
 	 * Prüft ein Skript auf Korrektheit.
 	 * @param script	Zu prüfendes Skript
 	 * @param imports	Zu importierende Klassen (kann leer oder <code>null</code> sein, dann wird {@link SimDynamicSetup#defaultImports} verwendet)
+	 * @param additionalClassPath	Optionaler zusätzlicher über den Classloader bereit zu stellender Classpath (kann <code>null</code> sein)
 	 * @return	Liefert das Skript-Objekt, welches ggf. einen Fehlerstatus besitzt, zurück
 	 */
-	public DynamicRunner test(final String script, final String imports) {
-		final String additionalClassPath=null; // XXX
-
+	public DynamicRunner test(final String script, final String imports, final String additionalClassPath) {
 		return testIntern(script,imports,additionalClassPath);
 	}
 
 	/**
 	 * Prüft ein Skript auf Korrektheit.
 	 * @param script	Zu prüfendes Skript
+	 * @param importSettings	Einstellungen zu Import und Classpath für Skripte
+	 * @return	Liefert das Skript-Objekt, welches ggf. einen Fehlerstatus besitzt, zurück
+	 */
+	public DynamicRunner test(final String script, final ImportSettingsBuilder importSettings) {
+		return test(script,importSettings.getImports(),importSettings.getAdditionalClassPath());
+	}
+
+	/**
+	 * Prüft ein Skript auf Korrektheit.
+	 * @param script	Zu prüfendes Skript
 	 * @param imports	Zu importierende Klassen (kann leer oder <code>null</code> sein, dann wird {@link SimDynamicSetup#defaultImports} verwendet)
+	 * @param additionalClassPath	Optionaler zusätzlicher über den Classloader bereit zu stellender Classpath (kann <code>null</code> sein)
 	 * @param longMessage	Im Falle eines Fehlers die Zeile "Java-Fehler" als erstes mit ausgeben.
 	 * @return	Gibt im Erfolgsfall das Skript-Objekt zurück, sonst eine Fehlermeldung.
 	 */
-	public Object test(final String script, final String imports, final boolean longMessage) {
-		final String additionalClassPath=null; // XXX
-
+	public Object test(final String script, final String imports, final String additionalClassPath, final boolean longMessage) {
 		final DynamicRunner runner=testIntern(script,imports,additionalClassPath);
 		if (runner.isOk()) return runner;
 		return getErrorMessage(runner,longMessage);
+	}
+
+	/**
+	 * Prüft ein Skript auf Korrektheit.
+	 * @param script	Zu prüfendes Skript
+	 * @param importSettings	Einstellungen zu Import und Classpath für Skripte
+	 * @param longMessage	Im Falle eines Fehlers die Zeile "Java-Fehler" als erstes mit ausgeben.
+	 * @return	Gibt im Erfolgsfall das Skript-Objekt zurück, sonst eine Fehlermeldung.
+	 */
+	public Object test(final String script, final ImportSettingsBuilder importSettings, final boolean longMessage) {
+		return test(script,importSettings.getImports(),importSettings.getAdditionalClassPath(),longMessage);
 	}
 
 	/**
@@ -148,11 +167,10 @@ public final class DynamicFactory {
 	 * Prüft das Skript und lädt es im Erfolgsfall.
 	 * @param script	Zu ladendes Skript
 	 * @param imports	Zu importierende Klassen (kann leer oder <code>null</code> sein, dann wird {@link SimDynamicSetup#defaultImports} verwendet)
+	 * @param additionalClassPath	Optionaler zusätzlicher über den Classloader bereit zu stellender Classpath (kann <code>null</code> sein)
 	 * @return	{@link DynamicRunner}-Objekt welches das geladene Skript oder eine Fehlermeldung enthält.
 	 */
-	public DynamicRunner load(final String script, final String imports) {
-		final String additionalClassPath=null; // XXX
-
+	public DynamicRunner load(final String script, final String imports, final String additionalClassPath) {
 		if (!hasCompiler()) return new DynamicRunner(script,script,DynamicStatus.NO_COMPILER,null);
 
 		final DynamicMethod cachedDynamicMethod=JavaCodeCache.getJavaCodeCache().getCachedMethod(script,imports,additionalClassPath);
@@ -166,13 +184,33 @@ public final class DynamicFactory {
 	}
 
 	/**
+	 * Prüft das Skript und lädt es im Erfolgsfall.
+	 * @param script	Zu ladendes Skript
+	 * @param importSettings	Einstellungen zu Import und Classpath für Skripte
+	 * @return	{@link DynamicRunner}-Objekt welches das geladene Skript oder eine Fehlermeldung enthält.
+	 */
+	public DynamicRunner load(final String script, final ImportSettingsBuilder importSettings) {
+		return load(script,importSettings.getImports(),importSettings.getAdditionalClassPath());
+	}
+
+	/**
 	 * Erstellt eine Kopie eines vorhandenen Runners (mit neuem Parameter-Set)
 	 * @param prototypeRunner	Vorhandener Runner, vom dem die Methode übernommen werden soll
+	 * @param additionalClassPath	Optionaler zusätzlicher über den Classloader bereit zu stellender Classpath (kann <code>null</code> sein)
 	 * @return	Kopie des Runners
 	 */
-	public DynamicRunner load(final DynamicRunner prototypeRunner) {
-		final String additionalClassPath=null; // XXX
+	public DynamicRunner load(final DynamicRunner prototypeRunner, final String additionalClassPath) {
 		return new DynamicRunner(prototypeRunner,additionalClassPath);
+	}
+
+	/**
+	 * Erstellt eine Kopie eines vorhandenen Runners (mit neuem Parameter-Set)
+	 * @param prototypeRunner	Vorhandener Runner, vom dem die Methode übernommen werden soll
+	 * @param importSettings	Einstellungen zu Import und Classpath für Skripte
+	 * @return	Kopie des Runners
+	 */
+	public DynamicRunner load(final DynamicRunner prototypeRunner, final ImportSettingsBuilder importSettings) {
+		return load(prototypeRunner,importSettings.getAdditionalClassPath());
 	}
 
 	/**

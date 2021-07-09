@@ -31,6 +31,7 @@ import org.apache.commons.math3.util.FastMath;
 
 import language.Language;
 import mathtools.NumberTools;
+import scripting.java.ImportSettingsBuilder;
 import simulator.StartAnySimulator;
 import simulator.builder.RunModelCreator;
 import simulator.coreelements.RunElement;
@@ -320,9 +321,9 @@ public class RunModel {
 	public String pluginsFolder;
 
 	/**
-	 * Optionale nutzerdefinierte Imports (kann <code>null</code> oder leer sein)
+	 * Einstellungen zu Import und Classpath für Skripte
 	 */
-	public String javaImports;
+	public ImportSettingsBuilder javaImports;
 
 	/**
 	 * Ein <code>RunModel</code> kann nicht direkt erzeugt werden, sondern es kann nur ein <code>EditModel</code>
@@ -518,8 +519,8 @@ public class RunModel {
 		/* Plugins-Verzeichnis */
 		runModel.pluginsFolder=editModel.pluginsFolder;
 
-		/* Optionale nutzerdefinierte Imports (kann <code>null</code> oder leer sein) */
-		runModel.javaImports=editModel.javaImports;
+		/* Optionale nutzerdefinierte Imports */
+		runModel.javaImports=new ImportSettingsBuilder(editModel);
 
 		return null;
 	}

@@ -2591,11 +2591,13 @@ public class MainPanel extends MainPanelBase {
 	 */
 	private void commandModelPluginFolder() {
 		final EditModel model=editorPanel.getModel();
-		final ExternalConnectDialog dialog=new ExternalConnectDialog(this,model.pluginsFolder);
+		final ExternalConnectDialog dialog=new ExternalConnectDialog(this,model.pluginsFolder,model.pluginsFolderAllowClassLoad);
 		if (dialog.getClosedBy()==BaseDialog.CLOSED_BY_OK) {
 			final String newPluginsFolder=dialog.getFolder();
-			if (!newPluginsFolder.equals(model.pluginsFolder)) {
+			final boolean newPluginsFolderAllowClassLoad=dialog.getAllowClassLoad();
+			if (!newPluginsFolder.equals(model.pluginsFolder) || newPluginsFolderAllowClassLoad!=model.pluginsFolderAllowClassLoad) {
 				model.pluginsFolder=newPluginsFolder;
+				model.pluginsFolderAllowClassLoad=newPluginsFolderAllowClassLoad;
 				final File file=editorPanel.getLastFile();
 				editorPanel.setModel(model);
 				editorPanel.setLastFile(file);

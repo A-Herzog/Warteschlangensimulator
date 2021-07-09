@@ -226,7 +226,7 @@ public final class DynamicMethod {
 	 * @see DynamicMethod#getError()
 	 */
 	public DynamicStatus load(final String additionalClassPath) {
-		try (final DynamicClassBase dynamicClass=getDynamicClassClass().getConstructor(DynamicSetup.class).newInstance(setup,additionalClassPath)) {
+		try (final DynamicClassBase dynamicClass=getDynamicClassClass().getConstructor(DynamicSetup.class,String.class).newInstance(setup,additionalClassPath)) {
 			final DynamicStatus result=dynamicClass.prepareAndLoad(classText);
 			error=dynamicClass.getError();
 			if (result==DynamicStatus.OK) {

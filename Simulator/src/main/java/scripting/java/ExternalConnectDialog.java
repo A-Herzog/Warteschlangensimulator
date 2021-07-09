@@ -30,7 +30,9 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 
+import javax.swing.BoxLayout;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -46,9 +48,11 @@ import language.Language;
 import mathtools.distribution.swing.CommonVariables;
 import systemtools.BaseDialog;
 import systemtools.MsgBox;
+import tools.IconListCellRenderer;
 import tools.SetupData;
 import ui.help.Help;
 import ui.images.Images;
+import ui.modeleditor.ModelElementBaseDialog;
 import ui.tools.FlatLaFHelper;
 
 /**
@@ -70,6 +74,11 @@ public class ExternalConnectDialog extends BaseDialog {
 	private final JTextField folder;
 
 	/**
+	 * Ausgewählter Importmodus: Nur über Plugin-Schnittstelle oder alle Klassen für Import bereitstellen?
+	 */
+	private final JComboBox<String> modeSelect;
+
+	/**
 	 * Zuletzt in {@link #updateTree(boolean)} verwendetes Verzeichnis.
 	 */
 	private String lastFolder;
@@ -83,10 +92,12 @@ public class ExternalConnectDialog extends BaseDialog {
 	 * Konstruktor der Klasse
 	 * @param owner	Übergeordnetes Element
 	 * @param initialFolder	Anfänglich im Dialog anzuzeigendes Verzeichnis
+	 * @param initialAllowClassLoad	Sollen die Klassen im Plugings-Verzeichnis auch als normale Imports zur Verfügung gestellt werden?
 	 */
-	public ExternalConnectDialog(final Component owner, final String initialFolder) {
+	public ExternalConnectDialog(final Component owner, final String initialFolder, final boolean initialAllowClassLoad) {
 		super(owner,Language.tr("ExternalConnect.Dialog.Title"));
 
+		/* GUI */
 		addUserButton(Language.tr("ExternalConnect.Dialog.Compile"),Images.PARAMETERSERIES_OUTPUT_MODE_SCRIPT_JAVA.getIcon());
 		getUserButton(0).setToolTipText(Language.tr("ExternalConnect.Dialog.Compile.Tooltip"));
 		final JPanel content=createGUI(()->Help.topicModal(this,"ExternalConnect"));
@@ -94,12 +105,19 @@ public class ExternalConnectDialog extends BaseDialog {
 
 		JPanel line;
 		JPanel sub;
+		JLabel label;
 		JButton button;
 
+		/* Setup-Bereich */
+		final JPanel setup=new JPanel();
+		content.add(setup,BorderLayout.NORTH);
+		setup.setLayout(new BoxLayout(setup,BoxLayout.PAGE_AXIS));
+
 		/* Verzeichnisauswahl */
-		content.add(line=new JPanel(new BorderLayout()),BorderLayout.NORTH);
-		line.add(new JLabel(Language.tr("ExternalConnect.Dialog.Folder")+": "),BorderLayout.WEST);
-		line.add(folder=new JTextField((initialFolder==null)?"":initialFolder),BorderLayout.CENTER);
+
+		final Object[] data=ModelElementBaseDialog.getInputPanel(Language.tr("ExternalConnect.Dialog.Folder")+": ",(initialFolder==null)?"":initialFolder);
+		setup.add(line=(JPanel)data[0]);
+		folder=(JTextField)data[1];
 		folder.addKeyListener(new KeyListener() {
 			@Override public void keyTyped(KeyEvent e) {updateTree(false);}
 			@Override public void keyReleased(KeyEvent e) {updateTree(false);}
@@ -123,6 +141,23 @@ public class ExternalConnectDialog extends BaseDialog {
 		sub.add(button=new JButton(Images.GENERAL_UPDATE.getIcon()),BorderLayout.EAST);
 		button.setToolTipText(Language.tr("ExternalConnect.Dialog.RereadFolder.Tooltip"));
 		button.addActionListener(e->updateTree(true));
+
+		/* Klassen laden? */
+		setup.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
+		line.add(label=new JLabel(Language.tr("ExternalConnect.Dialog.Mode")+": "));
+		line.add(modeSelect=new JComboBox<>(new String[] {
+				Language.tr("ExternalConnect.Dialog.Mode.PluginOnly"),
+				Language.tr("ExternalConnect.Dialog.Mode.Full")
+		}));
+		modeSelect.setRenderer(new IconListCellRenderer(new Images[] {
+				Images.MODEL_PLUGINS,
+				Images.SCRIPT_MODE_JAVA
+		}));
+		if (initialAllowClassLoad) modeSelect.setSelectedIndex(1); else modeSelect.setSelectedIndex(0);
+
+		/* Überschrift über Klassen und Methoden Darstellung */
+		setup.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
+		line.add(new JLabel(Language.tr("ExternalConnect.Dialog.TreeInfo")+": "));
 
 		/* Ansicht der Klassen und Methoden */
 		content.add(new JScrollPane(tree=new JTree()),BorderLayout.CENTER);
@@ -148,7 +183,6 @@ public class ExternalConnectDialog extends BaseDialog {
 			linkColor="blue";
 		}
 
-		JLabel label;
 		line.add(label=new JLabel("<html><body><span style=\"color: "+linkColor+"; text-decoration: underline;\">"+Language.tr("ExternalConnect.Dialog.ExamplesLink")+"</span></body></html>"));
 		label.setToolTipText(Language.tr("ExternalConnect.Dialog.ExamplesLink.Hint"));
 		label.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -163,8 +197,9 @@ public class ExternalConnectDialog extends BaseDialog {
 		updateTree(true);
 
 		/* Dialog starten */
-		setMinSizeRespectingScreensize(500,600);
-		setSizeRespectingScreensize(500,600);
+		setMinSizeRespectingScreensize(600,500);
+		setSizeRespectingScreensize(600,500);
+		setMaxSizeRespectingScreensize(600,500);
 		setResizable(true);
 		setLocationRelativeTo(getOwner());
 		setVisible(true);
@@ -210,6 +245,15 @@ public class ExternalConnectDialog extends BaseDialog {
 	 */
 	public String getFolder() {
 		return folder.getText().trim();
+	}
+
+	/**
+	 * Sollen die Klassen im Plugings-Verzeichnis auch als normale Imports
+	 * zur Verfügung gestellt werden?
+	 * @return	Sollen die Klassen im Plugings-Verzeichnis auch als normale Imports zur Verfügung gestellt werden?
+	 */
+	public boolean getAllowClassLoad() {
+		return modeSelect.getSelectedIndex()==1;
 	}
 
 	/**

@@ -399,6 +399,12 @@ public final class EditModel extends EditModelBase implements Cloneable  {
 	public String pluginsFolder;
 
 	/**
+	 * Sollen die Klassen im Plugings-Verzeichnis auch als normale Imports
+	 * zur Verfügung gestellt werden?
+	 */
+	public boolean pluginsFolderAllowClassLoad;
+
+	/**
 	 * Optionale nutzerdefinierte Imports (kann <code>null</code> oder leer sein)
 	 */
 	public String javaImports;
@@ -446,6 +452,7 @@ public final class EditModel extends EditModelBase implements Cloneable  {
 		recordIncompleteClients=false;
 		modelLoadData=new ModelLoadData();
 		pluginsFolder="";
+		pluginsFolderAllowClassLoad=false;
 		javaImports="";
 		savedViews=new SavedViews();
 		resetData();
@@ -532,6 +539,7 @@ public final class EditModel extends EditModelBase implements Cloneable  {
 		templates=null;
 		modelLoadData.clear();
 		pluginsFolder="";
+		pluginsFolderAllowClassLoad=false;
 		javaImports="";
 		savedViews.clear();
 	}
@@ -594,6 +602,7 @@ public final class EditModel extends EditModelBase implements Cloneable  {
 		if (templates!=null) clone.templates=templates.clone();
 		clone.modelLoadData.copyDataFrom(modelLoadData);
 		clone.pluginsFolder=pluginsFolder;
+		clone.pluginsFolderAllowClassLoad=pluginsFolderAllowClassLoad;
 		clone.javaImports=javaImports;
 		clone.savedViews.copyFrom(savedViews);
 
@@ -672,6 +681,7 @@ public final class EditModel extends EditModelBase implements Cloneable  {
 		if (recordIncompleteClients!=otherModel.recordIncompleteClients) return false;
 		if (!modelLoadData.equalsModelLoadData(otherModel.modelLoadData)) return false;
 		if (!pluginsFolder.equalsIgnoreCase(otherModel.pluginsFolder)) return false;
+		if (pluginsFolderAllowClassLoad!=otherModel.pluginsFolderAllowClassLoad) return false;
 		if (!javaImports.equalsIgnoreCase(otherModel.javaImports)) return false;
 		if (!savedViews.equalsSavedViews(savedViews)) return false;
 
@@ -1032,6 +1042,8 @@ public final class EditModel extends EditModelBase implements Cloneable  {
 
 		if (Language.trAll("Surface.XML.PluginsFolder",name)) {
 			pluginsFolder=text;
+			final String allowClassLoading=Language.trAllAttribute("Surface.XML.PluginsFolder.AllowClassLoading",node);
+			if (!allowClassLoading.trim().isEmpty() && !allowClassLoading.equals("1")) pluginsFolderAllowClassLoad=true;
 			return null;
 		}
 
@@ -1195,6 +1207,7 @@ public final class EditModel extends EditModelBase implements Cloneable  {
 		if (pluginsFolder!=null && !pluginsFolder.trim().isEmpty()) {
 			node.appendChild(sub=doc.createElement(Language.trPrimary("Surface.XML.PluginsFolder")));
 			sub.setTextContent(pluginsFolder);
+			if (pluginsFolderAllowClassLoad) sub.setAttribute(Language.trPrimary("Surface.XML.PluginsFolder.AllowClassLoading"),"1");
 		}
 
 		if (javaImports!=null && !javaImports.trim().isEmpty()) {

@@ -45,7 +45,7 @@
   <xs:element name="ModellUnvollstaendigeKundenAufzeichnung" type="xs:string"/>
   <xs:element ref="Benutzervorlagen"/>
   <xs:element ref="ExterneDaten"/>
-  <xs:element name="ModellPluginsVerzeichnis" type="xs:string"/>
+  <xs:element ref="ModellPluginsVerzeichnis"/>
   <xs:element name="ModellJavaImports" type="xs:string"/>
   <xs:element ref="GespeicherteAnsicht"/>
   <xs:element ref="KiritischeStationenSignatur"/>  
@@ -321,6 +321,12 @@
 	<xs:element ref="ModelleVergleichenEingabe" minOccurs="1" maxOccurs="1"/>  
   </xs:choice></xs:sequence>
 </xs:complexType></xs:element>
+
+<xs:element name="ModellPluginsVerzeichnis"><xs:complexType><xs:simpleContent>
+  <xs:extension base="xs:string">
+    <xs:attribute name="KlassenLadenZulaessig" type="xs:string"  use="required"/>
+  </xs:extension>
+</xs:simpleContent></xs:complexType></xs:element>
 
 <xs:element name="GespeicherteAnsicht"><xs:complexType>
   <xs:attribute name="Name" type="xs:string"  use="required"/>
@@ -2178,7 +2184,7 @@
   <xs:element name="ModelRecordIncompleteClients" type="xs:string"/>
   <xs:element ref="UserTemplates"/>
   <xs:element ref="ExternalData"/>
-  <xs:element name="ModelPluginsFolder" type="xs:string"/>
+  <xs:element ref="ModelPluginsFolder"/>
   <xs:element name="ModelJavaImports" type="xs:string"/>
   <xs:element ref="SavedView"/>
   <xs:element ref="CriticalStationsSignature"/>
@@ -2453,6 +2459,12 @@
 	<xs:element ref="CompareModelsInput" minOccurs="1" maxOccurs="1"/>  
   </xs:choice></xs:sequence>
 </xs:complexType></xs:element>
+
+<xs:element name="ModelPluginsFolder"><xs:complexType><xs:simpleContent>
+  <xs:extension base="xs:string">
+    <xs:attribute name="AllowClassLoading" type="xs:string"  use="required"/>
+  </xs:extension>
+</xs:simpleContent></xs:complexType></xs:element>
 
 <xs:element name="SavedView"><xs:complexType>
   <xs:attribute name="Name" type="xs:string"  use="required"/>

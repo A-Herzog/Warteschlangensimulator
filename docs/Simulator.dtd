@@ -249,6 +249,10 @@
 >
 
 <!ELEMENT ModellPluginsVerzeichnis (#PCDATA)>
+<!ATTLIST ModellPluginsVerzeichnis
+  KlassenLadenZulaessig	CDATA	#IMPLIED
+>
+
 <!ELEMENT ModellJavaImports (#PCDATA)>
 
 <!ELEMENT GespeicherteAnsicht EMPTY>
@@ -2476,6 +2480,10 @@
 >
 
 <!ELEMENT ModelPluginsFolder (#PCDATA)>
+<!ATTLIST ModelPluginsFolder
+  AllowClassLoading	CDATA	#IMPLIED
+>
+
 <!ELEMENT ModelJavaImports (#PCDATA)>
 
 <!ELEMENT SavedView EMPTY>

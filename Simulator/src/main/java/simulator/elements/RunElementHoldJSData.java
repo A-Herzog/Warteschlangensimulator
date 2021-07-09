@@ -106,7 +106,7 @@ public class RunElementHoldJSData extends RunElementData implements RunElementDa
 			if (jRunner==null) {
 				javaRunner=DynamicFactory.getFactory().load(script,simData.runModel.javaImports);
 			} else {
-				javaRunner=DynamicFactory.getFactory().load(jRunner);
+				javaRunner=DynamicFactory.getFactory().load(jRunner,simData.runModel.javaImports);
 			}
 			javaRunner.parameter.clients=new ClientsImpl(simData);
 			javaRunner.parameter.system=new SystemImpl(simData,station.id);
