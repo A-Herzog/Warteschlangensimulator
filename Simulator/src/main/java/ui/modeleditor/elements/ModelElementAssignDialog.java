@@ -28,7 +28,7 @@ import ui.infopanel.InfoPanel;
 import ui.modeleditor.ModelClientData;
 import ui.modeleditor.ModelDataRenameListener;
 import ui.modeleditor.ModelElementBaseDialog;
-import ui.modelproperties.ModelPropertiesDialog;
+import ui.modelproperties.ModelPropertiesDialogPageClients;
 
 /**
  * Dialog, der Einstellungen für ein {@link ModelElementAssign}-Element anbietet
@@ -120,7 +120,7 @@ public class ModelElementAssignDialog extends ModelElementBaseDialog {
 	/**
 	 * Öffnet den Kundentypeigenschaften-Dialog.
 	 * @see #editClientDataButton
-	 * @see ModelPropertiesDialog#editClientData(Component, Runnable, simulator.editmodel.EditModel, String, boolean)
+	 * @see ModelPropertiesDialogPageClients#editClientData(Component, Runnable, simulator.editmodel.EditModel, String, boolean)
 	 */
 	private void editClientData() {
 		final String name=(oldName.isEmpty())?getElementName():oldName;
@@ -129,6 +129,6 @@ public class ModelElementAssignDialog extends ModelElementBaseDialog {
 			return;
 		}
 
-		if (ModelPropertiesDialog.editClientData(this,helpRunnable,element.getModel(),name,readOnly)) setClientIcon(name,editClientDataButton,element.getModel());
+		if (ModelPropertiesDialogPageClients.editClientData(this,helpRunnable,element.getModel(),name,readOnly)) setClientIcon(name,editClientDataButton,element.getModel());
 	}
 }

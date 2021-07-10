@@ -27,7 +27,7 @@ import systemtools.MsgBox;
 import ui.infopanel.InfoPanel;
 import ui.modeleditor.ModelClientData;
 import ui.modeleditor.ModelElementBaseDialog;
-import ui.modelproperties.ModelPropertiesDialog;
+import ui.modelproperties.ModelPropertiesDialogPageClients;
 
 /**
  * Dialog, der Einstellungen für ein {@link ModelElementSource}-Element anbietet
@@ -147,6 +147,6 @@ public final class ModelElementSourceDialog extends ModelElementBaseDialog {
 			return;
 		}
 
-		if (ModelPropertiesDialog.editClientData(this,helpRunnable,element.getModel(),name,readOnly)) setClientIcon(name,editClientDataButton,element.getModel());
+		if (ModelPropertiesDialogPageClients.editClientData(this,helpRunnable,element.getModel(),name,readOnly)) setClientIcon(name,editClientDataButton,element.getModel());
 	}
 }

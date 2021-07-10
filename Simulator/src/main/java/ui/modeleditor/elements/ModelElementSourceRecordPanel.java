@@ -59,7 +59,7 @@ import ui.modeleditor.ModelDataRenameListener;
 import ui.modeleditor.ModelElementBaseDialog;
 import ui.modeleditor.ModelSurface;
 import ui.modeleditor.coreelements.ModelElement;
-import ui.modelproperties.ModelPropertiesDialog;
+import ui.modelproperties.ModelPropertiesDialogPageClients;
 
 /**
  * Hält die GUI-Elemente für die Bearbeitung einer Kundenquelle vor
@@ -1063,6 +1063,6 @@ public final class ModelElementSourceRecordPanel extends JPanel {
 			return;
 		}
 
-		if (ModelPropertiesDialog.editClientData(this,helpRunnable,model,name,readOnly)) ModelElementBaseDialog.setClientIcon(name,nameButton,model);
+		if (ModelPropertiesDialogPageClients.editClientData(this,helpRunnable,model,name,readOnly)) ModelElementBaseDialog.setClientIcon(name,nameButton,model);
 	}
 }
