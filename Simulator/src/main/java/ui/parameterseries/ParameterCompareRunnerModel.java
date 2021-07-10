@@ -203,7 +203,7 @@ public class ParameterCompareRunnerModel {
 	 * @see #processResults(Statistics)
 	 */
 	private Double calcResultValueByScriptJava(final Statistics statistics, final String script) {
-		final DynamicRunner runner=DynamicFactory.getFactory().load(script,null);
+		final DynamicRunner runner=DynamicFactory.getFactory().load(script,null,null);
 		if (runner.getStatus()!=DynamicStatus.OK) {
 			logOutput(DynamicFactory.getLongStatusText(runner));
 			return null;

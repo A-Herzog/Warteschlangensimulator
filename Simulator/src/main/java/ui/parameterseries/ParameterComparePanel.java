@@ -343,7 +343,7 @@ public class ParameterComparePanel extends SpecialPanel {
 		case MODE_SCRIPT_JAVA:
 			script=getScript(output.getTag());
 			if (script==null) return null;
-			final DynamicRunner runner=DynamicFactory.getFactory().load(script,null);
+			final DynamicRunner runner=DynamicFactory.getFactory().load(script,null,null);
 			if (runner.getStatus()!=DynamicStatus.OK) return null;
 
 			final StringBuilder results=new StringBuilder();

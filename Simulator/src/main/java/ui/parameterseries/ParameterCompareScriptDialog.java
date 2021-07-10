@@ -128,7 +128,7 @@ public class ParameterCompareScriptDialog extends BaseDialog {
 			addOutput.accept(filter.getResults());
 			break;
 		case Java:
-			final DynamicRunner runner=DynamicFactory.getFactory().load(script,null);
+			final DynamicRunner runner=DynamicFactory.getFactory().load(script,null,null);
 			if (runner.getStatus()!=DynamicStatus.OK) {
 				new DynamicErrorInfo(this,runner);
 				scriptPanel.showEditorTab();

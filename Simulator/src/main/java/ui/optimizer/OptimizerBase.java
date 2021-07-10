@@ -267,7 +267,7 @@ public abstract class OptimizerBase {
 			if (D==null) logOutput(String.format("  "+Language.tr("Optimizer.Error.DataCouldNotBeInterpretedAsNumber"),filterResults));
 			return D;
 		case Java:
-			final DynamicRunner runner=DynamicFactory.getFactory().load(targetScript,null);
+			final DynamicRunner runner=DynamicFactory.getFactory().load(targetScript,null,null);
 			final StringBuilder results=new StringBuilder();
 			runner.parameter.output=new OutputImpl(line->results.append(line),false);
 			runner.parameter.statistics=new StatisticsImpl(line->results.append(line),doc,null,false);

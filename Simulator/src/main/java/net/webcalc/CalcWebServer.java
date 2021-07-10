@@ -561,7 +561,7 @@ public class CalcWebServer extends WebServer {
 			result=dataFilter.getResults();
 			break;
 		case Java:
-			final DynamicRunner runner=DynamicFactory.getFactory().load(filterCommands,null);
+			final DynamicRunner runner=DynamicFactory.getFactory().load(filterCommands,null,null);
 			if (runner.getStatus()!=DynamicStatus.OK) {
 				error=true;
 				result=DynamicFactory.getLongStatusText(runner);
