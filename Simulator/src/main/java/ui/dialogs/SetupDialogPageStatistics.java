@@ -17,7 +17,6 @@ package ui.dialogs;
 
 import java.io.Serializable;
 
-import javax.swing.Icon;
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -27,7 +26,6 @@ import javax.swing.SpinnerNumberModel;
 
 import language.Language;
 import tools.SetupData;
-import ui.images.Images;
 import ui.modeleditor.ModelElementBaseDialog;
 import ui.quickaccess.JPlaceholderTextField;
 
@@ -171,16 +169,6 @@ public class SetupDialogPageStatistics extends SetupDialogPage {
 
 		/** Anbieten, Statistik-Ergebnisse als pdf zu öffnen? */
 		addLine().add(openPDF=new JCheckBox(Language.tr("SettingsDialog.Tabs.Statistics.OpenPDF")));
-	}
-
-	@Override
-	public String getTitle() {
-		return Language.tr("SettingsDialog.Tabs.Statistics");
-	}
-
-	@Override
-	public Icon getIcon() {
-		return Images.SETUP_PAGE_STATISTICS.getIcon();
 	}
 
 	@Override

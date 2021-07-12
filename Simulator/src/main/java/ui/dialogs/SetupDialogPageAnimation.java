@@ -17,7 +17,6 @@ package ui.dialogs;
 
 import java.io.Serializable;
 
-import javax.swing.Icon;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -91,16 +90,6 @@ public class SetupDialogPageAnimation extends SetupDialogPage {
 
 		/* Animation verlangsamen um die Veränderung analoger Werte besser abzubilden */
 		addLine().add(useSlowModeAnimation=new JCheckBox(Language.tr("SettingsDialog.Tabs.Simulation.UseSlowModeAnimation")));
-	}
-
-	@Override
-	public String getTitle() {
-		return Language.tr("SettingsDialog.Tabs.Animation");
-	}
-
-	@Override
-	public Icon getIcon() {
-		return Images.SETUP_PAGE_ANIMATION.getIcon();
 	}
 
 	@Override

@@ -19,10 +19,12 @@ import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.FlowLayout;
 import java.io.Serializable;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Supplier;
 
+import javax.swing.Icon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
@@ -52,28 +54,37 @@ public final class SetupDialog extends BaseDialog {
 	 */
 	public enum Page {
 		/** Benutzeroberfläche */
-		UI(0,()->Language.tr("SettingsDialog.Tabs.GUI")),
+		UI(SetupDialogPageUI.class,()->Language.tr("SettingsDialog.Tabs.GUI"),Images.SETUP_PAGE_APPLICATION),
 		/** Leistung */
-		PERFORMANCE(1,()->Language.tr("SettingsDialog.Tabs.Performance")),
+		PERFORMANCE(SetupDialogPagePerformance.class,()->Language.tr("SettingsDialog.Tabs.Performance"),Images.SETUP_PAGE_PERFORMANCE),
 		/** Animation */
-		ANIMATION(2,()->Language.tr("SettingsDialog.Tabs.Animation")),
+		ANIMATION(SetupDialogPageAnimation.class,()->Language.tr("SettingsDialog.Tabs.Animation"),Images.SETUP_PAGE_ANIMATION),
 		/** Statistik */
-		STATISTICS(3,()->Language.tr("SettingsDialog.Tabs.Statistics")),
+		STATISTICS(SetupDialogPageStatistics.class,()->Language.tr("SettingsDialog.Tabs.Statistics"),Images.SETUP_PAGE_STATISTICS),
 		/** Dateiformate */
-		FILE_FORMATS(4,()->Language.tr("SettingsDialog.Tabs.Exporting")),
+		FILE_FORMATS(SetupDialogPageFileFormats.class,()->Language.tr("SettingsDialog.Tabs.Exporting"),Images.SETUP_PAGE_FILE_FORMATS),
 		/** Sicherheit */
-		SECURITY(5,()->Language.tr("SettingsDialog.Tabs.Security")),
+		SECURITY(SetupDialogPageSecurity.class,()->Language.tr("SettingsDialog.Tabs.Security"),Images.SETUP_PAGE_SECURITY),
 		/** Updates */
-		UPDATES(6,()->Language.tr("SettingsDialog.Tabs.Updates"));
+		UPDATES(SetupDialogPageUpdates.class,()->Language.tr("SettingsDialog.Tabs.Updates"),Images.SETUP_PAGE_UPDATE);
 
-		/** Zugehöriger Dialogseiten-Index */
-		private final int index;
+		/**
+		 * Klasse der Dialogseite
+		 */
+		private final Class<? extends SetupDialogPage> setupDialogPageClass;
 
-		/** Name der Dialogseite in der aktuellen Sprache */
+		/**
+		 * Name der Dialogseite in der aktuellen Sprache
+		 */
 		private final Supplier<String> nameGetter;
 
 		/**
-		 * Liefert den Namen der Dialogseite
+		 * Icon für den Tab über der Dialogseite
+		 */
+		private final Images image;
+
+		/**
+		 * Liefert den Namen der Dialogseite.
 		 * @return	Name der Dialogseite
 		 */
 		public String getName() {
@@ -81,20 +92,46 @@ public final class SetupDialog extends BaseDialog {
 		}
 
 		/**
-		 * Konstruktor des Enums.
-		 * @param index Zu der Seite gehöriger Dialogseiten-Index
-		 * @param nameGetter	Callback das den Namen der Dialogseite liefert
+		 * Liefert das Icon für den Tab über der Dialogseite.
+		 * @return	Icon für den Tab über der Dialogseite
 		 */
-		Page(final int index, final Supplier<String> nameGetter) {
-			this.index=index;
+		public Icon getIcon() {
+			return image.getIcon();
+		}
+
+		/**
+		 * Liefert eine neue Instanz der Dialogseite.
+		 * @return	Neue Instanz der Dialogseite
+		 */
+		public SetupDialogPage getPageInstance()  {
+			try {
+				return setupDialogPageClass.getDeclaredConstructor().newInstance();
+			} catch (InstantiationException|IllegalAccessException|IllegalArgumentException|InvocationTargetException|NoSuchMethodException|SecurityException e) {
+				return null;
+			}
+		}
+
+		/**
+		 * Konstruktor des Enums
+		 * @param setupDialogPageClass	Klasse der Dialogseite
+		 * @param nameGetter	Callback das den Namen der Dialogseite liefert
+		 * @param image	Icon für den Tab über der Dialogseite
+		 */
+		Page(final Class<? extends SetupDialogPage> setupDialogPageClass, final Supplier<String> nameGetter, final Images image) {
+			this.setupDialogPageClass=setupDialogPageClass;
 			this.nameGetter=nameGetter;
+			this.image=image;
 		}
 	}
 
-	/** Registerreiter für die Seiten */
+	/**
+	 * Registerreiter für die Seiten
+	 */
 	private final JTabbedPane tabs;
 
-	/** Dialogseiten */
+	/**
+	 * Dialogseiten
+	 */
 	private final List<SetupDialogPage> pages;
 
 	/**
@@ -115,21 +152,15 @@ public final class SetupDialog extends BaseDialog {
 		/* Dialogseiten anlegen */
 
 		pages=new ArrayList<>();
-		pages.add(new SetupDialogPageUI());
-		pages.add(new SetupDialogPagePerformance());
-		pages.add(new SetupDialogPageAnimation());
-		pages.add(new SetupDialogPageStatistics());
-		pages.add(new SetupDialogPageFileFormats());
-		pages.add(new SetupDialogPageSecurity());
-		pages.add(new SetupDialogPageUpdates());
+		for (Page page: Page.values()) {
+			final SetupDialogPage tab=page.getPageInstance();
+			pages.add(tab);
 
-		for (int i=0;i<pages.size();i++) {
-			final SetupDialogPage page=pages.get(i);
 			final JPanel tabOuter=new JPanel(new FlowLayout(FlowLayout.LEFT));
-			tabs.addTab(page.getTitle(),tabOuter);
-			tabOuter.add(page);
-			tabs.setIconAt(i,page.getIcon());
-			page.loadData();
+			tabs.addTab(page.getName(),tabOuter);
+			tabOuter.add(tab);
+			tabs.setIconAt(pages.size()-1,page.getIcon());
+			tab.loadData();
 		}
 
 		/* Daten in den Dialog laden */
@@ -138,7 +169,10 @@ public final class SetupDialog extends BaseDialog {
 
 		/* Dialog anzeigen */
 
-		if (showPage!=null) tabs.setSelectedIndex(showPage.index);
+		if (showPage!=null) for (int i=0;i<Page.values().length;i++) if (Page.values()[i]==showPage) {
+			tabs.setSelectedIndex(i);
+			break;
+		}
 		setMinSizeRespectingScreensize(750,0);
 		pack();
 		setLocationRelativeTo(this.owner);

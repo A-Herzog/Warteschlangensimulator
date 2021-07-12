@@ -21,7 +21,6 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.IntStream;
 
-import javax.swing.Icon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
@@ -301,16 +300,6 @@ public class SetupDialogPageUI extends SetupDialogPage {
 	 */
 	private void showMQTTSettings() {
 		new SetupDialogMQTTSettings(this);
-	}
-
-	@Override
-	public String getTitle() {
-		return Language.tr("SettingsDialog.Tabs.GUI");
-	}
-
-	@Override
-	public Icon getIcon() {
-		return Images.SETUP_PAGE_APPLICATION.getIcon();
 	}
 
 	@Override

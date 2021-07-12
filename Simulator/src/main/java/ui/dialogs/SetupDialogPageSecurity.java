@@ -18,7 +18,6 @@ package ui.dialogs;
 import java.io.Serializable;
 
 import javax.swing.Box;
-import javax.swing.Icon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
@@ -141,16 +140,6 @@ public class SetupDialogPageSecurity extends SetupDialogPage {
 				Images.GENERAL_LOCK_CLOSED
 		}));
 		label.setLabelFor(allowToOpenLinks);
-	}
-
-	@Override
-	public String getTitle() {
-		return Language.tr("SettingsDialog.Tabs.Security");
-	}
-
-	@Override
-	public Icon getIcon() {
-		return Images.SETUP_PAGE_SECURITY.getIcon();
 	}
 
 	@Override

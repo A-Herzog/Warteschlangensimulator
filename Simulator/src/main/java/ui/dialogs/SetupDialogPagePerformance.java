@@ -20,7 +20,6 @@ import java.awt.event.KeyListener;
 import java.io.Serializable;
 
 import javax.swing.Box;
-import javax.swing.Icon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
@@ -254,16 +253,6 @@ public class SetupDialogPagePerformance extends SetupDialogPage {
 			if (folder!=null) javaJDKpath.setText(folder);
 		});
 		 */
-	}
-
-	@Override
-	public String getTitle() {
-		return Language.tr("SettingsDialog.Tabs.Performance");
-	}
-
-	@Override
-	public Icon getIcon() {
-		return Images.SETUP_PAGE_PERFORMANCE.getIcon();
 	}
 
 	@Override

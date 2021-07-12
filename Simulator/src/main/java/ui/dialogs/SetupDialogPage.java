@@ -20,7 +20,6 @@ import java.io.Serializable;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
-import javax.swing.Icon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
@@ -70,18 +69,6 @@ public abstract class SetupDialogPage extends JPanel {
 		if (getComponentCount()>0) add(Box.createVerticalStrut(15));
 		addLine().add(new JLabel("<html><body><b>"+title+"</b></body></html>"));
 	}
-
-	/**
-	 * Liefert den Namen für den Tab für diese Seite.
-	 * @return	Namen für den Tab für diese Seite.
-	 */
-	public abstract String getTitle();
-
-	/**
-	 * Liefert das Icon für den Tab für diese Seite.
-	 * @return	Icon für den Tab für diese Seite.
-	 */
-	public abstract Icon getIcon();
 
 	/**
 	 * Lädt die Daten aus dem Setup-Objekt in die Dialogseite.

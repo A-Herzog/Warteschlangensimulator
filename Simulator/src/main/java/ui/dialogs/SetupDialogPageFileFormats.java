@@ -22,7 +22,6 @@ import java.io.File;
 import java.io.Serializable;
 
 import javax.swing.ButtonGroup;
-import javax.swing.Icon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
@@ -321,16 +320,6 @@ public class SetupDialogPageFileFormats extends SetupDialogPage {
 		CommonVariables.initialDirectoryFromJFileChooser(fc);
 		final File file=fc.getSelectedFile();
 		return file.toString();
-	}
-
-	@Override
-	public String getTitle() {
-		return Language.tr("SettingsDialog.Tabs.Exporting");
-	}
-
-	@Override
-	public Icon getIcon() {
-		return Images.SETUP_PAGE_FILE_FORMATS.getIcon();
 	}
 
 	@Override

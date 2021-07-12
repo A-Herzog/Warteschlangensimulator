@@ -22,7 +22,6 @@ import java.io.Serializable;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import javax.swing.Icon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
@@ -213,16 +212,6 @@ public class SetupDialogPageUpdates extends SetupDialogPage {
 			},1000,1000);
 		});
 		menu.show(manualUpdateButton,0,manualUpdateButton.getHeight());
-	}
-
-	@Override
-	public String getTitle() {
-		return Language.tr("SettingsDialog.Tabs.Updates");
-	}
-
-	@Override
-	public Icon getIcon() {
-		return Images.SETUP_PAGE_UPDATE.getIcon();
 	}
 
 	@Override
