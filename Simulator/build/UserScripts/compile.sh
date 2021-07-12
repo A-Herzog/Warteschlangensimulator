@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Compiles the example plugin classes
+# Compiles the example plugin classes.
 
 # You do not need to use this script. You can also
 # compile the java files by clicking "Compile" in the
