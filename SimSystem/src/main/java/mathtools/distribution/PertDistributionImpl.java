@@ -101,7 +101,7 @@ public final class PertDistributionImpl extends AbstractRealDistribution impleme
 	@Override
 	public double density(double x) {
 		if (x<=lowerBound || x>=upperBound) return 0;
-		return factorPDF*FastMath.pow(x-lowerBound,alpha-1)*FastMath.pow(upperBound-x,beta-1);
+		return factorPDF*Math.pow(x-lowerBound,alpha-1)*Math.pow(upperBound-x,beta-1); /* FastMath.pow(...) würde hier new double[2] durchführen! */
 	}
 
 	@Override

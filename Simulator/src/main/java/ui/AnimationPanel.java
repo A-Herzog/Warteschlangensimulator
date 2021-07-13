@@ -1014,7 +1014,7 @@ public class AnimationPanel extends JPanel implements RunModelAnimationViewer {
 					delayMS=Math.round(seconds*1000);
 				}
 			} else {
-				if (timeStepDelay>10) timeStepDelay=(int)FastMath.pow(timeStepDelay,1.2);
+				if (timeStepDelay>10) timeStepDelay=(int)Math.pow(timeStepDelay,1.2); /* FastMath.pow(...) würde hier new double[2] durchführen! */
 				delayMS=FastMath.round(d*timeStepDelay*seconds);
 				steps=(int)FastMath.round(delayMS/50.0);
 				if (steps<1) steps=1;

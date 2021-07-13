@@ -19,7 +19,6 @@ import java.io.Serializable;
 
 import org.apache.commons.math3.distribution.AbstractRealDistribution;
 import org.apache.commons.math3.random.RandomGenerator;
-import org.apache.commons.math3.util.FastMath;
 
 /**
  * Klasse zur Abbildung der Log-Logistische-Verteilung
@@ -75,13 +74,13 @@ public final class LogLogisticDistributionImpl extends AbstractRealDistribution 
 	public double density(double x) {
 		if (x<0) return 0.0;
 		final double xalpha=x/alpha;
-		final double denominator=1+FastMath.pow(xalpha,beta);
-		return (beta/alpha)*FastMath.pow(xalpha,beta-1)/denominator/denominator;
+		final double denominator=1+Math.pow(xalpha,beta); /* FastMath.pow(...) würde hier new double[2] durchführen! */
+		return (beta/alpha)*Math.pow(xalpha,beta-1)/denominator/denominator; /* FastMath.pow(...) würde hier new double[2] durchführen! */
 	}
 
 	@Override
 	public double cumulativeProbability(double x) {
-		return 1/(1+FastMath.pow(x/alpha,-beta));
+		return 1/(1+Math.pow(x/alpha,-beta)); /* FastMath.pow(...) würde hier new double[2] durchführen! */
 	}
 
 	@Override
@@ -117,7 +116,7 @@ public final class LogLogisticDistributionImpl extends AbstractRealDistribution 
 	public double random(final RandomGenerator generator) {
 		/* F^{-1}(p)=alpha*(p/(1-p))^(1/beta) */
 		final double p=generator.nextDouble();
-		return alpha*FastMath.pow(p/(1-p),inverseBeta);
+		return alpha*Math.pow(p/(1-p),inverseBeta); /* FastMath.pow(...) würde hier new double[2] durchführen! */
 	}
 
 	@Override

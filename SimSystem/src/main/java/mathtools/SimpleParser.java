@@ -506,7 +506,7 @@ public class SimpleParser extends CalcSystemBase {
 			case '*': return l2*r2;
 			case '/':
 			case ':': if (r2==0) throw error(); else return (l2/r2);
-			case '^': if (r2<0) throw error(); else return FastMath.pow(l2,r2);
+			case '^': if (r2<0) throw error(); else return Math.pow(l2,r2); /* FastMath.pow(...) würde hier new double[2] durchführen! */
 			case '%': return l2*toPercent;
 			case '²': return l2*l2;
 			case '³': return l2*l2*l2;

@@ -96,14 +96,14 @@ public final class FrechetDistributionImpl extends AbstractRealDistribution impl
 	public double density(double x) {
 		if (x<=delta) return 0;
 		final double z=(x-delta)/beta;
-		return alpha*FastMath.exp(-FastMath.pow(z,-alpha))/(beta*FastMath.pow(z,alpha+1));
+		return alpha*FastMath.exp(-Math.pow(z,-alpha))/(beta*Math.pow(z,alpha+1)); /* FastMath.pow(...) würde hier new double[2] durchführen! */
 	}
 
 	@Override
 	public double cumulativeProbability(double x) {
 		if (x<=delta) return 0;
 		final double z=(x-delta)/beta;
-		return FastMath.exp(-1/FastMath.pow(z,alpha));
+		return FastMath.exp(-1/Math.pow(z,alpha));
 	}
 
 	@Override
@@ -151,6 +151,6 @@ public final class FrechetDistributionImpl extends AbstractRealDistribution impl
 	@Override
 	public double random(RandomGenerator generator) {
 		final double p=generator.nextDouble();
-		return FastMath.pow(-Math.log(p),-1*inverseAlpha)*beta+delta;
+		return Math.pow(-Math.log(p),-1*inverseAlpha)*beta+delta; /* FastMath.pow(...) würde hier new double[2] durchführen! */
 	}
 }

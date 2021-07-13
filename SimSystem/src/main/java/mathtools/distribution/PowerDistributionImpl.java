@@ -91,14 +91,14 @@ public final class PowerDistributionImpl extends AbstractRealDistribution implem
 	@Override
 	public double density(double x) {
 		if (x<a || x>b) return 0;
-		return c*FastMath.pow(x-a,c-1)/denominator;
+		return c*Math.pow(x-a,c-1)/denominator; /* FastMath.pow(...) würde hier new double[2] durchführen! */
 	}
 
 	@Override
 	public double cumulativeProbability(double x) {
 		if (x<=a) return 0;
 		if (x>=b) return 1;
-		return FastMath.pow(x-a,c)/denominator;
+		return Math.pow(x-a,c)/denominator; /* FastMath.pow(...) würde hier new double[2] durchführen! */
 	}
 
 	@Override
@@ -106,7 +106,7 @@ public final class PowerDistributionImpl extends AbstractRealDistribution implem
 		if (p<0) return -Double.MAX_VALUE;
 		if (p>1) return Double.MAX_VALUE;
 
-		return FastMath.pow(p*denominator,inverseC)+a;
+		return Math.pow(p*denominator,inverseC)+a; /* FastMath.pow(...) würde hier new double[2] durchführen! */
 	}
 
 	@Override

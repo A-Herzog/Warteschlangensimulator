@@ -104,7 +104,7 @@ public final class DistributionRandomNumber {
 				if (p <= 1) {
 					/* Step 2: */
 
-					final double x = FastMath.pow(p, 1 / shape);
+					final double x = Math.pow(p, 1 / shape); /* FastMath.pow(...) würde hier new double[2] durchführen! */
 					final double u2 = generator.nextDouble();
 
 					if (u2 > FastMath.exp(-x)) {
@@ -119,7 +119,7 @@ public final class DistributionRandomNumber {
 					final double x = -1 * Math.log((bGS - p) / shape);
 					final double u2 = generator.nextDouble();
 
-					if (u2 > FastMath.pow(x, shape - 1)) {
+					if (u2 > Math.pow(x, shape - 1)) { /* FastMath.pow(...) würde hier new double[2] durchführen! */
 						/* Reject */
 						continue;
 					} else {

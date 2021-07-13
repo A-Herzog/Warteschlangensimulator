@@ -15,8 +15,6 @@
  */
 package parser.symbols;
 
-import org.apache.commons.math3.util.FastMath;
-
 import parser.MathCalcError;
 import parser.coresymbols.CalcSymbolMiddleOperator;
 
@@ -29,13 +27,13 @@ public final class CalcSymbolMiddleOperatorPower extends CalcSymbolMiddleOperato
 	@Override
 	protected double calc(double left, double right) throws MathCalcError {
 		if (right<0) throw error();
-		return FastMath.pow(left,right);
+		return Math.pow(left,right); /* FastMath.pow(...) würde hier new double[2] durchführen! */
 	}
 
 	@Override
 	protected double calcOrDefault(double left, double right, double fallbackValue) {
 		if (right<0) return fallbackValue;
-		return FastMath.pow(left,right);
+		return Math.pow(left,right); /* FastMath.pow(...) würde hier new double[2] durchführen! */
 	}
 
 	/**
