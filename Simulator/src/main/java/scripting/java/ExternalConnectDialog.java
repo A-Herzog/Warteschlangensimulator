@@ -27,6 +27,8 @@ import java.awt.event.MouseEvent;
 import java.io.File;
 import java.io.IOException;
 import java.io.Serializable;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
 import java.util.List;
 import java.util.Map;
 
@@ -114,7 +116,6 @@ public class ExternalConnectDialog extends BaseDialog {
 		setup.setLayout(new BoxLayout(setup,BoxLayout.PAGE_AXIS));
 
 		/* Verzeichnisauswahl */
-
 		final Object[] data=ModelElementBaseDialog.getInputPanel(Language.tr("ExternalConnect.Dialog.Folder")+": ",(initialFolder==null)?"":initialFolder);
 		setup.add(line=(JPanel)data[0]);
 		folder=(JTextField)data[1];
@@ -123,6 +124,8 @@ public class ExternalConnectDialog extends BaseDialog {
 			@Override public void keyReleased(KeyEvent e) {updateTree(false);}
 			@Override public void keyPressed(KeyEvent e) {updateTree(false);}
 		});
+
+		/* Button rechts neben Verzeichnisauswahl */
 		line.add(sub=new JPanel(new FlowLayout(FlowLayout.LEFT)),BorderLayout.EAST);
 		sub.add(button=new JButton(Images.GENERAL_SELECT_FOLDER.getIcon()));
 		button.setToolTipText(Language.tr("ExternalConnect.Dialog.Folder.Tooltip"));
@@ -176,6 +179,12 @@ public class ExternalConnectDialog extends BaseDialog {
 		/* Infobereich */
 		content.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)),BorderLayout.SOUTH);
 
+		/* Button: Beispiele in Verzeichnis kopieren */
+		line.add(button=new JButton(Language.tr("ExternalConnect.Dialog.CopyExampleFiles"),Images.EDIT_COPY.getIcon()));
+		button.setToolTipText(Language.tr("ExternalConnect.Dialog.CopyExampleFiles.Hint"));
+		button.addActionListener(e->commandCopyExampleFiles());
+
+		/* Link: Beispielverzeichnis öffnen */
 		final String linkColor;
 		if (FlatLaFHelper.isDark()) {
 			linkColor="#589DF6";
@@ -364,5 +373,74 @@ public class ExternalConnectDialog extends BaseDialog {
 			compileErrorCount++;
 			result.append(compileResult);
 		}
+	}
+
+	/**
+	 * Kopiert die Beispieldateien in ein vom Nutzer ausgewähltes Verzeichnis.
+	 */
+	private void commandCopyExampleFiles() {
+		/* Quellverzeichnis */
+		final File folder1=new File(SetupData.getProgramFolder(),"userscripts");
+		final File folder2=new File(new File(SetupData.getProgramFolder(),"build"),"UserScripts");
+		File sourceFolder=null;
+		if (folder1.isDirectory()) sourceFolder=folder1;
+		if (sourceFolder==null && folder2.isDirectory()) sourceFolder=folder2;
+		if (sourceFolder==null) {
+			MsgBox.error(this,Language.tr("ExternalConnect.Dialog.ExamplesLink.ErrorTitle"),String.format(Language.tr("ExternalConnect.Dialog.ExamplesLink.ErrorInfo"),folder1.toString()));
+			return;
+		}
+
+		/* Zielverzeichnis auswählen */
+		final JFileChooser fc=new JFileChooser();
+		CommonVariables.initialDirectoryToJFileChooser(fc);
+		fc.setDialogTitle(Language.tr("ExternalConnect.Dialog.CopyExampleFiles.SelectDestinationDialogTitle"));
+		fc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+		if (fc.showOpenDialog(owner)!=JFileChooser.APPROVE_OPTION) return;
+		CommonVariables.initialDirectoryFromJFileChooser(fc);
+		final File destinationFolder=fc.getSelectedFile();
+		if (!destinationFolder.isDirectory()) {
+			MsgBox.error(this,Language.tr("ExternalConnect.Dialog.CopyExampleFiles.NoDestinationError.Title"),String.format(Language.tr("ExternalConnect.Dialog.CopyExampleFiles.NoDestinationError.Info"),destinationFolder.toString()));
+			return;
+		}
+
+		if (copyFiles(sourceFolder,destinationFolder)) {
+			MsgBox.info(this,Language.tr("ExternalConnect.Dialog.CopyExampleFiles.Success.Title"),String.format(Language.tr("ExternalConnect.Dialog.CopyExampleFiles.Success.Info"),destinationFolder.toString()));
+		} else {
+			MsgBox.info(this,Language.tr("ExternalConnect.Dialog.CopyExampleFiles.CopyError.Title"),String.format(Language.tr("ExternalConnect.Dialog.CopyExampleFiles.CopyError.Info"),destinationFolder.toString()));
+		}
+	}
+
+	/**
+	 * Kopiert alle Dateien (inkl. Unterverzeichnissen) aus einem Quell- in ein Zielverzeichnis
+	 * @param sourceFolder	Quellverzeichnis (muss existieren und Parameter darf nicht <code>null</code> sein)
+	 * @param destinationFolder	Zielverzeichnis (muss bereits existieren und Parameter darf nicht <code>null</code> sein)
+	 * @return	Liefert im Erfolgsfall <code>true</code>
+	 */
+	private boolean copyFiles(final File sourceFolder, final File destinationFolder) {
+		final String[] fileNames=sourceFolder.list();
+		if (fileNames==null) return false;
+
+		for (String fileName: fileNames) {
+			final File sourceFile=new File(sourceFolder,fileName);
+			final File destinationFile=new File(destinationFolder,fileName);
+			if (sourceFile.isFile()) {
+				try {
+					Files.copy(sourceFile.toPath(),destinationFile.toPath(),StandardCopyOption.REPLACE_EXISTING,StandardCopyOption.COPY_ATTRIBUTES);
+				} catch (IOException e) {
+					return false;
+				}
+				continue;
+			}
+			if (sourceFile.isDirectory()) {
+				if (destinationFile.isDirectory() || destinationFile.mkdir()) {
+					if (!copyFiles(sourceFile,destinationFile)) return false;
+				} else {
+					return false;
+				}
+				continue;
+			}
+		}
+
+		return true;
 	}
 }

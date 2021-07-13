@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-09 16:58+0200\n"
+"POT-Creation-Date: 2021-07-13 15:34+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -6918,6 +6918,41 @@ msgstr "%d file compiled successfully."
 
 msgid "ExternalConnect.Dialog.Compile.Tooltip"
 msgstr "Compiles all Java files in the selected folder."
+
+msgid "ExternalConnect.Dialog.CopyExampleFiles"
+msgstr "Copy example files"
+
+msgid "ExternalConnect.Dialog.CopyExampleFiles.CopyError.Info"
+msgstr ""
+"Coping the files to\n"
+"%s\n"
+"failed."
+
+msgid "ExternalConnect.Dialog.CopyExampleFiles.CopyError.Title"
+msgstr "Copy failed"
+
+msgid "ExternalConnect.Dialog.CopyExampleFiles.Hint"
+msgstr "Copies the Java example files to a selected folder"
+
+msgid "ExternalConnect.Dialog.CopyExampleFiles.NoDestinationError.Info"
+msgstr ""
+"The selected destination folder\n"
+"%s\n"
+"is no directory."
+
+msgid "ExternalConnect.Dialog.CopyExampleFiles.NoDestinationError.Title"
+msgstr "No destination folder"
+
+msgid "ExternalConnect.Dialog.CopyExampleFiles.SelectDestinationDialogTitle"
+msgstr "Select destination folder"
+
+msgid "ExternalConnect.Dialog.CopyExampleFiles.Success.Info"
+msgstr ""
+"The example files were successfully copied to the directory\n"
+"%s"
+
+msgid "ExternalConnect.Dialog.CopyExampleFiles.Success.Title"
+msgstr "Copy completed"
 
 msgid "ExternalConnect.Dialog.ExamplesLink"
 msgstr "Open example folder"
