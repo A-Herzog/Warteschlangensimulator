@@ -15432,6 +15432,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[34837] = "<p>Erzeugt eine Zufallszahl gem\u00e4\u00df der Erlang-Verteilung mit den Parametern n; und &lambda; gem\u00e4\u00df dem ersten und zweiten Parameter.</p>\n<p>Beispiel: <tt>ErlangDist(5;3)</tt>.</p>";
     t[34838] = "Simulation.Log.LogicEndWhile.EndLoop";
     t[34839] = "Kunde: %s, Ende der Schleife";
+    t[34846] = "Surface.ScriptEditor.PopupInfo";
+    t[34847] = "Diese Funktionen stehen auch \u00fcber die<br>Codevervollst\u00e4ndigung (Strg+Leertaste)<br>zur Verf\u00fcgung.";
     t[34848] = "Schedule.InUseByResource.Multiple";
     t[34849] = "<b>Achtung:</b><br>\nDer gew\u00e4hlte Zeitplan wird durch die folgenden Bedienergruppen verwendet:";
     t[34852] = "AnalyticModelCompare.Dialog.Save.Title";
@@ -16050,14 +16052,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[36273] = "Variationskoeffizient";
     t[36274] = "Surface.Costs.Dialog.CostsError.Title";
     t[36275] = "Kosten fehlerhaft";
-    t[36276] = "Simulation.Creator.NoSource";
-    t[36277] = "Das Modell besitzt keine Quelle.";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_8 (java.lang.String[] t) {
+    t[36276] = "Simulation.Creator.NoSource";
+    t[36277] = "Das Modell besitzt keine Quelle.";
     t[36278] = "LoadCalculator.Units.Time";
     t[36279] = "Zeitdauer";
     t[36280] = "Surface.InputDB.XML.EofMode";
@@ -18056,14 +18058,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[40883] = "Kunde: %s, Station: %s, %s:=%s";
     t[40886] = "Surface.AnimationImage.Dialog.Images.Delete.Confirm.Title";
     t[40887] = "Bild l\u00f6schen";
-    t[40892] = "Statistic.FastAccess.FilterList.Delete.Hint";
-    t[40893] = "L\u00f6scht den gew\u00e4hlten Listeneintrag.";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_9 (java.lang.String[] t) {
+    t[40892] = "Statistic.FastAccess.FilterList.Delete.Hint";
+    t[40893] = "L\u00f6scht den gew\u00e4hlten Listeneintrag.";
     t[40894] = "Statistics.ModelRemarks.LargeFlowFactorRelative.ClientType";
     t[40895] = "Hoher Flussgrad f\u00fcr Kunden vom Typ \"%s\" (relativ zu den anderen Kundentypen): %s";
     t[40906] = "Surface.CounterBatch.XML.Root";
@@ -20062,14 +20064,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[45533] = "Word-Texte";
     t[45536] = "Surface.InputJS.XML.EofMode";
     t[45537] = "Dateiende";
-    t[45538] = "Simulation.Creator.CancelationEdge";
-    t[45539] = "F\u00fcr Element id=%d wurde eine Ausgangskante f\u00fcr Warteabbrecher eingetragen. Es k\u00f6nnen jedoch keine Warteabbrecher auftreten.";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_10 (java.lang.String[] t) {
+    t[45538] = "Simulation.Creator.CancelationEdge";
+    t[45539] = "F\u00fcr Element id=%d wurde eine Ausgangskante f\u00fcr Warteabbrecher eingetragen. Es k\u00f6nnen jedoch keine Warteabbrecher auftreten.";
     t[45546] = "FindAndReplace.ReplaceInfo.Singular";
     t[45547] = "Davon kann %d Treffer direkt per \"Ersetzen\" ge\u00e4ndert werden.";
     t[45548] = "Statistics.ClientMovement.Sankey";

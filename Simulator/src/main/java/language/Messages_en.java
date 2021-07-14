@@ -15432,6 +15432,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[34837] = "<p>Generates a random number according to the Erlang distribution with the parameters n and &lambda; according to the first and second parameters.</p>\n<p>Example: <tt>ErlangDist(5;3)</tt>.</p>";
     t[34838] = "Simulation.Log.LogicEndWhile.EndLoop";
     t[34839] = "Client: %s, end of the loop";
+    t[34846] = "Surface.ScriptEditor.PopupInfo";
+    t[34847] = "The commands in this popup are also<br>available via code completation<br>(Ctrl+Space).";
     t[34848] = "Schedule.InUseByResource.Multiple";
     t[34849] = "<b>Attention:</b><br>\nThe schedule is in use by the following operator groups:";
     t[34852] = "AnalyticModelCompare.Dialog.Save.Title";
@@ -16050,14 +16052,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[36273] = "Coefficient of variation";
     t[36274] = "Surface.Costs.Dialog.CostsError.Title";
     t[36275] = "Invalid costs";
-    t[36276] = "Simulation.Creator.NoSource";
-    t[36277] = "The model does not have a source.";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_8 (java.lang.String[] t) {
+    t[36276] = "Simulation.Creator.NoSource";
+    t[36277] = "The model does not have a source.";
     t[36278] = "LoadCalculator.Units.Time";
     t[36279] = "Time";
     t[36280] = "Surface.InputDB.XML.EofMode";
@@ -18056,14 +18058,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[40883] = "Client: %s, station: %s, %s:=%s";
     t[40886] = "Surface.AnimationImage.Dialog.Images.Delete.Confirm.Title";
     t[40887] = "Delete image";
-    t[40892] = "Statistic.FastAccess.FilterList.Delete.Hint";
-    t[40893] = "Deletes the current list record.";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_9 (java.lang.String[] t) {
+    t[40892] = "Statistic.FastAccess.FilterList.Delete.Hint";
+    t[40893] = "Deletes the current list record.";
     t[40894] = "Statistics.ModelRemarks.LargeFlowFactorRelative.ClientType";
     t[40895] = "High flow factor for clients of type \"%s\" (relative to other client types): %s";
     t[40906] = "Surface.CounterBatch.XML.Root";
@@ -20062,14 +20064,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[45533] = "Word texts";
     t[45536] = "Surface.InputJS.XML.EofMode";
     t[45537] = "EndOfFile";
-    t[45538] = "Simulation.Creator.CancelationEdge";
-    t[45539] = "For element id=%d an output edge for waiting cancelation is conencted. But clients cannot cancel waiting at this station.";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_10 (java.lang.String[] t) {
+    t[45538] = "Simulation.Creator.CancelationEdge";
+    t[45539] = "For element id=%d an output edge for waiting cancelation is conencted. But clients cannot cancel waiting at this station.";
     t[45546] = "FindAndReplace.ReplaceInfo.Singular";
     t[45547] = "%d hit can be changed directly via \"Replace\".";
     t[45548] = "Statistics.ClientMovement.Sankey";

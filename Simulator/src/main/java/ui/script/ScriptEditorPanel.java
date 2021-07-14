@@ -654,6 +654,7 @@ public class ScriptEditorPanel extends JPanel {
 		}
 
 		final ScriptPopup popup=new ScriptPopup(buttonTools,model,statistics,mode,helpRunnalbe);
+		popup.addInfoText(Language.tr("Surface.ScriptEditor.PopupInfo"));
 		popup.addFeatures(scriptFeatures);
 		popup.build();
 		switch (languageCombo.getSelectedIndex()) {

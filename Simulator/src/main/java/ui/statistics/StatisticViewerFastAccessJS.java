@@ -228,6 +228,7 @@ public class StatisticViewerFastAccessJS extends StatisticViewerFastAccessBase {
 	protected void commandTools(final JButton sender) {
 		/* alt: new ListPopup(sender,helpFastAccessModal).popupFull(statistics,filter,()->process(),false); */
 		final ScriptPopup popup=new ScriptPopup(sender,statistics.editModel,statistics,ScriptPopup.ScriptMode.Javascript,helpFastAccessModal);
+		popup.addInfoText(Language.tr("Surface.ScriptEditor.PopupInfo"));
 		popup.addFeatures(ScriptEditorPanel.featuresFilter);
 		popup.build();
 		popup.show(filter,()->process(false));

@@ -16,6 +16,7 @@
 package ui.script;
 
 import java.awt.Component;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
@@ -161,6 +162,12 @@ public class ScriptPopup {
 	private final Set<ScriptFeature> features;
 
 	/**
+	 * Im Popupmenü ganz oben anzuzeigende Infotexte
+	 * @see #addInfoText(String)
+	 */
+	private List<String> infoText;
+
+	/**
 	 * Wurzelelement für das Popupmenü
 	 */
 	private final ScriptPopupItemSub root;
@@ -217,7 +224,7 @@ public class ScriptPopup {
 	}
 
 	/**
-	 * Fügt eine oder mehrere Eigenschaften zu dem Popupmenü hinzu
+	 * Fügt eine oder mehrere Eigenschaften zu dem Popupmenü hinzu.
 	 * @param features	Hinzuzufügende Eigenschaften
 	 * @see ScriptPopup.ScriptFeature
 	 */
@@ -226,10 +233,20 @@ public class ScriptPopup {
 	}
 
 	/**
+	 * Fügt einen im Popupmenü ganz oben anzuzeigenden Infotext hinzu.
+	 * @param text	Im Popupmenü ganz oben anzuzeigender Infotext
+	 */
+	public void addInfoText(final String text) {
+		if (infoText==null) infoText=new ArrayList<>();
+		infoText.add(text);
+	}
+
+	/**
 	 * Stellt das Popupmenü zusammen.<br>
 	 * Diese Methode muss vor der Anzeige aufgerufen werden.
 	 */
 	public void build() {
+		buildInfoTexts(root);
 		buildRuntime(root);
 		buildSystem(root);
 		buildClient(root);
@@ -250,6 +267,17 @@ public class ScriptPopup {
 			buildStatisticsTools(root,true);
 			buildStatistics(root);
 		}
+	}
+
+	/**
+	 * Gibt die im Popupmenü ganz oben anzuzeigenden Infotexte aus.
+	 * @param parent	Übergeordnetes Popupmenü
+	 * @see #addInfoText(String)
+	 */
+	private void buildInfoTexts(final ScriptPopupItemSub parent) {
+		if (infoText==null) return;
+		for (String label: infoText) parent.addChild(new ScriptPopupItemTitle(label,true));
+		parent.addChild(null);
 	}
 
 	/**

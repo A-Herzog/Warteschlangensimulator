@@ -264,6 +264,7 @@ public class StatisticViewerFastAccessJava extends StatisticViewerFastAccessBase
 	@Override
 	protected void commandTools(final JButton sender) {
 		final ScriptPopup popup=new ScriptPopup(sender,statistics.editModel,statistics,ScriptPopup.ScriptMode.Java,helpFastAccessModal);
+		popup.addInfoText(Language.tr("Surface.ScriptEditor.PopupInfo"));
 		popup.addFeatures(ScriptEditorPanel.featuresFilter);
 		popup.build();
 		popup.show(filter);

@@ -28,22 +28,45 @@ import javax.swing.JMenuItem;
 public class ScriptPopupItemTitle extends ScriptPopupItem {
 	/** Name des Eintrags (kann <code>null</code> sein) */
 	private final String title;
+	/** Soll der Name des Eintrags als HTML-Code interpretiert werden (und nicht formatiert werden)? */
+	private final boolean isHTML;
 
 	/**
 	 * Konstruktor der Klasse
 	 * @param title	Name des Eintrags (kann <code>null</code> sein)
 	 */
 	public ScriptPopupItemTitle(final String title) {
+		this(title,false);
+	}
+
+	/**
+	 * Konstruktor der Klasse
+	 * @param title	Name des Eintrags (kann <code>null</code> sein)
+	 * @param isHTML	Name des Eintrags als html-Code interpretieren?
+	 */
+	public ScriptPopupItemTitle(final String title, final boolean isHTML) {
 		super(title,null,null);
 		this.title=title;
+		this.isHTML=isHTML;
 	}
 
 	@Override
 	protected JMenuItem buildMenuItem() {
-		final JMenuItem item=(title==null || title.trim().isEmpty())?new JMenuItem():new JMenuItem(title.trim());
+		final JMenuItem item;
+		if (title==null || title.trim().isEmpty()) {
+			item=new JMenuItem();
+		} else {
+			if (isHTML) {
+				item=new JMenuItem("<html><body>"+title.trim()+"</body></html>");
+			} else {
+				item=new JMenuItem(title.trim());
+			}
+		}
 		item.setEnabled(false);
-		final Font oldFont=item.getFont();
-		item.setFont(new Font(oldFont.getFontName(),Font.BOLD,oldFont.getSize()));
+		if (!isHTML) {
+			final Font oldFont=item.getFont();
+			item.setFont(new Font(oldFont.getFontName(),Font.BOLD,oldFont.getSize()));
+		}
 
 		return item;
 	}
