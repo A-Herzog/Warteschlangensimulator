@@ -20,6 +20,7 @@ import java.net.URL;
 
 import language.Language;
 import simulator.statistics.Statistics;
+import statistics.StatisticsDataPerformanceIndicator;
 import statistics.StatisticsTimePerformanceIndicator;
 import systemtools.statistics.StatisticViewerPieChartMulti;
 import ui.help.Help;
@@ -42,6 +43,8 @@ public class StatisticViewerMultiPieChart extends StatisticViewerPieChartMulti {
 	 * @see StatisticViewerMultiPieChart#StatisticViewerMultiPieChart(Statistics, Mode)
 	 */
 	public enum Mode {
+		/** Ausgabe von Warte-, Transfer- und Bedienzeit pro Kundengruppe */
+		MODE_WAITINGPROCESSING,
 		/** Tortendiagramm zum Vergleich der Auslastungen der Bedienergruppen  */
 		MODE_RESOURCE_UTILIZATION
 	}
@@ -65,6 +68,30 @@ public class StatisticViewerMultiPieChart extends StatisticViewerPieChartMulti {
 	private void addDescription(final String topic) {
 		final URL url=StatisticViewerTimeBarChart.class.getResource("description_"+Language.getCurrentLanguage()+"/"+topic+".html");
 		addDescription(url,helpTopic->Help.topic(getViewer(false),helpTopic));
+	}
+
+
+	/**
+	 * Ausgabe von
+	 * Ausgabe von Warte-, Transfer- und Bedienzeit pro Kundengruppe
+	 * @see Mode#MODE_WAITINGPROCESSING
+	 */
+	private void requestClientsChart() {
+		initPieChart(Language.tr("Statistics.DistributionOfTimes"));
+
+		final String[] names=statistics.clientsResidenceTimes.getNames();
+		final StatisticsDataPerformanceIndicator[] indicators1=statistics.clientsWaitingTimes.getAll(StatisticsDataPerformanceIndicator.class);
+		final StatisticsDataPerformanceIndicator[] indicators2=statistics.clientsTransferTimes.getAll(StatisticsDataPerformanceIndicator.class);
+		final StatisticsDataPerformanceIndicator[] indicators3=statistics.clientsProcessingTimes.getAll(StatisticsDataPerformanceIndicator.class);
+
+		for (int i=0;i<names.length;i++) {
+			final double part1=(i<indicators1.length && indicators1[i]!=null)?indicators1[i].getMean():0;
+			final double part2=(i<indicators2.length && indicators2[i]!=null)?indicators2[i].getMean():0;
+			final double part3=(i<indicators3.length && indicators3[i]!=null)?indicators3[i].getMean():0;
+			if (part1>0) addPieSegment(names[i],Language.tr("Statistics.WaitingTime"),part1,Color.RED);
+			if (part2>0) addPieSegment(names[i],Language.tr("Statistics.TransferTime"),part2,Color.BLUE);
+			if (part3>0) addPieSegment(names[i],Language.tr("Statistics.ProcessTime"),part3,Color.GREEN);
+		}
 	}
 
 	/**
@@ -94,6 +121,10 @@ public class StatisticViewerMultiPieChart extends StatisticViewerPieChartMulti {
 	@Override
 	protected void firstChartRequest() {
 		switch (mode) {
+		case MODE_WAITINGPROCESSING:
+			requestClientsChart();
+			addDescription("PlotPieWaitingProcessing");
+			break;
 		case MODE_RESOURCE_UTILIZATION:
 			resourceUtilizationChartRequest();
 			addDescription("PlotBarCompareUtilizationOperators");

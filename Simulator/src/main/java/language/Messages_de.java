@@ -4623,7 +4623,7 @@ public class Messages_de extends java.util.ResourceBundle {
     t[10292] = "BookData.AccessInfo";
     t[10293] = "Die E-Book-pdf-Version kann \u00fcber das unten stehende Eingabefeld direkt mit dem Simulator verkn\u00fcpft werden. Es steht dann in Erg\u00e4nzung zur Online-Hilfe direkt zur Verf\u00fcgung. \u00dcber den Schnellzugriff (Strg+E) kann direkt in Inhaltsverzeichnis und Sachverzeichnis gesucht werden und die jeweils passenden Seiten in der pdf ge\u00f6ffnet werden.";
     t[10294] = "Statistics.XML.Run.Error";
-    t[10295] = "Das LaufVarianz-Attribut im \"%s\"-Element eine nicht-negative Zahl sein, ist aber \"%s\".";
+    t[10295] = "Das LaufVarianz-Attribut im \"%s\"-Element musseine nicht-negative Zahl sein, ist aber \"%s\".";
     t[10298] = "ExpressionBuilder.ClientsAtQueue.VarianceOfTheNumber";
     t[10299] = "<p>Liefert die Varianz der Anzahl an Kunden in der Warteschlange an der Bedienstation, deren ID in dem Parameter angegeben wurde.</p>\n<p>Alternativ kann auch die ID einer Kundenquelle angegeben werden, dann beziehen sich die Ergebnisse auf die Kunden des dort erzeugten Kundentyps.</p>";
     t[10302] = "Surface.Decide.Dialog.OutgoingEdge.ClientType";
@@ -10746,6 +10746,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[24135] = "Batch-Z\u00e4hler";
     t[24136] = "Surface.Action.Dialog.Edit.Tabs.Action.Analog.Expression";
     t[24137] = "Neuer Wert";
+    t[24138] = "Statistics.RatioOfWaitingToProcessTime.ByClientType";
+    t[24139] = "Verh\u00e4ltnis von Warte- zu Bedienzeit (nach Kundentypen)";
     t[24140] = "Simulation.Creator.AnalogAssignInvalidMode";
     t[24141] = "Interner Fehler: Ung\u00fcltiger Zuweisungsmodus (weder Wert noch Rate) an Element id=%d.";
     t[24142] = "ExpressionBuilder.ProbabilityDistributions.InverseGaussianDistribution.DistributionFunctionInfo";
@@ -12038,14 +12040,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[27143] = "Deaktiviert die Speicherung von allen Dateitypen im Git-Repository.";
     t[27148] = "Color.7B68EE";
     t[27149] = "Mittleres Slate Blau";
-    t[27152] = "ExpressionBuilder.ProbabilityDistributions.ChiSquareDistribution.DensityInfo";
-    t[27153] = "<p>Berechnet den Wert der Dichte der Chi<sup>2</sup>-Verteilung an der als ersten Parameter angegebenen Stelle mit der Anzahl an Freiheitsgraden gem\u00e4\u00df dem zweiten Parameter.</p>";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_6 (java.lang.String[] t) {
+    t[27152] = "ExpressionBuilder.ProbabilityDistributions.ChiSquareDistribution.DensityInfo";
+    t[27153] = "<p>Berechnet den Wert der Dichte der Chi<sup>2</sup>-Verteilung an der als ersten Parameter angegebenen Stelle mit der Anzahl an Freiheitsgraden gem\u00e4\u00df dem zweiten Parameter.</p>";
     t[27166] = "Surface.Process.Dialog.ResourcePriority";
     t[27167] = "Ressourcen-Priorit\u00e4t";
     t[27172] = "Simulation.Creator.OutputConnectionsNotMatching";
@@ -14044,14 +14046,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[31771] = "S";
     t[31774] = "Surface.InteractiveRadiobutton.Name";
     t[31775] = "Radiobutton";
-    t[31776] = "SystemInfo.Tools.NextStationTraining.ShowData.Info";
-    t[31777] = "Die Zahlen geben an, wie viele \u00dcberg\u00e4nge von welcher Station zu welcher Station in den bisherigen Modellen gez\u00e4hlt wurden.";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_7 (java.lang.String[] t) {
+    t[31776] = "SystemInfo.Tools.NextStationTraining.ShowData.Info";
+    t[31777] = "Die Zahlen geben an, wie viele \u00dcberg\u00e4nge von welcher Station zu welcher Station in den bisherigen Modellen gez\u00e4hlt wurden.";
     t[31782] = "Surface.Action.Infotext";
     t[31783] = "Wenn eine bestimmte Bedingung erf\u00fcllt ist oder ein Signal ausgel\u00f6st wurde, werden eine oder mehrere Aktionen ausgel\u00f6st. Aktionen k\u00f6nnen dabei Wertzuweisungen, Signal-Ausfl\u00f6sungen oder Skript-Ausf\u00fchrungen sein. Aktions-Stationen besitzen keine ein- oder auslaufenden Kanten.";
     t[31784] = "Surface.Transporter.ErrorFailureNumber";
@@ -16050,14 +16052,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[36271] = "Notizen...";
     t[36272] = "Statistics.CVUserTime";
     t[36273] = "Variationskoeffizient";
-    t[36274] = "Surface.Costs.Dialog.CostsError.Title";
-    t[36275] = "Kosten fehlerhaft";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_8 (java.lang.String[] t) {
+    t[36274] = "Surface.Costs.Dialog.CostsError.Title";
+    t[36275] = "Kosten fehlerhaft";
     t[36276] = "Simulation.Creator.NoSource";
     t[36277] = "Das Modell besitzt keine Quelle.";
     t[36278] = "LoadCalculator.Units.Time";
@@ -18056,14 +18058,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[40879] = "Ankunft bei Signal";
     t[40882] = "Simulation.Log.Input.InfoClientDataString";
     t[40883] = "Kunde: %s, Station: %s, %s:=%s";
-    t[40886] = "Surface.AnimationImage.Dialog.Images.Delete.Confirm.Title";
-    t[40887] = "Bild l\u00f6schen";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_9 (java.lang.String[] t) {
+    t[40886] = "Surface.AnimationImage.Dialog.Images.Delete.Confirm.Title";
+    t[40887] = "Bild l\u00f6schen";
     t[40892] = "Statistic.FastAccess.FilterList.Delete.Hint";
     t[40893] = "L\u00f6scht den gew\u00e4hlten Listeneintrag.";
     t[40894] = "Statistics.ModelRemarks.LargeFlowFactorRelative.ClientType";
@@ -20062,14 +20064,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[45531] = "Es wurde kein Schl\u00fcssel angegeben.";
     t[45532] = "FileType.Word";
     t[45533] = "Word-Texte";
-    t[45536] = "Surface.InputJS.XML.EofMode";
-    t[45537] = "Dateiende";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_10 (java.lang.String[] t) {
+    t[45536] = "Surface.InputJS.XML.EofMode";
+    t[45537] = "Dateiende";
     t[45538] = "Simulation.Creator.CancelationEdge";
     t[45539] = "F\u00fcr Element id=%d wurde eine Ausgangskante f\u00fcr Warteabbrecher eingetragen. Es k\u00f6nnen jedoch keine Warteabbrecher auftreten.";
     t[45546] = "FindAndReplace.ReplaceInfo.Singular";

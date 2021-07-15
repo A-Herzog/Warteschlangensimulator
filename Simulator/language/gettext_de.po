@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-14 00:07+0200\n"
+"POT-Creation-Date: 2021-07-15 16:56+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -3752,6 +3752,9 @@ msgstr "Verzeichnis für externe Java-Klassendateien"
 msgid "Editor.DialogBase.Search.PriorityForClientType"
 msgstr "Priorität für Kundentyp \"%s\""
 
+msgid "Editor.DialogBase.Search.RedRange"
+msgstr ""
+
 msgid "Editor.DialogBase.Search.Resource.CostsPerActiveHour"
 msgstr "Kosten pro Anwesenheitsstunde für Bedienergruppe \"%s\""
 
@@ -3916,6 +3919,9 @@ msgstr "Globale Variable"
 
 msgid "Editor.DialogBase.Search.Variable.InitialValue"
 msgstr "Startwert für globale Variable \"%s\""
+
+msgid "Editor.DialogBase.Search.YellowRange"
+msgstr ""
 
 msgid "Editor.DialogBase.WarmUpExternalSourceWarning.Button"
 msgstr "Einschwingphase deaktivieren"
@@ -7400,6 +7406,9 @@ msgstr "Serifenlose Schrift"
 
 msgid "FontFamily.Serif"
 msgstr "Serifenbehaftete Schrift"
+
+msgid "GelberBereich"
+msgstr ""
 
 msgid "Git.Edit.Title"
 msgstr "Git-Konfiguration bearbeiten"
@@ -13461,6 +13470,9 @@ msgstr "Kundenpriorität"
 msgid "Resources.SecondaryPriority.Random"
 msgstr "Station zufällig wählen"
 
+msgid "RoterBereich"
+msgstr ""
+
 msgid "SavedView.XML.Name"
 msgstr "Name"
 
@@ -19477,6 +19489,9 @@ msgstr "Die angezeigten Quantile sind möglicherweise nicht exakt, da die Aufzei
 msgid "Statistics.RatioOfWaitingToProcessTime"
 msgstr "Verhältnis von Warte- zu Bedienzeit"
 
+msgid "Statistics.RatioOfWaitingToProcessTime.ByClientType"
+msgstr "Verhältnis von Warte- zu Bedienzeit (nach Kundentypen)"
+
 msgid "Statistics.RecordedValue"
 msgstr "Wert Nr."
 
@@ -20410,7 +20425,7 @@ msgid "Statistics.XML.Run"
 msgstr "LaufVarianz"
 
 msgid "Statistics.XML.Run.Error"
-msgstr "Das LaufVarianz-Attribut im \"%s\"-Element eine nicht-negative Zahl sein, ist aber \"%s\"."
+msgstr "Das LaufVarianz-Attribut im \"%s\"-Element musseine nicht-negative Zahl sein, ist aber \"%s\"."
 
 msgid "Statistics.XML.RunCount"
 msgstr "LaufAnzahl"
@@ -21795,6 +21810,12 @@ msgstr "MaximalWert"
 
 msgid "Surface.AnimationPointerMeasuring.XML.Expression.MinValue"
 msgstr "MinimalWert"
+
+msgid "Surface.AnimationPointerMeasuring.XML.Expression.RedRangeStart"
+msgstr ""
+
+msgid "Surface.AnimationPointerMeasuring.XML.Expression.YellowRangeStart"
+msgstr ""
 
 msgid "Surface.AnimationPointerMeasuring.XML.Root"
 msgstr "ModellElementAnimationAnalogSkala"

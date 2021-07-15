@@ -15,6 +15,7 @@
  */
 package ui.statistics;
 
+import java.awt.Color;
 import java.net.URL;
 
 import org.apache.commons.math3.util.FastMath;
@@ -85,9 +86,9 @@ public class StatisticViewerPartsPieChart extends StatisticViewerPieChart {
 		for (StatisticsDataPerformanceIndicator indicator: (StatisticsDataPerformanceIndicator[])statistics.clientsProcessingTimes.getAll(StatisticsDataPerformanceIndicator.class)) sumProcessing+=indicator.getSum();
 		double sum=FastMath.max(0.0001,sumWaiting+sumTransfer+sumProcessing);
 
-		addPieSegment(Language.tr("Statistics.WaitingTime")+" ("+NumberTools.formatPercent(sumWaiting/sum)+")",sumWaiting/sum);
-		addPieSegment(Language.tr("Statistics.TransferTime")+" ("+NumberTools.formatPercent(sumTransfer/sum)+")",sumTransfer/sum);
-		addPieSegment(Language.tr("Statistics.ProcessTime")+" ("+NumberTools.formatPercent(sumProcessing/sum)+")",sumProcessing/sum);
+		addPieSegment(Language.tr("Statistics.WaitingTime")+" ("+NumberTools.formatPercent(sumWaiting/sum)+")",sumWaiting/sum,Color.RED);
+		addPieSegment(Language.tr("Statistics.TransferTime")+" ("+NumberTools.formatPercent(sumTransfer/sum)+")",sumTransfer/sum,Color.BLUE);
+		addPieSegment(Language.tr("Statistics.ProcessTime")+" ("+NumberTools.formatPercent(sumProcessing/sum)+")",sumProcessing/sum,Color.GREEN);
 
 		/* Infotext  */
 		addDescription("PlotPieWaitingProcessing");

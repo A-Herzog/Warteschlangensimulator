@@ -10746,6 +10746,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[24135] = "Batch counter";
     t[24136] = "Surface.Action.Dialog.Edit.Tabs.Action.Analog.Expression";
     t[24137] = "New value";
+    t[24138] = "Statistics.RatioOfWaitingToProcessTime.ByClientType";
+    t[24139] = "Ratio of waiting to process times (by client types)";
     t[24140] = "Simulation.Creator.AnalogAssignInvalidMode";
     t[24141] = "Internal error: Invalid assignment mode (neither value nor rate) at element id=%d.";
     t[24142] = "ExpressionBuilder.ProbabilityDistributions.InverseGaussianDistribution.DistributionFunctionInfo";
@@ -12038,14 +12040,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[27143] = "Removes selection of all file types for Git storage.";
     t[27148] = "Color.7B68EE";
     t[27149] = "Medium slate blue";
-    t[27152] = "ExpressionBuilder.ProbabilityDistributions.ChiSquareDistribution.DensityInfo";
-    t[27153] = "<p>Calculates the value of the density of the Chi<sup>2</sup> distribution at the location specified as first parameter with the number of degrees of freedom according to the second parameter.</p>";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_6 (java.lang.String[] t) {
+    t[27152] = "ExpressionBuilder.ProbabilityDistributions.ChiSquareDistribution.DensityInfo";
+    t[27153] = "<p>Calculates the value of the density of the Chi<sup>2</sup> distribution at the location specified as first parameter with the number of degrees of freedom according to the second parameter.</p>";
     t[27166] = "Surface.Process.Dialog.ResourcePriority";
     t[27167] = "Resource priority";
     t[27172] = "Simulation.Creator.OutputConnectionsNotMatching";
@@ -14044,14 +14046,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[31771] = "S";
     t[31774] = "Surface.InteractiveRadiobutton.Name";
     t[31775] = "Radiobutton";
-    t[31776] = "SystemInfo.Tools.NextStationTraining.ShowData.Info";
-    t[31777] = "The numbers indicate how many connections from which station to which station were counted in the previous models.";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_7 (java.lang.String[] t) {
+    t[31776] = "SystemInfo.Tools.NextStationTraining.ShowData.Info";
+    t[31777] = "The numbers indicate how many connections from which station to which station were counted in the previous models.";
     t[31782] = "Surface.Action.Infotext";
     t[31783] = "If a condition is met or a signal is triggered, some actions can be performed. Actions can be value assignments, signal triggering or script executions. Action stations do not have incoming or outgoing edges.";
     t[31784] = "Surface.Transporter.ErrorFailureNumber";
@@ -16050,14 +16052,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[36271] = "Notes...";
     t[36272] = "Statistics.CVUserTime";
     t[36273] = "Coefficient of variation";
-    t[36274] = "Surface.Costs.Dialog.CostsError.Title";
-    t[36275] = "Invalid costs";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_8 (java.lang.String[] t) {
+    t[36274] = "Surface.Costs.Dialog.CostsError.Title";
+    t[36275] = "Invalid costs";
     t[36276] = "Simulation.Creator.NoSource";
     t[36277] = "The model does not have a source.";
     t[36278] = "LoadCalculator.Units.Time";
@@ -18056,14 +18058,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[40879] = "Arrival at signal";
     t[40882] = "Simulation.Log.Input.InfoClientDataString";
     t[40883] = "Client: %s, station: %s, %s:=%s";
-    t[40886] = "Surface.AnimationImage.Dialog.Images.Delete.Confirm.Title";
-    t[40887] = "Delete image";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_9 (java.lang.String[] t) {
+    t[40886] = "Surface.AnimationImage.Dialog.Images.Delete.Confirm.Title";
+    t[40887] = "Delete image";
     t[40892] = "Statistic.FastAccess.FilterList.Delete.Hint";
     t[40893] = "Deletes the current list record.";
     t[40894] = "Statistics.ModelRemarks.LargeFlowFactorRelative.ClientType";
@@ -20062,14 +20064,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[45531] = "No key was specified.";
     t[45532] = "FileType.Word";
     t[45533] = "Word texts";
-    t[45536] = "Surface.InputJS.XML.EofMode";
-    t[45537] = "EndOfFile";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_10 (java.lang.String[] t) {
+    t[45536] = "Surface.InputJS.XML.EofMode";
+    t[45537] = "EndOfFile";
     t[45538] = "Simulation.Creator.CancelationEdge";
     t[45539] = "For element id=%d an output edge for waiting cancelation is conencted. But clients cannot cancel waiting at this station.";
     t[45546] = "FindAndReplace.ReplaceInfo.Singular";

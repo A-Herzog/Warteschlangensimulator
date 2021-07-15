@@ -1204,6 +1204,14 @@ public class StatisticsPanel extends StatisticsBasePanel {
 			for(Statistics statistic : statistics) viewer.add(new StatisticViewerPartsPieChart(statistic,StatisticViewerPartsPieChart.Mode.MODE_WAITINGPROCESSING));
 			group.addChild(new StatisticNode(Language.tr("Statistics.RatioOfWaitingToProcessTime"),viewer));
 
+			if (testMultiClientTypes(statistics)) {
+
+				viewer=new ArrayList<>();
+				for(Statistics statistic : statistics) viewer.add(new StatisticViewerMultiPieChart(statistic,StatisticViewerMultiPieChart.Mode.MODE_WAITINGPROCESSING));
+				group.addChild(new StatisticNode(Language.tr("Statistics.RatioOfWaitingToProcessTime.ByClientType"),viewer));
+
+			}
+
 			/* (Untergruppe) Verteilungen */
 
 			if (testDistributions(statistics)) {
