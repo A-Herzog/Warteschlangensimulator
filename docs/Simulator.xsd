@@ -1635,6 +1635,8 @@
   <xs:extension base="xs:string">
     <xs:attribute name="MinimalWert" type="xs:string"/>
     <xs:attribute name="MaximalWert" type="xs:string" use="required"/>
+	<xs:attribute name="GelberBereich" type="xs:string"/>
+	<xs:attribute name="RoterBereich" type="xs:string"/>
   </xs:extension>
 </xs:simpleContent></xs:complexType></xs:element>
 
@@ -3773,6 +3775,8 @@
   <xs:extension base="xs:string">
     <xs:attribute name="MinValue" type="xs:string"/>
     <xs:attribute name="MaxValue" type="xs:string" use="required"/>
+	<xs:attribute name="YellowRange" type="xs:string"/>
+	<xs:attribute name="RedRange" type="xs:string"/>
   </xs:extension>
 </xs:simpleContent></xs:complexType></xs:element>
 

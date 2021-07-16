@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-15 16:56+0200\n"
+"POT-Creation-Date: 2021-07-16 00:22+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -3753,7 +3753,7 @@ msgid "Editor.DialogBase.Search.PriorityForClientType"
 msgstr "Priorität für Kundentyp \"%s\""
 
 msgid "Editor.DialogBase.Search.RedRange"
-msgstr ""
+msgstr "Roter Bereich"
 
 msgid "Editor.DialogBase.Search.Resource.CostsPerActiveHour"
 msgstr "Kosten pro Anwesenheitsstunde für Bedienergruppe \"%s\""
@@ -3921,7 +3921,7 @@ msgid "Editor.DialogBase.Search.Variable.InitialValue"
 msgstr "Startwert für globale Variable \"%s\""
 
 msgid "Editor.DialogBase.Search.YellowRange"
-msgstr ""
+msgstr "Gelber Bereich"
 
 msgid "Editor.DialogBase.WarmUpExternalSourceWarning.Button"
 msgstr "Einschwingphase deaktivieren"
@@ -7406,9 +7406,6 @@ msgstr "Serifenlose Schrift"
 
 msgid "FontFamily.Serif"
 msgstr "Serifenbehaftete Schrift"
-
-msgid "GelberBereich"
-msgstr ""
 
 msgid "Git.Edit.Title"
 msgstr "Git-Konfiguration bearbeiten"
@@ -13469,9 +13466,6 @@ msgstr "Kundenpriorität"
 
 msgid "Resources.SecondaryPriority.Random"
 msgstr "Station zufällig wählen"
-
-msgid "RoterBereich"
-msgstr ""
 
 msgid "SavedView.XML.Name"
 msgstr "Name"
@@ -21787,8 +21781,26 @@ msgstr ""
 msgid "Surface.AnimationPointerMeasuring.Dialog.MinValue.Error.Title"
 msgstr "Ungültiger Minimalwert"
 
+msgid "Surface.AnimationPointerMeasuring.Dialog.RedAreaStartValue"
+msgstr "Roten Bereich in Skala anzeigen ab"
+
+msgid "Surface.AnimationPointerMeasuring.Dialog.RedAreaStartValue.Error.Info"
+msgstr "Der angegebene Startwert für den roten Bereich \"%s\" ist ungültig. Es muss eine nicht-negative Ganzzahl angegeben werden."
+
+msgid "Surface.AnimationPointerMeasuring.Dialog.RedAreaStartValue.Error.Title"
+msgstr "Roter Bereich ungültig"
+
 msgid "Surface.AnimationPointerMeasuring.Dialog.Title"
 msgstr "Analogskalaanzeige bearbeiten"
+
+msgid "Surface.AnimationPointerMeasuring.Dialog.YellowAreaStartValue"
+msgstr "Gelben Bereich in Skala anzeigen ab"
+
+msgid "Surface.AnimationPointerMeasuring.Dialog.YellowAreaStartValue.Error.Info"
+msgstr "Der angegebene Startwert für den gelben Bereich \"%s\" ist ungültig. Es muss eine nicht-negative Ganzzahl angegeben werden."
+
+msgid "Surface.AnimationPointerMeasuring.Dialog.YellowAreaStartValue.Error.Title"
+msgstr "Gelber Bereich ungültig"
 
 msgid "Surface.AnimationPointerMeasuring.Infotext"
 msgstr "Zeigt während der Animation den Wert eines Ausdrucks als Zeigereinstellung auf einer Analogskala an."
@@ -21812,10 +21824,10 @@ msgid "Surface.AnimationPointerMeasuring.XML.Expression.MinValue"
 msgstr "MinimalWert"
 
 msgid "Surface.AnimationPointerMeasuring.XML.Expression.RedRangeStart"
-msgstr ""
+msgstr "RoterBereich"
 
 msgid "Surface.AnimationPointerMeasuring.XML.Expression.YellowRangeStart"
-msgstr ""
+msgstr "GelberBereich"
 
 msgid "Surface.AnimationPointerMeasuring.XML.Root"
 msgstr "ModellElementAnimationAnalogSkala"

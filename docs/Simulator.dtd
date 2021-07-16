@@ -1516,6 +1516,8 @@
 <!ATTLIST ModellElementAnimationAnalogSkalaAusdruck
   MinimalWert	CDATA	#IMPLIED
   MaximalWert	CDATA	#REQUIRED
+  GelberBereich	CDATA	#IMPLIED
+  RoterBereich	CDATA	#IMPLIED
 >
 <!ELEMENT ModellElementAnimationAnalogSkalaFarbe (#PCDATA)>
 
@@ -3744,8 +3746,10 @@
 >
 <!ELEMENT ModelElementAnimationPointerMeasuringExpression (#PCDATA)>
 <!ATTLIST ModelElementAnimationPointerMeasuringExpression
-  MinValue	CDATA	#IMPLIED
-  MaxValue	CDATA	#REQUIRED
+  MinValue		CDATA	#IMPLIED
+  MaxValue		CDATA	#REQUIRED
+  YellowRange	CDATA	#IMPLIED
+  RedRange		CDATA	#IMPLIED
 >
 <!ELEMENT ModelElementAnimationPointerMeasuringColor (#PCDATA)>
 

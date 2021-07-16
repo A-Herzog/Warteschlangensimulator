@@ -71,11 +71,44 @@ public class ModelElementAnimationPointerMeasuring extends ModelElementAnimation
 	private int maxValue;
 
 	/**
+	 * Soll der gelbe Bereich verwendet werden?
+	 */
+	private boolean yellowRangeUse;
+
+
+	/**
+	 * Startwert für den gelben Bereich
+	 */
+	private int yellowRangeStart;
+
+	/**
+	 * Startwert für den roten Bereich
+	 */
+	private boolean redRangeUse;
+
+	/**
+	 * Soll der rote Bereich verwendet werden?
+	 */
+	private int redRangeStart;
+
+	/**
 	 * Farbe für den Zeiger
 	 * @see #getColor()
 	 * @see #setColor(Color)
 	 */
 	private Color color=DEFAULT_COLOR;
+
+	/**
+	 * Farbobjekt für die Darstellung des gelben Bereichs.
+	 * @see #drawData(Graphics2D, Rectangle, double)
+	 */
+	private final Color yellowAreaColor=new Color(255,255,0);
+
+	/**
+	 * Farbobjekt für die Darstellung des roten Bereichs.
+	 * @see #drawData(Graphics2D, Rectangle, double)
+	 */
+	private final Color redAreaColor=new Color(255,0,0);
 
 	/**
 	 * Konstruktor der Klasse
@@ -86,6 +119,11 @@ public class ModelElementAnimationPointerMeasuring extends ModelElementAnimation
 		super(model,surface,new Dimension(100,50));
 		minValue=0;
 		maxValue=10;
+		yellowRangeStart=-1;
+		yellowRangeUse=false;
+		yellowRangeStart=7;
+		redRangeUse=false;
+		redRangeStart=9;
 		setExpression("wip()");
 	}
 
@@ -142,6 +180,76 @@ public class ModelElementAnimationPointerMeasuring extends ModelElementAnimation
 	}
 
 	/**
+	 * Gibt an, ob der gelbe Bereich verwendet werden soll.
+	 * @return	Soll der gelbe Bereich verwendet werden?
+	 */
+	public boolean isYellowRangeUse() {
+		return yellowRangeUse;
+	}
+
+	/**
+	 * Stellt ein, ob der gelbe Bereich verwendet werden soll.
+	 * @param yellowRangeUse	Soll der gelbe Bereich verwendet werden?
+	 */
+	public void setYellowRangeUse(final boolean yellowRangeUse) {
+		this.yellowRangeUse=yellowRangeUse;
+		fireChanged();
+	}
+
+	/**
+	 * Liefert den Startwert für den gelben Bereich.
+	 * @return	Startwert für den gelben Bereich
+	 */
+	public int getYellowRangeStart() {
+		return yellowRangeStart;
+	}
+
+	/**
+	 * Stellt den Startwert für den gelben Bereich ein.
+	 * @param yellowRangeStart	Startwert für den gelben Bereich
+	 */
+	public void setYellowRangeStart(final int yellowRangeStart) {
+		this.yellowRangeStart=yellowRangeStart;
+		yellowRangeUse=true;
+		fireChanged();
+	}
+
+	/**
+	 * Gibt an, ob der rote Bereich verwendet werden soll.
+	 * @return	Soll der rote Bereich verwendet werden?
+	 */
+	public boolean isRedRangeUse() {
+		return redRangeUse;
+	}
+
+	/**
+	 * Stellt ein, ob der rote Bereich verwendet werden soll.
+	 * @param redRangeUse	Soll der rote Bereich verwendet werden?
+	 */
+	public void setRedRangeUse(final boolean redRangeUse) {
+		this.redRangeUse=redRangeUse;
+		fireChanged();
+	}
+
+	/**
+	 * Liefert den Startwert für den roten Bereich.
+	 * @return	Startwert für den roten Bereich
+	 */
+	public int getRedRangeStart() {
+		return redRangeStart;
+	}
+
+	/**
+	 * Stellt den Startwert für den roten Bereich ein.
+	 * @param redRangeStart	Startwert für den roten Bereich
+	 */
+	public void setRedRangeStart(final int redRangeStart) {
+		this.redRangeStart=redRangeStart;
+		redRangeUse=true;
+		fireChanged();
+	}
+
+	/**
 	 * Liefert die Farbe für den Zeiger.
 	 * @return	Farbe für den Zeiger
 	 */
@@ -171,6 +279,14 @@ public class ModelElementAnimationPointerMeasuring extends ModelElementAnimation
 
 		if (minValue!=other.minValue) return false;
 		if (maxValue!=other.maxValue) return false;
+		if (yellowRangeUse!=other.yellowRangeUse) return false;
+		if (yellowRangeUse) {
+			if (yellowRangeStart!=other.yellowRangeStart) return false;
+		}
+		if (redRangeUse!=other.redRangeUse) return false;
+		if (redRangeUse) {
+			if (redRangeStart!=other.redRangeStart) return false;
+		}
 		if (!Objects.equals(color,other.color)) return false;
 
 		return true;
@@ -187,6 +303,10 @@ public class ModelElementAnimationPointerMeasuring extends ModelElementAnimation
 			final ModelElementAnimationPointerMeasuring source=(ModelElementAnimationPointerMeasuring)element;
 			minValue=source.minValue;
 			maxValue=source.maxValue;
+			yellowRangeUse=source.yellowRangeUse;
+			yellowRangeStart=source.yellowRangeStart;
+			redRangeUse=source.redRangeUse;
+			redRangeStart=source.redRangeStart;
 			color=source.color;
 		}
 	}
@@ -211,10 +331,22 @@ public class ModelElementAnimationPointerMeasuring extends ModelElementAnimation
 	private Stroke borderStroke=null;
 
 	/**
+	 * Zeichenstil für die Markierung des gelben und des roten Bereichs beim letzten Aufruf von {@link #drawData(Graphics2D, Rectangle, double)}
+	 * @see #drawData(Graphics2D, Rectangle, double)
+	 */
+	private Stroke areaStroke=null;
+
+	/**
 	 * Linienbreite für den Rahmen beim letzten Aufruf von {@link #drawData(Graphics2D, Rectangle, double)}
 	 * @see #drawData(Graphics2D, Rectangle, double)
 	 */
 	private int borderStrokeWidth=0;
+
+	/**
+	 * Linienbreite für die Markierung des gelben und des roten Bereichs beim letzten Aufruf von {@link #drawData(Graphics2D, Rectangle, double)}
+	 * @see #drawData(Graphics2D, Rectangle, double)
+	 */
+	private int areaStrokeWidth=0;
 
 	/**
 	 * Zeichenstil für den Zeiger beim letzten Aufruf von {@link #drawData(Graphics2D, Rectangle, double)}
@@ -270,11 +402,20 @@ public class ModelElementAnimationPointerMeasuring extends ModelElementAnimation
 			borderStrokeWidth=newBorderStrokeWidth;
 		}
 
+		final int newAreaStrokeWidth=Math.max(1,Math.min(rectangle.height,rectangle.width)/10);
+		if (newAreaStrokeWidth!=areaStrokeWidth || areaStroke==null) {
+			areaStroke=new BasicStroke(newAreaStrokeWidth);
+			areaStrokeWidth=newBorderStrokeWidth;
+		}
+
 		final int newPointerStrokeWidth=Math.max(1,Math.min(rectangle.height,rectangle.width)/25);
 		if (newPointerStrokeWidth!=pointerStrokeWidth || pointerStroke==null) {
 			pointerStroke=new BasicStroke(newPointerStrokeWidth);
 			pointerStrokeWidth=newPointerStrokeWidth;
 		}
+
+		final int xAreaFactor=rectangle.width*1/20;
+		final int yAreaFactor=rectangle.width*1/20;
 
 		if (lastMinValue!=minValue || lastMaxValue!=maxValue || lastMinValueString==null || lastMiddleValueString==null || lastMaxValueString==null) {
 			lastMinValueString=NumberTools.formatLongNoGrouping(minValue);
@@ -289,6 +430,46 @@ public class ModelElementAnimationPointerMeasuring extends ModelElementAnimation
 		graphics.setColor(Color.WHITE);
 		graphics.fillArc(rectangle.x,rectangle.y,rectangle.width,2*rectangle.height,180,-90);
 		graphics.fillArc(rectangle.x,rectangle.y,rectangle.width,2*rectangle.height,90,-90);
+
+		/* Ggf. gelben Bereich einzeichnen */
+
+		if (yellowRangeUse && yellowRangeStart<maxValue && maxValue>minValue) {
+			graphics.setStroke(areaStroke);
+			graphics.setColor(yellowAreaColor);
+			double d=(((double)yellowRangeStart)-minValue)/(maxValue-minValue);
+			if (d<0) d=0;
+			if (d<1) {
+				if (d<0.5) {
+					final int a1=(int)Math.round(180-d*180);
+					final int a2=(int)Math.round(90-180*d);
+					graphics.drawArc(rectangle.x+xAreaFactor,rectangle.y+yAreaFactor,rectangle.width-2*xAreaFactor,2*rectangle.height-yAreaFactor-2*yAreaFactor,a1,-a2);
+					graphics.drawArc(rectangle.x+xAreaFactor,rectangle.y+yAreaFactor,rectangle.width-2*xAreaFactor,2*rectangle.height-yAreaFactor-2*yAreaFactor,90,-90);
+				} else {
+					final int a1=(int)Math.round(180-d*180);
+					graphics.drawArc(rectangle.x+xAreaFactor,rectangle.y+yAreaFactor,rectangle.width-2*xAreaFactor,2*rectangle.height-yAreaFactor-2*yAreaFactor,a1,-a1);
+				}
+			}
+		}
+
+		/* Ggf. roten Bereich einzeichnen */
+
+		if (redRangeUse && redRangeStart<maxValue) {
+			graphics.setStroke(areaStroke);
+			graphics.setColor(redAreaColor);
+			double d=(((double)redRangeStart)-minValue)/(maxValue-minValue);
+			if (d<0) d=0;
+			if (d<1) {
+				if (d<0.5) {
+					final int a1=(int)Math.round(180-d*180);
+					final int a2=(int)Math.round(90-180*d);
+					graphics.drawArc(rectangle.x+xAreaFactor,rectangle.y+yAreaFactor,rectangle.width-2*xAreaFactor,2*rectangle.height-yAreaFactor-2*yAreaFactor,a1,-a2);
+					graphics.drawArc(rectangle.x+xAreaFactor,rectangle.y+yAreaFactor,rectangle.width-2*xAreaFactor,2*rectangle.height-yAreaFactor-2*yAreaFactor,90,-90);
+				} else {
+					final int a1=(int)Math.round(180-d*180);
+					graphics.drawArc(rectangle.x+xAreaFactor,rectangle.y+yAreaFactor,rectangle.width-2*xAreaFactor,2*rectangle.height-yAreaFactor-2*yAreaFactor,a1,-a1);
+				}
+			}
+		}
 
 		/* Skalarahmen zeichnen */
 
@@ -314,7 +495,8 @@ public class ModelElementAnimationPointerMeasuring extends ModelElementAnimation
 
 		int w;
 
-		graphics.setFont(FontCache.getFontCache().getFont(FontFamily.SANS.name,0,(int)FastMath.round(12*zoom)));
+		graphics.setColor(Color.BLACK);
+		graphics.setFont(FontCache.getFontCache().getFont(FontFamily.SANS.name,0,(int)FastMath.round(12*zoom*rectangle.width/150)));
 
 		graphics.drawString(lastMinValueString,rectangle.x+5*newBorderStrokeWidth,rectangle.y+rectangle.height-2*newBorderStrokeWidth);
 
@@ -391,8 +573,12 @@ public class ModelElementAnimationPointerMeasuring extends ModelElementAnimation
 		sub=doc.createElement(Language.trPrimary("Surface.AnimationPointerMeasuring.XML.Expression"));
 		node.appendChild(sub);
 		sub.setTextContent(getExpression());
+
 		sub.setAttribute(Language.trPrimary("Surface.AnimationPointerMeasuring.XML.Expression.MinValue"),""+minValue);
 		sub.setAttribute(Language.trPrimary("Surface.AnimationPointerMeasuring.XML.Expression.MaxValue"),""+maxValue);
+
+		if (yellowRangeUse) sub.setAttribute(Language.trPrimary("Surface.AnimationPointerMeasuring.XML.Expression.YellowRangeStart"),""+yellowRangeStart);
+		if (redRangeUse) sub.setAttribute(Language.trPrimary("Surface.AnimationPointerMeasuring.XML.Expression.RedRangeStart"),""+redRangeStart);
 
 		sub=doc.createElement(Language.trPrimary("Surface.AnimationPointerMeasuring.XML.Color"));
 		node.appendChild(sub);
@@ -424,6 +610,20 @@ public class ModelElementAnimationPointerMeasuring extends ModelElementAnimation
 				final Long L=NumberTools.getPositiveLong(maxValueString);
 				if (L==null) return String.format(Language.tr("Surface.XML.AttributeSubError"),Language.trPrimary("Surface.AnimationPointerMeasuring.XML.Expression.MaxValue"),name,node.getParentNode().getNodeName());
 				maxValue=L.intValue();
+			}
+			final String yellowRangeStartString=Language.trAllAttribute("Surface.AnimationPointerMeasuring.XML.Expression.YellowRangeStart",node);
+			if (!yellowRangeStartString.isEmpty()) {
+				final Long L=NumberTools.getNotNegativeLong(yellowRangeStartString);
+				if (L==null) return String.format(Language.tr("Surface.XML.AttributeSubError"),Language.trPrimary("Surface.AnimationPointerMeasuring.XML.Expression.YellowRangeStart"),name,node.getParentNode().getNodeName());
+				yellowRangeStart=L.intValue();
+				yellowRangeUse=true;
+			}
+			final String redRangeStartString=Language.trAllAttribute("Surface.AnimationPointerMeasuring.XML.Expression.RedRangeStart",node);
+			if (!redRangeStartString.isEmpty()) {
+				final Long L=NumberTools.getNotNegativeLong(redRangeStartString);
+				if (L==null) return String.format(Language.tr("Surface.XML.AttributeSubError"),Language.trPrimary("Surface.AnimationPointerMeasuring.XML.Expression.RedRangeStart"),name,node.getParentNode().getNodeName());
+				redRangeStart=L.intValue();
+				redRangeUse=true;
 			}
 			return null;
 		}
@@ -490,5 +690,7 @@ public class ModelElementAnimationPointerMeasuring extends ModelElementAnimation
 
 		searcher.testInteger(this,Language.tr("Editor.DialogBase.Search.MinValue"),minValue,newMinValue->{minValue=newMinValue;});
 		searcher.testInteger(this,Language.tr("Editor.DialogBase.Search.MaxValue"),maxValue,newMaxValue->{maxValue=newMaxValue;});
+		if (yellowRangeUse) searcher.testInteger(this,Language.tr("Editor.DialogBase.Search.YellowRange"),yellowRangeStart,newYellowRangeStart->{yellowRangeStart=newYellowRangeStart;});
+		if (redRangeUse) searcher.testInteger(this,Language.tr("Editor.DialogBase.Search.RedRange"),redRangeStart,newRedRangeStart->{redRangeStart=newRedRangeStart;});
 	}
 }

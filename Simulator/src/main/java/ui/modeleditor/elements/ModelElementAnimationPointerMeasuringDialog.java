@@ -23,7 +23,9 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.Serializable;
 
+import javax.swing.Box;
 import javax.swing.BoxLayout;
+import javax.swing.JCheckBox;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -55,6 +57,15 @@ public class ModelElementAnimationPointerMeasuringDialog extends ModelElementBas
 	private JTextField editMinValue;
 	/** Eingabefeld für den Maximalwert der Anzeigeakala */
 	private JTextField editMaxValue;
+	/** Option: Gelben Bereich verwenden? */
+	private JCheckBox optionUseYellowArea;
+	/** Eingabefeld für den Startwert des gelben Bereichs */
+	private JTextField editYellowAreaStartValue;
+	/** Option: Roten Bereich verwenden? */
+	private JCheckBox optionUseRedArea;
+	/** Eingabefeld für den Startwert des roten Bereichs */
+	private JTextField editRedAreaStartValue;
+
 	/** Auswahl der Farbe des Zeigers */
 	private SmallColorChooser colorChooser;
 
@@ -74,6 +85,7 @@ public class ModelElementAnimationPointerMeasuringDialog extends ModelElementBas
 	@Override
 	protected void setDialogSize() {
 		setMinSizeRespectingScreensize(600,0);
+		pack();
 	}
 
 	@Override
@@ -124,6 +136,34 @@ public class ModelElementAnimationPointerMeasuringDialog extends ModelElementBas
 			@Override public void keyPressed(KeyEvent e) {checkData(false);}
 		});
 
+		/* Gelber Bereich */
+		content.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
+		line.add(optionUseYellowArea=new JCheckBox(Language.tr("Surface.AnimationPointerMeasuring.Dialog.YellowAreaStartValue")));
+		optionUseYellowArea.setEnabled(!readOnly);
+		optionUseYellowArea.addActionListener(e->checkData(false));
+		line.add(Box.createHorizontalStrut(10));
+		line.add(editYellowAreaStartValue=new JTextField("",7));
+		editYellowAreaStartValue.setEditable(!readOnly);
+		editYellowAreaStartValue.addKeyListener(new KeyListener() {
+			@Override public void keyTyped(KeyEvent e) {checkData(false);}
+			@Override public void keyReleased(KeyEvent e) {checkData(false);}
+			@Override public void keyPressed(KeyEvent e) {checkData(false);}
+		});
+
+		/* Roter Bereich */
+		content.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
+		line.add(optionUseRedArea=new JCheckBox(Language.tr("Surface.AnimationPointerMeasuring.Dialog.RedAreaStartValue")));
+		optionUseRedArea.setEnabled(!readOnly);
+		optionUseRedArea.addActionListener(e->checkData(false));
+		line.add(Box.createHorizontalStrut(10));
+		line.add(editRedAreaStartValue=new JTextField("",7));
+		editRedAreaStartValue.setEditable(!readOnly);
+		editRedAreaStartValue.addKeyListener(new KeyListener() {
+			@Override public void keyTyped(KeyEvent e) {checkData(false);}
+			@Override public void keyReleased(KeyEvent e) {checkData(false);}
+			@Override public void keyPressed(KeyEvent e) {checkData(false);}
+		});
+
 		/* Farbe */
 		content.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
 		line.add(cell=new JPanel(new BorderLayout()));
@@ -139,6 +179,26 @@ public class ModelElementAnimationPointerMeasuringDialog extends ModelElementBas
 			editMinValue.setText(""+pointerMeasuring.getMinValue());
 			editMaxValue.setText(""+pointerMeasuring.getMaxValue());
 			colorChooser.setColor(pointerMeasuring.getColor());
+			optionUseYellowArea.setSelected(pointerMeasuring.isYellowRangeUse());
+			int yellowStart;
+			if (pointerMeasuring.isYellowRangeUse()) {
+				yellowStart=pointerMeasuring.getYellowRangeStart();
+				if (yellowStart<pointerMeasuring.getMinValue()) yellowStart=pointerMeasuring.getMinValue();
+				if (yellowStart>pointerMeasuring.getMaxValue()) yellowStart=pointerMeasuring.getMaxValue();
+			} else {
+				yellowStart=(int)Math.round(0.7*pointerMeasuring.getMaxValue());
+			}
+			editYellowAreaStartValue.setText(""+yellowStart);
+			optionUseRedArea.setSelected(pointerMeasuring.isRedRangeUse());
+			int redStart;
+			if (pointerMeasuring.isRedRangeUse()) {
+				redStart=pointerMeasuring.getRedRangeStart();
+				if (redStart<pointerMeasuring.getMinValue()) redStart=pointerMeasuring.getMinValue();
+				if (redStart>pointerMeasuring.getMaxValue()) redStart=pointerMeasuring.getMaxValue();
+			} else {
+				redStart=(int)Math.round(0.9*pointerMeasuring.getMaxValue());
+			}
+			editRedAreaStartValue.setText(""+redStart);
 		}
 
 		checkData(false);
@@ -192,11 +252,38 @@ public class ModelElementAnimationPointerMeasuringDialog extends ModelElementBas
 		/* Maximalwert */
 		final Long L2=NumberTools.getPositiveLong(editMaxValue,true);
 		if (L2==null || (L1!=null && L2.longValue()<=L1.longValue())) {
+			editMaxValue.setBackground(Color.red); /* Müssen wir manuell einfärben, da die obige Funktion nur prüft, ob die Zahl als solches gültig ist. */
 			ok=false;
 			if (showErrorMessages) {
 				MsgBox.error(this,Language.tr("Surface.AnimationPointerMeasuring.Dialog.MaxValue.Error.Title"),String.format(Language.tr("Surface.AnimationPointerMeasuring.Dialog.MaxValue.Error.Info"),editMaxValue.getText()));
 				return false;
 			}
+		}
+
+		/* Gelber Bereich */
+		if (optionUseYellowArea.isSelected()) {
+			final Long L=NumberTools.getNotNegativeLong(editYellowAreaStartValue,true);
+			if (L==null || (L1!=null && L.longValue()<L1.longValue()) || (L2!=null && L.longValue()>L2.longValue())) {
+				editYellowAreaStartValue.setBackground(Color.red); /* Müssen wir manuell einfärben, da die obige Funktion nur prüft, ob die Zahl als solches gültig ist. */
+				ok=false;
+				MsgBox.error(this,Language.tr("Surface.AnimationPointerMeasuring.Dialog.YellowAreaStartValue.Error.Title"),String.format(Language.tr("Surface.AnimationPointerMeasuring.Dialog.YellowAreaStartValue.Error.Info"),editYellowAreaStartValue.getText()));
+				return false;
+			}
+		} else {
+			editYellowAreaStartValue.setBackground(NumberTools.getTextFieldDefaultBackground());
+		}
+
+		/* Roter Bereich */
+		if (optionUseRedArea.isSelected()) {
+			final Long L=NumberTools.getNotNegativeLong(editRedAreaStartValue,true);
+			if (L==null || (L1!=null && L.longValue()<L1.longValue()) || (L2!=null && L.longValue()>L2.longValue())) {
+				editRedAreaStartValue.setBackground(Color.red); /* Müssen wir manuell einfärben, da die obige Funktion nur prüft, ob die Zahl als solches gültig ist. */
+				ok=false;
+				MsgBox.error(this,Language.tr("Surface.AnimationPointerMeasuring.Dialog.RedAreaStartValue.Error.Title"),String.format(Language.tr("Surface.AnimationPointerMeasuring.Dialog.RedAreaStartValue.Error.Info"),editRedAreaStartValue.getText()));
+				return false;
+			}
+		} else {
+			editRedAreaStartValue.setBackground(NumberTools.getTextFieldDefaultBackground());
 		}
 
 		return ok;
@@ -226,6 +313,10 @@ public class ModelElementAnimationPointerMeasuringDialog extends ModelElementBas
 			pointerMeasuring.setExpression(editExpression.getText());
 			pointerMeasuring.setMinValue(NumberTools.getNotNegativeLong(editMinValue,true).intValue());
 			pointerMeasuring.setMaxValue(NumberTools.getNotNegativeLong(editMaxValue,true).intValue());
+			pointerMeasuring.setYellowRangeUse(optionUseYellowArea.isSelected());
+			if (optionUseYellowArea.isSelected()) pointerMeasuring.setYellowRangeStart(NumberTools.getNotNegativeLong(editYellowAreaStartValue,true).intValue());
+			pointerMeasuring.setRedRangeUse(optionUseRedArea.isSelected());
+			if (optionUseRedArea.isSelected()) pointerMeasuring.setRedRangeStart(NumberTools.getNotNegativeLong(editRedAreaStartValue,true).intValue());
 			pointerMeasuring.setColor(colorChooser.getColor());
 		}
 	}

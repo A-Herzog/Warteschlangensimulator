@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-15 16:56+0200\n"
+"POT-Creation-Date: 2021-07-16 00:22+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -3749,7 +3749,7 @@ msgid "Editor.DialogBase.Search.PriorityForClientType"
 msgstr "Priority for client type \"%s\""
 
 msgid "Editor.DialogBase.Search.RedRange"
-msgstr ""
+msgstr "Red range"
 
 msgid "Editor.DialogBase.Search.Resource.CostsPerActiveHour"
 msgstr "Costs per active hour in operators group \"%s\""
@@ -3917,7 +3917,7 @@ msgid "Editor.DialogBase.Search.Variable.InitialValue"
 msgstr "Initial value for global variable \"%s\""
 
 msgid "Editor.DialogBase.Search.YellowRange"
-msgstr ""
+msgstr "Yellow range"
 
 msgid "Editor.DialogBase.WarmUpExternalSourceWarning.Button"
 msgstr "Disable warm-up phases"
@@ -7419,9 +7419,6 @@ msgstr "Sans serif font"
 
 msgid "FontFamily.Serif"
 msgstr "Serif font"
-
-msgid "GelberBereich"
-msgstr ""
 
 msgid "Git.Edit.Title"
 msgstr "Edit git configuration"
@@ -13469,9 +13466,6 @@ msgstr "Client priority"
 
 msgid "Resources.SecondaryPriority.Random"
 msgstr "Station at random"
-
-msgid "RoterBereich"
-msgstr ""
 
 msgid "SavedView.XML.Name"
 msgstr "Name"
@@ -21781,8 +21775,26 @@ msgstr ""
 msgid "Surface.AnimationPointerMeasuring.Dialog.MinValue.Error.Title"
 msgstr "Invalid minimum value"
 
+msgid "Surface.AnimationPointerMeasuring.Dialog.RedAreaStartValue"
+msgstr "Show red area in scale from"
+
+msgid "Surface.AnimationPointerMeasuring.Dialog.RedAreaStartValue.Error.Info"
+msgstr "The specified start value for the red area \"%s\" is invalid. A non negative integer number has to be specified."
+
+msgid "Surface.AnimationPointerMeasuring.Dialog.RedAreaStartValue.Error.Title"
+msgstr "Invalid red area"
+
 msgid "Surface.AnimationPointerMeasuring.Dialog.Title"
 msgstr "Edit analogue scale display"
+
+msgid "Surface.AnimationPointerMeasuring.Dialog.YellowAreaStartValue"
+msgstr "Show yellow area in scale from"
+
+msgid "Surface.AnimationPointerMeasuring.Dialog.YellowAreaStartValue.Error.Info"
+msgstr "The specified start value for the yellow area \"%s\" is invalid. A non negative integer number has to be specified."
+
+msgid "Surface.AnimationPointerMeasuring.Dialog.YellowAreaStartValue.Error.Title"
+msgstr "Invalid yellow area"
 
 msgid "Surface.AnimationPointerMeasuring.Infotext"
 msgstr "Displays the value of an expression as a pointer setting on an analog scale during animation."
@@ -21806,10 +21818,10 @@ msgid "Surface.AnimationPointerMeasuring.XML.Expression.MinValue"
 msgstr "MinValue"
 
 msgid "Surface.AnimationPointerMeasuring.XML.Expression.RedRangeStart"
-msgstr ""
+msgstr "RedRange"
 
 msgid "Surface.AnimationPointerMeasuring.XML.Expression.YellowRangeStart"
-msgstr ""
+msgstr "YellowRange"
 
 msgid "Surface.AnimationPointerMeasuring.XML.Root"
 msgstr "ModelElementAnimationPointerMeasuring"
