@@ -425,6 +425,11 @@ public class SetupData extends SetupBase {
 	public boolean useMultiCoreSimulation;
 
 	/**
+	 * Sollen wiederholte Simulationsläufe ggf. aufgeteilt werden, um alle CPU-Kerne auszulasten?
+	 */
+	public boolean useMultiCoreSimulationOnRepeatedSimulations;
+
+	/**
 	 * Ist {@link #useMultiCoreSimulation} aktiv, so gibt dieser Wert die maximale
 	 * Anzahl an Simulationsthreads an.
 	 */
@@ -1267,6 +1272,7 @@ public class SetupData extends SetupBase {
 		testJavaVersion=true;
 		autoUpdate=AutoUpdate.INSTALL;
 		useMultiCoreSimulation=true;
+		useMultiCoreSimulationOnRepeatedSimulations=false;
 		useMultiCoreSimulationMaxCount=1024;
 		useMultiCoreAnimation=true;
 		useSlowModeAnimation=true;
@@ -1771,6 +1777,7 @@ public class SetupData extends SetupBase {
 				}
 				useNUMAMode=loadBoolean(e.getAttribute("NUMA"),false);
 				useDynamicThreadBalance=loadBoolean(e.getAttribute("Dynamic"),true);
+				useMultiCoreSimulationOnRepeatedSimulations=loadBoolean(e.getAttribute("SplitRepeatedRuns"),false);
 				continue;
 			}
 
@@ -2465,12 +2472,13 @@ public class SetupData extends SetupBase {
 			node.setTextContent(autoUpdate.name);
 		}
 
-		if (!useMultiCoreSimulation || useMultiCoreSimulationMaxCount!=1024 || useNUMAMode || !useDynamicThreadBalance) {
+		if (!useMultiCoreSimulation || useMultiCoreSimulationMaxCount!=1024 || useNUMAMode || !useDynamicThreadBalance || useMultiCoreSimulationOnRepeatedSimulations) {
 			root.appendChild(node=doc.createElement("AllCPUCoresSimulation"));
 			node.setTextContent(useMultiCoreSimulation?"1":"0");
 			if (useMultiCoreSimulationMaxCount!=1024) node.setAttribute("MaxCount",""+useMultiCoreSimulationMaxCount);
 			if (useNUMAMode) node.setAttribute("NUMA","1");
 			if (!useDynamicThreadBalance) node.setAttribute("Dynamic","0");
+			if (useMultiCoreSimulationOnRepeatedSimulations) node.setAttribute("SplitRepeatedRuns","1");
 		}
 
 		if (!useMultiCoreAnimation) {

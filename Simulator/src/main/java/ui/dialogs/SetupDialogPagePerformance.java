@@ -67,6 +67,8 @@ public class SetupDialogPagePerformance extends SetupDialogPage {
 
 	/** Mehrkernunterstützung für Simulationen verwenden? */
 	private final JCheckBox useMultiCoreSimulation;
+	/** Sollen wiederholte Simulationsläufe ggf. aufgeteilt werden, um alle CPU-Kerne auszulasten? */
+	private final JCheckBox useMultiCoreSimulationOnRepeatedSimulations;
 	/** Mehrkernunterstützung für Animationen verwenden? */
 	private final JCheckBox useMultiCoreAnimation;
 	/** Hohe Priorität für die Simulationsthreads verwenden? */
@@ -141,6 +143,11 @@ public class SetupDialogPagePerformance extends SetupDialogPage {
 
 		/* Mehrkernunterstützung für Simulationen verwenden? */
 		addLine().add(useMultiCoreSimulation=new JCheckBox(Language.tr("SettingsDialog.Tabs.Simulation.UseMultiCore")));
+		useMultiCoreSimulation.addActionListener(e->updateGUI());
+
+		/* Sollen wiederholte Simulationsläufe ggf. aufgeteilt werden, um alle CPU-Kerne auszulasten? */
+		addLine().add(useMultiCoreSimulationOnRepeatedSimulations=new JCheckBox(Language.tr("SettingsDialog.Tabs.Simulation.UseMultiCoreOnRepeatedSimulations")));
+		useMultiCoreSimulationOnRepeatedSimulations.setToolTipText(Language.tr("SettingsDialog.Tabs.Simulation.UseMultiCoreOnRepeatedSimulations.Hint"));
 
 		/* Mehrkernunterstützung für Animationen verwenden? */
 		addLine().add(useMultiCoreAnimation=new JCheckBox(Language.tr("SettingsDialog.Tabs.Simulation.UseMultiCoreAnimation")));
@@ -255,6 +262,14 @@ public class SetupDialogPagePerformance extends SetupDialogPage {
 		 */
 	}
 
+	/**
+	 * Aktualisiert den Aktivierungsstatus einzelner Checkboxen in Abhängigkeit davon,
+	 * ob andere Checkboxen markiert sind.
+	 */
+	private void updateGUI() {
+		useMultiCoreSimulationOnRepeatedSimulations.setEnabled(useMultiCoreSimulation.isSelected());
+	}
+
 	@Override
 	public void loadData() {
 		switch (setup.backgroundSimulation) {
@@ -267,6 +282,7 @@ public class SetupDialogPagePerformance extends SetupDialogPage {
 		useGUIAnimations.setSelected(setup.useAnimations);
 
 		useMultiCoreSimulation.setSelected(setup.useMultiCoreSimulation);
+		useMultiCoreSimulationOnRepeatedSimulations.setSelected(setup.useMultiCoreSimulationOnRepeatedSimulations);
 		useMultiCoreAnimation.setSelected(setup.useMultiCoreAnimation);
 		highPriority.setSelected(setup.highPriority);
 		useNUMAMode.setSelected(setup.useNUMAMode);
@@ -296,6 +312,8 @@ public class SetupDialogPagePerformance extends SetupDialogPage {
 		/*
 		javaJDKpath.setText(setup.javaJDKPath);
 		 */
+
+		updateGUI();
 	}
 
 	@Override
@@ -310,6 +328,7 @@ public class SetupDialogPagePerformance extends SetupDialogPage {
 		setup.useAnimations=useGUIAnimations.isSelected();
 
 		setup.useMultiCoreSimulation=useMultiCoreSimulation.isSelected();
+		setup.useMultiCoreSimulationOnRepeatedSimulations=useMultiCoreSimulationOnRepeatedSimulations.isSelected();
 		setup.useMultiCoreAnimation=useMultiCoreAnimation.isSelected();
 		setup.highPriority=highPriority.isSelected();
 		setup.useNUMAMode=useNUMAMode.isSelected();
@@ -343,6 +362,7 @@ public class SetupDialogPagePerformance extends SetupDialogPage {
 		backgroundProcessing.setSelectedIndex(2);
 		useGUIAnimations.setSelected(true);
 		useMultiCoreSimulation.setSelected(true);
+		useMultiCoreSimulationOnRepeatedSimulations.setSelected(false);
 		useMultiCoreAnimation.setSelected(true);
 		highPriority.setSelected(false);
 		useNUMAMode.setSelected(false);
@@ -350,5 +370,6 @@ public class SetupDialogPagePerformance extends SetupDialogPage {
 		cancelSimulationOnScriptError.setSelected(true);
 		serverPort.setValue(8183);
 		serverUse.setSelected(false);
+		updateGUI();
 	}
 }

@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-16 00:22+0200\n"
+"POT-Creation-Date: 2021-07-17 00:21+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -14892,6 +14892,12 @@ msgstr "Mehrere CPU-Kerne für Simulation nutzen"
 
 msgid "SettingsDialog.Tabs.Simulation.UseMultiCoreAnimation"
 msgstr "Mehrere CPU-Kerne für Animation nutzen"
+
+msgid "SettingsDialog.Tabs.Simulation.UseMultiCoreOnRepeatedSimulations"
+msgstr "Wiederholte Simulationen wenn sinnvoll aufteilen"
+
+msgid "SettingsDialog.Tabs.Simulation.UseMultiCoreOnRepeatedSimulations.Hint"
+msgstr "Teilt wiederholte Simulationen auf, wenn die Wiederholungsanzahl geringer ist als die Anzahl an verfügbaren CPU-Kernen."
 
 msgid "SettingsDialog.Tabs.Simulation.UseNUMA"
 msgstr "NUMA-Unterstützung für Simulation"

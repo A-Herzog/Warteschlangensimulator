@@ -154,10 +154,12 @@ public class Simulator extends SimulatorBase implements AnySimulator {
 		final int b=Math.max(1,maxCoreCount);
 		int threadCount=Math.min(a,b);
 
-
 		/* Bei mehreren Wiederholungen auf die Anzahl an Läufen abstimmen */
 		if (!editModel.allowMultiCore()) {
 			threadCount=Math.min(threadCount,Runtime.getRuntime().availableProcessors());
+			if (threadCount>editModel.repeatCount) threadCount=editModel.repeatCount;
+		}
+		if (!SetupData.getSetup().useMultiCoreSimulationOnRepeatedSimulations && editModel.repeatCount>1) {
 			if (threadCount>editModel.repeatCount) threadCount=editModel.repeatCount;
 		}
 

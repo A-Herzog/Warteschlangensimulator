@@ -209,6 +209,22 @@ As a result, the required computing time drops significantly, but at the same ti
 (This option is enabled by default.)
 </p>
 
+<h3>Split repeated simulations if reasonable</h3>
+<p>
+If this option is activated and additionally the multi-core simulation is activated as well,
+then the set number of repetitions is possibly increased by the simulator. If a model is to be
+simulated several times, the individual repetitions are distributed to the available CPU cores.
+If the configured number of repetitions is smaller than the number of available CPU cores, some
+cores would not be used at all. To make the best use of the available CPU power, if this option
+is enabled, the number of repetitions is doubled and at the same time the number of client
+arrivals per repetition is halved until all CPU cores are used. This results in better confidence
+intervals than would actually have been expected by the user settings for the number of
+repetitions of the simulation. Therefore, this option is disabled by default.
+</p>
+<p>
+(This option is disabled by default.)
+</p>
+
 <h3>Use multiple CPU cores for animation</h3>
 <p>
 If this option is activated, the animation is distributed over multiple CPU cores.

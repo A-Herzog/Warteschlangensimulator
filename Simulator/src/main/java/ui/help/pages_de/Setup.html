@@ -214,6 +214,25 @@ Dies führt dazu, dass die benötigte Rechenzeit deutlich sinkt, gleichzeitig ab
 (Diese Option ist als Vorgabewert aktiviert.)
 </p>
 
+<h3>Wiederholte Simulationen wenn sinnvoll aufteilen</h3>
+<p>
+Ist diese Option aktiviert und ist zusätzlich die Mehrkernsimulation als solches aktiviert,
+so wird die eingestellte Anzahl an Wiederholungen evtl. durch den Simulator erhöht. Soll
+ein Modell mehrfach simuliert werden, so werden die einzelnen Wiederholungen auf die verfügbaren
+CPU-Kerne verteilt. Ist die eingestellte Anzahl an Wiederholungen kleiner als die Anzahl an
+verfügbaren CPU-Kernen, so würden einige Kerne überhaupt nicht verwendet. Um die verfügbare
+CPU-Leistung optimal auszunutzen, wird, wenn diese Option aktiviert ist, die Anzahl an
+Wiederholungen so lange verdoppelt und gleichzeitig die Anzahl an Kundenankünften pro Wiederholung
+so lange halbiert, bis alle CPU-Kerne genutzt werden. Dies führt dazu, dass sich bessere
+Konfidenzintervalle ergeben, als eigentlich durch die Benutzereinstellung zur Anzahl an
+Wiederholungen der Simulation zu erwarten gewesen wäre. Daher ist diese Option als
+Vorgabe deaktiviert.
+</p>
+<p>
+(Diese Option ist als Vorgabewert deaktiviert.)
+</p>
+
+
 <h3>Mehrere CPU-Kerne für Animation nutzen</h3>
 <p>
 Ist diese Option aktiviert, so wird die Animation über mehrere verfügbaren CPU-Kerne verteilt.

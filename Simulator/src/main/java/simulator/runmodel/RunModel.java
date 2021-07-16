@@ -100,6 +100,11 @@ public class RunModel {
 	public int repeatCount;
 
 	/**
+	 * Sollen wiederholte Simulationsläufe ggf. aufgeteilt werden, um alle CPU-Kerne auszulasten?
+	 */
+	public boolean repeatAllowSplit;
+
+	/**
 	 * Gibt an, durch wie viel die Anzahl an Kunden für einen Thread geteilt werden soll.<br>
 	 * (Dieser Wert steht auch in den SimulationData zur Verfügung.)
 	 */
@@ -432,6 +437,7 @@ public class RunModel {
 			if (noRepeat!=null) return String.format(Language.tr("Simulation.Creator.NoRepeatCountAllowed"),editModel.repeatCount,noRepeat);
 		}
 		runModel.repeatCount=editModel.repeatCount;
+		runModel.repeatAllowSplit=SetupData.getSetup().useMultiCoreSimulationOnRepeatedSimulations;
 
 		/* Simulation bei Rechenfehlern abbrechen */
 		runModel.stoppOnCalcError=editModel.stoppOnCalcError;

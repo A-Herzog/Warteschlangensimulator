@@ -156,7 +156,7 @@ public class SimulationData extends SimData {
 		if (runModel.repeatCount>1) {
 			int div=1;
 			int repeat=runModel.repeatCount;
-			while (repeat<threadCount) {repeat*=2; div*=2;}
+			if (runModel.repeatAllowSplit) while (repeat<threadCount) {repeat*=2; div*=2;}
 			clientCountDiv=div;
 			int baseCount=repeat/threadCount;
 			int addCount=repeat%threadCount;
