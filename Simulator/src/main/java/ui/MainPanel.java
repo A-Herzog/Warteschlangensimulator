@@ -2877,7 +2877,7 @@ public class MainPanel extends MainPanelBase {
 	private String commandSimulationAnimation(final File recordFile, final boolean externalConnect, final SimLogging logging, final int[] loggingIDs, final Set<Simulator.LogType> logType) {
 		EditorPanelRepair.autoFix(editorPanel);
 
-		EditModel editModel=editorPanel.getModel().clone();
+		EditModel editModel=editorPanel.getModel();
 
 		if (editModel.repeatCount>1) {
 			if (!externalConnect) MsgBox.info(getOwnerWindow(),Language.tr("Animation.NoRepeat.Title"),String.format(Language.tr("Animation.NoRepeat.Info"),editModel.repeatCount));
