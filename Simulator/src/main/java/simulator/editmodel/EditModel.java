@@ -1043,7 +1043,7 @@ public final class EditModel extends EditModelBase implements Cloneable  {
 		if (Language.trAll("Surface.XML.PluginsFolder",name)) {
 			pluginsFolder=text;
 			final String allowClassLoading=Language.trAllAttribute("Surface.XML.PluginsFolder.AllowClassLoading",node);
-			if (!allowClassLoading.trim().isEmpty() && !allowClassLoading.equals("1")) pluginsFolderAllowClassLoad=true;
+			if (allowClassLoading.equals("1")) pluginsFolderAllowClassLoad=true;
 			return null;
 		}
 
