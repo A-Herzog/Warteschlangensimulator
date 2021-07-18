@@ -18,24 +18,13 @@ package scripting.java;
 import java.io.File;
 import java.io.IOException;
 import java.io.StringWriter;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.net.URLClassLoader;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
-import javax.tools.Diagnostic;
-import javax.tools.DiagnosticCollector;
 import javax.tools.JavaCompiler;
-import javax.tools.JavaCompiler.CompilationTask;
-import javax.tools.JavaFileManager;
 import javax.tools.JavaFileObject;
 import javax.tools.StandardJavaFileManager;
 import javax.tools.ToolProvider;
-
-import language.Language;
-import mathtools.NumberTools;
 
 /**
  * Ermöglicht es, dynamisch Klassen aus Texten oder aus java- oder aus class-Dateien zu laden.<br>
@@ -54,7 +43,6 @@ public class DynamicClassInternalCompilerFullMemory extends DynamicClassBase {
 		super(setup,additionalClassPath);
 	}
 
-	@SuppressWarnings("resource")
 	@Override
 	public Object prepare(String text) {
 		/* Daten vorhanden? */
@@ -67,69 +55,11 @@ public class DynamicClassInternalCompilerFullMemory extends DynamicClassBase {
 		/* Kompiler finden */
 		if (!DynamicFactory.hasCompiler()) return DynamicStatus.NO_COMPILER;
 
-		final JavaCompiler compiler=ToolProvider.getSystemJavaCompiler();
-		if (compiler==null) return DynamicStatus.NO_COMPILER;
-
-		/* Vorbereiten */
-		URLClassLoader urlLoader=null;
-		if (additionalClassPath!=null) {
-			try {
-				final File folder=new File(additionalClassPath);
-				urlLoader=new URLClassLoader(new URL[]{folder.toURI().toURL()});
-			} catch (MalformedURLException e1) {
-				return DynamicStatus.COMPILE_ERROR;
-			}
-		}
-
-		try (final JavaFileManager fileManager=new ClassFileManager<JavaFileManager>(compiler.getStandardFileManager(null,null,null),urlLoader)) {
-			final DiagnosticCollector<JavaFileObject> diagnostics=new DiagnosticCollector<>();
-			final JavaFileObject file=new CharSequenceJavaFileObject(className,text);
-			final Iterable<? extends JavaFileObject> compilationUnits=Arrays.asList(file);
-
-			final List<String> options=new ArrayList<>();
-			options.add("-cp");
-			if (additionalClassPath!=null) {
-				options.add(System.getProperty("java.class.path")+File.pathSeparatorChar+additionalClassPath);
-			} else {
-				options.add(System.getProperty("java.class.path"));
-			}
-
-			/* Übersetzen */
-			final CompilationTask task=compiler.getTask(null,fileManager,diagnostics,options,null,compilationUnits);
-
-			if (task.call()) {
-				/* Klasse laden */
-				return fileManager.getClassLoader(null).loadClass(className);
-			}
-
-			/* Fehlermeldung erstellen */
-			final StringBuilder sb=new StringBuilder();
-			for (Diagnostic<?> diagnostic : diagnostics.getDiagnostics()) {
-				if (diagnostic.getKind()!=javax.tools.Diagnostic.Kind.ERROR) continue;
-				long lineNr=diagnostic.getLineNumber();
-				final long colNr=diagnostic.getColumnNumber();
-				if (lineNr<0 || colNr<0) continue;
-				lineNr--; /* Vorspann berücksichtigen */
-				final String[] lines=text.split("\\n");
-				if (lines==null || lines.length==0 || lines.length<lineNr) continue;
-				if (sb.length()>0) sb.append("\n");
-				sb.append(String.format(Language.tr("Simulation.Java.Error.CompileError.Line"),lineNr+1)+":\n");
-				sb.append(lines[(int)lineNr]);
-				sb.append("\n");
-				sb.append(String.format(Language.tr("Simulation.Java.Error.CompileError.Column"),colNr+1)+": ");
-				sb.append(diagnostic.getMessage(NumberTools.getLocale()));
-				sb.append("\n");
-			}
-			if (sb.length()>0) setError(sb.toString());
-			return DynamicStatus.COMPILE_ERROR;
-
-		} catch (IOException e) {
-			setError(e.getMessage());
-			return DynamicStatus.COMPILE_ERROR;
-		} catch (ClassNotFoundException e) {
-			setError(e.getMessage());
-			return DynamicStatus.LOAD_ERROR;
-		}
+		/* Die Klassen müssen vom selben Classloader geladen werden, sonst können Objekte über die globale Map nicht zwischen verschiedenen Stationen ausgetauscht werden. */
+		final ClassLoaderCache.ExtendedStatus status=ClassLoaderCache.process(additionalClassPath,className,text);
+		if (status.status==DynamicStatus.OK) return status.loadedClass;
+		if (status.errorText!=null) setError(status.errorText);
+		return status.status;
 	}
 
 	@Override
