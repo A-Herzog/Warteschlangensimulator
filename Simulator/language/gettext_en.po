@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-17 00:21+0200\n"
+"POT-Creation-Date: 2021-07-18 13:11+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -13752,6 +13752,12 @@ msgstr "Gets the process time of a client in the current batch"
 
 msgid "ScriptPopup.Client.ProcessTime.Hint"
 msgstr "Gets or sets the process time of the client"
+
+msgid "ScriptPopup.Client.ResidenceTime"
+msgstr "Residence time"
+
+msgid "ScriptPopup.Client.ResidenceTime.Hint"
+msgstr "Gets or sets the residence time of the client"
 
 msgid "ScriptPopup.Client.Time.Get"
 msgstr "Get time als number"

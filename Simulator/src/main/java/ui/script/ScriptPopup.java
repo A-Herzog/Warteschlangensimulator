@@ -547,6 +547,9 @@ public class ScriptPopup {
 		String clientProcessSeconds="";
 		String clientProcessTime="";
 		String clientProcessSecondsSet="";
+		String clientResidenceSeconds="";
+		String clientResidenceTime="";
+		String clientResidenceSecondsSet="";
 		String clientGetValue="";
 		String clientSetValue="";
 		String clientGetText="";
@@ -559,6 +562,7 @@ public class ScriptPopup {
 			clientInStatistics="Simulation.isClientInStatistics()";
 			clientSetInStatistics="Simulation.setClientInStatistics(true)";
 			clientNumber="Simulation.clientNumber()";
+
 			clientWaitingSeconds="Simulation.clientWaitingSeconds()";
 			clientWaitingTime="Simulation.clientWaitingTime()";
 			clientWaitingSecondsSet="Simulation.clientWaitingSecondsSet(123.456);";
@@ -568,6 +572,10 @@ public class ScriptPopup {
 			clientProcessSeconds="Simulation.clientProcessSeconds()";
 			clientProcessTime="Simulation.clientProcessTime()";
 			clientProcessSecondsSet="Simulation.clientProcessSecondsSet(123.456);";
+			clientResidenceSeconds="Simulation.clientResidenceSeconds();";
+			clientResidenceTime="Simulation.clientResidenceTime();";
+			clientResidenceSecondsSet="Simulation.clientResidenceSecondsSet(123.456);";
+
 			clientGetValue="Simulation.getClientValue(index)";
 			clientSetValue="Simulation.setClientValue(index,123)";
 			clientGetText="Simulation.getClientText(\"key\")";
@@ -591,6 +599,9 @@ public class ScriptPopup {
 			clientProcessSeconds="sim.getClient().getProcessSeconds();";
 			clientProcessTime="sim.getClient().getProcessTime();";
 			clientProcessSecondsSet="sim.getClient().setProcessSeconds(123.456);";
+			clientResidenceSeconds="sim.getClient().getResidenceSeconds();";
+			clientResidenceTime="sim.getClient().getResidenceTime();";
+			clientResidenceSecondsSet="sim.getClient().setResidenceSeconds(123.456);";
 
 			clientGetValue="sim.getClient().getValue(index);";
 			clientSetValue="sim.getClient().setValue(index,123);";
@@ -627,6 +638,10 @@ public class ScriptPopup {
 		sub.addChild(new ScriptPopupItemCommand(Language.tr("ScriptPopup.Client.Time.Get"),Language.tr("ScriptPopup.Client.Time.Get.Hint"),null,clientProcessSeconds));
 		sub.addChild(new ScriptPopupItemCommand(Language.tr("ScriptPopup.Client.Time.GetText"),Language.tr("ScriptPopup.Client.Time.GetText.Hint"),null,clientProcessTime));
 		sub.addChild(new ScriptPopupItemCommand(Language.tr("ScriptPopup.Client.Time.Set"),Language.tr("ScriptPopup.Client.Time.Set.Hint"),null,clientProcessSecondsSet));
+		group.addChild(sub=new ScriptPopupItemSub(Language.tr("ScriptPopup.Client.ResidenceTime"),Language.tr("ScriptPopup.Client.ResidenceTime.Hint"),Images.SCRIPT_RECORD_TIME.getIcon()));
+		sub.addChild(new ScriptPopupItemCommand(Language.tr("ScriptPopup.Client.Time.Get"),Language.tr("ScriptPopup.Client.Time.Get.Hint"),null,clientResidenceSeconds));
+		sub.addChild(new ScriptPopupItemCommand(Language.tr("ScriptPopup.Client.Time.GetText"),Language.tr("ScriptPopup.Client.Time.GetText.Hint"),null,clientResidenceTime));
+		sub.addChild(new ScriptPopupItemCommand(Language.tr("ScriptPopup.Client.Time.Set"),Language.tr("ScriptPopup.Client.Time.Set.Hint"),null,clientResidenceSecondsSet));
 		group.addSeparator();
 		group.addChild(sub=new ScriptPopupItemSub(Language.tr("ScriptPopup.Client.ValueNumber"),Language.tr("ScriptPopup.Client.ValueNumber.Hint"),Images.SCRIPT_RECORD_DATA_COUNTER.getIcon()));
 		sub.addChild(new ScriptPopupItemCommand(Language.tr("ScriptPopup.Client.ValueNumber.Get"),Language.tr("ScriptPopup.Client.ValueNumber.Get.Hint"),null,clientGetValue));

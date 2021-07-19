@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-17 00:21+0200\n"
+"POT-Creation-Date: 2021-07-18 13:11+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -13753,6 +13753,12 @@ msgstr "Liefert die bisherige Bedienzeit eines Kunden im aktuellen Batch"
 
 msgid "ScriptPopup.Client.ProcessTime.Hint"
 msgstr "Liefert oder stellt die bisherige Bedienzeit ein"
+
+msgid "ScriptPopup.Client.ResidenceTime"
+msgstr "Bisherige Verweilzeit"
+
+msgid "ScriptPopup.Client.ResidenceTime.Hint"
+msgstr "Liefert oder stellt die bisherige Verweilzeit ein"
 
 msgid "ScriptPopup.Client.Time.Get"
 msgstr "Zeit als Zahlenwert"
