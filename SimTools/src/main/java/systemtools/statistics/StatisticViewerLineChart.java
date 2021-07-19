@@ -153,6 +153,10 @@ public class StatisticViewerLineChart extends StatisticViewerJFreeChart {
 		plot.setDomainGridlinePaint(Color.black);
 
 		setAxisFonts();
+
+		chartPanel.setMouseWheelEnabled(true);
+		plot.setDomainPannable(true);
+		plot.setRangePannable(true);
 	}
 
 	/**
