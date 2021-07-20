@@ -952,7 +952,7 @@ public final class StatisticsDataPerformanceIndicator extends StatisticsPerforma
 			batchMeansVar=1.0/b/(b-1)*(batchMeansSum2-2*xMean*batchMeansSum+b*xMean*xMean);
 		}
 
-		return batchMeansVar;
+		return Math.max(0,batchMeansVar); /* Um Rundungsprobleme zu vermeiden. */
 	}
 
 	/**
@@ -1009,7 +1009,7 @@ public final class StatisticsDataPerformanceIndicator extends StatisticsPerforma
 			final int b=runCount;
 			runVar=1.0/b/(b-1)*(runSum2-2*xMean*runSum+b*xMean*xMean);
 		}
-		return runVar;
+		return Math.max(0,runVar); /* Um Rundungsprobleme zu vermeiden. */
 	}
 
 	/**
@@ -1338,8 +1338,13 @@ public final class StatisticsDataPerformanceIndicator extends StatisticsPerforma
 		value=getAttributeValue(node,xmlNameRunVar);
 		if (!value.isEmpty()) {
 			Double D=NumberTools.getNotNegativeDouble(NumberTools.systemNumberToLocalNumber(value));
-			if (D==null) return String.format(xmlNameRunVarError,node.getNodeName(),value);
-			runVar=D.doubleValue();
+			if (D==null) {
+				final Double D2=NumberTools.getDouble(NumberTools.systemNumberToLocalNumber(value));
+				if (D2==null || D2.doubleValue()<-0.0000001) return String.format(xmlNameRunVarError,node.getNodeName(),value);
+				runVar=0; /* Frühere Versionen konnten beim Speichern aufgrund von Rundungsungenauigkeiten noch ganz leicht negative Werte speichern. */
+			} else {
+				runVar=D.doubleValue();
+			}
 		}
 
 		return null;
