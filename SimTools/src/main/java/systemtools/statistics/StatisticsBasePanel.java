@@ -238,6 +238,8 @@ public abstract class StatisticsBasePanel extends JPanel implements AbstractRepo
 	public static String viewersToolbarZoom="Standardzoom";
 	/** Bezeichner für den Tooltip für das Toolbar-Button "Standardzoom" */
 	public static String viewersToolbarZoomHint="Stellt den Zoomfaktor so ein, dass das gesamte Diagramm sichtbar ist.";
+	/** Erklärungstext zum Zoomen, der unter Liniendiagrammen angezeigt wird */
+	public static String viewersToolbarZoomHintPanel="In dem Diagramm können mit gedrückter linker Maustaste Zoom-Rahmen aufgezogen werden. Außerdem kann mit dem Mausrad gezoomt werden. Wird die Strg-Taste gedrückt gehalten, so kann der darzustellende Bereich mit gedrückter linker Maustaste verschoben werden.";
 	/** Bezeichner für das Toolbar-Button "Kopieren" */
 	public static String viewersToolbarCopy="Kopieren";
 	/** Bezeichner für den Tooltip für das Toolbar-Button "Kopieren" */

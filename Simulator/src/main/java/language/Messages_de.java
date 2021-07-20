@@ -15882,6 +15882,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[35841] = "pro Minute";
     t[35848] = "ModelDescription.Arrival.NumberOfClientArrivals";
     t[35849] = "Anzahl an eintreffenden Kunden";
+    t[35850] = "Statistic.Viewer.Toolbar.Zoom.HintPanel";
+    t[35851] = "In dem Diagramm k\u00f6nnen mit gedr\u00fcckter linker Maustaste Zoom-Rahmen aufgezogen werden. Au\u00dferdem kann mit dem Mausrad gezoomt werden. Wird die Strg-Taste gedr\u00fcckt gehalten, so kann der darzustellende Bereich mit gedr\u00fcckter linker Maustaste verschoben werden.";
     t[35852] = "ExpressionBuilder.MathematicalFunctions.IntegerPart";
     t[35853] = "Ganzzahl-Anteil";
     t[35858] = "ExpressionBuilder.ClientsAtQueue.MinimalNumber";
@@ -16050,14 +16052,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[36215] = "Modell simulieren";
     t[36224] = "SimulationServer.Setup.MQTTTopic";
     t[36225] = "Thema";
-    t[36226] = "CommandLine.SetMaxThreads.Info.MultiCore";
-    t[36227] = "Mehrkern-Simulation aktiviert (vorheriger Status: %s)";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_8 (java.lang.String[] t) {
+    t[36226] = "CommandLine.SetMaxThreads.Info.MultiCore";
+    t[36227] = "Mehrkern-Simulation aktiviert (vorheriger Status: %s)";
     t[36230] = "ExpressionBuilder.ProbabilityDistributions.GammaDistributionDirect.RandomNumberRangeInfo";
     t[36231] = "<p>Erzeugt eine Zufallszahl gem\u00e4\u00df der Gamma-Verteilung mit Erwartungswert und Standardabweichung gem\u00e4\u00df dem dritten und vierten Parameter.</p>\\n<p>Der erste und zweite Parameter geben den Bereich an, in dem sich die Zufallszahl befinden soll.</p>";
     t[36232] = "Surface.Process.Dialog.Tab.Operators.Alternative.Delete";
@@ -18056,14 +18058,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[40847] = "Neues Fenster";
     t[40850] = "SettingsDialog.Tabs.Simulation.UseNUMA.InfoShort";
     t[40851] = "Informationen zur NUMA-Unterst\u00fctzung";
-    t[40852] = "ModelSecurityCheck.Info.Singular";
-    t[40853] = "In dem Modell ist %d potentiell kritische Station enthalten:";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_9 (java.lang.String[] t) {
+    t[40852] = "ModelSecurityCheck.Info.Singular";
+    t[40853] = "In dem Modell ist %d potentiell kritische Station enthalten:";
     t[40854] = "Surface.Conveyor.Dialog.CapacityNeededGlobal";
     t[40855] = "Ben\u00f6tigte Kapazit\u00e4t pro Kunde (Standard)";
     t[40856] = "ExpressionBuilder.ProbabilityDistributions.EmpiricalDistribution.SD";
@@ -20062,14 +20064,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[45467] = "Wahrscheinlichkeitsverteilung";
     t[45468] = "Surface.UserStatistic.Table.Edit.Key.ErrorInfo";
     t[45469] = "Es wurde kein Bezeichner f\u00fcr die Statistikerfassung angegeben.";
-    t[45474] = "Editor.Dialog.Tab.Simulation.InfoText";
-    t[45475] = "Auf dieser Dialogseite werden die Basiseinstellungen zur Simulation vorgenommen. Hier kann eingestellt werden wie viele Kundenank\u00fcnfte simuliert werden sollen bzw. ob die Simulation beim Erreichen bestimmter Bedingungen beendet werden soll.";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_10 (java.lang.String[] t) {
+    t[45474] = "Editor.Dialog.Tab.Simulation.InfoText";
+    t[45475] = "Auf dieser Dialogseite werden die Basiseinstellungen zur Simulation vorgenommen. Hier kann eingestellt werden wie viele Kundenank\u00fcnfte simuliert werden sollen bzw. ob die Simulation beim Erreichen bestimmter Bedingungen beendet werden soll.";
     t[45476] = "ExpressionBuilder.SimulationCharacteristics.ResidenceTimesOverAll.MaximalTime";
     t[45477] = "<p>Liefert die maximale bisher entstandene Verweilzeit (\u00fcber alle Kundentypen).</p>";
     t[45478] = "ModelDescription.Match.Mode.Permanent";

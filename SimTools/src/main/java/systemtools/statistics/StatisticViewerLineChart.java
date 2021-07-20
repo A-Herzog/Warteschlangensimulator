@@ -15,6 +15,7 @@
  */
 package systemtools.statistics;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Paint;
@@ -29,7 +30,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.TimeZone;
 
+import javax.swing.BorderFactory;
 import javax.swing.JFileChooser;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
@@ -1003,5 +1007,16 @@ public class StatisticViewerLineChart extends StatisticViewerJFreeChart {
 		} else {
 			return super.save(owner,file);
 		}
+	}
+
+	@Override
+	protected JPanel getInfoPanel() {
+		final JPanel info=new JPanel(new BorderLayout());
+
+		final JLabel label=new JLabel("<html><body>"+StatisticsBasePanel.viewersToolbarZoomHintPanel+"</body></html>");
+		label.setBorder(BorderFactory.createEmptyBorder(10,10,5,10));
+		info.add(label);
+
+		return info;
 	}
 }

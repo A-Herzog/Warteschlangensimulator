@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-18 13:11+0200\n"
+"POT-Creation-Date: 2021-07-20 09:54+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18313,6 +18313,9 @@ msgstr "Standardzoom"
 
 msgid "Statistic.Viewer.Toolbar.Zoom.Hint"
 msgstr "Stellt den Zoomfaktor so ein, dass das gesamte Diagramm sichtbar ist."
+
+msgid "Statistic.Viewer.Toolbar.Zoom.HintPanel"
+msgstr "In dem Diagramm können mit gedrückter linker Maustaste Zoom-Rahmen aufgezogen werden. Außerdem kann mit dem Mausrad gezoomt werden. Wird die Strg-Taste gedrückt gehalten, so kann der darzustellende Bereich mit gedrückter linker Maustaste verschoben werden."
 
 msgid "Statistic.Viewer.Tools.HideAll"
 msgstr "Alle Kategorien einklappen"

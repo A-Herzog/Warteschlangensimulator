@@ -15882,6 +15882,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[35841] = "per minute";
     t[35848] = "ModelDescription.Arrival.NumberOfClientArrivals";
     t[35849] = "Number of arriving clients";
+    t[35850] = "Statistic.Viewer.Toolbar.Zoom.HintPanel";
+    t[35851] = "Zoom frames can be drawn in the diagram by holding down the left mouse button. In addition, the mouse wheel can be used to zoom. If the ctrl key is held down, the area to be displayed can be moved by holding down the left mouse button.";
     t[35852] = "ExpressionBuilder.MathematicalFunctions.IntegerPart";
     t[35853] = "Integer part";
     t[35858] = "ExpressionBuilder.ClientsAtQueue.MinimalNumber";
@@ -16050,14 +16052,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[36215] = "Simulate model";
     t[36224] = "SimulationServer.Setup.MQTTTopic";
     t[36225] = "Topic";
-    t[36226] = "CommandLine.SetMaxThreads.Info.MultiCore";
-    t[36227] = "Multi-core simulation: activated (previous state %s)";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_8 (java.lang.String[] t) {
+    t[36226] = "CommandLine.SetMaxThreads.Info.MultiCore";
+    t[36227] = "Multi-core simulation: activated (previous state %s)";
     t[36230] = "ExpressionBuilder.ProbabilityDistributions.GammaDistributionDirect.RandomNumberRangeInfo";
     t[36231] = "<p>Generates a random number according to the gamma distribution with mean and standard deviation specified in parameters three and four.</p>";
     t[36232] = "Surface.Process.Dialog.Tab.Operators.Alternative.Delete";
@@ -18056,14 +18058,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[40847] = "New window";
     t[40850] = "SettingsDialog.Tabs.Simulation.UseNUMA.InfoShort";
     t[40851] = "Information on NUMA-aware simulation";
-    t[40852] = "ModelSecurityCheck.Info.Singular";
-    t[40853] = "The model contains %s potentially critical station:";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_9 (java.lang.String[] t) {
+    t[40852] = "ModelSecurityCheck.Info.Singular";
+    t[40853] = "The model contains %s potentially critical station:";
     t[40854] = "Surface.Conveyor.Dialog.CapacityNeededGlobal";
     t[40855] = "Needed capacity per client (default)";
     t[40856] = "ExpressionBuilder.ProbabilityDistributions.EmpiricalDistribution.SD";
@@ -20062,14 +20064,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[45467] = "Distribution";
     t[45468] = "Surface.UserStatistic.Table.Edit.Key.ErrorInfo";
     t[45469] = "No key for recording the statistics data was given.";
-    t[45474] = "Editor.Dialog.Tab.Simulation.InfoText";
-    t[45475] = "On this dialog page, the basic settings for the simulation are made. Here you can set how many client arrivals should be simulated or whether the simulation should be terminated when certain conditions are met.";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_10 (java.lang.String[] t) {
+    t[45474] = "Editor.Dialog.Tab.Simulation.InfoText";
+    t[45475] = "On this dialog page, the basic settings for the simulation are made. Here you can set how many client arrivals should be simulated or whether the simulation should be terminated when certain conditions are met.";
     t[45476] = "ExpressionBuilder.SimulationCharacteristics.ResidenceTimesOverAll.MaximalTime";
     t[45477] = "<p>Returns the maximal duration over all residence times for all clients.</p>";
     t[45478] = "ModelDescription.Match.Mode.Permanent";

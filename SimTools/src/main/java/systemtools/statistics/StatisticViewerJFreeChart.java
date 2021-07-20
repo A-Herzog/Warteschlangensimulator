@@ -15,6 +15,7 @@
  */
 package systemtools.statistics;
 
+import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Container;
 import java.awt.Desktop;
@@ -141,6 +142,14 @@ public abstract class StatisticViewerJFreeChart implements StatisticViewer {
 	protected void firstChartRequest() {}
 
 	/**
+	 * Liefert ein optionales Panel, das unmittelbar unter dem Diagramm dargestellt wird.
+	 * @return	Optionales Panel (kann <code>null</code> sein)
+	 */
+	protected JPanel getInfoPanel() {
+		return null;
+	}
+
+	/**
 	 * Konkretes Anzeigeobjekt, das über {@link #getViewer(boolean)} geliefert wird.
 	 * @see #getViewer(boolean)
 	 */
@@ -148,12 +157,28 @@ public abstract class StatisticViewerJFreeChart implements StatisticViewer {
 
 	@Override
 	public Container getViewer(boolean needReInit) {
+		/* Bisherigen Viewer weiterhin verwenden? */
 		if (viewer!=null && !needReInit) return viewer;
 
+		/* Wenn nötig neues Chart anlegen? */
 		if (chartPanel==null || needReInit) firstChartRequest();
+
+		/* Evtl. Info-Panel unter Chart anfügen */
+		final Container innerViewer;
+		final JPanel infoPanel=getInfoPanel();
+		if (infoPanel!=null) {
+			final JPanel panel=new JPanel(new BorderLayout());
+			panel.add(chartPanel,BorderLayout.CENTER);
+			panel.add(infoPanel,BorderLayout.SOUTH);
+			innerViewer=panel;
+		} else {
+			innerViewer=chartPanel;
+		}
+
+		/* Evtl. Erklärungs-Panel hinzufügen */
 		initDescriptionPane();
-		if (descriptionPane==null) return viewer=chartPanel;
-		return viewer=descriptionPane.getSplitPanel(chartPanel);
+		if (descriptionPane==null) return viewer=innerViewer;
+		return viewer=descriptionPane.getSplitPanel(innerViewer);
 	}
 
 	@Override
