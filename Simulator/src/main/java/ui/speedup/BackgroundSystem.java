@@ -15,12 +15,16 @@
  */
 package ui.speedup;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import scripting.java.DynamicFactory;
+import scripting.java.ImportSettingsBuilder;
 import simcore.logging.SimLogging;
 import simulator.AnySimulator;
 import simulator.Simulator;
@@ -34,9 +38,8 @@ import ui.modeleditor.ModelSurface;
 import ui.modeleditor.coreelements.ModelElement;
 import ui.modeleditor.coreelements.ModelElementPosition;
 import ui.modeleditor.elements.ElementNoRemoteSimulation;
-import ui.modeleditor.elements.ModelElementDecideJS;
-import ui.modeleditor.elements.ModelElementHoldJS;
-import ui.modeleditor.elements.ModelElementSetJS;
+import ui.modeleditor.elements.ElementWithScript;
+import ui.modeleditor.elements.ElementWithScript.ScriptMode;
 import ui.modeleditor.elements.ModelElementSub;
 
 /**
@@ -70,6 +73,8 @@ public class BackgroundSystem {
 	private StartAnySimulator lastStarter;
 	/** Letzter Simulator (bezogen auf {@link #lastModel}) */
 	private AnySimulator lastSimulator;
+	/** Letzter Hintergrund-Thread zur Übersetzung von Java-Code in Skript-Elementen */
+	private Thread lastCompileThread;
 	/** Zuletzt verwendeter Task zum Starten einer simulation  (bezogen auf {@link #lastModel}) */
 	private TimerTask lastTask;
 
@@ -90,6 +95,7 @@ public class BackgroundSystem {
 		timer=null;
 		lastModel=null;
 		lastSimulator=null;
+		lastCompileThread=null;
 		lastStarter=null;
 		lastUsage=System.currentTimeMillis();
 	}
@@ -165,28 +171,6 @@ public class BackgroundSystem {
 	}
 
 	/**
-	 * Prüft, ob ein Modell ein Skript-Element enthält.
-	 * @param model	Zu prüfendes Modell
-	 * @return	Liefert <code>true</code>, wenn das Modell ein Skript-Element enthält
-	 * @see #canBackgroundProcess(EditModel)
-	 */
-	private boolean containsJSElements(final EditModel model) {
-		for (ModelElement element1: model.surface.getElements()) {
-			if (element1 instanceof ModelElementDecideJS) return true;
-			if (element1 instanceof ModelElementHoldJS) return true;
-			if (element1 instanceof ModelElementSetJS) return true;
-
-			if (element1 instanceof ModelElementSub) for (ModelElement element2: ((ModelElementSub)element1).getSubSurface().getElements()) {
-				if (element2 instanceof ModelElementDecideJS) return true;
-				if (element2 instanceof ModelElementHoldJS) return true;
-				if (element2 instanceof ModelElementSetJS) return true;
-			}
-		}
-
-		return false;
-	}
-
-	/**
 	 * Prüft, ob das Modell im Hintergrund simuliert werden kann.
 	 * @param model	Zu prüfendes Modell
 	 * @return	Liefert <code>true</code>, wenn das Modell im Hintergrund simuliert werden kann
@@ -206,13 +190,14 @@ public class BackgroundSystem {
 
 		final int threadCount=Runtime.getRuntime().availableProcessors();
 
-		if (containsJSElements(model)) return false; /* JS-Interpreter nicht im Hintergrund verwenden */
 		if (model.resources.count()>threadCount) return false; /* Keine Modelle mit vielen Ressourcen (im Verhältnis zur CPU-Kern-Zahl) */
 		if (model.transporters.count()>0) return false; /* Modelle mit Transportern nicht im Hintergrund verwenden */
 		for (ModelElement element1: model.surface.getElements()) { /* Ausgaben und Co. dürfen nicht im Hintergrund laufen. */
 			if (element1 instanceof ElementNoRemoteSimulation) return false;
+			if (element1 instanceof ElementWithScript) return false;
 			if (element1 instanceof ModelElementSub) for (ModelElement element2: ((ModelElementSub)element1).getSubSurface().getElements()) {
 				if (element2 instanceof ElementNoRemoteSimulation) return false;
+				if (element2 instanceof ElementWithScript) return false;
 			}
 		}
 
@@ -224,6 +209,48 @@ public class BackgroundSystem {
 		if (model.surface.getElementCount()/threadCount>MAX_ELEMENTS_PER_THREAD) return false;
 
 		return true;
+	}
+
+	/**
+	 * Übersetzt die im Modell enthaltenen Java-basierten Skripte.
+	 * @param model	Editormodell, in dem nach Skripten gesucht werden soll
+	 * @see #lastCompileThread
+	 */
+	private void compileScripts(final EditModel model) {
+		if (model==null) return;
+		if (!DynamicFactory.isWindows() && !DynamicFactory.isInMemoryProcessing()) return;
+
+		/* Alle Skripte sammeln */
+		final List<String> scripts=new ArrayList<>();
+		for (ModelElement element1: model.surface.getElements()) {
+			if (element1 instanceof ElementWithScript) {
+				if (((ElementWithScript)element1).getMode()==ScriptMode.Java) scripts.add(((ElementWithScript)element1).getScript());
+				continue;
+			}
+			if (element1 instanceof ModelElementSub) {
+				for (ModelElement element2: ((ModelElementSub)element1).getSubSurface().getElements()) {
+					if (element2 instanceof ElementWithScript) {
+						if (((ElementWithScript)element2).getMode()==ScriptMode.Java) scripts.add(((ElementWithScript)element2).getScript());
+						continue;
+					}
+				}
+				continue;
+			}
+		}
+
+		final DynamicFactory dynamicFactory=DynamicFactory.getFactory();
+		final ImportSettingsBuilder scriptSettings=new ImportSettingsBuilder(model);
+
+		/* Übersetzen */
+		lastCompileThread=new Thread(()->{
+			final Thread currentThread=Thread.currentThread();
+			for (String script: scripts) if (script!=null && !script.trim().isEmpty()) { /* Um die Systembelastung zu begrenzen, immer nur ein Skript zur Zeit übersetzen. */
+				if (currentThread.isInterrupted()) return;
+				dynamicFactory.test(script,scriptSettings);
+			}
+			if (!currentThread.isInterrupted()) lastCompileThread=null;
+		},"Background script compilation");
+		lastCompileThread.start();
 	}
 
 	/**
@@ -256,6 +283,9 @@ public class BackgroundSystem {
 
 		if (!canBackgroundProcess) {
 			lastModel=model.clone();
+			if ((setup.backgroundSimulation==SetupData.BackgroundProcessingMode.BACKGROUND_SIMULATION || setup.backgroundSimulation==SetupData.BackgroundProcessingMode.BACKGROUND_SIMULATION_ALWAYS) && setup.useMultiCoreSimulation) {
+				compileScripts(lastModel);
+			}
 			return null;
 		}
 
@@ -380,9 +410,11 @@ public class BackgroundSystem {
 	private void stop(final boolean killTimer) {
 		if (lastTask!=null) lastTask.cancel();
 		if (lastSimulator!=null) lastSimulator.cancel();
+		if (lastCompileThread!=null) lastCompileThread.interrupt();
 		lastTask=null;
 		lastModel=null;
 		lastSimulator=null;
+		lastCompileThread=null;
 		lastStarter=null;
 		if (killTimer) doneTimer();
 	}
