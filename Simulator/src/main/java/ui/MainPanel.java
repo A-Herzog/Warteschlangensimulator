@@ -197,6 +197,7 @@ import ui.speedup.BackgroundPrepareCompiledClasses;
 import ui.speedup.BackgroundSystem;
 import ui.statistics.StatisticsPanel;
 import ui.statistics.analyticcompare.AnalyticInfo;
+import ui.tools.BatchPanel;
 import ui.tools.FlatLaFHelper;
 import ui.tools.GlassInfo;
 import ui.tools.InputContextFix;
@@ -715,6 +716,7 @@ public class MainPanel extends MainPanelBase {
 		addAction("ExtrasFit",e->commandExtrasFit());
 		addAction("ExtrasInputTableProcessor",e->commandExtrasInputTableProcessor());
 		addAction("ExtrasTestDatabaseConnection",e->commandExtrasTestDatabaseConnection());
+		addAction("ExtrasBatchProcessing",e->commandExtrasBatchProcessing());
 		addAction("ExtrasExecuteCommand",e->commandExtrasExecuteCommand());
 		addAction("ExtrasSimulationServer",e->commandExtrasSimulationServer());
 		addAction("ExtrasSystemInfo",e->commandExtrasSystemInfo());
@@ -1321,6 +1323,7 @@ public class MainPanel extends MainPanelBase {
 		createMenuItem(menu,Language.tr("Main.Menu.Extras.InputTableProcessor"),Images.GENERAL_TABLE.getIcon(),Language.tr("Main.Menu.Extras.InputTableProcessor.Mnemonic"),"ExtrasInputTableProcessor");
 		menu.addSeparator();
 		createMenuItem(menu,Language.tr("Main.Menu.Extras.TestDatabaseConnection"),Images.EXTRAS_DATABASE_TEST.getIcon(),Language.tr("Main.Menu.Extras.TestDatabaseConnection.Mnemonic"),"ExtrasTestDatabaseConnection");
+		createMenuItem(menu,Language.tr("Main.Menu.Extras.BatchProcessing"),Images.EXTRAS_BATCH_PROCESSING.getIcon(),Language.tr("Main.Menu.Extras.BatchProcessing.Mnemonic"),"ExtrasBatchProcessing");
 		createMenuItem(menu,Language.tr("Main.Menu.Extras.ExecuteCommand"),Images.EXTRAS_COMMANDLINE.getIcon(),Language.tr("Main.Menu.Extras.ExecuteCommand.Mnemonic"),"ExtrasExecuteCommand");
 		createMenuItem(menu,Language.tr("Main.Menu.Extras.SimulationServer"),Images.EXTRAS_SERVER.getIcon(),Language.tr("Main.Menu.Extras.SimulationServer.Mnemonic"),"ExtrasSimulationServer");
 		menu.addSeparator();
@@ -3619,6 +3622,17 @@ public class MainPanel extends MainPanelBase {
 			setCurrentPanel(editorPanel);
 			enableMenuBar(true);
 		},this));
+	}
+
+	/**
+	 * Befehl: Extras - Stapelverarbeitung
+	 */
+	private void commandExtrasBatchProcessing() {
+		enableMenuBar(false);
+		setCurrentPanel(new BatchPanel(()->{
+			setCurrentPanel(editorPanel);
+			enableMenuBar(true);
+		}));
 	}
 
 	/**

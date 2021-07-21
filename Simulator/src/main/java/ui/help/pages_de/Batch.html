@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Stapelverarbeitung</title>
+<link rel="stylesheet" type="text/css" href="styles.css"> 
+</head>
+<body>
+
+<h1>Stapelverarbeitung</h1>
+
+<p>
+Die Stapelverarbeitungsfunktion ermöglicht die Anwendung von zwei Arten von Funktionen auf jeweils
+alle passenden Dateien in dem ausgewählten Verzeichnis:
+</p> 
+
+<h2>Simulation</h2>
+
+<p>
+In dieser Betriebsart werden alle Modelle und Parameterreihenkonfigurationen, die sich in dem angegebenen
+Verzeichnis befinden, verarbeitet. Heißt eine Datei <tt>Modell.xml</tt>, so werden die Ergebnisse dazu
+in <tt>Results-Modell.zip</tt> gespeichert. Auf diese Weise kann der Simulator auch prüfen, zu welchen
+Eingabedateien bereits Simulationsergebnisse vorliegen. Wird die Verarbeitung eines Verzeichnisses unterbrochen,
+so werden bei einer Wiederaufnahme der Verarbeitung nur die Modelle bzw. Parameterreihenkonfigurationen
+bearbeitet, für die noch keine Ausgabedateien vorliegen.
+</p>
+
+<p>
+Diese Funktion entspricht dem <a href="Commands.html">Kommandozeilenbefehl</a> <tt>Verzeichnis</tt>.
+</p>
+
+<h2>Ergebnisse filtern</h2>
+
+<p>
+In dieser Betriebsart wird ein angegebenes Filterskript auf alle Statistikdateien, die in einem
+Verzeichnis vorliegen, angewandt. Die Ergebnisse werden gesammelt in eine gemeinsame, vom Nutzer
+angegebene Ausgabedatei geschrieben.
+</p>
+
+<p>
+Diese Funktion entspricht dem <a href="Commands.html">Kommandozeilenbefehl</a> <tt>VerzeichnisFilter</tt>.
+</p> 
+  
+</body>
+</html>

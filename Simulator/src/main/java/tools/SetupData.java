@@ -48,6 +48,7 @@ import ui.modeleditor.ModelSurface;
 import ui.modeleditor.ModelSurfacePanel;
 import ui.script.ScriptEditorAreaBuilder;
 import ui.statistics.StatisticViewerOverviewText;
+import ui.tools.BatchPanel;
 import xml.XMLTools;
 
 /**
@@ -1199,6 +1200,42 @@ public class SetupData extends SetupBase {
 	public boolean scriptSearchWholeWord;
 
 	/**
+	 * Speichert den zuletzt im Stapelverarbeitung-Panel hinterlegten Verzeichnisnamen
+	 * @see BatchPanel
+	 */
+	public String batchFolder;
+
+	/**
+	 * Bearbeitungsmodus für das Stapelverarbeitung-Panel
+	 * @see SetupData#batchMode
+	 * @see BatchPanel
+	 */
+	public enum BatchMode {
+		/** Modelle im Verzeichnis simulieren */
+		SIMULATION,
+		/** Statistikdaten im Verzeichnis filtern */
+		FILTER
+	}
+
+	/**
+	 * Speichert den zuletzt im Stapelverarbeitung-Panel hinterlegten Bearbeitungsmodus
+	 * @see BatchPanel
+	 */
+	public BatchMode batchMode;
+
+	/**
+	 * Speichert das zuletzt im Stapelverarbeitung-Panel hinterlegte Filterskript
+	 * @see BatchPanel
+	 */
+	public String batchFilterScript;
+
+	/**
+	 * Speichert den zuletzt im Stapelverarbeitung-Panel hinterlegten Ausgabedateiname (für die Filterergebnisse)
+	 * @see BatchPanel
+	 */
+	public String batchOutputFile;
+
+	/**
 	 * Letzter Fehler
 	 * (Hier wird die Setup-Datei als Logdatei für solche Ereignisse verwendet.)
 	 */
@@ -1409,6 +1446,10 @@ public class SetupData extends SetupBase {
 		scriptSearchRegex=false;
 		scriptSearchForward=true;
 		scriptSearchWholeWord=false;
+		batchFolder="";
+		batchMode=BatchMode.SIMULATION;
+		batchFilterScript="";
+		batchOutputFile="";
 		lastError=null;
 	}
 
@@ -2283,6 +2324,7 @@ public class SetupData extends SetupBase {
 				searchAndReplaceStationIDs=loadBoolean(e.getAttribute("StationIDs"),false);
 				searchAndReplaceFullMatchOnly=loadBoolean(e.getAttribute("FullMatchOnly"),false);
 				searchAndReplaceRegularExpression=loadBoolean(e.getAttribute("RegularExpression"),false);
+				continue;
 			}
 
 			if (name.equals("scriptsearch")) {
@@ -2290,6 +2332,15 @@ public class SetupData extends SetupBase {
 				scriptSearchRegex=loadBoolean(e.getAttribute("RegularExpression"),false);
 				scriptSearchForward=loadBoolean(e.getAttribute("Forward"),true);
 				scriptSearchWholeWord=loadBoolean(e.getAttribute("WholeWord"),false);
+				continue;
+			}
+
+			if (name.equals("batch")) {
+				batchFolder=e.getAttribute("Folder");
+				if (loadBoolean(e.getAttribute("FilterMode"),false)) batchMode=BatchMode.FILTER;
+				batchFilterScript=e.getAttribute("FilterScript");
+				batchOutputFile=e.getAttribute("OutputFile");
+				continue;
 			}
 		}
 
@@ -2961,6 +3012,14 @@ public class SetupData extends SetupBase {
 			if (scriptSearchRegex) node.setAttribute("RegularExpression","1");
 			if (!scriptSearchForward) node.setAttribute("Forward","1");
 			if (scriptSearchWholeWord) node.setAttribute("WholeWord","1");
+		}
+
+		if (!batchFolder.isEmpty() || batchMode!=BatchMode.SIMULATION || !batchFilterScript.isEmpty() || !batchOutputFile.isEmpty()) {
+			root.appendChild(node=doc.createElement("Batch"));
+			if (!batchFolder.isEmpty()) node.setAttribute("Folder",batchFolder);
+			if (batchMode==BatchMode.FILTER) node.setAttribute("FilterMode","1");
+			if (!batchFilterScript.isEmpty()) node.setAttribute("FilterScript",batchFilterScript);
+			if (!batchOutputFile.isEmpty()) node.setAttribute("OutputFile",batchOutputFile);
 		}
 
 		if (lastError!=null && !lastError.trim().isEmpty()) {

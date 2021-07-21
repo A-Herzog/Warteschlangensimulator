@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-20 09:54+0200\n"
+"POT-Creation-Date: 2021-07-21 10:05+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -694,6 +694,78 @@ msgstr "Simulationsschritt %d: Simulation des Modells %s"
 
 msgid "Batch.Simulation.UserCancel"
 msgstr "Die Simulation der Parameterreihe wurde vom Nutzer abgebrochen."
+
+msgid "BatchPanel.ButtonCancel"
+msgstr "Verarbeitung abbrechen"
+
+msgid "BatchPanel.ButtonCancel.Hint"
+msgstr "Bricht die aktuelle Verarbeitung ab."
+
+msgid "BatchPanel.ButtonStart"
+msgstr "Verarbeitung starten"
+
+msgid "BatchPanel.ButtonStart.Hint"
+msgstr "Startet die Verarbeitung der Daten in dem gewählten Verzeichnis."
+
+msgid "BatchPanel.Directory"
+msgstr "Verzeichnis"
+
+msgid "BatchPanel.Directory.Caption"
+msgstr "Verzeichnis auswählen"
+
+msgid "BatchPanel.Directory.ErrorInfo"
+msgstr ""
+"Das angegebene Verzeichnis\n"
+"%s\n"
+"existiert nicht."
+
+msgid "BatchPanel.Directory.ErrorTitle"
+msgstr "Ungültiges Verzeichnis"
+
+msgid "BatchPanel.Directory.Hint"
+msgstr "Verzeichnis in dem sich die Modelle oder die Statistikdateien befinden auswählen"
+
+msgid "BatchPanel.Mode"
+msgstr "Modus"
+
+msgid "BatchPanel.Mode.Filter"
+msgstr "Ergebnisse filtern"
+
+msgid "BatchPanel.Mode.Simulation"
+msgstr "Modelle simulieren"
+
+msgid "BatchPanel.ResultsFile"
+msgstr "Ausgabedatei"
+
+msgid "BatchPanel.ResultsFile.Caption"
+msgstr "Ausgabedatei auswählen"
+
+msgid "BatchPanel.ResultsFile.ErrorInfo"
+msgstr "Es wurde keine Ausgabedatei für die Filterergebnisse angegeben."
+
+msgid "BatchPanel.ResultsFile.ErrorTitle"
+msgstr "Ungültige Ausgabedatei"
+
+msgid "BatchPanel.ResultsFile.Hint"
+msgstr "Ausgabedatei auswählen"
+
+msgid "BatchPanel.Script"
+msgstr "Filterskript"
+
+msgid "BatchPanel.Script.Caption"
+msgstr "Filterskript auswählen"
+
+msgid "BatchPanel.Script.ErrorInfo"
+msgstr ""
+"Das angegebene Filterskript\n"
+"%s\n"
+"existiert nicht."
+
+msgid "BatchPanel.Script.ErrorTitle"
+msgstr "Ungültiges Filterskript"
+
+msgid "BatchPanel.Script.Hint"
+msgstr "Anzuwendendes Filterskript auswählen"
 
 msgid "BookData.AccessInfo"
 msgstr "Die E-Book-pdf-Version kann über das unten stehende Eingabefeld direkt mit dem Simulator verknüpft werden. Es steht dann in Ergänzung zur Online-Hilfe direkt zur Verfügung. Über den Schnellzugriff (Strg+E) kann direkt in Inhaltsverzeichnis und Sachverzeichnis gesucht werden und die jeweils passenden Seiten in der pdf geöffnet werden."
@@ -8657,6 +8729,12 @@ msgstr "S"
 
 msgid "Main.Menu.Extras"
 msgstr "Extras"
+
+msgid "Main.Menu.Extras.BatchProcessing"
+msgstr "Stapelverarbeitung..."
+
+msgid "Main.Menu.Extras.BatchProcessing.Mnemonic"
+msgstr "S"
 
 msgid "Main.Menu.Extras.Calculator"
 msgstr "Rechner..."

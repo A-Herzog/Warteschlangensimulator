@@ -64,6 +64,21 @@ public class CommandFolderSimulation extends AbstractCommand {
 	 */
 	private ParameterCompareRunner runner;
 
+	/**
+	 * Konstruktor der Klasse
+	 */
+	public CommandFolderSimulation() {
+		super();
+	}
+
+	/**
+	 * Konstruktor der Klasse
+	 * @param folder	Zu verarbeitendes Verzeichnis
+	 */
+	public CommandFolderSimulation(final File folder) {
+		this.folder=folder;
+	}
+
 	@Override
 	public String[] getKeys() {
 		final List<String> list=new ArrayList<>();
@@ -132,6 +147,9 @@ public class CommandFolderSimulation extends AbstractCommand {
 
 		/* Auf Ende der Simulation warten */
 		AbstractSimulationCommand.waitForSimulationDone(simulator,false,out);
+
+		/* Nicht versuchen etwas zu speichern, wenn die Simulation abgebrochen wurde */
+		if (isQuit) return;
 
 		/* Statistik zusammenstellen und speichern */
 		final Statistics statistics=simulator.getStatistic();

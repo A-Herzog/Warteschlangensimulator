@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-20 09:54+0200\n"
+"POT-Creation-Date: 2021-07-21 10:05+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -694,6 +694,78 @@ msgstr "Simulation step %d: Simulation of model %s"
 
 msgid "Batch.Simulation.UserCancel"
 msgstr "The simulation of the parameter series was canceled by the user."
+
+msgid "BatchPanel.ButtonCancel"
+msgstr "Cancel processing"
+
+msgid "BatchPanel.ButtonCancel.Hint"
+msgstr "Cancels the current processing."
+
+msgid "BatchPanel.ButtonStart"
+msgstr "Start processing"
+
+msgid "BatchPanel.ButtonStart.Hint"
+msgstr "Starts processing the data in the selected directory."
+
+msgid "BatchPanel.Directory"
+msgstr "Directoy"
+
+msgid "BatchPanel.Directory.Caption"
+msgstr "Select folder"
+
+msgid "BatchPanel.Directory.ErrorInfo"
+msgstr ""
+"The selected folder\n"
+"%s\n"
+"does not exist."
+
+msgid "BatchPanel.Directory.ErrorTitle"
+msgstr "Invalid folder"
+
+msgid "BatchPanel.Directory.Hint"
+msgstr "Select folder which contains the models or statistic files"
+
+msgid "BatchPanel.Mode"
+msgstr "Mode"
+
+msgid "BatchPanel.Mode.Filter"
+msgstr "Filter results"
+
+msgid "BatchPanel.Mode.Simulation"
+msgstr "Simulate models"
+
+msgid "BatchPanel.ResultsFile"
+msgstr "Output file"
+
+msgid "BatchPanel.ResultsFile.Caption"
+msgstr "Select output file"
+
+msgid "BatchPanel.ResultsFile.ErrorInfo"
+msgstr "No output file for the filter results was specified."
+
+msgid "BatchPanel.ResultsFile.ErrorTitle"
+msgstr "Invalid output file"
+
+msgid "BatchPanel.ResultsFile.Hint"
+msgstr "Select output file"
+
+msgid "BatchPanel.Script"
+msgstr "Filter script"
+
+msgid "BatchPanel.Script.Caption"
+msgstr "Select filter script"
+
+msgid "BatchPanel.Script.ErrorInfo"
+msgstr ""
+"The selected filter script\n"
+"%s\n"
+"does not exist."
+
+msgid "BatchPanel.Script.ErrorTitle"
+msgstr "Invalid filter script"
+
+msgid "BatchPanel.Script.Hint"
+msgstr "Select filter script to be executed"
 
 msgid "BookData.AccessInfo"
 msgstr "The e-book pdf version can be linked directly to the simulator via the input field below. It is then directly available in addition to the online help. The quick access (Ctrl+E) can be used to search directly in the table of contents and the index and to open the respective matching pages in the pdf."
@@ -8665,6 +8737,12 @@ msgstr "S"
 
 msgid "Main.Menu.Extras"
 msgstr "Extras"
+
+msgid "Main.Menu.Extras.BatchProcessing"
+msgstr "Batch processing..."
+
+msgid "Main.Menu.Extras.BatchProcessing.Mnemonic"
+msgstr "B"
 
 msgid "Main.Menu.Extras.Calculator"
 msgstr "Calculator..."

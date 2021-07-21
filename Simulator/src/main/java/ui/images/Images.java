@@ -838,6 +838,9 @@ public enum Images {
 	/** Symbol "Datenbankverbindung testen" */
 	EXTRAS_DATABASE_TEST("database_connect.png"),
 
+	/** Symbol "Stapelverarbeitung" */
+	EXTRAS_BATCH_PROCESSING("application_cascade.png"),
+
 	/** Symbol "Kommandozeile" */
 	EXTRAS_COMMANDLINE("application_xp_terminal.png"),
 

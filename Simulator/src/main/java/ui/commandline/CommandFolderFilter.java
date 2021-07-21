@@ -53,6 +53,25 @@ public class CommandFolderFilter extends AbstractCommand {
 	 */
 	private File filterResultFile;
 
+	/**
+	 * Konstruktor der Klasse
+	 */
+	public CommandFolderFilter() {
+		super();
+	}
+
+	/**
+	 * Konstruktor der Klasse
+	 * @param folder	Zu verarbeitendes Verzeichnis
+	 * @param filterFile	Filterskript
+	 * @param filterResultFile	Ausgabedatei
+	 */
+	public CommandFolderFilter(final File folder, final File filterFile, final File filterResultFile) {
+		this.folder=folder;
+		this.filterFile=filterFile;
+		this.filterResultFile=filterResultFile;
+	}
+
 	@Override
 	public String[] getKeys() {
 		final List<String> list=new ArrayList<>();

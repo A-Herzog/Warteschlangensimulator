@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Batch processing</title>
+<link rel="stylesheet" type="text/css" href="styles.css"> 
+</head>
+<body>
+
+<h1>Batch processing</h1>
+
+<p>
+The batch processing function allows to apply two types of functions
+to each of the matching files in the selected directory:
+</p> 
+
+<h2>Simulation</h2>
+
+<p>
+In this mode, all models and parameter series configurations located in the specified directory are processed.
+If a file is named <tt>Model.xml</tt>, the results for it are stored in <tt>Results-Model.zip</tt>.
+In this way, the simulator can also check for which input files simulation results are already available.
+If the processing of a directory is interrupted, only the models or parameter series configurations for
+which output files are not yet available are processed when processing is resumed.
+
+Translated with www.DeepL.com/Translator (free version)
+</p>
+
+<p>
+This functions corresponds to the <a href="Commands.html">command-line command</a> <tt>Folder</tt>.
+</p>
+
+<h2>Filter results</h2>
+
+<p>
+In this mode, a specified filter script is applied to all statistics files present in a directory.
+The results are written collectively to a common output file specified by the user.
+</p>
+
+<p>
+This functions corresponds to the <a href="Commands.html">command-line command</a> <tt>FolderFilter</tt>.
+</p>  
+  
+</body>
+</html>
