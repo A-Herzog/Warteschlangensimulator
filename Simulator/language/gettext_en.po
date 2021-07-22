@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-21 10:05+0200\n"
+"POT-Creation-Date: 2021-07-22 08:35+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1774,6 +1774,12 @@ msgstr "The file is no statistics file."
 msgid "CommandLine.FolderFilter.ParameterIsNotFolder"
 msgstr "The specified folder %s does not exist."
 
+msgid "CommandLine.FolderFilter.ResultCount.Plural"
+msgstr "%d files were processed."
+
+msgid "CommandLine.FolderFilter.ResultCount.Singular"
+msgstr "%d file was processed."
+
 msgid "CommandLine.FolderSimulation.CannotProcessFile"
 msgstr "Cannot process file format."
 
@@ -1797,6 +1803,12 @@ msgstr "The specified folder %s does not exist."
 
 msgid "CommandLine.FolderSimulation.ParameterSeriesAlreadyDone"
 msgstr "The parameter series was already simulated completely."
+
+msgid "CommandLine.FolderSimulation.ResultCount.Plural"
+msgstr "%d models were simulated."
+
+msgid "CommandLine.FolderSimulation.ResultCount.Singular"
+msgstr "%d model was simulated."
 
 msgid "CommandLine.GC.Description.Long"
 msgstr "This command expects no additional parameters."

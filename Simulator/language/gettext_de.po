@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-21 10:05+0200\n"
+"POT-Creation-Date: 2021-07-22 08:35+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1774,6 +1774,12 @@ msgstr "Die Datei ist keine Statistikdatei."
 msgid "CommandLine.FolderFilter.ParameterIsNotFolder"
 msgstr "Das angegebene Verzeichnis %s existiert nicht."
 
+msgid "CommandLine.FolderFilter.ResultCount.Plural"
+msgstr "%d Dateien wurden verarbeitet."
+
+msgid "CommandLine.FolderFilter.ResultCount.Singular"
+msgstr "%d Datei wurde verarbeitet."
+
 msgid "CommandLine.FolderSimulation.CannotProcessFile"
 msgstr "Das Dateiformat kann nicht verarbeitet werden."
 
@@ -1797,6 +1803,12 @@ msgstr "Das angegebene Verzeichnis %s existiert nicht."
 
 msgid "CommandLine.FolderSimulation.ParameterSeriesAlreadyDone"
 msgstr "Die Parameterreihe wurde bereits vollständig simuliert."
+
+msgid "CommandLine.FolderSimulation.ResultCount.Plural"
+msgstr "%d Modelle wurden simuliert."
+
+msgid "CommandLine.FolderSimulation.ResultCount.Singular"
+msgstr "%d Modell wurde simuliert."
 
 msgid "CommandLine.GC.Description.Long"
 msgstr "Dieser Befehl erwartet keine weiteren Parameter."

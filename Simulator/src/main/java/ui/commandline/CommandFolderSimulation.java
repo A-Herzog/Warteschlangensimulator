@@ -131,8 +131,9 @@ public class CommandFolderSimulation extends AbstractCommand {
 	 * @param file	Eingabedatei
 	 * @param model	Zu simulierendes Modell
 	 * @param out	Ein {@link PrintStream}-Objekt, über das Texte ausgegeben werden können.
+	 * @return	Liefert <code>true</code>, wenn das Modell erfolgreich simuliert und die Ergebnisse gespeichert werden konnten
 	 */
-	private void processModel(final File file, EditModel model, final PrintStream out) {
+	private boolean processModel(final File file, EditModel model, final PrintStream out) {
 		/* Externe Daten laden */
 		final EditModel changedEditModel=model.modelLoadData.changeModel(model,folder);
 		if (changedEditModel!=null) {
@@ -142,26 +143,30 @@ public class CommandFolderSimulation extends AbstractCommand {
 
 		/* Vorbereiten und starten */
 		final Object obj=AbstractSimulationCommand.prepare(Integer.MAX_VALUE,model,out);
-		if (!(obj instanceof AnySimulator)) return;
+		if (!(obj instanceof AnySimulator)) return false;
 		simulator=(AnySimulator)obj;
 
 		/* Auf Ende der Simulation warten */
 		AbstractSimulationCommand.waitForSimulationDone(simulator,false,out);
 
 		/* Nicht versuchen etwas zu speichern, wenn die Simulation abgebrochen wurde */
-		if (isQuit) return;
+		if (isQuit) return false;
 
 		/* Statistik zusammenstellen und speichern */
 		final Statistics statistics=simulator.getStatistic();
 		simulator=null;
 		if (statistics==null) {
 			out.println(Language.tr("CommandLine.Simulation.NoResults"));
-		} else {
-			out.println(String.format(Language.tr("CommandLine.Simulation.Done"),NumberTools.formatLong(statistics.simulationData.runTime)));
-			if (!statistics.saveToFile(getOutputFile(file))) {
-				out.println(BaseCommandLineSystem.errorBig+": "+Language.tr("CommandLine.Error.UnableToSaveStatistic"));
-			}
+			return false;
 		}
+
+		out.println(String.format(Language.tr("CommandLine.Simulation.Done"),NumberTools.formatLong(statistics.simulationData.runTime)));
+		if (!statistics.saveToFile(getOutputFile(file))) {
+			out.println(BaseCommandLineSystem.errorBig+": "+Language.tr("CommandLine.Error.UnableToSaveStatistic"));
+			return false;
+		}
+
+		return true;
 	}
 
 	/**
@@ -169,20 +174,21 @@ public class CommandFolderSimulation extends AbstractCommand {
 	 * @param file	Eingabedatei
 	 * @param setup	Zu simulierende Parameterreihe
 	 * @param out	Ein {@link PrintStream}-Objekt, über das Texte ausgegeben werden können.
+	 * @return	Liefert <code>true</code>, wenn die Parameterreihe erfolgreich simuliert und die Ergebnisse gespeichert werden konnten
 	 */
-	private void processParameterSeries(final File file, final ParameterCompareSetup setup, final PrintStream out) {
+	private boolean processParameterSeries(final File file, final ParameterCompareSetup setup, final PrintStream out) {
 		/* Vorbereiten */
 		boolean allDone=true;
 		for (ParameterCompareSetupModel model: setup.getModels()) if (!model.isStatisticsAvailable()) {allDone=false; break;}
 		if (allDone) {
 			out.println(Language.tr("CommandLine.FolderSimulation.ParameterSeriesAlreadyDone"));
-			return;
+			return false;
 		}
 		runner=new ParameterCompareRunner(null,null,log->out.println(log));
 		final String error=runner.check(setup);
 		if (error!=null) {
 			out.println(BaseCommandLineSystem.errorBig+": "+error);
-			return;
+			return false;
 		}
 
 		/* Parameterreihe simulieren */
@@ -190,10 +196,12 @@ public class CommandFolderSimulation extends AbstractCommand {
 		runner.waitForFinish();
 
 		/* Ergebnisse speichern */
-
 		if (!setup.saveToFile(getOutputFile(file))) {
 			out.println(BaseCommandLineSystem.errorBig+": "+Language.tr("CommandLine.Error.UnableToSaveParameterSeriesResults"));
+			return false;
 		}
+
+		return true;
 	}
 
 	/**
@@ -201,15 +209,16 @@ public class CommandFolderSimulation extends AbstractCommand {
 	 * und führt ggf. die Simulation durch.
 	 * @param file	Zu prüfende Datei
 	 * @param out	Ein {@link PrintStream}-Objekt, über das Texte ausgegeben werden können.
+	 * @return	Liefert <code>true</code>, wenn die Datei erfolgreich verarbeitet werden konnte
 	 */
-	private void processFile(final File file, final PrintStream out) {
-		if (file.isDirectory()) return;
+	private boolean processFile(final File file, final PrintStream out) {
+		if (file.isDirectory()) return false;
 		out.println(file.getName()+":");
 
 		try {
 			if (getOutputFile(file).isFile()) {
 				out.println(Language.tr("CommandLine.FolderSimulation.OutputFileExists"));
-				return;
+				return false;
 			}
 
 			/* Datei laden */
@@ -217,24 +226,23 @@ public class CommandFolderSimulation extends AbstractCommand {
 			final Element root=xml.load();
 			if (root==null) {
 				out.println(Language.tr("CommandLine.FolderSimulation.CannotProcessFile"));
-				return;
+				return false;
 			}
 
 			/* Als Modell verarbeiten */
 			final EditModel model=new EditModel();
 			if (model.loadFromXML(root)==null) {
-				processModel(file,model,out);
-				return;
+				return processModel(file,model,out);
 			}
 
 			/* Als Parameterreihe verarbeiten */
 			final ParameterCompareSetup setup=new ParameterCompareSetup(null);
 			if (setup.loadFromXML(root)==null) {
-				processParameterSeries(file,setup,out);
-				return;
+				return processParameterSeries(file,setup,out);
 			}
 
 			out.println(Language.tr("CommandLine.FolderSimulation.CannotProcessFile"));
+			return false;
 		} finally {
 			out.println("");
 		}
@@ -250,9 +258,16 @@ public class CommandFolderSimulation extends AbstractCommand {
 
 		Arrays.sort(files);
 
+		int count=0;
 		for (String file: files) {
-			processFile(new File(folder,file),out);
+			if (processFile(new File(folder,file),out)) count++;
 			if (isQuit) break;
+		}
+
+		if (count==1) {
+			out.println(String.format(Language.tr("CommandLine.FolderSimulation.ResultCount.Singular"),count));
+		} else {
+			out.println(String.format(Language.tr("CommandLine.FolderSimulation.ResultCount.Plural"),count));
 		}
 	}
 

@@ -5292,8 +5292,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[14279] = "Animationsstart";
     t[14284] = "Color.778899";
     t[14285] = "Helles Slate Grau";
-    t[14286] = "Main.Menu.Edit.Delete.Mnemonic";
-    t[14287] = "L";
+    t[14286] = "CommandLine.FolderSimulation.ResultCount.Singular";
+    t[14287] = "%d Modell wurde simuliert.";
     t[14292] = "Surface.Resource.EditNumber.Dialog.InvalidNumber.Info";
     t[14293] = "Die angegebene Anzahl an ben\u00f6tigten Bedienern \"%s\" ist ung\u00fcltig. Es muss eine positive ganze Zahl angegeben werden.";
     t[14298] = "Surface.OutputDB.Dialog.Title";
@@ -11002,6 +11002,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[29565] = "Name f\u00fcr Kundentyp fehlt";
     t[29566] = "ExpressionCalculator.DiscardConfirmationJava.Info";
     t[29567] = "Der Java-Code wurde seit dem letzten Speichern ge\u00e4ndert. Soll der Java-Code jetzt gespeichert werden?";
+    t[29570] = "Main.Menu.Edit.Delete.Mnemonic";
+    t[29571] = "L";
     t[29572] = "ParameterCompare.Settings.Input.List.Templates.GlobalVariable.Title";
     t[29573] = "Startwert einer globalen Variable";
     t[29574] = "Editor.DialogBase.Search.Table";
@@ -12038,14 +12040,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[32279] = "Kein Kundentypname";
     t[32280] = "Optimizer.Settings.Discard";
     t[32281] = "Die Optimierereinstellungen wurden seit dem letzten Speichern ver\u00e4ndert.\nSollen die ge\u00e4nderten Einstellungen jetzt gespeichert werden?";
-    t[32286] = "CommandLine.SetDynamicThreadBalance.Info.DynamicThreadBalance.On";
-    t[32287] = "an";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_6 (java.lang.String[] t) {
+    t[32286] = "CommandLine.SetDynamicThreadBalance.Info.DynamicThreadBalance.On";
+    t[32287] = "an";
     t[32288] = "Surface.Barrier.Dialog.Add";
     t[32289] = "Ausl\u00f6sesignal hinzuf\u00fcgen";
     t[32290] = "Color.E9967A";
@@ -14044,14 +14046,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[37599] = "\"%s\" ist keine g\u00fcltige Sprach-ID.";
     t[37604] = "Surface.Process.Dialog.ClientPlural";
     t[37605] = "Kunden";
-    t[37610] = "SettingsDialog.ModellSecurity.Info";
-    t[37611] = "Als kritische Stationen werden all die Stationen eingestuft,\ndie bei der Simulation auf den Computer (au\u00dferhalb des Simulators)\nwirken k\u00f6nnen. Konkret sind dies die Stationen, die Werte in Dateien\noder in Datenbanken schreiben sowie alle Stationen, die Javascript-\noder Java-Code ausf\u00fchren k\u00f6nnen.";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_7 (java.lang.String[] t) {
+    t[37610] = "SettingsDialog.ModellSecurity.Info";
+    t[37611] = "Als kritische Stationen werden all die Stationen eingestuft,\ndie bei der Simulation auf den Computer (au\u00dferhalb des Simulators)\nwirken k\u00f6nnen. Konkret sind dies die Stationen, die Werte in Dateien\noder in Datenbanken schreiben sowie alle Stationen, die Javascript-\noder Java-Code ausf\u00fchren k\u00f6nnen.";
     t[37614] = "HintsDialog.Title";
     t[37615] = "Hinweise in Dialogen konfigurieren";
     t[37624] = "SystemInfo.Tools.NextStationTraining.DeleteData.Short";
@@ -16050,14 +16052,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[42715] = "Element2";
     t[42716] = "SettingsDialog.Tabs.Simulation.ShowStationData";
     t[42717] = "Lautzeitdaten zu den Stationen anzeigen";
-    t[42718] = "Git.List.Tab.Server.Button.Branches";
-    t[42719] = "Zweige";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_8 (java.lang.String[] t) {
+    t[42718] = "Git.List.Tab.Server.Button.Branches";
+    t[42719] = "Zweige";
     t[42728] = "Simulation.Log.TankFlowBySignal";
     t[42729] = "Fluss (Signal)";
     t[42732] = "JSRunner.DialogHint";
@@ -18056,14 +18058,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[47983] = "Eingabeparameter";
     t[47984] = "Surface.Action.XML.Record.Condition.Condition";
     t[47985] = "Bedingung";
-    t[47986] = "SimulationServer.Toolbar.MQTTStop";
-    t[47987] = "MQTT-Klient stoppen";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_9 (java.lang.String[] t) {
+    t[47986] = "SimulationServer.Toolbar.MQTTStop";
+    t[47987] = "MQTT-Klient stoppen";
     t[47992] = "Statistics.ClientMovement.Visualization.Path";
     t[47993] = "Pfad";
     t[47994] = "Surface.CounterMulti.RunInfoElse";
@@ -19362,6 +19364,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[51397] = "Anzahl";
     t[51398] = "ModelDescription.Arrival.Signal";
     t[51399] = "Ankunft bei Signal";
+    t[51408] = "CommandLine.FolderSimulation.ResultCount.Plural";
+    t[51409] = "%d Modelle wurden simuliert.";
     t[51412] = "ExpressionBuilder.ProbabilityDistributions.TriangularDistribution.DistributionFunctionInfo";
     t[51413] = "<p>Berechnet den Wert der Verteilungsfunktion der Dreiecksverteilung an der als ersten Parameter angegebenen Stelle mit den Parametern [a;c] und dem Wert b mit der h\u00f6chsten Wahrscheinlichkeitsdichte gem\u00e4\u00df dem zweiten (a), dem dritten (b) und dem vierten (c) Parameter.</p>";
     t[51414] = "Server.Status.Yes";
@@ -20060,16 +20064,16 @@ public class Messages_de extends java.util.ResourceBundle {
     t[53295] = "Rechner";
     t[53296] = "ExpressionBuilder.SimulationCharacteristics.ProcessingTimesOverAll.SquaredCoefficientOfVariationOfTheTime";
     t[53297] = "<p>Liefert den quadrierten Variationskoeffizienten \u00fcber alle Bedienzeiten aller Kunden.</p>";
-    t[53298] = "Surface.Logic.Dialog.Condition.Error.Title";
-    t[53299] = "Ung\u00fcltige Bedingung";
-    t[53300] = "Distribution.Erlang";
-    t[53301] = "Erlang-Verteilung";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_10 (java.lang.String[] t) {
+    t[53298] = "Surface.Logic.Dialog.Condition.Error.Title";
+    t[53299] = "Ung\u00fcltige Bedingung";
+    t[53300] = "Distribution.Erlang";
+    t[53301] = "Erlang-Verteilung";
     t[53302] = "Animation.IconDialog.Delete.Hint";
     t[53303] = "Entfernt das ausgew\u00e4hlte Icon aus der Liste";
     t[53310] = "Surface.Conveyor.Dialog.TransportTime.ErrorInfo";
@@ -20110,6 +20114,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[53369] = "Keine Wegpunkte f\u00fcr Pfad gefunden.";
     t[53376] = "Surface.SetStatisticsMode.Tooltip";
     t[53377] = "Schaltet die Statistikerfassung f\u00fcr einen Kunden ein oder aus.";
+    t[53380] = "CommandLine.FolderFilter.ResultCount.Singular";
+    t[53381] = "%d Datei wurde verarbeitet.";
     t[53382] = "Simulation.Log.EndOfSimulation.ClientAtStoppStation";
     t[53383] = "Ein Kunde ist an der Notausgang-Station eingetroffen.";
     t[53384] = "Resources.Group.EditName.Dialog.Number.Schedule.Error.Info";
@@ -20258,6 +20264,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[53763] = "<p>Berechnet den Wert der Dichte der Dreiecksverteilung an der als ersten Parameter angegebenen Stelle mit den Parametern [a;c] und dem Wert b mit der h\u00f6chsten Wahrscheinlichkeitsdichte gem\u00e4\u00df dem zweiten (a), dem dritten (b) und dem vierten (c) Parameter.</p>";
     t[53770] = "Main.Toolbar.LoadStatistics.Hint";
     t[53771] = "L\u00e4dt die Statistik aus einer Datei";
+    t[53778] = "CommandLine.FolderFilter.ResultCount.Plural";
+    t[53779] = "%d Dateien wurden verarbeitet.";
     t[53780] = "Main.Menu.View.Statistics.HeatMap.Arrivals.Mnemonic";
     t[53781] = "A";
     t[53790] = "Surface.Action.XML.Record.ConditionType.Condition";

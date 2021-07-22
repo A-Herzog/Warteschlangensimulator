@@ -112,9 +112,10 @@ public class CommandFolderFilter extends AbstractCommand {
 	 * @param file	Zu prüfende Datei
 	 * @param commands	Auszuführender Filter
 	 * @param out	Ein {@link PrintStream}-Objekt, über das Texte ausgegeben werden können.
+	 * @return	Liefert <code>true</code>, wenn die Datei erfolgreich verarbeitet werden konnte
 	 */
-	private void processFile(final File file, final String commands, final PrintStream out) {
-		if (file.isDirectory()) return;
+	private boolean processFile(final File file, final String commands, final PrintStream out) {
+		if (file.isDirectory()) return false;
 		out.println(file.getName()+":");
 
 		try {
@@ -123,18 +124,18 @@ public class CommandFolderFilter extends AbstractCommand {
 			final Element root=xml.load();
 			if (root==null) {
 				out.println(Language.tr("CommandLine.FolderFilter.CannotProcessFile"));
-				return;
+				return false;
 			}
 
 			/* Als Statistikdaten verarbeiten */
 			final Statistics statistics=new Statistics();
 			if (statistics.loadFromXML(root)!=null) {
 				out.println(Language.tr("CommandLine.FolderFilter.NoStatisticFile"));
-				return;
+				return false;
 			}
 			statistics.loadedStatistics=file;
 
-			CommandFilter.runFilter(statistics,commands,filterResultFile,out);
+			return CommandFilter.runFilter(statistics,commands,filterResultFile,out);
 
 		} finally {
 			out.println("");
@@ -157,8 +158,15 @@ public class CommandFolderFilter extends AbstractCommand {
 			return;
 		}
 
+		int count=0;
 		for (String file: files) {
-			processFile(new File(folder,file),commands, out);
+			if (processFile(new File(folder,file),commands,out)) count++;
+		}
+
+		if (count==1) {
+			out.println(String.format(Language.tr("CommandLine.FolderFilter.ResultCount.Singular"),count));
+		} else {
+			out.println(String.format(Language.tr("CommandLine.FolderFilter.ResultCount.Plural"),count));
 		}
 	}
 }

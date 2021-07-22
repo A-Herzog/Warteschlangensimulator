@@ -90,8 +90,9 @@ public final class CommandFilter extends AbstractSimulationCommand {
 	 * @param commands	Auszuführender Filter
 	 * @param results	Ausgabedatei
 	 * @param out	Konsolen-Ausgabe (für Fehlermeldungen usw.)
+	 * @return	Liefert <code>true</code>, wenn der Filter erfolgreich angewandt werden konnte und die Ergebnisse gespeichert werden konnten
 	 */
-	public static void runFilter(Statistics statistic, String commands, File results, PrintStream out) {
+	public static boolean runFilter(final Statistics statistic, final String commands, final File results, final PrintStream out) {
 		boolean error=false;
 		String result=null;
 
@@ -140,19 +141,21 @@ public final class CommandFilter extends AbstractSimulationCommand {
 		if (error) {
 			out.println(Language.tr("CommandLine.Filter.Done.Error")+":");
 			out.println(result);
-			return;
+			return false;
 		}
 
 		if (result==null) {
 			out.println(Language.tr("CommandLine.Filter.Done.Error")+":");
 			out.println(Language.tr("CommandLine.Filter.Done.Error.CouldNotProcess"));
-			return;
+			return false;
 		}
 
 		if (JSRunDataFilterTools.saveText(result,results,true)) {
 			out.println(Language.tr("CommandLine.Filter.Done.Success"));
+			return true;
 		} else {
 			out.println(String.format(Language.tr("CommandLine.Filter.Done.CouldNotSave"),results.toString()));
+			return false;
 		}
 	}
 
