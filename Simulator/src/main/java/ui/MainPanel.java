@@ -1818,6 +1818,8 @@ public class MainPanel extends MainPanelBase {
 
 	@Override
 	public boolean loadAnyFile(final File file, final Component dropComponent, final Point dropPosition, final boolean errorMessageOnFail) {
+		if ((dropComponent!=null || dropPosition!=null) && specialPanel!=null) return false;
+
 		if (!checkFileExists(file,errorMessageOnFail)) return false;
 
 		if (file.toString().toUpperCase().endsWith(".URL")) {
