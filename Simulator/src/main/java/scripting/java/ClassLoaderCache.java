@@ -86,6 +86,14 @@ public class ClassLoaderCache {
 	}
 
 	/**
+	 * Löscht den Cache.
+	 */
+	public synchronized void clearCache() {
+		defaultData=null;
+		data.clear();
+	}
+
+	/**
 	 * Liefert einen Dateimanager- und Classloader-Datensatz in Abhängigkeit
 	 * von einem externen Plugins-Verzeichnis.
 	 * @param additionalClassPath	Externes Plugins-Verzeichnis (kann <code>null</code> sein)

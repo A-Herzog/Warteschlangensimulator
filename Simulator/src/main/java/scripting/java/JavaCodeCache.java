@@ -66,6 +66,14 @@ public class JavaCodeCache {
 	}
 
 	/**
+	 * Löscht den Cache.
+	 */
+	public synchronized void clearCache() {
+		map.clear();
+		mapNoUserImports.clear();
+	}
+
+	/**
 	 * Prüft, ob für ein Skript bereits eine Übersetzung vorliegt
 	 * und liefert diese ggf. zurück.
 	 * @param script	Skript für das die übersetzte Methode abgefragt werden soll

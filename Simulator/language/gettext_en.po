@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-22 08:35+0200\n"
+"POT-Creation-Date: 2021-07-23 00:08+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -30077,6 +30077,12 @@ msgstr "Use antialias"
 
 msgid "SystemInfo.Tools.Surface.BackgroundTooltips"
 msgstr "Show tooltips while dialog is open"
+
+msgid "SystemInfo.Tools.UserDefinedJavaCode"
+msgstr "User-defined Java code"
+
+msgid "SystemInfo.Tools.UserDefinedJavaCode.ClearCache"
+msgstr "Clear memory cache"
 
 msgid "SystemInfo.Tools.UserInterface"
 msgstr "User interface"

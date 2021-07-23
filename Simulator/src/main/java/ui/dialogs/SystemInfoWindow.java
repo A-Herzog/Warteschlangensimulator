@@ -57,7 +57,9 @@ import javax.swing.WindowConstants;
 
 import language.Language;
 import mathtools.NumberTools;
+import scripting.java.ClassLoaderCache;
 import scripting.java.DynamicFactory;
+import scripting.java.JavaCodeCache;
 import scripting.js.JSEngineNames;
 import simulator.editmodel.EditModelProcessor;
 import systemtools.BaseDialog;
@@ -631,6 +633,8 @@ public class SystemInfoWindow extends JFrame {
 
 		/* Trainingsdaten für Folgestationen */
 
+		menu.addSeparator();
+
 		menu.add(label=new JMenuItem("<html><b>"+Language.tr("SystemInfo.Tools.NextStationTraining")+"</b></html>"));
 		label.setEnabled(false);
 
@@ -642,6 +646,17 @@ public class SystemInfoWindow extends JFrame {
 			if (MsgBox.confirm(this,Language.tr("SystemInfo.Tools.NextStationTraining.DeleteData.Title"),Language.tr("SystemInfo.Tools.NextStationTraining.DeleteData.Info"),Language.tr("SystemInfo.Tools.NextStationTraining.DeleteData.InfoYes"),Language.tr("SystemInfo.Tools.NextStationTraining.DeleteData.InfoNo"))) {
 				EditModelProcessor.getInstance().reset();
 			}
+		});
+
+		/* Nutzerdefinierter Java-Code */
+
+		menu.add(label=new JMenuItem("<html><b>"+Language.tr("SystemInfo.Tools.UserDefinedJavaCode")+"</b></html>"));
+		label.setEnabled(false);
+
+		menu.add(item=new JMenuItem(Language.tr("SystemInfo.Tools.UserDefinedJavaCode.ClearCache"),Images.SCRIPT_MODE_JAVA.getIcon()));
+		item.addActionListener(e->{
+			JavaCodeCache.getJavaCodeCache().clearCache();
+			ClassLoaderCache.getInstance().clearCache();
 		});
 
 		/* Thread-Anzahl abhängige Leistung ermitteln */
