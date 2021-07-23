@@ -16,9 +16,12 @@
 package ui.statistics;
 
 import java.awt.Color;
+import java.awt.Paint;
+import java.awt.Rectangle;
 import java.io.Serializable;
 import java.net.URL;
 import java.text.NumberFormat;
+import java.util.HashMap;
 import java.util.Map;
 
 import org.jfree.chart.labels.StandardCategoryToolTipGenerator;
@@ -35,6 +38,8 @@ import systemtools.statistics.StatisticViewerBarChart;
 import ui.help.Help;
 import ui.modeleditor.ModelResource;
 import ui.modeleditor.ModelTransporter;
+import ui.modeleditor.fastpaint.BrighterColor;
+import ui.modeleditor.fastpaint.GradientFill;
 
 /**
  * Dieser Viewer gibt die Verteilung der Zwischenankunfts-, Warte- und Bedienzeiten in Form eines Balkendiagramms zu den Simulationsergebnissen aus.
@@ -136,6 +141,30 @@ public class StatisticViewerTimeBarChart extends StatisticViewerBarChart {
 	}
 
 	/**
+	 * Cache für hellere Farbe-Objekte
+	 * @see #gradientCache
+	 * @see #getGradientPaint(Color)
+	 */
+	private final BrighterColor brighterColor=new BrighterColor();
+
+	/**
+	 * Zuordnung von Farben zu Farbverlaufen
+	 * @see #getGradientPaint(Color)
+	 */
+	private final Map<Color,Paint> gradientCache=new HashMap<>();
+
+	/**
+	 * Liefert zu einer Farbe den passenden Farbverlauf
+	 * @param color	Ausgangsfarbe
+	 * @return	Farbverlauf
+	 */
+	private Paint getGradientPaint(final Color color) {
+		Paint paint=gradientCache.get(color);
+		if (paint==null) gradientCache.put(color,paint=GradientFill.build(new Rectangle(100,100,100,100),color,brighterColor.get(color),true));
+		return paint;
+	}
+
+	/**
 	 * Kürzt einen Stationsnamen; gibt, wenn ein in Anführungszeichen
 	 * stehender Name definiert ist, diesen zurück.
 	 * @param name	Vollständiger Name der Station
@@ -175,7 +204,7 @@ public class StatisticViewerTimeBarChart extends StatisticViewerBarChart {
 			if (color==null) color=COLORS[i%COLORS.length];
 			if (i==names.length-1) data.setNotify(true);
 			data.addValue(indicators[i].getMean(),names[i],names[i]);
-			plot.getRendererForDataset(data).setSeriesPaint(i,color,i==name.length()-1);
+			plot.getRendererForDataset(data).setSeriesPaint(i,getGradientPaint(color),i==name.length()-1);
 		}
 
 		initTooltips();
@@ -212,7 +241,7 @@ public class StatisticViewerTimeBarChart extends StatisticViewerBarChart {
 			if (time1>0) {
 				if (i==names.length-1) data.setNotify(true);
 				data.addValue(time2/time1,names[i],names[i]);
-				plot.getRendererForDataset(data).setSeriesPaint(i,color,i==name.length()-1);
+				plot.getRendererForDataset(data).setSeriesPaint(i,getGradientPaint(color),i==name.length()-1);
 			}
 		}
 
@@ -244,9 +273,9 @@ public class StatisticViewerTimeBarChart extends StatisticViewerBarChart {
 			}
 		}
 
-		plot.getRendererForDataset(data).setSeriesPaint(0,Color.BLUE);
-		plot.getRendererForDataset(data).setSeriesPaint(1,Color.RED);
-		plot.getRendererForDataset(data).setSeriesPaint(2,Color.LIGHT_GRAY);
+		plot.getRendererForDataset(data).setSeriesPaint(0,getGradientPaint(Color.BLUE));
+		plot.getRendererForDataset(data).setSeriesPaint(1,getGradientPaint(Color.RED));
+		plot.getRendererForDataset(data).setSeriesPaint(2,getGradientPaint(Color.LIGHT_GRAY));
 		plot.getRenderer().setSeriesVisibleInLegend(0,true);
 		plot.getRenderer().setSeriesVisibleInLegend(1,true);
 		plot.getRenderer().setSeriesVisibleInLegend(2,true);
@@ -279,9 +308,9 @@ public class StatisticViewerTimeBarChart extends StatisticViewerBarChart {
 			}
 		}
 
-		plot.getRendererForDataset(data).setSeriesPaint(0,Color.BLUE);
-		plot.getRendererForDataset(data).setSeriesPaint(1,Color.RED);
-		plot.getRendererForDataset(data).setSeriesPaint(2,Color.LIGHT_GRAY);
+		plot.getRendererForDataset(data).setSeriesPaint(0,getGradientPaint(Color.BLUE));
+		plot.getRendererForDataset(data).setSeriesPaint(1,getGradientPaint(Color.RED));
+		plot.getRendererForDataset(data).setSeriesPaint(2,getGradientPaint(Color.LIGHT_GRAY));
 		plot.getRenderer().setSeriesVisibleInLegend(0,true);
 		plot.getRenderer().setSeriesVisibleInLegend(1,true);
 		plot.getRenderer().setSeriesVisibleInLegend(3,true);
@@ -308,7 +337,7 @@ public class StatisticViewerTimeBarChart extends StatisticViewerBarChart {
 			this.data.addValue(data[i],Language.tr("Statistics.SystemData.ThreadBalance"),""+(i+1));
 		}
 
-		plot.getRendererForDataset(this.data).setSeriesPaint(0,Color.BLUE);
+		plot.getRendererForDataset(this.data).setSeriesPaint(0,getGradientPaint(Color.BLUE));
 
 		/* Tooltips */
 		final int count=this.data.getRowCount();

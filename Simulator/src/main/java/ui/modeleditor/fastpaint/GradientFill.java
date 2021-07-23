@@ -66,7 +66,7 @@ public class GradientFill {
 	 * @param verticalGradient	Gibt an, ob der optionale Farbverlauf horizontal (<code>false</code>) oder vertikal (<code>true</code>) gezeichnet werden soll
 	 * @return	Farbverlauf
 	 */
-	private static GradientPaint build(final Rectangle objectRect, final Color fillColor, final Color fillColorBrighter, final boolean verticalGradient) {
+	public static GradientPaint build(final Rectangle objectRect, final Color fillColor, final Color fillColorBrighter, final boolean verticalGradient) {
 		final Point2D p1, p2;
 
 		if (verticalGradient) {
