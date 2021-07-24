@@ -334,7 +334,6 @@ public class UpdateSystem {
 			final Element root=XMLTools.jsonToXml("{root: "+json+"}",true);
 			if (root!=null) line=root.getAttribute("tag_name");
 		}
-		/* alt: final String line=downloadTextFile(MainPanel.HOME_URL+"/Warteschlangensimulator/version.txt"); */
 
 		if (line==null) {
 			checkFailed=true;
