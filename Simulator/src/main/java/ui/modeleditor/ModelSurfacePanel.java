@@ -651,19 +651,26 @@ public final class ModelSurfacePanel extends JPanel {
 	public void showDashboard() {
 		final ModelElementDashboard dashboard;
 
+		final boolean isInSurface;
+
 		/* Schon ein entsprechendes Element vorhanden? */
 		final Optional<ModelElementDashboard> dashboardOptional=surface.getElements().stream().filter(element->element instanceof ModelElementDashboard).map(element->((ModelElementDashboard)element)).findFirst();
 		if (dashboardOptional.isPresent()) {
 			dashboard=dashboardOptional.get();
+			isInSurface=true;
 		} else {
 			/* Ggf. neues Element anlegen */
 			dashboard=new ModelElementDashboard(model,surface);
-			surface.add(dashboard);
+			isInSurface=false;
 		}
 
 		dashboard.showSubEditDialog(this,false,false);
 
-		if (dashboard.getSubSurface().getElementCount()==0) surface.remove(dashboard);
+		if (dashboard.getSubSurface().getElementCount()==0) {
+			if (isInSurface) surface.remove(dashboard);
+		} else {
+			if (!isInSurface) surface.add(dashboard);
+		}
 	}
 
 	/**
