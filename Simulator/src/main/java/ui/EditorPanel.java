@@ -68,6 +68,7 @@ import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
+import javax.swing.JRadioButtonMenuItem;
 import javax.swing.JScrollPane;
 import javax.swing.JSlider;
 import javax.swing.JToolBar;
@@ -1021,6 +1022,9 @@ public final class EditorPanel extends EditorPanelBase {
 			buttonTemplates=createRotatedToolbarButton(leftToolbar,Language.tr("Editor.ToggleTemplates.Short"),Language.tr("Editor.ToggleTemplates.Info")+" ("+hotkeyToggleTemplates+")",Images.ELEMENTTEMPLATES.getIcon());
 			buttonAddEdge=createRotatedToolbarButton(leftToolbar,Language.tr("Editor.AddEdge.Short"),Language.tr("Editor.AddEdge.Info")+" ("+keyStrokeToString(KeyStroke.getKeyStroke(KeyEvent.VK_F3,InputEvent.CTRL_DOWN_MASK))+")",Images.EDIT_EDGES_ADD.getIcon());
 			buttonAddEdge.setEnabled(!readOnly);
+			buttonAddEdge.addMouseListener(new MouseAdapter() {
+				@Override public void mousePressed(MouseEvent e) {if (SwingUtilities.isRightMouseButton(e) && e.getClickCount()==1) showEdgeSettingsContextMenu(buttonAddEdge);}
+			});
 		}
 
 		if (!readOnly) {
@@ -1104,6 +1108,42 @@ public final class EditorPanel extends EditorPanelBase {
 		buttonExplorer=createRotatedToolbarButton(leftToolbar,Language.tr("Editor.ModelOverview.Short"),Language.tr("Editor.ModelOverview.Info")+" ("+keyStrokeToString(KeyStroke.getKeyStroke(KeyEvent.VK_F12,InputEvent.CTRL_DOWN_MASK))+")",Images.GENERAL_FIND.getIcon());
 
 		return leftArea;
+	}
+
+	/**
+	 * Zeigt das Kontextmenü für die vertikale "Kante"-Schaltfläche an
+	 * @param invoker	Aufrufende Schaltfläche
+	 */
+	private void showEdgeSettingsContextMenu(final JButton invoker) {
+		if (!invoker.isEnabled()) return;
+
+		final JPopupMenu menu=new JPopupMenu();
+
+		final SetupData setup=SetupData.getSetup();
+
+		JMenuItem item;
+		JRadioButtonMenuItem radioItem;
+
+		menu.add(item=new JMenuItem("<html><body>"+Language.tr("Main.Menu.Edit.AutoConnect")+"</body></html>"));
+		item.setEnabled(false);
+		menu.addSeparator();
+
+		menu.add(radioItem=new JRadioButtonMenuItem(Language.tr("Main.Menu.Edit.AutoConnect.Off")));
+		radioItem.setMnemonic(Language.tr("Main.Menu.Edit.AutoConnect.Off.Mnemonic").charAt(0));
+		radioItem.setSelected(setup.autoConnect==ModelSurfacePanel.ConnectMode.OFF);
+		radioItem.addActionListener(e->{setup.autoConnect=ModelSurfacePanel.ConnectMode.OFF; setup.saveSetup();});
+
+		menu.add(radioItem=new JRadioButtonMenuItem(Language.tr("Main.Menu.Edit.AutoConnect.Auto")));
+		radioItem.setMnemonic(Language.tr("Main.Menu.Edit.AutoConnect.Auto.Mnemonic").charAt(0));
+		radioItem.setSelected(setup.autoConnect==ModelSurfacePanel.ConnectMode.AUTO);
+		radioItem.addActionListener(e->{setup.autoConnect=ModelSurfacePanel.ConnectMode.AUTO; setup.saveSetup();});
+
+		menu.add(radioItem=new JRadioButtonMenuItem(Language.tr("Main.Menu.Edit.AutoConnect.Smart")));
+		radioItem.setMnemonic(Language.tr("Main.Menu.Edit.AutoConnect.Smart.Mnemonic").charAt(0));
+		radioItem.setSelected(setup.autoConnect==ModelSurfacePanel.ConnectMode.SMART);
+		radioItem.addActionListener(e->{setup.autoConnect=ModelSurfacePanel.ConnectMode.SMART; setup.saveSetup();});
+
+		menu.show(invoker,0,invoker.getHeight());
 	}
 
 	/**
