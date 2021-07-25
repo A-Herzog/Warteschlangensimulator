@@ -42,6 +42,7 @@ import systemtools.SetupBase;
 import systemtools.statistics.ChartSetup;
 import ui.EditorPanelStatistics;
 import ui.MainFrame;
+import ui.UpdateSystem;
 import ui.infopanel.InfoPanel;
 import ui.modeleditor.HeatMapImage;
 import ui.modeleditor.ModelSurface;
@@ -414,6 +415,12 @@ public class SetupData extends SetupBase {
 			return INSTALL;
 		}
 	}
+
+	/**
+	 * Programminterner Updater verfügbar?
+	 * @see UpdateSystem#UPDATER_BLOCK_FILE
+	 */
+	public final boolean updaterAvailable;
 
 	/**
 	 * Soll sich das Programm (wenn möglich) automatisch aktualisieren?
@@ -1264,6 +1271,7 @@ public class SetupData extends SetupBase {
 	 */
 	private SetupData(final boolean loadSetupFile) {
 		super();
+		updaterAvailable=testUpdaterAvailable();
 		if (loadSetupFile) {
 			loadSetupFromFile();
 			autoSetLanguage();
@@ -1476,6 +1484,18 @@ public class SetupData extends SetupBase {
 	 */
 	public void resetLanguageWasAutomatically() {
 		autoSetLanguageActive=false;
+	}
+
+	/**
+	 * Prüft, ob der programminterne Updater
+	 * überhaupt verwendet werden soll.
+	 * @return	Programminterner Updater verfügbar
+	 * @see UpdateSystem#UPDATER_BLOCK_FILE
+	 * @see #updaterAvailable
+	 */
+	private boolean testUpdaterAvailable() {
+		final File blockUpdaterFile=new File(getSetupFolder(),UpdateSystem.UPDATER_BLOCK_FILE);
+		return !blockUpdaterFile.isFile();
 	}
 
 	/**

@@ -54,6 +54,14 @@ public class UpdateSystem {
 	private static final File updateInstallerRun=new File(System.getProperty("java.io.tmpdir"),"SimulatorSetupWork.exe");
 
 	/**
+	 * Existiert diese Datei im Verzeichnis, in dem sich die Einstellungen befinden,
+	 * so wird der Updater vollständig deaktiviert.
+	 * @see SetupData#updaterAvailable
+	 * @see #globalOn
+	 */
+	public static final String UPDATER_BLOCK_FILE="noupdater.txt";
+
+	/**
 	 * Singleton-Instanz dieser Klasse
 	 * @see #getUpdateSystem()
 	 */
@@ -85,6 +93,12 @@ public class UpdateSystem {
 		/** Es steht eine neue Version zur Verfügung. Diese muss jedoch manuell geladen werden. */
 		STATUS_SUCCESS_MANUAL
 	}
+
+	/**
+	 * Ist das Updater-System als solches aktiv?<br>
+	 * (Das heißt nicht, dass automatisch aktiv nach Updates gesucht wird.)
+	 */
+	private final boolean globalOn;
 
 	/**
 	 * Ist ein automatisches Updates für diese Installation möglich?
@@ -155,16 +169,22 @@ public class UpdateSystem {
 	 * @see #getUpdateSystem()
 	 */
 	private UpdateSystem() {
+		final SetupData setup=SetupData.getSetup();
+
+		globalOn=setup.updaterAvailable;
 		checkFailed=false;
 		checkDone=false;
-		if (checkUpdateNow()) return;
-		checkAutomaticUpdatePossible();
-		checkLastStart();
-		final SetupData.AutoUpdate autoUpdate=SetupData.getSetup().autoUpdate;
-		if (autoUpdate!=SetupData.AutoUpdate.OFF) {
-			checkUpdateAvailable(false);
-			if (automaticUpdatePossible && autoUpdate==SetupData.AutoUpdate.INSTALL) {
-				if (newVersionAvailable!=null) downloadUpdate();
+
+		if (globalOn) {
+			if (checkUpdateNow()) return;
+			checkAutomaticUpdatePossible();
+			checkLastStart();
+			final SetupData.AutoUpdate autoUpdate=setup.autoUpdate;
+			if (autoUpdate!=SetupData.AutoUpdate.OFF) {
+				checkUpdateAvailable(false);
+				if (automaticUpdatePossible && autoUpdate==SetupData.AutoUpdate.INSTALL) {
+					if (newVersionAvailable!=null) downloadUpdate();
+				}
 			}
 		}
 	}
@@ -515,6 +535,8 @@ public class UpdateSystem {
 	 * @return	Aktueller Status
 	 */
 	public String getInfoString() {
+		if (!globalOn) return Language.tr("Update.Status.GlobalOff");
+
 		switch (isNewVersionAvailable()) {
 		case NOT_CHECKED:
 			return Language.tr("Update.Status.NotChecked");

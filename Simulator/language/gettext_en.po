@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-23 00:08+0200\n"
+"POT-Creation-Date: 2021-07-25 12:09+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -15085,6 +15085,12 @@ msgstr "Check installed Java version and warn if outdated and insecure"
 
 msgid "SettingsDialog.Title"
 msgstr "Settings"
+
+msgid "SettingsDialog.Update.SectionJava"
+msgstr "Java environment"
+
+msgid "SettingsDialog.Update.SectionSimulator"
+msgstr "Simulator"
 
 msgid "SettingsDialog.UpdateCheck"
 msgstr "Check now"
@@ -30610,6 +30616,9 @@ msgstr "The update installer was downloaded."
 
 msgid "Update.Status.Failed"
 msgstr "The download of the new version %s failed."
+
+msgid "Update.Status.GlobalOff"
+msgstr "This installation cannot be updated from within the program itself."
 
 msgid "Update.Status.Loading"
 msgstr "The new version %s is being downloaded. %d%% complete."

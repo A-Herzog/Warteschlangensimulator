@@ -72,8 +72,15 @@ public class SetupDialogPageUpdates extends SetupDialogPage {
 		JLabel label;
 		JButton button;
 
+
+		addHeading(Language.tr("SettingsDialog.Update.SectionJava"));
+
 		/* Java-Version beim Programmstart prüfen */
 		addLine().add(programStartJavaCheck=new JCheckBox(Language.tr("SettingsDialog.TestJavaVersionOnProgramStart")));
+
+		/* Versionsnummer der verwendeten Java-Version */
+		line=addLine();
+		line.add(new JLabel(Language.tr("InfoDialog.JavaVersion")+": "+System.getProperty("java.version")+" ("+System.getProperty("java.vm.name")+")"));
 
 		/* Update URL */
 		line=addLine();
@@ -87,54 +94,63 @@ public class SetupDialogPageUpdates extends SetupDialogPage {
 			}
 		});
 
-		/* Programm automatisch aktualisieren */
-		line=addLine();
-		line.add(label=new JLabel(Language.tr("SettingsDialog.AutoUpdate")+":"));
-		final UpdateSystem updateSystem=UpdateSystem.getUpdateSystem();
-		if (updateSystem.isAutomaticUpdatePossible()) {
-			line.add(autoUpdate=new JComboBox<>(new String[] {
-					Language.tr("SettingsDialog.AutoUpdate.Off"),
-					Language.tr("SettingsDialog.AutoUpdate.Search"),
-					Language.tr("SettingsDialog.AutoUpdate.Install")
-			}));
-			autoUpdate.setRenderer(new IconListCellRenderer(new Images[]{
-					Images.GENERAL_OFF,
-					Images.GENERAL_INFO,
-					Images.GENERAL_ON,
-			}));
+		if (setup.updaterAvailable) {
+			addHeading(Language.tr("SettingsDialog.Update.SectionSimulator"));
+
+			/* Programm automatisch aktualisieren */
+			line=addLine();
+			line.add(label=new JLabel(Language.tr("SettingsDialog.AutoUpdate")+":"));
+			final UpdateSystem updateSystem=UpdateSystem.getUpdateSystem();
+			if (updateSystem.isAutomaticUpdatePossible()) {
+				line.add(autoUpdate=new JComboBox<>(new String[] {
+						Language.tr("SettingsDialog.AutoUpdate.Off"),
+						Language.tr("SettingsDialog.AutoUpdate.Search"),
+						Language.tr("SettingsDialog.AutoUpdate.Install")
+				}));
+				autoUpdate.setRenderer(new IconListCellRenderer(new Images[]{
+						Images.GENERAL_OFF,
+						Images.GENERAL_INFO,
+						Images.GENERAL_ON,
+				}));
+			} else {
+				line.add(autoUpdate=new JComboBox<>(new String[] {
+						Language.tr("SettingsDialog.AutoUpdate.Off"),
+						Language.tr("SettingsDialog.AutoUpdate.Search"),
+				}));
+				autoUpdate.setRenderer(new IconListCellRenderer(new Images[]{
+						Images.GENERAL_OFF,
+						Images.GENERAL_INFO
+				}));
+			}
+			label.setLabelFor(autoUpdate);
+
+			/* Informationen zum Fortschritt der Aktualisierung */
+			addLine().add(updateInfo=new JLabel());
+
+			/* Schaltfläche: Proxy-Einstellungen */
+			line=addLine();
+			button=new JButton(Language.tr("SettingsDialog.ProxySettings"));
+			button.setIcon(Images.SETUP_PROXY.getIcon());
+			button.addActionListener(e->showProxySettingsDialog());
+			line.add(button);
+
+			/* Schaltfläche um ein manuelles Update auszulösen */
+			line.add(manualUpdateButton=new JButton(Language.tr("SettingsDialog.ManualUpdate")));
+			manualUpdateButton.setIcon(Images.SETUP_PAGE_UPDATE.getIcon());
+			manualUpdateButton.setVisible(false);
+			manualUpdateButton.addActionListener(e->showManualUpdateMenu());
+
+			/* Schaltfläche zum Prüfen auf Updates */
+			line.add(updateCheckButton=new JButton(Language.tr("SettingsDialog.UpdateCheck")));
+			updateCheckButton.setIcon(Images.SETUP_PAGE_UPDATE.getIcon());
+			updateCheckButton.setVisible(false);
+			updateCheckButton.addActionListener(e->runUpdateCheck());
 		} else {
-			line.add(autoUpdate=new JComboBox<>(new String[] {
-					Language.tr("SettingsDialog.AutoUpdate.Off"),
-					Language.tr("SettingsDialog.AutoUpdate.Search"),
-			}));
-			autoUpdate.setRenderer(new IconListCellRenderer(new Images[]{
-					Images.GENERAL_OFF,
-					Images.GENERAL_INFO
-			}));
+			autoUpdate=null;
+			updateInfo=null;
+			manualUpdateButton=null;
+			updateCheckButton=null;
 		}
-		label.setLabelFor(autoUpdate);
-
-		/* Informationen zum Fortschritt der Aktualisierung */
-		addLine().add(updateInfo=new JLabel());
-
-		/* Schaltfläche: Proxy-Einstellungen */
-		line=addLine();
-		button=new JButton(Language.tr("SettingsDialog.ProxySettings"));
-		button.setIcon(Images.SETUP_PROXY.getIcon());
-		button.addActionListener(e->showProxySettingsDialog());
-		line.add(button);
-
-		/* Schaltfläche um ein manuelles Update auszulösen */
-		line.add(manualUpdateButton=new JButton(Language.tr("SettingsDialog.ManualUpdate")));
-		manualUpdateButton.setIcon(Images.SETUP_PAGE_UPDATE.getIcon());
-		manualUpdateButton.setVisible(false);
-		manualUpdateButton.addActionListener(e->showManualUpdateMenu());
-
-		/* Schaltfläche zum Prüfen auf Updates */
-		line.add(updateCheckButton=new JButton(Language.tr("SettingsDialog.UpdateCheck")));
-		updateCheckButton.setIcon(Images.SETUP_PAGE_UPDATE.getIcon());
-		updateCheckButton.setVisible(false);
-		updateCheckButton.addActionListener(e->runUpdateCheck());
 	}
 
 	/**
@@ -216,32 +232,34 @@ public class SetupDialogPageUpdates extends SetupDialogPage {
 
 	@Override
 	public void loadData() {
-		final UpdateSystem updateSystem=UpdateSystem.getUpdateSystem();
-
 		programStartJavaCheck.setSelected(setup.testJavaVersion);
-		if (updateSystem.isAutomaticUpdatePossible()) {
-			switch (setup.autoUpdate) {
-			case OFF: autoUpdate.setSelectedIndex(0); break;
-			case SEARCH: autoUpdate.setSelectedIndex(1); break;
-			case INSTALL: autoUpdate.setSelectedIndex(2); break;
-			default: autoUpdate.setSelectedIndex(2); break;
-			}
-		} else {
-			switch (setup.autoUpdate) {
-			case OFF: autoUpdate.setSelectedIndex(0); break;
-			case SEARCH: autoUpdate.setSelectedIndex(1); break;
-			default: autoUpdate.setSelectedIndex(1); break;
-			}
-		}
-		updateInfo.setText("<html><b>"+updateSystem.getInfoString()+"</b></html>");
-		if (setup.autoUpdate==SetupData.AutoUpdate.INSTALL && updateSystem.isAutomaticUpdatePossible()) {
-			runUpdateCheck();
-		} else {
-			if (updateSystem.isNewVersionAvailable()==UpdateSystem.NewVersionAvailableStatus.NEW_VERSION_AVAILABLE) {
-				updateCheckButton.setVisible(false);
-				manualUpdateButton.setVisible(true);
+
+		if (setup.updaterAvailable) {
+			final UpdateSystem updateSystem=UpdateSystem.getUpdateSystem();
+			if (updateSystem.isAutomaticUpdatePossible()) {
+				switch (setup.autoUpdate) {
+				case OFF: autoUpdate.setSelectedIndex(0); break;
+				case SEARCH: autoUpdate.setSelectedIndex(1); break;
+				case INSTALL: autoUpdate.setSelectedIndex(2); break;
+				default: autoUpdate.setSelectedIndex(2); break;
+				}
 			} else {
-				updateCheckButton.setVisible(true);
+				switch (setup.autoUpdate) {
+				case OFF: autoUpdate.setSelectedIndex(0); break;
+				case SEARCH: autoUpdate.setSelectedIndex(1); break;
+				default: autoUpdate.setSelectedIndex(1); break;
+				}
+			}
+			updateInfo.setText("<html><b>"+updateSystem.getInfoString()+"</b></html>");
+			if (setup.autoUpdate==SetupData.AutoUpdate.INSTALL && updateSystem.isAutomaticUpdatePossible()) {
+				runUpdateCheck();
+			} else {
+				if (updateSystem.isNewVersionAvailable()==UpdateSystem.NewVersionAvailableStatus.NEW_VERSION_AVAILABLE) {
+					updateCheckButton.setVisible(false);
+					manualUpdateButton.setVisible(true);
+				} else {
+					updateCheckButton.setVisible(true);
+				}
 			}
 		}
 	}
@@ -249,16 +267,20 @@ public class SetupDialogPageUpdates extends SetupDialogPage {
 	@Override
 	public void storeData() {
 		setup.testJavaVersion=programStartJavaCheck.isSelected();
-		switch (autoUpdate.getSelectedIndex()) {
-		case 0: setup.autoUpdate=SetupData.AutoUpdate.OFF; break;
-		case 1: setup.autoUpdate=SetupData.AutoUpdate.SEARCH; break;
-		case 2: setup.autoUpdate=SetupData.AutoUpdate.INSTALL; break;
+		if (setup.updaterAvailable) {
+			switch (autoUpdate.getSelectedIndex()) {
+			case 0: setup.autoUpdate=SetupData.AutoUpdate.OFF; break;
+			case 1: setup.autoUpdate=SetupData.AutoUpdate.SEARCH; break;
+			case 2: setup.autoUpdate=SetupData.AutoUpdate.INSTALL; break;
+			}
 		}
 	}
 
 	@Override
 	public void resetSettings() {
 		programStartJavaCheck.setSelected(true);
-		autoUpdate.setSelectedIndex(autoUpdate.getModel().getSize()-1);
+		if (setup.updaterAvailable) {
+			autoUpdate.setSelectedIndex(autoUpdate.getModel().getSize()-1);
+		}
 	}
 }
