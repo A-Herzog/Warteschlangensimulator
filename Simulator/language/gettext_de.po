@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-25 12:09+0200\n"
+"POT-Creation-Date: 2021-07-26 09:55+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -30086,9 +30086,6 @@ msgstr "Simulation"
 msgid "SystemInfo.Tools.Simulation.LoadBalancer"
 msgstr "Thread-Load-Balancer verwenden"
 
-msgid "SystemInfo.Tools.Simulation.SecurityManager"
-msgstr "Security-Manager bei benutzerdefiniertem Java-Code aktivieren"
-
 msgid "SystemInfo.Tools.Surface"
 msgstr "Zeichenfläche"
 
@@ -31650,6 +31647,9 @@ msgstr "Das Dateiformat wurde nicht erkannt bzw. passt zu keinem Dateiformat die
 
 #~ msgid "Surface.Sub.Dialog.NumberOutput.Error.Title"
 #~ msgstr "Ungültige Anzahl an Ausgängen"
+
+#~ msgid "SystemInfo.Tools.Simulation.SecurityManager"
+#~ msgstr "Security-Manager bei benutzerdefiniertem Java-Code aktivieren"
 
 #~ msgid "Wait.Status.LongRunNoEstimation"
 #~ msgstr "%sK Kundenankünfte simuliert / %sM Ereignisse / %sK Ereignisse pro Sekunde"

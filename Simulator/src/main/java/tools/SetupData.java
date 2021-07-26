@@ -886,14 +886,6 @@ public class SetupData extends SetupBase {
 	public boolean allowToOpenLinks;
 
 	/**
-	 * Soll ein Security-Manager, der die Rechte des Nutzercodes
-	 * einschränkt, aktiviert werden, wenn nutzerdefinierter
-	 * Java-Code verwendet wird? (Dies blockiert in diesem Fall
-	 * die Verwendung des Flight-Recorders.)
-	 */
-	public boolean useSecurityManagerForUserCode;
-
-	/**
 	 * Benachrichtigung beim Ende von Simulation, Parameterreihe oder Optimierung in System-Tray anzeigen?
 	 * @see Notifier
 	 */
@@ -1402,7 +1394,6 @@ public class SetupData extends SetupBase {
 		signModels=true;
 		modelSecurityAllowExecuteExternal=false;
 		allowToOpenLinks=true;
-		useSecurityManagerForUserCode=true;
 		notifyMode=NotifyMode.LONGRUN;
 		notifyMQTT=false;
 		notifyMQTTTopic=MainFrame.PROGRAM_NAME+"/notify";
@@ -2157,11 +2148,6 @@ public class SetupData extends SetupBase {
 				continue;
 			}
 
-			if (name.equals("securitymanagerforusercode")) {
-				useSecurityManagerForUserCode=loadBoolean(e.getTextContent(),true);
-				continue;
-			}
-
 			if (name.equals("nofitymode")) {
 				final String text=e.getTextContent().toLowerCase();
 				if (text.equals("always")) {notifyMode=NotifyMode.ALWAYS; continue;}
@@ -2855,11 +2841,6 @@ public class SetupData extends SetupBase {
 
 		if (!allowToOpenLinks) {
 			root.appendChild(node=doc.createElement("AllowToOpenLinks"));
-			node.setTextContent("0");
-		}
-
-		if (!useSecurityManagerForUserCode) {
-			root.appendChild(node=doc.createElement("SecurityManagerForUserCode"));
 			node.setTextContent("0");
 		}
 

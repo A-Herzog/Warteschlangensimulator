@@ -625,9 +625,6 @@ public class SystemInfoWindow extends JFrame {
 		menu.add(label=new JMenuItem("<html><b>"+Language.tr("SystemInfo.Tools.Simulation")+"</b></html>"));
 		label.setEnabled(false);
 
-		menu.add(check=new JCheckBoxMenuItem(Language.tr("SystemInfo.Tools.Simulation.SecurityManager"),setup.useSecurityManagerForUserCode));
-		check.addActionListener(e->{setup.useSecurityManagerForUserCode=!setup.useSecurityManagerForUserCode; setup.saveSetup();});
-
 		menu.add(check=new JCheckBoxMenuItem(Language.tr("SystemInfo.Tools.Simulation.LoadBalancer"),setup.useDynamicThreadBalance));
 		check.addActionListener(e->{setup.useDynamicThreadBalance=!setup.useDynamicThreadBalance; setup.saveSetup();});
 

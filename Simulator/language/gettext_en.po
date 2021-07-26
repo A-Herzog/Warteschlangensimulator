@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-25 12:09+0200\n"
+"POT-Creation-Date: 2021-07-26 09:55+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20530,7 +20530,7 @@ msgid "Statistics.XML.RunCount"
 msgstr "RunCount"
 
 msgid "Statistics.XML.RunCount.Error"
-msgstr "The RunCount attribute in the \"%s\" element has to be a positive integer number but is %s."
+msgstr "The RunCount attribute in the \"%s\" element has to be a positive integer number but is \"%s\"."
 
 msgid "Statistics.XML.RunDate"
 msgstr "StatisticsRunDate"
@@ -30072,9 +30072,6 @@ msgstr "Simulation"
 msgid "SystemInfo.Tools.Simulation.LoadBalancer"
 msgstr "Use thread load balancer"
 
-msgid "SystemInfo.Tools.Simulation.SecurityManager"
-msgstr "Activate security manager on user-defined Java code"
-
 msgid "SystemInfo.Tools.Surface"
 msgstr "Drawing surface"
 
@@ -31612,6 +31609,9 @@ msgstr "The file format is unknown respectively is not matching to any of the fi
 
 #~ msgid "Surface.Sub.Dialog.NumberOutput.Error.Title"
 #~ msgstr "Invalid number of outputs"
+
+#~ msgid "SystemInfo.Tools.Simulation.SecurityManager"
+#~ msgstr "Activate security manager on user-defined Java code"
 
 #~ msgid "Wait.Status.LongRunNoEstimation"
 #~ msgstr "%sK client arrivals simulated / %sM events / %sK events per second"
