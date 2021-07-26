@@ -498,7 +498,7 @@ public class MJPEGGenerator {
 	/**
 	 * AVI-Datenblock für die Index-Liste
 	 */
-	private class AVIIndexList
+	private static class AVIIndexList
 	{
 		/** Kennung für den Datenblock */
 		public byte[] fcc = new byte[]{'i','d','x','1'};

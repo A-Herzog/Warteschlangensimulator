@@ -1473,7 +1473,7 @@ public class ModelSurfaceAnimatorBase {
 	 * Repräsentation eines sich bewegenden Animations-Icons
 	 * für die Netzwerk-Übertragung, nicht für die lokale Animation selbst
 	 */
-	private class DrawMovingIcon {
+	private static class DrawMovingIcon {
 		/** Daten zu dem Icon */
 		public final Object data;
 		/** Liste der Zwischenpunkte der Bewegung */

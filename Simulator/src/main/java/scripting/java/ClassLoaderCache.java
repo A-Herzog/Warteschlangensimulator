@@ -184,7 +184,7 @@ public class ClassLoaderCache {
 	 * Datensatz für einen Classloader
 	 * @see ClassLoaderCache#getCompileData(String)
 	 */
-	private class CompileData {
+	private static class CompileData {
 		/**
 		 * Dateimanager
 		 */

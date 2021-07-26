@@ -397,7 +397,7 @@ public class SimpleParser extends CalcSystemBase {
 	/**
 	 * Rechensymbol, das eine Zahl repräsentiert
 	 */
-	private class NumberSymbol extends Symbol {
+	private static class NumberSymbol extends Symbol {
 		/** Zahl */
 		public final double value;
 
