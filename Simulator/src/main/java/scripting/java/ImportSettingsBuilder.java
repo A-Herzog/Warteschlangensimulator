@@ -62,7 +62,7 @@ public class ImportSettingsBuilder {
 	 */
 	public ImportSettingsBuilder(final EditModel model) {
 		this.model=model;
-		allowLoadClasses=(model.pluginsFolderAllowClassLoad && model.pluginsFolder!=null && !model.pluginsFolder.trim().isEmpty());
+		allowLoadClasses=(model!=null && model.pluginsFolderAllowClassLoad && model.pluginsFolder!=null && !model.pluginsFolder.trim().isEmpty());
 	}
 
 	/**
@@ -100,7 +100,7 @@ public class ImportSettingsBuilder {
 		final List<String> imports=new ArrayList<>();
 
 		/* Standard-Imports oder Definition gem‰ﬂ Modell */
-		if (model.javaImports==null || model.javaImports.trim().isEmpty()) {
+		if (model==null || model.javaImports==null || model.javaImports.trim().isEmpty()) {
 			imports.addAll(Arrays.asList(SimDynamicSetup.defaultImports.split("\\n")));
 		} else {
 			imports.addAll(Arrays.asList(model.javaImports.split("\\n")));
@@ -108,7 +108,7 @@ public class ImportSettingsBuilder {
 
 		/* Import der Plugins-Verzeichnis-Packages */
 		if (allowLoadClasses) {
-			if (model.pluginsFolder!=null) getPluginFolderImports(imports,new File(model.pluginsFolder),null);
+			if (model!=null && model.pluginsFolder!=null) getPluginFolderImports(imports,new File(model.pluginsFolder),null);
 		}
 
 		return String.join("\n",imports);
