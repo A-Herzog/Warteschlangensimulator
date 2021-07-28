@@ -724,6 +724,7 @@ public class MainPanel extends MainPanelBase {
 		/* Hilfe */
 		addAction("HelpHelp",e->commandHelpHelp());
 		addAction("HelpContent",e->commandHelpContent());
+		addAction("HelpGlossary",e->commandHelpGlossary());
 		addAction("HelpInteractiveTurorial",e->commandHelpInteractiveTutorial());
 		addAction("HelpAutomaticHelpWindow",e->commandHelpAutomaticHelpWindow());
 		addAction("HelpTurorial",e->commandHelpTutorial());
@@ -1335,6 +1336,7 @@ public class MainPanel extends MainPanelBase {
 
 		createMenuItem(menu,Language.tr("Main.Menu.Help.Help"),Images.HELP.getIcon(),Language.tr("Main.Menu.Help.Help.Mnemonic"),KeyEvent.VK_F1,"HelpHelp");
 		createMenuItemShift(menu,Language.tr("Main.Menu.Help.HelpContent"),Images.HELP_CONTENT.getIcon(),Language.tr("Main.Menu.Help.HelpContent.Mnemonic"),KeyEvent.VK_F1,"HelpContent");
+		createMenuItem(menu,Language.tr("Main.Menu.Help.HelpGlossary"),Language.tr("Main.Menu.Help.HelpGlossary.Mnemonic"),"HelpGlossary");
 		menu.addSeparator();
 		createMenuItem(menu,Language.tr("Main.Menu.Help.InteractiveTutorial"),Images.HELP_TUTORIAL_INTERACTIVE.getIcon(),Language.tr("Main.Menu.Help.InteractiveTutorial.Mnemonic"),"HelpInteractiveTurorial");
 		createMenuItem(menu,Language.tr("Main.Menu.Help.AutomaticHelpWindow"),Images.HELP_STATIONS_INTERACTIVE.getIcon(),Language.tr("Main.Menu.Help.AutomaticHelpWindow.Mnemonic"),"HelpAutomaticHelpWindow");
@@ -3691,6 +3693,13 @@ public class MainPanel extends MainPanelBase {
 	 */
 	private void commandHelpContent() {
 		Help.topic(this,"");
+	}
+
+	/**
+	 * Befehl: Hilfe - Glossar
+	 */
+	private void commandHelpGlossary() {
+		Help.topic(this,"Glossary");
 	}
 
 	/**

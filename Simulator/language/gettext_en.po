@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-26 09:55+0200\n"
+"POT-Creation-Date: 2021-07-28 14:38+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -9001,6 +9001,12 @@ msgstr "Help content"
 
 msgid "Main.Menu.Help.HelpContent.Mnemonic"
 msgstr "C"
+
+msgid "Main.Menu.Help.HelpGlossary"
+msgstr "Glossary"
+
+msgid "Main.Menu.Help.HelpGlossary.Mnemonic"
+msgstr "G"
 
 msgid "Main.Menu.Help.Homepage"
 msgstr "Homepage"

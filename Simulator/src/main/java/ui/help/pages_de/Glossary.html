@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Glossar</title>
+<link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body>
+
+<h1>Glossar</h1>
+
+<h2>Abbruchrate</h2>
+
+<p>
+Verfügen die Kunden an einer <a href="ModelElementProcess.html">Bedienstation</a> nur über ein begrenzte
+Wartezeittoleranz, so gibt die Abbruchrate den Kehrwert der mittleren Wartezeittoleranz an.
+Die Abbruchrate wird in der <a href="QueueingCalculator.html">Warteschlangentheorie</a> auch mit &nu; bezeichnet.
+</p>
+
+<p class="bookinfosmall">
+Siehe auch Abschnitt <a href="book:7.2.1">Ungeduldige Kunden</a> im Lehrbuch.
+</p>
+
+<h2>Abbruchzeit</h2>
+
+<p>
+Hat ein Kunde an einer <a href="ModelElementProcess.html">Bedienstation</a> das Warten aufgegeben, da er
+länger hätte warten müssen, als seine persönliche Wartezeittoleranz es zu ließ, so wird die Wartezeit
+des Kunden in der <a href="MainStatistik.html">Statistikansicht</a> als seine Abbruchzeit ausgewiesen. 
+</p>
+
+<p class="bookinfosmall">
+Siehe auch Abschnitt <a href="book:7.2.1">Ungeduldige Kunden</a> im Lehrbuch.
+</p>
+
+<h2>Abrüstzeit</h2>
+
+<p>
+Der Begriff Abrüstzeit ist ein Pseudonym für die Nachbearbeitungszeit.
+Die Nachbearbeitungszeit ist die Zeitspanne, die ein Bediener an einer <a href="ModelElementProcess.html">Bedienstation</a>
+nach dem ab Abschluss einer Bedienung eines Kunden benötigt, bevor er wieder für weitere Bedienprozesse zur Verfügung steht.
+Während der Nachbearbeitungszeit befindet sich der zuvor bediente Kunde bereits nicht mehr an der Bedienstation.
+</p>
+
+<p class="bookinfosmall">
+Siehe auch Abschnitt <a href="book:8.5">Rüstzeiten und Kampagnen</a> im Lehrbuch.
+</p>
+
+<h2>Ankunftsrate</h2>
+
+<p>
+Die Ankunftsrate ist der Kehrwert der Zwischenankunftszeiten an einer <a href="ModelElementSource.html">Quelle</a>.
+In der <a href="QueueingCalculator.html">Warteschlangentheorie</a> wird die Ankunftsrate auch mit &lambda; bezeichnet.
+</p>
+
+<p class="bookinfosmall">
+Siehe auch Abschnitt <a href="book:3.2.1">Grundmodell der Warteschlangentheorie</a> im Lehrbuch.
+</p>
+
+<h2>Auslastung</h2>
+
+<p>
+Die in der <a href="MainStatistik.html">Statistikansicht</a> angezeigte Auslastung der Bedienergruppen gibt an,
+zu welchem Anteil ihrer verfügbaren Zeit die Bediener jeweils mit der Bedienung von Kunden beschäftigt waren.
+Die Auslastung ist folglich ein Wert zwischen 0 und 1. Die Auslastung wird in der 
+<a href="QueueingCalculator.html">Warteschlangentheorie</a> auch mit &rho; bezeichnet.
+</p>
+
+<p class="bookinfosmall">
+Siehe auch Abschnitt <a href="book:3.2.2">Arbeitslast und Auslastung</a> im Lehrbuch.
+</p>
+
+<h2>Autokorrelation</h2>
+
+<p>
+Im <a href="EditorModelDialog.html">Modelleigenschaften-Dialog</a> kann eingestellt werden, dass während der
+Simulation die Autokorrelation der Wartezeiten erfasst werden soll. Die Autokorrelation gibt an, wie stark
+die Wartezeit eines Kunden von den Wartezeiten der unmittelbar vorherigen Kunden abhängt. Auf Basis der
+Autokorrelation der Wartezeiten kann entschieden, wie viel Rest-Abhängigkeit für die Festlegung einer
+Batch-Means Batch-Größe akzeptiert werden soll. Die Batch-Means-Methode ermöglicht es dann,
+Konfidenzintervalle für die Kenngrößen in der <a href="MainStatistik.html">Statistikansicht</a>
+auszuweisen.
+</p>
+
+<p class="bookinfosmall">
+Siehe auch Abschnitt <a href="book:6.2.1">Konfidenzintervalle bei Bediensystemen / Output-Analyse</a> im Lehrbuch.
+</p>
+
+<h2>Batch</h2>
+
+<p>
+Treffen jeweils mehrere Kunden gleichzeitig an einer <a href="ModelElementSource.html">Quelle</a>
+ein oder aber werden mehrere Kunden gleichzeitig an einer <a href="ModelElementProcess.html">Bedienstation</a>
+bedient, so spricht man von Batch-Ankünften bzw. Batch-Bedienungen. Kunden können auch explizit an einer
+<a href="ModelElementBatch.html">Zusammenfassen-Station</a> zu einem Batch zusammengefasst werden.
+</p>
+
+<p class="bookinfosmall">
+Siehe auch Abschnitt <a href="book:8.2">Batch-Ankünfte und Batch-Bedienungen</a> im Lehrbuch.
+</p>
+
+<h2>Batch-Means-Methode</h2>
+
+<p>
+Die Batch-Means-Methode ermöglicht es, Konfidenzintervalle zu den Kenngrößen in der
+<a href="MainStatistik.html">Statistikansicht</a> auszuweisen. Dies ist nicht auf direktem
+Wege möglich, da z.B. die Wartezeiten der unmittelbar aufeinander folgenden Kunden abhängig sind
+und dies für die Konfidenzintervallberechnung nicht zulässig ist. Die zu verwendende Batch-Größe
+für die Batch-Means-Methode kann über die Autokorrelations-Erfassung ermittelt werden. Beide
+Verfahren können im <a href="EditorModelDialog.html">Modelleigenschaften-Dialog</a> konfiguriert werden.
+</p>
+
+<p class="bookinfosmall">
+Siehe auch Abschnitt <a href="book:6.2.1">Konfidenzintervalle bei Bediensystemen / Output-Analyse</a> im Lehrbuch.
+</p>
+
+<h2>Bedienrate</h2>
+
+<p>
+Die Bedienrate ist der Kehrwert der mittleren Bedienzeit an einer <a href="ModelElementProcess.html">Bedienstation</a>.
+Die Bedienrate wird in der <a href="QueueingCalculator.html">Warteschlangentheorie</a> auch mit &mu; bezeichnet.
+</p>
+
+<p class="bookinfosmall">
+Siehe auch Abschnitt <a href="book:3.2.1">Grundmodell der Warteschlangentheorie</a> im Lehrbuch.
+</p>
+
+<h2>Bedienregel</h2>
+
+<p>
+Die Bedienregel gibt an, welcher von mehreren wartenden Kunden als nächstes an einer
+<a href="ModelElementProcess.html">Bedienstation</a> bedient werden soll. Die konkreten
+Bedienregeln werden an einer Bedienstation über die Prioritäten abgebildet.
+</p>
+
+<p class="bookinfosmall">
+Siehe auch Abschnitt <a href="book:3.2.4">Kendall-Notation</a> im Lehrbuch.
+</p>
+
+<h2>Bedienzeit</h2>
+
+<p>
+Über die Bedienzeit kann an einer <a href="ModelElementProcess.html">Bedienstation</a> eingestellt werden,
+wie lange der Prozess der Bedienung eines Kunden (oder im Fall von Batch-Bedienungen eines Kunden-Batches)
+durch einen Bediener dauern soll.
+In der <a href="MainStatistik.html">Statistikansicht</a> werden die Bedienzeiten mit <b>S</b> bezeichnet.
+</p>
+
+<p class="bookinfosmall">
+Siehe auch Abschnitt <a href="book:3.2.1">Grundmodell der Warteschlangentheorie</a> im Lehrbuch.
+</p>
+
+<h2>Durchlaufzeit</h2>
+
+<p>
+Die Durchlaufzeit ist ein Pseudonym für die Verweilzeit.
+Die in der <a href="MainStatistik.html">Statistikansicht</a> mit <b>V</b> bezeichnete Verweilzeit
+gibt an, wie viel Zeit ein Kunde insgesamt im System oder an einer Station verbracht hat.
+</p> 
+
+<p class="bookinfosmall">
+Siehe auch Abschnitt <a href="book:3.2.3">Warteschlangenlänge und Anzahl an Kunden im System</a> im Lehrbuch.
+</p>
+
+<h2>Economy of Scale</h2>
+
+<p>
+Die Economy of Scale oder auch der positive Skaleneffekt beschreiben den bei vielen Produktionssystemen
+vorliegenden Effekt, dass in einem größeren System die Produktionsstückkosten geringer sind als in
+einem kleineren System. Die Ursache dafür kann darin liegen, dass sich die Fixkosten auf mehr Einheiten
+verteilen, oder aber, dass sich Schwankungen bedingt durch stochastischen Zwischenankunfts- und Bedienzeiten
+bei größeren System besser gegenseitig ausgleichen können.
+</p>
+
+<p class="bookinfosmall">
+Siehe auch Abschnitt <a href="book:3.4.4">Economy of Scale</a> im Lehrbuch.
+</p>
+
+<h2>Einschwingphase</h2>
+
+<p>
+Bevor die Warte- und Bedienzeiten für die Statistik gezählt werden, können eine bestimmte Anzahl an Kunden
+das System durchlaufen, die nicht für die Statistik gezählt werden. Im
+<a href="EditorModelDialog.html">Modelleigenschaften-Dialog</a> kann eingestellt werden, wie lang diese
+Einschwingphase sein soll.
+</p>
+
+<p class="bookinfosmall">
+Siehe auch Abschnitt <a href="book:3.2.5">Stationär und transient</a> im Lehrbuch.
+</p>
+
+<h2>Erlang-Formeln</h2>
+
+<p>
+Mit Hilfe der Erlang-B- und Erlang-C-Formeln lassen sich einfache Warteschlangenmodelle exakt berechnen.
+Im <a href="QueueingCalculator.html">Warteschlangenrechner</a> könne die Werte dieser Formeln direkt
+berechnet werden.
+</p>
+
+<p class="bookinfosmall">
+Siehe auch Abschnitt <a href="book:3.4.3">M/M/c-System</a> im Lehrbuch.
+</p>
+
+<h2>Flussgrad</h2>
+
+<p>
+Der in der <a href="MainStatistik.html">Statistikansicht</a> ausgewiesene Flussgrad ist
+das Verhältnis von Verweilzeit zu Bedienzeit. Der Flussgrad ist minimal 1. Ein Flussgrad
+von 1 bedeutet, dass keine Wartezeiten angefallen sind. Ein Flussgrad von 2 bedeutet, dass
+die Kunden genauso lange warten mussten, wie ihre Bedienungen gedauert haben usw.
+</p>
+
+<h2>Geschlossenes Warteschlangennetz</h2>
+
+<p>
+In einem geschlossenen Warteschlangennetz zirkuliert eine endliche, feste Anzahl an Kunden.
+Im Gegensatz zu einem offenen Warteschlangennetz, verfügt ein geschlossenes Warteschlangennetz
+meist über keinen <a href="ModelElementDispose.html">Ausgang</a>. Da die Erfassung der Zeitdauern
+auf Kundenbasis normalerweise dann erfolgt, wenn ein Kunde das System verlässt, ist es für die Erfassung
+der Zeitdauern in einem geschlossenen Warteschlangennetz notwendig, im
+<a href="EditorModelDialog.html">Modelleigenschaften-Dialog</a> anzugeben, dass auch Kunden, die am
+Simulationsende das System noch nicht verlassen haben, erfasst werden sollen.
+</p>
+
+<p class="bookinfosmall">
+Siehe auch Abschnitt <a href="book:8.9">Geschlossene Warteschlangennetze</a> im Lehrbuch.
+</p>
+
+<h2>Nachbearbeitungszeit</h2>
+
+<p>
+Die Nachbearbeitungszeit ist die Zeitspanne, die ein Bediener an einer <a href="ModelElementProcess.html">Bedienstation</a>
+nach dem ab Abschluss einer Bedienung eines Kunden benötigt, bevor er wieder für weitere Bedienprozesse zur Verfügung steht.
+Während der Nachbearbeitungszeit befindet sich der zuvor bediente Kunde bereits nicht mehr an der Bedienstation.
+</p>
+
+<p class="bookinfosmall">
+Siehe auch Abschnitt <a href="book:5.3.3">Station: Bedienstation</a> im Lehrbuch.
+</p>
+
+<h2>Offenes Warteschlangennetz</h2>
+
+<p>
+Ein offenes Warteschlangennetz stellt den Normalfall für ein Modell im Warteschlangensimulator dar: Kunden
+treffen an einer oder mehreren <a href="ModelElementSource.html">Quellen</a> ein, werden an einer oder
+mehreren <a href="ModelElementProcess.html">Bedienstationen</a> bedient und verlassen das System am Ende
+über einen oder mehrere <a href="ModelElementDispose.html">Ausgänge</a>. Einen Gegenentwurf dazu stellen
+geschlossene Warteschlangennetze dar, in denen eine endliche, feste Anzahl an Kunden fortwährend zirkuliert.
+</p>
+
+<p class="bookinfosmall">
+Siehe auch Abschnitt <a href="book:8.9">Geschlossene Warteschlangennetze</a> im Lehrbuch.
+</p>
+
+<h2>Priorisierung</h2>
+
+<p>
+Über die Priorisierung der Kunden an einer <a href="ModelElementProcess.html">Bedienstationen</a> wird
+festgelegt, welcher der wartenden Kunden als nächstes bedient wird, wenn ein Bediener verfügbar wird.
+Es wird jeweils derjenige Kunde mit der höchsten Priorität als nächstes bedient.
+</p>
+
+<p class="bookinfosmall">
+Siehe auch Abschnitt <a href="book:7.4">Prioritäten</a> im Lehrbuch.
+</p>
+
+<h2>Pull-Produktion</h2>
+
+<p>
+Bei der Pull-Produktion führt eine Station nur dann einen Bedienvorgang aus, wenn die jeweilige
+Folgestation einen Kunden bzw. ein Werkstück anfordert, d.h. die Kunden werden von den jeweiligen
+Folgestationen durch die Produktion gezogen. Auf diese Weise können die Bestände an den einzelnen
+Stationen begrenzt werden. Allerdings wird zum einen eine spezielle Steuerung erfordert und zum
+anderen muss sichergestellt werden, dass dennoch genug Puffer vorhanden sind, so dass die Bedienstationen
+auch in diesem Fall nicht unnötig in Leerlauf geraten.
+</p>
+
+<p class="bookinfosmall">
+Siehe auch Abschnitt <a href="book:7.6">Push-/Pull-Produktion</a> im Lehrbuch.
+</p>
+
+<h2>Push-Produktion</h2>
+
+<p>
+Die Push-Produktion stellt den Normalfall in einem Warteschlangenmodell dar. Ist eine Bedienstation
+mit der Bedienung eines Kunden fertig, so schieb sie den Kunden zur nächsten Station. Die Weiterleitung
+des Kunden ist dabei unabhängig davon, wie viele Kunden an der Folgestation bereits warten.
+</p>
+
+<p class="bookinfosmall">
+Siehe auch Abschnitt <a href="book:7.6">Push-/Pull-Produktion</a> im Lehrbuch.
+</p>
+
+<h2>Rüstzeit</h2>
+
+<p>
+Rüstzeiten können an <a href="ModelElementProcess.html">Bedienstationenen</a> auftreten, wenn beim Wechsel
+von einem Kundentyp zu einem anderen die Station als solches umkonfiguriert werden muss. Die Rüstzeit ist
+der jeweiligen Bedienzeit eines Kunden vorgelagert.
+</p>
+
+<p class="bookinfosmall">
+Siehe auch Abschnitt <a href="book:5.3.3">Station: Bedienstation</a> im Lehrbuch.
+</p>
+
+<h2>Schiebende Fertigung</h2>
+
+<p>
+Die schiebende Fertigung, auch Push-Produktion genannt, stellt den Normalfall in einem Warteschlangenmodell dar.
+Ist eine Bedienstation mit der Bedienung eines Kunden fertig, so schieb sie den Kunden zur nächsten Station.
+Die Weiterleitung des Kunden ist dabei unabhängig davon, wie viele Kunden an der Folgestation bereits warten.
+</p>
+
+<p class="bookinfosmall">
+Siehe auch Abschnitt <a href="book:7.6">Push-/Pull-Produktion</a> im Lehrbuch.
+</p>
+
+<h2>Ungeduld</h2>
+
+<p>
+Sind die Kunden an einer <a href="ModelElementProcess.html">Bedienstationen</a> nur bereit begrenzt lange auf
+ihre Bedienung zu warten, so spricht man von der Ungedulg der Kunden. Wie lange die Kunden in diesem Fall bereit
+sind zu warten, bevor sie das Warten aufgeben und die Station unbedient verlassen, wird über die Wartezeittoleranzen
+der Kunden festgelegt.
+</p>
+
+<p class="bookinfosmall">
+Siehe auch Abschnitt <a href="book:7.2">Ungeduldige Kunden und Wiederholer</a> im Lehrbuch.
+</p>
+
+<h2>Verweilzeit</h2>
+
+<p>
+Die in der <a href="MainStatistik.html">Statistikansicht</a> mit <b>V</b> bezeichnete Verweilzeit
+gibt an, wie viel Zeit ein Kunde insgesamt im System oder an einer Station verbracht hat.
+</p>
+
+<p class="bookinfosmall">
+Siehe auch Abschnitt <a href="book:3.2.3">Warteschlangenlänge und Anzahl an Kunden im System</a> im Lehrbuch.
+</p>
+
+<h2>Warm-up-Phase</h2>
+
+<p>
+Bevor die Warte- und Bedienzeiten für die Statistik gezählt werden, können eine bestimmte Anzahl an Kunden
+das System durchlaufen, die nicht für die Statistik gezählt werden. Im
+<a href="EditorModelDialog.html">Modelleigenschaften-Dialog</a> kann eingestellt werden, wie lang diese
+Warm-up-Phase, die auch Einschwingphase genannt wird, sein soll.
+</p>
+
+<p class="bookinfosmall">
+Siehe auch Abschnitt <a href="book:3.2.5">Stationär und transient</a> im Lehrbuch.
+</p>
+
+<h2>Warteabbruch</h2>
+
+<p>
+Besitzt ein Kunde nur eine begrenzte Wartezeittoleranz und überschreitet seine bisherige Wartezeit
+seine individuelle Wartezeittoleranz, so bricht er das warten ab, ohne bedient worden zu sein.
+</p>
+
+<p class="bookinfosmall">
+Siehe auch Abschnitt <a href="book:7.2">Ungeduldige Kunden und Wiederholer</a> im Lehrbuch.
+</p>
+
+<h2>Warteraum</h2>
+
+<p>
+Ein Warteraum ist integraler Bestandteil einer jeder <a href="ModelElementProcess.html">Bedienstation</a>.
+Im Warteraum wartet ein Kunde, bevor ein Bediener verfügbar, um ihn zu bedienen.
+</p>
+
+<p class="bookinfosmall">
+Siehe auch Abschnitt <a href="book:3.2.4">Kendall-Notation</a> im Lehrbuch.
+</p>
+
+<h2>Wartezeit</h2>
+
+<p>
+Wartezeiten der Kunden entstehen insbesondere an <a href="ModelElementProcess.html">Bedienstation</a>.
+Ein Kunde muss immer dann warten, wenn momentan kein Bediener verfügbar ist, der ihn bedienen könnte.
+In der <a href="MainStatistik.html">Statistikansicht</a> werden die Wartezeiten mit <b>W</b> bezeichnet.
+</p>
+
+<p class="bookinfosmall">
+Siehe auch Abschnitt <a href="book:3.2.3">Warteschlangenlänge und Anzahl an Kunden im System</a> im Lehrbuch.
+</p>
+
+<h2>Wartezeittoleranz</h2>
+
+<p>
+Die Wartezeittoleranz gibt an, wie lange die Kunden an einer <a href="ModelElementProcess.html">Bedienstation</a>
+Bedienstation bereit sind auf ihre Bedienung zu warten. Es muss keine Wartezeittoleranz definiert werden; in diesem
+Fall sind die Kunden bereit, beliebig lange zu warten. Die eine endliche Wartezeittoleranz definiert und überschreitet
+ein Kunde diese Wartezeittoleranz, so bricht er den Wartevorgang ab und verlässt die Bedientation, ohne bedient
+worden zu sein.
+</p>
+
+<p class="bookinfosmall">
+Siehe auch Abschnitt <a href="book:7.2">Ungeduldige Kunden und Wiederholer</a> im Lehrbuch.
+</p>
+
+<h2>Ziehende Fertigung</h2>
+
+<p>
+Bei ziehenden Fertigung, auch der Pull-Produktion genannt, führt eine Station nur dann einen Bedienvorgang aus, wenn die
+jeweilige Folgestation einen Kunden bzw. ein Werkstück anfordert, d.h. die Kunden werden von den jeweiligen
+Folgestationen durch die Produktion gezogen. Auf diese Weise können die Bestände an den einzelnen
+Stationen begrenzt werden. Allerdings wird zum einen eine spezielle Steuerung erfordert und zum
+anderen muss sichergestellt werden, dass dennoch genug Puffer vorhanden sind, so dass die Bedienstationen
+auch in diesem Fall nicht unnötig in Leerlauf geraten.
+</p>
+
+<p class="bookinfosmall">
+Siehe auch Abschnitt <a href="book:7.6">Push-/Pull-Produktion</a> im Lehrbuch.
+</p>
+
+<h2>Zwischenankunftszeiten</h2>
+
+<p>
+Die Zwischenankunftszeiten geben an einer <a href="ModelElementSource.html">Quelle</a>
+die Zeitspannen zwischen den Ankünften zweier aufeinander folgender Kunden an. Je länger die
+Zwischenankunftszeiten sind, desto weniger Kunden treffen pro Zeiteinheit in dem System ein.
+</p>
+
+<p class="bookinfosmall">
+Siehe auch Abschnitt <a href="book:3.2.1">Grundmodell der Warteschlangentheorie</a> im Lehrbuch.
+</p>
+
+</body>
+</html>

@@ -72,6 +72,12 @@ table.border {margin-top: 10px; border-collapse: collapse;}
 	border: 1px solid blue;
 	padding: 5px;
 	margin: 0px;
-	background-color: #E0E0FF;
-	
+	background-color: #E0E0FF;	
+}
+
+.bookinfosmall {
+	padding: 5px;
+	margin: 5px 0px;
+	background-color: #E7E7FF;	
+	font-size: 85%;
 }

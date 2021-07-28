@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Glossary</title>
+<link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body>
+
+<h1>Glossary</h1>
+
+<h2>Cancelation rate</h2>
+
+<p>
+If the client at a <a href="ModelElementProcess.html">process station</a> only has a limited waiting time tolerance,
+then the cancelation rate indicates the reciprocal of the average waiting time tolerance.
+In <a href="QueueingCalculator.html">queueing theory</a>, the cancelation rate is also denoted by &nu;.
+</p>
+
+<h2>Cancel time</h2>
+
+<p>
+If a client has given up waiting at a <a href="ModelElementProcess.html">process station</a> because he would have to wait longer
+than his personal waiting time tolerance allows, the client's wait time is shown in the <a href="MainStatistik.html">statistics viewer</a>
+as his cancel time.
+</p>
+
+<h2>Arrival time</h2>
+
+<p>
+The arrival rate is the inverse of the inter-arrival times at a <a href="ModelElementSource.html">source station</a>.
+In <a href="QueueingCalculator.html">queueing theory</a>, the arrival rate is also denoted by &lambda;.
+</p>
+
+<h2>Utilization</h2>
+
+<p>
+The utilization of the operator groups displayed in the <a href="MainStatistik.html">statistics view</a> indicates the proportion
+of the available time that the operators were busy serving customers in each case. Consequently, the utilization is a value between
+0 and 1. The utilization is denoted in <a href="QueueingCalculator.html">queueing theory</a> by &rho;.
+</p>
+
+<h2>Autocorrelation</h2>
+
+<p>
+In the <a href="EditorModelDialog.html">model properties dialog</a>, the auto correlation of the waiting times can be set to be recorded
+during the simulation. The autocorrelation indicates how strongly the waiting time of a client depends on the waiting times of the
+immediately preceding clients. Based on the autocorrelation of the waiting times, it can be decided how much residual dependency should
+be accepted for defining a batch-means batch size. The batch-means method then allows confidence intervals for the metrics to be reported
+in the <a href="MainStatistik.html">statistics view</a>.
+</p>
+
+<h2>Batch</h2>
+
+<p>
+If multiple clients arrive simultaneously at a <a href="ModelElementSource.html">source station</a> or if multiple clients are served
+simultaneously at a <a href="ModelElementProcess.html">process station</a>, these are referred to as batch arrivals or batch services.
+Clients can also be explicitly combined into a batch at a <a href="ModelElementBatch.html">batch station</a>.
+</p>
+
+<h2>Batch-means method</h2>
+
+<p>
+The batch-means method allows to display confidence intervals for the characteristics in the <a href="MainStatistik.html">statistics view</a>.
+This is not possible in a direct way, because, for example, the waiting times of the immediately successive clients are dependent and this is
+not permitted for the confidence interval calculation. The batch size to be used for the batch-means method can be determined via autocorrelation
+detection. Both methods can be configured in the <a href="EditorModelDialog.html">model properties dialog</a>.
+</p>
+
+<h2>Service rate</h2>
+
+<p>
+The service rate is the reciprocal of the average service time at a <a href="ModelElementProcess.html">process station</a>.
+The service rate is also denoted by &mu; in <a href="QueueingCalculator.html">queueing theory</a>.
+</p>
+
+
+<h2>Service rule</h2>
+
+<p>
+The service rule specifies which of several waiting clients should be served next
+at a <a href="ModelElementProcess.html">process station</a>. The concrete service
+rules are mapped at a process station via the priorities.
+</p>
+
+<h2>Service times</h2>
+
+<p>
+The service times can be used at a <a href="ModelElementProcess.html">process station</a> to define how long
+the process of serving a client (or in the case of batch processing of a client batch) by an operator should take.
+In the <a href="MainStatistik.html">statistics view</a>, the service times are denoted by <b>S</b>.
+</p>
+
+<h2>Residence times</h2>
+
+<p>
+Residence times, denoted <b>V</b> in the <a href="MainStatistik.html">statistics view</a>,
+indicates the total amount of time a client has spent in the system or at a station.
+</p>
+
+<h2>Economy of scale</h2>
+
+<p>
+The economy of scale or the positive scale effect describes the effect in many production systems
+that the unit production costs are lower in a larger system than in a smaller system.
+The reason for this may be that the fixed costs are distributed over more units, or that fluctuations
+caused by stochastic inter-arrival and service times can be better balanced out in larger systems.
+</p>
+
+<h2>Erlang formulas</h2>
+
+<p>
+With the help of the Erlang B and Erlang C formulas, simple queueing models can be calculated exactly.
+In the <a href="QueueingCalculator.html">queueing calculator</a> the values of these formulas can be calculated directly.
+</p>
+
+<h2>Flow factor</h2>
+
+<p>
+The flow factor shown in the <a href="MainStatistik.html">statistics view</a> is the ratio of residence time to service time.
+The flow factor has a minimum of 1. A flow factor of 1 means that no waiting times occurred. A flow factor of 2 means that
+clients had to wait as long as their service process took, and so on.
+</p>
+
+<h2>Closed queueing network</h2>
+
+<p>
+In a closed queueing network, a finite, fixed number of clients circulate. Unlike an open queueing network,
+a closed queueing network usually has no <a href="ModelElementDispose.html">exit</a>. Since the recording
+of times on a per-client basis usually occurs when a client leaves the system, to record times in a closed
+queueing network it is necessary to specify in the <a href="EditorModelDialog.html">model properties dialog</a>
+that clients who have not yet left the system at the end of the simulation should also be recorded.
+</p>
+
+<h2>Post-processing times</h2>
+
+<p>
+The post-processing time is the period of time that an operator at a <a href="ModelElementProcess.html">process station</a>
+needs after completing the service of a client before he is available again for further service processes.
+During the post-processing time, the previously served client is already no longer at the processstation.
+</p>
+
+<h2>Open queueing network</h2>
+
+<p>
+An open queueing network represents the normal case for a model in Warteschlangensimulator:
+Clients arrive at one or more <a href="ModelElementSource.html">sources stations</a>,
+are served at one or more <a href="ModelElementProcess.html">process stations</a>,
+and ultimately exit the system via one or more <a href="ModelElementDispose.html">exits</a>.
+Closed queueing networks, in which a finite, fixed number of clients circulate continuously,
+represent a counter design to this.
+</p>
+
+<h2>Prioritization</h2>
+
+<p>
+The prioritization of clients at a <a href="ModelElementProcess.html">process station</a>
+determines which of the waiting clients will be served next when an operator becomes available.
+In each case, the client with the highest priority is served next.
+</p>
+
+<h2>Pull production</h2>
+
+<p>
+In pull production, a station only performs an operation when the respective downstream station
+requests a client or a workpiece, i.e. the clients are pulled through production by the
+respective downstream stations. In this way, stocks at the individual stations can be limited.
+However, on the one hand a special control system is required and on the other hand it must be
+ensured that enough buffers are nevertheless available so that the process stations are not
+unnecessarily idle even in this case.
+</p>
+
+<h2>Push production</h2>
+
+<p>
+Push production represents the default case in a queueing model. When a process station has
+finished serving a client, it pushes the client to the next station. The forwarding of the
+client is independent of how many clients are already waiting at the next station.
+</p>
+
+<h2>Setup times</h2>
+
+<p>
+Setup times can occur at <a href="ModelElementProcess.html">process stations</a> if the station
+has to be reconfigured as such when changing from one client type to another.
+The setup time is upstream of the respective service time of a client.
+</p>
+
+<h2>Impatience</h2>
+
+<p>
+If clients at a <a href="ModelElementProcess.html">process station</a> are only willing to wait
+a limited amount of time to be served, this is referred to as client impatience.
+How long clients are willing to wait in this case before they give up waiting and leave the
+station without being served is determined by the clients' waiting time tolerances.
+</p>
+
+<h2>Warm-up phase</h2>
+
+<p>
+Before the waiting and service times are counted for the statistics, a certain number of clients can pass through
+the system that are not counted for the statistics. In the <a href="EditorModelDialog.html">model properties dialog</a>,
+you can set how long this warm-up phase should be.
+</p>
+
+<h2>Waiting cancelations</h2>
+
+<p>
+If a client has only a limited waiting time tolerance and his previous waiting time exceeds his
+individual waiting time tolerance, he cancels waiting without being served.
+</p>
+
+<h2>Waiting room</h2>
+
+<p>
+A waiting room is an integral part of any <a href="ModelElementProcess.html">process station</a>.
+In the waiting room, a client waits before an operator is available to serve him.
+</p>
+
+<h2>Waiting time</h2>
+
+<p>
+Client waiting times occur in particular at <a href="ModelElementProcess.html">process stations</a>.
+A client always has to wait when there is currently no operator available to serve him.
+In the <a href="MainStatistik.html">statistics view</a>, waiting times are denoted by <b>W</b>.
+</p>
+
+<h2>Waiting time tolerance</h2>
+
+<p>
+The waiting time tolerance specifies how long clients at a <a href="ModelElementProcess.html">process station</a>
+are willing to wait for their service. No waiting time tolerance needs to be defined; in this case, clients are
+willing to wait any amount of time. If a finite waiting time tolerance is defined and a client exceeds this
+waiting time tolerance, he aborts the waiting process and leaves the process station without being served.
+</p>
+
+<h2>Inter-arrival times</h2>
+
+<p>
+The inter-arrival times specify at a <a href="ModelElementSource.html">source station</a> the time intervals between
+the arrivals of two consecutive clients. The longer the inter-arrival times, the fewer clients arrive in the system per unit of time.
+</p>
+
+</body>
+</html>
