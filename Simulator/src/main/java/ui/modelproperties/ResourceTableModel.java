@@ -125,7 +125,7 @@ public class ResourceTableModel extends JTableExtAbstractTableModel {
 	 * Prüft, ob eine Bedienergruppe an einer bestimmten Station verwendet wird.
 	 * @param name	Name der Bedienergruppe
 	 * @param element	Zu prüfende Station
-	 * @return	Liefert <code>true</code>, wenn ide Bedienergruppe an der Station verwendet wird
+	 * @return	Liefert <code>true</code>, wenn die Bedienergruppe an der Station verwendet wird
 	 */
 	private boolean resourceInUse(final String name, final ModelElementBox element) {
 		if (element instanceof ModelElementProcess) {

@@ -50,7 +50,7 @@ public class ModelElementAnimationPieChartDialog extends ModelElementBaseDialog 
 	 */
 	private static final long serialVersionUID=-893526302857552173L;
 
-	/** Auswahlbox für ide Art der Beschriftung */
+	/** Auswahlbox für die Art der Beschriftung */
 	private JComboBox<String> labelMode;
 	/** Tabelle zur Definition der Diagrammsegmente */
 	private ExpressionTableModelBar expressionTableModel;
