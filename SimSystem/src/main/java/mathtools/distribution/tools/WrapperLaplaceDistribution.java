@@ -49,7 +49,7 @@ public class WrapperLaplaceDistribution extends AbstractDistributionWrapper {
 		final double mu=((LaplaceDistributionImpl)distribution).mu;
 		final double b=((LaplaceDistributionImpl)distribution).b;
 		final String info="mu="+NumberTools.formatNumber(mu,3)+"; "+DistributionTools.DistScale+"="+NumberTools.formatNumber(b,3);
-		return new DistributionWrapperInfo(distribution,info,null);
+		return new DistributionWrapperInfo(distribution,0.0,info,null); /* Schiefe=0 immer */
 	}
 
 	@Override

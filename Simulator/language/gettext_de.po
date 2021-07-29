@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-28 14:38+0200\n"
+"POT-Creation-Date: 2021-07-29 00:06+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -2761,6 +2761,9 @@ msgstr "Rechte Sägezahnverteilung"
 
 msgid "Distribution.Scale"
 msgstr "Skalierung"
+
+msgid "Distribution.Skewness"
+msgstr "Schiefe"
 
 msgid "Distribution.StdDev"
 msgstr "Standardabweichung"

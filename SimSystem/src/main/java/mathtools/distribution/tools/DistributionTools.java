@@ -161,6 +161,9 @@ public final class DistributionTools {
 	/** Bezeichner "Variationskoeffizient" */
 	public static String DistCV="Variationskoeffizient";
 
+	/** Bezeichner "Schiefe" */
+	public static String DistSkewness="Schiefe";
+
 	/**
 	 * Diese Klasse kann nicht instanziert werden.
 	 */
@@ -168,7 +171,7 @@ public final class DistributionTools {
 	}
 
 	/**
-	 * Statische Liste mit den verfügbarewn Verteilungs-Wrappern
+	 * Statische Liste mit den verfügbaren Verteilungs-Wrappern
 	 * @see AbstractDistributionWrapper
 	 */
 	private static final AbstractDistributionWrapper[] wrappers;

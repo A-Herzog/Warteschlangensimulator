@@ -46,11 +46,12 @@ public class WrapperFatigueLifeDistribution extends AbstractDistributionWrapper 
 
 	@Override
 	protected DistributionWrapperInfo getInfoInt(AbstractRealDistribution distribution) {
-		final double mu=((FatigueLifeDistributionImpl)distribution).mu;
-		final double beta=((FatigueLifeDistributionImpl)distribution).beta;
-		final double gamma=((FatigueLifeDistributionImpl)distribution).gamma;
+		final FatigueLifeDistributionImpl fatigueDist=(FatigueLifeDistributionImpl)distribution;
+		final double mu=fatigueDist.mu;
+		final double beta=fatigueDist.beta;
+		final double gamma=fatigueDist.gamma;
 		final String info=DistributionTools.DistLocation+"="+NumberTools.formatNumber(mu,3)+"; "+DistributionTools.DistScale+"="+NumberTools.formatNumber(beta,3)+"; Form="+NumberTools.formatNumber(gamma,3);
-		return new DistributionWrapperInfo(distribution,info,null);
+		return new DistributionWrapperInfo(distribution,fatigueDist.getSkewness(),info,null);
 	}
 
 	@Override

@@ -186,6 +186,7 @@ public class LanguageStaticLoader {
 		DistributionTools.DistMean=Language.tr("Distribution.Mean");
 		DistributionTools.DistStdDev=Language.tr("Distribution.StdDev");
 		DistributionTools.DistCV=Language.tr("Distribution.CV");
+		DistributionTools.DistSkewness=Language.tr("Distribution.Skewness");
 		JDataDistributionPanel.errorString=Language.tr("Distribution.NoDistribution");
 
 		/* DistributionFitter */

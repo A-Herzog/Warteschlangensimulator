@@ -100,6 +100,15 @@ public final class InverseGaussianDistributionImpl extends AbstractRealDistribut
 		return mu*mu*mu/lambda;
 	}
 
+	/**
+	 * Liefert die Schiefe der Verteilung.
+	 * @return	Schiefe der Verteilung
+	 */
+	public double getSkewness() {
+		/* if (lambda<=0) return 0; - per Konstruktor ausgeschlossen */
+		return 3*Math.sqrt(mu/lambda);
+	}
+
 	@Override
 	public double getSupportLowerBound() {
 		return 0;

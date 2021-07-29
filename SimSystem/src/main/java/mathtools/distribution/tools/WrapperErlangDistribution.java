@@ -49,7 +49,8 @@ public class WrapperErlangDistribution extends AbstractDistributionWrapper {
 	protected DistributionWrapperInfo getInfoInt(AbstractRealDistribution distribution) {
 		final double n=((ErlangDistributionImpl)distribution).getShape(), lambda=((ErlangDistributionImpl)distribution).getScale();
 		final String info="n="+NumberTools.formatNumber(n)+"; lambda="+NumberTools.formatNumber(lambda,3);
-		return new DistributionWrapperInfo(distribution,info,null);
+		final double sk=2/Math.sqrt(n);
+		return new DistributionWrapperInfo(distribution,sk,info,null);
 	}
 
 	@Override

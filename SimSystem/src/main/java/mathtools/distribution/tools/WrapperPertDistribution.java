@@ -46,11 +46,12 @@ public class WrapperPertDistribution extends AbstractDistributionWrapper {
 
 	@Override
 	protected DistributionWrapperInfo getInfoInt(AbstractRealDistribution distribution) {
-		final double A=((PertDistributionImpl)distribution).lowerBound;
-		final double B=((PertDistributionImpl)distribution).mostLikely;
-		final double C=((PertDistributionImpl)distribution).upperBound;
+		final PertDistributionImpl pertDist=(PertDistributionImpl)distribution;
+		final double A=pertDist.lowerBound;
+		final double B=pertDist.mostLikely;
+		final double C=pertDist.upperBound;
 		final String info=DistributionTools.DistRange+"=["+NumberTools.formatNumber(A,3)+";"+NumberTools.formatNumber(C,3)+"]; "+DistributionTools.DistMostLikely+"="+NumberTools.formatNumber(B,3);
-		return new DistributionWrapperInfo(distribution,info,null);
+		return new DistributionWrapperInfo(distribution,pertDist.getSkewness(),info,null);
 	}
 
 	@Override

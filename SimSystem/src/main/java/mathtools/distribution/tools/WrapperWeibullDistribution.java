@@ -20,6 +20,7 @@ import org.apache.commons.math3.distribution.WeibullDistribution;
 import org.apache.commons.math3.special.Gamma;
 import org.apache.commons.math3.util.FastMath;
 
+import mathtools.Functions;
 import mathtools.NumberTools;
 
 /**
@@ -48,9 +49,16 @@ public class WrapperWeibullDistribution extends AbstractDistributionWrapper {
 
 	@Override
 	protected DistributionWrapperInfo getInfoInt(AbstractRealDistribution distribution) {
-		final double beta=((WeibullDistribution)distribution).getShape(), lambda=1/((WeibullDistribution)distribution).getScale();
+		final double beta=((WeibullDistribution)distribution).getShape();
+		final double lambda=1/((WeibullDistribution)distribution).getScale();
 		final String info=DistributionTools.DistScale+"="+NumberTools.formatNumber(lambda,3)+"; Form="+NumberTools.formatNumber(beta,3);
-		return new DistributionWrapperInfo(distribution,info,null);
+
+		final double mu=distribution.getNumericalMean();
+		final double sigma=Math.sqrt(distribution.getNumericalVariance());
+
+		final double sk;
+		if (sigma>0) sk=(Functions.getGamma(1+3/beta)/(lambda*lambda*lambda)-3*mu*sigma*sigma-mu*mu*mu)/(sigma*sigma*sigma); else sk=0;
+		return new DistributionWrapperInfo(distribution,sk,info,null);
 	}
 
 	@Override

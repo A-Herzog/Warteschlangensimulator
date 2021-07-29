@@ -46,11 +46,12 @@ public class WrapperPowerDistribution extends AbstractDistributionWrapper {
 
 	@Override
 	protected DistributionWrapperInfo getInfoInt(AbstractRealDistribution distribution) {
-		final double a=((PowerDistributionImpl)distribution).a;
-		final double b=((PowerDistributionImpl)distribution).b;
-		final double c=((PowerDistributionImpl)distribution).c;
+		final PowerDistributionImpl powerDist=(PowerDistributionImpl)distribution;
+		final double a=powerDist.a;
+		final double b=powerDist.b;
+		final double c=powerDist.c;
 		final String info=DistributionTools.DistRange+"=["+NumberTools.formatNumber(a,3)+";"+NumberTools.formatNumber(b,3)+"]; c="+NumberTools.formatNumber(c,3);
-		return new DistributionWrapperInfo(distribution,info,null);
+		return new DistributionWrapperInfo(distribution,null,info,null); /* Schiefe=null */
 	}
 
 	@Override

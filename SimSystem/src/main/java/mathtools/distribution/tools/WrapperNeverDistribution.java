@@ -50,7 +50,7 @@ public class WrapperNeverDistribution extends AbstractDistributionWrapper {
 
 	@Override
 	protected DistributionWrapperInfo getInfoInt(final AbstractRealDistribution distribution) {
-		return new DistributionWrapperInfo(null,null,"E="+DistributionTools.DistNever[0],null);
+		return new DistributionWrapperInfo(null,null,null,"E="+DistributionTools.DistNever[0],null);
 	}
 
 	@Override

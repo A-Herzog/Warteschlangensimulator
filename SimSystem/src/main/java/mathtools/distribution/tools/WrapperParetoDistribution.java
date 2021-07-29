@@ -49,7 +49,9 @@ public class WrapperParetoDistribution extends AbstractDistributionWrapper {
 		final double xmin=((ParetoDistributionImpl)distribution).xmin;
 		final double alpha=((ParetoDistributionImpl)distribution).alpha;
 		final String info="xmin="+NumberTools.formatNumber(xmin,3)+"; alpha="+NumberTools.formatNumber(alpha,3);
-		return new DistributionWrapperInfo(distribution,info,null);
+		final Double sk;
+		if (alpha>3) sk=Math.sqrt((alpha-2)/alpha); else sk=null;
+		return new DistributionWrapperInfo(distribution,sk,info,null);
 	}
 
 	@Override

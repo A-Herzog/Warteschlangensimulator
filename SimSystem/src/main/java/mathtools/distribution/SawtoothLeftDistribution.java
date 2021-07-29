@@ -67,6 +67,15 @@ public class SawtoothLeftDistribution extends AbstractSawtoothDistribution {
 		return (2*a+b)/3;
 	}
 
+	/**
+	 * Liefert die Schiefe der Verteilung.
+	 * @return	Schiefe der Verteilung
+	 */
+	public double getSkewness() {
+		final double Px=a;
+		return Math.sqrt(2)*(a+b-2*Px)*(2*a-b-Px)*(a-2*b+Px)/5/Math.pow(a*a+b*b+Px*Px-a*b-a*Px-b*Px,3/2); /* Übernommen von Dreiecksverteilung */
+	}
+
 	@Override
 	public double inverseCumulativeProbability(final double p) {
 		if (p<0) return -Double.MAX_VALUE;

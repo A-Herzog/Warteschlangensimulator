@@ -122,6 +122,15 @@ public final class LogNormalDistributionImpl extends AbstractRealDistribution im
 	@Override
 	public double getNumericalVariance() {return sd*sd;}
 
+	/**
+	 * Liefert die Schiefe der Verteilung.
+	 * @return	Schiefe der Verteilung
+	 */
+	public double getSkewness() {
+		final double expSigma2=FastMath.exp(sigma2);
+		return (expSigma2+2)*Math.sqrt(expSigma2-1);
+	}
+
 	@Override
 	public double getSupportLowerBound() {return 0;}
 

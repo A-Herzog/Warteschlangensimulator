@@ -48,7 +48,7 @@ public class WrapperRayleighDistribution extends AbstractDistributionWrapper {
 	protected DistributionWrapperInfo getInfoInt(AbstractRealDistribution distribution) {
 		final double sigma=((RayleighDistributionImpl)distribution).mean;
 		final String info="sigma="+NumberTools.formatNumber(sigma,3);
-		return new DistributionWrapperInfo(distribution,info,null);
+		return new DistributionWrapperInfo(distribution,0.63111065781894,info,null); /* Schiefe: 2*sqrt(pi)*(pi-3)/(4-pi)^(3/2)=0.63111065781894 */
 	}
 
 	@Override

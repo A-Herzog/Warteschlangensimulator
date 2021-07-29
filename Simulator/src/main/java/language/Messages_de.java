@@ -10780,6 +10780,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[28937] = "StatistikKundendaten";
     t[28938] = "Help.Close.Info";
     t[28939] = "Schlie\u00dft dieses Hilfefenster.";
+    t[28944] = "Distribution.Skewness";
+    t[28945] = "Schiefe";
     t[28946] = "ExpressionBuilder.SimulationCharacteristics.WaitingTimesAtStations.HistogramSingle";
     t[28947] = "<p>Liefert den Anteil der Kunden, der an der Bedienstation, deren ID in dem Parameter angegeben wurde, eine bestimmte Sekundenanzahl warten musste.</p>";
     t[28948] = "LogSimulation.Mode.InfoSystem";
@@ -12038,14 +12040,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[32255] = "<p>Liefert den quadrierten Variationskoeffizienten \u00fcber alle Transferzeiten aller Kunden.</p>";
     t[32258] = "Statistics.ModelRemarks.LargeNRelative";
     t[32259] = "Hohe mittlere Anzahl an Kunden";
-    t[32260] = "Statistics.XML.Denominator";
-    t[32261] = "Nenner";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_6 (java.lang.String[] t) {
+    t[32260] = "Statistics.XML.Denominator";
+    t[32261] = "Nenner";
     t[32262] = "Surface.Batch.Tooltip";
     t[32263] = "Sammelt die Kunden und reicht sie erst weiter, wenn eine bestimmte Anzahl erreicht wurde.";
     t[32266] = "ExpressionBuilder.SimulationCharacteristics.ResourceUtilization";
@@ -14044,14 +14046,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[37541] = "AnalogRate";
     t[37542] = "Surface.Conveyor.Tooltip";
     t[37543] = "Bewegt die Kunden \u00fcber ein Flie\u00dfband.";
-    t[37544] = "Surface.Source.Dialog.Expression";
-    t[37545] = "Berechnung der Zwischenankunftszeiten \u00fcber einen Ausdruck";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_7 (java.lang.String[] t) {
+    t[37544] = "Surface.Source.Dialog.Expression";
+    t[37545] = "Berechnung der Zwischenankunftszeiten \u00fcber einen Ausdruck";
     t[37550] = "ExpressionBuilder.SimulationCharacteristics.TransporterUtilizationAll.MinimalNumber";
     t[37551] = "<p>Liefert die minimale Anzahl an belegten Transportern in allen Transportergruppen zusammen.</p>";
     t[37564] = "ExpressionBuilder.SimulationCharacteristics.WaitingTimesAtStations.CurrentTime";
@@ -16050,14 +16052,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[42675] = "Bedingung";
     t[42676] = "Main.Menu.Help.ElementReference.pdf";
     t[42677] = "Warteschlangensimulator-Reference-de.pdf";
-    t[42686] = "ExpressionBuilder.ProbabilityDistributions.RightSawtoothDistributionDirect";
-    t[42687] = "Rechte S\u00e4gezahnverteilung (direkte Kenngr\u00f6\u00dfen)";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_8 (java.lang.String[] t) {
+    t[42686] = "ExpressionBuilder.ProbabilityDistributions.RightSawtoothDistributionDirect";
+    t[42687] = "Rechte S\u00e4gezahnverteilung (direkte Kenngr\u00f6\u00dfen)";
     t[42698] = "Main.Menu.CheckModel.Mnemonic";
     t[42699] = "P";
     t[42708] = "Surface.XML.Connection.Type.In";
@@ -18056,14 +18058,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[47957] = "Bedingung/Z\u00e4hler l\u00f6schen";
     t[47960] = "Surface.AnimationImage.Dialog.Title";
     t[47961] = "Animationsbild bearbeiten";
-    t[47964] = "Surface.Balking.XML.Expression.Mode.Probability.Error";
-    t[47965] = "Die angegebene Wahrscheinlichkeit \"%s\" ist ung\u00fcltig.";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_9 (java.lang.String[] t) {
+    t[47964] = "Surface.Balking.XML.Expression.Mode.Probability.Error";
+    t[47965] = "Die angegebene Wahrscheinlichkeit \"%s\" ist ung\u00fcltig.";
     t[47968] = "ExpressionBuilder.ProbabilityDistributions.FDistribution.RandomNumberInfo";
     t[47969] = "<p>Erzeugt eine Zufallszahl gem\u00e4\u00df der F-Verteilung mit den Parametern gem\u00e4\u00df dem ersten und zweiten Parameter.</p>";
     t[47974] = "Surface.OutputDB.Table.Add";
@@ -20062,14 +20064,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[53253] = "Notizen besitzen keine Bedeutung f\u00fcr Simulation oder Animation. Notizen dienen nur dem Nutzer, um wichtige Anmerkungen zu dem Modell festzuhalten.";
     t[53268] = "Statistics.ResultsAutocorrelation";
     t[53269] = "Autokorrelation der Wartezeiten";
-    t[53272] = "Surface.Source.Dialog.ArrivalStart";
-    t[53273] = "Startzeitpunkt f\u00fcr erste Zwischenankunftszeit";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_10 (java.lang.String[] t) {
+    t[53272] = "Surface.Source.Dialog.ArrivalStart";
+    t[53273] = "Startzeitpunkt f\u00fcr erste Zwischenankunftszeit";
     t[53274] = "Help.Search.Type.Index";
     t[53275] = "Seiteninhalt";
     t[53278] = "Transporters.Group.Edit.Dialog.Tab.UnloadingTime";

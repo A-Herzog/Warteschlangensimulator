@@ -143,6 +143,14 @@ public final class FatigueLifeDistributionImpl extends AbstractRealDistribution 
 		return beta*beta*gamma*gamma*(1+5*gamma*gamma/4);
 	}
 
+	/**
+	 * Liefert die Schiefe der Verteilung.
+	 * @return	Schiefe der Verteilung
+	 */
+	public double getSkewness() {
+		return 4*gamma*(11*gamma*gamma+6)/Math.pow(5*gamma*gamma+4,3/2);
+	}
+
 	@Override
 	public double getSupportLowerBound() {
 		return mu;

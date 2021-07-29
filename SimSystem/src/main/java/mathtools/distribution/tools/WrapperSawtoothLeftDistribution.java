@@ -46,10 +46,11 @@ public class WrapperSawtoothLeftDistribution extends AbstractDistributionWrapper
 
 	@Override
 	protected DistributionWrapperInfo getInfoInt(AbstractRealDistribution distribution) {
-		final double A=((SawtoothLeftDistribution)distribution).a;
-		final double B=((SawtoothLeftDistribution)distribution).b;
+		final SawtoothLeftDistribution sawtooth=(SawtoothLeftDistribution)distribution;
+		final double A=sawtooth.a;
+		final double B=sawtooth.b;
 		final String info=DistributionTools.DistRange+"=["+NumberTools.formatNumber(A,3)+";"+NumberTools.formatNumber(B,3)+"]";
-		return new DistributionWrapperInfo(distribution,info,null);
+		return new DistributionWrapperInfo(distribution,sawtooth.getSkewness(),info,null);
 	}
 
 	@Override

@@ -36,6 +36,11 @@ public class DistributionWrapperInfo {
 	public final Double Std;
 
 	/**
+	 * Schiefe (kann <code>null</code> sein, wenn nicht verfügbar)
+	 */
+	public final Double Sk;
+
+	/**
 	 * Vorangestellte Informationen (kann <code>null</code> sein)
 	 */
 	public final String info1;
@@ -49,12 +54,14 @@ public class DistributionWrapperInfo {
 	 * Konstruktor der Klasse
 	 * @param E	Erwartungswert (kann <code>null</code> sein, wenn nicht verfügbar)
 	 * @param Std	Standardabweichung (kann <code>null</code> sein, wenn nicht verfügbar)
+	 * @param Sk	Schiefe (kann <code>null</code> sein, wenn nicht verfügbar)
 	 * @param info1	Vorangestellte Informationen (kann <code>null</code> sein)
 	 * @param info2	Nachgelagerte Informationen (kann <code>null</code> sein)
 	 */
-	public DistributionWrapperInfo(final Double E, final Double Std, final String info1, final String info2) {
+	public DistributionWrapperInfo(final Double E, final Double Std, final Double Sk, final String info1, final String info2) {
 		this.E=E;
 		this.Std=Std;
+		this.Sk=Sk;
 		this.info1=info1;
 		this.info2=info2;
 	}
@@ -62,12 +69,14 @@ public class DistributionWrapperInfo {
 	/**
 	 * Konstruktor der Klasse
 	 * @param distribution	Verteilung aus der Erwartungswert und Standardabweichung direkt ausgelesen werden
+	 * @param Sk	Schiefe (kann <code>null</code> sein, wenn nicht verfügbar)
 	 * @param info1	Vorangestellte Informationen (kann <code>null</code> sein)
 	 * @param info2	Nachgelagerte Informationen (kann <code>null</code> sein)
 	 */
-	public DistributionWrapperInfo(final AbstractRealDistribution distribution, final String info1, final String info2) {
+	public DistributionWrapperInfo(final AbstractRealDistribution distribution, final Double Sk, final String info1, final String info2) {
 		E=distribution.getNumericalMean();
 		Std=Math.sqrt(distribution.getNumericalVariance());
+		this.Sk=Sk;
 		this.info1=info1;
 		this.info2=info2;
 	}
@@ -75,10 +84,12 @@ public class DistributionWrapperInfo {
 	/**
 	 * Konstruktor der Klasse
 	 * @param distribution	Verteilung aus der Erwartungswert und Standardabweichung direkt ausgelesen werden
+	 * @param Sk	Schiefe (kann <code>null</code> sein, wenn nicht verfügbar)
 	 */
-	public DistributionWrapperInfo(final AbstractRealDistribution distribution) {
+	public DistributionWrapperInfo(final AbstractRealDistribution distribution, final Double Sk) {
 		E=distribution.getNumericalMean();
 		Std=Math.sqrt(distribution.getNumericalVariance());
+		this.Sk=Sk;
 		info1=null;
 		info2=null;
 	}
@@ -102,6 +113,10 @@ public class DistributionWrapperInfo {
 		if (E!=null && Std!=null && E>0) {
 			if (result.length()>0) result.append("; ");
 			result.append("CV="+NumberTools.formatNumber(Std/E,3));
+		}
+		if (Sk!=null) {
+			if (result.length()>0) result.append("; ");
+			result.append("Sk="+NumberTools.formatNumber(Sk,3));
 		}
 		if (info2!=null) {
 			if (result.length()>0) result.append("; ");
@@ -130,6 +145,10 @@ public class DistributionWrapperInfo {
 		if (E!=null && Std!=null && E>0) {
 			if (result.length()>0) result.append("; ");
 			result.append(DistributionTools.DistCV+" CV="+NumberTools.formatNumber(Std/E,4));
+		}
+		if (Sk!=null) {
+			if (result.length()>0) result.append("; ");
+			result.append(DistributionTools.DistSkewness+" Sk="+NumberTools.formatNumber(Sk,4));
 		}
 		if (info2!=null) {
 			if (result.length()>0) result.append("; ");

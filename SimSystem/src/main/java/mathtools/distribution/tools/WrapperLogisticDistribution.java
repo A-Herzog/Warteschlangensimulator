@@ -49,7 +49,7 @@ public class WrapperLogisticDistribution extends AbstractDistributionWrapper {
 		final double mu=((LogisticDistributionImpl)distribution).mu;
 		final double s=((LogisticDistributionImpl)distribution).s;
 		final String info="mu="+NumberTools.formatNumber(mu,3)+"; s="+NumberTools.formatNumber(s,3);
-		return new DistributionWrapperInfo(distribution,info,null);
+		return new DistributionWrapperInfo(distribution,0.0,info,null); /* Schiefe=0 immer */
 	}
 
 	@Override

@@ -49,7 +49,8 @@ public class WrapperFDistribution extends AbstractDistributionWrapper {
 		final double m=((FDistribution)distribution).getNumeratorDegreesOfFreedom();
 		final double n=((FDistribution)distribution).getDenominatorDegreesOfFreedom();
 		final String info=DistributionTools.DistDegreesOfFreedom+"="+NumberTools.formatNumber(m)+"/"+NumberTools.formatNumber(n);
-		return new DistributionWrapperInfo(distribution,info,null);
+		final double sk=(2*m+n-2)*Math.sqrt(8*(n-4))/(n-6)/Math.sqrt(m*(m+n-2));
+		return new DistributionWrapperInfo(distribution,sk,info,null);
 	}
 
 	@Override

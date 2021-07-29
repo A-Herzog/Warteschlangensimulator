@@ -113,9 +113,22 @@ public final class FrechetDistributionImpl extends AbstractRealDistribution impl
 
 	@Override
 	public double getNumericalVariance() {
+		if (alpha<=2) return Double.POSITIVE_INFINITY;
 		final double g1=Functions.getGamma(1-2*inverseAlpha);
 		final double g2=Functions.getGamma(1-inverseAlpha);
 		return beta*beta*(g1-g2*g2);
+	}
+
+	/**
+	 * Liefert die Schiefe der Verteilung.
+	 * @return	Schiefe der Verteilung
+	 */
+	public double getSkewness() {
+		if (alpha<=3) return Double.POSITIVE_INFINITY;
+		final double g1=Functions.getGamma(1-inverseAlpha);
+		final double g2=Functions.getGamma(1-2*inverseAlpha);
+		final double g3=Functions.getGamma(1-3*inverseAlpha);
+		return g3-3*g2*g1+2*g1*g1*g1/Math.pow(g2-g1*g1,3/2);
 	}
 
 	@Override

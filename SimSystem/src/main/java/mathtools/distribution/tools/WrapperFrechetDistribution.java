@@ -46,11 +46,12 @@ public class WrapperFrechetDistribution extends AbstractDistributionWrapper {
 
 	@Override
 	protected DistributionWrapperInfo getInfoInt(AbstractRealDistribution distribution) {
-		final double delta=((FrechetDistributionImpl)distribution).delta;
-		final double beta=((FrechetDistributionImpl)distribution).beta;
-		final double alpha=((FrechetDistributionImpl)distribution).alpha;
+		final FrechetDistributionImpl frechetDist=(FrechetDistributionImpl)distribution;
+		final double delta=frechetDist.delta;
+		final double beta=frechetDist.beta;
+		final double alpha=frechetDist.alpha;
 		final String info=DistributionTools.DistLocation+"="+NumberTools.formatNumber(delta,3)+"; "+DistributionTools.DistScale+"="+NumberTools.formatNumber(beta,3)+"; Form="+NumberTools.formatNumber(alpha,3);
-		return new DistributionWrapperInfo(distribution,info,null);
+		return new DistributionWrapperInfo(distribution,frechetDist.getSkewness(),info,null);
 	}
 
 	@Override

@@ -45,9 +45,10 @@ public class WrapperDataDistribution extends AbstractDistributionWrapper {
 
 	@Override
 	protected DistributionWrapperInfo getInfoInt(final AbstractRealDistribution distribution) {
-		final int c=((DataDistributionImpl)distribution).densityData.length;
+		final DataDistributionImpl dataDist=(DataDistributionImpl)distribution;
+		final int c=dataDist.densityData.length;
 		final String info=c+" "+((c>1)?DistributionTools.DistDataPoints:DistributionTools.DistDataPoint);
-		return new DistributionWrapperInfo(distribution,info,null);
+		return new DistributionWrapperInfo(distribution,dataDist.getSkewness(),info,null);
 	}
 
 	@Override

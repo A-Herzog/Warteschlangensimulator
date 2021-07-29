@@ -558,8 +558,19 @@ public final class DataDistributionImpl extends AbstractRealDistribution impleme
 
 	@Override
 	public double getNumericalVariance() {
-		double sd=getStandardDeviation();
+		final double sd=getStandardDeviation();
 		return sd*sd;
+	}
+
+	/**
+	 * Liefert die Schiefe der Verteilung.
+	 * @return	Schiefe der Verteilung
+	 */
+	public double getSkewness() {
+		final double mu=getMean();
+		final double sigma=getStandardDeviation();
+		/* (E[X^3]-3*mu*sigma^2-mu^3)/sigma^3 */
+		return (getXPow3()-3*mu*sigma*sigma-mu*mu*mu)/(sigma*sigma*sigma);
 	}
 
 	@Override
@@ -1087,6 +1098,25 @@ public final class DataDistributionImpl extends AbstractRealDistribution impleme
 		for (int i=0;i<densityData.length;i++) {
 			densitySum+=densityData[i];
 			sum+=densityData[i]*(scale*i)*(scale*i);
+		}
+		if (densitySum==0.0) return 0.0;
+		sum/=densitySum;
+
+		return sum;
+	}
+
+	/**
+	 * Liefert das dritte Moment der Werte (X^3)
+	 * @return	Drittes Moment der Werte
+	 * @see #getSkewness()
+	 */
+	private double getXPow3() {
+		if (densityData.length==0) return 0;
+		double densitySum=0, sum=0;
+		double scale=1/argumentScaleFactor;
+		for (int i=0;i<densityData.length;i++) {
+			densitySum+=densityData[i];
+			sum+=densityData[i]*(scale*i)*(scale*i)*(scale*i);
 		}
 		if (densitySum==0.0) return 0.0;
 		sum/=densitySum;

@@ -129,6 +129,14 @@ public final class PertDistributionImpl extends AbstractRealDistribution impleme
 		return (mu-lowerBound)*(upperBound-mu)/7;
 	}
 
+	/**
+	 * Liefert die Schiefe der Verteilung.
+	 * @return	Schiefe der Verteilung
+	 */
+	public double getSkewness() {
+		return 2*(beta-alpha)*Math.sqrt(alpha+beta+1)/(alpha+beta+2)/Math.sqrt(alpha*beta);
+	}
+
 	@Override
 	public double getSupportLowerBound() {
 		return lowerBound;

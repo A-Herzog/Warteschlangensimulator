@@ -46,7 +46,7 @@ public class WrapperLogNormalDistribution extends AbstractDistributionWrapper {
 
 	@Override
 	protected DistributionWrapperInfo getInfoInt(AbstractRealDistribution distribution) {
-		return new DistributionWrapperInfo(distribution);
+		return new DistributionWrapperInfo(distribution,((LogNormalDistributionImpl)distribution).getSkewness());
 	}
 
 	@Override

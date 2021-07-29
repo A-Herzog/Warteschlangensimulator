@@ -46,7 +46,7 @@ public class WrapperHyperbolicSecantDistribution extends AbstractDistributionWra
 
 	@Override
 	protected DistributionWrapperInfo getInfoInt(AbstractRealDistribution distribution) {
-		return new DistributionWrapperInfo(distribution);
+		return new DistributionWrapperInfo(distribution,0.0); /* Schiefe=0 immer */
 	}
 
 	@Override

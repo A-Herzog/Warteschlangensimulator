@@ -46,8 +46,9 @@ public class WrapperChiSquaredDistribution extends AbstractDistributionWrapper {
 
 	@Override
 	protected DistributionWrapperInfo getInfoInt(AbstractRealDistribution distribution) {
-		final String info=DistributionTools.DistDegreesOfFreedom+"="+NumberTools.formatNumber(((ChiSquaredDistribution)distribution).getDegreesOfFreedom());
-		return new DistributionWrapperInfo(distribution,info,null);
+		final double n=((ChiSquaredDistribution)distribution).getDegreesOfFreedom();
+		final String info=DistributionTools.DistDegreesOfFreedom+"="+NumberTools.formatNumber(n);
+		return new DistributionWrapperInfo(distribution,2*Math.sqrt(2)/Math.sqrt(n),info,null);
 	}
 
 	@Override

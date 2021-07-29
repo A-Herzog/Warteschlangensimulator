@@ -49,7 +49,7 @@ public class WrapperLogLogisticDistribution extends AbstractDistributionWrapper 
 		final double alpha=((LogLogisticDistributionImpl)distribution).alpha;
 		final double beta=((LogLogisticDistributionImpl)distribution).beta;
 		final String info="alpha="+NumberTools.formatNumber(alpha,3)+"; beta="+NumberTools.formatNumber(beta,3);
-		return new DistributionWrapperInfo(distribution,info,null);
+		return new DistributionWrapperInfo(distribution,null,info,null); /* Schiefe nur schwer berechenbar, siehe https://www.causascientia.org/math_stat/Dists/Compendium.pdf */
 	}
 
 	@Override

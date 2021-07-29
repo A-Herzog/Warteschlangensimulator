@@ -46,10 +46,11 @@ public class WrapperInverseGaussianDistribution extends AbstractDistributionWrap
 
 	@Override
 	protected DistributionWrapperInfo getInfoInt(AbstractRealDistribution distribution) {
-		final double lambda=((InverseGaussianDistributionImpl)distribution).lambda;
-		final double mu=((InverseGaussianDistributionImpl)distribution).mu;
+		final InverseGaussianDistributionImpl inverseGaussianDist=(InverseGaussianDistributionImpl)distribution;
+		final double lambda=inverseGaussianDist.lambda;
+		final double mu=inverseGaussianDist.mu;
 		final String info="lambda="+NumberTools.formatNumber(lambda,3)+"; mu="+NumberTools.formatNumber(mu,3);
-		return new DistributionWrapperInfo(distribution,info,null);
+		return new DistributionWrapperInfo(distribution,inverseGaussianDist.getSkewness(),info,null);
 	}
 
 	@Override

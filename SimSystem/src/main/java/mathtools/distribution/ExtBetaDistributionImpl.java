@@ -116,6 +116,23 @@ public final class ExtBetaDistributionImpl extends BetaDistribution implements C
 		return FastMath.pow(a-b,2)*alpha*beta/FastMath.pow(alpha+beta,2)/(1+alpha+beta);
 	}
 
+	/**
+	 * Liefert die Schiefe der Verteilung.
+	 * @return	Schiefe der Verteilung
+	 */
+	public double getSkewness()  {
+		final double alpha=getAlpha();
+		final double beta=getBeta();
+
+		/* Schiefe der auf [0,1] skalierten Verteilung */
+		/*
+		 * aber, Wikipedia:
+		 * "Since the skewness and excess kurtosis are non-dimensional quantities (as moments centered on the mean and normalized by the standard deviation),
+		 * they are independent of the parameters a and c, and therefore equal to the expressions given above in terms of X (with support [0,1] or (0,1)).
+		 */
+		return 2*(beta-alpha)*Math.sqrt(alpha+beta+1)/(alpha+beta+2)/Math.sqrt(alpha*beta);
+	}
+
 	@Override
 	public ExtBetaDistributionImpl clone() {
 		return new ExtBetaDistributionImpl(domainLowerBound,domainUpperBound,getAlpha(),getBeta());

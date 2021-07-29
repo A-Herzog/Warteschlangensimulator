@@ -50,7 +50,8 @@ public class WrapperGammaDistribution extends AbstractDistributionWrapper {
 		final double alpha=((GammaDistribution)distribution).getShape();
 		final double beta=((GammaDistribution)distribution).getScale();
 		final String info="alpha="+NumberTools.formatNumber(alpha,3)+"; beta="+NumberTools.formatNumber(beta,3);
-		return new DistributionWrapperInfo(distribution,info,null);
+		final double sk=2/Math.sqrt(alpha);
+		return new DistributionWrapperInfo(distribution,sk,info,null);
 	}
 
 	@Override
