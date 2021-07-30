@@ -87,25 +87,49 @@ public class MainFrame extends MainFrameBase {
 
 	/**
 	 * Minimale anfängliche Fenstergröße bezogen auf eine 100%-Skalierung.
-	 * @see #getScaledDefaultSize(double)
+	 * @see #getScaledDefaultSize(double, boolean)
 	 */
-	private static Dimension minMainWindowSize=new Dimension(1024,768);
+	private static Dimension initialMainWindowSize1=new Dimension(1024,768);
+
+	/**
+	 * Anfängliche Fenstergröße bezogen auf eine 100%-Skalierung bei größeren Bildschirmen
+	 * @see #getScaledDefaultSize(double, boolean)
+	 */
+	private static Dimension initialMainWindowSize2=new Dimension(1280,960);
+
+	/**
+	 * Anfängliche Fenstergröße bezogen auf eine 100%-Skalierung bei großen Bildschirmen.
+	 * @see #getScaledDefaultSize(double, boolean)
+	 */
+	private static Dimension initialMainWindowSize3=new Dimension(1440,1080);
 
 	/**
 	 * Berechnet die minimale Fenstergröße bezogen auf die aktuelle Skalierung.
 	 * @param scale	Skalierungsfaktor (1=100%)
+	 * @param increateOnLargeScreens	Soll auf großen Monitoren eine größere Standardgröße zurückgeliefert werden?
 	 * @return	Minimale Fenstergröße
-	 * @see #minMainWindowSize
+	 * @see #initialMainWindowSize1
 	 */
-	private Dimension getScaledDefaultSize(double scale) {
+	private Dimension getScaledDefaultSize(final double scale, final boolean increateOnLargeScreens) {
 		final Dimension screenSize=Toolkit.getDefaultToolkit().getScreenSize();
-		return new Dimension(Math.min(screenSize.width-50,(int)Math.round(minMainWindowSize.width*scale)),Math.min(screenSize.height-50,(int)Math.round(minMainWindowSize.height*scale)));
+
+		Dimension initialWindowSize=initialMainWindowSize1;
+		if (increateOnLargeScreens) {
+			if (screenSize.width>=1440) initialWindowSize=initialMainWindowSize2;
+			if (screenSize.width>=1920) initialWindowSize=initialMainWindowSize3;
+		}
+
+		return new Dimension(Math.min(screenSize.width-50,(int)Math.round(initialWindowSize.width*scale)),Math.min(screenSize.height-50,(int)Math.round(initialWindowSize.height*scale)));
 	}
 
 	@Override
 	protected void loadWindowSize() {
-		setSize(getScaledDefaultSize(SetupData.getSetup().scaleGUI));
+		/* Minimale Fenstergröße festlegen */
+		setSize(getScaledDefaultSize(SetupData.getSetup().scaleGUI,false));
 		setMinimumSize(getSize());
+
+		/* Initiale Fenstergröße festlegen */
+		setSize(getScaledDefaultSize(SetupData.getSetup().scaleGUI,true));
 		setLocationRelativeTo(null);
 
 		final Dimension screenSize=Toolkit.getDefaultToolkit().getScreenSize();
