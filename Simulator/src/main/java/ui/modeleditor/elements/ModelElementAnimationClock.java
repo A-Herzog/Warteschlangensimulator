@@ -66,7 +66,7 @@ public class ModelElementAnimationClock extends ModelElementAnimationCustomDrawE
 	 */
 	public ModelElementAnimationClock(final EditModel model, final ModelSurface surface) {
 		super(model,surface,new Dimension(50,50));
-		setExpression("TNow()");
+		expression.setExpression("TNow()");
 	}
 
 	/**
@@ -271,7 +271,7 @@ public class ModelElementAnimationClock extends ModelElementAnimationCustomDrawE
 
 		sub=doc.createElement(Language.trPrimary("Surface.AnimationClock.XML.Expression"));
 		node.appendChild(sub);
-		sub.setTextContent(getExpression());
+		expression.storeToXML(sub);
 	}
 
 	/**
@@ -293,7 +293,7 @@ public class ModelElementAnimationClock extends ModelElementAnimationCustomDrawE
 		}
 
 		if (Language.trAll("Surface.AnimationClock.XML.Expression",name)) {
-			setExpression(content);
+			expression.loadFromXML(node);
 			return null;
 		}
 

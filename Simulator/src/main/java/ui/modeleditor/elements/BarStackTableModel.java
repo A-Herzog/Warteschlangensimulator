@@ -21,6 +21,7 @@ import java.awt.event.ActionListener;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.swing.Icon;
 import javax.swing.JPanel;
@@ -57,7 +58,7 @@ public class BarStackTableModel extends JTableExtAbstractTableModel {
 	private final boolean readOnly;
 
 	/** Liste der Rechenausdrücke für die Balkensegmente */
-	private final List<String> expressions=new ArrayList<>();
+	private final List<AnimationExpression> expressions=new ArrayList<>();
 	/** Liste der Farben für die Balkensegmente */
 	private final List<Color> colors=new ArrayList<>();
 
@@ -76,7 +77,7 @@ public class BarStackTableModel extends JTableExtAbstractTableModel {
 		this.readOnly=readOnly;
 		this.help=help;
 
-		expressions.addAll(element.getExpressions());
+		expressions.addAll(element.getExpressions().stream().map(expression->new AnimationExpression(expression)).collect(Collectors.toList()));
 		colors.addAll(element.getBarColors());
 		while (colors.size()<expressions.size()) colors.add(Color.BLACK);
 		while (colors.size()>expressions.size()) colors.remove(colors.size()-1);
@@ -133,9 +134,17 @@ public class BarStackTableModel extends JTableExtAbstractTableModel {
 				names.add(Language.tr("Surface.AnimationBarStack.Dialog.Down"));
 				events.add(new EditButtonListener(2,rowIndex));
 			}
+			final AnimationExpression expression=expressions.get(rowIndex);
+			final String info;
+			switch (expression.getMode()) {
+			case Expression: info=expression.getExpression(); break;
+			case Javascript: info=Language.tr("Surface.AnimationBarStack.Dialog.ExpressionMode.Javascript"); break;
+			case Java: info=Language.tr("Surface.AnimationBarStack.Dialog.ExpressionMode.Java"); break;
+			default: info=expression.getExpression(); break;
+			}
 			return makeEditPanelSmallBorderIcon(
 					Images.MODELEDITOR_ELEMENT_ANIMATION_BAR_STACK.getIcon(),
-					expressions.get(rowIndex),
+					info,
 					icons.toArray(new Icon[0]),
 					names.toArray(new String[0]),
 					events.toArray(new ActionListener[0])
@@ -197,12 +206,12 @@ public class BarStackTableModel extends JTableExtAbstractTableModel {
 		public void actionPerformed(ActionEvent e) {
 			if (readOnly) return;
 
-			String expression;
+			AnimationExpression expression;
 			Color color;
 
 			switch (col) {
 			case 0:
-				final BarStackTableModelDialog dialog=new BarStackTableModelDialog(table,help,(row>=0)?expressions.get(row):null,(row>=0)?colors.get(row):null,element.getSurface().getMainSurfaceVariableNames(element.getModel().getModelVariableNames(),false),element.getModel(),element.getSurface());
+				final BarStackTableModelDialog dialog=new BarStackTableModelDialog(table,help,(row>=0)?expressions.get(row):null,(row>=0)?colors.get(row):null,element,help);
 				dialog.setVisible(true);
 				if (dialog.getClosedBy()==BaseDialog.CLOSED_BY_OK) {
 					if (row<0) {
@@ -210,7 +219,7 @@ public class BarStackTableModel extends JTableExtAbstractTableModel {
 						colors.add(dialog.getColor());
 					} else {
 						expressions.set(row,dialog.getExpression());
-						colors.add(row,dialog.getColor());
+						colors.set(row,dialog.getColor());
 					}
 					updateTable();
 				}
@@ -251,8 +260,15 @@ public class BarStackTableModel extends JTableExtAbstractTableModel {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			if (readOnly) return;
-			final String name=expressions.get(row);
-			if (!MsgBox.confirm(table,Language.tr("Surface.AnimationBarStack.Dialog.Delete.Confirm.Title"),String.format(Language.tr("Surface.AnimationBarStack.Dialog.Delete.Confirm.Info"),name),Language.tr("Surface.AnimationBarStack.Dialog.Delete.Confirm.YesInfo"),Language.tr("Surface.AnimationBarStack.Dialog.Delete.Confirm.NoInfo"))) return;
+			final AnimationExpression expression=expressions.get(row);
+			final String info;
+			switch (expression.getMode()) {
+			case Expression: info=expression.getExpression(); break;
+			case Javascript: info=Language.tr("Surface.AnimationBarStack.Dialog.ExpressionMode.Javascript"); break;
+			case Java: info=Language.tr("Surface.AnimationBarStack.Dialog.ExpressionMode.Java"); break;
+			default: info=expression.getExpression(); break;
+			}
+			if (!MsgBox.confirm(table,Language.tr("Surface.AnimationBarStack.Dialog.Delete.Confirm.Title"),String.format(Language.tr("Surface.AnimationBarStack.Dialog.Delete.Confirm.Info"),info),Language.tr("Surface.AnimationBarStack.Dialog.Delete.Confirm.YesInfo"),Language.tr("Surface.AnimationBarStack.Dialog.Delete.Confirm.NoInfo"))) return;
 			expressions.remove(row);
 			colors.remove(row);
 			updateTable();

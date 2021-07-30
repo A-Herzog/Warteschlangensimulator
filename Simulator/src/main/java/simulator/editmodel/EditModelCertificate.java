@@ -65,7 +65,7 @@ public class EditModelCertificate {
 	 * Im Modell hinterlegte Signaturen für die Stationen
 	 * @see #loadCertificateData(Element)
 	 */
-	private final Map<Integer,String> loadedStationData;
+	private final Map<Integer,Map<String,String>> loadedStationData;
 
 	/**
 	 * Konstruktor der Klasse
@@ -101,6 +101,7 @@ public class EditModelCertificate {
 		for (ModelSecurityCheckDialog.CriticalElement criticalElement: criticalElements) {
 			mainNode.appendChild(node=doc.createElement(Language.tr("CriticalStationsSignature.Station")));
 			node.setAttribute(Language.tr("CriticalStationsSignature.Station.id"),""+criticalElement.stationId);
+			node.setAttribute(Language.tr("CriticalStationsSignature.Station.Hash"),EditModelCertificateStore.hash(criticalElement.info));
 			node.setAttribute(Language.tr("CriticalStationsSignature.Station.Signature"),certStore.sign(criticalElement.info));
 		}
 
@@ -150,8 +151,12 @@ public class EditModelCertificate {
 			if (Language.trAll("CriticalStationsSignature.Station",nodeName)) {
 				final String idString=Language.trAllAttribute("CriticalStationsSignature.Station.id",e);
 				final String info=Language.trAllAttribute("CriticalStationsSignature.Station.Signature",e);
+				final String hash=Language.trAllAttribute("CriticalStationsSignature.Station.Hash",e);
 				final Integer id=NumberTools.getNotNegativeInteger(idString);
-				if (id!=null) loadedStationData.put(id,info);
+				if (id!=null) {
+					final Map<String,String> map=loadedStationData.computeIfAbsent(id,newId->new HashMap<>());
+					map.put(hash,info);
+				}
 				continue;
 			}
 		}
@@ -179,9 +184,15 @@ public class EditModelCertificate {
 		if (loadedStationData==null) return (criticalElements==null || criticalElements.size()==0);
 
 		for (ModelSecurityCheckDialog.CriticalElement criticalElement: criticalElements) {
-			final String info=loadedStationData.get(criticalElement.stationId);
-			if (info==null) return false;
-			if (!testCriticalElement(info,criticalElement.info,publicKey)) return false;
+			final int id=criticalElement.stationId;
+			final String info=criticalElement.info;
+			final String hash=EditModelCertificateStore.hash(info);
+			final Map<String,String> map=loadedStationData.get(id);
+			if (map==null) return false;
+			String signature=map.get(hash);
+			if (signature==null) signature=map.get(""); /* Fallback-Verhalten; früher gab's keine Hashes und nur max. ein Skript pro Station */
+			if (signature==null) return false;
+			if (!testCriticalElement(signature,criticalElement.info,publicKey)) return false;
 		}
 
 		return true;

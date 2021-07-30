@@ -18,7 +18,7 @@ package ui.modeleditor.elements;
 import simulator.editmodel.EditModel;
 
 /**
- * Element, die ein Skript beinhalten, implementieren dieses Interface.
+ * Elemente, die ein Skript beinhalten, implementieren dieses Interface.
  * Darüber kann das Skript abgerufen werden, ohne dass der Aufrufer
  * wissen muss, um was für eine Element es sich genau handelt.
  * @author Alexander Herzog

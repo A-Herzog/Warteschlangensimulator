@@ -40,7 +40,6 @@ import mathtools.NumberTools;
 import simulator.editmodel.EditModel;
 import simulator.editmodel.FullTextSearch;
 import simulator.runmodel.SimulationData;
-import simulator.simparser.ExpressionCalc;
 import tools.SetupData;
 import ui.images.Images;
 import ui.modeleditor.ModelClientData;
@@ -59,7 +58,7 @@ import ui.modeleditor.outputbuilder.SpecialOutputBuilder;
  * Zeigt einen sich während der Animation aktualisierenden Balken an.
  * @author Alexander Herzog
  */
-public class ModelElementAnimationBar extends ModelElementPosition implements ElementWithAnimationDisplay {
+public class ModelElementAnimationBar extends ModelElementPosition implements ElementWithAnimationDisplay, ElementWithAnimationScripts {
 	/**
 	 * Größe der Markierungsboxen an den Ecken des Elements
 	 * @see #drawBorderBox(Graphics2D, Point, double)
@@ -96,9 +95,8 @@ public class ModelElementAnimationBar extends ModelElementPosition implements El
 	/**
 	 * Rechenausdruck
 	 * @see #getExpression()
-	 * @see #setExpression(String)
 	 */
-	private String expression="123";
+	private final AnimationExpression expression=new AnimationExpression();
 
 	/**
 	 * Sichert ab, dass Simulations- und Zeichenthread
@@ -235,20 +233,8 @@ public class ModelElementAnimationBar extends ModelElementPosition implements El
 	 * <code>MODE_EXPRESSION_PERCENT</code> gewählt sind, den aktuellen Ausdruck.
 	 * @return	Aktueller Ausdruck
 	 */
-	public String getExpression() {
+	public AnimationExpression getExpression() {
 		return expression;
-	}
-
-	/**
-	 * Stellt den Ausdruck ein, der im Falle von <code>MODE_EXPRESSION_NUMBER</code> oder
-	 * <code>MODE_EXPRESSION_PERCENT</code> ausgerechnet werden soll.
-	 * @param expression	Neuer Ausdruck
-	 */
-	public void setExpression(final String expression) {
-		if (expression!=null) {
-			this.expression=expression;
-			fireChanged();
-		}
 	}
 
 	/**
@@ -361,19 +347,20 @@ public class ModelElementAnimationBar extends ModelElementPosition implements El
 	public boolean equalsModelElement(ModelElement element) {
 		if (!super.equalsModelElement(element)) return false;
 		if (!(element instanceof ModelElementAnimationBar)) return false;
+		final ModelElementAnimationBar other=(ModelElementAnimationBar)element;
 
-		if (direction!=((ModelElementAnimationBar)element).direction) return false;
-		if (!expression.equals(((ModelElementAnimationBar)element).expression)) return false;
-		if (minValue!=((ModelElementAnimationBar)element).minValue) return false;
-		if (maxValue!=((ModelElementAnimationBar)element).maxValue) return false;
-		if (borderWidth!=((ModelElementAnimationBar)element).borderWidth) return false;
+		if (direction!=other.direction) return false;
+		if (!expression.equalsAnimationExpression(other.expression)) return false;
+		if (minValue!=other.minValue) return false;
+		if (maxValue!=other.maxValue) return false;
 
-		if (!((ModelElementAnimationBar)element).borderColor.equals(borderColor)) return false;
-		if (!(((ModelElementAnimationBar)element).backgroundColor==null && backgroundColor==null)) {
-			if (((ModelElementAnimationBar)element).backgroundColor==null || backgroundColor==null) return false;
-			if (!((ModelElementAnimationBar)element).backgroundColor.equals(backgroundColor)) return false;
+		if (borderWidth!=other.borderWidth) return false;
+		if (!other.borderColor.equals(borderColor)) return false;
+		if (!(other.backgroundColor==null && backgroundColor==null)) {
+			if (other.backgroundColor==null || backgroundColor==null) return false;
+			if (!other.backgroundColor.equals(backgroundColor)) return false;
 		}
-		if (!((ModelElementAnimationBar)element).barColor.equals(barColor)) return false;
+		if (!other.barColor.equals(barColor)) return false;
 
 		return true;
 	}
@@ -386,15 +373,17 @@ public class ModelElementAnimationBar extends ModelElementPosition implements El
 	public void copyDataFrom(ModelElement element) {
 		super.copyDataFrom(element);
 		if (element instanceof ModelElementAnimationBar) {
-			direction=((ModelElementAnimationBar)element).direction;
-			expression=((ModelElementAnimationBar)element).expression;
-			minValue=((ModelElementAnimationBar)element).minValue;
-			maxValue=((ModelElementAnimationBar)element).maxValue;
-			borderWidth=((ModelElementAnimationBar)element).borderWidth;
+			final ModelElementAnimationBar source=(ModelElementAnimationBar)element;
 
-			borderColor=((ModelElementAnimationBar)element).borderColor;
-			backgroundColor=((ModelElementAnimationBar)element).backgroundColor;
-			barColor=((ModelElementAnimationBar)element).barColor;
+			direction=source.direction;
+			expression.copyFrom(source.expression);
+			minValue=source.minValue;
+			maxValue=source.maxValue;
+
+			borderWidth=source.borderWidth;
+			borderColor=source.borderColor;
+			backgroundColor=source.backgroundColor;
+			barColor=source.barColor;
 		}
 	}
 
@@ -703,7 +692,7 @@ public class ModelElementAnimationBar extends ModelElementPosition implements El
 
 		sub=doc.createElement(Language.trPrimary("Surface.AnimationBar.XML.DataExpression"));
 		node.appendChild(sub);
-		sub.setTextContent(expression);
+		expression.storeToXML(sub);
 
 		sub=doc.createElement(Language.trPrimary("Surface.AnimationBar.XML.DataArea"));
 		node.appendChild(sub);
@@ -743,7 +732,7 @@ public class ModelElementAnimationBar extends ModelElementPosition implements El
 		if (error!=null) return error;
 
 		if (Language.trAll("Surface.AnimationBar.XML.DataExpression",name)) {
-			expression=content;
+			expression.loadFromXML(node);
 			return null;
 		}
 
@@ -798,31 +787,10 @@ public class ModelElementAnimationBar extends ModelElementPosition implements El
 		return null;
 	}
 
-	/**
-	 * Rechenausdruck der während der Animation ausgewertet
-	 * werden soll, um den darzustellenden Wert zu erhalten.
-	 * @see #initAnimation(SimulationData)
-	 * @see #calcExpression(SimulationData)
-	 */
-	private ExpressionCalc animationExpression;
-
-	/**
-	 * Wertet {@link #animationExpression} aus und liefert
-	 * den zu zeichnenden Wert zurück.
-	 * @param simData	Simulationsdatenobjekt
-	 * @return	Darzustellender Wert
-	 * @see #simValue
-	 */
-	private double calcExpression(final SimulationData simData) {
-		if (animationExpression==null) return 0.0;
-		simData.runData.setClientVariableValues(null);
-		return animationExpression.calcOrDefault(simData.runData.variableValues,simData,null,0);
-	}
-
 	@Override
 	public boolean updateSimulationData(SimulationData simData, boolean isPreview) {
 		if (isPreview) return false;
-		double d=calcExpression(simData);
+		final double d=expression.getAnimationValue(this,simData);
 		drawLock.acquireUninterruptibly();
 		try {
 			simValue=d;
@@ -834,10 +802,7 @@ public class ModelElementAnimationBar extends ModelElementPosition implements El
 
 	@Override
 	public void initAnimation(SimulationData simData) {
-		animationExpression=new ExpressionCalc(simData.runModel.variableNames);
-		if (animationExpression.parse(expression)>=0) {
-			animationExpression=null;
-		} else {
+		if (expression.initAnimation(this,simData)) {
 			simValue=0.0;
 			simValueActive=true;
 		}
@@ -996,9 +961,16 @@ public class ModelElementAnimationBar extends ModelElementPosition implements El
 	public void search(final FullTextSearch searcher) {
 		super.search(searcher);
 
-		searcher.testString(this,Language.tr("Editor.DialogBase.Search.Expression"),expression,newExpression->{expression=newExpression;});
+		if (expression.getMode()==AnimationExpression.ExpressionMode.Expression) {
+			searcher.testString(this,Language.tr("Editor.DialogBase.Search.Expression"),expression.getExpression(),newExpression->expression.setExpression(newExpression));
+		}
 		searcher.testDouble(this,Language.tr("Editor.DialogBase.Search.MinValue"),minValue,newMinValue->{minValue=newMinValue;});
 		searcher.testDouble(this,Language.tr("Editor.DialogBase.Search.MaxValue"),maxValue,newMaxValue->{maxValue=newMaxValue;});
 		searcher.testInteger(this,Language.tr("Editor.DialogBase.Search.BorderWidth"),borderWidth,newBorderWidth->{if (newBorderWidth>=0) borderWidth=newBorderWidth;});
+	}
+
+	@Override
+	public AnimationExpression[] getAnimationExpressions() {
+		return new AnimationExpression[]{expression};
 	}
 }

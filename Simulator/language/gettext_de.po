@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-29 00:06+0200\n"
+"POT-Creation-Date: 2021-07-30 19:14+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -565,6 +565,33 @@ msgstr "Name"
 
 msgid "Animation.XML.RootName"
 msgstr "ModellAnimationsBilder"
+
+msgid "AnimationExpression.Expression"
+msgstr "Ausdruck"
+
+msgid "AnimationExpression.Expression.ErrorInfoInvalidExpression"
+msgstr "Der eingegebene Ausdruck \"%s\" ist an Zeichen %d fehlerhaft."
+
+msgid "AnimationExpression.Expression.ErrorInfoNoExpression"
+msgstr "Es wurde kein zu berechnender Ausdruck angegeben."
+
+msgid "AnimationExpression.Expression.ErrorTitle"
+msgstr "Ausdruck fehlerhaft"
+
+msgid "AnimationExpression.Script"
+msgstr "Skript"
+
+msgid "AnimationExpression.Script.Edit"
+msgstr "Skript bearbeiten"
+
+msgid "AnimationExpression.XML.Mode"
+msgstr "Modus"
+
+msgid "AnimationExpression.XML.Mode.Java"
+msgstr "Java"
+
+msgid "AnimationExpression.XML.Mode.Javascript"
+msgstr "Javascript"
 
 msgid "AutoRestore.Dialog.ClearAll"
 msgstr "Alle gespeicherten Modell gelöschen"
@@ -2392,6 +2419,9 @@ msgstr "KiritischeStationenSignatur"
 
 msgid "CriticalStationsSignature.Station"
 msgstr "SignaturStation"
+
+msgid "CriticalStationsSignature.Station.Hash"
+msgstr "Hash"
 
 msgid "CriticalStationsSignature.Station.Signature"
 msgstr "Signatur"
@@ -10040,6 +10070,12 @@ msgstr "Veränderung des Zählerwertes"
 
 msgid "ModelDescription.Expression"
 msgstr "Ausdruck"
+
+msgid "ModelDescription.Expression.Java"
+msgstr "Java"
+
+msgid "ModelDescription.Expression.Javascript"
+msgstr "Javascript"
 
 msgid "ModelDescription.FlowData.Destination"
 msgstr "Ziel"
@@ -21186,18 +21222,6 @@ msgstr "von unten nach oben"
 msgid "Surface.AnimationBar.Dialog.BarColor"
 msgstr "Datenbalken-Farbe"
 
-msgid "Surface.AnimationBar.Dialog.Expression"
-msgstr "Ausdruck"
-
-msgid "Surface.AnimationBar.Dialog.Expression.Error.Title"
-msgstr "Ausdruck fehlerhaft"
-
-msgid "Surface.AnimationBar.Dialog.Expression.ErrorInvalidExpression.Info"
-msgstr "Der eingegebene Ausdruck \"%s\" ist an Zeichen %d fehlerhaft."
-
-msgid "Surface.AnimationBar.Dialog.Expression.ErrorNoExpression.Info"
-msgstr "Es wurde kein zu berechnender Ausdruck angegeben."
-
 msgid "Surface.AnimationBar.Dialog.FillBackground"
 msgstr "Hintergrund ausfüllen"
 
@@ -21474,8 +21498,11 @@ msgstr "Teilbalken in der Liste nach unten verschieben"
 msgid "Surface.AnimationBarStack.Dialog.Edit"
 msgstr "Teilbalken bearbeiten"
 
-msgid "Surface.AnimationBarStack.Dialog.Expression"
-msgstr "Ausdruck"
+msgid "Surface.AnimationBarStack.Dialog.ExpressionMode.Java"
+msgstr "Java"
+
+msgid "Surface.AnimationBarStack.Dialog.ExpressionMode.Javascript"
+msgstr "Javascript"
 
 msgid "Surface.AnimationBarStack.Dialog.FillBackground"
 msgstr "Hintergrund ausfüllen"
@@ -21557,18 +21584,6 @@ msgstr "ModellElementAnimationStapelBalken"
 
 msgid "Surface.AnimationClock.Dialog.Color"
 msgstr "Hintergrundfarbe"
-
-msgid "Surface.AnimationClock.Dialog.Expression"
-msgstr "Ausdruck"
-
-msgid "Surface.AnimationClock.Dialog.Expression.Error.Title"
-msgstr "Ausdruck fehlerhaft"
-
-msgid "Surface.AnimationClock.Dialog.Expression.ErrorInvalidExpression.Info"
-msgstr "Der eingegebene Ausdruck \"%s\" ist an Zeichen %d fehlerhaft."
-
-msgid "Surface.AnimationClock.Dialog.Expression.ErrorNoExpression.Info"
-msgstr "Es wurde kein zu berechnender Ausdruck angegeben."
 
 msgid "Surface.AnimationClock.Dialog.Title"
 msgstr "Simulationszeituhr bearbeiten"
@@ -21759,18 +21774,6 @@ msgstr "Farbe für die aktiven Segmente"
 msgid "Surface.AnimationLCD.Dialog.Digits"
 msgstr "Anzahl an Ziffern"
 
-msgid "Surface.AnimationLCD.Dialog.Expression"
-msgstr "Ausdruck"
-
-msgid "Surface.AnimationLCD.Dialog.Expression.Error.Title"
-msgstr "Ausdruck fehlerhaft"
-
-msgid "Surface.AnimationLCD.Dialog.Expression.ErrorInvalidExpression.Info"
-msgstr "Der eingegebene Ausdruck \"%s\" ist an Zeichen %d fehlerhaft."
-
-msgid "Surface.AnimationLCD.Dialog.Expression.ErrorNoExpression.Info"
-msgstr "Es wurde kein zu berechnender Ausdruck angegeben."
-
 msgid "Surface.AnimationLCD.Dialog.Title"
 msgstr "LCD-Anzeige bearbeiten"
 
@@ -21866,18 +21869,6 @@ msgstr "Segmentfarbe"
 
 msgid "Surface.AnimationPointerMeasuring.Dialog.Color"
 msgstr "Zeigerfarbe"
-
-msgid "Surface.AnimationPointerMeasuring.Dialog.Expression"
-msgstr "Ausdruck"
-
-msgid "Surface.AnimationPointerMeasuring.Dialog.Expression.Error.Title"
-msgstr "Ausdruck fehlerhaft"
-
-msgid "Surface.AnimationPointerMeasuring.Dialog.Expression.ErrorInvalidExpression.Info"
-msgstr "Der eingegebene Ausdruck \"%s\" ist an Zeichen %d fehlerhaft."
-
-msgid "Surface.AnimationPointerMeasuring.Dialog.Expression.ErrorNoExpression.Info"
-msgstr "Es wurde kein zu berechnender Ausdruck angegeben."
 
 msgid "Surface.AnimationPointerMeasuring.Dialog.MaxValue"
 msgstr "Maximalwert für Skala"
@@ -24002,9 +23993,6 @@ msgstr "Datenreihe aus der Liste löschen."
 
 msgid "Surface.ExpressionTableModel.Dialog"
 msgstr "Datenreihe bearbeiten"
-
-msgid "Surface.ExpressionTableModel.Dialog.Expression"
-msgstr "Ausdruck"
 
 msgid "Surface.ExpressionTableModel.Dialog.Expression.Error.Info"
 msgstr "Der eingegebene Ausdruck \"%s\" ist an Zeichen %d fehlerhaft."
@@ -31628,6 +31616,33 @@ msgstr "Das Dateiformat wurde nicht erkannt bzw. passt zu keinem Dateiformat die
 #~ msgid "Statistics.WaitingTransferProcessTimesAtStationsClients"
 #~ msgstr "Warte-, Transfer- und Bedienzeiten an den Stationen nach Kundentypen"
 
+#~ msgid "Surface.AnimationBar.Dialog.Expression"
+#~ msgstr "Ausdruck"
+
+#~ msgid "Surface.AnimationBar.Dialog.Expression.Error.Title"
+#~ msgstr "Ausdruck fehlerhaft"
+
+#~ msgid "Surface.AnimationBar.Dialog.Expression.ErrorInvalidExpression.Info"
+#~ msgstr "Der eingegebene Ausdruck \"%s\" ist an Zeichen %d fehlerhaft."
+
+#~ msgid "Surface.AnimationBar.Dialog.Expression.ErrorNoExpression.Info"
+#~ msgstr "Es wurde kein zu berechnender Ausdruck angegeben."
+
+#~ msgid "Surface.AnimationBarStack.Dialog.Expression"
+#~ msgstr "Ausdruck"
+
+#~ msgid "Surface.AnimationClock.Dialog.Expression"
+#~ msgstr "Ausdruck"
+
+#~ msgid "Surface.AnimationClock.Dialog.Expression.Error.Title"
+#~ msgstr "Ausdruck fehlerhaft"
+
+#~ msgid "Surface.AnimationClock.Dialog.Expression.ErrorInvalidExpression.Info"
+#~ msgstr "Der eingegebene Ausdruck \"%s\" ist an Zeichen %d fehlerhaft."
+
+#~ msgid "Surface.AnimationClock.Dialog.Expression.ErrorNoExpression.Info"
+#~ msgstr "Es wurde kein zu berechnender Ausdruck angegeben."
+
 #~ msgid "Surface.AnimationLCD.Dialog.Digits.Error.Info"
 #~ msgstr ""
 #~ "Die angegebene Anzahl an anzuzeigenden Ziffern \"%s\" ist ungültig.\n"
@@ -31635,6 +31650,33 @@ msgstr "Das Dateiformat wurde nicht erkannt bzw. passt zu keinem Dateiformat die
 
 #~ msgid "Surface.AnimationLCD.Dialog.Digits.Error.Title"
 #~ msgstr "Ungültige Anzahl an Ziffern"
+
+#~ msgid "Surface.AnimationLCD.Dialog.Expression"
+#~ msgstr "Ausdruck"
+
+#~ msgid "Surface.AnimationLCD.Dialog.Expression.Error.Title"
+#~ msgstr "Ausdruck fehlerhaft"
+
+#~ msgid "Surface.AnimationLCD.Dialog.Expression.ErrorInvalidExpression.Info"
+#~ msgstr "Der eingegebene Ausdruck \"%s\" ist an Zeichen %d fehlerhaft."
+
+#~ msgid "Surface.AnimationLCD.Dialog.Expression.ErrorNoExpression.Info"
+#~ msgstr "Es wurde kein zu berechnender Ausdruck angegeben."
+
+#~ msgid "Surface.AnimationPointerMeasuring.Dialog.Expression"
+#~ msgstr "Ausdruck"
+
+#~ msgid "Surface.AnimationPointerMeasuring.Dialog.Expression.Error.Title"
+#~ msgstr "Ausdruck fehlerhaft"
+
+#~ msgid "Surface.AnimationPointerMeasuring.Dialog.Expression.ErrorInvalidExpression.Info"
+#~ msgstr "Der eingegebene Ausdruck \"%s\" ist an Zeichen %d fehlerhaft."
+
+#~ msgid "Surface.AnimationPointerMeasuring.Dialog.Expression.ErrorNoExpression.Info"
+#~ msgstr "Es wurde kein zu berechnender Ausdruck angegeben."
+
+#~ msgid "Surface.ExpressionTableModel.Dialog.Expression"
+#~ msgstr "Ausdruck"
 
 #~ msgid "Surface.HoldJS.Dialog.Language.JavaError"
 #~ msgstr "Java-Fehler"

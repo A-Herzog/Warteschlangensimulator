@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-29 00:06+0200\n"
+"POT-Creation-Date: 2021-07-30 19:14+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -565,6 +565,33 @@ msgstr "Name"
 
 msgid "Animation.XML.RootName"
 msgstr "ModelAnimationImages"
+
+msgid "AnimationExpression.Expression"
+msgstr "Expression"
+
+msgid "AnimationExpression.Expression.ErrorInfoInvalidExpression"
+msgstr "The entered expression \"%s\" is invalid at character %d."
+
+msgid "AnimationExpression.Expression.ErrorInfoNoExpression"
+msgstr "No expression to be calculated was entered."
+
+msgid "AnimationExpression.Expression.ErrorTitle"
+msgstr "Invalid expression"
+
+msgid "AnimationExpression.Script"
+msgstr "Script"
+
+msgid "AnimationExpression.Script.Edit"
+msgstr "Edit script"
+
+msgid "AnimationExpression.XML.Mode"
+msgstr "mode"
+
+msgid "AnimationExpression.XML.Mode.Java"
+msgstr "Java"
+
+msgid "AnimationExpression.XML.Mode.Javascript"
+msgstr "Javascript"
 
 msgid "AutoRestore.Dialog.ClearAll"
 msgstr "Clear all saved models"
@@ -2390,6 +2417,9 @@ msgstr "CriticalStationsSignature"
 
 msgid "CriticalStationsSignature.Station"
 msgstr "SignatureStation"
+
+msgid "CriticalStationsSignature.Station.Hash"
+msgstr "Hash"
 
 msgid "CriticalStationsSignature.Station.Signature"
 msgstr "Signature"
@@ -10048,6 +10078,12 @@ msgstr "Modification of the counter value"
 
 msgid "ModelDescription.Expression"
 msgstr "Expression"
+
+msgid "ModelDescription.Expression.Java"
+msgstr "Java"
+
+msgid "ModelDescription.Expression.Javascript"
+msgstr "Javascript"
 
 msgid "ModelDescription.FlowData.Destination"
 msgstr "Destination"
@@ -21180,18 +21216,6 @@ msgstr "from bottom up"
 msgid "Surface.AnimationBar.Dialog.BarColor"
 msgstr "Bar color"
 
-msgid "Surface.AnimationBar.Dialog.Expression"
-msgstr "Expression"
-
-msgid "Surface.AnimationBar.Dialog.Expression.Error.Title"
-msgstr "Invalid expression"
-
-msgid "Surface.AnimationBar.Dialog.Expression.ErrorInvalidExpression.Info"
-msgstr "The entered expression \"%s\" is invalid at character %d."
-
-msgid "Surface.AnimationBar.Dialog.Expression.ErrorNoExpression.Info"
-msgstr "No expression to be calculated was entered."
-
 msgid "Surface.AnimationBar.Dialog.FillBackground"
 msgstr "Fill background"
 
@@ -21468,8 +21492,11 @@ msgstr "Move partial bar down in list"
 msgid "Surface.AnimationBarStack.Dialog.Edit"
 msgstr "Edit partial bar"
 
-msgid "Surface.AnimationBarStack.Dialog.Expression"
-msgstr "Expression"
+msgid "Surface.AnimationBarStack.Dialog.ExpressionMode.Java"
+msgstr "Java"
+
+msgid "Surface.AnimationBarStack.Dialog.ExpressionMode.Javascript"
+msgstr "Javascript"
 
 msgid "Surface.AnimationBarStack.Dialog.FillBackground"
 msgstr "Fill background"
@@ -21551,18 +21578,6 @@ msgstr "ModelElementAnimationStackBar"
 
 msgid "Surface.AnimationClock.Dialog.Color"
 msgstr "Background color"
-
-msgid "Surface.AnimationClock.Dialog.Expression"
-msgstr "Expression"
-
-msgid "Surface.AnimationClock.Dialog.Expression.Error.Title"
-msgstr "Invalid expression"
-
-msgid "Surface.AnimationClock.Dialog.Expression.ErrorInvalidExpression.Info"
-msgstr "The entered expression \"%s\" is invalid at character %d."
-
-msgid "Surface.AnimationClock.Dialog.Expression.ErrorNoExpression.Info"
-msgstr "No expression to be calculated was entered."
 
 msgid "Surface.AnimationClock.Dialog.Title"
 msgstr "Edit simulation time clock"
@@ -21753,18 +21768,6 @@ msgstr "Color of the active segments"
 msgid "Surface.AnimationLCD.Dialog.Digits"
 msgstr "Number of digits"
 
-msgid "Surface.AnimationLCD.Dialog.Expression"
-msgstr "Expression"
-
-msgid "Surface.AnimationLCD.Dialog.Expression.Error.Title"
-msgstr "Invalid expression"
-
-msgid "Surface.AnimationLCD.Dialog.Expression.ErrorInvalidExpression.Info"
-msgstr "The entered expression \"%s\" is invalid at character %d."
-
-msgid "Surface.AnimationLCD.Dialog.Expression.ErrorNoExpression.Info"
-msgstr "No expression to be calculated was entered."
-
 msgid "Surface.AnimationLCD.Dialog.Title"
 msgstr "Edit LCD display"
 
@@ -21860,18 +21863,6 @@ msgstr "SegmentColor"
 
 msgid "Surface.AnimationPointerMeasuring.Dialog.Color"
 msgstr "Pointer color"
-
-msgid "Surface.AnimationPointerMeasuring.Dialog.Expression"
-msgstr "Expression"
-
-msgid "Surface.AnimationPointerMeasuring.Dialog.Expression.Error.Title"
-msgstr "Invalid expression"
-
-msgid "Surface.AnimationPointerMeasuring.Dialog.Expression.ErrorInvalidExpression.Info"
-msgstr "The entered expression \"%s\" is invalid at character %d."
-
-msgid "Surface.AnimationPointerMeasuring.Dialog.Expression.ErrorNoExpression.Info"
-msgstr "No expression to be calculated was entered."
 
 msgid "Surface.AnimationPointerMeasuring.Dialog.MaxValue"
 msgstr "Maximum value for scale"
@@ -23990,9 +23981,6 @@ msgstr "Remove the data row from list."
 
 msgid "Surface.ExpressionTableModel.Dialog"
 msgstr "Edit data row"
-
-msgid "Surface.ExpressionTableModel.Dialog.Expression"
-msgstr "Expression"
 
 msgid "Surface.ExpressionTableModel.Dialog.Expression.Error.Info"
 msgstr "The entered expression \"%s\" is invalid at character %d."
@@ -31590,6 +31578,33 @@ msgstr "The file format is unknown respectively is not matching to any of the fi
 #~ msgid "Statistics.WaitingTransferProcessTimesAtStationsClients"
 #~ msgstr "Waiting, transfer and process times at the stations by client types"
 
+#~ msgid "Surface.AnimationBar.Dialog.Expression"
+#~ msgstr "Expression"
+
+#~ msgid "Surface.AnimationBar.Dialog.Expression.Error.Title"
+#~ msgstr "Invalid expression"
+
+#~ msgid "Surface.AnimationBar.Dialog.Expression.ErrorInvalidExpression.Info"
+#~ msgstr "The entered expression \"%s\" is invalid at character %d."
+
+#~ msgid "Surface.AnimationBar.Dialog.Expression.ErrorNoExpression.Info"
+#~ msgstr "No expression to be calculated was entered."
+
+#~ msgid "Surface.AnimationBarStack.Dialog.Expression"
+#~ msgstr "Expression"
+
+#~ msgid "Surface.AnimationClock.Dialog.Expression"
+#~ msgstr "Expression"
+
+#~ msgid "Surface.AnimationClock.Dialog.Expression.Error.Title"
+#~ msgstr "Invalid expression"
+
+#~ msgid "Surface.AnimationClock.Dialog.Expression.ErrorInvalidExpression.Info"
+#~ msgstr "The entered expression \"%s\" is invalid at character %d."
+
+#~ msgid "Surface.AnimationClock.Dialog.Expression.ErrorNoExpression.Info"
+#~ msgstr "No expression to be calculated was entered."
+
 #~ msgid "Surface.AnimationLCD.Dialog.Digits.Error.Info"
 #~ msgstr ""
 #~ "The entered number of digits to be displayed \"%s\" is invalid.\n"
@@ -31597,6 +31612,33 @@ msgstr "The file format is unknown respectively is not matching to any of the fi
 
 #~ msgid "Surface.AnimationLCD.Dialog.Digits.Error.Title"
 #~ msgstr "Invalid number of digits"
+
+#~ msgid "Surface.AnimationLCD.Dialog.Expression"
+#~ msgstr "Expression"
+
+#~ msgid "Surface.AnimationLCD.Dialog.Expression.Error.Title"
+#~ msgstr "Invalid expression"
+
+#~ msgid "Surface.AnimationLCD.Dialog.Expression.ErrorInvalidExpression.Info"
+#~ msgstr "The entered expression \"%s\" is invalid at character %d."
+
+#~ msgid "Surface.AnimationLCD.Dialog.Expression.ErrorNoExpression.Info"
+#~ msgstr "No expression to be calculated was entered."
+
+#~ msgid "Surface.AnimationPointerMeasuring.Dialog.Expression"
+#~ msgstr "Expression"
+
+#~ msgid "Surface.AnimationPointerMeasuring.Dialog.Expression.Error.Title"
+#~ msgstr "Invalid expression"
+
+#~ msgid "Surface.AnimationPointerMeasuring.Dialog.Expression.ErrorInvalidExpression.Info"
+#~ msgstr "The entered expression \"%s\" is invalid at character %d."
+
+#~ msgid "Surface.AnimationPointerMeasuring.Dialog.Expression.ErrorNoExpression.Info"
+#~ msgstr "No expression to be calculated was entered."
+
+#~ msgid "Surface.ExpressionTableModel.Dialog.Expression"
+#~ msgstr "Expression"
 
 #~ msgid "Surface.HoldJS.Dialog.Language.JavaError"
 #~ msgstr "Java error"

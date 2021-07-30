@@ -26,6 +26,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.Semaphore;
+import java.util.stream.Collectors;
 
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
@@ -42,7 +43,6 @@ import mathtools.TimeTools;
 import simulator.editmodel.EditModel;
 import simulator.editmodel.FullTextSearch;
 import simulator.runmodel.SimulationData;
-import simulator.simparser.ExpressionCalc;
 import ui.images.Images;
 import ui.modeleditor.ModelClientData;
 import ui.modeleditor.ModelSequences;
@@ -92,7 +92,7 @@ public class ModelElementAnimationLineDiagram extends ModelElementAnimationDiagr
 	 * @see #getExpressionData()
 	 * @see #setExpressionData(List)
 	 */
-	private final List<String> expression=new ArrayList<>();
+	private final List<AnimationExpression> expression=new ArrayList<>();
 
 	/**
 	 * Minimalwerte
@@ -163,7 +163,7 @@ public class ModelElementAnimationLineDiagram extends ModelElementAnimationDiagr
 
 	/**
 	 * Liefert eine Liste der vorhandenen Diagramm-Einträge.<br>
-	 * Jeder Diagramm-Eintrag besteht aus 5 Objekten in einem Array: Ausdruck (String), Minimalwert (Double), Maximalwert (Double), Linienfarbe (Color), Linienbreite (Integer).
+	 * Jeder Diagramm-Eintrag besteht aus 5 Objekten in einem Array: Ausdruck (AnimationExpression), Minimalwert (Double), Maximalwert (Double), Linienfarbe (Color), Linienbreite (Integer).
 	 * @return	Liste der Diagramm-Einträge
 	 */
 	public List<Object[]> getExpressionData() {
@@ -188,7 +188,7 @@ public class ModelElementAnimationLineDiagram extends ModelElementAnimationDiagr
 
 	/**
 	 * Ersetzt die bisherigen Diagramm-Einträge durch eine neue Liste.<br>
-	 * Jeder Diagramm-Eintrag besteht aus 5 Objekten in einem Array: Ausdruck (String), Minimalwert (Double), Maximalwert (Double), Linienfarbe (Color), Linienbreite (Integer).
+	 * Jeder Diagramm-Eintrag besteht aus 5 Objekten in einem Array: Ausdruck (AnimationExpression), Minimalwert (Double), Maximalwert (Double), Linienfarbe (Color), Linienbreite (Integer).
 	 * @param data	Liste der neuen Diagramm-Einträge
 	 */
 	public void setExpressionData(final List<Object[]> data) {
@@ -199,12 +199,12 @@ public class ModelElementAnimationLineDiagram extends ModelElementAnimationDiagr
 		expressionWidth.clear();
 
 		for (Object[] row: data) if (row.length==5) {
-			if (!(row[0] instanceof String)) continue;
+			if (!(row[0] instanceof AnimationExpression)) continue;
 			if (!(row[1] instanceof Double) && !(row[1] instanceof Integer)) continue;
 			if (!(row[2] instanceof Double) && !(row[2] instanceof Integer)) continue;
 			if (!(row[3] instanceof Color)) continue;
 			if (!(row[4] instanceof Integer)) continue;
-			expression.add((String)row[0]);
+			expression.add((AnimationExpression)row[0]);
 			if (row[1] instanceof Double) minValue.add((Double)row[1]); else minValue.add(Double.valueOf(((Integer)row[1]).intValue()));
 			if (row[2] instanceof Double) maxValue.add((Double)row[2]); else maxValue.add(Double.valueOf(((Integer)row[2]).intValue()));
 			expressionColor.add((Color)row[3]);
@@ -238,41 +238,42 @@ public class ModelElementAnimationLineDiagram extends ModelElementAnimationDiagr
 	public boolean equalsModelElement(ModelElement element) {
 		if (!super.equalsModelElement(element)) return false;
 		if (!(element instanceof ModelElementAnimationLineDiagram)) return false;
+		final ModelElementAnimationLineDiagram other=(ModelElementAnimationLineDiagram)element;
 
-		if (expression.size()!=((ModelElementAnimationLineDiagram)element).expression.size()) return false;
-		for (int i=0;i<expression.size();i++) if (!expression.get(i).equals(((ModelElementAnimationLineDiagram)element).expression.get(i))) return false;
-		if (minValue.size()!=((ModelElementAnimationLineDiagram)element).minValue.size()) return false;
+		if (expression.size()!=other.expression.size()) return false;
+		for (int i=0;i<expression.size();i++) if (!expression.get(i).equalsAnimationExpression(other.expression.get(i))) return false;
+		if (minValue.size()!=other.minValue.size()) return false;
 		for (int i=0;i<minValue.size();i++) {
 			Double D1=minValue.get(i);
-			Double D2=((ModelElementAnimationLineDiagram)element).minValue.get(i);
+			Double D2=other.minValue.get(i);
 			if (D1==null || D2==null) return false;
 			double d1=D1;
 			double d2=D2;
 			if (d1!=d2) return false;
 		}
-		if (maxValue.size()!=((ModelElementAnimationLineDiagram)element).maxValue.size()) return false;
+		if (maxValue.size()!=other.maxValue.size()) return false;
 		for (int i=0;i<maxValue.size();i++) {
 			Double D1=maxValue.get(i);
-			Double D2=((ModelElementAnimationLineDiagram)element).maxValue.get(i);
+			Double D2=other.maxValue.get(i);
 			if (D1==null || D2==null) return false;
 			double d1=D1;
 			double d2=D2;
 			if (d1!=d2) return false;
 		}
-		if (expressionColor.size()!=((ModelElementAnimationLineDiagram)element).expressionColor.size()) return false;
-		for (int i=0;i<expressionColor.size();i++) if (!expressionColor.get(i).equals(((ModelElementAnimationLineDiagram)element).expressionColor.get(i))) return false;
+		if (expressionColor.size()!=other.expressionColor.size()) return false;
+		for (int i=0;i<expressionColor.size();i++) if (!expressionColor.get(i).equals(other.expressionColor.get(i))) return false;
 
-		if (expressionWidth.size()!=((ModelElementAnimationLineDiagram)element).expressionWidth.size()) return false;
+		if (expressionWidth.size()!=other.expressionWidth.size()) return false;
 		for (int i=0;i<expressionWidth.size();i++) {
 			Integer I1=expressionWidth.get(i);
-			Integer I2=((ModelElementAnimationLineDiagram)element).expressionWidth.get(i);
+			Integer I2=other.expressionWidth.get(i);
 			if (I1==null || I2==null) return false;
 			int i1=I1;
 			int i2=I2;
 			if (i1!=i2) return false;
 		}
 
-		if (timeArea!=((ModelElementAnimationLineDiagram)element).timeArea) return false;
+		if (timeArea!=other.timeArea) return false;
 
 		return true;
 	}
@@ -282,15 +283,16 @@ public class ModelElementAnimationLineDiagram extends ModelElementAnimationDiagr
 	 * @param element	Element, von dem alle Einstellungen übernommen werden sollen
 	 */
 	@Override
-	public void copyDataFrom(ModelElement element) {
+	public void copyDataFrom(final ModelElement element) {
 		super.copyDataFrom(element);
 		if (element instanceof ModelElementAnimationLineDiagram) {
+			final ModelElementAnimationLineDiagram source=(ModelElementAnimationLineDiagram)element;
 
-			expression.addAll(((ModelElementAnimationLineDiagram)element).expression);
-			minValue.addAll(((ModelElementAnimationLineDiagram)element).minValue);
-			maxValue.addAll(((ModelElementAnimationLineDiagram)element).maxValue);
-			expressionColor.addAll(((ModelElementAnimationLineDiagram)element).expressionColor);
-			expressionWidth.addAll(((ModelElementAnimationLineDiagram)element).expressionWidth);
+			expression.addAll(source.expression.stream().map(ex->new AnimationExpression(ex)).collect(Collectors.toList()));
+			minValue.addAll(source.minValue);
+			maxValue.addAll(source.maxValue);
+			expressionColor.addAll(source.expressionColor);
+			expressionWidth.addAll(source.expressionWidth);
 
 			timeArea=((ModelElementAnimationLineDiagram)element).timeArea;
 		}
@@ -518,7 +520,7 @@ public class ModelElementAnimationLineDiagram extends ModelElementAnimationDiagr
 		for (int i=0;i<expression.size();i++) {
 			sub=doc.createElement(Language.trPrimary("Surface.AnimationDiagram.XML.Set"));
 			node.appendChild(sub);
-			sub.setTextContent(expression.get(i));
+			expression.get(i).storeToXML(sub);
 			sub.setAttribute(Language.trPrimary("Surface.AnimationDiagram.XML.Set.Minimum"),NumberTools.formatSystemNumber(minValue.get(i)));
 			sub.setAttribute(Language.trPrimary("Surface.AnimationDiagram.XML.Set.Maximum"),NumberTools.formatSystemNumber(maxValue.get(i)));
 			sub.setAttribute(Language.trPrimary("Surface.AnimationDiagram.XML.Set.LineColor"),EditModel.saveColor(expressionColor.get(i)));
@@ -561,7 +563,9 @@ public class ModelElementAnimationLineDiagram extends ModelElementAnimationDiagr
 			if (I==null) return String.format(Language.tr("Surface.XML.AttributeSubError"),Language.trPrimary("Surface.AnimationDiagram.XML.Set.LineWidth"),name,node.getParentNode().getNodeName());
 			expressionWidth.add(I);
 
-			expression.add(content);
+			final AnimationExpression ex=new AnimationExpression();
+			ex.loadFromXML(node);
+			expression.add(ex);
 
 			return null;
 		}
@@ -574,28 +578,6 @@ public class ModelElementAnimationLineDiagram extends ModelElementAnimationDiagr
 		}
 
 		return null;
-	}
-
-	/**
-	 * Rechenausdruck der während der Animation ausgewertet
-	 * werden soll, um den darzustellenden Wert zu erhalten.
-	 * @see #initAnimation(SimulationData)
-	 * @see #updateSimulationData(SimulationData, boolean)
-	 */
-	private ExpressionCalc[] animationExpression;
-
-	/**
-	 * Wertet {@link #animationExpression} aus und liefert
-	 * den zu zeichnenden Wert zurück.
-	 * @param simData	Simulationsdatenobjekt
-	 * @param index	Auszuwertender Array-Index
-	 * @return	Darzustellender Wert
-	 */
-	private double calcExpression(final SimulationData simData, final int index) {
-		final ExpressionCalc calc=animationExpression[index];
-		if (calc==null) return 0.0;
-		simData.runData.setClientVariableValues(null);
-		return calc.calcOrDefault(simData.runData.variableValues,simData,null,0);
 	}
 
 	/**
@@ -613,7 +595,7 @@ public class ModelElementAnimationLineDiagram extends ModelElementAnimationDiagr
 	private List<Integer[]> cacheInteger=new ArrayList<>();
 
 	@Override
-	public boolean updateSimulationData(SimulationData simData, boolean isPreview) {
+	public boolean updateSimulationData(final SimulationData simData, final boolean isPreview) {
 		if (isPreview) return false;
 
 		if (recordedValues==null) {
@@ -631,7 +613,7 @@ public class ModelElementAnimationLineDiagram extends ModelElementAnimationDiagr
 		final int cacheIntegerSize=cacheInteger.size();
 
 		final double[] data=(cacheDoubleSize==0)?new double[expression.size()]:cacheDouble.remove(cacheDoubleSize-1);
-		for (int i=0;i<data.length;i++) data[i]=calcExpression(simData,i);
+		for (int i=0;i<data.length;i++) data[i]=expression.get(i).getAnimationValue(this,simData);
 
 		final Integer[] drawData;
 		if (cacheIntegerSize==0) {
@@ -683,15 +665,13 @@ public class ModelElementAnimationLineDiagram extends ModelElementAnimationDiagr
 	}
 
 	@Override
-	public void initAnimation(SimulationData simData) {
+	public void initAnimation(final SimulationData simData) {
 		recordedValues=null;
 		drawCacheStroke=null;
 		drawCacheColor=null;
-		animationExpression=new ExpressionCalc[expression.size()];
 
 		for (int i=0;i<expression.size();i++) {
-			animationExpression[i]=new ExpressionCalc(simData.runModel.variableNames);
-			if (animationExpression[i].parse(expression.get(i))>=0) animationExpression[i]=null;
+			expression.get(i).initAnimation(this,simData);
 		}
 	}
 
@@ -787,7 +767,16 @@ public class ModelElementAnimationLineDiagram extends ModelElementAnimationDiagr
 		final int colCount=expression.size()+1;
 		List<String> line=new ArrayList<>(colCount);
 		line.add(Language.tr("Statistic.Viewer.Chart.Time"));
-		line.addAll(expression);
+		for (int i=0;i<expression.size();i++) {
+			final String info;
+			switch (expression.get(i).getMode()) {
+			case Expression: info=expression.get(i).getExpression(); break;
+			case Java: info=Language.tr("ModelDescription.Expression.Java"); break;
+			case Javascript: info=Language.tr("ModelDescription.Expression.Javascript"); break;
+			default: info=expression.get(i).getExpression(); break;
+			}
+			line.add(info);
+		}
 		table.addLine(line);
 
 		drawLock.acquireUninterruptibly();
@@ -853,7 +842,10 @@ public class ModelElementAnimationLineDiagram extends ModelElementAnimationDiagr
 
 		for (int i=0;i<expression.size();i++) {
 			final int index=i;
-			searcher.testString(this,Language.tr("Editor.DialogBase.Search.Expression"),expression.get(index),newExpression->expression.set(index,newExpression));
+			final AnimationExpression ex=expression.get(i);
+			if (ex.getMode()==AnimationExpression.ExpressionMode.Expression) {
+				searcher.testString(this,Language.tr("Editor.DialogBase.Search.Expression"),ex.getExpression(),newExpression->ex.setExpression(newExpression));
+			}
 			searcher.testDouble(this,String.format(Language.tr("Editor.DialogBase.Search.MinValueForExpression"),expression.get(index)),minValue.get(index),newMinValue->minValue.set(index,newMinValue));
 			searcher.testDouble(this,String.format(Language.tr("Editor.DialogBase.Search.MaxValueForExpression"),expression.get(index)),maxValue.get(index),newMaxValue->maxValue.set(index,newMaxValue));
 			searcher.testInteger(this,String.format(Language.tr("Editor.DialogBase.Search.LineWidthForExpression"),expression.get(index)),expressionWidth.get(index),newLineWidth->{if (newLineWidth>0) expressionWidth.set(index,newLineWidth);});

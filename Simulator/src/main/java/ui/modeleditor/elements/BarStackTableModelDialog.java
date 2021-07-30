@@ -19,24 +19,16 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.FlowLayout;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.io.Serializable;
 
 import javax.swing.BoxLayout;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JTextField;
 
 import language.Language;
-import mathtools.NumberTools;
-import simulator.editmodel.EditModel;
-import simulator.simparser.ExpressionCalc;
 import systemtools.BaseDialog;
-import systemtools.MsgBox;
 import systemtools.SmallColorChooser;
-import ui.modeleditor.ModelElementBaseDialog;
-import ui.modeleditor.ModelSurface;
+import ui.modeleditor.coreelements.ModelElement;
 
 /**
  * Dieser Dialog erlaubt das Bearbeiten eines Audrucks und einer Farbe für einen
@@ -54,15 +46,17 @@ public class BarStackTableModelDialog extends BaseDialog {
 	private static final long serialVersionUID = -110037828381567665L;
 
 	/**
-	 * Liste mit allen im Modell zur Verfügung stehenden Variablennamen (zur Prüfung des Ausdrücks)
+	 * Ausdruck, der in {@link #editExpression} bearbeitet wird.
+	 * @see #editExpression
+	 * @see #getExpression()
 	 */
-	private final String[] variableNames;
+	private final AnimationExpression expression;
 
 	/**
 	 * Zu bearbeitender Rechenausdruck für das Balkensegment
 	 * @see #getExpression()
 	 */
-	private final JTextField editExpression;
+	private final AnimationExpressionPanel editExpression;
 
 	/**
 	 * Auswahl der Farbe für das Balkensegment
@@ -76,13 +70,11 @@ public class BarStackTableModelDialog extends BaseDialog {
 	 * @param help	Hilfe-Callback
 	 * @param expression	Bisheriger Ausdruck
 	 * @param color	Bisherige Farbe
-	 * @param variableNames	Liste mit allen im Modell zur Verfügung stehenden Variablennamen (zur Prüfung des Ausdrücks)
-	 * @param model	Gesamtes Modell (für den Expression-Builder)
-	 * @param surface	Haupt-Zeichenfläche (für den Expression-Builder)
+	 * @param element	Modell-Element dessen Ausdrücke und Farben konfiguriert werden sollen
+	 * @param helpRunnable	Hilfe-Callback
 	 */
-	public BarStackTableModelDialog(final Component owner, final Runnable help, final String expression, final Color color, final String[] variableNames, final EditModel model, final ModelSurface surface) {
+	public BarStackTableModelDialog(final Component owner, final Runnable help, final AnimationExpression expression, final Color color, final ModelElement element, final Runnable helpRunnable) {
 		super(owner,Language.tr("Surface.AnimationBarStack.Dialog.Edit"));
-		this.variableNames=variableNames;
 
 		JPanel line;
 		JLabel label;
@@ -91,17 +83,8 @@ public class BarStackTableModelDialog extends BaseDialog {
 		content.setLayout(new BoxLayout(content,BoxLayout.PAGE_AXIS));
 
 		/* Ausdruck */
-		Object[] data=ModelElementBaseDialog.getInputPanel(Language.tr("Surface.AnimationBarStack.Dialog.Expression")+":","");
-		content.add((JPanel)data[0]);
-		editExpression=(JTextField)data[1];
-		editExpression.setEditable(!readOnly);
-		((JPanel)data[0]).add(ModelElementBaseDialog.getExpressionEditButton(this,editExpression,false,false,model,surface),BorderLayout.EAST);
-		editExpression.addKeyListener(new KeyListener() {
-			@Override public void keyTyped(KeyEvent e) {checkData(false);}
-			@Override public void keyReleased(KeyEvent e) {checkData(false);}
-			@Override public void keyPressed(KeyEvent e) {checkData(false);}
-		});
-		editExpression.setText((expression==null)?"":expression);
+		this.expression=new AnimationExpression(expression);
+		content.add(editExpression=new AnimationExpressionPanel(element,this.expression,readOnly,helpRunnable));
 
 		/* Farbe */
 		content.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
@@ -123,26 +106,10 @@ public class BarStackTableModelDialog extends BaseDialog {
 	private boolean checkData(final boolean showErrorMessages) {
 		boolean ok=true;
 
-		final String text=editExpression.getText().trim();
-		if (text.isEmpty()) {
+		/* Ausdruck */
+		if (!editExpression.checkData(showErrorMessages)) {
 			ok=false;
-			editExpression.setBackground(Color.red);
-			if (showErrorMessages) {
-				MsgBox.error(this,Language.tr("Surface.AnimationBar.Dialog.Expression.Error.Title"),Language.tr("Surface.AnimationBar.Dialog.Expression.ErrorNoExpression.Info"));
-				return false;
-			}
-		} else {
-			int error=ExpressionCalc.check(text,variableNames);
-			if (error>=0) {
-				ok=false;
-				editExpression.setBackground(Color.red);
-				if (showErrorMessages) {
-					MsgBox.error(this,Language.tr("Surface.AnimationBar.Dialog.Expression.Error.Title"),String.format(Language.tr("Surface.AnimationBar.Dialog.Expression.ErrorInvalidExpression.Info"),text,error+1));
-					return false;
-				}
-			} else {
-				editExpression.setBackground(NumberTools.getTextFieldDefaultBackground());
-			}
+			if (showErrorMessages) return false;
 		}
 
 		return ok;
@@ -162,8 +129,9 @@ public class BarStackTableModelDialog extends BaseDialog {
 	 * Liefert im Falle, dass der Dialog per "Ok" geschlossen wird den neuen Ausdruck
 	 * @return	Neuer Ausdruck
 	 */
-	public String getExpression() {
-		return editExpression.getText();
+	public AnimationExpression getExpression() {
+		editExpression.storeData();
+		return expression;
 	}
 
 	/**

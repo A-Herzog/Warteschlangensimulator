@@ -16,10 +16,12 @@
 package simulator.editmodel;
 
 import java.io.File;
+import java.nio.charset.StandardCharsets;
 import java.security.InvalidKeyException;
 import java.security.KeyFactory;
 import java.security.KeyPair;
 import java.security.KeyPairGenerator;
+import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.PrivateKey;
 import java.security.PublicKey;
@@ -75,6 +77,22 @@ public class EditModelCertificateStore {
 		if (load()) return;
 		if (generateCertificate()) {
 			save();
+		}
+	}
+
+	/**
+	 * Berechnet den SHA256-Hash über eine Zeichenkette.
+	 * @param data	Zeichenkette für die der Hashwert berechnet werden soll
+	 * @return	SHA256-Hashwert
+	 */
+	public static String hash(final String data) {
+		if (data==null || data.trim().isEmpty()) return "";
+		try {
+			final MessageDigest digest=MessageDigest.getInstance("SHA-256");
+			final byte[] hash=digest.digest(data.getBytes(StandardCharsets.UTF_8));
+			return Base64.getEncoder().encodeToString(hash);
+		} catch (NoSuchAlgorithmException e) {
+			return "";
 		}
 	}
 

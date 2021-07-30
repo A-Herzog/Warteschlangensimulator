@@ -19,20 +19,14 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.FlowLayout;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.io.Serializable;
 
 import javax.swing.BoxLayout;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JTextField;
 
 import language.Language;
-import mathtools.NumberTools;
-import simulator.simparser.ExpressionCalc;
-import systemtools.MsgBox;
 import systemtools.SmallColorChooser;
 import ui.infopanel.InfoPanel;
 import ui.modeleditor.ModelElementBaseDialog;
@@ -50,7 +44,8 @@ public class ModelElementAnimationClockDialog extends ModelElementBaseDialog {
 	private static final long serialVersionUID = -4923048473167643207L;
 
 	/** Eingabefeld für den darzustellenden Ausdruck */
-	private JTextField editExpression;
+	private AnimationExpressionPanel editExpression;
+
 	/** Auswahl der Hintergrundfarbe der Uhr */
 	private SmallColorChooser colorChooser;
 
@@ -86,16 +81,7 @@ public class ModelElementAnimationClockDialog extends ModelElementBaseDialog {
 		content.setLayout(new BoxLayout(content,BoxLayout.PAGE_AXIS));
 
 		/* Ausdruck */
-		Object[] data=getInputPanel(Language.tr("Surface.AnimationClock.Dialog.Expression")+":","");
-		content.add((JPanel)data[0]);
-		editExpression=(JTextField)data[1];
-		editExpression.setEditable(!readOnly);
-		((JPanel)data[0]).add(getExpressionEditButton(this,editExpression,false,false,element.getModel(),element.getSurface()),BorderLayout.EAST);
-		editExpression.addKeyListener(new KeyListener() {
-			@Override public void keyTyped(KeyEvent e) {checkData(false);}
-			@Override public void keyReleased(KeyEvent e) {checkData(false);}
-			@Override public void keyPressed(KeyEvent e) {checkData(false);}
-		});
+		content.add(editExpression=new AnimationExpressionPanel(element,((ModelElementAnimationClock)element).getExpression(),readOnly,helpRunnable));
 
 		/* Farbe */
 		content.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
@@ -107,7 +93,6 @@ public class ModelElementAnimationClockDialog extends ModelElementBaseDialog {
 
 		/* Daten eintragen */
 		if (element instanceof ModelElementAnimationClock) {
-			editExpression.setText(((ModelElementAnimationClock)element).getExpression());
 			colorChooser.setColor(((ModelElementAnimationClock)element).getColor());
 		}
 
@@ -126,26 +111,10 @@ public class ModelElementAnimationClockDialog extends ModelElementBaseDialog {
 
 		boolean ok=true;
 
-		final String text=editExpression.getText().trim();
-		if (text.isEmpty()) {
+		/* Ausdruck */
+		if (!editExpression.checkData(showErrorMessages)) {
 			ok=false;
-			editExpression.setBackground(Color.red);
-			if (showErrorMessages) {
-				MsgBox.error(this,Language.tr("Surface.AnimationClock.Dialog.Expression.Error.Title"),Language.tr("Surface.AnimationClock.Dialog.Expression.ErrorNoExpression.Info"));
-				return false;
-			}
-		} else {
-			int error=ExpressionCalc.check(text,element.getSurface().getMainSurfaceVariableNames(element.getModel().getModelVariableNames(),false));
-			if (error>=0) {
-				ok=false;
-				editExpression.setBackground(Color.red);
-				if (showErrorMessages) {
-					MsgBox.error(this,Language.tr("Surface.AnimationClock.Dialog.Expression.Error.Title"),String.format(Language.tr("Surface.AnimationClock.Dialog.Expression.ErrorInvalidExpression.Info"),text,error+1));
-					return false;
-				}
-			} else {
-				editExpression.setBackground(NumberTools.getTextFieldDefaultBackground());
-			}
+			if (showErrorMessages) return false;
 		}
 
 		return ok;
@@ -171,7 +140,7 @@ public class ModelElementAnimationClockDialog extends ModelElementBaseDialog {
 		super.storeData();
 
 		final ModelElementAnimationClock clock=(ModelElementAnimationClock)element;
-		clock.setExpression(editExpression.getText().trim());
+		editExpression.storeData();
 		clock.setColor(colorChooser.getColor());
 	}
 }

@@ -28,6 +28,7 @@ import java.awt.Stroke;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Semaphore;
+import java.util.stream.Collectors;
 
 import javax.swing.Icon;
 import javax.swing.JMenu;
@@ -44,7 +45,6 @@ import mathtools.Table;
 import simulator.editmodel.EditModel;
 import simulator.editmodel.FullTextSearch;
 import simulator.runmodel.SimulationData;
-import simulator.simparser.ExpressionCalc;
 import ui.images.Images;
 import ui.modeleditor.ModelClientData;
 import ui.modeleditor.ModelSequences;
@@ -101,7 +101,7 @@ public class ModelElementAnimationPieChart extends ModelElementPosition implemen
 	 * @see #getExpressionData()
 	 * @see #setExpressionData(List)
 	 */
-	private final List<String> expression=new ArrayList<>();
+	private final List<AnimationExpression> expression=new ArrayList<>();
 
 	/**
 	 * Farben für die Segmente
@@ -177,7 +177,7 @@ public class ModelElementAnimationPieChart extends ModelElementPosition implemen
 
 	/**
 	 * Liefert eine Liste der vorhandenen Diagramm-Einträge.<br>
-	 * Jeder Diagramm-Eintrag besteht aus 2 Objekten in einem Array: Ausdruck (String), Balkenfarbe (Color).
+	 * Jeder Diagramm-Eintrag besteht aus 2 Objekten in einem Array: Ausdruck (AnimationExpression), Balkenfarbe (Color).
 	 * @return	Liste der Diagramm-Einträge
 	 */
 	public List<Object[]> getExpressionData() {
@@ -196,7 +196,7 @@ public class ModelElementAnimationPieChart extends ModelElementPosition implemen
 
 	/**
 	 * Ersetzt die bisherigen Diagramm-Einträge durch eine neue Liste.<br>
-	 * Jeder Diagramm-Eintrag besteht aus 2 Objekten in einem Array: Ausdruck (String), Balkenfarbe (Color).
+	 * Jeder Diagramm-Eintrag besteht aus 2 Objekten in einem Array: Ausdruck (AnimationExpression), Balkenfarbe (Color).
 	 * @param data	Liste der neuen Diagramm-Einträge
 	 */
 	public void setExpressionData(final List<Object[]> data) {
@@ -204,9 +204,9 @@ public class ModelElementAnimationPieChart extends ModelElementPosition implemen
 		expressionColor.clear();
 
 		for (Object[] row: data) if (row.length==2) {
-			if (!(row[0] instanceof String)) continue;
+			if (!(row[0] instanceof AnimationExpression)) continue;
 			if (!(row[1] instanceof Color)) continue;
-			expression.add((String)row[0]);
+			expression.add((AnimationExpression)row[0]);
 			expressionColor.add((Color)row[1]);
 		}
 	}
@@ -293,7 +293,7 @@ public class ModelElementAnimationPieChart extends ModelElementPosition implemen
 		final ModelElementAnimationPieChart other=(ModelElementAnimationPieChart)element;
 
 		if (expression.size()!=other.expression.size()) return false;
-		for (int i=0;i<expression.size();i++) if (!expression.get(i).equals(other.expression.get(i))) return false;
+		for (int i=0;i<expression.size();i++) if (!expression.get(i).equalsAnimationExpression(other.expression.get(i))) return false;
 
 		if (expressionColor.size()!=other.expressionColor.size()) return false;
 		for (int i=0;i<expressionColor.size();i++) if (!expressionColor.get(i).equals(other.expressionColor.get(i))) return false;
@@ -320,7 +320,7 @@ public class ModelElementAnimationPieChart extends ModelElementPosition implemen
 		if (element instanceof ModelElementAnimationPieChart) {
 			final ModelElementAnimationPieChart source=(ModelElementAnimationPieChart)element;
 
-			expression.addAll(source.expression);
+			expression.addAll(source.expression.stream().map(ex->new AnimationExpression(ex)).collect(Collectors.toList()));
 			expressionColor.addAll(source.expressionColor);
 
 			labelMode=source.labelMode;
@@ -691,7 +691,7 @@ public class ModelElementAnimationPieChart extends ModelElementPosition implemen
 		for (int i=0;i<expression.size();i++) {
 			sub=doc.createElement(Language.trPrimary("Surface.AnimationPieChart.XML.Set"));
 			node.appendChild(sub);
-			sub.setTextContent(expression.get(i));
+			expression.get(i).storeToXML(sub);
 			sub.setAttribute(Language.trPrimary("Surface.AnimationPieChart.XML.Set.PieColor"),EditModel.saveColor(expressionColor.get(i)));
 		}
 	}
@@ -739,7 +739,9 @@ public class ModelElementAnimationPieChart extends ModelElementPosition implemen
 			}
 			expressionColor.add(color);
 
-			expression.add(content);
+			final AnimationExpression ex=new AnimationExpression();
+			ex.loadFromXML(node);
+			expression.add(ex);
 
 			return null;
 		}
@@ -751,28 +753,6 @@ public class ModelElementAnimationPieChart extends ModelElementPosition implemen
 		}
 
 		return null;
-	}
-
-	/**
-	 * Rechenausdruck der während der Animation ausgewertet
-	 * werden soll, um den darzustellenden Wert zu erhalten.
-	 * @see #initAnimation(SimulationData)
-	 * @see #updateSimulationData(SimulationData, boolean)
-	 */
-	private ExpressionCalc[] animationExpression;
-
-	/**
-	 * Wertet {@link #animationExpression} aus und liefert
-	 * den zu zeichnenden Wert zurück.
-	 * @param simData	Simulationsdatenobjekt
-	 * @param index	Auszuwertender Array-Index
-	 * @return	Darzustellender Wert
-	 */
-	private double calcExpression(final SimulationData simData, final int index) {
-		final ExpressionCalc calc=animationExpression[index];
-		if (calc==null) return 0.0;
-		simData.runData.setClientVariableValues(null);
-		return calc.calcOrDefault(simData.runData.variableValues,simData,null,0);
 	}
 
 	/**
@@ -789,7 +769,7 @@ public class ModelElementAnimationPieChart extends ModelElementPosition implemen
 	private int drawActiveDataSet;
 
 	@Override
-	public boolean updateSimulationData(SimulationData simData, boolean isPreview) {
+	public boolean updateSimulationData(final SimulationData simData, final boolean isPreview) {
 		if (isPreview) return false;
 
 		if (dataSets==null) {
@@ -802,7 +782,7 @@ public class ModelElementAnimationPieChart extends ModelElementPosition implemen
 		boolean needUpdate=false;
 		final int nextDataSet=(drawActiveDataSet+1)%2;
 		for (int i=0;i<dataSets[0].length;i++) {
-			final double value=calcExpression(simData,i);
+			final double value=expression.get(i).getAnimationValue(this,simData);
 			dataSets[nextDataSet][i]=value;
 			if (!needUpdate) needUpdate=(dataSets[drawActiveDataSet][i]!=value);
 		}
@@ -819,13 +799,11 @@ public class ModelElementAnimationPieChart extends ModelElementPosition implemen
 	}
 
 	@Override
-	public void initAnimation(SimulationData simData) {
+	public void initAnimation(final SimulationData simData) {
 		recordedValues=null;
-		animationExpression=new ExpressionCalc[expression.size()];
 
 		for (int i=0;i<expression.size();i++) {
-			animationExpression[i]=new ExpressionCalc(simData.runModel.variableNames);
-			if (animationExpression[i].parse(expression.get(i))>=0) animationExpression[i]=null;
+			expression.get(i).initAnimation(this,simData);
 		}
 	}
 
@@ -951,7 +929,14 @@ public class ModelElementAnimationPieChart extends ModelElementPosition implemen
 		try {
 			for (int i=0;i<recordedValues.length;i++) {
 				final List<String> line=new ArrayList<>(2);
-				line.add(expression.get(i));
+				final String info;
+				switch (expression.get(i).getMode()) {
+				case Expression: info=expression.get(i).getExpression(); break;
+				case Java: info=Language.tr("ModelDescription.Expression.Java"); break;
+				case Javascript: info=Language.tr("ModelDescription.Expression.Javascript"); break;
+				default: info=expression.get(i).getExpression(); break;
+				}
+				line.add(info);
 				line.add(NumberTools.formatNumber(recordedValues[i],3));
 				table.addLine(line);
 			}
@@ -1008,8 +993,10 @@ public class ModelElementAnimationPieChart extends ModelElementPosition implemen
 		super.search(searcher);
 
 		for (int i=0;i<expression.size();i++) {
-			final int index=i;
-			searcher.testString(this,Language.tr("Editor.DialogBase.Search.Expression"),expression.get(index),newExpression->expression.set(index,newExpression));
+			final AnimationExpression ex=expression.get(i);
+			if (ex.getMode()==AnimationExpression.ExpressionMode.Expression) {
+				searcher.testString(this,Language.tr("Editor.DialogBase.Search.Expression"),ex.getExpression(),newExpression->ex.setExpression(newExpression));
+			}
 		}
 		searcher.testInteger(this,Language.tr("Editor.DialogBase.Search.BorderWidth"),borderWidth,newBorderWidth->{if (newBorderWidth>=0) borderWidth=newBorderWidth;});
 	}

@@ -37,7 +37,9 @@ import ui.EditorPanel;
 import ui.modeleditor.ModelSurface;
 import ui.modeleditor.coreelements.ModelElement;
 import ui.modeleditor.coreelements.ModelElementPosition;
+import ui.modeleditor.elements.AnimationExpression;
 import ui.modeleditor.elements.ElementNoRemoteSimulation;
+import ui.modeleditor.elements.ElementWithAnimationScripts;
 import ui.modeleditor.elements.ElementWithScript;
 import ui.modeleditor.elements.ElementWithScript.ScriptMode;
 import ui.modeleditor.elements.ModelElementSub;
@@ -227,16 +229,27 @@ public class BackgroundSystem {
 				if (((ElementWithScript)element1).getMode()==ScriptMode.Java) scripts.add(((ElementWithScript)element1).getScript());
 				continue;
 			}
+			if (element1 instanceof ElementWithAnimationScripts) {
+				for (AnimationExpression expression: ((ElementWithAnimationScripts)element1).getAnimationScripts()) {
+					if (expression.getMode()==AnimationExpression.ExpressionMode.Java) scripts.add(expression.getScript());
+				}
+			}
 			if (element1 instanceof ModelElementSub) {
 				for (ModelElement element2: ((ModelElementSub)element1).getSubSurface().getElements()) {
 					if (element2 instanceof ElementWithScript) {
 						if (((ElementWithScript)element2).getMode()==ScriptMode.Java) scripts.add(((ElementWithScript)element2).getScript());
 						continue;
 					}
+					if (element2 instanceof ElementWithAnimationScripts) {
+						for (AnimationExpression expression: ((ElementWithAnimationScripts)element2).getAnimationScripts()) {
+							if (expression.getMode()==AnimationExpression.ExpressionMode.Java) scripts.add(expression.getScript());
+						}
+					}
 				}
 				continue;
 			}
 		}
+		if (scripts.isEmpty()) return;
 
 		final DynamicFactory dynamicFactory=DynamicFactory.getFactory();
 		final ImportSettingsBuilder scriptSettings=new ImportSettingsBuilder(model);

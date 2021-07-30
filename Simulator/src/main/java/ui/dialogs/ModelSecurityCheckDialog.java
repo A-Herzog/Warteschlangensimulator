@@ -21,6 +21,7 @@ import java.awt.FlowLayout;
 import java.io.Serializable;
 import java.security.PublicKey;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.swing.BoxLayout;
@@ -44,16 +45,15 @@ import ui.images.Images;
 import ui.modeleditor.ModelSurface;
 import ui.modeleditor.coreelements.ModelElement;
 import ui.modeleditor.coreelements.ModelElementBox;
+import ui.modeleditor.coreelements.ModelElementPosition;
+import ui.modeleditor.elements.AnimationExpression;
+import ui.modeleditor.elements.ElementWithAnimationScripts;
 import ui.modeleditor.elements.ElementWithScript;
-import ui.modeleditor.elements.ModelElementDecideJS;
 import ui.modeleditor.elements.ModelElementDisposeWithTable;
-import ui.modeleditor.elements.ModelElementHoldJS;
-import ui.modeleditor.elements.ModelElementInputJS;
 import ui.modeleditor.elements.ModelElementOutput;
 import ui.modeleditor.elements.ModelElementOutputDB;
 import ui.modeleditor.elements.ModelElementOutputDDE;
 import ui.modeleditor.elements.ModelElementOutputJS;
-import ui.modeleditor.elements.ModelElementSetJS;
 import ui.modeleditor.elements.ModelElementSub;
 
 /**
@@ -170,49 +170,36 @@ public class ModelSecurityCheckDialog extends BaseDialog {
 	 * @return	Liefert ggf. ein Informationobjekt mit Daten zu der sicherheitskritischen Eigenschaften zurück oder <code>null</code>, wenn keine sicherheitskritischen Eigenschaften vorliegne
 	 * @see #getCriticalElements(ModelSurface)
 	 */
-	private static CriticalElement testElement(final ModelElementBox element) {
-		String script;
-		ElementWithScript.ScriptMode scriptMode;
-
+	private static CriticalElement[] testElement(final ModelElementPosition element) {
 		if (element instanceof ModelElementOutput) {
-			return new CriticalElement(element,CriticalType.FILE_OUTPUT,((ModelElementOutput)element).getOutputFile());
+			final ModelElementOutput box=(ModelElementOutput)element;
+			return new CriticalElement[]{new CriticalElement(box,CriticalType.FILE_OUTPUT,box.getOutputFile())};
 		}
 		if (element instanceof ModelElementOutputJS) {
-			return new CriticalElement(element,CriticalType.FILE_OUTPUT,((ModelElementOutputJS)element).getOutputFile());
+			final ModelElementOutputJS box=(ModelElementOutputJS)element;
+			return new CriticalElement[]{new CriticalElement(box,CriticalType.FILE_OUTPUT,box.getOutputFile())};
 		}
 		if (element instanceof ModelElementOutputDDE) {
-			return new CriticalElement(element,CriticalType.DDE_OUTPUT,((ModelElementOutputDDE)element).getWorkbook());
+			final ModelElementOutputDDE box=(ModelElementOutputDDE)element;
+			return new CriticalElement[]{new CriticalElement(box,CriticalType.DDE_OUTPUT,box.getWorkbook())};
 		}
 		if (element instanceof ModelElementOutputDB) {
-			return new CriticalElement(element,CriticalType.DB_OUTPUT,((ModelElementOutputDB)element).getDb().getConfig());
+			final ModelElementOutputDB box=(ModelElementOutputDB)element;
+			return new CriticalElement[]{new CriticalElement(box,CriticalType.DB_OUTPUT,box.getDb().getConfig())};
 		}
 		if (element instanceof ModelElementDisposeWithTable) {
-			return new CriticalElement(element,CriticalType.FILE_OUTPUT,((ModelElementDisposeWithTable)element).getOutputFile());
+			final ModelElementDisposeWithTable box=(ModelElementDisposeWithTable)element;
+			return new CriticalElement[]{new CriticalElement(box,CriticalType.FILE_OUTPUT,box.getOutputFile())};
 		}
-		if (element instanceof ModelElementSetJS) {
-			scriptMode=((ModelElementSetJS)element).getMode();
-			script=((ModelElementSetJS)element).getScript();
-			return new CriticalElement(element,scriptMode,script);
+		if ((element instanceof ElementWithScript) && (element instanceof ModelElementBox)) {
+			final ElementWithScript.ScriptMode scriptMode=((ElementWithScript)element).getMode();
+			final String script=((ElementWithScript)element).getScript();
+			return new CriticalElement[]{new CriticalElement((ModelElementBox)element,scriptMode,script)};
 		}
-		if (element instanceof ModelElementDecideJS) {
-			scriptMode=((ModelElementDecideJS)element).getMode();
-			script=((ModelElementDecideJS)element).getScript();
-			return new CriticalElement(element,scriptMode,script);
-		}
-		if (element instanceof ModelElementHoldJS) {
-			scriptMode=((ModelElementHoldJS)element).getMode();
-			script=((ModelElementHoldJS)element).getScript();
-			return new CriticalElement(element,scriptMode,script);
-		}
-		if (element instanceof ModelElementInputJS) {
-			scriptMode=((ModelElementInputJS)element).getMode();
-			script=((ModelElementInputJS)element).getScript();
-			return new CriticalElement(element,scriptMode,script);
-		}
-		if (element instanceof ModelElementOutputJS) {
-			scriptMode=((ModelElementOutputJS)element).getMode();
-			script=((ModelElementOutputJS)element).getScript();
-			return new CriticalElement(element,scriptMode,script);
+		if ((element instanceof ElementWithAnimationScripts) && (element instanceof ModelElementPosition)) {
+			final CriticalElement[] result=Arrays.asList(((ElementWithAnimationScripts)element).getAnimationScripts()).stream().map(expression->new CriticalElement(element,expression)).toArray(CriticalElement[]::new);
+			if (result.length==0) return null;
+			return result;
 		}
 
 		return null;
@@ -235,9 +222,9 @@ public class ModelSecurityCheckDialog extends BaseDialog {
 	public static List<CriticalElement> getCriticalElements(final ModelSurface surface) {
 		final List<CriticalElement> list=new ArrayList<>();
 
-		for (ModelElement element: surface.getElements()) if (element instanceof ModelElementBox) {
-			final CriticalElement criticalRecord=testElement((ModelElementBox)element);
-			if (criticalRecord!=null) list.add(criticalRecord);
+		for (ModelElement element: surface.getElements()) if (element instanceof ModelElementPosition) {
+			final CriticalElement[] criticalRecords=testElement((ModelElementPosition)element);
+			if (criticalRecords!=null) for (CriticalElement criticalRecord: criticalRecords) list.add(criticalRecord);
 			if (element instanceof ModelElementSub) list.addAll(getCriticalElements(((ModelElementSub)element).getSubSurface()));
 		}
 
@@ -352,6 +339,7 @@ public class ModelSecurityCheckDialog extends BaseDialog {
 			} else {
 				stationName=String.format(Language.tr("ModelSecurityCheck.Station.WithName"),station.getName(),station.getId());
 			}
+
 			this.type=type;
 			this.info=info;
 		}
@@ -370,12 +358,36 @@ public class ModelSecurityCheckDialog extends BaseDialog {
 			} else {
 				stationName=String.format(Language.tr("ModelSecurityCheck.Station.WithName"),station.getName(),station.getId());
 			}
+
 			switch (type) {
 			case Javascript: this.type=CriticalType.SCRIPT_JAVASCRIPT; break;
 			case Java: this.type=CriticalType.SCRIPT_JAVA; break;
 			default: this.type=CriticalType.SCRIPT_JAVASCRIPT; break;
 			}
 			this.info=info;
+		}
+
+		/**
+		 * Konstruktor der Klasse
+		 * @param station	Station, die als kritisch eingestuft wurde
+		 * @param expression	Animation-Skript-Objekt
+		 * @see AnimationExpression
+		 */
+		public CriticalElement(final ModelElementPosition station, AnimationExpression expression) {
+			stationType=station.getContextMenuElementName();
+			stationId=station.getId();
+			if (station.getName().trim().isEmpty())	{
+				stationName=String.format(Language.tr("ModelSecurityCheck.Station.NoName"),station.getId());
+			} else {
+				stationName=String.format(Language.tr("ModelSecurityCheck.Station.WithName"),station.getName(),station.getId());
+			}
+
+			switch (expression.getMode()) {
+			case Javascript: this.type=CriticalType.SCRIPT_JAVASCRIPT; break;
+			case Java: this.type=CriticalType.SCRIPT_JAVA; break;
+			default: this.type=CriticalType.SCRIPT_JAVASCRIPT; break;
+			}
+			this.info=expression.getScript();
 		}
 	}
 

@@ -15,13 +15,11 @@
  */
 package ui.modeleditor.elements;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.Serializable;
-import java.util.Map;
 
 import javax.swing.BoxLayout;
 import javax.swing.JPanel;
@@ -29,10 +27,10 @@ import javax.swing.JTextField;
 
 import language.Language;
 import mathtools.NumberTools;
-import simulator.simparser.ExpressionCalc;
 import systemtools.BaseDialog;
 import systemtools.MsgBox;
 import ui.modeleditor.ModelElementBaseDialog;
+import ui.modeleditor.coreelements.ModelElement;
 
 /**
  * Dialog zum Bearbeiten einer Reihe für ein Amimationsdiagramm
@@ -50,12 +48,14 @@ public class ExpressionTableModelDialog1 extends BaseDialog {
 	private static final long serialVersionUID = -9107725290348536791L;
 
 	/**
-	 * Liste der globalen Variablen (zum Prüfen von Ausdrücken)
+	 * Ausdruck, der in {@link #editExpression} bearbeitet wird.
+	 * @see #editExpression
+	 * @see #getExpression()
 	 */
-	private final String[] variableNames;
+	private final AnimationExpression expression;
 
 	/** Eingabefeld für den Rechenausdruck */
-	private final JTextField expressionEdit;
+	private final AnimationExpressionPanel editExpression;
 	/** Eingabefeld für den Minimalwert */
 	private final JTextField minValueEdit;
 	/** Eingabefeld für den Maximalwert */
@@ -77,36 +77,26 @@ public class ExpressionTableModelDialog1 extends BaseDialog {
 	/**
 	 * Konstruktor der Klasse
 	 * @param owner	Übergeordnetes Element
+	 * @param element	Modell-Element dessen Ausdrücke konfiguriert werden sollen
 	 * @param expression	Bisheriger Ausdruck
 	 * @param minValue	Bisheriger Minimalwert
 	 * @param maxValue	Bisheriger Maximalwert
-	 * @param variableNames	Liste der globalen Variablen (zum Prüfen von Ausdrücken)
-	 * @param initialVariableValues	Initiale Variablenwerte (für Expression-Builder)
-	 * @param stationIDs	Stations-IDs (für Expression-Builder)
-	 * @param stationNameIDs	Stationsname (für Expression-Builder)
 	 * @param helpRunnable	Hilfe-Runnable
 	 * @param iconMode	Soll der Dialog zum Bearbeiten einer Balkendiagrammreihe oder eines Tortensegments verwendet werden?
 	 */
-	public ExpressionTableModelDialog1(final Component owner, final String expression, final double minValue, final double maxValue, final String[] variableNames, final Map<String,String> initialVariableValues, final Map<Integer,String> stationIDs, final Map<Integer,String> stationNameIDs, final Runnable helpRunnable, final ExpressionTableModelBar.IconMode iconMode) {
+	public ExpressionTableModelDialog1(final Component owner, final ModelElement element, final AnimationExpression expression, final double minValue, final double maxValue, final Runnable helpRunnable, final ExpressionTableModelBar.IconMode iconMode) {
 		super(owner,getTitle(iconMode));
-		this.variableNames=variableNames;
 
 		Object[] data;
-		JPanel line;
 
 		final JPanel content=createGUI(helpRunnable);
 		content.setLayout(new BoxLayout(content,BoxLayout.PAGE_AXIS));
 
-		data=ModelElementBaseDialog.getInputPanel(Language.tr("Surface.ExpressionTableModel.Dialog.Expression")+":",expression);
-		content.add(line=(JPanel)data[0]);
-		expressionEdit=(JTextField)data[1];
-		expressionEdit.addKeyListener(new KeyListener() {
-			@Override public void keyTyped(KeyEvent e) {checkData(false);}
-			@Override public void keyReleased(KeyEvent e) {checkData(false);}
-			@Override public void keyPressed(KeyEvent e) {checkData(false);}
-		});
-		line.add(ModelElementBaseDialog.getExpressionEditButton(this,expressionEdit,false,variableNames,initialVariableValues,stationIDs,stationNameIDs,false),BorderLayout.EAST);
+		/* Ausdruck */
+		this.expression=new AnimationExpression(expression);
+		content.add(editExpression=new AnimationExpressionPanel(element,this.expression,readOnly,helpRunnable));
 
+		/* Minimaler Wert */
 		data=ModelElementBaseDialog.getInputPanel(Language.tr("Surface.ExpressionTableModel.Dialog.MinimalValue")+":",NumberTools.formatNumber(minValue));
 		content.add((JPanel)data[0]);
 		minValueEdit=(JTextField)data[1];
@@ -116,6 +106,7 @@ public class ExpressionTableModelDialog1 extends BaseDialog {
 			@Override public void keyPressed(KeyEvent e) {checkData(false);}
 		});
 
+		/* Maximaler Wert */
 		data=ModelElementBaseDialog.getInputPanel(Language.tr("Surface.ExpressionTableModel.Dialog.MaximalValue")+":",NumberTools.formatNumber(maxValue));
 		content.add((JPanel)data[0]);
 		maxValueEdit=(JTextField)data[1];
@@ -125,6 +116,7 @@ public class ExpressionTableModelDialog1 extends BaseDialog {
 			@Override public void keyPressed(KeyEvent e) {checkData(false);}
 		});
 
+		/* Dialog starten */
 		setMinSizeRespectingScreensize(500,0);
 		pack();
 		setLocationRelativeTo(this.owner);
@@ -134,37 +126,26 @@ public class ExpressionTableModelDialog1 extends BaseDialog {
 	/**
 	 * Konstruktor der Klasse
 	 * @param owner	Übergeordnetes Element
+	 * @param element	Modell-Element dessen Ausdrücke konfiguriert werden sollen
 	 * @param expression	Bisheriger Ausdruck
-	 * @param variableNames	Liste der globalen Variablen (zum Prüfen von Ausdrücken)
-	 * @param initialVariableValues	Initiale Variablenwerte (für Expression-Builder)
-	 * @param stationIDs	Stations-IDs (für Expression-Builder)
-	 * @param stationNameIDs	Stationsname (für Expression-Builder)
 	 * @param helpRunnable	Hilfe-Runnable
 	 * @param iconMode	Soll der Dialog zum Bearbeiten einer Balkendiagrammreihe oder eines Tortensegments verwendet werden?
 	 */
-	public ExpressionTableModelDialog1(final Component owner, final String expression, final String[] variableNames, final Map<String,String> initialVariableValues, final Map<Integer,String> stationIDs, final Map<Integer,String> stationNameIDs, final Runnable helpRunnable, final ExpressionTableModelBar.IconMode iconMode) {
+	public ExpressionTableModelDialog1(final Component owner, final ModelElement element, final AnimationExpression expression, final Runnable helpRunnable, final ExpressionTableModelBar.IconMode iconMode) {
 		super(owner,getTitle(iconMode));
-		this.variableNames=variableNames;
-
-		Object[] data;
-		JPanel line;
 
 		final JPanel content=createGUI(helpRunnable);
 		content.setLayout(new BoxLayout(content,BoxLayout.PAGE_AXIS));
 
-		data=ModelElementBaseDialog.getInputPanel(Language.tr("Surface.ExpressionTableModel.Dialog.Expression")+":",expression);
-		content.add(line=(JPanel)data[0]);
-		expressionEdit=(JTextField)data[1];
-		expressionEdit.addKeyListener(new KeyListener() {
-			@Override public void keyTyped(KeyEvent e) {checkData(false);}
-			@Override public void keyReleased(KeyEvent e) {checkData(false);}
-			@Override public void keyPressed(KeyEvent e) {checkData(false);}
-		});
-		line.add(ModelElementBaseDialog.getExpressionEditButton(this,expressionEdit,false,variableNames,initialVariableValues,stationIDs,stationNameIDs,false),BorderLayout.EAST);
+		/* Ausdruck */
+		this.expression=new AnimationExpression(expression);
+		content.add(editExpression=new AnimationExpressionPanel(element,this.expression,readOnly,helpRunnable));
 
+		/* Kein minimaler oder maximaler Wert */
 		minValueEdit=null;
 		maxValueEdit=null;
 
+		/* Dialog starten */
 		setMinSizeRespectingScreensize(500,0);
 		pack();
 		setLocationRelativeTo(this.owner);
@@ -179,19 +160,14 @@ public class ExpressionTableModelDialog1 extends BaseDialog {
 	private boolean checkData(final boolean showErrorMessages) {
 		boolean ok=true;
 
-		int error=ExpressionCalc.check(expressionEdit.getText(),variableNames);
-		if (error>=0) {
+		/* Ausdruck */
+		if (!editExpression.checkData(showErrorMessages)) {
 			ok=false;
-			expressionEdit.setBackground(Color.red);
-			if (showErrorMessages) {
-				MsgBox.error(this,Language.tr("Surface.ExpressionTableModel.Dialog.Expression.Error.Title"),String.format(Language.tr("Surface.ExpressionTableModel.Dialog.Expression.Error.Info"),expressionEdit.getText(),error+1));
-				return false;
-			}
-		} else {
-			expressionEdit.setBackground(NumberTools.getTextFieldDefaultBackground());
+			if (showErrorMessages) return false;
 		}
 
 		if (minValueEdit!=null && maxValueEdit!=null) {
+			/* Minimaler Wert */
 			final Double Dmin=NumberTools.getDouble(minValueEdit,true);
 			if (Dmin==null) {
 				if (showErrorMessages) {
@@ -200,6 +176,7 @@ public class ExpressionTableModelDialog1 extends BaseDialog {
 				}
 				ok=true;
 			}
+			/* Maximaler Wert */
 			final Double Dmax=NumberTools.getDouble(maxValueEdit,true);
 			if (Dmax==null) {
 				if (showErrorMessages) {
@@ -234,8 +211,9 @@ public class ExpressionTableModelDialog1 extends BaseDialog {
 	 * Liefert den neuen Ausdruck.
 	 * @return	Neuer Ausdruck
 	 */
-	public String getExpression() {
-		return expressionEdit.getText().trim();
+	public AnimationExpression getExpression() {
+		editExpression.storeData();
+		return expression;
 	}
 
 	/**

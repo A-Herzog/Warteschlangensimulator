@@ -124,6 +124,7 @@ import ui.modeleditor.coreelements.ModelElementBox;
 import ui.modeleditor.coreelements.ModelElementPosition;
 import ui.modeleditor.descriptionbuilder.ModelDescriptionBuilderSingleStation;
 import ui.modeleditor.descriptionbuilder.ModelDescriptionBuilderStyled;
+import ui.modeleditor.elements.AnimationExpression;
 import ui.modeleditor.elements.ElementAnimationClickable;
 import ui.modeleditor.elements.FontCache;
 import ui.modeleditor.elements.ModelElementAnimationBar;
@@ -2148,32 +2149,32 @@ public final class ModelSurfacePanel extends JPanel {
 		addVisualizationContextMenuItem(parentMenu,text);
 
 		bar=new ModelElementAnimationBar(null,null);
-		bar.setExpression("wip()");
+		bar.getExpression().setExpression("wip()");
 		bar.setSize(new Dimension(25,50));
 		bar.setName(Language.tr("Surface.Popup.AddVisualization.CurrentWIPTotal"));
 		addVisualizationContextMenuItem(parentMenu,bar);
 
 		bar=new ModelElementAnimationBar(null,null);
-		bar.setExpression("wip_Avg()");
+		bar.getExpression().setExpression("wip_avg()");
 		bar.setSize(new Dimension(25,50));
 		bar.setName(Language.tr("Surface.Popup.AddVisualization.AverageWIPTotal"));
 		addVisualizationContextMenuItem(parentMenu,bar);
 
 		bar=new ModelElementAnimationBar(null,null);
-		bar.setExpression("NQ()");
+		bar.getExpression().setExpression("NQ()");
 		bar.setSize(new Dimension(25,50));
 		bar.setName(Language.tr("Surface.Popup.AddVisualization.CurrentNQTotal"));
 		addVisualizationContextMenuItem(parentMenu,bar);
 
 		bar=new ModelElementAnimationBar(null,null);
-		bar.setExpression("NQ_avg()");
+		bar.getExpression().setExpression("NQ_avg()");
 		bar.setSize(new Dimension(25,50));
 		bar.setName(Language.tr("Surface.Popup.AddVisualization.AverageNQTotal"));
 		addVisualizationContextMenuItem(parentMenu,bar);
 
 		chart=new ModelElementAnimationLineDiagram(null,null);
 		data=new ArrayList<>();
-		data.add(new Object[]{"wip()",Double.valueOf(0),Double.valueOf(10),Color.RED,Integer.valueOf(1)});
+		data.add(new Object[]{new AnimationExpression("wip()"),Double.valueOf(0),Double.valueOf(10),Color.RED,Integer.valueOf(1)});
 		data.add(new Object[]{"wip_avg()",Double.valueOf(0),Double.valueOf(10),Color.RED,Integer.valueOf(3)});
 		chart.setExpressionData(data);
 		chart.setTimeArea(3600);
@@ -2183,8 +2184,8 @@ public final class ModelSurfacePanel extends JPanel {
 
 		chart=new ModelElementAnimationLineDiagram(null,null);
 		data=new ArrayList<>();
-		data.add(new Object[]{"NQ",Double.valueOf(0),Double.valueOf(10),Color.RED,Integer.valueOf(1)});
-		data.add(new Object[]{"NQ_avg()",Double.valueOf(0),Double.valueOf(10),Color.RED,Integer.valueOf(3)});
+		data.add(new Object[]{new AnimationExpression("NQ()"),Double.valueOf(0),Double.valueOf(10),Color.RED,Integer.valueOf(1)});
+		data.add(new Object[]{new AnimationExpression("NQ_avg()"),Double.valueOf(0),Double.valueOf(10),Color.RED,Integer.valueOf(3)});
 		chart.setExpressionData(data);
 		chart.setTimeArea(3600);
 		chart.setName(Language.tr("Surface.Popup.AddVisualization.CurrentNQTotal"));

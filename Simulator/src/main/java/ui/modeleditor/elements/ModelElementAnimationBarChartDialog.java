@@ -323,7 +323,7 @@ public class ModelElementAnimationBarChartDialog extends ModelElementBaseDialog 
 				final String[] commands=dialog.getCommands();
 				final Color barColor=dialog.getBarColor();
 				final Color lastColor=new Color(150,150,150);
-				for (int i=0;i<commands.length;i++) expressionTableModel.add(commands[i],(i<commands.length-1)?barColor:lastColor);
+				for (int i=0;i<commands.length;i++) expressionTableModel.add(new AnimationExpression(commands[i]),(i<commands.length-1)?barColor:lastColor);
 			}
 			return;
 		}

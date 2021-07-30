@@ -23,7 +23,6 @@ import java.awt.image.BufferedImage;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
@@ -34,8 +33,8 @@ import systemtools.BaseDialog;
 import systemtools.MsgBox;
 import tools.JTableExt;
 import tools.JTableExtAbstractTableModel;
-import ui.expressionbuilder.ExpressionBuilder;
 import ui.images.Images;
+import ui.modeleditor.coreelements.ModelElement;
 
 /**
  * Stellt ein Tabellenmodell zur Anzeige und Bearbeitung der Diagrammereihen in einem
@@ -66,35 +65,17 @@ public class ExpressionTableModelBar extends JTableExtAbstractTableModel {
 
 	/** Tabelle in der das Datenmodell zum Einsatz kommen soll */
 	private final JTableExt table;
+	/** Modell-Element dessen Ausdrücke konfiguriert werden sollen */
+	private final ModelElement element;
 	/** Hilfe-Callback welches aufgerufen wird, wenn in einem der untergeordneten Dialoge auf die "Hilfe"-Schaltfläche geklickt wird. */
 	private final Runnable help;
 	/** Nur-Lese-Status */
 	private final boolean readOnly;
 
 	/**
-	 * Liste der globalen Variablen (zum Prüfen von Ausdrücken)
-	 */
-	private final String[] variableNames;
-
-	/**
-	 * Liste mit allen globalen Variablen und ihren Startwerten
-	 */
-	private final Map<String,String> initialVariableValues;
-
-	/**
-	 * Zuordnung von Stations-IDs zu Stationsbeschreibungen
-	 */
-	private final Map<Integer,String> stationIDs;
-
-	/**
-	 * Zuordnung von Stations-IDs zu Stationsnamen
-	 */
-	private final Map<Integer,String> stationNameIDs;
-
-	/**
 	 * In der Tabelle anzuzeigende Rechenausdrücke
 	 */
-	private final List<String> expression=new ArrayList<>();
+	private final List<AnimationExpression> expression=new ArrayList<>();
 
 	/**
 	 * In der Tabelle anzuzeigende Farben
@@ -113,17 +94,14 @@ public class ExpressionTableModelBar extends JTableExtAbstractTableModel {
 		iconMode=IconMode.BAR;
 		this.help=help;
 		this.table=table;
+		this.element=element;
 		this.readOnly=readOnly;
-		variableNames=element.getSurface().getMainSurfaceVariableNames(element.getModel().getModelVariableNames(),false);
-		initialVariableValues=element.getModel().getInitialVariablesWithValues();
-		stationIDs=ExpressionBuilder.getStationIDs(element.getSurface());
-		stationNameIDs=ExpressionBuilder.getStationNameIDs(element.getSurface());
 
 		final List<Object[]> data=element.getExpressionData();
 		for (Object[] row: data) if (row.length==2) {
-			if (!(row[0] instanceof String)) continue;
+			if (!(row[0] instanceof AnimationExpression)) continue;
 			if (!(row[1] instanceof Color)) continue;
-			expression.add((String)row[0]);
+			expression.add((AnimationExpression)row[0]);
 			expressionColor.add((Color)row[1]);
 		}
 
@@ -142,17 +120,14 @@ public class ExpressionTableModelBar extends JTableExtAbstractTableModel {
 		iconMode=IconMode.PIE;
 		this.help=help;
 		this.table=table;
+		this.element=element;
 		this.readOnly=readOnly;
-		variableNames=element.getSurface().getMainSurfaceVariableNames(element.getModel().getModelVariableNames(),false);
-		initialVariableValues=element.getModel().getInitialVariablesWithValues();
-		stationIDs=ExpressionBuilder.getStationIDs(element.getSurface());
-		stationNameIDs=ExpressionBuilder.getStationNameIDs(element.getSurface());
 
 		final List<Object[]> data=element.getExpressionData();
 		for (Object[] row: data) if (row.length==2) {
-			if (!(row[0] instanceof String)) continue;
+			if (!(row[0] instanceof AnimationExpression)) continue;
 			if (!(row[1] instanceof Color)) continue;
-			expression.add((String)row[0]);
+			expression.add((AnimationExpression)row[0]);
 			expressionColor.add((Color)row[1]);
 		}
 
@@ -208,9 +183,17 @@ public class ExpressionTableModelBar extends JTableExtAbstractTableModel {
 			case PIE: icon=Images.MODELEDITOR_ELEMENT_ANIMATION_PIE_CHART; break;
 			default: icon=null;
 			}
+			final AnimationExpression ex=expression.get(rowIndex);
+			final String info;
+			switch (ex.getMode()) {
+			case Expression: info=ex.getExpression(); break;
+			case Javascript: info=Language.tr("Surface.AnimationBarStack.Dialog.ExpressionMode.Javascript"); break;
+			case Java: info=Language.tr("Surface.AnimationBarStack.Dialog.ExpressionMode.Java"); break;
+			default: info=ex.getExpression(); break;
+			}
 			return makeEditPanelSmallBorderIcon(
 					(icon==null)?null:icon.getIcon(),
-							expression.get(rowIndex),
+							info,
 							new Icon[]{Images.GENERAL_SETUP.getIcon(),Images.EDIT_DELETE.getIcon()},
 							new String[]{Language.tr("Surface.ExpressionTableModel.Edit"),Language.tr("Surface.ExpressionTableModel.Delete")},
 							new ActionListener[]{new EditButtonListener(0,rowIndex),new DeleteButtonListener(rowIndex)}
@@ -316,9 +299,9 @@ public class ExpressionTableModelBar extends JTableExtAbstractTableModel {
 	 * @param command	Ausdruck für die Diagrammreihe
 	 * @param color	Farbe für die Diagrammreihe
 	 */
-	public void add(final String command, final Color color) {
+	public void add(final AnimationExpression command, final Color color) {
 		updateTable();
-		expression.add((command==null)?"":command);
+		expression.add(new AnimationExpression(command));
 		expressionColor.add((color==null)?Color.BLUE:color);
 	}
 
@@ -345,7 +328,7 @@ public class ExpressionTableModelBar extends JTableExtAbstractTableModel {
 		public void actionPerformed(ActionEvent e) {
 			if (readOnly) return;
 
-			String s;
+			AnimationExpression s;
 			Color c;
 
 			ExpressionTableModelDialog1 dialog1;
@@ -354,9 +337,9 @@ public class ExpressionTableModelBar extends JTableExtAbstractTableModel {
 			switch (nr) {
 			case 0: /* Ausdruck bearbeiten (auch neuen Eintrag anlegen) */
 				if (row<0) {
-					dialog1=new ExpressionTableModelDialog1(table,"",variableNames,initialVariableValues,stationIDs,stationNameIDs,help,iconMode);
+					dialog1=new ExpressionTableModelDialog1(table,element,new AnimationExpression(),help,iconMode);
 				} else {
-					dialog1=new ExpressionTableModelDialog1(table,expression.get(row),variableNames,initialVariableValues,stationIDs,stationNameIDs,help,iconMode);
+					dialog1=new ExpressionTableModelDialog1(table,element,expression.get(row),help,iconMode);
 				}
 				if (dialog1.getClosedBy()==BaseDialog.CLOSED_BY_OK) {
 					if (row<0) {
@@ -412,8 +395,16 @@ public class ExpressionTableModelBar extends JTableExtAbstractTableModel {
 		public void actionPerformed(ActionEvent e) {
 			if (readOnly) return;
 
-			final String name=expression.get(row);
-			if (!MsgBox.confirm(table,Language.tr("Surface.ExpressionTableModel.Delete.Confirmation.Title"),String.format(Language.tr("Surface.ExpressionTableModel.Delete.Confirmation.Info"),name),Language.tr("Surface.ExpressionTableModel.Delete.Confirmation.YesInfo"),Language.tr("Surface.ExpressionTableModel.Delete.Confirmation.NoInfo"))) return;
+			final AnimationExpression ex=expression.get(row);
+			final String info;
+			switch (ex.getMode()) {
+			case Expression: info=ex.getExpression(); break;
+			case Javascript: info=Language.tr("Surface.AnimationBarStack.Dialog.ExpressionMode.Javascript"); break;
+			case Java: info=Language.tr("Surface.AnimationBarStack.Dialog.ExpressionMode.Java"); break;
+			default: info=ex.getExpression(); break;
+			}
+
+			if (!MsgBox.confirm(table,Language.tr("Surface.ExpressionTableModel.Delete.Confirmation.Title"),String.format(Language.tr("Surface.ExpressionTableModel.Delete.Confirmation.Info"),info),Language.tr("Surface.ExpressionTableModel.Delete.Confirmation.YesInfo"),Language.tr("Surface.ExpressionTableModel.Delete.Confirmation.NoInfo"))) return;
 			expression.remove(row);
 			expressionColor.remove(row);
 			updateTable();

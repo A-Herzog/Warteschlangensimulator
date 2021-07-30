@@ -33,7 +33,6 @@ import javax.swing.JTextField;
 
 import language.Language;
 import mathtools.NumberTools;
-import simulator.simparser.ExpressionCalc;
 import systemtools.MsgBox;
 import systemtools.SmallColorChooser;
 import ui.infopanel.InfoPanel;
@@ -52,7 +51,7 @@ public class ModelElementAnimationPointerMeasuringDialog extends ModelElementBas
 	private static final long serialVersionUID = -4565047267829598870L;
 
 	/** Eingabefeld für den Rechenausdruck */
-	private JTextField editExpression;
+	private AnimationExpressionPanel editExpression;
 	/** Eingabefeld für den Minimalwert der Anzeigeakala */
 	private JTextField editMinValue;
 	/** Eingabefeld für den Maximalwert der Anzeigeakala */
@@ -103,16 +102,7 @@ public class ModelElementAnimationPointerMeasuringDialog extends ModelElementBas
 		content.setLayout(new BoxLayout(content,BoxLayout.PAGE_AXIS));
 
 		/* Ausdruck */
-		data=getInputPanel(Language.tr("Surface.AnimationPointerMeasuring.Dialog.Expression")+":","");
-		content.add((JPanel)data[0]);
-		editExpression=(JTextField)data[1];
-		editExpression.setEditable(!readOnly);
-		((JPanel)data[0]).add(getExpressionEditButton(this,editExpression,false,false,element.getModel(),element.getSurface()),BorderLayout.EAST);
-		editExpression.addKeyListener(new KeyListener() {
-			@Override public void keyTyped(KeyEvent e) {checkData(false);}
-			@Override public void keyReleased(KeyEvent e) {checkData(false);}
-			@Override public void keyPressed(KeyEvent e) {checkData(false);}
-		});
+		content.add(editExpression=new AnimationExpressionPanel(element,((ModelElementAnimationPointerMeasuring)element).getExpression(),readOnly,helpRunnable));
 
 		/* Minimalwert */
 		data=getInputPanel(Language.tr("Surface.AnimationPointerMeasuring.Dialog.MinValue")+":","",10);
@@ -175,7 +165,6 @@ public class ModelElementAnimationPointerMeasuringDialog extends ModelElementBas
 		/* Daten eintragen */
 		if (element instanceof ModelElementAnimationPointerMeasuring) {
 			final ModelElementAnimationPointerMeasuring pointerMeasuring=(ModelElementAnimationPointerMeasuring)element;
-			editExpression.setText(pointerMeasuring.getExpression());
 			editMinValue.setText(""+pointerMeasuring.getMinValue());
 			editMaxValue.setText(""+pointerMeasuring.getMaxValue());
 			colorChooser.setColor(pointerMeasuring.getColor());
@@ -217,26 +206,9 @@ public class ModelElementAnimationPointerMeasuringDialog extends ModelElementBas
 		boolean ok=true;
 
 		/* Ausdruck */
-		final String text=editExpression.getText().trim();
-		if (text.isEmpty()) {
+		if (!editExpression.checkData(showErrorMessages)) {
 			ok=false;
-			editExpression.setBackground(Color.red);
-			if (showErrorMessages) {
-				MsgBox.error(this,Language.tr("Surface.AnimationPointerMeasuring.Dialog.Expression.Error.Title"),Language.tr("Surface.AnimationPointerMeasuring.Dialog.Expression.ErrorNoExpression.Info"));
-				return false;
-			}
-		} else {
-			int error=ExpressionCalc.check(text,element.getSurface().getMainSurfaceVariableNames(element.getModel().getModelVariableNames(),false));
-			if (error>=0) {
-				ok=false;
-				editExpression.setBackground(Color.red);
-				if (showErrorMessages) {
-					MsgBox.error(this,Language.tr("Surface.AnimationPointerMeasuring.Dialog.Expression.Error.Title"),String.format(Language.tr("Surface.AnimationPointerMeasuring.Dialog.Expression.ErrorInvalidExpression.Info"),text,error+1));
-					return false;
-				}
-			} else {
-				editExpression.setBackground(NumberTools.getTextFieldDefaultBackground());
-			}
+			if (showErrorMessages) return false;
 		}
 
 		/* Minimalwert */
@@ -310,7 +282,7 @@ public class ModelElementAnimationPointerMeasuringDialog extends ModelElementBas
 
 		if (element instanceof ModelElementAnimationPointerMeasuring) {
 			final ModelElementAnimationPointerMeasuring pointerMeasuring=(ModelElementAnimationPointerMeasuring)element;
-			pointerMeasuring.setExpression(editExpression.getText());
+			editExpression.storeData();
 			pointerMeasuring.setMinValue(NumberTools.getNotNegativeLong(editMinValue,true).intValue());
 			pointerMeasuring.setMaxValue(NumberTools.getNotNegativeLong(editMaxValue,true).intValue());
 			pointerMeasuring.setYellowRangeUse(optionUseYellowArea.isSelected());

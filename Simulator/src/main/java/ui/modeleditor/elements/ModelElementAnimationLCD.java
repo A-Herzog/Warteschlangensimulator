@@ -78,7 +78,7 @@ public class ModelElementAnimationLCD extends ModelElementAnimationCustomDrawExp
 	public ModelElementAnimationLCD(final EditModel model, final ModelSurface surface) {
 		super(model,surface,new Dimension(25,50));
 		digits=1;
-		setExpression("wip()");
+		expression.setExpression("wip()");
 	}
 
 	/**
@@ -409,7 +409,7 @@ public class ModelElementAnimationLCD extends ModelElementAnimationCustomDrawExp
 
 		sub=doc.createElement(Language.trPrimary("Surface.AnimationLCD.XML.Expression"));
 		node.appendChild(sub);
-		sub.setTextContent(getExpression());
+		expression.storeToXML(sub);
 
 		sub=doc.createElement(Language.trPrimary("Surface.AnimationLCD.XML.Digits"));
 		node.appendChild(sub);
@@ -433,7 +433,7 @@ public class ModelElementAnimationLCD extends ModelElementAnimationCustomDrawExp
 		if (error!=null) return error;
 
 		if (Language.trAll("Surface.AnimationLCD.XML.Expression",name)) {
-			setExpression(content);
+			expression.loadFromXML(node);
 			return null;
 		}
 

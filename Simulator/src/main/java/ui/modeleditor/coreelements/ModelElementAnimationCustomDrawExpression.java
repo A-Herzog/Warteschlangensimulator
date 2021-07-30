@@ -16,16 +16,14 @@
 package ui.modeleditor.coreelements;
 
 import java.awt.Dimension;
-import java.util.Objects;
 
 import language.Language;
 import mathtools.NumberTools;
-import parser.MathCalcError;
 import simulator.editmodel.EditModel;
 import simulator.editmodel.FullTextSearch;
 import simulator.runmodel.SimulationData;
-import simulator.simparser.ExpressionCalc;
 import ui.modeleditor.ModelSurface;
+import ui.modeleditor.elements.AnimationExpression;
 
 /**
  * Basisklasse für ein Animationselement, welches sich selber zeichnet
@@ -33,10 +31,8 @@ import ui.modeleditor.ModelSurface;
  * @author Alexander Herzog
  */
 public abstract class ModelElementAnimationCustomDrawExpression extends ModelElementAnimationCustomDraw {
-	/** Rechenobjekt basierend auf {@link #expression} */
-	private ExpressionCalc drawExpression;
 	/** Ausdruck dessen Berechnungsergebnis angezeigt werden soll */
-	private String expression;
+	protected final AnimationExpression expression=new AnimationExpression();
 
 	/**
 	 * Läuft gerade eine Animation (<code>true</code>) oder befinden wir und im
@@ -52,7 +48,7 @@ public abstract class ModelElementAnimationCustomDrawExpression extends ModelEle
 	 */
 	public ModelElementAnimationCustomDrawExpression(final EditModel model, final ModelSurface surface, final Dimension size) {
 		super(model,surface,size);
-		expression="";
+		expression.setExpression("");
 	}
 
 	@Override
@@ -71,7 +67,7 @@ public abstract class ModelElementAnimationCustomDrawExpression extends ModelEle
 		if (!(element instanceof ModelElementAnimationCustomDrawExpression)) return false;
 		final ModelElementAnimationCustomDrawExpression other=(ModelElementAnimationCustomDrawExpression)element;
 
-		if (!Objects.equals(expression,other.expression)) return false;
+		if (!expression.equalsAnimationExpression(other.expression)) return false;
 
 		return true;
 	}
@@ -85,7 +81,7 @@ public abstract class ModelElementAnimationCustomDrawExpression extends ModelEle
 		super.copyDataFrom(element);
 		if (element instanceof ModelElementAnimationCustomDrawExpression) {
 			final ModelElementAnimationCustomDrawExpression source=(ModelElementAnimationCustomDrawExpression)element;
-			expression=source.expression;
+			expression.copyFrom(source.expression);
 		}
 	}
 
@@ -93,16 +89,8 @@ public abstract class ModelElementAnimationCustomDrawExpression extends ModelEle
 	 * Liefert den Ausdruck dessen Berechnungsergebnis angezeigt werden soll.
 	 * @return	Ausdruck dessen Berechnungsergebnis angezeigt werden soll
 	 */
-	public String getExpression() {
-		return (expression==null)?"":expression;
-	}
-
-	/**
-	 * Stellt den Ausdruck dessen Berechnungsergebnis angezeigt werden soll ein.
-	 * @param expression	Ausdruck dessen Berechnungsergebnis angezeigt werden sollen
-	 */
-	public void setExpression(final String expression) {
-		this.expression=(expression==null)?"":expression;
+	public AnimationExpression getExpression() {
+		return expression;
 	}
 
 	/**
@@ -110,32 +98,27 @@ public abstract class ModelElementAnimationCustomDrawExpression extends ModelEle
 	 * @param simData	Simulationsdatenobjekt
 	 * @return	Rechenergebnis
 	 */
-	protected final Double getDrawExpression(final SimulationData simData) {
-		if (drawExpression==null) return null;
-		simData.runData.setClientVariableValues(null);
-		try {
-			return NumberTools.fastBoxedValue(drawExpression.calc(simData.runData.variableValues,simData,null));
-		} catch (MathCalcError e) {
-			return null;
-		}
+	protected final double getDrawExpression(final SimulationData simData) {
+		return expression.getAnimationValue(this,simData);
 	}
 
 	@Override
 	public void initAnimation(final SimulationData simData) {
 		animationRunning=true;
-		drawExpression=new ExpressionCalc(simData.runModel.variableNames);
-		if (drawExpression.parse(expression)>=0) drawExpression=null;
+		expression.initAnimation(this,simData);
 	}
 
 	@Override
 	protected void updateDrawData(final SimulationData simData) {
-		setAnimationDouble(getDrawExpression(simData));
+		setAnimationDouble(NumberTools.fastBoxedValue(getDrawExpression(simData)));
 	}
 
 	@Override
 	public void search(final FullTextSearch searcher) {
 		super.search(searcher);
 
-		searcher.testString(this,Language.tr("Editor.DialogBase.Search.Expression"),expression,newExpression->{expression=newExpression;});
+		if (expression.getMode()==AnimationExpression.ExpressionMode.Expression) {
+			searcher.testString(this,Language.tr("Editor.DialogBase.Search.Expression"),expression.getExpression(),newExpression->expression.setExpression(newExpression));
+		}
 	}
 }

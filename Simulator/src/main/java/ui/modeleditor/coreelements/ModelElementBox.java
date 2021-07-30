@@ -58,6 +58,7 @@ import ui.modeleditor.ModelTransporter;
 import ui.modeleditor.ModelTransporters;
 import ui.modeleditor.descriptionbuilder.ModelDescriptionBuilder;
 import ui.modeleditor.descriptionbuilder.ModelDescriptionBuilderStyled;
+import ui.modeleditor.elements.AnimationExpression;
 import ui.modeleditor.elements.ElementWithAnimationDisplay;
 import ui.modeleditor.elements.FontCache;
 import ui.modeleditor.elements.ModelElementAnimationBar;
@@ -1691,221 +1692,221 @@ public class ModelElementBox extends ModelElementPosition implements ElementWith
 			break;
 		case LCD_WIP_CURRENT:
 			element=new ModelElementAnimationLCD(null,null);
-			((ModelElementAnimationLCD)element).setExpression("wip("+getId()+")");
+			((ModelElementAnimationLCD)element).getExpression().setExpression("wip("+getId()+")");
 			addonInfo=Language.tr("Surface.Popup.AddVisualization.CurrentValue");
 			break;
 		case LCD_WIP_AVERAGE:
 			element=new ModelElementAnimationLCD(null,null);
-			((ModelElementAnimationLCD)element).setExpression("wip_avg("+getId()+")");
+			((ModelElementAnimationLCD)element).getExpression().setExpression("wip_avg("+getId()+")");
 			addonInfo=Language.tr("Surface.Popup.AddVisualization.AverageValue");
 			break;
 		case LCD_NQ_CURRENT:
 			element=new ModelElementAnimationLCD(null,null);
-			((ModelElementAnimationLCD)element).setExpression("NQ("+getId()+")");
+			((ModelElementAnimationLCD)element).getExpression().setExpression("NQ("+getId()+")");
 			addonInfo=Language.tr("Surface.Popup.AddVisualization.CurrentValueWaiting");
 			break;
 		case LCD_NQ_AVERAGE:
 			element=new ModelElementAnimationLCD(null,null);
-			((ModelElementAnimationLCD)element).setExpression("NQ_avg("+getId()+")");
+			((ModelElementAnimationLCD)element).getExpression().setExpression("NQ_avg("+getId()+")");
 			addonInfo=Language.tr("Surface.Popup.AddVisualization.AverageValueWaiting");
 			break;
 		case LCD_NQ_CURRENT_1:
 			element=new ModelElementAnimationLCD(null,null);
-			((ModelElementAnimationLCD)element).setExpression("NQ("+getId()+";1)");
+			((ModelElementAnimationLCD)element).getExpression().setExpression("NQ("+getId()+";1)");
 			addonInfo=Language.tr("Surface.Popup.AddVisualization.CurrentValueWaiting1");
 			break;
 		case LCD_NQ_CURRENT_2:
 			element=new ModelElementAnimationLCD(null,null);
-			((ModelElementAnimationLCD)element).setExpression("NQ("+getId()+";2)");
+			((ModelElementAnimationLCD)element).getExpression().setExpression("NQ("+getId()+";2)");
 			addonInfo=Language.tr("Surface.Popup.AddVisualization.CurrentValueWaiting2");
 			break;
 		case LCD_NQ_CURRENT_3:
 			element=new ModelElementAnimationLCD(null,null);
-			((ModelElementAnimationLCD)element).setExpression("NQ("+getId()+";3)");
+			((ModelElementAnimationLCD)element).getExpression().setExpression("NQ("+getId()+";3)");
 			addonInfo=Language.tr("Surface.Popup.AddVisualization.CurrentValueWaiting3");
 			break;
 		case LCD_NQ_AVERAGE_1:
 			element=new ModelElementAnimationLCD(null,null);
-			((ModelElementAnimationLCD)element).setExpression("NQ_avg("+getId()+";1)");
+			((ModelElementAnimationLCD)element).getExpression().setExpression("NQ_avg("+getId()+";1)");
 			addonInfo=Language.tr("Surface.Popup.AddVisualization.AverageValueWaiting1");
 			break;
 		case LCD_NQ_AVERAGE_2:
 			element=new ModelElementAnimationLCD(null,null);
-			((ModelElementAnimationLCD)element).setExpression("NQ_avg("+getId()+";2)");
+			((ModelElementAnimationLCD)element).getExpression().setExpression("NQ_avg("+getId()+";2)");
 			addonInfo=Language.tr("Surface.Popup.AddVisualization.AverageValueWaiting2");
 			break;
 		case LCD_NQ_AVERAGE_3:
 			element=new ModelElementAnimationLCD(null,null);
-			((ModelElementAnimationLCD)element).setExpression("NQ_avg("+getId()+";3)");
+			((ModelElementAnimationLCD)element).getExpression().setExpression("NQ_avg("+getId()+";3)");
 			addonInfo=Language.tr("Surface.Popup.AddVisualization.AverageValueWaiting3");
 			break;
 		case LCD_COUNTER_VALUE:
 			element=new ModelElementAnimationLCD(null,null);
-			((ModelElementAnimationLCD)element).setExpression("counter("+getId()+")");
+			((ModelElementAnimationLCD)element).getExpression().setExpression("counter("+getId()+")");
 			addonInfo=Language.tr("Surface.Popup.AddVisualization.CounterValue");
 			break;
 		case LCD_ANALOG_VALUE:
 			element=new ModelElementAnimationLCD(null,null);
-			((ModelElementAnimationLCD)element).setExpression("AnalogValue("+getId()+")");
+			((ModelElementAnimationLCD)element).getExpression().setExpression("AnalogValue("+getId()+")");
 			addonInfo=Language.tr("Surface.Popup.AddVisualization.AnalogValue");
 			break;
 		case LCD_WIP_CLIENT:
 			element=new ModelElementAnimationLCD(null,null);
-			((ModelElementAnimationLCD)element).setExpression("wip()");
+			((ModelElementAnimationLCD)element).getExpression().setExpression("wip()");
 			addonInfo=Language.tr("Surface.Popup.AddVisualization.CurrentWIPTotal");
 			break;
 		case LCD_W_CLIENT:
 			element=new ModelElementAnimationLCD(null,null);
-			((ModelElementAnimationLCD)element).setExpression("WaitingTime_avg("+getId()+")");
+			((ModelElementAnimationLCD)element).getExpression().setExpression("WaitingTime_avg("+getId()+")");
 			addonInfo=Language.tr("Surface.Popup.AddVisualization.AverageWaitingTime");
 			break;
 		case SCALE_WIP_CURRENT:
 			element=new ModelElementAnimationPointerMeasuring(null,null);
-			((ModelElementAnimationPointerMeasuring)element).setExpression("wip("+getId()+")");
+			((ModelElementAnimationPointerMeasuring)element).getExpression().setExpression("wip("+getId()+")");
 			addonInfo=Language.tr("Surface.Popup.AddVisualization.CurrentValue");
 			break;
 		case SCALE_WIP_AVERAGE:
 			element=new ModelElementAnimationPointerMeasuring(null,null);
-			((ModelElementAnimationPointerMeasuring)element).setExpression("wip_avg("+getId()+")");
+			((ModelElementAnimationPointerMeasuring)element).getExpression().setExpression("wip_avg("+getId()+")");
 			addonInfo=Language.tr("Surface.Popup.AddVisualization.AverageValue");
 			break;
 		case SCALE_NQ_CURRENT:
 			element=new ModelElementAnimationPointerMeasuring(null,null);
-			((ModelElementAnimationPointerMeasuring)element).setExpression("NQ("+getId()+")");
+			((ModelElementAnimationPointerMeasuring)element).getExpression().setExpression("NQ("+getId()+")");
 			addonInfo=Language.tr("Surface.Popup.AddVisualization.CurrentValueWaiting");
 			break;
 		case SCALE_NQ_AVERAGE:
 			element=new ModelElementAnimationPointerMeasuring(null,null);
-			((ModelElementAnimationPointerMeasuring)element).setExpression("NQ_avg("+getId()+")");
+			((ModelElementAnimationPointerMeasuring)element).getExpression().setExpression("NQ_avg("+getId()+")");
 			addonInfo=Language.tr("Surface.Popup.AddVisualization.AverageValueWaiting");
 			break;
 		case SCALE_NQ_CURRENT_1:
 			element=new ModelElementAnimationPointerMeasuring(null,null);
-			((ModelElementAnimationPointerMeasuring)element).setExpression("NQ("+getId()+";1)");
+			((ModelElementAnimationPointerMeasuring)element).getExpression().setExpression("NQ("+getId()+";1)");
 			addonInfo=Language.tr("Surface.Popup.AddVisualization.CurrentValueWaiting1");
 			break;
 		case SCALE_NQ_CURRENT_2:
 			element=new ModelElementAnimationPointerMeasuring(null,null);
-			((ModelElementAnimationPointerMeasuring)element).setExpression("NQ("+getId()+";2)");
+			((ModelElementAnimationPointerMeasuring)element).getExpression().setExpression("NQ("+getId()+";2)");
 			addonInfo=Language.tr("Surface.Popup.AddVisualization.CurrentValueWaiting2");
 			break;
 		case SCALE_NQ_CURRENT_3:
 			element=new ModelElementAnimationPointerMeasuring(null,null);
-			((ModelElementAnimationPointerMeasuring)element).setExpression("NQ("+getId()+";3)");
+			((ModelElementAnimationPointerMeasuring)element).getExpression().setExpression("NQ("+getId()+";3)");
 			addonInfo=Language.tr("Surface.Popup.AddVisualization.CurrentValueWaiting3");
 			break;
 		case SCALE_NQ_AVERAGE_1:
 			element=new ModelElementAnimationPointerMeasuring(null,null);
-			((ModelElementAnimationPointerMeasuring)element).setExpression("NQ_avg("+getId()+";1)");
+			((ModelElementAnimationPointerMeasuring)element).getExpression().setExpression("NQ_avg("+getId()+";1)");
 			addonInfo=Language.tr("Surface.Popup.AddVisualization.AverageValueWaiting1");
 			break;
 		case SCALE_NQ_AVERAGE_2:
 			element=new ModelElementAnimationPointerMeasuring(null,null);
-			((ModelElementAnimationPointerMeasuring)element).setExpression("NQ_avg("+getId()+";2)");
+			((ModelElementAnimationPointerMeasuring)element).getExpression().setExpression("NQ_avg("+getId()+";2)");
 			addonInfo=Language.tr("Surface.Popup.AddVisualization.AverageValueWaiting2");
 			break;
 		case SCALE_NQ_AVERAGE_3:
 			element=new ModelElementAnimationPointerMeasuring(null,null);
-			((ModelElementAnimationPointerMeasuring)element).setExpression("NQ_avg("+getId()+";3)");
+			((ModelElementAnimationPointerMeasuring)element).getExpression().setExpression("NQ_avg("+getId()+";3)");
 			addonInfo=Language.tr("Surface.Popup.AddVisualization.AverageValueWaiting3");
 			break;
 		case SCALE_COUNTER_VALUE:
 			element=new ModelElementAnimationPointerMeasuring(null,null);
-			((ModelElementAnimationPointerMeasuring)element).setExpression("counter("+getId()+")");
+			((ModelElementAnimationPointerMeasuring)element).getExpression().setExpression("counter("+getId()+")");
 			addonInfo=Language.tr("Surface.Popup.AddVisualization.CounterValue");
 			break;
 		case SCALE_ANALOG_VALUE:
 			element=new ModelElementAnimationPointerMeasuring(null,null);
-			((ModelElementAnimationPointerMeasuring)element).setExpression("AnalogValue("+getId()+")");
+			((ModelElementAnimationPointerMeasuring)element).getExpression().setExpression("AnalogValue("+getId()+")");
 			addonInfo=Language.tr("Surface.Popup.AddVisualization.AnalogValue");
 			break;
 		case SCALE_WIP_CLIENT:
 			element=new ModelElementAnimationPointerMeasuring(null,null);
-			((ModelElementAnimationPointerMeasuring)element).setExpression("wip()");
+			((ModelElementAnimationPointerMeasuring)element).getExpression().setExpression("wip()");
 			addonInfo=Language.tr("Surface.Popup.AddVisualization.CurrentWIPTotal");
 			break;
 		case SCALE_W_CLIENT:
 			element=new ModelElementAnimationPointerMeasuring(null,null);
-			((ModelElementAnimationPointerMeasuring)element).setExpression("WaitingTime_avg("+getId()+")");
+			((ModelElementAnimationPointerMeasuring)element).getExpression().setExpression("WaitingTime_avg("+getId()+")");
 			addonInfo=Language.tr("Surface.Popup.AddVisualization.AverageWaitingTime");
 			break;
 		case BAR_WIP_CURRENT:
 			element=new ModelElementAnimationBar(null,null);
-			((ModelElementAnimationBar)element).setExpression("wip("+getId()+")");
+			((ModelElementAnimationBar)element).getExpression().setExpression("wip("+getId()+")");
 			((ModelElementAnimationBar)element).setSize(new Dimension(25,50));
 			addonInfo=Language.tr("Surface.Popup.AddVisualization.CurrentValue");
 			break;
 		case BAR_WIP_AVERAGE:
 			element=new ModelElementAnimationBar(null,null);
-			((ModelElementAnimationBar)element).setExpression("wip_avg("+getId()+")");
+			((ModelElementAnimationBar)element).getExpression().setExpression("wip_avg("+getId()+")");
 			((ModelElementAnimationBar)element).setSize(new Dimension(25,50));
 			addonInfo=Language.tr("Surface.Popup.AddVisualization.AverageValue");
 			break;
 		case BAR_NQ_CURRENT:
 			element=new ModelElementAnimationBar(null,null);
-			((ModelElementAnimationBar)element).setExpression("NQ("+getId()+")");
+			((ModelElementAnimationBar)element).getExpression().setExpression("NQ("+getId()+")");
 			((ModelElementAnimationBar)element).setSize(new Dimension(25,50));
 			addonInfo=Language.tr("Surface.Popup.AddVisualization.CurrentValueWaiting");
 			break;
 		case BAR_NQ_AVERAGE:
 			element=new ModelElementAnimationBar(null,null);
-			((ModelElementAnimationBar)element).setExpression("NQ_avg("+getId()+")");
+			((ModelElementAnimationBar)element).getExpression().setExpression("NQ_avg("+getId()+")");
 			((ModelElementAnimationBar)element).setSize(new Dimension(25,50));
 			addonInfo=Language.tr("Surface.Popup.AddVisualization.AverageValueWaiting");
 			break;
 		case BAR_NQ_CURRENT_1:
 			element=new ModelElementAnimationBar(null,null);
-			((ModelElementAnimationBar)element).setExpression("NQ("+getId()+";1)");
+			((ModelElementAnimationBar)element).getExpression().setExpression("NQ("+getId()+";1)");
 			((ModelElementAnimationBar)element).setSize(new Dimension(25,50));
 			addonInfo=Language.tr("Surface.Popup.AddVisualization.CurrentValueWaiting1");
 			break;
 		case BAR_NQ_CURRENT_2:
 			element=new ModelElementAnimationBar(null,null);
-			((ModelElementAnimationBar)element).setExpression("NQ("+getId()+";2)");
+			((ModelElementAnimationBar)element).getExpression().setExpression("NQ("+getId()+";2)");
 			((ModelElementAnimationBar)element).setSize(new Dimension(25,50));
 			addonInfo=Language.tr("Surface.Popup.AddVisualization.CurrentValueWaiting2");
 			break;
 		case BAR_NQ_CURRENT_3:
 			element=new ModelElementAnimationBar(null,null);
-			((ModelElementAnimationBar)element).setExpression("NQ("+getId()+";3)");
+			((ModelElementAnimationBar)element).getExpression().setExpression("NQ("+getId()+";3)");
 			((ModelElementAnimationBar)element).setSize(new Dimension(25,50));
 			addonInfo=Language.tr("Surface.Popup.AddVisualization.CurrentValueWaiting3");
 			break;
 		case BAR_NQ_AVERAGE_1:
 			element=new ModelElementAnimationBar(null,null);
-			((ModelElementAnimationBar)element).setExpression("NQ_avg("+getId()+";1)");
+			((ModelElementAnimationBar)element).getExpression().setExpression("NQ_avg("+getId()+";1)");
 			((ModelElementAnimationBar)element).setSize(new Dimension(25,50));
 			addonInfo=Language.tr("Surface.Popup.AddVisualization.AverageValueWaiting1");
 			break;
 		case BAR_NQ_AVERAGE_2:
 			element=new ModelElementAnimationBar(null,null);
-			((ModelElementAnimationBar)element).setExpression("NQ_avg("+getId()+";2)");
+			((ModelElementAnimationBar)element).getExpression().setExpression("NQ_avg("+getId()+";2)");
 			((ModelElementAnimationBar)element).setSize(new Dimension(25,50));
 			addonInfo=Language.tr("Surface.Popup.AddVisualization.AverageValueWaiting2");
 			break;
 		case BAR_NQ_AVERAGE_3:
 			element=new ModelElementAnimationBar(null,null);
-			((ModelElementAnimationBar)element).setExpression("NQ_avg("+getId()+";3)");
+			((ModelElementAnimationBar)element).getExpression().setExpression("NQ_avg("+getId()+";3)");
 			((ModelElementAnimationBar)element).setSize(new Dimension(25,50));
 			addonInfo=Language.tr("Surface.Popup.AddVisualization.AverageValueWaiting3");
 			break;
 		case BAR_COUNTER_PART:
 			element=new ModelElementAnimationBar(null,null);
-			((ModelElementAnimationBar)element).setExpression("part("+getId()+")");
+			((ModelElementAnimationBar)element).getExpression().setExpression("part("+getId()+")");
 			((ModelElementAnimationBar)element).setMaxValue(1);
 			((ModelElementAnimationBar)element).setSize(new Dimension(25,50));
 			addonInfo=Language.tr("Surface.Popup.AddVisualization.CounterPart");
 			break;
 		case BAR_ANALOG_VALUE:
 			element=new ModelElementAnimationBar(null,null);
-			((ModelElementAnimationBar)element).setExpression("AnalogValue("+getId()+")");
+			((ModelElementAnimationBar)element).getExpression().setExpression("AnalogValue("+getId()+")");
 			((ModelElementAnimationBar)element).setSize(new Dimension(25,50));
 			addonInfo=Language.tr("Surface.Popup.AddVisualization.AnalogValue");
 			break;
 		case CHART_WIP:
 			element=new ModelElementAnimationLineDiagram(null,null);
 			data=new ArrayList<>();
-			data.add(new Object[]{"wip("+getId()+")",Double.valueOf(0),Double.valueOf(10),Color.RED,Integer.valueOf(2)});
+			data.add(new Object[]{new AnimationExpression("wip("+getId()+")"),Double.valueOf(0),Double.valueOf(10),Color.RED,Integer.valueOf(2)});
 			((ModelElementAnimationLineDiagram)element).setExpressionData(data);
 			((ModelElementAnimationLineDiagram)element).setTimeArea(3600);
 			((ModelElementAnimationLineDiagram)element).setSize(new Dimension(400,200));
@@ -1914,7 +1915,7 @@ public class ModelElementBox extends ModelElementPosition implements ElementWith
 		case CHART_NQ:
 			element=new ModelElementAnimationLineDiagram(null,null);
 			data=new ArrayList<>();
-			data.add(new Object[]{"NQ("+getId()+")",Double.valueOf(0),Double.valueOf(10),Color.RED,Integer.valueOf(2)});
+			data.add(new Object[]{new AnimationExpression("NQ("+getId()+")"),Double.valueOf(0),Double.valueOf(10),Color.RED,Integer.valueOf(2)});
 			((ModelElementAnimationLineDiagram)element).setExpressionData(data);
 			((ModelElementAnimationLineDiagram)element).setTimeArea(3600);
 			((ModelElementAnimationLineDiagram)element).setSize(new Dimension(400,200));
@@ -1923,7 +1924,7 @@ public class ModelElementBox extends ModelElementPosition implements ElementWith
 		case CHART_ANALOG_VALUE:
 			element=new ModelElementAnimationLineDiagram(null,null);
 			data=new ArrayList<>();
-			data.add(new Object[]{"AnalogValue("+getId()+")",Double.valueOf(0),Double.valueOf(10),Color.RED,Integer.valueOf(2)});
+			data.add(new Object[]{new AnimationExpression("AnalogValue("+getId()+")"),Double.valueOf(0),Double.valueOf(10),Color.RED,Integer.valueOf(2)});
 			((ModelElementAnimationLineDiagram)element).setExpressionData(data);
 			((ModelElementAnimationLineDiagram)element).setTimeArea(3600);
 			((ModelElementAnimationLineDiagram)element).setSize(new Dimension(400,200));
@@ -1974,14 +1975,14 @@ public class ModelElementBox extends ModelElementPosition implements ElementWith
 				final List<Object[]> histData=new ArrayList<>();
 				for (int i=0;i<bars-1;i++) {
 					if (valuesPerBar==1) {
-						histData.add(new Object[]{"NQ_hist("+getId()+";"+i+")",(i==0)?Color.GREEN:Color.BLUE});
+						histData.add(new Object[]{new AnimationExpression("NQ_hist("+getId()+";"+i+")"),(i==0)?Color.GREEN:Color.BLUE});
 					} else {
 						final int i1=i*valuesPerBar;
 						final int i2=(i+1)*valuesPerBar-1;
-						histData.add(new Object[]{"NQ_hist("+getId()+";"+i1+";"+i2+")",Color.BLUE});
+						histData.add(new Object[]{new AnimationExpression("NQ_hist("+getId()+";"+i1+";"+i2+")"),Color.BLUE});
 					}
 				}
-				histData.add(new Object[]{"NQ_hist("+getId()+";"+((bars-1)*valuesPerBar)+";10000)",Color.RED});
+				histData.add(new Object[]{new AnimationExpression("NQ_hist("+getId()+";"+((bars-1)*valuesPerBar)+";10000)"),Color.RED});
 				((ModelElementAnimationBarChart)newElement).setExpressionData(histData);
 
 				addElementOrigHistNQ.accept(newElement);

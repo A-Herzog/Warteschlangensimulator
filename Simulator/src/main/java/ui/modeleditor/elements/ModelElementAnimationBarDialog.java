@@ -34,7 +34,6 @@ import javax.swing.JTextField;
 
 import language.Language;
 import mathtools.NumberTools;
-import simulator.simparser.ExpressionCalc;
 import systemtools.MsgBox;
 import systemtools.SmallColorChooser;
 import tools.IconListCellRenderer;
@@ -55,14 +54,14 @@ public class ModelElementAnimationBarDialog extends ModelElementBaseDialog {
 	private static final long serialVersionUID = -2546131729099509268L;
 
 	/** Eingabefeld für den Ausdruck dessen Auswertung den Füllstand für den Balken angeben soll */
-	private JTextField editExpression;
+	private AnimationExpressionPanel editExpression;
 	/** Auswahlbox für die Füllrichtung des Balkens */
 	private JComboBox<String> selectDirection;
 	/** Eingabefeld für den Minimalwert */
 	private JTextField editMinimum;
 	/** Eingabefeld für den Maximalwert */
 	private JTextField editMaximum;
-	/** Auswahlbox für ide Linienbreite */
+	/** Auswahlbox für die Linienbreite */
 	private JComboBox<JLabel> lineWidth;
 	/** Auswahl der Linienfarbe */
 	private SmallColorChooser colorChooserLine;
@@ -107,16 +106,7 @@ public class ModelElementAnimationBarDialog extends ModelElementBaseDialog {
 		content.setLayout(new BoxLayout(content,BoxLayout.PAGE_AXIS));
 
 		/* Ausdruck */
-		Object[] data=getInputPanel(Language.tr("Surface.AnimationBar.Dialog.Expression")+":","");
-		content.add((JPanel)data[0]);
-		editExpression=(JTextField)data[1];
-		editExpression.setEditable(!readOnly);
-		((JPanel)data[0]).add(getExpressionEditButton(this,editExpression,false,false,element.getModel(),element.getSurface()),BorderLayout.EAST);
-		editExpression.addKeyListener(new KeyListener() {
-			@Override public void keyTyped(KeyEvent e) {checkData(false);}
-			@Override public void keyReleased(KeyEvent e) {checkData(false);}
-			@Override public void keyPressed(KeyEvent e) {checkData(false);}
-		});
+		content.add(editExpression=new AnimationExpressionPanel(element,((ModelElementAnimationBar)element).getExpression(),readOnly,helpRunnable));
 
 		/* Richtung und Minimum / Maximum */
 		content.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
@@ -155,7 +145,7 @@ public class ModelElementAnimationBarDialog extends ModelElementBaseDialog {
 		label.setLabelFor(editMaximum);
 
 		/* Rahmenbreite */
-		data=getLineWidthInputPanel(Language.tr("Surface.AnimationBar.Dialog.FrameWidth")+":",1,15);
+		Object[] data=getLineWidthInputPanel(Language.tr("Surface.AnimationBar.Dialog.FrameWidth")+":",1,15);
 		content.add((JPanel)data[0],BorderLayout.NORTH);
 		lineWidth=(JComboBox<JLabel>)data[1];
 		lineWidth.setEnabled(!readOnly);
@@ -188,7 +178,6 @@ public class ModelElementAnimationBarDialog extends ModelElementBaseDialog {
 
 		/* Daten eintragen */
 		if (element instanceof ModelElementAnimationBar) {
-			editExpression.setText(((ModelElementAnimationBar)element).getExpression());
 			switch (((ModelElementAnimationBar)element).getDirection()) {
 			case DIRECTION_UP: selectDirection.setSelectedIndex(0); break;
 			case DIRECTION_RIGHT: selectDirection.setSelectedIndex(1); break;
@@ -219,26 +208,9 @@ public class ModelElementAnimationBarDialog extends ModelElementBaseDialog {
 
 		boolean ok=true;
 
-		final String text=editExpression.getText().trim();
-		if (text.isEmpty()) {
+		if (!editExpression.checkData(showErrorMessages)) {
 			ok=false;
-			editExpression.setBackground(Color.red);
-			if (showErrorMessages) {
-				MsgBox.error(this,Language.tr("Surface.AnimationBar.Dialog.Expression.Error.Title"),Language.tr("Surface.AnimationBar.Dialog.Expression.ErrorNoExpression.Info"));
-				return false;
-			}
-		} else {
-			int error=ExpressionCalc.check(text,element.getSurface().getMainSurfaceVariableNames(element.getModel().getModelVariableNames(),false));
-			if (error>=0) {
-				ok=false;
-				editExpression.setBackground(Color.red);
-				if (showErrorMessages) {
-					MsgBox.error(this,Language.tr("Surface.AnimationBar.Dialog.Expression.Error.Title"),String.format(Language.tr("Surface.AnimationBar.Dialog.Expression.ErrorInvalidExpression.Info"),text,error+1));
-					return false;
-				}
-			} else {
-				editExpression.setBackground(NumberTools.getTextFieldDefaultBackground());
-			}
+			if (showErrorMessages) return false;
 		}
 
 		final Double Dmin=NumberTools.getDouble(editMinimum,true);
@@ -293,7 +265,7 @@ public class ModelElementAnimationBarDialog extends ModelElementBaseDialog {
 		super.storeData();
 
 		final ModelElementAnimationBar bar=(ModelElementAnimationBar)element;
-		bar.setExpression(editExpression.getText().trim());
+		editExpression.storeData();
 
 		switch (selectDirection.getSelectedIndex()) {
 		case 0: bar.setDirection(ModelElementAnimationBar.FillDirection.DIRECTION_UP); break;

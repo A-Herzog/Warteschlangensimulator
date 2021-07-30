@@ -124,7 +124,7 @@ public class ModelElementAnimationPointerMeasuring extends ModelElementAnimation
 		yellowRangeStart=7;
 		redRangeUse=false;
 		redRangeStart=9;
-		setExpression("wip()");
+		expression.setExpression("wip()");
 	}
 
 	/**
@@ -572,7 +572,7 @@ public class ModelElementAnimationPointerMeasuring extends ModelElementAnimation
 
 		sub=doc.createElement(Language.trPrimary("Surface.AnimationPointerMeasuring.XML.Expression"));
 		node.appendChild(sub);
-		sub.setTextContent(getExpression());
+		expression.storeToXML(sub);
 
 		sub.setAttribute(Language.trPrimary("Surface.AnimationPointerMeasuring.XML.Expression.MinValue"),""+minValue);
 		sub.setAttribute(Language.trPrimary("Surface.AnimationPointerMeasuring.XML.Expression.MaxValue"),""+maxValue);
@@ -598,7 +598,7 @@ public class ModelElementAnimationPointerMeasuring extends ModelElementAnimation
 		if (error!=null) return error;
 
 		if (Language.trAll("Surface.AnimationPointerMeasuring.XML.Expression",name)) {
-			setExpression(content);
+			expression.loadFromXML(node);
 			final String minValueString=Language.trAllAttribute("Surface.AnimationPointerMeasuring.XML.Expression.MinValue",node);
 			if (!minValueString.isEmpty()) {
 				final Long L=NumberTools.getNotNegativeLong(minValueString);

@@ -28,6 +28,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.Semaphore;
+import java.util.stream.Collectors;
 
 import javax.swing.Icon;
 
@@ -40,7 +41,6 @@ import mathtools.NumberTools;
 import simulator.editmodel.EditModel;
 import simulator.editmodel.FullTextSearch;
 import simulator.runmodel.SimulationData;
-import simulator.simparser.ExpressionCalc;
 import ui.images.Images;
 import ui.modeleditor.ModelClientData;
 import ui.modeleditor.ModelSequences;
@@ -95,7 +95,7 @@ public class ModelElementAnimationBarStack extends ModelElementPosition implemen
 	 * Rechenausdrücke
 	 * @see #getExpressions()
 	 */
-	private final List<String> expressions=new ArrayList<>();
+	private final List<AnimationExpression> expressions=new ArrayList<>();
 
 	/**
 	 * Sichert ab, dass Simulations- und Zeichen-Thread
@@ -202,7 +202,7 @@ public class ModelElementAnimationBarStack extends ModelElementPosition implemen
 	 * Liefert im die aktuellen Ausdrücke.
 	 * @return	Aktuelle Ausdrücke
 	 */
-	public List<String> getExpressions() {
+	public List<AnimationExpression> getExpressions() {
 		return expressions;
 	}
 
@@ -290,28 +290,29 @@ public class ModelElementAnimationBarStack extends ModelElementPosition implemen
 	public boolean equalsModelElement(ModelElement element) {
 		if (!super.equalsModelElement(element)) return false;
 		if (!(element instanceof ModelElementAnimationBarStack)) return false;
+		final ModelElementAnimationBarStack other=(ModelElementAnimationBarStack)element;
 
-		if (direction!=((ModelElementAnimationBarStack)element).direction) return false;
-		if (expressions.size()!=((ModelElementAnimationBarStack)element).expressions.size()) return false;
+		if (direction!=other.direction) return false;
+		if (expressions.size()!=other.expressions.size()) return false;
 		for (int i=0;i<expressions.size();i++) {
-			final String s1=expressions.get(i);
-			final String s2=((ModelElementAnimationBarStack)element).expressions.get(i);
-			if (s1==null || s2==null || !s1.equals(s2)) return false;
+			final AnimationExpression ex1=expressions.get(i);
+			final AnimationExpression ex2=other.expressions.get(i);
+			if (ex1==null || ex2==null || !ex1.equalsAnimationExpression(ex2)) return false;
 		}
 		if (maxValue>0) {
-			if (maxValue!=((ModelElementAnimationBarStack)element).maxValue) return false;
+			if (maxValue!=other.maxValue) return false;
 		} else {
-			if (((ModelElementAnimationBarStack)element).maxValue>0) return false;
-		}
-		if (borderWidth!=((ModelElementAnimationBarStack)element).borderWidth) return false;
-
-		if (!((ModelElementAnimationBarStack)element).borderColor.equals(borderColor)) return false;
-		if (!(((ModelElementAnimationBarStack)element).backgroundColor==null && backgroundColor==null)) {
-			if (((ModelElementAnimationBarStack)element).backgroundColor==null || backgroundColor==null) return false;
-			if (!((ModelElementAnimationBarStack)element).backgroundColor.equals(backgroundColor)) return false;
+			if (other.maxValue>0) return false;
 		}
 
-		if (barColors.size()!=((ModelElementAnimationBarStack)element).barColors.size()) return false;
+		if (borderWidth!=other.borderWidth) return false;
+		if (!other.borderColor.equals(borderColor)) return false;
+		if (!(other.backgroundColor==null && backgroundColor==null)) {
+			if (other.backgroundColor==null || backgroundColor==null) return false;
+			if (!other.backgroundColor.equals(backgroundColor)) return false;
+		}
+
+		if (barColors.size()!=other.barColors.size()) return false;
 		for (int i=0;i<barColors.size();i++) {
 			final Color c1=barColors.get(i);
 			final Color c2=((ModelElementAnimationBarStack)element).barColors.get(i);
@@ -329,16 +330,18 @@ public class ModelElementAnimationBarStack extends ModelElementPosition implemen
 	public void copyDataFrom(ModelElement element) {
 		super.copyDataFrom(element);
 		if (element instanceof ModelElementAnimationBarStack) {
-			direction=((ModelElementAnimationBarStack)element).direction;
-			expressions.clear();
-			expressions.addAll(((ModelElementAnimationBarStack)element).expressions);
-			maxValue=((ModelElementAnimationBarStack)element).maxValue;
-			borderWidth=((ModelElementAnimationBarStack)element).borderWidth;
+			final ModelElementAnimationBarStack source=(ModelElementAnimationBarStack)element;
 
-			borderColor=((ModelElementAnimationBarStack)element).borderColor;
-			backgroundColor=((ModelElementAnimationBarStack)element).backgroundColor;
+			direction=source.direction;
+			expressions.clear();
+			expressions.addAll(source.expressions.stream().map(expression->new  AnimationExpression(expression)).collect(Collectors.toList()));
+			maxValue=source.maxValue;
+
+			borderWidth=source.borderWidth;
+			borderColor=source.borderColor;
+			backgroundColor=source.backgroundColor;
 			barColors.clear();
-			barColors.addAll(((ModelElementAnimationBarStack)element).barColors);
+			barColors.addAll(source.barColors);
 		}
 	}
 
@@ -521,7 +524,7 @@ public class ModelElementAnimationBarStack extends ModelElementPosition implemen
 			delta2=FastMath.max(0,delta2);
 			delta2=FastMath.min(maxPixel-delta1,delta2);
 
-			if (barColors==null || barColors.size()<=i) {
+			if (barColors==null || barColors.size()<=i || simValues==null) {
 				switch (i%4) {
 				case 0: g.setColor(Color.RED); break;
 				case 1: g.setColor(Color.GREEN); break;
@@ -672,10 +675,10 @@ public class ModelElementAnimationBarStack extends ModelElementPosition implemen
 
 		Element sub;
 
-		for (String expression: expressions) {
+		for (AnimationExpression expression: expressions) {
 			sub=doc.createElement(Language.trPrimary("Surface.AnimationBarStack.XML.DataExpression"));
 			node.appendChild(sub);
-			sub.setTextContent(expression);
+			expression.storeToXML(sub);
 		}
 
 		sub=doc.createElement(Language.trPrimary("Surface.AnimationBarStack.XML.DataArea"));
@@ -719,7 +722,9 @@ public class ModelElementAnimationBarStack extends ModelElementPosition implemen
 		if (error!=null) return error;
 
 		if (Language.trAll("Surface.AnimationBarStack.XML.DataExpression",name)) {
-			expressions.add(content);
+			final AnimationExpression expression=new AnimationExpression();
+			expression.loadFromXML(node);
+			expressions.add(expression);
 			return null;
 		}
 
@@ -774,21 +779,13 @@ public class ModelElementAnimationBarStack extends ModelElementPosition implemen
 		return null;
 	}
 
-	/**
-	 * Formelobjekte zu {@link #expressions}
-	 * @see #initAnimation(SimulationData)
-	 * @see #updateSimulationData(SimulationData, boolean)
-	 */
-	private ExpressionCalc[] animationExpression;
-
 	@Override
-	public boolean updateSimulationData(SimulationData simData, boolean isPreview) {
+	public boolean updateSimulationData(final SimulationData simData, final boolean isPreview) {
 		if (isPreview) return false;
 		drawLock.acquireUninterruptibly();
 		try {
-			if (animationExpression==null) return false;
-			for (int i=0;i<animationExpression.length;i++) {
-				simValues[i]=animationExpression[i].calcOrDefault(simData.runData.variableValues,simData,null,0);
+			for (int i=0;i<expressions.size();i++) {
+				simValues[i]=expressions.get(i).getAnimationValue(this,simData);
 			}
 		} finally {
 			drawLock.release();
@@ -797,12 +794,10 @@ public class ModelElementAnimationBarStack extends ModelElementPosition implemen
 	}
 
 	@Override
-	public void initAnimation(SimulationData simData) {
-		animationExpression=new ExpressionCalc[expressions.size()];
+	public void initAnimation(final SimulationData simData) {
 		simValues=new double[expressions.size()];
 		for (int i=0;i<expressions.size();i++) {
-			animationExpression[i]=new ExpressionCalc(simData.runModel.variableNames);
-			if (animationExpression[i].parse(expressions.get(i))>=0) animationExpression[i]=null;
+			expressions.get(i).initAnimation(this,simData);
 		}
 	}
 
@@ -934,8 +929,10 @@ public class ModelElementAnimationBarStack extends ModelElementPosition implemen
 		super.search(searcher);
 
 		for (int i=0;i<expressions.size();i++) {
-			final int index=i;
-			searcher.testString(this,Language.tr("Editor.DialogBase.Search.Expression"),expressions.get(index),newExpression->expressions.set(index,newExpression));
+			final AnimationExpression expression=expressions.get(i);
+			if (expression.getMode()==AnimationExpression.ExpressionMode.Expression) {
+				searcher.testString(this,Language.tr("Editor.DialogBase.Search.Expression"),expression.getExpression(),newExpression->expression.setExpression(newExpression));
+			}
 		}
 		searcher.testDouble(this,Language.tr("Editor.DialogBase.Search.MaxValue"),maxValue,newMaxValue->{maxValue=newMaxValue;});
 		searcher.testInteger(this,Language.tr("Editor.DialogBase.Search.BorderWidth"),borderWidth,newBorderWidth->{if (newBorderWidth>=0) borderWidth=newBorderWidth;});

@@ -19,8 +19,6 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.FlowLayout;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.io.Serializable;
 
 import javax.swing.BoxLayout;
@@ -28,13 +26,9 @@ import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSpinner;
-import javax.swing.JTextField;
 import javax.swing.SpinnerNumberModel;
 
 import language.Language;
-import mathtools.NumberTools;
-import simulator.simparser.ExpressionCalc;
-import systemtools.MsgBox;
 import systemtools.SmallColorChooser;
 import ui.infopanel.InfoPanel;
 import ui.modeleditor.ModelElementBaseDialog;
@@ -54,7 +48,7 @@ public class ModelElementAnimationLCDDialog extends ModelElementBaseDialog {
 	/**
 	 * Eingabefeld für den auszugebenden Ausdruck
 	 */
-	private JTextField editExpression;
+	private AnimationExpressionPanel editExpression;
 
 	/**
 	 * Anzahl an darzustellenden 7-Segment-Ziffern
@@ -94,22 +88,12 @@ public class ModelElementAnimationLCDDialog extends ModelElementBaseDialog {
 	protected JComponent getContentPanel() {
 		JPanel line, cell;
 		JLabel label;
-		Object[] data;
 
 		final JPanel content=new JPanel();
 		content.setLayout(new BoxLayout(content,BoxLayout.PAGE_AXIS));
 
 		/* Ausdruck */
-		data=getInputPanel(Language.tr("Surface.AnimationLCD.Dialog.Expression")+":","");
-		content.add((JPanel)data[0]);
-		editExpression=(JTextField)data[1];
-		editExpression.setEditable(!readOnly);
-		((JPanel)data[0]).add(getExpressionEditButton(this,editExpression,false,false,element.getModel(),element.getSurface()),BorderLayout.EAST);
-		editExpression.addKeyListener(new KeyListener() {
-			@Override public void keyTyped(KeyEvent e) {checkData(false);}
-			@Override public void keyReleased(KeyEvent e) {checkData(false);}
-			@Override public void keyPressed(KeyEvent e) {checkData(false);}
-		});
+		content.add(editExpression=new AnimationExpressionPanel(element,((ModelElementAnimationLCD)element).getExpression(),readOnly,helpRunnable));
 
 		/* Ziffern */
 		content.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
@@ -133,7 +117,6 @@ public class ModelElementAnimationLCDDialog extends ModelElementBaseDialog {
 		/* Daten eintragen */
 		if (element instanceof ModelElementAnimationLCD) {
 			final ModelElementAnimationLCD lcd=(ModelElementAnimationLCD)element;
-			editExpression.setText(lcd.getExpression());
 			spinDigits.setValue(lcd.getDigits());
 			colorChooser.setColor(lcd.getColor());
 		}
@@ -154,26 +137,9 @@ public class ModelElementAnimationLCDDialog extends ModelElementBaseDialog {
 		boolean ok=true;
 
 		/* Ausdruck */
-		final String text=editExpression.getText().trim();
-		if (text.isEmpty()) {
+		if (!editExpression.checkData(showErrorMessages)) {
 			ok=false;
-			editExpression.setBackground(Color.red);
-			if (showErrorMessages) {
-				MsgBox.error(this,Language.tr("Surface.AnimationLCD.Dialog.Expression.Error.Title"),Language.tr("Surface.AnimationLCD.Dialog.Expression.ErrorNoExpression.Info"));
-				return false;
-			}
-		} else {
-			int error=ExpressionCalc.check(text,element.getSurface().getMainSurfaceVariableNames(element.getModel().getModelVariableNames(),false));
-			if (error>=0) {
-				ok=false;
-				editExpression.setBackground(Color.red);
-				if (showErrorMessages) {
-					MsgBox.error(this,Language.tr("Surface.AnimationLCD.Dialog.Expression.Error.Title"),String.format(Language.tr("Surface.AnimationLCD.Dialog.Expression.ErrorInvalidExpression.Info"),text,error+1));
-					return false;
-				}
-			} else {
-				editExpression.setBackground(NumberTools.getTextFieldDefaultBackground());
-			}
+			if (showErrorMessages) return false;
 		}
 
 		return ok;
@@ -200,7 +166,7 @@ public class ModelElementAnimationLCDDialog extends ModelElementBaseDialog {
 
 		if (element instanceof ModelElementAnimationLCD) {
 			final ModelElementAnimationLCD lcd=(ModelElementAnimationLCD)element;
-			lcd.setExpression(editExpression.getText());
+			editExpression.storeData();
 			lcd.setDigits((Integer)spinDigits.getValue());
 			lcd.setColor(colorChooser.getColor());
 		}
