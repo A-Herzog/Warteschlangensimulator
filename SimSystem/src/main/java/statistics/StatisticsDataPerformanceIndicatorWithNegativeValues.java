@@ -27,7 +27,7 @@ import mathtools.distribution.DataDistributionImpl;
  * auch negative Werte. Verteilungen enthalten allerdings trotzdem nur positive Werte.<br>
  * Die Zählung wird über die Funktion {@link StatisticsDataPerformanceIndicatorWithNegativeValues#add(double)} realisiert.
  * @author Alexander Herzog
- * @version 1.5
+ * @version 1.6
  */
 public final class StatisticsDataPerformanceIndicatorWithNegativeValues extends StatisticsPerformanceIndicator implements Cloneable {
 	/** XML-Attribut für "Anzahl" */
@@ -42,12 +42,18 @@ public final class StatisticsDataPerformanceIndicatorWithNegativeValues extends 
 	public static String[] xmlNameSumSquared=new String[]{"Summe2"};
 	/** Fehlermeldung, wenn das "Summe2"-Attribut nicht gelesen werden konnte. */
 	public static String xmlNameSumSquaredError="Das Summe2-Attribut im \"%s\"-Element muss eine nicht-negative Zahl sein, ist aber \"%s\".";
+	/** XML-Attribut für "Summe3" (=Summe der kubischen Werte) */
+	public static String[] xmlNameSumCubic=new String[]{"Summe3"};
+	/** Fehlermeldung, wenn das "Summe3"-Attribut nicht gelesen werden konnte. */
+	public static String xmlNameSumCubicError="Das Summe3-Attribut im \"%s\"-Element muss eine Zahl sein, ist aber \"%s\".";
 	/** XML-Attribut für "Mittelwert" */
 	public static String[] xmlNameMean=new String[]{"Mittelwert"};
 	/** XML-Attribut für "Standardabweichung" */
 	public static String[] xmlNameSD=new String[]{"Standardabweichung"};
 	/** XML-Attribut für "Variationskoeffizient" */
 	public static String[] xmlNameCV=new String[]{"Variationskoeffizient"};
+	/** XML-Attribut für "Schiefe" */
+	public static String[] xmlNameSk=new String[]{"Schiefe"};
 	/** XML-Attribut für "Minimum" */
 	public static String[] xmlNameMin=new String[]{"Minimum"};
 	/** Fehlermeldung, wenn das "Minimum"-Attribut nicht gelesen werden konnte. */
@@ -87,6 +93,11 @@ public final class StatisticsDataPerformanceIndicatorWithNegativeValues extends 
 	 * Summe der quadrierten Messwerte
 	 */
 	private double squaredSum;
+
+	/**
+	 * Summe der mit 3 potenzierten Messwerte
+	 */
+	private double cubicSum;
 
 	/**
 	 * Minimaler Messwert
@@ -291,7 +302,9 @@ public final class StatisticsDataPerformanceIndicatorWithNegativeValues extends 
 
 		/* Summe, quadrierte Summe */
 		sum+=value;
-		squaredSum+=(value*value);
+		final double squared=value*value;
+		squaredSum+=squared;
+		cubicSum+=(squared*value);
 
 		/* Verteilung der Werte */
 		if (hasDistribution) {
@@ -361,7 +374,9 @@ public final class StatisticsDataPerformanceIndicatorWithNegativeValues extends 
 
 		/* Summe, quadrierte Summe */
 		sum+=value*count;
-		squaredSum+=(value*value)*count;
+		final double squared=value*value;
+		squaredSum+=squared*count;
+		cubicSum+=(squared*value)*count;
 
 		/* Verteilung der Werte */
 		if (hasDistribution) {
@@ -414,6 +429,7 @@ public final class StatisticsDataPerformanceIndicatorWithNegativeValues extends 
 		count+=moreDataStatistics.count;
 		sum+=moreDataStatistics.sum;
 		squaredSum+=moreDataStatistics.squaredSum;
+		cubicSum+=moreDataStatistics.cubicSum;
 
 		/* Verteilung der Werte */
 		if (hasDistribution && moreDataStatistics.hasDistribution) {
@@ -454,6 +470,7 @@ public final class StatisticsDataPerformanceIndicatorWithNegativeValues extends 
 		count=0;
 		sum=0;
 		squaredSum=0;
+		cubicSum=0;
 
 		/* Verteilung der Werte */
 		if (dist!=null) dist.setToValue(0.0);
@@ -489,6 +506,7 @@ public final class StatisticsDataPerformanceIndicatorWithNegativeValues extends 
 		count=data.count;
 		sum=data.sum;
 		squaredSum=data.squaredSum;
+		cubicSum=data.cubicSum;
 		min=data.min;
 		max=data.max;
 
@@ -669,6 +687,18 @@ public final class StatisticsDataPerformanceIndicatorWithNegativeValues extends 
 	public double getCV() {
 		double mean=getMean();
 		return (mean>0)?(getSD()/mean):0;
+	}
+
+	/**
+	 * Berechnet aus den Messreihen-Kenngrößen die Schiefe
+	 * @return	Schiefe der Messreihe
+	 */
+	public double getSk() {
+		final double sd=getSD();
+		if (count<3 || sd==0.0) return 0;
+
+		/* siehe: https://de.wikipedia.org/wiki/Schiefe_(Statistik) */
+		return ((double)count)/(count-1)/(count-2)/Math.pow(sd,3)*(cubicSum-3*getMean()*squaredSum+2*count*Math.pow(getMean(),3));
 	}
 
 	/**
@@ -948,9 +978,11 @@ public final class StatisticsDataPerformanceIndicatorWithNegativeValues extends 
 		node.setAttribute(xmlNameCount[0],""+count);
 		node.setAttribute(xmlNameSum[0],NumberTools.formatSystemNumber(sum,recycleStringBuilder));
 		node.setAttribute(xmlNameSumSquared[0],NumberTools.formatSystemNumber(squaredSum,recycleStringBuilder));
+		node.setAttribute(xmlNameSumCubic[0],NumberTools.formatSystemNumber(cubicSum,recycleStringBuilder));
 		node.setAttribute(xmlNameMean[0],NumberTools.formatSystemNumber(getMean(),recycleStringBuilder));
 		node.setAttribute(xmlNameSD[0],NumberTools.formatSystemNumber(getSD(),recycleStringBuilder));
 		node.setAttribute(xmlNameCV[0],NumberTools.formatSystemNumber(getCV(),recycleStringBuilder));
+		node.setAttribute(xmlNameSk[0],NumberTools.formatSystemNumber(getSk(),recycleStringBuilder));
 		node.setAttribute(xmlNameMin[0],NumberTools.formatSystemNumber(getMin(),recycleStringBuilder));
 		node.setAttribute(xmlNameMax[0],NumberTools.formatSystemNumber(getMax(),recycleStringBuilder));
 
@@ -1015,6 +1047,13 @@ public final class StatisticsDataPerformanceIndicatorWithNegativeValues extends 
 			Double sum2=NumberTools.getDouble(value);
 			if (sum2==null || sum2<0) return String.format(xmlNameSumSquaredError,node.getNodeName(),value);
 			squaredSum=sum2;
+		}
+
+		value=NumberTools.systemNumberToLocalNumber(getAttributeValue(node,xmlNameSumCubic));
+		if (!value.isEmpty()) {
+			Double sum3=NumberTools.getDouble(value);
+			if (sum3==null) return String.format(xmlNameSumCubicError,node.getNodeName(),value);
+			cubicSum=sum3;
 		}
 
 		value=NumberTools.systemNumberToLocalNumber(getAttributeValue(node,xmlNameMin));

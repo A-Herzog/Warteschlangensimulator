@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-30 19:14+0200\n"
+"POT-Creation-Date: 2021-07-31 14:45+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18695,6 +18695,9 @@ msgstr "Maximum"
 msgid "Statistics.ClientData.Field.Minimum"
 msgstr "Minimum"
 
+msgid "Statistics.ClientData.Field.Sk"
+msgstr "Skewness"
+
 msgid "Statistics.ClientData.Field.StdDev"
 msgstr "Standard deviation"
 
@@ -19197,6 +19200,12 @@ msgstr "Minimum number of operators in down time"
 
 msgid "Statistics.FailureTime.Minimum.Transporters"
 msgstr "Minimum number of transporters in down time"
+
+msgid "Statistics.FailureTime.Sk"
+msgstr "Skewness of the number of operators in down time"
+
+msgid "Statistics.FailureTime.Sk.Transporters"
+msgstr "Skewness of the number of transporters in down time"
 
 msgid "Statistics.FailureTime.StdDev"
 msgstr "Standard deviation of the number of operators in down time"
@@ -19746,6 +19755,9 @@ msgstr "Simulation model"
 msgid "Statistics.SimulationModel.Name"
 msgstr "Name"
 
+msgid "Statistics.Skewness"
+msgstr "Skewness"
+
 msgid "Statistics.State"
 msgstr "State"
 
@@ -20043,6 +20055,9 @@ msgstr "Minimum number of driving transports"
 msgid "Statistics.TransporterUtilization.NumberOfTransporters"
 msgstr "Number of transports of this type"
 
+msgid "Statistics.TransporterUtilization.Sk"
+msgstr "Skewness of the number of driving transports"
+
 msgid "Statistics.TransporterUtilization.StdDev"
 msgstr "Standard deviation of the number of driving transports"
 
@@ -20100,6 +20115,9 @@ msgstr "Maximum number of available operators"
 msgid "Statistics.Utilization.NumberOfOperators.Minimum"
 msgstr "Minimum number of available operators"
 
+msgid "Statistics.Utilization.NumberOfOperators.Sk"
+msgstr "Skewness of the number of available operators"
+
 msgid "Statistics.Utilization.NumberOfOperators.StdDev"
 msgstr "Standard deviation of the number of available operators"
 
@@ -20111,6 +20129,9 @@ msgstr "infinite many"
 
 msgid "Statistics.Utilization.Schedule"
 msgstr "Schedule for operators group"
+
+msgid "Statistics.Utilization.Sk"
+msgstr "Skewness of the number of busy operators"
 
 msgid "Statistics.Utilization.StdDev"
 msgstr "Standard deviation of the number of busy operators"
@@ -20622,6 +20643,9 @@ msgstr "The value in the \"%s\" element has to be a non-negative integer value b
 msgid "Statistics.XML.RunUser"
 msgstr "StatisticsUser"
 
+msgid "Statistics.XML.Sk"
+msgstr "Skewness"
+
 msgid "Statistics.XML.StateStatistics"
 msgstr "StatisticsStatusTime"
 
@@ -20650,6 +20674,12 @@ msgid "Statistics.XML.Sum2"
 msgstr "Sum2"
 
 msgid "Statistics.XML.Sum2.Error"
+msgstr "The \"sum2\" attribute in the \"%s\" element has to be a number but is \"%s\"."
+
+msgid "Statistics.XML.Sum3"
+msgstr "Sum3"
+
+msgid "Statistics.XML.Sum3.Error"
 msgstr "The \"sum2\" attribute in the \"%s\" element has to be a number but is \"%s\"."
 
 msgid "Statistics.XML.ThreadRunTimes"

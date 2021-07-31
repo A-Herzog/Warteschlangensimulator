@@ -215,6 +215,7 @@ public class StatisticViewerTimeTable extends StatisticViewerTable {
 		columns.add("Std"+info);
 		columns.add("Var"+info);
 		columns.add("CV"+info);
+		columns.add("Sk"+info);
 		columns.add("Min"+info);
 		columns.add("Max"+info);
 
@@ -248,6 +249,7 @@ public class StatisticViewerTimeTable extends StatisticViewerTable {
 		line.add(StatisticTools.formatNumber(data.getSD()));
 		line.add(StatisticTools.formatNumber(data.getVar()));
 		line.add(StatisticTools.formatNumber(data.getCV()));
+		line.add(StatisticTools.formatNumber(data.getSk()));
 		line.add(StatisticTools.formatNumber(data.getMin()));
 		line.add(StatisticTools.formatNumber(data.getMax()));
 
@@ -283,6 +285,7 @@ public class StatisticViewerTimeTable extends StatisticViewerTable {
 		line.add(StatisticTools.formatNumber(data.getSD()));
 		line.add(StatisticTools.formatNumber(data.getVar()));
 		line.add(StatisticTools.formatNumber(data.getCV()));
+		line.add(StatisticTools.formatNumber(data.getSk()));
 		line.add(StatisticTools.formatNumber(data.getMin()));
 		line.add(StatisticTools.formatNumber(data.getMax()));
 		if (SetupData.getSetup().showQuantils) for (double p: StatisticsDataPerformanceIndicatorWithNegativeValues.storeQuantilValues) {
@@ -307,6 +310,7 @@ public class StatisticViewerTimeTable extends StatisticViewerTable {
 		line.add(StatisticTools.formatNumber(data.getTimeSD()));
 		line.add(StatisticTools.formatNumber(data.getTimeVar()));
 		line.add(StatisticTools.formatNumber(data.getTimeCV()));
+		line.add(StatisticTools.formatNumber(data.getTimeSk()));
 		line.add(StatisticTools.formatNumber(data.getTimeMin()));
 		line.add(StatisticTools.formatNumber(data.getTimeMax()));
 		if (SetupData.getSetup().showQuantils) {
@@ -339,6 +343,7 @@ public class StatisticViewerTimeTable extends StatisticViewerTable {
 		line.add(StatisticTools.formatNumber(data.getTimeSD()));
 		line.add(StatisticTools.formatNumber(data.getTimeVar()));
 		line.add(StatisticTools.formatNumber(data.getTimeCV()));
+		line.add(StatisticTools.formatNumber(data.getTimeSk()));
 		line.add(StatisticTools.formatNumber(data.getTimeMin()));
 		line.add(StatisticTools.formatNumber(data.getTimeMax()));
 
@@ -666,6 +671,7 @@ public class StatisticViewerTimeTable extends StatisticViewerTable {
 			line.add(StatisticTools.formatNumber(indicator.getTimeSD()));
 			line.add(StatisticTools.formatNumber(indicator.getTimeVar()));
 			line.add(StatisticTools.formatNumber(indicator.getTimeCV()));
+			line.add(StatisticTools.formatNumber(indicator.getTimeSk()));
 			line.add(StatisticTools.formatNumber(indicator.getTimeMin()));
 			line.add(StatisticTools.formatNumber(indicator.getTimeMax()));
 			line.add(StatisticTools.formatPercent(indicator.getTimePartForState(0)));
@@ -684,6 +690,7 @@ public class StatisticViewerTimeTable extends StatisticViewerTable {
 				"Std",
 				"Var",
 				"CV",
+				"Sk",
 				"Min",
 				"Max",
 				Language.tr("Statistics.IdleShare"),
@@ -726,6 +733,7 @@ public class StatisticViewerTimeTable extends StatisticViewerTable {
 			line.add(StatisticTools.formatNumber(indicator.getTimeSD()));
 			line.add(StatisticTools.formatNumber(indicator.getTimeVar()));
 			line.add(StatisticTools.formatNumber(indicator.getTimeCV()));
+			line.add(StatisticTools.formatNumber(indicator.getTimeSk()));
 			line.add(StatisticTools.formatNumber(indicator.getTimeMin()));
 			line.add(StatisticTools.formatNumber(indicator.getTimeMax()));
 			table.addLine(line);
@@ -738,6 +746,7 @@ public class StatisticViewerTimeTable extends StatisticViewerTable {
 				"Std",
 				"Var",
 				"CV",
+				"Sk",
 				"Min",
 				"Max",
 		});
@@ -774,6 +783,7 @@ public class StatisticViewerTimeTable extends StatisticViewerTable {
 			line.add(StatisticTools.formatNumber(indicator.getTimeSD()));
 			line.add(StatisticTools.formatNumber(indicator.getTimeVar()));
 			line.add(StatisticTools.formatNumber(indicator.getTimeCV()));
+			line.add(StatisticTools.formatNumber(indicator.getTimeSk()));
 			line.add(StatisticTools.formatNumber(indicator.getTimeMin()));
 			line.add(StatisticTools.formatNumber(indicator.getTimeMax()));
 			line.add(StatisticTools.formatPercent(indicator.getTimePartForState(0)));
@@ -792,6 +802,7 @@ public class StatisticViewerTimeTable extends StatisticViewerTable {
 				"Std",
 				"Var",
 				"CV",
+				"Sk",
 				"Min",
 				"Max",
 				Language.tr("Statistics.TransporterUtilization.IdleShare"),
@@ -829,6 +840,7 @@ public class StatisticViewerTimeTable extends StatisticViewerTable {
 			line.add(StatisticTools.formatNumber(indicator.getTimeSD()));
 			line.add(StatisticTools.formatNumber(indicator.getTimeVar()));
 			line.add(StatisticTools.formatNumber(indicator.getTimeCV()));
+			line.add(StatisticTools.formatNumber(indicator.getTimeSk()));
 			line.add(StatisticTools.formatNumber(indicator.getTimeMin()));
 			line.add(StatisticTools.formatNumber(indicator.getTimeMax()));
 			table.addLine(line);
@@ -841,6 +853,7 @@ public class StatisticViewerTimeTable extends StatisticViewerTable {
 				"Std",
 				"Var",
 				"CV",
+				"Sk",
 				"Min",
 				"Max",
 		});
@@ -987,6 +1000,7 @@ public class StatisticViewerTimeTable extends StatisticViewerTable {
 		headers.add("Std");
 		headers.add("Var");
 		headers.add("CV");
+		headers.add("Sk");
 		headers.add("Min");
 		headers.add("Max");
 

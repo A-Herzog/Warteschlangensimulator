@@ -50,12 +50,18 @@ public final class StatisticsTimePerformanceIndicator extends StatisticsPerforma
 	public static String[] xmlNameValuesSquared=new String[]{"WerteSumme2"};
 	/** Fehlermeldung, wenn das "WerteSumme2"-Attribut nicht gelesen werden konnte. */
 	public static String xmlNameValuesSquaredError="Das WerteSumme2-Attribut im \"%s\"-Element muss eine nicht-negative Zahl sein, ist aber \"%s\".";
+	/** XML-Attribut für "Summe3" (=Summe der kubischen Werte) */
+	public static String[] xmlNameValuesCubic=new String[]{"Summe3"};
+	/** Fehlermeldung, wenn das "Summe3"-Attribut nicht gelesen werden konnte. */
+	public static String xmlNameValuesCubicError="Das Summe3-Attribut im \"%s\"-Element muss eine Zahl sein, ist aber \"%s\".";
 	/** XML-Attribut für "Mittelwert" */
 	public static String xmlNameMean="Mittelwert";
 	/** XML-Attribut für "Standardabweichung" */
 	public static String xmlNameSD="Standardabweichung";
 	/** XML-Attribut für "Variationskoeffizient" */
 	public static String xmlNameCV="Variationskoeffizient";
+	/** XML-Attribut für "Schiefe" */
+	public static String[] xmlNameSk=new String[]{"Schiefe"};
 	/** XML-Attribut für "Minimum" */
 	public static String[] xmlNameMin=new String[]{"Minimum"};
 	/** Fehlermeldung, wenn das "Minimum"-Attribut nicht gelesen werden konnte. */
@@ -126,6 +132,11 @@ public final class StatisticsTimePerformanceIndicator extends StatisticsPerforma
 	 * Summe der quadrierten Zustände gewichtet mit der jeweiligen Zeitdauer
 	 */
 	private double valueSumSquared=0;
+
+	/**
+	 * Summe der mit 3 potenzierten Zustände gewichtet mit der jeweiligen Zeitdauer
+	 */
+	private double valueSumCubic=0;
 
 	/**
 	 * Ergebnis der letzten Berechnung des Durchschnitts (-1, wenn sich die Werte seit der letzten Berechnung verändert haben und eine neue Rechnung notwendig ist)
@@ -205,6 +216,7 @@ public final class StatisticsTimePerformanceIndicator extends StatisticsPerforma
 				sum=0;
 				valueSum=0;
 				valueSumSquared=0;
+				valueSumCubic=0;
 			}
 
 			if (!init) {
@@ -232,6 +244,7 @@ public final class StatisticsTimePerformanceIndicator extends StatisticsPerforma
 				sum+=add;
 				valueSum+=add*lastState;
 				valueSumSquared+=add*lastState*lastState;
+				valueSumCubic+=add*lastState*lastState*lastState;
 			}
 
 			lastTime=time;
@@ -285,6 +298,7 @@ public final class StatisticsTimePerformanceIndicator extends StatisticsPerforma
 		sum+=moreCountStatistics.sum;
 		valueSum+=moreCountStatistics.valueSum;
 		valueSumSquared+=moreCountStatistics.valueSumSquared;
+		valueSumCubic+=moreCountStatistics.valueSumCubic;
 
 		lastTimeMean=-1;
 
@@ -312,6 +326,7 @@ public final class StatisticsTimePerformanceIndicator extends StatisticsPerforma
 		sum=0;
 		valueSum=0;
 		valueSumSquared=0;
+		valueSumCubic=0;
 
 		lastTimeMean=-1;
 
@@ -345,6 +360,7 @@ public final class StatisticsTimePerformanceIndicator extends StatisticsPerforma
 		sum=time.sum;
 		valueSum=time.valueSum;
 		valueSumSquared=time.valueSumSquared;
+		valueSumCubic=time.valueSumCubic;
 
 		lastTimeMean=-1;
 
@@ -549,6 +565,18 @@ public final class StatisticsTimePerformanceIndicator extends StatisticsPerforma
 	}
 
 	/**
+	 * Liefert die Schiefe über die Verteilung der Zeiten in den verschiedenen Zuständen
+	 * @return	Schiefe  über die Verteilung der Zeiten in den verschiedenen Zuständen
+	 */
+	public double getTimeSk() {
+		final double sd=getTimeSD();
+		if (sum<3 || sd==0.0) return 0;
+
+		/* siehe: https://de.wikipedia.org/wiki/Schiefe_(Statistik) */
+		return sum/(sum-1)/(sum-2)/Math.pow(sd,3)*(valueSumCubic-3*getTimeMean()*valueSumSquared+2*sum*Math.pow(getTimeMean(),3));
+	}
+
+	/**
 	 * Liefert den höchsten Zustand, in dem sich das System eine Zeit &gt;0 befunden hat
 	 * @return	Maximale Zustand, in dem sich das System eine positive Zeit lang befunden hat
 	 */
@@ -719,9 +747,11 @@ public final class StatisticsTimePerformanceIndicator extends StatisticsPerforma
 		node.setAttribute(xmlNameSum,NumberTools.formatSystemNumber(getSum(),recycleStringBuilder));
 		node.setAttribute(xmlNameValues[0],NumberTools.formatSystemNumber(valueSum,recycleStringBuilder));
 		node.setAttribute(xmlNameValuesSquared[0],NumberTools.formatSystemNumber(valueSumSquared,recycleStringBuilder));
+		node.setAttribute(xmlNameValuesCubic[0],NumberTools.formatSystemNumber(valueSumCubic,recycleStringBuilder));
 		node.setAttribute(xmlNameMean,NumberTools.formatSystemNumber(getTimeMean(),recycleStringBuilder));
 		node.setAttribute(xmlNameSD,NumberTools.formatSystemNumber(getTimeSD(),recycleStringBuilder));
 		node.setAttribute(xmlNameCV,NumberTools.formatSystemNumber(getTimeCV(),recycleStringBuilder));
+		node.setAttribute(xmlNameSk[0],NumberTools.formatSystemNumber(getTimeSk(),recycleStringBuilder));
 		node.setAttribute(xmlNameMin[0],""+Math.max(0,getTimeMin()));
 		node.setAttribute(xmlNameMax[0],""+Math.max(0,getTimeMax()));
 
@@ -765,6 +795,13 @@ public final class StatisticsTimePerformanceIndicator extends StatisticsPerforma
 			final Double valueSum2=NumberTools.getDouble(value);
 			if (valueSum2==null || valueSum2<0) return String.format(xmlNameValuesSquaredError,node.getNodeName(),value);
 			valueSumSquared=valueSum2;
+		}
+
+		value=NumberTools.systemNumberToLocalNumber(getAttributeValue(node,xmlNameValuesCubic));
+		if (!value.isEmpty()) {
+			final Double valueSum3=NumberTools.getDouble(value);
+			if (valueSum3==null) return String.format(xmlNameValuesCubicError,node.getNodeName(),value);
+			valueSumCubic=valueSum3;
 		}
 
 		value=NumberTools.systemNumberToLocalNumber(getAttributeValue(node,xmlNameMin));

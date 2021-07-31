@@ -263,13 +263,14 @@
   Zoom	CDATA	#REQUIRED
 >
 
-<!ELEMENT KiritischeStationenSignatur (SigunaturOeffentlicherSchluessel | SigunaturStation | SigunaturNutzername)*>
+<!ELEMENT KiritischeStationenSignatur (SigunaturOeffentlicherSchluessel | SignaturStation | SigunaturNutzername)*>
 
 <!ELEMENT SigunaturOeffentlicherSchluessel (#PCDATA)>
-<!ELEMENT SigunaturStation EMPTY>
-<!ATTLIST SigunaturStation
+<!ELEMENT SignaturStation EMPTY>
+<!ATTLIST SignaturStation
   id		CDATA	#REQUIRED
   Sigunatur	CDATA	#REQUIRED
+  Hash		CDATA	#IMPLIED
 >
 <!ELEMENT SigunaturNutzername (#PCDATA)>
 <!ATTLIST SigunaturNutzername
@@ -346,6 +347,7 @@
   Status			CDATA	#IMPLIED
   Anzahl            CDATA	#IMPLIED
   Kundenanzahl		CDATA	#IMPLIED
+  Modus				CDATA	#IMPLIED
 >
 
 <!ELEMENT ModellElementRuestzeitVerteilung (#PCDATA)>
@@ -1466,6 +1468,9 @@
   SymbolSpiegeln	CDATA	#IMPLIED
 >
 <!ELEMENT ModellElementDatenausdruck (#PCDATA)>
+<!ATTLIST ModellElementDatenausdruck
+  Modus	CDATA	#IMPLIED
+>
 <!ELEMENT ModellElementDatenbereich EMPTY>
 <!ATTLIST ModellElementDatenbereich
   Minimum	CDATA	#IMPLIED
@@ -1502,6 +1507,9 @@
   SymbolSpiegeln	CDATA	#IMPLIED
 >
 <!ELEMENT ModellElementAnimationLCDAusdruck (#PCDATA)>
+<!ATTLIST ModellElementAnimationLCDAusdruck
+  Modus	CDATA	#IMPLIED
+>
 <!ELEMENT ModellElementAnimationLCDZiffern (#PCDATA)>
 <!ELEMENT ModellElementAnimationLCDFarbe (#PCDATA)>
 
@@ -1514,6 +1522,7 @@
 >
 <!ELEMENT ModellElementAnimationAnalogSkalaAusdruck (#PCDATA)>
 <!ATTLIST ModellElementAnimationAnalogSkalaAusdruck
+  Modus			CDATA	#IMPLIED
   MinimalWert	CDATA	#IMPLIED
   MaximalWert	CDATA	#REQUIRED
   GelberBereich	CDATA	#IMPLIED
@@ -1539,6 +1548,7 @@
   Linienbreite	CDATA	#IMPLIED
   Balkenfarbe	CDATA	#IMPLIED
   Segmentfarbe	CDATA	#IMPLIED
+  Modus			CDATA	#IMPLIED
 >
 
 <!ELEMENT ModellElementAnimationLinienDiagramm (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementBoxSchriftGross | ModellElementBoxSchriftKlein | ModellElementEbene | ModellElementLinienBreite | ModellElementLinienFarbe | ModellElementHintergrundfarbe | ModellElementDiagrammElement | ModellElementDiagrammZeitbereich)*>
@@ -1719,8 +1729,10 @@
   Standardabweichung			CDATA	#REQUIRED
   Summe							CDATA	#REQUIRED
   Summe2						CDATA	#IMPLIED
+  Summe3						CDATA	#IMPLIED
   Typ							CDATA	#REQUIRED
   Variationskoeffizient			CDATA	#REQUIRED
+  Schiefe						CDATA	#IMPLIED
   Verteilung					CDATA	#IMPLIED
   Autokorrelation				CDATA	#IMPLIED
   Autokorrelation0100			CDATA	#IMPLIED
@@ -1741,6 +1753,7 @@
   LaufMittelwertKonfidenzRadius99	CDATA	#IMPLIED
   WerteSumme                    CDATA	#IMPLIED
   WerteSumme2                   CDATA	#IMPLIED
+  WerteSumme3                   CDATA	#IMPLIED
   Quantil10						CDATA	#IMPLIED
   Quantil25						CDATA	#IMPLIED
   Quantil50						CDATA	#IMPLIED
@@ -1757,8 +1770,10 @@
   Standardabweichung			CDATA	#REQUIRED
   Summe							CDATA	#REQUIRED
   Summe2						CDATA	#IMPLIED
+  Summe3						CDATA	#IMPLIED
   Typ							CDATA	#REQUIRED
   Variationskoeffizient			CDATA	#REQUIRED
+  Schiefe						CDATA	#IMPLIED
   Verteilung					CDATA	#IMPLIED
   Autokorrelation				CDATA	#IMPLIED
   Autokorrelation0100			CDATA	#IMPLIED
@@ -1779,6 +1794,7 @@
   LaufMittelwertKonfidenzRadius99	CDATA	#IMPLIED
   WerteSumme                    CDATA	#IMPLIED
   WerteSumme2                   CDATA	#IMPLIED
+  WerteSumme3                   CDATA	#IMPLIED
   Quantil10						CDATA	#IMPLIED
   Quantil25						CDATA	#IMPLIED
   Quantil50						CDATA	#IMPLIED
@@ -1807,8 +1823,10 @@
   Standardabweichung			CDATA	#REQUIRED
   Summe							CDATA	#REQUIRED
   Summe2						CDATA	#IMPLIED
+  Summe3						CDATA	#IMPLIED
   Typ							CDATA	#REQUIRED
   Variationskoeffizient			CDATA	#REQUIRED
+  Schiefe						CDATA	#IMPLIED
   Verteilung					CDATA	#IMPLIED
   Quantil10						CDATA	#IMPLIED
   Quantil25						CDATA	#IMPLIED
@@ -1826,8 +1844,10 @@
   Summe					CDATA	#REQUIRED
   Typ					CDATA	#REQUIRED
   Variationskoeffizient	CDATA	#REQUIRED
+  Schiefe						CDATA	#IMPLIED
   WerteSumme            CDATA	#IMPLIED
   WerteSumme2           CDATA	#IMPLIED
+  WerteSumme3           CDATA	#IMPLIED
   Quantil10				CDATA	#IMPLIED
   Quantil25				CDATA	#IMPLIED
   Quantil50				CDATA	#IMPLIED
@@ -1844,8 +1864,10 @@
   Summe					CDATA	#REQUIRED
   Typ					CDATA	#REQUIRED
   Variationskoeffizient	CDATA	#REQUIRED
+  Schiefe						CDATA	#IMPLIED
   WerteSumme            CDATA	#IMPLIED
   WerteSumme2           CDATA	#IMPLIED
+  WerteSumme3           CDATA	#IMPLIED
   Quantil10				CDATA	#IMPLIED
   Quantil25				CDATA	#IMPLIED
   Quantil50				CDATA	#IMPLIED
@@ -1868,8 +1890,10 @@
   Summe					CDATA	#REQUIRED
   Typ					CDATA	#REQUIRED
   Variationskoeffizient	CDATA	#REQUIRED
+  Schiefe						CDATA	#IMPLIED
   WerteSumme            CDATA	#IMPLIED
   WerteSumme2           CDATA	#IMPLIED
+  WerteSumme3           CDATA	#IMPLIED
   Quantil10				CDATA	#IMPLIED
   Quantil25				CDATA	#IMPLIED
   Quantil50				CDATA	#IMPLIED
@@ -1892,7 +1916,9 @@
   Standardabweichung	CDATA	#REQUIRED
   Summe					CDATA	#REQUIRED
   Summe2				CDATA	#IMPLIED
+  Summe3				CDATA	#IMPLIED
   Variationskoeffizient	CDATA	#REQUIRED
+  Schiefe						CDATA	#IMPLIED
   Verteilung			CDATA	#IMPLIED
   Quantil10				CDATA	#IMPLIED
   Quantil25				CDATA	#IMPLIED
@@ -1910,8 +1936,11 @@
   Summe					CDATA	#REQUIRED
   Typ					CDATA	#REQUIRED
   Variationskoeffizient	CDATA	#REQUIRED
+  Schiefe						CDATA	#IMPLIED
   WerteSumme            CDATA	#IMPLIED
   WerteSumme2           CDATA	#IMPLIED
+  WerteSumme3           CDATA	#IMPLIED
+  
 >
 
 <!ELEMENT StatistikKosten EMPTY>
@@ -1949,7 +1978,9 @@
   Standardabweichung			CDATA	#REQUIRED
   Summe							CDATA	#REQUIRED
   Summe2						CDATA	#IMPLIED
+  Summe3						CDATA	#IMPLIED
   Variationskoeffizient			CDATA	#REQUIRED
+  Schiefe						CDATA	#IMPLIED
   Verteilung					CDATA	#IMPLIED
   Autokorrelation				CDATA	#IMPLIED
   Autokorrelation0100			CDATA	#IMPLIED
@@ -1983,7 +2014,9 @@
   Standardabweichung	CDATA	#REQUIRED
   Summe					CDATA	#REQUIRED
   Summe2				CDATA	#IMPLIED
+  Summe3				CDATA	#IMPLIED
   Variationskoeffizient	CDATA	#REQUIRED
+  Schiefe				CDATA	#IMPLIED
   Verteilung			CDATA	#IMPLIED
   Quantil10				CDATA	#IMPLIED
   Quantil25				CDATA	#IMPLIED
@@ -2000,7 +2033,9 @@
   Standardabweichung	CDATA	#REQUIRED
   Summe					CDATA	#REQUIRED
   Summe2				CDATA	#IMPLIED
+  Summe3				CDATA	#IMPLIED
   Variationskoeffizient	CDATA	#REQUIRED
+  Schiefe				CDATA	#IMPLIED
   Verteilung			CDATA	#IMPLIED
   Quantil10				CDATA	#IMPLIED
   Quantil25				CDATA	#IMPLIED
@@ -2017,7 +2052,9 @@
   Standardabweichung	CDATA	#REQUIRED
   Summe					CDATA	#REQUIRED
   Summe2				CDATA	#IMPLIED
+  Summe3				CDATA	#IMPLIED
   Variationskoeffizient	CDATA	#REQUIRED
+  Schiefe				CDATA	#IMPLIED
   Verteilung			CDATA	#IMPLIED
   Quantil10				CDATA	#IMPLIED
   Quantil25				CDATA	#IMPLIED
@@ -2041,8 +2078,10 @@
   Standardabweichung	CDATA	#REQUIRED
   Summe					CDATA	#REQUIRED
   Variationskoeffizient	CDATA	#REQUIRED
+  Schiefe				CDATA	#IMPLIED
   WerteSumme            CDATA	#IMPLIED
   WerteSumme2           CDATA	#IMPLIED
+  WerteSumme3           CDATA	#IMPLIED
   Quantil10				CDATA	#IMPLIED
   Quantil25				CDATA	#IMPLIED
   Quantil50				CDATA	#IMPLIED
@@ -2057,8 +2096,10 @@
   Standardabweichung	CDATA	#REQUIRED
   Summe					CDATA	#REQUIRED
   Variationskoeffizient	CDATA	#REQUIRED
+  Schiefe				CDATA	#IMPLIED
   WerteSumme            CDATA	#IMPLIED
   WerteSumme2           CDATA	#IMPLIED
+  WerteSumme3           CDATA	#IMPLIED
   Quantil10				CDATA	#IMPLIED
   Quantil25				CDATA	#IMPLIED
   Quantil50				CDATA	#IMPLIED
@@ -2098,7 +2139,9 @@
   Standardabweichung			CDATA	#REQUIRED
   Summe							CDATA	#REQUIRED
   Summe2						CDATA	#IMPLIED
+  Summe3						CDATA	#IMPLIED
   Variationskoeffizient			CDATA	#REQUIRED
+  Schiefe						CDATA	#IMPLIED
   Verteilung					CDATA	#IMPLIED
   Autokorrelation				CDATA	#IMPLIED
   Autokorrelation0100			CDATA	#IMPLIED
@@ -2133,8 +2176,10 @@
   Summe					CDATA	#REQUIRED
   Typ					CDATA	#REQUIRED
   Variationskoeffizient	CDATA	#REQUIRED
+  Schiefe				CDATA	#IMPLIED
   WerteSumme            CDATA	#IMPLIED
   WerteSumme2           CDATA	#IMPLIED
+  WerteSumme3           CDATA	#IMPLIED
 >
 <!ELEMENT StatistikStatusZeit (StatistikStatusZeitEintrag)*>
 <!ELEMENT StatistikStatusZeitEintrag (StatistikStatusZeitStatus)*>
@@ -2503,6 +2548,7 @@
 <!ATTLIST SignatureStation
   id		CDATA	#REQUIRED
   Signature	CDATA	#REQUIRED
+  Hash		CDATA	#IMPLIED
 >
 <!ELEMENT SignatureUserName (#PCDATA)>
 <!ATTLIST SignatureUserName
@@ -2579,6 +2625,7 @@
   Status			CDATA	#IMPLIED
   Count         	CDATA	#IMPLIED
   ClientCount      	CDATA	#IMPLIED
+  Mode				CDATA	#IMPLIED
 >
 
 <!ELEMENT ModelElementSetupTimesDistribution (#PCDATA)>
@@ -3698,6 +3745,9 @@
   MirrorSymbol	CDATA	#IMPLIED
 >
 <!ELEMENT ModelElementDataExpression (#PCDATA)>
+<!ATTLIST ModelElementDataExpression
+  Mode	CDATA	#IMPLIED
+>
 <!ELEMENT ModelElementDataArea EMPTY>
 <!ATTLIST ModelElementDataArea
   Minimum	CDATA	#IMPLIED
@@ -3734,6 +3784,9 @@
   MirrorSymbol	CDATA	#IMPLIED
 >
 <!ELEMENT ModelElementAnimationLCDExpression (#PCDATA)>
+<!ATTLIST ModelElementAnimationLCDExpression
+  Mode	CDATA	#IMPLIED
+>
 <!ELEMENT ModelElementAnimationLCDDigits (#PCDATA)>
 <!ELEMENT ModelElementAnimationLCDColor (#PCDATA)>
 
@@ -3746,6 +3799,7 @@
 >
 <!ELEMENT ModelElementAnimationPointerMeasuringExpression (#PCDATA)>
 <!ATTLIST ModelElementAnimationPointerMeasuringExpression
+  Mode			CDATA	#IMPLIED
   MinValue		CDATA	#IMPLIED
   MaxValue		CDATA	#REQUIRED
   YellowRange	CDATA	#IMPLIED
@@ -3771,6 +3825,7 @@
   LineWidth		CDATA	#IMPLIED
   BarColor		CDATA	#IMPLIED
   SegmentColor	CDATA	#IMPLIED
+  Mode			CDATA	#IMPLIED
 >
 
 <!ELEMENT ModelElementAnimationLineDiagram (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBoxFontLarge | ModelElementBoxFontSmall | ModelElementLayer | ModelElementLineWidth | ModelElementLineColor | ModelElementBackgroundColor | ModelElementDiagramElement | ModelElementDiagramTimeRange)*>
@@ -3951,8 +4006,10 @@
   StandardDeviation			CDATA	#REQUIRED
   Sum						CDATA	#REQUIRED
   Sum2						CDATA	#IMPLIED
+  Sum3						CDATA	#IMPLIED
   Type						CDATA	#REQUIRED
   CoefficientOfVariation	CDATA	#REQUIRED
+  Skewness					CDATA	#IMPLIED
   Distribution				CDATA	#IMPLIED
   Autocorrelation			CDATA	#IMPLIED
   Autocorrelation0100		CDATA	#IMPLIED
@@ -3973,6 +4030,7 @@
   RunMeanConfidenceRadius99	CDATA	#IMPLIED
   ValuesSum                 CDATA	#IMPLIED
   ValuesSum2                CDATA	#IMPLIED
+  ValuesSum3                CDATA	#IMPLIED
   Quantil10					CDATA	#IMPLIED
   Quantil25					CDATA	#IMPLIED
   Quantil50					CDATA	#IMPLIED
@@ -3989,8 +4047,10 @@
   StandardDeviation			CDATA	#REQUIRED
   Sum						CDATA	#REQUIRED
   Sum2						CDATA	#IMPLIED
+  Sum3						CDATA	#IMPLIED
   Type						CDATA	#REQUIRED
   CoefficientOfVariation	CDATA	#REQUIRED
+  Skewness					CDATA	#IMPLIED
   Distribution				CDATA	#IMPLIED
   Autocorrelation			CDATA	#IMPLIED
   Autocorrelation0100		CDATA	#IMPLIED
@@ -4011,6 +4071,7 @@
   RunMeanConfidenceRadius99	CDATA	#IMPLIED
   ValuesSum                 CDATA	#IMPLIED
   ValuesSum2                CDATA	#IMPLIED
+  ValuesSum3                CDATA	#IMPLIED
   Quantil10					CDATA	#IMPLIED
   Quantil25					CDATA	#IMPLIED
   Quantil50					CDATA	#IMPLIED
@@ -4039,8 +4100,10 @@
   StandardDeviation			CDATA	#REQUIRED
   Sum						CDATA	#REQUIRED
   Sum2						CDATA	#IMPLIED
+  Sum3						CDATA	#IMPLIED
   Type						CDATA	#REQUIRED
   CoefficientOfVariation	CDATA	#REQUIRED
+  Skewness					CDATA	#IMPLIED
   Distribution				CDATA	#IMPLIED
   Quantil10					CDATA	#IMPLIED
   Quantil25					CDATA	#IMPLIED
@@ -4058,8 +4121,10 @@
   Sum						CDATA	#REQUIRED
   Type						CDATA	#REQUIRED
   CoefficientOfVariation	CDATA	#REQUIRED
+  Skewness					CDATA	#IMPLIED
   ValuesSum                 CDATA	#IMPLIED
   ValuesSum2                CDATA	#IMPLIED
+  ValuesSum3                CDATA	#IMPLIED
   Quantil10					CDATA	#IMPLIED
   Quantil25					CDATA	#IMPLIED
   Quantil50					CDATA	#IMPLIED
@@ -4076,8 +4141,10 @@
   Sum						CDATA	#REQUIRED
   Type						CDATA	#REQUIRED
   CoefficientOfVariation	CDATA	#REQUIRED
+  Skewness					CDATA	#IMPLIED
   ValuesSum                 CDATA	#IMPLIED
   ValuesSum2                CDATA	#IMPLIED
+  ValuesSum3                CDATA	#IMPLIED
   Quantil10					CDATA	#IMPLIED
   Quantil25					CDATA	#IMPLIED
   Quantil50					CDATA	#IMPLIED
@@ -4100,8 +4167,10 @@
   Sum						CDATA	#REQUIRED
   Type						CDATA	#REQUIRED
   CoefficientOfVariation	CDATA	#REQUIRED
+  Skewness					CDATA	#IMPLIED
   ValuesSum                 CDATA	#IMPLIED
   ValuesSum2                CDATA	#IMPLIED
+  ValuesSum3                CDATA	#IMPLIED
   Quantil10					CDATA	#IMPLIED
   Quantil25					CDATA	#IMPLIED
   Quantil50					CDATA	#IMPLIED
@@ -4124,8 +4193,10 @@
   StandardDeviation			CDATA	#REQUIRED
   Sum						CDATA	#REQUIRED
   Sum2						CDATA	#IMPLIED
+  Sum3						CDATA	#IMPLIED
   Type						CDATA	#REQUIRED
   CoefficientOfVariation	CDATA	#REQUIRED
+  Skewness					CDATA	#IMPLIED
   Distribution				CDATA	#IMPLIED
   Quantil10					CDATA	#IMPLIED
   Quantil25					CDATA	#IMPLIED
@@ -4143,8 +4214,10 @@
   Sum						CDATA	#REQUIRED
   Type						CDATA	#REQUIRED
   CoefficientOfVariation	CDATA	#REQUIRED
+  Skewness					CDATA	#IMPLIED
   ValuesSum                 CDATA	#IMPLIED
   ValuesSum2                CDATA	#IMPLIED
+  ValuesSum3                CDATA	#IMPLIED
 >
 
 <!ELEMENT StatisticsCosts EMPTY>
@@ -4182,7 +4255,9 @@
   StandardDeviation			CDATA	#REQUIRED
   Sum						CDATA	#REQUIRED
   Sum2						CDATA	#IMPLIED
+  Sum3						CDATA	#IMPLIED
   CoefficientOfVariation	CDATA	#REQUIRED
+  Skewness					CDATA	#IMPLIED
   Distribution				CDATA	#IMPLIED
   Autocorrelation			CDATA	#IMPLIED
   Autocorrelation0100		CDATA	#IMPLIED
@@ -4216,7 +4291,9 @@
   StandardDeviation			CDATA	#REQUIRED
   Sum						CDATA	#REQUIRED
   Sum2						CDATA	#IMPLIED
+  Sum3						CDATA	#IMPLIED
   CoefficientOfVariation	CDATA	#REQUIRED
+  Skewness					CDATA	#IMPLIED
   Distribution				CDATA	#IMPLIED
   Quantil10					CDATA	#IMPLIED
   Quantil25					CDATA	#IMPLIED
@@ -4233,7 +4310,9 @@
   StandardDeviation			CDATA	#REQUIRED
   Sum						CDATA	#REQUIRED
   Sum2						CDATA	#IMPLIED
+  Sum3						CDATA	#IMPLIED
   CoefficientOfVariation	CDATA	#REQUIRED
+  Skewness					CDATA	#IMPLIED
   Distribution				CDATA	#IMPLIED
   Quantil10					CDATA	#IMPLIED
   Quantil25					CDATA	#IMPLIED
@@ -4250,7 +4329,9 @@
   StandardDeviation			CDATA	#REQUIRED
   Sum						CDATA	#REQUIRED
   Sum2						CDATA	#IMPLIED
+  Sum3						CDATA	#IMPLIED
   CoefficientOfVariation	CDATA	#REQUIRED
+  Skewness					CDATA	#IMPLIED
   Distribution				CDATA	#IMPLIED
   Quantil10					CDATA	#IMPLIED
   Quantil25					CDATA	#IMPLIED
@@ -4274,8 +4355,10 @@
   StandardDeviation			CDATA	#REQUIRED
   Sum						CDATA	#REQUIRED
   CoefficientOfVariation	CDATA	#REQUIRED
+  Skewness					CDATA	#IMPLIED
   ValuesSum                 CDATA	#IMPLIED
   ValuesSum2                CDATA	#IMPLIED
+  ValuesSum3                CDATA	#IMPLIED
   Quantil10					CDATA	#IMPLIED
   Quantil25					CDATA	#IMPLIED
   Quantil50					CDATA	#IMPLIED
@@ -4290,8 +4373,10 @@
   StandardDeviation			CDATA	#REQUIRED
   Sum						CDATA	#REQUIRED
   CoefficientOfVariation	CDATA	#REQUIRED
+  Skewness					CDATA	#IMPLIED
   ValuesSum                 CDATA	#IMPLIED
   ValuesSum2                CDATA	#IMPLIED
+  ValuesSum3                CDATA	#IMPLIED
   Quantil10					CDATA	#IMPLIED
   Quantil25					CDATA	#IMPLIED
   Quantil50					CDATA	#IMPLIED
@@ -4331,7 +4416,9 @@
   StandardDeviation			CDATA	#REQUIRED
   Sum						CDATA	#REQUIRED
   Sum2						CDATA	#IMPLIED
+  Sum3						CDATA	#IMPLIED
   CoefficientOfVariation	CDATA	#REQUIRED
+  Skewness					CDATA	#IMPLIED
   Distribution				CDATA	#IMPLIED
   Autocorrelation			CDATA	#IMPLIED
   Autocorrelation0100		CDATA	#IMPLIED
@@ -4366,8 +4453,10 @@
   Sum						CDATA	#REQUIRED
   Type						CDATA	#REQUIRED
   CoefficientOfVariation	CDATA	#REQUIRED
+  Skewness					CDATA	#IMPLIED
   ValuesSum                 CDATA	#IMPLIED
   ValuesSum2                CDATA	#IMPLIED
+  ValuesSum3                CDATA	#IMPLIED
 >
 <!ELEMENT StatisticsStatusTime (StatisticsStatusTimeRecord)*>
 <!ELEMENT StatisticsStatusTimeRecord (StatisticsStatusTimeStatus)*>

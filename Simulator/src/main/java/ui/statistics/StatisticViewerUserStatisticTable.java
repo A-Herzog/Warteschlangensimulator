@@ -144,6 +144,7 @@ public class StatisticViewerUserStatisticTable extends StatisticViewerTable {
 		cols.add(Language.tr("Statistics.StdDevUserTime"));
 		cols.add(Language.tr("Statistics.VarianceUserTime"));
 		cols.add(Language.tr("Statistics.CVUserTime"));
+		cols.add(Language.tr("Statistics.Skewness"));
 		cols.add(Language.tr("Statistics.Minimum"));
 		cols.add(Language.tr("Statistics.Maximum"));
 		if (SetupData.getSetup().showQuantils) {
@@ -170,6 +171,7 @@ public class StatisticViewerUserStatisticTable extends StatisticViewerTable {
 				row.add(StatisticTools.formatExactTime(indicator.getSD()));
 				row.add(StatisticTools.formatExactTime(indicator.getVar()));
 				row.add(StatisticTools.formatNumber(indicator.getCV()));
+				row.add(StatisticTools.formatNumber(indicator.getSk()));
 				row.add(StatisticTools.formatExactTime(indicator.getMin()));
 				row.add(StatisticTools.formatExactTime(indicator.getMax()));
 				if (SetupData.getSetup().showQuantils && indicator.getDistribution()!=null) {
@@ -193,6 +195,7 @@ public class StatisticViewerUserStatisticTable extends StatisticViewerTable {
 				row.add(StatisticTools.formatNumber(indicator.getSD()));
 				row.add(StatisticTools.formatNumber(indicator.getVar()));
 				row.add(StatisticTools.formatNumber(indicator.getCV()));
+				row.add(StatisticTools.formatNumber(indicator.getSk()));
 				row.add(StatisticTools.formatNumber(indicator.getMin()));
 				row.add(StatisticTools.formatNumber(indicator.getMax()));
 				if (SetupData.getSetup().showQuantils && indicator.getDistribution()!=null) {

@@ -111,6 +111,7 @@ public class SimDataBuilder {
 			results.append(Language.tr("Statistics.StdDevWaitingTime")+" Std[W]="+StatisticTools.formatExactTime(data.statisticWaiting.getSD())+" ("+StatisticTools.formatNumber(data.statisticWaiting.getSD())+")\n");
 			results.append(Language.tr("Statistics.VarianceWaitingTime")+" Var[W]="+StatisticTools.formatExactTime(data.statisticWaiting.getVar())+" ("+StatisticTools.formatNumber(data.statisticWaiting.getVar())+")\n");
 			results.append(Language.tr("Statistics.CVWaitingTime")+" CV[W]="+StatisticTools.formatNumber(data.statisticWaiting.getCV())+"\n");
+			results.append(Language.tr("Statistics.Skewness")+": Sk[W]="+StatisticTools.formatNumber(data.statisticWaiting.getSk())+"\n");
 			results.append(Language.tr("Statistics.MinimumWaitingTime")+" Min[W]="+StatisticTools.formatExactTime(data.statisticWaiting.getMin())+" ("+StatisticTools.formatNumber(data.statisticWaiting.getMin())+")\n");
 			results.append(Language.tr("Statistics.MaximumWaitingTime")+" Max[W]="+StatisticTools.formatExactTime(data.statisticWaiting.getMax())+" ("+StatisticTools.formatNumber(data.statisticWaiting.getMax())+")\n");
 		}
@@ -124,6 +125,7 @@ public class SimDataBuilder {
 				results.append(Language.tr("Statistics.StdDevWaitingTime")+" Std[W]="+StatisticTools.formatExactTime(statisticWaiting.getSD())+" ("+StatisticTools.formatNumber(statisticWaiting.getSD())+")\n");
 				results.append(Language.tr("Statistics.VarianceWaitingTime")+" Var[W]="+StatisticTools.formatExactTime(statisticWaiting.getVar())+" ("+StatisticTools.formatNumber(statisticWaiting.getVar())+")\n");
 				results.append(Language.tr("Statistics.CVWaitingTime")+" CV[W]="+StatisticTools.formatNumber(statisticWaiting.getCV())+"\n");
+				results.append(Language.tr("Statistics.Skewness")+": Sk[W]="+StatisticTools.formatNumber(statisticWaiting.getSk())+"\n");
 				results.append(Language.tr("Statistics.MinimumWaitingTime")+" Min[W]="+StatisticTools.formatExactTime(statisticWaiting.getMin())+" ("+StatisticTools.formatNumber(statisticWaiting.getMin())+")\n");
 				results.append(Language.tr("Statistics.MaximumWaitingTime")+" Max[W]="+StatisticTools.formatExactTime(statisticWaiting.getMax())+" ("+StatisticTools.formatNumber(statisticWaiting.getMax())+")\n");
 			}
@@ -136,6 +138,7 @@ public class SimDataBuilder {
 			results.append(Language.tr("Statistics.StdDevTransferTime")+" Std[T]="+StatisticTools.formatExactTime(data.statisticTransfer.getSD())+" ("+StatisticTools.formatNumber(data.statisticTransfer.getSD())+")\n");
 			results.append(Language.tr("Statistics.VarianceTransferTime")+" Var[T]="+StatisticTools.formatExactTime(data.statisticTransfer.getVar())+" ("+StatisticTools.formatNumber(data.statisticTransfer.getVar())+")\n");
 			results.append(Language.tr("Statistics.CVTransferTime")+" CV[T]="+StatisticTools.formatNumber(data.statisticTransfer.getCV())+"\n");
+			results.append(Language.tr("Statistics.Skewness")+": Sk[T]="+StatisticTools.formatNumber(data.statisticTransfer.getSk())+"\n");
 			results.append(Language.tr("Statistics.MinimumTransferTime")+" Min[T]="+StatisticTools.formatExactTime(data.statisticTransfer.getMin())+" ("+StatisticTools.formatNumber(data.statisticTransfer.getMin())+")\n");
 			results.append(Language.tr("Statistics.MaximumTransferTime")+" Max[T]="+StatisticTools.formatExactTime(data.statisticTransfer.getMax())+" ("+StatisticTools.formatNumber(data.statisticTransfer.getMax())+")\n");
 		}
@@ -149,6 +152,7 @@ public class SimDataBuilder {
 				results.append(Language.tr("Statistics.StdDevTransferTime")+" Std[T]="+StatisticTools.formatExactTime(statisticTransfer.getSD())+" ("+StatisticTools.formatNumber(statisticTransfer.getSD())+")\n");
 				results.append(Language.tr("Statistics.VarianceTransferTime")+" Var[T]="+StatisticTools.formatExactTime(statisticTransfer.getVar())+" ("+StatisticTools.formatNumber(statisticTransfer.getVar())+")\n");
 				results.append(Language.tr("Statistics.CVTransferTime")+" CV[T]="+StatisticTools.formatNumber(statisticTransfer.getCV())+"\n");
+				results.append(Language.tr("Statistics.Skewness")+": Sk[T]="+StatisticTools.formatNumber(statisticTransfer.getSk())+"\n");
 				results.append(Language.tr("Statistics.MinimumTransferTime")+" Min[T]="+StatisticTools.formatExactTime(statisticTransfer.getMin())+" ("+StatisticTools.formatNumber(statisticTransfer.getMin())+")\n");
 				results.append(Language.tr("Statistics.MaximumTransferTime")+" Max[T]="+StatisticTools.formatExactTime(statisticTransfer.getMax())+" ("+StatisticTools.formatNumber(statisticTransfer.getMax())+")\n");
 			}
@@ -161,6 +165,7 @@ public class SimDataBuilder {
 			results.append(Language.tr("Statistics.StdDevProcessTime")+" Std[S]="+StatisticTools.formatExactTime(data.statisticProcess.getSD())+" ("+StatisticTools.formatNumber(data.statisticProcess.getSD())+")\n");
 			results.append(Language.tr("Statistics.VarianceProcessTime")+" Var[S]="+StatisticTools.formatExactTime(data.statisticProcess.getVar())+" ("+StatisticTools.formatNumber(data.statisticProcess.getVar())+")\n");
 			results.append(Language.tr("Statistics.CVProcessTime")+" CV[S]="+StatisticTools.formatNumber(data.statisticProcess.getCV())+"\n");
+			results.append(Language.tr("Statistics.Skewness")+": Sk[S]="+StatisticTools.formatNumber(data.statisticProcess.getSk())+"\n");
 			results.append(Language.tr("Statistics.MinimumProcessTime")+" Min[S]="+StatisticTools.formatExactTime(data.statisticProcess.getMin())+" ("+StatisticTools.formatNumber(data.statisticProcess.getMin())+")\n");
 			results.append(Language.tr("Statistics.MaximumProcessTime")+" Max[S]="+StatisticTools.formatExactTime(data.statisticProcess.getMax())+" ("+StatisticTools.formatNumber(data.statisticProcess.getMax())+")\n");
 		}
@@ -174,6 +179,7 @@ public class SimDataBuilder {
 				results.append(Language.tr("Statistics.StdDevProcessTime")+" Std[S]="+StatisticTools.formatExactTime(statisticProcess.getSD())+" ("+StatisticTools.formatNumber(statisticProcess.getSD())+")\n");
 				results.append(Language.tr("Statistics.VarianceProcessTime")+" Var[S]="+StatisticTools.formatExactTime(statisticProcess.getVar())+" ("+StatisticTools.formatNumber(statisticProcess.getVar())+")\n");
 				results.append(Language.tr("Statistics.CVProcessTime")+" CV[S]="+StatisticTools.formatNumber(statisticProcess.getCV())+"\n");
+				results.append(Language.tr("Statistics.Skewness")+": Sk[S]="+StatisticTools.formatNumber(statisticProcess.getSk())+"\n");
 				results.append(Language.tr("Statistics.MinimumProcessTime")+" Min[S]="+StatisticTools.formatExactTime(statisticProcess.getMin())+" ("+StatisticTools.formatNumber(statisticProcess.getMin())+")\n");
 				results.append(Language.tr("Statistics.MaximumProcessTime")+" Max[S]="+StatisticTools.formatExactTime(statisticProcess.getMax())+" ("+StatisticTools.formatNumber(statisticProcess.getMax())+")\n");
 			}
@@ -186,6 +192,7 @@ public class SimDataBuilder {
 			results.append(Language.tr("Statistics.StdDevResidenceTime")+" Std[V]="+StatisticTools.formatExactTime(data.statisticResidence.getSD())+" ("+StatisticTools.formatNumber(data.statisticResidence.getSD())+")\n");
 			results.append(Language.tr("Statistics.VarianceResidenceTime")+" Var[V]="+StatisticTools.formatExactTime(data.statisticResidence.getVar())+" ("+StatisticTools.formatNumber(data.statisticResidence.getVar())+")\n");
 			results.append(Language.tr("Statistics.CVResidenceTime")+" CV[V]="+StatisticTools.formatNumber(data.statisticResidence.getCV())+"\n");
+			results.append(Language.tr("Statistics.Skewness")+": Sk[V]="+StatisticTools.formatNumber(data.statisticResidence.getSk())+"\n");
 			results.append(Language.tr("Statistics.MinimumResidenceTime")+" Min[V]="+StatisticTools.formatExactTime(data.statisticResidence.getMin())+" ("+StatisticTools.formatNumber(data.statisticResidence.getMin())+")\n");
 			results.append(Language.tr("Statistics.MaximumResidenceTime")+" Max[V]="+StatisticTools.formatExactTime(data.statisticResidence.getMax())+" ("+StatisticTools.formatNumber(data.statisticResidence.getMax())+")\n");
 		}
@@ -199,6 +206,7 @@ public class SimDataBuilder {
 				results.append(Language.tr("Statistics.StdDevResidenceTime")+" Std[V]="+StatisticTools.formatExactTime(statisticResidence.getSD())+" ("+StatisticTools.formatNumber(statisticResidence.getSD())+")\n");
 				results.append(Language.tr("Statistics.VarianceResidenceTime")+" Var[V]="+StatisticTools.formatExactTime(statisticResidence.getVar())+" ("+StatisticTools.formatNumber(statisticResidence.getVar())+")\n");
 				results.append(Language.tr("Statistics.CVResidenceTime")+" CV[V]="+StatisticTools.formatNumber(statisticResidence.getCV())+"\n");
+				results.append(Language.tr("Statistics.Skewness")+": Sk[V]="+StatisticTools.formatNumber(statisticResidence.getSk())+"\n");
 				results.append(Language.tr("Statistics.MinimumResidenceTime")+" Min[V]="+StatisticTools.formatExactTime(statisticResidence.getMin())+" ("+StatisticTools.formatNumber(statisticResidence.getMin())+")\n");
 				results.append(Language.tr("Statistics.MaximumResidenceTime")+" Max[V]="+StatisticTools.formatExactTime(statisticResidence.getMax())+" ("+StatisticTools.formatNumber(statisticResidence.getMax())+")\n");
 			}

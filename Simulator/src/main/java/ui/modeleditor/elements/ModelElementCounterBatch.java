@@ -197,6 +197,7 @@ public class ModelElementCounterBatch extends ModelElementMultiInSingleOutBox {
 			builder.results.append(Language.tr("Statistics.StdDevInterArrivalTime")+": Std[IB]="+TimeTools.formatExactTime(indicator.getSD())+" ("+NumberTools.formatNumber(indicator.getSD())+"\n");
 			builder.results.append(Language.tr("Statistics.VarianceInterArrivalTime")+": Var[IB]="+TimeTools.formatExactTime(indicator.getVar())+"\n");
 			builder.results.append(Language.tr("Statistics.CVInterArrivalTime")+": CV[IB]="+StatisticTools.formatNumber(indicator.getCV())+"\n");
+			builder.results.append(Language.tr("Statistics.Skewness")+": Sk[IB]="+StatisticTools.formatNumber(indicator.getSk())+"\n");
 			builder.results.append(Language.tr("Statistics.MinimalInterArrivalTime")+": Min[IB]="+TimeTools.formatExactTime(indicator.getMin())+" ("+NumberTools.formatNumber(indicator.getMin())+"\n");
 			builder.results.append(Language.tr("Statistics.MaximalInterArrivalTime")+": Max[IB]="+TimeTools.formatExactTime(indicator.getMax())+" ("+NumberTools.formatNumber(indicator.getMax())+"\n");
 		}

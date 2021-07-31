@@ -63,6 +63,11 @@ public final class StatisticsTimeContinuousPerformanceIndicator extends Statisti
 	private double valueSumSquared=0;
 
 	/**
+	 * Summe der mit 3 potenzierten Zustände gewichtet mit der jeweiligen Zeitdauer
+	 */
+	private double valueSumCubic=0;
+
+	/**
 	 * Ergebnis der letzten Berechnung des Durchschnitts (-1, wenn sich die Werte seit der letzten Berechnung verändert haben und eine neue Rechnung notwendig ist)
 	 */
 	private double lastTimeMean=-1;
@@ -98,6 +103,7 @@ public final class StatisticsTimeContinuousPerformanceIndicator extends Statisti
 				sum=0;
 				valueSum=0;
 				valueSumSquared=0;
+				valueSumCubic=0;
 			} else {
 				final double add=time-lastTime;
 
@@ -106,6 +112,7 @@ public final class StatisticsTimeContinuousPerformanceIndicator extends Statisti
 				sum+=add;
 				valueSum+=add*lastState;
 				valueSumSquared+=add*lastState*lastState;
+				valueSumCubic+=add*lastState*lastState*lastState;
 			}
 
 			lastTime=time;
@@ -152,6 +159,7 @@ public final class StatisticsTimeContinuousPerformanceIndicator extends Statisti
 		sum+=moreCountStatistics.sum;
 		valueSum+=moreCountStatistics.valueSum;
 		valueSumSquared+=moreCountStatistics.valueSumSquared;
+		valueSumCubic+=moreCountStatistics.valueSumCubic;
 
 		lastTimeMean=-1;
 	}
@@ -169,6 +177,7 @@ public final class StatisticsTimeContinuousPerformanceIndicator extends Statisti
 		sum=0;
 		valueSum=0;
 		valueSumSquared=0;
+		valueSumCubic=0;
 
 		lastTimeMean=-1;
 	}
@@ -188,6 +197,7 @@ public final class StatisticsTimeContinuousPerformanceIndicator extends Statisti
 		sum=((StatisticsTimeContinuousPerformanceIndicator)indicator).sum;
 		valueSum=((StatisticsTimeContinuousPerformanceIndicator)indicator).valueSum;
 		valueSumSquared=((StatisticsTimeContinuousPerformanceIndicator)indicator).valueSumSquared;
+		valueSumCubic=((StatisticsTimeContinuousPerformanceIndicator)indicator).valueSumCubic;
 
 		lastTimeMean=-1;
 	}
@@ -261,6 +271,18 @@ public final class StatisticsTimeContinuousPerformanceIndicator extends Statisti
 	}
 
 	/**
+	 * Liefert die Schiefe über die Verteilung der Zeiten in den verschiedenen Zuständen
+	 * @return	Schiefe  über die Verteilung der Zeiten in den verschiedenen Zuständen
+	 */
+	public double getTimeSk() {
+		final double sd=getTimeSD();
+		if (sum<3 || sd==0.0) return 0;
+
+		/* siehe: https://de.wikipedia.org/wiki/Schiefe_(Statistik) */
+		return sum/(sum-1)/(sum-2)/Math.pow(sd,3)*(valueSumCubic-3*getTimeMean()*valueSumSquared+2*sum*Math.pow(getTimeMean(),3));
+	}
+
+	/**
 	 * Liefert den höchsten Zustand, in dem sich das System eine Zeit &gt;0 befunden hat
 	 * @return	Maximale Zustand, in dem sich das System eine positive Zeit lang befunden hat
 	 */
@@ -281,9 +303,11 @@ public final class StatisticsTimeContinuousPerformanceIndicator extends Statisti
 		node.setAttribute(StatisticsTimePerformanceIndicator.xmlNameSum,NumberTools.formatSystemNumber(getSum(),recycleStringBuilder));
 		node.setAttribute(StatisticsTimePerformanceIndicator.xmlNameValues[0],NumberTools.formatSystemNumber(valueSum,recycleStringBuilder));
 		node.setAttribute(StatisticsTimePerformanceIndicator.xmlNameValuesSquared[0],NumberTools.formatSystemNumber(valueSumSquared,recycleStringBuilder));
+		node.setAttribute(StatisticsTimePerformanceIndicator.xmlNameValuesCubic[0],NumberTools.formatSystemNumber(valueSumCubic,recycleStringBuilder));
 		node.setAttribute(StatisticsTimePerformanceIndicator.xmlNameMean,NumberTools.formatSystemNumber(getTimeMean(),recycleStringBuilder));
 		node.setAttribute(StatisticsTimePerformanceIndicator.xmlNameSD,NumberTools.formatSystemNumber(getTimeSD(),recycleStringBuilder));
 		node.setAttribute(StatisticsTimePerformanceIndicator.xmlNameCV,NumberTools.formatSystemNumber(getTimeCV(),recycleStringBuilder));
+		node.setAttribute(StatisticsTimePerformanceIndicator.xmlNameSk[0],NumberTools.formatSystemNumber(getTimeSk(),recycleStringBuilder));
 		node.setAttribute(StatisticsTimePerformanceIndicator.xmlNameMin[0],""+Math.max(0,getTimeMin()));
 		node.setAttribute(StatisticsTimePerformanceIndicator.xmlNameMax[0],""+Math.max(0,getTimeMax()));
 	}
@@ -313,6 +337,13 @@ public final class StatisticsTimeContinuousPerformanceIndicator extends Statisti
 			final Double valueSum2=NumberTools.getDouble(value);
 			if (valueSum2==null || valueSum2<0) return String.format(StatisticsTimePerformanceIndicator.xmlNameValuesSquaredError,node.getNodeName(),value);
 			valueSumSquared=valueSum2;
+		}
+
+		value=NumberTools.systemNumberToLocalNumber(getAttributeValue(node,StatisticsTimePerformanceIndicator.xmlNameValuesCubic));
+		if (!value.isEmpty()) {
+			final Double valueSum3=NumberTools.getDouble(value);
+			if (valueSum3==null) return String.format(StatisticsTimePerformanceIndicator.xmlNameValuesCubicError,node.getNodeName(),value);
+			valueSumCubic=valueSum3;
 		}
 
 		value=NumberTools.systemNumberToLocalNumber(getAttributeValue(node,StatisticsTimePerformanceIndicator.xmlNameMin));

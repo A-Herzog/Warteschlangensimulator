@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-30 19:14+0200\n"
+"POT-Creation-Date: 2021-07-31 14:45+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18701,6 +18701,9 @@ msgstr "Maximum"
 msgid "Statistics.ClientData.Field.Minimum"
 msgstr "Minimum"
 
+msgid "Statistics.ClientData.Field.Sk"
+msgstr "Schiefe"
+
 msgid "Statistics.ClientData.Field.StdDev"
 msgstr "Standardabweichung"
 
@@ -19203,6 +19206,12 @@ msgstr "Minimale Anzahl an Bedienern in Pausezeit"
 
 msgid "Statistics.FailureTime.Minimum.Transporters"
 msgstr "Minimale Anzahl an Transportern in Pausezeit"
+
+msgid "Statistics.FailureTime.Sk"
+msgstr "Schiefe der Anzahl an Bedienern in Pausezeit"
+
+msgid "Statistics.FailureTime.Sk.Transporters"
+msgstr "Schiefe der Anzahl an Transportern in Pausezeit"
 
 msgid "Statistics.FailureTime.StdDev"
 msgstr "Standardabweichung der Anzahl an Bedienern in Pausezeit"
@@ -19752,6 +19761,9 @@ msgstr "Simulationsmodell"
 msgid "Statistics.SimulationModel.Name"
 msgstr "Name"
 
+msgid "Statistics.Skewness"
+msgstr "Schiefe"
+
 msgid "Statistics.State"
 msgstr "Zustand"
 
@@ -20049,6 +20061,9 @@ msgstr "Minimale Anzahl an anfahrenden Transportern"
 msgid "Statistics.TransporterUtilization.NumberOfTransporters"
 msgstr "Anzahl an Transportern dieses Typs"
 
+msgid "Statistics.TransporterUtilization.Sk"
+msgstr "Schiefe der Anzahl an fahrenden Transportern"
+
 msgid "Statistics.TransporterUtilization.StdDev"
 msgstr "Standardabweichung der Anzahl an fahrenden Transportern"
 
@@ -20106,6 +20121,9 @@ msgstr "Maximale Anzahl an vorhandenen Bedienern"
 msgid "Statistics.Utilization.NumberOfOperators.Minimum"
 msgstr "Minimale Anzahl an vorhandenen Bedienern"
 
+msgid "Statistics.Utilization.NumberOfOperators.Sk"
+msgstr "Schiefe der Anzahl an vorhandenen Bedienern"
+
 msgid "Statistics.Utilization.NumberOfOperators.StdDev"
 msgstr "Standardabweichung der Anzahl an vorhandenen Bedienern"
 
@@ -20117,6 +20135,9 @@ msgstr "unendlich viele"
 
 msgid "Statistics.Utilization.Schedule"
 msgstr "Zeitplan für Bedienergruppe"
+
+msgid "Statistics.Utilization.Sk"
+msgstr "Schiefe der Anzahl an belegten Bedienern"
 
 msgid "Statistics.Utilization.StdDev"
 msgstr "Standardabweichung der Anzahl an belegten Bedienern"
@@ -20628,6 +20649,9 @@ msgstr "Der Wert in dem Element \"%s\" muss eine nicht-negative Ganzzahl sein, i
 msgid "Statistics.XML.RunUser"
 msgstr "StatistikNutzer"
 
+msgid "Statistics.XML.Sk"
+msgstr "Schiefe"
+
 msgid "Statistics.XML.StateStatistics"
 msgstr "StatistikStatusZeit"
 
@@ -20657,6 +20681,12 @@ msgstr "Summe2"
 
 msgid "Statistics.XML.Sum2.Error"
 msgstr "Das \"Summe2\"-Attribut im \"%s\"-Element muss eine nicht-negative Zahl sein, ist aber \"%s\"."
+
+msgid "Statistics.XML.Sum3"
+msgstr "Summe3"
+
+msgid "Statistics.XML.Sum3.Error"
+msgstr "Das \"Summe3\"-Attribut im \"%s\"-Element muss eine Zahl sein, ist aber \"%s\"."
 
 msgid "Statistics.XML.ThreadRunTimes"
 msgstr "StatistikThreadLaufzeiten"

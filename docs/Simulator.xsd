@@ -73,7 +73,7 @@
 <xs:element name="ModellAbbruchKonfidenz"><xs:complexType><xs:simpleContent>
   <xs:extension base="xs:string">
     <xs:attribute name="Aktiv" type="xs:integer" use="required"/>
-	<xs:attribute name="Niveau" type="xs:string"  use="required"/>
+	<xs:attribute name="Niveau" type="xs:string" use="required"/>
   </xs:extension>
 </xs:simpleContent></xs:complexType></xs:element>
 
@@ -324,15 +324,15 @@
 
 <xs:element name="ModellPluginsVerzeichnis"><xs:complexType><xs:simpleContent>
   <xs:extension base="xs:string">
-    <xs:attribute name="KlassenLadenZulaessig" type="xs:string"  use="required"/>
+    <xs:attribute name="KlassenLadenZulaessig" type="xs:string" use="required"/>
   </xs:extension>
 </xs:simpleContent></xs:complexType></xs:element>
 
 <xs:element name="GespeicherteAnsicht"><xs:complexType>
-  <xs:attribute name="Name" type="xs:string"  use="required"/>
-  <xs:attribute name="X" type="xs:integer"  use="required"/>
-  <xs:attribute name="Y" type="xs:integer"  use="required"/>
-  <xs:attribute name="Zoom" type="xs:string"  use="required"/>
+  <xs:attribute name="Name" type="xs:string" use="required"/>
+  <xs:attribute name="X" type="xs:integer" use="required"/>
+  <xs:attribute name="Y" type="xs:integer" use="required"/>
+  <xs:attribute name="Zoom" type="xs:string" use="required"/>
 </xs:complexType></xs:element>
 
 <xs:element name="KiritischeStationenSignatur"><xs:complexType>
@@ -344,13 +344,14 @@
 </xs:complexType></xs:element>
 
 <xs:element name="SignaturStation"><xs:complexType>
-  <xs:attribute name="id" type="xs:integer"  use="required"/>
-  <xs:attribute name="Signatur" type="xs:string"  use="required"/>
+  <xs:attribute name="id" type="xs:integer" use="required"/>
+  <xs:attribute name="Signatur" type="xs:string" use="required"/>
+  <xs:attribute name="Hash" type="xs:string"/>
 </xs:complexType></xs:element>
 
 <xs:element name="SignaturNutzername"><xs:complexType><xs:simpleContent>
   <xs:extension base="xs:string">
-    <xs:attribute name="Signatur" type="xs:string"  use="required"/>
+    <xs:attribute name="Signatur" type="xs:string" use="required"/>
   </xs:extension>
 </xs:simpleContent></xs:complexType></xs:element>
 
@@ -363,7 +364,7 @@
 
 <xs:element name="ModelleVergleichenEingabeDaten"><xs:complexType><xs:simpleContent>
   <xs:extension base="xs:string">
-    <xs:attribute name="Modus" type="xs:integer"  use="required"/>
+    <xs:attribute name="Modus" type="xs:integer" use="required"/>
   </xs:extension>
 </xs:simpleContent></xs:complexType></xs:element>
 
@@ -421,6 +422,7 @@
 	<xs:attribute name="Status" type="xs:string"/>
     <xs:attribute name="Anzahl" type="xs:integer"/>
 	<xs:attribute name="Kundenanzahl" type="xs:integer"/>
+	<xs:attribute name="Modus" type="xs:string"/>
   </xs:extension>
 </xs:simpleContent></xs:complexType></xs:element>
 
@@ -871,7 +873,7 @@
     <xs:element name="ModellElementBatchModus" type="xs:string"/>
 	<xs:element ref="ModellElementBatch"/>
   </xs:choice></xs:sequence>
-  <xs:attribute name="Name" type="xs:string"  use="required"/>
+  <xs:attribute name="Name" type="xs:string" use="required"/>
 </xs:complexType></xs:element>
 
 <xs:element name="ModellElementZusammenfuehren"><xs:complexType><xs:complexContent><xs:extension base="ModellElementVerbundenBasis">
@@ -1581,7 +1583,7 @@
 
 <xs:element name="ModellElementAnimationBalken"><xs:complexType><xs:complexContent><xs:extension base="ModellElementEinfachBasis">
   <xs:sequence minOccurs="0" maxOccurs="unbounded"><xs:choice>  
-	<xs:element name="ModellElementDatenausdruck" type="xs:string"/>
+	<xs:element ref="ModellElementDatenausdruck"/>
     <xs:element ref="ModellElementDatenbereich"/>
 	<xs:element name="ModellElementLinienBreite" type="xs:string"/>
 	<xs:element name="ModellElementLinienFarbe" type="xs:string"/>
@@ -1589,6 +1591,11 @@
 	<xs:element name="ModellElementBalkenFarbe" type="xs:string"/>
   </xs:choice></xs:sequence>
 </xs:extension></xs:complexContent></xs:complexType></xs:element>
+<xs:element name="ModellElementDatenausdruck"><xs:complexType><xs:simpleContent>
+  <xs:extension base="xs:string">
+    <xs:attribute name="Modus" type="xs:string"/>
+  </xs:extension>
+</xs:simpleContent></xs:complexType></xs:element>
 <xs:element name="ModellElementDatenbereich"><xs:complexType>
   <xs:attribute name="Minimum" type="xs:string"/>
   <xs:attribute name="Maximum" type="xs:string"/>
@@ -1597,7 +1604,7 @@
 
 <xs:element name="ModellElementAnimationStapelBalken"><xs:complexType><xs:complexContent><xs:extension base="ModellElementEinfachBasis">
   <xs:sequence minOccurs="0" maxOccurs="unbounded"><xs:choice>  
-	<xs:element name="ModellElementDatenausdruck" type="xs:string"/>
+	<xs:element ref="ModellElementDatenausdruck"/>
     <xs:element ref="ModellElementDatenbereich"/>
 	<xs:element name="ModellElementLinienBreite" type="xs:string"/>
 	<xs:element name="ModellElementLinienFarbe" type="xs:string"/>
@@ -1619,11 +1626,16 @@
 
 <xs:element name="ModellElementAnimationLCD"><xs:complexType><xs:complexContent><xs:extension base="ModellElementEinfachBasis">
   <xs:sequence minOccurs="0" maxOccurs="unbounded"><xs:choice>  
-	<xs:element name="ModellElementAnimationLCDAusdruck" type="xs:string"/>
+	<xs:element ref="ModellElementAnimationLCDAusdruck"/>
 	<xs:element name="ModellElementAnimationLCDZiffern" type="xs:string"/>
 	<xs:element name="ModellElementAnimationLCDFarbe" type="xs:string"/>
   </xs:choice></xs:sequence>
 </xs:extension></xs:complexContent></xs:complexType></xs:element>
+<xs:element name="ModellElementAnimationLCDAusdruck"><xs:complexType><xs:simpleContent>
+  <xs:extension base="xs:string">
+    <xs:attribute name="Modus" type="xs:string"/>
+  </xs:extension>
+</xs:simpleContent></xs:complexType></xs:element>
 
 <xs:element name="ModellElementAnimationAnalogSkala"><xs:complexType><xs:complexContent><xs:extension base="ModellElementEinfachBasis">
   <xs:sequence minOccurs="0" maxOccurs="unbounded"><xs:choice>  
@@ -1633,6 +1645,7 @@
 </xs:extension></xs:complexContent></xs:complexType></xs:element>
 <xs:element name="ModellElementAnimationAnalogSkalaAusdruck"><xs:complexType><xs:simpleContent>
   <xs:extension base="xs:string">
+    <xs:attribute name="Modus" type="xs:string"/>
     <xs:attribute name="MinimalWert" type="xs:string"/>
     <xs:attribute name="MaximalWert" type="xs:string" use="required"/>
 	<xs:attribute name="GelberBereich" type="xs:string"/>
@@ -1659,6 +1672,7 @@
 	<xs:attribute name="Linienbreite" type="xs:string"/>
     <xs:attribute name="Balkenfarbe" type="xs:string"/>
 	<xs:attribute name="Segmentfarbe" type="xs:string"/>
+	<xs:attribute name="Modus" type="xs:string"/>
   </xs:extension>
 </xs:simpleContent></xs:complexType></xs:element>
 
@@ -1869,9 +1883,11 @@
 	<xs:attribute name="Standardabweichung" type="xs:string"/>
 	<xs:attribute name="Summe" type="xs:string"/>
 	<xs:attribute name="Summe2" type="xs:string"/>
+	<xs:attribute name="Summe3" type="xs:string"/>
 	<xs:attribute name="Typ" type="xs:string"/>
     <xs:attribute name="Zeit" type="xs:string"/>
 	<xs:attribute name="Variationskoeffizient" type="xs:string"/>
+	<xs:attribute name="Schiefe" type="xs:string"/>
 	<xs:attribute name="Verteilung" type="xs:string"/>
 	<xs:attribute name="Autokorrelation" type="xs:string"/>
     <xs:attribute name="Autokorrelation0100" type="xs:string"/>
@@ -1896,6 +1912,7 @@
 	<xs:attribute name="Wert" type="xs:string"/>
     <xs:attribute name="WerteSumme" type="xs:string"/>
     <xs:attribute name="WerteSumme2" type="xs:string"/>
+	<xs:attribute name="WerteSumme3" type="xs:string"/>
     <xs:attribute name="Quantil10" type="xs:string"/>
     <xs:attribute name="Quantil25" type="xs:string"/>
     <xs:attribute name="Quantil50" type="xs:string"/>
@@ -2059,7 +2076,7 @@
   <xs:sequence minOccurs="0" maxOccurs="unbounded"><xs:choice>
 	<xs:element ref="StatistikStatusZeitStatus"/>
   </xs:choice></xs:sequence>
-  <xs:attribute name="Typ" type="xs:string"  use="required"/>
+  <xs:attribute name="Typ" type="xs:string" use="required"/>
 </xs:complexType></xs:element>
 <xs:element name="StatistikStatusZeitStatus"><xs:complexType><xs:simpleContent>
   <xs:extension base="xs:string">
@@ -2464,15 +2481,15 @@
 
 <xs:element name="ModelPluginsFolder"><xs:complexType><xs:simpleContent>
   <xs:extension base="xs:string">
-    <xs:attribute name="AllowClassLoading" type="xs:string"  use="required"/>
+    <xs:attribute name="AllowClassLoading" type="xs:string" use="required"/>
   </xs:extension>
 </xs:simpleContent></xs:complexType></xs:element>
 
 <xs:element name="SavedView"><xs:complexType>
-  <xs:attribute name="Name" type="xs:string"  use="required"/>
-  <xs:attribute name="X" type="xs:integer"  use="required"/>
-  <xs:attribute name="Y" type="xs:integer"  use="required"/>
-  <xs:attribute name="Zoom" type="xs:string"  use="required"/>
+  <xs:attribute name="Name" type="xs:string" use="required"/>
+  <xs:attribute name="X" type="xs:integer" use="required"/>
+  <xs:attribute name="Y" type="xs:integer" use="required"/>
+  <xs:attribute name="Zoom" type="xs:string" use="required"/>
 </xs:complexType></xs:element>
 
 <xs:element name="CriticalStationsSignature"><xs:complexType>
@@ -2484,13 +2501,14 @@
 </xs:complexType></xs:element>
 
 <xs:element name="SignatureStation"><xs:complexType>
-  <xs:attribute name="id" type="xs:integer"  use="required"/>
-  <xs:attribute name="Signature" type="xs:string"  use="required"/>
+  <xs:attribute name="id" type="xs:integer" use="required"/>
+  <xs:attribute name="Signature" type="xs:string" use="required"/>
+  <xs:attribute name="Hash" type="xs:string"/>
 </xs:complexType></xs:element>
 
 <xs:element name="SignatureUserName"><xs:complexType><xs:simpleContent>
   <xs:extension base="xs:string">
-    <xs:attribute name="Signature" type="xs:string"  use="required"/>
+    <xs:attribute name="Signature" type="xs:string" use="required"/>
   </xs:extension>
 </xs:simpleContent></xs:complexType></xs:element>
 
@@ -2503,7 +2521,7 @@
 
 <xs:element name="CompareModelsInputData"><xs:complexType><xs:simpleContent>
   <xs:extension base="xs:string">
-    <xs:attribute name="Mode" type="xs:integer"  use="required"/>
+    <xs:attribute name="Mode" type="xs:integer" use="required"/>
   </xs:extension>
 </xs:simpleContent></xs:complexType></xs:element>
 
@@ -2561,6 +2579,7 @@
 	<xs:attribute name="Status" type="xs:string"/>
 	<xs:attribute name="Count" type="xs:integer"/>
 	<xs:attribute name="ClientCount" type="xs:integer"/>
+	<xs:attribute name="Mode" type="xs:string"/>
   </xs:extension>
 </xs:simpleContent></xs:complexType></xs:element>
 
@@ -3011,7 +3030,7 @@
     <xs:element name="ModelElementBatchMode" type="xs:string"/>
 	<xs:element ref="ModelElementBatchData"/>
   </xs:choice></xs:sequence>
-  <xs:attribute name="Name" type="xs:string"  use="required"/>
+  <xs:attribute name="Name" type="xs:string" use="required"/>
 </xs:complexType></xs:element>
 
 <xs:element name="ModelElementMatch"><xs:complexType><xs:complexContent><xs:extension base="ModelElementConnectedBase">
@@ -3721,7 +3740,7 @@
 
 <xs:element name="ModelElementAnimationBar"><xs:complexType><xs:complexContent><xs:extension base="ModelElementSimpleBase">
   <xs:sequence minOccurs="0" maxOccurs="unbounded"><xs:choice>  
-	<xs:element name="ModelElementDataExpression" type="xs:string"/>
+	<xs:element ref="ModelElementDataExpression"/>
     <xs:element ref="ModelElementDataArea"/>
 	<xs:element name="ModelElementLineWidth" type="xs:string"/>
 	<xs:element name="ModelElementLineColor" type="xs:string"/>
@@ -3729,6 +3748,11 @@
 	<xs:element name="ModelElementBarColor" type="xs:string"/>
   </xs:choice></xs:sequence>
 </xs:extension></xs:complexContent></xs:complexType></xs:element>
+<xs:element name="ModelElementDataExpression"><xs:complexType><xs:simpleContent>
+  <xs:extension base="xs:string">
+    <xs:attribute name="Mode" type="xs:string"/>
+  </xs:extension>
+</xs:simpleContent></xs:complexType></xs:element>
 <xs:element name="ModelElementDataArea"><xs:complexType>
   <xs:attribute name="Minimum" type="xs:string"/>
   <xs:attribute name="Maximum" type="xs:string"/>
@@ -3737,7 +3761,7 @@
 
 <xs:element name="ModelElementAnimationStackBar"><xs:complexType><xs:complexContent><xs:extension base="ModelElementSimpleBase">
   <xs:sequence minOccurs="0" maxOccurs="unbounded"><xs:choice>  
-	<xs:element name="ModelElementDataExpression" type="xs:string"/>
+	<xs:element ref="ModelElementDataExpression"/>
     <xs:element ref="ModelElementDataArea"/>
 	<xs:element name="ModelElementLineWidth" type="xs:string"/>
 	<xs:element name="ModelElementLineColor" type="xs:string"/>
@@ -3759,11 +3783,16 @@
 
 <xs:element name="ModelElementAnimationLCD"><xs:complexType><xs:complexContent><xs:extension base="ModellElementEinfachBasis">
   <xs:sequence minOccurs="0" maxOccurs="unbounded"><xs:choice>  
-	<xs:element name="ModelElementAnimationLCDExpression" type="xs:string"/>
+	<xs:element ref="ModelElementAnimationLCDExpression"/>
 	<xs:element name="ModelElementAnimationLCDDigits" type="xs:string"/>
 	<xs:element name="ModelElementAnimationLCDColor" type="xs:string"/>
   </xs:choice></xs:sequence>
 </xs:extension></xs:complexContent></xs:complexType></xs:element>
+<xs:element name="ModelElementAnimationLCDExpression"><xs:complexType><xs:simpleContent>
+  <xs:extension base="xs:string">
+    <xs:attribute name="Mode" type="xs:string"/>
+  </xs:extension>
+</xs:simpleContent></xs:complexType></xs:element>
 
 <xs:element name="ModelElementAnimationPointerMeasuring"><xs:complexType><xs:complexContent><xs:extension base="ModellElementEinfachBasis">
   <xs:sequence minOccurs="0" maxOccurs="unbounded"><xs:choice>  
@@ -3773,6 +3802,7 @@
 </xs:extension></xs:complexContent></xs:complexType></xs:element>
 <xs:element name="ModelElementAnimationPointerMeasuringExpression"><xs:complexType><xs:simpleContent>
   <xs:extension base="xs:string">
+    <xs:attribute name="Mode" type="xs:string"/>
     <xs:attribute name="MinValue" type="xs:string"/>
     <xs:attribute name="MaxValue" type="xs:string" use="required"/>
 	<xs:attribute name="YellowRange" type="xs:string"/>
@@ -3799,6 +3829,7 @@
 	<xs:attribute name="LineWidth" type="xs:string"/>
     <xs:attribute name="BarColor" type="xs:string"/>
 	<xs:attribute name="SegmentColor" type="xs:string"/>
+	<xs:attribute name="Mode" type="xs:string"/>
   </xs:extension>
 </xs:simpleContent></xs:complexType></xs:element>
 
@@ -4009,9 +4040,11 @@
 	<xs:attribute name="StandardDeviation" type="xs:string"/>
 	<xs:attribute name="Sum" type="xs:string"/>
 	<xs:attribute name="Sum2" type="xs:string"/>
+	<xs:attribute name="Sum3" type="xs:string"/>
 	<xs:attribute name="Type" type="xs:string"/>
     <xs:attribute name="Time" type="xs:string"/>
 	<xs:attribute name="CoefficientOfVariation" type="xs:string"/>
+	<xs:attribute name="Skewness" type="xs:string"/>
 	<xs:attribute name="Distribution" type="xs:string"/>
 	<xs:attribute name="Autocorrelation" type="xs:string"/>
     <xs:attribute name="Autocorrelation0100" type="xs:string"/>
@@ -4036,6 +4069,7 @@
 	<xs:attribute name="Values" type="xs:string"/>
     <xs:attribute name="ValuesSum" type="xs:string"/>
     <xs:attribute name="ValuesSum2" type="xs:string"/>
+	<xs:attribute name="ValuesSum3" type="xs:string"/>
     <xs:attribute name="Quantil10" type="xs:string"/>
     <xs:attribute name="Quantil25" type="xs:string"/>
     <xs:attribute name="Quantil50" type="xs:string"/>
@@ -4199,7 +4233,7 @@
   <xs:sequence minOccurs="0" maxOccurs="unbounded"><xs:choice>
 	<xs:element ref="StatisticsStatusTimeStatus"/>
   </xs:choice></xs:sequence>
-  <xs:attribute name="Type" type="xs:string"  use="required"/>
+  <xs:attribute name="Type" type="xs:string" use="required"/>
 </xs:complexType></xs:element>
 <xs:element name="StatisticsStatusTimeStatus"><xs:complexType><xs:simpleContent>
   <xs:extension base="xs:string">

@@ -100,6 +100,9 @@ public class FastAccessSelectorBuilder {
 		/** Variationskoeffizient */
 		CV(()->Language.tr("Statistics.XML.CV")),
 
+		/** Schiefe */
+		Sk(()->Language.tr("Statistics.XML.Sk")),
+
 		/** Quotient */
 		QUOTIENT(()->Language.tr("Statistics.XML.Quotient"));
 

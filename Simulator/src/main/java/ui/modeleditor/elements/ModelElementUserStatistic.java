@@ -372,6 +372,7 @@ public class ModelElementUserStatistic extends ModelElementMultiInSingleOutBox {
 				builder.results.append(Language.tr("Statistics.StdDevUserTime")+" Std[X]="+TimeTools.formatExactTime(indicators[i].getSD())+" ("+NumberTools.formatNumber(indicators[i].getSD())+")\n");
 				builder.results.append(Language.tr("Statistics.VarianceUserTime")+" Var[X]="+TimeTools.formatExactTime(indicators[i].getVar())+" ("+NumberTools.formatNumber(indicators[i].getVar())+")\n");
 				builder.results.append(Language.tr("Statistics.CVUserTime")+" CV[X]="+NumberTools.formatNumber(indicators[i].getCV())+"\n");
+				builder.results.append(Language.tr("Statistics.Skewness")+" Sk[X]="+NumberTools.formatNumber(indicators[i].getSk())+"\n");
 				builder.results.append(Language.tr("Statistics.MinimumUserTime")+" Min[X]="+TimeTools.formatExactTime(indicators[i].getMin())+" ("+NumberTools.formatNumber(indicators[i].getMin())+")\n");
 				builder.results.append(Language.tr("Statistics.MaximumUserTime")+" Max[X]="+TimeTools.formatExactTime(indicators[i].getMax())+" ("+NumberTools.formatNumber(indicators[i].getMax())+")\n");
 			} else {
@@ -379,6 +380,7 @@ public class ModelElementUserStatistic extends ModelElementMultiInSingleOutBox {
 				builder.results.append(Language.tr("Statistics.StdDevUser")+" Std[X]="+NumberTools.formatNumber(indicators[i].getSD())+"\n");
 				builder.results.append(Language.tr("Statistics.VarianceUser")+" Var[X]="+NumberTools.formatNumber(indicators[i].getVar())+"\n");
 				builder.results.append(Language.tr("Statistics.CVUser")+" CV[X]="+NumberTools.formatNumber(indicators[i].getCV())+"\n");
+				builder.results.append(Language.tr("Statistics.Skewness")+" Sk[X]="+NumberTools.formatNumber(indicators[i].getSk())+"\n");
 				builder.results.append(Language.tr("Statistics.MinimumUser")+" Min[X]="+NumberTools.formatNumber(indicators[i].getMin())+"\n");
 				builder.results.append(Language.tr("Statistics.MaximumUser")+" Max[X]="+NumberTools.formatNumber(indicators[i].getMax())+"\n");
 			}
