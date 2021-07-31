@@ -24,6 +24,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.locks.ReentrantLock;
 
 import javax.tools.Diagnostic;
 import javax.tools.DiagnosticCollector;
@@ -67,6 +68,13 @@ public class ClassLoaderCache {
 	static {
 		compiler=ToolProvider.getSystemJavaCompiler();
 	}
+
+	/**
+	 * Absicherung aller Java-Kompiler-Aufrufe
+	 * @see #process(String, String, String)
+	 * @see DynamicClassInternalCompilerFullMemory#compileJavaToClass(File, File)
+	 */
+	public static ReentrantLock globalCompilerLock=new ReentrantLock();
 
 	/**
 	 * Konstruktor der Klasse<br>
@@ -149,9 +157,13 @@ public class ClassLoaderCache {
 			/* Übersetzen */
 			final CompilationTask task=compiler.getTask(null,compileData.fileManager,diagnostics,options,null,compilationUnits);
 
-			if (task.call()) {
-				/* Klasse laden */
-				return new ExtendedStatus(compileData.classLoader.loadClass(className));
+			globalCompilerLock.lock();
+			try {
+				if (task.call()) {
+					/* Klasse laden */
+					return new ExtendedStatus(compileData.classLoader.loadClass(className));				}
+			} finally {
+				globalCompilerLock.unlock();
 			}
 
 			/* Fehlermeldung erstellen */
@@ -175,7 +187,7 @@ public class ClassLoaderCache {
 			if (sb.length()>0) return new ExtendedStatus(DynamicStatus.COMPILE_ERROR,sb.toString());
 			return new ExtendedStatus(DynamicStatus.COMPILE_ERROR);
 
-		} catch (ClassNotFoundException e) {
+		} catch (ClassNotFoundException | RuntimeException | NoClassDefFoundError e) {
 			return new ExtendedStatus(DynamicStatus.LOAD_ERROR,e.getMessage());
 		}
 	}
@@ -213,8 +225,11 @@ public class ClassLoaderCache {
 				}
 			}
 
-			fileManager=new ClassFileManager<JavaFileManager>(compiler.getStandardFileManager(null,null,null),urlLoader);
-			classLoader=fileManager.getClassLoader(null);
+			synchronized(compiler) {
+				fileManager=new ClassFileManager<JavaFileManager>(compiler.getStandardFileManager(null,null,null),urlLoader);
+				classLoader=fileManager.getClassLoader(null);
+			}
+
 			return true;
 		}
 	}

@@ -102,7 +102,12 @@ public class DynamicClassInternalCompilerFullMemory extends DynamicClassBase {
 				options.add(baseFolder.toString());
 				if (!isJava8()) options.add("--release=8");
 
-				compiler.getTask(writer,fileManager,null,options,null,compilationUnits1).call().booleanValue();
+				ClassLoaderCache.globalCompilerLock.lock();
+				try {
+					compiler.getTask(writer,fileManager,null,options,null,compilationUnits1).call().booleanValue();
+				} finally {
+					ClassLoaderCache.globalCompilerLock.unlock();
+				}
 
 				final String result=writer.getBuffer().toString();
 				if (result==null || result.trim().isEmpty()) return null;

@@ -19483,7 +19483,7 @@ public class Messages_de extends java.util.ResourceBundle {
     t[43950] = "Transporter.Group.Edit.Dialog.Failure.Working.Error.Info";
     t[43951] = "Der angegebene Wert f\u00fcr die Ausf\u00e4lle nach gearbeiteter Zeit ist ung\u00fcltig. Eine positive Zahl muss angegeben werden.";
     t[43960] = "Simulation.Java.Error.LoadError";
-    t[43961] = "Fehler beim Laden er kompilierten Klasse";
+    t[43961] = "Fehler beim Laden der kompilierten Klasse";
     t[43962] = "Surface.Conveyor.XML.TransportTime.Type.WaitingTime";
     t[43963] = "Wartezeit";
     t[43964] = "Surface.Sub.Infotext";
