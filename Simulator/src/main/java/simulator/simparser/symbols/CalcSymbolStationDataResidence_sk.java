@@ -1,5 +1,5 @@
 /**
- * Copyright 2020 Alexander Herzog
+ * Copyright 2021 Alexander Herzog
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,22 +22,18 @@ import statistics.StatisticsPerformanceIndicator;
 
 /**
  * Im Falle von einem Parameter:<br>
- * (a) Liefert die maximale Bedienzeit der Kunden, deren Name an Quelle bzw. Namenszuweisung id (1. Parameter) auftritt (in Sekunden).<br>
- * (b) Liefert die maximale Bedienzeit der Kunden an Station id (1. Parameter) (in Sekunden).<br>
+ * (a) Liefert die Schiefe der Verweilzeiten der Kunden, deren Name an Quelle bzw. Namenszuweisung id (1. Parameter) auftritt.<br>
+ * (b) Liefert die Schiefe der Verweilzeiten der Kunden an Station id (1. Parameter).<br>
  * Im Falle von keinem Parameter:<br>
- * Liefert die maximale Bedienzeit über alle Kunden (in Sekunden).
+ * Liefert die Schiefe der Verweilzeiten über alle Kunden.
  * @author Alexander Herzog
  */
-public class CalcSymbolStationDataProcess_max extends CalcSymbolStationData {
+public class CalcSymbolStationDataResidence_sk extends CalcSymbolStationData {
 	/**
 	 * Namen für das Symbol
 	 * @see #getNames()
 	 */
-	private static final String[] names=new String[]{
-			"Bedienzeit_max","Bedienzeit_Maximum",
-			"ProcessTime_max","ProcessingTime_max","ProcessingTime_Maximum",
-			"ServiceTime_max","ServiceTime_Maximum"
-	};
+	private static final String[] names=new String[]{"Verweilzeit_sk","ResidenceTime_sk"};
 
 	@Override
 	public String[] getNames() {
@@ -46,8 +42,8 @@ public class CalcSymbolStationDataProcess_max extends CalcSymbolStationData {
 
 	@Override
 	protected double calc(final RunElementData data) {
-		if (data.statisticProcess==null) return 0;
-		return data.statisticProcess.getMax();
+		if (data.statisticResidence==null) return 0;
+		return data.statisticResidence.getSk();
 	}
 
 	@Override
@@ -62,13 +58,13 @@ public class CalcSymbolStationDataProcess_max extends CalcSymbolStationData {
 
 	@Override
 	protected double calcAll() {
-		return getSimData().statistics.clientsAllProcessingTimes.getMax();
+		return getSimData().statistics.clientsAllResidenceTimes.getSk();
 	}
 
 	@Override
 	protected double calcSingleClient(final String name) {
-		StatisticsPerformanceIndicator indicator=getSimData().statistics.clientsProcessingTimes.get(name);
+		StatisticsPerformanceIndicator indicator=getSimData().statistics.clientsResidenceTimes.get(name);
 		if (indicator==null) return 0.0;
-		return ((StatisticsDataPerformanceIndicator)indicator).getMax();
+		return ((StatisticsDataPerformanceIndicator)indicator).getSk();
 	}
 }

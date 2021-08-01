@@ -36,7 +36,7 @@ Document=ScriptingJS.tex
 
 [Frame1_View0,0]
 TopLine=734
-Cursor=31443
+Cursor=30684
 
 [Frame2]
 Flags=0

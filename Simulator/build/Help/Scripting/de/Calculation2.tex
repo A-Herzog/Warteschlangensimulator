@@ -90,6 +90,10 @@ Liefert den Variationskoeffizienten der Anzahl an Kunden im System.
 \cmd{WIP\_scv()} oder \cmd{Station\_scv()} oder \cmd{N\_scv()}:\\
 Liefert den quadrierten Variationskoeffizienten der Anzahl an Kunden im System.
 
+\item
+\cmd{WIP\_sk()} oder \cmd{Station\_sk()} oder \cmd{N\_sk()}:\\
+Liefert die Schiefe der Anzahl an Kunden im System.
+
 \end{itemize}
 
 
@@ -149,6 +153,10 @@ Liefert den Variationskoeffizienten der Anzahl an wartenden Kunden im System.
 \item
 \cmd{NQ\_scv()} oder \cmd{Queue\_scv()} oder \cmd{Schlange\_scv()} oder \cmd{Warteschlange\_scv()}:\\
 Liefert den quadrierten Variationskoeffizienten der Anzahl an wartenden Kunden im System.
+
+\item
+\cmd{NQ\_sk()} oder \cmd{Queue\_sk()} oder \cmd{Schlange\_sk()} oder \cmd{Warteschlange\_sk()}:\\
+Liefert die Schiefe der Anzahl an wartenden Kunden im System.
 
 \end{itemize}
 
@@ -213,6 +221,10 @@ Liefert den Variationskoeffizienten der Anzahl an Kunden an Station \cm{id}.
 \item
 \cmd{WIP\_scv(id)} oder \cmd{Station\_scv(id)} oder \cmd{N\_scv(id)}:\\
 Liefert den quadrierten Variationskoeffizienten der Anzahl an Kunden an Station \cm{id}.
+
+\item
+\cmd{WIP\_sk(id)} oder \cmd{Station\_sk(id)} oder \cmd{N\_sk(id)}:\\
+Liefert die Schiefe der Anzahl an Kunden an Station \cm{id}.
 
 \item
 \cmd{WIP\_hist(id;state)} oder \cmd{Station\_hist(id;state)} oder \cmd{N\_hist(id;state)}:\\
@@ -280,6 +292,10 @@ Liefert den Variationskoeffizienten der Anzahl an Kunden in der Warteschlange an
 \item
 \cmd{NQ\_scv(id)} oder \cmd{Queue\_scv(id)} oder \cmd{Schlange\_scv(id)} oder \cmd{Warteschlange\_scv(id)}:\\
 Liefert den quadrierten Variationskoeffizienten der Anzahl an Kunden in der Warteschlange an Station \cm{id}.
+
+\item
+\cmd{NQ\_sk(id)} oder \cmd{Queue\_sk(id)} oder \cmd{Schlange\_sk(id)} oder \cmd{Warteschlange\_sk(id)}:\\
+Liefert die Schiefe der Anzahl an Kunden in der Warteschlange an Station \cm{id}.
 
 \item
 \cmd{NQ\_hist(id;state)} oder \cmd{Queue\_hist(id;state)} oder \cmd{Schlange\_hist(id;state)} oder\\ \cmd{Warteschlange\_hist(id;state)}:\\
@@ -377,6 +393,10 @@ Liefert den Variationskoeffizienten der Anzahl an Kunden, deren Name an Quelle b
 Liefert den quadrierten Variationskoeffizienten der Anzahl an Kunden, deren Name an Quelle bzw.\ Namenszuweisung \cm{id} auftritt.
 
 \item
+\cmd{WIP\_sk(id)} oder \cmd{Station\_sk(id)} oder \cmd{N\_sk(id)}:\\
+Liefert die Schiefe der Anzahl an Kunden, deren Name an Quelle bzw.\ Namenszuweisung \cm{id} auftritt.
+
+\item
 \cmd{WIP\_hist(id;state)} oder \cmd{Station\_hist(id;state)} oder \cmd{N\_hist(id;state)}:\\
 Liefert den Anteil der Zeit, in der sich das System in Bezug auf die Anzahl an Kunden, deren Name an Quelle bzw.\ Namenszuweisung \cm{id} auftritt, im Zustand \cm{state} befunden hat.
 
@@ -437,6 +457,10 @@ Liefert den Variationskoeffizienten der Anzahl an wartenden Kunden, deren Name a
 \item
 \cmd{NQ\_scv(id)} oder \cmd{Queue\_scv(id)} oder \cmd{Schlange\_scv(id)} oder \cmd{Warteschlange\_scv(id)}:\\
 Liefert den quadrierten Variationskoeffizienten der Anzahl an wartenden Kunden, deren Name an Quelle bzw.\ Namenszuweisung \cm{id} auftritt.
+
+\item
+\cmd{NQ\_sk(id)} oder \cmd{Queue\_sk(id)} oder \cmd{Schlange\_sk(id)} oder \cmd{Warteschlange\_sk(id)}:\\
+Liefert die Schiefe der Anzahl an wartenden Kunden, deren Name an Quelle bzw.\ Namenszuweisung \cm{id} auftritt.
 
 \item
 \cmd{NQ\_hist(id;state)} oder \cmd{Queue\_hist(id;state)} oder \cmd{Schlange\_hist(id;state)} oder\\ \cmd{Warteschlange\_hist(id;state)}:\\
@@ -518,6 +542,10 @@ Liefert den Variationskoeffizienten der Wartezeiten der Kunden an Station \cm{id
 Liefert den quadrierten Variationskoeffizienten der Wartezeiten der Kunden an Station \cm{id}.
 
 \item
+\cmd{Wartezeit\_sk(id)}:\\
+Liefert die Schiefe der Wartezeiten der Kunden an Station \cm{id}.
+
+\item
 \cmd{Wartezeit\_hist(id;time)}:\\
 Liefert den Anteil der Kunden, für den die Wartezeit an Station \cm{id} \cm{time} Sekunden gedauert hat.
 
@@ -568,6 +596,10 @@ Liefert den Variationskoeffizienten der Wartezeiten über alle Kunden.
 \item
 \cmd{Wartezeit\_scv()}:\\
 Liefert den quadrierten Variationskoeffizienten über alle Kunden.
+
+\item
+\cmd{Wartezeit\_sk()}:\\
+Liefert die Schiefe der Wartezeiten über alle Kunden.
 
 \item
 \cmd{Wartezeit\_histAll(time)}:\\
@@ -625,6 +657,10 @@ Liefert den Variationskoeffizienten der Wartezeiten der Kunden, deren Name an Qu
 \cmd{Wartezeit\_scv(id)}:\\
 Liefert den quadrierten Variationskoeffizienten der Wartezeiten der Kunden, deren Name an Quelle bzw.\ Namenszuweisung \cm{id} auftritt.
 
+\item
+\cmd{Wartezeit\_sk(id)}:\\
+Liefert die Schiefe der Wartezeiten der Kunden, deren Name an Quelle bzw.\ Namenszuweisung \cm{id} auftritt.
+
 \end{itemize}
 
 
@@ -679,6 +715,10 @@ Liefert den Variationskoeffizienten der Transferzeiten der Kunden an Station \cm
 Liefert den quadrierten Variationskoeffizienten der Transferzeiten der Kunden an Station \cm{id}.
 
 \item
+\cmd{Transferzeit\_sk(id)}:\\
+Liefert die Schiefe der Transferzeiten der Kunden an Station \cm{id}.
+
+\item
 \cmd{Transferzeit\_hist(id;time)}:\\
 Liefert den Anteil der Kunden, für den die Transferzeit an Station \cm{id} \cm{time} Sekunden gedauert hat.
 
@@ -729,6 +769,10 @@ Liefert den Variationskoeffizienten der Transferzeiten über alle Kunden.
 \item
 \cmd{Transferzeit\_scv()}:\\
 Liefert den quadrierten Variationskoeffizienten der Transferzeiten über alle Kunden.
+
+\item
+\cmd{Transferzeit\_sk()}:\\
+Liefert die Schiefe der Transferzeiten über alle Kunden.
 
 \item
 \cmd{Transferzeit\_histAll(time)}:\\
@@ -787,6 +831,10 @@ Liefert den Variationskoeffizienten der Transferzeiten der Kunden, deren Name an
 \cmd{Transferzeit\_scv(id)}:\\
 Liefert den quadrierten Variationskoeffizienten der Transferzeiten der Kunden, deren Name an Quelle bzw.\ Namenszuweisung \cm{id} auftritt.
 
+\item
+\cmd{Transferzeit\_sk(id)}:\\
+Liefert die Schiefe der Transferzeiten der Kunden, deren Name an Quelle bzw.\ Namenszuweisung \cm{id} auftritt.
+
 \end{itemize}
 
 
@@ -840,6 +888,10 @@ Liefert den Variationskoeffizienten der Bedienzeiten der Kunden an Station \cm{i
 Liefert den quadrierten Variationskoeffizienten der Bedienzeiten der Kunden an Station \cm{id}.
 
 \item
+\cmd{Bedienzeit\_sk(id)}:\\
+Liefert die Schiefe der Bedienzeiten der Kunden an Station \cm{id}.
+
+\item
 \cmd{Bedienzeit\_hist(id;time)}:\\
 Liefert den Anteil der Kunden, für den die Bedienzeit an Station \cm{id} \cm{time} Sekunden gedauert hat.
 
@@ -890,6 +942,10 @@ Liefert den Variationskoeffizienten der Bedienzeiten über alle Kunden.
 \item
 \cmd{Bedienzeit\_scv()}:\\
 Liefert den quadrierten Variationskoeffizienten der Bedienzeiten über alle Kunden.
+
+\item
+\cmd{Bedienzeit\_sk()}:\\
+Liefert die Schiefe der Bedienzeiten über alle Kunden.
 
 \item
 \cmd{Bedienzeit\_histAll(time)}:\\
@@ -947,6 +1003,10 @@ Liefert den Variationskoeffizienten der Bedienzeiten der Kunden, deren Name an Q
 \cmd{Bedienzeit\_scv(id)}:\\
 Liefert den quadrierten Variationskoeffizienten der Bedienzeiten der Kunden, deren Name an Quelle bzw.\ Namenszuweisung \cm{id} auftritt.
 
+\item
+\cmd{Bedienzeit\_sk(id)}:\\
+Liefert die Schiefe der Bedienzeiten der Kunden, deren Name an Quelle bzw.\ Namenszuweisung \cm{id} auftritt.
+
 \end{itemize}
 
 
@@ -999,6 +1059,10 @@ Liefert den Variationskoeffizienten der Verweilzeiten der Kunden an Station \cm{
 Liefert den quadrierten Variationskoeffizienten der Verweilzeiten der Kunden an Station \cm{id}.
 
 \item
+\cmd{Verweilzeit\_sk(id)}:\\
+Liefert die Schiefe der Verweilzeiten der Kunden an Station \cm{id}.
+
+\item
 \cmd{Verweilzeit\_hist(id;time)}:\\
 Liefert den Anteil der Kunden, für den die Verweilzeit an Station \cm{id} \cm{time} Sekunden gedauert hat.
 
@@ -1049,6 +1113,10 @@ Liefert den Variationskoeffizienten der Verweilzeiten über alle Kunden.
 \item
 \cmd{Verweilzeit\_scv()}:\\
 Liefert den quadrierten Variationskoeffizienten über alle Kunden.
+
+\item
+\cmd{Verweilzeit\_sk()}:\\
+Liefert die Schiefe der Verweilzeiten über alle Kunden.
 
 \item
 \cmd{Verweilzeit\_histAll(time)}:\\
@@ -1106,6 +1174,10 @@ Liefert den Variationskoeffizienten der Verweilzeiten der Kunden, deren Name an 
 \cmd{Verweilzeit\_scv(id)}:\\
 Liefert den quadrierten Variationskoeffizienten der Verweilzeiten der Kunden, deren Name an Quelle bzw.\ Namenszuweisung \cm{id} auftritt.
 
+\item
+\cmd{Verweilzeit\_sk(id)}:\\
+Liefert die Schiefe der Verweilzeiten der Kunden, deren Name an Quelle bzw.\ Namenszuweisung \cm{id} auftritt.
+
 \end{itemize}  
 
 
@@ -1162,6 +1234,10 @@ Liefert den Variationskoeffizienten der Anzahl an belegten Bedienern in der ange
 \item
 \cmd{resource\_scv(id)} oder \cmd{utilization\_scv(id)}:\\
 Liefert den quadrierten Variationskoeffizienten der Anzahl an belegten Bedienern in der angegebenen Ressource.  
+
+\item
+\cmd{resource\_sk(id)} oder \cmd{utilization\_sk(id)}:\\
+Liefert die Schiefe der Anzahl an belegten Bedienern in der angegebenen Ressource.
 
 \item
 \cmd{resource\_hist(id;state)} oder \cmd{utilization\_hist(id;state)}:\\
@@ -1266,6 +1342,10 @@ Liefert den Variationskoeffizienten der Anzahl an belegten Transportern in der a
 \item
 \cmd{transporter\_scv(id)} oder \cmd{transporter\_utilization\_scv(id)}:\\
 Liefert den quadrierten Variationskoeffizienten der Anzahl an belegten Transportern in der angegebenen Transportergruppe.
+
+\item
+\cmd{transporter\_sk(id)} oder \cmd{transporter\_utilization\_sk(id)}:\\
+Liefert die Schiefe der Anzahl an belegten Transportern in der angegebenen Transportergruppe.
   
 \item
 \cmd{transporter\_hist(id;state)} oder \cmd{transporter\_utilization\_hist(id;state)}:\\
@@ -1357,6 +1437,10 @@ Liefert den Variationskoeffizienten des Statistikeintrags \cm{nr} (1-basierend) 
 \item
 \cmd{Statistik\_scv(id;nr)} oder \cmd{Statistics\_scv(id;nr)}:\\
 Liefert den quadrierten Variationskoeffizienten des Statistikeintrags \cm{nr} (1-basierend) an Statistik-Station \cm{id}.
+
+\item
+\cmd{Statistik\_sk(id;nr)} oder \cmd{Statistics\_sk(id;nr)}:\\
+Liefert die Schiefe des Statistikeintrags \cm{nr} (1-basierend) an Statistik-Station \cm{id}.
 
 \item
 \cmd{Statistik\_hist(id;nr;state)} oder \cmd{Statistics\_hist(id;nr;state)}:\\

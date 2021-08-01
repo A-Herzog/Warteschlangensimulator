@@ -31,7 +31,7 @@ public class CalcSymbolStationDataProcess_hist extends CalcSymbolStationDataHist
 	 * Namen für das Symbol
 	 * @see #getNames()
 	 */
-	private static final String[] names=new String[]{"Bedienzeit_hist","ProcessingTime_hist","ServiceTime_hist"};
+	private static final String[] names=new String[]{"Bedienzeit_hist","ProcessTime_hist","ProcessingTime_hist","ServiceTime_hist"};
 
 	@Override
 	public String[] getNames() {

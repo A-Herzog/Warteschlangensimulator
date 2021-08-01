@@ -32,7 +32,7 @@ public class CalcSymbolStationDataProcess_sum extends CalcSymbolStationData {
 	 */
 	private static final String[] names=new String[]{
 			"Bedienzeit_sum","Bedienzeit_gesamt","Bedienzeit_summe",
-			"ProcessingTime_sum","ProcessingTime_gesamt","ProcessingTime_summe",
+			"ProcessTime_sum","ProcessingTime_sum","ProcessTime_gesamt","ProcessingTime_gesamt","ProcessingTime_summe","ProcessTime_summe",
 			"ServiceTime_sum","ServiceTime_gesamt","ServiceTime_summe"
 	};
 

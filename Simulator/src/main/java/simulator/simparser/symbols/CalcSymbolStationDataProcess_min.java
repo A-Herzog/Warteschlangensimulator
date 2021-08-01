@@ -35,7 +35,7 @@ public class CalcSymbolStationDataProcess_min extends CalcSymbolStationData {
 	 */
 	private static final String[] names=new String[]{
 			"Bedienzeit_min","Bedienzeit_Minimum",
-			"ProcessingTime_min","ProcessingTime_Minimum",
+			"ProcessTime_min","ProcessingTime_min","ProcessingTime_Minimum",
 			"ServiceTime_min","ServiceTime_Minimum"
 	};
 

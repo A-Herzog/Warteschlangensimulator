@@ -88,6 +88,10 @@ Gets the coefficient of variation of the number of clients in the system.
 \cmd{WIP\_scv()} or \cmd{Station\_scv()} or \cmd{N\_scv()}:\\
 Gets the squared coefficient of variation of the number of clients in the system.
 
+\item
+\cmd{WIP\_sk()} or \cmd{Station\_sk()} or \cmd{N\_sk()}:\\
+Gets the skewness of the number of clients in the system.
+
 \end{itemize}
 
 
@@ -146,6 +150,10 @@ Gets the coefficient of variation of the number of waiting clients in the system
 \item
 \cmd{NQ\_scv()} or \cmd{Queue\_scv()} or \cmd{Schlange\_scv()} or \cmd{Warteschlange\_scv()}:\\
 Gets the squared coefficient of variation of the number of waiting clients in the system.
+
+\item
+\cmd{NQ\_sk()} or \cmd{Queue\_sk()} or \cmd{Schlange\_sk()} or \cmd{Warteschlange\_sk()}:\\
+Gets the skewness of the number of waiting clients in the system.
 
 \end{itemize}
 
@@ -210,6 +218,10 @@ Gets the coefficient of variation of the number of clients at station \cm{id}.
 \item
 \cmd{WIP\_scv(id)} or \cmd{Station\_scv(id)} or \cmd{N\_scv(id)}:\\
 Gets the squared coefficient of variation of the number of clients at station \cm{id}.
+
+\item
+\cmd{WIP\_sk(id)} or \cmd{Station\_sk(id)} or \cmd{N\_sk(id)}:\\
+Gets the skewness of the number of clients at station \cm{id}.
 
 \item
 \cmd{WIP\_hist(id;state)} or \cmd{Station\_hist(id;state)} or \cmd{N\_hist(id;state)}:\\
@@ -284,6 +296,10 @@ Gets the coefficient of variation of the number of clients in the queue at stati
 \item
 \cmd{NQ\_scv(id)} or \cmd{Queue\_scv(id)} or \cmd{Schlange\_scv(id)} or \cmd{Warteschlange\_scv(id)}:\\
 Gets the squared coefficient of variation of the number of clients in the queue at station \cm{id}.
+
+\item
+\cmd{NQ\_sk(id)} or \cmd{Queue\_sk(id)} or \cmd{Schlange\_sk(id)} or \cmd{Warteschlange\_sk(id)}:\\
+Gets the skewness of the number of clients in the queue at station \cm{id}.
 
 \item
 \cmd{NQ\_hist(id;state)} or \cmd{Queue\_hist(id;state)} or \cmd{Schlange\_hist(id;state)} or\\ \cmd{Warteschlange\_hist(id;state)}:\\
@@ -381,6 +397,10 @@ Gets the coefficient of variation of the number of clients, whos name appears at
 Gets the squared coefficient of variation of the number of clients, whos name appears at the source or the type assignment \cm{id}.
 
 \item
+\cmd{WIP\_sk(id)} or \cmd{Station\_sk(id)} or \cmd{N\_sk(id)}:\\
+Gets the skewness of the number of clients, whos name appears at the source or the type assignment \cm{id}.
+
+\item
 \cmd{WIP\_hist(id;state)} or \cmd{Station\_hist(id;state)} or \cmd{N\_hist(id;state)}:\\
 Gets the fraction of time, the system was in the given \cm{state} in relation of the number of clients, whos name appears at the source or the type assignment \cm{id}.
 
@@ -448,6 +468,10 @@ Gets the coefficient of variation of the number of waiting clients, whos name ap
 \item
 \cmd{NQ\_scv(id)} or \cmd{Queue\_scv(id)} or \cmd{Schlange\_scv(id)} or \cmd{Warteschlange\_scv(id)}:\\
 Gets the squared coefficient of variation of the number of waiting clients, whos name appears at the source or the type assignment \cm{id}.
+
+\item
+\cmd{NQ\_sk(id)} or \cmd{Queue\_sk(id)} or \cmd{Schlange\_sk(id)} or \cmd{Warteschlange\_sk(id)}:\\
+Gets the skewness of the number of waiting clients, whos name appears at the source or the type assignment \cm{id}.
 
 \item
 \cmd{NQ\_hist(id;state)} or \cmd{Queue\_hist(id;state)} or \cmd{Schlange\_hist(id;state)} or\\ \cmd{Warteschlange\_hist(id;state)}:\\
@@ -529,6 +553,10 @@ Gets the coefficient of variation of the waiting times of the clients at station
 Gets the squared coefficient of variation of the waiting times of the clients at station \cm{id}.
 
 \item
+\cmd{WaitingTime\_sk(id)}:\\
+Gets the skewness of the waiting times of the clients at station \cm{id}. 
+
+\item
 \cmd{WaitingTime\_hist(id;time)}:\\
 Gets the fraction of clients for which the waiting time at stations \cm{id} was \cm{time} seconds.
 
@@ -579,6 +607,10 @@ Gets the coefficient of variation of the waiting times over all clients.
 \item
 \cmd{WaitingTime\_scv()}:\\
 Gets the squared coefficient of variation of the waiting times over all clients.
+
+\item
+\cmd{WaitingTime\_sk()}:\\
+Gets the skewness of the waiting times over all clients. 
 
 \item
 \cmd{WaitingTime\_histAll(time)}:\\
@@ -636,6 +668,10 @@ Gets the coefficient of variation of the waiting times of the clients, whos name
 \cmd{WaitingTime\_scv(id)}:\\
 Gets the squared coefficient of variation of the waiting times of the clients, whos name appears at the source or the type assignment \cm{id}.
 
+\item
+\cmd{WaitingTime\_sk(id)}:\\
+Gets the skewness of the waiting times of the clients, whos name appears at the source or the type assignment \cm{id}.
+
 \end{itemize}
 
 
@@ -690,6 +726,10 @@ Gets the coefficient of variation of the transfer times of the clients at statio
 Gets the squared coefficient of variation of the transfer times of the clients at station \cm{id}.
 
 \item
+\cmd{TransferTime\_sk(id)}:\\
+Gets the skewness of the transfer times of the clients at station \cm{id}.
+
+\item
 \cmd{TransferTime\_hist(id;time)}:\\
 Gets the fraction of clients for which the transfer time at stations \cm{id} was \cm{time} seconds.
 
@@ -740,6 +780,10 @@ Gets the coefficient of variation of the transfer times over all clients.
 \item
 \cmd{TransferTime\_scv()}:\\
 Gets the squared coefficient of variation of the transfer times over all clients.
+
+\item
+\cmd{TransferTime\_sk()}:\\
+Gets the skewness of the transfer times over all clients.
 
 \item
 \cmd{TransferTime\_histAll(time)}:\\
@@ -798,6 +842,10 @@ Gets the coefficient of variation of the transfer times of the clients, whos nam
 \cmd{TransferTime\_scv(id)}:\\
 Gets the squared coefficient of variation of the transfer times of the clients, whos name appears at the source or the type assignment \cm{id}.
 
+\item
+\cmd{TransferTime\_sk(id)}:\\
+Gets the skewness of the transfer times of the clients, whos name appears at the source or the type assignment \cm{id}.
+
 \end{itemize}
 
 
@@ -851,6 +899,10 @@ Gets the coefficient of variation of the process times of the clients at station
 Gets the squared coefficient of variation of the process times of the clients at station \cm{id}.
 
 \item
+\cmd{ProcessTime\_sk(id)}:\\
+Gets the skewness of the process times of the clients at station \cm{id}.
+
+\item
 \cmd{ProcessTime\_hist(id;time)}:\\
 Gets the fraction of clients for which the process time at stations \cm{id} was \cm{time} seconds.
 
@@ -901,6 +953,10 @@ Gets the coefficient of variation of the process times over all clients.
 \item
 \cmd{ProcessTime\_scv()}:\\
 Gets the squared coefficient of variation of the process times over all clients.
+
+\item
+\cmd{ProcessTime\_sk()}:\\
+Gets the skewness of the process times over all clients.
 
 \item
 \cmd{ProcessTime\_histAll(time)}:\\
@@ -958,6 +1014,10 @@ Gets the coefficient of variation of the process times of the clients, whos name
 \cmd{ProcessTime\_scv(id)}:\\
 Gets the squared coefficient of variation of the process times of the clients, whos name appears at the source or the type assignment \cm{id}.
 
+\item
+\cmd{ProcessTime\_sk(id)}:\\
+Gets the skewness of the process times of the clients, whos name appears at the source or the type assignment \cm{id}.
+
 \end{itemize}
 
 
@@ -1010,6 +1070,10 @@ Gets the coefficient of variation of the residence times of the clients at stati
 Gets the squared coefficient of variation of the residence times of the clients at station \cm{id}.
 
 \item
+\cmd{ResidenceTime\_sk(id)}:\\
+Gets the skewness of the residence times of the clients at station \cm{id}. 
+
+\item
 \cmd{ResidenceTime\_hist(id;time)}:\\
 Gets the fraction of clients for which the residence time at stations \cm{id} was \cm{time} seconds.
 
@@ -1060,6 +1124,10 @@ Gets the coefficient of variation of the residence times over all clients.
 \item
 \cmd{ResidenceTime\_scv()}:\\
 Gets the squared coefficient of variation of the residence times over all clients.
+
+\item
+\cmd{ResidenceTime\_sk()}:\\
+Gets the skewness of the residence times over all clients. 
 
 \item
 \cmd{ResidenceTime\_histAll(time)}:\\
@@ -1117,6 +1185,10 @@ Gets the coefficient of variation of the residence times of the clients, whos na
 \cmd{ResidenceTime\_scv(id)}:\\
 Gets the squared coefficient of variation of the residence times of the clients, whos name appears at the source or the type assignment \cm{id}.
 
+\item
+\cmd{ResidenceTime\_sk(id)}:\\
+Gets the skewness of the residence times of the clients, whos name appears at the source or the type assignment \cm{id}.
+
 \end{itemize}
 
 
@@ -1173,6 +1245,10 @@ Gets the coefficient of variation of the number of busy operators in the specifi
 \item
 \cmd{resource\_scv(id)} or \cmd{utilization\_scv(id)}:\\
 Gets the squared coefficient of variation of the number of busy operators in the specified resource.
+
+\item
+\cmd{resource\_sk(id)} or \cmd{utilization\_sk(id)}:\\
+Gets the skewness of the number of busy operators in the specified resource.
 
 \item
 \cmd{resource\_hist(id;state)} or \cmd{utilization\_hist(id;state)}:\\
@@ -1276,6 +1352,10 @@ Gets the coefficient of variation of the number of busy transporters in the spec
 Gets the squared coefficient of variation of the number of busy transporters in the specified transporter group.
 
 \item
+\cmd{transporter\_sk(id)} or \cmd{transporter\_utilization\_sk(id)}:\\
+Gets the skewness of the number of busy transporters in the specified transporter group.
+
+\item
 \cmd{transporter\_hist(id;state)} or \cmd{transporter\_utilization\_hist(id;state)}:\\
 Gets the fraction of time, at which \cm{state} of the transporters in the specified transporter group have been busy.
   
@@ -1367,6 +1447,10 @@ Gets the coefficient of variation of record \cm{nr} (1 based) at Statistics stat
 \item
 \cmd{Statistics\_scv(id;nr)}:\\
 Gets the squared coefficient of variation of record \cm{nr} (1 based) at Statistics station \cm{id}.
+
+\item
+\cmd{Statistics\_sk(id;nr)}:\\
+Gets the skewness of record \cm{nr} (1 based) at Statistics station \cm{id}.
 
 \item
 \cmd{Statistics\_hist(id;nr;state)}:\\

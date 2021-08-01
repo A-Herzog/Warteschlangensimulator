@@ -33,7 +33,7 @@ public class CalcSymbolStationDataProcess_quantil extends CalcSymbolStationDataQ
 	 * Namen für das Symbol
 	 * @see #getNames()
 	 */
-	private static final String[] names=new String[] {"Bedienzeit_quantil","ProcessingTime_quantil","ServiceTime_quantil"};
+	private static final String[] names=new String[] {"Bedienzeit_quantil","ProcessTime_quantil","ProcessingTime_quantil","ServiceTime_quantil"};
 
 	@Override
 	public String[] getNames() {

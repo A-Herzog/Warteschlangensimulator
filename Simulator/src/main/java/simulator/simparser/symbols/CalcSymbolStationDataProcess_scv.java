@@ -33,7 +33,7 @@ public class CalcSymbolStationDataProcess_scv extends CalcSymbolStationData {
 	 * Namen für das Symbol
 	 * @see #getNames()
 	 */
-	private static final String[] names=new String[]{"Bedienzeit_scv","ProcessingTime_scv","ServiceTime_scv"};
+	private static final String[] names=new String[]{"Bedienzeit_scv","ProcessTime_scv","ProcessingTime_scv","ServiceTime_scv"};
 
 	@Override
 	public String[] getNames() {

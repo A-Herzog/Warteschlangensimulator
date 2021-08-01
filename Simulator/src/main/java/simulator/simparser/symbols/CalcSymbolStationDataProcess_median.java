@@ -33,7 +33,7 @@ public class CalcSymbolStationDataProcess_median extends CalcSymbolStationData {
 	 * Namen für das Symbol
 	 * @see #getNames()
 	 */
-	private static final String[] names=new String[] {"Bedienzeit_median","ProcessingTime_median","ServiceTime_median"};
+	private static final String[] names=new String[] {"Bedienzeit_median","ProcessTime_median","ProcessingTime_median","ServiceTime_median"};
 
 	@Override
 	public String[] getNames() {

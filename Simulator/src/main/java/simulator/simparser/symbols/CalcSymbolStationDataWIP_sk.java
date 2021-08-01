@@ -1,5 +1,5 @@
 /**
- * Copyright 2020 Alexander Herzog
+ * Copyright 2021 Alexander Herzog
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,37 +17,27 @@ package simulator.simparser.symbols;
 
 import simulator.coreelements.RunElementData;
 import simulator.simparser.coresymbols.CalcSymbolStationData;
-import statistics.StatisticsDataPerformanceIndicator;
 import statistics.StatisticsPerformanceIndicator;
+import statistics.StatisticsTimePerformanceIndicator;
 
 /**
  * Im Falle von einem Parameter:<br>
- * (a) Liefert die maximale Bedienzeit der Kunden, deren Name an Quelle bzw. Namenszuweisung id (1. Parameter) auftritt (in Sekunden).<br>
- * (b) Liefert die maximale Bedienzeit der Kunden an Station id (1. Parameter) (in Sekunden).<br>
+ * (a) Liefert die Schiefe der Anzahl an Kunden, deren Name an Quelle bzw. Namenszuweisung id (1. Parameter) auftritt.<br>
+ * (b) Liefert die Schiefe der Anzahl an Kunden an Station id (1. Parameter).<br>
  * Im Falle von keinem Parameter:<br>
- * Liefert die maximale Bedienzeit über alle Kunden (in Sekunden).
+ * Liefert die Schiefe der Anzahl an Kunden im System.
  * @author Alexander Herzog
  */
-public class CalcSymbolStationDataProcess_max extends CalcSymbolStationData {
+public class CalcSymbolStationDataWIP_sk extends CalcSymbolStationData {
 	/**
 	 * Namen für das Symbol
 	 * @see #getNames()
 	 */
-	private static final String[] names=new String[]{
-			"Bedienzeit_max","Bedienzeit_Maximum",
-			"ProcessTime_max","ProcessingTime_max","ProcessingTime_Maximum",
-			"ServiceTime_max","ServiceTime_Maximum"
-	};
+	private static final String[] names=new String[]{"WIP_sk","Station_sk","N_sk"};
 
 	@Override
 	public String[] getNames() {
 		return names;
-	}
-
-	@Override
-	protected double calc(final RunElementData data) {
-		if (data.statisticProcess==null) return 0;
-		return data.statisticProcess.getMax();
 	}
 
 	@Override
@@ -62,13 +52,19 @@ public class CalcSymbolStationDataProcess_max extends CalcSymbolStationData {
 
 	@Override
 	protected double calcAll() {
-		return getSimData().statistics.clientsAllProcessingTimes.getMax();
+		return getSimData().statistics.clientsInSystem.getTimeSk();
 	}
 
 	@Override
 	protected double calcSingleClient(final String name) {
-		StatisticsPerformanceIndicator indicator=getSimData().statistics.clientsProcessingTimes.get(name);
+		StatisticsPerformanceIndicator indicator=getSimData().statistics.clientsInSystemByClient.get(name);
 		if (indicator==null) return 0.0;
-		return ((StatisticsDataPerformanceIndicator)indicator).getMax();
+		return ((StatisticsTimePerformanceIndicator)indicator).getTimeSk();
+	}
+
+	@Override
+	protected double calc(final RunElementData data) {
+		if (data.statisticClientsAtStation==null) return 0;
+		return data.statisticClientsAtStation.getTimeSk();
 	}
 }

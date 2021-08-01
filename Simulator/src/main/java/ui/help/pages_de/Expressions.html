@@ -504,6 +504,10 @@ Allen-Cunneen-Approximationsformel berechnet werden:
   <tr><td>WIP_scv()</td><td rowspan="3">Liefert den quadrierten Variationskoeffizienten der Anzahl an Kunden im System.</td></tr>
   <tr><td>Station_scv()</td></tr>
   <tr><td>N_scv()</td></tr>
+  
+  <tr><td>WIP_sk()</td><td rowspan="3">Liefert die Schiefe der Anzahl an Kunden im System.</td></tr>
+  <tr><td>Station_sk()</td></tr>
+  <tr><td>N_sk()</td></tr>
 
 
 
@@ -579,6 +583,11 @@ Allen-Cunneen-Approximationsformel berechnet werden:
   <tr><td>Schlange_scv()</td></tr>
   <tr><td>Warteschlange_scv()</td></tr>
   
+  <tr><td>NQ_sk()</td><td rowspan="4">Liefert die Schiefe der Anzahl an Kunden in allen Warteschlange zusammen.</td></tr>
+  <tr><td>Queue_sk()</td></tr>
+  <tr><td>Schlange_sk()</td></tr>
+  <tr><td>Warteschlange_sk()</td></tr>
+  
 
 
   <tr><td colspan="2"><h3 style="margin">Anzahl an Kunden an einer Station</h3></td></tr>
@@ -641,6 +650,10 @@ Allen-Cunneen-Approximationsformel berechnet werden:
   <tr><td>WIP_scv(id)</td><td rowspan="3">Liefert den quadrierten Variationskoeffizienten der Anzahl an Kunden an Station id.</td></tr>
   <tr><td>Station_scv(id)</td></tr>
   <tr><td>N_scv(id)</td></tr>
+  
+  <tr><td>WIP_sk(id)</td><td rowspan="3">Liefert die Schiefe der Anzahl an Kunden an Station id.</td></tr>
+  <tr><td>Station_sk(id)</td></tr>
+  <tr><td>N_sk(id)</td></tr>
   
   <tr><td>WIP_hist(id;state)</td><td rowspan="3">Liefert den Anteil der Zeit, in der sich das System in Bezug auf die Anzahl an Kunden an Station id im Zustand state befunden hat.</td></tr>
   <tr><td>Station_hist(id;state)</td></tr>
@@ -728,6 +741,11 @@ Allen-Cunneen-Approximationsformel berechnet werden:
   <tr><td>Queue_scv(id)</td></tr>
   <tr><td>Schlange_scv(id)</td></tr>
   <tr><td>Warteschlange_scv(id)</td></tr>
+  
+  <tr><td>NQ_sk(id)</td><td rowspan="4">Liefert die Schiefe der Anzahl an Kunden in der Warteschlange an Station id.</td></tr>
+  <tr><td>Queue_sk(id)</td></tr>
+  <tr><td>Schlange_sk(id)</td></tr>
+  <tr><td>Warteschlange_sk(id)</td></tr>
 
   <tr><td>NQ_hist(id;state)</td><td rowspan="4">Liefert den Anteil der Zeit, in der sich state Kunden in der Warteschlange an Station id befunden haben.</td></tr>
   <tr><td>Queue_hist(id;state)</td></tr>
@@ -797,6 +815,10 @@ Allen-Cunneen-Approximationsformel berechnet werden:
   <tr><td>WIP_scv(id)</td><td rowspan="3">Liefert den quadrierten Variationskoeffizienten der Anzahl an Kunden, deren Name an Quelle bzw. Namenszuweisung id auftritt.</td></tr>
   <tr><td>Station_scv(id)</td></tr>
   <tr><td>N_scv(id)</td></tr>
+  
+  <tr><td>WIP_sk(id)</td><td rowspan="3">Liefert die Schiefe der Anzahl an Kunden, deren Name an Quelle bzw. Namenszuweisung id auftritt.</td></tr>
+  <tr><td>Station_sk(id)</td></tr>
+  <tr><td>N_sk(id)</td></tr>
   
   <tr><td>WIP_hist(id;state)</td><td rowspan="3">Liefert den Anteil der Zeit, in der sich das System in Bezug auf die Anzahl an Kunden, deren Name an Quelle bzw. Namenszuweisung id auftritt, im Zustand state befunden hat.</td></tr>
   <tr><td>Station_hist(id;state)</td></tr>
@@ -879,6 +901,11 @@ Allen-Cunneen-Approximationsformel berechnet werden:
   <tr><td>Queue_scv(id)</td></tr>
   <tr><td>Schlange_scv(id)</td></tr>
   <tr><td>Warteschlange_scv(id)</td></tr>
+  
+  <tr><td>NQ_sk(id)</td><td rowspan="4">Liefert die Schiefe der Anzahl an wartenden Kunden, deren Name an Quelle bzw. Namenszuweisung id auftritt.</td></tr>
+  <tr><td>Queue_sk(id)</td></tr>
+  <tr><td>Schlange_sk(id)</td></tr>
+  <tr><td>Warteschlange_sk(id)</td></tr>
 
   <tr><td>NQ_hist(id;state)</td><td rowspan="4">Liefert den Anteil der Zeit, in der sich state wartende Kunden, deren Name an Quelle bzw. Namenszuweisung id auftritt, im System befanden.</td></tr>
   <tr><td>Queue_hist(id;state)</td></tr>
@@ -950,6 +977,8 @@ Allen-Cunneen-Approximationsformel berechnet werden:
   
   <tr><td>Wartezeit_scv(id)</td><td>Liefert den quadrierten Variationskoeffizienten der Wartezeiten der Kunden an Station id.</td></tr>
   
+  <tr><td>Wartezeit_sk(id)</td><td>Liefert die Schiefe der Wartezeiten der Kunden an Station id.</td></tr>
+  
   <tr><td>Wartezeit_hist(id;time)</td><td>Liefert den Anteil der Kunden, für den die Wartezeit an Station id time Sekunden gedauert hat.</td></tr>
 
   <tr><td>Wartezeit_hist(id;timeA;timeB)</td><td>Liefert den Anteil der Kunden, für den die Wartezeit an Station id mehr als timeA und höchstens timeB Sekunden gedauert hat.</td></tr>
@@ -981,6 +1010,8 @@ Allen-Cunneen-Approximationsformel berechnet werden:
   <tr><td>Wartezeit_cv()</td><td>Liefert den Variationskoeffizienten der Wartezeiten über alle Kunden.</td></tr>
   
   <tr><td>Wartezeit_scv()</td><td>Liefert den quadrierten Variationskoeffizienten der Wartezeiten über alle Kunden.</td></tr>
+  
+  <tr><td>Wartezeit_sk()</td><td>Liefert die Schiefe der Wartezeiten über alle Kunden.</td></tr>
   
   <tr><td>Wartezeit_histAll(time)</td><td>Liefert den Anteil der Kunden, für den die Wartezeit time Sekunden gedauert hat.</td></tr>
 
@@ -1015,8 +1046,10 @@ Allen-Cunneen-Approximationsformel berechnet werden:
   <tr><td>Wartezeit_Standardabweichung(id)</td></tr>
   
   <tr><td>Wartezeit_cv(id)</td><td>Liefert den Variationskoeffizienten der Wartezeiten der Kunden, deren Name an Quelle bzw. Namenszuweisung id auftritt.</td></tr>
-  
+    
   <tr><td>Wartezeit_scv(id)</td><td>Liefert den quadrierten Variationskoeffizienten der Wartezeiten der Kunden, deren Name an Quelle bzw. Namenszuweisung id auftritt.</td></tr>
+  
+  <tr><td>Wartezeit_sk(id)</td><td>Liefert die Schiefe der Wartezeiten der Kunden, deren Name an Quelle bzw. Namenszuweisung id auftritt.</td></tr>
   
   
   
@@ -1050,6 +1083,8 @@ Allen-Cunneen-Approximationsformel berechnet werden:
   
   <tr><td>Transferzeit_scv(id)</td><td>Liefert den quadrierten Variationskoeffizienten der Transferzeiten der Kunden an Station id.</td></tr>
   
+  <tr><td>Transferzeit_sk(id)</td><td>Liefert die Schiefe der Transferzeiten der Kunden an Station id.</td></tr>
+  
   <tr><td>Transferzeit_hist(id;time)</td><td>Liefert den Anteil der Kunden, für den die Transferzeit an Station id time Sekunden gedauert hat.</td></tr>
 
   <tr><td>Transferzeit_hist(id;timeA;timeB)</td><td>Liefert den Anteil der Kunden, für den die Transferzeit an Station id mehr als timeA und höchstens timeB Sekunden gedauert hat.</td></tr>
@@ -1081,6 +1116,8 @@ Allen-Cunneen-Approximationsformel berechnet werden:
   <tr><td>Transferzeit_cv()</td><td>Liefert den Variationskoeffizienten der Transferzeiten über alle Kunden.</td></tr>
   
   <tr><td>Transferzeit_scv()</td><td>Liefert den quadrierten Variationskoeffizienten der Transferzeiten über alle Kunden.</td></tr>
+  
+  <tr><td>Transferzeit_sk()</td><td>Liefert die Schiefe der Transferzeiten über alle Kunden.</td></tr>
   
   <tr><td>Transferzeit_histAll(time)</td><td>Liefert den Anteil der Kunden, für den die Transferzeit time Sekunden gedauert hat.</td></tr>
 
@@ -1117,6 +1154,8 @@ Allen-Cunneen-Approximationsformel berechnet werden:
   <tr><td>Transferzeit_cv(id)</td><td>Liefert den Variationskoeffizienten der Transferzeiten der Kunden, deren Name an Quelle bzw. Namenszuweisung id auftritt.</td></tr>
   
   <tr><td>Transferzeit_scv(id)</td><td>Liefert den quadrierten Variationskoeffizienten der Transferzeiten der Kunden, deren Name an Quelle bzw. Namenszuweisung id auftritt.</td></tr>
+  
+  <tr><td>Transferzeit_sk(id)</td><td>Liefert die Schiefe der Transferzeiten der Kunden, deren Name an Quelle bzw. Namenszuweisung id auftritt.</td></tr>
 
 
 
@@ -1150,6 +1189,8 @@ Allen-Cunneen-Approximationsformel berechnet werden:
   
   <tr><td>Bedienzeit_scv(id)</td><td>Liefert den quadrierten Variationskoeffizienten der Bedienzeiten der Kunden an Station id.</td></tr>
   
+  <tr><td>Bedienzeit_sk(id)</td><td>Liefert die Schiefe der Bedienzeiten der Kunden an Station id.</td></tr>
+  
   <tr><td>Bedienzeit_hist(id;time)</td><td>Liefert den Anteil der Kunden, für den die Bedienzeit an Station id time Sekunden gedauert hat.</td></tr>
 
   <tr><td>Bedienzeit_hist(id;timeA;timeB)</td><td>Liefert den Anteil der Kunden, für den die Bedienzeit an Station id mehr als timeA und höchstens timeB Sekunden gedauert hat.</td></tr>
@@ -1181,6 +1222,8 @@ Allen-Cunneen-Approximationsformel berechnet werden:
   <tr><td>Bedienzeit_cv()</td><td>Liefert den Variationskoeffizienten der Bedienzeiten über alle Kunden.</td></tr>
   
   <tr><td>Bedienzeit_scv()</td><td>Liefert den quadrierten Variationskoeffizienten der Bedienzeiten über alle Kunden.</td></tr>
+  
+  <tr><td>Bedienzeit_sk()</td><td>Liefert die Schiefe der Bedienzeiten über alle Kunden.</td></tr>
   
   <tr><td>Bedienzeit_histAll(time)</td><td>Liefert den Anteil der Kunden, für den die Bedienzeit time Sekunden gedauert hat.</td></tr>
 
@@ -1217,6 +1260,8 @@ Allen-Cunneen-Approximationsformel berechnet werden:
   <tr><td>Bedienzeit_cv(id)</td><td>Liefert den Variationskoeffizienten der Bedienzeiten der Kunden, deren Name an Quelle bzw. Namenszuweisung id auftritt.</td></tr>
   
   <tr><td>Bedienzeit_scv(id)</td><td>Liefert den quadrierten Variationskoeffizienten der Bedienzeiten der Kunden, deren Name an Quelle bzw. Namenszuweisung id auftritt.</td></tr>
+  
+  <tr><td>Bedienzeit_sk(id)</td><td>Liefert die Schiefe der Bedienzeiten der Kunden, deren Name an Quelle bzw. Namenszuweisung id auftritt.</td></tr>
 
 
 
@@ -1250,6 +1295,8 @@ Allen-Cunneen-Approximationsformel berechnet werden:
   
   <tr><td>Verweilzeit_scv(id)</td><td>Liefert den quadrierten Variationskoeffizienten der Verweilzeiten der Kunden an Station id.</td></tr>
   
+  <tr><td>Verweilzeit_sk(id)</td><td>Liefert die Schiefe der Verweilzeiten der Kunden an Station id.</td></tr>
+  
   <tr><td>Verweilzeit_hist(id;time)</td><td>Liefert den Anteil der Kunden, für den die Verweilzeit an Station id time Sekunden gedauert hat.</td></tr>
 
   <tr><td>Verweilzeit_hist(id;timeA;timeB)</td><td>Liefert den Anteil der Kunden, für den die Verweilzeit an Station id mehr als timeA und höchstens timeB Sekunden gedauert hat.</td></tr>
@@ -1281,6 +1328,8 @@ Allen-Cunneen-Approximationsformel berechnet werden:
   <tr><td>Verweilzeit_cv()</td><td>Liefert den Variationskoeffizienten der Verweilzeiten über alle Kunden.</td></tr>
   
   <tr><td>Verweilzeit_scv()</td><td>Liefert den quadrierten Variationskoeffizienten der Verweilzeiten über alle Kunden.</td></tr>
+  
+  <tr><td>Verweilzeit_sk()</td><td>Liefert die Schiefe der Verweilzeiten über alle Kunden.</td></tr>
   
   <tr><td>Verweilzeit_histAll(time)</td><td>Liefert den Anteil der Kunden, für den die Verweilzeit time Sekunden gedauert hat.</td></tr>
 
@@ -1317,6 +1366,8 @@ Allen-Cunneen-Approximationsformel berechnet werden:
   <tr><td>Verweilzeit_cv(id)</td><td>Liefert den Variationskoeffizienten der Verweilzeiten der Kunden, deren Name an Quelle bzw. Namenszuweisung id auftritt.</td></tr>
   
   <tr><td>Verweilzeit_scv(id)</td><td>Liefert den quadrierten Variationskoeffizienten der Verweilzeiten der Kunden, deren Name an Quelle bzw. Namenszuweisung id auftritt.</td></tr>
+  
+  <tr><td>Verweilzeit_sk(id)</td><td>Liefert die Schiefe der Verweilzeiten der Kunden, deren Name an Quelle bzw. Namenszuweisung id auftritt.</td></tr>
 
 
 
@@ -1364,6 +1415,9 @@ Allen-Cunneen-Approximationsformel berechnet werden:
   
   <tr><td>resource_scv(id)</td><td rowspan="2">Liefert den quadrierten Variationskoeffizienten der Anzahl an belegten Bedienern in der angegebenen Ressource.</td></tr>
   <tr><td>utilization_scv(id)</td></tr>
+  
+  <tr><td>resource_sk(id)</td><td rowspan="2">Liefert die Schiefe der Anzahl an belegten Bedienern in der angegebenen Ressource.</td></tr>
+  <tr><td>utilization_sk(id)</td></tr>
   
   <tr><td>resource_hist(id;state)</td><td rowspan="2">Liefert den Anteil der Zeit, in der state Bediener der angegebenen Ressource ausgelastet waren.</td></tr>
   <tr><td>utilization_hist(id;state)</td></tr>
@@ -1448,6 +1502,9 @@ Allen-Cunneen-Approximationsformel berechnet werden:
   <tr><td>transporter_scv(id)</td><td rowspan="2">Liefert den quadrierten Variationskoeffizienten der Anzahl an belegten Transportern in der angegebenen Transportergruppe.</td></tr>
   <tr><td>transporter_utilization_scv(id)</td></tr>
   
+  <tr><td>transporter_sk(id)</td><td rowspan="2">Liefert die Schiefe der Anzahl an belegten Transportern in der angegebenen Transportergruppe.</td></tr>
+  <tr><td>transporter_utilization_sk(id)</td></tr>
+  
   <tr><td>transporter_hist(id;state)</td><td rowspan="2">Liefert den Anteil der Zeit, in der state Transporter der angegebenen Transportergruppe ausgelastet waren.</td></tr>
   <tr><td>transporter_utilization_hist(id;state)</td></tr>
   
@@ -1523,6 +1580,9 @@ Allen-Cunneen-Approximationsformel berechnet werden:
 
   <tr><td>Statistik_scv(id;nr)</td><td rowspan="2">Liefert den quadrierten Variationskoeffizienten des Statistikeintrags <tt>nr</tt> (1-basierend) an Statistik-Station id.</td></tr>  
   <tr><td>Statistics_scv(id;nr)</td></tr>
+  
+  <tr><td>Statistik_cv(id;nr)</td><td rowspan="2">Liefert die Schiefe des Statistikeintrags <tt>nr</tt> (1-basierend) an Statistik-Station id.</td></tr>  
+  <tr><td>Statistics_cv(id;nr)</td></tr>
   
   <tr><td>Statistik_hist(id;nr;state)</td><td rowspan="2">Liefert den Anteil der Zeit, in der sich das System in Bezug auf Statistikeintrags <tt>nr</tt> (1-basierend) an Statistik-Station id in Zustand state befunden hat.</td></tr>
   <tr><td>Statistics_hist(id;nr;state)</td></tr>

@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-08-01 00:11+0200\n"
+"POT-Creation-Date: 2021-08-01 14:33+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -4616,6 +4616,8 @@ msgstr ""
 
 msgid "ExpressionBuilder.ClientsAtQueue.Skewness"
 msgstr ""
+"<p>Returns the skewness of the number of clients at the queue of the station whose ID is specified in the parameter.</p>\n"
+"<p>Alternatively, the ID of a client source can be specified, in which case the results refer to the clients which are created created at the selected source.</p>"
 
 msgid "ExpressionBuilder.ClientsAtQueue.SquaredCoefficientOfVariationOfTheNumber"
 msgstr ""
@@ -4685,6 +4687,8 @@ msgstr ""
 
 msgid "ExpressionBuilder.ClientsAtStation.Skewness"
 msgstr ""
+"<p>Returns the skewness of the number of clients at the station whose ID is specified in the parameter.</p>\n"
+"<p>Alternatively, the ID of a client source can be specified, in which case the results refer to the clients which are created created at the selected source.</p>"
 
 msgid "ExpressionBuilder.ClientsAtStation.SquaredCoefficientOfVariationOfTheNumber"
 msgstr ""
@@ -4729,7 +4733,7 @@ msgid "ExpressionBuilder.ClientsInSystem.Quantil"
 msgstr "<p>Returns the quantil for the probability p of the number of clients in the system.</p>"
 
 msgid "ExpressionBuilder.ClientsInSystem.Skewness"
-msgstr ""
+msgstr "<p>Returns the skewness of the number of clients in the system.</p>"
 
 msgid "ExpressionBuilder.ClientsInSystem.SquaredCoefficientOfVariationOfTheNumber"
 msgstr "<p>Returns the squared coefficient of variation of the number of clients in the system.</p>"
@@ -4762,7 +4766,7 @@ msgid "ExpressionBuilder.ClientsInSystemQueue.Quantil"
 msgstr "<p>Returns the quantil for the probability p of the number of waiting clients in the system.</p>"
 
 msgid "ExpressionBuilder.ClientsInSystemQueue.Skewness"
-msgstr ""
+msgstr "<p>Returns the skewness of the number of waiting clients in the system.</p>"
 
 msgid "ExpressionBuilder.ClientsInSystemQueue.SquaredCoefficientOfVariationOfTheNumber"
 msgstr "<p>Returns the squared coefficient of variation of the number of waiting clients in the system.</p>"
@@ -4780,7 +4784,7 @@ msgid "ExpressionBuilder.CommandName.AnalogValue"
 msgstr "AnalogValue"
 
 msgid "ExpressionBuilder.CommandName.ProcessingTime"
-msgstr "ProcessingTime"
+msgstr "ProcessTime"
 
 msgid "ExpressionBuilder.CommandName.ResidenceTime"
 msgstr "ResidenceTime"
@@ -5979,6 +5983,9 @@ msgstr "<p>Returns the minimal duration over all processing times that have occu
 msgid "ExpressionBuilder.SimulationCharacteristics.ProcessingTimesAtStations.Quantil"
 msgstr "<p>Returns the quantil for probability p of the duration over all processing times that have occurred at the station whose ID was specified in the parameter (over all client types).</p>"
 
+msgid "ExpressionBuilder.SimulationCharacteristics.ProcessingTimesAtStations.Skewness"
+msgstr "<p>Returns the skewness over all processing times that have occurred at the station whose ID was specified in the parameter (over all client types).</p>"
+
 msgid "ExpressionBuilder.SimulationCharacteristics.ProcessingTimesAtStations.SquaredCoefficientOfVariationOfTheTime"
 msgstr "<p>Returns the squared coefficient of variation over all processing times that have occurred at the station whose ID was specified in the parameter (over all client types).</p>"
 
@@ -6011,6 +6018,9 @@ msgstr "<p>Returns the minimal duration over all processing times of the clients
 
 msgid "ExpressionBuilder.SimulationCharacteristics.ProcessingTimesByClientTypes.Quantil"
 msgstr "<p>Returns the quantil for probability p of the duration over all processing times of the clients created at the station whose ID was specified in the parameter.</p>"
+
+msgid "ExpressionBuilder.SimulationCharacteristics.ProcessingTimesByClientTypes.Skewness"
+msgstr "<p>Returns the skewness over all processing times of the clients created at the station whose ID was specified in the parameter.</p>"
 
 msgid "ExpressionBuilder.SimulationCharacteristics.ProcessingTimesByClientTypes.SquaredCoefficientOfVariationOfTheTime"
 msgstr "<p>Returns the squared coefficient of variation over all processing times of the clients created at the station whose ID was specified in the parameter.</p>"
@@ -6050,6 +6060,9 @@ msgstr "<p>Returns the minimal duration over all processing times for all client
 
 msgid "ExpressionBuilder.SimulationCharacteristics.ProcessingTimesOverAll.Quantil"
 msgstr "<p>Returns the quantil for probability p of the durations over all processing times for all clients.</p>"
+
+msgid "ExpressionBuilder.SimulationCharacteristics.ProcessingTimesOverAll.Skewness"
+msgstr "<p>Returns the skewness over all processing times for all clients.</p>"
 
 msgid "ExpressionBuilder.SimulationCharacteristics.ProcessingTimesOverAll.SquaredCoefficientOfVariationOfTheTime"
 msgstr "<p>Returns the squared coefficient of variation over all processing times for all clients.</p>"
@@ -6093,6 +6106,9 @@ msgstr "<p>Returns the minimal duration over all residence times that have occur
 msgid "ExpressionBuilder.SimulationCharacteristics.ResidenceTimesAtStations.Quantil"
 msgstr "<p>Returns the quantil for probability p of the duration over all residence times that have occurred at the station whose ID was specified in the parameter (over all client types).</p>"
 
+msgid "ExpressionBuilder.SimulationCharacteristics.ResidenceTimesAtStations.Skewness"
+msgstr "<p>Returns the skewness over all residence times that have occurred at the station whose ID was specified in the parameter (over all client types).</p>"
+
 msgid "ExpressionBuilder.SimulationCharacteristics.ResidenceTimesAtStations.SquaredCoefficientOfVariationOfTheTime"
 msgstr "<p>Returns the squared coefficient of variation over all residence times that have occurred at the station whose ID was specified in the parameter (over all client types).</p>"
 
@@ -6125,6 +6141,9 @@ msgstr "<p>Returns the minimal duration over all residence times of the clients 
 
 msgid "ExpressionBuilder.SimulationCharacteristics.ResidenceTimesByClientTypes.Quantil"
 msgstr "<p>Returns the quantil for probability p of the duration over all residence times of the clients created at the station whose ID was specified in the parameter.</p>"
+
+msgid "ExpressionBuilder.SimulationCharacteristics.ResidenceTimesByClientTypes.Skewness"
+msgstr "<p>Returns the skewness over all residence times of the clients created at the station whose ID was specified in the parameter.</p>"
 
 msgid "ExpressionBuilder.SimulationCharacteristics.ResidenceTimesByClientTypes.SquaredCoefficientOfVariationOfTheTime"
 msgstr "<p>Returns the squared coefficient of variation over all residence times of the clients created at the station whose ID was specified in the parameter.</p>"
@@ -6164,6 +6183,9 @@ msgstr "<p>Returns the minimal duration over all residence times for all clients
 
 msgid "ExpressionBuilder.SimulationCharacteristics.ResidenceTimesOverAll.Quantil"
 msgstr "<p>Returns the quantil for probability p of the durations over all residence times for all clients.</p>"
+
+msgid "ExpressionBuilder.SimulationCharacteristics.ResidenceTimesOverAll.Skewness"
+msgstr "<p>Returns the skewness over all residence times for all clients.</p>"
 
 msgid "ExpressionBuilder.SimulationCharacteristics.ResidenceTimesOverAll.SquaredCoefficientOfVariationOfTheTime"
 msgstr "<p>Returns the squared coefficient of variation over all residence times for all clients.</p>"
@@ -6206,6 +6228,9 @@ msgstr ""
 "<p>Returns the number of operators in the specified resource.</p>\n"
 "<p>If the resource is defined by a shift plan the number can vary during the simulation time. For resources with an unlimited capacity \"0\" is returned.</p>"
 
+msgid "ExpressionBuilder.SimulationCharacteristics.ResourceUtilization.Skewness"
+msgstr "<p>Returns the skewness of the number of busy operators in the specified resource.</p>"
+
 msgid "ExpressionBuilder.SimulationCharacteristics.ResourceUtilization.SquaredCoefficientOfVariationOfTheNumber"
 msgstr "<p>Returns the squared coefficient of variation of the number of busy operators in the specified resource.</p>"
 
@@ -6242,7 +6267,7 @@ msgid "ExpressionBuilder.SimulationCharacteristics.Resources"
 msgstr "Resources"
 
 msgid "ExpressionBuilder.SimulationCharacteristics.Skewness"
-msgstr ""
+msgstr "Skewness"
 
 msgid "ExpressionBuilder.SimulationCharacteristics.SquaredCoefficientOfVariationOfTheNumber"
 msgstr "Squared coefficient of variation of the number"
@@ -6325,6 +6350,9 @@ msgstr "<p>Returns the minimal duration over all transfer times that have occurr
 msgid "ExpressionBuilder.SimulationCharacteristics.TransferTimesAtStations.Quantil"
 msgstr "<p>Returns the quantil for probability p of the duration over all transfer times that have occurred at the station whose ID was specified in the parameter (over all client types).</p>"
 
+msgid "ExpressionBuilder.SimulationCharacteristics.TransferTimesAtStations.Skewness"
+msgstr "<p>Returns the skewness over all transfer times that have occurred at the station whose ID was specified in the parameter (over all client types).</p>"
+
 msgid "ExpressionBuilder.SimulationCharacteristics.TransferTimesAtStations.SquaredCoefficientOfVariationOfTheTime"
 msgstr "<p>Returns the squared coefficient of variation over all transfer times that have occurred at the station whose ID was specified in the parameter (over all client types).</p>"
 
@@ -6357,6 +6385,9 @@ msgstr "<p>Returns the minimal duration over all transfer times of the clients c
 
 msgid "ExpressionBuilder.SimulationCharacteristics.TransferTimesByClientTypes.Quantil"
 msgstr "<p>Returns the the quantil for probability p of the duration over all transfer times of the clients created at the station whose ID was specified in the parameter.</p>"
+
+msgid "ExpressionBuilder.SimulationCharacteristics.TransferTimesByClientTypes.Skewness"
+msgstr "<p>Returns the skewness over all transfer times of the clients created at the station whose ID was specified in the parameter.</p>"
 
 msgid "ExpressionBuilder.SimulationCharacteristics.TransferTimesByClientTypes.SquaredCoefficientOfVariationOfTheTime"
 msgstr "<p>Returns the squared coefficient of variation over all transfer times of the clients created at the station whose ID was specified in the parameter.</p>"
@@ -6396,6 +6427,9 @@ msgstr "<p>Returns the minimal duration over all transfer times for all clients.
 
 msgid "ExpressionBuilder.SimulationCharacteristics.TransferTimesOverAll.Quantil"
 msgstr "<p>Returns the quantil for probability p of the durations over all transfer times for all clients.</p>"
+
+msgid "ExpressionBuilder.SimulationCharacteristics.TransferTimesOverAll.Skewness"
+msgstr "<p>Returns the skewness over all transfer times for all clients.</p>"
 
 msgid "ExpressionBuilder.SimulationCharacteristics.TransferTimesOverAll.SquaredCoefficientOfVariationOfTheTime"
 msgstr "<p>Returns the squared coefficient of variation over all transfer times for all clients.</p>"
@@ -6441,6 +6475,9 @@ msgstr "<p>Returns the minimum number of busy transporters in the specified tran
 
 msgid "ExpressionBuilder.SimulationCharacteristics.TransporterUtilization.Number"
 msgstr "<p>Returns the number of transporters in the specified transporter group.</p>"
+
+msgid "ExpressionBuilder.SimulationCharacteristics.TransporterUtilization.Skewness"
+msgstr "<p>Returns the skewness of the number of busy transporters in the specified transporter group.</p>"
 
 msgid "ExpressionBuilder.SimulationCharacteristics.TransporterUtilization.SquaredCoefficientOfVariationOfTheNumber"
 msgstr "<p>Returns the squared coefficient of variation of the number of busy transporters in the specified transporter group.</p>"
@@ -6502,6 +6539,9 @@ msgstr "<p>Gets the minimum value of the performance indicator <tt>nr</tt> (1 ba
 msgid "ExpressionBuilder.SimulationCharacteristics.UserStatistics.Quantil"
 msgstr "<p>Gets the quantil for probability <tt>p</tt> of the performance indicator <tt>nr</tt> (1 based) recorded at station id.</p>"
 
+msgid "ExpressionBuilder.SimulationCharacteristics.UserStatistics.Skewness"
+msgstr "<p>Gets the skewness of the performance indicator <tt>nr</tt> (1 based) recorded at station id.</p>"
+
 msgid "ExpressionBuilder.SimulationCharacteristics.UserStatistics.SquaredCoefficientOfVariationOfTheNumber"
 msgstr "<p>Gets the squared coefficient of variation of the performance indicator <tt>nr</tt> (1 based) recorded at station id.</p>"
 
@@ -6547,6 +6587,9 @@ msgstr "<p>Returns the minimal duration over all waiting times that have occurre
 msgid "ExpressionBuilder.SimulationCharacteristics.WaitingTimesAtStations.Quantil"
 msgstr "<p>Returns the quantil for probability p of the duration over all waiting times that have occurred at the station whose ID was specified in the parameter (over all client types).</p>"
 
+msgid "ExpressionBuilder.SimulationCharacteristics.WaitingTimesAtStations.Skewness"
+msgstr "<p>Returns the skewness over all waiting times that have occurred at the station whose ID was specified in the parameter (over all client types).</p>"
+
 msgid "ExpressionBuilder.SimulationCharacteristics.WaitingTimesAtStations.SquaredCoefficientOfVariationOfTheTime"
 msgstr "<p>Returns the squared coefficient of variation over all waiting times that have occurred at the station whose ID was specified in the parameter (over all client types).</p>"
 
@@ -6579,6 +6622,9 @@ msgstr "<p>Returns the minimal duration over all waiting times of the clients cr
 
 msgid "ExpressionBuilder.SimulationCharacteristics.WaitingTimesByClientTypes.Quantil"
 msgstr "<p>Returns the quantil for probability p of the duration over all waiting times of the clients created at the station whose ID was specified in the parameter.</p>"
+
+msgid "ExpressionBuilder.SimulationCharacteristics.WaitingTimesByClientTypes.Skewness"
+msgstr "<p>Returns the skewness over all waiting times of the clients created at the station whose ID was specified in the parameter.</p>"
 
 msgid "ExpressionBuilder.SimulationCharacteristics.WaitingTimesByClientTypes.SquaredCoefficientOfVariationOfTheTime"
 msgstr "<p>Returns the squared coefficient of variation over all waiting times of the clients created at the station whose ID was specified in the parameter.</p>"
@@ -6618,6 +6664,9 @@ msgstr "<p>Returns the minimal duration over all waiting times for all clients.<
 
 msgid "ExpressionBuilder.SimulationCharacteristics.WaitingTimesOverAll.Quantil"
 msgstr "<p>Returns the quantil for probability p of the durations over all waiting times for all clients.</p>"
+
+msgid "ExpressionBuilder.SimulationCharacteristics.WaitingTimesOverAll.Skewness"
+msgstr "<p>Returns the skewness over all waiting times for all clients.</p>"
 
 msgid "ExpressionBuilder.SimulationCharacteristics.WaitingTimesOverAll.SquaredCoefficientOfVariationOfTheTime"
 msgstr "<p>Returns the squared coefficient of variation over all waiting times for all clients.</p>"

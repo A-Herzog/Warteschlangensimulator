@@ -504,6 +504,10 @@ using the Allen-Cunneen approximation formula:
   <tr><td>Station_scv()</td></tr>
   <tr><td>N_scv()</td></tr>
   
+  <tr><td>WIP_sk()</td><td rowspan="3">Gets the skewness of the number of clients in the system.</td></tr>
+  <tr><td>Station_sk()</td></tr>
+  <tr><td>N_sk()</td></tr>
+  
   
   
   <tr><td colspan="2"><h3>Number of waiting clients in the system</h3></td></tr>
@@ -578,6 +582,11 @@ using the Allen-Cunneen approximation formula:
   <tr><td>Schlange_scv()</td></tr>
   <tr><td>Warteschlange_scv()</td></tr>
   
+  <tr><td>NQ_sk()</td><td rowspan="4">Gets the skewness of the number of clients in all queues.</td></tr>
+  <tr><td>Queue_sk()</td></tr>
+  <tr><td>Schlange_sk()</td></tr>
+  <tr><td>Warteschlange_sk()</td></tr>
+  
   
 
   <tr><td colspan="2"><h3>Number of clients at a station</h3></td></tr>
@@ -640,6 +649,10 @@ using the Allen-Cunneen approximation formula:
   <tr><td>WIP_scv(id)</td><td rowspan="3">Gets the squared coefficient of variation of the number of clients at station id.</td></tr>
   <tr><td>Station_scv(id)</td></tr>
   <tr><td>N_scv(id)</td></tr>
+  
+  <tr><td>WIP_sk(id)</td><td rowspan="3">Gets the skewness of the number of clients at station id.</td></tr>
+  <tr><td>Station_sk(id)</td></tr>
+  <tr><td>N_sk(id)</td></tr>
   
   <tr><td>WIP_hist(id;state)</td><td rowspan="3">Gets the fraction of time, the system was in the given state in relation of the number of clients at station id.</td></tr>
   <tr><td>Station_hist(id;state)</td></tr>
@@ -728,6 +741,11 @@ using the Allen-Cunneen approximation formula:
   <tr><td>Schlange_scv(id)</td></tr>
   <tr><td>Warteschlange_scv(id)</td></tr>
   
+  <tr><td>NQ_sk(id)</td><td rowspan="4">Gets the skewness of the number of clients in the queue at station id.</td></tr>
+  <tr><td>Queue_sk(id)</td></tr>
+  <tr><td>Schlange_sk(id)</td></tr>
+  <tr><td>Warteschlange_sk(id)</td></tr>
+  
   <tr><td>NQ_hist(id;state)</td><td rowspan="4">Gets the fraction of time, when there are state clients in the queue at station id.</td></tr>
   <tr><td>Queue_hist(id;state)</td></tr>
   <tr><td>Schlange_hist(id;state)</td></tr>
@@ -796,6 +814,10 @@ using the Allen-Cunneen approximation formula:
   <tr><td>WIP_scv(id)</td><td rowspan="3">Gets the squared coefficient of variation of the number of clients, whos name appears at the source or the type assignment id, in the system.</td></tr>
   <tr><td>Station_scv(id)</td></tr>
   <tr><td>N_scv(id)</td></tr>
+  
+  <tr><td>WIP_sk(id)</td><td rowspan="3">Gets the skewness of the number of clients, whos name appears at the source or the type assignment id, in the system.</td></tr>
+  <tr><td>Station_sk(id)</td></tr>
+  <tr><td>N_sk(id)</td></tr>
   
   <tr><td>WIP_hist(id;state)</td><td rowspan="3">Gets the fraction of time, the system was in the given state in relation of the number of clients, whos name appears at the source or the type assignment id.</td></tr>
   <tr><td>Station_hist(id;state)</td></tr>
@@ -879,6 +901,11 @@ using the Allen-Cunneen approximation formula:
   <tr><td>Schlange_scv(id)</td></tr>
   <tr><td>Warteschlange_scv(id)</td></tr>
   
+  <tr><td>NQ_sk(id)</td><td rowspan="4">Gets the skewness of the number of waiting clients, whos name appears at the source or the type assignment id, in the system.</td></tr>
+  <tr><td>Queue_sk(id)</td></tr>
+  <tr><td>Schlange_sk(id)</td></tr>
+  <tr><td>Warteschlange_sk(id)</td></tr>
+  
   <tr><td>NQ_hist(id;state)</td><td rowspan="4">Gets the fraction of time, when there are state waiting clients, whos name appears at the source or the type assignment id, in the system.</td></tr>
   <tr><td>Queue_hist(id;state)</td></tr>
   <tr><td>Schlange_hist(id;state)</td></tr>
@@ -949,6 +976,8 @@ using the Allen-Cunneen approximation formula:
   
   <tr><td>WaitingTime_scv(id)</td><td>Gets the squared coefficient of variation of the waiting times of the clients at station id.</td></tr>
   
+  <tr><td>WaitingTime_sk(id)</td><td>Gets the skewness of the waiting times of the clients at station id.</td></tr>
+  
   <tr><td>WaitingTime_hist(id;time)</td><td>Gets the fraction of clients for which the waiting time at stations id was time seconds.</td></tr>
 
   <tr><td>WaitingTime_hist(id;timeA;timeB)</td><td>Gets the fraction of clients for which the waiting time at stations id was more than timeA and at most timeB seconds.</td></tr>
@@ -980,6 +1009,8 @@ using the Allen-Cunneen approximation formula:
   <tr><td>WaitingTime_cv()</td><td>Gets the coefficient of variation of the waiting times over all clients.</td></tr>
   
   <tr><td>WaitingTime_scv()</td><td>Gets the squared coefficient of variation of the waiting times over all clients.</td></tr>
+  
+  <tr><td>WaitingTime_sk()</td><td>Gets the skewness of the waiting times over all clients.</td></tr>
     
   <tr><td>WaitingTime_histAll(time)</td><td>Gets the fraction of clients for which the waiting time was time seconds.</td></tr>
 
@@ -1017,6 +1048,8 @@ using the Allen-Cunneen approximation formula:
   
   <tr><td>WaitingTime_scv(id)</td><td>Gets the squared coefficient of variation of the waiting times of the clients, whos name appears at the source or the type assignment id.</td></tr>
   
+  <tr><td>WaitingTime_sk(id)</td><td>Gets the skewness of the waiting times of the clients, whos name appears at the source or the type assignment id.</td></tr>
+  
   
   
   <tr><td colspan="2"><h3>Transfer times at a station</h3></td></tr>
@@ -1049,6 +1082,8 @@ using the Allen-Cunneen approximation formula:
   
   <tr><td>TransferTime_scv(id)</td><td>Gets the squared coefficient of variation of the transfer times of the clients at station id.</td></tr>
   
+  <tr><td>TransferTime_sk(id)</td><td>Gets the skewness of the transfer times of the clients at station id.</td></tr>
+  
   <tr><td>TransferTime_hist(id;time)</td><td>Gets the fraction of clients for which the transfer time at stations id was time seconds.</td></tr>
 
   <tr><td>TransferTime_hist(id;timeA;timeB)</td><td>Gets the fraction of clients for which the transfer time at stations id was more than timeA and at most timeB seconds.</td></tr>
@@ -1080,6 +1115,8 @@ using the Allen-Cunneen approximation formula:
   <tr><td>TransferTime_cv()</td><td>Gets the coefficient of variation of the transfer times over all clients.</td></tr>
   
   <tr><td>TransferTime_scv()</td><td>Gets the squared coefficient of variation of the transfer times over all clients.</td></tr>
+  
+  <tr><td>TransferTime_sk()</td><td>Gets the skewness of the transfer times over all clients.</td></tr>
 
   <tr><td>TransferTime_histAll(time)</td><td>Gets the fraction of clients for which the transfer time was time seconds.</td></tr>
 
@@ -1116,6 +1153,8 @@ using the Allen-Cunneen approximation formula:
   <tr><td>TransferTime_cv(id)</td><td>Gets the coefficient of variation of the transfer times of the clients, whos name appears at the source or the type assignment id.</td></tr>
   
   <tr><td>TransferTime_scv(id)</td><td>Gets the squared coefficient of variation of the transfer times of the clients, whos name appears at the source or the type assignment id.</td></tr>
+  
+  <tr><td>TransferTime_sk(id)</td><td>Gets the skewness of the transfer times of the clients, whos name appears at the source or the type assignment id.</td></tr>
 
 
 
@@ -1148,6 +1187,8 @@ using the Allen-Cunneen approximation formula:
   <tr><td>ProcessTime_cv(id)</td><td>Gets the coefficient of variation of the process times of the clients at station id.</td></tr>
   
   <tr><td>ProcessTime_scv(id)</td><td>Gets the squared coefficient of variation of the process times of the clients at station id.</td></tr>
+  
+  <tr><td>ProcessTime_sk(id)</td><td>Gets the skewness of the process times of the clients at station id.</td></tr>
 
   <tr><td>ProcessTime_hist(id;time)</td><td>Gets the fraction of clients for which the process time at stations id was time seconds.</td></tr>
 
@@ -1180,6 +1221,8 @@ using the Allen-Cunneen approximation formula:
   <tr><td>ProcessTime_cv()</td><td>Gets the coefficient of variation of the process times over all clients.</td></tr>
   
   <tr><td>ProcessTime_scv()</td><td>Gets the squared coefficient of variation of the process times over all clients.</td></tr>
+  
+  <tr><td>ProcessTime_sk()</td><td>Gets the skewness of the process times over all clients.</td></tr>
   
   <tr><td>ProcessTime_histAll(time)</td><td>Gets the fraction of clients for which the process time was time seconds.</td></tr>
 
@@ -1216,6 +1259,8 @@ using the Allen-Cunneen approximation formula:
   <tr><td>ProcessTime_cv(id)</td><td>Gets the coefficient of variation of the process times of the clients, whos name appears at the source or the type assignment id.</td></tr>
   
   <tr><td>ProcessTime_scv(id)</td><td>Gets the squared coefficient of variation of the process times of the clients, whos name appears at the source or the type assignment id.</td></tr>
+  
+  <tr><td>ProcessTime_sk(id)</td><td>Gets the skewness of the process times of the clients, whos name appears at the source or the type assignment id.</td></tr>
 
 
 
@@ -1249,6 +1294,8 @@ using the Allen-Cunneen approximation formula:
   
   <tr><td>ResidenceTime_scv(id)</td><td>Gets the squared coefficient of variation of the residence times of the clients at station id.</td></tr>
   
+  <tr><td>ResidenceTime_sk(id)</td><td>Gets the skewness of the residence times of the clients at station id.</td></tr>
+  
   <tr><td>ResidenceTime_hist(id;time)</td><td>Gets the fraction of clients for which the residence time at stations id was time seconds.</td></tr>
 
   <tr><td>ResidenceTime_hist(id;timeA;timeB)</td><td>Gets the fraction of clients for which the residence time at stations id was more than timeA and at most timeB seconds.</td></tr>
@@ -1280,6 +1327,8 @@ using the Allen-Cunneen approximation formula:
   <tr><td>ResidenceTime_cv()</td><td>Gets the coefficient of variation of the residence times over all clients.</td></tr>
   
   <tr><td>ResidenceTime_scv()</td><td>Gets the squared coefficient of variation of the residence times over all clients.</td></tr>
+  
+  <tr><td>ResidenceTime_sk()</td><td>Gets the skewness of the residence times over all clients.</td></tr>
     
   <tr><td>ResidenceTime_histAll(time)</td><td>Gets the fraction of clients for which the residence time was time seconds.</td></tr>
 
@@ -1316,6 +1365,8 @@ using the Allen-Cunneen approximation formula:
   <tr><td>ResidenceTime_cv(id)</td><td>Gets the coefficient of variation of the residence times of the clients, whos name appears at the source or the type assignment id.</td></tr>
   
   <tr><td>ResidenceTime_scv(id)</td><td>Gets the squared coefficient of variation of the residence times of the clients, whos name appears at the source or the type assignment id.</td></tr>
+  
+  <tr><td>ResidenceTime_sk(id)</td><td>Gets the skewness of the residence times of the clients, whos name appears at the source or the type assignment id.</td></tr>
 
 
 
@@ -1363,6 +1414,9 @@ using the Allen-Cunneen approximation formula:
   
   <tr><td>resource_scv(id)</td><td rowspan="2">Gets the squared coefficient of variation of the number of busy operators in the specified resource.</td></tr>
   <tr><td>utilization_scv(id)</td></tr>
+  
+  <tr><td>resource_sk(id)</td><td rowspan="2">Gets the skewness of the number of busy operators in the specified resource.</td></tr>
+  <tr><td>utilization_sk(id)</td></tr>
 
   <tr><td>resource_hist(id;state)</td><td rowspan="2">Gets the fraction of time, at which state of the operators in the specified resource have been busy.</td></tr>
   <tr><td>utilization_hist(id;state)</td></tr>
@@ -1446,6 +1500,9 @@ using the Allen-Cunneen approximation formula:
   
   <tr><td>transporter_scv(id)</td><td rowspan="2">Gets the squared coefficient of variation of the number of busy transporters in the specified transporter group.</td></tr>
   <tr><td>transporter_utilization_scv(id)</td></tr>
+  
+  <tr><td>transporter_sk(id)</td><td rowspan="2">Gets the skewness of the number of busy transporters in the specified transporter group.</td></tr>
+  <tr><td>transporter_utilization_sk(id)</td></tr>
 
   <tr><td>transporter_hist(id;state)</td><td rowspan="2">Gets the fraction of time, at which state of the transporters in the specified transporter group have been busy.</td></tr>
   <tr><td>transporter_utilization_hist(id;state)</td></tr>
@@ -1505,8 +1562,10 @@ using the Allen-Cunneen approximation formula:
   <tr><td>Statistics_std(id;nr)</td><td rowspan="1">Gets the standard deviation of record <tt>nr</tt> (1 based) at Statistics station id.</td></tr>  
   
   <tr><td>Statistics_cv(id;nr)</td><td rowspan="1">Gets the coefficient of variation of record <tt>nr</tt> (1 based) at Statistics station id.</td></tr>  
-
-  <tr><td>Statistics_scv(id;nr)</td><td rowspan="1">Gets the squared coefficient of variation of record <tt>nr</tt> (1 based) at Statistics station id.</td></tr>  
+  
+  <tr><td>Statistics_scv(id;nr)</td><td rowspan="1">Gets the squared coefficient of variation of record <tt>nr</tt> (1 based) at Statistics station id.</td></tr>
+  
+  <tr><td>Statistics_sk(id;nr)</td><td rowspan="1">Gets the skewness of record <tt>nr</tt> (1 based) at Statistics station id.</td></tr>  
   
   <tr><td>Statistics_hist(id;nr;state)</td><td rowspan="1">Get the part in which the value of record <tt>nr</tt> (1 based) at Statistics station id was state.</td></tr>
   

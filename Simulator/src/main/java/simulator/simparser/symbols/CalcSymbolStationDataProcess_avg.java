@@ -35,7 +35,7 @@ public class CalcSymbolStationDataProcess_avg extends CalcSymbolStationData {
 	 */
 	private static final String[] names=new String[]{
 			"Bedienzeit_avg","Bedienzeit_average","Bedienzeit_Mittelwert",
-			"ProcessingTime_avg","ProcessingTime_average","ProcessingTime_Mittelwert",
+			"ProcessTime_avg","ProcessingTime_avg","ProcessingTime_average","ProcessingTime_Mittelwert",
 			"ServiceTime_avg","ServiceTime_average","ServiceTime_Mittelwert"
 	};
 

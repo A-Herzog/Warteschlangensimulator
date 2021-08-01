@@ -35,6 +35,7 @@ public class CalcSymbolStationDataProcess_var extends CalcSymbolStationData {
 	 */
 	private static final String[] names=new String[]{
 			"Bedienzeit_var","Bedienzeit_Varianz",
+			"ProcessTime_var","ProcessTime_Varianz",
 			"ProcessingTime_var","ProcessingTime_Varianz",
 			"ServiceTime_var","ServiceTime_Varianz"
 	};

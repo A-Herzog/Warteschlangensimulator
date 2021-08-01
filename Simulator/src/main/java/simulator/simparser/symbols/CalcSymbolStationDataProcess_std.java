@@ -35,7 +35,7 @@ public class CalcSymbolStationDataProcess_std extends CalcSymbolStationData {
 	 */
 	private static final String[] names=new String[]{
 			"Bedienzeit_std","Bedienzeit_sd","Bedienzeit_Standardabweichung",
-			"ProcessingTime_std","ProcessingTime_sd","ProcessingTime_Standardabweichung",
+			"ProcessTime_std","ProcessingTime_std","ProcessTime_sd","ProcessingTime_sd","ProcessingTime_Standardabweichung",
 			"ServiceTime_std","ServiceTime_sd","ServiceTime_Standardabweichung"
 	};
 

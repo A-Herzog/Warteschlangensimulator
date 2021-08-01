@@ -212,6 +212,12 @@ public class ExpressionBuilderSimulationData {
 				Language.tr("ExpressionBuilder.SimulationCharacteristics.SquaredCoefficientOfVariationOfTheNumber")+" (WIP_scv)",
 				"WIP_scv()",
 				Language.tr("ExpressionBuilder.ClientsInSystem.SquaredCoefficientOfVariationOfTheNumber"));
+		addTreeNode(
+				sub,
+				filterUpper,
+				Language.tr("ExpressionBuilder.SimulationCharacteristics.Skewness")+" (WIP_sk)",
+				"WIP_sk()",
+				Language.tr("ExpressionBuilder.ClientsInSystem.Skewness"));
 
 		if (sub.getChildCount()>0) subgroup.add(sub);
 
@@ -280,6 +286,12 @@ public class ExpressionBuilderSimulationData {
 				Language.tr("ExpressionBuilder.SimulationCharacteristics.SquaredCoefficientOfVariationOfTheNumber")+" (NQ_scv)",
 				"NQ_scv()",
 				Language.tr("ExpressionBuilder.ClientsInSystemQueue.SquaredCoefficientOfVariationOfTheNumber"));
+		addTreeNode(
+				sub,
+				filterUpper,
+				Language.tr("ExpressionBuilder.SimulationCharacteristics.Skewness")+" (NQ_sk)",
+				"NQ_sk()",
+				Language.tr("ExpressionBuilder.ClientsInSystemQueue.Skewness"));
 
 		if (sub.getChildCount()>0) subgroup.add(sub);
 
@@ -354,6 +366,12 @@ public class ExpressionBuilderSimulationData {
 				Language.tr("ExpressionBuilder.SimulationCharacteristics.SquaredCoefficientOfVariationOfTheNumber")+" (WIP_scv)",
 				"WIP_scv(id)",
 				Language.tr("ExpressionBuilder.ClientsAtStation.SquaredCoefficientOfVariationOfTheNumber"));
+		addTreeNode(
+				sub,
+				filterUpper,
+				Language.tr("ExpressionBuilder.SimulationCharacteristics.Skewness")+" (WIP_sk)",
+				"WIP_sk(id)",
+				Language.tr("ExpressionBuilder.ClientsAtStation.Skewness"));
 		addTreeNode(
 				sub,
 				filterUpper,
@@ -434,6 +452,12 @@ public class ExpressionBuilderSimulationData {
 				Language.tr("ExpressionBuilder.SimulationCharacteristics.SquaredCoefficientOfVariationOfTheNumber")+" (NQ_scv)",
 				"NQ_scv(id)",
 				Language.tr("ExpressionBuilder.ClientsAtQueue.SquaredCoefficientOfVariationOfTheNumber"));
+		addTreeNode(
+				sub,
+				filterUpper,
+				Language.tr("ExpressionBuilder.SimulationCharacteristics.Skewness")+" (NQ_sk)",
+				"NQ_sk(id)",
+				Language.tr("ExpressionBuilder.ClientsAtQueue.Skewness"));
 		addTreeNode(
 				sub,
 				filterUpper,
@@ -537,6 +561,12 @@ public class ExpressionBuilderSimulationData {
 		addTreeNode(
 				sub,
 				filterUpper,
+				Language.tr("ExpressionBuilder.SimulationCharacteristics.Skewness")+" ("+Language.tr("ExpressionBuilder.CommandName.WaitingTime")+"_sk)",
+				Language.tr("ExpressionBuilder.CommandName.WaitingTime")+"_sk(id)",
+				Language.tr("ExpressionBuilder.SimulationCharacteristics.WaitingTimesAtStations.Skewness"));
+		addTreeNode(
+				sub,
+				filterUpper,
 				Language.tr("ExpressionBuilder.SimulationCharacteristics.HistogramSingle")+" ("+Language.tr("ExpressionBuilder.CommandName.WaitingTime")+"_hist)",
 				Language.tr("ExpressionBuilder.CommandName.WaitingTime")+"_hist(id;state)",
 				Language.tr("ExpressionBuilder.SimulationCharacteristics.WaitingTimesAtStations.HistogramSingle"));
@@ -612,6 +642,12 @@ public class ExpressionBuilderSimulationData {
 				Language.tr("ExpressionBuilder.SimulationCharacteristics.SquaredCoefficientOfVariationOfTheTime")+" ("+Language.tr("ExpressionBuilder.CommandName.TransferTime")+"_scv)",
 				Language.tr("ExpressionBuilder.CommandName.TransferTime")+"_scv(id)",
 				Language.tr("ExpressionBuilder.SimulationCharacteristics.TransferTimesAtStations.SquaredCoefficientOfVariationOfTheTime"));
+		addTreeNode(
+				sub,
+				filterUpper,
+				Language.tr("ExpressionBuilder.SimulationCharacteristics.Skewness")+" ("+Language.tr("ExpressionBuilder.CommandName.TransferTime")+"_sk)",
+				Language.tr("ExpressionBuilder.CommandName.TransferTime")+"_sk(id)",
+				Language.tr("ExpressionBuilder.SimulationCharacteristics.TransferTimesAtStations.Skewness"));
 		addTreeNode(
 				sub,
 				filterUpper,
@@ -693,6 +729,12 @@ public class ExpressionBuilderSimulationData {
 		addTreeNode(
 				sub,
 				filterUpper,
+				Language.tr("ExpressionBuilder.SimulationCharacteristics.Skewness")+" ("+Language.tr("ExpressionBuilder.CommandName.ProcessingTime")+"_sk)",
+				Language.tr("ExpressionBuilder.CommandName.ProcessingTime")+"_sk(id)",
+				Language.tr("ExpressionBuilder.SimulationCharacteristics.ProcessingTimesAtStations.Skewness"));
+		addTreeNode(
+				sub,
+				filterUpper,
 				Language.tr("ExpressionBuilder.SimulationCharacteristics.HistogramSingle")+" ("+Language.tr("ExpressionBuilder.CommandName.ProcessingTime")+"_hist)",
 				Language.tr("ExpressionBuilder.CommandName.ProcessingTime")+"_hist(id;state)",
 				Language.tr("ExpressionBuilder.SimulationCharacteristics.ProcessingTimesAtStations.HistogramSingle"));
@@ -768,6 +810,12 @@ public class ExpressionBuilderSimulationData {
 				Language.tr("ExpressionBuilder.SimulationCharacteristics.SquaredCoefficientOfVariationOfTheTime")+" ("+Language.tr("ExpressionBuilder.CommandName.ResidenceTime")+"_scv)",
 				Language.tr("ExpressionBuilder.CommandName.ResidenceTime")+"_scv(id)",
 				Language.tr("ExpressionBuilder.SimulationCharacteristics.ResidenceTimesAtStations.SquaredCoefficientOfVariationOfTheTime"));
+		addTreeNode(
+				sub,
+				filterUpper,
+				Language.tr("ExpressionBuilder.SimulationCharacteristics.Skewness")+" ("+Language.tr("ExpressionBuilder.CommandName.ResidenceTime")+"_sk)",
+				Language.tr("ExpressionBuilder.CommandName.ResidenceTime")+"_sk(id)",
+				Language.tr("ExpressionBuilder.SimulationCharacteristics.ResidenceTimesAtStations.Skewness"));
 		addTreeNode(
 				sub,
 				filterUpper,
@@ -852,6 +900,12 @@ public class ExpressionBuilderSimulationData {
 				Language.tr("ExpressionBuilder.SimulationCharacteristics.SquaredCoefficientOfVariationOfTheTime")+" ("+Language.tr("ExpressionBuilder.CommandName.WaitingTime")+"_scv)",
 				Language.tr("ExpressionBuilder.CommandName.WaitingTime")+"_scv(id)",
 				Language.tr("ExpressionBuilder.SimulationCharacteristics.WaitingTimesByClientTypes.SquaredCoefficientOfVariationOfTheTime"));
+		addTreeNode(
+				sub,
+				filterUpper,
+				Language.tr("ExpressionBuilder.SimulationCharacteristics.Skewness")+" ("+Language.tr("ExpressionBuilder.CommandName.WaitingTime")+"_sk)",
+				Language.tr("ExpressionBuilder.CommandName.WaitingTime")+"_sk(id)",
+				Language.tr("ExpressionBuilder.SimulationCharacteristics.WaitingTimesByClientTypes.Skewness"));
 
 		if (sub.getChildCount()>0) subgroup.add(sub);
 
@@ -918,6 +972,12 @@ public class ExpressionBuilderSimulationData {
 				Language.tr("ExpressionBuilder.SimulationCharacteristics.SquaredCoefficientOfVariationOfTheTime")+" ("+Language.tr("ExpressionBuilder.CommandName.TransferTime")+"_scv)",
 				Language.tr("ExpressionBuilder.CommandName.TransferTime")+"_scv(id)",
 				Language.tr("ExpressionBuilder.SimulationCharacteristics.TransferTimesByClientTypes.SquaredCoefficientOfVariationOfTheTime"));
+		addTreeNode(
+				sub,
+				filterUpper,
+				Language.tr("ExpressionBuilder.SimulationCharacteristics.Skewness")+" ("+Language.tr("ExpressionBuilder.CommandName.TransferTime")+"_sk)",
+				Language.tr("ExpressionBuilder.CommandName.TransferTime")+"_sk(id)",
+				Language.tr("ExpressionBuilder.SimulationCharacteristics.TransferTimesByClientTypes.Skewness"));
 
 		if (sub.getChildCount()>0) subgroup.add(sub);
 
@@ -984,6 +1044,12 @@ public class ExpressionBuilderSimulationData {
 				Language.tr("ExpressionBuilder.SimulationCharacteristics.SquaredCoefficientOfVariationOfTheTime")+" ("+Language.tr("ExpressionBuilder.CommandName.ProcessingTime")+"_scv)",
 				Language.tr("ExpressionBuilder.CommandName.ProcessingTime")+"_scv(id)",
 				Language.tr("ExpressionBuilder.SimulationCharacteristics.ProcessingTimesByClientTypes.SquaredCoefficientOfVariationOfTheTime"));
+		addTreeNode(
+				sub,
+				filterUpper,
+				Language.tr("ExpressionBuilder.SimulationCharacteristics.Skewness")+" ("+Language.tr("ExpressionBuilder.CommandName.ProcessingTime")+"_sk)",
+				Language.tr("ExpressionBuilder.CommandName.ProcessingTime")+"_sk(id)",
+				Language.tr("ExpressionBuilder.SimulationCharacteristics.ProcessingTimesByClientTypes.Skewness"));
 
 		if (sub.getChildCount()>0) subgroup.add(sub);
 
@@ -1050,6 +1116,12 @@ public class ExpressionBuilderSimulationData {
 				Language.tr("ExpressionBuilder.SimulationCharacteristics.SquaredCoefficientOfVariationOfTheTime")+" ("+Language.tr("ExpressionBuilder.CommandName.ResidenceTime")+"_scv)",
 				Language.tr("ExpressionBuilder.CommandName.ResidenceTime")+"_scv(id)",
 				Language.tr("ExpressionBuilder.SimulationCharacteristics.ResidenceTimesByClientTypes.SquaredCoefficientOfVariationOfTheTime"));
+		addTreeNode(
+				sub,
+				filterUpper,
+				Language.tr("ExpressionBuilder.SimulationCharacteristics.Skewness")+" ("+Language.tr("ExpressionBuilder.CommandName.ResidenceTime")+"_sk)",
+				Language.tr("ExpressionBuilder.CommandName.ResidenceTime")+"_sk(id)",
+				Language.tr("ExpressionBuilder.SimulationCharacteristics.ResidenceTimesByClientTypes.Skewness"));
 
 		if (sub.getChildCount()>0) subgroup.add(sub);
 
@@ -1122,6 +1194,12 @@ public class ExpressionBuilderSimulationData {
 				Language.tr("ExpressionBuilder.SimulationCharacteristics.SquaredCoefficientOfVariationOfTheTime")+" ("+Language.tr("ExpressionBuilder.CommandName.WaitingTime")+"_scv)",
 				Language.tr("ExpressionBuilder.CommandName.WaitingTime")+"_scv()",
 				Language.tr("ExpressionBuilder.SimulationCharacteristics.WaitingTimesOverAll.SquaredCoefficientOfVariationOfTheTime"));
+		addTreeNode(
+				sub,
+				filterUpper,
+				Language.tr("ExpressionBuilder.SimulationCharacteristics.Skewness")+" ("+Language.tr("ExpressionBuilder.CommandName.WaitingTime")+"_sk)",
+				Language.tr("ExpressionBuilder.CommandName.WaitingTime")+"_sk()",
+				Language.tr("ExpressionBuilder.SimulationCharacteristics.WaitingTimesOverAll.Skewness"));
 		addTreeNode(
 				sub,
 				filterUpper,
@@ -1203,6 +1281,12 @@ public class ExpressionBuilderSimulationData {
 		addTreeNode(
 				sub,
 				filterUpper,
+				Language.tr("ExpressionBuilder.SimulationCharacteristics.Skewness")+" ("+Language.tr("ExpressionBuilder.CommandName.TransferTime")+"_sk)",
+				Language.tr("ExpressionBuilder.CommandName.TransferTime")+"_sk()",
+				Language.tr("ExpressionBuilder.SimulationCharacteristics.TransferTimesOverAll.Skewness"));
+		addTreeNode(
+				sub,
+				filterUpper,
 				Language.tr("ExpressionBuilder.SimulationCharacteristics.HistogramSingle")+" ("+Language.tr("ExpressionBuilder.CommandName.TransferTime")+"_histAll)",
 				Language.tr("ExpressionBuilder.CommandName.TransferTime")+"_histAll(state)",
 				Language.tr("ExpressionBuilder.SimulationCharacteristics.TransferTimesOverAll.HistogramSingle"));
@@ -1281,6 +1365,12 @@ public class ExpressionBuilderSimulationData {
 		addTreeNode(
 				sub,
 				filterUpper,
+				Language.tr("ExpressionBuilder.SimulationCharacteristics.Skewness")+" ("+Language.tr("ExpressionBuilder.CommandName.ProcessingTime")+"_sk)",
+				Language.tr("ExpressionBuilder.CommandName.ProcessingTime")+"_sk()",
+				Language.tr("ExpressionBuilder.SimulationCharacteristics.ProcessingTimesOverAll.Skewness"));
+		addTreeNode(
+				sub,
+				filterUpper,
 				Language.tr("ExpressionBuilder.SimulationCharacteristics.HistogramSingle")+" ("+Language.tr("ExpressionBuilder.CommandName.ProcessingTime")+"_histAll)",
 				Language.tr("ExpressionBuilder.CommandName.ProcessingTime")+"_histAll(state)",
 				Language.tr("ExpressionBuilder.SimulationCharacteristics.ProcessingTimesOverAll.HistogramSingle"));
@@ -1356,6 +1446,12 @@ public class ExpressionBuilderSimulationData {
 				Language.tr("ExpressionBuilder.SimulationCharacteristics.SquaredCoefficientOfVariationOfTheTime")+" ("+Language.tr("ExpressionBuilder.CommandName.ResidenceTime")+"_scv)",
 				Language.tr("ExpressionBuilder.CommandName.ResidenceTime")+"_scv()",
 				Language.tr("ExpressionBuilder.SimulationCharacteristics.ResidenceTimesOverAll.SquaredCoefficientOfVariationOfTheTime"));
+		addTreeNode(
+				sub,
+				filterUpper,
+				Language.tr("ExpressionBuilder.SimulationCharacteristics.Skewness")+" ("+Language.tr("ExpressionBuilder.CommandName.ResidenceTime")+"_sk)",
+				Language.tr("ExpressionBuilder.CommandName.ResidenceTime")+"_sk()",
+				Language.tr("ExpressionBuilder.SimulationCharacteristics.ResidenceTimesOverAll.Skewness"));
 		addTreeNode(
 				sub,
 				filterUpper,
@@ -1446,6 +1542,12 @@ public class ExpressionBuilderSimulationData {
 				Language.tr("ExpressionBuilder.SimulationCharacteristics.SquaredCoefficientOfVariationOfTheNumber")+" ("+Language.tr("ExpressionBuilder.CommandName.Resource")+"_scv)",
 				Language.tr("ExpressionBuilder.CommandName.Resource")+"_scv(id)",
 				Language.tr("ExpressionBuilder.SimulationCharacteristics.ResourceUtilization.SquaredCoefficientOfVariationOfTheNumber"));
+		addTreeNode(
+				sub,
+				filterUpper,
+				Language.tr("ExpressionBuilder.SimulationCharacteristics.Skewness")+" ("+Language.tr("ExpressionBuilder.CommandName.Resource")+"_sk)",
+				Language.tr("ExpressionBuilder.CommandName.Resource")+"_sk(id)",
+				Language.tr("ExpressionBuilder.SimulationCharacteristics.ResourceUtilization.Skewness"));
 		addTreeNode(
 				sub,
 				filterUpper,
@@ -1590,6 +1692,12 @@ public class ExpressionBuilderSimulationData {
 				Language.tr("ExpressionBuilder.SimulationCharacteristics.SquaredCoefficientOfVariationOfTheNumber")+" ("+Language.tr("ExpressionBuilder.CommandName.Transporter")+"_scv)",
 				Language.tr("ExpressionBuilder.CommandName.Transporter")+"_scv(id)",
 				Language.tr("ExpressionBuilder.SimulationCharacteristics.TransporterUtilization.SquaredCoefficientOfVariationOfTheNumber"));
+		addTreeNode(
+				sub,
+				filterUpper,
+				Language.tr("ExpressionBuilder.SimulationCharacteristics.Skewness")+" ("+Language.tr("ExpressionBuilder.CommandName.Transporter")+"_sk)",
+				Language.tr("ExpressionBuilder.CommandName.Transporter")+"_sk(id)",
+				Language.tr("ExpressionBuilder.SimulationCharacteristics.TransporterUtilization.Skewness"));
 		addTreeNode(
 				sub,
 				filterUpper,
@@ -1891,7 +1999,12 @@ public class ExpressionBuilderSimulationData {
 				Language.tr("ExpressionBuilder.SimulationCharacteristics.SquaredCoefficientOfVariationOfTheNumber")+" ("+Language.tr("ExpressionBuilder.CommandName.UserStatistics")+"_scv)",
 				Language.tr("ExpressionBuilder.CommandName.UserStatistics")+"_scv(id;nr)",
 				Language.tr("ExpressionBuilder.SimulationCharacteristics.UserStatistics.SquaredCoefficientOfVariationOfTheNumber"));
-
+		addTreeNode(
+				sub,
+				filterUpper,
+				Language.tr("ExpressionBuilder.SimulationCharacteristics.Skewness")+" ("+Language.tr("ExpressionBuilder.CommandName.UserStatistics")+"_sk)",
+				Language.tr("ExpressionBuilder.CommandName.UserStatistics")+"_sk(id;nr)",
+				Language.tr("ExpressionBuilder.SimulationCharacteristics.UserStatistics.Skewness"));
 		addTreeNode(
 				sub,
 				filterUpper,
