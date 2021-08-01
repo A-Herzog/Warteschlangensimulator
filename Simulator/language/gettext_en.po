@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-08-01 14:33+0200\n"
+"POT-Creation-Date: 2021-08-02 00:12+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1085,6 +1085,24 @@ msgstr "Calculator"
 
 msgid "CalculatorDialog.Tab.Distributions"
 msgstr "Probability distributions"
+
+msgid "CalculatorDialog.Tab.Distributions.GenerateRandomNumbers"
+msgstr "Generate random numbers"
+
+msgid "CalculatorDialog.Tab.Distributions.GenerateRandomNumbers.Copy"
+msgstr "Copy"
+
+msgid "CalculatorDialog.Tab.Distributions.GenerateRandomNumbers.Count"
+msgstr "Number of random numbers to be generated"
+
+msgid "CalculatorDialog.Tab.Distributions.GenerateRandomNumbers.DetermineCharacteristics"
+msgstr "Determine characteristics..."
+
+msgid "CalculatorDialog.Tab.Distributions.GenerateRandomNumbers.Generated"
+msgstr "Generated random numbers"
+
+msgid "CalculatorDialog.Tab.Distributions.GenerateRandomNumbers.Save"
+msgstr "Save..."
 
 msgid "CalculatorDialog.Tab.Plotter"
 msgstr "Function plotter"
