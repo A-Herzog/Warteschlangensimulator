@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-08-02 00:12+0200\n"
+"POT-Creation-Date: 2021-08-02 19:23+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -22166,8 +22166,14 @@ msgstr "Invalid font size"
 msgid "Surface.AnimationText.Dialog.FontSize.Italic"
 msgstr "Italic"
 
+msgid "Surface.AnimationText.Dialog.Number"
+msgstr "Floating point number"
+
 msgid "Surface.AnimationText.Dialog.PercentValue"
 msgstr "Percent value"
+
+msgid "Surface.AnimationText.Dialog.TimeValue"
+msgstr "Time value"
 
 msgid "Surface.AnimationText.Dialog.Title"
 msgstr "Edit simulation data display"
@@ -22198,6 +22204,9 @@ msgstr "Property"
 
 msgid "Surface.AnimationText.Type.SimulationTime"
 msgstr "Simulation time"
+
+msgid "Surface.AnimationText.Type.TimeValue"
+msgstr "Time value"
 
 msgid "Surface.AnimationText.Type.Value"
 msgstr "Value"
@@ -22237,6 +22246,9 @@ msgstr "Percent value"
 
 msgid "Surface.AnimationText.XML.Mode.Type.Time"
 msgstr "Simulation time"
+
+msgid "Surface.AnimationText.XML.Mode.Type.TimeValue"
+msgstr "Time value"
 
 msgid "Surface.AnimationText.XML.Root"
 msgstr "ModelElementAnimationText"

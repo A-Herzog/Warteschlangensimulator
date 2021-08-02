@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-08-02 00:12+0200\n"
+"POT-Creation-Date: 2021-08-02 19:23+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -22172,8 +22172,14 @@ msgstr "Ungültige Schriftgröße"
 msgid "Surface.AnimationText.Dialog.FontSize.Italic"
 msgstr "Kursiv"
 
+msgid "Surface.AnimationText.Dialog.Number"
+msgstr "Fließkommazahl"
+
 msgid "Surface.AnimationText.Dialog.PercentValue"
 msgstr "Prozentwert"
+
+msgid "Surface.AnimationText.Dialog.TimeValue"
+msgstr "Zeitangabe"
 
 msgid "Surface.AnimationText.Dialog.Title"
 msgstr "Simulationsdatenanzeige bearbeiten"
@@ -22204,6 +22210,9 @@ msgstr "Eigenschaft"
 
 msgid "Surface.AnimationText.Type.SimulationTime"
 msgstr "Simulationszeit"
+
+msgid "Surface.AnimationText.Type.TimeValue"
+msgstr "Zeitwert"
 
 msgid "Surface.AnimationText.Type.Value"
 msgstr "Wert"
@@ -22243,6 +22252,9 @@ msgstr "Prozentwert"
 
 msgid "Surface.AnimationText.XML.Mode.Type.Time"
 msgstr "Simulationszeit"
+
+msgid "Surface.AnimationText.XML.Mode.Type.TimeValue"
+msgstr "Zeitwert"
 
 msgid "Surface.AnimationText.XML.Root"
 msgstr "ModellElementAnimationText"

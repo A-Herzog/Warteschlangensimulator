@@ -78,6 +78,11 @@ public class ModelElementAnimationTextValue extends ModelElementPosition impleme
 		MODE_EXPRESSION_PERCENT,
 
 		/**
+		 * Berechnet einen Ausdruck und zeigt diesen als Zeitangabe an.
+		 */
+		MODE_EXPRESSION_TIME,
+
+		/**
 		 * Zeigt die Tage, Stunden, Minuten und Sekunden seit Simulationsstart an.
 		 */
 		MODE_TIME,
@@ -378,7 +383,7 @@ public class ModelElementAnimationTextValue extends ModelElementPosition impleme
 
 		if (mode!=otherText.mode) return false;
 
-		if (mode==ModeExpression.MODE_EXPRESSION_NUMBER || mode==ModeExpression.MODE_EXPRESSION_PERCENT) {
+		if (mode==ModeExpression.MODE_EXPRESSION_NUMBER || mode==ModeExpression.MODE_EXPRESSION_PERCENT || mode==ModeExpression.MODE_EXPRESSION_TIME) {
 			if (!expression.equals(otherText.expression)) return false;
 			if (digits!=otherText.digits) return false;
 		}
@@ -451,6 +456,7 @@ public class ModelElementAnimationTextValue extends ModelElementPosition impleme
 		switch (mode) {
 		case MODE_EXPRESSION_NUMBER: return Language.tr("Surface.AnimationText.Type.Number");
 		case MODE_EXPRESSION_PERCENT: return Language.tr("Surface.AnimationText.Type.PercentValue");
+		case MODE_EXPRESSION_TIME: return Language.tr("Surface.AnimationText.Type.TimeValue");
 		case MODE_TIME: return Language.tr("Surface.AnimationText.Type.SimulationTime");
 		case MODE_DATE: return Language.tr("Surface.AnimationText.Type.Date");
 		default: return Language.tr("Surface.AnimationText.Type.Error");
@@ -644,6 +650,9 @@ public class ModelElementAnimationTextValue extends ModelElementPosition impleme
 		case MODE_EXPRESSION_PERCENT:
 			sub.setAttribute(Language.trPrimary("Surface.AnimationText.XML.Mode.Type"),Language.trPrimary("Surface.AnimationText.XML.Mode.Type.Percent"));
 			break;
+		case MODE_EXPRESSION_TIME:
+			sub.setAttribute(Language.trPrimary("Surface.AnimationText.XML.Mode.Type"),Language.trPrimary("Surface.AnimationText.XML.Mode.Type.TimeValue"));
+			break;
 		case MODE_TIME:
 			sub.setAttribute(Language.trPrimary("Surface.AnimationText.XML.Mode.Type"),Language.trPrimary("Surface.AnimationText.XML.Mode.Type.Time"));
 			break;
@@ -651,7 +660,7 @@ public class ModelElementAnimationTextValue extends ModelElementPosition impleme
 			sub.setAttribute(Language.trPrimary("Surface.AnimationText.XML.Mode.Type"),Language.trPrimary("Surface.AnimationText.XML.Mode.Type.Date"));
 			break;
 		}
-		if (mode==ModeExpression.MODE_EXPRESSION_NUMBER || mode==ModeExpression.MODE_EXPRESSION_PERCENT) {
+		if (mode==ModeExpression.MODE_EXPRESSION_NUMBER || mode==ModeExpression.MODE_EXPRESSION_PERCENT || mode==ModeExpression.MODE_EXPRESSION_TIME) {
 			sub.setTextContent(expression);
 			if (digits!=1) sub.setAttribute(Language.trPrimary("Surface.AnimationText.XML.Digits"),""+digits);
 		}
@@ -698,10 +707,11 @@ public class ModelElementAnimationTextValue extends ModelElementPosition impleme
 			mode=null;
 			if (Language.trAll("Surface.AnimationText.XML.Mode.Type.Number",art)) mode=ModeExpression.MODE_EXPRESSION_NUMBER;
 			if (Language.trAll("Surface.AnimationText.XML.Mode.Type.Percent",art)) mode=ModeExpression.MODE_EXPRESSION_PERCENT;
+			if (Language.trAll("Surface.AnimationText.XML.Mode.Type.TimeValue",art)) mode=ModeExpression.MODE_EXPRESSION_TIME;
 			if (Language.trAll("Surface.AnimationText.XML.Mode.Type.Time",art)) mode=ModeExpression.MODE_TIME;
 			if (Language.trAll("Surface.AnimationText.XML.Mode.Type.Date",art)) mode=ModeExpression.MODE_DATE;
 			if (mode==null) return String.format(Language.tr("Surface.XML.AttributeSubError"),Language.trPrimary("Surface.AnimationText.XML.Mode.Type"),name,node.getParentNode().getNodeName());
-			if (mode==ModeExpression.MODE_EXPRESSION_NUMBER || mode==ModeExpression.MODE_EXPRESSION_PERCENT) {
+			if (mode==ModeExpression.MODE_EXPRESSION_NUMBER || mode==ModeExpression.MODE_EXPRESSION_PERCENT || mode==ModeExpression.MODE_EXPRESSION_TIME) {
 				expression=content;
 				final String digitsText=Language.trAllAttribute("Surface.AnimationText.XML.Digits",node);
 				if (!digitsText.isEmpty()) {
@@ -800,6 +810,12 @@ public class ModelElementAnimationTextValue extends ModelElementPosition impleme
 			s=NumberTools.formatPercent(d,digits,animationSB);
 			simTextValueDouble=d;
 			break;
+		case MODE_EXPRESSION_TIME:
+			d=calcExpression(simData);
+			if (simTextValue!=null && Math.abs(simTextValueDouble-d)<0.5) return false;
+			s=TimeTools.formatLongTime(Math.floor(d));
+			simTextValueDouble=d;
+			break;
 		case MODE_TIME:
 			l=simData.currentTime/1000;
 			if (simTextValue!=null && simTextValueLong==l) return false;
@@ -895,7 +911,7 @@ public class ModelElementAnimationTextValue extends ModelElementPosition impleme
 	public void search(final FullTextSearch searcher) {
 		super.search(searcher);
 
-		if (mode==ModeExpression.MODE_EXPRESSION_NUMBER || mode==ModeExpression.MODE_EXPRESSION_PERCENT) {
+		if (mode==ModeExpression.MODE_EXPRESSION_NUMBER || mode==ModeExpression.MODE_EXPRESSION_PERCENT || mode==ModeExpression.MODE_EXPRESSION_TIME) {
 			searcher.testString(this,Language.tr("Editor.DialogBase.Search.OutputExpression"),expression,newExpression->{expression=newExpression;});
 		}
 		searcher.testInteger(this,Language.tr("Editor.DialogBase.Search.FontSize"),textSize,newFontSize->{if (newFontSize>0) textSize=newFontSize;});

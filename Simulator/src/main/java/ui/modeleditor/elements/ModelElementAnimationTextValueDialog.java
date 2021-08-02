@@ -69,8 +69,8 @@ public class ModelElementAnimationTextValueDialog extends ModelElementBaseDialog
 	private JTextField editExpression;
 	/** Eingabefeld für die Anzahl an anzuzeigenden Nachkommastellen */
 	private JSpinner digits;
-	/** Option: Ausgabe als Prozentwert */
-	private JCheckBox optionPercent;
+	/** Option: Ausgabe als Zahl, Prozentwert oder Zeitangabe */
+	private JComboBox<String> optionFormat;
 	/** Auswahlfeld für den Bezugspunkt für die Ausgabe des aktuellen Datums */
 	private DateTimePanel dateTime;
 	/** Auswahlbox der Schriftart */
@@ -131,8 +131,13 @@ public class ModelElementAnimationTextValueDialog extends ModelElementBaseDialog
 		editExpression.setEditable(!readOnly);
 		line.add(getExpressionEditButton(this,editExpression,false,false,element.getModel(),element.getSurface()));
 
-		line.add(optionPercent=new JCheckBox(Language.tr("Surface.AnimationText.Dialog.PercentValue")));
-		optionPercent.setEnabled(!readOnly);
+		line.add(optionFormat=new JComboBox<>(new String[] {
+				Language.tr("Surface.AnimationText.Dialog.Number"),
+				Language.tr("Surface.AnimationText.Dialog.PercentValue"),
+				Language.tr("Surface.AnimationText.Dialog.TimeValue")
+		}));
+		optionFormat.setEnabled(!readOnly);
+		optionFormat.addActionListener(e->digits.setEnabled(optionFormat.isEnabled() && optionFormat.getSelectedIndex()<2));
 
 		JLabel label;
 		line.add(label=new JLabel(Language.tr("Surface.AnimationText.Dialog.Digits")+":"));
@@ -197,7 +202,7 @@ public class ModelElementAnimationTextValueDialog extends ModelElementBaseDialog
 			case MODE_EXPRESSION_NUMBER:
 				optionExpression.setSelected(true);
 				editExpression.setText(text.getExpression());
-				optionPercent.setSelected(false);
+				optionFormat.setSelectedIndex(0);
 				digits.setValue(text.getDigits());
 				optionTime.setSelected(false);
 				optionDate.setSelected(false);
@@ -206,8 +211,18 @@ public class ModelElementAnimationTextValueDialog extends ModelElementBaseDialog
 			case MODE_EXPRESSION_PERCENT:
 				optionExpression.setSelected(true);
 				editExpression.setText(text.getExpression());
-				optionPercent.setSelected(true);
+				optionFormat.setSelectedIndex(1);
 				digits.setValue(text.getDigits());
+				optionTime.setSelected(false);
+				optionDate.setSelected(false);
+				dateTime.setDate(DateTools.getNow(false));
+				break;
+			case MODE_EXPRESSION_TIME:
+				optionExpression.setSelected(true);
+				editExpression.setText(text.getExpression());
+				optionFormat.setSelectedIndex(2);
+				digits.setValue(text.getDigits());
+				digits.setEnabled(false);
 				optionTime.setSelected(false);
 				optionDate.setSelected(false);
 				dateTime.setDate(DateTools.getNow(false));
@@ -215,7 +230,7 @@ public class ModelElementAnimationTextValueDialog extends ModelElementBaseDialog
 			case MODE_TIME:
 				optionExpression.setSelected(false);
 				editExpression.setText("123");
-				optionPercent.setSelected(false);
+				optionFormat.setSelectedIndex(0);
 				optionTime.setSelected(true);
 				optionDate.setSelected(false);
 				dateTime.setDate(DateTools.getNow(false));
@@ -223,7 +238,7 @@ public class ModelElementAnimationTextValueDialog extends ModelElementBaseDialog
 			case MODE_DATE:
 				optionExpression.setSelected(false);
 				editExpression.setText("123");
-				optionPercent.setSelected(false);
+				optionFormat.setSelectedIndex(0);
 				optionTime.setSelected(false);
 				optionDate.setSelected(true);
 				dateTime.setDate(text.getDateZero()*1000);
@@ -327,13 +342,12 @@ public class ModelElementAnimationTextValueDialog extends ModelElementBaseDialog
 
 		if (optionExpression.isSelected()) {
 			text.setDigits((Integer)digits.getValue());
-			if (optionPercent.isSelected()) {
-				text.setMode(ModelElementAnimationTextValue.ModeExpression.MODE_EXPRESSION_PERCENT);
-				text.setExpression(editExpression.getText().trim());
-			} else {
-				text.setMode(ModelElementAnimationTextValue.ModeExpression.MODE_EXPRESSION_NUMBER);
-				text.setExpression(editExpression.getText().trim());
+			switch (optionFormat.getSelectedIndex()) {
+			case 0: text.setMode(ModelElementAnimationTextValue.ModeExpression.MODE_EXPRESSION_NUMBER); break;
+			case 1: text.setMode(ModelElementAnimationTextValue.ModeExpression.MODE_EXPRESSION_PERCENT); break;
+			case 2: text.setMode(ModelElementAnimationTextValue.ModeExpression.MODE_EXPRESSION_TIME); break;
 			}
+			text.setExpression(editExpression.getText().trim());
 		} else {
 			if (optionTime.isSelected()) {
 				text.setMode(ModelElementAnimationTextValue.ModeExpression.MODE_TIME);
