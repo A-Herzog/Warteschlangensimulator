@@ -128,7 +128,7 @@ public final class FrechetDistributionImpl extends AbstractRealDistribution impl
 		final double g1=Functions.getGamma(1-inverseAlpha);
 		final double g2=Functions.getGamma(1-2*inverseAlpha);
 		final double g3=Functions.getGamma(1-3*inverseAlpha);
-		return g3-3*g2*g1+2*g1*g1*g1/Math.pow(g2-g1*g1,3/2);
+		return (g3-3*g2*g1+2*g1*g1*g1)/Math.pow(g2-g1*g1,3.0/2.0);
 	}
 
 	@Override

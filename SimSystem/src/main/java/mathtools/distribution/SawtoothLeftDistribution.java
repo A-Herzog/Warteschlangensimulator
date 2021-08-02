@@ -73,7 +73,7 @@ public class SawtoothLeftDistribution extends AbstractSawtoothDistribution {
 	 */
 	public double getSkewness() {
 		final double Px=a;
-		return Math.sqrt(2)*(a+b-2*Px)*(2*a-b-Px)*(a-2*b+Px)/5/Math.pow(a*a+b*b+Px*Px-a*b-a*Px-b*Px,3/2); /* Übernommen von Dreiecksverteilung */
+		return Math.sqrt(2.0)*(a+b-2*Px)*(2*a-b-Px)*(a-2*b+Px)/5/Math.pow(a*a+b*b+Px*Px-a*b-a*Px-b*Px,3.0/2.0); /* Übernommen von Dreiecksverteilung */
 	}
 
 	@Override

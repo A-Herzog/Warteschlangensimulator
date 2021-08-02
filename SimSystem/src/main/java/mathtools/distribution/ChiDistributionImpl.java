@@ -89,9 +89,8 @@ public final class ChiDistributionImpl extends AbstractRealDistribution implemen
 
 	@Override
 	public double getNumericalVariance() {
-		final double value=Functions.getGamma((degreesOfFreedom+1)*0.5);
-		final double numerator=2*Functions.getGamma(degreesOfFreedom*0.5)*Functions.getGamma(1+degreesOfFreedom*0.5)-value*value;
-		return numerator/Functions.getGamma(degreesOfFreedom*0.5);
+		final double mu=getNumericalMean();
+		return degreesOfFreedom-mu*mu;
 	}
 
 	/**
