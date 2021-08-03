@@ -206,6 +206,8 @@ Section "Install" Inst
   
   File /r "..\..\Release\libs\*.jar"
   
+  RmDir /r $INSTDIR\tools   ; On update: delete old tools folder (using other structure)
+  
   SetOutPath "$INSTDIR\tools"
   
   File /r "..\..\Release\tools\*.*"
