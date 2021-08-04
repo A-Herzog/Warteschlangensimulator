@@ -48,6 +48,8 @@ import ui.modeleditor.elements.ModelElementSub;
 public class RunElementOutput extends RunElementPassThrough {
 	/** Gibt an, ob die Ausgabe zeilenweise (<code>false</code>) oder über ein {@link Table}-Objekt (<code>true</code>) erfolgen soll */
 	private boolean tableMode;
+	/** Zahlen im lokalen Format (<code>false</code>) oder im System-Format (<code>true</code>) ausgeben? */
+	private boolean systemFormat;
 	/** Dateiname der Datei für die Ausgaben */
 	private File outputFile;
 	/** System zur gepufferten Dateiausgabe ({@link RunData#getOutputWriter(File)}) */
@@ -82,6 +84,12 @@ public class RunElementOutput extends RunElementPassThrough {
 
 		/* Ausgaben */
 		output.tableMode=isTable(output.outputFile);
+		final String outputFileLower=outputElement.getOutputFile().toLowerCase();
+		if (outputFileLower.endsWith(".txt") || outputFileLower.endsWith(".tsv")) {
+			output.systemFormat=outputElement.isSystemFormat();
+		} else {
+			output.systemFormat=false;
+		}
 
 		final List<ModelElementOutput.OutputMode> modeList=outputElement.getModes();
 		final List<String> dataList=outputElement.getData();
@@ -157,10 +165,11 @@ public class RunElementOutput extends RunElementPassThrough {
 	 * @see #processOutput(SimulationData, RunDataClient)
 	 */
 	private String getOutputString(final SimulationData simData, final RunDataClient client) {
+		double number;
 		final StringBuilder sb=new StringBuilder();
 		for (int i=0;i<mode.length;i++) switch (mode[i]) {
 		case MODE_TIMESTAMP:
-			sb.append(SimData.formatSimTime(simData.currentTime));
+			sb.append(systemFormat?SimData.formatSimTimeSystem(simData.currentTime):SimData.formatSimTime(simData.currentTime));
 			break;
 		case MODE_TEXT:
 			sb.append((String)data[i]);
@@ -174,38 +183,47 @@ public class RunElementOutput extends RunElementPassThrough {
 		case MODE_EXPRESSION:
 			simData.runData.setClientVariableValues(client);
 			try {
-				sb.append(NumberTools.formatNumberMax(((ExpressionCalc)data[i]).calc(simData.runData.variableValues,simData,client)));
+				number=((ExpressionCalc)data[i]).calc(simData.runData.variableValues,simData,client);
+				sb.append(systemFormat?NumberTools.formatSystemNumber(number):NumberTools.formatNumberMax(number));
 			} catch (MathCalcError e) {
 				simData.calculationErrorStation((ExpressionCalc)data[i],this);
-				sb.append(NumberTools.formatNumberMax(0));
+				sb.append('0');
 			}
 			break;
 		case MODE_CLIENT:
 			sb.append(simData.runModel.clientTypes[client.type]);
 			break;
 		case MODE_WAITINGTIME_NUMBER:
-			sb.append(NumberTools.formatNumberMax(client.waitingTime*toSec));
+			number=client.waitingTime*toSec;
+			sb.append(systemFormat?NumberTools.formatSystemNumber(number):NumberTools.formatNumberMax(number));
 			break;
 		case MODE_WAITINGTIME_TIME:
-			sb.append(TimeTools.formatExactTime(client.waitingTime*toSec));
+			number=client.waitingTime*toSec;
+			sb.append(systemFormat?TimeTools.formatExactSystemTime(number):TimeTools.formatExactTime(number));
 			break;
 		case MODE_TRANSFERTIME_NUMBER:
-			sb.append(NumberTools.formatNumberMax(client.transferTime*toSec));
+			number=client.transferTime*toSec;
+			sb.append(systemFormat?NumberTools.formatSystemNumber(number):NumberTools.formatNumberMax(number));
 			break;
 		case MODE_TRANSFERTIME_TIME:
-			sb.append(TimeTools.formatExactTime(client.transferTime*toSec));
+			number=client.transferTime*toSec;
+			sb.append(systemFormat?TimeTools.formatExactSystemTime(number):TimeTools.formatExactTime(number));
 			break;
 		case MODE_PROCESSTIME_NUMBER:
-			sb.append(NumberTools.formatNumberMax(client.processTime*toSec));
+			number=client.processTime*toSec;
+			sb.append(systemFormat?NumberTools.formatSystemNumber(number):NumberTools.formatNumberMax(number));
 			break;
 		case MODE_PROCESSTIME_TIME:
-			sb.append(TimeTools.formatExactTime(client.processTime*toSec));
+			number=client.processTime*toSec;
+			sb.append(systemFormat?TimeTools.formatExactSystemTime(number):TimeTools.formatExactTime(number));
 			break;
 		case MODE_RESIDENCETIME_NUMBER:
-			sb.append(NumberTools.formatNumberMax(client.residenceTime*toSec));
+			number=client.residenceTime*toSec;
+			sb.append(systemFormat?NumberTools.formatSystemNumber(number):NumberTools.formatNumberMax(number));
 			break;
 		case MODE_RESIDENCETIME_TIME:
-			sb.append(TimeTools.formatExactTime(client.residenceTime*toSec));
+			number=client.residenceTime*toSec;
+			sb.append(systemFormat?TimeTools.formatExactSystemTime(number):TimeTools.formatExactTime(number));
 			break;
 		case MODE_STRING:
 			sb.append(client.getUserDataString((String)data[i]));

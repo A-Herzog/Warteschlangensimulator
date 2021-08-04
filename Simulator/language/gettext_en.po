@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-08-03 22:46+0200\n"
+"POT-Creation-Date: 2021-08-05 00:16+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -25359,6 +25359,12 @@ msgstr "File name"
 msgid "Surface.Output.Dialog.FileName.Select"
 msgstr "Select output file"
 
+msgid "Surface.Output.Dialog.SystemFormat"
+msgstr "Output numbers with decimal point"
+
+msgid "Surface.Output.Dialog.SystemFormat.Hint"
+msgstr "Refers only to output to text files"
+
 msgid "Surface.Output.Dialog.TableInfo"
 msgstr "Note: When using Excel spreadsheets the output can not be written successively during the simulation."
 
@@ -25517,6 +25523,9 @@ msgstr "Waiting time of the client (as number of seconds)"
 
 msgid "Surface.Output.XML.File"
 msgstr "ModelElementOutputFile"
+
+msgid "Surface.Output.XML.File.SystemFormat"
+msgstr "SystemFormat"
 
 msgid "Surface.Output.XML.Root"
 msgstr "ModelElementOutput"

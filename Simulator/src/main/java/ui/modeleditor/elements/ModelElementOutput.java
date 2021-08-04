@@ -112,6 +112,13 @@ public class ModelElementOutput extends ModelElementMultiInSingleOutBox implemen
 	private String outputFile;
 
 	/**
+	 * Zahlen im lokalen Format (<code>false</code>) oder im System-Format (<code>true</code>) ausgeben?
+	 * @see #isSystemFormat()
+	 * @see #setSystemFormat(boolean)
+	 */
+	private boolean systemFormat;
+
+	/**
 	 * Liste mit den Modi der Ausgabeelemente
 	 * @see #getModes()
 	 */
@@ -133,6 +140,7 @@ public class ModelElementOutput extends ModelElementMultiInSingleOutBox implemen
 		mode=new ArrayList<>();
 		data=new ArrayList<>();
 		outputFile="";
+		systemFormat=false;
 	}
 
 	/**
@@ -213,20 +221,43 @@ public class ModelElementOutput extends ModelElementMultiInSingleOutBox implemen
 	}
 
 	/**
+	 * Sollen Zahlen im lokalen Format (<code>false</code>) oder im System-Format (<code>true</code>) ausgeben werden?
+	 * @return	Ausgabe von Zahlen im System-Format (d.h. immer mit Dezimalpunkt)?
+	 */
+	public boolean isSystemFormat() {
+		return systemFormat;
+	}
+
+	/**
+	 * Stellt ein, ob Zahlen im lokalen Format (<code>false</code>) oder im System-Format (<code>true</code>) ausgeben werden sollen.
+	 * @param systemFormat	Ausgabe im System-Format (d.h. immer mit Dezimalpunkt)?
+	 */
+	public void setSystemFormat(boolean systemFormat) {
+		this.systemFormat=systemFormat;
+	}
+
+	/**
 	 * Überprüft, ob das Element mit dem angegebenen Element inhaltlich identisch ist.
 	 * @param element	Element mit dem dieses Element verglichen werden soll.
 	 * @return	Gibt <code>true</code> zurück, wenn die beiden Elemente identisch sind.
 	 */
 	@Override
-	public boolean equalsModelElement(ModelElement element) {
+	public boolean equalsModelElement(final ModelElement element) {
 		if (!super.equalsModelElement(element)) return false;
 		if (!(element instanceof ModelElementOutput)) return false;
+		final ModelElementOutput other=(ModelElementOutput)element;
 
-		if (!outputFile.equals(((ModelElementOutput)element).outputFile)) return false;
-		if (mode.size()!=((ModelElementOutput)element).mode.size()) return false;
-		if (data.size()!=((ModelElementOutput)element).data.size()) return false;
-		for (int i=0;i<mode.size();i++) if (!((ModelElementOutput)element).mode.get(i).equals(mode.get(i))) return false;
-		for (int i=0;i<data.size();i++) if (!((ModelElementOutput)element).data.get(i).equals(data.get(i))) return false;
+		if (!outputFile.equals(other.outputFile)) return false;
+		if (outputFile!=null) {
+			final String outputFileLower=outputFile.toLowerCase();
+			if (outputFileLower.endsWith(".txt") || outputFileLower.endsWith(".tsv")) {
+				if (systemFormat!=other.systemFormat) return false;
+			}
+		}
+		if (mode.size()!=other.mode.size()) return false;
+		if (data.size()!=other.data.size()) return false;
+		for (int i=0;i<mode.size();i++) if (!other.mode.get(i).equals(mode.get(i))) return false;
+		for (int i=0;i<data.size();i++) if (!other.data.get(i).equals(data.get(i))) return false;
 
 		return true;
 	}
@@ -236,12 +267,14 @@ public class ModelElementOutput extends ModelElementMultiInSingleOutBox implemen
 	 * @param element	Element, von dem alle Einstellungen übernommen werden sollen
 	 */
 	@Override
-	public void copyDataFrom(ModelElement element) {
+	public void copyDataFrom(final ModelElement element) {
 		super.copyDataFrom(element);
 		if (element instanceof ModelElementOutput) {
-			outputFile=((ModelElementOutput)element).outputFile;
-			mode.addAll(((ModelElementOutput)element).mode);
-			data.addAll(((ModelElementOutput)element).data);
+			final ModelElementOutput source=(ModelElementOutput)element;
+			outputFile=source.outputFile;
+			systemFormat=source.systemFormat;
+			mode.addAll(source.mode);
+			data.addAll(source.data);
 		}
 	}
 
@@ -379,6 +412,9 @@ public class ModelElementOutput extends ModelElementMultiInSingleOutBox implemen
 		if (!outputFile.isEmpty()) {
 			node.appendChild(sub=doc.createElement(Language.trPrimary("Surface.Output.XML.File")));
 			sub.setTextContent(outputFile);
+			if (systemFormat) {
+				sub.setAttribute(Language.trPrimary("Surface.Output.XML.File.SystemFormat"),"1");
+			}
 		}
 
 		for (int i=0;i<Math.min(mode.size(),data.size());i++) {
@@ -421,6 +457,8 @@ public class ModelElementOutput extends ModelElementMultiInSingleOutBox implemen
 
 		if (Language.trAll("Surface.Output.XML.File",name)) {
 			outputFile=content;
+			final String systemFormat=Language.trAllAttribute("Surface.Output.XML.File.SystemFormat",node);
+			if (!systemFormat.isEmpty() && !systemFormat.equals("0")) this.systemFormat=true;
 			return null;
 		}
 

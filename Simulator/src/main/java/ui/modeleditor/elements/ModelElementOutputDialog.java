@@ -26,6 +26,7 @@ import java.util.List;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -33,6 +34,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 
 import language.Language;
+import mathtools.NumberTools;
 import mathtools.Table;
 import tools.JTableExt;
 import ui.images.Images;
@@ -65,6 +67,12 @@ public class ModelElementOutputDialog extends ModelElementBaseDialog {
 	private JLabel info;
 
 	/**
+	 * Zahlen im lokalen Format (<code>false</code>) oder im System-Format (<code>true</code>) ausgeben?<br>
+	 * (Ist <code>null</code>, wenn Dezimalpunkte bereits als lokales Format verwendet werden.)
+	 */
+	private JCheckBox systemFormat;
+
+	/**
 	 * Tabelle zur Konfiguration der auszugebenden Daten
 	 */
 	private OutputTableModel tableModel;
@@ -93,10 +101,12 @@ public class ModelElementOutputDialog extends ModelElementBaseDialog {
 		final JPanel content=new JPanel(new BorderLayout());
 
 		if (element instanceof ModelElementOutput) {
+			final ModelElementOutput output=(ModelElementOutput)element;
+
 			final JPanel upperPanel=new JPanel();
 			upperPanel.setLayout(new BoxLayout(upperPanel,BoxLayout.PAGE_AXIS));
 			content.add(upperPanel,BorderLayout.NORTH);
-			final Object[] data=getInputPanel(Language.tr("Surface.Output.Dialog.FileName")+":",((ModelElementOutput)element).getOutputFile());
+			final Object[] data=getInputPanel(Language.tr("Surface.Output.Dialog.FileName")+":",output.getOutputFile());
 			JPanel line=(JPanel)data[0];
 			fileNameEdit=(JTextField)data[1];
 			upperPanel.add(line);
@@ -117,8 +127,16 @@ public class ModelElementOutputDialog extends ModelElementBaseDialog {
 			upperPanel.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
 			line.add(info=new JLabel(Language.tr("Surface.Output.Dialog.TableInfo")));
 
+			if (NumberTools.getDecimalSeparator()!='.') {
+				upperPanel.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
+				line.add(systemFormat=new JCheckBox(Language.tr("Surface.Output.Dialog.SystemFormat")),output.isSystemFormat());
+				systemFormat.setToolTipText(Language.tr("Surface.Output.Dialog.SystemFormat.Hint"));
+			} else {
+				systemFormat=null;
+			}
+
 			final JTableExt table=new JTableExt();
-			table.setModel(tableModel=new OutputTableModel(table,element.getModel(),((ModelElementOutput)element).getModes(),((ModelElementOutput)element).getData(),element.getSurface().getMainSurfaceVariableNames(element.getModel().getModelVariableNames(),true),readOnly));
+			table.setModel(tableModel=new OutputTableModel(table,output.getModel(),output.getModes(),output.getData(),output.getSurface().getMainSurfaceVariableNames(output.getModel().getModelVariableNames(),true),readOnly));
 			table.setIsPanelCellTable(0);
 			table.setIsPanelCellTable(1);
 			table.getColumnModel().getColumn(1).setMaxWidth(300);
@@ -159,6 +177,7 @@ public class ModelElementOutputDialog extends ModelElementBaseDialog {
 	private void updateInfo() {
 		final String nameLower=fileNameEdit.getText().toLowerCase();
 		info.setVisible(nameLower.endsWith(".xls") || nameLower.endsWith(".xlsx"));
+		if (systemFormat!=null) systemFormat.setEnabled(nameLower.endsWith(".txt") || nameLower.endsWith(".tsv"));
 	}
 
 	/**
@@ -171,12 +190,15 @@ public class ModelElementOutputDialog extends ModelElementBaseDialog {
 		super.storeData();
 
 		if (element instanceof ModelElementOutput) {
-			((ModelElementOutput)element).setOutputFile(fileNameEdit.getText());
+			final ModelElementOutput output=(ModelElementOutput)element;
 
-			final List<ModelElementOutput.OutputMode> modes=((ModelElementOutput)element).getModes();
+			output.setOutputFile(fileNameEdit.getText());
+			if (systemFormat!=null) output.setSystemFormat(systemFormat.isSelected());
+
+			final List<ModelElementOutput.OutputMode> modes=output.getModes();
 			modes.clear();
 			modes.addAll(tableModel.getModes());
-			List<String> data=((ModelElementOutput)element).getData();
+			List<String> data=output.getData();
 			data.clear();
 			data.addAll(tableModel.getData());
 			while (data.size()<modes.size()) data.add("");

@@ -1010,6 +1010,9 @@
   SymbolSpiegeln	CDATA	#IMPLIED
 >
 <!ELEMENT ModellElementAusgabedatei (#PCDATA)>
+<!ATTLIST ModellElementAusgabedatei
+  SystemFormat	CDATA	#IMPLIED
+>
 <!ELEMENT ModellElementAusgabeelement EMPTY>
 <!ATTLIST ModellElementAusgabeelement
   Typ	CDATA	#REQUIRED
@@ -3287,6 +3290,9 @@
   MirrorSymbol	CDATA	#IMPLIED
 >
 <!ELEMENT ModelElementOutputFile (#PCDATA)>
+<!ATTLIST ModelElementOutputFile
+  SystemFormat	CDATA	#IMPLIED
+>
 <!ELEMENT ModelElementOutputElement EMPTY>
 <!ATTLIST ModelElementOutputElement
   Type	CDATA	#REQUIRED

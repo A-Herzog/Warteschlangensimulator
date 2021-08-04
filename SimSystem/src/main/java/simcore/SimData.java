@@ -329,6 +329,45 @@ public class SimData {
 	}
 
 	/**
+	 * Liefert eine Zeitangabe als String zurück.<br>
+	 * Das Dezimaltrenner wird dabei immer ein Punkt verwendet.
+	 * @param time	Zeitangabe auf Millisekunden-Basis
+	 * @return	Zeitangabe als String
+	 * @see #formatSimTime(long)
+	 */
+	public static final String formatSimTimeSystem(final long time) {
+		final StringBuilder sb=new StringBuilder();
+
+		final long d=time/1000/60/60/24;
+		if (d>0) {sb.append(d); sb.append(":");}
+
+		final long h=time/1000/60/60%24;
+		if (h<10) sb.append("0");
+		sb.append(h);
+
+		sb.append(":");
+
+		final long m=(time/1000/60)%60;
+		if (m<10) sb.append("0");
+		sb.append(m);
+
+		sb.append(":");
+
+		final long s=(time/1000)%60;
+		if (s<10) sb.append("0");
+		sb.append(s);
+
+		sb.append('.');
+
+		final long f=time%1000;
+		if (f<100) sb.append("0");
+		if (f<10) sb.append("0");
+		sb.append(f);
+
+		return sb.toString();
+	}
+
+	/**
 	 * Offset in MS zwischen UTC und der lokalen Zeit.
 	 * @see #formatSimDateTime(long)
 	 */

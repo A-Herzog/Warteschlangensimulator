@@ -1184,10 +1184,15 @@
 
 <xs:element name="ModellElementDateiausgabe"><xs:complexType><xs:complexContent><xs:extension base="ModellElementVerbundenBasis">
   <xs:sequence minOccurs="0" maxOccurs="unbounded"><xs:choice>
-    <xs:element name="ModellElementAusgabedatei" type="xs:string"/>
+    <xs:element ref="ModellElementAusgabedatei"/>
 	<xs:element ref="ModellElementAusgabeelement"/>
   </xs:choice></xs:sequence>
 </xs:extension></xs:complexContent></xs:complexType></xs:element>
+<xs:element name="ModellElementAusgabedatei"><xs:complexType><xs:simpleContent>
+  <xs:extension base="xs:string">
+    <xs:attribute name="SystemFormat" type="xs:string"/>
+  </xs:extension>
+</xs:simpleContent></xs:complexType></xs:element>
 <xs:element name="ModellElementAusgabeelement"><xs:complexType>
   <xs:attribute name="Typ" type="xs:string" use="required"/>
   <xs:attribute name="Wert" type="xs:string"/>
@@ -1195,7 +1200,7 @@
 
 <xs:element name="ModellElementScriptDateiausgabe"><xs:complexType><xs:complexContent><xs:extension base="ModellElementVerbundenBasis">
   <xs:sequence minOccurs="0" maxOccurs="unbounded"><xs:choice>
-    <xs:element name="ModellElementAusgabedatei" type="xs:string"/>
+    <xs:element ref="ModellElementAusgabedatei"/>
     <xs:element name="ModellElementAusgabeskript" type="xs:string"/>
   </xs:choice></xs:sequence>
 </xs:extension></xs:complexContent></xs:complexType></xs:element>
@@ -3341,10 +3346,15 @@
 
 <xs:element name="ModelElementOutput"><xs:complexType><xs:complexContent><xs:extension base="ModelElementConnectedBase">
   <xs:sequence minOccurs="0" maxOccurs="unbounded"><xs:choice>
-    <xs:element name="ModelElementOutputFile" type="xs:string"/>
+    <xs:element ref="ModelElementOutputFile"/>
 	<xs:element ref="ModelElementOutputElement"/>
   </xs:choice></xs:sequence>
 </xs:extension></xs:complexContent></xs:complexType></xs:element>
+<xs:element name="ModelElementOutputFile"><xs:complexType><xs:simpleContent>
+  <xs:extension base="xs:string">
+    <xs:attribute name="SystemFormat" type="xs:string"/>
+  </xs:extension>
+</xs:simpleContent></xs:complexType></xs:element>
 <xs:element name="ModelElementOutputElement"><xs:complexType>
   <xs:attribute name="Type" type="xs:string" use="required"/>
   <xs:attribute name="Value" type="xs:string"/>
@@ -3352,7 +3362,7 @@
 
 <xs:element name="ModelElementScriptOutput"><xs:complexType><xs:complexContent><xs:extension base="ModelElementConnectedBase">
   <xs:sequence minOccurs="0" maxOccurs="unbounded"><xs:choice>
-    <xs:element name="ModelElementOutputFile" type="xs:string"/>
+    <xs:element ref="ModelElementOutputFile"/>
     <xs:element name="ModelElementOutputScript" type="xs:string"/>
   </xs:choice></xs:sequence>
 </xs:extension></xs:complexContent></xs:complexType></xs:element>
