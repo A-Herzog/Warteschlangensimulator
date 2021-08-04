@@ -29,10 +29,10 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
-import java.util.List;
 import java.util.Map;
 
 import javax.swing.BoxLayout;
+import javax.swing.Icon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
@@ -157,6 +157,7 @@ public class ExternalConnectDialog extends BaseDialog {
 				Images.SCRIPT_MODE_JAVA
 		}));
 		if (initialAllowClassLoad) modeSelect.setSelectedIndex(1); else modeSelect.setSelectedIndex(0);
+		modeSelect.addActionListener(e->updateTree(true));
 
 		/* Überschrift über Klassen und Methoden Darstellung */
 		setup.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
@@ -168,10 +169,11 @@ public class ExternalConnectDialog extends BaseDialog {
 		tree.setModel(new DefaultTreeModel(new DefaultMutableTreeNode()));
 		tree.setCellRenderer(new DefaultTreeCellRenderer() {
 			private static final long serialVersionUID=-6899531156092994813L;
+
 			@Override
 			public Component getTreeCellRendererComponent(JTree tree, Object value, boolean sel, boolean expanded, boolean leaf, int row, boolean hasFocus) {
-				super.getTreeCellRendererComponent(tree, value, sel, expanded, leaf, row, hasFocus);
-				setIcon(leaf?Images.SCRIPT_FILE.getIcon():Images.SCRIPT_MODE_JAVA.getIcon());
+				super.getTreeCellRendererComponent(tree,((TreeObject)((DefaultMutableTreeNode)value).getUserObject()).label,sel,expanded,leaf,row,hasFocus);
+				setIcon(((TreeObject)((DefaultMutableTreeNode)value).getUserObject()).icon);
 				return this;
 			}
 		});
@@ -227,14 +229,33 @@ public class ExternalConnectDialog extends BaseDialog {
 		lastFolder=newFolder;
 
 		final ExternalConnect connect=new ExternalConnect(new File(newFolder));
-		final Map<String,List<String>> map=connect.getInformationMap();
+		final Map<String,ExternalConnect.FileInfo> map=connect.getInformationMap();
 
-		final DefaultMutableTreeNode root=new DefaultMutableTreeNode();
+		final DefaultMutableTreeNode root=TreeObject.buildRoot();
 
-		for (Map.Entry<String,List<String>> entry: map.entrySet()) {
-			final DefaultMutableTreeNode group=new DefaultMutableTreeNode(entry.getKey());
+		for (Map.Entry<String,ExternalConnect.FileInfo> entry: map.entrySet()) {
+			final DefaultMutableTreeNode group=TreeObject.buildNode(entry.getKey(),Images.SCRIPT_MODE_JAVA);
 			root.add(group);
-			for (String method: entry.getValue()) group.add(new DefaultMutableTreeNode(String.format("Object %s(RuntimeInterface,SystemInterface,Object)",method)));
+			final ExternalConnect.FileInfo fileInfo=entry.getValue();
+			if (fileInfo.methods!=null) {
+				if (fileInfo.methods.size()==0) {
+					if (fileInfo.isInRootDir) {
+						group.add(TreeObject.buildNode(Language.tr("ExternalConnect.Dialog.NoPluginMethodsRootDirInfo1"),Images.GENERAL_WARNING));
+						group.add(TreeObject.buildNode(Language.tr("ExternalConnect.Dialog.NoPluginMethodsRootDirInfo2"),Images.GENERAL_WARNING));
+						group.add(TreeObject.buildNode(Language.tr("ExternalConnect.Dialog.NoPluginMethodsRootDirInfo3"),Images.GENERAL_WARNING));
+					} else {
+						group.add(TreeObject.buildNode(Language.tr("ExternalConnect.Dialog.NoPluginMethodsInfo"),Images.GENERAL_INFO));
+						if (modeSelect.getSelectedIndex()==0) {
+							group.add(TreeObject.buildNode(Language.tr("ExternalConnect.Dialog.NoPluginMethodsInfo.WarningDirectImportIsOff"),Images.GENERAL_WARNING));
+						}
+					}
+				} else {
+					for (String method: fileInfo.methods) group.add(TreeObject.buildNode(String.format("Object %s(RuntimeInterface,SystemInterface,Object)",method),Images.MODEL_PLUGINS));
+				}
+			}
+			if (fileInfo.error!=null) {
+				for (String error: fileInfo.error) group.add(TreeObject.buildNode(error,Images.GENERAL_WARNING));
+			}
 		}
 
 		tree.setModel(new DefaultTreeModel(root));
@@ -442,5 +463,52 @@ public class ExternalConnectDialog extends BaseDialog {
 		}
 
 		return true;
+	}
+
+	/**
+	 * Eintrag in {@link ExternalConnectDialog#tree}
+	 * @see ExternalConnectDialog#tree
+	 */
+	private static class TreeObject {
+		/**
+		 * Anzuzeigender Text in dem Baumeintrag
+		 */
+		public final String label;
+
+		/**
+		 * Icon zu dem Baumeintrag
+		 */
+		public final Icon icon;
+
+		/**
+		 * Konstruktor der Klasse<br>
+		 * Diese Klasse kann nicht direkt instanziert werden.
+		 * @see #buildNode(String, Images)
+		 * @see #buildRoot()
+		 * @param label	Anzuzeigender Text in dem Baumeintrag
+		 * @param image	Icon zu dem Baumeintrag
+		 */
+		private TreeObject(final String label, final Images image) {
+			this.label=label;
+			icon=(image==null)?null:image.getIcon();
+		}
+
+		/**
+		 * Erzeugt einen Baumeintrag mit Text und Icon
+		 * @param label	Anzuzeigender Text in dem Baumeintrag
+		 * @param image	Icon zu dem Baumeintrag
+		 * @return	Neuer Baumeintrag
+		 */
+		public static DefaultMutableTreeNode buildNode(final String label, final Images image) {
+			return new DefaultMutableTreeNode(new TreeObject(label,image));
+		}
+
+		/**
+		 * Erzeugt den Wurzeleintrag für die Baumstruktur
+		 * @return	Wurzeleintrag für die Baumstruktur
+		 */
+		public static DefaultMutableTreeNode buildRoot() {
+			return new DefaultMutableTreeNode(new TreeObject(null,null));
+		}
 	}
 }

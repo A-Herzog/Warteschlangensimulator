@@ -137,4 +137,12 @@ public class ImportSettingsBuilder {
 			return null;
 		}
 	}
+
+	/**
+	 * Ist das Laden von allgemeinen nutzerdefinierten Klassen zulässig?
+	 * @return	Ist das Laden von allgemeinen nutzerdefinierten Klassen zulässig?
+	 */
+	public boolean isAllowLoadClasses() {
+		return allowLoadClasses;
+	}
 }

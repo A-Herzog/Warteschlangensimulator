@@ -17,6 +17,8 @@ package scripting.java;
 
 import java.io.IOException;
 import java.security.SecureClassLoader;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.tools.FileObject;
 import javax.tools.ForwardingJavaFileManager;
@@ -33,7 +35,7 @@ public class ClassFileManager<M extends JavaFileManager> extends ForwardingJavaF
 	 * Instance of JavaClassObject that will store the
 	 * compiled bytecode of our class
 	 */
-	private JavaClassObject jclassObject;
+	private final Map<String,JavaClassObject> jclassObject;
 
 	/**
 	 * Zusätzlicher bzw. normaler Classloader
@@ -48,6 +50,7 @@ public class ClassFileManager<M extends JavaFileManager> extends ForwardingJavaF
 	 */
 	public ClassFileManager(final M standardManager, final ClassLoader additionalClassLoader) {
 		super(standardManager);
+		jclassObject=new HashMap<>();
 		this.additionalClassLoader=additionalClassLoader;
 	}
 
@@ -64,8 +67,13 @@ public class ClassFileManager<M extends JavaFileManager> extends ForwardingJavaF
 			@Override
 			protected Class<?> findClass(String name) throws ClassNotFoundException {
 				try {
-					final byte[] b=jclassObject.getBytes();
-					return super.defineClass(name, jclassObject.getBytes(),0,b.length);
+					final JavaClassObject classObject=jclassObject.get(name);
+					if (classObject==null) {
+						if (additionalClassLoader!=null) return additionalClassLoader.loadClass(name);
+						return null;
+					}
+					final byte[] b=classObject.getBytes();
+					return super.defineClass(name,b,0,b.length);
 				} catch (NoClassDefFoundError e) {
 					if (additionalClassLoader!=null) return additionalClassLoader.loadClass(name);
 					throw e;
@@ -79,10 +87,9 @@ public class ClassFileManager<M extends JavaFileManager> extends ForwardingJavaF
 	 * so that the compiler can write the byte code into it.
 	 */
 	@Override
-	public JavaFileObject getJavaFileForOutput(Location location,
-			String className, Kind kind, FileObject sibling)
-					throws IOException {
-		jclassObject = new JavaClassObject(className, kind);
-		return jclassObject;
+	public JavaFileObject getJavaFileForOutput(Location location, String className, Kind kind, FileObject sibling) throws IOException {
+		final JavaClassObject classObject=new JavaClassObject(className, kind);
+		jclassObject.put(className,classObject);
+		return classObject;
 	}
 }

@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-08-02 19:23+0200\n"
+"POT-Creation-Date: 2021-08-03 22:46+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -7189,6 +7189,21 @@ msgstr "Via plugin interface and directly as import"
 msgid "ExternalConnect.Dialog.Mode.PluginOnly"
 msgstr "Via plugin interface"
 
+msgid "ExternalConnect.Dialog.NoPluginMethodsInfo"
+msgstr "No suitable plugin methods found, but class can be used as direct import."
+
+msgid "ExternalConnect.Dialog.NoPluginMethodsInfo.WarningDirectImportIsOff"
+msgstr "Provisioning mode \"direct import\" is not selected. Therefore this class is not accessible."
+
+msgid "ExternalConnect.Dialog.NoPluginMethodsRootDirInfo1"
+msgstr "No suitable plugin methods found."
+
+msgid "ExternalConnect.Dialog.NoPluginMethodsRootDirInfo2"
+msgstr "Since the class is in root folder it cannot be used as direct import, too."
+
+msgid "ExternalConnect.Dialog.NoPluginMethodsRootDirInfo3"
+msgstr "Move the class in a subfolder if you want to use it as direct import."
+
 msgid "ExternalConnect.Dialog.RereadFolder.Tooltip"
 msgstr "Reread directory."
 
@@ -7197,6 +7212,21 @@ msgstr "Java plugins folder"
 
 msgid "ExternalConnect.Dialog.TreeInfo"
 msgstr "Classes found in the plugin directory that support the plugin interface"
+
+msgid "ExternalConnect.FolderPackageError"
+msgstr "The class cannot be loaded because the specified package name does not match the directory structure."
+
+msgid "ExternalConnect.FolderPackageError.NeedSubfolder"
+msgstr "The file has to be located in a subdirectory of the plugins folder, not in the plugins folder itself."
+
+msgid "ExternalConnect.FolderPackageError.PackageByClassFile"
+msgstr "Package name according to file content"
+
+msgid "ExternalConnect.FolderPackageError.PackageByFolder"
+msgstr "Package name according to directory structure"
+
+msgid "ExternalConnect.FolderPackageError.Solution"
+msgstr "Using the parent directory as the plugins folder would fix this problem."
 
 msgid "FastAccessBuilder.Add.Java"
 msgstr "Add to fast access - Java"

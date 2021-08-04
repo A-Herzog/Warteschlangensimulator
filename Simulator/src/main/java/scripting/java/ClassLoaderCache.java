@@ -161,7 +161,8 @@ public class ClassLoaderCache {
 			try {
 				if (task.call()) {
 					/* Klasse laden */
-					return new ExtendedStatus(compileData.classLoader.loadClass(className));				}
+					return new ExtendedStatus(compileData.loadClass(className));
+				}
 			} finally {
 				globalCompilerLock.unlock();
 			}
@@ -188,7 +189,24 @@ public class ClassLoaderCache {
 			return new ExtendedStatus(DynamicStatus.COMPILE_ERROR);
 
 		} catch (ClassNotFoundException | RuntimeException | NoClassDefFoundError e) {
-			return new ExtendedStatus(DynamicStatus.LOAD_ERROR,e.getMessage());
+			return new ExtendedStatus(DynamicStatus.LOAD_ERROR,e.getClass().getName()+": "+e.getMessage());
+		}
+	}
+
+	/**
+	 * Lädt eine externe Klassendatei
+	 * @param additionalClassPath	Pfad an dem sich die Klassendatei (und auch evtl. weitere Klassen, die bereitgestellt werden sollen) befindet
+	 * @param className	Name der zu ladenden Klasse
+	 * @return	Liefert den Status des Ladens zurück (d.h. im Erfolgsfall die geladene Klasse)
+	 */
+	public static ExtendedStatus loadExternalClass(final String additionalClassPath, final String className) {
+		final CompileData compileData=getInstance().getCompileData(additionalClassPath);
+		if (compileData==null) return new ExtendedStatus(DynamicStatus.NO_COMPILER);
+
+		try {
+			return new ExtendedStatus(compileData.loadClass(className));
+		} catch (ClassNotFoundException | RuntimeException | NoClassDefFoundError e) {
+			return new ExtendedStatus(DynamicStatus.LOAD_ERROR,e.getClass().getName()+": "+e.getMessage());
 		}
 	}
 
@@ -231,6 +249,16 @@ public class ClassLoaderCache {
 			}
 
 			return true;
+		}
+
+		/**
+		 * Lädt eine Klasse über den in diesem Objekt hinterlegten Classloader
+		 * @param className	Name der zu ladenden Klasse
+		 * @return	Geladene Klasse
+		 * @throws ClassNotFoundException	Reicht Exceptions des Classloaders weiter
+		 */
+		public Class<?> loadClass(final String className) throws ClassNotFoundException {
+			return classLoader.loadClass(className);
 		}
 	}
 

@@ -45,7 +45,7 @@ public class SimDynamicSetup implements DynamicSetup {
 
 	@Override
 	public String getTempClassName() {
-		return "SimHelperClass";
+		return "SimHelperClassRandomId";
 	}
 
 	/**

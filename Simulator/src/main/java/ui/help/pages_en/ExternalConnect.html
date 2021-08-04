@@ -41,19 +41,14 @@ Only those classes are listed which contain methods according to the signature d
 <h2>Import of external classes</h2>
 
 <p>
-External classes located in the specified directory or its subdirectories can be made available directly via
-<tt>import</tt> statements. Note that the classes must not be located in the specified plugin directory itself,
-but in its subdirectories, and that a suitable <tt>package</tt> identifier has to be specified in the classes.
+External classes located in the subdirectories of the specified directory can be made available directly via
+<tt>import</tt> statements. Note that the classes must <b>not</b> be located in the specified plugin directory itself,
+but in its <b>subdirectories</b>, and that a suitable <tt>package</tt> identifier has to be specified in the classes.
 </p>
 
 <p>
 The import is done automatically by the simulator. No manual <tt>import</tt> configurations have to be made.
 Only the base directory where the external classes are located has to be specified.
-</p>
-
-<p>
-The classes available via <tt>import</tt> may <b>not</b> be shown in the list view in this dialog.
-Only the classes that provide methods for access via the plugin interface are listed.
 </p>
 
 

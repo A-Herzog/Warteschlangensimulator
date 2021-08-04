@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-08-02 19:23+0200\n"
+"POT-Creation-Date: 2021-08-03 22:46+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -7176,6 +7176,21 @@ msgstr "Über Plugin-Schnittstelle und direkt als Import"
 msgid "ExternalConnect.Dialog.Mode.PluginOnly"
 msgstr "Über Plugin-Schnittstelle"
 
+msgid "ExternalConnect.Dialog.NoPluginMethodsInfo"
+msgstr "Keine passenden Plugin-Methoden gefunden, Klasse kann aber als direkter Import verwendet werden."
+
+msgid "ExternalConnect.Dialog.NoPluginMethodsInfo.WarningDirectImportIsOff"
+msgstr "Bereitstellungsmodus \"direkter Import\" ist nicht aktiviert. Damit ist diese Klasse nicht erreichbar."
+
+msgid "ExternalConnect.Dialog.NoPluginMethodsRootDirInfo1"
+msgstr "Keine passenden Plugin-Methoden gefunden."
+
+msgid "ExternalConnect.Dialog.NoPluginMethodsRootDirInfo2"
+msgstr "Da die Klasse im Hauptverzeichnis liegt kann sie auch nicht als direkter Import verwendet werden."
+
+msgid "ExternalConnect.Dialog.NoPluginMethodsRootDirInfo3"
+msgstr "Die Klasse muss in einen Unterordner verschoben werden, wenn sie als direkter Import verwendet werden soll."
+
 msgid "ExternalConnect.Dialog.RereadFolder.Tooltip"
 msgstr "Verzeichnis neu einlesen."
 
@@ -7184,6 +7199,21 @@ msgstr "Java-Plugins-Verzeichnis"
 
 msgid "ExternalConnect.Dialog.TreeInfo"
 msgstr "Im Plugin-Verzeichnis gefundene Klassen, die die Plugin-Schnittstelle unterstützen"
+
+msgid "ExternalConnect.FolderPackageError"
+msgstr "Die Klasse kann nicht geladen werden, da der angegebene Package-Name nicht zur Verzeichnisstruktur passt."
+
+msgid "ExternalConnect.FolderPackageError.NeedSubfolder"
+msgstr "Die Datei muss sich in einem Unterverzeichnis des Plugin-Ordners, nicht im Plugins-Ordner selbst, befinden."
+
+msgid "ExternalConnect.FolderPackageError.PackageByClassFile"
+msgstr "Package-Name laut Dateiinhalt"
+
+msgid "ExternalConnect.FolderPackageError.PackageByFolder"
+msgstr "Package-Name laut Verzeichnisstruktur"
+
+msgid "ExternalConnect.FolderPackageError.Solution"
+msgstr "Die Verwendung des übergeordneten Verzeichnisses als Plugins-Ordner würde dieses Problem beheben."
 
 msgid "FastAccessBuilder.Add.Java"
 msgstr "Zu Schnellzugriff - Java hinzufügen"

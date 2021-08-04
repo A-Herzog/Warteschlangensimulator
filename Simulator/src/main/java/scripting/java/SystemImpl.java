@@ -305,7 +305,9 @@ public class SystemImpl implements SystemInterface {
 	@Override
 	public Object runPlugin(final String className, final String functionName, final Object data) {
 		if (simData.pluginsConnect==null) return null;
-		return simData.pluginsConnect.runFunction(className,functionName,this,data);
+		return simData.pluginsConnect.runFunction(className,functionName,this,data,simData.runModel.javaImports.isAllowLoadClasses(),error->{
+			if (simData.runModel.cancelSimulationOnScriptError) simData.doEmergencyShutDown(error);
+		});
 	}
 
 	@Override
