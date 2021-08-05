@@ -13588,6 +13588,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[36233] = "Keine Verteilung angegeben";
     t[36234] = "Schedule.EditDialog.Title";
     t[36235] = "Zeitplan \"%s\" bearbeiten";
+    t[36236] = "Surface.Source.Dialog.Tab.BatchSize.ScaleInfo2";
+    t[36237] = "Der mittlere Abstand zwischen zwei Kundenank\u00fcnften betr\u00e4gt damit %s %s.";
     t[36238] = "Surface.XML.Transporter.Name";
     t[36239] = "Name";
     t[36240] = "ModelLoadData.EditDialog.Workbook";
@@ -14044,14 +14046,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[37377] = "\"%s\" ist keine g\u00fcltige Sprach-ID.";
     t[37378] = "Statistics.RatioOfWaitingToProcessTime";
     t[37379] = "Verh\u00e4ltnis von Warte- zu Bedienzeit";
-    t[37382] = "Surface.OutputDB.Table.ExpressionError.Info";
-    t[37383] = "Der angegebene Ausdruck \"%s\" enth\u00e4lt ab Zeichen %d einen Fehler.";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_7 (java.lang.String[] t) {
+    t[37382] = "Surface.OutputDB.Table.ExpressionError.Info";
+    t[37383] = "Der angegebene Ausdruck \"%s\" enth\u00e4lt ab Zeichen %d einen Fehler.";
     t[37394] = "FindAndReplace.ReplaceInfo.Plural";
     t[37395] = "Davon k\u00f6nnen %d Treffer direkt per \"Ersetzen\" ge\u00e4ndert werden.";
     t[37396] = "Surface.Input.Dialog.DefaultValue.ErrorInfo";
@@ -16050,14 +16052,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[42495] = "Es existieren keine Commits, die noch nicht auf den Server \u00fcbertragen wurden.";
     t[42502] = "Surface.Database.Config";
     t[42503] = "Verbindungseinstellungen";
-    t[42504] = "ModelSecurityCheck.Station.WithName";
-    t[42505] = "%s (id=%d)";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_8 (java.lang.String[] t) {
+    t[42504] = "ModelSecurityCheck.Station.WithName";
+    t[42505] = "%s (id=%d)";
     t[42508] = "Window.Layers.Delete.Hint";
     t[42509] = "Ebene l\u00f6schen.";
     t[42520] = "Surface.AnalogValue.Dialog.Unit.PerSecond";
@@ -18056,14 +18058,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[47725] = "Kundenweiche";
     t[47742] = "ExternalConnect.Dialog.ExamplesLink.ErrorTitle";
     t[47743] = "Verzeichnis konnte nicht ge\u00f6ffnet werden";
-    t[47744] = "Surface.PopupMenu.QuickFix.AddEdgeTo.ElementName";
-    t[47745] = "%s \"%s\" (id=%d)";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_9 (java.lang.String[] t) {
+    t[47744] = "Surface.PopupMenu.QuickFix.AddEdgeTo.ElementName";
+    t[47745] = "%s \"%s\" (id=%d)";
     t[47754] = "Surface.AnimationTextJS.XML.FontSize.Bold";
     t[47755] = "fett";
     t[47756] = "ExternalConnect.FolderPackageError.Solution";
@@ -20062,14 +20064,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[52993] = "Der Variationskoeffizient der Zwischenankunftszeiten betr\u00e4gt %s. Die Formel geht jedoch von 1,0 aus.";
     t[52994] = "Main.Menu.Help.RecommendedLiterature.LawKelton";
     t[52995] = "Law/Kelton: \"Simulation Modeling & Analysis\"";
-    t[52996] = "ExpressionBuilder.StatisticalFunctions.Variance";
-    t[52997] = "Varianz";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_10 (java.lang.String[] t) {
+    t[52996] = "ExpressionBuilder.StatisticalFunctions.Variance";
+    t[52997] = "Varianz";
     t[53000] = "Surface.OutputLog.Tooltip";
     t[53001] = "Schreibt einen oder mehrere Ausdr\u00fccke in die Logging-Ausgabe.";
     t[53006] = "Surface.AnimationText.Dialog.Expression.Error.InfoInvalid";
@@ -20550,6 +20552,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[54277] = "Nur ganze Zahlen zulassen";
     t[54284] = "Surface.AnalogAssign.Dialog.Delete.ConfirmInfo";
     t[54285] = "Soll die aktuelle Zuweisung wirklich gel\u00f6scht werden?";
+    t[54288] = "Surface.Source.Dialog.Tab.BatchSize.ScaleInfo1";
+    t[54289] = "Auf Basis der angegebenen Batch-Gr\u00f6\u00dfe betr\u00e4gt die mittlere Zwischenankunftszeit zwischen zwei Kunden das %s-fache der Zwischenankunftszeit zwischen zwei Batchen.";
     t[54292] = "Statistics.DistributionOfClientsWaitingTimes";
     t[54293] = "Verteilung der Wartezeiten der Kunden";
     t[54296] = "ExpressionBuilder.SimulationCharacteristics.Costs.WaitingAvg.Info";

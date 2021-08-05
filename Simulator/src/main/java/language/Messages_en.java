@@ -13588,6 +13588,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[36233] = "No distribution given";
     t[36234] = "Schedule.EditDialog.Title";
     t[36235] = "Edit schedule \"%s\"";
+    t[36236] = "Surface.Source.Dialog.Tab.BatchSize.ScaleInfo2";
+    t[36237] = "The mean interval between two client arrivals is thus %s %s.";
     t[36238] = "Surface.XML.Transporter.Name";
     t[36239] = "Name";
     t[36240] = "ModelLoadData.EditDialog.Workbook";
@@ -14044,14 +14046,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[37377] = "\"%s\" is no valid language ID.";
     t[37378] = "Statistics.RatioOfWaitingToProcessTime";
     t[37379] = "Ratio of waiting to process times";
-    t[37382] = "Surface.OutputDB.Table.ExpressionError.Info";
-    t[37383] = "The specified expression \"%s\" is invalid at character %d.";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_7 (java.lang.String[] t) {
+    t[37382] = "Surface.OutputDB.Table.ExpressionError.Info";
+    t[37383] = "The specified expression \"%s\" is invalid at character %d.";
     t[37394] = "FindAndReplace.ReplaceInfo.Plural";
     t[37395] = "%d hits can be changed directly via \"Replace\".";
     t[37396] = "Surface.Input.Dialog.DefaultValue.ErrorInfo";
@@ -16050,14 +16052,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[42495] = "There are no commits that have not yet been committed to the server.";
     t[42502] = "Surface.Database.Config";
     t[42503] = "Connection settings";
-    t[42504] = "ModelSecurityCheck.Station.WithName";
-    t[42505] = "%s (id=%d)";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_8 (java.lang.String[] t) {
+    t[42504] = "ModelSecurityCheck.Station.WithName";
+    t[42505] = "%s (id=%d)";
     t[42508] = "Window.Layers.Delete.Hint";
     t[42509] = "Delete layer.";
     t[42520] = "Surface.AnalogValue.Dialog.Unit.PerSecond";
@@ -18056,14 +18058,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[47725] = "Decide by client type";
     t[47742] = "ExternalConnect.Dialog.ExamplesLink.ErrorTitle";
     t[47743] = "Could not open folder";
-    t[47744] = "Surface.PopupMenu.QuickFix.AddEdgeTo.ElementName";
-    t[47745] = "%s \"%s\" (id=%d)";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_9 (java.lang.String[] t) {
+    t[47744] = "Surface.PopupMenu.QuickFix.AddEdgeTo.ElementName";
+    t[47745] = "%s \"%s\" (id=%d)";
     t[47754] = "Surface.AnimationTextJS.XML.FontSize.Bold";
     t[47755] = "bold";
     t[47756] = "ExternalConnect.FolderPackageError.Solution";
@@ -20062,14 +20064,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[52993] = "The coefficient of variation of the inter-arrival times is %s. But the formula uses 1.0.";
     t[52994] = "Main.Menu.Help.RecommendedLiterature.LawKelton";
     t[52995] = "Law/Kelton: \"Simulation Modeling & Analysis\"";
-    t[52996] = "ExpressionBuilder.StatisticalFunctions.Variance";
-    t[52997] = "Variance";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_10 (java.lang.String[] t) {
+    t[52996] = "ExpressionBuilder.StatisticalFunctions.Variance";
+    t[52997] = "Variance";
     t[53000] = "Surface.OutputLog.Tooltip";
     t[53001] = "Writes one or more expressions to the logging output.";
     t[53006] = "Surface.AnimationText.Dialog.Expression.Error.InfoInvalid";
@@ -20550,6 +20552,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[54277] = "Only integer values";
     t[54284] = "Surface.AnalogAssign.Dialog.Delete.ConfirmInfo";
     t[54285] = "Do you really want to delete the current assignment?";
+    t[54288] = "Surface.Source.Dialog.Tab.BatchSize.ScaleInfo1";
+    t[54289] = "Based on the specified batch size, the average inter-arrival time between two clients is %s times the inter-arrival time between two batches.";
     t[54292] = "Statistics.DistributionOfClientsWaitingTimes";
     t[54293] = "Distribution of the waiting times of the clients";
     t[54296] = "ExpressionBuilder.SimulationCharacteristics.Costs.WaitingAvg.Info";

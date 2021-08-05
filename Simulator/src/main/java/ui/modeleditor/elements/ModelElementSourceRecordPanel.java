@@ -41,11 +41,13 @@ import javax.swing.JTextField;
 import javax.swing.JTextPane;
 import javax.swing.SwingConstants;
 
+import org.apache.commons.math3.distribution.AbstractRealDistribution;
 import org.apache.commons.math3.distribution.ExponentialDistribution;
 
 import language.Language;
 import mathtools.NumberTools;
 import mathtools.distribution.swing.JDistributionPanel;
+import mathtools.distribution.tools.DistributionTools;
 import simulator.editmodel.EditModel;
 import simulator.simparser.ExpressionCalc;
 import simulator.simparser.ExpressionMultiEval;
@@ -170,6 +172,8 @@ public final class ModelElementSourceRecordPanel extends JPanel {
 	private final JTextField batchField;
 	/** Schaltfläche zur Bearbeitung der Batch-Größen Verteilung im Fall {@link #optionSizesDistribution} */
 	private final JButton batchButton;
+	/** Label zur Anzeige von weiteren Informationen zur gewählten Batch-Größe, wird von {@link #updateBatchInfo()} aktualisiert */
+	private final JLabel batchInfo;
 
 	/** Verteilung der Batch-Größen für den Modus {@link #optionSizesDistribution} */
 	private double[] batchRates;
@@ -293,6 +297,7 @@ public final class ModelElementSourceRecordPanel extends JPanel {
 			if (arrivalStartSub1!=null) arrivalStartSub1.setVisible(index!=2 && index!=3 && index!=5);
 			if (arrivalStartSub2!=null) arrivalStartSub2.setVisible(index!=2 && index!=3 && index!=5);
 			checkData(false);
+			updateBatchInfo();
 		});
 		selectCard.setEnabled(!readOnly);
 
@@ -315,8 +320,21 @@ public final class ModelElementSourceRecordPanel extends JPanel {
 			timeBase2.setSelectedIndex(timeBase1.getSelectedIndex());
 			arrivalStartTimeUnit.setText((String)timeBase1.getSelectedItem());
 			updateTabTitle();
+			updateBatchInfo();
 		});
-		card.add(distributionPanel=new JDistributionPanel(new ExponentialDistribution(null,100,ExponentialDistribution.DEFAULT_INVERSE_ABSOLUTE_ACCURACY),3600,!readOnly),BorderLayout.CENTER);
+		card.add(distributionPanel=new JDistributionPanel(new ExponentialDistribution(null,100,ExponentialDistribution.DEFAULT_INVERSE_ABSOLUTE_ACCURACY),3600,!readOnly) {
+			/**
+			 * Serialisierungs-ID der Klasse
+			 * @see Serializable
+			 */
+			private static final long serialVersionUID=3060879128715618646L;
+
+			@Override
+			public void setDistribution(AbstractRealDistribution distribution) {
+				super.setDistribution(distribution);
+				updateBatchInfo();
+			}
+		},BorderLayout.CENTER);
 
 		/* Karte: Ausdruck */
 
@@ -475,20 +493,20 @@ public final class ModelElementSourceRecordPanel extends JPanel {
 		panel.add(sub=new JPanel(new FlowLayout(FlowLayout.LEFT)));
 		sub.add(optionFixedSize=new JRadioButton(Language.tr("Surface.Source.Dialog.BatchSize.Fixed")+":"));
 		optionFixedSize.setEnabled(!readOnly);
-		optionFixedSize.addActionListener(e->checkData(false));
+		optionFixedSize.addActionListener(e->{updateBatchInfo(); checkData(false);});
 		sub.add(batchField=new JTextField(15));
 		sub.add(ModelElementBaseDialog.getExpressionEditButton(this,batchField,false,false,model,surface));
 		batchField.setEditable(!readOnly);
 		batchField.addKeyListener(new KeyListener() {
-			@Override public void keyTyped(KeyEvent e) {optionFixedSize.setSelected(true); checkData(false);}
-			@Override public void keyReleased(KeyEvent e) {optionFixedSize.setSelected(true); checkData(false);}
-			@Override public void keyPressed(KeyEvent e) {optionFixedSize.setSelected(true); checkData(false);}
+			@Override public void keyTyped(KeyEvent e) {optionFixedSize.setSelected(true); updateBatchInfo();checkData(false);}
+			@Override public void keyReleased(KeyEvent e) {optionFixedSize.setSelected(true); updateBatchInfo();checkData(false);}
+			@Override public void keyPressed(KeyEvent e) {optionFixedSize.setSelected(true); updateBatchInfo();checkData(false);}
 		});
 
 		panel.add(sub=new JPanel(new FlowLayout(FlowLayout.LEFT)));
 		sub.add(optionSizesDistribution=new JRadioButton(Language.tr("Surface.Source.Dialog.BatchSize.Distribution")));
 		optionSizesDistribution.setEnabled(!readOnly);
-		optionSizesDistribution.addActionListener(e->checkData(false));
+		optionSizesDistribution.addActionListener(e->{updateBatchInfo(); checkData(false);});
 		sub.add(batchButton=new JButton(Language.tr("Surface.Source.Dialog.BatchSize.Distribution.Edit")));
 		batchButton.setIcon(Images.MODE_DISTRIBUTION.getIcon());
 		batchButton.addActionListener(e->editBatchSizesDistibution());
@@ -499,10 +517,11 @@ public final class ModelElementSourceRecordPanel extends JPanel {
 
 		batchButton.setEnabled(!readOnly || optionSizesDistribution.isSelected());
 
-		tab.add(label=new JLabel("<html><body style=\"margin: 5px 10px;\">"+Language.tr("Surface.Source.Dialog.Tab.BatchSize.Info")+"</body></html>"),BorderLayout.CENTER);
-		label.setVerticalAlignment(SwingConstants.TOP);
-		label.setVerticalTextPosition(SwingConstants.TOP);
-		label.setPreferredSize(new Dimension(100,100));
+		tab.add(batchInfo=new JLabel(),BorderLayout.CENTER);
+		batchInfo.setVerticalAlignment(SwingConstants.TOP);
+		batchInfo.setVerticalTextPosition(SwingConstants.TOP);
+		batchInfo.setPreferredSize(new Dimension(100,100));
+		updateBatchInfo();
 
 		/* Anzahl an Ankünften */
 
@@ -692,6 +711,7 @@ public final class ModelElementSourceRecordPanel extends JPanel {
 		}
 		batchRates=record.getMultiBatchSize();
 		if (batchRates==null) batchRates=new double[]{1.0};
+		updateBatchInfo();
 
 		/* Ankünfte-Anzahl */
 		optionInfinite.setSelected(true);
@@ -735,7 +755,54 @@ public final class ModelElementSourceRecordPanel extends JPanel {
 		if (dialog.getClosedBy()==BaseDialog.CLOSED_BY_OK) {
 			batchRates=dialog.getBatchRates();
 			optionSizesDistribution.setSelected(true);
+			updateBatchInfo();
 		}
+	}
+
+	/**
+	 * Aktualisiert {@link #batchInfo}, wenn sich die Daten zur Umrechnung
+	 * der Batch-Zwischenankunftszeit auf die Einzelkunden-Zwischenankunftszeiten
+	 * verändert haben.
+	 * @see #batchInfo
+	 */
+	private void updateBatchInfo() {
+		boolean scaleInterArrivalTimes=false;
+		double factorInterArrivalTimes=1.0;
+		if (hasOwnArrivals) {
+			if (optionFixedSize.isSelected()) {
+				final Long L=NumberTools.getPositiveLong(batchField,false);
+				if (L!=null) { /* Kann auch Rechenausdruck sein, dann können wir keinen a-priori Skalierungsfaktor angeben */
+					scaleInterArrivalTimes=true;
+					factorInterArrivalTimes=1.0/L;
+				}
+			} else {
+				if (batchRates!=null && batchRates.length>0) {
+					double sum=0;
+					for (double rate: batchRates) sum+=rate;
+					if (sum>0) {
+						scaleInterArrivalTimes=true;
+						factorInterArrivalTimes=0;
+						for (int i=0;i<batchRates.length;i++) factorInterArrivalTimes+=(i+1)*batchRates[i]/sum;
+						factorInterArrivalTimes=1/factorInterArrivalTimes;
+					}
+				}
+			}
+		}
+
+		final StringBuilder text=new StringBuilder();
+		text.append("<html><body style=\"margin: 5px 10px;\">\n");
+		text.append("<p>"+Language.tr("Surface.Source.Dialog.Tab.BatchSize.Info")+"</p>\n");
+		if (scaleInterArrivalTimes && factorInterArrivalTimes!=1.0) {
+			text.append("<p style=\"margin-top: 5px;\"><b>"+String.format(Language.tr("Surface.Source.Dialog.Tab.BatchSize.ScaleInfo1"),NumberTools.formatNumber(factorInterArrivalTimes,3))+"</b></p>\n");
+			if (selectCard.getSelectedIndex()==0) {
+				final AbstractRealDistribution distribution=distributionPanel.getDistribution();
+				final double mean=DistributionTools.getMean(distribution);
+				text.append("<p style=\"margin-top: 5px;\"><b>"+String.format(Language.tr("Surface.Source.Dialog.Tab.BatchSize.ScaleInfo2"),NumberTools.formatNumber(mean*factorInterArrivalTimes),timeBase1.getSelectedItem())+"</b></p>\n");
+			}
+		}
+		text.append("</body></html>\n");
+
+		batchInfo.setText(text.toString());
 	}
 
 	/**
