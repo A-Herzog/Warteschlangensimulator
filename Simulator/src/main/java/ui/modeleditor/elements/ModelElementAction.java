@@ -44,7 +44,7 @@ import ui.modeleditor.fastpaint.Shapes;
  * @author Alexander Herzog
  * @see ModelElementActionRecord
  */
-public class ModelElementAction extends ModelElementBox implements ModelElementSignalTrigger, ElementWithNewVariableNames {
+public class ModelElementAction extends ModelElementBox implements ModelElementSignalTrigger, ElementWithNewVariableNames, ElementWithAnimationScripts {
 	/**
 	 * Liste mit allen Bedingungen und auszulösenden Aktionen
 	 */
@@ -283,5 +283,20 @@ public class ModelElementAction extends ModelElementBox implements ModelElementS
 		super.search(searcher);
 
 		for (ModelElementActionRecord record: records) record.search(searcher,this);
+	}
+
+	@Override
+	public AnimationExpression[] getAnimationExpressions() {
+		final List<AnimationExpression> list=new ArrayList<>();
+		for (ModelElementActionRecord record: records) if (record.getActionType()==ModelElementActionRecord.ActionType.ACTION_SCRIPT) {
+			final AnimationExpression animationExpression=new AnimationExpression();
+			switch (record.getScriptMode()) {
+			case Javascript: animationExpression.setJavascript(record.getScript()); break;
+			case Java: animationExpression.setJava(record.getScript()); break;
+			default: animationExpression.setJavascript(record.getScript()); break;
+			}
+			list.add(animationExpression);
+		}
+		return list.toArray(new AnimationExpression[0]);
 	}
 }

@@ -9845,7 +9845,7 @@ public class Messages_en extends java.util.ResourceBundle {
     t[26372] = "Surface.Decide.Dialog.DecideBy";
     t[26373] = "Decide by";
     t[26374] = "Simulation.Element.SetJS.Name";
-    t[26375] = "Javascript";
+    t[26375] = "Script";
     t[26378] = "Surface.Source.Dialog.Tab.BatchSize.Info";
     t[26379] = "In case of batch arrivals, the inter-arrival times refer to the distances from one batch to the next.\nIf, for example, batches of each 3 clients arrive with an average inter-arrival time of 2 minutes,\none client arrives every 40 seconds on average.";
     t[26382] = "Wait.Status.LongRun.WIPOne";

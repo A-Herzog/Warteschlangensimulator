@@ -341,7 +341,7 @@ public class AnimationExpression implements Cloneable {
 			jsRunner.setSimulationDataNoClient(simData,element.getId());
 			final String result=jsRunner.runCompiled();
 			if (!jsRunner.getLastSuccess() && simData.runModel.cancelSimulationOnScriptError) {
-				simData.doEmergencyShutDown(result);
+				simData.doEmergencyShutDown(result,element);
 			}
 			simData.runData.updateMapValuesForStatistics(simData);
 			if (jsRunner.isOutputDouble()) return jsRunner.getOutputDouble();
@@ -353,7 +353,7 @@ public class AnimationExpression implements Cloneable {
 			animationOutput.setLength(0);
 			javaRunner.run();
 			if (javaRunner.getStatus()!=DynamicStatus.OK && simData.runModel.cancelSimulationOnScriptError) {
-				simData.doEmergencyShutDown(DynamicFactory.getLongStatusText(javaRunner));
+				simData.doEmergencyShutDown(DynamicFactory.getLongStatusText(javaRunner),element);
 			}
 			final String result=animationOutput.toString();
 			simData.runData.updateMapValuesForStatistics(simData);

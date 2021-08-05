@@ -279,7 +279,7 @@ public class StationLeaveEvent extends Event {
 		leaveStation.statistics=true;
 
 		/* Zur Ereignisliste hinzufügen */
-		simData.eventManager.addEvent(leaveStation);
+		if (!simData.runData.stopp) simData.eventManager.addEvent(leaveStation);
 
 		return leaveStation;
 	}

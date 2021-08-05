@@ -196,7 +196,7 @@ public class RunElementHoldJS extends RunElementPassThrough implements StateChan
 					jsRunner.setSimulationData(simData,id,data.waitingClients);
 					final String result=jsRunner.runCompiled();
 					if (!jsRunner.getLastSuccess() && simData.runModel.cancelSimulationOnScriptError) {
-						simData.doEmergencyShutDown(result);
+						simData.doEmergencyShutDown(name+": "+result);
 						return false;
 					}
 					logJS(simData,data.script,result); /* Immer ausführen; Entscheidung Erfassen ja/nein erfolgt in logJS */
@@ -213,7 +213,7 @@ public class RunElementHoldJS extends RunElementPassThrough implements StateChan
 					javaRunner.parameter.clients.setClients(data.waitingClients);
 					final Object result=javaRunner.run();
 					if (javaRunner.getStatus()!=DynamicStatus.OK && simData.runModel.cancelSimulationOnScriptError) {
-						simData.doEmergencyShutDown(DynamicFactory.getLongStatusText(javaRunner));
+						simData.doEmergencyShutDown(name+": "+DynamicFactory.getLongStatusText(javaRunner));
 						return false;
 					}
 					logJS(simData,data.script,result); /* Immer ausführen; Entscheidung Erfassen ja/nein erfolgt in logJS */

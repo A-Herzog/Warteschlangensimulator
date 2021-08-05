@@ -9845,7 +9845,7 @@ public class Messages_de extends java.util.ResourceBundle {
     t[26372] = "Surface.Decide.Dialog.DecideBy";
     t[26373] = "Verzweigen nach";
     t[26374] = "Simulation.Element.SetJS.Name";
-    t[26375] = "Javascript";
+    t[26375] = "Script";
     t[26378] = "Surface.Source.Dialog.Tab.BatchSize.Info";
     t[26379] = "Die Zwischenankunftszeiten beziehen sich im Fall von Batch-Ank\u00fcnften auf die Abst\u00e4nde von\neinem Batch zum n\u00e4chsten. Treffen z.B. immer 3er Batche mit einer mittleren Zwischenankunftszeit\nvon 2 Minuten ein, so trifft umgerechnet im Mittel alle 40 Sekunden ein Kunde ein.";
     t[26382] = "Wait.Status.LongRun.WIPOne";

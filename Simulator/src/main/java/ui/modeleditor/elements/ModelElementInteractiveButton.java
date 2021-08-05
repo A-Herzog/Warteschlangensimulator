@@ -45,7 +45,7 @@ import ui.modeleditor.fastpaint.Shapes;
  * Für eine normale Simulation (ohne Animationsausgabe) ist diese Station ohne Bedeutung.
  * @author Alexander Herzog
  */
-public class ModelElementInteractiveButton extends ModelElementBox implements ElementWithAnimationDisplay, ModelElementSignalTrigger, ElementWithNewVariableNames, ElementAnimationClickable {
+public class ModelElementInteractiveButton extends ModelElementBox implements ElementWithAnimationDisplay, ModelElementSignalTrigger, ElementWithNewVariableNames, ElementAnimationClickable, ElementWithAnimationScripts {
 	/**
 	 * Liste mit allen auszulösenden Aktionen
 	 * @see #getRecordsList()
@@ -307,5 +307,20 @@ public class ModelElementInteractiveButton extends ModelElementBox implements El
 		super.search(searcher);
 
 		for (ModelElementActionRecord record: records) record.search(searcher,this);
+	}
+
+	@Override
+	public AnimationExpression[] getAnimationExpressions() {
+		final List<AnimationExpression> list=new ArrayList<>();
+		for (ModelElementActionRecord record: records) if (record.getActionType()==ModelElementActionRecord.ActionType.ACTION_SCRIPT) {
+			final AnimationExpression animationExpression=new AnimationExpression();
+			switch (record.getScriptMode()) {
+			case Javascript: animationExpression.setJavascript(record.getScript()); break;
+			case Java: animationExpression.setJava(record.getScript()); break;
+			default: animationExpression.setJavascript(record.getScript()); break;
+			}
+			list.add(animationExpression);
+		}
+		return list.toArray(new AnimationExpression[0]);
 	}
 }

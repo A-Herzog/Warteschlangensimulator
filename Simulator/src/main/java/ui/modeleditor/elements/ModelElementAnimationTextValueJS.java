@@ -58,7 +58,7 @@ import ui.tools.FlatLaFHelper;
  * Skriptausführung darstellt, an.
  * @author Alexander Herzog
  */
-public class ModelElementAnimationTextValueJS extends ModelElementPosition implements ElementWithAnimationDisplay {
+public class ModelElementAnimationTextValueJS extends ModelElementPosition implements ElementWithAnimationDisplay, ElementWithAnimationScripts {
 	/**
 	 * Standard-Textfarbe
 	 * @see #color
@@ -620,14 +620,14 @@ public class ModelElementAnimationTextValueJS extends ModelElementPosition imple
 			jsRunner.setSimulationDataNoClient(simData,getId());
 			result=jsRunner.runCompiled();
 			if (!jsRunner.getLastSuccess() && simData.runModel.cancelSimulationOnScriptError) {
-				simData.doEmergencyShutDown(result);
+				simData.doEmergencyShutDown(result,this);
 			}
 		}
 		if (javaRunner!=null) {
 			animationOutput.setLength(0);
 			javaRunner.run();
 			if (javaRunner.getStatus()!=DynamicStatus.OK && simData.runModel.cancelSimulationOnScriptError) {
-				simData.doEmergencyShutDown(DynamicFactory.getLongStatusText(javaRunner));
+				simData.doEmergencyShutDown(DynamicFactory.getLongStatusText(javaRunner),this);
 			}
 			result=animationOutput.toString();
 		}
@@ -752,5 +752,16 @@ public class ModelElementAnimationTextValueJS extends ModelElementPosition imple
 
 		searcher.testString(this,Language.tr("Editor.DialogBase.Search.Script"),script,newScript->{script=newScript;});
 		searcher.testInteger(this,Language.tr("Editor.DialogBase.Search.FontSize"),textSize,newFontSize->{if (newFontSize>0) textSize=newFontSize;});
+	}
+
+	@Override
+	public AnimationExpression[] getAnimationExpressions() {
+		final AnimationExpression animationExpression=new AnimationExpression();
+		switch (mode) {
+		case Javascript: animationExpression.setJavascript(script); break;
+		case Java: animationExpression.setJava(script); break;
+		default: animationExpression.setJavascript(script); break;
+		}
+		return new AnimationExpression[] {animationExpression};
 	}
 }

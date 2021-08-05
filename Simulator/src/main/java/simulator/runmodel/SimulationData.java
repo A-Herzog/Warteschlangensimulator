@@ -45,6 +45,7 @@ import statistics.StatisticsTimeContinuousPerformanceIndicator;
 import statistics.StatisticsTimePerformanceIndicator;
 import statistics.StatisticsValuePerformanceIndicator;
 import tools.SetupData;
+import ui.modeleditor.coreelements.ModelElement;
 
 /**
  * Diese Klasse enthält alle Daten, die zur Laufzeit der Simulation von einem Simulationsthread verwendet werden.
@@ -410,6 +411,15 @@ public class SimulationData extends SimData {
 		addWarning(Language.tr("Simulation.RunTimeError").toUpperCase()+": "+message);
 		logEventExecution(Language.tr("Simulation.Log.Abort"),-1,message);
 		doShutDown();
+	}
+
+	/**
+	 * Bricht die Simulation sofort ab und verbucht dies als Fehler.
+	 * @param message	Meldung, die in Logdatei und in die Warnungen der Statistik aufgenommen werden soll.
+	 * @param station	Station an der der Fehler aufgetreten ist (kann <code>null</code> sein)
+	 */
+	public void doEmergencyShutDown(final String message, final ModelElement station) {
+		if (station==null) doEmergencyShutDown(message); else doEmergencyShutDown("id="+station.getId()+": "+message);
 	}
 
 	/**

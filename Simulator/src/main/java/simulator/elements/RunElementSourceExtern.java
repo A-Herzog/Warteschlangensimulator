@@ -238,6 +238,9 @@ public abstract class RunElementSourceExtern extends RunElement implements RunSo
 	 * @param index	0-basierte Nummer des Kunden in der Liste
 	 */
 	private void scheduleNextArrival(final SimulationData simData, final int index) {
+		/* Nach Abbruch ist wirklich Schluss */
+		if (simData.runData.stopp) return;
+
 		final RunElementSourceExternData data=getData(simData);
 
 		int nextIndex=data.nextIndex[index];

@@ -473,17 +473,17 @@ public class RunElementActionRecord {
 					((CallbackLoggerWithJS)simData.logging).logJS(simData.currentTime,stationLogName,stationLogColor,script,result);
 				}
 				if (!jsRunner.getLastSuccess() && simData.runModel.cancelSimulationOnScriptError) {
-					simData.doEmergencyShutDown(result);
+					simData.doEmergencyShutDown("id="+stationID+": "+result);
 				}
 			}
 			if (javaRunner!=null) {
 				final Object result=javaRunner.run();
-				if (javaRunner.getStatus()!=DynamicStatus.OK) simData.doEmergencyShutDown(DynamicFactory.getLongStatusText(javaRunner));
+				if (javaRunner.getStatus()!=DynamicStatus.OK) simData.doEmergencyShutDown("id="+stationID+": "+DynamicFactory.getLongStatusText(javaRunner));
 				if (simData.logging instanceof CallbackLoggerWithJS) {
 					((CallbackLoggerWithJS)simData.logging).logJS(simData.currentTime,stationLogName,stationLogColor,script,(result==null)?"":result.toString());
 				}
 				if (javaRunner.getStatus()!=DynamicStatus.OK && simData.runModel.cancelSimulationOnScriptError) {
-					simData.doEmergencyShutDown(DynamicFactory.getLongStatusText(javaRunner));
+					simData.doEmergencyShutDown("id="+stationID+": "+DynamicFactory.getLongStatusText(javaRunner));
 				}
 			}
 			simData.runData.updateMapValuesForStatistics(simData);
