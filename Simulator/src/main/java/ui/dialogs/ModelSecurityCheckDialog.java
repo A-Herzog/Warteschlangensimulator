@@ -23,6 +23,7 @@ import java.security.PublicKey;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -171,38 +172,39 @@ public class ModelSecurityCheckDialog extends BaseDialog {
 	 * @see #getCriticalElements(ModelSurface)
 	 */
 	private static CriticalElement[] testElement(final ModelElementPosition element) {
+		final List<CriticalElement> list=new ArrayList<>();
+
 		if (element instanceof ModelElementOutput) {
 			final ModelElementOutput box=(ModelElementOutput)element;
-			return new CriticalElement[]{new CriticalElement(box,CriticalType.FILE_OUTPUT,box.getOutputFile())};
+			list.add(new CriticalElement(box,CriticalType.FILE_OUTPUT,box.getOutputFile()));
 		}
 		if (element instanceof ModelElementOutputJS) {
 			final ModelElementOutputJS box=(ModelElementOutputJS)element;
-			return new CriticalElement[]{new CriticalElement(box,CriticalType.FILE_OUTPUT,box.getOutputFile())};
+			list.add(new CriticalElement(box,CriticalType.FILE_OUTPUT,box.getOutputFile()));
 		}
 		if (element instanceof ModelElementOutputDDE) {
 			final ModelElementOutputDDE box=(ModelElementOutputDDE)element;
-			return new CriticalElement[]{new CriticalElement(box,CriticalType.DDE_OUTPUT,box.getWorkbook())};
+			list.add(new CriticalElement(box,CriticalType.DDE_OUTPUT,box.getWorkbook()));
 		}
 		if (element instanceof ModelElementOutputDB) {
 			final ModelElementOutputDB box=(ModelElementOutputDB)element;
-			return new CriticalElement[]{new CriticalElement(box,CriticalType.DB_OUTPUT,box.getDb().getConfig())};
+			list.add(new CriticalElement(box,CriticalType.DB_OUTPUT,box.getDb().getConfig()));
 		}
 		if (element instanceof ModelElementDisposeWithTable) {
 			final ModelElementDisposeWithTable box=(ModelElementDisposeWithTable)element;
-			return new CriticalElement[]{new CriticalElement(box,CriticalType.FILE_OUTPUT,box.getOutputFile())};
+			list.add(new CriticalElement(box,CriticalType.FILE_OUTPUT,box.getOutputFile()));
 		}
 		if ((element instanceof ElementWithScript) && (element instanceof ModelElementBox)) {
 			final ElementWithScript.ScriptMode scriptMode=((ElementWithScript)element).getMode();
 			final String script=((ElementWithScript)element).getScript();
-			return new CriticalElement[]{new CriticalElement((ModelElementBox)element,scriptMode,script)};
+			list.add(new CriticalElement((ModelElementBox)element,scriptMode,script));
 		}
 		if ((element instanceof ElementWithAnimationScripts) && (element instanceof ModelElementPosition)) {
-			final CriticalElement[] result=Arrays.asList(((ElementWithAnimationScripts)element).getAnimationScripts()).stream().map(expression->new CriticalElement(element,expression)).toArray(CriticalElement[]::new);
-			if (result.length==0) return null;
-			return result;
+			list.addAll(Arrays.asList(((ElementWithAnimationScripts)element).getAnimationScripts()).stream().map(expression->new CriticalElement(element,expression)).collect(Collectors.toList()));
 		}
 
-		return null;
+		if (list.size()==0) return null;
+		return list.toArray(new CriticalElement[0]);
 	}
 
 	@Override
