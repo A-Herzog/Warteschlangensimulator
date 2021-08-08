@@ -25,6 +25,7 @@ import java.util.List;
 import java.util.function.Supplier;
 
 import language.Language;
+import ui.MainFrame;
 import ui.MainPanel;
 import ui.help.BookData;
 import ui.images.Images;
@@ -133,6 +134,12 @@ public class ModelSurfaceLinks {
 	}
 
 	/**
+	 * Handelt es sich um einen selbsterstellten Build, der nicht von GitHub stammt?
+	 * @see #drawLinks(Graphics, int, int)
+	 */
+	private static final boolean customBuild=MainFrame.class.getResource("res/Warteschlangennetz.png")==null;
+
+	/**
 	 * Zeichnet die Zeichenflächen-Links in ein Grafikausgabeobjekt
 	 * @param graphics	Grafikausgabeobjekt
 	 * @param xStart	Start x-Koordinate
@@ -173,6 +180,17 @@ public class ModelSurfaceLinks {
 			graphics.setFont(saveFont.deriveFont(Font.BOLD));
 			graphics.drawString(Language.tr("Editor.SurfaceTooltip.NonReleaseBuild"),xStart+20,textY+lineYShift);
 			graphics.setFont(saveFont);
+			y+=40;
+		}
+
+		if (customBuild) {
+			int textY=y-lineH/2;
+			graphics.setColor(Color.ORANGE);
+			final Font saveFont=graphics.getFont();
+			graphics.setFont(saveFont.deriveFont(Font.BOLD));
+			graphics.drawString(Language.tr("Editor.SurfaceTooltip.CustomBuild"),xStart+20,textY+lineYShift);
+			graphics.setFont(saveFont);
+			y+=40;
 		}
 
 		return linkPositions;

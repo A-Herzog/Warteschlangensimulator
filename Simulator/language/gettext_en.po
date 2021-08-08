@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-08-06 01:28+0200\n"
+"POT-Creation-Date: 2021-08-08 01:23+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -4235,6 +4235,9 @@ msgstr "Setup zoom factor"
 
 msgid "Editor.SurfaceTooltip.Book"
 msgstr "Textbook"
+
+msgid "Editor.SurfaceTooltip.CustomBuild"
+msgstr "This is a self-compiled version, not an official build!"
 
 msgid "Editor.SurfaceTooltip.ExamplesByDialog"
 msgstr "Load example model"
@@ -20786,13 +20789,13 @@ msgid "Statistics.XML.Sum2"
 msgstr "Sum2"
 
 msgid "Statistics.XML.Sum2.Error"
-msgstr "The \"sum2\" attribute in the \"%s\" element has to be a number but is \"%s\"."
+msgstr "The \"Sum2\" attribute in the \"%s\" element has to be a number but is \"%s\"."
 
 msgid "Statistics.XML.Sum3"
 msgstr "Sum3"
 
 msgid "Statistics.XML.Sum3.Error"
-msgstr "The \"sum2\" attribute in the \"%s\" element has to be a number but is \"%s\"."
+msgstr "The \"Sum3\" attribute in the \"%s\" element has to be a number but is \"%s\"."
 
 msgid "Statistics.XML.ThreadRunTimes"
 msgstr "StatisticsThreadRunTimes"

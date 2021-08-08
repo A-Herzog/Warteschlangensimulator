@@ -168,9 +168,9 @@ public class InfoDialog extends JDialog {
 		image.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 
 		final ExecutorService executor=new ThreadPoolExecutor(0,1,1,TimeUnit.SECONDS,new LinkedBlockingQueue<>(),(ThreadFactory)r->new Thread(r,"Image loader"));
+		final URL imageURL=MainFrame.class.getResource("res/Warteschlangennetz.png");
 		executor.execute(new FutureTask<Integer>(()->{
-			final URL url=MainFrame.class.getResource("res/Warteschlangennetz.png");
-			if (url!=null) image.setIcon(new ImageIcon(url)); else image.setVisible(false);
+			if (imageURL!=null) image.setIcon(new ImageIcon(imageURL)); else image.setVisible(false);
 			return null;
 		}));
 
@@ -196,6 +196,7 @@ public class InfoDialog extends JDialog {
 		infoText.append("<html><body style=\"margin: 0px; padding: 0px; font-family: sans; background-color: transparent; font-size: "+Math.round(100*GUITools.getScaleFactor())+"%;\">");
 		infoText.append("<p style=\"margin-top: 0px; font-weight: bold; font-size: 120%;\">"+htmlName+"</p>");
 		if (!MainPanel.RELEASE_BUILD) infoText.append("<p style=\"margin-top: 0px; font-weight: bold; font-size: 110%; color: red;\">"+Language.tr("Editor.SurfaceTooltip.NonReleaseBuild")+"</p>");
+		if (imageURL==null) infoText.append("<p style=\"margin-top: 0px; font-weight: bold; font-size: 110%; color: orange;\">"+Language.tr("Editor.SurfaceTooltip.CustomBuild")+"</p>");
 		infoText.append("<p style=\"margin-top: 5px; font-size: 110%;\">"+htmlAuthor+"</p>");
 		if (htmlLinks!=null) infoText.append("<p style=\"margin-top: 5px; font-size: 110%;\">"+htmlLinks+"</p>");
 		infoText.append("<p style=\"margin-top: 5px; font-size: 85%;\">"+String.join("<br>",text)+"</p>");
