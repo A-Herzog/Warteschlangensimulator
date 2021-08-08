@@ -1,3 +1,10 @@
+import scripting.java.*;
+import java.lang.*;
+import java.math.*;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 /**
  * <p>
  * This class can be loaded by selecting the folder this

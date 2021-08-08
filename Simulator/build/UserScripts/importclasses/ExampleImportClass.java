@@ -1,5 +1,12 @@
 package importclasses;
 
+import scripting.java.*;
+import java.lang.*;
+import java.math.*;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 /**
  * <p>
  * This class can be loaded by selecting the <b>parent</b> folder of the
@@ -25,7 +32,7 @@ package importclasses;
  * Note that the <code>package</code> specification in line 1 of this file needs to match
  * the folder name this file is in.
  * </p>
- */
+ */ 
 public class ExampleImportClass {	
 	public int method() {
 		return 123;
