@@ -22,24 +22,26 @@ import java.awt.FlowLayout;
 import java.awt.Toolkit;
 import java.awt.Window;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.Serializable;
 
+import javax.swing.AbstractAction;
 import javax.swing.BorderFactory;
+import javax.swing.InputMap;
 import javax.swing.JButton;
+import javax.swing.JComponent;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
+import javax.swing.JRootPane;
+import javax.swing.KeyStroke;
 
 import org.apache.commons.math3.distribution.AbstractRealDistribution;
-
-import mathtools.distribution.tools.FileDropperData;
 
 /**
  * Diese Klasse kapselt einen kompletten Verteilungseditor-Dialog.
  * @author Alexander Herzog
- * @version 1.0
+ * @version 1.1
  */
 public class JDistributionEditorDialog extends JDialog {
 	/**
@@ -78,13 +80,15 @@ public class JDistributionEditorDialog extends JDialog {
 	 */
 	public JDistributionEditorDialog(final Window owner, final AbstractRealDistribution distribution, final double maxXValue, final int plotType, final boolean allowDistributionTypeChange, final boolean allowOk, final int imageSize) {
 		super(owner,JDistributionEditorPanel.DialogTitle,Dialog.ModalityType.DOCUMENT_MODAL);
-		addWindowListener(new WindowAdapter() {@Override
-			public void windowClosing(WindowEvent event) {setVisible(false);}});
-		setResizable(false);
+
+		/* GUI */
+		addWindowListener(new WindowAdapter() {
+			@Override public void windowClosing(WindowEvent event) {setVisible(false);}
+		});
 		setLayout(new BorderLayout());
+		final JPanel mainPanel=new JPanel(new BorderLayout()); add(mainPanel,BorderLayout.CENTER);
 
-		JPanel mainPanel=new JPanel(new BorderLayout()); add(mainPanel,BorderLayout.CENTER);
-
+		/* Plotter */
 		mainPanel.add(plotter=new JDistributionPanel(distribution,maxXValue,false),BorderLayout.CENTER);
 		plotter.setImageSaveSize(imageSize);
 		plotter.setPreferredSize(new Dimension(675,450));
@@ -97,44 +101,51 @@ public class JDistributionEditorDialog extends JDialog {
 				allowDistributionTypeChange
 				),BorderLayout.SOUTH);
 
+		/* Button-Zeile */
 		JPanel buttonPanel=new JPanel(new FlowLayout(FlowLayout.LEFT)); add(buttonPanel,BorderLayout.SOUTH);
 
+		/* Ok */
 		buttonPanel.add(okButton=new JButton(JDistributionEditorPanel.ButtonOk));
-		okButton.addActionListener(new ButtonActionEvents());
+		okButton.addActionListener(e->{okButtonPressed=true; setVisible(false);});
 		okButton.setEnabled(allowOk);
 		okButton.setIcon(SimSystemsSwingImages.OK.getIcon());
 
+		/* Abbruch */
 		buttonPanel.add(cancelButton=new JButton(JDistributionEditorPanel.ButtonCancel));
-		cancelButton.addActionListener(new ButtonActionEvents());
+		cancelButton.addActionListener(e->setVisible(false));
 		cancelButton.setIcon(SimSystemsSwingImages.CANCEL.getIcon());
 
+		/* Hotkey für "Ok" */
 		getRootPane().setDefaultButton(okButton);
 
-		Dimension sc=Toolkit.getDefaultToolkit().getScreenSize();
+		/* Dialog vorbereiten */
+		setResizable(false);
+		final Dimension sc=Toolkit.getDefaultToolkit().getScreenSize();
 		Dimension d;
 		d=getMaximumSize(); d.width=Math.min(Math.min(d.width,sc.width-50),1000); setMaximumSize(d);
 		d=getPreferredSize(); d.width=Math.min(Math.min(d.width,sc.width-50),1000); setPreferredSize(d);
-
 		pack();
 		setLocationRelativeTo(owner);
 	}
 
-	/**
-	 * Listener, der auf das Anklicken von Schaltflächen reagiert
-	 * @see #okButton
-	 * @see #cancelButton
-	 */
-	private class ButtonActionEvents implements ActionListener {
-		@Override
-		public void actionPerformed(final ActionEvent e) {
-			if (e.getSource()==okButton) {okButtonPressed=true;	setVisible(false); return;}
-			if (e.getSource()==cancelButton) {setVisible(false); return;}
-			if (e.getSource() instanceof FileDropperData) {
-				final FileDropperData data=(FileDropperData)e.getSource();
-				if (editor.loadFromFile(data.getFile())) data.dragDropConsumed();
-				return;
+	@Override
+	protected JRootPane createRootPane() {
+		final JRootPane rootPane=new JRootPane();
+		final InputMap inputMap=rootPane.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
+		final KeyStroke stroke=KeyStroke.getKeyStroke("ESCAPE");
+		inputMap.put(stroke,"ESCAPE");
+		rootPane.getActionMap().put("ESCAPE",new AbstractAction() {
+			/**
+			 * Serialisierungs-ID der Klasse
+			 * @see Serializable
+			 */
+			private static final long serialVersionUID=5496549055021258321L;
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				setVisible(false);
 			}
-		}
+		});
+		return rootPane;
 	}
 
 	/**
