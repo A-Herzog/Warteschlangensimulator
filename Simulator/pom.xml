@@ -97,9 +97,9 @@
 	</dependency>
 	<!-- https://mvnrepository.com/artifact/de.erichseifert.vectorgraphics2d/VectorGraphics2D -->
 	<dependency>
-    	<groupId>de.erichseifert.vectorgraphics2d</groupId>
-    	<artifactId>VectorGraphics2D</artifactId>
-    	<version>0.13</version>
+	    	<groupId>de.erichseifert.vectorgraphics2d</groupId>
+    		<artifactId>VectorGraphics2D</artifactId>
+    		<version>0.13</version>
 	</dependency>
 	<!-- https://mvnrepository.com/artifact/com.atlassian.commonmark/commonmark -->
 	<dependency>
@@ -159,7 +159,7 @@
 	<dependency>
     		<groupId>com.formdev</groupId>
     		<artifactId>flatlaf</artifactId>
-    		<version>1.2</version>
+    		<version>1.5</version>
 	</dependency>
 	<!-- https://mvnrepository.com/artifact/org.apache.derby/derby -->
 	<dependency>
