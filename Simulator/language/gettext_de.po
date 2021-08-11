@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-08-08 01:23+0200\n"
+"POT-Creation-Date: 2021-08-11 01:24+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19342,6 +19342,15 @@ msgstr "Varianz der Anzahl an Transportern in Pausezeit"
 
 msgid "Statistics.FastAccess"
 msgstr "Schnellzugriff"
+
+msgid "Statistics.FileOutput"
+msgstr "Dateiausgabe"
+
+msgid "Statistics.FileOutput.Info"
+msgstr "Während der Simulation wurden Dateiausgaben generiert:"
+
+msgid "Statistics.FileOutput.InfoNoOutput"
+msgstr "Während der Simulation haben keine Dateiausgaben stattgefunden."
 
 msgid "Statistics.Filter.CouldNotLoadScript"
 msgstr "Die Skriptdatei \"%s\" konnte nicht geladen werden."

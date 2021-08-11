@@ -110,7 +110,7 @@ public abstract class StatisticViewerText implements StatisticViewer {
 
 	/**
 	 * Bedeutung der jeweiligen Zeile:
-	 * 0=Text, 1,2,3,...=Überschriften, -1=Absatzbeginn, -2=Absatzende, -3=Link
+	 * 0=Text, 1,2,3,...=Überschriften, -1=Absatzbeginn, -2=Absatzende, -3=Link(klein), -4=Link
 	 * @see #lines
 	 */
 	private final List<Integer> lineTypes;
@@ -253,8 +253,12 @@ public abstract class StatisticViewerText implements StatisticViewer {
 		StyleConstants.setUnderline(style,true);
 		if (isDark) StyleConstants.setForeground(style,Color.LIGHT_GRAY);
 
-		style=doc.addStyle("link",defaultStyle);
+		style=doc.addStyle("linkSmall",defaultStyle);
 		StyleConstants.setFontSize(style,(int)Math.round((StyleConstants.getFontSize(style)-1)*GUITools.getScaleFactor()));
+		if (isDark) StyleConstants.setForeground(style,new Color(128,128,225)); else StyleConstants.setForeground(style,Color.BLUE);
+
+		style=doc.addStyle("linkBig",defaultStyle);
+		StyleConstants.setFontSize(style,(int)Math.round((StyleConstants.getFontSize(style)+1)*GUITools.getScaleFactor()));
 		if (isDark) StyleConstants.setForeground(style,new Color(128,128,225)); else StyleConstants.setForeground(style,Color.BLUE);
 
 		/* Text einfügen */
@@ -287,8 +291,15 @@ public abstract class StatisticViewerText implements StatisticViewer {
 				continue;
 			}
 			if (type==-3) {
+				/* Link(klein) */
+				final SimpleAttributeSet attrSet=new SimpleAttributeSet(doc.getStyle("linkSmall"));
+				if (hint!=null && !hint.trim().isEmpty()) attrSet.addAttribute("URL",hint);
+				doc.addText(attrSet,line+"\n");
+				continue;
+			}
+			if (type==-4) {
 				/* Link */
-				final SimpleAttributeSet attrSet=new SimpleAttributeSet(doc.getStyle("link"));
+				final SimpleAttributeSet attrSet=new SimpleAttributeSet(doc.getStyle("linkBig"));
 				if (hint!=null && !hint.trim().isEmpty()) attrSet.addAttribute("URL",hint);
 				doc.addText(attrSet,line+"\n");
 				continue;
@@ -436,6 +447,12 @@ public abstract class StatisticViewerText implements StatisticViewer {
 				result.append('\n');
 				continue;
 			}
+			if (type==-4) {
+				/* Link (als Text, nicht kleiner Info-Link) */
+				for (int j=0;j<indent;j++) result.append("  ");
+				result.append(line+"\n");
+				continue;
+			}
 			if (type==0) {
 				/* Normaler Text */
 				for (int j=0;j<indent;j++) result.append("  ");
@@ -474,6 +491,12 @@ public abstract class StatisticViewerText implements StatisticViewer {
 			if (type==-2) {
 				/* Absatzende */
 				result.append("\\par\n");
+				continue;
+			}
+			if (type==-4) {
+				/* Link (als Text, nicht kleiner Info-Link) */
+				for (int j=0;j<indent;j++) result.append("  ");
+				result.append(convertLineToRTF(line)+"\\line\n");
 				continue;
 			}
 			if (type==0) {
@@ -526,6 +549,13 @@ public abstract class StatisticViewerText implements StatisticViewer {
 				inParagraph=false;
 				continue;
 			}
+			if (type==-4) {
+				/* Link (als Text, nicht kleiner Info-Link) */
+				if (!inParagraph) {result.append("<p>\n"); inParagraph=true;}
+				for (int j=0;j<indent;j++) result.append("  ");
+				result.append(line+"<br>\n");
+				continue;
+			}
 			if (type==0) {
 				/* Normaler Text */
 				if (!inParagraph) {result.append("<p>\n"); inParagraph=true;}
@@ -571,6 +601,13 @@ public abstract class StatisticViewerText implements StatisticViewer {
 				/* Absatzende */
 				if (inParagraph) result.append("\n");
 				inParagraph=false;
+				continue;
+			}
+			if (type==-4) {
+				/* Link (als Text, nicht kleiner Info-Link) */
+				if (!inParagraph) {result.append("\n"); inParagraph=true;}
+				for (int j=0;j<indent;j++) result.append("  ");
+				result.append(line.replace("%","\\%")+"\\\\\n");
 				continue;
 			}
 			if (type==0) {
@@ -648,6 +685,12 @@ public abstract class StatisticViewerText implements StatisticViewer {
 				/* Absatzende */
 				if (inParagraph) result.append("\n");
 				inParagraph=false;
+				continue;
+			}
+			if (type==-4) {
+				/* Link (als Text, nicht kleiner Info-Link) */
+				inParagraph=true;
+				result.append(line+"  \n");
 				continue;
 			}
 			if (type==0) {
@@ -830,6 +873,13 @@ public abstract class StatisticViewerText implements StatisticViewer {
 			if (type==-2) {
 				/* Absatzende */
 				p=null;
+				continue;
+			}
+			if (type==-4) {
+				/* Link (als Text, nicht kleiner Info-Link) */
+				if (p==null) p=odt.addParagraph(null);
+				p.appendTextContent(line);
+				p.appendTextContent("\n");
 				continue;
 			}
 			if (type==0) {
@@ -1116,6 +1166,13 @@ public abstract class StatisticViewerText implements StatisticViewer {
 				p=null;
 				continue;
 			}
+			if (type==-4) {
+				/* Link (als Text, nicht kleiner Info-Link) */
+				if (p==null) p=doc.createParagraph();
+				p.createRun().setText(line);
+				p.createRun().addBreak();
+				continue;
+			}
 			if (type==0) {
 				/* Normaler Text */
 				if (p==null) p=doc.createParagraph();
@@ -1165,6 +1222,12 @@ public abstract class StatisticViewerText implements StatisticViewer {
 			if (type==-2) {
 				/* Absatzende */
 				newParagraph=true;
+				continue;
+			}
+			if (type==-4) {
+				/* Link (als Text, nicht kleiner Info-Link) */
+				if (newParagraph) {pdf.writeEmptySpace(10); newParagraph=false;}
+				if (!pdf.writeText(line,11,false,0)) return false;
 				continue;
 			}
 			if (type==0) {
@@ -1277,7 +1340,7 @@ public abstract class StatisticViewerText implements StatisticViewer {
 	}
 
 	/**
-	 * Fügt einen Link an die Ausgabe an
+	 * Fügt einen kleinen Info-Link an die Ausgabe an
 	 * @param indentLevel	Einrück-Level (0=keine Einrückung; 1=2 Leerzeichen, 2=4 Leerzeichen usw.)
 	 * @param link	Bezeichner des Links
 	 * @param text	Anzuzeigender Text
@@ -1287,6 +1350,20 @@ public abstract class StatisticViewerText implements StatisticViewer {
 		lines.add(text);
 		hints.add(link);
 		lineTypes.add(-3);
+		this.indentLevel.add(indentLevel);
+	}
+
+	/**
+	 * Fügt einen Link an die Ausgabe an
+	 * @param indentLevel	Einrück-Level (0=keine Einrückung; 1=2 Leerzeichen, 2=4 Leerzeichen usw.)
+	 * @param link	Bezeichner des Links
+	 * @param text	Anzuzeigender Text
+	 * @see StatisticViewerText#processLinkClick(String)
+	 */
+	protected void addLinkLine(final int indentLevel, final String link, final String text) {
+		lines.add(text);
+		hints.add(link);
+		lineTypes.add(-4);
 		this.indentLevel.add(indentLevel);
 	}
 
@@ -1328,13 +1405,23 @@ public abstract class StatisticViewerText implements StatisticViewer {
 	}
 
 	/**
-	 * Fügt einen Link (ohne Einrückung) an die Ausgabe an
+	 * Fügt einen kleinen Info-Link (ohne Einrückung) an die Ausgabe an
 	 * @param link	Bezeichner des Links
 	 * @param text	Anzuzeigender Text
 	 * @see StatisticViewerText#processLinkClick(String)
 	 */
 	protected void addLink(final String link, final String text) {
 		addLink(0,link,text);
+	}
+
+	/**
+	 * Fügt einen Link (ohne Einrückung) an die Ausgabe an
+	 * @param link	Bezeichner des Links
+	 * @param text	Anzuzeigender Text
+	 * @see StatisticViewerText#processLinkClick(String)
+	 */
+	protected void addLinkLine(final String link, final String text) {
+		addLinkLine(0,link,text);
 	}
 
 	/**

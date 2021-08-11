@@ -15,6 +15,9 @@
  */
 package ui.statistics;
 
+import java.awt.Desktop;
+import java.io.File;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -24,6 +27,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
+import java.util.function.Predicate;
 import java.util.function.Supplier;
 
 import javax.swing.Icon;
@@ -60,6 +64,7 @@ import ui.modeleditor.ModelTransporter;
 import ui.modeleditor.coreelements.ModelElement;
 import ui.modeleditor.coreelements.ModelElementBox;
 import ui.modeleditor.descriptionbuilder.ModelDescriptionBuilder;
+import ui.modeleditor.elements.ElementWithOutputFile;
 import ui.modeleditor.elements.ModelElementUserStatistic;
 import ui.statistics.FastAccessSelectorBuilder.IndicatorMode;
 
@@ -90,6 +95,8 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 		MODE_MODEL,
 		/** "Stationsbeschreibung" (automatisch generierte Beschreibung aller Stationen im Modell) */
 		MODE_MODEL_DESCRIPTION,
+		/** Dateiausgaben */
+		FILE_OUTPUT,
 		/** Informationen zum Simulationssystem */
 		MODE_SYSTEM_INFO,
 		/** Ankünfte pro Thread */
@@ -459,6 +466,8 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 	public enum Filter {
 		/** Simulationsmodell */
 		MODEL(()->Language.tr("Statistics.SimulationModel"),viewer->viewer.buildOverviewModel()),
+		/** Dateiausgaben */
+		FILE_OUTPUT(()->Language.tr("Statistics.FileOutput"),viewer->viewer.buildFileOutput(false),viewer->hasFileOutput(viewer.statistics)),
 		/** Mittlere Anzahl an Kunden */
 		NUMBER_CLIENTS(()->Language.tr("Statistics.AverageNumberOfClients"),viewer->viewer.buildOverviewCountClients()),
 		/** Zeiten nach Kunden */
@@ -489,13 +498,42 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 		private final Consumer<StatisticViewerOverviewText> output;
 
 		/**
-		 * Konstruktor der Enum
+		 * Stehen entsprechende Statiatikdaten in dem Statistikobjekt zur Verfügung?<br>
+		 * (Kann <code>null</code> sein, dann heißt das "Daten sind immer verfügbar".)
+		 */
+		private final Predicate<StatisticViewerOverviewText> hasTopic;
+
+		/**
+		 * Konstruktor des Enum
+		 * @param nameGetter	Callback zur Ermittelung des Namens der Teil-Ausgabe
+		 * @param output	Ausgabemethode zur Erzeugung der Teil-Ausgabe
+		 * @param hasTopic	Stehen entsprechende Statiatikdaten in dem Statistikobjekt zur Verfügung? (Kann <code>null</code> sein, dann heißt das "Daten sind immer verfügbar".)
+		 */
+		Filter(final Supplier<String> nameGetter, final Consumer<StatisticViewerOverviewText> output, final Predicate<StatisticViewerOverviewText> hasTopic) {
+			this.nameGetter=nameGetter;
+			this.output=output;
+			this.hasTopic=hasTopic;
+		}
+
+		/**
+		 * Konstruktor des Enum
 		 * @param nameGetter	Callback zur Ermittelung des Namens der Teil-Ausgabe
 		 * @param output	Ausgabemethode zur Erzeugung der Teil-Ausgabe
 		 */
 		Filter(final Supplier<String> nameGetter, final Consumer<StatisticViewerOverviewText> output) {
 			this.nameGetter=nameGetter;
 			this.output=output;
+			this.hasTopic=null;
+		}
+
+		/**
+		 * Stehen Stehen entsprechende Statiatikdaten in dem Statistikobjekt zur Verfügung?
+		 * @param viewer	Zu prüfendes Statistikobjekt
+		 * @return	Liefert <code>true</code>, wenn das Statistikobjekt passende Daten enthält
+		 */
+		private boolean hasTopic(final StatisticViewerOverviewText viewer) {
+			if (hasTopic==null) return true;
+			return hasTopic.test(viewer);
 		}
 
 		/**
@@ -545,7 +583,7 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 		 * @param filters	Menge der Filter, die angegeben werden sollen
 		 */
 		public static void process(final StatisticViewerOverviewText viewer, final Set<Filter> filters) {
-			for (Filter filter: values()) if (filters==null || filters.contains(filter)) filter.process(viewer);
+			for (Filter filter: values()) if (filters!=null && filters.contains(filter) && filter.hasTopic(viewer)) filter.process(viewer);
 		}
 
 		/**
@@ -586,6 +624,125 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 		endParagraph();
 
 		outputEmergencyShutDownInfo(false);
+	}
+
+	/**
+	 * Teil-Ausgabe für "Modellüberblick" (Basisinformationen zum Modell als solches; hinterlegte Modellbeschreibung und weitere Informationen)<br>
+	 * Ausgabe von "Dateiausgabe"
+	 * @param full	Vollständige Seite (<code>true</code>) oder nur Teil einer Seite (<code>false</code>)
+	 * @see #buildOverview()
+	 * @see Mode#MODE_OVERVIEW
+	 * @see Filter#FILE_OUTPUT
+	 */
+	private void buildFileOutput(final boolean full) {
+		addHeading(full?1:2,Language.tr("Statistics.FileOutput"));
+
+		final List<FileOutputInfo> list=getOutputFiles(statistics);
+		if (list.size()==0) {
+			beginParagraph();
+			addLine(Language.tr("Statistics.FileOutput.InfoNoOutput"));
+			endParagraph();
+			return;
+		}
+
+		beginParagraph();
+		addLine(Language.tr("Statistics.FileOutput.Info"));
+		endParagraph();
+
+		for (FileOutputInfo fileOutputInfo : list) {
+			beginParagraph();
+			addLine(fileOutputInfo.getFullName()+":");
+			addLinkLine("file:"+fileOutputInfo.getFile(),fileOutputInfo.getFile());
+			endParagraph();
+		}
+	}
+
+	/**
+	 * Prüft, ob in mehreren Statistikobjekten mindestens eins mit Dateiausgaben dabei ist.
+	 * @param statistics	Zu prüfende Statistikobjekte
+	 * @return	Liefert <code>true</code>, wenn mindestens eines mit Dateiausgaben dabei ist
+	 */
+	public static boolean hasFileOutput(final Statistics[] statistics) {
+		for (Statistics statistic: statistics) if (hasFileOutput(statistic)) return true;
+		return false;
+	}
+
+	/**
+	 * Prüft, ob das Statistikobjekt Dateiausgaben beinhaltet.
+	 * @param statistics	Zu prüfendes Statistikobjekt
+	 * @return	Liefert <code>true</code>, wenn Dateiausgaben dabei sind
+	 */
+	public static boolean hasFileOutput(final Statistics statistics) {
+		return getOutputFiles(statistics).size()>0;
+	}
+
+	/**
+	 * Liefert eine Liste mit allen Dateiausgaben eines Statistikobjektes (bzw. des enthaltenen Modells)
+	 * @param statistics	Zu prüfendes Statistikobjekt
+	 * @return	Liste mit allen Dateiausgaben des Statistikobjektes (bzw. des enthaltenen Modells), kann leer sein, ist aber nie <code>null</code>
+	 * @see FileOutputInfo
+	 */
+	private static List<FileOutputInfo> getOutputFiles(final Statistics statistics) {
+		final List<FileOutputInfo> files=new ArrayList<>();
+
+		for (ModelElement element: statistics.editModel.surface.getElementsIncludingSubModels()) if ((element instanceof ElementWithOutputFile) && (element instanceof ModelElementBox)) {
+			final File file=new File(((ElementWithOutputFile)element).getOutputFile());
+			if (file.isFile()) files.add(new FileOutputInfo((ModelElementBox)element,file));
+		}
+
+		return files;
+	}
+
+	/**
+	 * Diese Klasse hält Informationen zu einer Dateiausgabe vor.
+	 * @see StatisticViewerOverviewText#getOutputFiles(Statistics)
+	 */
+	private static class FileOutputInfo {
+		/**
+		 * Station an der die Dateiausgabe erfolgt ist
+		 */
+		private final ModelElementBox element;
+
+		/**
+		 * Ausgabedatei
+		 */
+		private final File file;
+
+		/**
+		 * Konstruktor der Klasse
+		 * @param element	Station an der die Dateiausgabe erfolgt ist
+		 * @param file	Ausgabedatei
+		 */
+		private FileOutputInfo(final ModelElementBox element, final File file) {
+			this.element=element;
+			this.file=file;
+		}
+
+		/**
+		 * Liefert den vollständigen Namen der Station an der die Dateiausgabe erfolgt ist.
+		 * @return	Vollständiger Namen der Station an der die Dateiausgabe erfolgt ist
+		 */
+		private String getFullName() {
+			final StringBuilder info=new StringBuilder();
+			info.append(element.getTypeName());
+			if (!element.getName().isEmpty()) {
+				info.append(" \"");
+				info.append(element.getName());
+				info.append("\"");
+			}
+			info.append(" (id=");
+			info.append(element.getId());
+			info.append(")");
+			return info.toString();
+		}
+
+		/**
+		 * Liefert den Namen der Ausgabedatei.
+		 * @return	Namen der Ausgabedatei
+		 */
+		private String getFile() {
+			return file.toString();
+		}
 	}
 
 	/**
@@ -1189,7 +1346,14 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 	protected void processLinkClick(final String link) {
 		for (Mode mode: Mode.values()) if (mode.toString().equals(link)) {
 			if (modeClick!=null) modeClick.accept(mode);
-			break;
+			return;
+		}
+
+		if (link.startsWith("file:")) {
+			try {
+				Desktop.getDesktop().open(new File(link.substring(5)));
+			} catch (IOException e) {}
+			return;
 		}
 	}
 
@@ -3299,6 +3463,7 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 		case MODE_OVERVIEW: buildOverview(); break;
 		case MODE_MODEL: buildModelInfo(); break;
 		case MODE_MODEL_DESCRIPTION: buildModelDescription(); break;
+		case FILE_OUTPUT: buildFileOutput(true); break;
 		case MODE_SYSTEM_INFO: buildSystemInfo(); break;
 		case MODE_SYSTEM_INFO_THREAD_BALANCE: buildThreadBalanceInfo(); break;
 		case MODE_INTERARRIVAL_CLIENTS: buildInterarrivalSystem(); break;

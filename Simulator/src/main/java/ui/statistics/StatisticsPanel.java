@@ -801,6 +801,12 @@ public class StatisticsPanel extends StatisticsBasePanel {
 			root.addChild(new StatisticNode(Language.tr("Statistics.ModelRemarks"),viewer));
 		}
 
+		if (StatisticViewerOverviewText.hasFileOutput(statistics)) {
+			viewer=new ArrayList<>();
+			for(Statistics statistic : statistics) viewer.add(new StatisticViewerOverviewText(statistic,StatisticViewerOverviewText.Mode.FILE_OUTPUT,null,null));
+			root.addChild(new StatisticNode(Language.tr("Statistics.FileOutput"),viewer));
+		}
+
 		root.addChild(group=new StatisticNode(Language.tr("Statistics.ModelOverview"),!setup.expandAllStatistics));
 
 		viewer=new ArrayList<>();

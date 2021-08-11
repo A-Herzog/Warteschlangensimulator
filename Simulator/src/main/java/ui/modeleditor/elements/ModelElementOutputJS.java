@@ -47,7 +47,7 @@ import ui.modeleditor.fastpaint.Shapes;
  * @author Alexander Herzog
  *
  */
-public class ModelElementOutputJS extends ModelElementMultiInSingleOutBox implements ElementNoRemoteSimulation, ElementWithScript {
+public class ModelElementOutputJS extends ModelElementMultiInSingleOutBox implements ElementNoRemoteSimulation, ElementWithScript, ElementWithOutputFile {
 	/**
 	 * Skript
 	 * @see #getScript()
@@ -141,6 +141,7 @@ public class ModelElementOutputJS extends ModelElementMultiInSingleOutBox implem
 	 * Liefert den Dateinamen der Datei, die für die Speicherung der Ausgaben verwendet werden soll.
 	 * @return	Dateiname der Datei für die Ausgaben
 	 */
+	@Override
 	public String getOutputFile() {
 		return outputFile;
 	}
@@ -149,6 +150,7 @@ public class ModelElementOutputJS extends ModelElementMultiInSingleOutBox implem
 	 * Stellt den Dateinamen der Datei, die für die Speicherung der Ausgaben verwendet werden soll, ein.
 	 * @param outputFile	Dateiname der Datei für die Ausgaben
 	 */
+	@Override
 	public void setOutputFile(final String outputFile) {
 		if (outputFile!=null) this.outputFile=outputFile;
 	}
