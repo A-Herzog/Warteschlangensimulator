@@ -60,9 +60,9 @@ procedure TMainForm.FormCreate(Sender: TObject);
 begin
   fFindJava:=TFindJava.Create;
 
-  fDownloadURL:='https://api.adoptopenjdk.net/v3/binary/latest/11/ga/windows/x64/jdk/hotspot/normal/adoptopenjdk';
-  fHomepageURL:='https://adoptopenjdk.net/';
-  fTempZipFile:=IncludeTrailingPathDelimiter(GetTempDir(false))+'AdoptOpenJDK-Download.zip';
+  fDownloadURL:='https://api.adoptium.net/v3/binary/latest/11/ga/windows/x64/jdk/hotspot/normal/adoptium';
+  fHomepageURL:='https://adoptium.net/';
+  fTempZipFile:=IncludeTrailingPathDelimiter(GetTempDir(false))+'AdoptiumOpenJDK-Download.zip';
 end;
 
 procedure TMainForm.FormDestroy(Sender: TObject);
@@ -104,7 +104,7 @@ begin
   if UserMode then begin
     InfoLabel.Caption:='Automatic installation is recommended and will not require admin rights.'+#13+'A manually downloaded Java installer will need admin rights for installation.';
   end else begin
-    InfoLabel.Caption:='Since Warteschlangensimulator is install in program folder no automatisch Java installation (without admin rights) is possible.';
+    InfoLabel.Caption:='Since Warteschlangensimulator is installed in program folder no automatisch Java installation (without admin rights) is possible.';
   end;
 end;
 

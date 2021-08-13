@@ -169,22 +169,25 @@ begin
   { 3b- jre in the registry }
   If SearchRegistry('Java Runtime Environment') then Exit;
 
-  { 4a- in C:\Program Files\AdoptOpenJDK and its subfolders}
+  { 4a- in C:\Program Files\Eclipse Foundation and its subfolders}
+  If IsJavaInSubFolder('C:\Program Files\Eclipse Foundation',1) then Exit;
+
+  { 4b- in C:\Program Files\AdoptOpenJDK and its subfolders}
   If IsJavaInSubFolder('C:\Program Files\AdoptOpenJDK',1) then Exit;
 
-  { 4b- in C:\Program Files\Java and its subfolders }
+  { 4c- in C:\Program Files\Java and its subfolders }
   If IsJavaInSubFolder('C:\Program Files\Java',1) then Exit;
 
-  { 4c- in C:\Program Files\Amazon Corretto and its subfolders }
+  { 4d- in C:\Program Files\Amazon Corretto and its subfolders }
   If IsJavaInSubFolder('C:\Program Files\Amazon Corretto',1) then Exit;
 
-  { 4d- in C:\Program Files\Zulu and its subfolders }
+  { 4e- in C:\Program Files\Zulu and its subfolders }
   If IsJavaInSubFolder('C:\Program Files\Zulu',1) then Exit;
 
-  { 4e- in C:\Program Files\Microsoft and its subfolders }
+  { 4f- in C:\Program Files\Microsoft and its subfolders }
   If IsJavaInSubFolder('C:\Program Files\Microsoft',1) then Exit;
 
-  { 4f- in C:\Program Files and its subfolders }
+  { 4g- in C:\Program Files and its subfolders }
   If IsJavaInSubFolder('C:\Program Files\',2) then Exit;
 
   { 5 - assume javaw.exe in current dir or PATH }
