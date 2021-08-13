@@ -86,6 +86,7 @@ public class EditModelCertificate {
 
 		/* Kritische Elemente identifizieren */
 		final List<ModelSecurityCheckDialog.CriticalElement> criticalElements=ModelSecurityCheckDialog.getCriticalElements(model.surface);
+		criticalElements.addAll(ModelSecurityCheckDialog.getCriticalModelProperties(model));
 		if (criticalElements.size()==0) return;
 
 		/* Zertifikat laden oder erstellen */
@@ -152,7 +153,7 @@ public class EditModelCertificate {
 				final String idString=Language.trAllAttribute("CriticalStationsSignature.Station.id",e);
 				final String info=Language.trAllAttribute("CriticalStationsSignature.Station.Signature",e);
 				final String hash=Language.trAllAttribute("CriticalStationsSignature.Station.Hash",e);
-				final Integer id=NumberTools.getNotNegativeInteger(idString);
+				final Integer id=NumberTools.getInteger(idString);
 				if (id!=null) {
 					final Map<String,String> map=loadedStationData.computeIfAbsent(id,newId->new HashMap<>());
 					map.put(hash,info);
@@ -208,6 +209,7 @@ public class EditModelCertificate {
 	public boolean isSecurityWarningNeeded(final EditModel model, final BiFunction<String,PublicKey,Boolean> allowNewPublicKey) {
 		/* Kritische Elemente identifizieren */
 		final List<ModelSecurityCheckDialog.CriticalElement> criticalElements=ModelSecurityCheckDialog.getCriticalElements(model.surface);
+		criticalElements.addAll(ModelSecurityCheckDialog.getCriticalModelProperties(model));
 		if (criticalElements.size()==0) return false;
 
 		/* Zertifikat laden oder erstellen */

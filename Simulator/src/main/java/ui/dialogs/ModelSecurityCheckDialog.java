@@ -235,6 +235,22 @@ public class ModelSecurityCheckDialog extends BaseDialog {
 	}
 
 	/**
+	 * Liefert Informationen zu den sicherheitskritischen Eigenschaften des Modells als solches.
+	 * @param model	Editor-Model
+	 * @return	Liste mit allen sicherheitskritischen Eigenschaften (kann leer sein, ist aber nie <code>null</code>)
+	 * @see #doSecurityCheck(EditModel, Component)
+	 */
+	public static List<CriticalElement> getCriticalModelProperties(final EditModel model) {
+		final List<CriticalElement> list=new ArrayList<>();
+
+		if (!model.pluginsFolder.trim().isEmpty()) {
+			list.add(new CriticalElement(-1,Language.tr("ExternalConnect.Dialog.Title"),CriticalType.SCRIPT_JAVA,model.pluginsFolder));
+		}
+
+		return list;
+	}
+
+	/**
 	 * Name der Nutzers, der das Modell signiert hat (kann <code>null</code> sein)<br>
 	 * (Beim Interpretieren der Daten via {@link EditModelCertificate})
 	 */
@@ -266,8 +282,9 @@ public class ModelSecurityCheckDialog extends BaseDialog {
 			if (!model.loadedModelCertificate.isSecurityWarningNeeded(model,(userName,publicKey)->{signatureExternalUserName=userName; signatureExternalPublicKey=publicKey; return false;})) return true;
 		}
 
-		/* Kritische Elemente suchen */
+		/* Kritische Elemente und Eigenschaften suchen */
 		final List<CriticalElement> list=getCriticalElements(model.surface);
+		list.addAll(getCriticalModelProperties(model));
 		if (list.size()==0) return true;
 
 		/* Alles potentiell gefährliche sofort verbieten? */
@@ -391,6 +408,21 @@ public class ModelSecurityCheckDialog extends BaseDialog {
 			}
 			this.info=expression.getScript();
 		}
+
+		/**
+		 * Konstruktor der Klasse
+		 * @param pseudoId	ID unter der die Gefahr verbucht werden soll (müssen Werte -1, -2, ... sein)
+		 * @param name	Position an der die Gefahr besteht
+		 * @param type	Was ist daran kritisch?
+		 * @param info	Zusätzliche Beschreibung
+		 */
+		public CriticalElement(final int pseudoId, final String name, final CriticalType type, final String info) {
+			stationType=null;
+			stationId=pseudoId;
+			stationName=name;
+			this.type=type;
+			this.info=info;
+		}
 	}
 
 	/**
@@ -433,9 +465,9 @@ public class ModelSecurityCheckDialog extends BaseDialog {
 
 			switch (columnIndex) {
 			case 0:
-				return critical.stationType;
+				return (critical.stationType==null)?Language.tr("ModelSecurityCheck.CriticalType.Script.PluginsFolder"):critical.stationType; // FIXME Language "Modell"
 			case 1:
-				return critical.stationId;
+				return (critical.stationId>=0)?critical.stationId:"";
 			case 2:
 				return critical.stationName;
 			case 3:
@@ -448,6 +480,7 @@ public class ModelSecurityCheckDialog extends BaseDialog {
 				default: return "";
 				}
 			case 4:
+				if (critical.stationId<0) return critical.info;
 				switch (critical.type) {
 				case DB_OUTPUT: return critical.info;
 				case DDE_OUTPUT: return Language.tr("ModelSecurityCheck.CriticalType.DDEOutput.Workbook")+": "+critical.info;
@@ -457,7 +490,7 @@ public class ModelSecurityCheckDialog extends BaseDialog {
 				default: return "";
 				}
 			case 5:
-				if (critical.type==CriticalType.SCRIPT_JAVASCRIPT || critical.type==CriticalType.SCRIPT_JAVA) {
+				if ((critical.type==CriticalType.SCRIPT_JAVASCRIPT || critical.type==CriticalType.SCRIPT_JAVA) && critical.stationId>=0) {
 					if (button[rowIndex]==null) {
 						button[rowIndex]=new JButton("");
 						button[rowIndex].setIcon(Images.GENERAL_SCRIPT.getIcon());

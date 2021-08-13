@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-08-11 01:24+0200\n"
+"POT-Creation-Date: 2021-08-14 00:45+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -11215,6 +11215,9 @@ msgstr "Script execution"
 
 msgid "ModelSecurityCheck.CriticalType.Script.Info"
 msgstr "More information ->"
+
+msgid "ModelSecurityCheck.CriticalType.Script.PluginsFolder"
+msgstr "Java plugins folder"
 
 msgid "ModelSecurityCheck.CriticalType.Script.Tooltip"
 msgstr "Show script"
@@ -25370,6 +25373,12 @@ msgstr "File name"
 
 msgid "Surface.Output.Dialog.FileName.Select"
 msgstr "Select output file"
+
+msgid "Surface.Output.Dialog.Overwrite"
+msgstr "Overwrite existing data"
+
+msgid "Surface.Output.Dialog.Overwrite.Info"
+msgstr "If this option is not enabled and the output file already exists, the new data will be appended to the file."
 
 msgid "Surface.Output.Dialog.SystemFormat"
 msgstr "Output numbers with decimal point"
