@@ -465,7 +465,7 @@ public class ModelSecurityCheckDialog extends BaseDialog {
 
 			switch (columnIndex) {
 			case 0:
-				return (critical.stationType==null)?Language.tr("ModelSecurityCheck.CriticalType.Script.PluginsFolder"):critical.stationType; // FIXME Language "Modell"
+				return (critical.stationType==null)?Language.tr("ModelSecurityCheck.CriticalType.Script.PluginsFolder"):critical.stationType;
 			case 1:
 				return (critical.stationId>=0)?critical.stationId:"";
 			case 2:
