@@ -52,7 +52,9 @@ public class RunElementOutput extends RunElementPassThrough {
 	private boolean systemFormat;
 	/** Dateiname der Datei für die Ausgaben */
 	private File outputFile;
-	/** System zur gepufferten Dateiausgabe ({@link RunData#getOutputWriter(File)}) */
+	/** Wenn die Ausgabedatei schon besteht, soll diese überschrieben werden (anstatt Daten anzuhängen)? */
+	private boolean outputFileOverwrite;
+	/** System zur gepufferten Dateiausgabe ({@link RunData#getOutputWriter(File, boolean)}) */
 	private RunDataOutputWriter outputWriter;
 
 	/** Liste mit den Modi der Ausgabeelemente */
@@ -81,6 +83,7 @@ public class RunElementOutput extends RunElementPassThrough {
 		/* Ausgabedatei */
 		if (outputElement.getOutputFile().trim().isEmpty()) return String.format(Language.tr("Simulation.Creator.NoOutputFile"),element.getId());
 		output.outputFile=new File(outputElement.getOutputFile());
+		output.outputFileOverwrite=outputElement.isOutputFileOverwrite();
 
 		/* Ausgaben */
 		output.tableMode=isTable(output.outputFile);
@@ -357,7 +360,7 @@ public class RunElementOutput extends RunElementPassThrough {
 	private void processOutput(final SimulationData simData, final RunDataClient client) {
 		if (outputFile==null) return;
 		if (outputWriter==null) {
-			outputWriter=simData.runData.getOutputWriter(outputFile);
+			outputWriter=simData.runData.getOutputWriter(outputFile,outputFileOverwrite);
 			if (tableMode) outputWriter.output(getOutputTableHeadings());
 		}
 		if (tableMode) {

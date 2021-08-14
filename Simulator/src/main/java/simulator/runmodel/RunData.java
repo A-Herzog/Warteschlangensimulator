@@ -306,7 +306,7 @@ public class RunData {
 
 	/**
 	 * Zuordnung der schon initialisierten Dateiausgabe-Objekte
-	 * @see #getOutputWriter(File)
+	 * @see #getOutputWriter(File, boolean)
 	 */
 	private Map<File,RunDataOutputWriter> outputWriter;
 
@@ -1782,11 +1782,12 @@ public class RunData {
 	 * Verwenden mehrere Ausgabe-Objekte dieselbe Datei, so können die Ausgaben trotz Pufferung
 	 * so zeitlich korrekt synchronisiert werden.
 	 * @param outputFile	Ausgabedatei
+	 * @param overwrite	Soll eine evtl. bestehende Ausgabedatei überschrieben werden (<code>true</code>) oder sollen die neuen Daten angehängt werden (<code>false</code>)?
 	 * @return	<code>RunDataOutputWriter</code>-Objekt
 	 */
-	public RunDataOutputWriter getOutputWriter(final File outputFile) {
+	public RunDataOutputWriter getOutputWriter(final File outputFile, final boolean overwrite) {
 		RunDataOutputWriter writer=outputWriter.get(outputFile);
-		if (writer==null) outputWriter.put(outputFile,writer=new RunDataOutputWriter(outputFile));
+		if (writer==null) outputWriter.put(outputFile,writer=new RunDataOutputWriter(outputFile,overwrite));
 		return writer;
 	}
 

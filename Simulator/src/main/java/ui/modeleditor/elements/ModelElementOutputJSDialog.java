@@ -17,10 +17,13 @@ package ui.modeleditor.elements;
 
 import java.awt.BorderLayout;
 import java.awt.Component;
+import java.awt.FlowLayout;
 import java.io.File;
 import java.io.Serializable;
 
+import javax.swing.BoxLayout;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JComponent;
 import javax.swing.JFileChooser;
 import javax.swing.JPanel;
@@ -54,6 +57,11 @@ public class ModelElementOutputJSDialog extends ModelElementBaseDialog {
 	private JTextField fileNameEdit;
 
 	/**
+	 * Soll eine möglicherweise bestehende Datei beim Start der Ausgabe überschrieben werden? (Ansonsten wird angehängt)
+	 */
+	private JCheckBox fileOverwrite;
+
+	/**
 	 * Skripteditor
 	 */
 	private ScriptEditorPanel editor;
@@ -82,22 +90,32 @@ public class ModelElementOutputJSDialog extends ModelElementBaseDialog {
 		final JPanel content=new JPanel(new BorderLayout());
 
 		if (element instanceof ModelElementOutputJS) {
-			final Object[] data=getInputPanel(Language.tr("Surface.Output.Dialog.FileName")+":",((ModelElementOutputJS)element).getOutputFile());
-			final JPanel upperPanel=(JPanel)data[0];
-			fileNameEdit=(JTextField)data[1];
+			final ModelElementOutputJS output=(ModelElementOutputJS)element;
+
+			final JPanel upperPanel=new JPanel();
+			upperPanel.setLayout(new BoxLayout(upperPanel,BoxLayout.PAGE_AXIS));
 			content.add(upperPanel,BorderLayout.NORTH);
+
+			final Object[] data=getInputPanel(Language.tr("Surface.Output.Dialog.FileName")+":",output.getOutputFile());
+			JPanel line=(JPanel)data[0];
+			fileNameEdit=(JTextField)data[1];
+			upperPanel.add(line);
 			fileNameEdit.setEditable(!readOnly);
 
-			JButton button=new JButton();
+			final JButton button=new JButton();
 			button.setIcon(Images.GENERAL_SELECT_FILE.getIcon());
 			button.setToolTipText(Language.tr("Surface.Output.Dialog.FileName.Select"));
 			button.addActionListener(e->selectFile());
 			button.setEnabled(!readOnly);
-			upperPanel.add(button,BorderLayout.EAST);
+			line.add(button,BorderLayout.EAST);
 
-			final String script=((ModelElementOutputJS)element).getScript();
+			upperPanel.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
+			line.add(fileOverwrite=new JCheckBox(Language.tr("Surface.Output.Dialog.Overwrite"),output.isOutputFileOverwrite()));
+			fileOverwrite.setToolTipText(Language.tr("Surface.Output.Dialog.Overwrite.Info"));
+
+			final String script=output.getScript();
 			ScriptEditorPanel.ScriptMode mode;
-			switch (((ModelElementOutputJS)element).getMode()) {
+			switch (output.getMode()) {
 			case Javascript: mode=ScriptEditorPanel.ScriptMode.Javascript; break;
 			case Java: mode=ScriptEditorPanel.ScriptMode.Java; break;
 			default: mode=ScriptEditorPanel.ScriptMode.Javascript; break;
@@ -141,14 +159,16 @@ public class ModelElementOutputJSDialog extends ModelElementBaseDialog {
 		super.storeData();
 
 		if (element instanceof ModelElementOutputJS) {
-			((ModelElementOutputJS)element).setOutputFile(fileNameEdit.getText());
-			((ModelElementOutputJS)element).setScript(editor.getScript());
+			final ModelElementOutputJS output=(ModelElementOutputJS)element;
+			output.setOutputFile(fileNameEdit.getText());
+			output.setOutputFileOverwrite(fileOverwrite.isSelected());
+			output.setScript(editor.getScript());
 			switch (editor.getMode()) {
 			case Javascript:
-				((ModelElementOutputJS)element).setMode(ModelElementOutputJS.ScriptMode.Javascript);
+				output.setMode(ModelElementOutputJS.ScriptMode.Javascript);
 				break;
 			case Java:
-				((ModelElementOutputJS)element).setMode(ModelElementOutputJS.ScriptMode.Java);
+				output.setMode(ModelElementOutputJS.ScriptMode.Java);
 				break;
 			}
 		}

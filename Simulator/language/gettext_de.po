@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-08-14 00:45+0200\n"
+"POT-Creation-Date: 2021-08-14 00:55+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -25557,6 +25557,9 @@ msgstr "Bisherige Wartezeit des Kunden (als Sekundenanzahl)"
 msgid "Surface.Output.XML.File"
 msgstr "ModellElementAusgabedatei"
 
+msgid "Surface.Output.XML.File.Overwrite"
+msgstr "Ueberschreiben"
+
 msgid "Surface.Output.XML.File.SystemFormat"
 msgstr "SystemFormat"
 
@@ -25730,6 +25733,9 @@ msgstr "Schreibt die Ergebnisses eines Javascript-Programms in eine Datei."
 
 msgid "Surface.OutputJS.XML.File"
 msgstr "ModellElementAusgabedatei"
+
+msgid "Surface.OutputJS.XML.File.Overwrite"
+msgstr "Ueberschreiben"
 
 msgid "Surface.OutputJS.XML.Root"
 msgstr "ModellElementScriptDateiausgabe"

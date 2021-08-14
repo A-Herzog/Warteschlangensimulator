@@ -54,7 +54,7 @@ public class RunElementDisposeWithTable extends RunElement {
 	private boolean csvMode;
 
 	/**
-	 * System zur gepufferten Dateiausgabe ({@link RunData#getOutputWriter(File)})
+	 * System zur gepufferten Dateiausgabe ({@link RunData#getOutputWriter(File, boolean)})
 	 */
 	private RunDataOutputWriter outputWriter;
 
@@ -272,7 +272,7 @@ public class RunElementDisposeWithTable extends RunElement {
 	private void processOutput(final SimulationData simData, final RunDataClient client) {
 		if (clientsOutputTable==null) return;
 		if (outputWriter==null) {
-			outputWriter=simData.runData.getOutputWriter(clientsOutputTable);
+			outputWriter=simData.runData.getOutputWriter(clientsOutputTable,false);
 		}
 
 		if (csvMode) {

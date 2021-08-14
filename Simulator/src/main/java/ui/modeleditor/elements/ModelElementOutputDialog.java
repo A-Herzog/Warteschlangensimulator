@@ -59,6 +59,11 @@ public class ModelElementOutputDialog extends ModelElementBaseDialog {
 	private JTextField fileNameEdit;
 
 	/**
+	 * Soll eine möglicherweise bestehende Datei beim Start der Ausgabe überschrieben werden? (Ansonsten wird angehängt)
+	 */
+	private JCheckBox fileOverwrite;
+
+	/**
 	 * Zeigt je nach Typ der gewählten Ausgabetabelle an,
 	 * dass bei bestimmten Tabellentypen die Ausgabe am Ende
 	 * enbloc erfolgt und daher nicht zeilenweise
@@ -106,6 +111,7 @@ public class ModelElementOutputDialog extends ModelElementBaseDialog {
 			final JPanel upperPanel=new JPanel();
 			upperPanel.setLayout(new BoxLayout(upperPanel,BoxLayout.PAGE_AXIS));
 			content.add(upperPanel,BorderLayout.NORTH);
+
 			final Object[] data=getInputPanel(Language.tr("Surface.Output.Dialog.FileName")+":",output.getOutputFile());
 			JPanel line=(JPanel)data[0];
 			fileNameEdit=(JTextField)data[1];
@@ -117,7 +123,7 @@ public class ModelElementOutputDialog extends ModelElementBaseDialog {
 				@Override public void keyPressed(KeyEvent e) {updateInfo();}
 			});
 
-			JButton button=new JButton();
+			final JButton button=new JButton();
 			button.setIcon(Images.GENERAL_SELECT_FILE.getIcon());
 			button.setToolTipText(Language.tr("Surface.Output.Dialog.FileName.Select"));
 			button.addActionListener(e->selectFile());
@@ -126,6 +132,10 @@ public class ModelElementOutputDialog extends ModelElementBaseDialog {
 
 			upperPanel.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
 			line.add(info=new JLabel(Language.tr("Surface.Output.Dialog.TableInfo")));
+
+			upperPanel.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
+			line.add(fileOverwrite=new JCheckBox(Language.tr("Surface.Output.Dialog.Overwrite"),output.isOutputFileOverwrite()));
+			fileOverwrite.setToolTipText(Language.tr("Surface.Output.Dialog.Overwrite.Info"));
 
 			if (NumberTools.getDecimalSeparator()!='.') {
 				upperPanel.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
@@ -176,8 +186,14 @@ public class ModelElementOutputDialog extends ModelElementBaseDialog {
 	 */
 	private void updateInfo() {
 		final String nameLower=fileNameEdit.getText().toLowerCase();
-		info.setVisible(nameLower.endsWith(".xls") || nameLower.endsWith(".xlsx"));
-		if (systemFormat!=null) systemFormat.setEnabled(nameLower.endsWith(".txt") || nameLower.endsWith(".tsv"));
+		final boolean isZippedTable=nameLower.endsWith(".xls") || nameLower.endsWith(".xlsx") || nameLower.endsWith(".ods");
+		final boolean isText=nameLower.endsWith(".txt") || nameLower.endsWith(".tsv");
+		info.setVisible(isZippedTable);
+		if (fileOverwrite!=null) {
+			if (isZippedTable) fileOverwrite.setSelected(true);
+			fileOverwrite.setEnabled(!readOnly && !isZippedTable);
+		}
+		if (systemFormat!=null) systemFormat.setEnabled(!readOnly && isText);
 	}
 
 	/**
@@ -193,6 +209,7 @@ public class ModelElementOutputDialog extends ModelElementBaseDialog {
 			final ModelElementOutput output=(ModelElementOutput)element;
 
 			output.setOutputFile(fileNameEdit.getText());
+			output.setOutputFileOverwrite(fileOverwrite.isSelected());
 			if (systemFormat!=null) output.setSystemFormat(systemFormat.isSelected());
 
 			final List<ModelElementOutput.OutputMode> modes=output.getModes();

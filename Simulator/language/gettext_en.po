@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-08-14 00:45+0200\n"
+"POT-Creation-Date: 2021-08-14 00:55+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -25545,6 +25545,9 @@ msgstr "Waiting time of the client (as number of seconds)"
 msgid "Surface.Output.XML.File"
 msgstr "ModelElementOutputFile"
 
+msgid "Surface.Output.XML.File.Overwrite"
+msgstr "Overwrite"
+
 msgid "Surface.Output.XML.File.SystemFormat"
 msgstr "SystemFormat"
 
@@ -25718,6 +25721,9 @@ msgstr "Writes the results of a Javscript program to a file."
 
 msgid "Surface.OutputJS.XML.File"
 msgstr "ModelElementOutputFile"
+
+msgid "Surface.OutputJS.XML.File.Overwrite"
+msgstr "Overwrite"
 
 msgid "Surface.OutputJS.XML.Root"
 msgstr "ModelElementScriptOutput"

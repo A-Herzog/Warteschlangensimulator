@@ -112,6 +112,11 @@ public class ModelElementOutput extends ModelElementMultiInSingleOutBox implemen
 	private String outputFile;
 
 	/**
+	 * Soll eine möglicherweise bestehende Datei beim Start der Ausgabe überschrieben werden? (Ansonsten wird angehängt)
+	 */
+	private boolean outputFileOverwrite;
+
+	/**
 	 * Zahlen im lokalen Format (<code>false</code>) oder im System-Format (<code>true</code>) ausgeben?
 	 * @see #isSystemFormat()
 	 * @see #setSystemFormat(boolean)
@@ -140,6 +145,7 @@ public class ModelElementOutput extends ModelElementMultiInSingleOutBox implemen
 		mode=new ArrayList<>();
 		data=new ArrayList<>();
 		outputFile="";
+		outputFileOverwrite=false;
 		systemFormat=false;
 	}
 
@@ -205,6 +211,7 @@ public class ModelElementOutput extends ModelElementMultiInSingleOutBox implemen
 	/**
 	 * Liefert den Dateinamen der Datei, die für die Speicherung der Ausgaben verwendet werden soll.
 	 * @return	Dateiname der Datei für die Ausgaben
+	 * @see #setOutputFile(String)
 	 */
 	@Override
 	public String getOutputFile() {
@@ -214,10 +221,30 @@ public class ModelElementOutput extends ModelElementMultiInSingleOutBox implemen
 	/**
 	 * Stellt den Dateinamen der Datei, die für die Speicherung der Ausgaben verwendet werden soll, ein.
 	 * @param outputFile	Dateiname der Datei für die Ausgaben
+	 * @see #getOutputFile()
 	 */
 	@Override
 	public void setOutputFile(final String outputFile) {
 		if (outputFile!=null) this.outputFile=outputFile;
+	}
+
+
+	/**
+	 * Soll die Ausgabedatei beim Start einer Simulation überschrieben werden?
+	 * @return	Überschreiben (<code>true</code>) oder anhängen (<code>false</code>)
+	 * @see #setOutputFileOverwrite(boolean)
+	 */
+	public boolean isOutputFileOverwrite() {
+		return outputFileOverwrite;
+	}
+
+	/**
+	 * Soll die Ausgabedatei beim Start einer Simulation überschrieben werden?
+	 * @param outputFileOverwrite	Überschreiben (<code>true</code>) oder anhängen (<code>false</code>)
+	 * @see #isOutputFileOverwrite()
+	 */
+	public void setOutputFileOverwrite(boolean outputFileOverwrite) {
+		this.outputFileOverwrite=outputFileOverwrite;
 	}
 
 	/**
@@ -254,6 +281,7 @@ public class ModelElementOutput extends ModelElementMultiInSingleOutBox implemen
 				if (systemFormat!=other.systemFormat) return false;
 			}
 		}
+		if (outputFileOverwrite!=other.outputFileOverwrite) return false;
 		if (mode.size()!=other.mode.size()) return false;
 		if (data.size()!=other.data.size()) return false;
 		for (int i=0;i<mode.size();i++) if (!other.mode.get(i).equals(mode.get(i))) return false;
@@ -272,6 +300,7 @@ public class ModelElementOutput extends ModelElementMultiInSingleOutBox implemen
 		if (element instanceof ModelElementOutput) {
 			final ModelElementOutput source=(ModelElementOutput)element;
 			outputFile=source.outputFile;
+			outputFileOverwrite=source.outputFileOverwrite;
 			systemFormat=source.systemFormat;
 			mode.addAll(source.mode);
 			data.addAll(source.data);
@@ -415,6 +444,7 @@ public class ModelElementOutput extends ModelElementMultiInSingleOutBox implemen
 			if (systemFormat) {
 				sub.setAttribute(Language.trPrimary("Surface.Output.XML.File.SystemFormat"),"1");
 			}
+			if (outputFileOverwrite) sub.setAttribute(Language.trPrimary("Surface.Output.XML.File.Overwrite"),"1");
 		}
 
 		for (int i=0;i<Math.min(mode.size(),data.size());i++) {
@@ -459,6 +489,8 @@ public class ModelElementOutput extends ModelElementMultiInSingleOutBox implemen
 			outputFile=content;
 			final String systemFormat=Language.trAllAttribute("Surface.Output.XML.File.SystemFormat",node);
 			if (!systemFormat.isEmpty() && !systemFormat.equals("0")) this.systemFormat=true;
+			final String overwrite=Language.trAllAttribute("Surface.Output.XML.File.Overwrite",node);
+			if (!overwrite.isEmpty() && !overwrite.equals("0")) outputFileOverwrite=true;
 			return null;
 		}
 

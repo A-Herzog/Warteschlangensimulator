@@ -37,6 +37,9 @@ public class RunDataOutputWriter {
 	/** Datei, in die die Ausgabe erfolgen soll */
 	private final File outputFile;
 
+	/** Soll eine evtl. bestehende Ausgabedatei überschrieben werden (<code>true</code>) oder sollen die neuen Daten angehängt werden (<code>false</code>)? */
+	private final boolean outputFileOverwrite;
+
 	/** Ausgabemodus */
 	private enum Mode {
 		/** Ausgabe als Text */
@@ -79,9 +82,11 @@ public class RunDataOutputWriter {
 	/**
 	 * Konstruktor der Klasse <code>RunDataOutputWriter</code>
 	 * @param outputFile	Datei, in die die Ausgabe erfolgen soll
+	 * @param overwrite	Soll eine evtl. bestehende Ausgabedatei überschrieben werden (<code>true</code>) oder sollen die neuen Daten angehängt werden (<code>false</code>)?
 	 */
-	public RunDataOutputWriter(final File outputFile) {
+	public RunDataOutputWriter(final File outputFile, final boolean overwrite) {
 		this.outputFile=outputFile;
+		this.outputFileOverwrite=overwrite;
 		outputErrors=false;
 		if (outputFile==null) return;
 
@@ -96,7 +101,7 @@ public class RunDataOutputWriter {
 		if (Table.SaveMode.SAVEMODE_DOCX.fileNameMatch(nameLower)) mode=Mode.MODE_TABLE;
 
 		if (mode==Mode.MODE_TEXT || mode==Mode.MODE_CSV) {
-			try {outputFileWriter=new FileWriter(outputFile,true);} catch (IOException e) {
+			try {outputFileWriter=new FileWriter(outputFile,!outputFileOverwrite);} catch (IOException e) {
 				outputFileWriter=null;
 				return;
 			}
@@ -134,7 +139,7 @@ public class RunDataOutputWriter {
 	 * @param outputTableLine	Tabellenzeile in Form einzelner Zellen
 	 * @return	CSV-codierte Tabellenzeile
 	 */
-	private String toCSV(String[] outputTableLine) {
+	private String toCSV(final String[] outputTableLine) {
 		final StringBuilder sb=new StringBuilder();
 
 		for (int i=0;i<outputTableLine.length;i++) {

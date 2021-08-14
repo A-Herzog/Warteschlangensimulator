@@ -70,6 +70,11 @@ public class ModelElementOutputJS extends ModelElementMultiInSingleOutBox implem
 	private String outputFile;
 
 	/**
+	 * Soll eine möglicherweise bestehende Datei beim Start der Ausgabe überschrieben werden? (Ansonsten wird angehängt)
+	 */
+	private boolean outputFileOverwrite;
+
+	/**
 	 * Konstruktor der Klasse <code>ModelElementOutputJS</code>
 	 * @param model	Modell zu dem dieses Element gehören soll (kann später nicht mehr geändert werden)
 	 * @param surface	Zeichenfläche zu dem dieses Element gehören soll (kann später nicht mehr geändert werden)
@@ -79,6 +84,7 @@ public class ModelElementOutputJS extends ModelElementMultiInSingleOutBox implem
 		script="";
 		mode=ScriptMode.Javascript;
 		outputFile="";
+		outputFileOverwrite=false;
 	}
 
 	/**
@@ -140,6 +146,7 @@ public class ModelElementOutputJS extends ModelElementMultiInSingleOutBox implem
 	/**
 	 * Liefert den Dateinamen der Datei, die für die Speicherung der Ausgaben verwendet werden soll.
 	 * @return	Dateiname der Datei für die Ausgaben
+	 * @see #setOutputFile(String)
 	 */
 	@Override
 	public String getOutputFile() {
@@ -149,10 +156,30 @@ public class ModelElementOutputJS extends ModelElementMultiInSingleOutBox implem
 	/**
 	 * Stellt den Dateinamen der Datei, die für die Speicherung der Ausgaben verwendet werden soll, ein.
 	 * @param outputFile	Dateiname der Datei für die Ausgaben
+	 * @see #getOutputFile()
 	 */
 	@Override
 	public void setOutputFile(final String outputFile) {
 		if (outputFile!=null) this.outputFile=outputFile;
+	}
+
+
+	/**
+	 * Soll die Ausgabedatei beim Start einer Simulation überschrieben werden?
+	 * @return	Überschreiben (<code>true</code>) oder anhängen (<code>false</code>)
+	 * @see #setOutputFileOverwrite(boolean)
+	 */
+	public boolean isOutputFileOverwrite() {
+		return outputFileOverwrite;
+	}
+
+	/**
+	 * Soll die Ausgabedatei beim Start einer Simulation überschrieben werden?
+	 * @param outputFileOverwrite	Überschreiben (<code>true</code>) oder anhängen (<code>false</code>)
+	 * @see #isOutputFileOverwrite()
+	 */
+	public void setOutputFileOverwrite(boolean outputFileOverwrite) {
+		this.outputFileOverwrite=outputFileOverwrite;
 	}
 
 	/**
@@ -164,10 +191,12 @@ public class ModelElementOutputJS extends ModelElementMultiInSingleOutBox implem
 	public boolean equalsModelElement(ModelElement element) {
 		if (!super.equalsModelElement(element)) return false;
 		if (!(element instanceof ModelElementOutputJS)) return false;
+		final ModelElementOutputJS other=(ModelElementOutputJS)element;
 
-		if (!script.equals(((ModelElementOutputJS)element).script)) return false;
-		if (((ModelElementOutputJS)element).mode!=mode) return false;
-		if (!outputFile.equals(((ModelElementOutputJS)element).outputFile)) return false;
+		if (!script.equals(other.script)) return false;
+		if (other.mode!=mode) return false;
+		if (!outputFile.equals(other.outputFile)) return false;
+		if (outputFileOverwrite!=other.outputFileOverwrite) return false;
 
 		return true;
 	}
@@ -180,9 +209,11 @@ public class ModelElementOutputJS extends ModelElementMultiInSingleOutBox implem
 	public void copyDataFrom(ModelElement element) {
 		super.copyDataFrom(element);
 		if (element instanceof ModelElementOutputJS) {
-			script=((ModelElementOutputJS)element).script;
-			mode=((ModelElementOutputJS)element).mode;
-			outputFile=((ModelElementOutputJS)element).outputFile;
+			final ModelElementOutputJS source=(ModelElementOutputJS)element;
+			script=source.script;
+			mode=source.mode;
+			outputFile=source.outputFile;
+			outputFileOverwrite=source.outputFileOverwrite;
 		}
 	}
 
@@ -307,6 +338,7 @@ public class ModelElementOutputJS extends ModelElementMultiInSingleOutBox implem
 		if (!outputFile.isEmpty()) {
 			node.appendChild(sub=doc.createElement(Language.trPrimary("Surface.OutputJS.XML.File")));
 			sub.setTextContent(outputFile);
+			if (outputFileOverwrite) sub.setAttribute(Language.trPrimary("Surface.OutputJS.XML.File.Overwrite"),"1");
 		}
 	}
 
@@ -332,6 +364,8 @@ public class ModelElementOutputJS extends ModelElementMultiInSingleOutBox implem
 
 		if (Language.trAll("Surface.OutputJS.XML.File",name)) {
 			outputFile=content;
+			final String overwrite=Language.trAllAttribute("Surface.OutputJS.XML.File.Overwrite",node);
+			if (!overwrite.isEmpty() && !overwrite.equals("0")) outputFileOverwrite=true;
 			return null;
 		}
 

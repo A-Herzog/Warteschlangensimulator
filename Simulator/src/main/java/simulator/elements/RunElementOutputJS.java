@@ -43,11 +43,13 @@ import ui.modeleditor.elements.ModelElementSub;
 public class RunElementOutputJS extends RunElementPassThrough {
 	/** Ausgabedatei */
 	private File outputFile;
+	/** Wenn die Ausgabedatei schon besteht, soll diese überschrieben werden (anstatt Daten anzuhängen)? */
+	private boolean outputFileOverwrite;
 	/** Auszuführendes Skript zur Generierung der Ausgabe */
 	private String script;
 	/** Skriptsprache des Skriptes in {@link #script} */
 	private ModelElementOutputJS.ScriptMode mode;
-	/** System zur gepufferten Dateiausgabe ({@link RunData#getOutputWriter(File)}) */
+	/** System zur gepufferten Dateiausgabe ({@link RunData#getOutputWriter(File, boolean)}) */
 	private RunDataOutputWriter outputWriter;
 	/** Bereits in {@link #build(EditModel, RunModel, ModelElement, ModelElementSub, boolean)} vorbereiteter (optionale) Java-Runner */
 	private DynamicRunner jRunner;
@@ -73,6 +75,7 @@ public class RunElementOutputJS extends RunElementPassThrough {
 		/* Ausgabedatei */
 		if (outputElement.getOutputFile().trim().isEmpty()) return String.format(Language.tr("Simulation.Creator.NoOutputFile"),element.getId());
 		output.outputFile=new File(outputElement.getOutputFile());
+		output.outputFileOverwrite=outputElement.isOutputFileOverwrite();
 
 		/* Skript */
 		output.script=outputElement.getScript();
@@ -158,7 +161,7 @@ public class RunElementOutputJS extends RunElementPassThrough {
 	 */
 	private void processOutput(final SimulationData simData, final RunDataClient client) {
 		if (outputFile==null) return;
-		if (outputWriter==null) outputWriter=simData.runData.getOutputWriter(outputFile);
+		if (outputWriter==null) outputWriter=simData.runData.getOutputWriter(outputFile,outputFileOverwrite);
 		outputWriter.output(getOutputString(simData,client));
 	}
 
