@@ -930,6 +930,12 @@ public class AnimationPanel extends JPanel implements RunModelAnimationViewer {
 	private long lastStatusUpdate;
 
 	/**
+	 * Simulationszeit der letzten Statuszeilen-Aktualisierung
+	 * @see #updateStatus(long, boolean)
+	 */
+	private long lastStatusSimTime;
+
+	/**
 	 * Anzahl an bislang simulierten Kundenankünften beim letzten Aufruf von {@link #updateStatus(long, boolean)}
 	 * @see #updateStatus(long, boolean)
 	 */
@@ -961,8 +967,9 @@ public class AnimationPanel extends JPanel implements RunModelAnimationViewer {
 	 */
 	private void updateStatus(final long currentTime, final boolean forceUpdate) {
 		final long time=System.currentTimeMillis();
-		if (time-lastStatusUpdate<20 && !forceUpdate) return;
+		if (time-lastStatusUpdate<20 && (running || (lastStatusSimTime==currentTime)) && !forceUpdate) return;
 		lastStatusUpdate=time;
+		lastStatusSimTime=currentTime;
 
 		long current=0;
 		long sum=0;
