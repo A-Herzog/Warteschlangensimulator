@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-08-14 00:55+0200\n"
+"POT-Creation-Date: 2021-08-15 23:28+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -3873,6 +3873,9 @@ msgstr "Expression to output"
 
 msgid "Editor.DialogBase.Search.OutputFile"
 msgstr "Output file"
+
+msgid "Editor.DialogBase.Search.OutputString"
+msgstr "Key to output"
 
 msgid "Editor.DialogBase.Search.OutputText"
 msgstr "Text to output"
@@ -10397,6 +10400,9 @@ msgstr "Output file"
 
 msgid "ModelDescription.Output.Property"
 msgstr "Output property"
+
+msgid "ModelDescription.Output.PropertyHeading"
+msgstr "Output heading property"
 
 msgid "ModelDescription.OutputDB.Column"
 msgstr "table column"
@@ -25386,6 +25392,27 @@ msgstr "Output numbers with decimal point"
 msgid "Surface.Output.Dialog.SystemFormat.Hint"
 msgstr "Refers only to output to text files"
 
+msgid "Surface.Output.Dialog.Tab.Headings"
+msgstr "Heading"
+
+msgid "Surface.Output.Dialog.Tab.Headings.Auto"
+msgstr "Automatically generate headings for tables"
+
+msgid "Surface.Output.Dialog.Tab.Headings.Mode"
+msgstr "Heading mode"
+
+msgid "Surface.Output.Dialog.Tab.Headings.Off"
+msgstr "Do not output any headings"
+
+msgid "Surface.Output.Dialog.Tab.Headings.UserDefined"
+msgstr "User-defined heading line"
+
+msgid "Surface.Output.Dialog.Tab.Headings.UserDefined.Info"
+msgstr "User-defined headings"
+
+msgid "Surface.Output.Dialog.Tab.OutputData"
+msgstr "Output data"
+
 msgid "Surface.Output.Dialog.TableInfo"
 msgstr "Note: When using Excel spreadsheets the output can not be written successively during the simulation."
 
@@ -25542,8 +25569,23 @@ msgstr "Waiting time of the client (as time)"
 msgid "Surface.Output.XML.Element.TypeDescription.WaitingTimeNumber"
 msgstr "Waiting time of the client (as number of seconds)"
 
+msgid "Surface.Output.XML.ElementHeading"
+msgstr "ModelElementOutputElementHeading"
+
 msgid "Surface.Output.XML.File"
 msgstr "ModelElementOutputFile"
+
+msgid "Surface.Output.XML.File.HeadingMode"
+msgstr "Headings"
+
+msgid "Surface.Output.XML.File.HeadingMode.Auto"
+msgstr "Auto"
+
+msgid "Surface.Output.XML.File.HeadingMode.Off"
+msgstr "Off"
+
+msgid "Surface.Output.XML.File.HeadingMode.UserDefined"
+msgstr "User-defined"
 
 msgid "Surface.Output.XML.File.Overwrite"
 msgstr "Overwrite"

@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-08-14 00:55+0200\n"
+"POT-Creation-Date: 2021-08-15 23:28+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -3877,6 +3877,9 @@ msgstr "Auszugebender Ausdruck"
 
 msgid "Editor.DialogBase.Search.OutputFile"
 msgstr "Ausgabedatei"
+
+msgid "Editor.DialogBase.Search.OutputString"
+msgstr "Auszugebender Schlüssel"
 
 msgid "Editor.DialogBase.Search.OutputText"
 msgstr "Auszugebender Text"
@@ -10389,6 +10392,9 @@ msgstr "Ausgabedatei"
 
 msgid "ModelDescription.Output.Property"
 msgstr "Ausgabeeigenschaft"
+
+msgid "ModelDescription.Output.PropertyHeading"
+msgstr "Ausgabeeigenschaft für die Überschrift"
 
 msgid "ModelDescription.OutputDB.Column"
 msgstr "Tabellenspalte"
@@ -25398,6 +25404,27 @@ msgstr "Zahlen mit Dezimalpunkt ausgeben"
 msgid "Surface.Output.Dialog.SystemFormat.Hint"
 msgstr "Bezieht sich nur auf die Ausgabe in Textdateien"
 
+msgid "Surface.Output.Dialog.Tab.Headings"
+msgstr "Überschrift"
+
+msgid "Surface.Output.Dialog.Tab.Headings.Auto"
+msgstr "Für Tabellen automatische Überschrift generieren"
+
+msgid "Surface.Output.Dialog.Tab.Headings.Mode"
+msgstr "Überschtiftenmodus"
+
+msgid "Surface.Output.Dialog.Tab.Headings.Off"
+msgstr "Keine Überschriften ausgeben"
+
+msgid "Surface.Output.Dialog.Tab.Headings.UserDefined"
+msgstr "Benutzerdefinierte Überschriftzeile"
+
+msgid "Surface.Output.Dialog.Tab.Headings.UserDefined.Info"
+msgstr "Benutzerdefinierte Überschriften"
+
+msgid "Surface.Output.Dialog.Tab.OutputData"
+msgstr "Ausgabedaten"
+
 msgid "Surface.Output.Dialog.TableInfo"
 msgstr "Hinweis: In Excel-Tabellen kann die Ausgabe nicht sukzessive während der Simulation erfolgen."
 
@@ -25554,8 +25581,23 @@ msgstr "Bisherige Wartezeit des Kunden (als Zeitangabe)"
 msgid "Surface.Output.XML.Element.TypeDescription.WaitingTimeNumber"
 msgstr "Bisherige Wartezeit des Kunden (als Sekundenanzahl)"
 
+msgid "Surface.Output.XML.ElementHeading"
+msgstr "ModellElementAusgabeElementUeberschrift"
+
 msgid "Surface.Output.XML.File"
 msgstr "ModellElementAusgabedatei"
+
+msgid "Surface.Output.XML.File.HeadingMode"
+msgstr "Ueberschriften"
+
+msgid "Surface.Output.XML.File.HeadingMode.Auto"
+msgstr "Auto"
+
+msgid "Surface.Output.XML.File.HeadingMode.Off"
+msgstr "Aus"
+
+msgid "Surface.Output.XML.File.HeadingMode.UserDefined"
+msgstr "Benutzerdefiniert"
 
 msgid "Surface.Output.XML.File.Overwrite"
 msgstr "Ueberschreiben"

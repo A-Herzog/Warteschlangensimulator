@@ -56,11 +56,12 @@ public class RunElementOutput extends RunElementPassThrough {
 	private boolean outputFileOverwrite;
 	/** System zur gepufferten Dateiausgabe ({@link RunData#getOutputWriter(File, boolean)}) */
 	private RunDataOutputWriter outputWriter;
-
-	/** Liste mit den Modi der Ausgabeelemente */
-	private ModelElementOutput.OutputMode[] mode;
-	/** Zusätzliche Daten zu den jeweiligen Ausgabe-Datensätzen in {@link #mode} */
-	private Object[] data;
+	/** Wie sollen Überschriften ausgegeben werden? */
+	private ModelElementOutput.HeadingMode headingMode;
+	/** Liste der Ausgabeelemente für die Überschrift (nur im Modus nutzerdefinierter Überschriften) */
+	private ModelElementOutput.OutputRecord[] outputHeadingRecord;
+	/** Liste der Ausgabeelemente */
+	private ModelElementOutput.OutputRecord[] outputRecord;
 
 	/**
 	 * Konstruktor der Klasse
@@ -75,6 +76,8 @@ public class RunElementOutput extends RunElementPassThrough {
 		if (!(element instanceof ModelElementOutput)) return null;
 		final ModelElementOutput outputElement=(ModelElementOutput)element;
 		final RunElementOutput output=new RunElementOutput(outputElement);
+
+		Object list;
 
 		/* Auslaufende Kante */
 		final String edgeError=output.buildEdgeOut(outputElement);
@@ -94,39 +97,58 @@ public class RunElementOutput extends RunElementPassThrough {
 			output.systemFormat=false;
 		}
 
-		final List<ModelElementOutput.OutputMode> modeList=outputElement.getModes();
-		final List<String> dataList=outputElement.getData();
-		final List<ModelElementOutput.OutputMode> modeOutputList=new ArrayList<>();
-		final List<Object> dataOutputList=new ArrayList<>();
+		/* Überschriften */
+		output.headingMode=outputElement.getHeadingMode();
+		if (output.headingMode==ModelElementOutput.HeadingMode.USER_DEFINED) {
+			list=buildOutputRecords(outputElement.getOutputHeading(),output,runModel);
+			if (list instanceof String) return list;
+			output.outputHeadingRecord=(ModelElementOutput.OutputRecord[])list;
+		}
 
-		for (int i=0;i<modeList.size();i++) {
-			final ModelElementOutput.OutputMode mode=modeList.get(i);
-			Object data=null;
+		/* Ausgabeelemente */
+		list=buildOutputRecords(outputElement.getOutput(),output,runModel);
+		if (list instanceof String) return list;
+		output.outputRecord=(ModelElementOutput.OutputRecord[])list;
+
+		return output;
+	}
+
+	/**
+	 * Erstellt eine Liste mit den Ausgaben
+	 * @param outputList	Einzulesende und zu verarbeitende Liste mit Ausgaben
+	 * @param output	Ausgabe-Laufzeit-Element
+	 * @param runModel	Laufzeit-Modell
+	 * @return	Array mit den Ausgaben oder im Fehlerfall eine Fehlermeldung
+	 */
+	private Object buildOutputRecords(List<ModelElementOutput.OutputRecord> outputList, final RunElementOutput output, final RunModel runModel) {
+		final List<ModelElementOutput.OutputRecord> results=new ArrayList<>();
+
+		for (int i=0;i<outputList.size();i++) {
+			final ModelElementOutput.OutputMode mode=outputList.get(i).mode;
 
 			if (output.tableMode) {
 				if (mode==ModelElementOutput.OutputMode.MODE_TABULATOR || mode==ModelElementOutput.OutputMode.MODE_NEWLINE) continue;
 			}
 
-			final String s=(dataList.size()>i)?dataList.get(i):"";
+			final String s=outputList.get(i).data;
 
 			if (mode==ModelElementOutput.OutputMode.MODE_TEXT || mode==ModelElementOutput.OutputMode.MODE_STRING) {
-				data=s;
+				results.add(new ModelElementOutput.OutputRecord(mode,s));
+				continue;
 			}
 
 			if (mode==ModelElementOutput.OutputMode.MODE_EXPRESSION) {
 				final ExpressionCalc calc=new ExpressionCalc(runModel.variableNames);
 				final int error=calc.parse(s);
 				if (error>=0) return String.format(Language.tr("Simulation.Creator.InvalidOutputExpression"),i+1,output.id,error+1);
-				data=calc;
+				results.add(new ModelElementOutput.OutputRecord(calc));
+				continue;
 			}
 
-			modeOutputList.add(mode);
-			dataOutputList.add(data);
+			results.add(new ModelElementOutput.OutputRecord(mode,""));
 		}
-		output.mode=modeOutputList.toArray(new ModelElementOutput.OutputMode[0]);
-		output.data=dataOutputList.toArray(new Object[0]);
 
-		return output;
+		return results.toArray(new ModelElementOutput.OutputRecord[0]);
 	}
 
 	/**
@@ -164,18 +186,19 @@ public class RunElementOutput extends RunElementPassThrough {
 	 * Liefert eine Textzeile als Ausgabe.
 	 * @param simData	Simulationsdatenobjekt
 	 * @param client	Aktueller Kunde
+	 * @param outputRecord	Zu verwendende Liste mit den Ausgabeelementen
 	 * @return	Tabellenzeile
 	 * @see #processOutput(SimulationData, RunDataClient)
 	 */
-	private String getOutputString(final SimulationData simData, final RunDataClient client) {
+	private String getOutputString(final SimulationData simData, final RunDataClient client, final ModelElementOutput.OutputRecord[] outputRecord) {
 		double number;
 		final StringBuilder sb=new StringBuilder();
-		for (int i=0;i<mode.length;i++) switch (mode[i]) {
+		for (int i=0;i<outputRecord.length;i++) switch (outputRecord[i].mode) {
 		case MODE_TIMESTAMP:
 			sb.append(systemFormat?SimData.formatSimTimeSystem(simData.currentTime):SimData.formatSimTime(simData.currentTime));
 			break;
 		case MODE_TEXT:
-			sb.append((String)data[i]);
+			sb.append(outputRecord[i].data);
 			break;
 		case MODE_TABULATOR:
 			sb.append('\t');
@@ -186,10 +209,10 @@ public class RunElementOutput extends RunElementPassThrough {
 		case MODE_EXPRESSION:
 			simData.runData.setClientVariableValues(client);
 			try {
-				number=((ExpressionCalc)data[i]).calc(simData.runData.variableValues,simData,client);
+				number=outputRecord[i].calc.calc(simData.runData.variableValues,simData,client);
 				sb.append(systemFormat?NumberTools.formatSystemNumber(number):NumberTools.formatNumberMax(number));
 			} catch (MathCalcError e) {
-				simData.calculationErrorStation((ExpressionCalc)data[i],this);
+				simData.calculationErrorStation(outputRecord[i].calc,this);
 				sb.append('0');
 			}
 			break;
@@ -229,7 +252,7 @@ public class RunElementOutput extends RunElementPassThrough {
 			sb.append(systemFormat?TimeTools.formatExactSystemTime(number):TimeTools.formatExactTime(number));
 			break;
 		case MODE_STRING:
-			sb.append(client.getUserDataString((String)data[i]));
+			sb.append(client.getUserDataString(outputRecord[i].data));
 			break;
 		}
 		return sb.toString();
@@ -239,17 +262,18 @@ public class RunElementOutput extends RunElementPassThrough {
 	 * Liefert eine Tabellenzeile als Ausgabe.
 	 * @param simData	Simulationsdatenobjekt
 	 * @param client	Aktueller Kunde
+	 * @param outputRecord	Zu verwendende Liste mit den Ausgabeelementen
 	 * @return	Tabellenzeile
 	 * @see #processOutput(SimulationData, RunDataClient)
 	 */
-	private String[] getOutputTableLine(final SimulationData simData, final RunDataClient client) {
-		final String[] line=new String[mode.length];
-		for (int i=0;i<mode.length;i++) switch (mode[i]) {
+	private String[] getOutputTableLine(final SimulationData simData, final RunDataClient client, final ModelElementOutput.OutputRecord[] outputRecord) {
+		final String[] line=new String[outputRecord.length];
+		for (int i=0;i<outputRecord.length;i++) switch (outputRecord[i].mode) {
 		case MODE_TIMESTAMP:
 			line[i]=SimData.formatSimTime(simData.currentTime);
 			break;
 		case MODE_TEXT:
-			line[i]=(String)data[i];
+			line[i]=outputRecord[i].data;
 			break;
 		case MODE_TABULATOR:
 			/* In der Tabelle nichts zu tun */
@@ -260,9 +284,9 @@ public class RunElementOutput extends RunElementPassThrough {
 		case MODE_EXPRESSION:
 			simData.runData.setClientVariableValues(client);
 			try {
-				line[i]=NumberTools.formatNumberMax(((ExpressionCalc)data[i]).calc(simData.runData.variableValues,simData,client));
+				line[i]=NumberTools.formatNumberMax(outputRecord[i].calc.calc(simData.runData.variableValues,simData,client));
 			} catch (MathCalcError e) {
-				simData.calculationErrorStation((ExpressionCalc)data[i],this);
+				simData.calculationErrorStation(outputRecord[i].calc,this);
 				line[i]=NumberTools.formatNumberMax(0);
 			}
 			break;
@@ -294,7 +318,7 @@ public class RunElementOutput extends RunElementPassThrough {
 			line[i]=TimeTools.formatExactTime(client.residenceTime*toSec);
 			break;
 		case MODE_STRING:
-			line[i]=client.getUserDataString((String)data[i]);
+			line[i]=client.getUserDataString(outputRecord[i].data);
 			break;
 		default:
 			break;
@@ -307,8 +331,8 @@ public class RunElementOutput extends RunElementPassThrough {
 	 * @return Überschriften für die Tabellenausgabe
 	 */
 	private String[] getOutputTableHeadings() {
-		final String[] line=new String[mode.length];
-		for (int i=0;i<mode.length;i++) switch (mode[i]) {
+		final String[] line=new String[outputRecord.length];
+		for (int i=0;i<outputRecord.length;i++) switch (outputRecord[i].mode) {
 		case MODE_TIMESTAMP:
 			line[i]=Language.tr("Simulation.Output.TimeStamp");
 			break;
@@ -322,7 +346,7 @@ public class RunElementOutput extends RunElementPassThrough {
 			/* In der Tabelle nichts zu tun */
 			break;
 		case MODE_EXPRESSION:
-			line[i]=((ExpressionCalc)data[i]).getText();
+			line[i]=outputRecord[i].data;
 			break;
 		case MODE_CLIENT:
 			line[i]=Language.tr("Simulation.Output.ClientTypeName");
@@ -344,7 +368,7 @@ public class RunElementOutput extends RunElementPassThrough {
 			line[i]=Language.tr("Simulation.Output.ResidenceTime");
 			break;
 		case MODE_STRING:
-			line[i]=Language.tr("Simulation.Output.String")+" \""+(String)data[i]+"\"";
+			line[i]=Language.tr("Simulation.Output.String")+" \""+outputRecord[i].data+"\"";
 			break;
 		default:
 			break;
@@ -361,12 +385,26 @@ public class RunElementOutput extends RunElementPassThrough {
 		if (outputFile==null) return;
 		if (outputWriter==null) {
 			outputWriter=simData.runData.getOutputWriter(outputFile,outputFileOverwrite);
-			if (tableMode) outputWriter.output(getOutputTableHeadings());
+			switch (headingMode) {
+			case OFF:
+				/* Nichts ausgeben */
+				break;
+			case AUTO:
+				if (tableMode) outputWriter.output(getOutputTableHeadings());
+				break;
+			case USER_DEFINED:
+				if (tableMode) {
+					outputWriter.output(getOutputTableLine(simData,client,outputHeadingRecord));
+				} else {
+					outputWriter.output(getOutputString(simData,client,outputHeadingRecord));
+				}
+				break;
+			}
 		}
 		if (tableMode) {
-			outputWriter.output(getOutputTableLine(simData,client));
+			outputWriter.output(getOutputTableLine(simData,client,outputRecord));
 		} else {
-			outputWriter.output(getOutputString(simData,client));
+			outputWriter.output(getOutputString(simData,client,outputRecord));
 		}
 	}
 

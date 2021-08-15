@@ -22,15 +22,18 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.File;
 import java.io.Serializable;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
+import javax.swing.JComboBox;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
 
 import language.Language;
@@ -83,6 +86,16 @@ public class ModelElementOutputDialog extends ModelElementBaseDialog {
 	private OutputTableModel tableModel;
 
 	/**
+	 * Auswahlbox für die Art der Überschriftenausgabe
+	 */
+	private JComboBox<String> headingMode;
+
+	/**
+	 * Tabelle zur Konfiguration der auszugebenden Überschriften
+	 */
+	private OutputTableModel tableModelHeadings;
+
+	/**
 	 * Konstruktor der Klasse
 	 * @param owner	Übergeordnetes Fenster
 	 * @param element	Zu bearbeitendes {@link ModelElementOutput}
@@ -101,6 +114,7 @@ public class ModelElementOutputDialog extends ModelElementBaseDialog {
 	 * Erstellt und liefert das Panel, welches im Content-Bereich des Dialogs angezeigt werden soll
 	 * @return	Panel mit den Dialogelementen
 	 */
+	@SuppressWarnings("unchecked")
 	@Override
 	protected JComponent getContentPanel() {
 		final JPanel content=new JPanel(new BorderLayout());
@@ -108,11 +122,13 @@ public class ModelElementOutputDialog extends ModelElementBaseDialog {
 		if (element instanceof ModelElementOutput) {
 			final ModelElementOutput output=(ModelElementOutput)element;
 
+			/* Konfigurationsbereich oben */
 			final JPanel upperPanel=new JPanel();
 			upperPanel.setLayout(new BoxLayout(upperPanel,BoxLayout.PAGE_AXIS));
 			content.add(upperPanel,BorderLayout.NORTH);
 
-			final Object[] data=getInputPanel(Language.tr("Surface.Output.Dialog.FileName")+":",output.getOutputFile());
+			/* Eingabefeld: Dateiname */
+			Object[] data=getInputPanel(Language.tr("Surface.Output.Dialog.FileName")+":",output.getOutputFile());
 			JPanel line=(JPanel)data[0];
 			fileNameEdit=(JTextField)data[1];
 			upperPanel.add(line);
@@ -122,7 +138,6 @@ public class ModelElementOutputDialog extends ModelElementBaseDialog {
 				@Override public void keyReleased(KeyEvent e) {updateInfo();}
 				@Override public void keyPressed(KeyEvent e) {updateInfo();}
 			});
-
 			final JButton button=new JButton();
 			button.setIcon(Images.GENERAL_SELECT_FILE.getIcon());
 			button.setToolTipText(Language.tr("Surface.Output.Dialog.FileName.Select"));
@@ -130,13 +145,16 @@ public class ModelElementOutputDialog extends ModelElementBaseDialog {
 			button.setEnabled(!readOnly);
 			line.add(button,BorderLayout.EAST);
 
+			/* Infozeile zu Dateityp */
 			upperPanel.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
 			line.add(info=new JLabel(Language.tr("Surface.Output.Dialog.TableInfo")));
 
+			/* Checkbox: Überschreiben? */
 			upperPanel.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
 			line.add(fileOverwrite=new JCheckBox(Language.tr("Surface.Output.Dialog.Overwrite"),output.isOutputFileOverwrite()));
 			fileOverwrite.setToolTipText(Language.tr("Surface.Output.Dialog.Overwrite.Info"));
 
+			/* Checkbox: System-Zahlenformat? */
 			if (NumberTools.getDecimalSeparator()!='.') {
 				upperPanel.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
 				line.add(systemFormat=new JCheckBox(Language.tr("Surface.Output.Dialog.SystemFormat")),output.isSystemFormat());
@@ -145,15 +163,43 @@ public class ModelElementOutputDialog extends ModelElementBaseDialog {
 				systemFormat=null;
 			}
 
-			final JTableExt table=new JTableExt();
-			table.setModel(tableModel=new OutputTableModel(table,output.getModel(),output.getModes(),output.getData(),output.getSurface().getMainSurfaceVariableNames(output.getModel().getModelVariableNames(),true),readOnly));
-			table.setIsPanelCellTable(0);
-			table.setIsPanelCellTable(1);
-			table.getColumnModel().getColumn(1).setMaxWidth(300);
-			table.getColumnModel().getColumn(1).setMinWidth(300);
-			table.setEnabled(!readOnly);
-			content.add(new JScrollPane(table),BorderLayout.CENTER);
+			/* Tabs in der Mitte */
+			final JTabbedPane tabs=new JTabbedPane();
+			content.add(tabs,BorderLayout.CENTER);
+			JPanel tab;
+			JTableExt table;
 
+			/* Tab: Ausgabedaten */
+			tabs.addTab(Language.tr("Surface.Output.Dialog.Tab.OutputData"),tab=new JPanel(new BorderLayout()));
+			tab.add(new JScrollPane(table=new JTableExt()),BorderLayout.CENTER);
+			table.setModel(tableModel=new OutputTableModel(table,output.getModel(),output.getOutput(),output.getSurface().getMainSurfaceVariableNames(output.getModel().getModelVariableNames(),true),readOnly));
+
+			/* Tab: Überschriften */
+			tabs.addTab(Language.tr("Surface.Output.Dialog.Tab.Headings"),tab=new JPanel(new BorderLayout()));
+			final JPanel lines=new JPanel();
+			tab.add(lines,BorderLayout.NORTH);
+			lines.setLayout(new BoxLayout(lines,BoxLayout.PAGE_AXIS));
+			data=getComboBoxPanel(Language.tr("Surface.Output.Dialog.Tab.Headings.Mode")+":",Arrays.asList(
+					Language.tr("Surface.Output.Dialog.Tab.Headings.Off"),
+					Language.tr("Surface.Output.Dialog.Tab.Headings.Auto"),
+					Language.tr("Surface.Output.Dialog.Tab.Headings.UserDefined")));
+			lines.add((JPanel)data[0]);
+			lines.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
+			line.add(new JLabel(Language.tr("Surface.Output.Dialog.Tab.Headings.UserDefined.Info")+":"));
+			headingMode=(JComboBox<String>)data[1];
+			switch (output.getHeadingMode()) {
+			case OFF: headingMode.setSelectedIndex(0); break;
+			case AUTO: headingMode.setSelectedIndex(1); break;
+			case USER_DEFINED: headingMode.setSelectedIndex(2); break;
+			}
+			tab.add(new JScrollPane(table=new JTableExt()),BorderLayout.CENTER);
+			table.setModel(tableModelHeadings=new OutputTableModel(table,output.getModel(),output.getOutputHeading(),output.getSurface().getMainSurfaceVariableNames(output.getModel().getModelVariableNames(),true),readOnly));
+
+			/* Icons auf den Tabs */
+			tabs.setIconAt(0,Images.MODELEDITOR_ELEMENT_OUTPUT.getIcon());
+			tabs.setIconAt(1,Images.GENERAL_FONT.getIcon());
+
+			/* Dialog starten */
 			updateInfo();
 		}
 
@@ -212,13 +258,19 @@ public class ModelElementOutputDialog extends ModelElementBaseDialog {
 			output.setOutputFileOverwrite(fileOverwrite.isSelected());
 			if (systemFormat!=null) output.setSystemFormat(systemFormat.isSelected());
 
-			final List<ModelElementOutput.OutputMode> modes=output.getModes();
-			modes.clear();
-			modes.addAll(tableModel.getModes());
-			List<String> data=output.getData();
-			data.clear();
-			data.addAll(tableModel.getData());
-			while (data.size()<modes.size()) data.add("");
+			final List<ModelElementOutput.OutputRecord> outputList=output.getOutput();
+			outputList.clear();
+			outputList.addAll(tableModel.getOutput());
+
+			switch (headingMode.getSelectedIndex()) {
+			case 0: output.setHeadingMode(ModelElementOutput.HeadingMode.OFF); break;
+			case 1: output.setHeadingMode(ModelElementOutput.HeadingMode.AUTO); break;
+			case 2: output.setHeadingMode(ModelElementOutput.HeadingMode.USER_DEFINED); break;
+			}
+
+			final List<ModelElementOutput.OutputRecord> outputHeadingList=output.getOutputHeading();
+			outputHeadingList.clear();
+			outputHeadingList.addAll(tableModelHeadings.getOutput());
 		}
 	}
 

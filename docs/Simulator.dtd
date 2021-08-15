@@ -1002,7 +1002,7 @@
 <!ELEMENT ModellElementAufzeichnungAusdruck1 (#PCDATA)>
 <!ELEMENT ModellElementAufzeichnungAusdruck2 (#PCDATA)>
 
-<!ELEMENT ModellElementDateiausgabe (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementBoxSchriftGross | ModellElementBoxSchriftKlein | ModellElementEbene | ModellElementHintergrundfarbe | ModellElementStationsbild | ModellElementVerbindung | ModellElementAusgabedatei | ModellElementAusgabeelement)*>
+<!ELEMENT ModellElementDateiausgabe (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementBoxSchriftGross | ModellElementBoxSchriftKlein | ModellElementEbene | ModellElementHintergrundfarbe | ModellElementStationsbild | ModellElementVerbindung | ModellElementAusgabedatei | ModellElementAusgabeElement | ModellElementAusgabeElementUeberschrift)*>
 <!ATTLIST ModellElementDateiausgabe
   id			CDATA	#REQUIRED
   geschuetzt	CDATA	#IMPLIED
@@ -1011,10 +1011,17 @@
 >
 <!ELEMENT ModellElementAusgabedatei (#PCDATA)>
 <!ATTLIST ModellElementAusgabedatei
-  SystemFormat	CDATA	#IMPLIED
+  SystemFormat		CDATA	#IMPLIED
+  Ueberschreiben	CDATA	#IMPLIED
+  Ueberschriften	CDATA	#IMPLIED
 >
-<!ELEMENT ModellElementAusgabeelement EMPTY>
-<!ATTLIST ModellElementAusgabeelement
+<!ELEMENT ModellElementAusgabeElement EMPTY>
+<!ATTLIST ModellElementAusgabeElement
+  Typ	CDATA	#REQUIRED
+  Wert	CDATA	#IMPLIED
+>
+<!ELEMENT ModellElementAusgabeElementUeberschrift EMPTY>
+<!ATTLIST ModellElementAusgabeElementUeberschrift
   Typ	CDATA	#REQUIRED
   Wert	CDATA	#IMPLIED
 >
@@ -1060,7 +1067,7 @@
   Typ		CDATA	#IMPLIED
 >
 
-<!ELEMENT ModellElementAusgabeLog (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementBoxSchriftGross | ModellElementBoxSchriftKlein | ModellElementEbene | ModellElementHintergrundfarbe | ModellElementStationsbild | ModellElementVerbindung | ModellElementAusgabeelement)*>
+<!ELEMENT ModellElementAusgabeLog (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementBoxSchriftGross | ModellElementBoxSchriftKlein | ModellElementEbene | ModellElementHintergrundfarbe | ModellElementStationsbild | ModellElementVerbindung | ModellElementAusgabeElement)*>
 <!ATTLIST ModellElementAusgabeLog
   id			CDATA	#REQUIRED
   geschuetzt	CDATA	#IMPLIED
@@ -3282,7 +3289,7 @@
 <!ELEMENT ModelElementRecordExpression1 (#PCDATA)>
 <!ELEMENT ModelElementRecordExpression2 (#PCDATA)>
 
-<!ELEMENT ModelElementOutput (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBoxFontLarge | ModelElementBoxFontSmall | ModelElementLayer | ModelElementBackgroundColor | ModelElementStationimage | ModelElementConnection | ModelElementOutputFile | ModelElementOutputElement)*>
+<!ELEMENT ModelElementOutput (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBoxFontLarge | ModelElementBoxFontSmall | ModelElementLayer | ModelElementBackgroundColor | ModelElementStationimage | ModelElementConnection | ModelElementOutputFile | ModelElementOutputElement | ModelElementOutputElementHeading)*>
 <!ATTLIST ModelElementOutput
   id		CDATA	#REQUIRED
   protected	CDATA	#IMPLIED
@@ -3292,9 +3299,16 @@
 <!ELEMENT ModelElementOutputFile (#PCDATA)>
 <!ATTLIST ModelElementOutputFile
   SystemFormat	CDATA	#IMPLIED
+  Overwrite		CDATA	#IMPLIED
+  Headings		CDATA	#IMPLIED
 >
 <!ELEMENT ModelElementOutputElement EMPTY>
 <!ATTLIST ModelElementOutputElement
+  Type	CDATA	#REQUIRED
+  Value	CDATA	#IMPLIED
+>
+<!ELEMENT ModelElementOutputElementHeading EMPTY>
+<!ATTLIST ModelElementOutputElementHeading
   Type	CDATA	#REQUIRED
   Value	CDATA	#IMPLIED
 >

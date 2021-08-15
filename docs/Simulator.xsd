@@ -1185,15 +1185,22 @@
 <xs:element name="ModellElementDateiausgabe"><xs:complexType><xs:complexContent><xs:extension base="ModellElementVerbundenBasis">
   <xs:sequence minOccurs="0" maxOccurs="unbounded"><xs:choice>
     <xs:element ref="ModellElementAusgabedatei"/>
-	<xs:element ref="ModellElementAusgabeelement"/>
+	<xs:element ref="ModellElementAusgabeElement"/>
+	<xs:element ref="ModellElementAusgabeElementUeberschrift"/>
   </xs:choice></xs:sequence>
 </xs:extension></xs:complexContent></xs:complexType></xs:element>
 <xs:element name="ModellElementAusgabedatei"><xs:complexType><xs:simpleContent>
   <xs:extension base="xs:string">
     <xs:attribute name="SystemFormat" type="xs:string"/>
+	<xs:attribute name="Ueberschreiben" type="xs:string"/>
+	<xs:attribute name="Ueberschriften" type="xs:string"/>
   </xs:extension>
 </xs:simpleContent></xs:complexType></xs:element>
-<xs:element name="ModellElementAusgabeelement"><xs:complexType>
+<xs:element name="ModellElementAusgabeElement"><xs:complexType>
+  <xs:attribute name="Typ" type="xs:string" use="required"/>
+  <xs:attribute name="Wert" type="xs:string"/>
+</xs:complexType></xs:element>
+<xs:element name="ModellElementAusgabeElementUeberschrift"><xs:complexType>
   <xs:attribute name="Typ" type="xs:string" use="required"/>
   <xs:attribute name="Wert" type="xs:string"/>
 </xs:complexType></xs:element>
@@ -1234,7 +1241,7 @@
 
 <xs:element name="ModellElementAusgabeLog"><xs:complexType><xs:complexContent><xs:extension base="ModellElementVerbundenBasis">
   <xs:sequence minOccurs="0" maxOccurs="unbounded"><xs:choice>
-	<xs:element ref="ModellElementAusgabeelement"/>
+	<xs:element ref="ModellElementAusgabeElement"/>
   </xs:choice></xs:sequence>
 </xs:extension></xs:complexContent></xs:complexType></xs:element>
 
@@ -3348,14 +3355,21 @@
   <xs:sequence minOccurs="0" maxOccurs="unbounded"><xs:choice>
     <xs:element ref="ModelElementOutputFile"/>
 	<xs:element ref="ModelElementOutputElement"/>
+	<xs:element ref="ModelElementOutputElementHeading"/>
   </xs:choice></xs:sequence>
 </xs:extension></xs:complexContent></xs:complexType></xs:element>
 <xs:element name="ModelElementOutputFile"><xs:complexType><xs:simpleContent>
   <xs:extension base="xs:string">
     <xs:attribute name="SystemFormat" type="xs:string"/>
+	<xs:attribute name="Overwrite" type="xs:string"/>
+	<xs:attribute name="Headings" type="xs:string"/>
   </xs:extension>
 </xs:simpleContent></xs:complexType></xs:element>
 <xs:element name="ModelElementOutputElement"><xs:complexType>
+  <xs:attribute name="Type" type="xs:string" use="required"/>
+  <xs:attribute name="Value" type="xs:string"/>
+</xs:complexType></xs:element>
+<xs:element name="ModelElementOutputElementHeading"><xs:complexType>
   <xs:attribute name="Type" type="xs:string" use="required"/>
   <xs:attribute name="Value" type="xs:string"/>
 </xs:complexType></xs:element>

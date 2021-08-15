@@ -23,7 +23,9 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.function.Consumer;
+import java.util.stream.Collectors;
 
 import javax.swing.Icon;
 import javax.swing.JMenu;
@@ -36,6 +38,8 @@ import org.w3c.dom.Element;
 import language.Language;
 import simulator.editmodel.EditModel;
 import simulator.editmodel.FullTextSearch;
+import simulator.elements.RunElementOutput;
+import simulator.simparser.ExpressionCalc;
 import ui.images.Images;
 import ui.modeleditor.ModelClientData;
 import ui.modeleditor.ModelSequences;
@@ -54,54 +58,89 @@ import ui.modeleditor.fastpaint.Shapes;
 public class ModelElementOutput extends ModelElementMultiInSingleOutBox implements ElementNoRemoteSimulation, ElementWithOutputFile {
 	/**
 	 * Ausgabemodi für die einzelnen Einträge
-	 * @see ModelElementOutput#getModes()
+	 * @see ModelElementOutput#getOutput()
 	 * @see ModelElementOutput#getModeNameDescriptions()
 	 */
 	public enum OutputMode {
 		/** Gibt die Systemzeit aus */
-		MODE_TIMESTAMP,
+		MODE_TIMESTAMP(),
 
 		/** Gibt einen Text aus (siehe <code>data</code>) */
-		MODE_TEXT,
+		MODE_TEXT(true),
 
 		/** Gibt einen Tabulator aus */
-		MODE_TABULATOR,
+		MODE_TABULATOR(),
 
 		/** Gibt einen Zeilenumbruch aus */
-		MODE_NEWLINE,
+		MODE_NEWLINE(),
 
 		/** Berechnet einen Ausdruck und gibt das Ergebnis aus (siehe <code>data</code>) */
-		MODE_EXPRESSION,
+		MODE_EXPRESSION(true),
 
 		/** Gibt den Namen des Kundentyps aus */
-		MODE_CLIENT,
+		MODE_CLIENT(),
 
 		/** Gibt die bisherige Wartezeit des Kunden als Zahl aus */
-		MODE_WAITINGTIME_NUMBER,
+		MODE_WAITINGTIME_NUMBER(),
 
 		/** Gibt die bisherige Wartezeit des Kunden als Zeit aus */
-		MODE_WAITINGTIME_TIME,
+		MODE_WAITINGTIME_TIME(),
 
 		/** Gibt die bisherige Transferzeit des Kunden als Zahl aus */
-		MODE_TRANSFERTIME_NUMBER,
+		MODE_TRANSFERTIME_NUMBER(),
 
 		/** Gibt die bisherige Transferzeit des Kunden als Zeit aus */
-		MODE_TRANSFERTIME_TIME,
+		MODE_TRANSFERTIME_TIME(),
 
 		/** Gibt die bisherige Bedienzeit des Kunden als Zahl aus */
-		MODE_PROCESSTIME_NUMBER,
+		MODE_PROCESSTIME_NUMBER(),
 
 		/** Gibt die bisherige Bedienzeit des Kunden als Zeit aus */
-		MODE_PROCESSTIME_TIME,
+		MODE_PROCESSTIME_TIME(),
 
 		/** Gibt die bisherige Verweilzeit des Kunden als Zahl aus */
-		MODE_RESIDENCETIME_NUMBER,
+		MODE_RESIDENCETIME_NUMBER(),
 
 		/** Gibt die bisherige Verweilzeit des Kunden als Zeit aus */
-		MODE_RESIDENCETIME_TIME,
+		MODE_RESIDENCETIME_TIME(),
 
 		/** Gibt eine dem Kunden zugeordnete Zeichenkette aus */
-		MODE_STRING
+		MODE_STRING(true);
+
+		/**
+		 * Gibt es zu diesem Ausgabetyp zusätzlich Daten
+		 * @see OutputRecord#data
+		 */
+		public final boolean hasData;
+
+		/**
+		 * Konstruktor der Enum<br>
+		 * (Modus: keine zusätzlichen Daten)
+		 */
+		OutputMode() {
+			hasData=false;
+		}
+
+		/**
+		 * Konstruktor der Enum
+		 * @param hasData	Gibt es zu diesem Ausgabetyp zusätzlich Daten
+		 */
+		OutputMode(final boolean hasData) {
+			this.hasData=hasData;
+		}
+	}
+
+	/**
+	 * Überschriftenmodus für die Ausgabe
+	 * @see ModelElementOutput#headingMode
+	 */
+	public enum HeadingMode {
+		/** Keine Überschriften */
+		OFF,
+		/** Automatisch generierte Überschriften für Tabellen, für Texte nichts */
+		AUTO,
+		/** Benutzerdefinierte Überschriften */
+		USER_DEFINED
 	}
 
 	/**
@@ -124,16 +163,27 @@ public class ModelElementOutput extends ModelElementMultiInSingleOutBox implemen
 	private boolean systemFormat;
 
 	/**
-	 * Liste mit den Modi der Ausgabeelemente
-	 * @see #getModes()
+	 * Liste der Ausgabeelemente
+	 * @see #getOutput()
 	 */
-	private List<OutputMode> mode;
+	private final List<OutputRecord> output;
 
 	/**
-	 * Liste mit den zusätzlichen Daten der Ausgabeelemente
-	 * @see #getData()
+	 * Überschriftenmodus für die Ausgabe
+	 * @see #getHeadingMode()
+	 * @see #setHeadingMode(HeadingMode)
+	 * @see HeadingMode
 	 */
-	private List<String> data;
+	private HeadingMode headingMode;
+
+	/**
+	 * Liste mit den Ausgabeelementen für die Überschrift im Modus {@link HeadingMode#USER_DEFINED}
+	 * @see HeadingMode#USER_DEFINED
+	 * @see #getHeadingMode()
+	 * @see #setHeadingMode(HeadingMode)
+	 * @see #getOutputHeading()
+	 */
+	private final List<OutputRecord> outputHeading;
 
 	/**
 	 * Konstruktor der Klasse <code>ModelElementOutput</code>
@@ -142,8 +192,9 @@ public class ModelElementOutput extends ModelElementMultiInSingleOutBox implemen
 	 */
 	public ModelElementOutput(final EditModel model, final ModelSurface surface) {
 		super(model,surface,Shapes.ShapeType.SHAPE_DOCUMENT);
-		mode=new ArrayList<>();
-		data=new ArrayList<>();
+		output=new ArrayList<>();
+		headingMode=HeadingMode.AUTO;
+		outputHeading=new ArrayList<>();
 		outputFile="";
 		outputFileOverwrite=false;
 		systemFormat=false;
@@ -193,19 +244,41 @@ public class ModelElementOutput extends ModelElementMultiInSingleOutBox implemen
 	}
 
 	/**
-	 * Liefert die Liste mit den Modi der einzelnen Ausgabeelemente
-	 * @return	Liste mit den Modi der Ausgabeelemente
+	 * Liefert die Liste der einzelnen Ausgabeelemente.
+	 * @return	Liste der Ausgabeelemente
 	 */
-	public List<OutputMode> getModes() {
-		return mode;
+	public List<OutputRecord> getOutput() {
+		return output;
+	}
+
+
+	/**
+	 * Liefert den Überschriftenmodus für die Ausgabe.
+	 * @return	Überschriftenmodus für die Ausgabe
+	 * @see #setHeadingMode(HeadingMode)
+	 * @see #getOutputHeading()
+	 */
+	public HeadingMode getHeadingMode() {
+		return headingMode;
 	}
 
 	/**
-	 * Liefert die Liste mit den zusätzlichen Daten der einzelnen Ausgabeelemente
-	 * @return	Liste mit den zusätzlichen Daten der Ausgabeelemente
+	 * Stellt den Überschriftenmodus für die Ausgabe ein.
+	 * @param headingMode	Überschriftenmodus für die Ausgabe
+	 * @see #getHeadingMode()
+	 * @see #getOutputHeading()
 	 */
-	public List<String> getData() {
-		return data;
+	public void setHeadingMode(final HeadingMode headingMode) {
+		this.headingMode=(headingMode==null)?HeadingMode.AUTO:headingMode;
+	}
+
+	/**
+	 * Liefert die Liste der einzelnen Ausgabeelemente für die Überschrift.
+	 * @return	Liste der Ausgabeelemente für die Überschrift
+	 * @see HeadingMode#USER_DEFINED
+	 */
+	public List<OutputRecord> getOutputHeading() {
+		return outputHeading;
 	}
 
 	/**
@@ -282,10 +355,15 @@ public class ModelElementOutput extends ModelElementMultiInSingleOutBox implemen
 			}
 		}
 		if (outputFileOverwrite!=other.outputFileOverwrite) return false;
-		if (mode.size()!=other.mode.size()) return false;
-		if (data.size()!=other.data.size()) return false;
-		for (int i=0;i<mode.size();i++) if (!other.mode.get(i).equals(mode.get(i))) return false;
-		for (int i=0;i<data.size();i++) if (!other.data.get(i).equals(data.get(i))) return false;
+
+		if (output.size()!=other.output.size()) return false;
+		for (int i=0;i<output.size();i++) if (!other.output.get(i).equalsOutputRecord(output.get(i))) return false;
+
+		if (headingMode!=other.headingMode) return false;
+		if (headingMode==HeadingMode.USER_DEFINED) {
+			if (outputHeading.size()!=other.outputHeading.size()) return false;
+			for (int i=0;i<outputHeading.size();i++) if (!other.outputHeading.get(i).equalsOutputRecord(outputHeading.get(i))) return false;
+		}
 
 		return true;
 	}
@@ -302,8 +380,9 @@ public class ModelElementOutput extends ModelElementMultiInSingleOutBox implemen
 			outputFile=source.outputFile;
 			outputFileOverwrite=source.outputFileOverwrite;
 			systemFormat=source.systemFormat;
-			mode.addAll(source.mode);
-			data.addAll(source.data);
+			output.addAll(source.output.stream().map(record->new OutputRecord(record)).collect(Collectors.toList()));
+			headingMode=source.headingMode;
+			outputHeading.addAll(source.outputHeading.stream().map(record->new OutputRecord(record)).collect(Collectors.toList()));
 		}
 	}
 
@@ -428,6 +507,35 @@ public class ModelElementOutput extends ModelElementMultiInSingleOutBox implemen
 	}
 
 	/**
+	 * Schreibt die Daten eines einzelnen Ausgabeelements in einen xml-Knoten
+	 * @param record	Auszugebendes Ausgabeelement
+	 * @param sub	xml-Knoten in den die Daten geschrieben werden sollen (es wird kein Unterknoten erzeugt, sondern direkt in den angegebenen Knoten geschrieben)
+	 * @see #addPropertiesDataToXML(Document, Element)
+	 */
+	private void writeOutputRecord(final OutputRecord record, final Element sub) {
+		String type="";
+		switch (record.mode) {
+		case MODE_TIMESTAMP: type=Language.tr("Surface.Output.XML.Element.Type.TimeStamp"); break;
+		case MODE_TEXT: type=Language.tr("Surface.Output.XML.Element.Type.Text"); break;
+		case MODE_TABULATOR: type=Language.tr("Surface.Output.XML.Element.Type.Tabulator"); break;
+		case MODE_NEWLINE: type=Language.tr("Surface.Output.XML.Element.Type.LineBreak"); break;
+		case MODE_EXPRESSION: type=Language.tr("Surface.Output.XML.Element.Type.Expression"); break;
+		case MODE_CLIENT: type=Language.tr("Surface.Output.XML.Element.Type.ClientType"); break;
+		case MODE_WAITINGTIME_NUMBER: type=Language.tr("Surface.Output.XML.Element.Type.WaitingTimeNumber"); break;
+		case MODE_WAITINGTIME_TIME: type=Language.tr("Surface.Output.XML.Element.Type.WaitingTime"); break;
+		case MODE_TRANSFERTIME_NUMBER: type=Language.tr("Surface.Output.XML.Element.Type.TransferTimeNumber"); break;
+		case MODE_TRANSFERTIME_TIME: type=Language.tr("Surface.Output.XML.Element.Type.TransferTime"); break;
+		case MODE_PROCESSTIME_NUMBER: type=Language.tr("Surface.Output.XML.Element.Type.ProcessTimeNumber"); break;
+		case MODE_PROCESSTIME_TIME: type=Language.tr("Surface.Output.XML.Element.Type.ProcessTime"); break;
+		case MODE_RESIDENCETIME_NUMBER: type=Language.tr("Surface.Output.XML.Element.Type.ResidenceTimeNumber"); break;
+		case MODE_RESIDENCETIME_TIME: type=Language.tr("Surface.Output.XML.Element.Type.ResidenceTime"); break;
+		case MODE_STRING: type=Language.tr("Surface.Output.XML.Element.Type.String"); break;
+		}
+		sub.setAttribute(Language.trPrimary("Surface.Output.XML.Element.Type"),type);
+		if (!record.data.isEmpty()) sub.setAttribute(Language.trPrimary("Surface.Output.XML.Element.Data"),record.data);
+	}
+
+	/**
 	 * Speichert die Eigenschaften des Modell-Elements als Untereinträge eines xml-Knotens
 	 * @param doc	Übergeordnetes xml-Dokument
 	 * @param node	Übergeordneter xml-Knoten, in dessen Kindelementen die Daten des Objekts gespeichert werden sollen
@@ -445,32 +553,58 @@ public class ModelElementOutput extends ModelElementMultiInSingleOutBox implemen
 				sub.setAttribute(Language.trPrimary("Surface.Output.XML.File.SystemFormat"),"1");
 			}
 			if (outputFileOverwrite) sub.setAttribute(Language.trPrimary("Surface.Output.XML.File.Overwrite"),"1");
-		}
-
-		for (int i=0;i<Math.min(mode.size(),data.size());i++) {
-			node.appendChild(sub=doc.createElement(Language.trPrimary("Surface.Output.XML.Element")));
-
-			String type="";
-			switch (mode.get(i)) {
-			case MODE_TIMESTAMP: type=Language.tr("Surface.Output.XML.Element.Type.TimeStamp"); break;
-			case MODE_TEXT: type=Language.tr("Surface.Output.XML.Element.Type.Text"); break;
-			case MODE_TABULATOR: type=Language.tr("Surface.Output.XML.Element.Type.Tabulator"); break;
-			case MODE_NEWLINE: type=Language.tr("Surface.Output.XML.Element.Type.LineBreak"); break;
-			case MODE_EXPRESSION: type=Language.tr("Surface.Output.XML.Element.Type.Expression"); break;
-			case MODE_CLIENT: type=Language.tr("Surface.Output.XML.Element.Type.ClientType"); break;
-			case MODE_WAITINGTIME_NUMBER: type=Language.tr("Surface.Output.XML.Element.Type.WaitingTimeNumber"); break;
-			case MODE_WAITINGTIME_TIME: type=Language.tr("Surface.Output.XML.Element.Type.WaitingTime"); break;
-			case MODE_TRANSFERTIME_NUMBER: type=Language.tr("Surface.Output.XML.Element.Type.TransferTimeNumber"); break;
-			case MODE_TRANSFERTIME_TIME: type=Language.tr("Surface.Output.XML.Element.Type.TransferTime"); break;
-			case MODE_PROCESSTIME_NUMBER: type=Language.tr("Surface.Output.XML.Element.Type.ProcessTimeNumber"); break;
-			case MODE_PROCESSTIME_TIME: type=Language.tr("Surface.Output.XML.Element.Type.ProcessTime"); break;
-			case MODE_RESIDENCETIME_NUMBER: type=Language.tr("Surface.Output.XML.Element.Type.ResidenceTimeNumber"); break;
-			case MODE_RESIDENCETIME_TIME: type=Language.tr("Surface.Output.XML.Element.Type.ResidenceTime"); break;
-			case MODE_STRING: type=Language.tr("Surface.Output.XML.Element.Type.String"); break;
+			switch (headingMode) {
+			case OFF:
+				sub.setAttribute(Language.trPrimary("Surface.Output.XML.File.HeadingMode"),Language.trPrimary("Surface.Output.XML.File.HeadingMode.Off"));
+				break;
+			case AUTO:
+				/* Dies ist der Vorgabemodus, der muss nicht in der Konfiguration erwähnt werden. */
+				break;
+			case USER_DEFINED:
+				sub.setAttribute(Language.trPrimary("Surface.Output.XML.File.HeadingMode"),Language.trPrimary("Surface.Output.XML.File.HeadingMode.UserDefined"));
+				break;
 			}
-			sub.setAttribute(Language.trPrimary("Surface.Output.XML.Element.Type"),type);
-			if (!data.get(i).isEmpty()) sub.setAttribute(Language.trPrimary("Surface.Output.XML.Element.Data"),data.get(i));
 		}
+
+		for (OutputRecord record: output) {
+			node.appendChild(sub=doc.createElement(Language.trPrimary("Surface.Output.XML.Element")));
+			writeOutputRecord(record,sub);
+		}
+
+		if (headingMode==HeadingMode.USER_DEFINED) for (OutputRecord record: outputHeading) {
+			node.appendChild(sub=doc.createElement(Language.trPrimary("Surface.Output.XML.ElementHeading")));
+			writeOutputRecord(record,sub);
+		}
+	}
+
+	/**
+	 * Lädt die Daten zu einem einzelnen Ausgabeelement aus einem xml-Knoten
+	 * @param name	Name des xml-Elements
+	 * @param node	xml-Element, aus dem das Datum geladen werden soll
+	 * @return	Liefert im Erfolgsfall das neue Ausgabeelement, sonst eine Fehlermeldung
+	 */
+	private Object loadOutputRecord(final String name, final Element node) {
+		final String m=Language.trAllAttribute("Surface.Output.XML.Element.Type",node);
+		final String d=Language.trAllAttribute("Surface.Output.XML.Element.Data",node);
+		OutputMode index=OutputMode.MODE_TIMESTAMP;
+		boolean ok=false;
+		if (Language.trAll("Surface.Output.XML.Element.Type.TimeStamp",m)) {index=OutputMode.MODE_TIMESTAMP; ok=true;}
+		if (Language.trAll("Surface.Output.XML.Element.Type.Text",m)) {index=OutputMode.MODE_TEXT; ok=true;}
+		if (Language.trAll("Surface.Output.XML.Element.Type.Tabulator",m)) {index=OutputMode.MODE_TABULATOR; ok=true;}
+		if (Language.trAll("Surface.Output.XML.Element.Type.LineBreak",m)) {index=OutputMode.MODE_NEWLINE; ok=true;}
+		if (Language.trAll("Surface.Output.XML.Element.Type.Expression",m)) {index=OutputMode.MODE_EXPRESSION; ok=true;}
+		if (Language.trAll("Surface.Output.XML.Element.Type.ClientType",m)) {index=OutputMode.MODE_CLIENT; ok=true;}
+		if (Language.trAll("Surface.Output.XML.Element.Type.WaitingTimeNumber",m)) {index=OutputMode.MODE_WAITINGTIME_NUMBER; ok=true;}
+		if (Language.trAll("Surface.Output.XML.Element.Type.WaitingTime",m)) {index=OutputMode.MODE_WAITINGTIME_TIME; ok=true;}
+		if (Language.trAll("Surface.Output.XML.Element.Type.TransferTimeNumber",m)) {index=OutputMode.MODE_TRANSFERTIME_NUMBER; ok=true;}
+		if (Language.trAll("Surface.Output.XML.Element.Type.TransferTime",m)) {index=OutputMode.MODE_TRANSFERTIME_TIME; ok=true;}
+		if (Language.trAll("Surface.Output.XML.Element.Type.ProcessTimeNumber",m)) {index=OutputMode.MODE_PROCESSTIME_NUMBER; ok=true;}
+		if (Language.trAll("Surface.Output.XML.Element.Type.ProcessTime",m)) {index=OutputMode.MODE_PROCESSTIME_TIME; ok=true;}
+		if (Language.trAll("Surface.Output.XML.Element.Type.ResidenceTimeNumber",m)) {index=OutputMode.MODE_RESIDENCETIME_NUMBER; ok=true;}
+		if (Language.trAll("Surface.Output.XML.Element.Type.ResidenceTime",m)) {index=OutputMode.MODE_RESIDENCETIME_TIME; ok=true;}
+		if (Language.trAll("Surface.Output.XML.Element.Type.String",m)) {index=OutputMode.MODE_STRING; ok=true;}
+		if (!ok) return String.format(Language.tr("Surface.XML.AttributeSubError"),Language.trPrimary("Surface.Output.XML.Element.Type"),name,node.getParentNode().getNodeName());
+		return new OutputRecord(index,d);
 	}
 
 	/**
@@ -487,36 +621,32 @@ public class ModelElementOutput extends ModelElementMultiInSingleOutBox implemen
 
 		if (Language.trAll("Surface.Output.XML.File",name)) {
 			outputFile=content;
+
 			final String systemFormat=Language.trAllAttribute("Surface.Output.XML.File.SystemFormat",node);
 			if (!systemFormat.isEmpty() && !systemFormat.equals("0")) this.systemFormat=true;
+
 			final String overwrite=Language.trAllAttribute("Surface.Output.XML.File.Overwrite",node);
 			if (!overwrite.isEmpty() && !overwrite.equals("0")) outputFileOverwrite=true;
+
+			final String headingModeString=Language.trAllAttribute("Surface.Output.XML.File.HeadingMode",node);
+			if (Language.trAll("Surface.Output.XML.File.HeadingMode.Off",headingModeString)) headingMode=HeadingMode.OFF;
+			if (Language.trAll("Surface.Output.XML.File.HeadingMode.Auto",headingModeString)) headingMode=HeadingMode.AUTO;
+			if (Language.trAll("Surface.Output.XML.File.HeadingMode.UserDefined",headingModeString)) headingMode=HeadingMode.USER_DEFINED;
+
 			return null;
 		}
 
 		if (Language.trAll("Surface.Output.XML.Element",name)) {
-			final String m=Language.trAllAttribute("Surface.Output.XML.Element.Type",node);
-			final String d=Language.trAllAttribute("Surface.Output.XML.Element.Data",node);
-			OutputMode index=OutputMode.MODE_TIMESTAMP;
-			boolean ok=false;
-			if (Language.trAll("Surface.Output.XML.Element.Type.TimeStamp",m)) {index=OutputMode.MODE_TIMESTAMP; ok=true;}
-			if (Language.trAll("Surface.Output.XML.Element.Type.Text",m)) {index=OutputMode.MODE_TEXT; ok=true;}
-			if (Language.trAll("Surface.Output.XML.Element.Type.Tabulator",m)) {index=OutputMode.MODE_TABULATOR; ok=true;}
-			if (Language.trAll("Surface.Output.XML.Element.Type.LineBreak",m)) {index=OutputMode.MODE_NEWLINE; ok=true;}
-			if (Language.trAll("Surface.Output.XML.Element.Type.Expression",m)) {index=OutputMode.MODE_EXPRESSION; ok=true;}
-			if (Language.trAll("Surface.Output.XML.Element.Type.ClientType",m)) {index=OutputMode.MODE_CLIENT; ok=true;}
-			if (Language.trAll("Surface.Output.XML.Element.Type.WaitingTimeNumber",m)) {index=OutputMode.MODE_WAITINGTIME_NUMBER; ok=true;}
-			if (Language.trAll("Surface.Output.XML.Element.Type.WaitingTime",m)) {index=OutputMode.MODE_WAITINGTIME_TIME; ok=true;}
-			if (Language.trAll("Surface.Output.XML.Element.Type.TransferTimeNumber",m)) {index=OutputMode.MODE_TRANSFERTIME_NUMBER; ok=true;}
-			if (Language.trAll("Surface.Output.XML.Element.Type.TransferTime",m)) {index=OutputMode.MODE_TRANSFERTIME_TIME; ok=true;}
-			if (Language.trAll("Surface.Output.XML.Element.Type.ProcessTimeNumber",m)) {index=OutputMode.MODE_PROCESSTIME_NUMBER; ok=true;}
-			if (Language.trAll("Surface.Output.XML.Element.Type.ProcessTime",m)) {index=OutputMode.MODE_PROCESSTIME_TIME; ok=true;}
-			if (Language.trAll("Surface.Output.XML.Element.Type.ResidenceTimeNumber",m)) {index=OutputMode.MODE_RESIDENCETIME_NUMBER; ok=true;}
-			if (Language.trAll("Surface.Output.XML.Element.Type.ResidenceTime",m)) {index=OutputMode.MODE_RESIDENCETIME_TIME; ok=true;}
-			if (Language.trAll("Surface.Output.XML.Element.Type.String",m)) {index=OutputMode.MODE_STRING; ok=true;}
-			if (!ok) return String.format(Language.tr("Surface.XML.AttributeSubError"),Language.trPrimary("Surface.Output.XML.Element.Type"),name,node.getParentNode().getNodeName());
-			mode.add(index);
-			data.add(d);
+			final Object record=loadOutputRecord(name,node);
+			if (record instanceof String) return (String)record;
+			output.add((OutputRecord)record);
+			return null;
+		}
+
+		if (Language.trAll("Surface.Output.XML.ElementHeading",name)) {
+			final Object record=loadOutputRecord(name,node);
+			if (record instanceof String) return (String)record;
+			outputHeading.add((OutputRecord)record);
 			return null;
 		}
 
@@ -529,6 +659,41 @@ public class ModelElementOutput extends ModelElementMultiInSingleOutBox implemen
 	}
 
 	/**
+	 * Gibt die Daten zu einem Ausgabeelement in der Modellbeschreibung aus
+	 * @param descriptionBuilder	Description-Builder, der die Beschreibungsdaten zusammenfasst
+	 * @param record	Auszugebendes Ausgabeelement
+	 * @param name	Name des Elements
+	 * @param position	Position des Elements
+	 * @see #buildDescription(ModelDescriptionBuilder)
+	 */
+	private void buildOutputDescription(final ModelDescriptionBuilder descriptionBuilder, final OutputRecord record, final String name, final int position) {
+		final String[] modeDesciptions=getModeNameDescriptions();
+
+		final String value;
+		String text="";
+		switch (record.mode) {
+		case MODE_TIMESTAMP: text=modeDesciptions[0]; break;
+		case MODE_TEXT: text=modeDesciptions[1]; break;
+		case MODE_TABULATOR: text=modeDesciptions[2]; break;
+		case MODE_NEWLINE: text=modeDesciptions[3]; break;
+		case MODE_EXPRESSION: text=modeDesciptions[4]; break;
+		case MODE_CLIENT: text=modeDesciptions[5]; break;
+		case MODE_WAITINGTIME_NUMBER: text=modeDesciptions[6]; break;
+		case MODE_WAITINGTIME_TIME: text=modeDesciptions[7]; break;
+		case MODE_TRANSFERTIME_NUMBER: text=modeDesciptions[8]; break;
+		case MODE_TRANSFERTIME_TIME: text=modeDesciptions[9]; break;
+		case MODE_PROCESSTIME_NUMBER: text=modeDesciptions[10]; break;
+		case MODE_PROCESSTIME_TIME: text=modeDesciptions[11]; break;
+		case MODE_RESIDENCETIME_NUMBER: text=modeDesciptions[12]; break;
+		case MODE_RESIDENCETIME_TIME: text=modeDesciptions[13]; break;
+		case MODE_STRING: text=modeDesciptions[14]; break;
+		}
+
+		if (record.mode.hasData) value=text+": "+record.data; else value=text;
+		descriptionBuilder.addProperty(Language.tr("ModelDescription.Output.Property"),value,position);
+	}
+
+	/**
 	 * Erstellt eine Beschreibung für das aktuelle Element
 	 * @param descriptionBuilder	Description-Builder, der die Beschreibungsdaten zusammenfasst
 	 */
@@ -536,35 +701,16 @@ public class ModelElementOutput extends ModelElementMultiInSingleOutBox implemen
 	public void buildDescription(final ModelDescriptionBuilder descriptionBuilder) {
 		super.buildDescription(descriptionBuilder);
 
-		final String[] modeDesciptions=getModeNameDescriptions();
-		for (int i=0;i<mode.size();i++) {
-			final OutputMode m=mode.get(i);
-			final String value;
-			String text="";
-			switch (m) {
-			case MODE_TIMESTAMP: text=modeDesciptions[0]; break;
-			case MODE_TEXT: text=modeDesciptions[1]; break;
-			case MODE_TABULATOR: text=modeDesciptions[2]; break;
-			case MODE_NEWLINE: text=modeDesciptions[3]; break;
-			case MODE_EXPRESSION: text=modeDesciptions[4]; break;
-			case MODE_CLIENT: text=modeDesciptions[5]; break;
-			case MODE_WAITINGTIME_NUMBER: text=modeDesciptions[6]; break;
-			case MODE_WAITINGTIME_TIME: text=modeDesciptions[7]; break;
-			case MODE_TRANSFERTIME_NUMBER: text=modeDesciptions[8]; break;
-			case MODE_TRANSFERTIME_TIME: text=modeDesciptions[9]; break;
-			case MODE_PROCESSTIME_NUMBER: text=modeDesciptions[10]; break;
-			case MODE_PROCESSTIME_TIME: text=modeDesciptions[11]; break;
-			case MODE_RESIDENCETIME_NUMBER: text=modeDesciptions[12]; break;
-			case MODE_RESIDENCETIME_TIME: text=modeDesciptions[13]; break;
-			case MODE_STRING: text=modeDesciptions[14]; break;
-			}
+		if (headingMode==HeadingMode.USER_DEFINED) for (OutputRecord record: outputHeading) {
+			buildOutputDescription(descriptionBuilder,record,Language.tr("ModelDescription.Output.PropertyHeading"),1000);
+		}
 
-			if (m==OutputMode.MODE_TEXT || m==OutputMode.MODE_EXPRESSION || m==OutputMode.MODE_STRING) value=text+": "+data.get(i); else value=text;
-			descriptionBuilder.addProperty(Language.tr("ModelDescription.Output.Property"),value,1000);
+		for (OutputRecord record: output) {
+			buildOutputDescription(descriptionBuilder,record,Language.tr("ModelDescription.Output.Property"),2000);
 		}
 
 		if (!outputFile.trim().isEmpty()) {
-			descriptionBuilder.addProperty(Language.tr("ModelDescription.Output.File"),outputFile,2000);
+			descriptionBuilder.addProperty(Language.tr("ModelDescription.Output.File"),outputFile,3000);
 		}
 	}
 
@@ -575,14 +721,119 @@ public class ModelElementOutput extends ModelElementMultiInSingleOutBox implemen
 		searcher.testString(this,Language.tr("Editor.DialogBase.Search.OutputFile"),outputFile,newOutputFile->{outputFile=newOutputFile;});
 
 		/* Ausgabedaten */
-		for (int i=0;i<mode.size();i++) {
+		for (int i=0;i<output.size();i++) {
 			final int index=i;
-			if (mode.get(index)==OutputMode.MODE_TEXT) {
-				searcher.testString(this,Language.tr("Editor.DialogBase.Search.OutputText"),data.get(index),newText->data.set(index,newText));
+			final OutputMode mode=output.get(index).mode;
+			final String data=output.get(index).data;
+			if (mode==OutputMode.MODE_TEXT) {
+				searcher.testString(this,Language.tr("Editor.DialogBase.Search.OutputText"),data,newText->output.set(index,new OutputRecord(mode,newText)));
 			}
-			if (mode.get(index)==OutputMode.MODE_EXPRESSION) {
-				searcher.testString(this,Language.tr("Editor.DialogBase.Search.OutputExpression"),data.get(index),newExpression->data.set(index,newExpression));
+			if (mode==OutputMode.MODE_EXPRESSION) {
+				searcher.testString(this,Language.tr("Editor.DialogBase.Search.OutputExpression"),data,newExpression->output.set(index,new OutputRecord(mode,newExpression)));
 			}
+			if (mode==OutputMode.MODE_STRING) {
+				searcher.testString(this,Language.tr("Editor.DialogBase.Search.OutputString"),data,newString->output.set(index,new OutputRecord(mode,newString)));
+			}
+		}
+
+		/* Überschrift-Ausgaben */
+		if (headingMode==HeadingMode.USER_DEFINED) for (int i=0;i<outputHeading.size();i++) {
+			final int index=i;
+			final OutputMode mode=outputHeading.get(index).mode;
+			final String data=outputHeading.get(index).data;
+			if (mode==OutputMode.MODE_TEXT) {
+				searcher.testString(this,Language.tr("Editor.DialogBase.Search.OutputText"),data,newText->outputHeading.set(index,new OutputRecord(mode,newText)));
+			}
+			if (mode==OutputMode.MODE_EXPRESSION) {
+				searcher.testString(this,Language.tr("Editor.DialogBase.Search.OutputExpression"),data,newExpression->outputHeading.set(index,new OutputRecord(mode,newExpression)));
+			}
+			if (mode==OutputMode.MODE_STRING) {
+				searcher.testString(this,Language.tr("Editor.DialogBase.Search.OutputString"),data,newString->outputHeading.set(index,new OutputRecord(mode,newString)));
+			}
+		}
+	}
+
+	/**
+	 * Diese Klasse kapselt ein einzelnes Ausgabeelement.
+	 * @see ModelElementOutput#output
+	 * @see ModelElementOutput#outputHeading
+	 * @see ModelElementOutput#getOutput()
+	 * @see ModelElementOutput#getOutputHeading()
+	 */
+	public static class OutputRecord {
+		/**
+		 * Was soll ausgegeben werden?
+		 * @see OutputMode
+		 */
+		public final OutputMode mode;
+
+		/**
+		 * Optionale zusätzliche Daten (kann leer sein, ist aber nie <code>null</code>)
+		 */
+		public final String data;
+
+		/**
+		 * Rechenausdruck (wird nur verwendet, wenn dieses Objekt von {@link RunElementOutput} erstellt wurde)
+		 */
+		public final ExpressionCalc calc;
+
+		/**
+		 * Konstruktor der Klasse
+		 */
+		public OutputRecord() {
+			mode=OutputMode.MODE_TIMESTAMP;
+			data="";
+			calc=null;
+		}
+
+		/**
+		 * Konstruktor der Klasse
+		 * @param mode	Was soll ausgegeben werden?
+		 * @param data	Optionale zusätzliche Daten
+		 */
+		public OutputRecord(final OutputMode mode, final String data) {
+			this.mode=(mode==null)?OutputMode.MODE_TIMESTAMP:mode;
+			this.data=(data==null)?"":data;
+			calc=null;
+		}
+
+		/**
+		 * Konstruktor der Klasse (wird nur von {@link RunElementOutput} verwendet)
+		 * @param data	Rechenausdruck
+		 */
+		public OutputRecord(final ExpressionCalc data) {
+			this.mode=OutputMode.MODE_EXPRESSION;
+			this.data=data.getText();
+			this.calc=data;
+		}
+
+		/**
+		 * Copy-Konstruktor der Klasse
+		 * @param source	Zu kopierendes Ausgangselement
+		 */
+		public OutputRecord(final OutputRecord source) {
+			if (source!=null) {
+				mode=source.mode;
+				data=source.data;
+				calc=source.calc;
+			} else {
+				mode=OutputMode.MODE_TIMESTAMP;
+				data="";
+				calc=null;
+			}
+		}
+
+		/**
+		 * Vergleicht dieses Ausgabeelement mit einem weiteren Ausgabeelement
+		 * @param other	Weiteres Ausgabeelement für den Vergleich
+		 * @return	Liefert <code>true</code>, wenn beide Ausgabeelement inhaltlich identisch sind
+		 */
+		public boolean equalsOutputRecord(final OutputRecord other) {
+			if (other==null) return false;
+			if (other==this) return true;
+			if (mode!=other.mode) return false;
+			if (!mode.hasData) return true;
+			return Objects.equals(data,other.data);
 		}
 	}
 }

@@ -1066,7 +1066,7 @@ public abstract class ModelElementBaseDialog extends BaseDialog {
 	/**
 	 * Erstellt ein Panel, in dem sich ein Label und eine ComboBox ohne Edit-Möglichkeit befinden
 	 * @param labelText	Beschriftungstext, der vor der ComboBox stehen soll
-	 * 	 * @param values	Mögliche Auswahlwerte für die ComboBox
+	 * @param values	Mögliche Auswahlwerte für die ComboBox
 	 * @return	Liefert ein 2-elementiges Array: <code>JPanel</code>-Objekt, in dem sich Label und ComboBox befinden, und <code>JComboBox</code> vom Typ <code>String</code>
 	 */
 	public static Object[] getComboBoxPanel(final String labelText, final Collection<String> values) {
