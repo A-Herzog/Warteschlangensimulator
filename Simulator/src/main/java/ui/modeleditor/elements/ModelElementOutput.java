@@ -360,10 +360,9 @@ public class ModelElementOutput extends ModelElementMultiInSingleOutBox implemen
 		for (int i=0;i<output.size();i++) if (!other.output.get(i).equalsOutputRecord(output.get(i))) return false;
 
 		if (headingMode!=other.headingMode) return false;
-		if (headingMode==HeadingMode.USER_DEFINED) {
-			if (outputHeading.size()!=other.outputHeading.size()) return false;
-			for (int i=0;i<outputHeading.size();i++) if (!other.outputHeading.get(i).equalsOutputRecord(outputHeading.get(i))) return false;
-		}
+
+		if (outputHeading.size()!=other.outputHeading.size()) return false;
+		for (int i=0;i<outputHeading.size();i++) if (!other.outputHeading.get(i).equalsOutputRecord(outputHeading.get(i))) return false;
 
 		return true;
 	}
@@ -571,7 +570,7 @@ public class ModelElementOutput extends ModelElementMultiInSingleOutBox implemen
 			writeOutputRecord(record,sub);
 		}
 
-		if (headingMode==HeadingMode.USER_DEFINED) for (OutputRecord record: outputHeading) {
+		for (OutputRecord record: outputHeading) {
 			node.appendChild(sub=doc.createElement(Language.trPrimary("Surface.Output.XML.ElementHeading")));
 			writeOutputRecord(record,sub);
 		}

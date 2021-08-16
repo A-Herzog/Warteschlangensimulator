@@ -49,10 +49,16 @@ public class RunElementOutputJS extends RunElementPassThrough {
 	private String script;
 	/** Skriptsprache des Skriptes in {@link #script} */
 	private ModelElementOutputJS.ScriptMode mode;
+	/** Auszuführendes Skript zur Generierung der Überschriften (kann <code>null</code> sein, wenn keine Überschrift ausgegeben werden soll) */
+	private String scriptHeading;
+	/** Skriptsprache des Skriptes in {@link #scriptHeading} */
+	private ModelElementOutputJS.ScriptMode modeHeading;
 	/** System zur gepufferten Dateiausgabe ({@link RunData#getOutputWriter(File, boolean)}) */
 	private RunDataOutputWriter outputWriter;
 	/** Bereits in {@link #build(EditModel, RunModel, ModelElement, ModelElementSub, boolean)} vorbereiteter (optionale) Java-Runner */
 	private DynamicRunner jRunner;
+	/** Bereits in {@link #build(EditModel, RunModel, ModelElement, ModelElementSub, boolean)} vorbereiteter (optionale) Java-Runner für die Überschriften */
+	private DynamicRunner jRunnerHeading;
 
 	/**
 	 * Konstruktor der Klasse
@@ -79,13 +85,27 @@ public class RunElementOutputJS extends RunElementPassThrough {
 
 		/* Skript */
 		output.script=outputElement.getScript();
-
 		output.mode=outputElement.getMode();
+
+		/* Überschriften-Skript */
+		if (outputElement.isUseHeadingScript()) {
+			output.scriptHeading=outputElement.getScriptHeading();
+			output.modeHeading=outputElement.getModeHeading();
+		} else {
+			output.scriptHeading=null;
+			output.modeHeading=ModelElementOutputJS.ScriptMode.Javascript;
+		}
 
 		if (output.mode==ModelElementOutputJS.ScriptMode.Java && !testOnly) {
 			final Object runner=DynamicFactory.getFactory().test(output.script,runModel.javaImports,true);
 			if (runner instanceof String) return String.format(Language.tr("Simulation.Creator.ScriptError"),element.getId())+"\n"+runner;
 			output.jRunner=(DynamicRunner)runner;
+		}
+
+		if (output.scriptHeading!=null && output.modeHeading==ModelElementOutputJS.ScriptMode.Java && !testOnly) {
+			final Object runner=DynamicFactory.getFactory().test(output.scriptHeading,runModel.javaImports,true);
+			if (runner instanceof String) return String.format(Language.tr("Simulation.Creator.ScriptError"),element.getId())+"\n"+runner;
+			output.jRunnerHeading=(DynamicRunner)runner;
 		}
 
 		return output;
@@ -111,7 +131,7 @@ public class RunElementOutputJS extends RunElementPassThrough {
 		RunElementOutputJSData data;
 		data=(RunElementOutputJSData)(simData.runData.getStationData(this));
 		if (data==null) {
-			data=new RunElementOutputJSData(this,script,mode,jRunner,simData);
+			data=new RunElementOutputJSData(this,script,mode,scriptHeading,modeHeading,jRunner,jRunnerHeading,simData);
 			simData.runData.setStationData(this,data);
 		}
 		return data;
@@ -155,13 +175,53 @@ public class RunElementOutputJS extends RunElementPassThrough {
 	}
 
 	/**
+	 * Liefert die Überschriften-Textzeile als Ausgabe.
+	 * @param simData	Simulationsdatenobjekt
+	 * @param client	Aktueller Kunde
+	 * @return	Tabellenzeile
+	 * @see #processOutput(SimulationData, RunDataClient)
+	 */
+	private String getOutputStringHeading(final SimulationData simData, final RunDataClient client) {
+		final RunElementOutputJSData data=getData(simData);
+
+		String result="";
+
+		if (data.jsRunnerHeading!=null) {
+			final JSRunSimulationData jsRunner=data.jsRunnerHeading;
+			jsRunner.setSimulationData(simData,id,client);
+			result=jsRunner.runCompiled();
+			if (!jsRunner.getLastSuccess() && simData.runModel.cancelSimulationOnScriptError) {
+				simData.doEmergencyShutDown(name+": "+result);
+			}
+			logJS(simData,data.scriptHeading,result); /* Immer ausführen; Entscheidung Erfassen ja/nein erfolgt in logJS */
+		}
+		if (data.javaRunnerHeading!=null) {
+			final DynamicRunner javaRunner=data.javaRunnerHeading;
+			data.outputHeading.setLength(0);
+			javaRunner.parameter.client.setClient(client);
+			final Object javaResult=javaRunner.run();
+			if (javaRunner.getStatus()!=DynamicStatus.OK && simData.runModel.cancelSimulationOnScriptError) {
+				simData.doEmergencyShutDown(name+": "+DynamicFactory.getLongStatusText(javaRunner));
+			}
+			logJS(simData,data.scriptHeading,javaResult); /* Immer ausführen; Entscheidung Erfassen ja/nein erfolgt in logJS */
+			result=data.outputHeading.toString();
+		}
+		simData.runData.updateMapValuesForStatistics(simData);
+
+		return result;
+	}
+
+	/**
 	 * Führt die eigentliche Ausgabe-Verarbeitung durch.
 	 * @param simData	Simulationsdatenobjekt
 	 * @param client	Aktueller Kunde
 	 */
 	private void processOutput(final SimulationData simData, final RunDataClient client) {
 		if (outputFile==null) return;
-		if (outputWriter==null) outputWriter=simData.runData.getOutputWriter(outputFile,outputFileOverwrite);
+		if (outputWriter==null) {
+			outputWriter=simData.runData.getOutputWriter(outputFile,outputFileOverwrite);
+			if (scriptHeading!=null) outputWriter.output(getOutputStringHeading(simData,client));
+		}
 		outputWriter.output(getOutputString(simData,client));
 	}
 

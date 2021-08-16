@@ -39,6 +39,11 @@ public class RunElementOutputJSData extends RunElementData {
 	public final String script;
 
 	/**
+	 * Auszuführendes Skript für die Überschrift (kann <code>null</code> sein, wenn keine dedizierte Überschrift ausgegeben werden soll).
+	 */
+	public final String scriptHeading;
+
+	/**
 	 * JS-Skript-Ausführungsumgebung
 	 */
 	public final JSRunSimulationData jsRunner;
@@ -54,15 +59,34 @@ public class RunElementOutputJSData extends RunElementData {
 	public final StringBuilder output;
 
 	/**
+	 * JS-Skript-Ausführungsumgebung (für Überschriften)
+	 */
+	public final JSRunSimulationData jsRunnerHeading;
+
+	/**
+	 * Java-Ausführungsumgebung (für Überschriften)
+	 */
+	public final DynamicRunner javaRunnerHeading;
+
+	/**
+	 * Java-Output-String (für Überschriften)
+	 */
+	public final StringBuilder outputHeading;
+
+	/**
 	 * Konstruktor der Klasse <code>RunElementOutputJSData</code>
 	 * @param station	Station zu diesem Datenelement
 	 * @param script	Auszuführendes Skript
 	 * @param mode	Skriptsprache
+	 * @param scriptHeading	Auszuführendes Skript für die Überschriftenausgabe (kann <code>null</code> sein)
+	 * @param modeHeading	Skriptsprache für das Überschriften-Skript
 	 * @param jRunner	Im Falle von Java als Sprache kann hier optional ein bereits vorbereiteter Runner, der dann kopiert wird, angegeben werden
+	 * @param jRunnerHeading	Im Falle von Java als Sprache für das Überschriften-Skript (und wenn dieses nicht <code>null</code> ist) kann hier optional ein bereits vorbereiteter Runner, der dann kopiert wird, angegeben werden
 	 * @param simData	Simulationsdatenobjekt
 	 */
-	public RunElementOutputJSData(final RunElement station, final String script, final ModelElementOutputJS.ScriptMode mode, final DynamicRunner jRunner, final SimulationData simData) {
+	public RunElementOutputJSData(final RunElement station, final String script, final ModelElementOutputJS.ScriptMode mode, final String scriptHeading, final ModelElementOutputJS.ScriptMode modeHeading, final DynamicRunner jRunner, final DynamicRunner jRunnerHeading, final SimulationData simData) {
 		super(station);
+
 		this.script=script;
 
 		switch (mode) {
@@ -88,6 +112,39 @@ public class RunElementOutputJSData extends RunElementData {
 			jsRunner=null;
 			javaRunner=null;
 			output=null;
+		}
+
+		this.scriptHeading=scriptHeading;
+
+		if (scriptHeading!=null) {
+			switch (modeHeading) {
+			case Javascript:
+				jsRunnerHeading=new JSRunSimulationData(true,false);
+				jsRunnerHeading.compile(scriptHeading);
+				javaRunnerHeading=null;
+				outputHeading=null;
+				break;
+			case Java:
+				jsRunnerHeading=null;
+				if (jRunnerHeading==null) {
+					javaRunnerHeading=DynamicFactory.getFactory().load(scriptHeading,simData.runModel.javaImports);
+				} else {
+					javaRunnerHeading=DynamicFactory.getFactory().load(jRunnerHeading,simData.runModel.javaImports);
+				}
+				javaRunnerHeading.parameter.system=new SystemImpl(simData,station.id);
+				javaRunnerHeading.parameter.client=new ClientImpl(simData);
+				outputHeading=new StringBuilder();
+				javaRunnerHeading.parameter.output=new OutputImpl(s->outputHeading.append(s),false);
+				break;
+			default:
+				jsRunnerHeading=null;
+				javaRunnerHeading=null;
+				outputHeading=null;
+			}
+		} else {
+			jsRunnerHeading=null;
+			javaRunnerHeading=null;
+			outputHeading=null;
 		}
 	}
 }

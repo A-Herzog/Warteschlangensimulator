@@ -1209,8 +1209,14 @@
   <xs:sequence minOccurs="0" maxOccurs="unbounded"><xs:choice>
     <xs:element ref="ModellElementAusgabedatei"/>
     <xs:element name="ModellElementAusgabeskript" type="xs:string"/>
+	<xs:element ref="ModellElementAusgabeskriptUeberschrift"/>
   </xs:choice></xs:sequence>
 </xs:extension></xs:complexContent></xs:complexType></xs:element>
+<xs:element name="ModellElementAusgabeskriptUeberschrift"><xs:complexType><xs:simpleContent>
+  <xs:extension base="xs:string">
+    <xs:attribute name="Aktiv" type="xs:string"/>
+  </xs:extension>
+</xs:simpleContent></xs:complexType></xs:element>
 
 <xs:element name="ModellElementDatenbankausgabe"><xs:complexType><xs:complexContent><xs:extension base="ModellElementVerbundenBasis">
   <xs:sequence minOccurs="0" maxOccurs="unbounded"><xs:choice>
@@ -3378,8 +3384,14 @@
   <xs:sequence minOccurs="0" maxOccurs="unbounded"><xs:choice>
     <xs:element ref="ModelElementOutputFile"/>
     <xs:element name="ModelElementOutputScript" type="xs:string"/>
+	<xs:element ref="ModelElementOutputScriptHeading"/>
   </xs:choice></xs:sequence>
 </xs:extension></xs:complexContent></xs:complexType></xs:element>
+<xs:element name="ModelElementOutputScriptHeading"><xs:complexType><xs:simpleContent>
+  <xs:extension base="xs:string">
+    <xs:attribute name="Active" type="xs:string"/>
+  </xs:extension>
+</xs:simpleContent></xs:complexType></xs:element>
 
 <xs:element name="ModelElementDatabaseOutput"><xs:complexType><xs:complexContent><xs:extension base="ModelElementConnectedBase">
   <xs:sequence minOccurs="0" maxOccurs="unbounded"><xs:choice>

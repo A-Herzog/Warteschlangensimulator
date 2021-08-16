@@ -63,6 +63,25 @@ public class ModelElementOutputJS extends ModelElementMultiInSingleOutBox implem
 	private ScriptMode mode;
 
 	/**
+	 * Soll das Skript zur Ausgabe von Überschriften verwendet werden?
+	 */
+	private boolean useHeadingScript;
+
+	/**
+	 * Skript
+	 * @see #getScriptHeading()
+	 * @see #setScriptHeading(String)
+	 */
+	private String scriptHeading;
+
+	/**
+	 * Skriptsprache
+	 * @see #getModeHeading()
+	 * @see #setModeHeading(ScriptMode)
+	 */
+	private ScriptMode modeHeading;
+
+	/**
 	 * Dateiname der Datei für die Ausgaben
 	 * @see #getOutputFile()
 	 * @see #setOutputFile(String)
@@ -83,6 +102,8 @@ public class ModelElementOutputJS extends ModelElementMultiInSingleOutBox implem
 		super(model,surface,Shapes.ShapeType.SHAPE_DOCUMENT);
 		script="";
 		mode=ScriptMode.Javascript;
+		scriptHeading="";
+		modeHeading=ScriptMode.Javascript;
 		outputFile="";
 		outputFileOverwrite=false;
 	}
@@ -106,7 +127,7 @@ public class ModelElementOutputJS extends ModelElementMultiInSingleOutBox implem
 	}
 
 	/**
-	 * Das aktuelle Skript.
+	 * Liefert das aktuelle Skript.
 	 * @return	Skript
 	 */
 	@Override
@@ -141,6 +162,56 @@ public class ModelElementOutputJS extends ModelElementMultiInSingleOutBox implem
 	@Override
 	public void setMode(final ScriptMode mode) {
 		if (mode!=null) this.mode=mode;
+	}
+
+	/**
+	 * Soll das Skript zur Ausgabe von Überschriften verwendet werden?
+	 * @return	Skript zur Ausgabe von Überschriften verwendet
+	 */
+	public boolean isUseHeadingScript() {
+		return useHeadingScript;
+	}
+
+	/**
+	 * Soll das Skript zur Ausgabe von Überschriften verwendet werden?
+	 * @param useHeadingScript	Skript zur Ausgabe von Überschriften verwendet
+	 */
+	public void setUseHeadingScript(boolean useHeadingScript) {
+		this.useHeadingScript=useHeadingScript;
+	}
+
+	/**
+	 * Liefert das aktuelle Überschriften-Skript.
+	 * @return	Überschriften-Skript
+	 */
+	public String getScriptHeading() {
+		return scriptHeading;
+	}
+
+	/**
+	 * Setzt das aktuelle Überschriften-Skript.
+	 * @param script	Neues Überschriften-Skript
+	 */
+	public void setScriptHeading(final String script) {
+		if (script!=null) this.scriptHeading=script;
+	}
+
+	/**
+	 * Gibt die Überschriften-Skriptsprache an
+	 * @return	Überschriften-Skriptsprache
+	 * @see ElementWithScript.ScriptMode
+	 */
+	public ScriptMode getModeHeading() {
+		return modeHeading;
+	}
+
+	/**
+	 * Stellt die Überschriften-Skriptsprache ein.
+	 * @param mode	Überschriften-Skriptsprache
+	 * @see ElementWithScript.ScriptMode
+	 */
+	public void setModeHeading(final ScriptMode mode) {
+		if (mode!=null) this.modeHeading=mode;
 	}
 
 	/**
@@ -195,6 +266,9 @@ public class ModelElementOutputJS extends ModelElementMultiInSingleOutBox implem
 
 		if (!script.equals(other.script)) return false;
 		if (other.mode!=mode) return false;
+		if (useHeadingScript!=other.useHeadingScript) return false;
+		if (!scriptHeading.equals(other.scriptHeading)) return false;
+		if (other.modeHeading!=modeHeading) return false;
 		if (!outputFile.equals(other.outputFile)) return false;
 		if (outputFileOverwrite!=other.outputFileOverwrite) return false;
 
@@ -212,6 +286,9 @@ public class ModelElementOutputJS extends ModelElementMultiInSingleOutBox implem
 			final ModelElementOutputJS source=(ModelElementOutputJS)element;
 			script=source.script;
 			mode=source.mode;
+			useHeadingScript=source.useHeadingScript;
+			scriptHeading=source.scriptHeading;
+			modeHeading=source.modeHeading;
 			outputFile=source.outputFile;
 			outputFileOverwrite=source.outputFileOverwrite;
 		}
@@ -335,6 +412,24 @@ public class ModelElementOutputJS extends ModelElementMultiInSingleOutBox implem
 			sub.setTextContent(script);
 		}
 
+		if (!scriptHeading.isEmpty() || useHeadingScript) {
+			node.appendChild(sub=doc.createElement(Language.trPrimary("Surface.OutputJS.XML.ScriptHeading")));
+			if (useHeadingScript) {
+				sub.setAttribute(Language.trPrimary("Surface.OutputJS.XML.ScriptHeading.Active"),"1");
+			} else {
+				sub.setAttribute(Language.trPrimary("Surface.OutputJS.XML.ScriptHeading.Active"),"0");
+			}
+			switch (modeHeading) {
+			case Java:
+				sub.setAttribute(Language.trPrimary("Surface.OutputJS.XML.Script.Language"),Language.trPrimary("Surface.OutputJS.XML.Script.Java"));
+				break;
+			case Javascript:
+				sub.setAttribute(Language.trPrimary("Surface.OutputJS.XML.Script.Language"),Language.trPrimary("Surface.OutputJS.XML.Script.Javascript"));
+				break;
+			}
+			sub.setTextContent(scriptHeading);
+		}
+
 		if (!outputFile.isEmpty()) {
 			node.appendChild(sub=doc.createElement(Language.trPrimary("Surface.OutputJS.XML.File")));
 			sub.setTextContent(outputFile);
@@ -359,6 +454,16 @@ public class ModelElementOutputJS extends ModelElementMultiInSingleOutBox implem
 			final String langName=Language.trAllAttribute("Surface.OutputJS.XML.Script.Language",node);
 			if (Language.trAll("Surface.OutputJS.XML.Script.Java",langName)) mode=ScriptMode.Java;
 			if (Language.trAll("Surface.OutputJS.XML.Script.Javascript",langName)) mode=ScriptMode.Javascript;
+			return null;
+		}
+
+		if (Language.trAll("Surface.OutputJS.XML.ScriptHeading",name)) {
+			scriptHeading=content;
+			final String activeString=Language.trAllAttribute("Surface.OutputJS.XML.ScriptHeading.Active",node);
+			if (!activeString.isEmpty() && !activeString.equals("0")) useHeadingScript=true;
+			final String langName=Language.trAllAttribute("Surface.OutputJS.XML.Script.Language",node);
+			if (Language.trAll("Surface.OutputJS.XML.Script.Java",langName)) modeHeading=ScriptMode.Java;
+			if (Language.trAll("Surface.OutputJS.XML.Script.Javascript",langName)) modeHeading=ScriptMode.Javascript;
 			return null;
 		}
 
@@ -395,6 +500,9 @@ public class ModelElementOutputJS extends ModelElementMultiInSingleOutBox implem
 		super.search(searcher);
 
 		searcher.testString(this,Language.tr("Editor.DialogBase.Search.Script"),script,newScript->{script=newScript;});
+		if (useHeadingScript) {
+			searcher.testString(this,Language.tr("Editor.DialogBase.Search.ScriptHeading"),scriptHeading,newScriptHeading->{scriptHeading=newScriptHeading;});
+		}
 		searcher.testString(this,Language.tr("Editor.DialogBase.Search.OutputFile"),outputFile,newOutputFile->{outputFile=newOutputFile;});
 	}
 }

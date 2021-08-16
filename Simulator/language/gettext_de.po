@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-08-15 23:28+0200\n"
+"POT-Creation-Date: 2021-08-16 19:09+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -3940,6 +3940,9 @@ msgstr "Rüstzeiten für Bedienergruppe \"%s\""
 
 msgid "Editor.DialogBase.Search.Script"
 msgstr "Skript"
+
+msgid "Editor.DialogBase.Search.ScriptHeading"
+msgstr "Skript für Überschrift"
 
 msgid "Editor.DialogBase.Search.SequenceName"
 msgstr "Name eines Fertigungsplans"
@@ -25407,6 +25410,9 @@ msgstr "Bezieht sich nur auf die Ausgabe in Textdateien"
 msgid "Surface.Output.Dialog.Tab.Headings"
 msgstr "Überschrift"
 
+msgid "Surface.Output.Dialog.Tab.Headings.Active"
+msgstr "Skript zur Ausgabe einer Überschrift verwenden"
+
 msgid "Surface.Output.Dialog.Tab.Headings.Auto"
 msgstr "Für Tabellen automatische Überschrift generieren"
 
@@ -25793,6 +25799,12 @@ msgstr "Javascript"
 
 msgid "Surface.OutputJS.XML.Script.Language"
 msgstr "Sprache"
+
+msgid "Surface.OutputJS.XML.ScriptHeading"
+msgstr "ModellElementAusgabeskriptUeberschrift"
+
+msgid "Surface.OutputJS.XML.ScriptHeading.Active"
+msgstr "Aktiv"
 
 msgid "Surface.OutputLog.Dialog.Title"
 msgstr "Logging-Ausgabe bearbeiten"
@@ -27458,6 +27470,9 @@ msgstr "ModellElementVariable"
 
 msgid "Surface.SetJS.Dialog.Script"
 msgstr "Auszuführendes Skript"
+
+msgid "Surface.SetJS.Dialog.ScriptHeading"
+msgstr "Auszuführendes Skript für die Überschrift"
 
 msgid "Surface.SetJS.Dialog.Title"
 msgstr "Script-basierende Zuweisung bearbeiten"

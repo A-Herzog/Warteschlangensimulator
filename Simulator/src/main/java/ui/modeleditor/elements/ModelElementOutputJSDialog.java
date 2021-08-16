@@ -27,6 +27,7 @@ import javax.swing.JCheckBox;
 import javax.swing.JComponent;
 import javax.swing.JFileChooser;
 import javax.swing.JPanel;
+import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -67,6 +68,16 @@ public class ModelElementOutputJSDialog extends ModelElementBaseDialog {
 	private ScriptEditorPanel editor;
 
 	/**
+	 * Checkbox: Überschriften-Skript verwenden?
+	 */
+	private JCheckBox useHeadingScript;
+
+	/**
+	 * Skripteditor für Überschriftenzeile
+	 */
+	private ScriptEditorPanel editorHeading;
+
+	/**
 	 * Konstruktor der Klasse
 	 * @param owner	Übergeordnetes Fenster
 	 * @param element	Zu bearbeitendes {@link ModelElementOutputJS}
@@ -92,16 +103,17 @@ public class ModelElementOutputJSDialog extends ModelElementBaseDialog {
 		if (element instanceof ModelElementOutputJS) {
 			final ModelElementOutputJS output=(ModelElementOutputJS)element;
 
+			/* Konfigurationsbereich oben */
 			final JPanel upperPanel=new JPanel();
 			upperPanel.setLayout(new BoxLayout(upperPanel,BoxLayout.PAGE_AXIS));
 			content.add(upperPanel,BorderLayout.NORTH);
 
+			/* Eingabefeld: Dateiname */
 			final Object[] data=getInputPanel(Language.tr("Surface.Output.Dialog.FileName")+":",output.getOutputFile());
 			JPanel line=(JPanel)data[0];
 			fileNameEdit=(JTextField)data[1];
 			upperPanel.add(line);
 			fileNameEdit.setEditable(!readOnly);
-
 			final JButton button=new JButton();
 			button.setIcon(Images.GENERAL_SELECT_FILE.getIcon());
 			button.setToolTipText(Language.tr("Surface.Output.Dialog.FileName.Select"));
@@ -109,10 +121,18 @@ public class ModelElementOutputJSDialog extends ModelElementBaseDialog {
 			button.setEnabled(!readOnly);
 			line.add(button,BorderLayout.EAST);
 
+			/* Checkbox: Überschreiben? */
 			upperPanel.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
 			line.add(fileOverwrite=new JCheckBox(Language.tr("Surface.Output.Dialog.Overwrite"),output.isOutputFileOverwrite()));
 			fileOverwrite.setToolTipText(Language.tr("Surface.Output.Dialog.Overwrite.Info"));
 
+			/* Tabs in der Mitte */
+			final JTabbedPane tabs=new JTabbedPane();
+			content.add(tabs,BorderLayout.CENTER);
+			JPanel tab;
+
+			/* Tab: Ausgabedaten */
+			tabs.addTab(Language.tr("Surface.Output.Dialog.Tab.OutputData"),tab=new JPanel(new BorderLayout()));
 			final String script=output.getScript();
 			ScriptEditorPanel.ScriptMode mode;
 			switch (output.getMode()) {
@@ -120,7 +140,24 @@ public class ModelElementOutputJSDialog extends ModelElementBaseDialog {
 			case Java: mode=ScriptEditorPanel.ScriptMode.Java; break;
 			default: mode=ScriptEditorPanel.ScriptMode.Javascript; break;
 			}
-			content.add(editor=new ScriptEditorPanel(script,mode,readOnly,Language.tr("Surface.SetJS.Dialog.Script"),element.getModel(),helpRunnable,ScriptEditorPanel.featuresClientStationOutput),BorderLayout.CENTER);
+			tab.add(editor=new ScriptEditorPanel(script,mode,readOnly,Language.tr("Surface.SetJS.Dialog.Script"),element.getModel(),helpRunnable,ScriptEditorPanel.featuresClientStationOutput),BorderLayout.CENTER);
+
+			/* Tab: Überschriften */
+			tabs.addTab(Language.tr("Surface.Output.Dialog.Tab.Headings"),tab=new JPanel(new BorderLayout()));
+			tab.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)),BorderLayout.NORTH);
+			line.add(useHeadingScript=new JCheckBox("<html><body><b>"+Language.tr("Surface.Output.Dialog.Tab.Headings.Active")+"</b></body></html>",output.isUseHeadingScript()));
+			final String scriptHeading=output.getScriptHeading();
+			ScriptEditorPanel.ScriptMode modeHeading;
+			switch (output.getModeHeading()) {
+			case Javascript: modeHeading=ScriptEditorPanel.ScriptMode.Javascript; break;
+			case Java: modeHeading=ScriptEditorPanel.ScriptMode.Java; break;
+			default: modeHeading=ScriptEditorPanel.ScriptMode.Javascript; break;
+			}
+			tab.add(editorHeading=new ScriptEditorPanel(scriptHeading,modeHeading,readOnly,Language.tr("Surface.SetJS.Dialog.ScriptHeading"),element.getModel(),helpRunnable,ScriptEditorPanel.featuresClientStationOutput),BorderLayout.CENTER);
+
+			/* Icons auf den Tabs */
+			tabs.setIconAt(0,Images.MODELEDITOR_ELEMENT_OUTPUT.getIcon());
+			tabs.setIconAt(1,Images.GENERAL_FONT.getIcon());
 		}
 
 		return content;
@@ -146,7 +183,11 @@ public class ModelElementOutputJSDialog extends ModelElementBaseDialog {
 
 	@Override
 	protected boolean checkData() {
-		return editor.checkData();
+		if (!editor.checkData()) return false;
+		if (useHeadingScript.isSelected()) {
+			if (!editorHeading.checkData()) return false;
+		}
+		return true;
 	}
 
 	/**
@@ -162,14 +203,19 @@ public class ModelElementOutputJSDialog extends ModelElementBaseDialog {
 			final ModelElementOutputJS output=(ModelElementOutputJS)element;
 			output.setOutputFile(fileNameEdit.getText());
 			output.setOutputFileOverwrite(fileOverwrite.isSelected());
+
 			output.setScript(editor.getScript());
 			switch (editor.getMode()) {
-			case Javascript:
-				output.setMode(ModelElementOutputJS.ScriptMode.Javascript);
-				break;
-			case Java:
-				output.setMode(ModelElementOutputJS.ScriptMode.Java);
-				break;
+			case Javascript: output.setMode(ModelElementOutputJS.ScriptMode.Javascript); break;
+			case Java: output.setMode(ModelElementOutputJS.ScriptMode.Java); break;
+			}
+
+			output.setUseHeadingScript(useHeadingScript.isSelected());
+
+			output.setScriptHeading(editorHeading.getScript());
+			switch (editorHeading.getMode()) {
+			case Javascript: output.setModeHeading(ModelElementOutputJS.ScriptMode.Javascript); break;
+			case Java: output.setModeHeading(ModelElementOutputJS.ScriptMode.Java); break;
 			}
 		}
 	}

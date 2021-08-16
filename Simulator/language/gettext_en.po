@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-08-15 23:28+0200\n"
+"POT-Creation-Date: 2021-08-16 19:09+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -3936,6 +3936,9 @@ msgstr "Setup times expression for operators group \"%s\""
 
 msgid "Editor.DialogBase.Search.Script"
 msgstr "Script"
+
+msgid "Editor.DialogBase.Search.ScriptHeading"
+msgstr "Script for heading"
 
 msgid "Editor.DialogBase.Search.SequenceName"
 msgstr "Name of a sequence"
@@ -25395,6 +25398,9 @@ msgstr "Refers only to output to text files"
 msgid "Surface.Output.Dialog.Tab.Headings"
 msgstr "Heading"
 
+msgid "Surface.Output.Dialog.Tab.Headings.Active"
+msgstr "Use script for heading"
+
 msgid "Surface.Output.Dialog.Tab.Headings.Auto"
 msgstr "Automatically generate headings for tables"
 
@@ -25781,6 +25787,12 @@ msgstr "Javascript"
 
 msgid "Surface.OutputJS.XML.Script.Language"
 msgstr "Language"
+
+msgid "Surface.OutputJS.XML.ScriptHeading"
+msgstr "ModelElementOutputScriptHeading"
+
+msgid "Surface.OutputJS.XML.ScriptHeading.Active"
+msgstr "Active"
 
 msgid "Surface.OutputLog.Dialog.Title"
 msgstr "Edit logging output"
@@ -27445,6 +27457,9 @@ msgstr "ModelElementVariable"
 
 msgid "Surface.SetJS.Dialog.Script"
 msgstr "Script to be executed"
+
+msgid "Surface.SetJS.Dialog.ScriptHeading"
+msgstr "Script to be executed for heading"
 
 msgid "Surface.SetJS.Dialog.Title"
 msgstr "Edit script-based assignment"

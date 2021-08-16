@@ -1026,7 +1026,7 @@
   Wert	CDATA	#IMPLIED
 >
 
-<!ELEMENT ModellElementScriptDateiausgabe (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementBoxSchriftGross | ModellElementBoxSchriftKlein | ModellElementEbene | ModellElementHintergrundfarbe | ModellElementStationsbild | ModellElementVerbindung | ModellElementAusgabedatei | ModellElementAusgabeskript)*>
+<!ELEMENT ModellElementScriptDateiausgabe (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementBoxSchriftGross | ModellElementBoxSchriftKlein | ModellElementEbene | ModellElementHintergrundfarbe | ModellElementStationsbild | ModellElementVerbindung | ModellElementAusgabedatei | ModellElementAusgabeskript | ModellElementAusgabeskriptUeberschrift)*>
 <!ATTLIST ModellElementScriptDateiausgabe
   id			CDATA	#REQUIRED
   geschuetzt	CDATA	#IMPLIED
@@ -1034,6 +1034,10 @@
   SymbolSpiegeln	CDATA	#IMPLIED
 >
 <!ELEMENT ModellElementAusgabeskript (#PCDATA)>
+<!ELEMENT ModellElementAusgabeskriptUeberschrift (#PCDATA)>
+<!ATTLIST ModellElementAusgabeskriptUeberschrift
+  Aktiv	CDATA	#IMPLIED
+>
 
 <!ELEMENT ModellElementDatenbankausgabe (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementBoxSchriftGross | ModellElementBoxSchriftKlein | ModellElementEbene | ModellElementHintergrundfarbe | ModellElementStationsbild | ModellElementVerbindung | DatenbankVerbindung | ModellElementDatenbankausgabeTabelle | ModellElementDatenbankausgabeElement)*>
 <!ATTLIST ModellElementDatenbankausgabe
@@ -3313,7 +3317,7 @@
   Value	CDATA	#IMPLIED
 >
 
-<!ELEMENT ModelElementScriptOutput (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBoxFontLarge | ModelElementBoxFontSmall | ModelElementLayer | ModelElementBackgroundColor | ModelElementStationimage | ModelElementConnection | ModelElementOutputFile | ModelElementOutputScript)*>
+<!ELEMENT ModelElementScriptOutput (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBoxFontLarge | ModelElementBoxFontSmall | ModelElementLayer | ModelElementBackgroundColor | ModelElementStationimage | ModelElementConnection | ModelElementOutputFile | ModelElementOutputScript | ModelElementOutputScriptHeading)*>
 <!ATTLIST ModelElementScriptOutput
   id		CDATA	#REQUIRED
   protected	CDATA	#IMPLIED
@@ -3321,6 +3325,10 @@
   MirrorSymbol	CDATA	#IMPLIED
 >
 <!ELEMENT ModelElementOutputScript (#PCDATA)>
+<!ELEMENT ModelElementOutputScriptHeading (#PCDATA)>
+<!ATTLIST ModelElementOutputScriptHeading
+  Active	CDATA	#IMPLIED
+>
 
 <!ELEMENT ModelElementDatabaseOutput (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBoxFontLarge | ModelElementBoxFontSmall | ModelElementLayer | ModelElementBackgroundColor | ModelElementStationimage | ModelElementConnection | DatabaseConnection | ModelElementDatabaseOutputTable | ModelElementDatabaseOutputElement)*>
 <!ATTLIST ModelElementDatabaseOutput
