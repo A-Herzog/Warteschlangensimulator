@@ -453,7 +453,7 @@ public class StatisticViewerRemarksText extends StatisticViewerText {
 		names=statistics.clientsAtStationByStation.getNames();
 		if (names.length>=3) {
 			final double mean=getMean(statistics.clientsAtStationByStation);
-			for (String name: names) {
+			if (mean>0) for (String name: names) {
 				final double n=((StatisticsTimePerformanceIndicator)statistics.clientsAtStationByStation.get(name)).getTimeMean();
 				if (n>=mean*LARGE_N_FACTOR) {
 					if (!headingPrinted) {addHeading(2,Language.tr("Statistics.ModelRemarks.LargeNRelative")); beginParagraph(); headingPrinted=true;}
@@ -466,7 +466,7 @@ public class StatisticViewerRemarksText extends StatisticViewerText {
 		names=statistics.clientsInSystemByClient.getNames();
 		if (names.length>=3) {
 			final double mean=getMean(statistics.clientsInSystemByClient);
-			for (String name: names) {
+			if (mean>0) for (String name: names) {
 				final double n=((StatisticsTimePerformanceIndicator)statistics.clientsInSystemByClient.get(name)).getTimeMean();
 				if (n>=mean*LARGE_N_FACTOR) {
 					if (!headingPrinted) {addHeading(2,Language.tr("Statistics.ModelRemarks.LargeNRelative")); beginParagraph(); headingPrinted=true;}
@@ -493,7 +493,7 @@ public class StatisticViewerRemarksText extends StatisticViewerText {
 		names=statistics.stationsWaitingTimes.getNames();
 		if (names.length>=3) {
 			final double mean=getMean(statistics.stationsWaitingTimes);
-			for (String name: names) {
+			if (mean>0) for (String name: names) {
 				final double n=((StatisticsDataPerformanceIndicator)statistics.stationsWaitingTimes.get(name)).getMean();
 				if (n>=mean*LARGE_W_FACTOR) {
 					if (!headingPrinted) {addHeading(2,Language.tr("Statistics.ModelRemarks.LargeWRelative")); beginParagraph(); headingPrinted=true;}
@@ -506,7 +506,7 @@ public class StatisticViewerRemarksText extends StatisticViewerText {
 		names=statistics.clientsWaitingTimes.getNames();
 		if (names.length>=3) {
 			final double mean=getMean(statistics.clientsWaitingTimes);
-			for (String name: names) {
+			if (mean>0) for (String name: names) {
 				final double n=((StatisticsDataPerformanceIndicator)statistics.clientsWaitingTimes.get(name)).getMean();
 				if (n>=mean*LARGE_W_FACTOR) {
 					if (!headingPrinted) {addHeading(2,Language.tr("Statistics.ModelRemarks.LargeWRelative")); beginParagraph(); headingPrinted=true;}
@@ -529,12 +529,11 @@ public class StatisticViewerRemarksText extends StatisticViewerText {
 
 		String[] names;
 
-
 		/* Flussgrad pro Station (relativ) */
 		names=statistics.stationsProcessingTimes.getNames();
 		if (names.length>=3) {
 			final double meanQuotient=getMeanQuotient(statistics.stationsResidenceTimes,statistics.stationsProcessingTimes);
-			for (String name: names) {
+			if (meanQuotient>1) for (String name: names) {
 				final StatisticsDataPerformanceIndicator pIndicator=(StatisticsDataPerformanceIndicator)statistics.stationsProcessingTimes.get(name);
 				final StatisticsDataPerformanceIndicator rIndicator=(StatisticsDataPerformanceIndicator)statistics.stationsResidenceTimes.get(name);
 				if (pIndicator==null || rIndicator==null) continue;
@@ -551,7 +550,7 @@ public class StatisticViewerRemarksText extends StatisticViewerText {
 		names=statistics.clientsProcessingTimes.getNames();
 		if (names.length>=3) {
 			final double meanQuotient=getMeanQuotient(statistics.clientsResidenceTimes,statistics.clientsProcessingTimes);
-			for (String name: names) {
+			if (meanQuotient>1) for (String name: names) {
 				final StatisticsDataPerformanceIndicator pIndicator=(StatisticsDataPerformanceIndicator)statistics.clientsProcessingTimes.get(name);
 				final StatisticsDataPerformanceIndicator rIndicator=(StatisticsDataPerformanceIndicator)statistics.clientsResidenceTimes.get(name);
 				if (pIndicator==null || rIndicator==null) continue;
@@ -579,7 +578,7 @@ public class StatisticViewerRemarksText extends StatisticViewerText {
 		final String[] names=statistics.resourceUtilization.getNames();
 		if (names.length>=3) {
 			final double mean=getMeanQuotient(statistics.resourceUtilization,statistics.resourceCount); /* Reihenfolge der Argumente ist so richtig */
-			for (String name: names) {
+			if (mean>0) for (String name: names) {
 				final StatisticsTimePerformanceIndicator i1=((StatisticsTimePerformanceIndicator)statistics.resourceCount.get(name));
 				final StatisticsTimePerformanceIndicator i2=((StatisticsTimePerformanceIndicator)statistics.resourceUtilization.get(name));
 				if (i1==null || i2==null) continue;
