@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-08-16 19:09+0200\n"
+"POT-Creation-Date: 2021-08-17 19:07+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1098,11 +1098,17 @@ msgstr "Anzahl an Zufallszahlen"
 msgid "CalculatorDialog.Tab.Distributions.GenerateRandomNumbers.DetermineCharacteristics"
 msgstr "Kenngrößen ermitteln..."
 
+msgid "CalculatorDialog.Tab.Distributions.GenerateRandomNumbers.Generate"
+msgstr "Zufallszahlen erzeugen"
+
 msgid "CalculatorDialog.Tab.Distributions.GenerateRandomNumbers.Generated"
 msgstr "Erzeugte Zufallszahlen"
 
 msgid "CalculatorDialog.Tab.Distributions.GenerateRandomNumbers.Save"
 msgstr "Speichern..."
+
+msgid "CalculatorDialog.Tab.Distributions.GenerateRandomNumbers.SaveTitle"
+msgstr "Zufallszahlen speichern"
 
 msgid "CalculatorDialog.Tab.Plotter"
 msgstr "Funktionsplotter"

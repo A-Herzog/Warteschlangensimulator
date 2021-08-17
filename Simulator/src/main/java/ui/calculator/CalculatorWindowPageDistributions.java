@@ -232,7 +232,7 @@ public class CalculatorWindowPageDistributions extends CalculatorWindowPage {
 		info.append(String.format(Language.tr("Distribution.CV")+": CV=%s",NumberTools.formatNumber(indicator.getCV(),3))+"\n");
 		info.append(String.format(Language.tr("Distribution.Skewness")+": Sk=%s",NumberTools.formatNumber(indicator.getSk(),3))+"\n");
 
-		MsgBox.info(this,"Zufallszahlen erzeugen",info.toString());
+		MsgBox.info(this,Language.tr("CalculatorDialog.Tab.Distributions.GenerateRandomNumbers.Generate"),info.toString());
 	}
 
 	/**
@@ -256,7 +256,7 @@ public class CalculatorWindowPageDistributions extends CalculatorWindowPage {
 	private boolean randomNumbersSave() {
 		final JFileChooser fc=new JFileChooser();
 		CommonVariables.initialDirectoryToJFileChooser(fc);
-		fc.setDialogTitle("Zufallszahlen speichern");
+		fc.setDialogTitle(Language.tr("CalculatorDialog.Tab.Distributions.GenerateRandomNumbers.SaveTitle"));
 		final FileFilter txt=new FileNameExtensionFilter(Table.FileTypeText+" (*.txt, *.tsv)","txt","tsv");
 		fc.addChoosableFileFilter(txt);
 		fc.setFileFilter(txt);
