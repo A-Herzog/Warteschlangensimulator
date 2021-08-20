@@ -20,7 +20,7 @@ type
     Fix1: TBitBtn;
     Fix2: TBitBtn;
     InfoLabel: TLabel;
-    Label1: TLabel;
+    TopInfoLabel: TLabel;
     Label2: TLabel;
     ProgressBar: TProgressBar;
     Shape1: TShape;
@@ -77,6 +77,7 @@ Var
   SimFound : Boolean;
   JavaFound : Boolean;
   UserMode : Boolean;
+  ForceAutoDownload : Boolean;
 begin
   {$IFDEF Testing}
   SimFound:=True;
@@ -86,6 +87,11 @@ begin
   JavaFound:=fFindJava.JavaPath<>'';
   {$ENDIF}
   UserMode:=SimFound and fFindJava.IsSimInUserFolder;
+  ForceAutoDownload:=False;
+
+  if (Application.ParamCount=1) and (LowerCase(Application.Params[1])='/forceautodownload') then begin
+    ForceAutoDownload:=True;
+  end;
 
   Fix2.Enabled:=UserMode;
 
@@ -95,7 +101,7 @@ begin
     Exit;
   end;
 
-  If JavaFound then begin
+  If JavaFound and not ForceAutoDownload then begin
     MessageDlg('Java environment found','A Java environment was found on your system. There is no need to download Java.',mtInformation,[mbOk],0);
     Close;
     Exit;
@@ -105,6 +111,17 @@ begin
     InfoLabel.Caption:='Automatic installation is recommended and will not require admin rights.'+#13+'A manually downloaded Java installer will need admin rights for installation.';
   end else begin
     InfoLabel.Caption:='Since Warteschlangensimulator is installed in program folder no automatisch Java installation (without admin rights) is possible.';
+  end;
+
+  if ForceAutoDownload then begin
+    If not UserMode then begin
+      MessageDlg('No automatic Java installation possible','Since Warteschlangensimulator is installed in program folder no automatisch Java installation (without admin rights) is possible.',mtError,[mbOk],0);
+      Close;
+      Exit;
+    end;
+    TopInfoLabel.Caption:='A Java Development Kit (JDK) installation is needed to execute user-defined Java code in Warteschlangensimulator. This tool will download and install JDK.';;
+    InfoLabel.Caption:='Automatic download and installation is started.';
+    Fix2Click(Sender);
   end;
 end;
 

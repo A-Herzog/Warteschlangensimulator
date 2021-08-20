@@ -15,6 +15,8 @@
  */
 package simulator;
 
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.Set;
 
 import mathtools.NumberTools;
@@ -221,6 +223,15 @@ public class StartAnySimulator {
 	}
 
 	/**
+	 * Weitere optionale Fehler-Flags für {@link StartAnySimulator.PrepareError#additional}
+	 * @see StartAnySimulator.PrepareError#additional
+	 */
+	public enum AdditionalPrepareErrorInfo {
+		/** Es steht kein Java-Kompiler zur Verfügunng. */
+		NO_COMPILER
+	}
+
+	/**
 	 * Diese Klasse beschreibt die Daten zu einem Fehler
 	 * beim Erstellen eines Laufzeitmodells.
 	 */
@@ -237,6 +248,12 @@ public class StartAnySimulator {
 		public final int id;
 
 		/**
+		 * Menge (die leer sein kann, aber nicht <code>null</code> ist) mit möglichen weiteren Fehler-Flags
+		 * @see AdditionalPrepareErrorInfo
+		 */
+		public final Set<AdditionalPrepareErrorInfo> additional;
+
+		/**
 		 * Konstruktor der Klasse
 		 * @param error	Fehlermeldung
 		 * @param id	ID der Station, an der der Fehler aufgetreten ist. (Kann -1 sein, wenn der Fehler keiner Station zugeordnet werden kann.)
@@ -244,6 +261,23 @@ public class StartAnySimulator {
 		public PrepareError(final String error, final int id) {
 			this.error=error;
 			this.id=id;
+			additional=Collections.emptySet();
+		}
+
+		/**
+		 * Konstruktor der Klasse
+		 * @param error	Fehlermeldung
+		 * @param id	ID der Station, an der der Fehler aufgetreten ist. (Kann -1 sein, wenn der Fehler keiner Station zugeordnet werden kann.)
+		 * @param additional	Menge mit möglichen weiteren Fehler-Flags (darf <code>null</code> sein)
+		 */
+		public PrepareError(final String error, final int id, final Set<AdditionalPrepareErrorInfo> additional) {
+			this.error=error;
+			this.id=id;
+			if (additional==null) {
+				this.additional=Collections.emptySet();
+			} else {
+				this.additional=new HashSet<>(additional);
+			}
 		}
 	}
 }

@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-08-17 19:07+0200\n"
+"POT-Creation-Date: 2021-08-21 01:00+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -11264,6 +11264,48 @@ msgstr "Wird kein Kundentyp angegeben, so wird der bisherige Kundentyp beibehalt
 
 msgid "NewClientTypeEdit.InfoShort"
 msgstr "Kundentyp beibehalten"
+
+msgid "NoJDK.CurrentJRE"
+msgstr "Aktuell verwendete Java-Laufzeitumgebung"
+
+msgid "NoJDK.CurrentJRE.NameAndVersion"
+msgstr "Name und Version"
+
+msgid "NoJDK.CurrentJRE.Path"
+msgstr "Pfad"
+
+msgid "NoJDK.Info1"
+msgstr "Zur Simulation des aktuellen Modells wird ein <b>Java-Kompiler benötigt</b>. Die Java-Laufzeitumgebung,"
+
+msgid "NoJDK.Info2"
+msgstr "die momentan verwendet wird, verfügt jedoch über <b>keinen Java-Kompiler</b>."
+
+msgid "NoJDK.OptionAutomatic"
+msgstr "Automatisch installieren"
+
+msgid "NoJDK.OptionAutomatic.ErrorInfo"
+msgstr "Der Java-Downloader<br>%s<br>konnte nicht gestartet werden."
+
+msgid "NoJDK.OptionAutomatic.ErrorTitle"
+msgstr "Java-Downloader konnte nicht aufgerufen werden"
+
+msgid "NoJDK.OptionAutomatic.Info"
+msgstr "Java-Laufzeitumgebung mit Kompiler automatisch installieren.<br>(Keine Admin-Rechte notwendig, keine weitere Nutzerinteraktion notwendig.)"
+
+msgid "NoJDK.OptionCancel"
+msgstr "Abbrechen"
+
+msgid "NoJDK.OptionCancel.Info"
+msgstr "Keine weiteren Aktionen ausführen.<br>Das aktuelle Modell kann dann weiterhin nicht simuliert werden."
+
+msgid "NoJDK.OptionManual"
+msgstr "Manuell herunterladen"
+
+msgid "NoJDK.OptionManual.Info"
+msgstr "Webseite https://%s für manuellen Download eines Java Development Kit (JDK) aufrufen.<br>(Nach der Installation muss der Simulator neu gestartet werden.)"
+
+msgid "NoJDK.Title"
+msgstr "Kein Java-Kompiler verfügbar"
 
 msgid "NotesDialog.Delete"
 msgstr "Löschen"

@@ -2520,6 +2520,10 @@ public class MainPanel extends MainPanelBase {
 			} else {
 				isError=true;
 				errorID=prepareError.id;
+				if (prepareError.additional.contains(StartAnySimulator.AdditionalPrepareErrorInfo.NO_COMPILER)) {
+					noJavaCompilerAvailableMessage();
+					return;
+				}
 				status=Language.tr("Window.Check.ErrorList")+"<br><span style=\"color: red\">"+prepareError.error+"</span>";
 			}
 		}
@@ -2858,6 +2862,10 @@ public class MainPanel extends MainPanelBase {
 		final StartAnySimulator.PrepareError error=(StartAnySimulator.PrepareError)WaitDialog.workObject(this,()->starter.prepare(),WaitDialog.Mode.MODEL_PREPARE);
 		if (error!=null) {
 			SwingUtilities.invokeLater(()->{
+				if (error.additional.contains(StartAnySimulator.AdditionalPrepareErrorInfo.NO_COMPILER)) {
+					noJavaCompilerAvailableMessage();
+					return;
+				}
 				if (error.id>0) {
 					if (MsgBox.confirm(getOwnerWindow(),Language.tr("Window.Simulation.ModelIsFaulty"),"<html><body>"+Language.tr("Window.Simulation.ErrorInitializatingSimulation")+":<br>"+error.error+"<br><br>"+Language.tr("Window.Check.StationDialog.Question")+"</body></html>",Language.tr("Window.Check.StationDialog.InfoYes"),Language.tr("Window.Check.StationDialog.InfoNo"))) {
 						editorPanel.getByIdIncludingSubModelsButGetParent(error.id);
@@ -2914,6 +2922,10 @@ public class MainPanel extends MainPanelBase {
 		final StartAnySimulator.PrepareError error=(StartAnySimulator.PrepareError)WaitDialog.workObject(this,()->simulator.prepare(),WaitDialog.Mode.MODEL_PREPARE);
 		if (error!=null) {
 			if (!externalConnect) {
+				if (error.additional.contains(StartAnySimulator.AdditionalPrepareErrorInfo.NO_COMPILER)) {
+					noJavaCompilerAvailableMessage();
+					return error.error;
+				}
 				if (error.id>0) {
 					if (MsgBox.confirm(getOwnerWindow(),Language.tr("Window.Simulation.ModelIsFaulty"),"<html><body>"+Language.tr("Window.Simulation.ErrorInitializatingSimulation")+":<br>"+error.error+"<br><br>"+Language.tr("Window.Check.StationDialog.Question")+"</body></html>",Language.tr("Window.Check.StationDialog.InfoYes"),Language.tr("Window.Check.StationDialog.InfoNo"))) {
 						editorPanel.getByIdIncludingSubModelsButGetParent(error.id);
@@ -3092,6 +3104,10 @@ public class MainPanel extends MainPanelBase {
 		final Object obj=WaitDialog.workObject(this,()->BackgroundSystem.getBackgroundSystem(editorPanel).getStartedSimulator(editModelFinal,logging,loggingIDs,logType),WaitDialog.Mode.MODEL_PREPARE);
 		if (obj instanceof StartAnySimulator.PrepareError) {
 			final StartAnySimulator.PrepareError error=(StartAnySimulator.PrepareError)obj;
+			if (error.additional.contains(StartAnySimulator.AdditionalPrepareErrorInfo.NO_COMPILER)) {
+				noJavaCompilerAvailableMessage();
+				return;
+			}
 			if (error.id>0) {
 				if (MsgBox.confirm(getOwnerWindow(),Language.tr("Window.Simulation.ModelIsFaulty"),"<html><body>"+Language.tr("Window.Simulation.ErrorInitializatingSimulation")+":<br>"+error.error+"<br><br>"+Language.tr("Window.Check.StationDialog.Question")+"</body></html>",Language.tr("Window.Check.StationDialog.InfoYes"),Language.tr("Window.Check.StationDialog.InfoNo"))) {
 					editorPanel.getByIdIncludingSubModelsButGetParent(error.id);
@@ -3976,5 +3992,55 @@ public class MainPanel extends MainPanelBase {
 
 		final ModelElement element=editorPanel.getSelectedElementDirectOrArea();
 		fixButton.setVisible((element instanceof ModelElementBox) && (((ModelElementBox)element).hasQuickFix()));
+	}
+
+	/**
+	 * Zeigt einen Dialog zur Auswahl der Möglichkeiten zum Download eines JDK an.
+	 */
+	private void noJavaCompilerAvailableMessage() {
+		final boolean autoInstallPossible=(System.getProperty("os.name").toUpperCase().contains("WIN") && SetupData.getProgramFolder().toString().equals(SetupData.getSetupFolder().toString()));
+		final File downloader=new File(new File(SetupData.getProgramFolder(),"tools"),"JavaDownloader.exe");
+
+		final StringBuilder infoText=new StringBuilder();
+		infoText.append(Language.tr("NoJDK.Info1")+"<br>");
+		infoText.append(Language.tr("NoJDK.Info2")+"<br><br>");
+		infoText.append("<b>"+Language.tr("NoJDK.CurrentJRE")+"</b><br>");
+		infoText.append(Language.tr("NoJDK.CurrentJRE.NameAndVersion")+": <b>"+System.getProperty("java.vm.name")+"</b> (<b>"+System.getProperty("java.version")+"</b>)<br>");
+		infoText.append(Language.tr("NoJDK.CurrentJRE.Path")+": <b>"+System.getProperty("java.home")+"</b><br>");
+
+		final List<String> options=new ArrayList<>();
+		final List<String> info=new ArrayList<>();
+
+		if (autoInstallPossible && downloader.isFile()) {
+			options.add(	"<b>"+Language.tr("NoJDK.OptionAutomatic")+"</b>");
+			info.add(Language.tr("NoJDK.OptionAutomatic.Info"));
+		}
+
+		options.add("<b>"+Language.tr("NoJDK.OptionManual")+"</b>");
+		info.add(String.format(Language.tr("NoJDK.OptionManual.Info"),JDK_URL));
+
+		options.add("<b>"+Language.tr("NoJDK.OptionCancel")+"</b>");
+		info.add(Language.tr("NoJDK.OptionCancel.Info"));
+
+		final int result=MsgBox.options(this,Language.tr("NoJDK.Title"),infoText.toString(),options.toArray(new String[0]),info.toArray(new String[0]));
+
+		if (autoInstallPossible && downloader.isFile()) {
+			switch (result) {
+			case 0:
+				try {
+					Runtime.getRuntime().exec(new String[] {downloader.toString(),"/forceautodownload"});
+				} catch (IOException e) {
+					MsgBox.error(this,Language.tr("NoJDK.OptionAutomatic.ErrorTitle"),String.format(Language.tr("NoJDK.OptionAutomatic.ErrorInfo"),downloader.toString()));
+					return;
+				}
+				close();
+				break;
+			case 1:
+				JOpenURL.open(this,"https://"+JDK_URL);
+				break;
+			}
+		} else {
+			if (result==0) JOpenURL.open(this,"https://"+JDK_URL);
+		}
 	}
 }

@@ -16,9 +16,12 @@
 package simulator.runmodel;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.TreeMap;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
@@ -33,6 +36,7 @@ import language.Language;
 import mathtools.NumberTools;
 import scripting.java.ImportSettingsBuilder;
 import simulator.StartAnySimulator;
+import simulator.StartAnySimulator.AdditionalPrepareErrorInfo;
 import simulator.builder.RunModelCreator;
 import simulator.coreelements.RunElement;
 import simulator.editmodel.EditModel;
@@ -638,6 +642,19 @@ public class RunModel {
 	}
 
 	/**
+	 * Ermittelt aus der Fehlermeldung selbst weitere Fehler-Flags
+	 * @param errorMessage	Fehlermeldung
+	 * @return	Menge mit optionalen zusätzlichen Fehler-Flags
+	 * @see AdditionalPrepareErrorInfo
+	 */
+	private static Set<StartAnySimulator.AdditionalPrepareErrorInfo> generateAdditionalScriptErrorInfo(final String errorMessage) {
+		if (errorMessage.contains(Language.tr("Simulation.Java.Error.NoCompiler.Internal"))) {
+			return new HashSet<>(Arrays.asList(StartAnySimulator.AdditionalPrepareErrorInfo.NO_COMPILER));
+		}
+		return Collections.emptySet();
+	}
+
+	/**
 	 * Zähler für die Nummerierung der Hintergrund-Kompiler-Threads
 	 */
 	private static int prepareThreadNr=0;
@@ -699,11 +716,11 @@ public class RunModel {
 						scriptProcessor.add(executorPool.submit(()->{
 							final String err=creator.addElement(boxElement);
 							if (err==null) return null;
-							return new StartAnySimulator.PrepareError(err,boxElement.getId());
+							return new StartAnySimulator.PrepareError(err,boxElement.getId(),generateAdditionalScriptErrorInfo(err));
 						}));
 					} else {
 						final String error=creator.addElement(boxElement);
-						if (error!=null) return new StartAnySimulator.PrepareError(error,boxElement.getId());
+						if (error!=null) return new StartAnySimulator.PrepareError(error,boxElement.getId(),generateAdditionalScriptErrorInfo(error));
 					}
 
 					if (element instanceof ModelElementSub) {
@@ -715,18 +732,18 @@ public class RunModel {
 								scriptProcessor.add(executorPool.submit(()->{
 									final String err=creator.addElement(subBox,sub);
 									if (err==null) return null;
-									return new StartAnySimulator.PrepareError(err,subBox.getId());
+									return new StartAnySimulator.PrepareError(err,subBox.getId(),generateAdditionalScriptErrorInfo(err));
 								}));
 							} else {
 								final String error=creator.addElement(subBox,sub);
-								if (error!=null) return new StartAnySimulator.PrepareError(error,subBox.getId());
+								if (error!=null) return new StartAnySimulator.PrepareError(error,subBox.getId(),generateAdditionalScriptErrorInfo(error));
 							}
 						}
 					}
 				} else {
 					if ((element instanceof InteractiveElement) && (element instanceof ModelElementPosition)) {
 						final String error=creator.addElement((ModelElementPosition)element);
-						if (error!=null) return new StartAnySimulator.PrepareError(error,element.getId());
+						if (error!=null) return new StartAnySimulator.PrepareError(error,element.getId(),generateAdditionalScriptErrorInfo(error));
 					}
 				}
 			}
