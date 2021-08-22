@@ -20,9 +20,12 @@ import java.awt.Dimension;
 import java.awt.image.BufferedImage;
 import java.io.BufferedOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
@@ -34,9 +37,12 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 
 import language.Language;
 import mathtools.distribution.swing.CommonVariables;
+import simulator.editmodel.EditModel;
 import simulator.statistics.Statistics;
 import tools.SetupData;
 import ui.dialogs.InfoDialog;
+import ui.modeleditor.coreelements.ModelElement;
+import ui.modeleditor.elements.ElementWithInputFile;
 
 /**
  * Fasst alle aktuellen Programmdaten zusammen und speichert
@@ -62,20 +68,25 @@ public class ProblemReporter {
 	 * @throws IOException	Wird ausgelöst, wenn die Ausgabe in die Zip-Datei fehlgeschlagen ist.
 	 */
 	private boolean processRecords(final ZipOutputStream zipOutput) throws IOException {
+		/* Setup */
 		zipOutput.putNextEntry(new ZipEntry("setup.xml"));
 		SetupData.getSetup().saveToStream(zipOutput);
 
+		/* Letzter Fehler */
 		if (SetupData.getSetup().lastError!=null) {
 			zipOutput.putNextEntry(new ZipEntry("error.txt"));
 			zipOutput.write(SetupData.getSetup().lastError.getBytes(StandardCharsets.UTF_8));
 		}
 
+		/* Systeminformationen */
 		zipOutput.putNextEntry(new ZipEntry("system.txt"));
 		zipOutput.write(String.join("\n",InfoDialog.getSystemInfo().toArray(new String[0])).getBytes(StandardCharsets.UTF_8));
 
+		/* Programmversion */
 		zipOutput.putNextEntry(new ZipEntry("version.txt"));
 		zipOutput.write(MainPanel.VERSION.getBytes(StandardCharsets.UTF_8));
 
+		/* Java-Version */
 		zipOutput.putNextEntry(new ZipEntry("java.txt"));
 		final StringBuilder java=new StringBuilder();
 		for (Map.Entry<Object,Object> entry: System.getProperties().entrySet()) {
@@ -84,6 +95,7 @@ public class ProblemReporter {
 		}
 		zipOutput.write(java.toString().getBytes(StandardCharsets.UTF_8));
 
+		/* Umgebungsvariablen */
 		zipOutput.putNextEntry(new ZipEntry("environment.txt"));
 		final StringBuilder env=new StringBuilder();
 		for (Map.Entry<String,String> entry: System.getenv().entrySet()) {
@@ -92,20 +104,38 @@ public class ProblemReporter {
 		}
 		zipOutput.write(env.toString().getBytes(StandardCharsets.UTF_8));
 
-		int count=0;
+		/* Für alle offenen Fenster... */
+		int countFrame=0;
 		for (MainFrame frame: ReloadManager.getMainFrames()) {
-			count++;
+			countFrame++;
+			final EditModel model=frame.getModel();
 
-			zipOutput.putNextEntry(new ZipEntry(String.format("model%d.xml",count)));
-			frame.getModel().saveToStream(zipOutput);
+			/* Aktuelles Modell */
+			zipOutput.putNextEntry(new ZipEntry(String.format("model%d.xml",countFrame)));
+			model.saveToStream(zipOutput);
 
+			/* Alle verwendeten Eingabedateien im aktuellen Modell */
+			final File[] inputFiles=getInputFiles(model);
+			if (inputFiles.length>0) {
+				int countInput=0;
+				for (File inputFile: inputFiles) {
+					countInput++;
+					zipOutput.putNextEntry(new ZipEntry(String.format("model%d-input%d.dat",countFrame,countInput)));
+					copyFileToOutputStream(inputFile,zipOutput);
+				}
+				zipOutput.putNextEntry(new ZipEntry(String.format("model%d-input.txt",countFrame)));
+				writeInputFileSummary(countFrame,inputFiles,zipOutput);
+			}
+
+			/* Aktuelle Statistikdaten */
 			final Statistics statistics=frame.getStatistics();
 			if (statistics!=null) {
-				zipOutput.putNextEntry(new ZipEntry(String.format("statistics%d.xml",count)));
+				zipOutput.putNextEntry(new ZipEntry(String.format("statistics%d.xml",countFrame)));
 				statistics.saveToStream(zipOutput);
 			}
 
-			zipOutput.putNextEntry(new ZipEntry(String.format("window%d.png",count)));
+			/* Screenshot des Fensters */
+			zipOutput.putNextEntry(new ZipEntry(String.format("window%d.png",countFrame)));
 			final Dimension d=frame.getSize();
 			final BufferedImage image=new BufferedImage(d.width,d.height,BufferedImage.TYPE_INT_RGB);
 			frame.paintAll(image.getGraphics());
@@ -113,6 +143,63 @@ public class ProblemReporter {
 		}
 
 		return true;
+	}
+
+	/**
+	 * Erstellt eine Liste mit allen Eingabedateien des Modells.
+	 * @param model	Modell aus dem die Eingabedateien ausgelesen werden sollen
+	 * @return	Liste mit Eingabedateien (kann leer sein, ist aber nie <code>null</code>)
+	 */
+	private File[] getInputFiles(final EditModel model) {
+		final List<File> files=new ArrayList<>();
+		for (ModelElement element: model.surface.getElementsIncludingSubModels()) if (element instanceof ElementWithInputFile) {
+			final File file=new File(((ElementWithInputFile)element).getInputFile());
+			if (file.isFile()) files.add(file);
+		}
+		return files.toArray(new File[0]);
+	}
+
+	/**
+	 * Kopiert die Daten aus einer Datei in einen zip-Ausgabe-Stream
+	 * @param inputFile	Eingabedatei
+	 * @param outputStream	zip-Ausgabe-Stream
+	 * @return	Liefert im Erfolgsfall <code>true</code>
+	 */
+	private boolean copyFileToOutputStream(final File inputFile, final ZipOutputStream outputStream) {
+		try(final FileInputStream inputStream=new FileInputStream(inputFile)) {
+			final byte[] buffer=new byte[1024*1024];
+			int len=inputStream.read(buffer);
+			while (len!=-1) {
+				outputStream.write(buffer,0,len);
+				len=inputStream.read(buffer);
+			}
+			return true;
+		} catch (IOException e) {
+			return false;
+		}
+	}
+
+	/**
+	 * Schreibt eine Zuordnungsübersicht zwischen den internen Namen für die Eingabedateien und den realen Namen in den zip-Ausgabe-Stream
+	 * @param modelNr	Nummer des Modells (bzw. des Fensters)
+	 * @param inputFiles	Liste der Eingabedateien
+	 * @param outputStream	zip-Ausgabe-Stream
+	 * @return	Liefert im Erfolgsfall <code>true</code>
+	 */
+	private boolean writeInputFileSummary(final int modelNr, final File[] inputFiles, final ZipOutputStream outputStream) {
+		final StringBuilder info=new StringBuilder();
+		for (int i=0;i<inputFiles.length;i++) {
+			info.append(String.format("model%d-input%d.dat",modelNr,i+1));
+			info.append(" => ");
+			info.append(inputFiles[i]);
+			info.append("\n");
+		}
+		try {
+			outputStream.write(info.toString().getBytes(StandardCharsets.UTF_8));
+			return true;
+		} catch (IOException e) {
+			return false;
+		}
 	}
 
 	/**
