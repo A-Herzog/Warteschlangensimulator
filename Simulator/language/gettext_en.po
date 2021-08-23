@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-08-21 01:00+0200\n"
+"POT-Creation-Date: 2021-08-24 00:09+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -8215,6 +8215,24 @@ msgstr "Elements"
 
 msgid "InfoDialog.BuildDate"
 msgstr "Build date"
+
+msgid "InfoDialog.InstallFolder"
+msgstr "Installation folder"
+
+msgid "InfoDialog.InstallMode"
+msgstr "Installation mode"
+
+msgid "InfoDialog.InstallMode.Portable"
+msgstr "Portable installation"
+
+msgid "InfoDialog.InstallMode.ProgramFolder"
+msgstr "Program folder installation"
+
+msgid "InfoDialog.InstallMode.Unknown"
+msgstr "Unknown installation mode"
+
+msgid "InfoDialog.InstallMode.UserFolder"
+msgstr "User folder installation"
 
 msgid "InfoDialog.Is64Bit"
 msgstr "64 bit Java environment"

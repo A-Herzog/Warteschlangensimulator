@@ -1613,6 +1613,37 @@ public class SetupData extends SetupBase {
 		return new File(getSetupFolder(),SETUP_FILE_NAME);
 	}
 
+	/**
+	 * Typ der Installation
+	 * @see SetupData#getOperationMode()
+	 */
+	public enum OperationMode {
+		/** Installation im Programmverzeichnis */
+		PROGRAM_FOLDER_MODE,
+		/** Installation im Nutzerdatenverzeichnis */
+		USER_FOLDER_MODE,
+		/** Portable Installation */
+		PORTABLE_MODE
+	}
+
+	/**
+	 * Liefert den Typ der Installation zurück.
+	 * @return	Typ der Installation
+	 * @see OperationMode
+	 */
+	public static OperationMode getOperationMode() {
+		if (!getSetupFolder().equals(getProgramFolder())) return OperationMode.PROGRAM_FOLDER_MODE;
+
+		final String appData=System.getenv("APPDATA");
+		if (appData!=null) {
+			final String appDataLower=appData.toLowerCase();
+			final String setupFolderLower=getSetupFolder().toString().toLowerCase();
+			if (setupFolderLower.startsWith(appDataLower)) return OperationMode.USER_FOLDER_MODE;
+		}
+
+		return OperationMode.PORTABLE_MODE;
+	}
+
 	@Override
 	protected void loadSetupFromXML(final Element root) {
 		final List<String> files=new ArrayList<>();

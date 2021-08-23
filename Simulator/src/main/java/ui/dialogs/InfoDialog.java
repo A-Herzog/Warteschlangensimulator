@@ -124,6 +124,19 @@ public class InfoDialog extends JDialog {
 			list.add(Language.tr("InfoDialog.BuildDate")+": "+formatter.format(buildDate));
 		}
 
+		/* Installationsverzeichnis */
+		list.add(Language.tr("InfoDialog.InstallFolder")+": "+SetupData.getProgramFolder());
+		final String mode;
+		switch (SetupData.getOperationMode()) {
+		case PROGRAM_FOLDER_MODE: mode=Language.tr("InfoDialog.InstallMode.ProgramFolder"); break;
+		case USER_FOLDER_MODE: mode=Language.tr("InfoDialog.InstallMode.UserFolder"); break;
+		case PORTABLE_MODE: mode=Language.tr("InfoDialog.InstallMode.Portable"); break;
+		default: mode=Language.tr("InfoDialog.InstallMode.Unknown"); break;
+		}
+		list.add(Language.tr("InfoDialog.InstallMode")+": "+mode);
+
+		list.add("");
+
 		/* Java-Version */
 		list.add(Language.tr("InfoDialog.JavaVersion")+": "+System.getProperty("java.version")+" ("+System.getProperty("java.vm.name")+")");
 		list.add(Language.tr("InfoDialog.JavaPath")+": "+System.getProperty("java.home"));
@@ -134,6 +147,8 @@ public class InfoDialog extends JDialog {
 
 		/* JS-Engines */
 		list.add(Language.tr("InfoDialog.JSEngine")+": "+String.join(", ",JSEngineNames.available().stream().map(e->e.name).toArray(String[]::new)));
+
+		list.add("");
 
 		/* Speicherverbrauch */
 		final long l1=ManagementFactory.getMemoryMXBean().getHeapMemoryUsage().getUsed();
