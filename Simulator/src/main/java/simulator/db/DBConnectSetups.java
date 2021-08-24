@@ -67,8 +67,9 @@ public class DBConnectSetups {
 	private DBConnectSetups() {
 		setups=new ArrayList<>();
 
-		loadFromFile(new File(SetupData.getSetupFolder(),SETUP_FILE),setups);
 		loadFromFile(new File(SetupData.getProgramFolder(),SETUP_FILE),setups);
+		loadFromFile(new File(SetupData.getSetupFolder(),SETUP_FILE),setups);
+
 		DBConntectSetupTemplates.addToList(setups);
 	}
 
@@ -78,6 +79,7 @@ public class DBConnectSetups {
 	 * @param list	Zu ergänzende Liste
 	 */
 	private static void loadFromFile(final File file, final List<DBConnectSetup> list) {
+		if (file==null || !file.isFile()) return;
 		final XMLTools xml=new XMLTools(file);
 		final Element root=xml.load();
 		if (root!=null) loadFromXML(root,list);
