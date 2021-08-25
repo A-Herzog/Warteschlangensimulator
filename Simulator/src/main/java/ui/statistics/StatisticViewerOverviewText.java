@@ -3319,28 +3319,58 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 	}
 
 	/**
+	 * In welchem Format soll ein Nutzer-Statistik-Bezeichner ausgegeben werden?
+	 * @see StatisticViewerOverviewText#isUserStatisticsTime(Statistics, String)
+	 */
+	public enum UserStatisticsFormat {
+		/** Als Zahl formatieren */
+		NUMBER,
+		/** Als Zeitangabe formatieren */
+		TIME,
+		/** Es wurde sowohl eine Formatierung als Zahl als auch als Zeit angegeben */
+		MIXED,
+	}
+
+	/**
 	 * Prüft, ob es sich bei einem Nutzer-Statistik-Bezeichner um eine Zeitangabe handelt.
+	 * @param statistics	Statistik-Objekt aus dem die Daten ausgelesen werden sollen
 	 * @param key	Nutzer-Statistik-Bezeichner
 	 * @return Liefert <code>true</code>, wenn es sich um eine Zeitangabe handelt
 	 * @see ModelElementUserStatistic
+	 * @see UserStatisticsFormat
 	 */
-	private boolean isUserStatisticsTime(final String key) {
+	public static UserStatisticsFormat isUserStatisticsTime(final Statistics statistics, final String key) {
+		UserStatisticsFormat result=null;
+
 		for (ModelElement element: statistics.editModel.surface.getElements()) {
 			if (element instanceof ModelElementUserStatistic) {
 				final ModelElementUserStatistic.IsTime B=((ModelElementUserStatistic)element).getIsTimeForKey(key);
-				if (B!=ModelElementUserStatistic.IsTime.NOT_FOUND) return B.bool;
+				if (B!=ModelElementUserStatistic.IsTime.NOT_FOUND) {
+					if (result==null) {
+						if (B.bool) result=UserStatisticsFormat.TIME; else result=UserStatisticsFormat.NUMBER;
+					} else {
+						if ((B.bool && result==UserStatisticsFormat.NUMBER) || (!B.bool && result==UserStatisticsFormat.TIME)) result=UserStatisticsFormat.MIXED;
+					}
+				}
 			}
 			if (element instanceof ModelElementUserStatistic) {
 				for (ModelElement sub: ((ModelElementUserStatistic)element).getSurface().getElements()) {
 					if (sub instanceof ModelElementUserStatistic) {
 						final ModelElementUserStatistic.IsTime B=((ModelElementUserStatistic)sub).getIsTimeForKey(key);
-						if (B!=ModelElementUserStatistic.IsTime.NOT_FOUND) return B.bool;
+						if (B!=ModelElementUserStatistic.IsTime.NOT_FOUND) {
+							if (result==null) {
+								if (B.bool) result=UserStatisticsFormat.TIME; else result=UserStatisticsFormat.NUMBER;
+							} else {
+								if ((B.bool && result==UserStatisticsFormat.NUMBER) || (!B.bool && result==UserStatisticsFormat.TIME)) result=UserStatisticsFormat.MIXED;
+							}
+						}
 					}
 				}
 			}
 		}
 
-		return true;
+		if (result==null) result=UserStatisticsFormat.NUMBER;
+		return result;
 	}
 
 	/**
@@ -3363,9 +3393,18 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 		for (String name: statistics.userStatistics.getNames()) {
 			final StatisticsDataPerformanceIndicatorWithNegativeValues indicator=(StatisticsDataPerformanceIndicatorWithNegativeValues)statistics.userStatistics.get(name);
 			addHeading(2,name);
+			final UserStatisticsFormat format=isUserStatisticsTime(statistics,name);
+
+			if (format==UserStatisticsFormat.MIXED) {
+				beginParagraph();
+				addLine(Language.tr("Statistics.UserStatistics.TimeAndNumberWarning"));
+				endParagraph();
+			}
+
 			beginParagraph();
 			addLine(Language.tr("Statistics.NumberOfClients")+": "+NumberTools.formatLong(indicator.getCount())+repeatInfo,xmlCount(indicator));
-			if (isUserStatisticsTime(name)) {
+
+			if (format==UserStatisticsFormat.TIME || format==UserStatisticsFormat.MIXED) {
 				addLine(Language.tr("Statistics.AverageUserTime")+": E[X]="+timeAndNumber(indicator.getMean()),xmlMean(indicator));
 				addLine(Language.tr("Statistics.StdDevUserTime")+": Std[X]="+timeAndNumber(indicator.getSD()),fastAccessBuilder.getXMLSelector(indicator,IndicatorMode.SD));
 				addLine(Language.tr("Statistics.VarianceUserTime")+": Var[X]="+timeAndNumber(indicator.getVar()));

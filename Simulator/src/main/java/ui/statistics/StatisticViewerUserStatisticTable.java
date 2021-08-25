@@ -29,8 +29,6 @@ import statistics.StatisticsMultiPerformanceIndicator;
 import systemtools.statistics.StatisticViewerTable;
 import tools.SetupData;
 import ui.help.Help;
-import ui.modeleditor.coreelements.ModelElement;
-import ui.modeleditor.elements.ModelElementUserStatistic;
 
 /**
  * Dieser Viewer stellt die benutzerdefinierten Statistikdaten als Tabelle dar.
@@ -65,30 +63,6 @@ public class StatisticViewerUserStatisticTable extends StatisticViewerTable {
 	public StatisticViewerUserStatisticTable(final Statistics statistics, final Mode mode) {
 		this.statistics=statistics;
 		this.mode=mode;
-	}
-
-	/**
-	 * Handelt es sich bei einem Eintrag um Zeit-Werte?
-	 * @param key	Bezeichner des Eintrags
-	 * @return	Zeit-Werte (<code>true</code>) oder Zustände (<code>false</code>)
-	 */
-	private boolean isUserStatisticsTime(final String key) {
-		for (ModelElement element: statistics.editModel.surface.getElements()) {
-			if (element instanceof ModelElementUserStatistic) {
-				final ModelElementUserStatistic.IsTime B=((ModelElementUserStatistic)element).getIsTimeForKey(key);
-				if (B!=ModelElementUserStatistic.IsTime.NOT_FOUND) return B.bool;
-			}
-			if (element instanceof ModelElementUserStatistic) {
-				for (ModelElement sub: ((ModelElementUserStatistic)element).getSurface().getElements()) {
-					if (sub instanceof ModelElementUserStatistic) {
-						final ModelElementUserStatistic.IsTime B=((ModelElementUserStatistic)sub).getIsTimeForKey(key);
-						if (B!=ModelElementUserStatistic.IsTime.NOT_FOUND) return B.bool;
-					}
-				}
-			}
-		}
-
-		return true;
 	}
 
 	/**
@@ -166,7 +140,7 @@ public class StatisticViewerUserStatisticTable extends StatisticViewerTable {
 			final StatisticsDataPerformanceIndicatorWithNegativeValues indicator=(StatisticsDataPerformanceIndicatorWithNegativeValues)statistics.userStatistics.get(name);
 			row.add(name);
 			row.add(NumberTools.formatLong(indicator.getCount()));
-			if (isUserStatisticsTime(name)) {
+			if (StatisticViewerOverviewText.isUserStatisticsTime(statistics,name)!=StatisticViewerOverviewText.UserStatisticsFormat.NUMBER) {
 				row.add(StatisticTools.formatExactTime(indicator.getMean()));
 				row.add(StatisticTools.formatExactTime(indicator.getSD()));
 				row.add(StatisticTools.formatExactTime(indicator.getVar()));

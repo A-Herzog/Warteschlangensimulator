@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-08-24 00:09+0200\n"
+"POT-Creation-Date: 2021-08-25 23:53+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20289,6 +20289,9 @@ msgstr "Benutzerdefinierte Statistik - Details"
 
 msgid "Statistics.UserStatistics.NothingRecorded"
 msgstr "Es wurden keine benutzerdefinierten Statistikdaten aufgezeichnet."
+
+msgid "Statistics.UserStatistics.TimeAndNumberWarning"
+msgstr "Achtung: Bei dem erfassten Wert ist an einer Station angegeben, dass er als Zahlenwert ausgegeben werden soll. An einer anderen Station ist jedoch eingestellt, dass der Wert als Zeitangabe ausgegeben werden soll. Der Wert wird jetzt als Zeitangabe dargestellt."
 
 msgid "Statistics.Utilization"
 msgstr "Ressourcenauslastung"

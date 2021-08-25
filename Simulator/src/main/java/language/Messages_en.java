@@ -19940,6 +19940,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[52339] = "Javascript";
     t[52344] = "Animation.SkipWarmUp";
     t[52345] = "In the model a warm-up phase is defined and at the same time<br>there are element to visualizate statistic data during the animation.<br>The visualization elements will, independend of the selected expression, may not display any data until the warm-up phase (%s client arrivals) will be completed.<br>Do you want to disable the warm-up phase temporary for this animation?";
+    t[52348] = "Statistics.UserStatistics.TimeAndNumberWarning";
+    t[52349] = "Note: At one station, the recorded value is specified to be output as a numerical value. At another station, however, it is set that the value is to be output as a time value. The value is now displayed as a time value.";
     t[52354] = "Surface.Resource.Delete.Confirm.Info";
     t[52355] = "Do you really want to delete the needed operators group \"%s\" from list?";
     t[52358] = "Surface.AnimationPointerMeasuring.Dialog.MinValue.Error.Title";
@@ -20062,14 +20064,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[52745] = "Pointer color";
     t[52746] = "Editor.AddElement.PlaceClipboardText";
     t[52747] = "Click on the model surface to insert the new text from clipboard.";
-    t[52752] = "Statistics.TransferTimesByStationsAndClients";
-    t[52753] = "Transfer times by stations and client types";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_10 (java.lang.String[] t) {
+    t[52752] = "Statistics.TransferTimesByStationsAndClients";
+    t[52753] = "Transfer times by stations and client types";
     t[52762] = "Surface.Note.Dialog.Note";
     t[52763] = "Note";
     t[52764] = "Surface.Split.Dialog.CopyClientData";

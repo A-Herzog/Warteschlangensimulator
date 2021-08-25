@@ -19940,6 +19940,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[52339] = "Javascript";
     t[52344] = "Animation.SkipWarmUp";
     t[52345] = "In dem Modell ist eine Einschwingphase eingetragen und es werden gleichzeitg<br>Elemente zur Visualisierung von Statistikdaten w\u00e4hrend der Animation verwendet.<br>Die Visualisierungselemente werden, abh\u00e4ngig von dem gew\u00e4hlten Ausdruck, evtl. keine<br>Daten anzeigen k\u00f6nnen, bis die Einschwingphase (%s Kundenank\u00fcnfte) abgeschlossen ist.<br>Soll die Einschwingphase temopr\u00e4r f\u00fcr diese Animation deaktiviert werden?";
+    t[52348] = "Statistics.UserStatistics.TimeAndNumberWarning";
+    t[52349] = "Achtung: Bei dem erfassten Wert ist an einer Station angegeben, dass er als Zahlenwert ausgegeben werden soll. An einer anderen Station ist jedoch eingestellt, dass der Wert als Zeitangabe ausgegeben werden soll. Der Wert wird jetzt als Zeitangabe dargestellt.";
     t[52354] = "Surface.Resource.Delete.Confirm.Info";
     t[52355] = "Soll die Bedienergruppe \"%s\" wirklich aus der Liste gel\u00f6scht werden?";
     t[52358] = "Surface.AnimationPointerMeasuring.Dialog.MinValue.Error.Title";
@@ -20062,14 +20064,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[52745] = "Zeigerfarbe";
     t[52746] = "Editor.AddElement.PlaceClipboardText";
     t[52747] = "Auf die Zeichenfl\u00e4che klicken, um den neuen Text aus der Zwischenablage einzuf\u00fcgen.";
-    t[52752] = "Statistics.TransferTimesByStationsAndClients";
-    t[52753] = "Transferzeiten nach Stationen und Kundentypen";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_10 (java.lang.String[] t) {
+    t[52752] = "Statistics.TransferTimesByStationsAndClients";
+    t[52753] = "Transferzeiten nach Stationen und Kundentypen";
     t[52762] = "Surface.Note.Dialog.Note";
     t[52763] = "Notiz";
     t[52764] = "Surface.Split.Dialog.CopyClientData";

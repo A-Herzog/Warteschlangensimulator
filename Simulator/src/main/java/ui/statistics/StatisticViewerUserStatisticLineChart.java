@@ -24,8 +24,6 @@ import simulator.statistics.Statistics;
 import statistics.StatisticsDataPerformanceIndicatorWithNegativeValues;
 import systemtools.statistics.StatisticViewerLineChart;
 import ui.help.Help;
-import ui.modeleditor.coreelements.ModelElement;
-import ui.modeleditor.elements.ModelElementUserStatistic;
 
 /**
  * Dieser Viewer stellt die benutzerdefinierten Statistikdaten als Verteilungsdiagramm dar.
@@ -60,35 +58,11 @@ public class StatisticViewerUserStatisticLineChart extends StatisticViewerLineCh
 	}
 
 	/**
-	 * Handelt es sich bei einem Eintrag um Zeit-Werte?
-	 * @param key	Bezeichner des Eintrags
-	 * @return	Zeit-Werte (<code>true</code>) oder Zustände (<code>false</code>)
-	 */
-	private boolean isUserStatisticsTime(final String key) {
-		for (ModelElement element: statistics.editModel.surface.getElements()) {
-			if (element instanceof ModelElementUserStatistic) {
-				final ModelElementUserStatistic.IsTime B=((ModelElementUserStatistic)element).getIsTimeForKey(key);
-				if (B!=ModelElementUserStatistic.IsTime.NOT_FOUND) return B.bool;
-			}
-			if (element instanceof ModelElementUserStatistic) {
-				for (ModelElement sub: ((ModelElementUserStatistic)element).getSurface().getElements()) {
-					if (sub instanceof ModelElementUserStatistic) {
-						final ModelElementUserStatistic.IsTime B=((ModelElementUserStatistic)sub).getIsTimeForKey(key);
-						if (B!=ModelElementUserStatistic.IsTime.NOT_FOUND) return B.bool;
-					}
-				}
-			}
-		}
-
-		return true;
-	}
-
-	/**
 	 * Handelt es sich bei allen Einträgen zum Zeit-Werte?
 	 * @return	Liefert <code>true</code>, wenn alle Einträge Zeit-Werte sind
 	 */
 	private boolean isAllUserStatisticsTime() {
-		for (String name: statistics.userStatistics.getNames()) if (!isUserStatisticsTime(name)) return false;
+		for (String name: statistics.userStatistics.getNames()) if (StatisticViewerOverviewText.isUserStatisticsTime(statistics,name)!=StatisticViewerOverviewText.UserStatisticsFormat.TIME) return false;
 		return true;
 	}
 
