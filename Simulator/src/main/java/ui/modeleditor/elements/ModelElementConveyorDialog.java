@@ -96,6 +96,15 @@ public final class ModelElementConveyorDialog extends ModelElementBaseDialog {
 		pack();
 	}
 
+	/**
+	 * Stellt die Größe des Dialogfensters unmittelbar vor dem Sicherbarmachen ein.
+	 */
+	@Override
+	protected void setDialogSizeLater() {
+		pack();
+		setMaxSizeRespectingScreensize(1280,768);
+	}
+
 	@Override
 	protected String getInfoPanelID() {
 		return InfoPanel.stationConveyor;
