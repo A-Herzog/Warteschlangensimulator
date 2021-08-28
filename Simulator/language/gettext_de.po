@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-08-25 23:53+0200\n"
+"POT-Creation-Date: 2021-08-27 23:22+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -13358,6 +13358,27 @@ msgstr "zip-Datei"
 
 msgid "ProblemReporter.Dialog.Title"
 msgstr "Ausgabedatei wählen"
+
+msgid "ProblemReporter.Item.LastError"
+msgstr "Informationen zum zuletzt aufgetretenen Fehler"
+
+msgid "ProblemReporter.Item.Model"
+msgstr "Modell und ggf. Statistikdaten"
+
+msgid "ProblemReporter.Item.ModelPlugins"
+msgstr "Plugins-Dateien"
+
+msgid "ProblemReporter.Item.ModelSources"
+msgstr "Externe Datenquellen"
+
+msgid "ProblemReporter.Item.ProgramInfo"
+msgstr "Informationen zur Warteschlangensimulator-Installation"
+
+msgid "ProblemReporter.Item.Setup"
+msgstr "Programmeinstellungen"
+
+msgid "ProblemReporter.Item.SystemInfo"
+msgstr "Systeminformationen"
 
 msgid "ProblemReporter.SaveError.Info"
 msgstr ""

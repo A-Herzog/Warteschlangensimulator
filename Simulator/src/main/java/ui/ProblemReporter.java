@@ -25,8 +25,13 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+import java.util.function.BooleanSupplier;
+import java.util.function.Supplier;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
@@ -50,15 +55,127 @@ import ui.modeleditor.elements.ElementWithInputFile;
  * @author Alexander Herzog
  */
 public class ProblemReporter {
-	/** Datei in die die Ausgabe erfolgen soll */
+	/**
+	 * Welche Informationen sollen in den Bericht aufgenommen werden?
+	 */
+	public enum ReportItem {
+		/** Programmeinstellungen */
+		SETUP(()->Language.tr("ProblemReporter.Item.Setup")),
+		/** Informationen zum zuletzt aufgetretenen Fehler */
+		LAST_ERROR(()->Language.tr("ProblemReporter.Item.LastError"),()->{final String error=SetupData.getSetup().lastError; return (error!=null && !error.trim().isEmpty());}),
+		/** Systeminformationen */
+		SYSTEM_INFO(()->Language.tr("ProblemReporter.Item.SystemInfo")),
+		/** Programminformationen */
+		PROGRAM_INFO(()->Language.tr("ProblemReporter.Item.ProgramInfo")),
+		/** Das aktuelle Modell und ggf. die aktuellen Statistikdaten */
+		MODEL(()->Language.tr("ProblemReporter.Item.Model")),
+		/** (Wenn vorhanden:) Zusätzliche externe Quellen für das Modell */
+		MODEL_SOURCES(()->Language.tr("ProblemReporter.Item.ModelSources"),()->hasInputFilesAllModels()),
+		/** (Wenn vorhanden:) Dateien im Plugins-Ordner */
+		MODEL_PLUGINS(()->Language.tr("ProblemReporter.Item.ModelPlugins"),()->hasPluginFiles());
+
+		/**
+		 * Getter für den Namen des Informationselements
+		 * @see #getName()
+		 */
+		private final Supplier<String> nameGetter;
+
+		/**
+		 * Prüft, ob entsprechende Informationen vorhanden sind
+		 * @see #isAvailable()
+		 */
+		private final BooleanSupplier testAvailable;
+
+		/**
+		 * Konstruktor der Enum
+		 * @param nameGetter	Getter für den Namen des Informationselements
+		 */
+		ReportItem(final Supplier<String> nameGetter) {
+			this(nameGetter,()->true);
+		}
+
+		/**
+		 * Konstruktor der Enum
+		 * @param nameGetter	Getter für den Namen des Informationselements
+		 * @param testAvailable	Prüft, ob entsprechende Informationen vorhanden sind
+		 */
+		ReportItem(final Supplier<String> nameGetter, final BooleanSupplier testAvailable) {
+			this.nameGetter=nameGetter;
+			this.testAvailable=testAvailable;
+		}
+
+		/**
+		 * Liefert den Namen des Informationselements.
+		 * @return	Namen des Informationselements
+		 */
+		public String getName() {
+			return nameGetter.get();
+		}
+
+		/**
+		 * Prüft, ob die entsprechenden Informationen vorhanden sind.
+		 * @return	Liefert <code>true</code>, wenn passende Daten vorhanden sind
+		 */
+		public boolean isAvailable() {
+			return testAvailable.getAsBoolean();
+		}
+	}
+
+	/**
+	 * Stellt eine Menge mit allen verfügbaren Ausgabe-Informationen zusammen.
+	 * @see ReportItem
+	 */
+	public static Set<ReportItem> FULL_REPORT=new HashSet<>(Arrays.asList(ReportItem.values()));
+
+	/**
+	 * Datei in die die Ausgabe erfolgen soll
+	 */
 	private File file;
+
+	/**
+	 * Welche Informationen sollen in den Bericht aufgenommen werden?
+	 * @see ReportItem
+	 */
+	private final Set<ReportItem> reportItems;
+
+	/**
+	 * Konstruktor der Klasse
+	 * @param file	Datei in die die Ausgabe erfolgen soll
+	 * @param reportItems	Welche Informationen sollen in den Bericht aufgenommen werden?
+	 * @see ReportItem
+	 */
+	public ProblemReporter(final File file, final Set<ReportItem> reportItems) {
+		this.file=file;
+		if (reportItems==null) this.reportItems=FULL_REPORT; else this.reportItems=new HashSet<>(reportItems);
+	}
 
 	/**
 	 * Konstruktor der Klasse
 	 * @param file	Datei in die die Ausgabe erfolgen soll
 	 */
 	public ProblemReporter(final File file) {
-		this.file=file;
+		this(file,FULL_REPORT);
+	}
+
+	/**
+	 * Prüft, ob in einem Modell ein gültiger Plugins-Ordner eingetragen ist.
+	 * @param model	Zu prüfendes Modell
+	 * @return	 Liefer <code>true</code>, wenn ein Plugins-Ordner in dem Modell registriert ist und dieser auch existiert.
+	 */
+	private static boolean testPluginFiles(final EditModel model) {
+		return (model.pluginsFolder!=null && !model.pluginsFolder.trim().isEmpty() && new File(model.pluginsFolder).isDirectory());
+	}
+
+	/**
+	 * Ist in mindestens einem der geladenen Modell ein Plugins-Ordner konfiguriert?
+	 * @return	Liefert <code>true</code>, wenn in mindestens einem der geladenen Modell ein Plugins-Ordner konfiguriert ist
+	 */
+	private static boolean hasPluginFiles() {
+		for (MainFrame frame: ReloadManager.getMainFrames()) {
+			final EditModel model=frame.getModel();
+			if (testPluginFiles(model)) return true;
+		}
+		return false;
 	}
 
 	/**
@@ -68,78 +185,110 @@ public class ProblemReporter {
 	 * @throws IOException	Wird ausgelöst, wenn die Ausgabe in die Zip-Datei fehlgeschlagen ist.
 	 */
 	private boolean processRecords(final ZipOutputStream zipOutput) throws IOException {
-		/* Setup */
-		zipOutput.putNextEntry(new ZipEntry("setup.xml"));
-		SetupData.getSetup().saveToStream(zipOutput);
-
-		/* Letzter Fehler */
-		if (SetupData.getSetup().lastError!=null) {
-			zipOutput.putNextEntry(new ZipEntry("error.txt"));
-			zipOutput.write(SetupData.getSetup().lastError.getBytes(StandardCharsets.UTF_8));
+		if (reportItems.contains(ReportItem.SETUP)) {
+			/* Setup */
+			zipOutput.putNextEntry(new ZipEntry("setup.xml"));
+			SetupData.getSetup().saveToStream(zipOutput);
 		}
 
-		/* Systeminformationen */
-		zipOutput.putNextEntry(new ZipEntry("system.txt"));
-		zipOutput.write(String.join("\n",InfoDialog.getSystemInfo().toArray(new String[0])).getBytes(StandardCharsets.UTF_8));
-
-		/* Programmversion */
-		zipOutput.putNextEntry(new ZipEntry("version.txt"));
-		zipOutput.write(MainPanel.VERSION.getBytes(StandardCharsets.UTF_8));
-
-		/* Java-Version */
-		zipOutput.putNextEntry(new ZipEntry("java.txt"));
-		final StringBuilder java=new StringBuilder();
-		for (Map.Entry<Object,Object> entry: System.getProperties().entrySet()) {
-			java.append(entry.getKey()+"="+entry.getValue());
-			java.append('\n');
+		if (reportItems.contains(ReportItem.LAST_ERROR)) {
+			/* Letzter Fehler */
+			if (SetupData.getSetup().lastError!=null) {
+				zipOutput.putNextEntry(new ZipEntry("error.txt"));
+				zipOutput.write(SetupData.getSetup().lastError.getBytes(StandardCharsets.UTF_8));
+			}
 		}
-		zipOutput.write(java.toString().getBytes(StandardCharsets.UTF_8));
 
-		/* Umgebungsvariablen */
-		zipOutput.putNextEntry(new ZipEntry("environment.txt"));
-		final StringBuilder env=new StringBuilder();
-		for (Map.Entry<String,String> entry: System.getenv().entrySet()) {
-			env.append(entry.getKey()+"="+entry.getValue());
-			env.append('\n');
+		if (reportItems.contains(ReportItem.SYSTEM_INFO)) {
+			/* Systeminformationen */
+			zipOutput.putNextEntry(new ZipEntry("system.txt"));
+			zipOutput.write(String.join("\n",InfoDialog.getSystemInfo().toArray(new String[0])).getBytes(StandardCharsets.UTF_8));
+
+			/* Umgebungsvariablen */
+			zipOutput.putNextEntry(new ZipEntry("environment.txt"));
+			final StringBuilder env=new StringBuilder();
+			for (Map.Entry<String,String> entry: System.getenv().entrySet()) {
+				env.append(entry.getKey()+"="+entry.getValue());
+				env.append('\n');
+			}
+			zipOutput.write(env.toString().getBytes(StandardCharsets.UTF_8));
+
+			/* Java-Version */
+			zipOutput.putNextEntry(new ZipEntry("java.txt"));
+			final StringBuilder java=new StringBuilder();
+			for (Map.Entry<Object,Object> entry: System.getProperties().entrySet()) {
+				java.append(entry.getKey()+"="+entry.getValue());
+				java.append('\n');
+			}
+			zipOutput.write(java.toString().getBytes(StandardCharsets.UTF_8));
 		}
-		zipOutput.write(env.toString().getBytes(StandardCharsets.UTF_8));
 
-		/* Für alle offenen Fenster... */
-		int countFrame=0;
-		for (MainFrame frame: ReloadManager.getMainFrames()) {
-			countFrame++;
-			final EditModel model=frame.getModel();
+		if (reportItems.contains(ReportItem.PROGRAM_INFO)) {
+			/* Programmversion */
+			zipOutput.putNextEntry(new ZipEntry("version.txt"));
+			zipOutput.write(MainPanel.VERSION.getBytes(StandardCharsets.UTF_8));
 
-			/* Aktuelles Modell */
-			zipOutput.putNextEntry(new ZipEntry(String.format("model%d.xml",countFrame)));
-			model.saveToStream(zipOutput);
+			/* Installationsort und -art */
+			zipOutput.putNextEntry(new ZipEntry("installation-path.txt"));
+			zipOutput.write(SetupData.getProgramFolder().toString().getBytes(StandardCharsets.UTF_8));
 
-			/* Alle verwendeten Eingabedateien im aktuellen Modell */
-			final File[] inputFiles=getInputFiles(model);
-			if (inputFiles.length>0) {
-				int countInput=0;
-				for (File inputFile: inputFiles) {
-					countInput++;
-					zipOutput.putNextEntry(new ZipEntry(String.format("model%d-input%d.dat",countFrame,countInput)));
-					copyFileToOutputStream(inputFile,zipOutput);
+			zipOutput.putNextEntry(new ZipEntry("installation-mode.txt"));
+			final String mode;
+			switch (SetupData.getOperationMode()) {
+			case PROGRAM_FOLDER_MODE: mode=Language.tr("InfoDialog.InstallMode.ProgramFolder"); break;
+			case USER_FOLDER_MODE: mode=Language.tr("InfoDialog.InstallMode.UserFolder"); break;
+			case PORTABLE_MODE: mode=Language.tr("InfoDialog.InstallMode.Portable"); break;
+			default: mode=Language.tr("InfoDialog.InstallMode.Unknown"); break;
+			}
+			zipOutput.write(mode.getBytes(StandardCharsets.UTF_8));
+		}
+
+		if (reportItems.contains(ReportItem.MODEL)) {
+			/* Für alle offenen Fenster... */
+			int countFrame=0;
+			for (MainFrame frame: ReloadManager.getMainFrames()) {
+				countFrame++;
+				final EditModel model=frame.getModel();
+
+				/* Aktuelles Modell */
+				zipOutput.putNextEntry(new ZipEntry(String.format("model%d.xml",countFrame)));
+				model.saveToStream(zipOutput);
+
+				if (reportItems.contains(ReportItem.MODEL_SOURCES)) {
+					/* Alle verwendeten Eingabedateien im aktuellen Modell */
+					final File[] inputFiles=getInputFiles(model);
+					if (inputFiles.length>0) {
+						int countInput=0;
+						for (File inputFile: inputFiles) {
+							countInput++;
+							zipOutput.putNextEntry(new ZipEntry(String.format("model%d-input%d.dat",countFrame,countInput)));
+							copyFileToOutputStream(inputFile,zipOutput);
+						}
+						zipOutput.putNextEntry(new ZipEntry(String.format("model%d-input.txt",countFrame)));
+						writeInputFileSummary(countFrame,inputFiles,zipOutput);
+					}
 				}
-				zipOutput.putNextEntry(new ZipEntry(String.format("model%d-input.txt",countFrame)));
-				writeInputFileSummary(countFrame,inputFiles,zipOutput);
-			}
 
-			/* Aktuelle Statistikdaten */
-			final Statistics statistics=frame.getStatistics();
-			if (statistics!=null) {
-				zipOutput.putNextEntry(new ZipEntry(String.format("statistics%d.xml",countFrame)));
-				statistics.saveToStream(zipOutput);
-			}
+				if (reportItems.contains(ReportItem.MODEL_PLUGINS)) {
+					if (testPluginFiles(model)) {
+						copyFilesToZip(new File(model.pluginsFolder),zipOutput,new String[] {String.format("plugins%d",countFrame)});
+					}
+				}
 
-			/* Screenshot des Fensters */
-			zipOutput.putNextEntry(new ZipEntry(String.format("window%d.png",countFrame)));
-			final Dimension d=frame.getSize();
-			final BufferedImage image=new BufferedImage(d.width,d.height,BufferedImage.TYPE_INT_RGB);
-			frame.paintAll(image.getGraphics());
-			ImageIO.write(image,"png",zipOutput);
+				/* Aktuelle Statistikdaten */
+				final Statistics statistics=frame.getStatistics();
+				if (statistics!=null) {
+					zipOutput.putNextEntry(new ZipEntry(String.format("statistics%d.xml",countFrame)));
+					statistics.saveToStream(zipOutput);
+				}
+
+				/* Screenshot des Fensters */
+				zipOutput.putNextEntry(new ZipEntry(String.format("window%d.png",countFrame)));
+				final Dimension d=frame.getSize();
+				final BufferedImage image=new BufferedImage(d.width,d.height,BufferedImage.TYPE_INT_RGB);
+				frame.paintAll(image.getGraphics());
+				ImageIO.write(image,"png",zipOutput);
+			}
 		}
 
 		return true;
@@ -150,13 +299,25 @@ public class ProblemReporter {
 	 * @param model	Modell aus dem die Eingabedateien ausgelesen werden sollen
 	 * @return	Liste mit Eingabedateien (kann leer sein, ist aber nie <code>null</code>)
 	 */
-	private File[] getInputFiles(final EditModel model) {
+	private static File[] getInputFiles(final EditModel model) {
 		final List<File> files=new ArrayList<>();
 		for (ModelElement element: model.surface.getElementsIncludingSubModels()) if (element instanceof ElementWithInputFile) {
 			final File file=new File(((ElementWithInputFile)element).getInputFile());
 			if (file.isFile()) files.add(file);
 		}
 		return files.toArray(new File[0]);
+	}
+
+	/**
+	 * Verwendet mindestens eines der geladenen Modell externe Datenquellen?
+	 * @return	Liefert <code>true</code>, wenn mindestens eines der geladenen Modell externe Datenquellen verwendet
+	 */
+	private static boolean hasInputFilesAllModels() {
+		for (MainFrame frame: ReloadManager.getMainFrames()) {
+			final EditModel model=frame.getModel();
+			if (getInputFiles(model).length>0) return true;
+		}
+		return false;
 	}
 
 	/**
@@ -203,6 +364,31 @@ public class ProblemReporter {
 	}
 
 	/**
+	 * Kopiert alle Dateien aus einem Verzeichnis (ink. seiner Unterverzeichnisse) in eine zip-Datei
+	 * @param sourceFolder	Ausgangsverzeichnis
+	 * @param outputStream	zip-Ausgabe-Stream
+	 * @param parentFolders	Repräsentation dieses Verzeichnisses in der zip-Datei
+	 * @throws IOException Wird ausgelöst, wenn es zu einem Fehler beim Hinzufügen eines zip-Datensatzes kommt
+	 */
+	private void copyFilesToZip(final File sourceFolder, final ZipOutputStream outputStream, final String[] parentFolders) throws IOException {
+		final File[] files=sourceFolder.listFiles();
+		if (files==null) return;
+		for (File file: files) {
+			final String[] path=Arrays.copyOf(parentFolders,parentFolders.length+1);
+			path[path.length-1]=file.getName();
+			if (file.isFile()) {
+				outputStream.putNextEntry(new ZipEntry(String.join("/",path)));
+				copyFileToOutputStream(file,outputStream);
+				continue;
+			}
+			if (file.isDirectory()) {
+				copyFilesToZip(file,outputStream,path);
+				continue;
+			}
+		}
+	}
+
+	/**
 	 * Führt die Ausgabe durch.
 	 * @return	Gibt an, ob die Ausgabe erfolgreich war.
 	 */
@@ -221,7 +407,24 @@ public class ProblemReporter {
 	 * @return	Gewählte Ausgabedatei oder <code>null</code>, wenn der Dialog abgebrochen wurde
 	 */
 	public static File selectOutputFile(final Component owner) {
-		final JFileChooser fc=new JFileChooser();
+		return selectOutputFile(owner,null);
+	}
+
+	/**
+	 * Zeigt einen Dateiauswahldialog zum Speichern der zip-Ausgabe an.
+	 * @param owner	Übergeordnetes Element
+	 * @param lastFile	Zuvor gewählte Datei (zur Festlegung des initial anzuzeigenden Verzeichnisses)
+	 * @return	Gewählte Ausgabedatei oder <code>null</code>, wenn der Dialog abgebrochen wurde
+	 */
+	public static File selectOutputFile(final Component owner, final File lastFile) {
+		final JFileChooser fc;
+		if (lastFile==null || lastFile.getParentFile()==null || !lastFile.getParentFile().isDirectory()) {
+			fc=new JFileChooser();
+			CommonVariables.initialDirectoryToJFileChooser(fc);
+		} else {
+			fc=new JFileChooser(lastFile.getParent());
+		}
+
 		CommonVariables.initialDirectoryToJFileChooser(fc);
 		fc.setDialogTitle(Language.tr("ProblemReporter.Dialog.Title"));
 
