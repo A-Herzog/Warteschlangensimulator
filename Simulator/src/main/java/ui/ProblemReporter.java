@@ -425,7 +425,6 @@ public class ProblemReporter {
 			fc=new JFileChooser(lastFile.getParent());
 		}
 
-		CommonVariables.initialDirectoryToJFileChooser(fc);
 		fc.setDialogTitle(Language.tr("ProblemReporter.Dialog.Title"));
 
 		final FileFilter zip=new FileNameExtensionFilter(Language.tr("ProblemReporter.Dialog.FileTypeZip")+" (*.zip)","zip");

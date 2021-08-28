@@ -143,6 +143,7 @@ import ui.dialogs.ModelAnalyticInfoDialog;
 import ui.dialogs.ModelDescriptionDialog;
 import ui.dialogs.ModelLoadDataWarningsDialog;
 import ui.dialogs.NotesDialog;
+import ui.dialogs.ProblemReporterDialog;
 import ui.dialogs.SelectElementByIdDialog;
 import ui.dialogs.SelectExampleDialog;
 import ui.dialogs.SetupDialog;
@@ -3852,11 +3853,7 @@ public class MainPanel extends MainPanelBase {
 	 * Befehl: Hilfe - Problemreport erstellen
 	 */
 	private void commandHelpSupportData() {
-		final File file=ProblemReporter.selectOutputFile(this);
-		if (file==null) return;
-
-		final ProblemReporter reporter=new ProblemReporter(file);
-		if (!reporter.process()) MsgBox.error(this,Language.tr("ProblemReporter.SaveError.Title"),String.format(Language.tr("ProblemReporter.SaveError.Info"),file.toString()));
+		new ProblemReporterDialog(this);
 	}
 
 	/**

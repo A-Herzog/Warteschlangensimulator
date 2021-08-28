@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-08-27 23:22+0200\n"
+"POT-Creation-Date: 2021-08-28 23:29+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -13355,6 +13355,30 @@ msgstr "Edit transporter paths"
 
 msgid "ProblemReporter.Dialog.FileTypeZip"
 msgstr "zip file"
+
+msgid "ProblemReporter.Dialog.ItemNotAvailable"
+msgstr "These data are not available and therefore cannot be included in the report."
+
+msgid "ProblemReporter.Dialog.Items"
+msgstr "Information to be included to report"
+
+msgid "ProblemReporter.Dialog.NoItemsErrorInfo"
+msgstr "No information to be included in the report have been selected."
+
+msgid "ProblemReporter.Dialog.NoItemsErrorTitle"
+msgstr "No information selected"
+
+msgid "ProblemReporter.Dialog.OutputFile"
+msgstr "Output file"
+
+msgid "ProblemReporter.Dialog.OutputFile.ErrorInfo"
+msgstr "No output file in which the problem report is to be stored has been selected."
+
+msgid "ProblemReporter.Dialog.OutputFile.ErrorTitle"
+msgstr "No output file selected"
+
+msgid "ProblemReporter.Dialog.SettingsTitle"
+msgstr "Generate problem report"
 
 msgid "ProblemReporter.Dialog.Title"
 msgstr "Select output file"
