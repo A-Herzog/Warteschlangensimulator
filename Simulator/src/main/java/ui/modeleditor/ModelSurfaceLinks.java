@@ -134,12 +134,6 @@ public class ModelSurfaceLinks {
 	}
 
 	/**
-	 * Handelt es sich um einen selbsterstellten Build, der nicht von GitHub stammt?
-	 * @see #drawLinks(Graphics, int, int)
-	 */
-	private static final boolean customBuild=MainFrame.class.getResource("res/Warteschlangennetz.png")==null;
-
-	/**
 	 * Zeichnet die Zeichenflächen-Links in ein Grafikausgabeobjekt
 	 * @param graphics	Grafikausgabeobjekt
 	 * @param xStart	Start x-Koordinate
@@ -183,7 +177,7 @@ public class ModelSurfaceLinks {
 			y+=40;
 		}
 
-		if (customBuild) {
+		if (MainFrame.customBuild) {
 			int textY=y-lineH/2;
 			graphics.setColor(Color.ORANGE);
 			final Font saveFont=graphics.getFont();

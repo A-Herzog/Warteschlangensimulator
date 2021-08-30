@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-08-28 23:29+0200\n"
+"POT-Creation-Date: 2021-08-29 00:19+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -4250,6 +4250,9 @@ msgstr "Textbook"
 
 msgid "Editor.SurfaceTooltip.CustomBuild"
 msgstr "This is a self-compiled version, not an official build!"
+
+msgid "Editor.SurfaceTooltip.CustomBuild.Title"
+msgstr "Inofficial build"
 
 msgid "Editor.SurfaceTooltip.ExamplesByDialog"
 msgstr "Load example model"

@@ -543,6 +543,9 @@ public class MainPanel extends MainPanelBase {
 				indexSystem.addLanguage("en","pages_en");
 				indexSystem.init(Help.class);
 				indexSystem.setLanguage(Language.getCurrentLanguage());
+				if (!fileLoadedOnLoad && !isAutoRestore) {
+					if (MainFrame.customBuild) MsgBox.warning(this,Language.tr("Editor.SurfaceTooltip.CustomBuild.Title"),Language.tr("Editor.SurfaceTooltip.CustomBuild"));
+				}
 			}
 
 			/* Wird zu früh eine Datei auf das Programmfenster gezogen, so blockiert die Swing Event Queue. Dann kann das Programm nur noch abgebrochen werden. */

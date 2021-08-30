@@ -64,6 +64,11 @@ public class MainFrame extends MainFrameBase {
 	public static final URL ICON_URL=MainFrame.class.getResource(ICON);
 
 	/**
+	 * Handelt es sich um einen selbsterstellten Build, der nicht als Binary von GitHub stammt?
+	 */
+	public static final boolean customBuild=MainFrame.class.getResource("res/Warteschlangennetz.png")==null;
+
+	/**
 	 * Konstruktor der Klasse
 	 * @param loadFile	Datei, die beim Start geladen werden soll. Wird <code>null</code> übergeben, so wird nichts weiter geladen.
 	 * @param loadExample	Beispielmodell, das beim Start geladen werden soll. Wird <code>null</code> übergeben, so wird nichts weiter geladen.
