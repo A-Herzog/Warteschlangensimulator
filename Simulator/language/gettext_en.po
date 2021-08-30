@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-08-29 00:19+0200\n"
+"POT-Creation-Date: 2021-08-30 22:46+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -29520,6 +29520,18 @@ msgstr "Invalid expression"
 
 msgid "Surface.UserStatistic.Table.Edit.IsTime"
 msgstr "Value is time"
+
+msgid "Surface.UserStatistic.Table.Edit.IsTime.Warning.OtherFormat.Multi"
+msgstr "However, at station id=%d and at additional stations a different format is set for this key."
+
+msgid "Surface.UserStatistic.Table.Edit.IsTime.Warning.OtherFormat.Single"
+msgstr "However, at station id=%d a different format is set for this key."
+
+msgid "Surface.UserStatistic.Table.Edit.IsTime.Warning.ThisFormat.Number"
+msgstr "At this station is specified that \"%s\" is to be recorded as a numerical value."
+
+msgid "Surface.UserStatistic.Table.Edit.IsTime.Warning.ThisFormat.Time"
+msgstr "At this station is specified that \"%s\" is to be recorded as the time."
 
 msgid "Surface.UserStatistic.Table.Edit.Key"
 msgstr "Statistik key"

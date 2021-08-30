@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-08-29 00:19+0200\n"
+"POT-Creation-Date: 2021-08-30 22:46+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -29534,6 +29534,18 @@ msgstr "Ungültiger Ausdruck"
 
 msgid "Surface.UserStatistic.Table.Edit.IsTime"
 msgstr "Wert ist eine Zeitangabe"
+
+msgid "Surface.UserStatistic.Table.Edit.IsTime.Warning.OtherFormat.Multi"
+msgstr "An Station id=%d und an weiteren Station ist jedoch ein anderes Format für diesen Schlüssel eingestellt."
+
+msgid "Surface.UserStatistic.Table.Edit.IsTime.Warning.OtherFormat.Single"
+msgstr "An Station id=%d ist jedoch ein anderes Format für diesen Schlüssel eingestellt."
+
+msgid "Surface.UserStatistic.Table.Edit.IsTime.Warning.ThisFormat.Number"
+msgstr "An dieser Station ist eingetragen, dass \"%s\" als Zahlenwert erfasst werden soll."
+
+msgid "Surface.UserStatistic.Table.Edit.IsTime.Warning.ThisFormat.Time"
+msgstr "An dieser Station ist eingetragen, dass \"%s\" als Zeitangabe erfasst werden soll."
 
 msgid "Surface.UserStatistic.Table.Edit.Key"
 msgstr "Bezeichner in der Statistik"

@@ -71,7 +71,7 @@ public class ModelElementUserStatisticDialog extends ModelElementBaseDialog {
 
 		if (element instanceof ModelElementUserStatistic) {
 			JTableExt table=new JTableExt();
-			table.setModel(tableModel=new UserStatisticTableModel(table,helpRunnable,((ModelElementUserStatistic)element).getKeys(),((ModelElementUserStatistic)element).getIsTime(),((ModelElementUserStatistic)element).getExpressions(),element.getModel(),element.getSurface(),readOnly));
+			table.setModel(tableModel=new UserStatisticTableModel(table,helpRunnable,element.getId(),((ModelElementUserStatistic)element).getKeys(),((ModelElementUserStatistic)element).getIsTime(),((ModelElementUserStatistic)element).getExpressions(),element.getModel(),element.getSurface(),readOnly));
 			table.setIsPanelCellTable(0);
 			table.setIsPanelCellTable(1);
 			table.getColumnModel().getColumn(0).setMaxWidth(200);

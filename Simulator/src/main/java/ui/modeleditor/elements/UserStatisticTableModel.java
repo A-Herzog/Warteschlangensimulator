@@ -51,6 +51,8 @@ public class UserStatisticTableModel extends JTableExtAbstractTableModel {
 	private final Runnable help;
 	/** Nur-Lese-Status */
 	private final boolean readOnly;
+	/** ID der aktuellen Station */
+	private final int id;
 	/** Bezeichner für die Kenngrößen */
 	private final List<String> keys;
 	/** Handelt es sich jeweils im Zeitangaben (<code>true</code>) oder Zahlen (<code>false</code>) */
@@ -68,6 +70,7 @@ public class UserStatisticTableModel extends JTableExtAbstractTableModel {
 	 * Konstruktor der Klasse
 	 * @param table	Zugehörige Tabelle (um das Update der Tabelle veranlassen zu können, wenn sich die Daten verändert haben)
 	 * @param help	Hilfe-Callback
+	 * @param id	ID der aktuellen Station
 	 * @param keys	Bezeichner für die Kenngrößen
 	 * @param isTime	Handelt es sich jeweils im Zeitangaben (<code>true</code>) oder Zahlen (<code>false</code>)
 	 * @param expressions	Zu erfassende Kenngrößen-Ausdrücke
@@ -75,11 +78,12 @@ public class UserStatisticTableModel extends JTableExtAbstractTableModel {
 	 * @param surface	Haupt-Zeichenfläche (für den Expression-Builder)
 	 * @param readOnly	Nur-Lese-Status
 	 */
-	public UserStatisticTableModel(final JTableExt table, final Runnable help, final List<String> keys, final List<Boolean> isTime, final List<String> expressions, final EditModel model, final ModelSurface surface, final boolean readOnly) {
+	public UserStatisticTableModel(final JTableExt table, final Runnable help, final int id, final List<String> keys, final List<Boolean> isTime, final List<String> expressions, final EditModel model, final ModelSurface surface, final boolean readOnly) {
 		super();
 		this.help=help;
 		this.readOnly=readOnly;
 		this.table=table;
+		this.id=id;
 		this.keys=new ArrayList<>(); this.keys.addAll(keys);
 		this.isTime=new ArrayList<>(); this.isTime.addAll(isTime);
 		this.expressions=new ArrayList<>(); this.expressions.addAll(expressions);
@@ -235,7 +239,7 @@ public class UserStatisticTableModel extends JTableExtAbstractTableModel {
 			boolean b;
 			switch (actionIndex) {
 			case ACTION_ADD:
-				dialog=new UserStatisticTableModelDialog(table,help,"",true,"",model,surface);
+				dialog=new UserStatisticTableModelDialog(table,help,id,"",true,"",model,surface);
 				if (dialog.getClosedBy()==BaseDialog.CLOSED_BY_OK) {
 					keys.add(dialog.getKey());
 					isTime.add(dialog.getIsTime());
@@ -278,7 +282,7 @@ public class UserStatisticTableModel extends JTableExtAbstractTableModel {
 				updateTable();
 				break;
 			case ACTION_EDIT:
-				dialog=new UserStatisticTableModelDialog(table,help,keys.get(row),isTime.get(row),expressions.get(row),model,surface);
+				dialog=new UserStatisticTableModelDialog(table,help,id,keys.get(row),isTime.get(row),expressions.get(row),model,surface);
 				if (dialog.getClosedBy()==BaseDialog.CLOSED_BY_OK) {
 					keys.set(row,dialog.getKey());
 					isTime.set(row,dialog.getIsTime());
