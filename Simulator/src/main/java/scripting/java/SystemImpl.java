@@ -156,6 +156,7 @@ public class SystemImpl implements SystemInterface {
 			return;
 		}
 		if (varValue instanceof Double) {
+			if (Double.isNaN((Double)varValue)) return;
 			simData.runData.variableValues[index]=(Double)varValue;
 			simData.runData.updateVariableValueForStatistics(simData,index);
 			return;

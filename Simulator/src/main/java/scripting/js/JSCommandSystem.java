@@ -645,6 +645,7 @@ public final class JSCommandSystem extends JSBaseCommand {
 	 * @see #getVariableIndex(String)
 	 */
 	private void setValueInt(final int index, final double value) {
+		if (Double.isNaN(value)) return;
 		if (simData==null) return;
 		if (index>=0) {
 			simData.runData.variableValues[index]=value;
