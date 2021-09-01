@@ -1995,7 +1995,7 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 		for (StatisticsDataPerformanceIndicator indicator: (StatisticsDataPerformanceIndicator[])statistics.clientsInterarrivalTime.getAll(StatisticsDataPerformanceIndicator.class)) sum+=indicator.getCount();
 		addLine(Language.tr("Statistics.SystemData.SimulatedArrivals")+": "+NumberTools.formatLong(sum));
 		String s;
-		if (sum>0) {
+		if (sum>0 && statistics.simulationData.runTime>0) {
 			addLine(Language.tr("Statistics.SystemData.ClientsPerSecond")+": "+NumberTools.formatLong(sum*1000/statistics.simulationData.runTime));
 			double d=((double)statistics.simulationData.runTime)*statistics.simulationData.runThreads/sum;
 			s=NumberTools.formatNumber(d,2);
