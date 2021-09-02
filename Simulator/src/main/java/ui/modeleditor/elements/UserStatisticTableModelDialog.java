@@ -103,7 +103,7 @@ public class UserStatisticTableModelDialog extends BaseDialog {
 		JPanel line;
 
 		/* Schlüssel */
-		obj=ModelElementBaseDialog.getInputPanel(Language.tr("Surface.UserStatistic.Table.Edit.Key"),key);
+		obj=ModelElementBaseDialog.getInputPanel(Language.tr("Surface.UserStatistic.Table.Edit.Key")+":",key);
 		content.add((JPanel)obj[0]);
 		this.key=(JTextField)obj[1];
 		this.key.addKeyListener(new KeyListener(){
@@ -113,7 +113,7 @@ public class UserStatisticTableModelDialog extends BaseDialog {
 		});
 
 		/* Ausdruck */
-		obj=ModelElementBaseDialog.getInputPanel(Language.tr("Surface.UserStatistic.Table.Edit.Expression"),expression);
+		obj=ModelElementBaseDialog.getInputPanel(Language.tr("Surface.UserStatistic.Table.Edit.Expression")+":",expression);
 		content.add((JPanel)obj[0]);
 		this.expression=(JTextField)obj[1];
 		this.expression.addKeyListener(new KeyListener(){
