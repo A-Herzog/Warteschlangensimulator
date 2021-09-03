@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-08-30 22:46+0200\n"
+"POT-Creation-Date: 2021-09-03 00:42+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -14608,6 +14608,12 @@ msgstr "Local map"
 
 msgid "ScriptPopup.Simulation.MapLocal.Hint"
 msgstr "Returns the station local map for storing any values."
+
+msgid "ScriptPopup.Simulation.PauseAnimation"
+msgstr "Pause animation"
+
+msgid "ScriptPopup.Simulation.PauseAnimation.Hint"
+msgstr "Switches the animation to single step mode."
 
 msgid "ScriptPopup.Simulation.Resources"
 msgstr "Operators"

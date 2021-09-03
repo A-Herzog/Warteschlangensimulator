@@ -252,6 +252,10 @@ späteren Filterung der Ergebnisse nicht verwendet werden. Das Objekt stellt fol
   Liefert eine modellweite Zuordnung, in die Werte geschrieben und aus der Werte gelesen werden können.
   Die hier gespeicherten Werte bleiben über die Ausführung des aktuellen Skriptes hinaus erhalten.
   </li>
+  <li><tt>Simulation.pauseAnimation()</tt><br>
+  Schaltet die Animation in den Einzelschrittmodus. Wird die Animation bereits im Einzelschrittmodus
+  ausgeführt oder aber wird das Modell als Simulation ausgeführt, so hat dieser Befehl keine Wirkung.
+  </li>  
   <li><tt>Simulation.terminateSimulation(message)</tt><br>
   Beendet die Simulation. Wird als Nachricht <tt>null</tt> übergeben, so wird die Simulation normal
   beendet. Im Falle einer Nachricht wird die Simulation mit der entsprechenden Fehlermeldung abgebrochen.

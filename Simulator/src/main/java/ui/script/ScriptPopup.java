@@ -364,6 +364,7 @@ public class ScriptPopup {
 		String systemResourceSet="";
 		String systemMapLocal="";
 		String systemMapGlobal="";
+		String systemPauseAnimation="";
 		String systemTerminateSimulation="";
 
 		String clientsCount="";
@@ -397,8 +398,8 @@ public class ScriptPopup {
 			systemResourceSet="Simulation.setResourceCount(resourceId,123)";
 			systemMapLocal="Simulation.getMapLocal()";
 			systemMapGlobal="Simulation.getMapGlobal()";
-			systemTerminateSimulation="Simulation.terminateSimulation(\"message\")";
-
+			systemPauseAnimation="Simulation.pauseAnimation();";
+			systemTerminateSimulation="Simulation.terminateSimulation(\"message\");";
 			clientsCount="Simulation.getDelayStationData(%s).count();";
 			clientsRelease="Simulation.getDelayStationData(%s).release(index);";
 			clientsTypeName="Simulation.getDelayStationData(%s).clientTypeName(index);";
@@ -431,8 +432,8 @@ public class ScriptPopup {
 			systemResourceSet="sim.getSystem().setResourceCount(resourceId,123);";
 			systemMapLocal="sim.getSystem().getMapLocal()";
 			systemMapGlobal="sim.getSystem().getMapGlobal()";
+			systemPauseAnimation="sim.getSystem().pauseAnimation();";
 			systemTerminateSimulation="sim.getSystem().terminateSimulation(\"message\");";
-
 			clientsCount="sim.getSystem().getDelayStationData(%s).count();";
 			clientsRelease="sim.getSystem().getDelayStationData(%s).release(index);";
 			clientsTypeName="sim.getSystem().getDelayStationData(%s).clientTypeName(index);";
@@ -514,6 +515,10 @@ public class ScriptPopup {
 		group.addChild(new ScriptPopupItemCommand(Language.tr("ScriptPopup.Simulation.MapGlobal"),Language.tr("ScriptPopup.Simulation.MapGlobal.Hint"),Images.SCRIPT_MAP.getIcon(),systemMapGlobal));
 
 		group.addSeparator();
+
+		/* Animation pausieren */
+
+		group.addChild(new ScriptPopupItemCommand(Language.tr("ScriptPopup.Simulation.PauseAnimation"),Language.tr("ScriptPopup.Simulation.PauseAnimation.Hint"),Images.ANIMATION_PAUSE.getIcon(),systemPauseAnimation));
 
 		/* Simulation abbrechen */
 

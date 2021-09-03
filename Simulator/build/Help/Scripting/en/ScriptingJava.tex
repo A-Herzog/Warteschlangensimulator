@@ -282,6 +282,11 @@ Returns a model wide mapping into which values can be written and from which val
 The values stored here are retained beyond the execution of the current script.
 
 \item
+\cmd{void pauseAnimation()}:\\
+Switches the animation to single step mode. If the animation is already executed in
+single step mode or if the model is executed as a simulation, this command has no effect.
+
+\item
 \cmd{void terminateSimulation(final String message)}:\\
 Terminates the simulation. If \cm{null} is passed as message, the simulation is terminated normally.
 In case of a message, the simulation will be terminated with the corresponding error message.

@@ -300,6 +300,11 @@ Liefert eine modellweite Zuordnung, in die Werte geschrieben und aus der Werte g
 Die hier gespeicherten Werte bleiben über die Ausführung des aktuellen Skriptes hinaus erhalten.
 
 \item
+\cmd{void pauseAnimation()}:\\
+Schaltet die Animation in den Einzelschrittmodus. Wird die Animation bereits im Einzelschrittmodus
+ausgeführt oder aber wird das Modell als Simulation ausgeführt, so hat dieser Befehl keine Wirkung.
+
+\item
 \cmd{void terminateSimulation(final String message)}:\\
 Terminates the simulation. If \cm{null} is passed as message, the simulation is terminated normally.
 In case of a message, the simulation will be terminated with the corresponding error message.

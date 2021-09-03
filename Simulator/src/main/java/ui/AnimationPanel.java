@@ -1104,6 +1104,7 @@ public class AnimationPanel extends JPanel implements RunModelAnimationViewer {
 			if (simData==null) return true;
 			if (simData.runData.isWarmUp && fastWarmUp) return true;
 			this.simData=simData;
+			if (this.simData.pauseAnimationCallback==null) this.simData.pauseAnimationCallback=()->{if (isRunning()) playPause();};
 			if (logger==null || !logger.isActive()) {
 				delaySystem(simData,delayInt/4); /* Verzögerungen von einem Ereignis zum nächsten ausschalten im Einzelschrittmodus. */
 			} else {

@@ -176,4 +176,12 @@ public interface SystemInterface {
 	 * @param message	Optionale Nachricht, die als Fehlermeldung ausgegeben wird (kann <code>null</code> sein, dann wird die Simulation ohne Fehler beendet).
 	 */
 	void terminateSimulation(final String message);
+
+	/**
+	 * Pausiert die aktuelle Animation.
+	 * (Setzt voraus, dass das Modell im Animationsmodus läuft
+	 * und die Animation momentan nicht sowieso schon im
+	 * Einzelschritt-Modus läuft.)
+	 */
+	void pauseAnimation();
 }

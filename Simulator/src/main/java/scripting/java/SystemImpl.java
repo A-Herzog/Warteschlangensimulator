@@ -350,4 +350,9 @@ public class SystemImpl implements SystemInterface {
 	public void terminateSimulation(final String message) {
 		if (message!=null) simData.doEmergencyShutDown(message); else simData.doShutDown();
 	}
+
+	@Override
+	public void pauseAnimation() {
+		if (simData.pauseAnimationCallback!=null) simData.pauseAnimationCallback.run();
+	}
 }

@@ -1012,6 +1012,16 @@ public final class JSCommandSystem extends JSBaseCommand {
 	}
 
 	/**
+	 * Pausiert die aktuelle Animation.
+	 * (Setzt voraus, dass das Modell im Animationsmodus läuft
+	 * und die Animation momentan nicht sowieso schon im
+	 * Einzelschritt-Modus läuft.)
+	 */
+	public void pauseAnimation() {
+		if (simData.pauseAnimationCallback!=null) simData.pauseAnimationCallback.run();
+	}
+
+	/**
 	 * Liefert die Liste der Kunden an einer Verzögerung-Station.
 	 * @param id ID der Verzögerung-Station
 	 * @return Liste der Kunden an der Station oder <code>null</code>, wenn keine Kundenliste ermittelt werden konnte

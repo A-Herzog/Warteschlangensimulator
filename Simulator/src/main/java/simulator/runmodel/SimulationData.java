@@ -124,6 +124,13 @@ public class SimulationData extends SimData {
 	public ExternalConnect pluginsConnect;
 
 	/**
+	 * Optionales Callback, welches von Skriptcode aus aufgerufen werden kann,
+	 * um eine Animation zu pausieren. (Ist insbesondere dann <code>null</code>,
+	 * wenn die Simulation nicht als Animation läuft.
+	 */
+	public Runnable pauseAnimationCallback;
+
+	/**
 	 * Konstruktor der Klasse <code>SimulationData</code>
 	 * @param threadNr		Gibt die Nummer des Threads an, für den das <code>SimDat</code>-Objekt erstellt wird.
 	 * @param threadCount	Anzahl der Rechenthreads
