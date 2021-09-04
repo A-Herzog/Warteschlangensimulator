@@ -285,6 +285,8 @@ public class MainPanel extends MainPanelBase {
 	private static final int JAVA15_SECURE_MIN_VERSION=2;
 	/** Aktuelle Unterversionsnummer in der Java 16 Versionsreihe */
 	private static final int JAVA16_SECURE_MIN_VERSION=2;
+	/** Aktuelle Unterversionsnummer in der Java 17 Versionsreihe */
+	private static final int JAVA17_SECURE_MIN_VERSION=0;
 
 	/**
 	 * Bezeichnung für "ungespeichertes Modell" in der Titelzeile für ein neues Modell, welches noch keinen Namen besitzt
@@ -2009,6 +2011,7 @@ public class MainPanel extends MainPanelBase {
 			if (ver[0]==14 && ver[1]<JAVA14_SECURE_MIN_VERSION) ok=false;
 			if (ver[0]==15 && ver[1]<JAVA15_SECURE_MIN_VERSION) ok=false;
 			if (ver[0]==16 && ver[1]<JAVA16_SECURE_MIN_VERSION) ok=false;
+			if (ver[0]==17 && ver[1]<JAVA17_SECURE_MIN_VERSION) ok=false;
 			if (ok) return;
 			setMessagePanel(Language.tr("Dialog.Title.Warning"),Language.tr("Window.JavaSecurityWarnung"),"https://"+MainPanel.JDK_URL,MessagePanelIcon.WARNING);
 			new Timer("HideSecurityInfoPanel").schedule(new TimerTask() {@Override public void run() {setMessagePanel(null,null,null);}},7500);
