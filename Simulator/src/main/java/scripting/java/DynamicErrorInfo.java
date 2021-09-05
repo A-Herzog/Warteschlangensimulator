@@ -18,12 +18,14 @@ package scripting.java;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.io.Serializable;
 
 import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.SwingUtilities;
 import javax.swing.text.BadLocationException;
 
@@ -78,11 +80,24 @@ public class DynamicErrorInfo extends BaseDialog {
 		}
 
 		/* Fehlermeldung */
-		final JPanel top=new JPanel(new FlowLayout(FlowLayout.LEFT));
-		content.add(top,BorderLayout.NORTH);
+		final String message=processErrorMessage(runner);
+		final JPanel top;
+		if (message.split("\\n").length>20) {
+			top=new JPanel(new BorderLayout());
+			final JLabel label=new JLabel(message);
+			final JScrollPane scroll=new JScrollPane(label);
+			scroll.setOpaque(false);
+			scroll.getViewport().setOpaque(false);
+			top.add(scroll);
+			top.setPreferredSize(new Dimension(100,250));
+		} else {
+			top=new JPanel(new FlowLayout(FlowLayout.LEFT));
+			top.add(new JLabel(message));
+		}
 		top.setBorder(BorderFactory.createEmptyBorder(5,5,10,5));
 		top.setBackground(errorColor);
-		top.add(new JLabel(processErrorMessage(runner)));
+		content.add(top,BorderLayout.NORTH);
+
 
 		/* Skript-Anzeige */
 		final ScriptEditorAreaBuilder builder=new ScriptEditorAreaBuilder(ScriptPopup.ScriptMode.Java,true,null);

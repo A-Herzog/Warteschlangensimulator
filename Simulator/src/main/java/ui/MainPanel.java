@@ -2531,7 +2531,9 @@ public class MainPanel extends MainPanelBase {
 					noJavaCompilerAvailableMessage();
 					return;
 				}
-				status=Language.tr("Window.Check.ErrorList")+"<br><span style=\"color: red\">"+prepareError.error+"</span>";
+				String error=prepareError.error;
+				if (error.length()>512) error=error.substring(0,512)+"...";
+				status=Language.tr("Window.Check.ErrorList")+"<br><span style=\"color: red\">"+error+"</span>";
 			}
 		}
 
@@ -2874,7 +2876,9 @@ public class MainPanel extends MainPanelBase {
 					return;
 				}
 				if (error.id>0) {
-					if (MsgBox.confirm(getOwnerWindow(),Language.tr("Window.Simulation.ModelIsFaulty"),"<html><body>"+Language.tr("Window.Simulation.ErrorInitializatingSimulation")+":<br>"+error.error+"<br><br>"+Language.tr("Window.Check.StationDialog.Question")+"</body></html>",Language.tr("Window.Check.StationDialog.InfoYes"),Language.tr("Window.Check.StationDialog.InfoNo"))) {
+					String errorMessage=error.error;
+					if (errorMessage.length()>512) errorMessage=errorMessage.substring(0,512)+"...";
+					if (MsgBox.confirm(getOwnerWindow(),Language.tr("Window.Simulation.ModelIsFaulty"),"<html><body>"+Language.tr("Window.Simulation.ErrorInitializatingSimulation")+":<br>"+errorMessage+"<br><br>"+Language.tr("Window.Check.StationDialog.Question")+"</body></html>",Language.tr("Window.Check.StationDialog.InfoYes"),Language.tr("Window.Check.StationDialog.InfoNo"))) {
 						editorPanel.getByIdIncludingSubModelsButGetParent(error.id);
 					}
 				} else {
@@ -2934,7 +2938,9 @@ public class MainPanel extends MainPanelBase {
 					return error.error;
 				}
 				if (error.id>0) {
-					if (MsgBox.confirm(getOwnerWindow(),Language.tr("Window.Simulation.ModelIsFaulty"),"<html><body>"+Language.tr("Window.Simulation.ErrorInitializatingSimulation")+":<br>"+error.error+"<br><br>"+Language.tr("Window.Check.StationDialog.Question")+"</body></html>",Language.tr("Window.Check.StationDialog.InfoYes"),Language.tr("Window.Check.StationDialog.InfoNo"))) {
+					String errorMessage=error.error;
+					if (errorMessage.length()>512) errorMessage=errorMessage.substring(0,512)+"...";
+					if (MsgBox.confirm(getOwnerWindow(),Language.tr("Window.Simulation.ModelIsFaulty"),"<html><body>"+Language.tr("Window.Simulation.ErrorInitializatingSimulation")+":<br>"+errorMessage+"<br><br>"+Language.tr("Window.Check.StationDialog.Question")+"</body></html>",Language.tr("Window.Check.StationDialog.InfoYes"),Language.tr("Window.Check.StationDialog.InfoNo"))) {
 						editorPanel.getByIdIncludingSubModelsButGetParent(error.id);
 					}
 				} else {
@@ -3116,7 +3122,9 @@ public class MainPanel extends MainPanelBase {
 				return;
 			}
 			if (error.id>0) {
-				if (MsgBox.confirm(getOwnerWindow(),Language.tr("Window.Simulation.ModelIsFaulty"),"<html><body>"+Language.tr("Window.Simulation.ErrorInitializatingSimulation")+":<br>"+error.error+"<br><br>"+Language.tr("Window.Check.StationDialog.Question")+"</body></html>",Language.tr("Window.Check.StationDialog.InfoYes"),Language.tr("Window.Check.StationDialog.InfoNo"))) {
+				String errorMessage=error.error;
+				if (errorMessage.length()>512) errorMessage=errorMessage.substring(0,512)+"...";
+				if (MsgBox.confirm(getOwnerWindow(),Language.tr("Window.Simulation.ModelIsFaulty"),"<html><body>"+Language.tr("Window.Simulation.ErrorInitializatingSimulation")+":<br>"+errorMessage+"<br><br>"+Language.tr("Window.Check.StationDialog.Question")+"</body></html>",Language.tr("Window.Check.StationDialog.InfoYes"),Language.tr("Window.Check.StationDialog.InfoNo"))) {
 					editorPanel.getByIdIncludingSubModelsButGetParent(error.id);
 				}
 			} else {
