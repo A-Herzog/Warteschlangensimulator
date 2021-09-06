@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-09-03 00:42+0200\n"
+"POT-Creation-Date: 2021-09-06 22:32+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -399,7 +399,7 @@ msgid "Animation.JSResults.Script"
 msgstr "Script"
 
 msgid "Animation.JSResults.Title"
-msgstr "Results of the Javascript script executions"
+msgstr "Results of the script executions"
 
 msgid "Animation.Log.Copy"
 msgstr "Copy message to clipboard"
@@ -16299,7 +16299,7 @@ msgid "Simulation.Element.DecideByKeyValue.Name"
 msgstr "Decide by string property"
 
 msgid "Simulation.Element.DecideByScript.Name"
-msgstr "Decide by Javascript"
+msgstr "Decide by script"
 
 msgid "Simulation.Element.DecideBySequence.Name"
 msgstr "Decide by sequence"
@@ -16326,7 +16326,7 @@ msgid "Simulation.Element.Hold.Name"
 msgstr "Hold by condition"
 
 msgid "Simulation.Element.HoldJS.Name"
-msgstr "Hold by Javascript condition"
+msgstr "Hold by script condition"
 
 msgid "Simulation.Element.HoldMulti.Name"
 msgstr "Multi condition"
@@ -16737,7 +16737,7 @@ msgid "Simulation.Log.DecideByKeyValue.Info"
 msgstr "Client: %s, station: %s, %s=%s, branching to output %d of %d"
 
 msgid "Simulation.Log.DecideByScript"
-msgstr "Decide by Javascript"
+msgstr "Decide by script"
 
 msgid "Simulation.Log.DecideByScript.ErrorNoNumber"
 msgstr "The script result is no number, station: %s, script result: %s"
@@ -17205,7 +17205,7 @@ msgid "Simulation.Log.SetError.Info"
 msgstr "Client: %s, station: %s, new value for variable %s could not be calculated."
 
 msgid "Simulation.Log.SetJS"
-msgstr "Javascript variable assignment"
+msgstr "Script variable assignment"
 
 msgid "Simulation.Log.SetJS.Info"
 msgstr "Client: %s, station: %s"
@@ -23897,7 +23897,7 @@ msgid "Surface.Decide.XML.Root"
 msgstr "ModelElementDecide"
 
 msgid "Surface.DecideJS.Dialog.Title"
-msgstr "Edit Javascript-based branching"
+msgstr "Edit script-based branching"
 
 msgid "Surface.DecideJS.EdgeNumber"
 msgstr "Exit %d"
@@ -23912,7 +23912,7 @@ msgid "Surface.DecideJS.Name.Short"
 msgstr "Decide (Skript)"
 
 msgid "Surface.DecideJS.Tooltip"
-msgstr "Directs clients via a Javascript in different directions."
+msgstr "Directs clients via a script in different directions."
 
 msgid "Surface.DecideJS.XML.Root"
 msgstr "ModelElementDecideJS"
@@ -25888,7 +25888,7 @@ msgid "Surface.OutputJS.Name.Short"
 msgstr "Output (Script)"
 
 msgid "Surface.OutputJS.Tooltip"
-msgstr "Writes the results of a Javscript program to a file."
+msgstr "Writes the results of a script program to a file."
 
 msgid "Surface.OutputJS.XML.File"
 msgstr "ModelElementOutputFile"

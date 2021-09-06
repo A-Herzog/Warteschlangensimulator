@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-09-03 00:42+0200\n"
+"POT-Creation-Date: 2021-09-06 22:32+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -399,7 +399,7 @@ msgid "Animation.JSResults.Script"
 msgstr "Skript"
 
 msgid "Animation.JSResults.Title"
-msgstr "Ergebnisse der Javascript-Skriptausführungen"
+msgstr "Ergebnisse der Skriptausführungen"
 
 msgid "Animation.Log.Copy"
 msgstr "Meldung in die Zwischenablage kopieren"
@@ -16303,7 +16303,7 @@ msgid "Simulation.Element.DecideByKeyValue.Name"
 msgstr "Verzweigen (Texteigenschaft)"
 
 msgid "Simulation.Element.DecideByScript.Name"
-msgstr "Verzweigen (Javascript)"
+msgstr "Verzweigen (Skript)"
 
 msgid "Simulation.Element.DecideBySequence.Name"
 msgstr "Verzweigen (Reihenfolge)"
@@ -16330,7 +16330,7 @@ msgid "Simulation.Element.Hold.Name"
 msgstr "Bedingung"
 
 msgid "Simulation.Element.HoldJS.Name"
-msgstr "Javascript-Bedingung"
+msgstr "Skript-Bedingung"
 
 msgid "Simulation.Element.HoldMulti.Name"
 msgstr "Mehrfachbedingung"
@@ -16741,7 +16741,7 @@ msgid "Simulation.Log.DecideByKeyValue.Info"
 msgstr "Kunde: %s, Station: %s, %s=%s, Verzweigung zu Ausgang %d von %d"
 
 msgid "Simulation.Log.DecideByScript"
-msgstr "Javascript Verzweigung"
+msgstr "Skript-Verzweigung"
 
 msgid "Simulation.Log.DecideByScript.ErrorNoNumber"
 msgstr "Das Skript-Ergebnis ist keine Zahl, Station: %s, Skriptergebnis: %s"
@@ -17209,7 +17209,7 @@ msgid "Simulation.Log.SetError.Info"
 msgstr "Kunde: %s, Station: %s, neuer Wert für die Variable %s konnte nicht berechnet werden."
 
 msgid "Simulation.Log.SetJS"
-msgstr "Javascript-basierte Variablenzuweisung"
+msgstr "Skript-basierte Variablenzuweisung"
 
 msgid "Simulation.Log.SetJS.Info"
 msgstr "Kunde: %s, Station: %s"
@@ -23909,7 +23909,7 @@ msgid "Surface.Decide.XML.Root"
 msgstr "ModellElementVerzweigen"
 
 msgid "Surface.DecideJS.Dialog.Title"
-msgstr "Javascript-basierende Verzweidung bearbeiten"
+msgstr "Skript-basierende Verzweigung bearbeiten"
 
 msgid "Surface.DecideJS.EdgeNumber"
 msgstr "Ausgang %d"
@@ -23924,7 +23924,7 @@ msgid "Surface.DecideJS.Name.Short"
 msgstr "Verzweigen (Skript)"
 
 msgid "Surface.DecideJS.Tooltip"
-msgstr "Leitet die Kunden gemäß einem Javascript in verschiedene Richtungen weiter."
+msgstr "Leitet die Kunden gemäß einem Skript in verschiedene Richtungen weiter."
 
 msgid "Surface.DecideJS.XML.Root"
 msgstr "ModellElementVerzweigenJS"
@@ -24875,13 +24875,13 @@ msgid "Surface.InputJS.Infotext"
 msgstr "Passiert ein Kunde diese Station, so wird ein Wert aus einer externen Datei geladen und einem Skript zur Verarbeitung übergeben."
 
 msgid "Surface.InputJS.Name"
-msgstr "Javascript-Eingabe"
+msgstr "Skript-Eingabe"
 
 msgid "Surface.InputJS.Name.Short"
 msgstr "Eingabe (Skript)"
 
 msgid "Surface.InputJS.Tooltip"
-msgstr "Javascript-basierende Dateieingabe"
+msgstr "Skript-basierende Dateieingabe"
 
 msgid "Surface.InputJS.XML.DefaultValue"
 msgstr "ModellElementEingabeJSVorgabewert"
@@ -25900,7 +25900,7 @@ msgid "Surface.OutputJS.Name.Short"
 msgstr "Ausgabe (Skript)"
 
 msgid "Surface.OutputJS.Tooltip"
-msgstr "Schreibt die Ergebnisses eines Javascript-Programms in eine Datei."
+msgstr "Schreibt die Ergebnisses eines Skriptes in eine Datei."
 
 msgid "Surface.OutputJS.XML.File"
 msgstr "ModellElementAusgabedatei"

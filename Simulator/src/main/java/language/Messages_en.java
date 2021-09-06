@@ -263,7 +263,7 @@ public class Messages_en extends java.util.ResourceBundle {
     t[672] = "SettingsDialog.Tabs.ProgramStart.WelcomePage";
     t[673] = "Show welcome page";
     t[674] = "Simulation.Log.SetJS";
-    t[675] = "Javascript variable assignment";
+    t[675] = "Script variable assignment";
     t[678] = "ExpressionBuilder.ExponentialAndLogarithmFunctions.AnyBaseLogarithm";
     t[679] = "Logarithm to any base";
     t[680] = "Surface.Dispose.NameStopp";
@@ -905,7 +905,7 @@ public class Messages_en extends java.util.ResourceBundle {
     t[2540] = "Editor.SurfaceTooltip.CustomBuild.Title";
     t[2541] = "Inofficial build";
     t[2544] = "Surface.DecideJS.Dialog.Title";
-    t[2545] = "Edit Javascript-based branching";
+    t[2545] = "Edit script-based branching";
     t[2548] = "BookData.Tab.TOC";
     t[2549] = "Table of contents";
     t[2550] = "Animation.Icon.World";
@@ -1075,7 +1075,7 @@ public class Messages_en extends java.util.ResourceBundle {
     t[2926] = "Surface.TransportSource.Dialog.Tab.RoutingTargets.Edit.Dialog.ByExpression";
     t[2927] = "Trigger transport at fulfilled condition";
     t[2928] = "Simulation.Element.HoldJS.Name";
-    t[2929] = "Hold by Javascript condition";
+    t[2929] = "Hold by script condition";
     t[2930] = "Surface.PopupMenu.QuickFix.Conveyor.Time";
     t[2931] = "Set conveyor transport time to %s seconds";
     t[2934] = "Editor.Dialog.Tab.RunTimeStatistics.Table.Edit";
@@ -4113,7 +4113,7 @@ public class Messages_en extends java.util.ResourceBundle {
     t[10928] = "Window.Check.AutoFixResources.ResourceName";
     t[10929] = "Resource for station id=%d";
     t[10940] = "Surface.DecideJS.Tooltip";
-    t[10941] = "Directs clients via a Javascript in different directions.";
+    t[10941] = "Directs clients via a script in different directions.";
     t[10942] = "SystemInfo.Tools.UserInterface.Font.Info";
     t[10943] = "Program font (\"Arial\" for example), empty for operating system default";
     t[10944] = "Surface.Line.Dialog.Arrow.Small";
@@ -4729,7 +4729,7 @@ public class Messages_en extends java.util.ResourceBundle {
     t[12544] = "Schedule.Dialog.Name.InUse.Info";
     t[12545] = "The specified name \"%s\" for the schedule is already in use by some other schedule.";
     t[12550] = "Simulation.Log.DecideByScript";
-    t[12551] = "Decide by Javascript";
+    t[12551] = "Decide by script";
     t[12556] = "Examples.Jockeying";
     t[12557] = "Queues with jockeying";
     t[12566] = "Color.66CDAA";
@@ -6527,7 +6527,7 @@ public class Messages_en extends java.util.ResourceBundle {
     t[17476] = "Surface.AnimationText.XML.Color";
     t[17477] = "ModelElementColor";
     t[17478] = "Surface.OutputJS.Tooltip";
-    t[17479] = "Writes the results of a Javscript program to a file.";
+    t[17479] = "Writes the results of a script program to a file.";
     t[17482] = "Transporter.Group.Edit.Dialog.Failure.Expression.Error.Info";
     t[17483] = "The expression describing the time between two down times is invalid.";
     t[17484] = "Statistic.Description.Show.Hint";
@@ -18363,7 +18363,7 @@ public class Messages_en extends java.util.ResourceBundle {
     t[48178] = "ExpressionBuilder.ClientsInSystem.Median";
     t[48179] = "<p>Returns the median of the number of clients in the system.</p>";
     t[48182] = "Animation.JSResults.Title";
-    t[48183] = "Results of the Javascript script executions";
+    t[48183] = "Results of the script executions";
     t[48190] = "FitDalog.InvalidDataTitle";
     t[48191] = "No data loaded";
     t[48192] = "Surface.Source.Dialog.Schedule";
@@ -18615,7 +18615,7 @@ public class Messages_en extends java.util.ResourceBundle {
     t[48804] = "Simulation.Log.BatchingTemporary.InfoNoNewClient";
     t[48805] = "Station: %s, batch size matched, clients in the batch: %s";
     t[48814] = "Simulation.Element.DecideByScript.Name";
-    t[48815] = "Decide by Javascript";
+    t[48815] = "Decide by script";
     t[48824] = "Server.Log.Start";
     t[48825] = "The server service was started on port %d.";
     t[48826] = "Statistics.MinimumNumberOfClients";

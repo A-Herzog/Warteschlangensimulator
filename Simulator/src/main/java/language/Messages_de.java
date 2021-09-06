@@ -263,7 +263,7 @@ public class Messages_de extends java.util.ResourceBundle {
     t[672] = "SettingsDialog.Tabs.ProgramStart.WelcomePage";
     t[673] = "Begr\u00fc\u00dfungsseite anzeigen";
     t[674] = "Simulation.Log.SetJS";
-    t[675] = "Javascript-basierte Variablenzuweisung";
+    t[675] = "Skript-basierte Variablenzuweisung";
     t[678] = "ExpressionBuilder.ExponentialAndLogarithmFunctions.AnyBaseLogarithm";
     t[679] = "Logarithmus zu beliebiger Basis";
     t[680] = "Surface.Dispose.NameStopp";
@@ -905,7 +905,7 @@ public class Messages_de extends java.util.ResourceBundle {
     t[2540] = "Editor.SurfaceTooltip.CustomBuild.Title";
     t[2541] = "Inoffizielle Version";
     t[2544] = "Surface.DecideJS.Dialog.Title";
-    t[2545] = "Javascript-basierende Verzweidung bearbeiten";
+    t[2545] = "Skript-basierende Verzweigung bearbeiten";
     t[2548] = "BookData.Tab.TOC";
     t[2549] = "Inhaltsverzeichnis";
     t[2550] = "Animation.Icon.World";
@@ -1075,7 +1075,7 @@ public class Messages_de extends java.util.ResourceBundle {
     t[2926] = "Surface.TransportSource.Dialog.Tab.RoutingTargets.Edit.Dialog.ByExpression";
     t[2927] = "Transport bei erf\u00fcllter Bedingung ausl\u00f6sen";
     t[2928] = "Simulation.Element.HoldJS.Name";
-    t[2929] = "Javascript-Bedingung";
+    t[2929] = "Skript-Bedingung";
     t[2930] = "Surface.PopupMenu.QuickFix.Conveyor.Time";
     t[2931] = "Flie\u00dfband-Transportzeit auf auf %s Sekunden stellen";
     t[2934] = "Editor.Dialog.Tab.RunTimeStatistics.Table.Edit";
@@ -3295,7 +3295,7 @@ public class Messages_de extends java.util.ResourceBundle {
     t[8926] = "Surface.ClientIcon.Name";
     t[8927] = "Icon";
     t[8928] = "Surface.InputJS.Name";
-    t[8929] = "Javascript-Eingabe";
+    t[8929] = "Skript-Eingabe";
     t[8934] = "Wait.Info.StartRemote";
     t[8935] = "Die Simulation l\u00e4uft auf Rechner \"%s\".";
     t[8944] = "Git.ListBranches.Add.ErrorInvalidName";
@@ -4113,7 +4113,7 @@ public class Messages_de extends java.util.ResourceBundle {
     t[10928] = "Window.Check.AutoFixResources.ResourceName";
     t[10929] = "Bediener f\u00fcr Station id=%d";
     t[10940] = "Surface.DecideJS.Tooltip";
-    t[10941] = "Leitet die Kunden gem\u00e4\u00df einem Javascript in verschiedene Richtungen weiter.";
+    t[10941] = "Leitet die Kunden gem\u00e4\u00df einem Skript in verschiedene Richtungen weiter.";
     t[10942] = "SystemInfo.Tools.UserInterface.Font.Info";
     t[10943] = "Programmschriftart (z.B. \"Arial\"), leer f\u00fcr Betriebssystemvorgabe";
     t[10944] = "Surface.Line.Dialog.Arrow.Small";
@@ -4729,7 +4729,7 @@ public class Messages_de extends java.util.ResourceBundle {
     t[12544] = "Schedule.Dialog.Name.InUse.Info";
     t[12545] = "Der angegebene Name \"%s\" f\u00fcr den Zeitplan wird bereits f\u00fcr einen anderen Zeitplan verwendet.";
     t[12550] = "Simulation.Log.DecideByScript";
-    t[12551] = "Javascript Verzweigung";
+    t[12551] = "Skript-Verzweigung";
     t[12556] = "Examples.Jockeying";
     t[12557] = "Warteschlangen mit Jockeying";
     t[12566] = "Color.66CDAA";
@@ -6527,7 +6527,7 @@ public class Messages_de extends java.util.ResourceBundle {
     t[17476] = "Surface.AnimationText.XML.Color";
     t[17477] = "ModellElementFarbe";
     t[17478] = "Surface.OutputJS.Tooltip";
-    t[17479] = "Schreibt die Ergebnisses eines Javascript-Programms in eine Datei.";
+    t[17479] = "Schreibt die Ergebnisses eines Skriptes in eine Datei.";
     t[17482] = "Transporter.Group.Edit.Dialog.Failure.Expression.Error.Info";
     t[17483] = "Der angegebene Ausdruck f\u00fcr die Abst\u00e4nde zwischen zwei Ausf\u00e4llen ist ung\u00fcltig.";
     t[17484] = "Statistic.Description.Show.Hint";
@@ -15925,7 +15925,7 @@ public class Messages_de extends java.util.ResourceBundle {
     t[41930] = "SimulationServer.Setup.CalcServerOutput";
     t[41931] = "Ausgaben des Rechenservers";
     t[41942] = "Surface.InputJS.Tooltip";
-    t[41943] = "Javascript-basierende Dateieingabe";
+    t[41943] = "Skript-basierende Dateieingabe";
     t[41950] = "Surface.Action.Dialog.Delete.ConfirmTitle";
     t[41951] = "Aktion l\u00f6schen";
     t[41952] = "Statistic.FastAccess.Template.NewLine.Tooltip";
@@ -18363,7 +18363,7 @@ public class Messages_de extends java.util.ResourceBundle {
     t[48178] = "ExpressionBuilder.ClientsInSystem.Median";
     t[48179] = "<p>Liefert den Median der Anzahl an Kunden im System.</p>";
     t[48182] = "Animation.JSResults.Title";
-    t[48183] = "Ergebnisse der Javascript-Skriptausf\u00fchrungen";
+    t[48183] = "Ergebnisse der Skriptausf\u00fchrungen";
     t[48190] = "FitDalog.InvalidDataTitle";
     t[48191] = "Keine Daten geladen";
     t[48192] = "Surface.Source.Dialog.Schedule";
@@ -18615,7 +18615,7 @@ public class Messages_de extends java.util.ResourceBundle {
     t[48804] = "Simulation.Log.BatchingTemporary.InfoNoNewClient";
     t[48805] = "Station: %s, Batch-Gr\u00f6\u00dfe erreicht, im Batch enthaltene Kunden: %s";
     t[48814] = "Simulation.Element.DecideByScript.Name";
-    t[48815] = "Verzweigen (Javascript)";
+    t[48815] = "Verzweigen (Skript)";
     t[48824] = "Server.Log.Start";
     t[48825] = "Der Serverdienst wurde auf Port %d gestartet.";
     t[48826] = "Statistics.MinimumNumberOfClients";
