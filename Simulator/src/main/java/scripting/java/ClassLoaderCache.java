@@ -154,11 +154,11 @@ public class ClassLoaderCache {
 				options.add(System.getProperty("java.class.path"));
 			}
 
-			/* Übersetzen */
-			final CompilationTask task=compiler.getTask(null,compileData.fileManager,diagnostics,options,null,compilationUnits);
-
 			globalCompilerLock.lock();
 			try {
+				/* Übersetzen */
+				final CompilationTask task=compiler.getTask(null,compileData.fileManager,diagnostics,options,null,compilationUnits);
+
 				if (task.call()) {
 					/* Klasse laden */
 					return new ExtendedStatus(compileData.loadClass(className));
