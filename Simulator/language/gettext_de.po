@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-09-06 22:32+0200\n"
+"POT-Creation-Date: 2021-09-08 22:55+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1747,6 +1747,9 @@ msgstr "Die Ausgabedatei %s existiert bereits."
 msgid "CommandLine.Error.File.OutputFileIsFolder"
 msgstr "Die Ausgabedatei %s ist bereits als Verzeichnisname vergeben."
 
+msgid "CommandLine.Error.InvalidTimeout"
+msgstr "Der angegebene Timeout-Wert \"%s\" ist ungültig. Es muss eine Zahl angegeben werden."
+
 msgid "CommandLine.Error.LoadingFile"
 msgstr "Beim Laden der Datei %s ist ein Fehler aufgetreten."
 
@@ -2304,6 +2307,21 @@ msgstr "Simulation"
 
 msgid "CommandLine.Simulation.NoResults"
 msgstr "Die Simulation hat kein Statistikergebnisse geliefert."
+
+msgid "CommandLine.SimulationTimeout.Description.Long"
+msgstr ""
+"Dieser Befehl erwartet drei oder vier weitere Parameter:\n"
+"1. Eingabe-Modell-Datei\n"
+"2. Eingabe-Datentabelle (optional)\n"
+"3. Ausgabe-Statistik-Datei\n"
+"4. Timeout-Wert (in Sekunden)\n"
+"Die Eingabedatei und die Eingabe-Datentabelle (sofern angegeben) müssen existieren, die Ausgabedatei darf nicht existieren."
+
+msgid "CommandLine.SimulationTimeout.Description.Short"
+msgstr "Führt einen einzelnen Simulationslauf (mit Timeout) durch."
+
+msgid "CommandLine.SimulationTimeout.Name"
+msgstr "SimulationTimeout"
 
 msgid "CommandLine.UnknownCommand"
 msgstr "Unbekannte Parameter. Rufen Sie den Simulation mit \"Hilfe\" als Parameter auf, um eine Liste der gültigen Befehle zu erhalten."

@@ -124,7 +124,7 @@ public final class CommandBenchmark extends AbstractSimulationCommand {
 		for (int i=0;i<5;i++) {
 			if (isCanceled()) break;
 			if (i>0) out.println(Language.tr("CommandLine.Benchmark.SimulaionRun")+" "+(i+1));
-			final Statistics statistics=singleSimulation(editModel,true,maxThreads,out);
+			final Statistics statistics=singleSimulation(editModel,true,maxThreads,out,false,-1);
 			if (statistics==null) {out.println(BaseCommandLineSystem.errorBig+": "+Language.tr("CommandLine.Benchmark.SimulaionFailed")); return;}
 			if (i==0) out.println(Language.tr("CommandLine.Benchmark.Threads")+": "+NumberTools.formatLong(statistics.simulationData.runThreads));
 			if (i==0) out.println(Language.tr("CommandLine.Benchmark.SimulaionRun")+" "+(i+1));

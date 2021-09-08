@@ -7166,6 +7166,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[19191] = "<p>Erzeugt eine Zufallszahl gem\u00e4\u00df der Fatigue-Live-Verteilung mit Lage, Skalierung und Form gem\u00e4\u00df den drei Parametern.</p>";
     t[19196] = "Window.SaveImage";
     t[19197] = "Bild speichern";
+    t[19198] = "CommandLine.SimulationTimeout.Description.Long";
+    t[19199] = "Dieser Befehl erwartet drei oder vier weitere Parameter:\n1. Eingabe-Modell-Datei\n2. Eingabe-Datentabelle (optional)\n3. Ausgabe-Statistik-Datei\n4. Timeout-Wert (in Sekunden)\nDie Eingabedatei und die Eingabe-Datentabelle (sofern angegeben) m\u00fcssen existieren, die Ausgabedatei darf nicht existieren.";
     t[19204] = "ScriptPopup.Client.ValueNumber.Get";
     t[19205] = "Wert auslesen";
     t[19206] = "Surface.Batch.Dialog.SendTemporaryBatched.Error.Title";
@@ -8026,14 +8028,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[21495] = "Dunkelseegr\u00fcn";
     t[21498] = "Statistics.SystemData.EventsPerSecond";
     t[21499] = "Ereignisse pro Sekunde";
-    t[21500] = "Editor.Dialog.Tab.InitialVariableValues.RecordVariables.Off";
-    t[21501] = "Variablen und Zuordnungsdaten nicht erfassen";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_4 (java.lang.String[] t) {
+    t[21500] = "Editor.Dialog.Tab.InitialVariableValues.RecordVariables.Off";
+    t[21501] = "Variablen und Zuordnungsdaten nicht erfassen";
     t[21502] = "Surface.MultiSourceTable.Delete";
     t[21503] = "Kundenquelle l\u00f6schen";
     t[21506] = "Surface.Text.Tooltip";
@@ -9598,6 +9600,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[25577] = "Auszuf\u00fchrendes Skript f\u00fcr die \u00dcberschrift";
     t[25580] = "ParameterCompare.Toolbar.ProcessResults.Hint";
     t[25581] = "Bietet Funktionen an, um die Simulationsergebnisse zu filtern und zu speichern.";
+    t[25582] = "CommandLine.Error.InvalidTimeout";
+    t[25583] = "Der angegebene Timeout-Wert \"%s\" ist ung\u00fcltig. Es muss eine Zahl angegeben werden.";
     t[25584] = "Surface.DDE.Select.Button.Title";
     t[25585] = "DDE";
     t[25586] = "Surface.InteractiveSlider.XML.Variable";
@@ -10030,16 +10034,16 @@ public class Messages_de extends java.util.ResourceBundle {
     t[26625] = "1 Zuweisung";
     t[26630] = "ExpressionBuilder.Base";
     t[26631] = "Basis";
-    t[26632] = "Simulation.Creator.OutputConnectionsNotMatching";
-    t[26633] = "Bei Element id=%d stimmt die Anzahl an geplanten und an tats\u00e4chlichen auslaufenden Kanten nicht \u00fcberein.";
-    t[26638] = "CommandLine.Filter.Name";
-    t[26639] = "Filter";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_5 (java.lang.String[] t) {
+    t[26632] = "Simulation.Creator.OutputConnectionsNotMatching";
+    t[26633] = "Bei Element id=%d stimmt die Anzahl an geplanten und an tats\u00e4chlichen auslaufenden Kanten nicht \u00fcberein.";
+    t[26638] = "CommandLine.Filter.Name";
+    t[26639] = "Filter";
     t[26648] = "ExpressionBuilder.ProbabilityDistributions.InverseGaussianDistribution.RandomNumberInfo";
     t[26649] = "<p>Erzeugt eine Zufallszahl gem\u00e4\u00df der inversen Gau\u00df-Verteilung mit den Parametern gem\u00e4\u00df dem ersten (lambda) und zweiten (mu; Mittelwert) Parameter.</p>";
     t[26652] = "Statistics.ErlangCCompare.Results.ErlangCExt";
@@ -10686,6 +10690,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[28413] = "Konfiguration: Format //HostName//DBName";
     t[28436] = "JSRunner.Templates.ChangeResource.Info";
     t[28437] = "Ressource \"%s\"";
+    t[28440] = "CommandLine.SimulationTimeout.Name";
+    t[28441] = "SimulationTimeout";
     t[28444] = "Surface.TransportSource.Dialog.DelayTimeIs";
     t[28445] = "Verz\u00f6gerungszeit ist";
     t[28446] = "Statistic.FastAccess.Template.StatisticsTranslate.en.Tooltip";
@@ -12034,18 +12040,18 @@ public class Messages_de extends java.util.ResourceBundle {
     t[31913] = "Auslastung";
     t[31918] = "Surface.Connection.Name";
     t[31919] = "Verbindung";
-    t[31924] = "ParameterCompare.XML.Root";
-    t[31925] = "ModelleVergleichen";
-    t[31928] = "Surface.HoldMulti.Dialog.TimeBasedCheck";
-    t[31929] = "Bedingung zus\u00e4tzlich zeitgesteuert pr\u00fcfen";
-    t[31930] = "Surface.LogicIf.Name";
-    t[31931] = "If";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_6 (java.lang.String[] t) {
+    t[31924] = "ParameterCompare.XML.Root";
+    t[31925] = "ModelleVergleichen";
+    t[31928] = "Surface.HoldMulti.Dialog.TimeBasedCheck";
+    t[31929] = "Bedingung zus\u00e4tzlich zeitgesteuert pr\u00fcfen";
+    t[31930] = "Surface.LogicIf.Name";
+    t[31931] = "If";
     t[31940] = "Statistics.CostsForResources.Idle.Single";
     t[31941] = "Kosten f\u00fcr die Leerlaufzeit der Ressource";
     t[31942] = "Surface.Source.DialogBatchSize.Minimum";
@@ -14040,18 +14046,18 @@ public class Messages_de extends java.util.ResourceBundle {
     t[37137] = "Name und Version";
     t[37142] = "ScriptPopup.Client.Time.Set";
     t[37143] = "Zeit einstellen";
-    t[37146] = "ModelDescription.PickUp.NewClientType";
-    t[37147] = "Neue Kundentyp f\u00fcr Batch";
-    t[37156] = "Main.Menu.File.PrintModel";
-    t[37157] = "Modell drucken...";
-    t[37164] = "Surface.LogicEndIf.XML.Root";
-    t[37165] = "ModellElementLogikEndIf";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_7 (java.lang.String[] t) {
+    t[37146] = "ModelDescription.PickUp.NewClientType";
+    t[37147] = "Neue Kundentyp f\u00fcr Batch";
+    t[37156] = "Main.Menu.File.PrintModel";
+    t[37157] = "Modell drucken...";
+    t[37164] = "Surface.LogicEndIf.XML.Root";
+    t[37165] = "ModellElementLogikEndIf";
     t[37166] = "Surface.AssignString.Table.Edit.Dialog.Key.Error.Title";
     t[37167] = "Zuweisungsschl\u00fcssel leer";
     t[37174] = "Optimizer.Tab.Optimization.TargetValue";
@@ -14246,6 +14252,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[37629] = "Erfassung in der Statistik";
     t[37630] = "SettingsDialog.Tabs.Statistics.PercentDigits";
     t[37631] = "Nachkommastellen f\u00fcr Prozentwerte";
+    t[37638] = "CommandLine.SimulationTimeout.Description.Short";
+    t[37639] = "F\u00fchrt einen einzelnen Simulationslauf (mit Timeout) durch.";
     t[37640] = "Surface.TeleportSource.XML.Root";
     t[37641] = "ModellElementTeleportStart";
     t[37642] = "Surface.MultiSourceTable.Add";
@@ -16044,6 +16052,12 @@ public class Messages_de extends java.util.ResourceBundle {
     t[42241] = "Eingabe (Skript)";
     t[42242] = "ExpressionBuilder.ProbabilityDistributions.WeibullDistribution";
     t[42243] = "Weibull-Verteilung";
+  }
+  /**
+   * Part of the language array creation
+   * @param t	Language data array
+   */
+  static void clinit_part_8 (java.lang.String[] t) {
     t[42248] = "Batch.Parameter.ChangeType.Number";
     t[42249] = "Zahl";
     t[42250] = "Surface.SourceDB.Dialog.Table.ErrorTitle";
@@ -16052,12 +16066,6 @@ public class Messages_de extends java.util.ResourceBundle {
     t[42253] = "Bedienzeit an einer Station pro Kundentyp";
     t[42254] = "Editor.DialogBase.Search.TransporterGroup.Failure.InterDownTimeExpression";
     t[42255] = "Ausfallabst\u00e4nde gem\u00e4\u00df Ausdruck in Transportergruppe \"%s\"";
-  }
-  /**
-   * Part of the language array creation
-   * @param t	Language data array
-   */
-  static void clinit_part_8 (java.lang.String[] t) {
     t[42256] = "Surface.OutputLog.XML.Root";
     t[42257] = "ModellElementAusgabeLog";
     t[42258] = "ExternalConnect.Dialog.NoPluginMethodsRootDirInfo1";
@@ -18050,6 +18058,12 @@ public class Messages_de extends java.util.ResourceBundle {
     t[47431] = "Maximal darzustellender Wert";
     t[47432] = "Surface.Batch.Dialog.SendTemporaryBatched";
     t[47433] = "Tempor\u00e4ren Batch bilden; Kundentyp f\u00fcr Batch:";
+  }
+  /**
+   * Part of the language array creation
+   * @param t	Language data array
+   */
+  static void clinit_part_9 (java.lang.String[] t) {
     t[47434] = "Surface.Output.XML.Element.TypeDescription.LineBreak";
     t[47435] = "Zeilenumbruch";
     t[47438] = "Surface.AnimationClock.Dialog.Title";
@@ -18058,12 +18072,6 @@ public class Messages_de extends java.util.ResourceBundle {
     t[47441] = "Bislang eingetroffene Kunden: %s";
     t[47442] = "Git.List.Tab.Server.Button.InitLocal.Confirm.InfoNo";
     t[47443] = "Kein eigenst\u00e4ndiges lokales Repository erzeugen.";
-  }
-  /**
-   * Part of the language array creation
-   * @param t	Language data array
-   */
-  static void clinit_part_9 (java.lang.String[] t) {
     t[47444] = "Statistics.ModelRemarks.LargeN.ClientType";
     t[47445] = "Mittlere Anzahl an Kunden vom Typ \"%s\" im System: E[N]=%s";
     t[47450] = "CommandLine.ParameterCompareVariance.SaveOk";
@@ -20056,6 +20064,12 @@ public class Messages_de extends java.util.ResourceBundle {
     t[52585] = "AusfallGemaessVerteilung";
     t[52596] = "ExpressionBuilder.SimulationCharacteristics.TransferTimesByClientTypes.MaximalTime";
     t[52597] = "<p>Liefert die maximale Transferzeit \u00fcber alle Kunden, die an der Bedienstation, deren ID in dem Parameter angegeben wurde, erzeugt wurden.</p>";
+  }
+  /**
+   * Part of the language array creation
+   * @param t	Language data array
+   */
+  static void clinit_part_10 (java.lang.String[] t) {
     t[52604] = "Main.Menu.Extras.Mnemonic";
     t[52605] = "X";
     t[52608] = "Simulation.Log.ArrivalClientCount.Info";
@@ -20064,12 +20078,6 @@ public class Messages_de extends java.util.ResourceBundle {
     t[52613] = "KostenProLeerlaufstunde";
     t[52614] = "Animation.Icon.ColorOrange";
     t[52615] = "Farbe - Orange";
-  }
-  /**
-   * Part of the language array creation
-   * @param t	Language data array
-   */
-  static void clinit_part_10 (java.lang.String[] t) {
     t[52624] = "Surface.DDE.Workbook.ErrorTitle";
     t[52625] = "Keine Arbeitsmappe angegeben";
     t[52626] = "Schedule.EditDialog.TimeStepFurther";

@@ -85,15 +85,32 @@ public abstract class AbstractSimulationCommand extends AbstractCommand {
 	 * @param out Ein optionales {@link PrintStream}-Objekt, über das Texte ausgegeben werden können.
 	 */
 	public static final void waitForSimulationDone(final AnySimulator simulator, final boolean minimalOutput, final PrintStream out) {
+		waitForSimulationDone(simulator,minimalOutput,out,false,-1);
+	}
+
+	/**
+	 * Wartet bis das als Parameter übergebene Simulator-Interface fertig ist und gibt ggf. Zwischenfortschrittsmeldungen aus.
+	 * @param simulator	Interface auf das Simulator-Objekt, welches überwacht werden soll
+	 * @param minimalOutput	Wird hier <code>false</code> übergeben, so werden Fortschrittsmeldungen ausgegeben.
+	 * @param out Ein optionales {@link PrintStream}-Objekt, über das Texte ausgegeben werden können.
+	 * @param withTimeout	Soll die Simulation nach einer vorgegebenen Zeit abgebrochen werden?
+	 * @param timeout	Abbruchzeit in Sekunden; wird ein negativer Wert übergeben, so gibt es zwar kein Timeout, aber für mit Fehler abgeschlossene Simulationen wird keine Statistik erzeugt
+	 */
+	public static final boolean waitForSimulationDone(final AnySimulator simulator, final boolean minimalOutput, final PrintStream out, final boolean withTimeout, final double timeout) {
 		final long startTime=System.currentTimeMillis();
 		long lastGesamt=Integer.MAX_VALUE;
 
 		if (!minimalOutput && out!=null) out.println(Language.tr("Simulation.Started"));
 
+		final int timeoutCounts=(withTimeout && timeout>0)?(int)Math.round(timeout*1000/25):Integer.MAX_VALUE;
 		String s;
 		int count=0;
 		while (simulator.isRunning()) {
 			try {Thread.sleep(25);} catch (InterruptedException e) {}
+			if (count>timeoutCounts) {
+				simulator.cancel();
+				return false;
+			}
 			if (minimalOutput) continue;
 			count++;
 			if (count%50==0) {
@@ -120,6 +137,7 @@ public abstract class AbstractSimulationCommand extends AbstractCommand {
 				}
 			}
 		}
+		return true;
 	}
 
 	/**
@@ -172,23 +190,30 @@ public abstract class AbstractSimulationCommand extends AbstractCommand {
 	 * @param minimalOutput	Wird hier <code>false</code> übergeben, so werden Fortschrittsmeldungen ausgegeben.
 	 * @param maxThreads Gibt an, wie viele Threads maximal verwendet werden sollen.
 	 * @param out	Ein <code>PrintStream</code>-Objekt, über das Texte ausgegeben werden können.
-	 * @return	Gibt im Erfolgsfalls das Statistik-Objekt zurück, sonst <code>null</code>
+	 * @param withTimeout	Soll die Simulation nach einer vorgegebenen Zeit abgebrochen werden?
+	 * @param timeout	Abbruchzeit in Sekunden; wird ein negativer Wert übergeben, so gibt es zwar kein Timeout, aber für mit Fehler abgeschlossene Simulationen wird keine Statistik erzeugt
+	 * @return	Gibt im Erfolgsfall das Statistik-Objekt zurück, sonst <code>null</code>
 	 */
-	protected final Statistics singleSimulation(final EditModel editModel, final boolean minimalOutput, final int maxThreads, final PrintStream out) {
+	protected final Statistics singleSimulation(final EditModel editModel, final boolean minimalOutput, final int maxThreads, final PrintStream out, final boolean withTimeout, final double timeout) {
 		/* Vorbereiten und starten */
 		final Object obj=prepare(maxThreads,editModel,out);
 		if (!(obj instanceof AnySimulator)) return null;
 		simulator=(AnySimulator)obj;
 
 		/* Auf Ende der Simulation warten */
-		waitForSimulationDone(simulator,minimalOutput,out);
+		final boolean done=waitForSimulationDone(simulator,minimalOutput,out,withTimeout,timeout);
 
 		/* Statistik zusammenstellen */
-		final Statistics statistics=simulator.getStatistic();
+		Statistics statistics=done?simulator.getStatistic():null;
 		if (statistics==null) {
 			if (out!=null) out.println(Language.tr("CommandLine.Simulation.NoResults"));
 		} else {
-			if (!minimalOutput) out.println(String.format(Language.tr("CommandLine.Simulation.Done"),NumberTools.formatLong(statistics.simulationData.runTime)));
+			if (withTimeout && statistics.simulationData.emergencyShutDown) {
+				if (out!=null) out.println(Language.tr("CommandLine.Simulation.NoResults"));
+				statistics=null;
+			} else {
+				if (!minimalOutput) out.println(String.format(Language.tr("CommandLine.Simulation.Done"),NumberTools.formatLong(statistics.simulationData.runTime)));
+			}
 		}
 
 		simulator=null;
@@ -204,7 +229,7 @@ public abstract class AbstractSimulationCommand extends AbstractCommand {
 	 * @return	Gibt im Erfolgsfall das Statistik-Objekt zurück, sonst <code>null</code>
 	 */
 	protected final Statistics singleSimulation(final EditModel editModel, final boolean minimalOutput, final PrintStream out) {
-		return singleSimulation(editModel,minimalOutput,Integer.MAX_VALUE,out);
+		return singleSimulation(editModel,minimalOutput,Integer.MAX_VALUE,out,false,-1);
 	}
 
 	/**

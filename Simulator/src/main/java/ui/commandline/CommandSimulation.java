@@ -23,6 +23,7 @@ import java.util.List;
 
 import language.Language;
 import mathtools.MultiTable;
+import mathtools.NumberTools;
 import simulator.editmodel.EditModel;
 import simulator.statistics.Statistics;
 import systemtools.commandline.AbstractCommand;
@@ -35,13 +36,32 @@ import systemtools.commandline.BaseCommandLineSystem;
  * @see AbstractSimulationCommand
  * @see CommandLineSystem
  */
-public final class CommandSimulation extends AbstractSimulationCommand {
+public class CommandSimulation extends AbstractSimulationCommand {
 	/** Zu simulierende Modelldatei */
 	private File modelFile;
 	/** Optional zu ladende Tabellendatei */
 	private File dataInputFile;
 	/** Statistikausgabedatei */
 	private File statisticsFile;
+	/** Soll die Simulation nach einer vorgegebenen Zeit abgebrochen werden? */
+	private final boolean withTimeout;
+	/** Abbruchzeit in Sekunden; wird ein negativer Wert übergeben, so gibt es zwar kein Timeout, aber für mit Fehler abgeschlossene Simulationen wird keine Statistik erzeugt */
+	private double timeout;
+
+	/**
+	 * Konstruktor der Klasse
+	 */
+	public CommandSimulation() {
+		this(false);
+	}
+
+	/**
+	 * Konstruktor der Klasse
+	 * @param withTimeout	 Soll über die Parameter ein Timeout-Wert angenommen werden?
+	 */
+	protected CommandSimulation(final boolean withTimeout) {
+		this.withTimeout=withTimeout;
+	}
 
 	@Override
 	public String[] getKeys() {
@@ -63,14 +83,19 @@ public final class CommandSimulation extends AbstractSimulationCommand {
 
 	@Override
 	public String prepare(String[] additionalArguments, InputStream in, PrintStream out) {
-		String s=parameterCountCheck(2,3,additionalArguments); if (s!=null) return s;
+		String s=parameterCountCheck(withTimeout?3:2,withTimeout?4:3,additionalArguments); if (s!=null) return s;
 
 		modelFile=new File(additionalArguments[0]);
-		if (additionalArguments.length==3) {
+		if ((withTimeout && additionalArguments.length==4) || (!withTimeout && additionalArguments.length==3)) {
 			dataInputFile=new File(additionalArguments[1]);
 			statisticsFile=new File(additionalArguments[2]);
 		} else {
 			statisticsFile=new File(additionalArguments[1]);
+		}
+		if (withTimeout) {
+			final Double D=NumberTools.getDouble((additionalArguments.length==4)?additionalArguments[3]:additionalArguments[2]);
+			if (D==null) return String.format(Language.tr("CommandLine.Error.InvalidTimeout"),additionalArguments[3]);
+			timeout=D.doubleValue();
 		}
 
 		if (!modelFile.isFile()) return String.format(Language.tr("CommandLine.Error.File.InputDoesNotExist"),modelFile);
@@ -115,7 +140,7 @@ public final class CommandSimulation extends AbstractSimulationCommand {
 		}
 
 		/* Simulation durchführen, Ergebnisse speichern */
-		final Statistics statistics=singleSimulation(editModel,false,out);
+		final Statistics statistics=singleSimulation(editModel,false,Integer.MAX_VALUE,out,withTimeout,timeout);
 		if (statistics!=null) saveStatistics(statistics,statisticsFile,out);
 	}
 }

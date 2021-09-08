@@ -53,6 +53,7 @@ public class CommandLineSystem extends BaseCommandLineSystem {
 		List<AbstractCommand> list=super.getCommands();
 
 		list.add(new CommandSimulation());
+		list.add(new CommandSimulationTimeout());
 		list.add(new CommandBenchmark());
 		list.add(new CommandReport());
 		list.add(new CommandReset());
