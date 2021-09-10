@@ -556,7 +556,6 @@ public final class ExpressionCalculatorDialog extends BaseDialog {
 
 		split.setDividerLocation(0.66);
 		split.setResizeWeight(0.75);
-		scriptJavaResults=null;
 	}
 
 	/**
