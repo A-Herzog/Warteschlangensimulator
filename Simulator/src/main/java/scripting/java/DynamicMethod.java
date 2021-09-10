@@ -15,6 +15,8 @@
  */
 package scripting.java;
 
+import java.lang.invoke.MethodHandle;
+import java.lang.invoke.MethodHandles;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -25,6 +27,12 @@ import java.util.concurrent.Semaphore;
  * @author Alexander Herzog
  */
 public final class DynamicMethod {
+	/**
+	 * Aufruf über <code>MethodHandle</code> statt über <code>Method</code>
+	 * soll schneller sein - ist er aber leider nicht.
+	 */
+	private static final boolean USE_DYNAMIC_METHOD_HANDLE=false;
+
 	/**
 	 * Fortlaufender Zähler für IDs in Klassennamen
 	 * @see #getNextClassID()
@@ -82,6 +90,14 @@ public final class DynamicMethod {
 	 * @see #invokeDynamicMethod(Object)
 	 */
 	private Method dynamicMethod;
+
+	/**
+	 * Aufzurufende Methode innerhalb von {@link #dynamicObject}
+	 * als {@link MethodHandle} (soll schneller sein ein {@link Method}).
+	 * @see #initDynamicMethod()
+	 * @see #invokeDynamicMethod(Object)
+	 */
+	private MethodHandle dynamicMethodHandle;
 
 	static {
 		mutex=new Semaphore(1);
@@ -276,6 +292,13 @@ public final class DynamicMethod {
 			method.setAccessible(true);
 			/* Brauchen wir nicht, da wir nur die hier deklarierten Methoden betrachten: if (method.getDeclaringClass().getName().equals(className)) {dynamicMethod=method; return true;} */
 			dynamicMethod=method;
+			if (USE_DYNAMIC_METHOD_HANDLE) {
+				final MethodHandles.Lookup publicLookup=MethodHandles.publicLookup();
+				try {
+					dynamicMethodHandle=publicLookup.unreflect(dynamicMethod);
+					dynamicMethodHandle=dynamicMethodHandle.bindTo(dynamicObject);
+				} catch (IllegalAccessException e) {}
+			}
 			return true;
 		}
 		/*
@@ -309,8 +332,12 @@ public final class DynamicMethod {
 
 		try {
 			paramsHolder[0]=parameter;
-			return dynamicMethod.invoke(dynamicObject,paramsHolder);
-		} catch (SecurityException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
+			if (dynamicMethodHandle!=null) {
+				return dynamicMethodHandle.invoke(parameter);
+			} else {
+				return dynamicMethod.invoke(dynamicObject,paramsHolder);
+			}
+		} catch (Throwable /*| IllegalAccessException | IllegalArgumentException | InvocationTargetException*/ e) {
 			if (e instanceof InvocationTargetException) {
 				final Throwable e2=((InvocationTargetException)e).getTargetException();
 				final String msg=e2.getMessage();
