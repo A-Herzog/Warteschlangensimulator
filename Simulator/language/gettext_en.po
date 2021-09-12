@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-09-08 22:55+0200\n"
+"POT-Creation-Date: 2021-09-12 01:52+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -10833,6 +10833,9 @@ msgstr "Priority for requesting transporters (for parking)"
 msgid "ModelDescription.UserStatistic.Expression"
 msgstr "Expression \"%s\""
 
+msgid "ModelDescription.UserStatistic.IsContinuous"
+msgstr " (record continuous)"
+
 msgid "ModelDescription.UserStatistic.IsTime"
 msgstr " (display as time)"
 
@@ -18294,6 +18297,9 @@ msgstr "Inserts at the current position the command to output the transfer time 
 msgid "Statistic.FastAccess.Template.UserStatistics"
 msgstr "User-defined statistics"
 
+msgid "Statistic.FastAccess.Template.UserStatisticsContinuous"
+msgstr "User-defined statistics (continuous values)"
+
 msgid "Statistic.FastAccess.Template.Variable.Get"
 msgstr "Read global variable"
 
@@ -20979,6 +20985,12 @@ msgstr "Type"
 
 msgid "Statistics.XML.UserStatistics"
 msgstr "StatisticsUserDefined"
+
+msgid "Statistics.XML.UserStatisticsContinuous"
+msgstr "StatisticsUserDefinedContinuous"
+
+msgid "Statistics.XML.UserStatisticsContinuousKey"
+msgstr "StatisticsUserDefinedContinuousRecord"
 
 msgid "Statistics.XML.UserStatisticsKey"
 msgstr "StatisticsUserDefinedRecord"
@@ -29542,20 +29554,17 @@ msgstr "The entered expression to be recorded to the statistics \"%s\" is in val
 msgid "Surface.UserStatistic.Table.Edit.Expression.ErrorTitle"
 msgstr "Invalid expression"
 
+msgid "Surface.UserStatistic.Table.Edit.IsContinuous"
+msgstr "Data collection method"
+
+msgid "Surface.UserStatistic.Table.Edit.IsContinuous.No"
+msgstr "Discrete values"
+
+msgid "Surface.UserStatistic.Table.Edit.IsContinuous.Yes"
+msgstr "Time continuous"
+
 msgid "Surface.UserStatistic.Table.Edit.IsTime"
 msgstr "Value is time"
-
-msgid "Surface.UserStatistic.Table.Edit.IsTime.Warning.OtherFormat.Multi"
-msgstr "However, at station id=%d and at additional stations a different format is set for this key."
-
-msgid "Surface.UserStatistic.Table.Edit.IsTime.Warning.OtherFormat.Single"
-msgstr "However, at station id=%d a different format is set for this key."
-
-msgid "Surface.UserStatistic.Table.Edit.IsTime.Warning.ThisFormat.Number"
-msgstr "At this station is specified that \"%s\" is to be recorded as a numerical value."
-
-msgid "Surface.UserStatistic.Table.Edit.IsTime.Warning.ThisFormat.Time"
-msgstr "At this station is specified that \"%s\" is to be recorded as the time."
 
 msgid "Surface.UserStatistic.Table.Edit.Key"
 msgstr "Statistik key"
@@ -29583,6 +29592,9 @@ msgstr "Allows to record user-defined statistic data"
 
 msgid "Surface.UserStatistic.XML.Record"
 msgstr "ModelElementUserStatisticsRecord"
+
+msgid "Surface.UserStatistic.XML.Record.IsContinuous"
+msgstr "IsContinuous"
 
 msgid "Surface.UserStatistic.XML.Record.IsTime"
 msgstr "IsTime"
@@ -32066,6 +32078,18 @@ msgstr "The file format is unknown respectively is not matching to any of the fi
 
 #~ msgid "Surface.Sub.Dialog.NumberOutput.Error.Title"
 #~ msgstr "Invalid number of outputs"
+
+#~ msgid "Surface.UserStatistic.Table.Edit.IsTime.Warning.OtherFormat.Multi"
+#~ msgstr "However, at station id=%d and at additional stations a different format is set for this key."
+
+#~ msgid "Surface.UserStatistic.Table.Edit.IsTime.Warning.OtherFormat.Single"
+#~ msgstr "However, at station id=%d a different format is set for this key."
+
+#~ msgid "Surface.UserStatistic.Table.Edit.IsTime.Warning.ThisFormat.Number"
+#~ msgstr "At this station is specified that \"%s\" is to be recorded as a numerical value."
+
+#~ msgid "Surface.UserStatistic.Table.Edit.IsTime.Warning.ThisFormat.Time"
+#~ msgstr "At this station is specified that \"%s\" is to be recorded as the time."
 
 #~ msgid "SystemInfo.Tools.Simulation.SecurityManager"
 #~ msgstr "Activate security manager on user-defined Java code"

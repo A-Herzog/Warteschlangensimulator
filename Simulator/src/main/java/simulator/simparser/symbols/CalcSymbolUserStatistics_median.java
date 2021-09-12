@@ -17,6 +17,7 @@ package simulator.simparser.symbols;
 
 import simulator.simparser.coresymbols.CalcSymbolUserStatistics;
 import statistics.StatisticsDataPerformanceIndicatorWithNegativeValues;
+import statistics.StatisticsPerformanceIndicator;
 
 /**
  * Liefert den Median des Statistikeintrags <code>nr</code> (2. Parameter) (1-basierend) an Statistik-Station id (1. Parameter).
@@ -35,7 +36,8 @@ public class CalcSymbolUserStatistics_median extends CalcSymbolUserStatistics {
 	}
 
 	@Override
-	protected double processIndicator(StatisticsDataPerformanceIndicatorWithNegativeValues indicator) {
-		return indicator.getMedian();
+	protected double processIndicator(StatisticsPerformanceIndicator indicator) {
+		if (indicator instanceof StatisticsDataPerformanceIndicatorWithNegativeValues) return ((StatisticsDataPerformanceIndicatorWithNegativeValues)indicator).getMedian();
+		return 0.0;
 	}
 }

@@ -309,6 +309,7 @@ public class SimulationData extends SimData {
 			indicator.setTime(currentTime);
 		}
 		resetAllDataPerformanceIndicators(statistics.userStatistics);
+		resetAllTimeContinuousPerformanceIndicators(statistics.userStatisticsContinuous,time);
 		resetAllTimeContinuousPerformanceIndicators(statistics.userVariables,time);
 		for (int i=0;i<runModel.variableNames.length-3;i++) runData.updateVariableValueForStatistics(this,i);
 		for (StatisticsStateTimePerformanceIndicator indicator: (StatisticsStateTimePerformanceIndicator[])statistics.stateStatistics.getAll(StatisticsStateTimePerformanceIndicator.class)) indicator.reset();

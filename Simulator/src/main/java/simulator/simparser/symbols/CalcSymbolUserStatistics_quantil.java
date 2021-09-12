@@ -22,6 +22,7 @@ import simulator.coreelements.RunElementData;
 import simulator.elements.RunElementUserStatisticData;
 import simulator.simparser.coresymbols.CalcSymbolSimData;
 import statistics.StatisticsDataPerformanceIndicatorWithNegativeValues;
+import statistics.StatisticsPerformanceIndicator;
 
 /**
  * Liefert das Quantil zur Wahrscheinlichkeit p (3. Parameter) des Statistikeintrags <code>nr</code> (2. Parameter) (1-basierend) an Statistik-Station id (1. Parameter).
@@ -47,11 +48,12 @@ public class CalcSymbolUserStatistics_quantil extends CalcSymbolSimData {
 		final RunElementData data=getRunElementDataForID(parameters[0]);
 		if (data==null) throw error();
 		if (!(data instanceof RunElementUserStatisticData)) throw error();
-		final StatisticsDataPerformanceIndicatorWithNegativeValues[] indicators=((RunElementUserStatisticData)data).getIndicators();
+		final StatisticsPerformanceIndicator[] indicators=((RunElementUserStatisticData)data).getAllIndicators();
 		final int index=(int)FastMath.round(parameters[1]);
 		if (index<=0 || indicators.length<index) throw error();
 		if (indicators[index-1]==null) return 0.0;
-		final StatisticsDataPerformanceIndicatorWithNegativeValues indicator=indicators[index-1];
+		if (!(indicators[index-1] instanceof StatisticsDataPerformanceIndicatorWithNegativeValues)) return 0.0;
+		final StatisticsDataPerformanceIndicatorWithNegativeValues indicator=(StatisticsDataPerformanceIndicatorWithNegativeValues)indicators[index-1];
 
 		/* Wert p für Quantil */
 		double p=parameters[2];
@@ -70,11 +72,12 @@ public class CalcSymbolUserStatistics_quantil extends CalcSymbolSimData {
 		final RunElementData data=getRunElementDataForID(parameters[0]);
 		if (data==null) return fallbackValue;
 		if (!(data instanceof RunElementUserStatisticData)) return fallbackValue;
-		final StatisticsDataPerformanceIndicatorWithNegativeValues[] indicators=((RunElementUserStatisticData)data).getIndicators();
+		final StatisticsPerformanceIndicator[] indicators=((RunElementUserStatisticData)data).getAllIndicators();
 		final int index=(int)FastMath.round(parameters[1]);
 		if (index<=0 || indicators.length<index) return fallbackValue;
 		if (indicators[index-1]==null) return 0;
-		final StatisticsDataPerformanceIndicatorWithNegativeValues indicator=indicators[index-1];
+		if (!(indicators[index-1] instanceof StatisticsDataPerformanceIndicatorWithNegativeValues)) return 0.0;
+		final StatisticsDataPerformanceIndicatorWithNegativeValues indicator=(StatisticsDataPerformanceIndicatorWithNegativeValues)indicators[index-1];
 
 		/* Wert p für Quantil */
 		double p=parameters[2];

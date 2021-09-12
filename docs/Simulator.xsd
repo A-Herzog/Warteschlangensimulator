@@ -1261,6 +1261,7 @@
   <xs:extension base="xs:string">
     <xs:attribute name="Bezeichner" type="xs:string"/>
     <xs:attribute name="IstZeitangabe" type="xs:string"/>
+	<xs:attribute name="IstKontinuierlich" type="xs:string"/>
   </xs:extension>
 </xs:simpleContent></xs:complexType></xs:element>
 
@@ -1858,6 +1859,7 @@
   <xs:element ref="StatistikRessourcenLeerlaufKosten"/>
   <xs:element ref="StatistikLaufzeitWerte"/>
   <xs:element ref="StatistikBenutzerdefiniert"/>
+  <xs:element ref="StatistikBenutzerdefiniertKontinuierlich"/>
   <xs:element ref="StatistikVariablen"/>
   <xs:element ref="StatistikStatusZeit"/>
   <xs:element ref="StatistikAnalogWert"/>
@@ -2083,6 +2085,10 @@
   <xs:element ref="StatistikBenutzerdefiniertDatensatz" minOccurs="0" maxOccurs="unbounded"/>
 </xs:choice></xs:sequence></xs:complexType></xs:element>
 <xs:element name="StatistikBenutzerdefiniertDatensatz" type="StatistikBasis"/>
+<xs:element name="StatistikBenutzerdefiniertKontinuierlich"><xs:complexType><xs:sequence minOccurs="0" maxOccurs="unbounded"><xs:choice>
+  <xs:element ref="StatistikBenutzerdefiniertKontinuierlichDatensatz" minOccurs="0" maxOccurs="unbounded"/>
+</xs:choice></xs:sequence></xs:complexType></xs:element>
+<xs:element name="StatistikBenutzerdefiniertKontinuierlichDatensatz" type="StatistikBasis"/>
 <xs:element name="StatistikVariablen"><xs:complexType><xs:sequence minOccurs="0" maxOccurs="unbounded"><xs:choice>
   <xs:element ref="StatistikVariablenName" minOccurs="0" maxOccurs="unbounded"/>
 </xs:choice></xs:sequence></xs:complexType></xs:element>
@@ -3436,6 +3442,7 @@
   <xs:extension base="xs:string">
     <xs:attribute name="Key" type="xs:string"/>
     <xs:attribute name="IsTime" type="xs:string"/>
+	<xs:attribute name="IsContinuous" type="xs:string"/>
   </xs:extension>
 </xs:simpleContent></xs:complexType></xs:element>
 
@@ -4033,6 +4040,7 @@
   <xs:element ref="StatisticsResourcesIdleTimeCosts"/>
   <xs:element ref="StatisticsRunTimeValues"/>
   <xs:element ref="StatisticsUserDefined"/>
+  <xs:element ref="StatisticsUserDefinedContinuous"/>
   <xs:element ref="StatisticsVariables"/>
   <xs:element ref="StatisticsStatusTime"/>
   <xs:element ref="StatisticsAnalogValue"/>
@@ -4258,6 +4266,10 @@
   <xs:element ref="StatisticsUserDefinedRecord" minOccurs="0" maxOccurs="unbounded"/>
 </xs:choice></xs:sequence></xs:complexType></xs:element>
 <xs:element name="StatisticsUserDefinedRecord" type="StatisticsBase"/>
+<xs:element name="StatisticsUserDefinedContinuous"><xs:complexType><xs:sequence minOccurs="0" maxOccurs="unbounded"><xs:choice>
+  <xs:element ref="StatisticsUserDefinedContinuousRecord" minOccurs="0" maxOccurs="unbounded"/>
+</xs:choice></xs:sequence></xs:complexType></xs:element>
+<xs:element name="StatisticsUserDefinedContinuousRecord" type="StatisticsBase"/>
 <xs:element name="StatisticsVariables"><xs:complexType><xs:sequence minOccurs="0" maxOccurs="unbounded"><xs:choice>
   <xs:element ref="StatisticsVariablesName" minOccurs="0" maxOccurs="unbounded"/>
 </xs:choice></xs:sequence></xs:complexType></xs:element>

@@ -17,6 +17,8 @@ package simulator.simparser.symbols;
 
 import simulator.simparser.coresymbols.CalcSymbolUserStatistics;
 import statistics.StatisticsDataPerformanceIndicatorWithNegativeValues;
+import statistics.StatisticsPerformanceIndicator;
+import statistics.StatisticsTimeContinuousPerformanceIndicator;
 
 /**
  * Liefert den quadrierten Variationskoeffizienten des Statistikeintrags <code>nr</code> (2. Parameter) (1-basierend) an Statistik-Station id (1. Parameter).
@@ -35,8 +37,15 @@ public class CalcSymbolUserStatistics_scv extends CalcSymbolUserStatistics {
 	}
 
 	@Override
-	protected double processIndicator(StatisticsDataPerformanceIndicatorWithNegativeValues indicator) {
-		final double cv=indicator.getCV();
-		return cv*cv;
+	protected double processIndicator(StatisticsPerformanceIndicator indicator) {
+		if (indicator instanceof StatisticsDataPerformanceIndicatorWithNegativeValues) {
+			final double cv=((StatisticsDataPerformanceIndicatorWithNegativeValues)indicator).getCV();
+			return cv*cv;
+		}
+		if (indicator instanceof StatisticsTimeContinuousPerformanceIndicator) {
+			final double cv=((StatisticsTimeContinuousPerformanceIndicator)indicator).getTimeCV();
+			return cv*cv;
+		}
+		return 0.0;
 	}
 }

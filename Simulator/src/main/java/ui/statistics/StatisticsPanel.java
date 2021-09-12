@@ -422,6 +422,7 @@ public class StatisticsPanel extends StatisticsBasePanel {
 	private boolean testUserStatisticsAvailable(final Statistics[] statistics) {
 		for (Statistics statistic: statistics) {
 			if (statistic.userStatistics.size()>0) return true;
+			if (statistic.userStatisticsContinuous.size()>0) return true;
 		}
 		return false;
 	}

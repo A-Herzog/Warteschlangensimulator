@@ -26,6 +26,7 @@ import mathtools.distribution.DataDistributionImpl;
 import simulator.statistics.Statistics;
 import statistics.StatisticsDataPerformanceIndicatorWithNegativeValues;
 import statistics.StatisticsMultiPerformanceIndicator;
+import statistics.StatisticsTimeContinuousPerformanceIndicator;
 import systemtools.statistics.StatisticViewerTable;
 import tools.SetupData;
 import ui.help.Help;
@@ -135,6 +136,7 @@ public class StatisticViewerUserStatisticTable extends StatisticViewerTable {
 		}
 
 		final Table table=new Table();
+
 		for (String name: statistics.userStatistics.getNames()) {
 			final List<String> row=new ArrayList<>();
 			final StatisticsDataPerformanceIndicatorWithNegativeValues indicator=(StatisticsDataPerformanceIndicatorWithNegativeValues)statistics.userStatistics.get(name);
@@ -187,6 +189,51 @@ public class StatisticViewerUserStatisticTable extends StatisticViewerTable {
 					final double mean=indicator.getMean();
 					final double[] halfWidth=indicator.getRunConfidenceHalfWide(confidenceLevels);
 					for (int i=0;i<halfWidth.length;i++) row.add(String.format("[%s;%s]",StatisticTools.formatNumber(mean-halfWidth[i]),StatisticTools.formatNumber(mean+halfWidth[i])));
+				}
+			}
+			table.addLine(row);
+		}
+
+		for (String name: statistics.userStatisticsContinuous.getNames()) {
+			final List<String> row=new ArrayList<>();
+			final StatisticsTimeContinuousPerformanceIndicator indicator=(StatisticsTimeContinuousPerformanceIndicator)statistics.userStatisticsContinuous.get(name);
+			row.add(name);
+			row.add("-");
+			if (StatisticViewerOverviewText.isUserStatisticsTime(statistics,name)!=StatisticViewerOverviewText.UserStatisticsFormat.NUMBER) {
+				row.add(StatisticTools.formatExactTime(indicator.getTimeMean()));
+				row.add(StatisticTools.formatExactTime(indicator.getTimeSD()));
+				row.add(StatisticTools.formatExactTime(indicator.getTimeVar()));
+				row.add(StatisticTools.formatNumber(indicator.getTimeCV()));
+				row.add(StatisticTools.formatNumber(indicator.getTimeSk()));
+				row.add(StatisticTools.formatExactTime(indicator.getTimeMin()));
+				row.add(StatisticTools.formatExactTime(indicator.getTimeMax()));
+				if (SetupData.getSetup().showQuantils) {
+					final double[] levels=StatisticViewerOverviewText.getQuantilLevels();
+					for (int i=0;i<levels.length;i++) row.add("-");
+				}
+				if (hasConfidenceBatchMeans) {
+					for (int i=0;i<confidenceLevels.length;i++) row.add("-");
+				}
+				if (hasConfidenceRun) {
+					for (int i=0;i<confidenceLevels.length;i++) row.add("-");
+				}
+			} else {
+				row.add(StatisticTools.formatNumber(indicator.getTimeMean()));
+				row.add(StatisticTools.formatNumber(indicator.getTimeSD()));
+				row.add(StatisticTools.formatNumber(indicator.getTimeVar()));
+				row.add(StatisticTools.formatNumber(indicator.getTimeCV()));
+				row.add(StatisticTools.formatNumber(indicator.getTimeSk()));
+				row.add(StatisticTools.formatNumber(indicator.getTimeMin()));
+				row.add(StatisticTools.formatNumber(indicator.getTimeMax()));
+				if (SetupData.getSetup().showQuantils) {
+					final double[] levels=StatisticViewerOverviewText.getQuantilLevels();
+					for (int i=0;i<levels.length;i++) row.add("-");
+				}
+				if (hasConfidenceBatchMeans) {
+					for (int i=0;i<confidenceLevels.length;i++) row.add("-");
+				}
+				if (hasConfidenceRun) {
+					for (int i=0;i<confidenceLevels.length;i++) row.add("-");
 				}
 			}
 			table.addLine(row);

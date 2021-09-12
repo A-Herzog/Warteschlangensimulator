@@ -21,7 +21,7 @@ import parser.MathCalcError;
 import simulator.coreelements.RunElementData;
 import simulator.elements.RunElementUserStatisticData;
 import simulator.runmodel.SimulationData;
-import statistics.StatisticsDataPerformanceIndicatorWithNegativeValues;
+import statistics.StatisticsPerformanceIndicator;
 
 /**
  * Basisklasse für Funktionen, die Kenngrößen von Statistik-Station ausgeben.
@@ -35,11 +35,11 @@ public abstract class CalcSymbolUserStatistics extends CalcSymbolSimData {
 	 * @param indicator	Statistikobjekt der Statistik-Station von dem eine Kenngröße ermittelt werden soll
 	 * @return	Kenngröße
 	 */
-	protected abstract double processIndicator(final StatisticsDataPerformanceIndicatorWithNegativeValues indicator);
+	protected abstract double processIndicator(final StatisticsPerformanceIndicator indicator);
 
 	/**
 	 * Handelt es sich bei der von dieser Funktion auszugebenen Kenngröße um einen Histogramm-Wert?
-	 * @return	Wird hier <code>true</code> geliefert, so müssen {@link #processHistogram(StatisticsDataPerformanceIndicatorWithNegativeValues, int)} und {@link #processHistogram(StatisticsDataPerformanceIndicatorWithNegativeValues, int, int)} implementiert werden
+	 * @return	Wird hier <code>true</code> geliefert, so müssen {@link #processHistogram(StatisticsPerformanceIndicator, int)} und {@link #processHistogram(StatisticsPerformanceIndicator, int, int)} implementiert werden
 	 */
 	protected boolean isHistogram() {
 		return false;
@@ -51,7 +51,7 @@ public abstract class CalcSymbolUserStatistics extends CalcSymbolSimData {
 	 * @param value	Stelle an der der Histogramm-Wert ermittelt werden soll
 	 * @return	Histogramm-Wert
 	 */
-	protected double processHistogram(final StatisticsDataPerformanceIndicatorWithNegativeValues indicator, final int value) {
+	protected double processHistogram(final StatisticsPerformanceIndicator indicator, final int value) {
 		return 0.0;
 	}
 
@@ -62,7 +62,7 @@ public abstract class CalcSymbolUserStatistics extends CalcSymbolSimData {
 	 * @param value2	Obere Grenze des Bereichs
 	 * @return	Histogramm-Wert
 	 */
-	protected double processHistogram(final StatisticsDataPerformanceIndicatorWithNegativeValues indicator, final int value1, final int value2) {
+	protected double processHistogram(final StatisticsPerformanceIndicator indicator, final int value1, final int value2) {
 		return 0.0;
 	}
 
@@ -77,7 +77,7 @@ public abstract class CalcSymbolUserStatistics extends CalcSymbolSimData {
 		final RunElementData data=getRunElementDataForID(parameters[0]);
 		if (data==null) throw error();
 		if (!(data instanceof RunElementUserStatisticData)) throw error();
-		final StatisticsDataPerformanceIndicatorWithNegativeValues[] indicators=((RunElementUserStatisticData)data).getIndicators();
+		final StatisticsPerformanceIndicator[] indicators=((RunElementUserStatisticData)data).getAllIndicators();
 		final int index=(int)FastMath.round(parameters[1]);
 		if (index<=0 || indicators.length<index) throw error();
 		if (indicators[index-1]==null) return 0.0;
@@ -103,7 +103,7 @@ public abstract class CalcSymbolUserStatistics extends CalcSymbolSimData {
 		final RunElementData data=getRunElementDataForID(parameters[0]);
 		if (data==null) return fallbackValue;
 		if (!(data instanceof RunElementUserStatisticData)) return fallbackValue;
-		final StatisticsDataPerformanceIndicatorWithNegativeValues[] indicators=((RunElementUserStatisticData)data).getIndicators();
+		final StatisticsPerformanceIndicator[] indicators=((RunElementUserStatisticData)data).getAllIndicators();
 		final int index=(int)FastMath.round(parameters[1]);
 		if (index<=0 || indicators.length<index) return fallbackValue;
 		if (indicators[index-1]==null) return 0;

@@ -42,6 +42,8 @@ public class RunElementUserStatistic extends RunElementPassThrough {
 	private boolean[] isTime;
 	/** Array der Ausdrücke die ausgewertet und in der Nutzerdaten-Statistik erfasst werden sollen */
 	private String[] expressions;
+	/** Array der Angaben, ob die Nutzerdaten diskret oder kontinuierlich erfasst werden sollen */
+	private boolean[] isContinuous;
 
 	/**
 	 * Konstruktor der Klasse
@@ -65,9 +67,11 @@ public class RunElementUserStatistic extends RunElementPassThrough {
 		final List<String> keys=userStatisticElement.getKeys();
 		final List<Boolean> isTime=userStatisticElement.getIsTime();
 		final List<String> expressions=userStatisticElement.getExpressions();
-		final int min=Math.min(keys.size(),expressions.size());
+		final List<Boolean> isContinuous=userStatisticElement.getIsContinuous();
+		final int min=Math.min(Math.min(Math.min(keys.size(),expressions.size()),isTime.size()),isContinuous.size());
 		userStatistic.keys=new String[min];
 		userStatistic.isTime=new boolean[min];
+		userStatistic.isContinuous=new boolean[min];
 		userStatistic.expressions=new String[min];
 		for (int i=0;i<min;i++) {
 			final String s=keys.get(i).trim();
@@ -80,6 +84,7 @@ public class RunElementUserStatistic extends RunElementPassThrough {
 			final int error=calc.parse(t);
 			if (error>=0) return String.format(Language.tr("Simulation.Creator.StatisticExpressionInvalid"),i+1,element.getId(),error+1);
 			userStatistic.expressions[i]=t;
+			userStatistic.isContinuous[i]=isContinuous.get(i);
 		}
 
 		return userStatistic;
@@ -113,7 +118,7 @@ public class RunElementUserStatistic extends RunElementPassThrough {
 		RunElementUserStatisticData data;
 		data=(RunElementUserStatisticData)(simData.runData.getStationData(this));
 		if (data==null) {
-			data=new RunElementUserStatisticData(this,keys,isTime,expressions,simData.runModel.variableNames);
+			data=new RunElementUserStatisticData(this,keys,isTime,expressions,isContinuous,simData.runModel.variableNames);
 			simData.runData.setStationData(this,data);
 		}
 		return data;

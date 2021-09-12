@@ -55,10 +55,12 @@ public class UserStatisticTableModel extends JTableExtAbstractTableModel {
 	private final int id;
 	/** Bezeichner für die Kenngrößen */
 	private final List<String> keys;
-	/** Handelt es sich jeweils im Zeitangaben (<code>true</code>) oder Zahlen (<code>false</code>) */
+	/** Handelt es sich jeweils um Zeitangaben (<code>true</code>) oder Zahlen (<code>false</code>) */
 	private final List<Boolean> isTime;
 	/** Zu erfassende Kenngrößen-Ausdrücke */
 	private final List<String> expressions;
+	/** Handelt es sich jeweils um diskrete Werte (<code>false</code>) oder eine kontinuierliche Erfassung (<code>true</code>) */
+	private final List<Boolean> isContinuous;
 	/** Gesamtes Modell (für den Expression-Builder) */
 	private final EditModel model;
 	/** Haupt-Zeichenfläche (für den Expression-Builder) */
@@ -72,13 +74,14 @@ public class UserStatisticTableModel extends JTableExtAbstractTableModel {
 	 * @param help	Hilfe-Callback
 	 * @param id	ID der aktuellen Station
 	 * @param keys	Bezeichner für die Kenngrößen
-	 * @param isTime	Handelt es sich jeweils im Zeitangaben (<code>true</code>) oder Zahlen (<code>false</code>)
+	 * @param isTime	Handelt es sich jeweils im Zeitangaben (<code>true</code>) oder Zahlen (<code>false</code>)?
 	 * @param expressions	Zu erfassende Kenngrößen-Ausdrücke
+	 * @param isContinuous	Handelt es sich jeweils um diskrete Werte (<code>false</code>) oder eine kontinuierliche Erfassung (<code>true</code>)?
 	 * @param model	Gesamtes Modell (für den Expression-Builder)
 	 * @param surface	Haupt-Zeichenfläche (für den Expression-Builder)
 	 * @param readOnly	Nur-Lese-Status
 	 */
-	public UserStatisticTableModel(final JTableExt table, final Runnable help, final int id, final List<String> keys, final List<Boolean> isTime, final List<String> expressions, final EditModel model, final ModelSurface surface, final boolean readOnly) {
+	public UserStatisticTableModel(final JTableExt table, final Runnable help, final int id, final List<String> keys, final List<Boolean> isTime, final List<String> expressions, final List<Boolean> isContinuous, final EditModel model, final ModelSurface surface, final boolean readOnly) {
 		super();
 		this.help=help;
 		this.readOnly=readOnly;
@@ -87,6 +90,7 @@ public class UserStatisticTableModel extends JTableExtAbstractTableModel {
 		this.keys=new ArrayList<>(); this.keys.addAll(keys);
 		this.isTime=new ArrayList<>(); this.isTime.addAll(isTime);
 		this.expressions=new ArrayList<>(); this.expressions.addAll(expressions);
+		this.isContinuous=new ArrayList<>(); this.isContinuous.addAll(isContinuous);
 		this.model=model;
 		this.surface=surface;
 		updateTable();
@@ -106,6 +110,14 @@ public class UserStatisticTableModel extends JTableExtAbstractTableModel {
 	 */
 	public List<Boolean> getIsTime() {
 		return isTime;
+	}
+
+	/**
+	 * Liefert die Informationen ob es sich bei den Kenngrößen um diskrete Werte (<code>false</code>) oder eine kontinuierliche Erfassung (<code>true</code>) handelt
+	 * @return	Neue Liste mit den Informationen ob es sich bei den Kenngrößen um diskrete Werte (<code>false</code>) oder eine kontinuierliche Erfassung (<code>true</code>) handelt
+	 */
+	public List<Boolean> getIsContinuous() {
+		return isContinuous;
 	}
 
 	/**
@@ -187,6 +199,19 @@ public class UserStatisticTableModel extends JTableExtAbstractTableModel {
 	}
 
 	/**
+	 * Stellt dasselbe Format bei allen Schlüssel eines Namens (in dieser Tabelle) identisch ein
+	 * @param key	Name des Schlüssels
+	 * @param isTime	Neues Format
+	 * @param isContinuous	Handelt es sich jeweils um diskrete Werte (<code>false</code>) oder eine kontinuierliche Erfassung (<code>true</code>)?
+	 */
+	private void updateFormats(final String key, final boolean isTime, final boolean isContinuous) {
+		for (int i=0;i<keys.size();i++) if (keys.get(i).equals(key)) {
+			this.isTime.set(i,isTime);
+			this.isContinuous.set(i,isContinuous);
+		}
+	}
+
+	/**
 	 * Im {@link TableButtonListener} auszuführende Aktion.
 	 * @see	TableButtonListener
 	 */
@@ -239,11 +264,13 @@ public class UserStatisticTableModel extends JTableExtAbstractTableModel {
 			boolean b;
 			switch (actionIndex) {
 			case ACTION_ADD:
-				dialog=new UserStatisticTableModelDialog(table,help,id,"",true,"",model,surface);
+				dialog=new UserStatisticTableModelDialog(table,help,id,"",true,"",false,model,surface);
 				if (dialog.getClosedBy()==BaseDialog.CLOSED_BY_OK) {
 					keys.add(dialog.getKey());
 					isTime.add(dialog.getIsTime());
 					expressions.add(dialog.getExpression());
+					isContinuous.add(dialog.getIsContinuous());
+					updateFormats(dialog.getKey(),dialog.getIsTime(),dialog.getIsContinuous());
 					updateTable();
 				}
 				break;
@@ -282,11 +309,13 @@ public class UserStatisticTableModel extends JTableExtAbstractTableModel {
 				updateTable();
 				break;
 			case ACTION_EDIT:
-				dialog=new UserStatisticTableModelDialog(table,help,id,keys.get(row),isTime.get(row),expressions.get(row),model,surface);
+				dialog=new UserStatisticTableModelDialog(table,help,id,keys.get(row),isTime.get(row),expressions.get(row),isContinuous.get(row),model,surface);
 				if (dialog.getClosedBy()==BaseDialog.CLOSED_BY_OK) {
 					keys.set(row,dialog.getKey());
 					isTime.set(row,dialog.getIsTime());
 					expressions.set(row,dialog.getExpression());
+					isContinuous.set(row,dialog.getIsContinuous());
+					updateFormats(dialog.getKey(),dialog.getIsTime(),dialog.getIsContinuous());
 					updateTable();
 				}
 				break;

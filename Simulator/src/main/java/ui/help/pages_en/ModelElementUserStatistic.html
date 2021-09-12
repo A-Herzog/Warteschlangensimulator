@@ -19,7 +19,12 @@ If a client passes through this element, some user-definable statistic informati
 The name of the user-defined statistic data element has no further meaning.
 Each user-defined statistic data element can contain any number of records
 describing which information is to be recorded when a client passes through
-this station.
+this station. The recording can take place in the form of discrete values
+(standard case) or continuously over time. If actual client characteristics
+(such as waiting times, etc.) are to be recorded, the values are discrete.
+Continuous recording only makes sense if the arrival of a client at the station
+is to be used to record the change in a value that does not necessarily have
+anything to do with the respective client.
 </p>
  
 </body>

@@ -394,9 +394,14 @@ public class Statistics extends StatisticsBase {
 	 */
 
 	/**
-	 * Erfassung von nutzerdefinierten Statistikdaten
+	 * Erfassung von nutzerdefinierten Statistikdaten (diskrete Werte)
 	 */
 	public final StatisticsMultiPerformanceIndicator userStatistics;
+
+	/**
+	 * Erfassung von nutzerdefinierten Statistikdaten (zeitkontinuierliche Werte)
+	 */
+	public final StatisticsMultiPerformanceIndicator userStatisticsContinuous;
 
 	/* ====================================================
 	 * Variablenwerte
@@ -591,6 +596,7 @@ public class Statistics extends StatisticsBase {
 
 		/* Nutzerdefinierte Statistik */
 		addPerformanceIndicator(userStatistics=new StatisticsMultiPerformanceIndicator(Language.trAll("Statistics.XML.UserStatistics"),new StatisticsDataPerformanceIndicatorWithNegativeValues(Language.trAll("Statistics.XML.UserStatisticsKey"),secondsToRecordInDistributions,secondsToRecordInDistributions,batchSize,true)));
+		addPerformanceIndicator(userStatisticsContinuous=new StatisticsMultiPerformanceIndicator(Language.trAll("Statistics.XML.UserStatisticsContinuous"),new StatisticsTimeContinuousPerformanceIndicator(Language.trAll("Statistics.XML.UserStatisticsContinuousKey"))));
 
 		/* Nutzerdefinierte Variablen */
 		addPerformanceIndicator(userVariables=new StatisticsMultiPerformanceIndicator(Language.trAll("Statistics.XML.Variables"),new StatisticsTimeContinuousPerformanceIndicator(Language.trAll("Statistics.XML.VariablesKey"))));

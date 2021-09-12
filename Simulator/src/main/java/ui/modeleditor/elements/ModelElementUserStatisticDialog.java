@@ -18,7 +18,10 @@ package ui.modeleditor.elements;
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.swing.JComponent;
 import javax.swing.JPanel;
@@ -28,6 +31,8 @@ import language.Language;
 import tools.JTableExt;
 import ui.infopanel.InfoPanel;
 import ui.modeleditor.ModelElementBaseDialog;
+import ui.modeleditor.ModelSurface;
+import ui.modeleditor.coreelements.ModelElement;
 
 /**
  * Dialog, der Einstellungen für ein {@link ModelElementUserStatistic}-Element anbietet
@@ -70,8 +75,9 @@ public class ModelElementUserStatisticDialog extends ModelElementBaseDialog {
 		final JPanel content=new JPanel(new BorderLayout());
 
 		if (element instanceof ModelElementUserStatistic) {
+			final ModelElementUserStatistic station=(ModelElementUserStatistic)element;
 			JTableExt table=new JTableExt();
-			table.setModel(tableModel=new UserStatisticTableModel(table,helpRunnable,element.getId(),((ModelElementUserStatistic)element).getKeys(),((ModelElementUserStatistic)element).getIsTime(),((ModelElementUserStatistic)element).getExpressions(),element.getModel(),element.getSurface(),readOnly));
+			table.setModel(tableModel=new UserStatisticTableModel(table,helpRunnable,element.getId(),station.getKeys(),station.getIsTime(),station.getExpressions(),station.getIsContinuous(),element.getModel(),element.getSurface(),readOnly));
 			table.setIsPanelCellTable(0);
 			table.setIsPanelCellTable(1);
 			table.getColumnModel().getColumn(0).setMaxWidth(200);
@@ -114,12 +120,48 @@ public class ModelElementUserStatisticDialog extends ModelElementBaseDialog {
 			final List<String> keys=((ModelElementUserStatistic)element).getKeys();
 			final List<Boolean> isTime=((ModelElementUserStatistic)element).getIsTime();
 			final List<String> expressions=((ModelElementUserStatistic)element).getExpressions();
+			final List<Boolean> isContinuous=((ModelElementUserStatistic)element).getIsContinuous();
 			keys.clear();
 			isTime.clear();
 			expressions.clear();
+			isContinuous.clear();
 			keys.addAll(tableModel.getKeys());
 			isTime.addAll(tableModel.getIsTime());
 			expressions.addAll(tableModel.getExpressions());
+			isContinuous.addAll(tableModel.getIsContinuous());
+		}
+
+		/* Formate für alle Schlüssel auflisten */
+		final Map<String,Boolean> newIsTime=new HashMap<>();
+		final Map<String,Boolean> newIsContinuous=new HashMap<>();
+		for (int i=0;i<tableModel.getKeys().size();i++) {
+			final String key=tableModel.getKeys().get(i);
+			newIsTime.put(key,tableModel.getIsTime().get(i));
+			newIsContinuous.put(key,tableModel.getIsContinuous().get(i));
+		}
+
+		/* Alle Statistik-Stationen identifizieren */
+		ModelSurface surface=element.getSurface();
+		if (surface.getParentSurface()!=null) surface=surface.getParentSurface();
+		final List<ModelElementUserStatistic> userStatisticStations=new ArrayList<>();
+		for (ModelElement e1: surface.getElements()) {
+			if (e1 instanceof ModelElementUserStatistic) userStatisticStations.add((ModelElementUserStatistic)e1);
+			if (e1 instanceof ModelElementSub) for (ModelElement e2: ((ModelElementSub)e1).getSubSurface().getElements()) {
+				if (e2 instanceof ModelElementUserStatistic) userStatisticStations.add((ModelElementUserStatistic)e2);
+			}
+		}
+
+		/* Gleiches Format bei allen Stationen für die jeweiligen Schlüsse einstellen */
+		for (ModelElementUserStatistic station: userStatisticStations) {
+			final List<String> keys=station.getKeys();
+			final List<Boolean> isTimeSettings=station.getIsTime();
+			final List<Boolean> isContinuousSettings=station.getIsContinuous();
+
+			for (int i=0;i<keys.size();i++) {
+				final String key=keys.get(i);
+				if (newIsTime.containsKey(key)) isTimeSettings.set(i,newIsTime.get(key));
+				if (newIsContinuous.containsKey(key)) isContinuousSettings.set(i,newIsContinuous.get(key));
+			}
 		}
 	}
 }

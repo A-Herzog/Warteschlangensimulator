@@ -17,6 +17,8 @@ package simulator.simparser.symbols;
 
 import simulator.simparser.coresymbols.CalcSymbolUserStatistics;
 import statistics.StatisticsDataPerformanceIndicatorWithNegativeValues;
+import statistics.StatisticsPerformanceIndicator;
+import statistics.StatisticsTimeContinuousPerformanceIndicator;
 
 /**
  * Liefert die Varianz des Statistikeintrags <code>nr</code> (2. Parameter) (1-basierend) an Statistik-Station id (1. Parameter).
@@ -35,7 +37,9 @@ public class CalcSymbolUserStatistics_var extends CalcSymbolUserStatistics {
 	}
 
 	@Override
-	protected double processIndicator(StatisticsDataPerformanceIndicatorWithNegativeValues indicator) {
-		return indicator.getVar();
+	protected double processIndicator(StatisticsPerformanceIndicator indicator) {
+		if (indicator instanceof StatisticsDataPerformanceIndicatorWithNegativeValues) return ((StatisticsDataPerformanceIndicatorWithNegativeValues)indicator).getVar();
+		if (indicator instanceof StatisticsTimeContinuousPerformanceIndicator) return ((StatisticsTimeContinuousPerformanceIndicator)indicator).getTimeVar();
+		return 0.0;
 	}
 }

@@ -22,12 +22,11 @@ import java.awt.FlowLayout;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Arrays;
 
 import javax.swing.BoxLayout;
 import javax.swing.JCheckBox;
-import javax.swing.JLabel;
+import javax.swing.JComboBox;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
@@ -37,9 +36,10 @@ import simulator.editmodel.EditModel;
 import simulator.simparser.ExpressionCalc;
 import systemtools.BaseDialog;
 import systemtools.MsgBox;
+import tools.IconListCellRenderer;
+import ui.images.Images;
 import ui.modeleditor.ModelElementBaseDialog;
 import ui.modeleditor.ModelSurface;
-import ui.modeleditor.coreelements.ModelElement;
 
 /**
  * Dieser Dialog erlaubt das Bearbeiten eines einzelnen Datensatzes
@@ -54,8 +54,6 @@ public class UserStatisticTableModelDialog extends BaseDialog {
 	 */
 	private static final long serialVersionUID = -2104982799396808067L;
 
-	/** Liste aller anderen Statistik-Stationen im Modell */
-	private ModelElementUserStatistic[] otherStations;
 	/** Liste der Namen aller modellweit verfügbaren Variablennamen */
 	private String[] variableNames;
 	/** Eingabefeld für den Bezeichner für die Kenngröße */
@@ -64,8 +62,8 @@ public class UserStatisticTableModelDialog extends BaseDialog {
 	private JTextField expression;
 	/** Option: Handelt es sich um eine Zeitangabe? */
 	private JCheckBox isTime;
-	/** Label zur Anzeige von Warnungen, wenn derselbe Schlüssel an einer anderen Station ein anderes Format hat */
-	private JLabel formatWarning;
+	/** Auswahl: Erfassung als diskrete Werte oder zeitkontinuierlich */
+	private JComboBox<String> isContinuous;
 
 	/**
 	 * Konstruktor der Klasse
@@ -73,24 +71,15 @@ public class UserStatisticTableModelDialog extends BaseDialog {
 	 * @param help	Hilfe-Callback
 	 * @param id	ID der aktuellen Station
 	 * @param key	Bisheriger Bezeichner für die Kenngröße
-	 * @param isTime	Handelt es sich um eine Zeitangabe (<code>true</code>) oder eine Zahl (<code>false</code>)
+	 * @param isTime	Handelt es sich um eine Zeitangabe (<code>true</code>) oder eine Zahl (<code>false</code>)?
 	 * @param expression	Bisherige zu erfassende Kenngröße
+	 * @param isContinuous	Handelt es sich jeweils um diskrete Werte (<code>false</code>) oder eine kontinuierliche Erfassung (<code>true</code>)?
 	 * @param model	Gesamtes Modell (für den Expression-Builder)
 	 * @param surface	Haupt-Zeichenfläche (für den Expression-Builder)
 	 */
-	public UserStatisticTableModelDialog(final Component owner, final Runnable help, final int id, final String key, final boolean isTime, final String expression, final EditModel model, final ModelSurface surface) {
+	@SuppressWarnings("unchecked")
+	public UserStatisticTableModelDialog(final Component owner, final Runnable help, final int id, final String key, final boolean isTime, final String expression, final boolean isContinuous, final EditModel model, final ModelSurface surface) {
 		super(owner,Language.tr("Surface.UserStatistic.Table.Edit"));
-
-		/* Alle anderen Statistik-Stationen identifizieren */
-
-		final List<ModelElementUserStatistic> otherStations=new ArrayList<>();
-		for (ModelElement e1: model.surface.getElements()) {
-			if ((e1 instanceof ModelElementUserStatistic) && (e1.getId()!=id)) otherStations.add((ModelElementUserStatistic)e1);
-			if (e1 instanceof ModelElementSub) for (ModelElement e2: ((ModelElementSub)e1).getSubSurface().getElements()) {
-				if ((e2 instanceof ModelElementUserStatistic) && (e2.getId()!=id)) otherStations.add((ModelElementUserStatistic)e2);
-			}
-		}
-		this.otherStations=otherStations.toArray(new ModelElementUserStatistic[0]);
 
 		/* Variablen (für Expression-Editor) ermitteln */
 		variableNames=surface.getMainSurfaceVariableNames(model.getModelVariableNames(),true);
@@ -107,9 +96,9 @@ public class UserStatisticTableModelDialog extends BaseDialog {
 		content.add((JPanel)obj[0]);
 		this.key=(JTextField)obj[1];
 		this.key.addKeyListener(new KeyListener(){
-			@Override public void keyTyped(KeyEvent e) {checkData(false); updataFormatWarning();}
-			@Override public void keyPressed(KeyEvent e) {checkData(false); updataFormatWarning();}
-			@Override public void keyReleased(KeyEvent e) {checkData(false); updataFormatWarning();}
+			@Override public void keyTyped(KeyEvent e) {checkData(false);}
+			@Override public void keyPressed(KeyEvent e) {checkData(false);}
+			@Override public void keyReleased(KeyEvent e) {checkData(false);}
 		});
 
 		/* Ausdruck */
@@ -126,64 +115,25 @@ public class UserStatisticTableModelDialog extends BaseDialog {
 		/* In der Statistik als Zeit formatiert ausgeben? */
 		content.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
 		line.add(this.isTime=new JCheckBox(Language.tr("Surface.UserStatistic.Table.Edit.IsTime"),isTime));
-		this.isTime.addActionListener(e->updataFormatWarning());
 
-		/* Inkonsistenzen mit anderen Stationen in Bezug auf die Formatierung */
-		content.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
-		line.add(formatWarning=new JLabel());
-		formatWarning.setVisible(false);
-
-		updataFormatWarning();
+		/* Kontinuierliche Erfassung? */
+		obj=ModelElementBaseDialog.getComboBoxPanel(Language.tr("Surface.UserStatistic.Table.Edit.IsContinuous")+":",Arrays.asList(
+				Language.tr("Surface.UserStatistic.Table.Edit.IsContinuous.No"),
+				Language.tr("Surface.UserStatistic.Table.Edit.IsContinuous.Yes")
+				));
+		content.add((JPanel)obj[0]);
+		this.isContinuous=(JComboBox<String>)obj[1];
+		this.isContinuous.setSelectedIndex(isContinuous?1:0);
+		this.isContinuous.setRenderer(new IconListCellRenderer(new Images[] {
+				Images.GENERAL_NUMBERS,
+				Images.GENERAL_TIME
+		}));
 
 		/* Dialog starten */
 		setMinSizeRespectingScreensize(500,0);
 		pack();
 		setLocationRelativeTo(this.owner);
 		setVisible(true);
-	}
-
-	/**
-	 * Zeigt wenn nötig eine Warnung an, dass der Schlüssel an einer
-	 * anderen Station mit einem anderen Format definiert ist.
-	 */
-	private void updataFormatWarning() {
-		final boolean isTime=this.isTime.isSelected();
-		final String key=this.key.getText().trim();
-
-		final List<Integer> otherFormatAt=new ArrayList<>();
-
-		/* Stationen ermitteln, an der der Schlüssel ein anderes Format hat */
-		for (ModelElementUserStatistic otherStation: otherStations) {
-			int index=-1;
-			final List<String> otherKeys=otherStation.getKeys();
-			for (int i=0;i<otherKeys.size();i++) if (otherKeys.get(i).equalsIgnoreCase(key)) {index=i; break;}
-			if (index>=0) {
-				if (otherStation.getIsTime().get(index).booleanValue()!=isTime) otherFormatAt.add(otherStation.getId());
-			}
-		}
-
-		/* Ggf. Warnung anzeigen */
-		if (otherFormatAt.size()==0) {
-			formatWarning.setVisible(false);
-		} else {
-			final StringBuilder warning=new StringBuilder();
-			warning.append("<html><body>\n");
-			if (isTime) {
-				warning.append(String.format(Language.tr("Surface.UserStatistic.Table.Edit.IsTime.Warning.ThisFormat.Time"),key));
-			} else {
-				warning.append(String.format(Language.tr("Surface.UserStatistic.Table.Edit.IsTime.Warning.ThisFormat.Number"),key));
-			}
-			warning.append("<br>\n");
-			if (otherFormatAt.size()==1) {
-				warning.append(String.format(Language.tr("Surface.UserStatistic.Table.Edit.IsTime.Warning.OtherFormat.Single"),otherFormatAt.get(0)));
-			} else {
-				warning.append(String.format(Language.tr("Surface.UserStatistic.Table.Edit.IsTime.Warning.OtherFormat.Multi"),otherFormatAt.get(0)));
-			}
-			warning.append("</body></html>\n");
-			formatWarning.setText(warning.toString());
-			formatWarning.setVisible(true);
-		}
-		pack();
 	}
 
 	/**
@@ -256,5 +206,14 @@ public class UserStatisticTableModelDialog extends BaseDialog {
 	 */
 	public String getExpression() {
 		return expression.getText().trim();
+	}
+
+	/**
+	 * Wurde der Dialog per "Ok" geschlossen, so liefert diese Methode die Information darüber,
+	 * ob es sich bei der Kenngröße um diskrete Werte Zeitangabe oder um eine kontinuierliche Erfassung handelt.
+	 * @return	Handelt es sich jeweils um diskrete Werte (<code>false</code>) oder eine kontinuierliche Erfassung (<code>true</code>)
+	 */
+	public boolean getIsContinuous() {
+		return isContinuous.getSelectedIndex()==1;
 	}
 }

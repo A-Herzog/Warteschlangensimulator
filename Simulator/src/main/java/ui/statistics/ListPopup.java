@@ -533,6 +533,15 @@ public class ListPopup {
 			}
 		}
 
+		if (statistics.userStatisticsContinuous.getNames().length>0) {
+			sub=getSubList(list,Language.tr("Statistic.FastAccess.Template.UserStatisticsContinuous"),null,null);
+			final String xmlMain=Language.tr("Statistics.XML.UserStatisticsContinuous");
+			for (String name: statistics.userStatisticsContinuous.getNames()) {
+				xmlSub=Language.tr("Statistics.XML.UserStatisticsContinuousKey")+"["+Language.tr("Statistics.XML.Type")+"=\""+name+"\"]";
+				tryAddRecord(sub,allowAdd,name,null,null,XMLMode.XML_NUMBER,xmlMain+"->"+xmlSub+"->"+mean);
+			}
+		}
+
 		/* Variablenwerte */
 
 		if (statistics.userVariables.getNames().length>0) {

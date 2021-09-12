@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-09-08 22:55+0200\n"
+"POT-Creation-Date: 2021-09-12 01:52+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -10825,6 +10825,9 @@ msgstr "Priorität zum Anfordern von Transportern (zum Abstellen)"
 msgid "ModelDescription.UserStatistic.Expression"
 msgstr "Ausdruck \"%s\""
 
+msgid "ModelDescription.UserStatistic.IsContinuous"
+msgstr " (kontinuierlich erfassen)"
+
 msgid "ModelDescription.UserStatistic.IsTime"
 msgstr " (als Zeit anzeigen)"
 
@@ -18298,6 +18301,9 @@ msgstr "Fügt an der aktuellen Position den Befehl zur Ausgabe der Transferzeit 
 msgid "Statistic.FastAccess.Template.UserStatistics"
 msgstr "Benutzerdefinierte Statistik"
 
+msgid "Statistic.FastAccess.Template.UserStatisticsContinuous"
+msgstr "Benutzerdefinierte Statistik (kontinuierliche Werte)"
+
 msgid "Statistic.FastAccess.Template.Variable.Get"
 msgstr "Globale Variable lesen"
 
@@ -20985,6 +20991,12 @@ msgstr "Typ"
 
 msgid "Statistics.XML.UserStatistics"
 msgstr "StatistikBenutzerdefiniert"
+
+msgid "Statistics.XML.UserStatisticsContinuous"
+msgstr "StatistikBenutzerdefiniertKontinuierlich"
+
+msgid "Statistics.XML.UserStatisticsContinuousKey"
+msgstr "StatistikBenutzerdefiniertKontinuierlichDatensatz"
 
 msgid "Statistics.XML.UserStatisticsKey"
 msgstr "StatistikBenutzerdefiniertDatensatz"
@@ -29556,20 +29568,17 @@ msgstr "Der in der Statistik zu erfassende Ausdruck \"%s\" ist ab Zeichen %d ung
 msgid "Surface.UserStatistic.Table.Edit.Expression.ErrorTitle"
 msgstr "Ungültiger Ausdruck"
 
+msgid "Surface.UserStatistic.Table.Edit.IsContinuous"
+msgstr "Art der Datenerfassung"
+
+msgid "Surface.UserStatistic.Table.Edit.IsContinuous.No"
+msgstr "Diskrete Werte"
+
+msgid "Surface.UserStatistic.Table.Edit.IsContinuous.Yes"
+msgstr "Kontinuierlich"
+
 msgid "Surface.UserStatistic.Table.Edit.IsTime"
 msgstr "Wert ist eine Zeitangabe"
-
-msgid "Surface.UserStatistic.Table.Edit.IsTime.Warning.OtherFormat.Multi"
-msgstr "An Station id=%d und an weiteren Station ist jedoch ein anderes Format für diesen Schlüssel eingestellt."
-
-msgid "Surface.UserStatistic.Table.Edit.IsTime.Warning.OtherFormat.Single"
-msgstr "An Station id=%d ist jedoch ein anderes Format für diesen Schlüssel eingestellt."
-
-msgid "Surface.UserStatistic.Table.Edit.IsTime.Warning.ThisFormat.Number"
-msgstr "An dieser Station ist eingetragen, dass \"%s\" als Zahlenwert erfasst werden soll."
-
-msgid "Surface.UserStatistic.Table.Edit.IsTime.Warning.ThisFormat.Time"
-msgstr "An dieser Station ist eingetragen, dass \"%s\" als Zeitangabe erfasst werden soll."
 
 msgid "Surface.UserStatistic.Table.Edit.Key"
 msgstr "Bezeichner in der Statistik"
@@ -29597,6 +29606,9 @@ msgstr "Ermöglicht die Erfassung von nutzerdefinierten Statistikdaten"
 
 msgid "Surface.UserStatistic.XML.Record"
 msgstr "ModellElementBenutzerstatistikEintrag"
+
+msgid "Surface.UserStatistic.XML.Record.IsContinuous"
+msgstr "IstKontinuierlich"
 
 msgid "Surface.UserStatistic.XML.Record.IsTime"
 msgstr "IstZeitangabe"
@@ -32104,6 +32116,18 @@ msgstr "Das Dateiformat wurde nicht erkannt bzw. passt zu keinem Dateiformat die
 
 #~ msgid "Surface.Sub.Dialog.NumberOutput.Error.Title"
 #~ msgstr "Ungültige Anzahl an Ausgängen"
+
+#~ msgid "Surface.UserStatistic.Table.Edit.IsTime.Warning.OtherFormat.Multi"
+#~ msgstr "An Station id=%d und an weiteren Station ist jedoch ein anderes Format für diesen Schlüssel eingestellt."
+
+#~ msgid "Surface.UserStatistic.Table.Edit.IsTime.Warning.OtherFormat.Single"
+#~ msgstr "An Station id=%d ist jedoch ein anderes Format für diesen Schlüssel eingestellt."
+
+#~ msgid "Surface.UserStatistic.Table.Edit.IsTime.Warning.ThisFormat.Number"
+#~ msgstr "An dieser Station ist eingetragen, dass \"%s\" als Zahlenwert erfasst werden soll."
+
+#~ msgid "Surface.UserStatistic.Table.Edit.IsTime.Warning.ThisFormat.Time"
+#~ msgstr "An dieser Station ist eingetragen, dass \"%s\" als Zeitangabe erfasst werden soll."
 
 #~ msgid "SystemInfo.Tools.Simulation.SecurityManager"
 #~ msgstr "Security-Manager bei benutzerdefiniertem Java-Code aktivieren"

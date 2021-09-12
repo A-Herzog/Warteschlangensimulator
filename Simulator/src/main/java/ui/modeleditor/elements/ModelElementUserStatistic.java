@@ -37,6 +37,7 @@ import simulator.editmodel.FullTextSearch;
 import simulator.elements.RunElementUserStatisticData;
 import simulator.statistics.Statistics;
 import statistics.StatisticsDataPerformanceIndicatorWithNegativeValues;
+import statistics.StatisticsTimeContinuousPerformanceIndicator;
 import ui.images.Images;
 import ui.modeleditor.ModelClientData;
 import ui.modeleditor.ModelSequences;
@@ -54,6 +55,7 @@ import ui.modeleditor.fastpaint.Shapes;
  * Statistikdaten erfasst.
  * @author Alexander Herzog
  * @see Statistics#userStatistics
+ * @see Statistics#userStatisticsContinuous
  */
 public class ModelElementUserStatistic extends ModelElementMultiInSingleOutBox {
 
@@ -76,6 +78,12 @@ public class ModelElementUserStatistic extends ModelElementMultiInSingleOutBox {
 	private List<String> expression;
 
 	/**
+	 * Liste mit den Angaben, ob diskrete Werte (<code>false</code>) oder zeitliche Verläufe (<code>true</code>) erfasst werden sollen
+	 * @see #getIsContinuous
+	 */
+	private List<Boolean> isContinuous;
+
+	/**
 	 * Konstruktor der Klasse <code>ModelElementUserStatistic</code>
 	 * @param model	Modell zu dem dieses Element gehören soll (kann später nicht mehr geändert werden)
 	 * @param surface	Zeichenfläche zu dem dieses Element gehören soll (kann später nicht mehr geändert werden)
@@ -85,6 +93,7 @@ public class ModelElementUserStatistic extends ModelElementMultiInSingleOutBox {
 		key=new ArrayList<>();
 		isTime=new ArrayList<>();
 		expression=new ArrayList<>();
+		isContinuous=new ArrayList<>();
 	}
 
 	/**
@@ -119,6 +128,14 @@ public class ModelElementUserStatistic extends ModelElementMultiInSingleOutBox {
 	 */
 	public List<Boolean> getIsTime() {
 		return isTime;
+	}
+
+	/**
+	 * Liefert die Liste mit den Angaben, ob diskrete Werte oder zeitliche Verläufe erfasst werden sollen
+	 * @return	Liste mit den Angaben, ob diskrete Werte (<code>false</code>) oder zeitliche Verläufe (<code>true</code>) erfasst werden sollen
+	 */
+	public List<Boolean> getIsContinuous() {
+		return isContinuous;
 	}
 
 	/**
@@ -183,16 +200,20 @@ public class ModelElementUserStatistic extends ModelElementMultiInSingleOutBox {
 	 * @return	Gibt <code>true</code> zurück, wenn die beiden Elemente identisch sind.
 	 */
 	@Override
-	public boolean equalsModelElement(ModelElement element) {
+	public boolean equalsModelElement(final ModelElement element) {
 		if (!super.equalsModelElement(element)) return false;
 		if (!(element instanceof ModelElementUserStatistic)) return false;
+		final ModelElementUserStatistic otherStation=(ModelElementUserStatistic)element;
 
-		if (key.size()!=((ModelElementUserStatistic)element).key.size()) return false;
-		if (isTime.size()!=((ModelElementUserStatistic)element).isTime.size()) return false;
-		if (expression.size()!=((ModelElementUserStatistic)element).expression.size()) return false;
-		for (int i=0;i<key.size();i++) if (!((ModelElementUserStatistic)element).key.get(i).equals(key.get(i))) return false;
-		for (int i=0;i<isTime.size();i++) if (!((ModelElementUserStatistic)element).isTime.get(i).equals(isTime.get(i))) return false;
-		for (int i=0;i<expression.size();i++) if (!((ModelElementUserStatistic)element).expression.get(i).equals(expression.get(i))) return false;
+
+		if (key.size()!=otherStation.key.size()) return false;
+		if (isTime.size()!=otherStation.isTime.size()) return false;
+		if (expression.size()!=otherStation.expression.size()) return false;
+		if (isContinuous.size()!=otherStation.isContinuous.size()) return false;
+		for (int i=0;i<key.size();i++) if (!otherStation.key.get(i).equals(key.get(i))) return false;
+		for (int i=0;i<isTime.size();i++) if (!otherStation.isTime.get(i).equals(isTime.get(i))) return false;
+		for (int i=0;i<expression.size();i++) if (!otherStation.expression.get(i).equals(expression.get(i))) return false;
+		for (int i=0;i<isContinuous.size();i++) if (!otherStation.isContinuous.get(i).equals(isContinuous.get(i))) return false;
 
 		return true;
 	}
@@ -202,12 +223,14 @@ public class ModelElementUserStatistic extends ModelElementMultiInSingleOutBox {
 	 * @param element	Element, von dem alle Einstellungen übernommen werden sollen
 	 */
 	@Override
-	public void copyDataFrom(ModelElement element) {
+	public void copyDataFrom(final ModelElement element) {
 		super.copyDataFrom(element);
 		if (element instanceof ModelElementUserStatistic) {
-			key.addAll(((ModelElementUserStatistic)element).key);
-			isTime.addAll(((ModelElementUserStatistic)element).isTime);
-			expression.addAll(((ModelElementUserStatistic)element).expression);
+			final ModelElementUserStatistic copySource=(ModelElementUserStatistic)element;
+			key.addAll(copySource.key);
+			isTime.addAll(copySource.isTime);
+			expression.addAll(copySource.expression);
+			isContinuous.addAll(copySource.isContinuous);
 		}
 	}
 
@@ -316,13 +339,14 @@ public class ModelElementUserStatistic extends ModelElementMultiInSingleOutBox {
 
 		Element sub;
 
-		for (int i=0;i<Math.min(Math.min(key.size(),expression.size()),isTime.size());i++) {
+		for (int i=0;i<Math.min(Math.min(Math.min(key.size(),expression.size()),isTime.size()),isContinuous.size());i++) {
 			final String k=key.get(i);
 			final String e=expression.get(i);
 			if (k==null || k.trim().isEmpty() || e==null || e.trim().isEmpty()) continue;
 			node.appendChild(sub=doc.createElement(Language.trPrimary("Surface.UserStatistic.XML.Record")));
 			sub.setAttribute(Language.trPrimary("Surface.UserStatistic.XML.Record.Key"),k);
 			sub.setAttribute(Language.trPrimary("Surface.UserStatistic.XML.Record.IsTime"),isTime.get(i)?"1":"0");
+			sub.setAttribute(Language.trPrimary("Surface.UserStatistic.XML.Record.IsContinuous"),isContinuous.get(i)?"1":"0");
 			sub.setTextContent(e);
 		}
 	}
@@ -340,12 +364,14 @@ public class ModelElementUserStatistic extends ModelElementMultiInSingleOutBox {
 		if (error!=null) return error;
 
 		if (Language.trAll("Surface.UserStatistic.XML.Record",name)) {
-			final String k=Language.trAllAttribute("Surface.UserStatistic.XML.Record.Key",node);
-			final String t=Language.trAllAttribute("Surface.UserStatistic.XML.Record.IsTime",node);
+			final String keyString=Language.trAllAttribute("Surface.UserStatistic.XML.Record.Key",node);
+			final String isTimeString=Language.trAllAttribute("Surface.UserStatistic.XML.Record.IsTime",node);
+			final String isContinuousString=Language.trAllAttribute("Surface.UserStatistic.XML.Record.IsContinuous",node);
 			final String e=content;
-			if (!k.trim().isEmpty() && !e.trim().isEmpty()) {
-				key.add(k.trim());
-				isTime.add(t==null || t.isEmpty() || !t.equals("0"));
+			if (!keyString.trim().isEmpty() && !e.trim().isEmpty()) {
+				key.add(keyString.trim());
+				isTime.add(isTimeString==null || isTimeString.isEmpty() || !isTimeString.equals("0"));
+				isContinuous.add(isContinuousString!=null && isContinuousString.equals("1"));
 				expression.add(e.trim());
 			}
 			return null;
@@ -360,31 +386,65 @@ public class ModelElementUserStatistic extends ModelElementMultiInSingleOutBox {
 	 */
 	@Override
 	protected void addInformationToAnimationRunTimeData(final SimDataBuilder builder) {
-		final String[] keys=((RunElementUserStatisticData)builder.data).getKeys();
-		final boolean[] isTime=((RunElementUserStatisticData)builder.data).getIsTime();
-		final StatisticsDataPerformanceIndicatorWithNegativeValues[] indicators=((RunElementUserStatisticData)builder.data).getIndicators();
+		String[] keys;
+		boolean[] isTime;
 
-		for (int i=0;i<keys.length;i++) if (indicators[i]!=null) {
+		/* Diskret */
+
+		keys=((RunElementUserStatisticData)builder.data).getKeysDiscrete();
+		isTime=((RunElementUserStatisticData)builder.data).getIsTimeDiscrete();
+		final StatisticsDataPerformanceIndicatorWithNegativeValues[] indicatorsDiscrete=((RunElementUserStatisticData)builder.data).getIndicatorsDiscrete();
+
+		for (int i=0;i<keys.length;i++) if (indicatorsDiscrete[i]!=null) {
 			builder.results.append("\n"+keys[i]+":\n");
-			builder.results.append(Language.tr("Statistics.NumberOfClients")+": "+NumberTools.formatLong(indicators[i].getCount())+"\n");
+			builder.results.append(Language.tr("Statistics.NumberOfClients")+": "+NumberTools.formatLong(indicatorsDiscrete[i].getCount())+"\n");
 			if (isTime[i]) {
-				builder.results.append(Language.tr("Statistics.AverageUserTime")+" E[X]="+TimeTools.formatExactTime(indicators[i].getMean())+" ("+NumberTools.formatNumber(indicators[i].getMean())+")\n");
-				builder.results.append(Language.tr("Statistics.StdDevUserTime")+" Std[X]="+TimeTools.formatExactTime(indicators[i].getSD())+" ("+NumberTools.formatNumber(indicators[i].getSD())+")\n");
-				builder.results.append(Language.tr("Statistics.VarianceUserTime")+" Var[X]="+TimeTools.formatExactTime(indicators[i].getVar())+" ("+NumberTools.formatNumber(indicators[i].getVar())+")\n");
-				builder.results.append(Language.tr("Statistics.CVUserTime")+" CV[X]="+NumberTools.formatNumber(indicators[i].getCV())+"\n");
-				builder.results.append(Language.tr("Statistics.Skewness")+" Sk[X]="+NumberTools.formatNumber(indicators[i].getSk())+"\n");
-				builder.results.append(Language.tr("Statistics.MinimumUserTime")+" Min[X]="+TimeTools.formatExactTime(indicators[i].getMin())+" ("+NumberTools.formatNumber(indicators[i].getMin())+")\n");
-				builder.results.append(Language.tr("Statistics.MaximumUserTime")+" Max[X]="+TimeTools.formatExactTime(indicators[i].getMax())+" ("+NumberTools.formatNumber(indicators[i].getMax())+")\n");
+				builder.results.append(Language.tr("Statistics.AverageUserTime")+" E[X]="+TimeTools.formatExactTime(indicatorsDiscrete[i].getMean())+" ("+NumberTools.formatNumber(indicatorsDiscrete[i].getMean())+")\n");
+				builder.results.append(Language.tr("Statistics.StdDevUserTime")+" Std[X]="+TimeTools.formatExactTime(indicatorsDiscrete[i].getSD())+" ("+NumberTools.formatNumber(indicatorsDiscrete[i].getSD())+")\n");
+				builder.results.append(Language.tr("Statistics.VarianceUserTime")+" Var[X]="+TimeTools.formatExactTime(indicatorsDiscrete[i].getVar())+" ("+NumberTools.formatNumber(indicatorsDiscrete[i].getVar())+")\n");
+				builder.results.append(Language.tr("Statistics.CVUserTime")+" CV[X]="+NumberTools.formatNumber(indicatorsDiscrete[i].getCV())+"\n");
+				builder.results.append(Language.tr("Statistics.Skewness")+" Sk[X]="+NumberTools.formatNumber(indicatorsDiscrete[i].getSk())+"\n");
+				builder.results.append(Language.tr("Statistics.MinimumUserTime")+" Min[X]="+TimeTools.formatExactTime(indicatorsDiscrete[i].getMin())+" ("+NumberTools.formatNumber(indicatorsDiscrete[i].getMin())+")\n");
+				builder.results.append(Language.tr("Statistics.MaximumUserTime")+" Max[X]="+TimeTools.formatExactTime(indicatorsDiscrete[i].getMax())+" ("+NumberTools.formatNumber(indicatorsDiscrete[i].getMax())+")\n");
 			} else {
-				builder.results.append(Language.tr("Statistics.AverageUser")+" E[X]="+NumberTools.formatNumber(indicators[i].getMean())+"\n");
-				builder.results.append(Language.tr("Statistics.StdDevUser")+" Std[X]="+NumberTools.formatNumber(indicators[i].getSD())+"\n");
-				builder.results.append(Language.tr("Statistics.VarianceUser")+" Var[X]="+NumberTools.formatNumber(indicators[i].getVar())+"\n");
-				builder.results.append(Language.tr("Statistics.CVUser")+" CV[X]="+NumberTools.formatNumber(indicators[i].getCV())+"\n");
-				builder.results.append(Language.tr("Statistics.Skewness")+" Sk[X]="+NumberTools.formatNumber(indicators[i].getSk())+"\n");
-				builder.results.append(Language.tr("Statistics.MinimumUser")+" Min[X]="+NumberTools.formatNumber(indicators[i].getMin())+"\n");
-				builder.results.append(Language.tr("Statistics.MaximumUser")+" Max[X]="+NumberTools.formatNumber(indicators[i].getMax())+"\n");
+				builder.results.append(Language.tr("Statistics.AverageUser")+" E[X]="+NumberTools.formatNumber(indicatorsDiscrete[i].getMean())+"\n");
+				builder.results.append(Language.tr("Statistics.StdDevUser")+" Std[X]="+NumberTools.formatNumber(indicatorsDiscrete[i].getSD())+"\n");
+				builder.results.append(Language.tr("Statistics.VarianceUser")+" Var[X]="+NumberTools.formatNumber(indicatorsDiscrete[i].getVar())+"\n");
+				builder.results.append(Language.tr("Statistics.CVUser")+" CV[X]="+NumberTools.formatNumber(indicatorsDiscrete[i].getCV())+"\n");
+				builder.results.append(Language.tr("Statistics.Skewness")+" Sk[X]="+NumberTools.formatNumber(indicatorsDiscrete[i].getSk())+"\n");
+				builder.results.append(Language.tr("Statistics.MinimumUser")+" Min[X]="+NumberTools.formatNumber(indicatorsDiscrete[i].getMin())+"\n");
+				builder.results.append(Language.tr("Statistics.MaximumUser")+" Max[X]="+NumberTools.formatNumber(indicatorsDiscrete[i].getMax())+"\n");
 			}
 		}
+
+		/* Kontinuierlich */
+
+		keys=((RunElementUserStatisticData)builder.data).getKeysContinuous();
+		isTime=((RunElementUserStatisticData)builder.data).getIsTimeContinuous();
+		final StatisticsTimeContinuousPerformanceIndicator[] indicatorsContinuous=((RunElementUserStatisticData)builder.data).getIndicatorsContinuous();
+
+		for (int i=0;i<keys.length;i++) if (indicatorsContinuous[i]!=null) {
+			builder.results.append("\n"+keys[i]+":\n");
+			if (isTime[i]) {
+				builder.results.append(Language.tr("Statistics.AverageUserTime")+" E[X]="+TimeTools.formatExactTime(indicatorsContinuous[i].getTimeMean())+" ("+NumberTools.formatNumber(indicatorsContinuous[i].getTimeMean())+")\n");
+				builder.results.append(Language.tr("Statistics.StdDevUserTime")+" Std[X]="+TimeTools.formatExactTime(indicatorsContinuous[i].getTimeSD())+" ("+NumberTools.formatNumber(indicatorsContinuous[i].getTimeSD())+")\n");
+				builder.results.append(Language.tr("Statistics.VarianceUserTime")+" Var[X]="+TimeTools.formatExactTime(indicatorsContinuous[i].getTimeVar())+" ("+NumberTools.formatNumber(indicatorsContinuous[i].getTimeVar())+")\n");
+				builder.results.append(Language.tr("Statistics.CVUserTime")+" CV[X]="+NumberTools.formatNumber(indicatorsContinuous[i].getTimeCV())+"\n");
+				builder.results.append(Language.tr("Statistics.Skewness")+" Sk[X]="+NumberTools.formatNumber(indicatorsContinuous[i].getTimeSk())+"\n");
+				builder.results.append(Language.tr("Statistics.MinimumUserTime")+" Min[X]="+TimeTools.formatExactTime(indicatorsContinuous[i].getTimeMin())+" ("+NumberTools.formatNumber(indicatorsContinuous[i].getTimeMin())+")\n");
+				builder.results.append(Language.tr("Statistics.MaximumUserTime")+" Max[X]="+TimeTools.formatExactTime(indicatorsContinuous[i].getTimeMax())+" ("+NumberTools.formatNumber(indicatorsContinuous[i].getTimeMax())+")\n");
+			} else {
+				builder.results.append(Language.tr("Statistics.AverageUser")+" E[X]="+NumberTools.formatNumber(indicatorsContinuous[i].getTimeMean())+"\n");
+				builder.results.append(Language.tr("Statistics.StdDevUser")+" Std[X]="+NumberTools.formatNumber(indicatorsContinuous[i].getTimeSD())+"\n");
+				builder.results.append(Language.tr("Statistics.VarianceUser")+" Var[X]="+NumberTools.formatNumber(indicatorsContinuous[i].getTimeVar())+"\n");
+				builder.results.append(Language.tr("Statistics.CVUser")+" CV[X]="+NumberTools.formatNumber(indicatorsContinuous[i].getTimeCV())+"\n");
+				builder.results.append(Language.tr("Statistics.Skewness")+" Sk[X]="+NumberTools.formatNumber(indicatorsContinuous[i].getTimeSk())+"\n");
+				builder.results.append(Language.tr("Statistics.MinimumUser")+" Min[X]="+NumberTools.formatNumber(indicatorsContinuous[i].getTimeMin())+"\n");
+				builder.results.append(Language.tr("Statistics.MaximumUser")+" Max[X]="+NumberTools.formatNumber(indicatorsContinuous[i].getTimeMax())+"\n");
+			}
+		}
+
+
 	}
 
 	@Override
@@ -401,10 +461,11 @@ public class ModelElementUserStatistic extends ModelElementMultiInSingleOutBox {
 		super.buildDescription(descriptionBuilder);
 
 		for (int i=0;i<key.size();i++) {
-			final StringBuilder sb=new StringBuilder();
-			sb.append(String.format(Language.tr("ModelDescription.UserStatistic.Expression"),expression.get(i)));
-			if (isTime.get(i)) sb.append(Language.tr("ModelDescription.UserStatistic.IsTime"));
-			descriptionBuilder.addProperty(String.format(Language.tr("ModelDescription.UserStatistic.Record"),key.get(i)),sb.toString(),1000);
+			final StringBuilder expressionInfo=new StringBuilder();
+			expressionInfo.append(String.format(Language.tr("ModelDescription.UserStatistic.Expression"),expression.get(i)));
+			if (isContinuous.get(i)) expressionInfo.append(Language.tr("ModelDescription.UserStatistic.IsContinuous"));
+			if (isTime.get(i)) expressionInfo.append(Language.tr("ModelDescription.UserStatistic.IsTime"));
+			descriptionBuilder.addProperty(String.format(Language.tr("ModelDescription.UserStatistic.Record"),key.get(i)),expressionInfo.toString(),1000);
 		}
 	}
 
