@@ -56,7 +56,7 @@ public class StatisticViewerAutocorrelationLineChart extends StatisticViewerLine
 	/** Farben für die Diagrammlinien */
 	private static final Color[] COLORS=new Color[]{Color.RED,Color.BLUE,Color.GREEN,Color.BLACK};
 
-	/** Maximalanzahl an anzuzeigenden Datenreihen (wenn bis dahin rho<1%) */
+	/** Maximalanzahl an anzuzeigenden Datenreihen (wenn bis dahin rho&lt;1%) */
 	private static final int MAX_SERIES=100;
 
 	/**

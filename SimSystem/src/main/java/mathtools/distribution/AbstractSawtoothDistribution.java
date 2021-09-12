@@ -115,7 +115,7 @@ public abstract class AbstractSawtoothDistribution extends AbstractRealDistribut
 
 	/**
 	 * Berechnet einen Dichtewert im Bereich [a,b]
-	 * @param x	Stelle an der f(x) berechnet werden soll; es ist a<=x<=b
+	 * @param x	Stelle an der f(x) berechnet werden soll; es ist a&le;x&le;b
 	 * @return	Dichte an der Stelle x
 	 */
 	protected abstract double densityChecked(final double x);
@@ -129,7 +129,7 @@ public abstract class AbstractSawtoothDistribution extends AbstractRealDistribut
 
 	/**
 	 * Berechnet einen Verteilungsfunktion im Bereich [a,b]
-	 * @param x	Stelle an der F(x) berechnet werden soll; es ist a<=x<=b
+	 * @param x	Stelle an der F(x) berechnet werden soll; es ist a&le;x&le;b
 	 * @return	Wert der Verteilungsfunktion an der Stelle x
 	 */
 	protected abstract double cumulativeProbabilityChecked(final double x);

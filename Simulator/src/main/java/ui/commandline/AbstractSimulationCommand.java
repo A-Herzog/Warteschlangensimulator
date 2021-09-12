@@ -95,6 +95,7 @@ public abstract class AbstractSimulationCommand extends AbstractCommand {
 	 * @param out Ein optionales {@link PrintStream}-Objekt, über das Texte ausgegeben werden können.
 	 * @param withTimeout	Soll die Simulation nach einer vorgegebenen Zeit abgebrochen werden?
 	 * @param timeout	Abbruchzeit in Sekunden; wird ein negativer Wert übergeben, so gibt es zwar kein Timeout, aber für mit Fehler abgeschlossene Simulationen wird keine Statistik erzeugt
+	 * @return	Liefert <code>true</code>, wenn die Simulation normal beendet wurde, und <code>false</code> im Fall eines Timeout-Abbruchs
 	 */
 	public static final boolean waitForSimulationDone(final AnySimulator simulator, final boolean minimalOutput, final PrintStream out, final boolean withTimeout, final double timeout) {
 		final long startTime=System.currentTimeMillis();
