@@ -1512,6 +1512,9 @@ public final class ModelSurfacePanel extends JPanel {
 	 * @return	Bild-Objekt
 	 */
 	public BufferedImage getImageMinSize(int xSize, int ySize) {
+		final int MAX_IMAGE_BIGGER_FACTOR=10; /* Eingestellte Exportgröße maximal um diesen Faktor überschreiten */
+		final int MAX_IMAGE_SIZE=15_000; /* Maximale Größe */
+
 		final Point p1=surface.getUpperLeftModelCorner();
 		final Point p2=surface.getLowerRightModelCorner();
 
@@ -1530,8 +1533,32 @@ public final class ModelSurfacePanel extends JPanel {
 
 		double imageZoom=Math.max(xSize/((double)xDraw),ySize/((double)yDraw));
 
-		final int xSurfaceImage=(int)Math.ceil(p2.x*imageZoom);
-		final int ySurfaceImage=(int)Math.ceil(p2.y*imageZoom);
+		int xSurfaceImage=(int)Math.ceil(p2.x*imageZoom);
+		int ySurfaceImage=(int)Math.ceil(p2.y*imageZoom);
+
+		if (xSurfaceImage>xSize*MAX_IMAGE_BIGGER_FACTOR) {
+			ySurfaceImage=ySurfaceImage*xSize*MAX_IMAGE_BIGGER_FACTOR/xSurfaceImage;
+			xSurfaceImage=xSize*MAX_IMAGE_BIGGER_FACTOR;
+			imageZoom=((double)xSurfaceImage)/p2.x;
+		}
+
+		if (ySurfaceImage>ySize*MAX_IMAGE_BIGGER_FACTOR) {
+			xSurfaceImage=xSurfaceImage*ySize*MAX_IMAGE_BIGGER_FACTOR/ySurfaceImage;
+			ySurfaceImage=ySize*MAX_IMAGE_BIGGER_FACTOR;
+			imageZoom=((double)ySurfaceImage)/p2.y;
+		}
+
+		if (xSurfaceImage>MAX_IMAGE_SIZE) {
+			ySurfaceImage=ySurfaceImage*MAX_IMAGE_SIZE/xSurfaceImage;
+			xSurfaceImage=MAX_IMAGE_SIZE;
+			imageZoom=((double)xSurfaceImage)/p2.x;
+		}
+
+		if (ySurfaceImage>MAX_IMAGE_SIZE) {
+			xSurfaceImage=xSurfaceImage*MAX_IMAGE_SIZE/ySurfaceImage;
+			ySurfaceImage=MAX_IMAGE_SIZE;
+			imageZoom=((double)ySurfaceImage)/p2.y;
+		}
 
 		BufferedImage image=new BufferedImage(xSurfaceImage,ySurfaceImage,BufferedImage.TYPE_INT_ARGB);
 		Graphics g=image.getGraphics();
