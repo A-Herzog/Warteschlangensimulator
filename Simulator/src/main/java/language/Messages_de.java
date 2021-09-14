@@ -2671,7 +2671,7 @@ public class Messages_de extends java.util.ResourceBundle {
     t[7304] = "ExpressionBuilder.MathematicalFunctions.IntegerPart.Info";
     t[7305] = "<p>Liefert den Ganzzahl-Anteil des als Parameters \u00fcbergebenen Wertes.</p><p>Beispiel: <tt>int(3,4)</tt> liefert 3.</p>";
     t[7310] = "ScriptPopup.Clients.release";
-    t[7311] = "Kunde freigaben";
+    t[7311] = "Kunde freigeben";
     t[7320] = "Surface.OutputJS.XML.Script";
     t[7321] = "ModellElementAusgabeskript";
     t[7344] = "Surface.AnimationDiagram.XML.LineColor";
@@ -19149,7 +19149,7 @@ public class Messages_de extends java.util.ResourceBundle {
     t[50226] = "Animation.Icon.Flower";
     t[50227] = "Blume";
     t[50232] = "ScriptPopup.ClientsList";
-    t[50233] = "List der wartenden Kunden";
+    t[50233] = "Liste der wartenden Kunden";
     t[50236] = "Simulation.Log.TransportSource.Release";
     t[50237] = "Ressourcenfreigabe";
     t[50240] = "Surface.BatchMulti.XML.Root";
