@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-09-15 00:52+0200\n"
+"POT-Creation-Date: 2021-09-16 11:47+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1106,6 +1106,27 @@ msgstr "Erzeugte Zufallszahlen"
 
 msgid "CalculatorDialog.Tab.Distributions.GenerateRandomNumbers.Save"
 msgstr "Speichern..."
+
+msgid "CalculatorDialog.Tab.Distributions.GenerateRandomNumbers.SaveExt"
+msgstr "Bericht erstellen und speichern..."
+
+msgid "CalculatorDialog.Tab.Distributions.GenerateRandomNumbers.SaveExt.DistributionName"
+msgstr "Name der Verteilung"
+
+msgid "CalculatorDialog.Tab.Distributions.GenerateRandomNumbers.SaveExt.FrequencyDistribution"
+msgstr "Häufigkeitsverteilung"
+
+msgid "CalculatorDialog.Tab.Distributions.GenerateRandomNumbers.SaveExt.Parameters"
+msgstr "Parameter / Kenngrößen"
+
+msgid "CalculatorDialog.Tab.Distributions.GenerateRandomNumbers.SaveExt.Parameters.Actual"
+msgstr "Tatsächliche Kenngrößen"
+
+msgid "CalculatorDialog.Tab.Distributions.GenerateRandomNumbers.SaveExt.Parameters.Set"
+msgstr "Eingestellte Kenngrößen"
+
+msgid "CalculatorDialog.Tab.Distributions.GenerateRandomNumbers.SaveExt.RandomNumbers"
+msgstr "Zufallszahlen"
 
 msgid "CalculatorDialog.Tab.Distributions.GenerateRandomNumbers.SaveTitle"
 msgstr "Zufallszahlen speichern"
@@ -2821,6 +2842,15 @@ msgstr "Potenzverteilung"
 
 msgid "Distribution.Range"
 msgstr "Bereich"
+
+msgid "Distribution.Range.center"
+msgstr "Mitte"
+
+msgid "Distribution.Range.from"
+msgstr "von"
+
+msgid "Distribution.Range.to"
+msgstr "bis"
 
 msgid "Distribution.Rayleigh"
 msgstr "Rayleigh-Verteilung"
@@ -19586,6 +19616,9 @@ msgstr "Flussgrade nach Stationen"
 msgid "Statistics.FlowFactorByStationsAndClients"
 msgstr "Flussgrade nach Stationen und Kundentypen"
 
+msgid "Statistics.Frequency"
+msgstr "Häufigkeit"
+
 msgid "Statistics.FullyBusyShare"
 msgstr "Volllastanteil"
 
@@ -20469,6 +20502,9 @@ msgstr "Verlauf"
 
 msgid "Statistics.ValueRecording.XYPlot"
 msgstr "X-Y-Darstellung"
+
+msgid "Statistics.Values"
+msgstr "Werte"
 
 msgid "Statistics.Variables"
 msgstr "Globale Variablen"

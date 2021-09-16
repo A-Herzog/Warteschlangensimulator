@@ -33,6 +33,7 @@ import java.io.Serializable;
 import java.nio.charset.StandardCharsets;
 
 import javax.swing.BorderFactory;
+import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
@@ -53,11 +54,14 @@ import org.apache.commons.math3.distribution.ExponentialDistribution;
 import language.Language;
 import mathtools.NumberTools;
 import mathtools.Table;
+import mathtools.TableChart;
 import mathtools.distribution.swing.CommonVariables;
 import mathtools.distribution.swing.JDistributionEditorPanel;
 import mathtools.distribution.swing.JDistributionPanel;
 import mathtools.distribution.tools.AbstractDistributionWrapper;
 import mathtools.distribution.tools.DistributionRandomNumber;
+import mathtools.distribution.tools.DistributionTools;
+import mathtools.distribution.tools.DistributionWrapperInfo;
 import statistics.StatisticsDataPerformanceIndicatorWithNegativeValues;
 import systemtools.MsgBox;
 import tools.SetupData;
@@ -171,16 +175,18 @@ public class CalculatorWindowPageDistributions extends CalculatorWindowPage {
 		final JPopupMenu popup=new JPopupMenu();
 
 		JMenuItem item;
+		JPanel line;
 
 		final JPanel editorPanel=new JPanel();
 		editorPanel.setLayout(new BoxLayout(editorPanel,BoxLayout.PAGE_AXIS));
+		editorPanel.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
+		line.add(Box.createHorizontalStrut(20));
 		final JLabel label=new JLabel(Language.tr("CalculatorDialog.Tab.Distributions.GenerateRandomNumbers.Count")+":");
-		editorPanel.add(label);
-		final JPanel line=new JPanel(new FlowLayout(FlowLayout.LEFT));
+		line.add(label);
+		editorPanel.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
 		line.setBorder(BorderFactory.createEmptyBorder(0,25,0,0));
 		final JTextField editor=new JTextField(""+randomNumberCount,10);
 		line.add(editor);
-		editorPanel.add(line);
 		label.setLabelFor(editor);
 		editor.addKeyListener(new KeyListener() {
 			@Override public void keyTyped(KeyEvent e) {processInput(editor);}
@@ -199,6 +205,9 @@ public class CalculatorWindowPageDistributions extends CalculatorWindowPage {
 
 		popup.add(item=new JMenuItem(Language.tr("CalculatorDialog.Tab.Distributions.GenerateRandomNumbers.Save"),Images.GENERAL_SAVE.getIcon()));
 		item.addActionListener(e->randomNumbersSave());
+
+		popup.add(item=new JMenuItem(Language.tr("CalculatorDialog.Tab.Distributions.GenerateRandomNumbers.SaveExt"),Images.GENERAL_TABLE.getIcon()));
+		item.addActionListener(e->randomNumbersSaveExt());
 
 		popup.show(invoker,0,invoker.getHeight());
 	}
@@ -284,5 +293,111 @@ public class CalculatorWindowPageDistributions extends CalculatorWindowPage {
 		} catch (IOException e) {
 			return false;
 		}
+	}
+
+	/**
+	 * Anzahl der Schritte in der Häufigkeitsverteilung
+	 * @see #buildTableChart()
+	 */
+	private static final int FREQUENCY_DISTRIBUTION_STEPS=50;
+
+	/**
+	 * Erstellt eine Zufallszahlen-Tabelle mit eingebettetem Diagramm
+	 * @return	Zufallszahlen-Tabelle mit eingebettetem Diagramm oder <code>null</code>, wenn keine Tabelle erstellt werden konnte
+	 */
+	private TableChart buildTableChart() {
+		if (randomNumberCount<16+FREQUENCY_DISTRIBUTION_STEPS) return null;
+
+		/* Tabelle erstellen */
+
+		final Table table=new Table();
+
+		final AbstractRealDistribution distribution=distributionEditor.getDistribution();
+		final int count=(int)Math.min(100_000,randomNumberCount);
+		final double[] numbers=new double[count];
+		double min=Double.MAX_VALUE;
+		double max=-Double.MAX_VALUE;
+		for (int i=0;i<count;i++) {
+			final double value=DistributionRandomNumber.random(distribution);
+			numbers[i]=value;
+			if (value<min) min=value;
+			if (value>max) max=value;
+		}
+		final DistributionWrapperInfo info=DistributionTools.getWrapper(distribution).getInfo(distribution);
+		final String minString=(distribution.getSupportLowerBound()>-1_000_000_000)?NumberTools.formatNumberMax(distribution.getSupportLowerBound()):"";
+		final String maxString=(distribution.getSupportUpperBound()<1_000_000_000)?NumberTools.formatNumberMax(distribution.getSupportUpperBound()):"";
+
+
+		final String range="A2:A"+(count+1);
+
+		int nr=0;
+		table.addLine(new String[] {Language.tr("CalculatorDialog.Tab.Distributions.GenerateRandomNumbers.SaveExt.RandomNumbers"),Language.tr("CalculatorDialog.Tab.Distributions.GenerateRandomNumbers.SaveExt.DistributionName")});
+		table.addLine(new String[] {NumberTools.formatNumberMax(numbers[nr++]),"",DistributionTools.getDistributionName(distribution)});
+		table.addLine(new String[] {NumberTools.formatNumberMax(numbers[nr++])});
+		table.addLine(new String[] {NumberTools.formatNumberMax(numbers[nr++]),"",Language.tr("CalculatorDialog.Tab.Distributions.GenerateRandomNumbers.SaveExt.Parameters")});
+		table.addLine(new String[] {NumberTools.formatNumberMax(numbers[nr++]),"",info.getLongInfo()});
+		table.addLine(new String[] {NumberTools.formatNumberMax(numbers[nr++])});
+		table.addLine(new String[] {NumberTools.formatNumberMax(numbers[nr++]),"","",Language.tr("CalculatorDialog.Tab.Distributions.GenerateRandomNumbers.SaveExt.Parameters.Set"),Language.tr("CalculatorDialog.Tab.Distributions.GenerateRandomNumbers.SaveExt.Parameters.Actual")});
+		table.addLine(new String[] {NumberTools.formatNumberMax(numbers[nr++]),"",Language.tr("Distribution.Mean"),NumberTools.formatNumberMax(info.E),"=AVERAGE("+range+")"});
+		table.addLine(new String[] {NumberTools.formatNumberMax(numbers[nr++]),"",Language.tr("Statistics.Variance"),NumberTools.formatNumberMax(info.Std*info.Std),"=_xlfn.VAR.S("+range+")"});
+		table.addLine(new String[] {NumberTools.formatNumberMax(numbers[nr++]),"",Language.tr("Distribution.StdDev"),NumberTools.formatNumberMax(info.Std),"=_xlfn.STDEV.S("+range+")"});
+		table.addLine(new String[] {NumberTools.formatNumberMax(numbers[nr++]),"",Language.tr("Distribution.CV"),NumberTools.formatNumberMax(info.Std/info.E),"=_xlfn.STDEV.S("+range+")/AVERAGE("+range+")"});
+		table.addLine(new String[] {NumberTools.formatNumberMax(numbers[nr++]),"",Language.tr("Distribution.Skewness"),NumberTools.formatNumberMax(info.Sk),"=SKEW("+range+")"});
+		table.addLine(new String[] {NumberTools.formatNumberMax(numbers[nr++]),"",Language.tr("Statistics.Minimum"),minString,"=MIN("+range+")"});
+		table.addLine(new String[] {NumberTools.formatNumberMax(numbers[nr++]),"",Language.tr("Statistics.Maximum"),maxString,"=MAX("+range+")"});
+		table.addLine(new String[] {NumberTools.formatNumberMax(numbers[nr++])});
+		table.addLine(new String[] {NumberTools.formatNumberMax(numbers[nr++]),"",Language.tr("Distribution.Range")+" "+Language.tr("Distribution.Range.from"),Language.tr("Distribution.Range")+" "+Language.tr("Distribution.Range.to"),Language.tr("Distribution.Range")+" "+Language.tr("Distribution.Range.center"),Language.tr("Statistics.Frequency")});
+		final int frequencyDistributionStartRow=nr+1;
+		final double step=(max-min)/FREQUENCY_DISTRIBUTION_STEPS;
+		for (int i=0;i<FREQUENCY_DISTRIBUTION_STEPS;i++) {
+			final String cmd;
+			if (i==0) {
+				cmd="=COUNTIF("+range+",CONCATENATE(\"<=\",D"+(nr+2)+"))";
+			} else {
+				cmd="=COUNTIF("+range+",CONCATENATE(\"<=\",D"+(nr+2)+"))-COUNTIF("+range+",CONCATENATE(\"<=\",C"+(nr+2)+"))";
+			}
+			table.addLine(new String[] {NumberTools.formatNumberMax(numbers[nr++]),"",NumberTools.formatNumberMax(min+step*i),NumberTools.formatNumberMax(min+step*(i+1)),"=(C"+(nr+1)+"+D"+(nr+1)+")/2",cmd});
+		}
+
+		for (int i=nr;i<count;i++) table.addLine(new String[] {NumberTools.formatNumberMax(DistributionRandomNumber.random(distribution))});
+
+		/* Diagramm aufbauen */
+
+		final TableChart tableChart=new TableChart(table);
+
+		tableChart.setupAxis(Language.tr("Statistics.Values"),Language.tr("Statistics.Frequency"));
+		tableChart.setupChart(
+				TableChart.ChartMode.LINE,
+				new TableChart.Range[] {new TableChart.Range(5,frequencyDistributionStartRow,5,frequencyDistributionStartRow+FREQUENCY_DISTRIBUTION_STEPS-1)},
+				new Object[]{Language.tr("Statistics.Frequency")},
+				new TableChart.Range(4,frequencyDistributionStartRow,4,frequencyDistributionStartRow+FREQUENCY_DISTRIBUTION_STEPS-1)
+				);
+
+		return tableChart;
+	}
+
+	/**
+	 * Erzeugt eine Reihe von Zufallszahlen und speichert diese inkl. weitere Angaben als Datei.
+	 * @return	Liefert <code>true</code>, wenn die Zufallszahlen gespeichert werden konnten
+	 */
+	private boolean randomNumbersSaveExt() {
+		final JFileChooser fc=new JFileChooser();
+		CommonVariables.initialDirectoryToJFileChooser(fc);
+		fc.setDialogTitle(Language.tr("CalculatorDialog.Tab.Distributions.GenerateRandomNumbers.SaveTitle"));
+		final FileFilter xlsx=new FileNameExtensionFilter(Table.FileTypeExcel+" (*.xlsx)","xlsx");
+		fc.addChoosableFileFilter(xlsx);
+		fc.setFileFilter(xlsx);
+		fc.setAcceptAllFileFilterUsed(false);
+		if (fc.showSaveDialog(window)!=JFileChooser.APPROVE_OPTION) return false;
+		CommonVariables.initialDirectoryFromJFileChooser(fc);
+		File file=fc.getSelectedFile();
+		if (file.getName().indexOf('.')<0) {
+			if (fc.getFileFilter()==xlsx) file=new File(file.getAbsoluteFile()+".xlsx");
+		}
+
+		final TableChart tableChart=buildTableChart();
+		if (tableChart==null) return false;
+		return tableChart.save(Language.tr("CalculatorDialog.Tab.Distributions.GenerateRandomNumbers.SaveExt.FrequencyDistribution"),file);
+
 	}
 }

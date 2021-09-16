@@ -470,6 +470,7 @@ public abstract class TableChartBase {
 	 */
 	public final void build(final String chartTitle, int chartYIndex, final Sheet sheet, final String sheetName) {
 		chartYIndex=Math.max(0,chartYIndex);
+		table.makeSquare();
 		chart=createChart(chartTitle,sheet,getChartPosition(chartYIndex),getChartDimension());
 		plotArea=chart.getPlotArea();
 

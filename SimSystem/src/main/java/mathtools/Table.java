@@ -74,7 +74,7 @@ import mathtools.distribution.swing.CommonVariables;
  * Die Klasse {@link Table} kapselt eine Tabelle aus {@link String}-Objekten.
  * Die Klasse stellt Methoden zum Lesen und Schreiben von Tabellen-Dateien zur Verfügung.
  * @author Alexander Herzog
- * @version 4.4
+ * @version 4.5
  */
 public final class Table implements Cloneable {
 	/** Bezeichner beim Speichern für "wahr" */
@@ -1494,7 +1494,7 @@ public final class Table implements Cloneable {
 	/**
 	 * Verlängert einzelne Zeilen der Tabelle, so dass alle dieselbe Länge haben.
 	 */
-	private void makeSquare() {
+	public void makeSquare() {
 		if (data==null || data.isEmpty()) return;
 
 		/* Alle Zeilen auf dieselbe Länge bringen */
@@ -1615,7 +1615,7 @@ public final class Table implements Cloneable {
 	public void saveToSheet(final Workbook workbook, final Sheet sheet) {
 		if (mode==IndexMode.COLS) {Table t=transpose(); t.saveToSheet(workbook,sheet); return;}
 
-		CellStyle stylePercent=workbook.createCellStyle();
+		final CellStyle stylePercent=workbook.createCellStyle();
 		stylePercent.setDataFormat(workbook.createDataFormat().getFormat("0.0%"));
 
 		final int rowCount=Math.min(data.size(),MAX_EXCEL_ROW_COUNT);
@@ -1626,12 +1626,16 @@ public final class Table implements Cloneable {
 			for (int j=0;j<colCount;j++) {
 				final Cell cell=row.createCell(j);
 				final String cellData=r.get(j);
-				final Double cellDataNumber=convertToNumeric(cellData);
-				if (cellDataNumber==null) {
-					cell.setCellValue(cellData);
+				if (cellData.startsWith("=")) {
+					cell.setCellFormula(cellData.substring(1));
 				} else {
-					cell.setCellValue(cellDataNumber);
-					if (cellData.endsWith("%")) cell.setCellStyle(stylePercent);
+					final Double cellDataNumber=convertToNumeric(cellData);
+					if (cellDataNumber==null) {
+						cell.setCellValue(cellData);
+					} else {
+						cell.setCellValue(cellDataNumber);
+						if (cellData.endsWith("%")) cell.setCellStyle(stylePercent);
+					}
 				}
 			}
 		}
@@ -1648,7 +1652,11 @@ public final class Table implements Cloneable {
 		if (oldRows>0) table.removeRowsByIndex(0,oldRows);
 
 		final int rowCount=Math.min(data.size(),MAX_EXCEL_ROW_COUNT);
-		final List<org.odftoolkit.simple.table.Row> rows=table.appendRows(rowCount);
+		final int colCountTable=(data.size()==0)?1:data.stream().map(row->row.size()).max(Integer::compare).get();
+		final List<org.odftoolkit.simple.table.Row> firstRow=table.appendRows(1);
+		table.appendColumns(colCountTable);
+		final List<org.odftoolkit.simple.table.Row> rows=table.appendRows(rowCount-1);
+		rows.add(0,firstRow.get(0));
 
 		for (int i=0;i<rowCount;i++) {
 			final List<String> r=data.get(i);
@@ -1656,16 +1664,20 @@ public final class Table implements Cloneable {
 			final org.odftoolkit.simple.table.Row row=rows.get(i);
 
 			for (int j=0;j<colCount;j++) {
-				final String s=r.get(j);
-				final Double d=convertToNumeric(s);
 				final org.odftoolkit.simple.table.Cell cell=row.getCellByIndex(j);
-				if (d==null) {
-					cell.setStringValue(s);
+				final String s=r.get(j);
+				if (s.startsWith("=")) {
+					cell.setFormula(s.substring(1));
 				} else {
-					if (s.endsWith("%")) {
-						cell.setPercentageValue(d);
+					final Double d=convertToNumeric(s);
+					if (d==null) {
+						cell.setStringValue(s);
 					} else {
-						cell.setDoubleValue(d);
+						if (s.endsWith("%")) {
+							cell.setPercentageValue(d);
+						} else {
+							cell.setDoubleValue(d);
+						}
 					}
 				}
 			}
