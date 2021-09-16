@@ -343,6 +343,11 @@ public final class EditModel extends EditModelBase implements Cloneable  {
 	public int distributionRecordHours;
 
 	/**
+	 * Wie viele verschiedene Kundendaten-Werte sollen in der Häufigkeitsverteilung maximal erfasst werden?
+	 */
+	public int distributionRecordClientDataValues;
+
+	/**
 	 * Simulation abbrechen, wenn ein Rechenausdruck nicht ausgerechnet werden kann.
 	 */
 	public boolean stoppOnCalcError;
@@ -442,6 +447,7 @@ public final class EditModel extends EditModelBase implements Cloneable  {
 		pathSegments=new ModelPaths();
 		animationImages=new ModelAnimationImages();
 		distributionRecordHours=1;
+		distributionRecordClientDataValues=100;
 		stoppOnCalcError=false;
 		edgePainterNormal=new ComplexLine(1,FlatLaFHelper.isDark()?BLACK_COLOR_IN_DARK_MODE:Color.BLACK,0);
 		edgePainterSelected=new ComplexLine(1,Color.GREEN,0);
@@ -528,6 +534,7 @@ public final class EditModel extends EditModelBase implements Cloneable  {
 		pathSegments.clear();
 		animationImages.clear();
 		distributionRecordHours=1;
+		distributionRecordClientDataValues=10000;
 		stoppOnCalcError=false;
 		edgePainterNormal.set(1,FlatLaFHelper.isDark()?BLACK_COLOR_IN_DARK_MODE:Color.BLACK,0);
 		edgePainterSelected.set(1,Color.GREEN,0);
@@ -591,6 +598,7 @@ public final class EditModel extends EditModelBase implements Cloneable  {
 		clone.pathSegments.setDataFrom(pathSegments);
 		clone.animationImages.setDataFrom(animationImages);
 		clone.distributionRecordHours=distributionRecordHours;
+		clone.distributionRecordClientDataValues=distributionRecordClientDataValues;
 		clone.stoppOnCalcError=stoppOnCalcError;
 		clone.edgePainterNormal.set(edgePainterNormal);
 		clone.edgePainterSelected.set(edgePainterSelected);
@@ -671,6 +679,7 @@ public final class EditModel extends EditModelBase implements Cloneable  {
 		if (!pathSegments.equalsModelPaths(otherModel.pathSegments)) return false;
 		if (!animationImages.equalsModelAnimationImages(otherModel.animationImages)) return false;
 		if (distributionRecordHours!=otherModel.distributionRecordHours) return false;
+		if (distributionRecordClientDataValues!=otherModel.distributionRecordClientDataValues) return false;
 		if (stoppOnCalcError!=otherModel.stoppOnCalcError) return false;
 		if (!edgePainterNormal.equalsLine(otherModel.edgePainterNormal)) return false;
 		if (!edgePainterSelected.equalsLine(otherModel.edgePainterSelected)) return false;
@@ -949,6 +958,13 @@ public final class EditModel extends EditModelBase implements Cloneable  {
 			return null;
 		}
 
+		if (Language.trAll("Surface.XML.DistributionRecordClientDataValues",name)) {
+			final Long L=NumberTools.getNotNegativeLong(text);
+			if (L==null) return String.format(Language.tr("Surface.Model.DistributionRecordClientDataValues"),text);
+			distributionRecordClientDataValues=L.intValue();
+			return null;
+		}
+
 		if (Language.trAll("Surface.XML.StoppOnCalcError",name)) {
 			stoppOnCalcError=text.equals("1");
 			return null;
@@ -1160,6 +1176,11 @@ public final class EditModel extends EditModelBase implements Cloneable  {
 		if (distributionRecordHours!=1) {
 			node.appendChild(sub=doc.createElement(Language.trPrimary("Surface.XML.DistributionRecordHours")));
 			sub.setTextContent(""+distributionRecordHours);
+		}
+
+		if (distributionRecordClientDataValues!=10000) {
+			node.appendChild(sub=doc.createElement(Language.trPrimary("Surface.XML.DistributionRecordClientDataValues")));
+			sub.setTextContent(""+distributionRecordClientDataValues);
 		}
 
 		if (stoppOnCalcError) {
@@ -1601,6 +1622,9 @@ public final class EditModel extends EditModelBase implements Cloneable  {
 
 		/* Maximaler Sekundenwert für die Verteilungsstatistik (Angabe in Stunden) */
 		searcher.testInteger(Language.tr("Editor.DialogBase.Search.MaximumDistributionHours"),distributionRecordHours,newDistributionRecordHours->{if (newDistributionRecordHours>=0) distributionRecordHours=newDistributionRecordHours;});
+
+		/* Maximaler Wert für die Verteilungsstatistik über die Kundendatenfelder */
+		searcher.testInteger(Language.tr("Editor.DialogBase.Search.MaximumDistributionClientDataValues"),distributionRecordClientDataValues,newDistributionRecordClientDataValues->{if (newDistributionRecordClientDataValues>=0) distributionRecordClientDataValues=newDistributionRecordClientDataValues;});
 
 		/* Zeitabstand in dem für Bedingung- und ähnliche Stationen zusätzliche zeitabhängige Checks durchgeführt werden sollen */
 		if (timedChecksDelta>0) searcher.testInteger(Language.tr("Editor.DialogBase.Search.TimedChecksDelta"),timedChecksDelta,newTimedChecksDelta->{if (newTimedChecksDelta>0) timedChecksDelta=newTimedChecksDelta;});

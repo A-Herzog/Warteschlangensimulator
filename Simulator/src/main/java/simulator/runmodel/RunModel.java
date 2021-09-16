@@ -287,6 +287,11 @@ public class RunModel {
 	public int distributionRecordHours;
 
 	/**
+	 * Wie viele verschiedene Kundendaten-Werte sollen in der Häufigkeitsverteilung maximal erfasst werden?
+	 */
+	public int distributionRecordClientDataValues;
+
+	/**
 	 * Simulation abbrechen, wenn ein Rechenausdruck nicht ausgerechnet werden kann.
 	 */
 	public boolean stoppOnCalcError;
@@ -616,6 +621,7 @@ public class RunModel {
 
 		/* Erfassungsbereich für Verteilungen */
 		runModel.distributionRecordHours=editModel.distributionRecordHours;
+		runModel.distributionRecordClientDataValues=editModel.distributionRecordClientDataValues;
 
 		return null;
 	}

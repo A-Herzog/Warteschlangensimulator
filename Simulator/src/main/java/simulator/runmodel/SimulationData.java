@@ -158,7 +158,7 @@ public class SimulationData extends SimData {
 		if (useStatistics!=null) {
 			statistics=useStatistics;
 		} else {
-			statistics=new Statistics(runModel.correlationRange,runModel.correlationMode,runModel.batchMeansSize,runModel.collectWaitingTimes,runModel.distributionRecordHours);
+			statistics=new Statistics(runModel.correlationRange,runModel.correlationMode,runModel.batchMeansSize,runModel.collectWaitingTimes,runModel.distributionRecordHours,runModel.distributionRecordClientDataValues);
 		}
 
 		if (runModel.repeatCount>1) {
@@ -335,7 +335,7 @@ public class SimulationData extends SimData {
 
 		if (day>0) { /* Wenn mehrere Wiederholungen simuliert werden und dies nicht der erste Tag ist, Statistik sichern und RunData neu initialisieren */
 			lastDaysStatistics=statistics;
-			statistics=new Statistics(runModel.correlationRange,runModel.correlationMode,runModel.batchMeansSize,runModel.collectWaitingTimes,runModel.distributionRecordHours);
+			statistics=new Statistics(runModel.correlationRange,runModel.correlationMode,runModel.batchMeansSize,runModel.collectWaitingTimes,runModel.distributionRecordHours,runModel.distributionRecordClientDataValues);
 			runData=new RunData(runModel,dynamicLoadBalancer);
 		}
 

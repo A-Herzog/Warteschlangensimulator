@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-09-14 16:36+0200\n"
+"POT-Creation-Date: 2021-09-15 00:52+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -3490,6 +3490,9 @@ msgstr "Die angegebene Dauer der Einschwingphase \"%s\" ist ungültig. Es muss e
 msgid "Editor.Dialog.Tab.Simulation.Criteria.Title"
 msgstr "Kriterium für Simulationsende"
 
+msgid "Editor.Dialog.Tab.Simulation.DistributionRecordClientDataValues.Value"
+msgstr "In Kundendaten-Verteilungen aufzuzeichnende Werte"
+
 msgid "Editor.Dialog.Tab.Simulation.DistributionRecordHours.Error"
 msgstr "Die angegebene Anzahl an Stunden, die in der Statistik erfasst werden sollen, \"%s\" ist ungültig. Es muss eine nichtnegative Ganzzahl angegeben werden."
 
@@ -3497,7 +3500,7 @@ msgid "Editor.Dialog.Tab.Simulation.DistributionRecordHours.Info"
 msgstr "\"0\" schaltet die Erfassung von Verteilungsdaten ab."
 
 msgid "Editor.Dialog.Tab.Simulation.DistributionRecordHours.Value"
-msgstr "In Verteilung aufzuzeichnende Stunden"
+msgstr "In Verteilungen aufzuzeichnende Stunden"
 
 msgid "Editor.Dialog.Tab.Simulation.FixedSeed"
 msgstr "Fester Startwert für Zufallszahlengenerator"
@@ -3878,8 +3881,11 @@ msgstr "Maximalwert"
 msgid "Editor.DialogBase.Search.MaxValueForExpression"
 msgstr "Maximalwert für Ausdruck \"%s\""
 
+msgid "Editor.DialogBase.Search.MaximumDistributionClientDataValues"
+msgstr "Maximalanzahl an in Kundedaten-Verteilungen zu erfassenden Werten"
+
 msgid "Editor.DialogBase.Search.MaximumDistributionHours"
-msgstr "Maximalanzahl an in Verlaufsstatistiken zu erfassenden Stunden"
+msgstr "Maximalanzahl an in Verteilungen zu erfassenden Stunden"
 
 msgid "Editor.DialogBase.Search.MinValue"
 msgstr "Minimalwert"
@@ -25407,6 +25413,9 @@ msgstr "Text"
 msgid "Surface.Match.XML.Root"
 msgstr "ModellElementZusammenfuehren"
 
+msgid "Surface.Model.DistributionRecordClientDataValues"
+msgstr "Der angegebene Wert \"%s\" für die Anzahl an zu erfassenden Werten in Verteilungen ist ungültig. Es muss eine positive Ganzzahl angegeben werden."
+
 msgid "Surface.Model.DistributionRecordHours"
 msgstr "Der angegebene Wert \"%s\" für die Anzahl an zu erfassenden Stunden in Verteilungen ist ungültig. Es muss eine positive Ganzzahl angegeben werden."
 
@@ -29816,6 +29825,9 @@ msgstr "ModellElementSpeichernEndeStopp"
 
 msgid "Surface.XML.DisposeWithTable.Table"
 msgstr "ModellElementSpeichernEndeTabelle"
+
+msgid "Surface.XML.DistributionRecordClientDataValues"
+msgstr "ModellStatistikVerteilungWerte"
 
 msgid "Surface.XML.DistributionRecordHours"
 msgstr "ModellStatistikVerteilungStunden"

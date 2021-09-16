@@ -332,7 +332,7 @@ public class Simulator extends SimulatorBase implements AnySimulator {
 			/* Basisdaten zum Modell und zum Simulationslauf festhalten */
 			writeBaseDataToStatistics(statistics);
 		} else {
-			statistics=new Statistics(runModel.correlationRange,runModel.correlationMode,runModel.batchMeansSize,runModel.collectWaitingTimes,runModel.distributionRecordHours);
+			statistics=new Statistics(runModel.correlationRange,runModel.correlationMode,runModel.batchMeansSize,runModel.collectWaitingTimes,runModel.distributionRecordHours,runModel.distributionRecordClientDataValues);
 
 			/* Basisdaten zum Modell und zum Simulationslauf festhalten */
 			writeBaseDataToStatistics(statistics);

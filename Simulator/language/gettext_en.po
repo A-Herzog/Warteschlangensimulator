@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-09-14 16:36+0200\n"
+"POT-Creation-Date: 2021-09-15 00:52+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -3486,6 +3486,9 @@ msgstr "The specified duration of the warm-up phase \"%s\" is invalid. A non-neg
 msgid "Editor.Dialog.Tab.Simulation.Criteria.Title"
 msgstr "Criteria for the end of the simulation"
 
+msgid "Editor.Dialog.Tab.Simulation.DistributionRecordClientDataValues.Value"
+msgstr "Values to be recorded in client data distributions"
+
 msgid "Editor.Dialog.Tab.Simulation.DistributionRecordHours.Error"
 msgstr "The value \"%s\" for number of hours to be recorded in distributions is invalid. A non-negative integer value has to be specified."
 
@@ -3873,6 +3876,9 @@ msgstr "Maximum value"
 
 msgid "Editor.DialogBase.Search.MaxValueForExpression"
 msgstr "Maximum value for expression \"%s\""
+
+msgid "Editor.DialogBase.Search.MaximumDistributionClientDataValues"
+msgstr "Maximum number of values to be recorded in client data distributions for statistics"
 
 msgid "Editor.DialogBase.Search.MaximumDistributionHours"
 msgstr "Maximum number of hours to be recorded in distributions for statistics"
@@ -25395,8 +25401,11 @@ msgstr "Text"
 msgid "Surface.Match.XML.Root"
 msgstr "ModelElementMatch"
 
+msgid "Surface.Model.DistributionRecordClientDataValues"
+msgstr "The value \"%s\" for the number of values to be recorded in distributions is invalid. A positive integer value has to be specified."
+
 msgid "Surface.Model.DistributionRecordHours"
-msgstr "The value \"%s\" for the number of hour to be recorded in distributions is invalid. A positive integer value has to be specified."
+msgstr "The value \"%s\" for the number of hours to be recorded in distributions is invalid. A positive integer value has to be specified."
 
 msgid "Surface.Model.ErrorBatchMeans"
 msgstr "The value \"%s\" for the batch size for confidence interval calculation is invalid. A positive integer value has to be specified."
@@ -29802,6 +29811,9 @@ msgstr "ModelElementSaveDisposeStopp"
 
 msgid "Surface.XML.DisposeWithTable.Table"
 msgstr "ModelElementSaveDisposeTable"
+
+msgid "Surface.XML.DistributionRecordClientDataValues"
+msgstr "ModelStatisticsDistributionValues"
 
 msgid "Surface.XML.DistributionRecordHours"
 msgstr "ModelStatisticsDistributionHours"

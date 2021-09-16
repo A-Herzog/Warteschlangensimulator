@@ -467,7 +467,7 @@ public class Statistics extends StatisticsBase {
 	public StatisticsDataCollector clientsAllWaitingTimesCollector;
 
 	/**
-	 * @see Statistics#Statistics(int, CorrelationMode, int, boolean, int)
+	 * @see Statistics#Statistics(int, CorrelationMode, int, boolean, int, int)
 	 */
 	public enum CorrelationMode {
 		/** Keine Erfassung von Autokorrelationdaten */
@@ -486,6 +486,11 @@ public class Statistics extends StatisticsBase {
 	private static int MAX_DISTRIBUTION_RECORD_HOURS=48;
 
 	/**
+	 * Begrenzung der vom Nutzer gewählten maximalen Anzahl an Kundendaten-Häufigkeitsverteilungs-Werten.
+	 */
+	private static int MAX_DISTRIBUTION_RECORD_CLIENT_VALUES=10_000_000;
+
+	/**
 	 * Optional: Name der Datei aus der die XML-Statistik-Daten stammen
 	 */
 	public File loadedStatistics;
@@ -497,11 +502,12 @@ public class Statistics extends StatisticsBase {
 	 * @param batchSize	Wird hier ein Wert &gt;1 übergeben, so werden Batch-Means erfasst, auf deren Basis später Konfidenzintervalle bestimmt werden können
 	 * @param collectWaitingTimes	Statistik für die Aufzeichnung der Einzel-Wartezeiten vorbereiten?
 	 * @param distributionRecordHours	Wie lang sollen die Verteilungen der Werte ausfallen (in Stunden)? (Werte kleiner oder gleich 0 schalten die Erfassung ab.)
+	 * @param dataToRecordInClientDataDistribution	Wie lang so die Verteilung der Kundendaten-Werte ausfallen? (Werte kleiner oder gleich 0 schalten die Erfassung ab.)
 	 * @see CorrelationMode#CORRELATION_MODE_OFF
 	 * @see CorrelationMode#CORRELATION_MODE_FAST
 	 * @see CorrelationMode#CORRELATION_MODE_FULL
 	 */
-	public Statistics(final int correlationRange, final CorrelationMode correlationMode, final int batchSize, final boolean collectWaitingTimes, final int distributionRecordHours) {
+	public Statistics(final int correlationRange, final CorrelationMode correlationMode, final int batchSize, final boolean collectWaitingTimes, final int distributionRecordHours, int dataToRecordInClientDataDistribution) {
 		final String[] nameStation=Language.trAll("Statistics.XML.Station");
 		final String[] nameClientType=Language.trAll("Statistics.XML.ClientType");
 		final String[] nameClientData=Language.trAll("Statistics.XML.ClientDataRecord");
@@ -512,6 +518,7 @@ public class Statistics extends StatisticsBase {
 		final int rangeFull=(correlationMode!=CorrelationMode.CORRELATION_MODE_FULL)?-1:correlationRange;
 
 		final int secondsToRecordInDistributions=(distributionRecordHours<=0)?-1:(3600*Math.max(1,Math.min(MAX_DISTRIBUTION_RECORD_HOURS,distributionRecordHours)));
+		dataToRecordInClientDataDistribution=(dataToRecordInClientDataDistribution<=0)?-1:Math.min(MAX_DISTRIBUTION_RECORD_CLIENT_VALUES,dataToRecordInClientDataDistribution);
 
 		/* Basisdaten */
 		editModel=new EditModel();
@@ -545,7 +552,7 @@ public class Statistics extends StatisticsBase {
 		addPerformanceIndicator(clientsAllResidenceTimes=new StatisticsDataPerformanceIndicator(Language.trAll("Statistics.XML.Element.ResidenceAllClients"),secondsToRecordInDistributions,secondsToRecordInDistributions,-1,batchSize));
 
 		/* Kundendatenfelder */
-		addPerformanceIndicator(clientData=new StatisticsMultiPerformanceIndicator(Language.trAll("Statistics.XML.Element.ClientData"),new StatisticsDataPerformanceIndicatorWithNegativeValues(nameClientData,1000,1000,true)));
+		addPerformanceIndicator(clientData=new StatisticsMultiPerformanceIndicator(Language.trAll("Statistics.XML.Element.ClientData"),new StatisticsDataPerformanceIndicatorWithNegativeValues(nameClientData,dataToRecordInClientDataDistribution,dataToRecordInClientDataDistribution,true)));
 
 		/* Zeiten auf Seiten der Stationen */
 		addPerformanceIndicator(stationsWaitingTimes=new StatisticsMultiPerformanceIndicator(Language.trAll("Statistics.XML.Element.WaitingStations"),new StatisticsDataPerformanceIndicator(nameStation,secondsToRecordInDistributions,secondsToRecordInDistributions,rangeFull,batchSize,true)));
@@ -580,7 +587,7 @@ public class Statistics extends StatisticsBase {
 		/* Zähler / Differenzzähler / Batch-Zähler */
 		addPerformanceIndicator(counter=new StatisticsMultiPerformanceIndicator(Language.trAll("Statistics.XML.Element.Counter"),new StatisticsSimpleCountPerformanceIndicator(Language.trAll("Statistics.XML.Element.CounterName"))));
 		addPerformanceIndicator(differentialCounter=new StatisticsMultiPerformanceIndicator(Language.trAll("Statistics.XML.Element.DifferenceCounter"),new StatisticsTimePerformanceIndicator(Language.trAll("Statistics.XML.Element.DifferenceCounterName"))));
-		addPerformanceIndicator(counterBatch=new StatisticsMultiPerformanceIndicator(Language.trAll("Statistics.XML.Element.CounterBatch"),new StatisticsDataPerformanceIndicator(Language.trAll("Statistics.XML.Element.CounterBatchName"),secondsToRecordInDistributions,secondsToRecordInDistributions,-1,batchSize,true)));
+		addPerformanceIndicator(counterBatch=new StatisticsMultiPerformanceIndicator(Language.trAll("Statistics.XML.Element.CounterBatch"),new StatisticsDataPerformanceIndicator(Language.trAll("Statistics.XML.Element.CounterBatchName"),dataToRecordInClientDataDistribution,dataToRecordInClientDataDistribution,-1,batchSize,true)));
 
 		/* Kosten */
 		addPerformanceIndicator(clientsCostsWaiting=new StatisticsMultiPerformanceIndicator(Language.trAll("Statistics.XML.Element.CostsWaiting"),new StatisticsValuePerformanceIndicator(nameCosts)));
@@ -595,7 +602,7 @@ public class Statistics extends StatisticsBase {
 		addPerformanceIndicator(longRunStatistics=new StatisticsMultiPerformanceIndicator(Language.trAll("Statistics.XML.Expression"),new StatisticsLongRunPerformanceIndicator(nameExpression)));
 
 		/* Nutzerdefinierte Statistik */
-		addPerformanceIndicator(userStatistics=new StatisticsMultiPerformanceIndicator(Language.trAll("Statistics.XML.UserStatistics"),new StatisticsDataPerformanceIndicatorWithNegativeValues(Language.trAll("Statistics.XML.UserStatisticsKey"),secondsToRecordInDistributions,secondsToRecordInDistributions,batchSize,true)));
+		addPerformanceIndicator(userStatistics=new StatisticsMultiPerformanceIndicator(Language.trAll("Statistics.XML.UserStatistics"),new StatisticsDataPerformanceIndicatorWithNegativeValues(Language.trAll("Statistics.XML.UserStatisticsKey"),dataToRecordInClientDataDistribution,dataToRecordInClientDataDistribution,batchSize,true)));
 		addPerformanceIndicator(userStatisticsContinuous=new StatisticsMultiPerformanceIndicator(Language.trAll("Statistics.XML.UserStatisticsContinuous"),new StatisticsTimeContinuousPerformanceIndicator(Language.trAll("Statistics.XML.UserStatisticsContinuousKey"))));
 
 		/* Nutzerdefinierte Variablen */
@@ -624,7 +631,7 @@ public class Statistics extends StatisticsBase {
 	 * @param collectWaitingTimes	Statistik für die Aufzeichnung der Einzel-Wartezeiten vorbereiten?
 	 */
 	public Statistics(final boolean collectWaitingTimes) {
-		this(-1,CorrelationMode.CORRELATION_MODE_OFF,1,collectWaitingTimes,1);
+		this(-1,CorrelationMode.CORRELATION_MODE_OFF,1,collectWaitingTimes,1,10000);
 	}
 
 	/**
@@ -633,7 +640,7 @@ public class Statistics extends StatisticsBase {
 	 * der Aufruf dieses Konstruktors ist äquivalent zum Aufruf von <code>Statistics(-1,CORRELATION_MODE_OFF,1,false);</code>.
 	 */
 	public Statistics() {
-		this(-1,CorrelationMode.CORRELATION_MODE_OFF,1,false,1);
+		this(-1,CorrelationMode.CORRELATION_MODE_OFF,1,false,1,10000);
 	}
 
 	@Override

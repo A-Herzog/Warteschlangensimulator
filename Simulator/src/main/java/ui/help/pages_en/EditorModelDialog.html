@@ -125,10 +125,21 @@ In the statistics the data of the repetitions are summarized.
 
 <h3>Hours to be recorded in distributions</h3>
 <p>
-This field can be used to define a maximum value for recording quantity
-distributions. The default value is one hour. This means all
+This field can be used to define a maximum value for recording time based
+quantity distributions. The default value is one hour. This means all
 waiting times etc. longer than one hour will be recorded as one hour
 in the values distribution. The larger this value is, the more exact
+large values can be recorded in the distribution of the values but
+also the more memory will be needed for simulation. The recording of
+the performance indicators (like mean etc.) will always be exact
+independent of the size of the values distribution.
+</p>
+
+<h3>Values to be recorded in client data distributions</h3>
+<p>
+This field can be used to define the maximum value for recording value based
+quantity distribution for recording values in client data fields and user-defined
+statistics. The default value is 10,000. The larger this value is, the more exact
 large values can be recorded in the distribution of the values but
 also the more memory will be needed for simulation. The recording of
 the performance indicators (like mean etc.) will always be exact
