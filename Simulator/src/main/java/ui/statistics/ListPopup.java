@@ -243,7 +243,6 @@ public class ListPopup {
 			final String xmlMain=Language.tr("Statistics.XML.Element.TransferStations");
 			for (String name: statistics.stationsTransferTimes.getNames()) {
 				xmlSub=xmlMain+"->"+Language.tr("Statistics.XML.Station")+"["+Language.tr("Statistics.XML.Type")+"=\""+name+"\"]->";
-				tryAddRecord(sub,allowAdd,name,null,null,XMLMode.XML_NUMBER_TIME,xmlMain+"->"+xmlSub+"->"+mean);
 				sub2=getSubList(sub,name,null,null);
 				tryAddRecord(sub2,allowAdd,Language.tr("Statistics.Average"),null,null,XMLMode.XML_NUMBER_TIME,xmlSub+mean);
 				tryAddRecord(sub2,allowAdd,Language.tr("Statistics.StdDev"),null,null,XMLMode.XML_NUMBER_TIME,xmlSub+Std);
@@ -258,7 +257,6 @@ public class ListPopup {
 			final String xmlMain=Language.tr("Statistics.XML.Element.TransferStationsByClientType");
 			for (String name: statistics.stationsTransferTimesByClientType.getNames()) {
 				xmlSub=xmlMain+"->"+Language.tr("Statistics.XML.Station")+"["+Language.tr("Statistics.XML.Type")+"=\""+name+"\"]->";
-				tryAddRecord(sub,allowAdd,name,null,null,XMLMode.XML_NUMBER_TIME,xmlMain+"->"+xmlSub+"->"+mean);
 				sub2=getSubList(sub,name,null,null);
 				tryAddRecord(sub2,allowAdd,Language.tr("Statistics.Average"),null,null,XMLMode.XML_NUMBER_TIME,xmlSub+mean);
 				tryAddRecord(sub2,allowAdd,Language.tr("Statistics.StdDev"),null,null,XMLMode.XML_NUMBER_TIME,xmlSub+Std);
@@ -301,7 +299,6 @@ public class ListPopup {
 			final String xmlMain=Language.tr("Statistics.XML.Element.ProcessStations");
 			for (String name: statistics.stationsProcessingTimes.getNames()) {
 				xmlSub=xmlMain+"->"+Language.tr("Statistics.XML.Station")+"["+Language.tr("Statistics.XML.Type")+"=\""+name+"\"]->";
-				tryAddRecord(sub,allowAdd,name,null,null,XMLMode.XML_NUMBER_TIME,xmlMain+"->"+xmlSub+"->"+mean);
 				sub2=getSubList(sub,name,null,null);
 				tryAddRecord(sub2,allowAdd,Language.tr("Statistics.Average"),null,null,XMLMode.XML_NUMBER_TIME,xmlSub+mean);
 				tryAddRecord(sub2,allowAdd,Language.tr("Statistics.StdDev"),null,null,XMLMode.XML_NUMBER_TIME,xmlSub+Std);
@@ -316,7 +313,6 @@ public class ListPopup {
 			final String xmlMain=Language.tr("Statistics.XML.Element.ProcessStationsByClientType");
 			for (String name: statistics.stationsProcessingTimesByClientType.getNames()) {
 				xmlSub=xmlMain+"->"+Language.tr("Statistics.XML.Station")+"["+Language.tr("Statistics.XML.Type")+"=\""+name+"\"]->";
-				tryAddRecord(sub,allowAdd,name,null,null,XMLMode.XML_NUMBER_TIME,xmlMain+"->"+xmlSub+"->"+mean);
 				sub2=getSubList(sub,name,null,null);
 				tryAddRecord(sub2,allowAdd,Language.tr("Statistics.Average"),null,null,XMLMode.XML_NUMBER_TIME,xmlSub+mean);
 				tryAddRecord(sub2,allowAdd,Language.tr("Statistics.StdDev"),null,null,XMLMode.XML_NUMBER_TIME,xmlSub+Std);
@@ -359,7 +355,6 @@ public class ListPopup {
 			final String xmlMain=Language.tr("Statistics.XML.Element.ResidenceStations");
 			for (String name: statistics.stationsResidenceTimes.getNames()) {
 				xmlSub=xmlMain+"->"+Language.tr("Statistics.XML.Station")+"["+Language.tr("Statistics.XML.Type")+"=\""+name+"\"]->";
-				tryAddRecord(sub,allowAdd,name,null,null,XMLMode.XML_NUMBER_TIME,xmlMain+"->"+xmlSub+"->"+mean);
 				sub2=getSubList(sub,name,null,null);
 				tryAddRecord(sub2,allowAdd,Language.tr("Statistics.Average"),null,null,XMLMode.XML_NUMBER_TIME,xmlSub+mean);
 				tryAddRecord(sub2,allowAdd,Language.tr("Statistics.StdDev"),null,null,XMLMode.XML_NUMBER_TIME,xmlSub+Std);
@@ -374,7 +369,6 @@ public class ListPopup {
 			final String xmlMain=Language.tr("Statistics.XML.Element.ResidenceStationsByClientType");
 			for (String name: statistics.stationsResidenceTimesByClientType.getNames()) {
 				xmlSub=xmlMain+"->"+Language.tr("Statistics.XML.Station")+"["+Language.tr("Statistics.XML.Type")+"=\""+name+"\"]->";
-				tryAddRecord(sub,allowAdd,name,null,null,XMLMode.XML_NUMBER_TIME,xmlMain+"->"+xmlSub+"->"+mean);
 				sub2=getSubList(sub,name,null,null);
 				tryAddRecord(sub2,allowAdd,Language.tr("Statistics.Average"),null,null,XMLMode.XML_NUMBER_TIME,xmlSub+mean);
 				tryAddRecord(sub2,allowAdd,Language.tr("Statistics.StdDev"),null,null,XMLMode.XML_NUMBER_TIME,xmlSub+Std);
@@ -528,8 +522,13 @@ public class ListPopup {
 			sub=getSubList(list,Language.tr("Statistic.FastAccess.Template.UserStatistics"),null,null);
 			final String xmlMain=Language.tr("Statistics.XML.UserStatistics");
 			for (String name: statistics.userStatistics.getNames()) {
-				xmlSub=Language.tr("Statistics.XML.UserStatisticsKey")+"["+Language.tr("Statistics.XML.Type")+"=\""+name+"\"]";
-				tryAddRecord(sub,allowAdd,name,null,null,XMLMode.XML_NUMBER,xmlMain+"->"+xmlSub+"->"+mean);
+				xmlSub=xmlMain+"->"+Language.tr("Statistics.XML.UserStatisticsKey")+"["+Language.tr("Statistics.XML.Type")+"=\""+name+"\"]->";
+				sub2=getSubList(sub,name,null,null);
+				tryAddRecord(sub2,allowAdd,Language.tr("Statistics.Average"),null,null,XMLMode.XML_NUMBER_TIME,xmlSub+mean);
+				tryAddRecord(sub2,allowAdd,Language.tr("Statistics.StdDev"),null,null,XMLMode.XML_NUMBER_TIME,xmlSub+Std);
+				tryAddRecord(sub2,allowAdd,Language.tr("Statistics.CV"),null,null,XMLMode.XML_NUMBER,xmlSub+CV);
+				tryAddRecord(sub2,allowAdd,Language.tr("Statistics.Minimum"),null,null,XMLMode.XML_NUMBER_TIME,xmlSub+Min);
+				tryAddRecord(sub2,allowAdd,Language.tr("Statistics.Maximum"),null,null,XMLMode.XML_NUMBER_TIME,xmlSub+Max);
 			}
 		}
 
@@ -537,8 +536,13 @@ public class ListPopup {
 			sub=getSubList(list,Language.tr("Statistic.FastAccess.Template.UserStatisticsContinuous"),null,null);
 			final String xmlMain=Language.tr("Statistics.XML.UserStatisticsContinuous");
 			for (String name: statistics.userStatisticsContinuous.getNames()) {
-				xmlSub=Language.tr("Statistics.XML.UserStatisticsContinuousKey")+"["+Language.tr("Statistics.XML.Type")+"=\""+name+"\"]";
-				tryAddRecord(sub,allowAdd,name,null,null,XMLMode.XML_NUMBER,xmlMain+"->"+xmlSub+"->"+mean);
+				xmlSub=xmlMain+"->"+Language.tr("Statistics.XML.UserStatisticsContinuousKey")+"["+Language.tr("Statistics.XML.Type")+"=\""+name+"\"]->";
+				sub2=getSubList(sub,name,null,null);
+				tryAddRecord(sub2,allowAdd,Language.tr("Statistics.Average"),null,null,XMLMode.XML_NUMBER_TIME,xmlSub+mean);
+				tryAddRecord(sub2,allowAdd,Language.tr("Statistics.StdDev"),null,null,XMLMode.XML_NUMBER_TIME,xmlSub+Std);
+				tryAddRecord(sub2,allowAdd,Language.tr("Statistics.CV"),null,null,XMLMode.XML_NUMBER,xmlSub+CV);
+				tryAddRecord(sub2,allowAdd,Language.tr("Statistics.Minimum"),null,null,XMLMode.XML_NUMBER_TIME,xmlSub+Min);
+				tryAddRecord(sub2,allowAdd,Language.tr("Statistics.Maximum"),null,null,XMLMode.XML_NUMBER_TIME,xmlSub+Max);
 			}
 		}
 
@@ -548,8 +552,13 @@ public class ListPopup {
 			sub=getSubList(list,Language.tr("Statistic.FastAccess.Template.Variables"),null,Images.EXPRESSION_BUILDER_VARIABLE.getIcon());
 			final String xmlMain=Language.tr("Statistics.XML.Variables");
 			for (String name: statistics.userVariables.getNames()) {
-				xmlSub=Language.tr("Statistics.XML.VariablesKey")+"["+Language.tr("Statistics.XML.Type")+"=\""+name+"\"]";
-				tryAddRecord(sub,allowAdd,name,null,null,XMLMode.XML_NUMBER,xmlMain+"->"+xmlSub+"->"+mean);
+				xmlSub=xmlMain+"->"+Language.tr("Statistics.XML.VariablesKey")+"["+Language.tr("Statistics.XML.Type")+"=\""+name+"\"]->";
+				sub2=getSubList(sub,name,null,null);
+				tryAddRecord(sub2,allowAdd,Language.tr("Statistics.Average"),null,null,XMLMode.XML_NUMBER_TIME,xmlSub+mean);
+				tryAddRecord(sub2,allowAdd,Language.tr("Statistics.StdDev"),null,null,XMLMode.XML_NUMBER_TIME,xmlSub+Std);
+				tryAddRecord(sub2,allowAdd,Language.tr("Statistics.CV"),null,null,XMLMode.XML_NUMBER,xmlSub+CV);
+				tryAddRecord(sub2,allowAdd,Language.tr("Statistics.Minimum"),null,null,XMLMode.XML_NUMBER_TIME,xmlSub+Min);
+				tryAddRecord(sub2,allowAdd,Language.tr("Statistics.Maximum"),null,null,XMLMode.XML_NUMBER_TIME,xmlSub+Max);
 			}
 		}
 

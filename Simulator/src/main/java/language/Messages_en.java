@@ -18547,7 +18547,7 @@ public class Messages_en extends java.util.ResourceBundle {
     t[48518] = "Editor.SavedViews.Update";
     t[48519] = "Update view";
     t[48530] = "Statistic.FastAccess.Template.Variables";
-    t[48531] = "Average value of a global variable";
+    t[48531] = "Value of a global variable";
     t[48532] = "ModelLoadData.IncompatibleWarning.ScriptRunner";
     t[48533] = "This model uses external data. These data will not be updated on script execution.";
     t[48536] = "Surface.XML.Connection.Type.Out";
