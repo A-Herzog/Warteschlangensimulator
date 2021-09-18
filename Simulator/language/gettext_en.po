@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-09-17 13:10+0200\n"
+"POT-Creation-Date: 2021-09-19 01:03+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -12281,6 +12281,9 @@ msgstr "Discard current results. Re-simulate all models."
 msgid "ParameterCompare.ReRunConfirm.Title"
 msgstr "All models simulated"
 
+msgid "ParameterCompare.ReplaceModel"
+msgstr "Hint on replacing the base model"
+
 msgid "ParameterCompare.ResultsError.NoValue"
 msgstr "In step %d (model %s) the query of %s did not return a result."
 
@@ -13067,6 +13070,32 @@ msgstr "Load"
 
 msgid "ParameterCompare.Toolbar.Load.Hint"
 msgstr "Loads the configuration from file"
+
+msgid "ParameterCompare.Toolbar.Load.ReplaceHint.Info"
+msgstr ""
+"The base model stored in the parameter series is different from the model in the editor.\n"
+"Should the model in the parameter series be replaced by the model in the editor?"
+
+msgid "ParameterCompare.Toolbar.Load.ReplaceHint.Option.Keep"
+msgstr "Keep model"
+
+msgid "ParameterCompare.Toolbar.Load.ReplaceHint.Option.Keep.Info"
+msgstr "Does not change the base model in the parameter series."
+
+msgid "ParameterCompare.Toolbar.Load.ReplaceHint.Option.KeepDontAskAgain"
+msgstr "Keep model and do not ask again"
+
+msgid "ParameterCompare.Toolbar.Load.ReplaceHint.Option.KeepDontAskAgain.Info"
+msgstr "Does not change the base model in the parameter series and never asks this question again."
+
+msgid "ParameterCompare.Toolbar.Load.ReplaceHint.Option.Replace"
+msgstr "Replace model"
+
+msgid "ParameterCompare.Toolbar.Load.ReplaceHint.Option.Replace.Info"
+msgstr "Discards the model in the parameter series and replaces it with the model in the editor."
+
+msgid "ParameterCompare.Toolbar.Load.ReplaceHint.Title"
+msgstr "Load parameter series"
 
 msgid "ParameterCompare.Toolbar.New"
 msgstr "New"

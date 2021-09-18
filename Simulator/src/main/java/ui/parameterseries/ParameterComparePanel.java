@@ -287,6 +287,25 @@ public class ParameterComparePanel extends SpecialPanel {
 		prepareSetup();
 		setupOriginal.copyFrom(this.setup);
 		table.updateTable();
+
+		/* Evtl. fragen, ob das Modell in der Parameterreihe durch das Editor-Modell ersetzt werden soll */
+		if (modelFromEditor!=null && modelFromEditor.surface.getElementCount()>0 && !this.setup.getEditModel().equalsEditModel(modelFromEditor)) { // XXX TEST
+			final InfoPanel infoPanel=InfoPanel.getInstance();
+			if (infoPanel.isVisible(InfoPanel.parameterSeriesReplaceModel)) {
+				final int result=MsgBox.options(this,
+						Language.tr("ParameterCompare.Toolbar.Load.ReplaceHint.Title"),Language.tr("ParameterCompare.Toolbar.Load.ReplaceHint.Info"),
+						new String[] {Language.tr("ParameterCompare.Toolbar.Load.ReplaceHint.Option.Replace"),Language.tr("ParameterCompare.Toolbar.Load.ReplaceHint.Option.Keep"),Language.tr("ParameterCompare.Toolbar.Load.ReplaceHint.Option.KeepDontAskAgain")},
+						new String[] {Language.tr("ParameterCompare.Toolbar.Load.ReplaceHint.Option.Replace.Info"),Language.tr("ParameterCompare.Toolbar.Load.ReplaceHint.Option.Keep.Info"),Language.tr("ParameterCompare.Toolbar.Load.ReplaceHint.Option.KeepDontAskAgain.Info")}
+				// Nimmt keine Veränderungen an dem Basismodell in der Parameterreihe vor und stellt diese Frage nie wieder."}
+						);
+				if (result==0) {
+					commandLoadFromEditor();
+				}
+				if (result==2) {
+					infoPanel.setVisible(InfoPanel.parameterSeriesReplaceModel,false);
+				}
+			}
+		}
 	}
 
 	/**

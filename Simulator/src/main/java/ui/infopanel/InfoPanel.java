@@ -58,6 +58,8 @@ public class InfoPanel {
 	private static final String groupWindow="Window|";
 	/** Teil-ID für Infos zu Modelleigenschaften-Dialogseiten */
 	private static final String groupModel="EditorPanelDialog|";
+	/** Teil-ID für Parameterreihen-Panel */
+	private static final String groupParameterSeries="ParameterSeriesPanel|";
 	/** Teil-ID für Infos zu Optimierer-Dialogseiten */
 	private static final String groupOptimizer="OptimizerPanel|";
 	/** Teil-ID für Infos zu Modellelementen */
@@ -106,6 +108,11 @@ public class InfoPanel {
 
 	/** Info-ID für die Dialogseite "Simulationssystem" im Modelleigenschaften-Dialog */
 	public static final String modelSimulationSystem=groupModel+"SimulationSystem";
+
+	/* Parameterreihe */
+
+	/** Info-ID für den Basismodell-Ersetzen-Dialog im Parameterreihen-Panel */
+	public static final String parameterSeriesReplaceModel=groupParameterSeries+"ReplaceModel"; // XXX
 
 	/* Optimierer-Panel */
 
@@ -621,6 +628,12 @@ public class InfoPanel {
 		register(modelSimulationSystem,
 				()->Language.tr("Editor.Dialog.Title")+"|"+Language.tr("Editor.Dialog.Tab.SimulationSystem"),
 				()->Language.tr("Editor.Dialog.Tab.SimulationSystem.InfoText"));
+
+		/* Parameterreihe */
+
+		register(parameterSeriesReplaceModel,
+				()->Language.tr("ParameterCompare.ParameterCompare")+"|"+Language.tr("ParameterCompare.ReplaceModel"),
+				()->"");
 
 		/* Optimierer-Panel */
 

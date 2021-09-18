@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-09-17 13:10+0200\n"
+"POT-Creation-Date: 2021-09-19 01:03+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -12277,6 +12277,9 @@ msgstr "Bisherige Ergebnisse verwerfen. Alle Modell neu simulieren."
 msgid "ParameterCompare.ReRunConfirm.Title"
 msgstr "Alle Modelle simuliert"
 
+msgid "ParameterCompare.ReplaceModel"
+msgstr "Hinweis zum Ersetzen des Basismodells"
+
 msgid "ParameterCompare.ResultsError.NoValue"
 msgstr "In Schritt %d (Modell %s) hat die Abfrage von %s kein Ergebnis geliefert."
 
@@ -13065,6 +13068,32 @@ msgstr "Laden"
 
 msgid "ParameterCompare.Toolbar.Load.Hint"
 msgstr "Lädt eine Konfiguration aus einer Datei"
+
+msgid "ParameterCompare.Toolbar.Load.ReplaceHint.Info"
+msgstr ""
+"Das in der Parameterreihe hinterlegte Basismodell unterscheidet sich von dem Modell im Editor.\n"
+"Soll das Modell in der Parameterreihe durch das Modell im Editor ersetzt werden?"
+
+msgid "ParameterCompare.Toolbar.Load.ReplaceHint.Option.Keep"
+msgstr "Modell beibehalten"
+
+msgid "ParameterCompare.Toolbar.Load.ReplaceHint.Option.Keep.Info"
+msgstr "Nimmt keine Veränderungen an dem Basismodell in der Parameterreihe vor."
+
+msgid "ParameterCompare.Toolbar.Load.ReplaceHint.Option.KeepDontAskAgain"
+msgstr "Modell beibehalten und nicht wieder fragen"
+
+msgid "ParameterCompare.Toolbar.Load.ReplaceHint.Option.KeepDontAskAgain.Info"
+msgstr "Nimmt keine Veränderungen an dem Basismodell in der Parameterreihe vor und stellt diese Frage nie wieder."
+
+msgid "ParameterCompare.Toolbar.Load.ReplaceHint.Option.Replace"
+msgstr "Modell ersetzen"
+
+msgid "ParameterCompare.Toolbar.Load.ReplaceHint.Option.Replace.Info"
+msgstr "Verwirft das Modell in der Parameterreihe und ersetztes es durch das Modell im Editor."
+
+msgid "ParameterCompare.Toolbar.Load.ReplaceHint.Title"
+msgstr "Parameterreihe laden"
 
 msgid "ParameterCompare.Toolbar.New"
 msgstr "Neu"
