@@ -112,7 +112,7 @@ public class InfoPanel {
 	/* Parameterreihe */
 
 	/** Info-ID für den Basismodell-Ersetzen-Dialog im Parameterreihen-Panel */
-	public static final String parameterSeriesReplaceModel=groupParameterSeries+"ReplaceModel"; // XXX
+	public static final String parameterSeriesReplaceModel=groupParameterSeries+"ReplaceModel";
 
 	/* Optimierer-Panel */
 
