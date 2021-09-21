@@ -10511,7 +10511,7 @@ public class Messages_en extends java.util.ResourceBundle {
     t[27830] = "Statistic.FastAccess.New.Tooltip";
     t[27831] = "Clears the filter input field";
     t[27832] = "ExpressionBuilder.ProbabilityDistributions.UniformDistribution.RandomNumberInfo";
-    t[27833] = "<p>Generates a random number according to the uniform distribution with the distribution parameters [a;b] according to the values from the first and second parameters.</p>\n<p>Example: <tt>UniformDist(2)</tt>.</p>";
+    t[27833] = "<p>Generates a random number according to the uniform distribution with the distribution parameters [a;b] according to the values from the first and second parameters.</p>\n<p>Example: <tt>UniformDist(2;4)</tt>.</p>";
     t[27838] = "Optimizer.Prepare.Title.Javascript";
     t[27839] = "Script execution is prepared";
     t[27844] = "Editor.Dialog.Sequences.MoveDown.Hint";

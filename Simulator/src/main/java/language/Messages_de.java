@@ -9411,7 +9411,7 @@ public class Messages_de extends java.util.ResourceBundle {
     t[24990] = "Animation.Icon.Disk";
     t[24991] = "Diskette";
     t[24994] = "Statistics.XML.Run.Error";
-    t[24995] = "Das LaufVarianz-Attribut im \"%s\"-Element musseine nicht-negative Zahl sein, ist aber \"%s\".";
+    t[24995] = "Das LaufVarianz-Attribut im \"%s\"-Element muss eine nicht-negative Zahl sein, ist aber \"%s\".";
     t[24996] = "Main.Toolbar.Help.Hint";
     t[24997] = "Zeigt die Online-Hilfe zu der gew\u00e4hlten Funktion an";
     t[25002] = "Surface.HoldMulti.Tooltip";
@@ -10511,7 +10511,7 @@ public class Messages_de extends java.util.ResourceBundle {
     t[27830] = "Statistic.FastAccess.New.Tooltip";
     t[27831] = "L\u00f6scht das Filtereingabefeld";
     t[27832] = "ExpressionBuilder.ProbabilityDistributions.UniformDistribution.RandomNumberInfo";
-    t[27833] = "<p>Erzeugt eine Zufallszahl gem\u00e4\u00df der Gleichverteilung mit den Verteilungsparametern [a;b] gem\u00e4\u00df den Werten aus dem ersten und zweiten Parameter.</p>\n<p>Beispiel: <tt>UniformDist(2)</tt>.</p>";
+    t[27833] = "<p>Erzeugt eine Zufallszahl gem\u00e4\u00df der Gleichverteilung mit den Verteilungsparametern [a;b] gem\u00e4\u00df den Werten aus dem ersten und zweiten Parameter.</p>\n<p>Beispiel: <tt>UniformDist(2;4)</tt>.</p>";
     t[27838] = "Optimizer.Prepare.Title.Javascript";
     t[27839] = "Skriptausf\u00fchrung wird vorbereitet";
     t[27844] = "Editor.Dialog.Sequences.MoveDown.Hint";
