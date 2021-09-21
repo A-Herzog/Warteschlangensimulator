@@ -177,6 +177,11 @@ public final class ModelElementAnimationTextValueJSDialog extends ModelElementBa
 	private boolean checkData(final boolean showErrorMessage) {
 		boolean ok=true;
 
+		if (showErrorMessage) {
+			ok=editor.checkData();
+			if (!ok) return false;
+		}
+
 		Integer I=NumberTools.getNotNegativeInteger(sizeField,true);
 		if (I==null) {
 			ok=false;

@@ -439,6 +439,30 @@ public class ModelElementAnimationTextValueJS extends ModelElementPosition imple
 			lastStyleFont=style;
 		}
 
+		if (!text.contains("\n")) {
+			drawSingleLine(graphics,drawRect,zoom,title,text);
+		} else {
+			drawMultiLine(graphics,drawRect,zoom,title,text.split("\\n"));
+		}
+
+
+		if (isSelected() && showSelectionFrames) {
+			drawRect(graphics,drawRect,zoom,Color.GREEN,2,null,2);
+		} else {
+			if (isSelectedArea() && showSelectionFrames) drawRect(graphics,drawRect,zoom,Color.BLUE,2,null,2);
+		}
+	}
+
+	/**
+	 * Gibt einen einzeiligen Text (ggf. mit zusätzlicher Titelzeile) aus.
+	 * @param graphics	<code>Graphics</code>-Objekt in das das Element eingezeichnet werden soll
+	 * @param drawRect	Tatsächlich sichtbarer Ausschnitt
+	 * @param zoom	Zoomfaktor
+	 * @param title	Titelzeile (kann <code>null</code> sein)
+	 * @param text	Auszugebender Text (darf nicht <code>null</code> sein)
+	 * @see #drawToGraphics(Graphics, Rectangle, double, boolean)
+	 */
+	private void drawSingleLine(final Graphics graphics, final Rectangle drawRect, final double zoom, final String title, final String text) {
 		int width;
 		int height;
 		if (title.trim().isEmpty()) {
@@ -480,11 +504,56 @@ public class ModelElementAnimationTextValueJS extends ModelElementPosition imple
 			y+=graphics.getFontMetrics().getAscent();
 			graphics.drawString(text,x,y);
 		}
+	}
 
-		if (isSelected() && showSelectionFrames) {
-			drawRect(graphics,drawRect,zoom,Color.GREEN,2,null,2);
-		} else {
-			if (isSelectedArea() && showSelectionFrames) drawRect(graphics,drawRect,zoom,Color.BLUE,2,null,2);
+	/**
+	 * Gibt einen mehrzeiligen Text (ggf. mit zusätzlicher Titelzeile) aus.
+	 * @param graphics	<code>Graphics</code>-Objekt in das das Element eingezeichnet werden soll
+	 * @param drawRect	Tatsächlich sichtbarer Ausschnitt
+	 * @param zoom	Zoomfaktor
+	 * @param title	Titelzeile (kann <code>null</code> sein)
+	 * @param text	Auszugebender Text (darf nicht <code>null</code> sein; einzelne Zeilen dürfen auch nicht <code>null</code> sein)
+	 * @see #drawToGraphics(Graphics, Rectangle, double, boolean)
+	 */
+	private void drawMultiLine(final Graphics graphics, final Rectangle drawRect, final double zoom, final String title, final String[] text) {
+		int width=0;
+		int height=0;
+		int lineHeight;
+		if (!title.trim().isEmpty()) {
+			graphics.setFont(lastFontTitle);
+			width=graphics.getFontMetrics().stringWidth(title);
+			height=graphics.getFontMetrics().getAscent()+graphics.getFontMetrics().getDescent();
+		}
+		graphics.setFont(lastFontMain);
+		for (String line: text) width=FastMath.max(width,graphics.getFontMetrics().stringWidth(line));
+		lineHeight=graphics.getFontMetrics().getAscent()+graphics.getFontMetrics().getDescent();
+		height+=lineHeight*text.length;
+
+		final Point point=getPosition(true);
+
+		int w=(int)FastMath.round(width/zoom);
+		int h=(int)FastMath.round(height/zoom);
+		if (getSize().width!=w || getSize().height!=h) setSize(new Dimension(w,h));
+
+		setClip(graphics,drawRect,null);
+
+		int x=(int)FastMath.round(point.x*zoom);
+		int y=(int)FastMath.round(point.y*zoom);
+		if (!title.trim().isEmpty()) {
+			if (titleColor==null) titleColor=FlatLaFHelper.isDark()?EditModel.BLACK_COLOR_IN_DARK_MODE:Color.BLACK;
+			graphics.setColor(titleColor);
+			graphics.setFont(lastFontTitle);
+			y+=graphics.getFontMetrics().getAscent();
+			graphics.drawString(title,x,y);
+			y+=graphics.getFontMetrics().getDescent();
+		}
+
+		graphics.setColor(color);
+		graphics.setFont(lastFontMain);
+		y+=graphics.getFontMetrics().getAscent();
+		for (String line: text) {
+			graphics.drawString(line,x,y);
+			y+=lineHeight;
 		}
 	}
 
