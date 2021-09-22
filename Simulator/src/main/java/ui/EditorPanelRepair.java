@@ -15,6 +15,7 @@
  */
 package ui;
 
+import java.awt.Container;
 import java.awt.Point;
 import java.io.File;
 import java.util.ArrayList;
@@ -58,15 +59,42 @@ public class EditorPanelRepair {
 		USER_CANCELED
 	}
 
-	/** Editor-Panel aus dem das Modell entnommen und das korrigierte zurückgegeben werden soll */
+	/**
+	 * Übergeordnetes Element zur Anzeige von Dialogen
+	 */
+	private final Container owner;
+
+	/**
+	 * Editor-Panel aus dem das Modell entnommen und das korrigierte zurückgegeben werden soll<br>
+	 * (es ist immer nur entweder dieses Feld oder {@link #editModel} mit einem Wert ungleich <code>null</code> belegt)
+	 */
 	private final EditorPanel editorPanel;
+
+	/**
+	 * Zu korrigierendes Modell<br>
+	 * (es ist immer nur entweder dieses Feld oder {@link #editorPanel} mit einem Wert ungleich <code>null</code> belegt)
+	 */
+	private final EditModel editModel;
 
 	/**
 	 * Konstruktor der Klasse
 	 * @param editorPanel	Editor-Panel aus dem das Modell entnommen und das korrigierte zurückgegeben werden soll
 	 */
 	public EditorPanelRepair(final EditorPanel editorPanel) {
+		owner=editorPanel.getTopLevelAncestor();
 		this.editorPanel=editorPanel;
+		editModel=null;
+	}
+
+	/**
+	 * Konstruktor der Klasse
+	 * @param owner	Übergeordnetes Element zur Anzeige von Dialogen
+	 * @param editModel	Zu korrigierendes Modell
+	 */
+	public EditorPanelRepair(final Container owner, final EditModel editModel) {
+		this.owner=owner;
+		editorPanel=null;
+		this.editModel=editModel;
 	}
 
 	/**
@@ -110,7 +138,7 @@ public class EditorPanelRepair {
 
 			/* Nutzer fragen */
 			final String processName=(p.getName().trim().isEmpty())?("id="+p.getId()):("\""+p.getName()+"\" (id="+p.getId()+")");
-			if (!MsgBox.confirm(editorPanel.getTopLevelAncestor(),Language.tr("Window.Check.AutoFixResources.Title"),String.format(Language.tr("Window.Check.AutoFixResources.Info"),processName),Language.tr("Window.Check.AutoFixResources.YesInfo"),Language.tr("Window.Check.AutoFixResources.NoInfo"))) return RepairState.USER_CANCELED;
+			if (!MsgBox.confirm(owner,Language.tr("Window.Check.AutoFixResources.Title"),String.format(Language.tr("Window.Check.AutoFixResources.Info"),processName),Language.tr("Window.Check.AutoFixResources.YesInfo"),Language.tr("Window.Check.AutoFixResources.NoInfo"))) return RepairState.USER_CANCELED;
 
 			/* Kein AutoAdd, wenn es die Ressource schon gibt. */
 			ModelResource resource=model.resources.getNoAutoAdd(resourceName);
@@ -144,7 +172,7 @@ public class EditorPanelRepair {
 		if (noRepeat==null) return RepairState.NOT_CHANGED;
 
 		/* Nutzer fragen */
-		if (!MsgBox.confirm(editorPanel.getTopLevelAncestor(),Language.tr("Window.Check.AutoFixRepeatCount.Title"),String.format(Language.tr("Window.Check.AutoFixRepeatCount.Info"),model.repeatCount,noRepeat),Language.tr("Window.Check.AutoFixRepeatCount.YesInfo"),Language.tr("Window.Check.AutoFixRepeatCount.NoInfo"))) return RepairState.USER_CANCELED;
+		if (!MsgBox.confirm(owner,Language.tr("Window.Check.AutoFixRepeatCount.Title"),String.format(Language.tr("Window.Check.AutoFixRepeatCount.Info"),model.repeatCount,noRepeat),Language.tr("Window.Check.AutoFixRepeatCount.YesInfo"),Language.tr("Window.Check.AutoFixRepeatCount.NoInfo"))) return RepairState.USER_CANCELED;
 
 		/* Anzahl an Wiederholungen auf 1 reduzieren */
 		model.repeatCount=1;
@@ -231,7 +259,7 @@ public class EditorPanelRepair {
 
 		/* Modell hat kein Ausgang-Element? */
 		if (dispose.isEmpty() && disposeAndSave.isEmpty() && needsDispose) {
-			if (!MsgBox.confirm(editorPanel.getTopLevelAncestor(),Language.tr("Window.Check.AutoFixDispose.Title"),Language.tr("Window.Check.AutoFixDispose.Info"),Language.tr("Window.Check.AutoFixDispose.YesInfo"),Language.tr("Window.Check.AutoFixDispose.NoInfo"))) return RepairState.USER_CANCELED;
+			if (!MsgBox.confirm(owner,Language.tr("Window.Check.AutoFixDispose.Title"),Language.tr("Window.Check.AutoFixDispose.Info"),Language.tr("Window.Check.AutoFixDispose.YesInfo"),Language.tr("Window.Check.AutoFixDispose.NoInfo"))) return RepairState.USER_CANCELED;
 			final int x=maxX+100;
 			int y=0;
 			int ySum=0;
@@ -247,7 +275,7 @@ public class EditorPanelRepair {
 		/* Quelle hat keinen Ausgang? */
 		for (ModelElementBox s: source) if ((s instanceof ModelElementEdgeOut) && ((ModelElementEdgeOut)s).getEdgeOut()==null) {
 			if (process.size()+delay.size()!=1) continue; /* Unklar, wohin wir verbinden wollen. */
-			if (!MsgBox.confirm(editorPanel.getTopLevelAncestor(),Language.tr("Window.Check.AutoFixConnection.Title"),String.format(Language.tr("Window.Check.AutoFixConnection.InfoSourceProcess"),s.getId()),Language.tr("Window.Check.AutoFixConnection.YesInfo"),Language.tr("Window.Check.AutoFixConnection.NoInfo"))) return RepairState.USER_CANCELED;
+			if (!MsgBox.confirm(owner,Language.tr("Window.Check.AutoFixConnection.Title"),String.format(Language.tr("Window.Check.AutoFixConnection.InfoSourceProcess"),s.getId()),Language.tr("Window.Check.AutoFixConnection.YesInfo"),Language.tr("Window.Check.AutoFixConnection.NoInfo"))) return RepairState.USER_CANCELED;
 			ModelElementEdge edge=null;
 			if (!process.isEmpty()) {
 				edge=new ModelElementEdge(model,model.surface,s,process.get(0));
@@ -268,7 +296,7 @@ public class EditorPanelRepair {
 
 		/* Verzögerungstation hat keinen Ausgang? */
 		for (ModelElementDelay d: delay) if (d.getEdgesIn().length>0 && d.getEdgeOut()==null) {
-			if (!MsgBox.confirm(editorPanel.getTopLevelAncestor(),Language.tr("Window.Check.AutoFixConnection.Title"),String.format(Language.tr("Window.Check.AutoFixConnection.InfoDelayDispose"),d.getId()),Language.tr("Window.Check.AutoFixConnection.YesInfo"),Language.tr("Window.Check.AutoFixConnection.NoInfo"))) return RepairState.USER_CANCELED;
+			if (!MsgBox.confirm(owner,Language.tr("Window.Check.AutoFixConnection.Title"),String.format(Language.tr("Window.Check.AutoFixConnection.InfoDelayDispose"),d.getId()),Language.tr("Window.Check.AutoFixConnection.YesInfo"),Language.tr("Window.Check.AutoFixConnection.NoInfo"))) return RepairState.USER_CANCELED;
 			if (dispose.size()>0) {
 				final ModelElementEdge edge=new ModelElementEdge(model,model.surface,d,dispose.get(0));
 				d.addEdgeOut(edge);
@@ -285,7 +313,7 @@ public class EditorPanelRepair {
 
 		/* Bedienstation hat keinen Ausgang? */
 		for (ModelElementProcess p: process) if (p.getEdgesIn().length>0 && p.getEdgeOutSuccess()==null) {
-			if (!MsgBox.confirm(editorPanel.getTopLevelAncestor(),Language.tr("Window.Check.AutoFixConnection.Title"),String.format(Language.tr("Window.Check.AutoFixConnection.InfoProcessDispose"),p.getId()),Language.tr("Window.Check.AutoFixConnection.YesInfo"),Language.tr("Window.Check.AutoFixConnection.NoInfo"))) return RepairState.USER_CANCELED;
+			if (!MsgBox.confirm(owner,Language.tr("Window.Check.AutoFixConnection.Title"),String.format(Language.tr("Window.Check.AutoFixConnection.InfoProcessDispose"),p.getId()),Language.tr("Window.Check.AutoFixConnection.YesInfo"),Language.tr("Window.Check.AutoFixConnection.NoInfo"))) return RepairState.USER_CANCELED;
 			if (dispose.size()>0) {
 				final ModelElementEdge edge=new ModelElementEdge(model,model.surface,p,dispose.get(0));
 				p.addEdgeOut(edge);
@@ -331,6 +359,32 @@ public class EditorPanelRepair {
 	}
 
 	/**
+	 * Versucht das Modell zu reparieren.
+	 * @return	Liefert, wenn das Modell verändert wurde, das neue Modell, sonst <code>null</code>
+	 */
+	public EditModel workAndGet() {
+		final EditModel model=editModel.clone();
+
+		final List<Function<EditModel,RepairState>> fixFunctions=new ArrayList<>();
+		fixFunctions.add(m->fixRepeatCount(m));
+		fixFunctions.add(m->fixConnections(m));
+		fixFunctions.add(m->fixResources(m));
+
+		boolean fixed=false;
+		for (Function<EditModel,RepairState> func: fixFunctions) {
+			final RepairState state=func.apply(model);
+			if (state==RepairState.USER_CANCELED) return null;
+			if (state==RepairState.FIXED) fixed=true;
+		}
+
+		if (fixed) {
+			return model;
+		} else {
+			return null;
+		}
+	}
+
+	/**
 	 * Hilfsroutine, die die Erstellung eines Objektes einspart.
 	 * @param editorPanel	Editor-Panel aus dem das Modell entnommen und das korrigierte zurückgegeben werden soll
 	 * @return	Gibt an, ob das Modell korrigiert wurde
@@ -338,5 +392,16 @@ public class EditorPanelRepair {
 	public static boolean autoFix(final EditorPanel editorPanel) {
 		final EditorPanelRepair modelRepairer=new EditorPanelRepair(editorPanel);
 		return modelRepairer.work();
+	}
+
+	/**
+	 * Hilfsroutine, die die Erstellung eines Objektes einspart.
+	 * @param owner	Übergeordnetes Element zur Anzeige von Dialogen
+	 * @param model	Modell das korrigierte werden soll
+	 * @return	Liefert, wenn es Korrekturen gab, ein neues Modell zurück, sonst <code>null</code>
+	 */
+	public static EditModel autoFix(final Container owner, final EditModel model) {
+		final EditorPanelRepair modelRepairer=new EditorPanelRepair(owner,model);
+		return modelRepairer.workAndGet();
 	}
 }

@@ -1821,7 +1821,7 @@ public class MainPanel extends MainPanelBase {
 		if (tryLoadImage(data,dropComponent,dropPosition)) return true;
 
 		/* XML oder json laden */
-		return loadAnyXMLStream(new ByteArrayInputStream(data),errorMessageOnFail);
+		return loadAnyXMLStream(new ByteArrayInputStream(data),file,errorMessageOnFail);
 	}
 
 	@Override
@@ -1898,10 +1898,11 @@ public class MainPanel extends MainPanelBase {
 	/**
 	 * Versucht ein Modell, eine Parameterreihe usw. aus einem xml-Datenstream zu laden
 	 * @param stream	Zu ladender Stream
+	 * @param fileName	Optionaler Dateiname (z.B. um relative Pfade in den geladenen Daten interpretieren zu können) der zu ladenden Daten
 	 * @param errorMessageOnFail	Soll im Falle eines Fehlers eine Meldung ausgegeben werden?
 	 * @return	Gibt <code>true</code> zurück, wenn die Datei erfolgreich geladen werden konnte.
 	 */
-	private boolean loadAnyXMLStream(final InputStream stream, final boolean errorMessageOnFail) {
+	private boolean loadAnyXMLStream(final InputStream stream, final File fileName, final boolean errorMessageOnFail) {
 		final XMLTools xml=new XMLTools(stream);
 		final Element root=xml.load();
 		if (root==null) {
@@ -1932,7 +1933,7 @@ public class MainPanel extends MainPanelBase {
 		}
 		for (String test: new ParameterCompareSetup(null).getRootNodeNames()) if (name.equalsIgnoreCase(test)) {
 			if ((currentPanel instanceof ParameterComparePanel)) {
-				return ((ParameterComparePanel)currentPanel).dragDropLoadFile(this,stream);
+				return ((ParameterComparePanel)currentPanel).dragDropLoadFile(this,stream,fileName);
 			} else {
 				if (!MsgBox.confirm(getOwnerWindow(),Language.tr("XML.ParameterCompareNotActive.Title"),Language.tr("XML.ParameterCompareNotActive.Info"),Language.tr("XML.ParameterCompareNotActive.YesInfo"),Language.tr("XML.ParameterCompareNotActive.NoInfo"))) return false;
 				return commandSimulationParameterSeriesLoad(null,stream);
@@ -3341,7 +3342,7 @@ public class MainPanel extends MainPanelBase {
 	 * @see #commandSimulationParameterSeriesLoad(File, InputStream)
 	 */
 	private ParameterComparePanel getParameterComparePanel(final EditModel editModel, final Statistics miniStatistics, final ParameterCompareTemplatesDialog.TemplateRecord template) {
-		return new ParameterComparePanel(getOwnerWindow(),editModel,miniStatistics,()->{
+		return new ParameterComparePanel(getOwnerWindow(),editModel,editorPanel.getLastFile(),miniStatistics,()->{
 			if (currentPanel instanceof ParameterComparePanel) {
 				final ParameterComparePanel parameterCompare=(ParameterComparePanel)currentPanel;
 				final Statistics statistics=parameterCompare.getStatisticsForEditor();
@@ -3377,7 +3378,7 @@ public class MainPanel extends MainPanelBase {
 	 * @see #commandSimulationParameterSeriesVariance()
 	 */
 	private ParameterComparePanel getParameterComparePanelVariance(final EditModel editModel, final Statistics miniStatistics, final int repeatCount) {
-		final ParameterComparePanel panel=new ParameterComparePanel(getOwnerWindow(),editModel,miniStatistics,()->{
+		final ParameterComparePanel panel=new ParameterComparePanel(getOwnerWindow(),editModel,editorPanel.getLastFile(),miniStatistics,()->{
 			if (currentPanel instanceof ParameterComparePanel) {
 				final ParameterComparePanel parameterCompare=(ParameterComparePanel)currentPanel;
 				final Statistics statistics=parameterCompare.getStatisticsForEditor();
@@ -3434,7 +3435,7 @@ public class MainPanel extends MainPanelBase {
 
 	/**
 	 * Befehl: Simulation - Parameterreihe simulieren - Parameterreihendaten laden
-	 * @param file	Dateiname der zu ladenden Parameterreihe (wird <code>null</code> angegbeben, so wird ein Dateiauswahldialog angezeigt)
+	 * @param file	Dateiname der zu ladenden Parameterreihe (wird <code>null</code> angegeben, so wird ein Dateiauswahldialog angezeigt)
 	 * @param stream	Wird ein Wert ungleich <code>null</code> angegeben, so wird die angegebene Datei ignoriert und die Daten werden aus dem Stream geladen
 	 * @return	Liefert <code>true</code>, wenn die Parameterreihenfunktion aktiviert werden konnte
 	 */
@@ -3448,7 +3449,7 @@ public class MainPanel extends MainPanelBase {
 		if (stream==null) {
 			if (!parameterComparePanel.loadSetup(this,file,false)) return false;
 		} else {
-			if (!parameterComparePanel.loadSetup(this,stream,false)) return false;
+			if (!parameterComparePanel.loadSetup(this,stream,file,false)) return false;
 		}
 
 		checkAutoSave();

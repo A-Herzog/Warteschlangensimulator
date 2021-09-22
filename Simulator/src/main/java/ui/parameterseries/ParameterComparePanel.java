@@ -35,6 +35,14 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Future;
+import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.ThreadFactory;
+import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import javax.swing.AbstractAction;
 import javax.swing.ButtonGroup;
@@ -83,6 +91,7 @@ import systemtools.images.SimToolsImages;
 import systemtools.statistics.StatisticsBasePanel;
 import tools.Notifier;
 import tools.SetupData;
+import ui.EditorPanelRepair;
 import ui.MainFrame;
 import ui.ModelChanger;
 import ui.ModelViewerFrame;
@@ -90,6 +99,7 @@ import ui.dialogs.WaitDialog;
 import ui.help.Help;
 import ui.images.Images;
 import ui.infopanel.InfoPanel;
+import ui.modeleditor.FilePathHelper;
 import ui.optimizer.OptimizerPanelPrepareDialog;
 import ui.parameterseries.ParameterCompareTemplatesDialog.TemplateMode;
 import ui.tools.SpecialPanel;
@@ -111,7 +121,9 @@ public class ParameterComparePanel extends SpecialPanel {
 	/** Parameterreihen-Setup-Objekt um Veränderungen zu detektieren */
 	private final ParameterCompareSetup setupOriginal;
 	/** Editor-Modell auf dessen Basis die Parameterreihe erstellt werden soll */
-	private final EditModel modelFromEditor;
+	private EditModel modelFromEditor;
+	/** Dateiname des Editor-Modell auf dessen Basis die Parameterreihe erstellt werden soll */
+	private File modelFromEditorFileName;
 	/** Statistikdaten bezogen auf einen kurzen Lauf über das angegebene Editor-Modell (zur Auswahl von XML-Elementen als Zielwerte) */
 	private Statistics miniStatistics;
 
@@ -168,14 +180,16 @@ public class ParameterComparePanel extends SpecialPanel {
 	 * Konstruktor der Klasse
 	 * @param owner	Übergeordnetes Fenster
 	 * @param modelFromEditor	Editor-Modell auf dessen Basis die Parameterreihe erstellt werden soll
+	 * @param modelFromEditorFileName	Dateiname des Editor-Modell auf dessen Basis die Parameterreihe erstellt werden soll
 	 * @param miniStatistics	Statistikdaten bezogen auf einen kurzen Lauf über das angegebene Editor-Modell (zur Auswahl von XML-Elementen als Zielwerte)
 	 * @param doneNotify	Wird aufgerufen, wenn sich das Panel schließen möchte
 	 * @param template	Wird ein Wert ungleich <code>null</code> übergeben, so wird direkt auf Basis des Templates eine Parameterreihen-Konfiguration erstellt
 	 */
-	public ParameterComparePanel(final Window owner, final EditModel modelFromEditor, final Statistics miniStatistics, final Runnable doneNotify, final ParameterCompareTemplatesDialog.TemplateRecord template) {
+	public ParameterComparePanel(final Window owner, final EditModel modelFromEditor, final File modelFromEditorFileName, final Statistics miniStatistics, final Runnable doneNotify, final ParameterCompareTemplatesDialog.TemplateRecord template) {
 		super(doneNotify);
 		this.owner=owner;
 		this.modelFromEditor=modelFromEditor;
+		this.modelFromEditorFileName=modelFromEditorFileName;
 		this.miniStatistics=miniStatistics;
 		setup=new ParameterCompareSetup(modelFromEditor);
 		setupOriginal=new ParameterCompareSetup(modelFromEditor);
@@ -289,14 +303,13 @@ public class ParameterComparePanel extends SpecialPanel {
 		table.updateTable();
 
 		/* Evtl. fragen, ob das Modell in der Parameterreihe durch das Editor-Modell ersetzt werden soll */
-		if (modelFromEditor!=null && modelFromEditor.surface.getElementCount()>0 && !this.setup.getEditModel().equalsEditModel(modelFromEditor)) { // XXX TEST
+		if (modelFromEditor!=null && modelFromEditor.surface.getElementCount()>0 && !this.setup.getEditModel().equalsEditModel(modelFromEditor)) {
 			final InfoPanel infoPanel=InfoPanel.getInstance();
 			if (infoPanel.isVisible(InfoPanel.parameterSeriesReplaceModel)) {
 				final int result=MsgBox.options(this,
 						Language.tr("ParameterCompare.Toolbar.Load.ReplaceHint.Title"),Language.tr("ParameterCompare.Toolbar.Load.ReplaceHint.Info"),
 						new String[] {Language.tr("ParameterCompare.Toolbar.Load.ReplaceHint.Option.Replace"),Language.tr("ParameterCompare.Toolbar.Load.ReplaceHint.Option.Keep"),Language.tr("ParameterCompare.Toolbar.Load.ReplaceHint.Option.KeepDontAskAgain")},
 						new String[] {Language.tr("ParameterCompare.Toolbar.Load.ReplaceHint.Option.Replace.Info"),Language.tr("ParameterCompare.Toolbar.Load.ReplaceHint.Option.Keep.Info"),Language.tr("ParameterCompare.Toolbar.Load.ReplaceHint.Option.KeepDontAskAgain.Info")}
-				// Nimmt keine Veränderungen an dem Basismodell in der Parameterreihe vor und stellt diese Frage nie wieder."}
 						);
 				if (result==0) {
 					commandLoadFromEditor();
@@ -392,18 +405,40 @@ public class ParameterComparePanel extends SpecialPanel {
 		final boolean[] needUpdate=new boolean[setup.getOutput().size()];
 		boolean needAnyUpdate=false;
 		for (int i=0;i<needUpdate.length;i++) {
-			needUpdate[i]=(oldOutput.size()<=i || !oldOutput.get(i).equals(setup.getOutput().get(i)));
+			needUpdate[i]=(oldOutput.size()<=i || !oldOutput.get(i).equalsParameterCompareSetupValueOutput(setup.getOutput().get(i)));
 			if (needUpdate[i]) needAnyUpdate=true;
 		}
 		if (!needAnyUpdate) return;
 
-		for (ParameterCompareSetupModel model: setup.getModels()) if (model.isStatisticsAvailable()) {
-			final Statistics statistics=model.getStatistics();
-			for (int i=0;i<needUpdate.length;i++) if (needUpdate[i]) {
-				final ParameterCompareSetupValueOutput output=setup.getOutput().get(i);
-				final String key=output.getName();
-				model.getOutput().put(key,recalcResult(statistics,output));
+		/* Threading-System vorbereiten */
+		final int coreCount=Runtime.getRuntime().availableProcessors();
+		final ExecutorService executor=new ThreadPoolExecutor(coreCount,coreCount,5,TimeUnit.SECONDS,new LinkedBlockingQueue<>(),new ThreadFactory() {
+			private final AtomicInteger threadNumber=new AtomicInteger(1);
+			@Override
+			public Thread newThread(Runnable r) {
+				return new Thread(r,"Table data processcor "+threadNumber.getAndIncrement());
 			}
+		});
+		((ThreadPoolExecutor)executor).allowCoreThreadTimeOut(true);
+
+		/* Parallele Verarbeitung starten */
+		final List<Future<Integer>> processResults=new ArrayList<>();
+		for (ParameterCompareSetupModel model: setup.getModels()) if (model.isStatisticsAvailable()) {
+			processResults.add(executor.submit(()->{
+				final Statistics statistics=model.getStatistics();
+				if (statistics==null) return 0;
+				for (int i=0;i<needUpdate.length;i++) if (needUpdate[i]) {
+					final ParameterCompareSetupValueOutput output=setup.getOutput().get(i);
+					final String key=output.getName();
+					model.getOutput().put(key,recalcResult(statistics,output));
+				}
+				return 0;
+			}));
+		}
+
+		/* Verarbeitung abschließen */
+		for (Future<Integer> result: processResults) {
+			try {result.get();} catch (InterruptedException|ExecutionException e) {}
 		}
 	}
 
@@ -750,6 +785,10 @@ public class ParameterComparePanel extends SpecialPanel {
 	private void commandLoadFromEditor() {
 		if (modelFromEditor==null) return;
 
+		final EditModel newModel=EditorPanelRepair.autoFix(this,modelFromEditor);
+		if (newModel!=null) modelFromEditor=newModel;
+		if (modelFromEditorFileName!=null) FilePathHelper.checkFilePaths(modelFromEditor,modelFromEditorFileName);
+
 		final Statistics miniStatistics=ParameterComparePanel.generateMiniStatistics(this,modelFromEditor,null);
 		if (miniStatistics==null) return;
 		this.miniStatistics=miniStatistics;
@@ -861,7 +900,8 @@ public class ParameterComparePanel extends SpecialPanel {
 		if (hasResults) {
 			boolean hasLongRunStatistics=false;
 			for (ParameterCompareSetupModel model: setup.getModels()) if (model.isStatisticsAvailable()) {
-				if (model.getStatistics().longRunStatistics.size()>0) hasLongRunStatistics=true;
+				final Statistics statistics=model.getStatistics();
+				if (statistics!=null && statistics.longRunStatistics.size()>0) hasLongRunStatistics=true;
 				break;
 			}
 			if (hasLongRunStatistics) addMenuItem(menu,Language.tr("ParameterCompare.Toolbar.ProcessResults.ResultsLongRun"),SimToolsImages.SAVE_TABLE.getIcon(),e->commandPopupLongRunSave());
@@ -972,11 +1012,12 @@ public class ParameterComparePanel extends SpecialPanel {
 	 * Versucht eine Datei, die per Drag&amp;Drop auf das Programmfenster gezogen wurde, zu laden
 	 * @param owner	Übergeordnetes Element (zum Ausrichten von Fehlermeldungen)
 	 * @param stream	Zu ladender Stream
+	 * @param fileName	Optionaler Dateiname zur möglichen Korrektur von Pfaden im Modell
 	 * @return	Gibt <code>true</code> zurück, wenn die Datei geladen werden konnte
 	 */
-	public final boolean dragDropLoadFile(final Component owner, final InputStream stream) {
+	public final boolean dragDropLoadFile(final Component owner, final InputStream stream, final File fileName) {
 		if (!allowDispose()) return false;
-		return loadSetup(owner,stream,true);
+		return loadSetup(owner,stream,fileName,true);
 	}
 
 	/**
@@ -1012,17 +1053,18 @@ public class ParameterComparePanel extends SpecialPanel {
 			return false;
 		}
 
-		return processLoadedSetup(setup,forceLoad);
+		return processLoadedSetup(setup,file,forceLoad);
 	}
 
 	/**
 	 * Versucht eine Parameterreihenkonfiguration zu laden
 	 * @param owner	Übergeordnetes Element (zum Ausrichten von Fehlermeldungen)
 	 * @param stream	Zu ladender Stream
+	 * @param fileName	Optionaler Dateiname zur möglichen Korrektur von Pfaden im Modell
 	 * @param forceLoad	Wird hier <code>true</code> übergeben, so wird das Modell auch dann geladen, wenn es kein simulierbares Basismodell enthält.
 	 * @return	Gibt an, ob das Laden erfolgreich war.
 	 */
-	public boolean loadSetup(final Component owner, final InputStream stream, final boolean forceLoad) {
+	public boolean loadSetup(final Component owner, final InputStream stream, final File fileName, final boolean forceLoad) {
 		final ParameterCompareSetup setup=new ParameterCompareSetup(null);
 		final String error=setup.loadFromStream(stream);
 		if (error!=null) {
@@ -1030,22 +1072,29 @@ public class ParameterComparePanel extends SpecialPanel {
 			return false;
 		}
 
-		return processLoadedSetup(setup,forceLoad);
+		return processLoadedSetup(setup,fileName,forceLoad);
 	}
 
 	/**
 	 * Führt Verarbeitungen mit dem geladenen Parameterreihen-Konfigurationsobjekt
 	 * durch und lädt dieses in die GUI.
 	 * @param setup	In die GUI zu ladendes Parameterreihen-Konfigurationsobjekt
+	 * @param fileName	Optionaler Dateiname zur möglichen Korrektur von Pfaden im Modell
 	 * @param forceLoad	Wird hier <code>true</code> übergeben, so wird das Modell auch dann geladen, wenn es kein simulierbares Basismodell enthält.
 	 * @return	Gibt an, ob das Laden erfolgreich war.
 	 */
-	private boolean processLoadedSetup(final ParameterCompareSetup setup, final boolean forceLoad) {
+	private boolean processLoadedSetup(final ParameterCompareSetup setup, final File fileName, final boolean forceLoad) {
 		final Statistics miniStatistics;
 		if (setup.getEditModel().surface.getElementCount()==0) {
+			final EditModel newModel=EditorPanelRepair.autoFix(this,modelFromEditor);
+			if (newModel!=null) modelFromEditor=newModel;
+			if (modelFromEditorFileName!=null) FilePathHelper.checkFilePaths(modelFromEditor,modelFromEditorFileName);
 			miniStatistics=ParameterComparePanel.generateMiniStatistics(this,modelFromEditor,null);
 			if (miniStatistics!=null) setup.setEditModel(modelFromEditor.clone());
 		} else {
+			final EditModel newModel=EditorPanelRepair.autoFix(this,setup.getEditModel());
+			if (newModel!=null) setup.setEditModel(newModel);
+			if (fileName!=null) FilePathHelper.checkFilePaths(setup.getEditModel(),fileName);
 			miniStatistics=generateMiniStatistics(owner,setup.getEditModel(),null);
 		}
 

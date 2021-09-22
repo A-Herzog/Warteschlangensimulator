@@ -44,13 +44,16 @@ public class FilePathHelper {
 	 * Prüft alle Elemente eines Modells in Bezug auf die Pfade der Ein- und Ausgabedateipfade
 	 * @param model	Zu prüfendes Modell
 	 * @param modelFile	Dateiname der Modelldatei dessen Pfad für Anpassungen verwendet wird
+	 * @return	Liefert <code>true</code>, wenn etwas verändert wurde
 	 */
-	public static void checkFilePaths(final EditModel model, final File modelFile) {
+	public static boolean checkFilePaths(final EditModel model, final File modelFile) {
+		boolean changed=false;
+
 		/* Pfade in den Elementen */
 		for (ModelElement element1: model.surface.getElements()) {
-			checkElement(element1,modelFile);
+			if (checkElement(element1,modelFile)) changed=true;
 			if (element1 instanceof ModelElementSub) for (ModelElement element2: ((ModelElementSub)element1).getSubSurface().getElements()) {
-				checkElement(element2,modelFile);
+				if (checkElement(element2,modelFile)) changed=true;
 			}
 		}
 
@@ -58,47 +61,69 @@ public class FilePathHelper {
 		if (model.pluginsFolder!=null && !model.pluginsFolder.trim().isEmpty()) {
 			final String oldPluginsFolder=model.pluginsFolder.trim();
 			final String newPluginsFolder=checkInputFolder(oldPluginsFolder,modelFile);
-			if (!newPluginsFolder.equals(oldPluginsFolder)) model.pluginsFolder=newPluginsFolder;
+			if (!newPluginsFolder.equals(oldPluginsFolder)) {
+				model.pluginsFolder=newPluginsFolder;
+				changed=true;
+			}
 		}
+
+		return changed;
 	}
 
 	/**
 	 * Prüft eine Datenbankeinstellung in Bezug auf die Pfade für die Datenbankdatei
 	 * @param settings	Zu prüfende Einstellung
 	 * @param modelFile	Dateiname der Modelldatei dessen Pfad für Anpassungen verwendet wird
+	 * @return	Liefert <code>true</code>, wenn etwas verändert wurde
 	 */
-	private static void checkDB(final DBSettings settings, final File modelFile) {
+	private static boolean checkDB(final DBSettings settings, final File modelFile) {
 		final DBConnectSetup setup=DBConnectSetups.getByType(settings.getType());
-		if (setup==null) return;
-		if (!setup.selectSource.isFile) return;
+		if (setup==null) return false;
+		if (!setup.selectSource.isFile) return false;
 
 		final String configOld=settings.getConfig();
 		final String configNew=checkInputFile(configOld,modelFile);
-		if (!configOld.equals(configNew)) settings.setConfig(configNew);
+		if (!configOld.equals(configNew)) {
+			settings.setConfig(configNew);
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 	/**
 	 * Prüft die Pfadangaben in Bezug auf eine bestimmte Station
 	 * @param element	Zu prüfende Station
 	 * @param modelFile	Dateiname der Modelldatei dessen Pfad für Anpassungen verwendet wird
+	 * @return	Liefert <code>true</code>, wenn etwas verändert wurde
 	 */
-	private static void checkElement(final ModelElement element, final File modelFile) {
+	private static boolean checkElement(final ModelElement element, final File modelFile) {
+		boolean changed=false;
+
 		if (element instanceof ElementWithInputFile) {
 			final ElementWithInputFile input=(ElementWithInputFile)element;
 			final String inputFileNameOld=input.getInputFile();
 			final String inputFileNameNew=checkInputFile(inputFileNameOld,modelFile);
-			if (!inputFileNameOld.equals(inputFileNameNew)) input.setInputFile(inputFileNameNew);
+			if (!inputFileNameOld.equals(inputFileNameNew)) {
+				input.setInputFile(inputFileNameNew);
+				changed=true;
+			}
 		}
 		if (element instanceof ElementWithOutputFile) {
 			final ElementWithOutputFile output=(ElementWithOutputFile)element;
 			final String outputFileNameOld=output.getOutputFile();
 			final String outputFileNameNew=checkOutputFile(outputFileNameOld,modelFile);
-			if (!outputFileNameOld.equals(outputFileNameNew)) output.setOutputFile(outputFileNameNew);
+			if (!outputFileNameOld.equals(outputFileNameNew)) {
+				output.setOutputFile(outputFileNameNew);
+				changed=true;
+			}
 		}
 		if (element instanceof ElementWithDB) {
 			final ElementWithDB dbElement=(ElementWithDB)element;
-			checkDB(dbElement.getDb(),modelFile);
+			if (checkDB(dbElement.getDb(),modelFile)) changed=true;
 		}
+
+		return changed;
 	}
 
 	/**
