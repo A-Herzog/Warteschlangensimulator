@@ -1256,7 +1256,7 @@ public final class StatisticsDataPerformanceIndicator extends StatisticsPerforma
 			}
 		}
 
-		if (runCount>0) {
+		if (runCount>1) {
 			node.setAttribute(xmlNameRunCount[0],""+runCount);
 			node.setAttribute(xmlNameRunVar[0],NumberTools.formatSystemNumber(getRunVar()));
 			for (double level: CONFIDENCE_SAVE_LEVEL) {
@@ -1379,7 +1379,7 @@ public final class StatisticsDataPerformanceIndicator extends StatisticsPerforma
 			Double D=NumberTools.getNotNegativeDouble(NumberTools.systemNumberToLocalNumber(value));
 			if (D==null) {
 				final Double D2=NumberTools.getDouble(NumberTools.systemNumberToLocalNumber(value));
-				if (D2==null || D2.doubleValue()<-0.0000001) return String.format(xmlNameRunVarError,node.getNodeName(),value);
+				if (D2==null || D2.doubleValue()<-0.1) return String.format(xmlNameRunVarError,node.getNodeName(),value);
 				runVar=0; /* Frühere Versionen konnten beim Speichern aufgrund von Rundungsungenauigkeiten noch ganz leicht negative Werte speichern. */
 			} else {
 				runVar=D.doubleValue();
