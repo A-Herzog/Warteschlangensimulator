@@ -482,7 +482,7 @@ public class Simulator extends SimulatorBase implements AnySimulator {
 			if (thread==null) continue;
 			final SimulationData data=(SimulationData)(thread.simData);
 			if (data==null) continue;
-			if (runModel.clientCount>0) sum+=(thread.currentDay-1)*FastMath.round(runModel.clientCount*(1+runModel.warmUpTime)/runModel.clientCountDiv);
+			if (runModel.clientCount>0 && thread.currentDay>1) sum+=(thread.currentDay-1)*FastMath.round(runModel.realArrivingClientCount*(1+runModel.warmUpTime)/runModel.clientCountDiv);
 			if (!data.runData.isWarmUp && runModel.clientCount>0) sum+=FastMath.round(runModel.warmUpTime*runModel.clientCount);
 			sum+=data.runData.clientsArrived;
 		}
