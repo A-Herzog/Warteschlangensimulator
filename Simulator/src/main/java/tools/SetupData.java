@@ -3007,7 +3007,7 @@ public class SetupData extends SetupBase {
 			node.setTextContent(quantilLevels);
 		}
 
-		if (!StatisticViewerOverviewText.Filter.getDefault().equals(statisticOverviewFilter)) {
+		if (!StatisticViewerOverviewText.Filter.getDefault().equals(statisticOverviewFilter) && !statisticOverviewFilter.isEmpty()) {
 			root.appendChild(node=doc.createElement("StatisticFilter"));
 			node.setTextContent(statisticOverviewFilter);
 		}

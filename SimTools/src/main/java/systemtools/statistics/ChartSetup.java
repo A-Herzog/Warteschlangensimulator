@@ -453,7 +453,7 @@ public class ChartSetup {
 		if (!defaults.backgroundColor2.equals(backgroundColor2)) saveColor(element,"Background2",backgroundColor2);
 
 		if (!outlineStroke.equals(defaults.outlineStroke)) saveStroke(element,"OutlineWidth",outlineStroke);
-		saveColor(element,"OutlineColor",outlineColor);
+		if (!defaults.outlineColor.equals(outlineColor)) saveColor(element,"OutlineColor",outlineColor);
 	}
 
 	/**
