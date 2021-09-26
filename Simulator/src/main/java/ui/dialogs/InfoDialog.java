@@ -112,9 +112,10 @@ public class InfoDialog extends JDialog {
 
 	/**
 	 * Liefert eine Zusammenstellung der System-Informationen.
+	 * @param showRAM	Auch Informationen zur Speicherbelegung ausgeben?
 	 * @return	Liste mit System-Informationen
 	 */
-	public static List<String> getSystemInfo() {
+	public static List<String> getSystemInfo(final boolean showRAM) {
 		final List<String> list=new ArrayList<>();
 
 		/* Erstellungsdatum */
@@ -151,13 +152,15 @@ public class InfoDialog extends JDialog {
 		list.add("");
 
 		/* Speicherverbrauch */
-		final long l1=ManagementFactory.getMemoryMXBean().getHeapMemoryUsage().getUsed();
-		final long l2=ManagementFactory.getMemoryMXBean().getNonHeapMemoryUsage().getUsed();
-		list.add(Language.tr("InfoDialog.MemoryUsage")+": "+NumberTools.formatLong((l1+l2)/1024/1024)+" MB");
-		list.add(Language.tr("InfoDialog.MemoryAvailable")+": "+NumberTools.formatLong(Runtime.getRuntime().maxMemory()/1024/1024)+" MB");
-		final int maxThreadsByMemory=(int)Math.max(1,Runtime.getRuntime().maxMemory()/1024/1024/100);
-		final int maxThreadByCPU=Runtime.getRuntime().availableProcessors();
-		if (maxThreadsByMemory<maxThreadByCPU) list.add(String.format(Language.tr("InfoDialog.ThreadMemoryLimitation"),maxThreadsByMemory,maxThreadByCPU));
+		if (showRAM) {
+			final long l1=ManagementFactory.getMemoryMXBean().getHeapMemoryUsage().getUsed();
+			final long l2=ManagementFactory.getMemoryMXBean().getNonHeapMemoryUsage().getUsed();
+			list.add(Language.tr("InfoDialog.MemoryUsage")+": "+NumberTools.formatLong((l1+l2)/1024/1024)+" MB");
+			list.add(Language.tr("InfoDialog.MemoryAvailable")+": "+NumberTools.formatLong(Runtime.getRuntime().maxMemory()/1024/1024)+" MB");
+			final int maxThreadsByMemory=(int)Math.max(1,Runtime.getRuntime().maxMemory()/1024/1024/100);
+			final int maxThreadByCPU=Runtime.getRuntime().availableProcessors();
+			if (maxThreadsByMemory<maxThreadByCPU) list.add(String.format(Language.tr("InfoDialog.ThreadMemoryLimitation"),maxThreadsByMemory,maxThreadByCPU));
+		}
 
 		return list;
 	}
@@ -204,7 +207,7 @@ public class InfoDialog extends JDialog {
 		}
 
 		/* System-Informationen */
-		final List<String> text=getSystemInfo();
+		final List<String> text=getSystemInfo(true);
 
 		/* Ausgabe */
 		final StringBuilder infoText=new StringBuilder();

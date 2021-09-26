@@ -22,6 +22,7 @@ import java.util.List;
 
 import language.Language;
 import systemtools.commandline.AbstractCommand;
+import ui.dialogs.InfoDialog;
 
 /**
  * Setzt die Konfiguration auf die Standardwerte zurück.
@@ -51,7 +52,12 @@ public class CommandVersion extends AbstractCommand {
 
 	@Override
 	public void run(AbstractCommand[] allCommands, InputStream in, PrintStream out) {
-		/* keine Verarbeitung erforderlich, die Versionskennung wird automatisch ausgegeben */
+		/* Die Versionskennung wird bereits automatisch ausgegeben. */
+
+		if (out!=null) {
+			out.println();
+			InfoDialog.getSystemInfo(false).forEach(line->out.println(line));
+		}
 	}
 
 	@Override
