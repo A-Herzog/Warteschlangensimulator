@@ -129,7 +129,6 @@ public class ExpressionCalc extends CalcSystem {
 	 * Erstellt auf Basis des Simulationsdatenobjektes {@link #simData}
 	 * die weiteren Listen mit Simulations-Objekten.
 	 * @see #simData
-	 * @see #runElementData
 	 * @see #runElements
 	 * @see #resourceUsage
 	 * @see #transporterUsage
@@ -333,7 +332,7 @@ public class ExpressionCalc extends CalcSystem {
 	 * @throws	MathCalcError	Fehler während der Berechnung
 	 */
 	public double calc(double[] variableValues, final SimulationData simData, final RunDataClient client) throws MathCalcError {
-		if (simData!=null && (runElementData==null || runElements==null || this.simData!=simData)) {
+		if (simData!=null && (runElements==null || this.simData!=simData)) {
 			this.simData=simData;
 			prepareRunElementData();
 		}
