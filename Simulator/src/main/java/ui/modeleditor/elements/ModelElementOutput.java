@@ -347,12 +347,14 @@ public class ModelElementOutput extends ModelElementMultiInSingleOutBox implemen
 		if (!(element instanceof ModelElementOutput)) return false;
 		final ModelElementOutput other=(ModelElementOutput)element;
 
-		if (!outputFile.equals(other.outputFile)) return false;
 		if (outputFile!=null) {
+			if (!outputFile.equals(other.outputFile)) return false;
 			final String outputFileLower=outputFile.toLowerCase();
 			if (outputFileLower.endsWith(".txt") || outputFileLower.endsWith(".tsv")) {
 				if (systemFormat!=other.systemFormat) return false;
 			}
+		} else {
+			if (other.outputFile!=null) return false;
 		}
 		if (outputFileOverwrite!=other.outputFileOverwrite) return false;
 

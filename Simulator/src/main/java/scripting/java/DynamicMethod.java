@@ -31,7 +31,7 @@ public final class DynamicMethod {
 	 * Aufruf über <code>MethodHandle</code> statt über <code>Method</code>
 	 * soll schneller sein - ist er aber leider nicht.
 	 */
-	private static final boolean USE_DYNAMIC_METHOD_HANDLE=false;
+	private static boolean USE_DYNAMIC_METHOD_HANDLE=false;
 
 	/**
 	 * Fortlaufender Zähler für IDs in Klassennamen
