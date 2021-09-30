@@ -889,6 +889,16 @@ Stellt den Ausdruck zur Bestimmung des initialen Wertes der globalen Variable
 \cm{VariablenName} ein.
 
 \item
+\cmd{Model.getGlobalMapInitialValue("{}VariablenName")}:\\
+Liefert den initialen Wertes der Eintrags \cm{VariablenName} der globalen Zuordnung.
+Existiert kein Eintrag mit diesem Namen, so wird \cm{null} geliefert.
+
+\item
+\cmd{Model.setGlobalMapInitialValue("{}VariablenName","{}Ausdruck")}:\\
+Stellt den initialen Wert (vom Typ \cm{Integer}, \cm{Long}, \cm{Double} oder \cm{String}) des Schlüssels \cm{VariablenName}
+in der globalen Zuordnung ein. 
+
+\item
 \cmd{Model.cancel()}:\\
 Setzt den Abbruch-Status. (Nach einem Abbruch werden keine Simulationen mehr ausgeführt.)
 

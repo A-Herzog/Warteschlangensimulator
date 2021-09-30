@@ -730,6 +730,14 @@ properties and for starting simulations.
   Sets the expression by which the initial value of the global variable with
   name <tt>VariableName</tt> is calculated.
   </li>
+  <li><tt>Model.getGlobalMapInitialValue("VariablenName")</tt><br>
+  Gets the initial value of the entry <tt>VariablenName</tt> of the global map.
+  If there is no entry with this name, <code>null</code> will be returned.
+  </li>
+  <li><tt>Model.setGlobalMapInitialValue("VariablenName","Ausdruck")</tt><br>
+  Sets the initial value (of type <tt>Integer</tt>, <tt>Long</tt>, <tt>Double</tt> or <tt>String</tt>) of the key <tt>VariablenName</tt>
+  in the global map. 
+  </li>  
   <li><tt>Model.cancel()</tt><br>
   Sets the cancel status. (When processing is canceled to further simulations will be performed.)
   </li>

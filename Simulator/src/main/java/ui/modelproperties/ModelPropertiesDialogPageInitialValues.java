@@ -17,7 +17,10 @@ package ui.modelproperties;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
+import java.util.HashMap;
+import java.util.Map;
 
+import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -36,6 +39,9 @@ import ui.modeleditor.elements.VariablesTableModel;
  * @see ModelPropertiesDialogPage
  */
 public class ModelPropertiesDialogPageInitialValues extends ModelPropertiesDialogPage {
+	/** Startwerte für die globale Zuordnung */
+	private final Map<String,Object> mapGlobal;
+
 	/** Datenmodell für die Liste der initialen Variablenwerte */
 	private VariablesTableModel variablesTableModel;
 
@@ -51,16 +57,21 @@ public class ModelPropertiesDialogPageInitialValues extends ModelPropertiesDialo
 	 */
 	public ModelPropertiesDialogPageInitialValues(ModelPropertiesDialog dialog, EditModel model, boolean readOnly, Runnable help) {
 		super(dialog,model,readOnly,help);
+		mapGlobal=new HashMap<>(model.globalMapInitial);
 	}
 
 	@Override
 	public void build(JPanel content) {
+		/* Haupttabelle */
 		final Object[] data=VariablesTableModel.buildTable(model,readOnly,help);
 		content.add((JScrollPane)data[0],BorderLayout.CENTER);
 		variablesTableModel=(VariablesTableModel)data[1];
 
+		/* Ergänzende Einstellungen unten */
 		final JPanel setup=new JPanel(new FlowLayout(FlowLayout.LEFT));
 		content.add(setup,BorderLayout.SOUTH);
+
+		/* Aufzeichnung der Variablenwerte */
 		final JLabel label=new JLabel(Language.tr("Editor.Dialog.Tab.InitialVariableValues.RecordVariables")+":");
 		setup.add(label);
 		setup.add(variableRecording=new JComboBox<>(new String[] {
@@ -80,6 +91,11 @@ public class ModelPropertiesDialogPageInitialValues extends ModelPropertiesDialo
 		case MAPS_VARIABLES: variableRecording.setSelectedIndex(2); break;
 		default: variableRecording.setSelectedIndex(0); break;
 		}
+
+		/* Initiale Werte für die globale Zuordnung */
+		final JButton button=new JButton(Language.tr("Editor.Dialog.Tab.InitialVariableValues.Map"),Images.SCRIPT_MAP.getIcon());
+		button.addActionListener(e->new ModelPropertiesDialogPageInitialValuesMapDialog(dialog,mapGlobal,readOnly));
+		setup.add(button);
 	}
 
 	@Override
@@ -90,5 +106,7 @@ public class ModelPropertiesDialogPageInitialValues extends ModelPropertiesDialo
 		case 1: model.variableRecord=EditModel.VariableRecord.VARIABLES; break;
 		case 2: model.variableRecord=EditModel.VariableRecord.MAPS_VARIABLES; break;
 		}
+		model.globalMapInitial.clear();
+		model.globalMapInitial.putAll(mapGlobal);
 	}
 }

@@ -2338,7 +2338,26 @@ public final class ModelSurfacePanel extends JPanel {
 					menu.add(item);
 				}
 			}
-
+			subMenu=new JMenu(Language.tr("Surface.PopupMenu.ParameterCompare.ChangeMapValue"));
+			subMenu.setIcon(Images.PARAMETERSERIES.getIcon());
+			for (String name: model.globalMapInitial.keySet()) {
+				subMenu.add(item=new JMenuItem(name,Images.SCRIPT_MAP.getIcon()));
+				item.addActionListener(e->{
+					final TemplateRecord record=new TemplateRecord(TemplateMode.MODE_MAP,Language.tr("Surface.PopupMenu.ParameterCompare.ChangeMapValue.Short"));
+					record.input.setMode(ModelChanger.Mode.MODE_MAP);
+					record.input.setTag(name);
+					fireBuildParameterSeries(record);
+				});
+			}
+			if (subMenu.getItemCount()>0) {
+				if (subMenu.getItemCount()>1) {
+					menu.add(subMenu);
+				} else {
+					item=new JMenuItem(Language.tr("Surface.PopupMenu.ParameterCompare.ChangeMapValue")+" - "+subMenu.getItem(0).getText(),Images.PARAMETERSERIES.getIcon());
+					item.addActionListener(subMenu.getItem(0).getActionListeners()[0]);
+					menu.add(item);
+				}
+			}
 		}
 
 		menu.show(this,point.x,point.y);

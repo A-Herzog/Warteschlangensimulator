@@ -745,6 +745,13 @@ public class ListPopup {
 
 			menu.add(getMenuItem(Language.tr("Statistic.FastAccess.Template.Variable.Get"),Language.tr("Statistic.FastAccess.Template.Variable.Get.Tooltip"),null,e->commandText("Model.getGlobalVariableInitialValue(\""+variable+"\");",textArea,update)));
 			menu.add(getMenuItem(Language.tr("Statistic.FastAccess.Template.Variable.Set"),Language.tr("Statistic.FastAccess.Template.Variable.Set.Tooltip"),null,e->commandText("Model.setGlobalVariableInitialValue(\""+variable+"\",\""+expression+"\");",textArea,update)));
+
+			menu.add(getMenuItem(Language.tr("Statistic.FastAccess.Template.Map.Get"),Language.tr("Statistic.FastAccess.Template.Map.Get.Tooltip"),null,e->commandText("Model.getGlobalMapInitialValue(\""+variable+"\");",textArea,update)));
+			menu.add(getMenuItem(Language.tr("Statistic.FastAccess.Template.Map.Set"),Language.tr("Statistic.FastAccess.Template.Map.Set.Tooltip"),null,e->commandText("Model.setGlobalMapInitialValue(\""+variable+"\",\""+expression+"\");",textArea,update)));
+
+			menu.addSeparator();
+
+			menu.add(getMenuItem(Language.tr("Statistic.FastAccess.Template.StationID.Get"),Language.tr("Statistic.FastAccess.Template.StationID.Get.Tooltip"),null,e->commandText("Model.getStationID(\"StationName\");",textArea,update)));
 		}
 
 		if (allowSave) {

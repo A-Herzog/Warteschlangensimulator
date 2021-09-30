@@ -29,6 +29,7 @@
   <xs:element ref="ModellZusatzStatistik"/>
   <xs:element ref="InitialeVariable"/>
   <xs:element name="ModellVariablenAufzeichnen" type="xs:string"/>
+  <xs:element ref="InitialeZuordnung"/>
   <xs:element ref="ModellFarbe"/>
   <xs:element ref="ModellHintergrundBild"/>
   <xs:element ref="ModellFertigungsplaene"/>
@@ -163,6 +164,13 @@
 <xs:element name="InitialeVariable"><xs:complexType><xs:simpleContent>
   <xs:extension base="xs:string">
     <xs:attribute name="Name" type="xs:string" use="required"/>
+  </xs:extension>
+</xs:simpleContent></xs:complexType></xs:element>
+
+<xs:element name="InitialeZuordnung"><xs:complexType><xs:simpleContent>
+  <xs:extension base="xs:string">
+    <xs:attribute name="Name" type="xs:string" use="required"/>
+	<xs:attribute name="Typ" type="xs:string" use="required"/>
   </xs:extension>
 </xs:simpleContent></xs:complexType></xs:element>
 
@@ -2212,6 +2220,7 @@
   <xs:element ref="ModelAdditionalStatistics"/>
   <xs:element ref="InitialVariable"/>
   <xs:element name="ModelVariableRecording" type="xs:string"/>
+  <xs:element ref="InitialMap"/>
   <xs:element ref="ModelColor"/>
   <xs:element ref="ModelBackgroundImage"/>
   <xs:element ref="ModelSequences"/>
@@ -2345,6 +2354,13 @@
 <xs:element name="InitialVariable"><xs:complexType><xs:simpleContent>
   <xs:extension base="xs:string">
     <xs:attribute name="Name" type="xs:string" use="required"/>
+  </xs:extension>
+</xs:simpleContent></xs:complexType></xs:element>
+
+<xs:element name="InitialMap"><xs:complexType><xs:simpleContent>
+  <xs:extension base="xs:string">
+    <xs:attribute name="Name" type="xs:string" use="required"/>
+	<xs:attribute name="Type" type="xs:string" use="required"/>
   </xs:extension>
 </xs:simpleContent></xs:complexType></xs:element>
 

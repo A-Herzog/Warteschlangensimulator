@@ -106,6 +106,21 @@ public interface ModelInterface {
 	boolean setGlobalVariableInitialValue(final String variableName, final String expression);
 
 	/**
+	 * Liefert den initialen Wert für einen Eintrag in der globalen Zuordnung
+	 * @param variableName	Name des Eintrags
+	 * @return	Initialer Wert für den Eintrag in der globalen Zuordnung
+	 */
+	Object getGlobalMapInitialValue(final Object variableName);
+
+	/**
+	 * Stellt den initialen Ausdruck für einen Eintrag in der globalen Zuordnung ein
+	 * @param variableName	Name des Eintrags
+	 * @param value Neuer initialer Wert
+	 * @return	Gibt <code>true</code> zurück, wenn das Modell erfolgreich verändert werden konnte.
+	 */
+	boolean setGlobalMapInitialValue(final Object variableName, final Object value);
+
+	/**
 	 * Versucht basierend auf dem Namen einer Station die zugehörige ID zu ermitteln
 	 * @param name	Name der Station
 	 * @return	Zugehörige ID oder -1, wenn keine passende Station gefunden wurde

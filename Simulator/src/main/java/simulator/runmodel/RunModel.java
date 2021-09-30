@@ -183,6 +183,11 @@ public class RunModel {
 	public boolean recordMapValueToStatistic;
 
 	/**
+	 * Startwerte für die globale Zuordnung
+	 */
+	public Map<String,Object> globalMapInitial;
+
+	/**
 	 * Liste der Modell-Elemente des Laufzeitmodells
 	 * @see RunModel#elementsFast
 	 */
@@ -410,6 +415,9 @@ public class RunModel {
 		/* Konfiguration zur Erfassung der Variablenwerte in der Statistik */
 		runModel.recordVariableValuesToStatistic=(editModel.variableRecord==EditModel.VariableRecord.VARIABLES) || (editModel.variableRecord==EditModel.VariableRecord.MAPS_VARIABLES);
 		runModel.recordMapValueToStatistic=(editModel.variableRecord==EditModel.VariableRecord.MAPS_VARIABLES);
+
+		/* Startwerte für die globale Zuordnung */
+		runModel.globalMapInitial=editModel.globalMapInitial;
 
 		return null;
 	}

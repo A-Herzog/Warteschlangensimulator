@@ -758,6 +758,14 @@ Simulationen zu initiieren.
   Stellt den Ausdruck zur Bestimmung des initialen Wertes der globalen Variable
   mit Namen <tt>VariablenName</tt> ein. 
   </li>
+  <li><tt>Model.getGlobalMapInitialValue("VariablenName")</tt><br>
+  Liefert den initialen Wertes der Eintrags <tt>VariablenName</tt> der globalen Zuordnung.
+  Existiert kein Eintrag mit diesem Namen, so wird <code>null</code> geliefert.
+  </li>
+  <li><tt>Model.setGlobalMapInitialValue("VariablenName","Ausdruck")</tt><br>
+  Stellt den initialen Wert (vom Typ <tt>Integer</tt>, <tt>Long</tt>, <tt>Double</tt> oder <tt>String</tt>) des Schlüssels <tt>VariablenName</tt>
+  in der globalen Zuordnung ein. 
+  </li>  
   <li><tt>Model.cancel()</tt><br>
   Setzt den Abbruch-Status. (Nach einem Abbruch werden keine Simulationen mehr ausgeführt.)
   </li>

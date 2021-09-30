@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-09-21 16:31+0200\n"
+"POT-Creation-Date: 2021-09-29 21:54+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -674,8 +674,14 @@ msgstr "There is not resource with the specified name \"%s\"."
 msgid "Batch.Parameter.Changed.Variable"
 msgstr "The initial value for the global variable \"%s\" was set to %s."
 
+msgid "Batch.Parameter.Map.Label"
+msgstr "Map"
+
 msgid "Batch.Parameter.Resource.Label"
 msgstr "Resource"
+
+msgid "Batch.Parameter.Type.Map"
+msgstr "Globale map entry"
 
 msgid "Batch.Parameter.Type.Resource"
 msgstr "Number of operators in a resource"
@@ -3260,6 +3266,9 @@ msgstr "Initial variable values"
 msgid "Editor.Dialog.Tab.InitialVariableValues.InfoText"
 msgstr "Variables are used at many element for flow control. On this page values for some variables at simulation start can be defined."
 
+msgid "Editor.Dialog.Tab.InitialVariableValues.Map"
+msgstr "Initial values for global map"
+
 msgid "Editor.Dialog.Tab.InitialVariableValues.RecordVariables"
 msgstr "Record to statistics"
 
@@ -3271,6 +3280,12 @@ msgstr "Record variable values"
 
 msgid "Editor.Dialog.Tab.InitialVariableValues.RecordVariables.VariablesAndMaps"
 msgstr "Record variable and map values"
+
+msgid "Editor.Dialog.Tab.InitialVariableValuesMap"
+msgstr "Initial variable values - global map"
+
+msgid "Editor.Dialog.Tab.InitialVariableValuesMap.InfoText"
+msgstr "The global map can be used at script stations for flow control. On this page the values of the map at simulation start can be defined."
 
 msgid "Editor.Dialog.Tab.ModelDescription"
 msgstr "Model description"
@@ -11465,6 +11480,12 @@ msgstr "The specified initial value is invalid. An integer number has to be ente
 msgid "Optimizer.ControlVariableEdit.Error.InvalidInitialValue.InfoInteger"
 msgstr "The specified initial value is invalid. A number has to be entered."
 
+msgid "Optimizer.ControlVariableEdit.Error.NoMapInfo"
+msgstr "No global map entry was selected for the control variable."
+
+msgid "Optimizer.ControlVariableEdit.Error.NoMapTitle"
+msgstr "No global map entry selected"
+
 msgid "Optimizer.ControlVariableEdit.Error.NoResourceInfo"
 msgstr "No resource was selected for the control variable."
 
@@ -11482,6 +11503,9 @@ msgstr "No XML element was selected for the control variable."
 
 msgid "Optimizer.ControlVariableEdit.Error.NoXMLTitle"
 msgstr "No XML element selected"
+
+msgid "Optimizer.ControlVariableEdit.Info.Map"
+msgstr "Starting value for the map entry in the base model: \"%s\""
 
 msgid "Optimizer.ControlVariableEdit.Info.Resource"
 msgstr "Number of operators in the group in the base model: %d"
@@ -11537,8 +11561,14 @@ msgstr "The following error occurred while running the filter script"
 msgid "Optimizer.Error.ErrorStartingSimulation"
 msgstr "Error starting the simulation"
 
+msgid "Optimizer.Error.KeyForControlVariablesInvalid"
+msgstr "For control variable %d was global map entry \"%s\" selected. But there is no global map entry with this name."
+
 msgid "Optimizer.Error.NoControlVariables"
 msgstr "No control variables were defined."
+
+msgid "Optimizer.Error.NoKeyNameForControlVariables"
+msgstr "For control variable %d no global map entry was selected."
 
 msgid "Optimizer.Error.NoOutputFileCouldBeDetermined"
 msgstr "No output file could be determined. The results could not be saved."
@@ -11728,6 +11758,9 @@ msgstr "Opens the dialog for editing the current control variable"
 
 msgid "Optimizer.Tab.ControlVariables.Element"
 msgstr "Element"
+
+msgid "Optimizer.Tab.ControlVariables.Element.Map"
+msgstr "Global map entry"
 
 msgid "Optimizer.Tab.ControlVariables.Element.Resource"
 msgstr "Resource"
@@ -12252,6 +12285,9 @@ msgstr "Delay times"
 msgid "ParameterCompare.Mode.Interarrival"
 msgstr "Inter-arrival times"
 
+msgid "ParameterCompare.Mode.Map"
+msgstr "Initial value for global map"
+
 msgid "ParameterCompare.Mode.Operators"
 msgstr "Number of operators in a resource"
 
@@ -12475,6 +12511,9 @@ msgstr "Edit"
 msgid "ParameterCompare.Settings.Input.List.Edit.Hint"
 msgstr "Edits the selected input parameter"
 
+msgid "ParameterCompare.Settings.Input.List.InfoMap"
+msgstr "Initial value for global map key \"%s\""
+
 msgid "ParameterCompare.Settings.Input.List.InfoResource"
 msgstr "Number of operators in resource \"%s\""
 
@@ -12514,6 +12553,12 @@ msgstr "Delay times at station %s"
 msgid "ParameterCompare.Settings.Input.List.Templates.DelayTime.Title"
 msgstr "Delay times at a station"
 
+msgid "ParameterCompare.Settings.Input.List.Templates.GlobalMap"
+msgstr "Initial value for global map key \"%s\""
+
+msgid "ParameterCompare.Settings.Input.List.Templates.GlobalMap.Title"
+msgstr "Initial value for a global map entry"
+
 msgid "ParameterCompare.Settings.Input.List.Templates.GlobalVariable"
 msgstr "Initial value of global variable \"%s\""
 
@@ -12540,6 +12585,21 @@ msgstr "Number of operators in a resource"
 
 msgid "ParameterCompare.Settings.Input.List.Title"
 msgstr "Edit input parameters"
+
+msgid "ParameterCompare.Settings.Input.Mode.GlobalMap"
+msgstr "Global map"
+
+msgid "ParameterCompare.Settings.Input.Mode.GlobalMap.ErrorInfo"
+msgstr "No global map entry for which the initial value is to be changed was selected."
+
+msgid "ParameterCompare.Settings.Input.Mode.GlobalMap.ErrorTitle"
+msgstr "No global map entry selected"
+
+msgid "ParameterCompare.Settings.Input.Mode.GlobalMap.Info"
+msgstr "Current initial value of the global map entry: %s"
+
+msgid "ParameterCompare.Settings.Input.Mode.GlobalMap.Label"
+msgstr "Name of the global map entry"
 
 msgid "ParameterCompare.Settings.Input.Mode.GlobalVariable"
 msgstr "Global variable"
@@ -18115,6 +18175,18 @@ msgstr "Name of the Javascript engine"
 
 msgid "Statistic.FastAccess.Template.JSEngineName.Hint"
 msgstr "The name of the current Javascript engine as a variable."
+
+msgid "Statistic.FastAccess.Template.Map.Get"
+msgstr "Read global map entry"
+
+msgid "Statistic.FastAccess.Template.Map.Get.Tooltip"
+msgstr "Gets the initial value of a global map entry."
+
+msgid "Statistic.FastAccess.Template.Map.Set"
+msgstr "Write global map entry"
+
+msgid "Statistic.FastAccess.Template.Map.Set.Tooltip"
+msgstr "Sets the initial value of a global map entry."
 
 msgid "Statistic.FastAccess.Template.NewLine"
 msgstr "Add line break"
@@ -26309,6 +26381,12 @@ msgstr "Parameter series: change average inter-arrival time"
 msgid "Surface.PopupMenu.ParameterCompare.ChangeInterarrivalTime.Short"
 msgstr "Average inter-arrival time"
 
+msgid "Surface.PopupMenu.ParameterCompare.ChangeMapValue"
+msgstr "Parameter series: change value of map entr"
+
+msgid "Surface.PopupMenu.ParameterCompare.ChangeMapValue.Short"
+msgstr "Map entry"
+
 msgid "Surface.PopupMenu.ParameterCompare.ChangeOperatorCount"
 msgstr "Parameter series: change operator count"
 
@@ -29960,6 +30038,18 @@ msgstr "ModelElementFlowStopSignal"
 
 msgid "Surface.XML.FlowData.StopTime"
 msgstr "ModelElementFlowTime"
+
+msgid "Surface.XML.GlobalMap"
+msgstr "InitialMap"
+
+msgid "Surface.XML.GlobalMap.Name"
+msgstr "Name"
+
+msgid "Surface.XML.GlobalMap.Type"
+msgstr "Type"
+
+msgid "Surface.XML.GlobalMap.TypeError"
+msgstr "The value specified as the initial value for the key \"%s\" in the global map is invalid. The format for the value for this key is \"%s\"."
 
 msgid "Surface.XML.GlobalVariable"
 msgstr "InitialVariable"

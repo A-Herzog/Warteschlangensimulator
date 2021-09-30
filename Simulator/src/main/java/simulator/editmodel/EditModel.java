@@ -283,6 +283,11 @@ public final class EditModel extends EditModelBase implements Cloneable  {
 	public VariableRecord variableRecord;
 
 	/**
+	 * Startwerte für die globale Zuordnung
+	 */
+	public Map<String,Object> globalMapInitial;
+
+	/**
 	 * Liste der Fertigungspläne
 	 */
 	public final ModelSequences sequences;
@@ -442,6 +447,7 @@ public final class EditModel extends EditModelBase implements Cloneable  {
 		globalVariablesNames=new ArrayList<>();
 		globalVariablesExpressions=new ArrayList<>();
 		variableRecord=VariableRecord.OFF;
+		globalMapInitial=new HashMap<>();
 		sequences=new ModelSequences();
 		transporters=new ModelTransporters();
 		pathSegments=new ModelPaths();
@@ -524,6 +530,7 @@ public final class EditModel extends EditModelBase implements Cloneable  {
 		globalVariablesNames.clear();
 		globalVariablesExpressions.clear();
 		variableRecord=VariableRecord.OFF;
+		globalMapInitial.clear();
 		for (int i=0;i<surfaceColors.length;i++) surfaceColors[i]=DEFAULT_COLORS[i];
 		surfaceBackgroundImage=null;
 		surfaceBackgroundImageScale=1.0;
@@ -588,6 +595,8 @@ public final class EditModel extends EditModelBase implements Cloneable  {
 		clone.globalVariablesNames.addAll(globalVariablesNames);
 		clone.globalVariablesExpressions.addAll(globalVariablesExpressions);
 		clone.variableRecord=variableRecord;
+		clone.globalMapInitial.clear();
+		clone.globalMapInitial.putAll(globalMapInitial);
 		for (int i=0;i<surfaceColors.length;i++) clone.surfaceColors[i]=surfaceColors[i];
 		clone.surfaceBackgroundImage=surfaceBackgroundImage; /* Bild wird wenn immer neu zugewiesen, ist quasi immutable, daher reicht eine Referenz statt ScaledImageCache.copyImage(surfaceBackgroundImage); */
 		clone.surfaceBackgroundImageScale=surfaceBackgroundImageScale;
@@ -669,6 +678,7 @@ public final class EditModel extends EditModelBase implements Cloneable  {
 		if (globalVariablesExpressions.size()!=otherModel.globalVariablesExpressions.size()) return false;
 		for (int i=0;i<globalVariablesExpressions.size();i++) if (!globalVariablesExpressions.get(i).equals(otherModel.globalVariablesExpressions.get(i))) return false;
 		if (variableRecord!=otherModel.variableRecord) return false;
+		if (!Objects.deepEquals(globalMapInitial,otherModel.globalMapInitial)) return false;
 		for (int i=0;i<surfaceColors.length;i++) if (!Objects.equals(surfaceColors[i],otherModel.surfaceColors[i])) return false;
 		if (!ScaledImageCache.compare(surfaceBackgroundImage,otherModel.surfaceBackgroundImage)) return false;
 		if (surfaceBackgroundImageScale!=otherModel.surfaceBackgroundImageScale) return false;
@@ -891,6 +901,31 @@ public final class EditModel extends EditModelBase implements Cloneable  {
 			if (Language.trAll("Surface.XML.VariableRecording.Variables",text)) variableRecord=VariableRecord.VARIABLES;
 			if (Language.trAll("Surface.XML.VariableRecording.VariablesAndMaps",text)) variableRecord=VariableRecord.MAPS_VARIABLES;
 			return null;
+		}
+
+		if (Language.trAll("Surface.XML.GlobalMap",name)) {
+			final String key=Language.trAllAttribute("Surface.XML.GlobalMap.Name",node).trim();
+			final String type=Language.trAllAttribute("Surface.XML.GlobalMap.Type",node).toLowerCase();
+			if (!key.isEmpty()) switch (type) {
+			case "integer":
+				final Integer I=NumberTools.getInteger(text);
+				if (I==null) return String.format(Language.tr("Surface.XML.GlobalMap.TypeError"),key,"Integer");
+				globalMapInitial.put(key,I);
+				break;
+			case "long":
+				final Long L=NumberTools.getLong(text);
+				if (L==null) return String.format(Language.tr("Surface.XML.GlobalMap.TypeError"),key,"Long");
+				globalMapInitial.put(key,L);
+				break;
+			case "double":
+				final Double D=NumberTools.getDouble(text);
+				if (D==null) return String.format(Language.tr("Surface.XML.GlobalMap.TypeError"),key,"Double");
+				globalMapInitial.put(key,D);
+				break;
+			case "string":
+				globalMapInitial.put(key,text);
+				break;
+			}
 		}
 
 		if (Language.trAll("Surface.XML.SurfaceColor",name)) {
@@ -1144,6 +1179,27 @@ public final class EditModel extends EditModelBase implements Cloneable  {
 			case OFF: sub.setTextContent(Language.tr("Surface.XML.VariableRecording.Off")); break;
 			case VARIABLES: sub.setTextContent(Language.tr("Surface.XML.VariableRecording.Variables")); break;
 			case MAPS_VARIABLES: sub.setTextContent(Language.tr("Surface.XML.VariableRecording.VariablesAndMaps")); break;
+			}
+		}
+
+		for (Map.Entry<String,Object> entry: globalMapInitial.entrySet()) {
+			node.appendChild(sub=doc.createElement(Language.trPrimary("Surface.XML.GlobalMap")));
+			sub.setAttribute(Language.trPrimary("Surface.XML.GlobalMap.Name"),entry.getKey());
+			if (entry.getValue() instanceof Integer) {
+				sub.setAttribute(Language.trPrimary("Surface.XML.GlobalMap.Type"),"Integer");
+				sub.setTextContent(""+(entry.getValue()));
+			}
+			if (entry.getValue() instanceof Long) {
+				sub.setAttribute(Language.trPrimary("Surface.XML.GlobalMap.Type"),"Long");
+				sub.setTextContent(""+(entry.getValue()));
+			}
+			if (entry.getValue() instanceof Double) {
+				sub.setAttribute(Language.trPrimary("Surface.XML.GlobalMap.Type"),"Double");
+				sub.setTextContent(NumberTools.formatSystemNumber((Double)entry.getValue()));
+			}
+			if (entry.getValue() instanceof String) {
+				sub.setAttribute(Language.trPrimary("Surface.XML.GlobalMap.Type"),"String");
+				sub.setTextContent((String)entry.getValue());
 			}
 		}
 

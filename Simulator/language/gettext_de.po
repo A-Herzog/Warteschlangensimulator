@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-09-21 16:31+0200\n"
+"POT-Creation-Date: 2021-09-29 21:54+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -674,8 +674,14 @@ msgstr "Es existiert keine Ressource mit dem angegebenen Namen \"%s\"."
 msgid "Batch.Parameter.Changed.Variable"
 msgstr "Der Startwert der globalen Variable \"%s\" wurde auf %s gesetzt."
 
+msgid "Batch.Parameter.Map.Label"
+msgstr "Zuordnng"
+
 msgid "Batch.Parameter.Resource.Label"
 msgstr "Ressource"
+
+msgid "Batch.Parameter.Type.Map"
+msgstr "Eintrag in globaler Zuordnung"
 
 msgid "Batch.Parameter.Type.Resource"
 msgstr "Anzahl Bediener in Ressource"
@@ -3263,6 +3269,9 @@ msgstr "Initiale Variablenwerte"
 msgid "Editor.Dialog.Tab.InitialVariableValues.InfoText"
 msgstr "Variable können in vielen Elementen zur Ablaufsteuerung verwendet werden. Auf dieser Seite können Werte, die einzelne Variablen zu Simulationsbeginn besitzen sollen, festgelegt werden."
 
+msgid "Editor.Dialog.Tab.InitialVariableValues.Map"
+msgstr "Startwerte für globale Zuordnung"
+
 msgid "Editor.Dialog.Tab.InitialVariableValues.RecordVariables"
 msgstr "Erfassung in der Statistik"
 
@@ -3274,6 +3283,12 @@ msgstr "Variablenwerte erfassen"
 
 msgid "Editor.Dialog.Tab.InitialVariableValues.RecordVariables.VariablesAndMaps"
 msgstr "Variablen und Zuordnungsdaten erfassen"
+
+msgid "Editor.Dialog.Tab.InitialVariableValuesMap"
+msgstr "Initiale Variablenwerte - globale Zuordnung"
+
+msgid "Editor.Dialog.Tab.InitialVariableValuesMap.InfoText"
+msgstr "Die Daten der globalen Zuordnung können in Skripten zur Ablaufsteuerung verwendet werden. Auf dieser Seite können optional Werte, die zu Simulationsbeginn eingestellt werden sollen, festgelegt werden."
 
 msgid "Editor.Dialog.Tab.ModelDescription"
 msgstr "Modellbeschreibung"
@@ -11457,6 +11472,12 @@ msgstr "Der angegebene Startwert ist ungültig. Es muss eine ganze Zahl angegebe
 msgid "Optimizer.ControlVariableEdit.Error.InvalidInitialValue.InfoInteger"
 msgstr "Der angegebene Startwert ist ungültig. Es muss eine Zahl angegeben werden."
 
+msgid "Optimizer.ControlVariableEdit.Error.NoMapInfo"
+msgstr "Es wurde kein Eintrag in der globalen Zuordnung für die Kontrollvariable ausgewählt."
+
+msgid "Optimizer.ControlVariableEdit.Error.NoMapTitle"
+msgstr "Kein Eintrag in der globalen Zuordnung gewählt"
+
 msgid "Optimizer.ControlVariableEdit.Error.NoResourceInfo"
 msgstr "Es wurde keine Ressource für die Kontrollvariable ausgewählt."
 
@@ -11474,6 +11495,9 @@ msgstr "Es wurde kein XML-Element für die Kontrollvariable ausgewählt."
 
 msgid "Optimizer.ControlVariableEdit.Error.NoXMLTitle"
 msgstr "Kein XML-Element gewählt"
+
+msgid "Optimizer.ControlVariableEdit.Info.Map"
+msgstr "Startwert für den Eintrag %s\" in der globalen Zuordnung im Ausgangsmodell:"
 
 msgid "Optimizer.ControlVariableEdit.Info.Resource"
 msgstr "Anzahl an Bedienern in der Gruppe im Ausgangsmodell: %d"
@@ -11529,8 +11553,14 @@ msgstr "Beim Ausführen des Filter-Skripts ist der folgende Fehler aufgetreten"
 msgid "Optimizer.Error.ErrorStartingSimulation"
 msgstr "Fehler beim Starten der Simulation"
 
+msgid "Optimizer.Error.KeyForControlVariablesInvalid"
+msgstr "Für die %d. Kontrollvariable angegebener Eintrag in der globalen Zuordnung \"%s\" existiert nicht."
+
 msgid "Optimizer.Error.NoControlVariables"
 msgstr "Es wurden keine Kontrollvariablen definiert."
+
+msgid "Optimizer.Error.NoKeyNameForControlVariables"
+msgstr "Für die %d. Kontrollvariable wurde kein Eintrag in der globalen Zuordnung angegeben."
 
 msgid "Optimizer.Error.NoOutputFileCouldBeDetermined"
 msgstr "Es konnte keine Ausgabedatei ermittelt werden. Die Ergebnisse können nicht gespeichert werden."
@@ -11721,6 +11751,9 @@ msgstr "Öffnet den Bearbeitendialog für die aktuelle Kontrollvariable"
 
 msgid "Optimizer.Tab.ControlVariables.Element"
 msgstr "Element"
+
+msgid "Optimizer.Tab.ControlVariables.Element.Map"
+msgstr "Eintrag in globaler Zuordnung"
 
 msgid "Optimizer.Tab.ControlVariables.Element.Resource"
 msgstr "Ressource"
@@ -12248,6 +12281,9 @@ msgstr "Verzögerungszeiten"
 msgid "ParameterCompare.Mode.Interarrival"
 msgstr "Zwischenankunftszeiten"
 
+msgid "ParameterCompare.Mode.Map"
+msgstr "Startwert für globale globale Zuordnung"
+
 msgid "ParameterCompare.Mode.Operators"
 msgstr "Anzahl an Bedienern"
 
@@ -12472,6 +12508,9 @@ msgstr "Bearbeiten"
 msgid "ParameterCompare.Settings.Input.List.Edit.Hint"
 msgstr "Bearbeitet den gewählten Eingabeparameter"
 
+msgid "ParameterCompare.Settings.Input.List.InfoMap"
+msgstr "Startwert für Eintrag \"%s\" in globaler Zuordnung"
+
 msgid "ParameterCompare.Settings.Input.List.InfoResource"
 msgstr "Bedieneranzahl in Ressource \"%s\""
 
@@ -12511,6 +12550,12 @@ msgstr "Verzögerung an Station %s"
 msgid "ParameterCompare.Settings.Input.List.Templates.DelayTime.Title"
 msgstr "Verzögerung an einer Station"
 
+msgid "ParameterCompare.Settings.Input.List.Templates.GlobalMap"
+msgstr "Startwert für Eintrag \"%s\" in globaler Zuordnung"
+
+msgid "ParameterCompare.Settings.Input.List.Templates.GlobalMap.Title"
+msgstr "Startwert für einen Eintrag in der globaler Zuordnung"
+
 msgid "ParameterCompare.Settings.Input.List.Templates.GlobalVariable"
 msgstr "Startwert der globalen Variable \"%s\""
 
@@ -12537,6 +12582,21 @@ msgstr "Anzahl an Bedienern in einer Ressource"
 
 msgid "ParameterCompare.Settings.Input.List.Title"
 msgstr "Eingabeparameter bearbeiten"
+
+msgid "ParameterCompare.Settings.Input.Mode.GlobalMap"
+msgstr "Globale Zuordnung"
+
+msgid "ParameterCompare.Settings.Input.Mode.GlobalMap.ErrorInfo"
+msgstr "Es wurde kein Eintrag in der globalen Zuordnung gewählt, bei der der initiale Wert variiert werden soll."
+
+msgid "ParameterCompare.Settings.Input.Mode.GlobalMap.ErrorTitle"
+msgstr "Keine Eintrag in der globalen Zuordnung gewählt"
+
+msgid "ParameterCompare.Settings.Input.Mode.GlobalMap.Info"
+msgstr "Aktueller Startwert für den Eintrag: %s"
+
+msgid "ParameterCompare.Settings.Input.Mode.GlobalMap.Label"
+msgstr "Name des Eintrag in der globalen Zuordnung"
 
 msgid "ParameterCompare.Settings.Input.Mode.GlobalVariable"
 msgstr "Globale Variable"
@@ -18119,6 +18179,18 @@ msgstr "Name der verwendeten Javascript-Umgebung"
 
 msgid "Statistic.FastAccess.Template.JSEngineName.Hint"
 msgstr "Name der verwendeten Javascript-Umgebung als Variable."
+
+msgid "Statistic.FastAccess.Template.Map.Get"
+msgstr "Eintrag aus globaler Zuordnung lesen"
+
+msgid "Statistic.FastAccess.Template.Map.Get.Tooltip"
+msgstr "Liefert den Initialwert eines Eintrafg aus der globalen Zuordnung."
+
+msgid "Statistic.FastAccess.Template.Map.Set"
+msgstr "Eintrag in globaler Zuordnung verändern"
+
+msgid "Statistic.FastAccess.Template.Map.Set.Tooltip"
+msgstr "Stellt den Initialwert eines Eintrag in der globalen Zuordnung ein."
 
 msgid "Statistic.FastAccess.Template.NewLine"
 msgstr "Zeilenumbruch ausgeben"
@@ -26321,6 +26393,12 @@ msgstr "Parameterreihe: Mittlere Zwischenankunftszeiten variieren"
 msgid "Surface.PopupMenu.ParameterCompare.ChangeInterarrivalTime.Short"
 msgstr "Mittlere Zwischenankunftszeit"
 
+msgid "Surface.PopupMenu.ParameterCompare.ChangeMapValue"
+msgstr "Parameterreihe: Initiale Zuordnungwerte"
+
+msgid "Surface.PopupMenu.ParameterCompare.ChangeMapValue.Short"
+msgstr "Zuordnungwert"
+
 msgid "Surface.PopupMenu.ParameterCompare.ChangeOperatorCount"
 msgstr "Parameterreihe: Anzahl an Bedienern variieren"
 
@@ -29974,6 +30052,18 @@ msgstr "ModellElementFlussStopSignal"
 
 msgid "Surface.XML.FlowData.StopTime"
 msgstr "ModellElementFlussZeit"
+
+msgid "Surface.XML.GlobalMap"
+msgstr "InitialeZuordnung"
+
+msgid "Surface.XML.GlobalMap.Name"
+msgstr "Name"
+
+msgid "Surface.XML.GlobalMap.Type"
+msgstr "Typ"
+
+msgid "Surface.XML.GlobalMap.TypeError"
+msgstr "Der als initialer Wert für den Schlüssel \"%s\" der globalen Zuordnung angegebene Wert ist ungültig. Das Format für den Wert zu diesem Schlüssel ist \"%s\"."
 
 msgid "Surface.XML.GlobalVariable"
 msgstr "InitialeVariable"

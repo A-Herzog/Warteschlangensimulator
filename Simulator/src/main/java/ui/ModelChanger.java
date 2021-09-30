@@ -49,6 +49,8 @@ public class ModelChanger {
 		MODE_RESOURCE,
 		/** Initialen Wert einer Variable ändern */
 		MODE_VARIABLE,
+		/** Initialen Wert in der Map ändern */
+		MODE_MAP,
 		/** Wert eines XML-Elements oder -Attributs ändern */
 		MODE_XML
 	}
@@ -353,6 +355,7 @@ public class ModelChanger {
 		switch (mode) {
 		case MODE_RESOURCE: return changeModelRes(originalModel,tag,value);
 		case MODE_VARIABLE: return changeModelVar(originalModel,tag,value);
+		case MODE_MAP: return changeModelMap(originalModel,tag,value);
 		case MODE_XML: return changeModelXML(originalModel,tag,xmlChangeMode,value);
 		default: return originalModel;
 		}
@@ -394,6 +397,36 @@ public class ModelChanger {
 			editModel.globalVariablesExpressions.set(i,NumberTools.formatNumberMax(value));
 			ok=true;
 			break;
+		}
+		if (!ok) {
+			Object obj=editModel.globalMapInitial.get(tag);
+			if (obj!=null) {
+				editModel.globalMapInitial.put(tag,value);
+				ok=true;
+			}
+		}
+		if (!ok) return String.format(Language.tr("Batch.Parameter.Changed.NoVariable"),tag);
+
+		editModel.description=String.format(Language.tr("Batch.Parameter.Changed.Variable"),tag,NumberTools.formatNumberMax(value))+"\n\n"+editModel.description;
+		return editModel;
+	}
+
+	/**
+	 * Verändert einen Variablen-Wert in einem Modell
+	 * @param originalModel	Ausgangsmodell
+	 * @param tag	Variable, deren Wert geändert werden soll
+	 * @param value	Neuer einzutragender Wert
+	 * @return	Gibt im Erfolgsfall ein neues Modell vom Typ <code>EditModel</code> zurück. Im Fehlerfall wird eine Fehlermeldung als String zurückgegeben.
+	 * @see #changeModel(EditModel, Mode, String, int, double)
+	 */
+	private static Object changeModelMap(final EditModel originalModel, final String tag, final double value) {
+		final EditModel editModel=originalModel.clone();
+
+		boolean ok=false;
+		Object obj=editModel.globalMapInitial.get(tag);
+		if (obj!=null) {
+			editModel.globalMapInitial.put(tag,value);
+			ok=true;
 		}
 		if (!ok) return String.format(Language.tr("Batch.Parameter.Changed.NoVariable"),tag);
 
@@ -482,6 +515,13 @@ public class ModelChanger {
 			editModel.globalVariablesExpressions.set(i,value);
 			ok=true;
 			break;
+		}
+		if (!ok) {
+			Object obj=editModel.globalMapInitial.get(tag);
+			if (obj!=null) {
+				editModel.globalMapInitial.put(tag,value);
+				ok=true;
+			}
 		}
 		if (!ok) return String.format(Language.tr("Batch.Parameter.Changed.NoVariable"),tag);
 

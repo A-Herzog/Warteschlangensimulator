@@ -121,6 +121,13 @@ public class ParameterCompareAssistantTableModel extends JTableExtAbstractTableM
 			final int i=model.globalVariablesNames.indexOf(record.getTag());
 			if (i>=0) testString=model.globalVariablesExpressions.get(i);
 			break;
+		case MODE_MAP:
+			final Object obj=model.globalMapInitial.get(record.getTag());
+			if (obj instanceof Integer) testString=""+(obj);
+			if (obj instanceof Long) testString=""+(obj);
+			if (obj instanceof Double) testString=NumberTools.formatNumberMax((Double)obj);
+			if (obj instanceof String) testString=(String)obj;
+			break;
 		case MODE_XML:
 			final String value=ModelChanger.getValue(model,record.getTag(),record.getXMLMode());
 			if (value!=null) testString=value;
@@ -197,6 +204,9 @@ public class ParameterCompareAssistantTableModel extends JTableExtAbstractTableM
 		case MODE_VARIABLE:
 			sb.append(String.format(Language.tr("ParameterCompare.Settings.Input.List.InfoVariable"),record.getTag()));
 			break;
+		case MODE_MAP:
+			sb.append(String.format(Language.tr("ParameterCompare.Settings.Input.List.InfoMap"),record.getTag()));
+			break;
 		case MODE_XML:
 			String type=ModelChanger.XML_ELEMENT_MODES[Math.max(0,Math.min(ModelChanger.XML_ELEMENT_MODES.length-1,record.getXMLMode()))];
 			sb.append(String.format(Language.tr("ParameterCompare.Settings.Input.List.InfoXML"),record.getTag(),type));
@@ -224,6 +234,13 @@ public class ParameterCompareAssistantTableModel extends JTableExtAbstractTableM
 		case MODE_VARIABLE:
 			final int i=model.globalVariablesNames.indexOf(record.getTag());
 			if (i>=0) return model.globalVariablesExpressions.get(i);
+			break;
+		case MODE_MAP:
+			final Object obj=model.globalMapInitial.get(record.getTag());
+			if (obj instanceof Integer) return ""+(obj);
+			if (obj instanceof Long) return ""+(obj);
+			if (obj instanceof Double) return NumberTools.formatNumberMax((Double)obj);
+			if (obj instanceof String) return (String)obj;
 			break;
 		case MODE_XML:
 			final String value=ModelChanger.getValue(model,record.getTag(),record.getXMLMode());

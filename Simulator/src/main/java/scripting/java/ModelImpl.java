@@ -242,6 +242,34 @@ public class ModelImpl implements ModelInterface {
 	}
 
 	/**
+	 * Liefert den initialen Wert für einen Eintrag in der globalen Zuordnung
+	 * @param variableName	Name des Eintrags
+	 * @return	Initialer Wert für den Eintrag in der globalen Zuordnung
+	 */
+	@Override
+	public Object getGlobalMapInitialValue(final Object variableName) {
+		if (!(variableName instanceof String)) return null;
+
+		return model.globalMapInitial.get(variableName);
+	}
+
+	/**
+	 * Stellt den initialen Ausdruck für einen Eintrag in der globalen Zuordnung ein
+	 * @param variableName	Name des Eintrags
+	 * @param value Neuer initialer Wert
+	 * @return	Gibt <code>true</code> zurück, wenn das Modell erfolgreich verändert werden konnte.
+	 */
+	@Override
+	public boolean setGlobalMapInitialValue(final Object variableName, final Object value) {
+		if (value==null) return false;
+		if (!(variableName instanceof String)) return false;
+
+		model.globalMapInitial.put((String)variableName,value);
+
+		return true;
+	}
+
+	/**
 	 * Setzt den Abbruch-Status. (Nach einem Abbruch werden keine Simulationsläufe mehr ausgeführt.)
 	 */
 	@Override

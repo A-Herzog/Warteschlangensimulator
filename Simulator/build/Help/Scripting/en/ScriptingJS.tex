@@ -838,6 +838,16 @@ Sets the expression by which the initial value of the global variable with
 name \cm{VariableName} is calculated.
 
 \item
+\cmd{Model.getGlobalMapInitialValue("{}VariableName")}:\\
+Gets the initial value of the entry \cm{VariablenName} of the global map.
+If there is no entry with this name, \cm{null} will be returned.
+
+\item
+\cmd{Model.setGlobalMapInitialValue("{}VariableName","{}Expression")}:\\
+Sets the initial value (of type \cm{Integer}, \cm{Long}, \cm{Double} oder \cm{String}) of the key \cm{VariablenName}
+in the global map.
+
+\item
 \cmd{Model.cancel()}:\\
 Sets the cancel status. (When processing is canceled to further simulations will be performed.)
 

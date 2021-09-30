@@ -930,6 +930,9 @@ public class ScriptPopup {
 		String modelSetRes="";
 		String modelGetVar="";
 		String modelSetVar="";
+		String modelGetMap="";
+		String modelSetMap="";
+		String modelGetID="";
 
 		if (scriptMode==ScriptMode.Javascript) {
 			modelReset="Model.reset();";
@@ -941,6 +944,9 @@ public class ScriptPopup {
 			modelSetRes="Model.setResourceCount(\""+resource+"\","+number+");";
 			modelGetVar="Model.getGlobalVariableInitialValue(\""+variable+"\");";
 			modelSetVar="Model.setGlobalVariableInitialValue(\""+variable+"\",\""+expression+"\");";
+			modelGetMap="Model.getGlobalMapInitialValue(\""+variable+"\");";
+			modelSetMap="Model.setGlobalMapInitialValue(\""+variable+"\",\""+expression+"\");";
+			modelGetID="Model.getStationID(\"StationName\");";
 		}
 
 		if (scriptMode==ScriptMode.Java) {
@@ -953,6 +959,9 @@ public class ScriptPopup {
 			modelSetRes="sim.getModel().setResourceCount(\""+resource+"\","+number+");";
 			modelGetVar="sim.getModel().getGlobalVariableInitialValue(\""+variable+"\");";
 			modelSetVar="sim.getModel().setGlobalVariableInitialValue(\""+variable+"\",\""+expression+"\");";
+			modelGetMap="sim.getModel().getGlobalMapInitialValue(\""+variable+"\");";
+			modelSetMap="sim.getModel().setGlobalMapInitialValue(\""+variable+"\",\""+expression+"\");";
+			modelGetID="sim.getModel().getStationID(\"StationName\");";
 		}
 
 		ScriptPopupItemSub sub;
@@ -972,6 +981,11 @@ public class ScriptPopup {
 		sub.addSeparator();
 		sub.addChild(new ScriptPopupItemCommand(Language.tr("Statistic.FastAccess.Template.Variable.Get"),Language.tr("Statistic.FastAccess.Template.Variable.Get.Tooltip"),Images.SCRIPT_RECORD_VARIABLE.getIcon(),modelGetVar));
 		sub.addChild(new ScriptPopupItemCommand(Language.tr("Statistic.FastAccess.Template.Variable.Set"),Language.tr("Statistic.FastAccess.Template.Variable.Set.Tooltip"),Images.SCRIPT_RECORD_VARIABLE.getIcon(),modelSetVar));
+		sub.addSeparator();
+		sub.addChild(new ScriptPopupItemCommand(Language.tr("Statistic.FastAccess.Template.Map.Get"),Language.tr("Statistic.FastAccess.Template.Map.Get.Tooltip"),Images.SCRIPT_MAP.getIcon(),modelGetMap));
+		sub.addChild(new ScriptPopupItemCommand(Language.tr("Statistic.FastAccess.Template.Map.Set"),Language.tr("Statistic.FastAccess.Template.Map.Set.Tooltip"),Images.SCRIPT_MAP.getIcon(),modelSetMap));
+		sub.addSeparator();
+		sub.addChild(new ScriptPopupItemCommand(Language.tr("Statistic.FastAccess.Template.StationID.Get"),Language.tr("Statistic.FastAccess.Template.StationID.Get.Tooltip"),Images.SCRIPT_RECORD_MODEL_EDIT.getIcon(),modelGetID));
 
 		sub.addSeparator();
 		final List<Object> list=new ParameterCompareInputValuesTemplates(model).getList();
@@ -1026,6 +1040,20 @@ public class ScriptPopup {
 	private String inputToScript(final ParameterCompareSetupValueInput input) {
 		final String number=Language.tr("Statistic.FastAccess.Template.Parameter.Number");
 		final String tag=escape(input.getTag());
+		final String variable=Language.tr("Statistic.FastAccess.Template.Parameter.VariableName");
+		final String expression=Language.tr("Statistic.FastAccess.Template.Parameter.Expression");
+
+		if (input.getMode()==ModelChanger.Mode.MODE_VARIABLE) switch (scriptMode) {
+		case Javascript: return "Model.setGlobalVariableInitialValue(\""+variable+"\",\""+expression+"\");";
+		case Java: return "sim.getModel().setGlobalVariableInitialValue(\""+variable+"\",\""+expression+"\");";
+		default: return "";
+		}
+
+		if (input.getMode()==ModelChanger.Mode.MODE_MAP) switch (scriptMode) {
+		case Javascript: return "Model.setGlobalMapInitialValue(\""+variable+"\",\""+expression+"\");";
+		case Java: return "sim.getModel().setGlobalMapInitialValue(\""+variable+"\",\""+expression+"\");";
+		default: return "";
+		}
 
 		if (input.getMode()==ModelChanger.Mode.MODE_RESOURCE) switch (scriptMode) {
 		case Javascript: return "Model.setResourceCount(\""+tag+"\","+number+");";

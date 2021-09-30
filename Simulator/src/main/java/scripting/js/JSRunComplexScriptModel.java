@@ -220,6 +220,35 @@ public final class JSRunComplexScriptModel extends JSBaseCommand {
 	}
 
 	/**
+	 * Liefert den initialen Wert für einen Eintrag in der globalen Zuordnung
+	 * @param variableName	Name des Eintrags
+	 * @return	Initialer Wert für den Eintrag in der globalen Zuordnung
+	 */
+	public Object getGlobalMapInitialValue(final Object variableName) {
+		if (!(variableName instanceof String)) return null;
+
+		final EditModel model=runner.getChangedModel();
+		return model.globalMapInitial.get(variableName);
+	}
+
+	/**
+	 * Stellt den initialen Ausdruck für einen Eintrag in der globalen Zuordnung ein
+	 * @param variableName	Name des Eintrags
+	 * @param value Neuer initialer Wert
+	 * @return	Gibt <code>true</code> zurück, wenn das Modell erfolgreich verändert werden konnte.
+	 */
+	public boolean setGlobalMapInitialValue(final Object variableName, final Object value) {
+		if (value==null) return false;
+		if (!(variableName instanceof String)) return false;
+
+		final EditModel model=runner.getChangedModel().clone();
+		model.globalMapInitial.put((String)variableName,value);
+
+		runner.setChangedModel(model);
+		return true;
+	}
+
+	/**
 	 * Setzt den Abbruch-Status. (Nach einem Abbruch werden keine Simulationsläufe mehr ausgeführt.)
 	 */
 	public void cancel() {

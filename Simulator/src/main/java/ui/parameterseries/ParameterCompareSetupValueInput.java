@@ -163,11 +163,12 @@ public final class ParameterCompareSetupValueInput extends ParameterCompareSetup
 			s=Language.trAllAttribute("ParameterCompare.XML.Inputs.Data.Mode",node);
 			if (s!=null && !s.trim().isEmpty()) {
 				final Integer I=NumberTools.getNotNegativeInteger(s);
-				if (I==null || I.intValue()>2) return String.format(Language.tr("Surface.XML.AttributeSubError"),Language.trPrimary("ParameterCompare.XML.Inputs.Data.Mode"),name,node.getParentNode().getNodeName());
+				if (I==null || I.intValue()>3) return String.format(Language.tr("Surface.XML.AttributeSubError"),Language.trPrimary("ParameterCompare.XML.Inputs.Data.Mode"),name,node.getParentNode().getNodeName());
 				switch (I.intValue()) {
 				case 0: mode=ModelChanger.Mode.MODE_RESOURCE; break;
 				case 1: mode=ModelChanger.Mode.MODE_VARIABLE; break;
 				case 2: mode=ModelChanger.Mode.MODE_XML; break;
+				case 3: mode=ModelChanger.Mode.MODE_MAP; break;
 				}
 			}
 			s=Language.trAllAttribute("ParameterCompare.XML.Inputs.Data.XMLMode",node);
@@ -193,6 +194,7 @@ public final class ParameterCompareSetupValueInput extends ParameterCompareSetup
 		switch (mode) {
 		case MODE_RESOURCE: modeInt=0; break;
 		case MODE_VARIABLE: modeInt=1; break;
+		case MODE_MAP: modeInt=3; break;
 		case MODE_XML: modeInt=2; break;
 		}
 		sub.setAttribute(Language.tr("ParameterCompare.XML.Inputs.Data.Mode"),""+modeInt);

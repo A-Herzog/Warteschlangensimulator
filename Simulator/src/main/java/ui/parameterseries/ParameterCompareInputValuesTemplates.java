@@ -177,6 +177,20 @@ public class ParameterCompareInputValuesTemplates {
 				}
 				list2.add(input);
 			}
+			list2=null;
+			for (String name: model.globalMapInitial.keySet()) {
+				final ParameterCompareSetupValueInput input=new ParameterCompareSetupValueInput();
+				input.setName(String.format(Language.tr("ParameterCompare.Settings.Input.List.Templates.GlobalMap"),name));
+				input.setMode(ModelChanger.Mode.MODE_MAP);
+				input.setTag(name);
+				if (isParameterInUse.test(input)) continue;
+				if (list2==null) {
+					sub=new Sub(Language.tr("ParameterCompare.Settings.Input.List.Templates.GlobalMap.Title"),ModelChanger.Mode.MODE_MAP);
+					list.add(sub);
+					list2=sub.list;
+				}
+				list2.add(input);
+			}
 		}
 
 		/* Zwischenankunftszeiten */
@@ -493,6 +507,7 @@ public class ParameterCompareInputValuesTemplates {
 		switch (iconMode) {
 		case MODE_RESOURCE: return Images.PARAMETERSERIES_INPUT_MODE_RESOURCE.getIcon();
 		case MODE_VARIABLE: return Images.PARAMETERSERIES_INPUT_MODE_VARIABLE.getIcon();
+		case MODE_MAP: return Images.SCRIPT_MAP.getIcon();
 		case MODE_XML: return Images.PARAMETERSERIES_INPUT_MODE_XML.getIcon();
 		default: return null;
 		}

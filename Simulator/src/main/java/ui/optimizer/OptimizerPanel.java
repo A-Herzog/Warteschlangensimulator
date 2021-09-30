@@ -1432,6 +1432,9 @@ public class OptimizerPanel extends SpecialPanel {
 				case MODE_VARIABLE:
 					sb.append(Language.tr("Optimizer.Tab.ControlVariables.Element.Variable"));
 					break;
+				case MODE_MAP:
+					sb.append(Language.tr("Optimizer.Tab.ControlVariables.Element.Map"));
+					break;
 				case MODE_XML:
 					sb.append(Language.tr("Optimizer.Tab.ControlVariables.Element"));
 					break;

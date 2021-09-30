@@ -60,14 +60,30 @@ public class ExpressionCalculatorDialogTableModel extends JTableExtAbstractTable
 	private String[] keys;
 
 	/**
+	 * Nur-Lese-Status
+	 */
+	private final boolean readOnly;
+
+	/**
+	 * Konstruktor der Klasse
+	 * @param table	Zugehörige Tabelle
+	 * @param map	Darzustellende und zu verändernde Zuordnung
+	 * @param readOnly	Nur-Lese-Status
+	 */
+	public ExpressionCalculatorDialogTableModel(final JTableExt table, final Map<String,Object> map, final boolean readOnly) {
+		this.table=table;
+		this.map=map;
+		this.readOnly=readOnly;
+		updateKeySet();
+	}
+
+	/**
 	 * Konstruktor der Klasse
 	 * @param table	Zugehörige Tabelle
 	 * @param map	Darzustellende und zu verändernde Zuordnung
 	 */
 	public ExpressionCalculatorDialogTableModel(final JTableExt table, final Map<String,Object> map) {
-		this.table=table;
-		this.map=map;
-		updateKeySet();
+		this(table,map,false);
 	}
 
 	/**
@@ -95,12 +111,12 @@ public class ExpressionCalculatorDialogTableModel extends JTableExtAbstractTable
 
 	@Override
 	public int getRowCount() {
-		return map.size()+1;
+		return map.size()+(readOnly?0:1);
 	}
 
 	@Override
 	public int getColumnCount() {
-		return 4;
+		return readOnly?3:4;
 	}
 
 	@Override
@@ -173,7 +189,7 @@ public class ExpressionCalculatorDialogTableModel extends JTableExtAbstractTable
 
 	@Override
 	public Object getValueAt(final int rowIndex, final int columnIndex) {
-		if (rowIndex==map.size()) return getValueAtLastRow(columnIndex);
+		if (rowIndex==map.size() && !readOnly) return getValueAtLastRow(columnIndex);
 
 		switch (columnIndex) {
 		case 0:

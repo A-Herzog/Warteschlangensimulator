@@ -22,6 +22,7 @@ import java.awt.FlowLayout;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
@@ -99,6 +100,11 @@ public class OptimizerPanelControlVariableDialog extends BaseDialog {
 	private final JComboBox<String> varCombo;
 
 	/**
+	 * Wert eines Eintrags in der globalen Zuordnung
+	 */
+	private final JComboBox<String> mapCombo;
+
+	/**
 	 * XML-Element als Kontrollvariable
 	 */
 	private final JTextField xmlTagEdit;
@@ -161,11 +167,13 @@ public class OptimizerPanelControlVariableDialog extends BaseDialog {
 		modeCombo=getComboBox(content,Language.tr("Optimizer.Tab.Target.Mode"),new String[]{
 				Language.tr("Batch.Parameter.Type.Resource"),
 				Language.tr("Batch.Parameter.Type.Variable"),
+				Language.tr("Batch.Parameter.Type.Map"),
 				Language.tr("Batch.Parameter.Type.XML")
 		});
 		modeCombo.setRenderer(new IconListCellRenderer(new Images[]{
 				Images.PARAMETERSERIES_INPUT_MODE_RESOURCE,
 				Images.PARAMETERSERIES_INPUT_MODE_VARIABLE,
+				Images.SCRIPT_MAP,
 				Images.PARAMETERSERIES_INPUT_MODE_XML
 		}));
 
@@ -189,9 +197,17 @@ public class OptimizerPanelControlVariableDialog extends BaseDialog {
 		if (varCombo.getItemCount()>0) varCombo.setSelectedIndex(0);
 		varCombo.addActionListener(e->updateInfo());
 
-		/* XML-Feld */
+		/* Globale Zuordnung */
 
 		cardsPanel.add(sub=new JPanel(),"2");
+		sub.setLayout(new BoxLayout(sub,BoxLayout.PAGE_AXIS));
+		mapCombo=getComboBox(sub,Language.tr("Batch.Parameter.Map.Label"),new ArrayList<>(model.globalMapInitial.keySet()).toArray(new String[0]));
+		if (mapCombo.getItemCount()>0) mapCombo.setSelectedIndex(0);
+		mapCombo.addActionListener(e->updateInfo());
+
+		/* XML-Feld */
+
+		cardsPanel.add(sub=new JPanel(),"3");
 		sub.setLayout(new BoxLayout(sub,BoxLayout.PAGE_AXIS));
 
 		sub.add(line=new JPanel(new BorderLayout()));
@@ -251,7 +267,8 @@ public class OptimizerPanelControlVariableDialog extends BaseDialog {
 		switch (controlVariable.mode) {
 		case MODE_RESOURCE: modeCombo.setSelectedIndex(0); break;
 		case MODE_VARIABLE: modeCombo.setSelectedIndex(1); break;
-		case MODE_XML: modeCombo.setSelectedIndex(2); break;
+		case MODE_MAP: modeCombo.setSelectedIndex(2); break;
+		case MODE_XML: modeCombo.setSelectedIndex(3); break;
 		}
 
 		xmlTagEdit.setText(controlVariable.tag);
@@ -302,7 +319,16 @@ public class OptimizerPanelControlVariableDialog extends BaseDialog {
 			final String varStart=OptimizerSetup.getGlobalVariablesStartValues(model,(String)varCombo.getSelectedItem());
 			if (varStart!=null) startValueInfo.setText(String.format(Language.tr("Optimizer.ControlVariableEdit.Info.Variable"),varStart)); else startValueInfo.setText("");
 			break;
-		case 2: /* XML-Feld */
+		case 2: /* Zuordnung */
+			final Object obj=model.globalMapInitial.get(mapCombo.getSelectedItem());
+			String mapStart=null;
+			if (obj instanceof Integer) mapStart=""+obj;
+			if (obj instanceof Long) mapStart=""+obj;
+			if (obj instanceof Double) mapStart=NumberTools.formatNumberMax((Double)obj);
+			if (obj instanceof String) mapStart=(String)obj;
+			if (mapStart!=null) startValueInfo.setText(String.format(Language.tr("Optimizer.ControlVariableEdit.Info.Map"),mapStart)); else startValueInfo.setText("");
+			break;
+		case 3: /* XML-Feld */
 			final String info=ModelChanger.getValue(model,xmlTagEdit.getText(),xmlMode.getSelectedIndex());
 			if (info!=null) startValueInfo.setText(String.format(Language.tr("Optimizer.ControlVariableEdit.Info.XML"),info)); else startValueInfo.setText("");
 			break;
@@ -337,6 +363,15 @@ public class OptimizerPanelControlVariableDialog extends BaseDialog {
 			}
 			break;
 		case 2:
+			if (mapCombo.getSelectedIndex()<0) {
+				ok=false;
+				if (showErrorMessages) {
+					MsgBox.error(this,Language.tr("Optimizer.ControlVariableEdit.Error.NoMapTitle"),Language.tr("Optimizer.ControlVariableEdit.Error.NoMapInfo"));
+					return false;
+				}
+			}
+			break;
+		case 3:
 			if (xmlTagEdit.getText().trim().isEmpty()) {
 				ok=false;
 				if (showErrorMessages) {
@@ -472,6 +507,10 @@ public class OptimizerPanelControlVariableDialog extends BaseDialog {
 			if (varCombo.getSelectedIndex()<0) controlVariable.tag=""; else controlVariable.tag=(String)varCombo.getSelectedItem();
 			break;
 		case 2:
+			controlVariable.mode=ModelChanger.Mode.MODE_MAP;
+			if (mapCombo.getSelectedIndex()<0) controlVariable.tag=""; else controlVariable.tag=(String)mapCombo.getSelectedItem();
+			break;
+		case 3:
 			controlVariable.mode=ModelChanger.Mode.MODE_XML;
 			controlVariable.tag=xmlTagEdit.getText();
 			controlVariable.xmlMode=xmlMode.getSelectedIndex();

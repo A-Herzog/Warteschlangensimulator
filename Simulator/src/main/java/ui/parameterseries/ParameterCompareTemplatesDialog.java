@@ -99,6 +99,11 @@ public class ParameterCompareTemplatesDialog extends BaseDialog {
 		MODE_VARIABLES,
 
 		/**
+		 * Initialwert für die globale Zuordnung variieren
+		 */
+		MODE_MAP,
+
+		/**
 		 * Verzögerungszeiten variieren
 		 */
 		MODE_DELAY,
@@ -149,6 +154,7 @@ public class ParameterCompareTemplatesDialog extends BaseDialog {
 		case MODE_OPERATORS: return Language.tr("ParameterCompare.Mode.Operators");
 		case MODE_SERVICETIMES: return Language.tr("ParameterCompare.Mode.ServiceTimes");
 		case MODE_VARIABLES: return Language.tr("ParameterCompare.Mode.Variables");
+		case MODE_MAP: return Language.tr("ParameterCompare.Mode.Map");
 		case MODE_DELAY: return Language.tr("ParameterCompare.Mode.Delay");
 		case MODE_ANALOG: return Language.tr("ParameterCompare.Mode.Analog");
 		case MODE_CONVEYOR: return Language.tr("ParameterCompare.Mode.Conveyor");
@@ -168,6 +174,7 @@ public class ParameterCompareTemplatesDialog extends BaseDialog {
 		case MODE_OPERATORS: return Images.PARAMETERSERIES_TEMPLATE_MODE_OPERATORS.getIcon();
 		case MODE_SERVICETIMES: return Images.PARAMETERSERIES_TEMPLATE_MODE_SERVICETIMES.getIcon();
 		case MODE_VARIABLES: return Images.PARAMETERSERIES_TEMPLATE_MODE_VARIABLES.getIcon();
+		case MODE_MAP: return Images.SCRIPT_MAP.getIcon();
 		case MODE_DELAY: return Images.PARAMETERSERIES_TEMPLATE_MODE_DELAY.getIcon();
 		case MODE_ANALOG: return Images.PARAMETERSERIES_TEMPLATE_MODE_ANALOG.getIcon();
 		case MODE_CONVEYOR: return Images.PARAMETERSERIES_TEMPLATE_MODE_CONVEYOR.getIcon();
@@ -193,10 +200,10 @@ public class ParameterCompareTemplatesDialog extends BaseDialog {
 	}
 
 	/**
-	 * Liefert möglichen Parametereihen-Vorlagen mit Bezug auf die Zwischenankunftszeiten
+	 * Liefert möglichen Parameterreihen-Vorlagen mit Bezug auf die Zwischenankunftszeiten
 	 * @param model	Ausgangsmodell
 	 * @param stations	Liste der Stationen im Ausgangsmodell
-	 * @return	Liste mit Parametereihen-Vorlagen mit Bezug auf die Zwischenankunftszeiten
+	 * @return	Liste mit Parameterreihen-Vorlagen mit Bezug auf die Zwischenankunftszeiten
 	 */
 	private static List<TemplateRecord> getTemplatesInterarrival(final EditModel model, final List<ModelElementBox> stations) {
 		final List<TemplateRecord> list=new ArrayList<>();
@@ -240,9 +247,9 @@ public class ParameterCompareTemplatesDialog extends BaseDialog {
 	}
 
 	/**
-	 * Liefert möglichen Parametereihen-Vorlagen mit Bezug auf die Bedienergruppen
+	 * Liefert möglichen Parameterreihen-Vorlagen mit Bezug auf die Bedienergruppen
 	 * @param model	Ausgangsmodell
-	 * @return	Liste mit Parametereihen-Vorlagen mit Bezug auf die Bedienergruppen
+	 * @return	Liste mit Parameterreihen-Vorlagen mit Bezug auf die Bedienergruppen
 	 */
 	private static List<TemplateRecord> getTemplatesResources(final EditModel model) {
 		final List<TemplateRecord> list=new ArrayList<>();
@@ -278,10 +285,10 @@ public class ParameterCompareTemplatesDialog extends BaseDialog {
 	}
 
 	/**
-	 * Liefert möglichen Parametereihen-Vorlagen mit Bezug auf die Bedienzeiten
+	 * Liefert möglichen Parameterreihen-Vorlagen mit Bezug auf die Bedienzeiten
 	 * @param model	Ausgangsmodell
 	 * @param stations	Liste der Stationen im Ausgangsmodell
-	 * @return	Liste mit Parametereihen-Vorlagen mit Bezug auf die Bedienzeiten
+	 * @return	Liste mit Parameterreihen-Vorlagen mit Bezug auf die Bedienzeiten
 	 */
 	private static List<TemplateRecord> getTemplatesServiceTimes(final EditModel model, final List<ModelElementBox> stations) {
 		final List<TemplateRecord> list=new ArrayList<>();
@@ -309,9 +316,9 @@ public class ParameterCompareTemplatesDialog extends BaseDialog {
 	}
 
 	/**
-	 * Liefert möglichen Parametereihen-Vorlagen mit Bezug auf die Variablen
+	 * Liefert möglichen Parameterreihen-Vorlagen mit Bezug auf die Variablen
 	 * @param model	Ausgangsmodell
-	 * @return	Liste mit Parametereihen-Vorlagen mit Bezug auf die Variablen
+	 * @return	Liste mit Parameterreihen-Vorlagen mit Bezug auf die Variablen
 	 */
 	private static List<TemplateRecord> getTemplatesVariables(final EditModel model) {
 		final List<TemplateRecord> list=new ArrayList<>();
@@ -331,6 +338,28 @@ public class ParameterCompareTemplatesDialog extends BaseDialog {
 	}
 
 	/**
+	 * Liefert möglichen Parameterreihen-Vorlagen mit Bezug auf die globale Zuordnung
+	 * @param model	Ausgangsmodell
+	 * @return	Liste mit Parameterreihen-Vorlagen mit Bezug auf die globale Zuordnung
+	 */
+	private static List<TemplateRecord> getTemplatesMap(final EditModel model) {
+		final List<TemplateRecord> list=new ArrayList<>();
+
+		for (String name: model.globalMapInitial.keySet()) {
+			final TemplateRecord record=new TemplateRecord(
+					TemplateMode.MODE_MAP,
+					String.format(Language.tr("ParameterCompare.Settings.Input.List.Templates.GlobalMap"),name)
+					);
+			record.input.setMode(ModelChanger.Mode.MODE_MAP);
+			record.input.setTag(name);
+
+			list.add(record);
+		}
+
+		return list;
+	}
+
+	/**
 	 * Sind an der Verzögerungsstation mehrere Verteilungen hinterlegt?
 	 * @param delay	Verzögerungsstation
 	 * @return	Liefert <code>true</code>, wenn mehrere Verteilungen vorhanden sind
@@ -340,10 +369,10 @@ public class ParameterCompareTemplatesDialog extends BaseDialog {
 	}
 
 	/**
-	 * Liefert möglichen Parametereihen-Vorlagen mit Bezug auf die Verzögerungsszeiten
+	 * Liefert möglichen Parameterreihen-Vorlagen mit Bezug auf die Verzögerungsszeiten
 	 * @param model	Ausgangsmodell
 	 * @param stations	Liste der Stationen im Ausgangsmodell
-	 * @return	Liste mit Parametereihen-Vorlagen mit Bezug auf die Verzögerungsszeiten
+	 * @return	Liste mit Parameterreihen-Vorlagen mit Bezug auf die Verzögerungsszeiten
 	 */
 	private static List<TemplateRecord> getTemplatesDelayTimes(final EditModel model, final List<ModelElementBox> stations) {
 		final List<TemplateRecord> list=new ArrayList<>();
@@ -371,10 +400,10 @@ public class ParameterCompareTemplatesDialog extends BaseDialog {
 	}
 
 	/**
-	 * Liefert möglichen Parametereihen-Vorlagen mit Bezug auf die Analogwerte
+	 * Liefert möglichen Parameterreihen-Vorlagen mit Bezug auf die Analogwerte
 	 * @param model	Ausgangsmodell
 	 * @param stations	Liste der Stationen im Ausgangsmodell
-	 * @return	Liste mit Parametereihen-Vorlagen mit Bezug auf die Analogwerte
+	 * @return	Liste mit Parameterreihen-Vorlagen mit Bezug auf die Analogwerte
 	 */
 	private static List<TemplateRecord> getTemplatesAnalogValues(final EditModel model, final List<ModelElementBox> stations) {
 		final List<TemplateRecord> list=new ArrayList<>();
@@ -399,10 +428,10 @@ public class ParameterCompareTemplatesDialog extends BaseDialog {
 	}
 
 	/**
-	 * Liefert möglichen Parametereihen-Vorlagen mit Bezug auf die Fließbänder
+	 * Liefert möglichen Parameterreihen-Vorlagen mit Bezug auf die Fließbänder
 	 * @param model	Ausgangsmodell
 	 * @param stations	Liste der Stationen im Ausgangsmodell
-	 * @return	Liste mit Parametereihen-Vorlagen mit Bezug auf die Fließbänder
+	 * @return	Liste mit Parameterreihen-Vorlagen mit Bezug auf die Fließbänder
 	 */
 	private static List<TemplateRecord> getTemplatesConveyor(final EditModel model, final List<ModelElementBox> stations) {
 		final List<TemplateRecord> list=new ArrayList<>();
@@ -422,10 +451,10 @@ public class ParameterCompareTemplatesDialog extends BaseDialog {
 	}
 
 	/**
-	 * Liefert möglichen Parametereihen-Vorlagen mit Bezug auf die Batch-Größen
+	 * Liefert möglichen Parameterreihen-Vorlagen mit Bezug auf die Batch-Größen
 	 * @param model	Ausgangsmodell
 	 * @param stations	Liste der Stationen im Ausgangsmodell
-	 * @return	Liste mit Parametereihen-Vorlagen mit Bezug auf die Batch-Größen
+	 * @return	Liste mit Parameterreihen-Vorlagen mit Bezug auf die Batch-Größen
 	 */
 	private static List<TemplateRecord> getTemplatesBatchSize(final EditModel model, final List<ModelElementBox> stations) {
 		final List<TemplateRecord> list=new ArrayList<>();
@@ -460,6 +489,7 @@ public class ParameterCompareTemplatesDialog extends BaseDialog {
 		map.put(TemplateMode.MODE_OPERATORS,getTemplatesResources(model));
 		map.put(TemplateMode.MODE_SERVICETIMES,getTemplatesServiceTimes(model,stations));
 		map.put(TemplateMode.MODE_VARIABLES,getTemplatesVariables(model));
+		map.put(TemplateMode.MODE_MAP,getTemplatesMap(model));
 		map.put(TemplateMode.MODE_DELAY,getTemplatesDelayTimes(model,stations));
 		map.put(TemplateMode.MODE_ANALOG,getTemplatesAnalogValues(model,stations));
 		map.put(TemplateMode.MODE_CONVEYOR,getTemplatesConveyor(model,stations));
@@ -483,6 +513,13 @@ public class ParameterCompareTemplatesDialog extends BaseDialog {
 		case MODE_VARIABLE:
 			final int i=model.globalVariablesNames.indexOf(record.getTag());
 			if (i>=0) return model.globalVariablesExpressions.get(i);
+			break;
+		case MODE_MAP:
+			final Object obj=model.globalMapInitial.get(record.getTag());
+			if (obj instanceof Integer) return ""+(obj);
+			if (obj instanceof Long) return ""+(obj);
+			if (obj instanceof Double) return NumberTools.formatNumberMax((Double)obj);
+			if (obj instanceof String) return (String)obj;
 			break;
 		case MODE_XML:
 			final String value=ModelChanger.getValue(model,record.getTag(),record.getXMLMode());

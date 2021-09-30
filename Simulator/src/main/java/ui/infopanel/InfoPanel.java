@@ -97,6 +97,9 @@ public class InfoPanel {
 	/** Info-ID für die Dialogseite "Initiale Variablenwerte" im Modelleigenschaften-Dialog */
 	public static final String modelInitialValues=groupModel+"InitialVariableValues";
 
+	/** Info-ID für den Dialog "Startwerte für globale Zuordnung" auf der Dialogseite "Initiale Variablenwerte" im Modelleigenschaften-Dialog */
+	public static final String modelInitialValuesMap=groupModel+"InitialVariableValuesMap";
+
 	/** Info-ID für die Dialogseite "Laufzeitstatistik" im Modelleigenschaften-Dialog */
 	public static final String modelRunTimeStatistics=groupModel+"RunTimeStatistics";
 
@@ -612,6 +615,10 @@ public class InfoPanel {
 		register(modelInitialValues,
 				()->Language.tr("Editor.Dialog.Title")+"|"+Language.tr("Editor.Dialog.Tab.InitialVariableValues"),
 				()->Language.tr("Editor.Dialog.Tab.InitialVariableValues.InfoText"));
+
+		register(modelInitialValuesMap,
+				()->Language.tr("Editor.Dialog.Title")+"|"+Language.tr("Editor.Dialog.Tab.InitialVariableValuesMap"),
+				()->Language.tr("Editor.Dialog.Tab.InitialVariableValuesMap.InfoText"));
 
 		register(modelRunTimeStatistics,
 				()->Language.tr("Editor.Dialog.Title")+"|"+Language.tr("Editor.Dialog.Tab.RunTimeStatistics"),

@@ -699,6 +699,7 @@ public class OptimizerSetup extends XMLData implements Cloneable {
 			switch (mode) {
 			case MODE_RESOURCE: modeInt=0; break;
 			case MODE_VARIABLE: modeInt=1; break;
+			case MODE_MAP: modeInt=3; break;
 			case MODE_XML: modeInt=2; break;
 			}
 			sub.setAttribute(Language.trPrimary("Optimizer.XML.GlobalMode"),""+modeInt);
@@ -726,11 +727,12 @@ public class OptimizerSetup extends XMLData implements Cloneable {
 			s=Language.trAllAttribute("Optimizer.XML.GlobalMode",node);
 			if (!s.isEmpty()) {
 				I=NumberTools.getInteger(s);
-				if (I==null || I<0 || I>2) return String.format(Language.tr("Surface.XML.AttributeError"),Language.trPrimary("Optimizer.XML.Mode"),node.getNodeName())+" "+String.format(Language.tr("Optimizer.XMLError.ValueHasToBeNumberInRange0ToN"),2);
+				if (I==null || I<0 || I>3) return String.format(Language.tr("Surface.XML.AttributeError"),Language.trPrimary("Optimizer.XML.Mode"),node.getNodeName())+" "+String.format(Language.tr("Optimizer.XMLError.ValueHasToBeNumberInRange0ToN"),2);
 				switch (I.intValue()) {
 				case 0: mode=ModelChanger.Mode.MODE_RESOURCE; break;
 				case 1: mode=ModelChanger.Mode.MODE_VARIABLE; break;
 				case 2: mode=ModelChanger.Mode.MODE_XML; break;
+				case 3: mode=ModelChanger.Mode.MODE_MAP; break;
 				}
 			} else {
 				mode=ModelChanger.Mode.MODE_XML;

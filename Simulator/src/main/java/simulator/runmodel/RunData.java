@@ -375,6 +375,7 @@ public class RunData {
 	 * @param recordIncompleteClients	Sollen auch Kunden, die das System am Ende noch nicht verlassen haben, in der Statistik erfasst werden können (<code>true</code>). Dies verlangsamt die Simulation.
 	 */
 	public void initRun(final long nr, final SimulationData simData, final boolean recordIncompleteClients) {
+		/* Initiale Werte für Variablen */
 		if (simData.runModel.recordVariableValuesToStatistic) {
 			cacheVariableStatistics=new StatisticsTimeContinuousPerformanceIndicator[variableValues.length-3];
 		}
@@ -389,6 +390,13 @@ public class RunData {
 				cacheVariableStatistics[i]=(StatisticsTimeContinuousPerformanceIndicator)simData.statistics.userVariables.get(runModel.variableNames[i]);
 				cacheVariableStatistics[i].set(0,variableValues[i]);
 			}
+		}
+
+		/* Initiale Werte für globale Map */
+		if (runtimeMapGlobal!=null) runtimeMapGlobal.clear();
+		if (runModel.globalMapInitial.size()>0) {
+			if (runtimeMapGlobal==null) runtimeMapGlobal=new HashMap<>();
+			runtimeMapGlobal.putAll(runModel.globalMapInitial);
 		}
 
 		if (nr==0 && simData.runModel.useFixedSeed) {

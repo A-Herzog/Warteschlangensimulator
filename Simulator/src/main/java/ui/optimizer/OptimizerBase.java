@@ -134,6 +134,10 @@ public abstract class OptimizerBase {
 				if (controlVariable.tag==null || controlVariable.tag.trim().isEmpty()) return String.format(Language.tr("Optimizer.Error.NoVariableNameForControlVariables"),i+1);
 				if (!OptimizerSetup.isGlobalVariableOk(model,controlVariable.tag)) return String.format(Language.tr("Optimizer.Error.VariableNameForControlVariablesInvalid"),i+1,controlVariable.tag);
 				break;
+			case MODE_MAP:
+				if (controlVariable.tag==null || controlVariable.tag.trim().isEmpty()) return String.format(Language.tr("Optimizer.Error.NoKeyNameForControlVariables"),i+1);
+				if (model.globalMapInitial.get(controlVariable.tag)==null) return String.format(Language.tr("Optimizer.Error.KeyForControlVariablesInvalid"),i+1,controlVariable.tag);
+				break;
 			case MODE_XML:
 				if (controlVariable.tag==null || controlVariable.tag.trim().isEmpty()) return String.format(Language.tr("Optimizer.Error.NoXMLTagForControlVariables"),i+1);
 				break;

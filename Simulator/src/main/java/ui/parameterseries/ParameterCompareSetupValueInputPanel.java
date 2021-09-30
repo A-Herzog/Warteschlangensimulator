@@ -23,6 +23,7 @@ import java.awt.Window;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.Serializable;
+import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
@@ -77,6 +78,8 @@ public class ParameterCompareSetupValueInputPanel extends JPanel {
 	private final JComboBox<String> resCombo;
 	/** Auswahlfeld "Name der globalen Variable" */
 	private final JComboBox<String> varCombo;
+	/** Auswahlfeld "Name der globalen Zuordnung" */
+	private final JComboBox<String> mapCombo;
 	/** Eingabefeld "XML-Element" */
 	private final JTextField xmlTagEdit;
 	/** Schaltfläche zur Auswahl eines XML-Elements für {@link #xmlTagEdit} */
@@ -128,11 +131,13 @@ public class ParameterCompareSetupValueInputPanel extends JPanel {
 		line.add(modeCombo=new JComboBox<>(new String[]{
 				Language.tr("ParameterCompare.Settings.Input.Mode.Resource"),
 				Language.tr("ParameterCompare.Settings.Input.Mode.GlobalVariable"),
+				Language.tr("ParameterCompare.Settings.Input.Mode.GlobalMap"),
 				Language.tr("ParameterCompare.Settings.Input.Mode.XML")
 		}));
 		modeCombo.setRenderer(new IconListCellRenderer(new Images[]{
 				Images.PARAMETERSERIES_INPUT_MODE_RESOURCE,
 				Images.PARAMETERSERIES_INPUT_MODE_VARIABLE,
+				Images.SCRIPT_MAP,
 				Images.PARAMETERSERIES_INPUT_MODE_XML
 		}));
 		label.setLabelFor(modeCombo);
@@ -156,6 +161,12 @@ public class ParameterCompareSetupValueInputPanel extends JPanel {
 		varCombo.addActionListener(e->updateInfo());
 
 		cardPanel.add(sub=new JPanel(),"2");
+		sub.setLayout(new BoxLayout(sub,BoxLayout.PAGE_AXIS));
+		mapCombo=getComboBox(sub,Language.tr("ParameterCompare.Settings.Input.Mode.GlobalMap.Label"),new ArrayList<>(model.globalMapInitial.keySet()).toArray(new String[0]));
+		if (mapCombo.getItemCount()>0) mapCombo.setSelectedIndex(0);
+		mapCombo.addActionListener(e->updateInfo());
+
+		cardPanel.add(sub=new JPanel(),"3");
 		sub.setLayout(new BoxLayout(sub,BoxLayout.PAGE_AXIS));
 
 		sub.add(line=new JPanel(new BorderLayout()));
@@ -198,8 +209,14 @@ public class ParameterCompareSetupValueInputPanel extends JPanel {
 			for (int i=0;i<varCombo.getItemCount();i++) if (varCombo.getItemAt(i).equals(input.getTag())) {index=i; break;}
 			if (index>=0) varCombo.setSelectedIndex(index);
 			break;
-		case MODE_XML:
+		case MODE_MAP:
 			modeCombo.setSelectedIndex(2);
+			index=-1;
+			for (int i=0;i<mapCombo.getItemCount();i++) if (mapCombo.getItemAt(i).equals(input.getTag())) {index=i; break;}
+			if (index>=0) mapCombo.setSelectedIndex(index);
+			break;
+		case MODE_XML:
+			modeCombo.setSelectedIndex(3);
 			xmlTagEdit.setText(input.getTag());
 			xmlMode.setSelectedIndex(Math.max(0,Math.min(xmlMode.getItemCount()-1,input.getXMLMode())));
 			break;
@@ -252,6 +269,13 @@ public class ParameterCompareSetupValueInputPanel extends JPanel {
 			if (index>=0) info=String.format(Language.tr("ParameterCompare.Settings.Input.Mode.GlobalVariable.Info"),model.globalVariablesExpressions.get(index));
 			break;
 		case 2:
+			final Object obj=model.globalMapInitial.get(mapCombo.getSelectedItem());
+			if (obj instanceof Integer) info=String.format(Language.tr("ParameterCompare.Settings.Input.Mode.GlobalMap.Info"),""+(obj));
+			if (obj instanceof Long) info=String.format(Language.tr("ParameterCompare.Settings.Input.Mode.GlobalMap.Info"),""+(obj));
+			if (obj instanceof Double) info=String.format(Language.tr("ParameterCompare.Settings.Input.Mode.GlobalMap.Info"),NumberTools.formatNumberMax((Double)obj));
+			if (obj instanceof String) info=String.format(Language.tr("ParameterCompare.Settings.Input.Mode.GlobalMap.Info"),(String)obj);
+			break;
+		case 3:
 			final String xmlKey=xmlTagEdit.getText();
 			final String value=ModelChanger.getValue(model,xmlKey,xmlMode.getSelectedIndex());
 			if (value==null) {
@@ -306,6 +330,15 @@ public class ParameterCompareSetupValueInputPanel extends JPanel {
 			}
 			break;
 		case 2:
+			if (mapCombo.getSelectedIndex()<0) {
+				ok=false;
+				if (showErrorMessage) {
+					MsgBox.error(this,Language.tr("ParameterCompare.Settings.Input.Mode.GlobalMap.ErrorTitle"),Language.tr("ParameterCompare.Settings.Input.Mode.GlobalMap.ErrorInfo"));
+					return false;
+				}
+			}
+			break;
+		case 3:
 			if (xmlTagEdit.getText().isEmpty()) {
 				ok=false;
 				if (showErrorMessage) {
@@ -337,6 +370,10 @@ public class ParameterCompareSetupValueInputPanel extends JPanel {
 			input.setTag((String)varCombo.getSelectedItem());
 			break;
 		case 2:
+			input.setMode(ModelChanger.Mode.MODE_MAP);
+			input.setTag((String)mapCombo.getSelectedItem());
+			break;
+		case 3:
 			input.setMode(ModelChanger.Mode.MODE_XML);
 			input.setTag(xmlTagEdit.getText());
 			input.setXMLMode(xmlMode.getSelectedIndex());

@@ -19,6 +19,7 @@ import java.awt.Window;
 
 import org.w3c.dom.Document;
 
+import mathtools.NumberTools;
 import parser.MathCalcError;
 import simulator.editmodel.EditModel;
 import simulator.simparser.ExpressionCalc;
@@ -89,8 +90,15 @@ public class ParameterCompareTools {
 			return Double.valueOf(resource.getCount());
 		case MODE_VARIABLE:
 			final int index=model.globalVariablesNames.indexOf(input.getTag());
-			if (index<0) return null;
-			return calcValue(model,model.globalVariablesExpressions.get(index));
+			if (index>=0) return calcValue(model,model.globalVariablesExpressions.get(index));
+			return null;
+		case MODE_MAP:
+			final Object obj=model.globalMapInitial.get(input.getTag());
+			if (obj instanceof Integer) return ((Integer)obj).doubleValue();
+			if (obj instanceof Long) return ((Long)obj).doubleValue();
+			if (obj instanceof Double) return (Double)obj;
+			if (obj instanceof String) return NumberTools.getDouble((String)obj);
+			return null;
 		case MODE_XML:
 			final String value=ModelChanger.getValue(model,input.getTag(),input.getXMLMode());
 			if (value==null) return null;

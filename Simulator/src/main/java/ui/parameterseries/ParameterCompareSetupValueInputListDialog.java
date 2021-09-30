@@ -93,6 +93,8 @@ public class ParameterCompareSetupValueInputListDialog extends ParameterCompareS
 			return String.format(Language.tr("ParameterCompare.Settings.Input.List.InfoResource"),record.getTag());
 		case MODE_VARIABLE:
 			return String.format(Language.tr("ParameterCompare.Settings.Input.List.InfoVariable"),record.getTag());
+		case MODE_MAP:
+			return String.format(Language.tr("ParameterCompare.Settings.Input.List.InfoMap"),record.getTag());
 		case MODE_XML:
 			String type=ModelChanger.XML_ELEMENT_MODES[Math.max(0,Math.min(ModelChanger.XML_ELEMENT_MODES.length-1,record.getXMLMode()))];
 			return String.format(Language.tr("ParameterCompare.Settings.Input.List.InfoXML"),record.getTag(),type);
@@ -161,6 +163,9 @@ public class ParameterCompareSetupValueInputListDialog extends ParameterCompareS
 			break;
 			/*
 		case 2:
+			record.setMode(ModelChanger.Mode.MODE_MAP);
+			break;
+		case 3:
 			record.setMode(ModelChanger.Mode.MODE_RESOURCE);
 			break;
 			 */

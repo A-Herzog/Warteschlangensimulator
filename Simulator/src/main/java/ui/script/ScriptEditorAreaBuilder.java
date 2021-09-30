@@ -816,6 +816,8 @@ public class ScriptEditorAreaBuilder {
 		String modelSetRes="";
 		String modelGetVar="";
 		String modelSetVar="";
+		String modelGetMap="";
+		String modelSetMap="";
 		String modelGetID="";
 
 		if (language==ScriptMode.Javascript) {
@@ -828,6 +830,8 @@ public class ScriptEditorAreaBuilder {
 			modelSetRes="Model.setResourceCount(\""+resource+"\","+number+");";
 			modelGetVar="Model.getGlobalVariableInitialValue(\""+variable+"\");";
 			modelSetVar="Model.setGlobalVariableInitialValue(\""+variable+"\",\""+expression+"\");";
+			modelGetMap="Model.getGlobalMapInitialValue(\""+variable+"\");";
+			modelSetMap="Model.setGlobalMapInitialValue(\""+variable+"\",\""+expression+"\");";
 			modelGetID="Model.getStationID(\"StationName\");";
 		}
 
@@ -841,6 +845,8 @@ public class ScriptEditorAreaBuilder {
 			modelSetRes="sim.getModel().setResourceCount(\""+resource+"\","+number+");";
 			modelGetVar="sim.getModel().getGlobalVariableInitialValue(\""+variable+"\");";
 			modelSetVar="sim.getModel().setGlobalVariableInitialValue(\""+variable+"\",\""+expression+"\");";
+			modelGetMap="sim.getModel().getGlobalMapInitialValue(\""+variable+"\");";
+			modelSetMap="sim.getModel().setGlobalMapInitialValue(\""+variable+"\",\""+expression+"\");";
 			modelGetID="sim.getModel().getStationID(\"StationName\");";
 		}
 
@@ -856,6 +862,9 @@ public class ScriptEditorAreaBuilder {
 
 		addAutoComplete(Language.tr("Statistic.FastAccess.Template.ChangeModel")+" - "+Language.tr("Statistic.FastAccess.Template.Variable.Get"),Language.tr("Statistic.FastAccess.Template.ChangeModel.Hint")+" - "+Language.tr("Statistic.FastAccess.Template.Variable.Get.Tooltip"),Images.SCRIPT_RECORD_VARIABLE.getIcon(),modelGetVar);
 		addAutoComplete(Language.tr("Statistic.FastAccess.Template.ChangeModel")+" - "+Language.tr("Statistic.FastAccess.Template.Variable.Set"),Language.tr("Statistic.FastAccess.Template.ChangeModel.Hint")+" - "+Language.tr("Statistic.FastAccess.Template.Variable.Set.Tooltip"),Images.SCRIPT_RECORD_VARIABLE.getIcon(),modelSetVar);
+
+		addAutoComplete(Language.tr("Statistic.FastAccess.Template.ChangeModel")+" - "+Language.tr("Statistic.FastAccess.Template.Map.Get"),Language.tr("Statistic.FastAccess.Template.ChangeModel.Hint")+" - "+Language.tr("Statistic.FastAccess.Template.Map.Get.Tooltip"),Images.SCRIPT_MAP.getIcon(),modelGetMap);
+		addAutoComplete(Language.tr("Statistic.FastAccess.Template.ChangeModel")+" - "+Language.tr("Statistic.FastAccess.Template.Map.Set"),Language.tr("Statistic.FastAccess.Template.ChangeModel.Hint")+" - "+Language.tr("Statistic.FastAccess.Template.Map.Set.Tooltip"),Images.SCRIPT_MAP.getIcon(),modelSetMap);
 
 		addAutoComplete(Language.tr("Statistic.FastAccess.Template.ChangeModel")+" - "+Language.tr("Statistic.FastAccess.Template.StationID.Get"),Language.tr("Statistic.FastAccess.Template.ChangeModel.Hint")+" - "+Language.tr("Statistic.FastAccess.Template.StationID.Get.Tooltip"),Images.SCRIPT_RECORD_MODEL_EDIT.getIcon(),modelGetID);
 	}
