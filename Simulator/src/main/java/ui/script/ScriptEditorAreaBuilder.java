@@ -473,6 +473,8 @@ public class ScriptEditorAreaBuilder {
 		String clientSetValue="";
 		String clientGetText="";
 		String clientSetText="";
+		String clientGetAllValues="";
+		String clientGetAllTexts="";
 
 		String batchClientSize="";
 		String batchClientTypeName="";
@@ -510,6 +512,8 @@ public class ScriptEditorAreaBuilder {
 			clientSetValue="Simulation.setClientValue(index,123);";
 			clientGetText="Simulation.getClientText(\"key\");";
 			clientSetText="Simulation.setClientText(\"key\",\"value\");";
+			clientGetAllValues="Simulation.getAllClientValues();";
+			clientGetAllTexts="Simulation.getAllTexts()";
 
 			batchClientSize="Simulation.batchSize();";
 			batchClientTypeName="Simulation.batchClientTypeName(batchIndex);";
@@ -550,6 +554,8 @@ public class ScriptEditorAreaBuilder {
 			clientSetValue="sim.getClient().setValue(index,123);";
 			clientGetText="sim.getClient().getText(\"key\");";
 			clientSetText="sim.getClient().setText(\"key\",\"value\");";
+			clientGetAllValues="sim.getClient().getAllValues();";
+			clientGetAllTexts="sim.getClient().getAllTexts();";
 
 			batchClientSize="sim.getClient().batchSize();";
 			batchClientTypeName="sim.getClient().getBatchTypeName(batchIndex);";
@@ -594,6 +600,10 @@ public class ScriptEditorAreaBuilder {
 
 		addAutoComplete(Language.tr("ScriptPopup.Client.ValueText")+" - "+Language.tr("ScriptPopup.Client.ValueText.Get"),Language.tr("ScriptPopup.Client.ValueText.Hint")+" - "+Language.tr("ScriptPopup.Client.ValueText.Get.Hint"),Images.SCRIPT_RECORD_VARIABLE.getIcon(),clientGetText);
 		addAutoComplete(Language.tr("ScriptPopup.Client.ValueText")+" - "+Language.tr("ScriptPopup.Client.ValueText.Set"),Language.tr("ScriptPopup.Client.ValueText.Hint")+" - "+Language.tr("ScriptPopup.Client.ValueText.Set.Hint"),Images.SCRIPT_RECORD_VARIABLE.getIcon(),clientSetText);
+
+		addAutoComplete(Language.tr("ScriptPopup.Client.ValueNumber")+" - "+Language.tr("ScriptPopup.Client.ValueNumber.GetAll"),Language.tr("ScriptPopup.Client.ValueNumber.Hint")+" - "+Language.tr("ScriptPopup.Client.ValueNumber.GetAll.Hint"),Images.SCRIPT_RECORD_DATA_COUNTER.getIcon(),clientGetAllValues);
+
+		addAutoComplete(Language.tr("ScriptPopup.Client.ValueText")+" - "+Language.tr("ScriptPopup.Client.ValueText.GetAll"),Language.tr("ScriptPopup.Client.ValueText.Hint")+" - "+Language.tr("ScriptPopup.Client.ValueText.GetAll.Hint"),Images.SCRIPT_RECORD_VARIABLE.getIcon(),clientGetAllTexts);
 
 		addAutoComplete(Language.tr("ScriptPopup.Client.getBatchSize"),Language.tr("ScriptPopup.Client.getBatchSize.Hint"),Images.SCRIPT_RECORD_DATA_CLIENT.getIcon(),batchClientSize);
 		addAutoComplete(Language.tr("ScriptPopup.Client.getTypeName.Batch"),Language.tr("ScriptPopup.Client.getTypeName.Batch.Hint"),Images.SCRIPT_RECORD_DATA_CLIENT.getIcon(),batchClientTypeName);

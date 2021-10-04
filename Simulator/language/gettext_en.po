@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-09-29 21:54+0200\n"
+"POT-Creation-Date: 2021-10-04 08:55+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -14338,6 +14338,12 @@ msgstr "Get value"
 msgid "ScriptPopup.Client.ValueNumber.Get.Hint"
 msgstr "Gets a client-based number property value"
 
+msgid "ScriptPopup.Client.ValueNumber.GetAll"
+msgstr "Get all values"
+
+msgid "ScriptPopup.Client.ValueNumber.GetAll.Hint"
+msgstr "Gets all numerical values stored for the client"
+
 msgid "ScriptPopup.Client.ValueNumber.Hint"
 msgstr "Get or sets a number property"
 
@@ -14361,6 +14367,12 @@ msgstr "Get text"
 
 msgid "ScriptPopup.Client.ValueText.Get.Hint"
 msgstr "Gets a client-based text property value"
+
+msgid "ScriptPopup.Client.ValueText.GetAll"
+msgstr "Get all texts"
+
+msgid "ScriptPopup.Client.ValueText.GetAll.Hint"
+msgstr "Gets all text values stored for the client"
 
 msgid "ScriptPopup.Client.ValueText.Hint"
 msgstr "Get or sets a text property"

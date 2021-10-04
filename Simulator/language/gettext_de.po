@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-09-29 21:54+0200\n"
+"POT-Creation-Date: 2021-10-04 08:55+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -14339,6 +14339,12 @@ msgstr "Wert auslesen"
 msgid "ScriptPopup.Client.ValueNumber.Get.Hint"
 msgstr "Liest eine kundenbasierende Zahlen-Eigenschaft aus"
 
+msgid "ScriptPopup.Client.ValueNumber.GetAll"
+msgstr "Alle Werte auslesen"
+
+msgid "ScriptPopup.Client.ValueNumber.GetAll.Hint"
+msgstr "Liest alle zu dem Kunden gespeicherten Zahlenwerte aus"
+
 msgid "ScriptPopup.Client.ValueNumber.Hint"
 msgstr "Zahlen-Eigenschaft auslesen oder einstellen"
 
@@ -14362,6 +14368,12 @@ msgstr "Text auslesen"
 
 msgid "ScriptPopup.Client.ValueText.Get.Hint"
 msgstr "Liest eine kundenbasierende Text-Eigenschaft aus"
+
+msgid "ScriptPopup.Client.ValueText.GetAll"
+msgstr "Alle Texte auslesen"
+
+msgid "ScriptPopup.Client.ValueText.GetAll.Hint"
+msgstr "Liest alle zu dem Kunden gespeicherten Text-Eigenschaften aus"
 
 msgid "ScriptPopup.Client.ValueText.Hint"
 msgstr "Text-Eigenschaft auslesen oder einstellen"

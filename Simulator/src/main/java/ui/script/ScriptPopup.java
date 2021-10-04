@@ -559,6 +559,8 @@ public class ScriptPopup {
 		String clientSetValue="";
 		String clientGetText="";
 		String clientSetText="";
+		String clientGetAllValues="";
+		String clientGetAllTexts="";
 
 		if (scriptMode==ScriptMode.Javascript) {
 			clientCalc="Simulation.calc(\"1+2\");";
@@ -585,6 +587,8 @@ public class ScriptPopup {
 			clientSetValue="Simulation.setClientValue(index,123)";
 			clientGetText="Simulation.getClientText(\"key\")";
 			clientSetText="Simulation.setClientText(\"key\",\"value\")";
+			clientGetAllValues="Simulation.getAllClientValues();";
+			clientGetAllTexts="Simulation.getAllTexts()";
 		}
 
 		if (scriptMode==ScriptMode.Java) {
@@ -612,6 +616,8 @@ public class ScriptPopup {
 			clientSetValue="sim.getClient().setValue(index,123);";
 			clientGetText="sim.getClient().getText(\"key\");";
 			clientSetText="sim.getClient().setText(\"key\",\"value\");";
+			clientGetAllValues="sim.getClient().getAllValues();";
+			clientGetAllTexts="sim.getClient().getAllTexts();";
 		}
 
 		final ScriptPopupItemSub group=new ScriptPopupItemSub(Language.tr("ScriptPopup.Client"),Language.tr("ScriptPopup.Client.Hint"),Images.SCRIPT_RECORD_DATA_CLIENT.getIcon());
@@ -651,10 +657,11 @@ public class ScriptPopup {
 		group.addChild(sub=new ScriptPopupItemSub(Language.tr("ScriptPopup.Client.ValueNumber"),Language.tr("ScriptPopup.Client.ValueNumber.Hint"),Images.SCRIPT_RECORD_DATA_COUNTER.getIcon()));
 		sub.addChild(new ScriptPopupItemCommand(Language.tr("ScriptPopup.Client.ValueNumber.Get"),Language.tr("ScriptPopup.Client.ValueNumber.Get.Hint"),null,clientGetValue));
 		sub.addChild(new ScriptPopupItemCommand(Language.tr("ScriptPopup.Client.ValueNumber.Set"),Language.tr("ScriptPopup.Client.ValueNumber.Set.Hint"),null,clientSetValue));
+		sub.addChild(new ScriptPopupItemCommand(Language.tr("ScriptPopup.Client.ValueNumber.GetAll"),Language.tr("ScriptPopup.Client.ValueNumber.GetAll.Hint"),null,clientGetAllValues));
 		group.addChild(sub=new ScriptPopupItemSub(Language.tr("ScriptPopup.Client.ValueText"),Language.tr("ScriptPopup.Client.ValueText.Hint"),Images.SCRIPT_RECORD_VARIABLE.getIcon()));
 		sub.addChild(new ScriptPopupItemCommand(Language.tr("ScriptPopup.Client.ValueText.Get"),Language.tr("ScriptPopup.Client.ValueText.Get.Hint"),null,clientGetText));
 		sub.addChild(new ScriptPopupItemCommand(Language.tr("ScriptPopup.Client.ValueText.Set"),Language.tr("ScriptPopup.Client.ValueText.Set.Hint"),null,clientSetText));
-
+		sub.addChild(new ScriptPopupItemCommand(Language.tr("ScriptPopup.Client.ValueText.GetAll"),Language.tr("ScriptPopup.Client.ValueText.GetAll.Hint"),null,clientGetAllTexts));
 		parent.addChild(group);
 	}
 

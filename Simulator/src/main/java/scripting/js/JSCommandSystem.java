@@ -411,6 +411,27 @@ public final class JSCommandSystem extends JSBaseCommand {
 	}
 
 	/**
+	 * Liefert alle zu einem Kunden gespeicherten Zahlenwerte.
+	 * @return	Alle zu einem Kunden gespeicherten Zahlenwerte
+	 */
+	public double[] getAllClientValues() {
+		final int maxIndex=client.getMaxUserDataIndex();
+		final double[] result=new double[maxIndex+1];
+		for (int i=0;i<=maxIndex;i++) result[i]=client.getUserData(i);
+		return result;
+	}
+
+	/**
+	 * Liefert alle zu einem Kunden gespeicherten Textwerte.
+	 * @return	Alle zu einem Kunden gespeicherten Textwerte
+	 */
+	public Map<String,String> getAllClientTexts() {
+		final Map<String,String> result=new HashMap<>();
+		for (String key: client.getUserDataStringKeys()) result.put(key,client.getUserDataString(key));
+		return result;
+	}
+
+	/**
 	 * Handelt es sich bei dem aktuellen Kunden um einen temporären Batch,
 	 * so liefert diese Funktion die Anzahl der Kunden, die sich in dem Batch befinden.
 	 * @return Anzahl an Kunden im Batch oder 0, wenn es sich nicht um einen temporären Batch handelt.

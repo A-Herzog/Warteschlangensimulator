@@ -15,6 +15,8 @@
  */
 package scripting.java;
 
+import java.util.Map;
+
 /**
  * Teil-Interface, damit Nutzer-Java-Codes auf die Eigenschaft des jeweiligen Kunden
  * in dessen Kontext die Codeausführung stattfindet, zugreifen können.
@@ -188,6 +190,18 @@ public interface ClientInterface {
 	 * @param value	Textwert der zu dem Schlüssel hinterlegt werden soll
 	 */
 	void setText(final String key, final String value);
+
+	/**
+	 * Liefert alle zu einem Kunden gespeicherten Zahlenwerte.
+	 * @return	Alle zu einem Kunden gespeicherten Zahlenwerte
+	 */
+	double[] getAllValues();
+
+	/**
+	 * Liefert alle zu einem Kunden gespeicherten Textwerte.
+	 * @return	Alle zu einem Kunden gespeicherten Textwerte
+	 */
+	Map<String,String> getAllTexts();
 
 	/**
 	 * Handelt es sich bei dem aktuellen Kunden um einen temporären Batch,

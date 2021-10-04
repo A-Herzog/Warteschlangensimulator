@@ -213,6 +213,21 @@ public class ClientImpl implements ClientInterface {
 	}
 
 	@Override
+	public double[] getAllValues() {
+		final int maxIndex=client.getMaxUserDataIndex();
+		final double[] result=new double[maxIndex+1];
+		for (int i=0;i<=maxIndex;i++) result[i]=client.getUserData(i);
+		return result;
+	}
+
+	@Override
+	public Map<String,String> getAllTexts() {
+		final Map<String,String> result=new HashMap<>();
+		for (String key: client.getUserDataStringKeys()) result.put(key,client.getUserDataString(key));
+		return result;
+	}
+
+	@Override
 	public int batchSize() {
 		final List<RunDataClient> batch=client.getBatchData();
 		if (batch==null) return 0;

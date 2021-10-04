@@ -198,6 +198,18 @@ public interface ClientInterface {
 	int batchSize();
 
 	/**
+	 * Return all numerical values stored for the current client.
+	 * @return	All numerical values stored for the current client
+	 */
+	double[] getAllValues();
+
+	/**
+	 * Return all text values stored for the current client.
+	 * @return	All text values stored for the current client
+	 */
+	Map<String,String> getAllTexts();
+
+	/**
 	 * Returns the name of one of the clients in the current batch.
 	 * @param	batchIndex 0-based Index of the client in the batch (valid values are in the range from 0 to {@link #batchSize()}-1)
 	 * @return	Name of the client or <code>null</code>, if the index is invalid
