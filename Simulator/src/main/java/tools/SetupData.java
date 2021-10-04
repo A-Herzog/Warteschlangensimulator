@@ -29,6 +29,8 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
+import com.formdev.flatlaf.FlatLightLaf;
+
 import gitconnect.GitSetup;
 import language.Language;
 import language.LanguageStaticLoader;
@@ -1266,7 +1268,7 @@ public class SetupData extends SetupBase {
 		updaterAvailable=testUpdaterAvailable();
 		if (loadSetupFile) {
 			loadSetupFromFile();
-			autoSetLanguage();
+			autoFirstInit();
 		}
 	}
 
@@ -1453,28 +1455,28 @@ public class SetupData extends SetupBase {
 	}
 
 	/**
-	 * Gibt an, ob die Programmsprache beim Programmstart gemäß der Systemsprache automatisch
-	 * eingestellt wurde (oder ob die Programmsprache aus dem Setup geladen wurde).
-	 * @see #languageWasAutomaticallySet()
-	 * @see #resetLanguageWasAutomatically()
-	 * @see #autoSetLanguage()
+	 * Gibt an, ob Programmsprache usw. beim Programmstart automatisch initialisiert wurden
+	 * (oder ob die Programmsprache aus dem Setup geladen wurde).
+	 * @see #wasFirstInit()
+	 * @see #clarFirstInitFlag()
+	 * @see #autoFirstInit()
 	 */
-	private boolean autoSetLanguageActive=false;
+	private boolean autoInitActive=false;
 
 	/**
 	 * Gibt an, ob die Programmsprache beim Programmstart gemäß der Systemsprache automatisch
 	 * eingestellt wurde (oder ob die Programmsprache aus dem Setup geladen wurde).
 	 * @return	Gibt <code>true</code> zurück, wenn die Programmsprache automatisch eingestellt wurde
 	 */
-	public boolean languageWasAutomaticallySet() {
-		return autoSetLanguageActive;
+	public boolean wasFirstInit() {
+		return autoInitActive;
 	}
 
 	/**
 	 * Setzt den Status "Sprache wurde automatisch gesetzt" zurück.
 	 */
-	public void resetLanguageWasAutomatically() {
-		autoSetLanguageActive=false;
+	public void clarFirstInitFlag() {
+		autoInitActive=false;
 	}
 
 	/**
@@ -1490,13 +1492,21 @@ public class SetupData extends SetupBase {
 	}
 
 	/**
-	 * Stellt die Sprache, wenn nötig, automatisch ein.
+	 * Stellt die Sprache usw., wenn nötig, initial automatisch ein.
 	 */
-	private void autoSetLanguage() {
+	private void autoFirstInit() {
+		/* Sprach-Feld ist immer mit Wert belegt. Ist es leer, haben wir ein komplett neues Setup. */
 		if (!language.isEmpty()) return;
+
+		/* Sprache einstellen */
 		final String userLanguage=System.getProperty("user.language");
 		if (Language.isSupportedLanguage(userLanguage)) language=userLanguage.toLowerCase(); else language="en";
-		autoSetLanguageActive=true;
+
+		/* Thema einstellen */
+		final String os=System.getProperty("os.name").toLowerCase();
+		if (os.contains("nix") || os.contains("nux") || os.contains("aix")) lookAndFeel=new FlatLightLaf().getName();
+
+		autoInitActive=true;
 		saveSetup();
 	}
 

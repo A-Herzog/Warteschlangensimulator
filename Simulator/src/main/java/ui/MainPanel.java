@@ -874,7 +874,7 @@ public class MainPanel extends MainPanelBase {
 
 		/* Sprache neu laden? */
 		if (!setup.language.equals(Language.getCurrentLanguage())) {
-			setup.resetLanguageWasAutomatically();
+			setup.clarFirstInitFlag();
 			HelpBase.hideHelpFrame();
 			if (reloadWindow!=null) SwingUtilities.invokeLater(reloadWindow);
 		} else {
@@ -1981,7 +1981,7 @@ public class MainPanel extends MainPanelBase {
 	 * und zeigt ggf. eine Warnung an.
 	 */
 	private void startUpChecks() {
-		if (setup.languageWasAutomaticallySet()) {
+		if (setup.wasFirstInit()) {
 			final JPanel infoPanel=setMessagePanel("",Language.tr("Window.LanguageAutomatic"),MessagePanelIcon.INFO);
 			infoPanel.setBackground(new Color(255,255,240));
 			new Timer("HideLanguageInfoPanel").schedule(new TimerTask() {@Override public void run() {
@@ -3909,7 +3909,7 @@ public class MainPanel extends MainPanelBase {
 		dialog.setVisible(true);
 
 		if (!setup.language.equals(currentLanguage)) {
-			setup.resetLanguageWasAutomatically();
+			setup.clarFirstInitFlag();
 			HelpBase.hideHelpFrame();
 			if (reloadWindow!=null) SwingUtilities.invokeLater(reloadWindow);
 		}
