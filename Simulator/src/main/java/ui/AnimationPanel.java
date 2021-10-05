@@ -68,6 +68,8 @@ import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 import javax.swing.JProgressBar;
 import javax.swing.JRadioButtonMenuItem;
+import javax.swing.JScrollBar;
+import javax.swing.JScrollPane;
 import javax.swing.JSlider;
 import javax.swing.JToolBar;
 import javax.swing.JViewport;
@@ -280,6 +282,8 @@ public class AnimationPanel extends JPanel implements RunModelAnimationViewer {
 
 	/** Logging-Ausgabe-Bereich */
 	private final JPanel logArea;
+	/** Scoll-Bereich, in den {@link #logLabel} eingebettet werden soll */
+	private final JScrollPane logScroll;
 	/** Textfeld zur Ausgabe der Logging-Ausgaben */
 	private final JLabel logLabel;
 	/** Aktueller Zeitwert auf den sich die Logging-Ausgaben beziehen */
@@ -456,8 +460,12 @@ public class AnimationPanel extends JPanel implements RunModelAnimationViewer {
 		logArea.setVisible(false);
 		logArea.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 		logArea.setBackground(FlatLaFHelper.isDark()?Color.DARK_GRAY:Color.WHITE);
-		logArea.add(logLabel=new JLabel(),BorderLayout.CENTER);
+		logScroll=new JScrollPane(logLabel=new JLabel());
+		logArea.add(logScroll,BorderLayout.CENTER);
 		logLabel.setBorder(BorderFactory.createEmptyBorder(2,5,2,5));
+		logScroll.setMaximumSize(new Dimension(1000,Math.min(175,getHeight()/5)));
+		logScroll.setPreferredSize(new Dimension(0,0));
+		logScroll.setOpaque(false);
 		final JToolBar logToolBar=new JToolBar(SwingConstants.VERTICAL);
 		logArea.add(logToolBar,BorderLayout.EAST);
 		logToolBar.setFloatable(false);
@@ -469,6 +477,9 @@ public class AnimationPanel extends JPanel implements RunModelAnimationViewer {
 		logExpression=createToolbarButton(logToolBar,"",Language.tr("Animation.Log.Expression")+" ("+keyStrokeToString(KeyStroke.getKeyStroke(KeyEvent.VK_F3,0))+")",Images.ANIMATION_EVALUATE_EXPRESSION.getIcon());
 		logJS=createToolbarButton(logToolBar,"",Language.tr("Animation.Log.JS"),Images.ANIMATION_EVALUATE_SCRIPT.getIcon());
 		logEvents=createToolbarButton(logToolBar,"",Language.tr("Animation.Log.Events"),Images.ANIMATION_LIST_NEXT_EVENTS.getIcon());
+
+		logScroll.setMaximumSize(new Dimension(1000,logToolBar.getHeight()+10));
+		logScroll.setPreferredSize(new Dimension(0,logToolBar.getHeight()+10));
 
 		delay=setup.animationDelay*10;
 		animationDelayChanged();
@@ -1780,7 +1791,7 @@ public class AnimationPanel extends JPanel implements RunModelAnimationViewer {
 	 * Maximale Größe für einen Logging-Eintrag
 	 * @see #loggerCallback(CallbackLoggerData)
 	 */
-	private static final int MAX_LOG_VIEWER_SIZE=4_000;
+	private static final int MAX_LOG_VIEWER_SIZE=100_000;
 
 	/**
 	 * Erfasst Logging-Daten für die Ausgabe im unteren Fensterbereich
@@ -1829,6 +1840,11 @@ public class AnimationPanel extends JPanel implements RunModelAnimationViewer {
 		final String message="<html><body>"+logText.toString()+"</body></html>";
 		final String messagePlain=logTextPlain.toString();
 		logLabel.setText(message);
+
+		SwingUtilities.invokeLater(()->{
+			final JScrollBar vertical=logScroll.getVerticalScrollBar();
+			vertical.setValue(vertical.getMaximum());
+		});
 
 		if (newMessage || logTextHistory.isEmpty()) {
 			logTextHistory.add(message);
