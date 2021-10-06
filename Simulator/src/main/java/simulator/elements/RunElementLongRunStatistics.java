@@ -54,6 +54,11 @@ public class RunElementLongRunStatistics extends RunElement implements StateChan
 	private long stepWideMS;
 
 	/**
+	 * Sollen zum Simulationsende letzte Intervalle abgeschlossen werden?
+	 */
+	private boolean closeLastInterval;
+
+	/**
 	 * Konstruktor der Klasse
 	 * @param id	Pseudo-ID des Elements; es wird hier üblicherweise <code>editModel.surface.getMaxId()+1</code> verwendet
 	 */
@@ -77,6 +82,7 @@ public class RunElementLongRunStatistics extends RunElement implements StateChan
 		}
 
 		run.stepWideMS=editModel.longRunStatistics.getStepWideSec()*1000;
+		run.closeLastInterval=editModel.longRunStatistics.isCloseLastInterval();
 
 		return run;
 	}
@@ -92,7 +98,7 @@ public class RunElementLongRunStatistics extends RunElement implements StateChan
 		RunElementLongRunStatisticsData data;
 		data=(RunElementLongRunStatisticsData)(simData.runData.getStationData(this));
 		if (data==null) {
-			data=new RunElementLongRunStatisticsData(this,expressions,modes,stepWideMS,simData.runModel);
+			data=new RunElementLongRunStatisticsData(this,expressions,modes,stepWideMS,closeLastInterval,simData.runModel);
 			simData.runData.setStationData(this,data);
 		}
 		return data;

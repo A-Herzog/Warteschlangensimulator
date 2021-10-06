@@ -894,6 +894,7 @@ public class LanguageStaticLoader {
 		ModelSchedule.XML_NODE_NAME=Language.trAll("Surface.XML.RootName.Schedule");
 		ModelLongRunStatistics.XML_NODE_NAME=Language.trAll("Surface.XML.RootName.AdditionalStatistics");
 		ModelLongRunStatistics.XML_NODE_STEPWIDE_ATTR=Language.trAll("Surface.XML.RootName.AdditionalStatistics.StepWide");
+		ModelLongRunStatistics.XML_NODE_CLOSELASTINTERVAL_ATTR=Language.trAll("Surface.XML.RootName.AdditionalStatistics.LastInterval");
 		ModelLongRunStatisticsElement.XML_NODE_NAME=Language.trAll("Surface.XML.RootName.AdditionalStatistics.Element");
 		ModelSequenceStep.XML_NODE_NAME=Language.trAll("Surface.XML.RootName.SequenceStep");
 		ModelSequence.XML_NODE_NAME=Language.trAll("Surface.XML.RootName.Sequence");

@@ -66,17 +66,23 @@ public class RunElementLongRunStatisticsData extends RunElementData {
 	/**
 	 * Schrittweite für die Datenerfassung (in Millisekunden)
 	 */
-	private final long stepWide;
+	private final long stepWideMS;
+
+	/**
+	 * Sollen zum Simulationsende letzte Intervalle abgeschlossen werden?
+	 */
+	private final boolean closeLastInterval;
 
 	/**
 	 * Konstruktor der Klasse {@link RunElementLongRunStatisticsData}
 	 * @param station	Zu dem Datenobjekt zugehöriges <code>RunElementSpecialStatistics</code>-Element
 	 * @param expresions	Auszuwertende Ausdrücke als String
 	 * @param modes	Modi für die Ausdrücke (<code>StatisticsLongRunPerformanceIndicator.MODE_*</code>)
-	 * @param stepWide	Schrittweite für die Datenerfassung (in Millisekunden)
+	 * @param stepWideMS	Schrittweite für die Datenerfassung (in Millisekunden)
+	 * @param closeLastInterval	Sollen zum Simulationsende letzte Intervalle abgeschlossen werden?
 	 * @param runModel	Laufzeitmodell, dem u.a. die Variablennamen entnommen werden
 	 */
-	public RunElementLongRunStatisticsData(final RunElement station, final String[] expresions, final StatisticsLongRunPerformanceIndicator.Mode[] modes, final long stepWide, final RunModel runModel) {
+	public RunElementLongRunStatisticsData(final RunElement station, final String[] expresions, final StatisticsLongRunPerformanceIndicator.Mode[] modes, final long stepWideMS, final boolean closeLastInterval, final RunModel runModel) {
 		super(station);
 		expressionStrings=new String[expresions.length];
 		this.expressions=new ExpressionCalc[expresions.length];
@@ -103,15 +109,16 @@ public class RunElementLongRunStatisticsData extends RunElementData {
 			lastValue[i]=Double.MAX_VALUE;
 			lastTime[i]=-Long.MAX_VALUE;
 		}
-		this.stepWide=stepWide;
+		this.stepWideMS=stepWideMS;
+		this.closeLastInterval=closeLastInterval;
 	}
 
 	/**
-	 * Führt einen Statistik-Erfassungsschritt aus
+	 * Führt einen Statistik-Erfassungsschritt aus.
 	 * @param simData	Simulationsdaten
+	 * @param time	Als aktuelle Zeit zu verwendender Wert (der Wert aus den Simulationsdaten wird ignoriert)
 	 */
-	public void process(final SimulationData simData) {
-		final long time=simData.currentTime;
+	private void processInt(final SimulationData simData, final long time) {
 		final double[] variableValues=simData.runData.variableValues;
 		for (int i=0;i<expressions.length;i++) {
 			double value;
@@ -126,9 +133,27 @@ public class RunElementLongRunStatisticsData extends RunElementData {
 			lastTime[i]=time;
 			if (expressionStatistics[i]==null) {
 				expressionStatistics[i]=(StatisticsLongRunPerformanceIndicator)(simData.statistics.longRunStatistics.get(expressionStrings[i]));
-				expressionStatistics[i].init(stepWide,expressionMode[i]);
+				expressionStatistics[i].init(stepWideMS,expressionMode[i]);
 			}
 			expressionStatistics[i].set(time,value);
 		}
+	}
+
+	/**
+	 * Führt einen Statistik-Erfassungsschritt aus.
+	 * @param simData	Simulationsdaten
+	 */
+	public void process(final SimulationData simData) {
+		processInt(simData,simData.currentTime);
+	}
+
+	/**
+	 * Erfastt zum Simulationende letztmalig die Veränderungen.
+	 * @param simData	Simulationsdaten
+	 */
+	public void doneStatistics(final SimulationData simData) {
+		long time=simData.currentTime;
+		if (closeLastInterval && simData.currentTime%stepWideMS!=0) time=((simData.currentTime/stepWideMS)+1)*stepWideMS;
+		processInt(simData,time);
 	}
 }

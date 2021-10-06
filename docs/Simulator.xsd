@@ -153,6 +153,7 @@
     <xs:element ref="ModellZusatzStatistikElement" minOccurs="0" maxOccurs="unbounded"/>  
   </xs:choice></xs:sequence>
   <xs:attribute name="Schrittweite" type="xs:string" use="required"/>
+  <xs:attribute name="LetztesIntervall" type="xs:string"/>
 </xs:complexType></xs:element>
 
 <xs:element name="ModellZusatzStatistikElement"><xs:complexType><xs:simpleContent>
@@ -2343,6 +2344,7 @@
     <xs:element ref="ModelAdditionalStatisticsElement" minOccurs="0" maxOccurs="unbounded"/>  
   </xs:choice></xs:sequence>
   <xs:attribute name="StepWide" type="xs:string" use="required"/>
+  <xs:attribute name="LastInterval" type="xs:string"/>
 </xs:complexType></xs:element>
 
 <xs:element name="ModelAdditionalStatisticsElement"><xs:complexType><xs:simpleContent>

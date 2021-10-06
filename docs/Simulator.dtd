@@ -104,7 +104,8 @@
 
 <!ELEMENT ModellZusatzStatistik (ModellZusatzStatistikElement)*>
 <!ATTLIST ModellZusatzStatistik
-  Schrittweite	CDATA	#REQUIRED
+  Schrittweite		CDATA	#REQUIRED
+  LetztesIntervall	CDATA	#IMPLIED
 >
 
 <!ELEMENT ModellZusatzStatistikElement (#PCDATA)>
@@ -2420,7 +2421,8 @@
 
 <!ELEMENT ModelAdditionalStatistics (ModelAdditionalStatisticsElement)*>
 <!ATTLIST ModelAdditionalStatistics
-  StepWide	CDATA	#REQUIRED
+  StepWide		CDATA	#REQUIRED
+  LastInterval	CDATA	#IMPLIED
 >
 
 <!ELEMENT ModelAdditionalStatisticsElement (#PCDATA)>

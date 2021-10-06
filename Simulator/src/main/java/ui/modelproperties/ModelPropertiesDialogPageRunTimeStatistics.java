@@ -18,6 +18,7 @@ package ui.modelproperties;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 
+import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -42,6 +43,9 @@ public class ModelPropertiesDialogPageRunTimeStatistics extends ModelPropertiesD
 	private JTextField stepWideEdit;
 	/** Auswahlfeld für die Einheit für {@link #stepWideEdit} */
 	private JComboBox<String> stepWideCombo;
+	/** Checkbox zur Erfassung oder Verwerfung des letzten, unvollständigen Intervalls */
+	private JCheckBox closeLastInterval;
+
 	/** Datenmodell für die Liste der Laufzeitstatistikdatne */
 	private AdditionalStatisticsTableModel statisticsData;
 
@@ -103,6 +107,9 @@ public class ModelPropertiesDialogPageRunTimeStatistics extends ModelPropertiesD
 			}
 		}
 
+		line.add(closeLastInterval=new JCheckBox(Language.tr("Editor.Dialog.Tab.RunTimeStatistics.LastInterval"),model.longRunStatistics.isCloseLastInterval()));
+		closeLastInterval.setEnabled(!readOnly);
+
 		/* Liste mit Ausdrücken */
 
 		final JTableExt table=new JTableExt();
@@ -146,6 +153,7 @@ public class ModelPropertiesDialogPageRunTimeStatistics extends ModelPropertiesD
 			long l=Math.round(step);
 			if (l<1) l=1;
 			model.longRunStatistics.setStepWideSec(l);
+			model.longRunStatistics.setCloseLastInterval(closeLastInterval.isSelected());
 		}
 
 		model.longRunStatistics.getData().clear();

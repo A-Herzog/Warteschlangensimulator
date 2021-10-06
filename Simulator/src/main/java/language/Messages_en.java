@@ -9540,6 +9540,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[25239] = "The specified expression \"%s\" is invalid at character %d.";
     t[25242] = "Surface.AnimationBarChart.HistogramWizard.ID";
     t[25243] = "ID";
+    t[25248] = "Surface.XML.RootName.AdditionalStatistics.LastInterval";
+    t[25249] = "LastInterval";
     t[25252] = "Statistics.TransporterType";
     t[25253] = "Transporter type";
     t[25254] = "ParameterCompare.Settings.Input.List.Templates.DelayTime";
@@ -10032,14 +10034,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[26447] = "Mode";
     t[26450] = "ModelDescription.SetStatisticsMode.Condition";
     t[26451] = "Condition";
-    t[26452] = "SettingsDialog.ImageAnimation.Folder.Select";
-    t[26453] = "Select folder for saving images";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_5 (java.lang.String[] t) {
+    t[26452] = "SettingsDialog.ImageAnimation.Folder.Select";
+    t[26453] = "Select folder for saving images";
     t[26454] = "Simulation.Creator.ReleaseDelayed";
     t[26455] = "At element id=%d for client type \"%s\" the invalid value \"%s\" is specified as delayed resource release time expression (error at character %d).";
     t[26462] = "BuildClientSourceTable.DialogHint";
@@ -12038,14 +12040,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[31729] = "Today";
     t[31736] = "Main.Toolbar.ShowModelForTheseResults.Hint";
     t[31737] = "Displays the model that belongs to these simulation results";
-    t[31738] = "ModelDescription.Set.ResidenceTime";
-    t[31739] = "Residence time";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_6 (java.lang.String[] t) {
+    t[31738] = "ModelDescription.Set.ResidenceTime";
+    t[31739] = "Residence time";
     t[31742] = "Transporters.Group.Edit.Dialog.Distances.Label";
     t[31743] = "from / to";
     t[31750] = "Surface.ExpressionTableModel.SetupArea";
@@ -13208,6 +13210,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[34661] = "<p>Generates a random number according to the gamma distribution with mean and standard deviation specified in parameters three and four.</p>";
     t[34670] = "Main.Menu.RecordAnimation";
     t[34671] = "Record animation as video...";
+    t[34676] = "Editor.Dialog.Tab.RunTimeStatistics.LastInterval";
+    t[34677] = "Record incomplete last interval";
     t[34682] = "ModelDescription.InteractiveCheckbox.Description.Values";
     t[34683] = "Values";
     t[34700] = "ParameterCompare.Settings.Input.Mode.GlobalMap.ErrorInfo";
@@ -14042,16 +14046,16 @@ public class Messages_en extends java.util.ResourceBundle {
     t[36919] = "Conveyor arrival";
     t[36922] = "Surface.SourceMulti.Dialog.Title";
     t[36923] = "Edit multiple source";
-    t[36924] = "Statistics.NumberOfClients";
-    t[36925] = "Number of clients";
-    t[36926] = "Surface.XML.Transporter.FailureDistribution";
-    t[36927] = "FailureDistribution";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_7 (java.lang.String[] t) {
+    t[36924] = "Statistics.NumberOfClients";
+    t[36925] = "Number of clients";
+    t[36926] = "Surface.XML.Transporter.FailureDistribution";
+    t[36927] = "FailureDistribution";
     t[36932] = "ParameterCompare.Settings.Input.List.Templates.Conveyor";
     t[36933] = "Conveyor transport time at station %s";
     t[36934] = "Statistics.ClientMovement.Count";
@@ -16048,16 +16052,16 @@ public class Messages_en extends java.util.ResourceBundle {
     t[41967] = "Transport destination";
     t[41970] = "Surface.ExpressionTableModel.Dialog.Expression.Error.Title";
     t[41971] = "Invalid expression";
-    t[41972] = "Surface.Process.XML.Batch.Minimum";
-    t[41973] = "Minimum";
-    t[41978] = "FindAndReplace.ReplaceString";
-    t[41979] = "Replace string";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_8 (java.lang.String[] t) {
+    t[41972] = "Surface.Process.XML.Batch.Minimum";
+    t[41973] = "Minimum";
+    t[41978] = "FindAndReplace.ReplaceString";
+    t[41979] = "Replace string";
     t[41980] = "Surface.DifferentialCounter.XML.Increment";
     t[41981] = "ModelElementDifferenceCounterIncrement";
     t[41984] = "Statistics.SystemData.RunDate";
@@ -18054,16 +18058,16 @@ public class Messages_en extends java.util.ResourceBundle {
     t[47113] = "Using percent notation for numbers (instead of normal numbers)";
     t[47114] = "Surface.TransportSource.Dialog.Ressource.DelayedRelease.Dialog.DelayTime";
     t[47115] = "Delayed release";
-    t[47128] = "Statistics.ModelRemarks.LargeRhoRelative";
-    t[47129] = "High utilization of the operators";
-    t[47142] = "SimulationServer.Setup.TLSInfo.GenerateKeyStore.Success";
-    t[47143] = "A self-signed certificate has been stored in the specified key store file.\nThe web server can now establish encrypted connections on this basis.\nHowever, because it is a self-signed certificate, browsers will classify the connection as insecure.";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_9 (java.lang.String[] t) {
+    t[47128] = "Statistics.ModelRemarks.LargeRhoRelative";
+    t[47129] = "High utilization of the operators";
+    t[47142] = "SimulationServer.Setup.TLSInfo.GenerateKeyStore.Success";
+    t[47143] = "A self-signed certificate has been stored in the specified key store file.\nThe web server can now establish encrypted connections on this basis.\nHowever, because it is a self-signed certificate, browsers will classify the connection as insecure.";
     t[47146] = "ScriptPopup.Clients.clientTypeName";
     t[47147] = "Name of the client type";
     t[47148] = "Elements.Catalog.Animation";
@@ -20060,16 +20064,16 @@ public class Messages_en extends java.util.ResourceBundle {
     t[52201] = "Transporter";
     t[52204] = "Surface.TankFlowPanel.Source";
     t[52205] = "Source";
-    t[52206] = "ExpressionBuilder.ExponentialAndLogarithmFunctions.10Logarithm.Info";
-    t[52207] = "<p>Calculates the logarithm of the value passed as parameter to the base 10.</p> <p> Example: <tt>lg(100)</tt> returns 2.</p>";
-    t[52210] = "ParameterCompare.Table.AddModelByAssistant.Error.NoParameterActive";
-    t[52211] = "At least one parameter needs to be selected for variation to create a parameter series.";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_10 (java.lang.String[] t) {
+    t[52206] = "ExpressionBuilder.ExponentialAndLogarithmFunctions.10Logarithm.Info";
+    t[52207] = "<p>Calculates the logarithm of the value passed as parameter to the base 10.</p> <p> Example: <tt>lg(100)</tt> returns 2.</p>";
+    t[52210] = "ParameterCompare.Table.AddModelByAssistant.Error.NoParameterActive";
+    t[52211] = "At least one parameter needs to be selected for variation to create a parameter series.";
     t[52212] = "ExpressionBuilder.SimulationCharacteristics.WaitingTimesOverAll";
     t[52213] = "Waiting times over all client types and stations";
     t[52214] = "Surface.XML.Resource.CostsPerProcessHour";

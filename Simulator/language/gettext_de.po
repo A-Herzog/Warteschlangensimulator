@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-04 08:55+0200\n"
+"POT-Creation-Date: 2021-10-05 22:00+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -3435,6 +3435,9 @@ msgstr ""
 
 msgid "Editor.Dialog.Tab.RunTimeStatistics.InfoText"
 msgstr "Der Simulator kann während der Simulation in regelmäßigen Abständen den Wert beliebiger Ausdrücke aufzeichnen. Auf dieser Dialogseite kann eingestellt werden, welche Ausdrücke in welchen Abständen erfasst werden sollen."
+
+msgid "Editor.Dialog.Tab.RunTimeStatistics.LastInterval"
+msgstr "Unvollständiges letztes Intervall erfassen"
 
 msgid "Editor.Dialog.Tab.RunTimeStatistics.StepWide"
 msgstr "Zeitspanne pro Erfassungsintervall"
@@ -30292,6 +30295,9 @@ msgstr "Maximum"
 
 msgid "Surface.XML.RootName.AdditionalStatistics.Element.Mode.Min"
 msgstr "Minimum"
+
+msgid "Surface.XML.RootName.AdditionalStatistics.LastInterval"
+msgstr "LetztesIntervall"
 
 msgid "Surface.XML.RootName.AdditionalStatistics.StepWide"
 msgstr "Schrittweite"

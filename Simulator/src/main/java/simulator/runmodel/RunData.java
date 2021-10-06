@@ -37,6 +37,8 @@ import simulator.coreelements.RunElementAnalogProcessingData;
 import simulator.coreelements.RunElementData;
 import simulator.elements.ClientMoveListener;
 import simulator.elements.FreeResourcesListener;
+import simulator.elements.RunElementLongRunStatistics;
+import simulator.elements.RunElementLongRunStatisticsData;
 import simulator.elements.RunSource;
 import simulator.elements.SignalListener;
 import simulator.elements.StateChangeListener;
@@ -460,6 +462,14 @@ public class RunData {
 			if (element.getValue() instanceof RunElementAnalogProcessing) {
 				final RunElementAnalogProcessingData data=(RunElementAnalogProcessingData)element.getValue().getData(simData);
 				data.updateStatistics(simData.currentTime);
+			}
+		}
+
+		/* Benachrichtigt die Laufzeitstatistikstation, um die Statistik noch einmal zu aktualisieren. */
+		for (Map.Entry<Integer,RunElement> element: simData.runModel.elements.entrySet()) {
+			if (element.getValue() instanceof RunElementLongRunStatistics) {
+				final RunElementLongRunStatisticsData data=(RunElementLongRunStatisticsData)element.getValue().getData(simData);
+				data.doneStatistics(simData);
 			}
 		}
 

@@ -39,13 +39,18 @@ public final class ModelLongRunStatistics implements Cloneable {
 	/**
 	 * Name des XML-Attributes, in dem die zu verwendende Schrittweite (in Sekunden) gespeichert werden soll
 	 */
-	public static String[] XML_NODE_STEPWIDE_ATTR=new String[] {"Schrittweite"}; /* wird dynamisch mit Sprachdaten geladen, siehe LanguageStaticLoader */
+	public static String[] XML_NODE_STEPWIDE_ATTR=new String[]{"Schrittweite"}; /* wird dynamisch mit Sprachdaten geladen, siehe LanguageStaticLoader */
+
+	/**
+	 * Name des XML-Attributes, in dem gespeichert wird, ob das letzte unabgeschlossene Intervall erfasst werden soll
+	 */
+	public static String[] XML_NODE_CLOSELASTINTERVAL_ATTR=new String[]{"LetztesIntervall"}; /* wird dynamisch mit Sprachdaten geladen, siehe LanguageStaticLoader */
 
 	/**
 	 * Vorgabewert für die Erfassungsschrittweite in Sekunden
 	 * @see #stepWideSec
 	 */
-	private static final long default_stepWideSec=10*3600;
+	private static final long DEFAULT__STEPWIDE_SECONDSc=10*3600;
 
 	/**
 	 * Liste der zu erfassenden Daten
@@ -61,11 +66,19 @@ public final class ModelLongRunStatistics implements Cloneable {
 	private long stepWideSec;
 
 	/**
+	 * Sollen zum Simulationsende letzte Intervalle abgeschlossen werden?
+	 * @see #isCloseLastInterval()
+	 * @see #setCloseLastInterval(boolean)
+	 */
+	private boolean closeLastInterval;
+
+	/**
 	 * Konstruktor der Klasse
 	 */
 	public ModelLongRunStatistics() {
 		data=new ArrayList<>();
-		stepWideSec=default_stepWideSec;
+		stepWideSec=DEFAULT__STEPWIDE_SECONDSc;
+		closeLastInterval=false;
 	}
 
 	/**
@@ -73,7 +86,8 @@ public final class ModelLongRunStatistics implements Cloneable {
 	 */
 	public void clear() {
 		data.clear();
-		stepWideSec=default_stepWideSec;
+		stepWideSec=DEFAULT__STEPWIDE_SECONDSc;
+		closeLastInterval=false;
 	}
 
 	/**
@@ -86,6 +100,7 @@ public final class ModelLongRunStatistics implements Cloneable {
 
 		for (ModelLongRunStatisticsElement record: data) clone.data.add(record.clone());
 		clone.stepWideSec=stepWideSec;
+		clone.closeLastInterval=closeLastInterval;
 
 		return clone;
 	}
@@ -99,6 +114,7 @@ public final class ModelLongRunStatistics implements Cloneable {
 		data.clear();
 		for (ModelLongRunStatisticsElement record: otherAdditionalStatistics.data) data.add(record.clone());
 		stepWideSec=otherAdditionalStatistics.stepWideSec;
+		closeLastInterval=otherAdditionalStatistics.closeLastInterval;
 	}
 
 	/**
@@ -113,6 +129,7 @@ public final class ModelLongRunStatistics implements Cloneable {
 		if (data.size()!=otherAdditionalStatistics.data.size()) return false;
 		for (int i=0;i<data.size();i++) if (!data.get(i).equalsElement(otherAdditionalStatistics.data.get(i))) return false;
 		if (stepWideSec!=otherAdditionalStatistics.stepWideSec) return false;
+		if (closeLastInterval!=otherAdditionalStatistics.closeLastInterval) return false;
 
 		return true;
 	}
@@ -150,16 +167,33 @@ public final class ModelLongRunStatistics implements Cloneable {
 	}
 
 	/**
+	 * Sollen zum Simulationsende letzte Intervalle abgeschlossen werden?
+	 * @return	Liefert <code>true</code>, wenn das letzte unvollständige Intervall dennoch erfasst werden soll
+	 */
+	public boolean isCloseLastInterval() {
+		return closeLastInterval;
+	}
+
+	/**
+	 * Sollen zum Simulationsende letzte Intervalle abgeschlossen werden?
+	 * @param closeLastInterval	Letztes unvollständige Intervall dennoch erfassen?
+	 */
+	public void setCloseLastInterval(boolean closeLastInterval) {
+		this.closeLastInterval=closeLastInterval;
+	}
+
+	/**
 	 * Speichert die Statistikdatenliste in einem xml-Knoten
 	 * @param doc	Übergeordnetes xml-Dokument
 	 * @param parent	Übergeordneter Konten des Knoten, in dem die Daten des Objekts gespeichert werden sollen
 	 */
 	public void addToXML(final Document doc, final Element parent) {
-		if (data.size()==0 && stepWideSec==default_stepWideSec) return;
+		if (data.size()==0 && stepWideSec==DEFAULT__STEPWIDE_SECONDSc) return;
 
 		Element node=doc.createElement(XML_NODE_NAME[0]);
 		parent.appendChild(node);
 		node.setAttribute(XML_NODE_STEPWIDE_ATTR[0],""+stepWideSec);
+		if (closeLastInterval) node.setAttribute(XML_NODE_CLOSELASTINTERVAL_ATTR[0],"1");
 
 		for (ModelLongRunStatisticsElement element: data) element.addToXML(doc,node);
 	}
@@ -176,6 +210,13 @@ public final class ModelLongRunStatistics implements Cloneable {
 				final Long L=NumberTools.getPositiveLong(value);
 				if (L==null) return String.format(Language.tr("Surface.XML.ErrorAdditionalStatistics.StepWide"),value);
 				stepWideSec=L;
+				break;
+			}
+		}
+		for (String attr: XML_NODE_CLOSELASTINTERVAL_ATTR) {
+			final String value=node.getAttribute(attr).trim();
+			if (!value.isEmpty() && !value.equals("0")) {
+				closeLastInterval=true;
 				break;
 			}
 		}
