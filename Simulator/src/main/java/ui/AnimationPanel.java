@@ -249,6 +249,8 @@ public class AnimationPanel extends JPanel implements RunModelAnimationViewer {
 	private JMenuItem menuScreenshotModeCustom;
 	/** Popupmenüpunkt "Logging-Daten im Einzelschrittmodus anzeigen" */
 	private JCheckBoxMenuItem menuShowLog;
+	/** Popupmenüpunkt "Animation bei Pause-Skriptanweisung unterbrechen" */
+	private JCheckBoxMenuItem menuRespectPauseCommand;
 
 	/* Vertikale Symbolleiste */
 
@@ -1115,7 +1117,9 @@ public class AnimationPanel extends JPanel implements RunModelAnimationViewer {
 			if (simData==null) return true;
 			if (simData.runData.isWarmUp && fastWarmUp) return true;
 			this.simData=simData;
-			if (this.simData.pauseAnimationCallback==null) this.simData.pauseAnimationCallback=()->{if (isRunning()) playPause();};
+			if (this.simData.pauseAnimationCallback==null) this.simData.pauseAnimationCallback=()->{
+				if (setup.respectPauseCommand && isRunning()) playPause();
+			};
 			if (logger==null || !logger.isActive()) {
 				delaySystem(simData,delayInt/4); /* Verzögerungen von einem Ereignis zum nächsten ausschalten im Einzelschrittmodus. */
 			} else {
@@ -1496,6 +1500,10 @@ public class AnimationPanel extends JPanel implements RunModelAnimationViewer {
 		popup.add(menuShowLog=new JCheckBoxMenuItem(Language.tr("SettingsDialog.Tabs.Simulation.ShowSingleStepLogData")));
 		menuShowLog.addActionListener(new ToolBarListener());
 		menuShowLog.setSelected(setup.showSingleStepLogData);
+
+		popup.add(menuRespectPauseCommand=new JCheckBoxMenuItem(Language.tr("SettingsDialog.Tabs.Simulation.RespectPauseCommand")));
+		menuRespectPauseCommand.addActionListener(new ToolBarListener());
+		menuRespectPauseCommand.setSelected(setup.respectPauseCommand);
 
 		popup.show(buttonTools,0,buttonTools.getHeight());
 	}
@@ -1986,6 +1994,14 @@ public class AnimationPanel extends JPanel implements RunModelAnimationViewer {
 	}
 
 	/**
+	 * Befehl: "Animation bei Pause-Skriptanweisung unterbrechen" (an/aus umschalten)
+	 */
+	private void toggleRespectPauseCommand() {
+		setup.respectPauseCommand=!setup.respectPauseCommand;
+		setup.saveSetup();
+	}
+
+	/**
 	 * Stellt ein Unter-Animator-Element ein, welches ebenfalls bei Animationsschritten benachrichtigt werden soll
 	 * @param subViewer	Unter-Animator-Element (kann auch <code>null</code> sein, wenn kein zusätzliches Element benachrichtigt werden soll)
 	 * @see #removeSubViewer(RunModelAnimationViewer)
@@ -2266,6 +2282,7 @@ public class AnimationPanel extends JPanel implements RunModelAnimationViewer {
 			if (source==menuScreenshotModeHome) {commandScreenshotModeHome(); return;}
 			if (source==menuScreenshotModeCustom) {commandScreenshotModeCustom(); return;}
 			if (source==menuShowLog) {toggleShowSingleStepLogData(); return;}
+			if (source==menuRespectPauseCommand) {toggleRespectPauseCommand(); return;}
 			if (source==buttonProperties) {showModelPropertiesDialog(null); return;}
 			if (source==buttonCurrentData) {calcExpression(); return;}
 			if (source==logPrevious) {displayLogMessage(-1); return;}

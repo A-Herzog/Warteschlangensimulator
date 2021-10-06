@@ -481,6 +481,11 @@ public class SetupData extends SetupBase {
 	public boolean animateResources;
 
 	/**
+	 * Animation bei Pause-Skriptanweisung unterbrechen
+	 */
+	public boolean respectPauseCommand;
+
+	/**
 	 * Dateiname der letzten Logdatei
 	 */
 	public String lastLogFile;
@@ -1320,6 +1325,7 @@ public class SetupData extends SetupBase {
 		showStationRunTimeData=true;
 		showSingleStepLogData=true;
 		animateResources=true;
+		respectPauseCommand=true;
 		lastLogFile="";
 		singleLineEventLog=true;
 		logGrouped=true;
@@ -1581,6 +1587,20 @@ public class SetupData extends SetupBase {
 	}
 
 	/**
+	 * Prüft, ob das Programmverzeichnis ein Unterverzeichnis des Home-Verzeichnisses ist.
+	 * @return	Liefer <code>true</code>, wenn das Programmverzeichnis ein Unterverzeichnis des Home-Verzeichnisses ist
+	 */
+	private static boolean isProgramInHomeFolder() {
+		final File programFolder=getProgramFolder();
+		final String homeFolder=System.getProperty("user.home");
+		if (homeFolder==null) return true;
+		final String s1=homeFolder.toLowerCase();
+		final String s2=programFolder.toString().toLowerCase();
+		if (s1.equals(s2.substring(0,Math.min(s1.length(),s2.length())))) return true;
+		return false;
+	}
+
+	/**
 	 * Wird intern von {@link #getSetupFolder()} zur Bestimmung des Verzeichnisses
 	 * aufgerufen, wenn in {@link #setupFolder} noch kein Wert hinterlegt ist.
 	 * @return	Pfad der Einstellungendatei
@@ -1588,29 +1608,44 @@ public class SetupData extends SetupBase {
 	private static File getSetupFolderInt() {
 		final File programFolder=getProgramFolder();
 
-		/* Abweichender Ordner nur unter Windows */
+		/* Programmverzeichnis ist Unterordner des home-Verzeichnisses */
+		if (isProgramInHomeFolder()) return programFolder;
+
+		/* Betriebssystem ermitteln */
 		final String osName=System.getProperty("os.name");
 		if (osName==null) return programFolder;
-		if (!osName.toLowerCase().contains("windows")) return programFolder;
-
-		/* Programmverzeichnis ist Unterordner des home-Verzeichnisses */
-		final String homeFolder=System.getProperty("user.home");
-		if (homeFolder==null) return programFolder;
-		final String s1=homeFolder.toLowerCase();
-		final String s2=programFolder.toString().toLowerCase();
-		if (s1.equals(s2.substring(0,Math.min(s1.length(),s2.length())))) return programFolder;
 
 		/* Alternativen Speicherort */
-		final String appData=System.getenv("APPDATA");
-		if (appData==null) return programFolder;
-		final File appDataFolder=new File(appData);
-		if (!appDataFolder.isDirectory()) return programFolder;
-		final File folder=new File(appDataFolder,USER_CONFIGURATION_FOLDER_NAME);
-		if (!folder.isDirectory()) {
-			if (!folder.mkdir()) return programFolder;
+
+		/* Windows */
+		if (osName.toLowerCase().contains("windows")) {
+			final String appData=System.getenv("APPDATA");
+			if (appData==null) return programFolder;
+			final File appDataFolder=new File(appData);
+			if (!appDataFolder.isDirectory()) return programFolder;
+			final File folder=new File(appDataFolder,USER_CONFIGURATION_FOLDER_NAME);
+			if (!folder.isDirectory()) {
+				if (!folder.mkdir()) return programFolder;
+			}
+			if (!folder.isDirectory()) return programFolder;
+			return folder;
 		}
-		if (!folder.isDirectory()) return programFolder;
-		return folder;
+
+		/* Linux */
+		if (osName.toLowerCase().contains("linux")) {
+			final String home=System.getProperty("user.home");
+			if (home==null) return programFolder;
+			final File homeFolder=new File(home);
+			if (!homeFolder.isDirectory()) return programFolder;
+			final File folder=new File(homeFolder,"."+USER_CONFIGURATION_FOLDER_NAME);
+			if (!folder.isDirectory()) {
+				if (!folder.mkdir()) return programFolder;
+			}
+			if (!folder.isDirectory()) return programFolder;
+			return folder;
+		}
+
+		return programFolder;
 	}
 
 	/**
@@ -1891,6 +1926,11 @@ public class SetupData extends SetupBase {
 
 			if (name.equals("animationresourcestransporters")) {
 				animateResources=loadBoolean(e.getTextContent(),true);
+				continue;
+			}
+
+			if (name.equals("animationrespectpausecommand")) {
+				respectPauseCommand=loadBoolean(e.getTextContent(),true);
 				continue;
 			}
 
@@ -2596,6 +2636,11 @@ public class SetupData extends SetupBase {
 
 		if (!animateResources) {
 			root.appendChild(node=doc.createElement("AnimationResourcesTransporters"));
+			node.setTextContent("0");
+		}
+
+		if (!respectPauseCommand) {
+			root.appendChild(node=doc.createElement("AnimationRespectPauseCommand"));
 			node.setTextContent("0");
 		}
 
