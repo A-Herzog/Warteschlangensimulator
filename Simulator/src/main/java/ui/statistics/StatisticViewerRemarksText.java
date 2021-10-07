@@ -19,6 +19,7 @@ import java.net.URL;
 import java.util.Arrays;
 
 import language.Language;
+import mathtools.distribution.DataDistributionImpl;
 import simulator.statistics.Statistics;
 import statistics.StatisticsDataPerformanceIndicator;
 import statistics.StatisticsDataPerformanceIndicatorWithNegativeValues;
@@ -134,6 +135,12 @@ public class StatisticViewerRemarksText extends StatisticViewerText {
 	 * @see #buildTextRelativeLargeRho()
 	 */
 	private static final double RHO_FACTOR=2;
+
+	/**
+	 * Warnanteil für abgeschnittene Werte in Häufigkeitsverteilungen
+	 * @see StatisticViewerRemarksText#buildTextFrequencyDistributionClipPart()
+	 */
+	private static final double FREQUENCY_DIST_CLIP_PART=0.2;
 
 	/**
 	 * Konstruktor der Klasse
@@ -597,6 +604,80 @@ public class StatisticViewerRemarksText extends StatisticViewerText {
 	}
 
 	/**
+	 * Prüft, ob ein Anteil von {@value #FREQUENCY_DIST_CLIP_PART} oder mehr der Werte
+	 * im obersten Bereich der Verteilung liegen.
+	 * @param count	Gesamtanzahl an Werten
+	 * @param dist	Verteilung
+	 * @return	Liefert den Anteil der Werte oder -1, wenn der Grenzwert nicht überschritten wurde
+	 */
+	private double clippedValues(final long count, final DataDistributionImpl dist) {
+		if (count==0 || dist==null || dist.densityData==null || dist.densityData.length<2) return -1;
+		final double max=dist.densityData[dist.densityData.length-1];
+
+		if (max>=count*FREQUENCY_DIST_CLIP_PART) return max/count;
+		return -1;
+	}
+
+	/**
+	 * Prüfen auf viele abgeschnittene Werte in Häufigkeitsverteilungen
+	 * @return	Liefert <code>true</code>, wenn die Methode Ausgaben erzeugt hat
+	 * @see #FREQUENCY_DIST_CLIP_PART
+	 */
+	private boolean buildTextFrequencyDistributionClipPart() {
+		boolean headingPrinted=false;
+
+		for (StatisticsPerformanceIndicator indicator1: statistics.getAllPerformanceIndicators()) {
+			if (indicator1 instanceof StatisticsMultiPerformanceIndicator && indicator1.xmlNodeNames!=null && indicator1.xmlNodeNames.length>0) for (StatisticsPerformanceIndicator indicator2 : ((StatisticsMultiPerformanceIndicator)indicator1).getAll()) {
+				if (indicator2 instanceof StatisticsDataPerformanceIndicator) {
+					final StatisticsDataPerformanceIndicator indicator=(StatisticsDataPerformanceIndicator)indicator2;
+					final double p=clippedValues(indicator.getCount(),indicator.getDistribution());
+					if (p>0 && indicator.xmlNodeNames!=null && indicator.xmlNodeNames.length>0) {
+						if (!headingPrinted) {addHeading(2,Language.tr("Statistics.ModelRemarks.TruncatedValues")); beginParagraph(); headingPrinted=true;}
+						final String name=indicator1.xmlNodeNames[0]+"->"+indicator.xmlNodeNames[0]+"["+Language.trAll("Statistics.XML.Type")+"="+((StatisticsMultiPerformanceIndicator)indicator1).getName(indicator)+"]";
+						addLine(String.format(Language.tr("Statistics.ModelRemarks.TruncatedValues.DistributionInfo"),name,StatisticTools.formatPercent(p)));
+					}
+				}
+				if (indicator2 instanceof StatisticsDataPerformanceIndicatorWithNegativeValues) {
+					final StatisticsDataPerformanceIndicatorWithNegativeValues indicator=(StatisticsDataPerformanceIndicatorWithNegativeValues)indicator2;
+					final double p=clippedValues(indicator.getCount(),indicator.getDistribution());
+					if (p>0 && indicator.xmlNodeNames!=null && indicator.xmlNodeNames.length>0) {
+						if (!headingPrinted) {addHeading(2,Language.tr("Statistics.ModelRemarks.TruncatedValues")); beginParagraph(); headingPrinted=true;}
+						final String name=indicator1.xmlNodeNames[0]+"->"+indicator.xmlNodeNames[0]+"["+Language.trAll("Statistics.XML.Type")+"="+((StatisticsMultiPerformanceIndicator)indicator1).getName(indicator)+"]";
+						addLine(String.format(Language.tr("Statistics.ModelRemarks.TruncatedValues.DistributionInfo"),name,StatisticTools.formatPercent(p)));
+					}
+				}
+			}
+			if (indicator1 instanceof StatisticsDataPerformanceIndicator) {
+				final StatisticsDataPerformanceIndicator indicator=(StatisticsDataPerformanceIndicator)indicator1;
+				final double p=clippedValues(indicator.getCount(),indicator.getDistribution());
+				if (p>0 && indicator.xmlNodeNames!=null && indicator.xmlNodeNames.length>0) {
+					if (!headingPrinted) {addHeading(2,Language.tr("Statistics.ModelRemarks.TruncatedValues")); beginParagraph(); headingPrinted=true;}
+					final String name=indicator.xmlNodeNames[0];
+					addLine(String.format(Language.tr("Statistics.ModelRemarks.TruncatedValues.DistributionInfo"),name,StatisticTools.formatPercent(p)));
+				}
+			}
+			if (indicator1 instanceof StatisticsDataPerformanceIndicatorWithNegativeValues) {
+				final StatisticsDataPerformanceIndicatorWithNegativeValues indicator=(StatisticsDataPerformanceIndicatorWithNegativeValues)indicator1;
+				final double p=clippedValues(indicator.getCount(),indicator.getDistribution());
+				if (p>0 && indicator.xmlNodeNames!=null && indicator.xmlNodeNames.length>0) {
+					if (!headingPrinted) {addHeading(2,Language.tr("Statistics.ModelRemarks.TruncatedValues")); beginParagraph(); headingPrinted=true;}
+					final String name=indicator.xmlNodeNames[0];
+					addLine(String.format(Language.tr("Statistics.ModelRemarks.TruncatedValues.DistributionInfo"),name,StatisticTools.formatPercent(p)));
+				}
+			}
+		}
+
+		if (headingPrinted) {
+			endParagraph();
+			beginParagraph();
+			addLine(String.format(Language.tr("Statistics.ModelRemarks.TruncatedValues.Info1"),StatisticTools.formatPercent(FREQUENCY_DIST_CLIP_PART)));
+			addLine(Language.tr("Statistics.ModelRemarks.TruncatedValues.Info2"));
+			endParagraph();
+		}
+		return headingPrinted;
+	}
+
+	/**
 	 * Erzeugt die Teilausgaben.
 	 * @param testOnly	Wird hier <code>true</code> übergeben, so kehrt die Methode nach der ersten Ausgabe zurück.
 	 * @return	Liefert <code>true</code>, wenn Ausgaben erzeugt wurden.
@@ -634,6 +715,9 @@ public class StatisticViewerRemarksText extends StatisticViewerText {
 		if (testOnly && output) return true;
 
 		if (buildTextRelativeLargeRho()) output=true;
+		if (testOnly && output) return true;
+
+		if (buildTextFrequencyDistributionClipPart()) output=true;
 		if (testOnly && output) return true;
 
 		return output;

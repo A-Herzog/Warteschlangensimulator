@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-06 09:05+0200\n"
+"POT-Creation-Date: 2021-10-07 00:25+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19980,6 +19980,18 @@ msgstr "Es liegen keine Hinweise zu den Statistikdaten vor."
 
 msgid "Statistics.ModelRemarks.RemarkInfo"
 msgstr "Die oben aufgelisteten Hinweise sollen dabei helfen, Flaschenhälse oder Unstimmigkeiten im Modell zu identifizieren."
+
+msgid "Statistics.ModelRemarks.TruncatedValues"
+msgstr "Abgeschnittene Werte in Häufigkeitsverteilungen"
+
+msgid "Statistics.ModelRemarks.TruncatedValues.DistributionInfo"
+msgstr "Bei der Verteilung \"%s\" liegen %s Werte im höchsten erfassten Bereich."
+
+msgid "Statistics.ModelRemarks.TruncatedValues.Info1"
+msgstr "Bei den oben genannten Häufigkeitsverteilungen liegen jeweils mindestens %s der Werte im höchsten erfassten Bereich, d.h. es wurden wahrscheinlich relativ viele Werte bei der Erfassung gekappt."
+
+msgid "Statistics.ModelRemarks.TruncatedValues.Info2"
+msgstr "Es sollte daher erwogen werden, die Erfassungsobergrenze in den Modelleigenschaften anzuheben."
 
 msgid "Statistics.NoWaitingTransferProcessingTimes"
 msgstr "Es liegen weder Warte- noch Transfer- noch Bedien- noch Verweilzeiten vor."

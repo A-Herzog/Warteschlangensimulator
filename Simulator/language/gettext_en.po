@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-06 09:05+0200\n"
+"POT-Creation-Date: 2021-10-07 00:25+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19974,6 +19974,18 @@ msgstr "There are no comments on the statistical data."
 
 msgid "Statistics.ModelRemarks.RemarkInfo"
 msgstr "The remarks listed above are intended to help identify bottle necks or inconsistencies in the model."
+
+msgid "Statistics.ModelRemarks.TruncatedValues"
+msgstr "Truncated values in frequency distributions"
+
+msgid "Statistics.ModelRemarks.TruncatedValues.DistributionInfo"
+msgstr "For the \"%s\" distribution, %s values are in the highest recorded range."
+
+msgid "Statistics.ModelRemarks.TruncatedValues.Info1"
+msgstr "In each of the above frequency distributions, at least %s of the values are in the highest recorded range, i.e., a relatively large number of values were probably clipped during recording."
+
+msgid "Statistics.ModelRemarks.TruncatedValues.Info2"
+msgstr "Therefore, it should be considered to raise the collection limit in the model properties."
 
 msgid "Statistics.NoWaitingTransferProcessingTimes"
 msgstr "There are no waiting or transfer or processing or residence times."
