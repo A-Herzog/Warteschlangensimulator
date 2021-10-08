@@ -41,7 +41,7 @@ import ui.images.Images;
  * @see StatisticViewerTable
  * @see CreateSankey
  */
-public class StatisticViewerMovementTable extends StatisticViewerTable {
+public class StatisticViewerMovementTable extends StatisticViewerBaseTable {
 	/**
 	 * Welche Informationen sollen angezeigt werden?
 	 * @author Alexander Herzog

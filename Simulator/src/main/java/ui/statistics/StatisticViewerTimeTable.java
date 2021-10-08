@@ -48,7 +48,7 @@ import ui.modeleditor.elements.ModelElementSub;
  * @see StatisticViewerTable
  * @author Alexander Herzog
  */
-public class StatisticViewerTimeTable extends StatisticViewerTable {
+public class StatisticViewerTimeTable extends StatisticViewerBaseTable {
 	/** Statistikobjekt, aus dem die anzuzeigenden Daten entnommen werden sollen */
 	private final Statistics statistics;
 	/** Gibt an, welche Daten genau ausgegeben werden sollen */
@@ -416,18 +416,18 @@ public class StatisticViewerTimeTable extends StatisticViewerTable {
 			StatisticsDataPerformanceIndicator data;
 			data=(StatisticsDataPerformanceIndicator)(indicator1.get(type));
 			final String typeName=isStationsList?fullStationName(type):type;
-			table.addLine(getDataLine(((type1!=null && !type1.isEmpty())?(type1+" "):"")+typeName,data,confidenceLevels));
+			table.addLine(getDataLine(((type1!=null && !type1.isEmpty())?(type1+" "):"")+typeName,data,hasConfidence?confidenceLevels:null));
 			if (indicator2!=null && type2!=null) {
 				data=(StatisticsDataPerformanceIndicator)(indicator2.get(type));
-				table.addLine(getDataLine(type2+" "+typeName,data,confidenceLevels));
+				table.addLine(getDataLine(type2+" "+typeName,data,hasConfidence?confidenceLevels:null));
 			}
 			if (indicator3!=null && type3!=null) {
 				data=(StatisticsDataPerformanceIndicator)(indicator3.get(type));
-				table.addLine(getDataLine(type3+" "+typeName,data,confidenceLevels));
+				table.addLine(getDataLine(type3+" "+typeName,data,hasConfidence?confidenceLevels:null));
 			}
 			if (indicator4!=null && type4!=null) {
 				data=(StatisticsDataPerformanceIndicator)(indicator4.get(type));
-				table.addLine(getDataLine(type4+" "+typeName,data,confidenceLevels));
+				table.addLine(getDataLine(type4+" "+typeName,data,hasConfidence?confidenceLevels:null));
 			}
 		}
 
@@ -536,13 +536,13 @@ public class StatisticViewerTimeTable extends StatisticViewerTable {
 
 		if (system!=null) {
 			hasConfidence=(statistics.simulationData.runRepeatCount>1 && system.getRunCount()>1);
-			table.addLine(getDataLine(Language.tr("Statistics.System"),system,confidenceLevels));
+			table.addLine(getDataLine(Language.tr("Statistics.System"),system,hasConfidence?confidenceLevels:null));
 		}
 
 		for (String station: indicators.getNames()) {
 			final StatisticsTimePerformanceIndicator indicator=(StatisticsTimePerformanceIndicator)(indicators.get(station));
 			hasConfidence=(statistics.simulationData.runRepeatCount>1 && indicator.getRunCount()>1);
-			table.addLine(getDataLine(fullStationName(station),indicator,confidenceLevels));
+			table.addLine(getDataLine(fullStationName(station),indicator,hasConfidence?confidenceLevels:null));
 		}
 
 		setData(table,getColumnNames(Language.tr("Statistics.Station"),null,"["+type+"]",hasConfidence?confidenceLevels:null));

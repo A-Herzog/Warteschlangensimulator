@@ -37,7 +37,7 @@ import ui.help.Help;
  * @see Statistics#userStatistics
  * @author Alexander Herzog
  */
-public class StatisticViewerUserStatisticTable extends StatisticViewerTable {
+public class StatisticViewerUserStatisticTable extends StatisticViewerBaseTable {
 	/** Statistikobjekt, aus dem die anzuzeigenden Daten entnommen werden sollen */
 	private final Statistics statistics;
 	/** Gibt an, welche Daten genau ausgegeben werden sollen */

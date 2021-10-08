@@ -33,7 +33,7 @@ import ui.help.Help;
  * @see StatisticViewerTable
  * @author Alexander Herzog
  */
-public class StatisticViewerAdditionalTable extends StatisticViewerTable {
+public class StatisticViewerAdditionalTable extends StatisticViewerBaseTable {
 	/** Statistikobjekt, aus dem die anzuzeigenden Daten entnommen werden sollen */
 	private final Statistics statistics;
 	/** Erfassungsschrittweite in Sekunden */

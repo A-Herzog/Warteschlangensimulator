@@ -34,7 +34,7 @@ import ui.help.Help;
  * @see StatisticViewerTable
  * @author Alexander Herzog
  */
-public class StatisticViewerAutocorrelationTable extends StatisticViewerTable {
+public class StatisticViewerAutocorrelationTable extends StatisticViewerBaseTable {
 	/** Statistikobjekt, aus dem die anzuzeigenden Daten entnommen werden sollen */
 	private final Statistics statistics;
 	/** Gibt an, welche Daten genau ausgegeben werden sollen */
