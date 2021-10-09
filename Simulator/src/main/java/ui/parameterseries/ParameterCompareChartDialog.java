@@ -118,7 +118,10 @@ public final class ParameterCompareChartDialog extends BaseDialog {
 		select.setSelectedItem(initialHeading);
 		select.addActionListener(e->{
 			setChart((String)select.getSelectedItem());
+			/* Alle drei folgende doLayout()-Anweisungen werden benötigt und in dieser Reihenfolge. */
 			content.doLayout();
+			lineChartContainer.doLayout();
+			for (Component c: lineChartContainer.getComponents()) c.doLayout();
 		});
 		label.setLabelFor(select);
 		toolbar.add(Box.createHorizontalStrut(5));

@@ -159,7 +159,7 @@ public class ParameterCompareScriptDialog extends BaseDialog {
 		final StringBuilder java2=new StringBuilder();
 
 		boolean needTab=false;
-		boolean isTime=false;
+		ParameterCompareSetupValueOutput.OutputFormat format=ParameterCompareSetupValueOutput.OutputFormat.FORMAT_NUMBER;
 		int nr=1;
 		for (ParameterCompareSetupValueOutput output: setup.getOutput()) {
 			final ParameterCompareSetupValueOutput.OutputMode mode=output.getMode();
@@ -167,41 +167,49 @@ public class ParameterCompareScriptDialog extends BaseDialog {
 				/* JS */
 				js1.append("var value"+nr+"=Statistics.xmlNumber('"+output.getTag()+"');\n");
 				if (needTab) js2.append("Output.tab();\n");
-				if (isTime!=output.getIsTime()) {
-					if (output.getIsTime()) js2.append("Output.setFormat(\"Time\");\n"); else js2.append("Output.setFormat(\"Number\");\n");
+				if (format!=output.getFormat()) switch (output.getFormat()) {
+				case FORMAT_NUMBER: js2.append("Output.setFormat(\"Number\");\n"); break;
+				case FORMAT_PERCENT: js2.append("Output.setFormat(\"Percent\");\n"); break;
+				case FORMAT_TIME: js2.append("Output.setFormat(\"Time\");\n"); break;
 				}
 				js2.append("Output.print(value"+nr+");\n");
 
 				/* Java */
 				java1.append("  Object value"+nr+"=sim.getStatistics().xmlNumber(\""+output.getTag().replace("\"","\\\"")+"\");\n");
 				if (needTab) java2.append("  sim.getOutput().tab();\n");
-				if (isTime!=output.getIsTime()) {
-					if (output.getIsTime()) java2.append("  sim.getOutput().setFormat(\"Time\");\n"); else java2.append("  sim.getOutput().setFormat(\"Number\");\n");
+				if (format!=output.getFormat()) switch (output.getFormat()) {
+				case FORMAT_NUMBER: js2.append("sim.getOutput().setFormat(\"Number\");\n"); break;
+				case FORMAT_PERCENT: js2.append("sim.getOutput().setFormat(\"Percent\");\n"); break;
+				case FORMAT_TIME: js2.append("sim.getOutput().setFormat(\"Time\");\n"); break;
 				}
 				java2.append("  sim.getOutput().print(value"+nr+");\n");
 
 				needTab=true;
-				isTime=output.getIsTime();
+				format=output.getFormat();
 			}
 			if (mode==ParameterCompareSetupValueOutput.OutputMode.MODE_COMMAND) {
 				/* JS */
 				js1.append("var value"+nr+"=System.calc('"+output.getTag()+"');\n");
 				if (needTab) js2.append("Output.tab();\n");
-				if (isTime!=output.getIsTime()) {
-					if (output.getIsTime()) js2.append("Output.setFormat(\"Time\");\n"); else js2.append("Output.setFormat(\"Number\");\n");
+				if (format!=output.getFormat()) switch (output.getFormat()) {
+				case FORMAT_NUMBER: js2.append("Output.setFormat(\"Number\");\n"); break;
+				case FORMAT_PERCENT: js2.append("Output.setFormat(\"Percent\");\n"); break;
+				case FORMAT_TIME: js2.append("Output.setFormat(\"Time\");\n"); break;
 				}
 				js2.append("Output.print(value"+nr+");\n");
 
 				/* Java */
 				java1.append("  Object value"+nr+"=sim.getSystem().calc(\""+output.getTag()+"\");\n");
 				if (needTab) java2.append("  sim.getOutput().tab();\n");
-				if (isTime!=output.getIsTime()) {
-					if (output.getIsTime()) java2.append("  sim.getOutput().setFormat(\"Time\");\n"); else java2.append("  sim.getOutput().setFormat(\"Number\");\n");
+				if (format!=output.getFormat()) switch (output.getFormat()) {
+				case FORMAT_NUMBER: js2.append("sim.getOutput().setFormat(\"Number\");\n"); break;
+				case FORMAT_PERCENT: js2.append("sim.getOutput().setFormat(\"Percent\");\n"); break;
+				case FORMAT_TIME: js2.append("sim.getOutput().setFormat(\"Time\");\n"); break;
 				}
 				java2.append("  sim.getOutput().print(value"+nr+");\n");
 
 				needTab=true;
-				isTime=output.getIsTime();
+				format=output.getFormat();
 			}
 			nr++;
 		}

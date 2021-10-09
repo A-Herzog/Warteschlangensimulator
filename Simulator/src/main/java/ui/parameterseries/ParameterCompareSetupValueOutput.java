@@ -28,7 +28,6 @@ import language.Language;
 public final class ParameterCompareSetupValueOutput extends ParameterCompareSetupBase implements Cloneable {
 	/**
 	 * Modus der Ausgabegröße
-	 * @author Alexander Herzog
 	 * @see ParameterCompareSetupValueOutput#getMode()
 	 * @see ParameterCompareSetupValueOutput#setMode(OutputMode)
 	 */
@@ -54,9 +53,23 @@ public final class ParameterCompareSetupValueOutput extends ParameterCompareSetu
 	private String tag;
 
 	/**
-	 * Ist der Ergebniswert eine Zeitangabe?
+	 * Wie soll der Ausgabewert dargestellt werden?
+	 * @see ParameterCompareSetupValueOutput#getFormat()
+	 * @see ParameterCompareSetupValueOutput#setFormat(OutputFormat)
 	 */
-	private boolean isTime;
+	public enum OutputFormat {
+		/** Ausgabe als Fließkommazahl */
+		FORMAT_NUMBER,
+		/** Ausgabe als Prozentwert */
+		FORMAT_PERCENT,
+		/** Ausgabe als Zeitangabe */
+		FORMAT_TIME
+	}
+
+	/**
+	 * Wie soll der Ausgabewert dargestellt werden?
+	 */
+	private OutputFormat format;
 
 	/**
 	 * Konstruktor der Klasse
@@ -65,7 +78,7 @@ public final class ParameterCompareSetupValueOutput extends ParameterCompareSetu
 		super();
 		mode=OutputMode.MODE_XML;
 		tag="";
-		isTime=false;
+		format=OutputFormat.FORMAT_NUMBER;
 	}
 
 	/**
@@ -101,19 +114,19 @@ public final class ParameterCompareSetupValueOutput extends ParameterCompareSetu
 	}
 
 	/**
-	 * Gibt an, ob der Ergebniswert eine Zeitangabe sein soll
-	 * @return	Gibt <code>true</code> zurück, wenn der Ergebniswert eine Zeitangabe sein soll
+	 * Gibt an, wie der Ergebniswert angezeigt werden soll.
+	 * @return	Darstellungsformat für den Ausgabewert
 	 */
-	public boolean getIsTime() {
-		return isTime;
+	public OutputFormat getFormat() {
+		return format;
 	}
 
 	/**
-	 * Stellt ein, ob der Ergebniswert eine Zeitangabe sein soll
-	 * @param isTime	Wird <code>true</code> übergeben, so wird der Ergebniswert als Zeitangabe interpretiert
+	 * Stellt ein, ob wie der Ergebniswert angezeigt werden soll.
+	 * @param format	Darstellungsformat für den Ausgabewert
 	 */
-	public void setIsTime(final boolean isTime) {
-		this.isTime=isTime;
+	public void setFormat(final OutputFormat format) {
+		if (format!=null) this.format=format;
 	}
 
 	/**
@@ -125,7 +138,7 @@ public final class ParameterCompareSetupValueOutput extends ParameterCompareSetu
 		if (!getName().equals(otherOutput.getName())) return false;
 		if (mode!=otherOutput.mode) return false;
 		if (!tag.equals(otherOutput.tag)) return false;
-		if (isTime!=otherOutput.isTime) return false;
+		if (format!=otherOutput.format) return false;
 		return true;
 	}
 
@@ -135,7 +148,7 @@ public final class ParameterCompareSetupValueOutput extends ParameterCompareSetu
 		clone.setName(getName());
 		clone.setMode(mode);
 		clone.setTag(tag);
-		clone.setIsTime(isTime);
+		clone.setFormat(format);
 		return clone;
 	}
 
@@ -152,9 +165,15 @@ public final class ParameterCompareSetupValueOutput extends ParameterCompareSetu
 		if (Language.trAll("ParameterCompare.XML.Outputs.Data",name)) {
 			String s;
 
-			/* Zeit ja/nein */
+			/* Zeit ja/nein (altes XML-Format) */
 			s=Language.trAllAttribute("ParameterCompare.XML.Outputs.Data.IsTime",node);
-			isTime=(!s.trim().isEmpty() && !s.trim().equals("0"));
+			if (!s.trim().isEmpty() && !s.trim().equals("0")) format=OutputFormat.FORMAT_TIME;
+
+			/* Format */
+			s=Language.trAllAttribute("ParameterCompare.XML.Outputs.Data.Format",node);
+			if (Language.trAll("ParameterCompare.XML.Outputs.Data.Format.Number",s)) format=OutputFormat.FORMAT_NUMBER;
+			if (Language.trAll("ParameterCompare.XML.Outputs.Data.Format.Percent",s)) format=OutputFormat.FORMAT_PERCENT;
+			if (Language.trAll("ParameterCompare.XML.Outputs.Data.Format.Time",s)) format=OutputFormat.FORMAT_TIME;
 
 			/* Modus */
 			s=Language.trAllAttribute("ParameterCompare.XML.Outputs.Data.Mode",node);
@@ -182,8 +201,18 @@ public final class ParameterCompareSetupValueOutput extends ParameterCompareSetu
 		final Element sub=doc.createElement(Language.tr("ParameterCompare.XML.Outputs.Data"));
 		node.appendChild(sub);
 
-		/* Zeit ja / nein */
-		if (isTime) sub.setAttribute(Language.tr("ParameterCompare.XML.Outputs.Data.IsTime"),"1");
+		/* Format */
+		if (format!=OutputFormat.FORMAT_NUMBER) switch (format) {
+		case FORMAT_NUMBER:
+			sub.setAttribute(Language.tr("ParameterCompare.XML.Outputs.Data.Format"),Language.tr("ParameterCompare.XML.Outputs.Data.Format.Number"));
+			break;
+		case FORMAT_PERCENT:
+			sub.setAttribute(Language.tr("ParameterCompare.XML.Outputs.Data.Format"),Language.tr("ParameterCompare.XML.Outputs.Data.Format.Percent"));
+			break;
+		case FORMAT_TIME:
+			sub.setAttribute(Language.tr("ParameterCompare.XML.Outputs.Data.Format"),Language.tr("ParameterCompare.XML.Outputs.Data.Format.Time"));
+			break;
+		}
 
 		/* Modus */
 		final String modeString;

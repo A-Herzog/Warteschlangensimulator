@@ -28,7 +28,6 @@ import java.io.Serializable;
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
-import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -92,7 +91,7 @@ public class ParameterCompareSetupValueOutputDialog extends BaseDialog {
 	private final JButton scriptButtonJava;
 
 	/** Option "Anzeige des Ergebniswertes als Zeit" */
-	private final JCheckBox isTimeCheck;
+	private final JComboBox<String> comboFormat;
 
 	/**
 	 * Konstruktor der Klasse
@@ -242,7 +241,18 @@ public class ParameterCompareSetupValueOutputDialog extends BaseDialog {
 		/* Unten */
 
 		content.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)),BorderLayout.SOUTH);
-		line.add(isTimeCheck=new JCheckBox(Language.tr("ParameterCompare.Settings.Output.IsTime")));
+		line.add(label=new JLabel(Language.tr("ParameterCompare.Settings.Output.Format")+":"));
+		line.add(comboFormat=new JComboBox<>(new String[] {
+				Language.tr("ParameterCompare.Settings.Output.Format.Number"),
+				Language.tr("ParameterCompare.Settings.Output.Format.Percent"),
+				Language.tr("ParameterCompare.Settings.Output.Format.Time")
+		}));
+		comboFormat.setRenderer(new IconListCellRenderer(new Images[] {
+				Images.GENERAL_NUMBERS,
+				Images.GENERAL_PERCENT,
+				Images.GENERAL_TIME,
+		}));
+		label.setLabelFor(comboFormat);
 
 		/* Daten laden */
 
@@ -267,7 +277,16 @@ public class ParameterCompareSetupValueOutputDialog extends BaseDialog {
 			break;
 		}
 
-		isTimeCheck.setSelected(output.getIsTime());
+		switch (output.getFormat()) {
+		case FORMAT_NUMBER:
+			comboFormat.setSelectedIndex(0); break;
+		case FORMAT_PERCENT:
+			comboFormat.setSelectedIndex(1); break;
+		case FORMAT_TIME:
+			comboFormat.setSelectedIndex(2); break;
+		default:
+			comboFormat.setSelectedIndex(0); break;
+		}
 
 		checkData(false);
 
@@ -378,6 +397,10 @@ public class ParameterCompareSetupValueOutputDialog extends BaseDialog {
 			break;
 		}
 
-		output.setIsTime(isTimeCheck.isSelected());
+		switch (comboFormat.getSelectedIndex()) {
+		case 0: output.setFormat(ParameterCompareSetupValueOutput.OutputFormat.FORMAT_NUMBER); break;
+		case 1: output.setFormat(ParameterCompareSetupValueOutput.OutputFormat.FORMAT_PERCENT); break;
+		case 2: output.setFormat(ParameterCompareSetupValueOutput.OutputFormat.FORMAT_TIME); break;
+		}
 	}
 }

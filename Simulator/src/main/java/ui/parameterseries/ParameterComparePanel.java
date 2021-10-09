@@ -945,13 +945,22 @@ public class ParameterComparePanel extends SpecialPanel {
 		for (int index=0;index<setup.getOutput().size();index++) {
 			final List<String> col=table.getLine(1+setup.getInput().size()+index);
 			final String heading=col.remove(0);
-			final boolean isTime=setup.getOutput().get(index).getIsTime();
+			final ParameterCompareSetupValueOutput.OutputFormat format=setup.getOutput().get(index).getFormat();
 
 			final double[] data;
-			if (isTime) {
-				data=col.stream().mapToDouble(cell->{final Double D=TimeTools.getExactTime(cell); return (D==null)?0.0:D.doubleValue();}).toArray();
-			} else {
+			switch (format) {
+			case FORMAT_NUMBER:
 				data=col.stream().mapToDouble(cell->{final Double D=NumberTools.getDouble(cell); return (D==null)?0.0:D.doubleValue();}).toArray();
+				break;
+			case FORMAT_PERCENT:
+				data=col.stream().mapToDouble(cell->{final Double D=NumberTools.getDouble(cell); return (D==null)?0.0:D.doubleValue();}).toArray();
+				break;
+			case FORMAT_TIME:
+				data=col.stream().mapToDouble(cell->{final Double D=TimeTools.getExactTime(cell); return (D==null)?0.0:D.doubleValue();}).toArray();
+				break;
+			default:
+				data=col.stream().mapToDouble(cell->{final Double D=NumberTools.getDouble(cell); return (D==null)?0.0:D.doubleValue();}).toArray();
+				break;
 			}
 
 			results.put(heading,data);

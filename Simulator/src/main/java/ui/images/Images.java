@@ -56,6 +56,9 @@ public enum Images {
 	/** Symbol "Zahlen" */
 	GENERAL_NUMBERS("Counter.png"),
 
+	/** Symbol "Prozent" */
+	GENERAL_PERCENT("percent.gif"),
+
 	/** Symbol "Suchen" */
 	GENERAL_FIND("find.png"),
 

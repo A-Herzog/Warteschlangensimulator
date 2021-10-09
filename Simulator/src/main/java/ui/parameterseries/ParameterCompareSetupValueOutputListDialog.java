@@ -112,9 +112,22 @@ public class ParameterCompareSetupValueOutputListDialog extends ParameterCompare
 			final StringBuilder sb=new StringBuilder();
 			sb.append("<html><body>");
 			sb.append(Language.tr("ParameterCompare.Table.Column.Output")+"<br>");
-			String time="";
-			if (record.getIsTime()) time=" ("+Language.tr("ParameterCompare.Table.Column.Output.IsTime")+")";
-			sb.append("<b>"+record.getName()+"</b>"+time+"<br>");
+			String format="";
+			switch (record.getFormat()) {
+			case FORMAT_NUMBER:
+				/* Keine weiteren Ausgaben nötig */
+				break;
+			case FORMAT_PERCENT:
+				format=" ("+Language.tr("ParameterCompare.Table.Column.Output.IsPercent")+")";
+				break;
+			case FORMAT_TIME:
+				format=" ("+Language.tr("ParameterCompare.Table.Column.Output.IsTime")+")";
+				break;
+			default:
+				break;
+
+			}
+			sb.append("<b>"+record.getName()+"</b>"+format+"<br>");
 			sb.append(getOutputInfo(record));
 			sb.append("</html></body>");
 			label.setText(sb.toString());
@@ -212,7 +225,7 @@ public class ParameterCompareSetupValueOutputListDialog extends ParameterCompare
 		for (ParameterCompareSetupValueOutput test: this.output) {
 			if (test.getMode()!=output.getMode()) continue;
 			if (!test.getTag().equals(output.getTag())) continue;
-			if (test.getIsTime()!=output.getIsTime()) continue;
+			if (test.getFormat()!=output.getFormat()) continue;
 			return true;
 		}
 		return false;
@@ -227,7 +240,7 @@ public class ParameterCompareSetupValueOutputListDialog extends ParameterCompare
 		final ParameterCompareSetupValueOutput output=new ParameterCompareSetupValueOutput();
 		output.setName(record.title);
 		output.setTag(record.xml);
-		output.setIsTime(record.xmlMode==XMLMode.XML_NUMBER_TIME);
+		output.setFormat((record.xmlMode==XMLMode.XML_NUMBER_TIME)?ParameterCompareSetupValueOutput.OutputFormat.FORMAT_TIME:ParameterCompareSetupValueOutput.OutputFormat.FORMAT_PERCENT);
 		return output;
 	}
 

@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-07 00:25+0200\n"
+"POT-Creation-Date: 2021-10-08 21:41+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -12745,8 +12745,17 @@ msgstr "No model name selected"
 msgid "ParameterCompare.Settings.Model.Title"
 msgstr "Edit model"
 
-msgid "ParameterCompare.Settings.Output.IsTime"
-msgstr "Show result value as time"
+msgid "ParameterCompare.Settings.Output.Format"
+msgstr "Display format"
+
+msgid "ParameterCompare.Settings.Output.Format.Number"
+msgstr "Number"
+
+msgid "ParameterCompare.Settings.Output.Format.Percent"
+msgstr "Percent value"
+
+msgid "ParameterCompare.Settings.Output.Format.Time"
+msgstr "Time"
 
 msgid "ParameterCompare.Settings.Output.List.Add"
 msgstr "Add"
@@ -12991,6 +13000,9 @@ msgstr "Model"
 
 msgid "ParameterCompare.Table.Column.Output"
 msgstr "Output value"
+
+msgid "ParameterCompare.Table.Column.Output.IsPercent"
+msgstr "display as percent value"
 
 msgid "ParameterCompare.Table.Column.Output.IsTime"
 msgstr "display as time"
@@ -13400,6 +13412,18 @@ msgstr "CompareModelsName"
 
 msgid "ParameterCompare.XML.Outputs.Data"
 msgstr "CompareModelsOutputData"
+
+msgid "ParameterCompare.XML.Outputs.Data.Format"
+msgstr "Format"
+
+msgid "ParameterCompare.XML.Outputs.Data.Format.Number"
+msgstr "Number"
+
+msgid "ParameterCompare.XML.Outputs.Data.Format.Percent"
+msgstr "Percent"
+
+msgid "ParameterCompare.XML.Outputs.Data.Format.Time"
+msgstr "Time"
 
 msgid "ParameterCompare.XML.Outputs.Data.IsScript"
 msgstr "IsScript"
@@ -32050,6 +32074,9 @@ msgstr "The file format is unknown respectively is not matching to any of the fi
 
 #~ msgid "Main.Menu.Help.ProgramInformation.Short"
 #~ msgstr "Info"
+
+#~ msgid "ParameterCompare.Settings.Output.IsTime"
+#~ msgstr "Show result value as time"
 
 #~ msgid "Player.File.FileNotFound.ErrorInfo"
 #~ msgstr ""

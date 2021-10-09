@@ -371,6 +371,19 @@ public class ParameterCompareTableModel extends JTableExtAbstractTableModel {
 	}
 
 	/**
+	 * Formatiert eine Zahl als Prozentwert gemäß der Einstellungen zur Parameterreihe
+	 * @param value	Als Zeichenkette zu formatierende Zahl
+	 * @return	Zahl als Zeichenkette
+	 * @see #digits
+	 * @see #getValueAt(ParameterCompareSetupModel, int, int)
+	 */
+	private String formatPercent(final double value) {
+		if (digits==1) return NumberTools.formatPercent(value,1);
+		if (digits==3) return NumberTools.formatPercent(value,3);
+		return NumberTools.formatPercent(value,7);
+	}
+
+	/**
 	 * Liefert einen Tabellenwert für einen Eintrag,
 	 * der sich nicht in der ersten Spalte oder der
 	 * letzten Zeile befindet.
@@ -415,9 +428,14 @@ public class ParameterCompareTableModel extends JTableExtAbstractTableModel {
 				final String name=setup.getOutput().get(columnIndex).getName();
 				final Double value=model.getOutput().get(name);
 				if (value==null) return "-";
-				if (setup.getOutput().get(columnIndex).getIsTime()) {
+				switch (setup.getOutput().get(columnIndex).getFormat()) {
+				case FORMAT_NUMBER:
+					return formatNumber(value.doubleValue());
+				case FORMAT_PERCENT:
+					return formatPercent(value.doubleValue());
+				case FORMAT_TIME:
 					return TimeTools.formatExactTime(value.doubleValue());
-				} else {
+				default:
 					return formatNumber(value.doubleValue());
 				}
 			}

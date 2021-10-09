@@ -750,14 +750,14 @@ public class ParameterCompareTemplatesDialog extends BaseDialog {
 		outputRecord.setName(Language.tr("Statistic.FastAccess.Template.WaitingTime"));
 		outputRecord.setMode(ParameterCompareSetupValueOutput.OutputMode.MODE_XML);
 		outputRecord.setTag(Language.tr("Statistics.XML.Element.WaitingAllClients")+mean);
-		outputRecord.setIsTime(asTime);
+		outputRecord.setFormat(asTime?ParameterCompareSetupValueOutput.OutputFormat.FORMAT_TIME:ParameterCompareSetupValueOutput.OutputFormat.FORMAT_NUMBER);
 		output.add(outputRecord);
 
 		outputRecord=new ParameterCompareSetupValueOutput();
 		outputRecord.setName(Language.tr("Statistic.FastAccess.Template.ProcessTime"));
 		outputRecord.setMode(ParameterCompareSetupValueOutput.OutputMode.MODE_XML);
 		outputRecord.setTag(Language.tr("Statistics.XML.Element.ProcessAllClients")+mean);
-		outputRecord.setIsTime(asTime);
+		outputRecord.setFormat(asTime?ParameterCompareSetupValueOutput.OutputFormat.FORMAT_TIME:ParameterCompareSetupValueOutput.OutputFormat.FORMAT_NUMBER);
 		output.add(outputRecord);
 
 		if (model.resources.getResources().length>0) {
@@ -769,6 +769,7 @@ public class ParameterCompareTemplatesDialog extends BaseDialog {
 				outputRecord.setMode(ParameterCompareSetupValueOutput.OutputMode.MODE_XML);
 				final String xmlSub=Language.tr("Statistics.XML.Element.UtilizationResource")+"["+Language.tr("Statistics.XML.Type")+"=\""+name+"\"]";
 				outputRecord.setTag(xmlMain+"->"+xmlSub+"->"+mean);
+				outputRecord.setFormat(ParameterCompareSetupValueOutput.OutputFormat.FORMAT_PERCENT);
 				output.add(outputRecord);
 			}
 		}

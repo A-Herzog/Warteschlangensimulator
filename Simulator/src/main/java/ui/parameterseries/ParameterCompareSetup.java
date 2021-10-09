@@ -247,6 +247,34 @@ public final class ParameterCompareSetup extends XMLData implements Cloneable {
 	}
 
 	/**
+	 * Formatiert eine Zahl für eine Ausgabezelle gemäß dem für die Ausgabe gewählten Format
+	 * @param value	Zu formatierender Wert
+	 * @param forceTimeAsNumber	Erzwingt, wenn <code>true</code>, die Ausgabe auch von Spalten, die explizit Zeitangaben oder Prozentwerze enthalten, als Zahlenwerte
+	 * @param format	Gewünschtes Ausgabeformat
+	 * @return	Zeichenkette, die die Zahl im entsprechenden Format enthält
+	 */
+	private static String formatCell(final double value, final boolean forceTimeAsNumber, final ParameterCompareSetupValueOutput.OutputFormat format) {
+		switch (format) {
+		case FORMAT_NUMBER:
+			return NumberTools.formatNumberMax(value);
+		case FORMAT_PERCENT:
+			if (forceTimeAsNumber) {
+				return NumberTools.formatPercent(value,7);
+			} else {
+				return TimeTools.formatExactTime(value);
+			}
+		case FORMAT_TIME:
+			if (forceTimeAsNumber) {
+				return NumberTools.formatNumberMax(value);
+			} else {
+				return TimeTools.formatExactTime(value);
+			}
+		default:
+			return NumberTools.formatNumberMax(value);
+		}
+	}
+
+	/**
 	 * Trägt die Daten aus {@link #getModels()} in eine Tabelle ein
 	 * @param table	Ergebnistabelle in die die Daten eingetragen werden sollen
 	 * @param forceTimeAsNumber	Erzwingt, wenn <code>true</code>, die Ausgabe auch von Spalten, die explizit Zeitangaben enthalten, als Zahlenwerte
@@ -276,16 +304,10 @@ public final class ParameterCompareSetup extends XMLData implements Cloneable {
 			/* Ausgabeparameter */
 			for (ParameterCompareSetupValueOutput output: this.output) {
 				final Double D=model.getOutput().get(output.getName());
-
 				if (D==null) {
 					dataRow.add("-");
 				} else {
-					double d=D.doubleValue();
-					if (output.getIsTime() && !forceTimeAsNumber) {
-						dataRow.add(TimeTools.formatExactTime(d));
-					} else {
-						dataRow.add(NumberTools.formatNumberMax(d));
-					}
+					dataRow.add(formatCell(D.doubleValue(),forceTimeAsNumber,output.getFormat()));
 				}
 				raw.add(D);
 				if (D==null) upscaler=0;
@@ -321,19 +343,48 @@ public final class ParameterCompareSetup extends XMLData implements Cloneable {
 		for (int i=0;i<dataRows.size();i++) {
 			table.addLine(dataRows.get(i));
 			if (spline!=null && i<dataRows.size()-1) {
+				List<String> row1=dataRows.get(i);
+				List<String> row2=dataRows.get(i+1);
 				final int inParamCount=input.size();
+				Double[] interpolatedValues=new Double[spline.length];
 				for (int nr=1;nr<=upscaler;nr++) {
 					final double fraction=(nr)/(upscaler+1.0);
 					final List<String> scaleRow=new ArrayList<>();
 					scaleRow.add(Language.tr("ParameterCompare.Table.IntermediateValue"));
 					for (int j=0;j<spline.length;j++) {
-						final double d=spline[j].value(i+fraction);
+						double d=spline[j].value(i+fraction);
 						final int outParam=j-inParamCount;
-						if (outParam>=0 && output.get(outParam).getIsTime()) {
-							scaleRow.add(TimeTools.formatExactTime(d));
+						final Double D1;
+						final Double D2;
+						if (outParam>=0 && output.get(outParam).getFormat()==ParameterCompareSetupValueOutput.OutputFormat.FORMAT_TIME) {
+							D1=TimeTools.getExactTime(row1.get(j+1));
+							D2=TimeTools.getExactTime(row2.get(j+1));
 						} else {
-							scaleRow.add(NumberTools.formatNumberMax(d));
+							/* Zahl oder Prozentwert */
+							D1=NumberTools.getDouble(row1.get(j+1));
+							D2=NumberTools.getDouble(row2.get(j+1));
 						}
+						if (D1!=null && D2!=null) {
+							/* Linear skalieren, wenn der Upscaler versagt. */
+							if (d<Math.min(D1,D2) || d>Math.max(D1,D2)) d=D1+(D2-D1)*fraction; /* Wenn Wert komplett außerhalb des Bereichs liegt */
+							if (upscaler==1) {
+								final double delta=Math.abs(D1-D2);
+								if (d<Math.min(D1,D2)+delta*0.1 || d>Math.max(D1,D2)-delta*0.1) d=D1+(D2-D1)*fraction; /* Wenn Wert bei nur einem Zwischenschritt zu nah an den Grenzen liegt */
+							}
+							if (interpolatedValues[j]!=null) { /* Wenn der letzte Zwischenwert und dieser nicht zur generellen Steigung passen */
+								if (D2>D1) {
+									if (d<interpolatedValues[j]) d=(interpolatedValues[j]+D2)/2;
+								} else {
+									if (d>interpolatedValues[j]) d=(interpolatedValues[j]+D2)/2;
+								}
+							}
+						}
+
+						ParameterCompareSetupValueOutput.OutputFormat format=ParameterCompareSetupValueOutput.OutputFormat.FORMAT_NUMBER;
+						if (outParam>=0) format=output.get(outParam).getFormat();
+						scaleRow.add(formatCell(d,false,format));
+
+						interpolatedValues[j]=d;
 					}
 					table.addLine(scaleRow);
 				}
@@ -413,13 +464,7 @@ public final class ParameterCompareSetup extends XMLData implements Cloneable {
 				row.add(Language.tr("ParameterCompare.Table.Info.Minimum"));
 				for (int i=0;i<input.size();i++) row.add("");
 				for (int i=0;i<output.size();i++) {
-					if (countValues[i]==0) row.add("-"); else {
-						if (output.get(i).getIsTime() && !forceTimeAsNumber) {
-							row.add(TimeTools.formatExactTime(minValues[i]));
-						} else {
-							row.add(NumberTools.formatNumberMax(minValues[i]));
-						}
-					}
+					if (countValues[i]==0) row.add("-"); else row.add(formatCell(minValues[i],forceTimeAsNumber,output.get(i).getFormat()));
 				}
 				table.addLine(row);
 
@@ -430,11 +475,7 @@ public final class ParameterCompareSetup extends XMLData implements Cloneable {
 				for (int i=0;i<output.size();i++) {
 					if (countValues[i]==0) row.add("-"); else {
 						final double e=sumValues[i]/countValues[i];
-						if (output.get(i).getIsTime() && !forceTimeAsNumber) {
-							row.add(TimeTools.formatExactTime(e));
-						} else {
-							row.add(NumberTools.formatNumberMax(e));
-						}
+						row.add(formatCell(e,forceTimeAsNumber,output.get(i).getFormat()));
 					}
 				}
 				table.addLine(row);
@@ -452,11 +493,7 @@ public final class ParameterCompareSetup extends XMLData implements Cloneable {
 							final double v=sum2Values[i]/(countValues[i]-1)-(sumValues[i]*sumValues[i])/countValues[i]/(countValues[i]-1);
 							sd=StrictMath.sqrt(Math.max(0,v));
 						}
-						if (output.get(i).getIsTime() && !forceTimeAsNumber) {
-							row.add(TimeTools.formatExactTime(sd));
-						} else {
-							row.add(NumberTools.formatNumberMax(sd));
-						}
+						row.add(formatCell(sd,forceTimeAsNumber,output.get(i).getFormat()));
 					}
 				}
 				table.addLine(row);
@@ -485,13 +522,7 @@ public final class ParameterCompareSetup extends XMLData implements Cloneable {
 				row.add(Language.tr("ParameterCompare.Table.Info.Maximum"));
 				for (int i=0;i<input.size();i++) row.add("");
 				for (int i=0;i<output.size();i++) {
-					if (countValues[i]==0) row.add("-"); else {
-						if (output.get(i).getIsTime() && !forceTimeAsNumber) {
-							row.add(TimeTools.formatExactTime(maxValues[i]));
-						} else {
-							row.add(NumberTools.formatNumberMax(maxValues[i]));
-						}
-					}
+					if (countValues[i]==0) row.add("-"); else row.add(formatCell(maxValues[i],forceTimeAsNumber,output.get(i).getFormat()));
 				}
 				table.addLine(row);
 			}
