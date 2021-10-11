@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-10 00:07+0200\n"
+"POT-Creation-Date: 2021-10-11 11:45+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -13213,6 +13213,12 @@ msgstr "Model number"
 
 msgid "ParameterCompare.Toolbar.ProcessResults.ResultsChart.OutputValue"
 msgstr "Output value"
+
+msgid "ParameterCompare.Toolbar.ProcessResults.ResultsChart.OutputValue.SelectLast"
+msgstr "Previous output value"
+
+msgid "ParameterCompare.Toolbar.ProcessResults.ResultsChart.OutputValue.SelectNext"
+msgstr "Next output value"
 
 msgid "ParameterCompare.Toolbar.ProcessResults.ResultsChart.Save"
 msgstr "Save"

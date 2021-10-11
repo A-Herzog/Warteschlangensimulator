@@ -58,6 +58,7 @@ import systemtools.statistics.StatisticsBasePanel;
 import tools.SetupData;
 import ui.help.Help;
 import ui.images.Images;
+import ui.tools.WindowSizeStorage;
 
 /**
  * Ermöglicht die direkte Anzeige des Verlaufs einer Ausgabegröße als Liniendiagramm
@@ -126,9 +127,19 @@ public final class ParameterCompareChartDialog extends BaseDialog {
 		label.setLabelFor(select);
 		toolbar.add(Box.createHorizontalStrut(5));
 
-		toolbar.addSeparator();
-
 		JButton button;
+
+		if (data.size()>1) {
+			toolbar.add(button=new JButton(Images.ARROW_LEFT_SHORT.getIcon()));
+			button.setToolTipText(Language.tr("ParameterCompare.Toolbar.ProcessResults.ResultsChart.OutputValue.SelectLast"));
+			button.addActionListener(e->select(-1));
+
+			toolbar.add(button=new JButton(Images.ARROW_RIGHT_SHORT.getIcon()));
+			button.setToolTipText(Language.tr("ParameterCompare.Toolbar.ProcessResults.ResultsChart.OutputValue.SelectNext"));
+			button.addActionListener(e->select(1));
+		}
+
+		toolbar.addSeparator();
 
 		toolbar.add(button=new JButton(Language.tr("ParameterCompare.Toolbar.ProcessResults.ResultsChart.Unzoom"),Images.ZOOM_OUT.getIcon()));
 		button.setToolTipText(Language.tr("ParameterCompare.Toolbar.ProcessResults.ResultsChart.Unzoom.Hint"));
@@ -178,6 +189,7 @@ public final class ParameterCompareChartDialog extends BaseDialog {
 		setSizeRespectingScreensize(800,600);
 		setResizable(true);
 		setLocationRelativeTo(this.owner);
+		WindowSizeStorage.window(this,"parameterseries_diagram_viewer");
 		setVisible(true);
 	}
 
@@ -202,6 +214,17 @@ public final class ParameterCompareChartDialog extends BaseDialog {
 		if (lineChartContainer!=null) content.remove(lineChartContainer);
 		lineChart=getLineChart(heading);
 		content.add(lineChartContainer=lineChart.getViewer(true),BorderLayout.CENTER);
+	}
+
+	/**
+	 * Wechselt zu einer vorherigen oder einer weiteren Diagrammansicht.
+	 * @param delta	Verschiebung der aktuellen Ansicht (sollte +1 oder -1 sein)
+	 */
+	private void select(final int delta) {
+		int nr=select.getSelectedIndex()+delta;
+		if (nr<0) nr=data.size()-1;
+		if (nr>=data.size()) nr=0;
+		select.setSelectedIndex(nr);
 	}
 
 	@Override
