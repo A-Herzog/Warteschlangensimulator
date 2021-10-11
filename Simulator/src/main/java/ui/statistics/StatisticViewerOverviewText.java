@@ -97,6 +97,8 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 		MODE_MODEL_DESCRIPTION,
 		/** Dateiausgaben */
 		FILE_OUTPUT,
+		/** Simulierte Zeit */
+		MODE_SIM_TIME,
 		/** Informationen zum Simulationssystem */
 		MODE_SYSTEM_INFO,
 		/** Ankünfte pro Thread */
@@ -743,6 +745,47 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 		private String getFile() {
 			return file.toString();
 		}
+	}
+
+	/**
+	 * Ausgabe "Simulierte Zeit"
+	 * @see Mode#MODE_SIM_TIME
+	 */
+	private void buildSimTime() {
+		addHeading(1,Language.tr("Statistics.SimulatedTime"));
+
+		final double timeSpan=statistics.clientsInSystem.getSum();
+		beginParagraph();
+		if (statistics.simulationData.runThreads==1) {
+			final double timeStart=statistics.clientsInSystem.getStartTime();
+			final double timeEnd=timeStart+timeSpan;
+			addLine(Language.tr("Statistics.SimulatedTime.StartTime")+": "+timeAndNumber(timeStart));
+			addLine(Language.tr("Statistics.SimulatedTime.EndTime")+": "+timeAndNumber(timeEnd));
+		} else {
+			addLine(Language.tr("Statistics.SimulatedTime.MultiCoreInfo"));
+			addLine(Language.tr("Statistics.SimulatedTime.TimeSpan")+": "+timeAndNumber(timeSpan));
+		}
+
+		endParagraph();
+	}
+
+	/**
+	 * Prüft, ob Informationen zur Simulationslaufzeit verfügbar sind.
+	 * @param statistics			Zu prüfende Statistikobjekte
+	 * @return	Liefert <code>true</code>, wenn mindestens eines der Statistikobjekte Informationen zur Simulationslaufzeit besitzt.
+	 */
+	public static boolean hasSimTime(final Statistics[] statistics) {
+		for (Statistics statistic: statistics) if (hasSimTime(statistic)) return true;
+		return false;
+	}
+
+	/**
+	 * Prüft, ob Informationen zur Simulationslaufzeit verfügbar sind.
+	 * @param statistics		Zu prüfendes Statistikobjekt
+	 * @return	Liefert <code>true</code>, wenn das Statistikobjekt Informationen zur Simulationslaufzeit besitzt.
+	 */
+	public static boolean hasSimTime(final Statistics statistics) {
+		return statistics.simulationData.runThreads==1;
 	}
 
 	/**
@@ -3541,6 +3584,7 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 		case MODE_MODEL: buildModelInfo(); break;
 		case MODE_MODEL_DESCRIPTION: buildModelDescription(); break;
 		case FILE_OUTPUT: buildFileOutput(true); break;
+		case MODE_SIM_TIME: buildSimTime(); break;
 		case MODE_SYSTEM_INFO: buildSystemInfo(); break;
 		case MODE_SYSTEM_INFO_THREAD_BALANCE: buildThreadBalanceInfo(); break;
 		case MODE_INTERARRIVAL_CLIENTS: buildInterarrivalSystem(); break;

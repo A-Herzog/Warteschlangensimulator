@@ -802,6 +802,12 @@ public class StatisticsPanel extends StatisticsBasePanel {
 			root.addChild(new StatisticNode(Language.tr("Statistics.ModelRemarks"),viewer));
 		}
 
+		if (StatisticViewerOverviewText.hasSimTime(statistics)) {
+			viewer=new ArrayList<>();
+			for(Statistics statistic : statistics) viewer.add(new StatisticViewerOverviewText(statistic,StatisticViewerOverviewText.Mode.MODE_SIM_TIME,null,null));
+			root.addChild(new StatisticNode(Language.tr("Statistics.SimulatedTime"),viewer));
+		}
+
 		if (StatisticViewerOverviewText.hasFileOutput(statistics)) {
 			viewer=new ArrayList<>();
 			for(Statistics statistic : statistics) viewer.add(new StatisticViewerOverviewText(statistic,StatisticViewerOverviewText.Mode.FILE_OUTPUT,null,null));

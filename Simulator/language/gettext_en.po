@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-08 21:41+0200\n"
+"POT-Creation-Date: 2021-10-10 00:07+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20223,6 +20223,21 @@ msgstr "A warm-up phase of length %s has been defined. Only after the completion
 msgid "Statistics.SimulatedClients.Zero.Info2"
 msgstr "The length of the warm-up phase can be defined in the model properties dialog on the \"Simulation\" page. If arrivals from external sources are loaded, the warm-up phase should be set to 0."
 
+msgid "Statistics.SimulatedTime"
+msgstr "Simulated time"
+
+msgid "Statistics.SimulatedTime.EndTime"
+msgstr "End time"
+
+msgid "Statistics.SimulatedTime.MultiCoreInfo"
+msgstr "The simulation was splited to multiple threads. Therefore, no exact information about the simulated time can be determined."
+
+msgid "Statistics.SimulatedTime.StartTime"
+msgstr "Start time"
+
+msgid "Statistics.SimulatedTime.TimeSpan"
+msgstr "Time span"
+
 msgid "Statistics.SimulationModel"
 msgstr "Simulation model"
 
@@ -21125,6 +21140,12 @@ msgstr "StatisticsUser"
 
 msgid "Statistics.XML.Sk"
 msgstr "Skewness"
+
+msgid "Statistics.XML.Start"
+msgstr "Start"
+
+msgid "Statistics.XML.StartError"
+msgstr "The \"Start\" attribute in the \"%s\" element has to be a number but is \"%s\"."
 
 msgid "Statistics.XML.StateStatistics"
 msgstr "StatisticsStatusTime"

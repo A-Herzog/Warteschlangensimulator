@@ -989,6 +989,8 @@ public class LanguageStaticLoader {
 		StatisticsSimulationBaseData.xmlNameEmergencyShutDown=Language.trAll("Statistics.XML.EmergencyShutDown");
 		StatisticsSimulationBaseData.xmlNameWarning=Language.trAll("Statistics.XML.Warning");
 		StatisticsTimePerformanceIndicator.xmlLoadError=Language.tr("Statistics.XML.Disribution.ElementError");
+		StatisticsTimePerformanceIndicator.xmlNameStart=Language.trAll("Statistics.XML.Start");
+		StatisticsTimePerformanceIndicator.xmlNameStartError=Language.tr("Statistics.XML.StartError");
 		StatisticsTimePerformanceIndicator.xmlNameSum=Language.tr("Statistics.XML.Sum");
 		StatisticsTimePerformanceIndicator.xmlNameValues=Language.trAll("Statistics.XML.Values");
 		StatisticsTimePerformanceIndicator.xmlNameValuesError=Language.tr("Statistics.XML.ValuesError");

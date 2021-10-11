@@ -1911,6 +1911,7 @@
 	<xs:attribute name="Minimum" type="xs:string"/>
 	<xs:attribute name="Mittelwert" type="xs:string"/>
 	<xs:attribute name="Standardabweichung" type="xs:string"/>
+	<xs:attribute name="Start" type="xs:string"/>
 	<xs:attribute name="Summe" type="xs:string"/>
 	<xs:attribute name="Summe2" type="xs:string"/>
 	<xs:attribute name="Summe3" type="xs:string"/>
@@ -4102,6 +4103,7 @@
 	<xs:attribute name="Minimum" type="xs:string"/>
 	<xs:attribute name="Mean" type="xs:string"/>
 	<xs:attribute name="StandardDeviation" type="xs:string"/>
+	<xs:attribute name="Start" type="xs:string"/>
 	<xs:attribute name="Sum" type="xs:string"/>
 	<xs:attribute name="Sum2" type="xs:string"/>
 	<xs:attribute name="Sum3" type="xs:string"/>

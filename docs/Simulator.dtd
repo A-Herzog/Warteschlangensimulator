@@ -1751,6 +1751,7 @@
   Minimum						CDATA	#REQUIRED
   Mittelwert					CDATA	#REQUIRED
   Standardabweichung			CDATA	#REQUIRED
+  Start							CDATA	#IMPLIED
   Summe							CDATA	#REQUIRED
   Summe2						CDATA	#IMPLIED
   Summe3						CDATA	#IMPLIED
@@ -1792,6 +1793,7 @@
   Minimum						CDATA	#REQUIRED
   Mittelwert					CDATA	#REQUIRED
   Standardabweichung			CDATA	#REQUIRED
+  Start							CDATA	#IMPLIED
   Summe							CDATA	#REQUIRED
   Summe2						CDATA	#IMPLIED
   Summe3						CDATA	#IMPLIED
@@ -1865,10 +1867,13 @@
   Minimum				CDATA	#REQUIRED
   Mittelwert			CDATA	#REQUIRED
   Standardabweichung	CDATA	#REQUIRED
+  Start					CDATA	#IMPLIED
   Summe					CDATA	#REQUIRED
+  Summe2				CDATA	#IMPLIED
+  Summe3				CDATA	#IMPLIED
   Typ					CDATA	#REQUIRED
   Variationskoeffizient	CDATA	#REQUIRED
-  Schiefe						CDATA	#IMPLIED
+  Schiefe				CDATA	#IMPLIED
   WerteSumme            CDATA	#IMPLIED
   WerteSumme2           CDATA	#IMPLIED
   WerteSumme3           CDATA	#IMPLIED
@@ -1885,10 +1890,13 @@
   Minimum				CDATA	#REQUIRED
   Mittelwert			CDATA	#REQUIRED
   Standardabweichung	CDATA	#REQUIRED
+  Start					CDATA	#IMPLIED
   Summe					CDATA	#REQUIRED
+  Summe2				CDATA	#IMPLIED
+  Summe3				CDATA	#IMPLIED
   Typ					CDATA	#REQUIRED
   Variationskoeffizient	CDATA	#REQUIRED
-  Schiefe						CDATA	#IMPLIED
+  Schiefe				CDATA	#IMPLIED
   WerteSumme            CDATA	#IMPLIED
   WerteSumme2           CDATA	#IMPLIED
   WerteSumme3           CDATA	#IMPLIED
@@ -1911,10 +1919,13 @@
   Minimum				CDATA	#REQUIRED
   Mittelwert			CDATA	#REQUIRED
   Standardabweichung	CDATA	#REQUIRED
+  Start					CDATA	#IMPLIED
   Summe					CDATA	#REQUIRED
+  Summe2				CDATA	#IMPLIED
+  Summe3				CDATA	#IMPLIED
   Typ					CDATA	#REQUIRED
   Variationskoeffizient	CDATA	#REQUIRED
-  Schiefe						CDATA	#IMPLIED
+  Schiefe				CDATA	#IMPLIED
   WerteSumme            CDATA	#IMPLIED
   WerteSumme2           CDATA	#IMPLIED
   WerteSumme3           CDATA	#IMPLIED
@@ -1957,10 +1968,13 @@
   Minimum				CDATA	#REQUIRED
   Mittelwert			CDATA	#REQUIRED
   Standardabweichung	CDATA	#REQUIRED
+  Start					CDATA	#IMPLIED
   Summe					CDATA	#REQUIRED
+  Summe2				CDATA	#IMPLIED
+  Summe3				CDATA	#IMPLIED
   Typ					CDATA	#REQUIRED
   Variationskoeffizient	CDATA	#REQUIRED
-  Schiefe						CDATA	#IMPLIED
+  Schiefe				CDATA	#IMPLIED
   WerteSumme            CDATA	#IMPLIED
   WerteSumme2           CDATA	#IMPLIED
   WerteSumme3           CDATA	#IMPLIED
@@ -2100,7 +2114,10 @@
   Minimum				CDATA	#REQUIRED
   Mittelwert			CDATA	#REQUIRED
   Standardabweichung	CDATA	#REQUIRED
+  Start					CDATA	#IMPLIED
   Summe					CDATA	#REQUIRED
+  Summe2				CDATA	#IMPLIED
+  Summe3				CDATA	#IMPLIED
   Variationskoeffizient	CDATA	#REQUIRED
   Schiefe				CDATA	#IMPLIED
   WerteSumme            CDATA	#IMPLIED
@@ -2118,7 +2135,10 @@
   Minimum				CDATA	#REQUIRED
   Mittelwert			CDATA	#REQUIRED
   Standardabweichung	CDATA	#REQUIRED
+  Start					CDATA	#IMPLIED
   Summe					CDATA	#REQUIRED
+  Summe2				CDATA	#IMPLIED
+  Summe3				CDATA	#IMPLIED
   Variationskoeffizient	CDATA	#REQUIRED
   Schiefe				CDATA	#IMPLIED
   WerteSumme            CDATA	#IMPLIED
@@ -2197,7 +2217,10 @@
   Minimum				CDATA	#REQUIRED
   Mittelwert			CDATA	#REQUIRED
   Standardabweichung	CDATA	#REQUIRED
+  Start					CDATA	#IMPLIED
   Summe					CDATA	#REQUIRED
+  Summe2				CDATA	#IMPLIED
+  Summe3				CDATA	#IMPLIED
   Typ					CDATA	#REQUIRED
   Variationskoeffizient	CDATA	#REQUIRED
   Schiefe				CDATA	#IMPLIED
@@ -2212,7 +2235,10 @@
   Minimum				CDATA	#REQUIRED
   Mittelwert			CDATA	#REQUIRED
   Standardabweichung	CDATA	#REQUIRED
+  Start					CDATA	#IMPLIED
   Summe					CDATA	#REQUIRED
+  Summe2				CDATA	#IMPLIED
+  Summe3				CDATA	#IMPLIED
   Typ					CDATA	#REQUIRED
   Variationskoeffizient	CDATA	#REQUIRED
   Schiefe				CDATA	#IMPLIED
@@ -4067,6 +4093,7 @@
   Minimum					CDATA	#REQUIRED
   Mean						CDATA	#REQUIRED
   StandardDeviation			CDATA	#REQUIRED
+  Start						CDATA	#IMPLIED
   Sum						CDATA	#REQUIRED
   Sum2						CDATA	#IMPLIED
   Sum3						CDATA	#IMPLIED
@@ -4108,6 +4135,7 @@
   Minimum					CDATA	#REQUIRED
   Mean						CDATA	#REQUIRED
   StandardDeviation			CDATA	#REQUIRED
+  Start						CDATA	#IMPLIED
   Sum						CDATA	#REQUIRED
   Sum2						CDATA	#IMPLIED
   Sum3						CDATA	#IMPLIED
@@ -4181,7 +4209,10 @@
   Minimum					CDATA	#REQUIRED
   Mean						CDATA	#REQUIRED
   StandardDeviation			CDATA	#REQUIRED
+  Start						CDATA	#IMPLIED
   Sum						CDATA	#REQUIRED
+  Sum2						CDATA	#IMPLIED
+  Sum3						CDATA	#IMPLIED
   Type						CDATA	#REQUIRED
   CoefficientOfVariation	CDATA	#REQUIRED
   Skewness					CDATA	#IMPLIED
@@ -4201,7 +4232,10 @@
   Minimum					CDATA	#REQUIRED
   Mean						CDATA	#REQUIRED
   StandardDeviation			CDATA	#REQUIRED
+  Start						CDATA	#IMPLIED
   Sum						CDATA	#REQUIRED
+  Sum2						CDATA	#IMPLIED
+  Sum3						CDATA	#IMPLIED
   Type						CDATA	#REQUIRED
   CoefficientOfVariation	CDATA	#REQUIRED
   Skewness					CDATA	#IMPLIED
@@ -4227,7 +4261,10 @@
   Minimum					CDATA	#REQUIRED
   Mean						CDATA	#REQUIRED
   StandardDeviation			CDATA	#REQUIRED
+  Start						CDATA	#IMPLIED
   Sum						CDATA	#REQUIRED
+  Sum2						CDATA	#IMPLIED
+  Sum3						CDATA	#IMPLIED
   Type						CDATA	#REQUIRED
   CoefficientOfVariation	CDATA	#REQUIRED
   Skewness					CDATA	#IMPLIED
@@ -4274,7 +4311,10 @@
   Minimum					CDATA	#REQUIRED
   Mean						CDATA	#REQUIRED
   StandardDeviation			CDATA	#REQUIRED
+  Start						CDATA	#IMPLIED
   Sum						CDATA	#REQUIRED
+  Sum2						CDATA	#IMPLIED
+  Sum3						CDATA	#IMPLIED
   Type						CDATA	#REQUIRED
   CoefficientOfVariation	CDATA	#REQUIRED
   Skewness					CDATA	#IMPLIED
@@ -4416,7 +4456,10 @@
   Minimum					CDATA	#REQUIRED
   Mean						CDATA	#REQUIRED
   StandardDeviation			CDATA	#REQUIRED
+  Start						CDATA	#IMPLIED
   Sum						CDATA	#REQUIRED
+  Sum2						CDATA	#IMPLIED
+  Sum3						CDATA	#IMPLIED
   CoefficientOfVariation	CDATA	#REQUIRED
   Skewness					CDATA	#IMPLIED
   ValuesSum                 CDATA	#IMPLIED
@@ -4434,7 +4477,10 @@
   Minimum					CDATA	#REQUIRED
   Mean						CDATA	#REQUIRED
   StandardDeviation			CDATA	#REQUIRED
+  Start						CDATA	#IMPLIED
   Sum						CDATA	#REQUIRED
+  Sum2						CDATA	#IMPLIED
+  Sum3						CDATA	#IMPLIED
   CoefficientOfVariation	CDATA	#REQUIRED
   Skewness					CDATA	#IMPLIED
   ValuesSum                 CDATA	#IMPLIED
@@ -4528,7 +4574,10 @@
   Minimum					CDATA	#REQUIRED
   Mean						CDATA	#REQUIRED
   StandardDeviation			CDATA	#REQUIRED
+  Start						CDATA	#IMPLIED
   Sum						CDATA	#REQUIRED
+  Sum2						CDATA	#IMPLIED
+  Sum3						CDATA	#IMPLIED
   Type						CDATA	#REQUIRED
   CoefficientOfVariation	CDATA	#REQUIRED
   Skewness					CDATA	#IMPLIED

@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-08 21:41+0200\n"
+"POT-Creation-Date: 2021-10-10 00:07+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20229,6 +20229,21 @@ msgstr "Es wurde eine Einschwingphase der Länge %s eingestellt. Erst nach dem A
 msgid "Statistics.SimulatedClients.Zero.Info2"
 msgstr "Die Länge der Einschwingphase kann im Modelleigenschaften-Dialog auf der Seite \"Simulation\" eingestellt werden. Werden Ankünfte aus externen Quellen geladne, so sollte die Einschwingphase auf 0 gesetzt werden."
 
+msgid "Statistics.SimulatedTime"
+msgstr "Simulierte Zeit"
+
+msgid "Statistics.SimulatedTime.EndTime"
+msgstr "Endzeit"
+
+msgid "Statistics.SimulatedTime.MultiCoreInfo"
+msgstr "Die Simulation wurde auf mehrere Threads aufgeteilt. Daher können keine exakten Informationen zur simulierten Zeit ermittelt werden."
+
+msgid "Statistics.SimulatedTime.StartTime"
+msgstr "Startzeit"
+
+msgid "Statistics.SimulatedTime.TimeSpan"
+msgstr "Zeitspanne"
+
 msgid "Statistics.SimulationModel"
 msgstr "Simulationsmodell"
 
@@ -21131,6 +21146,12 @@ msgstr "StatistikNutzer"
 
 msgid "Statistics.XML.Sk"
 msgstr "Schiefe"
+
+msgid "Statistics.XML.Start"
+msgstr "Start"
+
+msgid "Statistics.XML.StartError"
+msgstr "Das \"Start\"-Attribut im \"%s\"-Element muss eine Zahl sein, ist aber \"%s\"."
 
 msgid "Statistics.XML.StateStatistics"
 msgstr "StatistikStatusZeit"

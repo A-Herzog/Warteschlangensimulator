@@ -30,7 +30,7 @@ import mathtools.distribution.DataDistributionImpl;
  * Sollen hingegen durch einen (String-)Namen definierte Zustände erfasst werden,
  * so kann dafür die Klasse {@link StatisticsStateTimePerformanceIndicator} verwendet werden.
  * @author Alexander Herzog
- * @version 3.2
+ * @version 3.3
  */
 public final class StatisticsTimePerformanceIndicator extends StatisticsPerformanceIndicator implements Cloneable {
 	/**
@@ -40,6 +40,10 @@ public final class StatisticsTimePerformanceIndicator extends StatisticsPerforma
 
 	/** Fehlermeldung, wenn der Inhalt des XML-Elements nicht gelesen werden konnte. */
 	public static String xmlLoadError="Die in dem Element \"%s\" angegebene Verteilung ist ungültig.";
+	/** XML-Attribut für "Start" */
+	public static String[] xmlNameStart=new String[]{"Start"};
+	/** Fehlermeldung, wenn das "Start"-Attribut nicht gelesen werden konnte. */
+	public static String xmlNameStartError="Das Start-Attribut im \"%s\"-Element muss eine Zahl sein, ist aber \"%s\".";
 	/** XML-Attribut für "Summe" */
 	public static String xmlNameSum="Summe";
 	/** XML-Attribut für "WerteSumme" */
@@ -112,6 +116,11 @@ public final class StatisticsTimePerformanceIndicator extends StatisticsPerforma
 	 * Summe der erfassten Zeiten (d.h. Summe über {@link StatisticsTimePerformanceIndicator#stateTime})
 	 */
 	private double sum=0;
+
+	/**
+	 * Startzeitpunkt der Erfassung
+	 */
+	private double start=0;
 
 	/**
 	 * Minimaler Zustand in dem sich das System eine Zeitdauer >0 befunden hat
@@ -245,6 +254,8 @@ public final class StatisticsTimePerformanceIndicator extends StatisticsPerforma
 				valueSum+=add*lastState;
 				valueSumSquared+=add*lastState*lastState;
 				valueSumCubic+=add*lastState*lastState*lastState;
+			} else {
+				start=time;
 			}
 
 			lastTime=time;
@@ -295,6 +306,11 @@ public final class StatisticsTimePerformanceIndicator extends StatisticsPerforma
 		if (moreCountStatistics.max>=0) {
 			max=Math.max(max,moreCountStatistics.max);
 		}
+		if (start==0) {
+			start=moreCountStatistics.start;
+		} else {
+			if (moreCountStatistics.start>0) start=Math.min(start,moreCountStatistics.start);
+		}
 		sum+=moreCountStatistics.sum;
 		valueSum+=moreCountStatistics.valueSum;
 		valueSumSquared+=moreCountStatistics.valueSumSquared;
@@ -323,6 +339,7 @@ public final class StatisticsTimePerformanceIndicator extends StatisticsPerforma
 
 		min=-1;
 		max=-1;
+		start=0;
 		sum=0;
 		valueSum=0;
 		valueSumSquared=0;
@@ -357,6 +374,7 @@ public final class StatisticsTimePerformanceIndicator extends StatisticsPerforma
 
 		min=time.min;
 		max=time.max;
+		start=time.start;
 		sum=time.sum;
 		valueSum=time.valueSum;
 		valueSumSquared=time.valueSumSquared;
@@ -429,6 +447,14 @@ public final class StatisticsTimePerformanceIndicator extends StatisticsPerforma
 		if (readOnlyDistribution==null || readOnlyDistribution.densityData!=stateTime) readOnlyDistribution=new DataDistributionImpl(stateTime.length,stateTime,true);
 		/* stateTime.length ist die richtige Größe, sonst skaliert DataDistributionImpl und getMean() und Co. liefern verzerrte Werte. */
 		return readOnlyDistribution;
+	}
+
+	/**
+	 * Liefert den Zeitpunkt der ersten Erfassung eines Wertes zurück.
+	 * @return	Zeitpunkt der ersten Erfassung eines Wertes zurück
+	 */
+	public double getStartTime() {
+		return start;
 	}
 
 	/**
@@ -744,6 +770,7 @@ public final class StatisticsTimePerformanceIndicator extends StatisticsPerforma
 			}
 		}
 
+		node.setAttribute(xmlNameStart[0],NumberTools.formatSystemNumber(getStartTime(),recycleStringBuilder));
 		node.setAttribute(xmlNameSum,NumberTools.formatSystemNumber(getSum(),recycleStringBuilder));
 		node.setAttribute(xmlNameValues[0],NumberTools.formatSystemNumber(valueSum,recycleStringBuilder));
 		node.setAttribute(xmlNameValuesSquared[0],NumberTools.formatSystemNumber(valueSumSquared,recycleStringBuilder));
@@ -802,6 +829,13 @@ public final class StatisticsTimePerformanceIndicator extends StatisticsPerforma
 			final Double valueSum3=NumberTools.getDouble(value);
 			if (valueSum3==null) return String.format(xmlNameValuesCubicError,node.getNodeName(),value);
 			valueSumCubic=valueSum3;
+		}
+
+		value=NumberTools.systemNumberToLocalNumber(getAttributeValue(node,xmlNameStart));
+		if (!value.isEmpty()) {
+			final Double start=NumberTools.getDouble(value);
+			if (start==null) return String.format(xmlNameStartError,node.getNodeName(),value);
+			this.start=start;
 		}
 
 		value=NumberTools.systemNumberToLocalNumber(getAttributeValue(node,xmlNameMin));
