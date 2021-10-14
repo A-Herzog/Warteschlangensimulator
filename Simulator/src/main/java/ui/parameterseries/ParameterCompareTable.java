@@ -173,7 +173,7 @@ public class ParameterCompareTable extends JPanel {
 	 * @param digits	Anzahl an Nachkommastellen (mögliche Werte sind 1, 3 und 9 für Maximalanzahl)
 	 */
 	public void setDisplayDigits(final int digits) {
-		tableModel.setDisplayDigits(digits);
+		if (tableModel.setDisplayDigits(digits)) updateTable();
 	}
 
 	/**

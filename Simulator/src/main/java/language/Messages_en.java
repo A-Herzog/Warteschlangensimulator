@@ -11282,6 +11282,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[29667] = "There are no changed files.";
     t[29668] = "ExpressionBuilder.BasicArithmetics.Modulo.Info";
     t[29669] = "<p>Calculates the modulo, e.g. the division reminder when dividing the frist by the second parameter.</p><p>Example: <tt>mod(7;3)</tt> gets 1.</p>";
+    t[29670] = "ParameterCompare.Settings.Output.Digits";
+    t[29671] = "Decimal digits to be displayed";
     t[29674] = "SettingsDialog.FontSizes.Small";
     t[29675] = "Small";
     t[29676] = "Window.Check.AutoFixConnection.InfoSourceProcess";
@@ -12038,14 +12040,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[31645] = "For transporter type \"%s\" the expression \"%s\" is used for calculating the transport time from the transport distance. This expression is invalid at character %d.";
     t[31648] = "CommandLine.ServerLimited.Name";
     t[31649] = "ServerLimited";
-    t[31650] = "Surface.Process.Dialog.DistributionOfWaitingTimeTolerances";
-    t[31651] = "Waiting time tolerances";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_6 (java.lang.String[] t) {
+    t[31650] = "Surface.Process.Dialog.DistributionOfWaitingTimeTolerances";
+    t[31651] = "Waiting time tolerances";
     t[31652] = "Statistics.CVInterLeaveTime";
     t[31653] = "Coefficient of variation of the inter-leaving times";
     t[31660] = "Editor.DialogBase.Search.BalkingExpressionGlobal";
@@ -14044,14 +14046,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[36807] = "Recheck";
     t[36814] = "ExpressionBuilder.SimulationCharacteristics.Costs.TransferAvg";
     t[36815] = "Average transfer time costs";
-    t[36816] = "CommandLine.SetDynamicThreadBalance.Info.DynamicThreadBalance.Off";
-    t[36817] = "off";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_7 (java.lang.String[] t) {
+    t[36816] = "CommandLine.SetDynamicThreadBalance.Info.DynamicThreadBalance.Off";
+    t[36817] = "off";
     t[36818] = "Statistics.WaitingTransferProcessTimesAtStations.Short";
     t[36819] = "Times at the stations";
     t[36824] = "ExternalConnect.Dialog.Compile.ResultsTitle";
@@ -15162,6 +15164,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[39595] = "Moves the selected input parameter on place up in the list";
     t[39596] = "Surface.PopupMenu.SimulationStatisticsData.SaveError.Title";
     t[39597] = "Error saaving data";
+    t[39598] = "ParameterCompare.Settings.Output.Digits.Info";
+    t[39599] = "(applies globally for all output values)";
     t[39600] = "Color.E6E6FA";
     t[39601] = "Lavender";
     t[39606] = "SimulationServer.Status.On";
@@ -16048,16 +16052,16 @@ public class Messages_en extends java.util.ResourceBundle {
     t[41827] = "No analog values were recorded.";
     t[41830] = "CalculatorDialog.Tab.Distributions.GenerateRandomNumbers.SaveExt.DistributionName";
     t[41831] = "Distribution name";
-    t[41838] = "JavaImports.Title";
-    t[41839] = "Edit imports for user-defined Java code";
-    t[41840] = "BatchPanel.Script.ErrorTitle";
-    t[41841] = "Invalid filter script";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_8 (java.lang.String[] t) {
+    t[41838] = "JavaImports.Title";
+    t[41839] = "Edit imports for user-defined Java code";
+    t[41840] = "BatchPanel.Script.ErrorTitle";
+    t[41841] = "Invalid filter script";
     t[41842] = "Surface.InputDDE.Dialog.DefaultValue.ErrorTitle";
     t[41843] = "Invalid default value";
     t[41844] = "Surface.AnimationBarChart.XML.MinValue";
@@ -18054,16 +18058,16 @@ public class Messages_en extends java.util.ResourceBundle {
     t[46923] = "Pin";
     t[46932] = "ExpressionBuilder.StatisticalFunctions.StandardDeviation";
     t[46933] = "Standard deviation";
-    t[46940] = "Statistics.XML.UserStatisticsContinuousKey";
-    t[46941] = "StatisticsUserDefinedContinuousRecord";
-    t[46960] = "HintsDialog.Button.HideAll";
-    t[46961] = "Hide all";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_9 (java.lang.String[] t) {
+    t[46940] = "Statistics.XML.UserStatisticsContinuousKey";
+    t[46941] = "StatisticsUserDefinedContinuousRecord";
+    t[46960] = "HintsDialog.Button.HideAll";
+    t[46961] = "Hide all";
     t[46964] = "Surface.XML.ModelTerminationTime";
     t[46965] = "ModelTerminationTime";
     t[46970] = "Transporters.Group.Edit.Dialog.Distances.Dialog.MaxDistance.ErrorInfo";
@@ -20060,16 +20064,16 @@ public class Messages_en extends java.util.ResourceBundle {
     t[52079] = "Word";
     t[52088] = "ExpressionBuilder.ExponentialAndLogarithmFunctions.10Logarithm";
     t[52089] = "Logarithm to base 10";
-    t[52090] = "Surface.Balking.XML.Expression.Mode";
-    t[52091] = "Mode";
-    t[52104] = "ExpressionBuilder.TrigonometricFunctions.Cotangens";
-    t[52105] = "Cotangent";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_10 (java.lang.String[] t) {
+    t[52090] = "Surface.Balking.XML.Expression.Mode";
+    t[52091] = "Mode";
+    t[52104] = "ExpressionBuilder.TrigonometricFunctions.Cotangens";
+    t[52105] = "Cotangent";
     t[52106] = "Schedule.Dialog.NameMissing.Info";
     t[52107] = "You have to specify a name for the schedule.";
     t[52108] = "Surface.Input.Dialog.Variable.WaitingTime";

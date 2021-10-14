@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-11 11:45+0200\n"
+"POT-Creation-Date: 2021-10-12 00:13+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -12741,6 +12741,12 @@ msgstr "Kein Modellname angegeben"
 
 msgid "ParameterCompare.Settings.Model.Title"
 msgstr "Modell bearbeiten"
+
+msgid "ParameterCompare.Settings.Output.Digits"
+msgstr "Anzuzeigende Nachkommastellen"
+
+msgid "ParameterCompare.Settings.Output.Digits.Info"
+msgstr "(gilt global für alle Ausgabegrößen)"
 
 msgid "ParameterCompare.Settings.Output.Format"
 msgstr "Anzeigeformat"

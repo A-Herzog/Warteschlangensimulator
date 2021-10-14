@@ -365,8 +365,7 @@ public class ParameterCompareTableModel extends JTableExtAbstractTableModel {
 	 * @see #getValueAt(ParameterCompareSetupModel, int, int)
 	 */
 	private String formatNumber(final double value) {
-		if (digits==1) return NumberTools.formatNumber(value,1);
-		if (digits==3) return NumberTools.formatNumber(value,3);
+		if (digits>=1 && digits<=8) return NumberTools.formatNumber(value,digits);
 		return NumberTools.formatNumberMax(value);
 	}
 
@@ -378,8 +377,7 @@ public class ParameterCompareTableModel extends JTableExtAbstractTableModel {
 	 * @see #getValueAt(ParameterCompareSetupModel, int, int)
 	 */
 	private String formatPercent(final double value) {
-		if (digits==1) return NumberTools.formatPercent(value,1);
-		if (digits==3) return NumberTools.formatPercent(value,3);
+		if (digits>=1 && digits<=7) return NumberTools.formatPercent(value,digits);
 		return NumberTools.formatPercent(value,7);
 	}
 
@@ -632,10 +630,13 @@ public class ParameterCompareTableModel extends JTableExtAbstractTableModel {
 	/**
 	 * Stellt die Anzahl an anzuzeigenden Nachkommastellen ein (wirkt sich nicht auf Kopieren/Speichern der Tabelle).
 	 * @param digits	Anzahl an Nachkommastellen (mögliche Werte sind 1, 3 und 9 für Maximalanzahl)
+	 * @return	Liefert <code>true</code> wenn der neue Wert vom bisherigen abweicht und daher eine Veränderung vorgenommen wurde
 	 */
-	public void setDisplayDigits(final int digits) {
+	public boolean setDisplayDigits(final int digits) {
+		if (digits==this.digits) return false;
 		this.digits=digits;
 		table.invalidate();
+		return true;
 	}
 
 	/**

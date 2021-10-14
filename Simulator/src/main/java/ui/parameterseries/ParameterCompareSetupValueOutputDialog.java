@@ -31,7 +31,10 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JSpinner;
 import javax.swing.JTextField;
+import javax.swing.SpinnerModel;
+import javax.swing.SpinnerNumberModel;
 
 import language.Language;
 import mathtools.NumberTools;
@@ -43,6 +46,7 @@ import simulator.statistics.Statistics;
 import systemtools.BaseDialog;
 import systemtools.MsgBox;
 import tools.IconListCellRenderer;
+import tools.SetupData;
 import ui.images.Images;
 import ui.modeleditor.ModelElementBaseDialog;
 import ui.script.ScriptTools;
@@ -90,8 +94,11 @@ public class ParameterCompareSetupValueOutputDialog extends BaseDialog {
 	/** Schaltfläche zur Auswahl einer Skriptdatei für {@link #scriptEditJava} */
 	private final JButton scriptButtonJava;
 
-	/** Option "Anzeige des Ergebniswertes als Zeit" */
+	/** Auswahlfeld "Ausgabeformat" */
 	private final JComboBox<String> comboFormat;
+
+	/** Auswahlfeld "Nachkommastellen" */
+	private final SpinnerModel digits;
 
 	/**
 	 * Konstruktor der Klasse
@@ -240,7 +247,11 @@ public class ParameterCompareSetupValueOutputDialog extends BaseDialog {
 
 		/* Unten */
 
-		content.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)),BorderLayout.SOUTH);
+		final JPanel setup=new JPanel();
+		content.add(setup,BorderLayout.SOUTH);
+		setup.setLayout(new BoxLayout(setup,BoxLayout.PAGE_AXIS));
+
+		setup.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
 		line.add(label=new JLabel(Language.tr("ParameterCompare.Settings.Output.Format")+":"));
 		line.add(comboFormat=new JComboBox<>(new String[] {
 				Language.tr("ParameterCompare.Settings.Output.Format.Number"),
@@ -253,6 +264,18 @@ public class ParameterCompareSetupValueOutputDialog extends BaseDialog {
 				Images.GENERAL_TIME,
 		}));
 		label.setLabelFor(comboFormat);
+
+		setup.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
+
+		line.add(label=new JLabel(Language.tr("ParameterCompare.Settings.Output.Digits")+":"));
+		final JSpinner digitsSpinner=new JSpinner(digits=new SpinnerNumberModel(1,1,9,1));
+		final JSpinner.NumberEditor statisticsPercentDigitsEditor=new JSpinner.NumberEditor(digitsSpinner);
+		statisticsPercentDigitsEditor.getFormat().setGroupingUsed(false);
+		statisticsPercentDigitsEditor.getTextField().setColumns(2);
+		digitsSpinner.setEditor(statisticsPercentDigitsEditor);
+		line.add(digitsSpinner);
+		label.setLabelFor(digitsSpinner);
+		line.add(new JLabel(Language.tr("ParameterCompare.Settings.Output.Digits.Info")));
 
 		/* Daten laden */
 
@@ -287,6 +310,8 @@ public class ParameterCompareSetupValueOutputDialog extends BaseDialog {
 		default:
 			comboFormat.setSelectedIndex(0); break;
 		}
+
+		digits.setValue(Math.max(1,Math.min(9,SetupData.getSetup().parameterSeriesTableDigits)));
 
 		checkData(false);
 
@@ -396,6 +421,10 @@ public class ParameterCompareSetupValueOutputDialog extends BaseDialog {
 			output.setTag(expressionEdit.getText());
 			break;
 		}
+
+		final SetupData setup=SetupData.getSetup();
+		setup.parameterSeriesTableDigits=((Integer)digits.getValue()).intValue();
+		setup.saveSetup();
 
 		switch (comboFormat.getSelectedIndex()) {
 		case 0: output.setFormat(ParameterCompareSetupValueOutput.OutputFormat.FORMAT_NUMBER); break;

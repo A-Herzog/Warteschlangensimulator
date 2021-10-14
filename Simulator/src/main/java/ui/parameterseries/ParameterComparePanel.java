@@ -459,6 +459,7 @@ public class ParameterComparePanel extends SpecialPanel {
 			recalcResults(oldOutput);
 			table.updateTable();
 		}
+		table.setDisplayDigits(SetupData.getSetup().parameterSeriesTableDigits);
 	}
 
 	/**
@@ -851,7 +852,7 @@ public class ParameterComparePanel extends SpecialPanel {
 		sub.add(radioItem=new JRadioButtonMenuItem(Language.tr("ParameterCompare.Toolbar.ProcessResults.ResultsTable.Setup.Digit3"),digits==3));
 		radioItem.addActionListener(e->setupTableDigits(3));
 		buttonGroup.add(radioItem);
-		sub.add(radioItem=new JRadioButtonMenuItem(Language.tr("ParameterCompare.Toolbar.ProcessResults.ResultsTable.Setup.DigitFull"),digits!=1 && digits!=3));
+		sub.add(radioItem=new JRadioButtonMenuItem(Language.tr("ParameterCompare.Toolbar.ProcessResults.ResultsTable.Setup.DigitFull"),digits==9));
 		radioItem.addActionListener(e->setupTableDigits(9));
 		buttonGroup.add(radioItem);
 		sub.addSeparator();
