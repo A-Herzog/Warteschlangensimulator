@@ -497,7 +497,7 @@ public class RunElementProcess extends RunElement implements FreeResourcesListen
 
 		/* Belegte Ressourcen am Ende der Nachbearbeitungszeit wieder freigeben */
 		ProcessReleaseResources event=(ProcessReleaseResources)simData.getEvent(ProcessReleaseResources.class);
-		final int TIME_DELTA=1; /* Zeit in ms die vor der Freigabe der Ressourcen noch verstreichen sollen, damit die Freigabe wirklich erst nach dem Verlassen des Kundens der Station erfolgt */
+		final int TIME_DELTA=(postProcessingTime>0)?0:1; /* Zeit in ms die vor der Freigabe der Ressourcen noch verstreichen sollen, damit die Freigabe wirklich erst nach dem Verlassen des Kundens der Station erfolgt */
 		event.init(simData.currentTime+TIME_DELTA+FastMath.round((setupTime+processingTime+postProcessingTime)*1000));
 		event.station=this;
 		event.resourceAlternative=resourceAlternative;
@@ -628,7 +628,7 @@ public class RunElementProcess extends RunElement implements FreeResourcesListen
 
 		/* Belegte Ressourcen am Ende der Nachbearbeitungszeit wieder freigeben */
 		ProcessReleaseResources event=(ProcessReleaseResources)simData.getEvent(ProcessReleaseResources.class);
-		final int TIME_DELTA=1; /* Zeit in ms die vor der Freigabe der Ressourcen noch verstreichen sollen, damit die Freigabe wirklich erst nach dem Verlassen des Kundens der Station erfolgt */
+		final int TIME_DELTA=(resourcesBlockedTimePostProcessing>0)?0:1; /* Zeit in ms die vor der Freigabe der Ressourcen noch verstreichen sollen, damit die Freigabe wirklich erst nach dem Verlassen des Kundens der Station erfolgt */
 		event.init(simData.currentTime+TIME_DELTA+FastMath.round((resourcesBlockedTimeProcessing+resourcesBlockedTimePostProcessing)*1000));
 		event.station=this;
 		event.resourceAlternative=resourceAlternative;
