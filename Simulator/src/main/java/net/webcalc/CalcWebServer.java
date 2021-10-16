@@ -508,7 +508,7 @@ public class CalcWebServer extends WebServer {
 		XMLTools.FileType fileType=XMLTools.FileType.XML;
 		final String requestUpper=request.toUpperCase();
 		if (requestUpper.endsWith(".ZIP") || requestUpper.endsWith(".XMZ") || requestUpper.endsWith(".BIN")) fileType=FileType.ZIP_XML;
-		if (requestUpper.endsWith(".TAR") || requestUpper.endsWith(".TAR.GZ")  || requestUpper.endsWith(".TARGZ")) fileType=FileType.TAR_XML;
+		if (requestUpper.endsWith(".TAR") || requestUpper.endsWith(".TAR.GZ")  || requestUpper.endsWith(".TARGZ") || requestUpper.endsWith(".TGZ")) fileType=FileType.TAR_XML;
 		if (requestUpper.endsWith(".JSON") || requestUpper.endsWith(".JS")) fileType=FileType.JSON;
 
 		/* ID bestimmen */

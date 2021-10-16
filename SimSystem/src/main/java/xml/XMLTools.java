@@ -519,7 +519,7 @@ public final class XMLTools {
 		final String s=file.toString().toUpperCase();
 
 		if (s.endsWith(".ZIP") || s.endsWith(".XMZ") || s.endsWith(".BIN")) return FileType.ZIP_XML;
-		if (s.endsWith(".TAR") || s.endsWith(".TAR.GZ")  || s.endsWith(".TARGZ")) return FileType.TAR_XML;
+		if (s.endsWith(".TAR") || s.endsWith(".TAR.GZ")  || s.endsWith(".TARGZ")  || s.endsWith(".TGZ")) return FileType.TAR_XML;
 		if (s.endsWith(".CS") || s.endsWith(".CS_ENCRYPT")) return FileType.CRYPT_XML;
 		if (s.endsWith(".JSON") || s.endsWith(".JS")) return FileType.JSON;
 
@@ -876,7 +876,7 @@ public final class XMLTools {
 		fc.setDialogTitle(title);
 		final FileFilter xml=new FileNameExtensionFilter(fileTypeXML+" (*.xml)","xml");
 		final FileFilter zip=new FileNameExtensionFilter(fileTypeCompressedXML+" (*.zip, *.xmz)","zip","xmz");
-		final FileFilter tar=new FileNameExtensionFilter(fileTypeTARCompressedXML+" (*.tar.gz, *.tar)","tar.gz","tar");
+		final FileFilter tar=new FileNameExtensionFilter(fileTypeTARCompressedXML+" (*.tar.gz, *.tar, *.tgz)","tar.gz","tar","tgz");
 		final FileFilter json=new FileNameExtensionFilter(fileTypeJSON+" (*.json)","json");
 		final FileFilter cs=new FileNameExtensionFilter(fileTypeEncryptedXML+" (*.cs)","cs");
 		fc.addChoosableFileFilter(xml);
@@ -900,6 +900,7 @@ public final class XMLTools {
 		allTypes.add("xmz");
 		allTypes.add("tar.gz");
 		allTypes.add("tar");
+		allTypes.add("tgz");
 		allTypes.add("json");
 		allTypes.add("cs");
 		if (userFilterExts!=null) allTypes.addAll(Arrays.asList(userFilterExts));
