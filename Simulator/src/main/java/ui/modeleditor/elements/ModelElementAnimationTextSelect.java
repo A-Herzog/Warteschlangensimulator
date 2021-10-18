@@ -128,6 +128,20 @@ public class ModelElementAnimationTextSelect extends ModelElementPosition implem
 	private Color color=DEFAULT_COLOR;
 
 	/**
+	 * Füllfarbe des Kastens (kann <code>null</code> sein für transparent)
+	 * @see #getFillColor()
+	 * @see #setFillColor(Color)
+	 */
+	private Color fillColor=null;
+
+	/**
+	 * Deckkraft der Hintergrundfarbe
+	 * @see #getFillAlpha()
+	 * @see #setFillAlpha(double)
+	 */
+	private double fillAlpha=1.0;
+
+	/**
 	 * Konstruktor der Klasse <code>ModelElementTextSelect</code>
 	 * @param model	Modell zu dem dieses Element gehören soll (kann später nicht mehr geändert werden)
 	 * @param surface	Zeichenfläche zu dem dieses Element gehören soll (kann später nicht mehr geändert werden)
@@ -279,6 +293,40 @@ public class ModelElementAnimationTextSelect extends ModelElementPosition implem
 	}
 
 	/**
+	 * Liefert die aktuelle Füllfarbe des Kastens
+	 * @return	Aktuelle Füllfarbe des Kastens (kann <code>null</code> sein für transparent)
+	 */
+	public Color getFillColor() {
+		return fillColor;
+	}
+
+	/**
+	 * Stellt die Füllfarbe des Kastens ein
+	 * @param color	Füllfarbe des Kastens (oder <code>null</code> für transparent)
+	 */
+	public void setFillColor(final Color color) {
+		fillColor=color;
+		fireChanged();
+	}
+
+	/**
+	 * Liefert die Deckkraft der Hintergrundfarbe.
+	 * @return	Deckkraft der Hintergrundfarbe (Wert zwischen 0 und 1 jeweils einschließlich)
+	 */
+	public double getFillAlpha() {
+		return fillAlpha;
+	}
+
+	/**
+	 * Stellt die Deckkraft der Hintergrundfarbe ein.
+	 * @param fillAlpha	Deckkraft der Hintergrundfarbe (Wert zwischen 0 und 1 jeweils einschließlich)
+	 */
+	public void setFillAlpha(double fillAlpha) {
+		this.fillAlpha=Math.max(0,Math.min(1,fillAlpha));
+		fireChanged();
+	}
+
+	/**
 	 * Überprüft, ob das Element mit dem angegebenen Element inhaltlich identisch ist.
 	 * @param element	Element mit dem dieses Element verglichen werden soll.
 	 * @return	Gibt <code>true</code> zurück, wenn die beiden Elemente identisch sind.
@@ -302,6 +350,8 @@ public class ModelElementAnimationTextSelect extends ModelElementPosition implem
 		if (textSize!=otherText.textSize) return false;
 		if (bold!=otherText.bold) return false;
 		if (italic!=otherText.italic) return false;
+		if (fillColor!=otherText.fillColor) return false;
+		if (fillAlpha!=otherText.fillAlpha) return false;
 
 		return true;
 	}
@@ -324,6 +374,8 @@ public class ModelElementAnimationTextSelect extends ModelElementPosition implem
 			bold=copySource.bold;
 			italic=copySource.italic;
 			color=copySource.color;
+			fillColor=copySource.fillColor;
+			fillAlpha=copySource.fillAlpha;
 		}
 	}
 
@@ -406,6 +458,27 @@ public class ModelElementAnimationTextSelect extends ModelElementPosition implem
 	private Color titleColor;
 
 	/**
+	 * Füllfarbe beim letzten Aufruf von {@link #drawToGraphics(Graphics, Rectangle, double, boolean)}
+	 * @see #lastFillAlpha
+	 * @see #lastComputedFillColor
+	 */
+	private Color lastFillColor=null;
+
+	/**
+	 * Deckkraft beim letzten Aufruf von {@link #drawToGraphics(Graphics, Rectangle, double, boolean)}
+	 * @see #lastFillColor
+	 * @see #lastComputedFillColor
+	 */
+	private double lastFillAlpha=0.0;
+
+	/**
+	 * Berechnete Füllfarbe beim letzten Aufruf von {@link #drawToGraphics(Graphics, Rectangle, double, boolean)}
+	 * @see #lastFillColor
+	 * @see #lastFillAlpha
+	 */
+	private Color lastComputedFillColor=null;
+
+	/**
 	 * Zeichnet das Element in ein <code>Graphics</code>-Objekt
 	 * @param graphics	<code>Graphics</code>-Objekt in das das Element eingezeichnet werden soll
 	 * @param drawRect	Tatsächlich sichtbarer Ausschnitt
@@ -429,6 +502,14 @@ public class ModelElementAnimationTextSelect extends ModelElementPosition implem
 			lastStyleFont=style;
 		}
 
+		if (fillColor!=lastFillColor || fillAlpha!=lastFillAlpha) {
+			if (fillColor==null) {
+				lastComputedFillColor=null;
+			} else {
+				lastComputedFillColor=new Color(fillColor.getRed(),fillColor.getGreen(),fillColor.getBlue(),Math.max(0,Math.min(255,((int)Math.round(255*fillAlpha)))));
+			}
+		}
+
 		int width;
 		int height;
 		if (title.trim().isEmpty()) {
@@ -450,6 +531,12 @@ public class ModelElementAnimationTextSelect extends ModelElementPosition implem
 		if (getSize().width!=w || getSize().height!=h) setSize(new Dimension(w,h));
 
 		setClip(graphics,drawRect,null);
+
+		if (lastComputedFillColor!=null) {
+			graphics.setColor(lastComputedFillColor);
+			graphics.fillRect(point.x,point.y,w,h);
+			graphics.setColor(color);
+		}
 
 		int x=(int)FastMath.round(point.x*zoom);
 		if (title.trim().isEmpty()) {
@@ -556,6 +643,14 @@ public class ModelElementAnimationTextSelect extends ModelElementPosition implem
 			sub.setAttribute(Language.trPrimary("Surface.AnimationTextSelect.XML.TextExpression.Expression"),textExpressions.get(i));
 			sub.setTextContent(textValues.get(i));
 		}
+
+		/* Hintergrund */
+		if (fillColor!=null) {
+			sub=doc.createElement(Language.trPrimary("Surface.AnimationTextSelect.XML.BackgroundColor"));
+			node.appendChild(sub);
+			sub.setTextContent(EditModel.saveColor(fillColor));
+			if (fillAlpha<1) sub.setAttribute(Language.trPrimary("Surface.AnimationTextSelect.XML.BackgroundColor.Alpha"),NumberTools.formatSystemNumber(fillAlpha));
+		}
 	}
 
 	/**
@@ -606,6 +701,20 @@ public class ModelElementAnimationTextSelect extends ModelElementPosition implem
 			if (!expr.trim().isEmpty()) {
 				textExpressions.add(expr);
 				textValues.add(content);
+			}
+			return null;
+		}
+
+		/* Hintergrund */
+		if (Language.trAll("Surface.AnimationTextSelect.XML.BackgroundColor",name) && !content.trim().isEmpty()) {
+			final Color color=EditModel.loadColor(content);
+			if (color==null) return String.format(Language.tr("Surface.XML.ElementSubError"),name,node.getParentNode().getNodeName());
+			fillColor=color;
+			final String alpha=Language.trAllAttribute("Surface.AnimationTextSelect.XML.BackgroundColor.Alpha",node);
+			if (!alpha.trim().isEmpty()) {
+				final Double D=NumberTools.getDouble(alpha);
+				if (D==null || D<0 || D>1) return String.format(Language.tr("Surface.XML.AttributeSubError"),Language.trPrimary("Surface.AnimationTextSelect.XML.BackgroundColor.Alpha"),name,node.getParentNode().getNodeName());
+				fillAlpha=D;
 			}
 			return null;
 		}

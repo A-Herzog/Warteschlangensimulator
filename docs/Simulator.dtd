@@ -424,7 +424,7 @@
   id			CDATA	#REQUIRED
 >
 
-<!ELEMENT ModellElementText (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementBoxSchriftGross | ModellElementBoxSchriftKlein | ModellElementEbene | ModellElementTextzeile | ModellElementSchriftart | ModellElementSchriftgrosse | ModellElementFarbe | ModellElementTextAusrichtung)*>
+<!ELEMENT ModellElementText (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementBoxSchriftGross | ModellElementBoxSchriftKlein | ModellElementEbene | ModellElementTextzeile | ModellElementSchriftart | ModellElementSchriftgrosse | ModellElementFarbe | ModellElementTextAusrichtung | ModellElementHintergrundfarbe)*>
 <!ATTLIST ModellElementText
   id			CDATA	#REQUIRED
   geschuetzt	CDATA	#IMPLIED
@@ -1446,7 +1446,7 @@
 >
 <!ELEMENT ModellElementIconName (#PCDATA)>
 
-<!ELEMENT ModellElementAnimationText (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementBoxSchriftGross | ModellElementBoxSchriftKlein | ModellElementEbene | ModellElementSchriftart | ModellElementSchriftgrosse | ModellElementFarbe | ModellElementAnimationsmodus)*>
+<!ELEMENT ModellElementAnimationText (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementBoxSchriftGross | ModellElementBoxSchriftKlein | ModellElementEbene | ModellElementSchriftart | ModellElementSchriftgrosse | ModellElementFarbe | ModellElementAnimationsmodus | ModellElementHintergrundfarbe)*>
 <!ATTLIST ModellElementAnimationText
   id			CDATA	#REQUIRED
   geschuetzt	CDATA	#IMPLIED
@@ -1459,7 +1459,7 @@
   Nachkommastellen  CDATA   #IMPLIED
 >
 
-<!ELEMENT ModellElementAnimationTextJS (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementBoxSchriftGross | ModellElementBoxSchriftKlein | ModellElementEbene | ModellElementSchriftart | ModellElementSchriftgrosse | ModellElementFarbe | ModellElementAnimationTextJSSkript)*>
+<!ELEMENT ModellElementAnimationTextJS (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementBoxSchriftGross | ModellElementBoxSchriftKlein | ModellElementEbene | ModellElementSchriftart | ModellElementSchriftgrosse | ModellElementFarbe | ModellElementAnimationTextJSSkript | ModellElementHintergrundfarbe)*>
 <!ATTLIST ModellElementAnimationTextJS
   id			CDATA	#REQUIRED
   geschuetzt	CDATA	#IMPLIED
@@ -1471,7 +1471,7 @@
   Sprache   CDATA   #IMPLIED
 >
 
-<!ELEMENT ModellElementAnimationTextAuswahl (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementBoxSchriftGross | ModellElementBoxSchriftKlein | ModellElementEbene | ModellElementSchriftart | ModellElementSchriftgrosse | ModellElementFarbe | TextVorgabe | TextAusdruck)*>
+<!ELEMENT ModellElementAnimationTextAuswahl (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementBoxSchriftGross | ModellElementBoxSchriftKlein | ModellElementEbene | ModellElementSchriftart | ModellElementSchriftgrosse | ModellElementFarbe | TextVorgabe | TextAusdruck | ModellElementHintergrundfarbe)*>
 <!ATTLIST ModellElementAnimationTextAuswahl
   id			CDATA	#REQUIRED
   geschuetzt	CDATA	#IMPLIED
@@ -2767,7 +2767,7 @@
   id	CDATA	#REQUIRED
 >
 
-<!ELEMENT ModelElementText (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBoxFontLarge | ModelElementBoxFontSmall | ModelElementLayer | ModelElementTextLine | ModelElementFontFamily | ModelElementFontSize | ModelElementColor | ModelElementTextAlign)*>
+<!ELEMENT ModelElementText (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBoxFontLarge | ModelElementBoxFontSmall | ModelElementLayer | ModelElementTextLine | ModelElementFontFamily | ModelElementFontSize | ModelElementColor | ModelElementTextAlign | ModelElementBackgroundColor)*>
 <!ATTLIST ModelElementText
   id		CDATA	#REQUIRED
   protected	CDATA	#IMPLIED
@@ -3788,7 +3788,7 @@
 >
 <!ELEMENT ModelElementIconName (#PCDATA)>
 
-<!ELEMENT ModelElementAnimationText (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBoxFontLarge | ModelElementBoxFontSmall | ModelElementLayer | ModelElementFontFamily | ModelElementFontSize | ModelElementColor | ModelElementAnimationMode)*>
+<!ELEMENT ModelElementAnimationText (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBoxFontLarge | ModelElementBoxFontSmall | ModelElementLayer | ModelElementFontFamily | ModelElementFontSize | ModelElementColor | ModelElementAnimationMode | ModelElementBackgroundColor)*>
 <!ATTLIST ModelElementAnimationText
   id		CDATA	#REQUIRED
   protected	CDATA	#IMPLIED
@@ -3801,7 +3801,7 @@
   Digits    CDATA   #IMPLIED
 >
 
-<!ELEMENT ModelElementAnimationTextJS (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBoxFontLarge | ModelElementBoxFontSmall | ModelElementLayer | ModelElementFontFamily | ModelElementFontSize | ModelElementColor | ModelElementAnimationTextJSScript)*>
+<!ELEMENT ModelElementAnimationTextJS (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBoxFontLarge | ModelElementBoxFontSmall | ModelElementLayer | ModelElementFontFamily | ModelElementFontSize | ModelElementColor | ModelElementAnimationTextJSScript | ModelElementBackgroundColor)*>
 <!ATTLIST ModelElementAnimationTextJS
   id		CDATA	#REQUIRED
   protected	CDATA	#IMPLIED
@@ -3813,7 +3813,7 @@
   Language  CDATA	#IMPLIED
 >
 
-<!ELEMENT ModelElementAnimationTextSelect (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBoxFontLarge | ModelElementBoxFontSmall | ModelElementLayer | ModelElementFontFamily | ModelElementFontSize | ModelElementColor | TextDefault | TextExpression)*>
+<!ELEMENT ModelElementAnimationTextSelect (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBoxFontLarge | ModelElementBoxFontSmall | ModelElementLayer | ModelElementFontFamily | ModelElementFontSize | ModelElementColor | TextDefault | TextExpression | ModelElementBackgroundColor)*>
 <!ATTLIST ModelElementAnimationTextSelect
   id		CDATA	#REQUIRED
   protected	CDATA	#IMPLIED

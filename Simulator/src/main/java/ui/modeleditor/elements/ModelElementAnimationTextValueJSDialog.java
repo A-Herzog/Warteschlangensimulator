@@ -18,8 +18,10 @@ package ui.modeleditor.elements;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.io.Serializable;
+import java.util.Hashtable;
 
 import javax.swing.BoxLayout;
 import javax.swing.JCheckBox;
@@ -27,6 +29,7 @@ import javax.swing.JComboBox;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JSlider;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
 
@@ -63,6 +66,12 @@ public final class ModelElementAnimationTextValueJSDialog extends ModelElementBa
 	private JCheckBox optionItalic;
 	/** Auswahl der Textfarbe */
 	private SmallColorChooser colorChooser;
+	/** Option: Hintergrundfarbe verwenden? */
+	private JCheckBox background;
+	/** Auswahl der Hintergrundfarbe */
+	private SmallColorChooser colorChooserBackground;
+	/** Schieberegler zur Auswahl des Deckkraft der Hintergrundfarbe */
+	private JSlider alpha;
 
 	/**
 	 * Konstruktor der Klasse
@@ -104,8 +113,9 @@ public final class ModelElementAnimationTextValueJSDialog extends ModelElementBa
 		final JTabbedPane tabs=new JTabbedPane();
 		content.add(tabs,BorderLayout.CENTER);
 
-		JPanel tabOuter, tab, line;
+		JPanel tabOuter, tab, subPanel, subPanel2, line;
 		Object[] data;
+		JLabel label;
 
 		/* Skript */
 		tabs.addTab(Language.tr("Surface.AnimationTextJS.Dialog.Tab.Script"),tabOuter=new JPanel(new BorderLayout()));
@@ -144,20 +154,61 @@ public final class ModelElementAnimationTextValueJSDialog extends ModelElementBa
 		line.add(optionItalic=new JCheckBox("<html><i>"+Language.tr("Surface.AnimationText.Dialog.FontSize.Italic")+"</i></html>",false));
 		optionItalic.setEnabled(!readOnly);
 
-		/* Farbe */
-		tab.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
-		line.add(new JLabel(Language.tr("Surface.AnimationText.Dialog.FontColor")+":"));
+		/* Zeile für Farben */
+		tab.add(subPanel=new JPanel(new FlowLayout(FlowLayout.LEFT)));
 
-		tab.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
+		/* Schriftfarbe */
+		subPanel.add(subPanel2=new JPanel());
+		subPanel2.setLayout(new BoxLayout(subPanel2,BoxLayout.PAGE_AXIS));
+
+		subPanel2.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
+		line.add(label=new JLabel(Language.tr("Surface.AnimationText.Dialog.Color")+":"));
+
+		subPanel2.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
 		line.add(colorChooser=new SmallColorChooser(Color.BLACK),BorderLayout.CENTER);
 		colorChooser.setEnabled(!readOnly);
+		label.setLabelFor(colorChooser);
+
+		/* Hintergrundfarbe */
+		subPanel.add(subPanel2=new JPanel());
+		subPanel2.setLayout(new BoxLayout(subPanel2,BoxLayout.PAGE_AXIS));
+
+		subPanel2.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
+		line.add(background=new JCheckBox(Language.tr("Surface.AnimationText.Dialog.FillBackground")),BorderLayout.NORTH);
+		background.setEnabled(!readOnly);
+
+		subPanel2.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
+		line.add(colorChooserBackground=new SmallColorChooser(Color.BLACK),BorderLayout.CENTER);
+		colorChooserBackground.setEnabled(!readOnly);
+		colorChooserBackground.addClickListener(e->background.setSelected(true));
+
+		/* Deckkraft */
+		tab.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)),BorderLayout.SOUTH);
+		JLabel alphaLabel=new JLabel(Language.tr("Surface.AnimationText.Dialog.Alpha")+":");
+		line.add(alphaLabel);
+		line.add(alpha=new JSlider(0,100,100));
+		alphaLabel.setLabelFor(alpha);
+		alpha.setEnabled(!readOnly);
+		alpha.setMinorTickSpacing(1);
+		alpha.setMajorTickSpacing(10);
+		Hashtable<Integer,JComponent> labels=new Hashtable<>();
+		for (int i=0;i<=10;i++) labels.put(i*10,new JLabel(NumberTools.formatPercent(i/10.0)));
+		alpha.setLabelTable(labels);
+		alpha.setPaintTicks(true);
+		alpha.setPaintLabels(true);
+		alpha.setPreferredSize(new Dimension(400,alpha.getPreferredSize().height));
+		alpha.addChangeListener(e->background.setSelected(true));
 
 		/* Werte initialisieren */
 		if (element instanceof ModelElementAnimationTextValueJS) {
-			sizeField.setText(""+((ModelElementAnimationTextValueJS)element).getTextSize());
-			optionBold.setSelected(((ModelElementAnimationTextValueJS)element).getTextBold());
-			optionItalic.setSelected(((ModelElementAnimationTextValueJS)element).getTextItalic());
-			colorChooser.setColor(((ModelElementAnimationTextValueJS)element).getColor());
+			final ModelElementAnimationTextValueJS text=(ModelElementAnimationTextValueJS)element;
+			sizeField.setText(""+text.getTextSize());
+			optionBold.setSelected(text.getTextBold());
+			optionItalic.setSelected(text.getTextItalic());
+			colorChooser.setColor(text.getColor());
+			background.setSelected(text.getFillColor()!=null);
+			colorChooserBackground.setColor(text.getFillColor());
+			alpha.setValue((int)Math.round(100*text.getFillAlpha()));
 		}
 
 		/* Icons für Tabs */
@@ -203,23 +254,42 @@ public final class ModelElementAnimationTextValueJSDialog extends ModelElementBa
 	protected void storeData() {
 		super.storeData();
 
-		if (element instanceof ModelElementAnimationTextValueJS) {
-			((ModelElementAnimationTextValueJS)element).setScript(editor.getScript());
-			switch (editor.getMode()) {
-			case Javascript:
-				((ModelElementAnimationTextValueJS)element).setMode(ModelElementAnimationTextValueJS.ScriptMode.Javascript);
-				break;
-			case Java:
-				((ModelElementAnimationTextValueJS)element).setMode(ModelElementAnimationTextValueJS.ScriptMode.Java);
-				break;
-			}
+		if (!(element instanceof ModelElementAnimationTextValueJS)) return;
+		final ModelElementAnimationTextValueJS text=(ModelElementAnimationTextValueJS)element;
 
-			Integer I=NumberTools.getNotNegativeInteger(sizeField,true);
-			((ModelElementAnimationTextValueJS)element).setFontFamily((FontCache.FontFamily)fontFamilyComboBox.getSelectedItem());
-			if (I!=null) ((ModelElementAnimationTextValueJS)element).setTextSize(I);
-			((ModelElementAnimationTextValueJS)element).setTextBold(optionBold.isSelected());
-			((ModelElementAnimationTextValueJS)element).setTextItalic(optionItalic.isSelected());
-			((ModelElementAnimationTextValueJS)element).setColor(colorChooser.getColor());
+		/* Skript */
+		text.setScript(editor.getScript());
+		switch (editor.getMode()) {
+		case Javascript:
+			text.setMode(ModelElementAnimationTextValueJS.ScriptMode.Javascript);
+			break;
+		case Java:
+			text.setMode(ModelElementAnimationTextValueJS.ScriptMode.Java);
+			break;
 		}
+
+		/* Schriftart */
+		text.setFontFamily((FontCache.FontFamily)fontFamilyComboBox.getSelectedItem());
+
+		/* Schriftgröße */
+		final Integer I=NumberTools.getNotNegativeInteger(sizeField,true);
+		if (I!=null) text.setTextSize(I);
+
+		/* Fett/Kursiv */
+		text.setTextBold(optionBold.isSelected());
+		text.setTextItalic(optionItalic.isSelected());
+
+		/* Schriftfarbe */
+		text.setColor(colorChooser.getColor());
+
+		/* Hintergrundfarbe */
+		if (background.isSelected()) {
+			text.setFillColor(colorChooserBackground.getColor());
+		} else {
+			text.setFillColor(null);
+		}
+
+		/* Deckkraft */
+		text.setFillAlpha(alpha.getValue()/100.0);
 	}
 }

@@ -152,6 +152,20 @@ public final class ModelElementText extends ModelElementPosition {
 	private TextAlign textAlign;
 
 	/**
+	 * Füllfarbe des Kastens (kann <code>null</code> sein für transparent)
+	 * @see #getFillColor()
+	 * @see #setFillColor(Color)
+	 */
+	private Color fillColor=null;
+
+	/**
+	 * Deckkraft der Hintergrundfarbe
+	 * @see #getFillAlpha()
+	 * @see #setFillAlpha(double)
+	 */
+	private double fillAlpha=1.0;
+
+	/**
 	 * Konstruktor der Klasse <code>ModelElementText</code>
 	 * @param model	Modell zu dem dieses Element gehören soll (kann später nicht mehr geändert werden)
 	 * @param surface	Zeichenfläche zu dem dieses Element gehören soll (kann später nicht mehr geändert werden)
@@ -313,6 +327,40 @@ public final class ModelElementText extends ModelElementPosition {
 	}
 
 	/**
+	 * Liefert die aktuelle Füllfarbe des Kastens
+	 * @return	Aktuelle Füllfarbe des Kastens (kann <code>null</code> sein für transparent)
+	 */
+	public Color getFillColor() {
+		return fillColor;
+	}
+
+	/**
+	 * Stellt die Füllfarbe des Kastens ein
+	 * @param color	Füllfarbe des Kastens (oder <code>null</code> für transparent)
+	 */
+	public void setFillColor(final Color color) {
+		fillColor=color;
+		fireChanged();
+	}
+
+	/**
+	 * Liefert die Deckkraft der Hintergrundfarbe.
+	 * @return	Deckkraft der Hintergrundfarbe (Wert zwischen 0 und 1 jeweils einschließlich)
+	 */
+	public double getFillAlpha() {
+		return fillAlpha;
+	}
+
+	/**
+	 * Stellt die Deckkraft der Hintergrundfarbe ein.
+	 * @param fillAlpha	Deckkraft der Hintergrundfarbe (Wert zwischen 0 und 1 jeweils einschließlich)
+	 */
+	public void setFillAlpha(double fillAlpha) {
+		this.fillAlpha=Math.max(0,Math.min(1,fillAlpha));
+		fireChanged();
+	}
+
+	/**
 	 * Überprüft, ob das Element mit dem angegebenen Element inhaltlich identisch ist.
 	 * @param element	Element mit dem dieses Element verglichen werden soll.
 	 * @return	Gibt <code>true</code> zurück, wenn die beiden Elemente identisch sind.
@@ -330,6 +378,8 @@ public final class ModelElementText extends ModelElementPosition {
 		if (bold!=otherText.bold) return false;
 		if (italic!=otherText.italic) return false;
 		if (textAlign!=otherText.textAlign) return false;
+		if (fillColor!=otherText.fillColor) return false;
+		if (fillAlpha!=otherText.fillAlpha) return false;
 		return true;
 	}
 
@@ -349,6 +399,8 @@ public final class ModelElementText extends ModelElementPosition {
 			italic=copySource.italic;
 			color=copySource.color;
 			textAlign=copySource.textAlign;
+			fillColor=copySource.fillColor;
+			fillAlpha=copySource.fillAlpha;
 		}
 	}
 
@@ -422,6 +474,27 @@ public final class ModelElementText extends ModelElementPosition {
 	private int lastMaxWidth;
 
 	/**
+	 * Füllfarbe beim letzten Aufruf von {@link #drawToGraphics(Graphics, Rectangle, double, boolean)}
+	 * @see #lastFillAlpha
+	 * @see #lastComputedFillColor
+	 */
+	private Color lastFillColor=null;
+
+	/**
+	 * Deckkraft beim letzten Aufruf von {@link #drawToGraphics(Graphics, Rectangle, double, boolean)}
+	 * @see #lastFillColor
+	 * @see #lastComputedFillColor
+	 */
+	private double lastFillAlpha=0.0;
+
+	/**
+	 * Berechnete Füllfarbe beim letzten Aufruf von {@link #drawToGraphics(Graphics, Rectangle, double, boolean)}
+	 * @see #lastFillColor
+	 * @see #lastFillAlpha
+	 */
+	private Color lastComputedFillColor=null;
+
+	/**
 	 * Zeichnet das Element in ein <code>Graphics</code>-Objekt
 	 * @param graphics	<code>Graphics</code>-Objekt in das das Element eingezeichnet werden soll
 	 * @param drawRect	Tatsächlich sichtbarer Ausschnitt
@@ -469,12 +542,27 @@ public final class ModelElementText extends ModelElementPosition {
 		final Point pos=getPosition(true);
 		int x=(int)FastMath.round(pos.x*zoom);
 		int y=(int)FastMath.round(pos.y*zoom);
-		y+=graphics.getFontMetrics().getAscent();
+		final int ascent=graphics.getFontMetrics().getAscent();
+		y+=ascent;
 
 		FontMetrics metrics=null;
 		if (lastMaxWidth==0) {
 			metrics=graphics.getFontMetrics();
 			for (String line: lastTextSplit) lastMaxWidth=Math.max(lastMaxWidth,metrics.stringWidth(line));
+		}
+
+		if (fillColor!=lastFillColor || fillAlpha!=lastFillAlpha) {
+			if (fillColor==null) {
+				lastComputedFillColor=null;
+			} else {
+				lastComputedFillColor=new Color(fillColor.getRed(),fillColor.getGreen(),fillColor.getBlue(),Math.max(0,Math.min(255,((int)Math.round(255*fillAlpha)))));
+			}
+		}
+
+		if (lastComputedFillColor!=null) {
+			graphics.setColor(lastComputedFillColor);
+			graphics.fillRect(x,y-ascent,lastMaxWidth,lineHeight*lastTextSplit.length);
+			graphics.setColor(color);
 		}
 
 		int lineWidth;
@@ -587,6 +675,14 @@ public final class ModelElementText extends ModelElementPosition {
 			node.appendChild(sub);
 			sub.setTextContent(textAlign.getName());
 		}
+
+		/* Hintergrund */
+		if (fillColor!=null) {
+			sub=doc.createElement(Language.trPrimary("Surface.Text.XML.BackgroundColor"));
+			node.appendChild(sub);
+			sub.setTextContent(EditModel.saveColor(fillColor));
+			if (fillAlpha<1) sub.setAttribute(Language.trPrimary("Surface.Text.XML.BackgroundColor.Alpha"),NumberTools.formatSystemNumber(fillAlpha));
+		}
 	}
 
 	/**
@@ -645,6 +741,20 @@ public final class ModelElementText extends ModelElementPosition {
 		/* Ausrichtung */
 		if (Language.trAll("Surface.Text.XML.TextAlign",name)) {
 			textAlign=TextAlign.fromName(content);
+			return null;
+		}
+
+		/* Hintergrund */
+		if (Language.trAll("Surface.Text.XML.BackgroundColor",name) && !content.trim().isEmpty()) {
+			final Color color=EditModel.loadColor(content);
+			if (color==null) return String.format(Language.tr("Surface.XML.ElementSubError"),name,node.getParentNode().getNodeName());
+			fillColor=color;
+			final String alpha=Language.trAllAttribute("Surface.Text.XML.BackgroundColor.Alpha",node);
+			if (!alpha.trim().isEmpty()) {
+				final Double D=NumberTools.getDouble(alpha);
+				if (D==null || D<0 || D>1) return String.format(Language.tr("Surface.XML.AttributeSubError"),Language.trPrimary("Surface.Text.XML.BackgroundColor.Alpha"),name,node.getParentNode().getNodeName());
+				fillAlpha=D;
+			}
 			return null;
 		}
 

@@ -17,8 +17,10 @@ package ui.modeleditor.elements;
 
 import java.awt.BorderLayout;
 import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.io.Serializable;
+import java.util.Hashtable;
 
 import javax.swing.BoxLayout;
 import javax.swing.JCheckBox;
@@ -27,6 +29,7 @@ import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JSlider;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
@@ -66,6 +69,12 @@ public class ModelElementTextDialog extends ModelElementBaseDialog {
 	private JComboBox<String> textAlign;
 	/** Auswahl der Textfarbe */
 	private SmallColorChooser colorChooser;
+	/** Option: Hintergrundfarbe verwenden? */
+	private JCheckBox background;
+	/** Auswahl der Hintergrundfarbe */
+	private SmallColorChooser colorChooserBackground;
+	/** Schieberegler zur Auswahl des Deckkraft der Hintergrundfarbe */
+	private JSlider alpha;
 
 	/**
 	 * Konstruktor der Klasse
@@ -96,12 +105,13 @@ public class ModelElementTextDialog extends ModelElementBaseDialog {
 		final JPanel panel=new JPanel(new BorderLayout());
 
 		JLabel label;
-		JPanel subPanel;
+		JPanel subPanel, subPanel2, line;
 		Object[] data;
 
 		if (element instanceof ModelElementText) {
 			final ModelElementText text=(ModelElementText)element;
 
+			/* Text */
 			panel.add(subPanel=new JPanel(new FlowLayout(FlowLayout.LEFT)),BorderLayout.NORTH);
 			subPanel.add(label=new JLabel(Language.tr("Surface.Text.Dialog.Text")+":"));
 
@@ -111,15 +121,18 @@ public class ModelElementTextDialog extends ModelElementBaseDialog {
 			label.setLabelFor(textField);
 			addUndoFeature(textField);
 
+			/* Bereich unten */
 			JPanel bottomPanel=new JPanel();
 			panel.add(bottomPanel,BorderLayout.SOUTH);
 			bottomPanel.setLayout(new BoxLayout(bottomPanel,BoxLayout.PAGE_AXIS));
 
+			/* Schriftart */
 			data=getFontFamilyComboBoxPanel(Language.tr("Surface.Text.Dialog.FontFamily")+":",text.getFontFamily());
 			fontFamilyComboBox=(JComboBox<FontCache.FontFamily>)data[1];
 			fontFamilyComboBox.setEnabled(!readOnly);
 			bottomPanel.add((JPanel)data[0]);
 
+			/* Schriftgröße */
 			data=getInputPanel(Language.tr("Surface.Text.Dialog.FontSize")+":",""+text.getTextSize(),5);
 			sizeField=(JTextField)data[1];
 			sizeField.setEditable(!readOnly);
@@ -129,12 +142,14 @@ public class ModelElementTextDialog extends ModelElementBaseDialog {
 				NumberTools.getNotNegativeInteger(sizeField,true);
 			});
 
+			/* Fett/Kursiv */
 			bottomPanel.add(subPanel=new JPanel(new FlowLayout(FlowLayout.LEFT)));
 			subPanel.add(optionBold=new JCheckBox("<html><b>"+Language.tr("Surface.Text.Dialog.Bold")+"</b></html>",text.getTextBold()));
 			optionBold.setEnabled(!readOnly);
 			subPanel.add(optionItalic=new JCheckBox("<html><i>"+Language.tr("Surface.Text.Dialog.Italic")+"</i></html>",text.getTextItalic()));
 			optionItalic.setEnabled(!readOnly);
 
+			/* Ausrichtung */
 			bottomPanel.add(subPanel=new JPanel(new FlowLayout(FlowLayout.LEFT)));
 			subPanel.add(label=new JLabel(Language.tr("Surface.Text.Dialog.Align")+":"));
 			subPanel.add(textAlign=new JComboBox<>(new String[] {
@@ -156,13 +171,51 @@ public class ModelElementTextDialog extends ModelElementBaseDialog {
 			}
 			textAlign.setEnabled(!readOnly);
 
+			/* Zeile für Farben */
 			bottomPanel.add(subPanel=new JPanel(new FlowLayout(FlowLayout.LEFT)));
-			subPanel.add(label=new JLabel(Language.tr("Surface.Text.Dialog.Color")+":"));
 
-			bottomPanel.add(subPanel=new JPanel(new FlowLayout(FlowLayout.LEFT)));
-			subPanel.add(colorChooser=new SmallColorChooser(text.getColor()),BorderLayout.CENTER);
+			/* Schriftfarbe */
+			subPanel.add(subPanel2=new JPanel());
+			subPanel2.setLayout(new BoxLayout(subPanel2,BoxLayout.PAGE_AXIS));
+
+			subPanel2.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
+			line.add(label=new JLabel(Language.tr("Surface.Text.Dialog.Color")+":"));
+
+			subPanel2.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
+			line.add(colorChooser=new SmallColorChooser(text.getColor()),BorderLayout.CENTER);
 			colorChooser.setEnabled(!readOnly);
 			label.setLabelFor(colorChooser);
+
+			/* Hintergrundfarbe */
+			subPanel.add(subPanel2=new JPanel());
+			subPanel2.setLayout(new BoxLayout(subPanel2,BoxLayout.PAGE_AXIS));
+
+			subPanel2.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
+			line.add(background=new JCheckBox(Language.tr("Surface.Text.Dialog.FillBackground")),BorderLayout.NORTH);
+			background.setSelected(text.getFillColor()!=null);
+			background.setEnabled(!readOnly);
+
+			subPanel2.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
+			line.add(colorChooserBackground=new SmallColorChooser(text.getFillColor()),BorderLayout.CENTER);
+			colorChooserBackground.setEnabled(!readOnly);
+			colorChooserBackground.addClickListener(e->background.setSelected(true));
+
+			/* Deckkraft */
+			bottomPanel.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)),BorderLayout.SOUTH);
+			JLabel alphaLabel=new JLabel(Language.tr("Surface.Text.Dialog.Alpha")+":");
+			line.add(alphaLabel);
+			line.add(alpha=new JSlider(0,100,(int)Math.round(100*text.getFillAlpha())));
+			alphaLabel.setLabelFor(alpha);
+			alpha.setEnabled(!readOnly);
+			alpha.setMinorTickSpacing(1);
+			alpha.setMajorTickSpacing(10);
+			Hashtable<Integer,JComponent> labels=new Hashtable<>();
+			for (int i=0;i<=10;i++) labels.put(i*10,new JLabel(NumberTools.formatPercent(i/10.0)));
+			alpha.setLabelTable(labels);
+			alpha.setPaintTicks(true);
+			alpha.setPaintLabels(true);
+			alpha.setPreferredSize(new Dimension(400,alpha.getPreferredSize().height));
+			alpha.addChangeListener(e->background.setSelected(true));
 		}
 
 		return panel;
@@ -194,20 +247,41 @@ public class ModelElementTextDialog extends ModelElementBaseDialog {
 	protected void storeData() {
 		super.storeData();
 
-		if (element instanceof ModelElementText) {
-			final ModelElementText text=(ModelElementText)element;
-			text.setText(textField.getText().trim());
-			text.setFontFamily((FontCache.FontFamily)fontFamilyComboBox.getSelectedItem());
-			Integer I=NumberTools.getNotNegativeInteger(sizeField,true);
-			if (I!=null) text.setTextSize(I);
-			text.setTextBold(optionBold.isSelected());
-			text.setTextItalic(optionItalic.isSelected());
-			switch (textAlign.getSelectedIndex()) {
-			case 0: text.setTextAlign(TextAlign.LEFT); break;
-			case 1: text.setTextAlign(TextAlign.CENTER); break;
-			case 2: text.setTextAlign(TextAlign.RIGHT); break;
-			}
-			text.setColor(colorChooser.getColor());
+		if (!(element instanceof ModelElementText)) return;
+		final ModelElementText text=(ModelElementText)element;
+
+		/* Text */
+		text.setText(textField.getText().trim());
+
+		/* Schriftart */
+		text.setFontFamily((FontCache.FontFamily)fontFamilyComboBox.getSelectedItem());
+
+		/* Schriftgröße */
+		Integer I=NumberTools.getNotNegativeInteger(sizeField,true);
+		if (I!=null) text.setTextSize(I);
+
+		/* Fett/Kursiv */
+		text.setTextBold(optionBold.isSelected());
+		text.setTextItalic(optionItalic.isSelected());
+
+		/* Ausrichtung */
+		switch (textAlign.getSelectedIndex()) {
+		case 0: text.setTextAlign(TextAlign.LEFT); break;
+		case 1: text.setTextAlign(TextAlign.CENTER); break;
+		case 2: text.setTextAlign(TextAlign.RIGHT); break;
 		}
+
+		/* Schriftfarbe */
+		text.setColor(colorChooser.getColor());
+
+		/* Hintergrundfarbe */
+		if (background.isSelected()) {
+			text.setFillColor(colorChooserBackground.getColor());
+		} else {
+			text.setFillColor(null);
+		}
+
+		/* Deckkraft */
+		text.setFillAlpha(alpha.getValue()/100.0);
 	}
 }

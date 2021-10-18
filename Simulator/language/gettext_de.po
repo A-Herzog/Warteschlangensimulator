@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-12 00:13+0200\n"
+"POT-Creation-Date: 2021-10-16 22:14+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -22561,6 +22561,12 @@ msgstr "ModellElementAnimationAufzeichnungElementID"
 msgid "Surface.AnimationRecord.XML.Root"
 msgstr "ModellElementAnimationAufzeichnung"
 
+msgid "Surface.AnimationText.Dialog.Alpha"
+msgstr "Deckkraft der Hintergrundfarbe"
+
+msgid "Surface.AnimationText.Dialog.Color"
+msgstr "Schriftfarbe"
+
 msgid "Surface.AnimationText.Dialog.CurrentSimulationDate"
 msgstr "Aktuelles Datum; Simulationsstart:"
 
@@ -22588,8 +22594,8 @@ msgstr "Es wurde kein zu berechnender Ausdruck angegeben."
 msgid "Surface.AnimationText.Dialog.Expression.Error.Title"
 msgstr "Ausdruck fehlerhaft"
 
-msgid "Surface.AnimationText.Dialog.FontColor"
-msgstr "Schriftfarbe"
+msgid "Surface.AnimationText.Dialog.FillBackground"
+msgstr "Hintergrund ausfüllen"
 
 msgid "Surface.AnimationText.Dialog.FontFamily"
 msgstr "Schriftart"
@@ -22653,6 +22659,12 @@ msgstr "Zeitwert"
 
 msgid "Surface.AnimationText.Type.Value"
 msgstr "Wert"
+
+msgid "Surface.AnimationText.XML.BackgroundColor"
+msgstr "ModellElementHintergrundfarbe"
+
+msgid "Surface.AnimationText.XML.BackgroundColor.Alpha"
+msgstr "Alpha"
 
 msgid "Surface.AnimationText.XML.Color"
 msgstr "ModellElementFarbe"
@@ -22726,6 +22738,12 @@ msgstr "Textinformationen, die während der Animation des Modells auf Basis eine
 msgid "Surface.AnimationTextJS.Type.Value"
 msgstr "Wert"
 
+msgid "Surface.AnimationTextJS.XML.BackgroundColor"
+msgstr "ModellElementHintergrundfarbe"
+
+msgid "Surface.AnimationTextJS.XML.BackgroundColor.Alpha"
+msgstr "Alpha"
+
 msgid "Surface.AnimationTextJS.XML.Color"
 msgstr "ModellElementFarbe"
 
@@ -22791,6 +22809,12 @@ msgstr "Text"
 
 msgid "Surface.AnimationTextSelect.Tooltip"
 msgstr "Textinformationen, die während der Animation des Modells gemäß verschiedener Bedingungen aktualisiert werden."
+
+msgid "Surface.AnimationTextSelect.XML.BackgroundColor"
+msgstr "ModellElementHintergrundfarbe"
+
+msgid "Surface.AnimationTextSelect.XML.BackgroundColor.Alpha"
+msgstr "Alpha"
 
 msgid "Surface.AnimationTextSelect.XML.Color"
 msgstr "ModellElementFarbe"
@@ -29270,11 +29294,17 @@ msgstr "linksbündig"
 msgid "Surface.Text.Dialog.Align.Right"
 msgstr "rechtsbündig"
 
+msgid "Surface.Text.Dialog.Alpha"
+msgstr "Deckkraft der Hintergrundfarbe"
+
 msgid "Surface.Text.Dialog.Bold"
 msgstr "Fett"
 
 msgid "Surface.Text.Dialog.Color"
 msgstr "Schriftfarbe"
+
+msgid "Surface.Text.Dialog.FillBackground"
+msgstr "Hintergrund ausfüllen"
 
 msgid "Surface.Text.Dialog.FontFamily"
 msgstr "Schriftart"
@@ -29308,6 +29338,12 @@ msgstr "Beschreibungstext"
 
 msgid "Surface.Text.Tooltip"
 msgstr "Beschreibungstext ohne weitere Funktion für das Simulationsmodell."
+
+msgid "Surface.Text.XML.BackgroundColor"
+msgstr "ModellElementHintergrundfarbe"
+
+msgid "Surface.Text.XML.BackgroundColor.Alpha"
+msgstr "Alpha"
 
 msgid "Surface.Text.XML.Color"
 msgstr "ModellElementFarbe"
@@ -32352,6 +32388,9 @@ msgstr "Das Dateiformat wurde nicht erkannt bzw. passt zu keinem Dateiformat die
 
 #~ msgid "Surface.AnimationPointerMeasuring.Dialog.Expression.ErrorNoExpression.Info"
 #~ msgstr "Es wurde kein zu berechnender Ausdruck angegeben."
+
+#~ msgid "Surface.AnimationText.Dialog.FontColor"
+#~ msgstr "Schriftfarbe"
 
 #~ msgid "Surface.ExpressionTableModel.Dialog.Expression"
 #~ msgstr "Ausdruck"
