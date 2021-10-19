@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-16 22:14+0200\n"
+"POT-Creation-Date: 2021-10-18 08:39+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1044,6 +1044,9 @@ msgstr "Build expression"
 msgid "CalculatorDialog.Expression.CalcError"
 msgstr "The entered expression could not be calculated."
 
+msgid "CalculatorDialog.Expression.CalcError.Info"
+msgstr "Expression cannot be evaluated"
+
 msgid "CalculatorDialog.Expression.ParseError"
 msgstr "The entered expression is invalid at character %d."
 
@@ -1079,6 +1082,20 @@ msgstr "Default zoom"
 
 msgid "CalculatorDialog.Plotter.Toolbar.Zoom.Hint"
 msgstr "Restores the default zoom factor."
+
+msgid "CalculatorDialog.RepeatedProcessResults"
+msgstr "Repeated expression evaluation"
+
+msgid "CalculatorDialog.RepeatedProcessResults.Info"
+msgstr "Number of repetitions of the evaluation"
+
+msgid "CalculatorDialog.RepeatedProcessResults.InfoPopup"
+msgstr ""
+"If the calculation expression contains\n"
+"commands to generate random numbers,\n"
+"the expression can be evaluated several\n"
+"times via these functions and the resulting\n"
+"measurement series can be processed."
 
 msgid "CalculatorDialog.Result"
 msgstr "Result"

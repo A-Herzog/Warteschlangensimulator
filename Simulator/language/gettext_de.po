@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-16 22:14+0200\n"
+"POT-Creation-Date: 2021-10-18 08:39+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1044,6 +1044,9 @@ msgstr "Ausdruck bearbeiten"
 msgid "CalculatorDialog.Expression.CalcError"
 msgstr "Der angegebene Ausdruck konnte nicht berechnet werden."
 
+msgid "CalculatorDialog.Expression.CalcError.Info"
+msgstr "Ausdruck kann nicht ausgewertet werden"
+
 msgid "CalculatorDialog.Expression.ParseError"
 msgstr "Der angegebene Ausdruck ist ab Zeichen %d fehlerhaft."
 
@@ -1079,6 +1082,20 @@ msgstr "Standardzoom"
 
 msgid "CalculatorDialog.Plotter.Toolbar.Zoom.Hint"
 msgstr "Stellt den Standardzoomfaktor wieder her."
+
+msgid "CalculatorDialog.RepeatedProcessResults"
+msgstr "Ausdruck wiederholt auswerten"
+
+msgid "CalculatorDialog.RepeatedProcessResults.Info"
+msgstr "Anzahl an Wiederholungen der Auswertung"
+
+msgid "CalculatorDialog.RepeatedProcessResults.InfoPopup"
+msgstr ""
+"Wenn der Rechenausdruck einen Befehl zur\n"
+"Erzeugung einer Zufallszahl beinhaltet,\n"
+"kann der Ausdruck über diese Funktionen\n"
+"mehrfach ausgewertet werden und die so\n"
+"entstandene Messreihe verarbeitet werden."
 
 msgid "CalculatorDialog.Result"
 msgstr "Ergebnis"

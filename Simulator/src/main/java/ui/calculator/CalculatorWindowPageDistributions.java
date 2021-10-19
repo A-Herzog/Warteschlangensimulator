@@ -240,6 +240,8 @@ public class CalculatorWindowPageDistributions extends CalculatorWindowPage {
 		info.append(String.format(Language.tr("Distribution.StdDev")+": Std=%s",NumberTools.formatNumber(indicator.getSD(),3))+"\n");
 		info.append(String.format(Language.tr("Distribution.CV")+": CV=%s",NumberTools.formatNumber(indicator.getCV(),3))+"\n");
 		info.append(String.format(Language.tr("Distribution.Skewness")+": Sk=%s",NumberTools.formatNumber(indicator.getSk(),3))+"\n");
+		info.append(String.format(Language.tr("Statistics.Minimum")+": Min=%s",NumberTools.formatNumber(indicator.getMin(),3))+"\n");
+		info.append(String.format(Language.tr("Statistics.Maximum")+": Max=%s",NumberTools.formatNumber(indicator.getMax(),3))+"\n");
 
 		MsgBox.info(this,Language.tr("CalculatorDialog.Tab.Distributions.GenerateRandomNumbers.Generate"),info.toString());
 	}
@@ -398,6 +400,5 @@ public class CalculatorWindowPageDistributions extends CalculatorWindowPage {
 		final TableChart tableChart=buildTableChart();
 		if (tableChart==null) return false;
 		return tableChart.save(Language.tr("CalculatorDialog.Tab.Distributions.GenerateRandomNumbers.SaveExt.FrequencyDistribution"),file);
-
 	}
 }
