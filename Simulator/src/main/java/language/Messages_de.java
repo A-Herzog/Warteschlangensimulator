@@ -18891,7 +18891,7 @@ public class Messages_de extends java.util.ResourceBundle {
     t[49046] = "Surface.TankFlowByClient.Tooltip";
     t[49047] = "L\u00f6st einen Fluss zwischen zwei Tanks aus.";
     t[49052] = "Surface.Match.Dialog.OptionsPropertyMatch";
-    t[49053] = "Eigenschadtsabgleich";
+    t[49053] = "Eigenschaftsabgleich";
     t[49068] = "Surface.PopupMenu.ParameterCompare.ChangeBatchSize.Short";
     t[49069] = "Batch-Gr\u00f6\u00dfe";
     t[49078] = "Surface.ErrorInfo.NoDefaultDestination";
