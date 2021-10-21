@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-19 15:57+0200\n"
+"POT-Creation-Date: 2021-10-21 14:49+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -12731,6 +12731,24 @@ msgstr "Load settings"
 
 msgid "ParameterCompare.Settings.Load.Error"
 msgstr "Error loading settings"
+
+msgid "ParameterCompare.Settings.Load.ErrorModel.Cancel"
+msgstr "Cancel loading"
+
+msgid "ParameterCompare.Settings.Load.ErrorModel.Cancel.Info"
+msgstr "Do not make any changes to the parameter series configuration or the base model."
+
+msgid "ParameterCompare.Settings.Load.ErrorModel.Info"
+msgstr "The file to be loaded is not a parameter series, but a model file."
+
+msgid "ParameterCompare.Settings.Load.ErrorModel.Replace"
+msgstr "Replace base model in parameter series"
+
+msgid "ParameterCompare.Settings.Load.ErrorModel.Replace.Info"
+msgstr "Keep previous parameter series configuration, but replace base model with the new model."
+
+msgid "ParameterCompare.Settings.Load.ErrorModel.Title"
+msgstr "Model file"
 
 msgid "ParameterCompare.Settings.Model.Data.Column.Parameter"
 msgstr "Parameter"

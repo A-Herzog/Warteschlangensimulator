@@ -1049,6 +1049,55 @@ public class ParameterComparePanel extends SpecialPanel {
 	}
 
 	/**
+	 * Bietet an, ein neues Basismodell zu laden.
+	 * @param model	Neues Modell
+	 * @param fileName	Optional Dateiname des Modells (darf <code>null</code> sein)
+	 * @see #testDataIsModel(EditModel, File)
+	 * @see #testDataIsModel(InputStream, File)
+	 */
+	private void testDataIsModel(EditModel model, final File fileName) {
+		if (MsgBox.options(this,Language.tr("ParameterCompare.Settings.Load.ErrorModel.Title"),Language.tr("ParameterCompare.Settings.Load.ErrorModel.Info"),new String[] {Language.tr("ParameterCompare.Settings.Load.ErrorModel.Replace"),Language.tr("ParameterCompare.Settings.Load.ErrorModel.Cancel")},new String[] {Language.tr("ParameterCompare.Settings.Load.ErrorModel.Replace.Info"),Language.tr("ParameterCompare.Settings.Load.ErrorModel.Cancel.Info")})==0) {
+			final EditModel newModel=EditorPanelRepair.autoFix(this,model);
+			if (newModel!=null) model=newModel;
+			if (fileName!=null) FilePathHelper.checkFilePaths(model,fileName);
+
+			final Statistics miniStatistics=ParameterComparePanel.generateMiniStatistics(this,model,null);
+			if (miniStatistics==null) return;
+			this.miniStatistics=miniStatistics;
+
+			setup.setEditModel(model);
+			table.updateTable();
+		}
+	}
+
+	/**
+	 * Prüft, ob eine zu ladende Datei eine Modelldatei ist.
+	 * @param file	Zu ladende Datei
+	 * @return	Liefert <code>true</code>, wenn es sich um eine Modelldatei handelt
+	 * @see #loadSetup(Component, File, boolean)
+	 */
+	private boolean testDataIsModel(final File file) {
+		final EditModel model=new EditModel();
+		if (model.loadFromFile(file)!=null) return false;
+		testDataIsModel(model,file);
+		return true;
+	}
+
+	/**
+	 * Prüft, ob eine zu ladende Datei eine Modelldatei ist.
+	 * @param stream	Zu ladender Stream
+	 * @param fileName	Optional der Name der Datei (darf <code>null</code> sein)
+	 * @return	Liefert <code>true</code>, wenn es sich um eine Modelldatei handelt
+	 * @see #loadSetup(Component, InputStream, File, boolean)
+	 */
+	private boolean testDataIsModel(final InputStream stream, final File fileName) {
+		final EditModel model=new EditModel();
+		if (model.loadFromStream(stream)!=null) return false;
+		testDataIsModel(model,fileName);
+		return true;
+	}
+
+	/**
 	 * Versucht eine Parameterreihenkonfiguration zu laden
 	 * @param owner	Übergeordnetes Element (zum Ausrichten von Fehlermeldungen)
 	 * @param file	Zu ladende Datei
@@ -1059,6 +1108,7 @@ public class ParameterComparePanel extends SpecialPanel {
 		final ParameterCompareSetup setup=new ParameterCompareSetup(null);
 		final String error=setup.loadFromFile(file);
 		if (error!=null) {
+			if (testDataIsModel(file)) return false;
 			MsgBox.error(this,Language.tr("ParameterCompare.Settings.Load.Error"),error);
 			return false;
 		}
@@ -1078,6 +1128,7 @@ public class ParameterComparePanel extends SpecialPanel {
 		final ParameterCompareSetup setup=new ParameterCompareSetup(null);
 		final String error=setup.loadFromStream(stream);
 		if (error!=null) {
+			if (testDataIsModel(stream,fileName)) return false;
 			MsgBox.error(this,Language.tr("ParameterCompare.Settings.Load.Error"),error);
 			return false;
 		}
