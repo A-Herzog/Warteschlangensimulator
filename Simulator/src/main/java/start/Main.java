@@ -15,9 +15,11 @@
  */
 package start;
 import java.awt.Font;
+import java.awt.GraphicsEnvironment;
 import java.io.File;
 import java.lang.reflect.InvocationTargetException;
 
+import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 
 import language.Language;
@@ -105,7 +107,17 @@ public class Main {
 	 */
 	public static void main(final String[] args) {
 		/* System initialisieren */
-		prepare();
+		try {
+			prepare();
+		} catch (NoClassDefFoundError e) {
+			if (GraphicsEnvironment.isHeadless()) {
+				System.out.println("The required libraries in the \"libs\" subfolder are missing.");
+				System.out.println("Therefore, the program cannot be executed.");
+			} else {
+				JOptionPane.showMessageDialog(null,"The required libraries in the \"libs\" subfolder are missing.\nTherefore, the program cannot be executed.","Missing libraries",JOptionPane.ERROR_MESSAGE);
+			}
+			return;
+		}
 
 		/* Parameter verarbeiten */
 		if (args.length>0) {
