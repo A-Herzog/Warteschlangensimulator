@@ -2569,7 +2569,7 @@ public class Messages_de extends java.util.ResourceBundle {
     t[6976] = "Surface.CounterMulti.Name";
     t[6977] = "Mehrfachz\u00e4hler";
     t[6980] = "CommandLine.Interactive.Name";
-    t[6981] = "Interaktiv";
+    t[6981] = "Interaktiv;Konsole";
     t[6996] = "Surface.Delay.Dialog.DelayTimeIs.Nothing";
     t[6997] = "<nicht erfassen>";
     t[6998] = "ModelSecurityCheck.Column.StationID";

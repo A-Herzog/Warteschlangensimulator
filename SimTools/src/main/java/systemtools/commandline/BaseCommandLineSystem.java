@@ -114,7 +114,7 @@ public class BaseCommandLineSystem {
 	public static String commandHelpError="Es existiert kein Kommandozeilen-Befehl \"%s\".";
 
 	/** Name des "Interaktiv"-Befehls */
-	public static String commandInteractiveName="Interaktiv";
+	public static String[] commandInteractiveName=new String[]{"Interaktiv","Interactive","Konsole","Console"};
 	/** Name des "Hilfe"-Befehls optional in weiteren Sprachen */
 	public static String[] commandInteractiveNamesOtherLanguages=new String[0];
 	/** Kurzhilfe für den "Interaktiv"-Befehl */
