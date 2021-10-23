@@ -1826,7 +1826,15 @@ public class MainPanel extends MainPanelBase {
 
 	@Override
 	public boolean loadAnyFile(final File file, final Component dropComponent, final Point dropPosition, final boolean errorMessageOnFail) {
-		if ((dropComponent!=null || dropPosition!=null) && specialPanel!=null) return false;
+		if ((dropComponent!=null || dropPosition!=null) && specialPanel!=null) {
+			if (specialPanel instanceof ParameterComparePanel) {
+				return ((ParameterComparePanel)specialPanel).loadSetup(this,file,false);
+			}
+			if (specialPanel instanceof OptimizerPanel) {
+				return ((OptimizerPanel)specialPanel).dragDropLoadFile(file);
+			}
+			return false;
+		}
 
 		if (!checkFileExists(file,errorMessageOnFail)) return false;
 
