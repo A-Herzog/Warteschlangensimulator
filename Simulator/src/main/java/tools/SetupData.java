@@ -1001,6 +1001,12 @@ public class SetupData extends SetupBase {
 	public int parameterSeriesTableDigits;
 
 	/**
+	 * Soll {@link #parameterSeriesTableDigits} auch beim Exportieren verwendet werden (<code>true</code>) oder soll dann immer
+	 * alle Nachkommastellen ausgegeben werden (<code>false</code>)?
+	 */
+	public boolean parameterSeriesTableDigitsUseOnExport;
+
+	/**
 	 * Sollen die Parameterreihendaten hochskaliert werden?
 	 */
 	public int parameterSeriesUpscale;
@@ -1423,6 +1429,7 @@ public class SetupData extends SetupBase {
 		defaultUserName=System.getProperty("user.name");
 		defaultUserEMail="";
 		parameterSeriesTableDigits=1;
+		parameterSeriesTableDigitsUseOnExport=false;
 		parameterSeriesUpscale=0;
 		quickAccessFilter="";
 		elementListSort=ElementListSort.getDefault();
@@ -2312,6 +2319,7 @@ public class SetupData extends SetupBase {
 					final int digits=L.intValue();
 					if (digits==1 || digits==3) parameterSeriesTableDigits=digits; else parameterSeriesTableDigits=9;
 				}
+				parameterSeriesTableDigitsUseOnExport=loadBoolean(e.getAttribute("UseOnExport"),false);
 				continue;
 			}
 
@@ -3007,9 +3015,10 @@ public class SetupData extends SetupBase {
 			node.setTextContent(defaultUserEMail);
 		}
 
-		if (parameterSeriesTableDigits!=1) {
+		if (parameterSeriesTableDigits!=1 || parameterSeriesTableDigitsUseOnExport) {
 			root.appendChild(node=doc.createElement("ParameterSeriesTableDigits"));
 			node.setTextContent(""+parameterSeriesTableDigits);
+			if (parameterSeriesTableDigitsUseOnExport) node.setAttribute("UseOnExport","1");
 		}
 
 		if (parameterSeriesUpscale>0) {

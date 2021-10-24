@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-22 00:16+0200\n"
+"POT-Creation-Date: 2021-10-24 19:39+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -13337,8 +13337,23 @@ msgstr "Three decimal digits"
 msgid "ParameterCompare.Toolbar.ProcessResults.ResultsTable.Setup.DigitFull"
 msgstr "Maximum number of decimal digits"
 
+msgid "ParameterCompare.Toolbar.ProcessResults.ResultsTable.Setup.Digits"
+msgstr "Digits to display"
+
+msgid "ParameterCompare.Toolbar.ProcessResults.ResultsTable.Setup.DigitsUseOnExport"
+msgstr "Digits on export"
+
+msgid "ParameterCompare.Toolbar.ProcessResults.ResultsTable.Setup.DigitsUseOnExport.Off"
+msgstr "Output all"
+
+msgid "ParameterCompare.Toolbar.ProcessResults.ResultsTable.Setup.DigitsUseOnExport.On"
+msgstr "As displayed"
+
+msgid "ParameterCompare.Toolbar.ProcessResults.ResultsTable.Setup.Interpolation"
+msgstr "Add inerpolated values on export"
+
 msgid "ParameterCompare.Toolbar.ProcessResults.ResultsTable.Setup.Interpolation0"
-msgstr "Export table as displayed"
+msgstr "Export table as displayed (do not add interpolated values)"
 
 msgid "ParameterCompare.Toolbar.ProcessResults.ResultsTable.Setup.Interpolation1"
 msgstr "Insert some interpolation values on export"

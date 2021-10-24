@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-22 00:16+0200\n"
+"POT-Creation-Date: 2021-10-24 19:39+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -13337,8 +13337,23 @@ msgstr "Drei Nachkommastellen"
 msgid "ParameterCompare.Toolbar.ProcessResults.ResultsTable.Setup.DigitFull"
 msgstr "Maximalzahl an Nachkommastellen"
 
+msgid "ParameterCompare.Toolbar.ProcessResults.ResultsTable.Setup.Digits"
+msgstr "Anzuzeigende Nachkommastellen"
+
+msgid "ParameterCompare.Toolbar.ProcessResults.ResultsTable.Setup.DigitsUseOnExport"
+msgstr "Nachkommastellem beim Export"
+
+msgid "ParameterCompare.Toolbar.ProcessResults.ResultsTable.Setup.DigitsUseOnExport.Off"
+msgstr "Alle ausgeben"
+
+msgid "ParameterCompare.Toolbar.ProcessResults.ResultsTable.Setup.DigitsUseOnExport.On"
+msgstr "Wie in Anzeige"
+
+msgid "ParameterCompare.Toolbar.ProcessResults.ResultsTable.Setup.Interpolation"
+msgstr "Interpolierte Werte beim Exportieren hinzufügen"
+
 msgid "ParameterCompare.Toolbar.ProcessResults.ResultsTable.Setup.Interpolation0"
-msgstr "Tabelle exportieren wie angezeigt"
+msgstr "Tabelle exportieren wie angezeigt (keine interpolierten Zwischenwerte ausgeben)"
 
 msgid "ParameterCompare.Toolbar.ProcessResults.ResultsTable.Setup.Interpolation1"
 msgstr "Beim Exportieren einige Zwischenwerte per Interpolation hinzufügen"

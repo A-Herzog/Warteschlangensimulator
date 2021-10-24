@@ -243,34 +243,56 @@ public final class ParameterCompareSetup extends XMLData implements Cloneable {
 	 * @return	Alle Tabellendaten
 	 */
 	public Table getTableData(final boolean addInfoRows, final boolean forceTimeAsNumber) {
-		return getTableData(addInfoRows,forceTimeAsNumber,0);
+		return getTableData(addInfoRows,forceTimeAsNumber,-1,0);
 	}
 
 	/**
 	 * Formatiert eine Zahl für eine Ausgabezelle gemäß dem für die Ausgabe gewählten Format
 	 * @param value	Zu formatierender Wert
-	 * @param forceTimeAsNumber	Erzwingt, wenn <code>true</code>, die Ausgabe auch von Spalten, die explizit Zeitangaben oder Prozentwerze enthalten, als Zahlenwerte
+	 * @param forceTimeAsNumber	Erzwingt, wenn <code>true</code>, die Ausgabe auch von Spalten, die explizit Zeitangaben oder Prozentwerte enthalten, als Zahlenwerte
 	 * @param format	Gewünschtes Ausgabeformat
+	 * @param digits	Anzahl an auszugebenden Nachkommastellen (Werte größer als 9 oder kleiner als 0 werden als "alle verfügbaren" interpretiert)
 	 * @return	Zeichenkette, die die Zahl im entsprechenden Format enthält
 	 */
-	private static String formatCell(final double value, final boolean forceTimeAsNumber, final ParameterCompareSetupValueOutput.OutputFormat format) {
+	private static String formatCell(final double value, final boolean forceTimeAsNumber, final ParameterCompareSetupValueOutput.OutputFormat format, int digits) {
+		if (digits>9 || digits<0) digits=-1;
 		switch (format) {
 		case FORMAT_NUMBER:
-			return NumberTools.formatNumberMax(value);
+			if (digits<0) {
+				return NumberTools.formatNumberMax(value);
+			} else {
+				return NumberTools.formatNumber(value,digits);
+			}
 		case FORMAT_PERCENT:
 			if (forceTimeAsNumber) {
-				return NumberTools.formatPercent(value,7);
+				if (digits<0) {
+					return NumberTools.formatPercent(value,7);
+				} else {
+					return NumberTools.formatPercent(value,Math.min(7,digits));
+				}
 			} else {
-				return TimeTools.formatExactTime(value);
+				if (digits<0) {
+					return NumberTools.formatNumberMax(value);
+				} else {
+					return NumberTools.formatNumber(value,digits);
+				}
 			}
 		case FORMAT_TIME:
 			if (forceTimeAsNumber) {
-				return NumberTools.formatNumberMax(value);
+				if (digits<0) {
+					return NumberTools.formatNumberMax(value);
+				} else {
+					return NumberTools.formatNumber(value,digits);
+				}
 			} else {
 				return TimeTools.formatExactTime(value);
 			}
 		default:
-			return NumberTools.formatNumberMax(value);
+			if (digits<0) {
+				return NumberTools.formatNumberMax(value);
+			} else {
+				return NumberTools.formatNumber(value,digits);
+			}
 		}
 	}
 
@@ -278,10 +300,12 @@ public final class ParameterCompareSetup extends XMLData implements Cloneable {
 	 * Trägt die Daten aus {@link #getModels()} in eine Tabelle ein
 	 * @param table	Ergebnistabelle in die die Daten eingetragen werden sollen
 	 * @param forceTimeAsNumber	Erzwingt, wenn <code>true</code>, die Ausgabe auch von Spalten, die explizit Zeitangaben enthalten, als Zahlenwerte
+	 * @param digits	Anzahl an auszugebenden Nachkommastellen (Werte größer als 9 oder kleiner als 0 werden als "alle verfügbaren" interpretiert)
 	 * @param upscaler	Sollen die Daten hochskaliert werden? Werte größer als 0 geben die Anzahl an jeweils einzufügenden Zwischenwerten an.
 	 */
-	private void processTableData(final Table table, final boolean forceTimeAsNumber, int upscaler) {
+	private void processTableData(final Table table, final boolean forceTimeAsNumber, int digits, int upscaler) {
 		upscaler=Math.max(0,Math.min(4,upscaler));
+		if (digits>9 || digits<0) digits=-1;
 
 		final List<List<String>> dataRows=new ArrayList<>();
 		final List<List<Double>> rawValues=new ArrayList<>();
@@ -296,7 +320,9 @@ public final class ParameterCompareSetup extends XMLData implements Cloneable {
 			/* Eingabeparameter */
 			for (ParameterCompareSetupValueInput input: this.input) {
 				final Double D=model.getInput().get(input.getName());
-				if (D==null) dataRow.add("-"); else dataRow.add(NumberTools.formatNumberMax(D));
+				if (D==null) dataRow.add("-"); else {
+					if (digits<0) dataRow.add(NumberTools.formatNumberMax(D)); else dataRow.add(NumberTools.formatNumber(D,digits));
+				}
 				raw.add(D);
 				if (D==null) upscaler=0;
 			}
@@ -307,7 +333,7 @@ public final class ParameterCompareSetup extends XMLData implements Cloneable {
 				if (D==null) {
 					dataRow.add("-");
 				} else {
-					dataRow.add(formatCell(D.doubleValue(),forceTimeAsNumber,output.getFormat()));
+					dataRow.add(formatCell(D.doubleValue(),forceTimeAsNumber,output.getFormat(),digits));
 				}
 				raw.add(D);
 				if (D==null) upscaler=0;
@@ -382,7 +408,7 @@ public final class ParameterCompareSetup extends XMLData implements Cloneable {
 
 						ParameterCompareSetupValueOutput.OutputFormat format=ParameterCompareSetupValueOutput.OutputFormat.FORMAT_NUMBER;
 						if (outParam>=0) format=output.get(outParam).getFormat();
-						scaleRow.add(formatCell(d,false,format));
+						scaleRow.add(formatCell(d,false,format,digits));
 
 						interpolatedValues[j]=d;
 					}
@@ -396,10 +422,12 @@ public final class ParameterCompareSetup extends XMLData implements Cloneable {
 	 * Liefert alle Tabellendaten als {@link Table}-Objekt
 	 * @param addInfoRows	Fügt zusätzliche Zeilen mit Minimum/Mittelwert/Maximum an
 	 * @param forceTimeAsNumber	Erzwingt, wenn <code>true</code>, die Ausgabe auch von Spalten, die explizit Zeitangaben enthalten, als Zahlenwerte
+	 * @param digits	Anzahl an auszugebenden Nachkommastellen (Werte größer als 9 oder kleiner als 0 werden als "alle verfügbaren" interpretiert)
 	 * @param upscaler	Sollen die Daten hochskaliert werden? Werte größer als 0 geben die Anzahl an jeweils einzufügenden Zwischenwerten an.
 	 * @return	Alle Tabellendaten
 	 */
-	public Table getTableData(final boolean addInfoRows, final boolean forceTimeAsNumber, final int upscaler) {
+	public Table getTableData(final boolean addInfoRows, final boolean forceTimeAsNumber, int digits, final int upscaler) {
+		if (digits>9 || digits<0) digits=-1;
 		final Table table=new Table();
 
 		/* Überschriften ausgeben */
@@ -418,7 +446,7 @@ public final class ParameterCompareSetup extends XMLData implements Cloneable {
 
 		/* Daten ausgeben */
 
-		processTableData(table,forceTimeAsNumber,upscaler);
+		processTableData(table,forceTimeAsNumber,digits,upscaler);
 
 		/* Zusätzliche Kenngrößen */
 
@@ -464,7 +492,7 @@ public final class ParameterCompareSetup extends XMLData implements Cloneable {
 				row.add(Language.tr("ParameterCompare.Table.Info.Minimum"));
 				for (int i=0;i<input.size();i++) row.add("");
 				for (int i=0;i<output.size();i++) {
-					if (countValues[i]==0) row.add("-"); else row.add(formatCell(minValues[i],forceTimeAsNumber,output.get(i).getFormat()));
+					if (countValues[i]==0) row.add("-"); else row.add(formatCell(minValues[i],forceTimeAsNumber,output.get(i).getFormat(),digits));
 				}
 				table.addLine(row);
 
@@ -475,7 +503,7 @@ public final class ParameterCompareSetup extends XMLData implements Cloneable {
 				for (int i=0;i<output.size();i++) {
 					if (countValues[i]==0) row.add("-"); else {
 						final double e=sumValues[i]/countValues[i];
-						row.add(formatCell(e,forceTimeAsNumber,output.get(i).getFormat()));
+						row.add(formatCell(e,forceTimeAsNumber,output.get(i).getFormat(),digits));
 					}
 				}
 				table.addLine(row);
@@ -493,7 +521,7 @@ public final class ParameterCompareSetup extends XMLData implements Cloneable {
 							final double v=sum2Values[i]/(countValues[i]-1)-(sumValues[i]*sumValues[i])/countValues[i]/(countValues[i]-1);
 							sd=StrictMath.sqrt(Math.max(0,v));
 						}
-						row.add(formatCell(sd,forceTimeAsNumber,output.get(i).getFormat()));
+						row.add(formatCell(sd,forceTimeAsNumber,output.get(i).getFormat(),digits));
 					}
 				}
 				table.addLine(row);
@@ -512,7 +540,11 @@ public final class ParameterCompareSetup extends XMLData implements Cloneable {
 							final double v=sum2Values[i]/(countValues[i]-1)-(sumValues[i]*sumValues[i])/countValues[i]/(countValues[i]-1);
 							sd=StrictMath.sqrt(Math.max(0,v));
 						}
-						row.add(NumberTools.formatPercent((e>0)?(sd/e):0.0,3));
+						if (digits<0) {
+							row.add(NumberTools.formatPercent((e>0)?(sd/e):0.0,3));
+						} else {
+							row.add(NumberTools.formatPercent((e>0)?(sd/e):0.0,Math.min(3,digits)));
+						}
 					}
 				}
 				table.addLine(row);
@@ -522,7 +554,7 @@ public final class ParameterCompareSetup extends XMLData implements Cloneable {
 				row.add(Language.tr("ParameterCompare.Table.Info.Maximum"));
 				for (int i=0;i<input.size();i++) row.add("");
 				for (int i=0;i<output.size();i++) {
-					if (countValues[i]==0) row.add("-"); else row.add(formatCell(maxValues[i],forceTimeAsNumber,output.get(i).getFormat()));
+					if (countValues[i]==0) row.add("-"); else row.add(formatCell(maxValues[i],forceTimeAsNumber,output.get(i).getFormat(),digits));
 				}
 				table.addLine(row);
 			}
