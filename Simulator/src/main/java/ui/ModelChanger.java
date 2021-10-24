@@ -443,10 +443,11 @@ public class ModelChanger {
 	 * @return	Gibt im Erfolgsfall ein neues Modell vom Typ <code>EditModel</code> zurück. Im Fehlerfall wird eine Fehlermeldung als String zurückgegeben.
 	 * @see #changeModel(EditModel, Mode, String, int, double)
 	 */
-	private static Object changeModelXML(final EditModel originalModel, final String tag, final int xmlChangeMode, final double value) {
+	private static Object changeModelXML(final EditModel originalModel, String tag, final int xmlChangeMode, final double value) {
 		final Document xmlDoc=originalModel.saveToXMLDocument();
 		if (xmlDoc==null) return Language.tr("Batch.Parameter.XMLTag.NotAbleToSave");
 
+		tag=tag.replace("][","]->[");
 		try (Scanner selectors=new Scanner(tag)) {
 			selectors.useDelimiter("->");
 			if (!selectors.hasNext()) return null;
@@ -560,10 +561,11 @@ public class ModelChanger {
 	 * @param xmlName	XML-Tag, dessen Inhalt ausgelesen werden werden soll
 	 * @return	Inhalt des Elements oder Fehlermeldung oder <code>null</code>
 	 */
-	public static String getValue(final EditModel model, final String xmlName) {
+	public static String getValue(final EditModel model, String xmlName) {
 		final Document xmlDoc=model.saveToXMLDocument();
 		if (xmlDoc==null) return Language.tr("Batch.Parameter.XMLTag.NotAbleToSave");
 
+		xmlName=xmlName.replace("][","]->[");
 		try (Scanner selectors=new Scanner(xmlName)) {
 			selectors.useDelimiter("->");
 			if (!selectors.hasNext()) return null;

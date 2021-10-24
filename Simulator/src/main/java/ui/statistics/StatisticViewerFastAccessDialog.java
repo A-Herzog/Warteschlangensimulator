@@ -666,7 +666,7 @@ public class StatisticViewerFastAccessDialog extends BaseDialog {
 				path=path.getParentNode();
 			}
 			if (attribute!=null && !attribute.isEmpty()) {
-				if (needIDType || needIDName) s+="->";
+				if (needIDType || needIDName || s.endsWith("]")) s+="->";
 				s+="["+attribute+"]";
 			}
 			return s;
