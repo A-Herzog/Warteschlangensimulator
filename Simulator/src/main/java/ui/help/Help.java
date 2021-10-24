@@ -16,12 +16,17 @@
 package ui.help;
 
 import java.awt.Container;
+import java.io.IOException;
 import java.net.URL;
 import java.util.function.Consumer;
 
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.text.BadLocationException;
+import javax.swing.text.Document;
+import javax.swing.text.Element;
+import javax.swing.text.html.HTMLDocument;
 
 import language.Language;
 import systemtools.help.HelpBase;
@@ -129,5 +134,20 @@ public class Help extends HelpBase {
 	@Override
 	protected void setupWindow(final JFrame frame) {
 		WindowSizeStorage.window(frame,"HelpWindow");
+	}
+
+	@Override
+	protected void preprocessPage(final Element root) {
+		if (BookData.getInstance().isDataAvailable()) return;
+		final Document doc=root.getDocument();
+		if (!(doc instanceof HTMLDocument)) return;
+		final HTMLDocument html=(HTMLDocument)doc;
+
+		html.getStyleSheet().removeStyle(".bookinfo");
+		html.getStyleSheet().removeStyle(".bookinfosmall");
+
+		try {
+			html.insertAfterEnd(root.getElement(0),"<style>.bookinfo {color: #F0F0FF; font-size: 1%;}.bookinfosmall {color: #F0F0FF; font-size: 1%;}.bookinfo a {color: #F0F0FF; font-size: 1%;}.bookinfosmall a {color: #F0F0FF; font-size: 1%;}</style>");
+		} catch (BadLocationException|IOException e) {}
 	}
 }

@@ -23,6 +23,7 @@ import java.io.Serializable;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Consumer;
 
 import javax.swing.JComponent;
 import javax.swing.JEditorPane;
@@ -54,6 +55,9 @@ public class HTMLBrowserTextPane extends JTextPane implements HTMLBrowserPanel {
 
 	/** Runnable, das aufgerufen wird, wenn eine Seite geladen wurde */
 	private Runnable pageLoadListener;
+
+	/** Optionaler Präprozessor der geladenen Seiten */
+	private Consumer<Element> pagePreProcessor;
 
 	/**
 	 * Überschriften und Positionen dieser auf der Seite
@@ -89,8 +93,9 @@ public class HTMLBrowserTextPane extends JTextPane implements HTMLBrowserPanel {
 	}
 
 	@Override
-	public void init(Runnable linkClickListener, Runnable pageLoadListener) {
+	public void init(final Runnable linkClickListener, final Consumer<Element> pagePreProcessor, final Runnable pageLoadListener) {
 		this.linkClickListener=linkClickListener;
+		this.pagePreProcessor=pagePreProcessor;
 		this.pageLoadListener=pageLoadListener;
 	}
 
@@ -289,7 +294,9 @@ public class HTMLBrowserTextPane extends JTextPane implements HTMLBrowserPanel {
 	private final class PageLoadListener implements PropertyChangeListener {
 		@Override
 		public void propertyChange(PropertyChangeEvent evt) {
-			pageContentList=scanElement(((HTMLDocument)getStyledDocument()).getDefaultRootElement());
+			final Element root=((HTMLDocument)getStyledDocument()).getDefaultRootElement();
+			if (pagePreProcessor!=null) pagePreProcessor.accept(root);
+			pageContentList=scanElement(root);
 			if (pageLoadListener!=null) pageLoadListener.run();
 		}
 	}

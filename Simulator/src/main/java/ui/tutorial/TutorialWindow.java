@@ -148,7 +148,7 @@ public class TutorialWindow extends JFrame {
 		getContentPane().add(browser.asScrollableJComponent(),BorderLayout.CENTER);
 		loadPage(pages.get(0).getPageName());
 
-		browser.init(()->loadPage(browser.getLastClickedURLDescription()),null);
+		browser.init(()->loadPage(browser.getLastClickedURLDescription()),null,null);
 
 		/* Prüfen, ob Bedingung für nächste Seite erfüllt ist */
 		timer=new Timer("TutorialModelSupervisor");

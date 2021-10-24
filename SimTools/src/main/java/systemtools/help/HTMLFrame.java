@@ -30,6 +30,7 @@ import javax.swing.JRootPane;
 import javax.swing.KeyStroke;
 import javax.swing.SwingUtilities;
 import javax.swing.WindowConstants;
+import javax.swing.text.Element;
 
 import systemtools.images.SimToolsImages;
 
@@ -91,6 +92,10 @@ abstract class HTMLFrame extends JFrame {
 			@Override
 			public URL getPageURL(String res) {
 				return HTMLFrame.this.getPageURL(res);
+			}
+			@Override
+			protected void preprocessPage(final Element root) {
+				HTMLFrame.this.preprocessPage(root);
 			}
 		};
 		p.add(panel,BorderLayout.CENTER);
@@ -166,5 +171,12 @@ abstract class HTMLFrame extends JFrame {
 			specialLink=panel.getSpecialLink();
 			if (specialLinks!=null) SwingUtilities.invokeLater(specialLinks);
 		}
+	}
+
+	/**
+	 * Optionale Vorverarbeitung der geladenen Seite
+	 * @param root	Wurzelelement der Seite
+	 */
+	protected void preprocessPage(final Element root) {
 	}
 }

@@ -30,6 +30,7 @@ import javax.swing.JDialog;
 import javax.swing.JRootPane;
 import javax.swing.KeyStroke;
 import javax.swing.SwingUtilities;
+import javax.swing.text.Element;
 
 import systemtools.images.SimToolsImages;
 
@@ -90,6 +91,10 @@ abstract class HTMLDialog extends JDialog {
 			@Override
 			public URL getPageURL(String res) {
 				return HTMLDialog.this.getPageURL(res);
+			}
+			@Override
+			protected void preprocessPage(final Element root) {
+				HTMLDialog.this.preprocessPage(root);
 			}
 		};
 		p.add(panel,BorderLayout.CENTER);
@@ -169,5 +174,12 @@ abstract class HTMLDialog extends JDialog {
 			specialLink=panel.getSpecialLink();
 			if (specialLinks!=null) SwingUtilities.invokeLater(specialLinks);
 		}
+	}
+
+	/**
+	 * Optionale Vorverarbeitung der geladenen Seite
+	 * @param root	Wurzelelement der Seite
+	 */
+	protected void preprocessPage(final Element root) {
 	}
 }

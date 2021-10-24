@@ -43,6 +43,7 @@ import javax.swing.JPopupMenu;
 import javax.swing.JToolBar;
 import javax.swing.KeyStroke;
 import javax.swing.SwingUtilities;
+import javax.swing.text.Element;
 
 import mathtools.distribution.swing.JOpenURL;
 import systemtools.BaseDialog;
@@ -160,7 +161,7 @@ public abstract class HTMLPanel extends JPanel {
 
 		noLockingViewer=!textPane.needsLoadLock();
 
-		textPane.init(new LinkClickListener(),new PageLoadListener());
+		textPane.init(new LinkClickListener(),root->preprocessPage(root), new PageLoadListener());
 
 		if (textPane.needsBorder()) {
 			final JPanel outer=new JPanel(new BorderLayout());
@@ -503,5 +504,12 @@ public abstract class HTMLPanel extends JPanel {
 			specialLink="special:escape";
 			if (processSpecialLink!=null) SwingUtilities.invokeLater(processSpecialLink);
 		}
+	}
+
+	/**
+	 * Optionale Vorverarbeitung der geladenen Seite
+	 * @param root	Wurzelelement der Seite
+	 */
+	protected void preprocessPage(final Element root) {
 	}
 }

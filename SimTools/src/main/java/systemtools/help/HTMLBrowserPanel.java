@@ -17,8 +17,10 @@ package systemtools.help;
 
 import java.net.URL;
 import java.util.List;
+import java.util.function.Consumer;
 
 import javax.swing.JComponent;
+import javax.swing.text.Element;
 
 /**
  * Interface, welches einen Webbrowser kapselt
@@ -29,9 +31,10 @@ public interface HTMLBrowserPanel {
 	/**
 	 * Initialisiert das Panel
 	 * @param linkClickListener	Callback, das aufgerufen wird, wenn ein Link angeklickt wird
+	 * @param pagePreProcessor	Optionaler Präprozessor der geladenen Seiten
 	 * @param pageLoadListener	Runnable, das aufgerufen wird, wenn eine Seite geladen wurde
 	 */
-	void init(final Runnable linkClickListener, final Runnable pageLoadListener);
+	void init(final Runnable linkClickListener, final Consumer<Element> pagePreProcessor, final Runnable pageLoadListener);
 
 	/**
 	 * Gibt an, welche Seite angezeigt werden soll

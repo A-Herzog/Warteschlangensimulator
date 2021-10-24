@@ -23,6 +23,7 @@ import java.net.URL;
 
 import javax.swing.JDialog;
 import javax.swing.JFrame;
+import javax.swing.text.Element;
 
 /**
  * Basisklasse für die html-basierte Online-Hilfe
@@ -202,6 +203,10 @@ public abstract class HelpBase {
 			protected HTMLBrowserPanel getHTMLBrowser() {
 				return HelpBase.this.getHTMLBrowser();
 			}
+			@Override
+			protected void preprocessPage(final Element root) {
+				HelpBase.this.preprocessPage(root);
+			}
 		};
 		setupDialog(helpDialog);
 		helpDialog.setVisible(true);
@@ -228,6 +233,10 @@ public abstract class HelpBase {
 				@Override
 				protected HTMLBrowserPanel getHTMLBrowser() {
 					return HelpBase.this.getHTMLBrowser();
+				}
+				@Override
+				protected void preprocessPage(final Element root) {
+					HelpBase.this.preprocessPage(root);
 				}
 			};
 			setupWindow(helpFrame);
@@ -340,5 +349,12 @@ public abstract class HelpBase {
 		}
 		lastPanel.loadPage(lastPanel.getPageURL(page+".html"));
 		return lastPanel;
+	}
+
+	/**
+	 * Optionale Vorverarbeitung der geladenen Seite
+	 * @param root	Wurzelelement der Seite
+	 */
+	protected void preprocessPage(final Element root) {
 	}
 }
