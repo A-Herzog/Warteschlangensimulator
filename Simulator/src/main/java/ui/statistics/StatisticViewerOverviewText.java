@@ -1909,13 +1909,13 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 			addHeading(3,fullStationName(type));
 			beginParagraph();
 			addLine(Language.tr("Statistics.AverageInterLeaveCount")+": "+NumberTools.formatLong(indicator.getCount())+repeatInfo,xmlCount(indicator));
-			addLine(Language.tr("Statistics.AverageInterLeaveTime")+": E[IL]="+timeAndNumber(indicator.getMean()),xmlMean(indicator));
-			addLine(Language.tr("Statistics.StdDevInterLeaveTime")+": Std[IL]="+timeAndNumber(indicator.getSD()),fastAccessBuilder.getXMLSelector(indicator,IndicatorMode.SD));
-			addLine(Language.tr("Statistics.VarianceInterLeaveTime")+": Var[IL]="+timeAndNumber(indicator.getVar()));
-			addLine(Language.tr("Statistics.CVInterLeaveTime")+": CV[IL]="+StatisticTools.formatNumber(indicator.getCV()),fastAccessBuilder.getXMLSelector(indicator,IndicatorMode.CV));
-			addLine(Language.tr("Statistics.Skewness")+": Sk[IL]="+StatisticTools.formatNumber(indicator.getSk()),fastAccessBuilder.getXMLSelector(indicator,IndicatorMode.Sk));
-			addLine(Language.tr("Statistics.MinimalInterLeaveTime")+": Min[IL]="+timeAndNumber(indicator.getMin()),fastAccessBuilder.getXMLSelector(indicator,IndicatorMode.MINIMUM));
-			addLine(Language.tr("Statistics.MaximalInterLeaveTime")+": Max[IL]="+timeAndNumber(indicator.getMax()),fastAccessBuilder.getXMLSelector(indicator,IndicatorMode.MAXIMUM));
+			addLine(Language.tr("Statistics.AverageInterLeaveTime")+": E[ID]="+timeAndNumber(indicator.getMean()),xmlMean(indicator));
+			addLine(Language.tr("Statistics.StdDevInterLeaveTime")+": Std[ID]="+timeAndNumber(indicator.getSD()),fastAccessBuilder.getXMLSelector(indicator,IndicatorMode.SD));
+			addLine(Language.tr("Statistics.VarianceInterLeaveTime")+": Var[ID]="+timeAndNumber(indicator.getVar()));
+			addLine(Language.tr("Statistics.CVInterLeaveTime")+": CV[ID]="+StatisticTools.formatNumber(indicator.getCV()),fastAccessBuilder.getXMLSelector(indicator,IndicatorMode.CV));
+			addLine(Language.tr("Statistics.Skewness")+": Sk[ID]="+StatisticTools.formatNumber(indicator.getSk()),fastAccessBuilder.getXMLSelector(indicator,IndicatorMode.Sk));
+			addLine(Language.tr("Statistics.MinimalInterLeaveTime")+": Min[ID]="+timeAndNumber(indicator.getMin()),fastAccessBuilder.getXMLSelector(indicator,IndicatorMode.MINIMUM));
+			addLine(Language.tr("Statistics.MaximalInterLeaveTime")+": Max[ID]="+timeAndNumber(indicator.getMax()),fastAccessBuilder.getXMLSelector(indicator,IndicatorMode.MAXIMUM));
 			endParagraph();
 
 			outputQuantilInfoTime("IL",indicator);
@@ -1950,13 +1950,13 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 			addHeading(3,fullStationName(station));
 			beginParagraph();
 			addLine(Language.tr("Statistics.AverageInterLeaveCount")+": "+NumberTools.formatLong(indicator.getCount())+repeatInfo,xmlCount(indicator));
-			addLine(Language.tr("Statistics.AverageInterLeaveTime")+": E[IL]="+timeAndNumber(indicator.getMean()),xmlMean(indicator));
-			addLine(Language.tr("Statistics.StdDevInterLeaveTime")+": Std[IL]="+timeAndNumber(indicator.getSD()),fastAccessBuilder.getXMLSelector(indicator,IndicatorMode.SD));
-			addLine(Language.tr("Statistics.VarianceInterLeaveTime")+": Var[IL]="+timeAndNumber(indicator.getVar()));
-			addLine(Language.tr("Statistics.CVInterLeaveTime")+": CV[IL]="+StatisticTools.formatNumber(indicator.getCV()),fastAccessBuilder.getXMLSelector(indicator,IndicatorMode.CV));
-			addLine(Language.tr("Statistics.Skewness")+": Sk[IL]="+StatisticTools.formatNumber(indicator.getSk()),fastAccessBuilder.getXMLSelector(indicator,IndicatorMode.Sk));
-			addLine(Language.tr("Statistics.MinimalInterLeaveTime")+": Min[IL]="+timeAndNumber(indicator.getMin()),fastAccessBuilder.getXMLSelector(indicator,IndicatorMode.MINIMUM));
-			addLine(Language.tr("Statistics.MaximalInterLeaveTime")+": Max[IL]="+timeAndNumber(indicator.getMax()),fastAccessBuilder.getXMLSelector(indicator,IndicatorMode.MAXIMUM));
+			addLine(Language.tr("Statistics.AverageInterLeaveTime")+": E[ID]="+timeAndNumber(indicator.getMean()),xmlMean(indicator));
+			addLine(Language.tr("Statistics.StdDevInterLeaveTime")+": Std[ID]="+timeAndNumber(indicator.getSD()),fastAccessBuilder.getXMLSelector(indicator,IndicatorMode.SD));
+			addLine(Language.tr("Statistics.VarianceInterLeaveTime")+": Var[ID]="+timeAndNumber(indicator.getVar()));
+			addLine(Language.tr("Statistics.CVInterLeaveTime")+": CV[ID]="+StatisticTools.formatNumber(indicator.getCV()),fastAccessBuilder.getXMLSelector(indicator,IndicatorMode.CV));
+			addLine(Language.tr("Statistics.Skewness")+": Sk[ID]="+StatisticTools.formatNumber(indicator.getSk()),fastAccessBuilder.getXMLSelector(indicator,IndicatorMode.Sk));
+			addLine(Language.tr("Statistics.MinimalInterLeaveTime")+": Min[ID]="+timeAndNumber(indicator.getMin()),fastAccessBuilder.getXMLSelector(indicator,IndicatorMode.MINIMUM));
+			addLine(Language.tr("Statistics.MaximalInterLeaveTime")+": Max[ID]="+timeAndNumber(indicator.getMax()),fastAccessBuilder.getXMLSelector(indicator,IndicatorMode.MAXIMUM));
 			endParagraph();
 
 			outputQuantilInfoTime("IL",indicator);
@@ -1978,13 +1978,13 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 			addHeading(3,fullStationName(record));
 			beginParagraph();
 			addLine(Language.tr("Statistics.AverageInterLeaveCount")+": "+NumberTools.formatLong(indicator.getCount())+repeatInfo,xmlCount(indicator));
-			addLine(Language.tr("Statistics.AverageInterLeaveTime")+": E[IL]="+timeAndNumber(indicator.getMean()),xmlMean(indicator));
-			addLine(Language.tr("Statistics.StdDevInterLeaveTime")+": Std[IL]="+timeAndNumber(indicator.getSD()),fastAccessBuilder.getXMLSelector(indicator,IndicatorMode.SD));
-			addLine(Language.tr("Statistics.VarianceInterLeaveTime")+": Var[IL]="+timeAndNumber(indicator.getVar()));
-			addLine(Language.tr("Statistics.CVInterLeaveTime")+": CV[IL]="+StatisticTools.formatNumber(indicator.getCV()),fastAccessBuilder.getXMLSelector(indicator,IndicatorMode.CV));
-			addLine(Language.tr("Statistics.Skewness")+": Sk[IL]="+StatisticTools.formatNumber(indicator.getSk()),fastAccessBuilder.getXMLSelector(indicator,IndicatorMode.Sk));
-			addLine(Language.tr("Statistics.MinimalInterLeaveTime")+": Min[IL]="+timeAndNumber(indicator.getMin()),fastAccessBuilder.getXMLSelector(indicator,IndicatorMode.MINIMUM));
-			addLine(Language.tr("Statistics.MaximalInterLeaveTime")+": Max[IL]="+timeAndNumber(indicator.getMax()),fastAccessBuilder.getXMLSelector(indicator,IndicatorMode.MAXIMUM));
+			addLine(Language.tr("Statistics.AverageInterLeaveTime")+": E[ID]="+timeAndNumber(indicator.getMean()),xmlMean(indicator));
+			addLine(Language.tr("Statistics.StdDevInterLeaveTime")+": Std[ID]="+timeAndNumber(indicator.getSD()),fastAccessBuilder.getXMLSelector(indicator,IndicatorMode.SD));
+			addLine(Language.tr("Statistics.VarianceInterLeaveTime")+": Var[ID]="+timeAndNumber(indicator.getVar()));
+			addLine(Language.tr("Statistics.CVInterLeaveTime")+": CV[ID]="+StatisticTools.formatNumber(indicator.getCV()),fastAccessBuilder.getXMLSelector(indicator,IndicatorMode.CV));
+			addLine(Language.tr("Statistics.Skewness")+": Sk[ID]="+StatisticTools.formatNumber(indicator.getSk()),fastAccessBuilder.getXMLSelector(indicator,IndicatorMode.Sk));
+			addLine(Language.tr("Statistics.MinimalInterLeaveTime")+": Min[ID]="+timeAndNumber(indicator.getMin()),fastAccessBuilder.getXMLSelector(indicator,IndicatorMode.MINIMUM));
+			addLine(Language.tr("Statistics.MaximalInterLeaveTime")+": Max[ID]="+timeAndNumber(indicator.getMax()),fastAccessBuilder.getXMLSelector(indicator,IndicatorMode.MAXIMUM));
 			endParagraph();
 
 			outputQuantilInfoTime("IL",indicator);

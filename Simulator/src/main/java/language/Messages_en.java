@@ -1971,7 +1971,7 @@ public class Messages_en extends java.util.ResourceBundle {
     t[5348] = "Surface.Process.Dialog.CostsPerProcessingSecond";
     t[5349] = "Costs per processing second";
     t[5350] = "Statistics.MaximalInterLeaveTime";
-    t[5351] = "Maximal inter-leaving time";
+    t[5351] = "Maximal inter-departure time";
     t[5364] = "ParameterCompare.Table.AddModelByAssistant.Hint";
     t[5365] = "Automatically create models according to parameters";
     t[5366] = "Help.StartPage.Info";
@@ -2683,7 +2683,7 @@ public class Messages_en extends java.util.ResourceBundle {
     t[7258] = "ExpressionCalculator.Toolbar.LoadJava";
     t[7259] = "Load";
     t[7264] = "Statistics.AverageInterLeaveTime";
-    t[7265] = "Average inter-leaving time";
+    t[7265] = "Average inter-departure time";
     t[7268] = "Surface.XML.RootName.Sequence";
     t[7269] = "ModelSequence";
     t[7270] = "Statistics.ErlangCompare.UnknownProcessBatchSize";
@@ -5315,7 +5315,7 @@ public class Messages_en extends java.util.ResourceBundle {
     t[14016] = "SettingsDialog.NotifyMode.Off";
     t[14017] = "Never";
     t[14018] = "Statistics.DistributionOfTheInterLeaveTimesByClientType";
-    t[14019] = "Distribution of the inter-leaving times by client types";
+    t[14019] = "Distribution of the inter-departure times by client types";
     t[14028] = "Surface.Balking.Dialog.Expression.Error.Info";
     t[14029] = "The specified condition for balking of clients \"%s\" is invalid at character %d.";
     t[14034] = "Surface.Set.XML.Assignment.Value.ResidenceTime";
@@ -5951,7 +5951,7 @@ public class Messages_en extends java.util.ResourceBundle {
     t[15790] = "Statistics.XML.Values";
     t[15791] = "ValuesSum";
     t[15794] = "Statistics.InterLeaveTimesAtTheStationsByClientTypes";
-    t[15795] = "Inter-leaving times at the stations by client types";
+    t[15795] = "Inter-departure times at the stations by client types";
     t[15796] = "CommandLine.ParameterCompareTable.Description.Long";
     t[15797] = "This command expects exactly two additional parameters:\n1. Input parameter series file\n2. Output table file\nThe input file has to exist.\nThe output has to be non existent.";
     t[15798] = "ParameterCompare.Settings.Input.List.Templates.AnalogValue.Title";
@@ -6569,7 +6569,7 @@ public class Messages_en extends java.util.ResourceBundle {
     t[17366] = "ParameterCompare.ConnectParameters.Info2";
     t[17367] = "The values of the other input parameters are available via the following variables:";
     t[17372] = "Statistics.AverageInterLeaveCount";
-    t[17373] = "Number of inter-leaving times";
+    t[17373] = "Number of inter-departure times";
     t[17374] = "Simulation.Log.Balking.NormalProcessing";
     t[17375] = "Client: %s, normal forwarding";
     t[17378] = "Surface.DDE.Workbook";
@@ -6925,7 +6925,7 @@ public class Messages_en extends java.util.ResourceBundle {
     t[18264] = "Transporters.Group.Edit.Dialog.Title";
     t[18265] = "Edit transporter";
     t[18268] = "Statistics.VarianceInterLeaveTime";
-    t[18269] = "Variance of the inter-leaving times";
+    t[18269] = "Variance of the inter-departure times";
     t[18272] = "ParameterCompare.ConnectParameters.Title";
     t[18273] = "Transfer input parameter values";
     t[18276] = "Simulation.Log.InputDB";
@@ -11117,7 +11117,7 @@ public class Messages_en extends java.util.ResourceBundle {
     t[29186] = "Transporter.Group.Edit.Dialog.DownTime.Expression.Error.Info";
     t[29187] = "The specified down time duration expression is invalid.";
     t[29190] = "Statistics.MinimalInterLeaveTime";
-    t[29191] = "Minimal inter-leaving time";
+    t[29191] = "Minimal inter-departure time";
     t[29194] = "Surface.ScriptEditor.Search.SearchAgain";
     t[29195] = "Search again";
     t[29196] = "ExpressionBuilder.ProbabilityDistributions.FrechetDistribution.RandomNumberInfo";
@@ -11401,7 +11401,7 @@ public class Messages_en extends java.util.ResourceBundle {
     t[29910] = "Surface.Action.XML.Record.Action.AnalogID";
     t[29911] = "AnalogID";
     t[29912] = "Statistics.InterLeaveTimesAtTheSystem";
-    t[29913] = "Inter-leaving times from the system";
+    t[29913] = "Inter-departure times from the system";
     t[29922] = "SettingsDialog.Tabs.Statistics";
     t[29923] = "Statistics";
     t[29934] = "Surface.Costs.Name";
@@ -11937,7 +11937,7 @@ public class Messages_en extends java.util.ResourceBundle {
     t[31330] = "Statistics.Maximum";
     t[31331] = "Maximum";
     t[31336] = "Statistics.StdDevInterLeaveTime";
-    t[31337] = "Standard deviation of the inter-leaving times";
+    t[31337] = "Standard deviation of the inter-departure times";
     t[31342] = "Surface.TankValveSetup.Dialog.TableCol.ValveSetup";
     t[31343] = "Valve setup";
     t[31352] = "Animation.IconDialog.Single.IconName";
@@ -12083,7 +12083,7 @@ public class Messages_en extends java.util.ResourceBundle {
     t[31650] = "Surface.Process.Dialog.DistributionOfWaitingTimeTolerances";
     t[31651] = "Waiting time tolerances";
     t[31652] = "Statistics.CVInterLeaveTime";
-    t[31653] = "Coefficient of variation of the inter-leaving times";
+    t[31653] = "Coefficient of variation of the inter-departure times";
     t[31660] = "Editor.DialogBase.Search.BalkingExpressionGlobal";
     t[31661] = "Balking expression";
     t[31662] = "Transporter.Group.Edit.Dialog.Failure.Number.Error.Info";
@@ -12479,7 +12479,7 @@ public class Messages_en extends java.util.ResourceBundle {
     t[32592] = "ParameterCompare.XML.Outputs.Data.Format";
     t[32593] = "Format";
     t[32598] = "Statistics.DistributionOfTheInterLeaveTimes";
-    t[32599] = "Distribution of the inter-leaving times";
+    t[32599] = "Distribution of the inter-departure times";
     t[32616] = "Optimizer.ControlVariableEdit.Error.NoVariableTitle";
     t[32617] = "No global variable selected";
     t[32626] = "ModelDescription.Arrival.Threshold.Up";
@@ -13385,7 +13385,7 @@ public class Messages_en extends java.util.ResourceBundle {
     t[35012] = "ModelDescription.TransportTimeRecord.TimeMode.Transfer";
     t[35013] = "Transfer time";
     t[35024] = "Statistics.InterLeaveTimes";
-    t[35025] = "Inter-leaving times";
+    t[35025] = "Inter-departure times";
     t[35026] = "Surface.Delay.Dialog.DelayTimeIs";
     t[35027] = "Delay time is";
     t[35030] = "ExpressionBuilder.SimulationCharacteristics.ResidenceTimesAtStations.AverageTime";
@@ -13503,7 +13503,7 @@ public class Messages_en extends java.util.ResourceBundle {
     t[35296] = "CommandLine.Error.LoadingFile";
     t[35297] = "An error occurred while loading %s.";
     t[35298] = "Statistics.InterLeaveTimesAtTheStations";
-    t[35299] = "Inter-leaving times at the stations";
+    t[35299] = "Inter-departure times at the stations";
     t[35302] = "NoJDK.OptionCancel";
     t[35303] = "Cancel";
     t[35310] = "Surface.TankValveSetup.Table.MaxFlow";
@@ -18361,7 +18361,7 @@ public class Messages_en extends java.util.ResourceBundle {
     t[47612] = "Main.Menu.View.ShowIDs.Mnemonic";
     t[47613] = "I";
     t[47614] = "Statistics.InterLeaveTimesAtTheStationsByClientTypes.Short";
-    t[47615] = "Inter-leaving times by client types";
+    t[47615] = "Inter-departure times by client types";
     t[47618] = "Surface.Duplicate.NewClientType";
     t[47619] = "new client type";
     t[47626] = "Surface.TeleportSource.XML.Destination";

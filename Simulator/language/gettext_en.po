@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-24 19:39+0200\n"
+"POT-Creation-Date: 2021-10-25 00:04+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19094,10 +19094,10 @@ msgid "Statistics.AverageInterArrivalTime"
 msgstr "Average inter-arrival time"
 
 msgid "Statistics.AverageInterLeaveCount"
-msgstr "Number of inter-leaving times"
+msgstr "Number of inter-departure times"
 
 msgid "Statistics.AverageInterLeaveTime"
-msgstr "Average inter-leaving time"
+msgstr "Average inter-departure time"
 
 msgid "Statistics.AverageNumberOfBusyOperators"
 msgstr "Average number of busy operators"
@@ -19160,7 +19160,7 @@ msgid "Statistics.CVInterArrivalTime"
 msgstr "Coefficient of variation of the inter-arrival times"
 
 msgid "Statistics.CVInterLeaveTime"
-msgstr "Coefficient of variation of the inter-leaving times"
+msgstr "Coefficient of variation of the inter-departure times"
 
 msgid "Statistics.CVInterPathLength"
 msgstr "Coefficient of variation of the path lengths"
@@ -19507,10 +19507,10 @@ msgid "Statistics.DistributionOfTheInterArrivalTimesByStates"
 msgstr "Distribution of the inter-arrival times by queue length"
 
 msgid "Statistics.DistributionOfTheInterLeaveTimes"
-msgstr "Distribution of the inter-leaving times"
+msgstr "Distribution of the inter-departure times"
 
 msgid "Statistics.DistributionOfTheInterLeaveTimesByClientType"
-msgstr "Distribution of the inter-leaving times by client types"
+msgstr "Distribution of the inter-departure times by client types"
 
 msgid "Statistics.DistributionOfTheProcessTimes"
 msgstr "Distribution of the process times"
@@ -19864,19 +19864,19 @@ msgid "Statistics.InterArrivalTimesInTheSimulation"
 msgstr "Inter-arrival times in the simulation"
 
 msgid "Statistics.InterLeaveTimes"
-msgstr "Inter-leaving times"
+msgstr "Inter-departure times"
 
 msgid "Statistics.InterLeaveTimesAtTheStations"
-msgstr "Inter-leaving times at the stations"
+msgstr "Inter-departure times at the stations"
 
 msgid "Statistics.InterLeaveTimesAtTheStationsByClientTypes"
-msgstr "Inter-leaving times at the stations by client types"
+msgstr "Inter-departure times at the stations by client types"
 
 msgid "Statistics.InterLeaveTimesAtTheStationsByClientTypes.Short"
-msgstr "Inter-leaving times by client types"
+msgstr "Inter-departure times by client types"
 
 msgid "Statistics.InterLeaveTimesAtTheSystem"
-msgstr "Inter-leaving times from the system"
+msgstr "Inter-departure times from the system"
 
 msgid "Statistics.LeavingsAtStations"
 msgstr "Leavings from the stations"
@@ -19885,7 +19885,7 @@ msgid "Statistics.MaximalInterArrivalTime"
 msgstr "Maximal inter-arrival time"
 
 msgid "Statistics.MaximalInterLeaveTime"
-msgstr "Maximal inter-leaving time"
+msgstr "Maximal inter-departure time"
 
 msgid "Statistics.MaximalPathLength"
 msgstr "Maximal path lengths"
@@ -19930,7 +19930,7 @@ msgid "Statistics.MinimalInterArrivalTime"
 msgstr "Minimal inter-arrival time"
 
 msgid "Statistics.MinimalInterLeaveTime"
-msgstr "Minimal inter-leaving time"
+msgstr "Minimal inter-departure time"
 
 msgid "Statistics.MinimalPathLength"
 msgstr "Minimal path lengths"
@@ -20376,7 +20376,7 @@ msgid "Statistics.StdDevInterArrivalTime"
 msgstr "Standard deviation of the inter-arrival times"
 
 msgid "Statistics.StdDevInterLeaveTime"
-msgstr "Standard deviation of the inter-leaving times"
+msgstr "Standard deviation of the inter-departure times"
 
 msgid "Statistics.StdDevNumberOfClients"
 msgstr "Standard deviation of the number of clients"
@@ -20748,7 +20748,7 @@ msgid "Statistics.VarianceInterArrivalTime"
 msgstr "Variance of the inter-arrival times"
 
 msgid "Statistics.VarianceInterLeaveTime"
-msgstr "Variance of the inter-leaving times"
+msgstr "Variance of the inter-departure times"
 
 msgid "Statistics.VarianceNumberOfClients"
 msgstr "Variance of the number of clients"
@@ -32325,7 +32325,7 @@ msgstr "The file format is unknown respectively is not matching to any of the fi
 #~ msgstr "The web server could not be started."
 
 #~ msgid "Statistics.InterLeavingTimes"
-#~ msgstr "Inter-leaving times"
+#~ msgstr "Inter-departure times"
 
 #~ msgid "Statistics.StationsClientsProcessTimes"
 #~ msgstr "Process times at the stations by client types"
