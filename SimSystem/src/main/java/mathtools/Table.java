@@ -1604,6 +1604,7 @@ public final class Table implements Cloneable {
 		}
 
 		final Double D=NumberTools.getPlainDouble(cell);
+		if (D==null) return null;
 		if (isPercent) return D/100; else return D;
 	}
 
