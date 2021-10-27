@@ -41,6 +41,7 @@ import systemtools.MsgBox;
 import tools.SetupData;
 import ui.images.Images;
 import ui.statistics.StatisticsPanel;
+import ui.tools.WindowSizeStorage;
 
 /**
  * Dieser Dialog ermöglicht es, ein Editor-Modell im read-only Model zu betrachten.
@@ -145,6 +146,7 @@ public class ModelViewerFrame extends JDialog {
 
 		setMinimumSize(new Dimension((int)Math.round(800*SetupData.getSetup().scaleGUI),(int)Math.round(600*SetupData.getSetup().scaleGUI)));
 		setLocationRelativeTo(owner);
+		WindowSizeStorage.window(this,"modelviewer");
 
 		setModalityType(DEFAULT_MODALITY_TYPE);
 	}
