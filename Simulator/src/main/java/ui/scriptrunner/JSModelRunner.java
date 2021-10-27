@@ -100,6 +100,7 @@ public class JSModelRunner {
 	 */
 	public void start() {
 		final Thread thread=new Thread(()->{
+			pendingOutput.setLength(0);
 			switch (mode) {
 			case Javascript:
 				scriptRunner=new JSRunComplexScript(model,line->output(line));
@@ -139,7 +140,26 @@ public class JSModelRunner {
 			if (dynamicRunner.parameter.model!=null) dynamicRunner.parameter.model.cancel();
 			if (dynamicRunner.parameter.statistics!=null) dynamicRunner.parameter.statistics.cancel();
 		}
+		pendingOutput.setLength(0);
 	}
+
+	/**
+	 * Zeitpunkt der letzten Ausgabe über {@link #outputNotify}
+	 * @see #output(String)
+	 */
+	private long lastOutput;
+
+	/**
+	 * Zwischengespeicherter Text für {@link #outputNotify}
+	 * @see #output(String)
+	 */
+	private StringBuilder pendingOutput=new StringBuilder();
+
+	/**
+	 * Minimaler Zeitabstand (in ms) zwischen zwei Ausgaben an {@link #outputNotify}
+	 * @see #output(String)
+	 */
+	private static final long OUTPUT_MIN_DELTA=1_000;
 
 	/**
 	 * Gibt eine Nachricht über {@link #outputNotify} aus.
@@ -148,7 +168,20 @@ public class JSModelRunner {
 	 */
 	private void output(final String text) {
 		if (canceled || outputNotify==null) return;
-		SwingUtilities.invokeLater(()->outputNotify.accept(text));
+
+		final long currentTime=System.currentTimeMillis();
+		if (currentTime-lastOutput<OUTPUT_MIN_DELTA) {
+			pendingOutput.append(text);
+		} else {
+			if (pendingOutput.length()>0) {
+				final String fullText=pendingOutput.toString()+text;
+				SwingUtilities.invokeLater(()->outputNotify.accept(fullText));
+				pendingOutput.setLength(0);
+			} else {
+				SwingUtilities.invokeLater(()->outputNotify.accept(text));
+			}
+			lastOutput=currentTime;
+		}
 	}
 
 	/**
@@ -157,6 +190,13 @@ public class JSModelRunner {
 	 */
 	private void done() {
 		if (canceled || doneNotify==null) return;
+
+		if (pendingOutput.length()>0) {
+			final String fullText=pendingOutput.toString();
+			SwingUtilities.invokeLater(()->outputNotify.accept(fullText));
+			pendingOutput.setLength(0);
+		}
+
 		SwingUtilities.invokeLater(doneNotify);
 	}
 }
