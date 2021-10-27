@@ -839,8 +839,8 @@ public final class ExpressionCalculatorDialog extends BaseDialog {
 		scriptJavaScriptResults.setText(s);
 
 		recalc();
-		variablesTableModel.updateTable();
-		mapTableModel.updateTable();
+		if (variablesTableModel!=null) variablesTableModel.updateTable();
+		if (mapTableModel!=null) mapTableModel.updateTable();
 	}
 
 	/**
@@ -851,8 +851,8 @@ public final class ExpressionCalculatorDialog extends BaseDialog {
 		scriptJavaResults.setText(s);
 
 		recalc();
-		variablesTableModel.updateTable();
-		mapTableModel.updateTable();
+		if (variablesTableModel!=null) variablesTableModel.updateTable();
+		if (mapTableModel!=null) mapTableModel.updateTable();
 	}
 
 	/**
