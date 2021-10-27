@@ -24,6 +24,7 @@ import java.io.Serializable;
 import javax.swing.BoxLayout;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.SwingUtilities;
 
 import language.Language;
 import mathtools.NumberTools;
@@ -75,6 +76,10 @@ public class VarianceAnalysisDialog extends BaseDialog {
 
 		/* Dialog starten */
 
+		SwingUtilities.invokeLater(()->{
+			pack();
+			setMaxSizeRespectingScreensize(500,500);
+		});
 		setMinSizeRespectingScreensize(500,175);
 		pack();
 		setLocationRelativeTo(getOwner());
