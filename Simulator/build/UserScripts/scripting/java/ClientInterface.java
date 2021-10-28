@@ -15,6 +15,8 @@
  */
 package scripting.java;
 
+import java.util.Map;
+
 /**
  * Interface for accessing client specific data.
  * @author Alexander Herzog
