@@ -1,3 +1,5 @@
+#!/usr/bin/python3
+
 #
 # This script demonstrates how to connect to MQTT client in Warteschlangensimulator
 # to submit models to be simulated and to receive results.

@@ -25,7 +25,7 @@ Warteschlangensimulator to submit models to be simulated and to receive results.
 
 
 
-## SocketTest.py
+## socket_connect.py and SocketTest.py
 
 Python example script demonstrating how to connect to Warteschlangensimulator
 socket server to submit models to be simulated and to receive results.
