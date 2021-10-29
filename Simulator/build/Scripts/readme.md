@@ -37,6 +37,14 @@ Dieses Verzeichnis enthält Skripte, um Warteschlangensimulator-Serverinstanzen 
 
 
 
+# Directory "generator"
+
+This directory contains scripts to generate multiple Warteschlangensimulator models with specific parameters from a template.
+
+Dieses Verzeichnis enthält Skripte, um Warteschlangensimulator-Modell mit konkreten Werte aus einer Vorlage zu erstellen.
+
+
+
 # Directory "network"
 
 This directory contains scripts to start Warteschlangensimulator in server mode and to communicate with running server instances.
