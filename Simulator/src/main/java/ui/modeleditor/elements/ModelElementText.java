@@ -557,6 +557,8 @@ public final class ModelElementText extends ModelElementPosition {
 			} else {
 				lastComputedFillColor=new Color(fillColor.getRed(),fillColor.getGreen(),fillColor.getBlue(),Math.max(0,Math.min(255,((int)Math.round(255*fillAlpha)))));
 			}
+			lastFillColor=fillColor;
+			lastFillAlpha=fillAlpha;
 		}
 
 		if (lastComputedFillColor!=null) {
