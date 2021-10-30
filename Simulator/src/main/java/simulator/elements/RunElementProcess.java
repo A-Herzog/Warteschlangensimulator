@@ -437,8 +437,9 @@ public class RunElementProcess extends RunElement implements FreeResourcesListen
 			/* Kunden mit dem höchsten Score wählen */
 			final int count=data.waitingClients.size();
 			selected=data.waitingClients.get(0);
+			bestIndex=0;
 			double bestScore=-Double.MAX_VALUE;
-			if (count>1) for (int i=0;i<count;i++) {
+			if (count>1) for (int i=1;i<count;i++) {
 				final RunDataClient client=data.waitingClients.get(i);
 				final double score=getClientScore(simData,processData,client);
 				if (score>bestScore) {

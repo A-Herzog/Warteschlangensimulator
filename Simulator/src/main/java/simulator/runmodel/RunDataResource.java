@@ -166,6 +166,8 @@ public final class RunDataResource implements Cloneable {
 	private double costsPerProcessHour;
 	/** Kosten pro Leerlaufstunde und Bediener */
 	private double costsPerIdleHour;
+	/** Sind überhaupt irgendwelche Kosten definiert? */
+	private boolean hasCosts;
 
 	/**
 	 * Konstruktor der Klasse <code>RunDataResource</code>
@@ -242,6 +244,7 @@ public final class RunDataResource implements Cloneable {
 		costsPerActiveHour=resource.getCostsPerActiveHour();
 		costsPerProcessHour=resource.getCostsPerProcessHour();
 		costsPerIdleHour=resource.getCostsPerIdleHour();
+		hasCosts=(costsPerActiveHour!=0.0 || costsPerProcessHour!=0.0 || costsPerIdleHour!=0.0);
 
 		/* Rüstzeiten beim Stationswechsel */
 		final Object moveTimes=resource.getMoveTimes();
@@ -308,6 +311,7 @@ public final class RunDataResource implements Cloneable {
 		clone.costsPerActiveHour=costsPerActiveHour;
 		clone.costsPerProcessHour=costsPerProcessHour;
 		clone.costsPerIdleHour=costsPerIdleHour;
+		clone.hasCosts=hasCosts;
 
 		/* Rüstzeiten beim Stationswechsel */
 		clone.moveDistribution=moveDistribution;
@@ -407,7 +411,7 @@ public final class RunDataResource implements Cloneable {
 		if (operators!=null) statisticsCount.set(time,operators.length); else statisticsCount.set(time,available);
 
 		/* Kosten für Arbeitszeit erfassen */
-		if (!simData.runData.isWarmUp && timeMS!=lastStateChange) {
+		if (hasCosts && !simData.runData.isWarmUp && timeMS!=lastStateChange) {
 			final int lastState=statisticsUsage.getCurrentState(); /* CurrentState muss ausgelesen werden, bevor unten per statisticsUsage.set der neue Zustand eingestellt wird. */
 			if (costsPerProcessHour!=0.0 && lastState>0) {
 				final double usedHours=lastState*(timeMS-lastStateChange)*toHoursFactor;

@@ -1416,6 +1416,8 @@ public class RunData {
 			maxIndex=new ArrayList<>(freeResourcesListenerPriority.length);
 		}
 		canUseGlobalFreeResourcesListenerCurrentPriority=false;
+		boolean allTheSamePriority=true;
+		double samePriorityValue=0;
 		try {
 			simData.runData.setClientVariableValues(null);
 			for (int i=0;i<freeResourcesListenerPriority.length;i++) {
@@ -1423,27 +1425,38 @@ public class RunData {
 					freeResourcesListenerCurrentPriority[i]=freeResourcesListenerPriorityConst[i];
 				} else {
 					try {
-						freeResourcesListenerCurrentPriority[i]=NumberTools.fastBoxedValue(freeResourcesListenerPriority[i].calc(variableValues,simData,null));
+						final double value=NumberTools.fastBoxedValue(freeResourcesListenerPriority[i].calc(variableValues,simData,null));
+						freeResourcesListenerCurrentPriority[i]=value;
+						if (allTheSamePriority) {
+							if (i==0) samePriorityValue=value; else {
+								if (value!=samePriorityValue) allTheSamePriority=false;
+							}
+						}
 					} catch (MathCalcError e) {
 						freeResourcesListenerCurrentPriority[i]=0;
+						allTheSamePriority=false;
 					}
 				}
 			}
 
 			while (true) {
 				double maxValue=-Double.MAX_VALUE;
-				maxIndex.clear();
-				for (int i=0;i<freeResourcesListenerCurrentPriority.length;i++) {
-					if (freeResourcesListenerCurrentPriority[i]>maxValue) {
-						maxValue=freeResourcesListenerCurrentPriority[i];
-						if (maxIndex.size()==1) {
-							maxIndex.set(0,i);
+				if (allTheSamePriority) {
+					for (int i=0;i<freeResourcesListenerCurrentPriority.length;i++) if (freeResourcesListenerCurrentPriority[i]>-Double.MAX_VALUE) maxIndex.add(i);
+				} else {
+					maxIndex.clear();
+					for (int i=0;i<freeResourcesListenerCurrentPriority.length;i++) {
+						if (freeResourcesListenerCurrentPriority[i]>maxValue) {
+							maxValue=freeResourcesListenerCurrentPriority[i];
+							if (maxIndex.size()==1) {
+								maxIndex.set(0,i);
+							} else {
+								maxIndex.clear();
+								maxIndex.add(i);
+							}
 						} else {
-							maxIndex.clear();
-							maxIndex.add(i);
+							if (freeResourcesListenerCurrentPriority[i]==maxValue && maxValue>-Double.MAX_VALUE) maxIndex.add(i);
 						}
-					} else {
-						if (freeResourcesListenerCurrentPriority[i]==maxValue && maxValue>-Double.MAX_VALUE) maxIndex.add(i);
 					}
 				}
 				if (maxIndex.isEmpty()) break;
@@ -1459,6 +1472,7 @@ public class RunData {
 					freeResourcesListener[index].releasedResourcesNotify(simData);
 					freeResourcesListenerCurrentPriority[index]=-Double.MAX_VALUE;
 				}
+				if (allTheSamePriority) break;
 			}
 		} finally {
 			if (freeResourcesListenerCurrentPriority==globalFreeResourcesListenerCurrentPriority) canUseGlobalFreeResourcesListenerCurrentPriority=true;
