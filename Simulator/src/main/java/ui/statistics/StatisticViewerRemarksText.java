@@ -633,7 +633,7 @@ public class StatisticViewerRemarksText extends StatisticViewerText {
 					final double p=clippedValues(indicator.getCount(),indicator.getDistribution());
 					if (p>0 && indicator.xmlNodeNames!=null && indicator.xmlNodeNames.length>0) {
 						if (!headingPrinted) {addHeading(2,Language.tr("Statistics.ModelRemarks.TruncatedValues")); beginParagraph(); headingPrinted=true;}
-						final String name=indicator1.xmlNodeNames[0]+"->"+indicator.xmlNodeNames[0]+"["+Language.trAll("Statistics.XML.Type")+"="+((StatisticsMultiPerformanceIndicator)indicator1).getName(indicator)+"]";
+						final String name=indicator1.xmlNodeNames[0]+"->"+indicator.xmlNodeNames[0]+"["+Language.trAll("Statistics.XML.Type")[0]+"="+((StatisticsMultiPerformanceIndicator)indicator1).getName(indicator)+"]";
 						addLine(String.format(Language.tr("Statistics.ModelRemarks.TruncatedValues.DistributionInfo"),name,StatisticTools.formatPercent(p)));
 					}
 				}
@@ -642,7 +642,7 @@ public class StatisticViewerRemarksText extends StatisticViewerText {
 					final double p=clippedValues(indicator.getCount(),indicator.getDistribution());
 					if (p>0 && indicator.xmlNodeNames!=null && indicator.xmlNodeNames.length>0) {
 						if (!headingPrinted) {addHeading(2,Language.tr("Statistics.ModelRemarks.TruncatedValues")); beginParagraph(); headingPrinted=true;}
-						final String name=indicator1.xmlNodeNames[0]+"->"+indicator.xmlNodeNames[0]+"["+Language.trAll("Statistics.XML.Type")+"="+((StatisticsMultiPerformanceIndicator)indicator1).getName(indicator)+"]";
+						final String name=indicator1.xmlNodeNames[0]+"->"+indicator.xmlNodeNames[0]+"["+Language.trAll("Statistics.XML.Type")[0]+"="+((StatisticsMultiPerformanceIndicator)indicator1).getName(indicator)+"]";
 						addLine(String.format(Language.tr("Statistics.ModelRemarks.TruncatedValues.DistributionInfo"),name,StatisticTools.formatPercent(p)));
 					}
 				}
