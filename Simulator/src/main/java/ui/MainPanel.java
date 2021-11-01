@@ -268,13 +268,13 @@ public class MainPanel extends MainPanelBase {
 	public static final boolean RELEASE_BUILD=false;
 
 	/** Aktuelle Unterversionsnummer in der Java 8 Versionsreihe */
-	private static final int JAVA8_SECURE_MIN_VERSION=302;
+	private static final int JAVA8_SECURE_MIN_VERSION=312;
 	/** Aktuelle Unterversionsnummer in der Java 9 Versionsreihe */
 	private static final int JAVA9_SECURE_MIN_VERSION=4;
 	/** Aktuelle Unterversionsnummer in der Java 10 Versionsreihe */
 	private static final int JAVA10_SECURE_MIN_VERSION=2;
 	/** Aktuelle Unterversionsnummer in der Java 11 Versionsreihe */
-	private static final int JAVA11_SECURE_MIN_VERSION=12;
+	private static final int JAVA11_SECURE_MIN_VERSION=13;
 	/** Aktuelle Unterversionsnummer in der Java 12 Versionsreihe */
 	private static final int JAVA12_SECURE_MIN_VERSION=2;
 	/** Aktuelle Unterversionsnummer in der Java 13 Versionsreihe */
@@ -286,7 +286,7 @@ public class MainPanel extends MainPanelBase {
 	/** Aktuelle Unterversionsnummer in der Java 16 Versionsreihe */
 	private static final int JAVA16_SECURE_MIN_VERSION=2;
 	/** Aktuelle Unterversionsnummer in der Java 17 Versionsreihe */
-	private static final int JAVA17_SECURE_MIN_VERSION=0;
+	private static final int JAVA17_SECURE_MIN_VERSION=1;
 
 	/**
 	 * Bezeichnung für "ungespeichertes Modell" in der Titelzeile für ein neues Modell, welches noch keinen Namen besitzt
