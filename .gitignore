@@ -1,5 +1,6 @@
 Release/
 .metadata/
+*/.settings
 Simulator/build/Help/*/de/*.log
 Simulator/build/Help/*/en/*.log
 Simulator/build/Help/*/de/*.out
