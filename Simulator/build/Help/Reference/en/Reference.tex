@@ -2179,7 +2179,10 @@ value of an expression on an analogue measuring scale by positioning the pointer
 
 The name of the simulation time element has no further meaning.
 In addition to the calculation expression to be evaluated,
-the maximum value of the scale must be specified.
+the maximum value of the scale must be specified. In addition,
+a yellow and a red range (typically with values just below
+the maximum) can optionally be specified. The corresponding
+ranges are then displayed marked in color on the scale.
 
 
 \section{Animation image}
@@ -2777,7 +2780,12 @@ If a client passes through this element, some user-definable statistic informati
 The name of the user-defined statistic data element has no further meaning.
 Each user-defined statistic data element can contain any number of records
 describing which information is to be recorded when a client passes through
-this station.
+this station. The recording can take place in the form of discrete values
+(standard case) or continuously over time. If actual client characteristics
+(such as waiting times, etc.) are to be recorded, the values are discrete.
+Continuous recording only makes sense if the arrival of a client at the station
+is to be used to record the change in a value that does not necessarily have
+anything to do with the respective client.
 
 
 \section{Sub model}

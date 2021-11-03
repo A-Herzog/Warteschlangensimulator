@@ -173,13 +173,14 @@ Function GetJRE
   ;  2 - in JAVA_HOME environment variable
   ;  3a- jdk in the registry
   ;  3b- jre in the registry
-  ;  4a- in C:\Program Files\Eclipse Foundation
-  ;  4b- in C:\Program Files\AdoptOpenJDK and its subfolders  
-  ;  4c- in C:\Program Files\Java and its subfolders
+  ;  4a- in C:\Program Files\Eclipse Adoptium
+  ;  4b- in C:\Program Files\Eclipse Foundation
+  ;  4c- in C:\Program Files\AdoptOpenJDK and its subfolders  
+  ;  4d- in C:\Program Files\Java and its subfolders
   ;  4d- in C:\Program Files\Amazon Corretto and its subfolders  
   ;  4e- in C:\Program Files\Zulu and its subfolders
-  ;  4f- in C:\Program Files\Microsoft and its subfolders  
-  ;  4g- in C:\Program Files and its subfolders
+  ;  4g- in C:\Program Files\Microsoft and its subfolders  
+  ;  4h- in C:\Program Files and its subfolders
   ;  5 - assume javaw.exe in current dir or PATH
  
   Push $R0
@@ -222,6 +223,12 @@ Function GetJRE
   DetailPrint "RegJRE path: $R0"
   StrCpy $R0 "$R0\bin\javaw.exe"
   IfErrors 0 JreFound
+  
+  ; Unter "C:\Program Files\Eclipse Adoptium" suchen
+  !insertmacro CallFindFiles "$PROGRAMFILES64\Eclipse Adoptium" javaw.exe FindJava
+  StrCmp $9 "" +3 0
+  StrCpy $R0 $9
+  Goto JreFound  
      
   ; Unter "C:\Program Files\Eclipse Foundation" suchen
   !insertmacro CallFindFiles "$PROGRAMFILES64\Eclipse Foundation" javaw.exe FindJava

@@ -1,15 +1,15 @@
-\contentsline {chapter}{\numberline {1}Introduction}{1}{chapter.1}%
-\contentsline {chapter}{\numberline {2}Program user interface}{3}{chapter.2}%
-\contentsline {chapter}{\numberline {3}The model editor}{5}{chapter.3}%
-\contentsline {section}{\numberline {3.1}Vertical toolbar}{5}{section.3.1}%
-\contentsline {section}{\numberline {3.2}Darwing surface}{5}{section.3.2}%
-\contentsline {chapter}{\numberline {4}Presentation of a simple queueing model}{7}{chapter.4}%
-\contentsline {section}{\numberline {4.1}Configuration of the clients source}{8}{section.4.1}%
-\contentsline {section}{\numberline {4.2}Configuration of the process station}{9}{section.4.2}%
-\contentsline {chapter}{\numberline {5}Simulation and statistics output}{13}{chapter.5}%
-\contentsline {chapter}{\numberline {6}Animation}{17}{chapter.6}%
-\contentsline {section}{\numberline {6.1}Special elements for animation}{17}{section.6.1}%
-\contentsline {section}{\numberline {6.2}Recording animations}{18}{section.6.2}%
-\contentsline {chapter}{\numberline {7}Model properties}{19}{chapter.7}%
-\contentsline {chapter}{\numberline {8}More elements}{23}{chapter.8}%
-\contentsline {section}{\numberline {8.1}Description of some of these elements}{24}{section.8.1}%
+\contentsline {chapter}{\numberline {1}Introduction}{1}{chapter.1}
+\contentsline {chapter}{\numberline {2}Program user interface}{3}{chapter.2}
+\contentsline {chapter}{\numberline {3}The model editor}{5}{chapter.3}
+\contentsline {section}{\numberline {3.1}Vertical toolbar}{5}{section.3.1}
+\contentsline {section}{\numberline {3.2}Darwing surface}{5}{section.3.2}
+\contentsline {chapter}{\numberline {4}Presentation of a simple queueing model}{7}{chapter.4}
+\contentsline {section}{\numberline {4.1}Configuration of the clients source}{8}{section.4.1}
+\contentsline {section}{\numberline {4.2}Configuration of the process station}{9}{section.4.2}
+\contentsline {chapter}{\numberline {5}Simulation and statistics output}{13}{chapter.5}
+\contentsline {chapter}{\numberline {6}Animation}{17}{chapter.6}
+\contentsline {section}{\numberline {6.1}Special elements for animation}{17}{section.6.1}
+\contentsline {section}{\numberline {6.2}Recording animations}{18}{section.6.2}
+\contentsline {chapter}{\numberline {7}Model properties}{19}{chapter.7}
+\contentsline {chapter}{\numberline {8}More elements}{23}{chapter.8}
+\contentsline {section}{\numberline {8.1}Description of some of these elements}{24}{section.8.1}

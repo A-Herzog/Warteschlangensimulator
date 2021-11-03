@@ -20,13 +20,12 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLClassLoader;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 import java.util.List;
-
-import org.apache.commons.codec.Charsets;
 
 /**
  * Basisklasse, die es abgeleiteten Klassen erlaubt, dynamisch Klassen aus Texten oder aus java- oder aus class-Dateien zu laden
@@ -71,7 +70,7 @@ public abstract class DynamicClassFileBased extends DynamicClassBase {
 		/* java-Datei anlegen */
 		final File javaFile=new File(outputFolder,className+".java");
 		try {
-			Files.write(Paths.get(javaFile.toURI()),text.getBytes(Charsets.UTF_8),StandardOpenOption.CREATE);
+			Files.write(Paths.get(javaFile.toURI()),text.getBytes(StandardCharsets.UTF_8),StandardOpenOption.CREATE);
 		} catch (IOException e) {
 			return DynamicStatus.COMPILE_ERROR;
 		}

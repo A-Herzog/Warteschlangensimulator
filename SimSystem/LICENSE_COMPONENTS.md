@@ -24,7 +24,8 @@ This file lists the third-party components used by "SimSystem" project and their
 
 - Repository: https://mvnrepository.com/artifact/org.apache.poi/poi
 - Repository: https://mvnrepository.com/artifact/org.apache.poi/poi-ooxml
-- Repository: https://mvnrepository.com/artifact/org.apache.poi/poi-ooxml-schemas
+- Repository: https://mvnrepository.com/artifact/org.apache.poi/poi-ooxml-full
+- Repository: https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-core
 - License: Apache 2.0
 - License URL: https://opensource.org/licenses/Apache-2.0
 - Homepage: http://poi.apache.org/ 
