@@ -81,7 +81,7 @@ public abstract class CalculatorWindowPage extends JPanel {
 	 * @param size	Länge der Eingabezeile; wird hier ein Wert &le;0 angegeben, so wird die maximal mögliche Breite verwendet
 	 * @return	Array aus: Panel das Beschriftung und Eingabezeile enthält und Eingabezeile selbst
 	 */
-	protected static final Object[] getInputPanel(final String labelText, final String value, final int size) {
+	public static final Object[] getInputPanel(final String labelText, final String value, final int size) {
 		JPanel panel;
 		JLabel label;
 		JTextField field;

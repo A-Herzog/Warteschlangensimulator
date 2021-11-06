@@ -18728,6 +18728,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[48515] = "Icon";
     t[48518] = "Editor.SavedViews.Update";
     t[48519] = "Ansicht aktualisieren";
+    t[48524] = "CalculatorDialog.Tab.Calculator.ExpressionNr";
+    t[48525] = "Rechenausdruck %d";
     t[48530] = "Statistic.FastAccess.Template.Variables";
     t[48531] = "Wert einer globalen Variable";
     t[48532] = "ModelLoadData.IncompatibleWarning.ScriptRunner";
@@ -20062,14 +20064,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[51959] = "StatistikTransporterPausenzeiten";
     t[51968] = "SystemInfo.Tools.NextStationTraining";
     t[51969] = "Trainingsdaten f\u00fcr Folgestationen";
-    t[51972] = "QuickAccess.Help";
-    t[51973] = "Hilfe";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_10 (java.lang.String[] t) {
+    t[51972] = "QuickAccess.Help";
+    t[51973] = "Hilfe";
     t[51974] = "Statistic.FastAccess.Template.StatisticsXML";
     t[51975] = "XML-Textwert";
     t[51990] = "Surface.AnimationBarStack.XML.DataArea.Direction.Left";

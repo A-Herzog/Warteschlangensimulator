@@ -16,50 +16,16 @@
 package ui.calculator;
 
 import java.awt.BorderLayout;
-import java.awt.Component;
-import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.Toolkit;
 import java.awt.Window;
-import java.awt.datatransfer.StringSelection;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
 import java.io.Serializable;
-import java.nio.charset.StandardCharsets;
 
-import javax.swing.BorderFactory;
-import javax.swing.Box;
 import javax.swing.BoxLayout;
-import javax.swing.JButton;
-import javax.swing.JFileChooser;
 import javax.swing.JLabel;
-import javax.swing.JMenuItem;
 import javax.swing.JPanel;
-import javax.swing.JPopupMenu;
 import javax.swing.JTabbedPane;
-import javax.swing.JTextField;
-import javax.swing.filechooser.FileFilter;
-import javax.swing.filechooser.FileNameExtensionFilter;
 
 import language.Language;
-import mathtools.NumberTools;
-import mathtools.Table;
-import mathtools.TableChart;
-import mathtools.distribution.swing.CommonVariables;
-import parser.MathCalcError;
-import simulator.simparser.ExpressionCalc;
-import statistics.StatisticsDataPerformanceIndicatorWithNegativeValues;
-import systemtools.BaseDialog;
-import systemtools.MsgBox;
-import ui.expressionbuilder.ExpressionBuilder;
-import ui.expressionbuilder.ExpressionBuilderAutoComplete;
 import ui.images.Images;
 
 /**
@@ -75,28 +41,14 @@ public class CalculatorWindowPageCalculator extends CalculatorWindowPage {
 	private static final long serialVersionUID=6550861112699836484L;
 
 	/**
-	 * Gesamtes Fenster
+	 * Einzelne Rechen-Panels
 	 */
-	private final Window window;
-
-	/**
-	 * Eingabezeile
-	 */
-	private final JTextField inputEdit;
-
-	/**
-	 * Ergebnisausgabezeile
-	 */
-	private final JTextField outputEdit;
+	private final CalculatorWindowPageCalculatorPanel[] calculationPanel;
 
 	/**
 	 * Anzahl an zu berechnenden Wiederholungen
-	 * @see #showToolsPopup(Component)
-	 * @see #randomNumbersIndicators(String)
-	 * @see #randomNumbersCopy(String)
-	 * @see #randomNumbersSave(String)
 	 */
-	private long calculationRepeatCount;
+	private CalculatorWindowPageCalculatorPanel.CommonCalculationRepeatCount calculationRepeatCount;
 
 	/**
 	 * Konstruktor der Klasse
@@ -106,78 +58,21 @@ public class CalculatorWindowPageCalculator extends CalculatorWindowPage {
 	 */
 	public CalculatorWindowPageCalculator(final Window window, final JTabbedPane tabs, final String initialExpression) {
 		super(tabs);
-		this.window=window;
-
-		calculationRepeatCount=1_000_000;
-
-		JPanel line;
-		Object[] data;
 
 		final JPanel lines=new JPanel();
 		add(lines,BorderLayout.NORTH);
 		lines.setLayout(new BoxLayout(lines,BoxLayout.PAGE_AXIS));
 
-		/* Eingabezeile */
-		data=getInputPanel(Language.tr("CalculatorDialog.Expression")+":","",-1);
-		lines.add(line=(JPanel)data[0]);
-		inputEdit=(JTextField)data[1];
-		inputEdit.addKeyListener(new KeyAdapter() {
-			@Override public void keyReleased(KeyEvent e) {outputEdit.setText(calc(inputEdit.getText()));}
-		});
+		calculationRepeatCount=new CalculatorWindowPageCalculatorPanel.CommonCalculationRepeatCount();
+		calculationPanel=new CalculatorWindowPageCalculatorPanel[5];
 
-		/* Bereich rechts neben der Eingabezeile */
-		final JPanel buttonsArea=new JPanel(new FlowLayout(FlowLayout.LEFT));
-		line.add(buttonsArea,BorderLayout.EAST);
-
-		/* ExpressionBuilder-Button */
-		final JButton buildButton=new JButton();
-		buttonsArea.add(buildButton);
-		buildButton.setPreferredSize(new Dimension(26,26));
-		buildButton.setIcon(Images.EXPRESSION_BUILDER.getIcon());
-		buildButton.setToolTipText(Language.tr("CalculatorDialog.Expression.BuildExpression"));
-
-		/* Tools-Button */
-		final JButton toolsButton=new JButton();
-		buttonsArea.add(toolsButton);
-		toolsButton.setPreferredSize(new Dimension(26,26));
-		toolsButton.setIcon(Images.GENERAL_TOOLS.getIcon());
-		toolsButton.setToolTipText(Language.tr("CalculatorDialog.RepeatedProcessResults"));
-		toolsButton.addActionListener(e->showToolsPopup(toolsButton));
-
-		/* Ausgabezeile */
-		data=getInputPanel(Language.tr("CalculatorDialog.Result")+":","",-1);
-		lines.add(line=(JPanel)data[0]);
-		outputEdit=(JTextField)data[1];
-		outputEdit.setEditable(false);
-
-		/* Expression-Builder konfigurieren */
-		buildButton.addActionListener(e->{
-			final ExpressionBuilder dialog=new ExpressionBuilder(this,inputEdit.getText(),false,new String[0],null,null,null,false,true,true);
-			dialog.setVisible(true);
-			if (dialog.getClosedBy()==BaseDialog.CLOSED_BY_OK) {
-				inputEdit.setText(dialog.getExpression());
-				outputEdit.setText(calc(inputEdit.getText()));
-			}
-		});
-		ExpressionBuilderAutoComplete.process(new ExpressionBuilder(this,inputEdit.getText(),false,new String[0],null,null,null,false,true,true),inputEdit);
-
-		/* Bereich rechts neben der Ausgabezeile */
-		final JPanel buttonsAreaOutput=new JPanel(new FlowLayout(FlowLayout.LEFT));
-		line.add(buttonsAreaOutput,BorderLayout.EAST);
-
-		/* Kopieren-Button */
-		final JButton button=new JButton("");
-		button.setIcon(Images.EDIT_COPY.getIcon());
-		button.setToolTipText(Language.tr("CalculatorDialog.Result.Copy"));
-		final Dimension size=button.getPreferredSize();
-		button.setPreferredSize(new Dimension(size.height,size.height));
-		button.addActionListener(e->{
-			Toolkit.getDefaultToolkit().getSystemClipboard().setContents(new StringSelection(outputEdit.getText()),null);
-		});
-		buttonsAreaOutput.add(button,BorderLayout.EAST);
-
-		/* Start */
-		if (initialExpression!=null) setExpression(initialExpression);
+		for (int i=0;i<calculationPanel.length;i++) {
+			final JPanel line=new JPanel(new FlowLayout(FlowLayout.LEFT));
+			line.add(new JLabel("<html><body><b>"+String.format(Language.tr("CalculatorDialog.Tab.Calculator.ExpressionNr"),i+1)+"</b></body></html>"));
+			lines.add(line);
+			final String expression=(i==0)?initialExpression:null;
+			lines.add(calculationPanel[i]=new CalculatorWindowPageCalculatorPanel(window,calculationRepeatCount,expression));
+		}
 	}
 
 	@Override
@@ -195,309 +90,7 @@ public class CalculatorWindowPageCalculator extends CalculatorWindowPage {
 	 * @param expression	Neuer Rechenausdruck
 	 */
 	public void setExpression(final String expression) {
-		if (expression==null || expression.trim().isEmpty()) return;
-
-		inputEdit.setText(expression);
-		outputEdit.setText(calc(inputEdit.getText()));
+		calculationPanel[0].setExpression(expression);
 		showPage();
-	}
-
-	/**
-	 * Berechnet einen Ausdruck
-	 * @param expression	Zu berechnender Ausdruck
-	 * @return	Liefert das Ergebnis als Zeichenkette oder eine Fehlermeldung
-	 */
-	private String calc(final String expression) {
-		if (expression==null || expression.trim().isEmpty()) return "";
-
-		final ExpressionCalc calc=new ExpressionCalc(null);
-		final int error=calc.parse(expression);
-		if (error>=0) return String.format(Language.tr("CalculatorDialog.Expression.ParseError"),error+1);
-		double d;
-		try {
-			d=calc.calc();
-		} catch (MathCalcError e) {
-			return Language.tr("CalculatorDialog.Expression.CalcError");
-		}
-		return NumberTools.formatNumberMax(d);
-	}
-
-	/**
-	 * Verarbeitet die Eingaben in dem Eingabefeld zur Festlegung der Anzahl an zu berechnenden Wiederholungen
-	 * @param input	Eingabefeld zur Festlegung der Anzahl an zu berechnenden Wiederholungen
-	 * @see #showToolsPopup(Component)
-	 */
-	private void processRepeatCountInput(final JTextField input) {
-		final Long L=NumberTools.getPositiveLong(input,true);
-		if (L!=null) calculationRepeatCount=L.longValue();
-	}
-
-	/**
-	 * Erzeugt ein Rechenobjekt auf Basis eines Ausdrucks.
-	 * @param expression	Zu interpretierender Ausdruck
-	 * @return	Liefert im Erfolgsfall ein Rechenobjekt, sonst <code>null</code>
-	 */
-	private ExpressionCalc buildExpressionCalc(final String expression) {
-		final ExpressionCalc calc=new ExpressionCalc(null);
-		final int error=calc.parse(expression);
-		if (error>=0) {
-			MsgBox.error(this,Language.tr("CalculatorDialog.Expression.CalcError.Info"),String.format(Language.tr("CalculatorDialog.Expression.ParseError"),error+1));
-			return null;
-		}
-		return calc;
-	}
-
-	/**
-	 * Erzeugt eine Reihe von Zufallszahlen bzw. wiederholten Auswertungen des Ausdrucks, ermittelt die Kenngrößen der Messreihe und zeigt diese an.
-	 * @param expression	Zu berechnender Ausdruck
-	 */
-	private void randomNumbersIndicators(final String expression) {
-		final ExpressionCalc calc=buildExpressionCalc(expression);
-		if (calc==null) return;
-
-		final StatisticsDataPerformanceIndicatorWithNegativeValues indicator=new StatisticsDataPerformanceIndicatorWithNegativeValues(null,-1,-1);
-		try {
-			for (int i=0;i<calculationRepeatCount;i++) indicator.add(calc.calc());
-		} catch (MathCalcError e) {
-			MsgBox.error(this,Language.tr("CalculatorDialog.Expression.CalcError.Info"),Language.tr("CalculatorDialog.Expression.CalcError"));
-			return;
-		}
-
-		final StringBuilder info=new StringBuilder();
-		info.append(String.format(Language.tr("CalculatorDialog.Tab.Distributions.GenerateRandomNumbers.Generated")+": %s",NumberTools.formatLong(indicator.getCount()))+"\n");
-		info.append(String.format(Language.tr("Distribution.Mean")+": E=%s",NumberTools.formatNumber(indicator.getMean(),3))+"\n");
-		info.append(String.format(Language.tr("Statistics.Variance")+": Var=%s",NumberTools.formatNumber(indicator.getVar(),3))+"\n");
-		info.append(String.format(Language.tr("Distribution.StdDev")+": Std=%s",NumberTools.formatNumber(indicator.getSD(),3))+"\n");
-		info.append(String.format(Language.tr("Distribution.CV")+": CV=%s",NumberTools.formatNumber(indicator.getCV(),3))+"\n");
-		info.append(String.format(Language.tr("Distribution.Skewness")+": Sk=%s",NumberTools.formatNumber(indicator.getSk(),3))+"\n");
-		info.append(String.format(Language.tr("Statistics.Minimum")+": Min=%s",NumberTools.formatNumber(indicator.getMin(),3))+"\n");
-		info.append(String.format(Language.tr("Statistics.Maximum")+": Max=%s",NumberTools.formatNumber(indicator.getMax(),3))+"\n");
-
-		MsgBox.info(this,Language.tr("CalculatorDialog.Tab.Distributions.GenerateRandomNumbers.Generate"),info.toString());
-	}
-
-	/**
-	 * Erzeugt eine Reihe von Zufallszahlen und kopiert diese in die Zwischenablage.
-	 * @param expression	Zu berechnender Ausdruck
-	 */
-	private void randomNumbersCopy(final String expression) {
-		final ExpressionCalc calc=buildExpressionCalc(expression);
-		if (calc==null) return;
-
-		final StringBuilder result=new StringBuilder();
-		try {
-			for (int i=0;i<calculationRepeatCount;i++) result.append(NumberTools.formatNumberMax(calc.calc()));
-		} catch (MathCalcError e) {
-			MsgBox.error(this,Language.tr("CalculatorDialog.Expression.CalcError.Info"),Language.tr("CalculatorDialog.Expression.CalcError"));
-			return;
-		}
-
-		Toolkit.getDefaultToolkit().getSystemClipboard().setContents(new StringSelection(result.toString()),null);
-	}
-
-	/**
-	 * Erzeugt eine Reihe von Zufallszahlen und speichert die als Datei.
-	 * @param expression	Zu berechnender Ausdruck
-	 * @return	Liefert <code>true</code>, wenn die Zufallszahlen gespeichert werden konnten
-	 */
-	private boolean randomNumbersSave(final String expression) {
-		final JFileChooser fc=new JFileChooser();
-		CommonVariables.initialDirectoryToJFileChooser(fc);
-		fc.setDialogTitle(Language.tr("CalculatorDialog.Tab.Distributions.GenerateRandomNumbers.SaveTitle"));
-		final FileFilter txt=new FileNameExtensionFilter(Table.FileTypeText+" (*.txt, *.tsv)","txt","tsv");
-		fc.addChoosableFileFilter(txt);
-		fc.setFileFilter(txt);
-		fc.setAcceptAllFileFilterUsed(false);
-		if (fc.showSaveDialog(window)!=JFileChooser.APPROVE_OPTION) return false;
-		CommonVariables.initialDirectoryFromJFileChooser(fc);
-		File file=fc.getSelectedFile();
-		if (file.getName().indexOf('.')<0) {
-			if (fc.getFileFilter()==txt) file=new File(file.getAbsoluteFile()+".txt");
-		}
-
-		final ExpressionCalc calc=buildExpressionCalc(expression);
-		if (calc==null) return false;
-
-		final String lineSeparator=System.lineSeparator();
-
-		try(OutputStream stream=new FileOutputStream(file)) {
-			try (OutputStreamWriter writer=new OutputStreamWriter(stream,StandardCharsets.UTF_8)) {
-				try (BufferedWriter bufferedWriter=new BufferedWriter(writer)) {
-					try {
-						for (int i=0;i<calculationRepeatCount;i++) {
-							bufferedWriter.write(NumberTools.formatNumberMax(calc.calc()));
-							bufferedWriter.write(lineSeparator);
-						}
-					} catch (MathCalcError e) {
-						MsgBox.error(this,Language.tr("CalculatorDialog.Expression.CalcError.Info"),Language.tr("CalculatorDialog.Expression.CalcError"));
-						return false;
-					}
-					return true;
-				}
-			}
-		} catch (IOException e) {
-			return false;
-		}
-	}
-
-	/**
-	 * Anzahl der Schritte in der Häufigkeitsverteilung
-	 * @see #buildTableChart(String)
-	 */
-	private static final int FREQUENCY_DISTRIBUTION_STEPS=50;
-
-	/**
-	 * Erstellt eine Zufallszahlen-Tabelle mit eingebettetem Diagramm
-	 * @param expression	Zu berechnender Ausdruck
-	 * @return	Zufallszahlen-Tabelle mit eingebettetem Diagramm oder <code>null</code>, wenn keine Tabelle erstellt werden konnte
-	 */
-	private TableChart buildTableChart(final String expression) {
-		if (calculationRepeatCount<16+FREQUENCY_DISTRIBUTION_STEPS) return null;
-
-		/* Tabelle erstellen */
-
-		final Table table=new Table();
-
-		final ExpressionCalc calc=buildExpressionCalc(expression);
-		if (calc==null) return null;
-
-		final int count=(int)Math.min(100_000,calculationRepeatCount);
-		final double[] numbers=new double[count];
-		double min=Double.MAX_VALUE;
-		double max=-Double.MAX_VALUE;
-		try {
-			for (int i=0;i<count;i++) {
-				final double value=calc.calc();
-				numbers[i]=value;
-				if (value<min) min=value;
-				if (value>max) max=value;
-			}
-		} catch (MathCalcError e) {
-			MsgBox.error(this,Language.tr("CalculatorDialog.Expression.CalcError.Info"),Language.tr("CalculatorDialog.Expression.CalcError"));
-			return null;
-		}
-
-		final String range="A2:A"+(count+1);
-
-		int nr=0;
-		table.addLine(new String[] {Language.tr("CalculatorDialog.Tab.Distributions.GenerateRandomNumbers.SaveExt.RandomNumbers"),Language.tr("CalculatorDialog.Tab.Distributions.GenerateRandomNumbers.SaveExt.DistributionName")});
-		table.addLine(new String[] {NumberTools.formatNumberMax(numbers[nr++])});
-		table.addLine(new String[] {NumberTools.formatNumberMax(numbers[nr++]),"","",Language.tr("CalculatorDialog.Tab.Distributions.GenerateRandomNumbers.SaveExt.Parameters.Actual")});
-		table.addLine(new String[] {NumberTools.formatNumberMax(numbers[nr++]),"",Language.tr("Distribution.Mean"),"=AVERAGE("+range+")"});
-		table.addLine(new String[] {NumberTools.formatNumberMax(numbers[nr++]),"",Language.tr("Statistics.Variance"),"=_xlfn.VAR.S("+range+")"});
-		table.addLine(new String[] {NumberTools.formatNumberMax(numbers[nr++]),"",Language.tr("Distribution.StdDev"),"=_xlfn.STDEV.S("+range+")"});
-		table.addLine(new String[] {NumberTools.formatNumberMax(numbers[nr++]),"",Language.tr("Distribution.CV"),"=_xlfn.STDEV.S("+range+")/AVERAGE("+range+")"});
-		table.addLine(new String[] {NumberTools.formatNumberMax(numbers[nr++]),"",Language.tr("Distribution.Skewness"),"=SKEW("+range+")"});
-		table.addLine(new String[] {NumberTools.formatNumberMax(numbers[nr++]),"",Language.tr("Statistics.Minimum"),"=MIN("+range+")"});
-		table.addLine(new String[] {NumberTools.formatNumberMax(numbers[nr++]),"",Language.tr("Statistics.Maximum"),"=MAX("+range+")"});
-		table.addLine(new String[] {NumberTools.formatNumberMax(numbers[nr++])});
-		table.addLine(new String[] {NumberTools.formatNumberMax(numbers[nr++]),"",Language.tr("Distribution.Range")+" "+Language.tr("Distribution.Range.from"),Language.tr("Distribution.Range")+" "+Language.tr("Distribution.Range.to"),Language.tr("Distribution.Range")+" "+Language.tr("Distribution.Range.center"),Language.tr("Statistics.Frequency")});
-		final int frequencyDistributionStartRow=nr+1;
-		final double step=(max-min)/FREQUENCY_DISTRIBUTION_STEPS;
-		for (int i=0;i<FREQUENCY_DISTRIBUTION_STEPS;i++) {
-			final String cmd;
-			if (i==0) {
-				cmd="=COUNTIF("+range+",CONCATENATE(\"<=\",D"+(nr+2)+"))";
-			} else {
-				cmd="=COUNTIF("+range+",CONCATENATE(\"<=\",D"+(nr+2)+"))-COUNTIF("+range+",CONCATENATE(\"<=\",C"+(nr+2)+"))";
-			}
-			table.addLine(new String[] {NumberTools.formatNumberMax(numbers[nr++]),"",NumberTools.formatNumberMax(min+step*i),NumberTools.formatNumberMax(min+step*(i+1)),"=(C"+(nr+1)+"+D"+(nr+1)+")/2",cmd});
-		}
-
-		try {
-			for (int i=nr;i<count;i++) table.addLine(new String[] {NumberTools.formatNumberMax(calc.calc())});
-		} catch (MathCalcError e) {
-			MsgBox.error(this,Language.tr("CalculatorDialog.Expression.CalcError.Info"),Language.tr("CalculatorDialog.Expression.CalcError"));
-			return null;
-		}
-
-		/* Diagramm aufbauen */
-
-		final TableChart tableChart=new TableChart(table);
-
-		tableChart.setupAxis(Language.tr("Statistics.Values"),Language.tr("Statistics.Frequency"));
-		tableChart.setupChart(
-				TableChart.ChartMode.LINE,
-				new TableChart.Range[] {new TableChart.Range(5,frequencyDistributionStartRow,5,frequencyDistributionStartRow+FREQUENCY_DISTRIBUTION_STEPS-1)},
-				new Object[]{Language.tr("Statistics.Frequency")},
-				new TableChart.Range(4,frequencyDistributionStartRow,4,frequencyDistributionStartRow+FREQUENCY_DISTRIBUTION_STEPS-1)
-				);
-
-		return tableChart;
-	}
-
-	/**
-	 * Erzeugt eine Reihe von Zufallszahlen und speichert diese inkl. weitere Angaben als Datei.
-	 * @param expression	Zu berechnender Ausdruck
-	 * @return	Liefert <code>true</code>, wenn die Zufallszahlen gespeichert werden konnten
-	 */
-	private boolean randomNumbersSaveExt(final String expression) {
-		final JFileChooser fc=new JFileChooser();
-		CommonVariables.initialDirectoryToJFileChooser(fc);
-		fc.setDialogTitle(Language.tr("CalculatorDialog.Tab.Distributions.GenerateRandomNumbers.SaveTitle"));
-		final FileFilter xlsx=new FileNameExtensionFilter(Table.FileTypeExcel+" (*.xlsx)","xlsx");
-		fc.addChoosableFileFilter(xlsx);
-		fc.setFileFilter(xlsx);
-		fc.setAcceptAllFileFilterUsed(false);
-		if (fc.showSaveDialog(window)!=JFileChooser.APPROVE_OPTION) return false;
-		CommonVariables.initialDirectoryFromJFileChooser(fc);
-		File file=fc.getSelectedFile();
-		if (file.getName().indexOf('.')<0) {
-			if (fc.getFileFilter()==xlsx) file=new File(file.getAbsoluteFile()+".xlsx");
-		}
-
-		final TableChart tableChart=buildTableChart(expression);
-		if (tableChart==null) return false;
-		return tableChart.save(Language.tr("CalculatorDialog.Tab.Distributions.GenerateRandomNumbers.SaveExt.FrequencyDistribution"),file);
-	}
-
-	/**
-	 * Zeigt ein Popupmenü mit Befehlen zur Erzeugung von Messpunkten gemäß dem eingegebenen Ausdruck an.
-	 * @param invoker	Aufrufer (zur Ausrichtung des Menüs)
-	 */
-	private void showToolsPopup(final Component invoker) {
-		final JPopupMenu popup=new JPopupMenu();
-
-		JMenuItem item;
-		JPanel line;
-
-		popup.add(item=new JMenuItem("<html><body>\n"+Language.tr("CalculatorDialog.RepeatedProcessResults.InfoPopup").replace("\n","<br>\n")+"\n</body></html>"));
-		item.setEnabled(false);
-
-		popup.addSeparator();
-
-		final JPanel editorPanel=new JPanel();
-		editorPanel.setLayout(new BoxLayout(editorPanel,BoxLayout.PAGE_AXIS));
-		editorPanel.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
-		line.add(Box.createHorizontalStrut(20));
-		final JLabel label=new JLabel(Language.tr("CalculatorDialog.RepeatedProcessResults.Info")+":");
-		line.add(label);
-		editorPanel.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
-		line.setBorder(BorderFactory.createEmptyBorder(0,25,0,0));
-		final JTextField editor=new JTextField(""+calculationRepeatCount,10);
-		line.add(editor);
-		label.setLabelFor(editor);
-		editor.addKeyListener(new KeyListener() {
-			@Override public void keyTyped(KeyEvent e) {processRepeatCountInput(editor);}
-			@Override public void keyReleased(KeyEvent e) {processRepeatCountInput(editor);}
-			@Override public void keyPressed(KeyEvent e) {processRepeatCountInput(editor);}
-		});
-		popup.add(editorPanel);
-
-		popup.addSeparator();
-
-		popup.add(item=new JMenuItem(Language.tr("CalculatorDialog.Tab.Distributions.GenerateRandomNumbers.DetermineCharacteristics"),Images.EXTRAS_CALCULATOR.getIcon()));
-		item.addActionListener(e->randomNumbersIndicators(inputEdit.getText()));
-
-		popup.add(item=new JMenuItem(Language.tr("CalculatorDialog.Tab.Distributions.GenerateRandomNumbers.Copy"),Images.EDIT_COPY.getIcon()));
-		item.addActionListener(e->randomNumbersCopy(inputEdit.getText()));
-
-		popup.add(item=new JMenuItem(Language.tr("CalculatorDialog.Tab.Distributions.GenerateRandomNumbers.Save"),Images.GENERAL_SAVE.getIcon()));
-		item.addActionListener(e->randomNumbersSave(inputEdit.getText()));
-
-		popup.add(item=new JMenuItem(Language.tr("CalculatorDialog.Tab.Distributions.GenerateRandomNumbers.SaveExt"),Images.GENERAL_TABLE.getIcon()));
-		item.addActionListener(e->randomNumbersSaveExt(inputEdit.getText()));
-
-		popup.show(invoker,0,invoker.getHeight());
 	}
 }
