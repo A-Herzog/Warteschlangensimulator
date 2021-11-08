@@ -154,9 +154,14 @@ public class ModelElementSourceTableDialog extends ModelElementBaseDialog {
 		});
 
 		tools.add(button=new JButton());
+		button.setToolTipText(Language.tr("Surface.SourceTable.Dialog.Table.Preview"));
+		button.setIcon(Images.GENERAL_TABLE.getIcon());
+		button.addActionListener(e->new ModelElementSourceTablePreviewDialog(ModelElementSourceTableDialog.this,element.getId(),tableEdit.getText(),clientsEdit.getText().trim().split("\n"),optionDistances.isSelected(),element.getModel()));
+
+		tools.add(button=new JButton());
 		button.setToolTipText(Language.tr("Surface.SourceTable.Dialog.Table.Process"));
 		button.setIcon(Images.GENERAL_TOOLS.getIcon());
-		button.addActionListener(e->	new ClientInputTableDialog(ModelElementSourceTableDialog.this));
+		button.addActionListener(e->new ClientInputTableDialog(ModelElementSourceTableDialog.this));
 
 		FileDropper.addFileDropper(this,tableEdit);
 

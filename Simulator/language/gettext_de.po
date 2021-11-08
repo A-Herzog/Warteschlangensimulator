@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-11-07 14:09+0100\n"
+"POT-Creation-Date: 2021-11-08 11:36+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -28846,6 +28846,60 @@ msgstr "Es wurde keine Tabellendatei, aus der die Kundenankünfte geladen werden
 
 msgid "Surface.SourceTable.Dialog.Table.ErrorTitle"
 msgstr "Keine Tabellendatei angegeben"
+
+msgid "Surface.SourceTable.Dialog.Table.Preview"
+msgstr "Tabellenvorschsu"
+
+msgid "Surface.SourceTable.Dialog.Table.Preview.ErrorFileNotFound.Info"
+msgstr ""
+"Die angegebene Tabellendatei\n"
+"%s\n"
+"existiert nicht."
+
+msgid "Surface.SourceTable.Dialog.Table.Preview.ErrorFileNotFound.Title"
+msgstr "Tabellendatei existiert nicht"
+
+msgid "Surface.SourceTable.Dialog.Table.Preview.ErrorNoFile.Info"
+msgstr "Es wurde keine zu ladende Tabellendatei angegeben."
+
+msgid "Surface.SourceTable.Dialog.Table.Preview.ErrorNoFile.Title"
+msgstr "Keine Tabellendatei angegeben"
+
+msgid "Surface.SourceTable.Dialog.Table.Preview.ErrorNoTableData.Info"
+msgstr ""
+"Die angegebene Tabellendatei\n"
+"%s\n"
+"konnte nicht geladen werden."
+
+msgid "Surface.SourceTable.Dialog.Table.Preview.ErrorNoTableData.Title"
+msgstr "Tabellendatei kann nicht geladen werden"
+
+msgid "Surface.SourceTable.Dialog.Table.Preview.ErrorProcess.Info"
+msgstr ""
+
+msgid "Surface.SourceTable.Dialog.Table.Preview.ErrorProcess.Title"
+msgstr ""
+
+msgid "Surface.SourceTable.Dialog.Table.Preview.Header.ClientProperties"
+msgstr "Kundeneigenschaft"
+
+msgid "Surface.SourceTable.Dialog.Table.Preview.Header.ClientType"
+msgstr "Kundentyp"
+
+msgid "Surface.SourceTable.Dialog.Table.Preview.Header.Interarrival"
+msgstr "Zwischenankunftszeit"
+
+msgid "Surface.SourceTable.Dialog.Table.Preview.Header.Time"
+msgstr "Zeitpunkt"
+
+msgid "Surface.SourceTable.Dialog.Table.Preview.MaxSize"
+msgstr "In dieser Vorschau werden nur die ersten %s der insgesamt %s Tabellenzeilen angezeigt."
+
+msgid "Surface.SourceTable.Dialog.Table.Preview.TabProcessed"
+msgstr "Aufbereitete Daten"
+
+msgid "Surface.SourceTable.Dialog.Table.Preview.TabRaw"
+msgstr "Tabellendaten"
 
 msgid "Surface.SourceTable.Dialog.Table.Process"
 msgstr "Tabellendatei für Tabellenquelle konvertieren"

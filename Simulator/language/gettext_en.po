@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-11-07 14:09+0100\n"
+"POT-Creation-Date: 2021-11-08 11:36+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -28833,6 +28833,60 @@ msgstr "No table file specified"
 
 msgid "Surface.SourceTable.Dialog.Table.ErrorTitle"
 msgstr "No table file to load the client arrivals from was specified."
+
+msgid "Surface.SourceTable.Dialog.Table.Preview"
+msgstr "Table preview"
+
+msgid "Surface.SourceTable.Dialog.Table.Preview.ErrorFileNotFound.Info"
+msgstr ""
+"The specified table file\n"
+"%s\n"
+"does not exist."
+
+msgid "Surface.SourceTable.Dialog.Table.Preview.ErrorFileNotFound.Title"
+msgstr "Table file does not exist"
+
+msgid "Surface.SourceTable.Dialog.Table.Preview.ErrorNoFile.Info"
+msgstr "No table file to be loaded was specified."
+
+msgid "Surface.SourceTable.Dialog.Table.Preview.ErrorNoFile.Title"
+msgstr "No table file specified"
+
+msgid "Surface.SourceTable.Dialog.Table.Preview.ErrorNoTableData.Info"
+msgstr ""
+"The specified table file\n"
+"%s\n"
+"cannot be loaded."
+
+msgid "Surface.SourceTable.Dialog.Table.Preview.ErrorNoTableData.Title"
+msgstr "Table cannot be loaded"
+
+msgid "Surface.SourceTable.Dialog.Table.Preview.ErrorProcess.Info"
+msgstr ""
+
+msgid "Surface.SourceTable.Dialog.Table.Preview.ErrorProcess.Title"
+msgstr ""
+
+msgid "Surface.SourceTable.Dialog.Table.Preview.Header.ClientProperties"
+msgstr "Client property"
+
+msgid "Surface.SourceTable.Dialog.Table.Preview.Header.ClientType"
+msgstr "Client type"
+
+msgid "Surface.SourceTable.Dialog.Table.Preview.Header.Interarrival"
+msgstr "Inter-arrival time"
+
+msgid "Surface.SourceTable.Dialog.Table.Preview.Header.Time"
+msgstr "Time stamp"
+
+msgid "Surface.SourceTable.Dialog.Table.Preview.MaxSize"
+msgstr "In this preview only the first %s of the %s table rows will be shown."
+
+msgid "Surface.SourceTable.Dialog.Table.Preview.TabProcessed"
+msgstr "Processed data"
+
+msgid "Surface.SourceTable.Dialog.Table.Preview.TabRaw"
+msgstr "Table data"
 
 msgid "Surface.SourceTable.Dialog.Table.Process"
 msgstr "Convert table for table source"

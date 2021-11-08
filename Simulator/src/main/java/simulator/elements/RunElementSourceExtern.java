@@ -95,12 +95,13 @@ public abstract class RunElementSourceExtern extends RunElement implements RunSo
 	/**
 	 * Erzeugt die Ankünfte aus einer Tabelle.<br>
 	 * Spalten der Tabelle:	Zahlenwert, Kundentypname, (optional) Zuweisungen
+	 * @param id	ID der zugehörigen Tabellenkundenquellen-Station
 	 * @param table	Tabelle aus der die Daten geladen werden sollen
 	 * @param externalTypes	Liste der Kundentypnamen, die berücksichtigt werden sollen
 	 * @param numbersAreDistances	Gibt an, ob die Zahlen Zeitpunkte (<code>false</code>) oder Zwischenankunftszeiten (<code>true</code>) sind
-	 * @return	Liefert im Erfolgsfall <code>null</code> zurück, sonst eine Fehlermeldung
+	 * @return	Liefert im Erfolgsfall ein Objekt vom Typ <code>Arrival[][]</code> zurück, sonst eine Fehlermeldung (<code>String</code>)
 	 */
-	protected final String loadTable(final Table table, final List<String> externalTypes, final boolean numbersAreDistances) {
+	public static final Object loadTableToArrivals(final int id, final Table table, final List<String> externalTypes, final boolean numbersAreDistances) {
 		final String[] types=getClientTypes(externalTypes,false);
 		final Map<String,Integer> typesMap=new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
 		for (int i=0;i<types.length;i++) typesMap.put(types[i],i);
@@ -138,12 +139,13 @@ public abstract class RunElementSourceExtern extends RunElement implements RunSo
 			/* Erst Ankunftszeit bestimmen, dann bestimmen, ob Zeile übersprungen wird. So sind relative Zeitabstände immer korrekt, auch wenn später übersprungene Zeilen fehlen. */
 
 			/* Gültiger Kundentyp in zweiter Spalte? */
-			final Integer I=typesMap.get(line.get(1).trim());
+			final String clientType=line.get(1).trim();
+			final Integer I=typesMap.get(clientType);
 			if (I==null) continue;
 			final int index=I;
 
 			/* Ankunftszeit erfassen */
-			final Arrival a=new Arrival(arrivalTime);
+			final Arrival a=new Arrival(clientType,arrivalTime);
 			final int error=a.loadData(line,2); /* Weitere Spalten laden */
 			if (error>=0) return String.format(Language.tr("Simulation.Creator.TableFile.InvalidData"),id,i+1,error+1);
 			arrivalsList.get(index).add(a);
@@ -151,7 +153,7 @@ public abstract class RunElementSourceExtern extends RunElement implements RunSo
 
 		/* Sortieren und ausgeben */
 		final Arrival[] dummy=new Arrival[0];
-		arrivals=new Arrival[types.length][];
+		final Arrival[][] arrivals=new Arrival[types.length][];
 		for (int i=0;i<types.length;i++) {
 			final Arrival[] list=arrivalsList.get(i).toArray(dummy);
 			if (!isSorted) Arrays.sort(list,(a1,a2)->{
@@ -162,6 +164,21 @@ public abstract class RunElementSourceExtern extends RunElement implements RunSo
 			});
 			arrivals[i]=list;
 		}
+		return arrivals;
+	}
+
+	/**
+	 * Erzeugt die Ankünfte aus einer Tabelle.<br>
+	 * Spalten der Tabelle:	Zahlenwert, Kundentypname, (optional) Zuweisungen
+	 * @param table	Tabelle aus der die Daten geladen werden sollen
+	 * @param externalTypes	Liste der Kundentypnamen, die berücksichtigt werden sollen
+	 * @param numbersAreDistances	Gibt an, ob die Zahlen Zeitpunkte (<code>false</code>) oder Zwischenankunftszeiten (<code>true</code>) sind
+	 * @return	Liefert im Erfolgsfall <code>null</code> zurück, sonst eine Fehlermeldung
+	 */
+	protected final String loadTable(final Table table, final List<String> externalTypes, final boolean numbersAreDistances) {
+		final Object result=loadTableToArrivals(id,table,externalTypes,numbersAreDistances);
+		if (result instanceof String) return (String)result;
+		arrivals=(Arrival[][])result;
 		return null;
 	}
 
@@ -404,7 +421,9 @@ public abstract class RunElementSourceExtern extends RunElement implements RunSo
 	 * @see RunElementSourceExtern#loadTable(Table, List, boolean)
 	 * @see RunElementSourceExtern#processArrivalEvent(SimulationData, boolean, int)
 	 */
-	private static class Arrival {
+	public static class Arrival {
+		/** Kundentyp */
+		public final String clientType;
 		/** Ankunftszeit in MS */
 		public final long time;
 		/** Kundendatenfelder-Indices für die Zuweisungen der Ergebnisse von {@link #dataFormula} (Werte &ge;0 für Datenfelder, -1=w, -2=t, -3=p, -4=wKosten, -5=tKosten, -6=pKosten */
@@ -416,9 +435,11 @@ public abstract class RunElementSourceExtern extends RunElement implements RunSo
 
 		/**
 		 * Konstruktor der Klasse
+		 * @param clientType	Kundentyp
 		 * @param time	Ankunftszeit in Sekunden
 		 */
-		public Arrival(final double time) {
+		public Arrival(final String clientType, final double time) {
+			this.clientType=clientType;
 			this.time=FastMath.round(time*1000);
 		}
 
