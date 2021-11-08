@@ -211,6 +211,7 @@ public class StatisticViewerMovementText extends StatisticViewerText {
 		addLine(Language.tr("Statistics.VariancePathLength")+": Var="+StatisticTools.formatNumber(indicator.getVar()));
 		addLine(Language.tr("Statistics.CVInterPathLength")+": CV="+StatisticTools.formatNumber(indicator.getCV()));
 		addLine(Language.tr("Statistics.Skewness")+": Sk="+StatisticTools.formatNumber(indicator.getSk()));
+		addLine(Language.tr("Statistics.Kurt")+": Kurt="+StatisticTools.formatNumber(indicator.getKurt()));
 		addLine(Language.tr("Statistics.MinimalPathLength")+": Min="+StatisticTools.formatNumber(indicator.getMin()));
 		addLine(Language.tr("Statistics.MaximalPathLength")+": Max="+StatisticTools.formatNumber(indicator.getMax()));
 		endParagraph();

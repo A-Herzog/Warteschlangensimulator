@@ -176,6 +176,7 @@ public class ExpressionCalc extends CalcSystem {
 		functions.add(new CalcSymbolStationDataWIP_cv());
 		functions.add(new CalcSymbolStationDataWIP_scv());
 		functions.add(new CalcSymbolStationDataWIP_sk());
+		functions.add(new CalcSymbolStationDataWIP_kurt());
 		functions.add(new CalcSymbolStationDataWIP_hist());
 
 		functions.add(new CalcSymbolStationDataQueue());
@@ -189,6 +190,7 @@ public class ExpressionCalc extends CalcSystem {
 		functions.add(new CalcSymbolStationDataQueue_cv());
 		functions.add(new CalcSymbolStationDataQueue_scv());
 		functions.add(new CalcSymbolStationDataQueue_sk());
+		functions.add(new CalcSymbolStationDataQueue_kurt());
 		functions.add(new CalcSymbolStationDataQueue_hist());
 
 		functions.add(new CalcSymbolStationDataProcessCount());
@@ -204,6 +206,7 @@ public class ExpressionCalc extends CalcSystem {
 		functions.add(new CalcSymbolStationDataWaiting_cv());
 		functions.add(new CalcSymbolStationDataWaiting_scv());
 		functions.add(new CalcSymbolStationDataWaiting_sk());
+		functions.add(new CalcSymbolStationDataWaiting_kurt());
 		functions.add(new CalcSymbolStationDataWaiting_hist());
 		functions.add(new CalcSymbolStationDataWaiting_histAll());
 
@@ -218,6 +221,7 @@ public class ExpressionCalc extends CalcSystem {
 		functions.add(new CalcSymbolStationDataTransfer_cv());
 		functions.add(new CalcSymbolStationDataTransfer_scv());
 		functions.add(new CalcSymbolStationDataTransfer_sk());
+		functions.add(new CalcSymbolStationDataTransfer_kurt());
 		functions.add(new CalcSymbolStationDataTransfer_hist());
 		functions.add(new CalcSymbolStationDataTransfer_histAll());
 
@@ -232,6 +236,7 @@ public class ExpressionCalc extends CalcSystem {
 		functions.add(new CalcSymbolStationDataProcess_cv());
 		functions.add(new CalcSymbolStationDataProcess_scv());
 		functions.add(new CalcSymbolStationDataProcess_sk());
+		functions.add(new CalcSymbolStationDataProcess_kurt());
 		functions.add(new CalcSymbolStationDataProcess_hist());
 		functions.add(new CalcSymbolStationDataProcess_histAll());
 
@@ -246,6 +251,7 @@ public class ExpressionCalc extends CalcSystem {
 		functions.add(new CalcSymbolStationDataResidence_cv());
 		functions.add(new CalcSymbolStationDataResidence_scv());
 		functions.add(new CalcSymbolStationDataResidence_sk());
+		functions.add(new CalcSymbolStationDataResidence_kurt());
 		functions.add(new CalcSymbolStationDataResidence_hist());
 		functions.add(new CalcSymbolStationDataResidence_histAll());
 
@@ -269,6 +275,7 @@ public class ExpressionCalc extends CalcSystem {
 		functions.add(new CalcSymbolResourceData_cv());
 		functions.add(new CalcSymbolResourceData_scv());
 		functions.add(new CalcSymbolResourceData_sk());
+		functions.add(new CalcSymbolResourceData_kurt());
 		functions.add(new CalcSymbolResourceData_hist());
 		functions.add(new CalcSymbolResourceCosts_sum());
 		functions.add(new CalcSymbolResourceDown());
@@ -284,6 +291,7 @@ public class ExpressionCalc extends CalcSystem {
 		functions.add(new CalcSymbolTransporterData_cv());
 		functions.add(new CalcSymbolTransporterData_scv());
 		functions.add(new CalcSymbolTransporterData_sk());
+		functions.add(new CalcSymbolTransporterData_kurt());
 		functions.add(new CalcSymbolTransporterData_hist());
 		functions.add(new CalcSymbolTransporterDown());
 

@@ -103,6 +103,9 @@ public class FastAccessSelectorBuilder {
 		/** Schiefe */
 		Sk(()->Language.tr("Statistics.XML.Sk")),
 
+		/** Wölbung */
+		Kurt(()->Language.tr("Statistics.XML.Kurt")),
+
 		/** Quotient */
 		QUOTIENT(()->Language.tr("Statistics.XML.Quotient"));
 

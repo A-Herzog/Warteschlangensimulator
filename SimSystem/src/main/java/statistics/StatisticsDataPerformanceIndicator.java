@@ -28,7 +28,7 @@ import mathtools.distribution.DataDistributionImpl;
  * Dies ist die Standard-Klasse zur Erfassung von Wartezeiten usw.<br>
  * Die Zählung wird über die Funktion {@link StatisticsDataPerformanceIndicator#add(double)} realisiert.
  * @author Alexander Herzog
- * @version 2.4
+ * @version 2.5
  */
 public final class StatisticsDataPerformanceIndicator extends StatisticsPerformanceIndicator implements Cloneable {
 	/** XML-Attribut für "Anzahl" */
@@ -47,6 +47,10 @@ public final class StatisticsDataPerformanceIndicator extends StatisticsPerforma
 	public static String[] xmlNameSumCubic=new String[]{"Summe3"};
 	/** Fehlermeldung, wenn das "Summe3"-Attribut nicht gelesen werden konnte. */
 	public static String xmlNameSumCubicError="Das Summe3-Attribut im \"%s\"-Element muss eine Zahl sein, ist aber \"%s\".";
+	/** XML-Attribut für "Summe4" (=Summe der mit 4 potenzierten Werte) */
+	public static String[] xmlNameSumQuartic=new String[]{"Summe4"};
+	/** Fehlermeldung, wenn das "Summe4"-Attribut nicht gelesen werden konnte. */
+	public static String xmlNameSumQuarticError="Das Summe4-Attribut im \"%s\"-Element muss eine Zahl sein, ist aber \"%s\".";
 	/** XML-Attribut für "Mittelwert" */
 	public static String[] xmlNameMean=new String[]{"Mittelwert"};
 	/** XML-Attribut für "Standardabweichung" */
@@ -55,6 +59,8 @@ public final class StatisticsDataPerformanceIndicator extends StatisticsPerforma
 	public static String[] xmlNameCV=new String[]{"Variationskoeffizient"};
 	/** XML-Attribut für "Schiefe" */
 	public static String[] xmlNameSk=new String[]{"Schiefe"};
+	/** XML-Attribut für "Kurt" */
+	public static String[] xmlNameKurt=new String[]{"Kurt"};
 	/** XML-Attribut für "Minimum" */
 	public static String[] xmlNameMin=new String[]{"Minimum"};
 	/** Fehlermeldung, wenn das "Minimum"-Attribut nicht gelesen werden konnte. */
@@ -132,6 +138,11 @@ public final class StatisticsDataPerformanceIndicator extends StatisticsPerforma
 	 * Summe der mit 3 potenzierten Messwerte
 	 */
 	private double cubicSum;
+
+	/**
+	 * Summe der mit 4 potenzierten Messwerte
+	 */
+	private double quarticSum;
 
 	/**
 	 * Minimaler Messwert
@@ -351,6 +362,7 @@ public final class StatisticsDataPerformanceIndicator extends StatisticsPerforma
 			final double squared=value*value;
 			squaredSum+=squared;
 			cubicSum+=(squared*value);
+			quarticSum+=(squared*squared);
 
 			/* Minimum, Maximum */
 			if (count>1) {
@@ -451,6 +463,7 @@ public final class StatisticsDataPerformanceIndicator extends StatisticsPerforma
 			final double squared=value*value;
 			squaredSum+=squared*count;
 			cubicSum+=(squared*value)*count;
+			quarticSum+=(squared*squared)*count;
 
 			/* Minimum, Maximum */
 			if (this.count==count) {
@@ -512,6 +525,7 @@ public final class StatisticsDataPerformanceIndicator extends StatisticsPerforma
 		sum+=moreDataStatistics.sum;
 		squaredSum+=moreDataStatistics.squaredSum;
 		cubicSum+=moreDataStatistics.cubicSum;
+		quarticSum+=moreDataStatistics.quarticSum;
 
 		/* Verteilung der Werte */
 		if (hasDistribution && moreDataStatistics.hasDistribution) {
@@ -565,6 +579,7 @@ public final class StatisticsDataPerformanceIndicator extends StatisticsPerforma
 		sum=0;
 		squaredSum=0;
 		cubicSum=0;
+		quarticSum=0;
 
 		/* Verteilung der Werte */
 		if (dist!=null) dist.setToValue(0.0);
@@ -608,6 +623,7 @@ public final class StatisticsDataPerformanceIndicator extends StatisticsPerforma
 		sum=data.sum;
 		squaredSum=data.squaredSum;
 		cubicSum=data.cubicSum;
+		quarticSum=data.quarticSum;
 		min=data.min;
 		max=data.max;
 
@@ -794,15 +810,32 @@ public final class StatisticsDataPerformanceIndicator extends StatisticsPerforma
 	}
 
 	/**
-	 * Berechnet aus den Messreihen-Kenngrößen die Schiefe
+	 * Berechnet aus den Messreihen-Kenngrößen die Schiefe.
 	 * @return	Schiefe der Messreihe
 	 */
 	public double getSk() {
+		final double n=count;
+		final double mean=getMean();
 		final double sd=getSD();
 		if (count<3 || sd==0.0) return 0;
 
 		/* siehe: https://de.wikipedia.org/wiki/Schiefe_(Statistik) */
-		return ((double)count)/(count-1)/(count-2)/Math.pow(sd,3)*(cubicSum-3*getMean()*squaredSum+2*count*Math.pow(getMean(),3));
+		return n/(n-1)/(n-2)/Math.pow(sd,3)*(cubicSum-3*mean*squaredSum+2*n*Math.pow(mean,3));
+	}
+
+	/**
+	 * Berechnet aus den Messreihen-Kenngrößen den Exzess (von der Wölbung abgeleitetes Maß).
+	 * @return	Exzess der Messreihe
+	 */
+	public double getKurt() {
+		final double n=count;
+		final double mean=getMean();
+		final double sd=getSD();
+		if (count<4 || sd==0.0) return 0;
+
+		/* siehe: https://en.wikipedia.org/wiki/Kurtosis */
+		final double normDistComparision=3*Math.pow(n-1,2)/(n-2)/(n-3);
+		return n*(n+1)/(n-1)/(n-2)/(n-3)/Math.pow(sd,4)*(quarticSum-4*mean*cubicSum+6*Math.pow(mean,2)*squaredSum-3*n*Math.pow(mean,4))-normDistComparision;
 	}
 
 	/**
@@ -1223,10 +1256,12 @@ public final class StatisticsDataPerformanceIndicator extends StatisticsPerforma
 		node.setAttribute(xmlNameSum[0],NumberTools.formatSystemNumber(sum,recycleStringBuilder));
 		node.setAttribute(xmlNameSumSquared[0],NumberTools.formatSystemNumber(squaredSum,recycleStringBuilder));
 		node.setAttribute(xmlNameSumCubic[0],NumberTools.formatSystemNumber(cubicSum,recycleStringBuilder));
+		node.setAttribute(xmlNameSumQuartic[0],NumberTools.formatSystemNumber(quarticSum,recycleStringBuilder));
 		node.setAttribute(xmlNameMean[0],NumberTools.formatSystemNumber(getMean(),recycleStringBuilder));
 		node.setAttribute(xmlNameSD[0],NumberTools.formatSystemNumber(getSD(),recycleStringBuilder));
 		node.setAttribute(xmlNameCV[0],NumberTools.formatSystemNumber(getCV(),recycleStringBuilder));
 		node.setAttribute(xmlNameSk[0],NumberTools.formatSystemNumber(getSk(),recycleStringBuilder));
+		node.setAttribute(xmlNameKurt[0],NumberTools.formatSystemNumber(getKurt(),recycleStringBuilder));
 		node.setAttribute(xmlNameMin[0],NumberTools.formatSystemNumber(getMin(),recycleStringBuilder));
 		node.setAttribute(xmlNameMax[0],NumberTools.formatSystemNumber(getMax(),recycleStringBuilder));
 
@@ -1310,6 +1345,13 @@ public final class StatisticsDataPerformanceIndicator extends StatisticsPerforma
 			Double sum3=NumberTools.getDouble(value);
 			if (sum3==null) return String.format(xmlNameSumCubicError,node.getNodeName(),value);
 			cubicSum=sum3;
+		}
+
+		value=NumberTools.systemNumberToLocalNumber(getAttributeValue(node,xmlNameSumQuartic));
+		if (!value.isEmpty()) {
+			Double sum4=NumberTools.getDouble(value);
+			if (sum4==null) return String.format(xmlNameSumQuarticError,node.getNodeName(),value);
+			quarticSum=sum4;
 		}
 
 		value=NumberTools.systemNumberToLocalNumber(getAttributeValue(node,xmlNameMin));

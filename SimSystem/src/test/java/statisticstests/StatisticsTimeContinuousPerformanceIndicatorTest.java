@@ -147,6 +147,8 @@ class StatisticsTimeContinuousPerformanceIndicatorTest {
 		assertEquals(40,collector.getSum());
 		assertEquals(1,collector.getTimeMin());
 		assertEquals(2.5,collector.getTimeMax());
+		assertEquals(0,collector.getTimeSk());
+		assertTrue(collector.getTimeKurt()<0);
 
 		collector=new StatisticsTimeContinuousPerformanceIndicator(new String[]{"xml"});
 		collector.setTime(0);

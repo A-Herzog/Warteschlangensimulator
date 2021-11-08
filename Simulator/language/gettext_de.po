@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-11-03 21:50+0100\n"
+"POT-Creation-Date: 2021-11-07 14:09+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -2824,6 +2824,9 @@ msgstr "unendlich"
 msgid "Distribution.InverseGaussian"
 msgstr "Inverse Gauß-Verteilung"
 
+msgid "Distribution.Kurt"
+msgstr "Exzess (Wölbung)"
+
 msgid "Distribution.Laplace"
 msgstr "Laplace-Verteilung"
 
@@ -4726,6 +4729,11 @@ msgstr ""
 "<p>Liefert den Anteil der Zeit, in der die Warteschlange an der Bedienstation, deren ID in dem Parameter angegeben wurde, eine bestimmte Länge hatte.</p>\n"
 "<p>Alternativ kann auch die ID einer Kundenquelle angegeben werden, dann beziehen sich die Ergebnisse auf die Kunden des dort erzeugten Kundentyps.</p>"
 
+msgid "ExpressionBuilder.ClientsAtQueue.Kurt"
+msgstr ""
+"<p>Liefert den Exzess (Wölbung) der Anzahl an Kunden in der Warteschlange an der Bedienstation, deren ID in dem Parameter angegeben wurde.</p>\n"
+"<p>Alternativ kann auch die ID einer Kundenquelle angegeben werden, dann beziehen sich die Ergebnisse auf die Kunden des dort erzeugten Kundentyps.</p>"
+
 msgid "ExpressionBuilder.ClientsAtQueue.MaximalNumber"
 msgstr ""
 "<p>Liefert die maximale Anzahl an Kunden in der Warteschlange an der Bedienstation, deren ID in dem Parameter angegeben wurde.</p>\n"
@@ -4797,6 +4805,11 @@ msgstr ""
 "<p>Liefert den Anteil der Zeit, in der sich eine bestimmte Anzahl an Kunden an der Bedienstation, deren ID in dem Parameter angegeben wurde, befanden.</p>\n"
 "<p>Alternativ kann auch die ID einer Kundenquelle angegeben werden, dann beziehen sich die Ergebnisse auf die Kunden des dort erzeugten Kundentyps.</p>"
 
+msgid "ExpressionBuilder.ClientsAtStation.Kurt"
+msgstr ""
+"<p>Liefert den Exzess (Wölbung) der Anzahl an Kunden an der Bedienstation, deren ID in dem Parameter angegeben wurde.</p>\n"
+"<p>Alternativ kann auch die ID einer Kundenquelle angegeben werden, dann beziehen sich die Ergebnisse auf die Kunden des dort erzeugten Kundentyps.</p>"
+
 msgid "ExpressionBuilder.ClientsAtStation.MaximalNumber"
 msgstr ""
 "<p>Liefert die maximale Anzahl an Kunden an der Bedienstation, deren ID in dem Parameter angegeben wurde.</p>\n"
@@ -4852,6 +4865,9 @@ msgstr "<p>Liefert die mittlere Anzahl an Kunden im System.</p>"
 msgid "ExpressionBuilder.ClientsInSystem.CoefficientOfVariationOfTheNumber"
 msgstr "<p>Liefert den Variationskoeffizienten der Anzahl an Kunden im System.</p>"
 
+msgid "ExpressionBuilder.ClientsInSystem.Kurt"
+msgstr "<p>Liefert den Exzess (Wölbung) der Anzahl an Kunden im System.</p>"
+
 msgid "ExpressionBuilder.ClientsInSystem.MaximalNumber"
 msgstr "<p>Liefert die maximale Anzahl an Kunden im System.</p>"
 
@@ -4884,6 +4900,9 @@ msgstr "<p>Liefert die mittlere Anzahl an wartenden Kunden im System.</p>"
 
 msgid "ExpressionBuilder.ClientsInSystemQueue.CoefficientOfVariationOfTheNumber"
 msgstr "<p>Liefert den Variationskoeffizienten der Anzahl an wartenden Kunden im System.</p>"
+
+msgid "ExpressionBuilder.ClientsInSystemQueue.Kurt"
+msgstr "<p>Liefert den Exzess (Wölbung) der Anzahl an wartenden Kunden im System.</p>"
 
 msgid "ExpressionBuilder.ClientsInSystemQueue.MaximalNumber"
 msgstr "<p>Liefert die maximale Anzahl an wartenden Kunden im System.</p>"
@@ -6046,6 +6065,9 @@ msgstr "Bereich"
 msgid "ExpressionBuilder.SimulationCharacteristics.HistogramSingle"
 msgstr "Einzelwert"
 
+msgid "ExpressionBuilder.SimulationCharacteristics.Kurt"
+msgstr "Exzess (Wölbung)"
+
 msgid "ExpressionBuilder.SimulationCharacteristics.MaximalNumber"
 msgstr "Maximale Anzahl"
 
@@ -6085,6 +6107,9 @@ msgstr "<p>Liefert den Anteil der Kunden, der an der Bedienstation, deren ID in 
 msgid "ExpressionBuilder.SimulationCharacteristics.ProcessingTimesAtStations.HistogramSingle"
 msgstr "<p>Liefert den Anteil der Kunden, der an der Bedienstation, deren ID in dem Parameter angegeben wurde, eine bestimmte Sekundenanzahl als Bedienzeit verbracht haben.</p>"
 
+msgid "ExpressionBuilder.SimulationCharacteristics.ProcessingTimesAtStations.Kurt"
+msgstr "<p>Liefert die Exzess (Wölbung) über alle Bedienzeiten, die an der Bedienstation, deren ID in dem Parameter angegeben wurde, entstanden sind (über alle Kundentypen).</p>"
+
 msgid "ExpressionBuilder.SimulationCharacteristics.ProcessingTimesAtStations.MaximalTime"
 msgstr "<p>Liefert die maximale Bedienzeit, die bisher an der Bedienstation, deren ID in dem Parameter angegeben wurde, entstanden ist (über alle Kundentypen).</p>"
 
@@ -6120,6 +6145,9 @@ msgstr "<p>Liefert den Variationskoeffizienten über die Bedienzeiten der Kunden
 
 msgid "ExpressionBuilder.SimulationCharacteristics.ProcessingTimesByClientTypes.CurrentTime"
 msgstr "<p>Liefert die Summe der Bedienzeit, die für Kunden, die an der Bedienstation, deren ID in dem Parameter angegeben wurde, erzeugt wurden, bisher entstanden sind.</p>"
+
+msgid "ExpressionBuilder.SimulationCharacteristics.ProcessingTimesByClientTypes.Kurt"
+msgstr "<p>Liefert den Exzess (Wölbung) über die Bedienzeiten der Kunden, die an der Bedienstation, deren ID in dem Parameter angegeben wurde, erzeugt wurden.</p>"
 
 msgid "ExpressionBuilder.SimulationCharacteristics.ProcessingTimesByClientTypes.MaximalTime"
 msgstr "<p>Liefert die maximale Bedienzeit über alle Kunden, die an der Bedienstation, deren ID in dem Parameter angegeben wurde, erzeugt wurden.</p>"
@@ -6162,6 +6190,9 @@ msgstr "<p>Liefert den Anteil der Kunden, der einen bestimmten Zeitbereich (in S
 
 msgid "ExpressionBuilder.SimulationCharacteristics.ProcessingTimesOverAll.HistogramSingle"
 msgstr "<p>Liefert den Anteil der Kunden, der eine bestimmte Sekundenanzahl als Bedienzeit verbracht hat.</p>"
+
+msgid "ExpressionBuilder.SimulationCharacteristics.ProcessingTimesOverAll.Kurt"
+msgstr "<p>Liefert den Exzess (Wölbung) über alle Bedienzeiten aller Kunden.</p>"
 
 msgid "ExpressionBuilder.SimulationCharacteristics.ProcessingTimesOverAll.MaximalTime"
 msgstr "<p>Liefert die maximale bisher entstandene Bedienzeit (über alle Kundentypen).</p>"
@@ -6208,6 +6239,9 @@ msgstr "<p>Liefert den Anteil der Kunden, der an der Bedienstation, deren ID in 
 msgid "ExpressionBuilder.SimulationCharacteristics.ResidenceTimesAtStations.HistogramSingle"
 msgstr "<p>Liefert den Anteil der Kunden, der an der Bedienstation, deren ID in dem Parameter angegeben wurde, eine bestimmte Sekundenanzahl als Verweilzeit verbracht haben.</p>"
 
+msgid "ExpressionBuilder.SimulationCharacteristics.ResidenceTimesAtStations.Kurt"
+msgstr "<p>Liefert den Exzess (Wölbung) über alle Verweilzeiten, die an der Bedienstation, deren ID in dem Parameter angegeben wurde, entstanden sind (über alle Kundentypen).</p>"
+
 msgid "ExpressionBuilder.SimulationCharacteristics.ResidenceTimesAtStations.MaximalTime"
 msgstr "<p>Liefert die maximale Verweilzeit, die bisher an der Bedienstation, deren ID in dem Parameter angegeben wurde, entstanden ist (über alle Kundentypen).</p>"
 
@@ -6243,6 +6277,9 @@ msgstr "<p>Liefert den Variationskoeffizienten über die Verweilzeiten der Kunde
 
 msgid "ExpressionBuilder.SimulationCharacteristics.ResidenceTimesByClientTypes.CurrentTime"
 msgstr "<p>Liefert die Summe der Verweilzeit, die für Kunden, die an der Bedienstation, deren ID in dem Parameter angegeben wurde, erzeugt wurden, bisher entstanden sind.</p>"
+
+msgid "ExpressionBuilder.SimulationCharacteristics.ResidenceTimesByClientTypes.Kurt"
+msgstr "<p>Liefert den Exzess (Wölbung) über die Verweilzeiten der Kunden, die an der Bedienstation, deren ID in dem Parameter angegeben wurde, erzeugt wurden.</p>"
 
 msgid "ExpressionBuilder.SimulationCharacteristics.ResidenceTimesByClientTypes.MaximalTime"
 msgstr "<p>Liefert die maximale Verweilzeit über alle Kunden, die an der Bedienstation, deren ID in dem Parameter angegeben wurde, erzeugt wurden.</p>"
@@ -6285,6 +6322,9 @@ msgstr "<p>Liefert den Anteil der Kunden, der einen bestimmten Zeitbereich (in S
 
 msgid "ExpressionBuilder.SimulationCharacteristics.ResidenceTimesOverAll.HistogramSingle"
 msgstr "<p>Liefert den Anteil der Kunden, der eine bestimmte Sekundenanzahl als Verweilzeit verbracht hat.</p>"
+
+msgid "ExpressionBuilder.SimulationCharacteristics.ResidenceTimesOverAll.Kurt"
+msgstr "<p>Liefert den Exzess (Wölbung) über alle Verweilzeiten aller Kunden.</p>"
 
 msgid "ExpressionBuilder.SimulationCharacteristics.ResidenceTimesOverAll.MaximalTime"
 msgstr "<p>Liefert die maximale bisher entstandene Verweilzeit (über alle Kundentypen).</p>"
@@ -6330,6 +6370,9 @@ msgstr "<p>Liefert den Anteil der Zeit, in der die Anzahl an ausgelasteten Bedie
 
 msgid "ExpressionBuilder.SimulationCharacteristics.ResourceUtilization.HistogramSingle"
 msgstr "<p>Liefert den Anteil der Zeit, in der die angegebene Anzahl an Bedienern, deren ID in dem Parameter angegeben wurde, ausgelastet war.</p>"
+
+msgid "ExpressionBuilder.SimulationCharacteristics.ResourceUtilization.Kurt"
+msgstr "<p>Liefert den Exzess (Wölbung) der Anzahl an belegten Bedienern in der angegebenen Ressource.</p>"
 
 msgid "ExpressionBuilder.SimulationCharacteristics.ResourceUtilization.MaximalNumber"
 msgstr "<p>Liefert die maximale Anzahl an belegten Bedienern in der angegebenen Ressource.</p>"
@@ -6452,6 +6495,9 @@ msgstr "<p>Liefert den Anteil der Kunden, der an der Bedienstation, deren ID in 
 msgid "ExpressionBuilder.SimulationCharacteristics.TransferTimesAtStations.HistogramSingle"
 msgstr "<p>Liefert den Anteil der Kunden, der an der Bedienstation, deren ID in dem Parameter angegeben wurde, eine bestimmte Sekundenanzahl als Transferzeit verbracht haben.</p>"
 
+msgid "ExpressionBuilder.SimulationCharacteristics.TransferTimesAtStations.Kurt"
+msgstr "<p>Liefert den Exzess (Wölbung) über alle Transferzeiten, die an der Bedienstation, deren ID in dem Parameter angegeben wurde, entstanden sind (über alle Kundentypen).</p>"
+
 msgid "ExpressionBuilder.SimulationCharacteristics.TransferTimesAtStations.MaximalTime"
 msgstr "<p>Liefert die maximale Transferzeit, die bisher an der Bedienstation, deren ID in dem Parameter angegeben wurde, entstanden ist (über alle Kundentypen).</p>"
 
@@ -6487,6 +6533,9 @@ msgstr "<p>Liefert den Variationskoeffizienten über die Transferzeiten der Kund
 
 msgid "ExpressionBuilder.SimulationCharacteristics.TransferTimesByClientTypes.CurrentTime"
 msgstr "<p>Liefert die Summe der Transferzeit, die für Kunden, die an der Bedienstation, deren ID in dem Parameter angegeben wurde, erzeugt wurden, bisher entstanden sind.</p>"
+
+msgid "ExpressionBuilder.SimulationCharacteristics.TransferTimesByClientTypes.Kurt"
+msgstr "<p>Liefert den Exzess (Wölbung) über die Transferzeiten der Kunden, die an der Bedienstation, deren ID in dem Parameter angegeben wurde, erzeugt wurden.</p>"
 
 msgid "ExpressionBuilder.SimulationCharacteristics.TransferTimesByClientTypes.MaximalTime"
 msgstr "<p>Liefert die maximale Transferzeit über alle Kunden, die an der Bedienstation, deren ID in dem Parameter angegeben wurde, erzeugt wurden.</p>"
@@ -6529,6 +6578,9 @@ msgstr "<p>Liefert den Anteil der Kunden, der einen bestimmten Zeitbereich (in S
 
 msgid "ExpressionBuilder.SimulationCharacteristics.TransferTimesOverAll.HistogramSingle"
 msgstr "<p>Liefert den Anteil der Kunden, der eine bestimmte Sekundenanzahl als Transferzeit verbracht hat.</p>"
+
+msgid "ExpressionBuilder.SimulationCharacteristics.TransferTimesOverAll.Kurt"
+msgstr "<p>Liefert den Exzess (Wölbung) über alle Transferzeiten aller Kunden.</p>"
 
 msgid "ExpressionBuilder.SimulationCharacteristics.TransferTimesOverAll.MaximalTime"
 msgstr "<p>Liefert die maximale bisher entstandene Transferzeit (über alle Kundentypen).</p>"
@@ -6580,6 +6632,9 @@ msgstr "<p>Liefert den Anteil der Zeit, in der die Anzahl an ausgelasteten Trans
 
 msgid "ExpressionBuilder.SimulationCharacteristics.TransporterUtilization.HistogramSingle"
 msgstr "<p>Liefert den Anteil der Zeit, in der die angegebene Anzahl an Transportern, deren Gruppen-ID in dem Parameter angegeben wurde, ausgelastet war.</p>"
+
+msgid "ExpressionBuilder.SimulationCharacteristics.TransporterUtilization.Kurt"
+msgstr "<p>Liefert den Exzess (Wölbung) der Anzahl an belegten Transportern in der angegebenen Transportergruppe.</p>"
 
 msgid "ExpressionBuilder.SimulationCharacteristics.TransporterUtilization.MaximalNumber"
 msgstr "<p>Liefert die maximale Anzahl an belegten Transportern in der angegebenen Transportergruppe.</p>"
@@ -6641,6 +6696,9 @@ msgstr "<p>Liefert den Anteil, in dem die Statistik-Kenngröße <tt>nr</tt> (1-b
 msgid "ExpressionBuilder.SimulationCharacteristics.UserStatistics.HistogramSingle"
 msgstr "<p>Liefert den Anteil, in dem sich die Statistik-Kenngröße <tt>nr</tt> (1-basierend) an Statistik-Station id in Zustand <tt>state</tt> befunden hat.</p>"
 
+msgid "ExpressionBuilder.SimulationCharacteristics.UserStatistics.Kurt"
+msgstr "<p>Liefert den Exzess (Wölbung) der Statistik-Kenngröße die als Wert <tt>nr</tt> (1-basierend) an Statistik-Station id aufgezeichnet wird.</p>"
+
 msgid "ExpressionBuilder.SimulationCharacteristics.UserStatistics.MaximalNumber"
 msgstr "<p>Liefert den maximalen Wert der Statistik-Kenngröße die als Wert <tt>nr</tt> (1-basierend) an Statistik-Station id aufgezeichnet wird.</p>"
 
@@ -6689,6 +6747,9 @@ msgstr "<p>Liefert den Anteil der Kunden, der an der Bedienstation, deren ID in 
 msgid "ExpressionBuilder.SimulationCharacteristics.WaitingTimesAtStations.HistogramSingle"
 msgstr "<p>Liefert den Anteil der Kunden, der an der Bedienstation, deren ID in dem Parameter angegeben wurde, eine bestimmte Sekundenanzahl warten musste.</p>"
 
+msgid "ExpressionBuilder.SimulationCharacteristics.WaitingTimesAtStations.Kurt"
+msgstr "<p>Liefert den Exzess (Wölbung) über alle Wartezeiten, die an der Bedienstation, deren ID in dem Parameter angegeben wurde, entstanden sind (über alle Kundentypen).</p>"
+
 msgid "ExpressionBuilder.SimulationCharacteristics.WaitingTimesAtStations.MaximalTime"
 msgstr "<p>Liefert die maximale Wartezeit, die bisher an der Bedienstation, deren ID in dem Parameter angegeben wurde, entstanden ist (über alle Kundentypen).</p>"
 
@@ -6724,6 +6785,9 @@ msgstr "<p>Liefert den Variationskoeffizienten über die Wartezeiten der Kunden,
 
 msgid "ExpressionBuilder.SimulationCharacteristics.WaitingTimesByClientTypes.CurrentTime"
 msgstr "<p>Liefert die Summe der Wartezeit, die für Kunden, die an der Bedienstation, deren ID in dem Parameter angegeben wurde, erzeugt wurden, bisher entstanden sind.</p>"
+
+msgid "ExpressionBuilder.SimulationCharacteristics.WaitingTimesByClientTypes.Kurt"
+msgstr "<p>Liefert den Exzess (Wölbung) über die Wartezeiten der Kunden, die an der Bedienstation, deren ID in dem Parameter angegeben wurde, erzeugt wurden.</p>"
 
 msgid "ExpressionBuilder.SimulationCharacteristics.WaitingTimesByClientTypes.MaximalTime"
 msgstr "<p>Liefert die maximale Wartezeit über alle Kunden, die an der Bedienstation, deren ID in dem Parameter angegeben wurde, erzeugt wurden.</p>"
@@ -6766,6 +6830,9 @@ msgstr "<p>Liefert den Anteil der Kunden, der einen bestimmten Zeitbereich (in S
 
 msgid "ExpressionBuilder.SimulationCharacteristics.WaitingTimesOverAll.HistogramSingle"
 msgstr "<p>Liefert den Anteil der Kunden, der eine bestimmte Sekundenanzahl warten musste.</p>"
+
+msgid "ExpressionBuilder.SimulationCharacteristics.WaitingTimesOverAll.Kurt"
+msgstr "<p>Liefert den Exzess (Wölbung) über alle Wartezeiten aller Kunden.</p>"
 
 msgid "ExpressionBuilder.SimulationCharacteristics.WaitingTimesOverAll.MaximalTime"
 msgstr "<p>Liefert die maximale bisher entstandene Wartezeit (über alle Kundentypen).</p>"
@@ -19210,6 +19277,9 @@ msgstr "Mittelwert"
 msgid "Statistics.ClientData.Field.CV"
 msgstr "Variationskoeffizient"
 
+msgid "Statistics.ClientData.Field.Kurt"
+msgstr "Exzess (Wölbung)"
+
 msgid "Statistics.ClientData.Field.Maximum"
 msgstr "Maximum"
 
@@ -19710,6 +19780,12 @@ msgstr "Variationskoeffizient der Anzahl an Bedienern in Pausezeit"
 msgid "Statistics.FailureTime.CV.Transporters"
 msgstr "Variationskoeffizient der Anzahl an Transportern in Pausezeit"
 
+msgid "Statistics.FailureTime.Kurt"
+msgstr "Exzess (Wölbung) der Anzahl an Bedienern in Pausezeit"
+
+msgid "Statistics.FailureTime.Kurt.Transporters"
+msgstr "Exzess (Wölbung) der Anzahl an Transportern in Pausezeit"
+
 msgid "Statistics.FailureTime.Maximum"
 msgstr "Maximale Anzahl an Bedienern in Pausezeit"
 
@@ -19886,6 +19962,9 @@ msgstr "Zwischenabgangszeiten nach Kundentypen"
 
 msgid "Statistics.InterLeaveTimesAtTheSystem"
 msgstr "Zwischenabgangszeiten aus dem System"
+
+msgid "Statistics.Kurt"
+msgstr "Exzess (Wölbung)"
 
 msgid "Statistics.LeavingsAtStations"
 msgstr "Abgänge aus den Stationen"
@@ -20603,6 +20682,9 @@ msgstr "Parken"
 msgid "Statistics.TransporterUtilization.IdleShare"
 msgstr "Leerlaufanteil (aller Transporter)"
 
+msgid "Statistics.TransporterUtilization.Kurt"
+msgstr "Exzess (Wölbung) der Anzahl an fahrenden Transportern"
+
 msgid "Statistics.TransporterUtilization.Maximum"
 msgstr "Maximale Anzahl an anfahrenden Transportern"
 
@@ -20660,6 +20742,9 @@ msgstr "Für diese Bedienergruppe sind Ausfälle/Pausenzeiten definiert. Da die 
 msgid "Statistics.Utilization.FailureInfo.Transporters"
 msgstr "Für diesen Transportertyp sind Ausfälle/Pausenzeiten definiert. Da sich die Transporter während dieser Zeit nicht bewegen, werden diese Zeiten als Leerlaufzeiten gezählt."
 
+msgid "Statistics.Utilization.Kurt"
+msgstr "Exzess (Wölbung) der Anzahl an belegten Bedienern"
+
 msgid "Statistics.Utilization.Maximum"
 msgstr "Maximale Anzahl an belegten Bedienern"
 
@@ -20671,6 +20756,9 @@ msgstr "Anzahl an Bedienern in der Gruppe"
 
 msgid "Statistics.Utilization.NumberOfOperators.CV"
 msgstr "Variationskoeffizient der Anzahl an vorhandenen Bedienern"
+
+msgid "Statistics.Utilization.NumberOfOperators.Kurt"
+msgstr "Exzess (Wölbung) der Anzahl an vorhandenen Bedienern"
 
 msgid "Statistics.Utilization.NumberOfOperators.Maximum"
 msgstr "Maximale Anzahl an vorhandenen Bedienern"
@@ -21113,6 +21201,9 @@ msgstr "StatistikLaufzeitWert"
 msgid "Statistics.XML.InternalError"
 msgstr "Interner Fehler"
 
+msgid "Statistics.XML.Kurt"
+msgstr "Kurt"
+
 msgid "Statistics.XML.Maximum"
 msgstr "Maximum"
 
@@ -21253,6 +21344,12 @@ msgstr "Summe3"
 
 msgid "Statistics.XML.Sum3.Error"
 msgstr "Das \"Summe3\"-Attribut im \"%s\"-Element muss eine Zahl sein, ist aber \"%s\"."
+
+msgid "Statistics.XML.Sum4"
+msgstr "Summe4"
+
+msgid "Statistics.XML.Sum4.Error"
+msgstr "Das \"Summe4\"-Attribut im \"%s\"-Element muss eine Zahl sein, ist aber \"%s\"."
 
 msgid "Statistics.XML.ThreadRunTimes"
 msgstr "StatistikThreadLaufzeiten"

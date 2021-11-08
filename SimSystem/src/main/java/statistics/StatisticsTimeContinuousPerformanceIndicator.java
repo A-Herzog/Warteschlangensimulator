@@ -24,7 +24,7 @@ import mathtools.NumberTools;
  * Double-Zahlenwert benannten Zustand befunden hat.<br>
  * Die Zählung wird über die Funktion {@link StatisticsTimeContinuousPerformanceIndicator#set(double, double)} realisiert.<br>
  * @author Alexander Herzog
- * @version 1.0
+ * @version 1.1
  */
 public final class StatisticsTimeContinuousPerformanceIndicator extends StatisticsPerformanceIndicator implements Cloneable {
 	/**
@@ -68,6 +68,11 @@ public final class StatisticsTimeContinuousPerformanceIndicator extends Statisti
 	private double valueSumCubic=0;
 
 	/**
+	 * Summe der mit 4 potenzierten Zustände gewichtet mit der jeweiligen Zeitdauer
+	 */
+	private double valueSumQuartic=0;
+
+	/**
 	 * Ergebnis der letzten Berechnung des Durchschnitts (-1, wenn sich die Werte seit der letzten Berechnung verändert haben und eine neue Rechnung notwendig ist)
 	 */
 	private double lastTimeMean=-1;
@@ -104,6 +109,7 @@ public final class StatisticsTimeContinuousPerformanceIndicator extends Statisti
 				valueSum=0;
 				valueSumSquared=0;
 				valueSumCubic=0;
+				valueSumQuartic=0;
 			} else {
 				final double add=time-lastTime;
 
@@ -113,6 +119,7 @@ public final class StatisticsTimeContinuousPerformanceIndicator extends Statisti
 				valueSum+=add*lastState;
 				valueSumSquared+=add*lastState*lastState;
 				valueSumCubic+=add*lastState*lastState*lastState;
+				valueSumQuartic+=add*lastState*lastState*lastState*lastState;
 			}
 
 			lastTime=time;
@@ -160,6 +167,7 @@ public final class StatisticsTimeContinuousPerformanceIndicator extends Statisti
 		valueSum+=moreCountStatistics.valueSum;
 		valueSumSquared+=moreCountStatistics.valueSumSquared;
 		valueSumCubic+=moreCountStatistics.valueSumCubic;
+		valueSumQuartic+=moreCountStatistics.valueSumQuartic;
 
 		lastTimeMean=-1;
 	}
@@ -178,6 +186,7 @@ public final class StatisticsTimeContinuousPerformanceIndicator extends Statisti
 		valueSum=0;
 		valueSumSquared=0;
 		valueSumCubic=0;
+		valueSumQuartic=0;
 
 		lastTimeMean=-1;
 	}
@@ -189,15 +198,18 @@ public final class StatisticsTimeContinuousPerformanceIndicator extends Statisti
 	@Override
 	protected void copyDataFrom(final StatisticsPerformanceIndicator indicator) {
 		if (!(indicator instanceof StatisticsTimeContinuousPerformanceIndicator)) return;
-		lastState=((StatisticsTimeContinuousPerformanceIndicator)indicator).lastState;
-		lastTime=((StatisticsTimeContinuousPerformanceIndicator)indicator).lastTime;
+		final StatisticsTimeContinuousPerformanceIndicator time=(StatisticsTimeContinuousPerformanceIndicator)indicator;
 
-		min=((StatisticsTimeContinuousPerformanceIndicator)indicator).min;
-		max=((StatisticsTimeContinuousPerformanceIndicator)indicator).max;
-		sum=((StatisticsTimeContinuousPerformanceIndicator)indicator).sum;
-		valueSum=((StatisticsTimeContinuousPerformanceIndicator)indicator).valueSum;
-		valueSumSquared=((StatisticsTimeContinuousPerformanceIndicator)indicator).valueSumSquared;
-		valueSumCubic=((StatisticsTimeContinuousPerformanceIndicator)indicator).valueSumCubic;
+		lastState=time.lastState;
+		lastTime=time.lastTime;
+
+		min=time.min;
+		max=time.max;
+		sum=time.sum;
+		valueSum=time.valueSum;
+		valueSumSquared=time.valueSumSquared;
+		valueSumCubic=time.valueSumCubic;
+		valueSumQuartic=time.valueSumQuartic;
 
 		lastTimeMean=-1;
 	}
@@ -271,15 +283,32 @@ public final class StatisticsTimeContinuousPerformanceIndicator extends Statisti
 	}
 
 	/**
-	 * Liefert die Schiefe über die Verteilung der Zeiten in den verschiedenen Zuständen
-	 * @return	Schiefe  über die Verteilung der Zeiten in den verschiedenen Zuständen
+	 * Liefert die Schiefe über die Verteilung der Zeiten in den verschiedenen Zuständen.
+	 * @return	Schiefe über die Verteilung der Zeiten in den verschiedenen Zuständen
 	 */
 	public double getTimeSk() {
+		final double n=sum;
+		final double mean=getTimeMean();
 		final double sd=getTimeSD();
 		if (sum<3 || sd==0.0) return 0;
 
 		/* siehe: https://de.wikipedia.org/wiki/Schiefe_(Statistik) */
-		return sum/(sum-1)/(sum-2)/Math.pow(sd,3)*(valueSumCubic-3*getTimeMean()*valueSumSquared+2*sum*Math.pow(getTimeMean(),3));
+		return n/(n-1)/(n-2)/Math.pow(sd,3)*(valueSumCubic-3*mean*valueSumSquared+2*n*Math.pow(mean,3));
+	}
+
+	/**
+	 * Berechnet den Exzess (von der Wölbung abgeleitetes Maß) über die Verteilung der Zeiten in den verschiedenen Zuständen.
+	 * @return	Exzess über die Verteilung der Zeiten in den verschiedenen Zuständen
+	 */
+	public double getTimeKurt() {
+		final double n=sum;
+		final double mean=getTimeMean();
+		final double sd=getTimeSD();
+		if (sum<4 || sd==0.0) return 0;
+
+		/* siehe: https://en.wikipedia.org/wiki/Kurtosis */
+		final double normDistComparision=3*Math.pow(n-1,2)/(n-2)/(n-3);
+		return n*(n+1)/(n-1)/(n-2)/(n-3)/Math.pow(sd,4)*(valueSumQuartic-4*mean*valueSumCubic+6*Math.pow(mean,2)*valueSumSquared-3*n*Math.pow(mean,4))-normDistComparision;
 	}
 
 	/**
@@ -304,10 +333,12 @@ public final class StatisticsTimeContinuousPerformanceIndicator extends Statisti
 		node.setAttribute(StatisticsTimePerformanceIndicator.xmlNameValues[0],NumberTools.formatSystemNumber(valueSum,recycleStringBuilder));
 		node.setAttribute(StatisticsTimePerformanceIndicator.xmlNameValuesSquared[0],NumberTools.formatSystemNumber(valueSumSquared,recycleStringBuilder));
 		node.setAttribute(StatisticsTimePerformanceIndicator.xmlNameValuesCubic[0],NumberTools.formatSystemNumber(valueSumCubic,recycleStringBuilder));
+		node.setAttribute(StatisticsTimePerformanceIndicator.xmlNameValuesQuartic[0],NumberTools.formatSystemNumber(valueSumQuartic,recycleStringBuilder));
 		node.setAttribute(StatisticsTimePerformanceIndicator.xmlNameMean,NumberTools.formatSystemNumber(getTimeMean(),recycleStringBuilder));
 		node.setAttribute(StatisticsTimePerformanceIndicator.xmlNameSD,NumberTools.formatSystemNumber(getTimeSD(),recycleStringBuilder));
 		node.setAttribute(StatisticsTimePerformanceIndicator.xmlNameCV,NumberTools.formatSystemNumber(getTimeCV(),recycleStringBuilder));
 		node.setAttribute(StatisticsTimePerformanceIndicator.xmlNameSk[0],NumberTools.formatSystemNumber(getTimeSk(),recycleStringBuilder));
+		node.setAttribute(StatisticsTimePerformanceIndicator.xmlNameKurt[0],NumberTools.formatSystemNumber(getTimeKurt(),recycleStringBuilder));
 		node.setAttribute(StatisticsTimePerformanceIndicator.xmlNameMin[0],""+Math.max(0,getTimeMin()));
 		node.setAttribute(StatisticsTimePerformanceIndicator.xmlNameMax[0],""+Math.max(0,getTimeMax()));
 	}
@@ -344,6 +375,13 @@ public final class StatisticsTimeContinuousPerformanceIndicator extends Statisti
 			final Double valueSum3=NumberTools.getDouble(value);
 			if (valueSum3==null) return String.format(StatisticsTimePerformanceIndicator.xmlNameValuesCubicError,node.getNodeName(),value);
 			valueSumCubic=valueSum3;
+		}
+
+		value=NumberTools.systemNumberToLocalNumber(getAttributeValue(node,StatisticsTimePerformanceIndicator.xmlNameValuesQuartic));
+		if (!value.isEmpty()) {
+			final Double valueSum4=NumberTools.getDouble(value);
+			if (valueSum4==null) return String.format(StatisticsTimePerformanceIndicator.xmlNameValuesQuarticError,node.getNodeName(),value);
+			valueSumCubic=valueSum4;
 		}
 
 		value=NumberTools.systemNumberToLocalNumber(getAttributeValue(node,StatisticsTimePerformanceIndicator.xmlNameMin));

@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-11-03 21:50+0100\n"
+"POT-Creation-Date: 2021-11-07 14:09+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -2822,6 +2822,9 @@ msgstr "infinite"
 msgid "Distribution.InverseGaussian"
 msgstr "Inverse gaussian distribution"
 
+msgid "Distribution.Kurt"
+msgstr "Excess kurtosis"
+
 msgid "Distribution.Laplace"
 msgstr "Laplace distribution"
 
@@ -4722,6 +4725,11 @@ msgstr ""
 "<p>Returns the fraction of time, at which the queue of the station whose ID is specified had a specified length.</p>\n"
 "<p>Alternatively, the ID of a client source can be specified, in which case the results refer to the clients which are created created at the selected source.</p>"
 
+msgid "ExpressionBuilder.ClientsAtQueue.Kurt"
+msgstr ""
+"<p>Returns the excess kurtosis of the number of clients at the queue of the station whose ID is specified in the parameter.</p>\n"
+"<p>Alternatively, the ID of a client source can be specified, in which case the results refer to the clients which are created created at the selected source.</p>"
+
 msgid "ExpressionBuilder.ClientsAtQueue.MaximalNumber"
 msgstr ""
 "<p>Returns the maximal number of clients at the queue of the station whose ID is specified in the parameter.</p>\n"
@@ -4793,6 +4801,11 @@ msgstr ""
 "<p>Returns the fraction of time, at which there were a specified number of clients at the station whose ID is specified had a specified length.</p>\n"
 "<p>Alternatively, the ID of a client source can be specified, in which case the results refer to the clients which are created created at the selected source.</p>"
 
+msgid "ExpressionBuilder.ClientsAtStation.Kurt"
+msgstr ""
+"<p>Returns the excess kurtosis of the number of clients at the station whose ID is specified in the parameter.</p>\n"
+"<p>Alternatively, the ID of a client source can be specified, in which case the results refer to the clients which are created created at the selected source.</p>"
+
 msgid "ExpressionBuilder.ClientsAtStation.MaximalNumber"
 msgstr ""
 "<p>Returns the maximal number of clients at the station whose ID is specified in the parameter.</p>\n"
@@ -4848,6 +4861,9 @@ msgstr "<p>Returns the average number of clients in the system.</p>"
 msgid "ExpressionBuilder.ClientsInSystem.CoefficientOfVariationOfTheNumber"
 msgstr "<p>Returns the coefficient of variation of the number of clients in the system.</p>"
 
+msgid "ExpressionBuilder.ClientsInSystem.Kurt"
+msgstr "<p>Returns the excess kurtosis of the number of clients in the system.</p>"
+
 msgid "ExpressionBuilder.ClientsInSystem.MaximalNumber"
 msgstr "<p>Returns the maximal number of clients in the system.</p>"
 
@@ -4880,6 +4896,9 @@ msgstr "<p>Returns the average number of waiting clients in the system.</p>"
 
 msgid "ExpressionBuilder.ClientsInSystemQueue.CoefficientOfVariationOfTheNumber"
 msgstr "<p>Returns the coefficient of variation of the number of waiting clients in the system.</p>"
+
+msgid "ExpressionBuilder.ClientsInSystemQueue.Kurt"
+msgstr "<p>Returns the excess kurtosis of the number of waiting clients in the system.</p>"
 
 msgid "ExpressionBuilder.ClientsInSystemQueue.MaximalNumber"
 msgstr "<p>Returns the maximal number of waiting clients in the system.</p>"
@@ -6060,6 +6079,9 @@ msgstr "Range"
 msgid "ExpressionBuilder.SimulationCharacteristics.HistogramSingle"
 msgstr "Single value"
 
+msgid "ExpressionBuilder.SimulationCharacteristics.Kurt"
+msgstr "excess kurtosis"
+
 msgid "ExpressionBuilder.SimulationCharacteristics.MaximalNumber"
 msgstr "Maximal number"
 
@@ -6099,6 +6121,9 @@ msgstr "<p>Returns the fraction of clients, who had spent at the station whose I
 msgid "ExpressionBuilder.SimulationCharacteristics.ProcessingTimesAtStations.HistogramSingle"
 msgstr "<p>Returns the fraction of clients, who had spent at the station whose ID is specified the specified number of seconds as process time.</p>"
 
+msgid "ExpressionBuilder.SimulationCharacteristics.ProcessingTimesAtStations.Kurt"
+msgstr "<p>Returns the excess kurtosis over all processing times that have occurred at the station whose ID was specified in the parameter (over all client types).</p>"
+
 msgid "ExpressionBuilder.SimulationCharacteristics.ProcessingTimesAtStations.MaximalTime"
 msgstr "<p>Returns the maximal duration over all processing times that have occurred at the station whose ID was specified in the parameter (over all client types).</p>"
 
@@ -6134,6 +6159,9 @@ msgstr "<p>Returns the coefficient of variation over all processing times of the
 
 msgid "ExpressionBuilder.SimulationCharacteristics.ProcessingTimesByClientTypes.CurrentTime"
 msgstr "<p>Returns the sum of the processing times of the clients who have been created at the station whose ID is specified in the parameter.</p>"
+
+msgid "ExpressionBuilder.SimulationCharacteristics.ProcessingTimesByClientTypes.Kurt"
+msgstr "<p>Returns the excess kurtosis over all processing times of the clients created at the station whose ID was specified in the parameter.</p>"
 
 msgid "ExpressionBuilder.SimulationCharacteristics.ProcessingTimesByClientTypes.MaximalTime"
 msgstr "<p>Returns the maximal duration over all processing times of the clients created at the station whose ID was specified in the parameter.</p>"
@@ -6176,6 +6204,9 @@ msgstr "<p>Returns the fraction of clients, who had spent the specified range of
 
 msgid "ExpressionBuilder.SimulationCharacteristics.ProcessingTimesOverAll.HistogramSingle"
 msgstr "<p>Returns the fraction of clients, who had spent the specified number of seconds as process time.</p>"
+
+msgid "ExpressionBuilder.SimulationCharacteristics.ProcessingTimesOverAll.Kurt"
+msgstr "<p>Returns the excess kurtosis over all processing times for all clients.</p>"
 
 msgid "ExpressionBuilder.SimulationCharacteristics.ProcessingTimesOverAll.MaximalTime"
 msgstr "<p>Returns the maximal duration over all processing times for all clients.</p>"
@@ -6222,6 +6253,9 @@ msgstr "<p>Returns the fraction of clients, who had spent at the station whose I
 msgid "ExpressionBuilder.SimulationCharacteristics.ResidenceTimesAtStations.HistogramSingle"
 msgstr "<p>Returns the fraction of clients, who had spent at the station whose ID is specified the specified number of seconds as residence time.</p>"
 
+msgid "ExpressionBuilder.SimulationCharacteristics.ResidenceTimesAtStations.Kurt"
+msgstr "<p>Returns the excess kurtosis over all residence times that have occurred at the station whose ID was specified in the parameter (over all client types).</p>"
+
 msgid "ExpressionBuilder.SimulationCharacteristics.ResidenceTimesAtStations.MaximalTime"
 msgstr "<p>Returns the maximal duration over all residence times that have occurred at the station whose ID was specified in the parameter (over all client types).</p>"
 
@@ -6257,6 +6291,9 @@ msgstr "<p>Returns the coefficient of variation over all residence times of the 
 
 msgid "ExpressionBuilder.SimulationCharacteristics.ResidenceTimesByClientTypes.CurrentTime"
 msgstr "<p>Returns the sum of the residence times of the clients who have been created at the station whose ID is specified in the parameter.</p>"
+
+msgid "ExpressionBuilder.SimulationCharacteristics.ResidenceTimesByClientTypes.Kurt"
+msgstr "<p>Returns the excess kurtosis over all residence times of the clients created at the station whose ID was specified in the parameter.</p>"
 
 msgid "ExpressionBuilder.SimulationCharacteristics.ResidenceTimesByClientTypes.MaximalTime"
 msgstr "<p>Returns the maximal duration over all residence times of the clients created at the station whose ID was specified in the parameter.</p>"
@@ -6299,6 +6336,9 @@ msgstr "<p>Returns the fraction of clients, who had spent the specified range of
 
 msgid "ExpressionBuilder.SimulationCharacteristics.ResidenceTimesOverAll.HistogramSingle"
 msgstr "<p>Returns the fraction of clients, who had spent the specified number of seconds as residence time.</p>"
+
+msgid "ExpressionBuilder.SimulationCharacteristics.ResidenceTimesOverAll.Kurt"
+msgstr "<p>Returns the excess kurtosis over all residence times for all clients.</p>"
 
 msgid "ExpressionBuilder.SimulationCharacteristics.ResidenceTimesOverAll.MaximalTime"
 msgstr "<p>Returns the maximal duration over all residence times for all clients.</p>"
@@ -6344,6 +6384,9 @@ msgstr "<p>Returns the fraction of time, at which the number of busy operators o
 
 msgid "ExpressionBuilder.SimulationCharacteristics.ResourceUtilization.HistogramSingle"
 msgstr "<p>Returns the fraction of time, at which the number of busy operators of the type whos ID is specified had a specified value.</p>"
+
+msgid "ExpressionBuilder.SimulationCharacteristics.ResourceUtilization.Kurt"
+msgstr "<p>Returns the excess kurtosis of the number of busy operators in the specified resource.</p>"
 
 msgid "ExpressionBuilder.SimulationCharacteristics.ResourceUtilization.MaximalNumber"
 msgstr "<p>Returns the maximum number of busy operators in the specified resource.</p>"
@@ -6466,6 +6509,9 @@ msgstr "<p>Returns the fraction of clients, who had spent at the station whose I
 msgid "ExpressionBuilder.SimulationCharacteristics.TransferTimesAtStations.HistogramSingle"
 msgstr "<p>Returns the fraction of clients, who had spent at the station whose ID is specified the specified number of seconds as transfer time.</p>"
 
+msgid "ExpressionBuilder.SimulationCharacteristics.TransferTimesAtStations.Kurt"
+msgstr "<p>Returns the excess kurtosis over all transfer times that have occurred at the station whose ID was specified in the parameter (over all client types).</p>"
+
 msgid "ExpressionBuilder.SimulationCharacteristics.TransferTimesAtStations.MaximalTime"
 msgstr "<p>Returns the maximal duration over all transfer times that have occurred at the station whose ID was specified in the parameter (over all client types).</p>"
 
@@ -6501,6 +6547,9 @@ msgstr "<p>Returns the coefficient of variation over all transfer times of the c
 
 msgid "ExpressionBuilder.SimulationCharacteristics.TransferTimesByClientTypes.CurrentTime"
 msgstr "<p>Returns the sum of the transfer times of the clients who have been created at the station whose ID is specified in the parameter.</p>"
+
+msgid "ExpressionBuilder.SimulationCharacteristics.TransferTimesByClientTypes.Kurt"
+msgstr "<p>Returns the excess kurtosis over all transfer times of the clients created at the station whose ID was specified in the parameter.</p>"
 
 msgid "ExpressionBuilder.SimulationCharacteristics.TransferTimesByClientTypes.MaximalTime"
 msgstr "<p>Returns the maximal duration over all transfer times of the clients created at the station whose ID was specified in the parameter.</p>"
@@ -6543,6 +6592,9 @@ msgstr "<p>Returns the fraction of clients, who had spent the specified range of
 
 msgid "ExpressionBuilder.SimulationCharacteristics.TransferTimesOverAll.HistogramSingle"
 msgstr "<p>Returns the fraction of clients, who had spent the specified number of seconds as transfer time.</p>"
+
+msgid "ExpressionBuilder.SimulationCharacteristics.TransferTimesOverAll.Kurt"
+msgstr "<p>Returns the excess kurtosis over all transfer times for all clients.</p>"
 
 msgid "ExpressionBuilder.SimulationCharacteristics.TransferTimesOverAll.MaximalTime"
 msgstr "<p>Returns the maximal duration over all transfer times for all clients.</p>"
@@ -6594,6 +6646,9 @@ msgstr "<p>Returns the fraction of time, at which the number of busy transporter
 
 msgid "ExpressionBuilder.SimulationCharacteristics.TransporterUtilization.HistogramSingle"
 msgstr "<p>Returns the fraction of time, at which the number of busy transporters of the type whos group ID is specified had a specified value.</p>"
+
+msgid "ExpressionBuilder.SimulationCharacteristics.TransporterUtilization.Kurt"
+msgstr "<p>Returns the excess kurtosis of the number of busy transporters in the specified transporter group.</p>"
 
 msgid "ExpressionBuilder.SimulationCharacteristics.TransporterUtilization.MaximalNumber"
 msgstr "<p>Returns the maximum number of busy transporters in the specified transporter group.</p>"
@@ -6655,6 +6710,9 @@ msgstr "<p>Gets the share at which the value of the performance indicator <tt>nr
 msgid "ExpressionBuilder.SimulationCharacteristics.UserStatistics.HistogramSingle"
 msgstr "<p>Gets the share at which the value of the performance indicator <tt>nr</tt> (1 based) recorded at station id was <tt>state</tt>.</p>"
 
+msgid "ExpressionBuilder.SimulationCharacteristics.UserStatistics.Kurt"
+msgstr "<p>Gets the excess kurtosis of the performance indicator <tt>nr</tt> (1 based) recorded at station id.</p>"
+
 msgid "ExpressionBuilder.SimulationCharacteristics.UserStatistics.MaximalNumber"
 msgstr "<p>Gets the maximum value of the performance indicator <tt>nr</tt> (1 based) recorded at station id.</p>"
 
@@ -6703,6 +6761,9 @@ msgstr "<p>Returns the fraction of clients, who had to wait at the station whose
 msgid "ExpressionBuilder.SimulationCharacteristics.WaitingTimesAtStations.HistogramSingle"
 msgstr "<p>Returns the fraction of clients, who had to wait at the station whose ID is specified for the specified number of seconds.</p>"
 
+msgid "ExpressionBuilder.SimulationCharacteristics.WaitingTimesAtStations.Kurt"
+msgstr "<p>Returns the excess kurtosis over all waiting times that have occurred at the station whose ID was specified in the parameter (over all client types).</p>"
+
 msgid "ExpressionBuilder.SimulationCharacteristics.WaitingTimesAtStations.MaximalTime"
 msgstr "<p>Returns the maximal duration over all waiting times that have occurred at the station whose ID was specified in the parameter (over all client types).</p>"
 
@@ -6738,6 +6799,9 @@ msgstr "<p>Returns the coefficient of variation over all waiting times of the cl
 
 msgid "ExpressionBuilder.SimulationCharacteristics.WaitingTimesByClientTypes.CurrentTime"
 msgstr "<p>Returns the sum of the waiting times of the clients who have been created at the station whose ID is specified in the parameter.</p>"
+
+msgid "ExpressionBuilder.SimulationCharacteristics.WaitingTimesByClientTypes.Kurt"
+msgstr "<p>Returns the excess kurtosis over all waiting times of the clients created at the station whose ID was specified in the parameter.</p>"
 
 msgid "ExpressionBuilder.SimulationCharacteristics.WaitingTimesByClientTypes.MaximalTime"
 msgstr "<p>Returns the maximal duration over all waiting times of the clients created at the station whose ID was specified in the parameter.</p>"
@@ -6780,6 +6844,9 @@ msgstr "<p>Returns the fraction of clients, who had to wait for the specified ra
 
 msgid "ExpressionBuilder.SimulationCharacteristics.WaitingTimesOverAll.HistogramSingle"
 msgstr "<p>Returns the fraction of clients, who had to wait for the specified number of seconds.</p>"
+
+msgid "ExpressionBuilder.SimulationCharacteristics.WaitingTimesOverAll.Kurt"
+msgstr "<p>Returns the excess kurtosis over all waiting times for all clients.</p>"
 
 msgid "ExpressionBuilder.SimulationCharacteristics.WaitingTimesOverAll.MaximalTime"
 msgstr "<p>Returns the maximal duration over all waiting times for all clients.</p>"
@@ -19204,6 +19271,9 @@ msgstr "Average"
 msgid "Statistics.ClientData.Field.CV"
 msgstr "Coefficient of variation"
 
+msgid "Statistics.ClientData.Field.Kurt"
+msgstr "Excess kurtosis"
+
 msgid "Statistics.ClientData.Field.Maximum"
 msgstr "Maximum"
 
@@ -19704,6 +19774,12 @@ msgstr "Coefficient of variation of the number of operators in down time"
 msgid "Statistics.FailureTime.CV.Transporters"
 msgstr "Coefficient of variation of the number of transporters in down time"
 
+msgid "Statistics.FailureTime.Kurt"
+msgstr "Excess kurtosis of the number of operators in down time"
+
+msgid "Statistics.FailureTime.Kurt.Transporters"
+msgstr "Excess kurtosis of the number of transporters in down time"
+
 msgid "Statistics.FailureTime.Maximum"
 msgstr "Maximum number of operators in down time"
 
@@ -19880,6 +19956,9 @@ msgstr "Inter-departure times by client types"
 
 msgid "Statistics.InterLeaveTimesAtTheSystem"
 msgstr "Inter-departure times from the system"
+
+msgid "Statistics.Kurt"
+msgstr "Excess kurtosis"
 
 msgid "Statistics.LeavingsAtStations"
 msgstr "Leavings from the stations"
@@ -20597,6 +20676,9 @@ msgstr "Parking"
 msgid "Statistics.TransporterUtilization.IdleShare"
 msgstr "Idle share (all transporters)"
 
+msgid "Statistics.TransporterUtilization.Kurt"
+msgstr "Excess kurtosis of the number of driving transports"
+
 msgid "Statistics.TransporterUtilization.Maximum"
 msgstr "Maximum number of driving transports"
 
@@ -20654,6 +20736,9 @@ msgstr "For this operators group failures / down times are defined. Because the 
 msgid "Statistics.Utilization.FailureInfo.Transporters"
 msgstr "For this transporter type failures / down times are defined. Because the transporters do not move during these times, these times are recorded as idle times."
 
+msgid "Statistics.Utilization.Kurt"
+msgstr "Excess kurtosis of the number of busy operators"
+
 msgid "Statistics.Utilization.Maximum"
 msgstr "Maximum number of busy operators"
 
@@ -20665,6 +20750,9 @@ msgstr "Number of operators in the group"
 
 msgid "Statistics.Utilization.NumberOfOperators.CV"
 msgstr "Coefficient of variation of the number of available operators"
+
+msgid "Statistics.Utilization.NumberOfOperators.Kurt"
+msgstr "Excess kurtosis of the number of available operators"
 
 msgid "Statistics.Utilization.NumberOfOperators.Maximum"
 msgstr "Maximum number of available operators"
@@ -21107,6 +21195,9 @@ msgstr "StatisticsRunTimeValue"
 msgid "Statistics.XML.InternalError"
 msgstr "Internal error"
 
+msgid "Statistics.XML.Kurt"
+msgstr "Kurt"
+
 msgid "Statistics.XML.Maximum"
 msgstr "Maximum"
 
@@ -21247,6 +21338,12 @@ msgstr "Sum3"
 
 msgid "Statistics.XML.Sum3.Error"
 msgstr "The \"Sum3\" attribute in the \"%s\" element has to be a number but is \"%s\"."
+
+msgid "Statistics.XML.Sum4"
+msgstr "Sum4"
+
+msgid "Statistics.XML.Sum4.Error"
+msgstr "The \"Sum4\" attribute in the \"%s\" element has to be a number but is \"%s\"."
 
 msgid "Statistics.XML.ThreadRunTimes"
 msgstr "StatisticsThreadRunTimes"

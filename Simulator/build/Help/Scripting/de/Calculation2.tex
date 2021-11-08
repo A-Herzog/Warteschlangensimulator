@@ -94,6 +94,10 @@ Liefert den quadrierten Variationskoeffizienten der Anzahl an Kunden im System.
 \cmd{WIP\_sk()} oder \cmd{Station\_sk()} oder \cmd{N\_sk()}:\\
 Liefert die Schiefe der Anzahl an Kunden im System.
 
+\item
+\cmd{WIP\_kurt()} oder \cmd{Station\_kurt()} oder \cmd{N\_kurt()}:\\
+Liefert den Exzess (ein Maß für die Wölbung) der Anzahl an Kunden im System.
+
 \end{itemize}
 
 
@@ -157,6 +161,10 @@ Liefert den quadrierten Variationskoeffizienten der Anzahl an wartenden Kunden i
 \item
 \cmd{NQ\_sk()} oder \cmd{Queue\_sk()} oder \cmd{Schlange\_sk()} oder \cmd{Warteschlange\_sk()}:\\
 Liefert die Schiefe der Anzahl an wartenden Kunden im System.
+
+\item
+\cmd{NQ\_kurt()} oder \cmd{Queue\_kurt()} oder \cmd{Schlange\_kurt()} oder \cmd{Warteschlange\_kurt()}:\\
+Liefert den Exzess (ein Maß für die Wölbung) der Anzahl an wartenden Kunden im System.
 
 \end{itemize}
 
@@ -225,6 +233,10 @@ Liefert den quadrierten Variationskoeffizienten der Anzahl an Kunden an Station 
 \item
 \cmd{WIP\_sk(id)} oder \cmd{Station\_sk(id)} oder \cmd{N\_sk(id)}:\\
 Liefert die Schiefe der Anzahl an Kunden an Station \cm{id}.
+
+\item
+\cmd{WIP\_kurt(id)} oder \cmd{Station\_kurt(id)} oder \cmd{N\_kurt(id)}:\\
+Liefert den Exzess (ein Maß für die Wölbung) der Anzahl an Kunden an Station \cm{id}.
 
 \item
 \cmd{WIP\_hist(id;state)} oder \cmd{Station\_hist(id;state)} oder \cmd{N\_hist(id;state)}:\\
@@ -296,6 +308,10 @@ Liefert den quadrierten Variationskoeffizienten der Anzahl an Kunden in der Wart
 \item
 \cmd{NQ\_sk(id)} oder \cmd{Queue\_sk(id)} oder \cmd{Schlange\_sk(id)} oder \cmd{Warteschlange\_sk(id)}:\\
 Liefert die Schiefe der Anzahl an Kunden in der Warteschlange an Station \cm{id}.
+
+\item
+\cmd{NQ\_kurt(id)} oder \cmd{Queue\_kurt(id)} oder \cmd{Schlange\_kurt(id)} oder \cmd{Warteschlange\_kurt(id)}:\\
+Liefert den Exzess (ein Maß für die Wölbung) der Anzahl an Kunden in der Warteschlange an Station \cm{id}.
 
 \item
 \cmd{NQ\_hist(id;state)} oder \cmd{Queue\_hist(id;state)} oder \cmd{Schlange\_hist(id;state)} oder\\ \cmd{Warteschlange\_hist(id;state)}:\\
@@ -397,6 +413,10 @@ Liefert den quadrierten Variationskoeffizienten der Anzahl an Kunden, deren Name
 Liefert die Schiefe der Anzahl an Kunden, deren Name an Quelle bzw.\ Namenszuweisung \cm{id} auftritt.
 
 \item
+\cmd{WIP\_kurt(id)} oder \cmd{Station\_kurt(id)} oder \cmd{N\_kurt(id)}:\\
+Liefert den Exzess (ein Maß für die Wölbung) der Anzahl an Kunden, deren Name an Quelle bzw.\ Namenszuweisung \cm{id} auftritt.
+
+\item
 \cmd{WIP\_hist(id;state)} oder \cmd{Station\_hist(id;state)} oder \cmd{N\_hist(id;state)}:\\
 Liefert den Anteil der Zeit, in der sich das System in Bezug auf die Anzahl an Kunden, deren Name an Quelle bzw.\ Namenszuweisung \cm{id} auftritt, im Zustand \cm{state} befunden hat.
 
@@ -461,6 +481,10 @@ Liefert den quadrierten Variationskoeffizienten der Anzahl an wartenden Kunden, 
 \item
 \cmd{NQ\_sk(id)} oder \cmd{Queue\_sk(id)} oder \cmd{Schlange\_sk(id)} oder \cmd{Warteschlange\_sk(id)}:\\
 Liefert die Schiefe der Anzahl an wartenden Kunden, deren Name an Quelle bzw.\ Namenszuweisung \cm{id} auftritt.
+
+\item
+\cmd{NQ\_kurt(id)} oder \cmd{Queue\_kurt(id)} oder \cmd{Schlange\_kurt(id)} oder \cmd{Warteschlange\_kurt(id)}:\\
+Liefert den Exzess (ein Maß für die Wölbung) der Anzahl an wartenden Kunden, deren Name an Quelle bzw.\ Namenszuweisung \cm{id} auftritt.
 
 \item
 \cmd{NQ\_hist(id;state)} oder \cmd{Queue\_hist(id;state)} oder \cmd{Schlange\_hist(id;state)} oder\\ \cmd{Warteschlange\_hist(id;state)}:\\
@@ -546,6 +570,10 @@ Liefert den quadrierten Variationskoeffizienten der Wartezeiten der Kunden an St
 Liefert die Schiefe der Wartezeiten der Kunden an Station \cm{id}.
 
 \item
+\cmd{Wartezeit\_kurt(id)}:\\
+Liefert den Exzess (ein Maß für die Wölbung) der Wartezeiten der Kunden an Station \cm{id}.
+
+\item
 \cmd{Wartezeit\_hist(id;time)}:\\
 Liefert den Anteil der Kunden, für den die Wartezeit an Station \cm{id} \cm{time} Sekunden gedauert hat.
 
@@ -600,6 +628,10 @@ Liefert den quadrierten Variationskoeffizienten über alle Kunden.
 \item
 \cmd{Wartezeit\_sk()}:\\
 Liefert die Schiefe der Wartezeiten über alle Kunden.
+
+\item
+\cmd{Wartezeit\_kurt()}:\\
+Liefert den Exzess (ein Maß für die Wölbung) der Wartezeiten über alle Kunden.
 
 \item
 \cmd{Wartezeit\_histAll(time)}:\\
@@ -661,6 +693,10 @@ Liefert den quadrierten Variationskoeffizienten der Wartezeiten der Kunden, dere
 \cmd{Wartezeit\_sk(id)}:\\
 Liefert die Schiefe der Wartezeiten der Kunden, deren Name an Quelle bzw.\ Namenszuweisung \cm{id} auftritt.
 
+\item
+\cmd{Wartezeit\_kurt(id)}:\\
+Liefert den Exzess (ein Maß für die Wölbung) der Wartezeiten der Kunden, deren Name an Quelle bzw.\ Namenszuweisung \cm{id} auftritt.
+
 \end{itemize}
 
 
@@ -719,6 +755,10 @@ Liefert den quadrierten Variationskoeffizienten der Transferzeiten der Kunden an
 Liefert die Schiefe der Transferzeiten der Kunden an Station \cm{id}.
 
 \item
+\cmd{Transferzeit\_kurt(id)}:\\
+Liefert den Exzess (ein Maß für die Wölbung) der Transferzeiten der Kunden an Station \cm{id}.
+
+\item
 \cmd{Transferzeit\_hist(id;time)}:\\
 Liefert den Anteil der Kunden, für den die Transferzeit an Station \cm{id} \cm{time} Sekunden gedauert hat.
 
@@ -773,6 +813,10 @@ Liefert den quadrierten Variationskoeffizienten der Transferzeiten über alle Ku
 \item
 \cmd{Transferzeit\_sk()}:\\
 Liefert die Schiefe der Transferzeiten über alle Kunden.
+
+\item
+\cmd{Transferzeit\_kurt()}:\\
+Liefert den Exzess (ein Maß für die Wölbung) der Transferzeiten über alle Kunden.
 
 \item
 \cmd{Transferzeit\_histAll(time)}:\\
@@ -835,6 +879,10 @@ Liefert den quadrierten Variationskoeffizienten der Transferzeiten der Kunden, d
 \cmd{Transferzeit\_sk(id)}:\\
 Liefert die Schiefe der Transferzeiten der Kunden, deren Name an Quelle bzw.\ Namenszuweisung \cm{id} auftritt.
 
+\item
+\cmd{Transferzeit\_kurt(id)}:\\
+Liefert den Exzess (ein Maß für die Wölbung) der Transferzeiten der Kunden, deren Name an Quelle bzw.\ Namenszuweisung \cm{id} auftritt.
+
 \end{itemize}
 
 
@@ -892,6 +940,10 @@ Liefert den quadrierten Variationskoeffizienten der Bedienzeiten der Kunden an S
 Liefert die Schiefe der Bedienzeiten der Kunden an Station \cm{id}.
 
 \item
+\cmd{Bedienzeit\_kurt(id)}:\\
+Liefert den Exzess (ein Maß für die Wölbung) der Bedienzeiten der Kunden an Station \cm{id}.
+
+\item
 \cmd{Bedienzeit\_hist(id;time)}:\\
 Liefert den Anteil der Kunden, für den die Bedienzeit an Station \cm{id} \cm{time} Sekunden gedauert hat.
 
@@ -946,6 +998,10 @@ Liefert den quadrierten Variationskoeffizienten der Bedienzeiten über alle Kund
 \item
 \cmd{Bedienzeit\_sk()}:\\
 Liefert die Schiefe der Bedienzeiten über alle Kunden.
+
+\item
+\cmd{Bedienzeit\_kurt()}:\\
+Liefert den Exzess (ein Maß für die Wölbung) der Bedienzeiten über alle Kunden.
 
 \item
 \cmd{Bedienzeit\_histAll(time)}:\\
@@ -1007,6 +1063,10 @@ Liefert den quadrierten Variationskoeffizienten der Bedienzeiten der Kunden, der
 \cmd{Bedienzeit\_sk(id)}:\\
 Liefert die Schiefe der Bedienzeiten der Kunden, deren Name an Quelle bzw.\ Namenszuweisung \cm{id} auftritt.
 
+\item
+\cmd{Bedienzeit\_kurt(id)}:\\
+Liefert den Exzess (ein Maß für die Wölbung) der Bedienzeiten der Kunden, deren Name an Quelle bzw.\ Namenszuweisung \cm{id} auftritt.
+
 \end{itemize}
 
 
@@ -1063,6 +1123,10 @@ Liefert den quadrierten Variationskoeffizienten der Verweilzeiten der Kunden an 
 Liefert die Schiefe der Verweilzeiten der Kunden an Station \cm{id}.
 
 \item
+\cmd{Verweilzeit\_kurt(id)}:\\
+Liefert den Exzess (ein Maß für die Wölbung) der Verweilzeiten der Kunden an Station \cm{id}.
+
+\item
 \cmd{Verweilzeit\_hist(id;time)}:\\
 Liefert den Anteil der Kunden, für den die Verweilzeit an Station \cm{id} \cm{time} Sekunden gedauert hat.
 
@@ -1117,6 +1181,10 @@ Liefert den quadrierten Variationskoeffizienten über alle Kunden.
 \item
 \cmd{Verweilzeit\_sk()}:\\
 Liefert die Schiefe der Verweilzeiten über alle Kunden.
+
+\item
+\cmd{Verweilzeit\_kurt()}:\\
+Liefert den Exzess (ein Maß für die Wölbung) der Verweilzeiten über alle Kunden.
 
 \item
 \cmd{Verweilzeit\_histAll(time)}:\\
@@ -1178,6 +1246,10 @@ Liefert den quadrierten Variationskoeffizienten der Verweilzeiten der Kunden, de
 \cmd{Verweilzeit\_sk(id)}:\\
 Liefert die Schiefe der Verweilzeiten der Kunden, deren Name an Quelle bzw.\ Namenszuweisung \cm{id} auftritt.
 
+\item
+\cmd{Verweilzeit\_kurt(id)}:\\
+Liefert den Exzess (ein Maß für die Wölbung) der Verweilzeiten der Kunden, deren Name an Quelle bzw.\ Namenszuweisung \cm{id} auftritt.
+
 \end{itemize}  
 
 
@@ -1238,6 +1310,10 @@ Liefert den quadrierten Variationskoeffizienten der Anzahl an belegten Bedienern
 \item
 \cmd{resource\_sk(id)} oder \cmd{utilization\_sk(id)}:\\
 Liefert die Schiefe der Anzahl an belegten Bedienern in der angegebenen Ressource.
+
+\item
+\cmd{resource\_kurt(id)} oder \cmd{utilization\_kurt(id)}:\\
+Liefert den Exzess (ein Maß für die Wölbung) der Anzahl an belegten Bedienern in der angegebenen Ressource.
 
 \item
 \cmd{resource\_hist(id;state)} oder \cmd{utilization\_hist(id;state)}:\\
@@ -1346,6 +1422,10 @@ Liefert den quadrierten Variationskoeffizienten der Anzahl an belegten Transport
 \item
 \cmd{transporter\_sk(id)} oder \cmd{transporter\_utilization\_sk(id)}:\\
 Liefert die Schiefe der Anzahl an belegten Transportern in der angegebenen Transportergruppe.
+
+\item
+\cmd{transporter\_kurt(id)} oder \cmd{transporter\_utilization\_kurt(id)}:\\
+Liefert den Exzess (ein Maß für die Wölbung) der Anzahl an belegten Transportern in der angegebenen Transportergruppe.
   
 \item
 \cmd{transporter\_hist(id;state)} oder \cmd{transporter\_utilization\_hist(id;state)}:\\
@@ -1443,6 +1523,10 @@ Liefert den quadrierten Variationskoeffizienten des Statistikeintrags \cm{nr} (1
 \item
 \cmd{Statistik\_sk(id;nr)} oder \cmd{Statistics\_sk(id;nr)}:\\
 Liefert die Schiefe des Statistikeintrags \cm{nr} (1-basierend) an Statistik-Station \cm{id}.
+
+\item
+\cmd{Statistik\_kurt(id;nr)} oder \cmd{Statistics\_kurt(id;nr)}:\\
+Liefert den Exzess (ein Maß für die Wölbung) des Statistikeintrags \cm{nr} (1-basierend) an Statistik-Station \cm{id}.
 
 \item
 \cmd{Statistik\_hist(id;nr;state)} oder \cmd{Statistics\_hist(id;nr;state)}:\\

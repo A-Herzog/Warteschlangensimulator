@@ -218,6 +218,12 @@ public class ExpressionBuilderSimulationData {
 				Language.tr("ExpressionBuilder.SimulationCharacteristics.Skewness")+" (WIP_sk)",
 				"WIP_sk()",
 				Language.tr("ExpressionBuilder.ClientsInSystem.Skewness"));
+		addTreeNode(
+				sub,
+				filterUpper,
+				Language.tr("ExpressionBuilder.SimulationCharacteristics.Kurt")+" (WIP_kurt)",
+				"WIP_kurt()",
+				Language.tr("ExpressionBuilder.ClientsInSystem.Kurt"));
 
 		if (sub.getChildCount()>0) subgroup.add(sub);
 
@@ -292,6 +298,12 @@ public class ExpressionBuilderSimulationData {
 				Language.tr("ExpressionBuilder.SimulationCharacteristics.Skewness")+" (NQ_sk)",
 				"NQ_sk()",
 				Language.tr("ExpressionBuilder.ClientsInSystemQueue.Skewness"));
+		addTreeNode(
+				sub,
+				filterUpper,
+				Language.tr("ExpressionBuilder.SimulationCharacteristics.Kurt")+" (NQ_kurt)",
+				"NQ_kurt()",
+				Language.tr("ExpressionBuilder.ClientsInSystemQueue.Kurt"));
 
 		if (sub.getChildCount()>0) subgroup.add(sub);
 
@@ -372,6 +384,12 @@ public class ExpressionBuilderSimulationData {
 				Language.tr("ExpressionBuilder.SimulationCharacteristics.Skewness")+" (WIP_sk)",
 				"WIP_sk(id)",
 				Language.tr("ExpressionBuilder.ClientsAtStation.Skewness"));
+		addTreeNode(
+				sub,
+				filterUpper,
+				Language.tr("ExpressionBuilder.SimulationCharacteristics.Kurt")+" (WIP_kurt)",
+				"WIP_kurt(id)",
+				Language.tr("ExpressionBuilder.ClientsAtStation.Kurt"));
 		addTreeNode(
 				sub,
 				filterUpper,
@@ -458,6 +476,12 @@ public class ExpressionBuilderSimulationData {
 				Language.tr("ExpressionBuilder.SimulationCharacteristics.Skewness")+" (NQ_sk)",
 				"NQ_sk(id)",
 				Language.tr("ExpressionBuilder.ClientsAtQueue.Skewness"));
+		addTreeNode(
+				sub,
+				filterUpper,
+				Language.tr("ExpressionBuilder.SimulationCharacteristics.Kurt")+" (NQ_kurt)",
+				"NQ_kurt(id)",
+				Language.tr("ExpressionBuilder.ClientsAtQueue.Kurt"));
 		addTreeNode(
 				sub,
 				filterUpper,
@@ -567,6 +591,12 @@ public class ExpressionBuilderSimulationData {
 		addTreeNode(
 				sub,
 				filterUpper,
+				Language.tr("ExpressionBuilder.SimulationCharacteristics.Kurt")+" ("+Language.tr("ExpressionBuilder.CommandName.WaitingTime")+"_kurt)",
+				Language.tr("ExpressionBuilder.CommandName.WaitingTime")+"_kurt(id)",
+				Language.tr("ExpressionBuilder.SimulationCharacteristics.WaitingTimesAtStations.Kurt"));
+		addTreeNode(
+				sub,
+				filterUpper,
 				Language.tr("ExpressionBuilder.SimulationCharacteristics.HistogramSingle")+" ("+Language.tr("ExpressionBuilder.CommandName.WaitingTime")+"_hist)",
 				Language.tr("ExpressionBuilder.CommandName.WaitingTime")+"_hist(id;state)",
 				Language.tr("ExpressionBuilder.SimulationCharacteristics.WaitingTimesAtStations.HistogramSingle"));
@@ -648,6 +678,12 @@ public class ExpressionBuilderSimulationData {
 				Language.tr("ExpressionBuilder.SimulationCharacteristics.Skewness")+" ("+Language.tr("ExpressionBuilder.CommandName.TransferTime")+"_sk)",
 				Language.tr("ExpressionBuilder.CommandName.TransferTime")+"_sk(id)",
 				Language.tr("ExpressionBuilder.SimulationCharacteristics.TransferTimesAtStations.Skewness"));
+		addTreeNode(
+				sub,
+				filterUpper,
+				Language.tr("ExpressionBuilder.SimulationCharacteristics.Kurt")+" ("+Language.tr("ExpressionBuilder.CommandName.TransferTime")+"_kurt)",
+				Language.tr("ExpressionBuilder.CommandName.TransferTime")+"_kurt(id)",
+				Language.tr("ExpressionBuilder.SimulationCharacteristics.TransferTimesAtStations.Kurt"));
 		addTreeNode(
 				sub,
 				filterUpper,
@@ -735,6 +771,12 @@ public class ExpressionBuilderSimulationData {
 		addTreeNode(
 				sub,
 				filterUpper,
+				Language.tr("ExpressionBuilder.SimulationCharacteristics.Kurt")+" ("+Language.tr("ExpressionBuilder.CommandName.ProcessingTime")+"_kurt)",
+				Language.tr("ExpressionBuilder.CommandName.ProcessingTime")+"_kurt(id)",
+				Language.tr("ExpressionBuilder.SimulationCharacteristics.ProcessingTimesAtStations.Kurt"));
+		addTreeNode(
+				sub,
+				filterUpper,
 				Language.tr("ExpressionBuilder.SimulationCharacteristics.HistogramSingle")+" ("+Language.tr("ExpressionBuilder.CommandName.ProcessingTime")+"_hist)",
 				Language.tr("ExpressionBuilder.CommandName.ProcessingTime")+"_hist(id;state)",
 				Language.tr("ExpressionBuilder.SimulationCharacteristics.ProcessingTimesAtStations.HistogramSingle"));
@@ -816,6 +858,12 @@ public class ExpressionBuilderSimulationData {
 				Language.tr("ExpressionBuilder.SimulationCharacteristics.Skewness")+" ("+Language.tr("ExpressionBuilder.CommandName.ResidenceTime")+"_sk)",
 				Language.tr("ExpressionBuilder.CommandName.ResidenceTime")+"_sk(id)",
 				Language.tr("ExpressionBuilder.SimulationCharacteristics.ResidenceTimesAtStations.Skewness"));
+		addTreeNode(
+				sub,
+				filterUpper,
+				Language.tr("ExpressionBuilder.SimulationCharacteristics.Kurt")+" ("+Language.tr("ExpressionBuilder.CommandName.ResidenceTime")+"_kurt)",
+				Language.tr("ExpressionBuilder.CommandName.ResidenceTime")+"_kurt(id)",
+				Language.tr("ExpressionBuilder.SimulationCharacteristics.ResidenceTimesAtStations.Kurt"));
 		addTreeNode(
 				sub,
 				filterUpper,
@@ -906,6 +954,12 @@ public class ExpressionBuilderSimulationData {
 				Language.tr("ExpressionBuilder.SimulationCharacteristics.Skewness")+" ("+Language.tr("ExpressionBuilder.CommandName.WaitingTime")+"_sk)",
 				Language.tr("ExpressionBuilder.CommandName.WaitingTime")+"_sk(id)",
 				Language.tr("ExpressionBuilder.SimulationCharacteristics.WaitingTimesByClientTypes.Skewness"));
+		addTreeNode(
+				sub,
+				filterUpper,
+				Language.tr("ExpressionBuilder.SimulationCharacteristics.Kurt")+" ("+Language.tr("ExpressionBuilder.CommandName.WaitingTime")+"_kurt)",
+				Language.tr("ExpressionBuilder.CommandName.WaitingTime")+"_kurt(id)",
+				Language.tr("ExpressionBuilder.SimulationCharacteristics.WaitingTimesByClientTypes.Kurt"));
 
 		if (sub.getChildCount()>0) subgroup.add(sub);
 
@@ -978,6 +1032,12 @@ public class ExpressionBuilderSimulationData {
 				Language.tr("ExpressionBuilder.SimulationCharacteristics.Skewness")+" ("+Language.tr("ExpressionBuilder.CommandName.TransferTime")+"_sk)",
 				Language.tr("ExpressionBuilder.CommandName.TransferTime")+"_sk(id)",
 				Language.tr("ExpressionBuilder.SimulationCharacteristics.TransferTimesByClientTypes.Skewness"));
+		addTreeNode(
+				sub,
+				filterUpper,
+				Language.tr("ExpressionBuilder.SimulationCharacteristics.Kurt")+" ("+Language.tr("ExpressionBuilder.CommandName.TransferTime")+"_kurt)",
+				Language.tr("ExpressionBuilder.CommandName.TransferTime")+"_kurt(id)",
+				Language.tr("ExpressionBuilder.SimulationCharacteristics.TransferTimesByClientTypes.Kurt"));
 
 		if (sub.getChildCount()>0) subgroup.add(sub);
 
@@ -1050,6 +1110,12 @@ public class ExpressionBuilderSimulationData {
 				Language.tr("ExpressionBuilder.SimulationCharacteristics.Skewness")+" ("+Language.tr("ExpressionBuilder.CommandName.ProcessingTime")+"_sk)",
 				Language.tr("ExpressionBuilder.CommandName.ProcessingTime")+"_sk(id)",
 				Language.tr("ExpressionBuilder.SimulationCharacteristics.ProcessingTimesByClientTypes.Skewness"));
+		addTreeNode(
+				sub,
+				filterUpper,
+				Language.tr("ExpressionBuilder.SimulationCharacteristics.Kurt")+" ("+Language.tr("ExpressionBuilder.CommandName.ProcessingTime")+"_kurt)",
+				Language.tr("ExpressionBuilder.CommandName.ProcessingTime")+"_kurt(id)",
+				Language.tr("ExpressionBuilder.SimulationCharacteristics.ProcessingTimesByClientTypes.Kurt"));
 
 		if (sub.getChildCount()>0) subgroup.add(sub);
 
@@ -1122,6 +1188,12 @@ public class ExpressionBuilderSimulationData {
 				Language.tr("ExpressionBuilder.SimulationCharacteristics.Skewness")+" ("+Language.tr("ExpressionBuilder.CommandName.ResidenceTime")+"_sk)",
 				Language.tr("ExpressionBuilder.CommandName.ResidenceTime")+"_sk(id)",
 				Language.tr("ExpressionBuilder.SimulationCharacteristics.ResidenceTimesByClientTypes.Skewness"));
+		addTreeNode(
+				sub,
+				filterUpper,
+				Language.tr("ExpressionBuilder.SimulationCharacteristics.Kurt")+" ("+Language.tr("ExpressionBuilder.CommandName.ResidenceTime")+"_kurt)",
+				Language.tr("ExpressionBuilder.CommandName.ResidenceTime")+"_kurt(id)",
+				Language.tr("ExpressionBuilder.SimulationCharacteristics.ResidenceTimesByClientTypes.Kurt"));
 
 		if (sub.getChildCount()>0) subgroup.add(sub);
 
@@ -1200,6 +1272,12 @@ public class ExpressionBuilderSimulationData {
 				Language.tr("ExpressionBuilder.SimulationCharacteristics.Skewness")+" ("+Language.tr("ExpressionBuilder.CommandName.WaitingTime")+"_sk)",
 				Language.tr("ExpressionBuilder.CommandName.WaitingTime")+"_sk()",
 				Language.tr("ExpressionBuilder.SimulationCharacteristics.WaitingTimesOverAll.Skewness"));
+		addTreeNode(
+				sub,
+				filterUpper,
+				Language.tr("ExpressionBuilder.SimulationCharacteristics.Kurt")+" ("+Language.tr("ExpressionBuilder.CommandName.WaitingTime")+"_kurt)",
+				Language.tr("ExpressionBuilder.CommandName.WaitingTime")+"_kurt()",
+				Language.tr("ExpressionBuilder.SimulationCharacteristics.WaitingTimesOverAll.Kurt"));
 		addTreeNode(
 				sub,
 				filterUpper,
@@ -1287,6 +1365,12 @@ public class ExpressionBuilderSimulationData {
 		addTreeNode(
 				sub,
 				filterUpper,
+				Language.tr("ExpressionBuilder.SimulationCharacteristics.Kurt")+" ("+Language.tr("ExpressionBuilder.CommandName.TransferTime")+"_kurt)",
+				Language.tr("ExpressionBuilder.CommandName.TransferTime")+"_kurt()",
+				Language.tr("ExpressionBuilder.SimulationCharacteristics.TransferTimesOverAll.Kurt"));
+		addTreeNode(
+				sub,
+				filterUpper,
 				Language.tr("ExpressionBuilder.SimulationCharacteristics.HistogramSingle")+" ("+Language.tr("ExpressionBuilder.CommandName.TransferTime")+"_histAll)",
 				Language.tr("ExpressionBuilder.CommandName.TransferTime")+"_histAll(state)",
 				Language.tr("ExpressionBuilder.SimulationCharacteristics.TransferTimesOverAll.HistogramSingle"));
@@ -1371,6 +1455,12 @@ public class ExpressionBuilderSimulationData {
 		addTreeNode(
 				sub,
 				filterUpper,
+				Language.tr("ExpressionBuilder.SimulationCharacteristics.Kurt")+" ("+Language.tr("ExpressionBuilder.CommandName.ProcessingTime")+"_kurt)",
+				Language.tr("ExpressionBuilder.CommandName.ProcessingTime")+"_kurt()",
+				Language.tr("ExpressionBuilder.SimulationCharacteristics.ProcessingTimesOverAll.Kurt"));
+		addTreeNode(
+				sub,
+				filterUpper,
 				Language.tr("ExpressionBuilder.SimulationCharacteristics.HistogramSingle")+" ("+Language.tr("ExpressionBuilder.CommandName.ProcessingTime")+"_histAll)",
 				Language.tr("ExpressionBuilder.CommandName.ProcessingTime")+"_histAll(state)",
 				Language.tr("ExpressionBuilder.SimulationCharacteristics.ProcessingTimesOverAll.HistogramSingle"));
@@ -1452,6 +1542,12 @@ public class ExpressionBuilderSimulationData {
 				Language.tr("ExpressionBuilder.SimulationCharacteristics.Skewness")+" ("+Language.tr("ExpressionBuilder.CommandName.ResidenceTime")+"_sk)",
 				Language.tr("ExpressionBuilder.CommandName.ResidenceTime")+"_sk()",
 				Language.tr("ExpressionBuilder.SimulationCharacteristics.ResidenceTimesOverAll.Skewness"));
+		addTreeNode(
+				sub,
+				filterUpper,
+				Language.tr("ExpressionBuilder.SimulationCharacteristics.Kurt")+" ("+Language.tr("ExpressionBuilder.CommandName.ResidenceTime")+"_kurt)",
+				Language.tr("ExpressionBuilder.CommandName.ResidenceTime")+"_kurt()",
+				Language.tr("ExpressionBuilder.SimulationCharacteristics.ResidenceTimesOverAll.Kurt"));
 		addTreeNode(
 				sub,
 				filterUpper,
@@ -1548,6 +1644,12 @@ public class ExpressionBuilderSimulationData {
 				Language.tr("ExpressionBuilder.SimulationCharacteristics.Skewness")+" ("+Language.tr("ExpressionBuilder.CommandName.Resource")+"_sk)",
 				Language.tr("ExpressionBuilder.CommandName.Resource")+"_sk(id)",
 				Language.tr("ExpressionBuilder.SimulationCharacteristics.ResourceUtilization.Skewness"));
+		addTreeNode(
+				sub,
+				filterUpper,
+				Language.tr("ExpressionBuilder.SimulationCharacteristics.Kurt")+" ("+Language.tr("ExpressionBuilder.CommandName.Resource")+"_kurt)",
+				Language.tr("ExpressionBuilder.CommandName.Resource")+"_kurt(id)",
+				Language.tr("ExpressionBuilder.SimulationCharacteristics.ResourceUtilization.Kurt"));
 		addTreeNode(
 				sub,
 				filterUpper,
@@ -1698,6 +1800,12 @@ public class ExpressionBuilderSimulationData {
 				Language.tr("ExpressionBuilder.SimulationCharacteristics.Skewness")+" ("+Language.tr("ExpressionBuilder.CommandName.Transporter")+"_sk)",
 				Language.tr("ExpressionBuilder.CommandName.Transporter")+"_sk(id)",
 				Language.tr("ExpressionBuilder.SimulationCharacteristics.TransporterUtilization.Skewness"));
+		addTreeNode(
+				sub,
+				filterUpper,
+				Language.tr("ExpressionBuilder.SimulationCharacteristics.Kurt")+" ("+Language.tr("ExpressionBuilder.CommandName.Transporter")+"_kurt)",
+				Language.tr("ExpressionBuilder.CommandName.Transporter")+"_kurt(id)",
+				Language.tr("ExpressionBuilder.SimulationCharacteristics.TransporterUtilization.Kurt"));
 		addTreeNode(
 				sub,
 				filterUpper,
@@ -2005,6 +2113,12 @@ public class ExpressionBuilderSimulationData {
 				Language.tr("ExpressionBuilder.SimulationCharacteristics.Skewness")+" ("+Language.tr("ExpressionBuilder.CommandName.UserStatistics")+"_sk)",
 				Language.tr("ExpressionBuilder.CommandName.UserStatistics")+"_sk(id;nr)",
 				Language.tr("ExpressionBuilder.SimulationCharacteristics.UserStatistics.Skewness"));
+		addTreeNode(
+				sub,
+				filterUpper,
+				Language.tr("ExpressionBuilder.SimulationCharacteristics.Kurt")+" ("+Language.tr("ExpressionBuilder.CommandName.UserStatistics")+"_kurt)",
+				Language.tr("ExpressionBuilder.CommandName.UserStatistics")+"_kurt(id;nr)",
+				Language.tr("ExpressionBuilder.SimulationCharacteristics.UserStatistics.Kurt"));
 		addTreeNode(
 				sub,
 				filterUpper,

@@ -216,6 +216,13 @@ class StatisticsDataPerformanceIndicatorWithNegativeValuesTest {
 		assertEquals(5,collector.getCount());
 		assertEquals(10,collector.getSum());
 		assertEquals(2,collector.getMean());
+		assertEquals(2.5,collector.getVar());
+		assertEquals(Math.sqrt(2.5),collector.getSD());
+		assertEquals(Math.sqrt(2.5)/2,collector.getCV());
+		assertEquals(0,collector.getSk(),0.00001);
+		assertEquals(-1.2,collector.getKurt(),0.00001);
+		assertEquals(0,collector.getMin());
+		assertEquals(4,collector.getMax());
 
 		collector=new StatisticsDataPerformanceIndicatorWithNegativeValues(new String[]{"xml"},100,100);
 		collector=collector.clone();

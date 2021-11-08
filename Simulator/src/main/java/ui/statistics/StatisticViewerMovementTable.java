@@ -227,6 +227,7 @@ public class StatisticViewerMovementTable extends StatisticViewerBaseTable {
 		row.add(StatisticTools.formatNumber(indicator.getVar()));
 		row.add(StatisticTools.formatNumber(indicator.getCV()));
 		row.add(StatisticTools.formatNumber(indicator.getSk()));
+		row.add(StatisticTools.formatNumber(indicator.getKurt()));
 		row.add(StatisticTools.formatNumber(indicator.getMin()));
 		row.add(StatisticTools.formatNumber(indicator.getMax()));
 		if (SetupData.getSetup().showQuantils && indicator.getDistribution()!=null) {
@@ -276,6 +277,7 @@ public class StatisticViewerMovementTable extends StatisticViewerBaseTable {
 		columns.add("Var");
 		columns.add("CV");
 		columns.add("Sk");
+		columns.add("Kurt");
 		columns.add("Min");
 		columns.add("Max");
 		if (SetupData.getSetup().showQuantils) {

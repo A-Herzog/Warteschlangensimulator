@@ -184,6 +184,8 @@ class StatisticsTimePerformanceIndicatorTest {
 		final double d=collector.getTimeVar();
 		assertEquals(Math.sqrt(d),collector.getTimeSD());
 		assertEquals(Math.sqrt(d)/2,collector.getTimeCV());
+		assertEquals(0,collector.getTimeSk());
+		assertTrue(collector.getTimeKurt()<0);
 
 		assertEquals(1.0/3.0,collector.getTimePartForState(1));
 		assertEquals(1.0/3.0,collector.getTimePartForState(2));

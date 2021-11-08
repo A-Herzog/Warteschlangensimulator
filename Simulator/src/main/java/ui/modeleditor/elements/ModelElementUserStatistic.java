@@ -404,6 +404,7 @@ public class ModelElementUserStatistic extends ModelElementMultiInSingleOutBox {
 				builder.results.append(Language.tr("Statistics.VarianceUserTime")+" Var[X]="+TimeTools.formatExactTime(indicatorsDiscrete[i].getVar())+" ("+NumberTools.formatNumber(indicatorsDiscrete[i].getVar())+")\n");
 				builder.results.append(Language.tr("Statistics.CVUserTime")+" CV[X]="+NumberTools.formatNumber(indicatorsDiscrete[i].getCV())+"\n");
 				builder.results.append(Language.tr("Statistics.Skewness")+" Sk[X]="+NumberTools.formatNumber(indicatorsDiscrete[i].getSk())+"\n");
+				builder.results.append(Language.tr("Statistics.Kurt")+" Kurt[X]="+NumberTools.formatNumber(indicatorsDiscrete[i].getKurt())+"\n");
 				builder.results.append(Language.tr("Statistics.MinimumUserTime")+" Min[X]="+TimeTools.formatExactTime(indicatorsDiscrete[i].getMin())+" ("+NumberTools.formatNumber(indicatorsDiscrete[i].getMin())+")\n");
 				builder.results.append(Language.tr("Statistics.MaximumUserTime")+" Max[X]="+TimeTools.formatExactTime(indicatorsDiscrete[i].getMax())+" ("+NumberTools.formatNumber(indicatorsDiscrete[i].getMax())+")\n");
 			} else {
@@ -412,6 +413,7 @@ public class ModelElementUserStatistic extends ModelElementMultiInSingleOutBox {
 				builder.results.append(Language.tr("Statistics.VarianceUser")+" Var[X]="+NumberTools.formatNumber(indicatorsDiscrete[i].getVar())+"\n");
 				builder.results.append(Language.tr("Statistics.CVUser")+" CV[X]="+NumberTools.formatNumber(indicatorsDiscrete[i].getCV())+"\n");
 				builder.results.append(Language.tr("Statistics.Skewness")+" Sk[X]="+NumberTools.formatNumber(indicatorsDiscrete[i].getSk())+"\n");
+				builder.results.append(Language.tr("Statistics.Kurt")+" Kurt[X]="+NumberTools.formatNumber(indicatorsDiscrete[i].getKurt())+"\n");
 				builder.results.append(Language.tr("Statistics.MinimumUser")+" Min[X]="+NumberTools.formatNumber(indicatorsDiscrete[i].getMin())+"\n");
 				builder.results.append(Language.tr("Statistics.MaximumUser")+" Max[X]="+NumberTools.formatNumber(indicatorsDiscrete[i].getMax())+"\n");
 			}
@@ -431,6 +433,7 @@ public class ModelElementUserStatistic extends ModelElementMultiInSingleOutBox {
 				builder.results.append(Language.tr("Statistics.VarianceUserTime")+" Var[X]="+TimeTools.formatExactTime(indicatorsContinuous[i].getTimeVar())+" ("+NumberTools.formatNumber(indicatorsContinuous[i].getTimeVar())+")\n");
 				builder.results.append(Language.tr("Statistics.CVUserTime")+" CV[X]="+NumberTools.formatNumber(indicatorsContinuous[i].getTimeCV())+"\n");
 				builder.results.append(Language.tr("Statistics.Skewness")+" Sk[X]="+NumberTools.formatNumber(indicatorsContinuous[i].getTimeSk())+"\n");
+				builder.results.append(Language.tr("Statistics.Kurt")+" Kurt[X]="+NumberTools.formatNumber(indicatorsContinuous[i].getTimeKurt())+"\n");
 				builder.results.append(Language.tr("Statistics.MinimumUserTime")+" Min[X]="+TimeTools.formatExactTime(indicatorsContinuous[i].getTimeMin())+" ("+NumberTools.formatNumber(indicatorsContinuous[i].getTimeMin())+")\n");
 				builder.results.append(Language.tr("Statistics.MaximumUserTime")+" Max[X]="+TimeTools.formatExactTime(indicatorsContinuous[i].getTimeMax())+" ("+NumberTools.formatNumber(indicatorsContinuous[i].getTimeMax())+")\n");
 			} else {
@@ -439,6 +442,7 @@ public class ModelElementUserStatistic extends ModelElementMultiInSingleOutBox {
 				builder.results.append(Language.tr("Statistics.VarianceUser")+" Var[X]="+NumberTools.formatNumber(indicatorsContinuous[i].getTimeVar())+"\n");
 				builder.results.append(Language.tr("Statistics.CVUser")+" CV[X]="+NumberTools.formatNumber(indicatorsContinuous[i].getTimeCV())+"\n");
 				builder.results.append(Language.tr("Statistics.Skewness")+" Sk[X]="+NumberTools.formatNumber(indicatorsContinuous[i].getTimeSk())+"\n");
+				builder.results.append(Language.tr("Statistics.Kurt")+" Kurt[X]="+NumberTools.formatNumber(indicatorsContinuous[i].getTimeKurt())+"\n");
 				builder.results.append(Language.tr("Statistics.MinimumUser")+" Min[X]="+NumberTools.formatNumber(indicatorsContinuous[i].getTimeMin())+"\n");
 				builder.results.append(Language.tr("Statistics.MaximumUser")+" Max[X]="+NumberTools.formatNumber(indicatorsContinuous[i].getTimeMax())+"\n");
 			}

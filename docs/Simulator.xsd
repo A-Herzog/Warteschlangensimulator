@@ -1919,10 +1919,12 @@
 	<xs:attribute name="Summe" type="xs:string"/>
 	<xs:attribute name="Summe2" type="xs:string"/>
 	<xs:attribute name="Summe3" type="xs:string"/>
+	<xs:attribute name="Summe4" type="xs:string"/>
 	<xs:attribute name="Typ" type="xs:string"/>
     <xs:attribute name="Zeit" type="xs:string"/>
 	<xs:attribute name="Variationskoeffizient" type="xs:string"/>
 	<xs:attribute name="Schiefe" type="xs:string"/>
+	<xs:attribute name="Kurt" type="xs:string"/>
 	<xs:attribute name="Verteilung" type="xs:string"/>
 	<xs:attribute name="Autokorrelation" type="xs:string"/>
     <xs:attribute name="Autokorrelation0100" type="xs:string"/>
@@ -4115,10 +4117,12 @@
 	<xs:attribute name="Sum" type="xs:string"/>
 	<xs:attribute name="Sum2" type="xs:string"/>
 	<xs:attribute name="Sum3" type="xs:string"/>
+	<xs:attribute name="Sum4" type="xs:string"/>
 	<xs:attribute name="Type" type="xs:string"/>
     <xs:attribute name="Time" type="xs:string"/>
 	<xs:attribute name="CoefficientOfVariation" type="xs:string"/>
 	<xs:attribute name="Skewness" type="xs:string"/>
+	<xs:attribute name="Kurt" type="xs:string"/>
 	<xs:attribute name="Distribution" type="xs:string"/>
 	<xs:attribute name="Autocorrelation" type="xs:string"/>
     <xs:attribute name="Autocorrelation0100" type="xs:string"/>

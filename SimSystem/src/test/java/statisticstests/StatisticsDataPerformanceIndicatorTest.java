@@ -259,6 +259,8 @@ class StatisticsDataPerformanceIndicatorTest {
 		assertEquals(2.5,collector.getVar());
 		assertEquals(Math.sqrt(2.5),collector.getSD());
 		assertEquals(Math.sqrt(2.5)/2,collector.getCV());
+		assertEquals(0,collector.getSk(),0.00001);
+		assertEquals(-1.2,collector.getKurt(),0.00001);
 		assertEquals(0,collector.getMin());
 		assertEquals(4,collector.getMax());
 

@@ -1755,9 +1755,11 @@
   Summe							CDATA	#REQUIRED
   Summe2						CDATA	#IMPLIED
   Summe3						CDATA	#IMPLIED
+  Summe4						CDATA	#IMPLIED
   Typ							CDATA	#REQUIRED
   Variationskoeffizient			CDATA	#REQUIRED
   Schiefe						CDATA	#IMPLIED
+  Kurt							CDATA	#IMPLIED
   Verteilung					CDATA	#IMPLIED
   Autokorrelation				CDATA	#IMPLIED
   Autokorrelation0100			CDATA	#IMPLIED
@@ -1797,9 +1799,11 @@
   Summe							CDATA	#REQUIRED
   Summe2						CDATA	#IMPLIED
   Summe3						CDATA	#IMPLIED
+  Summe4						CDATA	#IMPLIED
   Typ							CDATA	#REQUIRED
   Variationskoeffizient			CDATA	#REQUIRED
   Schiefe						CDATA	#IMPLIED
+  Kurt							CDATA	#IMPLIED
   Verteilung					CDATA	#IMPLIED
   Autokorrelation				CDATA	#IMPLIED
   Autokorrelation0100			CDATA	#IMPLIED
@@ -1850,9 +1854,11 @@
   Summe							CDATA	#REQUIRED
   Summe2						CDATA	#IMPLIED
   Summe3						CDATA	#IMPLIED
+  Summe4						CDATA	#IMPLIED
   Typ							CDATA	#REQUIRED
   Variationskoeffizient			CDATA	#REQUIRED
   Schiefe						CDATA	#IMPLIED
+  Kurt							CDATA	#IMPLIED
   Verteilung					CDATA	#IMPLIED
   Quantil10						CDATA	#IMPLIED
   Quantil25						CDATA	#IMPLIED
@@ -1871,9 +1877,11 @@
   Summe					CDATA	#REQUIRED
   Summe2				CDATA	#IMPLIED
   Summe3				CDATA	#IMPLIED
+  Summe4				CDATA	#IMPLIED
   Typ					CDATA	#REQUIRED
   Variationskoeffizient	CDATA	#REQUIRED
   Schiefe				CDATA	#IMPLIED
+  Kurt					CDATA	#IMPLIED
   WerteSumme            CDATA	#IMPLIED
   WerteSumme2           CDATA	#IMPLIED
   WerteSumme3           CDATA	#IMPLIED
@@ -1894,9 +1902,11 @@
   Summe					CDATA	#REQUIRED
   Summe2				CDATA	#IMPLIED
   Summe3				CDATA	#IMPLIED
+  Summe4				CDATA	#IMPLIED
   Typ					CDATA	#REQUIRED
   Variationskoeffizient	CDATA	#REQUIRED
   Schiefe				CDATA	#IMPLIED
+  Kurt					CDATA	#IMPLIED
   WerteSumme            CDATA	#IMPLIED
   WerteSumme2           CDATA	#IMPLIED
   WerteSumme3           CDATA	#IMPLIED
@@ -1923,9 +1933,11 @@
   Summe					CDATA	#REQUIRED
   Summe2				CDATA	#IMPLIED
   Summe3				CDATA	#IMPLIED
+  Summe4				CDATA	#IMPLIED
   Typ					CDATA	#REQUIRED
   Variationskoeffizient	CDATA	#REQUIRED
   Schiefe				CDATA	#IMPLIED
+  Kurt					CDATA	#IMPLIED
   WerteSumme            CDATA	#IMPLIED
   WerteSumme2           CDATA	#IMPLIED
   WerteSumme3           CDATA	#IMPLIED
@@ -1952,8 +1964,10 @@
   Summe					CDATA	#REQUIRED
   Summe2				CDATA	#IMPLIED
   Summe3				CDATA	#IMPLIED
+  Summe4				CDATA	#IMPLIED
   Variationskoeffizient	CDATA	#REQUIRED
-  Schiefe						CDATA	#IMPLIED
+  Schiefe				CDATA	#IMPLIED
+  Kurt					CDATA	#IMPLIED
   Verteilung			CDATA	#IMPLIED
   Quantil10				CDATA	#IMPLIED
   Quantil25				CDATA	#IMPLIED
@@ -1972,9 +1986,11 @@
   Summe					CDATA	#REQUIRED
   Summe2				CDATA	#IMPLIED
   Summe3				CDATA	#IMPLIED
+  Summe4				CDATA	#IMPLIED
   Typ					CDATA	#REQUIRED
   Variationskoeffizient	CDATA	#REQUIRED
   Schiefe				CDATA	#IMPLIED
+  Kurt					CDATA	#IMPLIED
   WerteSumme            CDATA	#IMPLIED
   WerteSumme2           CDATA	#IMPLIED
   WerteSumme3           CDATA	#IMPLIED
@@ -2017,8 +2033,10 @@
   Summe							CDATA	#REQUIRED
   Summe2						CDATA	#IMPLIED
   Summe3						CDATA	#IMPLIED
+  Summe4						CDATA	#IMPLIED
   Variationskoeffizient			CDATA	#REQUIRED
   Schiefe						CDATA	#IMPLIED
+  Kurt							CDATA	#IMPLIED
   Verteilung					CDATA	#IMPLIED
   Autokorrelation				CDATA	#IMPLIED
   Autokorrelation0100			CDATA	#IMPLIED
@@ -2053,8 +2071,10 @@
   Summe					CDATA	#REQUIRED
   Summe2				CDATA	#IMPLIED
   Summe3				CDATA	#IMPLIED
+  Summe4				CDATA	#IMPLIED
   Variationskoeffizient	CDATA	#REQUIRED
   Schiefe				CDATA	#IMPLIED
+  Kurt					CDATA	#IMPLIED
   Verteilung			CDATA	#IMPLIED
   Quantil10				CDATA	#IMPLIED
   Quantil25				CDATA	#IMPLIED
@@ -2072,8 +2092,10 @@
   Summe					CDATA	#REQUIRED
   Summe2				CDATA	#IMPLIED
   Summe3				CDATA	#IMPLIED
+  Summe4				CDATA	#IMPLIED
   Variationskoeffizient	CDATA	#REQUIRED
   Schiefe				CDATA	#IMPLIED
+  Kurt					CDATA	#IMPLIED
   Verteilung			CDATA	#IMPLIED
   Quantil10				CDATA	#IMPLIED
   Quantil25				CDATA	#IMPLIED
@@ -2091,8 +2113,10 @@
   Summe					CDATA	#REQUIRED
   Summe2				CDATA	#IMPLIED
   Summe3				CDATA	#IMPLIED
+  Summe4				CDATA	#IMPLIED
   Variationskoeffizient	CDATA	#REQUIRED
   Schiefe				CDATA	#IMPLIED
+  Kurt					CDATA	#IMPLIED
   Verteilung			CDATA	#IMPLIED
   Quantil10				CDATA	#IMPLIED
   Quantil25				CDATA	#IMPLIED
@@ -2118,8 +2142,10 @@
   Summe					CDATA	#REQUIRED
   Summe2				CDATA	#IMPLIED
   Summe3				CDATA	#IMPLIED
+  Summe4				CDATA	#IMPLIED
   Variationskoeffizient	CDATA	#REQUIRED
   Schiefe				CDATA	#IMPLIED
+  Kurt					CDATA	#IMPLIED
   WerteSumme            CDATA	#IMPLIED
   WerteSumme2           CDATA	#IMPLIED
   WerteSumme3           CDATA	#IMPLIED
@@ -2139,8 +2165,10 @@
   Summe					CDATA	#REQUIRED
   Summe2				CDATA	#IMPLIED
   Summe3				CDATA	#IMPLIED
+  Summe4				CDATA	#IMPLIED
   Variationskoeffizient	CDATA	#REQUIRED
   Schiefe				CDATA	#IMPLIED
+  Kurt					CDATA	#IMPLIED
   WerteSumme            CDATA	#IMPLIED
   WerteSumme2           CDATA	#IMPLIED
   WerteSumme3           CDATA	#IMPLIED
@@ -2184,8 +2212,10 @@
   Summe							CDATA	#REQUIRED
   Summe2						CDATA	#IMPLIED
   Summe3						CDATA	#IMPLIED
+  Summe4						CDATA	#IMPLIED
   Variationskoeffizient			CDATA	#REQUIRED
   Schiefe						CDATA	#IMPLIED
+  Kurt							CDATA	#IMPLIED
   Verteilung					CDATA	#IMPLIED
   Autokorrelation				CDATA	#IMPLIED
   Autokorrelation0100			CDATA	#IMPLIED
@@ -2221,9 +2251,11 @@
   Summe					CDATA	#REQUIRED
   Summe2				CDATA	#IMPLIED
   Summe3				CDATA	#IMPLIED
+  Summe4				CDATA	#IMPLIED
   Typ					CDATA	#REQUIRED
   Variationskoeffizient	CDATA	#REQUIRED
   Schiefe				CDATA	#IMPLIED
+  Kurt					CDATA	#IMPLIED
   WerteSumme            CDATA	#IMPLIED
   WerteSumme2           CDATA	#IMPLIED
   WerteSumme3           CDATA	#IMPLIED
@@ -2239,9 +2271,11 @@
   Summe					CDATA	#REQUIRED
   Summe2				CDATA	#IMPLIED
   Summe3				CDATA	#IMPLIED
+  Summe4				CDATA	#IMPLIED
   Typ					CDATA	#REQUIRED
   Variationskoeffizient	CDATA	#REQUIRED
   Schiefe				CDATA	#IMPLIED
+  Kurt					CDATA	#IMPLIED
   WerteSumme            CDATA	#IMPLIED
   WerteSumme2           CDATA	#IMPLIED
   WerteSumme3           CDATA	#IMPLIED
@@ -4097,9 +4131,11 @@
   Sum						CDATA	#REQUIRED
   Sum2						CDATA	#IMPLIED
   Sum3						CDATA	#IMPLIED
+  Sum4						CDATA	#IMPLIED
   Type						CDATA	#REQUIRED
   CoefficientOfVariation	CDATA	#REQUIRED
   Skewness					CDATA	#IMPLIED
+  Kurt						CDATA	#IMPLIED
   Distribution				CDATA	#IMPLIED
   Autocorrelation			CDATA	#IMPLIED
   Autocorrelation0100		CDATA	#IMPLIED
@@ -4139,9 +4175,11 @@
   Sum						CDATA	#REQUIRED
   Sum2						CDATA	#IMPLIED
   Sum3						CDATA	#IMPLIED
+  Sum4						CDATA	#IMPLIED
   Type						CDATA	#REQUIRED
   CoefficientOfVariation	CDATA	#REQUIRED
   Skewness					CDATA	#IMPLIED
+  Kurt						CDATA	#IMPLIED
   Distribution				CDATA	#IMPLIED
   Autocorrelation			CDATA	#IMPLIED
   Autocorrelation0100		CDATA	#IMPLIED
@@ -4192,9 +4230,11 @@
   Sum						CDATA	#REQUIRED
   Sum2						CDATA	#IMPLIED
   Sum3						CDATA	#IMPLIED
+  Sum4						CDATA	#IMPLIED
   Type						CDATA	#REQUIRED
   CoefficientOfVariation	CDATA	#REQUIRED
   Skewness					CDATA	#IMPLIED
+  Kurt						CDATA	#IMPLIED
   Distribution				CDATA	#IMPLIED
   Quantil10					CDATA	#IMPLIED
   Quantil25					CDATA	#IMPLIED
@@ -4213,9 +4253,11 @@
   Sum						CDATA	#REQUIRED
   Sum2						CDATA	#IMPLIED
   Sum3						CDATA	#IMPLIED
+  Sum4						CDATA	#IMPLIED
   Type						CDATA	#REQUIRED
   CoefficientOfVariation	CDATA	#REQUIRED
   Skewness					CDATA	#IMPLIED
+  Kurt						CDATA	#IMPLIED
   ValuesSum                 CDATA	#IMPLIED
   ValuesSum2                CDATA	#IMPLIED
   ValuesSum3                CDATA	#IMPLIED
@@ -4236,9 +4278,11 @@
   Sum						CDATA	#REQUIRED
   Sum2						CDATA	#IMPLIED
   Sum3						CDATA	#IMPLIED
+  Sum4						CDATA	#IMPLIED
   Type						CDATA	#REQUIRED
   CoefficientOfVariation	CDATA	#REQUIRED
   Skewness					CDATA	#IMPLIED
+  Kurt						CDATA	#IMPLIED
   ValuesSum                 CDATA	#IMPLIED
   ValuesSum2                CDATA	#IMPLIED
   ValuesSum3                CDATA	#IMPLIED
@@ -4265,9 +4309,11 @@
   Sum						CDATA	#REQUIRED
   Sum2						CDATA	#IMPLIED
   Sum3						CDATA	#IMPLIED
+  Sum4						CDATA	#IMPLIED
   Type						CDATA	#REQUIRED
   CoefficientOfVariation	CDATA	#REQUIRED
   Skewness					CDATA	#IMPLIED
+  Kurt						CDATA	#IMPLIED
   ValuesSum                 CDATA	#IMPLIED
   ValuesSum2                CDATA	#IMPLIED
   ValuesSum3                CDATA	#IMPLIED
@@ -4294,9 +4340,11 @@
   Sum						CDATA	#REQUIRED
   Sum2						CDATA	#IMPLIED
   Sum3						CDATA	#IMPLIED
+  Sum4						CDATA	#IMPLIED
   Type						CDATA	#REQUIRED
   CoefficientOfVariation	CDATA	#REQUIRED
   Skewness					CDATA	#IMPLIED
+  Kurt						CDATA	#IMPLIED
   Distribution				CDATA	#IMPLIED
   Quantil10					CDATA	#IMPLIED
   Quantil25					CDATA	#IMPLIED
@@ -4315,9 +4363,11 @@
   Sum						CDATA	#REQUIRED
   Sum2						CDATA	#IMPLIED
   Sum3						CDATA	#IMPLIED
+  Sum4						CDATA	#IMPLIED
   Type						CDATA	#REQUIRED
   CoefficientOfVariation	CDATA	#REQUIRED
   Skewness					CDATA	#IMPLIED
+  Kurt						CDATA	#IMPLIED
   ValuesSum                 CDATA	#IMPLIED
   ValuesSum2                CDATA	#IMPLIED
   ValuesSum3                CDATA	#IMPLIED
@@ -4359,8 +4409,10 @@
   Sum						CDATA	#REQUIRED
   Sum2						CDATA	#IMPLIED
   Sum3						CDATA	#IMPLIED
+  Sum4						CDATA	#IMPLIED
   CoefficientOfVariation	CDATA	#REQUIRED
   Skewness					CDATA	#IMPLIED
+  Kurt						CDATA	#IMPLIED
   Distribution				CDATA	#IMPLIED
   Autocorrelation			CDATA	#IMPLIED
   Autocorrelation0100		CDATA	#IMPLIED
@@ -4395,8 +4447,10 @@
   Sum						CDATA	#REQUIRED
   Sum2						CDATA	#IMPLIED
   Sum3						CDATA	#IMPLIED
+  Sum4						CDATA	#IMPLIED
   CoefficientOfVariation	CDATA	#REQUIRED
   Skewness					CDATA	#IMPLIED
+  Kurt						CDATA	#IMPLIED
   Distribution				CDATA	#IMPLIED
   Quantil10					CDATA	#IMPLIED
   Quantil25					CDATA	#IMPLIED
@@ -4414,8 +4468,10 @@
   Sum						CDATA	#REQUIRED
   Sum2						CDATA	#IMPLIED
   Sum3						CDATA	#IMPLIED
+  Sum4						CDATA	#IMPLIED
   CoefficientOfVariation	CDATA	#REQUIRED
   Skewness					CDATA	#IMPLIED
+  Kurt						CDATA	#IMPLIED
   Distribution				CDATA	#IMPLIED
   Quantil10					CDATA	#IMPLIED
   Quantil25					CDATA	#IMPLIED
@@ -4433,8 +4489,10 @@
   Sum						CDATA	#REQUIRED
   Sum2						CDATA	#IMPLIED
   Sum3						CDATA	#IMPLIED
+  Sum4						CDATA	#IMPLIED
   CoefficientOfVariation	CDATA	#REQUIRED
   Skewness					CDATA	#IMPLIED
+  Kurt						CDATA	#IMPLIED
   Distribution				CDATA	#IMPLIED
   Quantil10					CDATA	#IMPLIED
   Quantil25					CDATA	#IMPLIED
@@ -4460,8 +4518,10 @@
   Sum						CDATA	#REQUIRED
   Sum2						CDATA	#IMPLIED
   Sum3						CDATA	#IMPLIED
+  Sum4						CDATA	#IMPLIED
   CoefficientOfVariation	CDATA	#REQUIRED
   Skewness					CDATA	#IMPLIED
+  Kurt						CDATA	#IMPLIED
   ValuesSum                 CDATA	#IMPLIED
   ValuesSum2                CDATA	#IMPLIED
   ValuesSum3                CDATA	#IMPLIED
@@ -4481,8 +4541,10 @@
   Sum						CDATA	#REQUIRED
   Sum2						CDATA	#IMPLIED
   Sum3						CDATA	#IMPLIED
+  Sum4						CDATA	#IMPLIED
   CoefficientOfVariation	CDATA	#REQUIRED
   Skewness					CDATA	#IMPLIED
+  Kurt						CDATA	#IMPLIED
   ValuesSum                 CDATA	#IMPLIED
   ValuesSum2                CDATA	#IMPLIED
   ValuesSum3                CDATA	#IMPLIED
@@ -4526,8 +4588,10 @@
   Sum						CDATA	#REQUIRED
   Sum2						CDATA	#IMPLIED
   Sum3						CDATA	#IMPLIED
+  Sum4						CDATA	#IMPLIED
   CoefficientOfVariation	CDATA	#REQUIRED
   Skewness					CDATA	#IMPLIED
+  Kurt						CDATA	#IMPLIED
   Distribution				CDATA	#IMPLIED
   Autocorrelation			CDATA	#IMPLIED
   Autocorrelation0100		CDATA	#IMPLIED
@@ -4563,6 +4627,7 @@
   Typ					CDATA	#REQUIRED
   Variationskoeffizient	CDATA	#REQUIRED
   Schiefe				CDATA	#IMPLIED
+  Kurt					CDATA	#IMPLIED
   WerteSumme            CDATA	#IMPLIED
   WerteSumme2           CDATA	#IMPLIED
   WerteSumme3           CDATA	#IMPLIED
@@ -4578,9 +4643,11 @@
   Sum						CDATA	#REQUIRED
   Sum2						CDATA	#IMPLIED
   Sum3						CDATA	#IMPLIED
+  Sum4						CDATA	#IMPLIED
   Type						CDATA	#REQUIRED
   CoefficientOfVariation	CDATA	#REQUIRED
   Skewness					CDATA	#IMPLIED
+  Kurt						CDATA	#IMPLIED
   ValuesSum                 CDATA	#IMPLIED
   ValuesSum2                CDATA	#IMPLIED
   ValuesSum3                CDATA	#IMPLIED

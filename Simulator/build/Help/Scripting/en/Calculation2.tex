@@ -92,6 +92,10 @@ Gets the squared coefficient of variation of the number of clients in the system
 \cmd{WIP\_sk()} or \cmd{Station\_sk()} or \cmd{N\_sk()}:\\
 Gets the skewness of the number of clients in the system.
 
+\item
+\cmd{WIP\_kurt()} or \cmd{Station\_kurt()} or \cmd{N\_kurt()}:\\
+Gets the excess kurtosis of the number of clients in the system.
+
 \end{itemize}
 
 
@@ -154,6 +158,10 @@ Gets the squared coefficient of variation of the number of waiting clients in th
 \item
 \cmd{NQ\_sk()} or \cmd{Queue\_sk()} or \cmd{Schlange\_sk()} or \cmd{Warteschlange\_sk()}:\\
 Gets the skewness of the number of waiting clients in the system.
+
+\item
+\cmd{NQ\_kurt()} or \cmd{Queue\_kurt()} or \cmd{Schlange\_kurt()} or \cmd{Warteschlange\_kurt()}:\\
+Gets the excess kurtosis of the number of waiting clients in the system.
 
 \end{itemize}
 
@@ -222,6 +230,10 @@ Gets the squared coefficient of variation of the number of clients at station \c
 \item
 \cmd{WIP\_sk(id)} or \cmd{Station\_sk(id)} or \cmd{N\_sk(id)}:\\
 Gets the skewness of the number of clients at station \cm{id}.
+
+\item
+\cmd{WIP\_kurt(id)} or \cmd{Station\_kurt(id)} or \cmd{N\_kurt(id)}:\\
+Gets the excess kurtosis of the number of clients at station \cm{id}.
 
 \item
 \cmd{WIP\_hist(id;state)} or \cmd{Station\_hist(id;state)} or \cmd{N\_hist(id;state)}:\\
@@ -300,6 +312,10 @@ Gets the squared coefficient of variation of the number of clients in the queue 
 \item
 \cmd{NQ\_sk(id)} or \cmd{Queue\_sk(id)} or \cmd{Schlange\_sk(id)} or \cmd{Warteschlange\_sk(id)}:\\
 Gets the skewness of the number of clients in the queue at station \cm{id}.
+
+\item
+\cmd{NQ\_kurt(id)} or \cmd{Queue\_kurt(id)} or \cmd{Schlange\_kurt(id)} or \cmd{Warteschlange\_kurt(id)}:\\
+Gets the excess kurtosis of the number of clients in the queue at station \cm{id}.
 
 \item
 \cmd{NQ\_hist(id;state)} or \cmd{Queue\_hist(id;state)} or \cmd{Schlange\_hist(id;state)} or\\ \cmd{Warteschlange\_hist(id;state)}:\\
@@ -401,6 +417,10 @@ Gets the squared coefficient of variation of the number of clients, whos name ap
 Gets the skewness of the number of clients, whos name appears at the source or the type assignment \cm{id}.
 
 \item
+\cmd{WIP\_kurt(id)} or \cmd{Station\_kurt(id)} or \cmd{N\_kurt(id)}:\\
+Gets the excess kurtosis of the number of clients, whos name appears at the source or the type assignment \cm{id}.
+
+\item
 \cmd{WIP\_hist(id;state)} or \cmd{Station\_hist(id;state)} or \cmd{N\_hist(id;state)}:\\
 Gets the fraction of time, the system was in the given \cm{state} in relation of the number of clients, whos name appears at the source or the type assignment \cm{id}.
 
@@ -472,6 +492,10 @@ Gets the squared coefficient of variation of the number of waiting clients, whos
 \item
 \cmd{NQ\_sk(id)} or \cmd{Queue\_sk(id)} or \cmd{Schlange\_sk(id)} or \cmd{Warteschlange\_sk(id)}:\\
 Gets the skewness of the number of waiting clients, whos name appears at the source or the type assignment \cm{id}.
+
+\item
+\cmd{NQ\_kurt(id)} or \cmd{Queue\_kurt(id)} or \cmd{Schlange\_kurt(id)} or \cmd{Warteschlange\_kurt(id)}:\\
+Gets the excess kurtosis of the number of waiting clients, whos name appears at the source or the type assignment \cm{id}.
 
 \item
 \cmd{NQ\_hist(id;state)} or \cmd{Queue\_hist(id;state)} or \cmd{Schlange\_hist(id;state)} or\\ \cmd{Warteschlange\_hist(id;state)}:\\
@@ -557,6 +581,10 @@ Gets the squared coefficient of variation of the waiting times of the clients at
 Gets the skewness of the waiting times of the clients at station \cm{id}. 
 
 \item
+\cmd{WaitingTime\_kurt(id)}:\\
+Gets the excess kurtosis of the waiting times of the clients at station \cm{id}. 
+
+\item
 \cmd{WaitingTime\_hist(id;time)}:\\
 Gets the fraction of clients for which the waiting time at stations \cm{id} was \cm{time} seconds.
 
@@ -611,6 +639,10 @@ Gets the squared coefficient of variation of the waiting times over all clients.
 \item
 \cmd{WaitingTime\_sk()}:\\
 Gets the skewness of the waiting times over all clients. 
+
+\item
+\cmd{WaitingTime\_kurt()}:\\
+Gets the excess kurtosis of the waiting times over all clients. 
 
 \item
 \cmd{WaitingTime\_histAll(time)}:\\
@@ -672,6 +704,10 @@ Gets the squared coefficient of variation of the waiting times of the clients, w
 \cmd{WaitingTime\_sk(id)}:\\
 Gets the skewness of the waiting times of the clients, whos name appears at the source or the type assignment \cm{id}.
 
+\item
+\cmd{WaitingTime\_kurt(id)}:\\
+Gets the excess kurtosis of the waiting times of the clients, whos name appears at the source or the type assignment \cm{id}.
+
 \end{itemize}
 
 
@@ -730,6 +766,10 @@ Gets the squared coefficient of variation of the transfer times of the clients a
 Gets the skewness of the transfer times of the clients at station \cm{id}.
 
 \item
+\cmd{TransferTime\_kurt(id)}:\\
+Gets the excess kurtosis of the transfer times of the clients at station \cm{id}.
+
+\item
 \cmd{TransferTime\_hist(id;time)}:\\
 Gets the fraction of clients for which the transfer time at stations \cm{id} was \cm{time} seconds.
 
@@ -784,6 +824,10 @@ Gets the squared coefficient of variation of the transfer times over all clients
 \item
 \cmd{TransferTime\_sk()}:\\
 Gets the skewness of the transfer times over all clients.
+
+\item
+\cmd{TransferTime\_kurt()}:\\
+Gets the excess kurtosis of the transfer times over all clients.
 
 \item
 \cmd{TransferTime\_histAll(time)}:\\
@@ -846,6 +890,10 @@ Gets the squared coefficient of variation of the transfer times of the clients, 
 \cmd{TransferTime\_sk(id)}:\\
 Gets the skewness of the transfer times of the clients, whos name appears at the source or the type assignment \cm{id}.
 
+\item
+\cmd{TransferTime\_kurt(id)}:\\
+Gets the excess kurtosis of the transfer times of the clients, whos name appears at the source or the type assignment \cm{id}.
+
 \end{itemize}
 
 
@@ -903,6 +951,10 @@ Gets the squared coefficient of variation of the process times of the clients at
 Gets the skewness of the process times of the clients at station \cm{id}.
 
 \item
+\cmd{ProcessTime\_kurt(id)}:\\
+Gets the excess kurtosis of the process times of the clients at station \cm{id}.
+
+\item
 \cmd{ProcessTime\_hist(id;time)}:\\
 Gets the fraction of clients for which the process time at stations \cm{id} was \cm{time} seconds.
 
@@ -957,6 +1009,10 @@ Gets the squared coefficient of variation of the process times over all clients.
 \item
 \cmd{ProcessTime\_sk()}:\\
 Gets the skewness of the process times over all clients.
+
+\item
+\cmd{ProcessTime\_kurt()}:\\
+Gets the excess kurtosis of the process times over all clients.
 
 \item
 \cmd{ProcessTime\_histAll(time)}:\\
@@ -1018,6 +1074,10 @@ Gets the squared coefficient of variation of the process times of the clients, w
 \cmd{ProcessTime\_sk(id)}:\\
 Gets the skewness of the process times of the clients, whos name appears at the source or the type assignment \cm{id}.
 
+\item
+\cmd{ProcessTime\_kurt(id)}:\\
+Gets the excess kurtosis of the process times of the clients, whos name appears at the source or the type assignment \cm{id}.
+
 \end{itemize}
 
 
@@ -1074,6 +1134,10 @@ Gets the squared coefficient of variation of the residence times of the clients 
 Gets the skewness of the residence times of the clients at station \cm{id}. 
 
 \item
+\cmd{ResidenceTime\_kurt(id)}:\\
+Gets the excess kurtosis of the residence times of the clients at station \cm{id}. 
+
+\item
 \cmd{ResidenceTime\_hist(id;time)}:\\
 Gets the fraction of clients for which the residence time at stations \cm{id} was \cm{time} seconds.
 
@@ -1127,7 +1191,11 @@ Gets the squared coefficient of variation of the residence times over all client
 
 \item
 \cmd{ResidenceTime\_sk()}:\\
-Gets the skewness of the residence times over all clients. 
+Gets the skewness of the residence times over all clients.
+
+\item
+\cmd{ResidenceTime\_kurt()}:\\
+Gets the excess kurtosis of the residence times over all clients.
 
 \item
 \cmd{ResidenceTime\_histAll(time)}:\\
@@ -1189,6 +1257,10 @@ Gets the squared coefficient of variation of the residence times of the clients,
 \cmd{ResidenceTime\_sk(id)}:\\
 Gets the skewness of the residence times of the clients, whos name appears at the source or the type assignment \cm{id}.
 
+\item
+\cmd{ResidenceTime\_kurt(id)}:\\
+Gets the excess kurtosis of the residence times of the clients, whos name appears at the source or the type assignment \cm{id}.
+
 \end{itemize}
 
 
@@ -1249,6 +1321,10 @@ Gets the squared coefficient of variation of the number of busy operators in the
 \item
 \cmd{resource\_sk(id)} or \cmd{utilization\_sk(id)}:\\
 Gets the skewness of the number of busy operators in the specified resource.
+
+\item
+\cmd{resource\_kurt(id)} or \cmd{utilization\_kurt(id)}:\\
+Gets the excess kurtosis of the number of busy operators in the specified resource.
 
 \item
 \cmd{resource\_hist(id;state)} or \cmd{utilization\_hist(id;state)}:\\
@@ -1356,6 +1432,10 @@ Gets the squared coefficient of variation of the number of busy transporters in 
 Gets the skewness of the number of busy transporters in the specified transporter group.
 
 \item
+\cmd{transporter\_kurt(id)} or \cmd{transporter\_utilization\_kurt(id)}:\\
+Gets the excess kurtosis of the number of busy transporters in the specified transporter group.
+
+\item
 \cmd{transporter\_hist(id;state)} or \cmd{transporter\_utilization\_hist(id;state)}:\\
 Gets the fraction of time, at which \cm{state} of the transporters in the specified transporter group have been busy.
   
@@ -1453,6 +1533,10 @@ Gets the squared coefficient of variation of record \cm{nr} (1 based) at Statist
 \item
 \cmd{Statistics\_sk(id;nr)}:\\
 Gets the skewness of record \cm{nr} (1 based) at Statistics station \cm{id}.
+
+\item
+\cmd{Statistics\_kurt(id;nr)}:\\
+Gets the excess kurtosis of record \cm{nr} (1 based) at Statistics station \cm{id}.
 
 \item
 \cmd{Statistics\_hist(id;nr;state)}:\\
