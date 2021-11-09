@@ -28,6 +28,7 @@ import simulator.statistics.Statistics;
 import statistics.StatisticsMultiPerformanceIndicator;
 import statistics.StatisticsPerformanceIndicator;
 import systemtools.statistics.StatisticViewerText;
+import systemtools.statistics.StatisticsBasePanel;
 import ui.images.Images;
 
 /**
@@ -147,21 +148,21 @@ public class FastAccessSelectorBuilder {
 	}
 
 	/**
-	 * Liefert ein Popupmenü über das die Art der Einfügung ausgewählt werden kann.
+	 * Ergänzt ein Popupmenü mit Einträgen, über die die Art der Einfügung ausgewählt werden kann.
+	 * @param menu	Popupmenü an das die neuen Einträge angehängt werden sollen
 	 * @param xmlSelector	In den Schnellzugriff einzufügender XML-Selektor
-	 * @return	Liefert im Erfolgsfall das Popupmenü, sonst <code>null</code>.
-	 * @see StatisticViewerText#processContextClick(String)
+	 * @return	Gibt an, ob das Popupmenü ergänzt
+	 * @see StatisticViewerText#processContextClick(StatisticsBasePanel, String)
 	 */
-	public JPopupMenu getPopup(final String xmlSelector) {
-		if (xmlSelector==null || xmlSelector.trim().isEmpty() || fastAccessAdd==null) return null;
+	public boolean addToPopup(final JPopupMenu menu, final String xmlSelector) {
+		if (xmlSelector==null || xmlSelector.trim().isEmpty() || fastAccessAdd==null) return false;
 
-		final JPopupMenu menu=new JPopupMenu();
+		if (menu.getComponentCount()>0) menu.addSeparator();
+
 		JMenuItem item;
 
 		menu.add(item=new JMenuItem("<html><body><b>"+Language.tr("FastAccessBuilder.xmlSelector")+"</b></body></html>"));
 		item.setEnabled(false);
-
-		menu.addSeparator();
 
 		menu.add(item=new JMenuItem(Language.tr("Dialog.Button.Copy")));
 		item.setToolTipText(Language.tr("FastAccessBuilder.CopyHint")+": "+xmlSelector);
@@ -180,7 +181,7 @@ public class FastAccessSelectorBuilder {
 		item.addActionListener(e->fastAccessAdd.accept(StatisticViewerFastAccess.AddXMLMode.JAVA,xmlSelector));
 		item.setIcon(Images.SCRIPT_MODE_JAVA.getIcon());
 
-		return menu;
+		return true;
 	}
 
 	/**

@@ -6001,7 +6001,7 @@ public class Messages_en extends java.util.ResourceBundle {
     t[15834] = "Surface.WayPoint.Dialog.Title";
     t[15835] = "Edit transporter way point";
     t[15836] = "Statistics.TextSettings.DropdownName";
-    t[15837] = "Text formatting";
+    t[15837] = "Text formatting...";
     t[15840] = "ExpressionBuilder.SimulationCharacteristics.ResourceUtilization.CurrentNumber";
     t[15841] = "<p>Returns the current number of busy operators in the specified resource.</p>";
     t[15844] = "Color.F5F5DC";
@@ -11395,7 +11395,7 @@ public class Messages_en extends java.util.ResourceBundle {
     t[29744] = "ParameterCompare.Toolbar.ProcessResults.ResultsTable.Save.ErrorTitle";
     t[29745] = "Error saving table";
     t[29752] = "Statistics.ResultsOverview.Filter";
-    t[29753] = "Filter output";
+    t[29753] = "Filter output...";
     t[29760] = "Surface.MultiSourceTable.Info.NextDistribution";
     t[29761] = "Inter-arrival times distribution";
     t[29762] = "Editor.Dialog.Tab.Operators";

@@ -29,6 +29,8 @@ import java.util.function.Supplier;
 
 import javax.swing.Icon;
 import javax.swing.JButton;
+import javax.swing.JMenuItem;
+import javax.swing.JPopupMenu;
 
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
 
@@ -269,6 +271,48 @@ public interface StatisticViewer {
 	 * @see #ownSettingsName()
 	 */
 	boolean ownSettings(StatisticsBasePanel owner, final int nr);
+
+	/**
+	 * Liefert das übergeordnete {@link StatisticsBasePanel} (welches z.B. von {@link #ownSettings(StatisticsBasePanel, int)}) verwendet wird.
+	 * @param viewer	Viewer von dem ausgehend das Panel ermittelt werden soll
+	 * @return	Liefert im Erfolgsfall das übergeordnete {@link StatisticsBasePanel}, sonst <code>null</code>
+	 */
+	default StatisticsBasePanel getParentStatisticPanel(final Component viewer) {
+		Container c=viewer.getParent();
+		while (c!=null && !(c instanceof StatisticsBasePanel)) c=c.getParent();
+		return (StatisticsBasePanel)c;
+	}
+
+	/**
+	 * Fügt die Einstellungen aus {@link #ownSettingsName()} usw. in ein Popupmenü ein.
+	 * @param owner	Übergeordnetes Element (für {@link #ownSettings(StatisticsBasePanel, int)})
+	 * @param menu	Popupmenü, an das die Einträge angehängt werden sollen
+	 * @return	Liefert <code>true</code>, wenn Einträge generiert wurden
+	 */
+	default boolean addOwnSettingsToPopup(final StatisticsBasePanel owner, final JPopupMenu menu) {
+		if (menu==null) return false;
+
+		boolean first=true;
+		final String[] settingsNames=ownSettingsName();
+		final Icon[] settingsIcons=ownSettingsIcon();
+		if (settingsNames!=null) for (int j=0;j<settingsNames.length;j++) {
+			final String settingsName=settingsNames[j];
+			if (settingsName==null) continue;
+			if (first) {
+				final JMenuItem label=new JMenuItem("<html><body><b>"+StatisticsBasePanel.viewersToolbarSettings+"</b></body></html>");
+				label.setEnabled(false);
+				menu.add(label);
+				first=false;
+			}
+			final Icon settingsIcon=(settingsIcons==null || settingsIcons.length<=j)?null:settingsIcons[j];
+			final JMenuItem item=new JMenuItem(settingsName,settingsIcon);
+			menu.add(item);
+			final int nr=j;
+			item.addActionListener(e->ownSettings(owner,nr));
+		}
+
+		return !first;
+	}
 
 	/**
 	 * Liefert dem Viewer ein Callback über das er die Größe zum Speichern von Bildern erfragen kann.

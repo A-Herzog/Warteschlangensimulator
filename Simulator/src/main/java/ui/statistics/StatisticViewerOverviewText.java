@@ -402,8 +402,11 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 	}
 
 	@Override
-	protected JPopupMenu processContextClick(final String hint) {
-		return fastAccessBuilder.getPopup(hint);
+	protected JPopupMenu processContextClick(final StatisticsBasePanel owner, final String hint) {
+		final JPopupMenu popup=new JPopupMenu();
+		addOwnSettingsToPopup(owner,popup);
+		fastAccessBuilder.addToPopup(popup,hint);
+		return popup;
 	}
 
 	/**

@@ -438,6 +438,16 @@ public class StatisticViewerTable implements StatisticViewer {
 		column.setWidth(width+2*spacing);
 	}
 
+	/**
+	 * Ergänzt das Kontextmenü um nutzerdefinierte Einträge
+	 * @param owner	Übergeordnetes Element
+	 * @param popup	Zu ergänzendes Popupmenü
+	 * @return	Liefert <code>true</code>, wenn Einträge generiert wurden
+	 */
+	protected boolean extendPopupMenu(final StatisticsBasePanel owner, final JPopupMenu popup) {
+		return addOwnSettingsToPopup(owner,popup);
+	}
+
 	@Override
 	public Container getViewer(final boolean needReInit) {
 		if (viewer!=null && !needReInit) return viewer;
@@ -472,7 +482,15 @@ public class StatisticViewerTable implements StatisticViewer {
 
 				if (SwingUtilities.isRightMouseButton(e)) {
 					final JPopupMenu popup=new JPopupMenu();
+					boolean hasItems=false;
 					JMenuItem item;
+
+					final StatisticsBasePanel owner=getParentStatisticPanel(table);
+					if (owner!=null) {
+						hasItems=extendPopupMenu(owner,popup);
+					}
+
+					if (hasItems) popup.addSeparator();
 
 					popup.add(item=new JMenuItem("<html><body><b>"+StatisticsBasePanel.contextColWidthThis+"</b></body></html>"));
 					item.setEnabled(false);
@@ -519,6 +537,19 @@ public class StatisticViewerTable implements StatisticViewer {
 
 					popup.show(e.getComponent(),e.getX(),e.getY());
 					return;
+				}
+			}
+		});
+
+		table.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				if (SwingUtilities.isRightMouseButton(e)) {
+					final StatisticsBasePanel owner=getParentStatisticPanel(table);
+					if (owner==null) return;
+					final JPopupMenu popup=new JPopupMenu();
+					if (!extendPopupMenu(owner,popup)) return;
+					popup.show(e.getComponent(),e.getX(),e.getY());
 				}
 			}
 		});

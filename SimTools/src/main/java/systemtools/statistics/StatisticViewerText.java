@@ -336,10 +336,11 @@ public abstract class StatisticViewerText implements StatisticViewer {
 					textPane.dispatchEvent(e2);
 
 					final String hint=pointToHint();
-					if (hint!=null) {
-						final JPopupMenu menu=processContextClick(hint);
-						if (menu!=null) menu.show(e.getComponent(),e.getX(),e.getY());
-					}
+
+					final StatisticsBasePanel owner=getParentStatisticPanel(textPane);
+					if (owner==null) return;
+					final JPopupMenu menu=processContextClick(owner,hint);
+					if (menu!=null) menu.show(e.getComponent(),e.getX(),e.getY());
 				}
 				if (SwingUtilities.isLeftMouseButton(e)) {
 					final String url=pointToLink(e.getPoint());
@@ -362,13 +363,16 @@ public abstract class StatisticViewerText implements StatisticViewer {
 	/**
 	 * Wurden in {@link #addLine(String, String)} oder {@link #addLine(int, String, String)} für bestimmte
 	 * Zeilen Zusatztexte übergeben, so kann auf dieser Basis hier für diese ein Popup-Menü geöffnet werden.
+	 * @param owner	Übergeordnetes Element
 	 * @param hint	Zusätzlicher Text
 	 * @return	Zu öffnendes Kontextmenü oder <code>null</code>, wenn für diesen Text kein Kontextmenü geöffnet werden soll
 	 * @see #addLine(String, String)
 	 * @see #addLine(int, String, String)
 	 */
-	protected JPopupMenu processContextClick(final String hint) {
-		return null;
+	protected JPopupMenu processContextClick(final StatisticsBasePanel owner, final String hint) {
+		final JPopupMenu popup=new JPopupMenu();
+		addOwnSettingsToPopup(owner,popup);
+		return popup;
 	}
 
 	/**
@@ -1330,7 +1334,7 @@ public abstract class StatisticViewerText implements StatisticViewer {
 	 * @param indentLevel	Einrück-Level (0=keine Einrückung; 1=2 Leerzeichen, 2=4 Leerzeichen usw.)
 	 * @param line	Textzeile, die ausgegeben werden soll
 	 * @param hint	Optionaler zusätzlicher Hinweis für das Kontextmenü
-	 * @see #processContextClick(String)
+	 * @see #processContextClick(StatisticsBasePanel, String)
 	 */
 	protected void addLine(final int indentLevel, final String line, final String hint) {
 		lines.add(line);
@@ -1344,7 +1348,7 @@ public abstract class StatisticViewerText implements StatisticViewer {
 	 * @param indentLevel	Einrück-Level (0=keine Einrückung; 1=2 Leerzeichen, 2=4 Leerzeichen usw.)
 	 * @param link	Bezeichner des Links
 	 * @param text	Anzuzeigender Text
-	 * @see StatisticViewerText#processLinkClick(String)
+	 * @see #processLinkClick(String)
 	 */
 	protected void addLink(final int indentLevel, final String link, final String text) {
 		lines.add(text);
@@ -1358,7 +1362,7 @@ public abstract class StatisticViewerText implements StatisticViewer {
 	 * @param indentLevel	Einrück-Level (0=keine Einrückung; 1=2 Leerzeichen, 2=4 Leerzeichen usw.)
 	 * @param link	Bezeichner des Links
 	 * @param text	Anzuzeigender Text
-	 * @see StatisticViewerText#processLinkClick(String)
+	 * @see #processLinkClick(String)
 	 */
 	protected void addLinkLine(final int indentLevel, final String link, final String text) {
 		lines.add(text);
