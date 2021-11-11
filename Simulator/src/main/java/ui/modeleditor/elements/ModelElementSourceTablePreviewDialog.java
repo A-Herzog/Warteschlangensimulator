@@ -71,7 +71,12 @@ public class ModelElementSourceTablePreviewDialog extends BaseDialog {
 	/**
 	 * Maximale Anzahl an in der Vorschau anzuzeigenden Tabellenzeilen
 	 */
-	private static final int MAX_PREVIEW=100;
+	private static final int MAX_PREVIEW_ROWS=200;
+
+	/**
+	 * Maximale Anzahl an in der Vorschau anzuzeigenden Kundentypen bzw. Tabs
+	 */
+	private static final int MAX_PREVIEW_CLIENT_TYPES=20;
 
 	/**
 	 * Konstruktor der Klasse
@@ -120,6 +125,7 @@ public class ModelElementSourceTablePreviewDialog extends BaseDialog {
 			typesUsed.add(clientTypeArrivals[0].clientType);
 			tabs.addTab(Language.tr("Surface.SourceTable.Dialog.Table.Preview.TabProcessed")+" \""+clientTypeArrivals[0].clientType+"\"",tab=new JPanel(new BorderLayout()));
 			buildTableTab(tab,processTable(clientTypeArrivals),true,false);
+			if (typesUsed.size()>=MAX_PREVIEW_CLIENT_TYPES) break;
 		}
 
 		/* Icons */
@@ -247,10 +253,10 @@ public class ModelElementSourceTablePreviewDialog extends BaseDialog {
 	 * @param isInterarrival	Sind die Angaben in der ersten Spalte absolute Zeitangaben (<code>false</code>) oder Zwischenankunftszeiten (<code>true</code>)?
 	 */
 	private void buildTableTab(final JPanel panel, final Table table, final boolean firstRowIsHeading, final boolean isInterarrival) {
-		if (table.getSize(0)-(firstRowIsHeading?1:0)>MAX_PREVIEW) {
+		if (table.getSize(0)-(firstRowIsHeading?1:0)>MAX_PREVIEW_ROWS) {
 			final JPanel infoPanel=new JPanel(new FlowLayout(FlowLayout.LEFT));
 			panel.add(infoPanel,BorderLayout.NORTH);
-			infoPanel.add(new JLabel(String.format(Language.tr("Surface.SourceTable.Dialog.Table.Preview.MaxSize"),NumberTools.formatLong(MAX_PREVIEW),NumberTools.formatLong(table.getSize(0)))));
+			infoPanel.add(new JLabel(String.format(Language.tr("Surface.SourceTable.Dialog.Table.Preview.MaxSize"),NumberTools.formatLong(MAX_PREVIEW_ROWS),NumberTools.formatLong(table.getSize(0)))));
 		}
 
 		final JTableExt tableExt=new JTableExt();
@@ -357,7 +363,7 @@ public class ModelElementSourceTablePreviewDialog extends BaseDialog {
 
 		@Override
 		public int getRowCount() {
-			return Math.min(table.getSize(0)-(firstRowIsHeading?1:0),MAX_PREVIEW);
+			return Math.min(table.getSize(0)-(firstRowIsHeading?1:0),MAX_PREVIEW_ROWS);
 		}
 
 		@Override
