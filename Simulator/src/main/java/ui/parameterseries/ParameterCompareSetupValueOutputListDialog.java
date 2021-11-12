@@ -226,6 +226,7 @@ public class ParameterCompareSetupValueOutputListDialog extends ParameterCompare
 			if (test.getMode()!=output.getMode()) continue;
 			if (!test.getTag().equals(output.getTag())) continue;
 			if (test.getFormat()!=output.getFormat()) continue;
+			if (test.getDigits()!=output.getDigits()) continue;
 			return true;
 		}
 		return false;

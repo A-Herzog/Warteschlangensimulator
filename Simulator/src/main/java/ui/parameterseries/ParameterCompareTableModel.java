@@ -360,24 +360,28 @@ public class ParameterCompareTableModel extends JTableExtAbstractTableModel {
 	/**
 	 * Formatiert eine Zahl gemäß der Einstellungen zur Parameterreihe
 	 * @param value	Als Zeichenkette zu formatierende Zahl
+	 * @param localDigits	Zu verwendende Anzahl an Nachkommastellen (wird hier -1 übergeben, so wird der globale Wert aus {@link #digits} verwendet)
 	 * @return	Zahl als Zeichenkette
 	 * @see #digits
 	 * @see #getValueAt(ParameterCompareSetupModel, int, int)
 	 */
-	private String formatNumber(final double value) {
-		if (digits>=1 && digits<=8) return NumberTools.formatNumber(value,digits);
+	private String formatNumber(final double value, final int localDigits) {
+		final int useDigits=(localDigits>=0)?localDigits:digits;
+		if (useDigits>=1 && useDigits<=8) return NumberTools.formatNumber(value,useDigits);
 		return NumberTools.formatNumberMax(value);
 	}
 
 	/**
 	 * Formatiert eine Zahl als Prozentwert gemäß der Einstellungen zur Parameterreihe
 	 * @param value	Als Zeichenkette zu formatierende Zahl
+	 * @param localDigits	Zu verwendende Anzahl an Nachkommastellen (wird hier -1 übergeben, so wird der globale Wert aus {@link #digits} verwendet)
 	 * @return	Zahl als Zeichenkette
 	 * @see #digits
 	 * @see #getValueAt(ParameterCompareSetupModel, int, int)
 	 */
-	private String formatPercent(final double value) {
-		if (digits>=1 && digits<=7) return NumberTools.formatPercent(value,digits);
+	private String formatPercent(final double value, final int localDigits) {
+		final int useDigits=(localDigits>=0)?localDigits:digits;
+		if (useDigits>=1 && useDigits<=7) return NumberTools.formatPercent(value,useDigits);
 		return NumberTools.formatPercent(value,7);
 	}
 
@@ -411,7 +415,7 @@ public class ParameterCompareTableModel extends JTableExtAbstractTableModel {
 			final String name=setup.getInput().get(columnIndex).getName();
 			final Double value=model.getInput().get(name);
 			if (value==null) return "-";
-			return formatNumber(value.doubleValue());
+			return formatNumber(value.doubleValue(),-1);
 		}
 
 		/* Ausgabegrößen */
@@ -426,15 +430,18 @@ public class ParameterCompareTableModel extends JTableExtAbstractTableModel {
 				final String name=setup.getOutput().get(columnIndex).getName();
 				final Double value=model.getOutput().get(name);
 				if (value==null) return "-";
-				switch (setup.getOutput().get(columnIndex).getFormat()) {
+				final ParameterCompareSetupValueOutput output=setup.getOutput().get(columnIndex);
+				final int digits=output.getDigits();
+				switch (output.getFormat()) {
 				case FORMAT_NUMBER:
-					return formatNumber(value.doubleValue());
+					return formatNumber(value.doubleValue(),digits);
 				case FORMAT_PERCENT:
-					return formatPercent(value.doubleValue());
+					return formatPercent(value.doubleValue(),digits);
 				case FORMAT_TIME:
-					return TimeTools.formatExactTime(value.doubleValue());
+					if (digits<0) return TimeTools.formatExactTime(value.doubleValue());
+					return TimeTools.formatExactTime(value.doubleValue(),Math.min(5,Math.max(0,digits)));
 				default:
-					return formatNumber(value.doubleValue());
+					return formatNumber(value.doubleValue(),digits);
 				}
 			}
 		}

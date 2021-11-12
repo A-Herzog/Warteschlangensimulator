@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-11-09 08:36+0100\n"
+"POT-Creation-Date: 2021-11-11 18:11+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -12853,8 +12853,20 @@ msgstr "Edit model"
 msgid "ParameterCompare.Settings.Output.Digits"
 msgstr "Decimal digits to be displayed"
 
+msgid "ParameterCompare.Settings.Output.Digits.Header"
+msgstr "Digits"
+
 msgid "ParameterCompare.Settings.Output.Digits.Info"
 msgstr "(applies globally for all output values)"
+
+msgid "ParameterCompare.Settings.Output.Digits.UseGlobal"
+msgstr "Use global setting"
+
+msgid "ParameterCompare.Settings.Output.Digits.UseLocal"
+msgstr "Use local setting"
+
+msgid "ParameterCompare.Settings.Output.DigitsLocal"
+msgstr "Decimal digits to be displayed for this output value"
 
 msgid "ParameterCompare.Settings.Output.Format"
 msgstr "Display format"
@@ -13544,6 +13556,9 @@ msgstr "CompareModelsName"
 
 msgid "ParameterCompare.XML.Outputs.Data"
 msgstr "CompareModelsOutputData"
+
+msgid "ParameterCompare.XML.Outputs.Data.Digits"
+msgstr "Digits"
 
 msgid "ParameterCompare.XML.Outputs.Data.Format"
 msgstr "Format"
@@ -28862,10 +28877,10 @@ msgid "Surface.SourceTable.Dialog.Table.Preview.ErrorNoTableData.Title"
 msgstr "Table cannot be loaded"
 
 msgid "Surface.SourceTable.Dialog.Table.Preview.ErrorProcess.Info"
-msgstr ""
+msgstr "The following error occured processing the table data:"
 
 msgid "Surface.SourceTable.Dialog.Table.Preview.ErrorProcess.Title"
-msgstr ""
+msgstr "Table cannot be processed"
 
 msgid "Surface.SourceTable.Dialog.Table.Preview.Header.ClientProperties"
 msgstr "Client property"

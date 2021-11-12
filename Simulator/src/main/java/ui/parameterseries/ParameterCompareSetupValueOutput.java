@@ -19,6 +19,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 import language.Language;
+import mathtools.NumberTools;
 
 /**
  * Hält die Definition einer Ausgabegröße für die Parameter-Vergleichs-Funktion vor.
@@ -72,6 +73,11 @@ public final class ParameterCompareSetupValueOutput extends ParameterCompareSetu
 	private OutputFormat format;
 
 	/**
+	 * Anzahl an anzuzeigenden Nachkommastellen (-1 steht für globale Vorgabe verwenden)
+	 */
+	private int digits;
+
+	/**
 	 * Konstruktor der Klasse
 	 */
 	public ParameterCompareSetupValueOutput() {
@@ -79,6 +85,7 @@ public final class ParameterCompareSetupValueOutput extends ParameterCompareSetu
 		mode=OutputMode.MODE_XML;
 		tag="";
 		format=OutputFormat.FORMAT_NUMBER;
+		digits=-1;
 	}
 
 	/**
@@ -130,6 +137,22 @@ public final class ParameterCompareSetupValueOutput extends ParameterCompareSetu
 	}
 
 	/**
+	 * Lieferte die eingestellte Anzahl an anzuzeigenden Nachkommastellen.
+	 * @return	Anzahl an anzuzeigenden Nachkommastellen (-1 steht für globale Vorgabe verwenden)
+	 */
+	public int getDigits() {
+		return digits;
+	}
+
+	/**
+	 * Stellt die Anzahl an anzuzeigenden Nachkommastellen ein.
+	 * @param digits	Anzahl an anzuzeigenden Nachkommastellen (-1 steht für globale Vorgabe verwenden)
+	 */
+	public void setDigits(int digits) {
+		this.digits=digits;
+	}
+
+	/**
 	 * Vergleich den Ausgabe-Einstellungen-Datensatz mit einem anderen Einstellungen-Objekt
 	 * @param otherOutput	Anderes Einstellungen-Objekt
 	 * @return	Liefert <code>true</code>, wenn die beiden Objekte inhaltlich identisch sind
@@ -139,6 +162,7 @@ public final class ParameterCompareSetupValueOutput extends ParameterCompareSetu
 		if (mode!=otherOutput.mode) return false;
 		if (!tag.equals(otherOutput.tag)) return false;
 		if (format!=otherOutput.format) return false;
+		if (digits!=otherOutput.digits) return false;
 		return true;
 	}
 
@@ -149,6 +173,7 @@ public final class ParameterCompareSetupValueOutput extends ParameterCompareSetu
 		clone.setMode(mode);
 		clone.setTag(tag);
 		clone.setFormat(format);
+		clone.setDigits(digits);
 		return clone;
 	}
 
@@ -181,6 +206,14 @@ public final class ParameterCompareSetupValueOutput extends ParameterCompareSetu
 			if (Language.trAll("ParameterCompare.XML.Outputs.Data.Mode.Command",s)) mode=OutputMode.MODE_COMMAND;
 			if (Language.trAll("ParameterCompare.XML.Outputs.Data.Mode.Script",s)) mode=OutputMode.MODE_SCRIPT_JS;
 			if (Language.trAll("ParameterCompare.XML.Outputs.Data.Mode.Java",s)) mode=OutputMode.MODE_SCRIPT_JAVA;
+
+			/* Nachkommastellen */
+			s=Language.trAllAttribute("ParameterCompare.XML.Outputs.Data.Digits",node);
+			if (!s.trim().isEmpty()) {
+				final Integer I=NumberTools.getInteger(s);
+				if (I==null) return String.format(Language.tr("Surface.XML.AttributeSubError"),Language.trPrimary("ParameterCompare.XML.Outputs.Data.Digits"),name,node.getParentNode().getNodeName());
+				if (I.intValue()>0) digits=I.intValue();
+			}
 
 			/* Alte Art der Unterscheidung: XML / Script */
 			s=Language.trAllAttribute("ParameterCompare.XML.Outputs.Data.IsScript",node);
@@ -224,6 +257,11 @@ public final class ParameterCompareSetupValueOutput extends ParameterCompareSetu
 		default: modeString=Language.tr("ParameterCompare.XML.Outputs.Data.Mode.Command"); break;
 		}
 		sub.setAttribute(Language.tr("ParameterCompare.XML.Outputs.Data.Mode"),modeString);
+
+		/* Nachkommastellen */
+		if (digits>=0) {
+			sub.setAttribute(Language.tr("ParameterCompare.XML.Outputs.Data.Digits"),""+digits);
+		}
 
 		/* Inhalt */
 		sub.setTextContent(tag);

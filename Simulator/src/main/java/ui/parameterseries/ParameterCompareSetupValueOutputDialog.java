@@ -26,11 +26,14 @@ import java.io.File;
 import java.io.Serializable;
 
 import javax.swing.BorderFactory;
+import javax.swing.Box;
 import javax.swing.BoxLayout;
+import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JRadioButton;
 import javax.swing.JSpinner;
 import javax.swing.JTextField;
 import javax.swing.SpinnerModel;
@@ -97,8 +100,17 @@ public class ParameterCompareSetupValueOutputDialog extends BaseDialog {
 	/** Auswahlfeld "Ausgabeformat" */
 	private final JComboBox<String> comboFormat;
 
-	/** Auswahlfeld "Nachkommastellen" */
+	/** Optional: Globale Einstellung verwenden (siehe auch {@link #digits}) */
+	private final JRadioButton optionDigitsGlobal;
+
+	/** Optional: Lokale Einstellung verwenden (siehe auch {@link #digitsLocal}) */
+	private final JRadioButton optionDigitsLocal;
+
+	/** Auswahlfeld "Nachkommastellen (global)" */
 	private final SpinnerModel digits;
+
+	/** Auswahlfeld "Nachkommastellen (lokal)" */
+	private final SpinnerModel digitsLocal;
 
 	/**
 	 * Konstruktor der Klasse
@@ -267,15 +279,50 @@ public class ParameterCompareSetupValueOutputDialog extends BaseDialog {
 
 		setup.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
 
+		line.add(label=new JLabel(Language.tr("ParameterCompare.Settings.Output.Digits.Header")));
+
+		JSpinner.NumberEditor statisticsPercentDigitsEditor;
+
+		setup.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
+
+		line.add(optionDigitsGlobal=new JRadioButton(Language.tr("ParameterCompare.Settings.Output.Digits.UseGlobal")));
+
+		setup.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
+
+		line.add(Box.createHorizontalStrut(20));
+
 		line.add(label=new JLabel(Language.tr("ParameterCompare.Settings.Output.Digits")+":"));
 		final JSpinner digitsSpinner=new JSpinner(digits=new SpinnerNumberModel(1,1,9,1));
-		final JSpinner.NumberEditor statisticsPercentDigitsEditor=new JSpinner.NumberEditor(digitsSpinner);
+		statisticsPercentDigitsEditor=new JSpinner.NumberEditor(digitsSpinner);
 		statisticsPercentDigitsEditor.getFormat().setGroupingUsed(false);
 		statisticsPercentDigitsEditor.getTextField().setColumns(2);
 		digitsSpinner.setEditor(statisticsPercentDigitsEditor);
 		line.add(digitsSpinner);
 		label.setLabelFor(digitsSpinner);
 		line.add(new JLabel(Language.tr("ParameterCompare.Settings.Output.Digits.Info")));
+		digits.addChangeListener(e->optionDigitsGlobal.setSelected(true));
+
+		setup.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
+
+		line.add(optionDigitsLocal=new JRadioButton(Language.tr("ParameterCompare.Settings.Output.Digits.UseLocal")));
+
+		setup.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
+
+		line.add(Box.createHorizontalStrut(20));
+
+		line.add(label=new JLabel(Language.tr("ParameterCompare.Settings.Output.DigitsLocal")+":"));
+		final JSpinner digitsLocalSpinner=new JSpinner(digitsLocal=new SpinnerNumberModel(1,1,9,1));
+		statisticsPercentDigitsEditor=new JSpinner.NumberEditor(digitsLocalSpinner);
+		statisticsPercentDigitsEditor.getFormat().setGroupingUsed(false);
+		statisticsPercentDigitsEditor.getTextField().setColumns(2);
+		digitsLocalSpinner.setEditor(statisticsPercentDigitsEditor);
+		line.add(digitsLocalSpinner);
+		label.setLabelFor(digitsLocalSpinner);
+		digitsLocal.addChangeListener(e->optionDigitsLocal.setSelected(true));
+
+		final ButtonGroup buttonGroup=new ButtonGroup();
+		buttonGroup.add(optionDigitsGlobal);
+		buttonGroup.add(optionDigitsLocal);
 
 		/* Daten laden */
 
@@ -312,6 +359,13 @@ public class ParameterCompareSetupValueOutputDialog extends BaseDialog {
 		}
 
 		digits.setValue(Math.max(1,Math.min(9,SetupData.getSetup().parameterSeriesTableDigits)));
+		if (output.getDigits()>=0) {
+			digitsLocal.setValue(Math.max(1,Math.min(9,output.getDigits())));
+			optionDigitsLocal.setSelected(true);
+		} else {
+			digitsLocal.setValue(Math.max(1,Math.min(9,SetupData.getSetup().parameterSeriesTableDigits)));
+			optionDigitsGlobal.setSelected(true);
+		}
 
 		checkData(false);
 
@@ -425,6 +479,12 @@ public class ParameterCompareSetupValueOutputDialog extends BaseDialog {
 		final SetupData setup=SetupData.getSetup();
 		setup.parameterSeriesTableDigits=((Integer)digits.getValue()).intValue();
 		setup.saveSetup();
+
+		if (optionDigitsLocal.isSelected()) {
+			output.setDigits(((Integer)digitsLocal.getValue()).intValue());
+		} else {
+			output.setDigits(-1);
+		}
 
 		switch (comboFormat.getSelectedIndex()) {
 		case 0: output.setFormat(ParameterCompareSetupValueOutput.OutputFormat.FORMAT_NUMBER); break;
