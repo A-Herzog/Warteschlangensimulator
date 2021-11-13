@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-11-11 18:11+0100\n"
+"POT-Creation-Date: 2021-11-13 18:35+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -7283,6 +7283,12 @@ msgstr "%d Dateien erfolgreich kompiliert."
 
 msgid "ExternalConnect.Dialog.Compile.StatusSuccessOne"
 msgstr "%d Datei erfolgreich kompiliert."
+
+msgid "ExternalConnect.Dialog.Compile.StatusSuccessWarningMulti"
+msgstr "%d Dateien erfolgreich, aber mit Warnung kompiliert."
+
+msgid "ExternalConnect.Dialog.Compile.StatusSuccessWarningOne"
+msgstr "%d Datei erfolgreich, aber mit Warnung kompiliert."
 
 msgid "ExternalConnect.Dialog.Compile.Tooltip"
 msgstr "Kompiliert alle Java-Dateien in dem gewählten Verzeichnis."

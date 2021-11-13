@@ -47,6 +47,7 @@ import javax.swing.tree.DefaultTreeCellRenderer;
 import javax.swing.tree.DefaultTreeModel;
 
 import language.Language;
+import mathtools.Table;
 import mathtools.distribution.swing.CommonVariables;
 import systemtools.BaseDialog;
 import systemtools.MsgBox;
@@ -330,12 +331,16 @@ public class ExternalConnectDialog extends BaseDialog {
 
 		/* Verarbeitung */
 		compileSuccessCount=0;
+		compileSuccessWarningCount=0;
 		compileErrorCount=0;
 		final StringBuilder result=new StringBuilder();
 		compileFolder(folder,folder,result);
 		result.append("\n");
 		result.append(Language.tr("ExternalConnect.Dialog.Compile.StatusDone")+"\n");
 		result.append(String.format((compileSuccessCount==1)?Language.tr("ExternalConnect.Dialog.Compile.StatusSuccessOne"):Language.tr("ExternalConnect.Dialog.Compile.StatusSuccessMulti"),compileSuccessCount)+"\n");
+		if (compileSuccessWarningCount>0) {
+			result.append(String.format((compileSuccessCount==1)?Language.tr("ExternalConnect.Dialog.Compile.StatusSuccessWarningOne"):Language.tr("ExternalConnect.Dialog.Compile.StatusSuccessWarningMulti"),compileSuccessWarningCount)+"\n");
+		}
 		result.append(String.format((compileErrorCount==1)?Language.tr("ExternalConnect.Dialog.Compile.StatusErrorOne"):Language.tr("ExternalConnect.Dialog.Compile.StatusErrorMulti"),compileErrorCount)+"\n");
 
 		updateTree(true);
@@ -352,11 +357,24 @@ public class ExternalConnectDialog extends BaseDialog {
 	private int compileSuccessCount;
 
 	/**
+	 * Zähler für die mit Warnung erfolgreich übersetzten Dateien
+	 * @see #compileFolder(File, File, StringBuilder)
+	 * @see #compileFile(File, File, StringBuilder)
+	 */
+	private int compileSuccessWarningCount;
+
+	/**
 	 * Zähler für die beim Übersetzten aufgetretenen Fehler
 	 * @see #compileFolder(File, File, StringBuilder)
 	 * @see #compileFile(File, File, StringBuilder)
 	 */
 	private int compileErrorCount;
+
+	/**
+	 * Basisverzeichnis für die Schnittstellenklassen, die als erstes kompiliert werden sollen.
+	 * @see #compileFolder(File, File, StringBuilder)
+	 */
+	private static final String scriptingSubFolder="scripting";
 
 	/**
 	 * Übersetzt alle Dateien in einem Verzeichnis (und seinen Unterverzeichnissen).
@@ -368,7 +386,15 @@ public class ExternalConnectDialog extends BaseDialog {
 		final String[] list=folder.list();
 		if (list==null) return;
 
+		final boolean isMainFolder=(folder.equals(baseFolder));
+
+		if (isMainFolder && new File(folder,scriptingSubFolder).isDirectory()) {
+			final File file=new File(folder,scriptingSubFolder);
+			compileFolder(file,baseFolder,result);
+		}
+
 		for (String record: list) {
+			if (isMainFolder && record.equals(scriptingSubFolder)) continue;
 			final File file=new File(folder,record);
 			if (file.isDirectory()) compileFolder(file,baseFolder,result);
 		}
@@ -376,6 +402,34 @@ public class ExternalConnectDialog extends BaseDialog {
 		for (String record: list) {
 			if (record.toLowerCase().endsWith(".java")) compileFile(new File(folder,record),baseFolder,result);
 		}
+	}
+
+	/**
+	 * Prüft, ob es sich bei einer bestimmten Datei um eine Schnittstellendefinitionsdatei
+	 * handelt und ersetzt diese ggf. durch ihre (aktualisierte) Vorlage
+	 * @param file	Zu prüfende Datei
+	 * @return	Liefert <code>true</code>, wenn die Datei ausgetauscht wurde
+	 */
+	private boolean checkAndReplaceInterfaceFile(final File file) {
+		/* Datei im Vorlageverzeichnis ermitteln */
+		final File sourceFolder=getInterfaceSourceFolder();
+		if (sourceFolder==null) return false;
+		final File sourceFile=new File(new File(new File(sourceFolder,scriptingSubFolder),"java"),file.getName());
+		if (!sourceFile.isFile()) return false;
+
+		/* Dateien vergleichen */
+		final String fileContent=Table.loadTextFromFile(file);
+		final String sourceFileContent=Table.loadTextFromFile(sourceFile);
+		if (fileContent==null || sourceFileContent==null) return false;
+		if (fileContent.equals(sourceFileContent)) return false;
+
+		/* Datei ersetzen */
+		try {
+			Files.copy(sourceFile.toPath(),file.toPath(),StandardCopyOption.REPLACE_EXISTING);
+		} catch (IOException e) {
+			return false;
+		}
+		return true;
 	}
 
 	/**
@@ -387,13 +441,36 @@ public class ExternalConnectDialog extends BaseDialog {
 	private void compileFile(final File file, final File baseFolder, final StringBuilder result) {
 		result.append(file.toString()+"\n");
 
-		final String compileResult=DynamicClassInternalCompilerFullMemory.compileJavaToClass(file,baseFolder);
-		if (compileResult==null) {
+		checkAndReplaceInterfaceFile(file);
+
+		final DynamicClassInternalCompilerFullMemory.CompilerResult compileResult=DynamicClassInternalCompilerFullMemory.compileJavaToClass(file,baseFolder);
+		switch (compileResult.type) {
+		case SUCCESS:
 			compileSuccessCount++;
-		} else {
+			break;
+		case SUCCESS_WARNING:
+			result.append(compileResult.message);
+			compileSuccessWarningCount++;
+			break;
+		case ERROR:
+			result.append(compileResult.message);
 			compileErrorCount++;
-			result.append(compileResult);
+			break;
 		}
+	}
+
+	/**
+	 * Liefert das Verzeichnis in dem sich (in Unterverzeichnissen) die Schnittstellenklassen
+	 * als Kopiervorlagen befinden.
+	 * @return	Verzeichnis der Vorlagen für die Schnittstellenklassen (kann <code>null</code> sein, wenn das Verzeichnis nicht ermittelt werden konnte)
+	 */
+	private File getInterfaceSourceFolder() {
+		final File folder1=new File(SetupData.getProgramFolder(),"userscripts");
+		final File folder2=new File(new File(SetupData.getProgramFolder(),"build"),"UserScripts");
+		File sourceFolder=null;
+		if (folder1.isDirectory()) sourceFolder=folder1;
+		if (sourceFolder==null && folder2.isDirectory()) sourceFolder=folder2;
+		return sourceFolder;
 	}
 
 	/**
@@ -401,12 +478,9 @@ public class ExternalConnectDialog extends BaseDialog {
 	 */
 	private void commandCopyExampleFiles() {
 		/* Quellverzeichnis */
-		final File folder1=new File(SetupData.getProgramFolder(),"userscripts");
-		final File folder2=new File(new File(SetupData.getProgramFolder(),"build"),"UserScripts");
-		File sourceFolder=null;
-		if (folder1.isDirectory()) sourceFolder=folder1;
-		if (sourceFolder==null && folder2.isDirectory()) sourceFolder=folder2;
+		final File sourceFolder=getInterfaceSourceFolder();
 		if (sourceFolder==null) {
+			final File folder1=new File(SetupData.getProgramFolder(),"userscripts");
 			MsgBox.error(this,Language.tr("ExternalConnect.Dialog.ExamplesLink.ErrorTitle"),String.format(Language.tr("ExternalConnect.Dialog.ExamplesLink.ErrorInfo"),folder1.toString()));
 			return;
 		}

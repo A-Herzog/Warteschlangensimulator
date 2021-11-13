@@ -85,12 +85,12 @@ public class DynamicClassInternalCompilerFullMemory extends DynamicClassBase {
 	 * d.h. verhält sich so wie ein Aufruf von "javac".
 	 * @param file	Eingabe-java-Datei
 	 * @param baseFolder	Verzeichnis für den Klassenpfad (wird als "-cp " übergeben)
-	 * @return	Liefert im Erfolgsfall <code>null</code>, sonst eine Fehlermeldung
+	 * @return	Liefert ein Statusobjekt zurück (nie <code>null</code>)
 	 */
-	public static String compileJavaToClass(final File file, final File baseFolder) {
+	public static CompilerResult compileJavaToClass(final File file, final File baseFolder) {
 		try {
 			final JavaCompiler compiler=ToolProvider.getSystemJavaCompiler();
-			if (compiler==null) return DynamicFactory.getStatusText(DynamicStatus.NO_COMPILER);
+			if (compiler==null) return CompilerResult.error(DynamicFactory.getStatusText(DynamicStatus.NO_COMPILER));
 			try (StandardJavaFileManager fileManager=compiler.getStandardFileManager(null,null,null)) {
 
 				Iterable<? extends JavaFileObject> compilationUnits1=fileManager.getJavaFileObjects(file);
@@ -102,23 +102,95 @@ public class DynamicClassInternalCompilerFullMemory extends DynamicClassBase {
 				options.add(baseFolder.toString());
 				if (!isJava8()) options.add("--release=8");
 
+				boolean success=false;
 				ClassLoaderCache.globalCompilerLock.lock();
 				try {
-					compiler.getTask(writer,fileManager,null,options,null,compilationUnits1).call().booleanValue();
+					success=compiler.getTask(writer,fileManager,null,options,null,compilationUnits1).call().booleanValue();
 				} finally {
 					ClassLoaderCache.globalCompilerLock.unlock();
 				}
 
 				final String result=writer.getBuffer().toString();
-				if (result==null || result.trim().isEmpty()) return null;
-				return result;
+				if (result==null || result.trim().isEmpty()) return CompilerResult.success();
+				if (success) return CompilerResult.warning(result); else return CompilerResult.error(result);
 
 			} catch (IOException e) {
-				return e.getMessage();
+				return CompilerResult.error(e.getMessage());
 			}
 
 		} catch (NoClassDefFoundError e) {
-			return e.getMessage();
+			return CompilerResult.error(e.getMessage());
+		}
+	}
+
+	/**
+	 * Ergebnistyp der Kompilierung
+	 * @see CompilerResult
+	 */
+	public enum CompilerResultType {
+		/** Kompilierung erfolgreich ohne jede Warnung */
+		SUCCESS,
+		/** Kompilierung erfolgreich aber mit Warnung */
+		SUCCESS_WARNING,
+		/** Kompilierung fehlgeschlagen */
+		ERROR
+	}
+
+	/**
+	 * Status der Kompilierung
+	 * @see DynamicClassInternalCompilerFullMemory#compileJavaToClass(File, File)
+	 */
+	public static class CompilerResult {
+		/**
+		 * Ergebnistyp
+		 */
+		public final CompilerResultType type;
+
+		/**
+		 * Warnung oder Fehlermeldung<br>
+		 * (Ist <code>null</code>, wenn die Kompilierung ohne Warnung erfolgreich war.)
+		 */
+		public final String message;
+
+		/**
+		 * Konstruktor der Klasse<br>
+		 * Die Klasse kann nicht direkt instanziert werden.
+		 * Stattdessen stehen statische Factory-Methoden zur Verfügung
+		 * @see #success()
+		 * @see #warning(String)
+		 * @see #error(String)
+		 * @param type	Ergebnistyp
+		 * @param message	Warnung oder Fehlermeldung
+		 */
+		private CompilerResult(final CompilerResultType type, final String message) {
+			this.type=type;
+			this.message=message;
+		}
+
+		/**
+		 * Erzeugt ein Statusobjekt für den Fall, dass die Kompilierung ohne jede Warnung erfolgreich war.
+		 * @return	Statusobjekt
+		 */
+		public static CompilerResult success() {
+			return new CompilerResult(CompilerResultType.SUCCESS,null);
+		}
+
+		/**
+		 * Erzeugt ein Statusobjekt für den Fall, dass die Kompilierung mit Warnung erfolgreich war.
+		 * @param message	Warnmeldung
+		 * @return	Statusobjekt
+		 */
+		public static CompilerResult warning(final String message) {
+			return new CompilerResult(CompilerResultType.SUCCESS_WARNING,message);
+		}
+
+		/**
+		 * Erzeugt ein Statusobjekt für den Fall, dass die Kompilierung fehlgeschlagen ist.
+		 * @param message	Fehlermeldung
+		 * @return	Statusobjekt
+		 */
+		public static CompilerResult error(final String message) {
+			return new CompilerResult(CompilerResultType.ERROR,message);
 		}
 	}
 }
