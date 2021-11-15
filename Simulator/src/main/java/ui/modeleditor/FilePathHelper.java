@@ -180,14 +180,26 @@ public class FilePathHelper {
 		if (folderName==null || folderName.isEmpty()) return "";
 		if (modelFile==null) return folderName;
 
+		/* Ist das Verzeichnis bereits ok? */
 		final File folder=new File(folderName);
 		if (folder.isDirectory()) return folderName;
 
+		/* Kann ein Basisverzeichnis ermittelt werden? */
 		final File newPath=modelFile.getParentFile();
 		if (newPath==null) return folderName;
 
+		/* Verzeichnisname direkt im Basisverzeichnis vorhanden? */
 		final File newFolder=new File(newPath,folder.getName());
 		if (newFolder.isDirectory()) return newFolder.toString();
+
+		/* Andere Alternative ermitteln */
+		File dir=null;
+		final File[] files=newPath.listFiles();
+		if (files!=null) for (File file: files) if (file.isDirectory()) {
+			if (dir!=null) return folderName;
+			dir=file;
+		}
+		if (dir!=null) return dir.toString();
 
 		return folderName;
 	}
