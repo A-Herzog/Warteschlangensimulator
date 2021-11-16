@@ -457,6 +457,7 @@ public class RunElementProcess extends RunElement implements FreeResourcesListen
 		double postProcessingTime=processData.getPostProcessTime(simData,selected);
 		long setupTimeMS=FastMath.round(setupTime*1000);
 		long processingTimeMS=FastMath.round(processingTime*1000);
+		long postProcessingTimeMS=FastMath.round(postProcessingTime*1000);
 
 		/* Kunden aus der Warteschlange entfernen */
 		final long waitingTimeMS=data.removeClientFromQueue(selected,bestIndex,simData.currentTime,true,simData);
@@ -489,7 +490,7 @@ public class RunElementProcess extends RunElement implements FreeResourcesListen
 		selected.lastAlternative=resourceAlternative+1;
 
 		/* Weiterleitung zu nächster Station nach Bedienzeit-Ende */
-		StationLeaveEvent.addLeaveEvent(simData,selected,this,setupTimeMS+processingTimeMS);
+		final StationLeaveEvent leaveEvent=StationLeaveEvent.addLeaveEvent(simData,selected,this,setupTimeMS+processingTimeMS);
 
 		/* Kosten in Statistik erfassen */
 		if (processData.hasCosts) {
@@ -497,12 +498,11 @@ public class RunElementProcess extends RunElement implements FreeResourcesListen
 		}
 
 		/* Belegte Ressourcen am Ende der Nachbearbeitungszeit wieder freigeben */
-		ProcessReleaseResources event=(ProcessReleaseResources)simData.getEvent(ProcessReleaseResources.class);
-		final int TIME_DELTA=(postProcessingTime>0)?0:1; /* Zeit in ms die vor der Freigabe der Ressourcen noch verstreichen sollen, damit die Freigabe wirklich erst nach dem Verlassen des Kundens der Station erfolgt */
-		event.init(simData.currentTime+TIME_DELTA+FastMath.round((setupTime+processingTime+postProcessingTime)*1000));
-		event.station=this;
-		event.resourceAlternative=resourceAlternative;
-		simData.eventManager.addEvent(event);
+		final ProcessReleaseResources releaseEvent=(ProcessReleaseResources)simData.getEvent(ProcessReleaseResources.class);
+		releaseEvent.init(simData.currentTime+setupTimeMS+processingTimeMS+postProcessingTimeMS);
+		releaseEvent.station=this;
+		releaseEvent.resourceAlternative=resourceAlternative;
+		leaveEvent.addNextEvent=releaseEvent; /* Freigabeereignis gesichert erst nach dem Abgangsereignis ausführen */
 	}
 
 	/**
@@ -629,6 +629,7 @@ public class RunElementProcess extends RunElement implements FreeResourcesListen
 
 		/* Belegte Ressourcen am Ende der Nachbearbeitungszeit wieder freigeben */
 		ProcessReleaseResources event=(ProcessReleaseResources)simData.getEvent(ProcessReleaseResources.class);
+		/* Da bei mehreren Kunden-Abgangs-Ereignissen nicht anders sichergestellt werden kann, dass die Ressourcenfreigabe erst sicher nach dem letzten Abgang erfolgt, wird hier das Zeit-Delta benötigt. */
 		final int TIME_DELTA=(resourcesBlockedTimePostProcessing>0)?0:1; /* Zeit in ms die vor der Freigabe der Ressourcen noch verstreichen sollen, damit die Freigabe wirklich erst nach dem Verlassen des Kundens der Station erfolgt */
 		event.init(simData.currentTime+TIME_DELTA+FastMath.round((resourcesBlockedTimeProcessing+resourcesBlockedTimePostProcessing)*1000));
 		event.station=this;
