@@ -1606,10 +1606,16 @@ public class AnimationPanel extends JPanel implements RunModelAnimationViewer {
 
 		if (!multiCore) {
 			multiSingleCoreSteps(fullRecording);
+			/* hier kein "updateViewer(simData);", sonst besteht die Gefahr von Deadlocks */
 		} else {
 			if (!stepLock.tryAcquire()) return;
 			new Thread(()->{
-				try {stepInt(true,fullRecording);} finally {stepLock.release();}
+				try {
+					stepInt(true,fullRecording);
+					updateViewer(simData);
+				} finally {
+					stepLock.release();
+				}
 			},"AnimationStepper").start();
 		}
 	}
