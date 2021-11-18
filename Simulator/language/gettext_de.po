@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-11-17 00:06+0100\n"
+"POT-Creation-Date: 2021-11-18 13:56+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -26891,6 +26891,18 @@ msgstr "Der Kunde konnte nicht im Modell gefunden werden."
 msgid "Surface.PopupMenu.SimulationStatisticsData.Save"
 msgstr "Aktuelle Simulationsdaten speichern..."
 
+msgid "Surface.PopupMenu.SimulationStatisticsData.SaveClients"
+msgstr "Liste der Kunden speichern"
+
+msgid "Surface.PopupMenu.SimulationStatisticsData.SaveClients.ErrorInfo"
+msgstr ""
+"Die Liste der Kunden konnte nicht in\n"
+"%s\n"
+"gespeichert werden."
+
+msgid "Surface.PopupMenu.SimulationStatisticsData.SaveClients.ErrorTitle"
+msgstr "Liste der Kunden konnte nicht gespeichert werden"
+
 msgid "Surface.PopupMenu.SimulationStatisticsData.SaveError.Info"
 msgstr ""
 "Beim Speichern der Daten in der Datei\n"
@@ -26902,6 +26914,18 @@ msgstr "Fehler beim Speichern"
 
 msgid "Surface.PopupMenu.SimulationStatisticsData.SaveHint"
 msgstr "Speichert die Daten als Textdatei"
+
+msgid "Surface.PopupMenu.SimulationStatisticsData.SaveWaitingClients"
+msgstr "Liste der wartenden Kunden speichern"
+
+msgid "Surface.PopupMenu.SimulationStatisticsData.SaveWaitingClients.ErrorInfo"
+msgstr ""
+"Die Liste der wartenden Kunden konnte nicht in\n"
+"%s\n"
+"gespeichert werden."
+
+msgid "Surface.PopupMenu.SimulationStatisticsData.SaveWaitingClients.ErrorTitle"
+msgstr "Liste der wartenden Kunden konnte nicht gespeichert werden"
 
 msgid "Surface.PopupMenu.SimulationStatisticsData.Tab.AllClients"
 msgstr "Alle Kunden"
@@ -26974,6 +26998,9 @@ msgstr "Numerische Datenfelder"
 
 msgid "Surface.PopupMenu.SimulationStatisticsData.Tab.WaitingClients.Field.Path"
 msgstr "Pfad"
+
+msgid "Surface.PopupMenu.SimulationStatisticsData.Tab.WaitingClients.Field.Path.notRecorded"
+msgstr "nicht aufgezeichnet"
 
 msgid "Surface.PopupMenu.SimulationStatisticsData.Tab.WaitingClients.Field.Text"
 msgstr "textbasierte Kundendatenfelder"

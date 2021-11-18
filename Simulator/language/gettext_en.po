@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-11-17 00:06+0100\n"
+"POT-Creation-Date: 2021-11-18 13:56+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -26879,6 +26879,17 @@ msgstr "The client could not be found in the model."
 msgid "Surface.PopupMenu.SimulationStatisticsData.Save"
 msgstr "Save current simulation data..."
 
+msgid "Surface.PopupMenu.SimulationStatisticsData.SaveClients"
+msgstr "Save list of clients"
+
+msgid "Surface.PopupMenu.SimulationStatisticsData.SaveClients.ErrorInfo"
+msgstr ""
+"The list of clients could not be saved in\n"
+"%s."
+
+msgid "Surface.PopupMenu.SimulationStatisticsData.SaveClients.ErrorTitle"
+msgstr "Cannot save list of clients"
+
 msgid "Surface.PopupMenu.SimulationStatisticsData.SaveError.Info"
 msgstr ""
 "An error occured while saving the data to file\n"
@@ -26889,6 +26900,17 @@ msgstr "Error saaving data"
 
 msgid "Surface.PopupMenu.SimulationStatisticsData.SaveHint"
 msgstr "Saves the data as a text file"
+
+msgid "Surface.PopupMenu.SimulationStatisticsData.SaveWaitingClients"
+msgstr "Save list of waiting clients"
+
+msgid "Surface.PopupMenu.SimulationStatisticsData.SaveWaitingClients.ErrorInfo"
+msgstr ""
+"The list of waiting clients could not be saved in\n"
+"%s."
+
+msgid "Surface.PopupMenu.SimulationStatisticsData.SaveWaitingClients.ErrorTitle"
+msgstr "Cannot save list of waiting clients"
 
 msgid "Surface.PopupMenu.SimulationStatisticsData.Tab.AllClients"
 msgstr "All clients"
@@ -26961,6 +26983,9 @@ msgstr "Numeric data fields"
 
 msgid "Surface.PopupMenu.SimulationStatisticsData.Tab.WaitingClients.Field.Path"
 msgstr "Path"
+
+msgid "Surface.PopupMenu.SimulationStatisticsData.Tab.WaitingClients.Field.Path.notRecorded"
+msgstr "not recorded"
 
 msgid "Surface.PopupMenu.SimulationStatisticsData.Tab.WaitingClients.Field.Text"
 msgstr "text-based client data fields"

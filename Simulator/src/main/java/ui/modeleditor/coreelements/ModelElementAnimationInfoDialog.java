@@ -33,9 +33,12 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.function.Function;
@@ -62,6 +65,8 @@ import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 import language.Language;
+import mathtools.NumberTools;
+import mathtools.Table;
 import mathtools.TimeTools;
 import mathtools.distribution.swing.CommonVariables;
 import simulator.runmodel.RunDataClient;
@@ -102,10 +107,6 @@ public class ModelElementAnimationInfoDialog extends BaseDialog {
 	private final Supplier<List<ClientInfo>> clientInfo;
 	/** Ermöglicht das Abrufen eines tatsächlichen Kunden-Objekts (kann <code>null</code> sein, wenn kein Schreibzugriff auf die realen Kunden möglich ist) */
 	private final Function<Long,RunDataClient> getRealClient;
-	/** Schaltfläche "Kopieren" */
-	private final JButton buttonCopy;
-	/** Schaltfläche "Speichern" */
-	private final JButton buttonSave;
 	/** Schaltfläche "Aktualisieren" */
 	private final JButton buttonUpdate;
 
@@ -169,8 +170,8 @@ public class ModelElementAnimationInfoDialog extends BaseDialog {
 		final JToolBar toolbar=new JToolBar();
 		toolbar.setFloatable(false);
 		content.add(toolbar,BorderLayout.NORTH);
-		buttonCopy=addButton(toolbar,Language.tr("Dialog.Button.Copy"),Images.EDIT_COPY.getIcon(),Language.tr("Surface.PopupMenu.SimulationStatisticsData.CopyHint"),e->commandCopy());
-		buttonSave=addButton(toolbar,Language.tr("Dialog.Button.Save"),Images.GENERAL_SAVE.getIcon(),Language.tr("Surface.PopupMenu.SimulationStatisticsData.SaveHint"),e->commandSave());
+		addButton(toolbar,Language.tr("Dialog.Button.Copy"),Images.EDIT_COPY.getIcon(),Language.tr("Surface.PopupMenu.SimulationStatisticsData.CopyHint"),e->commandCopy());
+		addButton(toolbar,Language.tr("Dialog.Button.Save"),Images.GENERAL_SAVE.getIcon(),Language.tr("Surface.PopupMenu.SimulationStatisticsData.SaveHint"),e->commandSave());
 		buttonUpdate=addButton(toolbar,Language.tr("Surface.PopupMenu.SimulationStatisticsData.Update"),Images.ANIMATION_DATA_UPDATE.getIcon(),Language.tr("Surface.PopupMenu.SimulationStatisticsData.UpdateHint"),e->commandUpdate());
 		buttonAutoUpdate=addButton(toolbar,Language.tr("Surface.PopupMenu.SimulationStatisticsData.AutoUpdate"),Images.ANIMATION_DATA_UPDATE_AUTO.getIcon(),Language.tr("Surface.PopupMenu.SimulationStatisticsData.AutoUpdateHint"),e->commandAutoUpdate());
 		buttonUpdateClients=addButton(toolbar,Language.tr("Surface.PopupMenu.SimulationStatisticsData.UpdateClients"),Images.MODELPROPERTIES_CLIENTS.getIcon(),Language.tr("Surface.PopupMenu.SimulationStatisticsData.UpdateClientsHint"),e->commandUpdateClientList());
@@ -221,8 +222,6 @@ public class ModelElementAnimationInfoDialog extends BaseDialog {
 		tabs.addChangeListener(e->{
 			final int index=tabs.getSelectedIndex();
 			final boolean isAllClientsTab=(this.clientInfo!=null && index==tabs.getTabCount()-1);
-			buttonCopy.setVisible(index==0);
-			buttonSave.setVisible(index==0);
 			buttonUpdate.setVisible(!isAllClientsTab);
 			buttonAutoUpdate.setVisible(!isAllClientsTab);
 			buttonUpdateClients.setVisible(isAllClientsTab);
@@ -305,12 +304,134 @@ public class ModelElementAnimationInfoDialog extends BaseDialog {
 	}
 
 	/**
+	 * Welches Tab ist momentan aktiv?
+	 */
+	private enum ActiveTab {
+		/** Tab: Allgemeine Informationen */
+		INFO,
+		/** Tab: Liste der wartenden Kunden */
+		QUEUE,
+		/** Tab: Liste aller Kunden */
+		CLIENTS,
+	}
+
+	/**
+	 * Liefert die Bezeichnung des aktiven Tabs.
+	 * @return	Bezeichnung des aktiven Tabs
+	 * @see ActiveTab
+	 */
+	private ActiveTab getActiveTab() {
+		if (tabs.getTabCount()==2) {
+			switch (tabs.getSelectedIndex()) {
+			case 0: return ActiveTab.INFO;
+			case 1: return ActiveTab.CLIENTS;
+			}
+		} else {
+			switch (tabs.getSelectedIndex()) {
+			case 0: return ActiveTab.INFO;
+			case 1: return ActiveTab.QUEUE;
+			case 2: return ActiveTab.CLIENTS;
+			}
+		}
+		return ActiveTab.INFO;
+	}
+
+	/**
+	 * Erstellt eine Kundendatentabelle für den Export.
+	 * @param list	Kundeliste
+	 * @return	Kundentabelle
+	 */
+	private Table buildTable(final List<ClientInfo> list) {
+		final Table table=new Table();
+
+		final Set<Integer> clientDataKeys=new HashSet<>();
+		final Set<String> clientTextDataKeys=new HashSet<>();
+		for (ClientInfo client: list) {
+			clientDataKeys.addAll(client.clientData.keySet());
+			clientTextDataKeys.addAll(client.clientTextData.keySet());
+		}
+		final ArrayList<Integer> clientDataKeysList=new ArrayList<>(clientDataKeys);
+		clientDataKeysList.sort(null);
+		final ArrayList<String> clientTextDataKeysList=new ArrayList<>(clientTextDataKeys);
+		clientTextDataKeysList.sort(null);
+
+		final List<String> heading=new ArrayList<>();
+		heading.add(Language.tr("Surface.PopupMenu.SimulationStatisticsData.Tab.WaitingClients.RunningNumber"));
+		heading.add(Language.tr("Surface.PopupMenu.SimulationStatisticsData.Tab.WaitingClients.ID"));
+		heading.add(Language.tr("Surface.PopupMenu.SimulationStatisticsData.Tab.WaitingClients.ClientType"));
+		heading.add(Language.tr("Surface.PopupMenu.SimulationStatisticsData.Tab.WaitingClients.General.IsWarmUp"));
+		heading.add(Language.tr("Surface.PopupMenu.SimulationStatisticsData.Tab.WaitingClients.General.InStatistics"));
+		heading.add(Language.tr("Surface.PopupMenu.SimulationStatisticsData.Tab.WaitingClients.General.BatchSize"));
+		heading.add(Language.tr("Surface.PopupMenu.SimulationStatisticsData.Tab.WaitingClients.CurrentStation"));
+		heading.add(Language.tr("Surface.PopupMenu.SimulationStatisticsData.Tab.WaitingClients.Times.Waiting"));
+		heading.add(Language.tr("Surface.PopupMenu.SimulationStatisticsData.Tab.WaitingClients.Times.Transfer"));
+		heading.add(Language.tr("Surface.PopupMenu.SimulationStatisticsData.Tab.WaitingClients.Times.Process"));
+		heading.add(Language.tr("Surface.PopupMenu.SimulationStatisticsData.Tab.WaitingClients.Times.Residence"));
+		heading.add(Language.tr("Surface.PopupMenu.SimulationStatisticsData.Tab.WaitingClients.Costs.Waiting"));
+		heading.add(Language.tr("Surface.PopupMenu.SimulationStatisticsData.Tab.WaitingClients.Costs.Transfer"));
+		heading.add(Language.tr("Surface.PopupMenu.SimulationStatisticsData.Tab.WaitingClients.Costs.Process"));
+		heading.add(Language.tr("Surface.PopupMenu.SimulationStatisticsData.Tab.WaitingClients.Field.Path"));
+		for (Integer key: clientDataKeysList) heading.add("ClientData("+key+")");
+		for (String key: clientTextDataKeysList) heading.add("ClientData(\""+key+"\")");
+		table.addLine(heading);
+
+		for (ClientInfo client: list) {
+			final List<String> row=new ArrayList<>();
+			row.add(""+client.number);
+			row.add(""+client.id);
+			row.add(client.typeName);
+			row.add(client.isWarmUp?Language.tr("Dialog.Button.Yes"):Language.tr("Dialog.Button.No"));
+			row.add(client.inStatistics?Language.tr("Dialog.Button.Yes"):Language.tr("Dialog.Button.No"));
+			row.add(""+client.batch);
+			row.add(""+client.currentPosition);
+			row.add(NumberTools.formatNumberMax(client.waitingTime));
+			row.add(NumberTools.formatNumberMax(client.transferTime));
+			row.add(NumberTools.formatNumberMax(client.processTime));
+			row.add(NumberTools.formatNumberMax(client.residenceTime));
+			row.add(NumberTools.formatNumberMax(client.waitingCosts));
+			row.add(NumberTools.formatNumberMax(client.transferCosts));
+			row.add(NumberTools.formatNumberMax(client.processCosts));
+			if (client.path==null) {
+				row.add(Language.tr("Surface.PopupMenu.SimulationStatisticsData.Tab.WaitingClients.Field.Path.notRecorded"));
+			} else {
+				row.add(String.join(" -> ",Arrays.stream(client.path).mapToObj(i->""+i).toArray(String[]::new)));
+			}
+			for (Integer key: clientDataKeysList) {
+				final Double D=client.clientData.get(key);
+				if (D==null) row.add("0"); else row.add(NumberTools.formatNumberMax(D));
+			}
+			for (String key: clientTextDataKeysList) {
+				final String value=client.clientTextData.get(key);
+				if (value==null) row.add(""); else row.add(value);
+			}
+			table.addLine(row);
+		}
+
+		return table;
+	}
+
+	/**
 	 * Befehl: Angezeigte Daten in die Zwischenablage kopieren
 	 */
 	private void commandCopy() {
 		if (buttonAutoUpdate.isSelected()) commandAutoUpdate();
 
-		getToolkit().getSystemClipboard().setContents(new StringSelection(textArea.getText()),null);
+		String result=null;
+		switch (getActiveTab()) {
+		case INFO:
+			result=textArea.getText();
+			break;
+		case QUEUE:
+			result=buildTable(clientWaitingInfo.get()).toString();
+			break;
+		case CLIENTS:
+			result=buildTable(clientInfo.get()).toString();
+			break;
+		}
+
+		if (result!=null) {
+			getToolkit().getSystemClipboard().setContents(new StringSelection(result),null);
+		}
 	}
 
 	/**
@@ -319,34 +440,60 @@ public class ModelElementAnimationInfoDialog extends BaseDialog {
 	private void commandSave() {
 		if (buttonAutoUpdate.isSelected()) commandAutoUpdate();
 
-		final JFileChooser fc=new JFileChooser();
-		CommonVariables.initialDirectoryToJFileChooser(fc);
-		FileFilter filter;
-		fc.setDialogTitle(Language.tr("FileType.Save.Text"));
-		filter=new FileNameExtensionFilter(Language.tr("FileType.Text")+" (*.txt)","txt");
-		fc.addChoosableFileFilter(filter);
-		fc.setFileFilter(filter);
-		fc.setAcceptAllFileFilterUsed(false);
-		if (fc.showSaveDialog(owner)!=JFileChooser.APPROVE_OPTION) return;
-		CommonVariables.initialDirectoryFromJFileChooser(fc);
-		File file=fc.getSelectedFile();
-		if (file.getName().indexOf('.')<0) {
-			if (fc.getFileFilter()==filter) file=new File(file.getAbsoluteFile()+".txt");
-		}
-		if (file.exists()) {
-			if (!MsgBox.confirmOverwrite(owner,file)) return;
-		}
-
-		try {
-			if (file.isFile()) {
-				if (!file.delete()) {
-					MsgBox.error(ModelElementAnimationInfoDialog.this,Language.tr("Surface.PopupMenu.SimulationStatisticsData.SaveError.Title"),String.format(Language.tr("Surface.PopupMenu.SimulationStatisticsData.SaveError.Info"),file.toString()));
-					return;
-				}
+		switch (getActiveTab()) {
+		case INFO:
+			final JFileChooser fc=new JFileChooser();
+			CommonVariables.initialDirectoryToJFileChooser(fc);
+			FileFilter filter;
+			fc.setDialogTitle(Language.tr("FileType.Save.Text"));
+			filter=new FileNameExtensionFilter(Language.tr("FileType.Text")+" (*.txt)","txt");
+			fc.addChoosableFileFilter(filter);
+			fc.setFileFilter(filter);
+			fc.setAcceptAllFileFilterUsed(false);
+			if (fc.showSaveDialog(owner)!=JFileChooser.APPROVE_OPTION) return;
+			CommonVariables.initialDirectoryFromJFileChooser(fc);
+			File file=fc.getSelectedFile();
+			if (file.getName().indexOf('.')<0) {
+				if (fc.getFileFilter()==filter) file=new File(file.getAbsoluteFile()+".txt");
 			}
-			Files.write(Paths.get(file.toURI()),textArea.getText().getBytes(),StandardOpenOption.CREATE_NEW);
-		} catch (IOException e1) {
-			MsgBox.error(ModelElementAnimationInfoDialog.this,Language.tr("Surface.PopupMenu.SimulationStatisticsData.SaveError.Title"),String.format(Language.tr("Surface.PopupMenu.SimulationStatisticsData.SaveError.Info"),file.toString()));
+			if (file.exists()) {
+				if (!MsgBox.confirmOverwrite(owner,file)) return;
+			}
+
+			try {
+				if (file.isFile()) {
+					if (!file.delete()) {
+						MsgBox.error(ModelElementAnimationInfoDialog.this,Language.tr("Surface.PopupMenu.SimulationStatisticsData.SaveError.Title"),String.format(Language.tr("Surface.PopupMenu.SimulationStatisticsData.SaveError.Info"),file.toString()));
+						return;
+					}
+				}
+				Files.write(Paths.get(file.toURI()),textArea.getText().getBytes(),StandardOpenOption.CREATE_NEW);
+			} catch (IOException e1) {
+				MsgBox.error(ModelElementAnimationInfoDialog.this,Language.tr("Surface.PopupMenu.SimulationStatisticsData.SaveError.Title"),String.format(Language.tr("Surface.PopupMenu.SimulationStatisticsData.SaveError.Info"),file.toString()));
+			}
+			break;
+		case QUEUE:
+			final File queueFile=Table.showSaveDialog(owner,Language.tr("Surface.PopupMenu.SimulationStatisticsData.SaveWaitingClients"));
+			if (queueFile==null) return;
+			if (queueFile.exists()) {
+				if (!MsgBox.confirmOverwrite(owner,queueFile)) return;
+			}
+			final Table queueTable=buildTable(clientWaitingInfo.get());
+			if (!queueTable.save(queueFile)) {
+				MsgBox.error(ModelElementAnimationInfoDialog.this,Language.tr("Surface.PopupMenu.SimulationStatisticsData.SaveWaitingClients.ErrorTitle"),String.format(Language.tr("Surface.PopupMenu.SimulationStatisticsData.SaveWaitingClients.ErrorInfo"),queueFile.toString()));
+			}
+			break;
+		case CLIENTS:
+			final File clientFile=Table.showSaveDialog(owner,Language.tr("Surface.PopupMenu.SimulationStatisticsData.SaveClients"));
+			final Table clientTable=buildTable(clientInfo.get());
+			if (clientFile==null) return;
+			if (clientFile.exists()) {
+				if (!MsgBox.confirmOverwrite(owner,clientFile)) return;
+			}
+			if (!clientTable.save(clientFile)) {
+				MsgBox.error(ModelElementAnimationInfoDialog.this,Language.tr("Surface.PopupMenu.SimulationStatisticsData.SaveClients.ErrorTitle"),String.format(Language.tr("Surface.PopupMenu.SimulationStatisticsData.SaveClients.ErrorInfo"),clientFile.toString()));
+			}
+			break;
 		}
 	}
 
