@@ -37,6 +37,7 @@ import ui.images.Images;
 import ui.modeleditor.ModelResource;
 import ui.modeleditor.elements.ModelElementAnalogValue;
 import ui.modeleditor.elements.ModelElementDelay;
+import ui.modeleditor.elements.ModelElementProcess;
 import ui.modeleditor.elements.ModelElementTank;
 import ui.parameterseries.ParameterCompareInputValuesTemplates;
 import ui.parameterseries.ParameterCompareInputValuesTemplates.Sub;
@@ -367,19 +368,32 @@ public class ScriptPopup {
 		String systemPauseAnimation="";
 		String systemTerminateSimulation="";
 
-		String clientsCount="";
-		String clientsRelease="";
-		String clientsTypeName="";
-		String clientsDataGet="";
-		String clientsDataSet="";
-		String clientsTextDataGet="";
-		String clientsTextDataSet="";
-		String clientsWaitingSeconds="";
-		String clientsWaitingTime="";
-		String clientsTransferSeconds="";
-		String clientsTransferTime="";
-		String clientsProcessSeconds="";
-		String clientsProcessTime="";
+		String clientsDelayCount="";
+		String clientsDelayRelease="";
+		String clientsDelayTypeName="";
+		String clientsDelayDataGet="";
+		String clientsDelayDataSet="";
+		String clientsDelayTextDataGet="";
+		String clientsDelayTextDataSet="";
+		String clientsDelayWaitingSeconds="";
+		String clientsDelayWaitingTime="";
+		String clientsDelayTransferSeconds="";
+		String clientsDelayTransferTime="";
+		String clientsDelayProcessSeconds="";
+		String clientsDelayProcessTime="";
+
+		String clientsProcessQueueCount="";
+		String clientsProcessQueueTypeName="";
+		String clientsProcessQueueDataGet="";
+		String clientsProcessQueueDataSet="";
+		String clientsProcessQueueTextDataGet="";
+		String clientsProcessQueueTextDataSet="";
+		String clientsProcessQueueWaitingSeconds="";
+		String clientsProcessQueueWaitingTime="";
+		String clientsProcessQueueTransferSeconds="";
+		String clientsProcessQueueTransferTime="";
+		String clientsProcessQueueProcessSeconds="";
+		String clientsProcessQueueProcessTime="";
 
 		if (scriptMode==ScriptMode.Javascript) {
 			systemCalc="Simulation.calc(\"1+2\");";
@@ -400,19 +414,31 @@ public class ScriptPopup {
 			systemMapGlobal="Simulation.getMapGlobal()";
 			systemPauseAnimation="Simulation.pauseAnimation();";
 			systemTerminateSimulation="Simulation.terminateSimulation(\"message\");";
-			clientsCount="Simulation.getDelayStationData(%s).count();";
-			clientsRelease="Simulation.getDelayStationData(%s).release(index);";
-			clientsTypeName="Simulation.getDelayStationData(%s).clientTypeName(index);";
-			clientsDataGet="Simulation.getDelayStationData(%s).clientData(index,data);";
-			clientsDataSet="Simulation.getDelayStationData(%s).clientData(index,data,value);";
-			clientsTextDataGet="Simulation.getDelayStationData(%s).clientTextData(index,key);";
-			clientsTextDataSet="Simulation.getDelayStationData(%s).clientTextData(index,key,value);";
-			clientsWaitingSeconds="Simulation.getDelayStationData(%s).clientWaitingSeconds(index);";
-			clientsWaitingTime="Simulation.getDelayStationData(%s).clientWaitingTime(index);";
-			clientsTransferSeconds="Simulation.getDelayStationData(%s).clientTransferSeconds(index);";
-			clientsTransferTime="Simulation.getDelayStationData(%s).clientTransferTime(index);";
-			clientsProcessSeconds="Simulation.getDelayStationData(%s).clientProcessSeconds(index);";
-			clientsProcessTime="Simulation.getDelayStationData(%s).clientProcessTime(index);";
+			clientsDelayCount="Simulation.getDelayStationData(%s).count();";
+			clientsDelayRelease="Simulation.getDelayStationData(%s).release(index);";
+			clientsDelayTypeName="Simulation.getDelayStationData(%s).clientTypeName(index);";
+			clientsDelayDataGet="Simulation.getDelayStationData(%s).clientData(index,data);";
+			clientsDelayDataSet="Simulation.getDelayStationData(%s).clientData(index,data,value);";
+			clientsDelayTextDataGet="Simulation.getDelayStationData(%s).clientTextData(index,key);";
+			clientsDelayTextDataSet="Simulation.getDelayStationData(%s).clientTextData(index,key,value);";
+			clientsDelayWaitingSeconds="Simulation.getDelayStationData(%s).clientWaitingSeconds(index);";
+			clientsDelayWaitingTime="Simulation.getDelayStationData(%s).clientWaitingTime(index);";
+			clientsDelayTransferSeconds="Simulation.getDelayStationData(%s).clientTransferSeconds(index);";
+			clientsDelayTransferTime="Simulation.getDelayStationData(%s).clientTransferTime(index);";
+			clientsDelayProcessSeconds="Simulation.getDelayStationData(%s).clientProcessSeconds(index);";
+			clientsDelayProcessTime="Simulation.getDelayStationData(%s).clientProcessTime(index);";
+			clientsProcessQueueCount="Simulation.getProcessStationQueueData(%s).count();";
+			clientsProcessQueueTypeName="Simulation.getProcessStationQueueData(%s).clientTypeName(index);";
+			clientsProcessQueueDataGet="Simulation.getProcessStationQueueData(%s).clientData(index,data);";
+			clientsProcessQueueDataSet="Simulation.getProcessStationQueueData(%s).clientData(index,data,value);";
+			clientsProcessQueueTextDataGet="Simulation.getProcessStationQueueData(%s).clientTextData(index,key);";
+			clientsProcessQueueTextDataSet="Simulation.getProcessStationQueueData(%s).clientTextData(index,key,value);";
+			clientsProcessQueueWaitingSeconds="Simulation.getProcessStationQueueData(%s).clientWaitingSeconds(index);";
+			clientsProcessQueueWaitingTime="Simulation.getProcessStationQueueData(%s).clientWaitingTime(index);";
+			clientsProcessQueueTransferSeconds="Simulation.getProcessStationQueueData(%s).clientTransferSeconds(index);";
+			clientsProcessQueueTransferTime="Simulation.getProcessStationQueueData(%s).clientTransferTime(index);";
+			clientsProcessQueueProcessSeconds="Simulation.getProcessStationQueueData(%s).clientProcessSeconds(index);";
+			clientsProcessQueueProcessTime="Simulation.getProcessStationQueueData(%s).clientProcessTime(index);";
 		}
 
 		if (scriptMode==ScriptMode.Java) {
@@ -434,19 +460,31 @@ public class ScriptPopup {
 			systemMapGlobal="sim.getSystem().getMapGlobal()";
 			systemPauseAnimation="sim.getSystem().pauseAnimation();";
 			systemTerminateSimulation="sim.getSystem().terminateSimulation(\"message\");";
-			clientsCount="sim.getSystem().getDelayStationData(%s).count();";
-			clientsRelease="sim.getSystem().getDelayStationData(%s).release(index);";
-			clientsTypeName="sim.getSystem().getDelayStationData(%s).clientTypeName(index);";
-			clientsDataGet="sim.getSystem().getDelayStationData(%s).clientData(index,data);";
-			clientsDataSet="sim.getSystem().getDelayStationData(%s).clientData(index,data,value);";
-			clientsTextDataGet="sim.getSystem().getDelayStationData(%s).clientTextData(index,key);";
-			clientsTextDataSet="sim.getSystem().getDelayStationData(%s).clientTextData(index,key,value);";
-			clientsWaitingSeconds="sim.getSystem().getDelayStationData(%s).clientWaitingSeconds(index);";
-			clientsWaitingTime="sim.getSystem().getDelayStationData(%s).clientWaitingTime(index);";
-			clientsTransferSeconds="sim.getSystem().getDelayStationData(%s).clientTransferSeconds(index);";
-			clientsTransferTime="sim.getSystem().getDelayStationData(%s).clientTransferTime(index);";
-			clientsProcessSeconds="sim.getSystem().getDelayStationData(%s).clientProcessSeconds(index);";
-			clientsProcessTime="sim.getSystem().getDelayStationData(%s).clientProcessTime(index);";
+			clientsDelayCount="sim.getSystem().getDelayStationData(%s).count();";
+			clientsDelayRelease="sim.getSystem().getDelayStationData(%s).release(index);";
+			clientsDelayTypeName="sim.getSystem().getDelayStationData(%s).clientTypeName(index);";
+			clientsDelayDataGet="sim.getSystem().getDelayStationData(%s).clientData(index,data);";
+			clientsDelayDataSet="sim.getSystem().getDelayStationData(%s).clientData(index,data,value);";
+			clientsDelayTextDataGet="sim.getSystem().getDelayStationData(%s).clientTextData(index,key);";
+			clientsDelayTextDataSet="sim.getSystem().getDelayStationData(%s).clientTextData(index,key,value);";
+			clientsDelayWaitingSeconds="sim.getSystem().getDelayStationData(%s).clientWaitingSeconds(index);";
+			clientsDelayWaitingTime="sim.getSystem().getDelayStationData(%s).clientWaitingTime(index);";
+			clientsDelayTransferSeconds="sim.getSystem().getDelayStationData(%s).clientTransferSeconds(index);";
+			clientsDelayTransferTime="sim.getSystem().getDelayStationData(%s).clientTransferTime(index);";
+			clientsDelayProcessSeconds="sim.getSystem().getDelayStationData(%s).clientProcessSeconds(index);";
+			clientsDelayProcessTime="sim.getSystem().getDelayStationData(%s).clientProcessTime(index);";
+			clientsProcessQueueCount="sim.getSystem().getProcessStationQueueData(%s).count();";
+			clientsProcessQueueTypeName="sim.getSystem().getProcessStationQueueData(%s).clientTypeName(index);";
+			clientsProcessQueueDataGet="sim.getSystem().getProcessStationQueueData(%s).clientData(index,data);";
+			clientsProcessQueueDataSet="sim.getSystem().getProcessStationQueueData(%s).clientData(index,data,value);";
+			clientsProcessQueueTextDataGet="sim.getSystem().getProcessStationQueueData(%s).clientTextData(index,key);";
+			clientsProcessQueueTextDataSet="sim.getSystem().getProcessStationQueueData(%s).clientTextData(index,key,value);";
+			clientsProcessQueueWaitingSeconds="sim.getSystem().getProcessStationQueueData(%s).clientWaitingSeconds(index);";
+			clientsProcessQueueWaitingTime="sim.getSystem().getProcessStationQueueData(%s).clientWaitingTime(index);";
+			clientsProcessQueueTransferSeconds="sim.getSystem().getProcessStationQueueData(%s).clientTransferSeconds(index);";
+			clientsProcessQueueTransferTime="sim.getSystem().getProcessStationQueueData(%s).clientTransferTime(index);";
+			clientsProcessQueueProcessSeconds="sim.getSystem().getProcessStationQueueData(%s).clientProcessSeconds(index);";
+			clientsProcessQueueProcessTime="sim.getSystem().getProcessStationQueueData(%s).clientProcessTime(index);";
 		}
 
 		final ScriptPopupItemSub group=new ScriptPopupItemSub(Language.tr("ScriptPopup.Simulation"),Language.tr("ScriptPopup.Simulation.Hint"),Images.SIMULATION.getIcon());
@@ -486,19 +524,35 @@ public class ScriptPopup {
 		/* Verzögerungs-Station */
 
 		group.addChild(sub=new ScriptPopupItemSub(Language.tr("ScriptPopup.Simulation.DelayStationData"),Language.tr("ScriptPopup.Simulation.DelayStationData.Hint"),Images.MODELEDITOR_ELEMENT_DELAY.getIcon()));
-		sub.addChild(new ScriptPopupItemCommandID(Language.tr("ScriptPopup.Clients.count"),Language.tr("ScriptPopup.Clients.count.Hint"),Images.SCRIPT_RECORD_DATA_COUNTER.getIcon(),clientsCount,owner,model,help,new Class<?>[]{ModelElementDelay.class}));
-		sub.addChild(new ScriptPopupItemCommandID(Language.tr("ScriptPopup.Clients.release"),Language.tr("ScriptPopup.Clients.release.Hint"),Images.SCRIPT_RECORD_RELEASE.getIcon(),clientsRelease,owner,model,help,new Class<?>[]{ModelElementDelay.class}));
-		sub.addChild(new ScriptPopupItemCommandID(Language.tr("ScriptPopup.Clients.clientTypeName"),Language.tr("ScriptPopup.Clients.clientTypeName.Hint"),Images.SCRIPT_RECORD_DATA_CLIENT.getIcon(),clientsTypeName,owner,model,help,new Class<?>[]{ModelElementDelay.class}));
-		sub.addChild(new ScriptPopupItemCommandID(Language.tr("ScriptPopup.Clients.clientData"),Language.tr("ScriptPopup.Clients.clientData.Hint"),Images.SCRIPT_RECORD_DATA_CLIENT.getIcon(),clientsDataGet,owner,model,help,new Class<?>[]{ModelElementDelay.class}));
-		sub.addChild(new ScriptPopupItemCommandID(Language.tr("ScriptPopup.Clients.clientDataSet"),Language.tr("ScriptPopup.Clients.clientDataSet.Hint"),Images.SCRIPT_RECORD_DATA_CLIENT.getIcon(),clientsDataSet,owner,model,help,new Class<?>[]{ModelElementDelay.class}));
-		sub.addChild(new ScriptPopupItemCommandID(Language.tr("ScriptPopup.Clients.clientTextData"),Language.tr("ScriptPopup.Clients.clientTextData.Hint"),Images.SCRIPT_RECORD_DATA_CLIENT.getIcon(),clientsTextDataGet,owner,model,help,new Class<?>[]{ModelElementDelay.class}));
-		sub.addChild(new ScriptPopupItemCommandID(Language.tr("ScriptPopup.Clients.clientTextDataSet"),Language.tr("ScriptPopup.Clients.clientTextDataSet.Hint"),Images.SCRIPT_RECORD_DATA_CLIENT.getIcon(),clientsTextDataSet,owner,model,help,new Class<?>[]{ModelElementDelay.class}));
-		sub.addChild(new ScriptPopupItemCommandID(Language.tr("ScriptPopup.Clients.WaitingTime")+" - "+Language.tr("ScriptPopup.Client.Time.Number"),Language.tr("ScriptPopup.Clients.WaitingTime.Hint")+" - "+Language.tr("ScriptPopup.Client.Time.Number.Hint"),Images.SCRIPT_RECORD_TIME.getIcon(),clientsWaitingSeconds,owner,model,help,new Class<?>[]{ModelElementDelay.class}));
-		sub.addChild(new ScriptPopupItemCommandID(Language.tr("ScriptPopup.Clients.WaitingTime")+" - "+Language.tr("ScriptPopup.Client.Time.Text"),Language.tr("ScriptPopup.Clients.WaitingTime.Hint")+" - "+Language.tr("ScriptPopup.Client.Time.Text.Hint"),Images.SCRIPT_RECORD_TIME.getIcon(),clientsWaitingTime,owner,model,help,new Class<?>[]{ModelElementDelay.class}));
-		sub.addChild(new ScriptPopupItemCommandID(Language.tr("ScriptPopup.Clients.TransferTime")+" - "+Language.tr("ScriptPopup.Client.Time.Number"),Language.tr("ScriptPopup.Clients.TransferTime.Hint")+" - "+Language.tr("ScriptPopup.Client.Time.Number.Hint"),Images.SCRIPT_RECORD_TIME.getIcon(),clientsTransferSeconds,owner,model,help,new Class<?>[]{ModelElementDelay.class}));
-		sub.addChild(new ScriptPopupItemCommandID(Language.tr("ScriptPopup.Clients.TransferTime")+" - "+Language.tr("ScriptPopup.Client.Time.Text"),Language.tr("ScriptPopup.Clients.TransferTime.Hint")+" - "+Language.tr("ScriptPopup.Client.Time.Text.Hint"),Images.SCRIPT_RECORD_TIME.getIcon(),clientsTransferTime,owner,model,help,new Class<?>[]{ModelElementDelay.class}));
-		sub.addChild(new ScriptPopupItemCommandID(Language.tr("ScriptPopup.Clients.ProcessTime")+" - "+Language.tr("ScriptPopup.Client.Time.Number"),Language.tr("ScriptPopup.Clients.ProcessTime.Hint")+" - "+Language.tr("ScriptPopup.Client.Time.Number.Hint"),Images.SCRIPT_RECORD_TIME.getIcon(),clientsProcessSeconds,owner,model,help,new Class<?>[]{ModelElementDelay.class}));
-		sub.addChild(new ScriptPopupItemCommandID(Language.tr("ScriptPopup.Clients.ProcessTime")+" - "+Language.tr("ScriptPopup.Client.Time.Text"),Language.tr("ScriptPopup.Clients.ProcessTime.Hint")+" - "+Language.tr("ScriptPopup.Client.Time.Text.Hint"),Images.SCRIPT_RECORD_TIME.getIcon(),clientsProcessTime,owner,model,help,new Class<?>[]{ModelElementDelay.class}));
+		sub.addChild(new ScriptPopupItemCommandID(Language.tr("ScriptPopup.Clients.count"),Language.tr("ScriptPopup.Clients.count.Hint"),Images.SCRIPT_RECORD_DATA_COUNTER.getIcon(),clientsDelayCount,owner,model,help,new Class<?>[]{ModelElementDelay.class}));
+		sub.addChild(new ScriptPopupItemCommandID(Language.tr("ScriptPopup.Clients.release"),Language.tr("ScriptPopup.Clients.release.Hint"),Images.SCRIPT_RECORD_RELEASE.getIcon(),clientsDelayRelease,owner,model,help,new Class<?>[]{ModelElementDelay.class}));
+		sub.addChild(new ScriptPopupItemCommandID(Language.tr("ScriptPopup.Clients.clientTypeName"),Language.tr("ScriptPopup.Clients.clientTypeName.Hint"),Images.SCRIPT_RECORD_DATA_CLIENT.getIcon(),clientsDelayTypeName,owner,model,help,new Class<?>[]{ModelElementDelay.class}));
+		sub.addChild(new ScriptPopupItemCommandID(Language.tr("ScriptPopup.Clients.clientData"),Language.tr("ScriptPopup.Clients.clientData.Hint"),Images.SCRIPT_RECORD_DATA_CLIENT.getIcon(),clientsDelayDataGet,owner,model,help,new Class<?>[]{ModelElementDelay.class}));
+		sub.addChild(new ScriptPopupItemCommandID(Language.tr("ScriptPopup.Clients.clientDataSet"),Language.tr("ScriptPopup.Clients.clientDataSet.Hint"),Images.SCRIPT_RECORD_DATA_CLIENT.getIcon(),clientsDelayDataSet,owner,model,help,new Class<?>[]{ModelElementDelay.class}));
+		sub.addChild(new ScriptPopupItemCommandID(Language.tr("ScriptPopup.Clients.clientTextData"),Language.tr("ScriptPopup.Clients.clientTextData.Hint"),Images.SCRIPT_RECORD_DATA_CLIENT.getIcon(),clientsDelayTextDataGet,owner,model,help,new Class<?>[]{ModelElementDelay.class}));
+		sub.addChild(new ScriptPopupItemCommandID(Language.tr("ScriptPopup.Clients.clientTextDataSet"),Language.tr("ScriptPopup.Clients.clientTextDataSet.Hint"),Images.SCRIPT_RECORD_DATA_CLIENT.getIcon(),clientsDelayTextDataSet,owner,model,help,new Class<?>[]{ModelElementDelay.class}));
+		sub.addChild(new ScriptPopupItemCommandID(Language.tr("ScriptPopup.Clients.WaitingTime")+" - "+Language.tr("ScriptPopup.Client.Time.Number"),Language.tr("ScriptPopup.Clients.WaitingTime.Hint")+" - "+Language.tr("ScriptPopup.Client.Time.Number.Hint"),Images.SCRIPT_RECORD_TIME.getIcon(),clientsDelayWaitingSeconds,owner,model,help,new Class<?>[]{ModelElementDelay.class}));
+		sub.addChild(new ScriptPopupItemCommandID(Language.tr("ScriptPopup.Clients.WaitingTime")+" - "+Language.tr("ScriptPopup.Client.Time.Text"),Language.tr("ScriptPopup.Clients.WaitingTime.Hint")+" - "+Language.tr("ScriptPopup.Client.Time.Text.Hint"),Images.SCRIPT_RECORD_TIME.getIcon(),clientsDelayWaitingTime,owner,model,help,new Class<?>[]{ModelElementDelay.class}));
+		sub.addChild(new ScriptPopupItemCommandID(Language.tr("ScriptPopup.Clients.TransferTime")+" - "+Language.tr("ScriptPopup.Client.Time.Number"),Language.tr("ScriptPopup.Clients.TransferTime.Hint")+" - "+Language.tr("ScriptPopup.Client.Time.Number.Hint"),Images.SCRIPT_RECORD_TIME.getIcon(),clientsDelayTransferSeconds,owner,model,help,new Class<?>[]{ModelElementDelay.class}));
+		sub.addChild(new ScriptPopupItemCommandID(Language.tr("ScriptPopup.Clients.TransferTime")+" - "+Language.tr("ScriptPopup.Client.Time.Text"),Language.tr("ScriptPopup.Clients.TransferTime.Hint")+" - "+Language.tr("ScriptPopup.Client.Time.Text.Hint"),Images.SCRIPT_RECORD_TIME.getIcon(),clientsDelayTransferTime,owner,model,help,new Class<?>[]{ModelElementDelay.class}));
+		sub.addChild(new ScriptPopupItemCommandID(Language.tr("ScriptPopup.Clients.ProcessTime")+" - "+Language.tr("ScriptPopup.Client.Time.Number"),Language.tr("ScriptPopup.Clients.ProcessTime.Hint")+" - "+Language.tr("ScriptPopup.Client.Time.Number.Hint"),Images.SCRIPT_RECORD_TIME.getIcon(),clientsDelayProcessSeconds,owner,model,help,new Class<?>[]{ModelElementDelay.class}));
+		sub.addChild(new ScriptPopupItemCommandID(Language.tr("ScriptPopup.Clients.ProcessTime")+" - "+Language.tr("ScriptPopup.Client.Time.Text"),Language.tr("ScriptPopup.Clients.ProcessTime.Hint")+" - "+Language.tr("ScriptPopup.Client.Time.Text.Hint"),Images.SCRIPT_RECORD_TIME.getIcon(),clientsDelayProcessTime,owner,model,help,new Class<?>[]{ModelElementDelay.class}));
+
+		/* Bedienstationen */
+
+		group.addChild(sub=new ScriptPopupItemSub(Language.tr("ScriptPopup.Simulation.ProcessStationQueueData"),Language.tr("ScriptPopup.Simulation.ProcessStationQueueData.Hint"),Images.MODELEDITOR_ELEMENT_PROCESS.getIcon()));
+		sub.addChild(new ScriptPopupItemCommandID(Language.tr("ScriptPopup.Clients.count"),Language.tr("ScriptPopup.Clients.count.Hint"),Images.SCRIPT_RECORD_DATA_COUNTER.getIcon(),clientsProcessQueueCount,owner,model,help,new Class<?>[]{ModelElementProcess.class}));
+		sub.addChild(new ScriptPopupItemCommandID(Language.tr("ScriptPopup.Clients.clientTypeName"),Language.tr("ScriptPopup.Clients.clientTypeName.Hint"),Images.SCRIPT_RECORD_DATA_CLIENT.getIcon(),clientsProcessQueueTypeName,owner,model,help,new Class<?>[]{ModelElementProcess.class}));
+		sub.addChild(new ScriptPopupItemCommandID(Language.tr("ScriptPopup.Clients.clientData"),Language.tr("ScriptPopup.Clients.clientData.Hint"),Images.SCRIPT_RECORD_DATA_CLIENT.getIcon(),clientsProcessQueueDataGet,owner,model,help,new Class<?>[]{ModelElementProcess.class}));
+		sub.addChild(new ScriptPopupItemCommandID(Language.tr("ScriptPopup.Clients.clientDataSet"),Language.tr("ScriptPopup.Clients.clientDataSet.Hint"),Images.SCRIPT_RECORD_DATA_CLIENT.getIcon(),clientsProcessQueueDataSet,owner,model,help,new Class<?>[]{ModelElementProcess.class}));
+		sub.addChild(new ScriptPopupItemCommandID(Language.tr("ScriptPopup.Clients.clientTextData"),Language.tr("ScriptPopup.Clients.clientTextData.Hint"),Images.SCRIPT_RECORD_DATA_CLIENT.getIcon(),clientsProcessQueueTextDataGet,owner,model,help,new Class<?>[]{ModelElementProcess.class}));
+		sub.addChild(new ScriptPopupItemCommandID(Language.tr("ScriptPopup.Clients.clientTextDataSet"),Language.tr("ScriptPopup.Clients.clientTextDataSet.Hint"),Images.SCRIPT_RECORD_DATA_CLIENT.getIcon(),clientsProcessQueueTextDataSet,owner,model,help,new Class<?>[]{ModelElementProcess.class}));
+		sub.addChild(new ScriptPopupItemCommandID(Language.tr("ScriptPopup.Clients.WaitingTime")+" - "+Language.tr("ScriptPopup.Client.Time.Number"),Language.tr("ScriptPopup.Clients.WaitingTime.Hint")+" - "+Language.tr("ScriptPopup.Client.Time.Number.Hint"),Images.SCRIPT_RECORD_TIME.getIcon(),clientsProcessQueueWaitingSeconds,owner,model,help,new Class<?>[]{ModelElementProcess.class}));
+		sub.addChild(new ScriptPopupItemCommandID(Language.tr("ScriptPopup.Clients.WaitingTime")+" - "+Language.tr("ScriptPopup.Client.Time.Text"),Language.tr("ScriptPopup.Clients.WaitingTime.Hint")+" - "+Language.tr("ScriptPopup.Client.Time.Text.Hint"),Images.SCRIPT_RECORD_TIME.getIcon(),clientsProcessQueueWaitingTime,owner,model,help,new Class<?>[]{ModelElementProcess.class}));
+		sub.addChild(new ScriptPopupItemCommandID(Language.tr("ScriptPopup.Clients.TransferTime")+" - "+Language.tr("ScriptPopup.Client.Time.Number"),Language.tr("ScriptPopup.Clients.TransferTime.Hint")+" - "+Language.tr("ScriptPopup.Client.Time.Number.Hint"),Images.SCRIPT_RECORD_TIME.getIcon(),clientsProcessQueueTransferSeconds,owner,model,help,new Class<?>[]{ModelElementProcess.class}));
+		sub.addChild(new ScriptPopupItemCommandID(Language.tr("ScriptPopup.Clients.TransferTime")+" - "+Language.tr("ScriptPopup.Client.Time.Text"),Language.tr("ScriptPopup.Clients.TransferTime.Hint")+" - "+Language.tr("ScriptPopup.Client.Time.Text.Hint"),Images.SCRIPT_RECORD_TIME.getIcon(),clientsProcessQueueTransferTime,owner,model,help,new Class<?>[]{ModelElementProcess.class}));
+		sub.addChild(new ScriptPopupItemCommandID(Language.tr("ScriptPopup.Clients.ProcessTime")+" - "+Language.tr("ScriptPopup.Client.Time.Number"),Language.tr("ScriptPopup.Clients.ProcessTime.Hint")+" - "+Language.tr("ScriptPopup.Client.Time.Number.Hint"),Images.SCRIPT_RECORD_TIME.getIcon(),clientsProcessQueueProcessSeconds,owner,model,help,new Class<?>[]{ModelElementProcess.class}));
+		sub.addChild(new ScriptPopupItemCommandID(Language.tr("ScriptPopup.Clients.ProcessTime")+" - "+Language.tr("ScriptPopup.Client.Time.Text"),Language.tr("ScriptPopup.Clients.ProcessTime.Hint")+" - "+Language.tr("ScriptPopup.Client.Time.Text.Hint"),Images.SCRIPT_RECORD_TIME.getIcon(),clientsProcessQueueProcessTime,owner,model,help,new Class<?>[]{ModelElementProcess.class}));
 
 		/* Bediener */
 

@@ -643,6 +643,20 @@ so wird \cm{null} zurückgeliefert.
 
 \end{itemize}
 
+\section{Kunden in der Warteschlange an einer Bedienstation}
+
+\begin{itemize}
+
+  \item
+  \cmd{getProcessStationQueueData(id)}:\
+  Liefert ein Objekt, welches die unter \textbf{Zugriff auf kundenspezifische Daten} angegebenen Methoden
+  zur Abfrage der Liste der Kunden in der Warteschlange an der Bedienstation \cm{id} bereitstellt. Ist die ID ungültig
+  so wird \cm{null} zurückgeliefert. Es kann nur auf die wartenden Kunden zugegriffen werden, der oder die Kunden
+  in Bedienung stehen in der Liste nicht zur Verfügung.
+  Außerdem können an einer Bedienstation Kunden nicht über die \cm{release} Methode freigegeben werden.
+  
+\end{itemize}
+
 
 
 \chapter{\texttt{Clients}-Objekt}

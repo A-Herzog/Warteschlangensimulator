@@ -353,6 +353,18 @@ selektiv einzelne Kunden vor Ablauf ihrer angegebenen Verzögerungszeit freigege
   so wird <tt>null</tt> zurückgeliefert. 
 </ul>
 
+<h3>Kunden in der Warteschlange an einer Bedienstation</h3>
+
+<ul>
+  <li><tt>ClientsInterface getProcessStationQueueData(final int id)</tt><br>
+  Liefert ein Objekt, welches <tt>ClientsInterface</tt> implementiert und die Liste der wartenden
+  Kunden an der Bedienstation <tt>id</tt> repräsentiert. Ist die ID ungültig
+  so wird <tt>null</tt> zurückgeliefert. Es kann nur auf die wartenden Kunden zugegriffen werden,
+  der oder die Kunden in Bedienung stehen in der Liste nicht zur Verfügung.
+  Außerdem können an einer Bedienstation Kunden nicht über <tt>ClientsInterface.release</tt>
+  freigegeben werden.  
+</ul>
+
 
 
 <h2>ClientInterface abrufbar über sim.getClient()</h2>

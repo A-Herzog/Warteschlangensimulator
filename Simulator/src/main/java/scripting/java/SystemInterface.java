@@ -160,6 +160,13 @@ public interface SystemInterface {
 	ClientsInterface getDelayStationData(final int id);
 
 	/**
+	 * Liefert die Liste der Kunden in der Warteschlange an einer Bedienstation.
+	 * @param id	ID der Bedienstation
+	 * @return	Liste der Kunden an der Station oder <code>null</code>, wenn keine Kundenliste ermittelt werden konnte
+	 */
+	ClientsInterface getProcessStationQueueData(final int id);
+
+	/**
 	 * Liefert das Stations-lokales Datenobjekt für Skript-Daten.
 	 * @return	Stations-lokales Datenobjekt für Skript-Daten
 	 */

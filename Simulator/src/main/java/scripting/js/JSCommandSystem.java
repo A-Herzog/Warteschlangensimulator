@@ -36,6 +36,7 @@ import scripting.java.RuntimeData;
 import simulator.coreelements.RunElement;
 import simulator.elements.RunElementAnalogValue;
 import simulator.elements.RunElementDelay;
+import simulator.elements.RunElementProcess;
 import simulator.elements.RunElementTank;
 import simulator.runmodel.RunDataClient;
 import simulator.runmodel.SimulationData;
@@ -59,6 +60,8 @@ public final class JSCommandSystem extends JSBaseCommand {
 	private double inputValue;
 	/** Liste von Kundenlisten für bestimmte Verzögerung-Stationen */
 	private final Map<Integer,JSCommandClientsDelay> delayInterfaces;
+	/** Liste von Kundenlisten für bestimmte Bedienstationen */
+	private final Map<Integer,JSCommandClientsProcessQueue> processInterfaces;
 	/**
 	 * Zuordnung von Rechenausdruck-Zeichenketten und bereits erstellten passenden Objekten
 	 * @see #getExpression(String)
@@ -77,6 +80,7 @@ public final class JSCommandSystem extends JSBaseCommand {
 		inputValue=0.0;
 		currentStation=-1;
 		delayInterfaces=new HashMap<>();
+		processInterfaces=new HashMap<>();
 	}
 
 	/**
@@ -1061,5 +1065,26 @@ public final class JSCommandSystem extends JSBaseCommand {
 		delayCommand.setSimulationData(simData,delayElement);
 
 		return delayCommand;
+	}
+
+	/**
+	 * Liefert die Liste der Kunden in der Warteschlange an einer Bedienstation.
+	 * @param id	ID der Bedienstation
+	 * @return	Liste der Kunden an der Station oder <code>null</code>, wenn keine Kundenliste ermittelt werden konnte
+	 */
+	public JSCommandClientsProcessQueue getProcessStationQueueData(final int id) {
+		final RunElement element=simData.runModel.elementsFast[id];
+		if (!(element instanceof RunElementProcess)) return null;
+		final RunElementProcess processElement=(RunElementProcess)element;
+
+		JSCommandClientsProcessQueue processQueueCommand=processInterfaces.get(id);
+		if (processQueueCommand==null) {
+			processQueueCommand=new JSCommandClientsProcessQueue();
+			processInterfaces.put(id,processQueueCommand);
+		}
+
+		processQueueCommand.setSimulationData(simData,processElement);
+
+		return processQueueCommand;
 	}
 }

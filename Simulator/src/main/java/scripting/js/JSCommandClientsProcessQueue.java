@@ -15,34 +15,28 @@
  */
 package scripting.js;
 
-import simulator.elements.RunElementDelay;
+import simulator.elements.RunElementProcess;
 import simulator.runmodel.SimulationData;
 
 /**
- * Stellt das "Clients"-Objekt in Javascript-Umgebungen zur Verfügung (für Kunden an einer Verzögerung-Station)
+ * Stellt das "Clients"-Objekt in Javascript-Umgebungen zur Verfügung (für Kunden in der Warteschlange an einer Bedienstation)
  * @author Alexander Herzog
  */
-public final class JSCommandClientsDelay extends JSCommandClientsBase {
-	/**
-	 * Zu dieser Kundenliste gehörende Verzögerung-Station
-	 */
-	private RunElementDelay delay;
-
+public final class JSCommandClientsProcessQueue extends JSCommandClientsBase {
 	/**
 	 * Konstruktor der Klasse
 	 */
-	public JSCommandClientsDelay() {
+	public JSCommandClientsProcessQueue() {
 		super();
 	}
 
 	/**
 	 * Stellt die Simulationsdaten und die Liste der wartenden Kunden für die Abfrage durch das Javascript-Verknüpfungs-Objekt ein
 	 * @param simData	Simulationsdaten-Objekt (kann auch <code>null</code> sein)
-	 * @param delay	Zu dieser Kundenliste gehörende Verzögerung-Station
+	 * @param process	Zu dieser Kundenliste gehörende Verzögerung-Station
 	 */
-	public void setSimulationData(final SimulationData simData, final RunElementDelay delay) {
-		this.delay=delay;
-		super.setSimulationData(simData,delay.getClientsAtStation(simData));
+	public void setSimulationData(final SimulationData simData, final RunElementProcess process) {
+		super.setSimulationData(simData,process.getClientsInQueue(simData));
 	}
 
 	/**
@@ -50,7 +44,6 @@ public final class JSCommandClientsDelay extends JSCommandClientsBase {
 	 * @param index	Index des Kunden muss größer oder gleich 0 sein und kleiner als {@link #count()}
 	 */
 	public void release(final int index) {
-		if (index<0 || index>=count) return;
-		delay.releaseClientNow(simData,clients.get(index));
+		/* Keine Freigabe von Kunden an einer Bedienstation möglich. */
 	}
 }

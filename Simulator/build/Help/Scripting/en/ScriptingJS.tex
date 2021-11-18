@@ -612,6 +612,19 @@ will be returned.
 
 \end{itemize}
 
+\section{Clients in the queue of a process station}
+
+\begin{itemize}
+
+  \item
+  \cmd{getProcessStationQueueData(id)}:\
+  Returns an object which offers the methods described in \textbf{Accessing client-specific data}
+  for accessing the list of clients waiting at the process station \cm{id}. If the id is invalid, \cm{null}
+  will be returned. Only the waiting clients can be accessed, not the clients which are already in service process.
+  Also clients cannot be released via the \cm{release} method here.
+  
+\end{itemize}
+
 
 
 \chapter{\texttt{Clients} object}

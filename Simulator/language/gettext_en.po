@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-11-13 18:35+0100\n"
+"POT-Creation-Date: 2021-11-17 00:06+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -856,6 +856,9 @@ msgstr "Double-click list record to edit table column usage:"
 msgid "BuildClientSourceTable.DialogHint"
 msgstr "In this dialog, tables with client arrival data, where additional properties are specified in the further columns, can be converted into tables suitable for table sources."
 
+msgid "BuildClientSourceTable.DialogHintDirect"
+msgstr "In this dialog it can be configured how tables with client arrival data should be imported."
+
 msgid "BuildClientSourceTable.Edit.Column"
 msgstr "Column"
 
@@ -995,6 +998,9 @@ msgstr "Load as texts"
 
 msgid "BuildClientSourceTable.Title"
 msgstr "Prepare table for table source"
+
+msgid "BuildClientSourceTable.TitleDirectImport"
+msgstr "Configure table import"
 
 msgid "CalcWebServer.LoadError"
 msgstr "Input data could not be loaded."
@@ -14952,6 +14958,12 @@ msgstr "Pause animation"
 
 msgid "ScriptPopup.Simulation.PauseAnimation.Hint"
 msgstr "Switches the animation to single step mode."
+
+msgid "ScriptPopup.Simulation.ProcessStationQueueData"
+msgstr "Clients in queues at process stations"
+
+msgid "ScriptPopup.Simulation.ProcessStationQueueData.Hint"
+msgstr "Lists clients in the queue at a process station."
 
 msgid "ScriptPopup.Simulation.Resources"
 msgstr "Operators"

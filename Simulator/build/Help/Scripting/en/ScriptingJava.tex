@@ -419,6 +419,19 @@ will be returned.
   
 \end{itemize}
 
+\section{Clients in the queue of a process station}
+
+\begin{itemize}
+
+  \item
+  \cmd{ClientsInterface getProcessStationQueueData(final int id)}:\
+  Returns an object implementing \cm{ClientsInterface} which represents the list
+  of clients waiting at the process station \cm{id}. If the id is invalid, \cm{null}
+  will be returned. Only the waiting clients can be accessed, not the clients which are already
+  in service process. Also clients cannot be released via \cm{ClientsInterface.release} here.
+  
+\end{itemize}
+
 
 
 \chapter{\texttt{ClientInterface} accessible via \texttt{sim.getClient()}}

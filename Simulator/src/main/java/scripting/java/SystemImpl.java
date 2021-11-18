@@ -26,6 +26,7 @@ import parser.MathCalcError;
 import simulator.coreelements.RunElement;
 import simulator.elements.RunElementAnalogValue;
 import simulator.elements.RunElementDelay;
+import simulator.elements.RunElementProcess;
 import simulator.elements.RunElementTank;
 import simulator.runmodel.RunModel;
 import simulator.runmodel.SimulationData;
@@ -46,6 +47,8 @@ public class SystemImpl implements SystemInterface {
 	private final int currentStation;
 	/** Liste von Kundenlisten für bestimmte Verzögerung-Stationen */
 	private final Map<Integer,ClientsDelayImpl> delayInterfaces;
+	/** Liste von Kundenlisten für bestimmte Bedienstationen */
+	private final Map<Integer,ClientsProcessQueueImpl> processInterfaces;
 	/** Stationslokale Daten */
 	private final RuntimeData mapLocal;
 	/** Modellweite Daten */
@@ -67,6 +70,7 @@ public class SystemImpl implements SystemInterface {
 		runModel=(simData==null)?null:simData.runModel;
 		this.currentStation=currentStation;
 		delayInterfaces=new HashMap<>();
+		processInterfaces=new HashMap<>();
 		mapLocal=new RuntimeData();
 		mapGlobal=(simData==null)?null:(simData.runData.getMapGlobal());
 	}
@@ -335,6 +339,21 @@ public class SystemImpl implements SystemInterface {
 		delayInterface.updateClients();
 		return delayInterface;
 	}
+
+	@Override
+	public ClientsInterface getProcessStationQueueData(final int id) {
+		ClientsProcessQueueImpl processInterface=processInterfaces.get(id);
+		if (processInterface==null) {
+			final RunElement element=simData.runModel.elementsFast[id];
+			if (!(element instanceof RunElementProcess)) return null;
+			processInterface=new ClientsProcessQueueImpl(simData,(RunElementProcess)element);
+			processInterfaces.put(id,processInterface);
+		}
+
+		processInterface.updateClients();
+		return processInterface;
+	}
+
 
 	@Override
 	public Map<String,Object> getMapLocal() {

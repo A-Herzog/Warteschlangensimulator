@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-11-13 18:35+0100\n"
+"POT-Creation-Date: 2021-11-17 00:06+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -856,6 +856,9 @@ msgstr "Listenzeile doppelt anklicken, um die Nutzung der jeweiligen Tabellenspa
 msgid "BuildClientSourceTable.DialogHint"
 msgstr "In diesem Dialog können Tabellen mit Kundenankunftsdaten, bei denen zusätzliche Eigenschaften in den weiteren Spalten angegeben sind, in Tabellen passend für Tabellenquellen umgewandelt werden."
 
+msgid "BuildClientSourceTable.DialogHintDirect"
+msgstr "In diesem Dialog kann konfiguriert werden, wie Tabellen mit Kundenankunftsdaten importiert werden sollen."
+
 msgid "BuildClientSourceTable.Edit.Column"
 msgstr "Spalte"
 
@@ -995,6 +998,9 @@ msgstr "Als Textwerte laden"
 
 msgid "BuildClientSourceTable.Title"
 msgstr "Tabelle für Tabellenquelle aufbereiten"
+
+msgid "BuildClientSourceTable.TitleDirectImport"
+msgstr "Tabellenimport konfigurieren"
 
 msgid "CalcWebServer.LoadError"
 msgstr "Die Eingabedaten konnten nicht geladen werden."
@@ -14953,6 +14959,12 @@ msgstr "Animation pausieren"
 
 msgid "ScriptPopup.Simulation.PauseAnimation.Hint"
 msgstr "Schaltet die Animation in den Einzelschrittmodus."
+
+msgid "ScriptPopup.Simulation.ProcessStationQueueData"
+msgstr "Kunden in der Warteschlangen an Bedienstationen"
+
+msgid "ScriptPopup.Simulation.ProcessStationQueueData.Hint"
+msgstr "Listet die Kunden in der Warteschlange einer Bedienstation auf."
 
 msgid "ScriptPopup.Simulation.Resources"
 msgstr "Bediener"

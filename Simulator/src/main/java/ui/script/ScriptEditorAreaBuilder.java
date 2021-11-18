@@ -300,19 +300,32 @@ public class ScriptEditorAreaBuilder {
 		String systemLog="";
 		String systemRunPlugin="";
 
-		String clientsCount="";
-		String clientsRelease="";
-		String clientsTypeName="";
-		String clientsDataGet="";
-		String clientsDataSet="";
-		String clientsTextDataGet="";
-		String clientsTextDataSet="";
-		String clientsWaitingSeconds="";
-		String clientsWaitingTime="";
-		String clientsTransferSeconds="";
-		String clientsTransferTime="";
-		String clientsProcessSeconds="";
-		String clientsProcessTime="";
+		String clientsDelayCount="";
+		String clientsDelayRelease="";
+		String clientsDelayTypeName="";
+		String clientsDelayDataGet="";
+		String clientsDelayDataSet="";
+		String clientsDelayTextDataGet="";
+		String clientsDelayTextDataSet="";
+		String clientsDelayWaitingSeconds="";
+		String clientsDelayWaitingTime="";
+		String clientsDelayTransferSeconds="";
+		String clientsDelayTransferTime="";
+		String clientsDelayProcessSeconds="";
+		String clientsDelayProcessTime="";
+
+		String clientsProcessQueueCount="";
+		String clientsProcessQueueTypeName="";
+		String clientsProcessQueueDataGet="";
+		String clientsProcessQueueDataSet="";
+		String clientsProcessQueueTextDataGet="";
+		String clientsProcessQueueTextDataSet="";
+		String clientsProcessQueueWaitingSeconds="";
+		String clientsProcessQueueWaitingTime="";
+		String clientsProcessQueueTransferSeconds="";
+		String clientsProcessQueueTransferTime="";
+		String clientsProcessQueueProcessSeconds="";
+		String clientsProcessQueueProcessTime="";
 
 		if (language==ScriptMode.Javascript) {
 			systemCalc="Simulation.calc(\"1+2\");";
@@ -337,19 +350,31 @@ public class ScriptEditorAreaBuilder {
 			systemAllResourceDown="Simulation.getAllResourceDown();";
 			systemSignal="Simulation.signal(\"signalName\");";
 			systemLog="Simulation.log(\""+Language.tr("ScriptPopup.Simulation.Log.ExampleMessage")+"\");";
-			clientsCount="Simulation.getDelayStationData(id).count();";
-			clientsRelease="Simulation.getDelayStationData(id).release(index);";
-			clientsTypeName="Simulation.getDelayStationData(id).clientTypeName(index);";
-			clientsDataGet="Simulation.getDelayStationData(id).clientData(index,data);";
-			clientsDataSet="Simulation.getDelayStationData(id).clientData(index,data,value);";
-			clientsTextDataGet="Simulation.getDelayStationData(id).clientTextData(index,key);";
-			clientsTextDataSet="Simulation.getDelayStationData(id).clientTextData(index,key,value);";
-			clientsWaitingSeconds="Simulation.getDelayStationData(id).clientWaitingSeconds(index);";
-			clientsWaitingTime="Simulation.getDelayStationData(id).clientWaitingTime(index);";
-			clientsTransferSeconds="Simulation.getDelayStationData(id).clientTransferSeconds(index);";
-			clientsTransferTime="Simulation.getDelayStationData(id).clientTransferTime(index);";
-			clientsProcessSeconds="Simulation.getDelayStationData(id).clientProcessSeconds(index);";
-			clientsProcessTime="Simulation.getDelayStationData(id).clientProcessTime(index);";
+			clientsDelayCount="Simulation.getDelayStationData(id).count();";
+			clientsDelayRelease="Simulation.getDelayStationData(id).release(index);";
+			clientsDelayTypeName="Simulation.getDelayStationData(id).clientTypeName(index);";
+			clientsDelayDataGet="Simulation.getDelayStationData(id).clientData(index,data);";
+			clientsDelayDataSet="Simulation.getDelayStationData(id).clientData(index,data,value);";
+			clientsDelayTextDataGet="Simulation.getDelayStationData(id).clientTextData(index,key);";
+			clientsDelayTextDataSet="Simulation.getDelayStationData(id).clientTextData(index,key,value);";
+			clientsDelayWaitingSeconds="Simulation.getDelayStationData(id).clientWaitingSeconds(index);";
+			clientsDelayWaitingTime="Simulation.getDelayStationData(id).clientWaitingTime(index);";
+			clientsDelayTransferSeconds="Simulation.getDelayStationData(id).clientTransferSeconds(index);";
+			clientsDelayTransferTime="Simulation.getDelayStationData(id).clientTransferTime(index);";
+			clientsDelayProcessSeconds="Simulation.getDelayStationData(id).clientProcessSeconds(index);";
+			clientsDelayProcessTime="Simulation.getDelayStationData(id).clientProcessTime(index);";
+			clientsProcessQueueCount="Simulation.getProcessStationQueueData(id).count();";
+			clientsProcessQueueTypeName="Simulation.getProcessStationQueueData(id).clientTypeName(index);";
+			clientsProcessQueueDataGet="Simulation.getProcessStationQueueData(id).clientData(index,data);";
+			clientsProcessQueueDataSet="Simulation.getProcessStationQueueData(id).clientData(index,data,value);";
+			clientsProcessQueueTextDataGet="Simulation.getProcessStationQueueData(id).clientTextData(index,key);";
+			clientsProcessQueueTextDataSet="Simulation.getProcessStationQueueData(id).clientTextData(index,key,value);";
+			clientsProcessQueueWaitingSeconds="Simulation.getProcessStationQueueData(id).clientWaitingSeconds(index);";
+			clientsProcessQueueWaitingTime="Simulation.getProcessStationQueueData(id).clientWaitingTime(index);";
+			clientsProcessQueueTransferSeconds="Simulation.getProcessStationQueueData(id).clientTransferSeconds(index);";
+			clientsProcessQueueTransferTime="Simulation.getProcessStationQueueData(id).clientTransferTime(index);";
+			clientsProcessQueueProcessSeconds="Simulation.getProcessStationQueueData(id).clientProcessSeconds(index);";
+			clientsProcessQueueProcessTime="Simulation.getProcessStationQueueData(id).clientProcessTime(index);";
 		}
 
 		if (language==ScriptMode.Java) {
@@ -376,19 +401,31 @@ public class ScriptEditorAreaBuilder {
 			systemSignal="sim.getSystem().signal(\"signalName\");";
 			systemLog="sim.getSystem().log(\""+Language.tr("ScriptPopup.Simulation.Log.ExampleMessage")+"\");";
 			systemRunPlugin="sim.getSystem().runPlugin(\"className\",\"methodName\",userData);";
-			clientsCount="sim.getSystem().getDelayStationData(id).count();";
-			clientsRelease="sim.getSystem().getDelayStationData(id).release(index);";
-			clientsTypeName="sim.getSystem().getDelayStationData(id).clientTypeName(index);";
-			clientsDataGet="sim.getSystem().getDelayStationData(id).clientData(index,data);";
-			clientsDataSet="sim.getSystem().getDelayStationData(id).clientData(index,data,value);";
-			clientsTextDataGet="sim.getSystem().getDelayStationData(id).clientTextData(index,key);";
-			clientsTextDataSet="sim.getSystem().getDelayStationData(id).clientTextData(index,key,value);";
-			clientsWaitingSeconds="sim.getSystem().getDelayStationData(id).clientWaitingSeconds(index);";
-			clientsWaitingTime="sim.getSystem().getDelayStationData(id).clientWaitingTime(index);";
-			clientsTransferSeconds="sim.getSystem().getDelayStationData(id).clientTransferSeconds(index);";
-			clientsTransferTime="sim.getSystem().getDelayStationData(id).clientTransferTime(index);";
-			clientsProcessSeconds="sim.getSystem().getDelayStationData(id).clientProcessSeconds(index);";
-			clientsProcessTime="sim.getSystem().getDelayStationData(id).clientProcessTime(index);";
+			clientsDelayCount="sim.getSystem().getDelayStationData(id).count();";
+			clientsDelayRelease="sim.getSystem().getDelayStationData(id).release(index);";
+			clientsDelayTypeName="sim.getSystem().getDelayStationData(id).clientTypeName(index);";
+			clientsDelayDataGet="sim.getSystem().getDelayStationData(id).clientData(index,data);";
+			clientsDelayDataSet="sim.getSystem().getDelayStationData(id).clientData(index,data,value);";
+			clientsDelayTextDataGet="sim.getSystem().getDelayStationData(id).clientTextData(index,key);";
+			clientsDelayTextDataSet="sim.getSystem().getDelayStationData(id).clientTextData(index,key,value);";
+			clientsDelayWaitingSeconds="sim.getSystem().getDelayStationData(id).clientWaitingSeconds(index);";
+			clientsDelayWaitingTime="sim.getSystem().getDelayStationData(id).clientWaitingTime(index);";
+			clientsDelayTransferSeconds="sim.getSystem().getDelayStationData(id).clientTransferSeconds(index);";
+			clientsDelayTransferTime="sim.getSystem().getDelayStationData(id).clientTransferTime(index);";
+			clientsDelayProcessSeconds="sim.getSystem().getDelayStationData(id).clientProcessSeconds(index);";
+			clientsDelayProcessTime="sim.getSystem().getDelayStationData(id).clientProcessTime(index);";
+			clientsProcessQueueCount="sim.getSystem().getProcessStationQueueData(id).count();";
+			clientsProcessQueueTypeName="sim.getSystem().getProcessStationQueueData(id).clientTypeName(index);";
+			clientsProcessQueueDataGet="sim.getSystem().getProcessStationQueueData(id).clientData(index,data);";
+			clientsProcessQueueDataSet="sim.getSystem().getProcessStationQueueData(id).clientData(index,data,value);";
+			clientsProcessQueueTextDataGet="sim.getSystem().getProcessStationQueueData(id).clientTextData(index,key);";
+			clientsProcessQueueTextDataSet="sim.getSystem().getProcessStationQueueData(id).clientTextData(index,key,value);";
+			clientsProcessQueueWaitingSeconds="sim.getSystem().getProcessStationQueueData(id).clientWaitingSeconds(index);";
+			clientsProcessQueueWaitingTime="sim.getSystem().getProcessStationQueueData(id).clientWaitingTime(index);";
+			clientsProcessQueueTransferSeconds="sim.getSystem().getProcessStationQueueData(id).clientTransferSeconds(index);";
+			clientsProcessQueueTransferTime="sim.getSystem().getProcessStationQueueData(id).clientTransferTime(index);";
+			clientsProcessQueueProcessSeconds="sim.getSystem().getProcessStationQueueData(id).clientProcessSeconds(index);";
+			clientsProcessQueueProcessTime="sim.getSystem().getProcessStationQueueData(id).clientProcessTime(index);";
 		}
 
 		addAutoComplete(Language.tr("ScriptPopup.Simulation.Calc"),Language.tr("ScriptPopup.Simulation.Calc.Hint"),Images.SCRIPT_RECORD_EXPRESSION.getIcon(),systemCalc);
@@ -424,23 +461,42 @@ public class ScriptEditorAreaBuilder {
 			addAutoComplete(Language.tr("ScriptPopup.Simulation.runPlugin"),Language.tr("ScriptPopup.Simulation.runPlugin.Hint"),Images.SCRIPT_FILE.getIcon(),systemRunPlugin);
 		}
 
-		addAutoComplete(Language.tr("ScriptPopup.Clients.count"),Language.tr("ScriptPopup.Clients.count.Hint"),Images.SCRIPT_RECORD_DATA_COUNTER.getIcon(),clientsCount);
 
-		addAutoComplete(Language.tr("ScriptPopup.Clients.release"),Language.tr("ScriptPopup.Clients.release.Hint"),Images.SCRIPT_RECORD_RELEASE.getIcon(),clientsRelease);
-		addAutoComplete(Language.tr("ScriptPopup.Clients.clientTypeName"),Language.tr("ScriptPopup.Clients.clientTypeName.Hint"),Images.SCRIPT_RECORD_DATA_CLIENT.getIcon(),clientsTypeName);
-		addAutoComplete(Language.tr("ScriptPopup.Clients.clientData"),Language.tr("ScriptPopup.Clients.clientData.Hint"),Images.SCRIPT_RECORD_DATA_CLIENT.getIcon(),clientsDataGet);
-		addAutoComplete(Language.tr("ScriptPopup.Clients.clientDataSet"),Language.tr("ScriptPopup.Clients.clientDataSet.Hint"),Images.SCRIPT_RECORD_DATA_CLIENT.getIcon(),clientsDataSet);
-		addAutoComplete(Language.tr("ScriptPopup.Clients.clientTextData"),Language.tr("ScriptPopup.Clients.clientTextData.Hint"),Images.SCRIPT_RECORD_DATA_CLIENT.getIcon(),clientsTextDataGet);
-		addAutoComplete(Language.tr("ScriptPopup.Clients.clientTextDataSet"),Language.tr("ScriptPopup.Clients.clientTextDataSet.Hint"),Images.SCRIPT_RECORD_DATA_CLIENT.getIcon(),clientsTextDataSet);
+		addAutoComplete(Language.tr("ScriptPopup.Clients.count"),Language.tr("ScriptPopup.Clients.count.Hint"),Images.SCRIPT_RECORD_DATA_COUNTER.getIcon(),clientsDelayCount);
 
-		addAutoComplete(Language.tr("ScriptPopup.Clients.WaitingTime")+" - "+Language.tr("ScriptPopup.Client.Time.Number"),Language.tr("ScriptPopup.Clients.WaitingTime.Hint")+" - "+Language.tr("ScriptPopup.Client.Time.Number.Hint"),Images.SCRIPT_RECORD_TIME.getIcon(),clientsWaitingSeconds);
-		addAutoComplete(Language.tr("ScriptPopup.Clients.WaitingTime")+" - "+Language.tr("ScriptPopup.Client.Time.Text"),Language.tr("ScriptPopup.Clients.WaitingTime.Hint")+" - "+Language.tr("ScriptPopup.Client.Time.Text.Hint"),Images.SCRIPT_RECORD_TIME.getIcon(),clientsWaitingTime);
+		addAutoComplete(Language.tr("ScriptPopup.Clients.release"),Language.tr("ScriptPopup.Clients.release.Hint"),Images.SCRIPT_RECORD_RELEASE.getIcon(),clientsDelayRelease);
+		addAutoComplete(Language.tr("ScriptPopup.Clients.clientTypeName"),Language.tr("ScriptPopup.Clients.clientTypeName.Hint"),Images.SCRIPT_RECORD_DATA_CLIENT.getIcon(),clientsDelayTypeName);
+		addAutoComplete(Language.tr("ScriptPopup.Clients.clientData"),Language.tr("ScriptPopup.Clients.clientData.Hint"),Images.SCRIPT_RECORD_DATA_CLIENT.getIcon(),clientsDelayDataGet);
+		addAutoComplete(Language.tr("ScriptPopup.Clients.clientDataSet"),Language.tr("ScriptPopup.Clients.clientDataSet.Hint"),Images.SCRIPT_RECORD_DATA_CLIENT.getIcon(),clientsDelayDataSet);
+		addAutoComplete(Language.tr("ScriptPopup.Clients.clientTextData"),Language.tr("ScriptPopup.Clients.clientTextData.Hint"),Images.SCRIPT_RECORD_DATA_CLIENT.getIcon(),clientsDelayTextDataGet);
+		addAutoComplete(Language.tr("ScriptPopup.Clients.clientTextDataSet"),Language.tr("ScriptPopup.Clients.clientTextDataSet.Hint"),Images.SCRIPT_RECORD_DATA_CLIENT.getIcon(),clientsDelayTextDataSet);
 
-		addAutoComplete(Language.tr("ScriptPopup.Clients.TransferTime")+" - "+Language.tr("ScriptPopup.Client.Time.Number"),Language.tr("ScriptPopup.Clients.TransferTime.Hint")+" - "+Language.tr("ScriptPopup.Client.Time.Number.Hint"),Images.SCRIPT_RECORD_TIME.getIcon(),clientsTransferSeconds);
-		addAutoComplete(Language.tr("ScriptPopup.Clients.TransferTime")+" - "+Language.tr("ScriptPopup.Client.Time.Text"),Language.tr("ScriptPopup.Clients.TransferTime.Hint")+" - "+Language.tr("ScriptPopup.Client.Time.Text.Hint"),Images.SCRIPT_RECORD_TIME.getIcon(),clientsTransferTime);
+		addAutoComplete(Language.tr("ScriptPopup.Clients.WaitingTime")+" - "+Language.tr("ScriptPopup.Client.Time.Number"),Language.tr("ScriptPopup.Clients.WaitingTime.Hint")+" - "+Language.tr("ScriptPopup.Client.Time.Number.Hint"),Images.SCRIPT_RECORD_TIME.getIcon(),clientsDelayWaitingSeconds);
+		addAutoComplete(Language.tr("ScriptPopup.Clients.WaitingTime")+" - "+Language.tr("ScriptPopup.Client.Time.Text"),Language.tr("ScriptPopup.Clients.WaitingTime.Hint")+" - "+Language.tr("ScriptPopup.Client.Time.Text.Hint"),Images.SCRIPT_RECORD_TIME.getIcon(),clientsDelayWaitingTime);
 
-		addAutoComplete(Language.tr("ScriptPopup.Clients.ProcessTime")+" - "+Language.tr("ScriptPopup.Client.Time.Number"),Language.tr("ScriptPopup.Clients.ProcessTime.Hint")+" - "+Language.tr("ScriptPopup.Client.Time.Number.Hint"),Images.SCRIPT_RECORD_TIME.getIcon(),clientsProcessSeconds);
-		addAutoComplete(Language.tr("ScriptPopup.Clients.ProcessTime")+" - "+Language.tr("ScriptPopup.Client.Time.Text"),Language.tr("ScriptPopup.Clients.ProcessTime.Hint")+" - "+Language.tr("ScriptPopup.Client.Time.Text.Hint"),Images.SCRIPT_RECORD_TIME.getIcon(),clientsProcessTime);
+		addAutoComplete(Language.tr("ScriptPopup.Clients.TransferTime")+" - "+Language.tr("ScriptPopup.Client.Time.Number"),Language.tr("ScriptPopup.Clients.TransferTime.Hint")+" - "+Language.tr("ScriptPopup.Client.Time.Number.Hint"),Images.SCRIPT_RECORD_TIME.getIcon(),clientsDelayTransferSeconds);
+		addAutoComplete(Language.tr("ScriptPopup.Clients.TransferTime")+" - "+Language.tr("ScriptPopup.Client.Time.Text"),Language.tr("ScriptPopup.Clients.TransferTime.Hint")+" - "+Language.tr("ScriptPopup.Client.Time.Text.Hint"),Images.SCRIPT_RECORD_TIME.getIcon(),clientsDelayTransferTime);
+
+		addAutoComplete(Language.tr("ScriptPopup.Clients.ProcessTime")+" - "+Language.tr("ScriptPopup.Client.Time.Number"),Language.tr("ScriptPopup.Clients.ProcessTime.Hint")+" - "+Language.tr("ScriptPopup.Client.Time.Number.Hint"),Images.SCRIPT_RECORD_TIME.getIcon(),clientsDelayProcessSeconds);
+		addAutoComplete(Language.tr("ScriptPopup.Clients.ProcessTime")+" - "+Language.tr("ScriptPopup.Client.Time.Text"),Language.tr("ScriptPopup.Clients.ProcessTime.Hint")+" - "+Language.tr("ScriptPopup.Client.Time.Text.Hint"),Images.SCRIPT_RECORD_TIME.getIcon(),clientsDelayProcessTime);
+
+
+		addAutoComplete(Language.tr("ScriptPopup.Clients.count"),Language.tr("ScriptPopup.Clients.count.Hint"),Images.SCRIPT_RECORD_DATA_COUNTER.getIcon(),clientsProcessQueueCount);
+
+		addAutoComplete(Language.tr("ScriptPopup.Clients.clientTypeName"),Language.tr("ScriptPopup.Clients.clientTypeName.Hint"),Images.SCRIPT_RECORD_DATA_CLIENT.getIcon(),clientsProcessQueueTypeName);
+		addAutoComplete(Language.tr("ScriptPopup.Clients.clientData"),Language.tr("ScriptPopup.Clients.clientData.Hint"),Images.SCRIPT_RECORD_DATA_CLIENT.getIcon(),clientsProcessQueueDataGet);
+		addAutoComplete(Language.tr("ScriptPopup.Clients.clientDataSet"),Language.tr("ScriptPopup.Clients.clientDataSet.Hint"),Images.SCRIPT_RECORD_DATA_CLIENT.getIcon(),clientsProcessQueueDataSet);
+		addAutoComplete(Language.tr("ScriptPopup.Clients.clientTextData"),Language.tr("ScriptPopup.Clients.clientTextData.Hint"),Images.SCRIPT_RECORD_DATA_CLIENT.getIcon(),clientsProcessQueueTextDataGet);
+		addAutoComplete(Language.tr("ScriptPopup.Clients.clientTextDataSet"),Language.tr("ScriptPopup.Clients.clientTextDataSet.Hint"),Images.SCRIPT_RECORD_DATA_CLIENT.getIcon(),clientsProcessQueueTextDataSet);
+
+		addAutoComplete(Language.tr("ScriptPopup.Clients.WaitingTime")+" - "+Language.tr("ScriptPopup.Client.Time.Number"),Language.tr("ScriptPopup.Clients.WaitingTime.Hint")+" - "+Language.tr("ScriptPopup.Client.Time.Number.Hint"),Images.SCRIPT_RECORD_TIME.getIcon(),clientsProcessQueueWaitingSeconds);
+		addAutoComplete(Language.tr("ScriptPopup.Clients.WaitingTime")+" - "+Language.tr("ScriptPopup.Client.Time.Text"),Language.tr("ScriptPopup.Clients.WaitingTime.Hint")+" - "+Language.tr("ScriptPopup.Client.Time.Text.Hint"),Images.SCRIPT_RECORD_TIME.getIcon(),clientsProcessQueueWaitingTime);
+
+		addAutoComplete(Language.tr("ScriptPopup.Clients.TransferTime")+" - "+Language.tr("ScriptPopup.Client.Time.Number"),Language.tr("ScriptPopup.Clients.TransferTime.Hint")+" - "+Language.tr("ScriptPopup.Client.Time.Number.Hint"),Images.SCRIPT_RECORD_TIME.getIcon(),clientsProcessQueueTransferSeconds);
+		addAutoComplete(Language.tr("ScriptPopup.Clients.TransferTime")+" - "+Language.tr("ScriptPopup.Client.Time.Text"),Language.tr("ScriptPopup.Clients.TransferTime.Hint")+" - "+Language.tr("ScriptPopup.Client.Time.Text.Hint"),Images.SCRIPT_RECORD_TIME.getIcon(),clientsProcessQueueTransferTime);
+
+		addAutoComplete(Language.tr("ScriptPopup.Clients.ProcessTime")+" - "+Language.tr("ScriptPopup.Client.Time.Number"),Language.tr("ScriptPopup.Clients.ProcessTime.Hint")+" - "+Language.tr("ScriptPopup.Client.Time.Number.Hint"),Images.SCRIPT_RECORD_TIME.getIcon(),clientsProcessQueueProcessSeconds);
+		addAutoComplete(Language.tr("ScriptPopup.Clients.ProcessTime")+" - "+Language.tr("ScriptPopup.Client.Time.Text"),Language.tr("ScriptPopup.Clients.ProcessTime.Hint")+" - "+Language.tr("ScriptPopup.Client.Time.Text.Hint"),Images.SCRIPT_RECORD_TIME.getIcon(),clientsProcessQueueProcessTime);
 	}
 
 	/**

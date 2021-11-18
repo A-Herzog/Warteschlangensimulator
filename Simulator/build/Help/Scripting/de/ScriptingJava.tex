@@ -431,6 +431,22 @@ selektiv einzelne Kunden vor Ablauf ihrer angegebenen Verzögerungszeit freigege
 Liefert ein Objekt, welches das Interface \cm{ClientsInterface} implementiert und die Liste
 der Kunden an Verzögerungs-Station \cm{id} repräsentiert. Ist die ID ungültig
 so wird \cm{null} zurückgeliefert. 
+
+\end{itemize}
+
+\section{Kunden in der Warteschlange an einer Bedienstation}
+
+\begin{itemize}
+
+  \item
+  \cmd{ClientsInterface getProcessStationQueueData(final int id)}:\
+  Liefert ein Objekt, welches \cm{ClientsInterface} implementiert und die Liste der wartenden
+  Kunden an der Bedienstation \cm{id} repräsentiert. Ist die ID ungültig
+  so wird \cm{null} zurückgeliefert. Es kann nur auf die wartenden Kunden zugegriffen werden,
+  der oder die Kunden in Bedienung stehen in der Liste nicht zur Verfügung. 
+  Außerdem können an einer Bedienstation Kunden nicht über \cm{ClientsInterface.release}
+  freigegeben werden.
+  
 \end{itemize}
 
 

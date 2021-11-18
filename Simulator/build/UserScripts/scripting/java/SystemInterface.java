@@ -157,6 +157,13 @@ public interface SystemInterface {
 	 * @return	List of all clients at the station or <code>null</code>, if no clients list is available for this id
 	 */
 	ClientsInterface getDelayStationData(final int id);
+	
+	/**
+	 * Returns the list of all waiting clients at a process station.
+	 * @param id	ID of the process station
+	 * @return	List of all waiting clients at the station or <code>null</code>, if no clients list is available for this id
+	 */
+	ClientsInterface getProcessStationQueueData(final int id);
 
 	/**
 	 * Returns a station local data object for script data.

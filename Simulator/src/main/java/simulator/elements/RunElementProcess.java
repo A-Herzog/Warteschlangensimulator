@@ -776,4 +776,14 @@ public class RunElementProcess extends RunElement implements FreeResourcesListen
 	public RunElement getNext() {
 		return connectionSuccess;
 	}
+
+	/**
+	 * Liefert die Liste der Kunden an in der Warteschlange an dieser Station
+	 * @param simData	Simulationsdatenobjekt
+	 * @return	Liste der Kunden (ist nie <code>null</code>, aber kann leer sein)
+	 */
+	public List<RunDataClient> getClientsInQueue(final SimulationData simData) {
+		final RunElementProcessData data=getData(simData);
+		return data.waitingClients;
+	}
 }
