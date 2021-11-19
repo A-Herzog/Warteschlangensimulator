@@ -181,6 +181,9 @@ public class InfoPanel {
 	/** Info-ID für den "Tabelle für Tabellenquelle aufbereiten"-Dialog */
 	public static final String globalProcessClientTable="ProcessClientTable";
 
+	/** Info-ID für den "Tabellenimport konfigurieren"-Dialog */
+	public static final String globalProcessClientTableDirect="ProcessClientTableDirect";
+
 	/** Info-ID für den "Imports für nutzerdefinierten Java-Code"-Dialog */
 	public static final String globalJavaImports="JavaImports";
 
@@ -755,6 +758,10 @@ public class InfoPanel {
 		register(globalProcessClientTable,
 				()->Language.tr("HintsDialog.TreeNodeMoreDialogs")+"|"+Language.tr("BuildClientSourceTable.Title"),
 				()->Language.tr("BuildClientSourceTable.DialogHint"));
+
+		register(globalProcessClientTableDirect,
+				()->Language.tr("HintsDialog.TreeNodeMoreDialogs")+"|"+Language.tr("BuildClientSourceTable.TitleDirectImport"),
+				()->Language.tr("BuildClientSourceTable.DialogHintDirect"));
 
 		register(globalJavaImports,
 				()->Language.tr("HintsDialog.TreeNodeMoreDialogs")+"|"+Language.tr("JavaImports.Title"),

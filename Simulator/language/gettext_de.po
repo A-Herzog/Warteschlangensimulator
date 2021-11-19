@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-11-18 13:56+0100\n"
+"POT-Creation-Date: 2021-11-19 09:04+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -995,6 +995,18 @@ msgstr "Nicht verwenden"
 
 msgid "BuildClientSourceTable.Setup.Mode.Text"
 msgstr "Als Textwerte laden"
+
+msgid "BuildClientSourceTable.Setup.ModeColumn.Arrivals"
+msgstr "Ankünfte"
+
+msgid "BuildClientSourceTable.Setup.ModeColumn.ClientType"
+msgstr "Kundentypen"
+
+msgid "BuildClientSourceTable.Setup.ModeColumn.Off"
+msgstr "Aus"
+
+msgid "BuildClientSourceTable.Setup.ModeColumn.Text"
+msgstr "Text"
 
 msgid "BuildClientSourceTable.Title"
 msgstr "Tabelle für Tabellenquelle aufbereiten"
@@ -28892,11 +28904,14 @@ msgstr "Bisherige Kundentypenliste unverändert beibehalten."
 msgid "Surface.SourceTable.Dialog.ClientTypes.LoadButton.ReplaceConfirm.InfoYes"
 msgstr "Bisherige Kundentypen durch Kundentypen aus der Tabelle ersetzten."
 
+msgid "Surface.SourceTable.Dialog.ColumnOne"
+msgstr "Interpretation der Zeitangaben"
+
 msgid "Surface.SourceTable.Dialog.ColumnOne.Distances"
-msgstr "Zahlenwerte in Spalte 1 sind Abstände zwischen Ankunftszeitpunkten"
+msgstr "Zahlenwerte sind Abstände zwischen Ankunftszeitpunkten"
 
 msgid "Surface.SourceTable.Dialog.ColumnOne.TimeStamps"
-msgstr "Zahlenwerte in Spalte 1 sind Zeitangaben"
+msgstr "Zahlenwerte sind Zeitangaben"
 
 msgid "Surface.SourceTable.Dialog.Table"
 msgstr "Tabellendatei"
@@ -28964,8 +28979,20 @@ msgstr "Tabellendaten"
 msgid "Surface.SourceTable.Dialog.Table.Process"
 msgstr "Tabellendatei für Tabellenquelle konvertieren"
 
+msgid "Surface.SourceTable.Dialog.Table.ProcessSetup"
+msgstr "Tabellenimport konfigurieren"
+
 msgid "Surface.SourceTable.Dialog.Table.Tooltip"
 msgstr "Tabellendatei auswählen"
+
+msgid "Surface.SourceTable.Dialog.TableMode"
+msgstr "Tabellenmodus"
+
+msgid "Surface.SourceTable.Dialog.TableMode.Direct"
+msgstr "Tabelle direkt verwenden"
+
+msgid "Surface.SourceTable.Dialog.TableMode.Preprocessed"
+msgstr "Aufbereitete Tabelle verwenden"
 
 msgid "Surface.SourceTable.Dialog.Title"
 msgstr "Kundenankünfte aus Tabelle laden"
@@ -28984,6 +29011,9 @@ msgstr "Quelle, die Ankünfte gemäß einer Datentabelle generiert."
 
 msgid "Surface.SourceTable.XML.ClientTypeName"
 msgstr "ModellElementTabellenKundentyp"
+
+msgid "Surface.SourceTable.XML.ImportMode"
+msgstr "ModellElementTabellenImportModus"
 
 msgid "Surface.SourceTable.XML.NumbersAre"
 msgstr "Zahlenwerte"

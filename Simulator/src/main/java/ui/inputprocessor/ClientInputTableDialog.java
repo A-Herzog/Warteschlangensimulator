@@ -79,33 +79,43 @@ public class ClientInputTableDialog extends BaseDialog {
 	 * Name der zuletzt verarbeiteten Tabelle
 	 * (um nicht die komplette Verarbeitung bei jedem Cursor-Tastendruck auszulösen)
 	 * @see #editInput
-	 * @see #processInput()
+	 * @see #processInput(ui.inputprocessor.ClientInputTableProcessor.ColumnsSetup)
 	 */
 	private String lastInputTable;
 
 	/**
 	 * System zur Verarbeitung der Eingabetabelle
-	 * @see #processInput()
+	 * @see #processInput(ui.inputprocessor.ClientInputTableProcessor.ColumnsSetup)
 	 */
 	private ClientInputTableProcessor processor;
 
 	/**
 	 * Liste mit den Konfigurationen für die Spalten
 	 */
-	private final JList<ClientInputTableProcessor.ColumnSetup> list;
+	private final JList<ClientInputTableProcessor.ColumnData> list;
 
 	/**
 	 * Datenmodell für {@link #list}
 	 * @see #list
 	 */
-	private final DefaultListModel<ClientInputTableProcessor.ColumnSetup> listData;
+	private final DefaultListModel<ClientInputTableProcessor.ColumnData> listData;
 
 	/**
 	 * Konstruktor der Klasse
 	 * @param owner	Übergeordnetes Element
 	 */
 	public ClientInputTableDialog(final Component owner) {
-		super(owner,Language.tr("BuildClientSourceTable.Title"));
+		this(owner,null,null);
+	}
+
+	/**
+	 * Konstruktor der Klasse
+	 * @param owner	Übergeordnetes Element
+	 * @param loadTable	Name der initial zu verwendenden Tabellendatei (kann <code>null</code> sein)
+	 * @param loadSetup	Initial zu ladende Einstellungen zur Verwendung der Tabellenspalten (kann <code>null</code> sein)
+	 */
+	public ClientInputTableDialog(final Component owner, final String loadTable, final ClientInputTableProcessor.ColumnsSetup loadSetup) {
+		super(owner,(loadSetup==null)?Language.tr("BuildClientSourceTable.Title"):Language.tr("BuildClientSourceTable.TitleDirectImport"));
 
 		Object[] data;
 		JPanel line;
@@ -116,9 +126,13 @@ public class ClientInputTableDialog extends BaseDialog {
 		addUserButton(Language.tr("BuildClientSourceTable.SelectNone"),Images.EDIT_DELETE.getIcon());
 		getUserButton(0).setToolTipText(Language.tr("BuildClientSourceTable.SelectAll.Hint"));
 		getUserButton(1).setToolTipText(Language.tr("BuildClientSourceTable.SelectNone.Hint"));
-		final JPanel all=createGUI(()->Help.topicModal(this,"ProcessClientTable"));
+		final JPanel all=createGUI(()->Help.topicModal(this,(loadSetup==null)?"ProcessClientTable":"ModelElementSourceTable"));
 		all.setLayout(new BorderLayout());
-		InfoPanel.addTopPanel(all,InfoPanel.globalProcessClientTable);
+		if (loadSetup==null) {
+			InfoPanel.addTopPanel(all,InfoPanel.globalProcessClientTable);
+		} else {
+			InfoPanel.addTopPanel(all,InfoPanel.globalProcessClientTableDirect);
+		}
 		final JPanel content=new JPanel(new BorderLayout());
 		all.add(content,BorderLayout.CENTER);
 
@@ -127,26 +141,30 @@ public class ClientInputTableDialog extends BaseDialog {
 		content.add(setup,BorderLayout.NORTH);
 		setup.setLayout(new BoxLayout(setup,BoxLayout.PAGE_AXIS));
 
-		data=ModelElementBaseDialog.getInputPanel(Language.tr("BuildClientSourceTable.InputTable")+":","");
+		data=ModelElementBaseDialog.getInputPanel(Language.tr("BuildClientSourceTable.InputTable")+":",(loadTable==null)?"":loadTable);
 		setup.add(line=(JPanel)data[0]);
 		editInput=(JTextField)data[1];
 		editInput.addKeyListener(new KeyListener() {
-			@Override public void keyTyped(KeyEvent e) {processInput();}
-			@Override public void keyReleased(KeyEvent e) {processInput();}
-			@Override public void keyPressed(KeyEvent e) {processInput();	}
+			@Override public void keyTyped(KeyEvent e) {processInput(null);}
+			@Override public void keyReleased(KeyEvent e) {processInput(null);}
+			@Override public void keyPressed(KeyEvent e) {processInput(null);}
 		});
 		line.add(button=new JButton(Images.GENERAL_SELECT_TABLE_IN_FILE.getIcon()),BorderLayout.EAST);
 		button.setToolTipText(Language.tr("BuildClientSourceTable.InputTable.Select"));
 		button.addActionListener(e->selectInputTable());
 		FileDropper.addFileDropper(line,editInput);
 
-		data=ModelElementBaseDialog.getInputPanel(Language.tr("BuildClientSourceTable.OutputTable")+":","");
-		setup.add(line=(JPanel)data[0]);
-		editOutput=(JTextField)data[1];
-		line.add(button=new JButton(Images.GENERAL_SELECT_TABLE_IN_FILE.getIcon()),BorderLayout.EAST);
-		button.setToolTipText(Language.tr("BuildClientSourceTable.OutputTable.Select"));
-		button.addActionListener(e->selectOutputTable());
-		FileDropper.addFileDropper(line,editOutput);
+		if (loadSetup==null) {
+			data=ModelElementBaseDialog.getInputPanel(Language.tr("BuildClientSourceTable.OutputTable")+":","");
+			setup.add(line=(JPanel)data[0]);
+			editOutput=(JTextField)data[1];
+			line.add(button=new JButton(Images.GENERAL_SELECT_TABLE_IN_FILE.getIcon()),BorderLayout.EAST);
+			button.setToolTipText(Language.tr("BuildClientSourceTable.OutputTable.Select"));
+			button.addActionListener(e->selectOutputTable());
+			FileDropper.addFileDropper(line,editOutput);
+		} else {
+			editOutput=null;
+		}
 
 		setup.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
 		line.add(new JLabel(Language.tr("BuildClientSourceTable.ColumnsInfo")));
@@ -161,6 +179,9 @@ public class ClientInputTableDialog extends BaseDialog {
 		list.addKeyListener(new KeyAdapter() {
 			@Override public void keyPressed(KeyEvent e) {if (e.getKeyCode()==KeyEvent.VK_ENTER) editColumnSetup();}
 		});
+
+		/* Setup laden */
+		if (loadSetup!=null) processInput(loadSetup);
 
 		/* Dialog starten */
 		setSizeRespectingScreensize(600,800);
@@ -178,7 +199,7 @@ public class ClientInputTableDialog extends BaseDialog {
 		final File file=Table.showLoadDialog(this,Language.tr("BuildClientSourceTable.InputTable.Select"));
 		if (file!=null) {
 			editInput.setText(file.toString());
-			processInput();
+			processInput(null);
 		}
 	}
 
@@ -200,21 +221,72 @@ public class ClientInputTableDialog extends BaseDialog {
 		if (list.getSelectedIndex()<0 || processor==null) return;
 
 		final int index=list.getSelectedIndex();
-		final ClientInputTableProcessor.ColumnSetup column=processor.getColumns()[index];
+		final ClientInputTableProcessor.ColumnData column=processor.getColumns()[index];
 
 		final ClientInputTableProcessor.ColumnMode oldMode=column.mode;
-		final ClientInputTableEditDialog dialog=new ClientInputTableEditDialog(this,column);
+		final ClientInputTableEditDialog dialog=new ClientInputTableEditDialog(this,column,editOutput!=null);
 		if (dialog.getClosedBy()==BaseDialog.CLOSED_BY_OK) {
 			if (column.mode!=oldMode) {
 				if (column.mode==ClientInputTableProcessor.ColumnMode.ARRIVALS) {
 					for (int i=0;i<processor.getColumns().length;i++) if (i!=index && processor.getColumns()[i].mode==ClientInputTableProcessor.ColumnMode.ARRIVALS) {
-						processor.getColumns()[i].mode=ClientInputTableProcessor.ColumnMode.OFF;
+						ClientInputTableProcessor.ColumnData columnData=processor.getColumns()[i];
+						columnData.mode=columnData.isNumeric?ClientInputTableProcessor.ColumnMode.NUMBER:ClientInputTableProcessor.ColumnMode.TEXT;
+						/* Neuen Index vergeben? */
+						if (columnData.index<0) {
+							int testIndex=-1;
+							boolean ok=false;
+							do {
+								testIndex++;
+								ok=true;
+								for (ClientInputTableProcessor.ColumnData columnData2: processor.getColumns()) if (columnData2.mode==ClientInputTableProcessor.ColumnMode.NUMBER && columnData2.index==testIndex) {ok=false; break;}
+							} while (!ok);
+							columnData.index=testIndex;
+						}
 					}
 				}
 				if (column.mode==ClientInputTableProcessor.ColumnMode.CLIENT_TYPES) {
 					for (int i=0;i<processor.getColumns().length;i++) if (i!=index && processor.getColumns()[i].mode==ClientInputTableProcessor.ColumnMode.CLIENT_TYPES) {
-						processor.getColumns()[i].mode=ClientInputTableProcessor.ColumnMode.OFF;
+						ClientInputTableProcessor.ColumnData columnData=processor.getColumns()[i];
+						columnData.mode=columnData.isNumeric?ClientInputTableProcessor.ColumnMode.NUMBER:ClientInputTableProcessor.ColumnMode.TEXT;
+						/* Neuen Index vergeben? */
+						if (columnData.index<0) {
+							int testIndex=-1;
+							boolean ok=false;
+							do {
+								testIndex++;
+								ok=true;
+								for (ClientInputTableProcessor.ColumnData columnData2: processor.getColumns()) if (columnData2.mode==ClientInputTableProcessor.ColumnMode.NUMBER && columnData2.index==testIndex) {ok=false; break;}
+							} while (!ok);
+							columnData.index=testIndex;
+						}
 					}
+				}
+			}
+			if (column.mode==ClientInputTableProcessor.ColumnMode.NUMBER) {
+
+				/* Gibt es jetzt doppelte Indices? */
+				final int usedIndex=column.index;
+				ClientInputTableProcessor.ColumnData needToChange=null;
+				for (ClientInputTableProcessor.ColumnData columnData: processor.getColumns()) if (columnData!=column) {
+					if (columnData.mode==ClientInputTableProcessor.ColumnMode.NUMBER && columnData.index==usedIndex) {
+						needToChange=columnData;
+						break;
+					}
+				}
+				if (needToChange!=null) {
+					int testIndex=-1;
+					boolean ok=false;
+					do {
+						testIndex++;
+						ok=true;
+						for (ClientInputTableProcessor.ColumnData columnData: processor.getColumns()) {
+							if (columnData.mode==ClientInputTableProcessor.ColumnMode.NUMBER && columnData.index==testIndex) {
+								ok=false;
+								break;
+							}
+						}
+					} while (!ok);
+					needToChange.index=testIndex;
 				}
 			}
 			list.updateUI();
@@ -223,10 +295,11 @@ public class ClientInputTableDialog extends BaseDialog {
 
 	/**
 	 * Lädt die Eingabetabelle und verarbeitet diese.
+	 * @param loadSetup	Vorgabeeinstellungen für die Spalten (kann <code>null</code> sein)
 	 * @see #editInput
 	 * @see #list
 	 */
-	private void processInput() {
+	private void processInput(final ClientInputTableProcessor.ColumnsSetup loadSetup) {
 		final String newInputTable=editInput.getText().trim();
 		if (newInputTable.equals(lastInputTable)) return;
 		lastInputTable=newInputTable;
@@ -237,14 +310,15 @@ public class ClientInputTableDialog extends BaseDialog {
 
 		WaitDialog.workString(this,()->{
 			if (!processor.loadTable(new File(newInputTable))) {processor=null; return null;}
-			for (ClientInputTableProcessor.ColumnSetup columnSetup: processor.getColumns()) listData.addElement(columnSetup);
+			if (loadSetup!=null) processor.loadSetup(loadSetup);
+			for (ClientInputTableProcessor.ColumnData columnSetup: processor.getColumns()) listData.addElement(columnSetup);
 			return null;
 		},WaitDialog.Mode.LOAD_DATA);
 	}
 
 	@Override
 	protected void userButtonClick(final int nr, final JButton button) {
-		for (ClientInputTableProcessor.ColumnSetup columnSetup: processor.getColumns()) {
+		for (ClientInputTableProcessor.ColumnData columnSetup: processor.getColumns()) {
 			columnSetup.mode=(nr==0)?columnSetup.initialMode:ClientInputTableProcessor.ColumnMode.OFF;
 		}
 		list.updateUI();
@@ -269,16 +343,21 @@ public class ClientInputTableDialog extends BaseDialog {
 		}
 
 		/* Ausgabetabelle */
-		final String outputTable=editOutput.getText().trim();
-		if (outputTable.isEmpty()) {
-			MsgBox.error(this,Language.tr("BuildClientSourceTable.OutputTable.Error.NoFile.Title"),Language.tr("BuildClientSourceTable.OutputTable.Error.NoFile.Info"));
-			return false;
+		final String outputTable;
+		if (editOutput!=null) {
+			outputTable=editOutput.getText().trim();
+			if (outputTable.isEmpty()) {
+				MsgBox.error(this,Language.tr("BuildClientSourceTable.OutputTable.Error.NoFile.Title"),Language.tr("BuildClientSourceTable.OutputTable.Error.NoFile.Info"));
+				return false;
+			}
+		} else {
+			outputTable=null;
 		}
 
 		/* Konfiguration */
 		boolean hasArrivalsCol=false;
 		boolean hasTypesCol=false;
-		for (ClientInputTableProcessor.ColumnSetup columnSetup: processor.getColumns()) {
+		for (ClientInputTableProcessor.ColumnData columnSetup: processor.getColumns()) {
 			if (columnSetup.mode==ClientInputTableProcessor.ColumnMode.ARRIVALS) hasArrivalsCol=true;
 			if (columnSetup.mode==ClientInputTableProcessor.ColumnMode.CLIENT_TYPES) hasTypesCol=true;
 			if (hasArrivalsCol && hasTypesCol) break;
@@ -293,9 +372,11 @@ public class ClientInputTableDialog extends BaseDialog {
 		}
 
 		/* Ausgabetabelle überschreiben? */
-		final File outputFile=new File(outputTable);
-		if (outputFile.exists()) {
-			if (!MsgBox.confirmOverwrite(this,outputFile)) return false;
+		if (outputTable!=null) {
+			final File outputFile=new File(outputTable);
+			if (outputFile.exists()) {
+				if (!MsgBox.confirmOverwrite(this,outputFile)) return false;
+			}
 		}
 
 		return true;
@@ -303,16 +384,37 @@ public class ClientInputTableDialog extends BaseDialog {
 
 	@Override
 	protected void storeData() {
-		final Table result=processor.process();
-		if (result==null) {
-			MsgBox.error(this,Language.tr("BuildClientSourceTable.InputTable.Error.Process.Title"),String.format(Language.tr("BuildClientSourceTable.InputTable.Error.Process.Info"),editInput.getText().trim()));
-			return;
-		}
+		if (editOutput==null) {
+			/* Nur Konfiguration speichern; hier nichts zu tun */
+		} else {
+			/* Tabelle aufbereiten */
+			final Table result=processor.process();
+			if (result==null) {
+				MsgBox.error(this,Language.tr("BuildClientSourceTable.InputTable.Error.Process.Title"),String.format(Language.tr("BuildClientSourceTable.InputTable.Error.Process.Info"),editInput.getText().trim()));
+				return;
+			}
 
-		if (!WaitDialog.workBoolean(this,()->result.save(editOutput.getText()),WaitDialog.Mode.SAVE_DATA)) {
-			MsgBox.error(this,Language.tr("BuildClientSourceTable.OutputTable.Error.Save.Title"),String.format(Language.tr("BuildClientSourceTable.OutputTable.Error.Save.Info"),editOutput.getText()));
-			return;
+			if (!WaitDialog.workBoolean(this,()->result.save(editOutput.getText()),WaitDialog.Mode.SAVE_DATA)) {
+				MsgBox.error(this,Language.tr("BuildClientSourceTable.OutputTable.Error.Save.Title"),String.format(Language.tr("BuildClientSourceTable.OutputTable.Error.Save.Info"),editOutput.getText()));
+				return;
+			}
 		}
+	}
+
+	/**
+	 * Liefert die Einstellungen zur Verwendung der Tabellenspalten zurück.
+	 * @return	Einstellungen zur Verwendung der Tabellenspalten
+	 */
+	public ClientInputTableProcessor.ColumnsSetup getSetup() {
+		return processor.getSetup();
+	}
+
+	/**
+	 * Liefert den Namen der gewählten Tabelle.
+	 * @return	Name der gewählten Tabelle
+	 */
+	public String getInputTable() {
+		return editInput.getText().trim();
 	}
 
 	/**
@@ -329,8 +431,8 @@ public class ClientInputTableDialog extends BaseDialog {
 		@Override
 		public Component getListCellRendererComponent(JList<?> list, Object value, int index,boolean isSelected, boolean cellHasFocus) {
 			Component renderer=super.getListCellRendererComponent(list,value, index, isSelected, cellHasFocus);
-			if (value instanceof ClientInputTableProcessor.ColumnSetup) {
-				final ClientInputTableProcessor.ColumnSetup setup=(ClientInputTableProcessor.ColumnSetup)value;
+			if (value instanceof ClientInputTableProcessor.ColumnData) {
+				final ClientInputTableProcessor.ColumnData setup=(ClientInputTableProcessor.ColumnData)value;
 				final ColumnSetupRender columnSetupRender=(ColumnSetupRender)renderer;
 				columnSetupRender.setText(setup.getHTMLInfo());
 				columnSetupRender.setIcon(setup.getIcon());

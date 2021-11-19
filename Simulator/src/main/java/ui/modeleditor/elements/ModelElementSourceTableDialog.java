@@ -23,6 +23,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.File;
 import java.io.Serializable;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -30,6 +31,7 @@ import java.util.Set;
 import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -42,11 +44,13 @@ import language.Language;
 import mathtools.NumberTools;
 import mathtools.Table;
 import mathtools.distribution.tools.FileDropper;
+import systemtools.BaseDialog;
 import systemtools.MsgBox;
 import ui.dialogs.WaitDialog;
 import ui.images.Images;
 import ui.infopanel.InfoPanel;
 import ui.inputprocessor.ClientInputTableDialog;
+import ui.inputprocessor.ClientInputTableProcessor;
 import ui.modeleditor.ModelElementBaseDialog;
 
 /**
@@ -62,9 +66,25 @@ public class ModelElementSourceTableDialog extends ModelElementBaseDialog {
 	private static final long serialVersionUID = 6808289592022606483L;
 
 	/**
+	 * Art der Tabelle (aufbereitet oder dynamisch aufbereiten)
+	 */
+	private JComboBox<String> mode;
+
+	/**
+	 * Bisherige on-the-fly Konvertierungseinstellungen
+	 */
+	private String importSettings;
+
+	/**
 	 * Eingabefeld für den Dateinamen der Tabelle
 	 */
 	private JTextField tableEdit;
+
+	/**
+	 * Schaltfläche zum wahlweisen Konvertieren oder zum Einstellen der on-the-fly Einstellungen
+	 * @see #updateTooltip()
+	 */
+	private JButton processsButton;
 
 	/**
 	 * Option: Zeitangabenspalte beschreibt Zwischenankunftszeiten (Alternative: feste Zeitpunkte)
@@ -108,12 +128,14 @@ public class ModelElementSourceTableDialog extends ModelElementBaseDialog {
 		return InfoPanel.stationSourceTable;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	protected JComponent getContentPanel() {
 		final ModelElementSourceTable source=(ModelElementSourceTable)this.element;
 
 		final JPanel content=new JPanel(new BorderLayout());
 		JPanel line;
+		Object[] data;
 
 		/* Top-Area */
 
@@ -126,9 +148,19 @@ public class ModelElementSourceTableDialog extends ModelElementBaseDialog {
 		final JPanel warmUpAdvice=getWarmUpInfoPanel();
 		if (warmUpAdvice!=null) top.add(warmUpAdvice);
 
+		/* Modus */
+
+		data=getComboBoxPanel(Language.tr("Surface.SourceTable.Dialog.TableMode")+":",Arrays.asList(
+				Language.tr("Surface.SourceTable.Dialog.TableMode.Direct"),
+				Language.tr("Surface.SourceTable.Dialog.TableMode.Preprocessed")
+				));
+		top.add((JPanel)data[0]);
+		mode=(JComboBox<String>)data[1];
+		mode.addActionListener(e->updateTooltip());
+
 		/* Tabellendatei */
 
-		final Object[] data=getInputPanel(Language.tr("Surface.SourceTable.Dialog.Table")+":",source.getInputFile());
+		data=getInputPanel(Language.tr("Surface.SourceTable.Dialog.Table")+":",source.getInputFile());
 		top.add((JPanel)data[0]);
 		tableEdit=(JTextField)data[1];
 		tableEdit.addKeyListener(new KeyListener() {
@@ -156,16 +188,20 @@ public class ModelElementSourceTableDialog extends ModelElementBaseDialog {
 		tools.add(button=new JButton());
 		button.setToolTipText(Language.tr("Surface.SourceTable.Dialog.Table.Preview"));
 		button.setIcon(Images.GENERAL_TABLE.getIcon());
-		button.addActionListener(e->new ModelElementSourceTablePreviewDialog(ModelElementSourceTableDialog.this,element.getId(),tableEdit.getText(),clientsEdit.getText().trim().split("\n"),optionDistances.isSelected(),element.getModel()));
+		button.addActionListener(e->commandShowPreview());
 
-		tools.add(button=new JButton());
-		button.setToolTipText(Language.tr("Surface.SourceTable.Dialog.Table.Process"));
-		button.setIcon(Images.GENERAL_TOOLS.getIcon());
-		button.addActionListener(e->new ClientInputTableDialog(ModelElementSourceTableDialog.this));
+		tools.add(processsButton=new JButton());
+		processsButton.setToolTipText(Language.tr("Surface.SourceTable.Dialog.Table.Process"));
+		processsButton.setIcon(Images.GENERAL_TOOLS.getIcon());
+		processsButton.addActionListener(e->commandProcessData());
 
 		FileDropper.addFileDropper(this,tableEdit);
 
 		/* Radiobuttons für Tabellenspalte 1 */
+
+		line=new JPanel(new FlowLayout(FlowLayout.LEFT));
+		top.add(line);
+		line.add(new JLabel(Language.tr("Surface.SourceTable.Dialog.ColumnOne")));
 
 		final JRadioButton optionTimeStamps;
 		line=new JPanel(new FlowLayout(FlowLayout.LEFT));
@@ -209,9 +245,51 @@ public class ModelElementSourceTableDialog extends ModelElementBaseDialog {
 
 		/* Start */
 
+		importSettings=source.getImportSettings();
+		mode.setSelectedIndex(importSettings.trim().isEmpty()?1:0);
+		updateTooltip();
 		checkData(false);
 
 		return content;
+	}
+
+	/**
+	 * Aktualisiert die Beschriftung der {@link #processsButton}-Schaltfläche
+	 * @see #processsButton
+	 * @see #mode
+	 */
+	private void updateTooltip() {
+		processsButton.setToolTipText((mode.getSelectedIndex()==0)?Language.tr("Surface.SourceTable.Dialog.Table.ProcessSetup"):Language.tr("Surface.SourceTable.Dialog.Table.Process"));
+	}
+
+	/**
+	 * Zeigt eine Vorschau an, welche Daten aus der Tabelle geladen werden.
+	 */
+	private void commandShowPreview() {
+		final int id=element.getId();
+		final String tableFile=tableEdit.getText().trim();
+		final String importSettings=(mode.getSelectedIndex()==0)?this.importSettings:null;
+		final String[] clientTypes=clientsEdit.getText().trim().split("\n");
+		new ModelElementSourceTablePreviewDialog(this,id,tableFile,importSettings,clientTypes,optionDistances.isSelected(),element.getModel());
+	}
+
+	/**
+	 * Ruft den Dialog zur Konfiguration des on-the-fly Modus oder
+	 * zum Konvertieren einer Tabellendatei auf.
+	 */
+	private void commandProcessData() {
+		if (mode.getSelectedIndex()==0) {
+			/* Tabelle konfigurieren */
+			final ClientInputTableProcessor.ColumnsSetup oldSetup=new ClientInputTableProcessor.ColumnsSetup(importSettings);
+			final ClientInputTableDialog dialog=new ClientInputTableDialog(this,tableEdit.getText().trim(),oldSetup);
+			if (dialog.getClosedBy()==BaseDialog.CLOSED_BY_OK) {
+				final ClientInputTableProcessor.ColumnsSetup newSetup=dialog.getSetup();
+				importSettings=newSetup.get();
+			}
+		} else {
+			/* Konverter */
+			new ClientInputTableDialog(this);
+		}
 	}
 
 	/**
@@ -236,13 +314,21 @@ public class ModelElementSourceTableDialog extends ModelElementBaseDialog {
 			return;
 		}
 
+		boolean ignoreFirstRow=false;
+		int clientTypeColIndex=1;
+		if (mode.getSelectedIndex()==0) {
+			final ClientInputTableProcessor.ColumnsSetup setup=new ClientInputTableProcessor.ColumnsSetup(importSettings);
+			clientTypeColIndex=setup.getClientTypeColumnIndex();
+			ignoreFirstRow=true;
+		}
+
 		/* Kundentypen zusammenstellen */
 		final Set<String> clientTypes=new HashSet<>();
 		final int size=table.getSize(0);
-		for (int i=0;i<size;i++) {
+		for (int i=ignoreFirstRow?1:0;i<size;i++) {
 			final List<String> line=table.getLine(i);
-			if (line==null || line.size()<2) continue;
-			String cell=line.get(1);
+			if (line==null || line.size()<clientTypeColIndex+1) continue;
+			String cell=line.get(clientTypeColIndex);
 			if (cell==null) continue;
 			cell=cell.trim();
 			if (cell.isEmpty()) continue;
@@ -306,6 +392,8 @@ public class ModelElementSourceTableDialog extends ModelElementBaseDialog {
 		super.storeData();
 
 		final ModelElementSourceTable source=(ModelElementSourceTable)this.element;
+
+		if (mode.getSelectedIndex()==0) source.setImportSettings(importSettings); else source.setImportSettings("");
 		source.setInputFile(tableEdit.getText().trim());
 		source.setNumbersAreDistances(optionDistances.isSelected());
 		final String s=clientsEdit.getText().trim();

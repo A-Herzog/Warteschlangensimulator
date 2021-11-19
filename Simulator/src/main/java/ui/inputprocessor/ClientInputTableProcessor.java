@@ -17,6 +17,7 @@ package ui.inputprocessor;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.swing.Icon;
@@ -40,7 +41,7 @@ public class ClientInputTableProcessor {
 	/**
 	 * Konfigurationen der zu verarbeitenden Spalten
 	 */
-	private ColumnSetup[] columns;
+	private ColumnData[] columns;
 
 	/**
 	 * Konstruktor der Klasse
@@ -63,41 +64,87 @@ public class ClientInputTableProcessor {
 		/* Spalten verarbeiten */
 		final Table cols=table.transpose();
 		final List<List<String>> colData=cols.getData();
-		final List<ColumnSetup> columns=new ArrayList<>();
+		final List<ColumnData> columns=new ArrayList<>();
 
-		List<String> columnData;
-
-		/* Ankunftszeitpunkte (Spalte A) */
-		columnData=colData.get(0);
-		if (columnData==null || columnData.size()<2) return false;
-		columns.add(new ColumnSetup(columnData,0,ColumnMode.ARRIVALS));
-
-		/* Kundentypen (Spalte B) */
-		columnData=colData.get(1);
-		if (columnData==null || columnData.size()<2) return false;
-		columns.add(new ColumnSetup(columnData,1,ColumnMode.CLIENT_TYPES));
-
-		/* Weitere Datenspalten */
+		/* Spalten-Setup-Objekte anlegen */
 		int indexCounter=0;
-		for (int i=2;i<colData.size();i++) {
-			columnData=colData.get(i);
+		for (int i=0;i<colData.size();i++) {
+			final List<String> columnData=colData.get(i);
 			if (columnData==null || columnData.size()<2) continue;
 			if (columnData.get(0).trim().isEmpty()) continue;
-			final ColumnSetup column=new ColumnSetup(columnData,i);
+			final ColumnData column=new ColumnData(columnData,i);
 			column.index=indexCounter;
 			indexCounter++;
 			columns.add(column);
 		}
-		this.columns=columns.toArray(new ColumnSetup[0]);
+
+		if (columns.size()<2) return false;
+
+		/* Ankunftszeitenspalte finden */
+		boolean ok=false;
+		for (int i=0;i<columns.size();i++) if (columns.get(i).isNumeric) {
+			ok=true;
+			columns.get(i).initialMode=ColumnMode.ARRIVALS;
+			columns.get(i).mode=ColumnMode.ARRIVALS;
+			for (int j=i+1;j<columns.size();j++) if (columns.get(j).isNumeric) columns.get(j).index--;
+			break;
+		}
+		if (!ok) return false; /* Keine einzige Zahlenwerte-Spalte vorhanden */
+
+		/* Kundentypenspalte finden */
+		boolean foundGoodClientTypeColumn=false;
+		for (int i=0;i<columns.size();i++) if (!columns.get(i).isNumeric) {
+			columns.get(i).initialMode=ColumnMode.CLIENT_TYPES;
+			columns.get(i).mode=ColumnMode.CLIENT_TYPES;
+			foundGoodClientTypeColumn=true;
+			break;
+		}
+		if (!foundGoodClientTypeColumn) for (int i=0;i<columns.size();i++) if (columns.get(i).mode!=ColumnMode.ARRIVALS) {
+			columns.get(i).initialMode=ColumnMode.CLIENT_TYPES;
+			columns.get(i).mode=ColumnMode.CLIENT_TYPES;
+			break;
+		}
+
+		this.columns=columns.toArray(new ColumnData[0]);
 
 		return true;
+	}
+
+	/**
+	 * Lädt die extern gespeicherten Einstellungen zur Verwendung der Tabellenspalten.
+	 * @param setup	Einstellungen zur Verwendung der Tabellenspalten
+	 * @see #getSetup()
+	 */
+	public void loadSetup(final ColumnsSetup setup) {
+		if (setup==null) return;
+
+		for (int i=0;i<setup.columnTypes.length;i++) {
+			ColumnData column=null;
+			for (ColumnData c: columns) if (c.colNr==i) {column=c; break;}
+			if (column==null) continue;
+
+			final ColumnMode newMode=setup.columnTypes[i];
+			final int newIndex=setup.columnClientDataIndex[i];
+
+			if (column.isNumeric || !newMode.requiresNumericValue) column.mode=newMode;
+			column.index=newIndex;
+		}
+	}
+
+	/**
+	 * Speichert die Einstellungen zur Verwendung der Tabellenspalten in einem externen Objekt.
+	 * @return	Einstellungen zur Verwendung der Tabellenspalten
+	 * @see #loadSetup(ColumnsSetup)
+	 */
+	public ColumnsSetup getSetup() {
+		return new ColumnsSetup(columns);
 	}
 
 	/**
 	 * Liefert die Konfigurationen der zu verarbeitenden Spalten.
 	 * @return	Konfigurationen der zu verarbeitenden Spalten
 	 */
-	public ColumnSetup[] getColumns() {
+	public ColumnData[] getColumns() {
 		return columns;
 	}
 
@@ -111,7 +158,7 @@ public class ClientInputTableProcessor {
 		/* Ankunftszeiten- und Kundentyp-Spalte bestimmen */
 		int colArrival=-1;
 		int colType=-1;
-		for (ColumnSetup setup: columns) {
+		for (ColumnData setup: columns) {
 			if (setup.mode==ColumnMode.ARRIVALS) colArrival=setup.colNr;
 			if (setup.mode==ColumnMode.CLIENT_TYPES) colType=setup.colNr;
 			if (colArrival>=0 && colType>=0) break;
@@ -152,7 +199,7 @@ public class ClientInputTableProcessor {
 		}
 
 		/* Datenspalten */
-		for (ColumnSetup setup: columns) {
+		for (ColumnData setup: columns) {
 			if (setup.colNr>=row.size()) continue;
 			final String value=row.get(setup.colNr).trim();
 			if (value.isEmpty()) continue;
@@ -197,20 +244,41 @@ public class ClientInputTableProcessor {
 		/** Tabellenspalte nicht verwenden */
 		OFF,
 		/** Ankunftszeitpunkte */
-		ARRIVALS,
+		ARRIVALS(true),
 		/** Kundentypen */
 		CLIENT_TYPES,
 		/** Tabellenspalte als numerische Werte verwenden */
-		NUMBER,
+		NUMBER(true),
 		/** Tabellenspalte als Textwerte verwenden */
-		TEXT
+		TEXT;
+
+		/**
+		 * Kann der Typ nur bei Spalten mit numerischen Inhalten (<code>true</code>)
+		 * oder bei allen Spalten (<code>false</code>) verwendet werden?
+		 */
+		public final boolean requiresNumericValue;
+
+		/**
+		 * Konstruktor des Enum
+		 */
+		ColumnMode() {
+			requiresNumericValue=false;
+		}
+
+		/**
+		 * Konstruktor des Enum
+		 * @param requiresNumericValue	Kann der Typ nur bei Spalten mit numerischen Inhalten (<code>true</code>) oder bei allen Spalten (<code>false</code>) verwendet werden?
+		 */
+		ColumnMode(final boolean requiresNumericValue) {
+			this.requiresNumericValue=requiresNumericValue;
+		}
 	}
 
 	/**
 	 * Datensatz für eine Spalte
 	 * @see ClientInputTableProcessor#getColumns()
 	 */
-	public class ColumnSetup {
+	public class ColumnData {
 		/**
 		 * 0-basierte Nummer der Tabellenspalte
 		 */
@@ -235,7 +303,7 @@ public class ClientInputTableProcessor {
 		 * Automatisch voreingestellter Modus
 		 * @see #mode
 		 */
-		public final ColumnMode initialMode;
+		public ColumnMode initialMode;
 
 		/**
 		 * Wie soll die Spalte verwendet werden?
@@ -248,7 +316,7 @@ public class ClientInputTableProcessor {
 		 * @param col	Zugehörige Datenspalte (inkl. Überschrift im ersten Eintrag)
 		 * @param nr	0-basierte Nummer der Tabellenspalte
 		 */
-		public ColumnSetup(final List<String> col, final int nr) {
+		public ColumnData(final List<String> col, final int nr) {
 			colNr=nr;
 			name=col.get(0).trim();
 
@@ -267,7 +335,7 @@ public class ClientInputTableProcessor {
 		 * @param nr	0-basierte Nummer der Tabellenspalte
 		 * @param mode	Wie soll die Spalte verwendet werden?
 		 */
-		public ColumnSetup(final List<String> col, final int nr, final ColumnMode mode) {
+		public ColumnData(final List<String> col, final int nr, final ColumnMode mode) {
 			colNr=nr;
 			name=col.get(0).trim();
 
@@ -397,6 +465,188 @@ public class ClientInputTableProcessor {
 			case TEXT: return Images.GENERAL_FONT.getIcon();
 			default: return Images.GENERAL_TABLE.getIcon();
 			}
+		}
+	}
+
+	/**
+	 * Speichert die Einstellungen zu den zu verwendenden Tabellenspalten.
+	 */
+	public static class ColumnsSetup {
+		/** Zu verwendende Modi für die Spalten */
+		public final ColumnMode[] columnTypes;
+		/** Im Modus <code>NUMBER</code> zu verwendender Kundendatenindex */
+		public final int[] columnClientDataIndex;
+
+		/**
+		 * Konstruktor der Klasse
+		 * @param setup	Lädt die Einstellungen aus der Zeichenkette
+		 */
+		public ColumnsSetup(final String setup) {
+			final List<ColumnMode> columnTypesList=new ArrayList<>();
+			final List<Integer> columnClientDataIndexList=new ArrayList<>();
+
+			if (setup!=null) for (String part: setup.split(",")) {
+				if (part==null) continue;
+				final String[] data=part.split("=");
+				if (data==null || data.length!=2) continue;
+				final int colIndex=Table.numberFromColumnName(data[0]);
+				if (colIndex<0) continue;
+				while (columnTypesList.size()<colIndex) {
+					columnTypesList.add(ColumnMode.OFF);
+					columnClientDataIndexList.add(-1);
+				}
+
+				if (Language.trAll("BuildClientSourceTable.Setup.ModeColumn.Off",data[1])) {
+					columnTypesList.add(ColumnMode.OFF);
+					columnClientDataIndexList.add(-1);
+					continue;
+				}
+
+				if (Language.trAll("BuildClientSourceTable.Setup.ModeColumn.Arrivals",data[1])) {
+					columnTypesList.add(ColumnMode.ARRIVALS);
+					columnClientDataIndexList.add(-1);
+					continue;
+				}
+
+				if (Language.trAll("BuildClientSourceTable.Setup.ModeColumn.ClientType",data[1])) {
+					columnTypesList.add(ColumnMode.CLIENT_TYPES);
+					columnClientDataIndexList.add(-1);
+					continue;
+				}
+
+				if (Language.trAll("BuildClientSourceTable.Setup.ModeColumn.Text",data[1])) {
+					columnTypesList.add(ColumnMode.TEXT);
+					columnClientDataIndexList.add(-1);
+					continue;
+				}
+
+				final Integer I=NumberTools.getNotNegativeInteger(data[1]);
+				if (I!=null) {
+					columnTypesList.add(ColumnMode.NUMBER);
+					columnClientDataIndexList.add(I);
+					continue;
+				}
+
+				columnTypesList.add(ColumnMode.OFF);
+				columnClientDataIndexList.add(-1);
+			}
+
+			while (columnTypesList.size()>0 && columnTypesList.get(columnTypesList.size()-1)==ColumnMode.OFF) {
+				columnTypesList.remove(columnTypesList.size()-1);
+				columnClientDataIndexList.remove(columnClientDataIndexList.size()-1);
+			}
+
+			columnTypes=columnTypesList.toArray(new ColumnMode[0]);
+			columnClientDataIndex=columnClientDataIndexList.stream().mapToInt(I->I.intValue()).toArray();
+		}
+
+		/**
+		 * Konstruktor der Klasse<br>
+		 * Wird über {@link ClientInputTableProcessor#getSetup()} bereitgestellt.
+		 * @param columns	Daten aus {@link ClientInputTableProcessor}
+		 */
+		private ColumnsSetup(final ColumnData[] columns) {
+			final List<ColumnMode> columnTypesList=new ArrayList<>();
+			final List<Integer> columnClientDataIndexList=new ArrayList<>();
+			for (ColumnData column: columns) {
+				final int nr=column.colNr;
+				while (columnTypesList.size()<=nr) {
+					columnTypesList.add(ColumnMode.OFF);
+					columnClientDataIndexList.add(-1);
+				}
+				columnTypesList.set(nr,column.mode);
+				columnClientDataIndexList.set(nr,column.index);
+			}
+
+			while (columnTypesList.size()>0 && columnTypesList.get(columnTypesList.size()-1)==ColumnMode.OFF) {
+				columnTypesList.remove(columnTypesList.size()-1);
+				columnClientDataIndexList.remove(columnClientDataIndexList.size()-1);
+			}
+
+			columnTypes=columnTypesList.toArray(new ColumnMode[0]);
+			columnClientDataIndex=columnClientDataIndexList.stream().mapToInt(I->I.intValue()).toArray();
+		}
+
+		/**
+		 * Erstellt ein leeres Einstellungenobjekt.
+		 * @return	Leeres Einstellungenobjekt
+		 */
+		public static ColumnsSetup empty() {
+			return new ColumnsSetup(new ColumnData[0]);
+		}
+
+		/**
+		 * Copy-Konstruktor der Klasse
+		 * @param copySource	Zu kopierendes Ausgangsobjekt
+		 */
+		public ColumnsSetup(final ColumnsSetup copySource) {
+			columnTypes=Arrays.copyOf(copySource.columnTypes,copySource.columnTypes.length);
+			columnClientDataIndex=Arrays.copyOf(copySource.columnClientDataIndex,copySource.columnClientDataIndex.length);
+		}
+
+		/**
+		 * Vergleicht die Einstellungen in diesem Objekt mit den Daten aus einem weiteren Einstellungenobjekt.
+		 * @param otherSetup	Weiteres Einstellungenobjekt, welches inhaltlich mit diesem verglichen werden soll
+		 * @return	Liefert <code>true</code>, wenn die beiden Objekte inhaltlich identisch sind
+		 */
+		public boolean equalsSetup(final ColumnsSetup otherSetup) {
+			if (otherSetup==null) return false;
+
+			if (!Arrays.equals(columnTypes,otherSetup.columnTypes)) return false;
+			if (!Arrays.equals(columnClientDataIndex,otherSetup.columnClientDataIndex)) return false;
+
+			return true;
+		}
+
+		/**
+		 * Liefert die Einstellungen als Zeichenkette
+		 * @return	Einstellungen als Zeichenkette
+		 */
+		public String get() {
+			final StringBuilder results=new StringBuilder();
+
+			for (int i=0;i<columnTypes.length;i++) {
+				if (results.length()>0) results.append(",");
+				results.append(Table.columnNameFromNumber(i));
+				results.append("=");
+				switch (columnTypes[i]) {
+				case OFF:
+					results.append(Language.trPrimary("BuildClientSourceTable.Setup.ModeColumn.Off"));
+					break;
+				case ARRIVALS:
+					results.append(Language.trPrimary("BuildClientSourceTable.Setup.ModeColumn.Arrivals"));
+					break;
+				case CLIENT_TYPES:
+					results.append(Language.trPrimary("BuildClientSourceTable.Setup.ModeColumn.ClientType"));
+					break;
+				case NUMBER:
+					results.append(columnClientDataIndex[i]);
+					break;
+				case TEXT:
+					results.append(Language.trPrimary("BuildClientSourceTable.Setup.ModeColumn.Text"));
+					break;
+				}
+			}
+
+			return results.toString();
+		}
+
+		/**
+		 * Liefert den 0-basierten Index der Spalte mit den Ankunftszeiten.
+		 * @return	Index der Spalte mit den Ankunftszeiten
+		 */
+		public int getTimeColumnIndex() {
+			for (int i=0;i<columnTypes.length;i++) if (columnTypes[i]==ColumnMode.ARRIVALS) return i;
+			return 0;
+		}
+
+		/**
+		 * Liefert den 0-basierten Index der Spalte mit den Kundentypen.
+		 * @return	Index der Spalte mit den Kundentypen
+		 */
+		public int getClientTypeColumnIndex() {
+			for (int i=0;i<columnTypes.length;i++) if (columnTypes[i]==ColumnMode.CLIENT_TYPES) return i;
+			return 0;
 		}
 	}
 }

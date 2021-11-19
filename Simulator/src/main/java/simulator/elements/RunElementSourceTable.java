@@ -44,14 +44,15 @@ public class RunElementSourceTable extends RunElementSourceExtern {
 	/**
 	 * Lädt Ankünfte aus einer Tabelle.
 	 * @param file	Zu ladende Tabellendatei
+	 * @param setup	Konfiguration der Spalten (kann <code>null</code> sein, wenn eine bereits aufbereitete Tabelle verwendet werden soll)
 	 * @param clientTypes	Liste der Kundentypnamen, die berücksichtigt werden sollen
 	 * @param numbersAreDistances	Gibt an, ob die Zahlen Zeitpunkte (<code>false</code>) oder Zwischenankunftszeiten (<code>true</code>) sind
 	 * @return	Liefert im Erfolgsfall <code>null</code> zurück, sonst eine Fehlermeldung
 	 */
-	private String loadTableFile(final File file, final List<String> clientTypes, final boolean numbersAreDistances) {
+	private String loadTableFile(final File file, final String setup, final List<String> clientTypes, final boolean numbersAreDistances) {
 		final Table table=new Table();
 		if (!table.load(file)) return String.format(Language.tr("Simulation.Creator.TableFile.LoadFailed"),file.toString(),id);
-		return loadTable(table,clientTypes,numbersAreDistances);
+		return loadTable(table,setup,clientTypes,numbersAreDistances);
 	}
 
 	@Override
@@ -75,9 +76,13 @@ public class RunElementSourceTable extends RunElementSourceExtern {
 		String error=source.buildClientTypesList(clientTypes,runModel);
 		if (error!=null) return error;
 
+		/* On-the-fly Konvertierung */
+		final String importSettings=sourceElement.getImportSettings().trim();
+		final String setup=importSettings.isEmpty()?null:importSettings;
+
 		/* Tabelle verarbeiten */
 		if (!testOnly) {
-			error=source.loadTableFile(tableFile,clientTypes,numbersAreDistances);
+			error=source.loadTableFile(tableFile,setup,clientTypes,numbersAreDistances);
 			if (error!=null) return error;
 		}
 

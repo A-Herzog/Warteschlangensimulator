@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-11-18 13:56+0100\n"
+"POT-Creation-Date: 2021-11-19 09:04+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -995,6 +995,18 @@ msgstr "Do not use"
 
 msgid "BuildClientSourceTable.Setup.Mode.Text"
 msgstr "Load as texts"
+
+msgid "BuildClientSourceTable.Setup.ModeColumn.Arrivals"
+msgstr "Arrivals"
+
+msgid "BuildClientSourceTable.Setup.ModeColumn.ClientType"
+msgstr "Clienttype"
+
+msgid "BuildClientSourceTable.Setup.ModeColumn.Off"
+msgstr "Off"
+
+msgid "BuildClientSourceTable.Setup.ModeColumn.Text"
+msgstr "Text"
 
 msgid "BuildClientSourceTable.Title"
 msgstr "Prepare table for table source"
@@ -28877,11 +28889,14 @@ msgstr "Keep previous client types list unchanged."
 msgid "Surface.SourceTable.Dialog.ClientTypes.LoadButton.ReplaceConfirm.InfoYes"
 msgstr "Replace previous client types with client types from the table."
 
+msgid "Surface.SourceTable.Dialog.ColumnOne"
+msgstr "Interpretation of the time data"
+
 msgid "Surface.SourceTable.Dialog.ColumnOne.Distances"
-msgstr "Values in row 1 are distances between arrivals"
+msgstr "Values are distances between arrivals"
 
 msgid "Surface.SourceTable.Dialog.ColumnOne.TimeStamps"
-msgstr "Values in row 1 are time stamps"
+msgstr "Values are time stamps"
 
 msgid "Surface.SourceTable.Dialog.Table"
 msgstr "Table file"
@@ -28949,8 +28964,20 @@ msgstr "Table data"
 msgid "Surface.SourceTable.Dialog.Table.Process"
 msgstr "Convert table for table source"
 
+msgid "Surface.SourceTable.Dialog.Table.ProcessSetup"
+msgstr "Configure table import"
+
 msgid "Surface.SourceTable.Dialog.Table.Tooltip"
 msgstr "Select table file"
+
+msgid "Surface.SourceTable.Dialog.TableMode"
+msgstr "Table mode"
+
+msgid "Surface.SourceTable.Dialog.TableMode.Direct"
+msgstr "Use table directly"
+
+msgid "Surface.SourceTable.Dialog.TableMode.Preprocessed"
+msgstr "Use processed table"
 
 msgid "Surface.SourceTable.Dialog.Title"
 msgstr "Load client arrivals from table"
@@ -28969,6 +28996,9 @@ msgstr "Source that generates arrivals based on a data table."
 
 msgid "Surface.SourceTable.XML.ClientTypeName"
 msgstr "ModelElementTableClientType"
+
+msgid "Surface.SourceTable.XML.ImportMode"
+msgstr "ModelElementTableImportMode"
 
 msgid "Surface.SourceTable.XML.NumbersAre"
 msgstr "NumberValues"

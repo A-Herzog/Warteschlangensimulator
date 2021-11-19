@@ -40,6 +40,7 @@ import simulator.runmodel.RunModel;
 import simulator.runmodel.SimulationData;
 import simulator.simparser.ExpressionCalc;
 import simulator.simparser.symbols.CalcSymbolClientUserData;
+import ui.inputprocessor.ClientInputTableProcessor;
 import ui.modeleditor.coreelements.ModelElement;
 import ui.modeleditor.coreelements.ModelElementBox;
 import ui.modeleditor.coreelements.ModelElementEdgeOut;
@@ -169,6 +170,110 @@ public abstract class RunElementSourceExtern extends RunElement implements RunSo
 
 	/**
 	 * Erzeugt die Ankünfte aus einer Tabelle.<br>
+	 * Es wird dabei eine individuelle Spaltenkonfiguration verwendet.
+	 * @param id	ID der zugehörigen Tabellenkundenquellen-Station
+	 * @param table	Tabelle aus der die Daten geladen werden sollen
+	 * @param setup	Konfiguration der Spalten
+	 * @param externalTypes	Liste der Kundentypnamen, die berücksichtigt werden sollen
+	 * @param numbersAreDistances	Gibt an, ob die Zahlen Zeitpunkte (<code>false</code>) oder Zwischenankunftszeiten (<code>true</code>) sind
+	 * @return	Liefert im Erfolgsfall ein Objekt vom Typ <code>Arrival[][]</code> zurück, sonst eine Fehlermeldung (<code>String</code>)
+	 */
+	public static final Object loadTableToArrivals(final int id, final Table table, final String setup, final List<String> externalTypes, final boolean numbersAreDistances) {
+		final String[] types=getClientTypes(externalTypes,false);
+		final Map<String,Integer> typesMap=new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
+		for (int i=0;i<types.length;i++) typesMap.put(types[i],i);
+
+		final ClientInputTableProcessor.ColumnsSetup columnSetup=new ClientInputTableProcessor.ColumnsSetup(setup);
+		final int timeColumn=columnSetup.getTimeColumnIndex();
+		final int clientTypeColumn=columnSetup.getClientTypeColumnIndex();
+		final int minimumNeededColumns=Math.max(timeColumn,clientTypeColumn)+1;
+
+		final List<List<RunElementSourceExtern.Arrival>> arrivalsList=new ArrayList<>(types.length);
+		for (int i=0;i<types.length;i++) arrivalsList.add(new ArrayList<>());
+
+		double lastArrivalTime=0;
+
+		/* Tabelle verarbeiten */
+		final int rows=table.getSize(0);
+		List<String> heading=new ArrayList<>();
+		if (rows>0) heading=table.getLine(0);
+		boolean isSorted=true;
+		for (int i=1;i<rows;i++) { /* Zeile 0 = Überschrift überspringen */
+			/* Zeile laden */
+			final List<String> line=table.getLine(i);
+			if (line==null || line.size()<minimumNeededColumns) continue;
+
+			/* Zahlenwert in erster Spalte? */
+			Double D=NumberTools.getPlainDouble(line.get(timeColumn));
+			if (D==null) D=NumberTools.getNotNegativeDouble(line.get(timeColumn));
+			if (D==null || D<0) continue;
+
+			/* Ankunftszeit */
+			final double arrivalTime;
+			if (numbersAreDistances) {
+				/* Zwischenankunftszeiten */
+				arrivalTime=lastArrivalTime+D.doubleValue();
+			} else {
+				/* Ankunftszeitpunkte */
+				arrivalTime=D.doubleValue();
+			}
+			if (arrivalTime<lastArrivalTime) isSorted=false;
+			lastArrivalTime=arrivalTime;
+
+			/* Erst Ankunftszeit bestimmen, dann bestimmen, ob Zeile übersprungen wird. So sind relative Zeitabstände immer korrekt, auch wenn später übersprungene Zeilen fehlen. */
+
+			/* Gültiger Kundentyp in zweiter Spalte? */
+			final String clientType=line.get(clientTypeColumn).trim();
+			final Integer I=typesMap.get(clientType);
+			if (I==null) continue;
+			final int index=I;
+
+			/* Ankunftszeit erfassen */
+			final Arrival a=new Arrival(clientType,arrivalTime);
+			final int error=a.loadData(line,heading,columnSetup); /* Weitere Spalten laden */
+			if (error>=0) return String.format(Language.tr("Simulation.Creator.TableFile.InvalidData"),id,i+1,error+1);
+			arrivalsList.get(index).add(a);
+		}
+
+		/* Sortieren und ausgeben */
+		final Arrival[] dummy=new Arrival[0];
+		final Arrival[][] arrivals=new Arrival[types.length][];
+		for (int i=0;i<types.length;i++) {
+			final Arrival[] list=arrivalsList.get(i).toArray(dummy);
+			if (!isSorted) Arrays.sort(list,(a1,a2)->{
+				final long l=a1.time-a2.time;
+				if (l<0) return -1;
+				if (l>0) return 1;
+				return 0;
+			});
+			arrivals[i]=list;
+		}
+		return arrivals;
+	}
+
+	/**
+	 * Erzeugt die Ankünfte aus einer Tabelle.<br>
+	 * Spalten der Tabelle:	Zahlenwert, Kundentypname, (optional) Zuweisungen
+	 * @param table	Tabelle aus der die Daten geladen werden sollen
+	 * @param setup	Konfiguration der Spalten (kann <code>null</code> sein, wenn eine bereits aufbereitete Tabelle verwendet werden soll)
+	 * @param externalTypes	Liste der Kundentypnamen, die berücksichtigt werden sollen
+	 * @param numbersAreDistances	Gibt an, ob die Zahlen Zeitpunkte (<code>false</code>) oder Zwischenankunftszeiten (<code>true</code>) sind
+	 * @return	Liefert im Erfolgsfall <code>null</code> zurück, sonst eine Fehlermeldung
+	 */
+	protected final String loadTable(final Table table, final String setup, final List<String> externalTypes, final boolean numbersAreDistances) {
+		final Object result;
+		if (setup==null) {
+			result=loadTableToArrivals(id,table,externalTypes,numbersAreDistances);
+		} else {
+			result=loadTableToArrivals(id,table,setup,externalTypes,numbersAreDistances);
+		}
+		if (result instanceof String) return (String)result;
+		arrivals=(Arrival[][])result;
+		return null;
+	}
+
+	/**
+	 * Erzeugt die Ankünfte aus einer Tabelle.<br>
 	 * Spalten der Tabelle:	Zahlenwert, Kundentypname, (optional) Zuweisungen
 	 * @param table	Tabelle aus der die Daten geladen werden sollen
 	 * @param externalTypes	Liste der Kundentypnamen, die berücksichtigt werden sollen
@@ -176,10 +281,7 @@ public abstract class RunElementSourceExtern extends RunElement implements RunSo
 	 * @return	Liefert im Erfolgsfall <code>null</code> zurück, sonst eine Fehlermeldung
 	 */
 	protected final String loadTable(final Table table, final List<String> externalTypes, final boolean numbersAreDistances) {
-		final Object result=loadTableToArrivals(id,table,externalTypes,numbersAreDistances);
-		if (result instanceof String) return (String)result;
-		arrivals=(Arrival[][])result;
-		return null;
+		return loadTable(table,null,externalTypes,numbersAreDistances);
 	}
 
 	/**
@@ -418,7 +520,7 @@ public abstract class RunElementSourceExtern extends RunElement implements RunSo
 	/**
 	 * Ankunftsdatensatz
 	 * @see RunElementSourceExtern#arrivals
-	 * @see RunElementSourceExtern#loadTable(Table, List, boolean)
+	 * @see RunElementSourceExtern#loadTable(Table, String, List, boolean)
 	 * @see RunElementSourceExtern#processArrivalEvent(SimulationData, boolean, int)
 	 */
 	public static class Arrival {
@@ -551,6 +653,50 @@ public abstract class RunElementSourceExtern extends RunElement implements RunSo
 					/* Key=Value Zuweisung */
 					if (dataKeyValue==null) dataKeyValue=new HashedMap<>();
 					dataKeyValue.put((String)loadDataLineParts[0],(String)loadDataLineParts[1]);
+					continue;
+				}
+			}
+
+			if (dataIndex!=null && dataFormula!=null) {
+				this.dataIndex=new int[dataIndex.size()];
+				for (int i=0;i<this.dataIndex.length;i++) this.dataIndex[i]=dataIndex.get(i);
+				this.dataFormula=dataFormula.toArray(new String[0]);
+			}
+
+			return -1;
+		}
+
+		/**
+		 * Verarbeitet eine Tabellenzeile
+		 * @param line	Zeile
+		 * @param heading	Überschriftenzeile
+		 * @param setup	Spaltenkonfiguration
+		 * @return	Liefert im Erfolgsfall -1, sonst den 0-basierenden Index der fehlerhaften Spalte
+		 */
+		public int loadData(final List<String> line, final List<String> heading, final ClientInputTableProcessor.ColumnsSetup setup) {
+			List<Integer> dataIndex=null;
+			List<String> dataFormula=null;
+
+			for (int i=0;i<setup.columnTypes.length;i++) {
+				if (i>=line.size()) break;
+				final ClientInputTableProcessor.ColumnMode mode=setup.columnTypes[i];
+				final int numberIndex=setup.columnClientDataIndex[i];
+
+				if (mode==ClientInputTableProcessor.ColumnMode.NUMBER) {
+					if (numberIndex<0) continue;
+					if (dataIndex==null || dataFormula==null) {
+						dataIndex=new ArrayList<>();
+						dataFormula=new ArrayList<>();
+					}
+					dataIndex.add(numberIndex);
+					dataFormula.add(line.get(i));
+				}
+
+				if (mode==ClientInputTableProcessor.ColumnMode.TEXT) {
+					if (i>=heading.size()) continue;
+					/* Key=Value Zuweisung */
+					if (dataKeyValue==null) dataKeyValue=new HashedMap<>();
+					dataKeyValue.put(heading.get(i),line.get(i));
 					continue;
 				}
 			}

@@ -69,6 +69,13 @@ public class ModelElementSourceTable extends ModelElementBox implements ElementW
 	private String tableFileName="";
 
 	/**
+	 * Einstellungen zur on-the-fly Konvertierung der Tabelle
+	 * @see #getImportSettings()
+	 * @see #setImportSettings(String)
+	 */
+	private String importSettings="";
+
+	/**
 	 * Gibt an, ob die Zahlen in Spalte 1 absolute Zeitangaben oder Abstände vom jeweils vorherigen Wert sind.
 	 * @see #isNumbersAreDistances()
 	 * @see #setNumbersAreDistances(boolean)
@@ -135,6 +142,25 @@ public class ModelElementSourceTable extends ModelElementBox implements ElementW
 	}
 
 	/**
+	 * Liefert die Einstellungen zur on-the-fly Konvertierung der Tabelle
+	 * @return	Einstellungen zur on-the-fly Konvertierung der Tabelle (leere Zeichenkette bedeutet "bereits aufbereitete Tabelle" verwenden)
+	 */
+	public String getImportSettings() {
+		return importSettings;
+	}
+
+	/**
+	 * Setzt neue Einstellungen zur on-the-fly Konvertierung der Tabelle
+	 * @param importSettings	Einstellungen zur on-the-fly Konvertierung der Tabelle (leere Zeichenkette bedeutet "bereits aufbereitete Tabelle" verwenden)
+	 */
+	public void setImportSettings(final String importSettings) {
+		final String s=(importSettings==null)?"":importSettings;
+		if (s.equals(this.importSettings)) return;
+		this.importSettings=s;
+		fireChanged();
+	}
+
+	/**
 	 * Stellt die Tabelle ein, aus der die Ankünfte geladen werden sollen
 	 * @param inputFile	Tabelle, aus der die Ankünfte geladen werden
 	 */
@@ -190,6 +216,7 @@ public class ModelElementSourceTable extends ModelElementBox implements ElementW
 		}
 
 		if (!tableFileName.equals(((ModelElementSourceTable)element).tableFileName)) return false;
+		if (!importSettings.equals(((ModelElementSourceTable)element).importSettings)) return false;
 		if (numbersAreDistances!=((ModelElementSourceTable)element).numbersAreDistances) return false;
 		if (clientTypeNames.size()!=((ModelElementSourceTable)element).clientTypeNames.size()) return false;
 		for (int i=0;i<clientTypeNames.size();i++) if (!clientTypeNames.get(i).equals(((ModelElementSourceTable)element).clientTypeNames.get(i))) return false;
@@ -207,6 +234,7 @@ public class ModelElementSourceTable extends ModelElementBox implements ElementW
 		if (element instanceof ModelElementSourceTable) {
 			if (((ModelElementSourceTable)element).connection!=null) connectionId=((ModelElementSourceTable)element).connection.getId();
 			tableFileName=((ModelElementSourceTable)element).tableFileName;
+			importSettings=((ModelElementSourceTable)element).importSettings;
 			numbersAreDistances=((ModelElementSourceTable)element).numbersAreDistances;
 			clientTypeNames.clear();
 			clientTypeNames.addAll(((ModelElementSourceTable)element).clientTypeNames);
@@ -379,6 +407,10 @@ public class ModelElementSourceTable extends ModelElementBox implements ElementW
 		node.appendChild(sub=doc.createElement(Language.trPrimary("Surface.SourceTable.XML.TableFileName")));
 		sub.setTextContent(tableFileName);
 		if (numbersAreDistances) sub.setAttribute(Language.trPrimary("Surface.SourceTable.XML.NumbersAre"),Language.trPrimary("Surface.SourceTable.XML.NumbersAre.Distances"));
+		if (!importSettings.trim().isEmpty()) {
+			node.appendChild(sub=doc.createElement(Language.trPrimary("Surface.SourceTable.XML.ImportMode")));
+			sub.setTextContent(importSettings);
+		}
 
 		for (String clientTypeName : clientTypeNames) {
 			node.appendChild(sub=doc.createElement(Language.trPrimary("Surface.SourceTable.XML.ClientTypeName")));
@@ -413,6 +445,10 @@ public class ModelElementSourceTable extends ModelElementBox implements ElementW
 			final String numbersAre=Language.trAllAttribute("Surface.SourceTable.XML.NumbersAre",node);
 			if (Language.trAll("Surface.SourceTable.XML.NumbersAre.Distances",numbersAre)) numbersAreDistances=true;
 			return null;
+		}
+
+		if (Language.trAll("Surface.SourceTable.XML.ImportMode",name)) {
+			importSettings=content.trim();
 		}
 
 		if (Language.trAll("Surface.SourceTable.XML.ClientTypeName",name)) {

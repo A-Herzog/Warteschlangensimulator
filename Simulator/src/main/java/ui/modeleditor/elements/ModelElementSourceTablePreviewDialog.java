@@ -83,11 +83,12 @@ public class ModelElementSourceTablePreviewDialog extends BaseDialog {
 	 * @param owner	Übergeordnetes Fenster
 	 * @param stationId	ID der zugehörigen Tabellenkundenquellen-Station
 	 * @param tableFileName	Dateiname der Tabelle
+	 * @param setup	Wird hier ein Wert ungleich <code>null</code> übergeben, so wird dieses Setup für eine on-the-fly Konvertierung verwendet
 	 * @param clientTypes	Zu berücksichtigende Kundentypen
 	 * @param isInterarrival	Gibt an, ob die Zahlen Zeitpunkte (<code>false</code>) oder Zwischenankunftszeiten (<code>true</code>) sind
 	 * @param model	Gesamtes Modell (aus dem die Icons der Kundentypen ausgelesen werden)
 	 */
-	public ModelElementSourceTablePreviewDialog(final Component owner, final int stationId, final String tableFileName, final String[] clientTypes, final boolean isInterarrival, final EditModel model) {
+	public ModelElementSourceTablePreviewDialog(final Component owner, final int stationId, final String tableFileName, final String setup, final String[] clientTypes, final boolean isInterarrival, final EditModel model) {
 		super(owner,Language.tr("Surface.SourceTable.Dialog.Table.Preview"));
 
 		/* Tabelle laden */
@@ -95,7 +96,13 @@ public class ModelElementSourceTablePreviewDialog extends BaseDialog {
 		if (table==null) return;
 
 		final RunElementSourceExtern.Arrival[][] arrivals;
-		final Object processResult=WaitDialog.workObject(owner,()->RunElementSourceExtern.loadTableToArrivals(stationId,table,Arrays.asList(clientTypes),isInterarrival),WaitDialog.Mode.PROCESS_DATA);
+		final Object processResult=WaitDialog.workObject(owner,()->{
+			if (setup==null) {
+				return RunElementSourceExtern.loadTableToArrivals(stationId,table,Arrays.asList(clientTypes),isInterarrival);
+			} else {
+				return RunElementSourceExtern.loadTableToArrivals(stationId,table,setup,Arrays.asList(clientTypes),isInterarrival);
+			}
+		},WaitDialog.Mode.PROCESS_DATA);
 		if (processResult instanceof String) {
 			MsgBox.error(owner,Language.tr("Surface.SourceTable.Dialog.Table.Preview.ErrorProcess.Title"),Language.tr("Surface.SourceTable.Dialog.Table.Preview.ErrorProcess.Info")+"\n"+((String)processResult));
 			arrivals=new RunElementSourceExtern.Arrival[0][];
@@ -115,7 +122,7 @@ public class ModelElementSourceTablePreviewDialog extends BaseDialog {
 
 		/* Rohdaten */
 		tabs.addTab(Language.tr("Surface.SourceTable.Dialog.Table.Preview.TabRaw"),tab=new JPanel(new BorderLayout()));
-		buildTableTab(tab,table,false,isInterarrival);
+		buildTableTab(tab,table,setup!=null,isInterarrival);
 
 		/* Aufbereitete Daten */
 		final List<String> typesUsed=new ArrayList<>();

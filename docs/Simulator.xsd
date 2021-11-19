@@ -773,6 +773,7 @@
 <xs:element name="ModellElementTabellenQuelle"><xs:complexType><xs:complexContent><xs:extension base="ModellElementVerbundenBasis">
   <xs:sequence minOccurs="0" maxOccurs="unbounded"><xs:choice>
     <xs:element ref="ModellElementTabellenDatei"/>
+	<xs:element name="ModellElementTabellenImportModus" type="xs:string"/>
     <xs:element name="ModellElementTabellenKundentyp" type="xs:string"/>
   </xs:choice></xs:sequence>
 </xs:extension></xs:complexContent></xs:complexType></xs:element>
@@ -2971,6 +2972,7 @@
 <xs:element name="ModelElementTableSource"><xs:complexType><xs:complexContent><xs:extension base="ModelElementConnectedBase">
   <xs:sequence minOccurs="0" maxOccurs="unbounded"><xs:choice>
     <xs:element ref="ModelElementTableFile"/>
+	<xs:element name="ModelElementTableImportMode" type="xs:string"/>
     <xs:element name="ModelElementTableClientType" type="xs:string"/>
   </xs:choice></xs:sequence>
 </xs:extension></xs:complexContent></xs:complexType></xs:element>

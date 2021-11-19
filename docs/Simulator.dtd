@@ -536,7 +536,7 @@
 <!ELEMENT ModellElementMehrfachQuelleDaten (ModellElementQuelleAktiv | ModellElementName | ModellElementVerteilung | ModellElementAusdruck | ModellElementZeitplan | ModellElementAnkunftsbedingung | ModellElementAnkunftsschwellenwert | ModellElementAnkunftssignal | ModellElementBatch | ModellElementStartZeitpunkt | ModellElementVariablenzuweisung | ModellElementZuweisungTextEintrag)*>
 <!ELEMENT ModellElementQuelleAktiv (#PCDATA)>
 
-<!ELEMENT ModellElementTabellenQuelle (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementBoxSchriftGross | ModellElementBoxSchriftKlein | ModellElementEbene | ModellElementHintergrundfarbe | ModellElementStationsbild | ModellElementVerbindung | ModellElementTabellenDatei | ModellElementTabellenKundentyp)*>
+<!ELEMENT ModellElementTabellenQuelle (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementBoxSchriftGross | ModellElementBoxSchriftKlein | ModellElementEbene | ModellElementHintergrundfarbe | ModellElementStationsbild | ModellElementVerbindung | ModellElementTabellenDatei | ModellElementTabellenImportModus | ModellElementTabellenKundentyp)*>
 <!ATTLIST ModellElementTabellenQuelle
   id			CDATA	#REQUIRED
   geschuetzt	CDATA	#IMPLIED
@@ -547,6 +547,7 @@
 <!ATTLIST ModellElementTabellenDatei
   Zahlenwerte	CDATA	#IMPLIED
 >
+<!ELEMENT ModellElementTabellenImportModus (#PCDATA)>
 <!ELEMENT ModellElementTabellenKundentyp (#PCDATA)>
 
 <!ELEMENT ModellElementDatenbankQuelle (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementBoxSchriftGross | ModellElementBoxSchriftKlein | ModellElementEbene | ModellElementHintergrundfarbe | ModellElementStationsbild | ModellElementVerbindung | DatenbankVerbindung | ModellElementDatenbankTabelle | ModellElementDatenbankKundentyp | ModellElementDatenbankAnkuenfteSpalte | ModellElementDatenbankKundentypSpalte | ModellElementDatenbankInformationenSpalte)*>
@@ -2912,7 +2913,7 @@
 <!ELEMENT ModelElementMultiSourceData (ModelElementSourceActive | ModelElementName | ModelElementDistribution | ModelElementExpression | ModelElementSchedule | ModelElementArrivalCondition | ModelElementArrivalSignal | ModelElementBatchData | ModelElementStartTime | ModelElementAssignmentData | ModelElementAssignmentTextRecord)*>
 <!ELEMENT ModelElementSourceActive (#PCDATA)>
 
-<!ELEMENT ModelElementTableSource (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBoxFontLarge | ModelElementBoxFontSmall | ModelElementLayer | ModelElementBackgroundColor | ModelElementStationimage | ModelElementConnection | ModelElementTableFile | ModelElementTableClientType)*>
+<!ELEMENT ModelElementTableSource (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBoxFontLarge | ModelElementBoxFontSmall | ModelElementLayer | ModelElementBackgroundColor | ModelElementStationimage | ModelElementConnection | ModelElementTableFile | ModelElementTableImportMode | ModelElementTableClientType)*>
 <!ATTLIST ModelElementTableSource
   id		CDATA	#REQUIRED
   protected	CDATA	#IMPLIED
@@ -2923,6 +2924,7 @@
 <!ATTLIST ModelElementTableFile
   NumberValues	CDATA	#IMPLIED
 >
+<!ELEMENT ModelElementTableImportMode (#PCDATA)>
 <!ELEMENT ModelElementTableClientType (#PCDATA)>
 
 <!ELEMENT ModelElementDatabaseSource (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBoxFontLarge | ModelElementBoxFontSmall | ModelElementLayer | ModelElementBackgroundColor | ModelElementStationimage | ModelElementConnection | DatabaseConnection | ModelElementDatabaseTable | ModelElementDatabaseClientType | ModelElementDatabaseArrivalsColumn | ModelElementDatabaseClientTypeColumn | ModelElementDatabaseInfoColumn)*>

@@ -55,7 +55,7 @@ public class ClientInputTableEditDialog extends BaseDialog {
 	/**
 	 * Zu bearbeitende Spaltenkonfiguration
 	 */
-	private final ClientInputTableProcessor.ColumnSetup column;
+	private final ClientInputTableProcessor.ColumnData column;
 
 	/**
 	 * Wie soll die Spalte verwendet werden?
@@ -77,15 +77,16 @@ public class ClientInputTableEditDialog extends BaseDialog {
 	 * Konstruktor der Klasse
 	 * @param owner	‹bergeordnetes Element
 	 * @param column	Zu bearbeitende Spaltenkonfiguration (wird beim Schlieﬂen mit "Ok" direkt ge‰ndert)
+	 * @param processingMode	Wurde der Dialog im Kontext der Tabellenkonvertierung (<code>true</code>) oder beim Direktimport (<code>false</code>) aufgerufen?
 	 */
-	public ClientInputTableEditDialog(final Component owner, final ClientInputTableProcessor.ColumnSetup column) {
+	public ClientInputTableEditDialog(final Component owner, final ClientInputTableProcessor.ColumnData column, final boolean processingMode) {
 		super(owner,Language.tr("BuildClientSourceTable.Edit.Title"));
 		this.column=column;
 
 		JPanel line;
 
 		/* GUI */
-		final JPanel all=createGUI(()->Help.topicModal(this,"ProcessClientTable"));
+		final JPanel all=createGUI(()->Help.topicModal(this,processingMode?"ProcessClientTable":"ModelElementSourceTable"));
 		all.setLayout(new BorderLayout());
 
 		final JPanel content=new JPanel();
@@ -124,13 +125,11 @@ public class ClientInputTableEditDialog extends BaseDialog {
 		} else {
 			modes=new String[] {
 					Language.tr("BuildClientSourceTable.Edit.Mode.Off"),
-					Language.tr("BuildClientSourceTable.Edit.Mode.Arrivals"),
 					Language.tr("BuildClientSourceTable.Edit.Mode.ClientType"),
 					Language.tr("BuildClientSourceTable.Edit.Mode.Text")
 			};
 			modesIcons=new Images[] {
 					Images.GENERAL_OFF,
-					Images.GENERAL_TIME,
 					Images.MODELPROPERTIES_CLIENTS,
 					Images.GENERAL_FONT
 			};
@@ -145,9 +144,9 @@ public class ClientInputTableEditDialog extends BaseDialog {
 		switch (column.mode) {
 		case OFF: mode.setSelectedIndex(0); break;
 		case ARRIVALS: mode.setSelectedIndex(1); break;
-		case CLIENT_TYPES: mode.setSelectedIndex(2); break;
+		case CLIENT_TYPES: mode.setSelectedIndex(column.isNumeric?2:1); break;
 		case NUMBER: mode.setSelectedIndex(3); break;
-		case TEXT: mode.setSelectedIndex(column.isNumeric?2:1); break;
+		case TEXT: mode.setSelectedIndex(column.isNumeric?4:2); break;
 		}
 		mode.addActionListener(e->modeChanged());
 
@@ -206,16 +205,21 @@ public class ClientInputTableEditDialog extends BaseDialog {
 
 	@Override
 	protected void storeData() {
-		switch (mode.getSelectedIndex()) {
-		case 0: column.mode=ClientInputTableProcessor.ColumnMode.OFF; break;
-		case 1: column.mode=ClientInputTableProcessor.ColumnMode.ARRIVALS; break;
-		case 2: column.mode=ClientInputTableProcessor.ColumnMode.CLIENT_TYPES; break;
-		case 3: column.mode=column.isNumeric?ClientInputTableProcessor.ColumnMode.NUMBER:ClientInputTableProcessor.ColumnMode.TEXT; break;
-		case 4: column.mode=ClientInputTableProcessor.ColumnMode.TEXT; break;
-		}
-
-		if (column.isNumeric && mode.getSelectedIndex()==3) {
-			column.index=NumberTools.getNotNegativeLong(index,true).intValue();
+		if (column.isNumeric) {
+			switch (mode.getSelectedIndex()) {
+			case 0: column.mode=ClientInputTableProcessor.ColumnMode.OFF; break;
+			case 1: column.mode=ClientInputTableProcessor.ColumnMode.ARRIVALS; break;
+			case 2: column.mode=ClientInputTableProcessor.ColumnMode.CLIENT_TYPES; break;
+			case 3: column.mode=ClientInputTableProcessor.ColumnMode.NUMBER; break;
+			case 4: column.mode=ClientInputTableProcessor.ColumnMode.TEXT; break;
+			}
+			if (mode.getSelectedIndex()==3) column.index=NumberTools.getNotNegativeLong(index,true).intValue();
+		} else {
+			switch (mode.getSelectedIndex()) {
+			case 0: column.mode=ClientInputTableProcessor.ColumnMode.OFF; break;
+			case 1: column.mode=ClientInputTableProcessor.ColumnMode.CLIENT_TYPES; break;
+			case 2: column.mode=ClientInputTableProcessor.ColumnMode.TEXT; break;
+			}
 		}
 	}
 }
