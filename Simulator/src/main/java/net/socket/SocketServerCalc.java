@@ -136,6 +136,17 @@ public class SocketServerCalc extends SocketServerBase {
 			return output;
 		}
 
+		if (cmd.equalsIgnoreCase("TASK_NOW")) {
+			final byte[] data=readData(input);
+			if (data==null) {
+				write(MSG_TYPE_ERROR,output);
+				write("Invalid task data.",output);
+				return output;
+			}
+			processTaskNow(data,output);
+			return output;
+		}
+
 		if (cmd.equalsIgnoreCase("STATUS")) {
 			write(MSG_TYPE_MESSAGE,output);
 			write(processInfo(),output);
@@ -165,20 +176,33 @@ public class SocketServerCalc extends SocketServerBase {
 	}
 
 	/**
-	 * Verarbeitet einen neue neue Aufgabe.
+	 * Erstellt ein Aufgaben-Objekt
 	 * @param data	Daten zu der neuen Aufgabe
 	 * @param output	Ausgabe-Stream für Rückmeldungen
-	 * @see #process(InputStream)
+	 * @return	Liefert im Erfolgsfall das neue Aufgaben-Objekt, sonst <code>null</code>
+	 * @see #processTask(byte[], ByteArrayOutputStream)
+	 * @see #processTaskNow(byte[], ByteArrayOutputStream)
 	 */
-	private void processTask(final byte[] data, final ByteArrayOutputStream output) {
+	private SocketServerTask buildTask(final byte[] data, final ByteArrayOutputStream output) {
 		runnerCounter++;
 		final SocketServerTask task=SocketServerTask.loadData(runnerCounter,data);
 		if (task==null) {
 			runnerCounter--;
 			write(MSG_TYPE_ERROR,output);
 			write("Unknown file format.",output);
-			return;
 		}
+		return task;
+	}
+
+	/**
+	 * Fügt eine neue Aufgabe an die Liste der zu verarbeitenden Aufgaben an.
+	 * @param data	Daten zu der neuen Aufgabe
+	 * @param output	Ausgabe-Stream für Rückmeldungen
+	 * @see #process(InputStream)
+	 */
+	private void processTask(final byte[] data, final ByteArrayOutputStream output) {
+		final SocketServerTask task=buildTask(data,output);
+		if (task==null) return;
 
 		synchronized(this) {
 			queue.add(task);
@@ -191,6 +215,25 @@ public class SocketServerCalc extends SocketServerBase {
 
 		write(MSG_TYPE_ID,output);
 		write(""+task.id,output);
+	}
+
+	/**
+	 * Verarbeitet eine neue Aufgabe sofort.
+	 * @param data	Daten zu der neuen Aufgabe
+	 * @param output	Ausgabe-Stream für Rückmeldungen
+	 * @see #process(InputStream)
+	 */
+	private void processTaskNow(final byte[] data, final ByteArrayOutputStream output) {
+		final SocketServerTask task=buildTask(data,output);
+		if (task==null) return;
+
+		final Thread thread=task.start();
+		try {
+			thread.join();
+		} catch (InterruptedException e) {}
+
+		write(MSG_TYPE_RESULT,output);
+		write(task.getResult(),output);
 	}
 
 	/**

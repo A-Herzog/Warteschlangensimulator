@@ -11,6 +11,12 @@ class QS_socket_connect:
     """Allows to communicate with Warteschlangensimulator via a socket connection"""
 
     def __init__(self, host: str, port: int) -> None:
+        """Allows to communicate with Warteschlangensimulator via a socket connection
+
+        Args:
+            host (str): Host address to connect to
+            port (int): Port to use
+        """
         self.__host: str = host
         self.__port: int = port
 
@@ -46,6 +52,37 @@ class QS_socket_connect:
 
                 if status == "ERROR": raise RuntimeError(info)
                 if status == "TASKID": return info
+                raise RuntimeError("Unknown response format")
+            finally:
+                connection.close()
+
+    def __direct_process_task(self, task_data: Union[str, bytes, bytearray]):
+        with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as connection:
+            try:
+                connection.connect((self.__host, self.__port))
+
+                self.__send_string(connection, "Task_Now")
+
+                format_ok: bool = False
+
+                if (isinstance(task_data, (bytes, bytearray))):
+                    self.__send_bytes(connection, task_data)
+                    format_ok = True
+
+                if (isinstance(task_data, (str))):
+                    self.__send_string(connection, task_data)
+                    format_ok = True
+
+                if not format_ok:
+                    raise RuntimeError("Invalid task format")
+
+                status: str = self.__receive_string(connection)
+
+                if status == "ERROR":
+                    info: str = self.__receive_string(connection)
+                    raise RuntimeError(info)
+                if status == "RESULT":
+                    return self.__receive_bytes(connection)
                 raise RuntimeError("Unknown response format")
             finally:
                 connection.close()
@@ -104,11 +141,12 @@ class QS_socket_connect:
             finally:
                 connection.close()
 
-    def run_task(self, task_data: Union[str, bytes, bytearray]) -> bytes:
+    def run_task(self, task_data: Union[str, bytes, bytearray], direct_process: bool = True) -> bytes:
         """Submits a simulation task to Warteschlangensimulator, runs the simulation and returns the results
 
         Args:
-            task_data (Union[str, bytes, bytearray]): Simulation model or parameter series
+            task_data (Union[str, bytes, bytearray]): Simulation model or parameter series.
+            direct_process (bool, optional): Force task to be executed now. Defaults to True.
 
         Raises:
             RuntimeError: Returns an error if Warteschlangensimulator cannot be started or no connection can be established
@@ -116,14 +154,24 @@ class QS_socket_connect:
         Returns:
             bytes: Simulation results (xml statistics or zip statistics etc.)
         """
-        task_id: str = self.__send_task(task_data)
-        return self.__receive_task_results(task_id)
+        if direct_process:
+            return self.__direct_process_task(task_data)
+        else:
+            task_id: str = self.__send_task(task_data)
+            return self.__receive_task_results(task_id)
 
 
 class QS_full_connect:
     """Runs a Warteschlangensimulator instance in background"""
 
     def __init__(self, java_path: str, simulator_path: str, port: int = 1000):
+        """Runs a Warteschlangensimulator instance in background
+
+        Args:
+            java_path (str): Path to Java environment (not "bin" folder, just Java main folder)
+            simulator_path (str): Path to Simulator.jar (only path without file name)
+            port (int, optional): Port to use. Defaults to 1000.
+        """
         if not java_path.endswith(os.path.sep): java_path += os.path.sep
         self.__java: str = java_path + "bin" + os.path.sep + "java"
 

@@ -192,15 +192,17 @@ public class SocketServerTask {
 	 * Startet die Simulation der aktuellen Aufgabe.<br>
 	 * (Die eigentliche Simulation findet in einem eigenständigen Thread statt.
 	 * Diese Methode kehrt sofort wieder zurück.)
+	 * @return	Liefert den Thread, in dem die eigentliche Simulation stattfinden soll, zurück.
 	 * @see #cancel()
 	 * @see #isDone()
 	 */
-	public void start() {
+	public Thread start() {
 		final Thread thread=new Thread(()->{
 			if (model!=null) startModel();
 			if (series!=null) startSeries();
 		},"SocketSimulation");
 		thread.start();
+		return thread;
 	}
 
 	/**
