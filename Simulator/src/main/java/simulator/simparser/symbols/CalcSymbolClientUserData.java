@@ -87,6 +87,7 @@ public class CalcSymbolClientUserData extends CalcSymbolSimData  {
 		int startPos=-1;
 		for (String name: CLIENT_DATA_COMMANDS) if (startsWithIgnoreCase(test,name)) {
 			startPos=name.length();
+			if (startPos>=test.length()) return null;
 			while (test.charAt(startPos)==' ' && startPos<len) startPos++;
 			break;
 		}
