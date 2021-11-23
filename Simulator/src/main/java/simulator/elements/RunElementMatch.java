@@ -209,8 +209,7 @@ public class RunElementMatch extends RunElementPassThrough {
 			/* Wartezeit in Statistik */
 			final long waitingTime=simData.currentTime-waitingClient.lastWaitingStart;
 			simData.runData.logStationProcess(simData,this,waitingClient,waitingTime,0,0,waitingTime);
-			waitingClient.waitingTime+=waitingTime;
-			waitingClient.residenceTime+=waitingTime;
+			waitingClient.addStationTime(id,waitingTime,0,0,waitingTime);
 
 			/* Kunden an Station in Statistik */
 			simData.runData.logClientLeavesStationQueue(simData,this,data,waitingClient);
@@ -280,8 +279,7 @@ public class RunElementMatch extends RunElementPassThrough {
 				/* Wartezeit in Statistik */
 				final long waitingTime=simData.currentTime-waitingClient.lastWaitingStart;
 				simData.runData.logStationProcess(simData,this,waitingClient,waitingTime,0,0,waitingTime);
-				waitingClient.waitingTime+=waitingTime;
-				waitingClient.residenceTime+=waitingTime;
+				waitingClient.addStationTime(id,waitingTime,0,0,waitingTime);
 
 				/* Kunden an Station in Statistik */
 				simData.runData.logClientLeavesStationQueue(simData,this,data,waitingClient);
@@ -361,8 +359,7 @@ public class RunElementMatch extends RunElementPassThrough {
 				/* Wartezeit in Statistik */
 				final long waitingTime=simData.currentTime-waitingClient.lastWaitingStart;
 				simData.runData.logStationProcess(simData,this,waitingClient,waitingTime,0,0,waitingTime);
-				waitingClient.waitingTime+=waitingTime;
-				waitingClient.residenceTime+=waitingTime;
+				waitingClient.addStationTime(id,waitingTime,0,0,waitingTime);
 
 				/* Kunden an Station in Statistik */
 				simData.runData.logClientLeavesStationQueue(simData,this,data,waitingClient);

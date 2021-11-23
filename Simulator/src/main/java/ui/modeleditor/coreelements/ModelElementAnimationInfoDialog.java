@@ -277,7 +277,7 @@ public class ModelElementAnimationInfoDialog extends BaseDialog {
 				}
 			}
 		});
-		list.setPrototypeCellValue(new ClientInfo(null,null,new RunDataClient(0,false,0)));
+		list.setPrototypeCellValue(new ClientInfo(null,null,new RunDataClient(0,false,false,0)));
 		final JPanel line;
 		parent.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)),BorderLayout.SOUTH);
 		line.add(info=new JLabel());

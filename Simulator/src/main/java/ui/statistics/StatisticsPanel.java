@@ -562,6 +562,21 @@ public class StatisticsPanel extends StatisticsBasePanel {
 	}
 
 	/**
+	 * Sind Daten zu summierten Zeiten der Kunden an den Stationen in den Statistiken enthalten?
+	 * @param statistics	Zu prüfende Statistikdaten
+	 * @return	Liefert <code>true</code>, wenn in mindestens einem Statistikobjekt summierte Zeiten der Kunden an den Stationen enthalten sind
+	 */
+	private boolean testStationTotalTimes(final Statistics[] statistics) {
+		for (Statistics statistic: statistics) {
+			if (statistic.stationsTotalWaitingTimes.size()>0) return true;
+			if (statistic.stationsTotalTransferTimes.size()>0) return true;
+			if (statistic.stationsTotalProcessingTimes.size()>0) return true;
+			if (statistic.stationsTotalResidenceTimes.size()>0) return true;
+		}
+		return false;
+	}
+
+	/**
 	 * Sind Daten zu mehreren Kundentypen innerhalb der Stationsdaten in den Statistiken enthalten?
 	 * @param statistics	Zu prüfende Statistikdaten
 	 * @return	Liefert <code>true</code>, wenn in mindestens einem Statistikobjekt Daten zu mehreren Kundentypen innerhalb der Stationsdaten enthalten sind
@@ -1357,6 +1372,45 @@ public class StatisticsPanel extends StatisticsBasePanel {
 
 		}
 
+		if (testStationTotalTimes(statistics)) {
+
+			viewer=new ArrayList<>();
+			for(Statistics statistic : statistics) viewer.add(new StatisticViewerOverviewText(statistic,StatisticViewerOverviewText.Mode.MODE_WAITINGPROCESSING_STATIONS_TOTAL,(m,s)->fastAccess.addXML(m,s)));
+			group.addChild(new StatisticNode(Language.tr("Statistics.WaitingTransferProcessTimesAtStationsTotal"),viewer));
+
+			viewer=new ArrayList<>();
+			for(Statistics statistic : statistics) viewer.add(new StatisticViewerTimeTable(statistic,StatisticViewerTimeTable.Mode.MODE_OVERVIEW_STATIONSMODE_TOTAL_OVERVIEW_CLIENTS));
+			group.addChild(new StatisticNode(Language.tr("Statistics.WaitingTransferProcessTimesAtStationsTotal"),viewer));
+
+			if (testMultiStations(statistics)) {
+
+				if (testMultiTypesPositive(statistics,statistic->statistic.stationsWaitingTimes)) {
+					viewer=new ArrayList<>();
+					for(Statistics statistic : statistics) viewer.add(new StatisticViewerTimeBarChart(statistic,StatisticViewerTimeBarChart.Mode.MODE_WAITING_STATION_TOTAL));
+					group.addChild(new StatisticNode(Language.tr("Statistics.StationsWaitingTimesTotal"),viewer));
+				}
+
+				if (testMultiTypesPositive(statistics,statistic->statistic.stationsTransferTimes)) {
+					viewer=new ArrayList<>();
+					for(Statistics statistic : statistics) viewer.add(new StatisticViewerTimeBarChart(statistic,StatisticViewerTimeBarChart.Mode.MODE_TRANSFER_STATION_TOTAL));
+					group.addChild(new StatisticNode(Language.tr("Statistics.StationsTransferTimesTotal"),viewer));
+				}
+
+				if (testMultiTypesPositive(statistics,statistic->statistic.stationsProcessingTimes)) {
+					viewer=new ArrayList<>();
+					for(Statistics statistic : statistics) viewer.add(new StatisticViewerTimeBarChart(statistic,StatisticViewerTimeBarChart.Mode.MODE_PROCESSING_STATION_TOTAL));
+					group.addChild(new StatisticNode(Language.tr("Statistics.StationsProcessTimesTotal"),viewer));
+				}
+
+				if (testMultiTypesPositive(statistics,statistic->statistic.stationsResidenceTimes)) {
+					viewer=new ArrayList<>();
+					for(Statistics statistic : statistics) viewer.add(new StatisticViewerTimeBarChart(statistic,StatisticViewerTimeBarChart.Mode.MODE_RESIDENCE_STATION_TOTAL));
+					group.addChild(new StatisticNode(Language.tr("Statistics.StationsResidenceTimesTotal"),viewer));
+				}
+			}
+
+		}
+
 		if (testMultiStationsClientTypes(statistics)) {
 
 			viewer=new ArrayList<>();
@@ -1454,6 +1508,50 @@ public class StatisticsPanel extends StatisticsBasePanel {
 			viewer=new ArrayList<>();
 			for(Statistics statistic : statistics) viewer.add(new StatisticViewerDistributionTimeLineChart(statistic,StatisticViewerDistributionTimeLineChart.Mode.MODE_RESIDENCE_STATION));
 			sub.addChild(new StatisticNode(Language.tr("Statistics.DistributionOfStationsResidenceTimes"),viewer));
+
+			if (testWaitingTimes(statistics)) {
+				viewer=new ArrayList<>();
+				for(Statistics statistic : statistics) viewer.add(new StatisticViewerTimeTable(statistic,StatisticViewerTimeTable.Mode.MODE_DISTRIBUTION_STATIONS_WAITING_TOTAL));
+				sub.addChild(new StatisticNode(Language.tr("Statistics.DistributionOfStationsWaitingTimesTotal"),viewer));
+			}
+
+			if (testTransferTimes(statistics)) {
+				viewer=new ArrayList<>();
+				for(Statistics statistic : statistics) viewer.add(new StatisticViewerTimeTable(statistic,StatisticViewerTimeTable.Mode.MODE_DISTRIBUTION_STATIONS_TRANSFER_TOTAL));
+				sub.addChild(new StatisticNode(Language.tr("Statistics.DistributionOfStationsTransferTimesTotal"),viewer));
+			}
+
+			if (testProcessTimes(statistics)) {
+				viewer=new ArrayList<>();
+				for(Statistics statistic : statistics) viewer.add(new StatisticViewerTimeTable(statistic,StatisticViewerTimeTable.Mode.MODE_DISTRIBUTION_STATIONS_PROCESSING_TOTAL));
+				sub.addChild(new StatisticNode(Language.tr("Statistics.DistributionOfStationsProcessTimesTotal"),viewer));
+			}
+
+			viewer=new ArrayList<>();
+			for(Statistics statistic : statistics) viewer.add(new StatisticViewerTimeTable(statistic,StatisticViewerTimeTable.Mode.MODE_DISTRIBUTION_STATIONS_RESIDENCE_TOTAL));
+			sub.addChild(new StatisticNode(Language.tr("Statistics.DistributionOfStationsResidenceTimesTotal"),viewer));
+
+			if (testWaitingTimes(statistics)) {
+				viewer=new ArrayList<>();
+				for(Statistics statistic : statistics) viewer.add(new StatisticViewerDistributionTimeLineChart(statistic,StatisticViewerDistributionTimeLineChart.Mode.MODE_WAITING_STATION_TOTAL));
+				sub.addChild(new StatisticNode(Language.tr("Statistics.DistributionOfStationsWaitingTimesTotal"),viewer));
+			}
+
+			if (testTransferTimes(statistics)) {
+				viewer=new ArrayList<>();
+				for(Statistics statistic : statistics) viewer.add(new StatisticViewerDistributionTimeLineChart(statistic,StatisticViewerDistributionTimeLineChart.Mode.MODE_TRANSFER_STATION_TOTAL));
+				sub.addChild(new StatisticNode(Language.tr("Statistics.DistributionOfStationsTransferTimesTotal"),viewer));
+			}
+
+			if (testProcessTimes(statistics)) {
+				viewer=new ArrayList<>();
+				for(Statistics statistic : statistics) viewer.add(new StatisticViewerDistributionTimeLineChart(statistic,StatisticViewerDistributionTimeLineChart.Mode.MODE_PROCESSING_STATION_TOTAL));
+				sub.addChild(new StatisticNode(Language.tr("Statistics.DistributionOfStationsProcessTimesTotal"),viewer));
+			}
+
+			viewer=new ArrayList<>();
+			for(Statistics statistic : statistics) viewer.add(new StatisticViewerDistributionTimeLineChart(statistic,StatisticViewerDistributionTimeLineChart.Mode.MODE_RESIDENCE_STATION_TOTAL));
+			sub.addChild(new StatisticNode(Language.tr("Statistics.DistributionOfStationsResidenceTimesTotal"),viewer));
 
 			if (testWaitingTimes(statistics)) {
 				viewer=new ArrayList<>();

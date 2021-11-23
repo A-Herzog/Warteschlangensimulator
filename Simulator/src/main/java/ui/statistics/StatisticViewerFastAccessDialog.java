@@ -458,6 +458,10 @@ public class StatisticViewerFastAccessDialog extends BaseDialog {
 				Language.trPrimary("XML.Statistic.BaseElement")+","+Language.trPrimary("Statistics.XML.Element.TransferStationsByClientType")+","+Language.trPrimary("Statistics.XML.Station"),
 				Language.trPrimary("XML.Statistic.BaseElement")+","+Language.trPrimary("Statistics.XML.Element.ProcessStationsByClientType")+","+Language.trPrimary("Statistics.XML.Station"),
 				Language.trPrimary("XML.Statistic.BaseElement")+","+Language.trPrimary("Statistics.XML.Element.ResidenceStationsByClientType")+","+Language.trPrimary("Statistics.XML.Station"),
+				Language.trPrimary("XML.Statistic.BaseElement")+","+Language.trPrimary("Statistics.XML.Element.WaitingStationsTotal")+","+Language.trPrimary("Statistics.XML.Station"),
+				Language.trPrimary("XML.Statistic.BaseElement")+","+Language.trPrimary("Statistics.XML.Element.TransferStationsTotal")+","+Language.trPrimary("Statistics.XML.Station"),
+				Language.trPrimary("XML.Statistic.BaseElement")+","+Language.trPrimary("Statistics.XML.Element.ProcessStationsTotal")+","+Language.trPrimary("Statistics.XML.Station"),
+				Language.trPrimary("XML.Statistic.BaseElement")+","+Language.trPrimary("Statistics.XML.Element.ResidenceStationsTotal")+","+Language.trPrimary("Statistics.XML.Station"),
 
 				/* Anzahlen an Kunden */
 				/* + Datenfelder für alle Kunden -> Keine Untergliederung nach Typ-Attribut */

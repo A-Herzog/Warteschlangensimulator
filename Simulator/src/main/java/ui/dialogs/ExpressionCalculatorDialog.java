@@ -458,7 +458,7 @@ public final class ExpressionCalculatorDialog extends BaseDialog {
 				}
 			}
 		});
-		clientsList.setPrototypeCellValue(new ClientInfo(null,null,new RunDataClient(0,false,0)));
+		clientsList.setPrototypeCellValue(new ClientInfo(null,null,new RunDataClient(0,false,false,0)));
 		final JPanel line;
 		tab.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)),BorderLayout.SOUTH);
 		line.add(clientsListInfo=new JLabel());

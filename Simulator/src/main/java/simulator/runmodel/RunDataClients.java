@@ -17,6 +17,7 @@ package simulator.runmodel;
 
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.Vector;
 
@@ -107,6 +108,30 @@ public final class RunDataClients {
 	private RunData.IndicatorAccessCacheClientTypes cacheClientsResidenceTimes;
 
 	/**
+	 * Cache für die "Wartezeiten an den Stationen (passiert ein Kunde die Station mehrfach, so wird hier die Summe erfasst; Erfassung kann deaktiviert sein)"-Statistikobjekte
+	 * @see Statistics#stationsTotalWaitingTimes
+	 */
+	private RunData.IndicatorAccessCacheStations cacheStationsTotalWaitingTimes;
+
+	/**
+	 * Cache für die "Transferzeiten an den Stationen (passiert ein Kunde die Station mehrfach, so wird hier die Summe erfasst; Erfassung kann deaktiviert sein)"-Statistikobjekte
+	 * @see Statistics#stationsTotalTransferTimes
+	 */
+	private RunData.IndicatorAccessCacheStations cacheStationsTotalTransferTimes;
+
+	/**
+	 * Cache für die "Bedienzeiten an den Stationen (passiert ein Kunde die Station mehrfach, so wird hier die Summe erfasst; Erfassung kann deaktiviert sein)"-Statistikobjekte
+	 * @see Statistics#stationsTotalProcessingTimes
+	 */
+	private RunData.IndicatorAccessCacheStations cacheStationsTotalProcessingTimes;
+
+	/**
+	 * Cache für die "Verweilzeiten an den Stationen (passiert ein Kunde die Station mehrfach, so wird hier die Summe erfasst; Erfassung kann deaktiviert sein)"-Statistikobjekte
+	 * @see Statistics#stationsTotalResidenceTimes
+	 */
+	private RunData.IndicatorAccessCacheStations cacheStationsTotalResidenceTimes;
+
+	/**
 	 * Cache für die "Zwischenabgangszeiten der Kunden aus dem System"-Statistikobjekte
 	 * @see Statistics#clientsInterleavingTime
 	 */
@@ -137,7 +162,7 @@ public final class RunDataClients {
 			clientCacheUsed--;
 			client.init(type,simData.runData.isWarmUp,clientNumber);
 		} else {
-			client=new RunDataClient(type,simData.runData.isWarmUp,clientNumber);
+			client=new RunDataClient(type,simData.runData.isWarmUp,simData.runModel.recordStationTotalClientTimes,clientNumber);
 		}
 
 		/* Icon festlegen */
@@ -205,10 +230,10 @@ public final class RunDataClients {
 
 		/* Cache für kundentyp-abhängige Statistikobjekte erstellen */
 		if (cacheClientsWaitingTimes==null) {
-			cacheClientsWaitingTimes=new RunData.IndicatorAccessCacheClientTypes(simData.statistics.clientsWaitingTimes,simData.runModel.clientTypes);
-			cacheClientsTransferTimes=new RunData.IndicatorAccessCacheClientTypes(simData.statistics.clientsTransferTimes,simData.runModel.clientTypes);
-			cacheClientsProcessingTimes=new RunData.IndicatorAccessCacheClientTypes(simData.statistics.clientsProcessingTimes,simData.runModel.clientTypes);
-			cacheClientsResidenceTimes=new RunData.IndicatorAccessCacheClientTypes(simData.statistics.clientsResidenceTimes,simData.runModel.clientTypes);
+			cacheClientsWaitingTimes=new RunData.IndicatorAccessCacheClientTypes(statistics.clientsWaitingTimes,simData.runModel.clientTypes);
+			cacheClientsTransferTimes=new RunData.IndicatorAccessCacheClientTypes(statistics.clientsTransferTimes,simData.runModel.clientTypes);
+			cacheClientsProcessingTimes=new RunData.IndicatorAccessCacheClientTypes(statistics.clientsProcessingTimes,simData.runModel.clientTypes);
+			cacheClientsResidenceTimes=new RunData.IndicatorAccessCacheClientTypes(statistics.clientsResidenceTimes,simData.runModel.clientTypes);
 		}
 
 		/* Kundentyp-abhängige Werte erfassen */
@@ -216,6 +241,30 @@ public final class RunDataClients {
 		((StatisticsDataPerformanceIndicator)cacheClientsTransferTimes.get(clientType)).add(transfer);
 		((StatisticsDataPerformanceIndicator)cacheClientsProcessingTimes.get(clientType)).add(process);
 		((StatisticsDataPerformanceIndicator)cacheClientsResidenceTimes.get(clientType)).add(residence);
+
+		/* Gesamte Zeit eines Kunden an einer Station speichern */
+		if (simData.runModel.recordStationTotalClientTimes) {
+			/* Cache für stations-abhängige Gesamt-Zeiten erstellen */
+			if (cacheStationsTotalWaitingTimes==null) {
+				cacheStationsTotalWaitingTimes=simData.runData.new IndicatorAccessCacheStations(statistics.stationsTotalWaitingTimes);
+				cacheStationsTotalTransferTimes=simData.runData.new IndicatorAccessCacheStations(statistics.stationsTotalTransferTimes);
+				cacheStationsTotalProcessingTimes=simData.runData.new IndicatorAccessCacheStations(statistics.stationsTotalProcessingTimes);
+				cacheStationsTotalResidenceTimes=simData.runData.new IndicatorAccessCacheStations(statistics.stationsTotalResidenceTimes);
+			}
+			/* Speichern der Gesamt-Zeiten der Kunden an den Stationen */
+			for (Map.Entry<Integer,Long> entry: client.stationTotalWaitingTime.entrySet()) {
+				((StatisticsDataPerformanceIndicator)cacheStationsTotalWaitingTimes.get(simData.runModel.elementsFast[entry.getKey()])).add(scale*entry.getValue());
+			}
+			for (Map.Entry<Integer,Long> entry: client.stationTotalTransferTime.entrySet()) {
+				((StatisticsDataPerformanceIndicator)cacheStationsTotalTransferTimes.get(simData.runModel.elementsFast[entry.getKey()])).add(scale*entry.getValue());
+			}
+			for (Map.Entry<Integer,Long> entry: client.stationTotalProcessTime.entrySet()) {
+				((StatisticsDataPerformanceIndicator)cacheStationsTotalProcessingTimes.get(simData.runModel.elementsFast[entry.getKey()])).add(scale*entry.getValue());
+			}
+			for (Map.Entry<Integer,Long> entry: client.stationTotalResidenceTime.entrySet()) {
+				((StatisticsDataPerformanceIndicator)cacheStationsTotalResidenceTimes.get(simData.runModel.elementsFast[entry.getKey()])).add(scale*entry.getValue());
+			}
+		}
 
 		/* Globale Werte erfassen */
 		statistics.clientsAllWaitingTimes.add(waiting);

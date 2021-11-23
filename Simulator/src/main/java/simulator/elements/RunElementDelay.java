@@ -229,19 +229,18 @@ public class RunElementDelay extends RunElementPassThrough {
 		/* Bedienzeit in Statistik */
 		switch (delayType) {
 		case DELAY_TYPE_WAITING:
-			client.waitingTime+=delayTimeMS;
+			client.addStationTime(id,delayTimeMS,0,0,delayTimeMS);
 			break;
 		case DELAY_TYPE_TRANSFER:
-			client.transferTime+=delayTimeMS;
+			client.addStationTime(id,0,delayTimeMS,0,delayTimeMS);
 			break;
 		case DELAY_TYPE_PROCESS:
-			client.processTime+=delayTimeMS;
+			client.addStationTime(id,0,0,delayTimeMS,delayTimeMS);
 			break;
 		case DELAY_TYPE_NOTHING:
 			/* nicht erfassen */
 			break;
 		}
-		client.residenceTime+=delayTimeMS;
 
 		/* Verarbeitungszeit in der Statistik für die Station erfassen */
 		switch (delayType) {

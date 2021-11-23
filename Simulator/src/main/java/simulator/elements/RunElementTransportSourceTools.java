@@ -69,25 +69,21 @@ public class RunElementTransportSourceTools {
 	 * @param delayTimeMS	Transportzeitdauer in MS
 	 */
 	public static void logTransportTime(final SimulationData simData, final RunElement element, final RunElementTransportSourceTime transportTime, final RunDataClient client, final long waitingTimeMS, final long delayTimeMS) {
-		/* Wartezeit in Kunden-Statistik */
-		client.waitingTime+=waitingTimeMS;
-
-		/* Bedienzeit in Kunden-Statistik */
+		/* Wartezeit und Bedienzeit in Kunden-Statistik */
 		switch (transportTime.delayType) {
 		case DELAY_TYPE_WAITING:
-			client.waitingTime+=delayTimeMS;
+			client.addStationTime(element.id,waitingTimeMS+delayTimeMS,0,0,waitingTimeMS+delayTimeMS);
 			break;
 		case DELAY_TYPE_TRANSFER:
-			client.transferTime+=delayTimeMS;
+			client.addStationTime(element.id,waitingTimeMS,delayTimeMS,0,waitingTimeMS+delayTimeMS);
 			break;
 		case DELAY_TYPE_PROCESS:
-			client.processTime+=delayTimeMS;
+			client.addStationTime(element.id,waitingTimeMS,0,delayTimeMS,waitingTimeMS+delayTimeMS);
 			break;
 		case DELAY_TYPE_NOTHING:
 			/* nicht erfassen */
 			break;
 		}
-		client.residenceTime+=delayTimeMS;
 
 		/* Wartezeit + Verarbeitungszeit in der Statistik für die Station erfassen */
 		final long residenceTimeMS=waitingTimeMS+delayTimeMS;

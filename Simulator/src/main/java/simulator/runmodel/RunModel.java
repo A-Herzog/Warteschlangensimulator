@@ -323,6 +323,11 @@ public class RunModel {
 	public boolean recordClientPaths;
 
 	/**
+	 * Erfassung der jeweils gesamten Zeiten eines Kunden an einer Station (d.h. mehrere Bedienungen desselben Kunden an einer Station als Summe)?
+	 */
+	public boolean recordStationTotalClientTimes;
+
+	/**
 	 * Simulation bei einem Scripting-Fehler abbrechen
 	 */
 	public boolean cancelSimulationOnScriptError;
@@ -532,6 +537,7 @@ public class RunModel {
 		/* Aufzeichnung der Kundenbewegungen */
 		runModel.recordStationTransitions=editModel.recordStationTransitions;
 		runModel.recordClientPaths=editModel.recordClientPaths;
+		runModel.recordStationTotalClientTimes=editModel.recordStationTotalClientTimes;
 
 		/* Scripting */
 		runModel.cancelSimulationOnScriptError=SetupData.getSetup().cancelSimulationOnScriptError;

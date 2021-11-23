@@ -115,6 +115,8 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 		MODE_WAITINGPROCESSING_CLIENTS,
 		/** Wartezeiten an den Stationen */
 		MODE_WAITINGPROCESSING_STATIONS,
+		/** Wartezeiten an den Stationen (Einzelzeiten der Kunden summiert) */
+		MODE_WAITINGPROCESSING_STATIONS_TOTAL,
 		/** Wartezeiten an den Stationen (zusätzlich nach Kundentypen ausdifferenziert)  */
 		MODE_WAITINGPROCESSING_STATIONS_CLIENTS,
 		/** Anzahl an Kunden im System und an den Stationen */
@@ -2382,6 +2384,115 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 
 	/**
 	 * Ausgabe von
+	 * Wartezeiten an den Stationen
+	 * @see Mode#MODE_WAITINGPROCESSING_STATIONS_TOTAL
+	 */
+	private void buildStationsTotal() {
+		addHeading(1,Language.tr("Statistics.WaitingAndProcessTimesByStationsTotal"));
+
+		String repeatInfo="";
+		if (statistics.simulationData.runRepeatCount>1) repeatInfo=" ("+Language.tr("Statistics.SimulatedClients.RepeatInfo")+")";
+
+		final String[] stations=statistics.stationsTotalWaitingTimes.getNames();
+
+		for (String station : stations) {
+			final StatisticsDataPerformanceIndicator waitingTime=(StatisticsDataPerformanceIndicator)(statistics.stationsTotalWaitingTimes.get(station));
+			final StatisticsDataPerformanceIndicator transferTime=(StatisticsDataPerformanceIndicator)(statistics.stationsTotalTransferTimes.get(station));
+			final StatisticsDataPerformanceIndicator processingTime=(StatisticsDataPerformanceIndicator)(statistics.stationsTotalProcessingTimes.get(station));
+			final StatisticsDataPerformanceIndicator residenceTime=(StatisticsDataPerformanceIndicator)(statistics.stationsTotalResidenceTimes.get(station));
+			if (waitingTime.getMean()>0 || transferTime.getMean()>0 || processingTime.getMean()>0 || residenceTime.getMean()>0) {
+				addHeading(2,fullStationName(station));
+				if (waitingTime.getMean()>0) {
+					addHeading(3,Language.tr("Statistics.WaitingTimes"));
+					beginParagraph();
+					addLine(Language.tr("Statistics.Number")+": "+NumberTools.formatLong(waitingTime.getCount())+repeatInfo,xmlCount(waitingTime));
+					addLine(Language.tr("Statistics.AverageWaitingTime")+": E[W]="+timeAndNumber(waitingTime.getMean()),xmlMean(waitingTime));
+					addLine(Language.tr("Statistics.StdDevWaitingTime")+": Std[W]="+timeAndNumber(waitingTime.getSD()),fastAccessBuilder.getXMLSelector(waitingTime,IndicatorMode.SD));
+					addLine(Language.tr("Statistics.VarianceWaitingTime")+": Var[W]="+timeAndNumber(waitingTime.getVar()));
+					addLine(Language.tr("Statistics.CVWaitingTime")+": CV[W]="+StatisticTools.formatNumber(waitingTime.getCV()),fastAccessBuilder.getXMLSelector(waitingTime,IndicatorMode.CV));
+					addLine(Language.tr("Statistics.Skewness")+": Sk[W]="+StatisticTools.formatNumber(waitingTime.getSk()),fastAccessBuilder.getXMLSelector(waitingTime,IndicatorMode.Sk));
+					addLine(Language.tr("Statistics.Kurt")+": Kurt[W]="+StatisticTools.formatNumber(waitingTime.getKurt()),fastAccessBuilder.getXMLSelector(waitingTime,IndicatorMode.Kurt));
+					addLine(Language.tr("Statistics.MinimumWaitingTime")+": Min[W]="+timeAndNumber(waitingTime.getMin()),fastAccessBuilder.getXMLSelector(waitingTime,IndicatorMode.MINIMUM));
+					addLine(Language.tr("Statistics.MaximumWaitingTime")+": Max[W]="+timeAndNumber(waitingTime.getMax()),fastAccessBuilder.getXMLSelector(waitingTime,IndicatorMode.MAXIMUM));
+					endParagraph();
+
+					outputQuantilInfoTime("W",waitingTime);
+
+					outputConfidenceData(waitingTime);
+				}
+
+				if (transferTime.getMean()>0) {
+					addHeading(3,Language.tr("Statistics.TransferTimes"));
+					beginParagraph();
+					addLine(Language.tr("Statistics.Number")+": "+NumberTools.formatLong(transferTime.getCount())+repeatInfo,xmlCount(transferTime));
+					addLine(Language.tr("Statistics.AverageTransferTime")+": E[T]="+timeAndNumber(transferTime.getMean()),xmlMean(transferTime));
+					addLine(Language.tr("Statistics.StdDevTransferTime")+": Std[T]="+timeAndNumber(transferTime.getSD()),fastAccessBuilder.getXMLSelector(transferTime,IndicatorMode.SD));
+					addLine(Language.tr("Statistics.VarianceTransferTime")+": Var[T]="+timeAndNumber(transferTime.getVar()));
+					addLine(Language.tr("Statistics.CVTransferTime")+": CV[T]="+StatisticTools.formatNumber(transferTime.getCV()),fastAccessBuilder.getXMLSelector(transferTime,IndicatorMode.CV));
+					addLine(Language.tr("Statistics.Skewness")+": Sk[T]="+StatisticTools.formatNumber(transferTime.getSk()),fastAccessBuilder.getXMLSelector(transferTime,IndicatorMode.Sk));
+					addLine(Language.tr("Statistics.Kurt")+": Kurt[T]="+StatisticTools.formatNumber(transferTime.getKurt()),fastAccessBuilder.getXMLSelector(transferTime,IndicatorMode.Kurt));
+					addLine(Language.tr("Statistics.MinimumTransferTime")+": Min[T]="+timeAndNumber(transferTime.getMin()),fastAccessBuilder.getXMLSelector(transferTime,IndicatorMode.MINIMUM));
+					addLine(Language.tr("Statistics.MaximumTransferTime")+": Max[T]="+timeAndNumber(transferTime.getMax()),fastAccessBuilder.getXMLSelector(transferTime,IndicatorMode.MAXIMUM));
+					endParagraph();
+
+					outputQuantilInfoTime("T",transferTime);
+
+					outputConfidenceData(transferTime);
+				}
+
+				if (processingTime.getMean()>0) {
+					addHeading(3,Language.tr("Statistics.ProcessTimes"));
+					beginParagraph();
+					addLine(Language.tr("Statistics.Number")+": "+NumberTools.formatLong(processingTime.getCount())+repeatInfo,xmlCount(processingTime));
+					addLine(Language.tr("Statistics.AverageProcessTime")+": E[S]="+timeAndNumber(processingTime.getMean()),xmlMean(processingTime));
+					addLine(Language.tr("Statistics.StdDevProcessTime")+": Std[S]="+timeAndNumber(processingTime.getSD()),fastAccessBuilder.getXMLSelector(processingTime,IndicatorMode.SD));
+					addLine(Language.tr("Statistics.VarianceProcessTime")+": Var[S]="+timeAndNumber(processingTime.getVar()));
+					addLine(Language.tr("Statistics.CVProcessTime")+": CV[S]="+StatisticTools.formatNumber(processingTime.getCV()),fastAccessBuilder.getXMLSelector(processingTime,IndicatorMode.CV));
+					addLine(Language.tr("Statistics.Skewness")+": Sk[S]="+StatisticTools.formatNumber(processingTime.getSk()),fastAccessBuilder.getXMLSelector(processingTime,IndicatorMode.Sk));
+					addLine(Language.tr("Statistics.Kurt")+": Kurt[S]="+StatisticTools.formatNumber(processingTime.getKurt()),fastAccessBuilder.getXMLSelector(processingTime,IndicatorMode.Kurt));
+					addLine(Language.tr("Statistics.MinimumProcessTime")+": Min[S]="+timeAndNumber(processingTime.getMin()),fastAccessBuilder.getXMLSelector(processingTime,IndicatorMode.MINIMUM));
+					addLine(Language.tr("Statistics.MaximumProcessTime")+": Max[S]="+timeAndNumber(processingTime.getMax()),fastAccessBuilder.getXMLSelector(processingTime,IndicatorMode.MAXIMUM));
+					endParagraph();
+
+					outputQuantilInfoTime("S",processingTime);
+
+					outputConfidenceData(processingTime);
+				}
+
+				if (residenceTime.getMean()>0) {
+					addHeading(3,Language.tr("Statistics.ResidenceTimes"));
+					beginParagraph();
+					addLine(Language.tr("Statistics.Number")+": "+NumberTools.formatLong(residenceTime.getCount())+repeatInfo,xmlCount(residenceTime));
+					addLine(Language.tr("Statistics.AverageResidenceTime")+": E[V]="+timeAndNumber(residenceTime.getMean()),xmlMean(residenceTime));
+					addLine(Language.tr("Statistics.StdDevResidenceTime")+": Std[V]="+timeAndNumber(residenceTime.getSD()),fastAccessBuilder.getXMLSelector(residenceTime,IndicatorMode.SD));
+					addLine(Language.tr("Statistics.VarianceResidenceTime")+": Var[V]="+timeAndNumber(residenceTime.getVar()));
+					addLine(Language.tr("Statistics.CVResidenceTime")+": CV[V]="+StatisticTools.formatNumber(residenceTime.getCV()),fastAccessBuilder.getXMLSelector(residenceTime,IndicatorMode.CV));
+					addLine(Language.tr("Statistics.Skewness")+": Sk[V]="+StatisticTools.formatNumber(residenceTime.getSk()),fastAccessBuilder.getXMLSelector(residenceTime,IndicatorMode.Sk));
+					addLine(Language.tr("Statistics.Kurt")+": Kurt[V]="+StatisticTools.formatNumber(residenceTime.getKurt()),fastAccessBuilder.getXMLSelector(residenceTime,IndicatorMode.Kurt));
+					addLine(Language.tr("Statistics.MinimumResidenceTime")+": Min[V]="+timeAndNumber(residenceTime.getMin()),fastAccessBuilder.getXMLSelector(residenceTime,IndicatorMode.MINIMUM));
+					addLine(Language.tr("Statistics.MaximumResidenceTime")+": Max[V]="+timeAndNumber(residenceTime.getMax()),fastAccessBuilder.getXMLSelector(residenceTime,IndicatorMode.MAXIMUM));
+					endParagraph();
+
+					outputQuantilInfoTime("V",residenceTime);
+
+					outputConfidenceData(residenceTime);
+				}
+
+				if (processingTime.getMean()>0 && residenceTime.getMean()>0) {
+					addHeading(3,Language.tr("Statistics.FlowFactor"));
+					beginParagraph();
+					addLine(Language.tr("Statistics.FlowFactor")+": "+StatisticTools.formatNumber(residenceTime.getMean()/processingTime.getMean()));
+					endParagraph();
+				}
+			}
+		}
+
+		/* Infotext  */
+		addDescription("TimeStationsTotal");
+	}
+
+	/**
+	 * Ausgabe von
 	 * Wartezeiten an den Stationen (zusätzlich nach Kundentypen ausdifferenziert)
 	 * @see Mode#MODE_WAITINGPROCESSING_STATIONS_CLIENTS
 	 */
@@ -3637,6 +3748,7 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 		case MODE_INTERLEAVE_STATIONS: buildInterleaveStations(); break;
 		case MODE_WAITINGPROCESSING_CLIENTS: buildClients(); break;
 		case MODE_WAITINGPROCESSING_STATIONS: buildStations(); break;
+		case MODE_WAITINGPROCESSING_STATIONS_TOTAL: buildStationsTotal(); break;
 		case MODE_WAITINGPROCESSING_STATIONS_CLIENTS: buildStationsClients(); break;
 		case MODE_CLIENTS_COUNT: buildClientsCount(); break;
 		case MODE_UTILIZATION: buildUtilization(); break;

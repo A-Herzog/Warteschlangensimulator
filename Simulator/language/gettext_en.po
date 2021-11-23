@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-11-19 09:04+0100\n"
+"POT-Creation-Date: 2021-11-21 19:09+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -3455,8 +3455,14 @@ msgstr "Path recording"
 msgid "Editor.Dialog.Tab.PathRecording.ClientPaths"
 msgstr "Record client paths"
 
+msgid "Editor.Dialog.Tab.PathRecording.Info"
+msgstr "The functions offered on this page will slow down the simulation and should only be activated if needed."
+
 msgid "Editor.Dialog.Tab.PathRecording.InfoText"
 msgstr "The path recording allows to reconstruct the paths over which the clients have moved through the model after the simulation. Also how often transitions from one station to another have occurred can be recorded."
+
+msgid "Editor.Dialog.Tab.PathRecording.StationTotalClientTimes"
+msgstr "Record total times of the clients on repeated station visits"
 
 msgid "Editor.Dialog.Tab.PathRecording.StationTransitions"
 msgstr "Count station transitions"
@@ -18440,6 +18446,9 @@ msgstr "Process time by station"
 msgid "Statistic.FastAccess.Template.ProcessTime.ByStationClient"
 msgstr "Process time by station and client type"
 
+msgid "Statistic.FastAccess.Template.ProcessTime.ByStationTotal"
+msgstr "Process time by station (totaled over multiple client arrivals)"
+
 msgid "Statistic.FastAccess.Template.ProcessTime.Tooltip"
 msgstr "Inserts at the current position the command to output the process time for all clients."
 
@@ -18460,6 +18469,9 @@ msgstr "Residence time by station"
 
 msgid "Statistic.FastAccess.Template.ResidenceTime.ByStationClient"
 msgstr "Residence time by station and client type"
+
+msgid "Statistic.FastAccess.Template.ResidenceTime.ByStationTotal"
+msgstr "Residence time by station (totaled over multiple client arrivals)"
 
 msgid "Statistic.FastAccess.Template.ResidenceTime.Tooltip"
 msgstr "Inserts at the current position the command to output the residence time for all clients."
@@ -18647,6 +18659,9 @@ msgstr "Transfer time by station"
 msgid "Statistic.FastAccess.Template.TransferTime.ByStationClient"
 msgstr "Transfer time by station and client type"
 
+msgid "Statistic.FastAccess.Template.TransferTime.ByStationTotal"
+msgstr "Transfer time by station (totaled over multiple client arrivals)"
+
 msgid "Statistic.FastAccess.Template.TransferTime.Tooltip"
 msgstr "Inserts at the current position the command to output the transfer time for all clients."
 
@@ -18682,6 +18697,9 @@ msgstr "Waiting time by station"
 
 msgid "Statistic.FastAccess.Template.WaitingTime.ByStationClient"
 msgstr "Waiting time by station and client type"
+
+msgid "Statistic.FastAccess.Template.WaitingTime.ByStationTotal"
+msgstr "Waiting time by station (totaled over multiple client arrivals)"
 
 msgid "Statistic.FastAccess.Template.WaitingTime.Tooltip"
 msgstr "Inserts at the current position the command to output the waiting time for all clients."
@@ -19603,14 +19621,26 @@ msgstr "Distribution of the waiting times at the stations by client types"
 msgid "Statistics.DistributionOfStationsProcessTimes"
 msgstr "Distribution of the process times at the stations"
 
+msgid "Statistics.DistributionOfStationsProcessTimesTotal"
+msgstr "Distribution of the process times at the stations (totaled over multiple client arrivals)"
+
 msgid "Statistics.DistributionOfStationsResidenceTimes"
 msgstr "Distribution of the residence times at the stations"
+
+msgid "Statistics.DistributionOfStationsResidenceTimesTotal"
+msgstr "Distribution of the residence times at the stations (totaled over multiple client arrivals)"
 
 msgid "Statistics.DistributionOfStationsTransferTimes"
 msgstr "Distribution of the transfer times at the stations"
 
+msgid "Statistics.DistributionOfStationsTransferTimesTotal"
+msgstr "Distribution of the transfer times at the stations (totaled over multiple client arrivals)"
+
 msgid "Statistics.DistributionOfStationsWaitingTimes"
 msgstr "Distribution of the waiting times at the stations"
+
+msgid "Statistics.DistributionOfStationsWaitingTimesTotal"
+msgstr "Distribution of the waiting times at the stations (totaled over multiple client arrivals)"
 
 msgid "Statistics.DistributionOfTheInterArrivalTimes"
 msgstr "Distribution of the inter-arrival times"
@@ -19633,14 +19663,26 @@ msgstr "Distribution of the inter-departure times by client types"
 msgid "Statistics.DistributionOfTheProcessTimes"
 msgstr "Distribution of the process times"
 
+msgid "Statistics.DistributionOfTheProcessTimesTotal"
+msgstr "Distribution of the process times (totaled over multiple client arrivals)"
+
 msgid "Statistics.DistributionOfTheResidenceTimes"
 msgstr "Distribution of the residence times"
+
+msgid "Statistics.DistributionOfTheResidenceTimesTotal"
+msgstr "Distribution of the residence times (totaled over multiple client arrivals)"
 
 msgid "Statistics.DistributionOfTheTransferTimes"
 msgstr "Distribution of the transfer times"
 
+msgid "Statistics.DistributionOfTheTransferTimesTotal"
+msgstr "Distribution of the transfer times (totaled over multiple client arrivals)"
+
 msgid "Statistics.DistributionOfTheWaitingTimes"
 msgstr "Distribution of the waiting times"
+
+msgid "Statistics.DistributionOfTheWaitingTimesTotal"
+msgstr "Distribution of the waiting times (totaled over multiple client arrivals)"
 
 msgid "Statistics.DistributionOfTimes"
 msgstr "Distribution of time periods"
@@ -20481,14 +20523,26 @@ msgstr "Flow factors at the stations"
 msgid "Statistics.StationsProcessTimes"
 msgstr "Process times at the stations"
 
+msgid "Statistics.StationsProcessTimesTotal"
+msgstr "Process times at the stations (totaled over multiple client arrivals)"
+
 msgid "Statistics.StationsResidenceTimes"
 msgstr "Residence times at the stations"
+
+msgid "Statistics.StationsResidenceTimesTotal"
+msgstr "Residence times at the stations (totaled over multiple client arrivals)"
 
 msgid "Statistics.StationsTransferTimes"
 msgstr "Transfer times at the stations"
 
+msgid "Statistics.StationsTransferTimesTotal"
+msgstr "Transfer times at the stations (totaled over multiple client arrivals)"
+
 msgid "Statistics.StationsWaitingTimes"
 msgstr "Waiting times at the stations"
+
+msgid "Statistics.StationsWaitingTimesTotal"
+msgstr "Waiting times at the stations (totaled over multiple client arrivals)"
 
 msgid "Statistics.StdDev"
 msgstr "Standard deviation"
@@ -20919,6 +20973,9 @@ msgstr "Waiting and process times at the stations"
 msgid "Statistics.WaitingAndProcessTimesByStationsAndClients"
 msgstr "Waiting and process times at the stations by client types"
 
+msgid "Statistics.WaitingAndProcessTimesByStationsTotal"
+msgstr "Waiting and process times at the stations(totaled over multiple client arrivals)"
+
 msgid "Statistics.WaitingTime"
 msgstr "Waiting time"
 
@@ -20945,6 +21002,9 @@ msgstr "Times at the stations"
 
 msgid "Statistics.WaitingTransferProcessTimesAtStationsClients.Short"
 msgstr "Waiting, transfer and process times by client types"
+
+msgid "Statistics.WaitingTransferProcessTimesAtStationsTotal"
+msgstr "Waiting, transfer and process times at the stations(totaled over multiple client arrivals)"
 
 msgid "Statistics.WaitingTransferProcessTimesOfClients"
 msgstr "Waiting, transfer and processing times of the clients"
@@ -21150,6 +21210,9 @@ msgstr "StatisticsProcessTimesStations"
 msgid "Statistics.XML.Element.ProcessStationsByClientType"
 msgstr "StatisticsProcessTimesStationsClients"
 
+msgid "Statistics.XML.Element.ProcessStationsTotal"
+msgstr "StatisticsProcessTimesStationsClientSum"
+
 msgid "Statistics.XML.Element.ResidenceAllClients"
 msgstr "StatisticsResidenceTimesAllClients"
 
@@ -21161,6 +21224,9 @@ msgstr "StatisticsResidenceTimesStations"
 
 msgid "Statistics.XML.Element.ResidenceStationsByClientType"
 msgstr "StatisticsResidenceTimesStationsClients"
+
+msgid "Statistics.XML.Element.ResidenceStationsTotal"
+msgstr "StatisticsResidenceTimesStationsClientSum"
 
 msgid "Statistics.XML.Element.ResourceIdleCosts"
 msgstr "StatisticsResourcesIdleTimeCosts"
@@ -21195,6 +21261,9 @@ msgstr "StatisticsTransferTimesStations"
 msgid "Statistics.XML.Element.TransferStationsByClientType"
 msgstr "StatisticsTransferTimesStationsClients"
 
+msgid "Statistics.XML.Element.TransferStationsTotal"
+msgstr "StatisticsTransferTimesStationsClientSum"
+
 msgid "Statistics.XML.Element.Utilization"
 msgstr "StatisticsUtilization"
 
@@ -21227,6 +21296,9 @@ msgstr "StatisticsWaitingTimesStations"
 
 msgid "Statistics.XML.Element.WaitingStationsByClientType"
 msgstr "StatisticsWaitingTimesStationsClients"
+
+msgid "Statistics.XML.Element.WaitingStationsTotal"
+msgstr "StatisticsWaitingTimesStationsClientSum"
 
 msgid "Statistics.XML.EmergencyShutDown"
 msgstr "StatisticsInternalTermination"
@@ -30591,6 +30663,9 @@ msgstr "AllowClassLoading"
 
 msgid "Surface.XML.RecordIncompleteClients"
 msgstr "ModelRecordIncompleteClients"
+
+msgid "Surface.XML.RecordStationTotalClientTimes"
+msgstr "ModelRecordClientStationTimeSum"
 
 msgid "Surface.XML.Resource.CostsPerHour"
 msgstr "CostsPerHour"

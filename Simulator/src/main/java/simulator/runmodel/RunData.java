@@ -942,7 +942,7 @@ public class RunData {
 	 * @see StatisticsMultiPerformanceIndicator
 	 * @see RunElement
 	 */
-	private class IndicatorAccessCacheStations {
+	public class IndicatorAccessCacheStations {
 		/** Statistik-Objekt, bei dem der Zugriff auf die Teil-Indikatoren beschleunigt werden soll */
 		private final StatisticsMultiPerformanceIndicator multi;
 		/** Statistik-Teil-Indikator für die Stationen */

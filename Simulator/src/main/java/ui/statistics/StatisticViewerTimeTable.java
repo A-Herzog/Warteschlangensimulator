@@ -109,6 +109,8 @@ public class StatisticViewerTimeTable extends StatisticViewerBaseTable {
 		MODE_DISTRIBUTION_CLIENTS_RESIDENCE,
 		/** Warte- und Bedienzeiten an den Stationen (Übersichtstabelle) */
 		MODE_OVERVIEW_STATIONSMODE_OVERVIEW_CLIENTS,
+		/** Warte- und Bedienzeiten an den Stationen (Einzelzeiten der Kunden summiert, Übersichtstabelle) */
+		MODE_OVERVIEW_STATIONSMODE_TOTAL_OVERVIEW_CLIENTS,
 		/** Vergleich der Flussgrade zwischen den Stationen */
 		MODE_FLOW_FACTOR_STATION,
 		/** Warte- und Bedienzeiten an den Stationen nach Kundentypen ausdifferenziert (Übersichtstabelle) */
@@ -123,6 +125,14 @@ public class StatisticViewerTimeTable extends StatisticViewerBaseTable {
 		MODE_DISTRIBUTION_STATIONS_PROCESSING,
 		/** Verteilung der Verweilzeiten an den Stationen */
 		MODE_DISTRIBUTION_STATIONS_RESIDENCE,
+		/** Verteilung der Wartezeiten an den Stationen (Einzelzeiten der Kunden summiert) */
+		MODE_DISTRIBUTION_STATIONS_WAITING_TOTAL,
+		/** Verteilung der Transportzeiten an den Stationen (Einzelzeiten der Kunden summiert) */
+		MODE_DISTRIBUTION_STATIONS_TRANSFER_TOTAL,
+		/** Verteilung der Bedienzeiten an den Stationen (Einzelzeiten der Kunden summiert) */
+		MODE_DISTRIBUTION_STATIONS_PROCESSING_TOTAL,
+		/** Verteilung der Verweilzeiten an den Stationen (Einzelzeiten der Kunden summiert) */
+		MODE_DISTRIBUTION_STATIONS_RESIDENCE_TOTAL,
 		/** Verteilung der Wartezeiten an den Stationen ausdifferenziert nach Kundentypen */
 		MODE_DISTRIBUTION_STATIONSCLIENTS_WAITING,
 		/** Verteilung der Transportzeiten an den Stationen ausdifferenziert nach Kundentypen */
@@ -1088,6 +1098,7 @@ public class StatisticViewerTimeTable extends StatisticViewerBaseTable {
 		case MODE_DISTRIBUTION_CLIENTS_PROCESSING: buildTimesDistributionTable(statistics.clientsProcessingTimes,Language.tr("Statistics.Seconds")); break;
 		case MODE_DISTRIBUTION_CLIENTS_RESIDENCE: buildTimesDistributionTable(statistics.clientsResidenceTimes,Language.tr("Statistics.Seconds")); break;
 		case MODE_OVERVIEW_STATIONSMODE_OVERVIEW_CLIENTS: buildTimesOverviewTable(statistics.stationsWaitingTimes,statistics.stationsTransferTimes,statistics.stationsProcessingTimes,statistics.stationsResidenceTimes,Language.tr("Statistics.WaitingTime"),Language.tr("Statistics.TransferTime"),Language.tr("Statistics.ProcessTime"),Language.tr("Statistics.ResidenceTime"),Language.tr("Statistics.Station"),true,false); break;
+		case MODE_OVERVIEW_STATIONSMODE_TOTAL_OVERVIEW_CLIENTS: buildTimesOverviewTable(statistics.stationsTotalWaitingTimes,statistics.stationsTotalTransferTimes,statistics.stationsTotalProcessingTimes,statistics.stationsTotalResidenceTimes,Language.tr("Statistics.WaitingTime"),Language.tr("Statistics.TransferTime"),Language.tr("Statistics.ProcessTime"),Language.tr("Statistics.ResidenceTime"),Language.tr("Statistics.Station"),true,false); break;
 		case MODE_FLOW_FACTOR_STATION: buildFlowFactorTable(statistics.stationsProcessingTimes,statistics.stationsResidenceTimes,Language.tr("Statistics.Station")); break;
 		case MODE_OVERVIEW_STATIONSCLIENTMODE_OVERVIEW_CLIENTS: buildTimesOverviewTable(statistics.stationsWaitingTimesByClientType,statistics.stationsTransferTimesByClientType,statistics.stationsProcessingTimesByClientType,statistics.stationsResidenceTimesByClientType,Language.tr("Statistics.WaitingTime"),Language.tr("Statistics.TransferTime"),Language.tr("Statistics.ProcessTime"),Language.tr("Statistics.ResidenceTime"),Language.tr("Statistics.StationClient"),true,false); break;
 		case MODE_FLOW_FACTOR_STATION_CLIENT: buildFlowFactorTable(statistics.stationsProcessingTimesByClientType,statistics.stationsResidenceTimesByClientType,Language.tr("Statistics.StationClient")); break;
@@ -1095,6 +1106,10 @@ public class StatisticViewerTimeTable extends StatisticViewerBaseTable {
 		case MODE_DISTRIBUTION_STATIONS_TRANSFER: buildTimesDistributionTable(statistics.stationsTransferTimes,Language.tr("Statistics.Seconds")); break;
 		case MODE_DISTRIBUTION_STATIONS_PROCESSING: buildTimesDistributionTable(statistics.stationsProcessingTimes,Language.tr("Statistics.Seconds")); break;
 		case MODE_DISTRIBUTION_STATIONS_RESIDENCE: buildTimesDistributionTable(statistics.stationsResidenceTimes,Language.tr("Statistics.Seconds")); break;
+		case MODE_DISTRIBUTION_STATIONS_WAITING_TOTAL: buildTimesDistributionTable(statistics.stationsTotalWaitingTimes,Language.tr("Statistics.Seconds")); break;
+		case MODE_DISTRIBUTION_STATIONS_TRANSFER_TOTAL: buildTimesDistributionTable(statistics.stationsTotalTransferTimes,Language.tr("Statistics.Seconds")); break;
+		case MODE_DISTRIBUTION_STATIONS_PROCESSING_TOTAL: buildTimesDistributionTable(statistics.stationsTotalProcessingTimes,Language.tr("Statistics.Seconds")); break;
+		case MODE_DISTRIBUTION_STATIONS_RESIDENCE_TOTAL: buildTimesDistributionTable(statistics.stationsTotalResidenceTimes,Language.tr("Statistics.Seconds")); break;
 		case MODE_DISTRIBUTION_STATIONSCLIENTS_WAITING: buildTimesDistributionTable(statistics.stationsWaitingTimesByClientType,Language.tr("Statistics.Seconds")); break;
 		case MODE_DISTRIBUTION_STATIONSCLIENTS_TRANSFER: buildTimesDistributionTable(statistics.stationsTransferTimesByClientType,Language.tr("Statistics.Seconds")); break;
 		case MODE_DISTRIBUTION_STATIONSCLIENTS_PROCESSING: buildTimesDistributionTable(statistics.stationsProcessingTimesByClientType,Language.tr("Statistics.Seconds")); break;

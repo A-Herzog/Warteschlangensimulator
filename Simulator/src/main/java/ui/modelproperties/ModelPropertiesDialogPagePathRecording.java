@@ -20,6 +20,7 @@ import java.awt.FlowLayout;
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.JCheckBox;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import language.Language;
@@ -36,6 +37,8 @@ public class ModelPropertiesDialogPagePathRecording extends ModelPropertiesDialo
 	private JCheckBox pathRecordingStationTransitions;
 	/** Option "Pfade der Kunden aufzeichnen" */
 	private JCheckBox pathRecordingClientPaths;
+	/** Option "Gesamtzeiten der Kunden bei wiederholten Stationsbesuchen erfassen" */
+	private JCheckBox stationTotalClientTimes;
 
 	/**
 	 * Konstruktor der Klasse
@@ -66,11 +69,19 @@ public class ModelPropertiesDialogPagePathRecording extends ModelPropertiesDialo
 		lines.add(sub=new JPanel(new FlowLayout(FlowLayout.LEFT)));
 		sub.add(pathRecordingClientPaths=new JCheckBox(Language.tr("Editor.Dialog.Tab.PathRecording.ClientPaths"),model.recordClientPaths));
 		pathRecordingClientPaths.setEnabled(!readOnly);
+
+		lines.add(sub=new JPanel(new FlowLayout(FlowLayout.LEFT)));
+		sub.add(stationTotalClientTimes=new JCheckBox(Language.tr("Editor.Dialog.Tab.PathRecording.StationTotalClientTimes"),model.recordStationTotalClientTimes));
+		stationTotalClientTimes.setEnabled(!readOnly);
+
+		lines.add(sub=new JPanel(new FlowLayout(FlowLayout.LEFT)));
+		sub.add(new JLabel(Language.tr("Editor.Dialog.Tab.PathRecording.Info")));
 	}
 
 	@Override
 	public void storeData() {
 		model.recordStationTransitions=pathRecordingStationTransitions.isSelected();
 		model.recordClientPaths=pathRecordingClientPaths.isSelected();
+		model.recordStationTotalClientTimes=stationTotalClientTimes.isSelected();
 	}
 }

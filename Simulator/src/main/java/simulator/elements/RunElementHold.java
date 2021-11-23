@@ -168,8 +168,7 @@ public class RunElementHold extends RunElementPassThrough implements StateChange
 					/* Wartezeit in Statistik */
 					final long waitingTime=simData.currentTime-client.lastWaitingStart;
 					simData.runData.logStationProcess(simData,this,client,waitingTime,0,0,waitingTime);
-					client.waitingTime+=waitingTime;
-					client.residenceTime+=waitingTime;
+					client.addStationTime(id,waitingTime,0,0,waitingTime);
 
 					/* Kunden an Station in Statistik */
 					simData.runData.logClientLeavesStationQueue(simData,this,data,client);
@@ -203,8 +202,7 @@ public class RunElementHold extends RunElementPassThrough implements StateChange
 		final RunDataClient client=data.waitingClients.remove(0);
 		final long waitingTime=simData.currentTime-client.lastWaitingStart;
 		/* Nein, da Kunde an der Station ja nicht bedient wurde: simData.runData.logStationProcess(simData,this,waitingTime,0,0); */
-		client.waitingTime+=waitingTime;
-		client.residenceTime+=waitingTime;
+		client.addStationTime(id,waitingTime,0,0,waitingTime);
 		simData.runData.logClientLeavesStationQueue(simData,this,data,client);
 
 		return client;

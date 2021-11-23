@@ -184,8 +184,7 @@ public class RunElementBatchMulti extends RunElementPassThrough {
 			/* Wartezeit in Statistik */
 			final long waitingTime=simData.currentTime-data.clientAddTime[type][i];
 			simData.runData.logStationProcess(simData,this,data.clients[type][i],waitingTime,0,0,waitingTime);
-			data.clients[type][i].waitingTime+=waitingTime;
-			data.clients[type][i].residenceTime+=waitingTime;
+			data.clients[type][i].addStationTime(id,waitingTime,0,0,waitingTime);
 
 			/* Kunden an Station in Statistik */
 			simData.runData.logClientLeavesStationQueue(simData,this,data,data.clients[type][i]);
@@ -227,8 +226,7 @@ public class RunElementBatchMulti extends RunElementPassThrough {
 			/* Wartezeit in Statistik */
 			final long waitingTime=simData.currentTime-data.clientAddTime[type][i];
 			simData.runData.logStationProcess(simData,this,data.clients[type][i],waitingTime,0,0,waitingTime);
-			data.clients[type][i].waitingTime+=waitingTime;
-			data.clients[type][i].residenceTime+=waitingTime;
+			data.clients[type][i].addStationTime(id,waitingTime,0,0,waitingTime);
 
 			/* Kunden an Station in Statistik */
 			simData.runData.logClientLeavesStationQueue(simData,this,data,data.clients[type][i]);
@@ -284,8 +282,7 @@ public class RunElementBatchMulti extends RunElementPassThrough {
 			/* Wartezeit in Statistik */
 			final long waitingTime=simData.currentTime-data.clientAddTime[type][i];
 			simData.runData.logStationProcess(simData,this,data.clients[type][i],waitingTime,0,0,waitingTime);
-			data.clients[type][i].waitingTime+=waitingTime;
-			data.clients[type][i].residenceTime+=waitingTime;
+			data.clients[type][i].addStationTime(id,waitingTime,0,0,waitingTime);
 
 			/* Kunden an Station in Statistik */
 			simData.runData.logClientLeavesStationQueue(simData,this,data,data.clients[type][i]);

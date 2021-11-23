@@ -212,6 +212,26 @@ public class Statistics extends StatisticsBase {
 	public final StatisticsMultiPerformanceIndicator stationsResidenceTimes;
 
 	/**
+	 * Wartezeiten an den Stationen (passiert ein Kunde die Station mehrfach, so wird hier die Summe erfasst; Erfassung kann deaktiviert sein)
+	 */
+	public final StatisticsMultiPerformanceIndicator stationsTotalWaitingTimes;
+
+	/**
+	 * Transferzeiten an den Stationen (passiert ein Kunde die Station mehrfach, so wird hier die Summe erfasst; Erfassung kann deaktiviert sein)
+	 */
+	public final StatisticsMultiPerformanceIndicator stationsTotalTransferTimes;
+
+	/**
+	 * Bedienzeiten an den Stationen (passiert ein Kunde die Station mehrfach, so wird hier die Summe erfasst; Erfassung kann deaktiviert sein)
+	 */
+	public final StatisticsMultiPerformanceIndicator stationsTotalProcessingTimes;
+
+	/**
+	 * Verweilzeiten an den Stationen (passiert ein Kunde die Station mehrfach, so wird hier die Summe erfasst; Erfassung kann deaktiviert sein)
+	 */
+	public final StatisticsMultiPerformanceIndicator stationsTotalResidenceTimes;
+
+	/**
 	 * Wartezeiten an den Stationen (zusätzlich differenziert nach Kundentyp)
 	 */
 	public final StatisticsMultiPerformanceIndicator stationsWaitingTimesByClientType;
@@ -559,6 +579,10 @@ public class Statistics extends StatisticsBase {
 		addPerformanceIndicator(stationsTransferTimes=new StatisticsMultiPerformanceIndicator(Language.trAll("Statistics.XML.Element.TransferStations"),new StatisticsDataPerformanceIndicator(nameStation,secondsToRecordInDistributions,secondsToRecordInDistributions,-1,batchSize,true)));
 		addPerformanceIndicator(stationsProcessingTimes=new StatisticsMultiPerformanceIndicator(Language.trAll("Statistics.XML.Element.ProcessStations"),new StatisticsDataPerformanceIndicator(nameStation,secondsToRecordInDistributions,secondsToRecordInDistributions,-1,batchSize,true)));
 		addPerformanceIndicator(stationsResidenceTimes=new StatisticsMultiPerformanceIndicator(Language.trAll("Statistics.XML.Element.ResidenceStations"),new StatisticsDataPerformanceIndicator(nameStation,secondsToRecordInDistributions,secondsToRecordInDistributions,-1,batchSize,true)));
+		addPerformanceIndicator(stationsTotalWaitingTimes=new StatisticsMultiPerformanceIndicator(Language.trAll("Statistics.XML.Element.WaitingStationsTotal"),new StatisticsDataPerformanceIndicator(nameStation,secondsToRecordInDistributions,secondsToRecordInDistributions,rangeFull,batchSize,true)));
+		addPerformanceIndicator(stationsTotalTransferTimes=new StatisticsMultiPerformanceIndicator(Language.trAll("Statistics.XML.Element.TransferStationsTotal"),new StatisticsDataPerformanceIndicator(nameStation,secondsToRecordInDistributions,secondsToRecordInDistributions,-1,batchSize,true)));
+		addPerformanceIndicator(stationsTotalProcessingTimes=new StatisticsMultiPerformanceIndicator(Language.trAll("Statistics.XML.Element.ProcessStationsTotal"),new StatisticsDataPerformanceIndicator(nameStation,secondsToRecordInDistributions,secondsToRecordInDistributions,-1,batchSize,true)));
+		addPerformanceIndicator(stationsTotalResidenceTimes=new StatisticsMultiPerformanceIndicator(Language.trAll("Statistics.XML.Element.ResidenceStationsTotal"),new StatisticsDataPerformanceIndicator(nameStation,secondsToRecordInDistributions,secondsToRecordInDistributions,-1,batchSize,true)));
 		addPerformanceIndicator(stationsWaitingTimesByClientType=new StatisticsMultiPerformanceIndicator(Language.trAll("Statistics.XML.Element.WaitingStationsByClientType"),new StatisticsDataPerformanceIndicator(nameStation,secondsToRecordInDistributions,secondsToRecordInDistributions,rangeFull,batchSize,true)));
 		addPerformanceIndicator(stationsTransferTimesByClientType=new StatisticsMultiPerformanceIndicator(Language.trAll("Statistics.XML.Element.TransferStationsByClientType"),new StatisticsDataPerformanceIndicator(nameStation,secondsToRecordInDistributions,secondsToRecordInDistributions,-1,batchSize,true)));
 		addPerformanceIndicator(stationsProcessingTimesByClientType=new StatisticsMultiPerformanceIndicator(Language.trAll("Statistics.XML.Element.ProcessStationsByClientType"),new StatisticsDataPerformanceIndicator(nameStation,secondsToRecordInDistributions,secondsToRecordInDistributions,-1,batchSize,true)));

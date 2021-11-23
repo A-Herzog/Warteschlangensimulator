@@ -196,6 +196,20 @@ public class ListPopup {
 			}
 		}
 
+		if (statistics.stationsTotalWaitingTimes.getNames().length>0) { /* Auch relevant, wenn nur eine Station vorhanden ist, daher ">0". */
+			sub=getSubList(list,Language.tr("Statistic.FastAccess.Template.WaitingTime.ByStationTotal"),null,Images.SCRIPT_RECORD_DATA_STATION_QUEUE.getIcon());
+			final String xmlMain=Language.tr("Statistics.XML.Element.WaitingStationsTotal");
+			for (String name: statistics.stationsTotalWaitingTimes.getNames()) {
+				xmlSub=xmlMain+"->"+Language.tr("Statistics.XML.Station")+"["+Language.tr("Statistics.XML.Type")+"=\""+name+"\"]->";
+				sub2=getSubList(sub,name,null,null);
+				tryAddRecord(sub2,allowAdd,Language.tr("Statistics.Average"),null,null,XMLMode.XML_NUMBER_TIME,xmlSub+mean);
+				tryAddRecord(sub2,allowAdd,Language.tr("Statistics.StdDev"),null,null,XMLMode.XML_NUMBER_TIME,xmlSub+Std);
+				tryAddRecord(sub2,allowAdd,Language.tr("Statistics.CV"),null,null,XMLMode.XML_NUMBER,xmlSub+CV);
+				tryAddRecord(sub2,allowAdd,Language.tr("Statistics.Minimum"),null,null,XMLMode.XML_NUMBER_TIME,xmlSub+Min);
+				tryAddRecord(sub2,allowAdd,Language.tr("Statistics.Maximum"),null,null,XMLMode.XML_NUMBER_TIME,xmlSub+Max);
+			}
+		}
+
 		if (statistics.stationsWaitingTimesByClientType.getNames().length>1) {
 			sub=getSubList(list,Language.tr("Statistic.FastAccess.Template.WaitingTime.ByStationClient"),null,Images.SCRIPT_RECORD_DATA_STATION_QUEUE.getIcon());
 			final String xmlMain=Language.tr("Statistics.XML.Element.WaitingStationsByClientType");
@@ -242,6 +256,20 @@ public class ListPopup {
 			sub=getSubList(list,Language.tr("Statistic.FastAccess.Template.TransferTime.ByStation"),null,Images.SCRIPT_RECORD_DATA_STATION.getIcon());
 			final String xmlMain=Language.tr("Statistics.XML.Element.TransferStations");
 			for (String name: statistics.stationsTransferTimes.getNames()) {
+				xmlSub=xmlMain+"->"+Language.tr("Statistics.XML.Station")+"["+Language.tr("Statistics.XML.Type")+"=\""+name+"\"]->";
+				sub2=getSubList(sub,name,null,null);
+				tryAddRecord(sub2,allowAdd,Language.tr("Statistics.Average"),null,null,XMLMode.XML_NUMBER_TIME,xmlSub+mean);
+				tryAddRecord(sub2,allowAdd,Language.tr("Statistics.StdDev"),null,null,XMLMode.XML_NUMBER_TIME,xmlSub+Std);
+				tryAddRecord(sub2,allowAdd,Language.tr("Statistics.CV"),null,null,XMLMode.XML_NUMBER,xmlSub+CV);
+				tryAddRecord(sub2,allowAdd,Language.tr("Statistics.Minimum"),null,null,XMLMode.XML_NUMBER_TIME,xmlSub+Min);
+				tryAddRecord(sub2,allowAdd,Language.tr("Statistics.Maximum"),null,null,XMLMode.XML_NUMBER_TIME,xmlSub+Max);
+			}
+		}
+
+		if (statistics.stationsTotalTransferTimes.getNames().length>0) { /* Auch relevant, wenn nur eine Station vorhanden ist, daher ">0". */
+			sub=getSubList(list,Language.tr("Statistic.FastAccess.Template.TransferTime.ByStationTotal"),null,Images.SCRIPT_RECORD_DATA_STATION.getIcon());
+			final String xmlMain=Language.tr("Statistics.XML.Element.TransferStationsTotal");
+			for (String name: statistics.stationsTotalTransferTimes.getNames()) {
 				xmlSub=xmlMain+"->"+Language.tr("Statistics.XML.Station")+"["+Language.tr("Statistics.XML.Type")+"=\""+name+"\"]->";
 				sub2=getSubList(sub,name,null,null);
 				tryAddRecord(sub2,allowAdd,Language.tr("Statistics.Average"),null,null,XMLMode.XML_NUMBER_TIME,xmlSub+mean);
@@ -308,6 +336,20 @@ public class ListPopup {
 			}
 		}
 
+		if (statistics.stationsTotalProcessingTimes.getNames().length>0) { /* Auch relevant, wenn nur eine Station vorhanden ist, daher ">0". */
+			sub=getSubList(list,Language.tr("Statistic.FastAccess.Template.ProcessTime.ByStationTotal"),null,Images.SCRIPT_RECORD_DATA_STATION.getIcon());
+			final String xmlMain=Language.tr("Statistics.XML.Element.ProcessStationsTotal");
+			for (String name: statistics.stationsTotalProcessingTimes.getNames()) {
+				xmlSub=xmlMain+"->"+Language.tr("Statistics.XML.Station")+"["+Language.tr("Statistics.XML.Type")+"=\""+name+"\"]->";
+				sub2=getSubList(sub,name,null,null);
+				tryAddRecord(sub2,allowAdd,Language.tr("Statistics.Average"),null,null,XMLMode.XML_NUMBER_TIME,xmlSub+mean);
+				tryAddRecord(sub2,allowAdd,Language.tr("Statistics.StdDev"),null,null,XMLMode.XML_NUMBER_TIME,xmlSub+Std);
+				tryAddRecord(sub2,allowAdd,Language.tr("Statistics.CV"),null,null,XMLMode.XML_NUMBER,xmlSub+CV);
+				tryAddRecord(sub2,allowAdd,Language.tr("Statistics.Minimum"),null,null,XMLMode.XML_NUMBER_TIME,xmlSub+Min);
+				tryAddRecord(sub2,allowAdd,Language.tr("Statistics.Maximum"),null,null,XMLMode.XML_NUMBER_TIME,xmlSub+Max);
+			}
+		}
+
 		if (statistics.stationsProcessingTimesByClientType.getNames().length>1) {
 			sub=getSubList(list,Language.tr("Statistic.FastAccess.Template.ProcessTime.ByStationClient"),null,Images.SCRIPT_RECORD_DATA_STATION.getIcon());
 			final String xmlMain=Language.tr("Statistics.XML.Element.ProcessStationsByClientType");
@@ -354,6 +396,20 @@ public class ListPopup {
 			sub=getSubList(list,Language.tr("Statistic.FastAccess.Template.ResidenceTime.ByStation"),null,Images.SCRIPT_RECORD_DATA_STATION.getIcon());
 			final String xmlMain=Language.tr("Statistics.XML.Element.ResidenceStations");
 			for (String name: statistics.stationsResidenceTimes.getNames()) {
+				xmlSub=xmlMain+"->"+Language.tr("Statistics.XML.Station")+"["+Language.tr("Statistics.XML.Type")+"=\""+name+"\"]->";
+				sub2=getSubList(sub,name,null,null);
+				tryAddRecord(sub2,allowAdd,Language.tr("Statistics.Average"),null,null,XMLMode.XML_NUMBER_TIME,xmlSub+mean);
+				tryAddRecord(sub2,allowAdd,Language.tr("Statistics.StdDev"),null,null,XMLMode.XML_NUMBER_TIME,xmlSub+Std);
+				tryAddRecord(sub2,allowAdd,Language.tr("Statistics.CV"),null,null,XMLMode.XML_NUMBER,xmlSub+CV);
+				tryAddRecord(sub2,allowAdd,Language.tr("Statistics.Minimum"),null,null,XMLMode.XML_NUMBER_TIME,xmlSub+Min);
+				tryAddRecord(sub2,allowAdd,Language.tr("Statistics.Maximum"),null,null,XMLMode.XML_NUMBER_TIME,xmlSub+Max);
+			}
+		}
+
+		if (statistics.stationsTotalResidenceTimes.getNames().length>0) { /* Auch relevant, wenn nur eine Station vorhanden ist, daher ">0". */
+			sub=getSubList(list,Language.tr("Statistic.FastAccess.Template.ResidenceTime.ByStationTotal"),null,Images.SCRIPT_RECORD_DATA_STATION.getIcon());
+			final String xmlMain=Language.tr("Statistics.XML.Element.ResidenceStationsTotal");
+			for (String name: statistics.stationsTotalResidenceTimes.getNames()) {
 				xmlSub=xmlMain+"->"+Language.tr("Statistics.XML.Station")+"["+Language.tr("Statistics.XML.Type")+"=\""+name+"\"]->";
 				sub2=getSubList(sub,name,null,null);
 				tryAddRecord(sub2,allowAdd,Language.tr("Statistics.Average"),null,null,XMLMode.XML_NUMBER_TIME,xmlSub+mean);

@@ -98,6 +98,14 @@ public class StatisticViewerTimeBarChart extends StatisticViewerBarChart {
 		MODE_PROCESSING_STATION,
 		/** Balkendiagramm zum Vergleich der mittleren Verweilzeiten zwischen den Stationen */
 		MODE_RESIDENCE_STATION,
+		/** Balkendiagramm zum Vergleich der mittleren Wartezeiten zwischen den Stationen (Einzelzeiten der Kunden summiert) */
+		MODE_WAITING_STATION_TOTAL,
+		/** Balkendiagramm zum Vergleich der mittleren Transportzeiten zwischen den Stationen (Einzelzeiten der Kunden summiert) */
+		MODE_TRANSFER_STATION_TOTAL,
+		/** Balkendiagramm zum Vergleich der mittleren Bedienzeiten zwischen den Stationen (Einzelzeiten der Kunden summiert) */
+		MODE_PROCESSING_STATION_TOTAL,
+		/** Balkendiagramm zum Vergleich der mittleren Verweilzeiten zwischen den Stationen (Einzelzeiten der Kunden summiert) */
+		MODE_RESIDENCE_STATION_TOTAL,
 		/** Balkendiagramm zum Vergleich der Flussgrade zwischen den Stationen */
 		MODE_FLOW_FACTOR_STATION,
 		/** Balkendiagramm zum Vergleich der mittleren Wartezeiten zwischen den Stationen (zusätzlich ausdifferenziert nach Kundentypen) */
@@ -451,6 +459,22 @@ public class StatisticViewerTimeBarChart extends StatisticViewerBarChart {
 			break;
 		case MODE_RESIDENCE_STATION:
 			chartRequest(Language.tr("Statistics.ResidenceTimes"),Language.tr("Statistics.Station"),statistics.stationsResidenceTimes,null,false);
+			addDescription("PlotBarCompareStations");
+			break;
+		case MODE_WAITING_STATION_TOTAL:
+			chartRequest(Language.tr("Statistics.WaitingTimes"),Language.tr("Statistics.Station"),statistics.stationsTotalWaitingTimes,null,false);
+			addDescription("PlotBarCompareStations");
+			break;
+		case MODE_TRANSFER_STATION_TOTAL:
+			chartRequest(Language.tr("Statistics.TransferTimes"),Language.tr("Statistics.Station"),statistics.stationsTotalTransferTimes,null,false);
+			addDescription("PlotBarCompareStations");
+			break;
+		case MODE_PROCESSING_STATION_TOTAL:
+			chartRequest(Language.tr("Statistics.ProcessTimes"),Language.tr("Statistics.Station"),statistics.stationsTotalProcessingTimes,null,false);
+			addDescription("PlotBarCompareStations");
+			break;
+		case MODE_RESIDENCE_STATION_TOTAL:
+			chartRequest(Language.tr("Statistics.ResidenceTimes"),Language.tr("Statistics.Station"),statistics.stationsTotalResidenceTimes,null,false);
 			addDescription("PlotBarCompareStations");
 			break;
 		case MODE_FLOW_FACTOR_STATION:

@@ -44,6 +44,7 @@
   <xs:element name="ModellElementVerbindungsdarstellungsart" type="xs:string"/>
   <xs:element name="ModellZeitabhaengigePruefungen" type="xs:string"/>
   <xs:element ref="ModellPfadaufzeichnung"/>
+  <xs:element name="ModellKundenStationenZeitSummeAufzeichnen" type="xs:string"/>
   <xs:element name="ModellUnvollstaendigeKundenAufzeichnung" type="xs:string"/>
   <xs:element ref="Benutzervorlagen"/>
   <xs:element ref="ExterneDaten"/>
@@ -1848,6 +1849,10 @@
   <xs:element ref="StatistikTransferzeitenStationenKunden"/>
   <xs:element ref="StatistikBedienzeitenStationenKunden"/>
   <xs:element ref="StatistikVerweilzeitenStationenKunden"/>
+  <xs:element ref="StatistikWartezeitenStationenKundenSumme"/>
+  <xs:element ref="StatistikTransferzeitenStationenKundenSumme"/>
+  <xs:element ref="StatistikBedienzeitenStationenKundenSumme"/>
+  <xs:element ref="StatistikVerweilzeitenStationenKundenSumme"/>  
   <xs:element ref="StatistikKundenImSystem"/>
   <xs:element ref="StatistikKundentypenImSystemWartendUeberall"/>
   <xs:element ref="StatistikKundenAnStation"/>
@@ -2054,6 +2059,10 @@
 <xs:element name="StatistikTransferzeitenStationenKunden" type="StatistikStationBasis"/>
 <xs:element name="StatistikBedienzeitenStationenKunden" type="StatistikStationBasis"/>
 <xs:element name="StatistikVerweilzeitenStationenKunden" type="StatistikStationBasis"/>
+<xs:element name="StatistikWartezeitenStationenKundenSumme" type="StatistikStationBasis"/>
+<xs:element name="StatistikTransferzeitenStationenKundenSumme" type="StatistikStationBasis"/>
+<xs:element name="StatistikBedienzeitenStationenKundenSumme" type="StatistikStationBasis"/>
+<xs:element name="StatistikVerweilzeitenStationenKundenSumme" type="StatistikStationBasis"/>
 <xs:element name="StatistikKundenImSystem" type="StatistikBasis"/>
 <xs:element name="StatistikKundentypenImSystemWartendUeberall" type="StatistikBasis"/>
 <xs:element name="StatistikKundenAnStation" type="StatistikStationBasis"/>
@@ -2244,6 +2253,7 @@
   <xs:element name="ModelElementConnectionDrawStyle" type="xs:string"/>
   <xs:element name="ModelTimedChecks" type="xs:string"/>
   <xs:element ref="ModelPathRecording"/>
+  <xs:element name="ModelRecordClientStationTimeSum" type="xs:string"/>
   <xs:element name="ModelRecordIncompleteClients" type="xs:string"/>
   <xs:element ref="UserTemplates"/>
   <xs:element ref="ExternalData"/>
@@ -4047,6 +4057,10 @@
   <xs:element ref="StatisticsTransferTimesStationsClients"/>
   <xs:element ref="StatisticsProcessTimesStationsClients"/>
   <xs:element ref="StatisticsResidenceTimesStationsClients"/>
+  <xs:element ref="StatisticsWaitingTimesStationsClientSum"/>
+  <xs:element ref="StatisticsTransferTimesStationsClientSum"/>
+  <xs:element ref="StatisticsProcessTimesStationsClientSum"/>
+  <xs:element ref="StatisticsResidenceTimesStationsClientSum"/>
   <xs:element ref="StatisticsClientsInSystem"/>
   <xs:element ref="StatisticsClientsInSystemAllQueues"/>
   <xs:element ref="StatisticsClientsAtStation"/>
@@ -4253,6 +4267,10 @@
 <xs:element name="StatisticsTransferTimesStationsClients" type="StatisticsStationBase"/>
 <xs:element name="StatisticsProcessTimesStationsClients" type="StatisticsStationBase"/>
 <xs:element name="StatisticsResidenceTimesStationsClients" type="StatisticsStationBase"/>
+<xs:element name="StatisticsWaitingTimesStationsClientSum" type="StatisticsStationBase"/>
+<xs:element name="StatisticsTransferTimesStationsClientSum" type="StatisticsStationBase"/>
+<xs:element name="StatisticsProcessTimesStationsClientSum" type="StatisticsStationBase"/>
+<xs:element name="StatisticsResidenceTimesStationsClientSum" type="StatisticsStationBase"/>
 <xs:element name="StatisticsClientsInSystem" type="StatisticsBase"/>
 <xs:element name="StatisticsClientsInSystemAllQueues" type="StatisticsBase"/>
 <xs:element name="StatisticsClientsAtStation" type="StatisticsStationBase"/>

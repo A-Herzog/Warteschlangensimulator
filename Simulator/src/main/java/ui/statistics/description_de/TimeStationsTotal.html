@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Warte- und Bedienzeiten an den Stationen</title>
+<link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body>
+
+<p>
+Die Warte-, Transfer- und Bedienzeiten werden nicht nur für die Kunden
+auf ihren Wegen durch das System ausgewiesen, sondern auch die Stationen
+messen die an ihnen entstandenen Zeitdauern der verschiedenen Typen.
+Bei einem Modell mit nur einer Station entsprechen die Wartezeiten usw.
+über alle Kunden den Wartezeiten an der Station. Bei einem Modell mit
+mehreren Stationen entspricht die Summe der an allen Stationen
+entstandenen Wartezeiten der Summe der von allen Kunden aufgesammelten
+Wartezeiten. Innerhalb einer Station werden die Zeiten gesamt sowie
+nochmals untergliedert nach Kundentypen aufgezeichnet. Auf dieser
+Seite werden die Gesamtdaten innerhalb einer Station ausgegeben.
+</p>
+
+<p>
+<b>Passiert ein Kunden auf seinem Weg durch das System mehrfach, so wird er normalerweise
+auch mehrfach gezählt und jede Zeitdauer einzeln erfasst. Bei den auf dieser Seite dargestellten
+Werten handelt es sich jedoch um Summen. Auch wenn ein Kunde eine Station mehrfach passiert, so
+wird er nur einmal gezählt. Als Zeit wird die Summe der Einzelzeiten erfasst.</b>
+</p>
+
+<p>
+Die mittleren <b>Wartezeiten</b> werden mit <b>E[W]</b> bezeichnet,
+die mittleren <b>Transferzeiten</b> mit <b>E[T]</b> und die mittleren
+die mittleren <b>Bediendauern</b> mit <b>E[S]</b>.
+</p>
+
+<p>
+Für alle Zeitangabe werden
+<a href="help:statistik_mittelwert">Mittelwerte</a>,
+<a href="help:statistik_standardabweichung">Standardabweichungen</a>,
+<a href="help:statistik_standardabweichung">Varianzen</a>,
+<a href="help:statistik_CV">Variationskoeffizienten</a>,
+<a href="help:statistik_Sk">Schiefe</a>,
+<a href="help:statistik_Kurt">Exzess (Wölbung)</a> und
+<a href="help:statistik_quantil">Quantile</a> ausgegeben.
+</p>
+
+<p>
+Der <b>Flussgrad</b> gibt das Verhältnis von Verweilzeit zu Bedienzeit ein. Der Flussgrad ist folglich
+immer größer oder gleich 1. Kleine Werte bedeuten, dass im Verhältnis zur Bedienzeit nur wenig
+Warte- und Transferzeiten angefallen sind. Große Werte deuten auf verhältnismäßig lange
+Warte- und Transferzeiten hin. 
+</p>
+  
+</body></html>

@@ -160,8 +160,7 @@ public class RunElementPickUp extends RunElementPassThrough implements StateChan
 		/* Wartezeit in Statistik */
 		final long waitingTime=simData.currentTime-client.lastWaitingStart;
 		simData.runData.logStationProcess(simData,this,client,waitingTime,0,0,waitingTime);
-		client.waitingTime+=waitingTime;
-		client.residenceTime+=waitingTime;
+		client.addStationTime(id,waitingTime,0,0,waitingTime);
 
 		/* Kunden an Station in Statistik */
 		simData.runData.logClientLeavesStationQueue(simData,this,data,client);

@@ -322,9 +322,7 @@ public class RunElementTransportTransporterSource extends RunElement implements 
 
 				/* Kunde aus Station austragen */
 				final long delayTimeMS=simData.currentTime-client.lastWaitingStart;
-				client.waitingTime+=delayTimeMS;
-				client.transferTime+=transferTimeMS;
-				client.residenceTime+=delayTimeMS+transferTimeMS;
+				client.addStationTime(id,delayTimeMS,transferTimeMS,0,delayTimeMS+transferTimeMS);
 				simData.runData.logStationProcess(simData,this,client,delayTimeMS,transferTimeMS,0,delayTimeMS+transferTimeMS);
 				StationLeaveEvent.addLeaveEvent(simData,client,this,0);
 			}

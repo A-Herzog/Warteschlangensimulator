@@ -89,6 +89,14 @@ public class StatisticViewerDistributionTimeLineChart extends StatisticViewerLin
 		MODE_PROCESSING_STATION,
 		/** Verteilungsdiagramm der an den Stationen aufgetretenen Verweilzeiten */
 		MODE_RESIDENCE_STATION,
+		/** Verteilungsdiagramm der an den Stationen aufgetretenen Wartezeiten (Einzelzeiten der Kunden summiert) */
+		MODE_WAITING_STATION_TOTAL,
+		/** Verteilungsdiagramm der an den Stationen aufgetretenen Transportzeiten (Einzelzeiten der Kunden summiert) */
+		MODE_TRANSFER_STATION_TOTAL,
+		/** Verteilungsdiagramm der an den Stationen aufgetretenen Bedienzeiten (Einzelzeiten der Kunden summiert) */
+		MODE_PROCESSING_STATION_TOTAL,
+		/** Verteilungsdiagramm der an den Stationen aufgetretenen Verweilzeiten (Einzelzeiten der Kunden summiert) */
+		MODE_RESIDENCE_STATION_TOTAL,
 		/** Verteilungsdiagramm der an den Stationen aufgetretenen Wartezeiten (zusätzlich ausdifferenziert nach Kundentypen) */
 		MODE_WAITING_STATION_CLIENT,
 		/** Verteilungsdiagramm der an den Stationen aufgetretenen Transportzeiten (zusätzlich ausdifferenziert nach Kundentypen) */
@@ -381,6 +389,22 @@ public class StatisticViewerDistributionTimeLineChart extends StatisticViewerLin
 			break;
 		case MODE_RESIDENCE_STATION:
 			requestDiagrammTimeDistribution(Language.tr("Statistics.DistributionOfTheResidenceTimes"),statistics.stationsResidenceTimes,Language.tr("Statistics.ResidenceTime"),null);
+			addDescription("PlotTimeDistribution");
+			break;
+		case MODE_WAITING_STATION_TOTAL:
+			requestDiagrammTimeDistribution(Language.tr("Statistics.DistributionOfTheWaitingTimesTotal"),statistics.stationsTotalWaitingTimes,Language.tr("Statistics.WaitingTime"),null);
+			addDescription("PlotTimeDistribution");
+			break;
+		case MODE_TRANSFER_STATION_TOTAL:
+			requestDiagrammTimeDistribution(Language.tr("Statistics.DistributionOfTheTransferTimesTotal"),statistics.stationsTotalTransferTimes,Language.tr("Statistics.TransferTime"),null);
+			addDescription("PlotTimeDistribution");
+			break;
+		case MODE_PROCESSING_STATION_TOTAL:
+			requestDiagrammTimeDistribution(Language.tr("Statistics.DistributionOfTheProcessTimesTotal"),statistics.stationsTotalProcessingTimes,Language.tr("Statistics.ProcessTime"),null);
+			addDescription("PlotTimeDistribution");
+			break;
+		case MODE_RESIDENCE_STATION_TOTAL:
+			requestDiagrammTimeDistribution(Language.tr("Statistics.DistributionOfTheResidenceTimesTotal"),statistics.stationsTotalResidenceTimes,Language.tr("Statistics.ResidenceTime"),null);
 			addDescription("PlotTimeDistribution");
 			break;
 		case MODE_WAITING_STATION_CLIENT:

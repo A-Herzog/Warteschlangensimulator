@@ -479,14 +479,12 @@ public class RunElementProcess extends RunElement implements FreeResourcesListen
 		case PROCESS_TYPE_PROCESS: simData.runData.logStationProcess(simData,this,selected,waitingTimeMS,0,setupTimeMS+processingTimeMS,residenceTimeMS); break;
 		case PROCESS_TYPE_NOTHING: simData.runData.logStationProcess(simData,this,selected,waitingTimeMS,0,0,residenceTimeMS); break; /* nicht erfassen */
 		}
-		selected.waitingTime+=waitingTimeMS;
 		switch (processTimeType) {
-		case PROCESS_TYPE_WAITING: selected.waitingTime+=(setupTimeMS+processingTimeMS); break;
-		case PROCESS_TYPE_TRANSFER: selected.transferTime+=(setupTimeMS+processingTimeMS); break;
-		case PROCESS_TYPE_PROCESS: selected.processTime+=(setupTimeMS+processingTimeMS); break;
+		case PROCESS_TYPE_WAITING: selected.addStationTime(id,waitingTimeMS+setupTimeMS+processingTimeMS,0,0,waitingTimeMS+setupTimeMS+processingTimeMS); break;
+		case PROCESS_TYPE_TRANSFER: selected.addStationTime(id,waitingTimeMS,setupTimeMS+processingTimeMS,0,waitingTimeMS+setupTimeMS+processingTimeMS); break;
+		case PROCESS_TYPE_PROCESS: selected.addStationTime(id,waitingTimeMS,0,setupTimeMS+processingTimeMS,waitingTimeMS+setupTimeMS+processingTimeMS); break;
 		case PROCESS_TYPE_NOTHING: /* nicht erfassen */ break;
 		}
-		selected.residenceTime+=(waitingTimeMS+setupTimeMS+processingTimeMS);
 		selected.lastAlternative=resourceAlternative+1;
 
 		/* Weiterleitung zu nächster Station nach Bedienzeit-Ende */
@@ -599,14 +597,12 @@ public class RunElementProcess extends RunElement implements FreeResourcesListen
 				case PROCESS_TYPE_PROCESS: simData.runData.logStationProcess(simData,this,client,waitingTime,0,processingTime,residenceTime); break;
 				case PROCESS_TYPE_NOTHING: simData.runData.logStationProcess(simData,this,client,waitingTime,0,0,residenceTime); break; /* nicht erfassen */
 				}
-				client.waitingTime+=waitingTime;
 				switch (processTimeType) {
-				case PROCESS_TYPE_WAITING: client.waitingTime+=processingTime; break;
-				case PROCESS_TYPE_TRANSFER: client.transferTime+=processingTime; break;
-				case PROCESS_TYPE_PROCESS: client.processTime+=processingTime; break;
+				case PROCESS_TYPE_WAITING: client.addStationTime(id,waitingTime+processingTime,0,0,waitingTime+processingTime); break;
+				case PROCESS_TYPE_TRANSFER: client.addStationTime(id,waitingTime,processingTime,0,waitingTime+processingTime); break;
+				case PROCESS_TYPE_PROCESS: client.addStationTime(id,waitingTime,0,processingTime,waitingTime+processingTime); break;
 				case PROCESS_TYPE_NOTHING: /* nicht erfassen */ break;
 				}
-				client.residenceTime+=waitingTime+processingTime;
 				client.lastAlternative=resourceAlternative+1;
 
 				/* Weiterleitung zu nächster Station nach Bedienzeit-Ende */
@@ -717,8 +713,7 @@ public class RunElementProcess extends RunElement implements FreeResourcesListen
 
 			/* Bedienzeit in Statistik */
 			simData.runData.logStationProcess(simData,this,client,waitingTime,0,0,waitingTime);
-			client.waitingTime+=waitingTime;
-			client.residenceTime+=waitingTime;
+			client.addStationTime(id,waitingTime,0,0,waitingTime);
 		} finally {
 			data.queueLockedForPickUp=false;
 		}
@@ -766,8 +761,7 @@ public class RunElementProcess extends RunElement implements FreeResourcesListen
 
 		long waitingTime=data.removeClientFromQueue(client,0,simData.currentTime,true,simData);
 		/* Nein, da Kunde an der Station ja nicht bedient wurde: simData.runData.logStationProcess(simData,this,waitingTime,0,0); */
-		client.waitingTime+=waitingTime;
-		client.residenceTime+=waitingTime;
+		client.addStationTime(id,waitingTime,0,0,waitingTime);
 
 		return client;
 	}

@@ -120,8 +120,7 @@ public class RunElementSeize extends RunElementPassThrough implements FreeResour
 		/* Bedienzeit in Statistik */
 		long waitingTime=simData.currentTime-client.lastWaitingStart;
 		simData.runData.logStationProcess(simData,this,client,waitingTime,0,0,waitingTime);
-		client.waitingTime+=waitingTime;
-		client.residenceTime+=waitingTime;
+		client.addStationTime(id,waitingTime,0,0,waitingTime);
 
 		/* Weiterleitung zu nächster Station nach Bedienzeit-Ende */
 		StationLeaveEvent.addLeaveEvent(simData,client,this,0);

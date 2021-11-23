@@ -165,13 +165,11 @@ public class RunElementConveyor extends RunElementPassThrough implements PickUpQ
 			case TRANSPORT_TYPE_TRANSFER: simData.runData.logStationProcess(simData,this,client,waitingTimeMS,transportTimeMS,0,residenceTimeMS); break;
 			case TRANSPORT_TYPE_PROCESS: simData.runData.logStationProcess(simData,this,client,waitingTimeMS,0,transportTimeMS,residenceTimeMS); break;
 			}
-			client.waitingTime+=waitingTimeMS;
 			switch (transportTimeType) {
-			case TRANSPORT_TYPE_WAITING: client.waitingTime+=transportTimeMS; break;
-			case TRANSPORT_TYPE_TRANSFER: client.transferTime+=transportTimeMS; break;
-			case TRANSPORT_TYPE_PROCESS: client.processTime+=transportTimeMS; break;
+			case TRANSPORT_TYPE_WAITING: client.addStationTime(id,waitingTimeMS+transportTimeMS,0,0,waitingTimeMS+transportTimeMS); break;
+			case TRANSPORT_TYPE_TRANSFER: client.addStationTime(id,waitingTimeMS,transportTimeMS,0,waitingTimeMS+transportTimeMS); break;
+			case TRANSPORT_TYPE_PROCESS: client.addStationTime(id,waitingTimeMS,0,transportTimeMS,waitingTimeMS+transportTimeMS); break;
 			}
-			client.residenceTime+=(waitingTimeMS+transportTimeMS);
 
 			/* Weiterleitung zu nächster Station nach Bedienzeit-Ende */
 			StationLeaveEvent.addLeaveEvent(simData,client,this,transportTimeMS);
@@ -216,8 +214,7 @@ public class RunElementConveyor extends RunElementPassThrough implements PickUpQ
 
 		long waitingTime=data.removeClientFromQueue(client,0,simData.currentTime,simData);
 		/* Nein, da Kunde an der Station ja nicht bedient wurde: simData.runData.logStationProcess(simData,this,waitingTime,0,0); */
-		client.waitingTime+=waitingTime;
-		client.residenceTime+=waitingTime;
+		client.addStationTime(id,waitingTime,0,0,waitingTime);
 
 		return client;
 	}

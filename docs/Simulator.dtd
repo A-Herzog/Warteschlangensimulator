@@ -4,7 +4,7 @@
 
 <!-- Beschreibung der Modell-Dateien -->
 
-<!ELEMENT Modell (ModellVersion | ModellName | ModellAutor | ModellAutorEMail | ModellBeschreibung | ModellAufwaermphase | ModellWiederholungen | ModellKunden | ModellAbbruchbedingung | ModellAbbruchzeit | ModellAbbruchKonfidenz | ModellZufallszahlenStartwert | ModellAutokorrelation | ModellBatchGroesse | ModellElemente | Ressourcen | KundentypenDaten | ModellZeitplaene | ModellZusatzStatistik | InitialeVariable | ModellVariablenAufzeichnen | InitialeZuordnung | ModellFarbe | ModellHintergrundBild | ModellFertigungsplaene | ModellTransporterListe | ModellPfadsegmente | ModellAnimationsBilder | ModellStatistikVerteilungStunden | ModellStatistikVerteilungWerte | ModellBeiRechenfehlerAbbrechen | ModellKantenNormal | ModellKantenSelektiert | ModellElementVerbindungsdarstellungsart | ModellZeitabhaengigePruefungen | ModellPfadaufzeichnung | ModellUnvollstaendigeKundenAufzeichnung | Benutzervorlagen | ExterneDaten | ModellPluginsVerzeichnis | ModellJavaImports | GespeicherteAnsicht | KiritischeStationenSignatur)*>
+<!ELEMENT Modell (ModellVersion | ModellName | ModellAutor | ModellAutorEMail | ModellBeschreibung | ModellAufwaermphase | ModellWiederholungen | ModellKunden | ModellAbbruchbedingung | ModellAbbruchzeit | ModellAbbruchKonfidenz | ModellZufallszahlenStartwert | ModellAutokorrelation | ModellBatchGroesse | ModellElemente | Ressourcen | KundentypenDaten | ModellZeitplaene | ModellZusatzStatistik | InitialeVariable | ModellVariablenAufzeichnen | InitialeZuordnung | ModellFarbe | ModellHintergrundBild | ModellFertigungsplaene | ModellTransporterListe | ModellPfadsegmente | ModellAnimationsBilder | ModellStatistikVerteilungStunden | ModellStatistikVerteilungWerte | ModellBeiRechenfehlerAbbrechen | ModellKantenNormal | ModellKantenSelektiert | ModellElementVerbindungsdarstellungsart | ModellZeitabhaengigePruefungen | ModellPfadaufzeichnung | ModellKundenStationenZeitSummeAufzeichnen | ModellUnvollstaendigeKundenAufzeichnung | Benutzervorlagen | ExterneDaten | ModellPluginsVerzeichnis | ModellJavaImports | GespeicherteAnsicht | KiritischeStationenSignatur)*>
 <!ATTLIST Modell
   xmlns	CDATA	#IMPLIED
   xmlns:xsi	CDATA	#IMPLIED
@@ -228,6 +228,8 @@
   Stationsuebergaenge	CDATA	#IMPLIED
   Kundenpfade			CDATA	#IMPLIED
 >
+
+<!ELEMENT ModellKundenStationenZeitSummeAufzeichnen (#PCDATA)>
 
 <!ELEMENT ModellUnvollstaendigeKundenAufzeichnung (#PCDATA)>
 
@@ -1713,7 +1715,7 @@
 
 <!-- Beschreibung der Statistik-Dateien -->
 
-<!ELEMENT Statistik (Modell | Simulation | StatistikThreadBasierendeWartzeitKonfidenz | StatistikZwischenankunftszeitenKunden | StatistikZwischenankunftszeitenStationen | StatistikZwischenankunftszeitenStationenBatch | StatistikZwischenankunftszeitenStationenKunden | StatistikZwischenabgangszeitenKunden | StatistikZwischenabgangszeitenStationen | StatistikZwischenankunftszeitenStationenWarteschlange | StatistikZwischenabgangszeitenStationenKunden | StatistikKundenbewegung | StatistikKundenpfade | StatistikWartezeitenKunden | StatistikTransferzeitenKunden | StatistikBedienzeitenKunden | StatistikVerweilzeitenKunden | StatistikWartezeitenAlleKunden | StatistikTransferzeitenAlleKunden | StatistikBedienzeitenAlleKunden | StatistikVerweilzeitenAlleKunden | StatistikWartezeitenStationen | StatistikTransferzeitenStationen | StatistikBedienzeitenStationen | StatistikVerweilzeitenStationen | StatistikWartezeitenStationenKunden | StatistikTransferzeitenStationenKunden | StatistikBedienzeitenStationenKunden | StatistikVerweilzeitenStationenKunden | StatistikKundenImSystem | StatistikKundentypenImSystemWartendUeberall | StatistikKundenAnStation | StatistikKundenAnStationNachKundentyp | StatistikKundentypenImSystem | StatistikKundenAnStationWartend | StatistikKundenAnStationWartendNachKundentyp |StatistikKundentypenImSystemWartend | StatistikRessourceAnzahlen | StatistikAuslastung | StatistikPausenzeiten | StatistikAuslastungRho | StatistikTransporterAuslastung | StatistikTransporterPausenzeiten | StatistikZaehler | StatistikZaehlerBatch | StatistikDifferenzZaehler | StatistikKundenWartezeitKosten | StatistikKundenTransferzeitKosten | StatistikKundenBedienzeitKosten | StatistikStationenKosten | StatistikRessourcenArbeitszeitKosten | StatistikRessourcenAuslastungsKosten | StatistikRessourcenLeerlaufKosten | StatistikLaufzeitWerte | StatistikBenutzerdefiniert | StatistikBenutzerdefiniertKontinuierlich | StatistikVariablen | StatistikStatusZeit | StatistikAnalogWert | StatistikDurchsatz | StatistikWerteaufzeichnung | StatistikKundendaten)*>
+<!ELEMENT Statistik (Modell | Simulation | StatistikThreadBasierendeWartzeitKonfidenz | StatistikZwischenankunftszeitenKunden | StatistikZwischenankunftszeitenStationen | StatistikZwischenankunftszeitenStationenBatch | StatistikZwischenankunftszeitenStationenKunden | StatistikZwischenabgangszeitenKunden | StatistikZwischenabgangszeitenStationen | StatistikZwischenankunftszeitenStationenWarteschlange | StatistikZwischenabgangszeitenStationenKunden | StatistikKundenbewegung | StatistikKundenpfade | StatistikWartezeitenKunden | StatistikTransferzeitenKunden | StatistikBedienzeitenKunden | StatistikVerweilzeitenKunden | StatistikWartezeitenAlleKunden | StatistikTransferzeitenAlleKunden | StatistikBedienzeitenAlleKunden | StatistikVerweilzeitenAlleKunden | StatistikWartezeitenStationen | StatistikTransferzeitenStationen | StatistikBedienzeitenStationen | StatistikVerweilzeitenStationen | StatistikWartezeitenStationenKunden | StatistikTransferzeitenStationenKunden | StatistikBedienzeitenStationenKunden | StatistikVerweilzeitenStationenKunden | StatistikWartezeitenStationenKundenSumme | StatistikTransferzeitenStationenKundenSumme | StatistikBedienzeitenStationenKundenSumme | StatistikVerweilzeitenStationenKundenSumme | StatistikKundenImSystem | StatistikKundentypenImSystemWartendUeberall | StatistikKundenAnStation | StatistikKundenAnStationNachKundentyp | StatistikKundentypenImSystem | StatistikKundenAnStationWartend | StatistikKundenAnStationWartendNachKundentyp |StatistikKundentypenImSystemWartend | StatistikRessourceAnzahlen | StatistikAuslastung | StatistikPausenzeiten | StatistikAuslastungRho | StatistikTransporterAuslastung | StatistikTransporterPausenzeiten | StatistikZaehler | StatistikZaehlerBatch | StatistikDifferenzZaehler | StatistikKundenWartezeitKosten | StatistikKundenTransferzeitKosten | StatistikKundenBedienzeitKosten | StatistikStationenKosten | StatistikRessourcenArbeitszeitKosten | StatistikRessourcenAuslastungsKosten | StatistikRessourcenLeerlaufKosten | StatistikLaufzeitWerte | StatistikBenutzerdefiniert | StatistikBenutzerdefiniertKontinuierlich | StatistikVariablen | StatistikStatusZeit | StatistikAnalogWert | StatistikDurchsatz | StatistikWerteaufzeichnung | StatistikKundendaten)*>
 <!ATTLIST Statistik
   xmlns	CDATA	#IMPLIED
   xmlns:xsi	CDATA	#IMPLIED
@@ -2133,6 +2135,10 @@
 <!ELEMENT StatistikTransferzeitenStationenKunden (Station)*>
 <!ELEMENT StatistikBedienzeitenStationenKunden (Station)*>
 <!ELEMENT StatistikVerweilzeitenStationenKunden (Station)*>
+<!ELEMENT StatistikWartezeitenStationenKundenSumme (Station)*>
+<!ELEMENT StatistikTransferzeitenStationenKundenSumme (Station)*>
+<!ELEMENT StatistikBedienzeitenStationenKundenSumme (Station)*>
+<!ELEMENT StatistikVerweilzeitenStationenKundenSumme (Station)*>
 <!ELEMENT StatistikKundenImSystem (#PCDATA)>
 <!ATTLIST StatistikKundenImSystem
   Maximum				CDATA	#REQUIRED
@@ -2382,7 +2388,7 @@
 
 <!-- Documentation of the model files -->
 
-<!ELEMENT Model (ModelVersion | ModelName | ModelAuthor | ModelAuthorEMail | ModelDescription | ModelWarmUpPhase | ModelRepeats | ModelClients |  ModelTerminationCondition | ModelTerminationTime | ModelTerminationConfidence | ModelRandomNumbersSeed | ModelAutocorrelation | ModelBatchSize | ModelElements | Resources | ClientTypeData | ModelSchedules | ModelAdditionalStatistics | InitialVariable | ModelVariableRecording | InitialMap | ModelColor | ModelBackgroundImage | ModelSequences | ModelTransporters | ModelPathSegments | ModelAnimationImages | ModelStatisticsDistributionHours | ModelStatisticsDistributionValues | ModelStoppOnCalcError | ModelEdgesNormal | ModelEdgesSelected | ModelElementConnectionDrawStyle | ModelTimedChecks | ModelPathRecording | ModelRecordIncompleteClients | UserTemplates | ExternalData | ModelPluginsFolder| ModelJavaImports | SavedView | CriticalStationsSignature)*>
+<!ELEMENT Model (ModelVersion | ModelName | ModelAuthor | ModelAuthorEMail | ModelDescription | ModelWarmUpPhase | ModelRepeats | ModelClients |  ModelTerminationCondition | ModelTerminationTime | ModelTerminationConfidence | ModelRandomNumbersSeed | ModelAutocorrelation | ModelBatchSize | ModelElements | Resources | ClientTypeData | ModelSchedules | ModelAdditionalStatistics | InitialVariable | ModelVariableRecording | InitialMap | ModelColor | ModelBackgroundImage | ModelSequences | ModelTransporters | ModelPathSegments | ModelAnimationImages | ModelStatisticsDistributionHours | ModelStatisticsDistributionValues | ModelStoppOnCalcError | ModelEdgesNormal | ModelEdgesSelected | ModelElementConnectionDrawStyle | ModelTimedChecks | ModelPathRecording | ModelRecordClientStationTimeSum | ModelRecordIncompleteClients | UserTemplates | ExternalData | ModelPluginsFolder| ModelJavaImports | SavedView | CriticalStationsSignature)*>
 <!ATTLIST Model
   xmlns	CDATA	#IMPLIED
   xmlns:xsi	CDATA	#IMPLIED
@@ -2606,6 +2612,8 @@
   StationTransitions	CDATA	#IMPLIED
   ClientPaths			CDATA	#IMPLIED
 >
+
+<!ELEMENT ModelRecordClientStationTimeSum (#PCDATA)>
 
 <!ELEMENT ModelRecordIncompleteClients (#PCDATA)>
 
@@ -4090,7 +4098,7 @@
 
 <!-- Documentation of the statistics data -->
 
-<!ELEMENT Statistics (Model | SimulationData | StatisticsThreadBasedWaitingTimeConfidence | StatisticsInterArrivalTimesClients | StatisticsInterArrivalTimesStations | StatisticsInterArrivalTimesStationsBatch | StatisticsInterArrivalTimesStationsClients | StatisticsInterLeavingTimesClients | StatisticsInterLeavingTimesStations | StatisticsInterArrivalTimesStationsQueueLength | StatisticsInterLeavingTimesStationsClients | StatisticsClientMovement | StatisticsClientPaths | StatisticsWaitingTimesClients | StatisticsTransferTimesClients | StatisticsProcessTimesClients | StatisticsResidenceTimesClients | StatisticsWaitingTimesAllClients | StatisticsTransferTimesAllClients | StatisticsProcessTimesAllClients | StatisticsResidenceTimesAllClients | StatisticsWaitingTimesStations | StatisticsTransferTimesStations | StatisticsProcessTimesStations | StatisticsResidenceTimesStations | StatisticsWaitingTimesStationsClients | StatisticsTransferTimesStationsClients | StatisticsProcessTimesStationsClients | StatisticsResidenceTimesStationsClients | StatisticsClientsInSystem | StatisticsClientsInSystemAllQueues | StatisticsClientsAtStation | StatisticsClientsAtStationByClientType | StatisticsClienttypesInSystem | StatisticsClientsAtStationQueue | StatisticsClientsAtStationQueueByClientType |StatisticsClientsInSystemQueue | StatisticsResourceNumbers | StatisticsUtilization | StatisticsDownTime | StatisticsUtilizationRho | StatisticsTransporterUtilization | StatisticsTransporterDownTimes | StatisticsCounter | StatisticsCounterBatch | StatisticsDifferenceCounter | StatisticsClientWaitingTimeCosts | StatisticsClientTransferTimeCosts | StatisticsClientProcessTimeCosts | StatisticsStationsCosts | StatisticsResourcesAvailabilityCosts | StatisticsResourcesWorkTimeCosts | StatisticsResourcesIdleTimeCosts | StatisticsRunTimeValues | StatisticsUserDefined | StatisticsUserDefinedContinuous | StatisticsVariables | StatisticsStatusTime | StatisticsAnalogValue | StatisticsThroughput | StatisticsValueRecordingName | StatisticsClientData)*>
+<!ELEMENT Statistics (Model | SimulationData | StatisticsThreadBasedWaitingTimeConfidence | StatisticsInterArrivalTimesClients | StatisticsInterArrivalTimesStations | StatisticsInterArrivalTimesStationsBatch | StatisticsInterArrivalTimesStationsClients | StatisticsInterLeavingTimesClients | StatisticsInterLeavingTimesStations | StatisticsInterArrivalTimesStationsQueueLength | StatisticsInterLeavingTimesStationsClients | StatisticsClientMovement | StatisticsClientPaths | StatisticsWaitingTimesClients | StatisticsTransferTimesClients | StatisticsProcessTimesClients | StatisticsResidenceTimesClients | StatisticsWaitingTimesAllClients | StatisticsTransferTimesAllClients | StatisticsProcessTimesAllClients | StatisticsResidenceTimesAllClients | StatisticsWaitingTimesStations | StatisticsTransferTimesStations | StatisticsProcessTimesStations | StatisticsResidenceTimesStations | StatisticsWaitingTimesStationsClients | StatisticsTransferTimesStationsClients | StatisticsProcessTimesStationsClients | StatisticsResidenceTimesStationsClients | StatisticsWaitingTimesStationsClientSum | StatisticsTransferTimesStationsClientSum | StatisticsProcessTimesStationsClientSum | StatisticsResidenceTimesStationsClientSum | StatisticsClientsInSystem | StatisticsClientsInSystemAllQueues | StatisticsClientsAtStation | StatisticsClientsAtStationByClientType | StatisticsClienttypesInSystem | StatisticsClientsAtStationQueue | StatisticsClientsAtStationQueueByClientType |StatisticsClientsInSystemQueue | StatisticsResourceNumbers | StatisticsUtilization | StatisticsDownTime | StatisticsUtilizationRho | StatisticsTransporterUtilization | StatisticsTransporterDownTimes | StatisticsCounter | StatisticsCounterBatch | StatisticsDifferenceCounter | StatisticsClientWaitingTimeCosts | StatisticsClientTransferTimeCosts | StatisticsClientProcessTimeCosts | StatisticsStationsCosts | StatisticsResourcesAvailabilityCosts | StatisticsResourcesWorkTimeCosts | StatisticsResourcesIdleTimeCosts | StatisticsRunTimeValues | StatisticsUserDefined | StatisticsUserDefinedContinuous | StatisticsVariables | StatisticsStatusTime | StatisticsAnalogValue | StatisticsThroughput | StatisticsValueRecordingName | StatisticsClientData)*>
 <!ATTLIST Statistics
   xmlns	CDATA	#IMPLIED
   xmlns:xsi	CDATA	#IMPLIED
@@ -4510,6 +4518,10 @@
 <!ELEMENT StatisticsTransferTimesStationsClients (StationData)*>
 <!ELEMENT StatisticsProcessTimesStationsClients (StationData)*>
 <!ELEMENT StatisticsResidenceTimesStationsClients (StationData)*>
+<!ELEMENT StatisticsWaitingTimesStationsClientSum (StationData)*>
+<!ELEMENT StatisticsTransferTimesStationsClientSum (StationData)*>
+<!ELEMENT StatisticsProcessTimesStationsClientSum (StationData)*>
+<!ELEMENT StatisticsResidenceTimesStationsClientSum (StationData)*>
 <!ELEMENT StatisticsClientsInSystem (#PCDATA)>
 <!ATTLIST StatisticsClientsInSystem
   Maximum					CDATA	#REQUIRED

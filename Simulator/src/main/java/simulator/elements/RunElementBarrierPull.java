@@ -150,8 +150,7 @@ public class RunElementBarrierPull extends RunElementPassThrough implements Stat
 		final RunDataClient client=data.waitingClients.remove(0);
 		final long waitingTime=simData.currentTime-client.lastWaitingStart;
 		/* Nein, da Kunde an der Station ja nicht bedient wurde: simData.runData.logStationProcess(simData,this,waitingTime,0,0); */
-		client.waitingTime+=waitingTime;
-		client.residenceTime+=waitingTime;
+		client.addStationTime(id,waitingTime,0,0,waitingTime);
 		simData.runData.logClientLeavesStationQueue(simData,this,data,client);
 
 		return client;
@@ -171,8 +170,7 @@ public class RunElementBarrierPull extends RunElementPassThrough implements Stat
 		/* Bedienzeit in Statistik */
 		final long waitingTime=simData.currentTime-client.lastWaitingStart;
 		simData.runData.logStationProcess(simData,this,client,waitingTime,0,0,waitingTime);
-		client.waitingTime+=waitingTime;
-		client.residenceTime+=waitingTime;
+		client.addStationTime(id,waitingTime,0,0,waitingTime);
 
 		/* Zeit der aktuellen Freigabe festhalten */
 		data.lastSendTime=simData.currentTime;

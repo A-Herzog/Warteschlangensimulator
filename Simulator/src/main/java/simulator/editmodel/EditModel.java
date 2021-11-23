@@ -389,6 +389,11 @@ public final class EditModel extends EditModelBase implements Cloneable  {
 	public boolean recordClientPaths;
 
 	/**
+	 * Erfassung der jeweils gesamten Zeiten eines Kunden an einer Station (d.h. mehrere Bedienungen desselben Kunden an einer Station als Summe)?
+	 */
+	public boolean recordStationTotalClientTimes;
+
+	/**
 	 * Sollen auch Kunden, die das System am Ende noch nicht verlassen haben, in der Statistik erfasst werden?
 	 */
 	public boolean recordIncompleteClients;
@@ -461,6 +466,7 @@ public final class EditModel extends EditModelBase implements Cloneable  {
 		timedChecksDelta=-1;
 		recordStationTransitions=false;
 		recordClientPaths=false;
+		recordStationTotalClientTimes=false;
 		recordIncompleteClients=false;
 		modelLoadData=new ModelLoadData();
 		pluginsFolder="";
@@ -549,6 +555,7 @@ public final class EditModel extends EditModelBase implements Cloneable  {
 		timedChecksDelta=-1;
 		recordStationTransitions=false;
 		recordClientPaths=false;
+		recordStationTotalClientTimes=false;
 		recordIncompleteClients=false;
 		templates=null;
 		modelLoadData.clear();
@@ -615,6 +622,7 @@ public final class EditModel extends EditModelBase implements Cloneable  {
 		clone.timedChecksDelta=timedChecksDelta;
 		clone.recordStationTransitions=recordStationTransitions;
 		clone.recordClientPaths=recordClientPaths;
+		clone.recordStationTotalClientTimes=recordStationTotalClientTimes;
 		clone.recordIncompleteClients=recordIncompleteClients;
 		if (templates!=null) clone.templates=templates.clone();
 		clone.modelLoadData.copyDataFrom(modelLoadData);
@@ -697,6 +705,7 @@ public final class EditModel extends EditModelBase implements Cloneable  {
 		if (timedChecksDelta!=otherModel.timedChecksDelta) return false;
 		if (recordStationTransitions!=otherModel.recordStationTransitions) return false;
 		if (recordClientPaths!=otherModel.recordClientPaths) return false;
+		if (recordStationTotalClientTimes!=otherModel.recordStationTotalClientTimes) return false;
 		if (recordIncompleteClients!=otherModel.recordIncompleteClients) return false;
 		if (!modelLoadData.equalsModelLoadData(otherModel.modelLoadData)) return false;
 		if (!pluginsFolder.equalsIgnoreCase(otherModel.pluginsFolder)) return false;
@@ -1074,6 +1083,11 @@ public final class EditModel extends EditModelBase implements Cloneable  {
 			return null;
 		}
 
+		if (Language.trAll("Surface.XML.RecordStationTotalClientTimes",name)) {
+			recordStationTotalClientTimes=!text.trim().isEmpty() && !text.equals("0");
+			return null;
+		}
+
 		if (Language.trAll("Surface.XML.RecordIncompleteClients",name)) {
 			recordIncompleteClients=!text.trim().isEmpty() && !text.equals("0");
 			return null;
@@ -1270,6 +1284,11 @@ public final class EditModel extends EditModelBase implements Cloneable  {
 			node.appendChild(sub=doc.createElement(Language.trPrimary("Surface.XML.PathRecording")));
 			if (recordStationTransitions) sub.setAttribute(Language.trPrimary("Surface.XML.PathRecording.StationTransitions"),"1");
 			if (recordClientPaths) sub.setAttribute(Language.trPrimary("Surface.XML.PathRecording.ClientPaths"),"1");
+		}
+
+		if (recordStationTotalClientTimes) {
+			node.appendChild(sub=doc.createElement(Language.trPrimary("Surface.XML.RecordStationTotalClientTimes")));
+			sub.setTextContent("1");
 		}
 
 		if (recordIncompleteClients) {

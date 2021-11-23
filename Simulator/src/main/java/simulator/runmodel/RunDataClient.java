@@ -116,6 +116,30 @@ public class RunDataClient {
 	public long residenceTime;
 
 	/**
+	 * Zuordnung von Stations-IDs zu Wartezeit-Zeitendauern, die der jeweilige Kunde insgesamt (evtl. in mehreren Anläufen) an der Station war
+	 * @see #recordStationTotalClientTimes
+	 */
+	public Map<Integer,Long> stationTotalWaitingTime;
+
+	/**
+	 * Zuordnung von Stations-IDs zu Transferzeit-Zeitendauern, die der jeweilige Kunde insgesamt (evtl. in mehreren Anläufen) an der Station war
+	 * @see #recordStationTotalClientTimes
+	 */
+	public Map<Integer,Long> stationTotalTransferTime;
+
+	/**
+	 * Zuordnung von Stations-IDs zu Bedienzeit-Zeitendauern, die der jeweilige Kunde insgesamt (evtl. in mehreren Anläufen) an der Station war
+	 * @see #recordStationTotalClientTimes
+	 */
+	public Map<Integer,Long> stationTotalProcessTime;
+
+	/**
+	 * Zuordnung von Stations-IDs zu Verweilzeit-Zeitendauern, die der jeweilige Kunde insgesamt (evtl. in mehreren Anläufen) an der Station war
+	 * @see #recordStationTotalClientTimes
+	 */
+	public Map<Integer,Long> stationTotalResidenceTime;
+
+	/**
 	 * Zusätzliche Kosten, die am Ende mit als Wartezeit-Kosten gezählt werden sollen
 	 */
 	public double waitingAdditionalCosts;
@@ -326,12 +350,20 @@ public class RunDataClient {
 	private int pathRecordingUsed;
 
 	/**
+	 * Erfassung der jeweils gesamten Zeiten eines Kunden an einer Station (d.h. mehrere Bedienungen desselben Kunden an einer Station als Summe)?
+	 * @see RunModel#recordStationTotalClientTimes
+	 */
+	private final boolean recordStationTotalClientTimes;
+
+	/**
 	 * Konstruktor des <code>RunDataClient</code>
 	 * @param type	Kundentyp (Index im <code>RunModel.clientTypes</code>-Array)
 	 * @param isWarmUp	Ist der Kunde während der Warm-Up-Phase eingetroffen?
+	 * @param recordStationTotalClientTimes	Erfassung der jeweils gesamten Zeiten eines Kunden an einer Station (d.h. mehrere Bedienungen desselben Kunden an einer Station als Summe)?
 	 * @param clientNumber	Fortlaufende Nummer der Kunden (wird von <code>RunDataClients.getClient()</code> gezählt)
 	 */
-	public RunDataClient(final int type, final boolean isWarmUp, final long clientNumber) {
+	public RunDataClient(final int type, final boolean isWarmUp, final boolean recordStationTotalClientTimes, final long clientNumber) {
+		this.recordStationTotalClientTimes=recordStationTotalClientTimes;
 		init(type,isWarmUp,clientNumber);
 	}
 
@@ -354,6 +386,12 @@ public class RunDataClient {
 		transferTime=0;
 		processTime=0;
 		residenceTime=0;
+		if (recordStationTotalClientTimes) {
+			if (stationTotalWaitingTime==null) stationTotalWaitingTime=new HashMap<>(); else stationTotalWaitingTime.clear();
+			if (stationTotalTransferTime==null) stationTotalTransferTime=new HashMap<>(); else stationTotalTransferTime.clear();
+			if (stationTotalProcessTime==null) stationTotalProcessTime=new HashMap<>(); else stationTotalProcessTime.clear();
+			if (stationTotalResidenceTime==null) stationTotalResidenceTime=new HashMap<>(); else stationTotalResidenceTime.clear();
+		}
 		waitingAdditionalCosts=0;
 		transferAdditionalCosts=0;
 		processAdditionalCosts=0;
@@ -395,6 +433,16 @@ public class RunDataClient {
 		transferTime=client.transferTime;
 		processTime=client.processTime;
 		residenceTime=client.residenceTime;
+		if (recordStationTotalClientTimes) {
+			stationTotalWaitingTime.clear();
+			stationTotalWaitingTime.putAll(client.stationTotalWaitingTime);
+			stationTotalTransferTime.clear();
+			stationTotalTransferTime.putAll(client.stationTotalTransferTime);
+			stationTotalProcessTime.clear();
+			stationTotalProcessTime.putAll(client.stationTotalProcessTime);
+			stationTotalResidenceTime.clear();
+			stationTotalResidenceTime.putAll(client.stationTotalResidenceTime);
+		}
 		waitingAdditionalCosts=client.waitingAdditionalCosts;
 		transferAdditionalCosts=client.transferAdditionalCosts;
 		processAdditionalCosts=client.processAdditionalCosts;
@@ -430,6 +478,29 @@ public class RunDataClient {
 			}
 		}
 		pathRecordingUsed=client.pathRecordingUsed;
+	}
+
+	/**
+	 * Erfasst eine Zeitdauer für den Kunden.
+	 * @param stationID	Stations-ID
+	 * @param addWaitingTimeMS	Wartezeit (in MS; wird zur bisherigen addiert)
+	 * @param addTransferTimeMS	Transferzeit (in MS; wird zur bisherigen addiert)
+	 * @param addProcessTimeMS	Bedienzeit (in MS; wird zur bisherigen addiert)
+	 * @param addResidenceTimeMS	Verweilzeit (in MS; wird zur bisherigen addiert)
+	 */
+	public void addStationTime(final int stationID, final long addWaitingTimeMS, final long addTransferTimeMS, final long addProcessTimeMS, final long addResidenceTimeMS) {
+		waitingTime+=addWaitingTimeMS;
+		transferTime+=addTransferTimeMS;
+		processTime+=addProcessTimeMS;
+		residenceTime+=addResidenceTimeMS;
+
+		if (recordStationTotalClientTimes) {
+			/* Zeiten==0 dürfen nicht weggelassen werden, weil diese sonst evtl. in der Zählung am Ende fehlen */
+			stationTotalWaitingTime.compute(stationID,(k,v)->(v==null)?addWaitingTimeMS:v+addWaitingTimeMS);
+			stationTotalTransferTime.compute(stationID,(k,v)->(v==null)?addTransferTimeMS:v+addTransferTimeMS);
+			stationTotalProcessTime.compute(stationID,(k,v)->(v==null)?addProcessTimeMS:v+addProcessTimeMS);
+			stationTotalResidenceTime.compute(stationID,(k,v)->(v==null)?addResidenceTimeMS:v+addResidenceTimeMS);
+		}
 	}
 
 	/**
@@ -697,6 +768,12 @@ public class RunDataClient {
 			client.transferTime+=transferTime;
 			client.processTime+=processTime;
 			client.residenceTime+=residenceTime;
+			if (client.recordStationTotalClientTimes) {
+				for (Map.Entry<Integer,Long> entry: stationTotalWaitingTime.entrySet()) client.stationTotalWaitingTime.merge(entry.getKey(),entry.getValue(),Long::sum);
+				for (Map.Entry<Integer,Long> entry: stationTotalTransferTime.entrySet()) client.stationTotalTransferTime.merge(entry.getKey(),entry.getValue(),Long::sum);
+				for (Map.Entry<Integer,Long> entry: stationTotalProcessTime.entrySet()) client.stationTotalProcessTime.merge(entry.getKey(),entry.getValue(),Long::sum);
+				for (Map.Entry<Integer,Long> entry: stationTotalResidenceTime.entrySet()) client.stationTotalResidenceTime.merge(entry.getKey(),entry.getValue(),Long::sum);
+			}
 			client.waitingAdditionalCosts+=waitingAdditionalCosts;
 			client.transferAdditionalCosts+=transferAdditionalCosts;
 			client.processAdditionalCosts+=processAdditionalCosts;
