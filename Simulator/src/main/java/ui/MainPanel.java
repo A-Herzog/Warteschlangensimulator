@@ -265,7 +265,7 @@ public class MainPanel extends MainPanelBase {
 	/**
 	 * Ist dies ein offizieller Release-Build?
 	 */
-	public static final boolean RELEASE_BUILD=true;
+	public static final boolean RELEASE_BUILD=false;
 
 	/** Aktuelle Unterversionsnummer in der Java 8 Versionsreihe */
 	private static final int JAVA8_SECURE_MIN_VERSION=312;
