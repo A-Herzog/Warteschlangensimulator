@@ -311,6 +311,7 @@ public class ExpressionCalc extends CalcSystem {
 		functions.add(new CalcSymbolClientCostProcess_avg());
 		functions.add(new CalcSymbolClientCostProcess_current());
 		functions.add(new CalcSymbolClientCurrentWaitingTime());
+		functions.add(new CalcSymbolClientBatchSize());
 
 		functions.add(new CalcSymbolUserStatistics_current());
 		functions.add(new CalcSymbolUserStatistics_avg());

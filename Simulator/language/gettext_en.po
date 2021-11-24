@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-11-21 19:09+0100\n"
+"POT-Creation-Date: 2021-11-23 15:58+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -5816,6 +5816,12 @@ msgstr ""
 "\n"
 "<p>If the client has not passed any process station yet, the function will return 0. Otherwise a value of 1 or larger will be returned.</p>"
 
+msgid "ExpressionBuilder.SimulationCharacteristics.ClientData.ClientBatchSize"
+msgstr "Size of temporary batch"
+
+msgid "ExpressionBuilder.SimulationCharacteristics.ClientData.ClientBatchSize.Info"
+msgstr "If the client object is a temporary batch, the number of clients contained in the batch is returned. Otherwise, 0 is returned."
+
 msgid "ExpressionBuilder.SimulationCharacteristics.ClientData.ClientData"
 msgstr "User defined data field"
 
@@ -5854,6 +5860,12 @@ msgstr "Waiting time"
 
 msgid "ExpressionBuilder.SimulationCharacteristics.ClientData.WaitingTime.Info"
 msgstr "Returns the waiting time of the current client. (When calculation a score: the waiting time at the current station. In all other cases: the total waiting time of the client.)"
+
+msgid "ExpressionBuilder.SimulationCharacteristics.ClientData.WaitingTimeCurrent"
+msgstr "Waiting time (current station only)"
+
+msgid "ExpressionBuilder.SimulationCharacteristics.ClientData.WaitingTimeCurrent.Info"
+msgstr "Gets the waiting time of the current client at the current station."
 
 msgid "ExpressionBuilder.SimulationCharacteristics.ClientData.isClientInStatistics"
 msgstr "Client in statistics"

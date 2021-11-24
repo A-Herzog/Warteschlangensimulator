@@ -2224,6 +2224,18 @@ public class ExpressionBuilderSimulationData {
 					Language.tr("ExpressionBuilder.SimulationCharacteristics.ClientData.PreviousStation")+" (PreviousStation)",
 					"PreviousStation()",
 					Language.tr("ExpressionBuilder.SimulationCharacteristics.ClientData.PreviousStation.Info"));
+			addTreeNodeClient(
+					sub,
+					filterUpper,
+					Language.tr("ExpressionBuilder.SimulationCharacteristics.ClientData.WaitingTimeCurrent")+" (CurrentWaitingTime)",
+					"CurrentWaitingTime()",
+					Language.tr("ExpressionBuilder.SimulationCharacteristics.ClientData.WaitingTimeCurrent.Info"));
+			addTreeNodeClient(
+					sub,
+					filterUpper,
+					Language.tr("ExpressionBuilder.SimulationCharacteristics.ClientData.ClientBatchSize")+" (ClientBatchSize)",
+					"ClientBatchSize()",
+					Language.tr("ExpressionBuilder.SimulationCharacteristics.ClientData.ClientBatchSize.Info"));
 
 			if (sub.getChildCount()>0) group.add(sub);
 		}

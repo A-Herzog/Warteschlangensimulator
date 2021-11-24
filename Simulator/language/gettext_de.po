@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-11-21 19:09+0100\n"
+"POT-Creation-Date: 2021-11-23 15:58+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -5804,6 +5804,12 @@ msgstr ""
 "\n"
 "<p>Hat der Kunde noch keine Bedienstation durchlaufen, so liefert die Funktion 0. Ansonsten einen Wert größer oder gleich 1.</p>"
 
+msgid "ExpressionBuilder.SimulationCharacteristics.ClientData.ClientBatchSize"
+msgstr "Größe des temporären Batches"
+
+msgid "ExpressionBuilder.SimulationCharacteristics.ClientData.ClientBatchSize.Info"
+msgstr "Handelt es sich bei dem Kundenobjekt um einen temporären Batch, so wird die Anzahl an in dem Batch enthaltenen Kunden zurückgeliefert. Andernfalls wird 0 zurückgeliefert."
+
 msgid "ExpressionBuilder.SimulationCharacteristics.ClientData.ClientData"
 msgstr "Nutzerdefiniertes Datenfeld"
 
@@ -5842,6 +5848,12 @@ msgstr "Bisherige Wartezeit"
 
 msgid "ExpressionBuilder.SimulationCharacteristics.ClientData.WaitingTime.Info"
 msgstr "Liefert die bisherige Wartezeit des aktuellen Kunden. (Bei der Berechnung von Score-Werten: die bisherige Wartezeit an der aktuellen Station. In allen anderen Fällen: die gesamte bisherige Wartezeit der Kunden.)"
+
+msgid "ExpressionBuilder.SimulationCharacteristics.ClientData.WaitingTimeCurrent"
+msgstr "Bisherige Wartezeit (nur aktuelle Station)"
+
+msgid "ExpressionBuilder.SimulationCharacteristics.ClientData.WaitingTimeCurrent.Info"
+msgstr "Liefert die bisherige Wartezeit des aktuellen Kunden an der aktuellen Station."
 
 msgid "ExpressionBuilder.SimulationCharacteristics.ClientData.isClientInStatistics"
 msgstr "Kunde in Statistik"
