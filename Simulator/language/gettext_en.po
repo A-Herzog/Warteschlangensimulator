@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-11-23 15:58+0100\n"
+"POT-Creation-Date: 2021-11-24 15:44+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -8934,6 +8934,15 @@ msgstr "Displayes changes exactly (slow)"
 msgid "Main.Menu.AnalogValues.Fast"
 msgstr "Fast animation"
 
+msgid "Main.Menu.AnimationFinishMode"
+msgstr "End of animation"
+
+msgid "Main.Menu.AnimationFinishMode.Pause"
+msgstr "Pause animation first"
+
+msgid "Main.Menu.AnimationFinishMode.Run"
+msgstr "Switch to the statistics view immediately"
+
 msgid "Main.Menu.AnimationScreenshotMode"
 msgstr "Folder for saving images"
 
@@ -15605,6 +15614,9 @@ msgstr "Security"
 
 msgid "SettingsDialog.Tabs.Simulation.AnimateResources"
 msgstr "Show resources and transporters in animation"
+
+msgid "SettingsDialog.Tabs.Simulation.AnimationPauseWhenFinished"
+msgstr "Pause animation when finish"
 
 msgid "SettingsDialog.Tabs.Simulation.AnimationStartPaused"
 msgstr "Start animation in single step mode"

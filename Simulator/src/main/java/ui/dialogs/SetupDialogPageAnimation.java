@@ -47,6 +47,8 @@ public class SetupDialogPageAnimation extends SetupDialogPage {
 	private final JCheckBox showSingleStepLogData;
 	/** Animation im Einzelschrittmodus starten */
 	private final JCheckBox animationStartPaused;
+	/** Animation vor dem Ende pausieren */
+	private final JCheckBox animationFinishPaused;
 	/** Ressourcen und Transporter in der Animation anzeigen */
 	private final JCheckBox animateResources;
 	/** Animation verlangsamen um die Veränderung analoger Werte besser abzubilden */
@@ -85,6 +87,9 @@ public class SetupDialogPageAnimation extends SetupDialogPage {
 		/* Animation im Einzelschrittmodus starten */
 		addLine().add(animationStartPaused=new JCheckBox(Language.tr("SettingsDialog.Tabs.Simulation.AnimationStartPaused")));
 
+		/* Animation vor dem Ende pausieren */
+		addLine().add(animationFinishPaused=new JCheckBox(Language.tr("SettingsDialog.Tabs.Simulation.AnimationPauseWhenFinished")));
+
 		/* Ressourcen und Transporter in der Animation anzeigen */
 		addLine().add(animateResources=new JCheckBox(Language.tr("SettingsDialog.Tabs.Simulation.AnimateResources")));
 
@@ -103,6 +108,7 @@ public class SetupDialogPageAnimation extends SetupDialogPage {
 		showStationData.setSelected(setup.showStationRunTimeData);
 		showSingleStepLogData.setSelected(setup.showSingleStepLogData);
 		animationStartPaused.setSelected(setup.animationStartPaused);
+		animationFinishPaused.setSelected(setup.animationFinishPaused);
 		animateResources.setSelected(setup.animateResources);
 		useSlowModeAnimation.setSelected(setup.useSlowModeAnimation);
 	}
@@ -118,6 +124,7 @@ public class SetupDialogPageAnimation extends SetupDialogPage {
 		setup.showStationRunTimeData=showStationData.isSelected();
 		setup.showSingleStepLogData=showSingleStepLogData.isSelected();
 		setup.animationStartPaused=animationStartPaused.isSelected();
+		setup.animationFinishPaused=animationFinishPaused.isSelected();
 		setup.animateResources=animateResources.isSelected();
 		setup.useSlowModeAnimation=useSlowModeAnimation.isSelected();
 	}
@@ -128,6 +135,7 @@ public class SetupDialogPageAnimation extends SetupDialogPage {
 		showStationData.setSelected(true);
 		showSingleStepLogData.setSelected(true);
 		animationStartPaused.setSelected(false);
+		animationFinishPaused.setSelected(false);
 		animateResources.setSelected(true);
 		useSlowModeAnimation.setSelected(true);
 	}

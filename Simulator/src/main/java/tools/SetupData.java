@@ -665,9 +665,14 @@ public class SetupData extends SetupBase {
 	public double animationFrameScale;
 
 	/**
-	 * Startet die Animation im Einzelschirttmodus
+	 * Startet die Animation im Einzelschrittmodus
 	 */
 	public boolean animationStartPaused;
+
+	/**
+	 * Schaltet die Animation unmittelbar vor ihrem Ende noch einmal auf Pause
+	 */
+	public boolean animationFinishPaused;
 
 	/**
 	 * Datum des vorausgegangenen letzten Programmstarts
@@ -1365,6 +1370,7 @@ public class SetupData extends SetupBase {
 		paintTimeStamp=true;
 		animationFrameScale=1.0;
 		animationStartPaused=false;
+		animationFinishPaused=false;
 		lastStart="";
 		visibleTemplateGroups="";
 		openTemplateGroups="";
@@ -2099,6 +2105,11 @@ public class SetupData extends SetupBase {
 				continue;
 			}
 
+			if (name.equals("animationwaitattheend")) {
+				animationFinishPaused=loadBoolean(e.getTextContent(),false);
+				continue;
+			}
+
 			if (name.equals("usegradients")) {
 				useGradients=loadBoolean(e.getTextContent(),true);
 				continue;
@@ -2800,6 +2811,11 @@ public class SetupData extends SetupBase {
 
 		if (animationStartPaused) {
 			root.appendChild(node=doc.createElement("AnimationStartStepMode"));
+			node.setTextContent("1");
+		}
+
+		if (animationFinishPaused) {
+			root.appendChild(node=doc.createElement("AnimationWaitAtTheEnd"));
 			node.setTextContent("1");
 		}
 

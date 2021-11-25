@@ -360,6 +360,10 @@ public class MainPanel extends MainPanelBase {
 	private JRadioButtonMenuItem menuSimulationAnimationStartModeRun;
 	/** Menüpunkt "Simulation" - "Animationskonfiguration" - "Im Pause-Modus starten" */
 	private JRadioButtonMenuItem menuSimulationAnimationStartModePause;
+	/** Menüpunkt "Simulation" - "Animationskonfiguration" - "Animation sofort beenden" */
+	private JRadioButtonMenuItem menuSimulationAnimationFinishModeRun;
+	/** Menüpunkt "Simulation" - "Animationskonfiguration" - "Animation vor Ende pausieren" */
+	private JRadioButtonMenuItem menuSimulationAnimationFinishModePause;
 	/** Menüpunkt "Simulation" - "Animationskonfiguration" - "Schnelle Animation" */
 	private JRadioButtonMenuItem menuSimulationAnimationAnalogValuesFast;
 	/** Menüpunkt "Simulation" - "Animationskonfiguration" - "Änderungen exakt anzeigen (langsam)" */
@@ -698,6 +702,8 @@ public class MainPanel extends MainPanelBase {
 		addAction("SimulationAnimationLog",e->commandSimulationAnimationLog());
 		addAction("SimulationAnimationStartModeRun",e->commandSimulationAnimationStartMode(false));
 		addAction("SimulationAnimationStartModePause",e->commandSimulationAnimationStartMode(true));
+		addAction("SimulationAnimationFinishModeRun",e->commandSimulationAnimationFinishMode(false));
+		addAction("SimulationAnimationFinishModePause",e->commandSimulationAnimationFinishMode(true));
 		addAction("SimulationAnimationAnalogValuesFast",e->commandSimulationAnalogValuesSlow(false));
 		addAction("SimulationAnimationAnalogValuesExact",e->commandSimulationAnalogValuesSlow(true));
 		addAction("SimulationAnimationScreenshotModeHome",e->commandSimulationAnimationScreenshotModeHome());
@@ -854,6 +860,10 @@ public class MainPanel extends MainPanelBase {
 		/* Simulation - Animation - Start */
 		menuSimulationAnimationStartModeRun.setSelected(!setup.animationStartPaused);
 		menuSimulationAnimationStartModePause.setSelected(setup.animationStartPaused);
+
+		/* Simulation - Animation - Ende */
+		menuSimulationAnimationFinishModeRun.setSelected(!setup.animationFinishPaused);
+		menuSimulationAnimationFinishModePause.setSelected(setup.animationFinishPaused);
 
 		/* Simulation - Animation - Analoge Werte */
 		menuSimulationAnimationAnalogValuesFast.setSelected(!setup.useSlowModeAnimation);
@@ -1277,6 +1287,15 @@ public class MainPanel extends MainPanelBase {
 		buttonGroup.add(menuSimulationAnimationStartModePause);
 		menuSimulationAnimationStartModeRun.setSelected(!setup.animationStartPaused);
 		menuSimulationAnimationStartModePause.setSelected(setup.animationStartPaused);
+		submenu.addSeparator();
+		submenu.add(createTextOnlyItem(Language.tr("Main.Menu.AnimationFinishMode")));
+		menuSimulationAnimationFinishModeRun=createRadioButtonMenuItem(submenu,Language.tr("Main.Menu.AnimationFinishMode.Run"),null,"SimulationAnimationFinishModeRun");
+		menuSimulationAnimationFinishModePause=createRadioButtonMenuItem(submenu,Language.tr("Main.Menu.AnimationFinishMode.Pause"),null,"SimulationAnimationFinishModePause");
+		buttonGroup=new ButtonGroup();
+		buttonGroup.add(menuSimulationAnimationFinishModeRun);
+		buttonGroup.add(menuSimulationAnimationFinishModePause);
+		menuSimulationAnimationFinishModeRun.setSelected(!setup.animationFinishPaused);
+		menuSimulationAnimationFinishModePause.setSelected(setup.animationFinishPaused);
 		submenu.addSeparator();
 		submenu.add(createTextOnlyItem(Language.tr("Main.Menu.AnalogValues")));
 		menuSimulationAnimationAnalogValuesFast=createRadioButtonMenuItem(submenu,Language.tr("Main.Menu.AnalogValues.Fast"),null,"SimulationAnimationAnalogValuesFast");
@@ -3044,11 +3063,22 @@ public class MainPanel extends MainPanelBase {
 
 	/**
 	 * Befehl: Simulation - Animationskonfiguration - Animationsstart
-	 * @param paused	Animation im Pausemodus starten ?
+	 * @param paused	Animation im Pausemodus starten?
 	 */
 	private void commandSimulationAnimationStartMode(final boolean paused) {
 		if (setup.animationStartPaused==paused) return;
 		setup.animationStartPaused=paused;
+		setup.saveSetup();
+		reloadSetup();
+	}
+
+	/**
+	 * Befehl: Simulation - Animationskonfiguration - Animationsende
+	 * @param paused	Animation vor Ende nochmal pausieren?
+	 */
+	private void commandSimulationAnimationFinishMode(final boolean paused) {
+		if (setup.animationFinishPaused==paused) return;
+		setup.animationFinishPaused=paused;
 		setup.saveSetup();
 		reloadSetup();
 	}

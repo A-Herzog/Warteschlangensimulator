@@ -239,6 +239,10 @@ public class AnimationPanel extends JPanel implements RunModelAnimationViewer {
 	private JMenuItem menuStartModeRun;
 	/** Popupmenüpunkt "Animationsstart" - "Im Pause-Modus starten" */
 	private JMenuItem menuStartModePause;
+	/** Popupmenüpunkt "Animationsende" - "Sofort zur Statistikansicht umschalten" */
+	private JMenuItem menuFinishModeRun;
+	/** Popupmenüpunkt "Animationsende" - "Animation zunächst pausien" */
+	private JMenuItem menuFinishModePause;
 	/** Popupmenüpunkt "Analoge Werte in Animation" - "Schnelle Animation" */
 	private JMenuItem menuAnalogValuesFast;
 	/** Popupmenüpunkt "Analoge Werte in Animation" - "Änderungen exakt anzeigen (langsam)" */
@@ -1211,7 +1215,11 @@ public class AnimationPanel extends JPanel implements RunModelAnimationViewer {
 		if (abortRun || simulator==null || !simulator.isRunning()) {
 			mutex.acquireUninterruptibly();
 			try {
-				finalizeSimulation(!abortRun);
+				if (abortRun || simulator==null || !setup.animationFinishPaused) {
+					finalizeSimulation(!abortRun);
+				} else {
+					playPause();
+				}
 			} finally {mutex.release();}
 			return false;
 		}
@@ -1458,18 +1466,27 @@ public class AnimationPanel extends JPanel implements RunModelAnimationViewer {
 		JMenuItem submenu;
 		ButtonGroup buttonGroup;
 
-		if (!SetupBase.memoryOnly) {
-			popup.add(submenu=new JMenu(Language.tr("Main.Menu.AnimationStartMode")));
-			submenu.add(menuStartModeRun=new JRadioButtonMenuItem(Language.tr("Main.Menu.AnimationStartMode.Run")));
-			menuStartModeRun.addActionListener(new ToolBarListener());
-			submenu.add(menuStartModePause=new JRadioButtonMenuItem(Language.tr("Main.Menu.AnimationStartMode.Pause")));
-			menuStartModePause.addActionListener(new ToolBarListener());
-			buttonGroup=new ButtonGroup();
-			buttonGroup.add(menuStartModeRun);
-			buttonGroup.add(menuStartModePause);
-			menuStartModeRun.setSelected(!setup.animationStartPaused);
-			menuStartModePause.setSelected(setup.animationStartPaused);
-		}
+		popup.add(submenu=new JMenu(Language.tr("Main.Menu.AnimationStartMode")));
+		submenu.add(menuStartModeRun=new JRadioButtonMenuItem(Language.tr("Main.Menu.AnimationStartMode.Run")));
+		menuStartModeRun.addActionListener(new ToolBarListener());
+		submenu.add(menuStartModePause=new JRadioButtonMenuItem(Language.tr("Main.Menu.AnimationStartMode.Pause")));
+		menuStartModePause.addActionListener(new ToolBarListener());
+		buttonGroup=new ButtonGroup();
+		buttonGroup.add(menuStartModeRun);
+		buttonGroup.add(menuStartModePause);
+		menuStartModeRun.setSelected(!setup.animationStartPaused);
+		menuStartModePause.setSelected(setup.animationStartPaused);
+
+		popup.add(submenu=new JMenu(Language.tr("Main.Menu.AnimationFinishMode")));
+		submenu.add(menuFinishModeRun=new JRadioButtonMenuItem(Language.tr("Main.Menu.AnimationFinishMode.Run")));
+		menuFinishModeRun.addActionListener(new ToolBarListener());
+		submenu.add(menuFinishModePause=new JRadioButtonMenuItem(Language.tr("Main.Menu.AnimationFinishMode.Pause")));
+		menuFinishModePause.addActionListener(new ToolBarListener());
+		buttonGroup=new ButtonGroup();
+		buttonGroup.add(menuFinishModeRun);
+		buttonGroup.add(menuFinishModePause);
+		menuFinishModeRun.setSelected(!setup.animationFinishPaused);
+		menuFinishModePause.setSelected(setup.animationFinishPaused);
 
 		popup.add(submenu=new JMenu(Language.tr("Main.Menu.AnalogValues")));
 		submenu.add(menuAnalogValuesFast=new JRadioButtonMenuItem(Language.tr("Main.Menu.AnalogValues.Fast")));
@@ -1521,6 +1538,12 @@ public class AnimationPanel extends JPanel implements RunModelAnimationViewer {
 	 * @see #buttonPlayPause
 	 */
 	public void playPause() {
+		/* Testen: Wurde die Simulation an ihrem Ende angehalten und hat der Nutzer nun auf "Play" geklickt, was natürlich nicht mehr bringt? */
+		if (!running && (abortRun || simulator==null || !simulator.isRunning())) {
+			finalizeSimulation(true);
+			return;
+		}
+
 		simulatorLock.acquireUninterruptibly();
 		try {
 			if (running) {
@@ -1676,8 +1699,10 @@ public class AnimationPanel extends JPanel implements RunModelAnimationViewer {
 		continueAsSimulation=true;
 		if (!running) playPause();
 
-		surfaceAnimator.setRecordSystem(null,1.0,false);
-		if (timer!=null) timer.cancel();
+		if (running) { /* Wenn die Animation eigentlich schon zu Ende ist, läuft sich durcg playPause() nicht mehr an, dann müssen/können die folgenden beiden Zeile nicht mehr ausgeführt werden. */
+			surfaceAnimator.setRecordSystem(null,1.0,false);
+			if (timer!=null) timer.cancel();
+		}
 		simulationSuccessful=false;
 		if (encoder!=null) {
 			encoder.done();
@@ -1922,6 +1947,18 @@ public class AnimationPanel extends JPanel implements RunModelAnimationViewer {
 	private void commandAnimationStartMode(final boolean paused) {
 		if (setup.animationStartPaused==paused) return;
 		setup.animationStartPaused=paused;
+		setup.saveSetup();
+	}
+
+	/**
+	 * Befehl: "Animationsende" - "Sofort zur Statistikansicht umschalten"/"Animation zunächst pausien"
+	 * @param paused	Animation am Ende pausieren?
+	 * @see #menuFinishModePause
+	 * @see #menuFinishModeRun
+	 */
+	private void commandAnimationFinishMode(final boolean paused) {
+		if (setup.animationFinishPaused==paused) return;
+		setup.animationFinishPaused=paused;
 		setup.saveSetup();
 	}
 
@@ -2282,9 +2319,11 @@ public class AnimationPanel extends JPanel implements RunModelAnimationViewer {
 			if (source==buttonStep) {step(false);}
 			if (source==buttonSpeed) {animationSpeedPopup(); return;}
 			if (source==menuStartModeRun) {commandAnimationStartMode(false); return;}
+			if (source==menuStartModePause) {commandAnimationStartMode(true); return;}
+			if (source==menuFinishModeRun) {commandAnimationFinishMode(false); return;}
+			if (source==menuFinishModePause) {commandAnimationFinishMode(true); return;}
 			if (source==menuAnalogValuesFast) {commandAnalogValuesSlow(false); return;}
 			if (source==menuAnalogValuesExact) {commandAnalogValuesSlow(true); return;}
-			if (source==menuStartModePause) {commandAnimationStartMode(true); return;}
 			if (source==menuScreenshotModeHome) {commandScreenshotModeHome(); return;}
 			if (source==menuScreenshotModeCustom) {commandScreenshotModeCustom(); return;}
 			if (source==menuShowLog) {toggleShowSingleStepLogData(); return;}
