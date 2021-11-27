@@ -38,6 +38,12 @@ public class CallbackLogger implements SimLogging {
 	protected SimLogging nextLogger;
 
 	/**
+	 * Objekt welches mit konkreten Daten befüllt wird und an das Callback weitergegeben wird.
+	 * @see #log(long, Color, String, int, String)
+	 */
+	private final CallbackLoggerData loggerData;
+
+	/**
 	 * Konstruktor der Klasse <code>CallbackLogger</code><br>
 	 * Initialisiert den Logger im inaktiven Status
 	 */
@@ -64,6 +70,7 @@ public class CallbackLogger implements SimLogging {
 	public CallbackLogger(final Consumer<CallbackLoggerData> callback, final boolean active) {
 		this.callback=callback;
 		this.active=active;
+		loggerData=new CallbackLoggerData(0,Color.BLACK,"",0,"");
 	}
 
 	/**
@@ -97,7 +104,10 @@ public class CallbackLogger implements SimLogging {
 
 	@Override
 	public boolean log(final long time, final Color color, final String event, final int id, final String info) {
-		if (active && callback!=null) callback.accept(new CallbackLoggerData(time,(color==null)?Color.BLACK:color,event,id,info));
+		if (active && callback!=null) {
+			loggerData.init(time,(color==null)?Color.BLACK:color,event,id,info);
+			callback.accept(loggerData);
+		}
 		if (nextLogger!=null) nextLogger.log(time,color,event,id,info);
 		return true;
 	}

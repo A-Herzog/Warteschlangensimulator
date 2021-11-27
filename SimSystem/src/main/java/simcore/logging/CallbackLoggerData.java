@@ -29,32 +29,32 @@ public class CallbackLoggerData {
 	/**
 	 * Zeitpunkt des Ereignisses (in ms)
 	 */
-	public final long timeStamp;
+	public long timeStamp;
 
 	/**
 	 * Zeitpunkt des Ereignisses als formatierte Zeichenkette
 	 */
-	public final String time;
+	public String time;
 
 	/**
 	 * Farbe, in der das Ereignis dargestellt werden sollte
 	 */
-	public final Color color;
+	public Color color;
 
 	/**
 	 * Name des Ereignisses
 	 */
-	public final String event;
+	public String event;
 
 	/**
 	 * ID der Station, die das Ereignis ausgelöst hat (Werte kleiner als 0 stehen für "keine Station")
 	 */
-	public final int id;
+	public int id;
 
 	/**
 	 * Zusätzliche Beschreibung zu dem Ereignis
 	 */
-	public final String info;
+	public String info;
 
 	/**
 	 * Konstruktor der Klasse
@@ -65,6 +65,23 @@ public class CallbackLoggerData {
 	 * @param info	Zusätzliche Beschreibung zu dem Ereignis
 	 */
 	public CallbackLoggerData(final long time, final Color color, final String event, final int id, final String info) {
+		this.timeStamp=time;
+		this.time=SimData.formatSimTime(time);
+		this.color=color;
+		this.event=event;
+		this.id=id;
+		this.info=info;
+	}
+
+	/**
+	 * Reinitialisiert das Objekt
+	 * @param time	Zeitpunkt des Ereignisses (in ms)
+	 * @param color	Farbe, in der das Ereignis dargestellt werden sollte
+	 * @param event	Name des Ereignisses
+	 * @param id	ID der Station, an der das Ereignis stattfand (Werte kleiner als 0 für "keine Station")
+	 * @param info	Zusätzliche Beschreibung zu dem Ereignis
+	 */
+	public void init(final long time, final Color color, final String event, final int id, final String info) {
 		this.timeStamp=time;
 		this.time=SimData.formatSimTime(time);
 		this.color=color;

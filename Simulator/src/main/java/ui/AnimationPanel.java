@@ -774,11 +774,13 @@ public class AnimationPanel extends JPanel implements RunModelAnimationViewer {
 
 		if (startPaused && !fastWarmUp) {
 			surfaceAnimator.setFullRecording(startFullRecording);
-			running=true;
+			running=true; /* Wird dann sofort von playPause() abgeschaltet, dann gilt also running=false. */
 			playPause();
 			if (this.logger!=null) this.logger.setActive(true);
 			simulator.start(true);
 		} else {
+			running=true;
+			setPlayPauseButtons(true);
 			simulator.start(false);
 			if (logger!=null && logger.getNextLogger()==null) simulator.pauseLogging();
 			timer=new Timer("AnimationCancelCheck",false);
@@ -1549,12 +1551,6 @@ public class AnimationPanel extends JPanel implements RunModelAnimationViewer {
 			if (running) {
 				/* Pause */
 				running=false;
-				buttonExport.setEnabled(true);
-				buttonStep.setEnabled(true);
-				buttonPlayPause.setText(Language.tr("Animation.Toolbar.Play"));
-				buttonPlayPause.setToolTipText(Language.tr("Animation.Toolbar.Play.Info")+" ("+keyStrokeToString(KeyStroke.getKeyStroke(KeyEvent.VK_F6,0))+")");
-				buttonPlayPause.setIcon(Images.ANIMATION_PLAY.getIcon());
-				buttonCurrentData.setEnabled(true);
 				if (simulator!=null) simulator.pauseExecution();
 
 				if (timer!=null) {timer.cancel(); timer=null;}
@@ -1572,22 +1568,43 @@ public class AnimationPanel extends JPanel implements RunModelAnimationViewer {
 					logger.setActive(false);
 					if (simulator!=null && logger.getNextLogger()==null) simulator.pauseLogging();
 				}
-				logArea.setVisible(false);
 				delayInt=delay;
 				running=true;
-				buttonExport.setEnabled(false);
-				buttonStep.setEnabled(false);
-				buttonPlayPause.setText(Language.tr("Animation.Toolbar.Pause"));
-				buttonPlayPause.setToolTipText(Language.tr("Animation.Toolbar.Pause.Info")+" ("+keyStrokeToString(KeyStroke.getKeyStroke(KeyEvent.VK_F6,0))+")");
-				buttonPlayPause.setIcon(Images.ANIMATION_PAUSE.getIcon());
-				buttonCurrentData.setEnabled(false);
 				if (simulator!=null) simulator.resumeExecution();
 
 				timer=new Timer("AnimationCancelCheck",false);
 				timer.schedule(new UpdateInfoTask(),100);
 			}
+			setPlayPauseButtons(running);
 		} finally {
 			simulatorLock.release();
+		}
+	}
+
+	/**
+	 * Konfiguriert nur die Schaltflächen, ohne dabei die
+	 * Animation tatsächlich anzuhalten oder zu starten.
+	 * @see #playPause()
+	 * @param play	Schaltflächen auf Modus Play (<code>true</code>) oder Pause (<code>false</code>) setzen
+	 */
+	public void setPlayPauseButtons(final boolean play) {
+		if (!play) {
+			/* Pause */
+			buttonExport.setEnabled(true);
+			buttonStep.setEnabled(true);
+			buttonPlayPause.setText(Language.tr("Animation.Toolbar.Play"));
+			buttonPlayPause.setToolTipText(Language.tr("Animation.Toolbar.Play.Info")+" ("+keyStrokeToString(KeyStroke.getKeyStroke(KeyEvent.VK_F6,0))+")");
+			buttonPlayPause.setIcon(Images.ANIMATION_PLAY.getIcon());
+			buttonCurrentData.setEnabled(true);
+		} else {
+			/* Play */
+			logArea.setVisible(false);
+			buttonExport.setEnabled(false);
+			buttonStep.setEnabled(false);
+			buttonPlayPause.setText(Language.tr("Animation.Toolbar.Pause"));
+			buttonPlayPause.setToolTipText(Language.tr("Animation.Toolbar.Pause.Info")+" ("+keyStrokeToString(KeyStroke.getKeyStroke(KeyEvent.VK_F6,0))+")");
+			buttonPlayPause.setIcon(Images.ANIMATION_PAUSE.getIcon());
+			buttonCurrentData.setEnabled(false);
 		}
 	}
 
@@ -1830,7 +1847,138 @@ public class AnimationPanel extends JPanel implements RunModelAnimationViewer {
 	 * Maximale Größe für einen Logging-Eintrag
 	 * @see #loggerCallback(CallbackLoggerData)
 	 */
-	private static final int MAX_LOG_VIEWER_SIZE=100_000;
+	private static final int MAX_LOG_VIEWER_SIZE=50_000;
+
+	/**
+	 * Maximale Anzahl an Logging-Ausgaben pro Zeitschritt
+	 * bevor auf den eigenständigen Aktualisierungs-Thread umgeschaltet wird
+	 * @see #loggerCallback(CallbackLoggerData)
+	 */
+	private static final int MAX_LOG_PER_TIME_STEP=50;
+
+	/**
+	 * Zeitpunkt der letzten Logging-Aktion
+	 * @see #loggerCallback(CallbackLoggerData)
+	 * @see #MAX_LOG_PER_TIME_STEP
+	 */
+	private long currentTimeStamp;
+
+	/**
+	 * Anzahl der Logging-Aktionen zum aktuellen Zeitpunkt
+	 * @see #loggerCallback(CallbackLoggerData)
+	 * @see #MAX_LOG_PER_TIME_STEP
+	 */
+	private int currentTimeStampLogs;
+
+	/**
+	 * Eigenständiger Thread zur Aktualisierung der Logging-Meldung
+	 */
+	private class LogUpdateThread extends Thread {
+		/**
+		 * Thread beenden?
+		 * @see #done()
+		 */
+		private boolean done=false;
+
+		/**
+		 * Objekt zur Aktivierung des Threads
+		 * @see #setLog(String)
+		 */
+		private Object signal=new Object();
+
+		/**
+		 * Anzuzeigende Nachricht
+		 * @see #setLog(String)
+		 */
+		private String message;
+
+		/**
+		 * Systemzeit an dem {@link #message} übermittelt wurde
+		 * @see #setLog(String)
+		 */
+		private long time;
+
+		/**
+		 * Aktuell in dem Label angezeigte Nachricht
+		 */
+		private String currentMessage;
+
+		/**
+		 * Konstruktor der Klasse
+		 */
+		public LogUpdateThread() {
+			super("Log area updater");
+			start();
+		}
+
+		@Override
+		public void run() {
+			while (!done) {
+				try {
+					synchronized(signal) {
+						signal.wait();
+					}
+					if (done) break;
+					String message=null;
+					while (true) {
+						long time=0;
+						synchronized(signal) {
+							time=this.time;
+							message=this.message;
+						}
+						long current=System.currentTimeMillis();
+						if (current<time) Thread.sleep(time-current);
+						synchronized(signal) {
+							if (time==this.time) break;
+						}
+					}
+					if (message!=null) {
+						if (currentMessage==null || !currentMessage.equals(message)) {
+							currentMessage=message;
+							final String finalMessage=message;
+							SwingUtilities.invokeLater(()->{
+								logLabel.setText(finalMessage);
+								SwingUtilities.invokeLater(()->{ /* Scrollbalken erst zeitversetzt zum Text aktualisieren, daher later in later. */
+									final JScrollBar vertical=logScroll.getVerticalScrollBar();
+									vertical.setValue(vertical.getMaximum());
+								});
+							});
+						}
+					}
+				} catch (InterruptedException e) {}
+			}
+		}
+
+		/**
+		 * Beendet den Thread.
+		 */
+		public void done() {
+			done=true;
+			synchronized(signal) {
+				signal.notify();
+			}
+		}
+
+		/**
+		 * Stellt eine neue Nachricht ein.
+		 * @param message	Neue Nachricht
+		 */
+		public void setLog(final String message) {
+			synchronized(signal) {
+				this.message=message;
+				this.time=System.currentTimeMillis()+10;
+				synchronized(signal) {
+					signal.notify();
+				}
+			}
+		}
+	}
+
+	/**
+	 * Eigenständiger Thread zur Aktualisierung der Logging-Meldung
+	 * @see #loggerCallback(CallbackLoggerData)
+	 */
+	private LogUpdateThread logUpdateThread;
 
 	/**
 	 * Erfasst Logging-Daten für die Ausgabe im unteren Fensterbereich
@@ -1878,12 +2026,27 @@ public class AnimationPanel extends JPanel implements RunModelAnimationViewer {
 		}
 		final String message="<html><body>"+logText.toString()+"</body></html>";
 		final String messagePlain=logTextPlain.toString();
-		logLabel.setText(message);
 
-		SwingUtilities.invokeLater(()->{
-			final JScrollBar vertical=logScroll.getVerticalScrollBar();
-			vertical.setValue(vertical.getMaximum());
-		});
+		boolean updateLogLabelNow=true;
+		if (data.timeStamp==currentTimeStamp) {
+			currentTimeStampLogs++;
+			if (currentTimeStampLogs>MAX_LOG_PER_TIME_STEP) updateLogLabelNow=false;
+		} else {
+			currentTimeStamp=data.timeStamp;
+			currentTimeStampLogs=1;
+		}
+		if (updateLogLabelNow) {
+			SwingUtilities.invokeLater(()->{
+				logLabel.setText(message);
+				SwingUtilities.invokeLater(()->{ /* Scrollbalken erst zeitversetzt zum Text aktualisieren, daher later in later. */
+					final JScrollBar vertical=logScroll.getVerticalScrollBar();
+					vertical.setValue(vertical.getMaximum());
+				});
+			});
+		} else {
+			if (logUpdateThread==null) logUpdateThread=new LogUpdateThread();
+			logUpdateThread.setLog(message);
+		}
 
 		if (newMessage || logTextHistory.isEmpty()) {
 			logTextHistory.add(message);
@@ -2342,6 +2505,11 @@ public class AnimationPanel extends JPanel implements RunModelAnimationViewer {
 
 	@Override
 	public void animationTerminated() {
+		if (logUpdateThread!=null) {
+			logUpdateThread.done();
+			logUpdateThread=null;
+		}
+
 		final HashSet<RunModelAnimationViewer> viewers=new HashSet<>();
 		synchronized(subViewers) {
 			viewers.addAll(subViewers);
