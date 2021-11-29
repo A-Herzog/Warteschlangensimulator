@@ -29,6 +29,7 @@ import org.w3c.dom.NodeList;
 import language.Language;
 import mathtools.NumberTools;
 import mathtools.distribution.tools.DistributionTools;
+import parser.CalcSystem;
 import simulator.editmodel.FullTextSearch;
 import ui.modeleditor.ModelSurface;
 import ui.modeleditor.coreelements.ModelElementBox;
@@ -387,6 +388,30 @@ public final class ModelElementSourceRecord implements Cloneable {
 		batchSize=null;
 		batchSizeRates=Arrays.copyOf(batchSizes,batchSizes.length);
 		fireChanged();
+	}
+
+	/**
+	 * Mittlere Anzahl an Ankünften pro Aktivierung des Ankunftsdatensatzes
+	 * @return	Mittlere Anzahl an Ankünften
+	 */
+	public int getAverageBatchSize() {
+		if (batchSize!=null) {
+			final Double D=CalcSystem.calcSimple(batchSize);
+			if (D==null || D<1) return 1;
+			return (int)Math.round(D);
+		}
+
+		if (batchSizeRates!=null) {
+			int count=0;
+			int sum=0;
+			for (int i=0;i<batchSizeRates.length;i++) {
+				count+=batchSizeRates[i];
+				sum+=(i+1)*batchSizeRates[i];
+			}
+			return Math.max((int)Math.round(((double)sum)/count),1);
+		}
+
+		return 1;
 	}
 
 	/**

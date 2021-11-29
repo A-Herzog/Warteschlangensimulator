@@ -42,6 +42,7 @@ import ui.modeleditor.elements.ElementNoRemoteSimulation;
 import ui.modeleditor.elements.ElementWithAnimationScripts;
 import ui.modeleditor.elements.ElementWithScript;
 import ui.modeleditor.elements.ElementWithScript.ScriptMode;
+import ui.modeleditor.elements.ModelElementSplit;
 import ui.modeleditor.elements.ModelElementSub;
 
 /**
@@ -206,7 +207,17 @@ public class BackgroundSystem {
 		boolean singleCore=(!model.getSingleCoreReason().isEmpty());
 		if (singleCore && model.repeatCount==1) return true; /* Wir belasten nur einen Kern, damit harmlos. */
 
-		long simClientCount=model.clientCount*model.repeatCount;
+		int split=1;
+		for (ModelElement element1: model.surface.getElements()) {
+			if (element1 instanceof ModelElementSplit) {
+				split+=((ModelElementSplit)element1).getAverageArrivalSizesSum();
+			}
+			if (element1 instanceof ModelElementSub) for (ModelElement element2: ((ModelElementSub)element1).getSubSurface().getElements()) {
+				split+=((ModelElementSplit)element2).getAverageArrivalSizesSum();
+			}
+		}
+
+		long simClientCount=model.clientCount*model.repeatCount*split;
 		if (simClientCount/threadCount>MAX_CLIENTS_PER_THREAD) return false;
 		if (model.surface.getElementCount()/threadCount>MAX_ELEMENTS_PER_THREAD) return false;
 

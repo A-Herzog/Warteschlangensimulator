@@ -99,6 +99,15 @@ public class ModelElementSplit extends ModelElementMultiInSingleOutBox implement
 	}
 
 	/**
+	 * Liefert die mittlere Größe von neu zu erzeugenden Kunden
+	 * pro an der Station eintreffendem Kunden.
+	 * @return	Mittlere Anzahl an neu zu erzeugenden Kunden
+	 */
+	public int getAverageArrivalSizesSum() {
+		return records.stream().mapToInt(record->record.getAverageBatchSize()).sum();
+	}
+
+	/**
 	 * Fügt einen Datensatz zur Liste der Datensätze hinzu
 	 * (und stellt dabei auch den Change-Listener des Datensatzes korrekt ein).
 	 * @param record	Hinzuzufügender Datensatz
@@ -108,7 +117,6 @@ public class ModelElementSplit extends ModelElementMultiInSingleOutBox implement
 		record.addChangeListener(()->fireChanged());
 		records.add(record);
 	}
-
 
 	/**
 	 * Sollen die Kundendatenfelder auf die neuen Ankunftsdatensätze übertragen werden?
