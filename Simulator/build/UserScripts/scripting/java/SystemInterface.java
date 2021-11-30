@@ -182,4 +182,10 @@ public interface SystemInterface {
 	 * @param message	Optional error message. If <code>null</code> is passed, the simulation will be terminated without error.
 	 */
 	void terminateSimulation(final String message);
+	
+	/**
+	 * Switches the animation to single step mode. If the animation is already executed in
+	 * single step mode or if the model is executed as a simulation, this command has no effect.
+	 */
+	void pauseAnimation();
 }
