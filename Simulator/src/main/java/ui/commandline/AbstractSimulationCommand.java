@@ -112,8 +112,8 @@ public abstract class AbstractSimulationCommand extends AbstractCommand {
 				simulator.cancel();
 				return false;
 			}
-			if (minimalOutput) continue;
 			count++;
+			if (minimalOutput) continue;
 			if (count%50==0) {
 				final long current=simulator.getCurrentClients();
 				final long sum=simulator.getCountClients();

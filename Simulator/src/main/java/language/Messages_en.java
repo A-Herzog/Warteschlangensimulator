@@ -18257,7 +18257,7 @@ public class Messages_en extends java.util.ResourceBundle {
     t[46846] = "CommandLine.SetDynamicThreadBalance.Info.DynamicThreadBalance";
     t[46847] = "Dynamic thread balance: %s (previous state: %s)";
     t[46852] = "CommandLine.ServerSocket.Description.Long";
-    t[46853] = "This command expects one additional parameter:\nthe port to be used.";
+    t[46853] = "This command expects one or two additional parameters:\nthe port to be used and optionally a timeout value (in seconds) for individual simulations.";
     t[46858] = "Simulation.Log.SetError";
     t[46859] = "Variable assignment: error";
     t[46860] = "CommandLine.BuildCatalogDescriptions.Description.Short";

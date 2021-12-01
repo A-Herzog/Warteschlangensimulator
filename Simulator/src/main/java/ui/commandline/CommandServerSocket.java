@@ -36,6 +36,8 @@ public class CommandServerSocket extends AbstractCommand {
 	private int serverPort;
 	/** Signalisiert dass der Server beendet werden soll. */
 	private boolean isQuit;
+	/** Abbruchzeit in Sekunden (Werte &le;0 bedeuten, dass keine Abbruchzeit gesetzt ist) */
+	private double timeout=-1;
 
 	@Override
 	public String[] getKeys() {
@@ -57,10 +59,18 @@ public class CommandServerSocket extends AbstractCommand {
 
 	@Override
 	public String prepare(String[] additionalArguments, InputStream in, PrintStream out) {
-		String s=parameterCountCheck(1,additionalArguments); if (s!=null) return s;
+		final String s=parameterCountCheck(1,2,additionalArguments); if (s!=null) return s;
 
-		final Long L=NumberTools.getPositiveLong(additionalArguments[0]);
+		Long L;
+
+		L=NumberTools.getPositiveLong(additionalArguments[0]);
 		if (L==null) return String.format(Language.tr("CommandLine.ServerSocket.InvalidPortNumber"),additionalArguments[0]);
+
+		if (additionalArguments.length>1) {
+			final Double D=NumberTools.getDouble(additionalArguments[1]);
+			if (D==null) return String.format(Language.tr("CommandLine.Error.InvalidTimeout"),additionalArguments[3]);
+			timeout=D.doubleValue();
+		}
 
 		serverPort=L.intValue();
 		return null;
@@ -76,7 +86,7 @@ public class CommandServerSocket extends AbstractCommand {
 
 	@Override
 	public void run(AbstractCommand[] allCommands, InputStream in, PrintStream out) {
-		final SocketServerCalc server=new SocketServerCalc();
+		final SocketServerCalc server=new SocketServerCalc(timeout);
 		if (!server.start(serverPort)) {
 			if (out!=null) out.println(String.format(Language.tr("CommandLine.ServerSocket.StartError"),serverPort));
 			return;

@@ -18,6 +18,7 @@ package net.socket;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.util.Base64;
+import java.util.function.BooleanSupplier;
 
 import language.Language;
 import net.calc.SimulationServer;
@@ -74,25 +75,34 @@ public class SocketServerTask {
 	private ParameterCompareRunner runner;
 
 	/**
+	 * Abbruchzeit in Sekunden (Werte &le;0 bedeuten, dass keine Abbruchzeit gesetzt ist)
+	 */
+	private final double timeout;
+
+	/**
 	 * Konstruktor der Klasse
 	 * @param id	ID des Tasks
 	 * @param model	Zu simulierendes Modell
+	 * @param timeout	Abbruchzeit in Sekunden (Werte &le;0 bedeuten, dass keine Abbruchzeit gesetzt ist)
 	 */
-	private SocketServerTask(final int id, final EditModel model) {
+	private SocketServerTask(final int id, final EditModel model, final double timeout) {
 		this.id=id;
 		this.model=model;
 		this.series=null;
+		this.timeout=timeout;
 	}
 
 	/**
 	 * Konstruktor der Klasse
 	 * @param id	ID des Tasks
 	 * @param series	Zu simulierende Parameterreihe
+	 * @param timeout	Abbruchzeit in Sekunden (Werte &le;0 bedeuten, dass keine Abbruchzeit gesetzt ist)
 	 */
-	private SocketServerTask(final int id, final ParameterCompareSetup series) {
+	private SocketServerTask(final int id, final ParameterCompareSetup series, final double timeout) {
 		this.id=id;
 		this.model=null;
 		this.series=series;
+		this.timeout=timeout;
 	}
 
 	/**
@@ -134,22 +144,23 @@ public class SocketServerTask {
 	 * Versucht ein {@link SocketServerTask}-Objekt auf Basis von zu ladenden Daten zu erstellen
 	 * @param id	ID für die neue Aufgabe
 	 * @param data	Zu ladende Daten (Modell oder Parameterreihe)
+	 * @param timeout	Abbruchzeit in Sekunden (Werte &le;0 bedeuten, dass keine Abbruchzeit gesetzt ist)
 	 * @return	Liefert im Erfolgsfall ein neues Objekt, sonst <code>null</code>
 	 */
-	public static SocketServerTask loadData(final int id, final byte[] data) {
+	public static SocketServerTask loadData(final int id, final byte[] data, final double timeout) {
 		final EditModel htmlBasedModel=tryLoadHTML(data);
 		if (htmlBasedModel!=null) {
-			return new SocketServerTask(id,htmlBasedModel);
+			return new SocketServerTask(id,htmlBasedModel,timeout);
 		}
 
 		final EditModel model=new EditModel();
 		if (model.loadFromStream(new ByteArrayInputStream(data),FileType.AUTO)==null) {
-			return new SocketServerTask(id,model);
+			return new SocketServerTask(id,model,timeout);
 		}
 
 		final ParameterCompareSetup series=new ParameterCompareSetup(null);
 		if (series.loadFromStream(new ByteArrayInputStream(data),FileType.AUTO)==null) {
-			return new SocketServerTask(id,series);
+			return new SocketServerTask(id,series,timeout);
 		}
 
 		return null;
@@ -206,6 +217,24 @@ public class SocketServerTask {
 	}
 
 	/**
+	 * Gibt an, ob die Bedingung vor Ablauf der Abbruchzeit auf <code>false</code> gewechselt ist.
+	 * @param testRunning	Zu prüfende Bedingung (gibt an, ob die Simulation noch läuft)
+	 * @return	Liefert <code>true</code>, wenn entweder kein Timeout gesetzt ist (dann kehrt die Funktion sofort zurück) oder aber wenn die Bedingung vor Ablauf der Abbruchzeit auf <code>false</code> gewechselt ist
+	 */
+	private boolean processTimeout(final BooleanSupplier testRunning) {
+		if (timeout<=0) return true;
+
+		final int timeoutCounts=(int)Math.round(timeout*1000/25);
+		int count=0;
+		while (testRunning.getAsBoolean()) {
+			try {Thread.sleep(25);} catch (InterruptedException e) {}
+			if (count>timeoutCounts) return false;
+			count++;
+		}
+		return true;
+	}
+
+	/**
 	 * Startet die Simulation eines einfachen Modells.
 	 * @see #start()
 	 * @see #model
@@ -223,6 +252,16 @@ public class SocketServerTask {
 		synchronized(SocketServerTask.this) {
 			simulator=starter.start();
 		}
+
+		if (!processTimeout(()->simulator.isRunning())) {
+			setResult(Language.tr("CalcWebServer.Simulation.Failed").getBytes());
+			simulator.cancel();
+			synchronized(SocketServerTask.this) {
+				simulator=null;
+			}
+			return;
+		}
+
 		final ByteArrayOutputStream output=new ByteArrayOutputStream();
 		try {
 			final Statistics statistics=simulator.getStatistic();
@@ -252,6 +291,16 @@ public class SocketServerTask {
 			final String error=runner.check(series);
 			if (error!=null) {setResult(error.getBytes()); return;}
 			runner.start();
+
+			if (!processTimeout(()->runner.isRunning())) {
+				setResult(Language.tr("CalcWebServer.Simulation.Failed").getBytes());
+				runner.cancel();
+				synchronized(SocketServerTask.this) {
+					runner=null;
+				}
+				return;
+			}
+
 			if (runner.waitForFinish()) {
 				final ByteArrayOutputStream output=new ByteArrayOutputStream();
 				final XMLTools.FileType fileType=SetupData.getSetup().defaultSaveFormatParameterSeries.fileType;

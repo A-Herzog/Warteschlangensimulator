@@ -10,7 +10,7 @@ java -jar ./Simulator.jar serverSocket <portNumber>
 
 from socket_connect import QS_socket_connect as QS
 
-#  Connection settings
+# Connection settings
 host = "127.0.0.1"
 port = 1000
 

@@ -164,13 +164,14 @@ class QS_socket_connect:
 class QS_full_connect:
     """Runs a Warteschlangensimulator instance in background"""
 
-    def __init__(self, java_path: str, simulator_path: str, port: int = 1000):
+    def __init__(self, java_path: str, simulator_path: str, port: int = 1000, timeout: float = -1.0):
         """Runs a Warteschlangensimulator instance in background
 
         Args:
             java_path (str): Path to Java environment (not "bin" folder, just Java main folder)
             simulator_path (str): Path to Simulator.jar (only path without file name)
             port (int, optional): Port to use. Defaults to 1000.
+            timeout (float, option): Number of seconds before simulation will be canceled. Negative values means there is no timeout. Defaults to -1.0.
         """
         if not java_path.endswith(os.path.sep): java_path += os.path.sep
         self.__java: str = java_path + "bin" + os.path.sep + "java"
@@ -179,6 +180,7 @@ class QS_full_connect:
         self.__simulator: str = simulator_path + "Simulator.jar"
 
         self.__port: int = port
+        self.__timeout: float = timeout
 
         self.__process = None
 
@@ -187,6 +189,7 @@ class QS_full_connect:
 
         # Start simulator
         args = [self.__java, "-jar", self.__simulator, "serverSocket", str(self.__port)]
+        if self.__timeout>0: args.append(str(self.__timeout))
         self.__process = subprocess.Popen(args, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
         if self.__process.stdout is None: raise RuntimeError("Cannot start simulator")
 

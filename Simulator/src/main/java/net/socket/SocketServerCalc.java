@@ -78,12 +78,26 @@ public class SocketServerCalc extends SocketServerBase {
 	private int runnerCounter;
 
 	/**
-	 * Konstruktor der Klasse
+	 * Abbruchzeit in Sekunden (Werte &le;0 bedeuten, dass keine Abbruchzeit gesetzt ist)
 	 */
-	public SocketServerCalc() {
+	private final double timeout;
+
+	/**
+	 * Konstruktor der Klasse
+	 * @param timeout	Abbruchzeit in Sekunden (Werte &le;0 bedeuten, dass keine Abbruchzeit gesetzt ist)
+	 */
+	public SocketServerCalc(final double timeout) {
 		queue=new ArrayList<>();
 		results=new ArrayList<>();
 		runnerCounter=0;
+		this.timeout=timeout;
+	}
+
+	/**
+	 * Konstruktor der Klasse
+	 */
+	public SocketServerCalc() {
+		this(-1);
 	}
 
 	@Override
@@ -185,7 +199,7 @@ public class SocketServerCalc extends SocketServerBase {
 	 */
 	private SocketServerTask buildTask(final byte[] data, final ByteArrayOutputStream output) {
 		runnerCounter++;
-		final SocketServerTask task=SocketServerTask.loadData(runnerCounter,data);
+		final SocketServerTask task=SocketServerTask.loadData(runnerCounter,data,timeout);
 		if (task==null) {
 			runnerCounter--;
 			write(MSG_TYPE_ERROR,output);

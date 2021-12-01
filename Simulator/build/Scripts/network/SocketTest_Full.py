@@ -10,7 +10,7 @@ The simulator will be started and stopped automatically.
 from socket_connect import QS_full_connect as QS_starter
 import os
 
-#  Connection settings
+# Connection settings
 java_path = os.environ['JAVA_HOME'] # Setup Java path here
 simulator_path = ".\\Simulator" # Setup simulator path here
 port = 1000

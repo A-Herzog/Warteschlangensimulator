@@ -323,6 +323,15 @@ public class ParameterCompareRunner {
 	}
 
 	/**
+	 * Prüft, ob die Verarbeitung noch läuft.
+	 * @return Liefert <code>true</code> wenn der Thread noch aktiv ist.
+	 */
+	public boolean isRunning() {
+		if (runner==null) return false;
+		return runner.isAlive();
+	}
+
+	/**
 	 * Wartet darauf, dass die Verarbeitung abgeschlossen wurde.<br>
 	 * Kann nach {@link #start()} aufgerufen werden.
 	 * @return	Gibt an, ob der Thread normal beendet wurde (<code>true</code>) oder beim Warten ein Fehler aufgetreten ist (<code>false</code>).
