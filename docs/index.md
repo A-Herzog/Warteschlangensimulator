@@ -47,6 +47,7 @@ The Windows version can be installed with or without admin rights. The zip file 
 * [Introduction **slides** for Warteschlangensimulator](https://a-herzog.github.io/Warteschlangensimulator/IntroducingWarteschlangensimulator.pdf) (pdf)
 * [Introduction **videos** for  Warteschlangensimulator](https://github.com/A-Herzog/Warteschlangensimulator/wiki/Videos)
 * [Feature overview **slides** for Warteschlangensimulator](https://a-herzog.github.io/Warteschlangensimulator/Warteschlangensimulator-Features.pdf) (pdf)
+* [**Textbook**: "Simulation mit dem Warteschlangensimulator" (in German)](https://www.springer.com/gp/book/9783658346676)
 * Stay informed: You can follow this project on GitHub to get updates about new versions etc.
 
 ---
@@ -142,7 +143,7 @@ Alternatively, parameter series configurations can be saved and then executed vi
 
 ### Textbook: "Simulation mit dem Warteschlangensimulator" (in German)
 
-[<img src="Images/CoverHerzogSimulationMitDemWarteschlangensimulator-small.png" style="float: right; max-width: 30%; padding-left: 5px">](https://www.springer.com/gp/book/9783658346676)
+[<img src="https://raw.githubusercontent.com/A-Herzog/Warteschlangensimulator/master/Images/CoverHerzogSimulationMitDemWarteschlangensimulator_small.png" style="float: right; max-width: 30%; padding-left: 5px">](https://www.springer.com/gp/book/9783658346676)
 
 [A. Herzog: "Simulation mit dem Warteschlangensimulator"](https://www.springer.com/gp/book/9783658346676) (in German)
 
@@ -152,5 +153,7 @@ Citing "Simulation mit dem Warteschlangensimulator" using BibTeX:
       title={Simulation mit dem Warteschlangensimulator},
       author={Herzog, Alexander},
       year={2021},
-      publisher={Springer}
+      publisher={Springer},
+      location={Wiesbaden},
+      doi={10.1007/978-3-658-34668-3}
     }

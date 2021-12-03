@@ -51,6 +51,7 @@ Die Windows-Version kann sowohl mit als auch ohne Admin-Rechte installiert werde
 * [**Präsentation** zur Vorstellung des Warteschlangensimulator](https://a-herzog.github.io/Warteschlangensimulator/IntroducingWarteschlangensimulator.pdf) (Englisch, pdf)
 * [**Videos** zur Vorstellung des Warteschlangensimulator](https://github.com/A-Herzog/Warteschlangensimulator/wiki/Videos) (Englisch)
 * [Feature-Übersicht **Präsentation**](https://a-herzog.github.io/Warteschlangensimulator/Warteschlangensimulator-Features.pdf) (pdf)
+* [**Buch**: "Simulation mit dem Warteschlangensimulator"](https://www.springer.com/gp/book/9783658346676)
 * Auf dem Laufenden bleiben: Sie können diesem Projekt auf GitHub folgen, um stets über neue Versionen usw. benachrichtigt zu werden.
 
 ---
@@ -147,7 +148,7 @@ Alternativ können Parameterreihenkonfigurationen gespeichert und dann per **Kom
 
 ### Buch: "Simulation mit dem Warteschlangensimulator"
 
-[<img src="Images/CoverHerzogSimulationMitDemWarteschlangensimulator-small.png" style="float: right; max-width: 30%; padding-left: 5px">](https://www.springer.com/gp/book/9783658346676)
+[<img src="Images/CoverHerzogSimulationMitDemWarteschlangensimulator_small.png" style="float: right; max-width: 30%; padding-left: 5px">](https://www.springer.com/gp/book/9783658346676)
 
 [A. Herzog: "Simulation mit dem Warteschlangensimulator"](https://www.springer.com/gp/book/9783658346676)
 
@@ -157,5 +158,7 @@ Alternativ können Parameterreihenkonfigurationen gespeichert und dann per **Kom
       title={Simulation mit dem Warteschlangensimulator},
       author={Herzog, Alexander},
       year={2021},
-      publisher={Springer}
+      publisher={Springer},
+      location={Wiesbaden},
+      doi={10.1007/978-3-658-34668-3}
     }
