@@ -13,7 +13,7 @@ In the simulator, queueing systems can be modelled and afterwards be simulated i
 ## Download
 
 * [Windows installer](https://github.com/A-Herzog/Warteschlangensimulator/releases/latest/download/SimulatorSetup.exe)
-* [Zip file](https://github.com/A-Herzog/Warteschlangensimulator/releases/latest/download/Simulator.zip) (for use under Windows, Linux, MacOS, ...)
+* [Zip file](https://github.com/A-Herzog/Warteschlangensimulator/releases/latest/download/Simulator.zip) (for use under Windows, Linux, ...)
 * [Source code](https://github.com/A-Herzog/Warteschlangensimulator/releases/latest/) ([Notes on the build process](BUILD.md))
 
 The Windows version can be installed with or without admin rights. The zip file version can be used on any platform without installation.
@@ -143,3 +143,18 @@ If it is already known which characteristic value is to be optimized and by vary
 Warteschlangensimulator can be started on a performant system in server mode. If a client installation is **connected** to this server, all simulations are performed completely transparently on the server.
 
 Alternatively, parameter series configurations can be saved and then executed via **command line** on a calculation server without any graphical interface.
+
+### Textbook: "Simulation mit dem Warteschlangensimulator" (in German)
+
+[<img src="Images/CoverHerzogSimulationMitDemWarteschlangensimulator-small.png" style="float: right; max-width: 30%; padding-left: 5px">](https://www.springer.com/gp/book/9783658346676)
+
+[A. Herzog: "Simulation mit dem Warteschlangensimulator"](https://www.springer.com/gp/book/9783658346676) (in German)
+
+Citing "Simulation mit dem Warteschlangensimulator" using BibTeX:
+
+    @book{herzog2021simulation,
+      title={Simulation mit dem Warteschlangensimulator},
+      author={Herzog, Alexander},
+      year={2021},
+      publisher={Springer}
+    }

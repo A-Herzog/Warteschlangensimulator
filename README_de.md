@@ -13,7 +13,7 @@ Im Simulator können Warteschlangenmodelle in Form von Fließbildern modelliert 
 ## Download
 
 * [Windows-Installer](https://github.com/A-Herzog/Warteschlangensimulator/releases/latest/download/SimulatorSetup.exe)
-* [zip-Datei](https://github.com/A-Herzog/Warteschlangensimulator/releases/latest/download/Simulator.zip) (nutzbar unter Windows, Linux, MacOS, ...)
+* [zip-Datei](https://github.com/A-Herzog/Warteschlangensimulator/releases/latest/download/Simulator.zip) (nutzbar unter Windows, Linux, ...)
 * [Quellcode](https://github.com/A-Herzog/Warteschlangensimulator/releases/latest/) ([Hinweise zum Build-Prozess](BUILD.md))
 
 Die Windows-Version kann sowohl mit als auch ohne Admin-Rechte installiert werden. Die zip-Datei-Variante kann auf jeder Plattform ohne Installation verwendet werden.
@@ -145,3 +145,17 @@ Der Warteschlangensimulator kann auf einem leistungsstarken System im Servermodu
 
 Alternativ können Parameterreihenkonfigurationen gespeichert und dann per **Kommandozeile** auf einem Rechenserver ohne jegliche grafische Oberfläche ausgeführt werden.
 
+### Buch: "Simulation mit dem Warteschlangensimulator"
+
+[<img src="Images/CoverHerzogSimulationMitDemWarteschlangensimulator-small.png" style="float: right; max-width: 30%; padding-left: 5px">](https://www.springer.com/gp/book/9783658346676)
+
+[A. Herzog: "Simulation mit dem Warteschlangensimulator"](https://www.springer.com/gp/book/9783658346676)
+
+"Simulation mit dem Warteschlangensimulator" mit BibTeX zitieren:
+
+    @book{herzog2021simulation,
+      title={Simulation mit dem Warteschlangensimulator},
+      author={Herzog, Alexander},
+      year={2021},
+      publisher={Springer}
+    }
