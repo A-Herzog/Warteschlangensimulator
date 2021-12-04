@@ -74,7 +74,7 @@ import mathtools.distribution.swing.CommonVariables;
  * Die Klasse {@link Table} kapselt eine Tabelle aus {@link String}-Objekten.
  * Die Klasse stellt Methoden zum Lesen und Schreiben von Tabellen-Dateien zur Verfügung.
  * @author Alexander Herzog
- * @version 4.5
+ * @version 4.6
  */
 public final class Table implements Cloneable {
 	/** Bezeichner beim Speichern für "wahr" */
@@ -1453,7 +1453,9 @@ public final class Table implements Cloneable {
 	 */
 	public static List<String> loadTextLinesFromFile(final File input) {
 		try {
-			return Files.readAllLines(input.toPath(),StandardCharsets.UTF_8);
+			final List<String> lines=Files.readAllLines(input.toPath(),StandardCharsets.UTF_8);
+			if (lines.size()>0 && lines.get(0).length()>1 && lines.get(0).startsWith("\uFEFF")) lines.set(0,lines.get(0).substring(1));
+			return lines;
 		} catch (IOException e) {
 			return null;
 		}
@@ -1469,8 +1471,14 @@ public final class Table implements Cloneable {
 		try (InputStream stream=new FileInputStream(input)) {
 			try (InputStreamReader reader=new InputStreamReader(stream,StandardCharsets.UTF_8)) {
 				try (BufferedReader bufferedReader=new BufferedReader(reader)) {
+					boolean firstLine=true;
 					while (bufferedReader.ready()) {
-						lineProcessor.accept(bufferedReader.readLine());
+						String line=bufferedReader.readLine();
+						if (firstLine) {
+							if (line.startsWith("\uFEFF") && line.length()>1) line=line.substring(1);
+							firstLine=false;
+						}
+						lineProcessor.accept(line);
 					}
 					return true;
 				}
@@ -2115,7 +2123,12 @@ public final class Table implements Cloneable {
 		final StringBuilder text=new StringBuilder();
 		try (BufferedReader br=new BufferedReader(new InputStreamReader(new FileInputStream(input),StandardCharsets.UTF_8))) {
 			String line=null;
+			boolean firstLine=true;
 			while ((line=br.readLine())!=null) {
+				if (firstLine) {
+					if (line.startsWith("\uFEFF") && line.length()>1) line=line.substring(1);
+					firstLine=false;
+				}
 				text.append(line);
 				text.append('\n');
 			}
