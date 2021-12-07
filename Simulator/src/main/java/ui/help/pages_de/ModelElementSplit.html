@@ -68,5 +68,30 @@ dass die numerischen und Text-basierenden Kundendaten von dem Ausgangskunden
 auf die neu generierten Kunden übertragen werden sollen.
 </p>
 
+<h2>Kundentypen laden</h2>
+
+<p>
+Sollen in einem Modell sehr viele Kundentypen verwendet werden, so können über diese Funktion Funktion mehrere
+Kundentypen aus einer Tabelle geladen werden. Jede Tabellenzeile enthält dabei die Daten zu einem Kundentyp.
+</p>
+
+<p>
+Die erste Spalte muss den Namen des Kundentyps angeben, die zweite die Definition der Zwischenankunftszeiten.
+Dabei können die Zwischenankunftszeiten entweder über einen Rechenausdruck oder über die Definition einer
+Verteilungsfunktion festgelegt werden. Das Format der Verteilungsfunktionsdefinition ist in dem pdf-Dokument
+"Distribution XML reference for Warteschlangensimulator" dokumentiert. Auf diese beiden Spalten können beliebig
+viele weitere Spalten mit folgenden Inhalten folgen:
+</p>
+
+<ul>
+  <li><tt>batch=</tt><br>
+  Gibt die Ankunfts-Batch-Größe an. Es kann entweder eine positive Ganzzahl angegeben werden oder eine Reihe von
+  durch ";" getrennte Werte der Form <tt>Größe=Rate</tt> zur Definition verschiedener Raten für verschiedene Batch-Größen.</li>
+</ul>
+
+<p>
+Außerdem stehen die Zuweisungen, die an einer <a href="ModelElementSourceTable.html">Tabellenquelle</a> genutzt werden können, zur Verfügung.
+</p>
+
 </body>
 </html>

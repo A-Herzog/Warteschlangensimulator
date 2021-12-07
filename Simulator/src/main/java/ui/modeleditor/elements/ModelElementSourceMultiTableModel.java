@@ -20,9 +20,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.function.Function;
 import java.util.function.Supplier;
+import java.util.stream.Collectors;
 
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
@@ -319,6 +322,36 @@ public class ModelElementSourceMultiTableModel extends JTableExtAbstractTableMod
 			}
 			element.addRecord(record);
 		}
+	}
+
+	/**
+	 * Liefert die Namen aller Kundentypen in dem Modell.
+	 * @return	Namen aller Kundentypen in dem Modell
+	 */
+	public Set<String> getClientTypeNames() {
+		return new HashSet<>(records.stream().map(record->record.getName()).collect(Collectors.toList()));
+	}
+
+	/**
+	 * Ersetzt einzelne Einträge in dem Modell durch neue.
+	 * @param clientTypes	Kundentypen, die hinzugefügt werden sollen oder ggf. vorhandene Typen mit demselben Namen ersetzen sollen
+	 */
+	public void replaceRecords(final List<ModelElementSourceRecord> clientTypes) {
+		if (clientTypes==null) return;
+		final Set<String> newNames=new HashSet<>(clientTypes.stream().map(clientType->clientType.getName()).collect(Collectors.toList()));
+
+		int index=0;
+		while (index<records.size()) {
+			if (newNames.contains(records.get(index).getName())) {
+				records.remove(index);
+				continue;
+			}
+			index++;
+		}
+
+		records.addAll(clientTypes);
+
+		updateTable();
 	}
 
 	/**

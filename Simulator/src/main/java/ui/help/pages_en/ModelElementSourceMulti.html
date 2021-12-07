@@ -85,5 +85,34 @@ On this tab client text assignments like key:=value can be setup.
 These assignments are applied to each client created by this source.
 </p>
 
+<h2>Load client types</h2>
+
+<p>
+If a large number of client types is to be used in a model, this function can be used
+to load several client types from a table. Each table line contains the data for one client type.
+</p>
+
+<p>
+The first column specifies the name of the client type, the second the definition of the inter-arrival times.
+Thereby the inter-arrival times can be defined either by a calculation expression or by the definition of a
+distribution. The format of the distributions is documented in the pdf document
+"Distribution XML reference for Warteschlangensimulator". These two columns can be followed by any number
+of additional columns with the following contents:
+</p>
+
+<ul>
+  <li><tt>batch=</tt><br>
+  Specifies the arrival batch size. Either a positive integer can be specified, or a series of values separated
+  by ";" of the form <tt>size=rate</tt> to define different rates for different batch sizes.</li>
+  <li><tt>count=</tt><br>
+  Indicates the total number of arrival events.</li>
+  <li><tt>start=</tt><br>
+  Specifies the start of the first inter-arrival time.</li>
+</ul>
+
+<p>
+Additionally a assignment, that can be made at a <a href="ModelElementSourceTable.html">Table source</a>, can be used.
+</p>
+
 </body>
 </html>

@@ -552,7 +552,7 @@ public abstract class RunElementSourceExtern extends RunElement implements RunSo
 		 * @return	Gibt an, ob die Zelle erfolgreich verarbeitet werden konnte
 		 */
 
-		private boolean processCell(final String cell, final Object[] data) {
+		public static boolean processCell(final String cell, final Object[] data) {
 			final int pos=cell.indexOf('=');
 			if (pos<1 || pos>=cell.length()-1) return false;
 			final String part1=cell.substring(0,pos);

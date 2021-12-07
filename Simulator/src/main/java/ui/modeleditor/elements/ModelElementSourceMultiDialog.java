@@ -17,14 +17,20 @@ package ui.modeleditor.elements;
 
 import java.awt.BorderLayout;
 import java.awt.Component;
+import java.io.File;
 import java.io.Serializable;
+import java.util.List;
+import java.util.Set;
 
+import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
 import language.Language;
+import systemtools.MsgBox;
 import tools.JTableExt;
+import ui.images.Images;
 import ui.infopanel.InfoPanel;
 import ui.modeleditor.ModelClientData;
 import ui.modeleditor.ModelElementBaseDialog;
@@ -83,6 +89,12 @@ public class ModelElementSourceMultiDialog extends ModelElementBaseDialog {
 	}
 
 	@Override
+	protected void initUserButtons() {
+		addUserButton(Language.tr("ClientTypeLoader.Button"),Images.GENERAL_LOAD.getIcon());
+		getUserButton(0).setToolTipText(Language.tr("ClientTypeLoader.Title"));
+	}
+
+	@Override
 	protected JComponent getContentPanel() {
 		final JPanel content=new JPanel(new BorderLayout());
 
@@ -110,5 +122,25 @@ public class ModelElementSourceMultiDialog extends ModelElementBaseDialog {
 	protected void storeData() {
 		super.storeData();
 		recordsTableModel.storeData((ModelElementSourceMulti)element);
+	}
+
+	@Override
+	protected void userButtonClick(final int nr, final JButton button) {
+		final File file=ClientTypeLoader.selectFile(this);
+		if (file==null) return;
+
+		final List<ModelElementSourceRecord> clientTypes=new ClientTypeLoader(file).getArrivalClientTypes();
+
+		if (clientTypes.size()==0) {
+			MsgBox.error(this,Language.tr("ClientTypeLoader.Title"),String.format(Language.tr("ClientTypeLoader.LoadError"),file.toString()));
+			return;
+		}
+
+		final Set<String> currentClientTypes=recordsTableModel.getClientTypeNames();
+		if (clientTypes.stream().map(clientType->clientType.getName()).filter(name->currentClientTypes.contains(name)).findFirst().isPresent()) {
+			if (!MsgBox.confirm(this,Language.tr("ClientTypeLoader.Title"),Language.tr("ClientTypeLoader.ReplaceWarning"),Language.tr("ClientTypeLoader.ReplaceWarning.YesInfo"),Language.tr("ClientTypeLoader.ReplaceWarning.NoInfo"))) return;
+		}
+
+		recordsTableModel.replaceRecords(clientTypes);
 	}
 }

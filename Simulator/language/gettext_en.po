@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-11-30 09:54+0100\n"
+"POT-Creation-Date: 2021-12-05 21:40+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1213,6 +1213,32 @@ msgstr "The model does not contain any elements using external data."
 
 msgid "CheckData.Title"
 msgstr "Check connections to external data"
+
+msgid "ClientTypeLoader.Button"
+msgstr "Load client types..."
+
+msgid "ClientTypeLoader.LoadError"
+msgstr ""
+"The table file\n"
+"%s\n"
+"did not contain any client types that could be loaded."
+
+msgid "ClientTypeLoader.ReplaceWarning"
+msgstr ""
+"There are overlaps between the client types to be loaded and those that already exist.\n"
+"Should the data still be loaded?"
+
+msgid "ClientTypeLoader.ReplaceWarning.NoInfo"
+msgstr "Do not load table."
+
+msgid "ClientTypeLoader.ReplaceWarning.YesInfo"
+msgstr "Load client types and replace existing data."
+
+msgid "ClientTypeLoader.SelectTitle"
+msgstr "Select client types source"
+
+msgid "ClientTypeLoader.Title"
+msgstr "Load client type data from table"
 
 msgid "Color.000000"
 msgstr "Balck"

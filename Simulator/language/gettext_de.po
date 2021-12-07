@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-11-30 09:54+0100\n"
+"POT-Creation-Date: 2021-12-05 21:40+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1213,6 +1213,32 @@ msgstr "Das Modell enthält keine Elemente, die externen Daten verwenden."
 
 msgid "CheckData.Title"
 msgstr "Verbindungen zu externen Daten prüfen"
+
+msgid "ClientTypeLoader.Button"
+msgstr "Kundentypen laden..."
+
+msgid "ClientTypeLoader.LoadError"
+msgstr ""
+"Die Tabellendatei\n"
+"%s\n"
+"enthielt keine Kundentypen, die geladen werden konnten."
+
+msgid "ClientTypeLoader.ReplaceWarning"
+msgstr ""
+"Es gibt Überschneidungen zwischen den zu ladenden und den bereits vorhandenen Kundentypen.\n"
+"Sollen die Daten dennoch geladen werden?"
+
+msgid "ClientTypeLoader.ReplaceWarning.NoInfo"
+msgstr "Tabelle nicht laden."
+
+msgid "ClientTypeLoader.ReplaceWarning.YesInfo"
+msgstr "Kundentypen laden und bereits existente Daten ersetzen."
+
+msgid "ClientTypeLoader.SelectTitle"
+msgstr "Quelle für Kundentypen auswählen"
+
+msgid "ClientTypeLoader.Title"
+msgstr "Kundentypendaten aus Tabelle laden"
 
 msgid "Color.000000"
 msgstr "Schwarz"
