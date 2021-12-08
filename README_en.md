@@ -1,8 +1,8 @@
 # Warteschlangensimulator
 
-![GitHub release (latest by date)](https://img.shields.io/github/v/release/a-herzog/warteschlangensimulator)
+[![GitHub release (latest by date)](https://img.shields.io/github/v/release/a-herzog/warteschlangensimulator)](https://github.com/A-Herzog/Warteschlangensimulator/releases/latest/)
 ![GitHub](https://img.shields.io/github/license/a-herzog/warteschlangensimulator)
-![GitHub All Releases](https://img.shields.io/github/downloads/a-herzog/warteschlangensimulator/total)
+[![GitHub All Releases](https://img.shields.io/github/downloads/a-herzog/warteschlangensimulator/total)](https://github.com/A-Herzog/Warteschlangensimulator/releases/latest/)
 
 ([Deutsche Version dieser Readme.](README_de.md))
 
