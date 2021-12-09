@@ -25,6 +25,7 @@ import scripting.java.ExternalConnect;
 import simcore.SimData;
 import simcore.eventcache.AssociativeEventCache;
 import simcore.eventmanager.LongRunMultiSortedArrayListEventManager;
+import simcore.logging.CallbackLogger;
 import simcore.logging.SimLogging;
 import simulator.Simulator;
 import simulator.coreelements.RunElement;
@@ -529,7 +530,12 @@ public class SimulationData extends SimData {
 	 */
 	public boolean testMaxAllowedClientsInSystem() {
 		final int count=statistics.clientsInSystem.getCurrentState();
-		if (maxAllowed<=0) maxAllowed=FastMath.max(RunDataClients.MAX_CLIENTS_IN_SYSTEM_MULTI_CORE,RunDataClients.MAX_CLIENTS_IN_SYSTEM_SINGLE_CORE/threadCount);
+		if (maxAllowed<=0)  {
+			maxAllowed=FastMath.max(RunDataClients.MAX_CLIENTS_IN_SYSTEM_MULTI_CORE,RunDataClients.MAX_CLIENTS_IN_SYSTEM_SINGLE_CORE/threadCount);
+			if (logging instanceof CallbackLogger) {
+				maxAllowed=RunDataClients.MAX_CLIENTS_IN_SYSTEM_ANIMATION;
+			}
+		}
 
 		if (count>maxAllowed) {
 			doEmergencyShutDown(String.format(Language.tr("Simulation.Log.ToManyClientsInSystem.Info"),NumberTools.formatLong(count)));

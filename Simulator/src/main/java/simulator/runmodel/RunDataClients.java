@@ -49,6 +49,13 @@ public final class RunDataClients {
 	public static final int MAX_CLIENTS_IN_SYSTEM_SINGLE_CORE=5_000_000;
 
 	/**
+	 * Anzahl an Kunden im System, bei deren Überschreitung der Simulationsthread abgebrochen wird
+	 * (im Fall einer Animation)
+	 * @see SimulationData#testMaxAllowedClientsInSystem()
+	 */
+	public static final int MAX_CLIENTS_IN_SYSTEM_ANIMATION=150_000;
+
+	/**
 	 * Wie viele Kunden-Objekte sollen gecacht werden?<br>
 	 * (Dies sollte in etwa der maximalen Anzahl an Kunden, die sich gleichzeitig im System befinden, entsprechen.)
 	 */
