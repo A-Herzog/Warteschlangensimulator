@@ -25,11 +25,15 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.io.File;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
+import javax.swing.Box;
 import javax.swing.BoxLayout;
+import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -45,6 +49,7 @@ import mathtools.NumberTools;
 import mathtools.distribution.swing.JDistributionPanel;
 import simulator.editmodel.EditModel;
 import simulator.simparser.ExpressionCalc;
+import systemtools.MsgBox;
 import tools.IconListCellRenderer;
 import ui.images.Images;
 import ui.modeleditor.ModelElementBaseDialog;
@@ -86,6 +91,8 @@ public class DistributionSetupTimesEditor extends JPanel {
 	private final JComboBox<String> typeCombo;
 	/** Lokalen Wert für den aktuellen Untertyp verwenden? */
 	private final JCheckBox activeCheckBox;
+	/** Schaltfläche zum Laden von Kundentypdaten */
+	private final JButton loadButton;
 	/** Zeigt den Infotext an, von welchem Kundentyp zu welchem Kundentyp die aktuelle Rüstzeit gilt */
 	private final JLabel infoLabel;
 	/** Auswahl: Verteilung oder Rechenausdruck */
@@ -146,6 +153,11 @@ public class DistributionSetupTimesEditor extends JPanel {
 				activeClientTypeChanged();
 				fireUserChangeListener();
 			});
+			line.add(Box.createHorizontalGlue());
+			line.add(loadButton=new JButton(Language.tr("ClientTypeLoader.Button"),Images.GENERAL_LOAD.getIcon()));
+			loadButton.setToolTipText(Language.tr("ClientTypeLoader.Title"));
+			loadButton.setEnabled(!readOnly);
+			loadButton.addActionListener(e->loadClientTypeData());
 
 			panel.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
 			line.add(infoLabel=new JLabel());
@@ -203,6 +215,7 @@ public class DistributionSetupTimesEditor extends JPanel {
 			typeCombo.setSelectedIndex(0);
 		} else {
 			activeCheckBox=null;
+			loadButton=null;
 			infoLabel=null;
 			modeSelect=null;
 			cards=null;
@@ -360,6 +373,47 @@ public class DistributionSetupTimesEditor extends JPanel {
 				checkExpression();
 			}
 		}
+	}
+
+	/**
+	 * Schaltfläche "Kundendaten laden"
+	 * @see #loadButton
+	 */
+	private void loadClientTypeData() {
+		final File file=ClientTypeLoader.selectFile(this);
+		if (file==null) return;
+
+		final Map<String,Map<String,Object>> clientTypes=new ClientTypeLoader(file).getSetupTimesClientTypes();
+
+		if (clientTypes.size()==0) {
+			MsgBox.error(this,Language.tr("ClientTypeLoader.Title"),String.format(Language.tr("ClientTypeLoader.LoadError"),file.toString()));
+			return;
+		}
+
+		activeClientTypeChanged();
+
+		boolean replaceData=false;
+		for (Map.Entry<String,Map<String,Object>> entry1: clientTypes.entrySet()) {
+			for (Map.Entry<String,Object> entry2: entry1.getValue().entrySet()) if (data.get(entry1.getKey(),entry2.getKey())!=null) {
+				replaceData=true;
+				break;
+			}
+			if (replaceData) break;
+		}
+		if (replaceData) {
+			if (!MsgBox.confirm(this,Language.tr("ClientTypeLoader.Title"),Language.tr("ClientTypeLoader.ReplaceWarning"),Language.tr("ClientTypeLoader.ReplaceWarning.YesInfo"),Language.tr("ClientTypeLoader.ReplaceWarning.NoInfo"))) return;
+		}
+
+		for (Map.Entry<String,Map<String,Object>> entry1: clientTypes.entrySet()) {
+			for (Map.Entry<String,Object> entry2: entry1.getValue().entrySet()) {
+				final Object obj=entry2.getValue();
+				if (obj instanceof AbstractRealDistribution) data.set(entry1.getKey(),entry2.getKey(),(AbstractRealDistribution)obj);
+				if (obj instanceof String) data.set(entry1.getKey(),entry2.getKey(),(String)obj);
+			}
+		}
+
+		typeLast=-1;
+		activeClientTypeChanged();
 	}
 
 	/**

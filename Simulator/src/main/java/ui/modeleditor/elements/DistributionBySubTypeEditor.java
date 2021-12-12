@@ -25,13 +25,18 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.io.File;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
+import javax.swing.Box;
 import javax.swing.BoxLayout;
+import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -47,6 +52,7 @@ import mathtools.NumberTools;
 import mathtools.distribution.swing.JDistributionPanel;
 import simulator.editmodel.EditModel;
 import simulator.simparser.ExpressionCalc;
+import systemtools.MsgBox;
 import tools.IconListCellRenderer;
 import ui.images.Images;
 import ui.modeleditor.AnimationImageSource;
@@ -105,6 +111,8 @@ public class DistributionBySubTypeEditor extends JPanel {
 	private final JLabel localIsActive;
 	/** Globale Vorgabe für den aktuellen Untertyp verwenden? */
 	private final JCheckBox useGlobal;
+	/** Schaltfläche zum Laden von Kundentypdaten */
+	private final JButton loadButton;
 	/** Auswahl: Verteilung oder Rechenausdruck */
 	private final JComboBox<String> modeSelect;
 	/** Panel das Verteilungseditor und Formel-Eingabefeld vorhält */
@@ -193,6 +201,15 @@ public class DistributionBySubTypeEditor extends JPanel {
 		}
 		sub.add(useGlobal=new JCheckBox(Language.tr("Surface.DistributionByClientTypeEditor.UseGlobal")));
 		useGlobal.setEnabled(!readOnly);
+		if (mode==Mode.MODE_CLIENTS) {
+			sub.add(Box.createHorizontalGlue());
+			sub.add(loadButton=new JButton(Language.tr("ClientTypeLoader.Button"),Images.GENERAL_LOAD.getIcon()));
+			loadButton.setToolTipText(Language.tr("ClientTypeLoader.Title"));
+			loadButton.setEnabled(!readOnly);
+			loadButton.addActionListener(e->loadClientTypeData());
+		} else {
+			loadButton=null;
+		}
 
 		final String localInfo;
 		switch (mode) {
@@ -357,8 +374,10 @@ public class DistributionBySubTypeEditor extends JPanel {
 		subTypeLast=subTypeSelect.getSelectedIndex();
 		final String clientTypeName=(subTypeLast==0)?null:subTypes[subTypeLast-1];
 		useGlobal.setVisible(subTypeLast>0);
+		if (loadButton!=null) loadButton.setVisible(subTypeLast>0);
 		localIsActive.setVisible(subTypeLast==0 && data.hasSubTypeData());
 		useGlobal.setEnabled(subTypeLast>0 && !readOnly);
+		if (loadButton!=null) loadButton.setEnabled(subTypeLast>0 && !readOnly);
 		Object obj=data.get(clientTypeName);
 		boolean isFallBack=false;
 		if (obj==null && subTypeLast>0) {
@@ -390,5 +409,35 @@ public class DistributionBySubTypeEditor extends JPanel {
 				useGlobal.setSelected(subTypeLast==0 || isFallBack);
 			}
 		}
+	}
+
+	/**
+	 * Schaltfläche "Kundendaten laden"
+	 * @see #loadButton
+	 */
+	private void loadClientTypeData() {
+		final File file=ClientTypeLoader.selectFile(this);
+		if (file==null) return;
+
+		final Map<String,Object> clientTypes=new ClientTypeLoader(file).getProcessingClientTypes();
+
+		if (clientTypes.size()==0) {
+			MsgBox.error(this,Language.tr("ClientTypeLoader.Title"),String.format(Language.tr("ClientTypeLoader.LoadError"),file.toString()));
+			return;
+		}
+
+		activeClientTypeChanged();
+
+		if (clientTypes.keySet().stream().filter(name->data.get(name)!=null).findFirst().isPresent()) {
+			if (!MsgBox.confirm(this,Language.tr("ClientTypeLoader.Title"),Language.tr("ClientTypeLoader.ReplaceWarning"),Language.tr("ClientTypeLoader.ReplaceWarning.YesInfo"),Language.tr("ClientTypeLoader.ReplaceWarning.NoInfo"))) return;
+		}
+
+		final Set<String> allClientTypes=new HashSet<>(Arrays.asList(subTypes));
+		for (Map.Entry<String,Object> entry: clientTypes.entrySet()) if (allClientTypes.contains(entry.getKey())) {
+			data.set(entry.getKey(),entry.getValue());
+		}
+
+		subTypeLast=-1;
+		activeClientTypeChanged();
 	}
 }

@@ -19,6 +19,7 @@ import java.awt.Component;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -83,6 +84,32 @@ public class ClientTypeLoader {
 				clientTypes.put(name,line.get(1));
 			} else {
 				clientTypes.put(name,distribution);
+			}
+		}
+		return clientTypes;
+	}
+
+	/**
+	 * Lädt Rüstzeiten für mehrere Kundentypen aus der angegebenen Tabelle
+	 * @return	Zuordnung von Kundentypnamen zu Rüstzeiten (Zeichenkette oder Verteilung). Die Zuordnung kann leer sein, ist aber nie <code>null</code>.
+	 */
+	public Map<String,Map<String,Object>> getSetupTimesClientTypes() {
+		final Map<String,Map<String,Object>> clientTypes=new HashedMap<>();
+		final int lines=table.getSize(0);
+		for (int i=0;i<lines;i++) {
+			final List<String> line=table.getLine(i);
+			if (line.size()<3) return null;
+			final String name1=line.get(0);
+			final String name2=line.get(1);
+			final AbstractRealDistribution distribution=DistributionTools.distributionFromString(line.get(2),3000);
+			if (distribution==null) {
+				Map<String,Object> sub=clientTypes.get(name1);
+				if (sub==null) clientTypes.put(name1,sub=new HashMap<>());
+				sub.put(name2,line.get(2));
+			} else {
+				Map<String,Object> sub=clientTypes.get(name1);
+				if (sub==null) clientTypes.put(name1,sub=new HashMap<>());
+				sub.put(name2,distribution);
 			}
 		}
 		return clientTypes;

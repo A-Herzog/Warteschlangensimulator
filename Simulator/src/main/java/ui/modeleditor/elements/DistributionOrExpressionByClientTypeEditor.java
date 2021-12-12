@@ -21,14 +21,19 @@ import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.io.File;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.TreeMap;
 
+import javax.swing.Box;
 import javax.swing.BoxLayout;
+import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JPanel;
@@ -43,6 +48,7 @@ import mathtools.distribution.swing.JDistributionPanel;
 import simulator.editmodel.EditModel;
 import simulator.runmodel.RunModel;
 import simulator.simparser.ExpressionCalc;
+import systemtools.MsgBox;
 import tools.IconListCellRenderer;
 import ui.images.Images;
 import ui.modeleditor.AnimationImageSource;
@@ -102,6 +108,8 @@ public class DistributionOrExpressionByClientTypeEditor extends JPanel {
 	private final JComboBox<String> clientTypeSelect;
 	/** Sind Einstellung für diesen Kundentyp aktiv? */
 	private final JCheckBox clientTypeActive;
+	/** Schaltfläche zum Laden von Kundentypdaten */
+	private final JButton loadButton;
 	/** Aktueller Modus: Verteilung oder Rechenausdruck */
 	private final JComboBox<String> modeSelect;
 	/** Panel das den Verteilungseditor oder das Eingabefeld für den Rechenausdruck aufnimmt */
@@ -168,6 +176,11 @@ public class DistributionOrExpressionByClientTypeEditor extends JPanel {
 		infoPanel.add(sub=new JPanel(new FlowLayout(FlowLayout.LEFT)));
 		sub.add(clientTypeActive=new JCheckBox(Language.tr("Surface.DistributionByClientTypeEditor.UseGlobal")));
 		clientTypeActive.setEnabled(!readOnly);
+		sub.add(Box.createHorizontalGlue());
+		sub.add(loadButton=new JButton(Language.tr("ClientTypeLoader.Button"),Images.GENERAL_LOAD.getIcon()));
+		loadButton.setToolTipText(Language.tr("ClientTypeLoader.Title"));
+		loadButton.setEnabled(!readOnly);
+		loadButton.addActionListener(e->loadClientTypeData());
 
 		infoPanel.add(sub=new JPanel(new FlowLayout(FlowLayout.LEFT)));
 		sub.add(modeSelect=new JComboBox<>(new String[]{titleDist,titleExpression}));
@@ -400,5 +413,49 @@ public class DistributionOrExpressionByClientTypeEditor extends JPanel {
 			modeSelect.setSelectedIndex(clientTypeActive.isSelected()?modeGlobal:modes[clientTypeLast-1]);
 		}
 		activeModeChanged();
+	}
+
+	/**
+	 * Schaltfläche "Kundendaten laden"
+	 * @see #loadButton
+	 */
+	private void loadClientTypeData() {
+		final File file=ClientTypeLoader.selectFile(this);
+		if (file==null) return;
+
+		final Map<String,Object> newClientTypes=new ClientTypeLoader(file).getProcessingClientTypes();
+
+		if (newClientTypes.size()==0) {
+			MsgBox.error(this,Language.tr("ClientTypeLoader.Title"),String.format(Language.tr("ClientTypeLoader.LoadError"),file.toString()));
+			return;
+		}
+
+		activeClientTypeChanged();
+
+		final Set<String> activeTypes=new HashSet<>();
+		for (int i=0;i<clientTypes.length;i++) {
+			AbstractRealDistribution dist=clientTypeDistribution.get(i);
+			String expr=clientTypeExpression.get(i);
+			if (dist!=null || (expr!=null && !expr.trim().isEmpty())) activeTypes.add(clientTypes[i]);
+		}
+
+		if (newClientTypes.keySet().stream().filter(name->activeTypes.contains(name)).findFirst().isPresent()) {
+			if (!MsgBox.confirm(this,Language.tr("ClientTypeLoader.Title"),Language.tr("ClientTypeLoader.ReplaceWarning"),Language.tr("ClientTypeLoader.ReplaceWarning.YesInfo"),Language.tr("ClientTypeLoader.ReplaceWarning.NoInfo"))) return;
+		}
+
+		final List<String> activeTypesList=Arrays.asList(clientTypes);
+		for (Map.Entry<String,Object> entry: newClientTypes.entrySet()) {
+			final int index=activeTypesList.indexOf(entry.getKey());
+			if (index>=0) {
+				clientTypeDistribution.set(index,null);
+				clientTypeExpression.set(index,null);
+				final Object obj=entry.getValue();
+				if (obj instanceof AbstractRealDistribution) clientTypeDistribution.set(index,(AbstractRealDistribution)obj);
+				if (obj instanceof String) clientTypeExpression.set(index,(String)obj);
+			}
+		}
+
+		clientTypeLast=-1;
+		activeClientTypeChanged();
 	}
 }
