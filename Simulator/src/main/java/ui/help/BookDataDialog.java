@@ -416,20 +416,28 @@ public class BookDataDialog extends BaseDialog {
 	}
 
 	/**
-	 * PDF-Anzeigeprogramm das ein direktes Aufrufen einer bestimmten Seite ermöglicht.
+	 * 32-Bit Variante des PDF-Anzeigeprogramm das ein direktes Aufrufen einer bestimmten Seite ermöglicht.
 	 * @see #canOpenPDFpage()
 	 * @see #openPDF(File, int)
 	 */
-	final File pdfViewer=new File("C:\\Program Files (x86)\\Adobe\\Acrobat Reader DC\\Reader\\AcroRd32.exe");
+	final File pdfViewer32=new File("C:\\Program Files (x86)\\Adobe\\Acrobat Reader DC\\Reader\\AcroRd32.exe");
+
+	/**
+	 * 64-Bit Variante des PDF-Anzeigeprogramm das ein direktes Aufrufen einer bestimmten Seite ermöglicht.
+	 * @see #canOpenPDFpage()
+	 * @see #openPDF(File, int)
+	 */
+	final File pdfViewer64=new File("C:\\Program Files\\Adobe\\Acrobat DC\\Acrobat\\Acrobat.exe");
 
 	/**
 	 * Ist es möglich, eine pdf direkt auf einer bestimmten Seite zu öffnen?
 	 * @return	Liefert <code>true</code>, wenn eine pdf direkt auf einer bestimmten Seite geöffnet werden kann.
-	 * @see #pdfViewer
+	 * @see #pdfViewer32
+	 * @see #pdfViewer64
 	 * @see #openPDF(File, int)
 	 */
 	private boolean canOpenPDFpage() {
-		return pdfViewer.isFile();
+		return pdfViewer64.isFile() || pdfViewer32.isFile();
 	}
 
 	/**
@@ -445,7 +453,11 @@ public class BookDataDialog extends BaseDialog {
 
 		final StringBuilder cmd=new StringBuilder();
 		cmd.append("\"");
-		cmd.append(pdfViewer.toString());
+		if (pdfViewer64.isFile()) {
+			cmd.append(pdfViewer64.toString());
+		} else {
+			if (pdfViewer32.isFile()) cmd.append(pdfViewer32.toString());
+		}
 		cmd.append("\" /A \"page=");
 		cmd.append(page+data.getPageOffset());
 		cmd.append("\" \"");
