@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-12-05 21:40+0100\n"
+"POT-Creation-Date: 2021-12-14 21:54+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -13461,6 +13461,21 @@ msgstr ""
 "gespeichert werden."
 
 msgid "ParameterCompare.Toolbar.ProcessResults.ResultsLongRun.Save.ErrorTitle"
+msgstr "Fehler beim Speichern der Tabelle"
+
+msgid "ParameterCompare.Toolbar.ProcessResults.ResultsLongRunDetails"
+msgstr "Laufzeitstatistik (Details) als Tabelle speichern..."
+
+msgid "ParameterCompare.Toolbar.ProcessResults.ResultsLongRunDetails.Save"
+msgstr "Laufzeitstatistik (Details) speichern"
+
+msgid "ParameterCompare.Toolbar.ProcessResults.ResultsLongRunDetails.Save.ErrorInfo"
+msgstr ""
+"Die Tabelle konnte nicht in der Datei\n"
+"%s\n"
+"gespeichert werden."
+
+msgid "ParameterCompare.Toolbar.ProcessResults.ResultsLongRunDetails.Save.ErrorTitle"
 msgstr "Fehler beim Speichern der Tabelle"
 
 msgid "ParameterCompare.Toolbar.ProcessResults.ResultsTable.Copy"

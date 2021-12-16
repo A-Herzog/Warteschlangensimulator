@@ -589,6 +589,25 @@ public class ParameterComparePanel extends SpecialPanel {
 	}
 
 	/**
+	 * Befehl: (Popup) Laufzeitdaten speichern (Einzelwerte)
+	 */
+	private void commandPopupLongRunSaveDetails() {
+		final Table table=(Table)WaitDialog.workObject(this,()->setup.getLongRunDetailsTableData(),WaitDialog.Mode.PROCESS_DATA);
+		if (table==null) return;
+
+		final File file=Table.showSaveDialog(this,Language.tr("ParameterCompare.Toolbar.ProcessResults.ResultsLongRunDetails.Save"),null);
+		if (file==null) return;
+
+		if (file.exists()) {
+			if (!MsgBox.confirmOverwrite(this,file)) return;
+		}
+
+		if (!table.save(file)) {
+			MsgBox.error(this,Language.tr("ParameterCompare.Toolbar.ProcessResults.ResultsLongRunDetails.Save.ErrorTitle"),String.format(Language.tr("ParameterCompare.Toolbar.ProcessResults.ResultsLongRunDetails.Save.ErrorInfo"),file.toString()));
+		}
+	}
+
+	/**
 	 * Befehl: (Popup) Statistikdaten in Dateien speichern
 	 */
 	private void commandPopupSaveStatistics() {
@@ -946,7 +965,10 @@ public class ParameterComparePanel extends SpecialPanel {
 				if (statistics!=null && statistics.longRunStatistics.size()>0) hasLongRunStatistics=true;
 				break;
 			}
-			if (hasLongRunStatistics) addMenuItem(menu,Language.tr("ParameterCompare.Toolbar.ProcessResults.ResultsLongRun"),SimToolsImages.SAVE_TABLE.getIcon(),e->commandPopupLongRunSave());
+			if (hasLongRunStatistics) {
+				addMenuItem(menu,Language.tr("ParameterCompare.Toolbar.ProcessResults.ResultsLongRun"),SimToolsImages.SAVE_TABLE.getIcon(),e->commandPopupLongRunSave());
+				addMenuItem(menu,Language.tr("ParameterCompare.Toolbar.ProcessResults.ResultsLongRunDetails"),SimToolsImages.SAVE_TABLE.getIcon(),e->commandPopupLongRunSaveDetails());
+			}
 		}
 
 

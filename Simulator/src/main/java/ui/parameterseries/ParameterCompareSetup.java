@@ -619,15 +619,60 @@ public final class ParameterCompareSetup extends XMLData implements Cloneable {
 	}
 
 	/**
-	 * Berechnet die zusammengefassten Laufzeitstatistikdaten für die einzelnen Laufzeitstatistikindikatoren
-	 * @param quantilLevels	Auszugebende Quantilwerte (darf nicht <code>null</code> sein)
-	 * @return	Zuordnung von Laufzeitstatistikindikatorennamen zu den jeweiligen Daten
-	 * @see LongRunData
+	 * Liefert die Laufzeitstatistikdaten (Details) als Tabelle als {@link Table}-Objekt
+	 * @return	Laufzeitstatistikdaten als Tabelle (Details) (oder <code>null</code>, wenn keien Laufzeitstatistik aufgezeichnet wurde)
 	 */
-	private Map<String,LongRunData> getLongRunData(final double[] quantilLevels) {
-		final Map<String,LongRunData> data=new HashMap<>();
+	public Table getLongRunDetailsTableData() {
+		final Table table=new Table();
 
-		/* Threading-System vorbereiten */
+		final Map<String,Map<String,double[]>> data=getLongRunDetailsData();
+		if (data==null || data.size()==0) return null;
+
+		final String[] modelNames=data.keySet().stream().sorted().toArray(String[]::new);
+		final String[] statisticNames=data.get(modelNames[0]).keySet().stream().sorted().toArray(String[]::new);
+
+		/* Überschriften */
+		final List<String> heading1=new ArrayList<>();
+		final List<String> heading2=new ArrayList<>();
+		heading1.add("");
+		heading1.add("");
+		heading2.add("");
+		heading2.add("");
+		for (String statisticName: statisticNames) {
+			boolean first=true;
+			for (String modelName: modelNames) {
+				heading1.add(first?statisticName:"");
+				first=false;
+				heading2.add(modelName);
+			}
+		}
+		table.addLine(heading1);
+		table.addLine(heading2);
+
+		/* Daten */
+		final long stepWideSec=editModel.longRunStatistics.getStepWideSec();
+		final int rowCount=data.values().stream().mapToInt(map->map.values().stream().mapToInt(arr->arr.length).max().orElse(0)).max().orElse(0);
+		for (int interval=0;interval<rowCount;interval++) {
+			final List<String> line=new ArrayList<>();
+			/* Zeitbereich */
+			line.add(TimeTools.formatLongTime(stepWideSec*interval));
+			line.add(TimeTools.formatLongTime(stepWideSec*(interval+1)-1));
+			/* Kenngrößen */
+			for (String statisticName: statisticNames) for (String modelName: modelNames) {
+				final double[] col=data.get(modelName).get(statisticName);
+				if (col.length>interval) line.add(NumberTools.formatNumberMax(col[interval])); else line.add("0");
+			}
+			table.addLine(line);
+		}
+
+		return table;
+	}
+
+	/**
+	 * Erstellt einen Thread-Pool zur Verarbeitung von Laufzeitstatistikdaten
+	 * @return Thread-Pool
+	 */
+	private ExecutorService getExecutorService() {
 		final int coreCount=Runtime.getRuntime().availableProcessors();
 		final ExecutorService executor=new ThreadPoolExecutor(coreCount,coreCount,5,TimeUnit.SECONDS,new LinkedBlockingQueue<>(),new ThreadFactory() {
 			private final AtomicInteger threadNumber=new AtomicInteger(1);
@@ -637,6 +682,20 @@ public final class ParameterCompareSetup extends XMLData implements Cloneable {
 			}
 		});
 		((ThreadPoolExecutor)executor).allowCoreThreadTimeOut(true);
+		return executor;
+	}
+
+	/**
+	 * Berechnet die zusammengefassten Laufzeitstatistikdaten für die einzelnen Laufzeitstatistikindikatoren
+	 * @param quantilLevels	Auszugebende Quantilwerte (darf nicht <code>null</code> sein)
+	 * @return	Zuordnung von Laufzeitstatistikindikatorennamen zu den jeweiligen Daten
+	 * @see LongRunData
+	 */
+	private Map<String,LongRunData> getLongRunData(final double[] quantilLevels) {
+		final Map<String,LongRunData> data=new HashMap<>();
+
+		/* Threading-System vorbereiten */
+		final ExecutorService executor=getExecutorService();
 
 		/* Parallele Verarbeitung starten */
 		final List<Future<Map<String,LongRunData>>> results=new ArrayList<>();
@@ -663,6 +722,41 @@ public final class ParameterCompareSetup extends XMLData implements Cloneable {
 				if (longRunData==null) data.put(name,longRunData=new LongRunData(quantilLevels));
 				longRunData.process(subData.get(name));
 			}
+		}
+
+		return data;
+	}
+
+	/**
+	 * Liefer die Laufzeitstatistikdaten für die einzelnen Laufzeitstatistikindikatoren
+	 * @return	Zuordnung von Laufzeitstatistikindikatorennamen zu den jeweiligen Daten
+	 */
+	private Map<String,Map<String,double[]>> getLongRunDetailsData() {
+		final Map<String,Map<String,double[]>> data=new HashMap<>();
+
+		/* Threading-System vorbereiten */
+		final ExecutorService executor=getExecutorService();
+
+		/* Parallele Verarbeitung starten */
+		final List<Future<Map<String,double[]>>> results=new ArrayList<>();
+		final List<String> names=new ArrayList<>();
+		for (ParameterCompareSetupModel model: models) if (model.isStatisticsAvailable()) {
+			names.add(model.getName());
+			results.add(executor.submit(()->{
+				final Map<String,double[]> subData=new HashMap<>();
+				final StatisticsMultiPerformanceIndicator longRunStatistics=model.getStatistics().longRunStatistics;
+				for (String name: longRunStatistics.getNames()) {
+					subData.put(name,((StatisticsLongRunPerformanceIndicator)longRunStatistics.get(name)).getValues());
+				}
+				return subData;
+			}));
+		}
+
+		/* Zu Gesamtstatistik hinzufügen */
+		for (int i=0;i<names.size();i++) {
+			Map<String,double[]> subData=null;
+			try {subData=results.get(i).get();} catch (InterruptedException|ExecutionException e) {return null;}
+			if (subData!=null) data.put(names.get(i),subData);
 		}
 
 		return data;

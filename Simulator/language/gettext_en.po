@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-12-05 21:40+0100\n"
+"POT-Creation-Date: 2021-12-14 21:54+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -13462,6 +13462,20 @@ msgstr ""
 "%s"
 
 msgid "ParameterCompare.Toolbar.ProcessResults.ResultsLongRun.Save.ErrorTitle"
+msgstr "Error saving table"
+
+msgid "ParameterCompare.Toolbar.ProcessResults.ResultsLongRunDetails"
+msgstr "Save long run statistics (details) as table..."
+
+msgid "ParameterCompare.Toolbar.ProcessResults.ResultsLongRunDetails.Save"
+msgstr "Save long run statistics (details)"
+
+msgid "ParameterCompare.Toolbar.ProcessResults.ResultsLongRunDetails.Save.ErrorInfo"
+msgstr ""
+"The table could not be saved as file\n"
+"%s"
+
+msgid "ParameterCompare.Toolbar.ProcessResults.ResultsLongRunDetails.Save.ErrorTitle"
 msgstr "Error saving table"
 
 msgid "ParameterCompare.Toolbar.ProcessResults.ResultsTable.Copy"
