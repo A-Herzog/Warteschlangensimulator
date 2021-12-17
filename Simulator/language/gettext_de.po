@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-12-14 21:54+0100\n"
+"POT-Creation-Date: 2021-12-15 02:34+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16209,6 +16209,9 @@ msgstr "An Station id=%d ist die Zählerbedingung %d \"%s\" ab Zeichen %d ungül
 
 msgid "Simulation.Creator.InvalidInitialVariableExpression"
 msgstr "Die initiale Belegegung für die Variable %s \"%s\" ist ab Zeichen %d ungültig."
+
+msgid "Simulation.Creator.InvalidLongRunExpression"
+msgstr "Der Laufzeitstatistikausdruck \"%s\" ist ab Zeichen %d ungültig."
 
 msgid "Simulation.Creator.InvalidMatchPropertyIndex"
 msgstr "An Station id=%d wurde der ungültige Kundendaten-Index %d für den Abgleich über die Kundendaten angegeben. Es muss eine nichtnegative Ganzzahl angegeben werden."

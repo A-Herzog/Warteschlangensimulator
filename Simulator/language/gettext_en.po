@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-12-14 21:54+0100\n"
+"POT-Creation-Date: 2021-12-15 02:34+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16204,6 +16204,9 @@ msgstr "At station id=%d the counter condition %d \"%s\" is invalid at character
 
 msgid "Simulation.Creator.InvalidInitialVariableExpression"
 msgstr "The initial value for variable %s \"%s\" is invalid at character %d."
+
+msgid "Simulation.Creator.InvalidLongRunExpression"
+msgstr "The long run statistics expression \"%s\" is invalid at character %d."
 
 msgid "Simulation.Creator.InvalidMatchPropertyIndex"
 msgstr "At station id=%d the invalid client data index %d was specified for the client data matching. A non-negative integer number has to be specified."

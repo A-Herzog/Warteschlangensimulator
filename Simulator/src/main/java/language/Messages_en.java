@@ -9030,6 +9030,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[23603] = "Settings in the table below";
     t[23604] = "Surface.SourceDB.XML.ClientTypeColumn";
     t[23605] = "ModelElementDatabaseClientTypeColumn";
+    t[23606] = "Simulation.Creator.InvalidLongRunExpression";
+    t[23607] = "The long run statistics expression \"%s\" is invalid at character %d.";
     t[23610] = "Surface.Conveyor.Infotext";
     t[23611] = "Delays the arriving clients to simulate the movement along a conveyor.";
     t[23614] = "Surface.AnimationTextJS.Tooltip";
@@ -10032,14 +10034,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[26047] = "Define setup time from %s to %s";
     t[26048] = "ScriptPopup.Client.Time.Text.Hint";
     t[26049] = "Gets the time as a text";
-    t[26052] = "Surface.Barrier.Dialog.Title";
-    t[26053] = "Edit barrier";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_5 (java.lang.String[] t) {
+    t[26052] = "Surface.Barrier.Dialog.Title";
+    t[26053] = "Edit barrier";
     t[26054] = "Surface.Conveyor.XML.TransportTime.Type";
     t[26055] = "Type";
     t[26056] = "Surface.Output.XML.Element.Type.Text";
@@ -12038,14 +12040,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[31293] = "Mean of a distribution";
     t[31296] = "Surface.XML.RootName.AdditionalStatistics.Element.Mode";
     t[31297] = "Mode";
-    t[31298] = "Animation.SimulatedTime.Limited";
-    t[31299] = "Simulated time: %s, arrivals %s of %s (%s)%s";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_6 (java.lang.String[] t) {
+    t[31298] = "Animation.SimulatedTime.Limited";
+    t[31299] = "Simulated time: %s, arrivals %s of %s (%s)%s";
     t[31300] = "ExpressionBuilder.ProbabilityDistributions.LaplaceDistribution.RandomNumberRangeInfo";
     t[31301] = "<p>Generates a random number according to the Laplace distribution with the parameters according to the third (mean) and fourth (scale) parameters.</p>\n<p>The first and second parameter specify the range in which the random number should be located.</p>";
     t[31304] = "CommandLine.SetMaxThreads.Info.MultiCore.OldState.No";
@@ -14044,14 +14046,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[36321] = "ModelElementLogicWhile";
     t[36322] = "Simulation.Creator.HoldMultiCondition";
     t[36323] = "The %d. branching condition \"%s\" at element id=%d is invalid at character %d.";
-    t[36324] = "Surface.AnimationText.XML.Root";
-    t[36325] = "ModelElementAnimationText";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_7 (java.lang.String[] t) {
+    t[36324] = "Surface.AnimationText.XML.Root";
+    t[36325] = "ModelElementAnimationText";
     t[36330] = "SettingsDialog.Tabs.Statistics.BatchMeansConfidenceLevels.Levels";
     t[36331] = "Levels";
     t[36334] = "Surface.SourceTable.XML.TableFileName";
@@ -16050,14 +16052,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[41301] = "<p>Calculates the value of the density of the gamma distribution at the location specified as first parameter with the parameters &alpha; and &beta; according to the second and third parameters.</p>\n<p>Example: <tt>GammaDist(7;5;3;0)</tt> returns 0.03992278718149.</p><p>It is <tt>&alpha;=mean<sup>2</sup>/sd<sup>2</sup></tt> and <tt>&beta;=sd<sup>2</sup>/mean</tt>.</p>";
     t[41318] = "Simulation.Creator.NegativeID";
     t[41319] = "Element \"%s\" has a negative id.";
-    t[41324] = "Surface.Set.XML.Assignment.Value.ProcessTime";
-    t[41325] = "ProcessTime";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_8 (java.lang.String[] t) {
+    t[41324] = "Surface.Set.XML.Assignment.Value.ProcessTime";
+    t[41325] = "ProcessTime";
     t[41328] = "Surface.Source.Dialog.Signals.TableCol.SignalName";
     t[41329] = "Signal names";
     t[41336] = "Statistics.XML.Maximum.Error";
@@ -18056,14 +18058,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[46335] = "Delete";
     t[46336] = "Surface.AnimationTextSelect.Dialog.FontSize.Error.Title";
     t[46337] = "Invalid font size";
-    t[46338] = "Surface.Balking.Infotext";
-    t[46339] = "If clients are waiting at the next process station, clients balk from queuing by a condition defined here.";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_9 (java.lang.String[] t) {
+    t[46338] = "Surface.Balking.Infotext";
+    t[46339] = "If clients are waiting at the next process station, clients balk from queuing by a condition defined here.";
     t[46342] = "ExpressionBuilder.ProbabilityDistributions.FDistribution.DistributionFunctionInfo";
     t[46343] = "<p>Calculates the value of the distribution function of the F distribution at the location specified as the first parameter with the parameters according to the second and third parameters.</p>";
     t[46348] = "Animation.Icon.Soccer";
@@ -20062,14 +20064,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[51409] = "%d models were simulated.";
     t[51412] = "ExpressionBuilder.ProbabilityDistributions.TriangularDistribution.DistributionFunctionInfo";
     t[51413] = "<p>Calculates the value of the distribution function of the triangular distribution at the location specified as the first parameter with the parameters [a;c] and most likely value b according to the second (a), third (b) and fourth (c) parameter.</p>";
-    t[51414] = "Server.Status.Yes";
-    t[51415] = "yes";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_10 (java.lang.String[] t) {
+    t[51414] = "Server.Status.Yes";
+    t[51415] = "yes";
     t[51418] = "ExpressionBuilder.ClientsInSystemQueue.Median";
     t[51419] = "<p>Returns the median of the number of waiting clients in the system.</p>";
     t[51420] = "Surface.Signal.Tooltip";

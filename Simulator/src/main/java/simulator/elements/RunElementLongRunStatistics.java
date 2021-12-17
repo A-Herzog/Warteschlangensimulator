@@ -77,7 +77,7 @@ public class RunElementLongRunStatistics extends RunElement implements StateChan
 		for (int i=0;i<list.size();i++) {
 			run.expressions[i]=list.get(i).expression;
 			final int error=ExpressionCalc.check(run.expressions[i],runModel.variableNames);
-			if (error>=0) return String.format(Language.tr("Simulation.Creator.SetInvalidExpression"),i+1,run.id,error+1);
+			if (error>=0) return String.format(Language.tr("Simulation.Creator.InvalidLongRunExpression"),run.expressions[i],error+1);
 			run.modes[i]=list.get(i).mode;
 		}
 
