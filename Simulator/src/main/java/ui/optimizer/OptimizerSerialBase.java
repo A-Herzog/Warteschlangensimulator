@@ -15,6 +15,7 @@
  */
 package ui.optimizer;
 
+import java.awt.Component;
 import java.io.File;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -59,6 +60,29 @@ public abstract class OptimizerSerialBase extends OptimizerBase {
 	 * @see #cancel()
 	 */
 	private volatile Timer timer;
+
+	/**
+	 * Bisheriges bestes Ergebnis (kann <code>null</code> sein)
+	 */
+	private Statistics bestResultStatistics;
+
+	/**
+	 * Bisheriger bester Zielfunktionswert (nur gültig, wenn {@link #bestResultStatistics} ungleich <code>null</code> ist)
+	 */
+	private double bestResultValue;
+
+	/**
+	 * Wurde die Optimierung per {@link #cancel()} abgebrochen?
+	 */
+	private boolean canceled;
+
+	/**
+	 * Konstruktor der Klasse
+	 * @param owner	Übergeordnetes Element (kann <code>null</code> sein, wenn kein solches vorhanden ist)
+	 */
+	public OptimizerSerialBase(final Component owner) {
+		super(owner);
+	}
 
 	@Override
 	public String check(final EditModel model, final OptimizerSetup setup, final Consumer<String> logOutput, final Consumer<Boolean> whenDone, final Runnable whenStepDone) {
@@ -132,6 +156,8 @@ public abstract class OptimizerSerialBase extends OptimizerBase {
 	 * @see #runModel(int, EditModel)
 	 */
 	private synchronized void runDone(final int stepNr, final Statistics statistics) {
+		if (canceled) return;
+
 		/* Statistik speichern */
 		final Document doc=statistics.saveToXMLDocument();
 		File file=null;
@@ -162,6 +188,38 @@ public abstract class OptimizerSerialBase extends OptimizerBase {
 		}
 		addOptimizationRunResults(value);
 
+		/* Ist neues Ergebnis besser als bisheriges bestes Ergebnis? */
+		if (bestResultStatistics==null) {
+			bestResultStatistics=statistics;
+			if (setup.targetDirection==0) {
+				bestResultValue=Math.max(0,setup.targetRangeMin-value)+Math.max(0,value-setup.targetRangeMax);
+			} else {
+				bestResultValue=value;
+			}
+		} else {
+			switch (setup.targetDirection) {
+			case -1:
+				if (value<bestResultValue) {
+					bestResultStatistics=statistics;
+					bestResultValue=value;
+				}
+				break;
+			case 0:
+				final double newDelta=Math.max(0,setup.targetRangeMin-value)+Math.max(0,value-setup.targetRangeMax);
+				if (newDelta<bestResultValue) {
+					bestResultStatistics=statistics;
+					bestResultValue=newDelta;
+				}
+				break;
+			case 1:
+				if (value>bestResultValue) {
+					bestResultStatistics=statistics;
+					bestResultValue=value;
+				}
+				break;
+			}
+		}
+
 		/* Ziel erreicht ? */
 		if (setup.targetDirection==0 && value>=setup.targetRangeMin && value<=setup.targetRangeMax) {
 			if (file==null) file=saveStatistics(doc);
@@ -183,6 +241,7 @@ public abstract class OptimizerSerialBase extends OptimizerBase {
 	 * @see #done(boolean)
 	 */
 	private void initNextRun(final int stepNr, final double lastResult, final boolean simulationWasEmergencyStopped) {
+		logOutput(String.format(Language.tr("Optimizer.Step.Nr"),stepNr+1));
 		final EditModel currentModel=kernel.setupNextStep(stepNr,lastResult,simulationWasEmergencyStopped);
 		for (String line: kernel.getMessages()) logOutput(line);
 		outputControlVariables("  ",kernel.controlValues);
@@ -196,9 +255,15 @@ public abstract class OptimizerSerialBase extends OptimizerBase {
 
 	@Override
 	public void cancel() {
+		canceled=true;
 		if (timer!=null) timer.cancel();
 		if (simulator!=null) simulator.cancel();
 		logOutput(Language.tr("Optimizer.OptimizationCanceled"));
 		done(false);
+	}
+
+	@Override
+	protected Statistics bestResultSoFar() {
+		return bestResultStatistics;
 	}
 }

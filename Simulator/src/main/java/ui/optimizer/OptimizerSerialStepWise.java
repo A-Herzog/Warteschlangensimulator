@@ -15,6 +15,8 @@
  */
 package ui.optimizer;
 
+import java.awt.Component;
+
 import language.Language;
 
 /**
@@ -27,6 +29,13 @@ import language.Language;
  * @see OptimizerSerialKernelStepWise
  */
 public final class OptimizerSerialStepWise extends OptimizerSerialBase implements Cloneable {
+	/**
+	 * Konstruktor der Klasse
+	 * @param owner	Übergeordnetes Element (kann <code>null</code> sein, wenn kein solches vorhanden ist)
+	 */
+	public OptimizerSerialStepWise(final Component owner) {
+		super(owner);
+	}
 
 	@Override
 	protected OptimizerSerialKernelBase getOptimizerKernel() {
@@ -45,6 +54,6 @@ public final class OptimizerSerialStepWise extends OptimizerSerialBase implement
 
 	@Override
 	public OptimizerBase clone() {
-		return new OptimizerSerialStepWise();
+		return new OptimizerSerialStepWise(owner);
 	}
 }

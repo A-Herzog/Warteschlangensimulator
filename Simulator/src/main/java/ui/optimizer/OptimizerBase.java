@@ -15,6 +15,7 @@
  */
 package ui.optimizer;
 
+import java.awt.Component;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -36,6 +37,8 @@ import scripting.js.JSRunDataFilter;
 import scripting.js.JSRunDataFilterTools;
 import simulator.editmodel.EditModel;
 import simulator.statistics.Statistics;
+import systemtools.MsgBox;
+import tools.SetupData;
 import ui.optimizer.OptimizerSetup.ControlVariable;
 import ui.script.ScriptPanel;
 import xml.XMLTools;
@@ -71,9 +74,16 @@ public abstract class OptimizerBase {
 	protected OptimizerSetup setup;
 
 	/**
-	 * Konstruktor der Klasse
+	 * Übergeordnetes Element (kann <code>null</code> sein, wenn kein solches vorhanden ist)
 	 */
-	public OptimizerBase() {
+	protected final Component owner;
+
+	/**
+	 * Konstruktor der Klasse
+	 * @param owner	Übergeordnetes Element (kann <code>null</code> sein, wenn kein solches vorhanden ist)
+	 */
+	public OptimizerBase(final Component owner) {
+		this.owner=owner;
 		optimizationRunResultsList=new ArrayList<>();
 	}
 
@@ -177,7 +187,7 @@ public abstract class OptimizerBase {
 		while (file==null || file.exists()) {
 			i++;
 			if (i>9999) return null;
-			file=new File(outputFolder,String.format(Language.tr("Optimizer.OutputFileFormat"),i));
+			file=new File(outputFolder,String.format(Language.tr("Optimizer.OutputFileFormat"),i,SetupData.getSetup().defaultSaveFormatStatistics.fileType.defaultExtension));
 		}
 		return file;
 	}
@@ -312,10 +322,24 @@ public abstract class OptimizerBase {
 	}
 
 	/**
+	 * Liefert das bislang beste Ergebnis (sofern ein solches vorliegt)
+	 * @return	Bislang beststes Ergebnis (kann <code>null</code> sein)
+	 */
+	protected abstract Statistics bestResultSoFar();
+
+	/**
 	 * Diese Methode wird aufgerufen, wenn die Optimierung abgeschlossen oder abgebrochen wurde.
 	 * @param optimizationCompleted	Gibt an, ob die Optimierung erfolgreich abgeschlossen wurde (und nicht abgebrochen wurde).
 	 */
 	protected final synchronized void done(final boolean optimizationCompleted) {
+		if (!optimizationCompleted && owner!=null && bestResultSoFar()!=null) {
+			if (MsgBox.confirm(owner,Language.tr("Optimizer.SaveBestResult.Title"),Language.tr("Optimizer.SaveBestResult.Info"),Language.tr("Optimizer.SaveBestResult.InfoYes"),Language.tr("Optimizer.SaveBestResult.InfoNo"))) {
+				final File file=new File(outputFolder,Language.tr("Optimizer.SaveBestResult.FileName")+"."+SetupData.getSetup().defaultSaveFormatStatistics.fileType.defaultExtension);
+				if (!bestResultSoFar().saveToFile(file)) {
+					MsgBox.error(owner,Language.tr("Optimizer.SaveBestResult.ErrorTitle"),String.format(Language.tr("Optimizer.Error.CouldNotSaveResults"),file.getName()));
+				}
+			}
+		}
 		if (whenDone!=null) whenDone.accept(optimizationCompleted);
 	}
 

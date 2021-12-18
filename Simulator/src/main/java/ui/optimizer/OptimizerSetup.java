@@ -207,7 +207,7 @@ public class OptimizerSetup extends XMLData implements Cloneable {
 		outputFolder=folder.toString();
 		outputMode=OutputMode.OUTPUT_ALL;
 
-		optimizerName=new OptimizerCatalog().getDetaultOptimizerName();
+		optimizerName=new OptimizerCatalog(null).getDetaultOptimizerName();
 
 		serialChangeSpeed1=0.25;
 		serialChangeSpeed2=0.1;
@@ -438,7 +438,7 @@ public class OptimizerSetup extends XMLData implements Cloneable {
 		}
 
 		if (Language.trAll("Optimizer.XML.Kernel",name)) {
-			optimizerName=new OptimizerCatalog().getCanonicalOptimizerName(name);
+			optimizerName=new OptimizerCatalog(null).getCanonicalOptimizerName(name);
 			return null;
 		}
 

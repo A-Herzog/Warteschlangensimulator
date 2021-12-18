@@ -186,32 +186,47 @@ public final class XMLTools {
 		/**
 		 * Dateiformat aus Dateiendung ableiten
 		 */
-		AUTO,
+		AUTO(null),
 
 		/**
 		 * XML-Format
 		 */
-		XML,
+		XML("xml"),
 
 		/**
 		 * JSON-Format
 		 */
-		JSON,
+		JSON("json"),
 
 		/**
 		 * In eine zip-Datei eingepackte xml-Datei
 		 */
-		ZIP_XML,
+		ZIP_XML("zip"),
 
 		/**
 		 * In eine tar.gz-Datei eingepackte xml-Datei
 		 */
-		TAR_XML,
+		TAR_XML("tar.gz"),
 
 		/**
 		 * In eine zip-Datei verschlüsselt eingepackte xml-Datei
 		 */
-		CRYPT_XML
+		CRYPT_XML("cs");
+
+		/**
+		 * Standarddateiendung für das jeweilige Format
+		 * (kann <code>null</code> sein, wenn es für das Format keine Standarddateiendung gibt)
+		 */
+		public final String defaultExtension;
+
+		/**
+		 * Konstruktor des Enum
+		 * @param defaultExtension	Standarddateiendung für das jeweilige Format
+		 */
+		FileType(final String defaultExtension) {
+			this.defaultExtension=defaultExtension;
+
+		}
 	}
 
 	/**

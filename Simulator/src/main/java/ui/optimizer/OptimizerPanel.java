@@ -36,6 +36,7 @@ import java.io.File;
 import java.io.InputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.swing.AbstractAction;
@@ -80,7 +81,6 @@ import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.plot.XYPlot;
 import org.jfree.chart.renderer.xy.XYLineAndShapeRenderer;
 import org.jfree.chart.title.TextTitle;
-import org.jfree.data.xy.XYDataItem;
 import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
 
@@ -605,8 +605,13 @@ public class OptimizerPanel extends SpecialPanel {
 		XYSeries[] seriesGood=new XYSeries[maxValuesPerStep];
 		XYSeries[] seriesBad=new XYSeries[maxValuesPerStep];
 		for (int i=0;i<seriesGood.length;i++) {
-			seriesGood[i]=new XYSeries(Language.tr("Optimizer.Tab.Optimization.GoodResult")+((i==0)?"":(""+i)));
-			seriesBad[i]=new XYSeries(Language.tr("Optimizer.Tab.Optimization.BadResult")+((i==0)?"":(""+i)));
+			if (maxValuesPerStep==1) {
+				seriesGood[i]=new XYSeries(Language.tr("Optimizer.Tab.Optimization.GoodResultSingle"));
+				seriesBad[i]=new XYSeries(Language.tr("Optimizer.Tab.Optimization.BadResult"));
+			} else {
+				seriesGood[i]=new XYSeries(Language.tr("Optimizer.Tab.Optimization.GoodResult")+" "+(i+1));
+				seriesBad[i]=new XYSeries(Language.tr("Optimizer.Tab.Optimization.BadResult")+" "+(i+1));
+			}
 			xydata.addSeries(seriesGood[i]);
 			xydata.addSeries(seriesBad[i]);
 		}
@@ -746,19 +751,38 @@ public class OptimizerPanel extends SpecialPanel {
 	private Table getTableFromChart() {
 		final Table table=new Table();
 
-		final XYSeries series=xydata.getSeries(0);
-		final String name=series.getKey().toString();
-		final List<String> categories=new ArrayList<>(1+series.getItemCount());
-		final List<String> line=new ArrayList<>(1+series.getItemCount());
-		line.add((name==null)?"":name);
+		final int count=xydata.getSeriesCount();
+		final String[] names=new String[count];
+		for (int i=0;i<count;i++) names[i]=xydata.getSeries(i).getKey().toString();
+
+		final int itemCount=xydata.getSeries(0).getItemCount();
+		final List<String> categories=new ArrayList<>(1+itemCount);
+		final List<List<String>> lines=new ArrayList<>();
+		final boolean[] lineInUse=new boolean[names.length];
+		Arrays.fill(lineInUse,false);
+
 		categories.add("");
-		for (Object obj: series.getItems()) if (obj instanceof XYDataItem) {
-			final XYDataItem data=(XYDataItem)obj;
-			categories.add(NumberTools.formatNumberMax(data.getXValue()));
-			line.add(NumberTools.formatNumberMax(data.getYValue()));
+		for (int i=0;i<names.length;i++) {
+			final List<String> line=new ArrayList<>(1+itemCount);
+			line.add((names[i]==null)?"":names[i]);
+			lines.add(line);
 		}
+
+		for (int i=0;i<itemCount;i++) {
+			categories.add(NumberTools.formatNumberMax(xydata.getSeries(0).getDataItem(i).getXValue()));
+			for (int j=0;j<count;j++) {
+				final XYSeries series=xydata.getSeries(j);
+				if (series.getItemCount()>i) {
+					lines.get(j).add(NumberTools.formatNumberMax(series.getDataItem(i).getYValue()));
+					lineInUse[j]=true;
+				} else {
+					lines.get(j).add("");
+				}
+			}
+		}
+
 		table.addLine(categories);
-		table.addLine(line);
+		for (int i=0;i<lines.size();i++) if (lineInUse[i]) table.addLine(lines.get(i));
 
 		return table.transpose(true);
 	}
@@ -1276,7 +1300,7 @@ public class OptimizerPanel extends SpecialPanel {
 			}
 			final OptimizerSetup runSetup=getSetupFromGUI(true);
 			if (runSetup==null) return;
-			optimizer=new OptimizerCatalog().getOptimizer(optimizerName);
+			optimizer=new OptimizerCatalog(this).getOptimizer(optimizerName);
 			final long optimizationStartTime=System.currentTimeMillis();
 			String error=optimizer.check(model,runSetup,text->addStatusLine(text),b->{setGUIRunMode(false); if (b) Notifier.run(Notifier.Message.OPTIMIZATION_DONE,optimizationStartTime);},()->updateDiagram());
 			if (error!=null) {
@@ -1303,7 +1327,7 @@ public class OptimizerPanel extends SpecialPanel {
 
 		final ButtonGroup group=new ButtonGroup();
 
-		for (String name: new OptimizerCatalog().getOptimizerNames()) {
+		for (String name: new OptimizerCatalog(this).getOptimizerNames()) {
 			final JRadioButtonMenuItem option=new JRadioButtonMenuItem(name);
 			option.addActionListener(e->{optimizerName=name;});
 			option.setSelected(optimizerName.equals(name));

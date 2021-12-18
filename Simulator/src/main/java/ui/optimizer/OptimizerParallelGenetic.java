@@ -15,6 +15,8 @@
  */
 package ui.optimizer;
 
+import java.awt.Component;
+
 import language.Language;
 
 /**
@@ -23,6 +25,13 @@ import language.Language;
  * @see OptimizerParallelKernelGenetic
  */
 public final class OptimizerParallelGenetic extends OptimizerParallelBase implements Cloneable {
+	/**
+	 * Konstruktor der Klasse
+	 * @param owner	Übergeordnetes Element (kann <code>null</code> sein, wenn kein solches vorhanden ist)
+	 */
+	public OptimizerParallelGenetic(final Component owner) {
+		super(owner);
+	}
 
 	@Override
 	protected OptimizerParallelKernelBase getOptimizerKernel() {
@@ -41,6 +50,6 @@ public final class OptimizerParallelGenetic extends OptimizerParallelBase implem
 
 	@Override
 	public OptimizerBase clone() {
-		return new OptimizerParallelGenetic();
+		return new OptimizerParallelGenetic(owner);
 	}
 }

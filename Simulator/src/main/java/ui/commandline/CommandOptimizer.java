@@ -131,7 +131,7 @@ public class CommandOptimizer extends AbstractCommand {
 		error=setup.loadFromFile(setupFile);
 		if (error!=null) {out.print(Language.tr("Optimizer.Error.CouldNotStart")+":\n"+error); return;}
 
-		optimizer=new OptimizerCatalog().getOptimizer(setup.optimizerName);
+		optimizer=new OptimizerCatalog(null).getOptimizer(setup.optimizerName);
 		error=optimizer.check(model,setup,text->out.println(text),b->setOptimizationDone(),null);
 		if (error!=null) {out.print(Language.tr("Optimizer.Error.CouldNotStart")+":\n"+error); return;}
 		optimizer.start();

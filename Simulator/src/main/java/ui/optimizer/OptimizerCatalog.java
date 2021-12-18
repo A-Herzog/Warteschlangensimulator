@@ -15,6 +15,7 @@
  */
 package ui.optimizer;
 
+import java.awt.Component;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,18 +29,19 @@ public class OptimizerCatalog {
 
 	/**
 	 * Konstruktor der Klasse
+	 * @param owner	Übergeordnetes Element (kann <code>null</code> sein, wenn kein solches vorhanden ist)
 	 */
-	public OptimizerCatalog() {
+	public OptimizerCatalog(final Component owner) {
 		list=new ArrayList<>();
 
-		list.add(new OptimizerSerialStepWise()); /* Default */
-		list.add(new OptimizerSerialStepMax());
-		list.add(new OptimizerParallelGenetic());
+		list.add(new OptimizerSerialStepWise(owner)); /* Default */
+		list.add(new OptimizerSerialStepMax(owner));
+		list.add(new OptimizerParallelGenetic(owner));
 	}
 
 	/**
 	 * Listet die Namen aller verfügbaren Optimiern auf
-	 * @return	Liste aller verfügbaren Optimier
+	 * @return	Liste aller verfügbaren Optimierer
 	 */
 	public String[] getOptimizerNames() {
 		final List<String> names=new ArrayList<>();

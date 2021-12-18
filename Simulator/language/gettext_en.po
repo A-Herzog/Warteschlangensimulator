@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-12-15 02:34+0100\n"
+"POT-Creation-Date: 2021-12-17 14:58+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -11804,7 +11804,7 @@ msgid "Optimizer.Optimizer"
 msgstr "Optimizer"
 
 msgid "Optimizer.OutputFileFormat"
-msgstr "Statistic%04d.xml"
+msgstr "Statistic%04d.%s"
 
 msgid "Optimizer.PreparationFailed"
 msgstr "Preparation of the optimization failed"
@@ -11842,8 +11842,29 @@ msgstr "Next round with population size %d"
 msgid "Optimizer.Round.NoModelsForNextRound"
 msgstr "No valid new models for the next optimization round could be created."
 
+msgid "Optimizer.Round.Nr"
+msgstr "Optimization round %d:"
+
 msgid "Optimizer.Round.One"
 msgstr "Round one with population size %d"
+
+msgid "Optimizer.SaveBestResult.ErrorTitle"
+msgstr "Saving best result failed"
+
+msgid "Optimizer.SaveBestResult.FileName"
+msgstr "BestResult"
+
+msgid "Optimizer.SaveBestResult.Info"
+msgstr "Should the best result achieved so far be saved?"
+
+msgid "Optimizer.SaveBestResult.InfoNo"
+msgstr "Do not save best result."
+
+msgid "Optimizer.SaveBestResult.InfoYes"
+msgstr "Save best result."
+
+msgid "Optimizer.SaveBestResult.Title"
+msgstr "Optimization canceled"
 
 msgid "Optimizer.SelectedParentsForNextRound"
 msgstr "Select as parent generation for next round:"
@@ -11878,6 +11899,9 @@ msgstr "Simulation of the initial model"
 
 msgid "Optimizer.SimulationOfTheInitialModel.Info"
 msgstr "Initial optimization run for determining the target value in the initial state"
+
+msgid "Optimizer.Step.Nr"
+msgstr "Optimization step %d:"
 
 msgid "Optimizer.Tab.ControlVariables"
 msgstr "Control variables"
@@ -11951,7 +11975,7 @@ msgid "Optimizer.Tab.Optimization"
 msgstr "Optimization"
 
 msgid "Optimizer.Tab.Optimization.BadResult"
-msgstr "Models not used for next generation"
+msgstr "Target values of the models not used for next generation"
 
 msgid "Optimizer.Tab.Optimization.DialogHint"
 msgstr "This page shows the optimization progress."
@@ -11963,7 +11987,10 @@ msgid "Optimizer.Tab.Optimization.Folder.Button.Hint"
 msgstr "Select output folder"
 
 msgid "Optimizer.Tab.Optimization.GoodResult"
-msgstr "Models used for next generation"
+msgstr "Target values of the models used for next generation"
+
+msgid "Optimizer.Tab.Optimization.GoodResultSingle"
+msgstr "Target value"
 
 msgid "Optimizer.Tab.Optimization.Kernel"
 msgstr "Optimizer algorithm"
@@ -12141,7 +12168,7 @@ msgid "Optimizer.Tab.Optimization.Step.Result.Save"
 msgstr "Save"
 
 msgid "Optimizer.Tab.Optimization.Step.Result.Save.Chart"
-msgstr "Save diagramm"
+msgstr "Save diagram..."
 
 msgid "Optimizer.Tab.Optimization.Step.Result.Save.ErrorInfo"
 msgstr "The diagram could not be saved to file %s."
@@ -12153,7 +12180,7 @@ msgid "Optimizer.Tab.Optimization.Step.Result.Save.Hint"
 msgstr "Saves the diagram or the text output as file."
 
 msgid "Optimizer.Tab.Optimization.Step.Result.Save.Log"
-msgstr "Save text output"
+msgstr "Save text output..."
 
 msgid "Optimizer.Tab.Optimization.Step.Result.Unzoom"
 msgstr "Default zoom"

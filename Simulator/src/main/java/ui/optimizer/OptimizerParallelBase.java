@@ -15,6 +15,7 @@
  */
 package ui.optimizer;
 
+import java.awt.Component;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -86,6 +87,34 @@ public abstract class OptimizerParallelBase extends OptimizerBase {
 	 */
 	private List<OptimizationResult> resultsCache;
 
+	/**
+	 * Runde
+	 */
+	private int stepNr;
+
+	/**
+	 * Bisheriges bestes Ergebnis (kann <code>null</code> sein)
+	 */
+	private Statistics bestResultStatistics;
+
+	/**
+	 * Bisheriger bester Zielfunktionswert (nur gültig, wenn {@link #bestResultStatistics} ungleich <code>null</code> ist)
+	 */
+	private double bestResultValue;
+
+	/**
+	 * Wurde die Optimierung per {@link #cancel()} abgebrochen?
+	 */
+	private boolean canceled;
+
+	/**
+	 * Konstruktor der Klasse
+	 * @param owner	Übergeordnetes Element (kann <code>null</code> sein, wenn kein solches vorhanden ist)
+	 */
+	public OptimizerParallelBase(final Component owner) {
+		super(owner);
+	}
+
 	@Override
 	public String check(final EditModel model, final OptimizerSetup setup, final Consumer<String> logOutput, final Consumer<Boolean> whenDone, final Runnable whenStepDone) {
 		String error;
@@ -115,6 +144,7 @@ public abstract class OptimizerParallelBase extends OptimizerBase {
 			return;
 		}
 
+		stepNr=0;
 		initNextRun(null,null);
 	}
 
@@ -303,6 +333,8 @@ public abstract class OptimizerParallelBase extends OptimizerBase {
 	 * @see #runModelsSerial(EditModel[])
 	 */
 	private synchronized void runDone(final Statistics[] statistics) {
+		if (canceled) return;
+
 		final double[] values=new double[statistics.length];
 		final boolean[] emergencyShutDown=new boolean[statistics.length];
 
@@ -350,6 +382,39 @@ public abstract class OptimizerParallelBase extends OptimizerBase {
 				}
 				values[i]=value;
 				emergencyShutDown[i]=statistics[i].simulationData.emergencyShutDown;
+
+				/* Ist neues Ergebnis besser als bisheriges bestes Ergebnis? */
+				if (bestResultStatistics==null) {
+					bestResultStatistics=statistics[i];
+					if (setup.targetDirection==0) {
+						bestResultValue=Math.max(0,setup.targetRangeMin-value)+Math.max(0,value-setup.targetRangeMax);
+					} else {
+						bestResultValue=value;
+					}
+				} else {
+					switch (setup.targetDirection) {
+					case -1:
+						if (value<bestResultValue) {
+							bestResultStatistics=statistics[i];
+							bestResultValue=value;
+						}
+						break;
+					case 0:
+						final double newDelta=Math.max(0,setup.targetRangeMin-value)+Math.max(0,value-setup.targetRangeMax);
+						if (newDelta<bestResultValue) {
+							bestResultStatistics=statistics[i];
+							bestResultValue=newDelta;
+						}
+						break;
+					case 1:
+						if (value>bestResultValue) {
+							bestResultStatistics=statistics[i];
+							bestResultValue=value;
+						}
+						break;
+					}
+				}
+
 			}
 
 			/* Zielwert ausgeben */
@@ -396,9 +461,11 @@ public abstract class OptimizerParallelBase extends OptimizerBase {
 	 * @see #done(boolean)
 	 */
 	private void initNextRun(final double[] lastResults, final boolean[] simulationWasEmergencyStopped) {
+		stepNr++;
+		logOutput(String.format(Language.tr("Optimizer.Round.Nr"),stepNr));
+
 		final EditModel[] currentModels=kernel.setupNextStep(lastResults,simulationWasEmergencyStopped);
 		for (String line: kernel.getMessages()) logOutput(line);
-
 
 		if (currentModels==null || currentModels.length==0) {
 			logOutput("\n"+Language.tr("Optimizer.Round.NoModelsForNextRound"));
@@ -429,6 +496,7 @@ public abstract class OptimizerParallelBase extends OptimizerBase {
 
 	@Override
 	public void cancel() {
+		canceled=true;
 		if (timer!=null) timer.cancel();
 		if (simulator!=null && simulator.length>0) for (Object sim: simulator) if (sim instanceof AnySimulator) ((AnySimulator)sim).cancel();
 		logOutput(Language.tr("Optimizer.OptimizationCanceled"));
@@ -482,5 +550,10 @@ public abstract class OptimizerParallelBase extends OptimizerBase {
 			for (int i=0;i<control.length;i++) if (this.control[i]!=control[i]) return false;
 			return true;
 		}
+	}
+
+	@Override
+	protected Statistics bestResultSoFar() {
+		return bestResultStatistics;
 	}
 }
