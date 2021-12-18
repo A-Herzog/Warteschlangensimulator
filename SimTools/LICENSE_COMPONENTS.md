@@ -34,20 +34,6 @@ This file lists the third-party components used by "SimTools" project and their 
 - License URL: https://opensource.org/licenses/BSD-3-Clause
 - Homepage: https://github.com/akuhtz/oxbow 
 
-### SLF4J NOP Binding
-
-- Repository: https://mvnrepository.com/artifact/org.slf4j/slf4j-nop
-- License: MIT
-- License URL: https://opensource.org/licenses/MIT
-- Homepage: http://www.slf4j.org 
-
-### Simple Java API For ODF (Simple ODF)
-
-- Repository: https://mvnrepository.com/artifact/org.odftoolkit/simple-odf
-- License: Apache 2.0
-- License URL: https://opensource.org/licenses/Apache-2.0
-- Homepage: https://odftoolkit.org/simple/index.html 
-
 ---
 
 ## Indirectly used Java libraries
@@ -82,7 +68,7 @@ This file lists the third-party components used by "SimTools" project and their 
 - License: MIT
 - License URL: https://opensource.org/licenses/MIT
 - Homepage: http://www.slf4j.org 
-- Used by: Oxbow Project, SLF4J NOP Binding, Apache Jena Core, Apache Jena IRI, Apache Jena Shadowed External Libraries, Apache Jena Base Common Environment and Java RDFa
+- Used by: Oxbow Project, Apache Jena Core, Apache Jena IRI, Apache Jena Shadowed External Libraries, Apache Jena Base Common Environment and Java RDFa
 
 ### The ODF Toolkit
 

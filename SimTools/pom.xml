@@ -41,12 +41,6 @@
     		<artifactId>swingbits</artifactId>
     		<version>1.2.2</version>
 	</dependency>
-	<!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-nop -->
-	<dependency>
-    		<groupId>org.slf4j</groupId>
-    		<artifactId>slf4j-nop</artifactId>
-    		<version>1.7.30</version>
-	</dependency>
   </dependencies>
 
   <build>

@@ -25,7 +25,6 @@ This file lists the third-party components used by "SimSystem" project and their
 - Repository: https://mvnrepository.com/artifact/org.apache.poi/poi
 - Repository: https://mvnrepository.com/artifact/org.apache.poi/poi-ooxml
 - Repository: https://mvnrepository.com/artifact/org.apache.poi/poi-ooxml-full
-- Repository: https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-core
 - License: Apache 2.0
 - License URL: https://opensource.org/licenses/Apache-2.0
 - Homepage: http://poi.apache.org/ 
@@ -36,6 +35,13 @@ This file lists the third-party components used by "SimSystem" project and their
 - License: GNU LGPL 3.0
 - License URL: https://opensource.org/licenses/LGPL-3.0
 - Homepage: https://github.com/albfernandez/javadbf 
+
+### Simple Java API For ODF (Simple ODF)
+
+- Repository: https://mvnrepository.com/artifact/org.odftoolkit/simple-odf
+- License: Apache 2.0
+- License URL: https://opensource.org/licenses/Apache-2.0
+- Homepage: https://odftoolkit.org/simple/index.html 
 
 ### SQLite JDBC
 
@@ -70,6 +76,14 @@ This file lists the third-party components used by "SimSystem" project and their
 - License: Apache 2.0
 - License URL: https://opensource.org/licenses/Apache-2.0
 - Homepage: https://commons.apache.org/proper/commons-compress/ 
+- Used by: Apache POI
+
+### Apache Log4j
+
+- Repository: https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-core
+- License: Apache 2.0
+- License URL: https://opensource.org/licenses/Apache-2.0
+- Homepage: http://poi.apache.org/ 
 - Used by: Apache POI
 
 ### Curvesapi
