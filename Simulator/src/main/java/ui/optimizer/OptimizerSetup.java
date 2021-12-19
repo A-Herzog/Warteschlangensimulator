@@ -191,6 +191,12 @@ public class OptimizerSetup extends XMLData implements Cloneable {
 	public double geneticChangeSpeed5;
 
 	/**
+	 * Abbruch der einzelnen Simulationen nach einer bestimmten Anzahl an Sekunden<br>
+	 * (oder Werte &le;0 für kein Timeout)
+	 */
+	public int timeoutSeconds;
+
+	/**
 	 * Konstruktor der Klasse <code>OptimizerSetup</code>
 	 */
 	public OptimizerSetup() {
@@ -222,6 +228,8 @@ public class OptimizerSetup extends XMLData implements Cloneable {
 		geneticChangeSpeed3=0.5;
 		geneticChangeSpeed4=0.33;
 		geneticChangeSpeed5=0.25;
+
+		timeoutSeconds=-1;
 	}
 
 	/**
@@ -270,6 +278,8 @@ public class OptimizerSetup extends XMLData implements Cloneable {
 		if (geneticChangeSpeed4!=otherOptimizerSetup.geneticChangeSpeed4) return false;
 		if (geneticChangeSpeed5!=otherOptimizerSetup.geneticChangeSpeed5) return false;
 
+		if (timeoutSeconds!=otherOptimizerSetup.timeoutSeconds) return false;
+
 		return true;
 	}
 
@@ -311,6 +321,8 @@ public class OptimizerSetup extends XMLData implements Cloneable {
 		clone.geneticChangeSpeed3=geneticChangeSpeed3;
 		clone.geneticChangeSpeed4=geneticChangeSpeed4;
 		clone.geneticChangeSpeed5=geneticChangeSpeed5;
+
+		clone.timeoutSeconds=timeoutSeconds;
 
 		return clone;
 	}
@@ -378,6 +390,11 @@ public class OptimizerSetup extends XMLData implements Cloneable {
 		sub.setAttribute(Language.trPrimary("Optimizer.XML.Kernel.GeneticSetup.ChangeSpeed3"),NumberTools.formatSystemNumber(geneticChangeSpeed3));
 		sub.setAttribute(Language.trPrimary("Optimizer.XML.Kernel.GeneticSetup.ChangeSpeed4"),NumberTools.formatSystemNumber(geneticChangeSpeed4));
 		sub.setAttribute(Language.trPrimary("Optimizer.XML.Kernel.GeneticSetup.ChangeSpeed5"),NumberTools.formatSystemNumber(geneticChangeSpeed5));
+
+		if (timeoutSeconds>0) {
+			node.appendChild(sub=doc.createElement(Language.trPrimary("Optimizer.XML.TimeoutSeconds")));
+			sub.setTextContent(""+timeoutSeconds);
+		}
 	}
 
 	@Override
@@ -515,6 +532,13 @@ public class OptimizerSetup extends XMLData implements Cloneable {
 				if (D==0 || D.doubleValue()>1) return String.format(Language.tr("Surface.XML.AttributeError"),Language.trPrimary("Optimizer.XML.Kernel.GeneticSetup.ChangeSpeed5"),name)+" "+" "+Language.tr("Optimizer.XMLError.ValueHasToBeNumberBetween0And1");
 				geneticChangeSpeed5=D.doubleValue();
 			}
+			return null;
+		}
+
+		if (Language.trAll("Optimizer.XML.TimeoutSeconds",name)) {
+			final Long L=NumberTools.getPositiveLong(text);
+			if (L==null) return String.format(Language.tr("Optimizer.XML.TimeoutSeconds.LoadError"),text);
+			timeoutSeconds=L.intValue();
 			return null;
 		}
 

@@ -29,6 +29,7 @@ import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Consumer;
+import java.util.stream.Stream;
 
 import org.w3c.dom.Document;
 
@@ -38,6 +39,7 @@ import simulator.AnySimulator;
 import simulator.StartAnySimulator;
 import simulator.editmodel.EditModel;
 import simulator.statistics.Statistics;
+import tools.SetupData;
 
 /**
  * Dies ist die Basisklasse für alle parallel arbeitenden Optimierer,
@@ -63,6 +65,9 @@ public abstract class OptimizerParallelBase extends OptimizerBase {
 	 * @see #runModelsSerial(EditModel[])
 	 */
 	private volatile Object[] simulator;
+
+	/** Startzeit der Simulatoren */
+	private volatile long[] simulatorStartMS;
 
 	/**
 	 * Welche Simulation läuft gerade?
@@ -172,6 +177,7 @@ public abstract class OptimizerParallelBase extends OptimizerBase {
 			}
 			simulator[i]=starter;
 		}
+		simulatorStartMS=new long[model.length];
 		return true;
 	}
 
@@ -185,13 +191,11 @@ public abstract class OptimizerParallelBase extends OptimizerBase {
 	private synchronized void runModelsParallel(final EditModel[] model) {
 		if (!prepareModels(model)) return;
 
-		/*
 		final Runtime rt=Runtime.getRuntime();
 		final int maxThreadMemory=(int)Math.max(1,(rt.maxMemory())/1024/1024/100);
-		final int threadCount=Math.min(SetupData.getSetup().useMultiCoreSimulationMaxCount,Math.max(1,Math.min(rt.availableProcessors(),maxThreadMemory)));
-		 */
+		int threadCount=Math.min(SetupData.getSetup().useMultiCoreSimulationMaxCount,Math.max(1,Math.min(rt.availableProcessors(),maxThreadMemory)));
 
-		final int threadCount=2;
+		threadCount=Math.min(threadCount,4);
 
 		int started=0;
 		for (int i=0;i<simulator.length;i++) if (simulator[i] instanceof StartAnySimulator) {
@@ -206,24 +210,58 @@ public abstract class OptimizerParallelBase extends OptimizerBase {
 			}
 			if (started<threadCount) {
 				simulator[i]=starter.start();
+				simulatorStartMS[i]=System.currentTimeMillis();
 				started++;
 			}
 		}
 
 		timer=new Timer("OptimizeProgressCheck");
-		timer.schedule(new TimerTask() {
-			@Override
-			public void run() {
-				int running=0;
-				for (Object sim: simulator) if (sim instanceof AnySimulator && ((AnySimulator)sim).isRunning()) running++;
-				for (int i=0;i<simulator.length;i++) if (running<threadCount && simulator[i] instanceof StartAnySimulator) {
-					simulator[i]=((StartAnySimulator)simulator[i]).start();
+		timer.schedule(new ParallelTimerTask(threadCount),100,100);
+	}
+
+	/**
+	 * Wartet auf den Abschluss der parallelen Simulationen.
+	 * @see OptimizerParallelBase#runModelsParallel(EditModel[])
+	 */
+	private class ParallelTimerTask extends TimerTask {
+		/** Anzahl an parallelen Threads */
+		private final int threadCount;
+
+		/** Timeout in Millisekunden */
+		private final long timeoutMS;
+
+		/**
+		 * Konstruktor der Klasse
+		 * @param threadCount	Anzahl an parallelen Threads
+		 */
+		public ParallelTimerTask(final int threadCount) {
+			this.threadCount=threadCount;
+			timeoutMS=setup.timeoutSeconds*1000;
+		}
+
+		@Override
+		public void run() {
+			int running=0;
+			for (int i=0;i<simulator.length;i++) if (simulator[i] instanceof AnySimulator && ((AnySimulator)simulator[i]).isRunning()) {
+				if (timeoutMS>0 && System.currentTimeMillis()>simulatorStartMS[i]+timeoutMS) {
+					((AnySimulator)simulator[i]).cancel();
+					simulatorStartMS[i]=-1;
+				} else {
 					running++;
 				}
-				if (running==0) {
-					timer.cancel();
-					final Statistics[] statistics=new Statistics[simulator.length];
-					for (int i=0;i<simulator.length;i++) if (simulator[i] instanceof AnySimulator) {
+			}
+			for (int i=0;i<simulator.length;i++) if (running<threadCount && simulator[i] instanceof StartAnySimulator) {
+				simulator[i]=((StartAnySimulator)simulator[i]).start();
+				simulatorStartMS[i]=System.currentTimeMillis();
+				running++;
+			}
+			if (running==0) {
+				timer.cancel();
+				final Statistics[] statistics=new Statistics[simulator.length];
+				for (int i=0;i<simulator.length;i++) if (simulator[i] instanceof AnySimulator) {
+					if (simulatorStartMS[i]<0) {
+						statistics[i]=null;
+					} else {
 						statistics[i]=((AnySimulator)simulator[i]).getStatistic();
 						if (statistics[i]==null) {
 							logOutput("  "+Language.tr("Optimizer.Error.NoStatistics"));
@@ -232,11 +270,11 @@ public abstract class OptimizerParallelBase extends OptimizerBase {
 							return;
 						}
 					}
-					simulator=null;
-					runDone(statistics);
 				}
+				simulator=null;
+				runDone(statistics);
 			}
-		},100,100);
+		}
 	}
 
 	/**
@@ -260,7 +298,9 @@ public abstract class OptimizerParallelBase extends OptimizerBase {
 					done(false);
 					return;
 				}
-				simulator[runningSimulatorNr.get()]=starter.start();
+				final int nr=runningSimulatorNr.get();
+				simulator[nr]=starter.start();
+				simulatorStartMS[nr]=System.currentTimeMillis();
 				break;
 			}
 			runningSimulatorNr.incrementAndGet();
@@ -272,30 +312,58 @@ public abstract class OptimizerParallelBase extends OptimizerBase {
 		}
 
 		timer=new Timer("OptimizeProgressCheck");
-		timer.schedule(new TimerTask() {
-			@Override
-			public void run() {
-				final Object obj=simulator[runningSimulatorNr.get()];
-				if ((obj instanceof AnySimulator) &&  ((AnySimulator)obj).isRunning()) return;
-				while (runningSimulatorNr.get()<simulator.length-1) {
-					runningSimulatorNr.incrementAndGet();
-					if (simulator[runningSimulatorNr.get()] instanceof StartAnySimulator) {
-						final StartAnySimulator starter=(StartAnySimulator)simulator[runningSimulatorNr.get()];
-						final StartAnySimulator.PrepareError error=starter.prepare();
-						if (error!=null) {
-							logOutput("  "+Language.tr("Optimizer.Error.ErrorStartingSimulation")+":");
-							logOutput("  "+error.error);
-							logOutput(Language.tr("Optimizer.OptimizationCanceled"));
-							done(true);
-							return;
-						}
-						simulator[runningSimulatorNr.get()]=starter.start();
+		timer.schedule(new SerialTimerTask(),100,100);
+	}
+
+	/**
+	 * Wartet auf den Abschluss einzelner Simulationen.
+	 * @see OptimizerParallelBase#runModelsSerial(EditModel[])
+	 */
+	private class SerialTimerTask extends TimerTask {
+		/** Timeout in Millisekunden */
+		private final long timeoutMS;
+
+		/**
+		 * Konstruktor der Klasse
+		 */
+		public SerialTimerTask() {
+			timeoutMS=setup.timeoutSeconds*1000;
+		}
+
+		@Override
+		public void run() {
+			int nr=runningSimulatorNr.get();
+			final Object obj=simulator[nr];
+			final long start=simulatorStartMS[nr];
+			if ((obj instanceof AnySimulator) &&  ((AnySimulator)obj).isRunning()) {
+				if (timeoutMS<0 || System.currentTimeMillis()<start+timeoutMS) return;
+				((AnySimulator)obj).cancel();
+				simulatorStartMS[nr]=-1;
+			}
+			while (runningSimulatorNr.get()<simulator.length-1) {
+				runningSimulatorNr.incrementAndGet();
+				if (simulator[runningSimulatorNr.get()] instanceof StartAnySimulator) {
+					final StartAnySimulator starter=(StartAnySimulator)simulator[runningSimulatorNr.get()];
+					final StartAnySimulator.PrepareError error=starter.prepare();
+					if (error!=null) {
+						logOutput("  "+Language.tr("Optimizer.Error.ErrorStartingSimulation")+":");
+						logOutput("  "+error.error);
+						logOutput(Language.tr("Optimizer.OptimizationCanceled"));
+						done(true);
 						return;
 					}
+					nr=runningSimulatorNr.get();
+					simulator[nr]=starter.start();
+					simulatorStartMS[nr]=System.currentTimeMillis();
+					return;
 				}
-				timer.cancel();
-				final Statistics[] statistics=new Statistics[simulator.length];
-				for (int i=0;i<simulator.length;i++) if (simulator[i] instanceof AnySimulator) {
+			}
+			timer.cancel();
+			final Statistics[] statistics=new Statistics[simulator.length];
+			for (int i=0;i<simulator.length;i++) if (simulator[i] instanceof AnySimulator) {
+				if (simulatorStartMS[i]<0) {
+					statistics[i]=null;
+				} else {
 					statistics[i]=((AnySimulator)simulator[i]).getStatistic();
 					if (statistics[i]==null) {
 						logOutput("  "+Language.tr("Optimizer.Error.NoStatistics"));
@@ -304,25 +372,24 @@ public abstract class OptimizerParallelBase extends OptimizerBase {
 						return;
 					}
 				}
-				simulator=null;
-				runDone(statistics);
 			}
-		},100,100);
+			simulator=null;
+			runDone(statistics);
+		}
 	}
 
 	/**
 	 * Simuliert eine Reihe von Modellen.
-	 * @param model	Zu simulierende Modelle
+	 * @param models	Zu simulierende Modelle
 	 */
-	private synchronized void runModels(final EditModel[] model) {
-		for (int i=0;i<model.length;i++) {
-			if (model[i]==null) continue;
-			if (model[i].getSingleCoreReason().size()>0) {
-				runModelsParallel(model);
-			} else {
-				runModelsSerial(model);
-			}
-			return;
+	private synchronized void runModels(final EditModel[] models) {
+		final boolean hasMultiCoreModel=Stream.of(models).filter(model->model!=null && model.getSingleCoreReason().size()==0).findFirst().isPresent();
+
+		if (hasMultiCoreModel) {
+			runModelsSerial(models);
+		} else {
+			runModelsParallel(models);
+			runModelsSerial(models);
 		}
 	}
 
@@ -360,9 +427,15 @@ public abstract class OptimizerParallelBase extends OptimizerBase {
 
 			if (statistics[i]==null) {
 				final OptimizationResult result=getCachedResult(kernel.getControlVariablesForModel(i));
-				values[i]=result.result;
-				emergencyShutDown[i]=!result.valueOk;
-				logOutput("    "+Language.tr("Optimizer.KnownResult"));
+				if (result==null) {
+					values[i]=0;
+					emergencyShutDown[i]=true;
+					logOutput("    "+Language.tr("Optimizer.Target.CanceledByTimeout"));
+				} else {
+					values[i]=result.result;
+					emergencyShutDown[i]=!result.valueOk;
+					logOutput("    "+Language.tr("Optimizer.KnownResult"));
+				}
 			} else {
 				/* Statistik speichern */
 				try {

@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-12-17 14:58+0100\n"
+"POT-Creation-Date: 2021-12-19 16:36+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -12004,6 +12004,21 @@ msgstr "Select optimizer strategy"
 msgid "Optimizer.Tab.Optimization.Kernel.Parameters"
 msgstr "Setup algorithm parameters..."
 
+msgid "Optimizer.Tab.Optimization.Kernel.Parameters.Tab.General"
+msgstr "General"
+
+msgid "Optimizer.Tab.Optimization.Kernel.Parameters.Tab.General.TimeoutActive"
+msgstr "Timeout for individual simulations active?"
+
+msgid "Optimizer.Tab.Optimization.Kernel.Parameters.Tab.General.TimeoutSeconds"
+msgstr "Timeout seconds"
+
+msgid "Optimizer.Tab.Optimization.Kernel.Parameters.Tab.General.TimeoutSeconds.ErrorInfo"
+msgstr "The specified timeout value \"%s\" is invalid. A positive integer number has to be specified."
+
+msgid "Optimizer.Tab.Optimization.Kernel.Parameters.Tab.General.TimeoutSeconds.ErrorTitle"
+msgstr "Invalid timeout value"
+
 msgid "Optimizer.Tab.Optimization.Kernel.Parameters.Tab.Genetic"
 msgstr "Genetic algorithm"
 
@@ -12266,6 +12281,9 @@ msgstr "Target value should be in the range from"
 msgid "Optimizer.Tab.Target.Value.RangeB"
 msgstr "to"
 
+msgid "Optimizer.Target.CanceledByTimeout"
+msgstr "Simulation canceled by timeout."
+
 msgid "Optimizer.Target.Maximize"
 msgstr "Optimization target: Maximize target value"
 
@@ -12406,6 +12424,12 @@ msgstr "Minimize"
 
 msgid "Optimizer.XML.Target.Direction.Range"
 msgstr "Range"
+
+msgid "Optimizer.XML.TimeoutSeconds"
+msgstr "OptimizerTimeout"
+
+msgid "Optimizer.XML.TimeoutSeconds.LoadError"
+msgstr "The specified value \"%s\" for the optimization timeout is invalid. A positive integer number has to be specified."
 
 msgid "Optimizer.XMLError.ValueHasToBe0Or1"
 msgstr "The value has to be \"0\" oder \"1\"."

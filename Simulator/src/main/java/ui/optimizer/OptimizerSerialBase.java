@@ -129,23 +129,55 @@ public abstract class OptimizerSerialBase extends OptimizerBase {
 		} else {
 			simulator=starter.start();
 			timer=new Timer("OptimizeProgressCheck");
-			timer.schedule(new TimerTask() {
-				@Override
-				public void run() {
-					if (!simulator.isRunning()) {
-						timer.cancel();
-						final Statistics statistics=simulator.getStatistic();
-						simulator=null;
-						if (statistics==null) {
-							logOutput("  "+Language.tr("Optimizer.Error.NoStatistics"));
-							done(true);
-							return;
-						}
+			timer.schedule(new SimTimerTask(stepNr),100,100);
+		}
+	}
 
-						runDone(stepNr,statistics);
-					}
+	/**
+	 * Wartet auf den Abschluss einer Simulation.
+	 * @see OptimizerSerialBase#runModel(int, EditModel)
+	 */
+	private class SimTimerTask extends TimerTask {
+		/** Optimierungsschritt */
+		private final int stepNr;
+
+		/** Timeout in Millisekunden */
+		private final long timeoutMS;
+
+		/** Laufzeit in Millisekunden */
+		private long runMS=0;
+
+		/**
+		 * Konstruktor der Klasse
+		 * @param stepNr	Optimierungsschritt
+		 */
+		public SimTimerTask(final int stepNr) {
+			this.stepNr=stepNr;
+			timeoutMS=setup.timeoutSeconds*1000;
+		}
+
+		@Override
+		public void run() {
+			if (simulator.isRunning()) {
+				runMS+=100;
+				if (timeoutMS>0 && runMS>timeoutMS) {
+					timer.cancel();
+					simulator.cancel();
+					simulator=null;
+					runDone(stepNr,null);
 				}
-			},100,100);
+			} else {
+				timer.cancel();
+				final Statistics statistics=simulator.getStatistic();
+				simulator=null;
+				if (statistics==null) {
+					logOutput("  "+Language.tr("Optimizer.Error.NoStatistics"));
+					done(true);
+					return;
+				}
+
+				runDone(stepNr,statistics);
+			}
 		}
 	}
 
@@ -158,78 +190,85 @@ public abstract class OptimizerSerialBase extends OptimizerBase {
 	private synchronized void runDone(final int stepNr, final Statistics statistics) {
 		if (canceled) return;
 
-		/* Statistik speichern */
-		final Document doc=statistics.saveToXMLDocument();
-		File file=null;
-		if (setup.outputMode==OptimizerSetup.OutputMode.OUTPUT_ALL) {
-			file=saveStatistics(doc);
-		}
+		if (statistics==null) {
+			logOutput("  "+Language.tr("Optimizer.Target.CanceledByTimeout"));
 
-		/* Zielwert prüfen */
-		final Double value=checkTarget(doc);
-		if (value==null) {
-			/* Abbruch der Optimierung wegen Fehler */
-			done(false);
-			return;
-		}
-
-		/* Zielwert ausgeben */
-		logOutput(String.format("  "+Language.tr("Optimizer.ValueOfTheTarget")+": %s",NumberTools.formatNumber(value)));
-		switch (setup.targetDirection) {
-		case -1:
-			logOutput("  "+Language.tr("Optimizer.Target.Minimize"));
-			break;
-		case 0:
-			logOutput(String.format("  "+Language.tr("Optimizer.Target.Range"),NumberTools.formatNumber(setup.targetRangeMin),NumberTools.formatNumber(setup.targetRangeMax)));
-			break;
-		case 1:
-			logOutput("  "+Language.tr("Optimizer.Target.Maximize"));
-			break;
-		}
-		addOptimizationRunResults(value);
-
-		/* Ist neues Ergebnis besser als bisheriges bestes Ergebnis? */
-		if (bestResultStatistics==null) {
-			bestResultStatistics=statistics;
-			if (setup.targetDirection==0) {
-				bestResultValue=Math.max(0,setup.targetRangeMin-value)+Math.max(0,value-setup.targetRangeMax);
-			} else {
-				bestResultValue=value;
-			}
+			/* Nächster Optimierungsschritt */
+			initNextRun(stepNr+1,0,true);
 		} else {
+			/* Statistik speichern */
+			final Document doc=statistics.saveToXMLDocument();
+			File file=null;
+			if (setup.outputMode==OptimizerSetup.OutputMode.OUTPUT_ALL) {
+				file=saveStatistics(doc);
+			}
+
+			/* Zielwert prüfen */
+			final Double value=checkTarget(doc);
+			if (value==null) {
+				/* Abbruch der Optimierung wegen Fehler */
+				done(false);
+				return;
+			}
+
+			/* Zielwert ausgeben */
+			logOutput(String.format("  "+Language.tr("Optimizer.ValueOfTheTarget")+": %s",NumberTools.formatNumber(value)));
 			switch (setup.targetDirection) {
 			case -1:
-				if (value<bestResultValue) {
-					bestResultStatistics=statistics;
-					bestResultValue=value;
-				}
+				logOutput("  "+Language.tr("Optimizer.Target.Minimize"));
 				break;
 			case 0:
-				final double newDelta=Math.max(0,setup.targetRangeMin-value)+Math.max(0,value-setup.targetRangeMax);
-				if (newDelta<bestResultValue) {
-					bestResultStatistics=statistics;
-					bestResultValue=newDelta;
-				}
+				logOutput(String.format("  "+Language.tr("Optimizer.Target.Range"),NumberTools.formatNumber(setup.targetRangeMin),NumberTools.formatNumber(setup.targetRangeMax)));
 				break;
 			case 1:
-				if (value>bestResultValue) {
-					bestResultStatistics=statistics;
-					bestResultValue=value;
-				}
+				logOutput("  "+Language.tr("Optimizer.Target.Maximize"));
 				break;
 			}
-		}
+			addOptimizationRunResults(value);
 
-		/* Ziel erreicht ? */
-		if (setup.targetDirection==0 && value>=setup.targetRangeMin && value<=setup.targetRangeMax) {
-			if (file==null) file=saveStatistics(doc);
-			logOutput(String.format(Language.tr("Optimizer.Finished"),(file==null)?"":file.getName()));
-			done(true);
-			return;
-		}
+			/* Ist neues Ergebnis besser als bisheriges bestes Ergebnis? */
+			if (bestResultStatistics==null) {
+				bestResultStatistics=statistics;
+				if (setup.targetDirection==0) {
+					bestResultValue=Math.max(0,setup.targetRangeMin-value)+Math.max(0,value-setup.targetRangeMax);
+				} else {
+					bestResultValue=value;
+				}
+			} else {
+				switch (setup.targetDirection) {
+				case -1:
+					if (value<bestResultValue) {
+						bestResultStatistics=statistics;
+						bestResultValue=value;
+					}
+					break;
+				case 0:
+					final double newDelta=Math.max(0,setup.targetRangeMin-value)+Math.max(0,value-setup.targetRangeMax);
+					if (newDelta<bestResultValue) {
+						bestResultStatistics=statistics;
+						bestResultValue=newDelta;
+					}
+					break;
+				case 1:
+					if (value>bestResultValue) {
+						bestResultStatistics=statistics;
+						bestResultValue=value;
+					}
+					break;
+				}
+			}
 
-		/* Nächster Optimierungsschritt */
-		initNextRun(stepNr+1,value,statistics.simulationData.emergencyShutDown);
+			/* Ziel erreicht ? */
+			if (setup.targetDirection==0 && value>=setup.targetRangeMin && value<=setup.targetRangeMax) {
+				if (file==null) file=saveStatistics(doc);
+				logOutput(String.format(Language.tr("Optimizer.Finished"),(file==null)?"":file.getName()));
+				done(true);
+				return;
+			}
+
+			/* Nächster Optimierungsschritt */
+			initNextRun(stepNr+1,value,statistics.simulationData.emergencyShutDown);
+		}
 	}
 
 	/**

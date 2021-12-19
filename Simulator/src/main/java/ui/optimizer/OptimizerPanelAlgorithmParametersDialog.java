@@ -50,6 +50,11 @@ public class OptimizerPanelAlgorithmParametersDialog extends BaseDialog {
 	/** Aktuelles Optimierer-Setup */
 	private final OptimizerSetup setup;
 
+	/** Timeout für einzelne Simulationen verwenden? */
+	private JCheckBox timeoutActive;
+	/** Timeout-Wert für einzelne Simulationen */
+	private JTextField timeoutSeconds;
+
 	/** Seriell arbeitender Optimierer-Kernel: Änderungsgeschwindigkeit in Runde 1 */
 	private JTextField serialChangeSpeed1;
 	/** Seriell arbeitender Optimierer-Kernel: Änderungsgeschwindigkeit in Runde 2 */
@@ -91,6 +96,20 @@ public class OptimizerPanelAlgorithmParametersDialog extends BaseDialog {
 		content.add(tabs,BorderLayout.CENTER);
 
 		JPanel tabOuter, tab;
+
+		/* Allgemein */
+		tabs.addTab(Language.tr("Optimizer.Tab.Optimization.Kernel.Parameters.Tab.General"),tabOuter=new JPanel(new BorderLayout()));
+		tabOuter.add(tab=new JPanel(),BorderLayout.NORTH);
+		tab.setLayout(new BoxLayout(tab,BoxLayout.PAGE_AXIS));
+
+		timeoutActive=addTabCheckBoxLine(tab,Language.tr("Optimizer.Tab.Optimization.Kernel.Parameters.Tab.General.TimeoutActive"),setup.timeoutSeconds>0);
+		timeoutActive.addActionListener(e->checkData(false));
+		timeoutSeconds=addTabInputLine(tab,Language.tr("Optimizer.Tab.Optimization.Kernel.Parameters.Tab.General.TimeoutSeconds"),""+((setup.timeoutSeconds>0)?setup.timeoutSeconds:60));
+		timeoutSeconds.addKeyListener(new KeyListener() {
+			@Override public void keyTyped(KeyEvent e) {timeoutActive.setSelected(true); checkData(false);}
+			@Override public void keyReleased(KeyEvent e) {timeoutActive.setSelected(true); checkData(false);}
+			@Override public void keyPressed(KeyEvent e) {timeoutActive.setSelected(true); checkData(false);}
+		});
 
 		/* Serielle Algorithmen */
 		tabs.addTab(Language.tr("Optimizer.Tab.Optimization.Kernel.Parameters.Tab.Serial"),tabOuter=new JPanel(new BorderLayout()));
@@ -170,7 +189,23 @@ public class OptimizerPanelAlgorithmParametersDialog extends BaseDialog {
 	private boolean checkData(final boolean showErrorMessage) {
 		boolean ok=true;
 
+		Long L;
 		Double D;
+
+		/* Allgemein */
+
+		if (!timeoutActive.isSelected()) {
+			timeoutSeconds.setBackground(NumberTools.getTextFieldDefaultBackground());
+		} else {
+			L=NumberTools.getPositiveLong(timeoutSeconds,true);
+			if (L==null) {
+				ok=false;
+				if (showErrorMessage) {
+					MsgBox.error(this,Language.tr("Optimizer.Tab.Optimization.Kernel.Parameters.Tab.General.TimeoutSeconds.ErrorTitle"),String.format(Language.tr("Optimizer.Tab.Optimization.Kernel.Parameters.Tab.General.TimeoutSeconds.ErrorInfo"),timeoutSeconds.getText()));
+					return false;
+				}
+			}
+		}
 
 		/* Serielle Algorithmen */
 
@@ -224,7 +259,7 @@ public class OptimizerPanelAlgorithmParametersDialog extends BaseDialog {
 
 		/* Generischer Algorithmus */
 
-		final Long L=NumberTools.getPositiveLong(geneticPopulationSize,true);
+		L=NumberTools.getPositiveLong(geneticPopulationSize,true);
 		if (L==null) {
 			geneticPopulationSize.setBackground(Color.RED);
 			ok=false;
@@ -318,6 +353,13 @@ public class OptimizerPanelAlgorithmParametersDialog extends BaseDialog {
 
 	@Override
 	protected void storeData() {
+		/* Allgemein */
+		if (timeoutActive.isSelected()) {
+			setup.timeoutSeconds=NumberTools.getPositiveLong(timeoutSeconds,true).intValue();
+		} else {
+			setup.timeoutSeconds=-1;
+		}
+
 		/* Serielle Algorithmen */
 		setup.serialChangeSpeed1=NumberTools.getPositiveDouble(serialChangeSpeed1,true);
 		setup.serialChangeSpeed2=NumberTools.getPositiveDouble(serialChangeSpeed2,true);

@@ -213,6 +213,8 @@ public class OptimizerPanel extends SpecialPanel {
 
 	/** Name des gewählten Optimierungs-Kernels */
 	private String optimizerName;
+	/** Abbruch der einzelnen Simulationen nach einer bestimmten Anzahl an Sekunden (oder Werte &le;0 für kein Timeout) */
+	public int timeoutSeconds;
 	/** Seriell arbeitender Optimierer-Kernel: Änderungsgeschwindigkeit in Runde 1 */
 	private double serialChangeSpeed1;
 	/** Seriell arbeitender Optimierer-Kernel: Änderungsgeschwindigkeit in Runde 2 */
@@ -856,6 +858,7 @@ public class OptimizerPanel extends SpecialPanel {
 		}
 
 		optimizerName=setup.optimizerName;
+		timeoutSeconds=setup.timeoutSeconds;
 		serialChangeSpeed1=setup.serialChangeSpeed1;
 		serialChangeSpeed2=setup.serialChangeSpeed2;
 		serialChangeSpeed3=setup.serialChangeSpeed3;
@@ -929,6 +932,7 @@ public class OptimizerPanel extends SpecialPanel {
 		}
 
 		setup.optimizerName=optimizerName;
+		setup.timeoutSeconds=timeoutSeconds;
 		setup.serialChangeSpeed1=serialChangeSpeed1;
 		setup.serialChangeSpeed2=serialChangeSpeed2;
 		setup.serialChangeSpeed3=serialChangeSpeed3;
@@ -1351,6 +1355,7 @@ public class OptimizerPanel extends SpecialPanel {
 		final OptimizerSetup tempSetup=getSetupFromGUI(true);
 		final OptimizerPanelAlgorithmParametersDialog dialog=new OptimizerPanelAlgorithmParametersDialog(this,tempSetup,()->Help.topicModal(OptimizerPanel.this,"Optimizer"));
 		if (dialog.getClosedBy()==BaseDialog.CLOSED_BY_OK) {
+			timeoutSeconds=tempSetup.timeoutSeconds;
 			serialChangeSpeed1=tempSetup.serialChangeSpeed1;
 			serialChangeSpeed2=tempSetup.serialChangeSpeed2;
 			serialChangeSpeed3=tempSetup.serialChangeSpeed3;

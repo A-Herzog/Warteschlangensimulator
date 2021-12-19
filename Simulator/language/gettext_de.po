@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-12-17 14:58+0100\n"
+"POT-Creation-Date: 2021-12-19 16:36+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -11997,6 +11997,21 @@ msgstr "Optimiererstrategie wählen"
 msgid "Optimizer.Tab.Optimization.Kernel.Parameters"
 msgstr "Parameter für Optimierungsalgorithmus konfigurieren..."
 
+msgid "Optimizer.Tab.Optimization.Kernel.Parameters.Tab.General"
+msgstr "Allgemein"
+
+msgid "Optimizer.Tab.Optimization.Kernel.Parameters.Tab.General.TimeoutActive"
+msgstr "Timeout für einzelne Simulationen verwenden?"
+
+msgid "Optimizer.Tab.Optimization.Kernel.Parameters.Tab.General.TimeoutSeconds"
+msgstr "Timeout-Sekundenwert"
+
+msgid "Optimizer.Tab.Optimization.Kernel.Parameters.Tab.General.TimeoutSeconds.ErrorInfo"
+msgstr "Der angegebene Timeout-Wert \"%s\" ist ungültig. Es muss eine positive Ganzzahl angegeben werden."
+
+msgid "Optimizer.Tab.Optimization.Kernel.Parameters.Tab.General.TimeoutSeconds.ErrorTitle"
+msgstr "Ungültiger Timeout-Wert"
+
 msgid "Optimizer.Tab.Optimization.Kernel.Parameters.Tab.Genetic"
 msgstr "Genetischer Algorithmus"
 
@@ -12262,6 +12277,9 @@ msgstr "Zielgröße soll in dem Bereich von"
 msgid "Optimizer.Tab.Target.Value.RangeB"
 msgstr "bis"
 
+msgid "Optimizer.Target.CanceledByTimeout"
+msgstr "Simulation mit Timeout abgebrochen."
+
 msgid "Optimizer.Target.Maximize"
 msgstr "Optimierungsziel: Maximierung der Zielgröße"
 
@@ -12402,6 +12420,12 @@ msgstr "Minimieren"
 
 msgid "Optimizer.XML.Target.Direction.Range"
 msgstr "Bereich"
+
+msgid "Optimizer.XML.TimeoutSeconds"
+msgstr "OptimiererTimeoutSekunden"
+
+msgid "Optimizer.XML.TimeoutSeconds.LoadError"
+msgstr "Der angegebene Wert \"%s\" für den Optimierungs-Timeout ist ungültig. Es muss eine positive Ganzzahl angegeben werden."
 
 msgid "Optimizer.XMLError.ValueHasToBe0Or1"
 msgstr "Der Wert muss \"0\" oder \"1\" sein."
