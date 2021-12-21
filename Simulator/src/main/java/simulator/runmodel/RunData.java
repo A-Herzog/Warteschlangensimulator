@@ -541,8 +541,12 @@ public class RunData {
 
 		/* Pro Kundentyp */
 		final int clientType=client.type;
+		if (data.lastArrivalByClientType==null) {
+			data.lastArrivalByClientType=new long[simData.runModel.clientTypes.length];
+			Arrays.fill(data.lastArrivalByClientType,0); /* Wenn kein Warmup, dann wird Zeitpunkt 0 als erste "Ankunft" für die Zählung der Zwischenankunftszeiten verwendet. */
+		}
 		if (station.stationStatisticsActive) {
-			if (data.lastArrivalByClientType!=null && data.lastArrivalByClientType[clientType]>=0 && data.lastArrivalByClientType[clientType]<=now) {
+			if (data.lastArrivalByClientType[clientType]>=0 && data.lastArrivalByClientType[clientType]<=now) {
 				final double delta=scale*(now-data.lastArrivalByClientType[clientType]);
 				StatisticsDataPerformanceIndicator indicator=(data.statisticStationsInterarrivalTimeByClientType==null)?null:data.statisticStationsInterarrivalTimeByClientType[clientType];
 				if (indicator==null) {
@@ -552,10 +556,6 @@ public class RunData {
 				indicator.add(delta);
 
 			}
-		}
-		if (data.lastArrivalByClientType==null) {
-			data.lastArrivalByClientType=new long[simData.runModel.clientTypes.length];
-			Arrays.fill(data.lastArrivalByClientType,-1);
 		}
 		data.lastArrivalByClientType[clientType]=now;
 	}
