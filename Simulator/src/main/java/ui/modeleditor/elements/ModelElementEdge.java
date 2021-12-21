@@ -661,19 +661,19 @@ public final class ModelElementEdge extends ModelElement {
 			double ctrlx1=p1.x;
 			double ctrly1=p1.y;
 			switch (points[0].side) {
-			case BOTTOM: ctrly1+=deltaY*CUBIC_CURVE_CTRL_FACTOR*zoom; break;
-			case LEFT:ctrlx1-=deltaX*CUBIC_CURVE_CTRL_FACTOR*zoom; break;
-			case RIGHT: ctrlx1+=deltaX*CUBIC_CURVE_CTRL_FACTOR*zoom; break;
-			case TOP: ctrly1-=deltaY*CUBIC_CURVE_CTRL_FACTOR*zoom; break;
+			case BOTTOM: ctrly1+=deltaY*CUBIC_CURVE_CTRL_FACTOR; break;
+			case LEFT:ctrlx1-=deltaX*CUBIC_CURVE_CTRL_FACTOR; break;
+			case RIGHT: ctrlx1+=deltaX*CUBIC_CURVE_CTRL_FACTOR; break;
+			case TOP: ctrly1-=deltaY*CUBIC_CURVE_CTRL_FACTOR; break;
 			}
 
 			double ctrlx2=p2.x;
 			double ctrly2=p2.y;
 			switch (points[1].side) {
-			case BOTTOM: ctrly2+=deltaY*CUBIC_CURVE_CTRL_FACTOR*zoom; break;
-			case LEFT:ctrlx2-=deltaX*CUBIC_CURVE_CTRL_FACTOR*zoom; break;
-			case RIGHT: ctrlx2+=deltaX*CUBIC_CURVE_CTRL_FACTOR*zoom; break;
-			case TOP: ctrly2-=deltaY*CUBIC_CURVE_CTRL_FACTOR*zoom; break;
+			case BOTTOM: ctrly2+=deltaY*CUBIC_CURVE_CTRL_FACTOR; break;
+			case LEFT:ctrlx2-=deltaX*CUBIC_CURVE_CTRL_FACTOR; break;
+			case RIGHT: ctrlx2+=deltaX*CUBIC_CURVE_CTRL_FACTOR; break;
+			case TOP: ctrly2-=deltaY*CUBIC_CURVE_CTRL_FACTOR; break;
 			}
 
 			painter.	drawBezier(graphics,p1,ctrlx1,ctrly1,ctrlx2,ctrly2,p2,zoom);
