@@ -33,7 +33,7 @@ import mathtools.distribution.DataDistributionImpl;
  * Sollen alle Werte (z.B. einzelne Wartezeiten) einer Messreihe erfasst werden, so kann dafür die
  * {@link StatisticsDataCollector}-Klasse verwendet werden, die allerdings sehr speicherintensiv ist.
  * @author Alexander Herzog
- * @version 2.1
+ * @version 2.2
  */
 public final class StatisticsLongRunPerformanceIndicator extends StatisticsPerformanceIndicator implements Cloneable {
 	/** Fehlermeldung, wenn der Inhalt des XML-Elements nicht gelesen werden konnte. */
@@ -44,10 +44,14 @@ public final class StatisticsLongRunPerformanceIndicator extends StatisticsPerfo
 	public static String xmlLoadStepWideError="Die in dem Element \"%s\" angegebene Schrittweite ist ungültig.";
 
 	/**
-	 * Initiale Größe des Erfassungs-Arrays und gleichzeitig auch Wert, um den
-	 * das Array bei jeder notwendigen Vergrößerung verlängert wird.
+	 * Initiale Größe des Erfassungs-Arrays
 	 */
 	private static final int initialValues=1_000;
+
+	/**
+	 * Wert, um den das Array bei jeder notwendigen Vergrößerung verlängert wird.
+	 */
+	private static final int growValues=100_000;
 
 	/**
 	 * Maximale Anzahl an Werten, die erfasst werden.
@@ -185,7 +189,7 @@ public final class StatisticsLongRunPerformanceIndicator extends StatisticsPerfo
 			if (data==null) {
 				data=new double[initialSize];
 			} else {
-				data=Arrays.copyOf(data,data.length+initialSize);
+				data=Arrays.copyOf(data,data.length+growValues);
 			}
 		}
 		data[dataUsed++]=value;
