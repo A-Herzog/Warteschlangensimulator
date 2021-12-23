@@ -97,123 +97,147 @@ public class ClientImpl implements ClientInterface {
 
 	@Override
 	public boolean isWarmUp() {
+		if (client==null) return false;
 		return client.isWarmUp;
 	}
 
 	@Override
 	public boolean isInStatistics() {
+		if (client==null) return false;
 		return client.inStatistics;
 	}
 
 	@Override
 	public void setInStatistics(final boolean inStatistics) {
+		if (client==null) return;
 		client.inStatistics=inStatistics;
 	}
 
 	@Override
 	public long getNumber() {
+		if (client==null) return 0;
 		return client.clientNumber;
 	}
 
 	@Override
 	public String getTypeName() {
+		if (client==null) return "";
 		return simData.runModel.clientTypes[client.type];
 	}
 
 	@Override
 	public double getWaitingSeconds() {
+		if (client==null) return 0;
 		return client.waitingTime*toSec;
 	}
 
 	@Override
 	public String getWaitingTime() {
+		if (client==null) return "";
 		return TimeTools.formatExactTime(client.waitingTime*toSec);
 	}
 
 	@Override
 	public void setWaitingSeconds(double seconds) {
+		if (client==null) return;
 		client.waitingTime=FastMath.max(0,FastMath.round(seconds*1000));
 	}
 
 	@Override
 	public double getTransferSeconds() {
+		if (client==null) return 0;
 		return client.transferTime*toSec;
 	}
 
 	@Override
 	public String getTransferTime() {
+		if (client==null) return "";
 		return TimeTools.formatExactTime(client.transferTime*toSec);
 	}
 
 	@Override
 	public void setTransferSeconds(double seconds) {
+		if (client==null) return;
 		client.transferTime=FastMath.max(0,FastMath.round(seconds*1000));
 	}
 
 	@Override
 	public double getProcessSeconds() {
+		if (client==null) return 0;
 		return client.processTime/1000.0;
 	}
 
 	@Override
 	public String getProcessTime() {
+		if (client==null) return "";
 		return TimeTools.formatExactTime(client.processTime*toSec);
 	}
 
 	@Override
 	public void setProcessSeconds(double seconds) {
+		if (client==null) return;
 		client.processTime=FastMath.max(0,FastMath.round(seconds*1000));
 	}
 
 	@Override
 	public double getResidenceSeconds() {
+		if (client==null) return 0;
 		return client.residenceTime*toSec;
 	}
 
 	@Override
 	public String getResidenceTime() {
+		if (client==null) return "";
 		return TimeTools.formatExactTime(client.residenceTime*toSec);
 	}
 
 	@Override
 	public void setResidenceSeconds(double seconds) {
+		if (client==null) return;
 		client.residenceTime=FastMath.max(0,FastMath.round(seconds*1000));
 	}
 
 	@Override
 	public double getValue(final int index) {
+		if (client==null) return 0.0;
 		return client.getUserData(index);
 	}
 
 	@Override
 	public void setValue(final int index, final int value) {
+		if (client==null) return;
 		client.setUserData(index,value);
 	}
 
 	@Override
 	public void setValue(final int index, final double value) {
+		if (client==null) return;
 		client.setUserData(index,value);
 	}
 
 	@Override
 	public void setValue(final int index, final String value) {
+		if (client==null) return;
 		final Object result=calc(value);
 		if (result instanceof Double) client.setUserData(index,((Double)result).doubleValue());
 	}
 
 	@Override
 	public String getText(final String key) {
+		if (client==null) return "";
 		return client.getUserDataString(key);
 	}
 
 	@Override
 	public void setText(final String key, final String value) {
+		if (client==null) return;
 		if (key==null || key.trim().isEmpty()) return;
 		client.setUserDataString(key,(value==null)?"":value);
 	}
 
 	@Override
 	public double[] getAllValues() {
+		if (client==null) return new double[0];
 		final int maxIndex=client.getMaxUserDataIndex();
 		final double[] result=new double[maxIndex+1];
 		for (int i=0;i<=maxIndex;i++) result[i]=client.getUserData(i);
@@ -223,12 +247,15 @@ public class ClientImpl implements ClientInterface {
 	@Override
 	public Map<String,String> getAllTexts() {
 		final Map<String,String> result=new HashMap<>();
-		for (String key: client.getUserDataStringKeys()) result.put(key,client.getUserDataString(key));
+		if (client!=null) {
+			for (String key: client.getUserDataStringKeys()) result.put(key,client.getUserDataString(key));
+		}
 		return result;
 	}
 
 	@Override
 	public int batchSize() {
+		if (client==null) return 0;
 		final List<RunDataClient> batch=client.getBatchData();
 		if (batch==null) return 0;
 		return batch.size();
@@ -236,6 +263,7 @@ public class ClientImpl implements ClientInterface {
 
 	@Override
 	public String getBatchTypeName(final int batchIndex) {
+		if (client==null) return null;
 		final RunDataClient batchClient=client.getBatchData(batchIndex);
 		if (batchClient==null) return null;
 		return simData.runModel.clientTypes[batchClient.type];
@@ -243,6 +271,7 @@ public class ClientImpl implements ClientInterface {
 
 	@Override
 	public double getBatchWaitingSeconds(final int batchIndex) {
+		if (client==null) return 0.0;
 		final RunDataClient batchClient=client.getBatchData(batchIndex);
 		if (batchClient==null) return 0.0;
 		return batchClient.waitingTime*toSec;
@@ -250,6 +279,7 @@ public class ClientImpl implements ClientInterface {
 
 	@Override
 	public String getBatchWaitingTime(final int batchIndex) {
+		if (client==null) return null;
 		final RunDataClient batchClient=client.getBatchData(batchIndex);
 		if (batchClient==null) return null;
 		return TimeTools.formatExactTime(batchClient.waitingTime*toSec);
@@ -257,6 +287,7 @@ public class ClientImpl implements ClientInterface {
 
 	@Override
 	public double getBatchTransferSeconds(final int batchIndex) {
+		if (client==null) return 0.0;
 		final RunDataClient batchClient=client.getBatchData(batchIndex);
 		if (batchClient==null) return 0.0;
 		return batchClient.transferTime*toSec;
@@ -264,6 +295,7 @@ public class ClientImpl implements ClientInterface {
 
 	@Override
 	public String getBatchTransferTime(final int batchIndex) {
+		if (client==null) return null;
 		final RunDataClient batchClient=client.getBatchData(batchIndex);
 		if (batchClient==null) return null;
 		return TimeTools.formatExactTime(batchClient.transferTime*toSec);
@@ -271,6 +303,7 @@ public class ClientImpl implements ClientInterface {
 
 	@Override
 	public double getBatchProcessSeconds(final int batchIndex) {
+		if (client==null) return 0.0;
 		final RunDataClient batchClient=client.getBatchData(batchIndex);
 		if (batchClient==null) return 0.0;
 		return batchClient.processTime/1000.0;
@@ -278,6 +311,7 @@ public class ClientImpl implements ClientInterface {
 
 	@Override
 	public String getBatchProcessTime(final int batchIndex) {
+		if (client==null) return null;
 		final RunDataClient batchClient=client.getBatchData(batchIndex);
 		if (batchClient==null) return null;
 		return TimeTools.formatExactTime(batchClient.processTime*toSec);
@@ -285,6 +319,7 @@ public class ClientImpl implements ClientInterface {
 
 	@Override
 	public double getBatchResidenceSeconds(final int batchIndex) {
+		if (client==null) return 0.0;
 		final RunDataClient batchClient=client.getBatchData(batchIndex);
 		if (batchClient==null) return 0.0;
 		return batchClient.residenceTime*toSec;
@@ -292,6 +327,7 @@ public class ClientImpl implements ClientInterface {
 
 	@Override
 	public String getBatchResidenceTime(final int batchIndex) {
+		if (client==null) return null;
 		final RunDataClient batchClient=client.getBatchData(batchIndex);
 		if (batchClient==null) return null;
 		return TimeTools.formatExactTime(batchClient.residenceTime*toSec);
@@ -299,6 +335,7 @@ public class ClientImpl implements ClientInterface {
 
 	@Override
 	public double getBatchValue(final int batchIndex, final int index) {
+		if (client==null) return 0.0;
 		final RunDataClient batchClient=client.getBatchData(batchIndex);
 		if (batchClient==null) return 0.0;
 		return batchClient.getUserData(index);
@@ -306,6 +343,7 @@ public class ClientImpl implements ClientInterface {
 
 	@Override
 	public String getBatchText(final int batchIndex, final String key) {
+		if (client==null) return null;
 		final RunDataClient batchClient=client.getBatchData(batchIndex);
 		if (batchClient==null) return null;
 		return batchClient.getUserDataString(key);

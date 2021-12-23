@@ -36,8 +36,11 @@ import scripting.java.RuntimeData;
 import simulator.coreelements.RunElement;
 import simulator.elements.RunElementAnalogValue;
 import simulator.elements.RunElementDelay;
+import simulator.elements.RunElementHoldJS;
 import simulator.elements.RunElementProcess;
+import simulator.elements.RunElementSetJS;
 import simulator.elements.RunElementTank;
+import simulator.events.TriggerScriptExecutionEvent;
 import simulator.runmodel.RunDataClient;
 import simulator.runmodel.SimulationData;
 import simulator.simparser.ExpressionCalc;
@@ -254,6 +257,7 @@ public final class JSCommandSystem extends JSBaseCommand {
 	 * @param seconds Neue Wartezeit (in Sekunden)
 	 */
 	public void clientWaitingSecondsSet(final double seconds) {
+		if (client==null) return;
 		final long l=(long)(seconds*1000+0.5);
 		client.waitingTime=(l>0)?l:0;
 	}
@@ -285,6 +289,7 @@ public final class JSCommandSystem extends JSBaseCommand {
 	 * @param seconds Neue Transferzeit (in Sekunden)
 	 */
 	public void clientTransferSecondsSet(final double seconds) {
+		if (client==null) return;
 		final long l=(long)(seconds*1000+0.5);
 		client.transferTime=(l>0)?l:0;
 	}
@@ -316,6 +321,7 @@ public final class JSCommandSystem extends JSBaseCommand {
 	 * @param seconds Neue Bedienzeit (in Sekunden)
 	 */
 	public void clientProcessSecondsSet(final double seconds) {
+		if (client==null) return;
 		final long l=(long)(seconds*1000+0.5);
 		client.processTime=(l>0)?l:0;
 	}
@@ -347,6 +353,7 @@ public final class JSCommandSystem extends JSBaseCommand {
 	 * @param seconds Neue Verweilzeit (in Sekunden)
 	 */
 	public void clientResidenceSecondsSet(final double seconds) {
+		if (client==null) return;
 		client.residenceTime=FastMath.round(FastMath.max(0,seconds)*1000);
 	}
 
@@ -419,6 +426,7 @@ public final class JSCommandSystem extends JSBaseCommand {
 	 * @return	Alle zu einem Kunden gespeicherten Zahlenwerte
 	 */
 	public double[] getAllClientValues() {
+		if (client==null) return new double[0];
 		final int maxIndex=client.getMaxUserDataIndex();
 		final double[] result=new double[maxIndex+1];
 		for (int i=0;i<=maxIndex;i++) result[i]=client.getUserData(i);
@@ -431,7 +439,9 @@ public final class JSCommandSystem extends JSBaseCommand {
 	 */
 	public Map<String,String> getAllClientTexts() {
 		final Map<String,String> result=new HashMap<>();
-		for (String key: client.getUserDataStringKeys()) result.put(key,client.getUserDataString(key));
+		if (client!=null) {
+			for (String key: client.getUserDataStringKeys()) result.put(key,client.getUserDataString(key));
+		}
 		return result;
 	}
 
@@ -478,6 +488,7 @@ public final class JSCommandSystem extends JSBaseCommand {
 	 * @see JSCommandSystem#batchClientWaitingTime(int)
 	 */
 	public double batchClientWaitingSeconds(final int batchIndex) {
+		if (client==null) return 0.0;
 		final RunDataClient batchClient=client.getBatchData(batchIndex);
 		if (batchClient==null) return 0.0;
 		return batchClient.waitingTime*toSec;
@@ -491,6 +502,7 @@ public final class JSCommandSystem extends JSBaseCommand {
 	 * @see JSCommandSystem#batchClientWaitingSeconds(int)
 	 */
 	public String batchClientWaitingTime(final int batchIndex) {
+		if (client==null) return "";
 		final RunDataClient batchClient=client.getBatchData(batchIndex);
 		if (batchClient==null) return "";
 		return TimeTools.formatExactTime(batchClient.waitingTime*toSec);
@@ -504,6 +516,7 @@ public final class JSCommandSystem extends JSBaseCommand {
 	 * @see JSCommandSystem#batchClientTransferTime(int)
 	 */
 	public double batchClientTransferSeconds(final int batchIndex) {
+		if (client==null) return 0.0;
 		final RunDataClient batchClient=client.getBatchData(batchIndex);
 		if (batchClient==null) return 0.0;
 		return batchClient.transferTime*toSec;
@@ -517,6 +530,7 @@ public final class JSCommandSystem extends JSBaseCommand {
 	 * @see JSCommandSystem#batchClientTransferSeconds(int)
 	 */
 	public String batchClientTransferTime(final int batchIndex) {
+		if (client==null) return "";
 		final RunDataClient batchClient=client.getBatchData(batchIndex);
 		if (batchClient==null) return "";
 		return TimeTools.formatExactTime(batchClient.transferTime*toSec);
@@ -530,6 +544,7 @@ public final class JSCommandSystem extends JSBaseCommand {
 	 * @see JSCommandSystem#batchClientProcessTime(int)
 	 */
 	public double batchClientProcessSeconds(final int batchIndex) {
+		if (client==null) return 0.0;
 		final RunDataClient batchClient=client.getBatchData(batchIndex);
 		if (batchClient==null) return 0.0;
 		return batchClient.processTime*toSec;
@@ -543,6 +558,7 @@ public final class JSCommandSystem extends JSBaseCommand {
 	 * @see JSCommandSystem#batchClientProcessSeconds(int)
 	 */
 	public String batchClientProcessTime(final int batchIndex) {
+		if (client==null) return "";
 		final RunDataClient batchClient=client.getBatchData(batchIndex);
 		if (batchClient==null) return "";
 		return TimeTools.formatExactTime(batchClient.processTime*toSec);
@@ -556,6 +572,7 @@ public final class JSCommandSystem extends JSBaseCommand {
 	 * @see JSCommandSystem#batchClientResidenceTime(int)
 	 */
 	public double batchClientResidenceSeconds(final int batchIndex) {
+		if (client==null) return 0.0;
 		final RunDataClient batchClient=client.getBatchData(batchIndex);
 		if (batchClient==null) return 0.0;
 		return batchClient.residenceTime*toSec;
@@ -569,6 +586,7 @@ public final class JSCommandSystem extends JSBaseCommand {
 	 * @see JSCommandSystem#batchClientResidenceSeconds(int)
 	 */
 	public String batchClientResidenceTime(final int batchIndex) {
+		if (client==null) return "";
 		final RunDataClient batchClient=client.getBatchData(batchIndex);
 		if (batchClient==null) return "";
 		return TimeTools.formatExactTime(batchClient.residenceTime*toSec);
@@ -581,6 +599,7 @@ public final class JSCommandSystem extends JSBaseCommand {
 	 * @return Zahlenwert zu dem Index für den Kunden. (Ist kein Wert für den Index gesetzt, so wird 0.0 zurückgeliefert.)
 	 */
 	public double getBatchClientValue(final int batchIndex, final int index) {
+		if (client==null) return 0.0;
 		final RunDataClient batchClient=client.getBatchData(batchIndex);
 
 		if (batchClient==null) return 0.0;
@@ -594,6 +613,7 @@ public final class JSCommandSystem extends JSBaseCommand {
 	 * @return Textwert zu dem Schlüssel für den Kunden. (Ist kein Wert für den Schlüssel gesetzt, so wird ein leerer String zurückgeliefert.)
 	 */
 	public String getBatchClientText(final int batchIndex, final String key) {
+		if (client==null) return "";
 		final RunDataClient batchClient=client.getBatchData(batchIndex);
 		if (batchClient==null) return "";
 		return batchClient.getUserDataString(key);
@@ -682,7 +702,7 @@ public final class JSCommandSystem extends JSBaseCommand {
 			/* Pseudovariable: Bedienzeit */
 			if (client!=null && index==simData.runData.variableValues.length-1) client.processTime=FastMath.max(0,FastMath.round(value*1000));
 		} else {
-			client.setUserData(-index-2,value);
+			if (client!=null) client.setUserData(-index-2,value);
 		}
 	}
 
@@ -989,6 +1009,34 @@ public final class JSCommandSystem extends JSBaseCommand {
 		if (simData==null || signalName==null || signalName.trim().isEmpty()) return;
 		if (simData.loggingActive) simData.logEventExecution(Language.tr("Simulation.Log.Signal"),-1,String.format(Language.tr("Simulation.Log.Signal.Info2"),signalName));
 		simData.runData.fireSignal(simData,signalName);
+	}
+
+	/**
+	 * Registriert ein Ereignis zur späteren Ausführung des Skripts an einer Station.
+	 * @param stationId	ID der Skript- oder der Skript-Bedingung-Station, an der die Verarbeitung ausgelöst werden soll
+	 * @param time	Zeitpunkt der Skriptausführung
+	 * @return	Liefert <code>true</code>, wenn ein entsprechendes Ereignis in die Ereignisliste aufgenommen werden konnte
+	 */
+	public boolean triggerScriptExecution(final int stationId, final double time) {
+		/* Voraussetzungen prüfen */
+		if (simData==null) return false;
+		final long timeMS=Math.round(time*1000);
+		if (timeMS<simData.currentTime) return false;
+		if (stationId<0 || stationId>=simData.runModel.elementsFast.length) return false;
+		final RunElement element=simData.runModel.elementsFast[stationId];
+		if (!(element instanceof RunElementSetJS) && !(element instanceof RunElementHoldJS)) return false;
+
+		/* Ereignis anlegen */
+		final TriggerScriptExecutionEvent triggerEvent=(TriggerScriptExecutionEvent)simData.getEvent(TriggerScriptExecutionEvent.class);
+
+		/* Ereignis konfigurieren */
+		triggerEvent.init(timeMS);
+		triggerEvent.station=element;
+
+		/* Zur Ereignisliste hinzufügen */
+		simData.eventManager.addEvent(triggerEvent);
+
+		return true;
 	}
 
 	/**

@@ -26,8 +26,11 @@ import parser.MathCalcError;
 import simulator.coreelements.RunElement;
 import simulator.elements.RunElementAnalogValue;
 import simulator.elements.RunElementDelay;
+import simulator.elements.RunElementHoldJS;
 import simulator.elements.RunElementProcess;
+import simulator.elements.RunElementSetJS;
 import simulator.elements.RunElementTank;
+import simulator.events.TriggerScriptExecutionEvent;
 import simulator.runmodel.RunModel;
 import simulator.runmodel.SimulationData;
 import simulator.simparser.ExpressionCalc;
@@ -305,6 +308,35 @@ public class SystemImpl implements SystemInterface {
 		if (signalName==null || signalName.trim().isEmpty()) return;
 		if (simData.loggingActive) simData.logEventExecution(Language.tr("Simulation.Log.Signal"),-1,String.format(Language.tr("Simulation.Log.Signal.Info2"),signalName));
 		simData.runData.fireSignal(simData,signalName);
+	}
+
+	/**
+	 * Registriert ein Ereignis zur späteren Ausführung des Skripts an einer Station.
+	 * @param stationId	ID der Skript- oder der Skript-Bedingung-Station, an der die Verarbeitung ausgelöst werden soll
+	 * @param time	Zeitpunkt der Skriptausführung
+	 * @return	Liefert <code>true</code>, wenn ein entsprechendes Ereignis in die Ereignisliste aufgenommen werden konnte
+	 */
+	@Override
+	public boolean triggerScriptExecution(final int stationId, final double time) {
+		/* Voraussetzungen prüfen */
+		if (simData==null) return false;
+		final long timeMS=Math.round(time*1000);
+		if (timeMS<simData.currentTime) return false;
+		if (stationId<0 || stationId>=simData.runModel.elementsFast.length) return false;
+		final RunElement element=simData.runModel.elementsFast[stationId];
+		if (!(element instanceof RunElementSetJS) && !(element instanceof RunElementHoldJS)) return false;
+
+		/* Ereignis anlegen */
+		final TriggerScriptExecutionEvent triggerEvent=(TriggerScriptExecutionEvent)simData.getEvent(TriggerScriptExecutionEvent.class);
+
+		/* Ereignis konfigurieren */
+		triggerEvent.init(timeMS);
+		triggerEvent.station=element;
+
+		/* Zur Ereignisliste hinzufügen */
+		simData.eventManager.addEvent(triggerEvent);
+
+		return true;
 	}
 
 	@Override

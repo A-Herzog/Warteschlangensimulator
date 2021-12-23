@@ -99,10 +99,14 @@ public class RunElementSetJS extends RunElementPassThrough {
 		return data;
 	}
 
-	@Override
-	public void processArrival(final SimulationData simData, final RunDataClient client) {
+	/**
+	 * Führt die eigentliche Skriptverarbeitung aus.
+	 * @param simData	Simulationsdatenobjekt
+	 * @param client	Kundenobjektt (darf <code>null</code> sein; nämlich wenn die Verarbeitung über ein Trigger-Script-Execution Ereignis ausgelöst wurde)
+	 */
+	public void processScriptExecutionOnly(final SimulationData simData, final RunDataClient client) {
 		/* Logging */
-		if (simData.loggingActive) log(simData,Language.tr("Simulation.Log.SetJS"),String.format(Language.tr("Simulation.Log.SetJS.Info"),client.logInfo(simData),name));
+		if (simData.loggingActive) log(simData,Language.tr("Simulation.Log.SetJS"),String.format(Language.tr("Simulation.Log.SetJS.Info"),(client==null)?"-":client.logInfo(simData),name));
 
 		final RunElementSetJSData data=getData(simData);
 
@@ -130,6 +134,11 @@ public class RunElementSetJS extends RunElementPassThrough {
 			logJS(simData,data.script,result); /* Immer ausführen; Entscheidung Erfassen ja/nein erfolgt in logJS */
 		}
 		simData.runData.updateMapValuesForStatistics(simData);
+	}
+
+	@Override
+	public void processArrival(final SimulationData simData, final RunDataClient client) {
+		processScriptExecutionOnly(simData,client);
 
 		/* Kunde zur nächsten Station leiten */
 		StationLeaveEvent.addLeaveEvent(simData,client,this,0);

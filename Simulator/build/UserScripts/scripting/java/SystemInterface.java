@@ -135,6 +135,14 @@ public interface SystemInterface {
 	 * @param signalName	Name of the signal
 	 */
 	void signal(final String signalName);
+	
+	/**
+	 * Triggers the execution of the script at a script or a script hold station at a given time.
+	 * @param stationId	ID of the script or the script hold station
+	 * @param time	Sheduled script execution time
+	 * @return	Returns <code>true</code>, if the event could be registered
+	 */
+	boolean triggerScriptExecution(final int stationId, final double time);
 
 	/**
 	 * Call a method in an external class file which is located in the plugins folder.

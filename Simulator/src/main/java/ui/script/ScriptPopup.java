@@ -37,7 +37,9 @@ import ui.images.Images;
 import ui.modeleditor.ModelResource;
 import ui.modeleditor.elements.ModelElementAnalogValue;
 import ui.modeleditor.elements.ModelElementDelay;
+import ui.modeleditor.elements.ModelElementHoldJS;
 import ui.modeleditor.elements.ModelElementProcess;
+import ui.modeleditor.elements.ModelElementSetJS;
 import ui.modeleditor.elements.ModelElementTank;
 import ui.parameterseries.ParameterCompareInputValuesTemplates;
 import ui.parameterseries.ParameterCompareInputValuesTemplates.Sub;
@@ -350,9 +352,12 @@ public class ScriptPopup {
 		if (model==null) return;
 
 		String systemCalc="";
-		String systemLog="";
 		String systemTime="";
 		String systemWarmUp="";
+		String systemMapLocal="";
+		String systemMapGlobal="";
+		String systemPauseAnimation="";
+		String systemTerminateSimulation="";
 		String systemWIP="";
 		String systemNQ="";
 		String systemVarGet="";
@@ -363,10 +368,11 @@ public class ScriptPopup {
 		String systemResourceGetAll="";
 		String systemResourceGet="";
 		String systemResourceSet="";
-		String systemMapLocal="";
-		String systemMapGlobal="";
-		String systemPauseAnimation="";
-		String systemTerminateSimulation="";
+		String systemResourceDown="";
+		String systemAllResourceDown="";
+		String systemSignal="";
+		String systemTriggerScript="";
+		String systemLog="";
 
 		String clientsDelayCount="";
 		String clientsDelayRelease="";
@@ -397,9 +403,12 @@ public class ScriptPopup {
 
 		if (scriptMode==ScriptMode.Javascript) {
 			systemCalc="Simulation.calc(\"1+2\");";
-			systemLog="Simulation.log(\""+Language.tr("ScriptPopup.Simulation.Log.ExampleMessage")+"\");";
 			systemTime="Simulation.time();";
 			systemWarmUp="Simulation.isWarmUp();";
+			systemMapLocal="Simulation.getMapLocal()";
+			systemMapGlobal="Simulation.getMapGlobal()";
+			systemPauseAnimation="Simulation.pauseAnimation();";
+			systemTerminateSimulation="Simulation.terminateSimulation(\"message\");";
 			systemWIP="Simulation.getWIP(%s)";
 			systemNQ="Simulation.getNQ(%s)";
 			systemVarGet="Simulation.calc(\"%s\")";
@@ -410,10 +419,12 @@ public class ScriptPopup {
 			systemResourceGetAll="Simulation.getAllResourceCount()";
 			systemResourceGet="Simulation.getResourceCount(resourceId)";
 			systemResourceSet="Simulation.setResourceCount(resourceId,123)";
-			systemMapLocal="Simulation.getMapLocal()";
-			systemMapGlobal="Simulation.getMapGlobal()";
-			systemPauseAnimation="Simulation.pauseAnimation();";
-			systemTerminateSimulation="Simulation.terminateSimulation(\"message\");";
+			systemResourceDown="Simulation.getResourceDown(resourceId)";
+			systemAllResourceDown="Simulation.getAllResourceDown();";
+			systemSignal="Simulation.signal(\"signalName\");";
+			systemTriggerScript="sim.getSystem().triggerScriptExecution(%s,Simulation.time()+delta);";
+			systemLog="Simulation.log(\""+Language.tr("ScriptPopup.Simulation.Log.ExampleMessage")+"\");";
+
 			clientsDelayCount="Simulation.getDelayStationData(%s).count();";
 			clientsDelayRelease="Simulation.getDelayStationData(%s).release(index);";
 			clientsDelayTypeName="Simulation.getDelayStationData(%s).clientTypeName(index);";
@@ -443,9 +454,12 @@ public class ScriptPopup {
 
 		if (scriptMode==ScriptMode.Java) {
 			systemCalc="sim.getSystem().calc(\"1+2\");";
-			systemLog="sim.getSystem().log(\""+Language.tr("ScriptPopup.Simulation.Log.ExampleMessage")+"\");";
 			systemTime="sim.getSystem().getTime();";
 			systemWarmUp="sim.getSystem().isWarmUp();";
+			systemMapLocal="sim.getSystem().getMapLocal()";
+			systemMapGlobal="sim.getSystem().getMapGlobal()";
+			systemPauseAnimation="sim.getSystem().pauseAnimation();";
+			systemTerminateSimulation="sim.getSystem().terminateSimulation(\"message\");";
 			systemWIP="sim.getSystem().getWIP(%s);";
 			systemNQ="sim.getSystem().getNQ(%s);";
 			systemVarGet="sim.getSystem().calc(\"%s\");";
@@ -456,10 +470,12 @@ public class ScriptPopup {
 			systemResourceGetAll="sim.getSystem().getAllResourceCount();";
 			systemResourceGet="sim.getSystem().getResourceCount(resourceId);";
 			systemResourceSet="sim.getSystem().setResourceCount(resourceId,123);";
-			systemMapLocal="sim.getSystem().getMapLocal()";
-			systemMapGlobal="sim.getSystem().getMapGlobal()";
-			systemPauseAnimation="sim.getSystem().pauseAnimation();";
-			systemTerminateSimulation="sim.getSystem().terminateSimulation(\"message\");";
+			systemResourceDown="sim.getSystem().getResourceDown(resourceId);";
+			systemAllResourceDown="sim.getSystem().getAllResourceDown();";
+			systemSignal="sim.getSystem().signal(\"signalName\");";
+			systemTriggerScript="sim.getSystem().triggerScriptExecution(%s,sim.getSystem().getTime()+delta);";
+			systemLog="sim.getSystem().log(\""+Language.tr("ScriptPopup.Simulation.Log.ExampleMessage")+"\");";
+
 			clientsDelayCount="sim.getSystem().getDelayStationData(%s).count();";
 			clientsDelayRelease="sim.getSystem().getDelayStationData(%s).release(index);";
 			clientsDelayTypeName="sim.getSystem().getDelayStationData(%s).clientTypeName(index);";
@@ -506,6 +522,8 @@ public class ScriptPopup {
 		group.addSeparator();
 		group.addChild(new ScriptPopupItemCommandVariable(Language.tr("ScriptPopup.Simulation.getVariable"),Language.tr("ScriptPopup.Simulation.getVariable.Hint"),Images.SCRIPT_RECORD_VARIABLE.getIcon(),systemVarGet,owner,model,help));
 		group.addChild(new ScriptPopupItemCommandVariable(Language.tr("ScriptPopup.Simulation.setVariable"),Language.tr("ScriptPopup.Simulation.setVariable.Hint"),Images.SCRIPT_RECORD_VARIABLE.getIcon(),systemVarSet,owner,model,help));
+
+		group.addChild(new ScriptPopupItemCommand(Language.tr("ScriptPopup.Simulation.Signal"),Language.tr("ScriptPopup.Simulation.Signal.Hint"),Images.SCRIPT_RECORD_DATA_SIGNAL.getIcon(),systemSignal));
 
 		/* Analoger Wert */
 
@@ -560,6 +578,8 @@ public class ScriptPopup {
 		sub.addChild(new ScriptPopupItemCommand(Language.tr("ScriptPopup.Simulation.getAllResourceCount"),Language.tr("ScriptPopup.Simulation.getAllResourceCount.Hint"),null,systemResourceGetAll));
 		sub.addChild(new ScriptPopupItemCommand(Language.tr("ScriptPopup.Simulation.getResourceCount"),Language.tr("ScriptPopup.Simulation.getResourceCount.Hint"),null,systemResourceGet));
 		sub.addChild(new ScriptPopupItemCommand(Language.tr("ScriptPopup.Simulation.setResourceCount"),Language.tr("ScriptPopup.Simulation.setResourceCount.Hint"),null,systemResourceSet));
+		sub.addChild(new ScriptPopupItemCommand(Language.tr("ScriptPopup.Simulation.getResourceDown"),Language.tr("ScriptPopup.Simulation.getResourceDown.Hint"),null,systemResourceDown));
+		sub.addChild(new ScriptPopupItemCommand(Language.tr("ScriptPopup.Simulation.getAllResourceDown"),Language.tr("ScriptPopup.Simulation.getAllResourceDown.Hint"),null,systemAllResourceDown));
 
 		group.addSeparator();
 
@@ -569,6 +589,10 @@ public class ScriptPopup {
 		group.addChild(new ScriptPopupItemCommand(Language.tr("ScriptPopup.Simulation.MapGlobal"),Language.tr("ScriptPopup.Simulation.MapGlobal.Hint"),Images.SCRIPT_MAP.getIcon(),systemMapGlobal));
 
 		group.addSeparator();
+
+		/* Skriptausführung auslösen */
+
+		group.addChild(new ScriptPopupItemCommandID(Language.tr("ScriptPopup.Simulation.TriggerScript"),Language.tr("ScriptPopup.Simulation.TriggerScript.Hint"),Images.SCRIPT_RECORD_TIME.getIcon(),systemTriggerScript,owner,model,help,new Class<?>[]{ModelElementSetJS.class,ModelElementHoldJS.class}));
 
 		/* Animation pausieren */
 

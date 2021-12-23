@@ -300,8 +300,16 @@ The following methods are available in this interface:
 <h3>Trigger signal</h3>
 
 <ul>
-  <li><tt>signal(final String signalName)</tt><br>
+  <li><tt>void signal(final String signalName)</tt><br>
   Fires the signal with the given name.
+  </li>
+</ul>
+
+<h3>Trigger script execution</h3>
+
+<ul>
+  <li><tt>boolean triggerScriptExecution(final int stationId, final double time)</tt><br>
+  Triggers the execution of the script at a script or a script hold station at a given time.
   </li>
 </ul>
 

@@ -297,6 +297,7 @@ public class ScriptEditorAreaBuilder {
 		String systemResourceDown="";
 		String systemAllResourceDown="";
 		String systemSignal="";
+		String systemTriggerScript="";
 		String systemLog="";
 		String systemRunPlugin="";
 
@@ -349,6 +350,7 @@ public class ScriptEditorAreaBuilder {
 			systemResourceDown="Simulation.getResourceDown(resourceId);";
 			systemAllResourceDown="Simulation.getAllResourceDown();";
 			systemSignal="Simulation.signal(\"signalName\");";
+			systemTriggerScript="Simulation.triggerScriptExecution(id,Simulation.time()+delta);";
 			systemLog="Simulation.log(\""+Language.tr("ScriptPopup.Simulation.Log.ExampleMessage")+"\");";
 			clientsDelayCount="Simulation.getDelayStationData(id).count();";
 			clientsDelayRelease="Simulation.getDelayStationData(id).release(index);";
@@ -399,6 +401,7 @@ public class ScriptEditorAreaBuilder {
 			systemResourceDown="sim.getSystem().getResourceDown(resourceId);";
 			systemAllResourceDown="sim.getSystem().getAllResourceDown();";
 			systemSignal="sim.getSystem().signal(\"signalName\");";
+			systemTriggerScript="sim.getSystem().triggerScriptExecution(id,sim.getSystem().getTime()+delta);";
 			systemLog="sim.getSystem().log(\""+Language.tr("ScriptPopup.Simulation.Log.ExampleMessage")+"\");";
 			systemRunPlugin="sim.getSystem().runPlugin(\"className\",\"methodName\",userData);";
 			clientsDelayCount="sim.getSystem().getDelayStationData(id).count();";
@@ -453,7 +456,9 @@ public class ScriptEditorAreaBuilder {
 		addAutoComplete(Language.tr("ScriptPopup.Simulation.getResourceDown"),Language.tr("ScriptPopup.Simulation.getResourceDown.Hint"),Images.SCRIPT_RECORD_DATA_RESOURCE.getIcon(),systemResourceDown);
 		addAutoComplete(Language.tr("ScriptPopup.Simulation.getAllResourceDown"),Language.tr("ScriptPopup.Simulation.getAllResourceDown.Hint"),Images.SCRIPT_RECORD_DATA_RESOURCE.getIcon(),systemAllResourceDown);
 
-		addAutoComplete(Language.tr("ScriptPopup.Simulation.Signal"),Language.tr("ScriptPopup.Simulation.Signal.Hint"),Images.SCRIPT_RECORD_DATA_RESOURCE.getIcon(),systemSignal);
+		addAutoComplete(Language.tr("ScriptPopup.Simulation.Signal"),Language.tr("ScriptPopup.Simulation.Signal.Hint"),Images.SCRIPT_RECORD_DATA_SIGNAL.getIcon(),systemSignal);
+
+		addAutoComplete(Language.tr("ScriptPopup.Simulation.TriggerScript"),Language.tr("ScriptPopup.Simulation.TriggerScript.Hint"),Images.SCRIPT_RECORD_TIME.getIcon(),systemTriggerScript);
 
 		addAutoComplete(Language.tr("ScriptPopup.Simulation.Log"),Language.tr("ScriptPopup.Simulation.Log.Hint"),Images.SCRIPT_RECORD_TEXT.getIcon(),systemLog);
 

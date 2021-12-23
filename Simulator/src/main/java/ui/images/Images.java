@@ -1097,6 +1097,9 @@ public enum Images {
 	/** Symbol "Skript-Ausdruck - Simulationsdaten - Ressourcen" */
 	SCRIPT_RECORD_DATA_RESOURCE("group.png"),
 
+	/** Symbol "Skript-Ausdruck - Simulationsdaten - Signal" */
+	SCRIPT_RECORD_DATA_SIGNAL("Signal.png"),
+
 	/** Symbol "Skript-Ausdruck - Simulationsdaten - Zähler" */
 	SCRIPT_RECORD_DATA_COUNTER("Counter.png"),
 

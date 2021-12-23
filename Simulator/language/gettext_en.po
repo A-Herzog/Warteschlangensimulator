@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-12-19 16:36+0100\n"
+"POT-Creation-Date: 2021-12-22 23:21+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -15119,6 +15119,12 @@ msgstr "Simulation time"
 msgid "ScriptPopup.Simulation.Time.Hint"
 msgstr "Gets the current simulation time"
 
+msgid "ScriptPopup.Simulation.TriggerScript"
+msgstr "Trigger timed script execution"
+
+msgid "ScriptPopup.Simulation.TriggerScript.Hint"
+msgstr "Triggers the execution of the script at the specified station at the specified time."
+
 msgid "ScriptPopup.Simulation.getAllResourceCount"
 msgstr "Total number of operators"
 
@@ -17869,6 +17875,12 @@ msgstr "User-defined statistics"
 
 msgid "Simulation.Log.UserStatistic.Info"
 msgstr "Client: %s, station: %s"
+
+msgid "Simulation.Log.UserTriggeredScriptExecution"
+msgstr "User-defined script execution"
+
+msgid "Simulation.Log.UserTriggeredScriptExecution.Info"
+msgstr "Station: %s"
 
 msgid "Simulation.Log.WaitingCancelation"
 msgstr "Waiting cancelation"

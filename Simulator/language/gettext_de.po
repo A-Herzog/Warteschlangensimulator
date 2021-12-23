@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-12-19 16:36+0100\n"
+"POT-Creation-Date: 2021-12-22 23:21+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -15121,6 +15121,12 @@ msgstr "Simulationszeit"
 msgid "ScriptPopup.Simulation.Time.Hint"
 msgstr "Liefert die aktuelle Zeit in der Simulation"
 
+msgid "ScriptPopup.Simulation.TriggerScript"
+msgstr "Skript an Station zeitverzögert ausführen"
+
+msgid "ScriptPopup.Simulation.TriggerScript.Hint"
+msgstr "Löst zum angegebenen Zeitpunkt die Ausführung des Skript an der angegebenen Station aus."
+
 msgid "ScriptPopup.Simulation.getAllResourceCount"
 msgstr "Gesamtzahl an Bedienern"
 
@@ -17874,6 +17880,12 @@ msgstr "Benutzerdefinierte Statistik"
 
 msgid "Simulation.Log.UserStatistic.Info"
 msgstr "Kunde: %s, Station: %s"
+
+msgid "Simulation.Log.UserTriggeredScriptExecution"
+msgstr "Benutzerdefinierte Skriptausführung"
+
+msgid "Simulation.Log.UserTriggeredScriptExecution.Info"
+msgstr "Station: %s"
 
 msgid "Simulation.Log.WaitingCancelation"
 msgstr "Warteabbruch"

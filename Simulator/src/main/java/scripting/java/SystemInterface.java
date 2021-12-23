@@ -138,6 +138,14 @@ public interface SystemInterface {
 	void signal(final String signalName);
 
 	/**
+	 * Registriert ein Ereignis zur späteren Ausführung des Skripts an einer Station.
+	 * @param stationId	ID der Skript- oder der Skript-Bedingung-Station, an der die Verarbeitung ausgelöst werden soll
+	 * @param time	Zeitpunkt der Skriptausführung
+	 * @return	Liefert <code>true</code>, wenn ein entsprechendes Ereignis in die Ereignisliste aufgenommen werden konnte
+	 */
+	boolean triggerScriptExecution(final int stationId, final double time);
+
+	/**
 	 * Ruft eine Methode in einer Klassendatei, die im Plugins-Ordner liegt, auf.
 	 * @param className	Name der Klassendatei (ohne Dateinamenserweiterung) bzw. Name der Klasse
 	 * @param functionName	Name der aufzurufenden Methode innerhalb der Klasse
