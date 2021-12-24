@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-12-22 23:21+0100\n"
+"POT-Creation-Date: 2021-12-24 00:09+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -11977,6 +11977,9 @@ msgstr "Optimization"
 msgid "Optimizer.Tab.Optimization.BadResult"
 msgstr "Target values of the models not used for next generation"
 
+msgid "Optimizer.Tab.Optimization.ControlVariable"
+msgstr "Control variable"
+
 msgid "Optimizer.Tab.Optimization.DialogHint"
 msgstr "This page shows the optimization progress."
 
@@ -12158,6 +12161,12 @@ msgstr "Optimize variable by variable"
 msgid "Optimizer.Tab.Optimization.Kernel.SimpleStepWise"
 msgstr "Chance each variable one step each"
 
+msgid "Optimizer.Tab.Optimization.Model"
+msgstr "Model"
+
+msgid "Optimizer.Tab.Optimization.Round"
+msgstr "Round"
+
 msgid "Optimizer.Tab.Optimization.SaveMode.All"
 msgstr "Save all results"
 
@@ -12196,6 +12205,12 @@ msgstr "Saves the diagram or the text output as file."
 
 msgid "Optimizer.Tab.Optimization.Step.Result.Save.Log"
 msgstr "Save text output..."
+
+msgid "Optimizer.Tab.Optimization.Step.Result.Save.Table"
+msgstr "Save table..."
+
+msgid "Optimizer.Tab.Optimization.Step.Result.Save.Table.Title"
+msgstr "Save table"
 
 msgid "Optimizer.Tab.Optimization.Step.Result.Unzoom"
 msgstr "Default zoom"

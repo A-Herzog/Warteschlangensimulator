@@ -355,22 +355,24 @@ public abstract class OptimizerBase {
 
 	/**
 	 * Fügt das Ergebnis eines Optimierungsschritts zur Liste der Ergebnisse hinzu
+	 * @param input	Eingabeparameter aus der aktuellen Runde
 	 * @param value	Neues Ergebnis
 	 * @see #getResults()
 	 */
-	protected final void addOptimizationRunResults(final double value) {
-		optimizationRunResultsList.add(new OptimizationRunResults(value));
+	protected final void addOptimizationRunResults(final double[] input, final double value) {
+		optimizationRunResultsList.add(new OptimizationRunResults(input,value));
 		if (whenStepDone!=null) whenStepDone.run();
 	}
 
 	/**
 	 * Fügt die Ergebnisse eines Optimierungsschritts zur Liste der Ergebnisse hinzu
+	 * @param input	Eingabeparameter aus der aktuellen Runde
 	 * @param values	Ergebniswerte des aktuellen Schritts
 	 * @param usedForNextStep	Welche der zu diesen Ergebnissen gehörenden Modelle werden in der nächsten Runde als Elterngeneration verwendet?
 	 * @see #getResults()
 	 */
-	protected final void addOptimizationRunResults(final double[] values, final boolean[] usedForNextStep) {
-		optimizationRunResultsList.add(new OptimizationRunResults(values,usedForNextStep));
+	protected final void addOptimizationRunResults(final double[][] input, final double[] values, final boolean[] usedForNextStep) {
+		optimizationRunResultsList.add(new OptimizationRunResults(input,values,usedForNextStep));
 		if (whenStepDone!=null) whenStepDone.run();
 	}
 
@@ -389,6 +391,11 @@ public abstract class OptimizerBase {
 	 */
 	public static class OptimizationRunResults {
 		/**
+		 * Eingabeparameter aus der aktuellen Runde
+		 */
+		public final double[][] input;
+
+		/**
 		 * Ergebnisse der aktuellen Runde
 		 */
 		public final double[] values;
@@ -400,19 +407,23 @@ public abstract class OptimizerBase {
 
 		/**
 		 * Konstruktor der Klasse
+		 * @param input	Eingabeparameter aus der aktuellen Runde
 		 * @param value	Ergebnis der aktuellen Runde
 		 */
-		public OptimizationRunResults(final double value) {
+		public OptimizationRunResults(final double input[], final double value) {
+			this.input=new double[][]{input};
 			values=new double[]{value};
 			usedForNextStep=new boolean[]{true};
 		}
 
 		/**
 		 * Konstruktor der Klasse
+		 * @param input	Eingabeparameter aus der aktuellen Runde
 		 * @param values	Ergebnisse der aktuellen Runde
 		 * @param usedForNextStep	Welche der zu diesen Ergebnissen gehörenden Modelle werden in der nächsten Runde als Elterngeneration verwendet?
 		 */
-		public OptimizationRunResults(final double[] values, final boolean[] usedForNextStep) {
+		public OptimizationRunResults(final double[][] input, final double[] values, final boolean[] usedForNextStep) {
+			this.input=input;
 			this.values=values;
 			this.usedForNextStep=usedForNextStep;
 		}

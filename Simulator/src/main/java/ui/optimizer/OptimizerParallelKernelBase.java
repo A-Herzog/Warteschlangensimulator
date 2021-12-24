@@ -16,6 +16,7 @@
 package ui.optimizer;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import language.Language;
@@ -49,6 +50,26 @@ public abstract class OptimizerParallelKernelBase extends OptimizerKernelBase {
 	 * @return	Werte der Kontrollvariablen
 	 */
 	public abstract double[] getControlVariablesForModel(final int index);
+
+	/**
+	 * Liefert die Anzahl an Modellen pro Runde.
+	 * @return	Anzahl an Modellen pro Runde
+	 */
+	protected abstract int getModelCount();
+
+	/**
+	 * Liefer die Belegung der Kontrollvariablen für alle aktuellen Modelle
+	 * @return	Belegung der Kontrollvariablen für alle aktuellen Modelle (Kopie für den Aufrufer)
+	 */
+	public double[][] getControlVariables() {
+		final int count=getModelCount();
+		final double[][] result=new double[count][];
+		for (int i=0;i<count;i++) {
+			final double[] input=getControlVariablesForModel(i);
+			result[i]=Arrays.copyOf(input,input.length);
+		}
+		return result;
+	}
 
 	/**
 	 * Erstellt die initialen Modelle

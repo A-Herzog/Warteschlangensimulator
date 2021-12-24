@@ -224,7 +224,7 @@ public abstract class OptimizerSerialBase extends OptimizerBase {
 				logOutput("  "+Language.tr("Optimizer.Target.Maximize"));
 				break;
 			}
-			addOptimizationRunResults(value);
+			addOptimizationRunResults(kernel.getCurrentControlValues(),value);
 
 			/* Ist neues Ergebnis besser als bisheriges bestes Ergebnis? */
 			if (bestResultStatistics==null) {

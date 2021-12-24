@@ -15,6 +15,8 @@
  */
 package ui.optimizer;
 
+import java.util.Arrays;
+
 import language.Language;
 import mathtools.NumberTools;
 import simulator.editmodel.EditModel;
@@ -52,6 +54,14 @@ public abstract class OptimizerSerialKernelBase extends OptimizerKernelBase {
 		super(setup,startModel);
 		controlValues=getInitialControlVariables();
 		isFirstStep=true;
+	}
+
+	/**
+	 * Liefert die aktuelle Belegung der Kontrollvariablen
+	 * @return	Aktuelle Belegung der Kontrollvariablen (Kopie für den Aufrufer)
+	 */
+	public double[] getCurrentControlValues() {
+		return Arrays.copyOf(controlValues,controlValues.length);
 	}
 
 	/**

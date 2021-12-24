@@ -209,7 +209,7 @@ public class OptimizerParallelKernelGenetic extends OptimizerParallelKernelBase 
 			usedForNextStep[i]=false;
 			for (int j=0;j<Math.min(bestModels.length,bestModelsCount);j++) if (bestModels[j]==i) {usedForNextStep[i]=true; break;}
 		}
-		optimizer.addOptimizationRunResults(lastTargetValues,usedForNextStep);
+		optimizer.addOptimizationRunResults(getControlVariables(),lastTargetValues,usedForNextStep);
 
 		round++;
 		final double[][] initialControl=new double[Math.min(bestModels.length,bestModelsCount)][];
@@ -223,6 +223,11 @@ public class OptimizerParallelKernelGenetic extends OptimizerParallelKernelBase 
 		addMessage(Language.tr("Optimizer.SelectedParentsForNextRound")+" "+sb.toString());
 
 		return setupModels(initialControl);
+	}
+
+	@Override
+	protected int getModelCount() {
+		return controlValues.length;
 	}
 
 	@Override

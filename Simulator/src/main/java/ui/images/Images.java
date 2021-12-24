@@ -786,6 +786,9 @@ public enum Images {
 	/** Symbol "Optimierer - Ergebnisdiagramm exportieren - als Text" */
 	OPTIMIZER_EXPORT_TEXT("Text.png"),
 
+	/** Symbol "Optimierer - Ergebnistabelle exportieren" */
+	OPTIMIZER_EXPORT_TABLE("Table.png"),
+
 	/** Symbol "Optimierer - Ergebnisdiagramm exportieren - als Grafik" */
 	OPTIMIZER_EXPORT_CHART("chart_curve.png"),
 

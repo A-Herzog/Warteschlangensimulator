@@ -715,6 +715,22 @@ public class OptimizerPanel extends SpecialPanel {
 			}
 		});
 
+		popup.add(item=new JMenuItem(Language.tr("Optimizer.Tab.Optimization.Step.Result.Save.Table")));
+		item.setIcon(Images.OPTIMIZER_EXPORT_TABLE.getIcon());
+		item.addActionListener(e->{
+			final File file=Table.showSaveDialog(owner,Language.tr("Optimizer.Tab.Optimization.Step.Result.Save.Table.Title"));
+			if (file==null) return;
+
+			if (file.exists()) {
+				if (!MsgBox.confirmOverwrite(owner,file)) return;
+			}
+
+			final Table table=getFullTable();
+			if (!table.save(file)) {
+				MsgBox.error(this,Language.tr("Optimizer.Tab.Optimization.Step.Result.Save.ErrorTitle"),String.format(Language.tr("Optimizer.Tab.Optimization.Step.Result.Save.ErrorInfo"),file.toString()));
+			}
+		});
+
 		popup.add(item=new JMenuItem(Language.tr("Optimizer.Tab.Optimization.Step.Result.Save.Chart")));
 		item.setIcon(Images.OPTIMIZER_EXPORT_CHART.getIcon());
 		item.addActionListener(e->saveDiagram());
@@ -787,6 +803,46 @@ public class OptimizerPanel extends SpecialPanel {
 		for (int i=0;i<lines.size();i++) if (lineInUse[i]) table.addLine(lines.get(i));
 
 		return table.transpose(true);
+	}
+
+	/**
+	 * Liefert eine Tabelle mit allen Eingabe- und Ausgabeparametern.
+	 * @return	Tabelle mit allen Eingabe- und Ausgabeparametern
+	 */
+	private Table getFullTable() {
+		final Table table=new Table();
+
+		if (lastResults!=null && lastResults.size()>0) {
+			final OptimizationRunResults round0=lastResults.get(0);
+			final int modelCount=round0.values.length;
+			final int inputCount=round0.input[0].length;
+			/* Überschrift */
+			final List<String> heading=new ArrayList<>();
+			heading.add(Language.tr("Optimizer.Tab.Optimization.Round"));
+			if (modelCount==1) {
+				for (int j=0;j<inputCount;j++) heading.add(Language.tr("Optimizer.Tab.Optimization.ControlVariable")+" "+(j+1));
+				heading.add(Language.tr("Optimizer.Tab.Optimization.GoodResultSingle"));
+			} else {
+				for (int i=0;i<modelCount;i++) {
+					for (int j=0;j<inputCount;j++) heading.add(Language.tr("Optimizer.Tab.Optimization.ControlVariable")+" "+(j+1)+" ("+Language.tr("Optimizer.Tab.Optimization.Model")+" "+(i+1)+")");
+					heading.add(Language.tr("Optimizer.Tab.Optimization.GoodResultSingle")+" ("+Language.tr("Optimizer.Tab.Optimization.Model")+" "+(i+1)+")");
+				}
+			}
+			table.addLine(heading);
+			/* Zeilen für die einzelnen Runden */
+			for (int i=0;i<lastResults.size();i++) {
+				final OptimizationRunResults round=lastResults.get(i);
+				final List<String> line=new ArrayList<>();
+				line.add(""+(i+1));
+				for (int j=0;j<modelCount;j++) {
+					for (double inputValue: round.input[j]) line.add(NumberTools.formatNumberMax(inputValue));
+					line.add(NumberTools.formatNumberMax(round.values[j]));
+				}
+				table.addLine(line);
+			}
+		}
+
+		return table;
 	}
 
 	/**

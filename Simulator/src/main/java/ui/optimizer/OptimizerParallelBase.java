@@ -389,7 +389,6 @@ public abstract class OptimizerParallelBase extends OptimizerBase {
 			runModelsSerial(models);
 		} else {
 			runModelsParallel(models);
-			runModelsSerial(models);
 		}
 	}
 
@@ -511,7 +510,7 @@ public abstract class OptimizerParallelBase extends OptimizerBase {
 				final double[] v=Arrays.copyOf(values,i+1);
 				final boolean[] b=new boolean[v.length]; Arrays.fill(b,false);
 				b[b.length-1]=true;
-				addOptimizationRunResults(v,b);
+				addOptimizationRunResults(kernel.getControlVariables(),v,b);
 				done(true);
 				return;
 			}
