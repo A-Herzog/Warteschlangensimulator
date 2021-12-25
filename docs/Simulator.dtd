@@ -493,7 +493,7 @@
   SymbolSpiegeln	CDATA	#IMPLIED
 >
 
-<!ELEMENT ModellElementQuelle (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementBoxSchriftGross | ModellElementBoxSchriftKlein | ModellElementEbene | ModellElementHintergrundfarbe | ModellElementStationsbild | ModellElementVerbindung | ModellElementVerteilung | ModellElementAusdruck | ModellElementZeitplan | ModellElementAnkunftsbedingung | ModellElementAnkunftsschwellenwert | ModellElementAnkunftssignal | ModellElementBatch | ModellElementStartZeitpunkt)*>
+<!ELEMENT ModellElementQuelle (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementBoxSchriftGross | ModellElementBoxSchriftKlein | ModellElementEbene | ModellElementHintergrundfarbe | ModellElementStationsbild | ModellElementVerbindung | ModellElementVerteilung | ModellElementAusdruck | ModellElementZeitplan | ModellElementAnkunftsbedingung | ModellElementAnkunftsschwellenwert | ModellElementAnkunftssignal | ModellElementIntervallAnzahl | ModellElementBatch | ModellElementStartZeitpunkt)*>
 <!ATTLIST ModellElementQuelle
   id			CDATA	#REQUIRED
   geschuetzt	CDATA	#IMPLIED
@@ -528,6 +528,11 @@
   Kundenanzahl	CDATA	#IMPLIED
 >
 
+<!ELEMENT ModellElementIntervallAnzahl (#PCDATA)>
+<!ATTLIST ModellElementIntervallAnzahl
+  Intervalldauer	CDATA	#IMPLIED
+>
+
 <!ELEMENT ModellElementMehrfachQuelle (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementBoxSchriftGross | ModellElementBoxSchriftKlein | ModellElementEbene | ModellElementHintergrundfarbe | ModellElementStationsbild | ModellElementVerbindung | ModellElementMehrfachQuelleDaten)*>
 <!ATTLIST ModellElementMehrfachQuelle
   id			CDATA	#REQUIRED
@@ -535,7 +540,7 @@
   statistik		CDATA	#IMPLIED
   SymbolSpiegeln	CDATA	#IMPLIED
 >
-<!ELEMENT ModellElementMehrfachQuelleDaten (ModellElementQuelleAktiv | ModellElementName | ModellElementVerteilung | ModellElementAusdruck | ModellElementZeitplan | ModellElementAnkunftsbedingung | ModellElementAnkunftsschwellenwert | ModellElementAnkunftssignal | ModellElementBatch | ModellElementStartZeitpunkt | ModellElementVariablenzuweisung | ModellElementZuweisungTextEintrag)*>
+<!ELEMENT ModellElementMehrfachQuelleDaten (ModellElementQuelleAktiv | ModellElementName | ModellElementVerteilung | ModellElementAusdruck | ModellElementZeitplan | ModellElementAnkunftsbedingung | ModellElementAnkunftsschwellenwert | ModellElementAnkunftssignal | ModellElementIntervallAnzahl | ModellElementBatch | ModellElementStartZeitpunkt | ModellElementVariablenzuweisung | ModellElementZuweisungTextEintrag)*>
 <!ELEMENT ModellElementQuelleAktiv (#PCDATA)>
 
 <!ELEMENT ModellElementTabellenQuelle (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementBoxSchriftGross | ModellElementBoxSchriftKlein | ModellElementEbene | ModellElementHintergrundfarbe | ModellElementStationsbild | ModellElementVerbindung | ModellElementTabellenDatei | ModellElementTabellenImportModus | ModellElementTabellenKundentyp)*>
@@ -2876,7 +2881,7 @@
   MirrorSymbol	CDATA	#IMPLIED
 >
 
-<!ELEMENT ModelElementSource (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBoxFontLarge | ModelElementBoxFontSmall | ModelElementLayer | ModelElementBackgroundColor | ModelElementStationimage | ModelElementConnection | ModelElementDistribution | ModelElementExpression | ModelElementSchedule | ModelElementArrivalCondition | ModelElementArrivalThreshold | ModelElementArrivalSignal | ModelElementBatchData | ModelElementStartTime)*>
+<!ELEMENT ModelElementSource (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBoxFontLarge | ModelElementBoxFontSmall | ModelElementLayer | ModelElementBackgroundColor | ModelElementStationimage | ModelElementConnection | ModelElementDistribution | ModelElementExpression | ModelElementSchedule | ModelElementArrivalCondition | ModelElementArrivalThreshold | ModelElementArrivalSignal | ModelElementCountPerInterval | ModelElementBatchData | ModelElementStartTime)*>
 <!ATTLIST ModelElementSource
   id		CDATA	#REQUIRED
   protected	CDATA	#IMPLIED
@@ -2911,6 +2916,11 @@
   ClientCount	CDATA	#IMPLIED
 >
 
+<!ELEMENT ModelElementCountPerInterval (#PCDATA)>
+<!ATTLIST ModelElementCountPerInterval
+  IntervalDuration	CDATA	#IMPLIED
+>
+
 <!ELEMENT ModelElementMultiSource (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBoxFontLarge | ModelElementBoxFontSmall | ModelElementLayer | ModelElementBackgroundColor | ModelElementStationimage | ModelElementConnection | ModelElementMultiSourceData)*>
 <!ATTLIST ModelElementMultiSource
   id		CDATA	#REQUIRED
@@ -2918,7 +2928,7 @@
   statistics	CDATA	#IMPLIED
   MirrorSymbol	CDATA	#IMPLIED
 >
-<!ELEMENT ModelElementMultiSourceData (ModelElementSourceActive | ModelElementName | ModelElementDistribution | ModelElementExpression | ModelElementSchedule | ModelElementArrivalCondition | ModelElementArrivalSignal | ModelElementBatchData | ModelElementStartTime | ModelElementAssignmentData | ModelElementAssignmentTextRecord)*>
+<!ELEMENT ModelElementMultiSourceData (ModelElementSourceActive | ModelElementName | ModelElementDistribution | ModelElementExpression | ModelElementSchedule | ModelElementArrivalCondition | ModelElementArrivalSignal | ModelElementCountPerInterval | ModelElementBatchData | ModelElementStartTime | ModelElementAssignmentData | ModelElementAssignmentTextRecord)*>
 <!ELEMENT ModelElementSourceActive (#PCDATA)>
 
 <!ELEMENT ModelElementTableSource (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBoxFontLarge | ModelElementBoxFontSmall | ModelElementLayer | ModelElementBackgroundColor | ModelElementStationimage | ModelElementConnection | ModelElementTableFile | ModelElementTableImportMode | ModelElementTableClientType)*>

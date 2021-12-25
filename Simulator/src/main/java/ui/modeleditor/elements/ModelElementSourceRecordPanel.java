@@ -23,9 +23,11 @@ import java.awt.FlowLayout;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.Serializable;
+import java.util.Arrays;
 import java.util.function.Supplier;
 
 import javax.swing.BorderFactory;
+import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
@@ -35,14 +37,20 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
+import javax.swing.JSpinner;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.JTextPane;
+import javax.swing.SpinnerModel;
+import javax.swing.SpinnerNumberModel;
 import javax.swing.SwingConstants;
+import javax.swing.text.BadLocationException;
 
 import org.apache.commons.math3.distribution.AbstractRealDistribution;
 import org.apache.commons.math3.distribution.ExponentialDistribution;
+import org.apache.logging.log4j.util.Strings;
 
 import language.Language;
 import mathtools.NumberTools;
@@ -55,6 +63,8 @@ import systemtools.BaseDialog;
 import systemtools.MsgBox;
 import tools.IconListCellRenderer;
 import tools.JTableExt;
+import ui.expressionbuilder.ExpressionBuilder;
+import ui.expressionbuilder.ExpressionBuilderAutoComplete;
 import ui.images.Images;
 import ui.modeleditor.ModelClientData;
 import ui.modeleditor.ModelDataRenameListener;
@@ -162,6 +172,17 @@ public final class ModelElementSourceRecordPanel extends JPanel {
 	/** Tabelle zur Auswahl der Ereignisse, die Ankünfte auslösen */
 	private final ModelElementSourceRecordSignalTableModel signalsTableModel;
 
+	/* Dialogseite "Zwichenankunftszeiten" -  Karte: "Anzahlen pro Intervall" */
+
+	/** Eingabefeld für den Zahlenwert der Zeitdauer eines Intervalls */
+	private final SpinnerModel intervalExpressionsIntervalTime;
+	/** Auswahlbox für die Zeiteinheit für die Zeitdauer eines Intervalls */
+	private final JComboBox<String> intervalExpressionsIntervalTimeTimeBase;
+	/** Eingabebox für die verschiedenen Ausdrücke für die Anzahlen an Ankünften pro Intervall */
+	private final JTextArea intervalExpressions;
+	/** Info-Label zur Anzeige der Anzahl an Intervallen */
+	private final JLabel intervalExpressionsInfo;
+
 	/* Dialogseite "Batch-Größe" */
 
 	/** Option: Feste Batch-Größe */
@@ -237,7 +258,7 @@ public final class ModelElementSourceRecordPanel extends JPanel {
 		setLayout(new BorderLayout());
 
 		Object[] data;
-		JPanel card,panel,sub;
+		JPanel card, panel, sub, line;
 		JLabel label;
 		ButtonGroup buttonGroup;
 
@@ -281,6 +302,7 @@ public final class ModelElementSourceRecordPanel extends JPanel {
 				Language.tr("Surface.Source.Dialog.CalculationOfTheInterarrivalTimes.Condition"),
 				Language.tr("Surface.Source.Dialog.CalculationOfTheInterarrivalTimes.Threshold"),
 				Language.tr("Surface.Source.Dialog.CalculationOfTheInterarrivalTimes.Signals"),
+				Language.tr("Surface.Source.Dialog.CalculationOfTheInterarrivalTimes.IntervalExpressions"),
 		}));
 		selectCard.setRenderer(new IconListCellRenderer(new Images[]{
 				Images.MODELEDITOR_ELEMENT_SOURCE_MODE_DISTRIBUTION,
@@ -288,7 +310,8 @@ public final class ModelElementSourceRecordPanel extends JPanel {
 				Images.MODELEDITOR_ELEMENT_SOURCE_MODE_SCHEDULE,
 				Images.MODELEDITOR_ELEMENT_SOURCE_MODE_CONDITION,
 				Images.MODELEDITOR_ELEMENT_SOURCE_MODE_THRESHOLD,
-				Images.MODELEDITOR_ELEMENT_SOURCE_MODE_SIGNALS
+				Images.MODELEDITOR_ELEMENT_SOURCE_MODE_SIGNALS,
+				Images.MODELEDITOR_ELEMENT_SOURCE_MODE_INTERVAL_EXPRESSIONS
 		}));
 		label.setLabelFor(selectCard);
 		selectCard.addActionListener(e->{
@@ -481,6 +504,47 @@ public final class ModelElementSourceRecordPanel extends JPanel {
 		signalTable.getTableHeader().setReorderingAllowed(false);
 		signalTable.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 
+		/* Karte: Anzahlen pro Intervall */
+
+		cards.add(card=new JPanel(new BorderLayout()),"Seite7");
+
+		card.add(panel=new JPanel(),BorderLayout.NORTH);
+		panel.setLayout(new BoxLayout(panel,BoxLayout.PAGE_AXIS));
+		panel.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
+		line.add(label=new JLabel(Language.tr("Surface.Source.Dialog.CalculationOfTheInterarrivalTimes.IntervalExpressions.IntervalTime")+":"));
+		final JSpinner intervalExpressionsIntervalTimeSpinner=new JSpinner(intervalExpressionsIntervalTime=new SpinnerNumberModel(1,1,50_000_000,1));
+		final JSpinner.NumberEditor editor=new JSpinner.NumberEditor(intervalExpressionsIntervalTimeSpinner);
+		editor.getFormat().setGroupingUsed(false);
+		editor.getTextField().setColumns(8);
+		intervalExpressionsIntervalTimeSpinner.setEditor(editor);
+		intervalExpressionsIntervalTimeSpinner.setEnabled(!readOnly);
+		intervalExpressionsIntervalTimeSpinner.addChangeListener(e->checkData(false));
+		line.add(intervalExpressionsIntervalTimeSpinner);
+		label.setLabelFor(intervalExpressionsIntervalTimeSpinner);
+		line.add(intervalExpressionsIntervalTimeTimeBase=new JComboBox<>(ModelSurface.getTimeBaseStrings()));
+		intervalExpressionsIntervalTimeTimeBase.setEnabled(!readOnly);
+		intervalExpressionsIntervalTimeTimeBase.addActionListener(e->checkData(false));
+
+		panel.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
+		line.add(new JLabel(Language.tr("Surface.Source.Dialog.CalculationOfTheInterarrivalTimes.IntervalExpressions.Label")+":"));
+
+		card.add(new JScrollPane(intervalExpressions=new JTextArea()),BorderLayout.CENTER);
+		intervalExpressions.setEditable(!readOnly);
+		intervalExpressions.addKeyListener(new KeyListener() {
+			@Override public void keyTyped(KeyEvent e) {checkData(false);}
+			@Override public void keyReleased(KeyEvent e) {checkData(false);}
+			@Override public void keyPressed(KeyEvent e) {checkData(false);}
+		});
+		ExpressionBuilderAutoComplete.process(new ExpressionBuilder(this,"",false,model.surface.getMainSurfaceVariableNames(model.getModelVariableNames(),false),model.getInitialVariablesWithValues(),ExpressionBuilder.getStationIDs(model.surface),ExpressionBuilder.getStationNameIDs(model.surface),true,false,false),intervalExpressions);
+
+		card.add(panel=new JPanel(new FlowLayout(FlowLayout.LEFT)),BorderLayout.SOUTH);
+		final JButton expressionBuilderButton=new JButton(Language.tr("Surface.Source.Dialog.CalculationOfTheInterarrivalTimes.IntervalExpressions.EditExpression"),Images.EXPRESSION_BUILDER.getIcon());
+		panel.add(expressionBuilderButton);
+		expressionBuilderButton.setEnabled(!readOnly);
+		expressionBuilderButton.addActionListener(e->editIntervalExpressions());
+		panel.add(Box.createHorizontalStrut(10));
+		panel.add(intervalExpressionsInfo=new JLabel());
+
 		/* Batch */
 
 		tabs.add(Language.tr("Surface.Source.Dialog.Tab.BatchSize"),tab=new JPanel(new BorderLayout(0,5)));
@@ -652,6 +716,7 @@ public final class ModelElementSourceRecordPanel extends JPanel {
 		case NEXT_CONDITION: selectCard.setSelectedIndex(3); break;
 		case NEXT_THRESHOLD: selectCard.setSelectedIndex(4); break;
 		case NEXT_SIGNAL: selectCard.setSelectedIndex(5); break;
+		case NEXT_INTERVAL_EXPRESSIONS: selectCard.setSelectedIndex(6); break;
 		}
 
 		/* Verteilung */
@@ -679,6 +744,18 @@ public final class ModelElementSourceRecordPanel extends JPanel {
 		/* Signale */
 		signalsTableModel.setData(record.getArrivalSignalNames());
 
+		/* Anzahlen pro Intervall */
+		int time=record.getIntervalExpressionsIntervalTime();
+		int timeBase=0;
+		while (timeBase<2 && time>=60) {
+			if (time%60!=0) break;
+			time/=60;
+			timeBase++;
+		}
+		intervalExpressionsIntervalTime.setValue(time);
+		intervalExpressionsIntervalTimeTimeBase.setSelectedIndex(timeBase);
+		intervalExpressions.setText(Strings.join(record.getIntervalExpressions(),'\n').trim());
+
 		/* Passende Seite aktivieren */
 		switch (record.getNextMode()) {
 		case NEXT_DISTRIBUTION:
@@ -698,6 +775,9 @@ public final class ModelElementSourceRecordPanel extends JPanel {
 			break;
 		case NEXT_SIGNAL:
 			((CardLayout)cards.getLayout()).show(cards,"Seite6");
+			break;
+		case NEXT_INTERVAL_EXPRESSIONS:
+			((CardLayout)cards.getLayout()).show(cards,"Seite7");
 			break;
 		}
 
@@ -743,6 +823,30 @@ public final class ModelElementSourceRecordPanel extends JPanel {
 
 		/* Start */
 		checkData(false);
+	}
+
+	/**
+	 * Öffnet den Dialog zum Bearbeiten einer Zeile in {@link #intervalExpressions}
+	 * @see #intervalExpressions
+	 */
+	private void editIntervalExpressions() {
+		final int caretOffset=intervalExpressions.getCaretPosition();
+		final int lineNumber;
+		try {
+			lineNumber=intervalExpressions.getLineOfOffset(caretOffset);
+		} catch (BadLocationException e) {
+			return;
+		}
+
+		final String[] lines=intervalExpressions.getText().split("\\n");
+		if (lineNumber<0 || lineNumber>=lines.length) return;
+
+		final ExpressionBuilder dialog=new ExpressionBuilder(this,lines[lineNumber],false,model.surface.getMainSurfaceVariableNames(model.getModelVariableNames(),false),model.getInitialVariablesWithValues(),ExpressionBuilder.getStationIDs(model.surface),ExpressionBuilder.getStationNameIDs(model.surface),true,false,false);
+		dialog.setVisible(true);
+		if (dialog.getClosedBy()!=BaseDialog.CLOSED_BY_OK) return;
+		lines[lineNumber]=dialog.getExpression();
+
+		intervalExpressions.setText(Strings.join(Arrays.asList(lines),'\n'));
 	}
 
 	/**
@@ -863,6 +967,19 @@ public final class ModelElementSourceRecordPanel extends JPanel {
 	}
 
 	/**
+	 * Liefert einen String der eine Anzahl an Sekunden beschreibt.
+	 * @param seconds	Anzahl an Sekunden
+	 * @return	Zeichenkette, in der die Anzahl mit einer möglichst passenden Einheit beschrieben wird
+	 * @see #checkData(boolean)
+	 */
+	private static String durationString(final long seconds) {
+		if (seconds>=86400 && seconds%86400==0) return ""+(seconds/86400)+" "+Language.tr("Statistics.Days");
+		if (seconds>=3600 && seconds%3600==0) return ""+(seconds/3600)+" "+Language.tr("Statistics.Hours");
+		if (seconds>=60 && seconds%60==0) return ""+(seconds/60)+" "+Language.tr("Statistics.Minutes");
+		return ""+Math.max(0,seconds)+" "+Language.tr("Statistics.Seconds");
+	}
+
+	/**
 	 * Prüft, ob die aktuellen GUI-Daten gültig sind
 	 * @param showErrorMessage	Gibt an, ob im Fehlerfall auch eine Meldung ausgegeben werden soll
 	 * @return	Liefert <code>true</code>, wenn alle Daten in Ordnung sind
@@ -884,6 +1001,20 @@ public final class ModelElementSourceRecordPanel extends JPanel {
 			ok=false;
 		} else {
 			nameEdit.setBackground(NumberTools.getTextFieldDefaultBackground());
+		}
+
+		/* Infotext zu Anzahl an intervallabhängigen Ankünften aktualisieren */
+		final String[] intervals=intervalExpressions.getText().trim().split("\\n");
+		final int intervalCount=(intervals.length==1 && intervals[0].trim().isEmpty())?0:intervals.length;
+		if (intervalCount==0) {
+			intervalExpressionsInfo.setText(Language.tr("Surface.Source.Dialog.CalculationOfTheInterarrivalTimes.IntervalExpressions.Info.Empty"));
+		} else {
+			final long intervalDuration=((Integer)intervalExpressionsIntervalTime.getValue()).intValue()*ModelSurface.TimeBase.byId(intervalExpressionsIntervalTimeTimeBase.getSelectedIndex()).multiply;
+			if (intervalCount==1) {
+				intervalExpressionsInfo.setText(String.format(Language.tr("Surface.Source.Dialog.CalculationOfTheInterarrivalTimes.IntervalExpressions.Info.One"),durationString(intervalDuration)));
+			} else {
+				intervalExpressionsInfo.setText(String.format(Language.tr("Surface.Source.Dialog.CalculationOfTheInterarrivalTimes.IntervalExpressions.Info.Multi"),intervalCount,durationString(intervalCount*intervalDuration)));
+			}
 		}
 
 		switch (selectCard.getSelectedIndex()) {
@@ -960,6 +1091,26 @@ public final class ModelElementSourceRecordPanel extends JPanel {
 				}
 				ok=false;
 			}
+			break;
+		case 6: /* Anzahlen pro Intervall */
+			final String[] lines=intervalExpressions.getText().trim().split("\\n");
+			boolean linesOk=true;
+			for (int i=0;i<lines.length;i++) {
+				final String line=lines[i].trim();
+				if (!line.isEmpty()) {
+					error=ExpressionCalc.check(line,surface.getMainSurfaceVariableNames(model.getModelVariableNames(),false));
+					if (error>=0) {
+						linesOk=false;
+						ok=false;
+						if (showErrorMessage) {
+							MsgBox.error(this,Language.tr("Surface.Source.Dialog.CalculationOfTheInterarrivalTimes.IntervalExpressions.Error.Title"),String.format(Language.tr("Surface.Source.Dialog.CalculationOfTheInterarrivalTimes.IntervalExpressions.Error.Info"),i+1,line,error+1));
+							break;
+						}
+					}
+				}
+			}
+			intervalExpressions.setBackground(linesOk?NumberTools.getTextFieldDefaultBackground():Color.RED);
+			if (showErrorMessage && !linesOk) return false;
 			break;
 		}
 
@@ -1058,6 +1209,13 @@ public final class ModelElementSourceRecordPanel extends JPanel {
 			record.getArrivalSignalNames().clear();
 			record.getArrivalSignalNames().addAll(signalsTableModel.getData());
 			record.setSignalMode();
+			break;
+		case 6: /* Anzahlen pro Intervall */
+			int time=(Integer)intervalExpressionsIntervalTime.getValue();
+			time*=ModelSurface.TimeBase.byId(intervalExpressionsIntervalTimeTimeBase.getSelectedIndex()).multiply;
+			record.setIntervalExpressionsIntervalTime(time);
+			record.getIntervalExpressions().clear();
+			record.getIntervalExpressions().addAll(Arrays.asList(intervalExpressions.getText().trim().split("\\n")));
 			break;
 		}
 

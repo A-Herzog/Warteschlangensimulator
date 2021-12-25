@@ -64,7 +64,7 @@ public final class ModelElementSourceRecord implements Cloneable {
 		NEXT_EXPRESSION,
 
 		/** Zwischenankunftszeit über Zeitplan bestimmen */
-		NEXT_SCHEDULE,
+		NEXT_SCHEDULE(true),
 
 		/** Freigabe des nächsten Kunden, wenn eine bestimmte Bedingung erfüllt ist (und ein Mindestabstand eingehalten wurde) */
 		NEXT_CONDITION,
@@ -73,7 +73,30 @@ public final class ModelElementSourceRecord implements Cloneable {
 		NEXT_THRESHOLD,
 
 		/** Freigabe des nächsten Kunden aus Basis von Signalen */
-		NEXT_SIGNAL
+		NEXT_SIGNAL,
+
+		/** Mehrere Ausdrücke zur Festlegung der jeweils absoluten Anzahl an Ankünften in einzelnen Intervallen */
+		NEXT_INTERVAL_EXPRESSIONS(true);
+
+		/**
+		 * Setzt dieser Modus den Single-Core-Modus voraus?
+		 */
+		public final boolean isSingleCoreOnlyMode;
+
+		/**
+		 * Konstruktor des Enum
+		 */
+		NextMode() {
+			this.isSingleCoreOnlyMode=false;
+		}
+
+		/**
+		 * Konstruktor des Enum
+		 * @param isSingleCoreOnlyMode	Setzt dieser Modus den Single-Core-Modus voraus?
+		 */
+		NextMode(final boolean isSingleCoreOnlyMode) {
+			this.isSingleCoreOnlyMode=isSingleCoreOnlyMode;
+		}
 	}
 
 	/**
@@ -166,6 +189,19 @@ public final class ModelElementSourceRecord implements Cloneable {
 	private boolean thresholdDirectionUp;
 
 	/**
+	 * Zeitdauer für ein Intervall in {@link #intervalExpressions}
+	 * @see #getIntervalExpressionsIntervalTime()
+	 * @see #setIntervalExpressionsIntervalTime(int)
+	 */
+	private int intervalExpressionsIntervalTime;
+
+	/**
+	 * Ausdrücke zur Berechnung der Ankünfte pro Intervall
+	 * @see #getIntervalExpressions()
+	 */
+	private final List<String> intervalExpressions;
+
+	/**
 	 * Ankunfts-Batch-Größe oder <code>null</code>, wenn es mehrere verschiedene Batch-Größen geben soll
 	 * @see #getBatchSize()
 	 * @see #setBatchSize(String)
@@ -249,6 +285,8 @@ public final class ModelElementSourceRecord implements Cloneable {
 		thresholdExpression="";
 		thresholdValue=0.0;
 		thresholdDirectionUp=true;
+		intervalExpressionsIntervalTime=1800;
+		intervalExpressions=new ArrayList<>();
 		batchSize="1";
 		batchSizeRates=null;
 		maxArrivalCount=-1;
@@ -654,6 +692,41 @@ public final class ModelElementSourceRecord implements Cloneable {
 	}
 
 	/**
+	 * Liefert die Zeitdauer für ein Intervall in {@link #getIntervalExpressions()}.
+	 * @return	Zeitdauer für ein Intervall
+	 * @see #setIntervalExpressionsIntervalTime(int)
+	 */
+	public int getIntervalExpressionsIntervalTime() {
+		return intervalExpressionsIntervalTime;
+	}
+
+	/**
+	 * Stellt	die Zeitdauer für ein Intervall in {@link #getIntervalExpressions()} ein.
+	 * @param intervalExpressionsIntervalTime	Zeitdauer für ein Intervall
+	 * @see #getIntervalExpressionsIntervalTime()
+	 */
+	public void setIntervalExpressionsIntervalTime(int intervalExpressionsIntervalTime) {
+		this.intervalExpressionsIntervalTime=intervalExpressionsIntervalTime;
+		nextMode=NextMode.NEXT_INTERVAL_EXPRESSIONS;
+	}
+
+	/**
+	 * Liefert die Liste der Ausdrücke zur Berechnung der Ankünfte pro Intervall.
+	 * @return	Liste der Ausdrücke zur Berechnung der Ankünfte pro Intervall
+	 */
+	public List<String> getIntervalExpressions() {
+		return intervalExpressions;
+	}
+
+	/**
+	 * Stellt den Modus "Ausdrücke zur Festlegung der jeweils absoluten Anzahl an Ankünften pro Intervallen" ein.
+	 * @see ModelElementSourceRecord#getArrivalSignalNames()
+	 */
+	public void setIntervalExpressionsMode() {
+		nextMode=NextMode.NEXT_INTERVAL_EXPRESSIONS;
+	}
+
+	/**
 	 * Liefert die verwendete Zeitbasis (ob die Verteilungswerte Sekunden-, Minuten- oder Stunden-Angaben darstellen sollen)
 	 * @return	Verwendete Zeitbasis
 	 */
@@ -738,6 +811,10 @@ public final class ModelElementSourceRecord implements Cloneable {
 			case NEXT_SIGNAL:
 				if (!Objects.deepEquals(signalNames,record.signalNames)) return false;
 				break;
+			case NEXT_INTERVAL_EXPRESSIONS:
+				if (intervalExpressionsIntervalTime!=record.intervalExpressionsIntervalTime) return false;
+				if (!Objects.deepEquals(intervalExpressions,record.intervalExpressions)) return false;
+				break;
 			}
 		}
 
@@ -796,6 +873,9 @@ public final class ModelElementSourceRecord implements Cloneable {
 		thresholdExpression=record.thresholdExpression;
 		thresholdValue=record.thresholdValue;
 		thresholdDirectionUp=record.thresholdDirectionUp;
+		intervalExpressionsIntervalTime=record.intervalExpressionsIntervalTime;
+		intervalExpressions.clear();
+		intervalExpressions.addAll(record.intervalExpressions);
 		batchSize=record.batchSize;
 		if (batchSize==null && record.batchSizeRates!=null) batchSizeRates=Arrays.copyOf(record.batchSizeRates,record.batchSizeRates.length);
 		maxArrivalCount=record.maxArrivalCount;
@@ -894,6 +974,17 @@ public final class ModelElementSourceRecord implements Cloneable {
 					sub.setTextContent(name);
 					if (maxArrivalCount>0) sub.setAttribute(Language.trPrimary("Surface.Source.XML.Signal.Count"),""+maxArrivalCount);
 					if (maxArrivalClientCount>0) sub.setAttribute(Language.trPrimary("Surface.Source.XML.Signal.ClientCount"),""+maxArrivalClientCount);
+				}
+				break;
+			case NEXT_INTERVAL_EXPRESSIONS:
+				boolean first=true;
+				for (String expression: intervalExpressions) {
+					node.appendChild(sub=doc.createElement(Language.trPrimary("Surface.Source.XML.IntervalExpression")));
+					sub.setTextContent(expression);
+					if (first) {
+						sub.setAttribute(Language.trPrimary("Surface.Source.XML.IntervalExpression.IntervalTime"),""+intervalExpressionsIntervalTime);
+						first=false;
+					}
 				}
 				break;
 			}
@@ -1075,6 +1166,20 @@ public final class ModelElementSourceRecord implements Cloneable {
 			return null;
 		}
 
+		if (Language.trAll("Surface.Source.XML.IntervalExpression",name)) {
+			if (!content.trim().isEmpty()) {
+				nextMode=NextMode.NEXT_INTERVAL_EXPRESSIONS;
+				intervalExpressions.add(content);
+			}
+			final String intervalTimeString=Language.trAllAttribute("Surface.Source.XML.IntervalExpression.IntervalTime",node);
+			if (!intervalTimeString.isEmpty()) {
+				final Long L=NumberTools.getNotNegativeLong(intervalTimeString);
+				if (L==null || L==0) return String.format(Language.tr("Surface.XML.AttributeSubError"),Language.trPrimary("Surface.Source.XML.Signal.Count"),name,node.getParentNode().getNodeName());
+				intervalExpressionsIntervalTime=L.intValue();
+			}
+			return null;
+		}
+
 		if (Language.trAll("Surface.Source.XML.Batch",name)) {
 			final String size=Language.trAllAttribute("Surface.Source.XML.Batch.Size",node);
 			if (!size.isEmpty()) {
@@ -1195,7 +1300,15 @@ public final class ModelElementSourceRecord implements Cloneable {
 					if (i>0) sb.append(", ");
 					sb.append(signalNames.get(i));
 				}
-				break;		}
+				break;
+			case NEXT_INTERVAL_EXPRESSIONS:
+				sb.append(Language.tr("ModelDescription.Arrival.IntervalExpressions")+"\n");
+				sb.append(Language.tr("ModelDescription.Arrival.IntervalExpressions.IntervalTime")+": "+NumberTools.formatLong(intervalExpressionsIntervalTime)+"\n");
+				for (int i=0;i<intervalExpressions.size();i++) {
+					sb.append(""+(i+1)+": "+intervalExpressions.get(i)+"\n");
+				}
+				break;
+			}
 			sb.append("\n");
 
 			/* Zeitbasis */
@@ -1308,6 +1421,12 @@ public final class ModelElementSourceRecord implements Cloneable {
 		case NEXT_THRESHOLD:
 			searcher.testString(station,Language.tr("Editor.DialogBase.Search.InterarrivalArrival.Threshold.Expression"),thresholdExpression,newThresholdExpression->{thresholdExpression=newThresholdExpression;});
 			searcher.testDouble(station,Language.tr("Editor.DialogBase.Search.InterarrivalArrival.Threshold.Value"),thresholdValue,newThresholdValue->{thresholdValue=newThresholdValue;});
+			break;
+		case NEXT_INTERVAL_EXPRESSIONS:
+			for (int i=0;i<intervalExpressions.size();i++) {
+				final int index=i;
+				searcher.testString(station,Language.tr("Editor.DialogBase.Search.InterarrivalArrival.IntervalExpression"),intervalExpressions.get(index),newintervalExpression->intervalExpressions.set(index,newintervalExpression));
+			}
 			break;
 		}
 

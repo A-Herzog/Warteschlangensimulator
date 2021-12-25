@@ -205,6 +205,9 @@ public class ModelElementSourceMultiTableModel extends JTableExtAbstractTableMod
 			sb.append(String.join(", ",record.getArrivalSignalNames().toArray(new String[0])));
 			sb.append(")");
 			break;
+		case NEXT_INTERVAL_EXPRESSIONS:
+			sb.append(Language.tr("Surface.MultiSourceTable.Info.IntervalExpressions"));
+			break;
 		}
 
 		if (record.getBatchSize()==null || !record.getBatchSize().trim().equals("1")) {

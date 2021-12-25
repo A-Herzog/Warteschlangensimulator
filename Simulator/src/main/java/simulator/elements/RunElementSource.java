@@ -98,7 +98,7 @@ public class RunElementSource extends RunElement implements StateChangeListener,
 		RunElementSourceData data;
 		data=(RunElementSourceData)(simData.runData.getStationData(this));
 		if (data==null) {
-			data=new RunElementSourceData(this,record.batchSize,record.expression,record.condition,record.thresholdExpression,record.thresholdValue,record.thresholdDirectionUp,simData.runModel.variableNames,record.getRuntimeExpressions(simData.runModel.variableNames));
+			data=new RunElementSourceData(this,simData,record,simData.runModel.variableNames);
 			simData.runData.setStationData(this,data);
 		}
 		return data;
@@ -122,10 +122,10 @@ public class RunElementSource extends RunElement implements StateChangeListener,
 	 */
 	private boolean scheduleNextArrival(final SimulationData simData, final boolean isFirstArrival) {
 		final RunElementSourceData data=getData(simData);
-		final int count=record.scheduleNextArrival(simData,isFirstArrival,data.expression,data.condition,data.arrivalTime,this,name,data.arrivalCount,data.arrivalClientCount);
+		final int count=record.scheduleNextArrival(simData,isFirstArrival,data.recordData,this,name);
 		if (count>0) {
-			data.arrivalCount+=count;
-			data.arrivalTime=simData.currentTime;
+			data.recordData.arrivalCount+=count;
+			data.recordData.arrivalTime=simData.currentTime;
 			return true;
 		} else {
 			return false;
@@ -152,9 +152,9 @@ public class RunElementSource extends RunElement implements StateChangeListener,
 
 		boolean batchArrivals=true;
 		final int batchSize;
-		if (data.batchSize!=null) {
-			if (data.batchSize.isConstValue()) batchArrivals=(data.batchSize.getConstValue()!=1.0);
-			batchSize=(int)Math.round(data.batchSize.calcOrDefault(simData.runData.variableValues,-1));
+		if (data.recordData.batchSize!=null) {
+			if (data.recordData.batchSize.isConstValue()) batchArrivals=(data.recordData.batchSize.getConstValue()!=1.0);
+			batchSize=(int)Math.round(data.recordData.batchSize.calcOrDefault(simData.runData.variableValues,-1));
 			if (batchSize<=0) {
 				simData.doEmergencyShutDown(String.format(Language.tr("Simulation.Log.InvalidBatchSize"),name));
 				return;
@@ -162,7 +162,7 @@ public class RunElementSource extends RunElement implements StateChangeListener,
 		} else {
 			batchSize=record.getMultiBatchSize(simData);
 		}
-		data.arrivalClientCount+=batchSize;
+		data.recordData.arrivalClientCount+=batchSize;
 
 		if (batchArrivals) {
 			/* Zwischenankunftszeiten auf Batch-Basis in der Statistik erfassen */
@@ -177,8 +177,8 @@ public class RunElementSource extends RunElement implements StateChangeListener,
 					simData.runData.isWarmUp=false;
 					simData.endWarmUp();
 					simData.runData.clientsArrived=0;
-					data.arrivalCount=0;
-					data.arrivalClientCount=0;
+					data.recordData.arrivalCount=0;
+					data.recordData.arrivalClientCount=0;
 					/* Logging */
 					if (simData.loggingActive) log(simData,Language.tr("Simulation.Log.WarmUpEnd"),Language.tr("Simulation.Log.WarmUpEnd.Info"));
 					/* Warm-up-Status für Kunden wieder entfernen */
@@ -189,7 +189,7 @@ public class RunElementSource extends RunElement implements StateChangeListener,
 			final RunDataClient newClient=simData.runData.clients.getClient(record.clientType,simData);
 
 			/* Zahlen und Strings zuweisen */
-			data.setData.writeNumbersToClient(simData,newClient,name);
+			data.recordData.setData.writeNumbersToClient(simData,newClient,name);
 			record.writeStringsToClient(newClient);
 
 			/* Notify-System über Kundenankunft informieren */
@@ -221,11 +221,11 @@ public class RunElementSource extends RunElement implements StateChangeListener,
 			/* Ankunft des nächsten Kunden einplanen */
 			if (simData.runData.isWarmUp || simData.runModel.clientCount<0 || data.maxSystemArrival<=0 || simData.runData.clientsArrived<data.maxSystemArrival) {
 				boolean done=false;
-				if (record.maxArrivalCount>=0 && data.arrivalCount>=record.maxArrivalCount) {
+				if (record.maxArrivalCount>=0 && data.recordData.arrivalCount>=record.maxArrivalCount) {
 					done=true;
 					if (simData.loggingActive) log(simData,Language.tr("Simulation.Log.ArrivalCount"),String.format(Language.tr("Simulation.Log.ArrivalCount.Info"),name,record.maxArrivalCount));
 				}
-				if (record.maxArrivalClientCount>=0 && data.arrivalClientCount>=record.maxArrivalClientCount) {
+				if (record.maxArrivalClientCount>=0 && data.recordData.arrivalClientCount>=record.maxArrivalClientCount) {
 					done=true;
 					if (simData.loggingActive) log(simData,Language.tr("Simulation.Log.ArrivalClientCount"),String.format(Language.tr("Simulation.Log.ArrivalClientCount.Info"),name,record.maxArrivalCount));
 				}
@@ -263,7 +263,7 @@ public class RunElementSource extends RunElement implements StateChangeListener,
 	private boolean fixedResultConditionTested=false;
 
 	/**
-	 * Liefert die Bedingung {@link RunElementSourceData#condition}
+	 * Liefert die Bedingung {@link RunElementSourceRecordData#condition}
 	 * deterministisch immer <code>false</code>?
 	 * @see #systemStateChangeNotify(SimulationData)
 	 */
@@ -284,7 +284,7 @@ public class RunElementSource extends RunElement implements StateChangeListener,
 			if (!fixedResultConditionTested) {
 				fixedResultConditionTested=true;
 				final RunElementSourceData data=getData(simData);
-				if (data.condition!=null) isConstFalse=(data.condition.isConstFalse());
+				if (data.recordData.condition!=null) isConstFalse=(data.recordData.condition.isConstFalse());
 			}
 			/* Ausklinken, wenn immer falsch (ggf. mehrfach ausführen) */
 			if (isConstFalse) {
@@ -298,11 +298,11 @@ public class RunElementSource extends RunElement implements StateChangeListener,
 
 		if (record.thresholdExpression!=null) {
 			final RunElementSourceData data=getData(simData);
-			if (data.checkThreshold(simData)) {
-				final int count=record.triggertByThreshold(simData,this,data.arrivalCount,data.arrivalClientCount);
+			if (data.recordData.checkThreshold(simData,data)) {
+				final int count=record.triggertByThreshold(simData,this,data.recordData.arrivalCount,data.recordData.arrivalClientCount);
 				if (count>0) {
-					data.arrivalCount+=count;
-					data.arrivalTime=simData.currentTime;
+					data.recordData.arrivalCount+=count;
+					data.recordData.arrivalTime=simData.currentTime;
 					arrivalsScheduled=true;
 				}
 			}
@@ -314,10 +314,10 @@ public class RunElementSource extends RunElement implements StateChangeListener,
 	@Override
 	public void signalNotify(SimulationData simData, String signalName) {
 		final RunElementSourceData data=getData(simData);
-		final int count=record.triggeredBySignal(simData,signalName,this,data.arrivalCount,data.arrivalClientCount);
+		final int count=record.triggeredBySignal(simData,signalName,this,data.recordData.arrivalCount,data.recordData.arrivalClientCount);
 		if (count>0) {
-			data.arrivalCount+=count;
-			data.arrivalTime=simData.currentTime;
+			data.recordData.arrivalCount+=count;
+			data.recordData.arrivalTime=simData.currentTime;
 		}
 	}
 

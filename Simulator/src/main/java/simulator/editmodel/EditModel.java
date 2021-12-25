@@ -1379,12 +1379,12 @@ public final class EditModel extends EditModelBase implements Cloneable  {
 
 		if (element instanceof ModelElementSource) {
 			ModelElementSourceRecord record=((ModelElementSource)element).getRecord();
-			if (record.getNextMode()==ModelElementSourceRecord.NextMode.NEXT_SCHEDULE) reasons.add(String.format(Language.tr("Surface.SingleCoreReason.SourceUsesSchedule"),element.getId(),record.getInterarrivalTimeSchedule()));
+			if (record.getNextMode().isSingleCoreOnlyMode) reasons.add(String.format(Language.tr("Surface.SingleCoreReason.SourceUsesSchedule"),element.getId(),record.getInterarrivalTimeSchedule()));
 		}
 		if (element instanceof ModelElementSourceMulti) {
 			String schedule=null;
 			for (ModelElementSourceRecord record: ((ModelElementSourceMulti)element).getRecords()) {
-				if (record.getNextMode()==ModelElementSourceRecord.NextMode.NEXT_SCHEDULE) {schedule=record.getInterarrivalTimeSchedule(); break;}
+				if (record.getNextMode().isSingleCoreOnlyMode) {schedule=record.getInterarrivalTimeSchedule(); break;}
 			}
 			if (schedule!=null) reasons.add(String.format(Language.tr("Surface.SingleCoreReason.SourceUsesSchedule"),element.getId(),schedule));
 		}

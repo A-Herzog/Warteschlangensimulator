@@ -16,7 +16,6 @@
 package simulator.elements;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import org.apache.commons.math3.util.FastMath;
@@ -107,21 +106,7 @@ public class RunElementSourceMulti extends RunElement implements StateChangeList
 		RunElementSourceMultiData data;
 		data=(RunElementSourceMultiData)(simData.runData.getStationData(this));
 		if (data==null) {
-			final String[] batchSizes=new String[records.length];
-			for (int i=0;i<records.length;i++) batchSizes[i]=records[i].batchSize;
-			final String[] expressions=new String[records.length];
-			for (int i=0;i<records.length;i++) expressions[i]=records[i].expression;
-			final String[] conditions=new String[records.length];
-			for (int i=0;i<records.length;i++) conditions[i]=records[i].condition;
-			final String[] thresholdExpressions=new String[records.length];
-			for (int i=0;i<records.length;i++) thresholdExpressions[i]=records[i].thresholdExpression;
-			final double[] thresholdValues=new double[records.length];
-			for (int i=0;i<records.length;i++) thresholdValues[i]=records[i].thresholdValue;
-			final boolean[] thresholdDirectionIsUp=new boolean[records.length];
-			for (int i=0;i<records.length;i++) thresholdDirectionIsUp[i]=records[i].thresholdDirectionUp;
-			final RunElementSourceRecord.SourceSetExpressions[] setData=new RunElementSourceRecord.SourceSetExpressions[records.length];
-			for (int i=0;i<records.length;i++) setData[i]=records[i].getRuntimeExpressions(simData.runModel.variableNames);
-			data=new RunElementSourceMultiData(this,batchSizes,expressions,conditions,thresholdExpressions,thresholdValues,thresholdDirectionIsUp,simData.runModel.variableNames,setData);
+			data=new RunElementSourceMultiData(this,simData,records,simData.runModel.variableNames);
 			simData.runData.setStationData(this,data);
 		}
 		return data;
@@ -146,10 +131,10 @@ public class RunElementSourceMulti extends RunElement implements StateChangeList
 	 */
 	public boolean scheduleNextArrival(final SimulationData simData, final boolean isFirstArrival, final int index) {
 		final RunElementSourceMultiData data=getData(simData);
-		final int count=records[index].scheduleNextArrival(simData,isFirstArrival,data.expression[index],data.condition[index],data.arrivalTime[index],this,name,data.arrivalCount[index],data.arrivalClientCount[index]);
+		final int count=records[index].scheduleNextArrival(simData,isFirstArrival,data.recordData[index],this,name);
 		if (count>0) {
-			data.arrivalCount[index]+=count;
-			data.arrivalTime[index]=simData.currentTime;
+			data.recordData[index].arrivalCount+=count;
+			data.recordData[index].arrivalTime=simData.currentTime;
 			return true;
 		} else {
 			return false;
@@ -187,9 +172,9 @@ public class RunElementSourceMulti extends RunElement implements StateChangeList
 
 		boolean batchArrivals=true;
 		final int batchSize;
-		if (data.batchSizes[index]!=null) {
-			if (data.batchSizes[index].isConstValue()) batchArrivals=(data.batchSizes[index].getConstValue()!=1.0);
-			batchSize=(int)Math.round(data.batchSizes[index].calcOrDefault(simData.runData.variableValues,-1));
+		if (data.recordData[index].batchSize!=null) {
+			if (data.recordData[index].batchSize.isConstValue()) batchArrivals=(data.recordData[index].batchSize.getConstValue()!=1.0);
+			batchSize=(int)Math.round(data.recordData[index].batchSize.calcOrDefault(simData.runData.variableValues,-1));
 			if (batchSize<=0) {
 				simData.doEmergencyShutDown(String.format(Language.tr("Simulation.Log.InvalidBatchSize"),name));
 				return;
@@ -197,7 +182,7 @@ public class RunElementSourceMulti extends RunElement implements StateChangeList
 		} else {
 			batchSize=records[index].getMultiBatchSize(simData);
 		}
-		data.arrivalClientCount[index]+=batchSize;
+		data.recordData[index].arrivalClientCount+=batchSize;
 
 		if (batchArrivals) {
 			/* Zwischenankunftszeiten auf Batch-Basis in der Statistik erfassen */
@@ -211,7 +196,7 @@ public class RunElementSourceMulti extends RunElement implements StateChangeList
 
 			/* Zahlen und Strings zuweisen */
 			records[index].writeStringsToClient(newClient);
-			data.setData[index].writeNumbersToClient(simData,newClient,name);
+			data.recordData[index].setData.writeNumbersToClient(simData,newClient,name);
 
 			/* Notify-System über Kundenankunft informieren */
 			newClient.nextStationID=id;
@@ -230,8 +215,10 @@ public class RunElementSourceMulti extends RunElement implements StateChangeList
 					simData.runData.isWarmUp=false;
 					simData.endWarmUp();
 					simData.runData.clientsArrived=0;
-					Arrays.fill(data.arrivalCount,0);
-					Arrays.fill(data.arrivalClientCount,0);
+					for (int j=0;j<data.recordData.length;j++) {
+						data.recordData[j].arrivalCount=0;
+						data.recordData[j].arrivalClientCount=0;
+					}
 					/* Logging */
 					if (simData.loggingActive) log(simData,Language.tr("Simulation.Log.WarmUpEnd"),Language.tr("Simulation.Log.WarmUpEnd.Info"));
 				}
@@ -256,11 +243,11 @@ public class RunElementSourceMulti extends RunElement implements StateChangeList
 			if (isLastClient && !simData.runData.isWarmUp && systemMaxArrival<=0 && simData.runModel.clientCount>=0) systemMaxArrival=FastMath.max(1000,FastMath.max(simData.runData.clientsArrived*3/2,2*simData.runModel.clientCount/simData.runModel.clientCountDiv));
 			if (simData.runData.isWarmUp || simData.runModel.clientCount<0 || systemMaxArrival<=0 || simData.runData.clientsArrived<systemMaxArrival) {
 				boolean done=false;
-				if (records[index].maxArrivalCount>=0 && data.arrivalCount[index]>=records[index].maxArrivalCount) {
+				if (records[index].maxArrivalCount>=0 && data.recordData[index].arrivalCount>=records[index].maxArrivalCount) {
 					done=true;
 					if (simData.loggingActive) log(simData,Language.tr("Simulation.Log.ArrivalCount"),String.format(Language.tr("Simulation.Log.ArrivalCount.Info"),name,records[index].maxArrivalCount));
 				}
-				if (records[index].maxArrivalClientCount>=0 && data.arrivalClientCount[index]>=records[index].maxArrivalClientCount) {
+				if (records[index].maxArrivalClientCount>=0 && data.recordData[index].arrivalClientCount>=records[index].maxArrivalClientCount) {
 					done=true;
 					if (simData.loggingActive) log(simData,Language.tr("Simulation.Log.ArrivalClientCount"),String.format(Language.tr("Simulation.Log.ArrivalClientCount.Info"),name,records[index].maxArrivalCount));
 				}
@@ -300,11 +287,11 @@ public class RunElementSourceMulti extends RunElement implements StateChangeList
 			}
 			if (records[i].thresholdExpression!=null) {
 				if (data==null) data=getData(simData);
-				if (data.checkThreshold(simData,i)) {
-					final int count=records[i].triggertByThreshold(simData,this,data.arrivalCount[i],data.arrivalClientCount[i]);
+				if (data.recordData[i].checkThreshold(simData,data)) {
+					final int count=records[i].triggertByThreshold(simData,this,data.recordData[i].arrivalCount,data.recordData[i].arrivalClientCount);
 					if (count>0) {
-						data.arrivalCount[i]+=count;
-						data.arrivalTime[i]=simData.currentTime;
+						data.recordData[i].arrivalCount+=count;
+						data.recordData[i].arrivalTime=simData.currentTime;
 						arrivalsScheduled=true;
 					}
 				}
@@ -317,10 +304,10 @@ public class RunElementSourceMulti extends RunElement implements StateChangeList
 	public void signalNotify(SimulationData simData, String signalName) {
 		final RunElementSourceMultiData data=getData(simData);
 		for (int i=0;i<records.length;i++) {
-			final int count=records[i].triggeredBySignal(simData,signalName,this,data.arrivalCount[i],data.arrivalClientCount[i]);
+			final int count=records[i].triggeredBySignal(simData,signalName,this,data.recordData[i].arrivalCount,data.recordData[i].arrivalClientCount);
 			if (count>0) {
-				data.arrivalCount[i]+=count;
-				data.arrivalTime[i]=simData.currentTime;
+				data.recordData[i].arrivalCount+=count;
+				data.recordData[i].arrivalTime=simData.currentTime;
 			}
 		}
 	}

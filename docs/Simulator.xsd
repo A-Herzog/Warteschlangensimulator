@@ -716,6 +716,7 @@
     <xs:element ref="ModellElementAnkunftsbedingung"/>
 	<xs:element ref="ModellElementAnkunftsschwellenwert"/>
 	<xs:element ref="ModellElementAnkunftssignal"/>
+	<xs:element ref="ModellElementIntervallAnzahl"/>
 	<xs:element ref="ModellElementBatch"/>
 	<xs:element name="ModellElementStartZeitpunkt" type="xs:string"/>
   </xs:choice></xs:sequence>
@@ -747,6 +748,11 @@
 	<xs:attribute name="Kundenanzahl" type="xs:string"/>
   </xs:extension>
 </xs:simpleContent></xs:complexType></xs:element>
+<xs:element name="ModellElementIntervallAnzahl"><xs:complexType><xs:simpleContent>
+  <xs:extension base="xs:string">
+	<xs:attribute name="Intervalldauer" type="xs:string"/>
+  </xs:extension>
+</xs:simpleContent></xs:complexType></xs:element>
 
 <xs:element name="ModellElementMehrfachQuelle"><xs:complexType><xs:complexContent><xs:extension base="ModellElementVerbundenBasis">
   <xs:sequence minOccurs="0" maxOccurs="unbounded"><xs:choice>
@@ -764,6 +770,7 @@
     <xs:element ref="ModellElementAnkunftsbedingung"/>
 	<xs:element ref="ModellElementAnkunftsschwellenwert"/>
 	<xs:element ref="ModellElementAnkunftssignal"/>
+	<xs:element ref="ModellElementIntervallAnzahl"/>
 	<xs:element ref="ModellElementBatch"/>
 	<xs:element name="ModellElementStartZeitpunkt" type="xs:string"/>
 	<xs:element ref="ModellElementVariablenzuweisung"/>
@@ -2924,6 +2931,7 @@
     <xs:element ref="ModelElementArrivalCondition"/>
 	<xs:element ref="ModelElementArrivalThreshold"/>
 	<xs:element ref="ModelElementArrivalSignal"/>
+	<xs:element ref="ModelElementCountPerInterval"/>
 	<xs:element ref="ModelElementBatchData"/>
 	<xs:element name="ModelElementStartTime" type="xs:string"/>
   </xs:choice></xs:sequence>
@@ -2955,6 +2963,11 @@
 	<xs:attribute name="ClientCount" type="xs:string"/>
   </xs:extension>
 </xs:simpleContent></xs:complexType></xs:element>
+<xs:element name="ModelElementCountPerInterval"><xs:complexType><xs:simpleContent>
+  <xs:extension base="xs:string">
+	<xs:attribute name="IntervalDuration" type="xs:string"/>
+  </xs:extension>
+</xs:simpleContent></xs:complexType></xs:element>
 
 <xs:element name="ModelElementMultiSource"><xs:complexType><xs:complexContent><xs:extension base="ModelElementConnectedBase">
   <xs:sequence minOccurs="0" maxOccurs="unbounded"><xs:choice>
@@ -2973,6 +2986,7 @@
 	<xs:element ref="ModelElementArrivalThreshold"/>
 	<xs:element ref="ModelElementArrivalSignal"/>
 	<xs:element ref="ModelElementBatchData"/>
+	<xs:element ref="ModelElementCountPerInterval"/>
 	<xs:element name="ModelElementStartTime" type="xs:string"/>
 	<xs:element ref="ModelElementAssignmentData"/>
 	<xs:element ref="ModelElementAssignmentTextRecord"/>
