@@ -2994,6 +2994,7 @@ public class MainPanel extends MainPanelBase {
 				editorPanel.getRaster(),
 				editorPanel.getTopPosition(),
 				()->{
+					reloadSetup();
 					editorPanel.setZoom(animationPanel.getZoom());
 					editorPanel.setTopPosition(animationPanel.getTopPosition());
 					if (animationPanel.isSimulationSuccessful()) {
