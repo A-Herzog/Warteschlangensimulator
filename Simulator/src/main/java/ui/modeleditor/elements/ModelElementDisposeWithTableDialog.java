@@ -117,7 +117,7 @@ public class ModelElementDisposeWithTableDialog extends ModelElementBaseDialog {
 		});
 		FileDropper.addFileDropper(this,clientsOutputTable);
 
-		final JButton button=new JButton("",Images.GENERAL_SELECT_TABLE_IN_FILE.getIcon());
+		final JButton button=new JButton("",Images.GENERAL_SELECT_FILE.getIcon());
 		button.setToolTipText(Language.tr("Surface.Dispose.Dialog.Table.Select"));
 		line.add(button,BorderLayout.EAST);
 		button.addActionListener(e->selectTable());

@@ -119,7 +119,7 @@ public class RunElementDisposeWithTable extends RunElement {
 	private String getOutputTableLine(final SimulationData simData, final RunDataClient client) {
 		final StringBuilder result=new StringBuilder();
 		/* Zeitpunkt */
-		result.append(NumberTools.formatSystemNumber(simData.currentTime/1000.0));
+		result.append(NumberTools.formatNumberMax(simData.currentTime/1000.0));
 
 		/* Kundentyp */
 		result.append(";");
@@ -127,7 +127,7 @@ public class RunElementDisposeWithTable extends RunElement {
 
 		/* Numerische Kundendaten */
 		final int maxIndex=client.getMaxUserDataIndex();
-		for (int i=0;i<maxIndex;i++) {
+		for (int i=0;i<=maxIndex;i++) {
 			final double value=client.getUserData(i);
 			if (value!=0.0) {
 				result.append(";");
@@ -195,7 +195,7 @@ public class RunElementDisposeWithTable extends RunElement {
 	private String getOutputString(final SimulationData simData, final RunDataClient client) {
 		final StringBuilder result=new StringBuilder();
 		/* Zeitpunkt */
-		result.append(NumberTools.formatSystemNumber(simData.currentTime/1000.0));
+		result.append(NumberTools.formatNumberMax(simData.currentTime/1000.0));
 
 		/* Kundentyp */
 		result.append("\t");
@@ -203,7 +203,7 @@ public class RunElementDisposeWithTable extends RunElement {
 
 		/* Numerische Kundendaten */
 		final int maxIndex=client.getMaxUserDataIndex();
-		for (int i=0;i<maxIndex;i++) {
+		for (int i=0;i<=maxIndex;i++) {
 			final double value=client.getUserData(i);
 			if (value!=0.0) {
 				result.append("\t");
@@ -218,7 +218,7 @@ public class RunElementDisposeWithTable extends RunElement {
 		for (String key: client.getUserDataStringKeys()) {
 			final String value=client.getUserDataString(key);
 			if (value==null || value.isEmpty()) continue;
-			result.append(";");
+			result.append("\t");
 			result.append("ClientData('");
 			result.append(key);
 			result.append("')=");
