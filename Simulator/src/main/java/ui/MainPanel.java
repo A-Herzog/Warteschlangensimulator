@@ -160,6 +160,7 @@ import ui.help.Help;
 import ui.images.Images;
 import ui.infopanel.InfoPanel;
 import ui.inputprocessor.ClientInputTableDialog;
+import ui.inputprocessor.ClientOutputTableDialog;
 import ui.modeleditor.AnimationImageDialog;
 import ui.modeleditor.FilePathHelper;
 import ui.modeleditor.ModelLoadData;
@@ -727,6 +728,7 @@ public class MainPanel extends MainPanelBase {
 		addAction("ExtrasQueueingCalculator",e->commandExtrasQueueingCalculator());
 		addAction("ExtrasFit",e->commandExtrasFit());
 		addAction("ExtrasInputTableProcessor",e->commandExtrasInputTableProcessor());
+		addAction("ExtrasOutputTableProcessor",e->commandExtrasOutputTableProcessor());
 		addAction("ExtrasTestDatabaseConnection",e->commandExtrasTestDatabaseConnection());
 		addAction("ExtrasBatchProcessing",e->commandExtrasBatchProcessing());
 		addAction("ExtrasExecuteCommand",e->commandExtrasExecuteCommand());
@@ -1347,6 +1349,7 @@ public class MainPanel extends MainPanelBase {
 		menu.addSeparator();
 		createMenuItem(menu,Language.tr("Main.Menu.Extras.FitDistribution"),Images.EXTRAS_FIT_DISTRIBUTION.getIcon(),Language.tr("Main.Menu.Extras.FitDistribution.Mnemonic"),"ExtrasFit");
 		createMenuItem(menu,Language.tr("Main.Menu.Extras.InputTableProcessor"),Images.GENERAL_TABLE.getIcon(),Language.tr("Main.Menu.Extras.InputTableProcessor.Mnemonic"),"ExtrasInputTableProcessor");
+		createMenuItem(menu,Language.tr("Main.Menu.Extras.OutputTableProcessor"),Language.tr("Main.Menu.Extras.OutputTableProcessor.Mnemonic"),"ExtrasOutputTableProcessor");
 		menu.addSeparator();
 		createMenuItem(menu,Language.tr("Main.Menu.Extras.TestDatabaseConnection"),Images.EXTRAS_DATABASE_TEST.getIcon(),Language.tr("Main.Menu.Extras.TestDatabaseConnection.Mnemonic"),"ExtrasTestDatabaseConnection");
 		createMenuItem(menu,Language.tr("Main.Menu.Extras.BatchProcessing"),Images.EXTRAS_BATCH_PROCESSING.getIcon(),Language.tr("Main.Menu.Extras.BatchProcessing.Mnemonic"),"ExtrasBatchProcessing");
@@ -3666,10 +3669,17 @@ public class MainPanel extends MainPanelBase {
 	}
 
 	/**
-	 * Befehl: Extras- Tabelle für Tabellenquelle aufbereiten
+	 * Befehl: Extras - Tabelle für Tabellenquelle aufbereiten
 	 */
 	private void commandExtrasInputTableProcessor() {
 		new ClientInputTableDialog(this);
+	}
+
+	/**
+	 * Befehl: Extras - Ausgabetabelle aufbereiten
+	 */
+	private void commandExtrasOutputTableProcessor() {
+		new ClientOutputTableDialog(this);
 	}
 
 	/**

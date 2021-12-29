@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-12-25 16:00+0100\n"
+"POT-Creation-Date: 2021-12-27 00:25+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -2088,6 +2088,25 @@ msgstr "Die Parameterreihen-Konfiguration konnte nicht in %s gespeichert werden.
 
 msgid "CommandLine.ParameterCompareVariance.SaveOk"
 msgstr "Die Parameterreihen-Konfiguration wurde in %s gespeichert."
+
+msgid "CommandLine.ProcessOutput.Description.Long"
+msgstr ""
+"Dieser Befehl erwartet zwei weitere Parameter:\n"
+"1. Eingabe-Tabellendatei\n"
+"2. Eingabe-Tabelledatei\n"
+"Die Eingabedatei muss existieren, die Ausgabedatei darf nicht existieren."
+
+msgid "CommandLine.ProcessOutput.Description.Short"
+msgstr "Verarbeitet eine an einer Speichern+Ausgang-Station erzeugte Tabelle."
+
+msgid "CommandLine.ProcessOutput.ErrorLoadingInputTable"
+msgstr "Das Lesen der Eingabedatei ist fehlgeschlagen."
+
+msgid "CommandLine.ProcessOutput.ErrorSavingOutputTable"
+msgstr "Das Speichern der Ausgabedatei ist fehlgeschlagen."
+
+msgid "CommandLine.ProcessOutput.Name"
+msgstr "Ausgabetabelle"
 
 msgid "CommandLine.Report.Description.Short"
 msgstr "Exportiert einen Teil oder die gesamten Simulationsergebnisse für ein Modell."
@@ -9213,6 +9232,12 @@ msgstr "A"
 msgid "Main.Menu.Extras.Mnemonic"
 msgstr "X"
 
+msgid "Main.Menu.Extras.OutputTableProcessor"
+msgstr "Ausgabetabelle aufbereiten..."
+
+msgid "Main.Menu.Extras.OutputTableProcessor.Mnemonic"
+msgstr "A"
+
 msgid "Main.Menu.Extras.QueueingCalculator"
 msgstr "Warteschlangenrechner..."
 
@@ -13902,6 +13927,87 @@ msgstr ""
 
 msgid "ProblemReporter.SaveError.Title"
 msgstr "Speichern fehlgeschlagen"
+
+msgid "ProcessClientOutputTable.ColumnHeader.ArrivalTime"
+msgstr "Ankunftszeit"
+
+msgid "ProcessClientOutputTable.ColumnHeader.ClientType"
+msgstr "Kundentyp"
+
+msgid "ProcessClientOutputTable.ColumnHeader.ProcessTime"
+msgstr "Bedienzeit"
+
+msgid "ProcessClientOutputTable.ColumnHeader.ProcessTimeCosts"
+msgstr "Kosten für Bedienzeit"
+
+msgid "ProcessClientOutputTable.ColumnHeader.TransferTime"
+msgstr "Transportzeit"
+
+msgid "ProcessClientOutputTable.ColumnHeader.TransferTimeCosts"
+msgstr "Kosten für Transportzeit"
+
+msgid "ProcessClientOutputTable.ColumnHeader.WaitingTime"
+msgstr "Wartezeit"
+
+msgid "ProcessClientOutputTable.ColumnHeader.WaitingTimeCosts"
+msgstr "Kosten für Wartezeit"
+
+msgid "ProcessClientOutputTable.DialogHint"
+msgstr "In diesem Dialog können Tabellen, die von einer Speichern+Ausgang-Station erzeugt wurden, in normale Tabellen mit Spaltenüberschriften umgewandelt werden."
+
+msgid "ProcessClientOutputTable.InputTable"
+msgstr "Eingabetabelle"
+
+msgid "ProcessClientOutputTable.InputTable.Error.DoesNotExist.Info"
+msgstr ""
+"Die angegebene Eingabetabelle\n"
+"%s\n"
+"existiert nicht."
+
+msgid "ProcessClientOutputTable.InputTable.Error.DoesNotExist.Title"
+msgstr "Eingabetabelle existiert nicht"
+
+msgid "ProcessClientOutputTable.InputTable.Error.Load.Info"
+msgstr ""
+"Das Laden der Eingabetabelle aus der Datei\n"
+"%s\n"
+"ist fehlgeschlagen."
+
+msgid "ProcessClientOutputTable.InputTable.Error.Load.Title"
+msgstr "Laden der Eingabetabelle fehlgeschlagen"
+
+msgid "ProcessClientOutputTable.InputTable.Error.NoFile.Info"
+msgstr "Es wurde keine Dateiname für die Eingabetabelle angegeben."
+
+msgid "ProcessClientOutputTable.InputTable.Error.NoFile.Title"
+msgstr "Keine Eingabetabelle angegeben"
+
+msgid "ProcessClientOutputTable.InputTable.Select"
+msgstr "Eingabetabelle auswählen"
+
+msgid "ProcessClientOutputTable.OutputTable"
+msgstr "Ausgabetabelle"
+
+msgid "ProcessClientOutputTable.OutputTable.Error.NoFile.Info"
+msgstr "Es wurde keine Dateiname für die Ausgabetabelle angegeben."
+
+msgid "ProcessClientOutputTable.OutputTable.Error.NoFile.Title"
+msgstr "Keine Ausgabetabelle angegeben"
+
+msgid "ProcessClientOutputTable.OutputTable.Error.Save.Info"
+msgstr ""
+"Das Speichern der Ausgabetabelle in der Datei\n"
+"%s\n"
+"ist fehlgeschlagen."
+
+msgid "ProcessClientOutputTable.OutputTable.Error.Save.Title"
+msgstr "Speichern der Ausgabetabelle fehlgeschlagen"
+
+msgid "ProcessClientOutputTable.OutputTable.Select"
+msgstr "Ausgabetabelle auswählen"
+
+msgid "ProcessClientOutputTable.Title"
+msgstr "Ausgabetabelle aufbereiten"
 
 msgid "ProxySettings.ProxyHost"
 msgstr "Adresse des HTTPS-Proxy-Servers"

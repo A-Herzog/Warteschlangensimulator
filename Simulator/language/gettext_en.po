@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-12-25 16:00+0100\n"
+"POT-Creation-Date: 2021-12-27 00:25+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -2088,6 +2088,25 @@ msgstr "The parameter series configuration could not be saved in %s."
 
 msgid "CommandLine.ParameterCompareVariance.SaveOk"
 msgstr "The parameter series configuration was saved in %s."
+
+msgid "CommandLine.ProcessOutput.Description.Long"
+msgstr ""
+"This command expects two additional parameters:\n"
+"1. Input table file\n"
+"3. Output table file\n"
+"The input file has to be existent, the output file has to be non existent."
+
+msgid "CommandLine.ProcessOutput.Description.Short"
+msgstr "Processes an output table generated at a Save+Exit station."
+
+msgid "CommandLine.ProcessOutput.ErrorLoadingInputTable"
+msgstr "Reading the input file failed."
+
+msgid "CommandLine.ProcessOutput.ErrorSavingOutputTable"
+msgstr "Saving the output file failed."
+
+msgid "CommandLine.ProcessOutput.Name"
+msgstr "Outputtable"
 
 msgid "CommandLine.Report.Description.Short"
 msgstr "Exports the whole report or a part of it."
@@ -9221,6 +9240,12 @@ msgstr "K"
 msgid "Main.Menu.Extras.Mnemonic"
 msgstr "X"
 
+msgid "Main.Menu.Extras.OutputTableProcessor"
+msgstr "Process output table..."
+
+msgid "Main.Menu.Extras.OutputTableProcessor.Mnemonic"
+msgstr "o"
+
 msgid "Main.Menu.Extras.QueueingCalculator"
 msgstr "Queueing calculator..."
 
@@ -13901,6 +13926,87 @@ msgstr ""
 
 msgid "ProblemReporter.SaveError.Title"
 msgstr "Saving failed"
+
+msgid "ProcessClientOutputTable.ColumnHeader.ArrivalTime"
+msgstr "Arrival time"
+
+msgid "ProcessClientOutputTable.ColumnHeader.ClientType"
+msgstr "Client type"
+
+msgid "ProcessClientOutputTable.ColumnHeader.ProcessTime"
+msgstr "Service time"
+
+msgid "ProcessClientOutputTable.ColumnHeader.ProcessTimeCosts"
+msgstr "Service time costs"
+
+msgid "ProcessClientOutputTable.ColumnHeader.TransferTime"
+msgstr "Transfer time"
+
+msgid "ProcessClientOutputTable.ColumnHeader.TransferTimeCosts"
+msgstr "Transfer time costs"
+
+msgid "ProcessClientOutputTable.ColumnHeader.WaitingTime"
+msgstr "Waiting time"
+
+msgid "ProcessClientOutputTable.ColumnHeader.WaitingTimeCosts"
+msgstr "Waiting time costs"
+
+msgid "ProcessClientOutputTable.DialogHint"
+msgstr "In this dialog, tables created by a Save+Exit station can be converted into normal tables with column headers."
+
+msgid "ProcessClientOutputTable.InputTable"
+msgstr "Input table"
+
+msgid "ProcessClientOutputTable.InputTable.Error.DoesNotExist.Info"
+msgstr ""
+"The specified input table\n"
+"%s\n"
+"does not exist."
+
+msgid "ProcessClientOutputTable.InputTable.Error.DoesNotExist.Title"
+msgstr "Input table does not exist"
+
+msgid "ProcessClientOutputTable.InputTable.Error.Load.Info"
+msgstr ""
+"Loading the input table from\n"
+"%s\n"
+"failed."
+
+msgid "ProcessClientOutputTable.InputTable.Error.Load.Title"
+msgstr "Loading input table failed"
+
+msgid "ProcessClientOutputTable.InputTable.Error.NoFile.Info"
+msgstr "No file name was specified for the input table."
+
+msgid "ProcessClientOutputTable.InputTable.Error.NoFile.Title"
+msgstr "No input table"
+
+msgid "ProcessClientOutputTable.InputTable.Select"
+msgstr "Select input table"
+
+msgid "ProcessClientOutputTable.OutputTable"
+msgstr "Output table"
+
+msgid "ProcessClientOutputTable.OutputTable.Error.NoFile.Info"
+msgstr "No file name was specified for the output table."
+
+msgid "ProcessClientOutputTable.OutputTable.Error.NoFile.Title"
+msgstr "No output table"
+
+msgid "ProcessClientOutputTable.OutputTable.Error.Save.Info"
+msgstr ""
+"Saving the output table to\n"
+"%s\n"
+"failed."
+
+msgid "ProcessClientOutputTable.OutputTable.Error.Save.Title"
+msgstr "Saving output table failed"
+
+msgid "ProcessClientOutputTable.OutputTable.Select"
+msgstr "Select output table"
+
+msgid "ProcessClientOutputTable.Title"
+msgstr "Process output table"
 
 msgid "ProxySettings.ProxyHost"
 msgstr "Address of https proxy server"

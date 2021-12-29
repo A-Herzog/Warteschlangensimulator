@@ -58,6 +58,7 @@ public class CommandLineSystem extends BaseCommandLineSystem {
 		list.add(new CommandReport());
 		list.add(new CommandReset());
 		list.add(new CommandFilter());
+		list.add(new CommandProcessOutput());
 		list.add(new CommandOptimizer());
 		list.add(new CommandServer());
 		list.add(new CommandServerLimited());
