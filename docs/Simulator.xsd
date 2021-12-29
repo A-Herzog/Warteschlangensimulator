@@ -1735,6 +1735,7 @@
 	<xs:element name="ModellElementHintergrundfarbe" type="xs:string"/>	
     <xs:element ref="ModellElementDiagrammElement"/>
 	<xs:element name="ModellElementSegmentBeschriftung" type="xs:string"/>
+	<xs:element name="ModellElementSegmentDarstellung" type="xs:string"/>
   </xs:choice></xs:sequence>
 </xs:extension></xs:complexContent></xs:complexType></xs:element>
 
@@ -3950,6 +3951,7 @@
 	<xs:element name="ModelElementBackgroundColor" type="xs:string"/>	
     <xs:element ref="ModelElementDiagramElement"/>
 	<xs:element name="ModelElementSegmentLabel" type="xs:string"/>
+	<xs:element name="ModelElementSegmentDisplay" type="xs:string"/>
   </xs:choice></xs:sequence>
 </xs:extension></xs:complexContent></xs:complexType></xs:element>
 

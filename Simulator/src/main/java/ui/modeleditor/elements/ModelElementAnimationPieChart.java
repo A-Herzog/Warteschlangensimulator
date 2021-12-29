@@ -71,7 +71,6 @@ public class ModelElementAnimationPieChart extends ModelElementPosition implemen
 
 	/**
 	 * Beschriftungen an den Tortensegmenten anzeigen
-	 * @author Alexander Herzog
 	 * @see ModelElementAnimationPieChart#getLabelMode()
 	 * @see ModelElementAnimationPieChart#setLabelMode(LabelMode)
 	 */
@@ -82,6 +81,18 @@ public class ModelElementAnimationPieChart extends ModelElementPosition implemen
 		BIG_PARTS,
 		/** Beschriftungen an allen Tortensegmenten */
 		ALL_PARTS
+	}
+
+	/**
+	 * Darstellungsart
+	 * @see ModelElementAnimationPieChart#getDiagramDrawMode()
+	 * @see ModelElementAnimationPieChart#setDiagramDrawMode(DrawMode)
+	 */
+	public enum DrawMode {
+		/** Mit Loch in der Mitte */
+		PIE,
+		/** Als klassisches Tortendiagramm */
+		DONUT
 	}
 
 	/**
@@ -110,8 +121,17 @@ public class ModelElementAnimationPieChart extends ModelElementPosition implemen
 	 */
 	private final List<Color> expressionColor=new ArrayList<>();
 
-	/** Beschriftungen an den Tortensegmenten anzeigen */
+	/**
+	 * Beschriftungen an den Tortensegmenten anzeigen
+	 * @see LabelMode
+	 */
 	private LabelMode labelMode;
+
+	/**
+	 * Darstellungsart
+	 * @see DrawMode
+	 */
+	private DrawMode drawMode;
 
 	/**
 	 * Breite der Linie
@@ -150,6 +170,7 @@ public class ModelElementAnimationPieChart extends ModelElementPosition implemen
 		super(model,surface,new Dimension(75,75),Shapes.ShapeType.SHAPE_NONE);
 		filler=null;
 		labelMode=LabelMode.BIG_PARTS;
+		drawMode=DrawMode.PIE;
 	}
 
 	/**
@@ -214,6 +235,7 @@ public class ModelElementAnimationPieChart extends ModelElementPosition implemen
 	/**
 	 * Liefert die eingestellte Beschriftungsart für die Tortensegmente.
 	 * @return	Beschriftungsart für die Tortensegmente
+	 * @see #setLabelMode(LabelMode)
 	 * @see ModelElementAnimationPieChart.LabelMode
 	 */
 	public LabelMode getLabelMode() {
@@ -223,10 +245,32 @@ public class ModelElementAnimationPieChart extends ModelElementPosition implemen
 	/**
 	 * Stellt eine neue Beschriftungsart für die Tortensegmente ein.
 	 * @param labelMode	Beschriftungsart für die Tortensegmente
+	 * @see #getLabelMode()
 	 * @see ModelElementAnimationPieChart.LabelMode
 	 */
 	public void setLabelMode(final LabelMode labelMode) {
 		if (labelMode!=null) this.labelMode=labelMode;
+		fireChanged();
+	}
+
+	/**
+	 * Liefert die aktuelle Darstellungsart.
+	 * @return	Darstellungsart
+	 * @see #setDiagramDrawMode(DrawMode)
+	 * @see ModelElementAnimationPieChart.DrawMode
+	 */
+	public DrawMode getDiagramDrawMode() {
+		return drawMode;
+	}
+
+	/**
+	 * Stellt die Darstellungsart ein.
+	 * @param drawMode	Darstellungsart
+	 * @see #getDiagramDrawMode()
+	 * @see ModelElementAnimationPieChart.DrawMode
+	 */
+	public void setDiagramDrawMode(DrawMode drawMode) {
+		if (drawMode!=null) this.drawMode=drawMode;
 		fireChanged();
 	}
 
@@ -299,6 +343,7 @@ public class ModelElementAnimationPieChart extends ModelElementPosition implemen
 		for (int i=0;i<expressionColor.size();i++) if (!expressionColor.get(i).equals(other.expressionColor.get(i))) return false;
 
 		if (labelMode!=other.labelMode) return false;
+		if (drawMode!=other.drawMode) return false;
 
 		if (borderWidth!=other.borderWidth) return false;
 		if (!other.borderColor.equals(borderColor)) return false;
@@ -324,6 +369,7 @@ public class ModelElementAnimationPieChart extends ModelElementPosition implemen
 			expressionColor.addAll(source.expressionColor);
 
 			labelMode=source.labelMode;
+			drawMode=source.drawMode;
 
 			borderWidth=source.borderWidth;
 			borderColor=source.borderColor;
@@ -473,20 +519,38 @@ public class ModelElementAnimationPieChart extends ModelElementPosition implemen
 	 * @param rectangle	Ausgaberechteck
 	 * @param angle	Winkel an dem die Beschriftung angezeigt werden soll
 	 * @param value	Anzuzeigender Wert
+	 * @param donutMode	 Handelt es sich bei dem Diagramm um Kreissegmente (<code>false</code>) oder Ringsemgente (<code>true</code>)
 	 */
-	private void drawLabel(final Graphics2D g, final Rectangle rectangle, final int angle, final double value) {
+	private void drawLabel(final Graphics2D g, final Rectangle rectangle, final int angle, final double value, final boolean donutMode) {
 		final String text=NumberTools.formatPercent(value,0);
 		final FontMetrics metrics=g.getFontMetrics();
 		final int ascent=metrics.getAscent();
 		final int descent=metrics.getDescent();
 		final int width=g.getFontMetrics().stringWidth(text);
 
-		final int mx=(int)Math.round(rectangle.x+rectangle.width*(0.5+0.33*Math.cos(angle*Math.PI/180)));
-		final int my=(int)Math.round(rectangle.y+rectangle.height*(0.5-0.33*Math.sin(angle*Math.PI/180)));
+		final double moveFactor=donutMode?0.38:0.33;
+		final int mx=(int)Math.round(rectangle.x+rectangle.width*(0.5+moveFactor*Math.cos(angle*Math.PI/180)));
+		final int my=(int)Math.round(rectangle.y+rectangle.height*(0.5-moveFactor*Math.sin(angle*Math.PI/180)));
 
 		g.setColor(Color.BLACK);
 		g.drawString(text,mx-width/2,my-(ascent+descent)/2+ascent);
 	}
+
+	/**
+	 * Stiftobjekt zum Zeichnen der Kreissegmente
+	 * @see #lastStrokeWidth
+	 * @see #drawDiagramSegments(Graphics2D, Rectangle, double)
+	 * @see #drawDummyDiagramSegments(Graphics2D, Rectangle, double)
+	 */
+	private BasicStroke lastStroke;
+
+	/**
+	 * Aktuelle Linienbreite für {@link #lastStroke}
+	 * @see #lastStroke
+	 * @see #drawDiagramSegments(Graphics2D, Rectangle, double)
+	 * @see #drawDummyDiagramSegments(Graphics2D, Rectangle, double)
+	 */
+	private int lastStrokeWidth;
 
 	/**
 	 * Zeichnet Dummy-Segmente während der Editor aktiv ist (und noch keine Animationsdaten vorliegen)
@@ -504,16 +568,34 @@ public class ModelElementAnimationPieChart extends ModelElementPosition implemen
 			for (int i=0;i<filler.length;i++) filler[i]=new GradientFill(false);
 		}
 
-		g.setFont(FontCache.getFontCache().getFont(FontCache.defaultFamily,0,(int)FastMath.round(11*zoom)));
+		g.setFont(FontCache.getFontCache().getFont(FontCache.defaultFamily,0,(int)FastMath.round(11*zoom*Math.min(rectangle.width,rectangle.height)/100)));
+
+		if (drawMode==DrawMode.DONUT) {
+			int strokeWidth=2*Math.min(rectangle.width,rectangle.height)/7;
+			if (lastStroke==null || lastStrokeWidth!=strokeWidth) {
+				lastStroke=new BasicStroke(strokeWidth,BasicStroke.CAP_BUTT,BasicStroke.JOIN_MITER);
+				lastStrokeWidth=strokeWidth;
+			}
+			g.setStroke(lastStroke);
+		}
 
 		int startAngle=90;
 		for (int i=0;i<dummyValue.length;i++) {
 			final double value=dummyValue[i]/sum;
 			final int angle=-(int)Math.round(value*360);
+
 			filler[i].set(g,rectangle,dummyColor[i%dummyColor.length],true);
-			g.fillArc(rectangle.x+1,rectangle.y+1,rectangle.width-2,rectangle.height-2,startAngle,angle);
+			switch (drawMode) {
+			case PIE:
+				g.fillArc(rectangle.x+1,rectangle.y+1,rectangle.width-2,rectangle.height-2,startAngle,angle);
+				break;
+			case DONUT:
+				g.drawArc(rectangle.x+1+lastStrokeWidth/2,rectangle.y+1+lastStrokeWidth/2,rectangle.width-2-lastStrokeWidth,rectangle.height-2-lastStrokeWidth,startAngle,angle);
+				break;
+			}
+
 			if (labelMode==LabelMode.ALL_PARTS || (labelMode==LabelMode.BIG_PARTS && value>=0.2)) {
-				drawLabel(g,rectangle,startAngle+angle/2,value);
+				drawLabel(g,rectangle,startAngle+angle/2,value,true);
 			}
 			startAngle+=angle;
 		}
@@ -542,16 +624,34 @@ public class ModelElementAnimationPieChart extends ModelElementPosition implemen
 				for (int i=0;i<filler.length;i++) filler[i]=new GradientFill(false);
 			}
 
-			g.setFont(FontCache.getFontCache().getFont(FontCache.defaultFamily,0,(int)FastMath.round(11*zoom)));
+			g.setFont(FontCache.getFontCache().getFont(FontCache.defaultFamily,0,(int)FastMath.round(11*zoom*Math.min(rectangle.width,rectangle.height)/100)));
+
+			if (drawMode==DrawMode.DONUT) {
+				int strokeWidth=2*Math.min(rectangle.width,rectangle.height)/7;
+				if (lastStroke==null || lastStrokeWidth!=strokeWidth) {
+					lastStroke=new BasicStroke(strokeWidth,BasicStroke.CAP_BUTT,BasicStroke.JOIN_MITER);
+					lastStrokeWidth=strokeWidth;
+				}
+				g.setStroke(lastStroke);
+			}
 
 			int startAngle=90;
 			for (int i=0;i<recordedValues.length;i++) {
 				final double value=recordedValues[i]/sum;
 				final int angle=-(int)Math.round(value*360);
+
 				filler[i].set(g,rectangle,expressionColor.get(i),true);
-				g.fillArc(rectangle.x+1,rectangle.y+1,rectangle.width-2,rectangle.height-2,startAngle,angle);
+				switch (drawMode) {
+				case PIE:
+					g.fillArc(rectangle.x+1,rectangle.y+1,rectangle.width-2,rectangle.height-2,startAngle,angle);
+					break;
+				case DONUT:
+					g.drawArc(rectangle.x+1+lastStrokeWidth/2,rectangle.y+1+lastStrokeWidth/2,rectangle.width-2-lastStrokeWidth,rectangle.height-2-lastStrokeWidth,startAngle,angle);
+					break;
+				}
+
 				if (labelMode==LabelMode.ALL_PARTS || (labelMode==LabelMode.BIG_PARTS && value>=0.2)) {
-					drawLabel(g,rectangle,startAngle+angle/2,value);
+					drawLabel(g,rectangle,startAngle+angle/2,value,false);
 				}
 				startAngle+=angle;
 			}
@@ -681,11 +781,17 @@ public class ModelElementAnimationPieChart extends ModelElementPosition implemen
 
 		sub=doc.createElement(Language.trPrimary("Surface.AnimationPieChart.XML.LabelMode"));
 		node.appendChild(sub);
-		node.appendChild(sub);
 		switch (labelMode) {
 		case NO_LABELS: sub.setTextContent(Language.trPrimary("Surface.AnimationPieChart.XML.LabelMode.NoLabels")); break;
 		case BIG_PARTS: sub.setTextContent(Language.trPrimary("Surface.AnimationPieChart.XML.LabelMode.BigParts")); break;
 		case ALL_PARTS: sub.setTextContent(Language.trPrimary("Surface.AnimationPieChart.XML.LabelMode.AllParts")); break;
+		}
+
+		sub=doc.createElement(Language.trPrimary("Surface.AnimationPieChart.XML.DiagramDrawMode"));
+		node.appendChild(sub);
+		switch (drawMode) {
+		case PIE: sub.setTextContent(Language.trPrimary("Surface.AnimationPieChart.XML.DiagramDrawMode.Pie")); break;
+		case DONUT: sub.setTextContent(Language.trPrimary("Surface.AnimationPieChart.XML.DiagramDrawMode.Donut")); break;
 		}
 
 		for (int i=0;i<expression.size();i++) {
@@ -750,6 +856,13 @@ public class ModelElementAnimationPieChart extends ModelElementPosition implemen
 			if (Language.trAll("Surface.AnimationPieChart.XML.LabelMode.NoLabels",content)) labelMode=LabelMode.NO_LABELS;
 			if (Language.trAll("Surface.AnimationPieChart.XML.LabelMode.BigParts",content)) labelMode=LabelMode.BIG_PARTS;
 			if (Language.trAll("Surface.AnimationPieChart.XML.LabelMode.AllParts",content)) labelMode=LabelMode.ALL_PARTS;
+			return null;
+		}
+
+		if (Language.trAll("Surface.AnimationPieChart.XML.DiagramDrawMode",name)) {
+			if (Language.trAll("Surface.AnimationPieChart.XML.DiagramDrawMode.Pie",content)) drawMode=DrawMode.PIE;
+			if (Language.trAll("Surface.AnimationPieChart.XML.DiagramDrawMode.Donut",content)) drawMode=DrawMode.DONUT;
+			return null;
 		}
 
 		return null;

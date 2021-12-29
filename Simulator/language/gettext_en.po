@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-12-27 00:25+0100\n"
+"POT-Creation-Date: 2021-12-29 03:16+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -22893,7 +22893,16 @@ msgid "Surface.AnimationPieChart.Dialog.Appearance.FrameWidth"
 msgstr "Frame width"
 
 msgid "Surface.AnimationPieChart.Dialog.Data"
-msgstr "Daten"
+msgstr "Data"
+
+msgid "Surface.AnimationPieChart.Dialog.DiagrameType"
+msgstr "Diagram type"
+
+msgid "Surface.AnimationPieChart.Dialog.DiagrameType.Donut"
+msgstr "Ring segments"
+
+msgid "Surface.AnimationPieChart.Dialog.DiagrameType.Pie"
+msgstr "Circle segments"
 
 msgid "Surface.AnimationPieChart.Dialog.LabelMode"
 msgstr "Labeling of the segments"
@@ -22921,6 +22930,15 @@ msgstr "Pie chart that is updated during the animation of the model"
 
 msgid "Surface.AnimationPieChart.XML.BackgroundColor"
 msgstr "ModelElementBackgroundColor"
+
+msgid "Surface.AnimationPieChart.XML.DiagramDrawMode"
+msgstr "ModelElementSegmentDisplay"
+
+msgid "Surface.AnimationPieChart.XML.DiagramDrawMode.Donut"
+msgstr "RingSegment"
+
+msgid "Surface.AnimationPieChart.XML.DiagramDrawMode.Pie"
+msgstr "CircleSegment"
 
 msgid "Surface.AnimationPieChart.XML.LabelMode"
 msgstr "ModelElementSegmentLabel"

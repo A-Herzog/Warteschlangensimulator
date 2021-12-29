@@ -1738,6 +1738,9 @@ public enum Images {
 	/** Symbol "Modelleditor - Gruppe 'Animation' - Element 'Simulationsdatentortendiagramm'" */
 	MODELEDITOR_ELEMENT_ANIMATION_PIE_CHART("chart_pie.png"),
 
+	/** Symbol "Modelleditor - Gruppe 'Animation' - Element 'Simulationsdatentortendiagramm'" - Modus: Ringdiagramm */
+	MODELEDITOR_ELEMENT_ANIMATION_DONUT_CHART("chart_donut.png"),
+
 	/** Symbol "Modelleditor - Gruppe 'Animation' - Element 'Simulationsdatentortendiagramm' - Segment hinzufügen" */
 	MODELEDITOR_ELEMENT_ANIMATION_PIE_CHART_ADD("chart_pie_add.png"),
 

@@ -21,6 +21,7 @@ import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.io.Serializable;
+import java.util.Arrays;
 
 import javax.swing.BoxLayout;
 import javax.swing.JCheckBox;
@@ -33,6 +34,7 @@ import javax.swing.JTabbedPane;
 
 import language.Language;
 import systemtools.SmallColorChooser;
+import tools.IconListCellRenderer;
 import tools.JTableExt;
 import ui.images.Images;
 import ui.infopanel.InfoPanel;
@@ -54,6 +56,8 @@ public class ModelElementAnimationPieChartDialog extends ModelElementBaseDialog 
 	private JComboBox<String> labelMode;
 	/** Tabelle zur Definition der Diagrammsegmente */
 	private ExpressionTableModelBar expressionTableModel;
+	/** Darstellungsart */
+	private JComboBox<String> drawMode;
 	/** Auswahlbox für die Rahmenbreite */
 	private JComboBox<JLabel> lineWidth;
 	/** Auswahl der Rahmenfarbe */
@@ -115,9 +119,23 @@ public class ModelElementAnimationPieChartDialog extends ModelElementBaseDialog 
 
 		/* Darstellung: Farben und Linienbreiten */
 		tabs.addTab(Language.tr("Surface.AnimationPieChart.Dialog.Appearance"),content=new JPanel(new BorderLayout()));
+		content.add(lines=new JPanel(),BorderLayout.NORTH);
+		lines.setLayout(new BoxLayout(lines,BoxLayout.PAGE_AXIS));
+
+		data=getComboBoxPanel(Language.tr("Surface.AnimationPieChart.Dialog.DiagrameType")+":",Arrays.asList(
+				Language.tr("Surface.AnimationPieChart.Dialog.DiagrameType.Pie"),
+				Language.tr("Surface.AnimationPieChart.Dialog.DiagrameType.Donut")
+				));
+		lines.add((JPanel)data[0]);
+		drawMode=(JComboBox<String>)data[1];
+		drawMode.setEnabled(!readOnly);
+		drawMode.setRenderer(new IconListCellRenderer(new Images[] {
+				Images.MODELEDITOR_ELEMENT_ANIMATION_PIE_CHART,
+				Images.MODELEDITOR_ELEMENT_ANIMATION_DONUT_CHART,
+		}));
 
 		data=getLineWidthInputPanel(Language.tr("Surface.AnimationPieChart.Dialog.Appearance.FrameWidth")+":",0,15,5);
-		content.add((JPanel)data[0],BorderLayout.NORTH);
+		lines.add((JPanel)data[0]);
 		lineWidth=(JComboBox<JLabel>)data[1];
 		lineWidth.setEnabled(!readOnly);
 
@@ -151,6 +169,12 @@ public class ModelElementAnimationPieChartDialog extends ModelElementBaseDialog 
 			case BIG_PARTS: labelMode.setSelectedIndex(1); break;
 			case ALL_PARTS: labelMode.setSelectedIndex(2); break;
 			default: labelMode.setSelectedIndex(1); break;
+			}
+
+			switch (diagram.getDiagramDrawMode()) {
+			case PIE: drawMode.setSelectedIndex(0); break;
+			case DONUT: drawMode.setSelectedIndex(1); break;
+			default: drawMode.setSelectedIndex(0); break;
 			}
 
 			lineWidth.setSelectedIndex(diagram.getBorderWidth());
@@ -196,6 +220,11 @@ public class ModelElementAnimationPieChartDialog extends ModelElementBaseDialog 
 			}
 
 			expressionTableModel.storeData(diagram);
+
+			switch (drawMode.getSelectedIndex()) {
+			case 0: diagram.setDiagramDrawMode(ModelElementAnimationPieChart.DrawMode.PIE); break;
+			case 1: diagram.setDiagramDrawMode(ModelElementAnimationPieChart.DrawMode.DONUT); break;
+			}
 
 			diagram.setBorderWidth(lineWidth.getSelectedIndex());
 			diagram.setBorderColor(colorChooserLine.getColor());

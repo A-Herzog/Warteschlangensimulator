@@ -1592,7 +1592,7 @@
 >
 <!ELEMENT ModellElementDiagrammZeitbereich (#PCDATA)>
 
-<!ELEMENT ModellElementAnimationTortenDiagramm (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementBoxSchriftGross | ModellElementBoxSchriftKlein | ModellElementEbene | ModellElementLinienBreite | ModellElementLinienFarbe | ModellElementHintergrundfarbe | ModellElementDiagrammElement | ModellElementSegmentBeschriftung)*>
+<!ELEMENT ModellElementAnimationTortenDiagramm (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementBoxSchriftGross | ModellElementBoxSchriftKlein | ModellElementEbene | ModellElementLinienBreite | ModellElementLinienFarbe | ModellElementHintergrundfarbe | ModellElementDiagrammElement | ModellElementSegmentBeschriftung | ModellElementSegmentDarstellung)*>
 <!ATTLIST ModellElementAnimationTortenDiagramm
   id			CDATA	#REQUIRED
   geschuetzt	CDATA	#IMPLIED
@@ -1600,6 +1600,7 @@
   SymbolSpiegeln	CDATA	#IMPLIED
 >
 <!ELEMENT ModellElementSegmentBeschriftung (#PCDATA)>
+<!ELEMENT ModellElementSegmentDarstellung (#PCDATA)>
 
 <!ELEMENT ModellElementAnimationUhr (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementBoxSchriftGross | ModellElementBoxSchriftKlein | ModellElementEbene | ModellElementFarbe | ModellElementAusdruck)*>
 <!ATTLIST ModellElementAnimationUhr
@@ -3980,7 +3981,7 @@
 >
 <!ELEMENT ModelElementDiagramTimeRange (#PCDATA)>
 
-<!ELEMENT ModelElementAnimationPieDiagram (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBoxFontLarge | ModelElementBoxFontSmall | ModelElementLayer | ModelElementLineWidth | ModelElementLineColor | ModelElementBackgroundColor | ModelElementDiagramElement | ModelElementSegmentLabel)*>
+<!ELEMENT ModelElementAnimationPieDiagram (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBoxFontLarge | ModelElementBoxFontSmall | ModelElementLayer | ModelElementLineWidth | ModelElementLineColor | ModelElementBackgroundColor | ModelElementDiagramElement | ModelElementSegmentLabel | ModelElementSegmentDisplay)*>
 <!ATTLIST ModelElementAnimationPieDiagram
   id		CDATA	#REQUIRED
   protected	CDATA	#IMPLIED
@@ -3988,6 +3989,7 @@
   MirrorSymbol	CDATA	#IMPLIED
 >
 <!ELEMENT ModelElementSegmentLabel (#PCDATA)>
+<!ELEMENT ModelElementSegmentDisplay (#PCDATA)>
 
 <!ELEMENT ModelElementAnimationClock (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBoxFontLarge | ModelElementBoxFontSmall | ModelElementLayer | ModelElementColor | ModelElementExpression)*>
 <!ATTLIST ModelElementAnimationClock
