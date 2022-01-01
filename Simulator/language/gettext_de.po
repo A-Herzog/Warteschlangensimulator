@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-12-29 03:16+0100\n"
+"POT-Creation-Date: 2021-12-30 17:56+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -12994,6 +12994,9 @@ msgstr "Bisherige Parameterreihenkonfiguration beibehalten, aber Basismodell dur
 msgid "ParameterCompare.Settings.Load.ErrorModel.Title"
 msgstr "Modelldatei"
 
+msgid "ParameterCompare.Settings.Model.Active"
+msgstr "Modell aktiv"
+
 msgid "ParameterCompare.Settings.Model.Data.Column.Parameter"
 msgstr "Parameter"
 
@@ -13209,6 +13212,24 @@ msgstr "Varianzanalyse"
 
 msgid "ParameterCompare.Settings.VarianceRepeatNr"
 msgstr "Wiederholung %d"
+
+msgid "ParameterCompare.Table.Active.ChangeState"
+msgstr "Aktivierungsstatus für alle Modelle ändern"
+
+msgid "ParameterCompare.Table.Active.ChangeState.AllOff"
+msgstr "Alle deaktivieren"
+
+msgid "ParameterCompare.Table.Active.ChangeState.AllOn"
+msgstr "Alle aktivieren"
+
+msgid "ParameterCompare.Table.Active.ChangeState.AllToggle"
+msgstr "Alle umschalten"
+
+msgid "ParameterCompare.Table.Active.TurnOffHint"
+msgstr "Modell deaktivieren"
+
+msgid "ParameterCompare.Table.Active.TurnOnHint"
+msgstr "Modell aktivieren"
 
 msgid "ParameterCompare.Table.AddModel.Hint"
 msgstr "Fügt ein Modell zu der Liste der zu simulierenden Modelle hinzu"
@@ -13730,6 +13751,9 @@ msgstr "XMLModus"
 
 msgid "ParameterCompare.XML.Inputs.Root"
 msgstr "ModelleVergleichenEingabe"
+
+msgid "ParameterCompare.XML.Models.Active"
+msgstr "ModelleVergleichenModellAktiv"
 
 msgid "ParameterCompare.XML.Models.InputValue"
 msgstr "ModelleVergleichenModellEingabe"

@@ -26,6 +26,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.function.Consumer;
 
 import javax.swing.BorderFactory;
@@ -33,7 +34,9 @@ import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JMenuItem;
 import javax.swing.JPanel;
+import javax.swing.JPopupMenu;
 import javax.swing.JToolBar;
 import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
@@ -464,9 +467,10 @@ public class ParameterCompareTableModel extends JTableExtAbstractTableModel {
 	 * @return	Liefert <code>true</code>, wenn der Bearbeitendialog mit "Ok" geschlossen wurde
 	 */
 	private boolean editModel(final ParameterCompareSetupModel simModel) {
+		final Map<String,Double> oldInputs=new HashMap<>(simModel.getInput());
 		final ParameterCompareSetupModelDialog dialog=new ParameterCompareSetupModelDialog(table,simModel,setup.getInput(),help);
 		if (dialog.getClosedBy()!=BaseDialog.CLOSED_BY_OK) return false;
-		simModel.clearOutputs();
+		if (!Objects.deepEquals(oldInputs,simModel.getInput())) simModel.clearOutputs();
 		return true;
 	}
 
@@ -502,6 +506,45 @@ public class ParameterCompareTableModel extends JTableExtAbstractTableModel {
 	 */
 	public boolean commandEdit(final int rowIndex) {
 		return commandEdit(setup.getModels().get(rowIndex),rowIndex);
+	}
+
+	/**
+	 * Befehl: Modell aktivieren oder deaktivieren
+	 * @param rowIndex	Nummer des Modells in der Tabelle
+	 */
+	private void commandtoggleActive(final int rowIndex) {
+		if (rowIndex<0) {
+			if (panelCache!=null && panelCache.get(-1)!=null) {
+				final LastRowPanel panel=panelCache.get(-1);
+				final JPopupMenu menu=new JPopupMenu();
+				JMenuItem item;
+				menu.add(item=new JMenuItem(Language.tr("ParameterCompare.Table.Active.ChangeState.AllOn"),Images.PARAMETERSERIES_MODEL_ACTIVE_YES.getIcon()));
+				item.addActionListener(e->{
+					setup.getModels().forEach(model->model.setActive(true));
+					panelCache.clear();
+					if (update==null) updateTable(); else update.run();
+				});
+				menu.add(item=new JMenuItem(Language.tr("ParameterCompare.Table.Active.ChangeState.AllOff"),Images.PARAMETERSERIES_MODEL_ACTIVE_NO.getIcon()));
+				item.addActionListener(e->{
+					setup.getModels().forEach(model->model.setActive(false));
+					panelCache.clear();
+					if (update==null) updateTable(); else update.run();
+				});
+				menu.add(item=new JMenuItem(Language.tr("ParameterCompare.Table.Active.ChangeState.AllToggle"),Images.ARROW_SWITCH.getIcon()));
+				item.addActionListener(e->{
+					setup.getModels().forEach(model->model.setActive(!model.isActive()));
+					panelCache.clear();
+					if (update==null) updateTable(); else update.run();
+				});
+
+				menu.show(panel.buttons[1],0,panel.buttons[1].getHeight());
+			}
+		} else {
+			final ParameterCompareSetupModel model=setup.getModels().get(rowIndex);
+			model.setActive(!model.isActive());
+			panelCache.remove(rowIndex);
+			if (update==null) updateTable(); else update.run();
+		}
 	}
 
 	/**
@@ -672,7 +715,7 @@ public class ParameterCompareTableModel extends JTableExtAbstractTableModel {
 			super();
 			panelModel=model;
 			this.rowIndex=rowIndex;
-			buttons=new JButton[5];
+			buttons=new JButton[6];
 
 			setLayout(new FlowLayout(FlowLayout.LEFT));
 
@@ -685,20 +728,27 @@ public class ParameterCompareTableModel extends JTableExtAbstractTableModel {
 			toolbar.add(b=getButton("",Language.tr("ParameterCompare.Table.EditModel.Hint"),Images.GENERAL_SETUP.getIcon(),()->commandEdit(panelModel,rowIndex)));
 			buttons[0]=b;
 
+			if (model!=null) {
+				toolbar.add(b=getButton("",model.isActive()?Language.tr("ParameterCompare.Table.Active.TurnOffHint"):Language.tr("ParameterCompare.Table.Active.TurnOnHint"),model.isActive()?Images.PARAMETERSERIES_MODEL_ACTIVE_YES.getIcon():Images.PARAMETERSERIES_MODEL_ACTIVE_NO.getIcon(),()->commandtoggleActive(rowIndex)));
+			} else {
+				toolbar.add(b=getButton("",Language.tr("ParameterCompare.Table.Active.ChangeState"),Images.PARAMETERSERIES_MODEL_ACTIVE_YES.getIcon(),()->commandtoggleActive(-1)));
+			}
+			buttons[1]=b;
+
 			toolbar.add(getButton("",(panelModel==null)?Language.tr("ParameterCompare.Table.DeleteModel.HintAll"):Language.tr("ParameterCompare.Table.DeleteModel.Hint"),Images.EDIT_DELETE.getIcon(),()->commandDelete(rowIndex,model)));
 
 			toolbar.add(b=getButton("",Language.tr("ParameterCompare.Table.MoveModelUp.Hint"),Images.ARROW_UP.getIcon(),()->commandMoveUp(rowIndex)));
-			buttons[1]=b;
-
-			toolbar.add(b=getButton("",Language.tr("ParameterCompare.Table.MoveModelDown.Hint"),Images.ARROW_DOWN.getIcon(),()->commandMoveDown(rowIndex)));
 			buttons[2]=b;
 
-			toolbar.add(b=getButton("",Language.tr("ParameterCompare.Table.ShowStatistics.Hint"),Images.PARAMETERSERIES_PROCESS_RESULTS_CHARTS.getIcon(),()->commandShowStatistics(rowIndex)));
+			toolbar.add(b=getButton("",Language.tr("ParameterCompare.Table.MoveModelDown.Hint"),Images.ARROW_DOWN.getIcon(),()->commandMoveDown(rowIndex)));
 			buttons[3]=b;
+
+			toolbar.add(b=getButton("",Language.tr("ParameterCompare.Table.ShowStatistics.Hint"),Images.PARAMETERSERIES_PROCESS_RESULTS_CHARTS.getIcon(),()->commandShowStatistics(rowIndex)));
+			buttons[4]=b;
 
 			if (rowIndex>=0) {
 				toolbar.add(b=getButton("",Language.tr("ParameterCompare.Table.SaveStatistics.Hint"),Images.GENERAL_SAVE.getIcon(),()->commandSaveStatistics(rowIndex)));
-				buttons[4]=b;
+				buttons[5]=b;
 			}
 
 			toolbar.setBorder(BorderFactory.createEmptyBorder(0,0,0,0));
@@ -710,11 +760,12 @@ public class ParameterCompareTableModel extends JTableExtAbstractTableModel {
 		 */
 		public void updateButtons() {
 			buttons[0].setEnabled(panelModel!=null);
-			buttons[1].setEnabled(panelModel!=null && rowIndex>0);
-			buttons[2].setEnabled(panelModel!=null && rowIndex<setup.getModels().size()-1);
-			buttons[3].setEnabled((panelModel==null && hasResults()) || (panelModel!=null && panelModel.isStatisticsAvailable()));
+			if (buttons[1]!=null) buttons[1].setEnabled(true);
+			buttons[2].setEnabled(panelModel!=null && rowIndex>0);
+			buttons[3].setEnabled(panelModel!=null && rowIndex<setup.getModels().size()-1);
+			buttons[4].setEnabled((panelModel==null && hasResults()) || (panelModel!=null && panelModel.isStatisticsAvailable()));
 			if (rowIndex>=0) {
-				buttons[4].setEnabled((panelModel==null && hasResults()) || (panelModel!=null && panelModel.isStatisticsAvailable()));
+				buttons[5].setEnabled((panelModel==null && hasResults()) || (panelModel!=null && panelModel.isStatisticsAvailable()));
 			}
 		}
 

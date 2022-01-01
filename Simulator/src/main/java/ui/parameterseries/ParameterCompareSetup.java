@@ -113,9 +113,12 @@ public final class ParameterCompareSetup extends XMLData implements Cloneable {
 
 	/**
 	 * Löscht alle in allen Modellen gespeicherten Statistik-Ergebnisse
+	 * @param activeModelsOnly	Statistikdaten nur für die aktiven Modelle (<code>true</code>) oder für alle Modelle (<code>false</code>) löschen?
 	 */
-	public void clearAllOutputs() {
-		for (ParameterCompareSetupModel model: models) model.clearOutputs();
+	public void clearAllOutputs(final boolean activeModelsOnly) {
+		for (ParameterCompareSetupModel model: models) {
+			if (model.isActive() || !activeModelsOnly) model.clearOutputs();
+		}
 	}
 
 	/**

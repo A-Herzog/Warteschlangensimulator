@@ -43,6 +43,8 @@ import simulator.statistics.Statistics;
  * @see ParameterCompareSetup
  */
 public final class ParameterCompareSetupModel extends ParameterCompareSetupBase implements Cloneable {
+	/** Ist das Modell aktiv? */
+	private boolean active;
 	/** Liste der Eingangsgrößen mit ihren Zahlwertbelegungen */
 	private final Map<String,Double> input;
 	/** Ausgabegrößen mit ihren Zahlenwertbelegungen */
@@ -57,6 +59,7 @@ public final class ParameterCompareSetupModel extends ParameterCompareSetupBase 
 	 */
 	public ParameterCompareSetupModel() {
 		super();
+		active=true;
 		input=new HashMap<>();
 		output=new HashMap<>();
 		inProcess=-1;
@@ -68,6 +71,7 @@ public final class ParameterCompareSetupModel extends ParameterCompareSetupBase 
 	 */
 	public ParameterCompareSetupModel(final String name) {
 		super(name);
+		active=true;
 		input=new HashMap<>();
 		output=new HashMap<>();
 		inProcess=-1;
@@ -87,6 +91,22 @@ public final class ParameterCompareSetupModel extends ParameterCompareSetupBase 
 	 */
 	public Map<String,Double> getOutput() {
 		return output;
+	}
+
+	/**
+	 * Ist das Modell aktiv?
+	 * @return	Modell aktiv?
+	 */
+	public boolean isActive() {
+		return active;
+	}
+
+	/**
+	 * Stellt ein, ob das Modell aktiv sein soll.
+	 * @param active	Modell aktiv?
+	 */
+	public void setActive(boolean active) {
+		this.active=active;
 	}
 
 	/**
@@ -176,6 +196,7 @@ public final class ParameterCompareSetupModel extends ParameterCompareSetupBase 
 	 * @return	Liefert <code>true</code>, wenn die beiden Objekte inhaltlich identisch sind
 	 */
 	public boolean equalsParameterCompareSetupRecord(final ParameterCompareSetupModel otherRecord) {
+		if (active!=otherRecord.active) return false;
 		if (!getName().equals(otherRecord.getName())) return false;
 		if (!Objects.deepEquals(input,otherRecord.input)) return false;
 		if (!Objects.deepEquals(output,otherRecord.output)) return false;
@@ -205,6 +226,7 @@ public final class ParameterCompareSetupModel extends ParameterCompareSetupBase 
 	@Override
 	public ParameterCompareSetupModel clone() {
 		final ParameterCompareSetupModel clone=new ParameterCompareSetupModel();
+		clone.setActive(active);
 		clone.setName(getName());
 		clone.getInput().putAll(input);
 		clone.getOutput().putAll(output);
@@ -228,6 +250,11 @@ public final class ParameterCompareSetupModel extends ParameterCompareSetupBase 
 	protected String loadPropertyFromXML(final String name, final String content, final Element node) {
 		final String error=super.loadPropertyFromXML(name,content,node);
 		if (error!=null) return error;
+
+		if (Language.trAll("ParameterCompare.XML.Models.Active",name)) {
+			if (content.equals("0")) active=false;
+			return null;
+		}
 
 		if (Language.trAll("ParameterCompare.XML.Models.InputValue",name)) {
 			final Double D=NumberTools.getDouble(NumberTools.systemNumberToLocalNumber(content));
@@ -260,6 +287,12 @@ public final class ParameterCompareSetupModel extends ParameterCompareSetupBase 
 	@Override
 	protected void addPropertiesToXML(Document doc, Element node) {
 		super.addPropertiesToXML(doc,node);
+
+		if (!active) {
+			final Element sub=doc.createElement(Language.tr("ParameterCompare.XML.Models.Active"));
+			node.appendChild(sub);
+			sub.setTextContent("0");
+		}
 
 		for (Map.Entry<String,Double> entry: input.entrySet()) if (entry.getValue()!=null) {
 			final Element sub=doc.createElement(Language.tr("ParameterCompare.XML.Models.InputValue"));

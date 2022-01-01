@@ -55,6 +55,15 @@ public final class ParameterCompareSetupValueInput extends ParameterCompareSetup
 	}
 
 	/**
+	 * Copy-Konstruktor der Klasse
+	 * @param copySource	Ausgangsobjekt dessen Daten in diese Instanz kopiert werden sollen
+	 */
+	public ParameterCompareSetupValueInput(final ParameterCompareSetupValueInput copySource) {
+		this();
+		if (copySource!=null) copyDataFrom(copySource);
+	}
+
+	/**
 	 * Löscht alle Daten in diesem Objekt.
 	 */
 	public void clear() {

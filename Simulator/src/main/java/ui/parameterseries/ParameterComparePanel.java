@@ -327,7 +327,7 @@ public class ParameterComparePanel extends SpecialPanel {
 	private void commandSetupInput() {
 		final ParameterCompareSetupValueInputListDialog dialog=new ParameterCompareSetupValueInputListDialog(this,setup.getEditModel(),setup.getInput(),()->commandHelp());
 		if (dialog.getClosedBy()==BaseDialog.CLOSED_BY_OK) {
-			setup.clearAllOutputs();
+			setup.clearAllOutputs(false);
 			setup.updateInputValuesInModels();
 			table.updateTable();
 		}
@@ -475,7 +475,7 @@ public class ParameterComparePanel extends SpecialPanel {
 		for (ParameterCompareSetupModel model: setup.getModels()) if (!model.isStatisticsAvailable()) {allDone=false; break;}
 		if (allDone) {
 			if (!MsgBox.confirm(this,Language.tr("ParameterCompare.ReRunConfirm.Title"),Language.tr("ParameterCompare.ReRunConfirm.Info"),Language.tr("ParameterCompare.ReRunConfirm.InfoYes"),Language.tr("ParameterCompare.ReRunConfirm.InfoNo"))) return;
-			setup.clearAllOutputs();
+			setup.clearAllOutputs(true);
 		}
 
 		logOutput.setText("");
@@ -548,7 +548,7 @@ public class ParameterComparePanel extends SpecialPanel {
 
 		if (!MsgBox.confirm(this,Language.tr("ParameterCompare.Toolbar.ProcessResults.ClearStatistics"),Language.tr("ParameterCompare.Toolbar.ProcessResults.ClearStatistics.Info"),Language.tr("ParameterCompare.Toolbar.ProcessResults.ClearStatistics.InfoYes"),Language.tr("ParameterCompare.Toolbar.ProcessResults.ClearStatistics.InfoNo"))) return;
 
-		setup.clearAllOutputs();
+		setup.clearAllOutputs(false);
 		table.updateTable();
 	}
 

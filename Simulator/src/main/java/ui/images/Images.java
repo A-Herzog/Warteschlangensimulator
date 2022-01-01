@@ -742,6 +742,13 @@ public enum Images {
 	/** Symbol "Parameterreihe - Vorlage - Batch-Größe variieren */
 	PARAMETERSERIES_TEMPLATE_MODE_BATCHSIZE("Batch.png"),
 
+	/** Symbol "Parameterreihe - Model aktiv - Ja" */
+	PARAMETERSERIES_MODEL_ACTIVE_YES("lightbulb.png"),
+
+	/** Symbol "Parameterreihe - Model aktiv - Nein" */
+	PARAMETERSERIES_MODEL_ACTIVE_NO("lightbulb_off.png"),
+
+
 	/* Optimierer */
 
 	/** Symbol "Optimierer" */

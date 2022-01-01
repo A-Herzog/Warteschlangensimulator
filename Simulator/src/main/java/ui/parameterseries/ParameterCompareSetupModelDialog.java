@@ -18,12 +18,14 @@ package ui.parameterseries;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.FlowLayout;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.Serializable;
 import java.util.List;
 
 import javax.swing.BoxLayout;
+import javax.swing.JCheckBox;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
@@ -55,6 +57,9 @@ public class ParameterCompareSetupModelDialog extends BaseDialog {
 
 	/** Werte für die Eingabeparameter */
 	private final ParameterCompareSetupModelTableModel tableModel;
+
+	/** Ist das Modell aktiv, d.h. wird es bei der Simulation berücksichtigt? */
+	private final JCheckBox active;
 
 	/**
 	 * Konstruktor der Klasse
@@ -90,6 +95,9 @@ public class ParameterCompareSetupModelDialog extends BaseDialog {
 		tableModel.updateTable();
 		table.getColumnModel().getColumn(1).setMinWidth(125);
 		table.getColumnModel().getColumn(1).setMaxWidth(125);
+
+		content.add(sub=new JPanel(new FlowLayout(FlowLayout.LEFT)),BorderLayout.SOUTH);
+		sub.add(active=new JCheckBox(Language.tr("ParameterCompare.Settings.Model.Active"),model.isActive()));
 
 		checkData(false);
 
@@ -139,6 +147,7 @@ public class ParameterCompareSetupModelDialog extends BaseDialog {
 	@Override
 	protected void storeData() {
 		model.setName(nameEdit.getText().trim());
+		model.setActive(active.isSelected());
 		tableModel.storeData(model);
 	}
 }

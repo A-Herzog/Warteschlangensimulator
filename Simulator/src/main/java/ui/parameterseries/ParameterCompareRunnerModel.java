@@ -105,7 +105,11 @@ public class ParameterCompareRunnerModel {
 		this.setup=setup;
 		this.outputScripts=outputScripts;
 
-		status=Status.STATUS_WAITING;
+		if (setup.getModels().get(nr).isActive()) {
+			status=Status.STATUS_WAITING;
+		} else {
+			status=Status.STATUS_DONE;
+		}
 	}
 
 	/**
