@@ -488,6 +488,7 @@ public class AnimationPanel extends JPanel implements RunModelAnimationViewer {
 		logScroll.setPreferredSize(new Dimension(0,logToolBar.getHeight()+10));
 
 		delay=setup.animationDelay*10;
+		delayInt=delay;
 		animationDelayChanged();
 
 		final InputMap input=getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
