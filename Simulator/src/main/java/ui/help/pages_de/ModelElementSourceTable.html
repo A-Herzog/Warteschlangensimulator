@@ -45,9 +45,34 @@ der Ankünfte der Kunden untereinander ebenfalls gemessen in Sekunden. Die zweit
 enthält zu jedem Ankunftszeitpunkt den Namen des Kundentyps des Kunden, der an dem
 angegebenen Zeitpunkt eintreffen soll. Zeilen, bei denen der angegebene Kundentyp
 nicht in der im Element eingestellten Liste der Kundentypnamen enthalten ist, werden ignoriert.
-Alle weiteren Spalten enthalten optional Ausdrücke der Form <tt>ClientData(nr)=Formel</tt>,
-<tt>ClientData('Schlüssel')=Textwert</tt>, <tt>w=Formel</tt>, <tt>t=Formel</tt>,
-<tt>p=Formel</tt>, <tt>wCosts=Formel</tt>, <tt>tCosts=Formel</tt> oder<tt>pCosts=Formel</tt>.
+Alle weiteren Spalten enthalten optional Ausdrücke der folgenden Formen:
+</p>
+<ul>
+  <li><tt>ClientData(nr)=Formel</tt><br>
+  Weist an das numerische Kundendatenfeld mit dem Index <tt>nr</tt> das Ergebnis der
+  Auswertung von <tt>Formel</tt> zu.</li>
+  <li><tt>ClientData('Schlüssel')=Textwert</tt><br>
+  Weist an <tt>Schlüssel</tt> den Wert <tt>Textwert</tt> zu.</li>
+  <li><tt>w=Formel</tt><br>
+  Stellt den Wartezeitzähler des Kunden initial auf das Ergebnis der
+  Auswertung von <tt>Formel</tt>.</li>  
+  <li><tt>t=Formel</tt><br>
+  Stellt den Transportzeitzähler des Kunden initial auf das Ergebnis der
+  Auswertung von <tt>Formel</tt>.</li>
+  <li><tt>p=Formel</tt><br>
+  Stellt den Bedienzeitzähler des Kunden initial auf das Ergebnis der
+  Auswertung von <tt>Formel</tt>.</li>
+  <li><tt>wCosts=Formel</tt><br>
+  Stellt die wartezeitabhängigen Kosten initial auf das Ergebnis der
+  Auswertung von <tt>Formel</tt>.</li>
+  <li><tt>tCosts=Formel</tt><br>
+  Stellt die transportzeitabhängigen Kosten initial auf das Ergebnis der
+  Auswertung von <tt>Formel</tt>.</li>
+  <li><tt>pCosts=Formel</tt><br>
+  Stellt die bedienzeitabhängigen Kosten initial auf das Ergebnis der
+  Auswertung von <tt>Formel</tt>.</li>
+</ul>
+<p>
 Auf diese Weise können in den neu erstellten Kundenobjekten direkt kundenspezifische Daten
 hinterlegt werden. 
 </p>

@@ -35,11 +35,35 @@ start of the simulation or since the last client arrival.
 In the second column the client type names of clients which arrive at the times
 noted in the first column are defined. Rows containing a client type which is
 not in the client types list in the table source element are ignored.
-All optional further columns have to contain expressions of the form
-<tt>ClientData(nr)=Formula</tt>, <tt>ClientData('key')=TextValue</tt>,
-<tt>w=Formula</tt>, <tt>t=Formula</tt>, <tt>p=Formula</tt>,
-<tt>wCosts=Formula</tt>, <tt>tCosts=Formula</tt> or <tt>pCosts=Formula</tt>.
-Using these expression new client objects can get client-specific data directly.
+All optional further columns have to contain expressions of the following form:
+</p>
+<ul>
+  <li><tt>ClientData(nr)=Formula</tt><br>
+  Assigns the result of the evaluation of <tt>formula</tt> to the numeric
+  client data field with index <tt>nr</tt>.</li>
+  <li><tt>ClientData('key')=TextValue</tt><br>
+  Assigns <tt>TextValue</tt> to <tt>key</tt>.</li>
+  <li><tt>w=Formula</tt><br>
+  Sets the result of the evaluation of <tt>formula</tt> as the
+  initial value of the waiting time counter of the client.</li>  
+  <li><tt>t=Formula</tt><br>
+  Sets the result of the evaluation of <tt>formula</tt> as the
+  initial value of the transport time counter of the client.</li>  
+  <li><tt>p=Formula</tt><br>
+  Sets the result of the evaluation of <tt>formula</tt> as the
+  initial value of the service time counter of the client.</li>
+  <li><tt>wCosts=Formula</tt><br>
+  Sets the result of the evaluation of <tt>formula</tt> as the
+  initial value of the waiting time depending costs counter of the client.</li>
+  <li><tt>tCosts=Formula</tt><br>
+  Sets the result of the evaluation of <tt>formula</tt> as the
+  initial value of the transport time depending costs counter of the client.</li>
+  <li><tt>pCosts=Formula</tt><br>
+  Sets the result of the evaluation of <tt>formula</tt> as the
+  initial value of the service time depending costs counter of the client.</li>
+</ul>
+<p>
+Using these expression new client objects can get client-specific data directly. 
 </p>
 
 </body>
