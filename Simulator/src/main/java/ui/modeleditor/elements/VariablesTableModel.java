@@ -327,7 +327,9 @@ public class VariablesTableModel extends JTableExtAbstractTableModel {
 			if (readOnly) return;
 
 			final String name=variables.get(row);
-			if (!MsgBox.confirm(table,Language.tr("Surface.Set.Table.Delete.Error.Title"),String.format(Language.tr("Surface.Set.Table.Delete.Error.Info"),name),Language.tr("Surface.Set.Table.Delete.Error.YesInfo"),Language.tr("Surface.Set.Table.Delete.Error.NoInfo"))) return;
+			if ((e.getModifiers() & ActionEvent.SHIFT_MASK)==0) {
+				if (!MsgBox.confirm(table,Language.tr("Surface.Set.Table.Delete.Error.Title"),String.format(Language.tr("Surface.Set.Table.Delete.Error.Info"),name),Language.tr("Surface.Set.Table.Delete.Error.YesInfo"),Language.tr("Surface.Set.Table.Delete.Error.NoInfo"))) return;
+			}
 			variables.remove(row);
 			expressions.remove(row);
 			updateTable();

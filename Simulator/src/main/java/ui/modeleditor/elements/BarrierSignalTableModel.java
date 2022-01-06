@@ -276,7 +276,9 @@ public class BarrierSignalTableModel extends JTableExtAbstractTableModel {
 		public void actionPerformed(ActionEvent e) {
 			if (readOnly) return;
 			final String name=options.get(row).getSignalName();
-			if (!MsgBox.confirm(table,Language.tr("Surface.Barrier.Dialog.Delete.Confirm.Title"),String.format(Language.tr("Surface.Barrier.Dialog.Delete.Confirm.Info"),name),Language.tr("Surface.Barrier.Dialog.Delete.Confirm.YesInfo"),Language.tr("Surface.Barrier.Dialog.Delete.Confirm.NoInfo"))) return;
+			if ((e.getModifiers() & ActionEvent.SHIFT_MASK)==0) {
+				if (!MsgBox.confirm(table,Language.tr("Surface.Barrier.Dialog.Delete.Confirm.Title"),String.format(Language.tr("Surface.Barrier.Dialog.Delete.Confirm.Info"),name),Language.tr("Surface.Barrier.Dialog.Delete.Confirm.YesInfo"),Language.tr("Surface.Barrier.Dialog.Delete.Confirm.NoInfo"))) return;
+			}
 			options.remove(row);
 			updateTable();
 		}

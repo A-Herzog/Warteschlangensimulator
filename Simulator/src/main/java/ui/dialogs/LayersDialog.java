@@ -2,6 +2,7 @@ package ui.dialogs;
 
 import java.awt.BorderLayout;
 import java.awt.Component;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
@@ -10,6 +11,7 @@ import java.awt.event.MouseEvent;
 import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
+import java.util.function.IntConsumer;
 
 import javax.swing.DefaultListCellRenderer;
 import javax.swing.DefaultListModel;
@@ -86,11 +88,11 @@ public class LayersDialog extends BaseDialog {
 		final JToolBar toolbar=new JToolBar(SwingConstants.HORIZONTAL);
 		toolbar.setFloatable(false);
 		content.add(toolbar,BorderLayout.NORTH);
-		toolbar.add(buttonAdd=addButton(Language.tr("Window.Layers.Add.Title"),Language.tr("Window.Layers.Add.Hint"),Images.EDIT_ADD,()->commandAdd()));
-		toolbar.add(buttonRename=addButton(Language.tr("Window.Layers.Rename.Title"),Language.tr("Window.Layers.Rename.Hint"),Images.GENERAL_SETUP,()->commandRename(list.getSelectedIndex())));
-		toolbar.add(buttonDelete=addButton(Language.tr("Window.Layers.Delete.Title"),Language.tr("Window.Layers.Delete.Hint"),Images.EDIT_DELETE,()->commandDelete(list.getSelectedIndex())));
-		toolbar.add(buttonVisible=addButton(Language.tr("Window.Layers.Visible.Title"),Language.tr("Window.Layers.Visible.Hint"),Images.EDIT_LAYERS_VISIBLE,()->commandChangeVisible(list.getSelectedIndex())));
-		toolbar.add(buttonActive=addButton(Language.tr("Window.Layers.Active.Title"),Language.tr("Window.Layers.Active.Hint"),Images.MODEL_LOAD,()->commandSetActive()));
+		toolbar.add(buttonAdd=addButton(Language.tr("Window.Layers.Add.Title"),Language.tr("Window.Layers.Add.Hint"),Images.EDIT_ADD,modifiers->commandAdd()));
+		toolbar.add(buttonRename=addButton(Language.tr("Window.Layers.Rename.Title"),Language.tr("Window.Layers.Rename.Hint"),Images.GENERAL_SETUP,modifiers->commandRename(list.getSelectedIndex())));
+		toolbar.add(buttonDelete=addButton(Language.tr("Window.Layers.Delete.Title"),Language.tr("Window.Layers.Delete.Hint"),Images.EDIT_DELETE,modifiers->commandDelete(list.getSelectedIndex(),(modifiers & ActionEvent.SHIFT_MASK)!=0)));
+		toolbar.add(buttonVisible=addButton(Language.tr("Window.Layers.Visible.Title"),Language.tr("Window.Layers.Visible.Hint"),Images.EDIT_LAYERS_VISIBLE,modifiers->commandChangeVisible(list.getSelectedIndex())));
+		toolbar.add(buttonActive=addButton(Language.tr("Window.Layers.Active.Title"),Language.tr("Window.Layers.Active.Hint"),Images.MODEL_LOAD,modifiers->commandSetActive()));
 
 		/* Liste */
 		listModel=new DefaultListModel<>();
@@ -127,7 +129,7 @@ public class LayersDialog extends BaseDialog {
 				if (e.getKeyCode()==KeyEvent.VK_INSERT && !e.isControlDown() && !e.isShiftDown()) {commandAdd(); e.consume(); return;}
 				if (e.getKeyCode()==KeyEvent.VK_ENTER && !e.isControlDown() && !e.isShiftDown()) {if (list.getSelectedIndex()<0) return; commandChangeVisible(list.getSelectedIndex()); e.consume(); return;}
 				if (e.getKeyCode()==KeyEvent.VK_ENTER && e.isControlDown() && !e.isShiftDown()) {if (list.getSelectedIndex()<0) return; commandRename(list.getSelectedIndex()); e.consume(); return;}
-				if (e.getKeyCode()==KeyEvent.VK_DELETE && !e.isControlDown() && !e.isShiftDown()) {if (list.getSelectedIndex()<0) return; commandDelete(list.getSelectedIndex()); e.consume(); return;}
+				if (e.getKeyCode()==KeyEvent.VK_DELETE && !e.isControlDown()) {if (list.getSelectedIndex()<0) return; commandDelete(list.getSelectedIndex(),e.isShiftDown()); e.consume(); return;}
 			}
 		});
 		list.addListSelectionListener(e->updateButtons());
@@ -148,10 +150,10 @@ public class LayersDialog extends BaseDialog {
 	 * @param command	Beim Anklicken der Schaltfläche auszuführender Befehl
 	 * @return	Neue Schaltfläche
 	 */
-	private JButton addButton(final String title, final String hint, final Images icon, final Runnable command) {
+	private JButton addButton(final String title, final String hint, final Images icon, final IntConsumer command) {
 		final JButton button=new JButton(title,icon.getIcon());
 		button.setToolTipText(hint);
-		button.addActionListener(e->command.run());
+		button.addActionListener(e->command.accept(e.getModifiers()));
 		return button;
 	}
 
@@ -300,8 +302,9 @@ public class LayersDialog extends BaseDialog {
 	/**
 	 * Befehl: Ebene löschen
 	 * @param index	Index der Ebene in der Liste
+	 *  @param isShiftDown	Ist die Umschalttaste gedrückt? (Wenn ja, löschen ohne Nachfrage.)
 	 */
-	private void commandDelete(final int index) {
+	private void commandDelete(final int index, final boolean isShiftDown) {
 		/* Daten aus Modell */
 		final List<String> layers=model.surface.getLayers();
 		final List<String> visibleLayers=model.surface.getVisibleLayers();
@@ -309,7 +312,9 @@ public class LayersDialog extends BaseDialog {
 
 		/* Abfrage */
 		final String layer=layers.get(index);
-		if (!MsgBox.confirm(this,Language.tr("Window.Layers.Delete.ConfirmTitle"),String.format(Language.tr("Window.Layers.Delete.ConfirmInfo"),layer),Language.tr("Window.Layers.Delete.ConfirmInfo.Yes"),Language.tr("Window.Layers.Delete.ConfirmInfo.No"))) return;
+		if (!isShiftDown) {
+			if (!MsgBox.confirm(this,Language.tr("Window.Layers.Delete.ConfirmTitle"),String.format(Language.tr("Window.Layers.Delete.ConfirmInfo"),layer),Language.tr("Window.Layers.Delete.ConfirmInfo.Yes"),Language.tr("Window.Layers.Delete.ConfirmInfo.No"))) return;
+		}
 
 		/* Layer löschen */
 		layers.remove(layer);

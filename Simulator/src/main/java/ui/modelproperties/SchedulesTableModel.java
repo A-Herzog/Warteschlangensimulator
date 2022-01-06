@@ -442,7 +442,9 @@ public class SchedulesTableModel extends JTableExtAbstractTableModel {
 			getInUseInfoText(sb,usingIDs);
 			sb.append("<br>");
 			sb.append(String.format(Language.tr("Schedule.Delete.Confirmation"),name));
-			if (!MsgBox.confirm(table,Language.tr("Schedule.Delete"),"<html><body>"+sb.toString()+"</body></html>",Language.tr("Schedule.Delete.YesInfo"),Language.tr("Schedule.Delete.NoInfo"))) return;
+			if ((e.getModifiers() & ActionEvent.SHIFT_MASK)==0) {
+				if (!MsgBox.confirm(table,Language.tr("Schedule.Delete"),"<html><body>"+sb.toString()+"</body></html>",Language.tr("Schedule.Delete.YesInfo"),Language.tr("Schedule.Delete.NoInfo"))) return;
+			}
 			schedulesList.remove(row);
 			updateTable();
 		}

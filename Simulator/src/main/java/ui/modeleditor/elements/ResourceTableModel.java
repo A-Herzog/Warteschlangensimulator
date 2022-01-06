@@ -325,7 +325,9 @@ public class ResourceTableModel extends JTableExtAbstractTableModel {
 			if (readOnly) return;
 
 			final String name=usedNames.get(row);
-			if (!MsgBox.confirm(table,Language.tr("Surface.Resource.Delete.Confirm.Title"),String.format(Language.tr("Surface.Resource.Delete.Confirm.Info"),name),Language.tr("Surface.Resource.Delete.Confirm.YesInfo"),Language.tr("Surface.Resource.Delete.Confirm.NoInfo"))) return;
+			if ((e.getModifiers() & ActionEvent.SHIFT_MASK)==0) {
+				if (!MsgBox.confirm(table,Language.tr("Surface.Resource.Delete.Confirm.Title"),String.format(Language.tr("Surface.Resource.Delete.Confirm.Info"),name),Language.tr("Surface.Resource.Delete.Confirm.YesInfo"),Language.tr("Surface.Resource.Delete.Confirm.NoInfo"))) return;
+			}
 			map.remove(name);
 			updateTable();
 		}

@@ -15,6 +15,7 @@
  */
 package ui.modeleditor.coreelements;
 
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -146,7 +147,7 @@ public class ClientDataTableModel extends JTableExtAbstractTableModel {
 					records.get(rowIndex).value,
 					new Icon[]{Images.GENERAL_SETUP.getIcon(),Images.EDIT_DELETE.getIcon()},
 					new String[]{Language.tr("Surface.PopupMenu.SimulationStatisticsData.Tab.WaitingClients.FieldTable.Edit"),Language.tr("Surface.PopupMenu.SimulationStatisticsData.Tab.WaitingClients.FieldTable.Delete")},
-					new ActionListener[]{e->edit(rowIndex),e->delete(rowIndex)}
+					new ActionListener[]{e->edit(rowIndex),e->delete(rowIndex,(e.getModifiers() & ActionEvent.SHIFT_MASK)!=0)}
 					);
 		default:
 			return null;
@@ -183,10 +184,13 @@ public class ClientDataTableModel extends JTableExtAbstractTableModel {
 	/**
 	 * Befehl: Datensatz löschen
 	 * @param index	Index des zu löschenden Datensatzes
+	 * @param isShiftDown	Ist die Umschalttaste gedrückt? (Wenn ja, löschen ohne Nachfrage.)
 	 */
-	private void delete(final int index) {
+	private void delete(final int index, final boolean isShiftDown) {
 		if (index<0) return;
-		if (!MsgBox.confirm(table,Language.tr("Surface.PopupMenu.SimulationStatisticsData.Tab.WaitingClients.FieldTable.Delete"),String.format(Language.tr("Surface.PopupMenu.SimulationStatisticsData.Tab.WaitingClients.FieldTable.Delete.Info"),records.get(index).key),Language.tr("Surface.PopupMenu.SimulationStatisticsData.Tab.WaitingClients.FieldTable.Delete.InfoYes"),Language.tr("Surface.PopupMenu.SimulationStatisticsData.Tab.WaitingClients.FieldTable.Delete.InfoNo"))) return;
+		if (!isShiftDown) {
+			if (!MsgBox.confirm(table,Language.tr("Surface.PopupMenu.SimulationStatisticsData.Tab.WaitingClients.FieldTable.Delete"),String.format(Language.tr("Surface.PopupMenu.SimulationStatisticsData.Tab.WaitingClients.FieldTable.Delete.Info"),records.get(index).key),Language.tr("Surface.PopupMenu.SimulationStatisticsData.Tab.WaitingClients.FieldTable.Delete.InfoYes"),Language.tr("Surface.PopupMenu.SimulationStatisticsData.Tab.WaitingClients.FieldTable.Delete.InfoNo"))) return;
+		}
 
 		records.remove(index);
 		updateTable();

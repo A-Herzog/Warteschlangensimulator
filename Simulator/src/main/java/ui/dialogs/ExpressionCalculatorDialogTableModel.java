@@ -15,6 +15,7 @@
  */
 package ui.dialogs;
 
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.Serializable;
 import java.util.Arrays;
@@ -199,7 +200,7 @@ public class ExpressionCalculatorDialogTableModel extends JTableExtAbstractTable
 		case 2:
 			return "<html><body>"+encodeHTML(map.get(keys[rowIndex]).getClass().getSimpleName())+"</body></html>";
 		case 3:
-			return makeButtonPanel(new String[] {"",""},new String[] {Language.tr("ExpressionCalculator.Tab.Map.Edit"),Language.tr("ExpressionCalculator.Tab.Map.Delete")},new Icon[] {Images.GENERAL_SETUP.getIcon(),Images.EDIT_DELETE.getIcon()},new ActionListener[]{e->edit(rowIndex),e->delete(rowIndex)});
+			return makeButtonPanel(new String[] {"",""},new String[] {Language.tr("ExpressionCalculator.Tab.Map.Edit"),Language.tr("ExpressionCalculator.Tab.Map.Delete")},new Icon[] {Images.GENERAL_SETUP.getIcon(),Images.EDIT_DELETE.getIcon()},new ActionListener[]{e->edit(rowIndex),e->delete(rowIndex,(e.getModifiers() & ActionEvent.SHIFT_MASK)!=0)});
 		default:
 			return "";
 		}
@@ -236,9 +237,12 @@ public class ExpressionCalculatorDialogTableModel extends JTableExtAbstractTable
 	/**
 	 * Befehl: Eintrag löschen
 	 * @param index	Index des Eintrags
+	 * @param isShiftDown	Ist die Umschalttaste gedrückt? (Wenn ja, löschen ohne Nachfrage.)
 	 */
-	private void delete(final int index) {
-		if (!MsgBox.confirm(table,Language.tr("ExpressionCalculator.Tab.Map.Delete.ConfirmTitle"),String.format(Language.tr("ExpressionCalculator.Tab.Map.Delete.ConfirmInfo"),keys[index]),Language.tr("ExpressionCalculator.Tab.Map.Delete.ConfirmInfoYes"),Language.tr("ExpressionCalculator.Tab.Map.Delete.ConfirmInfoNo"))) return;
+	private void delete(final int index, final boolean isShiftDown) {
+		if (!isShiftDown) {
+			if (!MsgBox.confirm(table,Language.tr("ExpressionCalculator.Tab.Map.Delete.ConfirmTitle"),String.format(Language.tr("ExpressionCalculator.Tab.Map.Delete.ConfirmInfo"),keys[index]),Language.tr("ExpressionCalculator.Tab.Map.Delete.ConfirmInfoYes"),Language.tr("ExpressionCalculator.Tab.Map.Delete.ConfirmInfoNo"))) return;
+		}
 		map.remove(keys[index]);
 		updateKeySet();
 		updateTable();

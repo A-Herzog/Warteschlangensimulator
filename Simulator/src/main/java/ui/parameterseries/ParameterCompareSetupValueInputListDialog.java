@@ -185,14 +185,15 @@ public class ParameterCompareSetupValueInputListDialog extends ParameterCompareS
 	}
 
 	@Override
-	protected void commandDelete(final int index) {
-		if (!MsgBox.confirm(
-				this,
-				Language.tr("ParameterCompare.Settings.Input.List.Delete.Confirm.Title"),
-				String.format(Language.tr("ParameterCompare.Settings.Input.List.Delete.Confirm.Info"),input.get(index).getName()),
-				Language.tr("ParameterCompare.Settings.Input.List.Delete.Confirm.YesInfo"),
-				Language.tr("ParameterCompare.Settings.Input.List.Delete.Confirm.NoInfo"))) return;
-
+	protected void commandDelete(final int index, final boolean shiftDown) {
+		if (!shiftDown) {
+			if (!MsgBox.confirm(
+					this,
+					Language.tr("ParameterCompare.Settings.Input.List.Delete.Confirm.Title"),
+					String.format(Language.tr("ParameterCompare.Settings.Input.List.Delete.Confirm.Info"),input.get(index).getName()),
+					Language.tr("ParameterCompare.Settings.Input.List.Delete.Confirm.YesInfo"),
+					Language.tr("ParameterCompare.Settings.Input.List.Delete.Confirm.NoInfo"))) return;
+		}
 		input.remove(index);
 		updateList(-1);
 	}

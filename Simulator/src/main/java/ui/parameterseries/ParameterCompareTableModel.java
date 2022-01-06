@@ -19,6 +19,7 @@ import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.FlowLayout;
 import java.awt.Window;
+import java.awt.event.ActionEvent;
 import java.io.File;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -28,6 +29,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.function.Consumer;
+import java.util.function.IntConsumer;
 
 import javax.swing.BorderFactory;
 import javax.swing.Icon;
@@ -206,10 +208,12 @@ public class ParameterCompareTableModel extends JTableExtAbstractTableModel {
 	 * @param command	Beim Anklicken der Schaltfläche auszuführender Befehl
 	 * @return	Neu erstellte Schaltfläche
 	 */
-	private JButton getButton(final String title, final String hint, final Icon icon, final Runnable command) {
+	private JButton getButton(final String title, final String hint, final Icon icon, final IntConsumer command) {
 		final JButton button=new JButton(title);
 		button.setToolTipText(hint);
-		button.addActionListener(e->command.run());
+		button.addActionListener(e->{
+			command.accept(e.getModifiers());
+		});
 		if (icon!=null) button.setIcon(icon);
 
 		return button;
@@ -249,16 +253,16 @@ public class ParameterCompareTableModel extends JTableExtAbstractTableModel {
 
 		/* Erste Spalte ("Modell") */
 		if (columnIndex==0) {
-			toolbar.add(getButton("",Language.tr("ParameterCompare.Table.AddModel.Hint"),Images.EDIT_ADD.getIcon(),()->commandAdd()));
-			toolbar.add(getButton("",Language.tr("ParameterCompare.Table.AddModelByAssistant.Hint"),Images.PARAMETERSERIES_ADD_BY_ASSISTANT.getIcon(),()->commandAddByAssistant()));
-			toolbar.add(getButton("",Language.tr("ParameterCompare.Table.SortModels.Hint"),Images.PARAMETERSERIES_SORT_TABLE.getIcon(),()->commandSortByInputParameter()));
+			toolbar.add(getButton("",Language.tr("ParameterCompare.Table.AddModel.Hint"),Images.EDIT_ADD.getIcon(),modifiers->commandAdd()));
+			toolbar.add(getButton("",Language.tr("ParameterCompare.Table.AddModelByAssistant.Hint"),Images.PARAMETERSERIES_ADD_BY_ASSISTANT.getIcon(),modifiers->commandAddByAssistant()));
+			toolbar.add(getButton("",Language.tr("ParameterCompare.Table.SortModels.Hint"),Images.PARAMETERSERIES_SORT_TABLE.getIcon(),modifiers->commandSortByInputParameter()));
 		}
 
 		/* Eingabeparameter-Spalten */
 		if (columnIndex>0 && columnIndex<=setup.getInput().size()) {
 			if (setup.getInput().size()>1) { /* Nur, wenn wir mehrere Input-Parameter haben */
 				final int nr=columnIndex-1;
-				final JButton b=getButton("",Language.tr("ParameterCompare.Toolbar.ConnectInputParameters"),Images.PARAMETERSERIES_CONNECT_INPUT.getIcon(),()->commandConnectInputParameters(nr));
+				final JButton b=getButton("",Language.tr("ParameterCompare.Toolbar.ConnectInputParameters"),Images.PARAMETERSERIES_CONNECT_INPUT.getIcon(),modifiers->commandConnectInputParameters(nr));
 				toolbar.add(b);
 			}
 		}
@@ -266,7 +270,7 @@ public class ParameterCompareTableModel extends JTableExtAbstractTableModel {
 		/* Ausgabeparameter-Spalten */
 		if (columnIndex>setup.getInput().size() && columnIndex<lastRow.length-1) {
 			final int nr=columnIndex-setup.getInput().size()-1;
-			final JButton b=getButton("",Language.tr("ParameterCompare.Toolbar.ProcessResults.ResultsChart"),Images.PARAMETERSERIES_PROCESS_RESULTS_CHARTS.getIcon(),()->commandShowResultsChart(nr));
+			final JButton b=getButton("",Language.tr("ParameterCompare.Toolbar.ProcessResults.ResultsChart"),Images.PARAMETERSERIES_PROCESS_RESULTS_CHARTS.getIcon(),modifiers->commandShowResultsChart(nr));
 			toolbar.add(b);
 			lastRowChartButtons.add(b);
 			b.setEnabled(hasStatistics);
@@ -551,13 +555,16 @@ public class ParameterCompareTableModel extends JTableExtAbstractTableModel {
 	 * Befehl: Modell löschen
 	 * @param index	Nummer des Modells in der Tabelle
 	 * @param simModel	Zu löschendes Modell
+	 * @param modifiers	Gedrückte Umschalt-Tasten
 	 */
-	private void commandDelete(final int index, final ParameterCompareSetupModel simModel) {
+	private void commandDelete(final int index, final ParameterCompareSetupModel simModel, final int modifiers) {
 		if (simModel==null) {
 			if (!MsgBox.confirm(table,Language.tr("ParameterCompare.Table.DeleteModel.Confirm.Title"),Language.tr("ParameterCompare.Table.DeleteModel.Confirm.InfoAll"),Language.tr("ParameterCompare.Table.DeleteModel.Confirm.InfoAllYes"),Language.tr("ParameterCompare.Table.DeleteModel.Confirm.InfoAllNo"))) return;
 			setup.getModels().clear();
 		} else {
-			if (!MsgBox.confirm(table,Language.tr("ParameterCompare.Table.DeleteModel.Confirm.Title"),String.format(Language.tr("ParameterCompare.Table.DeleteModel.Confirm.Info"),simModel.getName()),Language.tr("ParameterCompare.Table.DeleteModel.Confirm.InfoYes"),Language.tr("ParameterCompare.Table.DeleteModel.Confirm.InfoNo"))) return;
+			if ((modifiers & ActionEvent.SHIFT_MASK)==0) {
+				if (!MsgBox.confirm(table,Language.tr("ParameterCompare.Table.DeleteModel.Confirm.Title"),String.format(Language.tr("ParameterCompare.Table.DeleteModel.Confirm.Info"),simModel.getName()),Language.tr("ParameterCompare.Table.DeleteModel.Confirm.InfoYes"),Language.tr("ParameterCompare.Table.DeleteModel.Confirm.InfoNo"))) return;
+			}
 			setup.getModels().remove(index);
 		}
 		if (update==null) updateTable(); else update.run();
@@ -725,29 +732,29 @@ public class ParameterCompareTableModel extends JTableExtAbstractTableModel {
 			toolbar.setFloatable(false);
 			add(toolbar);
 
-			toolbar.add(b=getButton("",Language.tr("ParameterCompare.Table.EditModel.Hint"),Images.GENERAL_SETUP.getIcon(),()->commandEdit(panelModel,rowIndex)));
+			toolbar.add(b=getButton("",Language.tr("ParameterCompare.Table.EditModel.Hint"),Images.GENERAL_SETUP.getIcon(),modifiers->commandEdit(panelModel,rowIndex)));
 			buttons[0]=b;
 
 			if (model!=null) {
-				toolbar.add(b=getButton("",model.isActive()?Language.tr("ParameterCompare.Table.Active.TurnOffHint"):Language.tr("ParameterCompare.Table.Active.TurnOnHint"),model.isActive()?Images.PARAMETERSERIES_MODEL_ACTIVE_YES.getIcon():Images.PARAMETERSERIES_MODEL_ACTIVE_NO.getIcon(),()->commandtoggleActive(rowIndex)));
+				toolbar.add(b=getButton("",model.isActive()?Language.tr("ParameterCompare.Table.Active.TurnOffHint"):Language.tr("ParameterCompare.Table.Active.TurnOnHint"),model.isActive()?Images.PARAMETERSERIES_MODEL_ACTIVE_YES.getIcon():Images.PARAMETERSERIES_MODEL_ACTIVE_NO.getIcon(),modifiers->commandtoggleActive(rowIndex)));
 			} else {
-				toolbar.add(b=getButton("",Language.tr("ParameterCompare.Table.Active.ChangeState"),Images.PARAMETERSERIES_MODEL_ACTIVE_YES.getIcon(),()->commandtoggleActive(-1)));
+				toolbar.add(b=getButton("",Language.tr("ParameterCompare.Table.Active.ChangeState"),Images.PARAMETERSERIES_MODEL_ACTIVE_YES.getIcon(),modifiers->commandtoggleActive(-1)));
 			}
 			buttons[1]=b;
 
-			toolbar.add(getButton("",(panelModel==null)?Language.tr("ParameterCompare.Table.DeleteModel.HintAll"):Language.tr("ParameterCompare.Table.DeleteModel.Hint"),Images.EDIT_DELETE.getIcon(),()->commandDelete(rowIndex,model)));
+			toolbar.add(getButton("",(panelModel==null)?Language.tr("ParameterCompare.Table.DeleteModel.HintAll"):Language.tr("ParameterCompare.Table.DeleteModel.Hint"),Images.EDIT_DELETE.getIcon(),modifiers->commandDelete(rowIndex,model,modifiers)));
 
-			toolbar.add(b=getButton("",Language.tr("ParameterCompare.Table.MoveModelUp.Hint"),Images.ARROW_UP.getIcon(),()->commandMoveUp(rowIndex)));
+			toolbar.add(b=getButton("",Language.tr("ParameterCompare.Table.MoveModelUp.Hint"),Images.ARROW_UP.getIcon(),modifiers->commandMoveUp(rowIndex)));
 			buttons[2]=b;
 
-			toolbar.add(b=getButton("",Language.tr("ParameterCompare.Table.MoveModelDown.Hint"),Images.ARROW_DOWN.getIcon(),()->commandMoveDown(rowIndex)));
+			toolbar.add(b=getButton("",Language.tr("ParameterCompare.Table.MoveModelDown.Hint"),Images.ARROW_DOWN.getIcon(),modifiers->commandMoveDown(rowIndex)));
 			buttons[3]=b;
 
-			toolbar.add(b=getButton("",Language.tr("ParameterCompare.Table.ShowStatistics.Hint"),Images.PARAMETERSERIES_PROCESS_RESULTS_CHARTS.getIcon(),()->commandShowStatistics(rowIndex)));
+			toolbar.add(b=getButton("",Language.tr("ParameterCompare.Table.ShowStatistics.Hint"),Images.PARAMETERSERIES_PROCESS_RESULTS_CHARTS.getIcon(),modifiers->commandShowStatistics(rowIndex)));
 			buttons[4]=b;
 
 			if (rowIndex>=0) {
-				toolbar.add(b=getButton("",Language.tr("ParameterCompare.Table.SaveStatistics.Hint"),Images.GENERAL_SAVE.getIcon(),()->commandSaveStatistics(rowIndex)));
+				toolbar.add(b=getButton("",Language.tr("ParameterCompare.Table.SaveStatistics.Hint"),Images.GENERAL_SAVE.getIcon(),modifiers->commandSaveStatistics(rowIndex)));
 				buttons[5]=b;
 			}
 

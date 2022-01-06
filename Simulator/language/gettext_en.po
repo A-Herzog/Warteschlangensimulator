@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-05 10:44+0100\n"
+"POT-Creation-Date: 2022-01-06 14:48+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -3189,7 +3189,7 @@ msgid "Editor.Dialog.Sequences.Delete.Confirm.Title"
 msgstr "Delete sequence"
 
 msgid "Editor.Dialog.Sequences.Delete.Hint"
-msgstr "Deletes the current sequence"
+msgstr "Deletes the current sequence (Shift+Click=without confirmation dialog)"
 
 msgid "Editor.Dialog.Sequences.Edit"
 msgstr "Edit"
@@ -3224,7 +3224,7 @@ msgid "Editor.Dialog.Sequences.Edit.Assignments.Delete.Confirm.Title"
 msgstr "Delete assignment"
 
 msgid "Editor.Dialog.Sequences.Edit.Assignments.Delete.Hint"
-msgstr "Deletes the current assignment."
+msgstr "Deletes the current assignment (Shift+Click=without confirmation dialog)"
 
 msgid "Editor.Dialog.Sequences.Edit.Assignments.Edit"
 msgstr "Edit"
@@ -3284,7 +3284,7 @@ msgid "Editor.Dialog.Sequences.Edit.DeleteConfirm.Title"
 msgstr "Delete step from sequence"
 
 msgid "Editor.Dialog.Sequences.Edit.DeleteHint"
-msgstr "Delete step"
+msgstr "Delete step (Shift+Click=without confirmation dialog)"
 
 msgid "Editor.Dialog.Sequences.Edit.EditHint"
 msgstr "Edit client variable assignments"
@@ -3576,7 +3576,7 @@ msgid "Editor.Dialog.Tab.RunTimeStatistics.Table.Type"
 msgstr "Record type"
 
 msgid "Editor.Dialog.Tab.RunTimeStatisticsTable.Delete"
-msgstr "Delete expression"
+msgstr "Delete expression (Shift+Click=without confirmation dialog)"
 
 msgid "Editor.Dialog.Tab.RunTimeStatisticsTable.Delete.ConfirmText"
 msgstr "Do you really want to delete the expression \"%s\" from list?"
@@ -7248,7 +7248,7 @@ msgid "ExpressionCalculator.Tab.Map.Column.Value.Old"
 msgstr "Current value"
 
 msgid "ExpressionCalculator.Tab.Map.Delete"
-msgstr "Delete"
+msgstr "Delete (Shift+Click=without confirmation dialog)"
 
 msgid "ExpressionCalculator.Tab.Map.Delete.ConfirmInfo"
 msgstr "Do you really want to delete the entry \"%s\"?"
@@ -11338,7 +11338,7 @@ msgid "ModelLoadData.EditDialog.Delete.Confirm.Title"
 msgstr "Delete record"
 
 msgid "ModelLoadData.EditDialog.Delete.Hint"
-msgstr "Delete record for loading data"
+msgstr "Delete record for loading data (Shift+Click=without confirmation dialog)"
 
 msgid "ModelLoadData.EditDialog.DialogHint"
 msgstr "In this dialog you can configure a data source from which simulation data will be transferred to the model immediately before starting a simulation."
@@ -11628,7 +11628,7 @@ msgid "NotesDialog.Delete.Confirm.Title"
 msgstr "Delete note"
 
 msgid "NotesDialog.Delete.Hint"
-msgstr "Deletes the selected note."
+msgstr "Deletes the selected note (Shift+Click=without confirmation dialog)"
 
 msgid "NotesDialog.DialogHint"
 msgstr "In this dialog, the notes that can be placed on the drawing surface via the \"Note\" elements from the \"Optical decorations\" category can be viewed and edited."
@@ -12755,7 +12755,7 @@ msgid "ParameterCompare.Settings.Input.List.Add"
 msgstr "Add"
 
 msgid "ParameterCompare.Settings.Input.List.Add.Hint"
-msgstr "Adds an input parameter"
+msgstr "Adds an input parameter (Insert)"
 
 msgid "ParameterCompare.Settings.Input.List.Delete"
 msgstr "Delete"
@@ -12773,13 +12773,13 @@ msgid "ParameterCompare.Settings.Input.List.Delete.Confirm.YesInfo"
 msgstr "Remove the selected input parameter from list."
 
 msgid "ParameterCompare.Settings.Input.List.Delete.Hint"
-msgstr "Removes the selected input parameter from list"
+msgstr "Removes the selected input parameter from list (Delete; Shift+Delete=without confirmation dialog)"
 
 msgid "ParameterCompare.Settings.Input.List.Edit"
 msgstr "Edit"
 
 msgid "ParameterCompare.Settings.Input.List.Edit.Hint"
-msgstr "Edits the selected input parameter"
+msgstr "Edits the selected input parameter (Return)"
 
 msgid "ParameterCompare.Settings.Input.List.InfoMap"
 msgstr "Initial value for global map key \"%s\""
@@ -12797,13 +12797,13 @@ msgid "ParameterCompare.Settings.Input.List.MoveDown"
 msgstr "Move down"
 
 msgid "ParameterCompare.Settings.Input.List.MoveDown.Hint"
-msgstr "Moves the selected input parameter on place down in the list"
+msgstr "Moves the selected input parameter on place down in the list (Ctrl+Down)"
 
 msgid "ParameterCompare.Settings.Input.List.MoveUp"
 msgstr "Move up"
 
 msgid "ParameterCompare.Settings.Input.List.MoveUp.Hint"
-msgstr "Moves the selected input parameter on place up in the list"
+msgstr "Moves the selected input parameter on place up in the list (Ctrl+Up)"
 
 msgid "ParameterCompare.Settings.Input.List.Templates.AnalogValue"
 msgstr "Initial value at station %s"
@@ -13067,7 +13067,7 @@ msgid "ParameterCompare.Settings.Output.List.Add"
 msgstr "Add"
 
 msgid "ParameterCompare.Settings.Output.List.Add.Hint"
-msgstr "Adds an output value"
+msgstr "Adds an output value (Insert)"
 
 msgid "ParameterCompare.Settings.Output.List.Delete"
 msgstr "Delete"
@@ -13085,13 +13085,13 @@ msgid "ParameterCompare.Settings.Output.List.Delete.Confirm.YesInfo"
 msgstr "Remove the selected output value from list."
 
 msgid "ParameterCompare.Settings.Output.List.Delete.Hint"
-msgstr "Removes the selected output value from list"
+msgstr "Removes the selected output value from list (Delete; Shift+Delete=without confirmation dialog)"
 
 msgid "ParameterCompare.Settings.Output.List.Edit"
 msgstr "Edit"
 
 msgid "ParameterCompare.Settings.Output.List.Edit.Hint"
-msgstr "Edits the selected output value"
+msgstr "Edits the selected output value (Return)"
 
 msgid "ParameterCompare.Settings.Output.List.InfoCommand"
 msgstr "Result of calculation expression %s"
@@ -13109,13 +13109,13 @@ msgid "ParameterCompare.Settings.Output.List.MoveDown"
 msgstr "Move down"
 
 msgid "ParameterCompare.Settings.Output.List.MoveDown.Hint"
-msgstr "Moves the selected output value on place down in the list"
+msgstr "Moves the selected output value on place down in the list (Ctrl+Down)"
 
 msgid "ParameterCompare.Settings.Output.List.MoveUp"
 msgstr "Move up"
 
 msgid "ParameterCompare.Settings.Output.List.MoveUp.Hint"
-msgstr "Moves the selected output value on place up in the list"
+msgstr "Moves the selected output value on place up in the list (Ctrl+Up)"
 
 msgid "ParameterCompare.Settings.Output.List.Title"
 msgstr "Edit output values"
@@ -13353,7 +13353,7 @@ msgid "ParameterCompare.Table.DeleteModel.Confirm.Title"
 msgstr "Delete model"
 
 msgid "ParameterCompare.Table.DeleteModel.Hint"
-msgstr "Delete model"
+msgstr "Delete model (Shift+Click=without confirmation dialog)"
 
 msgid "ParameterCompare.Table.DeleteModel.HintAll"
 msgstr "Delete all models"
@@ -14195,7 +14195,7 @@ msgid "Resources.Failure.Add"
 msgstr "Add failure"
 
 msgid "Resources.Failure.Delete"
-msgstr "Delete failure"
+msgstr "Delete failure (Shift+Click=without confirmation dialog)"
 
 msgid "Resources.Failure.Edit"
 msgstr "Edit failure"
@@ -21852,7 +21852,7 @@ msgid "Surface.Action.Dialog.Columns.Edit"
 msgstr "Edit"
 
 msgid "Surface.Action.Dialog.Delete"
-msgstr "Delete action"
+msgstr "Delete action (Shift+Click=without confirmation dialog)"
 
 msgid "Surface.Action.Dialog.Delete.ConfirmInfo"
 msgstr "Dou you really want to delete the selected action?"
@@ -22164,7 +22164,7 @@ msgid "Surface.AnalogAssign.Dialog.Delete.ConfirmTitle"
 msgstr "Delete assignment"
 
 msgid "Surface.AnalogAssign.Dialog.Delete.Hint"
-msgstr "Delete assignment"
+msgstr "Delete assignment (Shift+Click=without confirmation dialog)"
 
 msgid "Surface.AnalogAssign.Dialog.Down.Hint"
 msgstr "Move down"
@@ -22590,7 +22590,7 @@ msgid "Surface.AnimationBarStack.Dialog.Column.Expression"
 msgstr "Expression"
 
 msgid "Surface.AnimationBarStack.Dialog.Delete"
-msgstr "Delete partial bar"
+msgstr "Delete partial bar (Umschalt+Klick=ohne Bestätigungsdialog)"
 
 msgid "Surface.AnimationBarStack.Dialog.Delete.Confirm.Info"
 msgstr "Do you really want to delete the partial bar with expression \"%s\"?"
@@ -22812,7 +22812,7 @@ msgid "Surface.AnimationImage.Dialog.Images.DefaultImage"
 msgstr "Default image"
 
 msgid "Surface.AnimationImage.Dialog.Images.Delete"
-msgstr "Delete image"
+msgstr "Delete image (Shift+Click=without confirmation dialog)"
 
 msgid "Surface.AnimationImage.Dialog.Images.Delete.Confirm.Info"
 msgstr "Do you really want to delete the image corresponding expression \"%s\"?"
@@ -23539,7 +23539,7 @@ msgid "Surface.AssignString.Table.Add"
 msgstr "Add assignment"
 
 msgid "Surface.AssignString.Table.Delete"
-msgstr "Delete assignment"
+msgstr "Delete assignment (Shift+Click=without confirmation dialog)"
 
 msgid "Surface.AssignString.Table.Delete.Confirm.Info"
 msgstr "Do you really want to delete the assignment %s?"
@@ -23701,7 +23701,7 @@ msgid "Surface.Barrier.Dialog.ClientsToBeReleaseBeforeBarrierActivates.Error.Tit
 msgstr "Invalid number of initial clients"
 
 msgid "Surface.Barrier.Dialog.Delete"
-msgstr "Delete release signal"
+msgstr "Delete release signal (Shift+Click=without confirmation dialog)"
 
 msgid "Surface.Barrier.Dialog.Delete.Confirm.Info"
 msgstr "Do you really want to delete the release signal \"%s\" from list?"
@@ -25137,7 +25137,7 @@ msgid "Surface.ExpressionTableModel.ColumnValueRange"
 msgstr "Value range"
 
 msgid "Surface.ExpressionTableModel.Delete"
-msgstr "Delete data row"
+msgstr "Delete data row (Shift+Click=without confirmation dialog)"
 
 msgid "Surface.ExpressionTableModel.Delete.Confirmation.Info"
 msgstr "Do you really want to delete the data row \"%s\"?"
@@ -25218,7 +25218,7 @@ msgid "Surface.ExpressionTableModelText.ColumnText"
 msgstr "Texts"
 
 msgid "Surface.ExpressionTableModelText.Delete"
-msgstr "Delete condition"
+msgstr "Delete condition (Shift+Click=without confirmation dialog)"
 
 msgid "Surface.ExpressionTableModelText.Delete.Confirmation.Info"
 msgstr "Do you really want to delete the condition \"%s\"?"
@@ -26297,7 +26297,7 @@ msgid "Surface.MultiSourceTable.Deactivate"
 msgstr "Deactivate"
 
 msgid "Surface.MultiSourceTable.Delete"
-msgstr "Delete client source"
+msgstr "Delete client source (Shift+Click=without confirmation dialog)"
 
 msgid "Surface.MultiSourceTable.Delete.Confirmation.Info"
 msgstr "Do you really want to delete the client source \"%s\"?"
@@ -28043,7 +28043,7 @@ msgid "Surface.Resource.Add"
 msgstr "Add needed operators group"
 
 msgid "Surface.Resource.Delete"
-msgstr "Delete needed operators group"
+msgstr "Delete needed operators group (Shift+Click=without confirmation dialog)"
 
 msgid "Surface.Resource.Delete.Confirm.Info"
 msgstr "Do you really want to delete the needed operators group \"%s\" from list?"
@@ -28391,7 +28391,7 @@ msgid "Surface.Set.Table.Add"
 msgstr "Add assignment"
 
 msgid "Surface.Set.Table.Delete"
-msgstr "Delete assignment"
+msgstr "Delete assignment (Shift+Click=without confirmation dialog)"
 
 msgid "Surface.Set.Table.Delete.Error.Info"
 msgstr "Do you really want to delete the assignment for variable \"%s\"?"
@@ -29645,7 +29645,7 @@ msgid "Surface.Tank.Dialog.Valve.Control"
 msgstr "Control"
 
 msgid "Surface.Tank.Dialog.Valve.Delete"
-msgstr "Delete valve"
+msgstr "Delete valve (Shift+Click=without confirmation dialog)"
 
 msgid "Surface.Tank.Dialog.Valve.Delete,NoInfo"
 msgstr "Keep valve."
@@ -29894,7 +29894,7 @@ msgid "Surface.TankValveSetup.Table.Add"
 msgstr "Add"
 
 msgid "Surface.TankValveSetup.Table.Delete"
-msgstr "Delete valve setup"
+msgstr "Delete valve setup (Shift+Click=without confirmation dialog)"
 
 msgid "Surface.TankValveSetup.Table.Delete.ConfirmInfo"
 msgstr "Do you really want to delete the setup for tank id=%d, valve %d?"
@@ -30242,7 +30242,7 @@ msgid "Surface.TransportSource.Dialog.Tab.RoutingTargets.Condition"
 msgstr "Condition"
 
 msgid "Surface.TransportSource.Dialog.Tab.RoutingTargets.Delete"
-msgstr "Delete transport target"
+msgstr "Delete transport target (Shift+Click=without confirmation dialog)"
 
 msgid "Surface.TransportSource.Dialog.Tab.RoutingTargets.Delete.Confirm.Info"
 msgstr ""
@@ -31645,7 +31645,7 @@ msgid "Transporter.Failure.Add"
 msgstr "Add failure"
 
 msgid "Transporter.Failure.Delete"
-msgstr "Delete failure"
+msgstr "Delete failure (Shift+Click=without confirmation dialog)"
 
 msgid "Transporter.Failure.Edit"
 msgstr "Edit failure"
@@ -32574,7 +32574,7 @@ msgid "Window.Layers.Delete.ConfirmTitle"
 msgstr "Ebene löschen"
 
 msgid "Window.Layers.Delete.Hint"
-msgstr "Delete layer."
+msgstr "Delete layer (Shift+Click=without confirmation dialog)"
 
 msgid "Window.Layers.Delete.Title"
 msgstr "Delete"

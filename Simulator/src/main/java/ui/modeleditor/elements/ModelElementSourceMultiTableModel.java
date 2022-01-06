@@ -392,7 +392,9 @@ public class ModelElementSourceMultiTableModel extends JTableExtAbstractTableMod
 				break;
 			case 1: /* Delete */
 				final String name=records.get(row).getName();
-				if (!MsgBox.confirm(table,Language.tr("Surface.MultiSourceTable.Delete.Confirmation.Title"),String.format(Language.tr("Surface.MultiSourceTable.Delete.Confirmation.Info"),name),Language.tr("Surface.MultiSourceTable.Delete.Confirmation.YesInfo"),Language.tr("Surface.MultiSourceTable.Delete.Confirmation.NoInfo"))) return;
+				if ((e.getModifiers() & ActionEvent.SHIFT_MASK)==0) {
+					if (!MsgBox.confirm(table,Language.tr("Surface.MultiSourceTable.Delete.Confirmation.Title"),String.format(Language.tr("Surface.MultiSourceTable.Delete.Confirmation.Info"),name),Language.tr("Surface.MultiSourceTable.Delete.Confirmation.YesInfo"),Language.tr("Surface.MultiSourceTable.Delete.Confirmation.NoInfo"))) return;
+				}
 				records.remove(row);
 				updateTable();
 				break;

@@ -336,7 +336,7 @@ public class ModelElementActionRecordTableModel extends JTableExtAbstractTableMo
 			case CMD_DELETE:
 				if (row>=0) {
 					updateTable();
-					if (MsgBox.confirm(table,Language.tr("Surface.Action.Dialog.Delete.ConfirmTitle"),Language.tr("Surface.Action.Dialog.Delete.ConfirmInfo"),Language.tr("Surface.Action.Dialog.Delete.ConfirmInfoYes"),Language.tr("Surface.Action.Dialog.Delete.ConfirmInfoNo"))) {
+					if ((e.getModifiers() & ActionEvent.SHIFT_MASK)!=0 || MsgBox.confirm(table,Language.tr("Surface.Action.Dialog.Delete.ConfirmTitle"),Language.tr("Surface.Action.Dialog.Delete.ConfirmInfo"),Language.tr("Surface.Action.Dialog.Delete.ConfirmInfoYes"),Language.tr("Surface.Action.Dialog.Delete.ConfirmInfoNo"))) {
 						records.remove(row);
 						updateTable();
 					}

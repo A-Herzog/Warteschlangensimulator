@@ -236,7 +236,9 @@ public class AdditionalStatisticsTableModel extends JTableExtAbstractTableModel 
 		public void actionPerformed(ActionEvent e) {
 			if (readOnly) return;
 			final String name=data.get(row).expression;
-			if (!MsgBox.confirm(table,Language.tr("Editor.Dialog.Tab.RunTimeStatisticsTable.Delete.ConfirmTitle"),String.format(Language.tr("Editor.Dialog.Tab.RunTimeStatisticsTable.Delete.ConfirmText"),name),Language.tr("Editor.Dialog.Tab.RunTimeStatisticsTable.Delete.YesInfo"),Language.tr("Editor.Dialog.Tab.RunTimeStatisticsTable.Delete.NoInfo"))) return;
+			if ((e.getModifiers() & ActionEvent.SHIFT_MASK)==0) {
+				if (!MsgBox.confirm(table,Language.tr("Editor.Dialog.Tab.RunTimeStatisticsTable.Delete.ConfirmTitle"),String.format(Language.tr("Editor.Dialog.Tab.RunTimeStatisticsTable.Delete.ConfirmText"),name),Language.tr("Editor.Dialog.Tab.RunTimeStatisticsTable.Delete.YesInfo"),Language.tr("Editor.Dialog.Tab.RunTimeStatisticsTable.Delete.NoInfo"))) return;
+			}
 			data.remove(row);
 			updateTable();
 		}

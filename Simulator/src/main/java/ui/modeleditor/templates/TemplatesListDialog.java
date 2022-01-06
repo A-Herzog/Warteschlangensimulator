@@ -125,7 +125,7 @@ public final class TemplatesListDialog extends BaseDialog {
 		list.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyPressed(KeyEvent e) {
-				if (e.getKeyCode()==KeyEvent.VK_DELETE && !e.isShiftDown() && !e.isControlDown() && !e.isAltDown()) {commandDelete(); e.consume(); return;}
+				if (e.getKeyCode()==KeyEvent.VK_DELETE && !e.isControlDown() && !e.isAltDown()) {commandDelete(e.isShiftDown()); e.consume(); return;}
 			}
 		});
 		list.setCellRenderer(new ListRecordRenderer());
@@ -229,15 +229,18 @@ public final class TemplatesListDialog extends BaseDialog {
 
 	/**
 	 * Befehl: Vorlage löschen
+	 * @param isShiftDown	Ist die Umschalttaste gedrückt? (Wenn ja, löschen ohne Nachfrage.)
 	 */
-	private void commandDelete() {
+	private void commandDelete(final boolean isShiftDown) {
 		if (list.getSelectedIndex()<0) {
 			MsgBox.error(this,Language.tr("UserTemplates.TemplatesDialog.SelectErrorTitle"),Language.tr("UserTemplates.TemplatesDialog.SelectErrorInfo"));
 			return;
 		}
 
 		final UserTemplate template=listModel.get(list.getSelectedIndex()).template;
-		if (!MsgBox.confirm(this,Language.tr("UserTemplates.TemplatesDialog.Delete.ConfirmTitle"),String.format(Language.tr("UserTemplates.TemplatesDialog.Delete.ConfirmInfo"),template.getName()),Language.tr("UserTemplates.TemplatesDialog.Delete.ConfirmInfoYes"),Language.tr("UserTemplates.TemplatesDialog.Delete.ConfirmInfoNo"))) return;
+		if (!isShiftDown) {
+			if (!MsgBox.confirm(this,Language.tr("UserTemplates.TemplatesDialog.Delete.ConfirmTitle"),String.format(Language.tr("UserTemplates.TemplatesDialog.Delete.ConfirmInfo"),template.getName()),Language.tr("UserTemplates.TemplatesDialog.Delete.ConfirmInfoYes"),Language.tr("UserTemplates.TemplatesDialog.Delete.ConfirmInfoNo"))) return;
+		}
 
 		listModel.remove(list.getSelectedIndex());
 	}
@@ -247,7 +250,7 @@ public final class TemplatesListDialog extends BaseDialog {
 		switch (nr) {
 		case 0: commandUse(); break;
 		case 1: commandEdit(); break;
-		case 2: commandDelete(); break;
+		case 2: commandDelete(false); break;
 		}
 	}
 
@@ -277,7 +280,7 @@ public final class TemplatesListDialog extends BaseDialog {
 		popup.add(item=new JMenuItem(Language.tr("UserTemplates.TemplatesDialog.Delete")));
 		item.setIcon(Images.EDIT_DELETE.getIcon());
 		item.setEnabled(templateSelected);
-		item.addActionListener(e->commandDelete());
+		item.addActionListener(e->commandDelete((e.getModifiers() & ActionEvent.SHIFT_MASK)!=0));
 		item.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_DELETE,0));
 
 		popup.show(list,point.x,point.y);

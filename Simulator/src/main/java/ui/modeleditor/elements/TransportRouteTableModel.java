@@ -266,7 +266,9 @@ public class TransportRouteTableModel extends JTableExtAbstractTableModel {
 		public void actionPerformed(ActionEvent e) {
 			if (readOnly) return;
 			final String name=routes.get(row).getConditionText();
-			if (!MsgBox.confirm(table,Language.tr("Surface.TransportSource.Dialog.Tab.RoutingTargets.Delete.Confirm.Title"),String.format(Language.tr("Surface.TransportSource.Dialog.Tab.RoutingTargets.Delete.Confirm.Info"),name),Language.tr("Surface.TransportSource.Dialog.Tab.RoutingTargets.Delete.Confirm.YesInfo"),Language.tr("Surface.TransportSource.Dialog.Tab.RoutingTargets.Delete.Confirm.NoInfo"))) return;
+			if ((e.getModifiers() & ActionEvent.SHIFT_MASK)==0) {
+				if (!MsgBox.confirm(table,Language.tr("Surface.TransportSource.Dialog.Tab.RoutingTargets.Delete.Confirm.Title"),String.format(Language.tr("Surface.TransportSource.Dialog.Tab.RoutingTargets.Delete.Confirm.Info"),name),Language.tr("Surface.TransportSource.Dialog.Tab.RoutingTargets.Delete.Confirm.YesInfo"),Language.tr("Surface.TransportSource.Dialog.Tab.RoutingTargets.Delete.Confirm.NoInfo"))) return;
+			}
 			routes.remove(row);
 			updateTable();
 		}

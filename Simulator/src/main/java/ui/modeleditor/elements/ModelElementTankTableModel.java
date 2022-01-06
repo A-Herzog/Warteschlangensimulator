@@ -269,7 +269,9 @@ public class ModelElementTankTableModel extends JTableExtAbstractTableModel {
 				case 0:
 					/* Delete */
 					if (row>=0) {
-						if (!MsgBox.confirm(table,Language.tr("Surface.Tank.Dialog.Valve.Delete.Title"),String.format(Language.tr("Surface.Tank.Dialog.Valve.Delete.Info"),row+1),Language.tr("Surface.Tank.Dialog.Valve.Delete.YesInfo"),Language.tr("Surface.Tank.Dialog.Valve.Delete,NoInfo"))) return;
+						if ((e.getModifiers() & ActionEvent.SHIFT_MASK)==0) {
+							if (!MsgBox.confirm(table,Language.tr("Surface.Tank.Dialog.Valve.Delete.Title"),String.format(Language.tr("Surface.Tank.Dialog.Valve.Delete.Info"),row+1),Language.tr("Surface.Tank.Dialog.Valve.Delete.YesInfo"),Language.tr("Surface.Tank.Dialog.Valve.Delete,NoInfo"))) return;
+						}
 						updateTable();
 						valves.remove(row);
 						updateTable();

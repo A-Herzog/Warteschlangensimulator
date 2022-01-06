@@ -289,7 +289,9 @@ public class ExpressionTableModelText extends JTableExtAbstractTableModel {
 			if (readOnly) return;
 
 			final String name=expressions.get(row);
-			if (!MsgBox.confirm(table,Language.tr("Surface.ExpressionTableModelText.Delete.Confirmation.Title"),String.format(Language.tr("Surface.ExpressionTableModelText.Delete.Confirmation.Info"),name),Language.tr("Surface.ExpressionTableModelText.Delete.Confirmation.YesInfo"),Language.tr("Surface.ExpressionTableModelText.Delete.Confirmation.NoInfo"))) return;
+			if ((e.getModifiers() & ActionEvent.SHIFT_MASK)==0) {
+				if (!MsgBox.confirm(table,Language.tr("Surface.ExpressionTableModelText.Delete.Confirmation.Title"),String.format(Language.tr("Surface.ExpressionTableModelText.Delete.Confirmation.Info"),name),Language.tr("Surface.ExpressionTableModelText.Delete.Confirmation.YesInfo"),Language.tr("Surface.ExpressionTableModelText.Delete.Confirmation.NoInfo"))) return;
+			}
 			expressions.remove(row);
 			values.remove(row);
 			updateTable();

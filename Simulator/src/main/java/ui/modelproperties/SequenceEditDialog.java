@@ -18,8 +18,8 @@ package ui.modelproperties;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
-import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -90,8 +90,10 @@ public class SequenceEditDialog extends BaseDialog {
 		final Object[] data=ModelElementBaseDialog.getInputPanel(Language.tr("Editor.Dialog.Sequences.Edit.Name")+":",sequence.getName());
 		content.add((JPanel)data[0],BorderLayout.NORTH);
 		nameEdit=(JTextField)data[1];
-		nameEdit.addKeyListener(new KeyAdapter() {
+		nameEdit.addKeyListener(new KeyListener() {
 			@Override public void keyPressed(KeyEvent e) {checkData(false);}
+			@Override public void keyTyped(KeyEvent e) {checkData(false);}
+			@Override public void keyReleased(KeyEvent e) {checkData(false);}
 		});
 
 		content.add(new JScrollPane(table=new JTableExt()),BorderLayout.CENTER);

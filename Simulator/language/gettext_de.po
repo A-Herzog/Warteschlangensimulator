@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-05 10:44+0100\n"
+"POT-Creation-Date: 2022-01-06 14:48+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -3191,7 +3191,7 @@ msgid "Editor.Dialog.Sequences.Delete.Confirm.Title"
 msgstr "Fertigungsplan löschen"
 
 msgid "Editor.Dialog.Sequences.Delete.Hint"
-msgstr "Löscht den aktuellen Fertigungsplan"
+msgstr "Löscht den aktuellen Fertigungsplan (Umschalt+Klick=ohne Bestätigungsdialog)"
 
 msgid "Editor.Dialog.Sequences.Edit"
 msgstr "Bearbeiten"
@@ -3227,7 +3227,7 @@ msgid "Editor.Dialog.Sequences.Edit.Assignments.Delete.Confirm.Title"
 msgstr "Zuweisung löschen"
 
 msgid "Editor.Dialog.Sequences.Edit.Assignments.Delete.Hint"
-msgstr "Löscht die aktuelle Zuweisung"
+msgstr "Löscht die aktuelle Zuweisung (Umschalt+Klick=ohne Bestätigungsdialog)"
 
 msgid "Editor.Dialog.Sequences.Edit.Assignments.Edit"
 msgstr "Bearbeiten"
@@ -3287,7 +3287,7 @@ msgid "Editor.Dialog.Sequences.Edit.DeleteConfirm.Title"
 msgstr "Schritt aus Fertigungsplan löschen"
 
 msgid "Editor.Dialog.Sequences.Edit.DeleteHint"
-msgstr "Schritt löschen"
+msgstr "Schritt löschen (Umschalt+Klick=ohne Bestätigungsdialog)"
 
 msgid "Editor.Dialog.Sequences.Edit.EditHint"
 msgstr "Kundenvariablen Zuweisungen bearbeiten"
@@ -3580,7 +3580,7 @@ msgid "Editor.Dialog.Tab.RunTimeStatistics.Table.Type"
 msgstr "Erfassungstyp"
 
 msgid "Editor.Dialog.Tab.RunTimeStatisticsTable.Delete"
-msgstr "Ausdruck löschen"
+msgstr "Ausdruck löschen (Umschalt+Klick=ohne Bestätigungsdialog)"
 
 msgid "Editor.Dialog.Tab.RunTimeStatisticsTable.Delete.ConfirmText"
 msgstr "Soll der Ausdruck \"%s\" wirklich aus der Liste gelöscht werden."
@@ -7234,7 +7234,7 @@ msgid "ExpressionCalculator.Tab.Map.Column.Value.Old"
 msgstr "Bisheriger Wert"
 
 msgid "ExpressionCalculator.Tab.Map.Delete"
-msgstr "Löschen"
+msgstr "Löschen (Umschalt+Klick=ohne Bestätigungsdialog)"
 
 msgid "ExpressionCalculator.Tab.Map.Delete.ConfirmInfo"
 msgstr "Soll der Eintrag \"%s\" wirklich gelöscht werden?"
@@ -11330,7 +11330,7 @@ msgid "ModelLoadData.EditDialog.Delete.Confirm.Title"
 msgstr "Eintrag löschen"
 
 msgid "ModelLoadData.EditDialog.Delete.Hint"
-msgstr "Eintrag zum Laden von Daten löschen"
+msgstr "Eintrag zum Laden von Daten löschen (Umschalt+Klick=ohne Bestätigungsdialog)"
 
 msgid "ModelLoadData.EditDialog.DialogHint"
 msgstr "In diesem Dialog kann eine Datenquelle, aus der unmittelbar vor dem Start eine Simulation Daten in das Modell übernommen werden, konfiguriert werden."
@@ -11620,7 +11620,7 @@ msgid "NotesDialog.Delete.Confirm.Title"
 msgstr "Notiz löschen"
 
 msgid "NotesDialog.Delete.Hint"
-msgstr "Löscht die gewählte Notiz."
+msgstr "Löscht die gewählte Notiz (Umschalt+Klick=ohne Bestätigungsdialog)"
 
 msgid "NotesDialog.DialogHint"
 msgstr "In diesem Dialog können die Notizen, die über die \"Notiz\"-Elemente aus der Kategorie \"Optische Gestaltung\" auf der Zeichenfläche platziert werden können, eingesehen und bearbeitet werden."
@@ -12752,7 +12752,7 @@ msgid "ParameterCompare.Settings.Input.List.Add"
 msgstr "Hinzufügen"
 
 msgid "ParameterCompare.Settings.Input.List.Add.Hint"
-msgstr "Fügt einen Eingabeparameter hinzu"
+msgstr "Fügt einen Eingabeparameter hinzu (Einfügen)"
 
 msgid "ParameterCompare.Settings.Input.List.Delete"
 msgstr "Entfernen"
@@ -12770,13 +12770,13 @@ msgid "ParameterCompare.Settings.Input.List.Delete.Confirm.YesInfo"
 msgstr "Gewählten Eingabeparameter aus der Liste entfernen."
 
 msgid "ParameterCompare.Settings.Input.List.Delete.Hint"
-msgstr "Entfernt den ausgewählten Eingabeparameter aus der Liste"
+msgstr "Entfernt den ausgewählten Eingabeparameter aus der Liste (Entfernen; Umschalt+Entfernen=ohne Bestätigungsdialog)"
 
 msgid "ParameterCompare.Settings.Input.List.Edit"
 msgstr "Bearbeiten"
 
 msgid "ParameterCompare.Settings.Input.List.Edit.Hint"
-msgstr "Bearbeitet den gewählten Eingabeparameter"
+msgstr "Bearbeitet den gewählten Eingabeparameter (Enter)"
 
 msgid "ParameterCompare.Settings.Input.List.InfoMap"
 msgstr "Startwert für Eintrag \"%s\" in globaler Zuordnung"
@@ -12794,13 +12794,13 @@ msgid "ParameterCompare.Settings.Input.List.MoveDown"
 msgstr "Nach unten"
 
 msgid "ParameterCompare.Settings.Input.List.MoveDown.Hint"
-msgstr "Verschiebt den gewählten Eingabeparameter um einen Platz nach unten in der Liste"
+msgstr "Verschiebt den gewählten Eingabeparameter um einen Platz nach unten in der Liste (Strg+Nach unten)"
 
 msgid "ParameterCompare.Settings.Input.List.MoveUp"
 msgstr "Nach oben"
 
 msgid "ParameterCompare.Settings.Input.List.MoveUp.Hint"
-msgstr "Verschiebt den gewählten Eingabeparameter um einen Platz nach unten in der Liste"
+msgstr "Verschiebt den gewählten Eingabeparameter um einen Platz nach unten in der Liste (Strg+Nach oben)"
 
 msgid "ParameterCompare.Settings.Input.List.Templates.AnalogValue"
 msgstr "Initialer Wert an Station %s"
@@ -13064,7 +13064,7 @@ msgid "ParameterCompare.Settings.Output.List.Add"
 msgstr "Hinzufügen"
 
 msgid "ParameterCompare.Settings.Output.List.Add.Hint"
-msgstr "Fügt einen Ausgabewert hinzu"
+msgstr "Fügt einen Ausgabewert hinzu (Einfügen)"
 
 msgid "ParameterCompare.Settings.Output.List.Delete"
 msgstr "Entfernen"
@@ -13082,13 +13082,13 @@ msgid "ParameterCompare.Settings.Output.List.Delete.Confirm.YesInfo"
 msgstr "Gewählten Ausgabewert aus der Liste entfernen."
 
 msgid "ParameterCompare.Settings.Output.List.Delete.Hint"
-msgstr "Entfernt den ausgewählten Ausgabewert aus der Liste"
+msgstr "Entfernt den ausgewählten Ausgabewert aus der Liste  (Entfernen; Umschalt+Entfernen=ohne Bestätigungsdialog)"
 
 msgid "ParameterCompare.Settings.Output.List.Edit"
 msgstr "Bearbeiten"
 
 msgid "ParameterCompare.Settings.Output.List.Edit.Hint"
-msgstr "Bearbeitet den gewählten Ausgabewert"
+msgstr "Bearbeitet den gewählten Ausgabewert (Enter)"
 
 msgid "ParameterCompare.Settings.Output.List.InfoCommand"
 msgstr "Ergebnis des Rechenausdrucks %s"
@@ -13106,13 +13106,13 @@ msgid "ParameterCompare.Settings.Output.List.MoveDown"
 msgstr "Nach unten"
 
 msgid "ParameterCompare.Settings.Output.List.MoveDown.Hint"
-msgstr "Verschiebt den gewählten Ausgabewert um einen Platz nach unten in der Liste"
+msgstr "Verschiebt den gewählten Ausgabewert um einen Platz nach unten in der Liste (Umschalt+Nach unten)"
 
 msgid "ParameterCompare.Settings.Output.List.MoveUp"
 msgstr "Nach oben"
 
 msgid "ParameterCompare.Settings.Output.List.MoveUp.Hint"
-msgstr "Verschiebt den gewählten Ausgabewert um einen Platz nach oben in der Liste"
+msgstr "Verschiebt den gewählten Ausgabewert um einen Platz nach oben in der Liste (Umschalt+Nach oben)"
 
 msgid "ParameterCompare.Settings.Output.List.Title"
 msgstr "Ausgabewerte bearbeiten"
@@ -13351,7 +13351,7 @@ msgid "ParameterCompare.Table.DeleteModel.Confirm.Title"
 msgstr "Modell löschen"
 
 msgid "ParameterCompare.Table.DeleteModel.Hint"
-msgstr "Modell löschen"
+msgstr "Modell löschen (Umschalt+Klick=ohne Bestätigungsdialog)"
 
 msgid "ParameterCompare.Table.DeleteModel.HintAll"
 msgstr "Alle Modelle löschen"
@@ -14196,7 +14196,7 @@ msgid "Resources.Failure.Add"
 msgstr "Ausfall hinzufügen"
 
 msgid "Resources.Failure.Delete"
-msgstr "Ausfall löschen"
+msgstr "Ausfall löschen (Umschalt+Klick=ohne Bestätigungsdialog)"
 
 msgid "Resources.Failure.Edit"
 msgstr "Ausfall bearbeiten"
@@ -21859,7 +21859,7 @@ msgid "Surface.Action.Dialog.Columns.Edit"
 msgstr "Bearbeiten"
 
 msgid "Surface.Action.Dialog.Delete"
-msgstr "Aktion löschen"
+msgstr "Aktion löschen (Umschalt+Klick=ohne Bestätigungsdialog)"
 
 msgid "Surface.Action.Dialog.Delete.ConfirmInfo"
 msgstr "Soll die gewählte Aktion wirklich gelöscht werden?"
@@ -22171,7 +22171,7 @@ msgid "Surface.AnalogAssign.Dialog.Delete.ConfirmTitle"
 msgstr "Zuweisung löschen"
 
 msgid "Surface.AnalogAssign.Dialog.Delete.Hint"
-msgstr "Zuweisung löschen"
+msgstr "Zuweisung löschen (Umschalt+Klick=ohne Bestätigungsdialog)"
 
 msgid "Surface.AnalogAssign.Dialog.Down.Hint"
 msgstr "Nach unten verschieben"
@@ -22597,7 +22597,7 @@ msgid "Surface.AnimationBarStack.Dialog.Column.Expression"
 msgstr "Ausdruck"
 
 msgid "Surface.AnimationBarStack.Dialog.Delete"
-msgstr "Teilbalken löschen"
+msgstr "Teilbalken löschen (Umschalt+Klick=ohne Bestätigungsdialog)"
 
 msgid "Surface.AnimationBarStack.Dialog.Delete.Confirm.Info"
 msgstr "Soll der Teilbalken mit dem Ausdruck \"%s\" wirklich aus der Liste gelöscht werden?"
@@ -22819,7 +22819,7 @@ msgid "Surface.AnimationImage.Dialog.Images.DefaultImage"
 msgstr "Standardbild"
 
 msgid "Surface.AnimationImage.Dialog.Images.Delete"
-msgstr "Bild löschen"
+msgstr "Bild löschen (Umschalt+Klick=ohne Bestätigungsdialog)"
 
 msgid "Surface.AnimationImage.Dialog.Images.Delete.Confirm.Info"
 msgstr "Soll das zu Ausdruck \"%s\" gehörende Bild wirklich gelöscht werden?"
@@ -23546,7 +23546,7 @@ msgid "Surface.AssignString.Table.Add"
 msgstr "Zuweisung hinzufügen"
 
 msgid "Surface.AssignString.Table.Delete"
-msgstr "Zuweisung löschen"
+msgstr "Zuweisung löschen (Umschalt+Klick=ohne Bestätigungsdialog)"
 
 msgid "Surface.AssignString.Table.Delete.Confirm.Info"
 msgstr "Soll die Zuweisung %s wirklich gelöscht werden?"
@@ -23708,7 +23708,7 @@ msgid "Surface.Barrier.Dialog.ClientsToBeReleaseBeforeBarrierActivates.Error.Tit
 msgstr "Ungültige Anzahl an initialen Kunden"
 
 msgid "Surface.Barrier.Dialog.Delete"
-msgstr "Auslösesignal löschen"
+msgstr "Auslösesignal löschen (Umschalt+Klick=ohne Bestätigungsdialog)"
 
 msgid "Surface.Barrier.Dialog.Delete.Confirm.Info"
 msgstr "Soll das Auslösesignal \"%s\" wirklich aus der Liste gelöscht werden?"
@@ -25150,7 +25150,7 @@ msgid "Surface.ExpressionTableModel.ColumnValueRange"
 msgstr "Wertebereich"
 
 msgid "Surface.ExpressionTableModel.Delete"
-msgstr "Datenreihe löschen"
+msgstr "Datenreihe löschen (Umschalt+Klick=ohne Bestätigungsdialog)"
 
 msgid "Surface.ExpressionTableModel.Delete.Confirmation.Info"
 msgstr "Soll die Datenreihe \"%s\" wirklich aus der Liste gelöscht werden?"
@@ -25231,7 +25231,7 @@ msgid "Surface.ExpressionTableModelText.ColumnText"
 msgstr "Texte"
 
 msgid "Surface.ExpressionTableModelText.Delete"
-msgstr "Bedingung löschen"
+msgstr "Bedingung löschen (Umschalt+Klick=ohne Bestätigungsdialog)"
 
 msgid "Surface.ExpressionTableModelText.Delete.Confirmation.Info"
 msgstr "Soll die Bedingung \"%s\" wirklich aus der Liste gelöscht werden?"
@@ -26310,7 +26310,7 @@ msgid "Surface.MultiSourceTable.Deactivate"
 msgstr "Deaktivieren"
 
 msgid "Surface.MultiSourceTable.Delete"
-msgstr "Kundenquelle löschen"
+msgstr "Kundenquelle löschen (Umschalt+Klick=ohne Bestätigungsdialog)"
 
 msgid "Surface.MultiSourceTable.Delete.Confirmation.Info"
 msgstr "Soll die Kundenquelle \"%s\" wirklich gelöscht werden?"
@@ -28059,7 +28059,7 @@ msgid "Surface.Resource.Add"
 msgstr "Notwendige Bedienergruppe hinzufügen"
 
 msgid "Surface.Resource.Delete"
-msgstr "Notwendige Bedienergruppe löschen"
+msgstr "Notwendige Bedienergruppe löschen (Umschalt+Klick=ohne Bestätigungsdialog)"
 
 msgid "Surface.Resource.Delete.Confirm.Info"
 msgstr "Soll die Bedienergruppe \"%s\" wirklich aus der Liste gelöscht werden?"
@@ -28407,7 +28407,7 @@ msgid "Surface.Set.Table.Add"
 msgstr "Zuweisung hinzufügen"
 
 msgid "Surface.Set.Table.Delete"
-msgstr "Zuweisung löschen"
+msgstr "Zuweisung löschen (Umschalt+Klick=ohne Bestätigungsdialog)"
 
 msgid "Surface.Set.Table.Delete.Error.Info"
 msgstr "Soll die Zuweisung für Variable \"%s\" wirklich gelöscht werden?"
@@ -29661,7 +29661,7 @@ msgid "Surface.Tank.Dialog.Valve.Control"
 msgstr "Steuerung"
 
 msgid "Surface.Tank.Dialog.Valve.Delete"
-msgstr "Ventil löschen"
+msgstr "Ventil löschen (Umschalt+Klick=ohne Bestätigungsdialog)"
 
 msgid "Surface.Tank.Dialog.Valve.Delete,NoInfo"
 msgstr "Ventil beibehalten."
@@ -29910,7 +29910,7 @@ msgid "Surface.TankValveSetup.Table.Add"
 msgstr "Hintzfügen"
 
 msgid "Surface.TankValveSetup.Table.Delete"
-msgstr "Ventil konfiguration löschen"
+msgstr "Ventil konfiguration löschen (Umschalt+Klick=ohne Bestätigungsdialog)"
 
 msgid "Surface.TankValveSetup.Table.Delete.ConfirmInfo"
 msgstr "Soll die Konfiguration für Tank id=%d, Ventil %d wirklich gelöscht werden?"
@@ -30258,7 +30258,7 @@ msgid "Surface.TransportSource.Dialog.Tab.RoutingTargets.Condition"
 msgstr "Bedingung"
 
 msgid "Surface.TransportSource.Dialog.Tab.RoutingTargets.Delete"
-msgstr "Transportziel löschen"
+msgstr "Transportziel löschen (Umschalt+Klick=ohne Bestätigungsdialog)"
 
 msgid "Surface.TransportSource.Dialog.Tab.RoutingTargets.Delete.Confirm.Info"
 msgstr ""
@@ -31662,7 +31662,7 @@ msgid "Transporter.Failure.Add"
 msgstr "Ausfall hinzufügen"
 
 msgid "Transporter.Failure.Delete"
-msgstr "Ausfall löschen"
+msgstr "Ausfall löschen (Umschalt+Klick=ohne Bestätigungsdialog)"
 
 msgid "Transporter.Failure.Edit"
 msgstr "Ausfall bearbeiten"
@@ -32593,7 +32593,7 @@ msgid "Window.Layers.Delete.ConfirmTitle"
 msgstr "Ebene löschen"
 
 msgid "Window.Layers.Delete.Hint"
-msgstr "Ebene löschen."
+msgstr "Ebene löschen (Umschalt+Klick=ohne Bestätigungsdialog)"
 
 msgid "Window.Layers.Delete.Title"
 msgstr "Löschen"

@@ -648,7 +648,7 @@ public final class EditorPanel extends EditorPanelBase {
 				sub.setIcon(Images.EDIT_DELETE.getIcon());
 				for (SavedViews.SavedView view: views) {
 					sub.add(item=new JMenuItem(view.getName()));
-					item.addActionListener(e->savedViewDelete(view));
+					item.addActionListener(e->savedViewDelete(view,(e.getModifiers() & ActionEvent.SHIFT_MASK)!=0));
 				}
 			}
 		}
@@ -719,9 +719,10 @@ public final class EditorPanel extends EditorPanelBase {
 	/**
 	 * Löscht eine gespeicherte Ansicht.
 	 * @param view	Zu löschende Ansicht
+	 * @param isShiftDown	Ist die Umschalt-Taste gedrückt? (Wenn ja, löschen ohne Nachfrage.)
 	 */
-	private void savedViewDelete(final SavedViews.SavedView view) {
-		if (MsgBox.confirm(this,Language.tr("Editor.SavedViews.Delete"),String.format(Language.tr("Editor.SavedViews.Delete.Info"),view.getName()),Language.tr("Editor.SavedViews.Delete.InfoYes"),Language.tr("Editor.SavedViews.Delete.InfoNo"))) {
+	private void savedViewDelete(final SavedViews.SavedView view, final boolean isShiftDown) {
+		if (isShiftDown || MsgBox.confirm(this,Language.tr("Editor.SavedViews.Delete"),String.format(Language.tr("Editor.SavedViews.Delete.Info"),view.getName()),Language.tr("Editor.SavedViews.Delete.InfoYes"),Language.tr("Editor.SavedViews.Delete.InfoNo"))) {
 			model.savedViews.getViews().remove(view);
 		}
 	}

@@ -18,12 +18,15 @@ package ui.parameterseries;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.InputEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.Serializable;
+import java.util.function.IntConsumer;
 
 import javax.swing.BorderFactory;
 import javax.swing.DefaultListCellRenderer;
@@ -37,6 +40,7 @@ import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
 import javax.swing.JToolBar;
+import javax.swing.KeyStroke;
 import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
 
@@ -112,12 +116,12 @@ public abstract class ParameterCompareSetupValueBaseListDialog extends BaseDialo
 		toolbar.setBorder(BorderFactory.createLineBorder(Color.GRAY));
 		toolbar.setFloatable(false);
 		content.add(toolbar,BorderLayout.NORTH);
-		toolbar.add(buttonAdd=getButton(Images.EDIT_ADD.getIcon(),()->commandAddPopup()));
-		toolbar.add(buttonEdit=getButton(Images.GENERAL_SETUP.getIcon(),()->{if (list.getSelectedIndex()>=0) commandEdit(list.getSelectedIndex());}));
-		toolbar.add(buttonDelete=getButton(Images.EDIT_DELETE.getIcon(),()->{if (list.getSelectedIndex()>=0) commandDelete(list.getSelectedIndex());}));
+		toolbar.add(buttonAdd=getButton(Images.EDIT_ADD.getIcon(),modifiers->commandAddPopup()));
+		toolbar.add(buttonEdit=getButton(Images.GENERAL_SETUP.getIcon(),modifiers->{if (list.getSelectedIndex()>=0) commandEdit(list.getSelectedIndex());}));
+		toolbar.add(buttonDelete=getButton(Images.EDIT_DELETE.getIcon(),modifiers->{if (list.getSelectedIndex()>=0) commandDelete(list.getSelectedIndex(),(modifiers & ActionEvent.SHIFT_MASK)!=0);}));
 		toolbar.addSeparator();
-		toolbar.add(buttonMoveUp=getButton(Images.ARROW_UP.getIcon(),()->commandMoveUp()));
-		toolbar.add(buttonMoveDown=getButton(Images.ARROW_DOWN.getIcon(),()->commandMoveDown()));
+		toolbar.add(buttonMoveUp=getButton(Images.ARROW_UP.getIcon(),modifiers->commandMoveUp()));
+		toolbar.add(buttonMoveDown=getButton(Images.ARROW_DOWN.getIcon(),modifiers->commandMoveDown()));
 
 		list.setCellRenderer(new DefaultListCellRenderer() {
 			/**
@@ -153,7 +157,7 @@ public abstract class ParameterCompareSetupValueBaseListDialog extends BaseDialo
 			public void keyPressed(KeyEvent e) {
 				if (e.getKeyCode()==KeyEvent.VK_INSERT && !e.isControlDown() && !e.isShiftDown()) {commandAdd(0); e.consume(); return;}
 				if (e.getKeyCode()==KeyEvent.VK_ENTER && !e.isControlDown() && !e.isShiftDown()) {if (list.getSelectedIndex()<0) return; commandEdit(list.getSelectedIndex()); e.consume(); return;}
-				if (e.getKeyCode()==KeyEvent.VK_DELETE && !e.isControlDown() && !e.isShiftDown()) {if (list.getSelectedIndex()<0) return; commandDelete(list.getSelectedIndex()); e.consume(); return;}
+				if (e.getKeyCode()==KeyEvent.VK_DELETE && !e.isControlDown()) {if (list.getSelectedIndex()<0) return; commandDelete(list.getSelectedIndex(),e.isShiftDown()); e.consume(); return;}
 				if (e.getKeyCode()==KeyEvent.VK_UP && e.isControlDown() && !e.isShiftDown()) {commandMoveUp(); e.consume(); return;}
 				if (e.getKeyCode()==KeyEvent.VK_DOWN && e.isControlDown() && !e.isShiftDown()) {commandMoveDown(); e.consume(); return;}
 			}
@@ -213,9 +217,9 @@ public abstract class ParameterCompareSetupValueBaseListDialog extends BaseDialo
 	 * @param command	Auszuführender Befehl, wenn die Schaltfläche angeklickt wird
 	 * @return	Neue Schaltfläche
 	 */
-	private JButton getButton(final Icon icon, final Runnable command) {
+	private JButton getButton(final Icon icon, final IntConsumer command) {
 		final JButton button=new JButton("");
-		button.addActionListener(e->command.run());
+		button.addActionListener(e->command.accept(e.getModifiers()));
 		if (icon!=null) button.setIcon(icon);
 		return button;
 	}
@@ -320,8 +324,9 @@ public abstract class ParameterCompareSetupValueBaseListDialog extends BaseDialo
 	/**
 	 * Wird aufgerufen, wenn der Nutzer einen Eintrag löschen will
 	 * @param index	Index des zu löschenden Eintrags
+	 * @param shiftDown	Ist Umschalt gedrückt?
 	 */
-	protected abstract void commandDelete(final int index);
+	protected abstract void commandDelete(final int index, final boolean shiftDown);
 
 	/**
 	 * Wird aufgerufen, wenn zwei Einträge in der Liste vertauscht werden sollen
@@ -353,12 +358,14 @@ public abstract class ParameterCompareSetupValueBaseListDialog extends BaseDialo
 	/**
 	 * Erstellt auf Basis einer Schaltfläche einen Menüpunkt
 	 * @param button	Ausgangsschaltfläche
+	 * @param keyStroke	Anzuzeigender Hotkey (darf <code>null</code> sein)
 	 * @return	Neuer Menüpunkt
 	 * @see #showContextMenu(MouseEvent)
 	 */
-	private JMenuItem buttonToMenu(final JButton button) {
+	private JMenuItem buttonToMenu(final JButton button, final KeyStroke keyStroke) {
 		final JMenuItem item=new JMenuItem(button.getText(),button.getIcon());
 		item.setToolTipText(button.getToolTipText());
+		if (keyStroke!=null) item.setAccelerator(keyStroke);
 		for (ActionListener listener : button.getActionListeners()) item.addActionListener(listener);
 		item.setEnabled(button.isEnabled());
 		return item;
@@ -371,12 +378,12 @@ public abstract class ParameterCompareSetupValueBaseListDialog extends BaseDialo
 	private void showContextMenu(final MouseEvent event) {
 		final JPopupMenu menu=new JPopupMenu();
 
-		menu.add(buttonToMenu(buttonAdd));
-		menu.add(buttonToMenu(buttonEdit));
-		menu.add(buttonToMenu(buttonDelete));
+		menu.add(buttonToMenu(buttonAdd,KeyStroke.getKeyStroke(KeyEvent.VK_INSERT,0)));
+		menu.add(buttonToMenu(buttonEdit,KeyStroke.getKeyStroke(KeyEvent.VK_ENTER,0)));
+		menu.add(buttonToMenu(buttonDelete,KeyStroke.getKeyStroke(KeyEvent.VK_DELETE,0)));
 		menu.addSeparator();
-		menu.add(buttonToMenu(buttonMoveUp));
-		menu.add(buttonToMenu(buttonMoveDown));
+		menu.add(buttonToMenu(buttonMoveUp,KeyStroke.getKeyStroke(KeyEvent.VK_UP,InputEvent.CTRL_DOWN_MASK)));
+		menu.add(buttonToMenu(buttonMoveDown,KeyStroke.getKeyStroke(KeyEvent.VK_DOWN,InputEvent.CTRL_DOWN_MASK)));
 
 		menu.show(list,event.getX(),event.getY());
 	}

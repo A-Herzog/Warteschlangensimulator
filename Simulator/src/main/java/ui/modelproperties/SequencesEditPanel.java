@@ -17,7 +17,9 @@ package ui.modelproperties;
 
 import java.awt.BorderLayout;
 import java.awt.Component;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.InputEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
@@ -37,6 +39,7 @@ import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
 import javax.swing.JToolBar;
+import javax.swing.KeyStroke;
 import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
 
@@ -122,7 +125,7 @@ public class SequencesEditPanel extends JPanel {
 		add(toolBar,BorderLayout.NORTH);
 		buttonAdd=addButton(toolBar,Language.tr("Editor.Dialog.Sequences.Add"),Language.tr("Editor.Dialog.Sequences.Add.Hint"),Images.EDIT_ADD.getIcon(),e->commandAdd());
 		buttonEdit=addButton(toolBar,Language.tr("Editor.Dialog.Sequences.Edit"),Language.tr("Editor.Dialog.Sequences.Edit.Hint"),Images.GENERAL_SETUP.getIcon(),e->commandEdit(list.getSelectedIndex()));
-		buttonDelete=addButton(toolBar,Language.tr("Editor.Dialog.Sequences.Delete"),Language.tr("Editor.Dialog.Sequences.Delete.Hint"),Images.EDIT_DELETE.getIcon(),e->commandDelete(list.getSelectedIndex()));
+		buttonDelete=addButton(toolBar,Language.tr("Editor.Dialog.Sequences.Delete"),Language.tr("Editor.Dialog.Sequences.Delete.Hint"),Images.EDIT_DELETE.getIcon(),e->commandDelete(list.getSelectedIndex(),(e.getModifiers() & ActionEvent.SHIFT_MASK)!=0));
 		buttonCopy=addButton(toolBar,Language.tr("Editor.Dialog.Sequences.Copy"),Language.tr("Editor.Dialog.Sequences.Copy.Hint"),Images.EDIT_COPY.getIcon(),e->commandCopy(list.getSelectedIndex()));
 		toolBar.addSeparator();
 		buttonMoveUp=addButton(toolBar,Language.tr("Editor.Dialog.Sequences.MoveUp"),Language.tr("Editor.Dialog.Sequences.MoveUp.Hint"),Images.ARROW_UP.getIcon(),e->commandMoveUp());
@@ -162,7 +165,7 @@ public class SequencesEditPanel extends JPanel {
 			public void keyPressed(KeyEvent e) {
 				if (e.getKeyCode()==KeyEvent.VK_INSERT && !e.isControlDown() && !e.isShiftDown()) {commandAdd(); e.consume(); return;}
 				if (e.getKeyCode()==KeyEvent.VK_ENTER && !e.isControlDown() && !e.isShiftDown()) {if (list.getSelectedIndex()<0) return; commandEdit(list.getSelectedIndex()); e.consume(); return;}
-				if (e.getKeyCode()==KeyEvent.VK_DELETE && !e.isControlDown() && !e.isShiftDown()) {if (list.getSelectedIndex()<0) return; commandDelete(list.getSelectedIndex()); e.consume(); return;}
+				if (e.getKeyCode()==KeyEvent.VK_DELETE && !e.isControlDown()) {if (list.getSelectedIndex()<0) return; commandDelete(list.getSelectedIndex(),e.isShiftDown()); e.consume(); return;}
 				if (e.getKeyCode()==KeyEvent.VK_UP && e.isControlDown() && !e.isShiftDown()) {commandMoveUp(); e.consume(); return;}
 				if (e.getKeyCode()==KeyEvent.VK_DOWN && e.isControlDown() && !e.isShiftDown()) {commandMoveDown(); e.consume(); return;}
 			}
@@ -299,12 +302,15 @@ public class SequencesEditPanel extends JPanel {
 	/**
 	 * Befehl: Löschen
 	 * @param index	Index des ausgewählten Listeneintrags
+	 * @param isShiftDown	Ist die Umschalttaste gedrückt? (Wenn ja, löschen ohne Nachfrage.)
 	 * @see #buttonDelete
 	 */
-	private void commandDelete(final int index) {
+	private void commandDelete(final int index, final boolean isShiftDown) {
 		if (readOnly) return;
 		if (index<0) return;
-		if (!MsgBox.confirm(this,Language.tr("Editor.Dialog.Sequences.Delete.Confirm.Title"),String.format(Language.tr("Editor.Dialog.Sequences.Delete.Confirm.Info"),sequencesList.get(index).getName()),Language.tr("Editor.Dialog.Sequences.Delete.Confirm.InfoYes"),Language.tr("Editor.Dialog.Sequences.Delete.Confirm.InfoNo"))) return;
+		if (!isShiftDown) {
+			if (!MsgBox.confirm(this,Language.tr("Editor.Dialog.Sequences.Delete.Confirm.Title"),String.format(Language.tr("Editor.Dialog.Sequences.Delete.Confirm.Info"),sequencesList.get(index).getName()),Language.tr("Editor.Dialog.Sequences.Delete.Confirm.InfoYes"),Language.tr("Editor.Dialog.Sequences.Delete.Confirm.InfoNo"))) return;
+		}
 		sequencesList.remove(index);
 		updateList(-1);
 	}
@@ -365,12 +371,14 @@ public class SequencesEditPanel extends JPanel {
 	/**
 	 * Erstellt auf Basis einer Schaltfläche einen Menüpunkt
 	 * @param button	Ausgangsschaltfläche
+	 * @param keyStroke	Hotkey für den Eintrag (darf <code>null</code> sein)
 	 * @return	Neuer Menüpunkt
 	 * @see #showContextMenu(MouseEvent)
 	 */
-	private JMenuItem buttonToMenu(final JButton button) {
+	private JMenuItem buttonToMenu(final JButton button, final KeyStroke keyStroke) {
 		final JMenuItem item=new JMenuItem(button.getText(),button.getIcon());
 		item.setToolTipText(button.getToolTipText());
+		if (keyStroke!=null) item.setAccelerator(keyStroke);
 		for (ActionListener listener : button.getActionListeners()) item.addActionListener(listener);
 		item.setEnabled(button.isEnabled());
 		return item;
@@ -384,13 +392,13 @@ public class SequencesEditPanel extends JPanel {
 		if (readOnly) return;
 		final JPopupMenu menu=new JPopupMenu();
 
-		menu.add(buttonToMenu(buttonAdd));
-		menu.add(buttonToMenu(buttonEdit));
-		menu.add(buttonToMenu(buttonDelete));
-		menu.add(buttonToMenu(buttonCopy));
+		menu.add(buttonToMenu(buttonAdd,KeyStroke.getKeyStroke(KeyEvent.VK_INSERT,0)));
+		menu.add(buttonToMenu(buttonEdit,KeyStroke.getKeyStroke(KeyEvent.VK_ENTER,0)));
+		menu.add(buttonToMenu(buttonDelete,KeyStroke.getKeyStroke(KeyEvent.VK_DELETE,0)));
+		menu.add(buttonToMenu(buttonCopy,null));
 		menu.addSeparator();
-		menu.add(buttonToMenu(buttonMoveUp));
-		menu.add(buttonToMenu(buttonMoveDown));
+		menu.add(buttonToMenu(buttonMoveUp,KeyStroke.getKeyStroke(KeyEvent.VK_UP,InputEvent.CTRL_DOWN_MASK)));
+		menu.add(buttonToMenu(buttonMoveDown,KeyStroke.getKeyStroke(KeyEvent.VK_DOWN,InputEvent.CTRL_DOWN_MASK)));
 
 		menu.show(list,event.getX(),event.getY());
 	}

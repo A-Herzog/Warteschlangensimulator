@@ -382,7 +382,9 @@ public class ResourceTableModel extends JTableExtAbstractTableModel {
 			getInUseInfoText(sb,usingIDs);
 			sb.append("<br>");
 			sb.append(String.format(Language.tr("Resources.Group.Delete.Confirmation"),name));
-			if (!MsgBox.confirm(table,Language.tr("Resources.Group.Delete"),"<html><body>"+sb.toString()+"</body></html>",Language.tr("Resources.Group.Delete.YesInfo"),Language.tr("Resources.Group.Delete.NoInfo"))) return;
+			if ((e.getModifiers() & ActionEvent.SHIFT_MASK)==0) {
+				if (!MsgBox.confirm(table,Language.tr("Resources.Group.Delete"),"<html><body>"+sb.toString()+"</body></html>",Language.tr("Resources.Group.Delete.YesInfo"),Language.tr("Resources.Group.Delete.NoInfo"))) return;
+			}
 			resources.delete(name);
 			updateTable();
 		}

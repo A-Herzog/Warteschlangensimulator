@@ -268,7 +268,9 @@ public class BarStackTableModel extends JTableExtAbstractTableModel {
 			case Java: info=Language.tr("Surface.AnimationBarStack.Dialog.ExpressionMode.Java"); break;
 			default: info=expression.getExpression(); break;
 			}
-			if (!MsgBox.confirm(table,Language.tr("Surface.AnimationBarStack.Dialog.Delete.Confirm.Title"),String.format(Language.tr("Surface.AnimationBarStack.Dialog.Delete.Confirm.Info"),info),Language.tr("Surface.AnimationBarStack.Dialog.Delete.Confirm.YesInfo"),Language.tr("Surface.AnimationBarStack.Dialog.Delete.Confirm.NoInfo"))) return;
+			if ((e.getModifiers() & ActionEvent.SHIFT_MASK)==0) {
+				if (!MsgBox.confirm(table,Language.tr("Surface.AnimationBarStack.Dialog.Delete.Confirm.Title"),String.format(Language.tr("Surface.AnimationBarStack.Dialog.Delete.Confirm.Info"),info),Language.tr("Surface.AnimationBarStack.Dialog.Delete.Confirm.YesInfo"),Language.tr("Surface.AnimationBarStack.Dialog.Delete.Confirm.NoInfo"))) return;
+			}
 			expressions.remove(row);
 			colors.remove(row);
 			updateTable();

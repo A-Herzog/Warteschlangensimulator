@@ -17,6 +17,7 @@ package ui.dialogs;
 
 import java.awt.BorderLayout;
 import java.awt.Component;
+import java.awt.event.ActionEvent;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
@@ -131,7 +132,7 @@ public class NotesDialog extends BaseDialog {
 		buttonEdit.addActionListener(e->commandEdit());
 		toolbar.add(buttonDelete=new JButton(Language.tr("NotesDialog.Delete"),Images.EDIT_DELETE.getIcon()));
 		buttonDelete.setToolTipText(Language.tr("NotesDialog.Delete.Hint"));
-		buttonDelete.addActionListener(e->commandDelete());
+		buttonDelete.addActionListener(e->commandDelete((e.getModifiers() & ActionEvent.SHIFT_MASK)!=0));
 
 		/* Liste */
 		content.add(new JScrollPane(list=new JList<>()));
@@ -153,8 +154,8 @@ public class NotesDialog extends BaseDialog {
 					e.consume();
 					return;
 				}
-				if (e.getKeyCode()==KeyEvent.VK_DELETE && e.getModifiersEx()==0) {
-					commandDelete();
+				if (e.getKeyCode()==KeyEvent.VK_DELETE) {
+					commandDelete(e.getModifiersEx()==InputEvent.SHIFT_DOWN_MASK);
 					e.consume();
 					return;
 				}
@@ -281,13 +282,15 @@ public class NotesDialog extends BaseDialog {
 
 	/**
 	 * Befehl: Löschen
+	 *  @param isShiftDown	Ist die Umschalttaste gedrückt? (Wenn ja, löschen ohne Nachfrage.)
 	 */
-	private void commandDelete() {
+	private void commandDelete(final boolean isShiftDown) {
 		final int index=list.getSelectedIndex();
 		if (index<0) return;
 		final ModelElementNote note=notesList.get(list.getSelectedIndex());
-
-		if (!MsgBox.confirm(this,Language.tr("NotesDialog.Delete.Confirm.Title"),Language.tr("NotesDialog.Delete.Confirm.Info"),Language.tr("NotesDialog.Delete.Confirm.InfoYes"),Language.tr("NotesDialog.Delete.Confirm.InfoNo"))) return;
+		if (!isShiftDown) {
+			if (!MsgBox.confirm(this,Language.tr("NotesDialog.Delete.Confirm.Title"),Language.tr("NotesDialog.Delete.Confirm.Info"),Language.tr("NotesDialog.Delete.Confirm.InfoYes"),Language.tr("NotesDialog.Delete.Confirm.InfoNo"))) return;
+		}
 
 		note.getSurface().remove(note);
 
@@ -309,7 +312,7 @@ public class NotesDialog extends BaseDialog {
 		item.addActionListener(e->commandEdit());
 		menu.add(item=new JMenuItem(Language.tr("NotesDialog.Delete"),Images.EDIT_DELETE.getIcon()));
 		item.setToolTipText(Language.tr("NotesDialog.Delete.Hint"));
-		item.addActionListener(e->commandDelete());
+		item.addActionListener(e->commandDelete((e.getModifiers() & ActionEvent.SHIFT_MASK)!=0));
 
 		menu.show(event.getComponent(),event.getX(),event.getY());
 	}

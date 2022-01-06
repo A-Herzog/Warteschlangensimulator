@@ -337,7 +337,9 @@ public class TransporterTableModel extends JTableExtAbstractTableModel {
 			getInUseInfoText(sb,usingIDs);
 			sb.append("<br>");
 			sb.append(String.format(Language.tr("Transporters.Group.Delete.Confirmation"),name));
-			if (!MsgBox.confirm(table,Language.tr("Transporters.Group.Delete"),"<html><body>"+sb.toString()+"</body></html>",Language.tr("Transporters.Group.Delete.YesInfo"),Language.tr("Transporters.Group.Delete.NoInfo"))) return;
+			if ((e.getModifiers() & ActionEvent.SHIFT_MASK)==0) {
+				if (!MsgBox.confirm(table,Language.tr("Transporters.Group.Delete"),"<html><body>"+sb.toString()+"</body></html>",Language.tr("Transporters.Group.Delete.YesInfo"),Language.tr("Transporters.Group.Delete.NoInfo"))) return;
+			}
 			transporters.remove(row);
 
 			updateTable();

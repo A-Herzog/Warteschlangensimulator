@@ -255,7 +255,9 @@ public class ModelElementAnalogAssignTableModel extends JTableExtAbstractTableMo
 				break;
 			case 1: /* Löschen */
 				if (row<0) return;
-				if (!MsgBox.confirm(table,Language.tr("Surface.AnalogAssign.Dialog.Delete.ConfirmTitle"),Language.tr("Surface.AnalogAssign.Dialog.Delete.ConfirmInfo"),Language.tr("Surface.AnalogAssign.Dialog.Delete.ConfirmInfoYes"),Language.tr("Surface.AnalogAssign.Dialog.Delete.ConfirmInfoNo"))) return;
+				if ((e.getModifiers() & ActionEvent.SHIFT_MASK)==0) {
+					if (!MsgBox.confirm(table,Language.tr("Surface.AnalogAssign.Dialog.Delete.ConfirmTitle"),Language.tr("Surface.AnalogAssign.Dialog.Delete.ConfirmInfo"),Language.tr("Surface.AnalogAssign.Dialog.Delete.ConfirmInfoYes"),Language.tr("Surface.AnalogAssign.Dialog.Delete.ConfirmInfoNo"))) return;
+				}
 				changeID.remove(row);
 				changeMode.remove(row);
 				changeExpression.remove(row);

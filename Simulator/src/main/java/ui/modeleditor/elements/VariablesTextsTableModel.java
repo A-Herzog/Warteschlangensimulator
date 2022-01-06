@@ -230,7 +230,9 @@ public class VariablesTextsTableModel extends JTableExtAbstractTableModel {
 			if (readOnly) return;
 
 			final String name=keys.get(row)+":="+values.get(row);
-			if (!MsgBox.confirm(table,Language.tr("Surface.AssignString.Table.Delete.Confirm.Title"),String.format(Language.tr("Surface.AssignString.Table.Delete.Confirm.Info"),name),Language.tr("Surface.AssignString.Table.Delete.Confirm.YesInfo"),Language.tr("Surface.AssignString.Table.Delete.Confirm.NoInfo"))) return;
+			if ((e.getModifiers() & ActionEvent.SHIFT_MASK)==0) {
+				if (!MsgBox.confirm(table,Language.tr("Surface.AssignString.Table.Delete.Confirm.Title"),String.format(Language.tr("Surface.AssignString.Table.Delete.Confirm.Info"),name),Language.tr("Surface.AssignString.Table.Delete.Confirm.YesInfo"),Language.tr("Surface.AssignString.Table.Delete.Confirm.NoInfo"))) return;
+			}
 
 			keys.remove(row);
 			values.remove(row);

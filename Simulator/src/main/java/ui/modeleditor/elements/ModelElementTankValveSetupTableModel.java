@@ -264,7 +264,9 @@ public class ModelElementTankValveSetupTableModel extends JTableExtAbstractTable
 				}
 				break;
 			case ACTION_DELETE:
-				if (!MsgBox.confirm(table,Language.tr("Surface.TankValveSetup.Table.Delete.ConfirmTitle"),String.format(Language.tr("Surface.TankValveSetup.Table.Delete.ConfirmInfo"),valveSetups.get(row).tankId,valveSetups.get(row).valveNr+1),Language.tr("Surface.TankValveSetup.Table.Delete.ConfirmYesInfo"),Language.tr("Surface.TankValveSetup.Table.Delete.ConfirmNoInfo"))) return;
+				if ((e.getModifiers() & ActionEvent.SHIFT_MASK)==0) {
+					if (!MsgBox.confirm(table,Language.tr("Surface.TankValveSetup.Table.Delete.ConfirmTitle"),String.format(Language.tr("Surface.TankValveSetup.Table.Delete.ConfirmInfo"),valveSetups.get(row).tankId,valveSetups.get(row).valveNr+1),Language.tr("Surface.TankValveSetup.Table.Delete.ConfirmYesInfo"),Language.tr("Surface.TankValveSetup.Table.Delete.ConfirmNoInfo"))) return;
+				}
 				valveSetups.remove(row);
 				updateTable();
 				break;

@@ -304,9 +304,9 @@ public class TransporterFailureTableModel extends JTableExtAbstractTableModel {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			if (readOnly) return;
-
-			if (!MsgBox.confirm(table,Language.tr("Transporter.Group.Edit.Dialog.Failure.Delete"),Language.tr("Transporter.Group.Edit.Dialog.Failure.Delete.Info"),Language.tr("Transporter.Group.Edit.Dialog.Failure.Delete.YesInfo"),Language.tr("Transporter.Group.Edit.Dialog.Failure.Delete.NoInfo"))) return;
-
+			if ((e.getModifiers() & ActionEvent.SHIFT_MASK)==0) {
+				if (!MsgBox.confirm(table,Language.tr("Transporter.Group.Edit.Dialog.Failure.Delete"),Language.tr("Transporter.Group.Edit.Dialog.Failure.Delete.Info"),Language.tr("Transporter.Group.Edit.Dialog.Failure.Delete.YesInfo"),Language.tr("Transporter.Group.Edit.Dialog.Failure.Delete.NoInfo"))) return;
+			}
 			list.remove(row);
 			updateTable();
 		}

@@ -1741,7 +1741,7 @@ public class Messages_de extends java.util.ResourceBundle {
     t[4588] = "Surface.Source.XML.Condition";
     t[4589] = "ModellElementAnkunftsbedingung";
     t[4590] = "Editor.Dialog.Sequences.Edit.DeleteHint";
-    t[4591] = "Schritt l\u00f6schen";
+    t[4591] = "Schritt l\u00f6schen (Umschalt+Klick=ohne Best\u00e4tigungsdialog)";
     t[4594] = "SettingsDialog.FontSizes.VeryLarge";
     t[4595] = "Sehr gro\u00df";
     t[4602] = "Surface.XML.ModelCollectWaitingTimes";
@@ -2143,7 +2143,7 @@ public class Messages_de extends java.util.ResourceBundle {
     t[5652] = "ModelDescription.Process.PostProcessingTime.GeneralCase";
     t[5653] = "Nachbearbeitungszeit im allgemeinen Fall";
     t[5654] = "Surface.AnalogAssign.Dialog.Delete.Hint";
-    t[5655] = "Zuweisung l\u00f6schen";
+    t[5655] = "Zuweisung l\u00f6schen (Umschalt+Klick=ohne Best\u00e4tigungsdialog)";
     t[5658] = "Editor.DialogBase.Search.Resource.Failure.DownTimeExpression";
     t[5659] = "Ausfalldauern gem\u00e4\u00df Ausdruck in Bedienergruppe \"%s\"";
     t[5662] = "ParameterCompare.ScriptRunner.Results.Save.Hint";
@@ -2655,7 +2655,7 @@ public class Messages_de extends java.util.ResourceBundle {
     t[7054] = "Simulation.Creator.ReleaseInvalidResource";
     t[7055] = "Die f\u00fcr die Ressourcenfreigabe an Element id=%d angegebenen Ressourcen sind ung\u00fcltig.";
     t[7058] = "Surface.Action.Dialog.Delete";
-    t[7059] = "Aktion l\u00f6schen";
+    t[7059] = "Aktion l\u00f6schen (Umschalt+Klick=ohne Best\u00e4tigungsdialog)";
     t[7060] = "ModelDescription.Arrival.Threshold.Down";
     t[7061] = "den folgenden Schwellenwert unterschreitet:";
     t[7062] = "Examples.HoldJS";
@@ -2797,7 +2797,7 @@ public class Messages_de extends java.util.ResourceBundle {
     t[7420] = "Resources.Group.InUse.Multiple";
     t[7421] = "<b>Achtung:</b><br>\nDie gew\u00e4hlte Bedienergruppe wird durch die Elemente mit den folgenden IDs verwendet:";
     t[7424] = "ParameterCompare.Settings.Input.List.Add.Hint";
-    t[7425] = "F\u00fcgt einen Eingabeparameter hinzu";
+    t[7425] = "F\u00fcgt einen Eingabeparameter hinzu (Einf\u00fcgen)";
     t[7426] = "Surface.Balking.BalkingProbability";
     t[7427] = "Zur\u00fcckschreckwahrscheinlichkeit";
     t[7428] = "Editor.DialogBase.ID.NewIDInUse";
@@ -2907,7 +2907,7 @@ public class Messages_de extends java.util.ResourceBundle {
     t[7694] = "Simulation.Creator.InvalidParkingPriority";
     t[7695] = "Bei Element id=%d ist die angegebene Priorit\u00e4t f\u00fcr die Parkpl\u00e4tze \"%s\" ab Zeichen %d ung\u00fcltig.";
     t[7696] = "ParameterCompare.Settings.Input.List.Delete.Hint";
-    t[7697] = "Entfernt den ausgew\u00e4hlten Eingabeparameter aus der Liste";
+    t[7697] = "Entfernt den ausgew\u00e4hlten Eingabeparameter aus der Liste (Entfernen; Umschalt+Entfernen=ohne Best\u00e4tigungsdialog)";
     t[7700] = "Surface.Source.Dialog.Tab.BatchSize.ClientPlural";
     t[7701] = "Kunden";
     t[7710] = "UserTemplates.XML.Template.Name";
@@ -3121,7 +3121,7 @@ public class Messages_de extends java.util.ResourceBundle {
     t[8272] = "Surface.PopupMenu.ParameterCompare.ChangeMapValue";
     t[8273] = "Parameterreihe: Initiale Zuordnungwerte";
     t[8276] = "ParameterCompare.Settings.Output.List.MoveUp.Hint";
-    t[8277] = "Verschiebt den gew\u00e4hlten Ausgabewert um einen Platz nach oben in der Liste";
+    t[8277] = "Verschiebt den gew\u00e4hlten Ausgabewert um einen Platz nach oben in der Liste (Umschalt+Nach oben)";
     t[8278] = "CalculatorDialog.Result.Copy";
     t[8279] = "Kopiert das aktuelle Ergebnis in die Zwischenablage";
     t[8280] = "ParameterCompare.Toolbar.SetupOutput.Hint";
@@ -3849,7 +3849,7 @@ public class Messages_de extends java.util.ResourceBundle {
     t[9986] = "Optimizer.Tab.Optimization.Kernel.Parameters.Tab.Serial.ChangeRate4.ErrorTitle";
     t[9987] = "Ung\u00fcltige \u00c4nderungsrate ab der vierten Runde";
     t[9996] = "Surface.Set.Table.Delete";
-    t[9997] = "Zuweisung l\u00f6schen";
+    t[9997] = "Zuweisung l\u00f6schen (Umschalt+Klick=ohne Best\u00e4tigungsdialog)";
     t[10004] = "Surface.Action.Dialog.Edit.Tabs.Action.Assign.Variable";
     t[10005] = "Variable";
     t[10018] = "ExpressionBuilder.SimulationCharacteristics.ClientData.TransferTime.Info";
@@ -4971,7 +4971,7 @@ public class Messages_de extends java.util.ResourceBundle {
     t[12804] = "InteractiveTutorial.Title";
     t[12805] = "Einf\u00fchrung";
     t[12808] = "Surface.Barrier.Dialog.Delete";
-    t[12809] = "Ausl\u00f6sesignal l\u00f6schen";
+    t[12809] = "Ausl\u00f6sesignal l\u00f6schen (Umschalt+Klick=ohne Best\u00e4tigungsdialog)";
     t[12810] = "Editor.Dialog.Tab.ModelDescription.ModelDescription.Auto.ReplaceTitle";
     t[12811] = "Bisherige Beschreibung ersetzen";
     t[12814] = "Simulation.Creator.NoScript";
@@ -7553,7 +7553,7 @@ public class Messages_de extends java.util.ResourceBundle {
     t[19618] = "ExpressionBuilder.SimulationCharacteristics.ProcessingTimesAtStations.AverageTime";
     t[19619] = "<p>Liefert die mittlere Dauer \u00fcber alle Bedienzeiten, die an der Bedienstation, deren ID in dem Parameter angegeben wurde, entstanden sind (\u00fcber alle Kundentypen).</p>";
     t[19624] = "ParameterCompare.Settings.Input.List.MoveDown.Hint";
-    t[19625] = "Verschiebt den gew\u00e4hlten Eingabeparameter um einen Platz nach unten in der Liste";
+    t[19625] = "Verschiebt den gew\u00e4hlten Eingabeparameter um einen Platz nach unten in der Liste (Strg+Nach unten)";
     t[19634] = "Surface.Action.Dialog.Edit.Tabs.Action.JS";
     t[19635] = "Skript ausf\u00fchren";
     t[19636] = "Surface.Source.LabelArrivals";
@@ -8301,7 +8301,7 @@ public class Messages_de extends java.util.ResourceBundle {
     t[21500] = "Editor.Dialog.Tab.InitialVariableValues.RecordVariables.Off";
     t[21501] = "Variablen und Zuordnungsdaten nicht erfassen";
     t[21502] = "Surface.MultiSourceTable.Delete";
-    t[21503] = "Kundenquelle l\u00f6schen";
+    t[21503] = "Kundenquelle l\u00f6schen (Umschalt+Klick=ohne Best\u00e4tigungsdialog)";
     t[21506] = "Surface.Text.Tooltip";
     t[21507] = "Beschreibungstext ohne weitere Funktion f\u00fcr das Simulationsmodell.";
     t[21510] = "ExpressionCalculator.DiscardConfirmationJava.Title";
@@ -8471,7 +8471,7 @@ public class Messages_de extends java.util.ResourceBundle {
     t[21886] = "Surface.InteractiveRadiobutton.Dialog.Variable.ErrorInfo";
     t[21887] = "Der angegebene Variablenname ist ung\u00fcltig.";
     t[21900] = "Surface.AnimationBarStack.Dialog.Delete";
-    t[21901] = "Teilbalken l\u00f6schen";
+    t[21901] = "Teilbalken l\u00f6schen (Umschalt+Klick=ohne Best\u00e4tigungsdialog)";
     t[21902] = "Editor.ModelOverview.List";
     t[21903] = "Elementeliste";
     t[21904] = "Editor.DialogBase.Search.Resource.Schedule";
@@ -8981,7 +8981,7 @@ public class Messages_de extends java.util.ResourceBundle {
     t[23210] = "Editor.Dialog.Tab.SimulationSystem";
     t[23211] = "Simulationssystem";
     t[23212] = "Editor.Dialog.Sequences.Edit.Assignments.Delete.Hint";
-    t[23213] = "L\u00f6scht die aktuelle Zuweisung";
+    t[23213] = "L\u00f6scht die aktuelle Zuweisung (Umschalt+Klick=ohne Best\u00e4tigungsdialog)";
     t[23214] = "Surface.TankValveSetup.Table.DisplayTank";
     t[23215] = "Tank %s, Ventil %d";
     t[23220] = "ExpressionBuilder.SimulationCharacteristics";
@@ -10045,7 +10045,7 @@ public class Messages_de extends java.util.ResourceBundle {
     t[25826] = "Surface.AnimationBarChart.Dialog.Appearance.Use3D";
     t[25827] = "3D-Effekte f\u00fcr Balken verwenden";
     t[25830] = "ExpressionCalculator.Tab.Map.Delete";
-    t[25831] = "L\u00f6schen";
+    t[25831] = "L\u00f6schen (Umschalt+Klick=ohne Best\u00e4tigungsdialog)";
     t[25840] = "QuickAccess.Elements";
     t[25841] = "Elemente";
     t[25842] = "ModelDescription.InputJS.EOFMode.Terminate";
@@ -10077,7 +10077,7 @@ public class Messages_de extends java.util.ResourceBundle {
     t[25900] = "SettingsDialog.WindowSizeProgrmStart.LastSize";
     t[25901] = "Letzte Gr\u00f6\u00dfe wiederherstellen";
     t[25902] = "ModelLoadData.EditDialog.Delete.Hint";
-    t[25903] = "Eintrag zum Laden von Daten l\u00f6schen";
+    t[25903] = "Eintrag zum Laden von Daten l\u00f6schen (Umschalt+Klick=ohne Best\u00e4tigungsdialog)";
     t[25904] = "Surface.Match.XML.MatchPropertyMode.Mode.Text";
     t[25905] = "Text";
     t[25906] = "ParameterCompare.Settings.Input.List.InfoXML";
@@ -10189,7 +10189,7 @@ public class Messages_de extends java.util.ResourceBundle {
     t[26150] = "Statistics.ModelRemarks.LargeFlowFactorRelative.Station";
     t[26151] = "Hoher Flussgrad an Station \"%s\" (relative zu den anderen Stationen): %s";
     t[26160] = "Transporter.Failure.Delete";
-    t[26161] = "Ausfall l\u00f6schen";
+    t[26161] = "Ausfall l\u00f6schen (Umschalt+Klick=ohne Best\u00e4tigungsdialog)";
     t[26174] = "ParameterCompare.Toolbar.ProcessResults.ResultsLongRunDetails";
     t[26175] = "Laufzeitstatistik (Details) als Tabelle speichern...";
     t[26176] = "Main.Toolbar.StartSimulation.Hint";
@@ -12955,7 +12955,7 @@ public class Messages_de extends java.util.ResourceBundle {
     t[33174] = "Surface.Resource.EditName.Dialog.AddNew.ErrorEmpty.Title";
     t[33175] = "Kein Name angegeben";
     t[33178] = "Surface.ExpressionTableModel.Delete";
-    t[33179] = "Datenreihe l\u00f6schen";
+    t[33179] = "Datenreihe l\u00f6schen (Umschalt+Klick=ohne Best\u00e4tigungsdialog)";
     t[33192] = "LogSimulation.FormatTime.Info";
     t[33193] = "Gibt Zeitangaben in der Form HH:MM:SS statt als einfacher Sekundenwert aus";
     t[33194] = "Editor.CloseSidebarTooltip";
@@ -13969,7 +13969,7 @@ public class Messages_de extends java.util.ResourceBundle {
     t[35748] = "Statistic.Viewer.Toolbar.Search.DialogTitle";
     t[35749] = "Text suchen";
     t[35750] = "Surface.Resource.Delete";
-    t[35751] = "Notwendige Bedienergruppe l\u00f6schen";
+    t[35751] = "Notwendige Bedienergruppe l\u00f6schen (Umschalt+Klick=ohne Best\u00e4tigungsdialog)";
     t[35760] = "Color.483D8B";
     t[35761] = "Dunkel Slateblau";
     t[35766] = "Surface.Tank.Dialog.Capacity.ErrorInfo";
@@ -14463,7 +14463,7 @@ public class Messages_de extends java.util.ResourceBundle {
     t[37010] = "Surface.Action.Dialog.Info.ThresholdCondition.Down";
     t[37011] = "Ausl\u00f6sung beim Unterschreiten von %s.";
     t[37012] = "Resources.Failure.Delete";
-    t[37013] = "Ausfall l\u00f6schen";
+    t[37013] = "Ausfall l\u00f6schen (Umschalt+Klick=ohne Best\u00e4tigungsdialog)";
     t[37018] = "ExpressionBuilder.ClientsInSystemQueue.MaximalNumber";
     t[37019] = "<p>Liefert die maximale Anzahl an wartenden Kunden im System.</p>";
     t[37024] = "Surface.Source.XML.Threshold.Count";
@@ -15511,7 +15511,7 @@ public class Messages_de extends java.util.ResourceBundle {
     t[39590] = "Surface.PopupMenu.QuickFix.Tank.Initial";
     t[39591] = "Initialen F\u00fcllstand f\u00fcr Tank auf %s stellen";
     t[39594] = "ParameterCompare.Settings.Input.List.MoveUp.Hint";
-    t[39595] = "Verschiebt den gew\u00e4hlten Eingabeparameter um einen Platz nach unten in der Liste";
+    t[39595] = "Verschiebt den gew\u00e4hlten Eingabeparameter um einen Platz nach unten in der Liste (Strg+Nach oben)";
     t[39596] = "Surface.PopupMenu.SimulationStatisticsData.SaveError.Title";
     t[39597] = "Fehler beim Speichern";
     t[39598] = "ParameterCompare.Settings.Output.Digits.Info";
@@ -15545,7 +15545,7 @@ public class Messages_de extends java.util.ResourceBundle {
     t[39662] = "Dialog.Button.Copy.InfoImage";
     t[39663] = "Kopiert das Bild in die Zwischenablage";
     t[39664] = "NotesDialog.Delete.Hint";
-    t[39665] = "L\u00f6scht die gew\u00e4hlte Notiz.";
+    t[39665] = "L\u00f6scht die gew\u00e4hlte Notiz (Umschalt+Klick=ohne Best\u00e4tigungsdialog)";
     t[39686] = "BatchPanel.Directory.Caption";
     t[39687] = "Verzeichnis ausw\u00e4hlen";
     t[39692] = "Schedule.SettingsDialog.IntervalDuration";
@@ -15581,7 +15581,7 @@ public class Messages_de extends java.util.ResourceBundle {
     t[39740] = "Git.List.Tab.Server.Button.Clone.Hint";
     t[39741] = "Erstellt eine lokale Instanz des Repositories vom Server.";
     t[39752] = "ParameterCompare.Settings.Output.List.Delete.Hint";
-    t[39753] = "Entfernt den ausgew\u00e4hlten Ausgabewert aus der Liste";
+    t[39753] = "Entfernt den ausgew\u00e4hlten Ausgabewert aus der Liste  (Entfernen; Umschalt+Entfernen=ohne Best\u00e4tigungsdialog)";
     t[39758] = "CommandLine.ProcessOutput.Name";
     t[39759] = "Ausgabetabelle";
     t[39760] = "ExpressionBuilder.CommandName.ProcessingTime";
@@ -15609,7 +15609,7 @@ public class Messages_de extends java.util.ResourceBundle {
     t[39812] = "Surface.PickUp.XML.Root";
     t[39813] = "ModellElementAusleiten";
     t[39814] = "Surface.AssignString.Table.Delete";
-    t[39815] = "Zuweisung l\u00f6schen";
+    t[39815] = "Zuweisung l\u00f6schen (Umschalt+Klick=ohne Best\u00e4tigungsdialog)";
     t[39818] = "Surface.TransportTransporterSource.Dialog.WaitingCapacity.ErrorInfo";
     t[39819] = "Die angegebene Parkplatzkapazit\u00e4t \"%s\" ist ung\u00fcltig. Es muss eine positive Ganzzahl angegeben werden.";
     t[39824] = "SettingsDialog.Tabs.Simulation.ShowErlangC";
@@ -16649,7 +16649,7 @@ public class Messages_de extends java.util.ResourceBundle {
     t[42362] = "Simulation.Element.Sub.Name";
     t[42363] = "Untermodell";
     t[42368] = "Surface.ExpressionTableModelText.Delete";
-    t[42369] = "Bedingung l\u00f6schen";
+    t[42369] = "Bedingung l\u00f6schen (Umschalt+Klick=ohne Best\u00e4tigungsdialog)";
     t[42370] = "SimulationServer.Setup.TLSInfo.GenerateKeyStore.ErrorKeyToolNotFound";
     t[42371] = "Das Java KeyTool zur Erzeugung der Key-Store-Datei konnte nicht gefunden werden.";
     t[42374] = "Editor.DialogBase.Search.Note";
@@ -16703,7 +16703,7 @@ public class Messages_de extends java.util.ResourceBundle {
     t[42462] = "Git.List.Tab.Server.Auth.UserNamePassword.Password";
     t[42463] = "Passwort";
     t[42468] = "ParameterCompare.Settings.Output.List.Add.Hint";
-    t[42469] = "F\u00fcgt einen Ausgabewert hinzu";
+    t[42469] = "F\u00fcgt einen Ausgabewert hinzu (Einf\u00fcgen)";
     t[42472] = "ParameterCompare.XML.Outputs.Data.Format.Time";
     t[42473] = "Zeit";
     t[42474] = "ScriptPopup.Client.getTypeName";
@@ -16713,7 +16713,7 @@ public class Messages_de extends java.util.ResourceBundle {
     t[42482] = "Surface.LogicWhile.Infotext";
     t[42483] = "While-Stationen leitet den Kunden in Abh\u00e4ngigkeit von einer Bedingung entweder zur unmittelbar n\u00e4chsten Station weiter oder zur folgenden EndWhile-Station.";
     t[42484] = "Surface.TransportSource.Dialog.Tab.RoutingTargets.Delete";
-    t[42485] = "Transportziel l\u00f6schen";
+    t[42485] = "Transportziel l\u00f6schen (Umschalt+Klick=ohne Best\u00e4tigungsdialog)";
     t[42490] = "Statistic.FastAccess.Template.StatisticsFileFull";
     t[42491] = "Pfad und Dateiname der Statistikdatei";
     t[42494] = "Git.List.Push.NoCommitsToPush";
@@ -16723,7 +16723,7 @@ public class Messages_de extends java.util.ResourceBundle {
     t[42504] = "ModelSecurityCheck.Station.WithName";
     t[42505] = "%s (id=%d)";
     t[42508] = "Window.Layers.Delete.Hint";
-    t[42509] = "Ebene l\u00f6schen.";
+    t[42509] = "Ebene l\u00f6schen (Umschalt+Klick=ohne Best\u00e4tigungsdialog)";
     t[42520] = "Surface.AnalogValue.Dialog.Unit.PerSecond";
     t[42521] = "pro Sekunde";
     t[42522] = "Transporters.Group.Edit.Dialog.Table.Paste.Hint";
@@ -17289,7 +17289,7 @@ public class Messages_de extends java.util.ResourceBundle {
     t[44012] = "Surface.Input.XML.Root";
     t[44013] = "ModellElementEingabe";
     t[44014] = "Editor.Dialog.Tab.RunTimeStatisticsTable.Delete";
-    t[44015] = "Ausdruck l\u00f6schen";
+    t[44015] = "Ausdruck l\u00f6schen (Umschalt+Klick=ohne Best\u00e4tigungsdialog)";
     t[44034] = "LogSimulation.LargeModelWarning";
     t[44035] = "Es wurden sehr viele Kundenank\u00fcnfte in dem Modell eingeplant, was zu einer sehr gro\u00dfen Logdatei f\u00fchren wird.\nSoll die Simulation wirklich in der aktuellen Konfiguration aufgezeichnet werden?";
     t[44040] = "Git.List.Pull";
@@ -17977,7 +17977,7 @@ public class Messages_de extends java.util.ResourceBundle {
     t[45730] = "ExpressionCalculator.Results.NoExpression";
     t[45731] = "Es wurde kein zu berechnender Ausdruck angegeben.";
     t[45732] = "ParameterCompare.Settings.Output.List.MoveDown.Hint";
-    t[45733] = "Verschiebt den gew\u00e4hlten Ausgabewert um einen Platz nach unten in der Liste";
+    t[45733] = "Verschiebt den gew\u00e4hlten Ausgabewert um einen Platz nach unten in der Liste (Umschalt+Nach unten)";
     t[45736] = "ExpressionCalculator.Tab.Variables.Column.Name";
     t[45737] = "Name";
     t[45738] = "Statistics.XML.Value.Error";
@@ -18513,7 +18513,7 @@ public class Messages_de extends java.util.ResourceBundle {
     t[47030] = "Main.Menu.Extras.SimulationServer.Mnemonic";
     t[47031] = "N";
     t[47038] = "ParameterCompare.Settings.Input.List.Edit.Hint";
-    t[47039] = "Bearbeitet den gew\u00e4hlten Eingabeparameter";
+    t[47039] = "Bearbeitet den gew\u00e4hlten Eingabeparameter (Enter)";
     t[47066] = "Surface.AnimationImage.Dialog.Images.Delete.Confirm.Title";
     t[47067] = "Bild l\u00f6schen";
     t[47068] = "BatchPanel.ResultsFile.Hint";
@@ -19479,7 +19479,7 @@ public class Messages_de extends java.util.ResourceBundle {
     t[49518] = "Surface.TankValveSetup.Dialog.Title";
     t[49519] = "Ventilkonfigurationen bearbeiten";
     t[49522] = "Surface.AnimationImage.Dialog.Images.Delete";
-    t[49523] = "Bild l\u00f6schen";
+    t[49523] = "Bild l\u00f6schen (Umschalt+Klick=ohne Best\u00e4tigungsdialog)";
     t[49524] = "ScriptPopup.Output.Tab";
     t[49525] = "Tabulator ausgeben";
     t[49528] = "SettingsDialog.AutoRestore";
@@ -20057,7 +20057,7 @@ public class Messages_de extends java.util.ResourceBundle {
     t[50948] = "Surface.AnimationBarChart.Dialog.Data.ManualMaxValue.Error.Info";
     t[50949] = "Der angegebene Maximalwert \"%s\" ist ung\u00fcltig. Es muss eine Zahl angegeben werden.";
     t[50950] = "ParameterCompare.Settings.Output.List.Edit.Hint";
-    t[50951] = "Bearbeitet den gew\u00e4hlten Ausgabewert";
+    t[50951] = "Bearbeitet den gew\u00e4hlten Ausgabewert (Enter)";
     t[50954] = "Main.Menu.Help.Homepage";
     t[50955] = "Homepage";
     t[50956] = "CalculatorDialog.Tab.Distributions.GenerateRandomNumbers.SaveExt.Parameters.Set";
@@ -20281,7 +20281,7 @@ public class Messages_de extends java.util.ResourceBundle {
     t[51466] = "SettingsDialog.Tabs.Performance.Scripting";
     t[51467] = "Scripting";
     t[51468] = "Editor.Dialog.Sequences.Delete.Hint";
-    t[51469] = "L\u00f6scht den aktuellen Fertigungsplan";
+    t[51469] = "L\u00f6scht den aktuellen Fertigungsplan (Umschalt+Klick=ohne Best\u00e4tigungsdialog)";
     t[51474] = "BookData.NoBook.Title";
     t[51475] = "E-Book-pdf nicht verf\u00fcgbar";
     t[51476] = "ExpressionBuilder.SimulationCharacteristics.TransferTimesOverAll.Kurt";
@@ -20733,7 +20733,7 @@ public class Messages_de extends java.util.ResourceBundle {
     t[52626] = "Schedule.EditDialog.TimeStepFurther";
     t[52627] = "Weiter";
     t[52628] = "ParameterCompare.Table.DeleteModel.Hint";
-    t[52629] = "Modell l\u00f6schen";
+    t[52629] = "Modell l\u00f6schen (Umschalt+Klick=ohne Best\u00e4tigungsdialog)";
     t[52634] = "Surface.AnimationBarStack.Dialog.ExpressionMode.Java";
     t[52635] = "Java";
     t[52642] = "QuickAccess.Expression.Hint";
@@ -20825,7 +20825,7 @@ public class Messages_de extends java.util.ResourceBundle {
     t[52888] = "Examples.Type.Unknown";
     t[52889] = "Unbekannt";
     t[52890] = "Surface.TankValveSetup.Table.Delete";
-    t[52891] = "Ventil konfiguration l\u00f6schen";
+    t[52891] = "Ventil konfiguration l\u00f6schen (Umschalt+Klick=ohne Best\u00e4tigungsdialog)";
     t[52892] = "ModelGenerator.Model.Description.Properties.LimitedWaitingTimeTolerance";
     t[52893] = "Begrenzte Wartezeittoleranz der Kunden";
     t[52896] = "ExpressionBuilder.ProbabilityDistributions.ParetoDistribution";
@@ -21109,7 +21109,7 @@ public class Messages_de extends java.util.ResourceBundle {
     t[53580] = "Statistics.WaitingTransferProcessTimesAtStationsTotal";
     t[53581] = "Warte-, Transfer- und Bedienzeiten an den Stationen(summiert \u00fcber mehrfache Kundenank\u00fcnfte)";
     t[53588] = "Surface.Tank.Dialog.Valve.Delete";
-    t[53589] = "Ventil l\u00f6schen";
+    t[53589] = "Ventil l\u00f6schen (Umschalt+Klick=ohne Best\u00e4tigungsdialog)";
     t[53590] = "Simulation.Creator.UnknownTransporterName";
     t[53591] = "An Element id=%d werden Transporter des nicht definierten Typs \"%s\" verwendet.";
     t[53596] = "Surface.Resource.NoData";

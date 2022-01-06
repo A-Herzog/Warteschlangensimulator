@@ -18,6 +18,7 @@ package ui.modeleditor;
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.FlowLayout;
+import java.awt.event.ActionEvent;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
@@ -177,7 +178,7 @@ public class ModelLoadDataDialog extends BaseDialog {
 
 		toolbar.add(buttonDelete=new JButton(Language.tr("ModelLoadData.EditDialog.Delete")));
 		buttonDelete.setToolTipText(Language.tr("ModelLoadData.EditDialog.Delete.Hint"));
-		buttonDelete.addActionListener(e->commandDelete());
+		buttonDelete.addActionListener(e->commandDelete((e.getModifiers() & ActionEvent.SHIFT_MASK)!=0));
 		buttonDelete.setIcon(Images.EDIT_DELETE.getIcon());
 
 		toolbar.addSeparator();
@@ -209,8 +210,8 @@ public class ModelLoadDataDialog extends BaseDialog {
 					e.consume();
 					return;
 				}
-				if (e.getKeyCode()==KeyEvent.VK_DELETE && e.getModifiersEx()==0) {
-					commandDelete();
+				if (e.getKeyCode()==KeyEvent.VK_DELETE) {
+					commandDelete(e.getModifiersEx()==InputEvent.SHIFT_DOWN_MASK);
 					e.consume();
 					return;
 				}
@@ -363,14 +364,15 @@ public class ModelLoadDataDialog extends BaseDialog {
 
 	/**
 	 * Befehl: Eintrag löschen
+	 *  @param isShiftDown	Ist die Umschalttaste gedrückt? (Wenn ja, löschen ohne Nachfrage.)
 	 * @see #buttonDelete
 	 */
-	private void commandDelete() {
+	private void commandDelete(final boolean isShiftDown) {
 		final int index=list.getSelectedIndex();
 		if (index<0) return;
-
-		if (!MsgBox.confirm(this,Language.tr("ModelLoadData.EditDialog.Delete.Confirm.Title"),Language.tr("ModelLoadData.EditDialog.Delete.Confirm.Info"),Language.tr("ModelLoadData.EditDialog.Delete.Confirm.InfoYes"),Language.tr("ModelLoadData.EditDialog.Delete.Confirm.InfoNo"))) return;
-
+		if (!isShiftDown) {
+			if (!MsgBox.confirm(this,Language.tr("ModelLoadData.EditDialog.Delete.Confirm.Title"),Language.tr("ModelLoadData.EditDialog.Delete.Confirm.Info"),Language.tr("ModelLoadData.EditDialog.Delete.Confirm.InfoYes"),Language.tr("ModelLoadData.EditDialog.Delete.Confirm.InfoNo"))) return;
+		}
 		listData.remove(index);
 		reloadList(Math.max(0,index-1));
 	}
@@ -432,7 +434,7 @@ public class ModelLoadDataDialog extends BaseDialog {
 		menu.add(item=new JCheckBoxMenuItem(Language.tr("ModelLoadData.EditDialog.Delete")));
 		item.setToolTipText(Language.tr("ModelLoadData.EditDialog.Delete.Hint"));
 		item.setIcon(Images.EDIT_DELETE.getIcon());
-		item.addActionListener(ev->commandDelete());
+		item.addActionListener(ev->commandDelete((ev.getModifiers() & ActionEvent.SHIFT_MASK)!=0));
 		item.setEnabled(index>=0);
 		item.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_DELETE,0));
 

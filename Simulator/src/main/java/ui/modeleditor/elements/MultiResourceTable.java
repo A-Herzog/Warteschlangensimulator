@@ -17,6 +17,7 @@ package ui.modeleditor.elements;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -134,7 +135,7 @@ public class MultiResourceTable extends JPanel {
 		line.add(alternativeUp=addButton(e->alternativeMoveUp(),Language.tr("Surface.Process.Dialog.Tab.Operators.Alternative.Up"),Images.ARROW_UP.getIcon()));
 		line.add(alternativeDown=addButton(e->alternativeMoveDown(),Language.tr("Surface.Process.Dialog.Tab.Operators.Alternative.Down"),Images.ARROW_DOWN.getIcon()));
 		line.add(alternativeAdd=addButton(e->alternativeAdd(),Language.tr("Surface.Process.Dialog.Tab.Operators.Alternative.Add"),Images.MODELPROPERTIES_OPERATORS_ADD.getIcon()));
-		line.add(alternativeDelete=addButton(e->alternativeDelete(),Language.tr("Surface.Process.Dialog.Tab.Operators.Alternative.Delete"),Images.MODELPROPERTIES_OPERATORS_DELETE.getIcon()));
+		line.add(alternativeDelete=addButton(e->alternativeDelete((e.getModifiers() & ActionEvent.SHIFT_MASK)!=0),Language.tr("Surface.Process.Dialog.Tab.Operators.Alternative.Delete"),Images.MODELPROPERTIES_OPERATORS_DELETE.getIcon()));
 		line.add(Box.createHorizontalStrut(5));
 		line.add(alternativeInfo=new JLabel());
 
@@ -278,9 +279,12 @@ public class MultiResourceTable extends JPanel {
 
 	/**
 	 * Befehl: Alternative löschen
+	 * @param isShiftDown	Ist die Umschalttaste gedrückt? (Wenn ja, löschen ohne Nachfrage.)
 	 */
-	private void alternativeDelete() {
-		if (!MsgBox.confirm(this,Language.tr("Surface.Process.Dialog.Tab.Operators.Alternative.Delete.Confirm.Title"),Language.tr("Surface.Process.Dialog.Tab.Operators.Alternative.Delete.Confirm.Info"),Language.tr("Surface.Process.Dialog.Tab.Operators.Alternative.Delete.Confirm.InfoYes"),Language.tr("Surface.Process.Dialog.Tab.Operators.Alternative.Delete.Confirm.InfoNo"))) return;
+	private void alternativeDelete(final boolean isShiftDown) {
+		if (!isShiftDown) {
+			if (!MsgBox.confirm(this,Language.tr("Surface.Process.Dialog.Tab.Operators.Alternative.Delete.Confirm.Title"),Language.tr("Surface.Process.Dialog.Tab.Operators.Alternative.Delete.Confirm.Info"),Language.tr("Surface.Process.Dialog.Tab.Operators.Alternative.Delete.Confirm.InfoYes"),Language.tr("Surface.Process.Dialog.Tab.Operators.Alternative.Delete.Confirm.InfoNo"))) return;
+		}
 		data.remove(lastSelected);
 		lastSelected=FastMath.max(0,lastSelected-1);
 		updateAlternativesList(lastSelected);

@@ -16,6 +16,7 @@
 package ui.modelproperties;
 
 import java.awt.BorderLayout;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -222,7 +223,7 @@ public class SequenceEditTableModel extends JTableExtAbstractTableModel {
 			listener.add(e->commandEdit(rowIndex));
 			title.add(Language.tr("Editor.Dialog.Sequences.Edit.DeleteHint"));
 			icons.add(Images.EDIT_DELETE.getIcon());
-			listener.add(e->commandDelete(rowIndex));
+			listener.add(e->commandDelete(rowIndex,(e.getModifiers() & ActionEvent.SHIFT_MASK)!=0));
 			if (rowIndex>0) {
 				title.add(Language.tr("Editor.Dialog.Sequences.Edit.MoveUpHint"));
 				icons.add(Images.ARROW_UP.getIcon());
@@ -259,9 +260,12 @@ public class SequenceEditTableModel extends JTableExtAbstractTableModel {
 	/**
 	 * Befehl: Löschen
 	 * @param index	Index des ausgewählten Listeneintrags
+	 * @param isShiftDown	Ist die Umschalttaste gedrückt? (Wenn ja, löschen ohne Nachfrage.)
 	 */
-	private void commandDelete(final int index) {
-		if (!MsgBox.confirm(table,Language.tr("Editor.Dialog.Sequences.Edit.DeleteConfirm.Title"),String.format(Language.tr("Editor.Dialog.Sequences.Edit.DeleteConfirm.Info"),index+1),Language.tr("Editor.Dialog.Sequences.Edit.DeleteConfirm.InfoYes"),Language.tr("Editor.Dialog.Sequences.Edit.DeleteConfirm.InfoNo"))) return;
+	private void commandDelete(final int index, final boolean isShiftDown) {
+		if (!isShiftDown) {
+			if (!MsgBox.confirm(table,Language.tr("Editor.Dialog.Sequences.Edit.DeleteConfirm.Title"),String.format(Language.tr("Editor.Dialog.Sequences.Edit.DeleteConfirm.Info"),index+1),Language.tr("Editor.Dialog.Sequences.Edit.DeleteConfirm.InfoYes"),Language.tr("Editor.Dialog.Sequences.Edit.DeleteConfirm.InfoNo"))) return;
+		}
 		steps.remove(index);
 		updateTable();
 	}

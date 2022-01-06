@@ -255,7 +255,9 @@ public class ModelElementAnimationImageTableModel extends JTableExtAbstractTable
 		public void actionPerformed(ActionEvent e) {
 			if (readOnly) return;
 			final String exp=expression.get(row);
-			if (!MsgBox.confirm(table,Language.tr("Surface.AnimationImage.Dialog.Images.Delete.Confirm.Title"),String.format(Language.tr("Surface.AnimationImage.Dialog.Images.Delete.Confirm.Info"),exp),Language.tr("Surface.AnimationImage.Dialog.Images.Delete.Confirm.YesInfo"),Language.tr("Surface.AnimationImage.Dialog.Images.Delete.Confirm.NoInfo"))) return;
+			if ((e.getModifiers() & ActionEvent.SHIFT_MASK)==0) {
+				if (!MsgBox.confirm(table,Language.tr("Surface.AnimationImage.Dialog.Images.Delete.Confirm.Title"),String.format(Language.tr("Surface.AnimationImage.Dialog.Images.Delete.Confirm.Info"),exp),Language.tr("Surface.AnimationImage.Dialog.Images.Delete.Confirm.YesInfo"),Language.tr("Surface.AnimationImage.Dialog.Images.Delete.Confirm.NoInfo"))) return;
+			}
 			expression.remove(row);
 			images.remove(row);
 			updateTable();
