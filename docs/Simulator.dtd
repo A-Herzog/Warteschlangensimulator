@@ -776,7 +776,7 @@
   Nachbearbeitungssekunde	CDATA	#IMPLIED
 >
 
-<!ELEMENT ModellElementBedingung (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementBoxSchriftGross | ModellElementBoxSchriftKlein | ModellElementEbene | ModellElementHintergrundfarbe | ModellElementStationsbild | ModellElementVerbindung | ModellElementBedingungText)*>
+<!ELEMENT ModellElementBedingung (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementBoxSchriftGross | ModellElementBoxSchriftKlein | ModellElementEbene | ModellElementHintergrundfarbe | ModellElementStationsbild | ModellElementVerbindung | ModellElementBedingungText | ModellElementPrioritaet)*>
 <!ATTLIST ModellElementBedingung
   id			CDATA	#REQUIRED
   geschuetzt	CDATA	#IMPLIED
@@ -3165,7 +3165,7 @@
   PostProcessingSecond	CDATA	#IMPLIED
 >
 
-<!ELEMENT ModelElementHold (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBoxFontLarge | ModelElementBoxFontSmall | ModelElementLayer | ModelElementBackgroundColor | ModelElementStationimage | ModelElementConnection | ModelElementHoldCondition)*>
+<!ELEMENT ModelElementHold (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBoxFontLarge | ModelElementBoxFontSmall | ModelElementLayer | ModelElementBackgroundColor | ModelElementStationimage | ModelElementConnection | ModelElementHoldCondition | ModelElementPriority)*>
 <!ATTLIST ModelElementHold
   id		CDATA	#REQUIRED
   protected	CDATA	#IMPLIED

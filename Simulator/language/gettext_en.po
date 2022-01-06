@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-12-30 17:56+0100\n"
+"POT-Creation-Date: 2022-01-05 10:44+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -10533,6 +10533,9 @@ msgstr "When signal \"%s\" is triggered"
 msgid "ModelDescription.FlowData.StopCondition.Time"
 msgstr "After %s seconds"
 
+msgid "ModelDescription.Hold.ClientTypePriority"
+msgstr "Service priority for client type \"%s\""
+
 msgid "ModelDescription.Hold.Condition"
 msgstr "Condition for releasing clients"
 
@@ -16364,6 +16367,9 @@ msgstr "At station id=%d no counter name for condition %d was given."
 
 msgid "Simulation.Creator.EmptyCounterNameElse"
 msgstr "At station id=%d no counter name for the case that no condition is met was given."
+
+msgid "Simulation.Creator.HoldClientPriority"
+msgstr "At element id=%d for client type \"%s\" the invalid value \"%s\" is specified as priority (error at character %d)."
 
 msgid "Simulation.Creator.HoldCondition"
 msgstr "The condition \"%s\" at element id=%d is invalid at character %d."
@@ -25253,8 +25259,17 @@ msgstr "Condition"
 msgid "Surface.Hold.Dialog.Condition.Error.Info"
 msgstr "The specified condition \"%s\" is invalid at character %d."
 
+msgid "Surface.Hold.Dialog.Condition.Error.InfoEmpty"
+msgstr "No condition is specified."
+
 msgid "Surface.Hold.Dialog.Condition.Error.Title"
 msgstr "Invalid condition"
+
+msgid "Surface.Hold.Dialog.Tab.Condition"
+msgstr "Condition"
+
+msgid "Surface.Hold.Dialog.Tab.Priorities"
+msgstr "Priorities"
 
 msgid "Surface.Hold.Dialog.TimeBasedCheck"
 msgstr "Do additional time-based condition checks"
@@ -25279,6 +25294,12 @@ msgstr "ClientBased"
 
 msgid "Surface.Hold.XML.Condition.TimedChecks"
 msgstr "TimedChecks"
+
+msgid "Surface.Hold.XML.Priority"
+msgstr "ModelElementPriority"
+
+msgid "Surface.Hold.XML.Priority.ClientType"
+msgstr "ClientType"
 
 msgid "Surface.Hold.XML.Root"
 msgstr "ModelElementHold"

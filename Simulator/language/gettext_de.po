@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-12-30 17:56+0100\n"
+"POT-Creation-Date: 2022-01-05 10:44+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -10525,6 +10525,9 @@ msgstr "Wenn Signale \"%s\" ausgelöst wird"
 msgid "ModelDescription.FlowData.StopCondition.Time"
 msgstr "Nach %s Sekunden"
 
+msgid "ModelDescription.Hold.ClientTypePriority"
+msgstr "Bedienpriorität für Kundentyp \"%s\""
+
 msgid "ModelDescription.Hold.Condition"
 msgstr "Bedingung für Freigabe von Kunden"
 
@@ -16369,6 +16372,9 @@ msgstr "In Station id=%d wurde kein Zählername für Bedingung %d angegeben."
 
 msgid "Simulation.Creator.EmptyCounterNameElse"
 msgstr "In Station id=%d wurde kein Zählername für den Fall, dass keine Bedingung erfüllt ist, angegeben."
+
+msgid "Simulation.Creator.HoldClientPriority"
+msgstr "Für Element id=%d wurde für Kundentyp \"%s\" der ungültige Wert \"%s\" als Priorität (Fehler an Zeichen %d) angegeben."
 
 msgid "Simulation.Creator.HoldCondition"
 msgstr "Die Bedingung \"%s\" von Element id=%d enthält an Position %d einen Fehler."
@@ -25266,8 +25272,17 @@ msgstr "Bedingung"
 msgid "Surface.Hold.Dialog.Condition.Error.Info"
 msgstr "Die eingegebene Bedingung \"%s\" ist an Zeichen %d fehlerhaft."
 
+msgid "Surface.Hold.Dialog.Condition.Error.InfoEmpty"
+msgstr "Es wurde keine Bedingung angegeben."
+
 msgid "Surface.Hold.Dialog.Condition.Error.Title"
 msgstr "Bedingung fehlerhaft"
+
+msgid "Surface.Hold.Dialog.Tab.Condition"
+msgstr "Bedingung"
+
+msgid "Surface.Hold.Dialog.Tab.Priorities"
+msgstr "Prioritäten"
 
 msgid "Surface.Hold.Dialog.TimeBasedCheck"
 msgstr "Bedingung zusätzlich zeitgesteuert prüfen"
@@ -25292,6 +25307,12 @@ msgstr "Kundenbasierend"
 
 msgid "Surface.Hold.XML.Condition.TimedChecks"
 msgstr "ZeitabhaengigePruefungen"
+
+msgid "Surface.Hold.XML.Priority"
+msgstr "ModellElementPrioritaet"
+
+msgid "Surface.Hold.XML.Priority.ClientType"
+msgstr "Kundentyp"
 
 msgid "Surface.Hold.XML.Root"
 msgstr "ModellElementBedingung"

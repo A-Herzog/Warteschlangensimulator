@@ -18,7 +18,7 @@ When the condition element is passed, the clients are stopped until the defined 
 <p>
 The name of the condition element has no further meaning.
 If clients are in the queue, the system checks whether the condition is fulfilled.
-If yes, the next client is released. After a (simulation time) millisecond the next check
+If yes, the client with the highest priority is released. After a (simulation time) millisecond the next check
 is performed and, if necessary, the next client is released.
 It can be set whether the condition is to be considered globally (without the option of using client-specific variables)
 or whether the condition is to be interpreted on a client-specific basis (including the option of using client-specific variables).

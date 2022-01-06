@@ -998,6 +998,7 @@
 <xs:element name="ModellElementBedingung"><xs:complexType><xs:complexContent><xs:extension base="ModellElementVerbundenBasis">
   <xs:sequence minOccurs="0" maxOccurs="unbounded"><xs:choice>
 	<xs:element ref="ModellElementBedingungText"/>
+	<xs:element ref="ModellElementPrioritaet"/>
   </xs:choice></xs:sequence>
 </xs:extension></xs:complexContent></xs:complexType></xs:element>
 
@@ -3214,6 +3215,7 @@
 <xs:element name="ModelElementHold"><xs:complexType><xs:complexContent><xs:extension base="ModelElementConnectedBase">
   <xs:sequence minOccurs="0" maxOccurs="unbounded"><xs:choice>
 	<xs:element ref="ModelElementHoldCondition"/>
+	<xs:element ref="ModelElementPriority"/>
   </xs:choice></xs:sequence>
 </xs:extension></xs:complexContent></xs:complexType></xs:element>
 

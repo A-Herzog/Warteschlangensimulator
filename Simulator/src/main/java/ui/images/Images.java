@@ -1535,6 +1535,12 @@ public enum Images {
 	/** Symbol "Modelleditor - Gruppe 'Schranken' - Element 'Bedingung'" */
 	MODELEDITOR_ELEMENT_HOLD("Hold.png"),
 
+	/** Symbol "Modelleditor - Gruppe 'Schranken' - Element 'Bedingung' - Dialogseite 'Bedingung'" */
+	MODELEDITOR_ELEMENT_HOLD_PAGE_CONDITION("Hold.png"),
+
+	/** Symbol "Modelleditor - Gruppe 'Schranken' - Element 'Bedingung' - Dialogseite 'Prioritäten'" */
+	MODELEDITOR_ELEMENT_HOLD_PAGE_PRIORITY("user.png"),
+
 	/** Symbol "Modelleditor - Gruppe 'Schranken' - Element 'Multibedingung'" */
 	MODELEDITOR_ELEMENT_HOLD_MULTI("HoldMulti.png"),
 

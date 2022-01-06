@@ -16,6 +16,7 @@
 package simulator.elements;
 
 import language.Language;
+import parser.MathCalcError;
 import simulator.builder.RunModelCreatorStatus;
 import simulator.coreelements.RunElementPassThrough;
 import simulator.editmodel.EditModel;
@@ -24,6 +25,7 @@ import simulator.events.SystemChangeEvent;
 import simulator.runmodel.RunDataClient;
 import simulator.runmodel.RunModel;
 import simulator.runmodel.SimulationData;
+import simulator.simparser.ExpressionCalc;
 import simulator.simparser.ExpressionMultiEval;
 import ui.modeleditor.coreelements.ModelElement;
 import ui.modeleditor.elements.ModelElementHold;
@@ -37,6 +39,8 @@ import ui.modeleditor.elements.ModelElementSub;
 public class RunElementHold extends RunElementPassThrough implements StateChangeListener, PickUpQueue {
 	/** Bedingung, die für eine Weitergabe der Kunden erfüllt sein muss */
 	private String condition;
+	/** Prioritäts-Rechenausdrücke */
+	private String[] priority;
 	/** Individuelle kundenbasierende Prüfung? */
 	private boolean useClientBasedCheck;
 	/** Regelmäßige Prüfung der Bedingung? */
@@ -69,6 +73,24 @@ public class RunElementHold extends RunElementPassThrough implements StateChange
 			if (error>=0) return String.format(Language.tr("Simulation.Creator.HoldCondition"),condition,element.getId(),error+1);
 			hold.condition=condition;
 		}
+
+		/* Prioritäten */
+		hold.priority=new String[runModel.clientTypes.length];
+		for (int i=0;i<hold.priority.length;i++) {
+			String priorityString=holdElement.getPriority(runModel.clientTypes[i]);
+			if (priorityString==null || priorityString.trim().isEmpty()) priorityString=ModelElementHold.DEFAULT_CLIENT_PRIORITY;
+			if (priorityString.equalsIgnoreCase(ModelElementHold.DEFAULT_CLIENT_PRIORITY)) {
+				hold.priority[i]=null; /* Default Priorität als null vermerken */
+			} else {
+				final ExpressionCalc calc=new ExpressionCalc(runModel.variableNames);
+				final int error=calc.parse(priorityString);
+				if (error>=0) return String.format(Language.tr("Simulation.Creator.HoldClientPriority"),element.getId(),runModel.clientTypes[i],priorityString,error+1);
+
+				hold.priority[i]=priorityString;
+			}
+		}
+
+		/* Individuelle kundenbasierende Prüfung */
 		hold.useClientBasedCheck=holdElement.isClientBasedCheck();
 
 		/* Zeitabhängige Checks */
@@ -94,7 +116,7 @@ public class RunElementHold extends RunElementPassThrough implements StateChange
 		RunElementHoldData data;
 		data=(RunElementHoldData)(simData.runData.getStationData(this));
 		if (data==null) {
-			data=new RunElementHoldData(this,condition,simData.runModel.variableNames);
+			data=new RunElementHoldData(this,condition,priority,simData.runModel.variableNames);
 			simData.runData.setStationData(this,data);
 		}
 		return data;
@@ -129,6 +151,182 @@ public class RunElementHold extends RunElementPassThrough implements StateChange
 		return data.waitingClients.size()>0;
 	}
 
+	/**
+	 * Gibt einen einzelnen Kunden frei.
+	 * @param simData	Simulationsdatenobjekt
+	 * @param data	Thread-lokales Datenobjekt zu der Station
+	 * @param client	Kunde
+	 * @param clientIndex	Index des Kunden in der Liste der Kunden an der Station
+	 */
+	private void releaseClient(final SimulationData simData, final RunElementHoldData data, final RunDataClient client, final int clientIndex) {
+		/* Kunde aus Warteschlange entfernen und weiterleiten */
+		data.waitingClients.remove(clientIndex);
+		StationLeaveEvent.addLeaveEvent(simData,client,this,0);
+		StationLeaveEvent.unannounceClient(simData,client,getNext());
+		data.lastRelease=simData.currentTime;
+
+		/* Wartezeit in Statistik */
+		final long waitingTime=simData.currentTime-client.lastWaitingStart;
+		simData.runData.logStationProcess(simData,this,client,waitingTime,0,0,waitingTime);
+		client.addStationTime(id,waitingTime,0,0,waitingTime);
+
+		/* Kunden an Station in Statistik */
+		simData.runData.logClientLeavesStationQueue(simData,this,data,client);
+
+		/* Logging */
+		if (simData.loggingActive) log(simData,Language.tr("Simulation.Log.Hold"),String.format(Language.tr("Simulation.Log.Hold.Info"),client.logInfo(simData),name));
+	}
+
+	/**
+	 * Prüft, ob einer der Kunden freigegeben werden kann.<br>
+	 * Dabei wird die Priorität nicht geprüft und es ist auch bereits bekannt, dass es Kunden in der Liste gibt.
+	 * @param simData	Simulationsdatenobjekt
+	 * @return	Gibt <code>true</code> zurück, wenn ein Kunde freigegeben werden konnte
+	 * @param data	Thread-lokales Datenobjekt zu der Station
+	 * @see #systemStateChangeNotify(SimulationData)
+	 */
+	private boolean releaseTestFIFO(final SimulationData simData, final RunElementHoldData data) {
+		final int size=data.waitingClients.size();
+		final double[] variableValues=simData.runData.variableValues;
+		for (int index=0;index<size;index++) {
+			final RunDataClient client=data.waitingClients.get(index);
+
+			/* Ist die Bedingung erfüllt? */
+			final boolean conditionIsTrue;
+			if (useClientBasedCheck) {
+				simData.runData.setClientVariableValues(client.waitingTime+(simData.currentTime-client.lastWaitingStart),client.transferTime,client.processTime); /* Auch die bisherige Wartezeit an der aktuellen Station schon mitzählen. */
+				conditionIsTrue=(data.condition==null || data.condition.eval(variableValues,simData,client));
+			} else {
+				simData.runData.setClientVariableValues(null);
+				conditionIsTrue=(data.condition==null || data.condition.eval(variableValues,simData,null));
+			}
+			if (!conditionIsTrue) {
+				if (useClientBasedCheck) continue; else break;
+			}
+
+			/* Kunde freigeben */
+			releaseClient(simData,data,client,index);
+
+			/* Warten weitere Kunden? - Wenn ja in einer ms ein weiterer Check, ob die Bedingung noch erfüllt ist. */
+			/* -> wird bereits durch "return true;" vom Aufrufer erledigt. */
+			return true;
+		}
+
+		return false;
+	}
+
+	/** Umrechnungsfaktor von Millisekunden auf Sekunden, um die Division während der Simulation zu vermeiden */
+	private static final double toSecFactor=1.0/1000.0;
+
+	/**
+	 * Berechnet den Score-Wert eines Kunden.
+	 * @param simData	Simulationsdatenobjekt
+	 * @param holdData	Thread-lokales Datenobjekt zu der Station
+	 * @param client	Kunde
+	 * @return	Score-Wert des Kunden
+	 */
+	private double getClientScore(final SimulationData simData, final RunElementHoldData holdData, final RunDataClient client) {
+		final ExpressionCalc calc=holdData.priority[client.type];
+		if (calc==null) { /* = Text war "w", siehe RunElementProcessData()  */
+			return (((double)simData.currentTime)-client.lastWaitingStart)*toSecFactor;
+		} else {
+			simData.runData.setClientVariableValues(simData.currentTime-client.lastWaitingStart,client.transferTime,client.processTime);
+			try {
+				return calc.calc(simData.runData.variableValues,simData,client);
+			} catch (MathCalcError e) {
+				simData.calculationErrorStation(calc,this);
+				return 0;
+			}
+		}
+	}
+
+	/**
+	 * Gibt den Kunden mit der höchsten Priorität frei.<br>
+	 * Dabei wird die Bedingung nicht geprüft und es ist auch bereits bekannt, dass es Kunden in der Liste gibt.
+	 * @param simData	Simulationsdatenobjekt
+	 * @param data	Thread-lokales Datenobjekt zu der Station
+	 */
+	private void releaseClientWithHighestPriority(final SimulationData simData, final RunElementHoldData data) {
+		final int size=data.waitingClients.size();
+
+		int bestIndex=0;
+		RunDataClient bestClient=data.waitingClients.get(0);
+		double bestPriority=getClientScore(simData,data,bestClient);
+
+		for (int index=1;index<size;index++) {
+			final RunDataClient client=data.waitingClients.get(index);
+			final double priority=getClientScore(simData,data,client);
+			if (priority>bestPriority) {
+				bestIndex=index;
+				bestClient=client;
+				bestPriority=priority;
+			}
+		}
+
+		releaseClient(simData,data,bestClient,bestIndex);
+	}
+
+	/**
+	 * Prüft, ob einer der Kunden freigegeben werden kann.<br>
+	 * Die Bedingung und die Priorität werden für jeden Kunden individuell geprüft. Es ist bereits bekannt, dass es Kunden in der Liste gibt.
+	 * @param simData	Simulationsdatenobjekt
+	 * @return	Gibt <code>true</code> zurück, wenn ein Kunde freigegeben werden konnte
+	 * @param data	Thread-lokales Datenobjekt zu der Station
+	 */
+	private boolean releaseTestPriorityIndividual(final SimulationData simData, final RunElementHoldData data) {
+		final int size=data.waitingClients.size();
+		final double[] variableValues=simData.runData.variableValues;
+
+		int bestIndex=-1;
+		double bestPriority=0;
+		RunDataClient bestClient=null;
+
+		for (int index=0;index<size;index++) {
+			final RunDataClient client=data.waitingClients.get(index);
+			final double priority=getClientScore(simData,data,client);
+			if (priority>bestPriority) {
+				simData.runData.setClientVariableValues(client.waitingTime+(simData.currentTime-client.lastWaitingStart),client.transferTime,client.processTime); /* Auch die bisherige Wartezeit an der aktuellen Station schon mitzählen. */
+				final boolean conditionIsTrue=(data.condition==null || data.condition.eval(variableValues,simData,client));
+				if (conditionIsTrue) {
+					bestIndex=index;
+					bestClient=client;
+					bestPriority=priority;
+				}
+			}
+		}
+
+		if (bestClient==null) {
+			return false;
+		} else {
+			releaseClient(simData,data,bestClient,bestIndex);
+			return true;
+		}
+	}
+
+	/**
+	 * Prüft, ob einer der Kunden freigegeben werden kann.<br>
+	 * Es wird der freigebbare Kunde mit der höchsten Priorität freigegeben. Es ist bereits bekannt, dass es Kunden in der Liste gibt.
+	 * @param simData	Simulationsdatenobjekt
+	 * @return	Gibt <code>true</code> zurück, wenn ein Kunde freigegeben werden konnte
+	 * @param data	Thread-lokales Datenobjekt zu der Station
+	 * @see #systemStateChangeNotify(SimulationData)
+	 */
+	private boolean releaseTestPriority(final SimulationData simData, final RunElementHoldData data) {
+		if (useClientBasedCheck) {
+			return releaseTestPriorityIndividual(simData,data);
+		} else {
+			final double[] variableValues=simData.runData.variableValues;
+			simData.runData.setClientVariableValues(null);
+			final boolean conditionIsTrue=(data.condition==null || data.condition.eval(variableValues,simData,null));
+			if (conditionIsTrue) {
+				releaseClientWithHighestPriority(simData,data);
+				return true;
+			} else {
+				return false;
+			}
+		}
+	}
+
 	@Override
 	public boolean systemStateChangeNotify(final SimulationData simData) {
 		final RunElementHoldData data=getData(simData);
@@ -138,56 +336,17 @@ public class RunElementHold extends RunElementPassThrough implements StateChange
 
 		data.queueLockedForPickUp=true;
 		try {
-			int removed=0;
-
 			if (data.lastRelease<simData.currentTime) {
-				final int size=data.waitingClients.size();
-				final double[] variableValues=simData.runData.variableValues;
-				for (int index=0;index<size;index++) {
-					final RunDataClient client=data.waitingClients.get(index);
-
-					/* Ist die Bedingung erfüllt? */
-					final boolean conditionIsTrue;
-					if (useClientBasedCheck) {
-						simData.runData.setClientVariableValues(client.waitingTime+(simData.currentTime-client.lastWaitingStart),client.transferTime,client.processTime); /* Auch die bisherige Wartezeit an der aktuellen Station schon mitzählen. */
-						conditionIsTrue=(data.condition==null || data.condition.eval(variableValues,simData,client));
-					} else {
-						simData.runData.setClientVariableValues(null);
-						conditionIsTrue=(data.condition==null || data.condition.eval(variableValues,simData,null));
-					}
-					if (!conditionIsTrue) {
-						if (useClientBasedCheck) continue; else break;
-					}
-
-					/* Kunde aus Warteschlange entfernen und weiterleiten */
-					data.waitingClients.remove(index);
-					StationLeaveEvent.addLeaveEvent(simData,client,this,0);
-					StationLeaveEvent.unannounceClient(simData,client,getNext());
-					data.lastRelease=simData.currentTime;
-
-					/* Wartezeit in Statistik */
-					final long waitingTime=simData.currentTime-client.lastWaitingStart;
-					simData.runData.logStationProcess(simData,this,client,waitingTime,0,0,waitingTime);
-					client.addStationTime(id,waitingTime,0,0,waitingTime);
-
-					/* Kunden an Station in Statistik */
-					simData.runData.logClientLeavesStationQueue(simData,this,data,client);
-
-					/* Logging */
-					if (simData.loggingActive) log(simData,Language.tr("Simulation.Log.Hold"),String.format(Language.tr("Simulation.Log.Hold.Info"),client.logInfo(simData),name));
-
-					/* Erfolg - alles weitere später */
-					removed++;
-					break;
+				if (data.allPriorityFIFO) {
+					return releaseTestFIFO(simData,data);
+				} else {
+					return releaseTestPriority(simData,data);
 				}
 			} else {
 				SystemChangeEvent.triggerEvent(simData,1);
+				return false;
 			}
 
-			/* Warten weitere Kunden? - Wenn ja in einer ms ein weiterer Check, ob die Bedingung noch erfüllt ist. */
-			/* -> wird bereits durch "return true;" vom Aufrufer erledigt. */
-
-			return removed>0;
 		} finally {
 			data.queueLockedForPickUp=false;
 		}

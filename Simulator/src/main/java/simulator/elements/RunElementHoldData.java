@@ -22,6 +22,7 @@ import simulator.coreelements.RunElement;
 import simulator.coreelements.RunElementData;
 import simulator.runmodel.RunDataClient;
 import simulator.runmodel.SimulationData;
+import simulator.simparser.ExpressionCalc;
 import simulator.simparser.ExpressionMultiEval;
 
 /**
@@ -35,6 +36,18 @@ public class RunElementHoldData extends RunElementData implements RunElementData
 	 * Zu prüfende Bedingung
 	 */
 	public ExpressionMultiEval condition;
+
+	/**
+	 * Rechenausdrücke für die Kundenprioritäten an der Bedienstation
+	 * (einzelne Einträge können <code>null</code> sein; für diese soll dann "w" gelten)
+	 */
+	public final ExpressionCalc[] priority;
+
+	/**
+	 * Gilt für alle Kundentypen FIFO?
+	 * @see #priority
+	 */
+	public final boolean allPriorityFIFO;
 
 	/**
 	 * Liste der wartenden Kunden
@@ -55,19 +68,32 @@ public class RunElementHoldData extends RunElementData implements RunElementData
 	 * Konstruktor der Klasse <code>RunElementHoldData</code>
 	 * @param station	Station zu diesem Datenelement
 	 * @param condition	Bei der Verzögerung von Kunden zu prüfende Bedingung (zur Umsetzung in ein <code>ExpressionMultiEval</code>-Objekt)
+	 * @param priority	Prioritäts-Rechenausdrücke
 	 * @param variableNames	Liste der global verfügbaren Variablennamen
 	 */
-	public RunElementHoldData(final RunElement station, final String condition, final String[] variableNames) {
+	public RunElementHoldData(final RunElement station, final String condition, final String[] priority, final String[] variableNames) {
 		super(station);
 		queueLockedForPickUp=false;
 		waitingClients=new ArrayList<>();
 		lastRelease=-Long.MAX_VALUE;
+
 		if (condition==null || condition.trim().isEmpty()) {
 			this.condition=null;
 		} else {
 			this.condition=new ExpressionMultiEval(variableNames);
 			this.condition.parse(condition);
 		}
+
+		boolean allPriorityFIFO=true;
+		this.priority=new ExpressionCalc[priority.length];
+		for (int i=0;i<priority.length;i++) {
+			if (priority[i]!=null) { /* Wenn null, war Default Priorität gesetzt (="w"). Dann priority[i] auf Vorgabe null lassen. Dies wird von ModelElementProcess.startProcessing() entsprechend erkannt. */
+				this.priority[i]=new ExpressionCalc(variableNames);
+				this.priority[i].parse(priority[i]);
+				allPriorityFIFO=false;
+			}
+		}
+		this.allPriorityFIFO=allPriorityFIFO;
 	}
 
 	@Override

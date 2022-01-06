@@ -19,6 +19,8 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Point;
 import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 import java.util.function.Consumer;
 
 import javax.swing.Icon;
@@ -51,11 +53,23 @@ import ui.modeleditor.fastpaint.Shapes;
  */
 public class ModelElementHold extends ModelElementMultiInSingleOutBox implements ModelElementAnimationForceMove {
 	/**
+	 * Standardmäßige Priorität für Kundentypen
+	 */
+	public static final String DEFAULT_CLIENT_PRIORITY="w";
+
+	/**
 	 * Bedingung, die für eine Weitergabe der Kunden erfüllt sein muss
 	 * @see #getCondition()
 	 * @see #setCondition(String)
 	 */
 	private String condition;
+
+	/**
+	 * Priorität für Kunden eines bestimmten Kundentyp
+	 * @see #getPriority(String)
+	 * @see #setPriority(String, String)
+	 */
+	private final Map<String,String> priority; /*  Kundentyp, Priorität-Formel */
 
 	/**
 	 * Individuelle kundenbasierende Prüfung
@@ -79,6 +93,7 @@ public class ModelElementHold extends ModelElementMultiInSingleOutBox implements
 	public ModelElementHold(final EditModel model, final ModelSurface surface) {
 		super(model,surface,Shapes.ShapeType.SHAPE_RECTANGLE);
 		condition="";
+		priority=new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
 		clientBasedCheck=false;
 		useTimedChecks=false;
 	}
@@ -115,6 +130,26 @@ public class ModelElementHold extends ModelElementMultiInSingleOutBox implements
 	 */
 	public void setCondition(final String newCondition) {
 		if (newCondition!=null) condition=newCondition;
+	}
+
+	/**
+	 * Liefert die Priorität für Kunden eines bestimmten Kundentyp.
+	 * @param clientType	Kundentyp für den die Priorität geliefert werden soll
+	 * @return Priorität für Kunden dieses Kundentyps
+	 */
+	public String getPriority(final String clientType) {
+		final String p=priority.get(clientType);
+		if (p==null) return DEFAULT_CLIENT_PRIORITY; else return p;
+	}
+
+	/**
+	 * Stellt Priorität für die Kunden eines bestimmten Kundentyps ein.
+	 * @param clientType	Kundentyp für den die Priorität eingestellt werden soll
+	 * @param priority	Neue Priorität für Kundes des Kundentyps
+	 */
+	public void setPriority(final String clientType, final String priority) {
+		if (clientType==null || clientType.trim().isEmpty()) return;
+		if (priority==null) this.priority.put(clientType,""); else this.priority.put(clientType,priority);
 	}
 
 	/**
@@ -158,10 +193,26 @@ public class ModelElementHold extends ModelElementMultiInSingleOutBox implements
 	public boolean equalsModelElement(ModelElement element) {
 		if (!super.equalsModelElement(element)) return false;
 		if (!(element instanceof ModelElementHold)) return false;
+		final ModelElementHold hold=(ModelElementHold)element;
 
-		if (!((ModelElementHold)element).condition.equalsIgnoreCase(condition)) return false;
-		if (((ModelElementHold)element).clientBasedCheck!=clientBasedCheck) return false;
-		if (((ModelElementHold)element).useTimedChecks!=useTimedChecks) return false;
+		/* Bedingung */
+		if (!hold.condition.equalsIgnoreCase(condition)) return false;
+
+		/* Prioritäten */
+		Map<String,String> priorityA=priority;
+		Map<String,String> priorityB=hold.priority;
+		for (Map.Entry<String,String> entry : priorityA.entrySet()) {
+			if (!entry.getValue().equals(priorityB.get(entry.getKey()))) return false;
+		}
+		for (Map.Entry<String,String> entry : priorityB.entrySet()) {
+			if (!entry.getValue().equals(priorityA.get(entry.getKey()))) return false;
+		}
+
+		/* Individuelle kundenbasierende Prüfung */
+		if (hold.clientBasedCheck!=clientBasedCheck) return false;
+
+		/* Regelmäßige Prüfung der Bedingung */
+		if (hold.useTimedChecks!=useTimedChecks) return false;
 
 		return true;
 	}
@@ -171,11 +222,23 @@ public class ModelElementHold extends ModelElementMultiInSingleOutBox implements
 	 * @param element	Element, von dem alle Einstellungen übernommen werden sollen
 	 */
 	@Override
-	public void copyDataFrom(ModelElement element) {
+	public void copyDataFrom(final ModelElement element) {
 		super.copyDataFrom(element);
 		if (element instanceof ModelElementHold) {
-			condition=((ModelElementHold)element).condition;
+			final ModelElementHold hold=(ModelElementHold)element;
+
+			/* Bedingung */
+			condition=hold.condition;
+
+			/* Prioritäten */
+			priority.clear();
+			for (Map.Entry<String,String> entry: hold.priority.entrySet()) priority.put(entry.getKey(),entry.getValue());
+
+
+			/* Individuelle kundenbasierende Prüfung */
 			clientBasedCheck=((ModelElementHold)element).clientBasedCheck;
+
+			/* Regelmäßige Prüfung der Bedingung */
 			useTimedChecks=((ModelElementHold)element).useTimedChecks;
 		}
 	}
@@ -325,6 +388,12 @@ public class ModelElementHold extends ModelElementMultiInSingleOutBox implements
 		sub.setTextContent(condition);
 		if (clientBasedCheck) sub.setAttribute(Language.trPrimary("Surface.Hold.XML.Condition.ClientBased"),"1");
 		if (useTimedChecks) sub.setAttribute(Language.trPrimary("Surface.Hold.XML.Condition.TimedChecks"),"1");
+
+		for (Map.Entry<String,String> entry : priority.entrySet()) if (entry.getValue()!=null) {
+			node.appendChild(sub=doc.createElement(Language.trPrimary("Surface.Process.XML.Priority")));
+			sub.setAttribute(Language.trPrimary("Surface.Hold.XML.Priority.ClientType"),entry.getKey());
+			sub.setTextContent(entry.getValue());
+		}
 	}
 
 	/**
@@ -346,6 +415,13 @@ public class ModelElementHold extends ModelElementMultiInSingleOutBox implements
 			final String useTimedChecksString=Language.trAllAttribute("Surface.Hold.XML.Condition.TimedChecks",node);
 			if (useTimedChecksString.equals("1")) useTimedChecks=true;
 		}
+
+		if (Language.trAll("Surface.Hold.XML.Priority",name)) {
+			final String typ=Language.trAllAttribute("Surface.Hold.XML.Priority.ClientType",node);
+			if (!typ.trim().isEmpty()) priority.put(typ,content);
+			return null;
+		}
+
 
 		return null;
 	}
@@ -379,7 +455,24 @@ public class ModelElementHold extends ModelElementMultiInSingleOutBox implements
 	public void buildDescription(final ModelDescriptionBuilder descriptionBuilder) {
 		super.buildDescription(descriptionBuilder);
 
+		/* Bedingung */
 		descriptionBuilder.addProperty(Language.tr("ModelDescription.Hold.Condition"),condition,1000);
+
+		/* Prioritäten */
+		final String[] clientTypes=descriptionBuilder.getClientTypes();
+		boolean needPrioInfo=false;
+		for (String clientType: clientTypes) {
+			final String prio=priority.get(clientType);
+			if (prio!=null && !prio.trim().isEmpty() && !prio.equals(DEFAULT_CLIENT_PRIORITY)) {needPrioInfo=true; break;}
+		}
+		if (needPrioInfo) for (String clientType: clientTypes) {
+			final String prio=priority.get(clientType);
+			if (prio!=null && !prio.trim().isEmpty()) {
+				descriptionBuilder.addProperty(String.format(Language.tr("ModelDescription.Hold.ClientTypePriority"),clientType),prio,8000);
+			} else {
+				descriptionBuilder.addProperty(String.format(Language.tr("ModelDescription.Hold.ClientTypePriority"),clientType),DEFAULT_CLIENT_PRIORITY,8000);
+			}
+		}
 	}
 
 	@Override
@@ -391,6 +484,13 @@ public class ModelElementHold extends ModelElementMultiInSingleOutBox implements
 	public void search(final FullTextSearch searcher) {
 		super.search(searcher);
 
+		/* Bedingung */
 		searcher.testString(this,Language.tr("Surface.Hold.Dialog.Condition"),condition,newCondition->{condition=newCondition;});
+
+		/* Prioritäten */
+		for (Map.Entry<String,String> clientPriority: priority.entrySet()) {
+			final String clientType=clientPriority.getKey();
+			searcher.testString(this,String.format(Language.tr("Editor.DialogBase.Search.PriorityForClientType"),clientType),clientPriority.getValue(),newPriority->priority.put(clientType,newPriority));
+		}
 	}
 }

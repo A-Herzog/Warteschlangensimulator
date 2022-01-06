@@ -81,6 +81,9 @@ public class PriorityTableModel extends JTableExtAbstractTableModel {
 		if (element instanceof ModelElementTransportTransporterSource) {
 			for (int i=0;i<clientTypes.length;i++) priorities[i]=((ModelElementTransportTransporterSource)element).getClientPriority(clientTypes[i]);
 		}
+		if (element instanceof ModelElementHold) {
+			for (int i=0;i<clientTypes.length;i++) priorities[i]=((ModelElementHold)element).getPriority(clientTypes[i]);
+		}
 	}
 
 	/**
@@ -197,6 +200,9 @@ public class PriorityTableModel extends JTableExtAbstractTableModel {
 		}
 		if (element instanceof ModelElementTransportTransporterSource) {
 			for (int i=0;i<clientTypes.length;i++) ((ModelElementTransportTransporterSource)element).getClientPriorities().put(clientTypes[i],priorities[i]);
+		}
+		if (element instanceof ModelElementHold) {
+			for (int i=0;i<clientTypes.length;i++) ((ModelElementHold)element).setPriority(clientTypes[i],priorities[i]);
 		}
 	}
 }

@@ -27,12 +27,16 @@ import javax.swing.BoxLayout;
 import javax.swing.JCheckBox;
 import javax.swing.JComponent;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
 
 import language.Language;
 import mathtools.NumberTools;
 import simulator.simparser.ExpressionMultiEval;
 import systemtools.MsgBox;
+import tools.JTableExt;
+import ui.images.Images;
 import ui.infopanel.InfoPanel;
 import ui.modeleditor.ModelElementBaseDialog;
 
@@ -55,6 +59,9 @@ public class ModelElementHoldDialog extends ModelElementBaseDialog {
 	/** Option: Bedingung zusätzlich zeitgesteuert prüfen */
 	private JCheckBox useTimedChecks;
 
+	/** Tabelle zur Konfiguration der Prioritäten der Kundentypen */
+	private PriorityTableModel tablePriorityModel;
+
 	/**
 	 * Konstruktor der Klasse
 	 * @param owner	Übergeordnetes Fenster
@@ -70,7 +77,7 @@ public class ModelElementHoldDialog extends ModelElementBaseDialog {
 	 */
 	@Override
 	protected void setDialogSize() {
-		setMinSizeRespectingScreensize(600,0);
+		setSizeRespectingScreensize(800,400);
 		pack();
 	}
 
@@ -81,10 +88,20 @@ public class ModelElementHoldDialog extends ModelElementBaseDialog {
 
 	@Override
 	protected JComponent getContentPanel() {
-		final JPanel content=new JPanel();
-		content.setLayout(new BoxLayout(content,BoxLayout.PAGE_AXIS));
+		final ModelElementHold hold=(ModelElementHold)element;
 
-		final Object[] data=getInputPanel(Language.tr("Surface.Hold.Dialog.Condition")+":",((ModelElementHold)element).getCondition());
+		final JPanel content=new JPanel(new BorderLayout());
+		final JTabbedPane tabs=new JTabbedPane();
+		content.add(tabs,BorderLayout.CENTER);
+
+		JPanel tabOuter, tab, line;
+
+		/* Tab "Bedingung" */
+		tabs.addTab(Language.tr("Surface.Hold.Dialog.Tab.Condition"),tabOuter=new JPanel(new BorderLayout()));
+		tabOuter.add(tab=new JPanel(),BorderLayout.NORTH);
+		tab.setLayout(new BoxLayout(tab,BoxLayout.PAGE_AXIS));
+
+		final Object[] data=getInputPanel(Language.tr("Surface.Hold.Dialog.Condition")+":",hold.getCondition());
 		condition=(JTextField)data[1];
 		condition.setEditable(!readOnly);
 		condition.addKeyListener(new KeyListener() {
@@ -92,19 +109,39 @@ public class ModelElementHoldDialog extends ModelElementBaseDialog {
 			@Override public void keyReleased(KeyEvent e) {checkData(false);}
 			@Override public void keyPressed(KeyEvent e) {checkData(false);}
 		});
-		checkData(false);
 		((JPanel)data[0]).add(getExpressionEditButton(this,condition,true,true,element.getModel(),element.getSurface()),BorderLayout.EAST);
-		content.add((JPanel)data[0]);
+		tab.add((JPanel)data[0]);
 
-		JPanel line;
-
-		content.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
-		line.add(clientBasedCheck=new JCheckBox(Language.tr("Surface.Hold.Dialog.ClientBasedCheck"),((ModelElementHold)element).isClientBasedCheck()));
+		tab.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
+		line.add(clientBasedCheck=new JCheckBox(Language.tr("Surface.Hold.Dialog.ClientBasedCheck"),hold.isClientBasedCheck()));
 		clientBasedCheck.setEnabled(!readOnly);
 
-		content.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
-		line.add(useTimedChecks=new JCheckBox(Language.tr("Surface.Hold.Dialog.TimeBasedCheck"),((ModelElementHold)element).isUseTimedChecks()));
+		tab.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
+		line.add(useTimedChecks=new JCheckBox(Language.tr("Surface.Hold.Dialog.TimeBasedCheck"),hold.isUseTimedChecks()));
 		useTimedChecks.setEnabled(!readOnly);
+
+		/* Tab "Prioritäten" */
+		tabs.addTab(Language.tr("Surface.Hold.Dialog.Tab.Priorities"),tabOuter=new JPanel(new BorderLayout()));
+
+		final JTableExt tablePriority;
+		tabOuter.add(new JScrollPane(tablePriority=new JTableExt()),BorderLayout.CENTER);
+		tablePriority.setModel(tablePriorityModel=new PriorityTableModel(tablePriority,hold,readOnly));
+		tablePriority.setIsPanelCellTable(0);
+		tablePriority.setIsPanelCellTable(2);
+		tablePriority.getColumnModel().getColumn(0).setMaxWidth(200);
+		tablePriority.getColumnModel().getColumn(0).setMinWidth(200);
+		tablePriority.getColumnModel().getColumn(2).setMaxWidth(75);
+		tablePriority.getColumnModel().getColumn(2).setMinWidth(75);
+		tablePriority.setEnabled(!readOnly);
+		tablePriority.putClientProperty("terminateEditOnFocusLost",true);
+		tablePriority.getTableHeader().setReorderingAllowed(false);
+
+		/* Icons auf Tabs */
+		tabs.setIconAt(0,Images.MODELEDITOR_ELEMENT_HOLD_PAGE_CONDITION.getIcon());
+		tabs.setIconAt(1,Images.MODELEDITOR_ELEMENT_HOLD_PAGE_PRIORITY.getIcon());
+
+		/* Initiale Prüfung der Daten */
+		checkData(false);
 
 		return content;
 	}
@@ -117,17 +154,36 @@ public class ModelElementHoldDialog extends ModelElementBaseDialog {
 	private boolean checkData(final boolean showErrorMessage) {
 		if (readOnly) return false;
 
+		boolean ok=true;
+
 		final String text=condition.getText();
-		if (!text.trim().isEmpty()) {
-			final int error=ExpressionMultiEval.check(text,element.getSurface().getMainSurfaceVariableNames(element.getModel().getModelVariableNames(),true));
-			if (error>=0) {
-				condition.setBackground(Color.red);
-				if (showErrorMessage) MsgBox.error(this,Language.tr("Surface.Hold.Dialog.Condition.Error.Title"),String.format(Language.tr("Surface.Hold.Dialog.Condition.Error.Info"),text,error+1));
+		if (text.trim().isEmpty()) {
+			ok=false;
+			condition.setBackground(Color.red);
+			if (showErrorMessage) {
+				MsgBox.error(this,Language.tr("Surface.Hold.Dialog.Condition.Error.Title"),Language.tr("Surface.Hold.Dialog.Condition.Error.InfoEmpty"));
 				return false;
 			}
+		} else {
+			final int error=ExpressionMultiEval.check(text,element.getSurface().getMainSurfaceVariableNames(element.getModel().getModelVariableNames(),true));
+			if (error>=0) {
+				ok=false;
+				condition.setBackground(Color.red);
+				if (showErrorMessage) {
+					MsgBox.error(this,Language.tr("Surface.Hold.Dialog.Condition.Error.Title"),String.format(Language.tr("Surface.Hold.Dialog.Condition.Error.Info"),text,error+1));
+					return false;
+				}
+			} else {
+				condition.setBackground(NumberTools.getTextFieldDefaultBackground());
+			}
 		}
-		condition.setBackground(NumberTools.getTextFieldDefaultBackground());
-		return true;
+
+		if (!tablePriorityModel.checkInput(showErrorMessage)) {
+			if (showErrorMessage) return false;
+			ok=false;
+		}
+
+		return ok;
 	}
 
 	/**
@@ -148,8 +204,10 @@ public class ModelElementHoldDialog extends ModelElementBaseDialog {
 	@Override
 	protected void storeData() {
 		super.storeData();
-		((ModelElementHold)element).setCondition(condition.getText());
-		((ModelElementHold)element).setClientBasedCheck(clientBasedCheck.isSelected());
-		((ModelElementHold)element).setUseTimedChecks(useTimedChecks.isSelected());
+		final ModelElementHold hold=(ModelElementHold)element;
+		hold.setCondition(condition.getText());
+		hold.setClientBasedCheck(clientBasedCheck.isSelected());
+		hold.setUseTimedChecks(useTimedChecks.isSelected());
+		tablePriorityModel.storeData();
 	}
 }
