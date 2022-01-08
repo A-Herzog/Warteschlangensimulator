@@ -29,16 +29,43 @@ import ui.modeleditor.coreelements.ModelElementBox;
  * @see ModelSurfacePanel#getTooltipDescription
  */
 public class ModelDescriptionBuilderSingleStation extends ModelDescriptionBuilder {
-	/** Sammelt die html-Ausgabezeilen */
+	/**
+	 * Ausgabemodus
+	 */
+	public enum Mode {
+		/** Ausgabe als reiner Text */
+		PLAIN,
+		/** HTML-formatierte Ausgabe */
+		HTML
+	}
+
+	/**
+	 * Ausgabemodus
+	 */
+	private final Mode mode;
+
+	/**
+	 * Sammelt die Ausgabezeilen
+	 */
 	private final StringBuilder description;
 
 	/**
 	 * Konstruktor der Klasse
 	 * @param model	Editor-Modell zu dem die Beschreibung generiert werden soll
+	 * @param mode	Ausgabemodus
+	 */
+	public ModelDescriptionBuilderSingleStation(final EditModel model, final Mode mode) {
+		super(model);
+		this.mode=mode;
+		description=new StringBuilder();
+	}
+
+	/**
+	 * Konstruktor der Klasse (Ausgabemodus: HTML)
+	 * @param model	Editor-Modell zu dem die Beschreibung generiert werden soll
 	 */
 	public ModelDescriptionBuilderSingleStation(final EditModel model) {
-		super(model);
-		description=new StringBuilder();
+		this(model,Mode.HTML);
 	}
 
 	/**
@@ -59,17 +86,42 @@ public class ModelDescriptionBuilderSingleStation extends ModelDescriptionBuilde
 	@Override
 	protected void processStation(ModelElementBox station, Map<Integer,List<String[]>> properties) {
 		for (int key: properties.keySet().stream().mapToInt(I->I.intValue()).sorted().toArray()) {
-			for (String[] property: properties.get(key)) {
-				final String heading=encodeHTML(property[0]);
-				final String[] lines=property[1].split("\\\n");
-				if (description.length()>0) description.append("<br>\n");
-				if (lines.length==1) {
-					description.append("<b>"+heading+"</b>: "+encodeHTML(lines[0]));
-				} else {
-					description.append("<b>"+heading+"</b>:");
-					for (String line: lines) description.append("<br>\n"+encodeHTML(line));
-				}
+			for (String[] property: properties.get(key)) switch (mode) {
+			case HTML: processPropertyHTML(property); break;
+			case PLAIN:  processPropertyPlain(property); break;
 			}
+		}
+	}
+
+	/**
+	 * Verarbeitet die Ausgabe im Reintext-Modus
+	 * @param property	Auszugebende Zeilen
+	 * @see #processStation(ModelElementBox, Map)
+	 */
+	private void processPropertyPlain(final String[] property) {
+		final String[] lines=property[1].split("\\\n");
+		if (lines.length==1) {
+			description.append(property[0]+": "+lines[0]+"\n");
+		} else {
+			description.append(property[0]+":\n");
+			for (String line: lines) description.append(line+"\n");
+		}
+	}
+
+	/**
+	 * Verarbeitet die Ausgabe im HTML-Modus
+	 * @param property	Auszugebende Zeilen
+	 * @see #processStation(ModelElementBox, Map)
+	 */
+	private void processPropertyHTML(final String[] property) {
+		final String heading=encodeHTML(property[0]);
+		final String[] lines=property[1].split("\\\n");
+		if (description.length()>0) description.append("<br>\n");
+		if (lines.length==1) {
+			description.append("<b>"+heading+"</b>: "+encodeHTML(lines[0]));
+		} else {
+			description.append("<b>"+heading+"</b>:");
+			for (String line: lines) description.append("<br>\n"+encodeHTML(line));
 		}
 	}
 
@@ -88,6 +140,10 @@ public class ModelDescriptionBuilderSingleStation extends ModelDescriptionBuilde
 	 * @return	Beschreibung der Station als html-Code
 	 */
 	public String getDescription() {
-		return "<p>\n"+description.toString()+"\n<br>&nbsp;</p>";
+		switch (mode) {
+		case HTML: return "<p>\n"+description.toString()+"\n<br>&nbsp;</p>";
+		case PLAIN: return description.toString();
+		default: return "<p>\n"+description.toString()+"\n<br>&nbsp;</p>";
+		}
 	}
 }

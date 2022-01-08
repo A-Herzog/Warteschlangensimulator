@@ -2542,8 +2542,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[6733] = "Image";
     t[6742] = "Surface.TransportSource.XML.Root";
     t[6743] = "ModelElementTransportOrigin";
-    t[6746] = "Statistic.Viewer.Report.HTMLApp.Info";
-    t[6747] = "Please select the category to be displayed from the tree structure.";
+    t[6746] = "FileType.dot";
+    t[6747] = "GraphViz files";
     t[6756] = "Optimizer.XML.Kernel.SerialSetup.ChangeSpeed1";
     t[6757] = "ChangeRate1";
     t[6768] = "AnimationExpression.Expression.ErrorInfoNoExpression";
@@ -12122,8 +12122,10 @@ public class Messages_en extends java.util.ResourceBundle {
     t[31187] = "StepWide";
     t[31192] = "Statistics.CostsForResources";
     t[31193] = "Costs for the resources";
-    t[31206] = "Surface.XML.EdgePainter.Selected";
-    t[31207] = "ModelEdgesSelected";
+    t[31204] = "GraphVizExport.Info1";
+    t[31205] = "Generated using %s";
+    t[31206] = "GraphVizExport.Info2";
+    t[31207] = "Translate to image file using GraphWiz: \"C:\\Program Files\\Graphviz\\bin\\dot\" -Tsvg Input.dot > Output.svg";
     t[31214] = "Compare.TooFewModels.Title";
     t[31215] = "Too few statistic files selected";
     t[31216] = "Surface.Source.XML.Threshold.ClientCount";
@@ -13460,6 +13462,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[34431] = "Edit assignment";
     t[34434] = "Animation.Icon.LightbulbOff";
     t[34435] = "Lightbulb - off";
+    t[34436] = "Surface.XML.EdgePainter.Selected";
+    t[34437] = "ModelEdgesSelected";
     t[34440] = "Surface.InputJS.Infotext";
     t[34441] = "If a client passes this station, a value is loaded from an external file and is given to a script for further processing.";
     t[34442] = "SettingsDialog.Tabs.Updates.ConnectingServer";
@@ -14042,16 +14046,16 @@ public class Messages_en extends java.util.ResourceBundle {
     t[35967] = "ChangeRate5";
     t[35970] = "Animation.Icon.Bricks";
     t[35971] = "Bricks";
-    t[35972] = "Statistics.ClientData.Field";
-    t[35973] = "Field %s";
-    t[35974] = "Surface.Process.Dialog.CostsPerPostProcessingSecond";
-    t[35975] = "Costs per post processing second";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_7 (java.lang.String[] t) {
+    t[35972] = "Statistics.ClientData.Field";
+    t[35973] = "Field %s";
+    t[35974] = "Surface.Process.Dialog.CostsPerPostProcessingSecond";
+    t[35975] = "Costs per post processing second";
     t[35976] = "CalculatorDialog.Tab.Distributions.GenerateRandomNumbers.Save";
     t[35977] = "Save...";
     t[35984] = "FileType.svg";
@@ -16048,16 +16052,16 @@ public class Messages_en extends java.util.ResourceBundle {
     t[40915] = "OpenOffice/LibreOffice texts";
     t[40918] = "NotesDialog.Status.Main";
     t[40919] = "The note is on the <b>main surface</b>.";
-    t[40920] = "Editor.TemplateFilter.OnlyOneGroup";
-    t[40921] = "Only one open category";
-    t[40922] = "Surface.XML.ClientData.Color";
-    t[40923] = "Color";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_8 (java.lang.String[] t) {
+    t[40920] = "Editor.TemplateFilter.OnlyOneGroup";
+    t[40921] = "Only one open category";
+    t[40922] = "Surface.XML.ClientData.Color";
+    t[40923] = "Color";
     t[40926] = "CommandLine.ServerSocket.Name";
     t[40927] = "ServerSocket";
     t[40932] = "Simulation.Log.Transporter.Move";
@@ -18054,16 +18058,16 @@ public class Messages_en extends java.util.ResourceBundle {
     t[45877] = "String property";
     t[45878] = "ScriptPopup.SelectVariableDialog.ErrorNoVariables.Info";
     t[45879] = "The model does not contain any variables.";
-    t[45880] = "ModelLoadData.EditDialog.Delete";
-    t[45881] = "Delete";
-    t[45888] = "Surface.Source.Name";
-    t[45889] = "Source";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_9 (java.lang.String[] t) {
+    t[45880] = "ModelLoadData.EditDialog.Delete";
+    t[45881] = "Delete";
+    t[45888] = "Surface.Source.Name";
+    t[45889] = "Source";
     t[45890] = "ModelLoadData.EditDialog.Delete.Confirm.InfoYes";
     t[45891] = "Delete record now.";
     t[45898] = "Optimizer.ControlVariableEdit.ValidRange.From";
@@ -20060,16 +20064,16 @@ public class Messages_en extends java.util.ResourceBundle {
     t[50951] = "Edits the selected output value (Return)";
     t[50954] = "Main.Menu.Help.Homepage";
     t[50955] = "Homepage";
-    t[50956] = "CalculatorDialog.Tab.Distributions.GenerateRandomNumbers.SaveExt.Parameters.Set";
-    t[50957] = "Set parameters";
-    t[50960] = "ParameterCompare.Settings.Load.ErrorModel.Replace.Info";
-    t[50961] = "Keep previous parameter series configuration, but replace base model with the new model.";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_10 (java.lang.String[] t) {
+    t[50956] = "CalculatorDialog.Tab.Distributions.GenerateRandomNumbers.SaveExt.Parameters.Set";
+    t[50957] = "Set parameters";
+    t[50960] = "ParameterCompare.Settings.Load.ErrorModel.Replace.Info";
+    t[50961] = "Keep previous parameter series configuration, but replace base model with the new model.";
     t[50966] = "Simulation.Log.UserTriggeredScriptExecution";
     t[50967] = "User-defined script execution";
     t[50970] = "Surface.Source.Dialog.ArrivalCount.Number";
@@ -21310,6 +21314,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[54119] = "Input table does not exist";
     t[54120] = "Main.Menu.Edit.Mnemonic";
     t[54121] = "E";
+    t[54124] = "Statistic.Viewer.Report.HTMLApp.Info";
+    t[54125] = "Please select the category to be displayed from the tree structure.";
     t[54126] = "ExpressionBuilder.SimulationCharacteristics.ProcessingTimesOverAll.MaximalTime";
     t[54127] = "<p>Returns the maximal duration over all processing times for all clients.</p>";
     t[54128] = "Simulation.Log.AnalogAssign.InfoValue";

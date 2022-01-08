@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-06 14:48+0100\n"
+"POT-Creation-Date: 2022-01-07 12:26+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -7621,6 +7621,9 @@ msgstr "bmp files"
 msgid "FileType.cs"
 msgstr "Encrypted xml files"
 
+msgid "FileType.dot"
+msgstr "GraphViz files"
+
 msgid "FileType.drawio"
 msgstr "Draw.io files"
 
@@ -8368,6 +8371,12 @@ msgstr "There are %d changed files."
 
 msgid "Git.System.Status.Uncommited.One"
 msgstr "There is one changed files."
+
+msgid "GraphVizExport.Info1"
+msgstr "Generated using %s"
+
+msgid "GraphVizExport.Info2"
+msgstr "Translate to image file using GraphWiz: \"C:\\Program Files\\Graphviz\\bin\\dot\" -Tsvg Input.dot > Output.svg"
 
 msgid "HeatMapSelect.Title"
 msgstr "Select heatmap mode"

@@ -99,6 +99,7 @@ import ui.images.Images;
 import ui.infopanel.InfoPanel;
 import ui.modeleditor.DrawIOExport;
 import ui.modeleditor.ElementRendererTools;
+import ui.modeleditor.GraphVizExport;
 import ui.modeleditor.ModelElementCatalog;
 import ui.modeleditor.ModelElementCatalogListCellRenderer;
 import ui.modeleditor.ModelElementCatalogTransferHandler;
@@ -2014,6 +2015,7 @@ public final class EditorPanel extends EditorPanelBase {
 		final FileFilter pptx=new FileNameExtensionFilter(Language.tr("SlidesGenerator.FileTypePPTX")+" (*.pptx)","pptx");
 		final FileFilter html=new FileNameExtensionFilter(Language.tr("FileType.HTML")+" (*.html)","html");
 		final FileFilter drawio=new FileNameExtensionFilter(Language.tr("FileType.drawio")+" (*.drawio)","drawio");
+		final FileFilter dot=new FileNameExtensionFilter(Language.tr("FileType.dot")+" (*.dot)","dot");
 		fc.addChoosableFileFilter(png);
 		fc.addChoosableFileFilter(jpg);
 		fc.addChoosableFileFilter(gif);
@@ -2026,6 +2028,7 @@ public final class EditorPanel extends EditorPanelBase {
 		fc.addChoosableFileFilter(pptx);
 		fc.addChoosableFileFilter(html);
 		fc.addChoosableFileFilter(drawio);
+		fc.addChoosableFileFilter(dot);
 		fc.setFileFilter(png);
 		fc.setAcceptAllFileFilterUsed(false);
 
@@ -2046,6 +2049,7 @@ public final class EditorPanel extends EditorPanelBase {
 			if (fc.getFileFilter()==pptx) file=new File(file.getAbsoluteFile()+".pptx");
 			if (fc.getFileFilter()==html) file=new File(file.getAbsoluteFile()+".html");
 			if (fc.getFileFilter()==drawio) file=new File(file.getAbsoluteFile()+".drawio");
+			if (fc.getFileFilter()==dot) file=new File(file.getAbsoluteFile()+".dot");
 		}
 
 		return file;
@@ -2081,6 +2085,7 @@ public final class EditorPanel extends EditorPanelBase {
 		if (file.getName().toLowerCase().endsWith(".tiff")) format="tiff";
 		if (file.getName().toLowerCase().endsWith(".tif")) format="tiff";
 		if (file.getName().toLowerCase().endsWith(".drawio")) format="drawio";
+		if (file.getName().toLowerCase().endsWith(".dot")) format="dot";
 
 		if (format.equalsIgnoreCase("html")) {
 			/* HTML-Modus */
@@ -2101,6 +2106,17 @@ public final class EditorPanel extends EditorPanelBase {
 			final EditModel model=getModel();
 			export.process(model.surface,model);
 			if (!export.save()) return Language.tr("Editor.ExportModel.Error");
+			return null;
+		}
+
+		if (format.equalsIgnoreCase("dot")) {
+			/* GraphViz-Modus */
+			final GraphVizExport export=new GraphVizExport();
+			final EditModel model=getModel();
+			Statistics statistics=null;
+			if (statisticsGetter!=null && SetupData.getSetup().statisticInTooltips) statistics=statisticsGetter.get();
+			export.process(model,statistics);
+			if (!export.save(file)) return Language.tr("Editor.ExportModel.Error");
 			return null;
 		}
 

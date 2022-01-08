@@ -62,6 +62,11 @@ import ui.statistics.StatisticTools;
  */
 public class EditorPanelStatistics {
 	/**
+	 * Sollen Farben bei der Statistikausgabe verwendet werden?
+	 */
+	private final boolean useColors;
+
+	/**
 	 * Zuordnung der bereits generierten Tooltips,
 	 * um diese nicht ständig erneut anlegen zu müssen.
 	 * @see #getTooltip(Statistics, ModelElementBox)
@@ -158,11 +163,20 @@ public class EditorPanelStatistics {
 
 	/**
 	 * Konstruktor der Klasse
+	 * @param useColors	Sollen Farben bei der Statistikausgabe verwendet werden?
 	 */
-	public EditorPanelStatistics() {
+	public EditorPanelStatistics(final boolean useColors) {
+		this.useColors=useColors;
 		tooltipsCache=new HashMap<>();
 		nameCache=new HashMap<>();
 		clearCache();
+	}
+
+	/**
+	 * Konstruktor der Klasse
+	 */
+	public EditorPanelStatistics() {
+		this(true);
 	}
 
 	/**
@@ -260,11 +274,11 @@ public class EditorPanelStatistics {
 	private String formatStatisticsData(final String[] lines) {
 		if (lines==null || lines.length==0) return null;
 		final StringBuilder sb=new StringBuilder();
-		sb.append("<i><span style='color: green;'>");
+		if (useColors) sb.append("<i><span style='color: green;'>");
 		sb.append(Language.tr("Main.Toolbar.ShowStatistics"));
-		sb.append(":<br>");
-		sb.append(String.join("<br>",lines));
-		sb.append("</span></i>");
+		sb.append(":<br/>");
+		sb.append(String.join("<br/>",lines));
+		if (useColors) sb.append("</span></i>");
 		return sb.toString();
 	}
 

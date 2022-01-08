@@ -2542,8 +2542,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[6733] = "Bild";
     t[6742] = "Surface.TransportSource.XML.Root";
     t[6743] = "ModellElementTransportStart";
-    t[6746] = "Statistic.Viewer.Report.HTMLApp.Info";
-    t[6747] = "W\u00e4hlen Sie in der Baumstruktur die anzuzeigende Rubrik aus.";
+    t[6746] = "FileType.dot";
+    t[6747] = "GraphViz-Dateien";
     t[6756] = "Optimizer.XML.Kernel.SerialSetup.ChangeSpeed1";
     t[6757] = "Aenderungsrate1";
     t[6768] = "AnimationExpression.Expression.ErrorInfoNoExpression";
@@ -12122,8 +12122,10 @@ public class Messages_de extends java.util.ResourceBundle {
     t[31187] = "Schrittweite";
     t[31192] = "Statistics.CostsForResources";
     t[31193] = "Kosten f\u00fcr die Ressourcen";
-    t[31206] = "Surface.XML.EdgePainter.Selected";
-    t[31207] = "ModellKantenSelektiert";
+    t[31204] = "GraphVizExport.Info1";
+    t[31205] = "Erzeugt mit %s";
+    t[31206] = "GraphVizExport.Info2";
+    t[31207] = "\u00dcbersetzung in Bilddatei mit GraphViz: \"C:\\Program Files\\Graphviz\\bin\\dot\" -Tsvg Input.dot > Output.svg";
     t[31214] = "Compare.TooFewModels.Title";
     t[31215] = "Zu wenig Statistikdateien angegeben";
     t[31216] = "Surface.Source.XML.Threshold.ClientCount";
@@ -13460,6 +13462,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[34431] = "Zuweisung bearbeiten";
     t[34434] = "Animation.Icon.LightbulbOff";
     t[34435] = "Gl\u00fchbirne - aus";
+    t[34436] = "Surface.XML.EdgePainter.Selected";
+    t[34437] = "ModellKantenSelektiert";
     t[34440] = "Surface.InputJS.Infotext";
     t[34441] = "Passiert ein Kunde diese Station, so wird ein Wert aus einer externen Datei geladen und einem Skript zur Verarbeitung \u00fcbergeben.";
     t[34442] = "SettingsDialog.Tabs.Updates.ConnectingServer";
@@ -14042,16 +14046,16 @@ public class Messages_de extends java.util.ResourceBundle {
     t[35967] = "Aenderungsrate5";
     t[35970] = "Animation.Icon.Bricks";
     t[35971] = "Bausteine";
-    t[35972] = "Statistics.ClientData.Field";
-    t[35973] = "Feld %s";
-    t[35974] = "Surface.Process.Dialog.CostsPerPostProcessingSecond";
-    t[35975] = "Kosten pro Nachbearbeitungssekunde";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_7 (java.lang.String[] t) {
+    t[35972] = "Statistics.ClientData.Field";
+    t[35973] = "Feld %s";
+    t[35974] = "Surface.Process.Dialog.CostsPerPostProcessingSecond";
+    t[35975] = "Kosten pro Nachbearbeitungssekunde";
     t[35976] = "CalculatorDialog.Tab.Distributions.GenerateRandomNumbers.Save";
     t[35977] = "Speichern...";
     t[35984] = "FileType.svg";
@@ -16048,16 +16052,16 @@ public class Messages_de extends java.util.ResourceBundle {
     t[40915] = "OpenOffice/LibreOffice-Texte";
     t[40918] = "NotesDialog.Status.Main";
     t[40919] = "Die Notiz befindet sich auf der <b>Hauptzeichenfl\u00e4che</b>.";
-    t[40920] = "Editor.TemplateFilter.OnlyOneGroup";
-    t[40921] = "Immer nur eine Kategorie ausklappen";
-    t[40922] = "Surface.XML.ClientData.Color";
-    t[40923] = "Farbe";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_8 (java.lang.String[] t) {
+    t[40920] = "Editor.TemplateFilter.OnlyOneGroup";
+    t[40921] = "Immer nur eine Kategorie ausklappen";
+    t[40922] = "Surface.XML.ClientData.Color";
+    t[40923] = "Farbe";
     t[40926] = "CommandLine.ServerSocket.Name";
     t[40927] = "ServerSocket";
     t[40932] = "Simulation.Log.Transporter.Move";
@@ -18054,16 +18058,16 @@ public class Messages_de extends java.util.ResourceBundle {
     t[45877] = "Texteigenschaft";
     t[45878] = "ScriptPopup.SelectVariableDialog.ErrorNoVariables.Info";
     t[45879] = "Das Modell enth\u00e4lt keine Variablen.";
-    t[45880] = "ModelLoadData.EditDialog.Delete";
-    t[45881] = "L\u00f6schen";
-    t[45888] = "Surface.Source.Name";
-    t[45889] = "Quelle";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_9 (java.lang.String[] t) {
+    t[45880] = "ModelLoadData.EditDialog.Delete";
+    t[45881] = "L\u00f6schen";
+    t[45888] = "Surface.Source.Name";
+    t[45889] = "Quelle";
     t[45890] = "ModelLoadData.EditDialog.Delete.Confirm.InfoYes";
     t[45891] = "Eintrag l\u00f6schen.";
     t[45898] = "Optimizer.ControlVariableEdit.ValidRange.From";
@@ -20060,16 +20064,16 @@ public class Messages_de extends java.util.ResourceBundle {
     t[50951] = "Bearbeitet den gew\u00e4hlten Ausgabewert (Enter)";
     t[50954] = "Main.Menu.Help.Homepage";
     t[50955] = "Homepage";
-    t[50956] = "CalculatorDialog.Tab.Distributions.GenerateRandomNumbers.SaveExt.Parameters.Set";
-    t[50957] = "Eingestellte Kenngr\u00f6\u00dfen";
-    t[50960] = "ParameterCompare.Settings.Load.ErrorModel.Replace.Info";
-    t[50961] = "Bisherige Parameterreihenkonfiguration beibehalten, aber Basismodell durch das neue Modell ersetzen.";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_10 (java.lang.String[] t) {
+    t[50956] = "CalculatorDialog.Tab.Distributions.GenerateRandomNumbers.SaveExt.Parameters.Set";
+    t[50957] = "Eingestellte Kenngr\u00f6\u00dfen";
+    t[50960] = "ParameterCompare.Settings.Load.ErrorModel.Replace.Info";
+    t[50961] = "Bisherige Parameterreihenkonfiguration beibehalten, aber Basismodell durch das neue Modell ersetzen.";
     t[50966] = "Simulation.Log.UserTriggeredScriptExecution";
     t[50967] = "Benutzerdefinierte Skriptausf\u00fchrung";
     t[50970] = "Surface.Source.Dialog.ArrivalCount.Number";
@@ -21310,6 +21314,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[54119] = "Eingabetabelle existiert nicht";
     t[54120] = "Main.Menu.Edit.Mnemonic";
     t[54121] = "B";
+    t[54124] = "Statistic.Viewer.Report.HTMLApp.Info";
+    t[54125] = "W\u00e4hlen Sie in der Baumstruktur die anzuzeigende Rubrik aus.";
     t[54126] = "ExpressionBuilder.SimulationCharacteristics.ProcessingTimesOverAll.MaximalTime";
     t[54127] = "<p>Liefert die maximale bisher entstandene Bedienzeit (\u00fcber alle Kundentypen).</p>";
     t[54128] = "Simulation.Log.AnalogAssign.InfoValue";
