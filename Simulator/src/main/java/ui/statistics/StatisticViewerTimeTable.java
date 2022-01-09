@@ -17,6 +17,7 @@ package ui.statistics;
 
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.apache.commons.math3.util.FastMath;
@@ -418,8 +419,9 @@ public class StatisticViewerTimeTable extends StatisticViewerBaseTable {
 	 * @param label	Bezeichner für Spalte 1 in der Überschriftenzeile
 	 * @param isStationsList	Handelt es sich bei den Untereinträgen der Statistikobjekte um Stationsnamen?
 	 * @param isInterArrival	Handelt es sich um Zwischenankunftszeiten?
+	 * @param addThroughput	Sollen zu den Statistikobjekten Durchsatzwerte ausgegeben werden?
 	 */
-	private void buildTimesOverviewTable(final StatisticsMultiPerformanceIndicator indicator1, final StatisticsMultiPerformanceIndicator indicator2, final StatisticsMultiPerformanceIndicator indicator3, final StatisticsMultiPerformanceIndicator indicator4, final String type1, final String type2, final String type3, final String type4, final String label, final boolean isStationsList, final boolean isInterArrival) {
+	private void buildTimesOverviewTable(final StatisticsMultiPerformanceIndicator indicator1, final StatisticsMultiPerformanceIndicator indicator2, final StatisticsMultiPerformanceIndicator indicator3, final StatisticsMultiPerformanceIndicator indicator4, final String type1, final String type2, final String type3, final String type4, final String label, final boolean isStationsList, final boolean isInterArrival, final boolean addThroughput) {
 		final Table table=new Table();
 
 		final boolean hasConfidence=hasConfidence(indicator1,indicator2,indicator3);
@@ -431,26 +433,59 @@ public class StatisticViewerTimeTable extends StatisticViewerBaseTable {
 			StatisticsDataPerformanceIndicator data;
 			data=(StatisticsDataPerformanceIndicator)(indicator1.get(type));
 			final String typeName=isStationsList?fullStationName(type):type;
-			table.addLine(getDataLine(((type1!=null && !type1.isEmpty())?(type1+" "):"")+typeName,data,hasConfidence?confidenceLevels:null));
+			String[] line=getDataLine(((type1!=null && !type1.isEmpty())?(type1+" "):"")+typeName,data,hasConfidence?confidenceLevels:null);
+			if (addThroughput) {
+				line=Arrays.copyOf(line,line.length+2);
+				final String[] throughput=StatisticViewerOverviewText.getThroughputColumns(data.getCount(),statistics);
+				line[line.length-2]=throughput[0];
+				line[line.length-1]=throughput[1];
+			}
+			table.addLine(line);
 			if (indicator2!=null && type2!=null) {
 				data=(StatisticsDataPerformanceIndicator)(indicator2.get(type));
-				table.addLine(getDataLine(type2+" "+typeName,data,hasConfidence?confidenceLevels:null));
+				line=getDataLine(type2+" "+typeName,data,hasConfidence?confidenceLevels:null);
+				if (addThroughput) {
+					line=Arrays.copyOf(line,line.length+2);
+					final String[] throughput=StatisticViewerOverviewText.getThroughputColumns(data.getCount(),statistics);
+					line[line.length-2]=throughput[0];
+					line[line.length-1]=throughput[1];
+				}
+				table.addLine(line);
 			}
 			if (indicator3!=null && type3!=null) {
 				data=(StatisticsDataPerformanceIndicator)(indicator3.get(type));
-				table.addLine(getDataLine(type3+" "+typeName,data,hasConfidence?confidenceLevels:null));
+				line=getDataLine(type3+" "+typeName,data,hasConfidence?confidenceLevels:null);
+				if (addThroughput) {
+					line=Arrays.copyOf(line,line.length+2);
+					final String[] throughput=StatisticViewerOverviewText.getThroughputColumns(data.getCount(),statistics);
+					line[line.length-2]=throughput[0];
+					line[line.length-1]=throughput[1];
+				}
+				table.addLine(line);
 			}
 			if (indicator4!=null && type4!=null) {
 				data=(StatisticsDataPerformanceIndicator)(indicator4.get(type));
-				table.addLine(getDataLine(type4+" "+typeName,data,hasConfidence?confidenceLevels:null));
+				getDataLine(type4+" "+typeName,data,hasConfidence?confidenceLevels:null);
+				if (addThroughput) {
+					line=Arrays.copyOf(line,line.length+2);
+					final String[] throughput=StatisticViewerOverviewText.getThroughputColumns(data.getCount(),statistics);
+					line[line.length-2]=throughput[0];
+					line[line.length-1]=throughput[1];
+				}
+				table.addLine(line);
 			}
 		}
 
-		final String[] columnNames;
+		String[] columnNames;
 		if (isInterArrival) {
 			columnNames=getColumnNames(label,Language.tr("Statistics.Number"),"[I]",hasConfidence?confidenceLevels:null);
 		} else {
 			columnNames=getColumnNames(label,Language.tr("Statistics.Number"),"[.]",hasConfidence?confidenceLevels:null);
+		}
+		if (addThroughput) {
+			columnNames=Arrays.copyOf(columnNames,columnNames.length+2);
+			columnNames[columnNames.length-2]=Language.tr("Statistics.Throughput");
+			columnNames[columnNames.length-1]=Language.tr("Statistics.ThroughputUnit");
 		}
 		setData(table,columnNames);
 
@@ -629,14 +664,17 @@ public class StatisticViewerTimeTable extends StatisticViewerBaseTable {
 			long count=indicator.getCount();
 			String part="";
 			if (arrivalSum>0) part=StatisticTools.formatPercent(((double)count)/arrivalSum);
+			final String[] throughput=StatisticViewerOverviewText.getThroughputColumns(count,statistics);
 			if (count>0) table.addLine(new String[]{
 					fullStationName(station),
 					NumberTools.formatLongNoGrouping(count),
-					part
+					part,
+					throughput[0],
+					throughput[1]
 			});
 		}
 
-		setData(table,new String[]{Language.tr("Statistics.Station"),Language.tr("Statistics.Number"),Language.tr("Statistics.Part")});
+		setData(table,new String[]{Language.tr("Statistics.Station"),Language.tr("Statistics.Number"),Language.tr("Statistics.Part"),Language.tr("Statistics.Throughput"),Language.tr("Statistics.ThroughputUnit")});
 
 		/* Infotext  */
 		addDescription("TableInterarrivalCount");
@@ -1074,33 +1112,33 @@ public class StatisticViewerTimeTable extends StatisticViewerBaseTable {
 	@Override
 	protected void buildTable() {
 		switch (mode) {
-		case MODE_OVERVIEW_CLIENTS_INTERARRIVAL: buildTimesOverviewTable(statistics.clientsInterarrivalTime,null,null,null,null,null,null,null,Language.tr("Statistics.Station"),true,true); break;
-		case MODE_OVERVIEW_CLIENTS_INTERLEAVE: buildTimesOverviewTable(statistics.clientsInterleavingTime,null,null,null,null,null,null,null,Language.tr("Statistics.ClientType"),true,false); break;
+		case MODE_OVERVIEW_CLIENTS_INTERARRIVAL: buildTimesOverviewTable(statistics.clientsInterarrivalTime,null,null,null,null,null,null,null,Language.tr("Statistics.Station"),true,true,false); break;
+		case MODE_OVERVIEW_CLIENTS_INTERLEAVE: buildTimesOverviewTable(statistics.clientsInterleavingTime,null,null,null,null,null,null,null,Language.tr("Statistics.ClientType"),true,false,false); break;
 		case MODE_DISTRIBUTION_CLIENTS_INTERARRIVAL: buildTimesDistributionTable(statistics.clientsInterarrivalTime,Language.tr("Statistics.DistanceInSeconds")); break;
 		case MODE_DISTRIBUTION_CLIENTS_INTERLEAVE: buildTimesDistributionTable(statistics.clientsInterleavingTime,Language.tr("Statistics.DistanceInSeconds")); break;
 		case MODE_OVERVIEW_STATIONS_ARRIVAL_COUNT: buildInterarrivalCountTable(); break;
-		case MODE_OVERVIEW_STATIONS_INTERARRIVAL: buildTimesOverviewTable(statistics.stationsInterarrivalTime,null,null,null,null,null,null,null,Language.tr("Statistics.Station"),true,true); break;
-		case MODE_OVERVIEW_STATIONS_INTERARRIVAL_BATCH: buildTimesOverviewTable(statistics.stationsInterarrivalTimeBatch,null,null,null,null,null,null,null,Language.tr("Statistics.Station"),true,true); break;
-		case MODE_OVERVIEW_STATIONS_INTERARRIVAL_CLIENTS: buildTimesOverviewTable(statistics.stationsInterarrivalTimeByClientType,null,null,null,null,null,null,null,Language.tr("Statistics.StationClient"),true,true); break;
-		case MODE_OVERVIEW_STATIONS_INTERARRIVAL_STATES: buildTimesOverviewTable(statistics.stationsInterarrivalTimeByState,null,null,null,null,null,null,null,Language.tr("Statistics.StationState"),true,true); break;
-		case MODE_OVERVIEW_STATIONS_INTERLEAVE: buildTimesOverviewTable(statistics.stationsInterleavingTime,null,null,null,null,null,null,null,Language.tr("Statistics.Station"),true,false); break;
-		case MODE_OVERVIEW_STATIONS_INTERLEAVE_CLIENTS: buildTimesOverviewTable(statistics.stationsInterleavingTimeByClientType,null,null,null,null,null,null,null,Language.tr("Statistics.StationClient"),true,false); break;
+		case MODE_OVERVIEW_STATIONS_INTERARRIVAL: buildTimesOverviewTable(statistics.stationsInterarrivalTime,null,null,null,null,null,null,null,Language.tr("Statistics.Station"),true,true,true); break;
+		case MODE_OVERVIEW_STATIONS_INTERARRIVAL_BATCH: buildTimesOverviewTable(statistics.stationsInterarrivalTimeBatch,null,null,null,null,null,null,null,Language.tr("Statistics.Station"),true,true,true); break;
+		case MODE_OVERVIEW_STATIONS_INTERARRIVAL_CLIENTS: buildTimesOverviewTable(statistics.stationsInterarrivalTimeByClientType,null,null,null,null,null,null,null,Language.tr("Statistics.StationClient"),true,true,true); break;
+		case MODE_OVERVIEW_STATIONS_INTERARRIVAL_STATES: buildTimesOverviewTable(statistics.stationsInterarrivalTimeByState,null,null,null,null,null,null,null,Language.tr("Statistics.StationState"),true,true,false); break;
+		case MODE_OVERVIEW_STATIONS_INTERLEAVE: buildTimesOverviewTable(statistics.stationsInterleavingTime,null,null,null,null,null,null,null,Language.tr("Statistics.Station"),true,false,false); break;
+		case MODE_OVERVIEW_STATIONS_INTERLEAVE_CLIENTS: buildTimesOverviewTable(statistics.stationsInterleavingTimeByClientType,null,null,null,null,null,null,null,Language.tr("Statistics.StationClient"),true,false,false); break;
 		case MODE_DISTRIBUTION_STATIONS_INTERARRIVAL: buildTimesDistributionTable(statistics.stationsInterarrivalTime,Language.tr("Statistics.DistanceInSeconds")); break;
 		case MODE_DISTRIBUTION_STATIONS_INTERARRIVAL_BATCH: buildTimesDistributionTable(statistics.stationsInterarrivalTimeBatch,Language.tr("Statistics.DistanceInSeconds")); break;
 		case MODE_DISTRIBUTION_STATIONS_INTERARRIVAL_CLIENTS: buildTimesDistributionTable(statistics.stationsInterarrivalTimeByClientType,Language.tr("Statistics.DistanceInSeconds")); break;
 		case MODE_DISTRIBUTION_STATIONS_INTERARRIVAL_STATES: buildTimesDistributionTable(statistics.stationsInterarrivalTimeByState,Language.tr("Statistics.DistanceInSeconds")); break;
 		case MODE_DISTRIBUTION_STATIONS_INTERLEAVE: buildTimesDistributionTable(statistics.stationsInterleavingTime,Language.tr("Statistics.DistanceInSeconds")); break;
 		case MODE_DISTRIBUTION_STATIONS_INTERLEAVE_CLIENTS: buildTimesDistributionTable(statistics.stationsInterleavingTimeByClientType,Language.tr("Statistics.DistanceInSeconds")); break;
-		case MODE_OVERVIEW_CLIENTS_WAITINGPROCESSING: buildTimesOverviewTable(statistics.clientsWaitingTimes,statistics.clientsTransferTimes,statistics.clientsProcessingTimes,statistics.clientsResidenceTimes,Language.tr("Statistics.WaitingTime"),Language.tr("Statistics.TransferTime"),Language.tr("Statistics.ProcessTime"),Language.tr("Statistics.ResidenceTime"),Language.tr("Statistics.ClientType"),true,false); break;
+		case MODE_OVERVIEW_CLIENTS_WAITINGPROCESSING: buildTimesOverviewTable(statistics.clientsWaitingTimes,statistics.clientsTransferTimes,statistics.clientsProcessingTimes,statistics.clientsResidenceTimes,Language.tr("Statistics.WaitingTime"),Language.tr("Statistics.TransferTime"),Language.tr("Statistics.ProcessTime"),Language.tr("Statistics.ResidenceTime"),Language.tr("Statistics.ClientType"),true,false,false); break;
 		case MODE_FLOW_FACTOR_CLIENTS: buildFlowFactorTable(statistics.clientsProcessingTimes,statistics.clientsResidenceTimes,Language.tr("Statistics.ClientType")); break;
 		case MODE_DISTRIBUTION_CLIENTS_WAITING: buildTimesDistributionTable(statistics.clientsWaitingTimes,Language.tr("Statistics.Seconds")); break;
 		case MODE_DISTRIBUTION_CLIENTS_TRANSFER: buildTimesDistributionTable(statistics.clientsTransferTimes,Language.tr("Statistics.Seconds")); break;
 		case MODE_DISTRIBUTION_CLIENTS_PROCESSING: buildTimesDistributionTable(statistics.clientsProcessingTimes,Language.tr("Statistics.Seconds")); break;
 		case MODE_DISTRIBUTION_CLIENTS_RESIDENCE: buildTimesDistributionTable(statistics.clientsResidenceTimes,Language.tr("Statistics.Seconds")); break;
-		case MODE_OVERVIEW_STATIONSMODE_OVERVIEW_CLIENTS: buildTimesOverviewTable(statistics.stationsWaitingTimes,statistics.stationsTransferTimes,statistics.stationsProcessingTimes,statistics.stationsResidenceTimes,Language.tr("Statistics.WaitingTime"),Language.tr("Statistics.TransferTime"),Language.tr("Statistics.ProcessTime"),Language.tr("Statistics.ResidenceTime"),Language.tr("Statistics.Station"),true,false); break;
-		case MODE_OVERVIEW_STATIONSMODE_TOTAL_OVERVIEW_CLIENTS: buildTimesOverviewTable(statistics.stationsTotalWaitingTimes,statistics.stationsTotalTransferTimes,statistics.stationsTotalProcessingTimes,statistics.stationsTotalResidenceTimes,Language.tr("Statistics.WaitingTime"),Language.tr("Statistics.TransferTime"),Language.tr("Statistics.ProcessTime"),Language.tr("Statistics.ResidenceTime"),Language.tr("Statistics.Station"),true,false); break;
+		case MODE_OVERVIEW_STATIONSMODE_OVERVIEW_CLIENTS: buildTimesOverviewTable(statistics.stationsWaitingTimes,statistics.stationsTransferTimes,statistics.stationsProcessingTimes,statistics.stationsResidenceTimes,Language.tr("Statistics.WaitingTime"),Language.tr("Statistics.TransferTime"),Language.tr("Statistics.ProcessTime"),Language.tr("Statistics.ResidenceTime"),Language.tr("Statistics.Station"),true,false,false); break;
+		case MODE_OVERVIEW_STATIONSMODE_TOTAL_OVERVIEW_CLIENTS: buildTimesOverviewTable(statistics.stationsTotalWaitingTimes,statistics.stationsTotalTransferTimes,statistics.stationsTotalProcessingTimes,statistics.stationsTotalResidenceTimes,Language.tr("Statistics.WaitingTime"),Language.tr("Statistics.TransferTime"),Language.tr("Statistics.ProcessTime"),Language.tr("Statistics.ResidenceTime"),Language.tr("Statistics.Station"),true,false,false); break;
 		case MODE_FLOW_FACTOR_STATION: buildFlowFactorTable(statistics.stationsProcessingTimes,statistics.stationsResidenceTimes,Language.tr("Statistics.Station")); break;
-		case MODE_OVERVIEW_STATIONSCLIENTMODE_OVERVIEW_CLIENTS: buildTimesOverviewTable(statistics.stationsWaitingTimesByClientType,statistics.stationsTransferTimesByClientType,statistics.stationsProcessingTimesByClientType,statistics.stationsResidenceTimesByClientType,Language.tr("Statistics.WaitingTime"),Language.tr("Statistics.TransferTime"),Language.tr("Statistics.ProcessTime"),Language.tr("Statistics.ResidenceTime"),Language.tr("Statistics.StationClient"),true,false); break;
+		case MODE_OVERVIEW_STATIONSCLIENTMODE_OVERVIEW_CLIENTS: buildTimesOverviewTable(statistics.stationsWaitingTimesByClientType,statistics.stationsTransferTimesByClientType,statistics.stationsProcessingTimesByClientType,statistics.stationsResidenceTimesByClientType,Language.tr("Statistics.WaitingTime"),Language.tr("Statistics.TransferTime"),Language.tr("Statistics.ProcessTime"),Language.tr("Statistics.ResidenceTime"),Language.tr("Statistics.StationClient"),true,false,false); break;
 		case MODE_FLOW_FACTOR_STATION_CLIENT: buildFlowFactorTable(statistics.stationsProcessingTimesByClientType,statistics.stationsResidenceTimesByClientType,Language.tr("Statistics.StationClient")); break;
 		case MODE_DISTRIBUTION_STATIONS_WAITING: buildTimesDistributionTable(statistics.stationsWaitingTimes,Language.tr("Statistics.Seconds")); break;
 		case MODE_DISTRIBUTION_STATIONS_TRANSFER: buildTimesDistributionTable(statistics.stationsTransferTimes,Language.tr("Statistics.Seconds")); break;

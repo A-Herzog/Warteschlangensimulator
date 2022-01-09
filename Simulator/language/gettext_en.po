@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-07 12:26+0100\n"
+"POT-Creation-Date: 2022-01-08 11:32+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20993,8 +20993,23 @@ msgstr "Edit dext formatting"
 msgid "Statistics.Throughput"
 msgstr "Throughput"
 
+msgid "Statistics.Throughput.ArrivalsPerDay"
+msgstr "Arrivals per day"
+
+msgid "Statistics.Throughput.ArrivalsPerHour"
+msgstr "Arrivals per hour"
+
+msgid "Statistics.Throughput.ArrivalsPerMinute"
+msgstr "Arrivals per minute"
+
+msgid "Statistics.Throughput.ArrivalsPerSecond"
+msgstr "Arrivals per second"
+
 msgid "Statistics.Throughput.NoThroughput"
 msgstr "The simulation model does not contain throughput counters."
+
+msgid "Statistics.ThroughputUnit"
+msgstr "Unit for throughput"
 
 msgid "Statistics.TimeUnit.Day"
 msgstr "day"

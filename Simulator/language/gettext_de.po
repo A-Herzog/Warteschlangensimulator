@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-07 12:26+0100\n"
+"POT-Creation-Date: 2022-01-08 11:32+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -21000,8 +21000,23 @@ msgstr "Textformatierung bearbeiten"
 msgid "Statistics.Throughput"
 msgstr "Durchsatz"
 
+msgid "Statistics.Throughput.ArrivalsPerDay"
+msgstr "Ankünfte pro Tag"
+
+msgid "Statistics.Throughput.ArrivalsPerHour"
+msgstr "Ankünfte pro Stunde"
+
+msgid "Statistics.Throughput.ArrivalsPerMinute"
+msgstr "Ankünfte pro Minute"
+
+msgid "Statistics.Throughput.ArrivalsPerSecond"
+msgstr "Ankünfte pro Sekunde"
+
 msgid "Statistics.Throughput.NoThroughput"
 msgstr "Das Simulationsmodell enthält keine Durchsatzzähler."
+
+msgid "Statistics.ThroughputUnit"
+msgstr "Einheit für Durchsatz"
 
 msgid "Statistics.TimeUnit.Day"
 msgstr "Tag"

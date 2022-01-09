@@ -52,6 +52,7 @@ import ui.modeleditor.elements.ModelElementThroughput;
 import ui.modeleditor.elements.ModelElementTransportSource;
 import ui.modeleditor.elements.ModelElementTransportTransporterSource;
 import ui.statistics.StatisticTools;
+import ui.statistics.StatisticViewerOverviewText;
 
 /**
  * Diese Helferklasse ermöglicht es, Statistikdaten für einzlene
@@ -326,6 +327,7 @@ public class EditorPanelStatistics {
 		final StatisticsDataPerformanceIndicator residence;
 		final StatisticsTimePerformanceIndicator wip;
 		final StatisticsTimePerformanceIndicator nq;
+		String throughput=null;
 		if (nameIsClientType) {
 			waiting=((StatisticsDataPerformanceIndicator)statistics.clientsWaitingTimes.getOrNull(name));
 			transfer=((StatisticsDataPerformanceIndicator)statistics.clientsTransferTimes.getOrNull(name));
@@ -340,6 +342,8 @@ public class EditorPanelStatistics {
 			residence=((StatisticsDataPerformanceIndicator)statistics.stationsResidenceTimes.getOrNull(name));
 			wip=((StatisticsTimePerformanceIndicator)statistics.clientsAtStationByStation.getOrNull(name));
 			nq=((StatisticsTimePerformanceIndicator)statistics.clientsAtStationQueueByStation.getOrNull(name));
+			final StatisticsDataPerformanceIndicator arrival=(StatisticsDataPerformanceIndicator)(statistics.stationsInterarrivalTime.getOrNull(name));
+			if (arrival!=null) throughput=StatisticViewerOverviewText.getThroughputText(arrival.getCount(),statistics);
 		}
 
 		if (waiting!=null && waiting.getMean()>0) lines.add("E[W]="+formatTime(waiting.getMean()));
@@ -348,6 +352,8 @@ public class EditorPanelStatistics {
 		if (residence!=null && residence.getMean()>0) lines.add("E[V]="+formatTime(residence.getMean()));
 		if (nq!=null && nq.getTimeMean()>0) lines.add("E[NQ]="+StatisticTools.formatNumber(nq.getTimeMean()));
 		if (wip!=null && wip.getTimeMean()>0) lines.add("E[N]="+StatisticTools.formatNumber(wip.getTimeMean()));
+		if (throughput!=null) lines.add(Language.tr("Statistics.Throughput")+": "+throughput);
+
 	}
 
 	/**
@@ -362,12 +368,16 @@ public class EditorPanelStatistics {
 		final StatisticsDataPerformanceIndicator process=((StatisticsDataPerformanceIndicator)statistics.stationsProcessingTimes.getOrNull(name));
 		final StatisticsDataPerformanceIndicator residence=((StatisticsDataPerformanceIndicator)statistics.stationsResidenceTimes.getOrNull(name));
 		final StatisticsTimePerformanceIndicator wip=((StatisticsTimePerformanceIndicator)statistics.clientsAtStationByStation.getOrNull(name));
+		final StatisticsDataPerformanceIndicator arrival=(StatisticsDataPerformanceIndicator)(statistics.stationsInterarrivalTime.getOrNull(name));
+		String throughput=null;
+		if (arrival!=null) throughput=StatisticViewerOverviewText.getThroughputText(arrival.getCount(),statistics);
 
 		if (waiting!=null && waiting.getMean()>0) lines.add("E[W]="+formatTime(waiting.getMean()));
 		if (transfer!=null && transfer.getMean()>0) lines.add("E[T]="+formatTime(transfer.getMean()));
 		if (process!=null && process.getMean()>0) lines.add("E[S]="+formatTime(process.getMean()));
 		if (residence!=null && residence.getMean()>0) lines.add("E[V]="+formatTime(residence.getMean()));
 		if (wip!=null && wip.getTimeMean()>0) lines.add("E[N]="+StatisticTools.formatNumber(wip.getTimeMean()));
+		if (throughput!=null) lines.add(Language.tr("Statistics.Throughput")+": "+throughput);
 	}
 
 	/**

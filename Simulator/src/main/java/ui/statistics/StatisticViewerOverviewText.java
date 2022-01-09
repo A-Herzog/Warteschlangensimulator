@@ -1751,6 +1751,40 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 	}
 
 	/**
+	 * Berechnet den Durchsatz aus Ankunftsanzahl und Simulationslaufzeit.
+	 * @param clients	Anzahl an Ankünften
+	 * @param statistics	Statistikobjekt aus dem die Simulationslaufzeit ausgelesen wird
+	 * @return	Durchsatz als Text
+	 */
+	public static String getThroughputText(final long clients, final Statistics statistics) {
+		final String[] cols=getThroughputColumns(clients,statistics);
+		return cols[0]+" "+cols[1];
+	}
+
+	/**
+	 * Berechnet den Durchsatz aus Ankunftsanzahl und Simulationslaufzeit.
+	 * @param clients	Anzahl an Ankünften
+	 * @param statistics	Statistikobjekt aus dem die Simulationslaufzeit ausgelesen wird
+	 * @return	Durchsatz in Form von zwei Spalten: Zahlenwert und Einheit
+	 */
+	public static String[] getThroughputColumns(final long clients, final Statistics statistics) {
+		final double timeSpan=statistics.clientsInSystem.getSum();
+
+		double throughput=clients/timeSpan;
+
+		if (throughput>=1.0) return new String[] {StatisticTools.formatNumber(throughput),Language.tr("Statistics.Throughput.ArrivalsPerSecond")};
+
+		throughput*=60;
+		if (throughput>=1.0) return new String[] {StatisticTools.formatNumber(throughput),Language.tr("Statistics.Throughput.ArrivalsPerMinute")};
+
+		throughput*=60;
+		if (throughput>=1.0) return new String[] {StatisticTools.formatNumber(throughput),Language.tr("Statistics.Throughput.ArrivalsPerHour")};
+
+		throughput*=24;
+		return new String[] {StatisticTools.formatNumber(throughput),Language.tr("Statistics.Throughput.ArrivalsPerDay")};
+	}
+
+	/**
 	 * Ausgabe von
 	 * Zwischenankunftszeiten der Kunden an den Stationen
 	 * @see Mode#MODE_INTERARRIVAL_STATIONS
@@ -1806,6 +1840,7 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 			addLine(Language.tr("Statistics.Kurt")+": Kurt[I]="+StatisticTools.formatNumber(indicator.getKurt()),fastAccessBuilder.getXMLSelector(indicator,IndicatorMode.Kurt));
 			addLine(Language.tr("Statistics.MinimalInterArrivalTime")+": Min[I]="+timeAndNumber(indicator.getMin()),fastAccessBuilder.getXMLSelector(indicator,IndicatorMode.MINIMUM));
 			addLine(Language.tr("Statistics.MaximalInterArrivalTime")+": Max[I]="+timeAndNumber(indicator.getMax()),fastAccessBuilder.getXMLSelector(indicator,IndicatorMode.MAXIMUM));
+			addLine(Language.tr("Statistics.Throughput")+": "+getThroughputText(indicator.getCount(),statistics));
 			endParagraph();
 
 			outputQuantilInfoTime("I",indicator);
@@ -1834,6 +1869,7 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 			addLine(Language.tr("Statistics.Kurt")+": Kurt[IB]="+StatisticTools.formatNumber(indicator.getKurt()),fastAccessBuilder.getXMLSelector(indicator,IndicatorMode.Kurt));
 			addLine(Language.tr("Statistics.MinimalInterArrivalTime")+": Min[IB]="+timeAndNumber(indicator.getMin()),fastAccessBuilder.getXMLSelector(indicator,IndicatorMode.MINIMUM));
 			addLine(Language.tr("Statistics.MaximalInterArrivalTime")+": Max[IB]="+timeAndNumber(indicator.getMax()),fastAccessBuilder.getXMLSelector(indicator,IndicatorMode.MAXIMUM));
+			addLine(Language.tr("Statistics.Throughput")+": "+getThroughputText(indicator.getCount(),statistics));
 			endParagraph();
 
 			outputQuantilInfoTime("IB",indicator);
@@ -1863,6 +1899,7 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 			addLine(Language.tr("Statistics.Kurt")+": Kurt[I]="+StatisticTools.formatNumber(indicator.getKurt()),fastAccessBuilder.getXMLSelector(indicator,IndicatorMode.Kurt));
 			addLine(Language.tr("Statistics.MinimalInterArrivalTime")+": Min[I]="+timeAndNumber(indicator.getMin()),fastAccessBuilder.getXMLSelector(indicator,IndicatorMode.MINIMUM));
 			addLine(Language.tr("Statistics.MaximalInterArrivalTime")+": Max[I]="+timeAndNumber(indicator.getMax()),fastAccessBuilder.getXMLSelector(indicator,IndicatorMode.MAXIMUM));
+			addLine(Language.tr("Statistics.Throughput")+": "+getThroughputText(indicator.getCount(),statistics));
 			endParagraph();
 
 			outputQuantilInfoTime("I",indicator);
@@ -2292,7 +2329,9 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 			final StatisticsDataPerformanceIndicator processingTime=(StatisticsDataPerformanceIndicator)(statistics.stationsProcessingTimes.get(station));
 			final StatisticsDataPerformanceIndicator residenceTime=(StatisticsDataPerformanceIndicator)(statistics.stationsResidenceTimes.get(station));
 			if (waitingTime.getMean()>0 || transferTime.getMean()>0 || processingTime.getMean()>0 || residenceTime.getMean()>0) {
+
 				addHeading(2,fullStationName(station));
+
 				if (waitingTime.getMean()>0) {
 					addHeading(3,Language.tr("Statistics.WaitingTimes"));
 					beginParagraph();
@@ -2375,6 +2414,16 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 					addLine(Language.tr("Statistics.FlowFactor")+": "+StatisticTools.formatNumber(residenceTime.getMean()/processingTime.getMean()));
 					endParagraph();
 				}
+
+				final StatisticsDataPerformanceIndicator indicator=(StatisticsDataPerformanceIndicator)(statistics.stationsInterarrivalTime.get(station));
+				final long arrivalCount=indicator.getCount();
+				if (arrivalCount>0) {
+					addHeading(3,Language.tr("Statistics.Throughput"));
+					beginParagraph();
+					addLine(Language.tr("Statistics.Throughput")+": "+getThroughputText(arrivalCount,statistics));
+					endParagraph();
+				}
+
 			}
 		}
 
