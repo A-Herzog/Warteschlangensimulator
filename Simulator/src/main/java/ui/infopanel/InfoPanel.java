@@ -190,6 +190,9 @@ public class InfoPanel {
 	/** Info-ID für den "Imports für nutzerdefinierten Java-Code"-Dialog */
 	public static final String globalJavaImports="JavaImports";
 
+	/** Info-ID für den "Heatmap-Modus auswählen"-Dialog */
+	public static final String globalHeatMapSelect="HeatMapSelect";
+
 	/* Stationen - Eingang/Ausgang */
 
 	/** Info-ID für den "Quelle"-Bearbeiten-Dialog (Gruppe "Eingang/Ausgang") */
@@ -777,6 +780,12 @@ public class InfoPanel {
 		register(globalJavaImports,
 				()->Language.tr("HintsDialog.TreeNodeMoreDialogs")+"|"+Language.tr("JavaImports.Title"),
 				()->Language.tr("JavaImports.DialogHint"));
+
+		/* Heatmap-Modus auswählen */
+
+		register(globalHeatMapSelect,
+				()->Language.tr("HintsDialog.TreeNodeMoreDialogs")+"|"+Language.tr("HeatMapSelect.Title"),
+				()->Language.tr("HeatMapSelect.DialogHint"));
 
 		/* Stationen - Eingang/Ausgang */
 
@@ -1421,7 +1430,7 @@ public class InfoPanel {
 		toolBar.setFloatable(false);
 		final JButton button=new JButton(Language.tr("Editor.AddEdge.Hint.RemoveButton"));
 		if (!FlatLaFHelper.isDark()) {
-			button.setBackground(new Color(255,255,240));
+			button.setBackground(new Color(250,250,245));
 		}
 		button.setToolTipText(Language.tr("Editor.AddEdge.Hint.RemoveButton.Hint"));
 		button.setIcon(Images.INFO_PANEL_CLOSE_THIS.getIcon());

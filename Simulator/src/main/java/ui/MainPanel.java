@@ -1213,7 +1213,7 @@ public class MainPanel extends MainPanelBase {
 		}
 		submenu.addSeparator();
 		enabledOnEditorPanel.add(createMenuItemCtrlShift(submenu,Language.tr("Main.Menu.View.Statistics.HeatMapRotatePrevious"),Images.ARROW_UP.getIcon(),Language.tr("Main.Menu.View.Statistics.HeatMapRotatePrevious.Mnemonic"),KeyEvent.VK_G,"ViewStatisticsHeatMapPreviousMode"));
-		enabledOnEditorPanel.add(createMenuItemCtrlShift(submenu,Language.tr("Main.Menu.View.Statistics.HeatMapSelect"),Language.tr("Main.Menu.View.Statistics.HeatMapSelect.Mnemonic"),KeyEvent.VK_H,"ViewStatisticsHeatMapSelect"));
+		enabledOnEditorPanel.add(createMenuItemCtrlShift(submenu,Language.tr("Main.Menu.View.Statistics.HeatMapSelect"),Images.HEATMAP.getIcon(),Language.tr("Main.Menu.View.Statistics.HeatMapSelect.Mnemonic"),KeyEvent.VK_H,"ViewStatisticsHeatMapSelect"));
 		enabledOnEditorPanel.add(createMenuItemCtrlShift(submenu,Language.tr("Main.Menu.View.Statistics.HeatMapRotateNext"),Images.ARROW_DOWN.getIcon(),Language.tr("Main.Menu.View.Statistics.HeatMapRotateNext.Mnemonic"),KeyEvent.VK_I,"ViewStatisticsHeatMapNextMode"));
 		submenu.addSeparator();
 		enabledOnEditorPanel.add(createMenuItem(submenu,Language.tr("Main.Menu.View.Statistics.HeatMapSetup"),Language.tr("Main.Menu.View.Statistics.HeatMapSetup.Mnemonic"),"ViewStatisticsHeatMapSetup"));

@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-08 11:32+0100\n"
+"POT-Creation-Date: 2022-01-09 13:58+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -8377,6 +8377,12 @@ msgstr "Generated using %s"
 
 msgid "GraphVizExport.Info2"
 msgstr "Translate to image file using GraphWiz: \"C:\\Program Files\\Graphviz\\bin\\dot\" -Tsvg Input.dot > Output.svg"
+
+msgid "HeatMapSelect.DialogHint"
+msgstr "Using a heat map, the values of specific performance indicators can be visualized directly on the drawing surface after a completed simulation."
+
+msgid "HeatMapSelect.ShortTitle"
+msgstr "Heatmap"
 
 msgid "HeatMapSelect.Title"
 msgstr "Select heatmap mode"

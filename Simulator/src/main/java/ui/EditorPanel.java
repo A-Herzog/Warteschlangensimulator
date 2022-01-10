@@ -244,6 +244,8 @@ public final class EditorPanel extends EditorPanelBase {
 	private JButton buttonUndo;
 	/** Schaltfläche "Wiederholen" */
 	private JButton buttonRedo;
+	/** Schaltfläche "Heatmap" (Heatmap-Modus auswählen) */
+	private JButton buttonHeatMap;
 	/** Schaltfläche "Überblick" (Modell-Explorer) */
 	private JButton buttonExplorer;
 
@@ -1107,6 +1109,8 @@ public final class EditorPanel extends EditorPanelBase {
 		if (!readOnly) setTemplatesVisible(setup.startTemplateMode==SetupData.StartTemplateMode.START_TEMPLATE_VISIBLE || (setup.startTemplateMode==SetupData.StartTemplateMode.START_TEMPLATE_LASTSTATE && setup.showTemplates),true); else setTemplatesVisible(false,true);
 
 		leftToolbar.add(Box.createVerticalGlue());
+		buttonHeatMap=createRotatedToolbarButton(leftToolbar,Language.tr("HeatMapSelect.ShortTitle"),Language.tr("HeatMapSelect.Title")+" ("+keyStrokeToString(KeyStroke.getKeyStroke(KeyEvent.VK_H,InputEvent.CTRL_DOWN_MASK+InputEvent.SHIFT_DOWN_MASK))+")",Images.HEATMAP.getIcon());
+		buttonHeatMap.setVisible(false);
 		buttonExplorer=createRotatedToolbarButton(leftToolbar,Language.tr("Editor.ModelOverview.Short"),Language.tr("Editor.ModelOverview.Info")+" ("+keyStrokeToString(KeyStroke.getKeyStroke(KeyEvent.VK_F12,InputEvent.CTRL_DOWN_MASK))+")",Images.GENERAL_FIND.getIcon());
 
 		return leftArea;
@@ -1989,7 +1993,8 @@ public final class EditorPanel extends EditorPanelBase {
 			if (source==buttonViews) {showViewPopup(buttonViews); return;}
 			if (source==buttonUndo) {doUndo(); return;}
 			if (source==buttonRedo) {doRedo(); return;}
-			if (source==buttonExplorer) {showExplorer(buttonExplorer);}
+			if (source==buttonHeatMap) {showHeatMapModesSelectWindow(); return;}
+			if (source==buttonExplorer) {showExplorer(buttonExplorer); return;}
 		}
 	}
 
@@ -2712,6 +2717,7 @@ public final class EditorPanel extends EditorPanelBase {
 	 */
 	public void setShowHeatMapSelectWindowCallback(final Runnable showHeatMapSelectWindowCallback) {
 		this.showHeatMapSelectWindowCallback=showHeatMapSelectWindowCallback;
+		buttonHeatMap.setVisible(showHeatMapSelectWindowCallback!=null);
 	}
 
 	/**

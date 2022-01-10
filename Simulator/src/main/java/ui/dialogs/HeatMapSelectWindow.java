@@ -18,9 +18,11 @@ package ui.dialogs;
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Container;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Frame;
 import java.awt.Window;
+import java.awt.event.ActionEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.Serializable;
@@ -28,12 +30,17 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import javax.swing.AbstractAction;
 import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
+import javax.swing.InputMap;
 import javax.swing.JButton;
+import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
+import javax.swing.KeyStroke;
+import javax.swing.SwingUtilities;
 import javax.swing.WindowConstants;
 
 import language.Language;
@@ -42,6 +49,7 @@ import systemtools.images.SimToolsImages;
 import tools.SetupData;
 import ui.EditorPanelStatistics;
 import ui.images.Images;
+import ui.infopanel.InfoPanel;
 import ui.tools.WindowSizeStorage;
 
 /**
@@ -108,6 +116,21 @@ public class HeatMapSelectWindow extends JFrame {
 	}
 
 	/**
+	 * Schaltet die Sichtbarkeit des Fensters um.
+	 * @param owner	Übergeordnetes Element
+	 * @param updateEditor	Callback zum Aktualisieren der Zeichenfläche nach der Auswahl eines anderen Heatmap-Modus in diesem Fenster
+	 * @see #show(Component, Runnable)
+	 */
+	public static void toggleVisible(final Component owner, final Runnable updateEditor) {
+		if (instance==null) {
+			show(owner,updateEditor);
+		} else {
+			instance.setVisible(false);
+			instance.closeWindow();
+		}
+	}
+
+	/**
 	 * Aktualisiert das aktiviert anzuzeigende Radiobutton nach dem
 	 * der Heatmap-Modus im Hauptfenster selbst verändert wurde.
 	 */
@@ -124,7 +147,7 @@ public class HeatMapSelectWindow extends JFrame {
 	 */
 	private HeatMapSelectWindow(final Component owner, final Runnable updateEditor) {
 		super(Language.tr("HeatMapSelect.Title"));
-		setIconImage(Images.STATISTIC_INFO.getImage());
+		setIconImage(Images.HEATMAP.getImage());
 		this.updateEditor=updateEditor;
 		setup=SetupData.getSetup();
 
@@ -143,8 +166,9 @@ public class HeatMapSelectWindow extends JFrame {
 		/* Gesamter Inhaltsbereich */
 		final Container all=getContentPane();
 		all.setLayout(new BorderLayout());
+		InfoPanel.addTopPanel(all,InfoPanel.globalHeatMapSelect);
 		final JPanel content=new JPanel();
-		all.add(content,BorderLayout.NORTH);
+		all.add(content,BorderLayout.CENTER);
 		content.setLayout(new BoxLayout(content,BoxLayout.PAGE_AXIS));
 
 		/* Modi */
@@ -170,7 +194,6 @@ public class HeatMapSelectWindow extends JFrame {
 		button.addActionListener(e->{closeWindow(); setVisible(false);});
 		bottom.add(button=new JButton(Language.tr("Main.Menu.View.Statistics.HeatMapSetup"),Images.GENERAL_TOOLS.getIcon()));
 		button.addActionListener(e->{
-
 			final HeatMapSetupDialog dialog=new HeatMapSetupDialog(this);
 			if (dialog.getClosedBy()==BaseDialog.CLOSED_BY_OK) {
 				setup.saveSetup();
@@ -178,11 +201,31 @@ public class HeatMapSelectWindow extends JFrame {
 			}
 		});
 
+		/* Schließen des Fensters auch über Escape */
+		final InputMap inputMap=getRootPane().getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
+		inputMap.put(KeyStroke.getKeyStroke("ESCAPE"),"keyESCAPE");
+		rootPane.getActionMap().put("keyESCAPE",new AbstractAction() {
+			/**
+			 * Serialisierungs-ID der Klasse
+			 * @see Serializable
+			 */
+			private static final long serialVersionUID=7790977398052296174L;
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				closeWindow();
+				setVisible(false);
+			}
+		});
+
 		/* Fenster vorbereiten */
 		setResizable(false);
 		pack();
+		SwingUtilities.invokeLater(()->{
+			all.setPreferredSize(new Dimension(getWidth(),all.getPreferredSize().height));
+			pack();
+		});
 		setLocationRelativeTo(ownerWindow);
-		WindowSizeStorage.window(this,"heatmapselect");
+		WindowSizeStorage.window(this,"heatmapselect",false);
 	}
 
 	/**

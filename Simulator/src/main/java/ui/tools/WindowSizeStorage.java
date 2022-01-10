@@ -68,21 +68,30 @@ public class WindowSizeStorage {
 	 * Stellt Größe und Position eines Fensters wieder her und registriert es für die Speicherung dieser Daten bei Veränderungen.
 	 * @param window	Fenster
 	 * @param key	Zusätzlicher Schlüssel zur Identifikation des Datensatzes (darf nicht <code>null</code> sein)
+	 * @param restoreSize	Auch die Größe wiederherstellen? (Bei <code>false</code> wird nur die Position wiederhergestellt.)
 	 */
-	public static void window(final Window window, final String key) {
+	public static void window(final Window window, final String key, final boolean restoreSize) {
 		if (window==null) return;
 
 		if (!SetupData.getSetup().restoreSubEditWindowSize) return;
 
-
 		final SizeData sizeData=getRecord(window,key);
 		SwingUtilities.invokeLater(()->{
-			sizeData.restoreSize(window);
+			sizeData.restoreSize(window,restoreSize);
 			window.addComponentListener(new ComponentAdapter() {
 				@Override public void componentMoved(final ComponentEvent componentEvent) {sizeData.saveSize(window);}
 				@Override public void componentResized(final ComponentEvent componentEvent) {sizeData.saveSize(window);}
 			});
 		});
+	}
+
+	/**
+	 * Stellt Größe und Position eines Fensters wieder her und registriert es für die Speicherung dieser Daten bei Veränderungen.
+	 * @param window	Fenster
+	 * @param key	Zusätzlicher Schlüssel zur Identifikation des Datensatzes (darf nicht <code>null</code> sein)
+	 */
+	public static void window(final Window window, final String key) {
+		window(window,key,true);
 	}
 
 	/**
@@ -128,18 +137,21 @@ public class WindowSizeStorage {
 		 * Objekt gespeicherten Daten wieder her. Sind in dem Objekt noch
 		 * keine Daten gespeichert, so erfolgt keine weitere Verarbeitung.
 		 * @param window	Fenster dessen Einstellungen verändert werden sollen
+		 * @param restoreSize	Auch die Größe wiederherstellen? (Bei <code>false</code> wird nur die Position wiederhergestellt.)
 		 */
-		public void restoreSize(final Window window) {
+		public void restoreSize(final Window window, final boolean restoreSize) {
 			if (window==null) return;
 			if (size.width<=0 || size.height<=0) return;
 			window.setLocation(location);
 			final Dimension minSize=window.getMinimumSize();
-			if (minSize!=null) {
-				minSize.width=Math.min(minSize.width,size.width);
-				minSize.height=Math.min(minSize.height,size.height);
-				window.setMinimumSize(minSize);
+			if (restoreSize) {
+				if (minSize!=null) {
+					minSize.width=Math.min(minSize.width,size.width);
+					minSize.height=Math.min(minSize.height,size.height);
+					window.setMinimumSize(minSize);
+				}
+				window.setSize(size);
 			}
-			window.setSize(size);
 		}
 	}
 }

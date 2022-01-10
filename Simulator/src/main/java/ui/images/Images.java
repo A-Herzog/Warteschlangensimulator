@@ -343,6 +343,9 @@ public enum Images {
 	/** Symbol "Statistikinformationen im Modell-Editor" */
 	STATISTIC_INFO("chart_bar.png"),
 
+	/** Symbol "Heatmap" */
+	HEATMAP("palette.png"),
+
 	/* Expression Builder */
 
 	/** Symbol "Expression-Builder" */
