@@ -104,13 +104,17 @@ public class StatisticViewerMovementTable extends StatisticViewerBaseTable {
 		final Table table=new Table();
 
 		for (String name: statistics.stationTransition.getNames()) {
-			final String[] line=new String[3];
+			final String[] line=new String[5];
 			final String[] parts=name.split(" -> ");
 			if (parts==null || parts.length!=2) continue;
 			line[0]=parts[0];
 			line[1]=parts[1];
 			final StatisticsSimpleCountPerformanceIndicator counter=(StatisticsSimpleCountPerformanceIndicator)statistics.stationTransition.get(name);
-			line[2]=NumberTools.formatLongNoGrouping(counter.get());
+			final long count=counter.get();
+			line[2]=NumberTools.formatLongNoGrouping(count);
+			final String[] throughput=StatisticViewerOverviewText.getThroughputColumns(count,statistics);
+			line[3]=throughput[0];
+			line[4]=throughput[1];
 			table.addLine(line);
 		}
 		return table;
@@ -297,7 +301,9 @@ public class StatisticViewerMovementTable extends StatisticViewerBaseTable {
 			setData(getClientMovementTable(statistics),new String[]{
 					Language.tr("Statistics.ClientMovement.From"),
 					Language.tr("Statistics.ClientMovement.To"),
-					Language.tr("Statistics.ClientMovement.Count")
+					Language.tr("Statistics.ClientMovement.Count"),
+					Language.tr("Statistics.Throughput"),
+					Language.tr("Statistics.ThroughputUnit")
 			});
 			addDescription("ClientMovement");
 			break;

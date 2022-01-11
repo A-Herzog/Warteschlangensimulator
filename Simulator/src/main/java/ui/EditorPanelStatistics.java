@@ -20,6 +20,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Supplier;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import language.Language;
 import mathtools.NumberTools;
@@ -36,6 +38,7 @@ import statistics.StatisticsDataPerformanceIndicator;
 import statistics.StatisticsQuotientPerformanceIndicator;
 import statistics.StatisticsSimpleCountPerformanceIndicator;
 import statistics.StatisticsTimePerformanceIndicator;
+import ui.modeleditor.coreelements.ModelElement;
 import ui.modeleditor.coreelements.ModelElementBox;
 import ui.modeleditor.elements.ModelElementAssign;
 import ui.modeleditor.elements.ModelElementBatch;
@@ -44,6 +47,7 @@ import ui.modeleditor.elements.ModelElementCounterBatch;
 import ui.modeleditor.elements.ModelElementDecide;
 import ui.modeleditor.elements.ModelElementDelay;
 import ui.modeleditor.elements.ModelElementDifferentialCounter;
+import ui.modeleditor.elements.ModelElementEdge;
 import ui.modeleditor.elements.ModelElementMatch;
 import ui.modeleditor.elements.ModelElementProcess;
 import ui.modeleditor.elements.ModelElementSource;
@@ -51,6 +55,7 @@ import ui.modeleditor.elements.ModelElementSub;
 import ui.modeleditor.elements.ModelElementThroughput;
 import ui.modeleditor.elements.ModelElementTransportSource;
 import ui.modeleditor.elements.ModelElementTransportTransporterSource;
+import ui.modeleditor.elements.ModelElementVertex;
 import ui.statistics.StatisticTools;
 import ui.statistics.StatisticViewerOverviewText;
 
@@ -561,6 +566,98 @@ public class EditorPanelStatistics {
 	}
 
 	/**
+	 * Liefert die Anzahl an Übergänge von einer zu einer anderen Station
+	 * @param statistics	Statistikobjekt (darf <code>null</code> sein)
+	 * @param id1	ID der Quellstation
+	 * @param id2	ID der Zielstation
+	 * @return	Liefert im Erfolgsfall den die Anzahl, sonst -1
+	 */
+	public static long getEdgeCount(final Statistics statistics, final int id1, final int id2) {
+		if (statistics==null) return -1;
+
+		final Pattern pattern=Pattern.compile("^.* \\(id="+id1+"\\) \\-> .* \\(id="+id2+"\\)$", Pattern.CASE_INSENSITIVE);
+
+		for (String name: statistics.stationTransition.getNames()) {
+			final Matcher matcher=pattern.matcher(name);
+			if (matcher.find()) {
+				return ((StatisticsSimpleCountPerformanceIndicator)statistics.stationTransition.get(name)).get();
+			}
+		}
+
+		return -1;
+	}
+
+	/**
+	 * Liefert den Durchsatz zwischen zwei Stationen (wenn die Stationsübergangsaufzeichnung aktiv ist).
+	 * @param statistics	Statistikobjekt (darf <code>null</code> sein)
+	 * @param id1	ID der Quellstation
+	 * @param id2	ID der Zielstation
+	 * @return	Liefert im Erfolgsfall den Durchsatz, sonst <code>null</code>
+	 */
+	public static String getEdgeThroughput(final Statistics statistics, final int id1, final int id2) {
+		final long count=getEdgeCount(statistics,id1,id2);
+		if (count<0) return null;
+		return StatisticViewerOverviewText.getThroughputText(count,statistics);
+	}
+
+	/**
+	 * Generiert den Tooltip-Text für eine Kante.
+	 * @param statistics	Statistikobjekt dem die Daten entnommen werden sollen
+	 * @param edge	Kante für die die Statistikdaten zurückgegeben werden sollen
+	 * @return	html-formatierte Statistikdaten oder <code>null</code>, wenn keine Daten dazu zur Verfügung stehen
+	 * @see #getTooltip(Statistics, ModelElementEdge)
+	 */
+	private String buildTooltip(final Statistics statistics, final ModelElementEdge edge) {
+		if (edge==null || edge.getConnectionStart()==null) return null;
+
+		final List<Integer> id1=new ArrayList<>();
+		int id2=-1;
+
+		/* Startstationen finden */
+		final List<ModelElement> toProcess=new ArrayList<>();
+		toProcess.add(edge.getConnectionStart());
+		while (toProcess.size()>0) {
+			ModelElement element=toProcess.remove(0);
+			while (true) {
+				if (element instanceof ModelElementVertex) {
+					final ModelElementEdge[] edges=((ModelElementVertex)element).getEdgesIn();
+					if (edges.length>=2) for (int i=1;i<edges.length;i++) toProcess.add(edges[i].getConnectionStart());
+					if (edges.length>=1) {
+						element=edges[0].getConnectionStart();
+						if (element==null) break;
+						continue;
+					}
+					break;
+				}
+				if (element instanceof ModelElementBox) {
+					id1.add(((ModelElementBox)element).getId());
+					break;
+				}
+				break;
+			}
+		}
+
+		/* Zielstation finden */
+		ModelElementEdge e=edge;
+		while (true) {
+			if (e==null || e.getConnectionEnd()==null) return null;
+			final ModelElement element=e.getConnectionEnd();
+			if (element instanceof ModelElementVertex) {e=((ModelElementVertex)element).getEdgeOut(); continue;}
+			if (element instanceof ModelElementBox) {id2=((ModelElementBox)element).getId(); break;}
+			return null;
+		}
+
+		/* Existieren Pfade? */
+		if (id1.size()==0 || id2<0) return null;
+
+		/* Pfade aufsummieren */
+		long sum=0;
+		for (Integer i: id1) sum+=Math.max(0,getEdgeCount(statistics,i,id2));
+		if (sum==0) return null;
+		return formatStatisticsData(new String[] {Language.tr("Statistics.Throughput")+": "+StatisticViewerOverviewText.getThroughputText(sum,statistics)});
+	}
+
+	/**
 	 * Liefert, sofern verfügbar, Statistikdaten, die sich auf eine bestimmte
 	 * Station beziehen.
 	 * @param statistics	Statistikobjekt dem die Daten entnommen werden sollen
@@ -583,6 +680,33 @@ public class EditorPanelStatistics {
 
 		/* Neuen Tooltip generieren */
 		tooltip=buildTooltip(statistics,element);
+		if (tooltip==null) tooltipsCache.put(id,""); else tooltipsCache.put(id,tooltip); /* "Kein Tooltip vorhanden" als leeren String speichern, damit auch in diesem Fall die Generierung nicht erneut erfolgt. */
+		return tooltip;
+	}
+
+	/**
+	 * Liefert, sofern verfügbar, Statistikdaten, die sich auf eine bestimmte
+	 * Kante beziehen.
+	 * @param statistics	Statistikobjekt dem die Daten entnommen werden sollen
+	 * @param edge	Katne für die die Statistikdaten zurückgegeben werden sollen
+	 * @return	html-formatierte Statistikdaten oder <code>null</code>, wenn keine Daten dazu zur Verfügung stehen
+	 */
+	public String getTooltip(final Statistics statistics, final ModelElementEdge edge) {
+		/* Statistikdaten verfügbar? */
+		if (statistics==null) return null;
+
+		/* Ist das noch dasselbe Statistikobjekt wie beim letzten Aufruf? Wenn nein, Caches löschen */
+		testStatistics(statistics);
+
+		/* Bereits generierten Tooltip abrufen */
+		final int id=edge.getId();
+		String tooltip=tooltipsCache.get(id);
+		if (tooltip!=null) {
+			if (tooltip.isEmpty()) return null; else return tooltip;
+		}
+
+		/* Neuen Tooltip generieren */
+		tooltip=buildTooltip(statistics,edge);
 		if (tooltip==null) tooltipsCache.put(id,""); else tooltipsCache.put(id,tooltip); /* "Kein Tooltip vorhanden" als leeren String speichern, damit auch in diesem Fall die Generierung nicht erneut erfolgt. */
 		return tooltip;
 	}

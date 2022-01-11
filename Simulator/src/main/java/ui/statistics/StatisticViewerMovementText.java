@@ -109,7 +109,7 @@ public class StatisticViewerMovementText extends StatisticViewerText {
 		stations=new HashMap<>();
 		for (int i=0;i<rows;i++) {
 			final List<String> row=table.getLine(i);
-			if (row==null || row.size()!=3) continue;
+			if (row==null || row.size()!=5) continue;
 			final Long L=NumberTools.getLong(row.get(2));
 			if (L==null) continue;
 			Map<String,Long> sub=stations.get(row.get(0));
@@ -124,7 +124,7 @@ public class StatisticViewerMovementText extends StatisticViewerText {
 			long sum=Math.max(1,subs.values().stream().mapToLong(Long::longValue).sum());
 			for (Map.Entry<String,Long> sub: subs.entrySet()) {
 				final long value=sub.getValue();
-				addLine(String.format("-> %s (%s, %s)",sub.getKey(),NumberTools.formatLong(value),StatisticTools.formatPercent(((double)value)/sum)));
+				addLine(String.format("-> %s (%s, %s, %s)",sub.getKey(),NumberTools.formatLong(value),StatisticTools.formatPercent(((double)value)/sum),StatisticViewerOverviewText.getThroughputText(value,statistics)));
 			}
 			endParagraph();
 		}
@@ -134,7 +134,7 @@ public class StatisticViewerMovementText extends StatisticViewerText {
 		stations=new HashMap<>();
 		for (int i=0;i<rows;i++) {
 			final List<String> row=table.getLine(i);
-			if (row==null || row.size()!=3) continue;
+			if (row==null || row.size()!=5) continue;
 			final Long L=NumberTools.getLong(row.get(2));
 			if (L==null) continue;
 			Map<String,Long> sub=stations.get(row.get(1));
@@ -149,7 +149,7 @@ public class StatisticViewerMovementText extends StatisticViewerText {
 			long sum=Math.max(1,subs.values().stream().mapToLong(Long::longValue).sum());
 			for (Map.Entry<String,Long> sub: subs.entrySet()) {
 				final long value=sub.getValue();
-				addLine(String.format("%s (%s, %s) ->",sub.getKey(),NumberTools.formatLong(value),StatisticTools.formatPercent(((double)value)/sum)));
+				addLine(String.format("%s (%s, %s, %s) ->",sub.getKey(),NumberTools.formatLong(value),StatisticTools.formatPercent(((double)value)/sum),StatisticViewerOverviewText.getThroughputText(value,statistics)));
 			}
 			endParagraph();
 		}

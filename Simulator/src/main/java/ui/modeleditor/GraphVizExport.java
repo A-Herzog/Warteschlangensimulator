@@ -152,21 +152,22 @@ public class GraphVizExport {
 			final ModelElementBox box=(ModelElementBox)element;
 
 			if (element instanceof ModelElementEdgeOut) {
-				process(box,((ModelElementEdgeOut)element).getEdgeOut(),indent);
+				process(statistics,box,((ModelElementEdgeOut)element).getEdgeOut(),indent);
 			}
 			if (element instanceof ModelElementEdgeMultiOut) {
-				for (ModelElementEdge edge: ((ModelElementEdgeMultiOut)element).getEdgesOut()) process(box,edge,indent);
+				for (ModelElementEdge edge: ((ModelElementEdgeMultiOut)element).getEdgesOut()) process(statistics,box,edge,indent);
 			}
 		}
 	}
 
 	/**
 	 * Fügt eine Kante zu der Ausgabe hinzu.
+	 * @param statistics	Optionales Statistikobjekt aus dem Statistikinformationen zu den Stationen ausgelesen werden (darf <code>null</code> sein)
 	 * @param source	Ausgangselement der Kante
 	 * @param edge	Kante
 	 * @param indent Einrückung der Ausgabezeilen
 	 */
-	private void process(ModelElementBox source, ModelElementEdge edge, final String indent) {
+	private void process(final Statistics statistics, ModelElementBox source, ModelElementEdge edge, final String indent) {
 		if (edge==null) return;
 		final ModelElementEdge firstEdge=edge;
 
@@ -214,11 +215,17 @@ public class GraphVizExport {
 
 		final String connection=indent+source.getId()+" -> "+destination.getId();
 		final String edgeLabel=firstEdge.getName().trim();
+		final String throughput=EditorPanelStatistics.getEdgeThroughput(statistics,source.getId(),destination.getId());
 
-		if (edgeLabel.isEmpty()) {
+		if (edgeLabel.isEmpty() && throughput==null) {
 			output.add(connection+";");
 		} else {
-			output.add(connection+" [label=<"+encodeText(edgeLabel)+">];");
+			String text=edgeLabel;
+			if (throughput!=null) {
+				if (!text.isEmpty()) text=text+"\n"+throughput; else text=throughput;
+			}
+
+			output.add(connection+" [label=<"+encodeText(text)+">];");
 		}
 	}
 

@@ -381,7 +381,7 @@ public final class ModelSurfacePanel extends JPanel {
 	 * Optionales Callback, das zu einem Element weitere Tooltip-Daten (aus der Statistik) liefert
 	 * @see #setAdditionalTooltipGetter(Function)
 	 */
-	private transient Function<ModelElementBox,String> additionalTooltipGetter;
+	private transient Function<ModelElement,String> additionalTooltipGetter;
 
 	/**
 	 * Gibt an, ob Kanten zu neu eingefügten Elementen wenn möglich automatisch hinzugefügt werden sollen.
@@ -2827,13 +2827,13 @@ public final class ModelSurfacePanel extends JPanel {
 	}
 
 	/**
-	 * Liefert, sofern hinterlegt, einen zusätzlichen Tooltip-Text für ein Element
+	 * Liefert, sofern hinterlegt, einen zusätzlichen Tooltip-Text für ein Element bzw. eine Kante.
 	 * @param element	Element für das der zusätzliche Tooltip-Text abgerufen werden soll
 	 * @return	Zusätzlicher Tooltip-Text (kann <code>null</code> sein, wenn kein zusätzlicher Text zur Verfügung steht)
 	 * @see #additionalTooltipGetter
 	 * @see #setAdditionalTooltipGetter(Function)
 	 */
-	private String getAdditionalTooltip(final ModelElementBox element) {
+	private String getAdditionalTooltip(final ModelElement element) {
 		if (additionalTooltipGetter==null) return null;
 		return additionalTooltipGetter.apply(element);
 	}
@@ -2842,7 +2842,7 @@ public final class ModelSurfacePanel extends JPanel {
 	 * Stellt ein Callback ein, das zu einem Element weitere Tooltip-Daten (aus der Statistik) liefert
 	 * @param additionalTooltipGetter	Callback, das weitere Tooltip-Daten liefert. (Dass Callback kann <code>null</code> sein und auch die zurückgelieferten Tooltip-Daten können jederzeit <code>null</code> sein)
 	 */
-	public void setAdditionalTooltipGetter(final Function<ModelElementBox,String> additionalTooltipGetter) {
+	public void setAdditionalTooltipGetter(final Function<ModelElement,String> additionalTooltipGetter) {
 		this.additionalTooltipGetter=additionalTooltipGetter;
 	}
 
@@ -3305,7 +3305,7 @@ public final class ModelSurfacePanel extends JPanel {
 					if (tooltip==null) tooltip=element.getContextMenuElementName();
 					String description="";
 					if (element instanceof ModelElementBox) {
-						final String additional=getAdditionalTooltip((ModelElementBox)element);
+						final String additional=getAdditionalTooltip(element);
 						if (additional!=null && !additional.trim().isEmpty()) tooltip=tooltip+"<br>"+additional;
 						description=getTooltipDescription((ModelElementBox)element);
 						if (description==null) description="";
@@ -3340,6 +3340,10 @@ public final class ModelSurfacePanel extends JPanel {
 						}
 						descriptionBuilder.append(", id=");
 						descriptionBuilder.append(el.getId());
+
+						final String additional=getAdditionalTooltip(element);
+						if (additional!=null && !additional.trim().isEmpty()) tooltip=tooltip+"<br>"+additional;
+
 						descriptionBuilder.append("<br>&nbsp;\n</p>");
 						description=descriptionBuilder.toString();
 					}

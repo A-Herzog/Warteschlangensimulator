@@ -268,7 +268,7 @@ public final class CreateSankey extends BaseDialog {
 		case STATION_TRANSITION:
 			for (int i=0;i<rows;i++) {
 				final List<String> row=table.getLine(i);
-				if (row==null || row.size()!=3) continue;
+				if (row==null || row.size()<3) continue;
 				stations.add(row.get(0));
 				stations.add(row.get(1));
 			}
@@ -576,7 +576,7 @@ public final class CreateSankey extends BaseDialog {
 		final int rows=table.getSize(0);
 		for (int i=0;i<rows;i++) {
 			final List<String> row=table.getLine(i);
-			if (row==null || row.size()!=3) continue;
+			if (row==null || row.size()<3) continue;
 			final String from=row.get(0);
 			final String to=row.get(1);
 			final Long L=NumberTools.getLong(row.get(2));

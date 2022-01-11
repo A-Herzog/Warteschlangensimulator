@@ -114,6 +114,7 @@ import ui.modeleditor.coreelements.ModelElement;
 import ui.modeleditor.coreelements.ModelElementBox;
 import ui.modeleditor.coreelements.ModelElementListGroup;
 import ui.modeleditor.coreelements.ModelElementPosition;
+import ui.modeleditor.elements.ModelElementEdge;
 import ui.modeleditor.outputbuilder.HTMLOutputBuilder;
 import ui.modelproperties.ModelPropertiesDialog;
 import ui.parameterseries.ParameterCompareTemplatesDialog;
@@ -200,7 +201,7 @@ public final class EditorPanel extends EditorPanelBase {
 	/**
 	 * Callback welches im Bedarfsfall (zur Anzeige von Tooltipdaten) ein Statistik-Objekt liefert
 	 * @see #setStatisticsGetter(Supplier)
-	 * @see #getStatisticsInfoForElement(ModelElementBox)
+	 * @see #getStatisticsInfoForElement(ModelElement)
 	 */
 	private Supplier<Statistics> statisticsGetter;
 
@@ -2723,7 +2724,7 @@ public final class EditorPanel extends EditorPanelBase {
 	/**
 	 * System zur Generiertung von Tooltips und zur Bestimmung von Heatmap-Werten
 	 * für einzelne Editor-Modell-Stationen basierend auf den Statistikdaten
-	 * @see #getStatisticsInfoForElement(ModelElementBox)
+	 * @see #getStatisticsInfoForElement(ModelElement)
 	 * @see #getHeatMapIntensityForElement(ModelElementBox)
 	 */
 	private EditorPanelStatistics statisticsHelper=new EditorPanelStatistics();
@@ -2738,7 +2739,7 @@ public final class EditorPanel extends EditorPanelBase {
 	 * @see #statisticsGetter
 	 * @see #surfacePanel
 	 */
-	private String getStatisticsInfoForElement(final ModelElementBox element) {
+	private String getStatisticsInfoForElement(final ModelElement element) {
 		if (element==null) return null;
 		if (statisticsGetter==null) return null;
 		final Statistics statistics=statisticsGetter.get();
@@ -2746,7 +2747,9 @@ public final class EditorPanel extends EditorPanelBase {
 
 		if (!SetupData.getSetup().statisticInTooltips) return null;
 
-		return statisticsHelper.getTooltip(statistics,element);
+		if (element instanceof ModelElementBox) return statisticsHelper.getTooltip(statistics,(ModelElementBox)element);
+		if (element instanceof ModelElementEdge) return statisticsHelper.getTooltip(statistics,(ModelElementEdge)element);
+		return null;
 	}
 
 	/**
