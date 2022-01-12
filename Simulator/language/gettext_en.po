@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-09 13:58+0100\n"
+"POT-Creation-Date: 2022-01-12 00:21+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -9971,6 +9971,12 @@ msgstr "Heatmap: Average residence time at a station"
 
 msgid "Main.Menu.View.Statistics.HeatMap.Residence.Mnemonic"
 msgstr "r"
+
+msgid "Main.Menu.View.Statistics.HeatMap.Throughput"
+msgstr "Heatmap: Throughput at a station"
+
+msgid "Main.Menu.View.Statistics.HeatMap.Throughput.Mnemonic"
+msgstr "T"
 
 msgid "Main.Menu.View.Statistics.HeatMap.Transfer"
 msgstr "Heatmap: Average transfer time at a station"

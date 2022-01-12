@@ -842,7 +842,9 @@ public class EditorPanelStatistics {
 		/** Mittlere Verweilzeit an der Station */
 		RESIDENCE_TIME_AVG("ResidenceTime",()->Language.tr("Main.Menu.View.Statistics.HeatMap.Residence"),()->Language.tr("Main.Menu.View.Statistics.HeatMap.Residence.Mnemonic")),
 		/** Flussgrade an den Stationen */
-		FLOW_FACTOR("FlowFactor",()->Language.tr("Main.Menu.View.Statistics.HeatMap.FlowFactor"),()->Language.tr("Main.Menu.View.Statistics.HeatMap.FlowFactor.Mnemonic"));
+		FLOW_FACTOR("FlowFactor",()->Language.tr("Main.Menu.View.Statistics.HeatMap.FlowFactor"),()->Language.tr("Main.Menu.View.Statistics.HeatMap.FlowFactor.Mnemonic")),
+		/** Durchsatz an den Stationen (= "Anzahl an Ankünften an der Station") */
+		THROUGHPUT("Throughput",()->Language.tr("Main.Menu.View.Statistics.HeatMap.Throughput"),()->Language.tr("Main.Menu.View.Statistics.HeatMap.Throughput.Mnemonic"));
 
 		/**
 		 * Callback welches den Namen des Heatmap-Modus liefert
@@ -970,6 +972,12 @@ public class EditorPanelStatistics {
 			if (time2.getMean()==0.0) return 0.0;
 			final double flowfactor=time1.getMean()/time2.getMean();
 			return flowfactor/maxFlowFactor(statistics);
+		case THROUGHPUT:
+			/* Identisch zu ARRIVALS */
+			time=(StatisticsDataPerformanceIndicator)statistics.stationsInterarrivalTime.getOrNull(nameStation);
+			if (time==null) return 0.0;
+			all=maxClientsCount(statistics);
+			return (all==0.0)?0.0:(time.getCount()/all);
 		}
 
 		return null;

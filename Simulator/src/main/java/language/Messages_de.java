@@ -8976,6 +8976,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[23183] = "IDs";
     t[23188] = "AnimationExpression.Script.Edit";
     t[23189] = "Skript bearbeiten";
+    t[23190] = "Main.Menu.View.Statistics.HeatMap.Throughput";
+    t[23191] = "Heatmap: Durchsatz an den Stationen";
     t[23192] = "Main.Toolbar.SaveStatistics.Hint";
     t[23193] = "Speichert die Statistik in einer Datei";
     t[23194] = "ScriptPopup.Client.Time.Set.Hint";
@@ -10032,14 +10034,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[25783] = "Tabellenquelle";
     t[25788] = "Schedule.Name";
     t[25789] = "Name";
-    t[25796] = "Statistics.ClientData.Field.Sk";
-    t[25797] = "Schiefe";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_5 (java.lang.String[] t) {
+    t[25796] = "Statistics.ClientData.Field.Sk";
+    t[25797] = "Schiefe";
     t[25800] = "ParameterCompare.Settings.Input.List.Templates.GlobalVariable";
     t[25801] = "Startwert der globalen Variable \"%s\"";
     t[25814] = "Window.BackgroundColor.ImageRasterOrder.RasterInFrontOfImage";
@@ -12038,14 +12040,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[30967] = "<p>F\u00fcgt das Multiplikationszeichen <b>*</b> in die Rechnung ein.</p>";
     t[30968] = "NoJDK.OptionAutomatic.Info";
     t[30969] = "Java-Laufzeitumgebung mit Kompiler automatisch installieren.<br>(Keine Admin-Rechte notwendig, keine weitere Nutzerinteraktion notwendig.)";
-    t[30972] = "Surface.StateStatistics.XML.Root";
-    t[30973] = "ModellElementZustandsstatistik";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_6 (java.lang.String[] t) {
+    t[30972] = "Surface.StateStatistics.XML.Root";
+    t[30973] = "ModellElementZustandsstatistik";
     t[30974] = "Surface.ScriptEditor.Language.JavaScript.DiscardConfirmation.Title";
     t[30975] = "Ungespeichertes Javascript";
     t[30976] = "SimulationServer.Toolbar.MQTTStart";
@@ -14044,14 +14046,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[35917] = "Anzahl an Kunden in dem Batch";
     t[35922] = "Surface.Duplicate.Name";
     t[35923] = "Kunden duplizieren";
-    t[35924] = "Simulation.Log.Release";
-    t[35925] = "Ressourcenfreigabe";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_7 (java.lang.String[] t) {
+    t[35924] = "Simulation.Log.Release";
+    t[35925] = "Ressourcenfreigabe";
     t[35930] = "ExpressionBuilder.SimulationCharacteristics.ResidenceTimesByClientTypes.StandardDeviationOfTheTime";
     t[35931] = "<p>Liefert die Standardabweichung \u00fcber die Verweilzeiten der Kunden, die an der Bedienstation, deren ID in dem Parameter angegeben wurde, erzeugt wurden.</p>";
     t[35932] = "Surface.Action.XML.Record.Condition.ThresholdValue";
@@ -14740,6 +14742,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[37641] = "ModellElementTeleportStart";
     t[37642] = "Surface.MultiSourceTable.Add";
     t[37643] = "Kundenank\u00fcnfte hinzuf\u00fcgen";
+    t[37650] = "Main.Menu.View.Statistics.HeatMap.Throughput.Mnemonic";
+    t[37651] = "D";
     t[37652] = "ExpressionBuilder.ProbabilityDistributions.RightSawtoothDistribution.DensityInfo";
     t[37653] = "<p>Berechnet den Wert der Dichte der rechten S\u00e4gezahnverteilung an der als ersten Parameter angegebenen Stelle. Der Tr\u00e4gerbereich der Verteilung wird dabei \u00fcber den zweiten und dritten Parameter festgelegt.</p>";
     t[37656] = "Simulation.Creator.DDENotAvailable";
@@ -16048,16 +16052,16 @@ public class Messages_de extends java.util.ResourceBundle {
     t[40881] = "Nach Dateiende keine Zuweisungen mehr durchf\u00fchren.";
     t[40884] = "Animation.IconDialog.Single.Title";
     t[40885] = "Bild bearbeiten";
-    t[40894] = "FastAccessBuilder.Add.Javascript";
-    t[40895] = "Zu Schnellzugriff - Javascript hinzuf\u00fcgen";
-    t[40900] = "ParameterCompare.ResultsError.ScriptValueNotNumber";
-    t[40901] = "In Schritt %d (Modell %s) hat das Ergebnisverarbeitungsskript \"%s\" geliefert, was nicht als Zahlenwert interpretiert werden kann.";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_8 (java.lang.String[] t) {
+    t[40894] = "FastAccessBuilder.Add.Javascript";
+    t[40895] = "Zu Schnellzugriff - Javascript hinzuf\u00fcgen";
+    t[40900] = "ParameterCompare.ResultsError.ScriptValueNotNumber";
+    t[40901] = "In Schritt %d (Modell %s) hat das Ergebnisverarbeitungsskript \"%s\" geliefert, was nicht als Zahlenwert interpretiert werden kann.";
     t[40902] = "Simulation.Element.AnalogAssign.Name";
     t[40903] = "Analogen Wert \u00e4ndern";
     t[40906] = "Resources.Group.EditName.Dialog.CostsPerIdleHour.Error.Title";
@@ -18054,16 +18058,16 @@ public class Messages_de extends java.util.ResourceBundle {
     t[45849] = "Aktueller Wert (in Warteschlange 1)";
     t[45850] = "Surface.Popup.AddVisualization.CurrentValueWaiting2";
     t[45851] = "Aktueller Wert (in Warteschlange 2)";
-    t[45852] = "Surface.Popup.AddVisualization.CurrentValueWaiting3";
-    t[45853] = "Aktueller Wert (in Warteschlange 3)";
-    t[45854] = "Statistics.SimulatedClients";
-    t[45855] = "Simulierte Kunden";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_9 (java.lang.String[] t) {
+    t[45852] = "Surface.Popup.AddVisualization.CurrentValueWaiting3";
+    t[45853] = "Aktueller Wert (in Warteschlange 3)";
+    t[45854] = "Statistics.SimulatedClients";
+    t[45855] = "Simulierte Kunden";
     t[45856] = "Surface.Balking.Dialog.Expression";
     t[45857] = "Zur\u00fcckschrecken gem\u00e4\u00df Bedingung";
     t[45858] = "Surface.AnimationTextSelect.Name";
@@ -20060,16 +20064,16 @@ public class Messages_de extends java.util.ResourceBundle {
     t[50917] = "Bedienzeit";
     t[50920] = "ExpressionBuilder.MathematicalFunctions.Factorial.Info";
     t[50921] = "<p>Berechnet die Fakult\u00e4t des vor dem !-Zeichen stehenden Wertes.</p><p>Beispiel: <tt>6!</tt> liefert 720.</p>";
-    t[50922] = "Editor.DialogBase.Search.Description";
-    t[50923] = "Beschreibung der Station";
-    t[50924] = "ModelDescription.Database.User";
-    t[50925] = "Datenbanknutzer";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_10 (java.lang.String[] t) {
+    t[50922] = "Editor.DialogBase.Search.Description";
+    t[50923] = "Beschreibung der Station";
+    t[50924] = "ModelDescription.Database.User";
+    t[50925] = "Datenbanknutzer";
     t[50930] = "Surface.InputDB.Dialog.Table.ErrorTitle";
     t[50931] = "Keine Tabelle gew\u00e4hlt";
     t[50934] = "Color.FA8072";

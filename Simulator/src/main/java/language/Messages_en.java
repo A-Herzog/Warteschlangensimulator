@@ -8976,6 +8976,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[23183] = "Ids";
     t[23188] = "AnimationExpression.Script.Edit";
     t[23189] = "Edit script";
+    t[23190] = "Main.Menu.View.Statistics.HeatMap.Throughput";
+    t[23191] = "Heatmap: Throughput at a station";
     t[23192] = "Main.Toolbar.SaveStatistics.Hint";
     t[23193] = "Save statistics data to file";
     t[23194] = "ScriptPopup.Client.Time.Set.Hint";
@@ -10032,14 +10034,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[25783] = "Table source";
     t[25788] = "Schedule.Name";
     t[25789] = "Name";
-    t[25796] = "Statistics.ClientData.Field.Sk";
-    t[25797] = "Skewness";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_5 (java.lang.String[] t) {
+    t[25796] = "Statistics.ClientData.Field.Sk";
+    t[25797] = "Skewness";
     t[25800] = "ParameterCompare.Settings.Input.List.Templates.GlobalVariable";
     t[25801] = "Initial value of global variable \"%s\"";
     t[25814] = "Window.BackgroundColor.ImageRasterOrder.RasterInFrontOfImage";
@@ -12038,14 +12040,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[30967] = "<p>Adds a multiplication sign <b>*</b> into the calculation.</p>";
     t[30968] = "NoJDK.OptionAutomatic.Info";
     t[30969] = "Install Java runtime environment with compiler automatically.<br>(No admin rights required, no further user interaction needed).";
-    t[30972] = "Surface.StateStatistics.XML.Root";
-    t[30973] = "ModelElementStateStatistics";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_6 (java.lang.String[] t) {
+    t[30972] = "Surface.StateStatistics.XML.Root";
+    t[30973] = "ModelElementStateStatistics";
     t[30974] = "Surface.ScriptEditor.Language.JavaScript.DiscardConfirmation.Title";
     t[30975] = "Unsaved Javascript";
     t[30976] = "SimulationServer.Toolbar.MQTTStart";
@@ -14044,14 +14046,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[35917] = "Number of clients in the batch";
     t[35922] = "Surface.Duplicate.Name";
     t[35923] = "Duplicate client";
-    t[35924] = "Simulation.Log.Release";
-    t[35925] = "Resources release";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_7 (java.lang.String[] t) {
+    t[35924] = "Simulation.Log.Release";
+    t[35925] = "Resources release";
     t[35930] = "ExpressionBuilder.SimulationCharacteristics.ResidenceTimesByClientTypes.StandardDeviationOfTheTime";
     t[35931] = "<p>Returns the standard deviation over all residence times of the clients created at the station whose ID was specified in the parameter.</p>";
     t[35932] = "Surface.Action.XML.Record.Condition.ThresholdValue";
@@ -14740,6 +14742,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[37641] = "ModelElementTeleportOrigin";
     t[37642] = "Surface.MultiSourceTable.Add";
     t[37643] = "Add client arrivals";
+    t[37650] = "Main.Menu.View.Statistics.HeatMap.Throughput.Mnemonic";
+    t[37651] = "T";
     t[37652] = "ExpressionBuilder.ProbabilityDistributions.RightSawtoothDistribution.DensityInfo";
     t[37653] = "<p>Calculates the value of the density of the right sawtooth distribution at the location specified as the first parameter. The support of the distribution is defined by the second and third parameter.</p>";
     t[37656] = "Simulation.Creator.DDENotAvailable";
@@ -16048,16 +16052,16 @@ public class Messages_en extends java.util.ResourceBundle {
     t[40881] = "Do not do any assignments after end of file.";
     t[40884] = "Animation.IconDialog.Single.Title";
     t[40885] = "Edit image";
-    t[40894] = "FastAccessBuilder.Add.Javascript";
-    t[40895] = "Add to fast access - Javascript";
-    t[40900] = "ParameterCompare.ResultsError.ScriptValueNotNumber";
-    t[40901] = "In step %d (model %s) the results parser script returned \"%s\" which could not be interpreted as a number.";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_8 (java.lang.String[] t) {
+    t[40894] = "FastAccessBuilder.Add.Javascript";
+    t[40895] = "Add to fast access - Javascript";
+    t[40900] = "ParameterCompare.ResultsError.ScriptValueNotNumber";
+    t[40901] = "In step %d (model %s) the results parser script returned \"%s\" which could not be interpreted as a number.";
     t[40902] = "Simulation.Element.AnalogAssign.Name";
     t[40903] = "Change analog value";
     t[40906] = "Resources.Group.EditName.Dialog.CostsPerIdleHour.Error.Title";
@@ -18054,16 +18058,16 @@ public class Messages_en extends java.util.ResourceBundle {
     t[45849] = "Current value (waiting in queue 1)";
     t[45850] = "Surface.Popup.AddVisualization.CurrentValueWaiting2";
     t[45851] = "Current value (waiting in queue 2)";
-    t[45852] = "Surface.Popup.AddVisualization.CurrentValueWaiting3";
-    t[45853] = "Current value (waiting in queue 3)";
-    t[45854] = "Statistics.SimulatedClients";
-    t[45855] = "Simulated clients";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_9 (java.lang.String[] t) {
+    t[45852] = "Surface.Popup.AddVisualization.CurrentValueWaiting3";
+    t[45853] = "Current value (waiting in queue 3)";
+    t[45854] = "Statistics.SimulatedClients";
+    t[45855] = "Simulated clients";
     t[45856] = "Surface.Balking.Dialog.Expression";
     t[45857] = "Balking by condition";
     t[45858] = "Surface.AnimationTextSelect.Name";
@@ -20060,16 +20064,16 @@ public class Messages_en extends java.util.ResourceBundle {
     t[50917] = "Process time";
     t[50920] = "ExpressionBuilder.MathematicalFunctions.Factorial.Info";
     t[50921] = "<p>Calculates the factorial of the value preceding the ! sign.</p> <p>Example: <tt>6!</tt> returns 720.</p>";
-    t[50922] = "Editor.DialogBase.Search.Description";
-    t[50923] = "Station description";
-    t[50924] = "ModelDescription.Database.User";
-    t[50925] = "Database user";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_10 (java.lang.String[] t) {
+    t[50922] = "Editor.DialogBase.Search.Description";
+    t[50923] = "Station description";
+    t[50924] = "ModelDescription.Database.User";
+    t[50925] = "Database user";
     t[50930] = "Surface.InputDB.Dialog.Table.ErrorTitle";
     t[50931] = "No table selected";
     t[50934] = "Color.FA8072";
