@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-12 00:21+0100\n"
+"POT-Creation-Date: 2022-01-13 00:09+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -808,6 +808,32 @@ msgstr "Textbook \"Simulation mit dem Warteschlangensimulator\" (in German)"
 
 msgid "BookData.BookPDF"
 msgstr "Book pdf file"
+
+msgid "BookData.BookPDF.Download"
+msgstr "Download e-book"
+
+msgid "BookData.BookPDF.Download.ErrorInfo"
+msgstr "An error occurred while connecting to the download address."
+
+msgid "BookData.BookPDF.Download.ErrorInfoLink"
+msgstr ""
+"There is no connection to SpringerLink.\n"
+"The book could not be downloaded.\n"
+"If necessary, activate VPN to access the SpringerLink data."
+
+msgid "BookData.BookPDF.Download.ErrorSaveInfo"
+msgstr ""
+"The book could not be saved as\n"
+"%s."
+
+msgid "BookData.BookPDF.Download.ErrorSaveTitle"
+msgstr "Error saving e-book"
+
+msgid "BookData.BookPDF.Download.ErrorTitle"
+msgstr "Error downloading e-book"
+
+msgid "BookData.BookPDF.Download.Tooltip"
+msgstr "SpringerLink access is required for downloading."
 
 msgid "BookData.BookPDF.Open"
 msgstr "Open e-book"

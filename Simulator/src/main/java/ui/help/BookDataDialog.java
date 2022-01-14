@@ -27,8 +27,10 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.Serializable;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.List;
 import java.util.Map;
@@ -65,7 +67,9 @@ import mathtools.distribution.tools.FileDropper;
 import mathtools.distribution.tools.FileDropperData;
 import systemtools.BaseDialog;
 import systemtools.MsgBox;
+import tools.NetHelper;
 import tools.SetupData;
+import ui.dialogs.WaitDialog;
 import ui.images.Images;
 import ui.tools.WindowSizeStorage;
 
@@ -103,7 +107,12 @@ public class BookDataDialog extends BaseDialog {
 	private final JButton openBookButton;
 
 	/**
-	 * Globales Setup-Singletoon
+	 * Schaltfläche zum direkten Hinterladen des Buches
+	 */
+	private final JButton downloadBookButton;
+
+	/**
+	 * Globales Setup-Singleton
 	 */
 	private final SetupData setup;
 
@@ -223,7 +232,7 @@ public class BookDataDialog extends BaseDialog {
 		text.append("</body></html>");
 		right.add(new JLabel(text.toString()));
 
-		/* Download-Link */
+		/* Homepage-Link */
 		right.add(new JLabel("<html><body><p style=\"font-size: 110%; margin-top: 20px;\"><b>"+Language.tr("BookData.Homepage")+":</b></p></body></html>"));
 		final JLabel link=new JLabel("<html><body><p style=\"color: blue; text-decoration: underline; font-size: 110%; margin-top: 10px;\">"+HOMEPAGE+"</p></body></html>");
 		link.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -281,6 +290,16 @@ public class BookDataDialog extends BaseDialog {
 		openBookButton.addActionListener(e->openPDF(getBookPDF()));
 		openBookButton.addAncestorListener(new AncestorAdapter() {
 			@Override public void ancestorMoved(AncestorEvent event) {right.setPreferredSize(new Dimension(0,openBookButton.getY()+openBookButton.getHeight()+10));}
+		});
+
+		/* Buch herunterladen */
+		right.add(Box.createVerticalStrut(20));
+		right.add(downloadBookButton=new JButton(Language.tr("BookData.BookPDF.Download"),Images.HELP_HOMEPAGE.getIcon()));
+		downloadBookButton.setToolTipText(Language.tr("BookData.BookPDF.Download.Tooltip"));
+		downloadBookButton.setAlignmentX(Component.LEFT_ALIGNMENT);
+		downloadBookButton.addActionListener(e->downloadPDF());
+		downloadBookButton.addAncestorListener(new AncestorAdapter() {
+			@Override public void ancestorMoved(AncestorEvent event) {right.setPreferredSize(new Dimension(0,downloadBookButton.getY()+downloadBookButton.getHeight()+10));}
 		});
 
 		right.add(Box.createVerticalGlue());
@@ -371,6 +390,7 @@ public class BookDataDialog extends BaseDialog {
 
 		final boolean bookAvailable=getBookPDF().isFile();
 		openBookButton.setEnabled(bookAvailable);
+		downloadBookButton.setEnabled(!bookAvailable);
 		info1.setVisible(bookAvailable);
 		info2.setVisible(bookAvailable);
 	}
@@ -484,6 +504,73 @@ public class BookDataDialog extends BaseDialog {
 		} catch (IOException e) {
 			return false;
 		}
+	}
+
+	/**
+	 * SpringerLink-URL zu dem Lehrbuch<br>
+	 * (Kann nur aufgerufen werden, wenn die aktuelle Nutzer-IP von SpringerLink als berechtigt
+	 * angesehen wird. Andernfalls wird nur eine html-Datei geliefert.)
+	 * @see #downloadPDF()
+	 */
+	private static final String bookURL="https://link.springer.com/content/pdf/10.1007%2F978-3-658-34668-3.pdf";
+
+	/**
+	 * Standardmäßiger Dateiname für das Buch
+	 * @see #downloadPDF()
+	 */
+	private static final String bookDefaultFileName="Herzog2021_Book_SimulationMitDemWarteschlangen.pdf";
+
+	/**
+	 * Versucht das Buch von SpringerLink herunterzuladen und es lokal zu speichern.
+	 */
+	private void downloadPDF() {
+		/* Buch schon vorhanden? */
+		final File outputFile=new File(SetupData.getSetupFolder(),bookDefaultFileName);
+		if (outputFile.isFile()) {
+			setBookFile(outputFile);
+			return;
+		}
+
+		/* Datei herunterladen */
+		byte[] data=null;
+		try {
+			final URL url=new URL(bookURL);
+			data=WaitDialog.workBytes(this,()->NetHelper.loadBinary(url,null,false,true),WaitDialog.Mode.DOWNLOAD_FILE); /* onlySecuredURLs=false ist leider nötig */
+		} catch (MalformedURLException e1) {
+			data=null;
+		}
+
+		if (data==null || data.length==0) {
+			MsgBox.error(this,Language.tr("BookData.BookPDF.Download.ErrorTitle"),Language.tr("BookData.BookPDF.Download.ErrorInfo"));
+			return;
+		}
+
+		/* Prüfen, ob wir eine pdf erhalten haben */
+		if (data.length<5 || data[0]!='%' || data[1]!='P' || data[2]!='D' || data[3]!='F' || data[4]!='-') {
+			MsgBox.error(this,Language.tr("BookData.BookPDF.Download.ErrorTitle"),Language.tr("BookData.BookPDF.Download.ErrorInfoLink"));
+			return;
+		}
+
+		/* Speichern */
+		try (FileOutputStream output=new FileOutputStream(outputFile)) {
+			output.write(data);
+		} catch (IOException e) {
+			MsgBox.error(this,Language.tr("BookData.BookPDF.Download.ErrorSaveTitle"),String.format(Language.tr("BookData.BookPDF.Download.ErrorSaveInfo"),outputFile.toString()));
+			return;
+		}
+
+		/* Eintragen */
+		setBookFile(outputFile);
+	}
+
+	/**
+	 * Stellt einen neuen Pfad zur Buch-pdf ein.
+	 * @param file	Buch-pdf Pfad
+	 * @see #downloadPDF()
+	 */
+	private void setBookFile(final File file) {
+		pdfEdit.setText(file.toString());
+		pdfEditUpdate();
 	}
 
 	/**

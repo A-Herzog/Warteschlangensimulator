@@ -16,9 +16,12 @@
 package tools;
 
 import java.io.BufferedReader;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.Authenticator;
+import java.net.HttpURLConnection;
 import java.net.InetSocketAddress;
 import java.net.PasswordAuthentication;
 import java.net.Proxy;
@@ -29,7 +32,9 @@ import java.security.cert.CertificateExpiredException;
 import java.security.cert.CertificateNotYetValidException;
 import java.security.cert.X509Certificate;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.net.ssl.HttpsURLConnection;
 
@@ -116,11 +121,47 @@ public class NetHelper {
 	 * @param onlySecuredURLs	Nur Verbindungen zu hinterlegter Home-URL zulassen
 	 * @return	Serververbindung oder <code>null</code>, wenn die Verbindung fehlgeschlagen ist.
 	 */
-	public static URLConnection openConnection(final URL url, final boolean sendUserAgentString, final boolean onlySecuredURLs) {
-		try {
+	public static URLConnection openConnection(URL url, final boolean sendUserAgentString, final boolean onlySecuredURLs) {
+		return openConnection(url,sendUserAgentString?"":null,onlySecuredURLs,false);
+	}
+
+	/**
+	 * Öffnet die Verbindung zum Server, um eine Datei herunterzuladen
+	 * @param url	Request-URL
+	 * @param userAgentString	Benutzer-Agent-String (kann <code>null</code> sein, dann wird kein User-Agent gesendet)
+	 * @param onlySecuredURLs	Nur Verbindungen zu hinterlegter Home-URL zulassen
+	 * @param followCookieBasedRedirects	Weiterleitungen manuell folgen und dabei ggf. Cookies weitergeben (<code>true</code>) oder Java-Standardmechanismus verwenden (<code>false</code>)
+	 * @return	Serververbindung oder <code>null</code>, wenn die Verbindung fehlgeschlagen ist.
+	 */
+	public static URLConnection openConnection(URL url, final String userAgentString, final boolean onlySecuredURLs, final boolean followCookieBasedRedirects) {
+		URL lastURL=null;
+		final Map<String,String> cookiesSecure=new HashMap<>();
+		final Map<String,String> cookiesAll=new HashMap<>();
+		int redirects=0;
+
+		while (true) try {
 			/* Verbindung vorbereiten */
 			final URLConnection connect=url.openConnection(getProxy());
-			if (!sendUserAgentString) connect.setRequestProperty("User-Agent","");
+
+			/* Verbindung vorbereiten: User-Agent */
+			if (userAgentString!=null) connect.setRequestProperty("User-Agent",userAgentString);
+
+			/* Verbindung vorbereiten: Referer */
+			if (lastURL!=null) connect.setRequestProperty("Referer",lastURL.toString());
+
+			/* Verbindung vorbereiten: Cookies */
+			final StringBuilder cookieBuilder=new StringBuilder();
+			final Map<String,String> cookies=(connect instanceof HttpsURLConnection)?cookiesSecure:cookiesAll;
+			for (String key: cookies.keySet()) {
+				if (cookieBuilder.length()>0) cookieBuilder.append("; ");
+				cookieBuilder.append(key+"="+cookies.get(key));
+			}
+			if (cookieBuilder.length()>0) connect.setRequestProperty("Cookie",cookieBuilder.toString());
+
+			/* Verbindung vorbereiten: Weiterleitungen automatisch oder manuell folgen? */
+			if (followCookieBasedRedirects && (connect instanceof HttpURLConnection)) {
+				((HttpURLConnection)connect).setInstanceFollowRedirects(false);
+			}
 
 			if (onlySecuredURLs) {
 				/* Nur https */
@@ -134,15 +175,46 @@ public class NetHelper {
 			/* Verbindung öffnen */
 			connect.connect();
 
+			/* Ggf. Zertifikat prüfen */
 			if (onlySecuredURLs) {
 				if (!(connect instanceof HttpsURLConnection)) return null;
 				final HttpsURLConnection https=(HttpsURLConnection)connect;
 				if (!checkCertificate(https.getServerCertificates())) return null;
 			}
 
-			return connect;
+			if (!followCookieBasedRedirects) return connect;
 
-		} catch (IOException e) {return null;}
+			/* Redirect? */
+			if (!(connect instanceof HttpURLConnection)) return null;
+			final HttpURLConnection http=(HttpURLConnection)connect;
+
+			final int status=http.getResponseCode();
+			if (status==HttpURLConnection.HTTP_OK) return connect;
+			if (status!=HttpURLConnection.HTTP_MOVED_TEMP && status!=HttpURLConnection.HTTP_MOVED_PERM && status!=HttpURLConnection.HTTP_SEE_OTHER) return null;
+
+			/* Maximale Anzahl an Weiterleitungen */
+			redirects++;
+			if (redirects>10) return null;
+
+			/* Neue Adresse und neue Cookies bestimmen */
+			if (status!=HttpURLConnection.HTTP_MOVED_PERM) lastURL=url;
+			url=new URL(connect.getHeaderField("Location"));
+			final List<String> newCookiesList=connect.getHeaderFields().get("Set-Cookie");
+			if (newCookiesList!=null) for (String newCookies: newCookiesList) if (newCookies!=null && !newCookies.trim().isEmpty()) {
+				final boolean secure=newCookies.contains("Secure");
+				for (String record: newCookies.split(";")) {
+					record=record.trim();
+					final String[] parts=record.split("=");
+					if (parts.length==2) {
+						if (parts[0].equalsIgnoreCase("Path") || parts[0].equalsIgnoreCase("Domain") || parts[0].equalsIgnoreCase("Max-Age")) continue;
+						cookiesSecure.put(parts[0],parts[1]);
+						if (!secure) cookiesAll.put(parts[0],parts[1]);
+					}
+				}
+			}
+		} catch (IOException e) {
+			return null;
+		}
 	}
 
 	/**
@@ -173,7 +245,7 @@ public class NetHelper {
 	}
 
 	/**
-	 * Lädt eine Textdatei vom Server und liefert den Inhalt als String
+	 * Lädt eine Textdatei vom Server und liefert den Inhalt als String.
 	 * @param url	Request-URL
 	 * @param sendUserAgentString	Soll ein Benutzer-Agent-String mitgeschickt werden?
 	 * @param onlySecuredURLs	Nur Verbindungen zu hinterlegter Home-URL zulassen
@@ -184,4 +256,31 @@ public class NetHelper {
 		if (lines==null) return null;
 		return String.join("\n",lines);
 	}
+
+	/**
+	 * Lädt eine Binärdatei vom Server und liefert den Inhalt zurück.
+	 * @param url	Request-URL
+	 * @param userAgentString	Benutzer-Agent-String (kann <code>null</code> sein, dann wird kein User-Agent gesendet)
+	 * @param onlySecuredURLs	Nur Verbindungen zu hinterlegter Home-URL zulassen
+	 * @param followCookieBasedRedirects	Weiterleitungen manuell folgen und dabei ggf. Cookies weitergeben (<code>true</code>) oder Java-Standardmechanismus verwenden (<code>false</code>)
+	 * @return	Daten oder <code>null</code> im Fehlerfall
+	 */
+	public static byte[] loadBinary(final URL url, final String userAgentString, final boolean onlySecuredURLs, final boolean followCookieBasedRedirects) {
+		try {
+			/* Verbindung öffnen */
+			final URLConnection connect=NetHelper.openConnection(url,userAgentString,onlySecuredURLs,true);
+			if (!(connect instanceof HttpURLConnection)) return null;
+
+			/* Daten laden */
+			try (InputStream input=connect.getInputStream(); final ByteArrayOutputStream output=new ByteArrayOutputStream()) {
+				final byte dataBuffer[]=new byte[1024*1024];
+				int bytesRead;
+				while ((bytesRead=input.read(dataBuffer,0,dataBuffer.length))!=-1) {
+					output.write(dataBuffer,0,bytesRead);
+				}
+				return output.toByteArray();
+			}
+		} catch (IOException e) {return null;}
+	}
+
 }
