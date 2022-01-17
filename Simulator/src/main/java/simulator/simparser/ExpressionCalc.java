@@ -261,6 +261,7 @@ public class ExpressionCalc extends CalcSystem {
 
 		functions.add(new CalcSymbolStationDataNumberIn());
 		functions.add(new CalcSymbolStationDataNumberOut());
+		functions.add(new CalcSymbolStationDataThroughput());
 		functions.add(new CalcSymbolStationDataCosts_sum());
 		functions.add(new CalcSymbolSimDataCounter());
 		functions.add(new CalcSymbolSimDataCounterPart());
