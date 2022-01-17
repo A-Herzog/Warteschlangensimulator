@@ -2077,6 +2077,18 @@ public final class EditorPanel extends EditorPanelBase {
 			if (!MsgBox.confirmOverwrite(getOwnerWindow(),file)) return null;
 		}
 
+		return exportModelToFile(getModel(),(statisticsGetter==null)?null:statisticsGetter.get(),surfacePanel,file);
+	}
+
+	/**
+	 * Exportiert das aktuelle Modell als Bilddatei oder pdf.	 *
+	 * @param model	Zu exportierendes Modell
+	 * @param statistics	Statistikdaten die ergänzt werden sollen (darf <code>null</code> sein)
+	 * @param surfacePanel	Haupt-Zeichenfläche
+	 * @param file	Name der Datei, in der das Modell gespeichert werden soll (darf nicht <code>null</code> sein)
+	 * @return	Gibt im Erfolgsfall <code>null</code> zurück, sonst eine Fehlermeldung.
+	 */
+	public static String exportModelToFile(final EditModel model, final Statistics statistics, final ModelSurfacePanel surfacePanel, final File file) {
 		String format="png";
 		if (file.getName().toLowerCase().endsWith(".jpg")) format="jpg";
 		if (file.getName().toLowerCase().endsWith(".jpeg")) format="jpg";
@@ -2095,13 +2107,13 @@ public final class EditorPanel extends EditorPanelBase {
 
 		if (format.equalsIgnoreCase("html")) {
 			/* HTML-Modus */
-			final HTMLOutputBuilder builder=new HTMLOutputBuilder(getModel());
+			final HTMLOutputBuilder builder=new HTMLOutputBuilder(model);
 			return builder.build(file);
 		}
 
 		if (format.equalsIgnoreCase("pptx")) {
 			/* pptx-Modus */
-			final SlidesGenerator slides=new SlidesGenerator(getModel(),getExportImage());
+			final SlidesGenerator slides=new SlidesGenerator(model,getExportImage(surfacePanel));
 			if (!slides.save(file)) return Language.tr("Editor.ExportModel.Error");
 			return null;
 		}
@@ -2109,7 +2121,6 @@ public final class EditorPanel extends EditorPanelBase {
 		if (format.equalsIgnoreCase("drawio")) {
 			/* draw.io-Modus */
 			final DrawIOExport export=new DrawIOExport(file);
-			final EditModel model=getModel();
 			export.process(model.surface,model);
 			if (!export.save()) return Language.tr("Editor.ExportModel.Error");
 			return null;
@@ -2118,10 +2129,7 @@ public final class EditorPanel extends EditorPanelBase {
 		if (format.equalsIgnoreCase("dot")) {
 			/* GraphViz-Modus */
 			final GraphVizExport export=new GraphVizExport();
-			final EditModel model=getModel();
-			Statistics statistics=null;
-			if (statisticsGetter!=null && SetupData.getSetup().statisticInTooltips) statistics=statisticsGetter.get();
-			export.process(model,statistics);
+			export.process(model,SetupData.getSetup().statisticInTooltips?statistics:null);
 			if (!export.save(file)) return Language.tr("Editor.ExportModel.Error");
 			return null;
 		}
@@ -2152,6 +2160,16 @@ public final class EditorPanel extends EditorPanelBase {
 	 * @return	Bild des Modells
 	 */
 	public BufferedImage getExportImage() {
+		return getExportImage(surfacePanel);
+	}
+
+	/**
+	 * Liefert das Bild in der Form, in der es auch per {@link #exportModelToClipboard()}
+	 * in die Zwischenablage kopiert werden würde, direkt zurück.
+	 * @param surfacePanel	Auszugebende Zeichenfläche
+	 * @return	Bild des Modells
+	 */
+	public static BufferedImage getExportImage(final ModelSurfacePanel surfacePanel) {
 		final SetupData setup=SetupData.getSetup();
 		final BufferedImage image=surfacePanel.getImageMinSize(setup.imageSize,setup.imageSize);
 		final Graphics g=image.getGraphics();

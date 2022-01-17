@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-15 00:53+0100\n"
+"POT-Creation-Date: 2022-01-17 01:13+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1882,6 +1882,19 @@ msgstr "Die Parameterreihenergebnisse konnten nicht gespeichert werden."
 
 msgid "CommandLine.Error.UnableToSaveStatistic"
 msgstr "Die Statistikdaten konnten nicht gespeichert werden."
+
+msgid "CommandLine.Export.Description.Long"
+msgstr ""
+"Dieser Befehl erwartet genau zwei weitere Parameter:\n"
+"1. Name der Eingabe-Datei\n"
+"2. Name der Ausgabedatei, die die Exportergebnisse aufnehmen soll\n"
+"Die Eingabedatei muss existieren, die Ausgabedatei darf nicht existieren."
+
+msgid "CommandLine.Export.Description.Short"
+msgstr "Exportiert ein Modell."
+
+msgid "CommandLine.Export.Name"
+msgstr "Export"
 
 msgid "CommandLine.Filter.Description.Long"
 msgstr ""

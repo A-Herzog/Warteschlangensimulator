@@ -3920,8 +3920,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[10157] = "Select transport target by";
     t[10160] = "Main.Menu.Edit.Redo";
     t[10161] = "Redo";
-    t[10164] = "Transporters.Group.Edit.Dialog.Distances.Paste.ErrorTitle";
-    t[10165] = "Error pasting the data";
+    t[10164] = "Statistic.FastAccess.Template.StationID.Get";
+    t[10165] = "ID of a station";
     t[10166] = "Surface.Decide.XML.Mode";
     t[10167] = "ModelElementDecideMode";
     t[10168] = "Main.Menu.View.ModelDescription";
@@ -6232,8 +6232,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[16163] = "Signature";
     t[16172] = "ModelDescription.SetStatisticsMode.Mode.Off";
     t[16173] = "Switch off";
-    t[16182] = "Statistic.FastAccess.Template.StationID.Get";
-    t[16183] = "ID of a station";
+    t[16182] = "CommandLine.Export.Description.Short";
+    t[16183] = "Exports a model.";
     t[16184] = "Main.Menu.View.ShowIDs";
     t[16185] = "Show IDs";
     t[16192] = "Editor.DragDropTableLoad.OptionSource.Info";
@@ -7150,6 +7150,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[18487] = "<p>Returns the excess kurtosis of the number of waiting clients in the system.</p>";
     t[18490] = "Git.System.Commit.Type.StatisticsResults";
     t[18491] = "Statistics results";
+    t[18492] = "CommandLine.Export.Name";
+    t[18493] = "Export";
     t[18494] = "Editor.Dialog.Tab.InitialVariableValues.RecordVariables.Variables";
     t[18495] = "Record variable values";
     t[18500] = "Surface.XML.Resource.CostsPerHour";
@@ -7636,6 +7638,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[19761] = "Resource \"%s\": %d needed";
     t[19766] = "FileType.Text";
     t[19767] = "Text files";
+    t[19768] = "Transporters.Group.Edit.Dialog.Distances.Paste.ErrorTitle";
+    t[19769] = "Error pasting the data";
     t[19772] = "Simulation.Creator.InvalidCapacityAvailable";
     t[19773] = "Invalid available capacity at station id=%d.";
     t[19792] = "Surface.AssignSequence.XML.Root";
@@ -8024,16 +8028,16 @@ public class Messages_en extends java.util.ResourceBundle {
     t[20817] = "Time value";
     t[20830] = "Editor.Dialog.Tab.OutputAnalysis";
     t[20831] = "Output analysis";
-    t[20832] = "Main.Menu.Edit.AutoConnect";
-    t[20833] = "Auto connect new elements";
-    t[20844] = "ProblemReporter.Item.Model";
-    t[20845] = "Model and statistical data";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_4 (java.lang.String[] t) {
+    t[20832] = "Main.Menu.Edit.AutoConnect";
+    t[20833] = "Auto connect new elements";
+    t[20844] = "ProblemReporter.Item.Model";
+    t[20845] = "Model and statistical data";
     t[20852] = "ParameterCompare.Settings.Input.Name.ErrorInfo";
     t[20853] = "No name for the input parameter was specified.";
     t[20864] = "Surface.Decide.Dialog.DecideBy.ClientType";
@@ -8914,6 +8918,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[23015] = "%s clients are at the stations.";
     t[23018] = "Transporter.Failure.MoveDown";
     t[23019] = "Move down";
+    t[23026] = "CommandLine.Export.Description.Long";
+    t[23027] = "The command expects exactly two additional parameters:\n1. Name of the input file\n3. Name of the output file which will contain the exported model\nThe input file has to be existent, the output has to be non existent.";
     t[23036] = "Statistics.AnalogValue.Flow.Stop.Done";
     t[23037] = "terminated";
     t[23046] = "NoJDK.OptionAutomatic.ErrorTitle";
@@ -10028,18 +10034,18 @@ public class Messages_en extends java.util.ResourceBundle {
     t[25751] = "Output value";
     t[25752] = "Surface.InputDDE.XML.EofMode";
     t[25753] = "ModelElementInputDDEEndOfTable";
-    t[25754] = "Surface.Process.Dialog.UseWaitingTimeTolerances";
-    t[25755] = "Clients are only willing to wait for a limited time";
-    t[25758] = "Surface.TankFlowByClient.XML.Root";
-    t[25759] = "ModelElementFlow";
-    t[25766] = "URLLoader.Select.NoFileSelected.Info";
-    t[25767] = "No file was selected for download.";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_5 (java.lang.String[] t) {
+    t[25754] = "Surface.Process.Dialog.UseWaitingTimeTolerances";
+    t[25755] = "Clients are only willing to wait for a limited time";
+    t[25758] = "Surface.TankFlowByClient.XML.Root";
+    t[25759] = "ModelElementFlow";
+    t[25766] = "URLLoader.Select.NoFileSelected.Info";
+    t[25767] = "No file was selected for download.";
     t[25774] = "NoJDK.OptionAutomatic";
     t[25775] = "Install automatically";
     t[25782] = "Simulation.Element.SourceTable.Name";
@@ -12034,18 +12040,18 @@ public class Messages_en extends java.util.ResourceBundle {
     t[30907] = "<p>Returns the standard deviation of the number of busy transporters in the specified transporter group.</p>";
     t[30910] = "Surface.LogicDo.Name";
     t[30911] = "Do";
-    t[30918] = "ModelGenerator.PrioritiesStrategy.BA";
-    t[30919] = "B before A";
-    t[30922] = "Surface.StateStatistics.Name.Short";
-    t[30923] = "State";
-    t[30926] = "Surface.Delay.XML.Type.WaitingTime";
-    t[30927] = "WaitingTime";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_6 (java.lang.String[] t) {
+    t[30918] = "ModelGenerator.PrioritiesStrategy.BA";
+    t[30919] = "B before A";
+    t[30922] = "Surface.StateStatistics.Name.Short";
+    t[30923] = "State";
+    t[30926] = "Surface.Delay.XML.Type.WaitingTime";
+    t[30927] = "WaitingTime";
     t[30928] = "ExpressionBuilder.SimulationCharacteristics.Costs.StationAll";
     t[30929] = "Station costs (all stations)";
     t[30952] = "Statistic.FastAccess.Template.SaveStatisticsFilter.Tooltip";
@@ -14040,18 +14046,18 @@ public class Messages_en extends java.util.ResourceBundle {
     t[35873] = "Wheat";
     t[35882] = "Optimizer.Tab.Target.Type.XMLElement.Button.ByXML.Hint";
     t[35883] = "Directly select the XML element to be used";
-    t[35886] = "ParameterCompare.XML.Inputs.Data";
-    t[35887] = "CompareModelsInputData";
-    t[35890] = "ParameterCompare.Table.MoveModelUp.Hint";
-    t[35891] = "Move model up in list";
-    t[35892] = "Surface.InteractiveSlider.Name";
-    t[35893] = "Slider";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_7 (java.lang.String[] t) {
+    t[35886] = "ParameterCompare.XML.Inputs.Data";
+    t[35887] = "CompareModelsInputData";
+    t[35890] = "ParameterCompare.Table.MoveModelUp.Hint";
+    t[35891] = "Move model up in list";
+    t[35892] = "Surface.InteractiveSlider.Name";
+    t[35893] = "Slider";
     t[35900] = "Surface.Action.XML.Record.ConditionType";
     t[35901] = "ConditionType";
     t[35902] = "Distribution.Gamma";
@@ -16046,18 +16052,18 @@ public class Messages_en extends java.util.ResourceBundle {
     t[40837] = "Control variable %d: %s";
     t[40838] = "ScriptPopup.Simulation.Resources.Hint";
     t[40839] = "Get or set the number of operators";
-    t[40842] = "Surface.AnimationBarChart.HistogramWizard.StepWidth";
-    t[40843] = "Step width per bar";
-    t[40846] = "Surface.AnalogAssign.Dialog.Columns.IDs";
-    t[40847] = "Element";
-    t[40856] = "ScriptPopup.Output.Print.Hint";
-    t[40857] = "Outputs the passed expression.";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_8 (java.lang.String[] t) {
+    t[40842] = "Surface.AnimationBarChart.HistogramWizard.StepWidth";
+    t[40843] = "Step width per bar";
+    t[40846] = "Surface.AnalogAssign.Dialog.Columns.IDs";
+    t[40847] = "Element";
+    t[40856] = "ScriptPopup.Output.Print.Hint";
+    t[40857] = "Outputs the passed expression.";
     t[40858] = "ModelDescription.CounterMulti.ConditionElse";
     t[40859] = "Counter if no condition is fulfilled";
     t[40860] = "CriticalStationsSignature.Root";
@@ -18052,18 +18058,18 @@ public class Messages_en extends java.util.ResourceBundle {
     t[45803] = "Server";
     t[45806] = "CommandLine.FolderFilter.ErrorLoadingFilterConfiguration";
     t[45807] = "An error occured while trying to load the filter configuration.";
-    t[45810] = "ExternalConnect.Dialog.Mode";
-    t[45811] = "Provisioning mode";
-    t[45812] = "Surface.Conveyor.Dialog.Animation";
-    t[45813] = "Animation";
-    t[45814] = "ParameterCompare.Settings.Input.Title";
-    t[45815] = "Edit parameter";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_9 (java.lang.String[] t) {
+    t[45810] = "ExternalConnect.Dialog.Mode";
+    t[45811] = "Provisioning mode";
+    t[45812] = "Surface.Conveyor.Dialog.Animation";
+    t[45813] = "Animation";
+    t[45814] = "ParameterCompare.Settings.Input.Title";
+    t[45815] = "Edit parameter";
     t[45816] = "Animation.JSResults.Script";
     t[45817] = "Script";
     t[45818] = "Statistics.TimesByClientTypes";
@@ -20058,18 +20064,18 @@ public class Messages_en extends java.util.ResourceBundle {
     t[50875] = "The specified name for the new layer is already in use by another layer.";
     t[50880] = "ScriptPopup.Client.ResidenceTime";
     t[50881] = "Residence time";
-    t[50886] = "ExpressionBuilder.ClientsAtQueue.CoefficientOfVariationOfTheNumber";
-    t[50887] = "<p>Returns the coefficient of variation of the number of clients at the queue of the station whose ID is specified in the parameter.</p>\n<p>Alternatively, the ID of a client source can be specified, in which case the results refer to the clients which are created created at the selected source.</p>";
-    t[50890] = "ModelDescription.TransportResourceRecord.DelayedRelease.ClientType";
-    t[50891] = "Delayed resource release at client type \"%s\"";
-    t[50892] = "Editor.Dialog.Tab.RunTimeStatistics.Table.Edit.Mode";
-    t[50893] = "Record type per interval";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_10 (java.lang.String[] t) {
+    t[50886] = "ExpressionBuilder.ClientsAtQueue.CoefficientOfVariationOfTheNumber";
+    t[50887] = "<p>Returns the coefficient of variation of the number of clients at the queue of the station whose ID is specified in the parameter.</p>\n<p>Alternatively, the ID of a client source can be specified, in which case the results refer to the clients which are created created at the selected source.</p>";
+    t[50890] = "ModelDescription.TransportResourceRecord.DelayedRelease.ClientType";
+    t[50891] = "Delayed resource release at client type \"%s\"";
+    t[50892] = "Editor.Dialog.Tab.RunTimeStatistics.Table.Edit.Mode";
+    t[50893] = "Record type per interval";
     t[50894] = "Surface.TransportDestination.XML.Root";
     t[50895] = "ModelElementTransportDestination";
     t[50896] = "Main.Menu.Edit.Delete";
