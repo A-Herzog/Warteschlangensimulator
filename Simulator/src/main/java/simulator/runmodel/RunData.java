@@ -1441,10 +1441,10 @@ public class RunData {
 
 			while (true) {
 				double maxValue=-Double.MAX_VALUE;
+				maxIndex.clear();
 				if (allTheSamePriority) {
 					for (int i=0;i<freeResourcesListenerCurrentPriority.length;i++) if (freeResourcesListenerCurrentPriority[i]>-Double.MAX_VALUE) maxIndex.add(i);
 				} else {
-					maxIndex.clear();
 					for (int i=0;i<freeResourcesListenerCurrentPriority.length;i++) {
 						if (freeResourcesListenerCurrentPriority[i]>maxValue) {
 							maxValue=freeResourcesListenerCurrentPriority[i];
