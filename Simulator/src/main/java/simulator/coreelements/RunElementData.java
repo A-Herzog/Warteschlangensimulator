@@ -39,12 +39,20 @@ public class RunElementData {
 
 	/**
 	 * Speichert, wie viele Kunden (inkl. Warm-up-Kunden) bisher an der Station eingetroffen sind.
+	 * @see #clientsNonWarmUp
 	 */
 	public long clients;
+
 	/**
 	 * Speichert, wie viele Kunden sich momentan in der Station aufhalten.
 	 */
 	public int clientsAtStation;
+
+	/**
+	 * Speichert, wie viele Kunden (ohne Warm-up-Kunden) bisher an der Station eingetroffen sind.
+	 * @see #clients
+	 */
+	public long clientsNonWarmUp;
 
 	/**
 	 * Speichert, wie viele Kunden sich momentan in der Warteschlange der Station aufhalten.
@@ -217,6 +225,7 @@ public class RunElementData {
 	public RunElementData(final RunElement station) {
 		this.station=station;
 		clients=0;
+		clientsNonWarmUp=0;
 		lastArrival=-1;
 		lastBatchArrival=-1;
 		lastArrivalByClientType=null;

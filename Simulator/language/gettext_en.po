@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-17 01:13+0100\n"
+"POT-Creation-Date: 2022-01-18 00:13+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -6607,6 +6607,12 @@ msgstr "Throughput at a station"
 
 msgid "ExpressionBuilder.SimulationCharacteristics.StationInputOutput.Throughput.Info"
 msgstr "<p>Gets the throughput measured in arrivals per second at station id.</p>"
+
+msgid "ExpressionBuilder.SimulationCharacteristics.StationInputOutput.ThroughputSystem"
+msgstr "Throughput at the system"
+
+msgid "ExpressionBuilder.SimulationCharacteristics.StationInputOutput.ThroughputSystem.Info"
+msgstr "<p>Gets the throughput measured in arrivals per second at the system.</p>"
 
 msgid "ExpressionBuilder.SimulationCharacteristics.Sum"
 msgstr "Sum"

@@ -1888,6 +1888,18 @@ public class ExpressionBuilderSimulationData {
 					Language.tr("ExpressionBuilder.SimulationCharacteristics.StationInputOutput.NumberOut")+" (NumberOut)",
 					"NumberOut(id)",
 					Language.tr("ExpressionBuilder.SimulationCharacteristics.StationInputOutput.NumberOut.Info"));
+			addTreeNode(
+					sub,
+					filterUpper,
+					Language.tr("ExpressionBuilder.SimulationCharacteristics.StationInputOutput.ThroughputSystem")+" (Throughput)",
+					"Throughput()",
+					Language.tr("ExpressionBuilder.SimulationCharacteristics.StationInputOutput.ThroughputSystem.Info"));
+			addTreeNode(
+					sub,
+					filterUpper,
+					Language.tr("ExpressionBuilder.SimulationCharacteristics.StationInputOutput.Throughput")+" (Throughput)",
+					"Throughput(id)",
+					Language.tr("ExpressionBuilder.SimulationCharacteristics.StationInputOutput.Throughput.Info"));
 
 			if (sub.getChildCount()>0) group.add(sub);
 		}

@@ -81,7 +81,7 @@ public class Statistics extends StatisticsBase {
 	public final StatisticsMultiPerformanceIndicator stationsInterarrivalTime;
 
 	/**
-	 * Zwischenankunftszeiten der Kunden bei den einzelnen Stationen (Batch
+	 * Zwischenankunftszeiten der Kunden bei den einzelnen Stationen (Batch)
 	 */
 	public final StatisticsMultiPerformanceIndicator stationsInterarrivalTimeBatch;
 

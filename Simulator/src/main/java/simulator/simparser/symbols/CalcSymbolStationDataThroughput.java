@@ -19,6 +19,7 @@ import simulator.coreelements.RunElementData;
 import simulator.elements.RunElementThroughputData;
 import simulator.runmodel.SimulationData;
 import simulator.simparser.coresymbols.CalcSymbolStationData;
+import statistics.StatisticsDataPerformanceIndicator;
 
 /**
  * Liefert den Durchsatz an Station id (1. Parameter).
@@ -37,6 +38,11 @@ public class CalcSymbolStationDataThroughput extends CalcSymbolStationData {
 	}
 
 	@Override
+	protected boolean hasAllData() {
+		return true;
+	}
+
+	@Override
 	protected double calc(final RunElementData data) {
 		if (data instanceof RunElementThroughputData) return ((RunElementThroughputData)data).getValue(true);
 
@@ -46,6 +52,20 @@ public class CalcSymbolStationDataThroughput extends CalcSymbolStationData {
 		final double time=simData.statistics.clientsInSystem.getSum();
 		if (time<=0.0) return 0.0;
 
-		return data.clients/time;
+		return data.clientsNonWarmUp/time; // FIXME Bei RunData "data.clients++;" um "if (!isWarmUp) data.clientsNonWarmUp++;" ergänzen
+	}
+
+	@Override
+	protected double calcAll() {
+		final SimulationData simData=getSimData();
+		if (simData==null) return 0.0;
+		if (simData.runData.isWarmUp) return 0.0;
+		final double time=simData.statistics.clientsInSystem.getSum();
+		if (time<=0.0) return 0.0;
+
+		long sum=0;
+		for (StatisticsDataPerformanceIndicator indicator: (StatisticsDataPerformanceIndicator[])simData.statistics.clientsInterarrivalTime.getAll(StatisticsDataPerformanceIndicator.class)) sum+=indicator.getCount();
+
+		return sum/time;
 	}
 }

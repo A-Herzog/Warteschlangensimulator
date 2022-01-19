@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-17 01:13+0100\n"
+"POT-Creation-Date: 2022-01-18 00:13+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -6594,6 +6594,12 @@ msgstr "Durchsatz an Station"
 
 msgid "ExpressionBuilder.SimulationCharacteristics.StationInputOutput.Throughput.Info"
 msgstr "<p>Liefert den Durchsatz in Ankünften pro Sekunden an der Station, deren ID in dem Parameter angegeben wurde.</p>"
+
+msgid "ExpressionBuilder.SimulationCharacteristics.StationInputOutput.ThroughputSystem"
+msgstr "Durchsatz am System"
+
+msgid "ExpressionBuilder.SimulationCharacteristics.StationInputOutput.ThroughputSystem.Info"
+msgstr "<p>Liefert den Durchsatz in Ankünften pro Sekunden am System.</p>"
 
 msgid "ExpressionBuilder.SimulationCharacteristics.Sum"
 msgstr "Summe"

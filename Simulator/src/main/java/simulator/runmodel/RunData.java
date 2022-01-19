@@ -496,6 +496,7 @@ public class RunData {
 		final RunElementData data=(stationData==null)?station.getData(simData):stationData;
 
 		data.clients++;
+		if (!isWarmUp) data.clientsNonWarmUp++;
 
 		if (isWarmUp) {
 			data.lastArrival=now;
