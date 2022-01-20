@@ -16,6 +16,7 @@
 package simulator.editmodel;
 
 import java.awt.Color;
+import java.awt.Point;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -1130,6 +1131,34 @@ public final class EditModel extends EditModelBase implements Cloneable  {
 		}
 
 		return null;
+	}
+
+	@Override
+	protected void processLoadedData() {
+		super.processLoadedData();
+
+		for (ModelElement element1: surface.getElements()) {
+			if (element1 instanceof ModelElementBox) {
+				final ModelElementBox box=(ModelElementBox)element1;
+				if (box.getPosition(true).x<0 || box.getPosition(true).y<0) {
+					final Point position=box.getPosition(false);
+					position.x=Math.max(0,position.x);
+					position.y=Math.max(0,position.y);
+					box.setPosition(position);
+				}
+			}
+			if (element1 instanceof ModelElementSub) for (ModelElement element2: ((ModelElementSub)element1).getSubSurface().getElements()) if (element2 instanceof ModelElementBox) {
+				final ModelElementBox box=(ModelElementBox)element1;
+				if (box.getPosition(true).x<0 || box.getPosition(true).y<0) {
+					final Point position=box.getPosition(false);
+					position.x=Math.max(0,position.x);
+					position.y=Math.max(0,position.y);
+					box.setPosition(position);
+				}
+			}
+		}
+
+		surface.initAfterLoad();
 	}
 
 	@Override
