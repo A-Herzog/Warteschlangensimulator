@@ -3232,8 +3232,10 @@ public class MainPanel extends MainPanelBase {
 		final StationStatisticsDialog dialog=new StationStatisticsDialog(this,model);
 		if (dialog.getClosedBy()==BaseDialog.CLOSED_BY_OK) {
 			if (!modelOrig.equalsEditModel(model)) {
+				final File file=editorPanel.getLastFile();
 				editorPanel.setModel(model);
 				editorPanel.setModelChanged(true);
+				editorPanel.setLastFile(file);
 			}
 		}
 	}

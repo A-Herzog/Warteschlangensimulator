@@ -9,6 +9,8 @@
 
 <h1>Stationen in der Statistik erfassen Dialog</h1>
 
+<h2>Statistikerfassung</h2>
+
 <p>
 Im Normalfall werden die Anzahlen an Kunden an den Stationen (gesamt und wartend)
 sowie die Zwischenankunfts- und die Zwischenabgangszeiten an allen Stationen erfasst.
@@ -21,6 +23,22 @@ die Simulationsgeschwindigkeit geringfügig.
 <p>
 Solange es keine unmittelbaren Gründe gibt, die Statistikerfassung zu reduzieren, wird
 empfohlen, stets die Erfassung der Daten an allen Station aktiv zu lassen.
+</p>
+
+<h2>Intervalllänge für Maximaldurchsatz</h2>
+
+<p>
+Da es sich bei Kundenankünften um diskrete Ereignisse handelt, kann die Erfassung des
+maximalen Durchsatzes, d.h. der maximalen Anzahl an Kundenankünften pro Zeiteinheit
+nur jeweils über explizit angegebene Intervalle erfolgen. Auf dieser Dialogseite
+kann die jeweils zu verwendende Intervalllänge pro Station eingestellt werden.
+</p>
+
+<p>
+Aus Gründen der besseren Vergleichbarkeit ist es empfehlenswert, denselben Wert
+für alle Stationen zu verwenden. Weiterhin ist zu bedenken, dass sich stochastische
+Effekte um so stärker gegenseitig ausmitteln, je länger die Intervalle gewählt sind,
+d.h. kürze Intervalle führen zu tendenziell höheren maximalen Durchsätzen.
 </p>
 
 </body>

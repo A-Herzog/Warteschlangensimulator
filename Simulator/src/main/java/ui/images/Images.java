@@ -582,6 +582,12 @@ public enum Images {
 	/** Symbol "Simulation - Statistikaufzeichnung konfigurieren" */
 	SIMULATION_STATISTICS("chart_curve.png"),
 
+	/** Symbol "Simulation - Statistikaufzeichnung konfigurieren" - "Statistikerfassung" */
+	SIMULATION_STATISTICS_STATISTICS("Check.png"),
+
+	/** Symbol "Simulation - Statistikaufzeichnung konfigurieren" - "Intervalllänge für Maximaldurchsatz" */
+	SIMULATION_STATISTICS_MAXTHROUGHPUT("Process.png"),
+
 	/** Symbol "Simulation - In Logdatei aufzeichnen - als Text" */
 	SIMULATION_LOG_MODE_FILE("page.png"),
 

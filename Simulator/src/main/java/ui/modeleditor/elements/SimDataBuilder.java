@@ -104,6 +104,20 @@ public class SimDataBuilder {
 			results.append(String.format(Language.tr("Surface.PopupMenu.SimulationStatisticsData.Data.LastLeaveByClientType"),clientType,SimData.formatSimTime(data.lastLeaveByClientType[i]))+"\n");
 		}
 
+		boolean throughputHeadingPrinted=false;
+		final double time=simData.statistics.clientsInSystem.getSum();
+		if (time>0.0) {
+			long sum=0;
+			for (StatisticsDataPerformanceIndicator indicator: (StatisticsDataPerformanceIndicator[])simData.statistics.clientsInterarrivalTime.getAll(StatisticsDataPerformanceIndicator.class)) sum+=indicator.getCount();
+			throughputHeadingPrinted=true;
+			results.append("\n"+Language.tr("Statistics.Throughput")+":\n");
+			results.append(Language.tr("Statistics.Throughput.Average")+": "+StatisticViewerOverviewText.getMaxThroughputText(sum/time)+"\n");
+		}
+		if (data.maxThroughputIntervalLength>0) {
+			if (!throughputHeadingPrinted) results.append("\n"+Language.tr("Statistics.Throughput")+":\n");
+			results.append(Language.tr("Statistics.Throughput.Maximum")+": "+StatisticViewerOverviewText.getMaxThroughputText(1000.0*data.maxThroughput/data.maxThroughputIntervalLength)+" ("+String.format(Language.tr("Statistics.Throughput.Maximum.IntervalLength"),NumberTools.formatLong(data.maxThroughputIntervalLength/1000))+")\n");
+		}
+
 		if (data.statisticWaiting!=null && data.statisticWaiting.getMean()>0) {
 			results.append("\n"+Language.tr("Statistics.WaitingTimes")+":\n");
 			results.append(Language.tr("Statistics.NumberOfClients")+": "+NumberTools.formatLong(data.statisticWaiting.getCount())+"\n");

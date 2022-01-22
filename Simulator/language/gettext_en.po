@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-18 00:13+0100\n"
+"POT-Creation-Date: 2022-01-21 22:44+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -6607,6 +6607,18 @@ msgstr "Throughput at a station"
 
 msgid "ExpressionBuilder.SimulationCharacteristics.StationInputOutput.Throughput.Info"
 msgstr "<p>Gets the throughput measured in arrivals per second at station id.</p>"
+
+msgid "ExpressionBuilder.SimulationCharacteristics.StationInputOutput.ThroughputMax"
+msgstr "Maximum throughput at a station"
+
+msgid "ExpressionBuilder.SimulationCharacteristics.StationInputOutput.ThroughputMax.Info"
+msgstr "<p>Gets the maximum measured throughput measured in arrivals per second at station id.</p>"
+
+msgid "ExpressionBuilder.SimulationCharacteristics.StationInputOutput.ThroughputMaxInterval"
+msgstr "Interval length for maximum throughput at a station"
+
+msgid "ExpressionBuilder.SimulationCharacteristics.StationInputOutput.ThroughputMaxInterval.Info"
+msgstr "<p>Gets the interval length in seconds used to record the maximum throughput at station id.</p>"
 
 msgid "ExpressionBuilder.SimulationCharacteristics.StationInputOutput.ThroughputSystem"
 msgstr "Throughput at the system"
@@ -18479,13 +18491,40 @@ msgid "SlidesGenerator.ModellParameters"
 msgstr "Model parameters"
 
 msgid "StationStatistics.DialogHint"
-msgstr "The simulation can be accelerated and the scope of statistics reduced by deactivating the statistics recording at individual stations. In the default case it is recommended to leave the recording at all stations in the active state."
+msgstr "The simulation can be accelerated and the scope of statistics reduced by deactivating the statistics recording at individual stations. In the default case it is recommended to leave the recording at all stations in the active state. The recording of the maximum throughput requires the definition of intervals to be considered in each case. These interval lengths can be defined individually for each station. For better comparability of the values, however, the use of a uniform value is recommended."
+
+msgid "StationStatistics.MaxThroughputIntervalLength.ColIntervalSeconds"
+msgstr "Interval length (seconds)"
+
+msgid "StationStatistics.MaxThroughputIntervalLength.ColNames"
+msgstr "Stations"
+
+msgid "StationStatistics.MaxThroughputIntervalLength.Error"
+msgstr "For station %s the invalid interval length \"%s\" was entered. An integer value is required."
+
+msgid "StationStatistics.MaxThroughputIntervalLength.ErrorTitle"
+msgstr "Invalid interval length"
+
+msgid "StationStatistics.MaxThroughputIntervalLength.Info"
+msgstr "Values less or equal 0 will deactivate recording."
+
+msgid "StationStatistics.MaxThroughputIntervalLength.SetForAllTitle"
+msgstr "Set for all..."
 
 msgid "StationStatistics.SelectAll"
 msgstr "Select all"
 
 msgid "StationStatistics.SelectNone"
 msgstr "Select none"
+
+msgid "StationStatistics.SetValue"
+msgstr "Set for all..."
+
+msgid "StationStatistics.TabMaxThroughputIntervalLength"
+msgstr "Maximum throughput interval lengths"
+
+msgid "StationStatistics.TabStationStatistic"
+msgstr "Statistic recording"
 
 msgid "StationStatistics.Title"
 msgstr "Record station statistics"
@@ -21068,11 +21107,23 @@ msgstr "Arrivals per minute"
 msgid "Statistics.Throughput.ArrivalsPerSecond"
 msgstr "Arrivals per second"
 
+msgid "Statistics.Throughput.Average"
+msgstr "Average throughput"
+
+msgid "Statistics.Throughput.Maximum"
+msgstr "Maximum throughput"
+
+msgid "Statistics.Throughput.Maximum.IntervalLength"
+msgstr "Interval length for recording: %s seconds"
+
 msgid "Statistics.Throughput.NoThroughput"
 msgstr "The simulation model does not contain throughput counters."
 
 msgid "Statistics.ThroughputUnit"
 msgstr "Unit for throughput"
+
+msgid "Statistics.ThroughputUnit.Maximum"
+msgstr "Unit for maximum throughput"
 
 msgid "Statistics.TimeUnit.Day"
 msgstr "day"
@@ -21586,6 +21637,9 @@ msgstr "StatisticsInterLeavingTimesStations"
 
 msgid "Statistics.XML.Element.InterLeavingStationsByClientType"
 msgstr "StatisticsInterLeavingTimesStationsClients"
+
+msgid "Statistics.XML.Element.MaxThroughput"
+msgstr "StatisticsMaxThroughput"
 
 msgid "Statistics.XML.Element.ProcessAllClients"
 msgstr "StatisticsProcessTimesAllClients"
@@ -31034,6 +31088,9 @@ msgstr "Angled around"
 
 msgid "Surface.XML.LineWidth"
 msgstr "ModelElementLineWidth"
+
+msgid "Surface.XML.MaxThroughputSeconds"
+msgstr "ModelElementMaximumThroughputSeconds"
 
 msgid "Surface.XML.Model.Root"
 msgstr "Model"

@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-18 00:13+0100\n"
+"POT-Creation-Date: 2022-01-21 22:44+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -6594,6 +6594,18 @@ msgstr "Durchsatz an Station"
 
 msgid "ExpressionBuilder.SimulationCharacteristics.StationInputOutput.Throughput.Info"
 msgstr "<p>Liefert den Durchsatz in Ankünften pro Sekunden an der Station, deren ID in dem Parameter angegeben wurde.</p>"
+
+msgid "ExpressionBuilder.SimulationCharacteristics.StationInputOutput.ThroughputMax"
+msgstr "Maximaler Durchsatz an Station"
+
+msgid "ExpressionBuilder.SimulationCharacteristics.StationInputOutput.ThroughputMax.Info"
+msgstr "<p>Liefert den maximal gemessenen Durchsatz in Ankünften pro Sekunden an der Station, deren ID in dem Parameter angegeben wurde.</p>"
+
+msgid "ExpressionBuilder.SimulationCharacteristics.StationInputOutput.ThroughputMaxInterval"
+msgstr "Intervalllänge für maximalen Durchsatz an Station"
+
+msgid "ExpressionBuilder.SimulationCharacteristics.StationInputOutput.ThroughputMaxInterval.Info"
+msgstr "<p>Liefert die Intervalllänge in Sekunden, die jeweils für die Erfassung des maximalen Durchsatzes an der Station, deren ID in dem Parameter angegeben wurde, verwendet wird.</p>"
 
 msgid "ExpressionBuilder.SimulationCharacteristics.StationInputOutput.ThroughputSystem"
 msgstr "Durchsatz am System"
@@ -18485,13 +18497,40 @@ msgid "SlidesGenerator.ModellParameters"
 msgstr "Modellparameter"
 
 msgid "StationStatistics.DialogHint"
-msgstr "Durch die gezielte Deaktivierung der Statistikerfassung an einzelnen Stationen kann die Simulation beschleunigt und der Statistikumfang reduziert werden. Im Standardfall wird empfohlen, die Erfassung an allen Stationen im aktiv Zustand zubelassen."
+msgstr "Durch die gezielte Deaktivierung der Statistikerfassung an einzelnen Stationen kann die Simulation beschleunigt und der Statistikumfang reduziert werden. Im Standardfall wird empfohlen, die Erfassung an allen Stationen im aktiv Zustand zubelassen. Die Erfassung des maximalen Durchsatzes setzt die Festlegung von jeweils zu betrachtenden Intervallen voraus. Diese Intervalllängen können individuell pro Station festgelegt werden. Zwecks besserer Vergleichbarkeit der Werte wird jedoch die Verwendung eines einheitlichen Wertes empfohlen."
+
+msgid "StationStatistics.MaxThroughputIntervalLength.ColIntervalSeconds"
+msgstr "Intervalllängen (Sekunden)"
+
+msgid "StationStatistics.MaxThroughputIntervalLength.ColNames"
+msgstr "Stationen"
+
+msgid "StationStatistics.MaxThroughputIntervalLength.Error"
+msgstr "An Station %s wurde die ungültige Intervalllänge \"%s\" angegeben. Es muss eine Ganzzahl angegeben werden."
+
+msgid "StationStatistics.MaxThroughputIntervalLength.ErrorTitle"
+msgstr "Ungültige Intervalllänge"
+
+msgid "StationStatistics.MaxThroughputIntervalLength.Info"
+msgstr "Werte kleiner oder gleich 0 schalten die Erfassung ab."
+
+msgid "StationStatistics.MaxThroughputIntervalLength.SetForAllTitle"
+msgstr "Für alle einstellen..."
 
 msgid "StationStatistics.SelectAll"
 msgstr "Alle auswählen"
 
 msgid "StationStatistics.SelectNone"
 msgstr "Alle abwählen"
+
+msgid "StationStatistics.SetValue"
+msgstr "Für alle einstellen..."
+
+msgid "StationStatistics.TabMaxThroughputIntervalLength"
+msgstr "Intervalllänge für Maximaldurchsatz"
+
+msgid "StationStatistics.TabStationStatistic"
+msgstr "Statistikerfassung"
 
 msgid "StationStatistics.Title"
 msgstr "Stationen in der Statistik erfassen"
@@ -21076,11 +21115,23 @@ msgstr "Ankünfte pro Minute"
 msgid "Statistics.Throughput.ArrivalsPerSecond"
 msgstr "Ankünfte pro Sekunde"
 
+msgid "Statistics.Throughput.Average"
+msgstr "Mittlerer Durchsatz"
+
+msgid "Statistics.Throughput.Maximum"
+msgstr "Maximaler Durchsatz"
+
+msgid "Statistics.Throughput.Maximum.IntervalLength"
+msgstr "Intervalllänge für Erfassung: %s Sekunden"
+
 msgid "Statistics.Throughput.NoThroughput"
 msgstr "Das Simulationsmodell enthält keine Durchsatzzähler."
 
 msgid "Statistics.ThroughputUnit"
 msgstr "Einheit für Durchsatz"
+
+msgid "Statistics.ThroughputUnit.Maximum"
+msgstr "Einheit für maximalen Durchsatz"
 
 msgid "Statistics.TimeUnit.Day"
 msgstr "Tag"
@@ -21594,6 +21645,9 @@ msgstr "StatistikZwischenabgangszeitenStationen"
 
 msgid "Statistics.XML.Element.InterLeavingStationsByClientType"
 msgstr "StatistikZwischenabgangszeitenStationenKunden"
+
+msgid "Statistics.XML.Element.MaxThroughput"
+msgstr "StatistikMaximalerDurchsatz"
 
 msgid "Statistics.XML.Element.ProcessAllClients"
 msgstr "StatistikBedienzeitenAlleKunden"
@@ -31052,6 +31106,9 @@ msgstr "Abgerundet abgewinkelt"
 
 msgid "Surface.XML.LineWidth"
 msgstr "ModellElementLinienBreite"
+
+msgid "Surface.XML.MaxThroughputSeconds"
+msgstr "ModellElementMaximalerDurchsatzSekunden"
 
 msgid "Surface.XML.Model.Root"
 msgstr "Modell"

@@ -37,6 +37,7 @@ import simulator.statistics.Statistics;
 import statistics.StatisticsDataPerformanceIndicator;
 import statistics.StatisticsQuotientPerformanceIndicator;
 import statistics.StatisticsSimpleCountPerformanceIndicator;
+import statistics.StatisticsSimpleValueMaxPerformanceIndicator;
 import statistics.StatisticsTimePerformanceIndicator;
 import ui.modeleditor.coreelements.ModelElement;
 import ui.modeleditor.coreelements.ModelElementBox;
@@ -324,8 +325,9 @@ public class EditorPanelStatistics {
 	 * @param name	Name der Station oder des Kundentyps
 	 * @param lines	Ausgabeobjekt
 	 * @param nameIsClientType	Handelt es sich bei dem Namen um einen Kundentyp?
+	 * @param element	Station auf die sich die Daten beziehen (kann <code>null</code> sein)
 	 */
-	private void addFullInformation(final Statistics statistics, final String name, final List<String> lines, final boolean nameIsClientType) {
+	private void addFullInformation(final Statistics statistics, final String name, final List<String> lines, final boolean nameIsClientType, final ModelElement element) {
 		final StatisticsDataPerformanceIndicator waiting;
 		final StatisticsDataPerformanceIndicator transfer;
 		final StatisticsDataPerformanceIndicator process;
@@ -333,6 +335,8 @@ public class EditorPanelStatistics {
 		final StatisticsTimePerformanceIndicator wip;
 		final StatisticsTimePerformanceIndicator nq;
 		String throughput=null;
+		String maxThroughput=null;
+		String maxThroughputInfo=null;
 		if (nameIsClientType) {
 			waiting=((StatisticsDataPerformanceIndicator)statistics.clientsWaitingTimes.getOrNull(name));
 			transfer=((StatisticsDataPerformanceIndicator)statistics.clientsTransferTimes.getOrNull(name));
@@ -349,6 +353,16 @@ public class EditorPanelStatistics {
 			nq=((StatisticsTimePerformanceIndicator)statistics.clientsAtStationQueueByStation.getOrNull(name));
 			final StatisticsDataPerformanceIndicator arrival=(StatisticsDataPerformanceIndicator)(statistics.stationsInterarrivalTime.getOrNull(name));
 			if (arrival!=null) throughput=StatisticViewerOverviewText.getThroughputText(arrival.getCount(),statistics);
+			final StatisticsSimpleValueMaxPerformanceIndicator maxThroughputIndicator=(StatisticsSimpleValueMaxPerformanceIndicator)(statistics.stationsMaxThroughput.getOrNull(name));
+			if (maxThroughputIndicator!=null && maxThroughputIndicator.get()>0) {
+				maxThroughput=StatisticViewerOverviewText.getMaxThroughputText(maxThroughputIndicator.get());
+				if (element instanceof ModelElementBox) {
+					final int maxThroughputIntervalLength=((ModelElementBox)element).getMaxThroughputIntervalSeconds();
+					if (maxThroughputIntervalLength>0) {
+						maxThroughputInfo="("+String.format(Language.tr("Statistics.Throughput.Maximum.IntervalLength"),NumberTools.formatLong(maxThroughputIntervalLength))+")";
+					}
+				}
+			}
 		}
 
 		if (waiting!=null && waiting.getMean()>0) lines.add("E[W]="+formatTime(waiting.getMean()));
@@ -358,7 +372,8 @@ public class EditorPanelStatistics {
 		if (nq!=null && nq.getTimeMean()>0) lines.add("E[NQ]="+StatisticTools.formatNumber(nq.getTimeMean()));
 		if (wip!=null && wip.getTimeMean()>0) lines.add("E[N]="+StatisticTools.formatNumber(wip.getTimeMean()));
 		if (throughput!=null) lines.add(Language.tr("Statistics.Throughput")+": "+throughput);
-
+		if (maxThroughput!=null) lines.add(Language.tr("Statistics.Throughput.Maximum")+": "+maxThroughput);
+		if (maxThroughputInfo!=null) lines.add(maxThroughputInfo);
 	}
 
 	/**
@@ -366,8 +381,9 @@ public class EditorPanelStatistics {
 	 * @param statistics	Statistikobjekt dem die Daten entnommen werden sollen
 	 * @param name	Name der Station
 	 * @param lines	Ausgabeobjekt
+	 * @param element	Station auf die sich die Daten beziehen (kann <code>null</code> sein)
 	 */
-	private void addTimeInformation(final Statistics statistics, final String name, final List<String> lines) {
+	private void addTimeInformation(final Statistics statistics, final String name, final List<String> lines, final ModelElement element) {
 		final StatisticsDataPerformanceIndicator waiting=((StatisticsDataPerformanceIndicator)statistics.stationsWaitingTimes.getOrNull(name));
 		final StatisticsDataPerformanceIndicator transfer=((StatisticsDataPerformanceIndicator)statistics.stationsTransferTimes.getOrNull(name));
 		final StatisticsDataPerformanceIndicator process=((StatisticsDataPerformanceIndicator)statistics.stationsProcessingTimes.getOrNull(name));
@@ -375,7 +391,19 @@ public class EditorPanelStatistics {
 		final StatisticsTimePerformanceIndicator wip=((StatisticsTimePerformanceIndicator)statistics.clientsAtStationByStation.getOrNull(name));
 		final StatisticsDataPerformanceIndicator arrival=(StatisticsDataPerformanceIndicator)(statistics.stationsInterarrivalTime.getOrNull(name));
 		String throughput=null;
+		String maxThroughput=null;
+		String maxThroughputInfo=null;
 		if (arrival!=null) throughput=StatisticViewerOverviewText.getThroughputText(arrival.getCount(),statistics);
+		final StatisticsSimpleValueMaxPerformanceIndicator maxThroughputIndicator=(StatisticsSimpleValueMaxPerformanceIndicator)(statistics.stationsMaxThroughput.getOrNull(name));
+		if (maxThroughputIndicator!=null && maxThroughputIndicator.get()>0) {
+			maxThroughput=StatisticViewerOverviewText.getMaxThroughputText(maxThroughputIndicator.get());
+			if (element instanceof ModelElementBox) {
+				final int maxThroughputIntervalLength=((ModelElementBox)element).getMaxThroughputIntervalSeconds();
+				if (maxThroughputIntervalLength>0) {
+					maxThroughputInfo="("+String.format(Language.tr("Statistics.Throughput.Maximum.IntervalLength"),NumberTools.formatLong(maxThroughputIntervalLength))+")";
+				}
+			}
+		}
 
 		if (waiting!=null && waiting.getMean()>0) lines.add("E[W]="+formatTime(waiting.getMean()));
 		if (transfer!=null && transfer.getMean()>0) lines.add("E[T]="+formatTime(transfer.getMean()));
@@ -383,6 +411,8 @@ public class EditorPanelStatistics {
 		if (residence!=null && residence.getMean()>0) lines.add("E[V]="+formatTime(residence.getMean()));
 		if (wip!=null && wip.getTimeMean()>0) lines.add("E[N]="+StatisticTools.formatNumber(wip.getTimeMean()));
 		if (throughput!=null) lines.add(Language.tr("Statistics.Throughput")+": "+throughput);
+		if (maxThroughput!=null) lines.add(Language.tr("Statistics.Throughput.Maximum")+": "+maxThroughput);
+		if (maxThroughputInfo!=null) lines.add(maxThroughputInfo);
 	}
 
 	/**
@@ -401,7 +431,7 @@ public class EditorPanelStatistics {
 		final List<String> lines=new ArrayList<>();
 		if (inter!=null) lines.add("E[I]="+formatTime(inter.getMean()));
 		lines.add(nameClient);
-		addFullInformation(statistics,nameClient,lines,true);
+		addFullInformation(statistics,nameClient,lines,true,null);
 
 		return formatStatisticsData(lines);
 	}
@@ -418,7 +448,7 @@ public class EditorPanelStatistics {
 
 		final List<String> lines=new ArrayList<>();
 		lines.add(nameClient);
-		addFullInformation(statistics,nameClient,lines,true);
+		addFullInformation(statistics,nameClient,lines,true,null);
 
 		return formatStatisticsData(lines);
 	}
@@ -434,7 +464,7 @@ public class EditorPanelStatistics {
 		final String nameStation=elementStatisticsName(element);
 
 		final List<String> lines=new ArrayList<>();
-		addFullInformation(statistics,nameStation,lines,false);
+		addFullInformation(statistics,nameStation,lines,false,element);
 
 		return formatStatisticsData(lines);
 	}
@@ -450,7 +480,7 @@ public class EditorPanelStatistics {
 		final String nameStation=elementStatisticsName(element);
 
 		final List<String> lines=new ArrayList<>();
-		addTimeInformation(statistics,nameStation,lines);
+		addTimeInformation(statistics,nameStation,lines,element);
 
 		return formatStatisticsData(lines);
 	}

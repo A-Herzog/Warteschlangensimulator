@@ -52,6 +52,7 @@ import statistics.StatisticsDataPerformanceIndicator;
 import statistics.StatisticsMultiPerformanceIndicator;
 import statistics.StatisticsPerformanceIndicator;
 import statistics.StatisticsSimpleCountPerformanceIndicator;
+import statistics.StatisticsSimpleValueMaxPerformanceIndicator;
 import statistics.StatisticsTimeContinuousPerformanceIndicator;
 import statistics.StatisticsTimePerformanceIndicator;
 import statistics.StatisticsValuePerformanceIndicator;
@@ -496,7 +497,34 @@ public class RunData {
 		final RunElementData data=(stationData==null)?station.getData(simData):stationData;
 
 		data.clients++;
-		if (!isWarmUp) data.clientsNonWarmUp++;
+		if (!isWarmUp) {
+			data.clientsNonWarmUp++;
+
+			if (data.maxThroughputIntervalLength>0) {
+				/* Maximalen Anzahl an Ankünften pro Intervall erfassen */
+				if (data.maxThroughputIntervalStart<0 || now<data.maxThroughputIntervalStart) {
+					/* Start der Erfassung */
+					data.maxThroughputIntervalStart=now;
+					data.maxThroughputIntervalCount=1;
+				} else {
+					if (now-data.maxThroughputIntervalStart>data.maxThroughputIntervalLength) {
+						/* Neues Intervall */
+						if (data.maxThroughputIntervalCount>data.maxThroughput) {
+							data.maxThroughput=data.maxThroughputIntervalCount;
+							final double maxThroughputSec=1000.0*data.maxThroughput/data.maxThroughputIntervalLength;
+							((StatisticsSimpleValueMaxPerformanceIndicator)simData.statistics.stationsMaxThroughput.get(station.name)).set(maxThroughputSec);
+						}
+						final long increaseIntervals=(now-data.maxThroughputIntervalStart)/data.maxThroughputIntervalLength;
+						data.maxThroughputIntervalStart+=data.maxThroughputIntervalLength*increaseIntervals;
+
+						data.maxThroughputIntervalCount=1;
+					} else {
+						/* Ankunft im aktuellen Intervall */
+						data.maxThroughputIntervalCount++;
+					}
+				}
+			}
+		}
 
 		if (isWarmUp) {
 			data.lastArrival=now;

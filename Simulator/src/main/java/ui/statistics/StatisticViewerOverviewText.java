@@ -46,6 +46,7 @@ import statistics.StatisticsMultiPerformanceIndicator;
 import statistics.StatisticsPerformanceIndicator;
 import statistics.StatisticsQuotientPerformanceIndicator;
 import statistics.StatisticsSimpleCountPerformanceIndicator;
+import statistics.StatisticsSimpleValueMaxPerformanceIndicator;
 import statistics.StatisticsSimpleValuePerformanceIndicator;
 import statistics.StatisticsStateTimePerformanceIndicator;
 import statistics.StatisticsTimeAnalogPerformanceIndicator;
@@ -1762,6 +1763,16 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 	}
 
 	/**
+	 * Formatiert den maximalen Durchsatz
+	 * @param maxThroughput	Maximaler Durchsatz
+	 * @return	Maximaler Durchsatz als Text
+	 */
+	public static String getMaxThroughputText(final double maxThroughput) {
+		final String[] cols=getMaxThroughputColumns(maxThroughput);
+		return cols[0]+" "+cols[1];
+	}
+
+	/**
 	 * Berechnet den Durchsatz aus Ankunftsanzahl und Simulationslaufzeit.
 	 * @param clients	Anzahl an Ankünften
 	 * @param statistics	Statistikobjekt aus dem die Simulationslaufzeit ausgelesen wird
@@ -1782,6 +1793,43 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 
 		throughput*=24;
 		return new String[] {StatisticTools.formatNumber(throughput),Language.tr("Statistics.Throughput.ArrivalsPerDay")};
+	}
+
+	/**
+	 * Formatiert den maximalen Durchsatz
+	 * @param maxThroughput	Maximaler Durchsatz
+	 * @return	Maximaler Durchsatz in Form von zwei Spalten: Zahlenwert und Einheit
+	 */
+	public static String[] getMaxThroughputColumns(double maxThroughput) {
+		if (maxThroughput>=1.0) return new String[] {StatisticTools.formatNumber(maxThroughput),Language.tr("Statistics.Throughput.ArrivalsPerSecond")};
+
+		maxThroughput*=60;
+		if (maxThroughput>=1.0) return new String[] {StatisticTools.formatNumber(maxThroughput),Language.tr("Statistics.Throughput.ArrivalsPerMinute")};
+
+		maxThroughput*=60;
+		if (maxThroughput>=1.0) return new String[] {StatisticTools.formatNumber(maxThroughput),Language.tr("Statistics.Throughput.ArrivalsPerHour")};
+
+		maxThroughput*=24;
+		return new String[] {StatisticTools.formatNumber(maxThroughput),Language.tr("Statistics.Throughput.ArrivalsPerDay")};
+	}
+
+	/**
+	 * Liefert ein Station-Objekt zu einem Statistik-Stationsnamen
+	 * @param fullStationName	Statistik-Stationsnamen
+	 * @param statistics	Statistikobjekt, aus dem die Modelldaten entnommen werden sollen
+	 * @return	Liefert im Erfolgsfall das Statistik-Objekt, sonst <code>null</code>
+	 */
+	public static ModelElementBox getStationFromStatisticsName(final String fullStationName, final Statistics statistics) {
+		final int index1=fullStationName.indexOf(" (id=");
+		if (index1<0) return null;
+		final int index2=fullStationName.indexOf(")",index1+5);
+		if (index2<0) return null;
+		final String idString=fullStationName.substring(index1+5,index2);
+		final Integer id=NumberTools.getNotNegativeInteger(idString);
+		if (id==null) return null;
+		final ModelElement element=statistics.editModel.surface.getByIdIncludingSubModels(id);
+		if (element instanceof ModelElementBox) return (ModelElementBox)element;
+		return null;
 	}
 
 	/**
@@ -1841,6 +1889,13 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 			addLine(Language.tr("Statistics.MinimalInterArrivalTime")+": Min[I]="+timeAndNumber(indicator.getMin()),fastAccessBuilder.getXMLSelector(indicator,IndicatorMode.MINIMUM));
 			addLine(Language.tr("Statistics.MaximalInterArrivalTime")+": Max[I]="+timeAndNumber(indicator.getMax()),fastAccessBuilder.getXMLSelector(indicator,IndicatorMode.MAXIMUM));
 			addLine(Language.tr("Statistics.Throughput")+": "+getThroughputText(indicator.getCount(),statistics));
+			final StatisticsSimpleValueMaxPerformanceIndicator maxThroughput=(StatisticsSimpleValueMaxPerformanceIndicator)(statistics.stationsMaxThroughput.getOrNull(station));
+			if (maxThroughput!=null && maxThroughput.get()>0) {
+				String maxThroughputInfo="";
+				final ModelElementBox element=getStationFromStatisticsName(station,statistics);
+				if (element!=null && element.getMaxThroughputIntervalSeconds()>0) maxThroughputInfo=" ("+String.format(Language.tr("Statistics.Throughput.Maximum.IntervalLength"),NumberTools.formatLong(element.getMaxThroughputIntervalSeconds()))+")";
+				addLine(Language.tr("Statistics.Throughput.Maximum")+": "+getMaxThroughputText(maxThroughput.get())+maxThroughputInfo);
+			}
 			endParagraph();
 
 			outputQuantilInfoTime("I",indicator);
@@ -2415,15 +2470,33 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 					endParagraph();
 				}
 
-				final StatisticsDataPerformanceIndicator indicator=(StatisticsDataPerformanceIndicator)(statistics.stationsInterarrivalTime.get(station));
-				final long arrivalCount=indicator.getCount();
+				boolean inThroughputParagraph=false;
+
+				final StatisticsDataPerformanceIndicator indicatorThroughput=(StatisticsDataPerformanceIndicator)(statistics.stationsInterarrivalTime.get(station));
+				final long arrivalCount=indicatorThroughput.getCount();
 				if (arrivalCount>0) {
+					inThroughputParagraph=true;
 					addHeading(3,Language.tr("Statistics.Throughput"));
 					beginParagraph();
 					addLine(Language.tr("Statistics.Throughput")+": "+getThroughputText(arrivalCount,statistics));
+				}
+
+				final StatisticsSimpleValueMaxPerformanceIndicator indicatorThroughputMax=(StatisticsSimpleValueMaxPerformanceIndicator)(statistics.stationsMaxThroughput.get(station));
+				if (indicatorThroughputMax!=null && indicatorThroughputMax.get()>0) {
+					if (!inThroughputParagraph) {
+						addHeading(3,Language.tr("Statistics.Throughput"));
+						beginParagraph();
+					}
+					String maxThroughputInfo="";
+					final ModelElementBox element=getStationFromStatisticsName(station,statistics);
+					if (element!=null && element.getMaxThroughputIntervalSeconds()>0) maxThroughputInfo=" ("+String.format(Language.tr("Statistics.Throughput.Maximum.IntervalLength"),NumberTools.formatLong(element.getMaxThroughputIntervalSeconds()))+")";
+					addLine(Language.tr("Statistics.Throughput.Maximum")+": "+getMaxThroughputText(indicatorThroughputMax.get())+maxThroughputInfo);
 					endParagraph();
 				}
 
+				if (inThroughputParagraph) {
+					endParagraph();
+				}
 			}
 		}
 

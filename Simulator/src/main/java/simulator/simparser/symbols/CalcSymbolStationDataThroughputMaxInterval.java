@@ -19,27 +19,22 @@ import simulator.coreelements.RunElementData;
 import simulator.elements.RunElementThroughputData;
 import simulator.runmodel.SimulationData;
 import simulator.simparser.coresymbols.CalcSymbolStationData;
-import statistics.StatisticsDataPerformanceIndicator;
 
 /**
- * Liefert den Durchsatz an Station id (1. Parameter).
+ * Liefert die Erfassungslänge für den maximalen Durchsatz an einer Station.
  * @author Alexander Herzog
+ * @see RunElementData#maxThroughputIntervalLength
  */
-public class CalcSymbolStationDataThroughput extends CalcSymbolStationData {
+public class CalcSymbolStationDataThroughputMaxInterval extends CalcSymbolStationData {
 	/**
 	 * Namen für das Symbol
 	 * @see #getNames()
 	 */
-	private static final String[] names=new String[]{"Durchsatz","Throughput"};
+	private static final String[] names=new String[]{"DurchsatzMaxIntervall","ThroughputMaxInterval"};
 
 	@Override
 	public String[] getNames() {
 		return names;
-	}
-
-	@Override
-	protected boolean hasAllData() {
-		return true;
 	}
 
 	@Override
@@ -49,23 +44,8 @@ public class CalcSymbolStationDataThroughput extends CalcSymbolStationData {
 		final SimulationData simData=getSimData();
 		if (simData==null) return 0.0;
 		if (simData.runData.isWarmUp) return 0.0;
-		final double time=simData.statistics.clientsInSystem.getSum();
-		if (time<=0.0) return 0.0;
 
-		return data.clientsNonWarmUp/time; /* Zeit in clientsInSystem zählt erst ab Ende WarmUp, daher müssen wir die Kundenzählung auch ab diesem Zeitpunkt starten */
-	}
-
-	@Override
-	protected double calcAll() {
-		final SimulationData simData=getSimData();
-		if (simData==null) return 0.0;
-		if (simData.runData.isWarmUp) return 0.0;
-		final double time=simData.statistics.clientsInSystem.getSum();
-		if (time<=0.0) return 0.0;
-
-		long sum=0;
-		for (StatisticsDataPerformanceIndicator indicator: (StatisticsDataPerformanceIndicator[])simData.statistics.clientsInterarrivalTime.getAll(StatisticsDataPerformanceIndicator.class)) sum+=indicator.getCount();
-
-		return sum/time;
+		if (data.maxThroughputIntervalLength<=0) return 0.0;
+		return data.maxThroughputIntervalLength/1000.0;
 	}
 }

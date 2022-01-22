@@ -133,6 +133,20 @@ public class ModelElementBox extends ModelElementPosition implements ElementWith
 	private boolean drawText=true;
 
 	/**
+	 * Vorgabewert für {@link #maxThroughputIntervalSeconds}
+	 * @see #maxThroughputIntervalSeconds
+	 */
+	public static final int DEFAULT_MAX_THROUGHPUT_INTERVAL_SECONDS=3600;
+
+	/**
+	 * Intervalllänge (gemessen in Sekunden) für die Erfassung des maximalen Durchsatzes an der Station<br>
+	 * (Werte &le;0 für "aus")
+	 * @see #getMaxThroughputIntervalSeconds()
+	 * @see #setMaxThroughputIntervalSeconds(int)
+	 */
+	private int maxThroughputIntervalSeconds=DEFAULT_MAX_THROUGHPUT_INTERVAL_SECONDS;
+
+	/**
 	 * Konstruktor der Klasse <code>ModelElementBox</code>
 	 * @param model	Modell zu dem dieses Element gehören soll (kann später nicht mehr geändert werden)
 	 * @param surface	Zeichenfläche zu dem dieses Element gehören soll (kann später nicht mehr geändert werden)
@@ -202,6 +216,8 @@ public class ModelElementBox extends ModelElementPosition implements ElementWith
 		if (!box.boxFontLarge.equals(boxFontLarge)) return false;
 		if (!box.boxFontSmall.equals(boxFontSmall)) return false;
 
+		if (box.maxThroughputIntervalSeconds!=maxThroughputIntervalSeconds) return false;
+
 		return true;
 	}
 
@@ -217,6 +233,7 @@ public class ModelElementBox extends ModelElementPosition implements ElementWith
 			userBackgroundColor=box.userBackgroundColor;
 			boxFontLarge=box.boxFontLarge;
 			boxFontSmall=box.boxFontSmall;
+			maxThroughputIntervalSeconds=box.maxThroughputIntervalSeconds;
 		}
 	}
 
@@ -644,6 +661,16 @@ public class ModelElementBox extends ModelElementPosition implements ElementWith
 			if (boxFontSmall.isBold()) sub.setAttribute(Language.tr("Surface.XML.BoxFont.Bold"),"1");
 			if (boxFontSmall.isItalic()) sub.setAttribute(Language.tr("Surface.XML.BoxFont.Italic"),"1");
 		}
+
+		if (maxThroughputIntervalSeconds!=DEFAULT_MAX_THROUGHPUT_INTERVAL_SECONDS) {
+			final Element sub=doc.createElement(Language.tr("Surface.XML.MaxThroughputSeconds"));
+			node.appendChild(sub);
+			if (maxThroughputIntervalSeconds<=0) {
+				sub.setTextContent("0");
+			} else {
+				sub.setTextContent(""+maxThroughputIntervalSeconds);
+			}
+		}
 	}
 
 	/**
@@ -705,6 +732,12 @@ public class ModelElementBox extends ModelElementPosition implements ElementWith
 			if (!bold.isEmpty() && !bold.equals("0")) style+=Font.BOLD;
 			if (!italic.isEmpty() && !italic.equals("0")) style+=Font.ITALIC;
 			boxFontSmall=new Font(FontCache.getFontCache().getFamilyFromName(family).name,style,(size==null)?DEFAULT_FONT_SMALL.getSize():size.intValue());
+			return null;
+		}
+
+		if (Language.trAll("Surface.XML.MaxThroughputSeconds",name)) {
+			final Integer I=NumberTools.getInteger(content);
+			if (I==null) maxThroughputIntervalSeconds=DEFAULT_MAX_THROUGHPUT_INTERVAL_SECONDS; else maxThroughputIntervalSeconds=I;
 			return null;
 		}
 
@@ -2147,5 +2180,23 @@ public class ModelElementBox extends ModelElementPosition implements ElementWith
 		/* Schriftgrößen */
 		searcher.testInteger(this,Language.tr("Editor.DialogBase.Search.FontSize.Small"),boxFontSmall.getSize(),newFontSize->{if (newFontSize>0) boxFontSmall=boxFontSmall.deriveFont((float)newFontSize);});
 		searcher.testInteger(this,Language.tr("Editor.DialogBase.Search.FontSize.Large"),boxFontLarge.getSize(),newFontSize->{if (newFontSize>0) boxFontSmall=boxFontLarge.deriveFont((float)newFontSize);});
+	}
+
+	/**
+	 * Liefert die Intervalllänge (gemessen in Sekunden) für die Erfassung des maximalen Durchsatzes an der Station.
+	 * @return	Intervalllänge (gemessen in Sekunden) für die Erfassung des maximalen Durchsatzes (Werte &le;0 für "aus")
+	 * @see #setMaxThroughputIntervalSeconds(int)
+	 */
+	public int getMaxThroughputIntervalSeconds() {
+		return maxThroughputIntervalSeconds;
+	}
+
+	/**
+	 * Stellt die Intervalllänge (gemessen in Sekunden) für die Erfassung des maximalen Durchsatzes an der Station ein.
+	 * @param maxThroughputIntervalSeconds	Intervalllänge (gemessen in Sekunden) für die Erfassung des maximalen Durchsatzes (Werte &le;0 für "aus")
+	 * @see #getMaxThroughputIntervalSeconds()
+	 */
+	public void setMaxThroughputIntervalSeconds(final int maxThroughputIntervalSeconds) {
+		this.maxThroughputIntervalSeconds=maxThroughputIntervalSeconds;
 	}
 }

@@ -611,6 +611,7 @@
 	<xs:element name="ModellElementEbene" type="xs:string"/>
 	<xs:element ref="ModellElementBoxSchriftGross"/>
 	<xs:element ref="ModellElementBoxSchriftKlein"/>
+	<xs:element name="ModellElementMaximalerDurchsatzSekunden" type="xs:string"/>
   </xs:choice></xs:sequence>
   <xs:attribute name="id" type="xs:integer" use="required"/>
   <xs:attribute name="geschuetzt" type="xs:integer"/>
@@ -628,6 +629,7 @@
     <xs:element name="ModellElementStationsbild" type="xs:string"/>
 	<xs:element ref="ModellElementBoxSchriftGross"/>
 	<xs:element ref="ModellElementBoxSchriftKlein"/>
+	<xs:element name="ModellElementMaximalerDurchsatzSekunden" type="xs:string"/>
   </xs:choice></xs:sequence>
   <xs:attribute name="id" type="xs:integer" use="required"/>
   <xs:attribute name="geschuetzt" type="xs:integer"/>
@@ -1840,6 +1842,7 @@
   <xs:element ref="StatistikZwischenabgangszeitenStationen"/>
   <xs:element ref="StatistikZwischenankunftszeitenStationenWarteschlange"/>
   <xs:element ref="StatistikZwischenabgangszeitenStationenKunden"/>
+  <xs:element ref="StatistikMaximalerDurchsatz"/>  
   <xs:element ref="StatistikKundenbewegung"/>
   <xs:element ref="StatistikKundenpfade"/>
   <xs:element ref="StatistikWartezeitenKunden"/>
@@ -2046,6 +2049,7 @@
 <xs:element name="StatistikZwischenabgangszeitenStationen" type="StatistikStationBasis"/>
 <xs:element name="StatistikZwischenankunftszeitenStationenWarteschlange" type="StatistikStationBasis"/>
 <xs:element name="StatistikZwischenabgangszeitenStationenKunden" type="StatistikStationBasis"/>
+<xs:element name="StatistikMaximalerDurchsatz" type="StatistikStationBasis"/>
 <xs:element name="StatistikKundenbewegung"><xs:complexType><xs:sequence minOccurs="0" maxOccurs="unbounded"><xs:choice>
   <xs:element ref="Bewegung" minOccurs="0" maxOccurs="unbounded"/>
 </xs:choice></xs:sequence></xs:complexType></xs:element>
@@ -2828,6 +2832,7 @@
 	<xs:element name="ModelElementLayer" type="xs:string"/>
 	<xs:element ref="ModelElementBoxFontLarge"/>
 	<xs:element ref="ModelElementBoxFontSmall"/>
+	<xs:element name="ModelElementMaximumThroughputSeconds" type="xs:string"/>
   </xs:choice></xs:sequence>
   <xs:attribute name="id" type="xs:integer" use="required"/>
   <xs:attribute name="protected" type="xs:integer"/>
@@ -2845,6 +2850,7 @@
     <xs:element name="ModelElementStationimage" type="xs:string"/>
 	<xs:element ref="ModelElementBoxFontLarge"/>
 	<xs:element ref="ModelElementBoxFontSmall"/>
+	<xs:element name="ModelElementMaximumThroughputSeconds" type="xs:string"/>
   </xs:choice></xs:sequence>
   <xs:attribute name="id" type="xs:integer" use="required"/>
   <xs:attribute name="protected" type="xs:integer"/>
@@ -4057,6 +4063,7 @@
   <xs:element ref="StatisticsInterLeavingTimesStations"/>
   <xs:element ref="StatisticsInterArrivalTimesStationsQueueLength"/>
   <xs:element ref="StatisticsInterLeavingTimesStationsClients"/>
+  <xs:element ref="StatisticsMaxThroughput"/>
   <xs:element ref="StatisticsClientMovement"/>
   <xs:element ref="StatisticsClientPaths"/>
   <xs:element ref="StatisticsWaitingTimesClients"/>
@@ -4263,6 +4270,7 @@
 <xs:element name="StatisticsInterLeavingTimesStations" type="StatisticsStationBase"/>
 <xs:element name="StatisticsInterArrivalTimesStationsQueueLength" type="StatisticsStationBase"/>
 <xs:element name="StatisticsInterLeavingTimesStationsClients" type="StatisticsStationBase"/>
+<xs:element name="StatisticsMaxThroughput" type="StatisticsStationBase"/>
 <xs:element name="StatisticsClientMovement"><xs:complexType><xs:sequence minOccurs="0" maxOccurs="unbounded"><xs:choice>
   <xs:element ref="Movement" minOccurs="0" maxOccurs="unbounded"/>
 </xs:choice></xs:sequence></xs:complexType></xs:element>

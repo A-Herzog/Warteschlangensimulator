@@ -55,6 +55,33 @@ public class RunElementData {
 	public long clientsNonWarmUp;
 
 	/**
+	 * Zeitpunkt des Starts (in MS) des aktuellen Intervalls für die Erfassung des maximalen (intervallbasierenden) Durchsatzes
+	 * @see #maxThroughputIntervalLength
+	 * @see #maxThroughput
+	 */
+	public long maxThroughputIntervalStart;
+
+	/**
+	 * Intervalllänge (in MS) für die Erfassung des maximalen (intervallbasierenden) Durchsatzes<br>
+	 * Ein Wert &lt;0 schaltet die Erfassung ab.
+	 * @see #maxThroughput
+	 */
+	public long maxThroughputIntervalLength;
+
+	/**
+	 * Bisherige Anzahl an Ankünften im aktuellen Intervall für die Erfassung des maximalen (intervallbasierenden) Durchsatzes
+	 * @see #maxThroughputIntervalStart
+	 * @see #maxThroughputIntervalLength
+	 * @see #maxThroughput
+	 */
+	public long maxThroughputIntervalCount;
+
+	/**
+	 * Bisher höchster erfasster Wert für die Anzahl an Ankünften in einem Intervall
+	 */
+	public long maxThroughput;
+
+	/**
 	 * Speichert, wie viele Kunden sich momentan in der Warteschlange der Station aufhalten.
 	 */
 	public int clientsAtStationQueue;
@@ -226,6 +253,12 @@ public class RunElementData {
 		this.station=station;
 		clients=0;
 		clientsNonWarmUp=0;
+
+		maxThroughputIntervalStart=-1;
+		maxThroughputIntervalLength=station.maxThroughputIntervalLengthSec*1000L;
+		maxThroughputIntervalCount=0;
+		maxThroughput=0;
+
 		lastArrival=-1;
 		lastBatchArrival=-1;
 		lastArrivalByClientType=null;

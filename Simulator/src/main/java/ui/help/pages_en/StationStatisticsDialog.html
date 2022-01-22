@@ -9,6 +9,8 @@
 
 <h1>Record station statistics dialog</h1>
 
+<h2>Statistic recording</h2>
+
 <p>
 In the default case, the numbers of clients at the stations (total and waiting)
 and the inter-arrival and inter-leaving times at all stations are recorded.
@@ -20,6 +22,22 @@ recording of statistical data slightly increases the simulation speed.
 <p>
 As long as there are no immediate reasons to reduce statistics collection,
 it is recommended to always leave data collection active at all stations.
+</p>
+
+<h2>Maximum throughput interval lengths</h2>
+
+<p>
+Since client arrivals are discrete events, the maximum throughput,
+i.e. the maximum number of client arrivals per time unit, can only
+be recorded via explicitly specified intervals. The interval length
+to be used per station can be set on this dialog page.
+</p>
+
+<p>
+For reasons of better comparability, it is recommended to use the
+same value for all stations. Furthermore, it should be kept in mind
+that stochastic effects average each other out the longer the intervals
+are chosen, i.e. shorter intervals tend to lead to higher maximum throughputs.
 </p>
 
 </body>

@@ -30,6 +30,7 @@ import statistics.StatisticsLongRunPerformanceIndicator;
 import statistics.StatisticsMultiPerformanceIndicator;
 import statistics.StatisticsQuotientPerformanceIndicator;
 import statistics.StatisticsSimpleCountPerformanceIndicator;
+import statistics.StatisticsSimpleValueMaxPerformanceIndicator;
 import statistics.StatisticsSimpleValuePerformanceIndicator;
 import statistics.StatisticsSimulationBaseData;
 import statistics.StatisticsStateTimePerformanceIndicator;
@@ -94,6 +95,11 @@ public class Statistics extends StatisticsBase {
 	 * Zwischenankunftszeiten der Kunden bei den einzelnen Stationen (zusätzlich differenziert nach Kundentyp)
 	 */
 	public final StatisticsMultiPerformanceIndicator stationsInterarrivalTimeByClientType;
+
+	/**
+	 * Maximaler Durchsatz an den Stationen
+	 */
+	public final StatisticsMultiPerformanceIndicator stationsMaxThroughput;
 
 	/* ====================================================
 	 * Zwischenabgangszeiten
@@ -551,6 +557,7 @@ public class Statistics extends StatisticsBase {
 		addPerformanceIndicator(stationsInterarrivalTimeBatch=new StatisticsMultiPerformanceIndicator(Language.trAll("Statistics.XML.Element.InterArrivalStationsBatch"),new StatisticsDataPerformanceIndicator(nameStation,secondsToRecordInDistributions,secondsToRecordInDistributions,-1,batchSize,true)));
 		addPerformanceIndicator(stationsInterarrivalTimeByState=new StatisticsMultiPerformanceIndicator(Language.trAll("Statistics.XML.Element.InterArrivalStationsByState"),new StatisticsDataPerformanceIndicator(nameStation,secondsToRecordInDistributions,secondsToRecordInDistributions,-1,batchSize,true)));
 		addPerformanceIndicator(stationsInterarrivalTimeByClientType=new StatisticsMultiPerformanceIndicator(Language.trAll("Statistics.XML.Element.InterArrivalStationsByClientType"),new StatisticsDataPerformanceIndicator(nameStation,secondsToRecordInDistributions,secondsToRecordInDistributions,-1,batchSize,true)));
+		addPerformanceIndicator(stationsMaxThroughput=new StatisticsMultiPerformanceIndicator(Language.trAll("Statistics.XML.Element.MaxThroughput"),new StatisticsSimpleValueMaxPerformanceIndicator(nameStation)));
 
 		/* Zwischenabgangszeiten */
 		addPerformanceIndicator(clientsInterleavingTime=new StatisticsMultiPerformanceIndicator(Language.trAll("Statistics.XML.Element.InterLeavingClients"),new StatisticsDataPerformanceIndicator(nameClientType,secondsToRecordInDistributions,secondsToRecordInDistributions,-1,batchSize,true)));

@@ -32,6 +32,7 @@ import statistics.StatisticsDataPerformanceIndicator;
 import statistics.StatisticsDataPerformanceIndicatorWithNegativeValues;
 import statistics.StatisticsMultiPerformanceIndicator;
 import statistics.StatisticsPerformanceIndicator;
+import statistics.StatisticsSimpleValueMaxPerformanceIndicator;
 import statistics.StatisticsTimeContinuousPerformanceIndicator;
 import statistics.StatisticsTimePerformanceIndicator;
 import systemtools.statistics.StatisticViewerTable;
@@ -427,6 +428,8 @@ public class StatisticViewerTimeTable extends StatisticViewerBaseTable {
 		final boolean hasConfidence=hasConfidence(indicator1,indicator2,indicator3);
 		final double[] confidenceLevels=StatisticViewerOverviewText.getConfidenceLevels();
 
+		boolean hasMaxThroughput=false;
+
 		final String[] types=indicator1.getNames();
 
 		for (String type : types) {
@@ -439,6 +442,16 @@ public class StatisticViewerTimeTable extends StatisticViewerBaseTable {
 				final String[] throughput=StatisticViewerOverviewText.getThroughputColumns(data.getCount(),statistics);
 				line[line.length-2]=throughput[0];
 				line[line.length-1]=throughput[1];
+				if (isStationsList) {
+					final StatisticsSimpleValueMaxPerformanceIndicator maxThroughput=(StatisticsSimpleValueMaxPerformanceIndicator)statistics.stationsMaxThroughput.getOrNull(typeName);
+					if (maxThroughput!=null && maxThroughput.get()>0) {
+						line=Arrays.copyOf(line,line.length+2);
+						final String[] maxThroughputCols=StatisticViewerOverviewText.getMaxThroughputColumns(maxThroughput.get());
+						line[line.length-2]=maxThroughputCols[0];
+						line[line.length-1]=maxThroughputCols[1];
+						hasMaxThroughput=true;
+					}
+				}
 			}
 			table.addLine(line);
 			if (indicator2!=null && type2!=null) {
@@ -449,6 +462,16 @@ public class StatisticViewerTimeTable extends StatisticViewerBaseTable {
 					final String[] throughput=StatisticViewerOverviewText.getThroughputColumns(data.getCount(),statistics);
 					line[line.length-2]=throughput[0];
 					line[line.length-1]=throughput[1];
+					if (isStationsList) {
+						final StatisticsSimpleValueMaxPerformanceIndicator maxThroughput=(StatisticsSimpleValueMaxPerformanceIndicator)statistics.stationsMaxThroughput.getOrNull(typeName);
+						if (maxThroughput!=null && maxThroughput.get()>0) {
+							line=Arrays.copyOf(line,line.length+2);
+							final String[] maxThroughputCols=StatisticViewerOverviewText.getMaxThroughputColumns(maxThroughput.get());
+							line[line.length-2]=maxThroughputCols[0];
+							line[line.length-1]=maxThroughputCols[1];
+							hasMaxThroughput=true;
+						}
+					}
 				}
 				table.addLine(line);
 			}
@@ -460,6 +483,16 @@ public class StatisticViewerTimeTable extends StatisticViewerBaseTable {
 					final String[] throughput=StatisticViewerOverviewText.getThroughputColumns(data.getCount(),statistics);
 					line[line.length-2]=throughput[0];
 					line[line.length-1]=throughput[1];
+					if (isStationsList) {
+						final StatisticsSimpleValueMaxPerformanceIndicator maxThroughput=(StatisticsSimpleValueMaxPerformanceIndicator)statistics.stationsMaxThroughput.getOrNull(typeName);
+						if (maxThroughput!=null && maxThroughput.get()>0) {
+							line=Arrays.copyOf(line,line.length+2);
+							final String[] maxThroughputCols=StatisticViewerOverviewText.getMaxThroughputColumns(maxThroughput.get());
+							line[line.length-2]=maxThroughputCols[0];
+							line[line.length-1]=maxThroughputCols[1];
+							hasMaxThroughput=true;
+						}
+					}
 				}
 				table.addLine(line);
 			}
@@ -471,6 +504,16 @@ public class StatisticViewerTimeTable extends StatisticViewerBaseTable {
 					final String[] throughput=StatisticViewerOverviewText.getThroughputColumns(data.getCount(),statistics);
 					line[line.length-2]=throughput[0];
 					line[line.length-1]=throughput[1];
+					if (isStationsList) {
+						final StatisticsSimpleValueMaxPerformanceIndicator maxThroughput=(StatisticsSimpleValueMaxPerformanceIndicator)statistics.stationsMaxThroughput.getOrNull(typeName);
+						if (maxThroughput!=null && maxThroughput.get()>0) {
+							line=Arrays.copyOf(line,line.length+2);
+							final String[] maxThroughputCols=StatisticViewerOverviewText.getMaxThroughputColumns(maxThroughput.get());
+							line[line.length-2]=maxThroughputCols[0];
+							line[line.length-1]=maxThroughputCols[1];
+							hasMaxThroughput=true;
+						}
+					}
 				}
 				table.addLine(line);
 			}
@@ -486,6 +529,11 @@ public class StatisticViewerTimeTable extends StatisticViewerBaseTable {
 			columnNames=Arrays.copyOf(columnNames,columnNames.length+2);
 			columnNames[columnNames.length-2]=Language.tr("Statistics.Throughput");
 			columnNames[columnNames.length-1]=Language.tr("Statistics.ThroughputUnit");
+			if (hasMaxThroughput) {
+				columnNames=Arrays.copyOf(columnNames,columnNames.length+2);
+				columnNames[columnNames.length-2]=Language.tr("Statistics.Throughput.Maximum");
+				columnNames[columnNames.length-1]=Language.tr("Statistics.ThroughputUnit.Maximum");
+			}
 		}
 		setData(table,columnNames);
 
@@ -659,22 +707,49 @@ public class StatisticViewerTimeTable extends StatisticViewerBaseTable {
 			arrivalSum+=((StatisticsDataPerformanceIndicator)(statistics.clientsInterarrivalTime.get(type))).getCount();
 		}
 
+		boolean hasMaxThroughput=false;
+
 		for (String station : statistics.stationsInterarrivalTime.getNames()) {
 			final StatisticsDataPerformanceIndicator indicator=(StatisticsDataPerformanceIndicator)(statistics.stationsInterarrivalTime.get(station));
 			long count=indicator.getCount();
 			String part="";
 			if (arrivalSum>0) part=StatisticTools.formatPercent(((double)count)/arrivalSum);
 			final String[] throughput=StatisticViewerOverviewText.getThroughputColumns(count,statistics);
-			if (count>0) table.addLine(new String[]{
-					fullStationName(station),
-					NumberTools.formatLongNoGrouping(count),
-					part,
-					throughput[0],
-					throughput[1]
-			});
+
+			if (count<=0) continue;
+
+			final StatisticsSimpleValueMaxPerformanceIndicator maxThroughput=(StatisticsSimpleValueMaxPerformanceIndicator)statistics.stationsMaxThroughput.getOrNull(station);
+			if (maxThroughput!=null && maxThroughput.get()>0) {
+				final String[] maxThroughputCols=StatisticViewerOverviewText.getMaxThroughputColumns(maxThroughput.get());
+				table.addLine(new String[]{
+						fullStationName(station),
+						NumberTools.formatLongNoGrouping(count),
+						part,
+						throughput[0],
+						throughput[1],
+						maxThroughputCols[0],
+						maxThroughputCols[1]
+				});
+				hasMaxThroughput=true;
+			} else {
+				table.addLine(new String[]{
+						fullStationName(station),
+						NumberTools.formatLongNoGrouping(count),
+						part,
+						throughput[0],
+						throughput[1]
+				});
+			}
 		}
 
-		setData(table,new String[]{Language.tr("Statistics.Station"),Language.tr("Statistics.Number"),Language.tr("Statistics.Part"),Language.tr("Statistics.Throughput"),Language.tr("Statistics.ThroughputUnit")});
+		final String[] header;
+		if (hasMaxThroughput) {
+			header=new String[]{Language.tr("Statistics.Station"),Language.tr("Statistics.Number"),Language.tr("Statistics.Part"),Language.tr("Statistics.Throughput"),Language.tr("Statistics.ThroughputUnit"),Language.tr("Statistics.Throughput.Maximum"),Language.tr("Statistics.ThroughputUnit.Maximum")};
+		} else {
+			header=new String[]{Language.tr("Statistics.Station"),Language.tr("Statistics.Number"),Language.tr("Statistics.Part"),Language.tr("Statistics.Throughput"),Language.tr("Statistics.ThroughputUnit")};
+		}
+
+		setData(table,header);
 
 		/* Infotext  */
 		addDescription("TableInterarrivalCount");

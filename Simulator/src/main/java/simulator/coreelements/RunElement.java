@@ -74,6 +74,12 @@ public abstract class RunElement {
 	public boolean stationStatisticsActive;
 
 	/**
+	 * Intervalllänge in Sekunden für die Erfassung des maximalen Durchsatzes an der Station<br>
+	 * (Werte &le;0 zur Abschaltung der Erfassung)
+	 */
+	public int maxThroughputIntervalLengthSec;
+
+	/**
 	 * Konstruktor der Klasse <code>RunElement</code>
 	 * @param element	Modell-Element aus dem ID und Farbe ausgelesen werden
 	 * @param name	Name der Station
@@ -84,6 +90,9 @@ public abstract class RunElement {
 		this.logTextColor=(!(element instanceof ModelElementBox))?Color.DARK_GRAY:((ModelElementBox)element).getDrawBackgroundColor();
 		this.name=name;
 		stationStatisticsActive=(element==null)?true:element.isStationStatisticsActive();
+		if (element instanceof ModelElementBox) {
+			maxThroughputIntervalLengthSec=((ModelElementBox)element).getMaxThroughputIntervalSeconds();
+		}
 	}
 
 	/**
@@ -97,6 +106,7 @@ public abstract class RunElement {
 		this.logTextColor=Color.DARK_GRAY;
 		this.name=name;
 		stationStatisticsActive=true;
+		maxThroughputIntervalLengthSec=-1;
 	}
 
 	/**

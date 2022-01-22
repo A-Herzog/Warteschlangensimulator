@@ -1900,6 +1900,19 @@ public class ExpressionBuilderSimulationData {
 					Language.tr("ExpressionBuilder.SimulationCharacteristics.StationInputOutput.Throughput")+" (Throughput)",
 					"Throughput(id)",
 					Language.tr("ExpressionBuilder.SimulationCharacteristics.StationInputOutput.Throughput.Info"));
+			addTreeNode(
+					sub,
+					filterUpper,
+					Language.tr("ExpressionBuilder.SimulationCharacteristics.StationInputOutput.ThroughputMax")+" (ThroughputMax)",
+					"ThroughputMax(id)",
+					Language.tr("ExpressionBuilder.SimulationCharacteristics.StationInputOutput.ThroughputMax.Info"));
+			addTreeNode(
+					sub,
+					filterUpper,
+					Language.tr("ExpressionBuilder.SimulationCharacteristics.StationInputOutput.ThroughputMaxInterval")+" (ThroughputMaxInterval)",
+					"ThroughputMaxInterval(id)",
+					Language.tr("ExpressionBuilder.SimulationCharacteristics.StationInputOutput.ThroughputMaxInterval.Info"));
+
 
 			if (sub.getChildCount()>0) group.add(sub);
 		}

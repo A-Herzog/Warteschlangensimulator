@@ -24,7 +24,7 @@ import mathtools.NumberTools;
  * @author Alexander Herzog
  * @version 1.0
  */
-public final class StatisticsSimpleValuePerformanceIndicator extends StatisticsPerformanceIndicator implements Cloneable {
+public class StatisticsSimpleValuePerformanceIndicator extends StatisticsPerformanceIndicator implements Cloneable {
 	/** XML-Attribut für "Wert" */
 	public static String[] xmlNameValue=new String[]{"Wert"};
 	/** Fehlermeldung, wenn das "Wert"-Attribut nicht gelesen werden konnte. */
@@ -33,7 +33,7 @@ public final class StatisticsSimpleValuePerformanceIndicator extends StatisticsP
 	/**
 	 * Wert
 	 */
-	private double value;
+	protected double value;
 
 	/**
 	 * Konstruktor der Klasse <code>StatisticsSimpleCountPerformanceIndicator</code>
