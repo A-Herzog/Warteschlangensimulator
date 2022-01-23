@@ -1424,7 +1424,7 @@ public final class EditorPanel extends EditorPanelBase {
 		final boolean isSubSurface=(model!=null && model.surface!=null && model.surface.getParentSurface()!=null);
 		surfacePanel=new ModelSurfacePanel(readOnly,!isSubSurface);
 		surfacePanel.setAdditionalTooltipGetter(box->getStatisticsInfoForElement(box));
-		surfacePanel.setHeatMapIntensityGetter(box->getHeatMapIntensityForElement(box));
+		surfacePanel.setHeatMapIntensityGetter(element->getHeatMapIntensityForElement(element));
 
 		surfacePanel.addSelectionListener(e->fireSelectionListener());
 		surfacePanel.addLinkListener(link->fireLinkListener(link));
@@ -2743,7 +2743,7 @@ public final class EditorPanel extends EditorPanelBase {
 	 * System zur Generiertung von Tooltips und zur Bestimmung von Heatmap-Werten
 	 * für einzelne Editor-Modell-Stationen basierend auf den Statistikdaten
 	 * @see #getStatisticsInfoForElement(ModelElement)
-	 * @see #getHeatMapIntensityForElement(ModelElementBox)
+	 * @see #getHeatMapIntensityForElement(ModelElement)
 	 */
 	private EditorPanelStatistics statisticsHelper=new EditorPanelStatistics();
 
@@ -2778,7 +2778,7 @@ public final class EditorPanel extends EditorPanelBase {
 	 * @see #statisticsGetter
 	 * @see #surfacePanel
 	 */
-	private Double getHeatMapIntensityForElement(final ModelElementBox element) {
+	private Double getHeatMapIntensityForElement(final ModelElement element) {
 		if (element==null) return null;
 		if (statisticsGetter==null) return null;
 		final Statistics statistics=statisticsGetter.get();
@@ -2787,7 +2787,18 @@ public final class EditorPanel extends EditorPanelBase {
 		final EditorPanelStatistics.HeatMapMode mode=SetupData.getSetup().statisticHeatMap;
 		if (mode==null || mode==EditorPanelStatistics.HeatMapMode.OFF) return null;
 
-		return statisticsHelper.getHeatMapIntensity(statistics,element,mode);
+		if (element instanceof ModelElementBox) {
+			return statisticsHelper.getHeatMapIntensity(statistics,(ModelElementBox)element,mode);
+		}
+
+		if (element instanceof ModelElementEdge) {
+			if (statistics.stationTransition.size()==0) return null;
+			final ModelElementBox[] boxes=EditorPanelStatistics.boxesFromEdge((ModelElementEdge)element);
+			if (boxes==null) return null;
+			return statisticsHelper.getHeatMapIntensity(statistics,boxes[0],boxes[1],mode);
+		}
+
+		return null;
 	}
 
 	/**

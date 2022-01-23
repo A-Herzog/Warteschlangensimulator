@@ -18,6 +18,7 @@ package ui.modeleditor;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Point;
 import java.awt.image.BufferedImage;
 
 /**
@@ -335,6 +336,152 @@ public class HeatMapImage {
 		if (intensity>1) intensity=1;
 
 		box(x,y,width,height,mixColors(DEFAULT_COLOR_LOW_INTENSITY.getRGB(),DEFAULT_COLOR_HIGH_INTENSITY.getRGB(),intensity),intensity);
+	}
+
+	/**
+	 * Berechnet den Abstand eines Punktes von einer Linie.
+	 * @param point	Punkt
+	 * @param lineA	Startpunkt der Linie
+	 * @param lineB	Endpunkt der Linie
+	 * @return	Abstand
+	 */
+	private static double getDelta(final Point point, final Point lineA, final Point lineB) {
+		final int footpointX;
+		final int footpointY;
+
+		if (lineA.x==lineB.x) {
+			/* Linie verläuft senkrecht */
+			final int minY=Math.min(lineA.y,lineB.y);
+			final int maxY=Math.max(lineA.y,lineB.y);
+			footpointX=lineA.x;
+			if (point.y<minY) footpointY=minY; /* Unterhalb der senkrechten Linie */
+			else if (point.y>maxY) footpointY=maxY; /* Oberhalb der senkrechten Linie */
+			else footpointY=point.y; /* Punkt links oder rechts neben der Linie */
+		} else if (lineA.y==lineB.y) {
+			/* Linie verläuft waagerecht */
+			final int minX=Math.min(lineA.x,lineB.x);
+			final int maxX=Math.max(lineA.x,lineB.x);
+			footpointY=lineA.y;
+			if (point.x<minX) footpointX=minX; /* Links der waagerechten Linie */
+			else if (point.x>maxX) footpointX=maxX; /* Rechts der waagerechten Linie */
+			else footpointX=point.x; /* Punkt über oder unter der Linie */
+
+		} else {
+			/* Linie verläuft schräg */
+			final double m=((double)(lineB.y-lineA.y))/(lineB.x-lineA.x);
+			footpointX=(int)Math.round((lineA.x*m-lineA.y+point.x/m+point.y)/(m+1/m));
+			final int minX=Math.min(lineA.x,lineB.x);
+			final int maxX=Math.max(lineA.x,lineB.x);
+			if (footpointX<minX) footpointY=(lineA.x<lineB.x)?lineA.y:lineB.y; /* Links neben der Linie */
+			else if (footpointX>maxX) footpointY=(lineA.x>lineB.x)?lineA.y:lineB.y; /* Rechts neben der Linie */
+			else footpointY=(int)Math.round(m*(footpointX-lineA.x)+lineA.y); /* y-Wert zu Lotfußpunkt-x-Wert über Geradengleichung */
+		}
+
+		final int deltaX=(point.x-footpointX);
+		final int deltaY=(point.y-footpointY);
+		return Math.sqrt(deltaX*deltaX+deltaY*deltaY);
+	}
+
+	/**
+	 * Berechnet den minimalen Abstand eines Punktes von einem Linienzug.
+	 * @param point	Punkt
+	 * @param points	Punkte des Linienzugs
+	 * @return	Minimaler Abstand des Punktes von einer Teillinie des Linienzugs
+	 */
+	private static double getDelta(final Point point, final Point[] points) {
+		double minDelta=getDelta(point,points[0],points[1]);
+		for (int i=1;i<points.length-1;i++) minDelta=Math.min(minDelta,getDelta(point,points[i],points[i+1]));
+		return minDelta;
+	}
+
+	/**
+	 * Zeichnet eine Heatmap um einen Linienzug in das interne Grafikobjekt
+	 * @param points	Punkte des Linienzugs
+	 * @param rgb	Farbwert für das Heatmap-Objekt (die Transparenz wird ignoriert, da diese intern neu berechnet wird)
+	 * @param intensity	Intensität der Heatmap (Wert muss zwischen 0 und 1 liegen, jeweils einschließlich)
+	 */
+	public void polyline(final Point[] points, final int rgb, double intensity) {
+		if (image==null) return;
+		if (points==null || points.length<2) return;
+
+		if (intensity<=0) return;
+		if (intensity>1) intensity=1;
+
+		intensity=intensityMin+(intensityMax-intensityMin)*intensity;
+
+		final int heat=(int)Math.round(zoom*heatMapSize);
+		int minX=points[0].x;
+		int maxX=points[0].x;
+		int minY=points[0].y;
+		int maxY=points[0].y;
+		for (int i=1;i<points.length;i++) {
+			minX=Math.min(minX,points[i].x);
+			maxX=Math.max(maxX,points[i].x);
+			minY=Math.min(minY,points[i].y);
+			maxY=Math.max(maxY,points[i].y);
+		}
+		minX=Math.max(0,minX-heat);
+		minY=Math.max(0,minY-heat);
+		maxX=Math.min(imageWidth-1,maxX+heat);
+		maxY=Math.min(imageHeight-1,maxY+heat);
+
+		final int areaW=maxX-minX+1;
+		final int areaH=maxY-minY+1;
+		if (rgbArray==null || rgbArray.length<areaW*areaH) rgbArray=new int[areaW*areaH];
+
+		image.getRGB(minX,minY,maxX-minX+1,maxY-minY+1,rgbArray,0,areaW);
+
+		final Point p=new Point();
+		for (int i=minX;i<=maxX;i++) for (int j=minY;j<=maxY;j++) {
+			p.x=i;
+			p.y=j;
+			final double alpha=intensity*deltaToIntensity(getDelta(p,points),zoom);
+			if (alpha<=0) continue;
+
+			final int rgbIndex=(j-minY)*areaW+(i-minX);
+			final int oldColor=rgbArray[rgbIndex];
+
+			final int newColor=(((int)(alpha*255) & 0xFF) << 24) | (rgb & 0xFFFFFF);
+
+			heatMapHasData=true;
+
+			if (newColor==oldColor) {
+				/* Nur Deckkraft verstärken */
+				final int c=mixColors(oldColor,newColor);
+				rgbArray[rgbIndex]=c;
+			} else {
+				final int c1=mixColors(oldColor,newColor);
+				final int c2=mixColors(newColor,oldColor);
+				rgbArray[rgbIndex]=meanColor(c1,c2);
+			}
+		}
+
+		image.setRGB(minX,minY,maxX-minX+1,maxY-minY+1,rgbArray,0,areaW);
+	}
+
+	/**
+	 * Zeichnet eine Heatmap um einen Linienzug in das interne Grafikobjekt
+	 * @param points	Punkte des Linienzugs
+	 * @param color	Farbwert für das Heatmap-Objekt (die Transparenz wird ignoriert, da diese intern neu berechnet wird)
+	 * @param intensity	Intensität der Heatmap (Wert muss zwischen 0 und 1 liegen, jeweils einschließlich)
+	 */
+	public void polyline(final Point[] points, final Color color, double intensity) {
+		if (intensity<=0) return;
+		if (intensity>1) intensity=1;
+
+		polyline(points,color.getRGB(),intensity);
+	}
+
+	/**
+	 * Zeichnet eine Heatmap um einen Linienzug in das interne Grafikobjekt
+	 * @param points	Punkte des Linienzugs
+	 * @param intensity	Intensität der Heatmap (Wert muss zwischen 0 und 1 liegen, jeweils einschließlich)
+	 */
+	public void polyline(final Point[] points, double intensity) {
+		if (intensity<=0) return;
+		if (intensity>1) intensity=1;
+
+		polyline(points,mixColors(DEFAULT_COLOR_LOW_INTENSITY.getRGB(),DEFAULT_COLOR_HIGH_INTENSITY.getRGB(),intensity),intensity);
 	}
 
 	/**

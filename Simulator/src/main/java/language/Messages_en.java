@@ -1388,8 +1388,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[3681] = "Name of the new branch";
     t[3696] = "Main.Menu.RecordAnimationLog.Mnemonic";
     t[3697] = "o";
-    t[3706] = "ModelDescription.Batch.Mode.Temporary";
-    t[3707] = "Generate temporary batch";
+    t[3706] = "Main.Menu.View.Statistics.HeatMap.MaxThroughput";
+    t[3707] = "Heatmap: Maximum throughput at a station";
     t[3712] = "Statistic.Viewer.Chart.Value";
     t[3713] = "Value";
     t[3724] = "Surface.AnimationRecord.Dialog.Appearance.FrameColor";
@@ -6284,6 +6284,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[16291] = "The RunCount attribute in the \"%s\" element has to be a positive integer number but is \"%s\".";
     t[16292] = "FindElementDirect.DialogHint";
     t[16293] = "In this dialog you can search for elements based on their name or ID.";
+    t[16294] = "Main.Menu.View.Statistics.HeatMap.MaxThroughput.Mnemonic";
+    t[16295] = "M";
     t[16298] = "XML.ErrorClosingFile";
     t[16299] = "An error occurred while closing file %s.";
     t[16300] = "JavaImports.DialogHint";
@@ -8026,14 +8028,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[20775] = "Do you really want to delete step %d from the sequence?";
     t[20778] = "Simulation.Creator.IntervalExpressions";
     t[20779] = "At station id=%d the caluclation expression for interval %d \"%s\" is invalid at character %d.";
-    t[20784] = "Statistic.FastAccess.Template.Tab";
-    t[20785] = "Add tab";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_4 (java.lang.String[] t) {
+    t[20784] = "Statistic.FastAccess.Template.Tab";
+    t[20785] = "Add tab";
     t[20794] = "Main.Menu.Help.ProgramInformation.Mnemonic";
     t[20795] = "P";
     t[20796] = "Surface.Source.Dialog.Tab.StartingTime.AfterTime";
@@ -10032,14 +10034,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[25721] = "Rounding";
     t[25722] = "ParameterCompare.Toolbar.ProcessResults.ResultsTable.Setup";
     t[25723] = "Setup displayed table";
-    t[25726] = "Surface.Decide.Dialog.OutgoingEdge.Condition.Error.Title";
-    t[25727] = "Invalid condition";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_5 (java.lang.String[] t) {
+    t[25726] = "Surface.Decide.Dialog.OutgoingEdge.Condition.Error.Title";
+    t[25727] = "Invalid condition";
     t[25730] = "Surface.TankValveSetup.Table.Edit.TankName";
     t[25731] = "Tank \"%s\" (id=%d)";
     t[25734] = "Distribution.StdDev";
@@ -12038,14 +12040,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[30839] = "BuildExampleModelImages";
     t[30840] = "Surface.Action.Dialog.Edit.Tabs.Trigger.Condition.ErrorInfo";
     t[30841] = "The condition for triggering the action \"%s\" is invalid at character %d.";
-    t[30848] = "ExpressionBuilder.SimulationCharacteristics.Costs.ProcessCurrent";
-    t[30849] = "Average proces time costs (all client types)";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_6 (java.lang.String[] t) {
+    t[30848] = "ExpressionBuilder.SimulationCharacteristics.Costs.ProcessCurrent";
+    t[30849] = "Average proces time costs (all client types)";
     t[30850] = "Editor.Dialog.Tab.RunTimeStatistics.Table.MoveDown";
     t[30851] = "Move down";
     t[30856] = "Statistics.SystemData";
@@ -14044,14 +14046,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[35771] = "Costs by process times";
     t[35774] = "Editor.Dialog.Tab.InitialVariableValues.Map";
     t[35775] = "Initial values for global map";
-    t[35780] = "Statistics.ErlangCompare.rho.actual";
-    t[35781] = "actual";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_7 (java.lang.String[] t) {
+    t[35780] = "Statistics.ErlangCompare.rho.actual";
+    t[35781] = "actual";
     t[35782] = "Editor.AddEdge.PlacePoint1";
     t[35783] = "Click on the first element to be connected by the edge.";
     t[35784] = "Editor.AddEdge.PlacePoint2";
@@ -16050,14 +16052,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[40739] = "The \"count\" attribute in the \"%s\" element has to be a non-negative integer value but is \"%s\".";
     t[40746] = "Resources.Group.EditName.Dialog.Failure.Delete.YesInfo";
     t[40747] = "Delete selected resource failure record.";
-    t[40748] = "ModelDescription.Action.Action.Java";
-    t[40749] = "Execute Java code";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_8 (java.lang.String[] t) {
+    t[40748] = "ModelDescription.Action.Action.Java";
+    t[40749] = "Execute Java code";
     t[40754] = "Surface.Action.Dialog.Edit.Tabs.Trigger.ThresholdExpression";
     t[40755] = "Threshold expression";
     t[40756] = "ExpressionBuilder.ProbabilityDistributions.GumbelDistribution.DensityInfo";
@@ -18056,14 +18058,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[45733] = "Moves the selected output value on place down in the list (Ctrl+Down)";
     t[45736] = "ExpressionCalculator.Tab.Variables.Column.Name";
     t[45737] = "Name";
-    t[45738] = "Statistics.XML.Value.Error";
-    t[45739] = "The \"value\" attribute in the \"%s\" element has to be a number but is \"%s\"";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_9 (java.lang.String[] t) {
+    t[45738] = "Statistics.XML.Value.Error";
+    t[45739] = "The \"value\" attribute in the \"%s\" element has to be a number but is \"%s\"";
     t[45740] = "ExpressionBuilder.ProbabilityDistributions.LogNormalDistribution";
     t[45741] = "Log-normal distribution";
     t[45744] = "Statistics.XML.BatchMeans";
@@ -20062,14 +20064,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[50763] = "Simulation is completed.";
     t[50764] = "Server.Status.ServerAddress";
     t[50765] = "Server address";
-    t[50768] = "Elements.Catalog.Decoration";
-    t[50769] = "Optical decorations";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_10 (java.lang.String[] t) {
+    t[50768] = "Elements.Catalog.Decoration";
+    t[50769] = "Optical decorations";
     t[50770] = "Help.Search.ResultCountPlural";
     t[50771] = "found on %d pages";
     t[50774] = "Surface.AnimationClock.XML.Expression";
@@ -20994,6 +20996,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[53065] = "Terminate simulation at end of table.";
     t[53074] = "Surface.BatchMulti.Name.Short";
     t[53075] = "Multi batch";
+    t[53078] = "ModelDescription.Batch.Mode.Temporary";
+    t[53079] = "Generate temporary batch";
     t[53090] = "Optimizer.Tab.Optimization.Kernel.Parameters.Tab.Serial.ChangeRate2.ErrorTitle";
     t[53091] = "Invalid change rate in the second round";
     t[53092] = "Simulation.Element.InteractiveCheckbox.Name";

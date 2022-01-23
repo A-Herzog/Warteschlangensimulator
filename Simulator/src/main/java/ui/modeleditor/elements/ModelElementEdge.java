@@ -22,6 +22,8 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.Rectangle;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.Icon;
 import javax.swing.JCheckBoxMenuItem;
@@ -683,6 +685,56 @@ public final class ModelElementEdge extends ModelElement {
 
 		/* Text ausgeben */
 		drawText(graphics,middle,zoom);
+	}
+
+	/**
+	 * Liefert eine Liste aller Punkte, aus denen die Gesamtlinie besteht.
+	 * @param zoom	Aktueller Zoomfaktor
+	 * @return	Liste aller Punkte, aus denen die Gesamtlinie besteht
+	 */
+	public List<Point> getPolylinePoints(final double zoom) {
+		/* Punkte berechnen */
+		final Connect[] points=getLine(zoom);
+		if (points==null) return null;
+		final Point p1=points[0].p;
+		final Point p2=points[1].p;
+
+		/* Mitte bestimmen */
+		middle.x=(p1.x+p2.x)/2;
+		middle.y=(p1.y+p2.y)/2;
+
+		final List<Point> polyline=new ArrayList<>();
+
+		/* Linie(n) zeichnen */
+		switch (getDrawLineMode(points)) {
+		case DIRECT:
+			polyline.add(p1);
+			polyline.add(p2);
+			break;
+		case MULTI_LINE:
+		case MULTI_LINE_ROUNDED:
+		case CUBIC_CURVE:
+			if (points[0].side==Side.TOP || points[0].side==Side.BOTTOM) {
+				/* vertikal, horizontal, vertikal */
+				final Point m1=new Point(p1.x,middle.y);
+				final Point m2=new Point(p2.x,middle.y);
+				polyline.add(p1);
+				polyline.add(m1);
+				polyline.add(m2);
+				polyline.add(p2);
+			} else {
+				/* horizontal, vertikal, horizontal */
+				final Point m1=new Point(middle.x,p1.y);
+				final Point m2=new Point(middle.x,p2.y);
+				polyline.add(p1);
+				polyline.add(m1);
+				polyline.add(m2);
+				polyline.add(p2);
+			}
+			break;
+		}
+
+		return polyline;
 	}
 
 	/**

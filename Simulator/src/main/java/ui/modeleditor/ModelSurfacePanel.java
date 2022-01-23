@@ -2850,13 +2850,13 @@ public final class ModelSurfacePanel extends JPanel {
 	 * Callback zur Ermittlung der HeatMap-Intensität für ein Element
 	 * (kann <code>null</code> sein)
 	 */
-	private Function<ModelElementBox,Double> heatMapIntensityGetter;
+	private Function<ModelElement,Double> heatMapIntensityGetter;
 
 	/**
 	 * Stellt das Callback zur Ermittlung der HeatMap-Intensität für ein Element ein.
 	 * @param heatMapIntensityGetter	Callback zur Ermittlung der HeatMap-Intensität für ein Element (<code>null</code>, wenn keine HeatMap gezeichnet werden soll)
 	 */
-	public void setHeatMapIntensityGetter(final Function<ModelElementBox,Double> heatMapIntensityGetter) {
+	public void setHeatMapIntensityGetter(final Function<ModelElement,Double> heatMapIntensityGetter) {
 		this.heatMapIntensityGetter=heatMapIntensityGetter;
 		if (surface!=null) surface.setHeatMapIntensityGetter(heatMapIntensityGetter);
 	}

@@ -35,6 +35,7 @@ import simulator.elements.RunElementDecideBySequence;
 import simulator.elements.RunElementDecideByStation;
 import simulator.statistics.Statistics;
 import statistics.StatisticsDataPerformanceIndicator;
+import statistics.StatisticsPerformanceIndicator;
 import statistics.StatisticsQuotientPerformanceIndicator;
 import statistics.StatisticsSimpleCountPerformanceIndicator;
 import statistics.StatisticsSimpleValueMaxPerformanceIndicator;
@@ -874,7 +875,9 @@ public class EditorPanelStatistics {
 		/** Flussgrade an den Stationen */
 		FLOW_FACTOR("FlowFactor",()->Language.tr("Main.Menu.View.Statistics.HeatMap.FlowFactor"),()->Language.tr("Main.Menu.View.Statistics.HeatMap.FlowFactor.Mnemonic")),
 		/** Durchsatz an den Stationen (= "Anzahl an Ankünften an der Station") */
-		THROUGHPUT("Throughput",()->Language.tr("Main.Menu.View.Statistics.HeatMap.Throughput"),()->Language.tr("Main.Menu.View.Statistics.HeatMap.Throughput.Mnemonic"));
+		THROUGHPUT("Throughput",()->Language.tr("Main.Menu.View.Statistics.HeatMap.Throughput"),()->Language.tr("Main.Menu.View.Statistics.HeatMap.Throughput.Mnemonic")),
+		/** Maximaler Durchsatz an den Stationen */
+		MAX_THROUGHPUT("MaxThroughput",()->Language.tr("Main.Menu.View.Statistics.HeatMap.MaxThroughput"),()->Language.tr("Main.Menu.View.Statistics.HeatMap.MaxThroughput.Mnemonic"));
 
 		/**
 		 * Callback welches den Namen des Heatmap-Modus liefert
@@ -949,6 +952,7 @@ public class EditorPanelStatistics {
 		StatisticsTimePerformanceIndicator number;
 		StatisticsDataPerformanceIndicator time;
 		StatisticsDataPerformanceIndicator time1, time2;
+		StatisticsSimpleValueMaxPerformanceIndicator maxThroughput;
 		double all;
 
 		switch (mode) {
@@ -1008,8 +1012,96 @@ public class EditorPanelStatistics {
 			if (time==null) return 0.0;
 			all=maxClientsCount(statistics);
 			return (all==0.0)?0.0:(time.getCount()/all);
+		case MAX_THROUGHPUT:
+			maxThroughput=(StatisticsSimpleValueMaxPerformanceIndicator)statistics.stationsMaxThroughput.getOrNull(nameStation);
+			double max=0.0;
+			for (StatisticsPerformanceIndicator record: statistics.stationsMaxThroughput.getAll()) max=Math.max(max,((StatisticsSimpleValueMaxPerformanceIndicator)record).get());
+			if (maxThroughput==null || maxThroughput.get()<=0.0) return 0.0;
+			return maxThroughput.get()/max;
 		}
 
 		return null;
+	}
+
+	/**
+	 * Liefert, sofern verfügbar, die HeatMap-Intensität für einen bestimmten Stationsübergang.
+	 * @param statistics	Statistikobjekt dem die Daten entnommen werden sollen
+	 * @param element1	Startstation
+	 * @param element2	Zielstation
+	 * @param mode	Welche Werte sollen zur Berechnung der Heatmap herangezogen werden?
+	 * @return	Intensität (kann <code>null</code> sein, wenn keine Daten verfügbar sind)
+	 */
+	public Double getHeatMapIntensity(final Statistics statistics, final ModelElementBox element1, final ModelElementBox element2, final HeatMapMode mode) {
+		if (mode==null || mode==HeatMapMode.OFF) return null;
+
+		/* Ist das noch dasselbe Statistikobjekt wie beim letzten Aufruf? Wenn nein, Caches löschen */
+		testStatistics(statistics);
+
+		final String nameStation1=elementStatisticsName(element1);
+		if (nameStation1==null) return null;
+		final String nameStation2=elementStatisticsName(element2);
+		if (nameStation2==null) return null;
+
+		StatisticsSimpleCountPerformanceIndicator counter;
+		double max;
+
+		switch (mode) {
+		case OFF:
+			return null;
+		case THROUGHPUT:
+			counter=(StatisticsSimpleCountPerformanceIndicator)statistics.stationTransition.getOrNull(nameStation1+" -> "+nameStation2);
+			if (counter==null) return null;
+			max=0;
+			for (StatisticsPerformanceIndicator indicator: statistics.stationTransition.getAll()) max=Math.max(max,((StatisticsSimpleCountPerformanceIndicator)indicator).get());
+			return counter.get()/max;
+		default:
+			return null;
+		}
+	}
+
+	/**
+	 * Bestimmt die Ausgangs- und die Zielstation einer Kante.
+	 * @param edge	Kante zu der Start- und Zielpunkt (ggf. über mehrere Ecken) gesucht werden sollen
+	 * @return	Liefert im Erfolgsfall ein 2-elementiges Array, sonst <code>null</code>
+	 */
+	public static ModelElementBox[] boxesFromEdge(ModelElementEdge edge) {
+		ModelElementEdge currentEdge;
+
+		/* Quelle */
+		ModelElementBox source;
+		currentEdge=edge;
+		while (true) {
+			final ModelElement e=currentEdge.getConnectionStart();
+			if (e instanceof ModelElementBox) {
+				source=(ModelElementBox)e;
+				break;
+			}
+			if (e instanceof ModelElementVertex) {
+				final ModelElementEdge[] edges=((ModelElementVertex)e).getEdgesIn();
+				if (edges.length!=1 || edges[0]==null) return null;
+				currentEdge=edges[0];
+				continue;
+			}
+			return null;
+		}
+
+		/* Ziel */
+		ModelElementBox destination;
+		currentEdge=edge;
+		while (true) {
+			final ModelElement e=currentEdge.getConnectionEnd();
+			if (e instanceof ModelElementBox) {
+				destination=(ModelElementBox)e;
+				break;
+			}
+			if (e instanceof ModelElementVertex) {
+				currentEdge=((ModelElementVertex)e).getEdgeOut();
+				if (currentEdge==null) return null;
+				continue;
+			}
+			return null;
+		}
+
+		return new ModelElementBox[] {source,destination};
 	}
 }

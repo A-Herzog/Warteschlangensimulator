@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-21 22:44+0100\n"
+"POT-Creation-Date: 2022-01-22 19:34+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -9997,6 +9997,12 @@ msgstr "Heatmap: Flussgrad den Stationen"
 
 msgid "Main.Menu.View.Statistics.HeatMap.FlowFactor.Mnemonic"
 msgstr "F"
+
+msgid "Main.Menu.View.Statistics.HeatMap.MaxThroughput"
+msgstr "Heatmap: Maximaler Durchsatz an den Stationen"
+
+msgid "Main.Menu.View.Statistics.HeatMap.MaxThroughput.Mnemonic"
+msgstr "M"
 
 msgid "Main.Menu.View.Statistics.HeatMap.NqAvg"
 msgstr "Heatmap: Mittlere Anzahl an wartenden Kunden an den Stationen"

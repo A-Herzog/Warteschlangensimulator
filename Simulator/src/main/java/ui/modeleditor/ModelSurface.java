@@ -793,13 +793,13 @@ public final class ModelSurface {
 	 * Callback zur Ermittlung der HeatMap-Intensität für ein Element
 	 * (kann <code>null</code> sein)
 	 */
-	private Function<ModelElementBox,Double> heatMapIntensityGetter;
+	private Function<ModelElement,Double> heatMapIntensityGetter;
 
 	/**
 	 * Stellt das Callback zur Ermittlung der HeatMap-Intensität für ein Element ein.
 	 * @param heatMapIntensityGetter	Callback zur Ermittlung der HeatMap-Intensität für ein Element (<code>null</code>, wenn keine HeatMap gezeichnet werden soll)
 	 */
-	public void setHeatMapIntensityGetter(final Function<ModelElementBox,Double> heatMapIntensityGetter) {
+	public void setHeatMapIntensityGetter(final Function<ModelElement,Double> heatMapIntensityGetter) {
 		this.heatMapIntensityGetter=heatMapIntensityGetter;
 	}
 
@@ -840,23 +840,36 @@ public final class ModelSurface {
 
 		final int zoomedFrameSize=(int)Math.round(heatMapSize*zoom);
 
-		for (ModelElement element : elements) if (isVisibleOnLayer(element) && (element instanceof ModelElementBox)) {
-			final ModelElementBox box=(ModelElementBox)element;
+		for (ModelElement element: elements) if (isVisibleOnLayer(element)) {
+			if (element instanceof ModelElementBox) {
+				final ModelElementBox box=(ModelElementBox)element;
+				final Double intensity=heatMapIntensityGetter.apply(box);
+				if (intensity!=null && intensity>0) {
+					final Point point=box.getPosition(true);
+					final Dimension size=box.getSize();
+					final int x=(int)Math.round(point.x*zoom);
+					final int y=(int)Math.round(point.y*zoom);
+					final int w=(int)Math.round(size.width*zoom);
+					final int h=(int)Math.round(size.height*zoom);
 
-			final Point point=box.getPosition(true);
-			final Dimension size=box.getSize();
-			final int x=(int)Math.round(point.x*zoom);
-			final int y=(int)Math.round(point.y*zoom);
-			final int w=(int)Math.round(size.width*zoom);
-			final int h=(int)Math.round(size.height*zoom);
+					if (x-zoomedFrameSize>drawRect.x+drawRect.width) continue;
+					if (y-zoomedFrameSize>drawRect.y+drawRect.height) continue;
+					if (x+w+zoomedFrameSize<drawRect.x) continue;
+					if (y+h+zoomedFrameSize<drawRect.y) continue;
 
-			if (x-zoomedFrameSize>drawRect.x+drawRect.width) continue;
-			if (y-zoomedFrameSize>drawRect.y+drawRect.height) continue;
-			if (x+w+zoomedFrameSize<drawRect.x) continue;
-			if (y+h+zoomedFrameSize<drawRect.y) continue;
-
-			final Double intensity=heatMapIntensityGetter.apply(box);
-			if (intensity!=null && intensity>0) heatMap.box(x-drawRect.x,y-drawRect.y,w,h,HeatMapImage.mixColors(colorLow,colorHigh,intensity),intensity);
+					heatMap.box(x-drawRect.x,y-drawRect.y,w,h,HeatMapImage.mixColors(colorLow,colorHigh,intensity),intensity);
+				}
+			}
+			if (element instanceof ModelElementEdge) {
+				final ModelElementEdge edge=(ModelElementEdge)element;
+				final Double intensity=heatMapIntensityGetter.apply(edge);
+				if (intensity!=null && intensity>0) {
+					final List<Point> polyline=edge.getPolylinePoints(zoom);
+					if (polyline!=null) {
+						heatMap.polyline(polyline.toArray(new Point[0]),HeatMapImage.mixColors(colorLow,colorHigh,intensity),intensity);
+					}
+				}
+			}
 		}
 
 		heatMap.draw(graphics,drawRect.x,drawRect.y);
