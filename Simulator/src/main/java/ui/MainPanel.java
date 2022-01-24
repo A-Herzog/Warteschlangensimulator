@@ -1548,7 +1548,7 @@ public class MainPanel extends MainPanelBase {
 			if (builder instanceof JQuickAccessBuilderDistributions) {
 				final JQuickAccessBuilderDistributions builderDistributions=(JQuickAccessBuilderDistributions)builder;
 				builderDistributions.work(distribution->commandExtrasCalculator(null,distribution));
-				list.addAll(builderDistributions.getList());
+				list.addAll(builderDistributions.getList(5));
 			}
 
 			if (builder instanceof JQuickAccessBuilderSettings) {
