@@ -100,6 +100,7 @@ import ui.infopanel.InfoPanel;
 import ui.modeleditor.DrawIOExport;
 import ui.modeleditor.ElementRendererTools;
 import ui.modeleditor.GraphVizExport;
+import ui.modeleditor.GraphVizExportDialog;
 import ui.modeleditor.ModelElementCatalog;
 import ui.modeleditor.ModelElementCatalogListCellRenderer;
 import ui.modeleditor.ModelElementCatalogTransferHandler;
@@ -2077,7 +2078,7 @@ public final class EditorPanel extends EditorPanelBase {
 			if (!MsgBox.confirmOverwrite(getOwnerWindow(),file)) return null;
 		}
 
-		return exportModelToFile(getModel(),(statisticsGetter==null)?null:statisticsGetter.get(),surfacePanel,file);
+		return exportModelToFile(getModel(),(statisticsGetter==null)?null:statisticsGetter.get(),surfacePanel,file,this);
 	}
 
 	/**
@@ -2086,9 +2087,10 @@ public final class EditorPanel extends EditorPanelBase {
 	 * @param statistics	Statistikdaten die ergänzt werden sollen (darf <code>null</code> sein)
 	 * @param surfacePanel	Haupt-Zeichenfläche
 	 * @param file	Name der Datei, in der das Modell gespeichert werden soll (darf nicht <code>null</code> sein)
+	 * @param owner	Übergeordnetes Element (zur Anzeige von Optionen-Dialogen; wird <code>null</code> übergeben, so werden keine Dialoge angezeigt)
 	 * @return	Gibt im Erfolgsfall <code>null</code> zurück, sonst eine Fehlermeldung.
 	 */
-	public static String exportModelToFile(final EditModel model, final Statistics statistics, final ModelSurfacePanel surfacePanel, final File file) {
+	public static String exportModelToFile(final EditModel model, final Statistics statistics, final ModelSurfacePanel surfacePanel, final File file, final Component owner) {
 		String format="png";
 		if (file.getName().toLowerCase().endsWith(".jpg")) format="jpg";
 		if (file.getName().toLowerCase().endsWith(".jpeg")) format="jpg";
@@ -2107,8 +2109,25 @@ public final class EditorPanel extends EditorPanelBase {
 
 		if (format.equalsIgnoreCase("html")) {
 			/* HTML-Modus */
-			final HTMLOutputBuilder builder=new HTMLOutputBuilder(model);
-			return builder.build(file);
+			boolean includeSubModels=true;
+			boolean includeStatistics=SetupData.getSetup().statisticInTooltips;
+			boolean modeGraphViz=false;
+			if (owner!=null) {
+				final GraphVizExportDialog optionsDialog=new GraphVizExportDialog(owner,true,GraphVizExportDialog.hasSubModels(model),statistics!=null);
+				if (optionsDialog.getClosedBy()!=BaseDialog.CLOSED_BY_OK) return null;
+				includeSubModels=optionsDialog.isIncludeSubModels();
+				includeStatistics=optionsDialog.isIncludeStatistics();
+				modeGraphViz=optionsDialog.isModeGraphViz();
+			}
+			if (modeGraphViz) {
+				final GraphVizExport export=new GraphVizExport();
+				export.process(model,includeStatistics?statistics:null,includeSubModels);
+				if (!export.saveHtml(file,model)) return Language.tr("Editor.ExportModel.Error");
+				return null;
+			} else {
+				final HTMLOutputBuilder builder=new HTMLOutputBuilder(model);
+				return builder.build(file);
+			}
 		}
 
 		if (format.equalsIgnoreCase("pptx")) {
@@ -2128,9 +2147,17 @@ public final class EditorPanel extends EditorPanelBase {
 
 		if (format.equalsIgnoreCase("dot")) {
 			/* GraphViz-Modus */
+			boolean includeSubModels=true;
+			boolean includeStatistics=SetupData.getSetup().statisticInTooltips;
+			if (owner!=null && (GraphVizExportDialog.hasSubModels(model) || statistics!=null)) {
+				final GraphVizExportDialog optionsDialog=new GraphVizExportDialog(owner,false,GraphVizExportDialog.hasSubModels(model),statistics!=null);
+				if (optionsDialog.getClosedBy()!=BaseDialog.CLOSED_BY_OK) return null;
+				includeSubModels=optionsDialog.isIncludeSubModels();
+				includeStatistics=optionsDialog.isIncludeStatistics();
+			}
 			final GraphVizExport export=new GraphVizExport();
-			export.process(model,SetupData.getSetup().statisticInTooltips?statistics:null);
-			if (!export.save(file)) return Language.tr("Editor.ExportModel.Error");
+			export.process(model,includeStatistics?statistics:null,includeSubModels);
+			if (!export.saveDot(file,model)) return Language.tr("Editor.ExportModel.Error");
 			return null;
 		}
 

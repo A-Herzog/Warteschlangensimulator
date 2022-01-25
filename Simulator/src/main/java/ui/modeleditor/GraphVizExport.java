@@ -16,9 +16,11 @@
 package ui.modeleditor;
 
 import java.awt.Color;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Base64;
 import java.util.List;
 
 import language.Language;
@@ -47,8 +49,56 @@ import ui.modeleditor.fastpaint.BrighterColor;
  */
 public class GraphVizExport {
 	/**
+	 * HTML-Kopf für Export von DOT-Daten als HTML-Datei
+	 * @see #saveHtml(File, EditModel)
+	 */
+	private static final String htmlHeader;
+
+	/**
+	 * HTML-Fuß für Export von DOT-Daten als HTML-Datei
+	 * @see #saveHtml(File, EditModel)
+	 */
+	private static final String htmlFooter;
+
+	static {
+		final StringBuilder htmlHeaderBuilder=new StringBuilder();
+		htmlHeaderBuilder.append("<!DOCTYPE html>\n");
+		htmlHeaderBuilder.append("<html>\n");
+		htmlHeaderBuilder.append("<head>\n");
+		htmlHeaderBuilder.append("  <title>%s</title>\n");
+		htmlHeaderBuilder.append("  <meta charset=\"utf-8\">\n");
+		htmlHeaderBuilder.append("  <script src=\"https://d3js.org/d3.v5.min.js\" type=\"application/javascript\"></script>\n");
+		htmlHeaderBuilder.append("  <script src=\"https://unpkg.com/@hpcc-js/wasm@0.3.11/dist/index.min.js\" type=\"application/javascript\"></script>\n");
+		htmlHeaderBuilder.append("  <script src=\"https://unpkg.com/d3-graphviz@3.0.5/build/d3-graphviz.js\" type=\"application/javascript\"></script>\n");
+		htmlHeaderBuilder.append("</head>\n");
+		htmlHeaderBuilder.append("<body>\n");
+		htmlHeaderBuilder.append("<div id=\"graph\" style=\"text-align: center; width: 98%%; height: 98%%; position: absolute;\"></div>\n");
+		htmlHeaderBuilder.append("<script type=\"text/javascript\">\n");
+		htmlHeaderBuilder.append("<!--\n");
+		htmlHeaderBuilder.append("'use strict';\n");
+		htmlHeaderBuilder.append("var model=`\n");
+		htmlHeader=htmlHeaderBuilder.toString();
+
+		final StringBuilder htmlFooterBuilder=new StringBuilder();
+		htmlFooterBuilder.append("`;\n");
+		htmlFooterBuilder.append("\n");
+		htmlFooterBuilder.append("const graphContainer=d3.select(\"#graph\");\n");
+		htmlFooterBuilder.append("const width=graphContainer.node().clientWidth;\n");
+		htmlFooterBuilder.append("const height=graphContainer.node().clientHeight;\n");
+		htmlFooterBuilder.append("graphContainer.graphviz().width(width).height(height).fit(true).renderDot(model).zoom(false);\n");
+		htmlFooterBuilder.append("//-->\n");
+		htmlFooterBuilder.append("</script>\n");
+		htmlFooterBuilder.append("<!--\n");
+		htmlFooterBuilder.append("%s\n");
+		htmlFooterBuilder.append("-->\n");
+		htmlFooterBuilder.append("</body>\n");
+		htmlFooterBuilder.append("</html>\n");
+		htmlFooter=htmlFooterBuilder.toString();
+	}
+
+	/**
 	 * Auszugebende Textzeilen
-	 * @see #save(File)
+	 * @see #saveDot(File, EditModel)
 	 */
 	private final List<String> output;
 
@@ -75,8 +125,9 @@ public class GraphVizExport {
 	 * Überträgt den Inhalt des Modells in ein GraphViz-Diagramm
 	 * @param model	Modell-Objekt aus dem die Daten ausgelesen werden sollen
 	 * @param statistics	Optionales Statistikobjekt aus dem Statistikinformationen zu den Stationen ausgelesen werden (darf <code>null</code> sein)
+	 * @param includeSubModels	Untermodelle beim Export vollständig mit ausgeben?
 	 */
-	public void process(final EditModel model, final Statistics statistics) {
+	public void process(final EditModel model, final Statistics statistics, final boolean includeSubModels) {
 		output.add("digraph Model {");
 		output.add("");
 
@@ -96,7 +147,7 @@ public class GraphVizExport {
 			output.add("  fontsize=18.0");
 		}
 		output.add("");
-		process(model,statistics,model.surface,"  ");
+		process(model,statistics,model.surface,"  ",includeSubModels);
 		output.add("");
 		output.add("}");
 	}
@@ -107,19 +158,20 @@ public class GraphVizExport {
 	 * @param statistics	Optionales Statistikobjekt aus dem Statistikinformationen zu den Stationen ausgelesen werden (darf <code>null</code> sein)
 	 * @param surface	Zeichenfläche
 	 * @param indent Einrückung der Ausgabezeilen
-	 * @see #process(EditModel, Statistics)
+	 * @param includeSubModels	Untermodelle beim Export vollständig mit ausgeben?
+	 * @see #process(EditModel, Statistics, boolean)
 	 */
-	private void process(final EditModel model, final Statistics statistics, final ModelSurface surface, final String indent) {
+	private void process(final EditModel model, final Statistics statistics, final ModelSurface surface, final String indent, final boolean includeSubModels) {
 		/* Stationen zeichnen */
-		for (ModelElement element: surface.getElements()) if ((element instanceof ModelElementBox) && !(element instanceof ModelElementSub)) {
+		for (ModelElement element: surface.getElements()) if ((element instanceof ModelElementBox) && (!includeSubModels || !(element instanceof ModelElementSub))) {
 			final ModelElementBox box=(ModelElementBox)element;
 			output.add(indent+element.getId()+" [");
-			output.add(indent+"  shape=record");
+			output.add(indent+"  shape=record,");
 
 			final ModelDescriptionBuilderSingleStation builder=new ModelDescriptionBuilderSingleStation(model,ModelDescriptionBuilderSingleStation.Mode.PLAIN);
 			box.buildDescription(builder);
 			builder.done();
-			final String description=builder.getDescription();
+			final String description=builder.getDescription().trim();
 
 			if (box instanceof ModelElementSubConnect) {
 				output.add(indent+"  label=<"+encodeLabel(box.getTypeName(),null,null)+">,");
@@ -134,14 +186,14 @@ public class GraphVizExport {
 		}
 
 		/* Untermodelle zeichnen */
-		for (ModelElement element: surface.getElements()) if (element instanceof ModelElementSub) {
+		if (includeSubModels) for (ModelElement element: surface.getElements()) if (element instanceof ModelElementSub) {
 			final ModelElementSub sub=(ModelElementSub)element;
 			output.add("");
 			output.add(indent+"subgraph cluster_"+element.getId()+" {");
 			output.add(indent+"  label=<"+encodeLabel(sub.getTypeName(),sub.getName(),null)+">");
 			output.add(indent+"  fontname=\"Sans-Serif\"");
 			output.add("");
-			process(model,statistics,sub.getSubSurface(),indent+"  ");
+			process(model,statistics,sub.getSubSurface(),indent+"  ",includeSubModels);
 			output.add(indent+"}");
 		}
 
@@ -152,10 +204,10 @@ public class GraphVizExport {
 			final ModelElementBox box=(ModelElementBox)element;
 
 			if (element instanceof ModelElementEdgeOut) {
-				process(statistics,box,((ModelElementEdgeOut)element).getEdgeOut(),indent);
+				process(statistics,box,((ModelElementEdgeOut)element).getEdgeOut(),indent,includeSubModels);
 			}
 			if (element instanceof ModelElementEdgeMultiOut) {
-				for (ModelElementEdge edge: ((ModelElementEdgeMultiOut)element).getEdgesOut()) process(statistics,box,edge,indent);
+				for (ModelElementEdge edge: ((ModelElementEdgeMultiOut)element).getEdgesOut()) process(statistics,box,edge,indent,includeSubModels);
 			}
 		}
 	}
@@ -166,8 +218,9 @@ public class GraphVizExport {
 	 * @param source	Ausgangselement der Kante
 	 * @param edge	Kante
 	 * @param indent Einrückung der Ausgabezeilen
+	 * @param includeSubModels	Untermodelle beim Export vollständig mit ausgeben?
 	 */
-	private void process(final Statistics statistics, ModelElementBox source, ModelElementEdge edge, final String indent) {
+	private void process(final Statistics statistics, ModelElementBox source, ModelElementEdge edge, final String indent, final boolean includeSubModels) {
 		if (edge==null) return;
 		final ModelElementEdge firstEdge=edge;
 
@@ -187,7 +240,7 @@ public class GraphVizExport {
 			return;
 		}
 
-		if (source instanceof ModelElementSub) {
+		if ((source instanceof ModelElementSub) && includeSubModels) {
 			final ModelElementSub sub=(ModelElementSub)source;
 			final List<ModelElementEdge> edges=Arrays.asList(sub.getEdgesOut());
 			final int nr=edges.indexOf(firstEdge);
@@ -200,7 +253,7 @@ public class GraphVizExport {
 			}
 		}
 
-		if (destination instanceof ModelElementSub) {
+		if ((destination instanceof ModelElementSub) && includeSubModels) {
 			final ModelElementSub sub=(ModelElementSub)destination;
 			final List<ModelElementEdge> edges=Arrays.asList(sub.getEdgesIn());
 			final int nr=edges.indexOf(edge);
@@ -289,12 +342,42 @@ public class GraphVizExport {
 	}
 
 	/**
-	 * Speichert das Diagramm.
+	 * Speichert das Diagramm als DOT-Datei.
 	 * @param file	Ausgabedatei
+	 * @param model	Auszugebendes Modell
 	 * @return	Gibt an, ob das Speichern erfolgreich war.
 	 */
-	public boolean save(final File file) {
+	public boolean saveDot(final File file, final EditModel model) {
 		final String outputString=String.join("\n",output);
-		return Table.saveTextToFile(outputString,file);
+		return Table.saveTextToFile(outputString+"\n/*\n"+getModelBase64(model)+"\n*/\n",file);
+	}
+
+	/**
+	 * Speichert das Diagramm als HTML-Datei.
+	 * @param file	Ausgabedatei
+	 * @param model	Auszugebendes Modell
+	 * @return	Gibt an, ob das Speichern erfolgreich war.
+	 */
+	public boolean saveHtml(final File file, final EditModel model) {
+		final String outputString=String.join("\n",output).replace("\\\"","\\\\\"");
+		final String header=String.format(htmlHeader,model.name.trim());
+		final String footer=String.format(htmlFooter,getModelBase64(model));
+
+		return Table.saveTextToFile(header+outputString+footer,file);
+	}
+
+	/**
+	 * Encodiert ein Modell im Base64-Format zur Einbettung in andere Dateien.
+	 * @param model	Auszugebendes Modell
+	 * @return	Modell im Base64-Format
+	 */
+	private static String getModelBase64(final EditModel model) {
+		final StringBuilder result=new StringBuilder();
+		result.append("QSModel\n");
+		final ByteArrayOutputStream out=new ByteArrayOutputStream();
+		model.saveToStream(out);
+		final String base64bytes=Base64.getEncoder().encodeToString(out.toByteArray());
+		result.append("data:application/xml;base64,"+base64bytes);
+		return result.toString();
 	}
 }

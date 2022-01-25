@@ -1740,7 +1740,7 @@ public class MainPanel extends MainPanelBase {
 
 		for (String line: lines) {
 			if (firstLine) {
-				if (!line.trim().equalsIgnoreCase("<!doctype html>")) return false;
+				if (!line.trim().equalsIgnoreCase("<!doctype html>") && !line.trim().equalsIgnoreCase("digraph Model {")) return false;
 			} else {
 				if (modelDataFollow) {
 					if (!line.trim().startsWith("data:application/xml;base64,")) return false;
@@ -1769,7 +1769,7 @@ public class MainPanel extends MainPanelBase {
 
 		for (String line: lines) {
 			if (firstLine) {
-				if (!line.trim().equalsIgnoreCase("<!doctype html>")) return false;
+				if (!line.trim().equalsIgnoreCase("<!doctype html>") && !line.trim().equalsIgnoreCase("digraph Model {")) return false;
 			} else {
 				if (modelDataFollow) {
 					if (!line.trim().startsWith("data:application/xml;base64,")) return false;

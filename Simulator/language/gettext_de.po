@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-22 19:34+0100\n"
+"POT-Creation-Date: 2022-01-24 00:26+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -8433,6 +8433,21 @@ msgstr "Erzeugt mit %s"
 
 msgid "GraphVizExport.Info2"
 msgstr "Übersetzung in Bilddatei mit GraphViz: \"C:\\Program Files\\Graphviz\\bin\\dot\" -Tsvg Input.dot > Output.svg"
+
+msgid "GraphVizExport.Options.Mode.DOT"
+msgstr "D3 GraphViz"
+
+msgid "GraphVizExport.Options.Mode.HTML"
+msgstr "HTML-Canvas"
+
+msgid "GraphVizExport.Options.Option.Statistics"
+msgstr "Statistikdaten mit ausgeben"
+
+msgid "GraphVizExport.Options.Option.SubModels"
+msgstr "Untermodelle einbeziehen"
+
+msgid "GraphVizExport.Options.Title"
+msgstr "Modell exportieren"
 
 msgid "HeatMapSelect.DialogHint"
 msgstr "Mit Hilfe einer Heatmap können nach einer abgeschlossenen Simulation die Werte bestimmter Kenngrößen direkt auf der Zeichenfläche visualisiert werden."
