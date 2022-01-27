@@ -68,10 +68,24 @@ public class BookData {
 	private BookSection[] pageToTOC;
 
 	/**
-	 * Differenz zwischen Seite 1 Buch und Seite 1 pdf
-	 * @see #getPageOffset()
+	 * Start-Buchseitenzahl, ab dem {@link #pageOffset} gelten soll.
+	 * @see #pageOffsetBookPageRangeEnd
+	 * @see #pageOffset
 	 */
-	private int pageOffset;
+	private int[] pageOffsetBookPageRangeStart;
+
+	/**
+	 * End-Buchseitenzahl, ab dem {@link #pageOffset} gelten soll.
+	 * @see #pageOffsetBookPageRangeStart
+	 * @see #pageOffset
+	 */
+	private int[] pageOffsetBookPageRangeEnd;
+
+	/**
+	 * Differenz zwischen Buch-Seite und pdf-Seite
+	 * @see #getPageOffset(int)
+	 */
+	private int[] pageOffset;
 
 	/**
 	 * Singleton-Instanz der Klasse
@@ -258,10 +272,30 @@ public class BookData {
 	 * @param list	Text der Seitenzahl-Offset-Datei
 	 */
 	private void processPageOffset(final List<String> list) {
+		final List<Integer> pageOffsetBookPageRangeStartList=new ArrayList<>();
+		final List<Integer> pageOffsetBookPageRangeEndList=new ArrayList<>();
+		final List<Integer> pageOffsetList=new ArrayList<>();
+
 		for (String line: list) {
-			final Integer I=NumberTools.getNotNegativeInteger(line);
-			if (I!=null) pageOffset=I.intValue();
+			final int index1=line.indexOf(":");
+			if (index1<0) continue;
+			final Integer offset=NumberTools.getNotNegativeInteger(line.substring(index1+1).trim());
+			if (offset==null) continue;
+			final String range=line.substring(0,index1).trim();
+			final int index2=range.indexOf("-");
+			if (index2<0) continue;
+			final Integer pageStart=NumberTools.getNotNegativeInteger(range.substring(0,index2).trim());
+			final Integer pageEnd=NumberTools.getNotNegativeInteger(range.substring(index2+1).trim());
+			if (pageStart==null || pageEnd==null || pageStart>pageEnd) continue;
+
+			pageOffsetBookPageRangeStartList.add(pageStart);
+			pageOffsetBookPageRangeEndList.add(pageEnd);
+			pageOffsetList.add(offset);
 		}
+
+		pageOffsetBookPageRangeStart=pageOffsetBookPageRangeStartList.stream().mapToInt(Integer::intValue).toArray();
+		pageOffsetBookPageRangeEnd=pageOffsetBookPageRangeEndList.stream().mapToInt(Integer::intValue).toArray();
+		pageOffset=pageOffsetList.stream().mapToInt(Integer::intValue).toArray();
 	}
 
 	/**
@@ -357,10 +391,15 @@ public class BookData {
 	/**
 	 * Liefert den Wert, der auf die Buchseitennummer addiert werden,
 	 * um auf die Seitennummer in der pdf zu kommen.
+	 * @param page	Buchseite für die der Offset berechnet werden soll
 	 * @return	Differenz zwischen Seite 1 Buch und Seite 1 pdf
 	 */
-	public int getPageOffset() {
-		return pageOffset;
+	public int getPageOffset(final int page) {
+		for (int i=0;i<pageOffset.length;i++) {
+			if (page>=pageOffsetBookPageRangeStart[i] && page<=pageOffsetBookPageRangeEnd[i]) return pageOffset[i];
+		}
+
+		return 0;
 	}
 
 	/**
@@ -413,6 +452,12 @@ public class BookData {
 	 */
 	public static class BookSection implements BookMatch {
 		/**
+		 * URL-Vorlage für einzelne Kapitel
+		 * @see #getChapterURL()
+		 */
+		private static final String BOOK_CHAPTER_URL="https://link.springer.com/chapter/10.1007/978-3-658-34668-3_%s";
+
+		/**
 		 * Kapitelnummer
 		 */
 		public final String id;
@@ -442,6 +487,19 @@ public class BookData {
 		@Override
 		public String toString() {
 			return "<html><body>"+id+" <b>"+encodeHTMLentities(name)+"</b> ("+Language.tr("BookData.page")+" "+page+")</body></html>";
+		}
+
+		/**
+		 * Liefert die Kapitel-URL für das aktuelle Kapitel.
+		 * @return	Kapitel-URL
+		 */
+		public String getChapterURL() {
+			final int index=id.indexOf(".");
+			if (index<0) {
+				return String.format(BOOK_CHAPTER_URL,id);
+			} else {
+				return String.format(BOOK_CHAPTER_URL,id.substring(0,index));
+			}
 		}
 	}
 

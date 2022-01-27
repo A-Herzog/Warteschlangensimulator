@@ -479,7 +479,7 @@ public class BookDataDialog extends BaseDialog {
 			if (pdfViewer32.isFile()) cmd.append(pdfViewer32.toString());
 		}
 		cmd.append("\" /A \"page=");
-		cmd.append(page+data.getPageOffset());
+		cmd.append(page+data.getPageOffset(page));
 		cmd.append("\" \"");
 		cmd.append(file.toString());
 		cmd.append("\"");
@@ -582,7 +582,8 @@ public class BookDataDialog extends BaseDialog {
 		if (selected<0) return;
 
 		if (!getBookPDF().isFile()) {
-			MsgBox.error(this,Language.tr("BookData.NoBook.Title"),Language.tr("BookData.NoBook.Info"));
+			JOpenURL.open(this,data.getTOC().get(selected).getChapterURL());
+			/* MsgBox.error(this,Language.tr("BookData.NoBook.Title"),Language.tr("BookData.NoBook.Info")); */
 			return;
 		}
 
@@ -601,20 +602,24 @@ public class BookDataDialog extends BaseDialog {
 		final List<Integer> pages=index.get(key);
 		if (pages==null || pages.size()==0) return;
 
+		final int pageToShow;
+
+		if (pages.size()==1 || (!canOpenPDFpage() && getBookPDF().isFile())) {
+			pageToShow=pages.get(0);
+		} else {
+			final BookDataSelectPageDialog dialog=new BookDataSelectPageDialog(this,key,pages.stream().mapToInt(Integer::intValue).toArray());
+			if (dialog.getClosedBy()!=BaseDialog.CLOSED_BY_OK) return;
+			pageToShow=dialog.getSelectedPage();
+		}
+
+
 		if (!getBookPDF().isFile()) {
-			MsgBox.error(this,Language.tr("BookData.NoBook.Title"),Language.tr("BookData.NoBook.Info"));
+			JOpenURL.open(this,data.getSection(pageToShow).getChapterURL());
+			/* MsgBox.error(this,Language.tr("BookData.NoBook.Title"),Language.tr("BookData.NoBook.Info")); */
 			return;
 		}
 
-		if (pages.size()==1 || !canOpenPDFpage()) {
-			openPDF(getBookPDF(),pages.get(0));
-			return;
-		}
-
-		final BookDataSelectPageDialog dialog=new BookDataSelectPageDialog(this,key,pages.stream().mapToInt(Integer::intValue).toArray());
-		if (dialog.getClosedBy()==BaseDialog.CLOSED_BY_OK) {
-			openPDF(getBookPDF(),dialog.getSelectedPage());
-		}
+		openPDF(getBookPDF(),pageToShow);
 	}
 
 	/**
