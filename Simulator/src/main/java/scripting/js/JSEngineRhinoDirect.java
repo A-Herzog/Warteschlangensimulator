@@ -65,11 +65,8 @@ public class JSEngineRhinoDirect extends JSEngine {
 	public JSEngineRhinoDirect(final int maxExecutionTimeMS, final JSOutputWriter output) {
 		super(maxExecutionTimeMS,output);
 
-		final Context cx=contextFactory.enterContext();
-		try {
+		try (Context cx=contextFactory.enterContext()) {
 			scope=cx.initSafeStandardObjects(null,true);
-		} finally {
-			Context.exit();
 		}
 	}
 
@@ -86,8 +83,7 @@ public class JSEngineRhinoDirect extends JSEngine {
 	 * @return	Gibt an, ob die Skripting-Engine erfolgreich initialisiert werden konnte (bzw. also vorhanden ist)
 	 */
 	public boolean initEngine(final Map<String,Object> javaObjects) {
-		final Context cx=contextFactory.enterContext();
-		try {
+		try (Context cx=contextFactory.enterContext()) {
 
 			for (Map.Entry<String,Object> entry: javaObjects.entrySet()) {
 				final Object obj=entry.getValue();
@@ -104,8 +100,6 @@ public class JSEngineRhinoDirect extends JSEngine {
 
 		} catch (Exception e) {
 			return false;
-		} finally {
-			Context.exit();
 		}
 
 		return true;
@@ -118,14 +112,11 @@ public class JSEngineRhinoDirect extends JSEngine {
 
 	@Override
 	public boolean initScript(final String script) {
-		final Context cx=contextFactory.enterContext();
-		try {
+		try (Context cx=contextFactory.enterContext()) {
 			cx.setOptimizationLevel(9);
 			this.script=cx.compileString(script,"script",1,null);
 		} catch (Exception e) {
 			compileError=e.getMessage();
-		} finally {
-			Context.exit();
 		}
 
 		return true;
