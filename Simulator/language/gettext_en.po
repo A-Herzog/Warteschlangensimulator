@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-24 00:26+0100\n"
+"POT-Creation-Date: 2022-01-26 13:31+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -843,14 +843,6 @@ msgstr "Select e-book pdf file"
 
 msgid "BookData.Homepage"
 msgstr "Homepage"
-
-msgid "BookData.NoBook.Info"
-msgstr ""
-"The pdf version of the book is not registered in the simulator settings.\n"
-"Therefore, the book cannot be opened directly."
-
-msgid "BookData.NoBook.Title"
-msgstr "E-Book-pdf not available"
 
 msgid "BookData.SelectPage.Info"
 msgstr "The term \"%s\" occurs in several chapters:"
@@ -2599,6 +2591,77 @@ msgstr "Two statistic files have to be selected to be compared."
 
 msgid "Compare.TooFewModels.Title"
 msgstr "Too few statistic files selected"
+
+msgid "CopyInstallation.DestinationFolder"
+msgstr "Destination folder"
+
+msgid "CopyInstallation.DestinationFolder.ConfirmOverwriteInfo"
+msgstr ""
+"The specified destination folder\n"
+"%s\n"
+"already contains files. If you continue, some of the files may be overwritten.\n"
+"Do you want to use the specified destination folder anyway?"
+
+msgid "CopyInstallation.DestinationFolder.ConfirmOverwriteInfoNo"
+msgstr "Do not perform copy action."
+
+msgid "CopyInstallation.DestinationFolder.ConfirmOverwriteInfoYes"
+msgstr "Use destination folder, overwrite existing files."
+
+msgid "CopyInstallation.DestinationFolder.ConfirmOverwriteTitle"
+msgstr "Destination folder contains files"
+
+msgid "CopyInstallation.DestinationFolder.ErrorInfo"
+msgstr "No destination folder was specified to which Warteschlangensimulator should be copied."
+
+msgid "CopyInstallation.DestinationFolder.ErrorNotExistantInfo"
+msgstr ""
+"The specified destination folder\n"
+"%s\n"
+"cannot be created."
+
+msgid "CopyInstallation.DestinationFolder.ErrorNotExistantTitle"
+msgstr "Cannot create destination folder"
+
+msgid "CopyInstallation.DestinationFolder.ErrorTitle"
+msgstr "No destination folder selected"
+
+msgid "CopyInstallation.DestinationFolder.Select"
+msgstr "Select destination folder"
+
+msgid "CopyInstallation.DialogHint"
+msgstr "This function allows to copy the current Warteschlangensimulator installation to another directory (e.g. on a USB stick). This way a portable installation can be created without having to download the simulator again."
+
+msgid "CopyInstallation.ErrorInfo"
+msgstr ""
+"The files could not be copied to\n"
+"%s."
+
+msgid "CopyInstallation.ErrorInfoSetup"
+msgstr ""
+"The configuration file\n"
+"%s\n"
+"could not be created."
+
+msgid "CopyInstallation.ErrorTitle"
+msgstr "Copy failed"
+
+msgid "CopyInstallation.Info"
+msgstr "In the destination folder, %s MB of disk space is required."
+
+msgid "CopyInstallation.Progress"
+msgstr "%s of %s MB copied"
+
+msgid "CopyInstallation.SuccessInfo"
+msgstr ""
+"The Warteschlangensimulator installation was copied to\n"
+"%s."
+
+msgid "CopyInstallation.SuccessTitle"
+msgstr "Installation successfully copied"
+
+msgid "CopyInstallation.Title"
+msgstr "Copy Warteschlangensimulator installation"
 
 msgid "CriticalStationsSignature.PublicKey"
 msgstr "SignaturePublicKey"
@@ -9305,6 +9368,12 @@ msgstr "Compare current and kept model"
 
 msgid "Main.Menu.Extras.CompareWithKeptModel.Mnemonic"
 msgstr "E"
+
+msgid "Main.Menu.Extras.CopyInstallation"
+msgstr "Copy Warteschlangensimulator installation..."
+
+msgid "Main.Menu.Extras.CopyInstallation.Mnemonic"
+msgstr "C"
 
 msgid "Main.Menu.Extras.ExecuteCommand"
 msgstr "Execute command-line command..."
@@ -32922,6 +32991,14 @@ msgstr "Statistic"
 
 msgid "XML.UnknownFileFormat"
 msgstr "The file format is unknown respectively is not matching to any of the file formats of this program."
+
+#~ msgid "BookData.NoBook.Info"
+#~ msgstr ""
+#~ "The pdf version of the book is not registered in the simulator settings.\n"
+#~ "Therefore, the book cannot be opened directly."
+
+#~ msgid "BookData.NoBook.Title"
+#~ msgstr "E-Book-pdf not available"
 
 #~ msgid "Editor.AddEdge"
 #~ msgstr "Edge"

@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-24 00:26+0100\n"
+"POT-Creation-Date: 2022-01-26 13:31+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -844,14 +844,6 @@ msgstr "E-Book pdf-Datei auswählen"
 
 msgid "BookData.Homepage"
 msgstr "Homepage"
-
-msgid "BookData.NoBook.Info"
-msgstr ""
-"Die pdf-Fassung des Buches ist nicht in den Simulator-Einstellungen hinterlegt.\n"
-"Daher kann das Buch nicht direkt geöffnet werden."
-
-msgid "BookData.NoBook.Title"
-msgstr "E-Book-pdf nicht verfügbar"
 
 msgid "BookData.SelectPage.Info"
 msgstr "Der Begriff \"%s\" tritt in mehreren Kapiteln auf:"
@@ -2602,6 +2594,79 @@ msgstr "Es müssen zwei Statistikdateien zum Vergleichen angegeben werden."
 
 msgid "Compare.TooFewModels.Title"
 msgstr "Zu wenig Statistikdateien angegeben"
+
+msgid "CopyInstallation.DestinationFolder"
+msgstr "Zielverzeichnis"
+
+msgid "CopyInstallation.DestinationFolder.ConfirmOverwriteInfo"
+msgstr ""
+"Das angegebene Zielverzeichnis\n"
+"%s\n"
+"enthält bereits Dateien. Wenn Sie fortfahren, werden einige davon evtl. überschrieben.\n"
+"Soll das angegebene Zielverzeichnis dennoch verwendet weden?"
+
+msgid "CopyInstallation.DestinationFolder.ConfirmOverwriteInfoNo"
+msgstr "Kopieraktion nicht ausführen."
+
+msgid "CopyInstallation.DestinationFolder.ConfirmOverwriteInfoYes"
+msgstr "Zielverzeichnis verwenden, bestehende Dateien überschreiben."
+
+msgid "CopyInstallation.DestinationFolder.ConfirmOverwriteTitle"
+msgstr "Zielverzeichnis enthält Dateien"
+
+msgid "CopyInstallation.DestinationFolder.ErrorInfo"
+msgstr "Es wurde kein Zielverzeichnis in den der Warteschlangensimulator kopiert werden soll angegeben."
+
+msgid "CopyInstallation.DestinationFolder.ErrorNotExistantInfo"
+msgstr ""
+"Das angegebene Zielverzeichnis\n"
+"%s\n"
+"kann nicht angelegt werden."
+
+msgid "CopyInstallation.DestinationFolder.ErrorNotExistantTitle"
+msgstr "Zielverzeichnis kann nicht angelegt werden"
+
+msgid "CopyInstallation.DestinationFolder.ErrorTitle"
+msgstr "Kein Zielverzeichnis angegeben"
+
+msgid "CopyInstallation.DestinationFolder.Select"
+msgstr "Zielverzeichnis auswählen"
+
+msgid "CopyInstallation.DialogHint"
+msgstr "Mit Hilfe dieser Funktion kann die aktuelle Warteschlangensimulator-Installation vollständig in ein anderes Verzeichnis (z.B. auf einem USB-Stick) kopiert werden. So kann eine portable Installation erzeugt werden, ohne den Simulator neu herunterladen zu müssen."
+
+msgid "CopyInstallation.ErrorInfo"
+msgstr ""
+"Die Dateien konnten nicht nach\n"
+"%s\n"
+"kopiert werden."
+
+msgid "CopyInstallation.ErrorInfoSetup"
+msgstr ""
+"Die Konfigurationsatei\n"
+"%s\n"
+"konnten nicht angelegt werden."
+
+msgid "CopyInstallation.ErrorTitle"
+msgstr "Kopieren fehlgeschlagen"
+
+msgid "CopyInstallation.Info"
+msgstr "Im Zielverzeichnis werden %s MB Speicherplatz benötigt."
+
+msgid "CopyInstallation.Progress"
+msgstr "%s von %s MB kopiert"
+
+msgid "CopyInstallation.SuccessInfo"
+msgstr ""
+"Die Warteschlangensimulator-Installation wurde nach\n"
+"%s\n"
+"kopiert."
+
+msgid "CopyInstallation.SuccessTitle"
+msgstr "Installation kopiert"
+
+msgid "CopyInstallation.Title"
+msgstr "Warteschlangensimulator-Installation übertragen"
 
 msgid "CriticalStationsSignature.PublicKey"
 msgstr "SignaturOeffentlicherSchluessel"
@@ -9298,6 +9363,12 @@ msgstr "Aktuelles und festgehaltenes Modell vergleichen"
 
 msgid "Main.Menu.Extras.CompareWithKeptModel.Mnemonic"
 msgstr "F"
+
+msgid "Main.Menu.Extras.CopyInstallation"
+msgstr "Warteschlangensimulator-Installation übertragen..."
+
+msgid "Main.Menu.Extras.CopyInstallation.Mnemonic"
+msgstr "I"
 
 msgid "Main.Menu.Extras.ExecuteCommand"
 msgstr "Kommandozeilenbefehl ausführen..."
@@ -32961,6 +33032,14 @@ msgstr "Statistik"
 
 msgid "XML.UnknownFileFormat"
 msgstr "Das Dateiformat wurde nicht erkannt bzw. passt zu keinem Dateiformat dieses Programms."
+
+#~ msgid "BookData.NoBook.Info"
+#~ msgstr ""
+#~ "Die pdf-Fassung des Buches ist nicht in den Simulator-Einstellungen hinterlegt.\n"
+#~ "Daher kann das Buch nicht direkt geöffnet werden."
+
+#~ msgid "BookData.NoBook.Title"
+#~ msgstr "E-Book-pdf nicht verfügbar"
 
 #~ msgid "Editor.AddEdge"
 #~ msgstr "Kante"

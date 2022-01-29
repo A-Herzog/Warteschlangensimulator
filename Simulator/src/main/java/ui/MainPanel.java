@@ -126,6 +126,7 @@ import ui.commandline.CommandLineSystem;
 import ui.compare.ComparePanel;
 import ui.compare.CompareSelectDialog;
 import ui.dialogs.AnimationRecordSetupDialog;
+import ui.dialogs.CopyInstallationDialog;
 import ui.dialogs.DataCheckDialog;
 import ui.dialogs.DataPrivacyDialog;
 import ui.dialogs.EdgeStyleSetupDialog;
@@ -733,6 +734,7 @@ public class MainPanel extends MainPanelBase {
 		addAction("ExtrasBatchProcessing",e->commandExtrasBatchProcessing());
 		addAction("ExtrasExecuteCommand",e->commandExtrasExecuteCommand());
 		addAction("ExtrasSimulationServer",e->commandExtrasSimulationServer());
+		addAction("ExtrasCopyInstallation",e->commandExtrasCopyInstallation());
 		addAction("ExtrasSystemInfo",e->commandExtrasSystemInfo());
 
 		/* Hilfe */
@@ -1356,6 +1358,9 @@ public class MainPanel extends MainPanelBase {
 		createMenuItem(menu,Language.tr("Main.Menu.Extras.ExecuteCommand"),Images.EXTRAS_COMMANDLINE.getIcon(),Language.tr("Main.Menu.Extras.ExecuteCommand.Mnemonic"),"ExtrasExecuteCommand");
 		createMenuItem(menu,Language.tr("Main.Menu.Extras.SimulationServer"),Images.EXTRAS_SERVER.getIcon(),Language.tr("Main.Menu.Extras.SimulationServer.Mnemonic"),"ExtrasSimulationServer");
 		menu.addSeparator();
+		if (SetupData.getOperationMode()!=SetupData.OperationMode.PORTABLE_MODE) {
+			createMenuItem(menu,Language.tr("Main.Menu.Extras.CopyInstallation"),Images.GENERAL_SAVE.getIcon(),Language.tr("Main.Menu.Extras.CopyInstallation.Mnemonic"),"ExtrasCopyInstallation");
+		}
 		createMenuItem(menu,Language.tr("Main.Menu.Extras.SystemInfo"),Images.EXTRAS_SYSTEM_INFO.getIcon(),Language.tr("Main.Menu.Extras.SystemInfo.Mnemonic"),"ExtrasSystemInfo");
 
 		/* Hilfe */
@@ -3725,6 +3730,13 @@ public class MainPanel extends MainPanelBase {
 			setCurrentPanel(editorPanel);
 			enableMenuBar(true);
 		}));
+	}
+
+	/**
+	 * Befehl: Extras - Warteschlangensimulator-Installation kopieren
+	 */
+	private void commandExtrasCopyInstallation() {
+		new CopyInstallationDialog(this);
 	}
 
 	/**

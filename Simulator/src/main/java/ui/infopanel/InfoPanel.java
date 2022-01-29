@@ -193,6 +193,9 @@ public class InfoPanel {
 	/** Info-ID für den "Heatmap-Modus auswählen"-Dialog */
 	public static final String globalHeatMapSelect="HeatMapSelect";
 
+	/** Info-ID für den "Warteschlangensimulator-Installation kopieren"-Dialog */
+	public static final String globalCopyInstallation="CopyInstallation";
+
 	/* Stationen - Eingang/Ausgang */
 
 	/** Info-ID für den "Quelle"-Bearbeiten-Dialog (Gruppe "Eingang/Ausgang") */
@@ -786,6 +789,12 @@ public class InfoPanel {
 		register(globalHeatMapSelect,
 				()->Language.tr("HintsDialog.TreeNodeMoreDialogs")+"|"+Language.tr("HeatMapSelect.Title"),
 				()->Language.tr("HeatMapSelect.DialogHint"));
+
+		/* Warteschlangensimulator-Installation kopieren */
+
+		register(globalCopyInstallation,
+				()->Language.tr("HintsDialog.TreeNodeMoreDialogs")+"|"+Language.tr("CopyInstallation.Title"),
+				()->Language.tr("CopyInstallation.DialogHint"));
 
 		/* Stationen - Eingang/Ausgang */
 
