@@ -243,9 +243,10 @@ public class ModelPropertiesDialog extends BaseDialog {
 		}
 
 		/* Dialog konfigurieren */
-		setMinSizeRespectingScreensize(775,775);
+		setMinSizeRespectingScreensize(825,825);
 		pack();
 		if (getSize().width>900) setSize(900,getSize().height);
+		if (getSize().height>900) setSize(getSize().width,900);
 		setLocationRelativeTo(getOwner());
 		setResizable(true);
 
