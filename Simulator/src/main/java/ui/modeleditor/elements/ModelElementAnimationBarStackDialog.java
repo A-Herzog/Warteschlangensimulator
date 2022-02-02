@@ -24,6 +24,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.Serializable;
 
+import javax.swing.BoxLayout;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JComponent;
@@ -61,6 +62,8 @@ public class ModelElementAnimationBarStackDialog extends ModelElementBaseDialog 
 	private JCheckBox useMaximum;
 	/** Eingabefeld für den Maximalwert */
 	private JTextField editMaximum;
+	/** Achsenbeschriftung anzeigen */
+	private JCheckBox axisLabels;
 	/** Tabelle zur Definition Balkensegmente */
 	private BarStackTableModel tableModel;
 	/** Auswahlbox für die Linienbreite */
@@ -99,7 +102,10 @@ public class ModelElementAnimationBarStackDialog extends ModelElementBaseDialog 
 		tabs.add(Language.tr("Surface.AnimationBarStack.Dialog.Tab.Data"),tab=new JPanel(new BorderLayout()));
 
 		/* Richtung und Maximum */
-		tab.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)),BorderLayout.NORTH);
+		final JPanel setup=new JPanel();
+		tab.add(setup,BorderLayout.NORTH);
+		setup.setLayout(new BoxLayout(setup,BoxLayout.PAGE_AXIS));
+		setup.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
 		line.add(label=new JLabel(Language.tr("Surface.AnimationBarStack.Dialog.Bar")+":"));
 		line.add(selectDirection=new JComboBox<>(new String[]{
 				Language.tr("Surface.AnimationBarStack.Dialog.Bar.up"),
@@ -125,6 +131,11 @@ public class ModelElementAnimationBarStackDialog extends ModelElementBaseDialog 
 			@Override public void keyReleased(KeyEvent e) {checkData(false);}
 			@Override public void keyPressed(KeyEvent e) {checkData(false);}
 		});
+
+		/* Achsenbeschriftung */
+		setup.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
+		line.add(axisLabels=new JCheckBox(Language.tr("Surface.AnimationBarStack.Dialog.AxisLabels")));
+		axisLabels.setToolTipText(Language.tr("Surface.AnimationBarStack.Dialog.AxisLabels.Info"));
 
 		final JTableExt table;
 		tab.add(new JScrollPane(table=new JTableExt()),BorderLayout.CENTER);
@@ -182,6 +193,7 @@ public class ModelElementAnimationBarStackDialog extends ModelElementBaseDialog 
 				useMaximum.setSelected(true);
 				editMaximum.setText(NumberTools.formatNumberMax(max));
 			}
+			axisLabels.setSelected(((ModelElementAnimationBarStack)element).isAxisLabels());
 			lineWidth.setSelectedIndex(((ModelElementAnimationBarStack)element).getBorderWidth()-1);
 			colorChooserLine.setColor(((ModelElementAnimationBarStack)element).getBorderColor());
 			background.setSelected(((ModelElementAnimationBarStack)element).getBackgroundColor()!=null);
@@ -267,6 +279,7 @@ public class ModelElementAnimationBarStackDialog extends ModelElementBaseDialog 
 		} else {
 			bar.setMaxValue(0);
 		}
+		bar.setAxisLabels(axisLabels.isSelected());
 		tableModel.storeData();
 		bar.setBorderWidth(lineWidth.getSelectedIndex()+1);
 		bar.setBorderColor(colorChooserLine.getColor());

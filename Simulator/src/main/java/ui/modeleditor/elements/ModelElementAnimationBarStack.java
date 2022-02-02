@@ -148,6 +148,11 @@ public class ModelElementAnimationBarStack extends ModelElementPosition implemen
 	private final List<Color> barColors=new ArrayList<>();
 
 	/**
+	 * Sollen Beschriftungen an der Y-Achse angezeigt werden?
+	 */
+	private boolean axisLabels=false;
+
+	/**
 	 * Konstruktor der Klasse <code>ModelElementAnimationBarStack</code>
 	 * @param model	Modell zu dem dieses Element gehören soll (kann später nicht mehr geändert werden)
 	 * @param surface	Zeichenfläche zu dem dieses Element gehören soll (kann später nicht mehr geändert werden)
@@ -282,6 +287,22 @@ public class ModelElementAnimationBarStack extends ModelElementPosition implemen
 	}
 
 	/**
+	 * Sollen Achsenbeschriftungen dargestellt werden?
+	 * @return	Achsenbeschriftungen darstellen
+	 */
+	public boolean isAxisLabels() {
+		return axisLabels;
+	}
+
+	/**
+	 * Stellt ein, ob Achsenbeschriftungen darstellen werden sollen.
+	 * @param axisLabels	Achsenbeschriftungen darstellen
+	 */
+	public void setAxisLabels(boolean axisLabels) {
+		this.axisLabels=axisLabels;
+	}
+
+	/**
 	 * Überprüft, ob das Element mit dem angegebenen Element inhaltlich identisch ist.
 	 * @param element	Element mit dem dieses Element verglichen werden soll.
 	 * @return	Gibt <code>true</code> zurück, wenn die beiden Elemente identisch sind.
@@ -319,6 +340,8 @@ public class ModelElementAnimationBarStack extends ModelElementPosition implemen
 			if (c1==null || c2==null || !c1.equals(c2)) return false;
 		}
 
+		if (axisLabels!=other.axisLabels) return false;
+
 		return true;
 	}
 
@@ -342,6 +365,7 @@ public class ModelElementAnimationBarStack extends ModelElementPosition implemen
 			backgroundColor=source.backgroundColor;
 			barColors.clear();
 			barColors.addAll(source.barColors);
+			axisLabels=source.axisLabels;
 		}
 	}
 
@@ -611,6 +635,9 @@ public class ModelElementAnimationBarStack extends ModelElementPosition implemen
 		}
 
 		setClip(graphics,drawRect,null);
+
+		if (yAxisDrawer!=null) yAxisDrawer.drawY(g2,zoom,rectangle);
+
 		g2.setStroke(saveStroke);
 	}
 
@@ -707,6 +734,11 @@ public class ModelElementAnimationBarStack extends ModelElementPosition implemen
 			node.appendChild(sub);
 			sub.setTextContent(EditModel.saveColor(barColor));
 		}
+
+		sub=doc.createElement(Language.trPrimary("Surface.AnimationBarStack.XML.Labels"));
+		node.appendChild(sub);
+		sub.setTextContent(axisLabels?"1":"0");
+
 	}
 
 	/**
@@ -776,6 +808,11 @@ public class ModelElementAnimationBarStack extends ModelElementPosition implemen
 			return null;
 		}
 
+		if (Language.trAll("Surface.AnimationBarStack.XML.Labels",name)) {
+			axisLabels=content.equals("1");
+			return null;
+		}
+
 		return null;
 	}
 
@@ -793,11 +830,21 @@ public class ModelElementAnimationBarStack extends ModelElementPosition implemen
 		return true;
 	}
 
+	/**
+	 * System zur Darstellung der y-Achsenbeschriftung
+	 */
+	private AxisDrawer yAxisDrawer;
+
 	@Override
 	public void initAnimation(final SimulationData simData) {
 		simValues=new double[expressions.size()];
 		for (int i=0;i<expressions.size();i++) {
 			expressions.get(i).initAnimation(this,simData);
+		}
+
+		if (maxValue>0 && axisLabels) {
+			yAxisDrawer=new AxisDrawer();
+			yAxisDrawer.setAxisValues(0,maxValue);
 		}
 	}
 

@@ -144,6 +144,11 @@ public class ModelElementAnimationBarChart extends ModelElementPosition implemen
 	private GradientFill[] filler;
 
 	/**
+	 * Sollen Beschriftungen an der Y-Achse angezeigt werden?
+	 */
+	private boolean axisLabels=false;
+
+	/**
 	 * Konstruktor der Klasse <code>ModelElementAnimationBarChart</code>
 	 * @param model	Modell zu dem dieses Element gehören soll (kann später nicht mehr geändert werden)
 	 * @param surface	Zeichenfläche zu dem dieses Element gehören soll (kann später nicht mehr geändert werden)
@@ -313,6 +318,22 @@ public class ModelElementAnimationBarChart extends ModelElementPosition implemen
 	}
 
 	/**
+	 * Sollen Achsenbeschriftungen dargestellt werden?
+	 * @return	Achsenbeschriftungen darstellen
+	 */
+	public boolean isAxisLabels() {
+		return axisLabels;
+	}
+
+	/**
+	 * Stellt ein, ob Achsenbeschriftungen darstellen werden sollen.
+	 * @param axisLabels	Achsenbeschriftungen darstellen
+	 */
+	public void setAxisLabels(boolean axisLabels) {
+		this.axisLabels=axisLabels;
+	}
+
+	/**
 	 * Überprüft, ob das Element mit dem angegebenen Element inhaltlich identisch ist.
 	 * @param element	Element mit dem dieses Element verglichen werden soll.
 	 * @return	Gibt <code>true</code> zurück, wenn die beiden Elemente identisch sind.
@@ -350,6 +371,7 @@ public class ModelElementAnimationBarChart extends ModelElementPosition implemen
 			if (!other.backgroundColor.equals(backgroundColor)) return false;
 		}
 		if (use3D!=other.use3D) return false;
+		if (axisLabels!=other.axisLabels) return false;
 
 		return true;
 	}
@@ -374,6 +396,7 @@ public class ModelElementAnimationBarChart extends ModelElementPosition implemen
 			borderColor=source.borderColor;
 			backgroundColor=source.backgroundColor;
 			use3D=source.use3D;
+			axisLabels=source.axisLabels;
 		}
 	}
 
@@ -588,6 +611,8 @@ public class ModelElementAnimationBarChart extends ModelElementPosition implemen
 			if (max<min) {final double d=min; min=max; max=d;}
 			if (max==min) return;
 
+			if (yAxisDrawer!=null && (minValue==null || maxValue==null)) yAxisDrawer.setAxisValues(min,max);
+
 			final int gap=use3D?10:5;
 
 			final int w=(rectangle.width-2*10-(recordedValues.length-1)*gap)/recordedValues.length;
@@ -704,6 +729,8 @@ public class ModelElementAnimationBarChart extends ModelElementPosition implemen
 			drawBorderBox(g2,new Point(p.x+s.width,p.y+s.height),zoom);
 		}
 
+		if (yAxisDrawer!=null) yAxisDrawer.drawY(g2,zoom,rectangle);
+
 		g2.setStroke(saveStroke);
 	}
 
@@ -781,6 +808,10 @@ public class ModelElementAnimationBarChart extends ModelElementPosition implemen
 			sub.setTextContent(NumberTools.formatSystemNumber(maxValue));
 		}
 
+		sub=doc.createElement(Language.trPrimary("Surface.AnimationBarChart.XML.Labels"));
+		node.appendChild(sub);
+		sub.setTextContent(axisLabels?"1":"0");
+
 		for (int i=0;i<expression.size();i++) {
 			sub=doc.createElement(Language.trPrimary("Surface.AnimationBarChart.XML.Set"));
 			node.appendChild(sub);
@@ -848,12 +879,19 @@ public class ModelElementAnimationBarChart extends ModelElementPosition implemen
 			Double D=NumberTools.getDouble(NumberTools.systemNumberToLocalNumber(content));
 			if (D==null) return String.format(Language.tr("Surface.XML.ElementSubError"),name,node.getParentNode().getNodeName());
 			minValue=D;
+			return null;
 		}
 
 		if (Language.trAll("Surface.AnimationBarChart.XML.MaxValue",name)) {
 			Double D=NumberTools.getDouble(NumberTools.systemNumberToLocalNumber(content));
 			if (D==null) return String.format(Language.tr("Surface.XML.ElementSubError"),name,node.getParentNode().getNodeName());
 			maxValue=D;
+			return null;
+		}
+
+		if (Language.trAll("Surface.AnimationBarChart.XML.Labels",name)) {
+			axisLabels=content.equals("1");
+			return null;
 		}
 
 		return null;
@@ -902,12 +940,22 @@ public class ModelElementAnimationBarChart extends ModelElementPosition implemen
 		return true;
 	}
 
+	/**
+	 * System zur Darstellung der y-Achsenbeschriftung
+	 */
+	private AxisDrawer yAxisDrawer;
+
 	@Override
 	public void initAnimation(final SimulationData simData) {
 		recordedValues=null;
 
 		for (int i=0;i<expression.size();i++) {
 			expression.get(i).initAnimation(this,simData);
+		}
+
+		if (axisLabels) {
+			yAxisDrawer=new AxisDrawer();
+			if (minValue!=null && maxValue!=null) yAxisDrawer.setAxisValues(minValue,maxValue);
 		}
 	}
 

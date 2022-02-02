@@ -284,7 +284,59 @@ public abstract class ModelElementAnimationDiagramBase extends ModelElementPosit
 	}
 
 	/**
-	 * Zeichnet die eigeneltichen Diagrammdaten
+	 * System zur Darstellung der x-Achsenbeschriftung
+	 */
+	private AxisDrawer xAxisDrawer;
+
+	/**
+	 * Deaktiviert die Darstellung der x-Achsenbeschriftung
+	 * @see #xAxisDrawer
+	 * @see #setXAxis(double, double)
+	 */
+	protected final void setXAxisOff() {
+		xAxisDrawer=null;
+	}
+
+	/**
+	 * Definiert den Minimal- und den Maximalwert für die x-Achsenbeschriftung
+	 * @param min	Minimaler Wert
+	 * @param max	Maximaler Wert
+	 * @see #xAxisDrawer
+	 * @see #setXAxisOff()
+	 */
+	protected final void setXAxis(final double min, final double max) {
+		if (xAxisDrawer==null) xAxisDrawer=new AxisDrawer();
+		xAxisDrawer.setAxisValues(min,max);
+	}
+
+	/**
+	 * System zur Darstellung der y-Achsenbeschriftung
+	 */
+	private AxisDrawer yAxisDrawer;
+
+	/**
+	 * Deaktiviert die Darstellung der y-Achsenbeschriftung
+	 * @see #yAxisDrawer
+	 * @see #setYAxis(double, double)
+	 */
+	protected final void setYAxisOff() {
+		yAxisDrawer=null;
+	}
+
+	/**
+	 * Definiert den Minimal- und den Maximalwert für die y-Achsenbeschriftung
+	 * @param min	Minimaler Wert
+	 * @param max	Maximaler Wert
+	 * @see #yAxisDrawer
+	 * @see #setYAxisOff()
+	 */
+	protected final void setYAxis(final double min, final double max) {
+		if (yAxisDrawer==null) yAxisDrawer=new AxisDrawer();
+		yAxisDrawer.setAxisValues(min,max);
+	}
+
+	/**
+	 * Zeichnet die eigentlichen Diagrammdaten
 	 * @param g	<code>Graphics</code>-Objekt in das das Element eingezeichnet werden soll
 	 * @param rectangle	Gemäß dem Zoomfaktor umgerechneter sichtbarer Ausschnitt
 	 * @param zoom	Zoomfaktor
@@ -300,24 +352,31 @@ public abstract class ModelElementAnimationDiagramBase extends ModelElementPosit
 	 */
 	@Override
 	public void drawToGraphics(final Graphics graphics, final Rectangle drawRect, final double zoom, final boolean showSelectionFrames) {
-		setClip(graphics,drawRect,null);
+		final Graphics2D g2=(Graphics2D)graphics;
 
+		/* Zeichenstift speichern */
+		final Stroke saveStroke=g2.getStroke();
+
+		/* Vorbereitungen */
+		setClip(graphics,drawRect,null);
 		final Point p=getPosition(true);
 		final Dimension s=getSize();
 
-		final Graphics2D g2=(Graphics2D)graphics;
-		final Stroke saveStroke=g2.getStroke();
-
+		/* Zeichenbereich bestimmen */
 		final Rectangle rectangle=new Rectangle((int)FastMath.round(FastMath.min(p.x,p.x+s.width)*zoom),(int)FastMath.round(FastMath.min(p.y,p.y+s.height)*zoom),(int)FastMath.round(Math.abs(s.width)*zoom),(int)FastMath.round(Math.abs(s.height)*zoom));
+
+		/* Hintergrund füllen */
 		if (backgroundColor!=null) {
 			g2.setColor(backgroundColor);
 			g2.fill(rectangle);
 		}
 
+		/* Diagrammdaten zeichnen */
 		setClip(g2,drawRect,rectangle);
 		drawDiagramData(g2,rectangle,zoom);
 		setClip(g2,drawRect,null);
 
+		/* Rahmen zeichnen */
 		boolean drawBorder=false;
 		Color lineColor=borderColor;
 		if (borderWidth>0) {
@@ -349,6 +408,11 @@ public abstract class ModelElementAnimationDiagramBase extends ModelElementPosit
 			drawBorderBox(g2,new Point(p.x+s.width,p.y+s.height),zoom);
 		}
 
+		/* Achsenbeschriftung ausgeben */
+		if (xAxisDrawer!=null) xAxisDrawer.drawX(g2,zoom,rectangle);
+		if (yAxisDrawer!=null) yAxisDrawer.drawY(g2,zoom,rectangle);
+
+		/* Zeichenstift wiederherstellen */
 		g2.setStroke(saveStroke);
 	}
 

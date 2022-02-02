@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-26 13:31+0100\n"
+"POT-Creation-Date: 2022-01-30 19:36+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -22547,6 +22547,9 @@ msgstr "Analog changing value"
 msgid "Surface.AnalogValue.XML.Root"
 msgstr "ModelElementAnalogValue"
 
+msgid "Surface.AnimationBar.Dialog.AxisLabels"
+msgstr "Show minimal and maximal value at bar"
+
 msgid "Surface.AnimationBar.Dialog.Bar"
 msgstr "Bar"
 
@@ -22634,6 +22637,9 @@ msgstr "right"
 msgid "Surface.AnimationBar.XML.DataArea.Direction.Up"
 msgstr "up"
 
+msgid "Surface.AnimationBar.XML.DataArea.Labels"
+msgstr "Labels"
+
 msgid "Surface.AnimationBar.XML.DataArea.Max"
 msgstr "Maximum"
 
@@ -22666,6 +22672,12 @@ msgstr "Frame width"
 
 msgid "Surface.AnimationBarChart.Dialog.Appearance.Use3D"
 msgstr "Use 3D effects for bars"
+
+msgid "Surface.AnimationBarChart.Dialog.AxisLabels"
+msgstr "Show minimal and maximal value at bars, if possible"
+
+msgid "Surface.AnimationBarChart.Dialog.AxisLabels.Info"
+msgstr "Fixed minimum and maximum values must be set to display the values."
 
 msgid "Surface.AnimationBarChart.Dialog.Data"
 msgstr "Data"
@@ -22769,6 +22781,9 @@ msgstr "Bar chart that is updated during the animation of the model"
 msgid "Surface.AnimationBarChart.XML.BackgroundColor"
 msgstr "ModelElementBackgroundColor"
 
+msgid "Surface.AnimationBarChart.XML.Labels"
+msgstr "ModelElementAxisLabels"
+
 msgid "Surface.AnimationBarChart.XML.LineColor"
 msgstr "ModelElementLineColor"
 
@@ -22795,6 +22810,12 @@ msgstr "ModelElementUse3D"
 
 msgid "Surface.AnimationBarStack.Dialog.Add"
 msgstr "Add partial bar"
+
+msgid "Surface.AnimationBarStack.Dialog.AxisLabels"
+msgstr "Show minimal and maximal value at bar, if possible"
+
+msgid "Surface.AnimationBarStack.Dialog.AxisLabels.Info"
+msgstr "A fixed maximum value must be set to display the values."
 
 msgid "Surface.AnimationBarStack.Dialog.Bar"
 msgstr "Bar"
@@ -22916,6 +22937,9 @@ msgstr "Maximum"
 msgid "Surface.AnimationBarStack.XML.DataExpression"
 msgstr "ModelElementDataExpression"
 
+msgid "Surface.AnimationBarStack.XML.Labels"
+msgstr "ModelElementAxisLabels"
+
 msgid "Surface.AnimationBarStack.XML.LineColor"
 msgstr "ModelElementLineColor"
 
@@ -22961,6 +22985,12 @@ msgstr "Frame color"
 msgid "Surface.AnimationDiagram.Dialog.Appearance.FrameWidth"
 msgstr "Frame width"
 
+msgid "Surface.AnimationDiagram.Dialog.AxisLabels"
+msgstr "Show minimal and maximal value at diagram, if possible"
+
+msgid "Surface.AnimationDiagram.Dialog.AxisLabels.Info"
+msgstr "To display the values, all data series must be scaled to the same value range."
+
 msgid "Surface.AnimationDiagram.Dialog.Data"
 msgstr "Data"
 
@@ -22999,6 +23029,9 @@ msgstr "Line chart that is updated during the animation of the model"
 
 msgid "Surface.AnimationDiagram.XML.BackgroundColor"
 msgstr "ModelElementBackgroundColor"
+
+msgid "Surface.AnimationDiagram.XML.Labels"
+msgstr "ModelElementAxisLabels"
 
 msgid "Surface.AnimationDiagram.XML.LineColor"
 msgstr "ModelElementLineColor"
@@ -23319,6 +23352,9 @@ msgstr "Frame color"
 msgid "Surface.AnimationRecord.Dialog.Appearance.FrameWidth"
 msgstr "Frame width"
 
+msgid "Surface.AnimationRecord.Dialog.AxisLabels"
+msgstr "Show minimal and maximal value at diagram"
+
 msgid "Surface.AnimationRecord.Dialog.Data"
 msgstr "Frame width"
 
@@ -23366,6 +23402,9 @@ msgstr "ModelElementAnimationRecordDataColor"
 
 msgid "Surface.AnimationRecord.XML.DisplayPoints"
 msgstr "ModelElementAnimationRecordDataPoints"
+
+msgid "Surface.AnimationRecord.XML.Labels"
+msgstr "ModelElementAxisLabels"
 
 msgid "Surface.AnimationRecord.XML.RecordID"
 msgstr "ModelElementAnimationRecordStationID"

@@ -1510,10 +1510,11 @@
   Minimum	CDATA	#IMPLIED
   Maximum	CDATA	#IMPLIED
   Richtung	CDATA	#REQUIRED
+  Beschriftung	CDATA	#IMPLIED
 >
 <!ELEMENT ModellElementBalkenFarbe (#PCDATA)>
 
-<!ELEMENT ModellElementAnimationStapelBalken (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementBoxSchriftGross | ModellElementBoxSchriftKlein | ModellElementMaximalerDurchsatzSekunden | ModellElementEbene | ModellElementDatenausdruck | ModellElementDatenbereich | ModellElementLinienBreite | ModellElementLinienFarbe | ModellElementHintergrundfarbe | ModellElementBalkenFarbe)*>
+<!ELEMENT ModellElementAnimationStapelBalken (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementBoxSchriftGross | ModellElementBoxSchriftKlein | ModellElementMaximalerDurchsatzSekunden | ModellElementEbene | ModellElementDatenausdruck | ModellElementDatenbereich | ModellElementLinienBreite | ModellElementLinienFarbe | ModellElementHintergrundfarbe | ModellElementBalkenFarbe | ModellElementAchsenbeschriftung)*>
 <!ATTLIST ModellElementAnimationStapelBalken
   id			CDATA	#REQUIRED
   geschuetzt	CDATA	#IMPLIED
@@ -1564,7 +1565,7 @@
 >
 <!ELEMENT ModellElementAnimationAnalogSkalaFarbe (#PCDATA)>
 
-<!ELEMENT ModellElementAnimationBalkenDiagramm (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementBoxSchriftGross | ModellElementBoxSchriftKlein | ModellElementMaximalerDurchsatzSekunden | ModellElementEbene | ModellElementLinienBreite | ModellElementLinienFarbe | ModellElementHintergrundfarbe | ModellElementDiagrammElement | ModellElementMinimalwert | ModellElementMaximalwert | ModellElement3DEffekt)*>
+<!ELEMENT ModellElementAnimationBalkenDiagramm (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementBoxSchriftGross | ModellElementBoxSchriftKlein | ModellElementMaximalerDurchsatzSekunden | ModellElementEbene | ModellElementLinienBreite | ModellElementLinienFarbe | ModellElementHintergrundfarbe | ModellElementDiagrammElement | ModellElementMinimalwert | ModellElementMaximalwert | ModellElement3DEffekt | ModellElementAchsenbeschriftung)*>
 <!ATTLIST ModellElementAnimationBalkenDiagramm
   id			CDATA	#REQUIRED
   geschuetzt	CDATA	#IMPLIED
@@ -1574,6 +1575,7 @@
 <!ELEMENT ModellElementMinimalwert (#PCDATA)>
 <!ELEMENT ModellElementMaximalwert (#PCDATA)>
 <!ELEMENT ModellElement3DEffekt (#PCDATA)>
+<!ELEMENT ModellElementAchsenbeschriftung (#PCDATA)>
 <!ELEMENT ModellElementDiagrammElement (#PCDATA)>
 <!ATTLIST ModellElementDiagrammElement
   Minimum		CDATA	#IMPLIED
@@ -1585,7 +1587,7 @@
   Modus			CDATA	#IMPLIED
 >
 
-<!ELEMENT ModellElementAnimationLinienDiagramm (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementBoxSchriftGross | ModellElementBoxSchriftKlein | ModellElementMaximalerDurchsatzSekunden | ModellElementEbene | ModellElementLinienBreite | ModellElementLinienFarbe | ModellElementHintergrundfarbe | ModellElementDiagrammElement | ModellElementDiagrammZeitbereich)*>
+<!ELEMENT ModellElementAnimationLinienDiagramm (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementBoxSchriftGross | ModellElementBoxSchriftKlein | ModellElementMaximalerDurchsatzSekunden | ModellElementEbene | ModellElementLinienBreite | ModellElementLinienFarbe | ModellElementHintergrundfarbe | ModellElementDiagrammElement | ModellElementDiagrammZeitbereich | ModellElementAchsenbeschriftung)*>
 <!ATTLIST ModellElementAnimationLinienDiagramm
   id			CDATA	#REQUIRED
   geschuetzt	CDATA	#IMPLIED
@@ -1620,7 +1622,7 @@
   SymbolSpiegeln	CDATA	#IMPLIED
 >
 
-<!ELEMENT ModellElementAnimationAufzeichnung (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementBoxSchriftGross | ModellElementBoxSchriftKlein | ModellElementMaximalerDurchsatzSekunden | ModellElementEbene | ModellElementLinienBreite | ModellElementLinienFarbe | ModellElementHintergrundfarbe | ModellElementAnimationAufzeichnungElementID | ModellElementAnimationAufzeichnungAnzahlPunkte | ModellElementAnimationAufzeichnungDatenfarbe)*>
+<!ELEMENT ModellElementAnimationAufzeichnung (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementBoxSchriftGross | ModellElementBoxSchriftKlein | ModellElementMaximalerDurchsatzSekunden | ModellElementEbene | ModellElementLinienBreite | ModellElementLinienFarbe | ModellElementHintergrundfarbe | ModellElementAnimationAufzeichnungElementID | ModellElementAnimationAufzeichnungAnzahlPunkte | ModellElementAnimationAufzeichnungDatenfarbe | ModellElementAchsenbeschriftung)*>
 <!ATTLIST ModellElementAnimationAufzeichnung
   id			CDATA	#REQUIRED
   geschuetzt	CDATA	#IMPLIED
@@ -3904,10 +3906,11 @@
   Minimum	CDATA	#IMPLIED
   Maximum	CDATA	#IMPLIED
   Direction	CDATA	#REQUIRED
+  Labels	CDATA	#IMPLIED
 >
 <!ELEMENT ModelElementBarColor (#PCDATA)>
 
-<!ELEMENT ModelElementAnimationStackBar (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBoxFontLarge | ModelElementBoxFontSmall | ModelElementMaximumThroughputSeconds | ModelElementLayer | ModelElementDataExpression | ModelElementDataArea | ModelElementLineWidth | ModelElementLineColor | ModelElementBackgroundColor | ModelElementBarColor)*>
+<!ELEMENT ModelElementAnimationStackBar (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBoxFontLarge | ModelElementBoxFontSmall | ModelElementMaximumThroughputSeconds | ModelElementLayer | ModelElementDataExpression | ModelElementDataArea | ModelElementLineWidth | ModelElementLineColor | ModelElementBackgroundColor | ModelElementBarColor | ModelElementAxisLabels)*>
 <!ATTLIST ModelElementAnimationStackBar
   id		CDATA	#REQUIRED
   protected	CDATA	#IMPLIED
@@ -3958,7 +3961,7 @@
 >
 <!ELEMENT ModelElementAnimationPointerMeasuringColor (#PCDATA)>
 
-<!ELEMENT ModelElementAnimationBarDiagram (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBoxFontLarge | ModelElementBoxFontSmall | ModelElementMaximumThroughputSeconds | ModelElementLayer | ModelElementLineWidth | ModelElementLineColor | ModelElementBackgroundColor | ModelElementDiagramElement | ModelElementMinimumValue | ModelElementMaximumValue | ModelElementUse3D)*>
+<!ELEMENT ModelElementAnimationBarDiagram (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBoxFontLarge | ModelElementBoxFontSmall | ModelElementMaximumThroughputSeconds | ModelElementLayer | ModelElementLineWidth | ModelElementLineColor | ModelElementBackgroundColor | ModelElementDiagramElement | ModelElementMinimumValue | ModelElementMaximumValue | ModelElementUse3D |ModelElementAxisLabels)*>
 <!ATTLIST ModelElementAnimationBarDiagram
   id		CDATA	#REQUIRED
   protected	CDATA	#IMPLIED
@@ -3968,6 +3971,7 @@
 <!ELEMENT ModelElementMinimumValue (#PCDATA)>
 <!ELEMENT ModelElementMaximumValue (#PCDATA)>
 <!ELEMENT ModelElementUse3D (#PCDATA)>
+<!ELEMENT ModelElementAxisLabels (#PCDATA)>
 <!ELEMENT ModelElementDiagramElement (#PCDATA)>
 <!ATTLIST ModelElementDiagramElement
   Minimum		CDATA	#IMPLIED
@@ -3979,7 +3983,7 @@
   Mode			CDATA	#IMPLIED
 >
 
-<!ELEMENT ModelElementAnimationLineDiagram (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBoxFontLarge | ModelElementBoxFontSmall | ModelElementMaximumThroughputSeconds | ModelElementLayer | ModelElementLineWidth | ModelElementLineColor | ModelElementBackgroundColor | ModelElementDiagramElement | ModelElementDiagramTimeRange)*>
+<!ELEMENT ModelElementAnimationLineDiagram (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBoxFontLarge | ModelElementBoxFontSmall | ModelElementMaximumThroughputSeconds | ModelElementLayer | ModelElementLineWidth | ModelElementLineColor | ModelElementBackgroundColor | ModelElementDiagramElement | ModelElementDiagramTimeRange | ModelElementAxisLabels)*>
 <!ATTLIST ModelElementAnimationLineDiagram
   id		CDATA	#REQUIRED
   protected	CDATA	#IMPLIED
@@ -4014,7 +4018,7 @@
   MirrorSymbol	CDATA	#IMPLIED
 >
 
-<!ELEMENT ModelElementAnimationRecord (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBoxFontLarge | ModelElementBoxFontSmall | ModelElementMaximumThroughputSeconds | ModelElementLayer | ModelElementLineWidth | ModelElementLineColor | ModelElementBackgroundColor | ModelElementAnimationRecordStationID | ModelElementAnimationRecordDataPoints | ModelElementAnimationRecordDataColor)*>
+<!ELEMENT ModelElementAnimationRecord (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBoxFontLarge | ModelElementBoxFontSmall | ModelElementMaximumThroughputSeconds | ModelElementLayer | ModelElementLineWidth | ModelElementLineColor | ModelElementBackgroundColor | ModelElementAnimationRecordStationID | ModelElementAnimationRecordDataPoints | ModelElementAnimationRecordDataColor | ModelElementAxisLabels)*>
 <!ATTLIST ModelElementAnimationRecord
   id		CDATA	#REQUIRED
   protected	CDATA	#IMPLIED

@@ -168,6 +168,11 @@ public class ModelElementAnimationBar extends ModelElementPosition implements El
 	private GradientFill filler;
 
 	/**
+	 * Sollen Beschriftungen an der Y-Achse angezeigt werden?
+	 */
+	private boolean axisLabels=false;
+
+	/**
 	 * Konstruktor der Klasse <code>ModelElementAnimationBar</code>
 	 * @param model	Modell zu dem dieses Element gehören soll (kann später nicht mehr geändert werden)
 	 * @param surface	Zeichenfläche zu dem dieses Element gehören soll (kann später nicht mehr geändert werden)
@@ -339,6 +344,22 @@ public class ModelElementAnimationBar extends ModelElementPosition implements El
 	}
 
 	/**
+	 * Sollen Achsenbeschriftungen dargestellt werden?
+	 * @return	Achsenbeschriftungen darstellen
+	 */
+	public boolean isAxisLabels() {
+		return axisLabels;
+	}
+
+	/**
+	 * Stellt ein, ob Achsenbeschriftungen darstellen werden sollen.
+	 * @param axisLabels	Achsenbeschriftungen darstellen
+	 */
+	public void setAxisLabels(boolean axisLabels) {
+		this.axisLabels=axisLabels;
+	}
+
+	/**
 	 * Überprüft, ob das Element mit dem angegebenen Element inhaltlich identisch ist.
 	 * @param element	Element mit dem dieses Element verglichen werden soll.
 	 * @return	Gibt <code>true</code> zurück, wenn die beiden Elemente identisch sind.
@@ -361,6 +382,7 @@ public class ModelElementAnimationBar extends ModelElementPosition implements El
 			if (!other.backgroundColor.equals(backgroundColor)) return false;
 		}
 		if (!other.barColor.equals(barColor)) return false;
+		if (axisLabels!=other.axisLabels) return false;
 
 		return true;
 	}
@@ -384,6 +406,7 @@ public class ModelElementAnimationBar extends ModelElementPosition implements El
 			borderColor=source.borderColor;
 			backgroundColor=source.backgroundColor;
 			barColor=source.barColor;
+			axisLabels=source.axisLabels;
 		}
 	}
 
@@ -627,6 +650,9 @@ public class ModelElementAnimationBar extends ModelElementPosition implements El
 		}
 
 		setClip(graphics,drawRect,null);
+
+		if (yAxisDrawer!=null) yAxisDrawer.drawY(g2,zoom,rectangle);
+
 		g2.setStroke(saveStroke);
 	}
 
@@ -699,6 +725,7 @@ public class ModelElementAnimationBar extends ModelElementPosition implements El
 		sub.setAttribute(Language.trPrimary("Surface.AnimationBar.XML.DataArea.Min"),NumberTools.formatSystemNumber(minValue));
 		sub.setAttribute(Language.trPrimary("Surface.AnimationBar.XML.DataArea.Max"),NumberTools.formatSystemNumber(maxValue));
 		sub.setAttribute(Language.trPrimary("Surface.AnimationBar.XML.DataArea.Direction"),getDirectionString(direction));
+		sub.setAttribute(Language.trPrimary("Surface.AnimationBar.XML.DataArea.Labels"),axisLabels?"1":"0");
 
 		sub=doc.createElement(Language.trPrimary("Surface.AnimationBar.XML.LineWidth"));
 		node.appendChild(sub);
@@ -755,6 +782,8 @@ public class ModelElementAnimationBar extends ModelElementPosition implements El
 				if (!ok) return String.format(Language.tr("Surface.XML.AttributeSubError"),Language.trPrimary("Surface.AnimationBar.XML.DataArea.Direction"),name,node.getParentNode().getNodeName());
 			}
 
+			axisLabels=Language.trAllAttribute("Surface.AnimationBar.XML.DataArea.Labels",node).equals("1");
+
 			return null;
 		}
 
@@ -800,11 +829,21 @@ public class ModelElementAnimationBar extends ModelElementPosition implements El
 		return true;
 	}
 
+	/**
+	 * System zur Darstellung der y-Achsenbeschriftung
+	 */
+	private AxisDrawer yAxisDrawer;
+
 	@Override
 	public void initAnimation(SimulationData simData) {
 		if (expression.initAnimation(this,simData)) {
 			simValue=0.0;
 			simValueActive=true;
+		}
+
+		if (axisLabels) {
+			yAxisDrawer=new AxisDrawer();
+			yAxisDrawer.setAxisValues(minValue,maxValue);
 		}
 	}
 

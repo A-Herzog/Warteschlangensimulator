@@ -24,6 +24,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.Serializable;
 
+import javax.swing.BoxLayout;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JComponent;
@@ -60,6 +61,8 @@ public class ModelElementAnimationLineDiagramDialog extends ModelElementBaseDial
 	private JTextField timeAreaEdit;
 	/** Auswahlbox für die Zeiteinheit für {@link #timeAreaEdit} */
 	private JComboBox<String> timeAreaComboBox;
+	/** Achsenbeschriftung anzeigen */
+	private JCheckBox axisLabels;
 	/** Tabelle zur Definition der Datenreihen */
 	private ExpressionTableModelLine expressionTableModel;
 	/** Auswahlbox für die Rahmenbreite */
@@ -97,8 +100,12 @@ public class ModelElementAnimationLineDiagramDialog extends ModelElementBaseDial
 
 		/* Daten: Zeitbereich und Diagrammreihen */
 		tabs.addTab(Language.tr("Surface.AnimationDiagram.Dialog.Data"),content=new JPanel(new BorderLayout()));
+		final JPanel setup=new JPanel();
+		content.add(setup,BorderLayout.NORTH);
+		setup.setLayout(new BoxLayout(setup,BoxLayout.PAGE_AXIS));
+		setup.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
 		data=getInputPanel(Language.tr("Surface.AnimationDiagram.Dialog.Data.TimeRange")+":","1",5);
-		content.add(line=(JPanel)data[0],BorderLayout.NORTH);
+		setup.add(line=(JPanel)data[0],BorderLayout.NORTH);
 		timeAreaEdit=(JTextField)data[1];
 		timeAreaEdit.setEditable(!readOnly);
 		timeAreaEdit.addKeyListener(new KeyListener() {
@@ -117,6 +124,11 @@ public class ModelElementAnimationLineDiagramDialog extends ModelElementBaseDial
 			@Override public void keyReleased(KeyEvent e) {checkData(false);}
 			@Override public void keyPressed(KeyEvent e) {checkData(false);}
 		});
+
+		/* Achsenbeschriftung */
+		setup.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
+		line.add(axisLabels=new JCheckBox(Language.tr("Surface.AnimationDiagram.Dialog.AxisLabels")));
+		axisLabels.setToolTipText(Language.tr("Surface.AnimationDiagram.Dialog.AxisLabels.Info"));
 
 		final JTableExt expressionTable;
 		content.add(new JScrollPane(expressionTable=new JTableExt()),BorderLayout.CENTER);
@@ -175,6 +187,7 @@ public class ModelElementAnimationLineDiagramDialog extends ModelElementBaseDial
 					timeAreaComboBox.setSelectedIndex(0);
 				}
 			}
+			axisLabels.setSelected(diagram.isAxisLabels());
 			lineWidth.setSelectedIndex(diagram.getBorderWidth());
 			colorChooserLine.setColor(diagram.getBorderColor());
 			background.setSelected(diagram.getBackgroundColor()!=null);
@@ -262,6 +275,7 @@ public class ModelElementAnimationLineDiagramDialog extends ModelElementBaseDial
 			case 1: diagram.setTimeArea((int)FastMath.round(D*60)); break;
 			case 2: diagram.setTimeArea((int)FastMath.round(D*3600)); break;
 			}
+			diagram.setAxisLabels(axisLabels.isSelected());
 			expressionTableModel.storeData(diagram);
 
 			diagram.setBorderWidth(lineWidth.getSelectedIndex());

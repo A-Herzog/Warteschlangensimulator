@@ -61,6 +61,8 @@ public class ModelElementAnimationBarDialog extends ModelElementBaseDialog {
 	private JTextField editMinimum;
 	/** Eingabefeld für den Maximalwert */
 	private JTextField editMaximum;
+	/** Achsenbeschriftung anzeigen */
+	private JCheckBox axisLabels;
 	/** Auswahlbox für die Linienbreite */
 	private JComboBox<JLabel> lineWidth;
 	/** Auswahl der Linienfarbe */
@@ -144,6 +146,10 @@ public class ModelElementAnimationBarDialog extends ModelElementBaseDialog {
 		});
 		label.setLabelFor(editMaximum);
 
+		/* Achsenbeschriftung */
+		content.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
+		line.add(axisLabels=new JCheckBox(Language.tr("Surface.AnimationBar.Dialog.AxisLabels")));
+
 		/* Rahmenbreite */
 		Object[] data=getLineWidthInputPanel(Language.tr("Surface.AnimationBar.Dialog.FrameWidth")+":",1,15);
 		content.add((JPanel)data[0],BorderLayout.NORTH);
@@ -186,6 +192,7 @@ public class ModelElementAnimationBarDialog extends ModelElementBaseDialog {
 			}
 			editMinimum.setText(NumberTools.formatNumber(((ModelElementAnimationBar)element).getMinValue()));
 			editMaximum.setText(NumberTools.formatNumber(((ModelElementAnimationBar)element).getMaxValue()));
+			axisLabels.setSelected(((ModelElementAnimationBar)element).isAxisLabels());
 			lineWidth.setSelectedIndex(((ModelElementAnimationBar)element).getBorderWidth()-1);
 			colorChooserLine.setColor(((ModelElementAnimationBar)element).getBorderColor());
 			background.setSelected(((ModelElementAnimationBar)element).getBackgroundColor()!=null);
@@ -275,6 +282,7 @@ public class ModelElementAnimationBarDialog extends ModelElementBaseDialog {
 		}
 		bar.setMinValue(NumberTools.getDouble(editMinimum,true));
 		bar.setMaxValue(NumberTools.getDouble(editMaximum,true));
+		bar.setAxisLabels(axisLabels.isSelected());
 		bar.setBorderWidth(lineWidth.getSelectedIndex()+1);
 		bar.setBorderColor(colorChooserLine.getColor());
 		bar.setBackgroundColor((background.isSelected())?colorChooserBackground.getColor():null);

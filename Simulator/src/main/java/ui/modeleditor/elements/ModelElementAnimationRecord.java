@@ -102,6 +102,11 @@ public class ModelElementAnimationRecord extends ModelElementAnimationDiagramBas
 	private Color dataColor;
 
 	/**
+	 * Sollen Beschriftungen an der X- und der Y-Achse angezeigt werden?
+	 */
+	private boolean axisLabels=false;
+
+	/**
 	 * Konstruktor der Klasse <code>ModelElementAnimationRecord</code>
 	 * @param model	Modell zu dem dieses Element gehören soll (kann später nicht mehr geändert werden)
 	 * @param surface	Zeichenfläche zu dem dieses Element gehören soll (kann später nicht mehr geändert werden)
@@ -186,6 +191,22 @@ public class ModelElementAnimationRecord extends ModelElementAnimationDiagramBas
 	}
 
 	/**
+	 * Sollen Achsenbeschriftungen dargestellt werden?
+	 * @return	Achsenbeschriftungen darstellen
+	 */
+	public boolean isAxisLabels() {
+		return axisLabels;
+	}
+
+	/**
+	 * Stellt ein, ob Achsenbeschriftungen darstellen werden sollen.
+	 * @param axisLabels	Achsenbeschriftungen darstellen
+	 */
+	public void setAxisLabels(boolean axisLabels) {
+		this.axisLabels=axisLabels;
+	}
+
+	/**
 	 * Überprüft, ob das Element mit dem angegebenen Element inhaltlich identisch ist.
 	 * @param element	Element mit dem dieses Element verglichen werden soll.
 	 * @return	Gibt <code>true</code> zurück, wenn die beiden Elemente identisch sind.
@@ -198,6 +219,7 @@ public class ModelElementAnimationRecord extends ModelElementAnimationDiagramBas
 		if (recordId!=((ModelElementAnimationRecord)element).recordId) return false;
 		if (displayPoints!=((ModelElementAnimationRecord)element).displayPoints) return false;
 		if (!((ModelElementAnimationRecord)element).dataColor.equals(dataColor)) return false;
+		if (axisLabels!=((ModelElementAnimationRecord)element).axisLabels) return false;
 
 		return true;
 	}
@@ -213,6 +235,7 @@ public class ModelElementAnimationRecord extends ModelElementAnimationDiagramBas
 			recordId=((ModelElementAnimationRecord)element).recordId;
 			displayPoints=((ModelElementAnimationRecord)element).displayPoints;
 			dataColor=((ModelElementAnimationRecord)element).dataColor;
+			axisLabels=((ModelElementAnimationRecord)element).axisLabels;
 		}
 	}
 
@@ -298,6 +321,8 @@ public class ModelElementAnimationRecord extends ModelElementAnimationDiagramBas
 
 		if (min==max) return;
 
+		if (axisLabels) setYAxis(min,max);
+
 		final double deltaX=rectangle.width/((double)(index2-index1));
 		final double deltaY=rectangle.height/(max-min);
 
@@ -346,6 +371,11 @@ public class ModelElementAnimationRecord extends ModelElementAnimationDiagramBas
 			final double value2=data2[i];
 			if (maxX<value1) maxX=value1;
 			if (maxY<value2) maxY=value2;
+		}
+
+		if (axisLabels) {
+			setXAxis(0,maxX);
+			setYAxis(0,maxY);
 		}
 
 		final double deltaX=rectangle.width/maxX;
@@ -467,6 +497,10 @@ public class ModelElementAnimationRecord extends ModelElementAnimationDiagramBas
 		sub=doc.createElement(Language.trPrimary("Surface.AnimationRecord.XML.DataColor"));
 		node.appendChild(sub);
 		sub.setTextContent(EditModel.saveColor(dataColor));
+
+		sub=doc.createElement(Language.trPrimary("Surface.AnimationRecord.XML.Labels"));
+		node.appendChild(sub);
+		sub.setTextContent(axisLabels?"1":"0");
 	}
 
 	/**
@@ -498,6 +532,11 @@ public class ModelElementAnimationRecord extends ModelElementAnimationDiagramBas
 		if (Language.trAll("Surface.AnimationRecord.XML.DataColor",name) && !content.trim().isEmpty()) {
 			dataColor=EditModel.loadColor(content);
 			if (dataColor==null) return String.format(Language.tr("Surface.XML.ElementSubError"),name,node.getParentNode().getNodeName());
+			return null;
+		}
+
+		if (Language.trAll("Surface.AnimationRecord.XML.Labels",name)) {
+			axisLabels=content.equals("1");
 			return null;
 		}
 

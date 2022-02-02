@@ -130,6 +130,11 @@ public class ModelElementAnimationLineDiagram extends ModelElementAnimationDiagr
 	private long timeArea=60*5;
 
 	/**
+	 * Sollen Beschriftungen an der Y-Achse angezeigt werden?
+	 */
+	private boolean axisLabels=false;
+
+	/**
 	 * Konstruktor der Klasse
 	 * @param model	Modell zu dem dieses Element gehören soll (kann später nicht mehr geändert werden)
 	 * @param surface	Zeichenfläche zu dem dieses Element gehören soll (kann später nicht mehr geändert werden)
@@ -230,6 +235,22 @@ public class ModelElementAnimationLineDiagram extends ModelElementAnimationDiagr
 	}
 
 	/**
+	 * Sollen Achsenbeschriftungen dargestellt werden?
+	 * @return	Achsenbeschriftungen darstellen
+	 */
+	public boolean isAxisLabels() {
+		return axisLabels;
+	}
+
+	/**
+	 * Stellt ein, ob Achsenbeschriftungen darstellen werden sollen.
+	 * @param axisLabels	Achsenbeschriftungen darstellen
+	 */
+	public void setAxisLabels(boolean axisLabels) {
+		this.axisLabels=axisLabels;
+	}
+
+	/**
 	 * Überprüft, ob das Element mit dem angegebenen Element inhaltlich identisch ist.
 	 * @param element	Element mit dem dieses Element verglichen werden soll.
 	 * @return	Gibt <code>true</code> zurück, wenn die beiden Elemente identisch sind.
@@ -274,6 +295,7 @@ public class ModelElementAnimationLineDiagram extends ModelElementAnimationDiagr
 		}
 
 		if (timeArea!=other.timeArea) return false;
+		if (axisLabels!=other.axisLabels) return false;
 
 		return true;
 	}
@@ -294,7 +316,8 @@ public class ModelElementAnimationLineDiagram extends ModelElementAnimationDiagr
 			expressionColor.addAll(source.expressionColor);
 			expressionWidth.addAll(source.expressionWidth);
 
-			timeArea=((ModelElementAnimationLineDiagram)element).timeArea;
+			timeArea=source.timeArea;
+			axisLabels=source.axisLabels;
 		}
 	}
 
@@ -530,6 +553,10 @@ public class ModelElementAnimationLineDiagram extends ModelElementAnimationDiagr
 		sub=doc.createElement(Language.trPrimary("Surface.AnimationDiagram.XML.Range"));
 		node.appendChild(sub);
 		sub.setTextContent(""+timeArea);
+
+		sub=doc.createElement(Language.trPrimary("Surface.AnimationDiagram.XML.Labels"));
+		node.appendChild(sub);
+		sub.setTextContent(axisLabels?"1":"0");
 	}
 
 	/**
@@ -574,6 +601,11 @@ public class ModelElementAnimationLineDiagram extends ModelElementAnimationDiagr
 			Long L=NumberTools.getPositiveLong(content);
 			if (L==null) return String.format(Language.tr("Surface.XML.ElementSubError"),name,node.getParentNode().getNodeName());
 			timeArea=L;
+			return null;
+		}
+
+		if (Language.trAll("Surface.AnimationDiagram.XML.Labels",name)) {
+			axisLabels=content.equals("1");
 			return null;
 		}
 
@@ -672,6 +704,19 @@ public class ModelElementAnimationLineDiagram extends ModelElementAnimationDiagr
 
 		for (int i=0;i<expression.size();i++) {
 			expression.get(i).initAnimation(this,simData);
+		}
+
+		if (expression.size()>0 && axisLabels) {
+			boolean drawYAxis=true;
+			double drawYAxisMin=minValue.get(0);
+			double drawYAxisMax=maxValue.get(0);
+			for (int i=1;i<minValue.size();i++) if (drawYAxisMin!=minValue.get(i) || drawYAxisMax!=maxValue.get(i)) {
+				drawYAxis=false;
+				break;
+			}
+			if (drawYAxis) setYAxis(drawYAxisMin,drawYAxisMax); else setYAxisOff();
+		} else {
+			setYAxisOff();
 		}
 	}
 
