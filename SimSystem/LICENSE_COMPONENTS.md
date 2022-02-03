@@ -39,9 +39,17 @@ This file lists the third-party components used by "SimSystem" project and their
 ### Simple Java API For ODF (Simple ODF)
 
 - Repository: https://mvnrepository.com/artifact/org.odftoolkit/simple-odf
+- Repository: https://mvnrepository.com/artifact/org.odftoolkit/odfdom-java
 - License: Apache 2.0
 - License URL: https://opensource.org/licenses/Apache-2.0
 - Homepage: https://odftoolkit.org/simple/index.html 
+
+### SLF4J NOP Binding
+
+- Repository: https://mvnrepository.com/artifact/org.slf4j/slf4j-nop
+- License: MIT
+- License URL: https://opensource.org/licenses/MIT
+- Homepage: http://www.slf4j.org 
 
 ### SQLite JDBC
 
@@ -68,7 +76,7 @@ This file lists the third-party components used by "SimSystem" project and their
 - License: Apache 2.0
 - License URL: https://opensource.org/licenses/Apache-2.0
 - Homepage: https://commons.apache.org/proper/commons-collections/
-- Used by: Apache POI
+- Used by: Apache POI, Apache Commons BeanUtils
 
 ### Apache Commons Compress
 
@@ -76,15 +84,90 @@ This file lists the third-party components used by "SimSystem" project and their
 - License: Apache 2.0
 - License URL: https://opensource.org/licenses/Apache-2.0
 - Homepage: https://commons.apache.org/proper/commons-compress/ 
-- Used by: Apache POI
+- Used by: Apache POI, Apache Jena
+
+### Apache Commons CLI
+
+- Repository: https://mvnrepository.com/artifact/commons-cli/commons-cli
+- License: Apache 2.0
+- License URL: https://opensource.org/licenses/Apache-2.0
+- Homepage: http://commons.apache.org/proper/commons-cli/ 
+- Used by: Apache Jena
+
+### Apache Commons CSV
+
+- Repository: https://mvnrepository.com/artifact/org.apache.commons/commons-csv
+- License: Apache 2.0
+- License URL: https://opensource.org/licenses/Apache-2.0
+- Used by: Apache Jena
+
+### Apache Commons Lang
+
+- Repository: https://mvnrepository.com/artifact/org.apache.commons/commons-lang3
+- License: Apache 2.0
+- License URL: https://opensource.org/licenses/Apache-2.0
+- Homepage: http://commons.apache.org/proper/commons-lang/
+- Used by: Apache Jena
+
+### Apache Commons Logging
+
+- Repository: https://mvnrepository.com/artifact/commons-logging/commons-logging
+- License: Apache 2.0
+- License URL: https://opensource.org/licenses/Apache-2.0
+- Homepage: http://commons.apache.org/proper/commons-logging/ 
+- Used by: Apache Commons Validator
+
+### Apache Commons Validator
+
+- Repository: https://mvnrepository.com/artifact/commons-validator/commons-validator
+- License: Apache 2.0
+- License URL: https://opensource.org/licenses/Apache-2.0
+- Homepage: http://commons.apache.org/proper/commons-validator/
+- Used by: Simple Java API For ODF (Simple ODF)
+
+### Apache Commons BeanUtils
+
+- Repository: https://mvnrepository.com/artifact/commons-beanutils/commons-beanutils
+- License: Apache 2.0
+- License URL: https://opensource.org/licenses/Apache-2.0
+- Homepage: https://commons.apache.org/proper/commons-beanutils/
+- Used by: Apache Commons Validator
+
+### Commons Digester
+
+- Repository: https://mvnrepository.com/artifact/commons-digester/commons-digester
+- License: Apache 2.0
+- License URL: https://opensource.org/licenses/Apache-2.0
+- Homepage: http://commons.apache.org/digester/
+- Used by: Apache Commons Validator
+
+### Apache Jena
+
+- Repository: https://mvnrepository.com/artifact/org.apache.jena/jena-core
+- Repository: https://mvnrepository.com/artifact/org.apache.jena/jena-base
+- Repository: https://mvnrepository.com/artifact/org.apache.jena/jena-shaded-guava
+- Repository: https://mvnrepository.com/artifact/org.apache.jena/jena-iri
+- License: Apache 2.0
+- License URL: https://opensource.org/licenses/Apache-2.0
+- Homepage: https://jena.apache.org/
+- Used by: Simple Java API For ODF (Simple ODF)
 
 ### Apache Log4j
 
+- Repository: https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-api
 - Repository: https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-core
 - License: Apache 2.0
 - License URL: https://opensource.org/licenses/Apache-2.0
 - Homepage: http://poi.apache.org/ 
-- Used by: Apache POI
+- Used by: Apache POI, XmlBeans
+
+### Commons Digester
+
+- Repository: https://mvnrepository.com/artifact/commons-digester/commons-digester
+- License: Apache 2.0
+- License URL: https://opensource.org/licenses/Apache-2.0
+- Homepage: http://commons.apache.org/digester/
+- Used by: Apache Commons Validator
 
 ### Curvesapi
 
@@ -94,6 +177,30 @@ This file lists the third-party components used by "SimSystem" project and their
 - Homepage: https://github.com/virtuald/curvesapi
 - Used by: Apache POI
 
+### Dexx
+
+- Repository: https://mvnrepository.com/artifact/com.github.andrewoma.dexx/collection
+- License: MIT
+- License URL: https://opensource.org/licenses/MIT
+- Homepage: https://github.com/andrewoma/dexx 
+- Used by: Apache Jena
+
+### Java RDFa
+
+- Repository: https://mvnrepository.com/artifact/net.rootdev/java-rdfa
+- License: BSD 3-clause
+- License URL: https://opensource.org/licenses/BSD-3-Clause
+- Homepage: http://rootdev.net/maven/projects/java-rdfa/ 
+- Used by: Simple Java API For ODF (Simple ODF)
+
+### SLF4J API Module
+
+- Repository: https://mvnrepository.com/artifact/org.slf4j/slf4j-api
+- License: MIT
+- License URL: https://opensource.org/licenses/MIT
+- Homepage: http://www.slf4j.org 
+- Used by: Apache Jena
+
 ### SparseBitSet
 
 - Repository: https://mvnrepository.com/artifact/com.zaxxer/SparseBitSet
@@ -101,6 +208,15 @@ This file lists the third-party components used by "SimSystem" project and their
 - License URL: https://opensource.org/licenses/Apache-2.0
 - Homepage: https://github.com/brettwooldridge/SparseBitSet
 - Used by: Apache POI
+
+### Xerces2 J
+
+- Repository: https://mvnrepository.com/artifact/xerces/xercesImpl
+- Repository: https://mvnrepository.com/artifact/xml-apis/xml-apis
+- License: Apache 2.0
+- License URL: https://opensource.org/licenses/Apache-2.0
+- Homepage: https://xerces.apache.org/xerces2-j/
+- Used by: Simple Java API For ODF (Simple ODF)
 
 ### XmlBeans
 

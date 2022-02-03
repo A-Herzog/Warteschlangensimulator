@@ -76,7 +76,13 @@
 	<dependency>
     		<groupId>org.odftoolkit</groupId>
     		<artifactId>simple-odf</artifactId>
-    		<version>0.9.0-RC1</version>
+    		<version>0.9.0</version>
+	</dependency>
+    <!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-nop -->
+	<dependency>
+		<groupId>org.slf4j</groupId>
+		<artifactId>slf4j-nop</artifactId>
+		<version>1.7.35</version>
 	</dependency>
   </dependencies>
   

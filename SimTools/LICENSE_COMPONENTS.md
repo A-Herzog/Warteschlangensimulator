@@ -34,6 +34,13 @@ This file lists the third-party components used by "SimTools" project and their 
 - License URL: https://opensource.org/licenses/BSD-3-Clause
 - Homepage: https://github.com/akuhtz/oxbow 
 
+### SLF4J NOP Binding
+
+- Repository: https://mvnrepository.com/artifact/org.slf4j/slf4j-nop
+- License: MIT
+- License URL: https://opensource.org/licenses/MIT
+- Homepage: http://www.slf4j.org 
+
 ---
 
 ## Indirectly used Java libraries
@@ -44,7 +51,7 @@ This file lists the third-party components used by "SimTools" project and their 
 - License: Apache 2.0
 - License URL: https://opensource.org/licenses/Apache-2.0
 - Homepage: http://commons.apache.org/proper/commons-logging/ 
-- Used by: Apache PDFBox, Apache XmpBox and Apache Commons Validator
+- Used by: Apache FontBox, Apache PDFBox and Apache XmpBox
 
 ### Apache FontBox
 
@@ -68,153 +75,8 @@ This file lists the third-party components used by "SimTools" project and their 
 - License: MIT
 - License URL: https://opensource.org/licenses/MIT
 - Homepage: http://www.slf4j.org 
-- Used by: Oxbow Project, Apache Jena Core, Apache Jena IRI, Apache Jena Shadowed External Libraries, Apache Jena Base Common Environment and Java RDFa
+- Used by: Oxbow Project
 
-### The ODF Toolkit
-
-- Repository: https://mvnrepository.com/artifact/org.odftoolkit/odftoolkit
-- License: Apache 2.0
-- License URL: https://opensource.org/licenses/Apache-2.0
-- Homepage: https://odftoolkit.org 
-- Used by: Simple Java API For ODF (Simple ODF)
-
-### Apache Jena Core
-
-- Repository: https://mvnrepository.com/artifact/org.apache.jena/jena-core
-- License: Apache 2.0
-- License URL: https://opensource.org/licenses/Apache-2.0
-- Used by: Simple Java API For ODF (Simple ODF)
-
-### Apache Jena IRI
-
-- Repository: https://mvnrepository.com/artifact/org.apache.jena/jena-iri
-- License: Apache 2.0
-- License URL: https://opensource.org/licenses/Apache-2.0
-- Used by: Apache Jena Core and Java RDFa
-
-### Apache Commons CLI
-
-- Repository: https://mvnrepository.com/artifact/commons-cli/commons-cli
-- License: Apache 2.0
-- License URL: https://opensource.org/licenses/Apache-2.0
-- Homepage: http://commons.apache.org/proper/commons-cli/ 
-- Used by: Apache Jena Core
-
-### Apache Commons Codec
-
-- Repository: https://mvnrepository.com/artifact/commons-codec/commons-codec
-- License: Apache 2.0
-- License URL: https://opensource.org/licenses/Apache-2.0
-- Homepage: https://commons.apache.org/proper/commons-codec/ 
-- Used by: Apache Jena Core
-
-### Apache Jena Base Common Environment
-
-- Repository: https://mvnrepository.com/artifact/org.apache.jena/jena-base
-- License: Apache 2.0
-- License URL: https://opensource.org/licenses/Apache-2.0
-- Used by: Apache Jena Core
-
-### Apache Jena Shadowed External Libraries
-
-- Repository: https://mvnrepository.com/artifact/org.apache.jena/jena-shaded-guava
-- License: Apache 2.0
-- License URL: https://opensource.org/licenses/Apache-2.0
-- Used by: Apache Jena Base Common Environment
-
-### Apache Commons CSV
-
-- Repository: https://mvnrepository.com/artifact/org.apache.commons/commons-csv
-- License: Apache 2.0
-- License URL: https://opensource.org/licenses/Apache-2.0
-- Used by: Apache Jena Base Common Environment
-
-### Apache Commons IO
-
-- Repository: https://mvnrepository.com/artifact/commons-io/commons-io
-- License: Apache 2.0
-- License URL: https://opensource.org/licenses/Apache-2.0
-- Homepage: http://commons.apache.org/proper/commons-io/ 
-- Used by: Apache Jena Base Common Environment
-
-### Apache Commons Lang
-
-- Repository: https://mvnrepository.com/artifact/org.apache.commons/commons-lang3
-- License: Apache 2.0
-- License URL: https://opensource.org/licenses/Apache-2.0
-- Homepage: http://commons.apache.org/proper/commons-lang/
-- Used by: Apache Jena Base Common Environment
-
-### Apache Commons Compress
-
-- Repository: https://commons.apache.org/proper/commons-compress/ 
-- License: Apache 2.0
-- License URL: https://opensource.org/licenses/Apache-2.0
-- Homepage: https://commons.apache.org/proper/commons-compress/ 
-- Used by: Apache Jena Base Common Environment
-
-### Dexx
-
-- Repository: https://mvnrepository.com/artifact/com.github.andrewoma.dexx/collection
-- License: MIT
-- License URL: https://opensource.org/licenses/MIT
-- Homepage: https://github.com/andrewoma/dexx 
-- Used by: Apache Jena Base Common Environment
-
-### Apache Commons Validator
-
-- Repository: https://mvnrepository.com/artifact/commons-validator/commons-validator
-- License: Apache 2.0
-- License URL: https://opensource.org/licenses/Apache-2.0
-- Homepage: http://commons.apache.org/proper/commons-validator/
-- Used by: The ODF Toolkit
-
-### Apache Commons BeanUtils
-
-- Repository: https://mvnrepository.com/artifact/commons-beanutils/commons-beanutils
-- License: Apache 2.0
-- License URL: https://opensource.org/licenses/Apache-2.0
-- Homepage: https://commons.apache.org/proper/commons-beanutils/
-- Used by: Apache Commons Validator
-
-### Commons Digester
-
-- Repository: https://mvnrepository.com/artifact/commons-digester/commons-digester
-- License: Apache 2.0
-- License URL: https://opensource.org/licenses/Apache-2.0
-- Homepage: http://commons.apache.org/digester/
-- Used by: Apache Commons Validator
-
-### Apache Commons Collections
-
-- Repository: https://mvnrepository.com/artifact/org.apache.commons/commons-collections4
-- License: Apache 2.0
-- License URL: https://opensource.org/licenses/Apache-2.0
-- Homepage: https://commons.apache.org/proper/commons-collections/
-- Used by: Apache Commons Validator
-
-### Java RDFa
-
-- Repository: https://mvnrepository.com/artifact/net.rootdev/java-rdfa
-- License: BSD 3-clause
-- License URL: https://opensource.org/licenses/BSD-3-Clause
-- Homepage: http://rootdev.net/maven/projects/java-rdfa/ 
-- Used by: The ODF Toolkit
-
-### Xerces2 J
-
-- Repository: https://mvnrepository.com/artifact/xerces/xercesImpl
-- License: Apache 2.0
-- License URL: https://opensource.org/licenses/Apache-2.0
-- Homepage: https://xerces.apache.org/xerces2-j/ 
-- Used by: Simple Java API For ODF (Simple ODF) and The ODF Toolkit
-
-### XML APIs
-
-- Repository: https://mvnrepository.com/artifact/xml-apis/xml-apis
-- License: Apache 2.0
-- License URL: https://opensource.org/licenses/Apache-2.0
-- Used by: Simple Java API For ODF (Simple ODF)
 
 ---
 
