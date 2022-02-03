@@ -67,8 +67,10 @@ public class DBConnectSetups {
 	private DBConnectSetups() {
 		setups=new ArrayList<>();
 
-		loadFromFile(new File(SetupData.getProgramFolder(),SETUP_FILE),setups);
-		loadFromFile(new File(SetupData.getSetupFolder(),SETUP_FILE),setups);
+		final File file1=SetupData.getProgramFolder();
+		final File file2=SetupData.getSetupFolder();
+		loadFromFile(new File(file1,SETUP_FILE),setups);
+		if (!file1.equals(file2)) loadFromFile(new File(file2,SETUP_FILE),setups);
 
 		DBConntectSetupTemplates.addToList(setups);
 	}
@@ -116,7 +118,14 @@ public class DBConnectSetups {
 
 			if (e.getNodeName().equals("Database")) {
 				final DBConnectSetup setup=new DBConnectSetup();
-				if (setup.loadFromXML(e)) list.add(setup);
+				if (setup.loadFromXML(e)) {
+					int index=-1;
+					for (int j=0;i<list.size();j++) if (list.get(j).name.equals(setup.name)) {
+						index=j;
+						break;
+					}
+					if (index<0) list.add(setup); else list.set(index,setup);
+				}
 			}
 		}
 	}
