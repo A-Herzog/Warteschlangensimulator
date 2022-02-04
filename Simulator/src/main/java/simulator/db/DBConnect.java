@@ -82,7 +82,7 @@ public class DBConnect implements Closeable {
 	 * Im Konstruktor gewählte Konfiguration (Serveradresse, Dateiname usw.).<br>
 	 * Kann später nicht mehr geändert werden.
 	 */
-	public final String config;
+	public String config;
 
 	/** Datenbankverbindungselement */
 	private final Connection connection;
@@ -203,6 +203,9 @@ public class DBConnect implements Closeable {
 		} else {
 			if (!localDataTest(type,config)) return null;
 		}
+
+		/* Zweiter Aufbereitungsschritt (nach der Prüfung der Datei auf Existenz) */
+		config=type.processSettings.processcor2.apply(config);
 
 		try {
 			if (!user.isEmpty() || !password.isEmpty() || !settings.isEmpty()) {
@@ -390,7 +393,7 @@ public class DBConnect implements Closeable {
 	public Map<String,List<String>> listAll() {
 		for (String tableName: listTables()) listColumns(tableName);
 		final Map<String,List<String>> result=new HashMap<>();
-		for (Map.Entry<String,List<String>> entry: columnNames.entrySet()) result.put(entry.getKey(),new ArrayList<>(entry.getValue()));
+		if (columnNames!=null) for (Map.Entry<String,List<String>> entry: columnNames.entrySet()) result.put(entry.getKey(),new ArrayList<>(entry.getValue()));
 		return result;
 	}
 

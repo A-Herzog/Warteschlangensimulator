@@ -127,6 +127,35 @@ public class DBConntectSetupTemplates {
 				false,
 				DBConnectSetup.ProcessSettings.DERBY,
 				DBConnectSetup.SelectSource.FOLDER
+				),
+
+
+		/**
+		 * H2 Database in Datei
+		 */
+		H2_DATABASE_LOCAL(
+				"H2 Database Local",
+				"org.h2.Driver",
+				"h2",
+				"SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES AS T WHERE T.TABLE_SCHEMA <> 'INFORMATION_SCHEMA'",
+				null,
+				true,
+				DBConnectSetup.ProcessSettings.H2_LOCAL,
+				DBConnectSetup.SelectSource.FILE_GENERAL
+				),
+
+		/**
+		 * H2 Database
+		 */
+		H2_DATABASE_SERVER(
+				"H2 Database Server",
+				"org.h2.Driver",
+				"h2",
+				"SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES AS T WHERE T.TABLE_SCHEMA <> 'INFORMATION_SCHEMA'",
+				null,
+				true,
+				DBConnectSetup.ProcessSettings.H2_SERVER,
+				DBConnectSetup.SelectSource.NONE
 				);
 
 		/** Name des Datenbank-Servers */

@@ -35,17 +35,24 @@ public class DBConnectSetup {
 	 */
 	public enum ProcessSettings {
 		/** Keine zusätzliche Verarbeitung */
-		NONE(null,s->s,null),
+		NONE(null,s->s,s->s,null),
 		/** Access-Anpassungen vornehmen */
-		ACCESS("Access",s->"//"+s.replace("\\","/"),null),
-		/** Apache DerbyAnpassungen vornehmen */
-		DERBY("Derby",s->s,";create=true");
+		ACCESS("Access",s->"//"+s.replace("\\","/"),s->s,null),
+		/** Apache Derby-Anpassungen vornehmen */
+		DERBY("Derby",s->s,s->s,";create=true"),
+		/** H2 Database (lokal)-Anpassungen vornehmen */
+		H2_LOCAL("H2Local",s->s,s->s.replace(".mv.db","").replace(".trace.db",""),null),
+		/** H2 Database (Server-Verbindung)-Anpassungen vornehmen */
+		H2_SERVER("H2Server",s->"tcp://"+s,s->s,null);
 
 		/** Name für den Enum-Eintrag */
 		public final String name;
 
 		/** Vorverarbeitungsmethode */
-		public final Function<String,String> processcor;
+		public final Function<String,String> processcor1;
+
+		/** Vorverarbeitungsmethode (nach der Prüfung der Datenbankdatei auf Existenz) */
+		public final Function<String,String> processcor2;
 
 		/** Zusätzliche Konfiguration zum Erstellen einer Datenbankdatei */
 		public final String createFileConfig;
@@ -53,12 +60,14 @@ public class DBConnectSetup {
 		/**
 		 * Konstruktor der Klasse
 		 * @param name	Name für den Enum-Eintrag
-		 * @param processcor	Vorverarbeitungsmethode
+		 * @param processcor1	Vorverarbeitungsmethode
+		 * @param processcor2	Vorverarbeitungsmethode (nach der Prüfung der Datenbankdatei auf Existenz)
 		 * @param createFileConfig	Zusätzliche Konfiguration zum Erstellen einer Datenbankdatei
 		 */
-		ProcessSettings(final String name, final Function<String,String> processcor, final String createFileConfig) {
+		ProcessSettings(final String name, final Function<String,String> processcor1, final Function<String,String> processcor2, final String createFileConfig) {
 			this.name=name;
-			this.processcor=processcor;
+			this.processcor1=processcor1;
+			this.processcor2=processcor2;
 			this.createFileConfig=createFileConfig;
 		}
 	}

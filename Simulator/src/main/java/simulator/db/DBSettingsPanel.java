@@ -17,8 +17,8 @@ package simulator.db;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
+import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.io.File;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -114,15 +114,14 @@ public class DBSettingsPanel extends JPanel {
 		comboType.setEnabled(!readOnly);
 		comboType.setSelectedIndex(DBConnectSetups.index(settings.getType()));
 		comboType.addActionListener(e->comboChanged());
+		comboType.setMaximumRowCount(DBConntectSetupTemplates.DBType.values().length);
 
 		data=ModelElementBaseDialog.getInputPanel(Language.tr("Surface.Database.Config")+":",settings.getConfig());
 		add(line=(JPanel)data[0]);
 		editConfig=(JTextField)data[1];
 		editConfig.setEditable(!readOnly);
-		editConfig.addKeyListener(new KeyListener() {
-			@Override public void keyTyped(KeyEvent e) {fireChangedNotify();}
+		editConfig.addKeyListener(new KeyAdapter() {
 			@Override public void keyReleased(KeyEvent e) {fireChangedNotify();}
-			@Override public void keyPressed(KeyEvent e) {fireChangedNotify();}
 		});
 		line.add(buttonConfig=new JButton(),BorderLayout.EAST);
 		buttonConfig.setEnabled(!readOnly);
@@ -135,20 +134,16 @@ public class DBSettingsPanel extends JPanel {
 		add((JPanel)data[0]);
 		editUser=(JTextField)data[1];
 		editUser.setEditable(!readOnly);
-		editUser.addKeyListener(new KeyListener() {
-			@Override public void keyTyped(KeyEvent e) {fireChangedNotify();}
+		editUser.addKeyListener(new KeyAdapter() {
 			@Override public void keyReleased(KeyEvent e) {fireChangedNotify();}
-			@Override public void keyPressed(KeyEvent e) {fireChangedNotify();}
 		});
 
 		data=ModelElementBaseDialog.getInputPanel(Language.tr("Surface.Database.Password")+":",settings.getPassword());
 		add((JPanel)data[0]);
 		editPassword=(JTextField)data[1];
 		editPassword.setEditable(!readOnly);
-		editPassword.addKeyListener(new KeyListener() {
-			@Override public void keyTyped(KeyEvent e) {fireChangedNotify();}
+		editPassword.addKeyListener(new KeyAdapter() {
 			@Override public void keyReleased(KeyEvent e) {fireChangedNotify();}
-			@Override public void keyPressed(KeyEvent e) {fireChangedNotify();}
 		});
 
 		lastSettings=storeToCopy();
@@ -207,6 +202,12 @@ public class DBSettingsPanel extends JPanel {
 			case DERBY:
 				labelConfig.setText(Language.tr("Surface.Database.Config.InfoDerby"));
 				buttonConfig.setToolTipText(Language.tr("Surface.Database.Config.ButtonHintDerby"));
+				break;
+			case H2_DATABASE_LOCAL:
+				labelConfig.setText(Language.tr("Surface.Database.Config.InfoH2Local"));
+				break;
+			case H2_DATABASE_SERVER:
+				labelConfig.setText(Language.tr("Surface.Database.Config.InfoH2Server"));
 				break;
 			}
 		}

@@ -62,6 +62,13 @@ This file lists the third-party components used by "Simulator" project and their
 - License URL: https://opensource.org/licenses/LGPL-3.0
 - Homepage: http://code.google.com/p/gettext-commons/ 
 
+## H2 Database Engine
+
+- Repository: https://mvnrepository.com/artifact/com.h2database/h2
+- License: MPL 2.0
+- License URL: https://opensource.org/licenses/MPL-2.0
+- Homepage: https://h2database.com/html/main.html
+
 ### HyperSQL Database
 
 - Repository: https://mvnrepository.com/artifact/org.hsqldb/hsqldb

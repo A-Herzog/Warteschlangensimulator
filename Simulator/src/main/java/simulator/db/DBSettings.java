@@ -123,7 +123,7 @@ public final class DBSettings implements Cloneable {
 		final DBConnectSetup setup=DBConnectSetups.getByType(type);
 		if (setup==null) return config;
 
-		return setup.processSettings.processcor.apply(config);
+		return setup.processSettings.processcor1.apply(config);
 	}
 
 	/**

@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-30 19:36+0100\n"
+"POT-Creation-Date: 2022-02-03 18:33+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -24756,6 +24756,12 @@ msgstr "Konfiguration: Derby-Verzeichnis"
 
 msgid "Surface.Database.Config.InfoFirebird"
 msgstr "Konfiguration: Format //HostName:3050/DBDatei.fdb"
+
+msgid "Surface.Database.Config.InfoH2Local"
+msgstr "Konfiguration: H2-Datenbankdatei"
+
+msgid "Surface.Database.Config.InfoH2Server"
+msgstr "Konfiguration: Server:Port/Pfad/Datei (z.B. localhost:9092/~/DBOrdner/DBDatei)"
 
 msgid "Surface.Database.Config.InfoHSQLDBLocal"
 msgstr "Konfiguration: HSQLDB-Verzeichnis mit abschließendem Pfadtrenner"
