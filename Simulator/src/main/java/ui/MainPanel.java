@@ -490,6 +490,7 @@ public class MainPanel extends MainPanelBase {
 		waitPanel=new WaitPanel();
 		statisticsPanel=new StatisticsPanel(()->commandSimulationSimulation(null,null,null,Simulator.logTypeFull,null));
 		statisticsPanel.addFileDropListener(e->{if (e.getSource() instanceof FileDropperData) dropFile((FileDropperData)e.getSource());});
+		statisticsPanel.addSetStatisticsListener(statistics->HeatMapSelectWindow.updateHeatMapSetup());
 		editorPanel.setStatisticsGetter(()->statisticsPanel.getStatistics());
 		editorPanel.setShowHeatMapSelectWindowCallback(()->commandViewStatisticsHeatMapSelect());
 
@@ -846,7 +847,7 @@ public class MainPanel extends MainPanelBase {
 		int heatMapMode=0;
 		if (setup.statisticHeatMap!=null) heatMapMode=Arrays.asList(EditorPanelStatistics.HeatMapMode.values()).indexOf(setup.statisticHeatMap);
 		for (int i=0;i<menuViewStatisticsHeatMapMode.size();i++) menuViewStatisticsHeatMapMode.get(i).setSelected(heatMapMode==i);
-		HeatMapSelectWindow.updateSelection();
+		HeatMapSelectWindow.updateHeatMapSetup();
 
 		/* Ansicht - IDs */
 		menuViewShowIDs.setState(setup.showIDs);
@@ -2432,7 +2433,7 @@ public class MainPanel extends MainPanelBase {
 	 * Befehl: Ansicht - Statistik auf Zeichenfläche - Heatmap-Modus auswählen
 	 */
 	private void commandViewStatisticsHeatMapSelect() {
-		HeatMapSelectWindow.show(this,()->reloadSetup());
+		HeatMapSelectWindow.show(this,()->reloadSetup(),()->statisticsPanel.getStatistics()!=null);
 	}
 
 	/**

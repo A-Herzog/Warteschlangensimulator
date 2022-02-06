@@ -875,7 +875,7 @@ public class EditorPanelStatistics {
 		/** Flussgrade an den Stationen */
 		FLOW_FACTOR("FlowFactor",()->Language.tr("Main.Menu.View.Statistics.HeatMap.FlowFactor"),()->Language.tr("Main.Menu.View.Statistics.HeatMap.FlowFactor.Mnemonic")),
 		/** Durchsatz an den Stationen (= "Anzahl an Ankünften an der Station") */
-		THROUGHPUT("Throughput",()->Language.tr("Main.Menu.View.Statistics.HeatMap.Throughput"),()->Language.tr("Main.Menu.View.Statistics.HeatMap.Throughput.Mnemonic")),
+		THROUGHPUT("Throughput",()->Language.tr("Main.Menu.View.Statistics.HeatMap.Throughput"),()->Language.tr("Main.Menu.View.Statistics.HeatMap.Throughput.Mnemonic"),()->Language.tr("Main.Menu.View.Statistics.HeatMap.ThroughputTooltip")),
 		/** Maximaler Durchsatz an den Stationen */
 		MAX_THROUGHPUT("MaxThroughput",()->Language.tr("Main.Menu.View.Statistics.HeatMap.MaxThroughput"),()->Language.tr("Main.Menu.View.Statistics.HeatMap.MaxThroughput.Mnemonic"));
 
@@ -883,6 +883,11 @@ public class EditorPanelStatistics {
 		 * Callback welches den Namen des Heatmap-Modus liefert
 		 */
 		private final Supplier<String> name;
+
+		/**
+		 * Optionales Callback welches einen Tooltip für den Heatmap-Modus liefert
+		 */
+		private final Supplier<String> tooltip;
 
 		/**
 		 * Callback welches den Mnemonic-Wert für den Namen des Heatmap-Modus liefert
@@ -895,6 +900,15 @@ public class EditorPanelStatistics {
 		 */
 		public String getName() {
 			return name.get();
+		}
+
+		/**
+		 * Liefert optional einen Tooltip für den Heatmap-Modus.
+		 * @return	Tooltip des Heatmap-Modus (kann <code>null</code> sein)
+		 */
+		public String getTooltip() {
+			if (tooltip==null) return null;
+			return tooltip.get();
 		}
 
 		/**
@@ -915,11 +929,23 @@ public class EditorPanelStatistics {
 		 * @param xmlName	XML-Bezeichner für den Modus
 		 * @param name	Callback welches den Namen des Heatmap-Modus liefert
 		 * @param nameMnemonic	Callback welches den Mnemonic-Wert für den Namen des Heatmap-Modus liefert
+		 * @param tooltip	Optionales Callback für einen Tooltip für den Heatmap-Modus
 		 */
-		HeatMapMode(final String xmlName, final Supplier<String> name, final Supplier<String> nameMnemonic) {
+		HeatMapMode(final String xmlName, final Supplier<String> name, final Supplier<String> nameMnemonic, final Supplier<String> tooltip) {
 			this.xmlName=xmlName;
 			this.name=name;
 			this.nameMnemonic=nameMnemonic;
+			this.tooltip=tooltip;
+		}
+
+		/**
+		 * Konstruktor des Enum
+		 * @param xmlName	XML-Bezeichner für den Modus
+		 * @param name	Callback welches den Namen des Heatmap-Modus liefert
+		 * @param nameMnemonic	Callback welches den Mnemonic-Wert für den Namen des Heatmap-Modus liefert
+		 */
+		HeatMapMode(final String xmlName, final Supplier<String> name, final Supplier<String> nameMnemonic) {
+			this(xmlName,name,nameMnemonic,null);
 		}
 
 		/**

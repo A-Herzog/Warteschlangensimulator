@@ -94,6 +94,7 @@ import tools.IconListCellRenderer;
 import tools.SetupData;
 import tools.SlidesGenerator;
 import ui.dialogs.BackgroundColorDialog;
+import ui.dialogs.HeatMapSelectWindow;
 import ui.dialogs.LayersDialog;
 import ui.images.Images;
 import ui.infopanel.InfoPanel;
@@ -2806,6 +2807,8 @@ public final class EditorPanel extends EditorPanelBase {
 	 * @see #surfacePanel
 	 */
 	private Double getHeatMapIntensityForElement(final ModelElement element) {
+		HeatMapSelectWindow.updateHeatMapSetup();
+
 		if (element==null) return null;
 		if (statisticsGetter==null) return null;
 		final Statistics statistics=statisticsGetter.get();

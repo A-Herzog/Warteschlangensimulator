@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-02-03 18:33+0100\n"
+"POT-Creation-Date: 2022-02-06 15:49+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -8525,6 +8525,12 @@ msgstr "Using a heat map, the values of specific performance indicators can be v
 msgid "HeatMapSelect.ShortTitle"
 msgstr "Heatmap"
 
+msgid "HeatMapSelect.Statistics.Available"
+msgstr "The statistical data from the last simulation<br>is used as the basis for displaying the heat map."
+
+msgid "HeatMapSelect.Statistics.NotAvailable"
+msgstr "No statistical data is available.<br>Therefore, no heatmap can be displayed."
+
 msgid "HeatMapSelect.Title"
 msgstr "Select heatmap mode"
 
@@ -10130,6 +10136,9 @@ msgstr "Heatmap: Throughput at a station"
 
 msgid "Main.Menu.View.Statistics.HeatMap.Throughput.Mnemonic"
 msgstr "T"
+
+msgid "Main.Menu.View.Statistics.HeatMap.ThroughputTooltip"
+msgstr "If station transitions are recorded, the edges are included in the heat map."
 
 msgid "Main.Menu.View.Statistics.HeatMap.Transfer"
 msgstr "Heatmap: Average transfer time at a station"

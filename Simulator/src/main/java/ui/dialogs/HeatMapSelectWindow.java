@@ -29,14 +29,17 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.function.BooleanSupplier;
 
 import javax.swing.AbstractAction;
+import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
 import javax.swing.InputMap;
 import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.KeyStroke;
@@ -44,6 +47,7 @@ import javax.swing.SwingUtilities;
 import javax.swing.WindowConstants;
 
 import language.Language;
+import mathtools.distribution.swing.SimSystemsSwingImages;
 import systemtools.BaseDialog;
 import systemtools.images.SimToolsImages;
 import tools.SetupData;
@@ -71,9 +75,30 @@ public class HeatMapSelectWindow extends JFrame {
 	private final Runnable updateEditor;
 
 	/**
+	 * Callback zur Abfrage, ob Statistikdaten verfügbar sind
+	 */
+	private final BooleanSupplier isStatisticAvailable;
+
+	/**
 	 * Globales Setup-Objekt
 	 */
 	private final SetupData setup;
+
+	/**
+	 * Beim letzten Aufruf von {@link #updateHeatMapSetup()}
+	 * gewählter Heatmap (um unnötige Aktualisierungen des
+	 * Dialogs zu vermeiden).
+	 * @see #updateHeatMapSetup()
+	 */
+	private EditorPanelStatistics.HeatMapMode lastHeatMapMode;
+
+	/**
+	 * Beim letzten Aufruf von {@link #updateHeatMapSetup()}
+	 * gültiger Statistikstatus (um unnötige Aktualisierungen
+	 * des Dialogs zu vermeiden).
+	 * @see #updateHeatMapSetup()
+	 */
+	private Boolean lastStatisticAvailable;
 
 	/**
 	 * Liste der möglichen Heatmap-Modi
@@ -81,20 +106,25 @@ public class HeatMapSelectWindow extends JFrame {
 	private final List<JRadioButton> modes;
 
 	/**
+	 * Anzeige des Statistik-Status
+	 */
+	private final JLabel statisticInfo;
+
+	/**
 	 * Wird auf <code>true</code> gesetzt, wenn gerade eine
 	 * Aktualisierung durch {@link #updateSelectedMode()} bzw.
-	 * durch {@link #updateSelection()} erfolgt, damit dann durch
+	 * durch {@link #updateHeatMapSetup()} erfolgt, damit dann durch
 	 * {@link #selectMode(ui.EditorPanelStatistics.HeatMapMode)}
 	 * keine Endlosschleife entsteht
 	 * @see #updateSelectedMode()
-	 * @see #updateSelection()
+	 * @see #updateHeatMapSetup()
 	 * @see #selectMode(ui.EditorPanelStatistics.HeatMapMode)
 	 */
 	private boolean updating;
 
 	/**
 	 * Instanz des Fensters
-	 * @see #show(Component, Runnable)
+	 * @see #show(Component, Runnable, BooleanSupplier)
 	 * @see #closeWindow()
 	 */
 	private static HeatMapSelectWindow instance;
@@ -104,10 +134,11 @@ public class HeatMapSelectWindow extends JFrame {
 	 * (Erstellt entweder ein neues Fenster oder holt das aktuelle in den Vordergrund.)
 	 * @param owner	Übergeordnetes Element
 	 * @param updateEditor	Callback zum Aktualisieren der Zeichenfläche nach der Auswahl eines anderen Heatmap-Modus in diesem Fenster
+	 * @param isStatisticAvailable	Callback zur Abfrage des Statistik-Verfügbarkeitsstatus
 	 */
-	public static void show(final Component owner, final Runnable updateEditor) {
+	public static void show(final Component owner, final Runnable updateEditor, final BooleanSupplier isStatisticAvailable) {
 		if (instance==null) {
-			instance=new HeatMapSelectWindow(owner,updateEditor);
+			instance=new HeatMapSelectWindow(owner,updateEditor,isStatisticAvailable);
 			instance.setVisible(true);
 		} else {
 			if ((instance.getExtendedState() & ICONIFIED)!=0) instance.setState(NORMAL);
@@ -119,11 +150,12 @@ public class HeatMapSelectWindow extends JFrame {
 	 * Schaltet die Sichtbarkeit des Fensters um.
 	 * @param owner	Übergeordnetes Element
 	 * @param updateEditor	Callback zum Aktualisieren der Zeichenfläche nach der Auswahl eines anderen Heatmap-Modus in diesem Fenster
-	 * @see #show(Component, Runnable)
+	 * @param isStatisticAvailable	Callback zur Abfrage des Statistik-Verfügbarkeitsstatus
+	 * @see #show(Component, Runnable, BooleanSupplier)
 	 */
-	public static void toggleVisible(final Component owner, final Runnable updateEditor) {
+	public static void toggleVisible(final Component owner, final Runnable updateEditor, final BooleanSupplier isStatisticAvailable) {
 		if (instance==null) {
-			show(owner,updateEditor);
+			show(owner,updateEditor,isStatisticAvailable);
 		} else {
 			instance.setVisible(false);
 			instance.closeWindow();
@@ -134,7 +166,7 @@ public class HeatMapSelectWindow extends JFrame {
 	 * Aktualisiert das aktiviert anzuzeigende Radiobutton nach dem
 	 * der Heatmap-Modus im Hauptfenster selbst verändert wurde.
 	 */
-	public static void updateSelection() {
+	public static void updateHeatMapSetup() {
 		if (instance==null) return;
 		instance.updateSelectedMode();
 	}
@@ -143,12 +175,18 @@ public class HeatMapSelectWindow extends JFrame {
 	 * Konstruktor der Klasse
 	 * @param owner	Übergeordnetes Element
 	 * @param updateEditor	Callback zum Aktualisieren der Zeichenfläche nach der Auswahl eines anderen Heatmap-Modus in diesem Fenster
-	 * @see #show(Component, Runnable)
+	 * @param isStatisticAvailable	Callback zur Abfrage des Statistik-Verfügbarkeitsstatus
+	 * @see #show(Component, Runnable, BooleanSupplier)
 	 */
-	private HeatMapSelectWindow(final Component owner, final Runnable updateEditor) {
+	private HeatMapSelectWindow(final Component owner, final Runnable updateEditor, final BooleanSupplier isStatisticAvailable) {
 		super(Language.tr("HeatMapSelect.Title"));
+
+		lastHeatMapMode=null;
+		lastStatisticAvailable=null;
+
 		setIconImage(Images.HEATMAP.getImage());
 		this.updateEditor=updateEditor;
+		this.isStatisticAvailable=isStatisticAvailable;
 		setup=SetupData.getSetup();
 
 		/* Übergeordnetes Fenster */
@@ -179,11 +217,17 @@ public class HeatMapSelectWindow extends JFrame {
 			final JPanel line=new JPanel(new FlowLayout(FlowLayout.LEFT));
 			content.add(line);
 			final JRadioButton button=new JRadioButton(mode.getName());
+			button.setToolTipText(mode.getTooltip());
 			buttonGroup.add(button);
 			modes.add(button);
 			line.add(button);
 			button.addActionListener(e->selectMode(modeFinal));
 		}
+		final JPanel line=new JPanel(new FlowLayout(FlowLayout.LEFT));
+		content.add(line);
+		line.add(statisticInfo=new JLabel());
+		statisticInfo.setBorder(BorderFactory.createEmptyBorder(5,3,5,0));
+
 		updateSelectedMode();
 
 		/* Zeile unten */
@@ -233,13 +277,27 @@ public class HeatMapSelectWindow extends JFrame {
 	 * der Heatmap-Modus im Hauptfenster selbst verändert wurde.
 	 */
 	private void updateSelectedMode() {
-		updating=true;
-		try {
-			int index=0;
-			if (setup.statisticHeatMap!=null) index=Arrays.asList(EditorPanelStatistics.HeatMapMode.values()).indexOf(setup.statisticHeatMap);
-			for (int i=0;i<modes.size();i++) modes.get(i).setSelected(i==index);
-		} finally {
-			updating=false;
+		if (setup.statisticHeatMap!=lastHeatMapMode) {
+			lastHeatMapMode=setup.statisticHeatMap;
+			updating=true;
+			try {
+				int index=0;
+				if (setup.statisticHeatMap!=null) index=Arrays.asList(EditorPanelStatistics.HeatMapMode.values()).indexOf(setup.statisticHeatMap);
+				for (int i=0;i<modes.size();i++) modes.get(i).setSelected(i==index);
+			} finally {
+				updating=false;
+			}
+		}
+
+		if (lastStatisticAvailable==null || lastStatisticAvailable!=isStatisticAvailable.getAsBoolean()) {
+			lastStatisticAvailable=isStatisticAvailable.getAsBoolean();
+			if (lastStatisticAvailable) {
+				statisticInfo.setText("<html><body style=\"color: green;\">"+Language.tr("HeatMapSelect.Statistics.Available")+"</body></html>");
+				statisticInfo.setIcon(SimSystemsSwingImages.OK.getIcon());
+			} else {
+				statisticInfo.setText("<html><body style=\"color: red;\">"+Language.tr("HeatMapSelect.Statistics.NotAvailable")+"</body></html>");
+				statisticInfo.setIcon(SimSystemsSwingImages.CANCEL.getIcon());
+			}
 		}
 	}
 

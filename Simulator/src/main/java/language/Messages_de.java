@@ -1906,6 +1906,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[4985] = "rechtsb\u00fcndig";
     t[4988] = "ModelGenerator.Model.Description.Properties.MultiStations";
     t[4989] = "Mehrere Bedienstationen (Anzahl: %d)";
+    t[4990] = "Main.Menu.View.Statistics.HeatMap.ThroughputTooltip";
+    t[4991] = "Werden Stations\u00fcberg\u00e4nge aufgezeichnet, so werden die Kanten in die Heatmap mit einbezogen.";
     t[4992] = "ExpressionBuilder.SimulationCharacteristics.ResidenceTimesByClientTypes.Skewness";
     t[4993] = "<p>Liefert die Schiefe \u00fcber die Verweilzeiten der Kunden, die an der Bedienstation, deren ID in dem Parameter angegeben wurde, erzeugt wurden.</p>";
     t[4994] = "Surface.DDE.Select.Dialog.Info";
@@ -2008,14 +2010,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[5267] = "Kundenliste f\u00fcr Scripting-Zugriff an der Station f\u00fchren";
     t[5278] = "Surface.PopupMenu.SimulationStatisticsData.Tab.Data";
     t[5279] = "Daten";
-    t[5280] = "Schedule.Dialog.Name.InUse.Title";
-    t[5281] = "Name f\u00fcr Zeitplan bereits vergeben";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_1 (java.lang.String[] t) {
+    t[5280] = "Schedule.Dialog.Name.InUse.Title";
+    t[5281] = "Name f\u00fcr Zeitplan bereits vergeben";
     t[5284] = "Elements.Catalog.DataInputOutput";
     t[5285] = "Daten Ein-/Ausgabe";
     t[5286] = "Surface.AnimationBar.Infotext";
@@ -4014,14 +4016,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[10337] = "Nach Zeitdauer";
     t[10352] = "Simulation.Creator.SeizeArrival";
     t[10353] = "Kunde stellt sich an Warteschlange";
-    t[10358] = "ModelDescription.TransportTargetSystem.Mode.Property";
-    t[10359] = "nach Kundeneigenschaft";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_2 (java.lang.String[] t) {
+    t[10358] = "ModelDescription.TransportTargetSystem.Mode.Property";
+    t[10359] = "nach Kundeneigenschaft";
     t[10364] = "DataPrivacy.LocalSettings";
     t[10365] = "Lokale Einstellungen";
     t[10368] = "ScriptPopup.Client.isWarmUp";
@@ -5256,6 +5258,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[13473] = "ModellElementAmpelBedingung";
     t[13476] = "Surface.XML.FlowData.Source";
     t[13477] = "ModellElementFlussQuelle";
+    t[13480] = "HeatMapSelect.Statistics.NotAvailable";
+    t[13481] = "Es stehen keine Statistikdaten zur Verf\u00fcgung.<br>Daher kann keine Heatmap angezeigt werden.";
     t[13488] = "Simulation.Creator.OutputDDE.InvalidStartRow";
     t[13489] = "Bei Element id=%d die ung\u00fcltige Starttabellenzeile %d angegeben. Es muss eine positive Ganzzahl angegeben werden.";
     t[13496] = "ParameterCompare.Settings.Model.Name.ErrorInfo";
@@ -6018,16 +6022,16 @@ public class Messages_de extends java.util.ResourceBundle {
     t[15563] = "Der angegebene Variablenname \"%s\" ist ung\u00fcltig.";
     t[15566] = "Git.List.Tab.Server.Auth.Key.Key";
     t[15567] = "Privater Schl\u00fcssel";
-    t[15568] = "Surface.AnimationTrafficLights.Dialog.NumberOfLights.3Lights";
-    t[15569] = "3 Lichter (Rot, Gelb und Gr\u00fcn)";
-    t[15570] = "ParameterCompare.Table.AddModelByAssistant.Error.NoNumber";
-    t[15571] = "F\u00fcr den Parameter %s in Zeile %d wurde der ung\u00fcltige Wert %s eingegeben. Es muss ein Zahlenwert angegeben werden.";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_3 (java.lang.String[] t) {
+    t[15568] = "Surface.AnimationTrafficLights.Dialog.NumberOfLights.3Lights";
+    t[15569] = "3 Lichter (Rot, Gelb und Gr\u00fcn)";
+    t[15570] = "ParameterCompare.Table.AddModelByAssistant.Error.NoNumber";
+    t[15571] = "F\u00fcr den Parameter %s in Zeile %d wurde der ung\u00fcltige Wert %s eingegeben. Es muss ein Zahlenwert angegeben werden.";
     t[15574] = "Surface.Set.Table.Delete.Error.Info";
     t[15575] = "Soll die Zuweisung f\u00fcr Variable \"%s\" wirklich gel\u00f6scht werden?";
     t[15580] = "HeatMapSetup.Intensity.Low";
@@ -8024,16 +8028,16 @@ public class Messages_de extends java.util.ResourceBundle {
     t[20699] = "<p>Berechnet den Wert der Dichte der Beta-Verteilung an der als ersten Parameter angegebenen Stelle \u00fcber das Intervall [a;b] mit den Parametern &alpha; und &beta; gem\u00e4\u00df dem zweiten bis f\u00fcnften Parameter.</p>";
     t[20700] = "Surface.TransportSourceRouter.Name.Short";
     t[20701] = "Routingstart";
-    t[20708] = "Editor.DialogBase.Search.OutputExpression";
-    t[20709] = "Auszugebender Ausdruck";
-    t[20710] = "Transporters.Group.Edit.Dialog.Times.LoadingExpression";
-    t[20711] = "Ausdruck";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_4 (java.lang.String[] t) {
+    t[20708] = "Editor.DialogBase.Search.OutputExpression";
+    t[20709] = "Auszugebender Ausdruck";
+    t[20710] = "Transporters.Group.Edit.Dialog.Times.LoadingExpression";
+    t[20711] = "Ausdruck";
     t[20716] = "Simulation.Log.Set.InfoClientData";
     t[20717] = "Kunde: %s, Station: %s, KundenDaten(%d):=%s";
     t[20718] = "Surface.AnimationBar.Dialog.Minimum.Error.Info";
@@ -10030,16 +10034,16 @@ public class Messages_de extends java.util.ResourceBundle {
     t[25639] = "Ung\u00fcltiger Wert f\u00fcr Ausfall nach Anzahl bedienter Kunden";
     t[25640] = "ExpressionBuilder.Value";
     t[25641] = "Wert";
-    t[25642] = "ScriptPopup.Output.Format.System.Hint";
-    t[25643] = "System-Notation f\u00fcr Zahlen und Prozentwerte";
-    t[25648] = "ScriptPopup.Client.ResidenceTime.Hint";
-    t[25649] = "Liefert oder stellt die bisherige Verweilzeit ein";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_5 (java.lang.String[] t) {
+    t[25642] = "ScriptPopup.Output.Format.System.Hint";
+    t[25643] = "System-Notation f\u00fcr Zahlen und Prozentwerte";
+    t[25648] = "ScriptPopup.Client.ResidenceTime.Hint";
+    t[25649] = "Liefert oder stellt die bisherige Verweilzeit ein";
     t[25654] = "ModelGenerator.StationCount";
     t[25655] = "Anzahl an Bedienstationen";
     t[25656] = "Optimizer.Tab.Target";
@@ -12036,16 +12040,16 @@ public class Messages_de extends java.util.ResourceBundle {
     t[30735] = "Allgemein";
     t[30740] = "ExpressionBuilder.SimulationCharacteristics.TransporterUtilizationAll.DownNumber";
     t[30741] = "<p>Liefert die Anzahl an Transportern in allen Transportergruppen zusammen, die sich momentan in Pause/Ausfallzeit befinden.</p>";
-    t[30744] = "CalculatorDialog.Tab.Distributions.GenerateRandomNumbers.SaveExt.Parameters";
-    t[30745] = "Parameter / Kenngr\u00f6\u00dfen";
-    t[30748] = "Simulation.Creator.NoEndCriteria";
-    t[30749] = "Es muss mindestens ein Kriterium zum Beenden der Simulation (Anzahl an Ank\u00fcnften, Bedingung, Endzeitpunkt oder Konfidenzradius) aktiviert werden.";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_6 (java.lang.String[] t) {
+    t[30744] = "CalculatorDialog.Tab.Distributions.GenerateRandomNumbers.SaveExt.Parameters";
+    t[30745] = "Parameter / Kenngr\u00f6\u00dfen";
+    t[30748] = "Simulation.Creator.NoEndCriteria";
+    t[30749] = "Es muss mindestens ein Kriterium zum Beenden der Simulation (Anzahl an Ank\u00fcnften, Bedingung, Endzeitpunkt oder Konfidenzradius) aktiviert werden.";
     t[30750] = "Surface.TankFlowPanel.SourceDestination.ErrorTitle";
     t[30751] = "Ung\u00fcltige Quelle-Ziel-Kombination";
     t[30752] = "ExpressionBuilder.SimulationCharacteristics.CompositeComparisons.And.Info";
@@ -13625,7 +13629,7 @@ public class Messages_de extends java.util.ResourceBundle {
     t[34558] = "URLLoader.Confirm.InfoYes";
     t[34559] = "URL aufrufen und Daten herunterladen.";
     t[34562] = "Main.Menu.View.Statistics.HeatMap.FlowFactor";
-    t[34563] = "Heatmap: Flussgrad den Stationen";
+    t[34563] = "Heatmap: Flussgrad an den Stationen";
     t[34568] = "Transporters.Group.Edit.Dialog.Distances.Dialog.MinDistance.ErrorInfo";
     t[34569] = "Der angegebene minimale Abstand \"%s\" ist ung\u00fcltig. Es muss eine positive Zahl f\u00fcr den Abstand angegeben werden.";
     t[34570] = "Optimizer.ControlVariableEdit.Error.NoXMLTitle";
@@ -14042,16 +14046,16 @@ public class Messages_de extends java.util.ResourceBundle {
     t[35675] = "F\u00fcr Element id=%d wurde die ung\u00fcltige Ressourcen-Priorit\u00e4t \"%s\" angegeben.";
     t[35678] = "Optimizer.ControlVariableEdit.Info.XML";
     t[35679] = "Wert im Ausgangsmodell: \"%s\"";
-    t[35680] = "FitDalog.Tab.FittedDistribution";
-    t[35681] = "Angepasste Verteilung";
-    t[35688] = "Surface.InteractiveSlider.XML.StepWide";
-    t[35689] = "ModellElementSchiebereglerSchrittweite";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_7 (java.lang.String[] t) {
+    t[35680] = "FitDalog.Tab.FittedDistribution";
+    t[35681] = "Angepasste Verteilung";
+    t[35688] = "Surface.InteractiveSlider.XML.StepWide";
+    t[35689] = "ModellElementSchiebereglerSchrittweite";
     t[35690] = "ExpressionBuilder.SimulationCharacteristics.WaitingTimesByClientTypes.SquaredCoefficientOfVariationOfTheTime";
     t[35691] = "<p>Liefert den quadrierten Variationskoeffizienten \u00fcber die Wartezeiten der Kunden, die an der Bedienstation, deren ID in dem Parameter angegeben wurde, erzeugt wurden.</p>";
     t[35692] = "JDistributionEditor.Wikipedia.Info";
@@ -14588,6 +14592,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[37025] = "Anzahl";
     t[37032] = "ParameterCompare.Table.AddModelByAssistant.ParametersInName";
     t[37033] = "Parameterwerte in Modellname aufnehmen";
+    t[37036] = "HeatMapSelect.Statistics.Available";
+    t[37037] = "Die Statistikdaten der letzten Simulation werden<br>als Basis zur Darstellung der Heatmap verwendet.";
     t[37038] = "ScriptPopup.Client.ValueNumber.Batch.Hint";
     t[37039] = "Liest eine kundenbasierende Zahlen-Eigenschaft eines Kunden im aktuellen Batch aus";
     t[37040] = "Statistic.FastAccess.Template.StationCosts";
@@ -16046,18 +16052,18 @@ public class Messages_de extends java.util.ResourceBundle {
     t[40597] = "Sammeln, dann aber als individuelle Kunden weiterleiten";
     t[40598] = "URLLoader.Select.Title";
     t[40599] = "Datei ausw\u00e4hlen";
-    t[40600] = "Surface.AnimationPieChart.XML.BackgroundColor";
-    t[40601] = "ModellElementHintergrundfarbe";
-    t[40602] = "Editor.DialogBase.Search.ClientTypeClientTypeDistribution";
-    t[40603] = "Verteilung f\u00fcr Kundentypen \"%s\" -> \"%s\"";
-    t[40604] = "Simulation.Creator.Transporter.InvalidCountAtStation";
-    t[40605] = "F\u00fcr Transportertyp \"%s\" wurde f\u00fcr Station \"%s\" der ung\u00fcltige initiale Bestand von %d angegeben. Es muss eine nichtnegative Ganzzahl angegeben werden.";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_8 (java.lang.String[] t) {
+    t[40600] = "Surface.AnimationPieChart.XML.BackgroundColor";
+    t[40601] = "ModellElementHintergrundfarbe";
+    t[40602] = "Editor.DialogBase.Search.ClientTypeClientTypeDistribution";
+    t[40603] = "Verteilung f\u00fcr Kundentypen \"%s\" -> \"%s\"";
+    t[40604] = "Simulation.Creator.Transporter.InvalidCountAtStation";
+    t[40605] = "F\u00fcr Transportertyp \"%s\" wurde f\u00fcr Station \"%s\" der ung\u00fcltige initiale Bestand von %d angegeben. Es muss eine nichtnegative Ganzzahl angegeben werden.";
     t[40608] = "Simulation.Creator.SliderMinMaxError";
     t[40609] = "An Station id=%d ist der angegebene Minimalwert %s nicht kleiner als der angegebene Maximalwert %s.";
     t[40622] = "Editor.ClientDialog.Tab.Icon.Hint";
@@ -18052,18 +18058,18 @@ public class Messages_de extends java.util.ResourceBundle {
     t[45547] = "Es wurden keine Kundentypennamen, die aus der Tabelle geladen werden sollen, angegeben.";
     t[45550] = "CommandLine.ReportBase.Error.Input";
     t[45551] = "Die Eingabedatei %s existiert nicht.";
-    t[45556] = "ExpressionBuilder.MathematicalFunctions.FractionPart.info";
-    t[45557] = "<p>Liefert den Nachkomma-Anteil des als Parameters \u00fcbergebenen Wertes.</p><p>Beispiel: <tt>frac(3,4)</tt> liefert 0,4.</p>";
-    t[45562] = "Surface.Database.Password";
-    t[45563] = "Passwort";
-    t[45564] = "Simulation.Log.Icon";
-    t[45565] = "Icon\u00e4nderung";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_9 (java.lang.String[] t) {
+    t[45556] = "ExpressionBuilder.MathematicalFunctions.FractionPart.info";
+    t[45557] = "<p>Liefert den Nachkomma-Anteil des als Parameters \u00fcbergebenen Wertes.</p><p>Beispiel: <tt>frac(3,4)</tt> liefert 0,4.</p>";
+    t[45562] = "Surface.Database.Password";
+    t[45563] = "Passwort";
+    t[45564] = "Simulation.Log.Icon";
+    t[45565] = "Icon\u00e4nderung";
     t[45566] = "Surface.Match.XML.MatchMode.Temporary";
     t[45567] = "Zeitweise";
     t[45568] = "SimulationServer.Toolbar.SocketStop";
@@ -20058,18 +20064,18 @@ public class Messages_de extends java.util.ResourceBundle {
     t[50591] = "Analogen Wert \u00e4ndern";
     t[50594] = "Surface.Source.DialogBatchSize.Rate";
     t[50595] = "Rate f\u00fcr Batch-Gr\u00f6\u00dfe";
-    t[50604] = "XML.SaveErrorTitle";
-    t[50605] = "Fehler beim Speichern";
-    t[50608] = "Surface.TankFlowBySignal.Name";
-    t[50609] = "Fluss (Signal)";
-    t[50612] = "Surface.Source.Dialog.Expression.Error.Info";
-    t[50613] = "Der eingegebene Ausdruck \"%s\" ist an Zeichen %d fehlerhaft.";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_10 (java.lang.String[] t) {
+    t[50604] = "XML.SaveErrorTitle";
+    t[50605] = "Fehler beim Speichern";
+    t[50608] = "Surface.TankFlowBySignal.Name";
+    t[50609] = "Fluss (Signal)";
+    t[50612] = "Surface.Source.Dialog.Expression.Error.Info";
+    t[50613] = "Der eingegebene Ausdruck \"%s\" ist an Zeichen %d fehlerhaft.";
     t[50614] = "ModelDescription.Action.Condition.Threshold.Up";
     t[50615] = "beim \u00dcberschreiten des Schwellenwerts ausl\u00f6sen";
     t[50616] = "ParameterCompare.ConnectParameters.NoModels.Title";

@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-02-03 18:33+0100\n"
+"POT-Creation-Date: 2022-02-06 15:49+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -8520,6 +8520,12 @@ msgstr "Mit Hilfe einer Heatmap können nach einer abgeschlossenen Simulation di
 msgid "HeatMapSelect.ShortTitle"
 msgstr "Heatmap"
 
+msgid "HeatMapSelect.Statistics.Available"
+msgstr "Die Statistikdaten der letzten Simulation werden<br>als Basis zur Darstellung der Heatmap verwendet."
+
+msgid "HeatMapSelect.Statistics.NotAvailable"
+msgstr "Es stehen keine Statistikdaten zur Verfügung.<br>Daher kann keine Heatmap angezeigt werden."
+
 msgid "HeatMapSelect.Title"
 msgstr "Heatmap-Modus auswählen"
 
@@ -10079,7 +10085,7 @@ msgid "Main.Menu.View.Statistics.HeatMap.Arrivals.Mnemonic"
 msgstr "A"
 
 msgid "Main.Menu.View.Statistics.HeatMap.FlowFactor"
-msgstr "Heatmap: Flussgrad den Stationen"
+msgstr "Heatmap: Flussgrad an den Stationen"
 
 msgid "Main.Menu.View.Statistics.HeatMap.FlowFactor.Mnemonic"
 msgstr "F"
@@ -10125,6 +10131,9 @@ msgstr "Heatmap: Durchsatz an den Stationen"
 
 msgid "Main.Menu.View.Statistics.HeatMap.Throughput.Mnemonic"
 msgstr "D"
+
+msgid "Main.Menu.View.Statistics.HeatMap.ThroughputTooltip"
+msgstr "Werden Stationsübergänge aufgezeichnet, so werden die Kanten in die Heatmap mit einbezogen."
 
 msgid "Main.Menu.View.Statistics.HeatMap.Transfer"
 msgstr "Heatmap: Mittlere Transferzeiten an den Stationen"

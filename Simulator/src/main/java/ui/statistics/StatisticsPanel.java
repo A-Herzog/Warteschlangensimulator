@@ -19,7 +19,10 @@ import java.io.File;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+import java.util.function.Consumer;
 import java.util.function.Function;
 
 import javax.swing.JTree;
@@ -150,6 +153,46 @@ public class StatisticsPanel extends StatisticsBasePanel {
 	}
 
 	/**
+	 * Listener, die benachrichtigt werden sollen, wenn {@link #setStatistics(Statistics)}
+	 * aufgerufen wurde.
+	 * @see #setStatistics(Statistics)
+	 * @see #addSetStatisticsListener(Consumer)
+	 * @see #removeSetStatisticsListener(Consumer)
+	 */
+	private Set<Consumer<Statistics>> setStatisticListeners=new HashSet<>();
+
+	/**
+	 * Löst die Listener in {@link #setStatisticListeners} aus.
+	 * @see #setStatistics(Statistics)
+	 * @see #addSetStatisticsListener(Consumer)
+	 * @see #removeSetStatisticsListener(Consumer)
+	 */
+	private void fireSetStatistics() {
+		final Statistics statistics=getStatistics();
+		setStatisticListeners.forEach(listener->listener.accept(statistics));
+	}
+
+	/**
+	 * Fügt einen Listener zu der Liste der zu benachrichtigenden Listener,
+	 * wenn {@link #setStatistics(Statistics)} aufgerufen wird, hinzu.
+	 * @param listener	Zu benachrichtigender Listener
+	 * @return	Liefert <code>true</code>, wenn der Listener zu der Liste hinzugefügt werden konnte
+	 */
+	public boolean addSetStatisticsListener(final Consumer<Statistics> listener) {
+		return setStatisticListeners.add(listener);
+	}
+
+	/**
+	 * Entfernt einen Listener aus der Liste der zu benachrichtigenden Listener,
+	 * wenn {@link #setStatistics(Statistics)} aufgerufen wird.
+	 * @param listener	Nicht mehr zu benachrichtigender Listener
+	 * @return	Liefert <code>true</code>, wenn der Listener aus der Liste entfernt werden konnte
+	 */
+	public boolean removeSetStatisticsListener(final Consumer<Statistics> listener) {
+		return setStatisticListeners.remove(listener);
+	}
+
+	/**
 	 * Liefert das bisher eingestellte Statistik-Objekt (kann auch <code>null</code> sein)
 	 * @return	Aktuelles Statistik-Objekt
 	 */
@@ -174,6 +217,7 @@ public class StatisticsPanel extends StatisticsBasePanel {
 		lastRoot=null;
 		if (statistics==null && (this.statistics==null || (this.statistics.length==1 && this.statistics[0]==null))) return;
 		this.statistics=new Statistics[]{statistics};
+		fireSetStatistics();
 		updateViewer(updateTree);
 	}
 
@@ -204,6 +248,8 @@ public class StatisticsPanel extends StatisticsBasePanel {
 			if (title==null || title.length<=i || title[i]==null) titleArray[i]=null; else titleArray[i]=title[i];
 		}
 		additionalTitle=titleArray;
+
+		fireSetStatistics();
 
 		updateViewer(true);
 	}
