@@ -1,0 +1,279 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE Modell SYSTEM "https://a-herzog.github.io/Warteschlangensimulator/Simulator.dtd">
+<Modell xmlns="https://a-herzog.github.io" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://a-herzog.github.io https://a-herzog.github.io/Warteschlangensimulator/Simulator.xsd">
+  <!-- Diese Datei wurde mit Warteschlangensimulator erstellt. Download-Adresse: https://github.com/A-Herzog/Warteschlangensimulator -->
+  <ModellVersion>5.0.0</ModellVersion>
+  <ModellName>Auswirkungen von Nacharbeit auf die Durchlaufzeiten</ModellName>
+  <ModellAutor>Alexander Herzog</ModellAutor>
+  <ModellKunden Aktiv="1">10000000</ModellKunden>
+  <ModellAufwaermphase>0.01</ModellAufwaermphase>
+  <ModellAbbruchzeit Aktiv="0">10:00:00:00</ModellAbbruchzeit>
+  <ModellElemente>
+    <ModellElementQuelle id="1">
+      <ModellElementName>Kunden</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="50" y="250"/>
+      <ModellElementVerbindung Element="3" Typ="Auslaufend"/>
+      <ModellElementVerteilung Zeitbasis="Sekunden">Exponentialverteilung (100)</ModellElementVerteilung>
+      <ModellElementBatch Groesse="1"/>
+    </ModellElementQuelle>
+    <ModellElementDuplizieren id="2">
+      <ModellElementGroesse h="50" w="100" x="250" y="250"/>
+      <ModellElementVerbindung Element="3" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="12" Typ="Auslaufend"/>
+      <ModellElementVerbindung Element="26" Typ="Auslaufend"/>
+    </ModellElementDuplizieren>
+    <ModellElementKante id="3">
+      <ModellElementName>Ankünfte (Kunden)</ModellElementName>
+      <ModellElementVerbindung Element1="1" Element2="2" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementBedienstation id="4">
+      <ModellElementGroesse h="50" w="100" x="750" y="150"/>
+      <ModellElementVerbindung Element="14" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="13" Typ="Auslaufend"/>
+      <ModellElementVerteilung Status="Bedienzeit" Typ="Bedienzeiten" Zeitbasis="Sekunden">Lognormalverteilung (80;20)</ModellElementVerteilung>
+      <ModellElementPrioritaet Kundentyp="Kunden">w</ModellElementPrioritaet>
+      <ModellElementPrioritaet Kundentyp="mit Nacharbeit">w</ModellElementPrioritaet>
+      <ModellElementPrioritaet Kundentyp="ohne Nacharbeit">w</ModellElementPrioritaet>
+      <ModellElementBediener Alternative="1" Anzahl="1" Gruppe="Bediener1"/>
+      <ModellElementBedienerPrioritaet>1</ModellElementBedienerPrioritaet>
+    </ModellElementBedienstation>
+    <ModellElementEcke id="5">
+      <ModellElementGroesse h="10" w="10" x="695" y="370"/>
+      <ModellElementVerbindung Element="20" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="27" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="15" Typ="Auslaufend"/>
+    </ModellElementEcke>
+    <ModellElementBedienstation id="6">
+      <ModellElementGroesse h="50" w="100" x="750" y="350"/>
+      <ModellElementVerbindung Element="15" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="16" Typ="Auslaufend"/>
+      <ModellElementVerteilung Status="Bedienzeit" Typ="Bedienzeiten" Zeitbasis="Sekunden">Lognormalverteilung (80;20)</ModellElementVerteilung>
+      <ModellElementPrioritaet Kundentyp="Kunden">w</ModellElementPrioritaet>
+      <ModellElementPrioritaet Kundentyp="mit Nacharbeit">w</ModellElementPrioritaet>
+      <ModellElementPrioritaet Kundentyp="ohne Nacharbeit">w</ModellElementPrioritaet>
+      <ModellElementBediener Alternative="1" Anzahl="1" Gruppe="Bediener2"/>
+      <ModellElementBedienerPrioritaet>1</ModellElementBedienerPrioritaet>
+    </ModellElementBedienstation>
+    <ModellElementVerzweigen id="7">
+      <ModellElementGroesse h="50" w="100" x="950" y="350"/>
+      <ModellElementVerzweigungsmodus>Bedingung</ModellElementVerzweigungsmodus>
+      <ModellElementVerbindung Element="16" Typ="Einlaufend"/>
+      <ModellElementVerbindung Bedingung="Rework&gt;Random()" Element="17" Typ="Auslaufend"/>
+      <ModellElementVerbindung Element="18" Typ="Auslaufend"/>
+    </ModellElementVerzweigen>
+    <ModellElementEcke id="8">
+      <ModellElementGroesse h="10" w="10" x="695" y="445"/>
+      <ModellElementVerbindung Element="19" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="20" Typ="Auslaufend"/>
+    </ModellElementEcke>
+    <ModellElementEcke id="9">
+      <ModellElementGroesse h="10" w="10" x="995" y="445"/>
+      <ModellElementVerbindung Element="17" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="19" Typ="Auslaufend"/>
+    </ModellElementEcke>
+    <ModellElementEnde id="10">
+      <ModellElementGroesse h="50" w="100" x="1200" y="150"/>
+      <ModellElementVerbindung Element="13" Typ="Einlaufend"/>
+    </ModellElementEnde>
+    <ModellElementEnde id="11">
+      <ModellElementGroesse h="50" w="100" x="1200" y="350"/>
+      <ModellElementVerbindung Element="18" Typ="Einlaufend"/>
+    </ModellElementEnde>
+    <ModellElementKante id="13">
+      <ModellElementVerbindung Element1="4" Element2="10" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="15">
+      <ModellElementVerbindung Element1="5" Element2="6" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="16">
+      <ModellElementVerbindung Element1="6" Element2="7" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="19">
+      <ModellElementVerbindung Element1="9" Element2="8" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="20">
+      <ModellElementVerbindung Element1="8" Element2="5" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementSchieberegler id="21">
+      <ModellElementGroesse h="40" w="200" x="1150" y="605"/>
+      <ModellElementSchiebereglerVariable>Rework</ModellElementSchiebereglerVariable>
+      <ModellElementSchiebereglerMinimum>0</ModellElementSchiebereglerMinimum>
+      <ModellElementSchiebereglerMaximum>0.2</ModellElementSchiebereglerMaximum>
+      <ModellElementSchiebereglerSchrittweite>0.01</ModellElementSchiebereglerSchrittweite>
+    </ModellElementSchieberegler>
+    <ModellElementKante id="17">
+      <ModellElementName>Bedingung 1</ModellElementName>
+      <ModellElementVerbindung Element1="7" Element2="9" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="18">
+      <ModellElementName>Fall "sonst"</ModellElementName>
+      <ModellElementVerbindung Element1="7" Element2="11" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementAnimationLinienDiagramm id="22">
+      <ModellElementGroesse h="250" w="550" x="100" y="600"/>
+      <ModellElementLinienBreite>1</ModellElementLinienBreite>
+      <ModellElementLinienFarbe>0,0,0</ModellElementLinienFarbe>
+      <ModellElementHintergrundfarbe>240,240,240</ModellElementHintergrundfarbe>
+      <ModellElementDiagrammElement Linienbreite="1" Linienfarbe="0,0,255" Maximum="15" Minimum="0">WIP(4)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Linienbreite="3" Linienfarbe="0,0,255" Maximum="15" Minimum="0">WIP_avg(4)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Linienbreite="1" Linienfarbe="255,0,0" Maximum="15" Minimum="0">WIP(6)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Linienbreite="3" Linienfarbe="255,0,0" Maximum="15" Minimum="0">WIP_avg(6)</ModellElementDiagrammElement>
+      <ModellElementDiagrammZeitbereich>3600</ModellElementDiagrammZeitbereich>
+      <ModellElementAchsenbeschriftung>1</ModellElementAchsenbeschriftung>
+    </ModellElementAnimationLinienDiagramm>
+    <ModellElementAnimationText id="23">
+      <ModellElementName>Anteil an Nacharbeit</ModellElementName>
+      <ModellElementGroesse h="30" w="85" x="950" y="305"/>
+      <ModellElementSchriftgrosse>14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>255,0,0</ModellElementFarbe>
+      <ModellElementAnimationsmodus Art="Prozentwert">Rework</ModellElementAnimationsmodus>
+    </ModellElementAnimationText>
+    <ModellElementZuweisung id="24">
+      <ModellElementName>ohne Nacharbeit</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="450" y="150"/>
+      <ModellElementVerbindung Element="12" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="14" Typ="Auslaufend"/>
+    </ModellElementZuweisung>
+    <ModellElementZuweisung id="25">
+      <ModellElementName>mit Nacharbeit</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="450" y="350"/>
+      <ModellElementVerbindung Element="26" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="27" Typ="Auslaufend"/>
+    </ModellElementZuweisung>
+    <ModellElementKante id="12">
+      <ModellElementName>Original</ModellElementName>
+      <ModellElementVerbindung Element1="2" Element2="24" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="14">
+      <ModellElementName>Neuer Kundentyp: ohne Nacharbeit</ModellElementName>
+      <ModellElementVerbindung Element1="24" Element2="4" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="26">
+      <ModellElementName>Kopie 1</ModellElementName>
+      <ModellElementVerbindung Element1="2" Element2="25" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="27">
+      <ModellElementName>Neuer Kundentyp: mit Nacharbeit</ModellElementName>
+      <ModellElementVerbindung Element1="25" Element2="5" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementAnimationText id="28">
+      <ModellElementName>Mittlere Durchlaufzeit</ModellElementName>
+      <ModellElementGroesse h="30" w="88" x="1200" y="105"/>
+      <ModellElementSchriftgrosse>14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,255</ModellElementFarbe>
+      <ModellElementAnimationsmodus Art="Zeitwert">Verweilzeit_avg(24)</ModellElementAnimationsmodus>
+    </ModellElementAnimationText>
+    <ModellElementAnimationText id="29">
+      <ModellElementName>Mittlere Durchlaufzeit</ModellElementName>
+      <ModellElementGroesse h="30" w="88" x="1200" y="305"/>
+      <ModellElementSchriftgrosse>14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>255,0,0</ModellElementFarbe>
+      <ModellElementAnimationsmodus Art="Zeitwert">Verweilzeit_avg(25)</ModellElementAnimationsmodus>
+    </ModellElementAnimationText>
+    <ModellElementAnimationBalkenDiagramm id="30">
+      <ModellElementGroesse h="255" w="150" x="750" y="600"/>
+      <ModellElementLinienBreite>1</ModellElementLinienBreite>
+      <ModellElementLinienFarbe>0,0,0</ModellElementLinienFarbe>
+      <ModellElementHintergrundfarbe>240,240,240</ModellElementHintergrundfarbe>
+      <ModellElement3DEffekt>1</ModellElement3DEffekt>
+      <ModellElementMinimalwert>0</ModellElementMinimalwert>
+      <ModellElementMaximalwert>1000</ModellElementMaximalwert>
+      <ModellElementAchsenbeschriftung>1</ModellElementAchsenbeschriftung>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Verweilzeit_avg(24)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="255,0,0">Verweilzeit_avg(25)</ModellElementDiagrammElement>
+    </ModellElementAnimationBalkenDiagramm>
+    <ModellElementAnimationText id="31">
+      <ModellElementName>Mittlere Auslastung</ModellElementName>
+      <ModellElementGroesse h="30" w="80" x="750" y="305"/>
+      <ModellElementSchriftgrosse>14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>255,0,0</ModellElementFarbe>
+      <ModellElementAnimationsmodus Art="Prozentwert">Resource_avg(2)</ModellElementAnimationsmodus>
+    </ModellElementAnimationText>
+    <ModellElementAnimationText id="32">
+      <ModellElementName>Mittlere Auslastung</ModellElementName>
+      <ModellElementGroesse h="30" w="80" x="750" y="105"/>
+      <ModellElementSchriftgrosse>14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,255</ModellElementFarbe>
+      <ModellElementAnimationsmodus Art="Prozentwert">Resource_avg(1)</ModellElementAnimationsmodus>
+    </ModellElementAnimationText>
+    <ModellElementText id="33">
+      <ModellElementGroesse h="19" w="258" x="100" y="580"/>
+      <ModellElementTextzeile>Anzahlen an Kunden an den Stationen</ModellElementTextzeile>
+      <ModellElementSchriftgrosse fett="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementText id="34">
+      <ModellElementGroesse h="15" w="280" x="100" y="850"/>
+      <ModellElementTextzeile>(dünne Linien=aktuelle Werte, dicke Linien=Durchschnitt)</ModellElementTextzeile>
+      <ModellElementSchriftgrosse>11</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementText id="35">
+      <ModellElementGroesse h="19" w="105" x="750" y="580"/>
+      <ModellElementTextzeile>Durchlaufzeiten</ModellElementTextzeile>
+      <ModellElementSchriftgrosse fett="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementText id="36">
+      <ModellElementGroesse h="38" w="163" x="1150" y="565"/>
+      <ModellElementTextzeile>Anteil der Werkstücke,</ModellElementTextzeile>
+      <ModellElementTextzeile>die Nacharbeit erfordern</ModellElementTextzeile>
+      <ModellElementSchriftgrosse fett="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementKasten id="37">
+      <ModellElementGroesse h="150" w="925" x="425" y="100"/>
+      <ModellElementLinienBreite>2</ModellElementLinienBreite>
+      <ModellElementFarbe>0,0,255</ModellElementFarbe>
+    </ModellElementKasten>
+    <ModellElementKasten id="38">
+      <ModellElementGroesse h="200" w="925" x="425" y="300"/>
+      <ModellElementLinienBreite>2</ModellElementLinienBreite>
+      <ModellElementFarbe>255,0,0</ModellElementFarbe>
+    </ModellElementKasten>
+    <ModellElementText id="39">
+      <ModellElementGroesse h="21" w="127" x="430" y="105"/>
+      <ModellElementTextzeile>Ohne Nacharbeit</ModellElementTextzeile>
+      <ModellElementSchriftgrosse fett="1">16</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,255</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementText id="40">
+      <ModellElementGroesse h="21" w="111" x="430" y="305"/>
+      <ModellElementTextzeile>Mit Nacharbeit</ModellElementTextzeile>
+      <ModellElementSchriftgrosse fett="1">16</ModellElementSchriftgrosse>
+      <ModellElementFarbe>255,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementText id="41">
+      <ModellElementGroesse h="60" w="88" x="250" y="325"/>
+      <ModellElementTextzeile>Beide Teilmodelle</ModellElementTextzeile>
+      <ModellElementTextzeile>erhalten exakt</ModellElementTextzeile>
+      <ModellElementTextzeile>denselben</ModellElementTextzeile>
+      <ModellElementTextzeile>Ankunftsstrom.</ModellElementTextzeile>
+      <ModellElementSchriftgrosse kursiv="1">11</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementText id="42">
+      <ModellElementGroesse h="45" w="208" x="1150" y="665"/>
+      <ModellElementTextzeile>Der Anteil der Werkstücke, die</ModellElementTextzeile>
+      <ModellElementTextzeile>nachbearbeitet werden müssen, kann</ModellElementTextzeile>
+      <ModellElementTextzeile>zwischen 0% und 20% eingestellt werden.</ModellElementTextzeile>
+      <ModellElementSchriftgrosse kursiv="1">11</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementText id="43">
+      <ModellElementGroesse h="23" w="472" x="50" y="50"/>
+      <ModellElementTextzeile>Auswirkungen von Nacharbeit auf die Durchlaufzeiten</ModellElementTextzeile>
+      <ModellElementSchriftgrosse fett="1">18</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+  </ModellElemente>
+  <Ressourcen UntergeordnetePrioritaet="Zufaellig">
+    <Ressource Name="Bediener1" Typ="Anzahl" Wert="1"/>
+    <Ressource Name="Bediener2" Typ="Anzahl" Wert="1"/>
+  </Ressourcen>
+  <KundentypenDaten/>
+  <InitialeVariable Name="Rework">0,05</InitialeVariable>
+  <ModellKantenNormal Breite="1" Farbe="0,0,0" Typ="0"/>
+  <ModellKantenSelektiert Breite="1" Typ="0"/>
+  <ModellElementVerbindungsdarstellungsart>Abgerundet abgewinkelt</ModellElementVerbindungsdarstellungsart>
+</Modell>

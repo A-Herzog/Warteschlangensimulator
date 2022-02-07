@@ -1,0 +1,285 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE Model SYSTEM "https://a-herzog.github.io/Warteschlangensimulator/Simulator.dtd">
+<Model xmlns="https://a-herzog.github.io" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://a-herzog.github.io https://a-herzog.github.io/Warteschlangensimulator/Simulator.xsd">
+  <!-- This file was created using Warteschlangensimulator. Download address: https://github.com/A-Herzog/Warteschlangensimulator -->
+  <ModelVersion>5.0.0</ModelVersion>
+  <ModelName>Effects of rework on the residence times</ModelName>
+  <ModelAuthor>Alexander Herzog</ModelAuthor>
+  <ModelClients Active="1">10000000</ModelClients>
+  <ModelWarmUpPhase>0.01</ModelWarmUpPhase>
+  <ModelTerminationTime Active="0">10:00:00:00</ModelTerminationTime>
+  <ModelElements>
+    <ModelElementSource id="1">
+      <ModelElementName>Clients</ModelElementName>
+      <ModelElementSize h="50" w="100" x="50" y="250"/>
+      <ModelElementConnection Element="3" Type="Out"/>
+      <ModelElementDistribution TimeBase="Seconds">Exponential distribution (100)</ModelElementDistribution>
+      <ModelElementBatchData Size="1"/>
+    </ModelElementSource>
+    <ModelElementDuplicate id="2">
+      <ModelElementSize h="50" w="100" x="250" y="250"/>
+      <ModelElementConnection Element="3" Type="In"/>
+      <ModelElementConnection Element="12" Type="Out"/>
+      <ModelElementConnection Element="26" Type="Out"/>
+    </ModelElementDuplicate>
+    <ModelElementEdge id="3">
+      <ModelElementName>Arrivals (Clients)</ModelElementName>
+      <ModelElementConnection Element1="1" Element2="2" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementProcessStation id="4">
+      <ModelElementSize h="50" w="100" x="750" y="150"/>
+      <ModelElementConnection Element="14" Type="In"/>
+      <ModelElementConnection Element="13" Type="Out"/>
+      <ModelElementDistribution Status="ProcessTime" TimeBase="Seconds" Type="ProcessingTime">Lognormal distribution (80;20)</ModelElementDistribution>
+      <ModelElementPriority ClientType="Clients">w</ModelElementPriority>
+      <ModelElementPriority ClientType="Kunden">w</ModelElementPriority>
+      <ModelElementPriority ClientType="mit Nacharbeit">w</ModelElementPriority>
+      <ModelElementPriority ClientType="ohne Nacharbeit">w</ModelElementPriority>
+      <ModelElementPriority ClientType="with rework">w</ModelElementPriority>
+      <ModelElementPriority ClientType="without rework">w</ModelElementPriority>
+      <ModelElementOperators Alternative="1" Count="1" Group="Bediener1"/>
+      <ModelElementOperatorsPriority>1</ModelElementOperatorsPriority>
+    </ModelElementProcessStation>
+    <ModelElementVertex id="5">
+      <ModelElementSize h="10" w="10" x="695" y="370"/>
+      <ModelElementConnection Element="20" Type="In"/>
+      <ModelElementConnection Element="27" Type="In"/>
+      <ModelElementConnection Element="15" Type="Out"/>
+    </ModelElementVertex>
+    <ModelElementProcessStation id="6">
+      <ModelElementSize h="50" w="100" x="750" y="350"/>
+      <ModelElementConnection Element="15" Type="In"/>
+      <ModelElementConnection Element="16" Type="Out"/>
+      <ModelElementDistribution Status="ProcessTime" TimeBase="Seconds" Type="ProcessingTime">Lognormal distribution (80;20)</ModelElementDistribution>
+      <ModelElementPriority ClientType="Clients">w</ModelElementPriority>
+      <ModelElementPriority ClientType="Kunden">w</ModelElementPriority>
+      <ModelElementPriority ClientType="mit Nacharbeit">w</ModelElementPriority>
+      <ModelElementPriority ClientType="ohne Nacharbeit">w</ModelElementPriority>
+      <ModelElementPriority ClientType="with rework">w</ModelElementPriority>
+      <ModelElementPriority ClientType="without rework">w</ModelElementPriority>
+      <ModelElementOperators Alternative="1" Count="1" Group="Bediener2"/>
+      <ModelElementOperatorsPriority>1</ModelElementOperatorsPriority>
+    </ModelElementProcessStation>
+    <ModelElementDecide id="7">
+      <ModelElementSize h="50" w="100" x="950" y="350"/>
+      <ModelElementDecideMode>Condition</ModelElementDecideMode>
+      <ModelElementConnection Element="16" Type="In"/>
+      <ModelElementConnection Condition="Rework&gt;Random()" Element="17" Type="Out"/>
+      <ModelElementConnection Element="18" Type="Out"/>
+    </ModelElementDecide>
+    <ModelElementVertex id="8">
+      <ModelElementSize h="10" w="10" x="695" y="445"/>
+      <ModelElementConnection Element="19" Type="In"/>
+      <ModelElementConnection Element="20" Type="Out"/>
+    </ModelElementVertex>
+    <ModelElementVertex id="9">
+      <ModelElementSize h="10" w="10" x="995" y="445"/>
+      <ModelElementConnection Element="17" Type="In"/>
+      <ModelElementConnection Element="19" Type="Out"/>
+    </ModelElementVertex>
+    <ModelElementDispose id="10">
+      <ModelElementSize h="50" w="100" x="1200" y="150"/>
+      <ModelElementConnection Element="13" Type="In"/>
+    </ModelElementDispose>
+    <ModelElementDispose id="11">
+      <ModelElementSize h="50" w="100" x="1200" y="350"/>
+      <ModelElementConnection Element="18" Type="In"/>
+    </ModelElementDispose>
+    <ModelElementEdge id="13">
+      <ModelElementConnection Element1="4" Element2="10" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="15">
+      <ModelElementConnection Element1="5" Element2="6" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="16">
+      <ModelElementConnection Element1="6" Element2="7" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="19">
+      <ModelElementConnection Element1="9" Element2="8" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="20">
+      <ModelElementConnection Element1="8" Element2="5" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementSlider id="21">
+      <ModelElementSize h="40" w="200" x="1150" y="605"/>
+      <ModelElementSliderVariable>Rework</ModelElementSliderVariable>
+      <ModelElementSliderMinimum>0</ModelElementSliderMinimum>
+      <ModelElementSliderMaximum>0.2</ModelElementSliderMaximum>
+      <ModelElementSliderStepWide>0.01</ModelElementSliderStepWide>
+    </ModelElementSlider>
+    <ModelElementEdge id="17">
+      <ModelElementName>Condition 1</ModelElementName>
+      <ModelElementConnection Element1="7" Element2="9" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="18">
+      <ModelElementName>Case "else"</ModelElementName>
+      <ModelElementConnection Element1="7" Element2="11" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementAnimationLineDiagram id="22">
+      <ModelElementSize h="250" w="550" x="100" y="600"/>
+      <ModelElementLineWidth>1</ModelElementLineWidth>
+      <ModelElementLineColor>0,0,0</ModelElementLineColor>
+      <ModelElementBackgroundColor>240,240,240</ModelElementBackgroundColor>
+      <ModelElementDiagramElement LineColor="0,0,255" LineWidth="1" Maximum="15" Minimum="0">WIP(4)</ModelElementDiagramElement>
+      <ModelElementDiagramElement LineColor="0,0,255" LineWidth="3" Maximum="15" Minimum="0">WIP_avg(4)</ModelElementDiagramElement>
+      <ModelElementDiagramElement LineColor="255,0,0" LineWidth="1" Maximum="15" Minimum="0">WIP(6)</ModelElementDiagramElement>
+      <ModelElementDiagramElement LineColor="255,0,0" LineWidth="3" Maximum="15" Minimum="0">WIP_avg(6)</ModelElementDiagramElement>
+      <ModelElementDiagramTimeRange>3600</ModelElementDiagramTimeRange>
+      <ModelElementAxisLabels>1</ModelElementAxisLabels>
+    </ModelElementAnimationLineDiagram>
+    <ModelElementAnimationText id="23">
+      <ModelElementName>Rework percentage</ModelElementName>
+      <ModelElementSize h="30" w="86" x="950" y="305"/>
+      <ModelElementFontSize>14</ModelElementFontSize>
+      <ModelElementColor>255,0,0</ModelElementColor>
+      <ModelElementAnimationMode Type="Percent value">Rework</ModelElementAnimationMode>
+    </ModelElementAnimationText>
+    <ModelElementAssignment id="24">
+      <ModelElementName>without rework</ModelElementName>
+      <ModelElementSize h="50" w="100" x="450" y="150"/>
+      <ModelElementConnection Element="12" Type="In"/>
+      <ModelElementConnection Element="14" Type="Out"/>
+    </ModelElementAssignment>
+    <ModelElementAssignment id="25">
+      <ModelElementName>with rework</ModelElementName>
+      <ModelElementSize h="50" w="100" x="450" y="350"/>
+      <ModelElementConnection Element="26" Type="In"/>
+      <ModelElementConnection Element="27" Type="Out"/>
+    </ModelElementAssignment>
+    <ModelElementEdge id="12">
+      <ModelElementName>Original</ModelElementName>
+      <ModelElementConnection Element1="2" Element2="24" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="14">
+      <ModelElementName>New client type: without rework</ModelElementName>
+      <ModelElementConnection Element1="24" Element2="4" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="26">
+      <ModelElementName>Copy 1</ModelElementName>
+      <ModelElementConnection Element1="2" Element2="25" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="27">
+      <ModelElementName>New client type: with rework</ModelElementName>
+      <ModelElementConnection Element1="25" Element2="5" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementAnimationText id="28">
+      <ModelElementName>Average residence time</ModelElementName>
+      <ModelElementSize h="30" w="99" x="1200" y="105"/>
+      <ModelElementFontSize>14</ModelElementFontSize>
+      <ModelElementColor>0,0,255</ModelElementColor>
+      <ModelElementAnimationMode Type="Time value">Verweilzeit_avg(24)</ModelElementAnimationMode>
+    </ModelElementAnimationText>
+    <ModelElementAnimationText id="29">
+      <ModelElementName>Average residence time</ModelElementName>
+      <ModelElementSize h="30" w="99" x="1200" y="305"/>
+      <ModelElementFontSize>14</ModelElementFontSize>
+      <ModelElementColor>255,0,0</ModelElementColor>
+      <ModelElementAnimationMode Type="Time value">Verweilzeit_avg(25)</ModelElementAnimationMode>
+    </ModelElementAnimationText>
+    <ModelElementAnimationBarDiagram id="30">
+      <ModelElementSize h="255" w="150" x="750" y="600"/>
+      <ModelElementLineWidth>1</ModelElementLineWidth>
+      <ModelElementLineColor>0,0,0</ModelElementLineColor>
+      <ModelElementBackgroundColor>240,240,240</ModelElementBackgroundColor>
+      <ModelElementUse3D>1</ModelElementUse3D>
+      <ModelElementMinimumValue>0</ModelElementMinimumValue>
+      <ModelElementMaximumValue>1000</ModelElementMaximumValue>
+      <ModelElementAxisLabels>1</ModelElementAxisLabels>
+      <ModelElementDiagramElement BarColor="0,0,255">Verweilzeit_avg(24)</ModelElementDiagramElement>
+      <ModelElementDiagramElement BarColor="255,0,0">Verweilzeit_avg(25)</ModelElementDiagramElement>
+    </ModelElementAnimationBarDiagram>
+    <ModelElementAnimationText id="31">
+      <ModelElementName>Average utilization</ModelElementName>
+      <ModelElementSize h="30" w="86" x="750" y="305"/>
+      <ModelElementFontSize>14</ModelElementFontSize>
+      <ModelElementColor>255,0,0</ModelElementColor>
+      <ModelElementAnimationMode Type="Percent value">Resource_avg(2)</ModelElementAnimationMode>
+    </ModelElementAnimationText>
+    <ModelElementAnimationText id="32">
+      <ModelElementName>Average utilization</ModelElementName>
+      <ModelElementSize h="30" w="86" x="750" y="105"/>
+      <ModelElementFontSize>14</ModelElementFontSize>
+      <ModelElementColor>0,0,255</ModelElementColor>
+      <ModelElementAnimationMode Type="Percent value">Resource_avg(1)</ModelElementAnimationMode>
+    </ModelElementAnimationText>
+    <ModelElementText id="33">
+      <ModelElementSize h="19" w="227" x="100" y="580"/>
+      <ModelElementTextLine>Number of clients at the stationen</ModelElementTextLine>
+      <ModelElementFontSize bold="1">14</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementText id="34">
+      <ModelElementSize h="15" w="225" x="100" y="850"/>
+      <ModelElementTextLine>(thin lines=current values, thick lines=average)</ModelElementTextLine>
+      <ModelElementFontSize>11</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementText id="35">
+      <ModelElementSize h="19" w="111" x="750" y="580"/>
+      <ModelElementTextLine>Residence times</ModelElementTextLine>
+      <ModelElementFontSize bold="1">14</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementText id="36">
+      <ModelElementSize h="38" w="174" x="1150" y="565"/>
+      <ModelElementTextLine>Percentage of workpieces</ModelElementTextLine>
+      <ModelElementTextLine>requiring rework</ModelElementTextLine>
+      <ModelElementFontSize bold="1">14</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementRectangle id="37">
+      <ModelElementSize h="150" w="925" x="425" y="100"/>
+      <ModelElementLineWidth>2</ModelElementLineWidth>
+      <ModelElementColor>0,0,255</ModelElementColor>
+    </ModelElementRectangle>
+    <ModelElementRectangle id="38">
+      <ModelElementSize h="200" w="925" x="425" y="300"/>
+      <ModelElementLineWidth>2</ModelElementLineWidth>
+      <ModelElementColor>255,0,0</ModelElementColor>
+    </ModelElementRectangle>
+    <ModelElementText id="39">
+      <ModelElementSize h="21" w="117" x="430" y="105"/>
+      <ModelElementTextLine>Without rework</ModelElementTextLine>
+      <ModelElementFontSize bold="1">16</ModelElementFontSize>
+      <ModelElementColor>0,0,255</ModelElementColor>
+    </ModelElementText>
+    <ModelElementText id="40">
+      <ModelElementSize h="21" w="92" x="430" y="305"/>
+      <ModelElementTextLine>With rework</ModelElementTextLine>
+      <ModelElementFontSize bold="1">16</ModelElementFontSize>
+      <ModelElementColor>255,0,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementText id="41">
+      <ModelElementSize h="60" w="80" x="250" y="325"/>
+      <ModelElementTextLine>Both submodels</ModelElementTextLine>
+      <ModelElementTextLine>receive exactly</ModelElementTextLine>
+      <ModelElementTextLine>the same</ModelElementTextLine>
+      <ModelElementTextLine>arrival stream.</ModelElementTextLine>
+      <ModelElementFontSize italic="1">11</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementText id="42">
+      <ModelElementSize h="45" w="149" x="1150" y="665"/>
+      <ModelElementTextLine>The percentage of workpieces</ModelElementTextLine>
+      <ModelElementTextLine>that need to be reworked can</ModelElementTextLine>
+      <ModelElementTextLine>be set between 0% and 20%.</ModelElementTextLine>
+      <ModelElementFontSize italic="1">11</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementText id="43">
+      <ModelElementSize h="23" w="353" x="50" y="50"/>
+      <ModelElementTextLine>Effects of rework on the residence times</ModelElementTextLine>
+      <ModelElementFontSize bold="1">18</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+    </ModelElementText>
+  </ModelElements>
+  <Resources SecondaryPriority="Random">
+    <Resource Name="Bediener1" Type="Number" Value="1"/>
+    <Resource Name="Bediener2" Type="Number" Value="1"/>
+  </Resources>
+  <ClientTypeData/>
+  <InitialVariable Name="Rework">0,05</InitialVariable>
+  <ModelEdgesNormal Color="0,0,0" Type="0" Width="1"/>
+  <ModelEdgesSelected Type="0" Width="1"/>
+  <ModelElementConnectionDrawStyle>Angled around</ModelElementConnectionDrawStyle>
+</Model>

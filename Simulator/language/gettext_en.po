@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-02-06 15:49+0100\n"
+"POT-Creation-Date: 2022-02-07 00:40+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -4727,6 +4727,9 @@ msgstr "Restaurant as queueing system"
 
 msgid "Examples.RestrictedBuffer"
 msgstr "Restricted buffer between the stations"
+
+msgid "Examples.Rework"
+msgstr "Effects of rework on the residence times"
 
 msgid "Examples.SetUpTimes"
 msgstr "Machine with set up times"

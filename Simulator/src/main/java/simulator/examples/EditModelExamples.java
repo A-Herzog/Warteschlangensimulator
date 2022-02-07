@@ -84,7 +84,7 @@ public class EditModelExamples {
 
 	/**
 	 * Liste mit den Beispielen.
-	 * @see #addExample(String[], String, ExampleType, boolean)
+	 * @see #addExample(String[], String, ExampleType)
 	 */
 	private final List<Example> list;
 
@@ -139,10 +139,9 @@ public class EditModelExamples {
 	 * @param names	Namen für das Beispiel in den verschiedenen Sprachen
 	 * @param file	Beispieldateiname
 	 * @param type	Gruppe in die das Beispiel fällt
-	 * @param availableForPlayer	Ist das Beispiel auch im Player verfügbar?
 	 */
-	private void addExample(final String[] names, final String file, final ExampleType type, final boolean availableForPlayer) {
-		list.add(new Example(names,file,type,availableForPlayer));
+	private void addExample(final String[] names, final String file, final ExampleType type) {
+		list.add(new Example(names,file,type));
 	}
 
 	/**
@@ -150,35 +149,36 @@ public class EditModelExamples {
 	 * @see #list
 	 */
 	private void addExamples() {
-		addExample(Language.trAll("Examples.ErlangC"),"ErlangC1.xml",ExampleType.TYPE_DEFAULT,true);
-		addExample(Language.trAll("Examples.ClientTypePriorities"),"Kundentypen.xml",ExampleType.TYPE_PROPERTIES,true);
-		addExample(Language.trAll("Examples.ImpatientClientsAndRetry"),"Warteabbrecher.xml",ExampleType.TYPE_PROPERTIES,true);
-		addExample(Language.trAll("Examples.SharedResources"),"SharedResources.xml",ExampleType.TYPE_PROPERTIES,true);
-		addExample(Language.trAll("Examples.SystemDesign"),"Vergleiche2.xml",ExampleType.TYPE_COMPARE,true);
-		addExample(Language.trAll("Examples.SystemDesignWithControl"),"Vergleiche3.xml",ExampleType.TYPE_COMPARE,true);
-		addExample(Language.trAll("Examples.PushAndPullProduction"),"PushPull.xml",ExampleType.TYPE_COMPARE,true);
-		addExample(Language.trAll("Examples.PushAndPullProductionMultiBarriers"),"PushPullMulti.xml",ExampleType.TYPE_COMPARE,true);
-		addExample(Language.trAll("Examples.PushPullThroughput"),"PushPullThroughput.xml",ExampleType.TYPE_COMPARE,true);
-		addExample(Language.trAll("Examples.ChangeResourceCountCompare"),"ChangeResourceCountCompare.xml",ExampleType.TYPE_COMPARE,false);
-		addExample(Language.trAll("Examples.LimitedNumberOfClientsAtAStation"),"Variable.xml",ExampleType.TYPE_PROPERTIES,true);
-		addExample(Language.trAll("Examples.LawOfLargeNumbers"),"GesetzDerGroßenZahlen.xml",ExampleType.TYPE_MATH,true);
-		addExample(Language.trAll("Examples.Galton"),"Galton.xml",ExampleType.TYPE_MATH,true);
-		addExample(Language.trAll("Examples.Callcenter"),"Callcenter.xml",ExampleType.TYPE_REAL_MODELS,true);
-		addExample(Language.trAll("Examples.OperatorsAsSimulationObjects"),"BedienerAlsSimulationsobjekte.xml",ExampleType.TYPE_PROPERTIES,true);
-		addExample(Language.trAll("Examples.Transport"),"Transport.xml",ExampleType.TYPE_PROPERTIES,true);
-		addExample(Language.trAll("Examples.Transporter"),"Transporter.xml",ExampleType.TYPE_PROPERTIES,true);
-		addExample(Language.trAll("Examples.CombiningOrdersAndItems"),"MultiSignalBarrier.xml",ExampleType.TYPE_PROPERTIES,true);
-		addExample(Language.trAll("Examples.Restaurant"),"Restaurant.xml",ExampleType.TYPE_REAL_MODELS,true);
-		addExample(Language.trAll("Examples.Baustellenampel"),"Baustellenampel.xml",ExampleType.TYPE_REAL_MODELS,true);
-		addExample(Language.trAll("Examples.Batch"),"Batch.xml",ExampleType.TYPE_PROPERTIES,true);
-		addExample(Language.trAll("Examples.Failure"),"Failure.xml",ExampleType.TYPE_PROPERTIES,true);
-		addExample(Language.trAll("Examples.SetUpTimes"),"SetUpTimes.xml",ExampleType.TYPE_PROPERTIES,false);
-		addExample(Language.trAll("Examples.HoldJS"),"HoldJS.xml",ExampleType.TYPE_PROPERTIES,false);
-		addExample(Language.trAll("Examples.RestrictedBuffer"),"RestriktierterPuffer.xml",ExampleType.TYPE_PROPERTIES,true);
-		addExample(Language.trAll("Examples.Analog"),"Analog.xml",ExampleType.TYPE_PROPERTIES,true);
-		addExample(Language.trAll("Examples.Jockeying"),"Jockeying.xml",ExampleType.TYPE_PROPERTIES,true);
-		addExample(Language.trAll("Examples.PASTA"),"PASTA.xml",ExampleType.TYPE_MATH,true);
-		addExample(Language.trAll("Examples.ZentralerGrenzwertsatz"),"ZentralerGrenzwertsatz.xml",ExampleType.TYPE_MATH,true);
+		addExample(Language.trAll("Examples.ErlangC"),"ErlangC1.xml",ExampleType.TYPE_DEFAULT);
+		addExample(Language.trAll("Examples.ClientTypePriorities"),"Kundentypen.xml",ExampleType.TYPE_PROPERTIES);
+		addExample(Language.trAll("Examples.ImpatientClientsAndRetry"),"Warteabbrecher.xml",ExampleType.TYPE_PROPERTIES);
+		addExample(Language.trAll("Examples.SharedResources"),"SharedResources.xml",ExampleType.TYPE_PROPERTIES);
+		addExample(Language.trAll("Examples.SystemDesign"),"Vergleiche2.xml",ExampleType.TYPE_COMPARE);
+		addExample(Language.trAll("Examples.SystemDesignWithControl"),"Vergleiche3.xml",ExampleType.TYPE_COMPARE);
+		addExample(Language.trAll("Examples.PushAndPullProduction"),"PushPull.xml",ExampleType.TYPE_COMPARE);
+		addExample(Language.trAll("Examples.PushAndPullProductionMultiBarriers"),"PushPullMulti.xml",ExampleType.TYPE_COMPARE);
+		addExample(Language.trAll("Examples.PushPullThroughput"),"PushPullThroughput.xml",ExampleType.TYPE_COMPARE);
+		addExample(Language.trAll("Examples.ChangeResourceCountCompare"),"ChangeResourceCountCompare.xml",ExampleType.TYPE_COMPARE);
+		addExample(Language.trAll("Examples.LimitedNumberOfClientsAtAStation"),"Variable.xml",ExampleType.TYPE_PROPERTIES);
+		addExample(Language.trAll("Examples.LawOfLargeNumbers"),"GesetzDerGroßenZahlen.xml",ExampleType.TYPE_MATH);
+		addExample(Language.trAll("Examples.Galton"),"Galton.xml",ExampleType.TYPE_MATH);
+		addExample(Language.trAll("Examples.Callcenter"),"Callcenter.xml",ExampleType.TYPE_REAL_MODELS);
+		addExample(Language.trAll("Examples.OperatorsAsSimulationObjects"),"BedienerAlsSimulationsobjekte.xml",ExampleType.TYPE_PROPERTIES);
+		addExample(Language.trAll("Examples.Transport"),"Transport.xml",ExampleType.TYPE_PROPERTIES);
+		addExample(Language.trAll("Examples.Transporter"),"Transporter.xml",ExampleType.TYPE_PROPERTIES);
+		addExample(Language.trAll("Examples.CombiningOrdersAndItems"),"MultiSignalBarrier.xml",ExampleType.TYPE_PROPERTIES);
+		addExample(Language.trAll("Examples.Restaurant"),"Restaurant.xml",ExampleType.TYPE_REAL_MODELS);
+		addExample(Language.trAll("Examples.Baustellenampel"),"Baustellenampel.xml",ExampleType.TYPE_REAL_MODELS);
+		addExample(Language.trAll("Examples.Batch"),"Batch.xml",ExampleType.TYPE_PROPERTIES);
+		addExample(Language.trAll("Examples.Failure"),"Failure.xml",ExampleType.TYPE_PROPERTIES);
+		addExample(Language.trAll("Examples.SetUpTimes"),"SetUpTimes.xml",ExampleType.TYPE_PROPERTIES);
+		addExample(Language.trAll("Examples.Rework"),"Rework.xml",ExampleType.TYPE_PROPERTIES);
+		addExample(Language.trAll("Examples.HoldJS"),"HoldJS.xml",ExampleType.TYPE_PROPERTIES);
+		addExample(Language.trAll("Examples.RestrictedBuffer"),"RestriktierterPuffer.xml",ExampleType.TYPE_PROPERTIES);
+		addExample(Language.trAll("Examples.Analog"),"Analog.xml",ExampleType.TYPE_PROPERTIES);
+		addExample(Language.trAll("Examples.Jockeying"),"Jockeying.xml",ExampleType.TYPE_PROPERTIES);
+		addExample(Language.trAll("Examples.PASTA"),"PASTA.xml",ExampleType.TYPE_MATH);
+		addExample(Language.trAll("Examples.ZentralerGrenzwertsatz"),"ZentralerGrenzwertsatz.xml",ExampleType.TYPE_MATH);
 	}
 
 	/**
@@ -421,22 +421,15 @@ public class EditModelExamples {
 		public final ExampleType type;
 
 		/**
-		 * Ist das Beispiel auch im Player verfügbar?
-		 */
-		public final boolean availableForPlayer;
-
-		/**
 		 * Konstruktor der Klasse
 		 * @param names	Namen für das Beispiel in den verschiedenen Sprachen
 		 * @param file	Beispieldateiname
 		 * @param type	Gruppe in die das Beispiel fällt
-		 * @param availableForPlayer	Ist das Beispiel auch im Player verfügbar?
 		 */
-		private Example(final String[] names, final String file, final ExampleType type, final boolean availableForPlayer) {
+		private Example(final String[] names, final String file, final ExampleType type) {
 			this.names=names;
 			this.file=file;
 			this.type=type;
-			this.availableForPlayer=availableForPlayer;
 		}
 	}
 
