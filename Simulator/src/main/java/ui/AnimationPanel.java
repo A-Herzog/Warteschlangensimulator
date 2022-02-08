@@ -694,6 +694,15 @@ public class AnimationPanel extends JPanel implements RunModelAnimationViewer {
 		this.startPaused=startPaused;
 		this.fastWarmUp=fastWarmUp;
 
+		/* Logging-Daten von ggf. vorheriger Simulation löschen */
+		if (logTextHistory!=null) logTextHistory.clear();
+		if (logTextHistoryPlain!=null) logTextHistoryPlain.clear();
+
+		/* Geschwindigkeit einstellen */
+		delay=setup.animationDelay*10;
+		delayInt=delay;
+		animationDelayChanged();
+
 		buttonDashboard.setVisible(model.getDiagramsDashboardOrNull()!=null);
 
 		if (!running) {
