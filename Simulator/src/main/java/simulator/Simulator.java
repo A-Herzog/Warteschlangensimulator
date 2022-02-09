@@ -142,6 +142,13 @@ public class Simulator extends SimulatorBase implements AnySimulator {
 	private DynamicLoadBalancer dynamicLoadBalancer;
 
 	/**
+	 * Minimale Anzahl an Ankünften pro Thread
+	 * (für die Festlegung der Anzahl an parallelen Threads)
+	 * @see #getAllowMaxCore(EditModel, boolean, int)
+	 */
+	private static final int MIN_ARRIVALS_PER_THREAD=200;
+
+	/**
 	 * Liefert die Maximalanzahl an zu verwendenden Simulationsthreads
 	 * @param editModel	Editor-Modell
 	 * @param multiCore	Mehrkern-Simulation laut Setup verwenden?
@@ -154,7 +161,12 @@ public class Simulator extends SimulatorBase implements AnySimulator {
 		final int b=Math.max(1,maxCoreCount);
 		int threadCount=Math.min(a,b);
 
-		/* Bei mehreren Wiederholungen auf die Anzahl an Läufen abstimmen */
+		/* Simulation nicht aufteilen, wenn nur sehr wenige Ankünfte geplant sind. */
+		if (editModel.useClientCount) {
+			threadCount=(int)Math.min(threadCount,Math.max(1,editModel.clientCount/MIN_ARRIVALS_PER_THREAD));
+		}
+
+		/* Bei mehreren Wiederholungen auf die Anzahl an Läufen abstimmen. */
 		if (!editModel.allowMultiCore()) {
 			threadCount=Math.min(threadCount,Runtime.getRuntime().availableProcessors());
 			if (threadCount>editModel.repeatCount) threadCount=editModel.repeatCount;
