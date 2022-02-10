@@ -212,7 +212,7 @@ public class BackgroundSystem {
 			if (element1 instanceof ModelElementSplit) {
 				split+=((ModelElementSplit)element1).getAverageArrivalSizesSum();
 			}
-			if (element1 instanceof ModelElementSub) for (ModelElement element2: ((ModelElementSub)element1).getSubSurface().getElements()) {
+			if (element1 instanceof ModelElementSub) for (ModelElement element2: ((ModelElementSub)element1).getSubSurface().getElements()) if (element2 instanceof ModelElementSplit) {
 				split+=((ModelElementSplit)element2).getAverageArrivalSizesSum();
 			}
 		}
