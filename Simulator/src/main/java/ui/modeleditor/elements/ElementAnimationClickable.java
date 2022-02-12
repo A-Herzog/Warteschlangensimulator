@@ -15,6 +15,8 @@
  */
 package ui.modeleditor.elements;
 
+import simulator.runmodel.SimulationData;
+
 /**
  * Elemente, die während der Animation darüber benachrichtigt werden wollen,
  * dass sie angeklickt wurden, müssen dieses Interface implementieren.
@@ -25,6 +27,7 @@ public interface ElementAnimationClickable {
 	 * Wird vom Animationssystem aufgerufen, wenn das Element angeklickt wurde.
 	 * @param x	x-Position relativ zur linken oberen Ecke des Elements
 	 * @param y	y-Position relativ zur linken oberen Ecke des Elements
+	 * @param simData	Sofern der Aufrufer über ein Simulationsdatenobjekt verfügt, kann er dies übergeben. Der Wert kann also auch <code>null</code> sein.
 	 */
-	void clicked(final int x, final int y);
+	void clicked(final int x, final int y, final SimulationData simData);
 }

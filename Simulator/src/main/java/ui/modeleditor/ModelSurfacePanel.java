@@ -3139,7 +3139,10 @@ public final class ModelSurfacePanel extends JPanel {
 							final Point vertex=element.getPosition(true);
 							final int x=(int)Math.round(click.x/zoom)-vertex.x;
 							final int y=(int)Math.round(click.y/zoom)-vertex.y;
-							((ElementAnimationClickable)element).clicked(x,y);
+							((ElementAnimationClickable)element).clicked(x,y,simData);
+							if (simData!=null && simData.simulator.isPaused()) {
+								mainAnimator.updateSurfaceAnimationDisplayElements(simData,false,true);
+							}
 						}
 					}
 				}

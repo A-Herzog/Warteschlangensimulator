@@ -475,7 +475,11 @@ public class ModelElementInteractiveCheckbox extends ModelElementPosition implem
 	private volatile boolean clicked=false;
 
 	@Override
-	public void clicked(int x, int y) {
+	public void clicked(final int x, final int y, final SimulationData simData) {
+		if (simData!=null && simData.simulator.isPaused()) {
+			triggerAction(simData,true);
+			return;
+		}
 		clicked=true;
 	}
 
@@ -487,16 +491,18 @@ public class ModelElementInteractiveCheckbox extends ModelElementPosition implem
 	/**
 	 * Löst die in dem Objekt hinterlegten Aktionen aus.
 	 * @param simData	Simulationsdatenobjekt
+	 * @param processDirect	Soll der Klick direkt an das Laufzeit-Element durchgereicht werden (<code>true</code>) oder über ein Ereignis abgewickelt werden (<code>false</code>)
 	 * @see #updateSimulationData(SimulationData, boolean)
 	 */
-	private void triggerAction(final SimulationData simData) {
-		((RunElementInteractiveCheckbox)simData.runModel.elementsFast[getId()]).clicked(simData);
+	private void triggerAction(final SimulationData simData, final boolean processDirect) {
+		final RunElementInteractiveCheckbox runElement=(RunElementInteractiveCheckbox)simData.runModel.elementsFast[getId()];
+		if (processDirect) runElement.triggered(simData); else runElement.clicked(simData);
 	}
 
 	@Override
 	public boolean updateSimulationData(final SimulationData simData, final boolean isPreview) {
 		if (simData!=null && clicked) {
-			triggerAction(simData);
+			triggerAction(simData,false);
 			clicked=false;
 		}
 

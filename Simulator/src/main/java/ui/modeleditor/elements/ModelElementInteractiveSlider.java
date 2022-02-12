@@ -667,7 +667,11 @@ public class ModelElementInteractiveSlider extends ModelElementPosition implemen
 	private volatile Point clicked=null;
 
 	@Override
-	public void clicked(int x, int y) {
+	public void clicked(final int x, final int y, final SimulationData simData) {
+		if (simData!=null && simData.simulator.isPaused()) {
+			triggerAction(simData,x,y,true);
+			return;
+		}
 		clicked=new Point(x,y);
 	}
 
@@ -681,16 +685,19 @@ public class ModelElementInteractiveSlider extends ModelElementPosition implemen
 	 * @param simData	Simulationsdatenobjekt
 	 * @param x	x-Koordinate an der auf den Slider geklickt wurde
 	 * @param y	y-Koordinate an der auf den Slider geklickt wurde
+	 * @param processDirect	Soll der Klick direkt an das Laufzeit-Element durchgereicht werden (<code>true</code>) oder über ein Ereignis abgewickelt werden (<code>false</code>)
 	 * @see #updateSimulationData(SimulationData, boolean)
 	 */
-	private void triggerAction(final SimulationData simData, final int x, final int y) {
-		((RunElementInteractiveSlider)simData.runModel.elementsFast[getId()]).clicked(simData,((double)x)/getSize().width);
+	private void triggerAction(final SimulationData simData, final int x, final int y, final boolean processDirect) {
+		final RunElementInteractiveSlider runElement=(RunElementInteractiveSlider)simData.runModel.elementsFast[getId()];
+		final double percent=((double)x)/getSize().width;
+		if (processDirect) runElement.triggered(simData,percent); else runElement.clicked(simData,percent);
 	}
 
 	@Override
 	public boolean updateSimulationData(final SimulationData simData, final boolean isPreview) {
 		if (simData!=null && clicked!=null) {
-			triggerAction(simData,clicked.x,clicked.y);
+			triggerAction(simData,clicked.x,clicked.y,false);
 			clicked=null;
 		}
 
