@@ -11,16 +11,14 @@ from socket_connect import QS_full_connect as QS_starter
 import os
 
 # Connection settings
-java_path = os.environ['JAVA_HOME'] # Setup Java path here
-simulator_path = ".\\Simulator" # Setup simulator path here
-port = 1000
+simulator_path = ".\\Simulator"  # Setup simulator path here
 
 # Load model to be simulated
 with open("model.xml", mode="rb") as file:
     model = file.read()
 
 # Start/stop simulator and submit task
-with QS_starter(java_path, simulator_path, port) as socket:
+with QS_starter(None, simulator_path) as socket:
     statistics = socket.run_task(model)
 
 # Save results

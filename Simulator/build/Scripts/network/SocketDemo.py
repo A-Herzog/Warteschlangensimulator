@@ -11,8 +11,8 @@ java -jar ./Simulator.jar serverSocket <portNumber>
 from socket_connect import QS_socket_connect as QS
 
 # Connection settings
-host = "127.0.0.1"
-port = 1000
+host = "localhost"
+port = 10000
 
 # Load model to be simulated
 with open("model.xml", mode="rb") as file:
