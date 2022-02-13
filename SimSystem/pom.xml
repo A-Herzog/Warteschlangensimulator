@@ -2,7 +2,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>simzentrum</groupId>
   <artifactId>simsystem</artifactId>
-  <version>20.3</version>
+  <version>22.1</version>
   <packaging>jar</packaging>
   
   <properties>
@@ -82,7 +82,7 @@
 	<dependency>
 		<groupId>org.slf4j</groupId>
 		<artifactId>slf4j-nop</artifactId>
-		<version>1.7.35</version>
+		<version>1.7.36</version>
 	</dependency>
   </dependencies>
   
