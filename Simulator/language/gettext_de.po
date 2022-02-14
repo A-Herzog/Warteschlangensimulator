@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-02-07 00:40+0100\n"
+"POT-Creation-Date: 2022-02-13 21:34+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20182,6 +20182,9 @@ msgstr "Verteilung der Zwischenankunftszeiten nach Warteschlangenlänge"
 msgid "Statistics.DistributionOfTheInterLeaveTimes"
 msgstr "Verteilung der Zwischenabgangszeiten"
 
+msgid "Statistics.DistributionOfTheInterLeaveTimesBatch"
+msgstr "Verteilung der Zwischenabgangszeiten auf Batch-Basis"
+
 msgid "Statistics.DistributionOfTheInterLeaveTimesByClientType"
 msgstr "Verteilung der Zwischenabgangszeiten nach Kundentypen"
 
@@ -20560,6 +20563,9 @@ msgstr "Zwischenabgangszeiten"
 msgid "Statistics.InterLeaveTimesAtTheStations"
 msgstr "Zwischenabgangszeiten an den Stationen"
 
+msgid "Statistics.InterLeaveTimesAtTheStationsBatch"
+msgstr "Zwischenabgangszeiten (bezogen auf Batche) an den Stationen"
+
 msgid "Statistics.InterLeaveTimesAtTheStationsByClientTypes"
 msgstr "Zwischenabgangszeiten an den Stationen nach Kundentypen"
 
@@ -20568,6 +20574,9 @@ msgstr "Zwischenabgangszeiten nach Kundentypen"
 
 msgid "Statistics.InterLeaveTimesAtTheSystem"
 msgstr "Zwischenabgangszeiten aus dem System"
+
+msgid "Statistics.InterLeaveTimesBatch"
+msgstr "Zwischenabgangszeiten auf Batch-Basis"
 
 msgid "Statistics.Kurt"
 msgstr "Exzess (Wölbung)"
@@ -21746,6 +21755,9 @@ msgstr "StatistikZwischenabgangszeitenKunden"
 
 msgid "Statistics.XML.Element.InterLeavingStations"
 msgstr "StatistikZwischenabgangszeitenStationen"
+
+msgid "Statistics.XML.Element.InterLeavingStationsBatch"
+msgstr "StatistikZwischenabgangszeitenStationenBatch"
 
 msgid "Statistics.XML.Element.InterLeavingStationsByClientType"
 msgstr "StatistikZwischenabgangszeitenStationenKunden"

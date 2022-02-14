@@ -117,6 +117,11 @@ public class Statistics extends StatisticsBase {
 	public final StatisticsMultiPerformanceIndicator stationsInterleavingTime;
 
 	/**
+	 * Zwischenabgangszeiten der Kunden bei den einzelnen Stationen (Batch)
+	 */
+	public final StatisticsMultiPerformanceIndicator stationsInterleavingTimeBatch;
+
+	/**
 	 * Zwischenabgangszeiten der Kunden bei den einzelnen Stationen (zusätzlich differenziert nach Kundentyp)
 	 */
 	public final StatisticsMultiPerformanceIndicator stationsInterleavingTimeByClientType;
@@ -562,6 +567,7 @@ public class Statistics extends StatisticsBase {
 		/* Zwischenabgangszeiten */
 		addPerformanceIndicator(clientsInterleavingTime=new StatisticsMultiPerformanceIndicator(Language.trAll("Statistics.XML.Element.InterLeavingClients"),new StatisticsDataPerformanceIndicator(nameClientType,secondsToRecordInDistributions,secondsToRecordInDistributions,-1,batchSize,true)));
 		addPerformanceIndicator(stationsInterleavingTime=new StatisticsMultiPerformanceIndicator(Language.trAll("Statistics.XML.Element.InterLeavingStations"),new StatisticsDataPerformanceIndicator(nameStation,secondsToRecordInDistributions,secondsToRecordInDistributions,-1,batchSize,true)));
+		addPerformanceIndicator(stationsInterleavingTimeBatch=new StatisticsMultiPerformanceIndicator(Language.trAll("Statistics.XML.Element.InterLeavingStationsBatch"),new StatisticsDataPerformanceIndicator(nameStation,secondsToRecordInDistributions,secondsToRecordInDistributions,-1,batchSize,true)));
 		addPerformanceIndicator(stationsInterleavingTimeByClientType=new StatisticsMultiPerformanceIndicator(Language.trAll("Statistics.XML.Element.InterLeavingStationsByClientType"),new StatisticsDataPerformanceIndicator(nameStation,secondsToRecordInDistributions,secondsToRecordInDistributions,-1,batchSize,true)));
 
 		/* Kundenbewegungen zwischen den Stationen */

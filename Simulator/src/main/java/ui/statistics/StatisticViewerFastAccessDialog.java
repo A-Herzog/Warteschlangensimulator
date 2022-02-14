@@ -428,11 +428,14 @@ public class StatisticViewerFastAccessDialog extends BaseDialog {
 				/* Zwischenankunftszeiten */
 				Language.trPrimary("XML.Statistic.BaseElement")+","+Language.trPrimary("Statistics.XML.Element.InterArrivalClients")+","+Language.trPrimary("Statistics.XML.Station"),
 				Language.trPrimary("XML.Statistic.BaseElement")+","+Language.trPrimary("Statistics.XML.Element.InterArrivalStations")+","+Language.trPrimary("Statistics.XML.Station"),
+				Language.trPrimary("XML.Statistic.BaseElement")+","+Language.trPrimary("Statistics.XML.Element.InterArrivalStationsBatch")+","+Language.trPrimary("Statistics.XML.Station"),
 				Language.trPrimary("XML.Statistic.BaseElement")+","+Language.trPrimary("Statistics.XML.Element.InterArrivalStationsByClientType")+","+Language.trPrimary("Statistics.XML.Station"),
+				Language.trPrimary("XML.Statistic.BaseElement")+","+Language.trPrimary("Statistics.XML.Element.InterArrivalStationsByState")+","+Language.trPrimary("Statistics.XML.Station"),
 
 				/* Zwischenabgangszeiten */
 				Language.trPrimary("XML.Statistic.BaseElement")+","+Language.trPrimary("Statistics.XML.Element.InterLeavingClients")+","+Language.trPrimary("Statistics.XML.ClientType"),
 				Language.trPrimary("XML.Statistic.BaseElement")+","+Language.trPrimary("Statistics.XML.Element.InterLeavingStations")+","+Language.trPrimary("Statistics.XML.Station"),
+				Language.trPrimary("XML.Statistic.BaseElement")+","+Language.trPrimary("Statistics.XML.Element.InterLeavingStationsBatch")+","+Language.trPrimary("Statistics.XML.Station"),
 				Language.trPrimary("XML.Statistic.BaseElement")+","+Language.trPrimary("Statistics.XML.Element.InterLeavingStationsByClientType")+","+Language.trPrimary("Statistics.XML.Station"),
 
 				/* Kundenbewegungen zwischen den Stationen */

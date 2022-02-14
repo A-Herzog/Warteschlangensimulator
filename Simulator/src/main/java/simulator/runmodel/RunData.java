@@ -146,6 +146,12 @@ public class RunData {
 	private IndicatorAccessCacheStations cacheStationsInterleavingTime;
 
 	/**
+	 * Cache für die "Zwischenabgangszeiten der Kunden bei den einzelnen Stationen (Batch)"-Statistikobjekte
+	 * @see Statistics#stationsInterleavingTime
+	 */
+	private IndicatorAccessCacheStations cacheStationsInterleavingTimeBatch;
+
+	/**
 	 * Cache für die "Zwischenabgangszeiten der Kunden bei den einzelnen Stationen (zusätzlich differenziert nach Kundentyp)"-Statistikobjekte
 	 * @see Statistics#stationsInterleavingTimeByClientType
 	 */
@@ -416,6 +422,7 @@ public class RunData {
 		cacheStationsInterarrivalTimeByState=new IndicatorAccessCacheStationsNumber(simData.statistics.stationsInterarrivalTimeByState,"NQ");
 		cacheStationsInterarrivalTimeByClientType=new IndicatorAccessCacheStationsClientTypes(simData.statistics.stationsInterarrivalTimeByClientType);
 		cacheStationsInterleavingTime=new IndicatorAccessCacheStations(simData.statistics.stationsInterleavingTime);
+		cacheStationsInterleavingTimeBatch=new IndicatorAccessCacheStations(simData.statistics.stationsInterleavingTimeBatch);
 		cacheStationsInterleavingTimeByClientType=new IndicatorAccessCacheStationsClientTypes(simData.statistics.stationsInterleavingTimeByClientType);
 		cacheStationsWaitingTimes=new IndicatorAccessCacheStations(simData.statistics.stationsWaitingTimes);
 		cacheStationsTransferTimes=new IndicatorAccessCacheStations(simData.statistics.stationsTransferTimes);
@@ -677,6 +684,37 @@ public class RunData {
 		data.lastLeaveByClientType[clientType]=now;
 	}
 
+	/**
+	 * Erfasst den Abgang einer dynamischen Kundengruppe von einer Bedienstation für die Statistik (Zwischenabgangszeiten an den Stationen)
+	 * @param time	Abgangszeitpunkt
+	 * @param simData	Objekt vom Typ <code>SimulationData</code>, welches das Laufzeitmodell (vom Typ <code>RunModel</code> im Feld <code>runModel</code>) und die Statistik (vom Typ <code>Statistics</code> im Feld <code>statistics</code>) enthält und den Zugriff auf die von <code>SimData</code> geerbten Basis-Funktionen ermöglicht
+	 * @param station	Station, die der Kunde verlassen hat
+	 * @param stationData	Optionales Objekt mit den thread-lokalen Daten zu der Station (kann <code>null</code> sein, dann ermittelt es diese Funktion selbst)
+	 */
+	public void logStationBatchLeave(final long time, final SimulationData simData, final RunElement station, final RunElementData stationData) {
+		final RunElementData data=(stationData==null)?station.getData(simData):stationData;
+
+		if (isWarmUp) {
+			data.lastBatchLeave=time;
+			return;
+		}
+
+		if (data.lastBatchLeave<0 || data.lastBatchLeave>time) data.lastBatchLeave=0; /* Wenn kein Warmup, dann wird Zeitpunkt 0 als erster "Abgang" für die Zählung der Zwischenabgangszeiten verwendet. */
+
+		if (data.lastBatchLeave>=0 && data.lastBatchLeave<=time) {
+			final double delta=scale*(time-data.lastBatchLeave);
+			StatisticsDataPerformanceIndicator indicator;
+
+			if (station.stationStatisticsActive) {
+				/* Allgemein */
+				indicator=data.statisticStationsInterleaveTimeBatch;
+				if (indicator==null) indicator=data.statisticStationsInterleaveTimeBatch=(StatisticsDataPerformanceIndicator)(cacheStationsInterleavingTimeBatch.get(station));
+				indicator.add(delta);
+			}
+		}
+		data.lastBatchLeave=time;
+	}
+
 	/** Umrechnungsfaktor von Millisekunden auf Sekunden, um die Division während der Simulation zu vermeiden */
 	private static double scale=1.0d/1000.0d;
 
@@ -847,6 +885,7 @@ public class RunData {
 		if (stationData.statisticStationsInterarrivalTime==null) stationData.statisticStationsInterarrivalTime=(StatisticsDataPerformanceIndicator)(cacheStationsInterarrivalTime.get(station));
 		if (stationData.statisticStationsInterarrivalTimeBatch==null) stationData.statisticStationsInterarrivalTimeBatch=(StatisticsDataPerformanceIndicator)(cacheStationsInterarrivalTimeBatch.get(station));
 		if (stationData.statisticStationsInterleaveTime==null) stationData.statisticStationsInterleaveTime=(StatisticsDataPerformanceIndicator)(cacheStationsInterleavingTime.get(station));
+		if (stationData.statisticStationsInterleaveTimeBatch==null) stationData.statisticStationsInterleaveTimeBatch=(StatisticsDataPerformanceIndicator)(cacheStationsInterleavingTimeBatch.get(station));
 		if (stationData.statisticSourceStationsInterarrivalTime==null) stationData.statisticSourceStationsInterarrivalTime=(StatisticsDataPerformanceIndicator)(cacheClientsInterarrivalTime.get(station));
 
 		if (stationData.statisticClientsAtStationByClientType==null) {

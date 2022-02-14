@@ -92,9 +92,14 @@ public class RunElementData {
 	public long lastArrival;
 
 	/**
-	 * Speichert, wann jeweils zum letzten Mal ein Kunden-Batch bei einer bestimmten Station eingetroffen ist.
+	 * Speichert, wann jeweils zum letzten Mal ein Kunden-Batch (=dynamische Bedien-Kundengruppe, kein Batch-Objekt) bei einer bestimmten Station eingetroffen ist.
 	 */
 	public long lastBatchArrival;
+
+	/**
+	 * Speichert, wann jeweils zum letzten Mal ein Kunden-Batch (=dynamische Bedien-Kundengruppe, kein Batch-Objekt) eine bestimmte Station verlassen hat.
+	 */
+	public long lastBatchLeave;
 
 	/**
 	 * Speichert, wann jeweils zum letzten Mal ein Kunde (pro Kundentyp) bei einer bestimmten Station eingetroffen ist.<br>
@@ -234,6 +239,12 @@ public class RunElementData {
 	public StatisticsDataPerformanceIndicator statisticStationsInterleaveTime;
 
 	/**
+	 * Ermöglicht den Zugriff auf die "Zwischenabgangszeiten an der Station (Batch)"-Statistik.<br>
+	 * (Kann <code>null</code> sein, wenn noch keine entsprechenden Daten angefallen sind.)
+	 */
+	public StatisticsDataPerformanceIndicator statisticStationsInterleaveTimeBatch;
+
+	/**
 	 * Ermöglicht den Zugriff auf die "Zwischenabgangszeiten an der Station (nach Kundentypen)"-Statistik.<br>
 	 * (Kann <code>null</code> sein, wenn noch keine entsprechenden Daten angefallen sind.)
 	 */
@@ -263,6 +274,7 @@ public class RunElementData {
 		lastBatchArrival=-1;
 		lastArrivalByClientType=null;
 		lastLeave=-1;
+		lastBatchLeave=-1;
 		lastLeaveByClientType=null;
 		clientsAtStation=0;
 		clientsAtStationQueue=0;

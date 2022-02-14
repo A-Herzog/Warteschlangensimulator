@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-02-07 00:40+0100\n"
+"POT-Creation-Date: 2022-02-13 21:34+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20172,6 +20172,9 @@ msgstr "Distribution of the inter-arrival times by queue length"
 msgid "Statistics.DistributionOfTheInterLeaveTimes"
 msgstr "Distribution of the inter-departure times"
 
+msgid "Statistics.DistributionOfTheInterLeaveTimesBatch"
+msgstr "Distribution of the inter-departure times by batches"
+
 msgid "Statistics.DistributionOfTheInterLeaveTimesByClientType"
 msgstr "Distribution of the inter-departure times by client types"
 
@@ -20550,6 +20553,9 @@ msgstr "Inter-departure times"
 msgid "Statistics.InterLeaveTimesAtTheStations"
 msgstr "Inter-departure times at the stations"
 
+msgid "Statistics.InterLeaveTimesAtTheStationsBatch"
+msgstr "Inter-departure times (by batches) at the stations"
+
 msgid "Statistics.InterLeaveTimesAtTheStationsByClientTypes"
 msgstr "Inter-departure times at the stations by client types"
 
@@ -20558,6 +20564,9 @@ msgstr "Inter-departure times by client types"
 
 msgid "Statistics.InterLeaveTimesAtTheSystem"
 msgstr "Inter-departure times from the system"
+
+msgid "Statistics.InterLeaveTimesBatch"
+msgstr "Inter-departure times by batches"
 
 msgid "Statistics.Kurt"
 msgstr "Excess kurtosis"
@@ -21736,6 +21745,9 @@ msgstr "StatisticsInterLeavingTimesClients"
 
 msgid "Statistics.XML.Element.InterLeavingStations"
 msgstr "StatisticsInterLeavingTimesStations"
+
+msgid "Statistics.XML.Element.InterLeavingStationsBatch"
+msgstr "StatisticsInterLeavingTimesStationsBatch"
 
 msgid "Statistics.XML.Element.InterLeavingStationsByClientType"
 msgstr "StatisticsInterLeavingTimesStationsClients"

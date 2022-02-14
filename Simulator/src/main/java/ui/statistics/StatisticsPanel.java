@@ -817,6 +817,19 @@ public class StatisticsPanel extends StatisticsBasePanel {
 	}
 
 	/**
+	 * Sind Zwischenabgangsszeiten für Batch-Basis in den Statistiken enthalten?
+	 * @param statistics	Zu prüfende Statistikdaten
+	 * @return	Liefert <code>true</code>, wenn in mindestens einem Statistikobjekt Zwischenabgangsszeiten für Batch-Basis enthalten sind
+	 */
+	private boolean testBatchInterleave(final Statistics[] statistics) {
+		for (Statistics statistic: statistics) {
+			if (statistic.stationsInterleavingTimeBatch.getAll().length>0) return true;
+		}
+		return false;
+	}
+
+
+	/**
 	 * Wandelt die Statistikknoten in Baumeinträge um.
 	 * @param root	Wurzelelement der Statistikknoten
 	 * @see #updateViewer(boolean)
@@ -1071,9 +1084,21 @@ public class StatisticsPanel extends StatisticsBasePanel {
 		for(Statistics statistic : statistics) viewer.add(new StatisticViewerTimeTable(statistic,StatisticViewerTimeTable.Mode.MODE_OVERVIEW_STATIONS_INTERLEAVE));
 		sub.addChild(new StatisticNode(Language.tr("Statistics.InterLeaveTimes"),viewer));
 
+		if (testBatchInterleave(statistics)) {
+			viewer=new ArrayList<>();
+			for(Statistics statistic : statistics) viewer.add(new StatisticViewerTimeTable(statistic,StatisticViewerTimeTable.Mode.MODE_OVERVIEW_STATIONS_INTERLEAVE_BATCH));
+			sub.addChild(new StatisticNode(Language.tr("Statistics.InterLeaveTimesBatch"),viewer));
+		}
+
 		viewer=new ArrayList<>();
 		for(Statistics statistic : statistics) viewer.add(new StatisticViewerTimeBarChart(statistic,StatisticViewerTimeBarChart.Mode.MODE_INTERLEAVE_STATION));
 		sub.addChild(new StatisticNode(Language.tr("Statistics.InterLeaveTimes"),viewer));
+
+		if (testBatchInterleave(statistics)) {
+			viewer=new ArrayList<>();
+			for(Statistics statistic : statistics) viewer.add(new StatisticViewerTimeBarChart(statistic,StatisticViewerTimeBarChart.Mode.MODE_INTERLEAVE_STATION_BATCH));
+			sub.addChild(new StatisticNode(Language.tr("Statistics.InterLeaveTimesBatch"),viewer));
+		}
 
 		if (testMultiStationsClientTypes(statistics)) {
 			viewer=new ArrayList<>();
@@ -1093,9 +1118,21 @@ public class StatisticsPanel extends StatisticsBasePanel {
 			for(Statistics statistic : statistics) viewer.add(new StatisticViewerTimeTable(statistic,StatisticViewerTimeTable.Mode.MODE_DISTRIBUTION_STATIONS_INTERLEAVE));
 			sub2.addChild(new StatisticNode(Language.tr("Statistics.DistributionOfTheInterLeaveTimes"),viewer));
 
+			if (testBatchInterleave(statistics)) {
+				viewer=new ArrayList<>();
+				for(Statistics statistic : statistics) viewer.add(new StatisticViewerTimeTable(statistic,StatisticViewerTimeTable.Mode.MODE_DISTRIBUTION_STATIONS_INTERLEAVE_BATCH));
+				sub2.addChild(new StatisticNode(Language.tr("Statistics.DistributionOfTheInterLeaveTimesBatch"),viewer));
+			}
+
 			viewer=new ArrayList<>();
 			for(Statistics statistic : statistics) viewer.add(new StatisticViewerDistributionTimeLineChart(statistic,StatisticViewerDistributionTimeLineChart.Mode.MODE_INTERLEAVE_STATION));
 			sub2.addChild(new StatisticNode(Language.tr("Statistics.DistributionOfTheInterLeaveTimes"),viewer));
+
+			if (testBatchInterleave(statistics)) {
+				viewer=new ArrayList<>();
+				for(Statistics statistic : statistics) viewer.add(new StatisticViewerDistributionTimeLineChart(statistic,StatisticViewerDistributionTimeLineChart.Mode.MODE_INTERLEAVE_STATION_BATCH));
+				sub2.addChild(new StatisticNode(Language.tr("Statistics.DistributionOfTheInterLeaveTimesBatch"),viewer));
+			}
 
 			if (testMultiStationsClientTypes(statistics)) {
 				viewer=new ArrayList<>();

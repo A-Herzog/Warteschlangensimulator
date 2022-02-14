@@ -78,6 +78,8 @@ public class StatisticViewerTimeBarChart extends StatisticViewerBarChart {
 		MODE_INTERLEAVE_CLIENTS,
 		/** Balkendiagramm zum Vergleich der mittleren Zwischenabgangszeiten zwischen den Stationen */
 		MODE_INTERLEAVE_STATION,
+		/** Balkendiagramm zum Vergleich der mittleren Zwischenabgangszeiten auf Batch-Basis zwischen den Stationen */
+		MODE_INTERLEAVE_STATION_BATCH,
 		/** Balkendiagramm zum Vergleich der mittleren Zwischenabgangszeiten zwischen den Stationen nach Kundentypen weiter ausdifferenziert */
 		MODE_INTERLEAVE_STATION_CLIENTS,
 		/** Balkendiagramm zum Vergleich der mittleren Wartezeiten zwischen den Kundentypen */
@@ -396,7 +398,7 @@ public class StatisticViewerTimeBarChart extends StatisticViewerBarChart {
 			addDescription("PlotBarCompareStations");
 			break;
 		case MODE_INTERARRIVAL_STATION_BATCH:
-			chartRequest(Language.tr("Statistics.InterArrivalTimes"),Language.tr("Statistics.Station"),statistics.stationsInterarrivalTimeBatch,null,true);
+			chartRequest(Language.tr("Statistics.InterArrivalTimesBatch"),Language.tr("Statistics.Station"),statistics.stationsInterarrivalTimeBatch,null,true);
 			addDescription("PlotBarCompareStations");
 			break;
 		case MODE_INTERARRIVAL_STATION_CLIENTS:
@@ -414,6 +416,10 @@ public class StatisticViewerTimeBarChart extends StatisticViewerBarChart {
 			break;
 		case MODE_INTERLEAVE_STATION:
 			chartRequest(Language.tr("Statistics.InterLeaveTimes"),Language.tr("Statistics.Station"),statistics.stationsInterleavingTime,null,true);
+			addDescription("PlotBarCompareStations");
+			break;
+		case MODE_INTERLEAVE_STATION_BATCH:
+			chartRequest(Language.tr("Statistics.InterLeaveTimesBatch"),Language.tr("Statistics.Station"),statistics.stationsInterleavingTimeBatch,null,true);
 			addDescription("PlotBarCompareStations");
 			break;
 		case MODE_INTERLEAVE_STATION_CLIENTS:

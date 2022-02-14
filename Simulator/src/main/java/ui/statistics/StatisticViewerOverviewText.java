@@ -2068,6 +2068,34 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 			outputConfidenceData(indicator);
 		}
 
+		/* Abgänge an den Stationen in Batchen gerechnet */
+
+		boolean first=true;
+		for (String station : stations) {
+			final StatisticsDataPerformanceIndicator indicator=(StatisticsDataPerformanceIndicator)(statistics.stationsInterleavingTimeBatch.get(station));
+			if (indicator.getCount()==0) continue;
+			if (first) {
+				addHeading(2,Language.tr("Statistics.InterLeaveTimesAtTheStationsBatch"));
+				first=false;
+			}
+			addHeading(3,fullStationName(station));
+			beginParagraph();
+			addLine(Language.tr("Statistics.AverageInterLeaveCount")+": "+NumberTools.formatLong(indicator.getCount())+repeatInfo,xmlCount(indicator));
+			addLine(Language.tr("Statistics.AverageInterLeaveTime")+": E[ID]="+timeAndNumber(indicator.getMean()),xmlMean(indicator));
+			addLine(Language.tr("Statistics.StdDevInterLeaveTime")+": Std[ID]="+timeAndNumber(indicator.getSD()),fastAccessBuilder.getXMLSelector(indicator,IndicatorMode.SD));
+			addLine(Language.tr("Statistics.VarianceInterLeaveTime")+": Var[ID]="+timeAndNumber(indicator.getVar()));
+			addLine(Language.tr("Statistics.CVInterLeaveTime")+": CV[ID]="+StatisticTools.formatNumber(indicator.getCV()),fastAccessBuilder.getXMLSelector(indicator,IndicatorMode.CV));
+			addLine(Language.tr("Statistics.Skewness")+": Sk[ID]="+StatisticTools.formatNumber(indicator.getSk()),fastAccessBuilder.getXMLSelector(indicator,IndicatorMode.Sk));
+			addLine(Language.tr("Statistics.Kurt")+": Kurt[ID]="+StatisticTools.formatNumber(indicator.getKurt()),fastAccessBuilder.getXMLSelector(indicator,IndicatorMode.Kurt));
+			addLine(Language.tr("Statistics.MinimalInterLeaveTime")+": Min[ID]="+timeAndNumber(indicator.getMin()),fastAccessBuilder.getXMLSelector(indicator,IndicatorMode.MINIMUM));
+			addLine(Language.tr("Statistics.MaximalInterLeaveTime")+": Max[ID]="+timeAndNumber(indicator.getMax()),fastAccessBuilder.getXMLSelector(indicator,IndicatorMode.MAXIMUM));
+			endParagraph();
+
+			outputQuantilInfoTime("IL",indicator);
+
+			outputConfidenceData(indicator);
+		}
+
 		/* Abgänge an den Stationen nach Kundentypen */
 
 		boolean headindPrinted=false;

@@ -71,6 +71,8 @@ public class StatisticViewerDistributionTimeLineChart extends StatisticViewerLin
 		MODE_INTERLEAVE_CLIENTS,
 		/** Verteilungsdiagramm der Zwischenabgangszeiten der Kunden bei den einzelnen Stationen */
 		MODE_INTERLEAVE_STATION,
+		/** Verteilungsdiagramm der Zwischenabgangszeiten der Kunden bei den einzelnen Stationen auf Batch-Basis */
+		MODE_INTERLEAVE_STATION_BATCH,
 		/** Verteilungsdiagramm der Zwischenabgangszeiten der Kunden bei den einzelnen Stationen nach Kundentypen weiter ausdifferenziert */
 		MODE_INTERLEAVE_STATION_CLIENTS,
 		/** Verteilungsdiagramm der Wartezeiten der Kunden */
@@ -349,6 +351,10 @@ public class StatisticViewerDistributionTimeLineChart extends StatisticViewerLin
 			break;
 		case MODE_INTERLEAVE_STATION:
 			requestDiagrammTimeDistribution(Language.tr("Statistics.DistributionOfTheInterLeaveTimes"),statistics.stationsInterleavingTime,Language.tr("Statistics.Distance"),null);
+			addDescription("PlotTimeDistribution");
+			break;
+		case MODE_INTERLEAVE_STATION_BATCH:
+			requestDiagrammTimeDistribution(Language.tr("Statistics.DistributionOfTheInterLeaveTimesBatch"),statistics.stationsInterleavingTimeBatch,Language.tr("Statistics.Distance"),null);
 			addDescription("PlotTimeDistribution");
 			break;
 		case MODE_INTERLEAVE_STATION_CLIENTS:

@@ -495,6 +495,9 @@ public class RunElementProcess extends RunElement implements FreeResourcesListen
 			logCosts(simData,processData,selected,setupTime+processingTime,postProcessingTime);
 		}
 
+		/* Erfassung der Zwischenabgangszeiten auf Batch-Basis (bei dynamischen Bedien-Batches - hier also einzelnen Kunden) */
+		simData.runData.logStationBatchLeave(simData.currentTime+setupTimeMS+processingTimeMS,simData,this,data);
+
 		/* Belegte Ressourcen am Ende der Nachbearbeitungszeit wieder freigeben */
 		final ProcessReleaseResources releaseEvent=(ProcessReleaseResources)simData.getEvent(ProcessReleaseResources.class);
 		releaseEvent.init(simData.currentTime+setupTimeMS+processingTimeMS+postProcessingTimeMS);
@@ -622,6 +625,9 @@ public class RunElementProcess extends RunElement implements FreeResourcesListen
 		if (processData.hasCosts) {
 			logCosts(simData,processData,null,resourcesBlockedTimeProcessing,resourcesBlockedTimePostProcessing);
 		}
+
+		/* Erfassung der Zwischenabgangszeiten auf Batch-Basis (bei dynamischen Bedien-Batches) */
+		simData.runData.logStationBatchLeave(simData.currentTime+FastMath.round(resourcesBlockedTimeProcessing*1000),simData,this,data);
 
 		/* Belegte Ressourcen am Ende der Nachbearbeitungszeit wieder freigeben */
 		ProcessReleaseResources event=(ProcessReleaseResources)simData.getEvent(ProcessReleaseResources.class);
