@@ -92,7 +92,7 @@ public class CommandExport extends AbstractCommand {
 		/* Modell exportieren */
 		final ModelSurfacePanel surfacePanel=new ModelSurfacePanel();
 		surfacePanel.setSurface(editModel,editModel.surface,editModel.clientData,editModel.sequences);
-		error=EditorPanel.exportModelToFile(editModel,statistics,surfacePanel,outputFile,null);
+		error=EditorPanel.exportModelToFile(editModel,statistics,surfacePanel,outputFile,null,false);
 		if (error!=null) {
 			out.println(BaseCommandLineSystem.errorBig+": "+error);
 			return;

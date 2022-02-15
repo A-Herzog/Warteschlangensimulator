@@ -2079,7 +2079,7 @@ public final class EditorPanel extends EditorPanelBase {
 			if (!MsgBox.confirmOverwrite(getOwnerWindow(),file)) return null;
 		}
 
-		return exportModelToFile(getModel(),(statisticsGetter==null)?null:statisticsGetter.get(),surfacePanel,file,this);
+		return exportModelToFile(getModel(),(statisticsGetter==null)?null:statisticsGetter.get(),surfacePanel,file,this,false);
 	}
 
 	/**
@@ -2089,9 +2089,10 @@ public final class EditorPanel extends EditorPanelBase {
 	 * @param surfacePanel	Haupt-Zeichenfläche
 	 * @param file	Name der Datei, in der das Modell gespeichert werden soll (darf nicht <code>null</code> sein)
 	 * @param owner	Übergeordnetes Element (zur Anzeige von Optionen-Dialogen; wird <code>null</code> übergeben, so werden keine Dialoge angezeigt)
+	 * @param forceWithBackground	Fügt, wenn hier <code>true</code> übergeben wird, beim Export als Bilddatei einen Hintergrund ein.
 	 * @return	Gibt im Erfolgsfall <code>null</code> zurück, sonst eine Fehlermeldung.
 	 */
-	public static String exportModelToFile(final EditModel model, final Statistics statistics, final ModelSurfacePanel surfacePanel, final File file, final Component owner) {
+	public static String exportModelToFile(final EditModel model, final Statistics statistics, final ModelSurfacePanel surfacePanel, final File file, final Component owner, final boolean forceWithBackground) {
 		String format="png";
 		if (file.getName().toLowerCase().endsWith(".jpg")) format="jpg";
 		if (file.getName().toLowerCase().endsWith(".jpeg")) format="jpg";
@@ -2171,7 +2172,7 @@ public final class EditorPanel extends EditorPanelBase {
 		}
 
 		/* Bild */
-		if (!surfacePanel.saveImageToFile(file,format,setup.imageSize,setup.imageSize)) return Language.tr("Editor.ExportModel.Error");
+		if (!surfacePanel.saveImageToFile(file,format,setup.imageSize,setup.imageSize,forceWithBackground)) return Language.tr("Editor.ExportModel.Error");
 		return null;
 	}
 

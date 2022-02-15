@@ -1737,6 +1737,19 @@ public final class ModelSurfacePanel extends JPanel {
 	 * @return	Gibt <code>true</code> zurück, wenn das Bild erfolgreich gespeichert werden konnte.
 	 */
 	public boolean saveImageToFile(final File file, String format, final int xSize, final int ySize) {
+		return saveImageToFile(file,format,xSize,ySize,false);
+	}
+
+	/**
+	 * Speichert die Zeichenfläche als Bilddatei, svg- oder pdf-Datei
+	 * @param file	Dateiname, unter der das Bild bzw. die pdf bzw. die svg-Datei gespeichert werden soll
+	 * @param format	Dateiformat
+	 * @param xSize	Größe des Bildes in x-Richtung
+	 * @param ySize	Größe des Bildes in y-Richtung
+	 * @param forceWithBackground	Fügt, wenn hier <code>true</code> übergeben wird, beim Export als Bilddatei einen Hintergrund ein.
+	 * @return	Gibt <code>true</code> zurück, wenn das Bild erfolgreich gespeichert werden konnte.
+	 */
+	public boolean saveImageToFile(final File file, String format, final int xSize, final int ySize, final boolean forceWithBackground) {
 		final int PDF_IMAGE_SIZE=2_000;
 		final int MAX_IMAGE_BIGGER_FACTOR=10; /* Eingestellte Exportgröße maximal um diesen Faktor überschreiten */
 		final int MAX_IMAGE_SIZE=10_000; /* Maximale Größe */
@@ -1763,7 +1776,7 @@ public final class ModelSurfacePanel extends JPanel {
 		/* gif, jpeg, png, bmp */
 		final int maxXSize=Math.min(MAX_IMAGE_SIZE,MAX_IMAGE_BIGGER_FACTOR*xSize);
 		final int maxYSize=Math.min(MAX_IMAGE_SIZE,MAX_IMAGE_BIGGER_FACTOR*ySize);
-		BufferedImage image=getImageMaxFactor(maxXSize,maxYSize,10,false);
+		BufferedImage image=getImageMaxFactor(maxXSize,maxYSize,10,forceWithBackground);
 		if (format.equalsIgnoreCase("jpg")) format="jpeg";
 
 		format=format.toLowerCase();

@@ -44,6 +44,7 @@ import systemtools.MsgBox;
 import tools.SetupData;
 import ui.EditorPanel;
 import ui.commandline.CommandBenchmark;
+import ui.modeleditor.ModelSurfacePanel;
 import ui.tools.FlatLaFHelper;
 
 /**
@@ -456,14 +457,17 @@ public class EditModelExamples {
 
 		try {
 			final StringBuilder info=new StringBuilder();
-			final EditorPanel panel=new EditorPanel(null);
 			for (Example example: getList()) {
 				final String name=example.names[0];
 				final String file="ExampleModel_"+example.file.replace(".xml",".png");
 
 				if (out!=null) out.println("writing \""+name+"\"");
-				panel.setModel(getExampleByIndex(null,getExampleIndexFromName(name)));
-				panel.exportModelToFile(new File(folder,file),true);
+
+				final EditModel editModel=getExampleByIndex(null,getExampleIndexFromName(name));
+				final ModelSurfacePanel surfacePanel=new ModelSurfacePanel();
+				surfacePanel.setSurface(editModel,editModel.surface,editModel.clientData,editModel.sequences);
+				final String error=EditorPanel.exportModelToFile(editModel,null,surfacePanel,new File(folder,file),null,true);
+				if (error!=null && out!=null) out.println(error);
 
 				info.append("## "+name+"\n");
 				info.append("!["+example.names[0]+"](Images/"+file+")\n\n");
