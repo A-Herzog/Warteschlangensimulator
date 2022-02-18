@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE Modell SYSTEM "https://a-herzog.github.io/Warteschlangensimulator/Simulator.dtd">
 <Modell xmlns="https://a-herzog.github.io" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://a-herzog.github.io https://a-herzog.github.io/Warteschlangensimulator/Simulator.xsd">
-  <ModellVersion>4.4.0</ModellVersion>
+  <!-- Diese Datei wurde mit Warteschlangensimulator erstellt. Download-Adresse: https://github.com/A-Herzog/Warteschlangensimulator -->
+  <ModellVersion>5.0.0</ModellVersion>
   <ModellName>Javascript-gesteuerte Freigabe von Kunden</ModellName>
   <ModellBeschreibung>Es wird immer dann ein Kunden vom Typ A freigegeben,
 wenn sich an Station A höchstens noch ein Kunde befindet.
@@ -102,20 +103,41 @@ for (var i=0;i&lt;count;i++) {
       <ModellElementVerbindung Element1="4" Element2="6" Typ="Kante"/>
     </ModellElementKante>
     <ModellElementText id="21">
-      <ModellElementGroesse h="23" w="384" x="50" y="50"/>
+      <ModellElementGroesse h="23" w="382" x="50" y="50"/>
       <ModellElementTextzeile>Javascript-gesteuerte Freigabe von Kunden</ModellElementTextzeile>
       <ModellElementSchriftgrosse fett="1">18</ModellElementSchriftgrosse>
       <ModellElementFarbe>0,0,0</ModellElementFarbe>
     </ModellElementText>
     <ModellElementText id="43">
-      <ModellElementGroesse h="114" w="199" x="250" y="300"/>
-      <ModellElementTextzeile>Es wird immer dann ein Kunden</ModellElementTextzeile>
-      <ModellElementTextzeile>vom Typ A freigegeben, wenn</ModellElementTextzeile>
-      <ModellElementTextzeile>sich an Station A höchstens</ModellElementTextzeile>
-      <ModellElementTextzeile>noch ein Kunde befindet.</ModellElementTextzeile>
-      <ModellElementTextzeile>(Für Kunden vom Typ B und</ModellElementTextzeile>
+      <ModellElementGroesse h="95" w="238" x="250" y="300"/>
+      <ModellElementTextzeile>Es wird immer dann ein Kunden vom</ModellElementTextzeile>
+      <ModellElementTextzeile>Typ A freigegeben, wenn sich an</ModellElementTextzeile>
+      <ModellElementTextzeile>Station A höchstens noch ein Kunde</ModellElementTextzeile>
+      <ModellElementTextzeile>befindet. (Für Kunden vom Typ B und</ModellElementTextzeile>
       <ModellElementTextzeile>Station B analog.)</ModellElementTextzeile>
       <ModellElementSchriftgrosse kursiv="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementAnimationLinienDiagramm id="15">
+      <ModellElementGroesse h="200" w="450" x="400" y="450"/>
+      <ModellElementLinienBreite>1</ModellElementLinienBreite>
+      <ModellElementLinienFarbe>0,0,0</ModellElementLinienFarbe>
+      <ModellElementDiagrammElement Linienbreite="1" Linienfarbe="255,0,0" Maximum="10" Minimum="0">wip(3)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Linienbreite="2" Linienfarbe="0,180,0" Maximum="10" Minimum="0">wip(4)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Linienbreite="3" Linienfarbe="255,0,0" Maximum="10" Minimum="0">wip(1)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Linienbreite="3" Linienfarbe="0,180,0" Maximum="10" Minimum="0">wip(2)</ModellElementDiagrammElement>
+      <ModellElementDiagrammZeitbereich>3600</ModellElementDiagrammZeitbereich>
+    </ModellElementAnimationLinienDiagramm>
+    <ModellElementText id="16">
+      <ModellElementGroesse h="19" w="213" x="400" y="430"/>
+      <ModellElementTextzeile>Aktuelle Anzahl an Kunden pro Typ</ModellElementTextzeile>
+      <ModellElementSchriftgrosse>14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,255</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementText id="17">
+      <ModellElementGroesse h="16" w="363" x="400" y="650"/>
+      <ModellElementTextzeile>(dicke Linien=im System insgesamt, dünne Linien=an Bedienstation)</ModellElementTextzeile>
+      <ModellElementSchriftgrosse>12</ModellElementSchriftgrosse>
       <ModellElementFarbe>0,0,0</ModellElementFarbe>
     </ModellElementText>
   </ModellElemente>

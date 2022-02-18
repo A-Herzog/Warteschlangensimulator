@@ -117,14 +117,14 @@ https://www.mathematik.tu-clausthal.de/interaktiv/warteschlangentheorie/erlang-c
       <ModellElementGroesse h="30" w="78" x="820" y="250"/>
       <ModellElementSchriftgrosse fett="1">14</ModellElementSchriftgrosse>
       <ModellElementFarbe>0,0,255</ModellElementFarbe>
-      <ModellElementAnimationsmodus Art="Zahlenwert">WIP_avg(1)</ModellElementAnimationsmodus>
+      <ModellElementAnimationsmodus Art="Zahlenwert" Nachkommastellen="2">WIP_avg(1)</ModellElementAnimationsmodus>
     </ModellElementAnimationText>
     <ModellElementAnimationText id="48">
       <ModellElementName>Statistik_avg(4;1)</ModellElementName>
       <ModellElementGroesse h="30" w="78" x="820" y="320"/>
       <ModellElementSchriftgrosse fett="1">14</ModellElementSchriftgrosse>
       <ModellElementFarbe>255,0,0</ModellElementFarbe>
-      <ModellElementAnimationsmodus Art="Zahlenwert">Statistik_avg(4;1)</ModellElementAnimationsmodus>
+      <ModellElementAnimationsmodus Art="Zahlenwert" Nachkommastellen="2">Statistik_avg(4;1)</ModellElementAnimationsmodus>
     </ModellElementAnimationText>
   </ModellElemente>
   <Ressourcen>

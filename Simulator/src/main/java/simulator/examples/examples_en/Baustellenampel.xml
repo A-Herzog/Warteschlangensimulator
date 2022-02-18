@@ -1,7 +1,8 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE Model SYSTEM "https://a-herzog.github.io/Warteschlangensimulator/Simulator.dtd">
 <Model xmlns="https://a-herzog.github.io" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://a-herzog.github.io https://a-herzog.github.io/Warteschlangensimulator/Simulator.xsd">
-  <ModelVersion>2.6.0</ModelVersion>
+  <!-- This file was created using Warteschlangensimulator. Download address: https://github.com/A-Herzog/Warteschlangensimulator -->
+  <ModelVersion>5.0.0</ModelVersion>
   <ModelName>Baustellenampel</ModelName>
   <ModelAuthor>Alexander Herzog</ModelAuthor>
   <ModelClients Active="1">10000000</ModelClients>
@@ -141,7 +142,7 @@
       <ModelElementConnection Element1="11" Element2="7" Type="Edge"/>
     </ModelElementEdge>
     <ModelElementText id="59">
-      <ModelElementSize h="23" w="257" x="50" y="50"/>
+      <ModelElementSize h="23" w="262" x="50" y="50"/>
       <ModelElementTextLine>Construction site traffic lights</ModelElementTextLine>
       <ModelElementFontSize bold="1">18</ModelElementFontSize>
       <ModelElementColor>0,0,0</ModelElementColor>
@@ -152,10 +153,32 @@
       <ModelElementColor>255,0,0</ModelElementColor>
     </ModelElementRectangle>
     <ModelElementText id="119">
-      <ModelElementSize h="23" w="197" x="555" y="105"/>
+      <ModelElementSize h="23" w="200" x="555" y="105"/>
       <ModelElementTextLine>Single track road section</ModelElementTextLine>
       <ModelElementFontSize>18</ModelElementFontSize>
       <ModelElementColor>255,0,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementAnimationTextSelect id="30">
+      <ModelElementName>Current driving direction</ModelElementName>
+      <ModelElementSize h="32" w="101" x="750" y="370"/>
+      <ModelElementFontSize bold="1">16</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+      <TextExpression Expression="Direction==1">--&gt;</TextExpression>
+      <TextExpression Expression="Direction==2">&lt;--</TextExpression>
+    </ModelElementAnimationTextSelect>
+    <ModelElementAnimationLineDiagram id="31">
+      <ModelElementSize h="155" w="500" x="550" y="450"/>
+      <ModelElementLineWidth>1</ModelElementLineWidth>
+      <ModelElementLineColor>0,0,0</ModelElementLineColor>
+      <ModelElementDiagramElement LineColor="0,0,255" LineWidth="2" Maximum="10" Minimum="0">wip(13)</ModelElementDiagramElement>
+      <ModelElementDiagramElement LineColor="165,165,165" LineWidth="2" Maximum="10" Minimum="0">wip(14)</ModelElementDiagramElement>
+      <ModelElementDiagramTimeRange>3600</ModelElementDiagramTimeRange>
+    </ModelElementAnimationLineDiagram>
+    <ModelElementText id="32">
+      <ModelElementSize h="19" w="184" x="550" y="430"/>
+      <ModelElementTextLine>Waiting vehicles per direction</ModelElementTextLine>
+      <ModelElementFontSize>14</ModelElementFontSize>
+      <ModelElementColor>0,0,255</ModelElementColor>
     </ModelElementText>
   </ModelElements>
   <Resources SecondaryPriority="Random">
@@ -167,4 +190,7 @@
     <ClientData Icon="car" Name="KundenA"/>
     <ClientData Icon="lorry-left" Name="KundenB"/>
   </ClientTypeData>
+  <ModelEdgesNormal Color="0,0,0" Type="0" Width="1"/>
+  <ModelEdgesSelected Type="0" Width="1"/>
+  <ModelElementConnectionDrawStyle>Angled around</ModelElementConnectionDrawStyle>
 </Model>

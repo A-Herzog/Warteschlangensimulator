@@ -1,7 +1,8 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE Modell SYSTEM "https://a-herzog.github.io/Warteschlangensimulator/Simulator.dtd">
 <Modell xmlns="https://a-herzog.github.io" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://a-herzog.github.io https://a-herzog.github.io/Warteschlangensimulator/Simulator.xsd">
-  <ModellVersion>2.6.0</ModellVersion>
+  <!-- Diese Datei wurde mit Warteschlangensimulator erstellt. Download-Adresse: https://github.com/A-Herzog/Warteschlangensimulator -->
+  <ModellVersion>5.0.0</ModellVersion>
   <ModellName>Baustellenampel</ModellName>
   <ModellAutor>Alexander Herzog</ModellAutor>
   <ModellKunden Aktiv="1">10000000</ModellKunden>
@@ -152,10 +153,32 @@
       <ModellElementFarbe>255,0,0</ModellElementFarbe>
     </ModellElementKasten>
     <ModellElementText id="119">
-      <ModellElementGroesse h="23" w="232" x="555" y="105"/>
+      <ModellElementGroesse h="23" w="235" x="555" y="105"/>
       <ModellElementTextzeile>Einspuriger Straßenabschnitt</ModellElementTextzeile>
       <ModellElementSchriftgrosse>18</ModellElementSchriftgrosse>
       <ModellElementFarbe>255,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementAnimationTextAuswahl id="30">
+      <ModellElementName>Aktuelle Fahrtrichtung</ModellElementName>
+      <ModellElementGroesse h="32" w="93" x="750" y="370"/>
+      <ModellElementSchriftgrosse fett="1">16</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+      <TextAusdruck Ausdruck="Richtung==1">--&gt;</TextAusdruck>
+      <TextAusdruck Ausdruck="Richtung==2">&lt;--</TextAusdruck>
+    </ModellElementAnimationTextAuswahl>
+    <ModellElementAnimationLinienDiagramm id="31">
+      <ModellElementGroesse h="155" w="500" x="550" y="450"/>
+      <ModellElementLinienBreite>1</ModellElementLinienBreite>
+      <ModellElementLinienFarbe>0,0,0</ModellElementLinienFarbe>
+      <ModellElementDiagrammElement Linienbreite="2" Linienfarbe="0,0,255" Maximum="10" Minimum="0">wip(13)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Linienbreite="2" Linienfarbe="165,165,165" Maximum="10" Minimum="0">wip(14)</ModellElementDiagrammElement>
+      <ModellElementDiagrammZeitbereich>3600</ModellElementDiagrammZeitbereich>
+    </ModellElementAnimationLinienDiagramm>
+    <ModellElementText id="32">
+      <ModellElementGroesse h="19" w="240" x="550" y="430"/>
+      <ModellElementTextzeile>Wartende Fahrzeuge pro Fahrtrichtung</ModellElementTextzeile>
+      <ModellElementSchriftgrosse>14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,255</ModellElementFarbe>
     </ModellElementText>
   </ModellElemente>
   <Ressourcen UntergeordnetePrioritaet="Zufaellig">
@@ -165,4 +188,7 @@
     <KundenDaten Icon="car" Name="KundenA"/>
     <KundenDaten Icon="lorry-left" Name="KundenB"/>
   </KundentypenDaten>
+  <ModellKantenNormal Breite="1" Farbe="0,0,0" Typ="0"/>
+  <ModellKantenSelektiert Breite="1" Typ="0"/>
+  <ModellElementVerbindungsdarstellungsart>Abgerundet abgewinkelt</ModellElementVerbindungsdarstellungsart>
 </Modell>

@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE Model SYSTEM "https://a-herzog.github.io/Warteschlangensimulator/Simulator.dtd">
 <Model xmlns="https://a-herzog.github.io" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://a-herzog.github.io https://a-herzog.github.io/Warteschlangensimulator/Simulator.xsd">
-  <ModelVersion>4.4.0</ModelVersion>
+  <!-- This file was created using Warteschlangensimulator. Download address: https://github.com/A-Herzog/Warteschlangensimulator -->
+  <ModelVersion>5.0.0</ModelVersion>
   <ModelName>Releasing clients based on Javascript</ModelName>
   <ModelDescription>Each time there are no more than one clients at station A,
 a client of type A will be released.
@@ -79,7 +80,7 @@ for (var i=0;i&lt;count;i++) {
   if (WIP_A&lt;2 &amp;&amp; type=="Clients A") {Clients.release(i); WIP_A++; continue;}
   if (WIP_B&lt;2 &amp;&amp; type=="Clients B") {Clients.release(i); WIP_B++; continue;}
 }</ModelElementHoldScriptCondition>
-	</ModelElementHoldScript>
+    </ModelElementHoldScript>
     <ModelElementEdge id="8">
       <ModelElementName>Arrivals (Clients A)</ModelElementName>
       <ModelElementConnection Element1="1" Element2="7" Type="Edge"/>
@@ -106,19 +107,41 @@ for (var i=0;i&lt;count;i++) {
       <ModelElementConnection Element1="4" Element2="6" Type="Edge"/>
     </ModelElementEdge>
     <ModelElementText id="21">
-      <ModelElementSize h="23" w="330" x="50" y="50"/>
+      <ModelElementSize h="23" w="331" x="50" y="50"/>
       <ModelElementTextLine>Releasing clients based on Javascript</ModelElementTextLine>
       <ModelElementFontSize bold="1">18</ModelElementFontSize>
       <ModelElementColor>0,0,0</ModelElementColor>
     </ModelElementText>
     <ModelElementText id="43">
-      <ModelElementSize h="95" w="198" x="250" y="300"/>
+      <ModelElementSize h="95" w="197" x="250" y="300"/>
       <ModelElementTextLine>Each time there are no more</ModelElementTextLine>
       <ModelElementTextLine>than one clients at station A,</ModelElementTextLine>
       <ModelElementTextLine>a client of type A will be</ModelElementTextLine>
       <ModelElementTextLine>released. (For clients of</ModelElementTextLine>
       <ModelElementTextLine>type B and station B the same.)</ModelElementTextLine>
       <ModelElementFontSize italic="1">14</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementAnimationLineDiagram id="15">
+      <ModelElementSize h="200" w="450" x="400" y="450"/>
+      <ModelElementLineWidth>1</ModelElementLineWidth>
+      <ModelElementLineColor>0,0,0</ModelElementLineColor>
+      <ModelElementDiagramElement LineColor="255,0,0" LineWidth="1" Maximum="10" Minimum="0">wip(3)</ModelElementDiagramElement>
+      <ModelElementDiagramElement LineColor="0,180,0" LineWidth="2" Maximum="10" Minimum="0">wip(4)</ModelElementDiagramElement>
+      <ModelElementDiagramElement LineColor="255,0,0" LineWidth="3" Maximum="10" Minimum="0">wip(1)</ModelElementDiagramElement>
+      <ModelElementDiagramElement LineColor="0,180,0" LineWidth="3" Maximum="10" Minimum="0">wip(2)</ModelElementDiagramElement>
+      <ModelElementDiagramTimeRange>3600</ModelElementDiagramTimeRange>
+    </ModelElementAnimationLineDiagram>
+    <ModelElementText id="16">
+      <ModelElementSize h="19" w="157" x="400" y="430"/>
+      <ModelElementTextLine>Number of clients by type</ModelElementTextLine>
+      <ModelElementFontSize>14</ModelElementFontSize>
+      <ModelElementColor>0,0,255</ModelElementColor>
+    </ModelElementText>
+    <ModelElementText id="17">
+      <ModelElementSize h="16" w="314" x="400" y="650"/>
+      <ModelElementTextLine>(bold lines=in the system, thin linies=at the process station)</ModelElementTextLine>
+      <ModelElementFontSize>12</ModelElementFontSize>
       <ModelElementColor>0,0,0</ModelElementColor>
     </ModelElementText>
   </ModelElements>
