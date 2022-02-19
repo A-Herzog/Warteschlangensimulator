@@ -479,6 +479,13 @@ public class ModelElementAnimationTextSelect extends ModelElementPosition implem
 	private Color lastComputedFillColor=null;
 
 	/**
+	 * Ermöglicht die Interpretation von HTML-Entities und LaTeX-Symbolen
+	 * @see #drawToGraphics(Graphics, Rectangle, double, boolean)
+	 * @see TextTransformer
+	 */
+	private TextTransformer textTransformer;
+
+	/**
 	 * Zeichnet das Element in ein <code>Graphics</code>-Objekt
 	 * @param graphics	<code>Graphics</code>-Objekt in das das Element eingezeichnet werden soll
 	 * @param drawRect	Tatsächlich sichtbarer Ausschnitt
@@ -487,7 +494,8 @@ public class ModelElementAnimationTextSelect extends ModelElementPosition implem
 	 */
 	@Override
 	public void drawToGraphics(final Graphics graphics, final Rectangle drawRect, final double zoom, final boolean showSelectionFrames) {
-		final String text=getDisplayText(false);
+		if (textTransformer==null) textTransformer=new TextTransformer();
+		final String text=textTransformer.process(getDisplayText(false));
 		final String title=getDisplayText(true);
 
 		int style=Font.PLAIN;

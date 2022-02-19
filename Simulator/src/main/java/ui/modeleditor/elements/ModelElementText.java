@@ -495,6 +495,13 @@ public final class ModelElementText extends ModelElementPosition {
 	private Color lastComputedFillColor=null;
 
 	/**
+	 * Ermöglicht die Interpretation von HTML-Entities und LaTeX-Symbolen
+	 * @see #drawToGraphics(Graphics, Rectangle, double, boolean)
+	 * @see TextTransformer
+	 */
+	private TextTransformer textTransformer;
+
+	/**
 	 * Zeichnet das Element in ein <code>Graphics</code>-Objekt
 	 * @param graphics	<code>Graphics</code>-Objekt in das das Element eingezeichnet werden soll
 	 * @param drawRect	Tatsächlich sichtbarer Ausschnitt
@@ -520,8 +527,9 @@ public final class ModelElementText extends ModelElementPosition {
 		graphics.setColor(color);
 
 		if (lastText==null || !lastText.equals(getText())) {
-			lastText=getText().trim();
-			lastTextSplit=lastText.split("\\n");
+			lastText=getText();
+			if (textTransformer==null) textTransformer=new TextTransformer();
+			lastTextSplit=textTransformer.process(lastText.trim().split("\\n"));
 			lastMaxWidth=0;
 		}
 
