@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-02-13 21:34+0100\n"
+"POT-Creation-Date: 2022-02-19 19:54+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20316,6 +20316,12 @@ msgstr "An der Kundenquelle treten Batch-Ankünfte auf, die durch die Formel nic
 
 msgid "Statistics.ErlangCompare.Info.Source.CV"
 msgstr "Der Variationskoeffizient der Zwischenankunftszeiten beträgt %s. Die Formel geht jedoch von 1,0 aus."
+
+msgid "Statistics.ErlangCompare.InfoOk"
+msgstr "Anwendbarkeit der Formel auf das Modell"
+
+msgid "Statistics.ErlangCompare.InfoOkContent"
+msgstr "Das Modell kann in Bezug auf seine Eigenschaften durch die Formel beschrieben werden."
 
 msgid "Statistics.ErlangCompare.NoFixedNumberOfOperators"
 msgstr "Keine konstante Anzahl an Bedienern."

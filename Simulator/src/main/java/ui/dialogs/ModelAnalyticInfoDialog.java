@@ -211,6 +211,11 @@ public class ModelAnalyticInfoDialog extends BaseDialog {
 			textBuilder.beginParagraph();
 			textBuilder.addLines(info);
 			textBuilder.endParagraph();
+		} else {
+			textBuilder.addHeading(2,Language.tr("Statistics.ErlangCompare.InfoOk"));
+			textBuilder.beginParagraph();
+			textBuilder.addLines(Language.tr("Statistics.ErlangCompare.InfoOkContent"));
+			textBuilder.endParagraph();
 		}
 	}
 

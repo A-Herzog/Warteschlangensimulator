@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-02-13 21:34+0100\n"
+"POT-Creation-Date: 2022-02-19 19:54+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20306,6 +20306,12 @@ msgstr "Batch arrivals occur at the clientsource which are not considered by the
 
 msgid "Statistics.ErlangCompare.Info.Source.CV"
 msgstr "The coefficient of variation of the inter-arrival times is %s. But the formula uses 1.0."
+
+msgid "Statistics.ErlangCompare.InfoOk"
+msgstr "Applicability of the formula to the model"
+
+msgid "Statistics.ErlangCompare.InfoOkContent"
+msgstr "The model can be described in terms of its properties by the formula."
 
 msgid "Statistics.ErlangCompare.NoFixedNumberOfOperators"
 msgstr "no fixed number of operators."

@@ -7478,6 +7478,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[19243] = "Station at random";
     t[19250] = "SettingsDialog.Tabs.Statistics.QuantilLevels.Levels";
     t[19251] = "Levels";
+    t[19252] = "Statistics.SystemData.ThreadBalance.NumberOfArrivals";
+    t[19253] = "Number of arrivals";
     t[19254] = "Surface.InputDB.XML.EofMode.DefaultValue";
     t[19255] = "DefaultValue";
     t[19260] = "ExpressionBuilder.SimulationCharacteristics.WaitingTimesAtStations.Quantil";
@@ -8026,14 +8028,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[20671] = "General";
     t[20674] = "ExpressionBuilder.SimulationCharacteristics.ResidenceTimesByClientTypes.Kurt";
     t[20675] = "<p>Returns the excess kurtosis over all residence times of the clients created at the station whose ID was specified in the parameter.</p>";
-    t[20696] = "Surface.Action.Dialog.Info.Condition";
-    t[20697] = "Condition";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_4 (java.lang.String[] t) {
+    t[20696] = "Surface.Action.Dialog.Info.Condition";
+    t[20697] = "Condition";
     t[20698] = "ExpressionBuilder.ProbabilityDistributions.BetaDistribution.DensityInfo";
     t[20699] = "<p>Calculates the value of the density of the beta distribution at the location specified as first parameter over the interval [a;b] with the parameters &alpha; and &beta; according to the second to fifth parameters.</p>";
     t[20700] = "Surface.TransportSourceRouter.Name.Short";
@@ -10032,14 +10034,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[25615] = "Exit";
     t[25624] = "Surface.AnimationRecord.Infotext";
     t[25625] = "Displays the values recorded by a data recording station during animation.";
-    t[25632] = "Simulation.Log.Sub";
-    t[25633] = "Sub model";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_5 (java.lang.String[] t) {
+    t[25632] = "Simulation.Log.Sub";
+    t[25633] = "Sub model";
     t[25638] = "Resources.Group.EditName.Dialog.Failure.Number.Error.Title";
     t[25639] = "Invalid failure by number of served clients value";
     t[25640] = "ExpressionBuilder.Value";
@@ -11358,8 +11360,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[28995] = "Delayed resource release is active.";
     t[28998] = "SettingsDialog.ImageAnimation";
     t[28999] = "Saving images during animation";
-    t[29010] = "Statistics.SystemData.ThreadBalance.NumberOfArrivals";
-    t[29011] = "Number of arrivals";
+    t[29010] = "Statistics.ErlangCompare.InfoOk";
+    t[29011] = "Applicability of the formula to the model";
     t[29022] = "Resources.Group.EditName.Dialog.CostsPerWorkHour";
     t[29023] = "Costs per hour worked";
     t[29030] = "Surface.CounterMulti.Table.Heading.Condition.Add";
@@ -12038,14 +12040,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[30721] = "Schedule";
     t[30722] = "ModelLoadData.ProcessError.NoDDEWorkbook";
     t[30723] = "No DDE connection to workbook \"%s\" is available.";
-    t[30732] = "Main.Menu.Model.ExternalData.LoadOnStart";
-    t[30733] = "Update model when starting simulation";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_6 (java.lang.String[] t) {
+    t[30732] = "Main.Menu.Model.ExternalData.LoadOnStart";
+    t[30733] = "Update model when starting simulation";
     t[30734] = "Optimizer.Tab.Optimization.Kernel.Parameters.Tab.General";
     t[30735] = "General";
     t[30740] = "ExpressionBuilder.SimulationCharacteristics.TransporterUtilizationAll.DownNumber";
@@ -14044,14 +14046,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[35667] = "Add branch";
     t[35668] = "Simulation.Log.AssignSequence";
     t[35669] = "Assign sequence";
-    t[35672] = "Statistics.ModelRemarks.LargeCVV";
-    t[35673] = "High coefficient of variation of the residence times";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_7 (java.lang.String[] t) {
+    t[35672] = "Statistics.ModelRemarks.LargeCVV";
+    t[35673] = "High coefficient of variation of the residence times";
     t[35674] = "Simulation.Creator.ProcessResourcePriority";
     t[35675] = "At element id=%d the invalid resource priority \"%s\" is specified.";
     t[35678] = "Optimizer.ControlVariableEdit.Info.XML";
@@ -15608,6 +15610,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[39485] = "Current value (waiting, histogramm)";
     t[39486] = "CriticalStationsSignature.Station.Hash";
     t[39487] = "Hash";
+    t[39490] = "Statistics.ErlangCompare.InfoOkContent";
+    t[39491] = "The model can be described in terms of its properties by the formula.";
     t[39492] = "ExpressionBuilder.SimulationCharacteristics.ClientData.WaitingTime.Info";
     t[39493] = "Returns the waiting time of the current client. (When calculation a score: the waiting time at the current station. In all other cases: the total waiting time of the client.)";
     t[39494] = "Editor.DialogBase.Search.ClientTypeName";
@@ -16048,16 +16052,16 @@ public class Messages_en extends java.util.ResourceBundle {
     t[40567] = "Center model";
     t[40574] = "ModelLoadData.Search.Table";
     t[40575] = "Table in workbook \"%s\" for external data";
-    t[40578] = "SettingsDialog.SurfaceHelp";
-    t[40579] = "Show hints on drawing surface";
-    t[40584] = "SettingsDialog.Tabs.Simulation.UseHighPriority";
-    t[40585] = "High priority for simulation";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_8 (java.lang.String[] t) {
+    t[40578] = "SettingsDialog.SurfaceHelp";
+    t[40579] = "Show hints on drawing surface";
+    t[40584] = "SettingsDialog.Tabs.Simulation.UseHighPriority";
+    t[40585] = "High priority for simulation";
     t[40586] = "SimulationServer.Setup.TLSInfo.KeyStorePassword";
     t[40587] = "Password for key store file";
     t[40596] = "ModelDescription.Match.Mode.Collect";
@@ -18054,16 +18058,16 @@ public class Messages_en extends java.util.ResourceBundle {
     t[45525] = "Average residence time";
     t[45526] = "Animation.SkipWarmUp.OptionSkip.Info";
     t[45527] = "Do not run the warm-up phase for this animation.";
-    t[45528] = "JDataLoader.SelectArea";
-    t[45529] = "Please select the area to be imported.";
-    t[45538] = "Surface.TransportTransporterSource.RouteBy.Sequence";
-    t[45539] = "Route by sequence";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_9 (java.lang.String[] t) {
+    t[45528] = "JDataLoader.SelectArea";
+    t[45529] = "Please select the area to be imported.";
+    t[45538] = "Surface.TransportTransporterSource.RouteBy.Sequence";
+    t[45539] = "Route by sequence";
     t[45542] = "Surface.TankValveSetup.Table.Edit.Tank";
     t[45543] = "Tank";
     t[45544] = "Main.Menu.Help.LicenseInformation.Mnemonic";
@@ -20060,16 +20064,16 @@ public class Messages_en extends java.util.ResourceBundle {
     t[50573] = "New maximum flow at tank ID=%d at valve %d";
     t[50576] = "ParameterCompare.Settings.Input.Mode.Resource.ErrorTitle";
     t[50577] = "No resource selected";
-    t[50578] = "ExpressionBuilder.TrigonometricFunctions.SinusHyperbolicus.Info";
-    t[50579] = "<p>Calculates the value of the sine hyperbolicus function with the value passed as parameter.</p> <p> Example: <tt>sinh(0)</tt> return 0.</p>";
-    t[50580] = "Optimizer.Error.VariableNameForControlVariablesInvalid";
-    t[50581] = "For control variable %d was global variable \"%s\" selected. But there is no global variable with this name.";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_10 (java.lang.String[] t) {
+    t[50578] = "ExpressionBuilder.TrigonometricFunctions.SinusHyperbolicus.Info";
+    t[50579] = "<p>Calculates the value of the sine hyperbolicus function with the value passed as parameter.</p> <p> Example: <tt>sinh(0)</tt> return 0.</p>";
+    t[50580] = "Optimizer.Error.VariableNameForControlVariablesInvalid";
+    t[50581] = "For control variable %d was global variable \"%s\" selected. But there is no global variable with this name.";
     t[50582] = "Surface.UserStatistic.Table.Add";
     t[50583] = "Add expression";
     t[50584] = "Surface.TransportSource.Dialog.SectionEnd.Use";
