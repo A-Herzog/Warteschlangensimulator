@@ -1,0 +1,8 @@
+FROM adoptopenjdk:11-jre-hotspot
+RUN mkdir /opt/app
+COPY Simulator.jar /opt/app
+RUN mkdir /opt/app/libs
+COPY libs/*.jar /opt/app/libs/
+WORKDIR /opt/app
+CMD ["java", "-jar", "Simulator.jar","serversocket","10000"]
+EXPOSE 10000

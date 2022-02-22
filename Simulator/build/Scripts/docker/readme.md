@@ -16,4 +16,11 @@ in web server mode on port 81.
 # docker-sim-build
 
 Builds a docker image for running Warteschlangensimulator
-in server mode on port 81.
+in server mode on port 8183.
+
+
+
+# docker-socket-build
+
+Builds a docker image for running Warteschlangensimulator
+in socket server mode on port 10000.
