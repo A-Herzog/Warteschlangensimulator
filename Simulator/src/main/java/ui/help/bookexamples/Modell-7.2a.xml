@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE Modell SYSTEM "https://a-herzog.github.io/Warteschlangensimulator/Simulator.dtd">
+<Modell xmlns="https://a-herzog.github.io" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://a-herzog.github.io https://a-herzog.github.io/Warteschlangensimulator/Simulator.xsd">
+  <!-- Diese Datei wurde mit Warteschlangensimulator erstellt. Download-Adresse: https://github.com/A-Herzog/Warteschlangensimulator -->
+  <ModellVersion>5.0.0</ModellVersion>
+  <ModellName>Beispielmodell aus Kapitel 7.2 - Auswirkungen der Auslastung auf die Erfolgsquote</ModellName>
+  <ModellAutor>Alexander Herzog</ModellAutor>
+  <ModellKunden Aktiv="1">10000000</ModellKunden>
+  <ModellAufwaermphase>0.05</ModellAufwaermphase>
+  <ModellAbbruchzeit Aktiv="0">10:00:00:00</ModellAbbruchzeit>
+  <ModellElemente>
+    <ModellElementQuelle id="1">
+      <ModellElementName>Kunden</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="50" y="100"/>
+      <ModellElementVerbindung Element="6" Typ="Auslaufend"/>
+      <ModellElementVerteilung Zeitbasis="Sekunden">Exponentialverteilung (80)</ModellElementVerteilung>
+      <ModellElementBatch Groesse="1"/>
+    </ModellElementQuelle>
+    <ModellElementBedienstation id="2">
+      <ModellElementGroesse h="50" w="100" x="250" y="100"/>
+      <ModellElementVerbindung Element="6" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="7" Typ="Auslaufend"/>
+      <ModellElementVerbindung Element="9" Status="Warteabbruch" Typ="Auslaufend"/>
+      <ModellElementVerteilung Status="Bedienzeit" Typ="Bedienzeiten" Zeitbasis="Sekunden">Exponentialverteilung (300)</ModellElementVerteilung>
+      <ModellElementVerteilung Typ="Abbruchzeiten">Exponentialverteilung (900)</ModellElementVerteilung>
+      <ModellElementPrioritaet Kundentyp="Kunden">w</ModellElementPrioritaet>
+      <ModellElementBediener Alternative="1" Anzahl="1" Gruppe="Neue Bedienergruppe"/>
+      <ModellElementBedienerPrioritaet>1</ModellElementBedienerPrioritaet>
+    </ModellElementBedienstation>
+    <ModellElementZaehler id="3">
+      <ModellElementName>Erfolg</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="450" y="100"/>
+      <ModellElementVerbindung Element="7" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="8" Typ="Auslaufend"/>
+      <ModellElementZaehlerGruppe>Typ</ModellElementZaehlerGruppe>
+    </ModellElementZaehler>
+    <ModellElementZaehler id="4">
+      <ModellElementName>Abbruch</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="250" y="250"/>
+      <ModellElementVerbindung Element="9" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="13" Typ="Auslaufend"/>
+      <ModellElementZaehlerGruppe>Typ</ModellElementZaehlerGruppe>
+    </ModellElementZaehler>
+    <ModellElementEnde id="5">
+      <ModellElementGroesse h="50" w="100" x="850" y="100"/>
+      <ModellElementVerbindung Element="10" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="14" Typ="Einlaufend"/>
+    </ModellElementEnde>
+    <ModellElementKante id="6">
+      <ModellElementName>Ankünfte (Kunden)</ModellElementName>
+      <ModellElementVerbindung Element1="1" Element2="2" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="7">
+      <ModellElementName>Erfolg</ModellElementName>
+      <ModellElementVerbindung Element1="2" Element2="3" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="9">
+      <ModellElementName>Warteabbruch</ModellElementName>
+      <ModellElementVerbindung Element1="2" Element2="4" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementZuweisung id="11">
+      <ModellElementName>Abbruch</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="650" y="250"/>
+      <ModellElementVerbindung Element="13" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="14" Typ="Auslaufend"/>
+    </ModellElementZuweisung>
+    <ModellElementZuweisung id="12">
+      <ModellElementName>Erfolg</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="650" y="100"/>
+      <ModellElementVerbindung Element="8" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="10" Typ="Auslaufend"/>
+    </ModellElementZuweisung>
+    <ModellElementKante id="8">
+      <ModellElementVerbindung Element1="3" Element2="12" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="10">
+      <ModellElementName>Neuer Kundentyp: Erfolg</ModellElementName>
+      <ModellElementVerbindung Element1="12" Element2="5" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="13">
+      <ModellElementVerbindung Element1="4" Element2="11" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="14">
+      <ModellElementName>Neuer Kundentyp: Abbruch</ModellElementName>
+      <ModellElementVerbindung Element1="11" Element2="5" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementText id="15">
+      <ModellElementGroesse h="23" w="730" x="50" y="50"/>
+      <ModellElementTextzeile>Beispielmodell aus Kapitel 7.2 - Auswirkungen der Auslastung auf die Erfolgsquote</ModellElementTextzeile>
+      <ModellElementSchriftgrosse fett="1">18</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementText id="16">
+      <ModellElementGroesse h="266" w="699" x="50" y="350"/>
+      <ModellElementTextzeile>In diesem Simulationsmodell kann der Effekt von Ungeduld</ModellElementTextzeile>
+      <ModellElementTextzeile>beobachtet werden.</ModellElementTextzeile>
+      <ModellElementTextzeile/>
+      <ModellElementTextzeile>Zwischenankunftszeiten: Exponentiell verteilt, E[I]=80</ModellElementTextzeile>
+      <ModellElementTextzeile>Bedienzeiten: Lognormal verteilt, E[S]=300, Std[S]=100</ModellElementTextzeile>
+      <ModellElementTextzeile>Wartezeittoleranz: Exponentiell verteilt, E[WT]=900</ModellElementTextzeile>
+      <ModellElementTextzeile>Anzahl an Bedienern: c=4</ModellElementTextzeile>
+      <ModellElementTextzeile>Auslastung: rho=93,75%</ModellElementTextzeile>
+      <ModellElementTextzeile/>
+      <ModellElementTextzeile>Zum Untersuchen:</ModellElementTextzeile>
+      <ModellElementTextzeile>- Wie hoch ist der Anteil erfolgreicher Kunden?</ModellElementTextzeile>
+      <ModellElementTextzeile>- Wie lang sind die mittlere Wartezeit der erfolgreichen Kunden und die mittlere Abbruchzeit der Warteabbrecher?</ModellElementTextzeile>
+      <ModellElementTextzeile>- Parameterreihe: Variation der mittleren Zwischenankunftszeit (und damit der Auslastung)</ModellElementTextzeile>
+      <ModellElementTextzeile>Beobachtung des Anteils der erfolgreichen Kunden sowie der Warte- bzw. Abbruchzeiten</ModellElementTextzeile>
+      <ModellElementSchriftgrosse>14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+  </ModellElemente>
+  <Ressourcen UntergeordnetePrioritaet="Zufaellig">
+    <Ressource Name="Neue Bedienergruppe" Typ="Anzahl" Wert="4"/>
+  </Ressourcen>
+  <KundentypenDaten/>
+  <ModellKantenNormal Breite="1" Farbe="0,0,0" Typ="0"/>
+  <ModellKantenSelektiert Breite="1" Typ="0"/>
+  <ModellElementVerbindungsdarstellungsart>Abgerundet abgewinkelt</ModellElementVerbindungsdarstellungsart>
+</Modell>

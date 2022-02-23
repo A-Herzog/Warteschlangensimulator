@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE Modell SYSTEM "https://a-herzog.github.io/Warteschlangensimulator/Simulator.dtd">
+<Modell xmlns="https://a-herzog.github.io" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://a-herzog.github.io https://a-herzog.github.io/Warteschlangensimulator/Simulator.xsd">
+  <!-- Diese Datei wurde mit Warteschlangensimulator erstellt. Download-Adresse: https://github.com/A-Herzog/Warteschlangensimulator -->
+  <ModellVersion>5.0.0</ModellVersion>
+  <ModellName>Beispielmodell aus Kapitel 5.2 - Erstes Beispiel zum Ausprobieren der wesentlichen Programmfunktionen</ModellName>
+  <ModellAutor>Alexander Herzog</ModellAutor>
+  <ModellKunden Aktiv="1">10000000</ModellKunden>
+  <ModellAufwaermphase>0.01</ModellAufwaermphase>
+  <ModellAbbruchzeit Aktiv="0">10:00:00:00</ModellAbbruchzeit>
+  <ModellElemente>
+    <ModellElementQuelle id="1">
+      <ModellElementName>Kunden</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="50" y="100"/>
+      <ModellElementVerbindung Element="4" Typ="Auslaufend"/>
+      <ModellElementVerteilung Zeitbasis="Sekunden">Exponentialverteilung (60)</ModellElementVerteilung>
+      <ModellElementBatch Groesse="1"/>
+    </ModellElementQuelle>
+    <ModellElementBedienstation id="2">
+      <ModellElementGroesse h="50" w="100" x="250" y="100"/>
+      <ModellElementVerbindung Element="4" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="5" Typ="Auslaufend"/>
+      <ModellElementVerteilung Status="Bedienzeit" Typ="Bedienzeiten" Zeitbasis="Sekunden">Exponentialverteilung (50)</ModellElementVerteilung>
+      <ModellElementPrioritaet Kundentyp="Kunden">w</ModellElementPrioritaet>
+      <ModellElementBediener Alternative="1" Anzahl="1" Gruppe="Neue Bedienergruppe"/>
+      <ModellElementBedienerPrioritaet>1</ModellElementBedienerPrioritaet>
+    </ModellElementBedienstation>
+    <ModellElementEnde id="3">
+      <ModellElementGroesse h="50" w="100" x="450" y="100"/>
+      <ModellElementVerbindung Element="5" Typ="Einlaufend"/>
+    </ModellElementEnde>
+    <ModellElementKante id="4">
+      <ModellElementName>Ankünfte (Kunden)</ModellElementName>
+      <ModellElementVerbindung Element1="1" Element2="2" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="5">
+      <ModellElementVerbindung Element1="2" Element2="3" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementText id="6">
+      <ModellElementGroesse h="23" w="929" x="50" y="50"/>
+      <ModellElementTextzeile>Beispielmodell aus Kapitel 5.2 - Erstes Beispiel zum Ausprobieren der wesentlichen Programmfunktionen</ModellElementTextzeile>
+      <ModellElementSchriftgrosse fett="1">18</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementText id="7">
+      <ModellElementGroesse h="285" w="440" x="50" y="200"/>
+      <ModellElementTextzeile>Dieses Simulationsmodell entspricht einem</ModellElementTextzeile>
+      <ModellElementTextzeile>analytischen M/M/1-Modell (vgl. Abschnitt 3.4.1).</ModellElementTextzeile>
+      <ModellElementTextzeile/>
+      <ModellElementTextzeile>Zwischenankunftszeiten: Exponentiell verteilt, E[I]=60</ModellElementTextzeile>
+      <ModellElementTextzeile>Bedienzeiten: Exponentiell verteilt, E[S]=50</ModellElementTextzeile>
+      <ModellElementTextzeile>Anzahl an Bedienern: c=1</ModellElementTextzeile>
+      <ModellElementTextzeile>Auslastung: 83,3%</ModellElementTextzeile>
+      <ModellElementTextzeile/>
+      <ModellElementTextzeile>Zum Ausprobieren:</ModellElementTextzeile>
+      <ModellElementTextzeile>- Modell per Umschalt+F5 prüfen</ModellElementTextzeile>
+      <ModellElementTextzeile>- Simulation per F5 starten</ModellElementTextzeile>
+      <ModellElementTextzeile>- Animation per F6 starten</ModellElementTextzeile>
+      <ModellElementTextzeile>- Vergleich Simulation und analytische Ergebnisse (vgl. Abschnitt 5.4.2)</ModellElementTextzeile>
+      <ModellElementTextzeile>- Veränderung der Bedienzeitenverteilung (z.B. Lognormal statt Exp),</ModellElementTextzeile>
+      <ModellElementTextzeile>Beobachtung der Auswirkungen auf Erlang-C-Vergleich</ModellElementTextzeile>
+      <ModellElementSchriftgrosse>14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+  </ModellElemente>
+  <Ressourcen UntergeordnetePrioritaet="Zufaellig">
+    <Ressource Name="Neue Bedienergruppe" Typ="Anzahl" Wert="1"/>
+  </Ressourcen>
+  <KundentypenDaten/>
+  <ModellKantenNormal Breite="1" Farbe="0,0,0" Typ="0"/>
+  <ModellKantenSelektiert Breite="1" Typ="0"/>
+  <ModellElementVerbindungsdarstellungsart>Abgerundet abgewinkelt</ModellElementVerbindungsdarstellungsart>
+</Modell>

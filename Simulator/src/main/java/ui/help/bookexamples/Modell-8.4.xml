@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE Modell SYSTEM "https://a-herzog.github.io/Warteschlangensimulator/Simulator.dtd">
+<Modell xmlns="https://a-herzog.github.io" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://a-herzog.github.io https://a-herzog.github.io/Warteschlangensimulator/Simulator.xsd">
+  <!-- Diese Datei wurde mit Warteschlangensimulator erstellt. Download-Adresse: https://github.com/A-Herzog/Warteschlangensimulator -->
+  <ModellVersion>5.0.0</ModellVersion>
+  <ModellName>Beispielmodell aus Kapitel 8.4 - Schichtpläne</ModellName>
+  <ModellAutor>Alexander Herzog</ModellAutor>
+  <ModellKunden Aktiv="1">10000000</ModellKunden>
+  <ModellAufwaermphase>0.05</ModellAufwaermphase>
+  <ModellAbbruchzeit Aktiv="1">5:00:00:00</ModellAbbruchzeit>
+  <ModellElemente>
+    <ModellElementQuelle id="1">
+      <ModellElementName>Aufträge</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="50" y="100"/>
+      <ModellElementVerbindung Element="3" Typ="Auslaufend"/>
+      <ModellElementVerteilung Zeitbasis="Sekunden">Exponentialverteilung (60)</ModellElementVerteilung>
+      <ModellElementBatch Groesse="1"/>
+    </ModellElementQuelle>
+    <ModellElementBedienstation id="2">
+      <ModellElementName>Einpacken</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="250" y="100"/>
+      <ModellElementVerbindung Element="3" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="5" Typ="Auslaufend"/>
+      <ModellElementVerteilung Status="Bedienzeit" Typ="Bedienzeiten" Zeitbasis="Sekunden">Exponentialverteilung (180)</ModellElementVerteilung>
+      <ModellElementPrioritaet Kundentyp="Aufträge">w</ModellElementPrioritaet>
+      <ModellElementBediener Alternative="1" Anzahl="1" Gruppe="Bediener"/>
+      <ModellElementBedienerPrioritaet>1</ModellElementBedienerPrioritaet>
+    </ModellElementBedienstation>
+    <ModellElementKante id="3">
+      <ModellElementName>Ankünfte (Aufträge)</ModellElementName>
+      <ModellElementVerbindung Element1="1" Element2="2" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementEnde id="4">
+      <ModellElementName>Versand</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="450" y="100"/>
+      <ModellElementVerbindung Element="5" Typ="Einlaufend"/>
+    </ModellElementEnde>
+    <ModellElementKante id="5">
+      <ModellElementVerbindung Element1="2" Element2="4" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementAnimationLinienDiagramm id="6">
+      <ModellElementName>Bedienstation "Einpacken" (id=2) - Aktueller Wert</ModellElementName>
+      <ModellElementGroesse h="200" w="500" x="50" y="200"/>
+      <ModellElementLinienBreite>1</ModellElementLinienBreite>
+      <ModellElementLinienFarbe>0,0,0</ModellElementLinienFarbe>
+      <ModellElementDiagrammElement Linienbreite="2" Linienfarbe="255,0,0" Maximum="500" Minimum="0">wip(2)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Linienbreite="2" Linienfarbe="0,0,255" Maximum="10" Minimum="0">Resource_count()</ModellElementDiagrammElement>
+      <ModellElementDiagrammZeitbereich>172800</ModellElementDiagrammZeitbereich>
+      <ModellElementAchsenbeschriftung>0</ModellElementAchsenbeschriftung>
+    </ModellElementAnimationLinienDiagramm>
+    <ModellElementText id="7">
+      <ModellElementGroesse h="23" w="396" x="50" y="50"/>
+      <ModellElementTextzeile>Beispielmodell aus Kapitel 8.4 - Schichtpläne</ModellElementTextzeile>
+      <ModellElementSchriftgrosse fett="1">18</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementText id="8">
+      <ModellElementGroesse h="399" w="485" x="50" y="450"/>
+      <ModellElementTextzeile>Aufträge treffen mit konstanter Rate von E[I]=60 Sekunden den ganzen</ModellElementTextzeile>
+      <ModellElementTextzeile>Tag über ein. Allerdings stehen nur von 7 bis 15 Uhr 7 Bediener und von</ModellElementTextzeile>
+      <ModellElementTextzeile>15 bis 23 Uhr 3 Bediener zur Verfügung (Schichtplan). Bei E[S]=180 Sekunden</ModellElementTextzeile>
+      <ModellElementTextzeile>bedeutet dies:</ModellElementTextzeile>
+      <ModellElementTextzeile/>
+      <ModellElementTextzeile>rho(23-7 Uhr)=unendlich</ModellElementTextzeile>
+      <ModellElementTextzeile>rho(7-15 Uhr)=42,9%</ModellElementTextzeile>
+      <ModellElementTextzeile>rho(15-23 Uhr)=100%</ModellElementTextzeile>
+      <ModellElementTextzeile/>
+      <ModellElementTextzeile>In der Animation ist zu erkennen, wie sich nachts eine lange</ModellElementTextzeile>
+      <ModellElementTextzeile>Warteschlange aufbaut, die die Bediener bis in den Nachmittag</ModellElementTextzeile>
+      <ModellElementTextzeile>abgearbeitet bekommen. Vom Nachmittag bis in die Nacht reicht</ModellElementTextzeile>
+      <ModellElementTextzeile>die Bedienleistung gerade so aus, so dass sich keine langen</ModellElementTextzeile>
+      <ModellElementTextzeile>Warteschlangen bilden. Ab 23 Uhr arbeitet dann kein Bediener</ModellElementTextzeile>
+      <ModellElementTextzeile>mehr. Die Aufträge werden gesammelt (es bildet sich erneut eine</ModellElementTextzeile>
+      <ModellElementTextzeile>Warteschlange). Diese werden dann am nächsten Tag ab 7 Uhr</ModellElementTextzeile>
+      <ModellElementTextzeile>zusammen mit den am Vormittag zusätzlich eintreffenden Aufträgen</ModellElementTextzeile>
+      <ModellElementTextzeile>abgearbeitet usw.</ModellElementTextzeile>
+      <ModellElementTextzeile/>
+      <ModellElementTextzeile>Im Durchschnitt über den Tag beträgt die Auslastung des Systems</ModellElementTextzeile>
+      <ModellElementTextzeile>rho=(7+3+0)/3=90%.</ModellElementTextzeile>
+      <ModellElementSchriftgrosse>14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementAnimationUhr id="9">
+      <ModellElementGroesse h="100" w="100" x="600" y="200"/>
+      <ModellElementFarbe>225,225,225</ModellElementFarbe>
+      <ModellElementAusdruck>TNow()</ModellElementAusdruck>
+    </ModellElementAnimationUhr>
+    <ModellElementText id="10">
+      <ModellElementGroesse h="16" w="380" x="50" y="400"/>
+      <ModellElementTextzeile>(rot=Warteschlangenlänge, blau=Anzahl an Bedienern laut Schichtplan)</ModellElementTextzeile>
+      <ModellElementSchriftgrosse>12</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+  </ModellElemente>
+  <Ressourcen UntergeordnetePrioritaet="Zufaellig">
+    <Ressource Icon="status_online" Name="Bediener" Typ="Zeitplan" Wert="Schichtplan"/>
+  </Ressourcen>
+  <KundentypenDaten>
+    <KundenDaten Icon="note" Name="Aufträge"/>
+    <KundenDaten Icon="note" Name="Kunden"/>
+  </KundentypenDaten>
+  <ModellZeitplaene>
+    <ModellZeitplan DauerProSlot="3600" EditorMaxY="10" Name="Schichtplan" PlanFortsetzen="TageweiseWiederholen">0;0;0;0;0;0;0;7;7;7;7;7;7;7;7;3;3;3;3;3;3;3;3</ModellZeitplan>
+  </ModellZeitplaene>
+  <ModellZusatzStatistik Schrittweite="300">
+    <ModellZusatzStatistikElement Modus="Durchschnitt">wip(2)</ModellZusatzStatistikElement>
+    <ModellZusatzStatistikElement Modus="Maximum">Resource_count()</ModellZusatzStatistikElement>
+  </ModellZusatzStatistik>
+  <ModellKantenNormal Breite="1" Farbe="0,0,0" Typ="0"/>
+  <ModellKantenSelektiert Breite="1" Typ="0"/>
+  <ModellElementVerbindungsdarstellungsart>Abgerundet abgewinkelt</ModellElementVerbindungsdarstellungsart>
+</Modell>

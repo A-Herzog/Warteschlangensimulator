@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE Modell SYSTEM "https://a-herzog.github.io/Warteschlangensimulator/Simulator.dtd">
+<Modell xmlns="https://a-herzog.github.io" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://a-herzog.github.io https://a-herzog.github.io/Warteschlangensimulator/Simulator.xsd">
+  <!-- Diese Datei wurde mit Warteschlangensimulator erstellt. Download-Adresse: https://github.com/A-Herzog/Warteschlangensimulator -->
+  <ModellVersion>5.0.0</ModellVersion>
+  <ModellName>Beispielmodell aus Kapitel 7.3 - Economy of scale</ModellName>
+  <ModellAutor>Alexander Herzog</ModellAutor>
+  <ModellKunden Aktiv="1">10000000</ModellKunden>
+  <ModellAufwaermphase>0.05</ModellAufwaermphase>
+  <ModellAbbruchzeit Aktiv="0">10:00:00:00</ModellAbbruchzeit>
+  <ModellElemente>
+    <ModellElementBedienstation id="1">
+      <ModellElementGroesse h="50" w="100" x="300" y="100"/>
+      <ModellElementVerbindung Element="4" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="5" Typ="Auslaufend"/>
+      <ModellElementVerteilung Status="Bedienzeit" Typ="Bedienzeiten" Zeitbasis="Sekunden">Exponentialverteilung (600)</ModellElementVerteilung>
+      <ModellElementPrioritaet Kundentyp="Kunden">w</ModellElementPrioritaet>
+      <ModellElementPrioritaet Kundentyp="KundenA">w</ModellElementPrioritaet>
+      <ModellElementPrioritaet Kundentyp="KundenB">w+1000</ModellElementPrioritaet>
+      <ModellElementBediener Alternative="1" Anzahl="1" Gruppe="Bedienergruppe"/>
+      <ModellElementBedienerPrioritaet>1</ModellElementBedienerPrioritaet>
+    </ModellElementBedienstation>
+    <ModellElementQuelle id="2">
+      <ModellElementName>Kunden</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="50" y="100"/>
+      <ModellElementVerbindung Element="4" Typ="Auslaufend"/>
+      <ModellElementAusdruck Zeitbasis="Sekunden">ExpDist(600/(0,85*Resource_count()))</ModellElementAusdruck>
+      <ModellElementBatch Groesse="1"/>
+    </ModellElementQuelle>
+    <ModellElementEnde id="3">
+      <ModellElementGroesse h="50" w="100" x="550" y="100"/>
+      <ModellElementVerbindung Element="5" Typ="Einlaufend"/>
+    </ModellElementEnde>
+    <ModellElementKante id="4">
+      <ModellElementName>Ankünfte (Kunden)</ModellElementName>
+      <ModellElementVerbindung Element1="2" Element2="1" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="5">
+      <ModellElementVerbindung Element1="1" Element2="3" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementText id="6">
+      <ModellElementGroesse h="23" w="439" x="50" y="50"/>
+      <ModellElementTextzeile>Beispielmodell aus Kapitel 7.3 - Economy of scale</ModellElementTextzeile>
+      <ModellElementSchriftgrosse fett="1">18</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementText id="7">
+      <ModellElementGroesse h="190" w="396" x="50" y="200"/>
+      <ModellElementTextzeile>In diesem Simulationsmodell kann der Effekt von Ungeduld</ModellElementTextzeile>
+      <ModellElementTextzeile>beobachtet werden.</ModellElementTextzeile>
+      <ModellElementTextzeile/>
+      <ModellElementTextzeile>Zwischenankunftszeiten: ExpDist(600/(0,85*Resource_count()))</ModellElementTextzeile>
+      <ModellElementTextzeile>Bedienzeiten: Exponentiell verteilt, E[S]=600</ModellElementTextzeile>
+      <ModellElementTextzeile>Anzahl an Bedienern: variabel</ModellElementTextzeile>
+      <ModellElementTextzeile>Auslastung: rho=85%</ModellElementTextzeile>
+      <ModellElementTextzeile/>
+      <ModellElementTextzeile>Zum Untersuchen:</ModellElementTextzeile>
+      <ModellElementTextzeile>- Veränderung der Kenngrößen bei Variation von c</ModellElementTextzeile>
+      <ModellElementSchriftgrosse>14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+  </ModellElemente>
+  <Ressourcen UntergeordnetePrioritaet="Zufaellig">
+    <Ressource Name="Bedienergruppe" Typ="Anzahl" Wert="4"/>
+  </Ressourcen>
+  <KundentypenDaten/>
+  <ModellKantenNormal Breite="1" Farbe="0,0,0" Typ="0"/>
+  <ModellKantenSelektiert Breite="1" Typ="0"/>
+  <ModellElementVerbindungsdarstellungsart>Abgerundet abgewinkelt</ModellElementVerbindungsdarstellungsart>
+</Modell>

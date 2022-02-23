@@ -29,12 +29,15 @@ import java.awt.event.MouseEvent;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.Serializable;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import javax.swing.BorderFactory;
 import javax.swing.Box;
@@ -65,6 +68,7 @@ import mathtools.distribution.swing.CommonVariables;
 import mathtools.distribution.swing.JOpenURL;
 import mathtools.distribution.tools.FileDropper;
 import mathtools.distribution.tools.FileDropperData;
+import simulator.editmodel.EditModel;
 import systemtools.BaseDialog;
 import systemtools.MsgBox;
 import tools.NetHelper;
@@ -122,6 +126,11 @@ public class BookDataDialog extends BaseDialog {
 	private final BookData data;
 
 	/**
+	 * Dürfen Beispielmodelle direkt geöffnet werden?
+	 */
+	private final boolean allowOpenExample;
+
+	/**
 	 * Sachverzeichnis
 	 * @see #indexKeys
 	 * @see #indexList
@@ -154,6 +163,11 @@ public class BookDataDialog extends BaseDialog {
 	private final JPanel info2;
 
 	/**
+	 * Infopanel über {@link #examplesList}
+	 */
+	private final JPanel info3;
+
+	/**
 	 * Inhaltsverzeichnislistendarstellung
 	 */
 	private final JList<JLabel> tocList;
@@ -164,17 +178,82 @@ public class BookDataDialog extends BaseDialog {
 	private final JList<JLabel> indexList;
 
 	/**
+	 * Liste der Beispielmodelle aus dem Buch
+	 */
+	private final JList<JLabel> examplesList;
+
+	/**
+	 * Zum Laden ausgewähltes Beispielmodell (kann <code>null</code> sein)
+	 * @see #openExample()
+	 * @see #getSelectedExampleModel()
+	 */
+	private EditModel selectedExampleModel;
+
+	/**
+	 * Liste aller verfügbaren Beispielmodelle
+	 */
+	private static final BookExampleModel[] exampleModels;
+
+	static {
+		final List<BookExampleModel> exampleModelsList=new ArrayList<>();
+		exampleModelsList.add(new BookExampleModel("Modell-5.2.xml","5.2","Erstes Beispiel zum Ausprobieren der wesentlichen Programmfunktionen"));
+		exampleModelsList.add(new BookExampleModel("Modell-7.1.xml","7.1","Auswirkungen von CV[S] auf die Kenngrößen"));
+		exampleModelsList.add(new BookExampleModel("Modell-7.2a.xml","7.2","Auswirkungen der Auslastung auf die Erfolgsquote"));
+		exampleModelsList.add(new BookExampleModel("Modell-7.2b.xml","7.2","Effekte duruch Warteabbrecher und Wiederholer"));
+		exampleModelsList.add(new BookExampleModel("Modell-7.3.xml","7.3","Economy of scale"));
+		exampleModelsList.add(new BookExampleModel("Modell-7.4a.xml","7.4","Bedienreihenfolge"));
+		exampleModelsList.add(new BookExampleModel("Modell-7.4b.xml","7.4","Nicht-lineare Skalierung der Interpretation der Wartezeiten"));
+		exampleModelsList.add(new BookExampleModel("Modell-7.4c.xml","7.4","Priorisierung nach Liefertermin"));
+		exampleModelsList.add(new BookExampleModel("Modell-7.4d.xml","7.4","Priorisierung bestimmter Kundentypen"));
+		exampleModelsList.add(new BookExampleModel("Modell-7.5.xml","7.5","System-Design"));
+		exampleModelsList.add(new BookExampleModel("Modell-7.6a.xml","7.6","Pull-Produktion"));
+		exampleModelsList.add(new BookExampleModel("Modell-7.6b.xml","7.6","Auswirkung der Pull-Produktion auf den Durchsatz"));
+		exampleModelsList.add(new BookExampleModel("Modell-7.6c.xml","7.6","Gemeinsames Lager an zwei Stationen"));
+		exampleModelsList.add(new BookExampleModel("Modell-8.1a.xml","8.1","Ungeduld bei verschiedenen Kundentypen"));
+		exampleModelsList.add(new BookExampleModel("Modell-8.1b.xml","8.1","Von zwei Stationen gemeinsam genutzte Ressource"));
+		exampleModelsList.add(new BookExampleModel("Modell-8.2a.xml","8.2","Verschiedene Arten der Batch-Bildung"));
+		exampleModelsList.add(new BookExampleModel("Modell-8.2b.xml","8.2","Zusammenführen von Bauteilen"));
+		exampleModelsList.add(new BookExampleModel("Modell-8.3.xml","8.3","Steuerung des Transportziels über Texteigenschaften"));
+		exampleModelsList.add(new BookExampleModel("Modell-8.4.xml","8.4","Schichtpläne"));
+		exampleModelsList.add(new BookExampleModel("Modell-8.6.xml","8.6","Bediener mit Ausfallzeiten"));
+		exampleModels=exampleModelsList.toArray(new BookExampleModel[0]);
+	}
+
+	/**
 	 * Konstruktor der Klasse
 	 * @param owner	Übergeordnetes Element
 	 * @param match	Direkt beim Öffnen des Dialogs anzuzeigender Treffer (kann <code>null</code> sein)
+	 * @param allowOpenExample	Dürfen Beispielmodelle direkt geöffnet werden?
 	 */
-	public BookDataDialog(final Component owner, BookData.BookMatch match) {
+	public BookDataDialog(final Component owner, final BookData.BookMatch match, final boolean allowOpenExample) {
+		this(owner,match,false,allowOpenExample);
+	}
+
+	/**
+	 * Konstruktor der Klasse
+	 * @param owner	Übergeordnetes Element
+	 * @param openExamplesTab	Soll direkt nach dem Aufruf des Dialogs die Seite mit den Beispielmodellen angezeigt werden?
+	 * @param allowOpenExample	Dürfen Beispielmodelle direkt geöffnet werden?
+	 */
+	public BookDataDialog(final Component owner, final boolean openExamplesTab, final boolean allowOpenExample) {
+		this(owner,null,openExamplesTab,allowOpenExample);
+	}
+
+	/**
+	 * Konstruktor der Klasse
+	 * @param owner	Übergeordnetes Element
+	 * @param match	Direkt beim Öffnen des Dialogs anzuzeigender Treffer (kann <code>null</code> sein)
+	 * @param openExamplesTab	Soll direkt nach dem Aufruf des Dialogs die Seite mit den Beispielmodellen angezeigt werden?
+	 * @param allowOpenExample	Dürfen Beispielmodelle direkt geöffnet werden?
+	 */
+	public BookDataDialog(final Component owner, final BookData.BookMatch match, final boolean openExamplesTab, final boolean allowOpenExample) {
 		super(owner,Language.tr("BookData.BookName"));
 
 		setup=SetupData.getSetup();
 		data=BookData.getInstance();
 		index=data.getIndex();
 		indexKeys=index.keySet().stream().sorted().collect(Collectors.toList());
+		this.allowOpenExample=allowOpenExample;
 
 		labelBorder=BorderFactory.createEmptyBorder(5,10,5,10);
 
@@ -332,10 +411,26 @@ public class BookDataDialog extends BaseDialog {
 			@Override public void mousePressed(MouseEvent e) {if (e.getClickCount()==2 && SwingUtilities.isLeftMouseButton(e)) openPDFindex();}
 		});
 
+		/* Tab "Beispielmodelle" */
+		tabs.addTab(Language.tr("BookData.Tab.Examples"),tab=new JPanel(new BorderLayout()));
+		tab.add(info3=new JPanel(new FlowLayout(FlowLayout.LEFT)),BorderLayout.NORTH);
+		info3.add(new JLabel(Language.tr("BookData.Tab.Examples.ClickInfo")));
+		tab.add(new JScrollPane(examplesList=new JList<>(getExampleLabels())),BorderLayout.CENTER);
+		examplesList.setCellRenderer(new JLabelRender(Images.MODEL));
+		examplesList.setPrototypeCellValue(defaultLabel);
+		examplesList.addKeyListener(new KeyAdapter() {
+			@Override public void keyPressed(KeyEvent e) {if (e.getKeyCode()==KeyEvent.VK_ENTER) openExample();}
+		});
+		examplesList.addMouseListener(new MouseAdapter() {
+			@Override public void mousePressed(MouseEvent e) {if (e.getClickCount()==2 && SwingUtilities.isLeftMouseButton(e)) openExample();}
+		});
+		info3.setVisible(allowOpenExample);
+
 		/* Icons auf den Tabs */
 		tabs.setIconAt(0,Images.HELP_BOOK.getIcon());
 		tabs.setIconAt(1,Images.HELP_BOOK_CONTENT.getIcon());
 		tabs.setIconAt(2,Images.HELP_BOOK_INDEX.getIcon());
+		tabs.setIconAt(3,Images.MODEL.getIcon());
 
 		/* Treffer auswählen */
 		if (match instanceof BookData.BookSection) {
@@ -355,6 +450,11 @@ public class BookDataDialog extends BaseDialog {
 				indexList.ensureIndexIsVisible(i);
 				SwingUtilities.invokeLater(()->indexList.requestFocus());
 			}
+		}
+
+		/* Direkte Anzeige der Beispiele */
+		if (openExamplesTab) {
+			tabs.setSelectedIndex(3);
 		}
 
 		/* pdf-Datei timer-gestützt prüfen */
@@ -423,6 +523,19 @@ public class BookDataDialog extends BaseDialog {
 	private JLabel[] getIndexLabels() {
 		return indexKeys.stream().
 				map(name->new JLabel("<html><body><b>"+name+"</b> ("+Language.tr("BookData.page")+" "+String.join(", ",index.get(name).stream().map(I->I.toString()).toArray(String[]::new))+")</body></html>")).
+				map(label->{label.setBorder(labelBorder); return label;}).
+				toArray(JLabel[]::new);
+	}
+
+
+	/**
+	 * Erstellt die Einträge für die Beispielmodellliste
+	 * @return	Einträge für die Beispielmodellliste
+	 * @see #examplesList
+	 */
+	private JLabel[] getExampleLabels() {
+		return Stream.of(exampleModels).
+				map(exampleModel->new JLabel(exampleModel.getDescription())).
 				map(label->{label.setBorder(labelBorder); return label;}).
 				toArray(JLabel[]::new);
 	}
@@ -623,6 +736,30 @@ public class BookDataDialog extends BaseDialog {
 	}
 
 	/**
+	 * Lädt das gewählte Beispielmodell
+	 * @see #examplesList
+	 * @see #getSelectedExampleModel()
+	 */
+	private void openExample() {
+		final int selected=examplesList.getSelectedIndex();
+		if (selected<0) return;
+		if (!allowOpenExample) {
+			MsgBox.error(this,Language.tr("BookData.BookExample.ErrorTitle"),Language.tr("BookData.BookExample.ErrorInfo"));
+			return;
+		}
+		selectedExampleModel=exampleModels[selected].getModel(this);
+		if (selectedExampleModel!=null) close(BaseDialog.CLOSED_BY_OK);
+	}
+
+	/**
+	 * Liefert das zum Laden ausgewählte Beispielmodell.
+	 * @return	Zum Laden ausgewählte Beispielmodell (kann <code>null</code> sein)
+	 */
+	public EditModel getSelectedExampleModel() {
+		return selectedExampleModel;
+	}
+
+	/**
 	 * Renderer für die Einträge den Listen
 	 */
 	private static class JLabelRender implements ListCellRenderer<JLabel> {
@@ -651,6 +788,71 @@ public class BookDataDialog extends BaseDialog {
 			}
 			value.setIcon(icon);
 			return value;
+		}
+	}
+
+	/**
+	 * Eintrag für ein Beispielmodell
+	 * @see BookDataDialog#exampleModels
+	 */
+	private static class BookExampleModel {
+		/**
+		 * Dateiname (inkl. Erweiterung, ohne Pfad)
+		 */
+		private final String fileName;
+
+		/**
+		 * Kapitel in dem das Beispiel vorkommt
+		 */
+		private final String chapter;
+
+		/**
+		 * Name des Beispielmodells
+		 */
+		private final String name;
+
+		/**
+		 * Konstruktor der Klasse
+		 * @param fileName	Dateiname (inkl. Erweiterung, ohne Pfad)
+		 * @param chapter	Kapitel in dem das Beispiel vorkommt
+		 * @param name	Name des Beispielmodells
+		 */
+		public BookExampleModel(final String fileName, final String chapter, final String name) {
+			this.chapter=chapter;
+			this.fileName=fileName;
+			this.name=name;
+		}
+
+		/**
+		 * Liefert eine html-Beschreibung für das Beispiel
+		 * @return	html-Beschreibung für das Beispiel
+		 * @see BookDataDialog#examplesList
+		 */
+		public String getDescription() {
+			return String.format("<html><body>Kapitel %s: <b>%s</b></body></html>",chapter,name);
+		}
+
+		/**
+		 * Liefert das Beispielmodell als Objekt
+		 * @param owner	Übergeordnetes Element (zur Anzeige von Fehlermeldungen; darf <code>null</code> sein)
+		 * @return	Beispielmodell als Objekt
+		 */
+		public EditModel getModel(final Component owner) {
+			final EditModel editModel=new EditModel();
+			try (InputStream in=BookDataDialog.class.getResourceAsStream("bookexamples/"+fileName)) {
+				final String error=editModel.loadFromStream(in);
+				if (error!=null) {
+					if (owner==null) {
+						System.out.println(error);
+					} else {
+						MsgBox.error(owner,Language.tr("XML.LoadErrorTitle"),error);
+					}
+					return null;
+				}
+				return editModel;
+			} catch (IOException e) {
+				return null;
+			}
 		}
 	}
 }

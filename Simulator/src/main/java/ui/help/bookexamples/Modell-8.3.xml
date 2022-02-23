@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE Modell SYSTEM "https://a-herzog.github.io/Warteschlangensimulator/Simulator.dtd">
+<Modell xmlns="https://a-herzog.github.io" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://a-herzog.github.io https://a-herzog.github.io/Warteschlangensimulator/Simulator.xsd">
+  <!-- Diese Datei wurde mit Warteschlangensimulator erstellt. Download-Adresse: https://github.com/A-Herzog/Warteschlangensimulator -->
+  <ModellVersion>5.0.0</ModellVersion>
+  <ModellName>Beispielmodell aus Kapitel 8.3 - Steuerung des Transportziels über Texteigenschaften</ModellName>
+  <ModellAutor>Alexander Herzog</ModellAutor>
+  <ModellKunden Aktiv="1">10000000</ModellKunden>
+  <ModellAufwaermphase>0.05</ModellAufwaermphase>
+  <ModellAbbruchzeit Aktiv="0">10:00:00:00</ModellAbbruchzeit>
+  <ModellElemente>
+    <ModellElementQuelle id="1">
+      <ModellElementName>Kunden</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="50" y="150"/>
+      <ModellElementVerbindung Element="10" Typ="Auslaufend"/>
+      <ModellElementVerteilung Zeitbasis="Sekunden">Exponentialverteilung (60)</ModellElementVerteilung>
+      <ModellElementBatch Groesse="1"/>
+    </ModellElementQuelle>
+    <ModellElementTransportStart id="2">
+      <ModellElementGroesse h="50" w="100" x="750" y="150"/>
+      <ModellElementVerbindung Element="22" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="23" Typ="Einlaufend"/>
+      <ModellElementVerteilung Typ="Transferzeit" Zeitbasis="Sekunden">Exponentialverteilung (50)</ModellElementVerteilung>
+      <ModellElementTransportRouteNachEigenschaft>Ziel</ModellElementTransportRouteNachEigenschaft>
+      <ModellElementTransportRoute>C</ModellElementTransportRoute>
+    </ModellElementTransportStart>
+    <ModellElementTransportZiel id="4">
+      <ModellElementName>A</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="50" y="300"/>
+      <ModellElementVerbindung Element="6" Typ="Auslaufend"/>
+    </ModellElementTransportZiel>
+    <ModellElementEnde id="5">
+      <ModellElementGroesse h="50" w="100" x="250" y="300"/>
+      <ModellElementVerbindung Element="6" Typ="Einlaufend"/>
+    </ModellElementEnde>
+    <ModellElementKante id="6">
+      <ModellElementVerbindung Element1="4" Element2="5" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementEnde id="7">
+      <ModellElementGroesse h="50" w="100" x="250" y="400"/>
+      <ModellElementVerbindung Element="9" Typ="Einlaufend"/>
+    </ModellElementEnde>
+    <ModellElementTransportZiel id="8">
+      <ModellElementName>B</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="50" y="400"/>
+      <ModellElementVerbindung Element="9" Typ="Auslaufend"/>
+    </ModellElementTransportZiel>
+    <ModellElementKante id="9">
+      <ModellElementVerbindung Element1="8" Element2="7" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementEnde id="19">
+      <ModellElementGroesse h="50" w="100" x="250" y="500"/>
+      <ModellElementVerbindung Element="21" Typ="Einlaufend"/>
+    </ModellElementEnde>
+    <ModellElementTransportZiel id="20">
+      <ModellElementName>C</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="50" y="500"/>
+      <ModellElementVerbindung Element="21" Typ="Auslaufend"/>
+    </ModellElementTransportZiel>
+    <ModellElementKante id="21">
+      <ModellElementVerbindung Element1="20" Element2="19" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementVerzweigen id="3">
+      <ModellElementGroesse h="50" w="100" x="250" y="150"/>
+      <ModellElementVerzweigungsmodus>Zufall</ModellElementVerzweigungsmodus>
+      <ModellElementVerbindung Element="10" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="14" Rate="1" Typ="Auslaufend"/>
+      <ModellElementVerbindung Element="16" Rate="1" Typ="Auslaufend"/>
+    </ModellElementVerzweigen>
+    <ModellElementKante id="10">
+      <ModellElementName>Ankünfte (Kunden)</ModellElementName>
+      <ModellElementVerbindung Element1="1" Element2="3" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementZuweisungText id="11">
+      <ModellElementGroesse h="50" w="100" x="450" y="100"/>
+      <ModellElementVerbindung Element="14" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="17" Typ="Auslaufend"/>
+      <ModellElementZuweisungTextEintrag Schluessel="Ziel">A</ModellElementZuweisungTextEintrag>
+    </ModellElementZuweisungText>
+    <ModellElementZuweisungText id="12">
+      <ModellElementGroesse h="50" w="100" x="450" y="200"/>
+      <ModellElementVerbindung Element="16" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="18" Typ="Auslaufend"/>
+      <ModellElementZuweisungTextEintrag Schluessel="Ziel">B</ModellElementZuweisungTextEintrag>
+    </ModellElementZuweisungText>
+    <ModellElementIcon id="13">
+      <ModellElementGroesse h="50" w="100" x="600" y="100"/>
+      <ModellElementVerbindung Element="17" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="23" Typ="Auslaufend"/>
+      <ModellElementIconName>user</ModellElementIconName>
+    </ModellElementIcon>
+    <ModellElementIcon id="15">
+      <ModellElementGroesse h="50" w="100" x="600" y="200"/>
+      <ModellElementVerbindung Element="18" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="22" Typ="Auslaufend"/>
+      <ModellElementIconName>user_red</ModellElementIconName>
+    </ModellElementIcon>
+    <ModellElementKante id="14">
+      <ModellElementName>Rate 1 (50%)</ModellElementName>
+      <ModellElementVerbindung Element1="3" Element2="11" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="16">
+      <ModellElementName>Rate 1 (50%)</ModellElementName>
+      <ModellElementVerbindung Element1="3" Element2="12" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="17">
+      <ModellElementName>Ziel:=A</ModellElementName>
+      <ModellElementVerbindung Element1="11" Element2="13" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="18">
+      <ModellElementName>Ziel:=B</ModellElementName>
+      <ModellElementVerbindung Element1="12" Element2="15" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="22">
+      <ModellElementVerbindung Element1="15" Element2="2" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="23">
+      <ModellElementVerbindung Element1="13" Element2="2" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementText id="24">
+      <ModellElementGroesse h="23" w="753" x="50" y="50"/>
+      <ModellElementTextzeile>Beispielmodell aus Kapitel 8.3 - Steuerung des Transportziels über Texteigenschaften</ModellElementTextzeile>
+      <ModellElementSchriftgrosse fett="1">18</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementText id="25">
+      <ModellElementGroesse h="152" w="409" x="400" y="300"/>
+      <ModellElementTextzeile>In diesem Modell existiert nur ein Kundentyp (d.h. eine Auswahl</ModellElementTextzeile>
+      <ModellElementTextzeile>des Transportziels über den Kundentyp scheidet aus). Den</ModellElementTextzeile>
+      <ModellElementTextzeile>Kunden wird jedoch als Textfeld der Wert "A" oder "B" an die</ModellElementTextzeile>
+      <ModellElementTextzeile>Variable "Ziel" zugewiesen (und zusätzlich erhalten die Kunden mit</ModellElementTextzeile>
+      <ModellElementTextzeile>Ziel:=A ein blaues Icon und die Kunden mit Ziel:=B ein rotes Icon).</ModellElementTextzeile>
+      <ModellElementTextzeile/>
+      <ModellElementTextzeile>Es kann beobachtet werden, wie die blau eingefärbten Kunden an</ModellElementTextzeile>
+      <ModellElementTextzeile>Ziel "A" erscheinen und die rot eingefärbten Kunden an Ziel "B".</ModellElementTextzeile>
+      <ModellElementSchriftgrosse>14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+  </ModellElemente>
+  <Ressourcen UntergeordnetePrioritaet="Zufaellig"/>
+  <KundentypenDaten>
+    <KundenDaten Icon="user_red" Name="Kunden B"/>
+  </KundentypenDaten>
+  <ModellKantenNormal Breite="1" Farbe="0,0,0" Typ="0"/>
+  <ModellKantenSelektiert Breite="1" Typ="0"/>
+  <ModellElementVerbindungsdarstellungsart>Abgerundet abgewinkelt</ModellElementVerbindungsdarstellungsart>
+</Modell>

@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE Modell SYSTEM "https://a-herzog.github.io/Warteschlangensimulator/Simulator.dtd">
+<Modell xmlns="https://a-herzog.github.io" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://a-herzog.github.io https://a-herzog.github.io/Warteschlangensimulator/Simulator.xsd">
+  <!-- Diese Datei wurde mit Warteschlangensimulator erstellt. Download-Adresse: https://github.com/A-Herzog/Warteschlangensimulator -->
+  <ModellVersion>5.0.0</ModellVersion>
+  <ModellName>Beispielmodell aus Kapitel 8.1 - Von zwei Stationen gemeinsam genutzte Ressource</ModellName>
+  <ModellAutor>Alexander Herzog</ModellAutor>
+  <ModellKunden Aktiv="1">10000000</ModellKunden>
+  <ModellAufwaermphase>0.05</ModellAufwaermphase>
+  <ModellAbbruchzeit Aktiv="0">10:00:00:00</ModellAbbruchzeit>
+  <ModellElemente>
+    <ModellElementQuelle id="1">
+      <ModellElementName>Kunden</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="50" y="150"/>
+      <ModellElementVerbindung Element="3" Typ="Auslaufend"/>
+      <ModellElementVerteilung Zeitbasis="Sekunden">Exponentialverteilung (10.2)</ModellElementVerteilung>
+      <ModellElementBatch Groesse="1"/>
+    </ModellElementQuelle>
+    <ModellElementVerzweigen id="2">
+      <ModellElementGroesse h="50" w="100" x="250" y="150"/>
+      <ModellElementVerzweigungsmodus>BedienstationMinimumNQ</ModellElementVerzweigungsmodus>
+      <ModellElementVerbindung Element="3" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="5" Typ="Auslaufend"/>
+      <ModellElementVerbindung Element="10" Typ="Auslaufend"/>
+    </ModellElementVerzweigen>
+    <ModellElementKante id="3">
+      <ModellElementName>Ankünfte (Kunden)</ModellElementName>
+      <ModellElementVerbindung Element1="1" Element2="2" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementBedienstation id="4">
+      <ModellElementName>A</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="400" y="100"/>
+      <ModellElementVerbindung Element="5" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="7" Typ="Auslaufend"/>
+      <ModellElementVerteilung Status="Bedienzeit" Typ="Bedienzeiten" Zeitbasis="Sekunden">Lognormalverteilung (10;2)</ModellElementVerteilung>
+      <ModellElementPrioritaet Kundentyp="Kunden">w</ModellElementPrioritaet>
+      <ModellElementBediener Alternative="1" Anzahl="1" Gruppe="BedienerA"/>
+      <ModellElementBediener Alternative="1" Anzahl="1" Gruppe="Kelle"/>
+      <ModellElementBedienerPrioritaet>1</ModellElementBedienerPrioritaet>
+    </ModellElementBedienstation>
+    <ModellElementKante id="5">
+      <ModellElementVerbindung Element1="2" Element2="4" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementBedienstation id="6">
+      <ModellElementName>B</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="400" y="195"/>
+      <ModellElementVerbindung Element="10" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="9" Typ="Auslaufend"/>
+      <ModellElementVerteilung Status="Bedienzeit" Typ="Bedienzeiten" Zeitbasis="Sekunden">Lognormalverteilung (10;2)</ModellElementVerteilung>
+      <ModellElementPrioritaet Kundentyp="Kunden">w</ModellElementPrioritaet>
+      <ModellElementBediener Alternative="1" Anzahl="1" Gruppe="BedienerB"/>
+      <ModellElementBediener Alternative="1" Anzahl="1" Gruppe="Kelle"/>
+      <ModellElementBedienerPrioritaet>1</ModellElementBedienerPrioritaet>
+    </ModellElementBedienstation>
+    <ModellElementEnde id="8">
+      <ModellElementGroesse h="50" w="100" x="550" y="150"/>
+      <ModellElementVerbindung Element="9" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="7" Typ="Einlaufend"/>
+    </ModellElementEnde>
+    <ModellElementKante id="9">
+      <ModellElementVerbindung Element1="6" Element2="8" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="7">
+      <ModellElementVerbindung Element1="4" Element2="8" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="10">
+      <ModellElementVerbindung Element1="2" Element2="6" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementText id="11">
+      <ModellElementGroesse h="23" w="737" x="50" y="50"/>
+      <ModellElementTextzeile>Beispielmodell aus Kapitel 8.1 - Von zwei Stationen gemeinsam genutzte Ressource</ModellElementTextzeile>
+      <ModellElementSchriftgrosse fett="1">18</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementText id="12">
+      <ModellElementGroesse h="95" w="554" x="50" y="300"/>
+      <ModellElementTextzeile>An Bedienstation A werden "BedienerA" und "Kelle" zur Bedienung eines Kunden benötigt.</ModellElementTextzeile>
+      <ModellElementTextzeile>An Bedienstation B werden "BedienerB" und "Kelle" zur Bedienung eines Kunden benötigt.</ModellElementTextzeile>
+      <ModellElementTextzeile>Da es nur eine Kelle gibt, wird die Gesamtbedienleistung letztendlich durch diese</ModellElementTextzeile>
+      <ModellElementTextzeile>limitiert. Das Gesamtsystem ist nur so leistungsfähig wie ein System aus einer</ModellElementTextzeile>
+      <ModellElementTextzeile>Bedienstation mit einem Bediener und einer Kelle.</ModellElementTextzeile>
+      <ModellElementSchriftgrosse>14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+  </ModellElemente>
+  <Ressourcen UntergeordnetePrioritaet="Zufaellig">
+    <Ressource Icon="status_online" Name="BedienerA" Typ="Anzahl" Wert="1"/>
+    <Ressource Icon="status_online" Name="BedienerB" Typ="Anzahl" Wert="1"/>
+    <Ressource Icon="status_online" Name="Kelle" Typ="Anzahl" Wert="1"/>
+  </Ressourcen>
+  <KundentypenDaten/>
+  <ModellKantenNormal Breite="1" Farbe="0,0,0" Typ="0"/>
+  <ModellKantenSelektiert Breite="1" Typ="0"/>
+  <ModellElementVerbindungsdarstellungsart>Abgerundet abgewinkelt</ModellElementVerbindungsdarstellungsart>
+</Modell>

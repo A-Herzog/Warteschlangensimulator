@@ -179,7 +179,7 @@ public class AutomaticHelpWindow extends JFrame {
 		/**
 		 * Hilfe-Viewer
 		 * @see #showPage(String)
-		 * @see HelpBase#getHTMLPanel(String)
+		 * @see HelpBase#getHTMLPanel(String, boolean)
 		 */
 		private JPanel helpPanel;
 		/** Übergeordnetes Element */
@@ -206,7 +206,7 @@ public class AutomaticHelpWindow extends JFrame {
 		public void showPage(final String page) {
 			if (parent==null) return;
 			if (helpPanel!=null) parent.remove(helpPanel);
-			parent.add(helpPanel=getHTMLPanel(page),BorderLayout.CENTER);
+			parent.add(helpPanel=getHTMLPanel(page,false),BorderLayout.CENTER);
 		}
 	}
 }

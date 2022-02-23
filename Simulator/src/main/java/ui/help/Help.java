@@ -29,7 +29,10 @@ import javax.swing.text.Element;
 import javax.swing.text.html.HTMLDocument;
 
 import language.Language;
+import simulator.editmodel.EditModel;
 import systemtools.help.HelpBase;
+import ui.MainFrame;
+import ui.MainPanel;
 import ui.tools.WindowSizeStorage;
 
 /**
@@ -73,7 +76,7 @@ public class Help extends HelpBase {
 
 	/**
 	 * Listener, der aufgerufen wird, wenn ein spezieller Link (beginnend mit "special:") angeklickt wird
-	 * @see #infoPanel(String, Consumer)
+	 * @see #infoPanel(String, Consumer, boolean)
 	 */
 	private Consumer<String> specialLinkListener;
 
@@ -81,22 +84,37 @@ public class Help extends HelpBase {
 	 * Erstellt ein Panel, in dem eine bestimmte Hilfe-Seite angezeigt wird
 	 * @param topic	Anzuzeigendes Thema (Dateiname ohne ".html"-Endung).
 	 * @param listener	Listener, der aufgerufen wird, wenn ein spezieller Link (beginnend mit "special:") angeklickt wird
+	 * @param modalHelp	Handelt es sich um ein modales Hilfefenster?
 	 * @return	Panel, welches die HTML-Seite enthält
 	 */
-	public static JPanel infoPanel(final String topic, final Consumer<String> listener) {
+	public static JPanel infoPanel(final String topic, final Consumer<String> listener, final boolean modalHelp) {
 		final Help help=new Help(null,null,true);
 		help.specialLinkListener=listener;
-		return help.getHTMLPanel(topic);
+		return help.getHTMLPanel(topic,modalHelp);
 	}
 
 	/**
 	 * Verarbeitet einen Klick auf einen Buch-Aufruf-Link
 	 * @param href	Buch-Aufruf-Link
+	 * @param modalHelp	Handelt es sich um ein modales Hilfefenster?
 	 * @see BookDataDialog
 	 */
-	private void processBookLink(final String href) {
+	private void processBookLink(final String href, final boolean modalHelp) {
 		final BookData.BookSection match=BookData.getInstance().getSection(href);
-		new BookDataDialog(parent,match);
+		final BookDataDialog dialog=new BookDataDialog(parent,match,!modalHelp);
+		final EditModel example=dialog.getSelectedExampleModel();
+		if (example!=null) {
+			Container c=parent;
+			while (c!=null && !(c instanceof MainPanel) && !(c instanceof MainFrame)) c=c.getParent();
+			if (c instanceof MainPanel) {
+				((MainPanel)c).commandFileModelExample(example);
+				return;
+			}
+			if (c instanceof MainFrame) {
+				((MainFrame)c).getMainPanel().commandFileModelExample(example);
+				return;
+			}
+		}
 	}
 
 	/**
@@ -107,13 +125,13 @@ public class Help extends HelpBase {
 
 	/**
 	 * Prefix für Links zu Buchkapiteln
-	 * @see #processBookLink(String)
+	 * @see #processBookLink(String, boolean)
 	 * @see BookDataDialog
 	 */
 	private static final String BOOK_KEY="book:";
 
 	@Override
-	protected void processSpecialLink(final String href) {
+	protected void processSpecialLink(final String href, final boolean modalHelp) {
 		if (href==null) return;
 		final String hrefLower=href.toLowerCase();
 
@@ -122,7 +140,7 @@ public class Help extends HelpBase {
 		}
 
 		if (hrefLower.startsWith(BOOK_KEY)) {
-			processBookLink(href.substring(BOOK_KEY.length()));
+			processBookLink(href.substring(BOOK_KEY.length()),modalHelp);
 		}
 	}
 

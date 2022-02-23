@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE Modell SYSTEM "https://a-herzog.github.io/Warteschlangensimulator/Simulator.dtd">
+<Modell xmlns="https://a-herzog.github.io" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://a-herzog.github.io https://a-herzog.github.io/Warteschlangensimulator/Simulator.xsd">
+  <!-- Diese Datei wurde mit Warteschlangensimulator erstellt. Download-Adresse: https://github.com/A-Herzog/Warteschlangensimulator -->
+  <ModellVersion>5.0.0</ModellVersion>
+  <ModellName>Beispielmodell aus Kapitel 8.2 - Zusammenführen von Bauteilen</ModellName>
+  <ModellAutor>Alexander Herzog</ModellAutor>
+  <ModellKunden Aktiv="1">1000000000</ModellKunden>
+  <ModellAufwaermphase>0.01</ModellAufwaermphase>
+  <ModellAbbruchzeit Aktiv="0">10:00:00:00</ModellAbbruchzeit>
+  <ModellElemente>
+    <ModellElementQuelle id="1">
+      <ModellElementName>Motor</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="50" y="100"/>
+      <ModellElementVerbindung Element="9" Typ="Auslaufend"/>
+      <ModellElementAusdruck Zeitbasis="Sekunden">LogNormalDist(60;std)</ModellElementAusdruck>
+      <ModellElementBatch Groesse="1"/>
+    </ModellElementQuelle>
+    <ModellElementQuelle id="2">
+      <ModellElementName>Karosserie</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="50" y="200"/>
+      <ModellElementVerbindung Element="4" Typ="Auslaufend"/>
+      <ModellElementAusdruck Zeitbasis="Sekunden">LogNormalDist(60;std)</ModellElementAusdruck>
+      <ModellElementBatch Groesse="1"/>
+    </ModellElementQuelle>
+    <ModellElementZusammenfuehren id="3">
+      <ModellElementGroesse h="50" w="100" x="250" y="150"/>
+      <ModellElementVerbindung Element="4" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="9" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="6" Typ="Auslaufend"/>
+      <ModellElementBatchModus>Dauerhaft</ModellElementBatchModus>
+      <ModellElementKundentyp>Auto</ModellElementKundentyp>
+    </ModellElementZusammenfuehren>
+    <ModellElementKante id="4">
+      <ModellElementName>Ankünfte (Karosserie)</ModellElementName>
+      <ModellElementVerbindung Element1="2" Element2="3" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementBedienstation id="5">
+      <ModellElementGroesse h="50" w="100" x="500" y="150"/>
+      <ModellElementVerbindung Element="6" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="8" Typ="Auslaufend"/>
+      <ModellElementVerteilung Status="Bedienzeit" Typ="Bedienzeiten" Zeitbasis="Sekunden">Lognormalverteilung (50;10)</ModellElementVerteilung>
+      <ModellElementPrioritaet Kundentyp="Auto">w</ModellElementPrioritaet>
+      <ModellElementPrioritaet Kundentyp="Karosserie">w</ModellElementPrioritaet>
+      <ModellElementPrioritaet Kundentyp="Motor">w</ModellElementPrioritaet>
+      <ModellElementBediener Alternative="1" Anzahl="1" Gruppe="Neue Bedienergruppe"/>
+      <ModellElementBedienerPrioritaet>1</ModellElementBedienerPrioritaet>
+    </ModellElementBedienstation>
+    <ModellElementKante id="6">
+      <ModellElementName>Neuer Kundentyp "Auto"</ModellElementName>
+      <ModellElementVerbindung Element1="3" Element2="5" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementEnde id="7">
+      <ModellElementGroesse h="50" w="100" x="650" y="150"/>
+      <ModellElementVerbindung Element="8" Typ="Einlaufend"/>
+    </ModellElementEnde>
+    <ModellElementKante id="8">
+      <ModellElementVerbindung Element1="5" Element2="7" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="9">
+      <ModellElementName>Ankünfte (Motor)</ModellElementName>
+      <ModellElementVerbindung Element1="1" Element2="3" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementText id="10">
+      <ModellElementGroesse h="23" w="564" x="50" y="50"/>
+      <ModellElementTextzeile>Beispielmodell aus Kapitel 8.2 - Zusammenführen von Bauteilen</ModellElementTextzeile>
+      <ModellElementSchriftgrosse fett="1">18</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementText id="11">
+      <ModellElementGroesse h="114" w="443" x="50" y="300"/>
+      <ModellElementTextzeile>An der Zusammenführen-Station wird jeweils immer genau ein Motor mit</ModellElementTextzeile>
+      <ModellElementTextzeile>einer Karosserie verbunden. Betrachtet man jeweils einen Teil als</ModellElementTextzeile>
+      <ModellElementTextzeile>Kunde und den anderen als Bediener, so gilt bei exakt identischer</ModellElementTextzeile>
+      <ModellElementTextzeile>Ankunftsrate rho=1. In allen anderen Fällen gilt sogar rho&gt;1, d.h.</ModellElementTextzeile>
+      <ModellElementTextzeile>es ist stets mit sehr hohen mittleren Wartezeiten der einen oder</ModellElementTextzeile>
+      <ModellElementTextzeile>der anderen Komponente zu rechnen.</ModellElementTextzeile>
+      <ModellElementSchriftgrosse>14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+  </ModellElemente>
+  <Ressourcen UntergeordnetePrioritaet="Zufaellig">
+    <Ressource Name="Neue Bedienergruppe" Typ="Anzahl" Wert="1"/>
+  </Ressourcen>
+  <KundentypenDaten/>
+  <InitialeVariable Name="std">10</InitialeVariable>
+  <ModellKantenNormal Breite="1" Farbe="0,0,0" Typ="0"/>
+  <ModellKantenSelektiert Breite="1" Typ="0"/>
+  <ModellElementVerbindungsdarstellungsart>Abgerundet abgewinkelt</ModellElementVerbindungsdarstellungsart>
+</Modell>

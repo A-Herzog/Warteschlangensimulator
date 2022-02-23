@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE Modell SYSTEM "https://a-herzog.github.io/Warteschlangensimulator/Simulator.dtd">
+<Modell xmlns="https://a-herzog.github.io" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://a-herzog.github.io https://a-herzog.github.io/Warteschlangensimulator/Simulator.xsd">
+  <!-- Diese Datei wurde mit Warteschlangensimulator erstellt. Download-Adresse: https://github.com/A-Herzog/Warteschlangensimulator -->
+  <ModellVersion>5.0.0</ModellVersion>
+  <ModellName>Beispielmodell aus Kapitel 8.2 - Verschiedene Arten der Batch-Bildung</ModellName>
+  <ModellAutor>Alexander Herzog</ModellAutor>
+  <ModellKunden Aktiv="1">10000000</ModellKunden>
+  <ModellAufwaermphase>0.05</ModellAufwaermphase>
+  <ModellAbbruchzeit Aktiv="0">10:00:00:00</ModellAbbruchzeit>
+  <ModellElemente>
+    <ModellElementQuelle id="1">
+      <ModellElementName>Kunden A</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="50" y="100"/>
+      <ModellElementVerbindung Element="3" Typ="Auslaufend"/>
+      <ModellElementVerteilung Zeitbasis="Sekunden">Exponentialverteilung (60)</ModellElementVerteilung>
+      <ModellElementBatch Groesse="1"/>
+    </ModellElementQuelle>
+    <ModellElementZusammenfassen id="2">
+      <ModellElementGroesse h="50" w="100" x="400" y="150"/>
+      <ModellElementVerbindung Element="11" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="5" Typ="Auslaufend"/>
+      <ModellElementBatchModus>Zeitweise</ModellElementBatchModus>
+      <ModellElementKundentyp>Batch</ModellElementKundentyp>
+      <ModellElementBatch Maximum="2" Minimum="2"/>
+    </ModellElementZusammenfassen>
+    <ModellElementVerzoegerung id="4">
+      <ModellElementGroesse h="50" w="100" x="650" y="150"/>
+      <ModellElementVerbindung Element="5" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="7" Typ="Auslaufend"/>
+      <ModellElementAusdruck Typ="Transferzeit" Zeitbasis="Sekunden">45</ModellElementAusdruck>
+    </ModellElementVerzoegerung>
+    <ModellElementKante id="5">
+      <ModellElementName>Neuer Kundentyp "Batch"</ModellElementName>
+      <ModellElementVerbindung Element1="2" Element2="4" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementEnde id="6">
+      <ModellElementGroesse h="50" w="100" x="800" y="150"/>
+      <ModellElementVerbindung Element="7" Typ="Einlaufend"/>
+    </ModellElementEnde>
+    <ModellElementKante id="7">
+      <ModellElementVerbindung Element1="4" Element2="6" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementQuelle id="8">
+      <ModellElementName>Kunden B</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="50" y="200"/>
+      <ModellElementVerbindung Element="9" Typ="Auslaufend"/>
+      <ModellElementVerteilung Zeitbasis="Sekunden">Exponentialverteilung (60)</ModellElementVerteilung>
+      <ModellElementBatch Groesse="1"/>
+    </ModellElementQuelle>
+    <ModellElementVerzoegerung id="10">
+      <ModellElementGroesse h="50" w="100" x="250" y="150"/>
+      <ModellElementVerbindung Element="3" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="9" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="11" Typ="Auslaufend"/>
+      <ModellElementAusdruck Typ="Bedienzeit" Zeitbasis="Sekunden">30</ModellElementAusdruck>
+    </ModellElementVerzoegerung>
+    <ModellElementKante id="3">
+      <ModellElementName>Ankünfte (Kunden A)</ModellElementName>
+      <ModellElementVerbindung Element1="1" Element2="10" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="9">
+      <ModellElementName>Ankünfte (Kunden B)</ModellElementName>
+      <ModellElementVerbindung Element1="8" Element2="10" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="11">
+      <ModellElementVerbindung Element1="10" Element2="2" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementText id="12">
+      <ModellElementGroesse h="23" w="619" x="50" y="50"/>
+      <ModellElementTextzeile>Beispielmodell aus Kapitel 8.2 - Verschiedene Arten der Batch-Bildung</ModellElementTextzeile>
+      <ModellElementSchriftgrosse fett="1">18</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementText id="13">
+      <ModellElementGroesse h="589" w="475" x="50" y="300"/>
+      <ModellElementTextzeile>An der ersten Verzögerung-Station werden Kunden der Typen A und B</ModellElementTextzeile>
+      <ModellElementTextzeile>jeweils für 30 Sekunden verzögert (Erfassung als Bedienzeit).</ModellElementTextzeile>
+      <ModellElementTextzeile>An der zweiten Verzögerung-Station werden die Kunden jeweils für</ModellElementTextzeile>
+      <ModellElementTextzeile>45 Sekunde verzögert (Erfassung als Transferzeit). Je nach gewählter</ModellElementTextzeile>
+      <ModellElementTextzeile>Batch-Bildungsmethode werden verschiedene Werte in der Statistik</ModellElementTextzeile>
+      <ModellElementTextzeile>erfasst:</ModellElementTextzeile>
+      <ModellElementTextzeile/>
+      <ModellElementTextzeile>Modus "Kunden weiterleiten":</ModellElementTextzeile>
+      <ModellElementTextzeile>Kunden A: S=30 Sekunden, T=45 Sekunden</ModellElementTextzeile>
+      <ModellElementTextzeile>Kunden B: S=30 Sekunden, T=45 Sekunden</ModellElementTextzeile>
+      <ModellElementTextzeile>(Es erfolgt keine Batch-Bildung.)</ModellElementTextzeile>
+      <ModellElementTextzeile/>
+      <ModellElementTextzeile>Modus "Temporärer Batch":</ModellElementTextzeile>
+      <ModellElementTextzeile>Kunden A: S=30 Sekunden, T=45 Sekunden</ModellElementTextzeile>
+      <ModellElementTextzeile>Kunden B: S=30 Sekunden, T=45 Sekunden</ModellElementTextzeile>
+      <ModellElementTextzeile>(Der Batch wird aufgelöst, wenn die Kunden das System verlassen.)</ModellElementTextzeile>
+      <ModellElementTextzeile/>
+      <ModellElementTextzeile>Modus "Permanenter Batch":</ModellElementTextzeile>
+      <ModellElementTextzeile>Kunden A: S=30 Sekunden</ModellElementTextzeile>
+      <ModellElementTextzeile>Kunden B: S=30 Sekunden</ModellElementTextzeile>
+      <ModellElementTextzeile>Batch: T=45 Sekunden</ModellElementTextzeile>
+      <ModellElementTextzeile>(Die Kunden A und B existieren nur bis zur Batch-Bildungstation.</ModellElementTextzeile>
+      <ModellElementTextzeile>Danach existiert dann der neue Kundentyp "Batch".)</ModellElementTextzeile>
+      <ModellElementTextzeile/>
+      <ModellElementTextzeile>Außerdem entfallen in jedem Fall 15 Sekunden mittlere Wartezeit</ModellElementTextzeile>
+      <ModellElementTextzeile>auf die Kundentypen A und B. Im Mittel trifft alle 60 Sekunden</ModellElementTextzeile>
+      <ModellElementTextzeile>ein Kunde vom Typ A und vom Typ B ein, d.h. im Mittel trifft</ModellElementTextzeile>
+      <ModellElementTextzeile>alle 30 Sekunden ein Kunde am System ein. Da an der Batch-Station</ModellElementTextzeile>
+      <ModellElementTextzeile>immer 2 Kunden (egal welchen Typs) zusammengefasst werden, muss immer</ModellElementTextzeile>
+      <ModellElementTextzeile>einer von zwei Kunden im Mittel 30 Sekunden warten und der jeweils</ModellElementTextzeile>
+      <ModellElementTextzeile>andere überhaupt nicht, d.h. im Mittel über alle Kunden 15 Sekunden.</ModellElementTextzeile>
+      <ModellElementSchriftgrosse>14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+  </ModellElemente>
+  <Ressourcen UntergeordnetePrioritaet="Zufaellig"/>
+  <KundentypenDaten/>
+  <ModellKantenNormal Breite="1" Farbe="0,0,0" Typ="0"/>
+  <ModellKantenSelektiert Breite="1" Typ="0"/>
+  <ModellElementVerbindungsdarstellungsart>Abgerundet abgewinkelt</ModellElementVerbindungsdarstellungsart>
+</Modell>

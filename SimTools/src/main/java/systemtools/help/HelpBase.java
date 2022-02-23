@@ -189,7 +189,7 @@ public abstract class HelpBase {
 	 * @see #helpDialog
 	 */
 	private void showHelpDialog(final String topic) {
-		helpDialog=new HTMLDialog(getOwnerWindow(parent),title,topic,()->processSpecialLink(getHRef())) {
+		helpDialog=new HTMLDialog(getOwnerWindow(parent),title,topic,()->processSpecialLink(getHRef(),true)) {
 			/**
 			 * Serialisierungs-ID der Klasse
 			 * @see Serializable
@@ -220,7 +220,7 @@ public abstract class HelpBase {
 	private void showHelpWindow(final String topic) {
 		boolean newWindow=false;
 		if (helpFrame==null || !helpFrame.isVisible()) {
-			helpFrame=new HTMLFrame(getOwnerWindow(parent),title,()->processSpecialLink(getHRef())) {
+			helpFrame=new HTMLFrame(getOwnerWindow(parent),title,()->processSpecialLink(getHRef(),false)) {
 				/**
 				 * Serialisierungs-ID der Klasse
 				 * @see Serializable
@@ -301,8 +301,9 @@ public abstract class HelpBase {
 	/**
 	 * Verarbeitet das Klicken auf einen Link, der nicht mit "http:", "https:" oder "mailto:" beginnt.
 	 * @param href	href-Attribut des angeklickten Links
+	 * @param modalHelp	Handelt es sich um ein modales Hilfefenster?
 	 */
-	protected void processSpecialLink(String href) {
+	protected void processSpecialLink(final String href, final boolean modalHelp) {
 		/*
 		Beispiel:
 		final String key="special:";
@@ -314,25 +315,26 @@ public abstract class HelpBase {
 	/**
 	 * Ermittelt das Linkziel des angeklickten Links
 	 * @return	Linkziel des angeklickten Links
-	 * @see #processSpecialLink(String)
+	 * @see #processSpecialLink(String, boolean)
 	 */
 	private String getHRef() {
 		return (helpDialog!=null && helpDialog.isVisible())?helpDialog.getSpecialLink():helpFrame.getSpecialLink();
 	}
 
 	/**
-	 * Zuletzt in {@link #getHTMLPanel(String)} erzeugtes Hilfepanel.
+	 * Zuletzt in {@link #getHTMLPanel(String, boolean)} erzeugtes Hilfepanel.
 	 */
 	private HTMLPanel lastPanel;
 
 	/**
 	 * Erstellt ein <code>JPanel</code> und zeigt darin eine bestimmte Hilfeseite an.<br>
 	 * Es existiert nur ein Panel dieser Art, d.h. es können nicht an verschiedenen
-	 * Stellen gleichzeitig per {@link #getHTMLPanel(String)} erzeugte Panels verwendet werden.
+	 * Stellen gleichzeitig per {@link #getHTMLPanel(String, boolean)} erzeugte Panels verwendet werden.
 	 * @param page	Anzuzeigende Seite
+	 * @param modalHelp	Handelt es sich um ein modales Hilfefenster?
 	 * @return	Objekt vom Typ <code>JPanel</code>
 	 */
-	public HTMLPanel getHTMLPanel(final String page) {
+	public HTMLPanel getHTMLPanel(final String page, final boolean modalHelp) {
 		if (lastPanel==null) {
 			lastPanel=new HTMLPanel(false,false,null) {
 				private static final long serialVersionUID = 1L;
@@ -345,7 +347,7 @@ public abstract class HelpBase {
 					return HelpBase.this.getPageURL(res);
 				}
 			};
-			lastPanel.setProcessSpecialLink(()->processSpecialLink(lastPanel.getSpecialLink()));
+			lastPanel.setProcessSpecialLink(()->processSpecialLink(lastPanel.getSpecialLink(),modalHelp));
 		}
 		lastPanel.loadPage(lastPanel.getPageURL(page+".html"));
 		return lastPanel;

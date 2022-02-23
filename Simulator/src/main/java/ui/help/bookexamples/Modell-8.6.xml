@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE Modell SYSTEM "https://a-herzog.github.io/Warteschlangensimulator/Simulator.dtd">
+<Modell xmlns="https://a-herzog.github.io" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://a-herzog.github.io https://a-herzog.github.io/Warteschlangensimulator/Simulator.xsd">
+  <!-- Diese Datei wurde mit Warteschlangensimulator erstellt. Download-Adresse: https://github.com/A-Herzog/Warteschlangensimulator -->
+  <ModellVersion>5.0.0</ModellVersion>
+  <ModellName>Beispielmodell aus Kapitel 8.6 - Bediener mit Ausfallzeiten</ModellName>
+  <ModellAutor>Alexander Herzog</ModellAutor>
+  <ModellKunden Aktiv="1">10000000</ModellKunden>
+  <ModellAufwaermphase>0.05</ModellAufwaermphase>
+  <ModellAbbruchzeit Aktiv="0">10:00:00:00</ModellAbbruchzeit>
+  <ModellElemente>
+    <ModellElementQuelle id="1">
+      <ModellElementName>Kunden</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="50" y="100"/>
+      <ModellElementVerbindung Element="5" Typ="Auslaufend"/>
+      <ModellElementAnkunftsbedingung MinimalerAbstand="1">WIP(2)+WIP(3)&lt;maxPull</ModellElementAnkunftsbedingung>
+      <ModellElementBatch Groesse="1"/>
+    </ModellElementQuelle>
+    <ModellElementBedienstation id="2">
+      <ModellElementName>Ausfälle</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="250" y="100"/>
+      <ModellElementVerbindung Element="5" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="6" Typ="Auslaufend"/>
+      <ModellElementVerteilung Status="Bedienzeit" Typ="Bedienzeiten" Zeitbasis="Sekunden">Exponentialverteilung (50)</ModellElementVerteilung>
+      <ModellElementPrioritaet Kundentyp="Kunden">w</ModellElementPrioritaet>
+      <ModellElementBediener Alternative="1" Anzahl="1" Gruppe="Bediener1"/>
+      <ModellElementBedienerPrioritaet>1</ModellElementBedienerPrioritaet>
+    </ModellElementBedienstation>
+    <ModellElementBedienstation id="3">
+      <ModellElementName>keine Ausfälle</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="400" y="100"/>
+      <ModellElementVerbindung Element="6" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="8" Typ="Auslaufend"/>
+      <ModellElementVerteilung Status="Bedienzeit" Typ="Bedienzeiten" Zeitbasis="Sekunden">Exponentialverteilung (50)</ModellElementVerteilung>
+      <ModellElementPrioritaet Kundentyp="Kunden">w</ModellElementPrioritaet>
+      <ModellElementBediener Alternative="1" Anzahl="1" Gruppe="Bediener2"/>
+      <ModellElementBedienerPrioritaet>1</ModellElementBedienerPrioritaet>
+    </ModellElementBedienstation>
+    <ModellElementEnde id="4">
+      <ModellElementGroesse h="50" w="100" x="700" y="100"/>
+      <ModellElementVerbindung Element="9" Typ="Einlaufend"/>
+    </ModellElementEnde>
+    <ModellElementKante id="5">
+      <ModellElementName>Ankünfte (Kunden)</ModellElementName>
+      <ModellElementVerbindung Element1="1" Element2="2" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="6">
+      <ModellElementVerbindung Element1="2" Element2="3" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementDurchsatz id="7">
+      <ModellElementName>Produktion</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="550" y="100"/>
+      <ModellElementVerbindung Element="8" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="9" Typ="Auslaufend"/>
+    </ModellElementDurchsatz>
+    <ModellElementKante id="8">
+      <ModellElementVerbindung Element1="3" Element2="7" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="9">
+      <ModellElementVerbindung Element1="7" Element2="4" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementText id="10">
+      <ModellElementGroesse h="23" w="513" x="50" y="50"/>
+      <ModellElementTextzeile>Beispielmodell aus Kapitel 8.6 - Bediener mit Ausfallzeiten</ModellElementTextzeile>
+      <ModellElementSchriftgrosse fett="1">18</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementText id="11">
+      <ModellElementGroesse h="209" w="438" x="65" y="215"/>
+      <ModellElementTextzeile>Der Bediener an Station "Ausfälle" fällt im Mittel einmal pro Stunde</ModellElementTextzeile>
+      <ModellElementTextzeile>für im Mittel 5 Minuten aus. Über die globale Variable "maxPull" kann</ModellElementTextzeile>
+      <ModellElementTextzeile>gesteuert werden, wie viele Kunden sich gleichzeitig im System</ModellElementTextzeile>
+      <ModellElementTextzeile>befinden dürften. Je höher dieser Wert gewählt wird, desto höher</ModellElementTextzeile>
+      <ModellElementTextzeile>ist die Chance, dass Station 2 auch bei einem Ausfall von Station 1</ModellElementTextzeile>
+      <ModellElementTextzeile>noch weiterarbeiten arbeiten kann. Allerdings erkauft man sich diesen</ModellElementTextzeile>
+      <ModellElementTextzeile>höheren Durchsatz mit einem höheren Umlaufbestand.</ModellElementTextzeile>
+      <ModellElementTextzeile/>
+      <ModellElementTextzeile>Per Parameterreihe kann der Zusammenhang zwischen Umlaufbestand</ModellElementTextzeile>
+      <ModellElementTextzeile>und Durchsatz untersucht werden. (Der theoretisch maximal mögliche</ModellElementTextzeile>
+      <ModellElementTextzeile>Durchsatz liegt bei 0,019 Kunden/Sekunde.)</ModellElementTextzeile>
+      <ModellElementSchriftgrosse>14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+  </ModellElemente>
+  <Ressourcen UntergeordnetePrioritaet="Zufaellig">
+    <Ressource Icon="status_online" Name="Bediener1" Typ="Anzahl" Wert="1">
+      <RessourceAusfall AusfallGemaessVerteilung="Exponentialverteilung (3600)" AusfallVerteilung="Exponentialverteilung (300)"/>
+    </Ressource>
+    <Ressource Name="Bediener2" Typ="Anzahl" Wert="1"/>
+  </Ressourcen>
+  <KundentypenDaten/>
+  <InitialeVariable Name="maxPull">20</InitialeVariable>
+  <ModellKantenNormal Breite="1" Farbe="0,0,0" Typ="0"/>
+  <ModellKantenSelektiert Breite="1" Typ="0"/>
+  <ModellElementVerbindungsdarstellungsart>Abgerundet abgewinkelt</ModellElementVerbindungsdarstellungsart>
+</Modell>

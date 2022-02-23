@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-02-19 19:54+0100\n"
+"POT-Creation-Date: 2022-02-22 20:16+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -803,6 +803,12 @@ msgstr "Select filter script to be executed"
 msgid "BookData.AccessInfo"
 msgstr "The e-book pdf version can be linked directly to the simulator via the input field below. It is then directly available in addition to the online help. The quick access (Ctrl+E) can be used to search directly in the table of contents and the index and to open the respective matching pages in the pdf."
 
+msgid "BookData.BookExample.ErrorInfo"
+msgstr "Example models cannot be loaded as long as a dialog is opened."
+
+msgid "BookData.BookExample.ErrorTitle"
+msgstr "Cannot open example model"
+
 msgid "BookData.BookName"
 msgstr "Textbook \"Simulation mit dem Warteschlangensimulator\" (in German)"
 
@@ -852,6 +858,12 @@ msgstr "Select page"
 
 msgid "BookData.Tab.Book"
 msgstr "Book"
+
+msgid "BookData.Tab.Examples"
+msgstr "Example models"
+
+msgid "BookData.Tab.Examples.ClickInfo"
+msgstr "By dobble clicking individual examples the models can be loaded directly."
 
 msgid "BookData.Tab.Index"
 msgstr "Index"
@@ -9482,6 +9494,12 @@ msgstr "Select example by preview..."
 
 msgid "Main.Menu.File.LoadExample.ByPreview.Mnemonic"
 msgstr "p"
+
+msgid "Main.Menu.File.LoadExample.FromBook"
+msgstr "Select example from textbook..."
+
+msgid "Main.Menu.File.LoadExample.FromBook.Mnemonic"
+msgstr "t"
 
 msgid "Main.Menu.File.LoadExample.Mnemonic"
 msgstr "E"

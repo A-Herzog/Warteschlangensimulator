@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE Modell SYSTEM "https://a-herzog.github.io/Warteschlangensimulator/Simulator.dtd">
+<Modell xmlns="https://a-herzog.github.io" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://a-herzog.github.io https://a-herzog.github.io/Warteschlangensimulator/Simulator.xsd">
+  <!-- Diese Datei wurde mit Warteschlangensimulator erstellt. Download-Adresse: https://github.com/A-Herzog/Warteschlangensimulator -->
+  <ModellVersion>5.0.0</ModellVersion>
+  <ModellName>Beispielmodell aus Kapitel 7.4 - Priorisierung nach Liefertermin</ModellName>
+  <ModellAutor>Alexander Herzog</ModellAutor>
+  <ModellKunden Aktiv="1">2000000</ModellKunden>
+  <ModellAufwaermphase>0.05</ModellAufwaermphase>
+  <ModellAbbruchzeit Aktiv="0">10:00:00:00</ModellAbbruchzeit>
+  <ModellElemente>
+    <ModellElementQuelle id="1">
+      <ModellElementName>Kunden</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="50" y="250"/>
+      <ModellElementVerbindung Element="3" Typ="Auslaufend"/>
+      <ModellElementVerteilung Zeitbasis="Sekunden">Exponentialverteilung (60)</ModellElementVerteilung>
+      <ModellElementBatch Groesse="1"/>
+    </ModellElementQuelle>
+    <ModellElementVariable id="2">
+      <ModellElementGroesse h="50" w="100" x="250" y="250"/>
+      <ModellElementVerbindung Element="3" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="5" Typ="Auslaufend"/>
+      <ModellElementVariablenzuweisung Variable="ClientData(1)">TNow()+ExpDist(ETerminAuftrag)</ModellElementVariablenzuweisung>
+    </ModellElementVariable>
+    <ModellElementKante id="3">
+      <ModellElementName>Ankünfte (Kunden)</ModellElementName>
+      <ModellElementVerbindung Element1="1" Element2="2" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementDuplizieren id="4">
+      <ModellElementGroesse h="50" w="100" x="450" y="250"/>
+      <ModellElementVerbindung Element="5" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="9" NeuerKundentyp="KundenFIFO" Typ="Auslaufend"/>
+      <ModellElementVerbindung Element="8" NeuerKundentyp="KundenDynamic" Typ="Auslaufend"/>
+    </ModellElementDuplizieren>
+    <ModellElementKante id="5">
+      <ModellElementVerbindung Element1="2" Element2="4" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementBedienstation id="6">
+      <ModellElementName>FIFO</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="650" y="150"/>
+      <ModellElementVerbindung Element="8" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="10" Typ="Auslaufend"/>
+      <ModellElementVerteilung Status="Bedienzeit" Typ="Bedienzeiten" Zeitbasis="Sekunden">Exponentialverteilung (50)</ModellElementVerteilung>
+      <ModellElementPrioritaet Kundentyp="Kunden">w</ModellElementPrioritaet>
+      <ModellElementPrioritaet Kundentyp="KundenDynamic">w</ModellElementPrioritaet>
+      <ModellElementPrioritaet Kundentyp="KundenFIFO">w</ModellElementPrioritaet>
+      <ModellElementBediener Alternative="1" Anzahl="1" Gruppe="Bediener - Station 1"/>
+      <ModellElementBedienerPrioritaet>1</ModellElementBedienerPrioritaet>
+    </ModellElementBedienstation>
+    <ModellElementBedienstation id="7">
+      <ModellElementName>Dynamic</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="650" y="350"/>
+      <ModellElementVerbindung Element="9" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="13" Typ="Auslaufend"/>
+      <ModellElementVerteilung Status="Bedienzeit" Typ="Bedienzeiten" Zeitbasis="Sekunden">Exponentialverteilung (50)</ModellElementVerteilung>
+      <ModellElementPrioritaet Kundentyp="Kunden">-ClientData(1)</ModellElementPrioritaet>
+      <ModellElementPrioritaet Kundentyp="KundenDynamic">-ClientData(1)</ModellElementPrioritaet>
+      <ModellElementPrioritaet Kundentyp="KundenFIFO">-ClientData(1)</ModellElementPrioritaet>
+      <ModellElementBediener Alternative="1" Anzahl="1" Gruppe="Bediener - Station 2"/>
+      <ModellElementBedienerPrioritaet>1</ModellElementBedienerPrioritaet>
+    </ModellElementBedienstation>
+    <ModellElementKante id="9">
+      <ModellElementName>Original, neuer Kundentyp: KundenFIFO</ModellElementName>
+      <ModellElementVerbindung Element1="4" Element2="7" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementEnde id="18">
+      <ModellElementGroesse h="50" w="100" x="1050" y="250"/>
+      <ModellElementVerbindung Element="11" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="15" Typ="Einlaufend"/>
+    </ModellElementEnde>
+    <ModellElementKante id="8">
+      <ModellElementName>Kopie 1, neuer Kundentyp: KundenDynamic</ModellElementName>
+      <ModellElementVerbindung Element1="4" Element2="6" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementBenutzerstatistik id="14">
+      <ModellElementGroesse h="50" w="100" x="850" y="150"/>
+      <ModellElementVerbindung Element="10" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="11" Typ="Auslaufend"/>
+      <ModellElementBenutzerstatistikEintrag Bezeichner="VerspätungFIFO" IstKontinuierlich="0" IstZeitangabe="1">Max(0;TNow()-ClientData(1))</ModellElementBenutzerstatistikEintrag>
+    </ModellElementBenutzerstatistik>
+    <ModellElementKante id="10">
+      <ModellElementVerbindung Element1="6" Element2="14" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="11">
+      <ModellElementVerbindung Element1="14" Element2="18" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementBenutzerstatistik id="12">
+      <ModellElementGroesse h="50" w="100" x="850" y="350"/>
+      <ModellElementVerbindung Element="13" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="15" Typ="Auslaufend"/>
+      <ModellElementBenutzerstatistikEintrag Bezeichner="VerspätungDynamic" IstKontinuierlich="0" IstZeitangabe="1">Max(0;TNow()-ClientData(1))</ModellElementBenutzerstatistikEintrag>
+    </ModellElementBenutzerstatistik>
+    <ModellElementKante id="13">
+      <ModellElementVerbindung Element1="7" Element2="12" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="15">
+      <ModellElementVerbindung Element1="12" Element2="18" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementText id="16">
+      <ModellElementGroesse h="23" w="558" x="50" y="50"/>
+      <ModellElementTextzeile>Beispielmodell aus Kapitel 7.4 - Priorisierung nach Liefertermin</ModellElementTextzeile>
+      <ModellElementSchriftgrosse fett="1">18</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementText id="17">
+      <ModellElementGroesse h="152" w="379" x="50" y="400"/>
+      <ModellElementTextzeile>In diesem Simulationsmodell kann der Effekt der Priorisierung</ModellElementTextzeile>
+      <ModellElementTextzeile>nach geplantem Liefertermin (statt einer klassischen</ModellElementTextzeile>
+      <ModellElementTextzeile>FIFO-Priorisierung) beobachtet werden.</ModellElementTextzeile>
+      <ModellElementTextzeile/>
+      <ModellElementTextzeile>Zum Ausprobieren:</ModellElementTextzeile>
+      <ModellElementTextzeile>Parameterreihe über die Variable "ETerminAuftrag" erstellen</ModellElementTextzeile>
+      <ModellElementTextzeile>und die Werte der nutzerdefinierten Statistikgrößen</ModellElementTextzeile>
+      <ModellElementTextzeile>"VerspätungFIFO" und "VerspätungDynamic" betrachten.</ModellElementTextzeile>
+      <ModellElementSchriftgrosse>14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+  </ModellElemente>
+  <Ressourcen UntergeordnetePrioritaet="Zufaellig">
+    <Ressource Name="Bediener - Station 1" Typ="Anzahl" Wert="1"/>
+    <Ressource Name="Bediener - Station 2" Typ="Anzahl" Wert="1"/>
+  </Ressourcen>
+  <KundentypenDaten/>
+  <InitialeVariable Name="ETerminAuftrag">900</InitialeVariable>
+  <ModellKantenNormal Breite="1" Farbe="0,0,0" Typ="0"/>
+  <ModellKantenSelektiert Breite="1" Typ="0"/>
+  <ModellElementVerbindungsdarstellungsart>Abgerundet abgewinkelt</ModellElementVerbindungsdarstellungsart>
+</Modell>

@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE Modell SYSTEM "https://a-herzog.github.io/Warteschlangensimulator/Simulator.dtd">
+<Modell xmlns="https://a-herzog.github.io" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://a-herzog.github.io https://a-herzog.github.io/Warteschlangensimulator/Simulator.xsd">
+  <!-- Diese Datei wurde mit Warteschlangensimulator erstellt. Download-Adresse: https://github.com/A-Herzog/Warteschlangensimulator -->
+  <ModellVersion>5.0.0</ModellVersion>
+  <ModellName>Beispielmodell aus Kapitel 8.1 - Ungeduld bei verschiedenen Kundentypen</ModellName>
+  <ModellAutor>Alexander Herzog</ModellAutor>
+  <ModellKunden Aktiv="1">10000000</ModellKunden>
+  <ModellAufwaermphase>0.05</ModellAufwaermphase>
+  <ModellAbbruchzeit Aktiv="0">10:00:00:00</ModellAbbruchzeit>
+  <ModellElemente>
+    <ModellElementQuelle id="1">
+      <ModellElementName>Kunden A</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="50" y="100"/>
+      <ModellElementVerbindung Element="6" Typ="Auslaufend"/>
+      <ModellElementVerteilung Zeitbasis="Sekunden">Exponentialverteilung (160)</ModellElementVerteilung>
+      <ModellElementBatch Groesse="1"/>
+    </ModellElementQuelle>
+    <ModellElementBedienstation id="2">
+      <ModellElementGroesse h="50" w="100" x="250" y="150"/>
+      <ModellElementVerbindung Element="6" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="12" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="10" Typ="Auslaufend"/>
+      <ModellElementVerbindung Element="14" Status="Warteabbruch" Typ="Auslaufend"/>
+      <ModellElementVerteilung Status="Bedienzeit" Typ="Bedienzeiten" Zeitbasis="Sekunden">Exponentialverteilung (300)</ModellElementVerteilung>
+      <ModellElementVerteilung Typ="Abbruchzeiten">Exponentialverteilung (900)</ModellElementVerteilung>
+      <ModellElementVerteilung Kundentyp="Kunden B" Typ="Abbruchzeiten">Exponentialverteilung (600)</ModellElementVerteilung>
+      <ModellElementPrioritaet Kundentyp="Kunden">w</ModellElementPrioritaet>
+      <ModellElementPrioritaet Kundentyp="Kunden A">w</ModellElementPrioritaet>
+      <ModellElementPrioritaet Kundentyp="Kunden B">w</ModellElementPrioritaet>
+      <ModellElementBediener Alternative="1" Anzahl="1" Gruppe="Neue Bedienergruppe"/>
+      <ModellElementBedienerPrioritaet>1</ModellElementBedienerPrioritaet>
+    </ModellElementBedienstation>
+    <ModellElementZaehler id="3">
+      <ModellElementName>Erfolg A</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="650" y="100"/>
+      <ModellElementVerbindung Element="17" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="19" Typ="Auslaufend"/>
+      <ModellElementZaehlerGruppe>Typ A</ModellElementZaehlerGruppe>
+    </ModellElementZaehler>
+    <ModellElementZaehler id="4">
+      <ModellElementName>Abbruch A</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="150" y="400"/>
+      <ModellElementVerbindung Element="15" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="22" Typ="Auslaufend"/>
+      <ModellElementZaehlerGruppe>Typ A</ModellElementZaehlerGruppe>
+    </ModellElementZaehler>
+    <ModellElementEnde id="5">
+      <ModellElementGroesse h="50" w="100" x="800" y="150"/>
+      <ModellElementVerbindung Element="19" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="20" Typ="Einlaufend"/>
+    </ModellElementEnde>
+    <ModellElementKante id="6">
+      <ModellElementName>Ankünfte (Kunden A)</ModellElementName>
+      <ModellElementVerbindung Element1="1" Element2="2" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementQuelle id="11">
+      <ModellElementName>Kunden B</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="50" y="200"/>
+      <ModellElementVerbindung Element="12" Typ="Auslaufend"/>
+      <ModellElementVerteilung Zeitbasis="Sekunden">Exponentialverteilung (160)</ModellElementVerteilung>
+      <ModellElementBatch Groesse="1"/>
+    </ModellElementQuelle>
+    <ModellElementKante id="12">
+      <ModellElementName>Ankünfte (Kunden B)</ModellElementName>
+      <ModellElementVerbindung Element1="11" Element2="2" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementVerzweigen id="13">
+      <ModellElementGroesse h="50" w="100" x="450" y="150"/>
+      <ModellElementVerzweigungsmodus>Kundentyp</ModellElementVerzweigungsmodus>
+      <ModellElementVerbindung Element="10" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="17" Kundentyp="Kunden A" Typ="Auslaufend"/>
+      <ModellElementVerbindung Element="18" Typ="Auslaufend"/>
+    </ModellElementVerzweigen>
+    <ModellElementVerzweigen id="7">
+      <ModellElementGroesse h="50" w="100" x="250" y="300"/>
+      <ModellElementVerzweigungsmodus>Kundentyp</ModellElementVerzweigungsmodus>
+      <ModellElementVerbindung Element="14" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="15" Kundentyp="Kunden A" Typ="Auslaufend"/>
+      <ModellElementVerbindung Element="16" Typ="Auslaufend"/>
+    </ModellElementVerzweigen>
+    <ModellElementZaehler id="8">
+      <ModellElementName>Erfolg B</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="650" y="200"/>
+      <ModellElementVerbindung Element="18" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="20" Typ="Auslaufend"/>
+      <ModellElementZaehlerGruppe>Typ B</ModellElementZaehlerGruppe>
+    </ModellElementZaehler>
+    <ModellElementZaehler id="9">
+      <ModellElementName>Abbruch B</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="350" y="400"/>
+      <ModellElementVerbindung Element="16" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="23" Typ="Auslaufend"/>
+      <ModellElementZaehlerGruppe>Typ B</ModellElementZaehlerGruppe>
+    </ModellElementZaehler>
+    <ModellElementKante id="10">
+      <ModellElementName>Erfolg</ModellElementName>
+      <ModellElementVerbindung Element1="2" Element2="13" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="14">
+      <ModellElementName>Warteabbruch</ModellElementName>
+      <ModellElementVerbindung Element1="2" Element2="7" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="15">
+      <ModellElementName>Kunden A</ModellElementName>
+      <ModellElementVerbindung Element1="7" Element2="4" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="16">
+      <ModellElementName>alle anderen Kundentypen</ModellElementName>
+      <ModellElementVerbindung Element1="7" Element2="9" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="17">
+      <ModellElementName>Kunden A</ModellElementName>
+      <ModellElementVerbindung Element1="13" Element2="3" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="18">
+      <ModellElementName>alle anderen Kundentypen</ModellElementName>
+      <ModellElementVerbindung Element1="13" Element2="8" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="19">
+      <ModellElementVerbindung Element1="3" Element2="5" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="20">
+      <ModellElementVerbindung Element1="8" Element2="5" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementEnde id="21">
+      <ModellElementGroesse h="50" w="100" x="250" y="500"/>
+      <ModellElementVerbindung Element="22" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="23" Typ="Einlaufend"/>
+    </ModellElementEnde>
+    <ModellElementKante id="22">
+      <ModellElementVerbindung Element1="4" Element2="21" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="23">
+      <ModellElementVerbindung Element1="9" Element2="21" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementText id="24">
+      <ModellElementGroesse h="23" w="655" x="50" y="50"/>
+      <ModellElementTextzeile>Beispielmodell aus Kapitel 8.1 - Ungeduld bei verschiedenen Kundentypen</ModellElementTextzeile>
+      <ModellElementSchriftgrosse fett="1">18</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementText id="25">
+      <ModellElementGroesse h="190" w="490" x="55" y="605"/>
+      <ModellElementTextzeile>Kunden des Typs A besitzen eine höhere mittlere Wartezeittoleranz</ModellElementTextzeile>
+      <ModellElementTextzeile>(E[WT]=900 Sekunden) gegenüber Kunden vom Typ B (E[WT]=600 Sekunden).</ModellElementTextzeile>
+      <ModellElementTextzeile>Die 4 Zählerstationen erfassen, wie hoch die Anteile der erfolgreichen</ModellElementTextzeile>
+      <ModellElementTextzeile>und der erfolglosen Kunden sind.</ModellElementTextzeile>
+      <ModellElementTextzeile/>
+      <ModellElementTextzeile>Zum Ausprobieren:</ModellElementTextzeile>
+      <ModellElementTextzeile>Eine höhere oder niedrigere mittlere Bediendauer (z.B. im Bereich</ModellElementTextzeile>
+      <ModellElementTextzeile>von 200 bis 400 Sekunden) verändert die Systemlast. Es kann</ModellElementTextzeile>
+      <ModellElementTextzeile>per Parameterreihe untersucht werden, welche Auswirkungen dies</ModellElementTextzeile>
+      <ModellElementTextzeile>auf den Anteil der jeweils erfolgreichen Kunden pro Kundentyp hat.</ModellElementTextzeile>
+      <ModellElementSchriftgrosse>14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+  </ModellElemente>
+  <Ressourcen UntergeordnetePrioritaet="Zufaellig">
+    <Ressource Name="Neue Bedienergruppe" Typ="Anzahl" Wert="4"/>
+  </Ressourcen>
+  <KundentypenDaten/>
+  <ModellKantenNormal Breite="1" Farbe="0,0,0" Typ="0"/>
+  <ModellKantenSelektiert Breite="1" Typ="0"/>
+  <ModellElementVerbindungsdarstellungsart>Abgerundet abgewinkelt</ModellElementVerbindungsdarstellungsart>
+</Modell>

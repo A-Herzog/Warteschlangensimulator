@@ -465,7 +465,7 @@ public class MainPanel extends MainPanelBase {
 		case TUTORIAL: commandHelpTutorial(); break;
 		case GENERATOR: commandFileModelGenerator(); break;
 		case EXAMPLES: commandFileModeExample(); break;
-		case BOOK: commandHelpBook(null); break;
+		case BOOK: commandHelpBook(null,false); break;
 		}});
 		editorPanel.addChangedStateListeners(()->{
 			setAdditionalTitleChangedMarker(editorPanel.isModelChanged());
@@ -507,7 +507,7 @@ public class MainPanel extends MainPanelBase {
 			}
 
 			if (InfoPanel.getInstance().isVisible(InfoPanel.globalWelcome) && !fileLoadedOnLoad && !isReload) {
-				welcomePanel=Help.infoPanel("welcome",new SpecialLink());
+				welcomePanel=Help.infoPanel("welcome",new SpecialLink(),false);
 				welcomePanel.setBorder(BorderFactory.createLineBorder(new Color(SystemColor.activeCaptionBorder.getRGB())));
 				final InputMap inputMap=welcomePanel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
 				final KeyStroke stroke=KeyStroke.getKeyStroke("ESCAPE");
@@ -597,6 +597,7 @@ public class MainPanel extends MainPanelBase {
 		/* Datei */
 		addAction("FileNew",e->commandFileModelNew());
 		addAction("FileNewExample",e->commandFileModeExample());
+		addAction("FileNewBookExample",e->commandHelpBook(null,true));
 		addAction("FileNewGenerator",e->commandFileModelGenerator());
 		addAction("FileNewWindow",e->commandFileNewWindow());
 		addAction("FileLoad",e->commandFileModelLoadAll());
@@ -752,7 +753,7 @@ public class MainPanel extends MainPanelBase {
 		addAction("HelpCommandLineReference",e->commandHelpCommandLineReference());
 		addAction("HelpHotkeyReference",e->commandHelpHotkeyReference());
 		addAction("HelpDistributionReference",e->commandHelpDistributionReference());
-		addAction("HelpTextbook",e->commandHelpBook(null));
+		addAction("HelpTextbook",e->commandHelpBook(null,false));
 		addAction("HelpLiteratureHerzog",e->commandHelpLiterature(0));
 		addAction("HelpLiteratureGrossHarris",e->commandHelpLiterature(1));
 		addAction("HelpLiteratureBolch",e->commandHelpLiterature(1));
@@ -1102,6 +1103,7 @@ public class MainPanel extends MainPanelBase {
 		menu.add(submenu=new JMenu(Language.tr("Main.Menu.File.LoadExample")));
 		setMnemonic(submenu,Language.tr("Main.Menu.File.LoadExample.Mnemonic"));
 		createMenuItem(submenu,Language.tr("Main.Menu.File.LoadExample.ByPreview"),Language.tr("Main.Menu.File.LoadExample.ByPreview.Mnemonic"),"FileNewExample");
+		createMenuItem(submenu,Language.tr("Main.Menu.File.LoadExample.FromBook"),Language.tr("Main.Menu.File.LoadExample.FromBook.Mnemonic"),"FileNewBookExample");
 		EditModelExamples.addToMenu(this,submenu,newModel->commandFileModelExample(newModel));
 		createMenuItemCtrlShift(menu,Language.tr("Main.Menu.File.Generator"),Images.MODEL_GENERATOR.getIcon(),Language.tr("Main.Menu.File.Generator.Mnemonic"),KeyEvent.VK_N,"FileNewGenerator");
 		createMenuItem(menu,Language.tr("Main.Menu.File.NewWindow"),Images.GENERAL_APPLICATION.getIcon(),Language.tr("Main.Menu.File.NewWindow.Mnemonic"),"FileNewWindow");
@@ -1565,7 +1567,7 @@ public class MainPanel extends MainPanelBase {
 
 			if (builder instanceof JQuickAccessBuilderBook) {
 				final JQuickAccessBuilderBook builderBook=(JQuickAccessBuilderBook)builder;
-				builderBook.work(match->commandHelpBook(match));
+				builderBook.work(match->commandHelpBook(match,false));
 				list.addAll(builderBook.getList(10));
 			}
 
@@ -2092,7 +2094,7 @@ public class MainPanel extends MainPanelBase {
 	 * Lädt ein Beispiel nach dem Neuladen des Fensters neu
 	 * @param newModel	Zu ladendes Beispielmodell
 	 */
-	private void commandFileModelExample(final EditModel newModel) {
+	public void commandFileModelExample(final EditModel newModel) {
 		if (newModel==null) return;
 		if (!isDiscardModelOk()) return;
 		editorPanel.setModel(newModel);
@@ -3855,10 +3857,13 @@ public class MainPanel extends MainPanelBase {
 
 	/**
 	 * Befehl: Hilfe - Lehrbuch
-	 * @param match	Direkt zu selektrierender Inhaltsverzeichnis- oder Sachverzeichniseintrag (kann <code>null</code> sein)
+	 * @param match	Direkt zu selektierender Inhaltsverzeichnis- oder Sachverzeichniseintrag (kann <code>null</code> sein)
+	 * @param openExamplesTab	Soll direkt nach dem Aufruf des Dialogs die Seite mit den Beispielmodellen angezeigt werden?
 	 */
-	private void commandHelpBook(final BookData.BookMatch match) {
-		new BookDataDialog(this,match);
+	private void commandHelpBook(final BookData.BookMatch match,final boolean openExamplesTab) {
+		final BookDataDialog dialog=new BookDataDialog(this,match,openExamplesTab,true);
+		final EditModel example=dialog.getSelectedExampleModel();
+		if (example!=null) commandFileModelExample(example);
 	}
 
 	/**

@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE Modell SYSTEM "https://a-herzog.github.io/Warteschlangensimulator/Simulator.dtd">
+<Modell xmlns="https://a-herzog.github.io" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://a-herzog.github.io https://a-herzog.github.io/Warteschlangensimulator/Simulator.xsd">
+  <!-- Diese Datei wurde mit Warteschlangensimulator erstellt. Download-Adresse: https://github.com/A-Herzog/Warteschlangensimulator -->
+  <ModellVersion>5.0.0</ModellVersion>
+  <ModellName>Beispielmodell aus Kapitel 7.6 - Auswirkung der Pull-Produktion auf den Durchsatz</ModellName>
+  <ModellAutor>Alexander Herzog</ModellAutor>
+  <ModellKunden Aktiv="1">10000000</ModellKunden>
+  <ModellAufwaermphase>0.05</ModellAufwaermphase>
+  <ModellAbbruchzeit Aktiv="0">10:00:00:00</ModellAbbruchzeit>
+  <ModellElemente>
+    <ModellElementQuelle id="1">
+      <ModellElementName>Kunden</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="50" y="100"/>
+      <ModellElementVerbindung Element="7" Typ="Auslaufend"/>
+      <ModellElementVerteilung Anzahl="3" Zeitbasis="Sekunden">Exponentialverteilung (60)</ModellElementVerteilung>
+      <ModellElementBatch Groesse="1"/>
+    </ModellElementQuelle>
+    <ModellElementQuelle id="2">
+      <ModellElementName>Kunden</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="50" y="200"/>
+      <ModellElementVerbindung Element="4" Typ="Auslaufend"/>
+      <ModellElementAnkunftssignal>Freigabe</ModellElementAnkunftssignal>
+      <ModellElementBatch Groesse="1"/>
+    </ModellElementQuelle>
+    <ModellElementVerzoegerung id="3">
+      <ModellElementGroesse h="50" w="100" x="250" y="200"/>
+      <ModellElementVerbindung Element="4" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="6" Typ="Auslaufend"/>
+      <ModellElementVerteilung Typ="Bedienzeit" Zeitbasis="Sekunden">Exponentialverteilung (60)</ModellElementVerteilung>
+    </ModellElementVerzoegerung>
+    <ModellElementKante id="4">
+      <ModellElementName>Ankünfte (Kunden)</ModellElementName>
+      <ModellElementVerbindung Element1="2" Element2="3" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementBedienstation id="5">
+      <ModellElementGroesse h="50" w="100" x="400" y="100"/>
+      <ModellElementVerbindung Element="6" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="7" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="11" Typ="Auslaufend"/>
+      <ModellElementVerteilung Status="Bedienzeit" Typ="Bedienzeiten" Zeitbasis="Sekunden">Exponentialverteilung (50)</ModellElementVerteilung>
+      <ModellElementPrioritaet Kundentyp="Kunden">w</ModellElementPrioritaet>
+      <ModellElementBediener Alternative="1" Anzahl="1" Gruppe="Bediener"/>
+      <ModellElementBedienerPrioritaet>1</ModellElementBedienerPrioritaet>
+    </ModellElementBedienstation>
+    <ModellElementKante id="6">
+      <ModellElementVerbindung Element1="3" Element2="5" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="7">
+      <ModellElementName>Ankünfte (Kunden)</ModellElementName>
+      <ModellElementVerbindung Element1="1" Element2="5" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementSignal id="8">
+      <ModellElementName>Freigabe</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="550" y="100"/>
+      <ModellElementVerbindung Element="11" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="10" Typ="Auslaufend"/>
+    </ModellElementSignal>
+    <ModellElementEnde id="9">
+      <ModellElementGroesse h="50" w="100" x="850" y="100"/>
+      <ModellElementVerbindung Element="13" Typ="Einlaufend"/>
+    </ModellElementEnde>
+    <ModellElementKante id="11">
+      <ModellElementVerbindung Element1="5" Element2="8" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementDurchsatz id="12">
+      <ModellElementName>Durchsatz</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="700" y="100"/>
+      <ModellElementVerbindung Element="10" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="13" Typ="Auslaufend"/>
+    </ModellElementDurchsatz>
+    <ModellElementKante id="10">
+      <ModellElementVerbindung Element1="8" Element2="12" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="13">
+      <ModellElementVerbindung Element1="12" Element2="9" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementText id="14">
+      <ModellElementGroesse h="23" w="728" x="50" y="50"/>
+      <ModellElementTextzeile>Beispielmodell aus Kapitel 7.6 - Auswirkung der Pull-Produktion auf den Durchsatz</ModellElementTextzeile>
+      <ModellElementSchriftgrosse fett="1">18</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementText id="15">
+      <ModellElementGroesse h="304" w="387" x="50" y="300"/>
+      <ModellElementTextzeile>Die erste Kundenquelle eine feste, endliche Anzahl an Kunden.</ModellElementTextzeile>
+      <ModellElementTextzeile>Beim Verlassen eines Kunden der Bedienstation wird</ModellElementTextzeile>
+      <ModellElementTextzeile>ein Signal ausgelöst, welches die zweite Kundenquelle</ModellElementTextzeile>
+      <ModellElementTextzeile>veranlasst, einen weiteren Kunden zu generieren.</ModellElementTextzeile>
+      <ModellElementTextzeile>Auf diese Weise lässt sich der Umlaufbestand limitieren.</ModellElementTextzeile>
+      <ModellElementTextzeile/>
+      <ModellElementTextzeile>Die Bedienstation besitzt bei Vollauslastung einen</ModellElementTextzeile>
+      <ModellElementTextzeile>maximalen Durchsatz von 72 Kunden/Stunde bzw. 0,02</ModellElementTextzeile>
+      <ModellElementTextzeile>Kunden/Sekunde.</ModellElementTextzeile>
+      <ModellElementTextzeile/>
+      <ModellElementTextzeile>Zum Ausprobieren:</ModellElementTextzeile>
+      <ModellElementTextzeile>In einer Parameterreihe kann die Anzahl an Kunden,</ModellElementTextzeile>
+      <ModellElementTextzeile>die Quelle id=1 generiert, eingestellt werden (und</ModellElementTextzeile>
+      <ModellElementTextzeile>damit die Größe des Umlaufbestands). In Abhängigkeit</ModellElementTextzeile>
+      <ModellElementTextzeile>von diesem Umlaufbestand kann der Durchsatz</ModellElementTextzeile>
+      <ModellElementTextzeile>beobachtet werden.</ModellElementTextzeile>
+      <ModellElementSchriftgrosse>14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+  </ModellElemente>
+  <Ressourcen UntergeordnetePrioritaet="Zufaellig">
+    <Ressource Name="Bediener" Typ="Anzahl" Wert="1"/>
+  </Ressourcen>
+  <KundentypenDaten/>
+  <ModellKantenNormal Breite="1" Farbe="0,0,0" Typ="0"/>
+  <ModellKantenSelektiert Breite="1" Typ="0"/>
+  <ModellElementVerbindungsdarstellungsart>Abgerundet abgewinkelt</ModellElementVerbindungsdarstellungsart>
+</Modell>

@@ -79,7 +79,7 @@ public class MainFrame extends MainFrameBase {
 		final MainPanelBase panel=new MainPanel(this,PROGRAM_NAME,false);
 		setMainPanel(panel);
 
-		if (panel instanceof MainPanel) ((MainPanel)getMainPanel()).setReloadWindow(new ReloadWindow());
+		if (panel instanceof MainPanel) getMainPanel().setReloadWindow(new ReloadWindow());
 		setIcon(ICON_URL);
 		if (loadExample!=null) {
 			((MainPanel)panel).editorPanel.setModel(loadExample);
@@ -214,9 +214,9 @@ public class MainFrame extends MainFrameBase {
 	private boolean processReload() {
 		if (!(getMainPanel() instanceof MainPanel)) return false;
 
-		if (!((MainPanel)getMainPanel()).allowReloadWindow()) return false;
+		if (!getMainPanel().allowReloadWindow()) return false;
 
-		final Object[] store=((MainPanel)getMainPanel()).getAllData();
+		final Object[] store=getMainPanel().getAllData();
 
 		Language.init(SetupData.getSetup().language);
 		LanguageStaticLoader.setLanguage();
@@ -250,7 +250,7 @@ public class MainFrame extends MainFrameBase {
 	public void reload(final ReloadMode reloadMode) {
 		switch (reloadMode) {
 		case SETUP:
-			((MainPanel)getMainPanel()).reloadSetup(false);
+			getMainPanel().reloadSetup(false);
 			break;
 		case FULL:
 			SwingUtilities.invokeLater(()->processReload());
@@ -280,7 +280,16 @@ public class MainFrame extends MainFrameBase {
 	 * @return	Aktuelles Modell
 	 */
 	public EditModel getModel() {
-		return ((MainPanel)getMainPanel()).editorPanel.model;
+		return getMainPanel().editorPanel.model;
+	}
+
+	/**
+	 * Liefert das Hauptpanel, das das Fenster ausfüllt
+	 * @return	Hauptpanel
+	 */
+	@Override
+	public MainPanel getMainPanel() {
+		return (MainPanel)super.getMainPanel();
 	}
 
 	/**
@@ -288,6 +297,6 @@ public class MainFrame extends MainFrameBase {
 	 * @return	Aktuelle Statistikdaten (kann <code>null</code> sein)
 	 */
 	public Statistics getStatistics() {
-		return ((MainPanel)getMainPanel()).statisticsPanel.getStatistics();
+		return getMainPanel().statisticsPanel.getStatistics();
 	}
 }

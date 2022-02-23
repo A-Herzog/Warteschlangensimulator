@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE Modell SYSTEM "https://a-herzog.github.io/Warteschlangensimulator/Simulator.dtd">
+<Modell xmlns="https://a-herzog.github.io" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://a-herzog.github.io https://a-herzog.github.io/Warteschlangensimulator/Simulator.xsd">
+  <!-- Diese Datei wurde mit Warteschlangensimulator erstellt. Download-Adresse: https://github.com/A-Herzog/Warteschlangensimulator -->
+  <ModellVersion>5.0.0</ModellVersion>
+  <ModellName>Beispielmodell aus Kapitel 7.1 - Auswirkungen von CV[S] auf die Kenngrößen</ModellName>
+  <ModellAutor>Alexander Herzog</ModellAutor>
+  <ModellKunden Aktiv="1">10000000</ModellKunden>
+  <ModellAufwaermphase>0.05</ModellAufwaermphase>
+  <ModellAbbruchzeit Aktiv="0">10:00:00:00</ModellAbbruchzeit>
+  <ModellElemente>
+    <ModellElementBedienstation id="1">
+      <ModellElementGroesse h="50" w="100" x="300" y="100"/>
+      <ModellElementVerbindung Element="4" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="5" Typ="Auslaufend"/>
+      <ModellElementAusdruck Status="Bedienzeit" Typ="Bedienzeiten" Zeitbasis="Sekunden">GammaDistDirect(300;CVS*300)</ModellElementAusdruck>
+      <ModellElementPrioritaet Kundentyp="Kunden">w</ModellElementPrioritaet>
+      <ModellElementPrioritaet Kundentyp="KundenA">w</ModellElementPrioritaet>
+      <ModellElementPrioritaet Kundentyp="KundenB">w+1000</ModellElementPrioritaet>
+      <ModellElementBediener Alternative="1" Anzahl="1" Gruppe="Bedienergruppe"/>
+      <ModellElementBedienerPrioritaet>1</ModellElementBedienerPrioritaet>
+    </ModellElementBedienstation>
+    <ModellElementQuelle id="2">
+      <ModellElementName>Kunden</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="50" y="100"/>
+      <ModellElementVerbindung Element="4" Typ="Auslaufend"/>
+      <ModellElementVerteilung Zeitbasis="Sekunden">Exponentialverteilung (100)</ModellElementVerteilung>
+      <ModellElementBatch Groesse="1"/>
+    </ModellElementQuelle>
+    <ModellElementEnde id="3">
+      <ModellElementGroesse h="50" w="100" x="550" y="100"/>
+      <ModellElementVerbindung Element="5" Typ="Einlaufend"/>
+    </ModellElementEnde>
+    <ModellElementKante id="4">
+      <ModellElementName>Ankünfte (Kunden)</ModellElementName>
+      <ModellElementVerbindung Element1="2" Element2="1" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="5">
+      <ModellElementVerbindung Element1="1" Element2="3" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementText id="6">
+      <ModellElementGroesse h="23" w="679" x="50" y="50"/>
+      <ModellElementTextzeile>Beispielmodell aus Kapitel 7.1 - Auswirkungen von CV[S] auf die Kenngrößen</ModellElementTextzeile>
+      <ModellElementSchriftgrosse fett="1">18</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementText id="7">
+      <ModellElementGroesse h="342" w="557" x="50" y="200"/>
+      <ModellElementTextzeile>In diesem Simulationsmodell kann der Variationskoeffizient</ModellElementTextzeile>
+      <ModellElementTextzeile>der Bedienzeiten CV[S] auf einfache Weise verändert werden.</ModellElementTextzeile>
+      <ModellElementTextzeile/>
+      <ModellElementTextzeile>Zwischenankunftszeiten: Exponentiell verteilt, E[I]=100</ModellElementTextzeile>
+      <ModellElementTextzeile>Bedienzeiten: Gamma verteilt, E[S]=400</ModellElementTextzeile>
+      <ModellElementTextzeile>Anzahl an Bedienern: c=4</ModellElementTextzeile>
+      <ModellElementTextzeile>Auslastung: rho=75%</ModellElementTextzeile>
+      <ModellElementTextzeile/>
+      <ModellElementTextzeile>Zum Ausprobieren:</ModellElementTextzeile>
+      <ModellElementTextzeile>- Rechte Maustaste auf leere Stelle der Zeichenfläche</ModellElementTextzeile>
+      <ModellElementTextzeile>- "Parameterreihe: Initiale Variablenwerte - CVS</ModellElementTextzeile>
+      <ModellElementTextzeile>- Beobachten: Welche Auswirkungen hat CV[S] auf E[NQ] usw.?</ModellElementTextzeile>
+      <ModellElementTextzeile/>
+      <ModellElementTextzeile>Mehr zum Ausprobieren:</ModellElementTextzeile>
+      <ModellElementTextzeile>- An der Bedienstation "GammaDistNormal" durch "LogNormalDist" ersetzen.</ModellElementTextzeile>
+      <ModellElementTextzeile>- Erneute Parameterreihensimulation</ModellElementTextzeile>
+      <ModellElementTextzeile>- Ergebnisse für Log-Normal-Verteilung mit Ergebnissen für Gamma-Verteilung vergleichen</ModellElementTextzeile>
+      <ModellElementTextzeile>(dafür die entsprechenden Ergebnisreihen jeweils in Tabellenkalkulation kopieren)</ModellElementTextzeile>
+      <ModellElementSchriftgrosse>14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+  </ModellElemente>
+  <Ressourcen UntergeordnetePrioritaet="Zufaellig">
+    <Ressource Name="Bedienergruppe" Typ="Anzahl" Wert="4"/>
+  </Ressourcen>
+  <KundentypenDaten/>
+  <InitialeVariable Name="CVS">1</InitialeVariable>
+  <ModellKantenNormal Breite="1" Farbe="0,0,0" Typ="0"/>
+  <ModellKantenSelektiert Breite="1" Typ="0"/>
+  <ModellElementVerbindungsdarstellungsart>Abgerundet abgewinkelt</ModellElementVerbindungsdarstellungsart>
+</Modell>
