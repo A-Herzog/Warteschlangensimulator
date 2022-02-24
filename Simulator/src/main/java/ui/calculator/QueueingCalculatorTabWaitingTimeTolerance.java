@@ -45,14 +45,14 @@ public class QueueingCalculatorTabWaitingTimeTolerance extends QueueingCalculato
 		super(Language.tr("LoadCalculator.Tab.WaitingTimeTolerance"),"E[WT]=E[W]/P(A), "+Language.tr("LoadCalculator.ExpAssumption"));
 
 		/* Mittlere Wartezeit (E[W]) */
-		ewInput=getPanel(Language.tr("LoadCalculator.AverageWaitingTime"));
+		ewInput=getPanel(Language.tr("LoadCalculator.AverageWaitingTime"),false);
 		ewInput.addDefault("E[W] ("+unitSeconds+")",QueueingCalculatorInputPanel.NumberMode.NOT_NEGATIVE_DOUBLE,10,null);
-		ewInput.addOption("E[W] ("+unitMinutes+")",1.0/60,false,null);
-		ewInput.addOption("E[W] ("+unitHours+")",1.0/3600,false,null);
+		ewInput.addOption("E[W] ("+unitMinutes+")",60,false,null);
+		ewInput.addOption("E[W] ("+unitHours+")",3600,false,null);
 		add(ewInput.get());
 
 		/* Abbruchwahrscheinlichkeit (P(A)) */
-		paInput=getPanel(Language.tr("LoadCalculator.CancelRate")+" ("+Language.tr("LoadCalculator.Units.InPercent")+")");
+		paInput=getPanel(Language.tr("LoadCalculator.CancelRate")+" ("+Language.tr("LoadCalculator.Units.InPercent")+")",false);
 		paInput.addDefault("P(A)=",QueueingCalculatorInputPanel.NumberMode.POSITIVE_DOUBLE,0.07,true,null);
 		add(paInput.get());
 	}

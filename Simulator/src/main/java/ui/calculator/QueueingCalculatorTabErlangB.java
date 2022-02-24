@@ -46,12 +46,12 @@ public class QueueingCalculatorTabErlangB extends QueueingCalculatorTabBase {
 		super(Language.tr("LoadCalculator.Tab.ErlangB"),"B=(A^N/N!) / sum (i=0..N; A^i/i!)",Language.tr("LoadCalculator.Tab.ErlangB.Link.Info"),Language.tr("LoadCalculator.Tab.ErlangB.Link"));
 
 		/* Arbeitslast (a) */
-		aInput=getPanel(Language.tr("LoadCalculator.OfferedWorkLoad"));
+		aInput=getPanel(Language.tr("LoadCalculator.OfferedWorkLoad"),false);
 		aInput.addDefault("&lambda;/&mu;=a=",QueueingCalculatorInputPanel.NumberMode.NOT_NEGATIVE_DOUBLE,900,null);
 		add(aInput.get());
 
 		/* Systemgröße (n) */
-		nInput=getPanel(Language.tr("LoadCalculator.NumberOfLines"));
+		nInput=getPanel(Language.tr("LoadCalculator.NumberOfLines"),false);
 		nInput.addDefault("N=",QueueingCalculatorInputPanel.NumberMode.POSITIVE_LONG,925,null);
 		add(nInput.get());
 	}

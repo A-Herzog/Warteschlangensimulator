@@ -96,17 +96,21 @@ public class QueueingCalculatorInputPanel {
 	private int lastFieldType;
 	/** Anzeige von zusätzlichen Informationen hinter dem Eingabefeld in Klammern */
 	private JLabel info;
+	/** Handelt es sich bei der Eingabegröße um eine Rate? */
+	private final boolean isRate;
 
 	/**
 	 * Konstruktor der Klasse
 	 * @param title	Titel des Eingabeelements
 	 * @param changeListener	Listener, der aufgerufen wird, wenn die Eingaben verwendet wurden und das Ergebnis neu berechnet werden soll. Darf <b>nicht</b> <code>null</code> sein.
+	 * @param isRate	Handelt es sich bei der Eingabegröße um eine Rate?
 	 */
-	public QueueingCalculatorInputPanel(final String title, final Runnable changeListener) {
+	public QueueingCalculatorInputPanel(final String title, final Runnable changeListener, final boolean isRate) {
 		this.title=title;
 		this.changeListener=changeListener;
 		records=new ArrayList<>();
 		lastFieldType=0;
+		this.isRate=isRate;
 	}
 
 	/**
@@ -233,11 +237,11 @@ public class QueueingCalculatorInputPanel {
 				if (lastFieldType>0) {
 					final Record record=records.get(lastFieldType);
 					if (record.isInverse) d=1/d;
-					d=d/record.scale;
+					if (isRate) d=d/record.scale; else d=d*record.scale;
 				}
 				if (newFieldType>0) {
 					final Record record=records.get(newFieldType);
-					d=d*record.scale;
+					if (isRate) d=d*record.scale; else d=d/record.scale;
 					if (record.isInverse) d=1/d;
 				}
 				final Record record=records.get(newFieldType);
@@ -288,7 +292,7 @@ public class QueueingCalculatorInputPanel {
 		if (fieldType!=null && fieldType.getSelectedIndex()!=0) {
 			final Record record=records.get(fieldType.getSelectedIndex());
 			if (record.isInverse) d=1/d;
-			d=d/record.scale;
+			if (isRate) d=d/record.scale; else d=d*record.scale;
 		}
 
 		switch (mode) {
@@ -327,7 +331,7 @@ public class QueueingCalculatorInputPanel {
 		if (fieldType!=null && fieldType.getSelectedIndex()!=0) {
 			final Record record=records.get(fieldType.getSelectedIndex());
 			if (record.isInverse) d=1/d;
-			d=d/record.scale;
+			if (isRate) d=d/record.scale; else d=d*record.scale;
 
 		}
 
@@ -347,7 +351,7 @@ public class QueueingCalculatorInputPanel {
 		if (fieldType!=null && fieldType.getSelectedIndex()!=0) {
 			final Record record=records.get(fieldType.getSelectedIndex());
 			if (record.isInverse) d=1/d;
-			d=d/record.scale;
+			if (isRate) d=d/record.scale; else d=d*record.scale;
 		}
 
 		return Math.round(d);

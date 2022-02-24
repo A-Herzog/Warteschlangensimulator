@@ -162,10 +162,11 @@ public abstract class QueueingCalculatorTabBase extends JPanel {
 	/**
 	 * Erstellt ein Multi-Eingabeelement, fügt es aber noch nicht in den Tab ein (kann nämlich auch in Unter-Containern verwendet werden)
 	 * @param title	Überschrift des Elements
+	 * @param isRate	Handelt es sich bei der Eingabegröße um eine Rate?
 	 * @return	Multi-Eingabeelement
 	 */
-	protected final QueueingCalculatorInputPanel getPanel(final String title) {
-		return new QueueingCalculatorInputPanel(title,()->calc());
+	protected final QueueingCalculatorInputPanel getPanel(final String title, final boolean isRate) {
+		return new QueueingCalculatorInputPanel(title,()->calc(),isRate);
 	}
 
 	/**

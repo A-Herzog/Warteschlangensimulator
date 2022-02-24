@@ -52,7 +52,7 @@ public class QueueingCalculatorTabErlangC extends QueueingCalculatorTabBase {
 		super(Language.tr("LoadCalculator.Tab.ErlangC"),"P(W&le;t)=1-P1+exp(-&mu;(c-a)&middot;t)",Language.tr("LoadCalculator.Tab.ErlangC.Link.Info"),Language.tr("LoadCalculator.Tab.ErlangC.Link"));
 
 		/* Ankunftsrate (lambda) */
-		lambdaInput=getPanel(Language.tr("LoadCalculator.ArrivalRate"));
+		lambdaInput=getPanel(Language.tr("LoadCalculator.ArrivalRate"),true);
 		lambdaInput.addDefault("&lambda; ("+unitSecondsInv+")",QueueingCalculatorInputPanel.NumberMode.POSITIVE_DOUBLE,3.5/60,infoRate);
 		lambdaInput.addOption("&lambda; ("+unitMinutesInv+")",60,false,infoRate);
 		lambdaInput.addOption("&lambda; ("+unitHoursInv+")",3600,false,infoRate);
@@ -63,7 +63,7 @@ public class QueueingCalculatorTabErlangC extends QueueingCalculatorTabBase {
 		add(lambdaInput.get());
 
 		/* Bedienrate (mu) */
-		muInput=getPanel(Language.tr("LoadCalculator.AverageHoldingAndPostProcessingTime"));
+		muInput=getPanel(Language.tr("LoadCalculator.AverageHoldingAndPostProcessingTime"),true);
 		muInput.addDefault("&mu; ("+unitSecondsInv+")",QueueingCalculatorInputPanel.NumberMode.POSITIVE_DOUBLE,1.0/60/3,infoRate);
 		muInput.addOption("&mu; ("+unitMinutesInv+")",60,false,infoRate);
 		muInput.addOption("&mu; ("+unitHoursInv+")",3600,false,infoRate);
@@ -74,13 +74,13 @@ public class QueueingCalculatorTabErlangC extends QueueingCalculatorTabBase {
 		add(muInput.get());
 
 		/* Anzahl Bediener (c) */
-		cInput=getPanel(Language.tr("LoadCalculator.Agents"));
+		cInput=getPanel(Language.tr("LoadCalculator.Agents"),false);
 		cInput.addDefault("c=",QueueingCalculatorInputPanel.NumberMode.POSITIVE_LONG,13,null);
 		add(cInput.get());
 
 		/* Service-Level-Zeit (t) */
-		tInput=getPanel(Language.tr("LoadCalculator.WaitingTime"));
-		tInput.addDefault("t ("+unitSeconds+")",QueueingCalculatorInputPanel.NumberMode.POSITIVE_LONG,20,null);
+		tInput=getPanel(Language.tr("LoadCalculator.WaitingTime"),false);
+		tInput.addDefault("t ("+unitSeconds+")",QueueingCalculatorInputPanel.NumberMode.POSITIVE_DOUBLE,20,null);
 		tInput.addOption("t ("+unitMinutes+")",60,false,null);
 		tInput.addOption("t ("+unitHours+")",3600,false,null);
 		add(tInput.get());

@@ -56,7 +56,7 @@ public class QueueingCalculatorTabAllenCunneen extends QueueingCalculatorTabBase
 		super("Allen-Cunneen",Language.tr("LoadCalculator.Tab.AllenCunneen"),Language.tr("LoadCalculator.TUCOnlineCalculator"),"https://www.mathematik.tu-clausthal.de/interaktiv/warteschlangentheorie/warteschlangenrechner/");
 
 		/* Ankunftsrate (lambda) */
-		lambdaInput=getPanel(Language.tr("LoadCalculator.ArrivalRate"));
+		lambdaInput=getPanel(Language.tr("LoadCalculator.ArrivalRate"),true);
 		lambdaInput.addDefault("&lambda; ("+unitSecondsInv+")",QueueingCalculatorInputPanel.NumberMode.POSITIVE_DOUBLE,3.5/60,infoRate);
 		lambdaInput.addOption("&lambda; ("+unitMinutesInv+")",60,false,infoRate);
 		lambdaInput.addOption("&lambda; ("+unitHoursInv+")",3600,false,infoRate);
@@ -67,12 +67,12 @@ public class QueueingCalculatorTabAllenCunneen extends QueueingCalculatorTabBase
 		add(lambdaInput.get());
 
 		/* Ankunftsbatchgröße (b(I)) */
-		bIInput=getPanel(Language.tr("LoadCalculator.ArrivalBatchSize"));
+		bIInput=getPanel(Language.tr("LoadCalculator.ArrivalBatchSize"),false);
 		bIInput.addDefault("b(I)=",QueueingCalculatorInputPanel.NumberMode.POSITIVE_LONG,1,null);
 		add(bIInput.get());
 
 		/* Bedienrate (mu) */
-		muInput=getPanel(Language.tr("LoadCalculator.AverageHoldingAndPostProcessingTime"));
+		muInput=getPanel(Language.tr("LoadCalculator.AverageHoldingAndPostProcessingTime"),true);
 		muInput.addDefault("&mu; ("+unitSecondsInv+")",QueueingCalculatorInputPanel.NumberMode.POSITIVE_DOUBLE,1.0/60/3,infoRate);
 		muInput.addOption("&mu; ("+unitMinutesInv+")",60,false,infoRate);
 		muInput.addOption("&mu; ("+unitHoursInv+")",3600,false,infoRate);
@@ -83,22 +83,22 @@ public class QueueingCalculatorTabAllenCunneen extends QueueingCalculatorTabBase
 		add(muInput.get());
 
 		/* Anzahl Bediener (c) */
-		cInput=getPanel(Language.tr("LoadCalculator.Agents"));
+		cInput=getPanel(Language.tr("LoadCalculator.Agents"),false);
 		cInput.addDefault("c=",QueueingCalculatorInputPanel.NumberMode.POSITIVE_LONG,13,null);
 		add(cInput.get());
 
 		/* Ankunftsbatchgröße (b(S)) */
-		bSInput=getPanel(Language.tr("LoadCalculator.BatchSize"));
+		bSInput=getPanel(Language.tr("LoadCalculator.BatchSize"),false);
 		bSInput.addDefault("b(S)=",QueueingCalculatorInputPanel.NumberMode.POSITIVE_LONG,1,null);
 		add(bSInput.get());
 
 		/* Variationskoeffizient der Zwischenankunftszeiten (CV[I]) */
-		cvIInput=getPanel(Language.tr("LoadCalculator.ArrivalRateCV"));
+		cvIInput=getPanel(Language.tr("LoadCalculator.ArrivalRateCV"),false);
 		cvIInput.addDefault("CV[I]=",QueueingCalculatorInputPanel.NumberMode.NOT_NEGATIVE_DOUBLE,1,null);
 		add(cvIInput.get());
 
 		/* Variationskoeffizient der Bedienzeiten (CV[S]) */
-		cvSInput=getPanel(Language.tr("LoadCalculator.WorkingRateCV"));
+		cvSInput=getPanel(Language.tr("LoadCalculator.WorkingRateCV"),false);
 		cvSInput.addDefault("CV[S]=",QueueingCalculatorInputPanel.NumberMode.NOT_NEGATIVE_DOUBLE,1,null);
 		add(cvSInput.get());
 	}
