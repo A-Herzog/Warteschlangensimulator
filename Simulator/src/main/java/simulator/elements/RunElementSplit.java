@@ -220,9 +220,12 @@ public class RunElementSplit extends RunElementPassThrough {
 			userDataInUse=data.tempUserDataInUse=client.copyUserDataInUse(data.tempUserDataInUse);
 			userDataStrings=client.getUserDataStringsCopy();
 		}
+		final boolean isWarmUp=client.isWarmUp;
+		final boolean isLastClient=client.isLastClient;
 
+		client.isLastClient=false; /* Simulation erst beenden, wenn der Kunden (hier in Form seiner Nachfolger) das System verlassen hat. */
 		disposeOldClient(simData,client);
 
-		for (int index=0;index<records.length;index++) processArrivalEvent(simData,index,client.isWarmUp,client.isLastClient,userData,userDataInUse,userDataStrings);
+		for (int index=0;index<records.length;index++) processArrivalEvent(simData,index,isWarmUp,isLastClient,userData,userDataInUse,userDataStrings);
 	}
 }
