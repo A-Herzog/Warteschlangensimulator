@@ -94,6 +94,11 @@ public class ParameterCompareTemplatesDialog extends BaseDialog {
 		MODE_SERVICETIMES,
 
 		/**
+		 * Wartezeittoleranzen variieren
+		 */
+		MODE_WAITINGTIME_TOLERANCES,
+
+		/**
 		 * Initialwert für Variable variieren
 		 */
 		MODE_VARIABLES,
@@ -121,7 +126,12 @@ public class ParameterCompareTemplatesDialog extends BaseDialog {
 		/**
 		 * Batch-Größe
 		 */
-		MODE_BATCH_SIZE
+		MODE_BATCH_SIZE,
+
+		/**
+		 * Anzahl an Ankünften
+		 */
+		MODE_ARRIVAL_COUNT
 	}
 
 	/** Vorlagentyp */
@@ -153,12 +163,14 @@ public class ParameterCompareTemplatesDialog extends BaseDialog {
 		case MODE_INTERARRIVAL: return Language.tr("ParameterCompare.Mode.Interarrival");
 		case MODE_OPERATORS: return Language.tr("ParameterCompare.Mode.Operators");
 		case MODE_SERVICETIMES: return Language.tr("ParameterCompare.Mode.ServiceTimes");
+		case MODE_WAITINGTIME_TOLERANCES: return Language.tr("ParameterCompare.Mode.WaitingTimeTolerances");
 		case MODE_VARIABLES: return Language.tr("ParameterCompare.Mode.Variables");
 		case MODE_MAP: return Language.tr("ParameterCompare.Mode.Map");
 		case MODE_DELAY: return Language.tr("ParameterCompare.Mode.Delay");
 		case MODE_ANALOG: return Language.tr("ParameterCompare.Mode.Analog");
 		case MODE_CONVEYOR: return Language.tr("ParameterCompare.Mode.Conveyor");
 		case MODE_BATCH_SIZE: return Language.tr("ParameterCompare.Mode.BatchSize");
+		case MODE_ARRIVAL_COUNT: return Language.tr("ParameterCompare.Mode.ArrivalCount");
 		default: return "";
 		}
 	}
@@ -173,12 +185,14 @@ public class ParameterCompareTemplatesDialog extends BaseDialog {
 		case MODE_INTERARRIVAL: return Images.PARAMETERSERIES_TEMPLATE_MODE_INTERARRIVAL.getIcon();
 		case MODE_OPERATORS: return Images.PARAMETERSERIES_TEMPLATE_MODE_OPERATORS.getIcon();
 		case MODE_SERVICETIMES: return Images.PARAMETERSERIES_TEMPLATE_MODE_SERVICETIMES.getIcon();
+		case MODE_WAITINGTIME_TOLERANCES: return Images.PARAMETERSERIES_TEMPLATE_MODE_WAITINGTIME_TOLERANCES.getIcon();
 		case MODE_VARIABLES: return Images.PARAMETERSERIES_TEMPLATE_MODE_VARIABLES.getIcon();
 		case MODE_MAP: return Images.SCRIPT_MAP.getIcon();
 		case MODE_DELAY: return Images.PARAMETERSERIES_TEMPLATE_MODE_DELAY.getIcon();
 		case MODE_ANALOG: return Images.PARAMETERSERIES_TEMPLATE_MODE_ANALOG.getIcon();
 		case MODE_CONVEYOR: return Images.PARAMETERSERIES_TEMPLATE_MODE_CONVEYOR.getIcon();
 		case MODE_BATCH_SIZE: return Images.PARAMETERSERIES_TEMPLATE_MODE_BATCHSIZE.getIcon();
+		case MODE_ARRIVAL_COUNT: return Images.PARAMETERSERIES_TEMPLATE_MODE_ARRIVAL_COUNT.getIcon();
 		default: return null;
 		}
 	}
@@ -307,6 +321,36 @@ public class ParameterCompareTemplatesDialog extends BaseDialog {
 			record.input.setXMLMode(1);
 			String add="";
 			if (processHasMultiTimes(process)) add="["+Language.trPrimary("Surface.DistributionSystem.XML.Distribution.Type")+"=\""+Language.trPrimary("Surface.Process.XML.Distribution.Type.ProcessingTime")+"\"]";
+			record.input.setTag(ModelSurface.XML_NODE_NAME[0]+"->"+process.getXMLNodeNames()[0]+"[id=\""+process.getId()+"\"]->"+Language.trPrimary("Surface.Source.XML.Distribution")+add);
+
+			list.add(record);
+		}
+
+		return list;
+	}
+
+	/**
+	 * Liefert möglichen Parameterreihen-Vorlagen mit Bezug auf die Wartezeittoleranzen
+	 * @param model	Ausgangsmodell
+	 * @param stations	Liste der Stationen im Ausgangsmodell
+	 * @return	Liste mit Parameterreihen-Vorlagen mit Bezug auf die Wartezeittoleranzen
+	 */
+	private static List<TemplateRecord> getTemplatesWaitingTimeTolerances(final EditModel model, final List<ModelElementBox> stations) {
+		final List<TemplateRecord> list=new ArrayList<>();
+
+		for (ModelElementBox element: stations) if (element instanceof ModelElementProcess) {
+			final ModelElementProcess process=(ModelElementProcess)element;
+			final Object obj=process.getCancel().get();
+			if (!(obj instanceof AbstractRealDistribution)) continue;
+			if (!DistributionTools.canSetMean((AbstractRealDistribution)obj)) continue;
+
+			final TemplateRecord record=new TemplateRecord(
+					TemplateMode.MODE_WAITINGTIME_TOLERANCES,
+					String.format(Language.tr("ParameterCompare.Settings.Input.List.Templates.WaitingTimeTolerances"),process.getName()+" (id="+process.getId()+")")
+					);
+			record.input.setMode(ModelChanger.Mode.MODE_XML);
+			record.input.setXMLMode(1);
+			String add="["+Language.trPrimary("Surface.DistributionSystem.XML.Distribution.Type")+"=\""+Language.trPrimary("Surface.Process.XML.Distribution.Type.CancelationTime")+"\"]";
 			record.input.setTag(ModelSurface.XML_NODE_NAME[0]+"->"+process.getXMLNodeNames()[0]+"[id=\""+process.getId()+"\"]->"+Language.trPrimary("Surface.Source.XML.Distribution")+add);
 
 			list.add(record);
@@ -477,6 +521,41 @@ public class ParameterCompareTemplatesDialog extends BaseDialog {
 	}
 
 	/**
+	 * Liefert möglichen Parameterreihen-Vorlagen mit Bezug auf die Anzahl an Ankünften
+	 * @param model	Ausgangsmodell
+	 * @param stations	Liste der Stationen im Ausgangsmodell
+	 * @return	Liste mit Parameterreihen-Vorlagen mit Bezug auf die Anzahl an Ankünften
+	 */
+	private static List<TemplateRecord> getTemplatesArrivalCountSize(final EditModel model, final List<ModelElementBox> stations) {
+		final List<TemplateRecord> list=new ArrayList<>();
+
+		for (ModelElementBox element: stations) if (element instanceof ModelElementSource) {
+			final ModelElementSourceRecord sourceRecord=((ModelElementSource)element).getRecord();
+
+			if (sourceRecord.getMaxArrivalCount()>0 && sourceRecord.getArrivalCountXMLPath()!=null) {
+				final TemplateRecord record=new TemplateRecord(
+						TemplateMode.MODE_ARRIVAL_COUNT,
+						String.format(Language.tr("ParameterCompare.Settings.Input.List.Templates.ArrivalCount"),element.getName()+" (id="+element.getId()+")")
+						);
+				record.input.setMode(ModelChanger.Mode.MODE_XML);
+				record.input.setTag(ModelSurface.XML_NODE_NAME[0]+"->"+element.getXMLNodeNames()[0]+"[id=\""+element.getId()+"\"]->"+sourceRecord.getArrivalCountXMLPath());
+				list.add(record);
+			}
+			if (sourceRecord.getMaxArrivalClientCount()>0 && sourceRecord.getArrivalClientCountXMLPath()!=null) {
+				final TemplateRecord record=new TemplateRecord(
+						TemplateMode.MODE_ARRIVAL_COUNT,
+						String.format(Language.tr("ParameterCompare.Settings.Input.List.Templates.ArrivalClientCount"),element.getName()+" (id="+element.getId()+")")
+						);
+				record.input.setMode(ModelChanger.Mode.MODE_XML);
+				record.input.setTag(ModelSurface.XML_NODE_NAME[0]+"->"+element.getXMLNodeNames()[0]+"[id=\""+element.getId()+"\"]->"+sourceRecord.getArrivalCountXMLPath());
+				list.add(record);
+			}
+		}
+
+		return list;
+	}
+
+	/**
 	 * Liefert eine Liste aller verfügbaren Vorlagen für ein Modell
 	 * @param model	Modell für das die Vorlagen aufgelistet werden sollen
 	 * @return	Zuordnung vom Vorlagentypen zu Listen mit konkreten Vorlagen
@@ -488,12 +567,14 @@ public class ParameterCompareTemplatesDialog extends BaseDialog {
 		map.put(TemplateMode.MODE_INTERARRIVAL,getTemplatesInterarrival(model,stations));
 		map.put(TemplateMode.MODE_OPERATORS,getTemplatesResources(model));
 		map.put(TemplateMode.MODE_SERVICETIMES,getTemplatesServiceTimes(model,stations));
+		map.put(TemplateMode.MODE_WAITINGTIME_TOLERANCES,getTemplatesWaitingTimeTolerances(model,stations));
 		map.put(TemplateMode.MODE_VARIABLES,getTemplatesVariables(model));
 		map.put(TemplateMode.MODE_MAP,getTemplatesMap(model));
 		map.put(TemplateMode.MODE_DELAY,getTemplatesDelayTimes(model,stations));
 		map.put(TemplateMode.MODE_ANALOG,getTemplatesAnalogValues(model,stations));
 		map.put(TemplateMode.MODE_CONVEYOR,getTemplatesConveyor(model,stations));
 		map.put(TemplateMode.MODE_BATCH_SIZE,getTemplatesBatchSize(model,stations));
+		map.put(TemplateMode.MODE_ARRIVAL_COUNT,getTemplatesArrivalCountSize(model,stations));
 
 		return map;
 	}

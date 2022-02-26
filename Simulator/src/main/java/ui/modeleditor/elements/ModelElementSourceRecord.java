@@ -1250,6 +1250,54 @@ public final class ModelElementSourceRecord implements Cloneable {
 	}
 
 	/**
+	 * Liefert ein XML-Pfad für die Anzahl an Ankünften.
+	 * @return	XML-Pfad für die Anzahl an Ankünften (oder <code>null</code>, wenn ein Pfad in der aktuellen Konfiguration nicht ermittelt werden kann)
+	 */
+	public String getArrivalCountXMLPath() {
+		if (!hasOwnArrivals) return null;
+		switch (nextMode) {
+		case NEXT_DISTRIBUTION:
+			return Language.trPrimary("Surface.Source.XML.Distribution")+"->["+Language.trPrimary("Surface.Source.XML.Distribution.Count")+"]";
+		case NEXT_EXPRESSION:
+			return Language.trPrimary("Surface.Source.XML.Expression")+"->["+Language.trPrimary("Surface.Source.XML.Expression.Count")+"]";
+		case NEXT_SCHEDULE:
+			return Language.trPrimary("Surface.Source.XML.Schedule")+"->["+Language.trPrimary("Surface.Source.XML.Schedule.Count")+"]";
+		case NEXT_CONDITION:
+			return Language.trPrimary("Surface.Source.XML.Condition")+"->["+Language.trPrimary("Surface.Source.XML.Condition.Count")+"]";
+		case NEXT_THRESHOLD:
+			return Language.trPrimary("Surface.Source.XML.Threshold")+"->["+Language.trPrimary("Surface.Source.XML.Threshold.Count")+"]";
+		case NEXT_SIGNAL:
+			return Language.trPrimary("Surface.Source.XML.Signal")+"->["+Language.trPrimary("Surface.Source.XML.Signal.Count")+"]";
+		default:
+			return null;
+		}
+	}
+
+	/**
+	 * Liefert ein XML-Pfad für die Anzahl an Kundenankünften.
+	 * @return	XML-Pfad für die Anzahl an Kundenankünften (oder <code>null</code>, wenn ein Pfad in der aktuellen Konfiguration nicht ermittelt werden kann)
+	 */
+	public String getArrivalClientCountXMLPath() {
+		if (!hasOwnArrivals) return null;
+		switch (nextMode) {
+		case NEXT_DISTRIBUTION:
+			return Language.trPrimary("Surface.Source.XML.Distribution")+"->["+Language.trPrimary("Surface.Source.XML.Distribution.ClientCount")+"]";
+		case NEXT_EXPRESSION:
+			return Language.trPrimary("Surface.Source.XML.Expression")+"->["+Language.trPrimary("Surface.Source.XML.Expression.ClientCount")+"]";
+		case NEXT_SCHEDULE:
+			return Language.trPrimary("Surface.Source.XML.Schedule")+"->["+Language.trPrimary("Surface.Source.XML.Schedule.ClientCount")+"]";
+		case NEXT_CONDITION:
+			return Language.trPrimary("Surface.Source.XML.Condition")+"->["+Language.trPrimary("Surface.Source.XML.Condition.ClientCount")+"]";
+		case NEXT_THRESHOLD:
+			return Language.trPrimary("Surface.Source.XML.Threshold")+"->["+Language.trPrimary("Surface.Source.XML.Threshold.ClientCount")+"]";
+		case NEXT_SIGNAL:
+			return Language.trPrimary("Surface.Source.XML.Signal")+"->["+Language.trPrimary("Surface.Source.XML.Signal.ClientCount")+"]";
+		default:
+			return null;
+		}
+	}
+
+	/**
 	 * Fügt die Beschreibung für die Daten dieses Objekts als Eigenschaft zu der Beschreibung hinzu
 	 * @param descriptionBuilder	Description-Builder, der die Beschreibungsdaten zusammenfasst
 	 */

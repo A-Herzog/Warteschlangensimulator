@@ -736,6 +736,9 @@ public enum Images {
 	/** Symbol "Parameterreihe - Vorlage - Bedienzeiten variieren */
 	PARAMETERSERIES_TEMPLATE_MODE_SERVICETIMES("chart_curve.png"),
 
+	/** Symbol "Parameterreihe - Vorlage - Wartezeittoleranzen variieren */
+	PARAMETERSERIES_TEMPLATE_MODE_WAITINGTIME_TOLERANCES("cancel.png"),
+
 	/** Symbol "Parameterreihe - Vorlage - Variablenwert variieren */
 	PARAMETERSERIES_TEMPLATE_MODE_VARIABLES("font.png"),
 
@@ -750,6 +753,9 @@ public enum Images {
 
 	/** Symbol "Parameterreihe - Vorlage - Batch-Größe variieren */
 	PARAMETERSERIES_TEMPLATE_MODE_BATCHSIZE("Batch.png"),
+
+	/** Symbol "Parameterreihe - Vorlage - Anzahl an Ankünften variieren */
+	PARAMETERSERIES_TEMPLATE_MODE_ARRIVAL_COUNT("Counter.png"),
 
 	/** Symbol "Parameterreihe - Model aktiv - Ja" */
 	PARAMETERSERIES_MODEL_ACTIVE_YES("lightbulb.png"),

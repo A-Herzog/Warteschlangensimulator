@@ -331,17 +331,43 @@ public class ModelElementSource extends ModelElementBox implements ElementWithNe
 		if (record.getNextMode()!=ModelElementSourceRecord.NextMode.NEXT_DISTRIBUTION) return;
 		if (!DistributionTools.canSetMean(record.getInterarrivalTimeDistribution())) return;
 
-		final JMenuItem item;
+		JMenuItem item;
 		final Icon icon=Images.PARAMETERSERIES.getIcon();
+
+		/* Zwischenankunftszeiten */
 		popupMenu.add(item=new JMenuItem(Language.tr("Surface.PopupMenu.ParameterCompare.ChangeInterarrivalTime")));
 		item.addActionListener(e->{
-			TemplateRecord record=new TemplateRecord(TemplateMode.MODE_INTERARRIVAL,Language.tr("Surface.PopupMenu.ParameterCompare.ChangeInterarrivalTime.Short"));
+			final TemplateRecord record=new TemplateRecord(TemplateMode.MODE_INTERARRIVAL,Language.tr("Surface.PopupMenu.ParameterCompare.ChangeInterarrivalTime.Short"));
 			record.input.setMode(ModelChanger.Mode.MODE_XML);
 			record.input.setXMLMode(1);
 			record.input.setTag(ModelSurface.XML_NODE_NAME[0]+"->"+getXMLNodeNames()[0]+"[id=\""+getId()+"\"]->"+Language.trPrimary("Surface.Source.XML.Distribution"));
 			buildSeries.accept(record);
 		});
 		if (icon!=null) item.setIcon(icon);
+
+		/* Anzahl an Ankünften */
+		if (record.getMaxArrivalCount()>0 && record.getArrivalCountXMLPath()!=null) {
+			popupMenu.add(item=new JMenuItem(Language.tr("Surface.PopupMenu.ParameterCompare.ChangeArrivalCount")));
+			item.addActionListener(e->{
+				final TemplateRecord record=new TemplateRecord(TemplateMode.MODE_ARRIVAL_COUNT,Language.tr("Surface.PopupMenu.ParameterCompare.ChangeArrivalCount.Short"));
+				record.input.setMode(ModelChanger.Mode.MODE_XML);
+				record.input.setTag(ModelSurface.XML_NODE_NAME[0]+"->"+getXMLNodeNames()[0]+"[id=\""+getId()+"\"]->"+this.record.getArrivalCountXMLPath());
+				buildSeries.accept(record);
+			});
+			if (icon!=null) item.setIcon(icon);
+		}
+
+		/* Anzahl an Kundenankünften */
+		if (record.getMaxArrivalClientCount()>0 && record.getArrivalClientCountXMLPath()!=null) {
+			popupMenu.add(item=new JMenuItem(Language.tr("Surface.PopupMenu.ParameterCompare.ChangeArrivalClientCount")));
+			item.addActionListener(e->{
+				final TemplateRecord record=new TemplateRecord(TemplateMode.MODE_ARRIVAL_COUNT,Language.tr("Surface.PopupMenu.ParameterCompare.ChangeArrivalClientCount.Short"));
+				record.input.setMode(ModelChanger.Mode.MODE_XML);
+				record.input.setTag(ModelSurface.XML_NODE_NAME[0]+"->"+getXMLNodeNames()[0]+"[id=\""+getId()+"\"]->"+this.record.getArrivalCountXMLPath());
+				buildSeries.accept(record);
+			});
+			if (icon!=null) item.setIcon(icon);
+		}
 	}
 
 	/**

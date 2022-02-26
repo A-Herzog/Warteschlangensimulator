@@ -339,6 +339,16 @@ public final class DistributionSystem implements Cloneable {
 	}
 
 	/**
+	 * Zählt, wie viele Untereinträge (d.h. ohne den Haupteintrag) existieren.
+	 * @return	Anzahl an Untereinträgen
+	 */
+	public int getSubNumberCount() {
+		int count=0;
+		for (Map.Entry<String,AbstractRealDistribution> entry : distributionByType.entrySet()) if (entry.getValue()!=null) count++;
+		return count;
+	}
+
+	/**
 	 * Speichert die Daten in einer XML-Datei
 	 * @param doc	XML-Dokument
 	 * @param parent	Übergeordnetes XML-Element

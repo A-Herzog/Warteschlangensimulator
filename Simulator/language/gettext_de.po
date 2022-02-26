@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-02-22 20:16+0100\n"
+"POT-Creation-Date: 2022-02-26 01:11+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -12746,6 +12746,9 @@ msgstr "Basismodell fehlerhaft"
 msgid "ParameterCompare.Mode.Analog"
 msgstr "Startwert für Analogwert"
 
+msgid "ParameterCompare.Mode.ArrivalCount"
+msgstr "Anzahl an Ankünften"
+
 msgid "ParameterCompare.Mode.BatchSize"
 msgstr "Batch-Größe"
 
@@ -12769,6 +12772,9 @@ msgstr "Bedienzeiten"
 
 msgid "ParameterCompare.Mode.Variables"
 msgstr "Startwert für globale Variable"
+
+msgid "ParameterCompare.Mode.WaitingTimeTolerances"
+msgstr "Wartezeittoleranzen"
 
 msgid "ParameterCompare.ParameterCompare"
 msgstr "Parameterreihen"
@@ -13010,13 +13016,31 @@ msgid "ParameterCompare.Settings.Input.List.MoveUp.Hint"
 msgstr "Verschiebt den gewählten Eingabeparameter um einen Platz nach unten in der Liste (Strg+Nach oben)"
 
 msgid "ParameterCompare.Settings.Input.List.Templates.AnalogValue"
-msgstr "Initialer Wert an Station %s"
+msgstr "Initialer Analogwert an Station %s"
 
 msgid "ParameterCompare.Settings.Input.List.Templates.AnalogValue.Title"
 msgstr "Initialer Analogwert"
 
+msgid "ParameterCompare.Settings.Input.List.Templates.ArrivalClientCount"
+msgstr "Anzahl an eintreffenden Kunden an Station %s"
+
+msgid "ParameterCompare.Settings.Input.List.Templates.ArrivalClientCount.Title"
+msgstr "Anzahl an eintreffenden Kunden"
+
+msgid "ParameterCompare.Settings.Input.List.Templates.ArrivalCount"
+msgstr "Anzahl an Ankunftsereignissen an Station %s"
+
+msgid "ParameterCompare.Settings.Input.List.Templates.ArrivalCount.Title"
+msgstr "Anzahl an Ankunftsereignissen"
+
 msgid "ParameterCompare.Settings.Input.List.Templates.BatchSize"
 msgstr "Batch-Größe an Station %s"
+
+msgid "ParameterCompare.Settings.Input.List.Templates.ChangeArrivalClientCount"
+msgstr "Anzahl an eintreffenden Kunden an Station %s"
+
+msgid "ParameterCompare.Settings.Input.List.Templates.ChangeArrivalCount"
+msgstr "Anzahl an Ankunftsereignissen an Station %s"
 
 msgid "ParameterCompare.Settings.Input.List.Templates.Conveyor"
 msgstr "Fließband-Transportzeit an Station %s"
@@ -13056,6 +13080,12 @@ msgstr "Anzahl an Bedienern in Ressource \"%s\""
 
 msgid "ParameterCompare.Settings.Input.List.Templates.Resource.Title"
 msgstr "Anzahl an Bedienern in einer Ressource"
+
+msgid "ParameterCompare.Settings.Input.List.Templates.WaitingTimeTolerances"
+msgstr "Wartezeittoleranzen an Station %s"
+
+msgid "ParameterCompare.Settings.Input.List.Templates.WaitingTimeTolerances.Title"
+msgstr "Wartezeittoleranzen"
 
 msgid "ParameterCompare.Settings.Input.List.Title"
 msgstr "Eingabeparameter bearbeiten"
@@ -27419,6 +27449,18 @@ msgstr "In den Hintergrund"
 msgid "Surface.PopupMenu.MoveToFront"
 msgstr "In den Vordergrund"
 
+msgid "Surface.PopupMenu.ParameterCompare.ChangeArrivalClientCount"
+msgstr "Parameterreihe: Anzahl an eintreffenden Kunden"
+
+msgid "Surface.PopupMenu.ParameterCompare.ChangeArrivalClientCount.Short"
+msgstr "Anzahl an eintreffenden Kunden"
+
+msgid "Surface.PopupMenu.ParameterCompare.ChangeArrivalCount"
+msgstr "Parameterreihe: Anzahl an Ankunftsereignissen"
+
+msgid "Surface.PopupMenu.ParameterCompare.ChangeArrivalCount.Short"
+msgstr "Anzahl an Ankunftsereignissen"
+
 msgid "Surface.PopupMenu.ParameterCompare.ChangeBatchSize"
 msgstr "Parameterreihe: Batch-Größe variieren"
 
@@ -27472,6 +27514,12 @@ msgstr "Parameterreihe: Initiale Variablenwerte"
 
 msgid "Surface.PopupMenu.ParameterCompare.ChangeVariableValue.Short"
 msgstr "Variablenwert"
+
+msgid "Surface.PopupMenu.ParameterCompare.ChangeWaitingTimeTolerance"
+msgstr "Parameterreihe: Wartezeittoleranzen"
+
+msgid "Surface.PopupMenu.ParameterCompare.ChangeWaitingTimeTolerance.Short"
+msgstr "Wartezeittoleranzen"
 
 msgid "Surface.PopupMenu.Properties"
 msgstr "Eigenschaften"

@@ -159,7 +159,6 @@ public class ParameterCompareInputValuesTemplates {
 			}
 		}
 
-
 		/* Globale Variablen */
 
 		if (modes.contains(Mode.VARIABLES)) {
@@ -240,6 +239,41 @@ public class ParameterCompareInputValuesTemplates {
 					list2.add(input);
 				}
 			}
+
+			/* Anzahl an Ankünften / Anzahl an Kundenankünften  */
+
+			list2=null;
+			for (ModelElement element: model.surface.getElements()) {
+				if (!(element instanceof ModelElementSource)) continue;
+				final ModelElementSource source=(ModelElementSource)element;
+				final ModelElementSourceRecord sourceRecord=source.getRecord();
+				if (sourceRecord.getMaxArrivalCount()>0 && sourceRecord.getArrivalCountXMLPath()!=null) {
+					final ParameterCompareSetupValueInput input=new ParameterCompareSetupValueInput();
+					input.setName(String.format(Language.tr("ParameterCompare.Settings.Input.List.Templates.ChangeArrivalCount"),source.getName()+" (id="+source.getId()+")"));
+					input.setMode(ModelChanger.Mode.MODE_XML);
+					input.setTag(ModelSurface.XML_NODE_NAME[0]+"->"+source.getXMLNodeNames()[0]+"[id=\""+source.getId()+"\"]->"+sourceRecord.getArrivalCountXMLPath());
+					if (isParameterInUse.test(input)) continue;
+					if (list2==null) {
+						sub=new Sub(Language.tr("ParameterCompare.Settings.Input.List.Templates.ArrivalCount.Title"),ModelChanger.Mode.MODE_XML);
+						list.add(sub);
+						list2=sub.list;
+					}
+					list2.add(input);
+				}
+				if (sourceRecord.getMaxArrivalClientCount()>0 && sourceRecord.getArrivalClientCountXMLPath()!=null) {
+					final ParameterCompareSetupValueInput input=new ParameterCompareSetupValueInput();
+					input.setName(String.format(Language.tr("ParameterCompare.Settings.Input.List.Templates.ChangeArrivalClientCount"),source.getName()+" (id="+source.getId()+")"));
+					input.setMode(ModelChanger.Mode.MODE_XML);
+					input.setTag(ModelSurface.XML_NODE_NAME[0]+"->"+source.getXMLNodeNames()[0]+"[id=\""+source.getId()+"\"]->"+sourceRecord.getArrivalClientCountXMLPath());
+					if (isParameterInUse.test(input)) continue;
+					if (list2==null) {
+						sub=new Sub(Language.tr("ParameterCompare.Settings.Input.List.Templates.ArrivalClientCount.Title"),ModelChanger.Mode.MODE_XML);
+						list.add(sub);
+						list2=sub.list;
+					}
+					list2.add(input);
+				}
+			}
 		}
 
 		/* Bedienstationen - Bedienzeiten */
@@ -267,10 +301,33 @@ public class ParameterCompareInputValuesTemplates {
 				}
 				list2.add(input);
 			}
+
+			/* Wartezeittoleranzen */
+
+			list2=null;
+			for (ModelElement element: model.surface.getElements()) {
+				if (!(element instanceof ModelElementProcess)) continue;
+				final ModelElementProcess process=(ModelElementProcess)element;
+				final Object obj=process.getCancel().get();
+				if (!(obj instanceof AbstractRealDistribution)) continue;
+				if (!DistributionTools.canSetMean((AbstractRealDistribution)obj)) continue;
+				final ParameterCompareSetupValueInput input=new ParameterCompareSetupValueInput();
+				input.setName(String.format(Language.tr("ParameterCompare.Settings.Input.List.Templates.WaitingTimeTolerances"),process.getName()+" (id="+process.getId()+")"));
+				input.setMode(ModelChanger.Mode.MODE_XML);
+				input.setXMLMode(1);
+				final String add="["+Language.trPrimary("Surface.DistributionSystem.XML.Distribution.Type")+"=\""+Language.trPrimary("Surface.Process.XML.Distribution.Type.CancelationTime")+"\"]";
+				input.setTag(ModelSurface.XML_NODE_NAME[0]+"->"+process.getXMLNodeNames()[0]+"[id=\""+process.getId()+"\"]->"+Language.trPrimary("Surface.Source.XML.Distribution")+add);
+				if (isParameterInUse.test(input)) continue;
+				if (list2==null) {
+					sub=new Sub(Language.tr("ParameterCompare.Settings.Input.List.Templates.WaitingTimeTolerances.Title"),ModelChanger.Mode.MODE_XML);
+					list.add(sub);
+					list2=sub.list;
+				}
+				list2.add(input);
+			}
 		}
 
 		/* Verzögerungsstationen - Zeiten */
-
 
 		if (modes.contains(Mode.DELAY)) {
 			list2=null;
