@@ -346,6 +346,7 @@ public class CalculatorWindowPageDistributions extends CalculatorWindowPage {
 		table.addLine(new String[] {NumberTools.formatNumberMax(numbers[nr++]),"",Language.tr("Distribution.StdDev"),NumberTools.formatNumberMax(info.Std),"=_xlfn.STDEV.S("+range+")"});
 		table.addLine(new String[] {NumberTools.formatNumberMax(numbers[nr++]),"",Language.tr("Distribution.CV"),NumberTools.formatNumberMax(info.Std/info.E),"=_xlfn.STDEV.S("+range+")/AVERAGE("+range+")"});
 		table.addLine(new String[] {NumberTools.formatNumberMax(numbers[nr++]),"",Language.tr("Distribution.Skewness"),NumberTools.formatNumberMax(info.Sk),"=SKEW("+range+")"});
+		table.addLine(new String[] {NumberTools.formatNumberMax(numbers[nr++]),"",Language.tr("Distribution.Kurt"),"","=KURT("+range+")"});
 		table.addLine(new String[] {NumberTools.formatNumberMax(numbers[nr++]),"",Language.tr("Statistics.Minimum"),minString,"=MIN("+range+")"});
 		table.addLine(new String[] {NumberTools.formatNumberMax(numbers[nr++]),"",Language.tr("Statistics.Maximum"),maxString,"=MAX("+range+")"});
 		table.addLine(new String[] {NumberTools.formatNumberMax(numbers[nr++])});
