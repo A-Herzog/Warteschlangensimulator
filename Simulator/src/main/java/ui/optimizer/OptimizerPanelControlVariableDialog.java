@@ -237,9 +237,10 @@ public class OptimizerPanelControlVariableDialog extends BaseDialog {
 		rangeTo.addKeyListener(new KeyListener() {
 			@Override public void keyTyped(KeyEvent e) {checkData(false);}
 			@Override public void keyReleased(KeyEvent e) {checkData(false);}
-			@Override public void keyPressed(KeyEvent e) {checkData(false);	}
+			@Override public void keyPressed(KeyEvent e) {checkData(false);}
 		});
 		line.add(valueIsInteger=new JCheckBox(Language.tr("Optimizer.ControlVariableEdit.OnlyIntegerValues")));
+		valueIsInteger.addActionListener(e->checkData(false));
 
 		/* Startwert */
 
