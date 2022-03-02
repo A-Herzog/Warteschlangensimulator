@@ -112,18 +112,25 @@ public class QueueingCalculatorTabErlangC extends QueueingCalculatorTabBase {
 		final StringBuilder result=new StringBuilder();
 
 		result.append(Language.tr("LoadCalculator.OfferedWorkLoad")+" a="+NumberTools.formatNumber(a,2)+"<br>");
-		result.append(Language.tr("LoadCalculator.WorkLoad")+" (rho) &rho;="+NumberTools.formatPercent(a/c,2)+"<br>");
+		final double rho=a/c;
+		if (rho+0.000001<1.0) {
+			result.append(Language.tr("LoadCalculator.WorkLoad")+" (rho) &rho;="+NumberTools.formatPercent(rho,2)+"<br>");
+		} else {
+			result.append(Language.tr("LoadCalculator.WorkLoad")+" (rho) &rho;="+NumberTools.formatPercent(rho,2)+" ("+Language.tr("LoadCalculator.AllenCunneenInvalidWorkLoad")+")<br>");
+		}
+
 		result.append("P1="+NumberTools.formatNumber(P1,2)+"<br>");
 
-		result.append(Language.tr("LoadCalculator.AverageQueueLength")+" E[N<sub>Q</sub>]="+NumberTools.formatNumber(ENQ,2)+"<br>");
-		result.append(Language.tr("LoadCalculator.AverageNumberOfClientsInTheSystem")+" E[N]="+NumberTools.formatNumber(EN,2)+"<br>");
-		result.append(Language.tr("LoadCalculator.AverageWaitingTime")+" E[W]="+NumberTools.formatNumber(EW,2)+" ("+Language.tr("LoadCalculator.Units.InSeconds")+")<br>");
-		result.append(Language.tr("LoadCalculator.AverageResidenceTime")+" E[V]="+NumberTools.formatNumber(EV,2)+" ("+Language.tr("LoadCalculator.Units.InSeconds")+")<br>");
-
-		if (P1>=1 || P1<0) {
-			result.append("P(W&le;t) "+Language.tr("LoadCalculator.ErlangCNotCalculateable"));
-		} else {
-			result.append("P(W&le;t)="+NumberTools.formatPercent((1-P1*FastMath.exp(-mu*(c-a)*t)),2));
+		if (rho+0.000001<1.0) {
+			result.append(Language.tr("LoadCalculator.AverageQueueLength")+" E[N<sub>Q</sub>]="+NumberTools.formatNumber(ENQ,2)+"<br>");
+			result.append(Language.tr("LoadCalculator.AverageNumberOfClientsInTheSystem")+" E[N]="+NumberTools.formatNumber(EN,2)+"<br>");
+			result.append(Language.tr("LoadCalculator.AverageWaitingTime")+" E[W]="+NumberTools.formatNumber(EW,2)+" ("+Language.tr("LoadCalculator.Units.InSeconds")+")<br>");
+			result.append(Language.tr("LoadCalculator.AverageResidenceTime")+" E[V]="+NumberTools.formatNumber(EV,2)+" ("+Language.tr("LoadCalculator.Units.InSeconds")+")<br>");
+			if (P1>=1 || P1<0) {
+				result.append("P(W&le;t) "+Language.tr("LoadCalculator.ErlangCNotCalculateable"));
+			} else {
+				result.append("P(W&le;t)="+NumberTools.formatPercent((1-P1*FastMath.exp(-mu*(c-a)*t)),2));
+			}
 		}
 
 		setResult(result.toString());

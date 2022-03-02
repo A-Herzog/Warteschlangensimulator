@@ -137,14 +137,16 @@ public class QueueingCalculatorTabErlangCExt extends QueueingCalculatorTabBase {
 
 		final StringBuilder result=new StringBuilder();
 
-		result.append(Language.tr("LoadCalculator.OfferedWorkLoad")+" a="+NumberTools.formatNumber(a,2)+"<br>");
-		result.append(Language.tr("LoadCalculator.WorkLoad")+" (rho) &rho;="+NumberTools.formatPercent((lambda-ENQ*nu)/mu/c,2)+"<br>");
-		result.append(Language.tr("LoadCalculator.AverageQueueLength")+" E[N<sub>Q</sub>]="+NumberTools.formatNumber(ENQ,2)+"<br>");
-		result.append(Language.tr("LoadCalculator.AverageNumberOfClientsInTheSystem")+" E[N]="+NumberTools.formatNumber(EN,2)+"<br>");
-		result.append(Language.tr("LoadCalculator.AverageWaitingTime")+" E[W]="+NumberTools.formatNumber(EW,2)+" ("+Language.tr("LoadCalculator.Units.InSeconds")+")<br>");
-		result.append(Language.tr("LoadCalculator.AverageResidenceTime")+" E[V]="+NumberTools.formatNumber(EV,2)+" ("+Language.tr("LoadCalculator.Units.InSeconds")+")<br>");
-		result.append(Language.tr("LoadCalculator.CancelRate")+" P(A)="+NumberTools.formatPercent(ENQ*nu/lambda,2)+"<br>");
-		result.append("<b>P(W&le;t)="+NumberTools.formatPercent(Pt,2)+"</b>");
+		if (!Double.isNaN(ENQ)) {
+			result.append(Language.tr("LoadCalculator.OfferedWorkLoad")+" a="+NumberTools.formatNumber(a,2)+"<br>");
+			result.append(Language.tr("LoadCalculator.WorkLoad")+" (rho) &rho;="+NumberTools.formatPercent((lambda-ENQ*nu)/mu/c,2)+"<br>");
+			result.append(Language.tr("LoadCalculator.AverageQueueLength")+" E[N<sub>Q</sub>]="+NumberTools.formatNumber(ENQ,2)+"<br>");
+			result.append(Language.tr("LoadCalculator.AverageNumberOfClientsInTheSystem")+" E[N]="+NumberTools.formatNumber(EN,2)+"<br>");
+			result.append(Language.tr("LoadCalculator.AverageWaitingTime")+" E[W]="+NumberTools.formatNumber(EW,2)+" ("+Language.tr("LoadCalculator.Units.InSeconds")+")<br>");
+			result.append(Language.tr("LoadCalculator.AverageResidenceTime")+" E[V]="+NumberTools.formatNumber(EV,2)+" ("+Language.tr("LoadCalculator.Units.InSeconds")+")<br>");
+			result.append(Language.tr("LoadCalculator.CancelRate")+" P(A)="+NumberTools.formatPercent(ENQ*nu/lambda,2)+"<br>");
+			result.append("<b>P(W&le;t)="+NumberTools.formatPercent(Pt,2)+"</b>");
+		}
 
 		setResult(result.toString());
 	}
