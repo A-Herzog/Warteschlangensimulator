@@ -147,6 +147,7 @@ public abstract class JSEngine {
 			/* Im Hauptthread wenn unproblematisch. */
 			try {
 				execute();
+				lastResult=output.getResults();
 				return true;
 			} catch (Exception e) {
 				output.addExceptionMessage(e);
