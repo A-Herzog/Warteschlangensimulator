@@ -26,6 +26,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 import java.io.Serializable;
+import java.text.DecimalFormat;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -44,6 +45,8 @@ import javax.swing.KeyStroke;
 import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
 
+import org.jfree.chart.axis.NumberAxis;
+import org.jfree.chart.axis.NumberTickUnit;
 import org.jfree.data.xy.XYSeries;
 
 import language.Language;
@@ -269,6 +272,10 @@ public final class ParameterCompareChartDialog extends BaseDialog {
 
 			final XYSeries series=addSeries(heading,Color.RED);
 			for (int i=0;i<data.length;i++) series.add(i+1,data[i]);
+
+			final NumberAxis xAxis=(NumberAxis)plot.getDomainAxis();
+			xAxis.setNumberFormatOverride(new DecimalFormat("0"));
+			xAxis.setTickUnit(new NumberTickUnit(Math.round(Math.max(xAxis.getTickUnit().getSize(),1))));
 
 			addFillColor(0);
 			smartZoom(0);
