@@ -2,7 +2,7 @@
 
 #### Required tools for building the project
 
-* Java Development Kit, version 8 or higher ([adoptopenjdk.net](https://adoptopenjdk.net/) or [www.graalvm.org](https://www.graalvm.org/))
+* Java Development Kit, version 8 or higher ([adoptium.net](https://adoptium.net/), [OpenJ9](https://developer.ibm.com/languages/java/semeru-runtimes/downloads/) or [www.graalvm.org](https://www.graalvm.org/))
 * NSIS ([nsis.sourceforge.io](https://nsis.sourceforge.io/Main_Page))
 * LaTeX for building the documentation pdfs
 * Maven (no need for manual installation if using Eclipse)

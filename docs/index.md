@@ -8,14 +8,14 @@ In the simulator, queueing systems can be modelled and afterwards be simulated i
 
 ## Download
 
-* [Windows installer](https://github.com/A-Herzog/Warteschlangensimulator/releases/latest/download/SimulatorSetup.exe)
-* [Zip file](https://github.com/A-Herzog/Warteschlangensimulator/releases/latest/download/Simulator.zip) (for use under Windows, Linux, ...)
+* **[Windows installer](https://github.com/A-Herzog/Warteschlangensimulator/releases/latest/download/SimulatorSetup.exe)**
+* **[Zip file](https://github.com/A-Herzog/Warteschlangensimulator/releases/latest/download/Simulator.zip)** (for use under Windows, Linux, ...)
 * [Source code](https://github.com/A-Herzog/Warteschlangensimulator/releases/latest/) ([Notes on the build process](https://github.com/A-Herzog/Warteschlangensimulator/blob/master/BUILD.md))
 
 The Windows version can be installed with or without admin rights. The zip file version can be used on any platform without installation.
 
 * [Release notes](https://github.com/A-Herzog/Warteschlangensimulator/wiki/Release-notes "Release notes and plans in the GitHub Wiki")
-* System requirements: [Java 8 or higher](https://adoptopenjdk.net/ "Download Java from adoptopenjdk.net")
+* System requirements: [Java 8 or higher](https://adoptium.net/ "Download Java from adoptopenjdk.net")
 * License: [Apache License 2.0](https://opensource.org/licenses/Apache-2.0) (for Warteschlangensimulator, the used libraries are partly subject to different open source licenses)
 
 ## Key features
