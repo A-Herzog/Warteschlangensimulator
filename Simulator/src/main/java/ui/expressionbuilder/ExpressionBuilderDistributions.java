@@ -220,6 +220,13 @@ public class ExpressionBuilderDistributions {
 				Language.tr("ExpressionBuilder.ProbabilityDistributions.PoissonDistribution.DensityInfo"),
 				Language.tr("ExpressionBuilder.ProbabilityDistributions.PoissonDistribution.RandomNumberInfo"));
 
+		/* Zeta-Verteilung */
+
+		addDist(group,filterUpper,"ZetaDist","s",
+				Language.tr("ExpressionBuilder.ProbabilityDistributions.ZetaDistribution"),
+				Language.tr("ExpressionBuilder.ProbabilityDistributions.ZetaDistribution.DensityInfo"),
+				Language.tr("ExpressionBuilder.ProbabilityDistributions.ZetaDistribution.RandomNumberInfo"));
+
 		/* Exponentialverteilung */
 
 		addDist(group,filterUpper,"ExpDist","mean",

@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-02-26 01:11+0100\n"
+"POT-Creation-Date: 2022-03-07 22:57+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -5238,7 +5238,7 @@ msgid "ExpressionBuilder.MathematicalFunctions.GammaFunction"
 msgstr "Gamma function"
 
 msgid "ExpressionBuilder.MathematicalFunctions.GammaFunction.Info"
-msgstr "<p>Returns the value of the gamma function for the parameter passed as parameter.</p> <p>Example: <tt>gamma(7)</tt> returns 720.</p>"
+msgstr "<p>Returns the value of the Gamma function for the parameter passed as parameter.</p> <p>Example: <tt>gamma(7)</tt> returns 720.</p>"
 
 msgid "ExpressionBuilder.MathematicalFunctions.IntegerPart"
 msgstr "Integer part"
@@ -5277,6 +5277,12 @@ msgstr "Square root"
 
 msgid "ExpressionBuilder.MathematicalFunctions.Squareroot.Info"
 msgstr "<p>Calculates the square root from the value passed as parameter.</p><p>Example: <tt>sqrt(25)</tt> returns 5.</p>"
+
+msgid "ExpressionBuilder.MathematicalFunctions.ZetaFunction"
+msgstr "Zeta function"
+
+msgid "ExpressionBuilder.MathematicalFunctions.ZetaFunction.Info"
+msgstr "<p>Returns the value of the Zeta function for the parameter passed as parameter.</p> <p>Example: <tt>zeta(2)</tt> returns 1.64493.</p>"
 
 msgid "ExpressionBuilder.ProbabilityDistributions"
 msgstr "Probability distributions"
@@ -5902,6 +5908,15 @@ msgid "ExpressionBuilder.ProbabilityDistributions.WeibullDistribution.RandomNumb
 msgstr ""
 "<p>Generates a random number according to the Weibull distribution with the scaling and form parameters according to the third and fourth parameters.</p>\n"
 "<p>The first and second parameter specify the range in which the random number should be located.</p>"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.ZetaDistribution"
+msgstr "Zeta distribution"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.ZetaDistribution.DensityInfo"
+msgstr "<p>Calculates the value of the count density of the Zeta distribution at the location specified as the first parameter with the distribution parameter according to the second function parameter.</p>"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.ZetaDistribution.RandomNumberInfo"
+msgstr "<p>Generates a random number according to the Zeta distribution with the given parameter.</p>"
 
 msgid "ExpressionBuilder.Repeats"
 msgstr "Simulation repeats"

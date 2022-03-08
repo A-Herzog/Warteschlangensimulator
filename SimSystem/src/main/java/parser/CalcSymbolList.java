@@ -86,9 +86,11 @@ import parser.symbols.CalcSymbolPreOperatorSum;
 import parser.symbols.CalcSymbolPreOperatorTan;
 import parser.symbols.CalcSymbolPreOperatorTanh;
 import parser.symbols.CalcSymbolPreOperatorVariance;
+import parser.symbols.CalcSymbolPreOperatorZeta;
 import parser.symbols.distributions.CalcSymbolDiscreteDistributionBinomial;
 import parser.symbols.distributions.CalcSymbolDiscreteDistributionHyperGeom;
 import parser.symbols.distributions.CalcSymbolDiscreteDistributionPoisson;
+import parser.symbols.distributions.CalcSymbolDiscreteDistributionZeta;
 import parser.symbols.distributions.CalcSymbolDistributionBeta;
 import parser.symbols.distributions.CalcSymbolDistributionBetaDirect;
 import parser.symbols.distributions.CalcSymbolDistributionCauchy;
@@ -239,6 +241,7 @@ public class CalcSymbolList {
 			addSymbol(new CalcSymbolDiscreteDistributionHyperGeom());
 			addSymbol(new CalcSymbolDiscreteDistributionBinomial());
 			addSymbol(new CalcSymbolDiscreteDistributionPoisson());
+			addSymbol(new CalcSymbolDiscreteDistributionZeta());
 
 			addSymbol(new CalcSymbolDistributionExp());
 			addSymbol(new CalcSymbolDistributionUniform());
@@ -327,6 +330,7 @@ public class CalcSymbolList {
 			addSymbol(new CalcSymbolPreOperatorLg());
 			addSymbol(new CalcSymbolPreOperatorLd());
 			addSymbol(new CalcSymbolPreOperatorGamma());
+			addSymbol(new CalcSymbolPreOperatorZeta());
 			addSymbol(new CalcSymbolPreOperatorAbs());
 			addSymbol(new CalcSymbolPreOperatorMin());
 			addSymbol(new CalcSymbolPreOperatorMax());
