@@ -161,3 +161,6 @@ Citing "Simulation mit dem Warteschlangensimulator" using BibTeX:
       location={Wiesbaden},
       doi={10.1007/978-3-658-34668-3}
     }
+	
+The examples shown in the textbook are also available as Warteschlangensimulator models from within the program and also from the
+[GitHub textbook examples page](https://github.com/A-Herzog/Warteschlangensimulator/tree/master/Simulator/src/main/java/ui/help/bookexamples).

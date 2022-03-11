@@ -162,3 +162,6 @@ Alternativ können Parameterreihenkonfigurationen gespeichert und dann per **Kom
       location={Wiesbaden},
       doi={10.1007/978-3-658-34668-3}
     }
+	
+Die im Lehrbuch vorgestellten Beispiele sind auch als Warteschlangensimulator-Modelle direkt im Simulator und auf der 
+[GitHub-Lehrbuchbeispiele](https://github.com/A-Herzog/Warteschlangensimulator/tree/master/Simulator/src/main/java/ui/help/bookexamples)-Seite verfügbar.
