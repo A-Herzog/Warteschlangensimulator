@@ -473,6 +473,8 @@ public final class ModelSurfacePanel extends JPanel {
 	private void setSurfaceNoUndoCheck(final EditModel model, final ModelSurface surface) {
 		if (surface==this.surface) return;
 
+		flyOutOriginalZoom=-1;
+
 		final EditorPanel editorPanel=(this.surface==null)?null:this.surface.getEditorPanel();
 
 		if (this.surface!=null) {
@@ -644,6 +646,105 @@ public final class ModelSurfacePanel extends JPanel {
 		if (surface==null || !(getParent() instanceof JViewport)) return;
 		final JViewport viewport=(JViewport)getParent();
 		viewport.setViewPosition(topPosition);
+	}
+
+	/**
+	 * Liefert den tatsächlich dargestellten Bereich der Zeichenfläche.
+	 * @return	Aktuell dargestellter Bereich der Zeichenfläche
+	 */
+	private Rectangle getViewRect() {
+		if (surface==null || !(getParent() instanceof JViewport)) return null;
+		final JViewport viewport=(JViewport)getParent();
+		return viewport.getViewRect();
+	}
+
+	/**
+	 * Skalierungsfaktor für einen einzelnen Schritt beim Fly-Out-Zoom
+	 * @see #flyOutZoom()
+	 * @see #flyOutZoomStep(double)
+	 * @see #flyInZoom(Point)
+	 * @see #flyInZoomStep(Point)
+	 */
+	private static final double FLY_ZOOM_STEP_FACTOR=0.8;
+
+	/**
+	 * Ausgangszoomfaktor beim Auslösen des Fly-Out-Zooms.
+	 * @see #flyOutZoom()
+	 */
+	private double flyOutOriginalZoom=-1;
+
+	/**
+	 * Startet den Fly-Out-Zoom.
+	 * @see #flyOutZoomStep(double)
+	 */
+	public void flyOutZoom() {
+		if (flyOutOriginalZoom>0) return;
+		if (getTopPosition()==null) return;
+		flyOutOriginalZoom=zoom;
+		GlassInfo.info(this,Language.tr("Main.Menu.View.FlyOutZoom.Info"),650,true);
+		SwingUtilities.invokeLater(()->flyOutZoomStep(zoom));
+	}
+
+	/**
+	 * Führt einen einzelnen Schritt des Fly-Out-Zooms aus.
+	 * @param newZoom	Einzustellender Zoomfaktor
+	 * @see #flyOutZoom()
+	 */
+	private void flyOutZoomStep(final double newZoom) {
+		if (newZoom>0.2) {
+			final Point top=getTopPosition();
+
+			final double oldZoom=zoom;
+			setZoom(newZoom);
+			int x=(int)Math.round(top.x*newZoom/oldZoom);
+			int y=(int)Math.round(top.y*newZoom/oldZoom);
+
+			final Rectangle view=getViewRect();
+			final Point modelSize=surface.getLowerRightModelCorner();
+			if (view.width>modelSize.x*newZoom) x=0;
+			if (view.height>modelSize.y*newZoom) y=0;
+
+			setTopPosition(new Point(x,y));
+
+			final double nextZoom=newZoom*FLY_ZOOM_STEP_FACTOR;
+			SwingUtilities.invokeLater(()->flyOutZoomStep(nextZoom));
+		} else {
+			setZoom(0.2);
+		}
+	}
+
+	/**
+	 * Startet den Fly-In-Zoom (d.h. macht den Fly-Out-Zoom rückgängig).
+	 * @param center	Zu zentrierender Punkt
+	 * @see #flyInZoom(Point)
+	 */
+	private void flyInZoom(final Point center) {
+		if (flyOutOriginalZoom<0) return;
+		SwingUtilities.invokeLater(()->flyInZoomStep(center));
+	}
+
+	/**
+	 * Führt einen einzelnen Schritt des Fly-In-Zooms aus.
+	 * @param center	Zu zentrierender Punkt
+	 */
+	private void flyInZoomStep(final Point center) {
+		final double newZoom=zoom/FLY_ZOOM_STEP_FACTOR;
+		if (newZoom<flyOutOriginalZoom) {
+			final Point newCenter=new Point((int)Math.round(center.x/FLY_ZOOM_STEP_FACTOR),(int)Math.round(center.y/FLY_ZOOM_STEP_FACTOR));
+
+			final Rectangle rect=getViewRect();
+			final int x=Math.max(0,newCenter.x-rect.width/2);
+			final int y=Math.max(0,newCenter.y-rect.height/2);
+
+			setZoom(newZoom);
+			final Point newTop=new Point(x,y);
+			setTopPosition(newTop);
+
+			SwingUtilities.invokeLater(()->flyInZoomStep(newCenter));
+		} else {
+			setZoom(flyOutOriginalZoom);
+			flyOutOriginalZoom=-1;
+		}
 	}
 
 	/**
@@ -2927,6 +3028,12 @@ public final class ModelSurfacePanel extends JPanel {
 		public void mousePressed(MouseEvent e) {
 			requestFocus();
 			requestFocusInWindow();
+
+			/* Linksklick: Fly-out-zoom wieder zurücknehmen */
+			if (mode==ClickMode.MODE_NORMAL && SwingUtilities.isLeftMouseButton(e) && flyOutOriginalZoom>0) {
+				flyInZoom(e.getPoint());
+				return;
+			}
 
 			/* Linksklick: Drag-Start / Auswahl */
 			if (mode==ClickMode.MODE_NORMAL && SwingUtilities.isLeftMouseButton(e)) {

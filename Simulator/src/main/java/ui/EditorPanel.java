@@ -536,6 +536,14 @@ public final class EditorPanel extends EditorPanelBase {
 	}
 
 	/**
+	 * Startet den Fly-Out-Zoom.
+	 */
+	public void flyOutZoom() {
+		if (surfacePanel==null) return;
+		surfacePanel.flyOutZoom();
+	}
+
+	/**
 	 * Ist die Abweichung zwischen zentriertem Modell und dem
 	 * Modell im Status nach oben links gescrollt pro Richtung kleiner
 	 * als der angegeben Wert, so wird bei {@link #smartCenterModel()}

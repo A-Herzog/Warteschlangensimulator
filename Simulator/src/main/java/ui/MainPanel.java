@@ -676,6 +676,7 @@ public class MainPanel extends MainPanelBase {
 		addAction("ViewZoomIn",e->editorPanel.zoomIn());
 		addAction("ViewCenterModel",e->editorPanel.centerModel());
 		addAction("ViewTop",e->editorPanel.scrollToTop());
+		addAction("ViewFlyOut",e->editorPanel.flyOutZoom());
 		addAction("ViewLayers",e->commandLayers());
 		addAction("ViewBackgroundColor",e->commandViewBackgroundColor());
 		addAction("ViewEdgeSettings",e->commandViewEdgeSettings());
@@ -1237,6 +1238,7 @@ public class MainPanel extends MainPanelBase {
 		enabledOnEditorPanel.add(createMenuItemCtrl(menu,Language.tr("Main.Menu.View.ZoomIn"),Images.ZOOM_IN.getIcon(),Language.tr("Main.Menu.View.ZoomIn.Mnemonic"),KeyEvent.VK_ADD,"ViewZoomIn"));
 		enabledOnEditorPanel.add(createMenuItemCtrl(menu,Language.tr("Main.Menu.View.CenterModel"),Images.ZOOM_CENTER_MODEL.getIcon(),Language.tr("Main.Menu.View.CenterModel.Mnemonic"),KeyEvent.VK_NUMPAD0,"ViewCenterModel"));
 		enabledOnEditorPanel.add(createMenuItemCtrl(menu,Language.tr("Main.Menu.View.ScrollTopLeft"),Language.tr("Main.Menu.View.ScrollTopLeft.Mnemonic"),KeyEvent.VK_HOME,"ViewTop"));
+		enabledOnEditorPanel.add(createMenuItemCtrl(menu,Language.tr("Main.Menu.View.FlyOutZoom"),Language.tr("Main.Menu.View.FlyOutZoom.Mnemonic"),KeyEvent.VK_DIVIDE,"ViewFlyOut"));
 		menu.addSeparator();
 		enabledOnEditorPanel.add(createMenuItemCtrlShift(menu,Language.tr("Main.Menu.View.Layers"),Images.EDIT_LAYERS.getIcon(),Language.tr("Main.Menu.View.Layers.Mnemonic"),KeyEvent.VK_F9,"ViewLayers"));
 		enabledOnEditorPanel.add(createMenuItem(menu,Language.tr("Main.Menu.View.BackgroundColor"),Images.EDIT_BACKGROUND_COLOR.getIcon(),Language.tr("Main.Menu.View.BackgroundColor.Mnemonic"),"ViewBackgroundColor"));
