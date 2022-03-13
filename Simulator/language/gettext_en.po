@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-03-09 16:49+0100\n"
+"POT-Creation-Date: 2022-03-12 19:13+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -5746,6 +5746,15 @@ msgid "ExpressionBuilder.ProbabilityDistributions.LogisticDistribution.RandomNum
 msgstr ""
 "<p>Generates a random number according to the Logistic distribution with the parameters according to the third (mean) and fourth (scale) parameters.</p>\n"
 "<p>The first and second parameter specify the range in which the random number should be located.</p>"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.NegativeBinomialDistribution"
+msgstr "Negative Binomial distribution"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.NegativeBinomialDistribution.DensityInfo"
+msgstr "<p>Calculates the value of the count density of the negative Binomial distribution at the location specified as the first parameter with the distribution parameters according to the next function parameters.</p>"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.NegativeBinomialDistribution.RandomNumberInfo"
+msgstr "<p>Generates a random number according to the negative Binomial distribution with the given parameters.</p>"
 
 msgid "ExpressionBuilder.ProbabilityDistributions.NormalDistribution"
 msgstr "Normal distribution"

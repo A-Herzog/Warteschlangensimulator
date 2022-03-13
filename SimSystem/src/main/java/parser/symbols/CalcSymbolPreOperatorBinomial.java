@@ -15,6 +15,9 @@
  */
 package parser.symbols;
 
+import org.apache.commons.math3.exception.MathArithmeticException;
+import org.apache.commons.math3.exception.NotPositiveException;
+import org.apache.commons.math3.exception.NumberIsTooLargeException;
 import org.apache.commons.math3.util.CombinatoricsUtils;
 import org.apache.commons.math3.util.FastMath;
 
@@ -44,7 +47,7 @@ public class CalcSymbolPreOperatorBinomial extends CalcSymbolPreOperator {
 		try {
 			final int n=(int)FastMath.round(parameters[0]);
 			final int k=(int)FastMath.round(parameters[1]);
-			return CombinatoricsUtils.binomialCoefficient(n,k);
+			return binomialCoefficient(n,k);
 		} catch (Exception e) {
 			throw error();
 		}
@@ -57,9 +60,36 @@ public class CalcSymbolPreOperatorBinomial extends CalcSymbolPreOperator {
 		try {
 			final int n=(int)FastMath.round(parameters[0]);
 			final int k=(int)FastMath.round(parameters[1]);
-			return CombinatoricsUtils.binomialCoefficient(n,k);
+			return binomialCoefficient(n,k);
 		} catch (Exception e) {
 			return fallbackValue;
 		}
+	}
+
+	/**
+	 * Liefert den Binomialkoeffizienten "n über k"
+	 * @param n	n
+	 * @param k	k
+	 * @return	Binomialkoeffizient oder -1, wenn der Wert nicht berechnet werden konnte
+	 * @throws NotPositiveException if {@code n < 0}.
+	 * @throws NumberIsTooLargeException if {@code k > n}.
+	 * @throws MathArithmeticException if the result is too large to be
+	 * represented by a long integer.
+	 */
+	public static double binomialCoefficient(final int n, int k) throws NotPositiveException, NumberIsTooLargeException, MathArithmeticException {
+		if (n==0) return (k==0)?1.0:0.0;
+		if (k<0 || k>n) return 0.0;
+
+		if (n>0) {
+			if (k==0 || k==n) return 1.0;
+			double prod=1;
+			if (k>n/2) k=n-k;
+			for (int i=1;i<=k;i++) {
+				prod*=(n-i+1)/((double)i);
+			}
+			return prod;
+		}
+
+		return CombinatoricsUtils.binomialCoefficient(n,k);
 	}
 }

@@ -163,7 +163,7 @@ public class ExpressionBuilderDistributions {
 	 * @param langPDF	Anzuzeigende Beschreibung für den Dichte-Eintrag
 	 * @param langRND	Anzuzeigende Beschreibung für den Zufallszahl-Eintrag
 	 */
-	private static void addDist(final DefaultMutableTreeNode group, final String filterUpper, final String name, final String param, final String langName, final String langPDF, final String langRND) {
+	private static void addDiscreteDist(final DefaultMutableTreeNode group, final String filterUpper, final String name, final String param, final String langName, final String langPDF, final String langRND) {
 		final String pdf=Language.tr("ExpressionBuilder.ProbabilityDistributions.Density");
 		final String rnd=Language.tr("ExpressionBuilder.ProbabilityDistributions.RandomNumber");
 		final String value=Language.tr("ExpressionBuilder.Value");
@@ -174,7 +174,7 @@ public class ExpressionBuilderDistributions {
 				sub,
 				filterUpper,
 				langName+", "+pdf+" ("+name+")",
-				name+"("+value+";"+param+";0)",
+				name+"("+value+";"+param+")",
 				langPDF);
 		addTreeNode(
 				sub,
@@ -201,31 +201,38 @@ public class ExpressionBuilderDistributions {
 
 		/* Hypergeometrische Verteilung */
 
-		addDist(group,filterUpper,"HypergeometricDist","N;K;n",
+		addDiscreteDist(group,filterUpper,"HypergeometricDist","N;K;n",
 				Language.tr("ExpressionBuilder.ProbabilityDistributions.HypergeometricDistribution"),
 				Language.tr("ExpressionBuilder.ProbabilityDistributions.HypergeometricDistribution.DensityInfo"),
 				Language.tr("ExpressionBuilder.ProbabilityDistributions.HypergeometricDistribution.RandomNumberInfo"));
 
 		/* Binomial-Verteilung */
 
-		addDist(group,filterUpper,"BinomialDist","n;p",
+		addDiscreteDist(group,filterUpper,"BinomialDist","n;p",
 				Language.tr("ExpressionBuilder.ProbabilityDistributions.BinomialDistribution"),
 				Language.tr("ExpressionBuilder.ProbabilityDistributions.BinomialDistribution.DensityInfo"),
 				Language.tr("ExpressionBuilder.ProbabilityDistributions.BinomialDistribution.RandomNumberInfo"));
 
 		/* Poisson-Verteilung */
 
-		addDist(group,filterUpper,"PoissonDist","l",
+		addDiscreteDist(group,filterUpper,"PoissonDist","l",
 				Language.tr("ExpressionBuilder.ProbabilityDistributions.PoissonDistribution"),
 				Language.tr("ExpressionBuilder.ProbabilityDistributions.PoissonDistribution.DensityInfo"),
 				Language.tr("ExpressionBuilder.ProbabilityDistributions.PoissonDistribution.RandomNumberInfo"));
 
 		/* Zeta-Verteilung */
 
-		addDist(group,filterUpper,"ZetaDist","s",
+		addDiscreteDist(group,filterUpper,"ZetaDist","s",
 				Language.tr("ExpressionBuilder.ProbabilityDistributions.ZetaDistribution"),
 				Language.tr("ExpressionBuilder.ProbabilityDistributions.ZetaDistribution.DensityInfo"),
 				Language.tr("ExpressionBuilder.ProbabilityDistributions.ZetaDistribution.RandomNumberInfo"));
+
+		/* Negative Binomial-Verteilung */
+
+		addDiscreteDist(group,filterUpper,"NegativeBinomialDist","r;p",
+				Language.tr("ExpressionBuilder.ProbabilityDistributions.NegativeBinomialDistribution"),
+				Language.tr("ExpressionBuilder.ProbabilityDistributions.NegativeBinomialDistribution.DensityInfo"),
+				Language.tr("ExpressionBuilder.ProbabilityDistributions.NegativeBinomialDistribution.RandomNumberInfo"));
 
 		/* Exponentialverteilung */
 

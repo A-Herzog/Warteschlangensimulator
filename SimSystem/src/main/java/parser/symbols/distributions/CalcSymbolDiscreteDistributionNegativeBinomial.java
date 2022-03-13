@@ -1,5 +1,5 @@
 /**
- * Copyright 2020 Alexander Herzog
+ * Copyright 2022 Alexander Herzog
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,21 +15,18 @@
  */
 package parser.symbols.distributions;
 
-import org.apache.commons.math3.util.FastMath;
-
 import parser.symbols.CalcSymbolPreOperatorBinomial;
 
 /**
- * Hypergeometrische Verteilung
+ * Negative Binomial-Verteilung
  * @author Alexander Herzog
- * @version 1.0
  */
-public class CalcSymbolDiscreteDistributionHyperGeom extends CalcSymbolDiscreteDistribution {
+public class CalcSymbolDiscreteDistributionNegativeBinomial extends CalcSymbolDiscreteDistribution {
 	/**
 	 * Namen für das Symbol
 	 * @see #getNames()
 	 */
-	private static final String[] names=new String[]{"HypergeometricDistribution","HypergeometricDist","HyperDistribution","HyperDist","HgDistribution","HgDist","HypergeometrischeVerteilung"};
+	private static final String[] names=new String[]{"NegativeBinomialDistribution","NegativeBinomialDist","NegativeBinomDistribution","NegativeBinomDist","NegativeBinomialVerteilung"};
 
 	@Override
 	public String[] getNames() {
@@ -38,22 +35,17 @@ public class CalcSymbolDiscreteDistributionHyperGeom extends CalcSymbolDiscreteD
 
 	@Override
 	protected int getParameterCount() {
-		return 3;
+		return 2;
 	}
 
 	@Override
 	protected double calcProbability(double[] parameters, int k) {
-		final int N=(int)FastMath.round(parameters[0]);
-		final int K=(int)FastMath.round(parameters[1]);
-		final int n=(int)FastMath.round(parameters[2]);
-		if (N<1) return -1;
-		if (K<0 || K>N) return -1;
-		if (n<0 || n>N) return -1;
-
-		if (k<0 || k>n || k>K) return 0;
+		final int r=(int)Math.round(parameters[0]);
+		final double p=parameters[1];
+		if (r<=0 || p<0 || p>1) return -1;
 
 		try {
-			return CalcSymbolPreOperatorBinomial.binomialCoefficient(K,k)*CalcSymbolPreOperatorBinomial.binomialCoefficient(N-K,n-k)/CalcSymbolPreOperatorBinomial.binomialCoefficient(N,n);
+			return CalcSymbolPreOperatorBinomial.binomialCoefficient(k+r-1,k)*Math.pow(p,r)*Math.pow(1-p,k);
 		} catch (Exception e) {
 			return -1;
 		}
