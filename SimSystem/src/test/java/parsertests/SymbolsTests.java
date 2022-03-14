@@ -17,6 +17,7 @@ package parsertests;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertThrowsExactly;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.apache.commons.math3.util.FastMath;
@@ -1248,6 +1249,46 @@ class SymbolsTests {
 		assertTrue(calc.parse()<0);
 		try {
 			assertEquals(21,calc.calc());
+		} catch (MathCalcError e) {
+			assertTrue(false);
+		}
+
+		calc=new CalcSystem("binom(7;-1)");
+		assertTrue(calc.parse()<0);
+		try {
+			assertEquals(0.0,calc.calc());
+		} catch (MathCalcError e) {
+			assertTrue(false);
+		}
+
+		calc=new CalcSystem("binom(7;8)");
+		assertTrue(calc.parse()<0);
+		try {
+			assertEquals(0.0,calc.calc());
+		} catch (MathCalcError e) {
+			assertTrue(false);
+		}
+
+		calc=new CalcSystem("binom(0;0)");
+		assertTrue(calc.parse()<0);
+		try {
+			assertEquals(1.0,calc.calc());
+		} catch (MathCalcError e) {
+			assertTrue(false);
+		}
+
+		calc=new CalcSystem("binom(0;-1)");
+		assertTrue(calc.parse()<0);
+		try {
+			assertEquals(0.0,calc.calc());
+		} catch (MathCalcError e) {
+			assertTrue(false);
+		}
+
+		calc=new CalcSystem("binom(0;1)");
+		assertTrue(calc.parse()<0);
+		try {
+			assertEquals(0.0,calc.calc());
 		} catch (MathCalcError e) {
 			assertTrue(false);
 		}
@@ -2507,20 +2548,275 @@ class SymbolsTests {
 	}
 
 	/**
+	 * Test: Diskrete Wahrscheinlichkeitsverteilungen (Zähldichte, Zufallszahlen)
+	 */
+	@Test
+	void testDiscreteDistributions() {
+		CalcSystem calc;
+		double d;
+
+		/* Hypergeometrische Verteilung - Dichte */
+
+		calc=new CalcSystem("HypergeometricDist(x;Num;K;n)",new String[]{"x","Num","K","n"});
+		assertTrue(calc.parse()<0);
+
+		try {
+			d=calc.calc(new double[]{-1,10,3,2});
+			assertEquals(0,d);
+		} catch (MathCalcError e) {
+			assertTrue(false);
+		}
+
+		for (int k=0;k<=2;k++) {
+			try {
+				d=calc.calc(new double[]{k,10,3,2});
+				assertTrue(d>0);
+			} catch (MathCalcError e) {
+				assertTrue(false);
+			}
+		}
+
+		try {
+			d=calc.calc(new double[]{3,10,3,2});
+			assertEquals(0,d);
+		} catch (MathCalcError e) {
+			assertTrue(false);
+		}
+
+		try {
+			d=calc.calc(new double[]{2,5,5,2});
+			assertEquals(1.0,d);
+		} catch (MathCalcError e) {
+			assertTrue(false);
+		}
+
+		final CalcSystem calcFinal1=calc;
+		assertThrowsExactly(MathCalcError.class,()->{
+			calcFinal1.calc(new double[]{2,-3,5,2});
+		});
+
+		calc=new CalcSystem("HypergeometricDist(x;y;z;a;b)",new String[]{"x","y","z","a","b"});
+		assertTrue(calc.parse()<0);
+		d=calc.calcOrDefault(new double[]{1,2,3,4,5},-17);
+		assertEquals(-17.0,d);
+
+		/* Hypergeometrische Verteilung - Zufallszahlen */
+
+		calc=new CalcSystem("HypergeometricDist(Num;K;n)",new String[]{"Num","K","n"});
+		assertTrue(calc.parse()<0);
+
+		for (int i=0;i<100;i++) {
+			try {
+				d=calc.calc(new double[]{10,3,2});
+				assertTrue(d==0.0 || d==1.0 || d==2.0);
+			} catch (MathCalcError e) {
+				assertTrue(false);
+			}
+		}
+
+		/* Binomialverteilung - Dichte */
+
+		calc=new CalcSystem("BinomialDist(x;n;p)",new String[]{"x","n","p"});
+		assertTrue(calc.parse()<0);
+
+		try {
+			d=calc.calc(new double[]{-1,10,0.2});
+			assertEquals(0,d);
+		} catch (MathCalcError e) {
+			assertTrue(false);
+		}
+
+		for (int k=0;k<=10;k++) {
+			try {
+				d=calc.calc(new double[]{k,10,0.2});
+				assertTrue(d>0);
+			} catch (MathCalcError e) {
+				assertTrue(false);
+			}
+		}
+
+		try {
+			d=calc.calc(new double[]{11,10,0.2});
+			assertEquals(0,d);
+		} catch (MathCalcError e) {
+			assertTrue(false);
+		}
+
+		final CalcSystem calcFinal2=calc;
+		assertThrowsExactly(MathCalcError.class,()->{
+			calcFinal2.calc(new double[]{3,10,-0.2});
+		});
+
+		calc=new CalcSystem("BinomialDist(x;y;z;a;b)",new String[]{"x","y","z","a","b"});
+		assertTrue(calc.parse()<0);
+		d=calc.calcOrDefault(new double[]{1,2,3,4,5},-17);
+		assertEquals(-17.0,d);
+
+		/* Binomialverteilung - Zufallszahlen */
+
+		calc=new CalcSystem("BinomialDist(n;p)",new String[]{"n","p"});
+		assertTrue(calc.parse()<0);
+
+		for (int i=0;i<100;i++) {
+			try {
+				d=calc.calc(new double[]{5,0.2});
+				assertTrue(d==0.0 || d==1.0 || d==2.0 || d==3.0 || d==4.0 || d==5.0);
+			} catch (MathCalcError e) {
+				assertTrue(false);
+			}
+		}
+
+		/* Poisson-Verteilung - Dichte */
+
+		calc=new CalcSystem("PoissonDist(x;l)",new String[]{"x","l"});
+		assertTrue(calc.parse()<0);
+
+		try {
+			d=calc.calc(new double[]{-1,0.2});
+			assertEquals(0,d);
+		} catch (MathCalcError e) {
+			assertTrue(false);
+		}
+
+		for (int k=0;k<10;k++) {
+			try {
+				d=calc.calc(new double[]{k,0.2});
+				assertTrue(d>0);
+			} catch (MathCalcError e) {
+				assertTrue(false);
+			}
+		}
+
+		final CalcSystem calcFinal3=calc;
+		assertThrowsExactly(MathCalcError.class,()->{
+			calcFinal3.calc(new double[]{3,-0.2});
+		});
+
+		calc=new CalcSystem("PoissonDist(x;y;z;a;b)",new String[]{"x","y","z","a","b"});
+		assertTrue(calc.parse()<0);
+		d=calc.calcOrDefault(new double[]{1,2,3,4,5},-17);
+		assertEquals(-17.0,d);
+
+		/* Poisson-Verteilung - Zufallszahlen */
+
+		calc=new CalcSystem("PoissonDist(l)",new String[]{"l"});
+		assertTrue(calc.parse()<0);
+
+		for (int i=0;i<100;i++) {
+			try {
+				d=calc.calc(new double[]{0.2});
+				assertTrue(d>=0.0);
+			} catch (MathCalcError e) {
+				assertTrue(false);
+			}
+		}
+
+		/* Negative Binomialverteilung - Dichte */
+
+		calc=new CalcSystem("NegativeBinomialDist(x;r;p)",new String[]{"x","r","p"});
+		assertTrue(calc.parse()<0);
+
+		try {
+			d=calc.calc(new double[]{-1,10,0.2});
+			assertEquals(0,d);
+		} catch (MathCalcError e) {
+			assertTrue(false);
+		}
+
+		for (int k=0;k<=10;k++) {
+			try {
+				d=calc.calc(new double[]{k,10,0.2});
+				assertTrue(d>0);
+			} catch (MathCalcError e) {
+				assertTrue(false);
+			}
+		}
+
+		final CalcSystem calcFinal4=calc;
+		assertThrowsExactly(MathCalcError.class,()->{
+			calcFinal4.calc(new double[]{3,10,-0.2});
+		});
+
+		calc=new CalcSystem("NegativeBinomialDist(x;y;z;a;b)",new String[]{"x","y","z","a","b"});
+		assertTrue(calc.parse()<0);
+		d=calc.calcOrDefault(new double[]{1,2,3,4,5},-17);
+		assertEquals(-17.0,d);
+
+		/* Negative Binomialverteilung - Zufallszahlen */
+
+		calc=new CalcSystem("NegativeBinomialDist(r;p)",new String[]{"r","p"});
+		assertTrue(calc.parse()<0);
+
+		for (int i=0;i<100;i++) {
+			try {
+				d=calc.calc(new double[]{5,0.2});
+				assertTrue(d>=0.0);
+			} catch (MathCalcError e) {
+				assertTrue(false);
+			}
+		}
+
+		/* Zeta-Verteilung - Dichte */
+
+		calc=new CalcSystem("ZetaDist(x;s)",new String[]{"x","s"});
+		assertTrue(calc.parse()<0);
+
+		try {
+			d=calc.calc(new double[]{0,3});
+			assertEquals(0,d);
+		} catch (MathCalcError e) {
+			assertTrue(false);
+		}
+
+		for (int k=1;k<10;k++) {
+			try {
+				d=calc.calc(new double[]{k,3});
+				assertTrue(d>0);
+			} catch (MathCalcError e) {
+				assertTrue(false);
+			}
+		}
+
+		final CalcSystem calcFinal5=calc;
+		assertThrowsExactly(MathCalcError.class,()->{
+			calcFinal5.calc(new double[]{3,0.5});
+		});
+
+		calc=new CalcSystem("ZetaDist(x;y;z;a;b)",new String[]{"x","y","z","a","b"});
+		assertTrue(calc.parse()<0);
+		d=calc.calcOrDefault(new double[]{1,2,3,4,5},-17);
+		assertEquals(-17.0,d);
+
+		/* Zeta-Verteilung - Zufallszahlen */
+
+		calc=new CalcSystem("ZetaDist(s)",new String[]{"s"});
+		assertTrue(calc.parse()<0);
+
+		for (int i=0;i<100;i++) {
+			try {
+				d=calc.calc(new double[]{3});
+				assertTrue(d>=1.0);
+			} catch (MathCalcError e) {
+				assertTrue(false);
+			}
+		}
+	}
+
+	/**
 	 * Test: Wahrscheinlichkeitsverteilungen (Dichte, Verteilung, Zufallszahlen)
 	 */
 	@Test
 	void testDistributions() {
 		CalcSystem calc;
-		double D;
+		double d;
 
 		/* Betaverteilung */
 
 		calc=new CalcSystem("BetaDist(x;a;b;c;d;0)",new String[]{"x","a","b","c","d"});
 		assertTrue(calc.parse()<0);
 		try {
-			D=calc.calc(new double[]{0,1,3,0.5,0.5});
-			assertEquals(0,D);
+			d=calc.calc(new double[]{0,1,3,0.5,0.5});
+			assertEquals(0,d);
 		} catch (MathCalcError e) {
 			assertTrue(false);
 		}
@@ -2528,8 +2824,8 @@ class SymbolsTests {
 		calc=new CalcSystem("BetaDist(x;a;b;c;d;0)",new String[]{"x","a","b","c","d"});
 		assertTrue(calc.parse()<0);
 		try {
-			D=calc.calc(new double[]{2,1,3,0.5,0.5});
-			assertTrue(D>0);
+			d=calc.calc(new double[]{2,1,3,0.5,0.5});
+			assertTrue(d>0);
 		} catch (MathCalcError e) {
 			assertTrue(false);
 		}
@@ -2537,8 +2833,8 @@ class SymbolsTests {
 		calc=new CalcSystem("BetaDist(x;a;b;c;d;0)",new String[]{"x","a","b","c","d"});
 		assertTrue(calc.parse()<0);
 		try {
-			D=calc.calc(new double[]{4,1,3,0.5,0.5});
-			assertEquals(0,D);
+			d=calc.calc(new double[]{4,1,3,0.5,0.5});
+			assertEquals(0,d);
 		} catch (MathCalcError e) {
 			assertTrue(false);
 		}
@@ -2546,8 +2842,8 @@ class SymbolsTests {
 		calc=new CalcSystem("BetaDist(x;a;b;c;d;1)",new String[]{"x","a","b","c","d"});
 		assertTrue(calc.parse()<0);
 		try {
-			D=calc.calc(new double[]{0,1,3,0.5,0.5});
-			assertEquals(0,D);
+			d=calc.calc(new double[]{0,1,3,0.5,0.5});
+			assertEquals(0,d);
 		} catch (MathCalcError e) {
 			assertTrue(false);
 		}
@@ -2555,8 +2851,8 @@ class SymbolsTests {
 		calc=new CalcSystem("BetaDist(x;a;b;c;d;1)",new String[]{"x","a","b","c","d"});
 		assertTrue(calc.parse()<0);
 		try {
-			D=calc.calc(new double[]{4,1,3,0.5,0.5});
-			assertEquals(1,D);
+			d=calc.calc(new double[]{4,1,3,0.5,0.5});
+			assertEquals(1,d);
 		} catch (MathCalcError e) {
 			assertTrue(false);
 		}
@@ -2579,8 +2875,8 @@ class SymbolsTests {
 		calc=new CalcSystem("BetaDistDirect(x;a;b;c;d;0)",new String[]{"x","a","b","c","d"});
 		assertTrue(calc.parse()<0);
 		try {
-			D=calc.calc(new double[]{0,1,3,2.5,0.5});
-			assertEquals(0,D);
+			d=calc.calc(new double[]{0,1,3,2.5,0.5});
+			assertEquals(0,d);
 		} catch (MathCalcError e) {
 			assertTrue(false);
 		}
@@ -2588,8 +2884,8 @@ class SymbolsTests {
 		calc=new CalcSystem("BetaDistDirect(x;a;b;c;d;0)",new String[]{"x","a","b","c","d"});
 		assertTrue(calc.parse()<0);
 		try {
-			D=calc.calc(new double[]{2,1,3,2.5,0.5});
-			assertTrue(D>0);
+			d=calc.calc(new double[]{2,1,3,2.5,0.5});
+			assertTrue(d>0);
 		} catch (MathCalcError e) {
 			assertTrue(false);
 		}
@@ -2597,8 +2893,8 @@ class SymbolsTests {
 		calc=new CalcSystem("BetaDistDirect(x;a;b;c;d;0)",new String[]{"x","a","b","c","d"});
 		assertTrue(calc.parse()<0);
 		try {
-			D=calc.calc(new double[]{4,1,3,2.5,0.5});
-			assertEquals(0,D);
+			d=calc.calc(new double[]{4,1,3,2.5,0.5});
+			assertEquals(0,d);
 		} catch (MathCalcError e) {
 			assertTrue(false);
 		}
@@ -2606,8 +2902,8 @@ class SymbolsTests {
 		calc=new CalcSystem("BetaDistDirect(x;a;b;c;d;1)",new String[]{"x","a","b","c","d"});
 		assertTrue(calc.parse()<0);
 		try {
-			D=calc.calc(new double[]{0,1,3,2.5,0.5});
-			assertEquals(0,D);
+			d=calc.calc(new double[]{0,1,3,2.5,0.5});
+			assertEquals(0,d);
 		} catch (MathCalcError e) {
 			assertTrue(false);
 		}
@@ -2615,8 +2911,8 @@ class SymbolsTests {
 		calc=new CalcSystem("BetaDistDirect(x;a;b;c;d;1)",new String[]{"x","a","b","c","d"});
 		assertTrue(calc.parse()<0);
 		try {
-			D=calc.calc(new double[]{4,1,3,2.5,0.5});
-			assertEquals(1,D);
+			d=calc.calc(new double[]{4,1,3,2.5,0.5});
+			assertEquals(1,d);
 		} catch (MathCalcError e) {
 			assertTrue(false);
 		}
@@ -2639,8 +2935,8 @@ class SymbolsTests {
 		calc=new CalcSystem("CauchyDist(x;a;b;0)",new String[]{"x","a","b"});
 		assertTrue(calc.parse()<0);
 		try {
-			D=calc.calc(new double[]{-0.1,1,1});
-			assertTrue(D>0);
+			d=calc.calc(new double[]{-0.1,1,1});
+			assertTrue(d>0);
 		} catch (MathCalcError e) {
 			assertTrue(false);
 		}
@@ -2648,8 +2944,8 @@ class SymbolsTests {
 		calc=new CalcSystem("CauchyDist(x;a;b;0)",new String[]{"x","a","b"});
 		assertTrue(calc.parse()<0);
 		try {
-			D=calc.calc(new double[]{2,1,1});
-			assertTrue(D>0);
+			d=calc.calc(new double[]{2,1,1});
+			assertTrue(d>0);
 		} catch (MathCalcError e) {
 			assertTrue(false);
 		}
@@ -2657,8 +2953,8 @@ class SymbolsTests {
 		calc=new CalcSystem("CauchyDist(x;a;b;1)",new String[]{"x","a","b"});
 		assertTrue(calc.parse()<0);
 		try {
-			D=calc.calc(new double[]{-0.1,1,1});
-			assertTrue(D>0);
+			d=calc.calc(new double[]{-0.1,1,1});
+			assertTrue(d>0);
 		} catch (MathCalcError e) {
 			assertTrue(false);
 		}
@@ -2666,8 +2962,8 @@ class SymbolsTests {
 		calc=new CalcSystem("CauchyDist(x;a;b;1)",new String[]{"x","a","b"});
 		assertTrue(calc.parse()<0);
 		try {
-			D=calc.calc(new double[]{2,1,1});
-			assertTrue(D>0);
+			d=calc.calc(new double[]{2,1,1});
+			assertTrue(d>0);
 		} catch (MathCalcError e) {
 			assertTrue(false);
 		}
@@ -2679,7 +2975,7 @@ class SymbolsTests {
 		calc=new CalcSystem("CauchyDist(a;b)",new String[]{"a","b"});
 		assertTrue(calc.parse()<0);
 		try {
-			D=calc.calc(new double[]{1,1});
+			d=calc.calc(new double[]{1,1});
 			/* Keine Interpretation des Zahlenwertes */
 		} catch (MathCalcError e) {
 			assertTrue(false);
@@ -2690,8 +2986,8 @@ class SymbolsTests {
 		calc=new CalcSystem("ChiSquareDist(x;n;0)",new String[]{"x","n"});
 		assertTrue(calc.parse()<0);
 		try {
-			D=calc.calc(new double[]{-0.1,200});
-			assertEquals(0,D);
+			d=calc.calc(new double[]{-0.1,200});
+			assertEquals(0,d);
 		} catch (MathCalcError e) {
 			assertTrue(false);
 		}
@@ -2699,8 +2995,8 @@ class SymbolsTests {
 		calc=new CalcSystem("ChiSquareDist(x;n;0)",new String[]{"x","n"});
 		assertTrue(calc.parse()<0);
 		try {
-			D=calc.calc(new double[]{200,200});
-			assertTrue(D>0);
+			d=calc.calc(new double[]{200,200});
+			assertTrue(d>0);
 		} catch (MathCalcError e) {
 			assertTrue(false);
 		}
@@ -2708,8 +3004,8 @@ class SymbolsTests {
 		calc=new CalcSystem("ChiSquareDist(x;n;1)",new String[]{"x","n"});
 		assertTrue(calc.parse()<0);
 		try {
-			D=calc.calc(new double[]{-0.1,200});
-			assertEquals(0,D);
+			d=calc.calc(new double[]{-0.1,200});
+			assertEquals(0,d);
 		} catch (MathCalcError e) {
 			assertTrue(false);
 		}
@@ -2717,8 +3013,8 @@ class SymbolsTests {
 		calc=new CalcSystem("ChiSquareDist(x;n;1)",new String[]{"x","n"});
 		assertTrue(calc.parse()<0);
 		try {
-			D=calc.calc(new double[]{200,200});
-			assertTrue(D>0);
+			d=calc.calc(new double[]{200,200});
+			assertTrue(d>0);
 		} catch (MathCalcError e) {
 			assertTrue(false);
 		}
@@ -2730,7 +3026,7 @@ class SymbolsTests {
 		calc=new CalcSystem("ChiSquareDist(n)",new String[]{"n"});
 		assertTrue(calc.parse()<0);
 		try {
-			D=calc.calc(new double[]{200});
+			d=calc.calc(new double[]{200});
 			/* Keine Interpretation des Zahlenwertes */
 		} catch (MathCalcError e) {
 			assertTrue(false);
@@ -2741,8 +3037,8 @@ class SymbolsTests {
 		calc=new CalcSystem("ExpDist(x;a;0)",new String[]{"x","a"});
 		assertTrue(calc.parse()<0);
 		try {
-			D=calc.calc(new double[]{-0.1,5});
-			assertEquals(0,D);
+			d=calc.calc(new double[]{-0.1,5});
+			assertEquals(0,d);
 		} catch (MathCalcError e) {
 			assertTrue(false);
 		}
@@ -2752,8 +3048,8 @@ class SymbolsTests {
 		calc=new CalcSystem("ExpDist(x;a;0)",new String[]{"x","a"});
 		assertTrue(calc.parse()<0);
 		try {
-			D=calc.calc(new double[]{2,5});
-			assertTrue(D>0);
+			d=calc.calc(new double[]{2,5});
+			assertTrue(d>0);
 		} catch (MathCalcError e) {
 			assertTrue(false);
 		}
@@ -2763,8 +3059,8 @@ class SymbolsTests {
 		calc=new CalcSystem("ExpDist(x;a;1)",new String[]{"x","a"});
 		assertTrue(calc.parse()<0);
 		try {
-			D=calc.calc(new double[]{-0.1,5});
-			assertEquals(0,D);
+			d=calc.calc(new double[]{-0.1,5});
+			assertEquals(0,d);
 		} catch (MathCalcError e) {
 			assertTrue(false);
 		}
@@ -2774,8 +3070,8 @@ class SymbolsTests {
 		calc=new CalcSystem("ExpDist(x;a;1)",new String[]{"x","a"});
 		assertTrue(calc.parse()<0);
 		try {
-			D=calc.calc(new double[]{2,5});
-			assertTrue(D>0);
+			d=calc.calc(new double[]{2,5});
+			assertTrue(d>0);
 		} catch (MathCalcError e) {
 			assertTrue(false);
 		}
@@ -2803,8 +3099,8 @@ class SymbolsTests {
 		calc=new CalcSystem("FDist(x;a;b;0)",new String[]{"x","a","b"});
 		assertTrue(calc.parse()<0);
 		try {
-			D=calc.calc(new double[]{-0.1,100,10});
-			assertEquals(0,D);
+			d=calc.calc(new double[]{-0.1,100,10});
+			assertEquals(0,d);
 		} catch (MathCalcError e) {
 			assertTrue(false);
 		}
@@ -2812,8 +3108,8 @@ class SymbolsTests {
 		calc=new CalcSystem("FDist(x;a;b;0)",new String[]{"x","a","b"});
 		assertTrue(calc.parse()<0);
 		try {
-			D=calc.calc(new double[]{2,100,10});
-			assertTrue(D>0);
+			d=calc.calc(new double[]{2,100,10});
+			assertTrue(d>0);
 		} catch (MathCalcError e) {
 			assertTrue(false);
 		}
@@ -2821,8 +3117,8 @@ class SymbolsTests {
 		calc=new CalcSystem("FDist(x;a;b;1)",new String[]{"x","a","b"});
 		assertTrue(calc.parse()<0);
 		try {
-			D=calc.calc(new double[]{-0.1,100,10});
-			assertEquals(0,D);
+			d=calc.calc(new double[]{-0.1,100,10});
+			assertEquals(0,d);
 		} catch (MathCalcError e) {
 			assertTrue(false);
 		}
@@ -2830,8 +3126,8 @@ class SymbolsTests {
 		calc=new CalcSystem("FDist(x;a;b;1)",new String[]{"x","a","b"});
 		assertTrue(calc.parse()<0);
 		try {
-			D=calc.calc(new double[]{2,100,10});
-			assertTrue(D>0);
+			d=calc.calc(new double[]{2,100,10});
+			assertTrue(d>0);
 		} catch (MathCalcError e) {
 			assertTrue(false);
 		}
@@ -2854,8 +3150,8 @@ class SymbolsTests {
 		calc=new CalcSystem("GammaDist(x;a;b;0)",new String[]{"x","a","b"});
 		assertTrue(calc.parse()<0);
 		try {
-			D=calc.calc(new double[]{-0.1,100,6});
-			assertEquals(0,D);
+			d=calc.calc(new double[]{-0.1,100,6});
+			assertEquals(0,d);
 		} catch (MathCalcError e) {
 			assertTrue(false);
 		}
@@ -2863,8 +3159,8 @@ class SymbolsTests {
 		calc=new CalcSystem("GammaDist(x;a;b;0)",new String[]{"x","a","b"});
 		assertTrue(calc.parse()<0);
 		try {
-			D=calc.calc(new double[]{610,100,6});
-			assertTrue(D>0);
+			d=calc.calc(new double[]{610,100,6});
+			assertTrue(d>0);
 		} catch (MathCalcError e) {
 			assertTrue(false);
 		}
@@ -2872,8 +3168,8 @@ class SymbolsTests {
 		calc=new CalcSystem("GammaDist(x;a;b;1)",new String[]{"x","a","b"});
 		assertTrue(calc.parse()<0);
 		try {
-			D=calc.calc(new double[]{-0.1,100,6});
-			assertEquals(0,D);
+			d=calc.calc(new double[]{-0.1,100,6});
+			assertEquals(0,d);
 		} catch (MathCalcError e) {
 			assertTrue(false);
 		}
@@ -2881,8 +3177,8 @@ class SymbolsTests {
 		calc=new CalcSystem("GammaDist(x;a;b;1)",new String[]{"x","a","b"});
 		assertTrue(calc.parse()<0);
 		try {
-			D=calc.calc(new double[]{1000,100,6});
-			assertTrue(D>0);
+			d=calc.calc(new double[]{1000,100,6});
+			assertTrue(d>0);
 		} catch (MathCalcError e) {
 			assertTrue(false);
 		}
@@ -2905,8 +3201,8 @@ class SymbolsTests {
 		calc=new CalcSystem("GammaDistDirect(x;a;b;0)",new String[]{"x","a","b"});
 		assertTrue(calc.parse()<0);
 		try {
-			D=calc.calc(new double[]{-0.1,100,6});
-			assertEquals(0,D);
+			d=calc.calc(new double[]{-0.1,100,6});
+			assertEquals(0,d);
 		} catch (MathCalcError e) {
 			assertTrue(false);
 		}
@@ -2914,8 +3210,8 @@ class SymbolsTests {
 		calc=new CalcSystem("GammaDistDirect(x;a;b;0)",new String[]{"x","a","b"});
 		assertTrue(calc.parse()<0);
 		try {
-			D=calc.calc(new double[]{10,10,5});
-			assertTrue(D>0);
+			d=calc.calc(new double[]{10,10,5});
+			assertTrue(d>0);
 		} catch (MathCalcError e) {
 			assertTrue(false);
 		}
@@ -2923,8 +3219,8 @@ class SymbolsTests {
 		calc=new CalcSystem("GammaDistDirect(x;a;b;1)",new String[]{"x","a","b"});
 		assertTrue(calc.parse()<0);
 		try {
-			D=calc.calc(new double[]{-0.1,10,5});
-			assertEquals(0,D);
+			d=calc.calc(new double[]{-0.1,10,5});
+			assertEquals(0,d);
 		} catch (MathCalcError e) {
 			assertTrue(false);
 		}
@@ -2932,8 +3228,8 @@ class SymbolsTests {
 		calc=new CalcSystem("GammaDistDirect(x;a;b;1)",new String[]{"x","a","b"});
 		assertTrue(calc.parse()<0);
 		try {
-			D=calc.calc(new double[]{1000,10,5});
-			assertTrue(D>0);
+			d=calc.calc(new double[]{1000,10,5});
+			assertTrue(d>0);
 		} catch (MathCalcError e) {
 			assertTrue(false);
 		}
@@ -2956,8 +3252,8 @@ class SymbolsTests {
 		calc=new CalcSystem("InverseGaussianDist(x;l;mu;0)",new String[]{"x","l","mu"});
 		assertTrue(calc.parse()<0);
 		try {
-			D=calc.calc(new double[]{-0.1,900,1800});
-			assertEquals(0,D);
+			d=calc.calc(new double[]{-0.1,900,1800});
+			assertEquals(0,d);
 		} catch (MathCalcError e) {
 			assertTrue(false);
 		}
@@ -2965,8 +3261,8 @@ class SymbolsTests {
 		calc=new CalcSystem("InverseGaussianDist(x;l;mu;0)",new String[]{"x","l","mu"});
 		assertTrue(calc.parse()<0);
 		try {
-			D=calc.calc(new double[]{1000,900,1800});
-			assertTrue(D>0);
+			d=calc.calc(new double[]{1000,900,1800});
+			assertTrue(d>0);
 		} catch (MathCalcError e) {
 			assertTrue(false);
 		}
@@ -2974,8 +3270,8 @@ class SymbolsTests {
 		calc=new CalcSystem("InverseGaussianDist(x;l;mu;1)",new String[]{"x","l","mu"});
 		assertTrue(calc.parse()<0);
 		try {
-			D=calc.calc(new double[]{-0.1,900,1800});
-			assertEquals(0,D);
+			d=calc.calc(new double[]{-0.1,900,1800});
+			assertEquals(0,d);
 		} catch (MathCalcError e) {
 			assertTrue(false);
 		}
@@ -2983,8 +3279,8 @@ class SymbolsTests {
 		calc=new CalcSystem("InverseGaussianDist(x;l;mu;1)",new String[]{"x","l","mu"});
 		assertTrue(calc.parse()<0);
 		try {
-			D=calc.calc(new double[]{1000,900,1800});
-			assertTrue(D>0);
+			d=calc.calc(new double[]{1000,900,1800});
+			assertTrue(d>0);
 		} catch (MathCalcError e) {
 			assertTrue(false);
 		}
@@ -3007,8 +3303,8 @@ class SymbolsTests {
 		calc=new CalcSystem("JohnsonSUDist(x;a;b;c;d;0)",new String[]{"x","a","b","c","d"});
 		assertTrue(calc.parse()<0);
 		try {
-			D=calc.calc(new double[]{0,2,1800,1,180});
-			assertTrue(D>0);
+			d=calc.calc(new double[]{0,2,1800,1,180});
+			assertTrue(d>0);
 		} catch (MathCalcError e) {
 			assertTrue(false);
 		}
@@ -3016,8 +3312,8 @@ class SymbolsTests {
 		calc=new CalcSystem("JohnsonSUDist(x;a;b;c;d;0)",new String[]{"x","a","b","c","d"});
 		assertTrue(calc.parse()<0);
 		try {
-			D=calc.calc(new double[]{2,2,1800,1,180});
-			assertTrue(D>0);
+			d=calc.calc(new double[]{2,2,1800,1,180});
+			assertTrue(d>0);
 		} catch (MathCalcError e) {
 			assertTrue(false);
 		}
@@ -3025,8 +3321,8 @@ class SymbolsTests {
 		calc=new CalcSystem("JohnsonSUDist(x;a;b;c;d;1)",new String[]{"x","a","b","c","d"});
 		assertTrue(calc.parse()<0);
 		try {
-			D=calc.calc(new double[]{0,2,1800,1,180});
-			assertTrue(D>0);
+			d=calc.calc(new double[]{0,2,1800,1,180});
+			assertTrue(d>0);
 		} catch (MathCalcError e) {
 			assertTrue(false);
 		}
@@ -3034,8 +3330,8 @@ class SymbolsTests {
 		calc=new CalcSystem("JohnsonSUDist(x;a;b;c;d;1)",new String[]{"x","a","b","c","d"});
 		assertTrue(calc.parse()<0);
 		try {
-			D=calc.calc(new double[]{2,2,1800,1,180});
-			assertTrue(D>0);
+			d=calc.calc(new double[]{2,2,1800,1,180});
+			assertTrue(d>0);
 		} catch (MathCalcError e) {
 			assertTrue(false);
 		}
@@ -3058,8 +3354,8 @@ class SymbolsTests {
 		calc=new CalcSystem("LaplaceDist(x;a;b;0)",new String[]{"x","a","b"});
 		assertTrue(calc.parse()<0);
 		try {
-			D=calc.calc(new double[]{0,720,360});
-			assertTrue(D>0);
+			d=calc.calc(new double[]{0,720,360});
+			assertTrue(d>0);
 		} catch (MathCalcError e) {
 			assertTrue(false);
 		}
@@ -3067,8 +3363,8 @@ class SymbolsTests {
 		calc=new CalcSystem("LaplaceDist(x;a;b;0)",new String[]{"x","a","b"});
 		assertTrue(calc.parse()<0);
 		try {
-			D=calc.calc(new double[]{200,720,360});
-			assertTrue(D>0);
+			d=calc.calc(new double[]{200,720,360});
+			assertTrue(d>0);
 		} catch (MathCalcError e) {
 			assertTrue(false);
 		}
@@ -3076,8 +3372,8 @@ class SymbolsTests {
 		calc=new CalcSystem("LaplaceDist(x;a;b;1)",new String[]{"x","a","b"});
 		assertTrue(calc.parse()<0);
 		try {
-			D=calc.calc(new double[]{0,720,360});
-			assertTrue(D>0);
+			d=calc.calc(new double[]{0,720,360});
+			assertTrue(d>0);
 		} catch (MathCalcError e) {
 			assertTrue(false);
 		}
@@ -3085,8 +3381,8 @@ class SymbolsTests {
 		calc=new CalcSystem("LaplaceDist(x;a;b;1)",new String[]{"x","a","b"});
 		assertTrue(calc.parse()<0);
 		try {
-			D=calc.calc(new double[]{200,720,360});
-			assertTrue(D>0);
+			d=calc.calc(new double[]{200,720,360});
+			assertTrue(d>0);
 		} catch (MathCalcError e) {
 			assertTrue(false);
 		}
@@ -3109,8 +3405,8 @@ class SymbolsTests {
 		calc=new CalcSystem("LogisticDist(x;a;b;0)",new String[]{"x","a","b"});
 		assertTrue(calc.parse()<0);
 		try {
-			D=calc.calc(new double[]{0,1200,360});
-			assertTrue(D>0);
+			d=calc.calc(new double[]{0,1200,360});
+			assertTrue(d>0);
 		} catch (MathCalcError e) {
 			assertTrue(false);
 		}
@@ -3118,8 +3414,8 @@ class SymbolsTests {
 		calc=new CalcSystem("LogisticDist(x;a;b;0)",new String[]{"x","a","b"});
 		assertTrue(calc.parse()<0);
 		try {
-			D=calc.calc(new double[]{200,1200,360});
-			assertTrue(D>0);
+			d=calc.calc(new double[]{200,1200,360});
+			assertTrue(d>0);
 		} catch (MathCalcError e) {
 			assertTrue(false);
 		}
@@ -3127,8 +3423,8 @@ class SymbolsTests {
 		calc=new CalcSystem("LogisticDist(x;a;b;1)",new String[]{"x","a","b"});
 		assertTrue(calc.parse()<0);
 		try {
-			D=calc.calc(new double[]{0,1200,360});
-			assertTrue(D>0);
+			d=calc.calc(new double[]{0,1200,360});
+			assertTrue(d>0);
 		} catch (MathCalcError e) {
 			assertTrue(false);
 		}
@@ -3136,8 +3432,8 @@ class SymbolsTests {
 		calc=new CalcSystem("LogisticDist(x;a;b;1)",new String[]{"x","a","b"});
 		assertTrue(calc.parse()<0);
 		try {
-			D=calc.calc(new double[]{200,1200,360});
-			assertTrue(D>0);
+			d=calc.calc(new double[]{200,1200,360});
+			assertTrue(d>0);
 		} catch (MathCalcError e) {
 			assertTrue(false);
 		}
@@ -3160,8 +3456,8 @@ class SymbolsTests {
 		calc=new CalcSystem("LogNormalDist(x;a;b;0)",new String[]{"x","a","b"});
 		assertTrue(calc.parse()<0);
 		try {
-			D=calc.calc(new double[]{-1,600,200});
-			assertEquals(0,D);
+			d=calc.calc(new double[]{-1,600,200});
+			assertEquals(0,d);
 		} catch (MathCalcError e) {
 			assertTrue(false);
 		}
@@ -3169,8 +3465,8 @@ class SymbolsTests {
 		calc=new CalcSystem("LogNormalDist(x;a;b;0)",new String[]{"x","a","b"});
 		assertTrue(calc.parse()<0);
 		try {
-			D=calc.calc(new double[]{500,600,200});
-			assertTrue(D>0);
+			d=calc.calc(new double[]{500,600,200});
+			assertTrue(d>0);
 		} catch (MathCalcError e) {
 			assertTrue(false);
 		}
@@ -3178,8 +3474,8 @@ class SymbolsTests {
 		calc=new CalcSystem("LogNormalDist(x;a;b;1)",new String[]{"x","a","b"});
 		assertTrue(calc.parse()<0);
 		try {
-			D=calc.calc(new double[]{-1,600,200});
-			assertEquals(0,D);
+			d=calc.calc(new double[]{-1,600,200});
+			assertEquals(0,d);
 		} catch (MathCalcError e) {
 			assertTrue(false);
 		}
@@ -3187,8 +3483,8 @@ class SymbolsTests {
 		calc=new CalcSystem("LogNormalDist(x;a;b;1)",new String[]{"x","a","b"});
 		assertTrue(calc.parse()<0);
 		try {
-			D=calc.calc(new double[]{500,600,200});
-			assertTrue(D>0);
+			d=calc.calc(new double[]{500,600,200});
+			assertTrue(d>0);
 		} catch (MathCalcError e) {
 			assertTrue(false);
 		}
@@ -3211,8 +3507,8 @@ class SymbolsTests {
 		calc=new CalcSystem("NormalDist(x;a;b;0)",new String[]{"x","a","b"});
 		assertTrue(calc.parse()<0);
 		try {
-			D=calc.calc(new double[]{-1,600,200});
-			assertTrue(D>0);
+			d=calc.calc(new double[]{-1,600,200});
+			assertTrue(d>0);
 		} catch (MathCalcError e) {
 			assertTrue(false);
 		}
@@ -3220,8 +3516,8 @@ class SymbolsTests {
 		calc=new CalcSystem("NormalDist(x;a;b;0)",new String[]{"x","a","b"});
 		assertTrue(calc.parse()<0);
 		try {
-			D=calc.calc(new double[]{500,600,200});
-			assertTrue(D>0);
+			d=calc.calc(new double[]{500,600,200});
+			assertTrue(d>0);
 		} catch (MathCalcError e) {
 			assertTrue(false);
 		}
@@ -3229,8 +3525,8 @@ class SymbolsTests {
 		calc=new CalcSystem("NormalDist(x;a;b;1)",new String[]{"x","a","b"});
 		assertTrue(calc.parse()<0);
 		try {
-			D=calc.calc(new double[]{-1,600,200});
-			assertTrue(D>0);
+			d=calc.calc(new double[]{-1,600,200});
+			assertTrue(d>0);
 		} catch (MathCalcError e) {
 			assertTrue(false);
 		}
@@ -3238,8 +3534,8 @@ class SymbolsTests {
 		calc=new CalcSystem("NormalDist(x;a;b;1)",new String[]{"x","a","b"});
 		assertTrue(calc.parse()<0);
 		try {
-			D=calc.calc(new double[]{500,600,200});
-			assertTrue(D>0);
+			d=calc.calc(new double[]{500,600,200});
+			assertTrue(d>0);
 		} catch (MathCalcError e) {
 			assertTrue(false);
 		}
@@ -3262,8 +3558,8 @@ class SymbolsTests {
 		calc=new CalcSystem("ParetoDist(x;a;b;0)",new String[]{"x","a","b"});
 		assertTrue(calc.parse()<0);
 		try {
-			D=calc.calc(new double[]{10,300,3});
-			assertEquals(0,D);
+			d=calc.calc(new double[]{10,300,3});
+			assertEquals(0,d);
 		} catch (MathCalcError e) {
 			assertTrue(false);
 		}
@@ -3271,8 +3567,8 @@ class SymbolsTests {
 		calc=new CalcSystem("ParetoDist(x;a;b;0)",new String[]{"x","a","b"});
 		assertTrue(calc.parse()<0);
 		try {
-			D=calc.calc(new double[]{500,300,3});
-			assertTrue(D>0);
+			d=calc.calc(new double[]{500,300,3});
+			assertTrue(d>0);
 		} catch (MathCalcError e) {
 			assertTrue(false);
 		}
@@ -3280,8 +3576,8 @@ class SymbolsTests {
 		calc=new CalcSystem("ParetoDist(x;a;b;1)",new String[]{"x","a","b"});
 		assertTrue(calc.parse()<0);
 		try {
-			D=calc.calc(new double[]{10,300,3});
-			assertEquals(0,D);
+			d=calc.calc(new double[]{10,300,3});
+			assertEquals(0,d);
 		} catch (MathCalcError e) {
 			assertTrue(false);
 		}
@@ -3289,8 +3585,8 @@ class SymbolsTests {
 		calc=new CalcSystem("ParetoDist(x;a;b;1)",new String[]{"x","a","b"});
 		assertTrue(calc.parse()<0);
 		try {
-			D=calc.calc(new double[]{500,300,3});
-			assertTrue(D>0);
+			d=calc.calc(new double[]{500,300,3});
+			assertTrue(d>0);
 		} catch (MathCalcError e) {
 			assertTrue(false);
 		}
@@ -3313,8 +3609,8 @@ class SymbolsTests {
 		calc=new CalcSystem("TriangularDist(x;a;b;c;0)",new String[]{"x","a","b","c"});
 		assertTrue(calc.parse()<0);
 		try {
-			D=calc.calc(new double[]{500,900,1800,2700});
-			assertEquals(0,D);
+			d=calc.calc(new double[]{500,900,1800,2700});
+			assertEquals(0,d);
 		} catch (MathCalcError e) {
 			assertTrue(false);
 		}
@@ -3322,8 +3618,8 @@ class SymbolsTests {
 		calc=new CalcSystem("TriangularDist(x;a;b;c;0)",new String[]{"x","a","b","c"});
 		assertTrue(calc.parse()<0);
 		try {
-			D=calc.calc(new double[]{1000,900,1800,2700});
-			assertTrue(D>0);
+			d=calc.calc(new double[]{1000,900,1800,2700});
+			assertTrue(d>0);
 		} catch (MathCalcError e) {
 			assertTrue(false);
 		}
@@ -3331,8 +3627,8 @@ class SymbolsTests {
 		calc=new CalcSystem("TriangularDist(x;a;b;c;0)",new String[]{"x","a","b","c"});
 		assertTrue(calc.parse()<0);
 		try {
-			D=calc.calc(new double[]{3000,900,1800,2700});
-			assertEquals(0,D);
+			d=calc.calc(new double[]{3000,900,1800,2700});
+			assertEquals(0,d);
 		} catch (MathCalcError e) {
 			assertTrue(false);
 		}
@@ -3340,8 +3636,8 @@ class SymbolsTests {
 		calc=new CalcSystem("TriangularDist(x;a;b;c;1)",new String[]{"x","a","b","c"});
 		assertTrue(calc.parse()<0);
 		try {
-			D=calc.calc(new double[]{500,900,1800,2700});
-			assertEquals(0,D);
+			d=calc.calc(new double[]{500,900,1800,2700});
+			assertEquals(0,d);
 		} catch (MathCalcError e) {
 			assertTrue(false);
 		}
@@ -3349,8 +3645,8 @@ class SymbolsTests {
 		calc=new CalcSystem("TriangularDist(x;a;b;c;1)",new String[]{"x","a","b","c"});
 		assertTrue(calc.parse()<0);
 		try {
-			D=calc.calc(new double[]{1800,900,1800,2700});
-			assertEquals(0.5,D);
+			d=calc.calc(new double[]{1800,900,1800,2700});
+			assertEquals(0.5,d);
 		} catch (MathCalcError e) {
 			assertTrue(false);
 		}
@@ -3358,8 +3654,8 @@ class SymbolsTests {
 		calc=new CalcSystem("TriangularDist(x;a;b;c;1)",new String[]{"x","a","b","c"});
 		assertTrue(calc.parse()<0);
 		try {
-			D=calc.calc(new double[]{3000,900,1800,2700});
-			assertEquals(1,D);
+			d=calc.calc(new double[]{3000,900,1800,2700});
+			assertEquals(1,d);
 		} catch (MathCalcError e) {
 			assertTrue(false);
 		}
@@ -3382,8 +3678,8 @@ class SymbolsTests {
 		calc=new CalcSystem("PertDist(x;a;b;c;0)",new String[]{"x","a","b","c"});
 		assertTrue(calc.parse()<0);
 		try {
-			D=calc.calc(new double[]{500,900,1800,2700});
-			assertEquals(0,D);
+			d=calc.calc(new double[]{500,900,1800,2700});
+			assertEquals(0,d);
 		} catch (MathCalcError e) {
 			assertTrue(false);
 		}
@@ -3391,8 +3687,8 @@ class SymbolsTests {
 		calc=new CalcSystem("PertDist(x;a;b;c;0)",new String[]{"x","a","b","c"});
 		assertTrue(calc.parse()<0);
 		try {
-			D=calc.calc(new double[]{1000,900,1800,2700});
-			assertTrue(D>0);
+			d=calc.calc(new double[]{1000,900,1800,2700});
+			assertTrue(d>0);
 		} catch (MathCalcError e) {
 			assertTrue(false);
 		}
@@ -3400,8 +3696,8 @@ class SymbolsTests {
 		calc=new CalcSystem("PertDist(x;a;b;c;0)",new String[]{"x","a","b","c"});
 		assertTrue(calc.parse()<0);
 		try {
-			D=calc.calc(new double[]{3000,900,1800,2700});
-			assertEquals(0,D);
+			d=calc.calc(new double[]{3000,900,1800,2700});
+			assertEquals(0,d);
 		} catch (MathCalcError e) {
 			assertTrue(false);
 		}
@@ -3409,8 +3705,8 @@ class SymbolsTests {
 		calc=new CalcSystem("PertDist(x;a;b;c;1)",new String[]{"x","a","b","c"});
 		assertTrue(calc.parse()<0);
 		try {
-			D=calc.calc(new double[]{500,900,1800,2700});
-			assertEquals(0,D);
+			d=calc.calc(new double[]{500,900,1800,2700});
+			assertEquals(0,d);
 		} catch (MathCalcError e) {
 			assertTrue(false);
 		}
@@ -3418,8 +3714,8 @@ class SymbolsTests {
 		calc=new CalcSystem("PertDist(x;a;b;c;1)",new String[]{"x","a","b","c"});
 		assertTrue(calc.parse()<0);
 		try {
-			D=calc.calc(new double[]{1800,900,1800,2700});
-			assertEquals(0.5,D,0.00001);
+			d=calc.calc(new double[]{1800,900,1800,2700});
+			assertEquals(0.5,d,0.00001);
 		} catch (MathCalcError e) {
 			assertTrue(false);
 		}
@@ -3427,8 +3723,8 @@ class SymbolsTests {
 		calc=new CalcSystem("PertDist(x;a;b;c;1)",new String[]{"x","a","b","c"});
 		assertTrue(calc.parse()<0);
 		try {
-			D=calc.calc(new double[]{3000,900,1800,2700});
-			assertEquals(1,D);
+			d=calc.calc(new double[]{3000,900,1800,2700});
+			assertEquals(1,d);
 		} catch (MathCalcError e) {
 			assertTrue(false);
 		}
@@ -3451,8 +3747,8 @@ class SymbolsTests {
 		calc=new CalcSystem("UniformDist(x;a;b;0)",new String[]{"x","a","b"});
 		assertTrue(calc.parse()<0);
 		try {
-			D=calc.calc(new double[]{500,900,2700});
-			assertEquals(0,D);
+			d=calc.calc(new double[]{500,900,2700});
+			assertEquals(0,d);
 		} catch (MathCalcError e) {
 			assertTrue(false);
 		}
@@ -3460,8 +3756,8 @@ class SymbolsTests {
 		calc=new CalcSystem("UniformDist(x;a;b;0)",new String[]{"x","a","b"});
 		assertTrue(calc.parse()<0);
 		try {
-			D=calc.calc(new double[]{1000,900,2700});
-			assertTrue(D>0);
+			d=calc.calc(new double[]{1000,900,2700});
+			assertTrue(d>0);
 		} catch (MathCalcError e) {
 			assertTrue(false);
 		}
@@ -3469,8 +3765,8 @@ class SymbolsTests {
 		calc=new CalcSystem("UniformDist(x;a;b;0)",new String[]{"x","a","b"});
 		assertTrue(calc.parse()<0);
 		try {
-			D=calc.calc(new double[]{3000,900,2700});
-			assertEquals(0,D);
+			d=calc.calc(new double[]{3000,900,2700});
+			assertEquals(0,d);
 		} catch (MathCalcError e) {
 			assertTrue(false);
 		}
@@ -3478,8 +3774,8 @@ class SymbolsTests {
 		calc=new CalcSystem("UniformDist(x;a;b;1)",new String[]{"x","a","b"});
 		assertTrue(calc.parse()<0);
 		try {
-			D=calc.calc(new double[]{500,900,2700});
-			assertEquals(0,D);
+			d=calc.calc(new double[]{500,900,2700});
+			assertEquals(0,d);
 		} catch (MathCalcError e) {
 			assertTrue(false);
 		}
@@ -3487,8 +3783,8 @@ class SymbolsTests {
 		calc=new CalcSystem("UniformDist(x;a;b;1)",new String[]{"x","a","b"});
 		assertTrue(calc.parse()<0);
 		try {
-			D=calc.calc(new double[]{1800,900,2700});
-			assertEquals(0.5,D);
+			d=calc.calc(new double[]{1800,900,2700});
+			assertEquals(0.5,d);
 		} catch (MathCalcError e) {
 			assertTrue(false);
 		}
@@ -3496,8 +3792,8 @@ class SymbolsTests {
 		calc=new CalcSystem("UniformDist(x;a;b;1)",new String[]{"x","a","b"});
 		assertTrue(calc.parse()<0);
 		try {
-			D=calc.calc(new double[]{3000,900,2700});
-			assertEquals(1,D);
+			d=calc.calc(new double[]{3000,900,2700});
+			assertEquals(1,d);
 		} catch (MathCalcError e) {
 			assertTrue(false);
 		}
@@ -3520,8 +3816,8 @@ class SymbolsTests {
 		calc=new CalcSystem("WeibullDist(x;a;b;0)",new String[]{"x","a","b"});
 		assertTrue(calc.parse()<0);
 		try {
-			D=calc.calc(new double[]{0,0.0027,2});
-			assertEquals(0,D);
+			d=calc.calc(new double[]{0,0.0027,2});
+			assertEquals(0,d);
 		} catch (MathCalcError e) {
 			assertTrue(false);
 		}
@@ -3529,8 +3825,8 @@ class SymbolsTests {
 		calc=new CalcSystem("WeibullDist(x;a;b;0)",new String[]{"x","a","b"});
 		assertTrue(calc.parse()<0);
 		try {
-			D=calc.calc(new double[]{50,0.0027,2});
-			assertTrue(D>0);
+			d=calc.calc(new double[]{50,0.0027,2});
+			assertTrue(d>0);
 		} catch (MathCalcError e) {
 			assertTrue(false);
 		}
@@ -3538,8 +3834,8 @@ class SymbolsTests {
 		calc=new CalcSystem("WeibullDist(x;a;b;1)",new String[]{"x","a","b"});
 		assertTrue(calc.parse()<0);
 		try {
-			D=calc.calc(new double[]{0,0.0027,2});
-			assertEquals(0,D);
+			d=calc.calc(new double[]{0,0.0027,2});
+			assertEquals(0,d);
 		} catch (MathCalcError e) {
 			assertTrue(false);
 		}
@@ -3547,8 +3843,8 @@ class SymbolsTests {
 		calc=new CalcSystem("WeibullDist(x;a;b;1)",new String[]{"x","a","b"});
 		assertTrue(calc.parse()<0);
 		try {
-			D=calc.calc(new double[]{50,0.0027,2});
-			assertTrue(D>0);
+			d=calc.calc(new double[]{50,0.0027,2});
+			assertTrue(d>0);
 		} catch (MathCalcError e) {
 			assertTrue(false);
 		}
@@ -3571,8 +3867,8 @@ class SymbolsTests {
 		calc=new CalcSystem("FatigueLifeDistribution(x;a;b;c;0)",new String[]{"x","a","b","c"});
 		assertTrue(calc.parse()<0);
 		try {
-			D=calc.calc(new double[]{0,1,2,3});
-			assertEquals(0,D);
+			d=calc.calc(new double[]{0,1,2,3});
+			assertEquals(0,d);
 		} catch (MathCalcError e) {
 			assertTrue(false);
 		}
@@ -3580,8 +3876,8 @@ class SymbolsTests {
 		calc=new CalcSystem("FatigueLifeDistribution(x;a;b;c;0)",new String[]{"x","a","b","c"});
 		assertTrue(calc.parse()<0);
 		try {
-			D=calc.calc(new double[]{100,1,2,3});
-			assertTrue(D>0);
+			d=calc.calc(new double[]{100,1,2,3});
+			assertTrue(d>0);
 		} catch (MathCalcError e) {
 			assertTrue(false);
 		}
@@ -3589,8 +3885,8 @@ class SymbolsTests {
 		calc=new CalcSystem("FatigueLifeDistribution(x;a;b;c;1)",new String[]{"x","a","b","c"});
 		assertTrue(calc.parse()<0);
 		try {
-			D=calc.calc(new double[]{0,1,2,3});
-			assertEquals(0,D);
+			d=calc.calc(new double[]{0,1,2,3});
+			assertEquals(0,d);
 		} catch (MathCalcError e) {
 			assertTrue(false);
 		}
@@ -3598,8 +3894,8 @@ class SymbolsTests {
 		calc=new CalcSystem("FatigueLifeDistribution(x;a;b;c;1)",new String[]{"x","a","b","c"});
 		assertTrue(calc.parse()<0);
 		try {
-			D=calc.calc(new double[]{100,1,2,3});
-			assertTrue(D>0);
+			d=calc.calc(new double[]{100,1,2,3});
+			assertTrue(d>0);
 		} catch (MathCalcError e) {
 			assertTrue(false);
 		}
@@ -3622,8 +3918,8 @@ class SymbolsTests {
 		calc=new CalcSystem("FrechetDistribution(x;a;b;c;0)",new String[]{"x","a","b","c"});
 		assertTrue(calc.parse()<0);
 		try {
-			D=calc.calc(new double[]{0,1,2,3});
-			assertEquals(0,D);
+			d=calc.calc(new double[]{0,1,2,3});
+			assertEquals(0,d);
 		} catch (MathCalcError e) {
 			assertTrue(false);
 		}
@@ -3631,8 +3927,8 @@ class SymbolsTests {
 		calc=new CalcSystem("FrechetDistribution(x;a;b;c;0)",new String[]{"x","a","b","c"});
 		assertTrue(calc.parse()<0);
 		try {
-			D=calc.calc(new double[]{100,1,2,3});
-			assertTrue(D>0);
+			d=calc.calc(new double[]{100,1,2,3});
+			assertTrue(d>0);
 		} catch (MathCalcError e) {
 			assertTrue(false);
 		}
@@ -3640,8 +3936,8 @@ class SymbolsTests {
 		calc=new CalcSystem("FrechetDistribution(x;a;b;c;1)",new String[]{"x","a","b","c"});
 		assertTrue(calc.parse()<0);
 		try {
-			D=calc.calc(new double[]{0,1,2,3});
-			assertEquals(0,D);
+			d=calc.calc(new double[]{0,1,2,3});
+			assertEquals(0,d);
 		} catch (MathCalcError e) {
 			assertTrue(false);
 		}
@@ -3649,8 +3945,8 @@ class SymbolsTests {
 		calc=new CalcSystem("FrechetDistribution(x;a;b;c;1)",new String[]{"x","a","b","c"});
 		assertTrue(calc.parse()<0);
 		try {
-			D=calc.calc(new double[]{100,1,2,3});
-			assertTrue(D>0);
+			d=calc.calc(new double[]{100,1,2,3});
+			assertTrue(d>0);
 		} catch (MathCalcError e) {
 			assertTrue(false);
 		}
@@ -3673,8 +3969,8 @@ class SymbolsTests {
 		calc=new CalcSystem("GumbelDistribution(x;a;b;0)",new String[]{"x","a","b"});
 		assertTrue(calc.parse()<0);
 		try {
-			D=calc.calc(new double[]{100,1,2});
-			assertTrue(D>0);
+			d=calc.calc(new double[]{100,1,2});
+			assertTrue(d>0);
 		} catch (MathCalcError e) {
 			assertTrue(false);
 		}
@@ -3682,8 +3978,8 @@ class SymbolsTests {
 		calc=new CalcSystem("GumbelDistribution(x;a;b;1)",new String[]{"x","a","b"});
 		assertTrue(calc.parse()<0);
 		try {
-			D=calc.calc(new double[]{100,1,2});
-			assertTrue(D>0);
+			d=calc.calc(new double[]{100,1,2});
+			assertTrue(d>0);
 		} catch (MathCalcError e) {
 			assertTrue(false);
 		}
@@ -3706,8 +4002,8 @@ class SymbolsTests {
 		calc=new CalcSystem("HyperbolicSecantDistribution(x;a;b;0)",new String[]{"x","a","b"});
 		assertTrue(calc.parse()<0);
 		try {
-			D=calc.calc(new double[]{100,1,2});
-			assertTrue(D>0);
+			d=calc.calc(new double[]{100,1,2});
+			assertTrue(d>0);
 		} catch (MathCalcError e) {
 			assertTrue(false);
 		}
@@ -3715,8 +4011,8 @@ class SymbolsTests {
 		calc=new CalcSystem("HyperbolicSecantDistribution(x;a;b;1)",new String[]{"x","a","b"});
 		assertTrue(calc.parse()<0);
 		try {
-			D=calc.calc(new double[]{100,1,2});
-			assertTrue(D>0);
+			d=calc.calc(new double[]{100,1,2});
+			assertTrue(d>0);
 		} catch (MathCalcError e) {
 			assertTrue(false);
 		}
@@ -3739,8 +4035,8 @@ class SymbolsTests {
 		calc=new CalcSystem("LogLogisticDistribution(x;a;b;0)",new String[]{"x","a","b"});
 		assertTrue(calc.parse()<0);
 		try {
-			D=calc.calc(new double[]{0,1,2});
-			assertEquals(0,D);
+			d=calc.calc(new double[]{0,1,2});
+			assertEquals(0,d);
 		} catch (MathCalcError e) {
 			assertTrue(false);
 		}
@@ -3748,8 +4044,8 @@ class SymbolsTests {
 		calc=new CalcSystem("LogLogisticDistribution(x;a;b;0)",new String[]{"x","a","b"});
 		assertTrue(calc.parse()<0);
 		try {
-			D=calc.calc(new double[]{100,1,2});
-			assertTrue(D>0);
+			d=calc.calc(new double[]{100,1,2});
+			assertTrue(d>0);
 		} catch (MathCalcError e) {
 			assertTrue(false);
 		}
@@ -3757,8 +4053,8 @@ class SymbolsTests {
 		calc=new CalcSystem("LogLogisticDistribution(x;a;b;1)",new String[]{"x","a","b"});
 		assertTrue(calc.parse()<0);
 		try {
-			D=calc.calc(new double[]{0,1,2});
-			assertEquals(0,D);
+			d=calc.calc(new double[]{0,1,2});
+			assertEquals(0,d);
 		} catch (MathCalcError e) {
 			assertTrue(false);
 		}
@@ -3766,8 +4062,8 @@ class SymbolsTests {
 		calc=new CalcSystem("LogLogisticDistribution(x;a;b;1)",new String[]{"x","a","b"});
 		assertTrue(calc.parse()<0);
 		try {
-			D=calc.calc(new double[]{100,1,2});
-			assertTrue(D>0);
+			d=calc.calc(new double[]{100,1,2});
+			assertTrue(d>0);
 		} catch (MathCalcError e) {
 			assertTrue(false);
 		}
@@ -3790,8 +4086,8 @@ class SymbolsTests {
 		calc=new CalcSystem("PowerDistribution(x;a;b;c;0)",new String[]{"x","a","b","c"});
 		assertTrue(calc.parse()<0);
 		try {
-			D=calc.calc(new double[]{0,1,2,3});
-			assertEquals(0,D);
+			d=calc.calc(new double[]{0,1,2,3});
+			assertEquals(0,d);
 		} catch (MathCalcError e) {
 			assertTrue(false);
 		}
@@ -3799,8 +4095,8 @@ class SymbolsTests {
 		calc=new CalcSystem("PowerDistribution(x;a;b;c;0)",new String[]{"x","a","b","c"});
 		assertTrue(calc.parse()<0);
 		try {
-			D=calc.calc(new double[]{1.5,1,2,3});
-			assertTrue(D>0);
+			d=calc.calc(new double[]{1.5,1,2,3});
+			assertTrue(d>0);
 		} catch (MathCalcError e) {
 			assertTrue(false);
 		}
@@ -3808,8 +4104,8 @@ class SymbolsTests {
 		calc=new CalcSystem("PowerDistribution(x;a;b;c;0)",new String[]{"x","a","b","c"});
 		assertTrue(calc.parse()<0);
 		try {
-			D=calc.calc(new double[]{5,1,2,3});
-			assertEquals(0,D);
+			d=calc.calc(new double[]{5,1,2,3});
+			assertEquals(0,d);
 		} catch (MathCalcError e) {
 			assertTrue(false);
 		}
@@ -3817,8 +4113,8 @@ class SymbolsTests {
 		calc=new CalcSystem("PowerDistribution(x;a;b;c;1)",new String[]{"x","a","b","c"});
 		assertTrue(calc.parse()<0);
 		try {
-			D=calc.calc(new double[]{0,1,2,3});
-			assertEquals(0,D);
+			d=calc.calc(new double[]{0,1,2,3});
+			assertEquals(0,d);
 		} catch (MathCalcError e) {
 			assertTrue(false);
 		}
@@ -3826,8 +4122,8 @@ class SymbolsTests {
 		calc=new CalcSystem("PowerDistribution(x;a;b;c;1)",new String[]{"x","a","b","c"});
 		assertTrue(calc.parse()<0);
 		try {
-			D=calc.calc(new double[]{1.5,1,2,3});
-			assertTrue(D>0);
+			d=calc.calc(new double[]{1.5,1,2,3});
+			assertTrue(d>0);
 		} catch (MathCalcError e) {
 			assertTrue(false);
 		}
@@ -3835,8 +4131,8 @@ class SymbolsTests {
 		calc=new CalcSystem("PowerDistribution(x;a;b;c;1)",new String[]{"x","a","b","c"});
 		assertTrue(calc.parse()<0);
 		try {
-			D=calc.calc(new double[]{5,1,2,3});
-			assertEquals(1,D);
+			d=calc.calc(new double[]{5,1,2,3});
+			assertEquals(1,d);
 		} catch (MathCalcError e) {
 			assertTrue(false);
 		}
@@ -3859,8 +4155,8 @@ class SymbolsTests {
 		calc=new CalcSystem("RayleighDistribution(x;a;0)",new String[]{"x","a"});
 		assertTrue(calc.parse()<0);
 		try {
-			D=calc.calc(new double[]{0,50});
-			assertEquals(0,D);
+			d=calc.calc(new double[]{0,50});
+			assertEquals(0,d);
 		} catch (MathCalcError e) {
 			assertTrue(false);
 		}
@@ -3868,8 +4164,8 @@ class SymbolsTests {
 		calc=new CalcSystem("RayleighDistribution(x;a;0)",new String[]{"x","a"});
 		assertTrue(calc.parse()<0);
 		try {
-			D=calc.calc(new double[]{100,50});
-			assertTrue(D>0);
+			d=calc.calc(new double[]{100,50});
+			assertTrue(d>0);
 		} catch (MathCalcError e) {
 			assertTrue(false);
 		}
@@ -3877,8 +4173,8 @@ class SymbolsTests {
 		calc=new CalcSystem("RayleighDistribution(x;a;1)",new String[]{"x","a"});
 		assertTrue(calc.parse()<0);
 		try {
-			D=calc.calc(new double[]{0,50});
-			assertEquals(0,D);
+			d=calc.calc(new double[]{0,50});
+			assertEquals(0,d);
 		} catch (MathCalcError e) {
 			assertTrue(false);
 		}
@@ -3886,8 +4182,8 @@ class SymbolsTests {
 		calc=new CalcSystem("RayleighDistribution(x;a;1)",new String[]{"x","a"});
 		assertTrue(calc.parse()<0);
 		try {
-			D=calc.calc(new double[]{100,50});
-			assertTrue(D>0);
+			d=calc.calc(new double[]{100,50});
+			assertTrue(d>0);
 		} catch (MathCalcError e) {
 			assertTrue(false);
 		}
@@ -3910,8 +4206,8 @@ class SymbolsTests {
 		calc=new CalcSystem("ChiDistribution(x;a;0)",new String[]{"x","a"});
 		assertTrue(calc.parse()<0);
 		try {
-			D=calc.calc(new double[]{0,50});
-			assertEquals(0,D);
+			d=calc.calc(new double[]{0,50});
+			assertEquals(0,d);
 		} catch (MathCalcError e) {
 			assertTrue(false);
 		}
@@ -3919,8 +4215,8 @@ class SymbolsTests {
 		calc=new CalcSystem("ChiDistribution(x;a;0)",new String[]{"x","a"});
 		assertTrue(calc.parse()<0);
 		try {
-			D=calc.calc(new double[]{7,50});
-			assertTrue(D>0);
+			d=calc.calc(new double[]{7,50});
+			assertTrue(d>0);
 		} catch (MathCalcError e) {
 			assertTrue(false);
 		}
@@ -3928,8 +4224,8 @@ class SymbolsTests {
 		calc=new CalcSystem("ChiDistribution(x;a;1)",new String[]{"x","a"});
 		assertTrue(calc.parse()<0);
 		try {
-			D=calc.calc(new double[]{0,50});
-			assertEquals(0,D);
+			d=calc.calc(new double[]{0,50});
+			assertEquals(0,d);
 		} catch (MathCalcError e) {
 			assertTrue(false);
 		}
@@ -3937,8 +4233,8 @@ class SymbolsTests {
 		calc=new CalcSystem("ChiDistribution(x;a;1)",new String[]{"x","a"});
 		assertTrue(calc.parse()<0);
 		try {
-			D=calc.calc(new double[]{100,50});
-			assertTrue(D>0);
+			d=calc.calc(new double[]{100,50});
+			assertTrue(d>0);
 		} catch (MathCalcError e) {
 			assertTrue(false);
 		}
@@ -3961,8 +4257,8 @@ class SymbolsTests {
 		calc=new CalcSystem("LeftSawtoothDist(x;a;b;0)",new String[]{"x","a","b"});
 		assertTrue(calc.parse()<0);
 		try {
-			D=calc.calc(new double[]{500,900,2700});
-			assertEquals(0,D);
+			d=calc.calc(new double[]{500,900,2700});
+			assertEquals(0,d);
 		} catch (MathCalcError e) {
 			assertTrue(false);
 		}
@@ -3970,8 +4266,8 @@ class SymbolsTests {
 		calc=new CalcSystem("LeftSawtoothDist(x;a;b;0)",new String[]{"x","a","b"});
 		assertTrue(calc.parse()<0);
 		try {
-			D=calc.calc(new double[]{1000,900,2700});
-			assertTrue(D>0);
+			d=calc.calc(new double[]{1000,900,2700});
+			assertTrue(d>0);
 		} catch (MathCalcError e) {
 			assertTrue(false);
 		}
@@ -3979,8 +4275,8 @@ class SymbolsTests {
 		calc=new CalcSystem("LeftSawtoothDist(x;a;b;0)",new String[]{"x","a","b"});
 		assertTrue(calc.parse()<0);
 		try {
-			D=calc.calc(new double[]{3000,900,2700});
-			assertEquals(0,D);
+			d=calc.calc(new double[]{3000,900,2700});
+			assertEquals(0,d);
 		} catch (MathCalcError e) {
 			assertTrue(false);
 		}
@@ -3988,8 +4284,8 @@ class SymbolsTests {
 		calc=new CalcSystem("LeftSawtoothDist(x;a;b;1)",new String[]{"x","a","b"});
 		assertTrue(calc.parse()<0);
 		try {
-			D=calc.calc(new double[]{500,900,2700});
-			assertEquals(0,D);
+			d=calc.calc(new double[]{500,900,2700});
+			assertEquals(0,d);
 		} catch (MathCalcError e) {
 			assertTrue(false);
 		}
@@ -3997,9 +4293,9 @@ class SymbolsTests {
 		calc=new CalcSystem("LeftSawtoothDist(x;a;b;1)",new String[]{"x","a","b"});
 		assertTrue(calc.parse()<0);
 		try {
-			D=calc.calc(new double[]{1800,900,2700});
-			assertTrue(D>0);
-			assertTrue(D<1);
+			d=calc.calc(new double[]{1800,900,2700});
+			assertTrue(d>0);
+			assertTrue(d<1);
 		} catch (MathCalcError e) {
 			assertTrue(false);
 		}
@@ -4007,8 +4303,8 @@ class SymbolsTests {
 		calc=new CalcSystem("LeftSawtoothDist(x;a;b;1)",new String[]{"x","a","b"});
 		assertTrue(calc.parse()<0);
 		try {
-			D=calc.calc(new double[]{3000,900,2700});
-			assertEquals(1,D);
+			d=calc.calc(new double[]{3000,900,2700});
+			assertEquals(1,d);
 		} catch (MathCalcError e) {
 			assertTrue(false);
 		}
@@ -4031,8 +4327,8 @@ class SymbolsTests {
 		calc=new CalcSystem("LeftSawtoothDistDirect(x;a;b;0)",new String[]{"x","a","b"});
 		assertTrue(calc.parse()<0);
 		try {
-			D=calc.calc(new double[]{1000,900,2700});
-			assertTrue(D>0);
+			d=calc.calc(new double[]{1000,900,2700});
+			assertTrue(d>0);
 		} catch (MathCalcError e) {
 			assertTrue(false);
 		}
@@ -4040,9 +4336,9 @@ class SymbolsTests {
 		calc=new CalcSystem("LeftSawtoothDistDirect(x;a;b;1)",new String[]{"x","a","b"});
 		assertTrue(calc.parse()<0);
 		try {
-			D=calc.calc(new double[]{1800,900,2700});
-			assertTrue(D>0);
-			assertTrue(D<1);
+			d=calc.calc(new double[]{1800,900,2700});
+			assertTrue(d>0);
+			assertTrue(d<1);
 		} catch (MathCalcError e) {
 			assertTrue(false);
 		}
@@ -4065,8 +4361,8 @@ class SymbolsTests {
 		calc=new CalcSystem("RightSawtoothDist(x;a;b;0)",new String[]{"x","a","b"});
 		assertTrue(calc.parse()<0);
 		try {
-			D=calc.calc(new double[]{500,900,2700});
-			assertEquals(0,D);
+			d=calc.calc(new double[]{500,900,2700});
+			assertEquals(0,d);
 		} catch (MathCalcError e) {
 			assertTrue(false);
 		}
@@ -4074,8 +4370,8 @@ class SymbolsTests {
 		calc=new CalcSystem("RightSawtoothDist(x;a;b;0)",new String[]{"x","a","b"});
 		assertTrue(calc.parse()<0);
 		try {
-			D=calc.calc(new double[]{1000,900,2700});
-			assertTrue(D>0);
+			d=calc.calc(new double[]{1000,900,2700});
+			assertTrue(d>0);
 		} catch (MathCalcError e) {
 			assertTrue(false);
 		}
@@ -4083,8 +4379,8 @@ class SymbolsTests {
 		calc=new CalcSystem("RightSawtoothDist(x;a;b;0)",new String[]{"x","a","b"});
 		assertTrue(calc.parse()<0);
 		try {
-			D=calc.calc(new double[]{3000,900,2700});
-			assertEquals(0,D);
+			d=calc.calc(new double[]{3000,900,2700});
+			assertEquals(0,d);
 		} catch (MathCalcError e) {
 			assertTrue(false);
 		}
@@ -4092,8 +4388,8 @@ class SymbolsTests {
 		calc=new CalcSystem("RightSawtoothDist(x;a;b;1)",new String[]{"x","a","b"});
 		assertTrue(calc.parse()<0);
 		try {
-			D=calc.calc(new double[]{500,900,2700});
-			assertEquals(0,D);
+			d=calc.calc(new double[]{500,900,2700});
+			assertEquals(0,d);
 		} catch (MathCalcError e) {
 			assertTrue(false);
 		}
@@ -4101,9 +4397,9 @@ class SymbolsTests {
 		calc=new CalcSystem("RightSawtoothDist(x;a;b;1)",new String[]{"x","a","b"});
 		assertTrue(calc.parse()<0);
 		try {
-			D=calc.calc(new double[]{1800,900,2700});
-			assertTrue(D>0);
-			assertTrue(D<1);
+			d=calc.calc(new double[]{1800,900,2700});
+			assertTrue(d>0);
+			assertTrue(d<1);
 		} catch (MathCalcError e) {
 			assertTrue(false);
 		}
@@ -4111,8 +4407,8 @@ class SymbolsTests {
 		calc=new CalcSystem("RightSawtoothDist(x;a;b;1)",new String[]{"x","a","b"});
 		assertTrue(calc.parse()<0);
 		try {
-			D=calc.calc(new double[]{3000,900,2700});
-			assertEquals(1,D);
+			d=calc.calc(new double[]{3000,900,2700});
+			assertEquals(1,d);
 		} catch (MathCalcError e) {
 			assertTrue(false);
 		}
@@ -4135,8 +4431,8 @@ class SymbolsTests {
 		calc=new CalcSystem("RightSawtoothDistDirect(x;a;b;0)",new String[]{"x","a","b"});
 		assertTrue(calc.parse()<0);
 		try {
-			D=calc.calc(new double[]{1000,900,2700});
-			assertTrue(D>0);
+			d=calc.calc(new double[]{1000,900,2700});
+			assertTrue(d>0);
 		} catch (MathCalcError e) {
 			assertTrue(false);
 		}
@@ -4144,9 +4440,9 @@ class SymbolsTests {
 		calc=new CalcSystem("RightSawtoothDistDirect(x;a;b;1)",new String[]{"x","a","b"});
 		assertTrue(calc.parse()<0);
 		try {
-			D=calc.calc(new double[]{1800,900,2700});
-			assertTrue(D>0);
-			assertTrue(D<1);
+			d=calc.calc(new double[]{1800,900,2700});
+			assertTrue(d>0);
+			assertTrue(d<1);
 		} catch (MathCalcError e) {
 			assertTrue(false);
 		}
