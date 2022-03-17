@@ -22,9 +22,11 @@ import java.awt.FlowLayout;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.io.Serializable;
+import java.util.Arrays;
 
 import javax.swing.BoxLayout;
 import javax.swing.JCheckBox;
+import javax.swing.JComboBox;
 import javax.swing.JComponent;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -51,6 +53,8 @@ public class ModelElementHoldJSDialog extends ModelElementBaseDialog {
 
 	/** Eingabebereich für das Skript */
 	private ScriptEditorPanel editor;
+	/** Nur bei Kundenankunft prüfen? */
+	private JComboBox<String> onlyCheckOnArrival;
 	/** Option: Bedingung zusätzlich zeitgesteuert prüfen */
 	private JCheckBox useTimedChecks;
 	/** Eingabefeld für die optionale Bedingung für die Skriptausführung */
@@ -71,12 +75,15 @@ public class ModelElementHoldJSDialog extends ModelElementBaseDialog {
 		return InfoPanel.stationHoldJS;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	protected JComponent getContentPanel() {
 		if (element instanceof ModelElementHoldJS) {
-			final String script=((ModelElementHoldJS)element).getScript();
+			final ModelElementHoldJS holdJS=(ModelElementHoldJS)element;
+
+			final String script=holdJS.getScript();
 			ScriptEditorPanel.ScriptMode mode;
-			switch (((ModelElementHoldJS)element).getMode()) {
+			switch (holdJS.getMode()) {
 			case Javascript: mode=ScriptEditorPanel.ScriptMode.Javascript; break;
 			case Java: mode=ScriptEditorPanel.ScriptMode.Java; break;
 			default: mode=ScriptEditorPanel.ScriptMode.Javascript; break;
@@ -88,12 +95,20 @@ public class ModelElementHoldJSDialog extends ModelElementBaseDialog {
 			setup.setLayout(new BoxLayout(setup,BoxLayout.PAGE_AXIS));
 			content.add(setup,BorderLayout.SOUTH);
 
+			final Object[] data=ModelElementBaseDialog.getComboBoxPanel(Language.tr("Surface.HoldJS.Dialog.Trigger")+":",Arrays.asList(
+					Language.tr("Surface.HoldJS.Dialog.Trigger.StateChange"),
+					Language.tr("Surface.HoldJS.Dialog.Trigger.OnlyOnArrival")
+					));
+			setup.add((JPanel)data[0]);
+			onlyCheckOnArrival=(JComboBox<String>)data[1];
+			onlyCheckOnArrival.setSelectedIndex(holdJS.isOnlyCheckOnArrival()?1:0);
+
 			JPanel line=new JPanel(new FlowLayout(FlowLayout.LEFT));
 			setup.add(line);
-			line.add(useTimedChecks=new JCheckBox(Language.tr("Surface.HoldJS.Dialog.TimeBasedCheck"),((ModelElementHoldJS)element).isUseTimedChecks()));
+			line.add(useTimedChecks=new JCheckBox(Language.tr("Surface.HoldJS.Dialog.TimeBasedCheck"),holdJS.isUseTimedChecks()));
 			useTimedChecks.setEnabled(!readOnly);
 
-			final Object[] obj=getInputPanel(Language.tr("Surface.HoldJS.Dialog.Condition")+":",((ModelElementHoldJS)element).getCondition());
+			final Object[] obj=getInputPanel(Language.tr("Surface.HoldJS.Dialog.Condition")+":",holdJS.getCondition());
 			setup.add(line=(JPanel)obj[0]);
 			condition=(JTextField)obj[1];
 			line.add(getExpressionEditButton(this,condition,true,false,element.getModel(),element.getSurface()),BorderLayout.EAST);
@@ -166,13 +181,16 @@ public class ModelElementHoldJSDialog extends ModelElementBaseDialog {
 		super.storeData();
 
 		if (element instanceof ModelElementHoldJS) {
-			((ModelElementHoldJS)element).setScript(editor.getScript());
+			final ModelElementHoldJS holdJS=(ModelElementHoldJS)element;
+
+			holdJS.setScript(editor.getScript());
 			switch (editor.getMode()) {
-			case Javascript: ((ModelElementHoldJS)element).setMode(ModelElementHoldJS.ScriptMode.Javascript); break;
-			case Java: ((ModelElementHoldJS)element).setMode(ModelElementHoldJS.ScriptMode.Java); break;
+			case Javascript: holdJS.setMode(ModelElementHoldJS.ScriptMode.Javascript); break;
+			case Java: holdJS.setMode(ModelElementHoldJS.ScriptMode.Java); break;
 			}
-			((ModelElementHoldJS)element).setUseTimedChecks(useTimedChecks.isSelected());
-			((ModelElementHoldJS)element).setCondition(condition.getText());
+			holdJS.setOnlyCheckOnArrival(onlyCheckOnArrival.getSelectedIndex()==1);
+			holdJS.setUseTimedChecks(useTimedChecks.isSelected());
+			holdJS.setCondition(condition.getText());
 		}
 	}
 }

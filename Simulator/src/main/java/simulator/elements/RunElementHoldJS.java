@@ -46,6 +46,8 @@ public class RunElementHoldJS extends RunElementPassThrough implements StateChan
 	private ModelElementHoldJS.ScriptMode mode;
 	/** Regelmäßige Prüfung der Bedingung? */
 	private boolean useTimedChecks;
+	/** Nur bei Kundenankunft prüfen? */
+	private boolean onlyCheckOnArrival;
 	/** Bereits in {@link #build(EditModel, RunModel, ModelElement, ModelElementSub, boolean)} vorbereiteter (optionale) Java-Runner */
 	private DynamicRunner jRunner;
 
@@ -91,6 +93,9 @@ public class RunElementHoldJS extends RunElementPassThrough implements StateChan
 		/* Zeitabhängige Checks */
 		hold.useTimedChecks=holdElement.isUseTimedChecks();
 
+		/* Nur bei Kundenankunft prüfen? */
+		hold.onlyCheckOnArrival=holdElement.isOnlyCheckOnArrival();
+
 		return hold;
 	}
 
@@ -133,6 +138,11 @@ public class RunElementHoldJS extends RunElementPassThrough implements StateChan
 			/* System über Status-Änderung benachrichtigen */
 			simData.runData.fireStateChangeNotify(simData);
 
+			if (onlyCheckOnArrival) {
+				/* Prüfung erfolgt nicht über StateChangeNotify, daher hier direkt */
+				runCheck(simData);
+			}
+
 			/* Interesse an zeitabhängigen Prüfungen anmelden */
 			if (useTimedChecks) simData.runData.requestTimedChecks(simData,this);
 		} finally {
@@ -168,11 +178,15 @@ public class RunElementHoldJS extends RunElementPassThrough implements StateChan
 	@Override
 	public boolean interestedInChangeNotifiesAtTheMoment(final SimulationData simData) {
 		final RunElementHoldJSData data=getData(simData);
-		return data.waitingClients.size()>0;
+		return data.waitingClients.size()>0 && !onlyCheckOnArrival;
 	}
 
-	@Override
-	public boolean systemStateChangeNotify(final SimulationData simData) {
+	/**
+	 * Führt die eigentliche Freigabeprüfung durch.
+	 * @param simData	Simulationsdatenobjekt
+	 * @return	Liefert <code>true</code>, wenn ein wartender Kunde freigegeben wurde
+	 */
+	private boolean runCheck(final SimulationData simData) {
 		final RunElementHoldJSData data=getData(simData);
 
 		/* Warten überhaupt Kunden? */
@@ -233,6 +247,13 @@ public class RunElementHoldJS extends RunElementPassThrough implements StateChan
 		} finally {
 			data.queueLockedForPickUp=false;
 		}
+	}
+
+
+	@Override
+	public boolean systemStateChangeNotify(final SimulationData simData) {
+		if (onlyCheckOnArrival) return false;
+		return runCheck(simData);
 	}
 
 	@Override

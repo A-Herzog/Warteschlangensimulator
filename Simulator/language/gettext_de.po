@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-03-12 19:13+0100\n"
+"POT-Creation-Date: 2022-03-13 14:43+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -25725,6 +25725,15 @@ msgstr "Bedingung zusätzlich zeitgesteuert prüfen"
 msgid "Surface.HoldJS.Dialog.Title"
 msgstr "Kunden gemäß Skript-Bedingung verzögern bearbeiten"
 
+msgid "Surface.HoldJS.Dialog.Trigger"
+msgstr "Freigabebedingung prüfen bei"
+
+msgid "Surface.HoldJS.Dialog.Trigger.OnlyOnArrival"
+msgstr "Nur bei Ankunft einen Kunden an der Station"
+
+msgid "Surface.HoldJS.Dialog.Trigger.StateChange"
+msgstr "Jeder Systemzustandsänderung"
+
 msgid "Surface.HoldJS.Infotext"
 msgstr "Verzögert die eintreffenden Kunden bis eine skript-basierte Bedingung erfüllt ist."
 
@@ -25748,6 +25757,9 @@ msgstr "Javascript"
 
 msgid "Surface.HoldJS.XML.Condition.Language"
 msgstr "Sprache"
+
+msgid "Surface.HoldJS.XML.Condition.OnlyCheckOnArrival"
+msgstr "NurBeiAnkunftPruefen"
 
 msgid "Surface.HoldJS.XML.Condition.TimedChecks"
 msgstr "ZeitabhaengigePruefungen"

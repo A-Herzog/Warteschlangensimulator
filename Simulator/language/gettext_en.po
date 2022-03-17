@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-03-12 19:13+0100\n"
+"POT-Creation-Date: 2022-03-13 14:43+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -25709,6 +25709,15 @@ msgstr "Do additional time-based condition checks"
 msgid "Surface.HoldJS.Dialog.Title"
 msgstr "Hold clients by script-based condition"
 
+msgid "Surface.HoldJS.Dialog.Trigger"
+msgstr "Test release condition on"
+
+msgid "Surface.HoldJS.Dialog.Trigger.OnlyOnArrival"
+msgstr "Only on client arrival"
+
+msgid "Surface.HoldJS.Dialog.Trigger.StateChange"
+msgstr "Each system state change"
+
 msgid "Surface.HoldJS.Infotext"
 msgstr "This station holds and forwards arriving clients by using a script-based condition."
 
@@ -25732,6 +25741,9 @@ msgstr "Javascript"
 
 msgid "Surface.HoldJS.XML.Condition.Language"
 msgstr "Language"
+
+msgid "Surface.HoldJS.XML.Condition.OnlyCheckOnArrival"
+msgstr "OnlyCheckOnArrival"
 
 msgid "Surface.HoldJS.XML.Condition.TimedChecks"
 msgstr "TimedChecks"

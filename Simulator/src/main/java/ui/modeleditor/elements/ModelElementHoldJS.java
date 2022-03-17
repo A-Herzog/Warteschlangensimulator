@@ -78,6 +78,13 @@ public class ModelElementHoldJS extends ModelElementMultiInSingleOutBox implemen
 	private boolean useTimedChecks;
 
 	/**
+	 * Nur bei Kundenankunft prüfen?
+	 * @see #isOnlyCheckOnArrival()
+	 * @see #setOnlyCheckOnArrival(boolean)
+	 */
+	private boolean onlyCheckOnArrival;
+
+	/**
 	 * Konstruktor der Klasse <code>ModelElementHoldJS</code>
 	 * @param model	Modell zu dem dieses Element gehören soll (kann später nicht mehr geändert werden)
 	 * @param surface	Zeichenfläche zu dem dieses Element gehören soll (kann später nicht mehr geändert werden)
@@ -88,6 +95,7 @@ public class ModelElementHoldJS extends ModelElementMultiInSingleOutBox implemen
 		script="";
 		mode=ScriptMode.Javascript;
 		useTimedChecks=false;
+		onlyCheckOnArrival=false;
 	}
 
 	/**
@@ -154,8 +162,24 @@ public class ModelElementHoldJS extends ModelElementMultiInSingleOutBox implemen
 	 * Regelmäßige Prüfung der Bedingung einstellen
 	 * @param useTimedChecks	Regelmäßige Prüfung der Bedingung
 	 */
-	public void setUseTimedChecks(boolean useTimedChecks) {
+	public void setUseTimedChecks(final boolean useTimedChecks) {
 		this.useTimedChecks=useTimedChecks;
+	}
+
+	/**
+	 * Nur bei Kundenankunft prüfen?
+	 * @return	Nur bei Kundenankunft prüfen?
+	 */
+	public boolean isOnlyCheckOnArrival() {
+		return onlyCheckOnArrival;
+	}
+
+	/**
+	 * Stellt ein, ob die Bedingung bei jeder Zustandsändung oder nur bei Kundenankunft geprüft werden soll.
+	 * @param onlyCheckOnArrival	Bedingung nur bei Kundenankunft prüfen?
+	 */
+	public void setOnlyCheckOnArrival(final boolean onlyCheckOnArrival) {
+		this.onlyCheckOnArrival=onlyCheckOnArrival;
 	}
 
 	/**
@@ -187,11 +211,13 @@ public class ModelElementHoldJS extends ModelElementMultiInSingleOutBox implemen
 	public boolean equalsModelElement(ModelElement element) {
 		if (!super.equalsModelElement(element)) return false;
 		if (!(element instanceof ModelElementHoldJS)) return false;
+		final ModelElementHoldJS copySource=(ModelElementHoldJS)element;
 
-		if (!((ModelElementHoldJS)element).condition.equalsIgnoreCase(condition)) return false;
-		if (!((ModelElementHoldJS)element).script.equalsIgnoreCase(script)) return false;
-		if (((ModelElementHoldJS)element).mode!=mode) return false;
-		if (((ModelElementHoldJS)element).useTimedChecks!=useTimedChecks) return false;
+		if (!copySource.condition.equalsIgnoreCase(condition)) return false;
+		if (!copySource.script.equalsIgnoreCase(script)) return false;
+		if (copySource.mode!=mode) return false;
+		if (copySource.useTimedChecks!=useTimedChecks) return false;
+		if (copySource.onlyCheckOnArrival!=onlyCheckOnArrival) return false;
 
 		return true;
 	}
@@ -204,10 +230,12 @@ public class ModelElementHoldJS extends ModelElementMultiInSingleOutBox implemen
 	public void copyDataFrom(ModelElement element) {
 		super.copyDataFrom(element);
 		if (element instanceof ModelElementHoldJS) {
-			condition=((ModelElementHoldJS)element).condition;
-			script=((ModelElementHoldJS)element).script;
-			mode=((ModelElementHoldJS)element).mode;
-			useTimedChecks=((ModelElementHoldJS)element).useTimedChecks;
+			final ModelElementHoldJS source=(ModelElementHoldJS)element;
+			condition=source.condition;
+			script=source.script;
+			mode=source.mode;
+			useTimedChecks=source.useTimedChecks;
+			onlyCheckOnArrival=source.onlyCheckOnArrival;
 		}
 	}
 
@@ -364,6 +392,7 @@ public class ModelElementHoldJS extends ModelElementMultiInSingleOutBox implemen
 			break;
 		}
 		if (useTimedChecks) sub.setAttribute(Language.trPrimary("Surface.HoldJS.XML.Condition.TimedChecks"),"1");
+		if (onlyCheckOnArrival) sub.setAttribute(Language.trPrimary("Surface.HoldJS.XML.Condition.OnlyCheckOnArrival"),"1");
 		sub.setTextContent(script);
 	}
 
@@ -393,6 +422,9 @@ public class ModelElementHoldJS extends ModelElementMultiInSingleOutBox implemen
 
 			final String useTimedChecksString=Language.trAllAttribute("Surface.HoldJS.XML.Condition.TimedChecks",node);
 			if (useTimedChecksString.equals("1")) useTimedChecks=true;
+
+			final String onlyCheckOnArrivalString=Language.trAllAttribute("Surface.HoldJS.XML.Condition.OnlyCheckOnArrival",node);
+			if (onlyCheckOnArrivalString.equals("1")) onlyCheckOnArrival=true;
 
 			return null;
 		}

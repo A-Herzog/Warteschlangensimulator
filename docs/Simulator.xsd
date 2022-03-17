@@ -1024,6 +1024,7 @@
   <xs:extension base="xs:string">
     <xs:attribute name="Sprache" type="xs:string"/>
 	<xs:attribute name="ZeitabhaengigePruefungen" type="xs:string"/>
+	<xs:attribute name="NurBeiAnkunftPruefen" type="xs:string"/>
   </xs:extension>
 </xs:simpleContent></xs:complexType></xs:element>
 
@@ -3252,6 +3253,7 @@
   <xs:extension base="xs:string">
     <xs:attribute name="Language" type="xs:string"/>
 	<xs:attribute name="TimedChecks" type="xs:string"/>
+	<xs:attribute name="OnlyCheckOnArrival" type="xs:string"/>
   </xs:extension>
 </xs:simpleContent></xs:complexType></xs:element>
 

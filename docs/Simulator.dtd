@@ -810,6 +810,7 @@
 <!ATTLIST ModellElementBedingungScriptText
   Sprache					CDATA	#IMPLIED
   ZeitabhaengigePruefungen	CDATA	#IMPLIED
+  NurBeiAnkunftPruefen		CDATA	#IMPLIED
 >
 <!ELEMENT ModellElementBedingungScriptBedingung (#PCDATA)>
 
@@ -3205,8 +3206,9 @@
 >
 <!ELEMENT ModelElementHoldScriptCondition (#PCDATA)>
 <!ATTLIST ModelElementHoldScriptCondition
-  Language		CDATA	#IMPLIED
-  TimedChecks	CDATA	#IMPLIED
+  Language				CDATA	#IMPLIED
+  TimedChecks			CDATA	#IMPLIED
+  OnlyCheckOnArrival	CDATA	#IMPLIED
 >
 <!ELEMENT ModelElementHoldScriptAdditionalCondition (#PCDATA)>
 
