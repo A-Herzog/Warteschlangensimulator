@@ -292,6 +292,9 @@ public class RunElementDisposeWithTable extends RunElement {
 			processOutput(simData,client);
 		}
 
+		/* Ggf. Kunde aus Untermodell austragen */
+		if (parentId>=0) simData.runData.logClientLeavesStation(simData,simData.runModel.elementsFast[parentId],null,client);
+
 		/* Simulation regulär beenden */
 		boolean lastClient=false;
 		if (client.isLastClient) {

@@ -205,6 +205,9 @@ public class RunElementSource extends RunElement implements StateChangeListener,
 			/* Zwischenankunftszeiten in der Statistik erfassen */
 			simData.runData.logStationArrival(simData.currentTime,simData,this,data,newClient);
 
+			/* Ggf. Kunde in Untermodell eintragen */
+			if (parentId>=0) simData.runData.logClientEntersStation(simData,simData.runModel.elementsFast[parentId],null,newClient);
+
 			/* Wenn Ziel-Anzahl an Ankünften erreicht: Kunden Marker mitgeben, dass bei seiner Ankunft im Ziel die Simulation endet.*/
 			if (simData.runData.nextClientIsLast(simData)) isLastClient=true;
 			newClient.isLastClient=isLastClient;

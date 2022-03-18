@@ -168,7 +168,10 @@ public class RunElementPickUp extends RunElementPassThrough implements StateChan
 		/* ===== Kunde aus anderer Warteschlange ===== */
 
 		/* Kunde verlässt Station (wird sonst über die Events realisiert) */
-		if (otherClient!=null && queue.isClientCountStation()) simData.runData.logClientLeavesStation(simData,queue,null,otherClient);
+		if (otherClient!=null) {
+			if (queue.isClientCountStation()) simData.runData.logClientLeavesStation(simData,queue,null,otherClient);
+			if (parentId>=0) simData.runData.logClientLeavesStation(simData,simData.runModel.elementsFast[parentId],null,otherClient);
+		}
 
 		/* Wartezeit des Kunden usw. wurde bereits bei getClient() verarbeitet */
 
@@ -197,6 +200,7 @@ public class RunElementPickUp extends RunElementPassThrough implements StateChan
 
 				/* Eigenen Kunden aus Station austragen (wird sonst über die Events realisiert) */
 				simData.runData.logClientLeavesStation(simData,this,data,client);
+				if (parentId>=0) simData.runData.logClientLeavesStation(simData,simData.runModel.elementsFast[parentId],null,client);
 
 				/* Ist der Kunde als "letzter Kunde" markiert? */
 				boolean isLastClient=client.isLastClient || otherClient.isLastClient;
@@ -213,6 +217,7 @@ public class RunElementPickUp extends RunElementPassThrough implements StateChan
 
 				/* Eigenen Kunden aus Station austragen (wird sonst über die Events realisiert) */
 				simData.runData.logClientLeavesStation(simData,this,data,client);
+				if (parentId>=0) simData.runData.logClientLeavesStation(simData,simData.runModel.elementsFast[parentId],null,client);
 
 				/* Ist der Kunde als "letzter Kunde" markiert? */
 				boolean isLastClient=client.isLastClient || otherClient.isLastClient;
@@ -231,6 +236,7 @@ public class RunElementPickUp extends RunElementPassThrough implements StateChan
 
 			/* Kunde betritt Station (wird sonst über die Events realisiert) */
 			simData.runData.logClientEntersStation(simData,this,data,batchedClient);
+			if (parentId>=0) simData.runData.logClientEntersStation(simData,simData.runModel.elementsFast[parentId],null,batchedClient);
 
 			/* Kunden weiterleiten */
 			StationLeaveEvent.addLeaveEvent(simData,batchedClient,this,0);

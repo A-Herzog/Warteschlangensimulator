@@ -100,8 +100,10 @@ public class RunElementAssign extends RunElementPassThrough {
 		/* Kundentyp ändern */
 		if (clientType!=client.type) {
 			simData.runData.logClientLeavesStation(simData,this,null,client);
+			if (parentId>=0) simData.runData.logClientLeavesStation(simData,simData.runModel.elementsFast[parentId],null,client);
 			client.changeType(clientType,simData);
 			simData.runData.logClientEntersStation(simData,this,null,client);
+			if (parentId>=0) simData.runData.logClientEntersStation(simData,simData.runModel.elementsFast[parentId],null,client);
 		}
 		client.iconLast=client.icon;
 		client.icon=clientIcon;

@@ -197,6 +197,7 @@ public class RunElementSplit extends RunElementPassThrough {
 
 			/* Zwischenankunftszeiten in der Statistik erfassen */
 			simData.runData.logStationArrival(simData.currentTime,simData,this,data,newClient);
+			if (parentId>=0) simData.runData.logClientEntersStation(simData,simData.runModel.elementsFast[parentId],null,newClient);
 
 			/* Kunden zur ersten (echten) Station leiten */
 			StationLeaveEvent.addLeaveEvent(simData,newClient,this,0);
@@ -222,6 +223,8 @@ public class RunElementSplit extends RunElementPassThrough {
 		}
 		final boolean isWarmUp=client.isWarmUp;
 		final boolean isLastClient=client.isLastClient;
+
+		if (parentId>=0) simData.runData.logClientLeavesStation(simData,simData.runModel.elementsFast[parentId],null,client);
 
 		client.isLastClient=false; /* Simulation erst beenden, wenn der Kunden (hier in Form seiner Nachfolger) das System verlassen hat. */
 		disposeOldClient(simData,client);

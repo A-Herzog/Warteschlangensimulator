@@ -84,6 +84,7 @@ public class RunElementSeparate extends RunElementPassThrough {
 
 			/* Kunde verlässt Station (wird sonst über die Events realisiert) */
 			simData.runData.logClientLeavesStation(simData,this,null,client);
+			if (parentId>=0) simData.runData.logClientLeavesStation(simData,simData.runModel.elementsFast[parentId],null,client);
 
 			/* Logging */
 			if (simData.loggingActive) {
@@ -101,6 +102,7 @@ public class RunElementSeparate extends RunElementPassThrough {
 
 				/* Kunde betritt Station (wird sonst über die Events realisiert) */
 				simData.runData.logClientEntersStation(simData,this,null,c);
+				if (parentId>=0) simData.runData.logClientEntersStation(simData,simData.runModel.elementsFast[parentId],null,c);
 
 				/* Kunde zur nächsten Station leiten */
 				StationLeaveEvent.addLeaveEvent(simData,c,this,0);

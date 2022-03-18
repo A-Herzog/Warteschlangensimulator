@@ -68,6 +68,9 @@ public class RunElementDispose extends RunElement {
 		/* Logging */
 		if (simData.loggingActive) log(simData,Language.tr("Simulation.Log.Dispose"),String.format(Language.tr("Simulation.Log.Dispose.Info"),client.logInfo(simData),name));
 
+		/* Ggf. Kunde aus Untermodell austragen */
+		if (parentId>=0) simData.runData.logClientLeavesStation(simData,simData.runModel.elementsFast[parentId],null,client);
+
 		/* Simulation regulär beenden */
 		boolean lastClient=false;
 		if (client.isLastClient) {

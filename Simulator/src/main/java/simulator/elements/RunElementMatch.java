@@ -298,6 +298,7 @@ public class RunElementMatch extends RunElementPassThrough {
 
 			/* Kunde verlässt Station (wird sonst über die Events realisiert) */
 			simData.runData.logClientLeavesStation(simData,this,data,currentClient);
+			if (parentId>=0) simData.runData.logClientLeavesStation(simData,simData.runModel.elementsFast[parentId],null,currentClient);
 		}
 
 		/* Logging */
@@ -309,6 +310,7 @@ public class RunElementMatch extends RunElementPassThrough {
 
 		/* Kunde betritt Station (wird sonst über die Events realisiert) */
 		simData.runData.logClientEntersStation(simData,this,data,batchedClient);
+		if (parentId>=0) simData.runData.logClientEntersStation(simData,simData.runModel.elementsFast[parentId],null,batchedClient);
 
 		/* Kunden weiterleiten */
 		StationLeaveEvent.addLeaveEvent(simData,batchedClient,this,0);
@@ -380,6 +382,7 @@ public class RunElementMatch extends RunElementPassThrough {
 
 			/* Kunde verlässt Station (wird sonst über die Events realisiert) */
 			simData.runData.logClientLeavesStation(simData,this,data,currentClient);
+			if (parentId>=0) simData.runData.logClientLeavesStation(simData,simData.runModel.elementsFast[parentId],null,currentClient);
 		}
 
 		/* Logging */
@@ -398,6 +401,7 @@ public class RunElementMatch extends RunElementPassThrough {
 
 		/* Kunde betritt Station (wird sonst über die Events realisiert) */
 		simData.runData.logClientEntersStation(simData,this,data,batchedClient);
+		if (parentId>=0) simData.runData.logClientEntersStation(simData,simData.runModel.elementsFast[parentId],null,batchedClient);
 
 		/* Kunden weiterleiten */
 		StationLeaveEvent.addLeaveEvent(simData,batchedClient,this,0);
