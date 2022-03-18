@@ -18,7 +18,6 @@ package parser.symbols.distributions;
 import org.apache.commons.math3.distribution.AbstractRealDistribution;
 
 import mathtools.distribution.SawtoothRightDistribution;
-import mathtools.distribution.tools.WrapperBetaDistribution;
 import mathtools.distribution.tools.WrapperSawtoothRightDistribution;
 
 /**
@@ -44,9 +43,7 @@ public class CalcSymbolDistributionSawtoothRightDirect extends CalcSymbolDistrib
 	}
 
 	/**
-	 * Factory-Objekt für die Verteilungen<br>
-	 * Die Methode {@link WrapperBetaDistribution#getDistributionForFit(double, double, double, double)}
-	 * hat keine Seiteneffekte, kann also problemlos von mehreren Threads parallel aufgerufen werden.
+	 * Factory-Objekt für die Verteilungen
 	 */
 	private static final WrapperSawtoothRightDistribution wrapper=new WrapperSawtoothRightDistribution();
 

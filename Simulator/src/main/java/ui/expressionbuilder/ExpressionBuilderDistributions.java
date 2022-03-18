@@ -511,6 +511,14 @@ public class ExpressionBuilderDistributions {
 				Language.tr("ExpressionBuilder.ProbabilityDistributions.RightSawtoothDistributionDirect.DistributionFunctionInfo"),
 				Language.tr("ExpressionBuilder.ProbabilityDistributions.RightSawtoothDistributionDirect.RandomNumberInfo"));
 
+		/* Levy-Verteilung */
+
+		addDist(group,filterUpper,"LevyDist","mu;c",
+				Language.tr("ExpressionBuilder.ProbabilityDistributions.LevyDistribution"),
+				Language.tr("ExpressionBuilder.ProbabilityDistributions.LevyDistribution.DensityInfo"),
+				Language.tr("ExpressionBuilder.ProbabilityDistributions.LevyDistribution.DistributionFunctionInfo"),
+				Language.tr("ExpressionBuilder.ProbabilityDistributions.LevyDistribution.RandomNumberInfo"));
+
 		/* Empirische Verteilung */
 
 		final DefaultMutableTreeNode sub=new DefaultMutableTreeNode(Language.tr("ExpressionBuilder.ProbabilityDistributions.EmpiricalDistribution"));

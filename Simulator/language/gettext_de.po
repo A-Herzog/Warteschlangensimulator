@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-03-13 14:43+0100\n"
+"POT-Creation-Date: 2022-03-17 11:07+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -3010,6 +3010,9 @@ msgstr "Exzess (Wölbung)"
 msgid "Distribution.Laplace"
 msgstr "Laplace-Verteilung"
 
+msgid "Distribution.Levy"
+msgstr "Levy-Verteilung"
+
 msgid "Distribution.Location"
 msgstr "Lage"
 
@@ -5680,6 +5683,18 @@ msgstr "<p>Berechnet den Wert der Verteilungsfunktion der linken Sägezahnvertei
 
 msgid "ExpressionBuilder.ProbabilityDistributions.LeftSawtoothDistributionDirect.RandomNumberInfo"
 msgstr "<p>Erzeugt eine Zufallszahl gemäß der linken Sägezahnverteilung mit den Parametern gemäß dem ersten (Mittelwert) und zweiten (Standardabweichung) Parameter.</p>"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.LevyDistribution"
+msgstr "Levy-Verteilung"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.LevyDistribution.DensityInfo"
+msgstr "<p>Berechnet den Wert der Dichte der Levy-Verteilung an der als ersten Parameter angegebenen Stelle mit den Parametern &mu; und c gemäß dem zweiten und dritten Parameter.</p>"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.LevyDistribution.DistributionFunctionInfo"
+msgstr "<p>Berechnet den Wert der Verteilungsfunktion der Levy-Verteilung an der als ersten Parameter angegebenen Stelle mit den Parametern &mz; und c gemäß dem zweiten und dritten Parameter.</p>"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.LevyDistribution.RandomNumberInfo"
+msgstr "<p>Erzeugt eine Zufallszahl gemäß der Levy-Verteilung mit den Parametern &mu; und c gemäß dem ersten und zweiten Parameter.</p>"
 
 msgid "ExpressionBuilder.ProbabilityDistributions.LogLogisticDistribution"
 msgstr "Log-Logistische Verteilung"

@@ -128,6 +128,9 @@ public final class DistributionTools {
 	/** Sägezahnverteilung (rechts) */
 	public static String[] DistSawtoothRight=new String[]{"Rechte Sägezahn-Verteilung"};
 
+	/** Levy-Verteilung */
+	public static String[] DistLevy=new String[]{"Levy-Verteilung"};
+
 	/** Warnung "unbekannte Verteilung" */
 	public static String DistUnknown="unbekannte Verteilung";
 
@@ -208,7 +211,8 @@ public final class DistributionTools {
 				new WrapperFrechetDistribution(),
 				new WrapperHyperbolicSecantDistribution(),
 				new WrapperSawtoothLeftDistribution(),
-				new WrapperSawtoothRightDistribution()
+				new WrapperSawtoothRightDistribution(),
+				new WrapperLevyDistribution()
 		};
 	}
 

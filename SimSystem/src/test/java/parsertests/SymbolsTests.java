@@ -4459,6 +4459,52 @@ class SymbolsTests {
 		} catch (MathCalcError e) {
 			assertTrue(false);
 		}
+
+		/* Levy-Verteilung */
+
+		calc=new CalcSystem("LevyDist(x;mu;c;0)",new String[]{"x","mu","c"});
+		assertTrue(calc.parse()<0);
+
+		try {
+			d=calc.calc(new double[]{2,3,10});
+			assertEquals(0,d);
+		} catch (MathCalcError e) {
+			assertTrue(false);
+		}
+
+		try {
+			d=calc.calc(new double[]{7,3,10});
+			assertTrue(d>0);
+		} catch (MathCalcError e) {
+			assertTrue(false);
+		}
+
+		calc=new CalcSystem("LevyDist(x;mu;c;1)",new String[]{"x","mu","c"});
+		assertTrue(calc.parse()<0);
+
+		try {
+			d=calc.calc(new double[]{2,3,10});
+			assertEquals(0,d);
+		} catch (MathCalcError e) {
+			assertTrue(false);
+		}
+
+		try {
+			d=calc.calc(new double[]{7,3,10});
+			assertTrue(d>0);
+		} catch (MathCalcError e) {
+			assertTrue(false);
+		}
+
+		calc=new CalcSystem("LevyDist(mu;c)",new String[]{"mu","c"});
+		assertTrue(calc.parse()<0);
+
+		try {
+			d=calc.calc(new double[]{3,10});
+			assertTrue(d>0);
+		} catch (MathCalcError e) {
+			assertTrue(false);
+		}
 	}
 
 	/**

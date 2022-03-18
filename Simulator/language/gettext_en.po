@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-03-13 14:43+0100\n"
+"POT-Creation-Date: 2022-03-17 11:07+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -3005,6 +3005,9 @@ msgstr "Excess kurtosis"
 msgid "Distribution.Laplace"
 msgstr "Laplace distribution"
 
+msgid "Distribution.Levy"
+msgstr "Levy distribution"
+
 msgid "Distribution.Location"
 msgstr "Location"
 
@@ -5689,6 +5692,18 @@ msgstr "<p>Calculates the value of the distribution function of the left sawtoot
 
 msgid "ExpressionBuilder.ProbabilityDistributions.LeftSawtoothDistributionDirect.RandomNumberInfo"
 msgstr "<p>Generates a random number according to the left sawtooth distribution with the parameters according to the first (mean) and second (standard deviation) parameters.</p>"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.LevyDistribution"
+msgstr "Levy distribution"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.LevyDistribution.DensityInfo"
+msgstr "<p>Calculates the value of the density of the Levy distribution at the location specified as the first parameter with the parameters &mu; and c according to the second and third parameter.</p>"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.LevyDistribution.DistributionFunctionInfo"
+msgstr "<p>Calculates the value of the distribution function of the Levy distribution at the location specified as the first parameter with the parameters &mu; and c according to the second and third parameter.</p>"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.LevyDistribution.RandomNumberInfo"
+msgstr "<p>Generates a random number according to the Levy distribution with the parameters &mu; and c according to the first and the second parameter.</p>"
 
 msgid "ExpressionBuilder.ProbabilityDistributions.LogLogisticDistribution"
 msgstr "Log-logistic distribution"

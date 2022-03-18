@@ -1,5 +1,5 @@
 /**
- * Copyright 2021 Alexander Herzog
+ * Copyright 2022 Alexander Herzog
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,20 +17,19 @@ package parser.symbols.distributions;
 
 import org.apache.commons.math3.distribution.AbstractRealDistribution;
 
-import mathtools.distribution.SawtoothLeftDistribution;
-import mathtools.distribution.tools.WrapperSawtoothLeftDistribution;
+import mathtools.distribution.LevyDistribution;
 
 /**
- * Linke Sägezahn-Verteilung - die Parameter sind hier Erwartungswert und Standardabweichung
+ * Levy-Verteilung
  * @author Alexander Herzog
- * @see SawtoothLeftDistribution
+ * @see LevyDistribution
  */
-public class CalcSymbolDistributionSawtoothLeftDirect extends CalcSymbolDistribution {
+public class CalcSymbolDistributionLevy extends CalcSymbolDistribution {
 	/**
 	 * Namen für das Symbol
 	 * @see #getNames()
 	 */
-	private static final String[] names=new String[]{"LeftSawtoothDistributionDirect","LeftSawtoothDistDirect","LinkeSägezahnVerteilungDirekt"};
+	private static final String[] names=new String[]{"LevyDistribution","LevyDist","LevyVerteilung"};
 
 	@Override
 	public String[] getNames() {
@@ -42,13 +41,9 @@ public class CalcSymbolDistributionSawtoothLeftDirect extends CalcSymbolDistribu
 		return 2;
 	}
 
-	/**
-	 * Factory-Objekt für die Verteilungen
-	 */
-	private static final WrapperSawtoothLeftDistribution wrapper=new WrapperSawtoothLeftDistribution();
-
 	@Override
 	protected AbstractRealDistribution getDistribution(double[] parameters) {
-		return wrapper.getDistribution(parameters[0],parameters[1]);
+		if (parameters[1]<=0) return null;
+		return new LevyDistribution(parameters[0],parameters[1]);
 	}
 }
