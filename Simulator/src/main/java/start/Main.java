@@ -27,6 +27,8 @@ import language.Language;
 import language.LanguageStaticLoader;
 import language.Messages_Java11;
 import mathtools.Table;
+import mathtools.distribution.swing.JDistributionEditorPanel;
+import mathtools.distribution.swing.JDistributionEditorPanelRecord;
 import systemtools.BaseDialog;
 import systemtools.GUITools;
 import systemtools.MsgBox;
@@ -148,14 +150,32 @@ public class Main {
 		@Override
 		public void run() {
 			final SetupData setup=SetupData.getSetup();
+
+			/* Look & Feel */
 			FlatLaFHelper.init();
 			FlatLaFHelper.setCombinedMenuBar(setup.lookAndFeelCombinedMenu);
 			GUITools.setupUI(setup.lookAndFeel);
 			FlatLaFHelper.setup();
+
+			/* Skalierung */
 			final double scaling=setup.scaleGUI;
 			GUITools.setupFontSize(scaling);
 			BaseDialog.windowScaling=scaling;
+
+			/* Meldungsdialoge */
 			MsgBox.setBackend(new MsgBoxBackendTaskDialog());
+			JDistributionEditorPanel.registerFilterGetter(()->{
+				final String s=setup.distributionListFilter.trim();
+				return (s.isEmpty())?String.join("\n",JDistributionEditorPanelRecord.getDefaultHighlights()):s;
+			});
+
+			/* Filter für Verteilungsliste in Verteilungseditoren */
+			JDistributionEditorPanel.registerFilterSetter(list->{
+				setup.distributionListFilter=list;
+				setup.saveSetup();
+			});
+
+			/* Schriftart */
 			if (setup.fontName!=null && !setup.fontName.trim().isEmpty()) {
 				GUITools.setFontName(setup.fontName);
 				ModelElementBox.DEFAULT_FONT_LARGE=new Font(setup.fontName,ModelElementBox.DEFAULT_FONT_LARGE.getStyle(),ModelElementBox.DEFAULT_FONT_LARGE.getSize());
@@ -163,6 +183,8 @@ public class Main {
 				ModelElementBox.DEFAULT_FONT_TYPE=setup.fontName;
 				FontCache.defaultFamily.name=setup.fontName;
 			}
+
+			/* Start */
 			new MainFrame(loadFile,null);
 		}
 	}

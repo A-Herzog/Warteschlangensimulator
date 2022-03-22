@@ -265,6 +265,9 @@ public class LanguageStaticLoader {
 		JDistributionEditorPanel.ChangeValueDown=Language.tr("JDistributionEditor.ValueDown");
 		JDistributionEditorPanel.ChangeValueUp=Language.tr("JDistributionEditor.ValueUp");
 		JDistributionEditorPanel.DistMostLikely=Language.tr("Distribution.MostLikely");
+		JDistributionEditorPanel.SetupListTitle=Language.tr("Distribution.SetupList.Title");
+		JDistributionEditorPanel.SetupListInfo=Language.tr("Distribution.SetupList.Info");
+		JDistributionEditorPanel.SetupListDivier=Language.tr("Distribution.SetupList.Divider");
 
 		/* JDataDistributionEditPanel */
 		JDataDistributionEditPanel.ButtonCopy=Language.tr("Dialog.Button.Copy");

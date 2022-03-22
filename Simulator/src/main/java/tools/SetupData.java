@@ -1253,6 +1253,11 @@ public class SetupData extends SetupBase {
 	public String batchOutputFile;
 
 	/**
+	 * Liste und Reihenfolge der in der Verteilungsliste hervorgehoben darzustellenden Verteilungen
+	 */
+	public String distributionListFilter;
+
+	/**
 	 * Letzter Fehler
 	 * (Hier wird die Setup-Datei als Logdatei für solche Ereignisse verwendet.)
 	 */
@@ -1470,6 +1475,7 @@ public class SetupData extends SetupBase {
 		batchMode=BatchMode.SIMULATION;
 		batchFilterScript="";
 		batchOutputFile="";
+		distributionListFilter="";
 		lastError=null;
 	}
 
@@ -2448,6 +2454,11 @@ public class SetupData extends SetupBase {
 				batchOutputFile=e.getAttribute("OutputFile");
 				continue;
 			}
+
+			if (name.equals("distributionlistfilter")) {
+				distributionListFilter=e.getTextContent();
+				continue;
+			}
 		}
 
 		if (useLastFiles) {
@@ -3132,6 +3143,11 @@ public class SetupData extends SetupBase {
 			if (batchMode==BatchMode.FILTER) node.setAttribute("FilterMode","1");
 			if (!batchFilterScript.isEmpty()) node.setAttribute("FilterScript",batchFilterScript);
 			if (!batchOutputFile.isEmpty()) node.setAttribute("OutputFile",batchOutputFile);
+		}
+
+		if (distributionListFilter!=null && !distributionListFilter.trim().isEmpty()) {
+			root.appendChild(node=doc.createElement("DistributionListFilter"));
+			node.setTextContent(distributionListFilter.trim());
 		}
 
 		if (lastError!=null && !lastError.trim().isEmpty()) {

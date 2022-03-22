@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-03-17 11:07+0100\n"
+"POT-Creation-Date: 2022-03-19 17:55+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -3070,6 +3070,15 @@ msgstr "Right sawtooth distribution"
 
 msgid "Distribution.Scale"
 msgstr "Scale"
+
+msgid "Distribution.SetupList.Divider"
+msgstr "<html><body>Above: Highlighted distributions (given order)<br>Below: Non-highlighted distributions (will be sorted alhpabetically)</body></html>"
+
+msgid "Distribution.SetupList.Info"
+msgstr "<html><body>The selected distribution can be moved up or down by Ctrl+Up and Ctrl+Down.</body></html>"
+
+msgid "Distribution.SetupList.Title"
+msgstr "Edit list of highlighted distributions"
 
 msgid "Distribution.Skewness"
 msgstr "Skewness"

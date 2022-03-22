@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-03-17 11:07+0100\n"
+"POT-Creation-Date: 2022-03-19 17:55+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -3075,6 +3075,15 @@ msgstr "Rechte Sägezahnverteilung"
 
 msgid "Distribution.Scale"
 msgstr "Skalierung"
+
+msgid "Distribution.SetupList.Divider"
+msgstr "<html><body>Oben: hervorgehobene Verteilungen (angegebene Reihenfolge)<br>Unten: Normale Verteilungen (werden alphabetisch sortiert)</body></html>"
+
+msgid "Distribution.SetupList.Info"
+msgstr "<html><body>Die jeweils ausgewählte Verteilung kann per Strg+Hoch<br>und Strg+Runter verschoben werden.</body></html>"
+
+msgid "Distribution.SetupList.Title"
+msgstr "Liste der hervorgehobene Verteilungen bearbeiten"
 
 msgid "Distribution.Skewness"
 msgstr "Schiefe"

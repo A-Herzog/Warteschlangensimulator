@@ -88,7 +88,7 @@ import mathtools.distribution.tools.WrapperWeibullDistribution;
  * Diese Klasse hält Datensätze für die Anzeige von Bearbeitung von
  * Verteilungen in einem {@link JDistributionEditorPanel} vor.
  * @author Alexander Herzog
- * @see #getList(List, boolean)
+ * @see #getList(List, boolean, boolean)
  */
 public abstract class JDistributionEditorPanelRecord {
 	/**
@@ -115,6 +115,14 @@ public abstract class JDistributionEditorPanelRecord {
 	private JDistributionEditorPanelRecord(final AbstractDistributionWrapper wrapper, final String[] editLabels) {
 		this.wrapper=wrapper;
 		this.editLabels=editLabels;
+	}
+
+	/**
+	 * Handelt es sich bei dem Eintrag um einen Trenner?
+	 * @return	Trenner (=keine Verteilung; <code>true</code>) oder normaler Verteilungseintrag (<code>false</code>)
+	 */
+	public boolean isSeparator() {
+		return wrapper==null;
 	}
 
 	/**
@@ -149,6 +157,7 @@ public abstract class JDistributionEditorPanelRecord {
 	 * @return	Name der Verteilung
 	 */
 	public String getName() {
+		if (wrapper==null) return JDistributionEditorPanel.SetupListDivier;
 		return wrapper.getName();
 	}
 
@@ -223,7 +232,7 @@ public abstract class JDistributionEditorPanelRecord {
 
 	/**
 	 * Statische Liste mit allen Verteilungsdatensätzen
-	 * @see #getList(List, boolean)
+	 * @see #getList(List, boolean, boolean)
 	 */
 	private static final List<JDistributionEditorPanelRecord> allRecords;
 
@@ -266,9 +275,10 @@ public abstract class JDistributionEditorPanelRecord {
 	 * Liefert eine Liste aller Verteilungsdatensätze.
 	 * @param highlight Namen und Reihenfolge der hervorgehoben darzustellenden Verteilungen (darf <code>null</code> oder leer sein)
 	 * @param sortNonHighlightDistributions	Sollen die nicht hervorgehobenen Verteilungen alphabetisch sortiert dargestellt werden?
+	 * @param addSeparator	Soll ein Trenner (für den Editor) zwischen den hervorgehobenen und den normalen Einträgen angezeigt werden?
 	 * @return	Liste aller Verteilungsdatensätze
 	 */
-	public static List<JDistributionEditorPanelRecord> getList(final List<String> highlight, final boolean sortNonHighlightDistributions) {
+	public static List<JDistributionEditorPanelRecord> getList(final List<String> highlight, final boolean sortNonHighlightDistributions, final boolean addSeparator) {
 		final List<JDistributionEditorPanelRecord> workList=new ArrayList<>();
 		final List<JDistributionEditorPanelRecord> resultList=new ArrayList<>();
 
@@ -284,6 +294,9 @@ public abstract class JDistributionEditorPanelRecord {
 				resultList.add(workList.remove(index).copy(true));
 			}
 		}
+
+		/* Trenner */
+		if (addSeparator) resultList.add(new SeparatorPanel());
 
 		/* Nicht hervorzuhebende Verteilungen */
 		if (sortNonHighlightDistributions) workList.sort(JDistributionEditorPanelRecord::compare);
@@ -303,6 +316,7 @@ public abstract class JDistributionEditorPanelRecord {
 		names.add(new LogNormalDistribution().getName());
 		names.add(new GammaDistribution().getName());
 		names.add(new ErlangDistribution().getName());
+		names.add(new TriangularDistribution().getName());
 		names.add(new UniformDistribution().getName());
 		names.add(new OnePointDistribution().getName());
 		names.add(new DataDistribution().getName());
@@ -390,6 +404,29 @@ public abstract class JDistributionEditorPanelRecord {
 			if (Double.isNaN(sd)) sd=Math.abs(mean/2);
 			fields[0].setText(NumberTools.formatNumberMax(mean));
 			fields[1].setText(NumberTools.formatNumberMax(sd));
+		}
+	}
+
+	/** Trenner zwischen hervorgehobenen und normalen Verteilungen für den Filter-Editor (kommt in der normalen Liste nicht vor) */
+	public static class SeparatorPanel extends JDistributionEditorPanelRecord {
+		/** Konstruktor der Klasse */
+		public SeparatorPanel() {
+			super(null,new String[0]);
+		}
+
+		@Override
+		public String[] getEditValues(double meanD, String mean, double stdD, String std, String lower, String upper, double maxXValue) {
+			return new String[0];
+		}
+
+		@Override
+		public String[] getValues(AbstractRealDistribution distribution) {
+			return new String[0];
+		}
+
+		@Override
+		public AbstractRealDistribution getDistribution(JTextField[] fields, double maxXValue) {
+			return null;
 		}
 	}
 

@@ -86,7 +86,8 @@ public class JDistributionEditorDialog extends JDialog {
 			@Override public void windowClosing(WindowEvent event) {setVisible(false);}
 		});
 		setLayout(new BorderLayout());
-		final JPanel mainPanel=new JPanel(new BorderLayout()); add(mainPanel,BorderLayout.CENTER);
+		final JPanel mainPanel=new JPanel(new BorderLayout());
+		add(mainPanel,BorderLayout.CENTER);
 
 		/* Plotter */
 		mainPanel.add(plotter=new JDistributionPanel(distribution,maxXValue,false),BorderLayout.CENTER);

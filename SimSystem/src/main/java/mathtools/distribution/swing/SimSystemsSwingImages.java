@@ -73,7 +73,13 @@ public enum SimSystemsSwingImages {
 	NUMBER_UP_10("bullet_arrow_top.png"),
 
 	/** Symbol "Hilfe" */
-	HELP("help.png");
+	HELP("help.png"),
+
+	/** Symbol "Einstellungen" */
+	SETUP("cog.png"),
+
+	/** Listentrenner für Verteilungsliste */
+	LIST_DIVIDER("Divider.png");
 
 	/**
 	 * Dateiname des Icons
