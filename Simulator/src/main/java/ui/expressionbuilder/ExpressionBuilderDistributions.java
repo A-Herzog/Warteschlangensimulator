@@ -213,6 +213,13 @@ public class ExpressionBuilderDistributions {
 				Language.tr("ExpressionBuilder.ProbabilityDistributions.BinomialDistribution.DensityInfo"),
 				Language.tr("ExpressionBuilder.ProbabilityDistributions.BinomialDistribution.RandomNumberInfo"));
 
+		/* Binomial-Verteilung - Direkt */
+
+		addDiscreteDist(group,filterUpper,"BinomialDistDirect","mean;sd",
+				Language.tr("ExpressionBuilder.ProbabilityDistributions.BinomialDistributionDirect"),
+				Language.tr("ExpressionBuilder.ProbabilityDistributions.BinomialDistributionDirect.DensityInfo"),
+				Language.tr("ExpressionBuilder.ProbabilityDistributions.BinomialDistributionDirect.RandomNumberInfo"));
+
 		/* Poisson-Verteilung */
 
 		addDiscreteDist(group,filterUpper,"PoissonDist","l",
@@ -233,6 +240,13 @@ public class ExpressionBuilderDistributions {
 				Language.tr("ExpressionBuilder.ProbabilityDistributions.NegativeBinomialDistribution"),
 				Language.tr("ExpressionBuilder.ProbabilityDistributions.NegativeBinomialDistribution.DensityInfo"),
 				Language.tr("ExpressionBuilder.ProbabilityDistributions.NegativeBinomialDistribution.RandomNumberInfo"));
+
+		/* Negative Binomial-Verteilung */
+
+		addDiscreteDist(group,filterUpper,"NegativeBinomialDistDirect","mean;sd",
+				Language.tr("ExpressionBuilder.ProbabilityDistributions.NegativeBinomialDistributionDirect"),
+				Language.tr("ExpressionBuilder.ProbabilityDistributions.NegativeBinomialDistributionDirect.DensityInfo"),
+				Language.tr("ExpressionBuilder.ProbabilityDistributions.NegativeBinomialDistributionDirect.RandomNumberInfo"));
 
 		/* Exponentialverteilung */
 

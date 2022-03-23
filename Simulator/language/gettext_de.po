@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-03-19 17:55+0100\n"
+"POT-Creation-Date: 2022-03-22 17:21+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -5335,6 +5335,15 @@ msgstr "<p>Berechnet den Wert der Zähldichte der Binomial-Verteilung an der als
 msgid "ExpressionBuilder.ProbabilityDistributions.BinomialDistribution.RandomNumberInfo"
 msgstr "<p>Erzeugt eine Zufallszahl gemäß der Binomial-Verteilung mit den angegebenen Parametern.</p>"
 
+msgid "ExpressionBuilder.ProbabilityDistributions.BinomialDistributionDirect"
+msgstr "Binomial-Verteilung (direkte Kenngrößen)"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.BinomialDistributionDirect.DensityInfo"
+msgstr "<p>Berechnet den Wert der Zähldichte der Binomial-Verteilung an der als ersten Parameter angegebenen Stelle mit Erwartungswert und Standardabweichung gemäß dem zweiten und dritten Parameter.</p>"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.BinomialDistributionDirect.RandomNumberInfo"
+msgstr "<p>Erzeugt eine Zufallszahl gemäß der Binomial-Verteilung mit dem angegebenen Erwartungswert und der angegbebenen Standardabweichung.</p>"
+
 msgid "ExpressionBuilder.ProbabilityDistributions.CauchyDistribution"
 msgstr "Cauchy-Verteilung"
 
@@ -5770,6 +5779,15 @@ msgstr "<p>Berechnet den Wert der Zähldichte der negativen Binomial-Verteilung 
 
 msgid "ExpressionBuilder.ProbabilityDistributions.NegativeBinomialDistribution.RandomNumberInfo"
 msgstr "<p>Erzeugt eine Zufallszahl gemäß der negativen Binomial-Verteilung mit den angegebenen Parametern.</p>"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.NegativeBinomialDistributionDirect"
+msgstr "Negative Binomial-Verteilung (direkte Kenngrößen)"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.NegativeBinomialDistributionDirect.DensityInfo"
+msgstr "<p>Berechnet den Wert der Zähldichte der negativen Binomial-Verteilung an der als ersten Parameter angegebenen Stelle mit Erwartungswert und Standardabweichung gemäß dem zweiten und dritten Parameter.</p>"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.NegativeBinomialDistributionDirect.RandomNumberInfo"
+msgstr "<p>Erzeugt eine Zufallszahl gemäß der negativen Binomial-Verteilung mit dem angegebenen Erwartungswert und der angegbebenen Standardabweichung.</p>"
 
 msgid "ExpressionBuilder.ProbabilityDistributions.NormalDistribution"
 msgstr "Normalverteilung"
