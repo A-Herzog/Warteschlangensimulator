@@ -1258,6 +1258,11 @@ public class SetupData extends SetupBase {
 	public String distributionListFilter;
 
 	/**
+	 * Bookmarks im Statistikbaum
+	 */
+	public List<String> statisticTreeBookmarks;
+
+	/**
 	 * Letzter Fehler
 	 * (Hier wird die Setup-Datei als Logdatei für solche Ereignisse verwendet.)
 	 */
@@ -1476,6 +1481,8 @@ public class SetupData extends SetupBase {
 		batchFilterScript="";
 		batchOutputFile="";
 		distributionListFilter="";
+		if (statisticTreeBookmarks==null) statisticTreeBookmarks=new ArrayList<>();
+		statisticTreeBookmarks.clear();
 		lastError=null;
 	}
 
@@ -2459,6 +2466,11 @@ public class SetupData extends SetupBase {
 				distributionListFilter=e.getTextContent();
 				continue;
 			}
+
+			if (name.equals("statistictreebookmarks")) {
+				statisticTreeBookmarks.add(e.getTextContent());
+
+			}
 		}
 
 		if (useLastFiles) {
@@ -3148,6 +3160,11 @@ public class SetupData extends SetupBase {
 		if (distributionListFilter!=null && !distributionListFilter.trim().isEmpty()) {
 			root.appendChild(node=doc.createElement("DistributionListFilter"));
 			node.setTextContent(distributionListFilter.trim());
+		}
+
+		if (statisticTreeBookmarks.size()>0) for (String bookmark: statisticTreeBookmarks) {
+			root.appendChild(node=doc.createElement("StatisticTreeBookmarks"));
+			node.setTextContent(bookmark);
 		}
 
 		if (lastError!=null && !lastError.trim().isEmpty()) {

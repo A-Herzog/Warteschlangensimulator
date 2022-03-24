@@ -284,7 +284,7 @@ public class StatisticNode {
 	}
 
 	/**
-	 * Name des Elemnents
+	 * Name des Elements
 	 * @see #toString()
 	 */
 	private String nameCache=null;
@@ -353,5 +353,23 @@ public class StatisticNode {
 		final List<Integer> path=parent.getPath();
 		path.add(index);
 		return path;
+	}
+
+	/**
+	 * Liefert den Namen dieses Eintrags für die Bookmarks-Liste.
+	 * @return	Name dieses Eintrags für die Bookmarks-Liste
+	 */
+	public String getBookmarkName() {
+		return String.join("\n",getFullName());
+	}
+
+	/**
+	 * Prüft, ob dieser Eintrag als Bookmark dargestellt werden soll.
+	 * @param bookmarks	Liste der Bookmarks	(darf <code>null</code> sein)
+	 * @return	Liefert <code>true</code>, wenn dieser Eintrag in der Liste der Bookmarks enthalten ist
+	 */
+	public boolean isBookmark(final List<String> bookmarks) {
+		if (bookmarks==null) return false;
+		return bookmarks.contains(getBookmarkName());
 	}
 }

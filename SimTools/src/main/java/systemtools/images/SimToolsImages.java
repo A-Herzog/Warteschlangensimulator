@@ -187,6 +187,9 @@ public enum SimToolsImages {
 	/** Symbol in "Schriftart" */
 	STATISTICS_DIAGRAM_FONT_SIZE("font.png"),
 
+	/** Symbol "Bookmark" */
+	STATISTICS_BOOKMARK("flag_red.png"),
+
 	/* Meldungsdialoge */
 
 	/** Symbol "Dialog-Button 'Ja'" */

@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-03-22 17:21+0100\n"
+"POT-Creation-Date: 2022-03-23 07:57+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19370,6 +19370,24 @@ msgstr "Sekunden"
 
 msgid "Statistic.Tree.Parameter"
 msgstr "Parameter für Daten in die Zwischenablage kopieren"
+
+msgid "Statistic.Tree.Parameter.BookmarkJump"
+msgstr "Zum nächsten markierten Eintrag springen"
+
+msgid "Statistic.Tree.Parameter.BookmarkJump.Hint"
+msgstr "Wechselt zum nächsten markierten Baumeintrag"
+
+msgid "Statistic.Tree.Parameter.BookmarkOff"
+msgstr "Als Bookmark abwählen"
+
+msgid "Statistic.Tree.Parameter.BookmarkOff.Hint"
+msgstr "Hebt die Markierung des aktuellen Baumeintrags auf"
+
+msgid "Statistic.Tree.Parameter.BookmarkOn"
+msgstr "Als Bookmark markieren"
+
+msgid "Statistic.Tree.Parameter.BookmarkOn.Hint"
+msgstr "Markiert den aktuellen Baumeintrag"
 
 msgid "Statistic.Tree.Parameter.Hint"
 msgstr "Parameter, um diese Daten per Kommandozeile abzurufen, in die Zwischenablage kopieren"

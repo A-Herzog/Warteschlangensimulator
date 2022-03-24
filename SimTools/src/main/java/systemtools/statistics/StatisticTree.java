@@ -15,16 +15,24 @@
  */
 package systemtools.statistics;
 
+import java.awt.Color;
 import java.awt.datatransfer.StringSelection;
 import java.awt.datatransfer.Transferable;
+import java.awt.event.InputEvent;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.function.Consumer;
+import java.util.function.Supplier;
 
 import javax.swing.JComponent;
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
 import javax.swing.JTree;
+import javax.swing.KeyStroke;
 import javax.swing.SwingUtilities;
 import javax.swing.TransferHandler;
 import javax.swing.event.TreeSelectionEvent;
@@ -54,17 +62,29 @@ public class StatisticTree extends JTree {
 	/** Dateiname, der in dem Beispielkommandozeilen-Befehl für die Statistikdatei verwendet werden soll (wird <code>null</code> übergeben, so wird "data.xml" verwendet) */
 	private String commandLineDataFileName;
 
+	/** Liefert die Liste der Bookmarks (kann <code>null</code> sein, dann wird das Bookmarks-System deaktiviert) */
+	private final Supplier<List<String>> getBookmarks;
+
+	/** Speichert die veränderte Liste der Bookmarks */
+	private final Consumer<List<String>> setBookmarks;
+
 	/**
 	 * Konstruktor der Klasse <code>StatisticTree</code>
 	 * @param commandLineCommand	Kommandozeilenbefehl, über den einzelne Statistikergebnisse abgerufen werden können (zur Anzeige eines Kontextmenüs, welche den jeweiligen Befehl benennt; wird hier <code>null</code> übergeben, so erhält die Baumansicht kein Kontextmenü)
 	 * @param commandLineDataFileName	Dateiname, der in dem Beispielkommandozeilen-Befehl für die Statistikdatei verwendet werden soll (wird <code>null</code> übergeben, so wird "data.xml" verwendet)
+	 * @param bookmarkColor	Farbe für als Bookmark hervorgehobene Einträge
+	 * @param getBookmarks	Liefert die Liste der Bookmarks (kann <code>null</code> sein, dann wird das Bookmarks-System deaktiviert)
+	 * @param setBookmarks	Speichert die veränderte Liste der Bookmarks
 	 */
-	public StatisticTree(final String commandLineCommand, final String commandLineDataFileName) {
+	public StatisticTree(final String commandLineCommand, final String commandLineDataFileName, final Color bookmarkColor, final Supplier<List<String>> getBookmarks, final Consumer<List<String>> setBookmarks) {
 		super(new DefaultTreeModel(new DefaultMutableTreeNode()));
 		this.commandLineCommand=commandLineCommand;
 		this.commandLineDataFileName=commandLineDataFileName;
+		this.getBookmarks=getBookmarks;
+		this.setBookmarks=setBookmarks;
+
 		setRootVisible(false);
-		setCellRenderer(new StatisticTreeCellRenderer());
+		setCellRenderer(new StatisticTreeCellRenderer(bookmarkColor,getBookmarks));
 		addTreeSelectionListener(new TreeSelectionChanged());
 		if (commandLineCommand!=null && !commandLineCommand.isEmpty()) addMouseListener(new TreeMouseListener());
 		setDragEnabled(true);
@@ -157,24 +177,51 @@ public class StatisticTree extends JTree {
 	 * Zeigt ein Popup-Menü zu einem Baumeintrag an
 	 * @param x	x-Position des Menüs (relativ zum Baum)
 	 * @param y	y-Position des Menüs (relativ zum Baum)
+	 * @param bookmarkName	Bezeichnung des Baumeintrags für die Bookmarksliste
 	 * @param objName	Textbezeichnung des Baumeintrags
 	 * @param type	Art des gewählten Eintrags
 	 */
-	private void buildPopup(final int x, final int y, final String objName, final ViewerType type) {
+	private void buildPopup(final int x, final int y, final String bookmarkName, final String objName, final ViewerType type) {
 		final JPopupMenu menu=new JPopupMenu();
-		final JMenuItem item=new JMenuItem(StatisticsBasePanel.treeCopyParameter);
-		item.setToolTipText(StatisticsBasePanel.treeCopyParameterHint);
-		item.setIcon(SimToolsImages.COMMAND_LINE.getIcon());
-		item.addActionListener(e->{
-			String text=commandLineCommand;
-			text+=" \""+objName+"\"";
-			if (commandLineDataFileName!=null && !commandLineDataFileName.trim().isEmpty()) text+=" \""+commandLineDataFileName+"\""; else text+=" \"data.xml\"";
-			if (type==StatisticViewer.ViewerType.TYPE_TEXT) text+=" \"data.docx\"";
-			if (type==StatisticViewer.ViewerType.TYPE_TABLE) text+=" \"data.xlsx\"";
-			if (type==StatisticViewer.ViewerType.TYPE_IMAGE) text+=" \"data.png\"";
-			getToolkit().getSystemClipboard().setContents(new StringSelection(text),null);
-		});
-		menu.add(item);
+		JMenuItem item;
+
+		if (commandLineCommand!=null) {
+			item=new JMenuItem(StatisticsBasePanel.treeCopyParameter);
+			item.setToolTipText(StatisticsBasePanel.treeCopyParameterHint);
+			item.setIcon(SimToolsImages.COMMAND_LINE.getIcon());
+			item.addActionListener(e->{
+				String text=commandLineCommand;
+				text+=" \""+objName+"\"";
+				if (commandLineDataFileName!=null && !commandLineDataFileName.trim().isEmpty()) text+=" \""+commandLineDataFileName+"\""; else text+=" \"data.xml\"";
+				if (type==StatisticViewer.ViewerType.TYPE_TEXT) text+=" \"data.docx\"";
+				if (type==StatisticViewer.ViewerType.TYPE_TABLE) text+=" \"data.xlsx\"";
+				if (type==StatisticViewer.ViewerType.TYPE_IMAGE) text+=" \"data.png\"";
+				getToolkit().getSystemClipboard().setContents(new StringSelection(text),null);
+			});
+			menu.add(item);
+		}
+
+		if (getBookmarks!=null && setBookmarks!=null && getBookmarks.get()!=null) {
+			final List<String> bookmarks=getBookmarks.get();
+			final boolean isBookmarked=bookmarks.contains(bookmarkName);
+			item=new JMenuItem(isBookmarked?StatisticsBasePanel.treeBookmarkSetOff:StatisticsBasePanel.treeBookmarkSetOn);
+			item.setToolTipText(isBookmarked?StatisticsBasePanel.treeBookmarkSetOffHint:StatisticsBasePanel.treeBookmarkSetOnHint);
+			item.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_B,InputEvent.CTRL_DOWN_MASK+InputEvent.SHIFT_DOWN_MASK));
+			item.setIcon(SimToolsImages.STATISTICS_BOOKMARK.getIcon());
+			item.addActionListener(e->toggleBookmark());
+			menu.add(item);
+
+			if (bookmarks.size()>0) {
+				item=new JMenuItem(StatisticsBasePanel.treeBookmarkJump);
+				item.setToolTipText(	StatisticsBasePanel.treeBookmarkJumpHint);
+				item.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_B,InputEvent.CTRL_DOWN_MASK));
+				item.setIcon(SimToolsImages.HELP_NEXT.getIcon());
+				item.addActionListener(e->jumpToNextBookmark());
+				menu.add(item);
+			}
+		}
+
+
 		menu.show(StatisticTree.this,x,y);
 	}
 
@@ -205,41 +252,129 @@ public class StatisticTree extends JTree {
 	 * Bestimmt den Baumeintrag an einer bestimmten Stelle
 	 * @param x	x-Position des Menüs (relativ zum Baum)
 	 * @param y	y-Position des Menüs (relativ zum Baum)
-	 * @return	Zweielementiges Array: Textbezeichnung des Baumeintrags, Art des gewählten Eintrags
-	 * @see #buildPopup(int, int, String, ViewerType)
+	 * @return	3-elementiges Array: Baumeintrag (StatisticNode), Textbezeichnung des Baumeintrags, Art des gewählten Eintrags
+	 * @see #buildPopup(int, int, String, String, ViewerType)
 	 */
 	private Object[] dataAtPosition(int x, int y) {
 		int selRow=getRowForLocation(x,y);
 		if (selRow<0) return null;
-		TreePath selPath=getPathForLocation(x,y);
+		final TreePath selPath=getPathForLocation(x,y);
 		Object obj=selPath.getLastPathComponent();
 		if (!(obj instanceof DefaultMutableTreeNode)) return null;
 		DefaultMutableTreeNode node=(DefaultMutableTreeNode)obj;
 		selectNode(node);
 		obj=node.getUserObject();
 		if (!(obj instanceof StatisticNode)) return null;
-		StatisticNode statNode=(StatisticNode)obj;
+		final StatisticNode statNode=(StatisticNode)obj;
 		if (statNode.viewer.length==0) return null;
 		StatisticViewer viewer=((StatisticNode)obj).viewer[0];
 		final ViewerType type=viewer.getType();
 		if (type!=StatisticViewer.ViewerType.TYPE_TEXT && type!=StatisticViewer.ViewerType.TYPE_TABLE && type!=StatisticViewer.ViewerType.TYPE_IMAGE) return null;
-		return new Object[]{getNodeFullName(statNode),type};
+		return new Object[]{statNode,getNodeFullName(statNode),type};
+	}
+
+	/**
+	 * Liefert den aktuell gewählten Baumeintrag.
+	 * @return	Gewählter Baumeintrag oder <code>null</code>, wenn kein Eintrag gewählt ist
+	 */
+	private DefaultMutableTreeNode getSelectedTreeNode() {
+		final TreePath path=getSelectionPath();
+		if (path==null) return null;
+		final Object treeNode=path.getLastPathComponent();
+		if (!(treeNode instanceof DefaultMutableTreeNode)) return null;
+		return (DefaultMutableTreeNode)treeNode;
+	}
+
+	/**
+	 * Geht von einem Baumeintrag zum nächsten oder beginnt wieder oben.
+	 * @param currentTreeNode	Aktueller Eintrag
+	 * @return	Nächster Eintrag
+	 */
+	private DefaultMutableTreeNode getNextTreeNode(final DefaultMutableTreeNode currentTreeNode) {
+		/* Erstes Unterelement des aktuellen Eintrags */
+		if (currentTreeNode.getChildCount()>0) {
+			return (DefaultMutableTreeNode)currentTreeNode.getChildAt(0);
+		}
+
+		/* Nächster Eintrag auf derselben Ebene */
+		DefaultMutableTreeNode next=currentTreeNode.getNextSibling();
+		if (next!=null) return next;
+
+		/* Nächster Eintrag auf einer der höheren Ebenen */
+		DefaultMutableTreeNode parent=(DefaultMutableTreeNode)currentTreeNode.getParent();
+		while (parent!=null) {
+			next=parent.getNextSibling();
+			if (next!=null) return next;
+			parent=(DefaultMutableTreeNode)parent.getParent();
+		}
+
+		/* Neustart am Anfang */
+		return (DefaultMutableTreeNode)getModel().getRoot();
+	}
+
+	/**
+	 * Wählt vom aktuellen Baumeintrag aus den nächsten markierten Eintrag
+	 */
+	public void jumpToNextBookmark() {
+		final List<String> bookmarks=getBookmarks.get();
+
+		DefaultMutableTreeNode selectedTreeNode=getSelectedTreeNode();
+		if (selectedTreeNode==null) selectedTreeNode=(DefaultMutableTreeNode)getModel().getRoot();
+
+		DefaultMutableTreeNode node=getNextTreeNode(selectedTreeNode);
+		while (node!=selectedTreeNode) {
+			if (node.getUserObject() instanceof StatisticNode) {
+				final StatisticNode statisticNode=(StatisticNode)node.getUserObject();
+				if (statisticNode.isBookmark(bookmarks)) {
+					setSelectionPath(new TreePath(node.getPath()));
+					fireNodeSelected();
+					return;
+				}
+			}
+			node=getNextTreeNode(node);
+		}
+	}
+
+	/**
+	 * Schaltet beim aktuellen Eintrag zwischen markiert und nicht markiert um.
+	 */
+	public void toggleBookmark() {
+		final DefaultMutableTreeNode treeNode=getSelectedTreeNode();
+		if (treeNode==null) return;
+		if (!(treeNode.getUserObject() instanceof StatisticNode)) return;
+		final StatisticNode statisticNode=(StatisticNode)treeNode.getUserObject();
+		if (statisticNode.viewer==null || statisticNode.viewer.length==0) return;
+		final String bookmarkName=statisticNode.getBookmarkName();
+
+		final List<String> bookmarks=new ArrayList<>(getBookmarks.get());
+		final boolean isBookmarked=bookmarks.contains(bookmarkName);
+
+		if (isBookmarked) {
+			final int index=bookmarks.indexOf(bookmarkName);
+			bookmarks.remove(index);
+		} else {
+			bookmarks.add(bookmarkName);
+		}
+		setBookmarks.accept(bookmarks);
+		invalidate();
 	}
 
 	/**
 	 * Reagiert auf Mausklicks auf Baumeinträge und zeigt ggf. ein Kontextmenü an.
 	 * @see StatisticTree#dataAtPosition(int, int)
-	 * @see StatisticTree#buildPopup(int, int, String, ViewerType)
+	 * @see StatisticTree#buildPopup(int, int, String, String, ViewerType)
 	 */
 	private class TreeMouseListener extends MouseAdapter {
 		@Override
 		public void mouseClicked(MouseEvent e) {
 			if (SwingUtilities.isRightMouseButton(e)) {
-				Object[] data=dataAtPosition(e.getX(),e.getY());
-				if (data!=null && commandLineCommand!=null) {
-					buildPopup(e.getX(),e.getY(),(String)data[0],(ViewerType)data[1]);
-					e.consume();
-					return;
+				final Object[] data=dataAtPosition(e.getX(),e.getY());
+				if (data!=null) {
+					if (commandLineCommand!=null || (getBookmarks!=null && setBookmarks!=null && getBookmarks.get()!=null)) {
+						buildPopup(e.getX(),e.getY(),((StatisticNode)data[0]).getBookmarkName(),(String)data[1],(ViewerType)data[2]);
+						e.consume();
+						return;
+					}
 				}
 			}
 		}

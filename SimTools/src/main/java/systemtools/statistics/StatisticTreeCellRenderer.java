@@ -15,10 +15,13 @@
  */
 package systemtools.statistics;
 
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.Font;
 import java.awt.Image;
 import java.io.Serializable;
+import java.util.List;
+import java.util.function.Supplier;
 
 import javax.swing.ImageIcon;
 import javax.swing.JTree;
@@ -40,6 +43,17 @@ public class StatisticTreeCellRenderer extends DefaultTreeCellRenderer {
 	 * @see Serializable
 	 */
 	private static final long serialVersionUID = -2366015952361517477L;
+
+	/**
+	 * Farbe für als Bookmark hervorgehobene Einträge
+	 */
+	private final Color bookmarkColor;
+
+	/**
+	 * Liste der hervorgehoben darzustellenden Einträge
+	 * (Einträge können jederzeit von außerhalb verändert werden; Liste darf auch <code>null</code> sein)
+	 */
+	private final Supplier<List<String>> bookmarksList;
 
 	/** Icon für Textseiten */
 	private static final Image iconText;
@@ -79,9 +93,13 @@ public class StatisticTreeCellRenderer extends DefaultTreeCellRenderer {
 	}
 
 	/**
-	 * Konstruktor der Klasse <code>StatisticTreeCellRenderer</code>
+	 * Konstruktor der Klasse
+	 * @param bookmarkColor	Farbe für als Bookmark hervorgehobene Einträge
+	 * @param bookmarksList	Liste der hervorgehoben darzustellenden Einträge (Einträge können jederzeit von außerhalb verändert werden; Liste darf auch <code>null</code> sein)
 	 */
-	public StatisticTreeCellRenderer() {
+	public StatisticTreeCellRenderer(final Color bookmarkColor, final Supplier<List<String>> bookmarksList) {
+		this.bookmarkColor=bookmarkColor;
+		this.bookmarksList=bookmarksList;
 	}
 
 	/**
@@ -124,10 +142,29 @@ public class StatisticTreeCellRenderer extends DefaultTreeCellRenderer {
 		Font font=getFont();
 		if (font!=null) setFont(font.deriveFont(changeFont(value)?Font.BOLD:Font.PLAIN));
 		setText(stringValue);
-		if (sel) setForeground(getTextSelectionColor()); else setForeground(getTextNonSelectionColor());
+		if (sel) setForeground(getTextSelectionColor()); else {
+			final StatisticNode node=getStatisticNode(value);
+			if (node!=null && bookmarksList!=null && node.isBookmark(bookmarksList.get())) {
+				setForeground(bookmarkColor);
+			} else {
+				setForeground(getTextNonSelectionColor());
+			}
+		}
 		setEnabled(tree.isEnabled());
 		setComponentOrientation(tree.getComponentOrientation());
 		selected=sel;
+	}
+
+	/**
+	 * Liefert das {@link StatisticNode}-Objekt zu einem Baumeintrag
+	 * @param value	Baumeintrag
+	 * @return	Zugehöriges {@link StatisticNode}-Objekt oder <code>null</code>, wenn kein entsprechendes Objekt vorhanden ist
+	 */
+	private static StatisticNode getStatisticNode(final Object value) {
+		if (value==null) return null;
+		if (!(value instanceof DefaultMutableTreeNode)) return null;
+		if (!(((DefaultMutableTreeNode)value).getUserObject() instanceof StatisticNode)) return null;
+		return (StatisticNode)((DefaultMutableTreeNode)value).getUserObject();
 	}
 
 	/**
@@ -137,12 +174,11 @@ public class StatisticTreeCellRenderer extends DefaultTreeCellRenderer {
 	 * @see StatisticNode
 	 */
 	public static Image getIcon(Object value) {
-		if (value==null) return null;
-		if (!(value instanceof DefaultMutableTreeNode)) return null;
-		if (!(((DefaultMutableTreeNode)value).getUserObject() instanceof StatisticNode)) return null;
-		if (((StatisticNode)(((DefaultMutableTreeNode)value).getUserObject())).viewer.length==0) return null;
+		final StatisticNode node=getStatisticNode(value);
+		if (node==null) return null;
+		if (node.viewer.length==0) return null;
 
-		return getImageViewerIcon(((StatisticNode)((DefaultMutableTreeNode)value).getUserObject()).viewer[0]);
+		return getImageViewerIcon(node.viewer[0]);
 	}
 
 	/**

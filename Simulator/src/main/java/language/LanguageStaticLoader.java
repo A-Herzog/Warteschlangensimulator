@@ -580,6 +580,12 @@ public class LanguageStaticLoader {
 		StatisticsBasePanel.writeErrorInfo=Language.tr("Statistic.WriteError.Info");
 		StatisticsBasePanel.treeCopyParameter=Language.tr("Statistic.Tree.Parameter");
 		StatisticsBasePanel.treeCopyParameterHint=Language.tr("Statistic.Tree.Parameter.Hint");
+		StatisticsBasePanel.treeBookmarkSetOn=Language.tr("Statistic.Tree.Parameter.BookmarkOn");
+		StatisticsBasePanel.treeBookmarkSetOnHint=Language.tr("Statistic.Tree.Parameter.BookmarkOn.Hint");
+		StatisticsBasePanel.treeBookmarkSetOff=Language.tr("Statistic.Tree.Parameter.BookmarkOff");
+		StatisticsBasePanel.treeBookmarkSetOffHint=Language.tr("Statistic.Tree.Parameter.BookmarkOff.Hint");
+		StatisticsBasePanel.treeBookmarkJump=Language.tr("Statistic.Tree.Parameter.BookmarkJump");
+		StatisticsBasePanel.treeBookmarkJumpHint=Language.tr("Statistic.Tree.Parameter.BookmarkJump.Hint");
 		StatisticsBasePanel.viewersInformation=Language.tr("Statistic.Viewer.Information");
 		StatisticsBasePanel.viewersNoHTMLApplicationInfo=Language.tr("Statistic.Viewer.NoHTMLApplication.Info");
 		StatisticsBasePanel.viewersNoHTMLApplicationTitle=Language.tr("Statistic.Viewer.NoHTMLApplication.Title");

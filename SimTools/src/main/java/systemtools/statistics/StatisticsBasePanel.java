@@ -132,6 +132,19 @@ public abstract class StatisticsBasePanel extends JPanel implements AbstractRepo
 	/** Bezeichner für Tooltip für Kontextmenü für Kommandozeilenparameter für die Statistikseite */
 	public static String treeCopyParameterHint="Parameter, um diese Daten per Kommandozeile abzurufen, in die Zwischenablage kopieren";
 
+	/** Bezeichner für Kontextmenü für "Als Bookmark markieren" */
+	public static String treeBookmarkSetOn="Als Bookmark markieren";
+	/** Bezeichner für Kontextmenü für "Als Bookmark markieren" Tooltip */
+	public static String treeBookmarkSetOnHint="Markiert den aktuellen Baumeintrag";
+	/** Bezeichner für Kontextmenü für "Als Bookmark abwählen" */
+	public static String treeBookmarkSetOff="Als Bookmark abwählen";
+	/** Bezeichner für Kontextmenü für "Als Bookmark abwählen" Tooltip */
+	public static String treeBookmarkSetOffHint="Hebt die Markierung des aktuellen Baumeintrags auf";
+	/** Bezeichner für Kontextmenü für "Zum nächsten markierten Eintrag springen" */
+	public static String treeBookmarkJump="Zum nächsten markierten Eintrag springen";
+	/** Bezeichner für Kontextmenü für "Zum nächsten markierten Eintrag springen" Tooltip */
+	public static String treeBookmarkJumpHint="Wechselt zum nächsten markierten Baumeintrag";
+
 	/** Überschrift über einen Viewer, der als Inhalt lediglich auf die Unterelemente verweist */
 	public static String viewersInformation="Information";
 
@@ -592,7 +605,7 @@ public abstract class StatisticsBasePanel extends JPanel implements AbstractRepo
 
 		obj=addTopInfoArea(treePanel,title,icon);
 		final JToolBar treeToolBar=(JToolBar)obj[3];
-		final JScrollPane sp=new JScrollPane(tree=new StatisticTree(commandLineCommand,null){
+		final JScrollPane sp=new JScrollPane(tree=new StatisticTree(commandLineCommand,null,getBookmarkColor(),()->getBookmarks(),list->setBookmarks(list)){
 			/**
 			 * Serialisierungs-ID der Klasse
 			 * @see Serializable
@@ -705,13 +718,17 @@ public abstract class StatisticsBasePanel extends JPanel implements AbstractRepo
 			settingsMenu[i]=new JPopupMenu();
 		}
 
-		/* Copy-Hotkey erkennen */
+		/* Copy- und Bookmark-Jump-Hotkey erkennen */
 
 		SwingUtilities.invokeLater(()->{
 			final KeyStroke keyCtrlC=KeyStroke.getKeyStroke(KeyEvent.VK_C,InputEvent.CTRL_DOWN_MASK,true); /* true=Beim Loslassen erkennen; muss gesetzt sein, da die Subviewer die anderen Hotkeys teilweise aufhalten */
 			final KeyStroke keyCtrlIns=KeyStroke.getKeyStroke(KeyEvent.VK_INSERT,InputEvent.CTRL_DOWN_MASK,true);  /* true=Beim Loslassen erkennen; muss gesetzt sein, da die Subviewer die anderen Hotkeys teilweise aufhalten */
+			final KeyStroke keyCtrlB=KeyStroke.getKeyStroke(KeyEvent.VK_B,InputEvent.CTRL_DOWN_MASK);
+			final KeyStroke keyCtrlShiftB=KeyStroke.getKeyStroke(KeyEvent.VK_B,InputEvent.CTRL_DOWN_MASK+InputEvent.SHIFT_DOWN_MASK);
 			getInputMap(WHEN_IN_FOCUSED_WINDOW).put(keyCtrlC,"CopyViewer");
 			getInputMap(WHEN_IN_FOCUSED_WINDOW).put(keyCtrlIns,"CopyViewer");
+			getInputMap(WHEN_IN_FOCUSED_WINDOW).put(keyCtrlB,"NextBookmark");
+			getInputMap(WHEN_IN_FOCUSED_WINDOW).put(keyCtrlShiftB,"ToggleBookmark");
 		});
 
 		getActionMap().put("CopyViewer",new AbstractAction() {
@@ -721,13 +738,30 @@ public abstract class StatisticsBasePanel extends JPanel implements AbstractRepo
 				if (dataViewer==null  || dataViewer.length!=1 || dataViewer[0]==null) return;
 				if (!(dataViewer[0] instanceof StatisticViewer)) return;
 				final StatisticViewer viewer=dataViewer[0];
-				if (viewer.getType()==ViewerType.TYPE_TEXT || viewer.getType()==ViewerType.TYPE_SPECIAL) return; /* Die verwenden eigene Kopierroutinen (für Teile des Textes). Hier immer alles zu kopieren, würde erheblich stören. */
+				if (viewer.getType()==ViewerType.TYPE_TEXT || viewer.getType()==ViewerType.TYPE_SPECIAL) return; /* Die eigene Kopierroutinen verwenden (für Teile des Textes). Hier immer alles zu kopieren, würde erheblich stören. */
 				if (!viewer.getCanDo(StatisticViewer.CanDoAction.CAN_DO_COPY)) return;
 				viewer.copyToClipboard(Toolkit.getDefaultToolkit().getSystemClipboard());
 			}
 		});
 
+		getActionMap().put("NextBookmark",new AbstractAction() {
+			private static final long serialVersionUID=-6623702284938573232L;
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				tree.jumpToNextBookmark();
+			}
+		});
+
+		getActionMap().put("ToggleBookmark",new AbstractAction() {
+			private static final long serialVersionUID=557799398052374471L;
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				tree.toggleBookmark();
+			}
+		});
+
 		/* Drag&Drop  */
+
 		registerComponentForFileDrop(this);
 	}
 
@@ -740,6 +774,29 @@ public abstract class StatisticsBasePanel extends JPanel implements AbstractRepo
 	 */
 	protected StatisticsBasePanel(final String title, final URL icon, final String commandLineCommand, final boolean storeLastRoot) {
 		this(1,title,icon,commandLineCommand,storeLastRoot);
+	}
+
+	/**
+	 * Liefert die Textfarbe für Bookmark-Einträge.
+	 * @return	Textfarbe für Bookmark-Einträge
+	 */
+	protected Color getBookmarkColor() {
+		return Color.BLUE;
+	}
+
+	/**
+	 * Liefert die Liste der Bookmarks.
+	 * @return	Liste der Bookmarks (kann <code>null</code> sein, dann wird das Bookmarks-System deaktiviert)
+	 */
+	protected List<String> getBookmarks() {
+		return null;
+	}
+
+	/**
+	 * Speichert die veränderte Liste der Bookmarks.
+	 * @param newBookmarks	Zu speichernde, veränderte Liste der Bookmarks
+	 */
+	protected void setBookmarks(final List<String> newBookmarks) {
 	}
 
 	/**
@@ -1593,7 +1650,7 @@ public abstract class StatisticsBasePanel extends JPanel implements AbstractRepo
 	 * @param button	Auslösende Schaltfläche (zum Ausrichten des Menüs)
 	 * @see #tools
 	 */
-	private final void showToolsContextMenu(final JButton button) {
+	private void showToolsContextMenu(final JButton button) {
 		final JPopupMenu popup=new JPopupMenu();
 
 		JMenuItem item;

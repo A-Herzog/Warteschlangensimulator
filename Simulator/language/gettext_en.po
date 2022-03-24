@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-03-22 17:21+0100\n"
+"POT-Creation-Date: 2022-03-23 07:57+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19362,6 +19362,24 @@ msgstr "seconds"
 
 msgid "Statistic.Tree.Parameter"
 msgstr "Copy parameter for this data to clipboard"
+
+msgid "Statistic.Tree.Parameter.BookmarkJump"
+msgstr "Jump to next bookmark"
+
+msgid "Statistic.Tree.Parameter.BookmarkJump.Hint"
+msgstr "Jumps the the next tree entry marked as bookmark"
+
+msgid "Statistic.Tree.Parameter.BookmarkOff"
+msgstr "Remove bookmark"
+
+msgid "Statistic.Tree.Parameter.BookmarkOff.Hint"
+msgstr "Removed the current tree entry from the bookmarks list"
+
+msgid "Statistic.Tree.Parameter.BookmarkOn"
+msgstr "Mark as bookmark"
+
+msgid "Statistic.Tree.Parameter.BookmarkOn.Hint"
+msgstr "Adds a bookmark for the current tree entry"
 
 msgid "Statistic.Tree.Parameter.Hint"
 msgstr "Copy parameters to get this data by command line to the clipboard"
