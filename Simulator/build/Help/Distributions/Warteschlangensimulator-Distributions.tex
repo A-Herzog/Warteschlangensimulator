@@ -457,4 +457,57 @@ sd&=&(b-a)^2/18
 \cm{Levy distribution (mu;c)}~\\
 \cm{Levy-Verteilung (mu;c)}
 
+
+
+
+
+\section*{Hypergeometric distribution}
+\cm{Hypergeometric distribution (N;K;n)}
+\cm{Hypergeometrische Verteilung (N;K;n)}
+Conversion between distribution parameters and stochastic characteristics
+\begin{eqnarray*}
+mean&=&\frac{n\cdot K}{N}\\
+sd&=&\sqrt{\frac{n\cdot K}{N}\cdot\left(1-\frac{K}{N}\right)\cdot\frac{N-n}{N-1}}
+\end{eqnarray*}
+
+
+
+
+
+\section*{Binomial distribution}
+\cm{Binomial distribution (n;p)}
+\cm{Binomialverteilung (n;p)}
+Conversion between distribution parameters and stochastic characteristics
+\begin{eqnarray*}
+mean&=&=n\cdot p\\
+sd&=&\sqrt{n\cdot p\cdot (1-p)}\\
+n&=&\frac{mean}{p}\\
+p&=&1-\frac{sd^2}{mean}
+\end{eqnarray*}
+
+
+
+
+
+\section*{Poisson distribution}
+\cm{Poisson distribution (lambda)}
+\cm{Poisson-Verteilung (lambda)}
+\begin{eqnarray*}
+mean&=&\lambda\\
+sd&=&\lambda
+\end{eqnarray*}
+
+
+
+
+\section*{Negative binomial distribution}
+\cm{Negative binomial distribution (n;r)}
+\cm{Negative Binomialverteilung (n;r)}
+\begin{eqnarray*}
+mean&=&r(1-p)/p\\
+sd&=&\sqrt{\frac{r(1-p)}{p^2}}\\
+p&=&\frac{mean}{sd^2}\\
+r&=&\frac{mean\cdot p}{1-p}
+\end{eqnarray*}
+
 \end{document}

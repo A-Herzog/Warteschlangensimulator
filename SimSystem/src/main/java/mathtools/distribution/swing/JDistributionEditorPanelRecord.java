@@ -30,6 +30,10 @@ import org.apache.commons.math3.distribution.UniformRealDistribution;
 import mathtools.NumberTools;
 import mathtools.distribution.ChiDistributionImpl;
 import mathtools.distribution.DataDistributionImpl;
+import mathtools.distribution.DiscreteBinomialDistributionImpl;
+import mathtools.distribution.DiscreteHyperGeomDistributionImpl;
+import mathtools.distribution.DiscreteNegativeBinomialDistributionImpl;
+import mathtools.distribution.DiscretePoissonDistributionImpl;
 import mathtools.distribution.ErlangDistributionImpl;
 import mathtools.distribution.ExtBetaDistributionImpl;
 import mathtools.distribution.FatigueLifeDistributionImpl;
@@ -53,6 +57,7 @@ import mathtools.distribution.TriangularDistributionImpl;
 import mathtools.distribution.tools.AbstractDistributionWrapper;
 import mathtools.distribution.tools.DistributionTools;
 import mathtools.distribution.tools.WrapperBetaDistribution;
+import mathtools.distribution.tools.WrapperBinomialDistribution;
 import mathtools.distribution.tools.WrapperCauchyDistribution;
 import mathtools.distribution.tools.WrapperChiDistribution;
 import mathtools.distribution.tools.WrapperChiSquaredDistribution;
@@ -64,6 +69,7 @@ import mathtools.distribution.tools.WrapperFatigueLifeDistribution;
 import mathtools.distribution.tools.WrapperFrechetDistribution;
 import mathtools.distribution.tools.WrapperGammaDistribution;
 import mathtools.distribution.tools.WrapperGumbelDistribution;
+import mathtools.distribution.tools.WrapperHyperGeomDistribution;
 import mathtools.distribution.tools.WrapperHyperbolicSecantDistribution;
 import mathtools.distribution.tools.WrapperInverseGaussianDistribution;
 import mathtools.distribution.tools.WrapperJohnsonDistribution;
@@ -72,10 +78,12 @@ import mathtools.distribution.tools.WrapperLevyDistribution;
 import mathtools.distribution.tools.WrapperLogLogisticDistribution;
 import mathtools.distribution.tools.WrapperLogNormalDistribution;
 import mathtools.distribution.tools.WrapperLogisticDistribution;
+import mathtools.distribution.tools.WrapperNegativeBinomialDistribution;
 import mathtools.distribution.tools.WrapperNormalDistribution;
 import mathtools.distribution.tools.WrapperOnePointDistribution;
 import mathtools.distribution.tools.WrapperParetoDistribution;
 import mathtools.distribution.tools.WrapperPertDistribution;
+import mathtools.distribution.tools.WrapperPoissonDistribution;
 import mathtools.distribution.tools.WrapperPowerDistribution;
 import mathtools.distribution.tools.WrapperRayleighDistribution;
 import mathtools.distribution.tools.WrapperSawtoothLeftDistribution;
@@ -269,6 +277,10 @@ public abstract class JDistributionEditorPanelRecord {
 		allRecords.add(new SawtoothLeftDistributionPanel());
 		allRecords.add(new SawtoothRightDistributionPanel());
 		allRecords.add(new LevyDistributionPanel());
+		allRecords.add(new HyperGeomDistributionPanel());
+		allRecords.add(new BinomialDistributionPanel());
+		allRecords.add(new PoissonDistributionPanel());
+		allRecords.add(new NegativeBinomialDistributionPanel());
 	}
 
 	/**
@@ -1245,6 +1257,128 @@ public abstract class JDistributionEditorPanelRecord {
 			final Double d1=NumberTools.getNotNegativeDouble(fields[0],true); if (d1==null) return null;
 			final Double d2=NumberTools.getPositiveDouble(fields[1],true); if (d2==null) return null;
 			return new LevyDistribution(d1,d2);
+		}
+	}
+
+	/** Hypergeometrische Verteilung */
+	private static class HyperGeomDistributionPanel extends JDistributionEditorPanelRecord {
+		/** Konstruktor der Klasse */
+		public HyperGeomDistributionPanel() {
+			super(new WrapperHyperGeomDistribution(),new String[]{"N","K","n"});
+		}
+
+		@Override
+		public String[] getEditValues(double meanD, String mean, double stdD, String std, String lower, String upper, double maxXValue) {
+			return new String[]{"50","20","10"};
+		}
+
+		@Override
+		public String[] getValues(AbstractRealDistribution distribution) {
+			return new String[] {
+					""+((DiscreteHyperGeomDistributionImpl)distribution).N,
+					""+((DiscreteHyperGeomDistributionImpl)distribution).K,
+					""+((DiscreteHyperGeomDistributionImpl)distribution).n
+			};
+		}
+
+		@Override
+		public AbstractRealDistribution getDistribution(JTextField[] fields, double maxXValue) {
+			final Long N=NumberTools.getPositiveLong(fields[0],true); if (N==null) return null;
+			final Integer K=NumberTools.getNotNegativeInteger(fields[1],true); if (K==null) return null;
+			final Long n=NumberTools.getPositiveLong(fields[2],true); if (n==null) return null;
+			return new DiscreteHyperGeomDistributionImpl(N.intValue(),K,n.intValue());
+		}
+	}
+
+	/** Binomialverteilung */
+	private static class BinomialDistributionPanel extends JDistributionEditorPanelRecord {
+		/** Konstruktor der Klasse */
+		public BinomialDistributionPanel() {
+			super(new WrapperBinomialDistribution(),new String[]{"p","n"});
+		}
+
+		@Override
+		public String[] getEditValues(double meanD, String mean, double stdD, String std, String lower, String upper, double maxXValue) {
+			if (meanD<=0 || stdD<=0) return new String[]{NumberTools.formatNumber(0.5),"10"};
+			/* E=n*p, Var=n*p*(1-p) => n=E/p, p=1-Var/E */
+			final double p=1-stdD*stdD/meanD;
+			if (p<=0 || p>1) return new String[]{NumberTools.formatNumber(0.5),"10"};
+			final int n=(int)Math.round(meanD/p);
+			return new String[]{NumberTools.formatNumber(p),""+n};
+		}
+
+		@Override
+		public String[] getValues(AbstractRealDistribution distribution) {
+			return new String[] {
+					NumberTools.formatNumberMax(((DiscreteBinomialDistributionImpl)distribution).p),
+					""+((DiscreteBinomialDistributionImpl)distribution).n
+			};
+		}
+
+		@Override
+		public AbstractRealDistribution getDistribution(JTextField[] fields, double maxXValue) {
+			final Double p=NumberTools.getNotNegativeDouble(fields[0],true); if (p==null) return null;
+			final Long n=NumberTools.getPositiveLong(fields[1],true); if (n==null) return null;
+			return new DiscreteBinomialDistributionImpl(p,n.intValue());
+		}
+	}
+
+	/** Poisson-Verteilung */
+	private static class PoissonDistributionPanel extends JDistributionEditorPanelRecord {
+		/** Konstruktor der Klasse */
+		public PoissonDistributionPanel() {
+			super(new WrapperPoissonDistribution(),new String[]{"lambda"});
+		}
+
+		@Override
+		public String[] getEditValues(double meanD, String mean, double stdD, String std, String lower, String upper, double maxXValue) {
+			return new String[]{mean};
+		}
+
+		@Override
+		public String[] getValues(AbstractRealDistribution distribution) {
+			return new String[] {
+					NumberTools.formatNumberMax(((DiscretePoissonDistributionImpl)distribution).lambda)
+			};
+		}
+
+		@Override
+		public AbstractRealDistribution getDistribution(JTextField[] fields, double maxXValue) {
+			final Double lambda=NumberTools.getPositiveDouble(fields[0],true); if (lambda==null) return null;
+			return new DiscretePoissonDistributionImpl(lambda);
+		}
+	}
+
+	/** Negative Binomialverteilung */
+	private static class NegativeBinomialDistributionPanel extends JDistributionEditorPanelRecord {
+		/** Konstruktor der Klasse */
+		public NegativeBinomialDistributionPanel() {
+			super(new WrapperNegativeBinomialDistribution(),new String[]{"p","r"});
+		}
+
+		@Override
+		public String[] getEditValues(double meanD, String mean, double stdD, String std, String lower, String upper, double maxXValue) {
+			if (meanD<=0 || stdD<=0) return new String[]{NumberTools.formatNumber(0.5),"10"};
+			/* E=r(1-p)/p, Var=r(1-p)/p^2 => p=E/Var, r=E*p/(1-p) */
+			final double p=meanD/(stdD*stdD);
+			if (p<=0 || p>1) return new String[]{NumberTools.formatNumber(0.5),"10"};
+			final int r=(int)Math.round(meanD*p/(1-p));
+			return new String[]{NumberTools.formatNumber(p),""+r};
+		}
+
+		@Override
+		public String[] getValues(AbstractRealDistribution distribution) {
+			return new String[] {
+					NumberTools.formatNumberMax(((DiscreteNegativeBinomialDistributionImpl)distribution).p),
+					""+((DiscreteNegativeBinomialDistributionImpl)distribution).r
+			};
+		}
+
+		@Override
+		public AbstractRealDistribution getDistribution(JTextField[] fields, double maxXValue) {
+			final Double p=NumberTools.getNotNegativeDouble(fields[0],true); if (p==null) return null;
+			final Long r=NumberTools.getPositiveLong(fields[1],true); if (r==null) return null;
+			return new DiscreteNegativeBinomialDistributionImpl(p,r.intValue());
 		}
 	}
 }

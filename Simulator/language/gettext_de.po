@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-03-23 07:57+0100\n"
+"POT-Creation-Date: 2022-03-24 07:52+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -2938,6 +2938,9 @@ msgstr "Warnung"
 msgid "Distribution.Beta"
 msgstr "Beta-Verteilung"
 
+msgid "Distribution.Binomial"
+msgstr "Binomialverteilung"
+
 msgid "Distribution.CV"
 msgstr "Variationskoeffizient"
 
@@ -2995,6 +2998,9 @@ msgstr "Gamma-Verteilung"
 msgid "Distribution.Gumbel"
 msgstr "Gumbel-Verteilung"
 
+msgid "Distribution.HyperGeom"
+msgstr "Hypergeometrische Verteilung"
+
 msgid "Distribution.HyperbolicSecant"
 msgstr "Hyperbolische Sekanten-Verteilung"
 
@@ -3031,6 +3037,9 @@ msgstr "Mittelwert"
 msgid "Distribution.MostLikely"
 msgstr "Am wahrscheinlichsten"
 
+msgid "Distribution.NegativeBinomial"
+msgstr "Negative Binomialverteilung"
+
 msgid "Distribution.Never"
 msgstr "Niemals;nie"
 
@@ -3048,6 +3057,9 @@ msgstr "Pert-Verteilung"
 
 msgid "Distribution.Point"
 msgstr "Ein-Punkt-Verteilung"
+
+msgid "Distribution.Poisson"
+msgstr "Poisson-Verteilung"
 
 msgid "Distribution.Power"
 msgstr "Potenzverteilung"

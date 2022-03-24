@@ -36,10 +36,14 @@ import org.apache.commons.math3.distribution.NormalDistribution;
 import org.junit.jupiter.api.Test;
 
 import mathtools.distribution.DataDistributionImpl;
+import mathtools.distribution.DiscreteBinomialDistributionImpl;
+import mathtools.distribution.DiscreteNegativeBinomialDistributionImpl;
+import mathtools.distribution.DiscretePoissonDistributionImpl;
 import mathtools.distribution.OnePointDistributionImpl;
 import mathtools.distribution.RayleighDistributionImpl;
 import mathtools.distribution.tools.AbstractDistributionWrapper;
 import mathtools.distribution.tools.DistributionTools;
+import mathtools.distribution.tools.WrapperBinomialDistribution;
 
 /**
  * Prüft die Funktionsweise von {@link DistributionTools}
@@ -120,7 +124,11 @@ class DistributionToolsTests {
 
 			assertNotNull(wrapper.getDefaultDistribution());
 			if (wrapper.canBuildDistributionFromMeanAndSD) {
-				assertNotNull(wrapper.getDistribution(100,50));
+				if (wrapper instanceof WrapperBinomialDistribution) {
+					assertNotNull(wrapper.getDistribution(100,5),"Verteilung: "+name);
+					continue;
+				}
+				assertNotNull(wrapper.getDistribution(100,50),"Verteilung: "+name);
 			}
 		}
 	}
@@ -160,21 +168,31 @@ class DistributionToolsTests {
 		for (String name: names) {
 			final AbstractRealDistribution dist1=DistributionTools.getDistributionFromInfo(name,3,2);
 			if (dist1==null) continue;
-			assertEquals(3.0,DistributionTools.getMean(dist1),0.00001);
+			assertEquals(3.0,DistributionTools.getMean(dist1),0.00001,"Verteilung: "+name);
 			boolean exactStdAvailable=true;
 			if (dist1 instanceof OnePointDistributionImpl) exactStdAvailable=false;
 			if (dist1 instanceof ExponentialDistribution) exactStdAvailable=false;
 			if (dist1 instanceof ChiSquaredDistribution) exactStdAvailable=false;
 			if (dist1 instanceof RayleighDistributionImpl) exactStdAvailable=false;
+			if (dist1 instanceof DiscreteBinomialDistributionImpl) exactStdAvailable=false;
+			if (dist1 instanceof DiscretePoissonDistributionImpl) exactStdAvailable=false;
+			if (dist1 instanceof DiscreteNegativeBinomialDistributionImpl) exactStdAvailable=false;
 			if (exactStdAvailable) {
 				assertEquals(2,DistributionTools.getStandardDeviation(dist1),10E-10,"Verteilung: "+name);
 				assertEquals(2.0/3.0,DistributionTools.getCV(dist1),10E-10,"Verteilung: "+name);
 			}
 			if (DistributionTools.canSetMean(dist1)) {
-				final AbstractRealDistribution dist2=DistributionTools.setMean(dist1,5);
+				final double newVar;
+				if (dist1 instanceof DiscreteNegativeBinomialDistributionImpl) {
+					/* So hohe Varianz geht nicht */
+					newVar=1.5;
+				} else {
+					newVar=5;
+				}
+				final AbstractRealDistribution dist2=DistributionTools.setMean(dist1,newVar);
 				assertNotNull(dist2,"Verteilung: "+name);
 				if (DistributionTools.canSetMeanExact(dist2)) {
-					assertEquals(5.0,DistributionTools.getMean(dist2),0.00001,"Verteilung: "+name);
+					assertEquals(newVar,DistributionTools.getMean(dist2),0.00001,"Verteilung: "+name);
 				}
 			} else {
 				final AbstractRealDistribution dist2=DistributionTools.setMean(dist1,5);
@@ -202,15 +220,18 @@ class DistributionToolsTests {
 			if (dist1 instanceof ExponentialDistribution) exactStdAvailable=false;
 			if (dist1 instanceof ChiSquaredDistribution) exactStdAvailable=false;
 			if (dist1 instanceof RayleighDistributionImpl) exactStdAvailable=false;
+			if (dist1 instanceof DiscreteBinomialDistributionImpl) exactStdAvailable=false;
+			if (dist1 instanceof DiscretePoissonDistributionImpl) exactStdAvailable=false;
+			if (dist1 instanceof DiscreteNegativeBinomialDistributionImpl) exactStdAvailable=false;
 			if (exactStdAvailable) {
-				assertEquals(2,DistributionTools.getStandardDeviation(dist1),10E-10);
-				assertEquals(2.0/3.0,DistributionTools.getCV(dist1),10E-10);
+				assertEquals(2,DistributionTools.getStandardDeviation(dist1),10E-10,"Verteilung: "+name);
+				assertEquals(2.0/3.0,DistributionTools.getCV(dist1),10E-10,"Verteilung: "+name);
 			}
 			if (DistributionTools.canSetStandardDeviation(dist1)) {
 				final AbstractRealDistribution dist2=DistributionTools.setStandardDeviation(dist1,5);
 				assertNotNull(dist2,"Verteilung: "+name);
 				if (DistributionTools.canSetStandardDeviationExact(dist2)) {
-					assertEquals(5.0,DistributionTools.getStandardDeviation(dist2),0.00001);
+					assertEquals(5.0,DistributionTools.getStandardDeviation(dist2),0.00001,"Verteilung: "+name);
 				}
 			} else {
 				final AbstractRealDistribution dist2=DistributionTools.setStandardDeviation(dist1,5);

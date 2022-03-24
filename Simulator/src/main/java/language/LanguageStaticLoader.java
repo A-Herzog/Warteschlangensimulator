@@ -176,6 +176,10 @@ public class LanguageStaticLoader {
 		DistributionTools.DistSawtoothLeft=Language.trAll("Distribution.SawtoothLeft");
 		DistributionTools.DistSawtoothRight=Language.trAll("Distribution.SawtoothRight");
 		DistributionTools.DistLevy=Language.trAll("Distribution.Levy");
+		DistributionTools.DistHyperGeom=Language.trAll("Distribution.HyperGeom");
+		DistributionTools.DistBinomial=Language.trAll("Distribution.Binomial");
+		DistributionTools.DistPoisson=Language.trAll("Distribution.Poisson");
+		DistributionTools.DistNegativeBinomial=Language.trAll("Distribution.NegativeBinomial");
 		DistributionTools.DistUnknown=Language.tr("Distribution.Unknown");
 		DistributionTools.DistDataPoint=Language.tr("Distribution.DataPoint");
 		DistributionTools.DistDataPoints=Language.tr("Distribution.DataPoints");

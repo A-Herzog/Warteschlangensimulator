@@ -131,6 +131,18 @@ public final class DistributionTools {
 	/** Levy-Verteilung */
 	public static String[] DistLevy=new String[]{"Levy-Verteilung"};
 
+	/** Hypergeometrische Verteilung */
+	public static String[] DistHyperGeom=new String[]{"Hypergeometrische Verteilung"};
+
+	/** Binomialverteilung */
+	public static String[] DistBinomial=new String[]{"Binomialverteilung"};
+
+	/** Poisson-Verteilung */
+	public static String[] DistPoisson=new String[]{"Poisson-Verteilung"};
+
+	/** Negative Binomialverteilung */
+	public static String[] DistNegativeBinomial=new String[]{"Negative Binomialverteilung"};
+
 	/** Warnung "unbekannte Verteilung" */
 	public static String DistUnknown="unbekannte Verteilung";
 
@@ -212,7 +224,11 @@ public final class DistributionTools {
 				new WrapperHyperbolicSecantDistribution(),
 				new WrapperSawtoothLeftDistribution(),
 				new WrapperSawtoothRightDistribution(),
-				new WrapperLevyDistribution()
+				new WrapperLevyDistribution(),
+				new WrapperHyperGeomDistribution(),
+				new WrapperBinomialDistribution(),
+				new WrapperPoissonDistribution(),
+				new WrapperNegativeBinomialDistribution(),
 		};
 	}
 

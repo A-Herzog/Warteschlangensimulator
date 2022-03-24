@@ -31,7 +31,12 @@ import org.apache.commons.math3.distribution.WeibullDistribution;
 import org.apache.commons.math3.util.FastMath;
 import org.junit.jupiter.api.Test;
 
+import mathtools.distribution.AbstractDiscreteRealDistribution;
 import mathtools.distribution.ChiDistributionImpl;
+import mathtools.distribution.DiscreteBinomialDistributionImpl;
+import mathtools.distribution.DiscreteHyperGeomDistributionImpl;
+import mathtools.distribution.DiscreteNegativeBinomialDistributionImpl;
+import mathtools.distribution.DiscretePoissonDistributionImpl;
 import mathtools.distribution.ErlangDistributionImpl;
 import mathtools.distribution.ExtBetaDistributionImpl;
 import mathtools.distribution.FatigueLifeDistributionImpl;
@@ -71,7 +76,13 @@ class DistributionTests {
 
 		if (!Double.isNaN(distribution.getNumericalMean())) {
 			assertEquals(distribution.getNumericalMean(),DistributionTools.getMean(distribution));
-			final AbstractRealDistribution distribution3=DistributionTools.setMean(distribution,123);
+			final AbstractRealDistribution distribution3;
+			if (distribution instanceof AbstractDiscreteRealDistribution) {
+				/* Die Urnenmodell-Verteilungen können teilweise so große Werte nicht abbilden, daher für diese ein Test mit einem kleineren Wert. */
+				distribution3=DistributionTools.setMean(distribution,10);
+			} else {
+				distribution3=DistributionTools.setMean(distribution,123);
+			}
 			if (DistributionTools.canSetMean(distribution)) {
 				assertNotNull(distribution3);
 			} else {
@@ -80,7 +91,13 @@ class DistributionTests {
 		}
 		if (!Double.isNaN(distribution.getNumericalVariance())) {
 			assertEquals(distribution.getNumericalVariance(),FastMath.pow(DistributionTools.getStandardDeviation(distribution),2),0.000001);
-			final AbstractRealDistribution distribution3=DistributionTools.setStandardDeviation(distribution,123);
+			final AbstractRealDistribution distribution3;
+			if ((distribution instanceof AbstractDiscreteRealDistribution) && !(distribution instanceof DiscreteNegativeBinomialDistributionImpl)) {
+				/* Die Urnenmodell-Verteilungen können so große Varianzen nicht abbilden, daher für diese ein Test mit einer kleinere Varianz. */
+				distribution3=DistributionTools.setStandardDeviation(distribution,0.5);
+			} else {
+				distribution3=DistributionTools.setStandardDeviation(distribution,123);
+			}
 			if (DistributionTools.canSetStandardDeviation(distribution)) {
 				assertNotNull(distribution3);
 			} else {
@@ -1564,6 +1581,135 @@ class DistributionTests {
 		double rnd=sawtooth.random(new DummyRandomGenerator(0.5));
 		assertTrue(rnd>=sawtooth.a);
 		assertTrue(rnd<=sawtooth.b);
+	}
+
+	/**
+	 * Test: Hypergeometrische Verteilung
+	 * @see DiscreteHyperGeomDistributionImpl
+	 */
+	@Test
+	void testDiscreteHyperGeomDistribution() {
+		DiscreteHyperGeomDistributionImpl dist;
+
+		dist=new DiscreteHyperGeomDistributionImpl(50,20,5);
+		assertEquals(50,dist.N);
+		assertEquals(20,dist.K);
+		assertEquals(5,dist.n);
+		assertEquals(0,dist.cumulativeProbability(-1));
+		assertEquals(1,dist.cumulativeProbability(5),0.000001);
+		assertEquals(1,dist.cumulativeProbability(6),0.000001);
+		assertEquals(-Double.MAX_VALUE,dist.inverseCumulativeProbability(-1));
+		assertEquals(Double.MAX_VALUE,dist.inverseCumulativeProbability(2));
+		assertEquals(2.0,dist.inverseCumulativeProbability(dist.cumulativeProbability(2)),0.000001);
+		assertEquals(3.0,dist.inverseCumulativeProbability(dist.cumulativeProbability(3)),0.000001);
+		assertEquals(5*20/50.0,dist.getNumericalMean());
+		assertEquals(5*20/50.0*(1-20.0/50.0)*(50.0-5.0)/(50.0-1),dist.getNumericalVariance());
+		assertEquals(0,dist.getSupportLowerBound());
+		assertEquals(5,dist.getSupportUpperBound());
+		assertTrue(dist.isSupportLowerBoundInclusive());
+		assertTrue(dist.isSupportUpperBoundInclusive());
+		assertTrue(dist.isSupportConnected());
+
+		testDistributionTools(dist);
+		testDistributionParameters(dist,new double[] {50,20,5});
+
+		double rnd=dist.random(new DummyRandomGenerator(0.5));
+		assertTrue(rnd>=0);
+		assertTrue(rnd<=Math.min(20,5));
+	}
+
+	/**
+	 * Test: Binomialverteilung
+	 * @see DiscreteBinomialDistributionImpl
+	 */
+	@Test
+	void testDiscreteBionomialDistribution() {
+		DiscreteBinomialDistributionImpl dist;
+
+		dist=new DiscreteBinomialDistributionImpl(0.4,20);
+		assertEquals(0.4,dist.p);
+		assertEquals(20,dist.n);
+		assertEquals(0,dist.cumulativeProbability(-1));
+		assertEquals(1,dist.cumulativeProbability(20),0.000001);
+		assertEquals(1,dist.cumulativeProbability(21),0.000001);
+		assertEquals(-Double.MAX_VALUE,dist.inverseCumulativeProbability(-1));
+		assertEquals(Double.MAX_VALUE,dist.inverseCumulativeProbability(2));
+		assertEquals(2.0,dist.inverseCumulativeProbability(dist.cumulativeProbability(2)),0.000001);
+		assertEquals(3.0,dist.inverseCumulativeProbability(dist.cumulativeProbability(3)),0.000001);
+		assertEquals(0.4*20,dist.getNumericalMean());
+		assertEquals(0.4*20*(1-0.4),dist.getNumericalVariance());
+		assertEquals(0,dist.getSupportLowerBound());
+		assertEquals(20,dist.getSupportUpperBound());
+		assertTrue(dist.isSupportLowerBoundInclusive());
+		assertTrue(dist.isSupportUpperBoundInclusive());
+		assertTrue(dist.isSupportConnected());
+
+		testDistributionTools(dist);
+		testDistributionParameters(dist,new double[] {0.4,20});
+
+		double rnd=dist.random(new DummyRandomGenerator(0.5));
+		assertTrue(rnd>=0);
+		assertTrue(rnd<=20);
+	}
+
+	/**
+	 * Test: Poisson-Verteilung
+	 * @see DiscretePoissonDistributionImpl
+	 */
+	@Test
+	void testDiscretePoissonDistributionImpl() {
+		DiscretePoissonDistributionImpl dist;
+
+		dist=new DiscretePoissonDistributionImpl(7.5);
+		assertEquals(7.5,dist.lambda);
+		assertEquals(0,dist.cumulativeProbability(-1));
+		assertTrue(dist.cumulativeProbability(1)>0);
+		assertEquals(-Double.MAX_VALUE,dist.inverseCumulativeProbability(-1));
+		assertEquals(Double.MAX_VALUE,dist.inverseCumulativeProbability(2));
+		assertEquals(2.0,dist.inverseCumulativeProbability(dist.cumulativeProbability(2)),0.000001);
+		assertEquals(3.0,dist.inverseCumulativeProbability(dist.cumulativeProbability(3)),0.000001);
+		assertEquals(7.5,dist.getNumericalMean());
+		assertEquals(7.5,dist.getNumericalVariance());
+		assertEquals(0,dist.getSupportLowerBound());
+		assertTrue(dist.isSupportLowerBoundInclusive());
+		assertFalse(dist.isSupportUpperBoundInclusive());
+		assertTrue(dist.isSupportConnected());
+
+		testDistributionTools(dist);
+		testDistributionParameters(dist,new double[] {7.5});
+
+		double rnd=dist.random(new DummyRandomGenerator(0.5));
+		assertTrue(rnd>=0);
+	}
+
+	/**
+	 * Test: Negative Binomialverteilung
+	 * @see DiscreteNegativeBinomialDistributionImpl
+	 */
+	@Test
+	void testDiscreteNegativeBionomialDistribution() {
+		DiscreteNegativeBinomialDistributionImpl dist;
+
+		dist=new DiscreteNegativeBinomialDistributionImpl(0.4,20);
+		assertEquals(0.4,dist.p);
+		assertEquals(20,dist.r);
+		assertEquals(0,dist.cumulativeProbability(-1));
+		assertEquals(-Double.MAX_VALUE,dist.inverseCumulativeProbability(-1));
+		assertEquals(Double.MAX_VALUE,dist.inverseCumulativeProbability(2));
+		assertEquals(2.0,dist.inverseCumulativeProbability(dist.cumulativeProbability(2)),0.000001);
+		assertEquals(3.0,dist.inverseCumulativeProbability(dist.cumulativeProbability(3)),0.000001);
+		assertEquals(20*(1-0.4)/0.4,dist.getNumericalMean());
+		assertEquals(20*(1-0.4)/0.4/0.4,dist.getNumericalVariance());
+		assertEquals(0,dist.getSupportLowerBound());
+		assertTrue(dist.isSupportLowerBoundInclusive());
+		assertFalse(dist.isSupportUpperBoundInclusive());
+		assertTrue(dist.isSupportConnected());
+
+		testDistributionTools(dist);
+		testDistributionParameters(dist,new double[] {0.4,20});
+
+		double rnd=dist.random(new DummyRandomGenerator(0.5));
+		assertTrue(rnd>=0);
 	}
 
 	/**
