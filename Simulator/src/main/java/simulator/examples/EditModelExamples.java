@@ -178,6 +178,8 @@ public class EditModelExamples {
 		addExample(Language.trAll("Examples.RestrictedBuffer"),"RestriktierterPuffer.xml",ExampleType.TYPE_PROPERTIES);
 		addExample(Language.trAll("Examples.Analog"),"Analog.xml",ExampleType.TYPE_PROPERTIES);
 		addExample(Language.trAll("Examples.Jockeying"),"Jockeying.xml",ExampleType.TYPE_PROPERTIES);
+		addExample(Language.trAll("Examples.QueueingDiscipline"),"QueueingDiscipline.xml",ExampleType.TYPE_PROPERTIES);
+		addExample(Language.trAll("Examples.Shiftplan"),"Shiftplan.xml",ExampleType.TYPE_PROPERTIES);
 		addExample(Language.trAll("Examples.PASTA"),"PASTA.xml",ExampleType.TYPE_MATH);
 		addExample(Language.trAll("Examples.ZentralerGrenzwertsatz"),"ZentralerGrenzwertsatz.xml",ExampleType.TYPE_MATH);
 	}

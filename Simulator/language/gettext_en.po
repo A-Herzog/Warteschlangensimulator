@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-03-24 07:52+0100\n"
+"POT-Creation-Date: 2022-03-25 00:16+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -4758,6 +4758,9 @@ msgstr "Push and pull production with multiple segments"
 msgid "Examples.PushPullThroughput"
 msgstr "Waiting time depending process times"
 
+msgid "Examples.QueueingDiscipline"
+msgstr "Effect of the queueing discipline"
+
 msgid "Examples.Restaurant"
 msgstr "Restaurant as queueing system"
 
@@ -4772,6 +4775,9 @@ msgstr "Machine with set up times"
 
 msgid "Examples.SharedResources"
 msgstr "Resource shared between multiple stations"
+
+msgid "Examples.Shiftplan"
+msgstr "Shiftplans"
 
 msgid "Examples.SystemDesign"
 msgstr "Queueing system design"

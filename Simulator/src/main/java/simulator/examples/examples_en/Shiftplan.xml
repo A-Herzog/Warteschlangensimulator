@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE Model SYSTEM "https://a-herzog.github.io/Warteschlangensimulator/Simulator.dtd">
+<Model xmlns="https://a-herzog.github.io" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://a-herzog.github.io https://a-herzog.github.io/Warteschlangensimulator/Simulator.xsd">
+  <!-- This file was created using Warteschlangensimulator. Download address: https://github.com/A-Herzog/Warteschlangensimulator -->
+  <ModelVersion>5.1.0</ModelVersion>
+  <ModelName>Shift plans</ModelName>
+  <ModelDescription>Jobs arrive at a steady rate throughout the day.
+However, different numbers of operators are available
+throughout the day, so the queue grows and shrinks again.</ModelDescription>
+  <ModelAuthor>Alexander Herzog</ModelAuthor>
+  <ModelClients Active="1">10000000</ModelClients>
+  <ModelWarmUpPhase>0</ModelWarmUpPhase>
+  <ModelTerminationTime Active="1">50:00:00:00</ModelTerminationTime>
+  <ModelElements>
+    <ModelElementSource id="1">
+      <ModelElementName>Jobs</ModelElementName>
+      <ModelElementSize h="50" w="100" x="50" y="100"/>
+      <ModelElementConnection Element="3" Type="Out"/>
+      <ModelElementDistribution TimeBase="Seconds">Exponential distribution (60)</ModelElementDistribution>
+      <ModelElementBatchData Size="1"/>
+    </ModelElementSource>
+    <ModelElementProcessStation id="2">
+      <ModelElementName>Packing</ModelElementName>
+      <ModelElementSize h="50" w="100" x="250" y="100"/>
+      <ModelElementConnection Element="3" Type="In"/>
+      <ModelElementConnection Element="5" Type="Out"/>
+      <ModelElementDistribution Status="ProcessTime" TimeBase="Seconds" Type="ProcessingTime">Exponential distribution (180)</ModelElementDistribution>
+      <ModelElementPriority ClientType="Aufträge">w</ModelElementPriority>
+      <ModelElementPriority ClientType="Jobs">w</ModelElementPriority>
+      <ModelElementOperators Alternative="1" Count="1" Group="Bediener"/>
+      <ModelElementOperatorsPriority>1</ModelElementOperatorsPriority>
+    </ModelElementProcessStation>
+    <ModelElementEdge id="3">
+      <ModelElementName>Arrivals (Jobs)</ModelElementName>
+      <ModelElementConnection Element1="1" Element2="2" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementDispose id="4">
+      <ModelElementName>Shipping</ModelElementName>
+      <ModelElementSize h="50" w="100" x="450" y="100"/>
+      <ModelElementConnection Element="5" Type="In"/>
+    </ModelElementDispose>
+    <ModelElementEdge id="5">
+      <ModelElementConnection Element1="2" Element2="4" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementAnimationLineDiagram id="6">
+      <ModelElementName>Bedienstation "Einpacken" (id=2) - Aktueller Wert</ModelElementName>
+      <ModelElementSize h="200" w="700" x="50" y="200"/>
+      <ModelElementLineWidth>1</ModelElementLineWidth>
+      <ModelElementLineColor>0,0,0</ModelElementLineColor>
+      <ModelElementBackgroundColor>240,240,240</ModelElementBackgroundColor>
+      <ModelElementDiagramElement LineColor="255,0,0" LineWidth="2" Maximum="500" Minimum="0">wip(2)</ModelElementDiagramElement>
+      <ModelElementDiagramElement LineColor="0,0,255" LineWidth="2" Maximum="10" Minimum="0">Resource_count()</ModelElementDiagramElement>
+      <ModelElementDiagramTimeRange>172800</ModelElementDiagramTimeRange>
+      <ModelElementAxisLabels>0</ModelElementAxisLabels>
+    </ModelElementAnimationLineDiagram>
+    <ModelElementText id="7">
+      <ModelElementSize h="23" w="94" x="50" y="50"/>
+      <ModelElementTextLine>Shift plans</ModelElementTextLine>
+      <ModelElementFontSize bold="1">18</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementAnimationClock id="9">
+      <ModelElementSize h="150" w="150" x="800" y="200"/>
+      <ModelElementColor>240,240,240</ModelElementColor>
+      <ModelElementExpression>TNow()</ModelElementExpression>
+    </ModelElementAnimationClock>
+    <ModelElementText id="10">
+      <ModelElementSize h="16" w="366" x="50" y="400"/>
+      <ModelElementTextLine>(red=queue length, blue=number of operators according to shift plan)</ModelElementTextLine>
+      <ModelElementFontSize>12</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+    </ModelElementText>
+  </ModelElements>
+  <Resources SecondaryPriority="Random">
+    <Resource Icon="status_online" Name="Bediener" Type="Schedule" Value="Schichtplan"/>
+  </Resources>
+  <ClientTypeData>
+    <ClientData Icon="note" Name="Aufträge"/>
+    <ClientData Icon="note" Name="Jobs"/>
+    <ClientData Icon="note" Name="Kunden"/>
+  </ClientTypeData>
+  <ModelSchedules>
+    <ModelSchedule ContinueSchedule="RepeatDays" DurationPerSlot="3600" EditorMaxY="10" Name="Schichtplan">0;0;0;0;0;0;0;7;7;7;7;7;7;7;7;3;3;3;3;3;3;3;3</ModelSchedule>
+  </ModelSchedules>
+  <ModelAdditionalStatistics StepWide="300">
+    <ModelAdditionalStatisticsElement Mode="Average">wip(2)</ModelAdditionalStatisticsElement>
+    <ModelAdditionalStatisticsElement Mode="Maximum">Resource_count()</ModelAdditionalStatisticsElement>
+  </ModelAdditionalStatistics>
+  <ModelEdgesNormal Color="0,0,0" Type="0" Width="1"/>
+  <ModelEdgesSelected Type="0" Width="1"/>
+  <ModelElementConnectionDrawStyle>Angled around</ModelElementConnectionDrawStyle>
+</Model>

@@ -12538,6 +12538,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[31727] = "Value recording";
     t[31728] = "DateTimeEditor.Today";
     t[31729] = "Today";
+    t[31734] = "Examples.QueueingDiscipline";
+    t[31735] = "Effect of the queueing discipline";
     t[31736] = "Main.Toolbar.ShowModelForTheseResults.Hint";
     t[31737] = "Displays the model that belongs to these simulation results";
     t[31738] = "ModelDescription.Set.ResidenceTime";
@@ -14044,14 +14046,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[35459] = "Comparisons of control strategies";
     t[35460] = "Surface.Set.Table.Special.ProcessingTime";
     t[35461] = "Processing time of the current client";
-    t[35464] = "Simulation.Java.Error.NoCompiler.Internal";
-    t[35465] = "No Java compiler is available.";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_7 (java.lang.String[] t) {
+    t[35464] = "Simulation.Java.Error.NoCompiler.Internal";
+    t[35465] = "No Java compiler is available.";
     t[35470] = "Surface.SourceTable.Dialog.Table.Preview.Header.ClientType";
     t[35471] = "Client type";
     t[35472] = "Surface.OutputDDE.XML.Root";
@@ -14262,8 +14264,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[35971] = "Bricks";
     t[35972] = "Statistics.ClientData.Field";
     t[35973] = "Field %s";
-    t[35974] = "Surface.Process.Dialog.CostsPerPostProcessingSecond";
-    t[35975] = "Costs per post processing second";
+    t[35974] = "Examples.Shiftplan";
+    t[35975] = "Shiftplans";
     t[35976] = "CalculatorDialog.Tab.Distributions.GenerateRandomNumbers.Save";
     t[35977] = "Save...";
     t[35984] = "FileType.svg";
@@ -16050,14 +16052,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[40357] = "<html><body>Above: Highlighted distributions (given order)<br>Below: Non-highlighted distributions (will be sorted alhpabetically)</body></html>";
     t[40358] = "Surface.TankValveSetup.Table.Edit.Valve.ErrorTitle";
     t[40359] = "No valve selected";
-    t[40368] = "Statistics.TotalBig";
-    t[40369] = "Total";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_8 (java.lang.String[] t) {
+    t[40368] = "Statistics.TotalBig";
+    t[40369] = "Total";
     t[40372] = "Simulation.Log.ProcessService.InfoWithSetupTime";
     t[40373] = "Client: %s, station: %s, process time: %s (containing setup Time: %s)";
     t[40374] = "Surface.Decide.Dialog.OutgoingEdge.ClientType.ErrorMissing.Title";
@@ -17494,6 +17496,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[43843] = "Keep valve setup.";
     t[43846] = "ExpressionBuilder.ProbabilityDistributions.PertDistribution";
     t[43847] = "Pert distribution";
+    t[43850] = "Surface.Process.Dialog.CostsPerPostProcessingSecond";
+    t[43851] = "Costs per post processing second";
     t[43866] = "Statistic.FastAccess.Template.StatisticsFileName.Tooltip";
     t[43867] = "Retruns the file name of the statistics file";
     t[43868] = "Git.List.PullAll.Info";
@@ -18054,16 +18058,16 @@ public class Messages_en extends java.util.ResourceBundle {
     t[45261] = "Inter-arrival threshold expression";
     t[45268] = "ModelDescription.SourceDDE.Column";
     t[45269] = "Column";
-    t[45280] = "ExpressionBuilder.SimulationCharacteristics.TransporterUtilization.SquaredCoefficientOfVariationOfTheNumber";
-    t[45281] = "<p>Returns the squared coefficient of variation of the number of busy transporters in the specified transporter group.</p>";
-    t[45290] = "Surface.Output.XML.File";
-    t[45291] = "ModelElementOutputFile";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_9 (java.lang.String[] t) {
+    t[45280] = "ExpressionBuilder.SimulationCharacteristics.TransporterUtilization.SquaredCoefficientOfVariationOfTheNumber";
+    t[45281] = "<p>Returns the squared coefficient of variation of the number of busy transporters in the specified transporter group.</p>";
+    t[45290] = "Surface.Output.XML.File";
+    t[45291] = "ModelElementOutputFile";
     t[45292] = "ExpressionBuilder.ProbabilityDistributions.CauchyDistribution.RandomNumberRangeInfo";
     t[45293] = "<p>Generates a random number according to the Cauchy distribution with mean and shape parameters according to the third and forth parameters.</p>\n<p>The first and second parameter specify the range in which the random number should be located.</p>";
     t[45294] = "ExpressionBuilder.ClientsAtStation.CurrentNumber.ByType";
@@ -20060,16 +20064,16 @@ public class Messages_en extends java.util.ResourceBundle {
     t[50259] = "<p>Returns the coefficient of variation of the number of clients at the station whose ID is specified in the parameter.</p>\n<p>Alternatively, the ID of a client source can be specified, in which case the results refer to the clients which are created created at the selected source.</p>";
     t[50274] = "Surface.Output.Table.HeaderAdditionalData";
     t[50275] = "Additional data";
-    t[50278] = "CopyInstallation.DestinationFolder.ConfirmOverwriteInfo";
-    t[50279] = "The specified destination folder\n%s\nalready contains files. If you continue, some of the files may be overwritten.\nDo you want to use the specified destination folder anyway?";
-    t[50280] = "Surface.InteractiveSlider.Infotext";
-    t[50281] = "By using a slider the current value of a variable can be adjusted during animation. On the other side the position of the slider represents the current value of the variable.";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_10 (java.lang.String[] t) {
+    t[50278] = "CopyInstallation.DestinationFolder.ConfirmOverwriteInfo";
+    t[50279] = "The specified destination folder\n%s\nalready contains files. If you continue, some of the files may be overwritten.\nDo you want to use the specified destination folder anyway?";
+    t[50280] = "Surface.InteractiveSlider.Infotext";
+    t[50281] = "By using a slider the current value of a variable can be adjusted during animation. On the other side the position of the slider represents the current value of the variable.";
     t[50282] = "Surface.Set.Name";
     t[50283] = "Variable";
     t[50288] = "Main.Menu.View.ShowRulers";

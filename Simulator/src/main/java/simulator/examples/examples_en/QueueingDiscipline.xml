@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE Model SYSTEM "https://a-herzog.github.io/Warteschlangensimulator/Simulator.dtd">
+<Model xmlns="https://a-herzog.github.io" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://a-herzog.github.io https://a-herzog.github.io/Warteschlangensimulator/Simulator.xsd">
+  <!-- This file was created using Warteschlangensimulator. Download address: https://github.com/A-Herzog/Warteschlangensimulator -->
+  <ModelVersion>5.1.0</ModelVersion>
+  <ModelName>Effect of the queueing discipline on the variation of the residence times</ModelName>
+  <ModelDescription>The queueing discipline has no influence on the average
+waiting or residence times. However, a deviation from
+FIFO leads to higher variances in the waiting times and
+thus also in the residence times.</ModelDescription>
+  <ModelAuthor>Alexander Herzog</ModelAuthor>
+  <ModelClients Active="1">10000000</ModelClients>
+  <ModelWarmUpPhase>0.01</ModelWarmUpPhase>
+  <ModelTerminationTime Active="0">10:00:00:00</ModelTerminationTime>
+  <ModelElements>
+    <ModelElementProcessStation id="2">
+      <ModelElementSize h="50" w="100" x="700" y="100"/>
+      <ModelElementConnection Element="17" Type="In"/>
+      <ModelElementConnection Element="6" Type="Out"/>
+      <ModelElementDistribution Status="ProcessTime" TimeBase="Seconds" Type="ProcessingTime">Exponential distribution (80)</ModelElementDistribution>
+      <ModelElementPriority ClientType="Clients">w</ModelElementPriority>
+      <ModelElementPriority ClientType="FIFO">w</ModelElementPriority>
+      <ModelElementPriority ClientType="Kunden">w</ModelElementPriority>
+      <ModelElementPriority ClientType="KundenA">w</ModelElementPriority>
+      <ModelElementPriority ClientType="KundenB">w+1000</ModelElementPriority>
+      <ModelElementPriority ClientType="LIFO">w</ModelElementPriority>
+      <ModelElementPriority ClientType="Random">w</ModelElementPriority>
+      <ModelElementOperators Alternative="1" Count="1" Group="Bedienergruppe 1"/>
+      <ModelElementOperatorsPriority>1</ModelElementOperatorsPriority>
+    </ModelElementProcessStation>
+    <ModelElementSource id="3">
+      <ModelElementName>Clients</ModelElementName>
+      <ModelElementSize h="50" w="100" x="50" y="200"/>
+      <ModelElementConnection Element="5" Type="Out"/>
+      <ModelElementDistribution TimeBase="Seconds">Exponential distribution (100)</ModelElementDistribution>
+      <ModelElementBatchData Size="1"/>
+    </ModelElementSource>
+    <ModelElementDispose id="4">
+      <ModelElementSize h="50" w="100" x="950" y="200"/>
+      <ModelElementConnection Element="6" Type="In"/>
+      <ModelElementConnection Element="20" Type="In"/>
+      <ModelElementConnection Element="21" Type="In"/>
+    </ModelElementDispose>
+    <ModelElementEdge id="6">
+      <ModelElementConnection Element1="2" Element2="4" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementText id="7">
+      <ModelElementSize h="23" w="626" x="50" y="50"/>
+      <ModelElementTextLine>Effect of the queueing discipline on the variation of the residence times</ModelElementTextLine>
+      <ModelElementFontSize bold="1">18</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementDuplicate id="1">
+      <ModelElementSize h="50" w="100" x="250" y="200"/>
+      <ModelElementConnection Element="5" Type="In"/>
+      <ModelElementConnection Element="14" Type="Out"/>
+      <ModelElementConnection Element="15" Type="Out"/>
+      <ModelElementConnection Element="16" Type="Out"/>
+    </ModelElementDuplicate>
+    <ModelElementEdge id="5">
+      <ModelElementName>Arrivals (Clients)</ModelElementName>
+      <ModelElementConnection Element1="3" Element2="1" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementAssignment id="9">
+      <ModelElementName>FIFO</ModelElementName>
+      <ModelElementSize h="50" w="100" x="450" y="100"/>
+      <ModelElementConnection Element="14" Type="In"/>
+      <ModelElementConnection Element="17" Type="Out"/>
+    </ModelElementAssignment>
+    <ModelElementAssignment id="10">
+      <ModelElementName>Random</ModelElementName>
+      <ModelElementSize h="50" w="100" x="450" y="200"/>
+      <ModelElementConnection Element="15" Type="In"/>
+      <ModelElementConnection Element="18" Type="Out"/>
+    </ModelElementAssignment>
+    <ModelElementAssignment id="11">
+      <ModelElementName>LIFO</ModelElementName>
+      <ModelElementSize h="50" w="100" x="450" y="300"/>
+      <ModelElementConnection Element="16" Type="In"/>
+      <ModelElementConnection Element="19" Type="Out"/>
+    </ModelElementAssignment>
+    <ModelElementProcessStation id="12">
+      <ModelElementSize h="50" w="100" x="700" y="200"/>
+      <ModelElementConnection Element="18" Type="In"/>
+      <ModelElementConnection Element="20" Type="Out"/>
+      <ModelElementDistribution Status="ProcessTime" TimeBase="Seconds" Type="ProcessingTime">Exponential distribution (80)</ModelElementDistribution>
+      <ModelElementPriority ClientType="Clients">w</ModelElementPriority>
+      <ModelElementPriority ClientType="FIFO">w</ModelElementPriority>
+      <ModelElementPriority ClientType="Kunden">w</ModelElementPriority>
+      <ModelElementPriority ClientType="KundenA">w</ModelElementPriority>
+      <ModelElementPriority ClientType="KundenB">w+1000</ModelElementPriority>
+      <ModelElementPriority ClientType="LIFO">w</ModelElementPriority>
+      <ModelElementPriority ClientType="Random">Random()</ModelElementPriority>
+      <ModelElementOperators Alternative="1" Count="1" Group="Bedienergruppe 2"/>
+      <ModelElementOperatorsPriority>1</ModelElementOperatorsPriority>
+    </ModelElementProcessStation>
+    <ModelElementProcessStation id="13">
+      <ModelElementSize h="50" w="100" x="700" y="300"/>
+      <ModelElementConnection Element="19" Type="In"/>
+      <ModelElementConnection Element="21" Type="Out"/>
+      <ModelElementDistribution Status="ProcessTime" TimeBase="Seconds" Type="ProcessingTime">Exponential distribution (80)</ModelElementDistribution>
+      <ModelElementPriority ClientType="Clients">w</ModelElementPriority>
+      <ModelElementPriority ClientType="FIFO">w</ModelElementPriority>
+      <ModelElementPriority ClientType="Kunden">w</ModelElementPriority>
+      <ModelElementPriority ClientType="KundenA">w</ModelElementPriority>
+      <ModelElementPriority ClientType="KundenB">w+1000</ModelElementPriority>
+      <ModelElementPriority ClientType="LIFO">-w</ModelElementPriority>
+      <ModelElementPriority ClientType="Random">w</ModelElementPriority>
+      <ModelElementOperators Alternative="1" Count="1" Group="Bedienergruppe 3"/>
+      <ModelElementOperatorsPriority>1</ModelElementOperatorsPriority>
+    </ModelElementProcessStation>
+    <ModelElementEdge id="14">
+      <ModelElementName>Original</ModelElementName>
+      <ModelElementConnection Element1="1" Element2="9" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="15">
+      <ModelElementName>Copy 1</ModelElementName>
+      <ModelElementConnection Element1="1" Element2="10" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="16">
+      <ModelElementName>Copy 2</ModelElementName>
+      <ModelElementConnection Element1="1" Element2="11" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="17">
+      <ModelElementName>New client type: FIFO</ModelElementName>
+      <ModelElementConnection Element1="9" Element2="2" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="18">
+      <ModelElementName>New client type: Random</ModelElementName>
+      <ModelElementConnection Element1="10" Element2="12" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="19">
+      <ModelElementName>New client type: LIFO</ModelElementName>
+      <ModelElementConnection Element1="11" Element2="13" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="20">
+      <ModelElementConnection Element1="12" Element2="4" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="21">
+      <ModelElementConnection Element1="13" Element2="4" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementAnimationText id="8">
+      <ModelElementName>Average residence time E[V|FIFO]</ModelElementName>
+      <ModelElementSize h="30" w="143" x="400" y="420"/>
+      <ModelElementFontSize>14</ModelElementFontSize>
+      <ModelElementColor>0,180,0</ModelElementColor>
+      <ModelElementAnimationMode Type="Number">Verweilzeit_avg(9)</ModelElementAnimationMode>
+    </ModelElementAnimationText>
+    <ModelElementAnimationText id="22">
+      <ModelElementName>Average residence time E[V|Random]</ModelElementName>
+      <ModelElementSize h="30" w="157" x="400" y="470"/>
+      <ModelElementFontSize>14</ModelElementFontSize>
+      <ModelElementColor>0,0,255</ModelElementColor>
+      <ModelElementAnimationMode Type="Number">Verweilzeit_avg(10)</ModelElementAnimationMode>
+    </ModelElementAnimationText>
+    <ModelElementText id="23">
+      <ModelElementSize h="21" w="41" x="300" y="430"/>
+      <ModelElementTextLine>FIFO:</ModelElementTextLine>
+      <ModelElementFontSize bold="1">16</ModelElementFontSize>
+      <ModelElementColor>0,180,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementText id="24">
+      <ModelElementSize h="21" w="69" x="300" y="480"/>
+      <ModelElementTextLine>Random:</ModelElementTextLine>
+      <ModelElementFontSize bold="1">16</ModelElementFontSize>
+      <ModelElementColor>0,0,255</ModelElementColor>
+    </ModelElementText>
+    <ModelElementText id="25">
+      <ModelElementSize h="21" w="41" x="300" y="530"/>
+      <ModelElementTextLine>LIFO:</ModelElementTextLine>
+      <ModelElementFontSize bold="1">16</ModelElementFontSize>
+      <ModelElementColor>255,0,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementAnimationText id="26">
+      <ModelElementName>Average residence time E[V|LIFO]</ModelElementName>
+      <ModelElementSize h="30" w="142" x="400" y="520"/>
+      <ModelElementFontSize>14</ModelElementFontSize>
+      <ModelElementColor>255,0,0</ModelElementColor>
+      <ModelElementAnimationMode Type="Number">Verweilzeit_avg(11)</ModelElementAnimationMode>
+    </ModelElementAnimationText>
+    <ModelElementAnimationText id="27">
+      <ModelElementName>Variation of the residence times CV[V|FIFO]</ModelElementName>
+      <ModelElementSize h="30" w="183" x="600" y="420"/>
+      <ModelElementFontSize>14</ModelElementFontSize>
+      <ModelElementColor>0,180,0</ModelElementColor>
+      <ModelElementAnimationMode Type="Number">Verweilzeit_cv(9)</ModelElementAnimationMode>
+    </ModelElementAnimationText>
+    <ModelElementAnimationText id="28">
+      <ModelElementName>Variation of the residence times E[V|Random]</ModelElementName>
+      <ModelElementSize h="30" w="190" x="600" y="470"/>
+      <ModelElementFontSize>14</ModelElementFontSize>
+      <ModelElementColor>0,0,255</ModelElementColor>
+      <ModelElementAnimationMode Type="Number">Verweilzeit_cv(10)</ModelElementAnimationMode>
+    </ModelElementAnimationText>
+    <ModelElementAnimationText id="29">
+      <ModelElementName>Variation of the residence times E[V|LIFO]</ModelElementName>
+      <ModelElementSize h="30" w="175" x="600" y="520"/>
+      <ModelElementFontSize>14</ModelElementFontSize>
+      <ModelElementColor>255,0,0</ModelElementColor>
+      <ModelElementAnimationMode Type="Number">Verweilzeit_cv(11)</ModelElementAnimationMode>
+    </ModelElementAnimationText>
+    <ModelElementAnimationBarDiagram id="30">
+      <ModelElementSize h="150" w="100" x="800" y="400"/>
+      <ModelElementLineWidth>1</ModelElementLineWidth>
+      <ModelElementLineColor>0,0,0</ModelElementLineColor>
+      <ModelElementBackgroundColor>240,240,240</ModelElementBackgroundColor>
+      <ModelElementUse3D>1</ModelElementUse3D>
+      <ModelElementMinimumValue>0</ModelElementMinimumValue>
+      <ModelElementMaximumValue>3</ModelElementMaximumValue>
+      <ModelElementAxisLabels>1</ModelElementAxisLabels>
+      <ModelElementDiagramElement BarColor="0,180,0">Verweilzeit_cv(9)</ModelElementDiagramElement>
+      <ModelElementDiagramElement BarColor="0,0,255">Verweilzeit_cv(10)</ModelElementDiagramElement>
+      <ModelElementDiagramElement BarColor="255,0,0">Verweilzeit_cv(11)</ModelElementDiagramElement>
+    </ModelElementAnimationBarDiagram>
+    <ModelElementText id="31">
+      <ModelElementSize h="21" w="71" x="300" y="580"/>
+      <ModelElementTextLine>Erlang C:</ModelElementTextLine>
+      <ModelElementFontSize bold="1">16</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementText id="32">
+      <ModelElementSize h="16" w="49" x="400" y="580"/>
+      <ModelElementTextLine>E[V]=400</ModelElementTextLine>
+      <ModelElementFontSize>12</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+    </ModelElementText>
+  </ModelElements>
+  <Resources SecondaryPriority="Random">
+    <Resource Icon="status_online" Name="Bedienergruppe 1" Type="Number" Value="1"/>
+    <Resource Name="Bedienergruppe 2" Type="Number" Value="1"/>
+    <Resource Name="Bedienergruppe 3" Type="Number" Value="1"/>
+  </Resources>
+  <ClientTypeData>
+    <ClientData Icon="user_green" Name="FIFO"/>
+    <ClientData Icon="user_red" Name="LIFO"/>
+  </ClientTypeData>
+  <ModelEdgesNormal Color="0,0,0" Type="0" Width="1"/>
+  <ModelEdgesSelected Type="0" Width="1"/>
+  <ModelElementConnectionDrawStyle>Angled around</ModelElementConnectionDrawStyle>
+</Model>

@@ -12538,6 +12538,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[31727] = "Datenaufzeichnung";
     t[31728] = "DateTimeEditor.Today";
     t[31729] = "Heute";
+    t[31734] = "Examples.QueueingDiscipline";
+    t[31735] = "Auswirkung der Bedienreihenfolge";
     t[31736] = "Main.Toolbar.ShowModelForTheseResults.Hint";
     t[31737] = "Zeigt das Modell an, welches zu diesen Simulationsergebnissen geh\u00f6rt";
     t[31738] = "ModelDescription.Set.ResidenceTime";
@@ -14044,14 +14046,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[35459] = "Vergleiche von Steuerungsstrategien";
     t[35460] = "Surface.Set.Table.Special.ProcessingTime";
     t[35461] = "Bisherige Bedienzeit des Kunden";
-    t[35464] = "Simulation.Java.Error.NoCompiler.Internal";
-    t[35465] = "Es steht kein Java-Komiler zur Verf\u00fcgung.";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_7 (java.lang.String[] t) {
+    t[35464] = "Simulation.Java.Error.NoCompiler.Internal";
+    t[35465] = "Es steht kein Java-Komiler zur Verf\u00fcgung.";
     t[35470] = "Surface.SourceTable.Dialog.Table.Preview.Header.ClientType";
     t[35471] = "Kundentyp";
     t[35472] = "Surface.OutputDDE.XML.Root";
@@ -14262,8 +14264,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[35971] = "Bausteine";
     t[35972] = "Statistics.ClientData.Field";
     t[35973] = "Feld %s";
-    t[35974] = "Surface.Process.Dialog.CostsPerPostProcessingSecond";
-    t[35975] = "Kosten pro Nachbearbeitungssekunde";
+    t[35974] = "Examples.Shiftplan";
+    t[35975] = "Schichtpl\u00e4ne";
     t[35976] = "CalculatorDialog.Tab.Distributions.GenerateRandomNumbers.Save";
     t[35977] = "Speichern...";
     t[35984] = "FileType.svg";
@@ -16050,14 +16052,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[40357] = "<html><body>Oben: hervorgehobene Verteilungen (angegebene Reihenfolge)<br>Unten: Normale Verteilungen (werden alphabetisch sortiert)</body></html>";
     t[40358] = "Surface.TankValveSetup.Table.Edit.Valve.ErrorTitle";
     t[40359] = "Kein Ventil gew\u00e4hlt";
-    t[40368] = "Statistics.TotalBig";
-    t[40369] = "Gesamt";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_8 (java.lang.String[] t) {
+    t[40368] = "Statistics.TotalBig";
+    t[40369] = "Gesamt";
     t[40372] = "Simulation.Log.ProcessService.InfoWithSetupTime";
     t[40373] = "Kunde: %s, Station: %s, Bedienzeit: %s (darin enthalten R\u00fcstzeit: %s)";
     t[40374] = "Surface.Decide.Dialog.OutgoingEdge.ClientType.ErrorMissing.Title";
@@ -17494,6 +17496,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[43843] = "Ventilkonfiguration beibehalten.";
     t[43846] = "ExpressionBuilder.ProbabilityDistributions.PertDistribution";
     t[43847] = "Pert-Verteilung";
+    t[43850] = "Surface.Process.Dialog.CostsPerPostProcessingSecond";
+    t[43851] = "Kosten pro Nachbearbeitungssekunde";
     t[43866] = "Statistic.FastAccess.Template.StatisticsFileName.Tooltip";
     t[43867] = "Liefert den Dateinamen der Statistikdatei";
     t[43868] = "Git.List.PullAll.Info";
@@ -18054,16 +18058,16 @@ public class Messages_de extends java.util.ResourceBundle {
     t[45261] = "Ankunftsschwellenwertausdruck";
     t[45268] = "ModelDescription.SourceDDE.Column";
     t[45269] = "Spalte";
-    t[45280] = "ExpressionBuilder.SimulationCharacteristics.TransporterUtilization.SquaredCoefficientOfVariationOfTheNumber";
-    t[45281] = "<p>Liefert den quadrierten Variationskoeffizient der Anzahl an belegten Transportern in der angegebenen Transportergruppe.</p>";
-    t[45290] = "Surface.Output.XML.File";
-    t[45291] = "ModellElementAusgabedatei";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_9 (java.lang.String[] t) {
+    t[45280] = "ExpressionBuilder.SimulationCharacteristics.TransporterUtilization.SquaredCoefficientOfVariationOfTheNumber";
+    t[45281] = "<p>Liefert den quadrierten Variationskoeffizient der Anzahl an belegten Transportern in der angegebenen Transportergruppe.</p>";
+    t[45290] = "Surface.Output.XML.File";
+    t[45291] = "ModellElementAusgabedatei";
     t[45292] = "ExpressionBuilder.ProbabilityDistributions.CauchyDistribution.RandomNumberRangeInfo";
     t[45293] = "<p>Erzeugt eine Zufallszahl gem\u00e4\u00df der Cauchy-Verteilung mit Mittelwert und Form-Parameter gem\u00e4\u00df dem dritten und vierten Parameter.</p>\n<p>Der erste und zweite Parameter geben den Bereich an, in dem sich die Zufallszahl befinden soll.</p>";
     t[45294] = "ExpressionBuilder.ClientsAtStation.CurrentNumber.ByType";
@@ -20060,16 +20064,16 @@ public class Messages_de extends java.util.ResourceBundle {
     t[50259] = "<p>Liefert den Variationskoeffizienten der Anzahl an Kunden an der Bedienstation, deren ID in dem Parameter angegeben wurde.</p>\n<p>Alternativ kann auch die ID einer Kundenquelle angegeben werden, dann beziehen sich die Ergebnisse auf die Kunden des dort erzeugten Kundentyps.</p>";
     t[50274] = "Surface.Output.Table.HeaderAdditionalData";
     t[50275] = "Zus\u00e4tzliche Angaben";
-    t[50278] = "CopyInstallation.DestinationFolder.ConfirmOverwriteInfo";
-    t[50279] = "Das angegebene Zielverzeichnis\n%s\nenth\u00e4lt bereits Dateien. Wenn Sie fortfahren, werden einige davon evtl. \u00fcberschrieben.\nSoll das angegebene Zielverzeichnis dennoch verwendet weden?";
-    t[50280] = "Surface.InteractiveSlider.Infotext";
-    t[50281] = "\u00dcber einen Schieberegler kann der Wert einer Variable w\u00e4hrend der Animation ver\u00e4ndert werden. Gleichzeitig spiegelt der Zustand des Schiebereglers auch den aktuellen Wert der Variable wider.";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_10 (java.lang.String[] t) {
+    t[50278] = "CopyInstallation.DestinationFolder.ConfirmOverwriteInfo";
+    t[50279] = "Das angegebene Zielverzeichnis\n%s\nenth\u00e4lt bereits Dateien. Wenn Sie fortfahren, werden einige davon evtl. \u00fcberschrieben.\nSoll das angegebene Zielverzeichnis dennoch verwendet weden?";
+    t[50280] = "Surface.InteractiveSlider.Infotext";
+    t[50281] = "\u00dcber einen Schieberegler kann der Wert einer Variable w\u00e4hrend der Animation ver\u00e4ndert werden. Gleichzeitig spiegelt der Zustand des Schiebereglers auch den aktuellen Wert der Variable wider.";
     t[50282] = "Surface.Set.Name";
     t[50283] = "Variable";
     t[50288] = "Main.Menu.View.ShowRulers";
