@@ -246,13 +246,22 @@ public class Simulator extends SimulatorBase implements AnySimulator {
 	 * @return	Liefert <code>null</code> zurück, wenn die Simulation erfolgreich vorbereitet werden konnte, sonst eine Fehlermeldung
 	 */
 	public PrepareError prepare() {
+		return prepare(true);
+	}
+
+	/**
+	 * Bereitet die Simulation vor
+	 * @param allowLoadBalancer	Über diesen Parameter kann die Verwendung des Load-Balancers generell unterbunden werden (<code>false</code>). Andernfalls (<code>true</code>) wird gemäß Setup und Modell entschieden.
+	 * @return	Liefert <code>null</code> zurück, wenn die Simulation erfolgreich vorbereitet werden konnte, sonst eine Fehlermeldung
+	 */
+	public PrepareError prepare(final boolean allowLoadBalancer) {
 		prepareStatic(editModel.useFixedSeed);
 
 		final Object obj=RunModel.getRunModel(editModel,false,SetupData.getSetup().useMultiCoreSimulation);
 		if (obj instanceof StartAnySimulator.PrepareError) return (StartAnySimulator.PrepareError)obj;
 		runModel=(RunModel)obj;
 
-		if (SetupData.getSetup().useDynamicThreadBalance) {
+		if (SetupData.getSetup().useDynamicThreadBalance && allowLoadBalancer) {
 			if (runModel.repeatCount==1 && threadCount>1 && runModel.clientCount>0) dynamicLoadBalancer=new DynamicLoadBalancer(runModel.clientCount,threadCount);
 		}
 

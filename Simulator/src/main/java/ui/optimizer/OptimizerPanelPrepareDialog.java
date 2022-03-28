@@ -168,7 +168,7 @@ public final class OptimizerPanelPrepareDialog extends JDialog {
 
 		/* Modell vorbereiten */
 
-		EditModel simpleModel=model.clone();
+		final EditModel simpleModel=model.clone();
 		simpleModel.useClientCount=true;
 		simpleModel.clientCount=Math.min(1000,simpleModel.clientCount);
 		simpleModel.warmUpTime=0.0;
@@ -179,7 +179,7 @@ public final class OptimizerPanelPrepareDialog extends JDialog {
 		/* Simulation starten */
 
 		final StartAnySimulator starter=new StartAnySimulator(simpleModel);
-		final StartAnySimulator.PrepareError prepareError=starter.prepare();
+		final StartAnySimulator.PrepareError prepareError=starter.prepare(false); /* false = keinen LoadBalancer für wenige Kunden */
 		if (prepareError!=null) {
 			if (prepareError.error!=null) error=prepareError.error;
 			simulator=null;

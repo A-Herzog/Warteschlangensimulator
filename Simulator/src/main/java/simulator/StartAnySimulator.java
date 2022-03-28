@@ -134,6 +134,16 @@ public class StartAnySimulator {
 	 * @return	Gibt im Erfolgsfall <code>null</code> zurück, sonst eine Fehlermeldung.
 	 */
 	public PrepareError prepare() {
+		return prepare(true);
+	}
+
+
+	/**
+	 * Prüft das Modell und bereitet die Simulation vor.
+	 * @param allowLoadBalancer	Über diesen Parameter kann die Verwendung des Load-Balancers (für eine lokale Simulation, bei Remote-Simulationen wird dies ignoriert) generell unterbunden werden (<code>false</code>). Andernfalls (<code>true</code>) wird gemäß Setup und Modell entschieden.
+	 * @return	Gibt im Erfolgsfall <code>null</code> zurück, sonst eine Fehlermeldung.
+	 */
+	public PrepareError prepare(final boolean allowLoadBalancer) {
 		final PrepareError prepareError=testModel(editModel);
 		if (prepareError!=null) return prepareError;
 
@@ -155,7 +165,7 @@ public class StartAnySimulator {
 		maxThreadsReal=Math.max(maxThreadsReal,1);
 
 		localSimulator=new Simulator(maxThreadsReal,editModel,logging,loggingIDs,logType);
-		return localSimulator.prepare();
+		return localSimulator.prepare(allowLoadBalancer);
 	}
 
 	/**
