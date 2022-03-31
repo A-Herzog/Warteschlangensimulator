@@ -10564,6 +10564,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[26721] = "GC";
     t[26722] = "UserTemplates.TemplatesDialog.SelectErrorTitle";
     t[26723] = "Keine Vorlage gew\u00e4hlt";
+    t[26728] = "Surface.PopupMenu.SimulationStatisticsData.Tab.WaitingClients.FieldTable.ColumnValue";
+    t[26729] = "Werte";
     t[26732] = "Animation.Toolbar.Play.Info";
     t[26733] = "Startet die Animation des Modells";
     t[26738] = "Statistics.XML.Element.ClientsAtStationQueueByClientType";
@@ -12038,14 +12040,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[30553] = "Kreis - Orange";
     t[30558] = "Batch.Parameter.XMLTag.NoElementFound";
     t[30559] = "Es wurden kein Element, das zu dem Selektor %s passt, gefunden.";
-    t[30566] = "Surface.OutputDB.XML.Element.Type";
-    t[30567] = "Typ";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_6 (java.lang.String[] t) {
+    t[30566] = "Surface.OutputDB.XML.Element.Type";
+    t[30567] = "Typ";
     t[30568] = "Surface.Rectangle.XML.BackgroundColor.Alpha";
     t[30569] = "Alpha";
     t[30570] = "Optimizer.Error.TargetScriptCouldNotBeLoaded";
@@ -14044,14 +14046,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[35457] = "Mittleres Turquoise";
     t[35458] = "Examples.Type.Compare";
     t[35459] = "Vergleiche von Steuerungsstrategien";
-    t[35460] = "Surface.Set.Table.Special.ProcessingTime";
-    t[35461] = "Bisherige Bedienzeit des Kunden";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_7 (java.lang.String[] t) {
+    t[35460] = "Surface.Set.Table.Special.ProcessingTime";
+    t[35461] = "Bisherige Bedienzeit des Kunden";
     t[35464] = "Simulation.Java.Error.NoCompiler.Internal";
     t[35465] = "Es steht kein Java-Komiler zur Verf\u00fcgung.";
     t[35470] = "Surface.SourceTable.Dialog.Table.Preview.Header.ClientType";
@@ -16050,14 +16052,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[40353] = "Benutzerdefinierte Statistik";
     t[40356] = "Distribution.SetupList.Divider";
     t[40357] = "<html><body>Oben: hervorgehobene Verteilungen (angegebene Reihenfolge)<br>Unten: Normale Verteilungen (werden alphabetisch sortiert)</body></html>";
-    t[40358] = "Surface.TankValveSetup.Table.Edit.Valve.ErrorTitle";
-    t[40359] = "Kein Ventil gew\u00e4hlt";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_8 (java.lang.String[] t) {
+    t[40358] = "Surface.TankValveSetup.Table.Edit.Valve.ErrorTitle";
+    t[40359] = "Kein Ventil gew\u00e4hlt";
     t[40368] = "Statistics.TotalBig";
     t[40369] = "Gesamt";
     t[40372] = "Simulation.Log.ProcessService.InfoWithSetupTime";
@@ -18056,14 +18058,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[45257] = "L\u00f6schen";
     t[45260] = "Editor.DialogBase.Search.InterarrivalArrival.Threshold.Expression";
     t[45261] = "Ankunftsschwellenwertausdruck";
-    t[45268] = "ModelDescription.SourceDDE.Column";
-    t[45269] = "Spalte";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_9 (java.lang.String[] t) {
+    t[45268] = "ModelDescription.SourceDDE.Column";
+    t[45269] = "Spalte";
     t[45280] = "ExpressionBuilder.SimulationCharacteristics.TransporterUtilization.SquaredCoefficientOfVariationOfTheNumber";
     t[45281] = "<p>Liefert den quadrierten Variationskoeffizient der Anzahl an belegten Transportern in der angegebenen Transportergruppe.</p>";
     t[45290] = "Surface.Output.XML.File";
@@ -20062,14 +20064,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[50253] = "Bedienzeit";
     t[50258] = "ExpressionBuilder.ClientsAtStation.CoefficientOfVariationOfTheNumber";
     t[50259] = "<p>Liefert den Variationskoeffizienten der Anzahl an Kunden an der Bedienstation, deren ID in dem Parameter angegeben wurde.</p>\n<p>Alternativ kann auch die ID einer Kundenquelle angegeben werden, dann beziehen sich die Ergebnisse auf die Kunden des dort erzeugten Kundentyps.</p>";
-    t[50274] = "Surface.Output.Table.HeaderAdditionalData";
-    t[50275] = "Zus\u00e4tzliche Angaben";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_10 (java.lang.String[] t) {
+    t[50274] = "Surface.Output.Table.HeaderAdditionalData";
+    t[50275] = "Zus\u00e4tzliche Angaben";
     t[50278] = "CopyInstallation.DestinationFolder.ConfirmOverwriteInfo";
     t[50279] = "Das angegebene Zielverzeichnis\n%s\nenth\u00e4lt bereits Dateien. Wenn Sie fortfahren, werden einige davon evtl. \u00fcberschrieben.\nSoll das angegebene Zielverzeichnis dennoch verwendet weden?";
     t[50280] = "Surface.InteractiveSlider.Infotext";
@@ -20976,8 +20978,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[52421] = "Teilbalken l\u00f6schen";
     t[52424] = "ScriptPopup.Client.ValueText.Set";
     t[52425] = "Text einstellen";
-    t[52434] = "Surface.PopupMenu.SimulationStatisticsData.Tab.WaitingClients.FieldTable.ColumnValue";
-    t[52435] = "Werte";
+    t[52434] = "Distribution.Zeta";
+    t[52435] = "Zeta-Verteilung";
     t[52436] = "XML.RootElementNameError";
     t[52437] = "Das Wurzelelement der zu ladenden Daten muss \"%s\" hei\u00dfen, ist hier aber \"%s\".";
     t[52442] = "Surface.Decide.Condition";

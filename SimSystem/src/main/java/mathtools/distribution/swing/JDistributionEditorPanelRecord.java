@@ -34,6 +34,7 @@ import mathtools.distribution.DiscreteBinomialDistributionImpl;
 import mathtools.distribution.DiscreteHyperGeomDistributionImpl;
 import mathtools.distribution.DiscreteNegativeBinomialDistributionImpl;
 import mathtools.distribution.DiscretePoissonDistributionImpl;
+import mathtools.distribution.DiscreteZetaDistributionImpl;
 import mathtools.distribution.ErlangDistributionImpl;
 import mathtools.distribution.ExtBetaDistributionImpl;
 import mathtools.distribution.FatigueLifeDistributionImpl;
@@ -91,6 +92,7 @@ import mathtools.distribution.tools.WrapperSawtoothRightDistribution;
 import mathtools.distribution.tools.WrapperTriangularDistribution;
 import mathtools.distribution.tools.WrapperUniformRealDistribution;
 import mathtools.distribution.tools.WrapperWeibullDistribution;
+import mathtools.distribution.tools.WrapperZetaDistribution;
 
 /**
  * Diese Klasse hält Datensätze für die Anzeige von Bearbeitung von
@@ -281,6 +283,7 @@ public abstract class JDistributionEditorPanelRecord {
 		allRecords.add(new BinomialDistributionPanel());
 		allRecords.add(new PoissonDistributionPanel());
 		allRecords.add(new NegativeBinomialDistributionPanel());
+		allRecords.add(new ZetaDistributionPanel());
 	}
 
 	/**
@@ -1379,6 +1382,32 @@ public abstract class JDistributionEditorPanelRecord {
 			final Double p=NumberTools.getNotNegativeDouble(fields[0],true); if (p==null) return null;
 			final Long r=NumberTools.getPositiveLong(fields[1],true); if (r==null) return null;
 			return new DiscreteNegativeBinomialDistributionImpl(p,r.intValue());
+		}
+	}
+
+	/** Zeta-Verteilung */
+	private static class ZetaDistributionPanel extends JDistributionEditorPanelRecord {
+		/** Konstruktor der Klasse */
+		public ZetaDistributionPanel() {
+			super(new WrapperZetaDistribution(),new String[]{"s"});
+		}
+
+		@Override
+		public String[] getEditValues(double meanD, String mean, double stdD, String std, String lower, String upper, double maxXValue) {
+			return new String[]{"3"};
+		}
+
+		@Override
+		public String[] getValues(AbstractRealDistribution distribution) {
+			return new String[] {
+					NumberTools.formatNumberMax(((DiscreteZetaDistributionImpl)distribution).s)
+			};
+		}
+
+		@Override
+		public AbstractRealDistribution getDistribution(JTextField[] fields, double maxXValue) {
+			final Double s=NumberTools.getNotNegativeDouble(fields[0],true); if (s==null || s<=1.0) return null;
+			return new DiscreteZetaDistributionImpl(s);
 		}
 	}
 }

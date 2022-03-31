@@ -143,6 +143,9 @@ public final class DistributionTools {
 	/** Negative Binomialverteilung */
 	public static String[] DistNegativeBinomial=new String[]{"Negative Binomialverteilung"};
 
+	/** Zeta-Verteilung */
+	public static String[] DistZeta=new String[]{"Zeta-Verteilung"};
+
 	/** Warnung "unbekannte Verteilung" */
 	public static String DistUnknown="unbekannte Verteilung";
 
@@ -229,6 +232,7 @@ public final class DistributionTools {
 				new WrapperBinomialDistribution(),
 				new WrapperPoissonDistribution(),
 				new WrapperNegativeBinomialDistribution(),
+				new WrapperZetaDistribution()
 		};
 	}
 

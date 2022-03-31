@@ -37,6 +37,7 @@ import mathtools.distribution.DiscreteBinomialDistributionImpl;
 import mathtools.distribution.DiscreteHyperGeomDistributionImpl;
 import mathtools.distribution.DiscreteNegativeBinomialDistributionImpl;
 import mathtools.distribution.DiscretePoissonDistributionImpl;
+import mathtools.distribution.DiscreteZetaDistributionImpl;
 import mathtools.distribution.ErlangDistributionImpl;
 import mathtools.distribution.ExtBetaDistributionImpl;
 import mathtools.distribution.FatigueLifeDistributionImpl;
@@ -90,7 +91,9 @@ class DistributionTests {
 			}
 		}
 		if (!Double.isNaN(distribution.getNumericalVariance())) {
-			assertEquals(distribution.getNumericalVariance(),FastMath.pow(DistributionTools.getStandardDeviation(distribution),2),0.000001);
+			final double var1=distribution.getNumericalVariance();
+			final double var2=FastMath.pow(DistributionTools.getStandardDeviation(distribution),2);
+			assertEquals(var1,var2,Math.max(var1,var2)*0.000001);
 			final AbstractRealDistribution distribution3;
 			if ((distribution instanceof AbstractDiscreteRealDistribution) && !(distribution instanceof DiscreteNegativeBinomialDistributionImpl)) {
 				/* Die Urnenmodell-Verteilungen können so große Varianzen nicht abbilden, daher für diese ein Test mit einer kleinere Varianz. */
@@ -1707,6 +1710,31 @@ class DistributionTests {
 
 		testDistributionTools(dist);
 		testDistributionParameters(dist,new double[] {0.4,20});
+
+		double rnd=dist.random(new DummyRandomGenerator(0.5));
+		assertTrue(rnd>=0);
+	}
+
+	/**
+	 * Test: Zeta-Verteilung
+	 * @see DiscreteZetaDistributionImpl
+	 */
+	@Test
+	void testZetaDistribution() {
+		DiscreteZetaDistributionImpl dist;
+
+		dist=new DiscreteZetaDistributionImpl(3);
+		assertEquals(3.0,dist.s);
+
+		assertEquals(0,dist.cumulativeProbability(-1));
+		assertEquals(-Double.MAX_VALUE,dist.inverseCumulativeProbability(-1));
+		assertEquals(0,dist.getSupportLowerBound());
+		assertTrue(dist.isSupportLowerBoundInclusive());
+		assertFalse(dist.isSupportUpperBoundInclusive());
+		assertTrue(dist.isSupportConnected());
+
+		testDistributionTools(dist);
+		testDistributionParameters(dist,new double[] {3});
 
 		double rnd=dist.random(new DummyRandomGenerator(0.5));
 		assertTrue(rnd>=0);

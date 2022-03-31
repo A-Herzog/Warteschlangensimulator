@@ -180,6 +180,7 @@ public class LanguageStaticLoader {
 		DistributionTools.DistBinomial=Language.trAll("Distribution.Binomial");
 		DistributionTools.DistPoisson=Language.trAll("Distribution.Poisson");
 		DistributionTools.DistNegativeBinomial=Language.trAll("Distribution.NegativeBinomial");
+		DistributionTools.DistZeta=Language.trAll("Distribution.Zeta");
 		DistributionTools.DistUnknown=Language.tr("Distribution.Unknown");
 		DistributionTools.DistDataPoint=Language.tr("Distribution.DataPoint");
 		DistributionTools.DistDataPoints=Language.tr("Distribution.DataPoints");
