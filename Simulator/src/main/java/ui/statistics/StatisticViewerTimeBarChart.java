@@ -21,6 +21,7 @@ import java.awt.Rectangle;
 import java.io.Serializable;
 import java.net.URL;
 import java.text.NumberFormat;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -125,7 +126,9 @@ public class StatisticViewerTimeBarChart extends StatisticViewerBarChart {
 		/** Balkendiagramm zum Vergleich der Auslastungen der Transportergruppen  */
 		MODE_TRANSPORTER_UTILIZATION,
 		/** Ankünfte pro Thread */
-		MODE_SYSTEM_INFO_THREAD_BALANCE
+		MODE_SYSTEM_INFO_THREAD_BALANCE,
+		/** Laufzeiten der Threads */
+		MODE_SYSTEM_INFO_THREAD_TIMES
 	}
 
 	/**
@@ -383,6 +386,60 @@ public class StatisticViewerTimeBarChart extends StatisticViewerBarChart {
 		setOutlineColor(Color.BLACK);
 	}
 
+	/**
+	 * Balkendiagramm zum Vergleich der Laufzeiten pro Thread
+	 * @see Mode#MODE_SYSTEM_INFO_THREAD_TIMES
+	 */
+	private void threadTimesChartRequest() {
+		initBarChart(Language.tr("Statistics.SystemData.ThreadBalance.ThreadRuntimes"));
+		setupBarChart(Language.tr("Statistics.SystemData.ThreadBalance.ThreadRuntimes"),Language.tr("Statistics.SystemData.ThreadBalance.Thread"),Language.tr("Statistics.SystemData.ThreadBalance.Runtime"),false);
+
+		final double[] data=Arrays.stream(statistics.simulationData.threadRunTimes).mapToDouble(i->i/1000.0).toArray();
+		double sum=0;
+		for (double value: data) sum+=value;
+		final double mean=sum/data.length;
+		final double finalSum=sum;
+
+		for (int i=0;i<data.length;i++) {
+			this.data.addValue(data[i],Language.tr("Statistics.SystemData.ThreadBalance.Thread"),""+(i+1));
+		}
+
+		plot.getRendererForDataset(this.data).setSeriesPaint(0,getGradientPaint(Color.BLUE));
+
+		/* Tooltips */
+		final int count=this.data.getRowCount();
+		final BarRenderer renderer=(BarRenderer)plot.getRenderer();
+		for (int i=0;i<count;i++) {
+			renderer.setSeriesToolTipGenerator(i,new StandardCategoryToolTipGenerator(StandardCategoryToolTipGenerator.DEFAULT_TOOL_TIP_FORMAT_STRING,NumberFormat.getInstance(NumberTools.getLocale())) {
+				/**
+				 * Serialisierungs-ID der Klasse
+				 * @see Serializable
+				 */
+				private static final long serialVersionUID=-5857616637740927146L;
+
+				@Override
+				public String generateToolTip(CategoryDataset dataset, int row, int column) {
+					final StringBuilder info=new StringBuilder();
+					info.append(Language.tr("Statistics.SystemData.ThreadBalance.Thread"));
+					info.append(" ");
+					info.append(column+1);
+					info.append(": ");
+					info.append(StatisticTools.formatNumber(data[column]));
+					info.append(" (");
+					info.append(StatisticTools.formatPercent(data[column]/finalSum));
+					info.append(", ");
+					info.append(Language.tr("Statistics.SystemData.ThreadBalance.DeviationFromAverage"));
+					info.append("=");
+					info.append(StatisticTools.formatNumber(data[column]-mean));
+					info.append(")");
+					return info.toString();
+				}
+			});
+		}
+
+		setOutlineColor(Color.BLACK);
+	}
+
 	@Override
 	protected void firstChartRequest() {
 		Map<String,Color> colorMap;
@@ -523,6 +580,10 @@ public class StatisticViewerTimeBarChart extends StatisticViewerBarChart {
 		case MODE_SYSTEM_INFO_THREAD_BALANCE:
 			threadBalanceChartRequest();
 			addDescription("ThreadBalance");
+			break;
+		case MODE_SYSTEM_INFO_THREAD_TIMES:
+			threadTimesChartRequest();
+			addDescription("ThreadTimes");
 			break;
 		}
 	}

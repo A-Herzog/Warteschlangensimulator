@@ -1162,23 +1162,28 @@ public class StatisticViewerTimeTable extends StatisticViewerBaseTable {
 	 * @see Mode#MODE_SYSTEM_INFO_THREAD_BALANCE
 	 */
 	private void buildThreadBalanceInfoTable() {
+		final long[] data=statistics.simulationData.threadDynamicBalanceData;
+		final int[] dataTimes=statistics.simulationData.threadRunTimes;
+		final boolean hasTimes=(dataTimes!=null && dataTimes.length>=data.length);
+
 		final Table table=new Table();
 		final List<String> headers=new ArrayList<>();
 		headers.add(Language.tr("Statistics.SystemData.ThreadBalance.Thread"));
 		headers.add(Language.tr("Statistics.SystemData.ThreadBalance.NumberOfArrivals"));
 		headers.add(Language.tr("Statistics.Part"));
 		headers.add(Language.tr("Statistics.SystemData.ThreadBalance.DeviationFromAverage"));
+		if (hasTimes) headers.add(Language.tr("Statistics.SystemData.ThreadBalance.Runtime"));
 
-		final long[] data=statistics.simulationData.threadDynamicBalanceData;
 		long sum=0;
 		for (long value: data) sum+=value;
 		final long mean=sum/data.length;
-		final String[] line=new String[4];
+		final String[] line=new String[hasTimes?5:4];
 		for (int i=0;i<data.length;i++) {
 			line[0]=""+(i+1);
 			line[1]=NumberTools.formatLongNoGrouping(data[i]);
 			line[2]=StatisticTools.formatPercent(((double)data[i])/sum);
 			line[3]=NumberTools.formatLongNoGrouping(data[i]-mean);
+			if (hasTimes && dataTimes!=null) line[4]=NumberTools.formatNumber(dataTimes[i]/1000.0,3);
 			table.addLine(line);
 		}
 

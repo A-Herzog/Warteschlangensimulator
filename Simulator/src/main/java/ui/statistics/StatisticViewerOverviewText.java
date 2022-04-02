@@ -2221,6 +2221,7 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 		addHeading(1,Language.tr("Statistics.SystemData.ThreadBalance"));
 		beginParagraph();
 		final long[] data=statistics.simulationData.threadDynamicBalanceData;
+		final int[] dataTimes=statistics.simulationData.threadRunTimes;
 		long sum=0;
 		for (long value: data) sum+=value;
 		final long mean=sum/data.length;
@@ -2237,6 +2238,14 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 			line.append(Language.tr("Statistics.SystemData.ThreadBalance.DeviationFromAverage"));
 			line.append("=");
 			line.append(NumberTools.formatLong(data[i]-mean));
+			if (dataTimes!=null && dataTimes.length>i) {
+				line.append(", ");
+				line.append(Language.tr("Statistics.SystemData.ThreadBalance.Runtime"));
+				line.append("=");
+				line.append(StatisticTools.formatNumber(dataTimes[i]/1000.0,3));
+				line.append(" ");
+				line.append(Language.tr("Statistic.Seconds"));
+			}
 			line.append(")");
 			addLine(line.toString());
 		}

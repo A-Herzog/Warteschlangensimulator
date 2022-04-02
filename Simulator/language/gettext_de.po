@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-03-28 10:27+0200\n"
+"POT-Creation-Date: 2022-03-31 08:29+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -21357,8 +21357,14 @@ msgstr "Abweichung vom Durchschnitt"
 msgid "Statistics.SystemData.ThreadBalance.NumberOfArrivals"
 msgstr "Anzahl an Ankünften"
 
+msgid "Statistics.SystemData.ThreadBalance.Runtime"
+msgstr "Laufzeit"
+
 msgid "Statistics.SystemData.ThreadBalance.Thread"
 msgstr "Thread"
+
+msgid "Statistics.SystemData.ThreadBalance.ThreadRuntimes"
+msgstr "Thread-Laufzeiten"
 
 msgid "Statistics.SystemData.ThreadDynamicBalance"
 msgstr "Maximaler relativer Unterschied an simulierten Kunden zwischen den Threads"

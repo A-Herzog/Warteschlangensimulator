@@ -1968,6 +1968,10 @@ public class StatisticsPanel extends StatisticsBasePanel {
 			viewer=new ArrayList<>();
 			for(Statistics statistic : statistics) viewer.add(new StatisticViewerTimeBarChart(statistic,StatisticViewerTimeBarChart.Mode.MODE_SYSTEM_INFO_THREAD_BALANCE));
 			group.addChild(new StatisticNode(Language.tr("Statistics.SystemData.ThreadBalance"),viewer));
+
+			viewer=new ArrayList<>();
+			for(Statistics statistic : statistics) viewer.add(new StatisticViewerTimeBarChart(statistic,StatisticViewerTimeBarChart.Mode.MODE_SYSTEM_INFO_THREAD_TIMES));
+			group.addChild(new StatisticNode(Language.tr("Statistics.SystemData.ThreadBalance.ThreadRuntimes"),viewer));
 		}
 	}
 
