@@ -17,7 +17,8 @@ package net.web;
 
 import java.awt.image.BufferedImage;
 
-import fi.iki.elonen.NanoHTTPD.IHTTPSession;
+import org.nanohttpd.protocols.http.IHTTPSession;
+
 import ui.MainPanel;
 
 /**

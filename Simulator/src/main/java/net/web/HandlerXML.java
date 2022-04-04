@@ -17,9 +17,8 @@ package net.web;
 
 import java.util.function.Supplier;
 
+import org.nanohttpd.protocols.http.IHTTPSession;
 import org.w3c.dom.Document;
-
-import fi.iki.elonen.NanoHTTPD.IHTTPSession;
 
 /**
  * Liefert eine XML-Datei aus.

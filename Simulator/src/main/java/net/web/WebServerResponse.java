@@ -27,10 +27,11 @@ import java.util.Map;
 
 import javax.imageio.ImageIO;
 
+import org.nanohttpd.protocols.http.response.IStatus;
+import org.nanohttpd.protocols.http.response.Response;
+import org.nanohttpd.protocols.http.response.Status;
 import org.w3c.dom.Document;
 
-import fi.iki.elonen.NanoHTTPD;
-import fi.iki.elonen.NanoHTTPD.Response.IStatus;
 import xml.XMLTools;
 
 /**
@@ -127,7 +128,7 @@ public class WebServerResponse {
 	 */
 	public WebServerResponse() {
 		mime=null;
-		returnCode=NanoHTTPD.Response.Status.OK;
+		returnCode=Status.OK;
 		userHeaders=new HashMap<>();
 	}
 
@@ -166,7 +167,7 @@ public class WebServerResponse {
 	 * Stellt einen neuen Rückgabecode für die HTTP-Anfragen ein (Vorgabe ist "OK" 200).
 	 * @param returnCode	Neuer Rückgabecode
 	 */
-	public void setReturnCode(final NanoHTTPD.Response.Status returnCode) {
+	public void setReturnCode(final Status returnCode) {
 		if (returnCode!=null) this.returnCode=returnCode;
 	}
 
@@ -482,14 +483,14 @@ public class WebServerResponse {
 	 */
 
 	/**
-	 * Formt die Antwort in eine {@link fi.iki.elonen.NanoHTTPD.Response}-Antwort um.
-	 * @return	Antwort als {@link fi.iki.elonen.NanoHTTPD.Response}-Objekt
+	 * Formt die Antwort in eine {@link org.nanohttpd.protocols.http.response.Response}-Antwort um.
+	 * @return	Antwort als {@link org.nanohttpd.protocols.http.response.Response}-Objekt
 	 */
-	public NanoHTTPD.Response getResponse() {
-		final NanoHTTPD.Response nanoResponse;
+	public Response getResponse() {
+		final Response nanoResponse;
 
 		if (!isValid()) {
-			nanoResponse=NanoHTTPD.newFixedLengthResponse(NanoHTTPD.Response.Status.NOT_FOUND,Mime.TEXT.text,null,0);
+			nanoResponse=Response.newFixedLengthResponse(Status.NOT_FOUND,Mime.TEXT.text,null,0);
 			nanoResponse.addHeader("Cache-Control","no-cache, no-store, must-revalidate");
 			return nanoResponse;
 		}
@@ -507,7 +508,7 @@ public class WebServerResponse {
 		}
 		 */
 
-		nanoResponse=NanoHTTPD.newFixedLengthResponse(NanoHTTPD.Response.Status.OK,mime.text,new ByteArrayInputStream(data),length);
+		nanoResponse=Response.newFixedLengthResponse(Status.OK,mime.text,new ByteArrayInputStream(data),length);
 
 		nanoResponse.addHeader("Cache-Control","no-cache, no-store, must-revalidate");
 		/*

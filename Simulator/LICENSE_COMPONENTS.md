@@ -133,7 +133,7 @@ This file lists the third-party components used by "Simulator" project and their
 
 ### NanoHttpd Core
 
-- Repository: https://mvnrepository.com/artifact/org.nanohttpd/nanohttpd
+- Repository: https://mvnrepository.com/artifact/com.gitee.l0km/nanohttpd
 - License: BSD 3-clause
 - License URL: https://opensource.org/licenses/BSD-3-Clause
 - Homepage: https://github.com/NanoHttpd/nanohttpd

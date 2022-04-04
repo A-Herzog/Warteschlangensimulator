@@ -15,8 +15,8 @@
  */
 package net.web;
 
-import fi.iki.elonen.NanoHTTPD;
-import fi.iki.elonen.NanoHTTPD.IHTTPSession;
+import org.nanohttpd.protocols.http.IHTTPSession;
+import org.nanohttpd.protocols.http.request.Method;
 
 /**
  * Dieses Interface ermöglicht es, auf eine bestimmte Anfrage an den Webserver zu reagieren.
@@ -52,7 +52,7 @@ public interface WebServerHandler {
 	 * @return	Gibt <code>true</code> zurück, wenn die Anfrage-URL der bedienbaren URL entspricht
 	 */
 	default boolean testURL(final IHTTPSession session, final String test) {
-		if (session.getMethod()!=NanoHTTPD.Method.GET) return false;
+		if (session.getMethod()!=Method.GET) return false;
 		return testURL(session.getUri(),test);
 	}
 
@@ -63,7 +63,7 @@ public interface WebServerHandler {
 	 * @return	Gibt <code>true</code> zurück, wenn die Anfrage-URL der bedienbaren URL entspricht
 	 */
 	default boolean testPostURL(final IHTTPSession session, final String test) {
-		if (session.getMethod()!=NanoHTTPD.Method.POST) return false;
+		if (session.getMethod()!=Method.POST) return false;
 		return testURL(session.getUri(),test);
 	}
 }

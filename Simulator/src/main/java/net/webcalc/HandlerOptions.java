@@ -17,8 +17,9 @@ package net.webcalc;
 
 import java.util.function.Function;
 
-import fi.iki.elonen.NanoHTTPD;
-import fi.iki.elonen.NanoHTTPD.IHTTPSession;
+import org.nanohttpd.protocols.http.IHTTPSession;
+import org.nanohttpd.protocols.http.request.Method;
+
 import net.web.WebServerHandler;
 import net.web.WebServerResponse;
 
@@ -45,7 +46,7 @@ public class HandlerOptions implements WebServerHandler {
 
 	@Override
 	public WebServerResponse process(IHTTPSession session) {
-		if (session.getMethod()!=NanoHTTPD.Method.OPTIONS) return null;
+		if (session.getMethod()!=Method.OPTIONS) return null;
 		final String uri=session.getUri();
 		if (uri.length()<=serverURL.length()) return null;
 		if (!uri.substring(0,serverURL.length()).equalsIgnoreCase(serverURL)) return null;

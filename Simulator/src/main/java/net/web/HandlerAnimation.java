@@ -29,7 +29,8 @@ import java.util.Map;
 import javax.imageio.ImageIO;
 import javax.swing.Icon;
 
-import fi.iki.elonen.NanoHTTPD.IHTTPSession;
+import org.nanohttpd.protocols.http.IHTTPSession;
+
 import language.Language;
 import mathtools.NumberTools;
 import simulator.editmodel.EditModel;

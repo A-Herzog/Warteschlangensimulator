@@ -23,9 +23,11 @@ import java.util.Map;
 import java.util.function.BiFunction;
 import java.util.function.Function;
 
-import fi.iki.elonen.NanoHTTPD;
-import fi.iki.elonen.NanoHTTPD.IHTTPSession;
-import fi.iki.elonen.NanoHTTPD.ResponseException;
+import org.nanohttpd.protocols.http.IHTTPSession;
+import org.nanohttpd.protocols.http.NanoHTTPD.ResponseException;
+import org.nanohttpd.protocols.http.request.Method;
+import org.nanohttpd.protocols.http.response.Status;
+
 import language.Language;
 import net.web.WebServerHandler;
 import net.web.WebServerResponse;
@@ -164,14 +166,14 @@ public class HandlerPost implements WebServerHandler {
 		if (responseMode==CalcWebServer.ResponseMode.JSON) {
 			final WebServerResponse response=new WebServerResponse();
 			response.setJSON(status,true);
-			response.setReturnCode(NanoHTTPD.Response.Status.CREATED);
+			response.setReturnCode(Status.CREATED);
 			return response;
 		}
 
 		if (responseMode==CalcWebServer.ResponseMode.XML) {
 			final WebServerResponse response=new WebServerResponse();
 			response.setXML(status,"upload.xml");
-			response.setReturnCode(NanoHTTPD.Response.Status.CREATED);
+			response.setReturnCode(Status.CREATED);
 			return response;
 		}
 
@@ -220,7 +222,7 @@ public class HandlerPost implements WebServerHandler {
 		}
 
 		if (fileLoaderFilter!=null) {
-			if (session.getMethod()!=NanoHTTPD.Method.POST) return null;
+			if (session.getMethod()!=Method.POST) return null;
 			final String uri=session.getUri();
 			if (uri.length()<=serverURL.length()) return null;
 			if (!uri.substring(0,serverURL.length()).equalsIgnoreCase(serverURL)) return null;

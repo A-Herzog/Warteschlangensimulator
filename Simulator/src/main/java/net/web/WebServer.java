@@ -30,7 +30,11 @@ import java.util.Vector;
 import javax.net.ssl.KeyManagerFactory;
 import javax.net.ssl.SSLServerSocketFactory;
 
-import fi.iki.elonen.NanoHTTPD;
+import org.nanohttpd.protocols.http.IHTTPSession;
+import org.nanohttpd.protocols.http.NanoHTTPD;
+import org.nanohttpd.protocols.http.response.Response;
+import org.nanohttpd.protocols.http.response.Status;
+
 import language.Language;
 
 /**
@@ -183,7 +187,7 @@ public class WebServer {
 		private Response getNeedAuthorizationResponse() {
 			final WebServerResponse response=new WebServerResponse();
 			response.setText("",true);
-			response.setReturnCode(NanoHTTPD.Response.Status.UNAUTHORIZED);
+			response.setReturnCode(Status.UNAUTHORIZED);
 			response.getUserHeaders().put("WWW-Authenticate","Basic realm=\"Access to the staging site\", charset=\"UTF-8\"");
 			return response.getResponse();
 		}

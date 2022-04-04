@@ -19,7 +19,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.function.Function;
 
-import fi.iki.elonen.NanoHTTPD.IHTTPSession;
+import org.nanohttpd.protocols.http.IHTTPSession;
+
 import language.Language;
 
 /**
