@@ -416,6 +416,15 @@ public final class RunDataClients {
 	}
 
 	/**
+	 * Liefert die aktuelle Anzahl an Kunden im System.
+	 * @return	Aktuelle Anzahl an Kunden im System
+	 * @see #clientsInSystem
+	 */
+	public int getClientsInSystem() {
+		return clientsInSystem;
+	}
+
+	/**
 	 * Liefert eine sich laufend aktualisierende Liste mit allen in der Simulation aktiven Kunden.<br>
 	 * Diese Liste wird erst ab dem Zeitpunkt des Aufrufs dieser Methode geführt und sollte nur
 	 * während der Animation verwendet werden, da sie die Simulation bremst und ansonsten nicht verwendet wird.

@@ -530,7 +530,7 @@ public class SimulationData extends SimData {
 	 * @return	Liefert im Erfolgsfall <code>true</code>. Im Fehlerfall wird die Simulation per {@link #doEmergencyShutDown(String)} abgebrochen und es wird <code>false</code> zurückgeliefert.
 	 */
 	public boolean testMaxAllowedClientsInSystem() {
-		final int count=statistics.clientsInSystem.getCurrentState();
+		final int count=runData.clients.getClientsInSystem();
 		if (maxAllowed<=0)  {
 			maxAllowed=FastMath.max(RunDataClients.MAX_CLIENTS_IN_SYSTEM_MULTI_CORE,RunDataClients.MAX_CLIENTS_IN_SYSTEM_SINGLE_CORE/threadCount);
 			if (logging instanceof CallbackLogger) {
