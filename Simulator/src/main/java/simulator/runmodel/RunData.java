@@ -886,7 +886,9 @@ public class RunData {
 		if (stationData.statisticStationsInterarrivalTimeBatch==null) stationData.statisticStationsInterarrivalTimeBatch=(StatisticsDataPerformanceIndicator)(cacheStationsInterarrivalTimeBatch.get(station));
 		if (stationData.statisticStationsInterleaveTime==null) stationData.statisticStationsInterleaveTime=(StatisticsDataPerformanceIndicator)(cacheStationsInterleavingTime.get(station));
 		if (stationData.statisticStationsInterleaveTimeBatch==null) stationData.statisticStationsInterleaveTimeBatch=(StatisticsDataPerformanceIndicator)(cacheStationsInterleavingTimeBatch.get(station));
-		if (stationData.statisticSourceStationsInterarrivalTime==null) stationData.statisticSourceStationsInterarrivalTime=(StatisticsDataPerformanceIndicator)(cacheClientsInterarrivalTime.get(station));
+		if (stationData instanceof RunSource) {
+			if (stationData.statisticSourceStationsInterarrivalTime==null) stationData.statisticSourceStationsInterarrivalTime=(StatisticsDataPerformanceIndicator)(cacheClientsInterarrivalTime.get(station));
+		}
 
 		if (stationData.statisticClientsAtStationByClientType==null) {
 			final int clientTypeCount=simData.runModel.clientTypes.length;
