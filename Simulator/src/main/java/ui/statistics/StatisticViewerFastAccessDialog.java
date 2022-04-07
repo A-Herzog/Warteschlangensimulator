@@ -21,7 +21,6 @@ import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
-import java.awt.Window;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.io.Serializable;
@@ -102,7 +101,7 @@ public class StatisticViewerFastAccessDialog extends BaseDialog {
 	 * @param helpModal	Hilfe für Schnellzugriff-Dialog
 	 * @param plainMode	Sollen Optionen zum Einfügen des gewählten Elements in ein Skript angeboten werden (<code>false</code>) oder geht es nur um die Auswahl des XML-Elements als solches (<code>true</code>)
 	 */
-	public StatisticViewerFastAccessDialog(Window owner, Document xmlDoc, Runnable helpModal, boolean plainMode) {
+	public StatisticViewerFastAccessDialog(Component owner, Document xmlDoc, Runnable helpModal, boolean plainMode) {
 		super(owner,Language.tr("Statistic.FastAccess.SelectXMLTag"));
 		this.xmlDoc=xmlDoc;
 		this.plainMode=plainMode;
@@ -407,7 +406,9 @@ public class StatisticViewerFastAccessDialog extends BaseDialog {
 		private final String[] specialTagsType=new String[] {
 				/* Modelldateien */
 
+				Language.trPrimary("Surface.XML.Model.Root")+","+Language.trPrimary("Surface.XML.RootName.Model")+","+Language.trPrimary("Surface.Sub.XML.Root")+","+Language.trPrimary("Surface.XML.RootName.Model")+",*",
 				Language.trPrimary("Surface.XML.Model.Root")+","+Language.trPrimary("Surface.XML.RootName.Model")+",*",
+
 				Language.trPrimary("Surface.XML.Model.Root")+","+Language.trPrimary("Surface.XML.RootName.Resources")+","+Language.trPrimary("Surface.XML.RootName.Resource"),
 				Language.trPrimary("Surface.XML.Model.Root")+","+Language.trPrimary("Surface.XML.RootName.ClientData")+","+Language.trPrimary("Surface.XML.ClientData"),
 				Language.trPrimary("Surface.XML.Model.Root")+","+Language.trPrimary("Surface.XML.RootName.Schedules")+","+Language.trPrimary("Surface.XML.RootName.Schedules"),
@@ -417,6 +418,7 @@ public class StatisticViewerFastAccessDialog extends BaseDialog {
 				/* Statistikdateien */
 
 				/* Basisdaten */
+				Language.trPrimary("XML.Statistic.BaseElement")+","+Language.trPrimary("Surface.XML.Model.Root")+","+Language.trPrimary("Surface.XML.RootName.Model")+","+Language.trPrimary("Surface.Sub.XML.Root")+","+Language.trPrimary("Surface.XML.RootName.Model")+",*",
 				Language.trPrimary("XML.Statistic.BaseElement")+","+Language.trPrimary("Surface.XML.Model.Root")+","+Language.trPrimary("Surface.XML.RootName.Model")+",*",
 				Language.trPrimary("XML.Statistic.BaseElement")+","+Language.trPrimary("Surface.XML.Model.Root")+","+Language.trPrimary("Surface.XML.RootName.Resources")+","+Language.trPrimary("Surface.XML.RootName.Resource"),
 				Language.trPrimary("XML.Statistic.BaseElement")+","+Language.trPrimary("Surface.XML.Model.Root")+","+Language.trPrimary("Surface.XML.RootName.ClientData")+","+Language.trPrimary("Surface.XML.ClientData"),

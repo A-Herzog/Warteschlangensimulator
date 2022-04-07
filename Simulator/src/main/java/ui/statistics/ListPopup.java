@@ -753,10 +753,10 @@ public class ListPopup {
 		JMenu menu;
 
 		if (model!=null) {
-			popupMenu.add(getMenuItem(Language.tr("Statistic.FastAccess.SelectXMLTag.Model"),Language.tr("Statistic.FastAccess.SelectXMLTag.Model.Tooltip"),Images.SCRIPT_RECORD_XML.getIcon(),e->commandSelectModelXMLTag(model,help,textArea,update)));
-			popupMenu.add(getMenuItem(Language.tr("Statistic.FastAccess.SelectXMLTag.Statistics"),Language.tr("Statistic.FastAccess.SelectXMLTag.Statistics.Tooltip"),Images.SCRIPT_RECORD_XML.getIcon(),e->commandSelectStatisticsXMLTag(statistics,help,textArea,update)));
+			popupMenu.add(getMenuItem(Language.tr("Statistic.FastAccess.SelectXMLTag.Model"),Language.tr("Statistic.FastAccess.SelectXMLTag.Model.Tooltip"),Images.SCRIPT_RECORD_XML.getIcon(),e->commandSelectModelXMLTag(popupMenu,model,help,textArea,update)));
+			popupMenu.add(getMenuItem(Language.tr("Statistic.FastAccess.SelectXMLTag.Statistics"),Language.tr("Statistic.FastAccess.SelectXMLTag.Statistics.Tooltip"),Images.SCRIPT_RECORD_XML.getIcon(),e->commandSelectStatisticsXMLTag(popupMenu,statistics,help,textArea,update)));
 		} else {
-			popupMenu.add(getMenuItem(Language.tr("Statistic.FastAccess.SelectXMLTag"),Language.tr("Statistic.FastAccess.SelectXMLTag.Tooltip"),Images.SCRIPT_RECORD_XML.getIcon(),e->commandSelectStatisticsXMLTag(statistics,help,textArea,update)));
+			popupMenu.add(getMenuItem(Language.tr("Statistic.FastAccess.SelectXMLTag"),Language.tr("Statistic.FastAccess.SelectXMLTag.Tooltip"),Images.SCRIPT_RECORD_XML.getIcon(),e->commandSelectStatisticsXMLTag(popupMenu,statistics,help,textArea,update)));
 		}
 
 		popupMenu.addSeparator();
@@ -920,7 +920,7 @@ public class ListPopup {
 	 */
 	public void addSelectXML(final JPopupMenu popupMenu, final Statistics statistics, final Consumer<ScriptHelperRecord> listener, final Runnable help) {
 		popupMenu.add(getMenuItem(Language.tr("Statistic.FastAccess.SelectXMLTag"),Language.tr("Statistic.FastAccess.SelectXMLTag.Tooltip"),Images.SCRIPT_RECORD_XML.getIcon(),e->{
-			final StatisticViewerFastAccessDialog dialog=new StatisticViewerFastAccessDialog(null,statistics.saveToXMLDocument(),help,true);
+			final StatisticViewerFastAccessDialog dialog=new StatisticViewerFastAccessDialog(popupMenu,statistics.saveToXMLDocument(),help,true);
 			dialog.setVisible(true);
 			if (dialog.getClosedBy()!=BaseDialog.CLOSED_BY_OK) return;
 			listener.accept(new ScriptHelperRecord("","","",null,XMLMode.XML_TEXT,dialog.getXMLSelector()));
@@ -979,14 +979,15 @@ public class ListPopup {
 
 	/**
 	 * Zeigt einen Dialog zur Auswahl eines XML-Elements an und fügt dann einen entsprechenden Ausgabebefehl in das Skript-Eingabefeld ein.
+	 * @param owner	Übergeordnetes Elemente (zur Ausrichtung des Dialogs)
 	 * @param doc	XML-Dokument
 	 * @param command	Befehl zur Ausgabe des XML-Pfades
 	 * @param help	Hilfe-Runnable
 	 * @param textArea	Textfeld, in das die Daten eingefügt werden sollen
 	 * @param update	Runnable, das aufgerufen wird, wenn ein Befehl im Popup-Menü gewählt wurde (kann <code>null</code> sein)
 	 */
-	private void commandSelect(final Document doc, final String command, final Runnable help, final JTextArea textArea, final Runnable update) {
-		final StatisticViewerFastAccessDialog dialog=new StatisticViewerFastAccessDialog(null,doc,help,false);
+	private void commandSelect(final Component owner, final Document doc, final String command, final Runnable help, final JTextArea textArea, final Runnable update) {
+		final StatisticViewerFastAccessDialog dialog=new StatisticViewerFastAccessDialog(owner,doc,help,false);
 		dialog.setVisible(true);
 		if (dialog.getClosedBy()!=BaseDialog.CLOSED_BY_OK) return;
 
@@ -1007,24 +1008,26 @@ public class ListPopup {
 
 	/**
 	 * Zeigt einen Dialog zur Auswahl eines XML-Elements aus den Modelldaten an und fügt dann einen entsprechenden Ausgabebefehl in das Skript-Eingabefeld ein.
+	 * @param owner	Übergeordnetes Elemente (zur Ausrichtung des Dialogs)
 	 * @param model	Editor-Modell
 	 * @param help	Hilfe-Runnable
 	 * @param textArea	Textfeld, in das die Daten eingefügt werden sollen
 	 * @param update	Runnable, das aufgerufen wird, wenn ein Befehl im Popup-Menü gewählt wurde (kann <code>null</code> sein)
 	 */
-	private void commandSelectModelXMLTag(final EditModel model, final Runnable help, final JTextArea textArea, final Runnable update) {
-		commandSelect(model.saveToXMLDocument(),"Model.xml",help,textArea,update);
+	private void commandSelectModelXMLTag(final Component owner, final EditModel model, final Runnable help, final JTextArea textArea, final Runnable update) {
+		commandSelect(owner,model.saveToXMLDocument(),"Model.xml",help,textArea,update);
 	}
 
 	/**
 	 * Zeigt einen Dialog zur Auswahl eines XML-Elements aus den Statistikdaten an und fügt dann einen entsprechenden Ausgabebefehl in das Skript-Eingabefeld ein.
+	 * @param owner	Übergeordnetes Elemente (zur Ausrichtung des Dialogs)
 	 * @param statistics	Statistikobjekt
 	 * @param help	Hilfe-Runnable
 	 * @param textArea	Textfeld, in das die Daten eingefügt werden sollen
 	 * @param update	Runnable, das aufgerufen wird, wenn ein Befehl im Popup-Menü gewählt wurde (kann <code>null</code> sein)
 	 */
-	private void commandSelectStatisticsXMLTag(final Statistics statistics, final Runnable help, final JTextArea textArea, final Runnable update) {
-		commandSelect(statistics.saveToXMLDocument(),"Statistics.xml",help,textArea,update);
+	private void commandSelectStatisticsXMLTag(final Component owner, final Statistics statistics, final Runnable help, final JTextArea textArea, final Runnable update) {
+		commandSelect(owner,statistics.saveToXMLDocument(),"Statistics.xml",help,textArea,update);
 	}
 
 	/**

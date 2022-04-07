@@ -107,7 +107,7 @@ public class ScriptPopupItemXML extends ScriptPopupItem {
 		if (statistics!=null) doc=statistics.saveToXMLDocument();
 		if (doc==null) return;
 
-		final StatisticViewerFastAccessDialog dialog=new StatisticViewerFastAccessDialog(null,doc,help,false);
+		final StatisticViewerFastAccessDialog dialog=new StatisticViewerFastAccessDialog(textArea,doc,help,false);
 		dialog.setVisible(true);
 		if (dialog.getClosedBy()!=BaseDialog.CLOSED_BY_OK) return;
 
