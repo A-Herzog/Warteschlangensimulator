@@ -1369,7 +1369,6 @@ public class ScriptPopup {
 			final String xmlMain=Language.tr("Statistics.XML.Element.TransferStations");
 			for (String name: statistics.stationsTransferTimes.getNames()) {
 				xmlSub=xmlMain+"->"+Language.tr("Statistics.XML.Station")+"["+Language.tr("Statistics.XML.Type")+"=\""+name+"\"]->";
-				sub.addChild(new ScriptPopupItemStatistics(name,null,null,XMLMode.XML_NUMBER_TIME,xmlMain+"->"+xmlSub+"->"+mean,scriptMode));
 				sub.addChild(sub2=new ScriptPopupItemSub(name,null,null));
 				sub2.addChild(new ScriptPopupItemStatistics(Language.tr("Statistics.Average"),null,null,XMLMode.XML_NUMBER_TIME,xmlSub+mean,scriptMode));
 				sub2.addChild(new ScriptPopupItemStatistics(Language.tr("Statistics.StdDev"),null,null,XMLMode.XML_NUMBER_TIME,xmlSub+Std,scriptMode));
@@ -1384,7 +1383,6 @@ public class ScriptPopup {
 			final String xmlMain=Language.tr("Statistics.XML.Element.TransferStationsTotal");
 			for (String name: statistics.stationsTotalTransferTimes.getNames()) {
 				xmlSub=xmlMain+"->"+Language.tr("Statistics.XML.Station")+"["+Language.tr("Statistics.XML.Type")+"=\""+name+"\"]->";
-				sub.addChild(new ScriptPopupItemStatistics(name,null,null,XMLMode.XML_NUMBER_TIME,xmlMain+"->"+xmlSub+"->"+mean,scriptMode));
 				sub.addChild(sub2=new ScriptPopupItemSub(name,null,null));
 				sub2.addChild(new ScriptPopupItemStatistics(Language.tr("Statistics.Average"),null,null,XMLMode.XML_NUMBER_TIME,xmlSub+mean,scriptMode));
 				sub2.addChild(new ScriptPopupItemStatistics(Language.tr("Statistics.StdDev"),null,null,XMLMode.XML_NUMBER_TIME,xmlSub+Std,scriptMode));
@@ -1399,7 +1397,6 @@ public class ScriptPopup {
 			final String xmlMain=Language.tr("Statistics.XML.Element.TransferStationsByClientType");
 			for (String name: statistics.stationsTransferTimesByClientType.getNames()) {
 				xmlSub=xmlMain+"->"+Language.tr("Statistics.XML.Station")+"["+Language.tr("Statistics.XML.Type")+"=\""+name+"\"]->";
-				sub.addChild(new ScriptPopupItemStatistics(name,null,null,XMLMode.XML_NUMBER_TIME,xmlMain+"->"+xmlSub+"->"+mean,scriptMode));
 				sub.addChild(sub2=new ScriptPopupItemSub(name,null,null));
 				sub2.addChild(new ScriptPopupItemStatistics(Language.tr("Statistics.Average"),null,null,XMLMode.XML_NUMBER_TIME,xmlSub+mean,scriptMode));
 				sub2.addChild(new ScriptPopupItemStatistics(Language.tr("Statistics.StdDev"),null,null,XMLMode.XML_NUMBER_TIME,xmlSub+Std,scriptMode));
@@ -1438,7 +1435,6 @@ public class ScriptPopup {
 			final String xmlMain=Language.tr("Statistics.XML.Element.ProcessStations");
 			for (String name: statistics.stationsProcessingTimes.getNames()) {
 				xmlSub=xmlMain+"->"+Language.tr("Statistics.XML.Station")+"["+Language.tr("Statistics.XML.Type")+"=\""+name+"\"]->";
-				sub.addChild(new ScriptPopupItemStatistics(name,null,null,XMLMode.XML_NUMBER_TIME,xmlMain+"->"+xmlSub+"->"+mean,scriptMode));
 				sub.addChild(sub2=new ScriptPopupItemSub(name,null,null));
 				sub2.addChild(new ScriptPopupItemStatistics(Language.tr("Statistics.Average"),null,null,XMLMode.XML_NUMBER_TIME,xmlSub+mean,scriptMode));
 				sub2.addChild(new ScriptPopupItemStatistics(Language.tr("Statistics.StdDev"),null,null,XMLMode.XML_NUMBER_TIME,xmlSub+Std,scriptMode));
@@ -1453,7 +1449,6 @@ public class ScriptPopup {
 			final String xmlMain=Language.tr("Statistics.XML.Element.ProcessStationsTotal");
 			for (String name: statistics.stationsTotalProcessingTimes.getNames()) {
 				xmlSub=xmlMain+"->"+Language.tr("Statistics.XML.Station")+"["+Language.tr("Statistics.XML.Type")+"=\""+name+"\"]->";
-				sub.addChild(new ScriptPopupItemStatistics(name,null,null,XMLMode.XML_NUMBER_TIME,xmlMain+"->"+xmlSub+"->"+mean,scriptMode));
 				sub.addChild(sub2=new ScriptPopupItemSub(name,null,null));
 				sub2.addChild(new ScriptPopupItemStatistics(Language.tr("Statistics.Average"),null,null,XMLMode.XML_NUMBER_TIME,xmlSub+mean,scriptMode));
 				sub2.addChild(new ScriptPopupItemStatistics(Language.tr("Statistics.StdDev"),null,null,XMLMode.XML_NUMBER_TIME,xmlSub+Std,scriptMode));
@@ -1468,7 +1463,6 @@ public class ScriptPopup {
 			final String xmlMain=Language.tr("Statistics.XML.Element.ProcessStationsByClientType");
 			for (String name: statistics.stationsProcessingTimesByClientType.getNames()) {
 				xmlSub=xmlMain+"->"+Language.tr("Statistics.XML.Station")+"["+Language.tr("Statistics.XML.Type")+"=\""+name+"\"]->";
-				sub.addChild(new ScriptPopupItemStatistics(name,null,null,XMLMode.XML_NUMBER_TIME,xmlMain+"->"+xmlSub+"->"+mean,scriptMode));
 				sub.addChild(sub2=new ScriptPopupItemSub(name,null,null));
 				sub2.addChild(new ScriptPopupItemStatistics(Language.tr("Statistics.Average"),null,null,XMLMode.XML_NUMBER_TIME,xmlSub+mean,scriptMode));
 				sub2.addChild(new ScriptPopupItemStatistics(Language.tr("Statistics.StdDev"),null,null,XMLMode.XML_NUMBER_TIME,xmlSub+Std,scriptMode));
@@ -1507,7 +1501,6 @@ public class ScriptPopup {
 			final String xmlMain=Language.tr("Statistics.XML.Element.ResidenceStations");
 			for (String name: statistics.stationsResidenceTimes.getNames()) {
 				xmlSub=xmlMain+"->"+Language.tr("Statistics.XML.Station")+"["+Language.tr("Statistics.XML.Type")+"=\""+name+"\"]->";
-				sub.addChild(new ScriptPopupItemStatistics(name,null,null,XMLMode.XML_NUMBER_TIME,xmlMain+"->"+xmlSub+"->"+mean,scriptMode));
 				sub.addChild(sub2=new ScriptPopupItemSub(name,null,null));
 				sub2.addChild(new ScriptPopupItemStatistics(Language.tr("Statistics.Average"),null,null,XMLMode.XML_NUMBER_TIME,xmlSub+mean,scriptMode));
 				sub2.addChild(new ScriptPopupItemStatistics(Language.tr("Statistics.StdDev"),null,null,XMLMode.XML_NUMBER_TIME,xmlSub+Std,scriptMode));
@@ -1522,7 +1515,6 @@ public class ScriptPopup {
 			final String xmlMain=Language.tr("Statistics.XML.Element.ResidenceStationsTotal");
 			for (String name: statistics.stationsTotalResidenceTimes.getNames()) {
 				xmlSub=xmlMain+"->"+Language.tr("Statistics.XML.Station")+"["+Language.tr("Statistics.XML.Type")+"=\""+name+"\"]->";
-				sub.addChild(new ScriptPopupItemStatistics(name,null,null,XMLMode.XML_NUMBER_TIME,xmlMain+"->"+xmlSub+"->"+mean,scriptMode));
 				sub.addChild(sub2=new ScriptPopupItemSub(name,null,null));
 				sub2.addChild(new ScriptPopupItemStatistics(Language.tr("Statistics.Average"),null,null,XMLMode.XML_NUMBER_TIME,xmlSub+mean,scriptMode));
 				sub2.addChild(new ScriptPopupItemStatistics(Language.tr("Statistics.StdDev"),null,null,XMLMode.XML_NUMBER_TIME,xmlSub+Std,scriptMode));
@@ -1537,7 +1529,6 @@ public class ScriptPopup {
 			final String xmlMain=Language.tr("Statistics.XML.Element.ResidenceStationsByClientType");
 			for (String name: statistics.stationsResidenceTimesByClientType.getNames()) {
 				xmlSub=xmlMain+"->"+Language.tr("Statistics.XML.Station")+"["+Language.tr("Statistics.XML.Type")+"=\""+name+"\"]->";
-				sub.addChild(new ScriptPopupItemStatistics(name,null,null,XMLMode.XML_NUMBER_TIME,xmlMain+"->"+xmlSub+"->"+mean,scriptMode));
 				sub.addChild(sub2=new ScriptPopupItemSub(name,null,null));
 				sub2.addChild(new ScriptPopupItemStatistics(Language.tr("Statistics.Average"),null,null,XMLMode.XML_NUMBER_TIME,xmlSub+mean,scriptMode));
 				sub2.addChild(new ScriptPopupItemStatistics(Language.tr("Statistics.StdDev"),null,null,XMLMode.XML_NUMBER_TIME,xmlSub+Std,scriptMode));
