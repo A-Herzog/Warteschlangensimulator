@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-08 08:37+0200\n"
+"POT-Creation-Date: 2022-04-10 00:06+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -14971,6 +14971,9 @@ msgstr "Zeitplan aus Zwischenablage oder Datei laden."
 
 msgid "Schedule.EditDialog.Range"
 msgstr "Bereich"
+
+msgid "Schedule.EditDialog.Range.FullRangeIsVisible"
+msgstr "Es wird bereits der gesamte Zeitplan angezeigt."
 
 msgid "Schedule.EditDialog.Range.Hint"
 msgstr "Ermöglicht die Auswahl des darzustellenden Zeitplan-Bereichs über einen Dialog."

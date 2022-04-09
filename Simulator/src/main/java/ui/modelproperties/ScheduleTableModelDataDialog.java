@@ -251,7 +251,6 @@ public class ScheduleTableModelDataDialog extends BaseDialog {
 	private void commandRangeDialog(final JButton parent) {
 		final int initialPosition=schedulePanel.getStartPosition();
 		final int max=Math.max(initialPosition,schedulePanel.getLastNonNullSlot()-schedulePanel.getDisplaySlots());
-		if (max==0) return;
 
 		final JPopupMenu popup=new JPopupMenu();
 
@@ -260,24 +259,29 @@ public class ScheduleTableModelDataDialog extends BaseDialog {
 		final JPanel panel2=new JPanel(new FlowLayout(FlowLayout.LEFT));
 		popup.add(panel2);
 
-		final JSlider slider=new JSlider(0,max,initialPosition);
-		panel1.add(slider);
+		if (max==0) {
+			panel1.add(new JLabel(Language.tr("Schedule.EditDialog.Range.FullRangeIsVisible")));
+			panel2.setVisible(false);
+		} else {
+			final JSlider slider=new JSlider(0,max,initialPosition);
+			panel1.add(slider);
 
-		slider.setPaintTicks(true);
-		slider.setMajorTickSpacing((int)Math.round(Math.max(1,Math.ceil((max-1)/5.0))));
-		final int minor=(int)Math.round(Math.max(1,Math.ceil((max-1)/20.0)));
-		slider.setMinorTickSpacing(minor);
-		if (minor==1) slider.setSnapToTicks(true);
+			slider.setPaintTicks(true);
+			slider.setMajorTickSpacing((int)Math.round(Math.max(1,Math.ceil((max-1)/5.0))));
+			final int minor=(int)Math.round(Math.max(1,Math.ceil((max-1)/20.0)));
+			slider.setMinorTickSpacing(minor);
+			if (minor==1) slider.setSnapToTicks(true);
 
-		final JLabel label=new JLabel();
-		panel2.add(label);
-		label.setText(TimeTools.formatTime(durationPerSlot*initialPosition)+" - "+TimeTools.formatTime(durationPerSlot*(initialPosition+schedulePanel.getDisplaySlots())));
+			final JLabel label=new JLabel();
+			panel2.add(label);
+			label.setText(TimeTools.formatTime(durationPerSlot*initialPosition)+" - "+TimeTools.formatTime(durationPerSlot*(initialPosition+schedulePanel.getDisplaySlots())));
 
-		slider.addChangeListener(e->{
-			final int pos=slider.getValue();
-			schedulePanel.setStartPosition(pos);
-			label.setText(TimeTools.formatTime(durationPerSlot*pos)+" - "+TimeTools.formatTime(durationPerSlot*(pos+schedulePanel.getDisplaySlots())));
-		});
+			slider.addChangeListener(e->{
+				final int pos=slider.getValue();
+				schedulePanel.setStartPosition(pos);
+				label.setText(TimeTools.formatTime(durationPerSlot*pos)+" - "+TimeTools.formatTime(durationPerSlot*(pos+schedulePanel.getDisplaySlots())));
+			});
+		}
 
 		popup.show(parent,0,parent.getHeight());
 	}
