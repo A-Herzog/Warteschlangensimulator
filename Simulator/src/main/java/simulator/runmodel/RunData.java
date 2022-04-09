@@ -243,6 +243,24 @@ public class RunData {
 	private IndicatorAccessCacheClientTypes cacheClientsAtStationQueueByClient;
 
 	/**
+	 * Cache für die "Verteilung der Anzahl an Kunden in Bedienung an den Stationen (erfasst nach Stationen)"-Statistikobjekte
+	 * @see Statistics#clientsAtStationProcessByStation
+	 */
+	private IndicatorAccessCacheStations cacheClientsAtStationProcessByStation;
+
+	/**
+	 * Cache für die "Verteilung der Anzahl an Kunden in Bedienung an den Stationen (erfasst nach Stationen und Kundentypen)"-Statistikobjekte
+	 * @see Statistics#clientsAtStationProcessByStationAndClient
+	 */
+	private IndicatorAccessCacheStationsClientTypes cacheClientsAtStationProcessByStationByClientType;
+
+	/**
+	 * Cache für die "Verteilung der Anzahl an Kunden in Bedienung an den Stationen (erfasst nach Kundentypen)"-Statistikobjekte
+	 * @see Statistics#clientsAtStationProcessByClient
+	 */
+	private IndicatorAccessCacheClientTypes cacheClientsAtStationProcessByClient;
+
+	/**
 	 * Cache für die "Erfassung der an den Stationen entstehenden Kosten"-Statistikobjekte
 	 * @see Statistics#stationCosts
 	 */
@@ -252,6 +270,11 @@ public class RunData {
 	 * Speichert, wie viele Kunden pro Kundentyp sich momentan in der Warteschlange einer Station aufhalten.
 	 */
 	private int[] clientsAtStationQueueByType;
+
+	/**
+	 * Speichert, wie viele Kunden pro Kundentyp sich momentan in Bedienung einer Station befinden.
+	 */
+	private int[] clientsAtStationProcessByType;
 
 	/**
 	 * Speichert, wie viele Kunden pro Kundentyp sich momentan im System befinden.<br>
@@ -266,6 +289,14 @@ public class RunData {
 	 * @see #logClientLeavesStationQueue(SimulationData, RunElement, RunElementData, RunDataClient)
 	 */
 	public int[] clientsInQueuesByType;
+
+	/**
+	 * Speichert, wie viele Kunden pro Kundentyp sich momentan im System in irgendwo in Bedienung befinden.<br>
+	 * Achtung: Wird erst bei der ersten Kundenankunft initialisiert.
+	 * @see #logClientEntersStationQueue(SimulationData, RunElement, RunElementData, RunDataClient)
+	 * @see #logClientLeavesStationQueue(SimulationData, RunElement, RunElementData, RunDataClient)
+	 */
+	public int[] clientsInProcessByType;
 
 	/**
 	 * Hält den Cache der momentan nicht verwendeten <code>RunDataClient</code>-Objekte vor und
@@ -438,6 +469,9 @@ public class RunData {
 		cacheClientsAtStationQueueByStation=new IndicatorAccessCacheStations(simData.statistics.clientsAtStationQueueByStation);
 		cacheClientsAtStationQueueByStationByClientType=new IndicatorAccessCacheStationsClientTypes(simData.statistics.clientsAtStationQueueByStationAndClient);
 		cacheClientsAtStationQueueByClient=new IndicatorAccessCacheClientTypes(simData.statistics.clientsAtStationQueueByClient,simData.runModel.clientTypes);
+		cacheClientsAtStationProcessByStation=new IndicatorAccessCacheStations(simData.statistics.clientsAtStationProcessByStation);
+		cacheClientsAtStationProcessByStationByClientType=new IndicatorAccessCacheStationsClientTypes(simData.statistics.clientsAtStationProcessByStationAndClient);
+		cacheClientsAtStationProcessByClient=new IndicatorAccessCacheClientTypes(simData.statistics.clientsAtStationProcessByClient,simData.runModel.clientTypes);
 		cacheStationCosts=new IndicatorAccessCacheStations(simData.statistics.stationCosts);
 
 		resources.prepareOperatorObjects(simData);
@@ -872,9 +906,6 @@ public class RunData {
 	 */
 	public void explicitInitStatistics(final SimulationData simData, final RunElement station) {
 		final RunElementData stationData=station.getData(simData);
-		if (stationData.statisticClientsAtStationQueue==null) {
-			stationData.statisticClientsAtStationQueue=(StatisticsTimePerformanceIndicator)(cacheClientsAtStationQueueByStation.get(station));
-		}
 
 		if (stationData.statisticWaiting==null) stationData.statisticWaiting=(StatisticsDataPerformanceIndicator)(cacheStationsWaitingTimes.get(station));
 		if (stationData.statisticTransfer==null) stationData.statisticTransfer=(StatisticsDataPerformanceIndicator)(cacheStationsTransferTimes.get(station));
@@ -882,6 +913,7 @@ public class RunData {
 		if (stationData.statisticResidence==null) stationData.statisticResidence=(StatisticsDataPerformanceIndicator)(cacheStationsResidenceTimes.get(station));
 		if (stationData.statisticClientsAtStation==null) stationData.statisticClientsAtStation=(StatisticsTimePerformanceIndicator)(cacheClientsAtStation.get(station));
 		if (stationData.statisticClientsAtStationQueue==null) stationData.statisticClientsAtStationQueue=(StatisticsTimePerformanceIndicator)(cacheClientsAtStationQueueByStation.get(station));
+		if (stationData.statisticClientsAtStationProcess==null) stationData.statisticClientsAtStationProcess=(StatisticsTimePerformanceIndicator)(cacheClientsAtStationProcessByStation.get(station));
 		if (stationData.statisticStationsInterarrivalTime==null) stationData.statisticStationsInterarrivalTime=(StatisticsDataPerformanceIndicator)(cacheStationsInterarrivalTime.get(station));
 		if (stationData.statisticStationsInterarrivalTimeBatch==null) stationData.statisticStationsInterarrivalTimeBatch=(StatisticsDataPerformanceIndicator)(cacheStationsInterarrivalTimeBatch.get(station));
 		if (stationData.statisticStationsInterleaveTime==null) stationData.statisticStationsInterleaveTime=(StatisticsDataPerformanceIndicator)(cacheStationsInterleavingTime.get(station));
@@ -896,9 +928,12 @@ public class RunData {
 			stationData.statisticClientsAtStationByClientTypeValue=new int[clientTypeCount];
 			stationData.statisticClientsAtStationQueueByClientType=new StatisticsTimePerformanceIndicator[clientTypeCount];
 			stationData.statisticClientsAtStationQueueByClientTypeValue=new int[clientTypeCount];
+			stationData.statisticClientsAtStationProcessByClientType=new StatisticsTimePerformanceIndicator[clientTypeCount];
+			stationData.statisticClientsAtStationProcessByClientTypeValue=new int[clientTypeCount];
 			for (int i=0;i<clientTypeCount;i++) {
 				stationData.statisticClientsAtStationByClientType[i]=(StatisticsTimePerformanceIndicator)(cacheClientsAtStationByClientType.get(simData,station,i));
-				stationData.statisticClientsAtStationQueueByClientType[i]=(StatisticsTimePerformanceIndicator)(cacheClientsAtStationByClientType.get(simData,station,i));
+				stationData.statisticClientsAtStationQueueByClientType[i]=(StatisticsTimePerformanceIndicator)(cacheClientsAtStationQueueByStationByClientType.get(simData,station,i));
+				stationData.statisticClientsAtStationProcessByClientType[i]=(StatisticsTimePerformanceIndicator)(cacheClientsAtStationProcessByStationByClientType.get(simData,station,i));
 			}
 		}
 	}
@@ -989,6 +1024,90 @@ public class RunData {
 
 		/* Zählung für System */
 		simData.statistics.clientsInSystemQueues.set(time,waitingClients);
+	}
+
+	/**
+	 * Erhöht den Zähler für die Kunden in Bedienung der Bedienstation um eins<br>
+	 * (um in der Statistik zu erfassen, wie lange sich wie viele Kunde in Bedienung an der Station befunden haben)
+	 * @param simData	Objekt vom Typ <code>SimulationData</code>, welches das Laufzeitmodell (vom Typ <code>RunModel</code> im Feld <code>runModel</code>) und die Statistik (vom Typ <code>Statistics</code> im Feld <code>statistics</code>) enthält und den Zugriff auf die von <code>SimData</code> geerbten Basis-Funktionen ermöglicht
+	 * @param station	Station
+	 * @param stationData	Optionales Objekt mit den thread-lokalen Daten zu der Station (kann <code>null</code> sein, dann ermittelt es diese Funktion selbst)
+	 * @param client	Aktueller Kunde
+	 */
+	public void logClientEntersStationProcess(final SimulationData simData, final RunElement station, RunElementData stationData, final RunDataClient client) {
+		if (clientsInProcessByType==null) clientsInProcessByType=new int[simData.runModel.clientTypes.length];
+		clientsInProcessByType[client.type]=FastMath.max(0,clientsInProcessByType[client.type]+1);
+
+		if (stationData==null) stationData=station.getData(simData);
+		final int count1=clientsAtStationProcess(simData,station,stationData,1); /* Anzahl an Kunden an Station auch in WarmUp-Phase aktualisieren */
+		final int count2=clientsAtStationProcess(simData,client,1);
+		final int count3=clientsAtStationProcessByType(simData,station,stationData,client,1);
+
+		if (isWarmUp) return;
+
+		StatisticsTimePerformanceIndicator indicator;
+		final double time=simData.currentTime*scale;
+
+		if (station.stationStatisticsActive) {
+			/* Zählung pro Station */
+			indicator=stationData.statisticClientsAtStationProcess;
+			if (indicator==null) indicator=stationData.statisticClientsAtStationProcess=(StatisticsTimePerformanceIndicator)(cacheClientsAtStationProcessByStation.get(station));
+			indicator.set(time,FastMath.min(count1,100_000));
+
+			/* Zählung pro Station und Kundentyp */
+			if (stationData.statisticClientsAtStationProcessByClientType==null) stationData.statisticClientsAtStationProcessByClientType=new StatisticsTimePerformanceIndicator[simData.runModel.clientTypes.length];
+			indicator=stationData.statisticClientsAtStationProcessByClientType[client.type];
+			if (indicator==null) indicator=stationData.statisticClientsAtStationProcessByClientType[client.type]=(StatisticsTimePerformanceIndicator)(cacheClientsAtStationProcessByStationByClientType.get(simData,station,client));
+			indicator.set(time,FastMath.min(count3,100_000));
+		}
+
+		/* Zählung pro Kundentyp */
+		indicator=(StatisticsTimePerformanceIndicator)(cacheClientsAtStationProcessByClient.get(client));
+		indicator.set(time,FastMath.min(count2,100_000));
+
+		/* Zählung für System -> gibt's hier nicht */
+	}
+
+	/**
+	 * Verringert den Zähler für die Kunden in Bedienung der Bedienstation um eins<br>
+	 * (um in der Statistik zu erfassen, wie lange sich wie viele Kunde in Bedienung an der Station befunden haben)
+	 * @param simData	Objekt vom Typ <code>SimulationData</code>, welches das Laufzeitmodell (vom Typ <code>RunModel</code> im Feld <code>runModel</code>) und die Statistik (vom Typ <code>Statistics</code> im Feld <code>statistics</code>) enthält und den Zugriff auf die von <code>SimData</code> geerbten Basis-Funktionen ermöglicht
+	 * @param station	Station
+	 * @param stationData	Optionales Objekt mit den thread-lokalen Daten zu der Station (kann <code>null</code> sein, dann ermittelt es diese Funktion selbst)
+	 * @param client	Aktueller Kunde
+	 */
+	public void logClientLeavesStationProcess(final SimulationData simData, final RunElement station, RunElementData stationData, final RunDataClient client) {
+		if (clientsInProcessByType==null) clientsInProcessByType=new int[simData.runModel.clientTypes.length];
+		clientsInProcessByType[client.type]=FastMath.max(0,clientsInProcessByType[client.type]-1);
+
+		if (stationData==null) stationData=station.getData(simData);
+		final int count1=clientsAtStationProcess(simData,station,stationData,-1); /* Anzahl an Kunden an Station auch in WarmUp-Phase aktualisieren */
+		final int count2=clientsAtStationProcess(simData,client,-1);
+		final int count3=clientsAtStationProcessByType(simData,station,stationData,client,-1);
+
+		if (isWarmUp) return;
+
+		StatisticsTimePerformanceIndicator indicator;
+		final double time=simData.currentTime*scale;
+
+		if (station.stationStatisticsActive) {
+			/* Zählung pro Station */
+			indicator=stationData.statisticClientsAtStationProcess;
+			if (indicator==null) indicator=stationData.statisticClientsAtStationProcess=(StatisticsTimePerformanceIndicator)(cacheClientsAtStationProcessByStation.get(station));
+			indicator.set(time,FastMath.min(count1,100_000));
+
+			/* Zählung pro Station und Kundentyp */
+			if (stationData.statisticClientsAtStationProcessByClientType==null) stationData.statisticClientsAtStationProcessByClientType=new StatisticsTimePerformanceIndicator[simData.runModel.clientTypes.length];
+			indicator=stationData.statisticClientsAtStationProcessByClientType[client.type];
+			if (indicator==null) indicator=stationData.statisticClientsAtStationProcessByClientType[client.type]=(StatisticsTimePerformanceIndicator)(cacheClientsAtStationProcessByStationByClientType.get(simData,station,client));
+			indicator.set(time,FastMath.min(count3,100_000));
+		}
+
+		/* Zählung pro Kundentyp */
+		indicator=(StatisticsTimePerformanceIndicator)(cacheClientsAtStationProcessByClient.get(client));
+		indicator.set(time,FastMath.min(count2,100_000));
+
+		/* Zählung für System -> gibt's hier nicht */
 	}
 
 	/**
@@ -1282,6 +1401,19 @@ public class RunData {
 	}
 
 	/**
+	 * Erfasst eine Änderung der Anzahl an Kunden in Bedienung
+	 * @param simData	Simulationsdatenobjekt
+	 * @param station	Station an der der Wert verändert werden soll (muss nur dann einen Wert ungleich <code>null</code> besitzen, wenn <code>stationData</code> keinen Wert ungleich <code>null</code> besitzt)
+	 * @param stationData	Station an der der Wert verändert werden soll (schneller als über <code>station</code>; ist dieser Parameter <code>null</code>, so muss ein <code>station</code> ein Wert übergeben werden)
+	 * @param change	Veränderung der Anzahl
+	 * @return	Neue Anzahl
+	 */
+	private int clientsAtStationProcess(final SimulationData simData, final RunElement station, final RunElementData stationData, final int change) {
+		final RunElementData data=(stationData==null)?station.getData(simData):stationData;
+		return data.clientsAtStationProcess=FastMath.max(0,data.clientsAtStationProcess+change);
+	}
+
+	/**
 	 * Ändert den Wert von {@link RunElementData#statisticClientsAtStationQueueByClientTypeValue} für eine Station.
 	 * @param simData	Simulationsdatenobjekt
 	 * @param station	Station an der der Wert verändert werden soll (muss nur dann einen Wert ungleich <code>null</code> besitzen, wenn <code>stationData</code> keinen Wert ungleich <code>null</code> besitzt)
@@ -1294,6 +1426,21 @@ public class RunData {
 		final RunElementData data=(stationData==null)?station.getData(simData):stationData;
 		if (data.statisticClientsAtStationQueueByClientTypeValue==null) data.statisticClientsAtStationQueueByClientTypeValue=new int[simData.runModel.clientTypes.length];
 		return data.statisticClientsAtStationQueueByClientTypeValue[client.type]=FastMath.max(0,data.statisticClientsAtStationQueueByClientTypeValue[client.type]+change);
+	}
+
+	/**
+	 * Ändert den Wert von {@link RunElementData#statisticClientsAtStationProcessByClientTypeValue} für eine Station.
+	 * @param simData	Simulationsdatenobjekt
+	 * @param station	Station an der der Wert verändert werden soll (muss nur dann einen Wert ungleich <code>null</code> besitzen, wenn <code>stationData</code> keinen Wert ungleich <code>null</code> besitzt)
+	 * @param stationData	Station an der der Wert verändert werden soll (schneller als über <code>station</code>; ist dieser Parameter <code>null</code>, so muss ein <code>station</code> ein Wert übergeben werden)
+	 * @param client	Kunde von dem der Typ ausgelesen wird
+	 * @param change	Veränderung der Anzahl
+	 * @return	Neue Anzahl
+	 */
+	private int clientsAtStationProcessByType(final SimulationData simData, final RunElement station, final RunElementData stationData, final RunDataClient client, final int change) {
+		final RunElementData data=(stationData==null)?station.getData(simData):stationData;
+		if (data.statisticClientsAtStationProcessByClientTypeValue==null) data.statisticClientsAtStationProcessByClientTypeValue=new int[simData.runModel.clientTypes.length];
+		return data.statisticClientsAtStationProcessByClientTypeValue[client.type]=FastMath.max(0,data.statisticClientsAtStationProcessByClientTypeValue[client.type]+change);
 	}
 
 	/**
@@ -1310,6 +1457,22 @@ public class RunData {
 
 		clientsAtStationQueueByType[clientType]=FastMath.max(0,clientsAtStationQueueByType[clientType]+change);
 		return clientsAtStationQueueByType[clientType];
+	}
+
+	/**
+	 * Erfasst eine Änderung der Anzahl an Kunden in Bedienung pro Kundentyp
+	 * @param simData	Simulationsdatenobjekt
+	 * @param client	Kunde von dem der Typ ausgelesen wird
+	 * @param change	Veränderung der Anzahl
+	 * @return	Neue Anzahl
+	 */
+	private int clientsAtStationProcess(final SimulationData simData, final RunDataClient client, final int change) {
+		final int clientType=client.type;
+
+		if (clientsAtStationProcessByType==null) clientsAtStationProcessByType=new int[simData.runModel.clientTypes.length];
+
+		clientsAtStationProcessByType[clientType]=FastMath.max(0,clientsAtStationProcessByType[clientType]+change);
+		return clientsAtStationProcessByType[clientType];
 	}
 
 	/**

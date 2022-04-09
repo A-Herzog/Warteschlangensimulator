@@ -19,10 +19,13 @@ import java.awt.Component;
 import java.awt.Container;
 import java.io.File;
 import java.io.Serializable;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import javax.swing.Icon;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
+import javax.swing.SwingUtilities;
 
 import org.fife.ui.rsyntaxtextarea.RSyntaxTextArea;
 import org.fife.ui.rtextarea.RTextScrollPane;
@@ -75,7 +78,7 @@ public class StatisticViewerFastAccessJS extends StatisticViewerFastAccessBase {
 		super(helpFastAccess,helpFastAccessModal,statistics,resultsChanged,true);
 
 		/* Filtertext */
-		final ScriptEditorAreaBuilder builder=new ScriptEditorAreaBuilder(ScriptPopup.ScriptMode.Javascript,false,e->process(false));
+		final ScriptEditorAreaBuilder builder=new ScriptEditorAreaBuilder(ScriptPopup.ScriptMode.Javascript,false,e->requestProcessing());
 		builder.addAutoCompleteFeatures(ScriptEditorPanel.featuresFilter);
 		builder.addFileDropper(e->{
 			final FileDropperData data=(FileDropperData)e.getSource();
@@ -115,6 +118,45 @@ public class StatisticViewerFastAccessJS extends StatisticViewerFastAccessBase {
 	public void setStatistics(final Statistics statistics) {
 		super.setStatistics(statistics);
 		dataFilter=new JSRunDataFilter(statistics.saveToXMLDocument(),statistics.loadedStatistics);
+	}
+
+	/**
+	 * Timer zur Steuerung der verzögerten Javascript-Code-Ausführung
+	 * über {@link #requestProcessing()}
+	 * @see #requestProcessing()
+	 * @see #lastJsExecutionTimerTask
+	 */
+	private volatile Timer jsExecutionTimer=null;
+
+	/**
+	 * Zuletzt erstellter (und noch nicht abgearbeiteter) Task
+	 * für {@link #jsExecutionTimer}
+	 * @see #jsExecutionTimer
+	 * @see #requestProcessing()
+	 */
+	private TimerTask lastJsExecutionTimerTask=null;
+
+	/**
+	 * Wird aufgerufen, wenn der Javascript-Code neu ausgeführt werden soll, aber damit
+	 * noch etwas gewartet werden soll. (Beim Aufruf dieser Methode werden vorherige,
+	 * noch nicht abgearbeitete vorgemerkte Verarbeitungen verworfen.)
+	 * @see #jsExecutionTimer
+	 * @see #lastJsExecutionTimerTask
+	 */
+	private void requestProcessing() {
+		if (jsExecutionTimer==null) jsExecutionTimer=new Timer("DelayedFastAccessJSExecution",true);
+
+		if (lastJsExecutionTimerTask!=null) lastJsExecutionTimerTask.cancel();
+		lastJsExecutionTimerTask=new TimerTask() {
+			@Override public void run() {
+				SwingUtilities.invokeLater(()->process(false));
+				final Timer timer=jsExecutionTimer;
+				jsExecutionTimer=null;
+				timer.cancel();
+			}
+		};
+
+		jsExecutionTimer.schedule(lastJsExecutionTimerTask,500);
 	}
 
 	/**

@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-03-31 08:29+0200\n"
+"POT-Creation-Date: 2022-04-08 08:37+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -5076,10 +5076,75 @@ msgstr ""
 "<p>Alternativ kann auch die ID einer Kundenquelle angegeben werden, dann beziehen sich die Ergebnisse auf die Kunden des dort erzeugten Kundentyps.</p>"
 
 msgid "ExpressionBuilder.ClientsAtStationService"
-msgstr "Kunden in Bedienung an Bedienstation"
+msgstr "Kunden in Bedienung"
 
 msgid "ExpressionBuilder.ClientsAtStationService.CurrentNumber"
 msgstr "<p>Liefert die aktuelle Anzahl an Kunden, die gerade an der Bedienstation, deren ID in dem Parameter angegeben wurde, in Bedingung sind.</p>"
+
+msgid "ExpressionBuilder.ClientsInServiceProcess.AverageNumber"
+msgstr ""
+"<p>Liefert die mittlere Anzahl an Kunden im Bedienprozess an der Bedienstation, deren ID in dem Parameter angegeben wurde.</p>\n"
+"<p>Alternativ kann auch die ID einer Kundenquelle angegeben werden, dann beziehen sich die Ergebnisse auf die Kunden des dort erzeugten Kundentyps.</p>"
+
+msgid "ExpressionBuilder.ClientsInServiceProcess.CoefficientOfVariationOfTheNumber"
+msgstr ""
+"<p>Liefert den Variationskoeffizienten der Anzahl an Kunden im Bedienprozess an der Bedienstation, deren ID in dem Parameter angegeben wurde.</p>\n"
+"<p>Alternativ kann auch die ID einer Kundenquelle angegeben werden, dann beziehen sich die Ergebnisse auf die Kunden des dort erzeugten Kundentyps.</p>"
+
+msgid "ExpressionBuilder.ClientsInServiceProcess.HistogramMultiple"
+msgstr ""
+"<p>Liefert den Anteil der Zeit, in der sich die Anzahl in Kunden im Bedienprozess an der Bedienstation, deren ID in dem Parameter angegeben wurde, in einem bestimmten Bereich befand (ausschließlich der unteren angegebenen und einschließlich der oberen angegebenen Grenze).</p>\n"
+"<p>Alternativ kann auch die ID einer Kundenquelle angegeben werden, dann beziehen sich die Ergebnisse auf die Kunden des dort erzeugten Kundentyps.</p>"
+
+msgid "ExpressionBuilder.ClientsInServiceProcess.HistogramSingle"
+msgstr ""
+"<p>Liefert den Anteil der Zeit, in der die Anzahl an Kunden im Bedienprozess an der Bedienstation, deren ID in dem Parameter angegeben wurde, einen bestimmten Wert hatte.</p>\n"
+"<p>Alternativ kann auch die ID einer Kundenquelle angegeben werden, dann beziehen sich die Ergebnisse auf die Kunden des dort erzeugten Kundentyps.</p>"
+
+msgid "ExpressionBuilder.ClientsInServiceProcess.Kurt"
+msgstr ""
+"<p>Liefert den Exzess (Wölbung) der Anzahl an Kunden im Bedienprozess an der Bedienstation, deren ID in dem Parameter angegeben wurde.</p>\n"
+"<p>Alternativ kann auch die ID einer Kundenquelle angegeben werden, dann beziehen sich die Ergebnisse auf die Kunden des dort erzeugten Kundentyps.</p>"
+
+msgid "ExpressionBuilder.ClientsInServiceProcess.MaximalNumber"
+msgstr ""
+"<p>Liefert die maximale Anzahl an Kunden im Bedienprozess an der Bedienstation, deren ID in dem Parameter angegeben wurde.</p>\n"
+"<p>Alternativ kann auch die ID einer Kundenquelle angegeben werden, dann beziehen sich die Ergebnisse auf die Kunden des dort erzeugten Kundentyps.</p>"
+
+msgid "ExpressionBuilder.ClientsInServiceProcess.Median"
+msgstr ""
+"<p>Liefert den Median der Anzahl an Kunden im Bedienprozess an der Bedienstation, deren ID in dem Parameter angegeben wurde.</p>\n"
+"<p>Alternativ kann auch die ID einer Kundenquelle angegeben werden, dann beziehen sich die Ergebnisse auf die Kunden des dort erzeugten Kundentyps.</p>"
+
+msgid "ExpressionBuilder.ClientsInServiceProcess.MinimalNumber"
+msgstr ""
+"<p>Liefert die minimale Anzahl an Kunden im Bedienprozess an der Bedienstation, deren ID in dem Parameter angegeben wurde.</p>\n"
+"<p>Alternativ kann auch die ID einer Kundenquelle angegeben werden, dann beziehen sich die Ergebnisse auf die Kunden des dort erzeugten Kundentyps.</p>"
+
+msgid "ExpressionBuilder.ClientsInServiceProcess.Quantil"
+msgstr ""
+"<p>Liefert das Quantil zur Wahrscheinlichkeit p der Anzahl an Kunden im Bedienprozess an der Bedienstation, deren ID in dem Parameter angegeben wurde.</p>\n"
+"<p>Alternativ kann auch die ID einer Kundenquelle angegeben werden, dann beziehen sich die Ergebnisse auf die Kunden des dort erzeugten Kundentyps.</p>"
+
+msgid "ExpressionBuilder.ClientsInServiceProcess.Skewness"
+msgstr ""
+"<p>Liefert die Schiefe der Anzahl an Kunden im Bedienprozess an der Bedienstation, deren ID in dem Parameter angegeben wurde.</p>\n"
+"<p>Alternativ kann auch die ID einer Kundenquelle angegeben werden, dann beziehen sich die Ergebnisse auf die Kunden des dort erzeugten Kundentyps.</p>"
+
+msgid "ExpressionBuilder.ClientsInServiceProcess.SquaredCoefficientOfVariationOfTheNumber"
+msgstr ""
+"<p>Liefert den quadrierten Variationskoeffizienten der Anzahl an Kunden im Bedienprozess an der Bedienstation, deren ID in dem Parameter angegeben wurde.</p>\n"
+"<p>Alternativ kann auch die ID einer Kundenquelle angegeben werden, dann beziehen sich die Ergebnisse auf die Kunden des dort erzeugten Kundentyps.</p>"
+
+msgid "ExpressionBuilder.ClientsInServiceProcess.StandardDeviationOfTheNumber"
+msgstr ""
+"<p>Liefert die Standardabweichung der Anzahl an Kunden im Bedienprozess an der Bedienstation, deren ID in dem Parameter angegeben wurde.</p>\n"
+"<p>Alternativ kann auch die ID einer Kundenquelle angegeben werden, dann beziehen sich die Ergebnisse auf die Kunden des dort erzeugten Kundentyps.</p>"
+
+msgid "ExpressionBuilder.ClientsInServiceProcess.VarianceOfTheNumber"
+msgstr ""
+"<p>Liefert die Varianz der Anzahl an Kunden im Bedienprozess an der Bedienstation, deren ID in dem Parameter angegeben wurde.</p>\n"
+"<p>Alternativ kann auch die ID einer Kundenquelle angegeben werden, dann beziehen sich die Ergebnisse auf die Kunden des dort erzeugten Kundentyps.</p>"
 
 msgid "ExpressionBuilder.ClientsInSystem"
 msgstr "Kunden im System"
@@ -10224,6 +10289,18 @@ msgstr "Heatmap: Maximale Anzahl an wartenden Kunden an den Stationen"
 
 msgid "Main.Menu.View.Statistics.HeatMap.NqMax.Mnemonic"
 msgstr "w"
+
+msgid "Main.Menu.View.Statistics.HeatMap.NsAvg"
+msgstr "Heatmap: Mittlere Anzahl an Kunden in Bedienung an den Stationen"
+
+msgid "Main.Menu.View.Statistics.HeatMap.NsAvg.Mnemonic"
+msgstr "b"
+
+msgid "Main.Menu.View.Statistics.HeatMap.NsMax"
+msgstr "Heatmap: Maximale Anzahl an Kunden in Bedienung an den Stationen"
+
+msgid "Main.Menu.View.Statistics.HeatMap.NsMax.Mnemonic"
+msgstr "B"
 
 msgid "Main.Menu.View.Statistics.HeatMap.Off"
 msgstr "Keine Heatmap anzeigen"
@@ -15641,6 +15718,12 @@ msgstr "Warteschlangenlänge (gesamt)"
 msgid "ScriptPopup.Simulation.getNQAll.Hint"
 msgstr "Aktuelle Länge aller Warteschlangen im System zusammen"
 
+msgid "ScriptPopup.Simulation.getNS"
+msgstr "Anzahl an Kunden in Bedienung"
+
+msgid "ScriptPopup.Simulation.getNS.Hint"
+msgstr "Aktuelle Anzahl an Kunden im Bedienprozess an einer Station"
+
 msgid "ScriptPopup.Simulation.getResourceCount"
 msgstr "Bediener in einer Gruppe"
 
@@ -18978,6 +19061,12 @@ msgstr "Mittlere Anzahl an Kunden im System pro Kundentyp"
 msgid "Statistic.FastAccess.Template.ClientsAtStationByStationAndType"
 msgstr "Mittlere Anzahl an Kunden an einer Station (nach Kundentyp)"
 
+msgid "Statistic.FastAccess.Template.ClientsAtStationProcess"
+msgstr "Mittlere Anzahl an Kunden in Bedienung"
+
+msgid "Statistic.FastAccess.Template.ClientsAtStationProcessByClientType"
+msgstr "Mittlere Anzahl an Kunden in Bedienung (nach Kundentyp)"
+
 msgid "Statistic.FastAccess.Template.ClientsAtStationQueue"
 msgstr "Mittlere Anzahl an Kunden an einer Stationswarteschlange"
 
@@ -18998,6 +19087,9 @@ msgstr "Mittlere Anzahl an Kunden im System"
 
 msgid "Statistic.FastAccess.Template.ClientsInSystem.Tooltip"
 msgstr "Fügt an der aktuellen Position den Befehl zur Ausgabe der mittleren Anzahl an Kunden im System ein."
+
+msgid "Statistic.FastAccess.Template.ClientsInSystemProcess"
+msgstr "Mittlere Anzahl an Kunden in Bedienung"
 
 msgid "Statistic.FastAccess.Template.ClientsInSystemQueue"
 msgstr "Mittlere Anzahl an Kunden im System (wartend)"
@@ -19937,6 +20029,12 @@ msgstr "Mittlere Anzahl an Kunden (pro Kundentyp)"
 msgid "Statistics.AverageNumberOfClientsByStations"
 msgstr "Mittlere Anzahl an Kunden (nach Stationen)"
 
+msgid "Statistics.AverageNumberOfClientsInProcess"
+msgstr "Mittlere Anzahl an Kunden in Bedienung"
+
+msgid "Statistics.AverageNumberOfClientsInProcessByStations"
+msgstr "Mittlere Anzahl an Kunden in Bedienung (nach Stationen)"
+
 msgid "Statistics.AverageNumberOfClientsInQueue"
 msgstr "Mittlere Anzahl an Kunden in der Warteschlange"
 
@@ -20140,6 +20238,12 @@ msgstr "Kunden pro Kundentyp"
 msgid "Statistics.ClientsFlowFactor"
 msgstr "Flussgrade nach Kunden"
 
+msgid "Statistics.ClientsInProcess"
+msgstr "Kunden im Bedienprozess"
+
+msgid "Statistics.ClientsInProcessAt"
+msgstr "Kunden im Bedienprozess an"
+
 msgid "Statistics.ClientsInQueue"
 msgstr "Kunden in der Warteschlange"
 
@@ -20277,6 +20381,12 @@ msgstr "Verteilung der Transferzeiten der Kunden"
 
 msgid "Statistics.DistributionOfClientsWaitingTimes"
 msgstr "Verteilung der Wartezeiten der Kunden"
+
+msgid "Statistics.DistributionOfNumberOfClientsAtStationProcess"
+msgstr "Verteilung der Anzahlen an Kunden im Bedienprozess an den Stationen"
+
+msgid "Statistics.DistributionOfNumberOfClientsAtStationProcessByClientTypes"
+msgstr "Verteilung der Anzahlen an Kunden im Bedienprozess an den Stationen (nach Kundentypen)"
 
 msgid "Statistics.DistributionOfNumberOfClientsAtStationQueues"
 msgstr "Verteilung der Anzahlen an Kunden in den Warteschlangen an den Stationen"
@@ -20776,6 +20886,9 @@ msgstr "Maximale Anzahl"
 msgid "Statistics.MaximumNumberOfClients"
 msgstr "Maximale Anzahl an Kunden"
 
+msgid "Statistics.MaximumNumberOfClientsInProcess"
+msgstr "Maximale Anzahl an Kunden in Bedienung"
+
 msgid "Statistics.MaximumNumberOfClientsInQueue"
 msgstr "Maximale Anzahl an Kunden in der Warteschlange"
 
@@ -20956,6 +21069,21 @@ msgstr "Anzahl an Ankünften"
 msgid "Statistics.NumberOfClients"
 msgstr "Anzahl an Kunden"
 
+msgid "Statistics.NumberOfClientsAtStationProcess"
+msgstr "Anzahl an Kunden in Bedienung an den Stationen"
+
+msgid "Statistics.NumberOfClientsAtStationProcess.Short"
+msgstr "Anzahl an Kunden in Bedienung"
+
+msgid "Statistics.NumberOfClientsAtStationProcess.Singular"
+msgstr "Anzahl an Kunden in Bedienung an der Station"
+
+msgid "Statistics.NumberOfClientsAtStationProcessByClientTypes"
+msgstr "Anzahl an Kunden in Bedienung (nach Stationen und Kundentypen)"
+
+msgid "Statistics.NumberOfClientsAtStationProcessByClientTypes.Short"
+msgstr "Anzahl an Kunden in Bedienung (nach Kundentypen)"
+
 msgid "Statistics.NumberOfClientsAtStationQueues"
 msgstr "Anzahl an Kunden in den Warteschlangen an den Stationen"
 
@@ -20979,6 +21107,9 @@ msgstr "Anzahl an Kunden an der Station"
 
 msgid "Statistics.NumberOfClientsAtStationsByClientTypes"
 msgstr "Anzahl an Kunden an den Stationen (nach Kundentypen)"
+
+msgid "Statistics.NumberOfClientsInProcess"
+msgstr "Anzahl an Kunden in Bedienung"
 
 msgid "Statistics.NumberOfClientsInTheSystem"
 msgstr "Anzahl an Kunden im System"
@@ -21858,6 +21989,12 @@ msgstr "StatistikKundenAnStationNachKundentyp"
 msgid "Statistics.XML.Element.ClientsAtStationByType"
 msgstr "StatistikKundentypenImSystem"
 
+msgid "Statistics.XML.Element.ClientsAtStationProcess"
+msgstr "StatistikKundenAnStationInBedienung"
+
+msgid "Statistics.XML.Element.ClientsAtStationProcessByClientType"
+msgstr "StatistikKundenAnStationInBedienungNachKundentyp"
+
 msgid "Statistics.XML.Element.ClientsAtStationQueue"
 msgstr "StatistikKundenAnStationWartend"
 
@@ -21866,6 +22003,9 @@ msgstr "StatistikKundenAnStationWartendNachKundentyp"
 
 msgid "Statistics.XML.Element.ClientsInSystem"
 msgstr "StatistikKundenImSystem"
+
+msgid "Statistics.XML.Element.ClientsInSystemProcess"
+msgstr "StatistikKundentypenImSystemInBedienung"
 
 msgid "Statistics.XML.Element.ClientsInSystemQueue"
 msgstr "StatistikKundentypenImSystemWartend"
@@ -27796,6 +27936,9 @@ msgstr "Bislang eingetroffene Kunden: %s"
 
 msgid "Surface.PopupMenu.SimulationStatisticsData.Data.ClientsAtStation"
 msgstr "Momentane Anzahl an Kunden in der Station: %s"
+
+msgid "Surface.PopupMenu.SimulationStatisticsData.Data.ClientsAtStationProcess"
+msgstr "Momentane Anzahl an Kunden in Bedienung der Station: %s"
 
 msgid "Surface.PopupMenu.SimulationStatisticsData.Data.ClientsAtStationQueue"
 msgstr "Momentane Anzahl an Kunden in der Warteschlange der Station: %s"

@@ -134,6 +134,14 @@ public class SystemImpl implements SystemInterface {
 	}
 
 	@Override
+	public int getNS(final int id) {
+		if (id<0 || id>=runModel.elementsFast.length) return 0;
+		final RunElement element=runModel.elementsFast[id];
+		if (element==null) return 0;
+		return element.getData(simData).clientsAtStationProcess;
+	}
+
+	@Override
 	public int getWIP() {
 		return simData.statistics.clientsInSystem.getCurrentState();
 	}

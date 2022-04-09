@@ -1239,6 +1239,14 @@ public class StatisticsPanel extends StatisticsBasePanel {
 		for(Statistics statistic : statistics) viewer.add(new StatisticViewerTimeTable(statistic,StatisticViewerTimeTable.Mode.MODE_OVERVIEW_QUEUE_CLIENT_TYPES));
 		group.addChild(new StatisticNode(Language.tr("Statistics.NumberOfClientsAtStationQueuesByClientTypes.Short"),viewer));
 
+		viewer=new ArrayList<>();
+		for(Statistics statistic : statistics) viewer.add(new StatisticViewerTimeTable(statistic,StatisticViewerTimeTable.Mode.MODE_OVERVIEW_PROCESS));
+		group.addChild(new StatisticNode(Language.tr("Statistics.NumberOfClientsAtStationProcess.Short"),viewer));
+
+		viewer=new ArrayList<>();
+		for(Statistics statistic : statistics) viewer.add(new StatisticViewerTimeTable(statistic,StatisticViewerTimeTable.Mode.MODE_OVERVIEW_PROCESS_CLIENT_TYPES));
+		group.addChild(new StatisticNode(Language.tr("Statistics.NumberOfClientsAtStationProcessByClientTypes.Short"),viewer));
+
 		/* (Untergruppe) Verteilungen */
 
 		group.addChild(sub=new StatisticNode(Language.tr("Statistics.DistributionsNumbers"),!setup.expandAllStatistics));
@@ -1282,6 +1290,14 @@ public class StatisticsPanel extends StatisticsBasePanel {
 		viewer=new ArrayList<>();
 		for(Statistics statistic : statistics) viewer.add(new StatisticViewerDistributionTimeLineChart(statistic,StatisticViewerDistributionTimeLineChart.Mode.MODE_QUEUE_CLIENT_TYPE));
 		sub.addChild(new StatisticNode(Language.tr("Statistics.DistributionOfNumberOfClientsAtStationQueuesByClientTypes"),viewer));
+
+		viewer=new ArrayList<>();
+		for(Statistics statistic : statistics) viewer.add(new StatisticViewerDistributionTimeLineChart(statistic,StatisticViewerDistributionTimeLineChart.Mode.MODE_PROCESS));
+		sub.addChild(new StatisticNode(Language.tr("Statistics.DistributionOfNumberOfClientsAtStationProcess"),viewer));
+
+		viewer=new ArrayList<>();
+		for(Statistics statistic : statistics) viewer.add(new StatisticViewerDistributionTimeLineChart(statistic,StatisticViewerDistributionTimeLineChart.Mode.MODE_PROCESS_CLIENT_TYPE));
+		sub.addChild(new StatisticNode(Language.tr("Statistics.DistributionOfNumberOfClientsAtStationProcessByClientTypes"),viewer));
 
 		/* Warte- und Bedienzeiten der Kunden */
 

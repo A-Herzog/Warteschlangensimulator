@@ -57,6 +57,13 @@ public interface SystemInterface {
 	int getNQ(final int id);
 
 	/**
+	 * Liefert die Anzahl an Kunden in Bedienung an einer Station
+	 * @param id ID der Station
+	 * @return Anzahl an Kunden in Bedienung an der Station
+	 */
+	int getNS(final int id);
+
+	/**
 	 * Liefert die Anzahl an Kunden an allen Stationen zusammen
 	 * @return	Anzahl an Kunden an allen Stationen zusammen
 	 */

@@ -39,6 +39,7 @@ import ui.modeleditor.elements.ModelElementSub;
 import ui.modeleditor.elements.ModelElementTransportDestination;
 import ui.modeleditor.elements.ModelElementTransportSource;
 import ui.modeleditor.elements.TransportResourceRecord;
+import ui.modeleditor.elements.TransportTimeRecord;
 
 /**
  * Äquivalent zu <code>ModelElementTransportSource</code>
@@ -252,6 +253,11 @@ public class RunElementTransportSource extends RunElement implements FreeResourc
 		if (section==null && sectionID>=0) section=(RunElementSectionStart)simData.runModel.elementsFast[sectionID];
 		if (section!=null) client.leaveSection(section,simData);
 
+		/* Zählung der Anzahl an Kunden in Bedienung an der Station */
+		if (transportTime.delayType==TransportTimeRecord.DelayType.DELAY_TYPE_PROCESS) {
+			simData.runData.logClientEntersStationProcess(simData,this,data,client);
+		}
+
 		/* Kunde zur nächsten Station leiten */
 		StationLeaveEvent.addLeaveEvent(simData,client,this,transportDelayTimeMS);
 	}
@@ -288,6 +294,11 @@ public class RunElementTransportSource extends RunElement implements FreeResourc
 	public void processLeave(SimulationData simData, RunDataClient client) {
 		final RunElement nextStation=(client.stationInformationInt>=0)?simData.runModel.elementsFast[client.stationInformationInt]:null;
 		if (nextStation!=null) {
+			/* Zählung der Anzahl an Kunden in Bedienung an der Station */
+			if (transportTime.delayType==TransportTimeRecord.DelayType.DELAY_TYPE_PROCESS) {
+				simData.runData.logClientLeavesStationProcess(simData,this,null,client);
+			}
+
 			StationLeaveEvent.sendToStationByTransporter(simData,client,this,nextStation);
 		}
 	}

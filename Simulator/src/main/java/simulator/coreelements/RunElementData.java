@@ -87,6 +87,11 @@ public class RunElementData {
 	public int clientsAtStationQueue;
 
 	/**
+	 * Speichert, wie viele Kunden sich momentan in Bedienung an der Station befinden.
+	 */
+	public int clientsAtStationProcess;
+
+	/**
 	 * Speichert, wann jeweils zum letzten Mal ein Kunde bei einer bestimmten Station eingetroffen ist.
 	 */
 	public long lastArrival;
@@ -204,15 +209,31 @@ public class RunElementData {
 	public int[] statisticClientsAtStationQueueByClientTypeValue;
 
 	/**
+	 * Erfassung der aktuellen Anzahl an Kunden in Bedienung an der Station pro Kundentyp
+	 */
+	public int[] statisticClientsAtStationProcessByClientTypeValue;
+
+	/**
 	 * Statistikobjekte für die Anzahlen an Kunden in der Warteschlange an der Station pro Kundentyp
 	 */
 	public StatisticsTimePerformanceIndicator[] statisticClientsAtStationQueueByClientType;
+
+	/**
+	 * Statistikobjekte für die Anzahlen an Kunden in Bedienung an der Station pro Kundentyp
+	 */
+	public StatisticsTimePerformanceIndicator[] statisticClientsAtStationProcessByClientType;
 
 	/**
 	 * Ermöglicht den Zugriff auf die "Anzahl an Kunden in der Warteschlange an der Station"-Statistik.<br>
 	 * (Kann <code>null</code> sein, wenn noch keine entsprechenden Daten angefallen sind.)
 	 */
 	public StatisticsTimePerformanceIndicator statisticClientsAtStationQueue;
+
+	/**
+	 * Ermöglicht den Zugriff auf die "Anzahl an Kunden in Bedienung an der Station"-Statistik.<br>
+	 * (Kann <code>null</code> sein, wenn noch keine entsprechenden Daten angefallen sind.)
+	 */
+	public StatisticsTimePerformanceIndicator statisticClientsAtStationProcess;
 
 	/**
 	 * Ermöglicht den Zugriff auf die "Zwischenankunftszeiten an der Station"-Statistik.<br>
@@ -278,8 +299,10 @@ public class RunElementData {
 		lastLeaveByClientType=null;
 		clientsAtStation=0;
 		clientsAtStationQueue=0;
+		clientsAtStationProcess=0;
 		statisticClientsAtStationByClientTypeValue=null;
 		statisticClientsAtStationQueueByClientTypeValue=null;
+		statisticClientsAtStationProcessByClientTypeValue=null;
 		announcedClient=new RunDataClient[10];
 		announcedClientCount=0;
 	}

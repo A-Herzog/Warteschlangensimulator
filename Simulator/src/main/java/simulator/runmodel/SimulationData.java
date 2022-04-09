@@ -291,6 +291,9 @@ public class SimulationData extends SimData {
 		resetAllTimePerformanceIndicators(statistics.clientsAtStationQueueByStation,time);
 		resetAllTimePerformanceIndicators(statistics.clientsAtStationQueueByStationAndClient,time);
 		resetAllTimePerformanceIndicators(statistics.clientsAtStationQueueByClient,time);
+		resetAllTimePerformanceIndicators(statistics.clientsAtStationProcessByStation,time);
+		resetAllTimePerformanceIndicators(statistics.clientsAtStationProcessByStationAndClient,time);
+		resetAllTimePerformanceIndicators(statistics.clientsAtStationProcessByClient,time);
 		resetAllTimePerformanceIndicators(statistics.resourceCount,time);
 		resetAllTimePerformanceIndicators(statistics.resourceUtilization,time);
 		resetAllTimePerformanceIndicators(statistics.resourceInDownTime,time);

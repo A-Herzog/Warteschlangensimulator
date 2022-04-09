@@ -329,13 +329,65 @@ Gets the fraction of time, when there are more than \cm{stateA} and at most \cm{
 
 
 
-\subsection{Number of clients just being served at a station}
+\subsection{Number of clients in service process at a station}
 
 \begin{itemize}
 
 \item
 \cmd{Process(id)}:\\
-Gets the current number of clients just being served at station \cm{id}.
+Gets the current number of clients in service process at station \cm{id}.
+
+\item
+\cmd{Process\_avg(id)} or \cmd{NS\_avg(id)} or \cmd{Process\_Mittelwert(id)} or \cmd{NS\_Mittelwert(id)}:\\
+Gets the average number of clients in service process at station \cm{id}.
+
+\item
+\cmd{Process\_median(id)} or \cmd{NS\_median(id)}:\\
+Gets the median of the number of clients in service process at station \cm{id}.
+
+\item
+\cmd{Process\_quantil(p;id)} or \cmd{NS\_quantil(p;id)}:\\
+Gets the quantil for the probability p of the number of clients in service process at station \cm{id}.
+
+\item
+\cmd{Process\_min(id)} or \cmd{NS\_min(id)} or \cmd{Process\_Minimum(id)} or \cmd{NS\_Minimum(id)}:\\
+Gets the minimal number of clients in service process at station \cm{id}.
+
+\item
+\cmd{Process\_max(id)} or \cmd{NS\_max(id)} or \cmd{Process\_Maximum(id)} or \cmd{NS\_Maximum(id)}:\\
+Gets the maximal number of clients in service process at station \cm{id}.
+
+\item
+\cmd{Process\_var(id)} or \cmd{NS\_var(id)} or \cmd{Process\_Varianz(id)} or \cmd{NS\_Varianz(id)}:\\
+Gets the variation of the number of clients in service process at station \cm{id}.
+
+\item
+\cmd{Process\_sd(id)} or \cmd{NS\_sd(id)} or \cmd{Process\_Standardabweichung(id)} or \cmd{NS\_Standardabweichung(id)}:\\
+Gets the standard deviation of the number of clients in service process at station \cm{id}.
+
+\item
+\cmd{Process\_cv(id)} or \cmd{NS\_cv(id)}:\\
+Gets the coefficient of variation of the number of clients in service process at station \cm{id}.
+
+\item
+\cmd{Process\_scv(id)} or \cmd{NS\_scv(id)}:\\
+Gets the squared coefficient of variation of the number of clients in service process at station \cm{id}.
+
+\item
+\cmd{Process\_sk(id)} or \cmd{NS\_sk(id)}:\\
+Gets the skewness of the number of clients in service process at station \cm{id}.
+
+\item
+\cmd{Process\_kurt(id)} or \cmd{NS\_kurt(id)}:\\
+Gets the excess kurtosis of the number of clients in service process at station \cm{id}.
+
+\item
+\cmd{Process\_hist(id;state)} or \cmd{NS\_hist(id;state)}:\\
+Gets the fraction of time, when there are \cm{state} clients in service process at station \cm{id}.
+
+\item
+\cmd{Process\_hist(id;stateA;stateB)} or \cmd{NS\_hist(id;stateA;stateB)}:\\
+Gets the fraction of time, when there are more than \cm{stateA} and at most \cm{stateB} clients in service process at station \cm{id}.
 
 \end{itemize}  
 
@@ -504,6 +556,66 @@ Gets the fraction of time, when there are \cm{state} waiting clients, whos name 
 \item
 \cmd{NQ\_hist(id;stateA;stateB)} or \cmd{Queue\_hist(id;stateA;stateB)} or\\ \cmd{Schlange\_hist(id;stateA;stateB)} or \cmd{Warteschlange\_hist(id;stateA;stateB)}:\\
 Gets the fraction of time, when there are more than \cm{stateA} and at most \cm{stateB} waiting clients, whos name appears at the source or the type assignment \cm{id}, in the system.
+
+\end{itemize}
+
+
+
+\subsection{Number of clients in service process by client type}
+
+\begin{itemize}    
+
+\item
+\cmd{Process\_avg(id)} or \cmd{NS\_avg(id)} or \cmd{Process\_Mittelwert(id)} or \cmd{NS\_Mittelwert(id)}:\\
+Gets the average number of clients in service process, whos name appears at the source or the type assignment \cm{id}.
+
+\item
+\cmd{Process\_median(id)} or \cmd{NS\_median(id)}:\\
+Gets the median of the number of clients in service process, whos name appears at the source or the type assignment id, in the system.
+
+\item
+\cmd{Process\_quantil(p;id)} or \cmd{NS\_quantil(p;id)}:\\
+Gets the quantil for the probability p of the number of clients in service process, whos name appears at the source or the type assignment id, in the system.
+
+\item
+\cmd{Process\_min(id)} or \cmd{NS\_min(id)} or \cmd{Process\_Minimum(id)} or \cmd{NS\_Minimum(id)}:\\
+Gets the minimal number of clients in service process, whos name appears at the source or the type assignment \cm{id}.
+
+\item
+\cmd{Process\_max(id)} or \cmd{NS\_max(id)} or \cmd{Process\_Maximum(id)} or \cmd{NS\_Maximum(id)}:\\
+Gets the maximal number of clients in service process, whos name appears at the source or the type assignment \cm{id}.
+
+\item
+\cmd{Process\_var(id)} or \cmd{NS\_var(id)} or \cmd{Process\_Varianz(id)} or \cmd{NS\_Varianz(id)}:\\
+Gets the variation of the number of clients in service process, whos name appears at the source or the type assignment \cm{id}.
+
+\item
+\cmd{Process\_sd(id)} or \cmd{NS\_sd(id)} or \cmd{Process\_Standardabweichung(id)} or \cmd{NS\_Standardabweichung(id)}:\\
+Gets the standard deviation of the number of clients in service process, whos name appears at the source or the type assignment \cm{id}.
+
+\item
+\cmd{Process\_cv(id)} or \cmd{NS\_cv(id)}:\\
+Gets the coefficient of variation of the number of clients in service process, whos name appears at the source or the type assignment \cm{id}.
+
+\item
+\cmd{Process\_scv(id)} or \cmd{NS\_scv(id)}:\\
+Gets the squared coefficient of variation of the number of clients in service process, whos name appears at the source or the type assignment \cm{id}.
+
+\item
+\cmd{Process\_sk(id)} or \cmd{NS\_sk(id)}:\\
+Gets the skewness of the number of clients in service process, whos name appears at the source or the type assignment \cm{id}.
+
+\item
+\cmd{Process\_kurt(id)} or \cmd{NS\_kurt(id)}:\\
+Gets the excess kurtosis of the number of clients in service process, whos name appears at the source or the type assignment \cm{id}.
+
+\item
+\cmd{Process\_hist(id;state)} or \cmd{NS\_hist(id;state)}:\\
+Gets the fraction of time, when there are \cm{state} clients in service process, whos name appears at the source or the type assignment \cm{id}, are in the system.
+
+\item
+\cmd{Process\_hist(id;stateA;stateB)} or \cmd{NS\_hist(id;stateA;stateB)}:\\
+Gets the fraction of time, when there are more than \cm{stateA} and at most \cm{stateB} clients in service process, whos name appears at the source or the type assignment \cm{id}, in the system.
 
 \end{itemize}
 

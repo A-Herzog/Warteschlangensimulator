@@ -646,6 +646,19 @@ public final class JSCommandSystem extends JSBaseCommand {
 	}
 
 	/**
+	 * Liefert die Anzahl an Kunden in Bedienung an einer Station
+	 * @param id ID der Station
+	 * @return Anzahl an Kunden in Bedienung an der Station
+	 */
+	public int getNS(final int id) {
+		if (simData==null) return 0;
+		if (id<0 || id>=simData.runModel.elementsFast.length) return 0;
+		final RunElement element=simData.runModel.elementsFast[id];
+		if (element==null) return 0;
+		return element.getData(simData).clientsAtStationProcess;
+	}
+
+	/**
 	 * Liefert die Anzahl an Kunden an allen Stationen zusammen
 	 * @return Anzahl an Kunden an allen Stationen zusammen
 	 */

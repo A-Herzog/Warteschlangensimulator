@@ -181,6 +181,11 @@ public class RunElementDelay extends RunElementPassThrough {
 		/* Erfassung der Zeit in der Statistik */
 		client.lastWaitingStart=simData.currentTime;
 
+		/* Anzahl an Kunden in Bedienung ändern */
+		if (delayType==ModelElementDelay.DelayType.DELAY_TYPE_PROCESS) {
+			simData.runData.logClientEntersStationProcess(simData,this,null,client);
+		}
+
 		/* Kosten in Statistik erfassen */
 		if (costs!=null) {
 			simData.runData.setClientVariableValues(client);
@@ -215,6 +220,11 @@ public class RunElementDelay extends RunElementPassThrough {
 		/* Zeitdauer an der Station in der Statistik erfassen */
 		final long delayTimeMS=simData.currentTime-client.lastWaitingStart;
 		logDelay(simData,client,delayTimeMS);
+
+		/* Anzahl an Kunden in Bedienung ändern */
+		if (delayType==ModelElementDelay.DelayType.DELAY_TYPE_PROCESS) {
+			simData.runData.logClientLeavesStationProcess(simData,this,null,client);
+		}
 
 		super.processLeave(simData,client);
 	}

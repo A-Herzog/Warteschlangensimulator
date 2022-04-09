@@ -471,12 +471,14 @@ public class StatisticViewerFastAccessDialog extends BaseDialog {
 				/* Anzahlen an Kunden */
 				/* + Datenfelder für alle Kunden -> Keine Untergliederung nach Typ-Attribut */
 				Language.trPrimary("XML.Statistic.BaseElement")+","+Language.trPrimary("Statistics.XML.Element.ClientsAtStation")+","+Language.trPrimary("Statistics.XML.Station"),
-				Language.trPrimary("XML.Statistic.BaseElement")+","+Language.trPrimary("Statistics.XML.Element.ClientsAtStationByType")+","+Language.trPrimary("Statistics.XML.ClientType"),
-				Language.trPrimary("XML.Statistic.BaseElement")+","+Language.trPrimary("Statistics.XML.Element.ClientsAtStationQueue")+","+Language.trPrimary("Statistics.XML.Station"),
-				Language.trPrimary("XML.Statistic.BaseElement")+","+Language.trPrimary("Statistics.XML.Element.ClientsInSystemQueue")+","+Language.trPrimary("Statistics.XML.ClientType"),
 				Language.trPrimary("XML.Statistic.BaseElement")+","+Language.trPrimary("Statistics.XML.Element.ClientsAtStationByClientType")+","+Language.trPrimary("Statistics.XML.Station"),
 				Language.trPrimary("XML.Statistic.BaseElement")+","+Language.trPrimary("Statistics.XML.Element.ClientsAtStationByType")+","+Language.trPrimary("Statistics.XML.ClientType"),
+				Language.trPrimary("XML.Statistic.BaseElement")+","+Language.trPrimary("Statistics.XML.Element.ClientsAtStationQueue")+","+Language.trPrimary("Statistics.XML.Station"),
 				Language.trPrimary("XML.Statistic.BaseElement")+","+Language.trPrimary("Statistics.XML.Element.ClientsAtStationQueueByClientType")+","+Language.trPrimary("Statistics.XML.Station"),
+				Language.trPrimary("XML.Statistic.BaseElement")+","+Language.trPrimary("Statistics.XML.Element.ClientsInSystemQueue")+","+Language.trPrimary("Statistics.XML.ClientType"),
+				Language.trPrimary("XML.Statistic.BaseElement")+","+Language.trPrimary("Statistics.XML.Element.ClientsAtStationProcess")+","+Language.trPrimary("Statistics.XML.Station"),
+				Language.trPrimary("XML.Statistic.BaseElement")+","+Language.trPrimary("Statistics.XML.Element.ClientsAtStationProcessByClientType")+","+Language.trPrimary("Statistics.XML.Station"),
+				Language.trPrimary("XML.Statistic.BaseElement")+","+Language.trPrimary("Statistics.XML.Element.ClientsInSystemProcess")+","+Language.trPrimary("Statistics.XML.ClientType"),
 
 				/* Ressourcen */
 				Language.trPrimary("XML.Statistic.BaseElement")+","+Language.trPrimary("Statistics.XML.Element.UtilizationCountParent")+","+Language.trPrimary("Statistics.XML.Element.UtilizationCount"),

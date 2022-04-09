@@ -795,6 +795,62 @@ using the Allen-Cunneen approximation formula:
   <tr><td>Schlange_hist(id;stateA;stateB)</td></tr>
   <tr><td>Warteschlange_hist(id;stateA;stateB)</td></tr>
 
+  
+  
+  <tr><td colspan="2"><h3>Number of clients in service process at a station</h3></td></tr>
+
+  <tr><td>Process(id)</td><td rowspan="2">Gets the current number of clients in service process at station id.</td></tr>
+  <tr><td>NS(id)</td></tr>
+  
+  <tr><td>Process_avg(id)</td><td rowspan="4">Gets the average number of clients in service process at station id.</td></tr>
+  <tr><td>NS_avg(id)</td></tr>
+  <tr><td>Process_Mittelwert(id)</td></tr>
+  <tr><td>NS_Mittelwert(id)</td></tr>
+  
+  <tr><td>Process_median(id)</td><td rowspan="2">Gets the median of the number of clients in service process at station id.</td></tr>
+  <tr><td>NS_median(id)</td></tr>
+
+  <tr><td>Process_quantil(p;id)</td><td rowspan="2">Gets the quantil for the probability p of the number of clients in service process at station id.</td></tr>
+  <tr><td>NS_quantil(p;id)</td></tr>
+ 
+  <tr><td>Process_min(id)</td><td rowspan="4">Gets the minimal number of clients in service process at station id.</td></tr>
+  <tr><td>NS_min(id)</td></tr>
+  <tr><td>Process_Minimum(id)</td></tr>
+  <tr><td>NS_Minimum(id)</td></tr>
+  
+  <tr><td>Process_max(id)</td><td rowspan="4">Gets the maximal number of clients in service process at station id.</td></tr>
+  <tr><td>NS_max(id)</td></tr>
+  <tr><td>Process_Maximum(id)</td></tr>
+  <tr><td>NS_Maximum(id)</td></tr>
+  
+  <tr><td>Process_var(id)</td><td rowspan="4">Gets the variation of the number of clients in service process at station id.</td></tr>
+  <tr><td>NS_var(id)</td></tr>
+  <tr><td>Process_Varianz(id)</td></tr>
+  <tr><td>NS_Varianz(id)</td></tr>
+  
+  <tr><td>Process_sd(id)</td><td rowspan="4">Gets the standard deviation of the number of clients in service process at station id.</td></tr>
+  <tr><td>NS_sd(id)</td></tr>
+  <tr><td>Process_Standardabweichung(id)</td></tr>
+  <tr><td>NS_Standardabweichung(id)</td></tr>
+  
+  <tr><td>Process_cv(id)</td><td rowspan="2">Gets the coefficient of variation of the number of clients in service process at station id.</td></tr>
+  <tr><td>NS_cv(id)</td></tr>
+  
+  <tr><td>Process_scv(id)</td><td rowspan="2">Gets the squared coefficient of variation of the number of clients in service process at station id.</td></tr>
+  <tr><td>NS_scv(id)</td></tr>
+  
+  <tr><td>Process_sk(id)</td><td rowspan="2">Gets the skewness of the number of clients in service process at station id.</td></tr>
+  <tr><td>NS_sk(id)</td></tr>
+  
+  <tr><td>Process_kurt(id)</td><td rowspan="2">Gets the excess kurtosis of the number of clients in service process at station id.</td></tr>
+  <tr><td>NS_kurt(id)</td></tr>
+  
+  <tr><td>Process_hist(id;state)</td><td rowspan="2">Gets the fraction of time, when there are state clients in service process at station id.</td></tr>
+  <tr><td>NS_hist(id;state)</td></tr>
+  
+  <tr><td>Process_hist(id;stateA;stateB)</td><td rowspan="2">Gets the fraction of time, when there are more than stateA and at most stateB clients in service process at station id.</td></tr>
+  <tr><td>NS_hist(id;stateA;stateB)</td></tr>
+
 
 
   <tr><td colspan="2"><h3>Number of clients of a type in system</h3></td></tr>
@@ -966,9 +1022,56 @@ using the Allen-Cunneen approximation formula:
 
 
 
-  <tr><td colspan="2"><h3>Number of clients just being served at a station</h3></td></tr>
+  <tr><td colspan="2"><h3>Number of clients of a type in service process</h3></td></tr>
+    
+  <tr><td>Process_avg(id)</td><td rowspan="4">Gets the average number of clients in service process, whos name appears at the source or the type assignment id, in the system.</td></tr>
+  <tr><td>NS_avg(id)</td></tr>
+  <tr><td>Process_Mittelwert(id)</td></tr>
+  <tr><td>NS_Mittelwert(id)</td></tr>
+  
+  <tr><td>Process_median(id)</td><td rowspan="2">Gets the median of the number of clients in service process, whos name appears at the source or the type assignment id, in the system.</td></tr>
+  <tr><td>NS_median(id)</td></tr>
+  
+  <tr><td>Process_quantil(p;id)</td><td rowspan="2">Gets the quantil for the probability p of the number of clients in service process, whos name appears at the source or the type assignment id, in the system.</td></tr>
+  <tr><td>NS_quantil(p;id)</td></tr>
 
-  <tr><td>Process(id)</td><td>Gets the current number of clients just being served at station id.</td></tr>
+  <tr><td>Process_min(id)</td><td rowspan="4">Gets the minimal number of clients in service process, whos name appears at the source or the type assignment id, in the system.</td></tr>
+  <tr><td>NS_min(id)</td></tr>
+  <tr><td>Process_Minimum(id)</td></tr>
+  <tr><td>NS_Minimum(id)</td></tr>
+  
+  <tr><td>Process_max(id)</td><td rowspan="4">Gets the maximal number of clients in service process, whos name appears at the source or the type assignment id, in the system.</td></tr>
+  <tr><td>NS_max(id)</td></tr>
+  <tr><td>Process_Maximum(id)</td></tr>
+  <tr><td>NS_Maximum(id)</td></tr>
+  
+  <tr><td>Process_var(id)</td><td rowspan="4">Gets the variation of the number of clients in service process, whos name appears at the source or the type assignment id, in the system.</td></tr>
+  <tr><td>NS_var(id)</td></tr>
+  <tr><td>Process_Varianz(id)</td></tr>
+  <tr><td>NS_Varianz(id)</td></tr>
+  
+  <tr><td>Process_sd(id)</td><td rowspan="4">Gets the standard deviation of the number of clients in service process, whos name appears at the source or the type assignment id, in the system.</td></tr>
+  <tr><td>NS_sd(id)</td></tr>
+  <tr><td>Process_Standardabweichung(id)</td></tr>
+  <tr><td>NS_Standardabweichung(id)</td></tr>
+  
+  <tr><td>Process_cv(id)</td><td rowspan="2">Gets the coefficient of variation of the number of clients in service process, whos name appears at the source or the type assignment id, in the system.</td></tr>
+  <tr><td>NS_cv(id)</td></tr>
+  
+  <tr><td>Process_scv(id)</td><td rowspan="2">Gets the squared coefficient of variation of clients in service process, whos name appears at the source or the type assignment id, in the system.</td></tr>
+  <tr><td>NS_scv(id)</td></tr>
+  
+  <tr><td>Process_sk(id)</td><td rowspan="2">Gets the skewness of the number of clients in service process, whos name appears at the source or the type assignment id, in the system.</td></tr>
+  <tr><td>NS_sk(id)</td></tr>
+  
+  <tr><td>Process_kurt(id)</td><td rowspan="2">Gets the excess kurtosis of the number of clients in service process, whos name appears at the source or the type assignment id, in the system.</td></tr>
+  <tr><td>NS_kurt(id)</td></tr>
+  
+  <tr><td>Process_hist(id;state)</td><td rowspan="2">Gets the fraction of time, when there are state clients in service process, whos name appears at the source or the type assignment id, in the system.</td></tr>
+  <tr><td>NS_hist(id;state)</td></tr>
+  
+  <tr><td>Process_hist(id;stateA;stateB)</td><td rowspan="2">Gets the fraction of time, when there are more than stateA and at most stateB clients in service process, whos name appears at the source or the type assignment id, in the system.</td></tr>
+  <tr><td>NS_hist(id;stateA;stateB)</td></tr>
   
   
   

@@ -194,6 +194,18 @@ public class ExpressionCalc extends CalcSystem {
 		functions.add(new CalcSymbolStationDataQueue_hist());
 
 		functions.add(new CalcSymbolStationDataProcessCount());
+		functions.add(new CalcSymbolStationDataProcessCount_avg());
+		functions.add(new CalcSymbolStationDataProcessCount_median());
+		functions.add(new CalcSymbolStationDataProcessCount_quantil());
+		functions.add(new CalcSymbolStationDataProcessCount_min());
+		functions.add(new CalcSymbolStationDataProcessCount_max());
+		functions.add(new CalcSymbolStationDataProcessCount_var());
+		functions.add(new CalcSymbolStationDataProcessCount_std());
+		functions.add(new CalcSymbolStationDataProcessCount_cv());
+		functions.add(new CalcSymbolStationDataProcessCount_scv());
+		functions.add(new CalcSymbolStationDataProcessCount_sk());
+		functions.add(new CalcSymbolStationDataProcessCount_kurt());
+		functions.add(new CalcSymbolStationDataProcessCount_hist());
 
 		functions.add(new CalcSymbolStationDataWaiting_sum());
 		functions.add(new CalcSymbolStationDataWaiting_avg());

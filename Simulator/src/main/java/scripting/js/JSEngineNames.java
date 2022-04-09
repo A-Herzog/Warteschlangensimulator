@@ -110,10 +110,10 @@ public enum JSEngineNames {
 		final Set<JSEngineNames> list=JSEngineNames.available();
 		if (list.contains(userSelect)) return userSelect;
 
-		if (list.contains(NASHORN)) return NASHORN;
 		if (list.contains(GRAALJSNative)) return GRAALJSNative;
 		if (list.contains(GRAALJS)) return GRAALJS;
 		if (list.contains(RHINO)) return RHINO;
+		if (list.contains(NASHORN)) return NASHORN;
 		return null;
 	}
 }

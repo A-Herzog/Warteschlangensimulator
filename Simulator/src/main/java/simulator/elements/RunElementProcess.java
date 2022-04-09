@@ -490,6 +490,9 @@ public class RunElementProcess extends RunElement implements FreeResourcesListen
 		/* Weiterleitung zu nächster Station nach Bedienzeit-Ende */
 		final StationLeaveEvent leaveEvent=StationLeaveEvent.addLeaveEvent(simData,selected,this,setupTimeMS+processingTimeMS);
 
+		/* Kunden als "in Bedienung" erfassen */
+		simData.runData.logClientEntersStationProcess(simData,this,processData,selected);
+
 		/* Kosten in Statistik erfassen */
 		if (processData.hasCosts) {
 			logCosts(simData,processData,selected,setupTime+processingTime,postProcessingTime);
@@ -608,6 +611,9 @@ public class RunElementProcess extends RunElement implements FreeResourcesListen
 				}
 				client.lastAlternative=resourceAlternative+1;
 
+				/* Kunden als "in Bedienung" erfassen */
+				simData.runData.logClientEntersStationProcess(simData,this,processData,client);
+
 				/* Weiterleitung zu nächster Station nach Bedienzeit-Ende */
 				StationLeaveEvent.addLeaveEvent(simData,client,this,processingTime);
 			}
@@ -697,6 +703,7 @@ public class RunElementProcess extends RunElement implements FreeResourcesListen
 
 	@Override
 	public void processLeave(final SimulationData simData, final RunDataClient client) {
+		if (client.lastQueueSuccess) simData.runData.logClientLeavesStationProcess(simData,this,null,client);
 		StationLeaveEvent.sendToStation(simData,client,this,client.lastQueueSuccess?connectionSuccess:connectionCancel);
 	}
 

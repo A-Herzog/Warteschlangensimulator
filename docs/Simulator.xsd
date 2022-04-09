@@ -1880,6 +1880,9 @@
   <xs:element ref="StatistikKundenAnStationWartend"/>
   <xs:element ref="StatistikKundenAnStationWartendNachKundentyp"/>
   <xs:element ref="StatistikKundentypenImSystemWartend"/>
+  <xs:element ref="StatistikKundenAnStationInBedienung"/>
+  <xs:element ref="StatistikKundenAnStationInBedienungNachKundentyp"/>
+  <xs:element ref="StatistikKundentypenImSystemInBedienung"/>
   <xs:element ref="StatistikRessourceAnzahlen"/>
   <xs:element ref="StatistikAuslastung"/>
   <xs:element ref="StatistikPausenzeiten"/>
@@ -2092,6 +2095,9 @@
 <xs:element name="StatistikKundenAnStationWartend" type="StatistikStationBasis"/>
 <xs:element name="StatistikKundenAnStationWartendNachKundentyp" type="StatistikStationBasis"/>
 <xs:element name="StatistikKundentypenImSystemWartend" type="StatistikKundentypBasis"/>
+<xs:element name="StatistikKundenAnStationInBedienung" type="StatistikKundentypBasis"/>
+<xs:element name="StatistikKundenAnStationInBedienungNachKundentyp" type="StatistikKundentypBasis"/>
+<xs:element name="StatistikKundentypenImSystemInBedienung" type="StatistikKundentypBasis"/>
 <xs:element name="StatistikRessourceAnzahlen"><xs:complexType><xs:sequence minOccurs="0" maxOccurs="unbounded"><xs:choice>
   <xs:element ref="StatistikRessourceAnzahl" minOccurs="0" maxOccurs="unbounded"/>
 </xs:choice></xs:sequence></xs:complexType></xs:element>
@@ -4109,6 +4115,9 @@
   <xs:element ref="StatisticsClientsAtStationQueue"/>
   <xs:element ref="StatisticsClientsAtStationQueueByClientType"/>
   <xs:element ref="StatisticsClientsInSystemQueue"/>
+  <xs:element ref="StatisticsClientsAtStationProcess"/>
+  <xs:element ref="StatisticsClientsAtStationProcessByClientType"/>
+  <xs:element ref="StatisticsClientsInSystemProcess"/>
   <xs:element ref="StatisticsResourceNumbers"/>
   <xs:element ref="StatisticsUtilization"/>
   <xs:element ref="StatisticsDownTime"/>
@@ -4321,6 +4330,9 @@
 <xs:element name="StatisticsClientsAtStationQueue" type="StatisticsStationBase"/>
 <xs:element name="StatisticsClientsAtStationQueueByClientType" type="StatisticsStationBase"/>
 <xs:element name="StatisticsClientsInSystemQueue" type="StatisticsClientBase"/>
+<xs:element name="StatisticsClientsAtStationProcess" type="StatisticsClientBase"/>
+<xs:element name="StatisticsClientsAtStationProcessByClientType" type="StatisticsClientBase"/>
+<xs:element name="StatisticsClientsInSystemProcess" type="StatisticsClientBase"/>
 <xs:element name="StatisticsResourceNumbers"><xs:complexType><xs:sequence minOccurs="0" maxOccurs="unbounded"><xs:choice>
   <xs:element ref="StatisticsResourceNumber" minOccurs="0" maxOccurs="unbounded"/>
 </xs:choice></xs:sequence></xs:complexType></xs:element>

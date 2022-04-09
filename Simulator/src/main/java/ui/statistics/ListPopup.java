@@ -514,6 +514,33 @@ public class ListPopup {
 			}
 		}
 
+		if (statistics.clientsAtStationProcessByClient.getNames().length>0) {
+			sub=getSubList(list,Language.tr("Statistic.FastAccess.Template.ClientsInSystemProcess"),null,Images.SCRIPT_RECORD_DATA_CLIENT.getIcon());
+			final String xmlMain=Language.tr("Statistics.XML.Element.ClientsInSystemProcess");
+			for (String name: statistics.clientsAtStationQueueByClient.getNames()) {
+				xmlSub=Language.tr("Statistics.XML.ClientType")+"["+Language.tr("Statistics.XML.Type")+"=\""+name+"\"]";
+				tryAddRecord(sub,allowAdd,name,null,null,XMLMode.XML_NUMBER,xmlMain+"->"+xmlSub+"->"+mean);
+			}
+		}
+
+		if (statistics.clientsAtStationProcessByStation.getNames().length>0) {
+			sub=getSubList(list,Language.tr("Statistic.FastAccess.Template.ClientsAtStationProcess"),null,Images.SCRIPT_RECORD_DATA_STATION_QUEUE.getIcon());
+			final String xmlMain=Language.tr("Statistics.XML.Element.ClientsAtStationProcess");
+			for (String name: statistics.clientsAtStationProcessByStation.getNames()) {
+				xmlSub=Language.tr("Statistics.XML.Station")+"["+Language.tr("Statistics.XML.Type")+"=\""+name+"\"]";
+				tryAddRecord(sub,allowAdd,name,null,null,XMLMode.XML_NUMBER,xmlMain+"->"+xmlSub+"->"+mean);
+			}
+		}
+
+		if (statistics.clientsAtStationProcessByStationAndClient.getNames().length>0) {
+			sub=getSubList(list,Language.tr("Statistic.FastAccess.Template.ClientsAtStationProcessByClientType"),null,Images.SCRIPT_RECORD_DATA_STATION_QUEUE.getIcon());
+			final String xmlMain=Language.tr("Statistics.XML.Element.ClientsAtStationProcessByClientType");
+			for (String name: statistics.clientsAtStationProcessByStationAndClient.getNames()) {
+				xmlSub=Language.tr("Statistics.XML.Station")+"["+Language.tr("Statistics.XML.Type")+"=\""+name+"\"]";
+				tryAddRecord(sub,allowAdd,name,null,null,XMLMode.XML_NUMBER,xmlMain+"->"+xmlSub+"->"+mean);
+			}
+		}
+
 		/* Trenner */
 
 		list.add(null);

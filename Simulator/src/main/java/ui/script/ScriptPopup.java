@@ -360,6 +360,7 @@ public class ScriptPopup {
 		String systemTerminateSimulation="";
 		String systemWIP="";
 		String systemNQ="";
+		String systemNS="";
 		String systemVarGet="";
 		String systemVarSet="";
 		String systemSetAnalogValue="";
@@ -411,6 +412,7 @@ public class ScriptPopup {
 			systemTerminateSimulation="Simulation.terminateSimulation(\"message\");";
 			systemWIP="Simulation.getWIP(%s)";
 			systemNQ="Simulation.getNQ(%s)";
+			systemNS="Simulation.getNS(%s)";
 			systemVarGet="Simulation.calc(\"%s\")";
 			systemVarSet="Simulation.set(\"%s\",123)";
 			systemSetAnalogValue="Simulation.setValue(%s,123)";
@@ -462,6 +464,7 @@ public class ScriptPopup {
 			systemTerminateSimulation="sim.getSystem().terminateSimulation(\"message\");";
 			systemWIP="sim.getSystem().getWIP(%s);";
 			systemNQ="sim.getSystem().getNQ(%s);";
+			systemNS="sim.getSystem().getNS(%s);";
 			systemVarGet="sim.getSystem().calc(\"%s\");";
 			systemVarSet="sim.getSystem().set(\"%s\",123);";
 			systemSetAnalogValue="sim.getSystem().setAnalogValue(%s,123);";
@@ -519,6 +522,7 @@ public class ScriptPopup {
 		group.addSeparator();
 		group.addChild(new ScriptPopupItemCommandID(Language.tr("ScriptPopup.Simulation.getWIP"),Language.tr("ScriptPopup.Simulation.getWIP.Hint"),Images.SCRIPT_RECORD_DATA_STATION.getIcon(),systemWIP,owner,model,help,true,true));
 		group.addChild(new ScriptPopupItemCommandID(Language.tr("ScriptPopup.Simulation.getNQ"),Language.tr("ScriptPopup.Simulation.getNQ.Hint"),Images.SCRIPT_RECORD_DATA_STATION_QUEUE.getIcon(),systemNQ,owner,model,help,true,true));
+		group.addChild(new ScriptPopupItemCommandID(Language.tr("ScriptPopup.Simulation.getNS"),Language.tr("ScriptPopup.Simulation.getNS.Hint"),Images.SCRIPT_RECORD_DATA_STATION.getIcon(),systemNS,owner,model,help,true,false));
 		group.addSeparator();
 		group.addChild(new ScriptPopupItemCommandVariable(Language.tr("ScriptPopup.Simulation.getVariable"),Language.tr("ScriptPopup.Simulation.getVariable.Hint"),Images.SCRIPT_RECORD_VARIABLE.getIcon(),systemVarGet,owner,model,help));
 		group.addChild(new ScriptPopupItemCommandVariable(Language.tr("ScriptPopup.Simulation.setVariable"),Language.tr("ScriptPopup.Simulation.setVariable.Hint"),Images.SCRIPT_RECORD_VARIABLE.getIcon(),systemVarSet,owner,model,help));

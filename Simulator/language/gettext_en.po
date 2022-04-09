@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-03-31 08:29+0200\n"
+"POT-Creation-Date: 2022-04-08 08:37+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -5069,10 +5069,75 @@ msgstr ""
 "<p>Alternatively, the ID of a client source can be specified, in which case the results refer to the clients which are created created at the selected source.</p>"
 
 msgid "ExpressionBuilder.ClientsAtStationService"
-msgstr "Clients in service process at stations"
+msgstr "Clients in service process"
 
 msgid "ExpressionBuilder.ClientsAtStationService.CurrentNumber"
 msgstr "<p>Returns the current number of clients in service process (not waiting) at the station whose ID is specified in the parameter.</p>"
+
+msgid "ExpressionBuilder.ClientsInServiceProcess.AverageNumber"
+msgstr ""
+"<p>Returns the average number of clients in service process at the station whose ID is specified in the parameter.</p>\n"
+"<p>Alternatively, the ID of a client source can be specified, in which case the results refer to the clients which are created created at the selected source.</p>"
+
+msgid "ExpressionBuilder.ClientsInServiceProcess.CoefficientOfVariationOfTheNumber"
+msgstr ""
+"<p>Returns the coefficient of variation of the number of clients in service process at the station whose ID is specified in the parameter.</p>\n"
+"<p>Alternatively, the ID of a client source can be specified, in which case the results refer to the clients which are created created at the selected source.</p>"
+
+msgid "ExpressionBuilder.ClientsInServiceProcess.HistogramMultiple"
+msgstr ""
+"<p>Returns the fraction of time, at which the number of client in service process at the station whose ID is specified was in the specified range (exclusive the lower and inclusive the upper bound).</p>\n"
+"<p>Alternatively, the ID of a client source can be specified, in which case the results refer to the clients which are created created at the selected source.</p>"
+
+msgid "ExpressionBuilder.ClientsInServiceProcess.HistogramSingle"
+msgstr ""
+"<p>Returns the fraction of time, at which the number of clients in service process at the station whose ID is specified was of the specified value.</p>\n"
+"<p>Alternatively, the ID of a client source can be specified, in which case the results refer to the clients which are created created at the selected source.</p>"
+
+msgid "ExpressionBuilder.ClientsInServiceProcess.Kurt"
+msgstr ""
+"<p>Returns the excess kurtosis of the number of clients in service process at the station whose ID is specified in the parameter.</p>\n"
+"<p>Alternatively, the ID of a client source can be specified, in which case the results refer to the clients which are created created at the selected source.</p>"
+
+msgid "ExpressionBuilder.ClientsInServiceProcess.MaximalNumber"
+msgstr ""
+"<p>Returns the maximal number of clients in service process at the station whose ID is specified in the parameter.</p>\n"
+"<p>Alternatively, the ID of a client source can be specified, in which case the results refer to the clients which are created created at the selected source.</p>"
+
+msgid "ExpressionBuilder.ClientsInServiceProcess.Median"
+msgstr ""
+"<p>Returns the median of the number of clients in service process at the station whose ID is specified in the parameter.</p>\n"
+"<p>Alternatively, the ID of a client source can be specified, in which case the results refer to the clients which are created created at the selected source.</p>"
+
+msgid "ExpressionBuilder.ClientsInServiceProcess.MinimalNumber"
+msgstr ""
+"<p>Returns the minimal number of clients in service process at the station whose ID is specified in the parameter.</p>\n"
+"<p>Alternatively, the ID of a client source can be specified, in which case the results refer to the clients which are created created at the selected source.</p>"
+
+msgid "ExpressionBuilder.ClientsInServiceProcess.Quantil"
+msgstr ""
+"<p>Returns the quantil for probability p of the number of clients in service process at the station whose ID is specified in the parameter.</p>\n"
+"<p>Alternatively, the ID of a client source can be specified, in which case the results refer to the clients which are created created at the selected source.</p>"
+
+msgid "ExpressionBuilder.ClientsInServiceProcess.Skewness"
+msgstr ""
+"<p>Returns the skewness of the number of clients in service process at the station whose ID is specified in the parameter.</p>\n"
+"<p>Alternatively, the ID of a client source can be specified, in which case the results refer to the clients which are created created at the selected source.</p>"
+
+msgid "ExpressionBuilder.ClientsInServiceProcess.SquaredCoefficientOfVariationOfTheNumber"
+msgstr ""
+"<p>Returns the squared coefficient of variation of the number of clients in service process at the station whose ID is specified in the parameter.</p>\n"
+"<p>Alternatively, the ID of a client source can be specified, in which case the results refer to the clients which are created created at the selected source.</p>"
+
+msgid "ExpressionBuilder.ClientsInServiceProcess.StandardDeviationOfTheNumber"
+msgstr ""
+"<p>Returns the standard deviation of the number of clients in service process at the station whose ID is specified in the parameter.</p>\n"
+"<p>Alternatively, the ID of a client source can be specified, in which case the results refer to the clients which are created created at the selected source.</p>"
+
+msgid "ExpressionBuilder.ClientsInServiceProcess.VarianceOfTheNumber"
+msgstr ""
+"<p>Returns the variance of the number of clients in service process at the station whose ID is specified in the parameter.</p>\n"
+"<p>Alternatively, the ID of a client source can be specified, in which case the results refer to the clients which are created created at the selected source.</p>"
 
 msgid "ExpressionBuilder.ClientsInSystem"
 msgstr "Client in the system"
@@ -10229,6 +10294,18 @@ msgstr "Heatmap: Maximum number of waiting clients at a station"
 
 msgid "Main.Menu.View.Statistics.HeatMap.NqMax.Mnemonic"
 msgstr "w"
+
+msgid "Main.Menu.View.Statistics.HeatMap.NsAvg"
+msgstr "Heatmap: Average number of clients in the service process at a station"
+
+msgid "Main.Menu.View.Statistics.HeatMap.NsAvg.Mnemonic"
+msgstr "s"
+
+msgid "Main.Menu.View.Statistics.HeatMap.NsMax"
+msgstr "Heatmap: Maximum number of clients in the service process at a station"
+
+msgid "Main.Menu.View.Statistics.HeatMap.NsMax.Mnemonic"
+msgstr "s"
 
 msgid "Main.Menu.View.Statistics.HeatMap.Off"
 msgstr "Do not show heatmap"
@@ -15636,6 +15713,12 @@ msgstr "Clients in all queues"
 msgid "ScriptPopup.Simulation.getNQAll.Hint"
 msgstr "Current number of clients in all queues of the system"
 
+msgid "ScriptPopup.Simulation.getNS"
+msgstr "Clients in service process at station"
+
+msgid "ScriptPopup.Simulation.getNS.Hint"
+msgstr "Current number of clients in service process at a station"
+
 msgid "ScriptPopup.Simulation.getResourceCount"
 msgstr "Number of operators in a group"
 
@@ -18970,6 +19053,12 @@ msgstr "Average number of clients in system by client type"
 msgid "Statistic.FastAccess.Template.ClientsAtStationByStationAndType"
 msgstr "Average number of clients at a station (by client type)"
 
+msgid "Statistic.FastAccess.Template.ClientsAtStationProcess"
+msgstr "Average number of clients at a stations in service process"
+
+msgid "Statistic.FastAccess.Template.ClientsAtStationProcessByClientType"
+msgstr "Average number of clients at a stations in service process (by client type)"
+
 msgid "Statistic.FastAccess.Template.ClientsAtStationQueue"
 msgstr "Average number of clients at a stations queue"
 
@@ -18990,6 +19079,9 @@ msgstr "Average number of clients in the system"
 
 msgid "Statistic.FastAccess.Template.ClientsInSystem.Tooltip"
 msgstr "Inserts at the current position the command to output the average number of clients in the system."
+
+msgid "Statistic.FastAccess.Template.ClientsInSystemProcess"
+msgstr "Average number of clients in service process"
 
 msgid "Statistic.FastAccess.Template.ClientsInSystemQueue"
 msgstr "Average number of waiting clients in the system"
@@ -19927,6 +20019,12 @@ msgstr "Average number of clients (by client type)"
 msgid "Statistics.AverageNumberOfClientsByStations"
 msgstr "Average number of clients (by station)"
 
+msgid "Statistics.AverageNumberOfClientsInProcess"
+msgstr "Average number of clients in service process"
+
+msgid "Statistics.AverageNumberOfClientsInProcessByStations"
+msgstr "Average number of clients in service process (by stations)"
+
 msgid "Statistics.AverageNumberOfClientsInQueue"
 msgstr "Average number of clients in queue"
 
@@ -20130,6 +20228,12 @@ msgstr "Clients by client type"
 msgid "Statistics.ClientsFlowFactor"
 msgstr "Flow factors of the clients"
 
+msgid "Statistics.ClientsInProcess"
+msgstr "Clients in service process"
+
+msgid "Statistics.ClientsInProcessAt"
+msgstr "Clients in service process at"
+
 msgid "Statistics.ClientsInQueue"
 msgstr "Clients in queue"
 
@@ -20267,6 +20371,12 @@ msgstr "Distribution of the transfer times of the clients"
 
 msgid "Statistics.DistributionOfClientsWaitingTimes"
 msgstr "Distribution of the waiting times of the clients"
+
+msgid "Statistics.DistributionOfNumberOfClientsAtStationProcess"
+msgstr "Distribution of the numbers of clients in service process at the stations"
+
+msgid "Statistics.DistributionOfNumberOfClientsAtStationProcessByClientTypes"
+msgstr "Distribution of the numbers of clients in service process at the stations (by client types)"
 
 msgid "Statistics.DistributionOfNumberOfClientsAtStationQueues"
 msgstr "Distribution of the numbers of clients at the queues at the stations"
@@ -20766,6 +20876,9 @@ msgstr "Maximum number"
 msgid "Statistics.MaximumNumberOfClients"
 msgstr "Maximum number of clients"
 
+msgid "Statistics.MaximumNumberOfClientsInProcess"
+msgstr "Maximum number of clients in process"
+
 msgid "Statistics.MaximumNumberOfClientsInQueue"
 msgstr "Maximum number of clients in queue"
 
@@ -20946,6 +21059,21 @@ msgstr "Number of arrivals"
 msgid "Statistics.NumberOfClients"
 msgstr "Number of clients"
 
+msgid "Statistics.NumberOfClientsAtStationProcess"
+msgstr "Number of clients in service process at the stations"
+
+msgid "Statistics.NumberOfClientsAtStationProcess.Short"
+msgstr "Number of clients in service process"
+
+msgid "Statistics.NumberOfClientsAtStationProcess.Singular"
+msgstr "Number of clients in process at the station"
+
+msgid "Statistics.NumberOfClientsAtStationProcessByClientTypes"
+msgstr "Number of clients in service process (by stations and client types)"
+
+msgid "Statistics.NumberOfClientsAtStationProcessByClientTypes.Short"
+msgstr "Number of clients in service process (by client types)"
+
 msgid "Statistics.NumberOfClientsAtStationQueues"
 msgstr "Number of clients in the queues at the stations"
 
@@ -20969,6 +21097,9 @@ msgstr "Number of clients at the station"
 
 msgid "Statistics.NumberOfClientsAtStationsByClientTypes"
 msgstr "Number of clients at the stations (by client types)"
+
+msgid "Statistics.NumberOfClientsInProcess"
+msgstr "Number of clients in service process"
 
 msgid "Statistics.NumberOfClientsInTheSystem"
 msgstr "Number of clients in the system"
@@ -21848,6 +21979,12 @@ msgstr "StatisticsClientsAtStationByClientType"
 msgid "Statistics.XML.Element.ClientsAtStationByType"
 msgstr "StatisticsClienttypesInSystem"
 
+msgid "Statistics.XML.Element.ClientsAtStationProcess"
+msgstr "StatisticsClientsAtStationProcess"
+
+msgid "Statistics.XML.Element.ClientsAtStationProcessByClientType"
+msgstr "StatisticsClientsAtStationProcessByClientType"
+
 msgid "Statistics.XML.Element.ClientsAtStationQueue"
 msgstr "StatisticsClientsAtStationQueue"
 
@@ -21856,6 +21993,9 @@ msgstr "StatisticsClientsAtStationQueueByClientType"
 
 msgid "Statistics.XML.Element.ClientsInSystem"
 msgstr "StatisticsClientsInSystem"
+
+msgid "Statistics.XML.Element.ClientsInSystemProcess"
+msgstr "StatisticsClientsInSystemProcess"
 
 msgid "Statistics.XML.Element.ClientsInSystemQueue"
 msgstr "StatisticsClientsInSystemQueue"
@@ -27780,6 +27920,9 @@ msgstr "Clients so far: %s"
 
 msgid "Surface.PopupMenu.SimulationStatisticsData.Data.ClientsAtStation"
 msgstr "Current number of clients in the station: %s"
+
+msgid "Surface.PopupMenu.SimulationStatisticsData.Data.ClientsAtStationProcess"
+msgstr "Current number of clients in process at the station: %s"
 
 msgid "Surface.PopupMenu.SimulationStatisticsData.Data.ClientsAtStationQueue"
 msgstr "Current number of clients in the station queue: %s"

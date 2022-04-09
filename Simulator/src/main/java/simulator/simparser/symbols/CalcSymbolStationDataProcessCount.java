@@ -27,7 +27,7 @@ public class CalcSymbolStationDataProcessCount extends CalcSymbolStationData {
 	 * Namen für das Symbol
 	 * @see #getNames()
 	 */
-	private static final String[] names=new String[]{"Process"};
+	private static final String[] names=new String[]{"Process","NS"};
 
 	@Override
 	public String[] getNames() {

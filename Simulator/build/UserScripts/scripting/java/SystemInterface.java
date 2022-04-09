@@ -54,6 +54,13 @@ public interface SystemInterface {
 	 * @return	Number of clients in the queue at the station
 	 */
 	int getNQ(final int id);
+	
+	/**
+	 * Returns the number of clients in service process at a station.
+	 * @param id	ID of the station
+	 * @return	Number of clients in service process at the station
+	 */
+	int getNS(final int id);
 
 	/**
 	 * Returns the number of clients at all stations together.

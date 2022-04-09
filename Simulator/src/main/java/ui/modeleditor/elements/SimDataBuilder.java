@@ -87,6 +87,7 @@ public class SimDataBuilder {
 		results.append(String.format(Language.tr("Surface.PopupMenu.SimulationStatisticsData.Data.Clients"),NumberTools.formatLong(data.clients))+"\n");
 		results.append(String.format(Language.tr("Surface.PopupMenu.SimulationStatisticsData.Data.ClientsAtStation"),NumberTools.formatLong(data.reportedClientsAtStation(simData)))+"\n");
 		results.append(String.format(Language.tr("Surface.PopupMenu.SimulationStatisticsData.Data.ClientsAtStationQueue"),NumberTools.formatLong(data.clientsAtStationQueue))+"\n\n");
+		results.append(String.format(Language.tr("Surface.PopupMenu.SimulationStatisticsData.Data.ClientsAtStationProcess"),NumberTools.formatLong(data.clientsAtStationProcess))+"\n\n");
 
 		if (data.lastArrival>0) {
 			results.append(String.format(Language.tr("Surface.PopupMenu.SimulationStatisticsData.Data.LastArrival"),SimData.formatSimTime(data.lastArrival))+"\n");
@@ -250,6 +251,15 @@ public class SimDataBuilder {
 			results.append(Language.tr("Statistics.MaximumNumberOfClientsInQueue")+" Max[NQ]="+StatisticTools.formatNumber(data.statisticClientsAtStationQueue.getTimeMax())+"\n");
 			outputShortStateDistribution("NQ",data.statisticClientsAtStationQueue);
 			outputQuantil("NQ",data.statisticClientsAtStationQueue);
+		}
+
+		if (data.statisticClientsAtStationProcess!=null && data.statisticClientsAtStationProcess.getTimeMax()>0) {
+			results.append("\n"+Language.tr("Statistics.NumberOfClientsAtStationProcess.Singular")+":\n");
+			results.append(String.format(Language.tr("Surface.PopupMenu.SimulationStatisticsData.Data.ClientsAtStationProcess"),NumberTools.formatLong(data.clientsAtStationProcess))+"\n");
+			results.append(Language.tr("Statistics.AverageNumberOfClientsInProcess")+" E[NS]="+StatisticTools.formatNumber(data.statisticClientsAtStationProcess.getTimeMean())+"\n");
+			results.append(Language.tr("Statistics.MaximumNumberOfClientsInProcess")+" Max[NS]="+StatisticTools.formatNumber(data.statisticClientsAtStationProcess.getTimeMax())+"\n");
+			outputShortStateDistribution("NS",data.statisticClientsAtStationProcess);
+			outputQuantil("NS",data.statisticClientsAtStationProcess);
 		}
 	}
 

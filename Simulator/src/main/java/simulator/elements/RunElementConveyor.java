@@ -171,6 +171,11 @@ public class RunElementConveyor extends RunElementPassThrough implements PickUpQ
 			case TRANSPORT_TYPE_PROCESS: client.addStationTime(id,waitingTimeMS,0,transportTimeMS,waitingTimeMS+transportTimeMS); break;
 			}
 
+			/* Kunde als in Bedienung erfassen */
+			if (transportTimeType==ModelElementConveyor.TransportTimeType.TRANSPORT_TYPE_PROCESS) {
+				simData.runData.logClientEntersStationProcess(simData,this,data,client);
+			}
+
 			/* Weiterleitung zu nächster Station nach Bedienzeit-Ende */
 			StationLeaveEvent.addLeaveEvent(simData,client,this,transportTimeMS);
 		}
@@ -192,9 +197,14 @@ public class RunElementConveyor extends RunElementPassThrough implements PickUpQ
 	@Override
 	public void processLeave(SimulationData simData, RunDataClient client) {
 		super.processLeave(simData,client);
-
 		final RunElementConveyorData data=getData(simData);
+
 		data.freeCapacity+=client.stationInformationDouble;
+
+		/* Kunde als nicht mehr in Bedienung erfassen */
+		if (transportTimeType==ModelElementConveyor.TransportTimeType.TRANSPORT_TYPE_PROCESS) {
+			simData.runData.logClientLeavesStationProcess(simData,this,data,client);
+		}
 
 		data.queueLockedForPickUp=true;
 		try {

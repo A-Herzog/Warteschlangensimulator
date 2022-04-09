@@ -905,6 +905,50 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 				endParagraph();
 			}
 		}
+
+
+
+		/* Mittlere Anzahl an Kunden in Bedienung (an den Stationen) */
+
+		headingWritten=false;
+		for (String station: statistics.clientsAtStationProcessByStation.getNames()) {
+			final StatisticsTimePerformanceIndicator indicator=((StatisticsTimePerformanceIndicator)statistics.clientsAtStationProcessByStation.get(station));
+			final double mean=indicator.getTimeMean();
+			if (mean>0) {
+				if (!headingWritten) {
+					addHeading(3,Language.tr("Statistics.AverageNumberOfClientsInProcessByStations")+" E[NS]");
+					beginParagraph();
+					headingWritten=true;
+				}
+				addLine(Language.tr("Statistics.ClientsInProcessAt")+" "+fullStationName(station)+": E[NS]="+StatisticTools.formatNumber(mean),xmlMean(indicator));
+			}
+		}
+		if (headingWritten) {
+			addModeLink(Mode.MODE_CLIENTS_COUNT);
+			endParagraph();
+		}
+
+		/* Mittlere Anzahl Kunden in Bedienung (nach Kundentypen) */
+
+		if (statistics.clientsAtStationProcessByClient.size()>1) {
+			headingWritten=false;
+			for (String clientType: statistics.clientsAtStationProcessByClient.getNames()) {
+				final StatisticsTimePerformanceIndicator indicator=((StatisticsTimePerformanceIndicator)statistics.clientsAtStationProcessByClient.get(clientType));
+				final double mean=indicator.getTimeMean();
+				if (mean>0) {
+					if (!headingWritten) {
+						addHeading(3,Language.tr("Statistics.AverageNumberOfWaitingClientsByClientTypes")+" E[NQ]");
+						beginParagraph();
+						headingWritten=true;
+					}
+					addLine(Language.tr("Statistics.ClientType")+" "+clientType+": E[NQ]="+StatisticTools.formatNumber(mean),xmlMean(indicator));
+				}
+			}
+			if (headingWritten) {
+				addModeLink(Mode.MODE_CLIENTS_COUNT);
+				endParagraph();
+			}
+		}
 	}
 
 	/**
@@ -1101,7 +1145,7 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 		for (String type: statistics.stationsTransferTimes.getNames()) if (((StatisticsDataPerformanceIndicator)statistics.stationsTransferTimes.get(type)).getMean()>0) {writeBlock=true; break;}
 
 		if (writeBlock) {
-			addHeading(3,Language.tr("Statistics.TransferTimesByStations")+ "E[T]");
+			addHeading(3,Language.tr("Statistics.TransferTimesByStations")+" E[T]");
 			beginParagraph();
 			for (String station: statistics.stationsTransferTimes.getNames()) {
 				final StatisticsDataPerformanceIndicator indicator=((StatisticsDataPerformanceIndicator)statistics.stationsTransferTimes.get(station));
@@ -1201,7 +1245,7 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 		for (String type: statistics.stationsTransferTimesByClientType.getNames()) if (((StatisticsDataPerformanceIndicator)statistics.stationsTransferTimesByClientType.get(type)).getMean()>0) {writeBlock=true; break;}
 
 		if (writeBlock) {
-			addHeading(3,Language.tr("Statistics.TransferTimesByStationsAndClients")+ "E[T]");
+			addHeading(3,Language.tr("Statistics.TransferTimesByStationsAndClients")+" E[T]");
 			beginParagraph();
 			for (String station: statistics.stationsTransferTimesByClientType.getNames()) {
 				final StatisticsDataPerformanceIndicator indicator=((StatisticsDataPerformanceIndicator)statistics.stationsTransferTimesByClientType.get(station));
@@ -2987,6 +3031,91 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 					outputShortStateDistribution("NQ",indicator);
 
 					outputQuantilInfoNumber("NQ",indicator);
+
+					outputConfidenceData(indicator);
+				}
+			}
+		}
+
+		/* Kunden an den Stationen (in Bedienung) */
+
+		addHeading(2,Language.tr("Statistics.NumberOfClientsAtStationProcess"));
+		indicators=statistics.clientsAtStationProcessByStation;
+		for (String station : indicators.getNames()) {
+			final StatisticsTimePerformanceIndicator indicator=(StatisticsTimePerformanceIndicator)(indicators.get(station));
+			if (indicator.getTimeMean()>0) {
+				addHeading(3,fullStationName(station));
+				beginParagraph();
+				addLine(Language.tr("Statistics.AverageNumberOfClients")+": E[NS]="+StatisticTools.formatNumber(indicator.getTimeMean()),xmlMean(indicator));
+				addLine(Language.tr("Statistics.StdDevNumberOfClients")+": Std[NS]="+StatisticTools.formatNumber(indicator.getTimeSD()),fastAccessBuilder.getXMLSelector(indicator,IndicatorMode.SD));
+				addLine(Language.tr("Statistics.VarianceNumberOfClients")+": Var[NS]="+StatisticTools.formatNumber(indicator.getTimeVar()));
+				addLine(Language.tr("Statistics.CVNumberOfClients")+": CV[NS]="+StatisticTools.formatNumber(indicator.getTimeCV()),fastAccessBuilder.getXMLSelector(indicator,IndicatorMode.CV));
+				addLine(Language.tr("Statistics.Skewness")+": Sk[NS]="+StatisticTools.formatNumber(indicator.getTimeSk()),fastAccessBuilder.getXMLSelector(indicator,IndicatorMode.Sk));
+				addLine(Language.tr("Statistics.Kurt")+": Kurt[NS]="+StatisticTools.formatNumber(indicator.getTimeKurt()),fastAccessBuilder.getXMLSelector(indicator,IndicatorMode.Kurt));
+				addLine(Language.tr("Statistics.MinimumNumberOfClients")+": Min[NS]="+StatisticTools.formatNumber(indicator.getTimeMin()),fastAccessBuilder.getXMLSelector(indicator,IndicatorMode.MINIMUM));
+				addLine(Language.tr("Statistics.MaximumNumberOfClients")+": Max[NS]="+StatisticTools.formatNumber(indicator.getTimeMax()),fastAccessBuilder.getXMLSelector(indicator,IndicatorMode.MAXIMUM));
+				endParagraph();
+
+				outputShortStateDistribution("NS",indicator);
+
+				outputQuantilInfoNumber("NS",indicator);
+
+				outputConfidenceData(indicator);
+			}
+		}
+
+		/* Kundentypen (in Bedienung) */
+
+		indicators=statistics.clientsAtStationProcessByClient;
+		if (indicators.size()>1) {
+			addHeading(2,Language.tr("Statistics.NumberOfClientsInProcess"));
+			for (String clientTypes : indicators.getNames()) {
+				final StatisticsTimePerformanceIndicator indicator=(StatisticsTimePerformanceIndicator)(indicators.get(clientTypes));
+				if (indicator.getTimeMean()>0) {
+					addHeading(3,clientTypes);
+					beginParagraph();
+					addLine(Language.tr("Statistics.AverageNumberOfClients")+": E[NS]="+StatisticTools.formatNumber(indicator.getTimeMean()),xmlMean(indicator));
+					addLine(Language.tr("Statistics.StdDevNumberOfClients")+": Std[NS]="+StatisticTools.formatNumber(indicator.getTimeSD()),fastAccessBuilder.getXMLSelector(indicator,IndicatorMode.SD));
+					addLine(Language.tr("Statistics.VarianceNumberOfClients")+": Var[NS]="+StatisticTools.formatNumber(indicator.getTimeVar()));
+					addLine(Language.tr("Statistics.CVNumberOfClients")+": CV[NS]="+StatisticTools.formatNumber(indicator.getTimeCV()),fastAccessBuilder.getXMLSelector(indicator,IndicatorMode.CV));
+					addLine(Language.tr("Statistics.Skewness")+": Sk[NS]="+StatisticTools.formatNumber(indicator.getTimeSk()),fastAccessBuilder.getXMLSelector(indicator,IndicatorMode.Sk));
+					addLine(Language.tr("Statistics.Kurt")+": Kurt[NS]="+StatisticTools.formatNumber(indicator.getTimeKurt()),fastAccessBuilder.getXMLSelector(indicator,IndicatorMode.Kurt));
+					addLine(Language.tr("Statistics.MinimumNumberOfClients")+": Min[NS]="+StatisticTools.formatNumber(indicator.getTimeMin()),fastAccessBuilder.getXMLSelector(indicator,IndicatorMode.MINIMUM));
+					addLine(Language.tr("Statistics.MaximumNumberOfClients")+": Max[NS]="+StatisticTools.formatNumber(indicator.getTimeMax()),fastAccessBuilder.getXMLSelector(indicator,IndicatorMode.MAXIMUM));
+					endParagraph();
+
+					outputShortStateDistribution("NS",indicator);
+
+					outputQuantilInfoNumber("NS",indicator);
+
+					outputConfidenceData(indicator);
+				}
+			}
+		}
+
+		/* Kundentypen an den Stationen (in Bedienung) */
+
+		indicators=statistics.clientsAtStationProcessByStationAndClient;
+		if (indicators.size()>1) {
+			addHeading(2,Language.tr("Statistics.NumberOfClientsAtStationProcessByClientTypes"));
+			for (String station : indicators.getNames()) {
+				final StatisticsTimePerformanceIndicator indicator=(StatisticsTimePerformanceIndicator)(indicators.get(station));
+				if (indicator.getTimeMean()>0) {
+					addHeading(3,fullStationName(station));
+					beginParagraph();
+					addLine(Language.tr("Statistics.AverageNumberOfClients")+": E[NS]="+StatisticTools.formatNumber(indicator.getTimeMean()),xmlMean(indicator));
+					addLine(Language.tr("Statistics.StdDevNumberOfClients")+": Std[NS]="+StatisticTools.formatNumber(indicator.getTimeSD()),fastAccessBuilder.getXMLSelector(indicator,IndicatorMode.SD));
+					addLine(Language.tr("Statistics.VarianceNumberOfClients")+": Var[NS]="+StatisticTools.formatNumber(indicator.getTimeVar()));
+					addLine(Language.tr("Statistics.CVNumberOfClients")+": CV[NS]="+StatisticTools.formatNumber(indicator.getTimeCV()),fastAccessBuilder.getXMLSelector(indicator,IndicatorMode.CV));
+					addLine(Language.tr("Statistics.Skewness")+": Sk[NS]="+StatisticTools.formatNumber(indicator.getTimeSk()),fastAccessBuilder.getXMLSelector(indicator,IndicatorMode.Sk));
+					addLine(Language.tr("Statistics.Kurt")+": Kurt[NS]="+StatisticTools.formatNumber(indicator.getTimeKurt()),fastAccessBuilder.getXMLSelector(indicator,IndicatorMode.Kurt));
+					addLine(Language.tr("Statistics.MinimumNumberOfClients")+": Min[NS]="+StatisticTools.formatNumber(indicator.getTimeMin()),fastAccessBuilder.getXMLSelector(indicator,IndicatorMode.MINIMUM));
+					addLine(Language.tr("Statistics.MaximumNumberOfClients")+": Max[NS]="+StatisticTools.formatNumber(indicator.getTimeMax()),fastAccessBuilder.getXMLSelector(indicator,IndicatorMode.MAXIMUM));
+					endParagraph();
+
+					outputShortStateDistribution("NS",indicator);
+
+					outputQuantilInfoNumber("NS",indicator);
 
 					outputConfidenceData(indicator);
 				}

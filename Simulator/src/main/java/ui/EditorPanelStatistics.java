@@ -101,6 +101,12 @@ public class EditorPanelStatistics {
 	private double maxMeanClientsAtStationQueuesCache;
 
 	/**
+	 * Maximalwert über die mittleren Anzahlen an Kunden in Bedienung an allen Stationen
+	 * @see #maxMeanClientsAtStationProcess(Statistics)
+	 */
+	private double maxMeanClientsAtStationProcessCache;
+
+	/**
 	 * Maximalwert über die maximalen Anzahlen an Kunden an allen Stationen
 	 * @see #maxMeanClientsAtStations(Statistics)
 	 */
@@ -111,6 +117,12 @@ public class EditorPanelStatistics {
 	 * @see #maxMeanClientsAtStationQueues(Statistics)
 	 */
 	private double maxClientsAtStationQueuesCache;
+
+	/**
+	 * Maximalwert über die maximalen Anzahlen an Kunden im Bedienprozess an allen Stationen
+	 * @see #maxMeanClientsAtStationProcess(Statistics)
+	 */
+	private double maxClientsAtStationProcessCache;
 
 	/**
 	 * Maximaler Flussgrad über alle Stationen
@@ -197,8 +209,10 @@ public class EditorPanelStatistics {
 		nameCache.clear();
 		maxMeanClientsAtStationsCache=-1;
 		maxMeanClientsAtStationQueuesCache=-1;
+		maxMeanClientsAtStationProcessCache=-1;
 		maxClientsAtStationsCache=-1;
 		maxClientsAtStationQueuesCache=-1;
+		maxClientsAtStationProcessCache=-1;
 		maxFlowFactorCache=-1;
 		maxClientsCountCache=-1;
 	}
@@ -335,6 +349,7 @@ public class EditorPanelStatistics {
 		final StatisticsDataPerformanceIndicator residence;
 		final StatisticsTimePerformanceIndicator wip;
 		final StatisticsTimePerformanceIndicator nq;
+		final StatisticsTimePerformanceIndicator ns;
 		String throughput=null;
 		String maxThroughput=null;
 		String maxThroughputInfo=null;
@@ -345,6 +360,7 @@ public class EditorPanelStatistics {
 			residence=((StatisticsDataPerformanceIndicator)statistics.clientsResidenceTimes.getOrNull(name));
 			wip=((StatisticsTimePerformanceIndicator)statistics.clientsInSystemByClient.getOrNull(name));
 			nq=((StatisticsTimePerformanceIndicator)statistics.clientsAtStationQueueByClient.getOrNull(name));
+			ns=((StatisticsTimePerformanceIndicator)statistics.clientsAtStationProcessByClient.getOrNull(name));
 		} else {
 			waiting=((StatisticsDataPerformanceIndicator)statistics.stationsWaitingTimes.getOrNull(name));
 			transfer=((StatisticsDataPerformanceIndicator)statistics.stationsTransferTimes.getOrNull(name));
@@ -352,6 +368,7 @@ public class EditorPanelStatistics {
 			residence=((StatisticsDataPerformanceIndicator)statistics.stationsResidenceTimes.getOrNull(name));
 			wip=((StatisticsTimePerformanceIndicator)statistics.clientsAtStationByStation.getOrNull(name));
 			nq=((StatisticsTimePerformanceIndicator)statistics.clientsAtStationQueueByStation.getOrNull(name));
+			ns=((StatisticsTimePerformanceIndicator)statistics.clientsAtStationProcessByStation.getOrNull(name));
 			final StatisticsDataPerformanceIndicator arrival=(StatisticsDataPerformanceIndicator)(statistics.stationsInterarrivalTime.getOrNull(name));
 			if (arrival!=null) throughput=StatisticViewerOverviewText.getThroughputText(arrival.getCount(),statistics);
 			final StatisticsSimpleValueMaxPerformanceIndicator maxThroughputIndicator=(StatisticsSimpleValueMaxPerformanceIndicator)(statistics.stationsMaxThroughput.getOrNull(name));
@@ -371,6 +388,7 @@ public class EditorPanelStatistics {
 		if (process!=null && process.getMean()>0) lines.add("E[S]="+formatTime(process.getMean()));
 		if (residence!=null && residence.getMean()>0) lines.add("E[V]="+formatTime(residence.getMean()));
 		if (nq!=null && nq.getTimeMean()>0) lines.add("E[NQ]="+StatisticTools.formatNumber(nq.getTimeMean()));
+		if (ns!=null && ns.getTimeMean()>0) lines.add("E[NS]="+StatisticTools.formatNumber(ns.getTimeMean()));
 		if (wip!=null && wip.getTimeMean()>0) lines.add("E[N]="+StatisticTools.formatNumber(wip.getTimeMean()));
 		if (throughput!=null) lines.add(Language.tr("Statistics.Throughput")+": "+throughput);
 		if (maxThroughput!=null) lines.add(Language.tr("Statistics.Throughput.Maximum")+": "+maxThroughput);
@@ -777,6 +795,23 @@ public class EditorPanelStatistics {
 	}
 
 	/**
+	 * Liefert den Maximalwert über die mittleren Anzahlen Kunden in Bedienung an allen Stationen.
+	 * @param statistics	Statistikobjekt dem die Daten entnommen werden sollen
+	 * @return	Maximalwert über die mittleren Anzahlen Kunden in Bedienung an allen Stationen
+	 */
+	private double maxMeanClientsAtStationProcess(final Statistics statistics) {
+		if (maxMeanClientsAtStationProcessCache<0.0) {
+			final StatisticsTimePerformanceIndicator[] stat=statistics.clientsAtStationProcessByStation.getAll(StatisticsTimePerformanceIndicator.class);
+			maxMeanClientsAtStationProcessCache=0.0;
+			for (StatisticsTimePerformanceIndicator indicator: stat) {
+				maxMeanClientsAtStationProcessCache=Math.max(maxMeanClientsAtStationProcessCache,indicator.getTimeMean());
+			}
+		}
+
+		return maxMeanClientsAtStationProcessCache;
+	}
+
+	/**
 	 * Liefert den Maximalwert über die maximalen Anzahlen an Kunden an allen Stationen.
 	 * @param statistics	Statistikobjekt dem die Daten entnommen werden sollen
 	 * @return	Maximalwert über die mittleren Anzahlen an Kunden an allen Stationen
@@ -808,6 +843,23 @@ public class EditorPanelStatistics {
 		}
 
 		return maxClientsAtStationQueuesCache;
+	}
+
+	/**
+	 * Liefert den Maximalwert über die maximalen Anzahlen an Kunden in Bedienung an allen Stationen.
+	 * @param statistics	Statistikobjekt dem die Daten entnommen werden sollen
+	 * @return	Maximalwert über die maximalen Anzahlen an Kunden in Bedienung an allen Stationen
+	 */
+	private double maxClientsAtStationProcess(final Statistics statistics) {
+		if (maxClientsAtStationProcessCache<0.0) {
+			final StatisticsTimePerformanceIndicator[] stat=statistics.clientsAtStationProcessByStation.getAll(StatisticsTimePerformanceIndicator.class);
+			maxClientsAtStationProcessCache=0.0;
+			for (StatisticsTimePerformanceIndicator indicator: stat) {
+				maxClientsAtStationProcessCache=Math.max(maxClientsAtStationProcessCache,indicator.getTimeMax());
+			}
+		}
+
+		return maxClientsAtStationProcessCache;
 	}
 
 	/**
@@ -858,10 +910,14 @@ public class EditorPanelStatistics {
 		WIP_AVG("WIP",()->Language.tr("Main.Menu.View.Statistics.HeatMap.WipAvg"),()->Language.tr("Main.Menu.View.Statistics.HeatMap.WipAvg.Mnemonic")),
 		/** Mittlere Anzahl an wartenden Kunden an der Station */
 		NQ_AVG("NQ",()->Language.tr("Main.Menu.View.Statistics.HeatMap.NqAvg"),()->Language.tr("Main.Menu.View.Statistics.HeatMap.NqAvg.Mnemonic")),
+		/** Mittlere Anzahl an Kunden in Bedienung an der Station */
+		NS_AVG("NS",()->Language.tr("Main.Menu.View.Statistics.HeatMap.NsAvg"),()->Language.tr("Main.Menu.View.Statistics.HeatMap.NsAvg.Mnemonic")),
 		/** Maximale Anzahl an Kunden an der Station */
 		WIP_MAX("WIPMax",()->Language.tr("Main.Menu.View.Statistics.HeatMap.WipMax"),()->Language.tr("Main.Menu.View.Statistics.HeatMap.WipMax.Mnemonic")),
 		/** Maximale Anzahl an wartenden Kunden an der Station */
 		NQ_MAX("NQMax",()->Language.tr("Main.Menu.View.Statistics.HeatMap.NqMax"),()->Language.tr("Main.Menu.View.Statistics.HeatMap.NqMax.Mnemonic")),
+		/** Maximale Anzahl an Kunden in Bedienung an der Station */
+		NS_MAX("NSMax",()->Language.tr("Main.Menu.View.Statistics.HeatMap.NsMax"),()->Language.tr("Main.Menu.View.Statistics.HeatMap.NsMax.Mnemonic")),
 		/** Anzahl an Ankünften an der Station */
 		ARRIVALS("Arrivals",()->Language.tr("Main.Menu.View.Statistics.HeatMap.Arrivals"),()->Language.tr("Main.Menu.View.Statistics.HeatMap.Arrivals.Mnemonic")),
 		/** Mittlere Wartezeit an der Station */
@@ -992,6 +1048,10 @@ public class EditorPanelStatistics {
 			number=(StatisticsTimePerformanceIndicator)statistics.clientsAtStationQueueByStation.getOrNull(nameStation);
 			if (number==null) return 0.0;
 			return number.getTimeMean()/maxMeanClientsAtStationQueues(statistics);
+		case NS_AVG:
+			number=(StatisticsTimePerformanceIndicator)statistics.clientsAtStationProcessByStation.getOrNull(nameStation);
+			if (number==null) return 0.0;
+			return number.getTimeMean()/maxMeanClientsAtStationProcess(statistics);
 		case WIP_MAX:
 			number=(StatisticsTimePerformanceIndicator)statistics.clientsAtStationByStation.getOrNull(nameStation);
 			if (number==null) return 0.0;
@@ -1000,6 +1060,10 @@ public class EditorPanelStatistics {
 			number=(StatisticsTimePerformanceIndicator)statistics.clientsAtStationQueueByStation.getOrNull(nameStation);
 			if (number==null) return 0.0;
 			return number.getTimeMax()/maxClientsAtStationQueues(statistics);
+		case NS_MAX:
+			number=(StatisticsTimePerformanceIndicator)statistics.clientsAtStationProcessByStation.getOrNull(nameStation);
+			if (number==null) return 0.0;
+			return number.getTimeMax()/maxClientsAtStationProcess(statistics);
 		case ARRIVALS:
 			time=(StatisticsDataPerformanceIndicator)statistics.stationsInterarrivalTime.getOrNull(nameStation);
 			if (time==null) return 0.0;

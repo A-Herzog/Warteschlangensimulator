@@ -333,6 +333,58 @@ Liefert den Anteil der Zeit, in der sich mehr als \cm{stateA} und höchsten \cm{
 \cmd{Process(id)}:\\
 Liefert die aktuelle Anzahl an Kunden, die gerade an Station \cm{id} bedient werden.
 
+\item
+\cmd{Process\_avg(id)} oder \cmd{NS\_avg(id)} oder \cmd{Process\_Mittelwert(id)} oder \cmd{NS\_Mittelwert(id)}:\\
+Liefert die mittlere Anzahl an Kunden in Bedienng an Station \cm{id}.
+
+\item
+\cmd{Process\_median(id)} oder \cmd{NS\_median(id)}:\\
+Liefert den Median der Anzahl an Kunden in Bedienung an Station \cm{id}.
+
+\item
+\cmd{Process\_quantil(p;id)} oder \cmd{NS\_quantil(p;id)}:\\
+Liefert das Quantil zur Wahrscheinlichkeit p der Anzahl an Kunden in Bedienung an Station \cm{id}.
+
+\item
+\cmd{Process\_min(id)} oder \cmd{NS\_min(id)} oder \cmd{Process\_Minimum(id)} oder \cmd{NS\_Minimum(id)}:\\
+Liefert die minimale Anzahl an Kunden in Bedienung an Station \cm{id}.
+
+\item
+\cmd{Process\_max(id)} oder \cmd{NS\_max(id)} oder \cmd{Process\_Maximum(id)} oder \cmd{NS\_Maximum(id)}:\\
+Liefert die maximale Anzahl an Kunden in Bedienung an Station \cm{id}.
+
+\item
+\cmd{Process\_var(id)} oder \cmd{NS\_var(id)} oder \cmd{Process\_Varianz(id)} oder \cmd{NS\_Varianz(id)} :\\
+Liefert die Varianz der Anzahl an Kunden in Bedienung an Station \cm{id}.
+
+\item
+\cmd{Process\_sd(id)} oder \cmd{NS\_sd(id)} oder \cmd{Process\_Standardabweichung(id)} oder \cmd{NS\_Standardabweichung(id)}:\\
+Liefert die Standardabweichung der Anzahl an Kunden in Bedienung an Station \cm{id}.
+
+\item
+\cmd{Process\_cv(id)} oder \cmd{NS\_cv(id)}:\\
+Liefert den Variationskoeffizienten der Anzahl an Kunden in Bedienung an Station \cm{id}.
+
+\item
+\cmd{Process\_scv(id)} oder \cmd{NS\_scv(id)}:\\
+Liefert den quadrierten Variationskoeffizienten der Anzahl an Kunden in Bedienung an Station \cm{id}.
+
+\item
+\cmd{Process\_sk(id)} oder \cmd{NS\_sk(id)}:\\
+Liefert die Schiefe der Anzahl an Kunden in Bedienung an Station \cm{id}.
+
+\item
+\cmd{Process\_kurt(id)} oder \cmd{NS\_kurt(id)}:\\
+Liefert den Exzess (ein Maß für die Wölbung) der Anzahl an Kunden in Bedienung an Station \cm{id}.
+
+\item
+\cmd{Process\_hist(id;state)} oder \cmd{NS\_hist(id;state)}:\\
+Liefert den Anteil der Zeit, in der sich \cm{state} Kunden in Bedienung an Station \cm{id} befunden haben.
+
+\item
+\cmd{Process\_hist(id;stateA;stateB)} oder \cmd{NS\_hist(id;stateA;stateB)}:\\
+Liefert den Anteil der Zeit, in der sich mehr als \cm{stateA} und höchsten \cm{stateB} Kunden in Bedienung an Station \cm{id} befunden haben.
+
 \end{itemize}  
 
 
@@ -493,6 +545,66 @@ Liefert den Anteil der Zeit, in der sich \cm{state} wartende Kunden, deren Name 
 \item
 \cmd{NQ\_hist(id;stateA;stateB)} oder \cmd{Queue\_hist(id;stateA;stateB)} oder\\ \cmd{Schlange\_hist(id;stateA;stateB)} oder \cmd{Warteschlange\_hist(id;stateA;stateB)}:\\
 Liefert den Anteil der Zeit, in der sich mehr als \cm{stateA} und höchsten \cm{stateB} wartenden Kunden, deren Name an Quelle bzw.\ Namenszuweisung \cm{id} auftritt, im System befunden haben.
+
+\end{itemize}
+
+
+
+\subsection{Anzahl an Kunden in Bedienung nach Kundentypen}
+
+\begin{itemize}    
+ 
+\item
+\cmd{Process\_avg(id)} oder \cmd{NS\_avg(id)} oder \cmd{Process\_Mittelwert(id)} oder \cmd{NS\_Mittelwert(id)}:\\
+Liefert die mittlere Anzahl an Kunden in Bedienung, deren Name an Quelle bzw.\ Namenszuweisung \cm{id} auftritt.
+
+\item
+\cmd{Process\_median(id)} oder \cmd{NS\_median(id)}:\\
+Liefert den Median der Anzahl an an Kunden in Bedienung, deren Name an Quelle bzw.\ Namenszuweisung \cm{id} auftritt.
+
+\item
+\cmd{Process\_quantil(p;id)} oder \cmd{NS\_quantil(p;id)}:\\
+Liefert das Quantil zur Wahrscheinlichkeit p der Anzahl an an Kunden in Bedienung, deren Name an Quelle bzw.\ Namenszuweisung \cm{id} auftritt.
+
+\item
+\cmd{Process\_min(id)} oder \cmd{NS\_min(id)} oder \cmd{Process\_Minimum(id)} oder \cmd{NS\_Minimum(id)}:\\
+Liefert die minimale Anzahl an an Kunden in Bedienung, deren Name an Quelle bzw.\ Namenszuweisung \cm{id} auftritt.
+
+\item
+\cmd{Process\_max(id)} oder \cmd{NS\_max(id)} oder \cmd{Process\_Maximum(id)} oder \cmd{NS\_Maximum(id)}:\\
+Liefert die maximale Anzahl an an Kunden in Bedienung, deren Name an Quelle bzw.\ Namenszuweisung \cm{id} auftritt.
+
+\item
+\cmd{Process\_var(id)} oder \cmd{NS\_var(id)} oder \cmd{Process\_Varianz(id)} oder \cmd{NS\_Varianz(id)}:\\
+Liefert die Varianz der Anzahl an an Kunden in Bedienung, deren Name an Quelle bzw.\ Namenszuweisung \cm{id} auftritt.
+
+\item
+\cmd{Process\_sd(id)} oder \cmd{NS\_sd(id)} oder \cmd{Process\_Standardabweichung(id)} oder \cmd{NS\_Standardabweichung(id)}:\\
+Liefert die Standardabweichung der Anzahl an an Kunden in Bedienung, deren Name an Quelle bzw.\ Namenszuweisung \cm{id} auftritt.
+
+\item
+\cmd{Process\_cv(id)} oder \cmd{NS\_cv(id)}:\\
+Liefert den Variationskoeffizienten der Anzahl an an Kunden in Bedienung, deren Name an Quelle bzw.\ Namenszuweisung \cm{id} auftritt.
+
+\item
+\cmd{Process\_scv(id)} oder \cmd{NS\_scv(id)}:\\
+Liefert den quadrierten Variationskoeffizienten der Anzahl an an Kunden in Bedienung, deren Name an Quelle bzw.\ Namenszuweisung \cm{id} auftritt.
+
+\item
+\cmd{Process\_sk(id)} oder \cmd{NS\_sk(id)}:\\
+Liefert die Schiefe der Anzahl an an Kunden in Bedienung, deren Name an Quelle bzw.\ Namenszuweisung \cm{id} auftritt.
+
+\item
+\cmd{Process\_kurt(id)} oder \cmd{NS\_kurt(id)}:\\
+Liefert den Exzess (ein Maß für die Wölbung) der Anzahl an an Kunden in Bedienung, deren Name an Quelle bzw.\ Namenszuweisung \cm{id} auftritt.
+
+\item
+\cmd{Process\_hist(id;state)} oder \cmd{NS\_hist(id;state)}:\\
+Liefert den Anteil der Zeit, in der sich \cm{state} Kunden in Bedienung, deren Name an Quelle bzw.\ Namenszuweisung \cm{id} auftritt, im System befunden haben.
+
+\item
+\cmd{Process\_hist(id;stateA;stateB)} oder \cmd{NS\_hist(id;stateA;stateB)}:\\
+Liefert den Anteil der Zeit, in der sich mehr als \cm{stateA} und höchsten \cm{stateB} Kunden in Bedienung, deren Name an Quelle bzw.\ Namenszuweisung \cm{id} auftritt, im System befunden haben.
 
 \end{itemize}
 

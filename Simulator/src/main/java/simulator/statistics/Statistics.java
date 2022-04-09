@@ -307,6 +307,22 @@ public class Statistics extends StatisticsBase {
 	 */
 	public final StatisticsMultiPerformanceIndicator clientsAtStationQueueByClient;
 
+	/**
+	 * Verteilung der Anzahl an Kunden in Bedienung an den Stationen (erfasst nach Stationen)
+	 */
+	public final StatisticsMultiPerformanceIndicator clientsAtStationProcessByStation;
+
+	/**
+	 * Verteilung der Anzahl an Kunden in Bedienung an den Stationen (erfasst nach Stationen und Kundentypen)
+	 */
+	public final StatisticsMultiPerformanceIndicator clientsAtStationProcessByStationAndClient;
+
+	/**
+	 * Verteilung der Anzahl an Kunden in Bedienung an den Stationen (erfasst nach Kundentypen)
+	 */
+	public final StatisticsMultiPerformanceIndicator clientsAtStationProcessByClient;
+
+
 	/* ====================================================
 	 * Ressourcen
 	 * ====================================================
@@ -610,6 +626,9 @@ public class Statistics extends StatisticsBase {
 		addPerformanceIndicator(clientsAtStationQueueByStation=new StatisticsMultiPerformanceIndicator(Language.trAll("Statistics.XML.Element.ClientsAtStationQueue"),new StatisticsTimePerformanceIndicator(nameStation)));
 		addPerformanceIndicator(clientsAtStationQueueByStationAndClient=new StatisticsMultiPerformanceIndicator(Language.trAll("Statistics.XML.Element.ClientsAtStationQueueByClientType"),new StatisticsTimePerformanceIndicator(nameStation)));
 		addPerformanceIndicator(clientsAtStationQueueByClient=new StatisticsMultiPerformanceIndicator(Language.trAll("Statistics.XML.Element.ClientsInSystemQueue"),new StatisticsTimePerformanceIndicator(nameClientType)));
+		addPerformanceIndicator(clientsAtStationProcessByStation=new StatisticsMultiPerformanceIndicator(Language.trAll("Statistics.XML.Element.ClientsAtStationProcess"),new StatisticsTimePerformanceIndicator(nameStation)));
+		addPerformanceIndicator(clientsAtStationProcessByStationAndClient=new StatisticsMultiPerformanceIndicator(Language.trAll("Statistics.XML.Element.ClientsAtStationProcessByClientType"),new StatisticsTimePerformanceIndicator(nameStation)));
+		addPerformanceIndicator(clientsAtStationProcessByClient=new StatisticsMultiPerformanceIndicator(Language.trAll("Statistics.XML.Element.ClientsInSystemProcess"),new StatisticsTimePerformanceIndicator(nameClientType)));
 
 		/* Ressourcen */
 		addPerformanceIndicator(resourceCount=new StatisticsMultiPerformanceIndicator(Language.trAll("Statistics.XML.Element.UtilizationCountParent"),new StatisticsTimePerformanceIndicator(Language.trAll("Statistics.XML.Element.UtilizationCount"))));

@@ -117,6 +117,10 @@ public class StatisticViewerDistributionTimeLineChart extends StatisticViewerLin
 		MODE_QUEUE,
 		/** Verteilungsdiagramm der Anzahl an Kunden an den Stationswarteschlangen nach Kundentypen */
 		MODE_QUEUE_CLIENT_TYPE,
+		/** Verteilungsdiagramm der Anzahl an Kunden an den Stationen in Bedienung */
+		MODE_PROCESS,
+		/** Verteilungsdiagramm der Anzahl an Kunden an den Stationen in Bedienung nach Kundentypen */
+		MODE_PROCESS_CLIENT_TYPE,
 		/** Verteilungsdiagramm der Werte der Laufzeitstatistik */
 		MODE_ADDITIONAL_STATISTICS,
 		/** Verteilungsdiagramm mit den Werten der Kundendatenfelder */
@@ -454,6 +458,15 @@ public class StatisticViewerDistributionTimeLineChart extends StatisticViewerLin
 		case MODE_QUEUE_CLIENT_TYPE:
 			colorMap=statistics.editModel.clientData.getStatisticColors(statistics.editModel.surface.getClientTypes());
 			requestDiagrammStateDistribution(Language.tr("Statistics.DistributionOfNumberOfClientsAtStationQueuesByClientTypes"),statistics.clientsAtStationQueueByStationAndClient,null,Language.tr("Statistics.ClientsInQueue"),colorMap);
+			addDescription("PlotCountDistribution");
+			break;
+		case MODE_PROCESS:
+			requestDiagrammStateDistribution(Language.tr("Statistics.DistributionOfNumberOfClientsAtStationProcess"),statistics.clientsAtStationProcessByStation,null,Language.tr("Statistics.ClientsInProcess"),null);
+			addDescription("PlotCountDistribution");
+			break;
+		case MODE_PROCESS_CLIENT_TYPE:
+			colorMap=statistics.editModel.clientData.getStatisticColors(statistics.editModel.surface.getClientTypes());
+			requestDiagrammStateDistribution(Language.tr("Statistics.DistributionOfNumberOfClientsAtStationProcessByClientTypes"),statistics.clientsAtStationProcessByStationAndClient,null,Language.tr("Statistics.ClientsInProcess"),colorMap);
 			addDescription("PlotCountDistribution");
 			break;
 		case MODE_ADDITIONAL_STATISTICS:

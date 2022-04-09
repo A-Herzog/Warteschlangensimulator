@@ -497,21 +497,99 @@ public class ExpressionBuilderSimulationData {
 
 		if (sub.getChildCount()>0) subgroup.add(sub);
 
-		/* Simulationskenngrößen -> Anzahlen an Kunden -> Kunden in Bedienung an Bedienstation */
+		/* Simulationskenngrößen -> Anzahlen an Kunden -> Kunden in Bedienung an Bedienstation / Kunden in Bedienung von bestimmtem Typ */
+
+		sub=new DefaultMutableTreeNode(Language.tr("ExpressionBuilder.ClientsAtStationService"));
 
 		if (!statisticsOnly) {
-
-			sub=new DefaultMutableTreeNode(Language.tr("ExpressionBuilder.ClientsAtStationService"));
 			addTreeNode(
 					sub,
 					filterUpper,
 					Language.tr("ExpressionBuilder.SimulationCharacteristics.CurrentNumber")+" (Process)",
 					"Process(id)",
 					Language.tr("ExpressionBuilder.ClientsAtStationService.CurrentNumber"));
-
-			if (sub.getChildCount()>0) subgroup.add(sub);
-
 		}
+
+		addTreeNode(
+				sub,
+				filterUpper,
+				Language.tr("ExpressionBuilder.SimulationCharacteristics.AverageNumber")+" (Process_avg)",
+				"Process_avg(id)",
+				Language.tr("ExpressionBuilder.ClientsInServiceProcess.AverageNumber"));
+		addTreeNode(
+				sub,
+				filterUpper,
+				Language.tr("ExpressionBuilder.SimulationCharacteristics.Median")+" (Process_median)",
+				"Process_median(id)",
+				Language.tr("ExpressionBuilder.ClientsInServiceProcess.Median"));
+		addTreeNode(
+				sub,
+				filterUpper,
+				Language.tr("ExpressionBuilder.SimulationCharacteristics.Quantil")+" (Process_quantil)",
+				"Process_quantil(p;id)",
+				Language.tr("ExpressionBuilder.ClientsInServiceProcess.Quantil"));
+		addTreeNode(
+				sub,
+				filterUpper,
+				Language.tr("ExpressionBuilder.SimulationCharacteristics.MinimalNumber")+" (Process_min)",
+				"Process_min(id)",
+				Language.tr("ExpressionBuilder.ClientsInServiceProcess.MinimalNumber"));
+		addTreeNode(
+				sub,
+				filterUpper,
+				Language.tr("ExpressionBuilder.SimulationCharacteristics.MaximalNumber")+" (Process_max)",
+				"Process_max(id)",
+				Language.tr("ExpressionBuilder.ClientsInServiceProcess.MaximalNumber"));
+		addTreeNode(
+				sub,
+				filterUpper,
+				Language.tr("ExpressionBuilder.SimulationCharacteristics.VarianceOfTheNumber")+" (Process_var)",
+				"Process_var(id)",
+				Language.tr("ExpressionBuilder.ClientsInServiceProcess.VarianceOfTheNumber"));
+		addTreeNode(
+				sub,
+				filterUpper,
+				Language.tr("ExpressionBuilder.SimulationCharacteristics.StandardDeviationOfTheNumber")+" (Process_std)",
+				"Process_std(id)",
+				Language.tr("ExpressionBuilder.ClientsInServiceProcess.StandardDeviationOfTheNumber"));
+		addTreeNode(
+				sub,
+				filterUpper,
+				Language.tr("ExpressionBuilder.SimulationCharacteristics.CoefficientOfVariationOfTheNumber")+" (Process_cv)",
+				"Process_cv(id)",
+				Language.tr("ExpressionBuilder.ClientsInServiceProcess.CoefficientOfVariationOfTheNumber"));
+		addTreeNode(
+				sub,
+				filterUpper,
+				Language.tr("ExpressionBuilder.SimulationCharacteristics.SquaredCoefficientOfVariationOfTheNumber")+" (Process_scv)",
+				"Process_scv(id)",
+				Language.tr("ExpressionBuilder.ClientsInServiceProcess.SquaredCoefficientOfVariationOfTheNumber"));
+		addTreeNode(
+				sub,
+				filterUpper,
+				Language.tr("ExpressionBuilder.SimulationCharacteristics.Skewness")+" (Process_sk)",
+				"Process_sk(id)",
+				Language.tr("ExpressionBuilder.ClientsInServiceProcess.Skewness"));
+		addTreeNode(
+				sub,
+				filterUpper,
+				Language.tr("ExpressionBuilder.SimulationCharacteristics.Kurt")+" (Process_kurt)",
+				"Process_kurt(id)",
+				Language.tr("ExpressionBuilder.ClientsInServiceProcess.Kurt"));
+		addTreeNode(
+				sub,
+				filterUpper,
+				Language.tr("ExpressionBuilder.SimulationCharacteristics.HistogramSingle")+" (Process_hist)",
+				"Process_hist(id;state)",
+				Language.tr("ExpressionBuilder.ClientsInServiceProcess.HistogramSingle"));
+		addTreeNode(
+				sub,
+				filterUpper,
+				Language.tr("ExpressionBuilder.SimulationCharacteristics.HistogramMultiple")+" (Process_hist)",
+				"Process_hist(id;stateMin;stateMax)",
+				Language.tr("ExpressionBuilder.ClientsInServiceProcess.HistogramMultiple"));
+
+		if (sub.getChildCount()>0) subgroup.add(sub);
 
 		if (subgroup.getChildCount()>0) group.add(subgroup);
 

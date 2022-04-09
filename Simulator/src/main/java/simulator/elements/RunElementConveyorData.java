@@ -51,7 +51,7 @@ public class RunElementConveyorData extends RunElementData implements RunElement
 	public final List<RunDataClient> waitingClients;
 
 	/**
-	 * Verzögerungsausdrucke
+	 * Verzögerungsausdrücke
 	 */
 	public ExpressionCalc[] capacityNeeded;
 
