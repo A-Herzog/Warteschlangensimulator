@@ -339,6 +339,11 @@ public class Statistics extends StatisticsBase {
 	public final StatisticsMultiPerformanceIndicator resourceUtilization;
 
 	/**
+	 * Auslastung der einzelnen Ressourcen
+	 */
+	public final StatisticsTimePerformanceIndicator resourceUtilizationAll;
+
+	/**
 	 * Ausfälle der Ressourcen
 	 */
 	public final StatisticsMultiPerformanceIndicator resourceInDownTime;
@@ -348,6 +353,12 @@ public class Statistics extends StatisticsBase {
 	 * @see #calc()
 	 */
 	public final StatisticsMultiPerformanceIndicator resourceRho;
+
+	/**
+	 * Auslastung der Ressourcen (wird am Ende aus {@link #resourceCount} und {@link #resourceUtilizationAll} berechnet.
+	 * @see #calc()
+	 */
+	public final StatisticsSimpleValuePerformanceIndicator resourceRhoAll;
 
 	/* ====================================================
 	 * Transporter
@@ -633,8 +644,10 @@ public class Statistics extends StatisticsBase {
 		/* Ressourcen */
 		addPerformanceIndicator(resourceCount=new StatisticsMultiPerformanceIndicator(Language.trAll("Statistics.XML.Element.UtilizationCountParent"),new StatisticsTimePerformanceIndicator(Language.trAll("Statistics.XML.Element.UtilizationCount"))));
 		addPerformanceIndicator(resourceUtilization=new StatisticsMultiPerformanceIndicator(Language.trAll("Statistics.XML.Element.Utilization"),new StatisticsTimePerformanceIndicator(Language.trAll("Statistics.XML.Element.UtilizationResource"))));
+		addPerformanceIndicator(resourceUtilizationAll=new StatisticsTimePerformanceIndicator(Language.trAll("Statistics.XML.Element.UtilizationAll")));
 		addPerformanceIndicator(resourceInDownTime=new StatisticsMultiPerformanceIndicator(Language.trAll("Statistics.XML.Element.InDownTime"),new StatisticsTimePerformanceIndicator(Language.trAll("Statistics.XML.Element.UtilizationResource"))));
 		addPerformanceIndicator(resourceRho=new StatisticsMultiPerformanceIndicator(Language.trAll("Statistics.XML.Element.Rho"),new StatisticsSimpleValuePerformanceIndicator(Language.trAll("Statistics.XML.Element.UtilizationResourceRho"))));
+		addPerformanceIndicator(resourceRhoAll=new StatisticsSimpleValuePerformanceIndicator(Language.trAll("Statistics.XML.Element.UtilizationResourceRhoAll")));
 
 		/* Transporter */
 		addPerformanceIndicator(transporterUtilization=new StatisticsMultiPerformanceIndicator(Language.trAll("Statistics.XML.Element.UtilizationTransporter"),new StatisticsTimePerformanceIndicator(Language.trAll("Statistics.XML.Element.UtilizationTransporterType"))));
@@ -701,15 +714,27 @@ public class Statistics extends StatisticsBase {
 
 	@Override
 	public void calc() {
+		double countSum=0;
+
 		for (String name: resourceUtilization.getNames()) {
 			final StatisticsTimePerformanceIndicator utilization=(StatisticsTimePerformanceIndicator)resourceUtilization.getOrNull(name);
 			final StatisticsTimePerformanceIndicator count=(StatisticsTimePerformanceIndicator)resourceCount.getOrNull(name);
 			final double utilizationMean=utilization.getTimeMean();
 			final double countMean=count.getTimeMean();
-			if (utilizationMean>0.0 && countMean>0.0) {
-				final StatisticsSimpleValuePerformanceIndicator rho=(StatisticsSimpleValuePerformanceIndicator)resourceRho.get(name);
-				rho.set(utilizationMean/countMean);
+			if (countMean>0.0) {
+				if (countSum>=0) countSum+=countMean;
+				if (utilizationMean>0.0) {
+					final StatisticsSimpleValuePerformanceIndicator rho=(StatisticsSimpleValuePerformanceIndicator)resourceRho.get(name);
+					rho.set(utilizationMean/countMean);
+				}
+			} else {
+				countSum=-1;
 			}
+		}
+
+		final double utilizationGlobal=resourceUtilizationAll.getTimeMean();
+		if (countSum>0.0 && utilizationGlobal>0.0) {
+			resourceRhoAll.set(utilizationGlobal/countSum);
 		}
 	}
 

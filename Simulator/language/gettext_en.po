@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-10 00:06+0200\n"
+"POT-Creation-Date: 2022-04-10 21:12+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19254,6 +19254,9 @@ msgstr "Resource utilization"
 msgid "Statistic.FastAccess.Template.ResourceUtilization.AverageNumber"
 msgstr "average number"
 
+msgid "Statistic.FastAccess.Template.ResourceUtilization.Total"
+msgstr "In total"
+
 msgid "Statistic.FastAccess.Template.ResourceUtilization.rho"
 msgstr "rho"
 
@@ -21203,6 +21206,9 @@ msgstr "Resource"
 msgid "Statistics.ResourceUtilization"
 msgstr "Resource utilization"
 
+msgid "Statistics.ResourceUtilization.All"
+msgstr "Resource utilization in total"
+
 msgid "Statistics.ResultsAutocorrelation"
 msgstr "Autocorrelation of the waiting times"
 
@@ -22141,6 +22147,9 @@ msgstr "StatisticsTransferTimesStationsClientSum"
 msgid "Statistics.XML.Element.Utilization"
 msgstr "StatisticsUtilization"
 
+msgid "Statistics.XML.Element.UtilizationAll"
+msgstr "StatisticsUtilizationAll"
+
 msgid "Statistics.XML.Element.UtilizationCount"
 msgstr "StatisticsResourceNumber"
 
@@ -22152,6 +22161,9 @@ msgstr "StatisticsResource"
 
 msgid "Statistics.XML.Element.UtilizationResourceRho"
 msgstr "StatisticsResourceRho"
+
+msgid "Statistics.XML.Element.UtilizationResourceRhoAll"
+msgstr "StatisticsUtilizationRhoAll"
 
 msgid "Statistics.XML.Element.UtilizationTransporter"
 msgstr "StatisticsTransporterUtilization"

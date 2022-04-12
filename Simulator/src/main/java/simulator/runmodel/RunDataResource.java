@@ -141,6 +141,11 @@ public final class RunDataResource implements Cloneable {
 	private StatisticsTimePerformanceIndicator statisticsUsage;
 
 	/**
+	 * Statistikerfassung der Anzahl an belegten Bedienern (insgesamt in allen Gruppen)
+	 */
+	private StatisticsTimePerformanceIndicator statisticsUsageAll;
+
+	/**
 	 * Statistikerfassung der Anzahl an Bedienern in Pausenzeit
 	 */
 	private StatisticsTimePerformanceIndicator statisticsDownTime;
@@ -341,6 +346,7 @@ public final class RunDataResource implements Cloneable {
 		if (statisticsUsage==null) {
 			statisticsCount=(StatisticsTimePerformanceIndicator)simData.statistics.resourceCount.get(name);
 			statisticsUsage=(StatisticsTimePerformanceIndicator)simData.statistics.resourceUtilization.get(name);
+			statisticsUsageAll=simData.statistics.resourceUtilizationAll;
 			statisticsDownTime=(StatisticsTimePerformanceIndicator)simData.statistics.resourceInDownTime.get(name);
 			statisticsCostsActive=(StatisticsValuePerformanceIndicator)simData.statistics.resourceTimeCosts.get(name);
 			statisticsCostsProcess=(StatisticsValuePerformanceIndicator)simData.statistics.resourceWorkCosts.get(name);
@@ -394,6 +400,12 @@ public final class RunDataResource implements Cloneable {
 	}
 
 	/**
+	 * Anzahl an belegten Bedienern in dieser Gruppe beim letzten Aufruf von {@link #timesToStatistics(SimulationData)}
+	 * @see #timesToStatistics(SimulationData)
+	 */
+	private int lastInUse;
+
+	/**
 	 * Erfasst eine Zeitspanne in der Statistik
 	 * @param simData	Simulationsdatenobjekt
 	 * @see #lockDo(int, SimulationData, int)
@@ -428,6 +440,13 @@ public final class RunDataResource implements Cloneable {
 
 		/* Auslastung in die Statistik eintragen */
 		statisticsUsage.set(time,inUse);
+
+		/* Globale Auslastung */
+		if (lastStateChange>timeMS || lastStateChange==0) lastInUse=0;
+		int global=statisticsUsageAll.getCurrentState();
+		statisticsUsageAll.set(time,global-lastInUse+inUse);
+
+		lastInUse=inUse;
 
 		lastStateChange=timeMS;
 	}

@@ -1628,6 +1628,8 @@ public class ScriptPopup {
 
 		if (statistics.editModel.resources.getResources().length>0) {
 			parent.addChild(sub=new ScriptPopupItemSub(Language.tr("Statistic.FastAccess.Template.ResourceUtilization")+" ("+Language.tr("Statistic.FastAccess.Template.ResourceUtilization.AverageNumber")+")",null,Images.SCRIPT_RECORD_DATA_RESOURCE.getIcon()));
+			final String xmlMainAll=Language.tr("Statistics.XML.Element.UtilizationAll");
+			sub.addChild(new ScriptPopupItemStatistics(Language.tr("Statistic.FastAccess.Template.ResourceUtilization.Total"),null,null,XMLMode.XML_NUMBER,xmlMainAll+mean,scriptMode));
 			final String xmlMain=Language.tr("Statistics.XML.Element.Utilization");
 			for (ModelResource resource: statistics.editModel.resources.getResources()) {
 				final String name=resource.getName();
@@ -1637,6 +1639,8 @@ public class ScriptPopup {
 		}
 		if (statistics.resourceRho.size()>0) {
 			parent.addChild(sub=new ScriptPopupItemSub(Language.tr("Statistic.FastAccess.Template.ResourceUtilization")+" ("+Language.tr("Statistic.FastAccess.Template.ResourceUtilization.rho")+")",null,Images.SCRIPT_RECORD_DATA_RESOURCE.getIcon()));
+			final String xmlMainAll=Language.tr("Statistics.XML.Element.UtilizationResourceRhoAll");
+			sub.addChild(new ScriptPopupItemStatistics(Language.tr("Statistic.FastAccess.Template.ResourceUtilization.Total"),null,null,XMLMode.XML_NUMBER,xmlMainAll+value,scriptMode));
 			final String xmlMain=Language.tr("Statistics.XML.Element.Rho");
 			for (String name: statistics.resourceRho.getNames()) {
 				xmlSub=Language.tr("Statistics.XML.Element.UtilizationResourceRho")+"["+Language.tr("Statistics.XML.Type")+"=\""+name+"\"]";

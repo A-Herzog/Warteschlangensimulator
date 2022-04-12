@@ -1322,7 +1322,14 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 	private void buildOverviewUtilizationResources() {
 		if (statistics.resourceUtilization.getNames().length>0) {
 			addHeading(2,Language.tr("Statistics.Utilization"));
+
 			beginParagraph();
+
+			final double rhoAll=statistics.resourceRhoAll.get();
+			String rhoInfo="";
+			if (rhoAll>0) rhoInfo=" (rho="+StatisticTools.formatPercent(rhoAll)+")";
+			addLine(Language.tr("Statistics.AverageNumberOfBusyOperators")+"="+StatisticTools.formatNumber(statistics.resourceUtilizationAll.getTimeMean(),2)+rhoInfo);
+
 			for (String resource: statistics.resourceUtilization.getNames()) {
 				final StatisticsTimePerformanceIndicator indicator=((StatisticsTimePerformanceIndicator)statistics.resourceUtilization.get(resource));
 				final double meanState=indicator.getTimeMean();
@@ -3133,6 +3140,14 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 	 */
 	private void buildUtilization() {
 		addHeading(1,Language.tr("Statistics.ResourceUtilization"));
+
+		addHeading(2,Language.tr("Statistics.ResourceUtilization.All"));
+		beginParagraph();
+		final double rhoAll=statistics.resourceRhoAll.get();
+		String rhoInfo="";
+		if (rhoAll>0) rhoInfo=" (rho="+StatisticTools.formatPercent(rhoAll)+")";
+		addLine(Language.tr("Statistics.AverageNumberOfBusyOperators")+"="+StatisticTools.formatNumber(statistics.resourceUtilizationAll.getTimeMean(),2)+rhoInfo);
+		endParagraph();
 
 		final StatisticsMultiPerformanceIndicator countIndicators=statistics.resourceCount;
 		final StatisticsMultiPerformanceIndicator indicators=statistics.resourceUtilization;

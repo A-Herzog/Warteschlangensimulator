@@ -1726,7 +1726,7 @@
 
 <!-- Beschreibung der Statistik-Dateien -->
 
-<!ELEMENT Statistik (Modell | Simulation | StatistikThreadBasierendeWartzeitKonfidenz | StatistikZwischenankunftszeitenKunden | StatistikZwischenankunftszeitenStationen | StatistikZwischenankunftszeitenStationenBatch | StatistikZwischenankunftszeitenStationenKunden | StatistikZwischenabgangszeitenKunden | StatistikZwischenabgangszeitenStationen | StatistikZwischenabgangszeitenStationenBatch | StatistikZwischenankunftszeitenStationenWarteschlange | StatistikZwischenabgangszeitenStationenKunden | StatistikMaximalerDurchsatz | StatistikKundenbewegung | StatistikKundenpfade | StatistikWartezeitenKunden | StatistikTransferzeitenKunden | StatistikBedienzeitenKunden | StatistikVerweilzeitenKunden | StatistikWartezeitenAlleKunden | StatistikTransferzeitenAlleKunden | StatistikBedienzeitenAlleKunden | StatistikVerweilzeitenAlleKunden | StatistikWartezeitenStationen | StatistikTransferzeitenStationen | StatistikBedienzeitenStationen | StatistikVerweilzeitenStationen | StatistikWartezeitenStationenKunden | StatistikTransferzeitenStationenKunden | StatistikBedienzeitenStationenKunden | StatistikVerweilzeitenStationenKunden | StatistikWartezeitenStationenKundenSumme | StatistikTransferzeitenStationenKundenSumme | StatistikBedienzeitenStationenKundenSumme | StatistikVerweilzeitenStationenKundenSumme | StatistikKundenImSystem | StatistikKundentypenImSystemWartendUeberall | StatistikKundenAnStation | StatistikKundenAnStationNachKundentyp | StatistikKundentypenImSystem | StatistikKundenAnStationWartend | StatistikKundenAnStationWartendNachKundentyp |StatistikKundentypenImSystemWartend | StatistikKundenAnStationInBedienung | StatistikKundenAnStationInBedienungNachKundentyp | StatistikKundentypenImSystemInBedienung | StatistikRessourceAnzahlen | StatistikAuslastung | StatistikPausenzeiten | StatistikAuslastungRho | StatistikTransporterAuslastung | StatistikTransporterPausenzeiten | StatistikZaehler | StatistikZaehlerBatch | StatistikDifferenzZaehler | StatistikKundenWartezeitKosten | StatistikKundenTransferzeitKosten | StatistikKundenBedienzeitKosten | StatistikStationenKosten | StatistikRessourcenArbeitszeitKosten | StatistikRessourcenAuslastungsKosten | StatistikRessourcenLeerlaufKosten | StatistikLaufzeitWerte | StatistikBenutzerdefiniert | StatistikBenutzerdefiniertKontinuierlich | StatistikVariablen | StatistikStatusZeit | StatistikAnalogWert | StatistikDurchsatz | StatistikWerteaufzeichnung | StatistikKundendaten)*>
+<!ELEMENT Statistik (Modell | Simulation | StatistikThreadBasierendeWartzeitKonfidenz | StatistikZwischenankunftszeitenKunden | StatistikZwischenankunftszeitenStationen | StatistikZwischenankunftszeitenStationenBatch | StatistikZwischenankunftszeitenStationenKunden | StatistikZwischenabgangszeitenKunden | StatistikZwischenabgangszeitenStationen | StatistikZwischenabgangszeitenStationenBatch | StatistikZwischenankunftszeitenStationenWarteschlange | StatistikZwischenabgangszeitenStationenKunden | StatistikMaximalerDurchsatz | StatistikKundenbewegung | StatistikKundenpfade | StatistikWartezeitenKunden | StatistikTransferzeitenKunden | StatistikBedienzeitenKunden | StatistikVerweilzeitenKunden | StatistikWartezeitenAlleKunden | StatistikTransferzeitenAlleKunden | StatistikBedienzeitenAlleKunden | StatistikVerweilzeitenAlleKunden | StatistikWartezeitenStationen | StatistikTransferzeitenStationen | StatistikBedienzeitenStationen | StatistikVerweilzeitenStationen | StatistikWartezeitenStationenKunden | StatistikTransferzeitenStationenKunden | StatistikBedienzeitenStationenKunden | StatistikVerweilzeitenStationenKunden | StatistikWartezeitenStationenKundenSumme | StatistikTransferzeitenStationenKundenSumme | StatistikBedienzeitenStationenKundenSumme | StatistikVerweilzeitenStationenKundenSumme | StatistikKundenImSystem | StatistikKundentypenImSystemWartendUeberall | StatistikKundenAnStation | StatistikKundenAnStationNachKundentyp | StatistikKundentypenImSystem | StatistikKundenAnStationWartend | StatistikKundenAnStationWartendNachKundentyp |StatistikKundentypenImSystemWartend | StatistikKundenAnStationInBedienung | StatistikKundenAnStationInBedienungNachKundentyp | StatistikKundentypenImSystemInBedienung | StatistikRessourceAnzahlen | StatistikAuslastung | StatistikAuslastungGesamt | StatistikPausenzeiten | StatistikAuslastungRho | StatistikAuslastungRhoGesamt | StatistikTransporterAuslastung | StatistikTransporterPausenzeiten | StatistikZaehler | StatistikZaehlerBatch | StatistikDifferenzZaehler | StatistikKundenWartezeitKosten | StatistikKundenTransferzeitKosten | StatistikKundenBedienzeitKosten | StatistikStationenKosten | StatistikRessourcenArbeitszeitKosten | StatistikRessourcenAuslastungsKosten | StatistikRessourcenLeerlaufKosten | StatistikLaufzeitWerte | StatistikBenutzerdefiniert | StatistikBenutzerdefiniertKontinuierlich | StatistikVariablen | StatistikStatusZeit | StatistikAnalogWert | StatistikDurchsatz | StatistikWerteaufzeichnung | StatistikKundendaten)*>
 <!ATTLIST Statistik
   xmlns	CDATA	#IMPLIED
   xmlns:xsi	CDATA	#IMPLIED
@@ -2210,8 +2210,37 @@
 <!ELEMENT StatistikKundentypenImSystemInBedienung (Kundentyp)*>
 <!ELEMENT StatistikRessourceAnzahlen (StatistikRessourceAnzahl)*>
 <!ELEMENT StatistikAuslastung (StatistikRessource)*>
+<!ELEMENT StatistikAuslastungGesamt (#PCDATA)>
+<!ATTLIST StatistikAuslastungGesamt
+  Maximum				CDATA	#REQUIRED
+  Minimum				CDATA	#REQUIRED
+  Mittelwert			CDATA	#REQUIRED
+  Standardabweichung	CDATA	#REQUIRED
+  Start					CDATA	#IMPLIED
+  Summe					CDATA	#REQUIRED
+  Summe2				CDATA	#IMPLIED
+  Summe3				CDATA	#IMPLIED
+  Summe4				CDATA	#IMPLIED
+  Typ					CDATA	#REQUIRED
+  Variationskoeffizient	CDATA	#REQUIRED
+  Schiefe				CDATA	#IMPLIED
+  Kurt					CDATA	#IMPLIED
+  WerteSumme            CDATA	#IMPLIED
+  WerteSumme2           CDATA	#IMPLIED
+  WerteSumme3           CDATA	#IMPLIED
+  Quantil10				CDATA	#IMPLIED
+  Quantil25				CDATA	#IMPLIED
+  Quantil50				CDATA	#IMPLIED
+  Quantil75				CDATA	#IMPLIED
+  Quantil90				CDATA	#IMPLIED  
+>
 <!ELEMENT StatistikPausenzeiten (StatistikRessource)*>
 <!ELEMENT StatistikAuslastungRho (StatistikRessourceRho)*>
+<!ELEMENT StatistikAuslastungRhoGesamt EMPTY>
+<!ATTLIST StatistikAuslastungRhoGesamt
+  Typ	CDATA	#REQUIRED
+  Wert	CDATA	#REQUIRED
+>
 <!ELEMENT StatistikTransporterAuslastung (StatistikTransporter)*>
 <!ELEMENT StatistikTransporterPausenzeiten (StatistikTransporter)*>
 <!ELEMENT StatistikZaehler (StatistikZaehlerName)*>
@@ -4611,8 +4640,37 @@
 <!ELEMENT StatisticsClientsInSystemProcess (ClientType)*>
 <!ELEMENT StatisticsResourceNumbers (StatisticsResourceNumber)*>
 <!ELEMENT StatisticsUtilization (StatisticsResource)*>
+<!ELEMENT StatisticsUtilizationAll (#PCDATA)>
+<!ATTLIST StatisticsUtilizationAll
+  Maximum					CDATA	#REQUIRED
+  Minimum					CDATA	#REQUIRED
+  Mean						CDATA	#REQUIRED
+  StandardDeviation			CDATA	#REQUIRED
+  Start						CDATA	#IMPLIED
+  Sum						CDATA	#REQUIRED
+  Sum2						CDATA	#IMPLIED
+  Sum3						CDATA	#IMPLIED
+  Sum4						CDATA	#IMPLIED
+  Type						CDATA	#REQUIRED
+  CoefficientOfVariation	CDATA	#REQUIRED
+  Skewness					CDATA	#IMPLIED
+  Kurt						CDATA	#IMPLIED
+  ValuesSum                 CDATA	#IMPLIED
+  ValuesSum2                CDATA	#IMPLIED
+  ValuesSum3                CDATA	#IMPLIED
+  Quantil10					CDATA	#IMPLIED
+  Quantil25					CDATA	#IMPLIED
+  Quantil50					CDATA	#IMPLIED
+  Quantil75					CDATA	#IMPLIED
+  Quantil90					CDATA	#IMPLIED
+>
 <!ELEMENT StatisticsDownTime (StatisticsResource)*>
 <!ELEMENT StatisticsUtilizationRho (StatisticsResourceRho)*>
+<!ELEMENT StatisticsResourceRhoAll EMPTY>
+<!ATTLIST StatisticsResourceRhoAll
+  Type	CDATA	#REQUIRED
+  Value	CDATA	#REQUIRED
+>
 <!ELEMENT StatisticsTransporterUtilization (StatisticsTransporter)*>
 <!ELEMENT StatisticsTransporterDownTimes (StatisticsTransporter)*>
 <!ELEMENT StatisticsCounter (StatisticsCounterName)*>

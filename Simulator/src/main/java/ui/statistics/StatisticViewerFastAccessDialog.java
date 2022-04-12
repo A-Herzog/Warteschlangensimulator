@@ -725,7 +725,7 @@ public class StatisticViewerFastAccessDialog extends BaseDialog {
 				}
 				parent=parent.getParentNode();
 			}
-			return JSCommandXML.formatNumber(value,path,false,false,false,';');
+			return JSCommandXML.formatNumber(value,path,false,false,false,-1,';');
 		}
 
 		/**

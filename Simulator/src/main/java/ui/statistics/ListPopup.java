@@ -138,7 +138,7 @@ public class ListPopup {
 	 * @param allowAdd	Optionales Callback zum prüfen, ob ein Eintrag wirklich hinzugefügt werden soll
 	 * @return	Liste mit Vorlagen
 	 */
-	private List<Object> getStatisticsTemplatesList(final Statistics statistics, final Predicate<ScriptHelperRecord> allowAdd) {
+	public List<Object> getStatisticsTemplatesList(final Statistics statistics, final Predicate<ScriptHelperRecord> allowAdd) {
 		final List<Object> list=new ArrayList<>();
 
 		final String mean="["+Language.tr("Statistics.XML.Mean")+"]";
@@ -549,6 +549,8 @@ public class ListPopup {
 
 		if (statistics.editModel.resources.getResources().length>0) {
 			sub=getSubList(list,Language.tr("Statistic.FastAccess.Template.ResourceUtilization")+" ("+Language.tr("Statistic.FastAccess.Template.ResourceUtilization.AverageNumber")+")",null,Images.SCRIPT_RECORD_DATA_RESOURCE.getIcon());
+			final String xmlMainAll=Language.tr("Statistics.XML.Element.UtilizationAll");
+			tryAddRecord(sub,allowAdd,Language.tr("Statistic.FastAccess.Template.ResourceUtilization.Total"),null,null,XMLMode.XML_NUMBER,xmlMainAll+mean);
 			final String xmlMain=Language.tr("Statistics.XML.Element.Utilization");
 			for (ModelResource resource: statistics.editModel.resources.getResources()) {
 				final String name=resource.getName();
@@ -558,6 +560,8 @@ public class ListPopup {
 		}
 		if (statistics.resourceRho.size()>0) {
 			sub=getSubList(list,Language.tr("Statistic.FastAccess.Template.ResourceUtilization")+" ("+Language.tr("Statistic.FastAccess.Template.ResourceUtilization.rho")+")",null,Images.SCRIPT_RECORD_DATA_RESOURCE.getIcon());
+			final String xmlMainAll=Language.tr("Statistics.XML.Element.UtilizationResourceRhoAll");
+			tryAddRecord(sub,allowAdd,Language.tr("Statistic.FastAccess.Template.ResourceUtilization.Total"),null,null,XMLMode.XML_NUMBER,xmlMainAll+value);
 			final String xmlMain=Language.tr("Statistics.XML.Element.Rho");
 			for (String name: statistics.resourceRho.getNames()) {
 				xmlSub=Language.tr("Statistics.XML.Element.UtilizationResourceRho")+"["+Language.tr("Statistics.XML.Type")+"=\""+name+"\"]";
@@ -947,7 +951,7 @@ public class ListPopup {
 	 */
 	public void addSelectXML(final JPopupMenu popupMenu, final Statistics statistics, final Consumer<ScriptHelperRecord> listener, final Runnable help) {
 		popupMenu.add(getMenuItem(Language.tr("Statistic.FastAccess.SelectXMLTag"),Language.tr("Statistic.FastAccess.SelectXMLTag.Tooltip"),Images.SCRIPT_RECORD_XML.getIcon(),e->{
-			final StatisticViewerFastAccessDialog dialog=new StatisticViewerFastAccessDialog(popupMenu,statistics.saveToXMLDocument(),help,true);
+			final StatisticViewerFastAccessDialog dialog=new StatisticViewerFastAccessDialog(owner,statistics.saveToXMLDocument(),help,true);
 			dialog.setVisible(true);
 			if (dialog.getClosedBy()!=BaseDialog.CLOSED_BY_OK) return;
 			listener.accept(new ScriptHelperRecord("","","",null,XMLMode.XML_TEXT,dialog.getXMLSelector()));
@@ -1170,7 +1174,7 @@ public class ListPopup {
 	 * Hält die Daten für ein Untermenü für das Popupmenü vor.
 	 * @see ListPopup#addSub(JMenu, ScriptHelperSub, Consumer)
 	 */
-	private static class ScriptHelperSub {
+	public static class ScriptHelperSub {
 		/** Name des Untermenüs */
 		public final String title;
 		/** Tooltip für das Untermenü */
