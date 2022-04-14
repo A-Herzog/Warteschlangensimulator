@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-10 21:12+0200\n"
+"POT-Creation-Date: 2022-04-13 11:20+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20350,6 +20350,108 @@ msgstr "Batch counter"
 
 msgid "Statistics.CounterGroup"
 msgstr "Counter group"
+
+msgid "Statistics.Dashboard"
+msgstr "Dashboard"
+
+msgid "Statistics.Dashboard.AddTile"
+msgstr "Add tile"
+
+msgid "Statistics.Dashboard.Buttons.DeleteTile"
+msgstr "Delete tile (Shift+Click: without confirmation)"
+
+msgid "Statistics.Dashboard.Buttons.EditTile"
+msgstr "Edit tile"
+
+msgid "Statistics.Dashboard.Buttons.MoveDown"
+msgstr "Move down"
+
+msgid "Statistics.Dashboard.Buttons.MoveUp"
+msgstr "Move up"
+
+msgid "Statistics.Dashboard.DeleteTile.Info"
+msgstr "Do you really want to delete the selected tile?"
+
+msgid "Statistics.Dashboard.DeleteTile.InfoNo"
+msgstr "Keep tile."
+
+msgid "Statistics.Dashboard.DeleteTile.InfoYes"
+msgstr "Delete tile now."
+
+msgid "Statistics.Dashboard.DeleteTile.Title"
+msgstr "Delete tile"
+
+msgid "Statistics.Dashboard.EditDialog.Digits"
+msgstr "Decimal digits to be displayed"
+
+msgid "Statistics.Dashboard.EditDialog.Format"
+msgstr "Display format"
+
+msgid "Statistics.Dashboard.EditDialog.Format.Number"
+msgstr "Number"
+
+msgid "Statistics.Dashboard.EditDialog.Format.Percent"
+msgstr "Percent value"
+
+msgid "Statistics.Dashboard.EditDialog.Format.Time"
+msgstr "Time"
+
+msgid "Statistics.Dashboard.EditDialog.Heading"
+msgstr "Heading"
+
+msgid "Statistics.Dashboard.EditDialog.Heading.Auto"
+msgstr "Determine heading automatically if possible"
+
+msgid "Statistics.Dashboard.EditDialog.PostText"
+msgstr "Optional text after the value"
+
+msgid "Statistics.Dashboard.EditDialog.PreText"
+msgstr "Optional text before the value"
+
+msgid "Statistics.Dashboard.EditDialog.Tab.BackgroundColor"
+msgstr "Background color"
+
+msgid "Statistics.Dashboard.EditDialog.Tab.Content"
+msgstr "Content"
+
+msgid "Statistics.Dashboard.EditDialog.Tab.Format"
+msgstr "Format"
+
+msgid "Statistics.Dashboard.EditDialog.Title"
+msgstr "Edit tile"
+
+msgid "Statistics.Dashboard.EditDialog.UserDefinedBackgroundColor"
+msgstr "User-defined background color"
+
+msgid "Statistics.Dashboard.EditDialog.XML"
+msgstr "XML element"
+
+msgid "Statistics.Dashboard.EditDialog.XML.Button"
+msgstr "Select"
+
+msgid "Statistics.Dashboard.EditDialog.XML.Hint"
+msgstr "Select xml Element to be displayed"
+
+msgid "Statistics.Dashboard.ExportTiles"
+msgstr "Export tiles"
+
+msgid "Statistics.Dashboard.ImportTiles"
+msgstr "Import tiles"
+
+msgid "Statistics.Dashboard.ResetTiles"
+msgstr "Reset tiles"
+
+msgid "Statistics.Dashboard.ResetTiles.Info"
+msgstr "Do you really want to discard all tile settings and replace them with the defaults?"
+
+msgid "Statistics.Dashboard.ResetTiles.InfoNo"
+msgstr "Keep current settings."
+
+msgid "Statistics.Dashboard.ResetTiles.InfoYes"
+msgstr "Restore default tiles"
+
+msgid "Statistics.Dashboard.ResetTiles.Title"
+msgstr "Reset all tiles"
 
 msgid "Statistics.Days"
 msgstr "Days"

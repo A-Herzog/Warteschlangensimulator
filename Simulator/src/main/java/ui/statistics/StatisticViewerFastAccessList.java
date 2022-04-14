@@ -431,7 +431,7 @@ public class StatisticViewerFastAccessList extends StatisticViewerFastAccessBase
 
 		final String text=saveListToText();
 		try {
-			Files.write(file.toPath(),text.getBytes(),StandardOpenOption.CREATE);
+			Files.write(file.toPath(),text.getBytes(),StandardOpenOption.CREATE,StandardOpenOption.TRUNCATE_EXISTING);
 		} catch (IOException e) {
 			return false;
 		}

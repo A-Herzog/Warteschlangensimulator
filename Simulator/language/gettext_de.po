@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-10 21:12+0200\n"
+"POT-Creation-Date: 2022-04-13 11:20+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20360,6 +20360,108 @@ msgstr "Batch-Zähler"
 
 msgid "Statistics.CounterGroup"
 msgstr "Zählergruppe"
+
+msgid "Statistics.Dashboard"
+msgstr "Dashboard"
+
+msgid "Statistics.Dashboard.AddTile"
+msgstr "Kachel hinzufügen"
+
+msgid "Statistics.Dashboard.Buttons.DeleteTile"
+msgstr "Eintrag löschen (Umschalt+Klick: ohne Bestätigung)"
+
+msgid "Statistics.Dashboard.Buttons.EditTile"
+msgstr "Eintrag bearbeiten"
+
+msgid "Statistics.Dashboard.Buttons.MoveDown"
+msgstr "Nach hinten schieben"
+
+msgid "Statistics.Dashboard.Buttons.MoveUp"
+msgstr "Nach vorne schieben"
+
+msgid "Statistics.Dashboard.DeleteTile.Info"
+msgstr "Soll die gewählte Kachel wirklich gelöscht werden?"
+
+msgid "Statistics.Dashboard.DeleteTile.InfoNo"
+msgstr "Kachel beibehalten."
+
+msgid "Statistics.Dashboard.DeleteTile.InfoYes"
+msgstr "Kacheln jetzt löschen."
+
+msgid "Statistics.Dashboard.DeleteTile.Title"
+msgstr "Kachel löschen"
+
+msgid "Statistics.Dashboard.EditDialog.Digits"
+msgstr "Anzuzeigende Nachkommastellen"
+
+msgid "Statistics.Dashboard.EditDialog.Format"
+msgstr "Anzeigeformat"
+
+msgid "Statistics.Dashboard.EditDialog.Format.Number"
+msgstr "Zahlenwert"
+
+msgid "Statistics.Dashboard.EditDialog.Format.Percent"
+msgstr "Prozentwert"
+
+msgid "Statistics.Dashboard.EditDialog.Format.Time"
+msgstr "Zeit"
+
+msgid "Statistics.Dashboard.EditDialog.Heading"
+msgstr "Überschrift"
+
+msgid "Statistics.Dashboard.EditDialog.Heading.Auto"
+msgstr "Überschrift wenn möglich automatisch ermitteln"
+
+msgid "Statistics.Dashboard.EditDialog.PostText"
+msgstr "Optionaler Text nach dem Wert"
+
+msgid "Statistics.Dashboard.EditDialog.PreText"
+msgstr "Optionaler Text vor dem Wert"
+
+msgid "Statistics.Dashboard.EditDialog.Tab.BackgroundColor"
+msgstr "Hintergrundfarbe"
+
+msgid "Statistics.Dashboard.EditDialog.Tab.Content"
+msgstr "Inhalt"
+
+msgid "Statistics.Dashboard.EditDialog.Tab.Format"
+msgstr "Format"
+
+msgid "Statistics.Dashboard.EditDialog.Title"
+msgstr "Kachel bearbeiten"
+
+msgid "Statistics.Dashboard.EditDialog.UserDefinedBackgroundColor"
+msgstr "Nutzerdefinierte Hintergrundfarbe verwenden"
+
+msgid "Statistics.Dashboard.EditDialog.XML"
+msgstr "XML element"
+
+msgid "Statistics.Dashboard.EditDialog.XML.Button"
+msgstr "Auswählen"
+
+msgid "Statistics.Dashboard.EditDialog.XML.Hint"
+msgstr "Darzustellendes XML-Element auswählen"
+
+msgid "Statistics.Dashboard.ExportTiles"
+msgstr "Kacheln exportieren"
+
+msgid "Statistics.Dashboard.ImportTiles"
+msgstr "Kacheln importieren"
+
+msgid "Statistics.Dashboard.ResetTiles"
+msgstr "Alles zurücksetzen"
+
+msgid "Statistics.Dashboard.ResetTiles.Info"
+msgstr "Soll wirklich alle Einstellungen verworfen und durch die Vorgabewerte ersetzt werden?"
+
+msgid "Statistics.Dashboard.ResetTiles.InfoNo"
+msgstr "Einstellungen beibehalten."
+
+msgid "Statistics.Dashboard.ResetTiles.InfoYes"
+msgstr "Standardskacheln wiederherstellen"
+
+msgid "Statistics.Dashboard.ResetTiles.Title"
+msgstr "Alle Kachel zurücksetzen"
 
 msgid "Statistics.Days"
 msgstr "Tage"

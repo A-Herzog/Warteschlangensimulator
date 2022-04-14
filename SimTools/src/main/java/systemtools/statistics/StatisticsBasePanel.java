@@ -81,7 +81,7 @@ import xml.XMLData;
 /**
  * Diese Klasse stellt Basisfunktionen zur Anzeige von Statistikdaten bereit
  * @author Alexander Herzog
- * @version 1.7
+ * @version 1.8
  */
 public abstract class StatisticsBasePanel extends JPanel implements AbstractReportCommandConnect {
 	/**
@@ -1846,5 +1846,16 @@ public abstract class StatisticsBasePanel extends JPanel implements AbstractRepo
 	private void showViewerWindow(final StatisticViewer viewer) {
 		new StatisticViewerDialog(this,viewer,getImageSize(),i->setImageSize(i));
 		tree.fireNodeSelected();
+	}
+
+	/**
+	 * Ist der übergebene Viewer in der Liste der aktiven Viewer enthalten?
+	 * @param viewer	Zu prüfender Viewer
+	 * @return	Liefert <code>true</code>, wenn der übergebene Viewer momentan aktuelle Werte ausgibt
+	 */
+	public boolean isDataViewer(final StatisticViewer viewer) {
+		if (dataViewer==null) return false;
+		for (StatisticViewer v: dataViewer) if (v==viewer) return true;
+		return false;
 	}
 }

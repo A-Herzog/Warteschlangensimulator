@@ -887,6 +887,10 @@ public class StatisticsPanel extends StatisticsBasePanel {
 		/* Ergebnisübersicht */
 
 		viewer=new ArrayList<>();
+		for(Statistics statistic : statistics) viewer.add(new StatisticViewerDashboard(statistic));
+		root.addChild(new StatisticNode(Language.tr("Statistics.Dashboard"),viewer));
+
+		viewer=new ArrayList<>();
 		for(Statistics statistic : statistics) viewer.add(new StatisticViewerOverviewText(statistic,StatisticViewerOverviewText.Mode.MODE_OVERVIEW,mode->modeClick(mode),(m,s)->fastAccess.addXML(m,s)));
 		root.addChild(new StatisticNode(Language.tr("Statistics.ResultsOverview"),viewer));
 

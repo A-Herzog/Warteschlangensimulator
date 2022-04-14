@@ -1263,6 +1263,11 @@ public class SetupData extends SetupBase {
 	public List<String> statisticTreeBookmarks;
 
 	/**
+	 * Konfiguration der Kacheln für die Dashboard-Statistik-Ansicht
+	 */
+	public List<String> dashboardSetup;
+
+	/**
 	 * Letzter Fehler
 	 * (Hier wird die Setup-Datei als Logdatei für solche Ereignisse verwendet.)
 	 */
@@ -1483,6 +1488,8 @@ public class SetupData extends SetupBase {
 		distributionListFilter="";
 		if (statisticTreeBookmarks==null) statisticTreeBookmarks=new ArrayList<>();
 		statisticTreeBookmarks.clear();
+		if (dashboardSetup==null) dashboardSetup=new ArrayList<>();
+		dashboardSetup.clear();
 		lastError=null;
 	}
 
@@ -2471,6 +2478,10 @@ public class SetupData extends SetupBase {
 				statisticTreeBookmarks.add(e.getTextContent());
 				continue;
 			}
+
+			if (name.equals("statisticdashboard")) {
+				dashboardSetup.add(e.getTextContent());
+			}
 		}
 
 		if (useLastFiles) {
@@ -3165,6 +3176,11 @@ public class SetupData extends SetupBase {
 		if (statisticTreeBookmarks.size()>0) for (String bookmark: statisticTreeBookmarks) {
 			root.appendChild(node=doc.createElement("StatisticTreeBookmarks"));
 			node.setTextContent(bookmark);
+		}
+
+		if (dashboardSetup.size()>0) for (String tile: dashboardSetup) {
+			root.appendChild(node=doc.createElement("StatisticDashboard"));
+			node.setTextContent(tile);
 		}
 
 		if (lastError!=null && !lastError.trim().isEmpty()) {

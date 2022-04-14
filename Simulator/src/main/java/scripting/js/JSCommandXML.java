@@ -101,10 +101,11 @@ public class JSCommandXML extends JSBaseCommand {
 	 * @param systemNumbers	 Legt fest, ob Zahlen in System- oder lokaler Notation ausgegeben werden sollen.
 	 * @param percent	Als Prozentwert oder normale Fließkommazahl
 	 * @param time	Als Zeitangabe oder als Zahl
+	 * @param digits	Anzahl an Nachkommastelle für Zahlen und Prozentwerte (Werte &lt;0 für maximale Anzahl)
 	 * @param distributionSeparator	Trenner für die Einträge bei Verteilungen
 	 * @return	Gibt ein String-Array aus zwei Elementen zurück. Im ersten Eintrag wird ein Fehler und im zweiten ein Wert zurückgegeben. Genau einer der beiden Einträge ist immer <code>null</code>.
 	 */
-	private String[] findElement(Scanner selectors, Element parent, List<String> parentTags, boolean systemNumbers, boolean percent, boolean time, char distributionSeparator) {
+	public static String[] findElement(final Scanner selectors, final Element parent, final List<String> parentTags, final boolean systemNumbers, final boolean percent, final boolean time, final int digits, final char distributionSeparator) {
 		/* Selektor dekodieren */
 		String sel=selectors.next();
 		String tag=sel, attr="", attrValue="";
@@ -131,7 +132,7 @@ public class JSCommandXML extends JSBaseCommand {
 		if (!selectors.hasNext() && tag.isEmpty()) {
 			final List<String> path=new ArrayList<>(parentTags);
 			path.add(attr);
-			return new String[]{null,formatNumber(parent.getAttribute(attr),path,systemNumbers,percent,time,distributionSeparator)};
+			return new String[]{null,formatNumber(parent.getAttribute(attr),path,systemNumbers,percent,time,digits,distributionSeparator)};
 		}
 
 		/* Kindelement suchen */
@@ -160,17 +161,17 @@ public class JSCommandXML extends JSBaseCommand {
 			final List<String> path=new ArrayList<>(parentTags);
 			path.add(tag);
 			if (attr.isEmpty() || !attrValue.isEmpty()) {
-				return new String[]{null,formatNumber(searchResult.getTextContent(),path,systemNumbers,percent,time,distributionSeparator)};
+				return new String[]{null,formatNumber(searchResult.getTextContent(),path,systemNumbers,percent,time,digits,distributionSeparator)};
 			} else {
 				path.add(attr);
-				return new String[]{null,formatNumber(searchResult.getAttribute(attr),path,systemNumbers,percent,time,distributionSeparator)};
+				return new String[]{null,formatNumber(searchResult.getAttribute(attr),path,systemNumbers,percent,time,digits,distributionSeparator)};
 			}
 		}
 
 		/* Suche fortsetzen */
 		final List<String> tags=new ArrayList<>(parentTags);
 		tags.add(tag);
-		return findElement(selectors,searchResult,tags,systemNumbers,percent,time,distributionSeparator);
+		return findElement(selectors,searchResult,tags,systemNumbers,percent,time,digits,distributionSeparator);
 	}
 
 	/**
@@ -222,10 +223,11 @@ public class JSCommandXML extends JSBaseCommand {
 	 * @param systemNumbers	Dezimalkomma (lokale Formatierung) oder Dezimalpunkt (System-Formatierung)
 	 * @param percent	Formatiert den Wert als Prozentwert
 	 * @param time	Formatiert den Zahlenwert als Zeit
+	 * @param digits	Anzahl an Nachkommastelle für Zahlen und Prozentwerte (Werte &lt;0 für maximale Anzahl)
 	 * @param distributionSeparator	Zu verwendendes Trennzeichen bei Verteilungen
 	 * @return	Formatierter Zahlenwert
 	 */
-	public static String formatNumber(String value, List<String> path, boolean systemNumbers, boolean percent, boolean time, char distributionSeparator) {
+	public static String formatNumber(String value, List<String> path, boolean systemNumbers, boolean percent, boolean time, final int digits, char distributionSeparator) {
 		if (doNotFormatCheck(path)) return value;
 
 		/* if (systemNumbers) return value; */
@@ -256,7 +258,13 @@ public class JSCommandXML extends JSBaseCommand {
 			if (systemNumbers) return TimeTools.formatExactSystemTime(D); else return TimeTools.formatExactTime(D);
 		} else {
 			if (percent) {D=D*100; suffix="%";}
-			if (systemNumbers) return NumberTools.formatSystemNumber(D)+suffix; else return NumberTools.formatNumberMax(D)+suffix;
+			if (systemNumbers) return NumberTools.formatSystemNumber(D)+suffix; else {
+				if (digits<0 || digits>14) {
+					return NumberTools.formatNumberMax(D)+suffix;
+				} else {
+					return NumberTools.formatNumber(D,digits)+suffix;
+				}
+			}
 		}
 	}
 
@@ -274,7 +282,7 @@ public class JSCommandXML extends JSBaseCommand {
 			selectors.useDelimiter("->");
 			if (!selectors.hasNext()) return new String[]{Language.tr("Statistics.Filter.InvalidParameters")+" ("+command+")",null};
 			if (xml==null) return new String[]{Language.tr("Statistics.Filter.InvalidSelector")+" ("+command+")",null};
-			return findElement(selectors,xml.getDocumentElement(),new ArrayList<>(),systemNumbers,percent,time,distributionSeparator);
+			return findElement(selectors,xml.getDocumentElement(),new ArrayList<>(),systemNumbers,percent,time,-1,distributionSeparator);
 		}
 	}
 
