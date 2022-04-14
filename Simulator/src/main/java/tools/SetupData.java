@@ -2469,7 +2469,7 @@ public class SetupData extends SetupBase {
 
 			if (name.equals("statistictreebookmarks")) {
 				statisticTreeBookmarks.add(e.getTextContent());
-
+				continue;
 			}
 		}
 
