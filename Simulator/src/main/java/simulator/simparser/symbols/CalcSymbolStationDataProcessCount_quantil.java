@@ -39,8 +39,18 @@ public class CalcSymbolStationDataProcessCount_quantil extends CalcSymbolStation
 	}
 
 	@Override
+	protected boolean hasAllData() {
+		return true;
+	}
+
+	@Override
 	protected boolean hasSingleClientData() {
 		return true;
+	}
+
+	@Override
+	protected double calcAll(final double p) {
+		return getSimData().statistics.clientsInSystemProcess.getQuantil(p);
 	}
 
 	@Override

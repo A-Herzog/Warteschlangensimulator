@@ -358,6 +358,13 @@ public class RunData {
 	private int waitingClients;
 
 	/**
+	 * Anzahl der Kunden im System, die an irgendeiner Station bedient werden
+	 * @see #logClientEntersStationProcess(SimulationData, RunElement, RunElementData, RunDataClient)
+	 * @see #logClientLeavesStationProcess(SimulationData, RunElement, RunElementData, RunDataClient)
+	 */
+	private int processClients;
+
+	/**
 	 * Thread-übergreifendes System um alle Threads möglichst gleichmäßig mit Kundenankünften zu versorgen
 	 */
 	private final DynamicLoadBalancer dynamicLoadBalancer;
@@ -385,6 +392,7 @@ public class RunData {
 		differentialCounterName=new ArrayList<>();
 		outputWriter=new HashMap<>();
 		waitingClients=0;
+		processClients=0;
 
 		sequenceStepAssignmentExpression=new ExpressionCalc[runModel.sequenceStepAssignmentExpression.length][][];
 		for (int i=0;i<sequenceStepAssignmentExpression.length;i++) {
@@ -1042,6 +1050,7 @@ public class RunData {
 		final int count1=clientsAtStationProcess(simData,station,stationData,1); /* Anzahl an Kunden an Station auch in WarmUp-Phase aktualisieren */
 		final int count2=clientsAtStationProcess(simData,client,1);
 		final int count3=clientsAtStationProcessByType(simData,station,stationData,client,1);
+		processClients++;
 
 		if (isWarmUp) return;
 
@@ -1065,7 +1074,8 @@ public class RunData {
 		indicator=(StatisticsTimePerformanceIndicator)(cacheClientsAtStationProcessByClient.get(client));
 		indicator.set(time,FastMath.min(count2,100_000));
 
-		/* Zählung für System -> gibt's hier nicht */
+		/* Zählung für System */
+		simData.statistics.clientsInSystemProcess.set(time,processClients);
 	}
 
 	/**
@@ -1084,6 +1094,7 @@ public class RunData {
 		final int count1=clientsAtStationProcess(simData,station,stationData,-1); /* Anzahl an Kunden an Station auch in WarmUp-Phase aktualisieren */
 		final int count2=clientsAtStationProcess(simData,client,-1);
 		final int count3=clientsAtStationProcessByType(simData,station,stationData,client,-1);
+		processClients--;
 
 		if (isWarmUp) return;
 
@@ -1107,7 +1118,8 @@ public class RunData {
 		indicator=(StatisticsTimePerformanceIndicator)(cacheClientsAtStationProcessByClient.get(client));
 		indicator.set(time,FastMath.min(count2,100_000));
 
-		/* Zählung für System -> gibt's hier nicht */
+		/* Zählung für System */
+		simData.statistics.clientsInSystemProcess.set(time,processClients);
 	}
 
 	/**

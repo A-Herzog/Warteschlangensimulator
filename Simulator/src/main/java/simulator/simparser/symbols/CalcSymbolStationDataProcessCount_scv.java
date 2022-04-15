@@ -39,8 +39,19 @@ public class CalcSymbolStationDataProcessCount_scv extends CalcSymbolStationData
 	}
 
 	@Override
+	protected boolean hasAllData() {
+		return true;
+	}
+
+	@Override
 	protected boolean hasSingleClientData() {
 		return true;
+	}
+
+	@Override
+	protected double calcAll() {
+		final double cv=getSimData().statistics.clientsInSystemProcess.getTimeCV();
+		return cv*cv;
 	}
 
 	@Override

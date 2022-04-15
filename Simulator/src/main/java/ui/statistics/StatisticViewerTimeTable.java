@@ -1246,7 +1246,7 @@ public class StatisticViewerTimeTable extends StatisticViewerBaseTable {
 		case MODE_OVERVIEW_NUMBER_CLIENT_TYPES: buildCountOverviewTable(statistics.clientsAtStationByStationAndClient,null,"N"); break;
 		case MODE_OVERVIEW_QUEUE: buildCountOverviewTable(statistics.clientsAtStationQueueByStation,statistics.clientsInSystemQueues,"NQ"); break;
 		case MODE_OVERVIEW_QUEUE_CLIENT_TYPES: buildCountOverviewTable(statistics.clientsAtStationQueueByStationAndClient,null,"NQ"); break;
-		case MODE_OVERVIEW_PROCESS: buildCountOverviewTable(statistics.clientsAtStationProcessByStation,statistics.clientsInSystemQueues,"NS"); break;
+		case MODE_OVERVIEW_PROCESS: buildCountOverviewTable(statistics.clientsAtStationProcessByStation,statistics.clientsInSystemProcess,"NS"); break;
 		case MODE_OVERVIEW_PROCESS_CLIENT_TYPES: buildCountOverviewTable(statistics.clientsAtStationProcessByStationAndClient,null,"NS"); break;
 		case MODE_DISTRIBUTION_NUMBER_STATION: buildCountDistributionTable(statistics.clientsAtStationByStation,statistics.clientsInSystem); break;
 		case MODE_DISTRIBUTION_NUMBER_STATION_CLIENT_TYPES: buildCountDistributionTable(statistics.clientsAtStationByStationAndClient,null); break;

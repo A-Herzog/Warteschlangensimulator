@@ -41,8 +41,18 @@ public class CalcSymbolStationDataProcessCount_kurt extends CalcSymbolStationDat
 	}
 
 	@Override
+	protected boolean hasAllData() {
+		return true;
+	}
+
+	@Override
 	protected boolean hasSingleClientData() {
 		return true;
+	}
+
+	@Override
+	protected double calcAll() {
+		return getSimData().statistics.clientsInSystemProcess.getTimeKurt();
 	}
 
 	@Override

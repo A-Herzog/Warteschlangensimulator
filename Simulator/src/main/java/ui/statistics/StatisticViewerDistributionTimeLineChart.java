@@ -461,7 +461,7 @@ public class StatisticViewerDistributionTimeLineChart extends StatisticViewerLin
 			addDescription("PlotCountDistribution");
 			break;
 		case MODE_PROCESS:
-			requestDiagrammStateDistribution(Language.tr("Statistics.DistributionOfNumberOfClientsAtStationProcess"),statistics.clientsAtStationProcessByStation,null,Language.tr("Statistics.ClientsInProcess"),null);
+			requestDiagrammStateDistribution(Language.tr("Statistics.DistributionOfNumberOfClientsAtStationProcess"),statistics.clientsAtStationProcessByStation,statistics.clientsInSystemProcess,Language.tr("Statistics.ClientsInProcess"),null);
 			addDescription("PlotCountDistribution");
 			break;
 		case MODE_PROCESS_CLIENT_TYPE:

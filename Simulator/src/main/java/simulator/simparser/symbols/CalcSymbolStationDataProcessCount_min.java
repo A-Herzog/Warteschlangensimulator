@@ -41,8 +41,18 @@ public class CalcSymbolStationDataProcessCount_min extends CalcSymbolStationData
 	}
 
 	@Override
+	protected boolean hasAllData() {
+		return true;
+	}
+
+	@Override
 	protected boolean hasSingleClientData() {
 		return true;
+	}
+
+	@Override
+	protected double calcAll() {
+		return getSimData().statistics.clientsInSystemProcess.getTimeMin();
 	}
 
 	@Override

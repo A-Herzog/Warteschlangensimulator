@@ -152,6 +152,11 @@ public class SystemImpl implements SystemInterface {
 	}
 
 	@Override
+	public int getNS() {
+		return simData.statistics.clientsInSystemProcess.getCurrentState();
+	}
+
+	@Override
 	public void set(final String varName, final Object varValue) {
 		if (varName==null || varValue==null || !(varName instanceof String)) return;
 		if (!(varValue instanceof String) && !(varValue instanceof Double) && !(varValue instanceof Integer) && !(varValue instanceof Long)) return;

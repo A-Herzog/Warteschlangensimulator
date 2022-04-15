@@ -307,6 +307,86 @@ public class ExpressionBuilderSimulationData {
 
 		if (sub.getChildCount()>0) subgroup.add(sub);
 
+		/* Simulationskenngrößen -> Anzahlen an Kunden -> Kunden im System in Bedienung */
+
+		sub=new DefaultMutableTreeNode(Language.tr("ExpressionBuilder.ClientsInSystemProcess"));
+		if (!statisticsOnly) {
+			addTreeNode(
+					sub,
+					filterUpper,
+					Language.tr("ExpressionBuilder.SimulationCharacteristics.ClientsInSystemProcess")+" (Process)",
+					"Process()",
+					Language.tr("ExpressionBuilder.SimulationCharacteristics.ClientsInSystemProcess.Info"));
+		}
+		addTreeNode(
+				sub,
+				filterUpper,
+				Language.tr("ExpressionBuilder.SimulationCharacteristics.AverageNumber")+" (Process_avg)",
+				"Process_avg()",
+				Language.tr("ExpressionBuilder.ClientsInSystemProcess.AverageNumber"));
+		addTreeNode(
+				sub,
+				filterUpper,
+				Language.tr("ExpressionBuilder.SimulationCharacteristics.Median")+" (Process_median)",
+				"Process_median()",
+				Language.tr("ExpressionBuilder.ClientsInSystemProcess.Median"));
+		addTreeNode(
+				sub,
+				filterUpper,
+				Language.tr("ExpressionBuilder.SimulationCharacteristics.Quantil")+" (Process_quantil)",
+				"Process_quantil(p)",
+				Language.tr("ExpressionBuilder.ClientsInSystemProcess.Quantil"));
+		addTreeNode(
+				sub,
+				filterUpper,
+				Language.tr("ExpressionBuilder.SimulationCharacteristics.MinimalNumber")+" (Process_min)",
+				"Process_min()",
+				Language.tr("ExpressionBuilder.ClientsInSystemProcess.MinimalNumber"));
+		addTreeNode(
+				sub,
+				filterUpper,
+				Language.tr("ExpressionBuilder.SimulationCharacteristics.MaximalNumber")+" (Process_max)",
+				"Process_max()",
+				Language.tr("ExpressionBuilder.ClientsInSystemProcess.MaximalNumber"));
+		addTreeNode(
+				sub,
+				filterUpper,
+				Language.tr("ExpressionBuilder.SimulationCharacteristics.VarianceOfTheNumber")+" (Process_var)",
+				"Process_var()",
+				Language.tr("ExpressionBuilder.ClientsInSystemProcess.VarianceOfTheNumber"));
+		addTreeNode(
+				sub,
+				filterUpper,
+				Language.tr("ExpressionBuilder.SimulationCharacteristics.StandardDeviationOfTheNumber")+" (Process_std)",
+				"Process_std()",
+				Language.tr("ExpressionBuilder.ClientsInSystemProcess.StandardDeviationOfTheNumber"));
+		addTreeNode(
+				sub,
+				filterUpper,
+				Language.tr("ExpressionBuilder.SimulationCharacteristics.CoefficientOfVariationOfTheNumber")+" (Process_cv)",
+				"Process_cv()",
+				Language.tr("ExpressionBuilder.ClientsInSystemProcess.CoefficientOfVariationOfTheNumber"));
+		addTreeNode(
+				sub,
+				filterUpper,
+				Language.tr("ExpressionBuilder.SimulationCharacteristics.SquaredCoefficientOfVariationOfTheNumber")+" (Process_scv)",
+				"Process_scv()",
+				Language.tr("ExpressionBuilder.ClientsInSystemProcess.SquaredCoefficientOfVariationOfTheNumber"));
+		addTreeNode(
+				sub,
+				filterUpper,
+				Language.tr("ExpressionBuilder.SimulationCharacteristics.Skewness")+" (Process_sk)",
+				"Process_sk()",
+				Language.tr("ExpressionBuilder.ClientsInSystemProcess.Skewness"));
+		addTreeNode(
+				sub,
+				filterUpper,
+				Language.tr("ExpressionBuilder.SimulationCharacteristics.Kurt")+" (Process_kurt)",
+				"Process_kurt()",
+				Language.tr("ExpressionBuilder.ClientsInSystemProcess.Kurt"));
+
+		if (sub.getChildCount()>0) subgroup.add(sub);
+
 		/* Simulationskenngrößen -> Anzahlen an Kunden -> Kunden an Bedienstation / Kunden von bestimmtem Typ im System */
 
 		sub=new DefaultMutableTreeNode(Language.tr("ExpressionBuilder.ClientsAtStation"));

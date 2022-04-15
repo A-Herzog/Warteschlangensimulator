@@ -76,6 +76,12 @@ public interface SystemInterface {
 	int getNQ();
 
 	/**
+	 * Liefert die Anzahl an Kunden in Bedienung an allen Stationen zusammen
+	 * @return	Liefert die Anzahl an Kunden in Bedienung an allen Stationen zusammen
+	 */
+	int getNS();
+
+	/**
 	 * Setzt den Wert einer Simulator-Variable. Die Variable muss bereits existieren, sonst erfolgt keine Zuweisung.
 	 * @param varName	Name der Variable
 	 * @param varValue	Neuer Wert (Integer, Double oder String, der dann zunächst interpretiert wird)

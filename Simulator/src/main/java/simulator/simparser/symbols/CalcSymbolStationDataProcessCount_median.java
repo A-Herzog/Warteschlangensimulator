@@ -39,8 +39,18 @@ public class CalcSymbolStationDataProcessCount_median extends CalcSymbolStationD
 	}
 
 	@Override
+	protected boolean hasAllData() {
+		return true;
+	}
+
+	@Override
 	protected boolean hasSingleClientData() {
 		return true;
+	}
+
+	@Override
+	protected double calcAll() {
+		return getSimData().statistics.clientsInSystemProcess.getTimeMedian();
 	}
 
 	@Override

@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-13 11:20+0200\n"
+"POT-Creation-Date: 2022-04-15 13:43+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1298,7 +1298,7 @@ msgid "Color.008B8B"
 msgstr "Dark cyan"
 
 msgid "Color.00BFFF"
-msgstr "Deep sky blue  "
+msgstr "Deep sky blue"
 
 msgid "Color.00CED1"
 msgstr "Dark turquoise"
@@ -5175,6 +5175,42 @@ msgstr "<p>Returns the squared coefficient of variation of the number of clients
 msgid "ExpressionBuilder.ClientsInSystem.VarianceOfTheNumber"
 msgstr "<p>Returns the variance of the number of clients in the system.</p>"
 
+msgid "ExpressionBuilder.ClientsInSystemProcess"
+msgstr "Client in the system in service process"
+
+msgid "ExpressionBuilder.ClientsInSystemProcess.AverageNumber"
+msgstr "<p>Returns the average number of clients in the system in service process.</p>"
+
+msgid "ExpressionBuilder.ClientsInSystemProcess.CoefficientOfVariationOfTheNumber"
+msgstr "<p>Returns the coefficient of variation of the number of clients in the system in service process.</p>"
+
+msgid "ExpressionBuilder.ClientsInSystemProcess.Kurt"
+msgstr "<p>Returns the excess kurtosis of the number of clients in the system in service process.</p>"
+
+msgid "ExpressionBuilder.ClientsInSystemProcess.MaximalNumber"
+msgstr "<p>Returns the maximal number of clients in the system in service process.</p>"
+
+msgid "ExpressionBuilder.ClientsInSystemProcess.Median"
+msgstr "<p>Returns the median of the number of clients in the system in service process.</p>"
+
+msgid "ExpressionBuilder.ClientsInSystemProcess.MinimalNumber"
+msgstr "<p>Returns the minimal number of clients in the system in service process.</p>"
+
+msgid "ExpressionBuilder.ClientsInSystemProcess.Quantil"
+msgstr "<p>Returns the quantil for the probability p of the number of clients in the system in service process.</p>"
+
+msgid "ExpressionBuilder.ClientsInSystemProcess.Skewness"
+msgstr "<p>Returns the skewness of the number of clients in the system in service process.</p>"
+
+msgid "ExpressionBuilder.ClientsInSystemProcess.SquaredCoefficientOfVariationOfTheNumber"
+msgstr "<p>Returns the squared coefficient of variation of the number of clients in the system in service process.</p>"
+
+msgid "ExpressionBuilder.ClientsInSystemProcess.StandardDeviationOfTheNumber"
+msgstr "<p>Returns the squared coefficient of variation of the number of clients in the system in service process.</p>"
+
+msgid "ExpressionBuilder.ClientsInSystemProcess.VarianceOfTheNumber"
+msgstr "<p>Returns the variance of the number of clients in the system in service process.</p>"
+
 msgid "ExpressionBuilder.ClientsInSystemQueue"
 msgstr "Waiting client in the system"
 
@@ -6202,6 +6238,12 @@ msgstr "Number of clients in the system"
 msgid "ExpressionBuilder.SimulationCharacteristics.ClientsInSystem.Info"
 msgstr "Gets the current total number of clients in the system."
 
+msgid "ExpressionBuilder.SimulationCharacteristics.ClientsInSystemProcess"
+msgstr "Number of clients in the system in service process"
+
+msgid "ExpressionBuilder.SimulationCharacteristics.ClientsInSystemProcess.Info"
+msgstr "Gets the current total number of clients in the system in service process."
+
 msgid "ExpressionBuilder.SimulationCharacteristics.ClientsInSystemQueue"
 msgstr "Number of waiting clients"
 
@@ -6221,37 +6263,37 @@ msgid "ExpressionBuilder.SimulationCharacteristics.Comparisons.Equal"
 msgstr "Equal"
 
 msgid "ExpressionBuilder.SimulationCharacteristics.Comparisons.Equal.Info"
-msgstr "<p>Checks whether the expression before the ==  operator equals the expression after the comparison operator.</p>"
+msgstr "<p>Checks whether the expression before the == operator equals the expression after the comparison operator.</p>"
 
 msgid "ExpressionBuilder.SimulationCharacteristics.Comparisons.Greater"
 msgstr "Greater"
 
 msgid "ExpressionBuilder.SimulationCharacteristics.Comparisons.Greater.Info"
-msgstr "<p>Checks whether the expression before the &gt;  operator is greater than the expression after the comparison operator.</p>"
+msgstr "<p>Checks whether the expression before the &gt; operator is greater than the expression after the comparison operator.</p>"
 
 msgid "ExpressionBuilder.SimulationCharacteristics.Comparisons.GreaterOrEqual"
 msgstr "Greater or equal"
 
 msgid "ExpressionBuilder.SimulationCharacteristics.Comparisons.GreaterOrEqual.Info"
-msgstr "<p>Checks whether the expression before the &gt;=  operator is greater or equal than the expression after the comparison operator.</p>"
+msgstr "<p>Checks whether the expression before the &gt;= operator is greater or equal than the expression after the comparison operator.</p>"
 
 msgid "ExpressionBuilder.SimulationCharacteristics.Comparisons.Less"
 msgstr "Less"
 
 msgid "ExpressionBuilder.SimulationCharacteristics.Comparisons.Less.Info"
-msgstr "<p>Checks whether the expression before the &lt;  operator is less than the expression after the comparison operator.</p>"
+msgstr "<p>Checks whether the expression before the &lt; operator is less than the expression after the comparison operator.</p>"
 
 msgid "ExpressionBuilder.SimulationCharacteristics.Comparisons.LessOrEqual"
 msgstr "Less or equal"
 
 msgid "ExpressionBuilder.SimulationCharacteristics.Comparisons.LessOrEqual.Info"
-msgstr "<p>Checks whether the expression before the &lt;=  operator is less or equal than the expression after the comparison operator.</p>"
+msgstr "<p>Checks whether the expression before the &lt;= operator is less or equal than the expression after the comparison operator.</p>"
 
 msgid "ExpressionBuilder.SimulationCharacteristics.Comparisons.NotEqual"
 msgstr "Not equal"
 
 msgid "ExpressionBuilder.SimulationCharacteristics.Comparisons.NotEqual.Info"
-msgstr "<p>Checks whether the expression before the !=  operator is different from the expression after the comparison operator.</p>"
+msgstr "<p>Checks whether the expression before the != operator is different from the expression after the comparison operator.</p>"
 
 msgid "ExpressionBuilder.SimulationCharacteristics.CompositeComparisons"
 msgstr "Composite comparisons"
@@ -11942,7 +11984,7 @@ msgid "NewClientTypeEdit.Edge"
 msgstr "Outgoing edge %d"
 
 msgid "NewClientTypeEdit.Info"
-msgstr "If no client type is specified, the current client type will be  maintained."
+msgstr "If no client type is specified, the current client type will be maintained."
 
 msgid "NewClientTypeEdit.InfoShort"
 msgstr "Keep current type"
@@ -19086,6 +19128,9 @@ msgstr "Inserts at the current position the command to output the average number
 msgid "Statistic.FastAccess.Template.ClientsInSystemProcess"
 msgstr "Average number of clients in service process"
 
+msgid "Statistic.FastAccess.Template.ClientsInSystemProcess.Tooltip"
+msgstr "Inserts at the current position the command to output the average number of clients in the system in service process."
+
 msgid "Statistic.FastAccess.Template.ClientsInSystemQueue"
 msgstr "Average number of waiting clients in the system"
 
@@ -19992,6 +20037,9 @@ msgstr "Average busy"
 msgid "Statistics.AverageClientsInSystem"
 msgstr "Average number of clients in the system"
 
+msgid "Statistics.AverageClientsInSystemInProcess"
+msgstr "Average number of clients in the system in service process"
+
 msgid "Statistics.AverageClientsInSystemWaiting"
 msgstr "Average number of clients in the system (waiting)"
 
@@ -20066,6 +20114,9 @@ msgstr "Coefficient of variation"
 
 msgid "Statistics.CVClientsInSystem"
 msgstr "Coefficient of variation of the number of clients in the system"
+
+msgid "Statistics.CVClientsInSystemInProcess"
+msgstr "Coefficient of variation of the number of clients in the system in service process"
 
 msgid "Statistics.CVClientsInSystemWaiting"
 msgstr "Coefficient of variation of the number of clients in the system (waiting)"
@@ -20248,6 +20299,9 @@ msgstr "Clients in queue at"
 
 msgid "Statistics.ClientsInSystem"
 msgstr "Clients in system"
+
+msgid "Statistics.ClientsInSystemProcess"
+msgstr "Clients in system in service process"
 
 msgid "Statistics.ClientsInSystemWaiting"
 msgstr "Clients in system (waiting)"
@@ -20975,6 +21029,9 @@ msgstr "Maximum"
 msgid "Statistics.MaximumClientsInSystem"
 msgstr "Maximum number of clients in the system"
 
+msgid "Statistics.MaximumClientsInSystemInProcess"
+msgstr "Maximum number of clients in the system in service process"
+
 msgid "Statistics.MaximumClientsInSystemWaiting"
 msgstr "Maximum number of clients in the system (waiting)"
 
@@ -21022,6 +21079,9 @@ msgstr "Minimum"
 
 msgid "Statistics.MinimumClientsInSystem"
 msgstr "Minimum number of clients in the system"
+
+msgid "Statistics.MinimumClientsInSystemInProcess"
+msgstr "Minimum number of clients in the system in service process"
 
 msgid "Statistics.MinimumClientsInSystemWaiting"
 msgstr "Minimum number of clients in the system (waiting)"
@@ -21214,6 +21274,9 @@ msgstr "Number of clients in the system"
 
 msgid "Statistics.NumberOfClientsInTheSystemAndAtTheStations"
 msgstr "Number of clients in the system and at the stations"
+
+msgid "Statistics.NumberOfClientsInTheSystemInProcess"
+msgstr "Number of clients in the system in service process"
 
 msgid "Statistics.NumberOfClientsInTheSystemWaiting"
 msgstr "Number of clients in the system (waiting)"
@@ -21483,6 +21546,9 @@ msgstr "Standard deviation"
 
 msgid "Statistics.StdDevClientsInSystem"
 msgstr "Standard deviation of the number of clients in the system"
+
+msgid "Statistics.StdDevClientsInSystemInProcess"
+msgstr "Standard deviation of the number of clients in the system in service process"
 
 msgid "Statistics.StdDevClientsInSystemWaiting"
 msgstr "Standard deviation of the number of clients in the system (waiting)"
@@ -21898,6 +21964,9 @@ msgstr "Variance"
 msgid "Statistics.VarianceClientsInSystem"
 msgstr "Variance of the number of clients in the system"
 
+msgid "Statistics.VarianceClientsInSystemInProcess"
+msgstr "Variance of the number of clients in the system in service process"
+
 msgid "Statistics.VarianceClientsInSystemWaiting"
 msgstr "Variance of the number of clients in the system (waiting)"
 
@@ -22107,6 +22176,9 @@ msgstr "StatisticsClientsInSystem"
 
 msgid "Statistics.XML.Element.ClientsInSystemProcess"
 msgstr "StatisticsClientsInSystemProcess"
+
+msgid "Statistics.XML.Element.ClientsInSystemProcessAll"
+msgstr "StatisticsClientsInSystemAllProcesses"
 
 msgid "Statistics.XML.Element.ClientsInSystemQueue"
 msgstr "StatisticsClientsInSystemQueue"
@@ -33265,7 +33337,7 @@ msgid "Window.EdgeStyle.Title"
 msgstr "Setup connection edges style"
 
 msgid "Window.ErrorNoGraphics"
-msgstr "Since no graphical user interface is available, the simulator can only be operate in console mode. Start simulator with  \"Help\" as parameter to get an overview of the available command line commands."
+msgstr "Since no graphical user interface is available, the simulator can only be operate in console mode. Start simulator with \"Help\" as parameter to get an overview of the available command line commands."
 
 msgid "Window.ExportSaveError"
 msgstr ""

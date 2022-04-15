@@ -1874,6 +1874,7 @@
   <xs:element ref="StatistikVerweilzeitenStationenKundenSumme"/>  
   <xs:element ref="StatistikKundenImSystem"/>
   <xs:element ref="StatistikKundentypenImSystemWartendUeberall"/>
+  <xs:element ref="StatistikKundentypenImSystemInBedienungUeberall"/>
   <xs:element ref="StatistikKundenAnStation"/>
   <xs:element ref="StatistikKundenAnStationNachKundentyp"/>
   <xs:element ref="StatistikKundentypenImSystem"/>
@@ -2091,6 +2092,7 @@
 <xs:element name="StatistikVerweilzeitenStationenKundenSumme" type="StatistikStationBasis"/>
 <xs:element name="StatistikKundenImSystem" type="StatistikBasis"/>
 <xs:element name="StatistikKundentypenImSystemWartendUeberall" type="StatistikBasis"/>
+<xs:element name="StatistikKundentypenImSystemInBedienungUeberall" type="StatistikBasis"/>
 <xs:element name="StatistikKundenAnStation" type="StatistikStationBasis"/>
 <xs:element name="StatistikKundenAnStationNachKundentyp" type="StatistikStationBasis"/>
 <xs:element name="StatistikKundentypenImSystem" type="StatistikKundentypBasis"/>
@@ -4113,6 +4115,7 @@
   <xs:element ref="StatisticsResidenceTimesStationsClientSum"/>
   <xs:element ref="StatisticsClientsInSystem"/>
   <xs:element ref="StatisticsClientsInSystemAllQueues"/>
+  <xs:element ref="StatisticsClientsInSystemAllProcesses"/>
   <xs:element ref="StatisticsClientsAtStation"/>
   <xs:element ref="StatisticsClientsAtStationByClientType"/>
   <xs:element ref="StatisticsClienttypesInSystem"/>
@@ -4330,6 +4333,7 @@
 <xs:element name="StatisticsResidenceTimesStationsClientSum" type="StatisticsStationBase"/>
 <xs:element name="StatisticsClientsInSystem" type="StatisticsBase"/>
 <xs:element name="StatisticsClientsInSystemAllQueues" type="StatisticsBase"/>
+<xs:element name="StatisticsClientsInSystemAllProcesses" type="StatisticsBase"/>
 <xs:element name="StatisticsClientsAtStation" type="StatisticsStationBase"/>
 <xs:element name="StatisticsClientsAtStationByClientType" type="StatisticsStationBase"/>
 <xs:element name="StatisticsClienttypesInSystem" type="StatisticsClientBase"/>

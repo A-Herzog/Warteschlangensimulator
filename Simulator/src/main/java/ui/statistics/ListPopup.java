@@ -458,6 +458,15 @@ public class ListPopup {
 				XMLMode.XML_NUMBER,
 				Language.tr("Statistics.XML.Element.ClientsInSystemWaiting")+mean);
 
+		tryAddRecord(
+				list,
+				allowAdd,
+				Language.tr("Statistic.FastAccess.Template.ClientsInSystemProcess"),
+				Language.tr("Statistic.FastAccess.Template.ClientsInSystemProcess.Tooltip"),
+				Images.SCRIPT_RECORD_DATA_CLIENT.getIcon(),
+				XMLMode.XML_NUMBER,
+				Language.tr("Statistics.XML.Element.ClientsInSystemProcessAll")+mean);
+
 		/* Kunden an den Stationen */
 
 		if (statistics.clientsInSystemByClient.getNames().length>0) {

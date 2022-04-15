@@ -522,7 +522,7 @@ public class ScriptPopup {
 		group.addSeparator();
 		group.addChild(new ScriptPopupItemCommandID(Language.tr("ScriptPopup.Simulation.getWIP"),Language.tr("ScriptPopup.Simulation.getWIP.Hint"),Images.SCRIPT_RECORD_DATA_STATION.getIcon(),systemWIP,owner,model,help,true,true));
 		group.addChild(new ScriptPopupItemCommandID(Language.tr("ScriptPopup.Simulation.getNQ"),Language.tr("ScriptPopup.Simulation.getNQ.Hint"),Images.SCRIPT_RECORD_DATA_STATION_QUEUE.getIcon(),systemNQ,owner,model,help,true,true));
-		group.addChild(new ScriptPopupItemCommandID(Language.tr("ScriptPopup.Simulation.getNS"),Language.tr("ScriptPopup.Simulation.getNS.Hint"),Images.SCRIPT_RECORD_DATA_STATION.getIcon(),systemNS,owner,model,help,true,false));
+		group.addChild(new ScriptPopupItemCommandID(Language.tr("ScriptPopup.Simulation.getNS"),Language.tr("ScriptPopup.Simulation.getNS.Hint"),Images.SCRIPT_RECORD_DATA_STATION.getIcon(),systemNS,owner,model,help,true,true));
 		group.addSeparator();
 		group.addChild(new ScriptPopupItemCommandVariable(Language.tr("ScriptPopup.Simulation.getVariable"),Language.tr("ScriptPopup.Simulation.getVariable.Hint"),Images.SCRIPT_RECORD_VARIABLE.getIcon(),systemVarGet,owner,model,help));
 		group.addChild(new ScriptPopupItemCommandVariable(Language.tr("ScriptPopup.Simulation.setVariable"),Language.tr("ScriptPopup.Simulation.setVariable.Hint"),Images.SCRIPT_RECORD_VARIABLE.getIcon(),systemVarSet,owner,model,help));
@@ -1562,6 +1562,14 @@ public class ScriptPopup {
 				Images.SCRIPT_RECORD_DATA_CLIENT.getIcon(),
 				XMLMode.XML_NUMBER,
 				Language.tr("Statistics.XML.Element.ClientsInSystemWaiting")+mean,
+				scriptMode));
+
+		parent.addChild(new ScriptPopupItemStatistics(
+				Language.tr("Statistic.FastAccess.Template.ClientsInSystemProcess"),
+				Language.tr("Statistic.FastAccess.Template.ClientsInSystemProcess.Tooltip"),
+				Images.SCRIPT_RECORD_DATA_CLIENT.getIcon(),
+				XMLMode.XML_NUMBER,
+				Language.tr("Statistics.XML.Element.ClientsInSystemProcessAll")+mean,
 				scriptMode));
 
 		/* Kunden an den Stationen */

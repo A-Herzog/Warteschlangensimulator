@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-13 11:20+0200\n"
+"POT-Creation-Date: 2022-04-15 13:43+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1737,7 +1737,7 @@ msgid "CommandLine.BuildCatalogDescriptions.Error.Language"
 msgstr "\"%s\" ist keine gültige Sprach-ID."
 
 msgid "CommandLine.BuildCatalogDescriptions.Error.Path"
-msgstr "Der angegebene Pfad \"%s\" existiert  nicht."
+msgstr "Der angegebene Pfad \"%s\" existiert nicht."
 
 msgid "CommandLine.BuildCatalogDescriptions.Name"
 msgstr "BuildLaTeXReference"
@@ -1769,7 +1769,7 @@ msgid "CommandLine.BuildCommandlineDescriptions.Error.Language"
 msgstr "\"%s\" ist keine gültige Sprach-ID."
 
 msgid "CommandLine.BuildCommandlineDescriptions.Error.Path"
-msgstr "Der angegebene Pfad \"%s\" existiert  nicht."
+msgstr "Der angegebene Pfad \"%s\" existiert nicht."
 
 msgid "CommandLine.BuildCommandlineDescriptions.Name"
 msgstr "BuildCLIReference"
@@ -5182,6 +5182,42 @@ msgstr "<p>Liefert die Standardabweichung der Anzahl an Kunden im System.</p>"
 msgid "ExpressionBuilder.ClientsInSystem.VarianceOfTheNumber"
 msgstr "<p>Liefert die Varianz der Anzahl an Kunden an im System.</p>"
 
+msgid "ExpressionBuilder.ClientsInSystemProcess"
+msgstr "Kunden im System in Bedienung"
+
+msgid "ExpressionBuilder.ClientsInSystemProcess.AverageNumber"
+msgstr "<p>Liefert die mittlere Anzahl an Kunden im System in Bedienung.</p>"
+
+msgid "ExpressionBuilder.ClientsInSystemProcess.CoefficientOfVariationOfTheNumber"
+msgstr "<p>Liefert den Variationskoeffizienten der Anzahl an Kunden im System in Bedienung.</p>"
+
+msgid "ExpressionBuilder.ClientsInSystemProcess.Kurt"
+msgstr "<p>Liefert den Exzess (Wölbung) der Anzahl an Kunden im System in Bedienung.</p>"
+
+msgid "ExpressionBuilder.ClientsInSystemProcess.MaximalNumber"
+msgstr "<p>Liefert die maximale Anzahl an Kunden im System in Bedienung.</p>"
+
+msgid "ExpressionBuilder.ClientsInSystemProcess.Median"
+msgstr "<p>Liefert den Median der Anzahl an Kunden im System in Bedienung.</p>"
+
+msgid "ExpressionBuilder.ClientsInSystemProcess.MinimalNumber"
+msgstr "<p>Liefert die minimale Anzahl an Kunden im System in Bedienung.</p>"
+
+msgid "ExpressionBuilder.ClientsInSystemProcess.Quantil"
+msgstr "<p>Liefert das Quantil zur Wahrscheinlichkeit p für die Anzahl an Kunden im System in Bedienung.</p>"
+
+msgid "ExpressionBuilder.ClientsInSystemProcess.Skewness"
+msgstr "<p>Liefert die Schiefe der Anzahl an Kunden im System in Bedienung.</p>"
+
+msgid "ExpressionBuilder.ClientsInSystemProcess.SquaredCoefficientOfVariationOfTheNumber"
+msgstr "<p>Liefert den quadrierten Variationskoeffizienten der Anzahl an Kunden im System in Bedienung.</p>"
+
+msgid "ExpressionBuilder.ClientsInSystemProcess.StandardDeviationOfTheNumber"
+msgstr "<p>Liefert die Standardabweichung der Anzahl an Kunden im System in Bedienung.</p>"
+
+msgid "ExpressionBuilder.ClientsInSystemProcess.VarianceOfTheNumber"
+msgstr "<p>Liefert die Varianz der Anzahl an Kunden an im System in Bedienung.</p>"
+
 msgid "ExpressionBuilder.ClientsInSystemQueue"
 msgstr "Wartende Kunden im System"
 
@@ -5395,7 +5431,7 @@ msgid "ExpressionBuilder.ProbabilityDistributions.BetaDistribution.DensityInfo"
 msgstr "<p>Berechnet den Wert der Dichte der Beta-Verteilung an der als ersten Parameter angegebenen Stelle über das Intervall [a;b] mit den Parametern &alpha; und &beta; gemäß dem zweiten bis fünften Parameter.</p>"
 
 msgid "ExpressionBuilder.ProbabilityDistributions.BetaDistribution.DistributionFunctionInfo"
-msgstr "<p>Berechnet den Wert der Verteilungsfunktion der Beta-Verteilung an der als ersten Parameter angegebenen Stelle über das Intervall [a;b]  mit den Parametern &alpha; und &beta; gemäß dem zweiten bis fünften Parameter.</p>"
+msgstr "<p>Berechnet den Wert der Verteilungsfunktion der Beta-Verteilung an der als ersten Parameter angegebenen Stelle über das Intervall [a;b] mit den Parametern &alpha; und &beta; gemäß dem zweiten bis fünften Parameter.</p>"
 
 msgid "ExpressionBuilder.ProbabilityDistributions.BetaDistribution.RandomNumberInfo"
 msgstr "<p>Erzeugt eine Zufallszahl gemäß der Beta-Verteilung über das Intervall [a;b] mit den Parametern &alpha; und &beta; gemäß dem ersten bis vierten Parameter.</p>"
@@ -6192,6 +6228,12 @@ msgstr "Anzahl Kunden im System"
 
 msgid "ExpressionBuilder.SimulationCharacteristics.ClientsInSystem.Info"
 msgstr "Liefert die aktuelle Gesamtanzahl an Kunden im System."
+
+msgid "ExpressionBuilder.SimulationCharacteristics.ClientsInSystemProcess"
+msgstr "Anzahl Kunden im System in Bedienung"
+
+msgid "ExpressionBuilder.SimulationCharacteristics.ClientsInSystemProcess.Info"
+msgstr "Liefert die aktuelle Gesamtanzahl an Kunden im System, die sich momentan im Bedienprozess befinden."
 
 msgid "ExpressionBuilder.SimulationCharacteristics.ClientsInSystemQueue"
 msgstr "Anzahl wartende Kunden"
@@ -13492,7 +13534,7 @@ msgid "ParameterCompare.Settings.Output.List.Delete.Confirm.YesInfo"
 msgstr "Gewählten Ausgabewert aus der Liste entfernen."
 
 msgid "ParameterCompare.Settings.Output.List.Delete.Hint"
-msgstr "Entfernt den ausgewählten Ausgabewert aus der Liste  (Entfernen; Umschalt+Entfernen=ohne Bestätigungsdialog)"
+msgstr "Entfernt den ausgewählten Ausgabewert aus der Liste (Entfernen; Umschalt+Entfernen=ohne Bestätigungsdialog)"
 
 msgid "ParameterCompare.Settings.Output.List.Edit"
 msgstr "Bearbeiten"
@@ -19094,6 +19136,9 @@ msgstr "Fügt an der aktuellen Position den Befehl zur Ausgabe der mittleren Anz
 msgid "Statistic.FastAccess.Template.ClientsInSystemProcess"
 msgstr "Mittlere Anzahl an Kunden in Bedienung"
 
+msgid "Statistic.FastAccess.Template.ClientsInSystemProcess.Tooltip"
+msgstr "Fügt an der aktuellen Position den Befehl zur Ausgabe der mittleren Anzahl an im System in Bedienung befindlichen Kunden ein."
+
 msgid "Statistic.FastAccess.Template.ClientsInSystemQueue"
 msgstr "Mittlere Anzahl an Kunden im System (wartend)"
 
@@ -20002,6 +20047,9 @@ msgstr "Im Mittel belegt"
 msgid "Statistics.AverageClientsInSystem"
 msgstr "Mittlere Anzahl an Kunden im System"
 
+msgid "Statistics.AverageClientsInSystemInProcess"
+msgstr "Mittlere Anzahl an Kunden im System in Bedienung"
+
 msgid "Statistics.AverageClientsInSystemWaiting"
 msgstr "Mittlere Anzahl an Kunden im System (wartend)"
 
@@ -20076,6 +20124,9 @@ msgstr "Variationskoeffizient"
 
 msgid "Statistics.CVClientsInSystem"
 msgstr "Variationskoeffizient der Anzahl an Kunden im System"
+
+msgid "Statistics.CVClientsInSystemInProcess"
+msgstr "Variationskoeffizient der Anzahl an Kunden im System in Bedienung"
 
 msgid "Statistics.CVClientsInSystemWaiting"
 msgstr "Variationskoeffizient der Anzahl an Kunden im System (wartend)"
@@ -20258,6 +20309,9 @@ msgstr "Kunden in Warteschlange an"
 
 msgid "Statistics.ClientsInSystem"
 msgstr "Kunden im System"
+
+msgid "Statistics.ClientsInSystemProcess"
+msgstr "Kunden im System in Bedienung"
 
 msgid "Statistics.ClientsInSystemWaiting"
 msgstr "Kunden im System (wartend)"
@@ -20985,11 +21039,14 @@ msgstr "Maximum"
 msgid "Statistics.MaximumClientsInSystem"
 msgstr "Maximale Anzahl an Kunden im System"
 
+msgid "Statistics.MaximumClientsInSystemInProcess"
+msgstr "Maximale Anzahl an Kunden im System in Bedienung"
+
 msgid "Statistics.MaximumClientsInSystemWaiting"
 msgstr "Maximale Anzahl an Kunden im System (wartend)"
 
 msgid "Statistics.MaximumNumber"
-msgstr "Maximale Anzahl"
+msgstr "Maximale Anzahl an Kunden im System in Bedienung"
 
 msgid "Statistics.MaximumNumberOfClients"
 msgstr "Maximale Anzahl an Kunden"
@@ -21032,6 +21089,9 @@ msgstr "Minimum"
 
 msgid "Statistics.MinimumClientsInSystem"
 msgstr "Minimale Anzahl an Kunden im System"
+
+msgid "Statistics.MinimumClientsInSystemInProcess"
+msgstr "Minimale Anzahl an Kunden im System in Bedienung"
 
 msgid "Statistics.MinimumClientsInSystemWaiting"
 msgstr "Minimale Anzahl an Kunden im System (wartend)"
@@ -21224,6 +21284,9 @@ msgstr "Anzahl an Kunden im System"
 
 msgid "Statistics.NumberOfClientsInTheSystemAndAtTheStations"
 msgstr "Anzahl an Kunden im System und an den Stationen"
+
+msgid "Statistics.NumberOfClientsInTheSystemInProcess"
+msgstr "Anzahl an Kunden im System in Bedienung"
 
 msgid "Statistics.NumberOfClientsInTheSystemWaiting"
 msgstr "Anzahl an Kunden im System (wartend)"
@@ -21493,6 +21556,9 @@ msgstr "Standardabweichung"
 
 msgid "Statistics.StdDevClientsInSystem"
 msgstr "Standardabweichung der Anzahl an Kunden im System"
+
+msgid "Statistics.StdDevClientsInSystemInProcess"
+msgstr "Standardabweichung der Anzahl an Kunden im System in Bedienung"
 
 msgid "Statistics.StdDevClientsInSystemWaiting"
 msgstr "Standardabweichung der Anzahl an Kunden im System (wartend)"
@@ -21908,6 +21974,9 @@ msgstr "Varianz"
 msgid "Statistics.VarianceClientsInSystem"
 msgstr "Varianz der Anzahl an Kunden im System"
 
+msgid "Statistics.VarianceClientsInSystemInProcess"
+msgstr "Varianz der Anzahl an Kunden im System in Bedienung"
+
 msgid "Statistics.VarianceClientsInSystemWaiting"
 msgstr "Varianz der Anzahl an Kunden im System (wartend)"
 
@@ -22117,6 +22186,9 @@ msgstr "StatistikKundenImSystem"
 
 msgid "Statistics.XML.Element.ClientsInSystemProcess"
 msgstr "StatistikKundentypenImSystemInBedienung"
+
+msgid "Statistics.XML.Element.ClientsInSystemProcessAll"
+msgstr "StatistikKundentypenImSystemInBedienungUeberall"
 
 msgid "Statistics.XML.Element.ClientsInSystemQueue"
 msgstr "StatistikKundentypenImSystemWartend"

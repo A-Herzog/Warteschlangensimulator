@@ -908,7 +908,7 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 
 
 
-		/* Mittlere Anzahl an Kunden in Bedienung (an den Stationen) */
+		/* Mittlere Anzahl an Kunden in Bedienung (im System / an den Stationen) */
 
 		headingWritten=false;
 		for (String station: statistics.clientsAtStationProcessByStation.getNames()) {
@@ -919,6 +919,7 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 					addHeading(3,Language.tr("Statistics.AverageNumberOfClientsInProcessByStations")+" E[NS]");
 					beginParagraph();
 					headingWritten=true;
+					addLine(Language.tr("Statistics.ClientsInSystemProcess")+": "+StatisticTools.formatNumber(statistics.clientsInSystemProcess.getTimeMean()),xmlMean(statistics.clientsInSystemProcess));
 				}
 				addLine(Language.tr("Statistics.ClientsInProcessAt")+" "+fullStationName(station)+": E[NS]="+StatisticTools.formatNumber(mean),xmlMean(indicator));
 			}
@@ -926,6 +927,14 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 		if (headingWritten) {
 			addModeLink(Mode.MODE_CLIENTS_COUNT);
 			endParagraph();
+		} else {
+			if (statistics.clientsInSystemProcess.getTimeMean()>0) {
+				addHeading(3,Language.tr("Statistics.AverageNumberOfClientsInProcessByStations")+" E[NS]");
+				beginParagraph();
+				addLine(Language.tr("Statistics.ClientsInSystemProcess")+": "+StatisticTools.formatNumber(statistics.clientsInSystemProcess.getTimeMean()),xmlMean(statistics.clientsInSystemProcess));
+				addModeLink(Mode.MODE_CLIENTS_COUNT);
+				endParagraph();
+			}
 		}
 
 		/* Mittlere Anzahl Kunden in Bedienung (nach Kundentypen) */
@@ -3043,6 +3052,26 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 				}
 			}
 		}
+
+		/* Kunden im System (in Bedienung) */
+
+		addHeading(2,Language.tr("Statistics.NumberOfClientsInTheSystemInProcess"));
+		beginParagraph();
+		addLine(Language.tr("Statistics.AverageClientsInSystemInProcess")+": E[NS]="+StatisticTools.formatNumber(statistics.clientsInSystemProcess.getTimeMean()),xmlMean(statistics.clientsInSystemProcess));
+		addLine(Language.tr("Statistics.StdDevClientsInSystemInProcess")+": Std[NS]="+StatisticTools.formatNumber(statistics.clientsInSystemProcess.getTimeSD()),fastAccessBuilder.getXMLSelector(statistics.clientsInSystemProcess,IndicatorMode.SD));
+		addLine(Language.tr("Statistics.VarianceClientsInSystemInProcess")+": Var[NS]="+StatisticTools.formatNumber(statistics.clientsInSystemProcess.getTimeVar()));
+		addLine(Language.tr("Statistics.CVClientsInSystemInProcess")+": CV[NS]="+StatisticTools.formatNumber(statistics.clientsInSystemProcess.getTimeCV()),fastAccessBuilder.getXMLSelector(statistics.clientsInSystemProcess,IndicatorMode.CV));
+		addLine(Language.tr("Statistics.Skewness")+": Sk[NS]="+StatisticTools.formatNumber(statistics.clientsInSystemProcess.getTimeSk()),fastAccessBuilder.getXMLSelector(statistics.clientsInSystemProcess,IndicatorMode.Sk));
+		addLine(Language.tr("Statistics.Kurt")+": Kurt[NS]="+StatisticTools.formatNumber(statistics.clientsInSystemProcess.getTimeKurt()),fastAccessBuilder.getXMLSelector(statistics.clientsInSystemProcess,IndicatorMode.Kurt));
+		addLine(Language.tr("Statistics.MinimumClientsInSystemInProcess")+": Min[NS]="+StatisticTools.formatNumber(statistics.clientsInSystemProcess.getTimeMin()),fastAccessBuilder.getXMLSelector(statistics.clientsInSystemProcess,IndicatorMode.MINIMUM));
+		addLine(Language.tr("Statistics.MaximumClientsInSystemInProcess")+": Max[NS]="+StatisticTools.formatNumber(statistics.clientsInSystemProcess.getTimeMax()),fastAccessBuilder.getXMLSelector(statistics.clientsInSystemProcess,IndicatorMode.MAXIMUM));
+		endParagraph();
+
+		outputShortStateDistribution("NS",statistics.clientsInSystemProcess);
+
+		outputQuantilInfoNumber("NS",statistics.clientsInSystemProcess);
+
+		outputConfidenceData(statistics.clientsInSystemProcess);
 
 		/* Kunden an den Stationen (in Bedienung) */
 

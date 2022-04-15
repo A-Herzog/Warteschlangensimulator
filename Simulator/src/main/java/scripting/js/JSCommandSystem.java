@@ -679,6 +679,16 @@ public final class JSCommandSystem extends JSBaseCommand {
 	}
 
 	/**
+	 * Liefert die Anzahl an Kunden in Bedienung an allen Stationen zusammen
+	 * @return Anzahl an Kunden in Bedienung an allen Stationen zusammen
+	 */
+	public int getNS() {
+		if (simData==null) return 0;
+
+		return simData.statistics.clientsInSystemProcess.getCurrentState();
+	}
+
+	/**
 	 * Liefert den Index einer Variable in RunModel#variableName
 	 * @param variableName Name der Variable
 	 * @return Index der Variable (kann -1 für "nicht gefunden" und -2-x für Kundendatenfeld x sein)
