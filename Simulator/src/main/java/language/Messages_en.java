@@ -11690,6 +11690,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[29395] = "TimedChecks";
     t[29396] = "ParameterCompare.Select.Title.Store";
     t[29397] = "Save statistic results";
+    t[29406] = "ScriptPopup.Part";
+    t[29407] = "Part %d of %d (%s ... %s)";
     t[29408] = "ExpressionBuilder.ProbabilityDistributions.LogisticDistribution";
     t[29409] = "Logistic distribution";
     t[29416] = "ModelLoadData.ProcessError.DialogTitle";
@@ -12038,14 +12040,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[30287] = "Search by";
     t[30288] = "Simulation.Element.DifferentialCounter.Name";
     t[30289] = "Difference counter";
-    t[30290] = "Statistics.Utilization.NumberOfOperators.Variance";
-    t[30291] = "Variance of the number of available operators";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_6 (java.lang.String[] t) {
+    t[30290] = "Statistics.Utilization.NumberOfOperators.Variance";
+    t[30291] = "Variance of the number of available operators";
     t[30294] = "ScriptPopup.Output.Separator.Tabs";
     t[30295] = "Tabulators";
     t[30304] = "Surface.PopupMenu.BreakPoint.Option.ClientType";
@@ -14044,14 +14046,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[35153] = "Maximum number of clients in the controlled segment";
     t[35154] = "Surface.TransportSource.XML.Type";
     t[35155] = "Type";
-    t[35156] = "Surface.Logic.Dialog.Condition";
-    t[35157] = "Flow control condition";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_7 (java.lang.String[] t) {
+    t[35156] = "Surface.Logic.Dialog.Condition";
+    t[35157] = "Flow control condition";
     t[35158] = "Surface.Throughput.Tooltip";
     t[35159] = "Records the throughput in clients per time unit through this element.";
     t[35170] = "Surface.CounterBatch.Name.Short";
@@ -16050,14 +16052,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[40007] = "Generate temporary batch";
     t[40010] = "Surface.Output.Table.EditKey";
     t[40011] = "Edit key";
-    t[40016] = "Surface.Dispose.Dialog.Table.ErrorEmpty";
-    t[40017] = "No output table file was specified.";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_8 (java.lang.String[] t) {
+    t[40016] = "Surface.Dispose.Dialog.Table.ErrorEmpty";
+    t[40017] = "No output table file was specified.";
     t[40032] = "Statistics.AveragePathLength";
     t[40033] = "Average path length";
     t[40044] = "ExpressionBuilder.Rounding.round";
@@ -18056,14 +18058,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[44847] = "Transfer time of the client (as number of seconds)";
     t[44848] = "ExpressionBuilder.SimulationCharacteristics.StationIDsByNames.idOfStation";
     t[44849] = "ID of the station";
-    t[44852] = "ModelDescription.Arrival.BatchSize.Fixed";
-    t[44853] = "Batch size";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_9 (java.lang.String[] t) {
+    t[44852] = "ModelDescription.Arrival.BatchSize.Fixed";
+    t[44853] = "Batch size";
     t[44854] = "Statistics.StationsClientsProcessTimes.Short";
     t[44855] = "Process times by client types";
     t[44856] = "ParameterCompare.Settings.Output.Mode.Script";
@@ -20062,14 +20064,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[49773] = "The specified value \"%s\" for the distribution of the down times for the resource type \"%s\" is invalid.";
     t[49776] = "ExpressionBuilder.SimulationCharacteristics.Sum";
     t[49777] = "Sum";
-    t[49778] = "Statistics.CounterBatch";
-    t[49779] = "Batch counter";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_10 (java.lang.String[] t) {
+    t[49778] = "Statistics.CounterBatch";
+    t[49779] = "Batch counter";
     t[49782] = "Statistics.Distance";
     t[49783] = "Distance";
     t[49786] = "Editor.DialogBase.Search.TransporterGroup.Failure.DownTimeDistribution";

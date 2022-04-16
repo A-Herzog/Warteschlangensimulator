@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-15 13:43+0200\n"
+"POT-Creation-Date: 2022-04-16 00:19+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -15559,6 +15559,9 @@ msgstr "Output a tab"
 
 msgid "ScriptPopup.Output.Tab.Hint"
 msgstr "Outputs a tabulator character."
+
+msgid "ScriptPopup.Part"
+msgstr "Part %d of %d (%s ... %s)"
 
 msgid "ScriptPopup.Runtime"
 msgstr "Program"

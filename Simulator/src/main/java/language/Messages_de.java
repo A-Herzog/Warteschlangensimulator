@@ -11690,6 +11690,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[29395] = "ZeitabhaengigePruefungen";
     t[29396] = "ParameterCompare.Select.Title.Store";
     t[29397] = "Statistikergebnisse speichern";
+    t[29406] = "ScriptPopup.Part";
+    t[29407] = "Teil %d von %d (%s ... %s)";
     t[29408] = "ExpressionBuilder.ProbabilityDistributions.LogisticDistribution";
     t[29409] = "Logistische Verteilung";
     t[29416] = "ModelLoadData.ProcessError.DialogTitle";
@@ -12038,14 +12040,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[30287] = "Surche nach";
     t[30288] = "Simulation.Element.DifferentialCounter.Name";
     t[30289] = "Differenzz\u00e4hler";
-    t[30290] = "Statistics.Utilization.NumberOfOperators.Variance";
-    t[30291] = "Varianz der Anzahl an vorhandenen Bedienern";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_6 (java.lang.String[] t) {
+    t[30290] = "Statistics.Utilization.NumberOfOperators.Variance";
+    t[30291] = "Varianz der Anzahl an vorhandenen Bedienern";
     t[30294] = "ScriptPopup.Output.Separator.Tabs";
     t[30295] = "Tabulator";
     t[30304] = "Surface.PopupMenu.BreakPoint.Option.ClientType";
@@ -14044,14 +14046,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[35153] = "Maximale Anzahl an Kunden im \u00fcberwachten Abschnitt";
     t[35154] = "Surface.TransportSource.XML.Type";
     t[35155] = "Typ";
-    t[35156] = "Surface.Logic.Dialog.Condition";
-    t[35157] = "Flusssteuerungs-Bedingung";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_7 (java.lang.String[] t) {
+    t[35156] = "Surface.Logic.Dialog.Condition";
+    t[35157] = "Flusssteuerungs-Bedingung";
     t[35158] = "Surface.Throughput.Tooltip";
     t[35159] = "Erfasst den Durchsatz in Kunden pro Zeiteinheit durch dieses Element.";
     t[35170] = "Surface.CounterBatch.Name.Short";
@@ -16050,14 +16052,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[40007] = "Tempor\u00e4ren Batch erzeugen";
     t[40010] = "Surface.Output.Table.EditKey";
     t[40011] = "Schl\u00fcssel bearbeiten";
-    t[40016] = "Surface.Dispose.Dialog.Table.ErrorEmpty";
-    t[40017] = "Es wurde keine Ausgabetabellendatei angegeben.";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_8 (java.lang.String[] t) {
+    t[40016] = "Surface.Dispose.Dialog.Table.ErrorEmpty";
+    t[40017] = "Es wurde keine Ausgabetabellendatei angegeben.";
     t[40032] = "Statistics.AveragePathLength";
     t[40033] = "Mittlere Pfadel\u00e4nge";
     t[40044] = "ExpressionBuilder.Rounding.round";
@@ -18056,14 +18058,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[44847] = "Bisherige Transferzeit des Kunden (als Sekundenanzahl)";
     t[44848] = "ExpressionBuilder.SimulationCharacteristics.StationIDsByNames.idOfStation";
     t[44849] = "ID der Station";
-    t[44852] = "ModelDescription.Arrival.BatchSize.Fixed";
-    t[44853] = "Batchgr\u00f6\u00dfe";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_9 (java.lang.String[] t) {
+    t[44852] = "ModelDescription.Arrival.BatchSize.Fixed";
+    t[44853] = "Batchgr\u00f6\u00dfe";
     t[44854] = "Statistics.StationsClientsProcessTimes.Short";
     t[44855] = "Bedienzeiten nach Kundentypen";
     t[44856] = "ParameterCompare.Settings.Output.Mode.Script";
@@ -20062,14 +20064,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[49773] = "Der angegebene Wert \"%s\" f\u00fcr die Verteilung der Ausfalldauern f\u00fcr den Ressourcentyp \"%s\" ist ung\u00fcltig.";
     t[49776] = "ExpressionBuilder.SimulationCharacteristics.Sum";
     t[49777] = "Summe";
-    t[49778] = "Statistics.CounterBatch";
-    t[49779] = "Batch-Z\u00e4hler";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_10 (java.lang.String[] t) {
+    t[49778] = "Statistics.CounterBatch";
+    t[49779] = "Batch-Z\u00e4hler";
     t[49782] = "Statistics.Distance";
     t[49783] = "Abstand";
     t[49786] = "Editor.DialogBase.Search.TransporterGroup.Failure.DownTimeDistribution";

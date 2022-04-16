@@ -25,6 +25,8 @@ import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
 
+import language.Language;
+
 /**
  * Untermenü für ein {@link ScriptPopup}-Menü
  * @author Alexander Herzog
@@ -61,14 +63,20 @@ public class ScriptPopupItemSub extends ScriptPopupItem {
 	}
 
 	/**
-	 * Fügt die Elemente des Untermenüs zu einem {@link JPopupMenu}-Menü hinzu
+	 * Fügt die Elemente des Untermenüs zu einem {@link JMenu}-Menü hinzu
 	 * @param popupMenu	Popupmenü zu dem die Einträge dieser Liste als Untermenü hinzugefügt werden sollen
 	 * @param clickedItem	Callback das aufgerufen werden soll, wenn einer der Menüpunkte angeklickt wurde
 	 * @param allowAdd	Erlaubt das Vorabprüfen, ob der Befehl im Popupmenü angezeigt werden soll
+	 * @param indexFrom	Index des ersten einzufügenden Eintrags (inklusive)
+	 * @param indexTo	Index des letzten einzufügenden Eintrags (inklusive)
+	 * @see #addChildrenToMenu(JMenu, Consumer, Predicate)
 	 */
-	private void addChildrenToMenu(final JMenu popupMenu, final Consumer<ScriptPopupItem> clickedItem, final Predicate<ScriptPopupItem> allowAdd) {
+	private void addChildrenToMenu(final JMenu popupMenu, final Consumer<ScriptPopupItem> clickedItem, final Predicate<ScriptPopupItem> allowAdd, final int indexFrom, int indexTo) {
+		while (children.get(indexTo)==null && indexTo>indexFrom) indexTo--;
 		boolean lastObjIsSeparator=false;
-		for (ScriptPopupItem child: children) {
+		for (int i=indexFrom;i<=indexTo;i++) {
+			final ScriptPopupItem child=children.get(i);
+
 			/* Trenner */
 			if (child==null) {
 				if (popupMenu.getMenuComponentCount()>0 && !lastObjIsSeparator) {
@@ -96,11 +104,6 @@ public class ScriptPopupItemSub extends ScriptPopupItem {
 				popupMenu.add(item);
 			}
 		}
-
-		/* Trenner am Ende entfernen */
-		if (lastObjIsSeparator) {
-			popupMenu.remove(popupMenu.getMenuComponent(popupMenu.getMenuComponentCount()-1));
-		}
 	}
 
 	/**
@@ -108,10 +111,16 @@ public class ScriptPopupItemSub extends ScriptPopupItem {
 	 * @param popupMenu	Popupmenü zu dem die Einträge dieser Liste als Untermenü hinzugefügt werden sollen
 	 * @param clickedItem	Callback das aufgerufen werden soll, wenn einer der Menüpunkte angeklickt wurde
 	 * @param allowAdd	Erlaubt das Vorabprüfen, ob der Befehl im Popupmenü angezeigt werden soll
+	 * @param indexFrom	Index des ersten einzufügenden Eintrags (inklusive)
+	 * @param indexTo	Index des letzten einzufügenden Eintrags (inklusive)
+	 * @see #addChildrenToMenu(JPopupMenu, Consumer, Predicate)
 	 */
-	public void addChildrenToMenu(final JPopupMenu popupMenu, final Consumer<ScriptPopupItem> clickedItem, final Predicate<ScriptPopupItem> allowAdd) {
+	private void addChildrenToMenu(final JPopupMenu popupMenu, final Consumer<ScriptPopupItem> clickedItem, final Predicate<ScriptPopupItem> allowAdd, final int indexFrom, int indexTo) {
+		while (children.get(indexTo)==null && indexTo>indexFrom) indexTo--;
 		boolean lastObjIsSeparator=false;
-		for (ScriptPopupItem child: children) {
+		for (int i=indexFrom;i<=indexTo;i++) {
+			final ScriptPopupItem child=children.get(i);
+
 			/* Trenner */
 			if (child==null) {
 				if (popupMenu.getComponentCount()>0 && !lastObjIsSeparator) {
@@ -139,10 +148,77 @@ public class ScriptPopupItemSub extends ScriptPopupItem {
 				popupMenu.add(item);
 			}
 		}
+	}
 
-		/* Trenner am Ende entfernen */
-		if (lastObjIsSeparator) {
-			popupMenu.remove(popupMenu.getComponent(popupMenu.getComponentCount()-1));
+	/**
+	 * Maximalanzahl an Einträgen in einem Popupmenü
+	 * auf der obersten Ebene
+	 * @see #addChildrenToMenu(JPopupMenu, Consumer, Predicate, int, int)
+	 */
+	private static final int MAX_ITEMS_PER_POPUPMENU=60;
+
+	/**
+	 * Maximalanzahl an Einträgen in einem Popupmenü
+	 * auf einer unteren Ebene
+	 * @see #addChildrenToMenu(JMenu, Consumer, Predicate, int, int)
+	 */
+	private static final int MAX_ITEMS_PER_MENU=45;
+
+	/**
+	 * Fügt die Elemente des Untermenüs zu einem {@link JMenu}-Menü hinzu
+	 * @param popupMenu	Popupmenü zu dem die Einträge dieser Liste als Untermenü hinzugefügt werden sollen
+	 * @param clickedItem	Callback das aufgerufen werden soll, wenn einer der Menüpunkte angeklickt wurde
+	 * @param allowAdd	Erlaubt das Vorabprüfen, ob der Befehl im Popupmenü angezeigt werden soll
+	 */
+	private void addChildrenToMenu(final JMenu popupMenu, final Consumer<ScriptPopupItem> clickedItem, final Predicate<ScriptPopupItem> allowAdd) {
+		final int count=children.size();
+		if (count<=MAX_ITEMS_PER_MENU) {
+			addChildrenToMenu(popupMenu,clickedItem,allowAdd,0,children.size()-1);
+			return;
+		}
+
+		final int parts=count/MAX_ITEMS_PER_MENU+((count%MAX_ITEMS_PER_MENU!=0)?1:0);
+		for (int part=0;part<parts;part++) {
+			final JMenu sub=new JMenu("");
+			addChildrenToMenu(sub,clickedItem,allowAdd,part*MAX_ITEMS_PER_MENU,Math.min((part+1)*MAX_ITEMS_PER_MENU-1,count-1));
+			final int subCount=sub.getMenuComponentCount();
+			if (subCount>0) {
+				String name1=((JMenuItem)sub.getMenuComponent(0)).getText();
+				String name2=((JMenuItem)sub.getMenuComponent(subCount-1)).getText();
+				if (name1.length()>10) name1=name1.substring(0,10);
+				if (name2.length()>10) name2=name2.substring(0,10);
+				sub.setText(String.format(Language.tr("ScriptPopup.Part"),part+1,parts,name1,name2));
+				popupMenu.add(sub);
+			}
+		}
+	}
+
+	/**
+	 * Fügt die Elemente des Untermenüs zu einem {@link JPopupMenu}-Menü hinzu
+	 * @param popupMenu	Popupmenü zu dem die Einträge dieser Liste als Untermenü hinzugefügt werden sollen
+	 * @param clickedItem	Callback das aufgerufen werden soll, wenn einer der Menüpunkte angeklickt wurde
+	 * @param allowAdd	Erlaubt das Vorabprüfen, ob der Befehl im Popupmenü angezeigt werden soll
+	 */
+	public void addChildrenToMenu(final JPopupMenu popupMenu, final Consumer<ScriptPopupItem> clickedItem, final Predicate<ScriptPopupItem> allowAdd) {
+		final int count=children.size();
+		if (count<=MAX_ITEMS_PER_POPUPMENU) {
+			addChildrenToMenu(popupMenu,clickedItem,allowAdd,0,children.size()-1);
+			return;
+		}
+
+		final int parts=count/MAX_ITEMS_PER_POPUPMENU+((count%MAX_ITEMS_PER_POPUPMENU!=0)?1:0);
+		for (int part=0;part<parts;part++) {
+			final JMenu sub=new JMenu("");
+			addChildrenToMenu(sub,clickedItem,allowAdd,part*MAX_ITEMS_PER_POPUPMENU,Math.min((part+1)*MAX_ITEMS_PER_POPUPMENU-1,count-1));
+			final int subCount=sub.getMenuComponentCount();
+			if (subCount>0) {
+				String name1=((JMenuItem)sub.getMenuComponent(0)).getText();
+				String name2=((JMenuItem)sub.getMenuComponent(subCount-1)).getText();
+				if (name1.length()>10) name1=name1.substring(0,10);
+				if (name2.length()>10) name2=name2.substring(0,1);
+				sub.setText(String.format(Language.tr("ScriptPopup.Part"),part+1,parts,name1,name2));
+				popupMenu.add(sub);
+			}
 		}
 	}
 }
