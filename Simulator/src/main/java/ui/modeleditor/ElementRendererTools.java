@@ -72,19 +72,42 @@ public class ElementRendererTools {
 		/**
 		 * Keine Gradienten verwenden
 		 */
-		OFF,
+		OFF("off"),
 
 		/**
 		 * Gradient für die Darstellung der Liste auf der linken Fensterseite verwenden
 		 * @see ElementRendererTools#listBackgroundColorGradientLeft
 		 */
-		LEFT,
+		LEFT("left"),
 
 		/**
 		 * Gradient für die Darstellung der Liste auf der rechten Fensterseite verwenden
 		 * @see ElementRendererTools#listBackgroundColorGradientRight
 		 */
-		RIGHT
+		RIGHT("right");
+
+		/**
+		 * Bezeichner für den Gradientendarstellungsstil
+		 */
+		public final String name;
+
+		/**
+		 * Konsturktor des Enum
+		 * @param name	Bezeichner für den Gradientendarstellungsstil
+		 */
+		GradientStyle(final String name) {
+			this.name=name;
+		}
+
+		/**
+		 * Liefert einen Gradientendarstellungsstil basierend auf seinem Namen
+		 * @param name	Name des Gradientendarstellungsstil
+		 * @return	Zugehöriger Gradientendarstellungsstil (mit Fallback zu {@value #OFF})
+		 */
+		public static GradientStyle fromName(final String name) {
+			for (GradientStyle style: values()) if (style.name.equalsIgnoreCase(name)) return style;
+			return OFF;
+		}
 	}
 
 	/**
@@ -305,7 +328,7 @@ public class ElementRendererTools {
 				}
 			}
 			panel.add(info,BorderLayout.CENTER);
-			info.setOpaque(false);
+			panel.setOpaque(false);
 			info.add(new JLabel(infoText));
 		}
 
