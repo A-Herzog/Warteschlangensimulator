@@ -44,19 +44,19 @@
 	<dependency>
     		<groupId>org.apache.poi</groupId>
     		<artifactId>poi</artifactId>
-    		<version>5.2.1</version>
+    		<version>5.2.2</version>
 	</dependency>
 	<!-- https://mvnrepository.com/artifact/org.apache.poi/poi-ooxml -->
 	<dependency>
     		<groupId>org.apache.poi</groupId>
     		<artifactId>poi-ooxml</artifactId>
-	    <version>5.2.1</version>
+	    <version>5.2.2</version>
 	</dependency>
 	<!-- https://mvnrepository.com/artifact/org.apache.poi/poi-ooxml-full -->
 	<dependency>
     		<groupId>org.apache.poi</groupId>
     		<artifactId>poi-ooxml-full</artifactId>
-    		<version>5.2.1</version>
+    		<version>5.2.2</version>
 	</dependency>
 	<!-- https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-core -->
 	<dependency>
