@@ -52,7 +52,7 @@ public class ModelElementCatalogListCellRenderer<E extends ModelElementPosition>
 	 * @param useGradient	Sollen Farbverläufe im Hintergrund verwendet werden?
 	 */
 	public ModelElementCatalogListCellRenderer(final ElementRendererTools.GradientStyle useGradient) {
-		this.useGradient=useGradient;
+		this.useGradient=(useGradient==null)?ElementRendererTools.GradientStyle.OFF:useGradient;
 	}
 
 	/**

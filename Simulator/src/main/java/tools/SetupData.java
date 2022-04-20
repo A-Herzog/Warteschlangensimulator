@@ -1268,6 +1268,17 @@ public class SetupData extends SetupBase {
 	public List<String> dashboardSetup;
 
 	/**
+	 * Optionaler Gradient für die Hintergrundfarbe der Elementenvorlagenleiste
+	 */
+	public boolean gradientTempaltes;
+
+	/**
+	 * Optionaler Gradient für die Hintergrundfarbe der Navigatorleiste
+	 */
+	public boolean gradientNavigator;
+
+
+	/**
 	 * Letzter Fehler
 	 * (Hier wird die Setup-Datei als Logdatei für solche Ereignisse verwendet.)
 	 */
@@ -1490,6 +1501,8 @@ public class SetupData extends SetupBase {
 		statisticTreeBookmarks.clear();
 		if (dashboardSetup==null) dashboardSetup=new ArrayList<>();
 		dashboardSetup.clear();
+		gradientTempaltes=false;
+		gradientNavigator=false;
 		lastError=null;
 	}
 
@@ -2481,6 +2494,17 @@ public class SetupData extends SetupBase {
 
 			if (name.equals("statisticdashboard")) {
 				dashboardSetup.add(e.getTextContent());
+				continue;
+			}
+
+			if (name.equals("gradienttemplates")) {
+				gradientTempaltes=loadBoolean(e.getTextContent(),false);
+				continue;
+			}
+
+			if (name.equals("gradientnavigator")) {
+				gradientNavigator=loadBoolean(e.getTextContent(),false);
+				continue;
 			}
 		}
 
@@ -3181,6 +3205,16 @@ public class SetupData extends SetupBase {
 		if (dashboardSetup.size()>0) for (String tile: dashboardSetup) {
 			root.appendChild(node=doc.createElement("StatisticDashboard"));
 			node.setTextContent(tile);
+		}
+
+		if (gradientTempaltes) {
+			root.appendChild(node=doc.createElement("GradientTemplates"));
+			node.setTextContent("1");
+		}
+
+		if (gradientNavigator) {
+			root.appendChild(node=doc.createElement("GradientNavigator"));
+			node.setTextContent("1");
 		}
 
 		if (lastError!=null && !lastError.trim().isEmpty()) {

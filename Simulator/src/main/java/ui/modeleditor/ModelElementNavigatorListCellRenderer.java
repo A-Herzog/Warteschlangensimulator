@@ -44,7 +44,7 @@ public class ModelElementNavigatorListCellRenderer<E extends ModelElementBox> im
 	 * @param useGradient	Sollen Farbverläufe im Hintergrund verwendet werden?
 	 */
 	public ModelElementNavigatorListCellRenderer(final ElementRendererTools.GradientStyle useGradient) {
-		this.useGradient=useGradient;
+		this.useGradient=(useGradient==null)?ElementRendererTools.GradientStyle.OFF:useGradient;
 	}
 
 	/**

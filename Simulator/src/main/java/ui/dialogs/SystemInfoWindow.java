@@ -620,6 +620,12 @@ public class SystemInfoWindow extends JFrame {
 		menu.add(item=new JMenuItem(Language.tr("SystemInfo.Tools.UserInterface.Font"),Images.GENERAL_FONT.getIcon()));
 		item.addActionListener(e->selectProgramFont());
 
+		menu.add(check=new JCheckBoxMenuItem(Language.tr("SystemInfo.Tools.UserInterface.GradientTemplates"),setup.gradientTempaltes));
+		check.addActionListener(e->{setup.gradientTempaltes=!setup.gradientTempaltes; setup.saveSetup();});
+
+		menu.add(check=new JCheckBoxMenuItem(Language.tr("SystemInfo.Tools.UserInterface.GradientNavigator"),setup.gradientNavigator));
+		check.addActionListener(e->{setup.gradientNavigator=!setup.gradientNavigator; setup.saveSetup();});
+
 		/* Simulation */
 
 		menu.add(label=new JMenuItem("<html><b>"+Language.tr("SystemInfo.Tools.Simulation")+"</b></html>"));

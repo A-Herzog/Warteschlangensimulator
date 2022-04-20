@@ -1050,8 +1050,8 @@ public final class EditorPanel extends EditorPanelBase {
 			buttonRedo.setEnabled(false);
 		}
 
-		templates=new ElementRendererTools.ElementList<>(ElementRendererTools.GradientStyle.OFF);
-		templates.setCellRenderer(templatesRenderer=new ModelElementCatalogListCellRenderer<>(ElementRendererTools.GradientStyle.OFF));
+		templates=new ElementRendererTools.ElementList<>(setup.gradientTempaltes?ElementRendererTools.GradientStyle.LEFT:ElementRendererTools.GradientStyle.OFF);
+		templates.setCellRenderer(templatesRenderer=new ModelElementCatalogListCellRenderer<>(setup.gradientTempaltes?ElementRendererTools.GradientStyle.LEFT:ElementRendererTools.GradientStyle.OFF));
 		if (setup.onlyOneOpenTemplatesGroup) enforceOnlyOneGroupOpen();
 
 		templates.setModel(ModelElementCatalog.getCatalog().getTemplatesListModel(setup.visibleTemplateGroups,setup.openTemplateGroups,"",(model.surface.getParentSurface()!=null)?ModelElementCatalog.TemplatesListMode.SUB_MODEL:ModelElementCatalog.TemplatesListMode.FULL));
@@ -1169,6 +1169,8 @@ public final class EditorPanel extends EditorPanelBase {
 	 * @see #rightArea
 	 */
 	private JComponent createNavigatorPanel() {
+		final SetupData setup=SetupData.getSetup();
+
 		/* Äußerer Bereich */
 		rightArea=new JPanel(new BorderLayout());
 		rightArea.setVisible(false);
@@ -1197,8 +1199,8 @@ public final class EditorPanel extends EditorPanelBase {
 		navigatorSortSelect.addActionListener(e->updateNavigatorList());
 
 		/* Liste in der Mitte im inneren Bereich */
-		navigator=new ElementRendererTools.ElementList<>(ElementRendererTools.GradientStyle.OFF);
-		navigator.setCellRenderer(navigatorRenderer=new ModelElementNavigatorListCellRenderer<>(ElementRendererTools.GradientStyle.OFF));
+		navigator=new ElementRendererTools.ElementList<>(setup.gradientNavigator?ElementRendererTools.GradientStyle.RIGHT:ElementRendererTools.GradientStyle.OFF);
+		navigator.setCellRenderer(navigatorRenderer=new ModelElementNavigatorListCellRenderer<>(setup.gradientNavigator?ElementRendererTools.GradientStyle.RIGHT:ElementRendererTools.GradientStyle.OFF));
 		navigatorRenderer.setZoom(surfacePanel.getZoom());
 		navigator.setModel(navigatorModel=new DefaultListModel<>());
 

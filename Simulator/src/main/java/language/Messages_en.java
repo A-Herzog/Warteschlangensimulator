@@ -10504,6 +10504,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[26375] = "Script";
     t[26378] = "Surface.Source.Dialog.Tab.BatchSize.Info";
     t[26379] = "In case of batch arrivals, the inter-arrival times refer to the distances from one batch to the next.\nIf, for example, batches of each 3 clients arrive with an average inter-arrival time of 2 minutes,\none client arrives every 40 seconds on average.";
+    t[26380] = "SystemInfo.Tools.UserInterface.GradientNavigator";
+    t[26381] = "Background color for navigator panel";
     t[26382] = "Wait.Status.LongRun.WIPOne";
     t[26383] = "%sK of %sK client arrivals simulated / 1 client in the system / %sM events / %sK events per second";
     t[26386] = "Surface.Tank.Dialog.Valve.Down";
@@ -12038,14 +12040,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[30277] = "Destination folder";
     t[30286] = "FindElementDirect.Option";
     t[30287] = "Search by";
-    t[30288] = "Simulation.Element.DifferentialCounter.Name";
-    t[30289] = "Difference counter";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_6 (java.lang.String[] t) {
+    t[30288] = "Simulation.Element.DifferentialCounter.Name";
+    t[30289] = "Difference counter";
     t[30290] = "Statistics.Utilization.NumberOfOperators.Variance";
     t[30291] = "Variance of the number of available operators";
     t[30294] = "ScriptPopup.Output.Separator.Tabs";
@@ -14044,14 +14046,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[35149] = "End of simulation";
     t[35152] = "ModelDescription.BarrierPull.MaxClients";
     t[35153] = "Maximum number of clients in the controlled segment";
-    t[35154] = "Surface.TransportSource.XML.Type";
-    t[35155] = "Type";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_7 (java.lang.String[] t) {
+    t[35154] = "Surface.TransportSource.XML.Type";
+    t[35155] = "Type";
     t[35156] = "Surface.Logic.Dialog.Condition";
     t[35157] = "Flow control condition";
     t[35158] = "Surface.Throughput.Tooltip";
@@ -16050,14 +16052,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[39993] = "Edit expression";
     t[40006] = "ModelDescription.PickUp.Mode.Temporary";
     t[40007] = "Generate temporary batch";
-    t[40010] = "Surface.Output.Table.EditKey";
-    t[40011] = "Edit key";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_8 (java.lang.String[] t) {
+    t[40010] = "Surface.Output.Table.EditKey";
+    t[40011] = "Edit key";
     t[40016] = "Surface.Dispose.Dialog.Table.ErrorEmpty";
     t[40017] = "No output table file was specified.";
     t[40032] = "Statistics.AveragePathLength";
@@ -18056,14 +18058,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[44835] = "Indigo";
     t[44846] = "Surface.Output.XML.Element.TypeDescription.TransferTimeNumber";
     t[44847] = "Transfer time of the client (as number of seconds)";
-    t[44848] = "ExpressionBuilder.SimulationCharacteristics.StationIDsByNames.idOfStation";
-    t[44849] = "ID of the station";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_9 (java.lang.String[] t) {
+    t[44848] = "ExpressionBuilder.SimulationCharacteristics.StationIDsByNames.idOfStation";
+    t[44849] = "ID of the station";
     t[44852] = "ModelDescription.Arrival.BatchSize.Fixed";
     t[44853] = "Batch size";
     t[44854] = "Statistics.StationsClientsProcessTimes.Short";
@@ -20062,14 +20064,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[49771] = "Open web page in default browser.";
     t[49772] = "Surface.Resource.ErrorDistribution";
     t[49773] = "The specified value \"%s\" for the distribution of the down times for the resource type \"%s\" is invalid.";
-    t[49776] = "ExpressionBuilder.SimulationCharacteristics.Sum";
-    t[49777] = "Sum";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_10 (java.lang.String[] t) {
+    t[49776] = "ExpressionBuilder.SimulationCharacteristics.Sum";
+    t[49777] = "Sum";
     t[49778] = "Statistics.CounterBatch";
     t[49779] = "Batch counter";
     t[49782] = "Statistics.Distance";
@@ -20370,6 +20372,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[50519] = "The command expects exactly three additional parameters:\n1. Name of the input folder\n2. Name of the input filter configuration file\n3. Name of the output file which will contain the filtered results\nIf the output file already exists, the new results will be added.\nOtherwise the file will be created.";
     t[50522] = "Surface.SectionEnd.Infotext";
     t[50523] = "If a client passes a section end station, he will leave the corresponding station (for the statistics).";
+    t[50528] = "SystemInfo.Tools.UserInterface.GradientTemplates";
+    t[50529] = "Background color for element templates panel";
     t[50530] = "Optimizer.Tab.Target.DialogHint";
     t[50531] = "The target value is the output parameter that should be optimized. This means the target value should be as large as possible, as small as possible or be within a certain range.";
     t[50538] = "Editor.DialogBase.Search.TableClientTypeColumn";

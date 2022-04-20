@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-16 00:19+0200\n"
+"POT-Creation-Date: 2022-04-18 17:55+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -32386,6 +32386,12 @@ msgstr "Program font..."
 
 msgid "SystemInfo.Tools.UserInterface.Font.Info"
 msgstr "Program font (\"Arial\" for example), empty for operating system default"
+
+msgid "SystemInfo.Tools.UserInterface.GradientNavigator"
+msgstr "Background color for navigator panel"
+
+msgid "SystemInfo.Tools.UserInterface.GradientTemplates"
+msgstr "Background color for element templates panel"
 
 msgid "SystemInfo.Tools.UserInterface.MemoryUsage"
 msgstr "Show memory usage"
