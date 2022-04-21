@@ -380,10 +380,10 @@ public final class StatisticsDataPerformanceIndicator extends StatisticsPerforma
 				final long l;
 				if (argumentScaleFactorIsOne) {
 					/* langsamer:  l=FastMath.round(value); */
-					l=(long)(value+0.5);
+					l=(long)(value+0.5d);
 				} else {
 					/* langsamer: l=FastMath.round(argumentScaleFactor*value); */
-					l=(long)((argumentScaleFactor*value)+0.5);
+					l=(long)((argumentScaleFactor*value)+0.5d);
 				}
 				if (l>0) {
 					if (dist==null) initDistribution();
@@ -481,13 +481,13 @@ public final class StatisticsDataPerformanceIndicator extends StatisticsPerforma
 				final long l;
 				if (argumentScaleFactorIsOne) {
 					/* langsamer:  l=FastMath.round(value); */
-					l=(long)(value+0.5);
+					l=(long)(value+0.5d);
 				} else {
 					/* langsamer: l=FastMath.round(argumentScaleFactor*value); */
-					l=(long)((argumentScaleFactor*value)+0.5);
+					l=(long)((argumentScaleFactor*value)+0.5d);
 				}
 				if (l<=0) {
-					if (dist==null) distributionZeroCount++; else densityData[0]++;
+					if (dist==null) distributionZeroCount+=count; else densityData[0]+=count;
 				} else {
 					if (dist==null) initDistribution();
 					if (l>=densityDataLength) {
@@ -632,9 +632,9 @@ public final class StatisticsDataPerformanceIndicator extends StatisticsPerforma
 			dist=data.dist.clone();
 			densityData=dist.densityData;
 			densityDataLength=densityData.length;
-			argumentScaleFactor=data.argumentScaleFactor;
-			argumentScaleFactorIsOne=data.argumentScaleFactorIsOne;
 		}
+		argumentScaleFactor=data.argumentScaleFactor;
+		argumentScaleFactorIsOne=data.argumentScaleFactorIsOne;
 		distributionZeroCount=data.distributionZeroCount;
 
 		/* Autokorrelation */

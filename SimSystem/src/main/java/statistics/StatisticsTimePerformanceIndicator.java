@@ -227,7 +227,7 @@ public final class StatisticsTimePerformanceIndicator extends StatisticsPerforma
 			int max=(lastState>newState)?lastState:newState;
 			if (max<1) max=1;
 			if (max>MAX_STATE) max=MAX_STATE;
-			final boolean init=(lastTime<=0 && stateTime==null) || explicitTimeInit;
+			final boolean init=(lastTime<=0.0d && stateTime==null) || explicitTimeInit;
 
 			explicitTimeInit=false;
 			if (stateTime==null && time0<0 && timeMax<0) {
@@ -244,11 +244,11 @@ public final class StatisticsTimePerformanceIndicator extends StatisticsPerforma
 				final double add=time-lastTime;
 				if (stateTime==null) {
 					if (lastState==0) {
-						time0=(time0>=0)?(time0+add):add;
+						time0=(time0>=0.0d)?(time0+add):add;
 					} else {
 						if (timeMaxState==-1 || timeMaxState==lastState) {
 							timeMaxState=lastState;
-							timeMax=(timeMax>=0)?(timeMax+add):add;
+							timeMax=(timeMax>=0.0d)?(timeMax+add):add;
 						} else {
 							forceExpandStateTime();
 						}
@@ -263,10 +263,14 @@ public final class StatisticsTimePerformanceIndicator extends StatisticsPerforma
 				if (lastState<this.min || this.min==-1) this.min=lastState;
 				if (lastState>this.max || this.max==-1) this.max=lastState;
 				sum+=add;
-				valueSum+=add*lastState;
-				valueSumSquared+=add*lastState*lastState;
-				valueSumCubic+=add*lastState*lastState*lastState;
-				valueSumQuartic+=add*lastState*lastState*lastState*lastState;
+				if (lastState>0) {
+					final double addTimesLastState=add*lastState;
+					final double squared=lastState*lastState;
+					valueSum+=addTimesLastState;
+					valueSumSquared+=add*squared;
+					valueSumCubic+=addTimesLastState*squared;
+					valueSumQuartic+=add*squared*squared;
+				}
 			} else {
 				start=time;
 			}
@@ -276,7 +280,7 @@ public final class StatisticsTimePerformanceIndicator extends StatisticsPerforma
 
 		lastState=(newState>=0)?newState:0;
 
-		lastTimeMean=-1;
+		lastTimeMean=-1.0d;
 	}
 
 	/**

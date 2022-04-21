@@ -405,7 +405,7 @@ public final class StatisticsDataPerformanceIndicatorWithNegativeValues extends 
 					l=(long)((argumentScaleFactor*value)+0.5);
 				}
 				if (l<=0) {
-					if (dist==null) distributionZeroCount++; else densityData[0]++;
+					if (dist==null) distributionZeroCount+=count; else densityData[0]+=count;
 				} else {
 					if (dist==null) initDistribution();
 					if (l>=densityDataLength) {
@@ -531,9 +531,9 @@ public final class StatisticsDataPerformanceIndicatorWithNegativeValues extends 
 			dist=data.dist.clone();
 			densityData=dist.densityData;
 			densityDataLength=densityData.length;
-			argumentScaleFactor=data.argumentScaleFactor;
-			argumentScaleFactorIsOne=data.argumentScaleFactorIsOne;
 		}
+		argumentScaleFactor=data.argumentScaleFactor;
+		argumentScaleFactorIsOne=data.argumentScaleFactorIsOne;
 		distributionZeroCount=data.distributionZeroCount;
 
 		/* Batch-Means */
