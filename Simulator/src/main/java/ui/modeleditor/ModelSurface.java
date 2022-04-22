@@ -2106,16 +2106,41 @@ public final class ModelSurface {
 	}
 
 	/**
-	 * Besteht ein Name aus einem Text gefolgt von einer Zahl,
-	 * so kann dieser über diese Methode getrennt werden.
+	 * Besteht ein Name aus einem Text gefolgt von einer Zahl oder aus einem Text gefolgt von einem
+	 * Leerzeichen und einem einzelnen Buchstaben, so kann dieser über diese Methode getrennt werden.
 	 * @param name	Name
-	 * @return	Liefert im Erfolgsfall ein Array aus Textbestandteil und Zahl oder <code>null</code>, wenn der Name nicht in das Schema passt
+	 * @return	Liefert im Erfolgsfall ein Array aus Textbestandteil und (Zahl oder String) oder <code>null</code>, wenn der Name nicht in das Schema passt
 	 * @see #smartRename(ModelElement)
 	 */
 	private Object[] splitName(final String name) {
 		final int len=name.length();
+		if (len<1) return null;
+
+		/* Einzelner Buchstabe */
+		if (len==1) {
+			final char c=name.charAt(len-1);
+			if ((c>='A' && c<='Z') || (c>='a' && c<='z')) {
+				return new Object[] {"",String.valueOf(c)};
+			}
+		}
+
+		/* Einzelne Zahl */
+		Integer I=NumberTools.getNotNegativeInteger(name);
+		if (I!=null) {
+			return new Object[] {"",I};
+		}
+
 		if (len<2) return null;
 
+		/* Kombination Text+Leerzeichen+Buchstabe finden */
+		if (name.charAt(len-2)==' ') {
+			final char last=name.charAt(len-1);
+			if ((last>='A' && last<='Z') || (last>='a' && last<='z')) {
+				return new Object[] {name.subSequence(0,len-2),String.valueOf(last)};
+			}
+		}
+
+		/* Kombination Text+Zahl finden */
 		int i=len-1;
 		while (i>=0) {
 			final char c=name.charAt(i);
@@ -2124,7 +2149,7 @@ public final class ModelSurface {
 		}
 		if (i<0 || i==len) return null;
 
-		final Integer I=NumberTools.getInteger(name.substring(i));
+		I=NumberTools.getInteger(name.substring(i));
 		if (I==null) return null;
 		return new Object[] {name.subSequence(0,i),I};
 	}
@@ -2143,21 +2168,41 @@ public final class ModelSurface {
 		final ModelElementBox box=(ModelElementBox)element;
 		if (box.getName().trim().isEmpty()) return;
 
+		/* Namen auftrennen */
 		final Object[] parts=splitName(box.getName());
 		final String str;
 		int nr;
+		char nrChar;
 		if (parts==null) {
 			if (mode==SetupData.RenameOnCopyMode.SMART) return;
 			str=box.getName();
 			nr=0;
+			nrChar=' ';
 		} else {
 			str=(String)parts[0];
-			nr=(Integer)parts[1];
+			if (parts[1] instanceof String) {
+				nr=-1;
+				nrChar=((String)parts[1]).charAt(0);
+			} else {
+				nr=(Integer)parts[1];
+				nrChar=' ';
+			}
 		}
 
-		nr++;
-		while (isNameInUse(str+nr,element)) nr++;
-		box.setName(str+nr);
+		/* Nummer oder Buchstabe hochzählen */
+		if (nr<0) {
+			if (nrChar=='Z' || nrChar=='z') return;
+			nrChar++;
+			while (isNameInUse(str+' '+nrChar,box)) {
+				if (nrChar=='Z' || nrChar=='z') return;
+				nrChar++;
+			}
+			box.setName(str+' '+nrChar);
+		} else {
+			nr++;
+			while (isNameInUse(str+nr,box)) nr++;
+			box.setName(str+nr);
+		}
 	}
 
 	/**

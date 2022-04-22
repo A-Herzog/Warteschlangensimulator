@@ -16175,7 +16175,7 @@ public class Messages_en extends java.util.ResourceBundle {
     t[40290] = "Editor.Dialog.Tab.Simulation";
     t[40291] = "Simulation";
     t[40296] = "Main.Menu.Edit.RenameOnCopy.Smart";
-    t[40297] = "If station name ends with number";
+    t[40297] = "If station name ends with number or a single letter";
     t[40302] = "Surface.Hold.Infotext";
     t[40303] = "Delays the arriving clients until a condition is met.";
     t[40310] = "Surface.AnimationBarStack.Dialog.Down";
