@@ -86,6 +86,14 @@ public interface ClientsInterface {
 	 * @see ClientsInterface#clientWaitingSeconds(int)
 	 */
 	String clientWaitingTime(final int index);
+	
+	/**
+	 * Sets the waiting time of a client as a seconds value.
+	 * @param index	0-based index of the client
+	 * @param time	Waiting time of the client
+	 * @see ClientsInterface#clientWaitingSeconds(int)
+	 */
+	void clientWaitingSecondsSet(final int index, final double time);	
 
 	/**
 	 * Returns the transfer time of a client as a seconds value.
@@ -104,6 +112,14 @@ public interface ClientsInterface {
 	String clientTransferTime(final int index);
 
 	/**
+	 * Sets the transfer time of a client as a seconds value.
+	 * @param index	0-based index of the client
+	 * @param time	Transfer time of the client
+	 * @see ClientsInterface#clientTransferSeconds(int)
+	 */
+	void clientTransferSecondsSet(final int index, final double time);
+	
+	/**
 	 * Returns the process time of a client as a seconds value.
 	 * @param index	0-based index of the client
 	 * @return Process time of the client
@@ -120,6 +136,14 @@ public interface ClientsInterface {
 	String clientProcessTime(final int index);
 
 	/**
+	 * Sets the process time of a client as a seconds value.
+	 * @param index	0-based index of the client
+	 * @param time	Process time of the client
+	 * @see ClientsInterface#clientProcessSeconds(int)
+	 */
+	void clientProcessSecondsSet(final int index, final double time);
+	
+	/**
 	 * Returns the residence time of a client as a seconds value.
 	 * @param index	0-based index of the client
 	 * @return Residence time of the client
@@ -134,4 +158,12 @@ public interface ClientsInterface {
 	 * @see ClientsInterface#clientResidenceSeconds(int)
 	 */
 	String clientResidenceTime(final int index);
+	
+	/**
+	 * Sets the residence time of a client as a seconds value.
+	 * @param index	0-based index of the client
+	 * @param time	Residence time of the client
+	 * @see ClientsInterface#clientResidenceSeconds(int)
+	 */
+	void clientResidenceSecondsSet(final int index, final double time);	
 }

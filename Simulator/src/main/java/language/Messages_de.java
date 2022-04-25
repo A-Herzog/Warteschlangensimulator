@@ -13322,6 +13322,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[33303] = "Netzwerksimulation";
     t[33304] = "Statistic.Viewer.Tools.HideAll";
     t[33305] = "Alle Kategorien einklappen";
+    t[33306] = "ScriptPopup.Clients.ResidenceTime";
+    t[33307] = "Bisherige Verweilzeit";
     t[33308] = "Simulation.Java.Error.CompileError.Column";
     t[33309] = "Fehler in Spalte %d";
     t[33310] = "SystemInfo.ThreadCount";
@@ -14044,14 +14046,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[35147] = "Gew\u00e4hlten Ausgabewert aus der Liste entfernen.";
     t[35148] = "Simulation.Log.EndOfSimulation";
     t[35149] = "Simulationsende";
-    t[35152] = "ModelDescription.BarrierPull.MaxClients";
-    t[35153] = "Maximale Anzahl an Kunden im \u00fcberwachten Abschnitt";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_7 (java.lang.String[] t) {
+    t[35152] = "ModelDescription.BarrierPull.MaxClients";
+    t[35153] = "Maximale Anzahl an Kunden im \u00fcberwachten Abschnitt";
     t[35154] = "Surface.TransportSource.XML.Type";
     t[35155] = "Typ";
     t[35156] = "Surface.Logic.Dialog.Condition";
@@ -15302,6 +15304,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[38187] = "Zeit";
     t[38188] = "ScriptPopup.Output.Separator.Line.Hint";
     t[38189] = "Zeichenumbr\u00fcche als Trenner verwenden";
+    t[38196] = "ScriptPopup.Clients.ResidenceTime.Hint";
+    t[38197] = "Liefert die bisherige Verweilzeit eines wartenden Kunden";
     t[38200] = "Resources.Group.EditName.Dialog.Tab.Failures";
     t[38201] = "Ausf\u00e4lle / Pausen";
     t[38206] = "Editor.Dialog.Tab.OutputAnalysis.RecordAutocorrelation.Range";
@@ -16048,16 +16052,16 @@ public class Messages_de extends java.util.ResourceBundle {
     t[39985] = "Sandbraun";
     t[39990] = "Dialog.Button.Close.Hint";
     t[39991] = "Schlie\u00dft die aktuelle Ansicht";
-    t[39992] = "ExpressionBuilder.Title";
-    t[39993] = "Ausdruck bearbeiten";
-    t[40006] = "ModelDescription.PickUp.Mode.Temporary";
-    t[40007] = "Tempor\u00e4ren Batch erzeugen";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_8 (java.lang.String[] t) {
+    t[39992] = "ExpressionBuilder.Title";
+    t[39993] = "Ausdruck bearbeiten";
+    t[40006] = "ModelDescription.PickUp.Mode.Temporary";
+    t[40007] = "Tempor\u00e4ren Batch erzeugen";
     t[40010] = "Surface.Output.Table.EditKey";
     t[40011] = "Schl\u00fcssel bearbeiten";
     t[40016] = "Surface.Dispose.Dialog.Table.ErrorEmpty";
@@ -18054,16 +18058,16 @@ public class Messages_de extends java.util.ResourceBundle {
     t[44821] = "<p>Liefert die mittlere Anzahl an Kunden im Bedienprozess an der Bedienstation, deren ID in dem Parameter angegeben wurde.</p>\n<p>Alternativ kann auch die ID einer Kundenquelle angegeben werden, dann beziehen sich die Ergebnisse auf die Kunden des dort erzeugten Kundentyps.</p>";
     t[44828] = "Surface.LogicElse.XML.Root";
     t[44829] = "ModellElementLogikElse";
-    t[44834] = "Color.4B0082";
-    t[44835] = "Indigo";
-    t[44846] = "Surface.Output.XML.Element.TypeDescription.TransferTimeNumber";
-    t[44847] = "Bisherige Transferzeit des Kunden (als Sekundenanzahl)";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_9 (java.lang.String[] t) {
+    t[44834] = "Color.4B0082";
+    t[44835] = "Indigo";
+    t[44846] = "Surface.Output.XML.Element.TypeDescription.TransferTimeNumber";
+    t[44847] = "Bisherige Transferzeit des Kunden (als Sekundenanzahl)";
     t[44848] = "ExpressionBuilder.SimulationCharacteristics.StationIDsByNames.idOfStation";
     t[44849] = "ID der Station";
     t[44852] = "ModelDescription.Arrival.BatchSize.Fixed";
@@ -20060,16 +20064,16 @@ public class Messages_de extends java.util.ResourceBundle {
     t[49759] = "Der Ausdruck kann nicht berechnet werden.";
     t[49766] = "Surface.PopupMenu.ParameterCompare.ChangeDelayTime";
     t[49767] = "Parameterreihe: Mittlere Verz\u00f6gerung variieren";
-    t[49770] = "Dialog.OpenURL.InfoYes";
-    t[49771] = "Webseite im Standard-Browser \u00f6ffnen.";
-    t[49772] = "Surface.Resource.ErrorDistribution";
-    t[49773] = "Der angegebene Wert \"%s\" f\u00fcr die Verteilung der Ausfalldauern f\u00fcr den Ressourcentyp \"%s\" ist ung\u00fcltig.";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_10 (java.lang.String[] t) {
+    t[49770] = "Dialog.OpenURL.InfoYes";
+    t[49771] = "Webseite im Standard-Browser \u00f6ffnen.";
+    t[49772] = "Surface.Resource.ErrorDistribution";
+    t[49773] = "Der angegebene Wert \"%s\" f\u00fcr die Verteilung der Ausfalldauern f\u00fcr den Ressourcentyp \"%s\" ist ung\u00fcltig.";
     t[49776] = "ExpressionBuilder.SimulationCharacteristics.Sum";
     t[49777] = "Summe";
     t[49778] = "Statistics.CounterBatch";

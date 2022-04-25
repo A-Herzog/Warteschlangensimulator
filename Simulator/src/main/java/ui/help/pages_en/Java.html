@@ -593,11 +593,17 @@ and allows to access the waiting clients and to release them.
   <li><tt>String clientWaitingTime(final int index)</tt><br>
   Gets the current waiting time of the client as a formated time value as a string.
   </li>
+  <li><tt>void clientWaitingSecondsSet(final int index, final double time)</tt><br>
+  Sets the waiting time of the client as a seconds numerical value.
+  </li>  
   <li><tt>double clientTransferSeconds(final int index)</tt><br>
   Gets the current transfer time of the client as a seconds numerical value.
   </li>
   <li><tt>String clientTransferTime(final int index)</tt><br>
   Gets the current transfer time of the client as a formated time value as a string.
+  </li>
+  <li><tt>void clientTransferSecondsSet(final int index, final double time)</tt><br>
+  Sets the transfer time of the client as a seconds numerical value.
   </li>
   <li><tt>double clientProcessSeconds(final int index)</tt><br>
   Gets the current processing time of the client as a seconds numerical value.
@@ -605,11 +611,17 @@ and allows to access the waiting clients and to release them.
   <li><tt>String clientProcessTime(final int index)</tt><br>
   Gets the current processing time of the client as a formated time value as a string.
   </li>
+  <li><tt>void clientProcessSecondsSet(final int index, final double time)</tt><br>
+  Sets the processing time of the client as a seconds numerical value.
+  </li>
   <li><tt>double clientResidenceSeconds(final int index)</tt><br>
   Gets the current residence time of the client as a seconds numerical value.
   </li>
   <li><tt>String clientResidenceTime(final int index)</tt><br>
   Gets the current residence time of the client as a formated time value as a string.
+  </li>
+  <li><tt>void clientResidenceSecondsSet(final int index, final double time)</tt><br>
+  Sets the residence time of the client as a seconds numerical value.
   </li>
   <li><tt>double clientData(final int index, final int data)</tt><br>
   Returns the data element which index is specified via the second parameter of the selected client.

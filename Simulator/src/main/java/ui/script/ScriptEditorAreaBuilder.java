@@ -700,10 +700,16 @@ public class ScriptEditorAreaBuilder {
 		String clientsTextDataSet="";
 		String clientsWaitingSeconds="";
 		String clientsWaitingTime="";
+		String clientsWaitingSecondsSet="";
 		String clientsTransferSeconds="";
 		String clientsTransferTime="";
+		String clientsTransferSecondsSet="";
 		String clientsProcessSeconds="";
 		String clientsProcessTime="";
+		String clientsProcessSecondsSet="";
+		String clientsResidenceSeconds="";
+		String clientsResidenceTime="";
+		String clientsResidenceSecondsSet="";
 
 		if (language==ScriptMode.Javascript) {
 			clientsCount="Clients.count();";
@@ -715,10 +721,16 @@ public class ScriptEditorAreaBuilder {
 			clientsTextDataSet="Clients.clientTextData(index,key,value);";
 			clientsWaitingSeconds="Clients.clientWaitingSeconds(index);";
 			clientsWaitingTime="Clients.clientWaitingTime(index);";
+			clientsWaitingSecondsSet="Clients.clientWaitingSecondsSet(index,value);";
 			clientsTransferSeconds="Clients.clientTransferSeconds(index);";
 			clientsTransferTime="Clients.clientTransferTime(index);";
+			clientsTransferSecondsSet="Clients.clientTransferSecondsSet(index,value);";
 			clientsProcessSeconds="Clients.clientProcessSeconds(index);";
 			clientsProcessTime="Clients.clientProcessTime(index);";
+			clientsProcessSecondsSet="Clients.clientProcessSecondsSet(index,value);";
+			clientsResidenceSeconds="Clients.clientResidenceSeconds(index);";
+			clientsResidenceTime="Clients.clientResidenceTime(index);";
+			clientsResidenceSecondsSet="Clients.clientResidenceSecondsSet(index,value);";
 		}
 
 		if (language==ScriptMode.Java) {
@@ -731,10 +743,16 @@ public class ScriptEditorAreaBuilder {
 			clientsTextDataSet="sim.getClients().clientTextData(index,key,value);";
 			clientsWaitingSeconds="sim.getClients().clientWaitingSeconds(index);";
 			clientsWaitingTime="sim.getClients().clientWaitingTime(index);";
+			clientsWaitingSecondsSet="sim.getClients().clientWaitingSecondsSet(index,value);";
 			clientsTransferSeconds="sim.getClients().clientTransferSeconds(index);";
 			clientsTransferTime="sim.getClients().clientTransferTime(index);";
+			clientsTransferSecondsSet="sim.getClients().clientTransferSecondsSet(index,value);";
 			clientsProcessSeconds="sim.getClients().clientProcessSeconds(index);";
 			clientsProcessTime="sim.getClients().clientProcessTime(index);";
+			clientsProcessSecondsSet="sim.getClients().clientProcessSecondsSet(index,value);";
+			clientsResidenceSeconds="sim.getClients().clientResidenceSeconds(index);";
+			clientsResidenceTime="sim.getClients().clientResidenceTime(index);";
+			clientsResidenceSecondsSet="sim.getClients().clientResidenceSecondsSet(index,value);";
 		}
 
 		addAutoComplete(Language.tr("ScriptPopup.Clients.count"),Language.tr("ScriptPopup.Clients.count.Hint"),Images.SCRIPT_RECORD_DATA_COUNTER.getIcon(),clientsCount);
@@ -748,12 +766,19 @@ public class ScriptEditorAreaBuilder {
 
 		addAutoComplete(Language.tr("ScriptPopup.Clients.WaitingTime")+" - "+Language.tr("ScriptPopup.Client.Time.Number"),Language.tr("ScriptPopup.Clients.WaitingTime.Hint")+" - "+Language.tr("ScriptPopup.Client.Time.Number.Hint"),Images.SCRIPT_RECORD_TIME.getIcon(),clientsWaitingSeconds);
 		addAutoComplete(Language.tr("ScriptPopup.Clients.WaitingTime")+" - "+Language.tr("ScriptPopup.Client.Time.Text"),Language.tr("ScriptPopup.Clients.WaitingTime.Hint")+" - "+Language.tr("ScriptPopup.Client.Time.Text.Hint"),Images.SCRIPT_RECORD_TIME.getIcon(),clientsWaitingTime);
+		addAutoComplete(Language.tr("ScriptPopup.Clients.WaitingTime")+" - "+Language.tr("ScriptPopup.Client.Time.Set"),Language.tr("ScriptPopup.Clients.WaitingTime.Hint")+" - "+Language.tr("ScriptPopup.Client.Time.Set.Hint"),Images.SCRIPT_RECORD_TIME.getIcon(),clientsWaitingSecondsSet);
 
 		addAutoComplete(Language.tr("ScriptPopup.Clients.TransferTime")+" - "+Language.tr("ScriptPopup.Client.Time.Number"),Language.tr("ScriptPopup.Clients.TransferTime.Hint")+" - "+Language.tr("ScriptPopup.Client.Time.Number.Hint"),Images.SCRIPT_RECORD_TIME.getIcon(),clientsTransferSeconds);
 		addAutoComplete(Language.tr("ScriptPopup.Clients.TransferTime")+" - "+Language.tr("ScriptPopup.Client.Time.Text"),Language.tr("ScriptPopup.Clients.TransferTime.Hint")+" - "+Language.tr("ScriptPopup.Client.Time.Text.Hint"),Images.SCRIPT_RECORD_TIME.getIcon(),clientsTransferTime);
+		addAutoComplete(Language.tr("ScriptPopup.Clients.TransferTime")+" - "+Language.tr("ScriptPopup.Client.Time.Set"),Language.tr("ScriptPopup.Clients.TransferTime.Hint")+" - "+Language.tr("ScriptPopup.Client.Time.Set.Hint"),Images.SCRIPT_RECORD_TIME.getIcon(),clientsTransferSecondsSet);
 
 		addAutoComplete(Language.tr("ScriptPopup.Clients.ProcessTime")+" - "+Language.tr("ScriptPopup.Client.Time.Number"),Language.tr("ScriptPopup.Clients.ProcessTime.Hint")+" - "+Language.tr("ScriptPopup.Client.Time.Number.Hint"),Images.SCRIPT_RECORD_TIME.getIcon(),clientsProcessSeconds);
 		addAutoComplete(Language.tr("ScriptPopup.Clients.ProcessTime")+" - "+Language.tr("ScriptPopup.Client.Time.Text"),Language.tr("ScriptPopup.Clients.ProcessTime.Hint")+" - "+Language.tr("ScriptPopup.Client.Time.Text.Hint"),Images.SCRIPT_RECORD_TIME.getIcon(),clientsProcessTime);
+		addAutoComplete(Language.tr("ScriptPopup.Clients.ProcessTime")+" - "+Language.tr("ScriptPopup.Client.Time.Set"),Language.tr("ScriptPopup.Clients.ProcessTime.Hint")+" - "+Language.tr("ScriptPopup.Client.Time.Set.Hint"),Images.SCRIPT_RECORD_TIME.getIcon(),clientsProcessSecondsSet);
+
+		addAutoComplete(Language.tr("ScriptPopup.Clients.ResidenceTime")+" - "+Language.tr("ScriptPopup.Client.Time.Number"),Language.tr("ScriptPopup.Clients.ResidenceTime.Hint")+" - "+Language.tr("ScriptPopup.Client.Time.Number.Hint"),Images.SCRIPT_RECORD_TIME.getIcon(),clientsResidenceSeconds);
+		addAutoComplete(Language.tr("ScriptPopup.Clients.ResidenceTime")+" - "+Language.tr("ScriptPopup.Client.Time.Text"),Language.tr("ScriptPopup.Clients.ResidenceTime.Hint")+" - "+Language.tr("ScriptPopup.Client.Time.Text.Hint"),Images.SCRIPT_RECORD_TIME.getIcon(),clientsResidenceTime);
+		addAutoComplete(Language.tr("ScriptPopup.Clients.ResidenceTime")+" - "+Language.tr("ScriptPopup.Client.Time.Set"),Language.tr("ScriptPopup.Clients.ResidenceTime.Hint")+" - "+Language.tr("ScriptPopup.Client.Time.Set.Hint"),Images.SCRIPT_RECORD_TIME.getIcon(),clientsResidenceSecondsSet);
 	}
 
 	/**

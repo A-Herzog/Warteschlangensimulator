@@ -89,6 +89,14 @@ public interface ClientsInterface {
 	String clientWaitingTime(final int index);
 
 	/**
+	 * Stellt die Wartezeit des Kunden ein.
+	 * @param index	0-basierender Index des Kunden
+	 * @param time	Wartezeit des Kunden (in Sekunden)
+	 * @see ClientsInterface#clientWaitingSeconds(int)
+	 */
+	void clientWaitingSecondsSet(final int index, final double time);
+
+	/**
 	 * Liefert die bisherige Transferzeit eines Kunden in Sekunden als Zahlenwert
 	 * @param index	0-basierender Index des Kunden
 	 * @return Bisherige Transferzeit des Kunden
@@ -103,6 +111,14 @@ public interface ClientsInterface {
 	 * @see ClientsInterface#clientTransferSeconds(int)
 	 */
 	String clientTransferTime(final int index);
+
+	/**
+	 * Stellt die Transferzeit des Kunden ein.
+	 * @param index	0-basierender Index des Kunden
+	 * @param time	Transferzeit des Kunden (in Sekunden)
+	 * @see ClientsInterface#clientTransferSeconds(int)
+	 */
+	void clientTransferSecondsSet(final int index, final double time);
 
 	/**
 	 * Liefert die bisherige Bedienzeit eines Kunden in Sekunden als Zahlenwert
@@ -121,6 +137,14 @@ public interface ClientsInterface {
 	String clientProcessTime(final int index);
 
 	/**
+	 * Stellt die Bedienzeit des Kunden ein.
+	 * @param index	0-basierender Index des Kunden
+	 * @param time	Bedienzeit des Kunden (in Sekunden)
+	 * @see ClientsInterface#clientProcessSeconds(int)
+	 */
+	void clientProcessSecondsSet(final int index, final double time);
+
+	/**
 	 * Liefert die bisherige Verweilzeit eines Kunden in Sekunden als Zahlenwert
 	 * @param index	0-basierender Index des Kunden
 	 * @return Bisherige Verweilzeit des Kunden
@@ -135,4 +159,12 @@ public interface ClientsInterface {
 	 * @see ClientsInterface#clientResidenceSeconds(int)
 	 */
 	String clientResidenceTime(final int index);
+
+	/**
+	 * Stellt die Verweilzeit des Kunden ein.
+	 * @param index	0-basierender Index des Kunden
+	 * @param time	Verweilzeit des Kunden (in Sekunden)
+	 * @see ClientsInterface#clientResidenceSeconds(int)
+	 */
+	void clientResidenceSecondsSet(final int index, final double time);
 }

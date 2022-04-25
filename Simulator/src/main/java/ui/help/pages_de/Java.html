@@ -613,24 +613,36 @@ und hält alle Informationen zu den wartenden Kunden vor. Des Weiteren ermöglic
   <li><tt>String clientWaitingTime(final int index)</tt><br>
   Liefert die bisherige Wartezeit des Kunden als formatierte Zeitangabe als String zurück.
   </li>
+  <li><tt>void clientWaitingSecondsSet(final int index, final double time)</tt><br>
+  Stellt die Wartezeit des Kunden als Sekunden-Zahlenwert ein.
+  </li>
   <li><tt>double clientTransferSeconds(final int index)</tt><br>
   Liefert die bisherige Transferzeit des Kunden als Sekunden-Zahlenwert zurück.
   </li>
   <li><tt>String clientTransferTime(final int index)</tt><br>
   Liefert die bisherige Transferzeit des Kunden als formatierte Zeitangabe als String zurück.
   </li>
+  <li><tt>void clientTransferSecondsSet(final int index, final double time)</tt><br>
+  Stellt die Transferzeit des Kunden als Sekunden-Zahlenwert ein.
+  </li>  
   <li><tt>double clientProcessSeconds(final int index)</tt><br>
   Liefert die bisherige Bedienzeit des Kunden als Sekunden-Zahlenwert zurück.
   </li>
   <li><tt>String clientProcessTime(final int index)</tt><br>
   Liefert die bisherige Bedienzeit des Kunden als formatierte Zeitangabe als String zurück.
-  </li>  
+  </li>
+  <li><tt>void clientProcessSecondsSet(final int index, final double time)</tt><br>
+  Stellt die Bedienzeit des Kunden als Sekunden-Zahlenwert ein.
+  </li>
   <li><tt>double clientResidenceSeconds(final int index)</tt><br>
   Liefert die bisherige Verweilzeit des Kunden als Sekunden-Zahlenwert zurück.
   </li>
   <li><tt>String clientResidenceTime(final int index)</tt><br>
   Liefert die bisherige Verweilzeit des Kunden als formatierte Zeitangabe als String zurück.
-  </li>  
+  </li>
+  <li><tt>void clientResidenceSecondsSet(final int index, final double time)</tt><br>
+  Stellt die Verweilzeit des Kunden als Sekunden-Zahlenwert ein.
+  </li>
   <li><tt>double clientData(final int index, final int data)</tt><br>
   Liefert das über den zweiten Parameter adressierte Datum des angegebenen Kunden zurück.
   </li>

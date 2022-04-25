@@ -701,12 +701,20 @@ Liefert die bisherige Wartezeit des Kunden als Sekunden-Zahlenwert zurück.
 Liefert die bisherige Wartezeit des Kunden als formatierte Zeitangabe als String zurück.
 
 \item
+\cmd{void clientWaitingSecondsSet(final int index, final double time)}:\\
+Stellt die Wartezeit des Kunden als Sekunden-Zahlenwert ein.
+
+\item
 \cmd{double clientTransferSeconds(final int index)}:\\
 Liefert die bisherige Transferzeit des Kunden als Sekunden-Zahlenwert zurück.
 
 \item
 \cmd{String clientTransferTime(final int index)}:\\
 Liefert die bisherige Transferzeit des Kunden als formatierte Zeitangabe als String zurück.
+
+\item
+\cmd{void clientTransferSecondsSet(final int index, final double time)}:\\
+Stellt die Transferzeit des Kunden als Sekunden-Zahlenwert ein.
 
 \item
 \cmd{double clientProcessSeconds(final int index)}:\\
@@ -717,12 +725,20 @@ Liefert die bisherige Bedienzeit des Kunden als Sekunden-Zahlenwert zurück.
 Liefert die bisherige Bedienzeit des Kunden als formatierte Zeitangabe als String zurück.
 
 \item
+\cmd{void clientProcessSecondsSet(final int index, final double time)}:\\
+Stellt die Bedienzeit des Kunden als Sekunden-Zahlenwert ein.
+
+\item
 \cmd{double clientResidenceSeconds(final int index)}:\\
 Liefert die bisherige Verweilzeit des Kunden als Sekunden-Zahlenwert zurück.
 
 \item
 \cmd{String clientResidenceTime(final int index)}:\\
 Liefert die bisherige Verweilzeit des Kunden als formatierte Zeitangabe als String zurück.
+
+\item
+\cmd{void clientResidenceSecondsSet(final int index, final double time)}:\\
+Stellt die Verweilzeit des Kunden als Sekunden-Zahlenwert ein.
 
 \item
 \cmd{double clientData(final int index, final int data)}:\\

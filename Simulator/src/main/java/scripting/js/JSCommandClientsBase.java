@@ -142,6 +142,18 @@ public class JSCommandClientsBase extends JSBaseCommand {
 	}
 
 	/**
+	 * Stellt die Wartezeit des Kunden ein.
+	 * @param index	0-basierender Index des Kunden
+	 * @param time	Wartezeit des Kunden (in Sekunden)
+	 * @see #setSimulationData(SimulationData, List)
+	 * @see #clientWaitingSeconds(int)
+	 */
+	public void clientWaitingSecondsSet(final int index, final double time) {
+		if (index<0 || index>=count) return;
+		clients.get(index).waitingTime=Math.round(time*1000);
+	}
+
+	/**
 	 * Liefert die bisherige Transferzeit eines Kunden in Sekunden als Zahlenwert
 	 * @param index	0-basierender Index des Kunden
 	 * @return Bisherige Transferzeit des Kunden
@@ -163,6 +175,18 @@ public class JSCommandClientsBase extends JSBaseCommand {
 	public String clientTransferTime(final int index) {
 		if (index<0 || index>=count) return "";
 		return TimeTools.formatExactTime(clients.get(index).transferTime*toSec);
+	}
+
+	/**
+	 * Stellt die Transferzeit des Kunden ein.
+	 * @param index	0-basierender Index des Kunden
+	 * @param time	Transferzeit des Kunden (in Sekunden)
+	 * @see #setSimulationData(SimulationData, List)
+	 * @see #clientTransferSeconds(int)
+	 */
+	public void clientTransferSecondsSet(final int index, final double time) {
+		if (index<0 || index>=count) return;
+		clients.get(index).transferTime=Math.round(time*1000);
 	}
 
 	/**
@@ -190,9 +214,21 @@ public class JSCommandClientsBase extends JSBaseCommand {
 	}
 
 	/**
-	 * Liefert die bisherige Bedienzeit eines Kunden in Sekunden als Zahlenwert
+	 * Stellt die Bedienzeit des Kunden ein.
 	 * @param index	0-basierender Index des Kunden
-	 * @return Bisherige Bedienzeit des Kunden
+	 * @param time	Bedienzeit des Kunden (in Sekunden)
+	 * @see #setSimulationData(SimulationData, List)
+	 * @see #clientProcessSeconds(int)
+	 */
+	public void clientProcessSecondsSet(final int index, final double time) {
+		if (index<0 || index>=count) return;
+		clients.get(index).processTime=Math.round(time*1000);
+	}
+
+	/**
+	 * Liefert die bisherige Verweilzeit eines Kunden in Sekunden als Zahlenwert
+	 * @param index	0-basierender Index des Kunden
+	 * @return Bisherige Verweilzeit des Kunden
 	 * @see #setSimulationData(SimulationData, List)
 	 * @see #clientResidenceTime(int)
 	 */
@@ -202,14 +238,26 @@ public class JSCommandClientsBase extends JSBaseCommand {
 	}
 
 	/**
-	 * Liefert die bisherige Bedienzeit eines Kunden in formatierter Form als Zeichenkette
+	 * Liefert die bisherige Verweilzeit eines Kunden in formatierter Form als Zeichenkette
 	 * @param index	0-basierender Index des Kunden
-	 * @return Bisherige Bedienzeit des Kunden
+	 * @return Bisherige Verweilzeit des Kunden
 	 * @see #setSimulationData(SimulationData, List)
 	 * @see #clientResidenceSeconds(int)
 	 */
 	public String clientResidenceTime(final int index) {
 		if (index<0 || index>=count) return "";
 		return TimeTools.formatExactTime(clients.get(index).residenceTime*toSec);
+	}
+
+	/**
+	 * Stellt die Verweilzeit des Kunden ein.
+	 * @param index	0-basierender Index des Kunden
+	 * @param time	Verweilzeit des Kunden (in Sekunden)
+	 * @see #setSimulationData(SimulationData, List)
+	 * @see #clientResidenceSeconds(int)
+	 */
+	public void clientResidenceSecondsSet(final int index, final double time) {
+		if (index<0 || index>=count) return;
+		clients.get(index).residenceTime=Math.round(time*1000);
 	}
 }

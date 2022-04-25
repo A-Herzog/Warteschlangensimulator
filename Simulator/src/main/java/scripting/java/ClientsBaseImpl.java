@@ -103,6 +103,12 @@ public abstract class ClientsBaseImpl implements ClientsInterface {
 	}
 
 	@Override
+	public void clientWaitingSecondsSet(final int index, final double time) {
+		if (index<0 || index>=count) return;
+		clients.get(index).waitingTime=Math.round(time*1000);
+	}
+
+	@Override
 	public double clientTransferSeconds(final int index) {
 		if (index<0 || index>=count) return 0.0;
 		return clients.get(index).transferTime*toSec;
@@ -112,6 +118,12 @@ public abstract class ClientsBaseImpl implements ClientsInterface {
 	public String clientTransferTime(final int index) {
 		if (index<0 || index>=count) return "";
 		return TimeTools.formatExactTime(clients.get(index).transferTime*toSec);
+	}
+
+	@Override
+	public void clientTransferSecondsSet(final int index, final double time) {
+		if (index<0 || index>=count) return;
+		clients.get(index).transferTime=Math.round(time*1000);
 	}
 
 	@Override
@@ -127,6 +139,12 @@ public abstract class ClientsBaseImpl implements ClientsInterface {
 	}
 
 	@Override
+	public void clientProcessSecondsSet(final int index, final double time) {
+		if (index<0 || index>=count) return;
+		clients.get(index).processTime=Math.round(time*1000);
+	}
+
+	@Override
 	public double clientResidenceSeconds(final int index) {
 		if (index<0 || index>=count) return 0.0;
 		return clients.get(index).residenceTime*toSec;
@@ -136,5 +154,11 @@ public abstract class ClientsBaseImpl implements ClientsInterface {
 	public String clientResidenceTime(final int index) {
 		if (index<0 || index>=count) return "";
 		return TimeTools.formatExactTime(clients.get(index).residenceTime*toSec);
+	}
+
+	@Override
+	public void clientResidenceSecondsSet(final int index, final double time) {
+		if (index<0 || index>=count) return;
+		clients.get(index).residenceTime=Math.round(time*1000);
 	}
 }
