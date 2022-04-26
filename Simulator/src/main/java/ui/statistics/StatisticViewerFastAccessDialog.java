@@ -26,7 +26,9 @@ import java.awt.event.ItemListener;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Enumeration;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.swing.AbstractButton;
 import javax.swing.BorderFactory;
@@ -47,6 +49,7 @@ import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreePath;
 
@@ -84,9 +87,9 @@ public class StatisticViewerFastAccessDialog extends BaseDialog {
 	/** Anzeige des Namens des gewählten Elements */
 	private JLabel xmlInfoLabel;
 	/** Anzeige der Auswahloptionen für den Inhalt */
-	private JTable contentTable;
+	private JRepaintTable contentTable;
 	/** Anzeige der Auswahloptionen für Attribute */
-	private JTable attributeTable;
+	private JRepaintTable attributeTable;
 	/** Zusammenfassung der Auswahl-Radiobuttons */
 	private ButtonGroup buttonGroup;
 	/** Zusammenfassung der Einfügeart-Radiobuttons {@link #insertButtons} */
@@ -106,10 +109,10 @@ public class StatisticViewerFastAccessDialog extends BaseDialog {
 		this.xmlDoc=xmlDoc;
 		this.plainMode=plainMode;
 
-		final JPanel panel=createGUI(750,600,helpModal);
+		final JPanel panel=createGUI(850,800,helpModal);
 		createSimpleContent(panel);
 
-		setMinSizeRespectingScreensize(750,600);
+		setMinSizeRespectingScreensize(850,800);
 		setResizable(true);
 	}
 
@@ -147,11 +150,14 @@ public class StatisticViewerFastAccessDialog extends BaseDialog {
 		split.add(scroll);
 		tree.addTreeSelectionListener(new TreeSelectionChanged());
 
-		split.add(contentArea=new JPanel());
+		split.add(new JScrollPane(contentArea=new JPanel()));
 		contentArea.setLayout(new BoxLayout(contentArea,BoxLayout.Y_AXIS));
 		contentArea.setMinimumSize(minimumSize);
 
 		setTableData((XMLNodeWrapper)((DefaultMutableTreeNode)tree.getModel().getRoot()).getUserObject());
+
+		split.setContinuousLayout(true);
+		split.setDividerLocation(0.4);
 	}
 
 	/**
@@ -167,7 +173,7 @@ public class StatisticViewerFastAccessDialog extends BaseDialog {
 			JPanel p;
 			contentArea.add(p=new JPanel(new FlowLayout(FlowLayout.LEFT)));
 			p.add(xmlInfoLabel=new JLabel());
-			p.setMaximumSize(new Dimension(1000,20));
+			p.setMaximumSize(new Dimension(1000,25));
 			p.setBackground(Color.GRAY);
 			p.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 		}
@@ -187,18 +193,7 @@ public class StatisticViewerFastAccessDialog extends BaseDialog {
 
 		final DefaultReadOnlyTableModel contentModel=new DefaultReadOnlyTableModel(node.getContentTableData(buttonGroup));
 		if (contentTable==null) {
-			contentTable=new JTable(contentModel){
-				/**
-				 * Serialisierungs-ID der Klasse
-				 * @see Serializable
-				 */
-				private static final long serialVersionUID = -3007665088654159769L;
-				@Override
-				public void tableChanged(TableModelEvent e) {
-					super.tableChanged(e);
-					repaint();
-				}
-			};
+			contentTable=new JRepaintTable(contentModel);
 			JPanel p;
 			contentArea.add(p=new JPanel(new FlowLayout(FlowLayout.LEFT)));
 			p.add(new JLabel("<html><body><b>"+Language.tr("Statistic.FastAccess.SelectXMLTag.ElementContent")+"</b></body></html>"));
@@ -214,18 +209,7 @@ public class StatisticViewerFastAccessDialog extends BaseDialog {
 
 		final DefaultReadOnlyTableModel attributeModel=new DefaultReadOnlyTableModel(node.getAttributeTableData(buttonGroup));
 		if (attributeTable==null) {
-			attributeTable=new JTable(attributeModel) {
-				/**
-				 * Serialisierungs-ID der Klasse
-				 * @see Serializable
-				 */
-				private static final long serialVersionUID = -3007665088654159769L;
-				@Override
-				public void tableChanged(TableModelEvent e) {
-					super.tableChanged(e);
-					repaint();
-				}
-			};
+			attributeTable=new JRepaintTable(attributeModel);
 			contentArea.add(Box.createVerticalStrut(10));
 			JPanel p;
 			contentArea.add(p=new JPanel(new FlowLayout(FlowLayout.LEFT)));
@@ -239,6 +223,9 @@ public class StatisticViewerFastAccessDialog extends BaseDialog {
 		attributeTable.getTableHeader().setReorderingAllowed(false);
 		attributeTable.getColumnModel().getColumn(0).setCellRenderer(new RadioButtonRenderer());
 		attributeTable.getColumnModel().getColumn(0).setCellEditor(new RadioButtonEditor());
+
+		contentTable.addTriggerRepaint(attributeTable);
+		attributeTable.addTriggerRepaint(contentTable);
 
 		if (!plainMode) {
 			if (insertButtonGroup==null) {
@@ -431,8 +418,9 @@ public class StatisticViewerFastAccessDialog extends BaseDialog {
 				Language.trPrimary("XML.Statistic.BaseElement")+","+Language.trPrimary("Statistics.XML.Element.InterArrivalClients")+","+Language.trPrimary("Statistics.XML.Station"),
 				Language.trPrimary("XML.Statistic.BaseElement")+","+Language.trPrimary("Statistics.XML.Element.InterArrivalStations")+","+Language.trPrimary("Statistics.XML.Station"),
 				Language.trPrimary("XML.Statistic.BaseElement")+","+Language.trPrimary("Statistics.XML.Element.InterArrivalStationsBatch")+","+Language.trPrimary("Statistics.XML.Station"),
-				Language.trPrimary("XML.Statistic.BaseElement")+","+Language.trPrimary("Statistics.XML.Element.InterArrivalStationsByClientType")+","+Language.trPrimary("Statistics.XML.Station"),
 				Language.trPrimary("XML.Statistic.BaseElement")+","+Language.trPrimary("Statistics.XML.Element.InterArrivalStationsByState")+","+Language.trPrimary("Statistics.XML.Station"),
+				Language.trPrimary("XML.Statistic.BaseElement")+","+Language.trPrimary("Statistics.XML.Element.InterArrivalStationsByClientType")+","+Language.trPrimary("Statistics.XML.Station"),
+				Language.trPrimary("XML.Statistic.BaseElement")+","+Language.trPrimary("Statistics.XML.Element.MaxThroughput")+","+Language.trPrimary("Statistics.XML.Station"),
 
 				/* Zwischenabgangszeiten */
 				Language.trPrimary("XML.Statistic.BaseElement")+","+Language.trPrimary("Statistics.XML.Element.InterLeavingClients")+","+Language.trPrimary("Statistics.XML.ClientType"),
@@ -810,6 +798,49 @@ public class StatisticViewerFastAccessDialog extends BaseDialog {
 			XMLNodeWrapper xmlNode;
 			if (treeNode==null) xmlNode=new XMLNodeWrapper(null); else xmlNode=(XMLNodeWrapper)treeNode.getUserObject();
 			setTableData(xmlNode);
+		}
+	}
+
+	/**
+	 * Tabelle, die sich bei Änderungen neu zeichnet
+	 */
+	private static class JRepaintTable extends JTable {
+		/**
+		 * Serialisierungs-ID der Klasse
+		 * @see Serializable
+		 */
+		private static final long serialVersionUID = -3007665088654159769L;
+
+		/**
+		 * Liste mit zusätzlich neu zu zeichnenden weiteren Tabellen
+		 * @se {@link #addTriggerRepaint(JRepaintTable)}
+		 */
+		private final Set<JRepaintTable> tables;
+
+		/**
+		 * Konstruktor der Klasse
+		 * @param tableModel	Zu verwendendes Tabellendatenmodell
+		 */
+		public JRepaintTable(final TableModel tableModel) {
+			super(tableModel);
+			tables=new HashSet<>();
+		}
+
+		/**
+		 * Fügt eine weitere Tabelle zu der Liste der Tabellen,
+		 * die beim per {@link #tableChanged(TableModelEvent)}
+		 * erzwungenen Neuzeichnen auch neu gezeichnet werden sollen.
+		 * @param table	Zusätzliche neu zu zeichnede Tabelle (doppeltes Hinzufügen ist unproblematisch)
+		 */
+		public void addTriggerRepaint(final JRepaintTable table) {
+			if (table!=null) tables.add(table);
+		}
+
+		@Override
+		public void tableChanged(TableModelEvent e) {
+			super.tableChanged(e);
+			repaint();
+			if (tables!=null) tables.forEach(table->table.repaint());
 		}
 	}
 }
