@@ -1,7 +1,5 @@
 package simulator.runmodel;
 
-import org.apache.commons.math3.util.FastMath;
-
 /**
  * Über alle Threads synchronisierte Zählung der Ankünfte, um so die Kunden
  * pro Thread dynamisch anpassen zu können.
@@ -13,7 +11,7 @@ public class DynamicLoadBalancer {
 	private static final long MIN_LOAD_PACKAGE_SIZE=1_000;
 
 	/** Gesamtzahl der zu simulierenden Ankünfte */
-	private long arrivalsToBeSimulated;
+	private volatile long arrivalsToBeSimulated;
 	/** 25% von {@link #arrivalsToBeSimulated} */
 	private final long last25Percent;
 	/** Großes Ankünfte-Paket (wird vor Erreichen der letzten 25% jeweils ausgeliefert) */
@@ -29,25 +27,29 @@ public class DynamicLoadBalancer {
 	public DynamicLoadBalancer(final long arrivalsToBeSimulated, final int threadCount) {
 		this.arrivalsToBeSimulated=arrivalsToBeSimulated;
 		this.last25Percent=arrivalsToBeSimulated/4;
-		this.arrivalPackageLarge=Math.max(MIN_LOAD_PACKAGE_SIZE,arrivalsToBeSimulated/threadCount/500);
+		this.arrivalPackageLarge=Math.min(Math.max(MIN_LOAD_PACKAGE_SIZE,arrivalsToBeSimulated/threadCount/250),last25Percent);
 		this.arrivalPackageSmall=Math.max(MIN_LOAD_PACKAGE_SIZE,arrivalsToBeSimulated/threadCount/2000);
 	}
 
 	/**
-	 * Liefert (synchronisiert) das nächste Paket von zulässigen Ankünfte
+	 * Liefert (synchronisiert) das nächste Paket von zulässigen Ankünften
 	 * @return	Ankünfte für den Thread (kann 0 sein, wenn der Thread keine weiteren Ankünfte generieren soll)
 	 */
 	public long getArrivals() {
 		synchronized(this) {
-			if (arrivalsToBeSimulated==0) return 0;
-			final long arrivalThisPackage;
 			if (arrivalsToBeSimulated>last25Percent) {
-				arrivalThisPackage=FastMath.min(arrivalPackageLarge,arrivalsToBeSimulated);
+				arrivalsToBeSimulated-=arrivalPackageLarge;
+				return arrivalPackageLarge;
 			} else {
-				arrivalThisPackage=FastMath.min(arrivalPackageSmall,arrivalsToBeSimulated);
+				if (arrivalsToBeSimulated>arrivalPackageSmall) {
+					arrivalsToBeSimulated-=arrivalPackageSmall;
+					return arrivalPackageSmall;
+				} else {
+					final long arrivalThisPackage=arrivalsToBeSimulated;
+					arrivalsToBeSimulated=0;
+					return arrivalThisPackage;
+				}
 			}
-			arrivalsToBeSimulated-=arrivalThisPackage;
-			return arrivalThisPackage;
 		}
 	}
 }
