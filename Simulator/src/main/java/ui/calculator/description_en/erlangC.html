@@ -55,12 +55,20 @@ The following parameters are calculated on the basis of the inputs:
   <li><b>Average residence time E[V]</b>:
   The residence time is the sum of the average waiting time E[W] and the average
   service time E[S]. The average service time is the reciprocal of the service rate
-  (E[S]=1/&mu;).</li>  
+  (E[S]=1/&mu;).</li>
+  <li><b>Flow factor E[V]/E[S]</b>:
+  The flow factor is the ratio of the residence time to the service time.
+  Consequently, the flow factor is always greater than or equal to 1.
+  Small values mean that in relation to the service time only little
+  waiting time has occurred. Large values indicate a relatively long waiting time.</li>
   <li><b>Service level P(W&le;t)</b>:
   Frequently, one is not only interested in the average waiting time of clients,
   but also in the proportion of clients who had to wait for a certain, predetermined
   period of time at most. This information is provided by the service level.
   P(W&le;t) is the proportion of clients who had to wait at most t seconds.</li>
+  <li><b>Waiting probability P(W&gt;0)</b>:
+  The waiting probability indicates the probability with which a newly arriving
+  client has to wait at all before being served.</li>
 </ul>
   
 <h3>Criticism</h3>

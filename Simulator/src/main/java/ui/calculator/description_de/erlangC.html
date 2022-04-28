@@ -59,11 +59,18 @@ Auf Basis der Eingaben werden die folgenden Kenngrößen berechnet:
   Die Verweilzeit ist die Summe aus der mittleren Wartezeit E[W] und der mittleren
   Bediendauer E[S]. Die mittlere Bediendauer ist dabei der Kehrwert der Bedienrate
   (E[S]=1/&mu;).</li>
+  <li><b>Flussgrad E[V]/E[S]</b>:
+  Der Flussgrad gibt das Verhältnis von Verweilzeit zu Bedienzeit ein. Der Flussgrad ist folglich
+  immer größer oder gleich 1. Kleine Werte bedeuten, dass im Verhältnis zur Bedienzeit nur wenig
+  Wartezeiten angefallen sind. Große Werte deuten auf verhältnismäßig lange Wartezeiten hin.</li>
   <li><b>Service-Level P(W&le;t)</b>:
   Häufig interessiert man sich nicht nur für die mittlere Wartezeit der Kunden,
   sondern auch dafür, wie hoch der Anteil der Kunden ist, der höchstens eine bestimmte,
   vorgegebene Zeitdauer warten musste. Diese Information liefert der Service-Level.
   P(W&le;t) ist der Anteil an Kunden, der höchstens t Sekunden warten musste.</li>
+  <li><b>Wartewahrscheinlichkeit P(W&gt;0)</b>:
+  Die Wartewahrscheinlichkeit gibt an, mit welcher Wahrscheinlichkeit ein neu eintreffender
+  Kunde überhaupt warten muss bevor er bedient wird.</li>
 </ul>
   
 <h3>Kritik</h3>

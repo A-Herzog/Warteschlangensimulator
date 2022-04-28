@@ -21686,6 +21686,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[53697] = "<p>Returns the sum of the residence times of the clients who have been created at the station whose ID is specified in the parameter.</p>";
     t[53698] = "ParameterCompare.ScriptRunner.Script.Template";
     t[53699] = "Templates";
+    t[53700] = "LoadCalculator.FlowFactor";
+    t[53701] = "Flow factor";
     t[53706] = "Editor.ClientDialog.Tab.Color";
     t[53707] = "Color";
     t[53708] = "Surface.Process.Dialog.Tab.WaitingTimeTolerances";

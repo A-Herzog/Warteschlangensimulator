@@ -80,7 +80,7 @@ public class QueueingCalculatorTabErlangC extends QueueingCalculatorTabBase {
 
 		/* Service-Level-Zeit (t) */
 		tInput=getPanel(Language.tr("LoadCalculator.WaitingTime"),false);
-		tInput.addDefault("t ("+unitSeconds+")",QueueingCalculatorInputPanel.NumberMode.POSITIVE_DOUBLE,20,null);
+		tInput.addDefault("t ("+unitSeconds+")",QueueingCalculatorInputPanel.NumberMode.NOT_NEGATIVE_DOUBLE,20,null);
 		tInput.addOption("t ("+unitMinutes+")",60,false,null);
 		tInput.addOption("t ("+unitHours+")",3600,false,null);
 		add(tInput.get());
@@ -126,10 +126,12 @@ public class QueueingCalculatorTabErlangC extends QueueingCalculatorTabBase {
 			result.append(Language.tr("LoadCalculator.AverageNumberOfClientsInTheSystem")+" E[N]="+NumberTools.formatNumber(EN,2)+"<br>");
 			result.append(Language.tr("LoadCalculator.AverageWaitingTime")+" E[W]="+NumberTools.formatNumber(EW,2)+" ("+Language.tr("LoadCalculator.Units.InSeconds")+")<br>");
 			result.append(Language.tr("LoadCalculator.AverageResidenceTime")+" E[V]="+NumberTools.formatNumber(EV,2)+" ("+Language.tr("LoadCalculator.Units.InSeconds")+")<br>");
+			result.append(Language.tr("LoadCalculator.FlowFactor")+" E[V]/E[S]="+NumberTools.formatNumber(EV*mu,2)+"<br>");
 			if (P1>=1 || P1<0) {
 				result.append("P(W&le;t) "+Language.tr("LoadCalculator.ErlangCNotCalculateable"));
 			} else {
-				result.append("P(W&le;t)="+NumberTools.formatPercent((1-P1*FastMath.exp(-mu*(c-a)*t)),2));
+				result.append("P(W&le;t)="+NumberTools.formatPercent((1-P1*FastMath.exp(-mu*(c-a)*t)),2)+"<br>");
+				result.append("P(W&gt;0)="+NumberTools.formatPercent(P1,2));
 			}
 		}
 

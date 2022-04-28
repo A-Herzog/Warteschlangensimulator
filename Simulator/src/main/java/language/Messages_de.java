@@ -21686,6 +21686,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[53697] = "<p>Liefert die Summe der Verweilzeit, die f\u00fcr Kunden, die an der Bedienstation, deren ID in dem Parameter angegeben wurde, erzeugt wurden, bisher entstanden sind.</p>";
     t[53698] = "ParameterCompare.ScriptRunner.Script.Template";
     t[53699] = "Vorlagen";
+    t[53700] = "LoadCalculator.FlowFactor";
+    t[53701] = "Flussgrad";
     t[53706] = "Editor.ClientDialog.Tab.Color";
     t[53707] = "Farbe";
     t[53708] = "Surface.Process.Dialog.Tab.WaitingTimeTolerances";
