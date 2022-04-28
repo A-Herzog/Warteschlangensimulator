@@ -17,6 +17,7 @@ package mathtools.distribution.swing;
 
 import java.awt.BorderLayout;
 import java.awt.Dialog;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Window;
 import java.awt.event.KeyAdapter;
@@ -116,8 +117,9 @@ public class JDistributionEditorPanelRecordDialog extends JDialog {
 		getRootPane().setDefaultButton(okButton);
 
 		/* Dialog vorbereiten */
-		setResizable(false);
+		setResizable(true);
 		setSize(520,640);
+		setMinimumSize(new Dimension(520,640));
 		setLocationRelativeTo(owner);
 	}
 
