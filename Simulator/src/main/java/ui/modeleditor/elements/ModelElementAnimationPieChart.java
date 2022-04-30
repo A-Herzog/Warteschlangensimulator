@@ -568,7 +568,7 @@ public class ModelElementAnimationPieChart extends ModelElementPosition implemen
 			for (int i=0;i<filler.length;i++) filler[i]=new GradientFill(false);
 		}
 
-		g.setFont(FontCache.getFontCache().getFont(FontCache.defaultFamily,0,(int)FastMath.round(11*zoom*Math.min(rectangle.width,rectangle.height)/100)));
+		g.setFont(FontCache.getFontCache().getFont(FontCache.defaultFamily,0,11*Math.min(rectangle.width,rectangle.height)/100));
 
 		if (drawMode==DrawMode.DONUT) {
 			int strokeWidth=2*Math.min(rectangle.width,rectangle.height)/7;
@@ -624,7 +624,7 @@ public class ModelElementAnimationPieChart extends ModelElementPosition implemen
 				for (int i=0;i<filler.length;i++) filler[i]=new GradientFill(false);
 			}
 
-			g.setFont(FontCache.getFontCache().getFont(FontCache.defaultFamily,0,(int)FastMath.round(11*zoom*Math.min(rectangle.width,rectangle.height)/100)));
+			g.setFont(FontCache.getFontCache().getFont(FontCache.defaultFamily,0,11*Math.min(rectangle.width,rectangle.height)/100));
 
 			if (drawMode==DrawMode.DONUT) {
 				int strokeWidth=2*Math.min(rectangle.width,rectangle.height)/7;

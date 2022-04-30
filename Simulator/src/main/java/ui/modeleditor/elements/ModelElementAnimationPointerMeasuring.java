@@ -496,7 +496,7 @@ public class ModelElementAnimationPointerMeasuring extends ModelElementAnimation
 		int w;
 
 		graphics.setColor(Color.BLACK);
-		graphics.setFont(FontCache.getFontCache().getFont(FontFamily.SANS.name,0,(int)FastMath.round(12*zoom*rectangle.width/150)));
+		graphics.setFont(FontCache.getFontCache().getFont(FontFamily.SANS.name,0,FastMath.round(12*rectangle.width/150)));
 
 		graphics.drawString(lastMinValueString,rectangle.x+5*newBorderStrokeWidth,rectangle.y+rectangle.height-2*newBorderStrokeWidth);
 
