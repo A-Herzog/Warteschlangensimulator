@@ -519,9 +519,36 @@ public class ModelElementProcess extends ModelElementBox implements ModelDataRen
 			if (icon!=null) item.setIcon(icon);
 			item.setEnabled(!readOnly);
 			needSeparator=true;
+
+			if (connectionOutCancel!=null) {
+				final JMenu menu=new JMenu(Language.tr("Surface.Connection.LineMode.ChangeAllEdgesOut"));
+				popupMenu.add(menu);
+
+				menu.add(item=new JMenuItem(Language.tr("Surface.Connection.LineMode.Global"),Images.MODEL.getIcon()));
+				item.addActionListener(e->setEdgeOutLineMode(null));
+				menu.add(item=new JMenuItem(Language.tr("Surface.Connection.LineMode.Direct"),Images.EDGE_MODE_DIRECT.getIcon()));
+				item.addActionListener(e->setEdgeOutLineMode(ModelElementEdge.LineMode.DIRECT));
+				menu.add(item=new JMenuItem(Language.tr("Surface.Connection.LineMode.MultiLine"),Images.EDGE_MODE_MULTI_LINE.getIcon()));
+				item.addActionListener(e->setEdgeOutLineMode(ModelElementEdge.LineMode.MULTI_LINE));
+				menu.add(item=new JMenuItem(Language.tr("Surface.Connection.LineMode.MultiLineRounded"),Images.EDGE_MODE_MULTI_LINE_ROUNDED.getIcon()));
+				item.addActionListener(e->setEdgeOutLineMode(ModelElementEdge.LineMode.MULTI_LINE_ROUNDED));
+				menu.add(item=new JMenuItem(Language.tr("Surface.Connection.LineMode.CubicCurve"),Images.EDGE_MODE_CUBIC_CURVE.getIcon()));
+				item.addActionListener(e->setEdgeOutLineMode(ModelElementEdge.LineMode.CUBIC_CURVE));
+			}
 		}
 
 		return needSeparator;
+	}
+
+	/**
+	 * Stellt den Darstellungsmodus für alle auslaufenden Kanten ein.
+	 * @param lineMode	Neuer Darstellungsmodus
+	 */
+	private void setEdgeOutLineMode(final ModelElementEdge.LineMode lineMode) {
+		connectionOutSuccess.setLineMode(lineMode);
+		connectionOutSuccess.fireChanged();
+		connectionOutCancel.setLineMode(lineMode);
+		connectionOutCancel.fireChanged();
 	}
 
 	/**

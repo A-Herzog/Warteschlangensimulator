@@ -15878,6 +15878,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[39539] = "Von Element id=%d f\u00fchren jeweils Kanten zu mehreren Eing\u00e4ngen von Element id=%d.";
     t[39540] = "Surface.Process.XML.Connection.Status.WaitingCancelation";
     t[39541] = "Warteabbruch";
+    t[39542] = "Surface.Connection.LineMode.ChangeAllEdgesOut";
+    t[39543] = "Kantenf\u00fchrung f\u00fcr alle auslaufenden Kanten anpassen";
     t[39550] = "ExpressionBuilder.SimulationCharacteristics.TransporterUtilization";
     t[39551] = "Auslastung eines Transportergruppe";
     t[39554] = "Surface.CounterMulti.Dialog.GroupName.Error.Info";
@@ -16050,14 +16052,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[39975] = "Lokale Einstellung verwenden";
     t[39984] = "Color.F4A460";
     t[39985] = "Sandbraun";
-    t[39990] = "Dialog.Button.Close.Hint";
-    t[39991] = "Schlie\u00dft die aktuelle Ansicht";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_8 (java.lang.String[] t) {
+    t[39990] = "Dialog.Button.Close.Hint";
+    t[39991] = "Schlie\u00dft die aktuelle Ansicht";
     t[39992] = "ExpressionBuilder.Title";
     t[39993] = "Ausdruck bearbeiten";
     t[40006] = "ModelDescription.PickUp.Mode.Temporary";
@@ -18056,14 +18058,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[44817] = "Schl\u00fcssel bearbeiten";
     t[44820] = "ExpressionBuilder.ClientsInServiceProcess.AverageNumber";
     t[44821] = "<p>Liefert die mittlere Anzahl an Kunden im Bedienprozess an der Bedienstation, deren ID in dem Parameter angegeben wurde.</p>\n<p>Alternativ kann auch die ID einer Kundenquelle angegeben werden, dann beziehen sich die Ergebnisse auf die Kunden des dort erzeugten Kundentyps.</p>";
-    t[44828] = "Surface.LogicElse.XML.Root";
-    t[44829] = "ModellElementLogikElse";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_9 (java.lang.String[] t) {
+    t[44828] = "Surface.LogicElse.XML.Root";
+    t[44829] = "ModellElementLogikElse";
     t[44834] = "Color.4B0082";
     t[44835] = "Indigo";
     t[44846] = "Surface.Output.XML.Element.TypeDescription.TransferTimeNumber";
@@ -20062,14 +20064,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[49749] = "Laden immer zulassen";
     t[49758] = "ExpressionCalculator.Results.NoResult";
     t[49759] = "Der Ausdruck kann nicht berechnet werden.";
-    t[49766] = "Surface.PopupMenu.ParameterCompare.ChangeDelayTime";
-    t[49767] = "Parameterreihe: Mittlere Verz\u00f6gerung variieren";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_10 (java.lang.String[] t) {
+    t[49766] = "Surface.PopupMenu.ParameterCompare.ChangeDelayTime";
+    t[49767] = "Parameterreihe: Mittlere Verz\u00f6gerung variieren";
     t[49770] = "Dialog.OpenURL.InfoYes";
     t[49771] = "Webseite im Standard-Browser \u00f6ffnen.";
     t[49772] = "Surface.Resource.ErrorDistribution";
