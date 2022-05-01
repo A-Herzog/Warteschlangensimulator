@@ -164,12 +164,12 @@ public class Main {
 
 			/* Meldungsdialoge */
 			MsgBox.setBackend(new MsgBoxBackendTaskDialog());
+
+			/* Filter für Verteilungsliste in Verteilungseditoren */
 			JDistributionEditorPanel.registerFilterGetter(()->{
 				final String s=setup.distributionListFilter.trim();
 				return (s.isEmpty())?String.join("\n",JDistributionEditorPanelRecord.getDefaultHighlights()):s;
 			});
-
-			/* Filter für Verteilungsliste in Verteilungseditoren */
 			JDistributionEditorPanel.registerFilterSetter(list->{
 				setup.distributionListFilter=list;
 				setup.saveSetup();

@@ -148,7 +148,7 @@ public class RunElementLongRunStatisticsData extends RunElementData {
 	}
 
 	/**
-	 * Erfastt zum Simulationende letztmalig die Veränderungen.
+	 * Erfasst zum Simulationende letztmalig die Veränderungen.
 	 * @param simData	Simulationsdaten
 	 */
 	public void doneStatistics(final SimulationData simData) {
