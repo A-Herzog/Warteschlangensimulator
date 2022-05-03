@@ -152,16 +152,6 @@ public class RunElementSourceMulti extends RunElement implements StateChangeList
 	}
 
 	/**
-	 * Dieser Wert wird in {@link #processArrivalEvent(SimulationData, boolean, int)}
-	 * einmalig berechnet und hier gespeichert. Es gibt an, nach wie vielen Ankünften
-	 * die Simulation abgebrochen wird (weil es offenbar einen Fehler gegeben haben
-	 * muss, der ein reguläres Ende verhindert). Es handelt sich um den 1000-fachen
-	 * Wert der eigentlich für den Thread geplanten Anzahl an Ankünften.
-	 * @see #processArrivalEvent(SimulationData, boolean, int)
-	 */
-	private long systemMaxArrival=-1;
-
-	/**
 	 * Aufruf über das {@link SystemArrivalEvent} über das {@link RunSource}-Interface
 	 */
 	@Override
@@ -242,8 +232,8 @@ public class RunElementSourceMulti extends RunElement implements StateChangeList
 
 		if (scheduleNext) {
 			/* Ankunft des nächsten Kunden einplanen */
-			if (isLastClient && !simData.runData.isWarmUp && systemMaxArrival<=0 && simData.runModel.clientCount>=0) systemMaxArrival=FastMath.max(1000,FastMath.max(simData.runData.clientsArrived*3/2,2*simData.runModel.clientCount/simData.runModel.clientCountDiv));
-			if (simData.runData.isWarmUp || simData.runModel.clientCount<0 || systemMaxArrival<=0 || simData.runData.clientsArrived<systemMaxArrival) {
+			if (isLastClient && !simData.runData.isWarmUp && data.systemMaxArrival<=0 && simData.runModel.clientCount>=0) data.systemMaxArrival=FastMath.max(1000,FastMath.max(2*simData.runData.clientsArrived,4*simData.runModel.clientCount/simData.runModel.clientCountDiv));
+			if (simData.runData.isWarmUp || simData.runModel.clientCount<0 || data.systemMaxArrival<=0 || simData.runData.clientsArrived<data.systemMaxArrival) {
 				boolean done=false;
 				if (records[index].maxArrivalCount>=0 && data.recordData[index].arrivalCount>=records[index].maxArrivalCount) {
 					done=true;

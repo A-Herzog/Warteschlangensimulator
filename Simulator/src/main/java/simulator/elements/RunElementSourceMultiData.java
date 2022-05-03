@@ -27,6 +27,16 @@ import simulator.runmodel.SimulationData;
  */
 public class RunElementSourceMultiData extends RunElementData {
 	/**
+	 * Dieser Wert wird in {@link RunElementSourceMulti#processArrivalEvent(SimulationData, boolean, int)}
+	 * einmalig berechnet und hier gespeichert. Es gibt an, nach wie vielen Ankünften
+	 * die Simulation abgebrochen wird (weil es offenbar einen Fehler gegeben haben
+	 * muss, der ein reguläres Ende verhindert). Es handelt sich um den 1000-fachen
+	 * Wert der eigentlich für den Thread geplanten Anzahl an Ankünften.
+	 * @see RunElementSourceMulti#processArrivalEvent(SimulationData, boolean, int)
+	 */
+	public long systemMaxArrival=-1;
+
+	/**
 	 * Thread-lokale Ankunftsdatensätze
 	 * @see RunElementSourceRecord
 	 */

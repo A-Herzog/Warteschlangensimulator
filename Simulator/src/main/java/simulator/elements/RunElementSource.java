@@ -220,7 +220,7 @@ public class RunElementSource extends RunElement implements StateChangeListener,
 		}
 
 		if (scheduleNext) {
-			if (isLastClient && !simData.runData.isWarmUp && data.maxSystemArrival<=0) data.maxSystemArrival=FastMath.max(1000,FastMath.max(simData.runData.clientsArrived*3/2,2*simData.runModel.clientCount/simData.runModel.clientCountDiv));
+			if (isLastClient && !simData.runData.isWarmUp && data.maxSystemArrival<=0) data.maxSystemArrival=FastMath.max(1000,FastMath.max(2*simData.runData.clientsArrived,4*simData.runModel.clientCount/simData.runModel.clientCountDiv));
 			/* Ankunft des nächsten Kunden einplanen */
 			if (simData.runData.isWarmUp || simData.runModel.clientCount<0 || data.maxSystemArrival<=0 || simData.runData.clientsArrived<data.maxSystemArrival) {
 				boolean done=false;
