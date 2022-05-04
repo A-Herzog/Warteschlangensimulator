@@ -15,6 +15,9 @@
  */
 package ui.expressionbuilder;
 
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+
 import javax.swing.Icon;
 import javax.swing.text.JTextComponent;
 import javax.swing.tree.DefaultMutableTreeNode;
@@ -137,6 +140,15 @@ public class ExpressionBuilderAutoComplete {
 		autoComplete.setListCellRenderer(new CompletionCellRenderer());
 		autoComplete.setShowDescWindow(true);
 		autoComplete.install(textComponent);
+		autoComplete.addAutoCompletionListener(l->{
+			for (KeyListener listener: textComponent.getKeyListeners()) {
+				/* Listener, die sonst auf Tastatureingaben reagieren und ggf. die Eingabe prüfen, aufrufen */
+				final KeyEvent e=new KeyEvent(textComponent,KeyEvent.KEY_PRESSED,System.currentTimeMillis(),0,KeyEvent.VK_F24,'\0');
+				listener.keyPressed(e);
+				listener.keyTyped(e);
+				listener.keyReleased(e);
+			}
+		});
 	}
 
 	/**
