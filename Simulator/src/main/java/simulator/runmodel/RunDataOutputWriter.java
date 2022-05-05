@@ -16,8 +16,10 @@
 package simulator.runmodel;
 
 import java.io.File;
-import java.io.FileWriter;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStreamWriter;
+import java.nio.charset.StandardCharsets;
 
 import mathtools.Table;
 
@@ -64,7 +66,7 @@ public class RunDataOutputWriter {
 	/**
 	 * File-Writer-Objekt für die Ausgabe in den Modi {@link Mode#MODE_TEXT} und {@link Mode#MODE_CSV}
 	 */
-	private FileWriter outputFileWriter;
+	private OutputStreamWriter outputFileWriter;
 
 	/**
 	 * Puffer, der die Ergebnisse zwischenspeichert bis diese in {@link #outputFileWriter} übertragen werden
@@ -101,7 +103,7 @@ public class RunDataOutputWriter {
 		if (Table.SaveMode.SAVEMODE_DOCX.fileNameMatch(nameLower)) mode=Mode.MODE_TABLE;
 
 		if (mode==Mode.MODE_TEXT || mode==Mode.MODE_CSV) {
-			try {outputFileWriter=new FileWriter(outputFile,!outputFileOverwrite);} catch (IOException e) {
+			try {outputFileWriter=new OutputStreamWriter(new FileOutputStream(outputFile,!outputFileOverwrite),StandardCharsets.UTF_8);} catch (IOException e) {
 				outputFileWriter=null;
 				return;
 			}
