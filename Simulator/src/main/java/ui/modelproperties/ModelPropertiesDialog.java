@@ -39,6 +39,7 @@ import ui.images.Images;
 import ui.infopanel.InfoPanel;
 import ui.modeleditor.ModelResources;
 import ui.modeleditor.ModelSchedules;
+import ui.tools.WindowSizeStorage;
 
 /**
  * Dieser Dialog ermöglicht das Bearbeiten der zentralen Eigenschaften
@@ -249,6 +250,7 @@ public class ModelPropertiesDialog extends BaseDialog {
 		if (getSize().height>900) setSize(getSize().width,900);
 		setLocationRelativeTo(getOwner());
 		setResizable(true);
+		WindowSizeStorage.window(this,"modelproperties");
 
 		/* Initial anzuzeigende Seite wählen */
 		if (initialPage!=null) for (int i=0;i<InitialPage.values().length;i++) if (InitialPage.values()[i]==initialPage) {
