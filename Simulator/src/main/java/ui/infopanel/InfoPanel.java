@@ -79,6 +79,9 @@ public class InfoPanel {
 	/** Info-ID für die Dialogseite "Simulation" im Modelleigenschaften-Dialog */
 	public static final String modelSimulation=groupModel+"Simulation";
 
+	/** Info-ID für die Dialogseite "Statistik" im Modelleigenschaften-Dialog */
+	public static final String modelStatistics=groupModel+"Statistics";
+
 	/** Info-ID für die Dialogseite "Kunden" im Modelleigenschaften-Dialog */
 	public static final String modelClients=groupModel+"Clients";
 
@@ -603,6 +606,10 @@ public class InfoPanel {
 		register(modelSimulation,
 				()->Language.tr("Editor.Dialog.Title")+"|"+Language.tr("Editor.Dialog.Tab.Simulation"),
 				()->Language.tr("Editor.Dialog.Tab.Simulation.InfoText"));
+
+		register(modelStatistics,
+				()->Language.tr("Editor.Dialog.Title")+"|"+Language.tr("Editor.Dialog.Tab.Statistics"),
+				()->Language.tr("Editor.Dialog.Tab.Statistics.InfoText"));
 
 		register(modelClients,
 				()->Language.tr("Editor.Dialog.Title")+"|"+Language.tr("Editor.Dialog.Tab.Clients"),

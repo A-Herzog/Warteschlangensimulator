@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-29 00:03+0200\n"
+"POT-Creation-Date: 2022-05-07 17:30+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -3767,6 +3767,9 @@ msgstr "The specified duration of the warm-up phase \"%s\" is invalid. A non-neg
 msgid "Editor.Dialog.Tab.Simulation.Criteria.Title"
 msgstr "Criteria for the end of the simulation"
 
+msgid "Editor.Dialog.Tab.Simulation.DistributionRecordClientDataValues.Error"
+msgstr "The value \"%s\" for client data distribution size is invalid. A non-negative integer value has to be specified."
+
 msgid "Editor.Dialog.Tab.Simulation.DistributionRecordClientDataValues.Value"
 msgstr "Values to be recorded in client data distributions"
 
@@ -3803,6 +3806,21 @@ msgstr "More simulation settings"
 msgid "Editor.Dialog.Tab.Simulation.NumberOfArrivals"
 msgstr "Number of arrivals to be simulated"
 
+msgid "Editor.Dialog.Tab.Simulation.Precision"
+msgstr "Precision of variance recording"
+
+msgid "Editor.Dialog.Tab.Simulation.Precision.Moments"
+msgstr "Record using moments"
+
+msgid "Editor.Dialog.Tab.Simulation.Precision.Moments.Info"
+msgstr "This method is fast and provides good precision in almost all cases."
+
+msgid "Editor.Dialog.Tab.Simulation.Precision.Welford"
+msgstr "Record using Welfords online algorithm"
+
+msgid "Editor.Dialog.Tab.Simulation.Precision.Welford.Info"
+msgstr "The Welford algorithm is significantly slower but provides better precision for very small coefficients of variation."
+
 msgid "Editor.Dialog.Tab.Simulation.RecordIncompleteClients"
 msgstr "Record clients in statistic that have not left the system at simulation end"
 
@@ -3814,6 +3832,9 @@ msgstr "The given number of repeats of the simulation %s is invalid. A positive 
 
 msgid "Editor.Dialog.Tab.Simulation.RepeatCount.Value"
 msgstr "Number of repetitions of the entire simulation run"
+
+msgid "Editor.Dialog.Tab.Simulation.StatisticVectorLength"
+msgstr "Number of entries of the data captured vectorially"
 
 msgid "Editor.Dialog.Tab.Simulation.StoppOnCalcError"
 msgstr "Cancel simulation, if a calculation expression cannot be evaluated"
@@ -3876,6 +3897,12 @@ msgstr "The simulation of the model will be repeated %d times."
 
 msgid "Editor.Dialog.Tab.SimulationSystem.SingleCoreOnly"
 msgstr "The simulation of the model can not be parallelized for the following reasons"
+
+msgid "Editor.Dialog.Tab.Statistics"
+msgstr "Statistics"
+
+msgid "Editor.Dialog.Tab.Statistics.InfoText"
+msgstr "On this dialog page, settings for statistics recording during simulation can be made."
 
 msgid "Editor.Dialog.Tab.Transporters"
 msgstr "Transporters"
@@ -22600,6 +22627,12 @@ msgstr "StatisticsVariablesName"
 msgid "Statistics.XML.Warning"
 msgstr "StatisticsModelWarning"
 
+msgid "Statistics.XML.WelfordM2"
+msgstr "WelfordM2"
+
+msgid "Statistics.XML.WelfordM2.Error"
+msgstr "The WelfordM2attribute in the \"%s\" element has to be a non-negative number but is \"%s\"."
+
 msgid "Statistics.bySchedule"
 msgstr "by schedule"
 
@@ -31852,6 +31885,9 @@ msgstr "ModelTerminationConfidence"
 
 msgid "Surface.XML.ModelTerminationTime"
 msgstr "ModelTerminationTime"
+
+msgid "Surface.XML.ModelUseWelford"
+msgstr "ModelUseWelford"
 
 msgid "Surface.XML.ModelVersion"
 msgstr "ModelVersion"

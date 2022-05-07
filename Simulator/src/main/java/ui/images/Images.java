@@ -443,106 +443,109 @@ public enum Images {
 	/** Symbol "Modelleigenschaften - Seite 'Modellbeschreibung' - automatisch erstellen" */
 	MODELPROPERTIES_DESCRIPTION_AUTO_CREATE("page_gear.png"),
 
-	/** Symbol "Modellbeschreibung - Seite 'Simulation'" */
+	/** Symbol "Modelleigenschaften - Seite 'Simulation'" */
 	MODELPROPERTIES_SIMULATION("action_go.gif"),
 
-	/** Symbol "Modellbeschreibung - Seite 'Simulation' - Startwert für Zufallszahlengenerator festlegen" */
+	/** Symbol "Modelleigenschaften - Seite 'Statistik'" */
+	MODELPROPERTIES_STATISTICS("sum.png"),
+
+	/** Symbol "Modelleigenschaften - Seite 'Simulation' - Startwert für Zufallszahlengenerator festlegen" */
 	MODELPROPERTIES_SIMULATION_RANDOM_SEED("calculator.png"),
 
-	/** Symbol "Modellbeschreibung - Seite 'Kunden'" */
+	/** Symbol "Modelleigenschaften - Seite 'Kunden'" */
 	MODELPROPERTIES_CLIENTS("user.png"),
 
-	/** Symbol "Modellbeschreibung - Seite 'Kunden' - Kundengruppe" */
+	/** Symbol "Modelleigenschaften - Seite 'Kunden' - Kundengruppe" */
 	MODELPROPERTIES_CLIENTS_GROUPS("group.png"),
 
-	/** Symbol "Modellbeschreibung - Seite 'Kunden' - Icon für Kundengruppe" */
+	/** Symbol "Modelleigenschaften - Seite 'Kunden' - Icon für Kundengruppe" */
 	MODELPROPERTIES_CLIENTS_ICON("film_go.png"),
 
-	/** Symbol "Modellbeschreibung - Seite 'Kunden' - Farbe für Kundengruppe" */
+	/** Symbol "Modelleigenschaften - Seite 'Kunden' - Farbe für Kundengruppe" */
 	MODELPROPERTIES_CLIENTS_COLOR("color_wheel.png"),
 
-	/** Symbol "Modellbeschreibung - Seite 'Kunden' - Kosten für Kundengruppe" */
+	/** Symbol "Modelleigenschaften - Seite 'Kunden' - Kosten für Kundengruppe" */
 	MODELPROPERTIES_CLIENTS_COSTS("money_euro.png"),
 
-	/** Symbol "Modellbeschreibung - Seite 'Bediener'" */
+	/** Symbol "Modelleigenschaften - Seite 'Bediener'" */
 	MODELPROPERTIES_OPERATORS("group.png"),
 
-	/** Symbol "Modellbeschreibung - Seite 'Bediener' - Gruppe hinzufügen" */
+	/** Symbol "Modelleigenschaften - Seite 'Bediener' - Gruppe hinzufügen" */
 	MODELPROPERTIES_OPERATORS_ADD("group_add.png"),
 
-	/** Symbol "Modellbeschreibung - Seite 'Bediener' - Gruppe löschen" */
+	/** Symbol "Modelleigenschaften - Seite 'Bediener' - Gruppe löschen" */
 	MODELPROPERTIES_OPERATORS_DELETE("group_delete.png"),
 
-	/** Symbol "Modellbeschreibung - Seite 'Bediener' - Kosten für Gruppe" */
+	/** Symbol "Modelleigenschaften - Seite 'Bediener' - Kosten für Gruppe" */
 	MODELPROPERTIES_OPERATORS_COSTS("money_euro.png"),
 
-	/** Symbol "Modellbeschreibung - Seite 'Bediener' - Ausfälle" */
+	/** Symbol "Modelleigenschaften - Seite 'Bediener' - Ausfälle" */
 	MODELPROPERTIES_OPERATORS_FAILURES("group_error.png"),
 
-	/** Symbol "Modellbeschreibung - Seite 'Bediener' - Rüstzeiten" */
+	/** Symbol "Modelleigenschaften - Seite 'Bediener' - Rüstzeiten" */
 	MODELPROPERTIES_OPERATORS_SETUP("chart_curve.png"),
 
-	/** Symbol "Modellbeschreibung - Seite 'Bediener' - nachgelagerte Priorität 'zufällig'" */
+	/** Symbol "Modelleigenschaften - Seite 'Bediener' - nachgelagerte Priorität 'zufällig'" */
 	MODELPROPERTIES_PRIORITIES_RANDOM("arrow_switch.png"),
 
-	/** Symbol "Modellbeschreibung - Seite 'Bediener' - nachgelagerte Priorität 'Kundenpriorität'" */
+	/** Symbol "Modelleigenschaften - Seite 'Bediener' - nachgelagerte Priorität 'Kundenpriorität'" */
 	MODELPROPERTIES_PRIORITIES_CLIENT("user.png"),
 
-	/** Symbol "Modellbeschreibung - Seite 'Transporter'" */
+	/** Symbol "Modelleigenschaften - Seite 'Transporter'" */
 	MODELPROPERTIES_TRANSPORTERS("lorry.png"),
 
-	/** Symbol "Modellbeschreibung - Seite 'Transporter' - Gruppe hinzufügen" */
+	/** Symbol "Modelleigenschaften - Seite 'Transporter' - Gruppe hinzufügen" */
 	MODELPROPERTIES_TRANSPORTERS_ADD("lorry_add.png"),
 
-	/** Symbol "Modellbeschreibung - Seite 'Transporter' - Ausfälle" */
+	/** Symbol "Modelleigenschaften - Seite 'Transporter' - Ausfälle" */
 	MODELPROPERTIES_TRANSPORTERS_FAILURE("lorry_error.png"),
 
-	/** Symbol "Modellbeschreibung - Seite 'Transporter' - Anzahl" */
+	/** Symbol "Modelleigenschaften - Seite 'Transporter' - Anzahl" */
 	MODELPROPERTIES_TRANSPORTERS_COUNT("Counter.png"),
 
-	/** Symbol "Modellbeschreibung - Seite 'Transporter' - Distanzen" */
+	/** Symbol "Modelleigenschaften - Seite 'Transporter' - Distanzen" */
 	MODELPROPERTIES_TRANSPORTERS_DISTANCES("Dispose.png"),
 
-	/** Symbol "Modellbeschreibung - Seite 'Transporter' - Distanzen - Tabellen-Werkzeuge" */
+	/** Symbol "Modelleigenschaften - Seite 'Transporter' - Distanzen - Tabellen-Werkzeuge" */
 	MODELPROPERTIES_TRANSPORTERS_DISTANCES_TABLE_TOOLS("Table.png"),
 
-	/** Symbol "Modellbeschreibung - Seite 'Transporter' - Beladezeiten" */
+	/** Symbol "Modelleigenschaften - Seite 'Transporter' - Beladezeiten" */
 	MODELPROPERTIES_TRANSPORTERS_LOADING_TIMES("package_go.png"),
 
-	/** Symbol "Modellbeschreibung - Seite 'Transporter' - Entladezeiten" */
+	/** Symbol "Modelleigenschaften - Seite 'Transporter' - Entladezeiten" */
 	MODELPROPERTIES_TRANSPORTERS_UNLOADING_TIMES("package_go_left.png"),
 
-	/** Symbol "Modellbeschreibung - Seite 'Zeitpläne'" */
+	/** Symbol "Modelleigenschaften - Seite 'Zeitpläne'" */
 	MODELPROPERTIES_SCHEDULES("time.png"),
 
-	/** Symbol "Modellbeschreibung - Seite 'Zeitpläne' - hinzufügen" */
+	/** Symbol "Modelleigenschaften - Seite 'Zeitpläne' - hinzufügen" */
 	MODELPROPERTIES_SCHEDULES_ADD("time_add.png"),
 
-	/** Symbol "Modellbeschreibung - Seite 'Fertigungspläne'" */
+	/** Symbol "Modelleigenschaften - Seite 'Fertigungspläne'" */
 	MODELPROPERTIES_SEQUENCES("text_list_numbers.png"),
 
-	/** Symbol "Modellbeschreibung - Seite 'Fertigungspläne' - Kundenvariable zuweisen" */
+	/** Symbol "Modelleigenschaften - Seite 'Fertigungspläne' - Kundenvariable zuweisen" */
 	MODELPROPERTIES_SEQUENCES_ASSIGNMENT("user.png"),
 
-	/** Symbol "Modellbeschreibung - Seite 'Initiale Variablenwerte'" */
+	/** Symbol "Modelleigenschaften - Seite 'Initiale Variablenwerte'" */
 	MODELPROPERTIES_INITIAL_VALUES("font.png"),
 
-	/** Symbol "Modellbeschreibung - Seite 'Laufzeitstatistik'" */
+	/** Symbol "Modelleigenschaften - Seite 'Laufzeitstatistik'" */
 	MODELPROPERTIES_RUNTIME_STATISTICS("chart_curve_add.png"),
 
-	/** Symbol "Modellbeschreibung - Seite 'Ausgabeanalyse'" */
+	/** Symbol "Modelleigenschaften - Seite 'Ausgabeanalyse'" */
 	MODELPROPERTIES_OUTPUT_ANALYSIS("chart_curve.png"),
 
-	/** Symbol "Modellbeschreibung - Seite 'Pfadaufzeichnung'" */
+	/** Symbol "Modelleigenschaften - Seite 'Pfadaufzeichnung'" */
 	MODELPROPERTIES_PATH_RECORDING("Vertex.png"),
 
-	/** Symbol "Modellbeschreibung - Seite 'Ausgabeanalyse' - Autokorrelation schnell" */
+	/** Symbol "Modelleigenschaften - Seite 'Ausgabeanalyse' - Autokorrelation schnell" */
 	MODELPROPERTIES_OUTPUT_ANALYSIS_AUTOCORRELATION_FAST("user.png"),
 
-	/** Symbol "Modellbeschreibung - Seite 'Ausgabeanalyse' - Autokorrelation vollständig" */
+	/** Symbol "Modelleigenschaften - Seite 'Ausgabeanalyse' - Autokorrelation vollständig" */
 	MODELPROPERTIES_OUTPUT_ANALYSIS_AUTOCORRELATION_FULL("group.png"),
 
-	/** Symbol "Modellbeschreibung - Seite 'Simulationssystem'" */
+	/** Symbol "Modelleigenschaften - Seite 'Simulationssystem'" */
 	MODELPROPERTIES_INFO("computer.png"),
 
 	/* Statistik */

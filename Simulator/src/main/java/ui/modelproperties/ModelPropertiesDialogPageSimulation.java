@@ -66,10 +66,6 @@ public class ModelPropertiesDialogPageSimulation extends ModelPropertiesDialogPa
 	private JTextField fixedSeed;
 	/** Eingabefeld "Anzahl an Wiederholungen des gesamten Simulationslaufs" */
 	private JTextField repeatCount;
-	/** Eingabefeld "In Verteilung aufzuzeichnende Stunden" */
-	private JTextField distributionRecordHours;
-	/** Eingabefeld "In Verteilung aufzuzeichnende Werte der Kundendatenfelder" */
-	private JTextField distributionRecordClientDataValues;
 	/** Option "Simulation abbrechen, wenn ein Rechenausdruck nicht ausgerechnet werden kann" */
 	private JCheckBox stoppOnCalcError;
 	/** Option "Zeitabhängige Bedingungsprüfungen aktivieren" */
@@ -235,26 +231,6 @@ public class ModelPropertiesDialogPageSimulation extends ModelPropertiesDialogPa
 		repeatCount.setEditable(!readOnly);
 		addKeyListener(repeatCount,()->checkRepeatCount());
 
-		/* Anzahl Stunden in Verteilungen */
-
-		data=ModelElementBaseDialog.getInputPanel(Language.tr("Editor.Dialog.Tab.Simulation.DistributionRecordHours.Value")+":",""+model.distributionRecordHours,5);
-		sub=(JPanel)data[0];
-		lines.add(sub);
-		distributionRecordHours=(JTextField)data[1];
-		distributionRecordHours.setEditable(!readOnly);
-		addKeyListener(distributionRecordHours,()->checkDistributionRecordHours());
-		sub.add(new JLabel(" ("+Language.tr("Editor.Dialog.Tab.Simulation.DistributionRecordHours.Info")+")"));
-
-		/* Anzahl Stunden in Verteilungen */
-
-		data=ModelElementBaseDialog.getInputPanel(Language.tr("Editor.Dialog.Tab.Simulation.DistributionRecordClientDataValues.Value")+":",""+model.distributionRecordClientDataValues,10);
-		sub=(JPanel)data[0];
-		lines.add(sub);
-		distributionRecordClientDataValues=(JTextField)data[1];
-		distributionRecordClientDataValues.setEditable(!readOnly);
-		addKeyListener(distributionRecordClientDataValues,()->checkDistributionRecordClientDataValues());
-		sub.add(new JLabel(" ("+Language.tr("Editor.Dialog.Tab.Simulation.DistributionRecordHours.Info")+")"));
-
 		/* Simulation abbrechen, wenn ein Rechenausdruck nicht ausgerechnet werden kann. */
 
 		sub=new JPanel(new FlowLayout(FlowLayout.LEFT));
@@ -332,26 +308,6 @@ public class ModelPropertiesDialogPageSimulation extends ModelPropertiesDialogPa
 	}
 
 	/**
-	 * Prüft die angegebene Anzahl an Stunden für die Erfassung der Verteilungen in der Statistik.
-	 * @return	Liefert <code>true</code>, wenn die Stundenanzahl gültig ist.
-	 * @see #distributionRecordHours
-	 * @see #checkData()
-	 */
-	private boolean checkDistributionRecordHours() {
-		return (NumberTools.getNotNegativeLong(distributionRecordHours,true)!=null);
-	}
-
-	/**
-	 * Prüft die angegebene Anzahl an Werten für die Erfassung der Verteilungen über die Kundendatenfelder in der Statistik.
-	 * @return	Liefert <code>true</code>, wenn der Wert gültig ist.
-	 * @see #distributionRecordClientDataValues
-	 * @see #checkData()
-	 */
-	private boolean checkDistributionRecordClientDataValues() {
-		return (NumberTools.getNotNegativeLong(distributionRecordClientDataValues,true)!=null);
-	}
-
-	/**
 	 * Prüft ob das angegebene Intervall für die zeitabhängigen Prüfungen gültig ist.
 	 * @return	Liefert <code>true</code>, wenn das Prüfungsintervall gültig ist.
 	 * @see #editTimedChecks
@@ -406,11 +362,6 @@ public class ModelPropertiesDialogPageSimulation extends ModelPropertiesDialogPa
 			return false;
 		}
 
-		if (!checkDistributionRecordHours()) {
-			MsgBox.error(dialog,Language.tr("Dialog.Title.Error"),String.format(Language.tr("Editor.Dialog.Tab.Simulation.DistributionRecordHours.Error"),distributionRecordHours.getText()));
-			return false;
-		}
-
 		if (!checkTimedChecks()) {
 			MsgBox.error(dialog,Language.tr("Dialog.Title.Error"),String.format(Language.tr("Editor.Dialog.Tab.Simulation.TimedChecks.Error"),editTimedChecks.getText()));
 			return false;
@@ -436,10 +387,6 @@ public class ModelPropertiesDialogPageSimulation extends ModelPropertiesDialogPa
 		if (L!=null) model.fixedSeed=L;
 		L=NumberTools.getPositiveLong(repeatCount,true);
 		if (L!=null) model.repeatCount=(int)L.longValue();
-		L=NumberTools.getNotNegativeLong(distributionRecordHours,true);
-		if (L!=null) model.distributionRecordHours=(int)L.longValue();
-		L=NumberTools.getNotNegativeLong(distributionRecordClientDataValues,true);
-		if (L!=null) model.distributionRecordClientDataValues=(int)L.longValue();
 		model.stoppOnCalcError=stoppOnCalcError.isSelected();
 		if (useTimedChecks.isSelected()) {
 			D=NumberTools.getPositiveDouble(editTimedChecks,true);

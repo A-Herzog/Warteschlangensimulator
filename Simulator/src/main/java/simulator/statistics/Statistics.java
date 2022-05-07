@@ -530,7 +530,7 @@ public class Statistics extends StatisticsBase {
 	public StatisticsDataCollector clientsAllWaitingTimesCollector;
 
 	/**
-	 * @see Statistics#Statistics(int, CorrelationMode, int, boolean, int, int)
+	 * @see Statistics#Statistics(int, CorrelationMode, int, boolean, int, int, boolean)
 	 */
 	public enum CorrelationMode {
 		/** Keine Erfassung von Autokorrelationdaten */
@@ -566,11 +566,12 @@ public class Statistics extends StatisticsBase {
 	 * @param collectWaitingTimes	Statistik für die Aufzeichnung der Einzel-Wartezeiten vorbereiten?
 	 * @param distributionRecordHours	Wie lang sollen die Verteilungen der Werte ausfallen (in Stunden)? (Werte kleiner oder gleich 0 schalten die Erfassung ab.)
 	 * @param dataToRecordInClientDataDistribution	Wie lang so die Verteilung der Kundendaten-Werte ausfallen? (Werte kleiner oder gleich 0 schalten die Erfassung ab.)
+	 * @param useWelford	Soll der Welford-Algorithmus zur Erfassung der Varianz verwendet werden? (langsamer, aber bei ganz kleinen Variationskoeffizienten exakter)
 	 * @see CorrelationMode#CORRELATION_MODE_OFF
 	 * @see CorrelationMode#CORRELATION_MODE_FAST
 	 * @see CorrelationMode#CORRELATION_MODE_FULL
 	 */
-	public Statistics(final int correlationRange, final CorrelationMode correlationMode, final int batchSize, final boolean collectWaitingTimes, final int distributionRecordHours, int dataToRecordInClientDataDistribution) {
+	public Statistics(final int correlationRange, final CorrelationMode correlationMode, final int batchSize, final boolean collectWaitingTimes, final int distributionRecordHours, int dataToRecordInClientDataDistribution, final boolean useWelford) {
 		final String[] nameStation=Language.trAll("Statistics.XML.Station");
 		final String[] nameClientType=Language.trAll("Statistics.XML.ClientType");
 		final String[] nameClientData=Language.trAll("Statistics.XML.ClientDataRecord");
@@ -589,49 +590,49 @@ public class Statistics extends StatisticsBase {
 		addPerformanceIndicator(threadBasedConfidence=new StatisticsMultiPerformanceIndicator(Language.trAll("Statistics.XML.Element.ThreadBasedConfidence"),new StatisticsSimpleValuePerformanceIndicator(Language.trAll("Statistics.XML.Element.ThreadBasedConfidence.Level"))));
 
 		/* Zwischenankunftszeiten */
-		addPerformanceIndicator(clientsInterarrivalTime=new StatisticsMultiPerformanceIndicator(Language.trAll("Statistics.XML.Element.InterArrivalClients"),new StatisticsDataPerformanceIndicator(nameStation,secondsToRecordInDistributions,secondsToRecordInDistributions,-1,batchSize,true)));
-		addPerformanceIndicator(stationsInterarrivalTime=new StatisticsMultiPerformanceIndicator(Language.trAll("Statistics.XML.Element.InterArrivalStations"),new StatisticsDataPerformanceIndicator(nameStation,secondsToRecordInDistributions,secondsToRecordInDistributions,-1,batchSize,true)));
-		addPerformanceIndicator(stationsInterarrivalTimeBatch=new StatisticsMultiPerformanceIndicator(Language.trAll("Statistics.XML.Element.InterArrivalStationsBatch"),new StatisticsDataPerformanceIndicator(nameStation,secondsToRecordInDistributions,secondsToRecordInDistributions,-1,batchSize,true)));
-		addPerformanceIndicator(stationsInterarrivalTimeByState=new StatisticsMultiPerformanceIndicator(Language.trAll("Statistics.XML.Element.InterArrivalStationsByState"),new StatisticsDataPerformanceIndicator(nameStation,secondsToRecordInDistributions,secondsToRecordInDistributions,-1,batchSize,true)));
-		addPerformanceIndicator(stationsInterarrivalTimeByClientType=new StatisticsMultiPerformanceIndicator(Language.trAll("Statistics.XML.Element.InterArrivalStationsByClientType"),new StatisticsDataPerformanceIndicator(nameStation,secondsToRecordInDistributions,secondsToRecordInDistributions,-1,batchSize,true)));
+		addPerformanceIndicator(clientsInterarrivalTime=new StatisticsMultiPerformanceIndicator(Language.trAll("Statistics.XML.Element.InterArrivalClients"),new StatisticsDataPerformanceIndicator(nameStation,secondsToRecordInDistributions,secondsToRecordInDistributions,-1,batchSize,useWelford,true)));
+		addPerformanceIndicator(stationsInterarrivalTime=new StatisticsMultiPerformanceIndicator(Language.trAll("Statistics.XML.Element.InterArrivalStations"),new StatisticsDataPerformanceIndicator(nameStation,secondsToRecordInDistributions,secondsToRecordInDistributions,-1,batchSize,useWelford,true)));
+		addPerformanceIndicator(stationsInterarrivalTimeBatch=new StatisticsMultiPerformanceIndicator(Language.trAll("Statistics.XML.Element.InterArrivalStationsBatch"),new StatisticsDataPerformanceIndicator(nameStation,secondsToRecordInDistributions,secondsToRecordInDistributions,-1,batchSize,useWelford,true)));
+		addPerformanceIndicator(stationsInterarrivalTimeByState=new StatisticsMultiPerformanceIndicator(Language.trAll("Statistics.XML.Element.InterArrivalStationsByState"),new StatisticsDataPerformanceIndicator(nameStation,secondsToRecordInDistributions,secondsToRecordInDistributions,-1,batchSize,useWelford,true)));
+		addPerformanceIndicator(stationsInterarrivalTimeByClientType=new StatisticsMultiPerformanceIndicator(Language.trAll("Statistics.XML.Element.InterArrivalStationsByClientType"),new StatisticsDataPerformanceIndicator(nameStation,secondsToRecordInDistributions,secondsToRecordInDistributions,-1,batchSize,useWelford,true)));
 		addPerformanceIndicator(stationsMaxThroughput=new StatisticsMultiPerformanceIndicator(Language.trAll("Statistics.XML.Element.MaxThroughput"),new StatisticsSimpleValueMaxPerformanceIndicator(nameStation)));
 
 		/* Zwischenabgangszeiten */
-		addPerformanceIndicator(clientsInterleavingTime=new StatisticsMultiPerformanceIndicator(Language.trAll("Statistics.XML.Element.InterLeavingClients"),new StatisticsDataPerformanceIndicator(nameClientType,secondsToRecordInDistributions,secondsToRecordInDistributions,-1,batchSize,true)));
-		addPerformanceIndicator(stationsInterleavingTime=new StatisticsMultiPerformanceIndicator(Language.trAll("Statistics.XML.Element.InterLeavingStations"),new StatisticsDataPerformanceIndicator(nameStation,secondsToRecordInDistributions,secondsToRecordInDistributions,-1,batchSize,true)));
-		addPerformanceIndicator(stationsInterleavingTimeBatch=new StatisticsMultiPerformanceIndicator(Language.trAll("Statistics.XML.Element.InterLeavingStationsBatch"),new StatisticsDataPerformanceIndicator(nameStation,secondsToRecordInDistributions,secondsToRecordInDistributions,-1,batchSize,true)));
-		addPerformanceIndicator(stationsInterleavingTimeByClientType=new StatisticsMultiPerformanceIndicator(Language.trAll("Statistics.XML.Element.InterLeavingStationsByClientType"),new StatisticsDataPerformanceIndicator(nameStation,secondsToRecordInDistributions,secondsToRecordInDistributions,-1,batchSize,true)));
+		addPerformanceIndicator(clientsInterleavingTime=new StatisticsMultiPerformanceIndicator(Language.trAll("Statistics.XML.Element.InterLeavingClients"),new StatisticsDataPerformanceIndicator(nameClientType,secondsToRecordInDistributions,secondsToRecordInDistributions,-1,batchSize,useWelford,true)));
+		addPerformanceIndicator(stationsInterleavingTime=new StatisticsMultiPerformanceIndicator(Language.trAll("Statistics.XML.Element.InterLeavingStations"),new StatisticsDataPerformanceIndicator(nameStation,secondsToRecordInDistributions,secondsToRecordInDistributions,-1,batchSize,useWelford,true)));
+		addPerformanceIndicator(stationsInterleavingTimeBatch=new StatisticsMultiPerformanceIndicator(Language.trAll("Statistics.XML.Element.InterLeavingStationsBatch"),new StatisticsDataPerformanceIndicator(nameStation,secondsToRecordInDistributions,secondsToRecordInDistributions,-1,batchSize,useWelford,true)));
+		addPerformanceIndicator(stationsInterleavingTimeByClientType=new StatisticsMultiPerformanceIndicator(Language.trAll("Statistics.XML.Element.InterLeavingStationsByClientType"),new StatisticsDataPerformanceIndicator(nameStation,secondsToRecordInDistributions,secondsToRecordInDistributions,-1,batchSize,useWelford,true)));
 
 		/* Kundenbewegungen zwischen den Stationen */
 		addPerformanceIndicator(stationTransition=new StatisticsMultiPerformanceIndicator(Language.trAll("Statistics.XML.Element.ClientMovement"),new StatisticsSimpleCountPerformanceIndicator(Language.trAll("Statistics.XML.Element.ClientMovement.Stations"),false))); /* kein Grouping, da "->" sonst als Trenner zwischen Name und Gruppe herangezogen würde */
 		addPerformanceIndicator(clientPaths=new StatisticsMultiPerformanceIndicator(Language.trAll("Statistics.XML.Element.ClientPaths"),new StatisticsSimpleCountPerformanceIndicator(Language.trAll("Statistics.XML.Element.ClientPaths.Path"),false))); /* kein Grouping, da "->" sonst als Trenner zwischen Name und Gruppe herangezogen würde */
 
 		/* Zeiten pro Kundentyp */
-		addPerformanceIndicator(clientsWaitingTimes=new StatisticsMultiPerformanceIndicator(Language.trAll("Statistics.XML.Element.WaitingClients"),new StatisticsDataPerformanceIndicator(nameClientType,secondsToRecordInDistributions,secondsToRecordInDistributions,rangeFull,batchSize,true)));
-		addPerformanceIndicator(clientsTransferTimes=new StatisticsMultiPerformanceIndicator(Language.trAll("Statistics.XML.Element.TransferClients"),new StatisticsDataPerformanceIndicator(nameClientType,secondsToRecordInDistributions,secondsToRecordInDistributions,-1,batchSize,true)));
-		addPerformanceIndicator(clientsProcessingTimes=new StatisticsMultiPerformanceIndicator(Language.trAll("Statistics.XML.Element.ProcessClients"),new StatisticsDataPerformanceIndicator(nameClientType,secondsToRecordInDistributions,secondsToRecordInDistributions,-1,batchSize,true)));
-		addPerformanceIndicator(clientsResidenceTimes=new StatisticsMultiPerformanceIndicator(Language.trAll("Statistics.XML.Element.ResidenceClients"),new StatisticsDataPerformanceIndicator(nameClientType,secondsToRecordInDistributions,secondsToRecordInDistributions,-1,batchSize,true)));
-		addPerformanceIndicator(clientsAllWaitingTimes=new StatisticsDataPerformanceIndicator(Language.trAll("Statistics.XML.Element.WaitingAllClients"),secondsToRecordInDistributions,secondsToRecordInDistributions,rangeFast,batchSize));
-		addPerformanceIndicator(clientsAllTransferTimes=new StatisticsDataPerformanceIndicator(Language.trAll("Statistics.XML.Element.TransferAllClients"),secondsToRecordInDistributions,secondsToRecordInDistributions,-1,batchSize));
-		addPerformanceIndicator(clientsAllProcessingTimes=new StatisticsDataPerformanceIndicator(Language.trAll("Statistics.XML.Element.ProcessAllClients"),secondsToRecordInDistributions,secondsToRecordInDistributions,-1,batchSize));
-		addPerformanceIndicator(clientsAllResidenceTimes=new StatisticsDataPerformanceIndicator(Language.trAll("Statistics.XML.Element.ResidenceAllClients"),secondsToRecordInDistributions,secondsToRecordInDistributions,-1,batchSize));
+		addPerformanceIndicator(clientsWaitingTimes=new StatisticsMultiPerformanceIndicator(Language.trAll("Statistics.XML.Element.WaitingClients"),new StatisticsDataPerformanceIndicator(nameClientType,secondsToRecordInDistributions,secondsToRecordInDistributions,rangeFull,batchSize,useWelford,true)));
+		addPerformanceIndicator(clientsTransferTimes=new StatisticsMultiPerformanceIndicator(Language.trAll("Statistics.XML.Element.TransferClients"),new StatisticsDataPerformanceIndicator(nameClientType,secondsToRecordInDistributions,secondsToRecordInDistributions,-1,batchSize,useWelford,true)));
+		addPerformanceIndicator(clientsProcessingTimes=new StatisticsMultiPerformanceIndicator(Language.trAll("Statistics.XML.Element.ProcessClients"),new StatisticsDataPerformanceIndicator(nameClientType,secondsToRecordInDistributions,secondsToRecordInDistributions,-1,batchSize,useWelford,true)));
+		addPerformanceIndicator(clientsResidenceTimes=new StatisticsMultiPerformanceIndicator(Language.trAll("Statistics.XML.Element.ResidenceClients"),new StatisticsDataPerformanceIndicator(nameClientType,secondsToRecordInDistributions,secondsToRecordInDistributions,-1,batchSize,useWelford,true)));
+		addPerformanceIndicator(clientsAllWaitingTimes=new StatisticsDataPerformanceIndicator(Language.trAll("Statistics.XML.Element.WaitingAllClients"),secondsToRecordInDistributions,secondsToRecordInDistributions,rangeFast,batchSize,useWelford));
+		addPerformanceIndicator(clientsAllTransferTimes=new StatisticsDataPerformanceIndicator(Language.trAll("Statistics.XML.Element.TransferAllClients"),secondsToRecordInDistributions,secondsToRecordInDistributions,-1,batchSize,useWelford));
+		addPerformanceIndicator(clientsAllProcessingTimes=new StatisticsDataPerformanceIndicator(Language.trAll("Statistics.XML.Element.ProcessAllClients"),secondsToRecordInDistributions,secondsToRecordInDistributions,-1,batchSize,useWelford));
+		addPerformanceIndicator(clientsAllResidenceTimes=new StatisticsDataPerformanceIndicator(Language.trAll("Statistics.XML.Element.ResidenceAllClients"),secondsToRecordInDistributions,secondsToRecordInDistributions,-1,batchSize,useWelford));
 
 		/* Kundendatenfelder */
-		addPerformanceIndicator(clientData=new StatisticsMultiPerformanceIndicator(Language.trAll("Statistics.XML.Element.ClientData"),new StatisticsDataPerformanceIndicatorWithNegativeValues(nameClientData,dataToRecordInClientDataDistribution,dataToRecordInClientDataDistribution,true)));
+		addPerformanceIndicator(clientData=new StatisticsMultiPerformanceIndicator(Language.trAll("Statistics.XML.Element.ClientData"),new StatisticsDataPerformanceIndicatorWithNegativeValues(nameClientData,dataToRecordInClientDataDistribution,dataToRecordInClientDataDistribution,1,useWelford,true)));
 
 		/* Zeiten auf Seiten der Stationen */
-		addPerformanceIndicator(stationsWaitingTimes=new StatisticsMultiPerformanceIndicator(Language.trAll("Statistics.XML.Element.WaitingStations"),new StatisticsDataPerformanceIndicator(nameStation,secondsToRecordInDistributions,secondsToRecordInDistributions,rangeFull,batchSize,true)));
-		addPerformanceIndicator(stationsTransferTimes=new StatisticsMultiPerformanceIndicator(Language.trAll("Statistics.XML.Element.TransferStations"),new StatisticsDataPerformanceIndicator(nameStation,secondsToRecordInDistributions,secondsToRecordInDistributions,-1,batchSize,true)));
-		addPerformanceIndicator(stationsProcessingTimes=new StatisticsMultiPerformanceIndicator(Language.trAll("Statistics.XML.Element.ProcessStations"),new StatisticsDataPerformanceIndicator(nameStation,secondsToRecordInDistributions,secondsToRecordInDistributions,-1,batchSize,true)));
-		addPerformanceIndicator(stationsResidenceTimes=new StatisticsMultiPerformanceIndicator(Language.trAll("Statistics.XML.Element.ResidenceStations"),new StatisticsDataPerformanceIndicator(nameStation,secondsToRecordInDistributions,secondsToRecordInDistributions,-1,batchSize,true)));
-		addPerformanceIndicator(stationsTotalWaitingTimes=new StatisticsMultiPerformanceIndicator(Language.trAll("Statistics.XML.Element.WaitingStationsTotal"),new StatisticsDataPerformanceIndicator(nameStation,secondsToRecordInDistributions,secondsToRecordInDistributions,rangeFull,batchSize,true)));
-		addPerformanceIndicator(stationsTotalTransferTimes=new StatisticsMultiPerformanceIndicator(Language.trAll("Statistics.XML.Element.TransferStationsTotal"),new StatisticsDataPerformanceIndicator(nameStation,secondsToRecordInDistributions,secondsToRecordInDistributions,-1,batchSize,true)));
-		addPerformanceIndicator(stationsTotalProcessingTimes=new StatisticsMultiPerformanceIndicator(Language.trAll("Statistics.XML.Element.ProcessStationsTotal"),new StatisticsDataPerformanceIndicator(nameStation,secondsToRecordInDistributions,secondsToRecordInDistributions,-1,batchSize,true)));
-		addPerformanceIndicator(stationsTotalResidenceTimes=new StatisticsMultiPerformanceIndicator(Language.trAll("Statistics.XML.Element.ResidenceStationsTotal"),new StatisticsDataPerformanceIndicator(nameStation,secondsToRecordInDistributions,secondsToRecordInDistributions,-1,batchSize,true)));
-		addPerformanceIndicator(stationsWaitingTimesByClientType=new StatisticsMultiPerformanceIndicator(Language.trAll("Statistics.XML.Element.WaitingStationsByClientType"),new StatisticsDataPerformanceIndicator(nameStation,secondsToRecordInDistributions,secondsToRecordInDistributions,rangeFull,batchSize,true)));
-		addPerformanceIndicator(stationsTransferTimesByClientType=new StatisticsMultiPerformanceIndicator(Language.trAll("Statistics.XML.Element.TransferStationsByClientType"),new StatisticsDataPerformanceIndicator(nameStation,secondsToRecordInDistributions,secondsToRecordInDistributions,-1,batchSize,true)));
-		addPerformanceIndicator(stationsProcessingTimesByClientType=new StatisticsMultiPerformanceIndicator(Language.trAll("Statistics.XML.Element.ProcessStationsByClientType"),new StatisticsDataPerformanceIndicator(nameStation,secondsToRecordInDistributions,secondsToRecordInDistributions,-1,batchSize,true)));
-		addPerformanceIndicator(stationsResidenceTimesByClientType=new StatisticsMultiPerformanceIndicator(Language.trAll("Statistics.XML.Element.ResidenceStationsByClientType"),new StatisticsDataPerformanceIndicator(nameStation,secondsToRecordInDistributions,secondsToRecordInDistributions,-1,batchSize,true)));
+		addPerformanceIndicator(stationsWaitingTimes=new StatisticsMultiPerformanceIndicator(Language.trAll("Statistics.XML.Element.WaitingStations"),new StatisticsDataPerformanceIndicator(nameStation,secondsToRecordInDistributions,secondsToRecordInDistributions,rangeFull,batchSize,useWelford,true)));
+		addPerformanceIndicator(stationsTransferTimes=new StatisticsMultiPerformanceIndicator(Language.trAll("Statistics.XML.Element.TransferStations"),new StatisticsDataPerformanceIndicator(nameStation,secondsToRecordInDistributions,secondsToRecordInDistributions,-1,batchSize,useWelford,true)));
+		addPerformanceIndicator(stationsProcessingTimes=new StatisticsMultiPerformanceIndicator(Language.trAll("Statistics.XML.Element.ProcessStations"),new StatisticsDataPerformanceIndicator(nameStation,secondsToRecordInDistributions,secondsToRecordInDistributions,-1,batchSize,useWelford,true)));
+		addPerformanceIndicator(stationsResidenceTimes=new StatisticsMultiPerformanceIndicator(Language.trAll("Statistics.XML.Element.ResidenceStations"),new StatisticsDataPerformanceIndicator(nameStation,secondsToRecordInDistributions,secondsToRecordInDistributions,-1,batchSize,useWelford,true)));
+		addPerformanceIndicator(stationsTotalWaitingTimes=new StatisticsMultiPerformanceIndicator(Language.trAll("Statistics.XML.Element.WaitingStationsTotal"),new StatisticsDataPerformanceIndicator(nameStation,secondsToRecordInDistributions,secondsToRecordInDistributions,rangeFull,batchSize,useWelford,true)));
+		addPerformanceIndicator(stationsTotalTransferTimes=new StatisticsMultiPerformanceIndicator(Language.trAll("Statistics.XML.Element.TransferStationsTotal"),new StatisticsDataPerformanceIndicator(nameStation,secondsToRecordInDistributions,secondsToRecordInDistributions,-1,batchSize,useWelford,true)));
+		addPerformanceIndicator(stationsTotalProcessingTimes=new StatisticsMultiPerformanceIndicator(Language.trAll("Statistics.XML.Element.ProcessStationsTotal"),new StatisticsDataPerformanceIndicator(nameStation,secondsToRecordInDistributions,secondsToRecordInDistributions,-1,batchSize,useWelford,true)));
+		addPerformanceIndicator(stationsTotalResidenceTimes=new StatisticsMultiPerformanceIndicator(Language.trAll("Statistics.XML.Element.ResidenceStationsTotal"),new StatisticsDataPerformanceIndicator(nameStation,secondsToRecordInDistributions,secondsToRecordInDistributions,-1,batchSize,useWelford,true)));
+		addPerformanceIndicator(stationsWaitingTimesByClientType=new StatisticsMultiPerformanceIndicator(Language.trAll("Statistics.XML.Element.WaitingStationsByClientType"),new StatisticsDataPerformanceIndicator(nameStation,secondsToRecordInDistributions,secondsToRecordInDistributions,rangeFull,batchSize,useWelford,true)));
+		addPerformanceIndicator(stationsTransferTimesByClientType=new StatisticsMultiPerformanceIndicator(Language.trAll("Statistics.XML.Element.TransferStationsByClientType"),new StatisticsDataPerformanceIndicator(nameStation,secondsToRecordInDistributions,secondsToRecordInDistributions,-1,batchSize,useWelford,true)));
+		addPerformanceIndicator(stationsProcessingTimesByClientType=new StatisticsMultiPerformanceIndicator(Language.trAll("Statistics.XML.Element.ProcessStationsByClientType"),new StatisticsDataPerformanceIndicator(nameStation,secondsToRecordInDistributions,secondsToRecordInDistributions,-1,batchSize,useWelford,true)));
+		addPerformanceIndicator(stationsResidenceTimesByClientType=new StatisticsMultiPerformanceIndicator(Language.trAll("Statistics.XML.Element.ResidenceStationsByClientType"),new StatisticsDataPerformanceIndicator(nameStation,secondsToRecordInDistributions,secondsToRecordInDistributions,-1,batchSize,useWelford,true)));
 
 		/* Anzahlen an Kunden */
 		addPerformanceIndicator(clientsInSystem=new StatisticsTimePerformanceIndicator(Language.trAll("Statistics.XML.Element.ClientsInSystem")));
@@ -662,7 +663,7 @@ public class Statistics extends StatisticsBase {
 		/* Zähler / Differenzzähler / Batch-Zähler */
 		addPerformanceIndicator(counter=new StatisticsMultiPerformanceIndicator(Language.trAll("Statistics.XML.Element.Counter"),new StatisticsSimpleCountPerformanceIndicator(Language.trAll("Statistics.XML.Element.CounterName"))));
 		addPerformanceIndicator(differentialCounter=new StatisticsMultiPerformanceIndicator(Language.trAll("Statistics.XML.Element.DifferenceCounter"),new StatisticsTimePerformanceIndicator(Language.trAll("Statistics.XML.Element.DifferenceCounterName"))));
-		addPerformanceIndicator(counterBatch=new StatisticsMultiPerformanceIndicator(Language.trAll("Statistics.XML.Element.CounterBatch"),new StatisticsDataPerformanceIndicator(Language.trAll("Statistics.XML.Element.CounterBatchName"),dataToRecordInClientDataDistribution,dataToRecordInClientDataDistribution,-1,batchSize,true)));
+		addPerformanceIndicator(counterBatch=new StatisticsMultiPerformanceIndicator(Language.trAll("Statistics.XML.Element.CounterBatch"),new StatisticsDataPerformanceIndicator(Language.trAll("Statistics.XML.Element.CounterBatchName"),dataToRecordInClientDataDistribution,dataToRecordInClientDataDistribution,-1,batchSize,useWelford,true)));
 
 		/* Kosten */
 		addPerformanceIndicator(clientsCostsWaiting=new StatisticsMultiPerformanceIndicator(Language.trAll("Statistics.XML.Element.CostsWaiting"),new StatisticsValuePerformanceIndicator(nameCosts)));
@@ -677,7 +678,7 @@ public class Statistics extends StatisticsBase {
 		addPerformanceIndicator(longRunStatistics=new StatisticsMultiPerformanceIndicator(Language.trAll("Statistics.XML.Expression"),new StatisticsLongRunPerformanceIndicator(nameExpression)));
 
 		/* Nutzerdefinierte Statistik */
-		addPerformanceIndicator(userStatistics=new StatisticsMultiPerformanceIndicator(Language.trAll("Statistics.XML.UserStatistics"),new StatisticsDataPerformanceIndicatorWithNegativeValues(Language.trAll("Statistics.XML.UserStatisticsKey"),dataToRecordInClientDataDistribution,dataToRecordInClientDataDistribution,batchSize,true)));
+		addPerformanceIndicator(userStatistics=new StatisticsMultiPerformanceIndicator(Language.trAll("Statistics.XML.UserStatistics"),new StatisticsDataPerformanceIndicatorWithNegativeValues(Language.trAll("Statistics.XML.UserStatisticsKey"),dataToRecordInClientDataDistribution,dataToRecordInClientDataDistribution,batchSize,useWelford,true)));
 		addPerformanceIndicator(userStatisticsContinuous=new StatisticsMultiPerformanceIndicator(Language.trAll("Statistics.XML.UserStatisticsContinuous"),new StatisticsTimeContinuousPerformanceIndicator(Language.trAll("Statistics.XML.UserStatisticsContinuousKey"))));
 
 		/* Nutzerdefinierte Variablen */
@@ -704,18 +705,19 @@ public class Statistics extends StatisticsBase {
 	/**
 	 * Konstruktor der Klasse <code>Statistics</code>
 	 * @param collectWaitingTimes	Statistik für die Aufzeichnung der Einzel-Wartezeiten vorbereiten?
+	 * @param useWelford	Soll der Welford-Algorithmus zur Erfassung der Varianz verwendet werden? (langsamer, aber bei ganz kleinen Variationskoeffizienten exakter)
 	 */
-	public Statistics(final boolean collectWaitingTimes) {
-		this(-1,CorrelationMode.CORRELATION_MODE_OFF,1,collectWaitingTimes,1,10000);
+	public Statistics(final boolean collectWaitingTimes, final boolean useWelford) {
+		this(-1,CorrelationMode.CORRELATION_MODE_OFF,1,collectWaitingTimes,1,10000,useWelford);
 	}
 
 	/**
 	 * Konstruktor der Klasse <code>Statistics</code><br>
 	 * Es erfolgt keine Erfassung von Autokorrelationsdaten, d.h.
-	 * der Aufruf dieses Konstruktors ist äquivalent zum Aufruf von <code>Statistics(-1,CORRELATION_MODE_OFF,1,false);</code>.
+	 * der Aufruf dieses Konstruktors ist äquivalent zum Aufruf von <code>Statistics(-1,CORRELATION_MODE_OFF,1,false,1,10000,false);</code>.
 	 */
 	public Statistics() {
-		this(-1,CorrelationMode.CORRELATION_MODE_OFF,1,false,1,10000);
+		this(-1,CorrelationMode.CORRELATION_MODE_OFF,1,false,1,10000,false);
 	}
 
 	@Override

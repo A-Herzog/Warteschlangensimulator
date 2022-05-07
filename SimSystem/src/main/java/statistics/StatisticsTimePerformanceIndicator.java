@@ -817,7 +817,7 @@ public final class StatisticsTimePerformanceIndicator extends StatisticsPerforma
 		node.setAttribute(xmlNameSD,NumberTools.formatSystemNumber(getTimeSD(),recycleStringBuilder));
 		node.setAttribute(xmlNameCV,NumberTools.formatSystemNumber(getTimeCV(),recycleStringBuilder));
 		node.setAttribute(xmlNameSk[0],NumberTools.formatSystemNumber(getTimeSk(),recycleStringBuilder));
-		node.setAttribute(xmlNameKurt[0],NumberTools.formatSystemNumber(getTimeKurt(),recycleStringBuilder));
+		node.setAttribute(xmlNameKurt[0],NumberTools.formatSystemNumber(NumberTools.reduceDigits(getTimeKurt(),8),recycleStringBuilder));
 		node.setAttribute(xmlNameMin[0],""+Math.max(0,getTimeMin()));
 		node.setAttribute(xmlNameMax[0],""+Math.max(0,getTimeMax()));
 
@@ -830,11 +830,11 @@ public final class StatisticsTimePerformanceIndicator extends StatisticsPerforma
 
 		if (runCount>0) {
 			node.setAttribute(StatisticsDataPerformanceIndicator.xmlNameRunCount[0],""+runCount);
-			node.setAttribute(StatisticsDataPerformanceIndicator.xmlNameRunVar[0],NumberTools.formatSystemNumber(getRunVar()));
+			node.setAttribute(StatisticsDataPerformanceIndicator.xmlNameRunVar[0],NumberTools.formatSystemNumber(getRunVar(),recycleStringBuilder));
 			for (double level: CONFIDENCE_SAVE_LEVEL) {
 				String s=String.valueOf(Math.round((1-level)*100));
 				double radius=NumberTools.reduceDigits(getRunConfidenceHalfWide(level),8);
-				node.setAttribute(StatisticsDataPerformanceIndicator.xmlNameRunHalfWide[0]+s,NumberTools.formatSystemNumber(radius));
+				node.setAttribute(StatisticsDataPerformanceIndicator.xmlNameRunHalfWide[0]+s,NumberTools.formatSystemNumber(radius,recycleStringBuilder));
 			}
 		}
 	}

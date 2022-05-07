@@ -67,6 +67,9 @@ public class ModelPropertiesDialog extends BaseDialog {
 		/** Dialogseite "Simulation" */
 		SIMULATION(ModelPropertiesDialogPageSimulation.class,()->Language.tr("Editor.Dialog.Tab.Simulation"),Images.MODELPROPERTIES_SIMULATION,InfoPanel.modelSimulation),
 
+		/** Dialogseite "Statistik" */
+		STATISTICS(ModelPropertiesDialogPageStatistics.class,()->Language.tr("Editor.Dialog.Tab.Statistics"),Images.MODELPROPERTIES_STATISTICS,InfoPanel.modelStatistics),
+
 		/** Dialogseite "Kunden" */
 		CLIENTS(ModelPropertiesDialogPageClients.class,()->Language.tr("Editor.Dialog.Tab.Clients"),Images.MODELPROPERTIES_CLIENTS,InfoPanel.modelClients),
 

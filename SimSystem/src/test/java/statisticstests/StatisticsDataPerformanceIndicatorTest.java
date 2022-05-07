@@ -320,7 +320,7 @@ class StatisticsDataPerformanceIndicatorTest {
 		StatisticsDataPerformanceIndicator collector, collector2;
 		double d;
 
-		collector2=new StatisticsDataPerformanceIndicator(new String[]{"xml"},100,100,0,3);
+		collector2=new StatisticsDataPerformanceIndicator(new String[]{"xml"},100,100,0,3,false);
 		collector2.add(0);
 		collector2.add(1);
 		collector2.add(2);
@@ -329,7 +329,7 @@ class StatisticsDataPerformanceIndicatorTest {
 		collector2.add(5);
 		collector2.add(6);
 		collector2=collector2.clone();
-		collector=new StatisticsDataPerformanceIndicator(new String[]{"xml"},100,100,0,3);
+		collector=new StatisticsDataPerformanceIndicator(new String[]{"xml"},100,100,0,3,false);
 		collector.add(collector2);
 
 		assertTrue(!collector2.isCorrelationAvailable());
@@ -355,13 +355,13 @@ class StatisticsDataPerformanceIndicatorTest {
 	void correlationTest() {
 		StatisticsDataPerformanceIndicator collector, collector2;
 
-		collector2=new StatisticsDataPerformanceIndicator(new String[]{"xml"},100,100,100,0);
+		collector2=new StatisticsDataPerformanceIndicator(new String[]{"xml"},100,100,100,0,false);
 		for (int i=0;i<100;i++) {
 			for (int j=0;j<100;j++) collector2.add(j);
 			for (int j=100;j>0;j--) collector2.add(j);
 		}
 		collector2=collector2.clone();
-		collector=new StatisticsDataPerformanceIndicator(new String[]{"xml"},100,100,100,0);
+		collector=new StatisticsDataPerformanceIndicator(new String[]{"xml"},100,100,100,0,false);
 		collector.add(collector2);
 
 		assertTrue(collector2.isCorrelationAvailable());
@@ -386,7 +386,7 @@ class StatisticsDataPerformanceIndicatorTest {
 	void loadTest() {
 		StatisticsDataPerformanceIndicator collector;
 
-		collector=new StatisticsDataPerformanceIndicator(new String[]{"xml"},100,100,100,2);
+		collector=new StatisticsDataPerformanceIndicator(new String[]{"xml"},100,100,100,2,false);
 		collector.add(0);
 		collector.add(1);
 		collector.add(2);

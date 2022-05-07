@@ -22,6 +22,7 @@
   <xs:element ref="ModellZufallszahlenStartwert"/>
   <xs:element ref="ModellAutokorrelation"/>
   <xs:element name="ModellBatchGroesse" type="xs:string"/>
+  <xs:element name="ModellWelfordVerverwenden" type="xs:string"/>
   <xs:element ref="ModellElemente"/>
   <xs:element ref="Ressourcen"/>
   <xs:element ref="KundentypenDaten"/>
@@ -1951,6 +1952,7 @@
 	<xs:attribute name="Summe2" type="xs:string"/>
 	<xs:attribute name="Summe3" type="xs:string"/>
 	<xs:attribute name="Summe4" type="xs:string"/>
+	<xs:attribute name="WelfordM2" type="xs:string"/>
 	<xs:attribute name="Typ" type="xs:string"/>
     <xs:attribute name="Zeit" type="xs:string"/>
 	<xs:attribute name="Variationskoeffizient" type="xs:string"/>
@@ -2264,6 +2266,7 @@
   <xs:element ref="ModelRandomNumbersSeed"/>
   <xs:element ref="ModelAutocorrelation"/>
   <xs:element name="ModelBatchSize" type="xs:string"/>
+  <xs:element name="ModelUseWelford" type="xs:string"/>
   <xs:element ref="ModelElements"/>
   <xs:element ref="Resources"/>
   <xs:element ref="ClientTypeData"/>
@@ -4192,6 +4195,7 @@
 	<xs:attribute name="Sum2" type="xs:string"/>
 	<xs:attribute name="Sum3" type="xs:string"/>
 	<xs:attribute name="Sum4" type="xs:string"/>
+	<xs:attribute name="WelfordM2" type="xs:string"/>
 	<xs:attribute name="Type" type="xs:string"/>
     <xs:attribute name="Time" type="xs:string"/>
 	<xs:attribute name="CoefficientOfVariation" type="xs:string"/>

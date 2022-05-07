@@ -74,6 +74,10 @@ public final class StatisticsDataPerformanceIndicatorWithNegativeValues extends 
 	public static String xmlNameDistributionError="Das Verteilung-Attribut im \"%s\"-Element muss eine Häufigkeitsverteilung enthalten.";
 	/** XML-Attribut für "Quantil" */
 	public static String xmlNameQuantil="Quantil";
+	/** XML-Attribut für "WelfordM2" */
+	public static String[] xmlNameWelfordM2=new String[]{"WelfordM2"};
+	/** Fehlermeldung, wenn das "WelfordM2"-Attribut nicht gelesen werden konnte. */
+	public static String xmlNameWelfordM2Error="Das WelfordM2-Attribut im \"%s\"-Element muss eine nicht-negative Zahl sein, ist aber \"%s\".";
 
 	/**
 	 * Quantile, die aus der Häufigkeitsverteilung berechnet und in der xml-Datei gespeichert werden
@@ -229,6 +233,17 @@ public final class StatisticsDataPerformanceIndicatorWithNegativeValues extends 
 	private long distributionZeroCount;
 
 	/**
+	 * Soll der Welford-Algorithmus zur Erfassung der Varianz verwendet werden? (langsamer, aber bei ganz kleinen Variationskoeffizienten exakter)
+	 */
+	private final boolean useWelford;
+
+	/**
+	 * Fortlaufend erfasster Wert M2 im Welford-Algorithmus
+	 * @see #useWelford
+	 */
+	private double welfordM2;
+
+	/**
 	 * Konstruktor der Klasse <code>StatisticsDataPerformanceIndicatorWthNegativeValues</code>
 	 * Bei der Datenaufzeichnung wird eine Häufigkeitsverteilung der Werte angelegt
 	 * @param xmlNodeNames	Name des xml-Knotens, in dem die Daten gespeichert werden sollen
@@ -236,7 +251,7 @@ public final class StatisticsDataPerformanceIndicatorWithNegativeValues extends 
 	 * @param steps	Gibt an, wie viele einzelne Werte für die Häufigkeitsverteilung vorgehalten werden sollen
 	 */
 	public StatisticsDataPerformanceIndicatorWithNegativeValues(final String[] xmlNodeNames, final double upperBound, final int steps) {
-		this(xmlNodeNames,upperBound,steps,1,false);
+		this(xmlNodeNames,upperBound,steps,1,false,false);
 	}
 
 	/**
@@ -248,7 +263,7 @@ public final class StatisticsDataPerformanceIndicatorWithNegativeValues extends 
 	 * @param isEmpty	Gibt an, ob es sich bei diesem Objekt um eine leere Kopiervorlage handelt
 	 */
 	public StatisticsDataPerformanceIndicatorWithNegativeValues(final String[] xmlNodeNames, final double upperBound, final int steps, final boolean isEmpty) {
-		this(xmlNodeNames,upperBound,steps,1,isEmpty);
+		this(xmlNodeNames,upperBound,steps,1,false,isEmpty);
 	}
 
 	/**
@@ -258,9 +273,10 @@ public final class StatisticsDataPerformanceIndicatorWithNegativeValues extends 
 	 * @param upperBound	Gibt die Obergrenze des Trägers der Häufigkeitsverteilung an
 	 * @param steps	Gibt an, wie viele einzelne Werte für die Häufigkeitsverteilung vorgehalten werden sollen
 	 * @param batchSize	Wird hier ein Wert &gt;1 übergeben, so werden Batch-Means erfasst, auf deren Basis später Konfidenzintervalle bestimmt werden können
+	 * @param useWelford	Soll der Welford-Algorithmus zur Erfassung der Varianz verwendet werden? (langsamer, aber bei ganz kleinen Variationskoeffizienten exakter)
 	 * @param isEmpty	Gibt an, ob es sich bei diesem Objekt um eine leere Kopiervorlage handelt
 	 */
-	public StatisticsDataPerformanceIndicatorWithNegativeValues(final String[] xmlNodeNames, final double upperBound, final int steps, final int batchSize, final boolean isEmpty) {
+	public StatisticsDataPerformanceIndicatorWithNegativeValues(final String[] xmlNodeNames, final double upperBound, final int steps, final int batchSize, final boolean useWelford, final boolean isEmpty) {
 		super(xmlNodeNames);
 		this.upperBound=upperBound;
 		this.steps=steps;
@@ -274,6 +290,8 @@ public final class StatisticsDataPerformanceIndicatorWithNegativeValues extends 
 		}
 
 		this.batchSize=batchSize;
+
+		this.useWelford=useWelford;
 
 		reset();
 	}
@@ -359,7 +377,32 @@ public final class StatisticsDataPerformanceIndicatorWithNegativeValues extends 
 				batchTempCount=0;
 			}
 		}
+
+		if (useWelford) {
+			if (count>1) {
+				/* https://en.wikipedia.org/wiki/Algorithms_for_calculating_variance */
+				if (!hasLastWelfordMean) lastWelfordMean=(sum-value)/(count-1);
+				final double delta=value-lastWelfordMean;
+				final double newMean=sum/count;
+				final double delta2=value-newMean;
+				welfordM2+=delta*delta2;
+				hasLastWelfordMean=true;
+				lastWelfordMean=newMean;
+			} else {
+				welfordM2=0;
+			}
+		}
 	}
+
+	/**
+	 * Ist der Wert in {@link #lastWelfordMean} gültig.
+	 */
+	private boolean hasLastWelfordMean;
+
+	/**
+	 * Bisheriger Mittelwert beim letzten Aufruf von {@link #add(double)}
+	 */
+	private double lastWelfordMean;
 
 	/**
 	 * Fügt mehrere gleiche Werte zu der Messreihe hinzu.
@@ -368,6 +411,12 @@ public final class StatisticsDataPerformanceIndicatorWithNegativeValues extends 
 	 */
 	public void add(final double value, final long count) {
 		if (count<1) return;
+
+		if (batchSize>1 || useWelford) {
+			/* Werte einzeln hinzufügen */
+			for (long l=1;l<=count;l++) add(value);
+			return;
+		}
 
 		/* Anzahl */
 		last=value;
@@ -439,6 +488,8 @@ public final class StatisticsDataPerformanceIndicatorWithNegativeValues extends 
 			}
 		}
 
+		final long countOld=count;
+		final double oldMean=getMean();
 		count+=moreDataStatistics.count;
 		sum+=moreDataStatistics.sum;
 		squaredSum+=moreDataStatistics.squaredSum;
@@ -471,6 +522,15 @@ public final class StatisticsDataPerformanceIndicatorWithNegativeValues extends 
 		runSum+=moreDataStatistics.runSum;
 		runSum2+=moreDataStatistics.runSum2;
 		if (moreDataStatistics.runVar>0) runVar=moreDataStatistics.runVar;
+
+		/* Welford */
+		if (useWelford && moreDataStatistics.useWelford) {
+			/* https://en.wikipedia.org/wiki/Algorithms_for_calculating_variance */
+			final double delta=oldMean-moreDataStatistics.getMean();
+			welfordM2=welfordM2+moreDataStatistics.welfordM2+delta*delta*countOld*moreDataStatistics.count/(countOld+moreDataStatistics.count);
+		} else {
+			welfordM2=-1;
+		}
 	}
 
 	/**
@@ -506,6 +566,10 @@ public final class StatisticsDataPerformanceIndicatorWithNegativeValues extends 
 		runSum=0;
 		runSum2=0;
 		runVar=0;
+
+		/* Welford */
+		welfordM2=-1;
+		hasLastWelfordMean=false;
 	}
 
 	/**
@@ -548,6 +612,9 @@ public final class StatisticsDataPerformanceIndicatorWithNegativeValues extends 
 		runSum=data.runSum;
 		runSum2=data.runSum2;
 		runVar=data.runVar;
+
+		/* Welford */
+		welfordM2=data.welfordM2;
 	}
 
 	/**
@@ -556,7 +623,7 @@ public final class StatisticsDataPerformanceIndicatorWithNegativeValues extends 
 	 */
 	@Override
 	public StatisticsDataPerformanceIndicatorWithNegativeValues clone() {
-		final StatisticsDataPerformanceIndicatorWithNegativeValues indicator=new StatisticsDataPerformanceIndicatorWithNegativeValues(xmlNodeNames,upperBound,steps,batchSize,false);
+		final StatisticsDataPerformanceIndicatorWithNegativeValues indicator=new StatisticsDataPerformanceIndicatorWithNegativeValues(xmlNodeNames,upperBound,steps,batchSize,useWelford,false);
 		indicator.copyDataFrom(this);
 		return indicator;
 	}
@@ -568,7 +635,7 @@ public final class StatisticsDataPerformanceIndicatorWithNegativeValues extends 
 	 */
 	@Override
 	public StatisticsDataPerformanceIndicatorWithNegativeValues cloneEmpty() {
-		return new StatisticsDataPerformanceIndicatorWithNegativeValues(xmlNodeNames,upperBound,steps,batchSize,false);
+		return new StatisticsDataPerformanceIndicatorWithNegativeValues(xmlNodeNames,upperBound,steps,batchSize,useWelford,false);
 	}
 
 	/**
@@ -681,8 +748,15 @@ public final class StatisticsDataPerformanceIndicatorWithNegativeValues extends 
 	public double getSD() {
 		if (count<2) return 0;
 		if (max==min) return 0;
-		final double v=squaredSum/(count-1)-(sum*sum)/count/(count-1);
-		return StrictMath.sqrt(Math.max(0,v));
+
+		final double v;
+		if (useWelford && welfordM2>=0) {
+			/* https://en.wikipedia.org/wiki/Algorithms_for_calculating_variance */
+			v=welfordM2/(count-1);
+		} else {
+			v=squaredSum/(count-1)-(sum*sum)/count/(count-1);
+		}
+		return Math.sqrt(Math.max(0,v));
 	}
 
 	/**
@@ -692,7 +766,14 @@ public final class StatisticsDataPerformanceIndicatorWithNegativeValues extends 
 	public double getVar() {
 		if (count<2) return 0;
 		if (max==min) return 0;
-		final double v=squaredSum/(count-1)-(sum*sum)/count/(count-1);
+
+		final double v;
+		if (useWelford && welfordM2>=0) {
+			/* https://en.wikipedia.org/wiki/Algorithms_for_calculating_variance */
+			v=welfordM2/(count-1);
+		} else {
+			v=squaredSum/(count-1)-(sum*sum)/count/(count-1);
+		}
 		return Math.max(0,v);
 	}
 
@@ -1017,28 +1098,28 @@ public final class StatisticsDataPerformanceIndicatorWithNegativeValues extends 
 		node.setAttribute(xmlNameSD[0],NumberTools.formatSystemNumber(getSD(),recycleStringBuilder));
 		node.setAttribute(xmlNameCV[0],NumberTools.formatSystemNumber(getCV(),recycleStringBuilder));
 		node.setAttribute(xmlNameSk[0],NumberTools.formatSystemNumber(getSk(),recycleStringBuilder));
-		node.setAttribute(xmlNameKurt[0],NumberTools.formatSystemNumber(getKurt(),recycleStringBuilder));
+		node.setAttribute(xmlNameKurt[0],NumberTools.formatSystemNumber(NumberTools.reduceDigits(getKurt(),8),recycleStringBuilder));
 		node.setAttribute(xmlNameMin[0],NumberTools.formatSystemNumber(getMin(),recycleStringBuilder));
 		node.setAttribute(xmlNameMax[0],NumberTools.formatSystemNumber(getMax(),recycleStringBuilder));
 
 		if (batchMeansCount>0) {
 			node.setAttribute(StatisticsDataPerformanceIndicator.xmlNameBatchSize[0],""+batchSize);
 			node.setAttribute(StatisticsDataPerformanceIndicator.xmlNameBatchCount[0],""+batchMeansCount);
-			node.setAttribute(StatisticsDataPerformanceIndicator.xmlNameBatchMeansVar[0],NumberTools.formatSystemNumber(getBatchVar()));
+			node.setAttribute(StatisticsDataPerformanceIndicator.xmlNameBatchMeansVar[0],NumberTools.formatSystemNumber(getBatchVar(),recycleStringBuilder));
 			for (double level: CONFIDENCE_SAVE_LEVEL) {
 				String s=String.valueOf(Math.round((1-level)*100));
 				double radius=NumberTools.reduceDigits(getBatchMeanConfidenceHalfWide(level),8);
-				node.setAttribute(StatisticsDataPerformanceIndicator.xmlNameMeanBatchHalfWide[0]+s,NumberTools.formatSystemNumber(radius));
+				node.setAttribute(StatisticsDataPerformanceIndicator.xmlNameMeanBatchHalfWide[0]+s,NumberTools.formatSystemNumber(radius,recycleStringBuilder));
 			}
 		}
 
 		if (runCount>1) {
 			node.setAttribute(StatisticsDataPerformanceIndicator.xmlNameRunCount[0],""+runCount);
-			node.setAttribute(StatisticsDataPerformanceIndicator.xmlNameRunVar[0],NumberTools.formatSystemNumber(getRunVar()));
+			node.setAttribute(StatisticsDataPerformanceIndicator.xmlNameRunVar[0],NumberTools.formatSystemNumber(getRunVar(),recycleStringBuilder));
 			for (double level: CONFIDENCE_SAVE_LEVEL) {
 				String s=String.valueOf(Math.round((1-level)*100));
 				double radius=NumberTools.reduceDigits(getRunConfidenceHalfWide(level),8);
-				node.setAttribute(StatisticsDataPerformanceIndicator.xmlNameRunHalfWide[0]+s,NumberTools.formatSystemNumber(radius));
+				node.setAttribute(StatisticsDataPerformanceIndicator.xmlNameRunHalfWide[0]+s,NumberTools.formatSystemNumber(radius,recycleStringBuilder));
 			}
 		}
 
@@ -1051,6 +1132,10 @@ public final class StatisticsDataPerformanceIndicatorWithNegativeValues extends 
 			for (int i=0;i<storeQuantilValues.length;i++) {
 				node.setAttribute(xmlNameQuantil+Math.round(storeQuantilValues[i]*100),NumberTools.formatSystemNumber(quantils[i],recycleStringBuilder));
 			}
+		}
+
+		if (useWelford && welfordM2>=0) {
+			node.setAttribute(xmlNameWelfordM2[0],NumberTools.formatSystemNumber(welfordM2,recycleStringBuilder));
 		}
 	}
 
@@ -1124,7 +1209,6 @@ public final class StatisticsDataPerformanceIndicatorWithNegativeValues extends 
 			}
 		}
 
-
 		value=getAttributeValue(node,StatisticsDataPerformanceIndicator.xmlNameBatchSize);
 		if (!value.isEmpty()) {
 			Long L=NumberTools.getPositiveLong(value);
@@ -1163,6 +1247,13 @@ public final class StatisticsDataPerformanceIndicatorWithNegativeValues extends 
 			} else {
 				runVar=D.doubleValue();
 			}
+		}
+
+		value=getAttributeValue(node,xmlNameWelfordM2);
+		if (!value.isEmpty()) {
+			Double D=NumberTools.getNotNegativeDouble(NumberTools.systemNumberToLocalNumber(value));
+			if (D==null) return String.format(xmlNameWelfordM2Error,node.getNodeName(),value);
+			welfordM2=D.doubleValue();
 		}
 
 		return null;

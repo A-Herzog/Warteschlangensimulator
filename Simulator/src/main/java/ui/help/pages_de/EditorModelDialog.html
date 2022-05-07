@@ -127,29 +127,6 @@ mehrfach wiederholt wird. In der Statistik werden dann die Daten der
 Wiederholungen zusammengefasst.
 </p>
 
-<h3>In Verteilungen aufzuzeichnende Stunden</h3>
-<p>
-In diesem Feld kann eingestellt werden, wie weit die Verteilung zur Erfassung
-der Häufigkeit von konkreten Zeitwerten wie Wartezeiten usw. reichen soll.
-Der Standardwert beträgt eine Stunde, d.h. alle Wartezeiten, die länger als
-eine Stunde gedauert haben, werden der Häufigkeit von einer Stunde zugeordnet.
-Je höher also dieser Wert gewählt wird, für desto größere Werte können noch
-die Häufigkeiten exakt erfasst werden, aber auch desto mehr Speicher wird
-für die Simulation benötigt. Die Erfassung der übrigen Kenngrößen
-(wie Mittelwerten usw.) erfolgt unabhängig von dieser Einstellung immer exakt. 
-</p>
-
-<h3>In Kundendaten-Verteilungen aufzuzeichnende Werte</h3>
-<p>
-In diesem Feld kann eingestellt werden, wie weit die Verteilung zur Erfassung
-der Häufigkeit von konkreten Zahlenwerten in Kundendatenfeldern und nutzerdefinierten
-Statistiken reichen soll. Der Standardwert beträgt 10.000.
-Je höher also dieser Wert gewählt wird, für desto größere Werte können noch
-die Häufigkeiten exakt erfasst werden, aber auch desto mehr Speicher wird
-für die Simulation benötigt. Die Erfassung der übrigen Kenngrößen
-(wie Mittelwerten usw.) erfolgt unabhängig von dieser Einstellung immer exakt.
-</p>
-
 <h3>Simulation abbrechen, wenn ein Rechenausdruck nicht ausgerechnet werden kann.</h3>
 <p>
 Kann während einer laufenden Simulation ein Rechenausdruck nicht ausgewertet werden,
@@ -178,6 +155,44 @@ System nie verlassen und folglich auch nicht erfasst werden. In diesem Fall kann
 sein, diese Option zu aktivieren, um auch die Statistikdaten der im System verbliebenen
 Kunden in die Statistikaufzeichnung zu übernehmen. Allerdings verlangsamt diese Funktion die
 Simulation als solches.
+</p>
+
+
+
+<h2><img src="../images/sum.png">&nbsp; Statistik</h2>
+
+<h3>In Verteilungen aufzuzeichnende Stunden</h3>
+<p>
+In diesem Feld kann eingestellt werden, wie weit die Verteilung zur Erfassung
+der Häufigkeit von konkreten Zeitwerten wie Wartezeiten usw. reichen soll.
+Der Standardwert beträgt eine Stunde, d.h. alle Wartezeiten, die länger als
+eine Stunde gedauert haben, werden der Häufigkeit von einer Stunde zugeordnet.
+Je höher also dieser Wert gewählt wird, für desto größere Werte können noch
+die Häufigkeiten exakt erfasst werden, aber auch desto mehr Speicher wird
+für die Simulation benötigt. Die Erfassung der übrigen Kenngrößen
+(wie Mittelwerten usw.) erfolgt unabhängig von dieser Einstellung immer exakt. 
+</p>
+
+<h3>In Kundendaten-Verteilungen aufzuzeichnende Werte</h3>
+<p>
+In diesem Feld kann eingestellt werden, wie weit die Verteilung zur Erfassung
+der Häufigkeit von konkreten Zahlenwerten in Kundendatenfeldern und nutzerdefinierten
+Statistiken reichen soll. Der Standardwert beträgt 10.000.
+Je höher also dieser Wert gewählt wird, für desto größere Werte können noch
+die Häufigkeiten exakt erfasst werden, aber auch desto mehr Speicher wird
+für die Simulation benötigt. Die Erfassung der übrigen Kenngrößen
+(wie Mittelwerten usw.) erfolgt unabhängig von dieser Einstellung immer exakt.
+</p>
+
+<h3>Precision of variance recording</h3>
+<p>
+The variances of performance indicators can be recorded in two different ways during a simulation.
+The default method of recording the moments of the measurement series is very fast and provides
+numerically precise results in most cases relevant in queueing theory. Only for probability
+distributions with a coefficient of variation of 0.01 and smaller numerical instabilities may occur,
+reducing the output precision. The Welford online algorithm does not have these problems and always
+delivers numerically precise results. However, significantly more computing time is required for
+statistics collection during the simulation.
 </p>
 
 

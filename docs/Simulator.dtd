@@ -4,7 +4,7 @@
 
 <!-- Beschreibung der Modell-Dateien -->
 
-<!ELEMENT Modell (ModellVersion | ModellName | ModellAutor | ModellAutorEMail | ModellBeschreibung | ModellAufwaermphase | ModellWiederholungen | ModellKunden | ModellAbbruchbedingung | ModellAbbruchzeit | ModellAbbruchKonfidenz | ModellZufallszahlenStartwert | ModellAutokorrelation | ModellBatchGroesse | ModellElemente | Ressourcen | KundentypenDaten | ModellZeitplaene | ModellZusatzStatistik | InitialeVariable | ModellVariablenAufzeichnen | InitialeZuordnung | ModellFarbe | ModellHintergrundBild | ModellFertigungsplaene | ModellTransporterListe | ModellPfadsegmente | ModellAnimationsBilder | ModellStatistikVerteilungStunden | ModellStatistikVerteilungWerte | ModellBeiRechenfehlerAbbrechen | ModellKantenNormal | ModellKantenSelektiert | ModellElementVerbindungsdarstellungsart | ModellZeitabhaengigePruefungen | ModellPfadaufzeichnung | ModellKundenStationenZeitSummeAufzeichnen | ModellUnvollstaendigeKundenAufzeichnung | Benutzervorlagen | ExterneDaten | ModellPluginsVerzeichnis | ModellJavaImports | GespeicherteAnsicht | KiritischeStationenSignatur)*>
+<!ELEMENT Modell (ModellVersion | ModellName | ModellAutor | ModellAutorEMail | ModellBeschreibung | ModellAufwaermphase | ModellWiederholungen | ModellKunden | ModellAbbruchbedingung | ModellAbbruchzeit | ModellAbbruchKonfidenz | ModellZufallszahlenStartwert | ModellAutokorrelation | ModellBatchGroesse | ModellWelfordVerverwenden | ModellElemente | Ressourcen | KundentypenDaten | ModellZeitplaene | ModellZusatzStatistik | InitialeVariable | ModellVariablenAufzeichnen | InitialeZuordnung | ModellFarbe | ModellHintergrundBild | ModellFertigungsplaene | ModellTransporterListe | ModellPfadsegmente | ModellAnimationsBilder | ModellStatistikVerteilungStunden | ModellStatistikVerteilungWerte | ModellBeiRechenfehlerAbbrechen | ModellKantenNormal | ModellKantenSelektiert | ModellElementVerbindungsdarstellungsart | ModellZeitabhaengigePruefungen | ModellPfadaufzeichnung | ModellKundenStationenZeitSummeAufzeichnen | ModellUnvollstaendigeKundenAufzeichnung | Benutzervorlagen | ExterneDaten | ModellPluginsVerzeichnis | ModellJavaImports | GespeicherteAnsicht | KiritischeStationenSignatur)*>
 <!ATTLIST Modell
   xmlns					CDATA	#IMPLIED
   xmlns:xsi				CDATA	#IMPLIED
@@ -51,6 +51,8 @@
 >
 
 <!ELEMENT ModellBatchGroesse (#PCDATA)>
+
+<!ELEMENT ModellWelfordVerverwenden (#PCDATA)>
 
 <!ELEMENT Ressourcen (Ressource)*>
 <!ATTLIST Ressourcen
@@ -1770,6 +1772,7 @@
   Summe2						CDATA	#IMPLIED
   Summe3						CDATA	#IMPLIED
   Summe4						CDATA	#IMPLIED
+  WelfordM2						CDATA	#IMPLIED
   Typ							CDATA	#REQUIRED
   Variationskoeffizient			CDATA	#REQUIRED
   Schiefe						CDATA	#IMPLIED
@@ -1815,6 +1818,7 @@
   Summe2						CDATA	#IMPLIED
   Summe3						CDATA	#IMPLIED
   Summe4						CDATA	#IMPLIED
+  WelfordM2						CDATA	#IMPLIED
   Typ							CDATA	#REQUIRED
   Variationskoeffizient			CDATA	#REQUIRED
   Schiefe						CDATA	#IMPLIED
@@ -1870,6 +1874,7 @@
   Summe2						CDATA	#IMPLIED
   Summe3						CDATA	#IMPLIED
   Summe4						CDATA	#IMPLIED
+  WelfordM2						CDATA	#IMPLIED
   Typ							CDATA	#REQUIRED
   Variationskoeffizient			CDATA	#REQUIRED
   Schiefe						CDATA	#IMPLIED
@@ -1893,6 +1898,7 @@
   Summe2				CDATA	#IMPLIED
   Summe3				CDATA	#IMPLIED
   Summe4				CDATA	#IMPLIED
+  WelfordM2				CDATA	#IMPLIED
   Typ					CDATA	#REQUIRED
   Variationskoeffizient	CDATA	#REQUIRED
   Schiefe				CDATA	#IMPLIED
@@ -1918,6 +1924,7 @@
   Summe2				CDATA	#IMPLIED
   Summe3				CDATA	#IMPLIED
   Summe4				CDATA	#IMPLIED
+  WelfordM2				CDATA	#IMPLIED
   Typ					CDATA	#REQUIRED
   Variationskoeffizient	CDATA	#REQUIRED
   Schiefe				CDATA	#IMPLIED
@@ -1949,6 +1956,7 @@
   Summe2				CDATA	#IMPLIED
   Summe3				CDATA	#IMPLIED
   Summe4				CDATA	#IMPLIED
+  WelfordM2				CDATA	#IMPLIED
   Typ					CDATA	#REQUIRED
   Variationskoeffizient	CDATA	#REQUIRED
   Schiefe				CDATA	#IMPLIED
@@ -1980,6 +1988,7 @@
   Summe2				CDATA	#IMPLIED
   Summe3				CDATA	#IMPLIED
   Summe4				CDATA	#IMPLIED
+  WelfordM2				CDATA	#IMPLIED
   Variationskoeffizient	CDATA	#REQUIRED
   Schiefe				CDATA	#IMPLIED
   Kurt					CDATA	#IMPLIED
@@ -2002,6 +2011,7 @@
   Summe2				CDATA	#IMPLIED
   Summe3				CDATA	#IMPLIED
   Summe4				CDATA	#IMPLIED
+  WelfordM2				CDATA	#IMPLIED
   Typ					CDATA	#REQUIRED
   Variationskoeffizient	CDATA	#REQUIRED
   Schiefe				CDATA	#IMPLIED
@@ -2051,6 +2061,7 @@
   Summe2						CDATA	#IMPLIED
   Summe3						CDATA	#IMPLIED
   Summe4						CDATA	#IMPLIED
+  WelfordM2						CDATA	#IMPLIED
   Variationskoeffizient			CDATA	#REQUIRED
   Schiefe						CDATA	#IMPLIED
   Kurt							CDATA	#IMPLIED
@@ -2089,6 +2100,7 @@
   Summe2				CDATA	#IMPLIED
   Summe3				CDATA	#IMPLIED
   Summe4				CDATA	#IMPLIED
+  WelfordM2				CDATA	#IMPLIED
   Variationskoeffizient	CDATA	#REQUIRED
   Schiefe				CDATA	#IMPLIED
   Kurt					CDATA	#IMPLIED
@@ -2110,6 +2122,7 @@
   Summe2				CDATA	#IMPLIED
   Summe3				CDATA	#IMPLIED
   Summe4				CDATA	#IMPLIED
+  WelfordM2				CDATA	#IMPLIED
   Variationskoeffizient	CDATA	#REQUIRED
   Schiefe				CDATA	#IMPLIED
   Kurt					CDATA	#IMPLIED
@@ -2131,6 +2144,7 @@
   Summe2				CDATA	#IMPLIED
   Summe3				CDATA	#IMPLIED
   Summe4				CDATA	#IMPLIED
+  WelfordM2				CDATA	#IMPLIED
   Variationskoeffizient	CDATA	#REQUIRED
   Schiefe				CDATA	#IMPLIED
   Kurt					CDATA	#IMPLIED
@@ -2164,6 +2178,7 @@
   Summe2				CDATA	#IMPLIED
   Summe3				CDATA	#IMPLIED
   Summe4				CDATA	#IMPLIED
+  WelfordM2				CDATA	#IMPLIED
   Variationskoeffizient	CDATA	#REQUIRED
   Schiefe				CDATA	#IMPLIED
   Kurt					CDATA	#IMPLIED
@@ -2187,6 +2202,7 @@
   Summe2				CDATA	#IMPLIED
   Summe3				CDATA	#IMPLIED
   Summe4				CDATA	#IMPLIED
+  WelfordM2				CDATA	#IMPLIED
   Variationskoeffizient	CDATA	#REQUIRED
   Schiefe				CDATA	#IMPLIED
   Kurt					CDATA	#IMPLIED
@@ -2210,6 +2226,7 @@
   Summe2				CDATA	#IMPLIED
   Summe3				CDATA	#IMPLIED
   Summe4				CDATA	#IMPLIED
+  WelfordM2				CDATA	#IMPLIED
   Variationskoeffizient	CDATA	#REQUIRED
   Schiefe				CDATA	#IMPLIED
   Kurt					CDATA	#IMPLIED
@@ -2244,6 +2261,7 @@
   Summe2				CDATA	#IMPLIED
   Summe3				CDATA	#IMPLIED
   Summe4				CDATA	#IMPLIED
+  WelfordM2				CDATA	#IMPLIED
   Typ					CDATA	#REQUIRED
   Variationskoeffizient	CDATA	#REQUIRED
   Schiefe				CDATA	#IMPLIED
@@ -2289,6 +2307,7 @@
   Summe2						CDATA	#IMPLIED
   Summe3						CDATA	#IMPLIED
   Summe4						CDATA	#IMPLIED
+  WelfordM2						CDATA	#IMPLIED
   Variationskoeffizient			CDATA	#REQUIRED
   Schiefe						CDATA	#IMPLIED
   Kurt							CDATA	#IMPLIED
@@ -2328,6 +2347,7 @@
   Summe2				CDATA	#IMPLIED
   Summe3				CDATA	#IMPLIED
   Summe4				CDATA	#IMPLIED
+  WelfordM2				CDATA	#IMPLIED
   Typ					CDATA	#REQUIRED
   Variationskoeffizient	CDATA	#REQUIRED
   Schiefe				CDATA	#IMPLIED
@@ -2348,6 +2368,7 @@
   Summe2				CDATA	#IMPLIED
   Summe3				CDATA	#IMPLIED
   Summe4				CDATA	#IMPLIED
+  WelfordM2				CDATA	#IMPLIED
   Typ					CDATA	#REQUIRED
   Variationskoeffizient	CDATA	#REQUIRED
   Schiefe				CDATA	#IMPLIED
@@ -2457,7 +2478,7 @@
 
 <!-- Documentation of the model files -->
 
-<!ELEMENT Model (ModelVersion | ModelName | ModelAuthor | ModelAuthorEMail | ModelDescription | ModelWarmUpPhase | ModelRepeats | ModelClients |  ModelTerminationCondition | ModelTerminationTime | ModelTerminationConfidence | ModelRandomNumbersSeed | ModelAutocorrelation | ModelBatchSize | ModelElements | Resources | ClientTypeData | ModelSchedules | ModelAdditionalStatistics | InitialVariable | ModelVariableRecording | InitialMap | ModelColor | ModelBackgroundImage | ModelSequences | ModelTransporters | ModelPathSegments | ModelAnimationImages | ModelStatisticsDistributionHours | ModelStatisticsDistributionValues | ModelStoppOnCalcError | ModelEdgesNormal | ModelEdgesSelected | ModelElementConnectionDrawStyle | ModelTimedChecks | ModelPathRecording | ModelRecordClientStationTimeSum | ModelRecordIncompleteClients | UserTemplates | ExternalData | ModelPluginsFolder| ModelJavaImports | SavedView | CriticalStationsSignature)*>
+<!ELEMENT Model (ModelVersion | ModelName | ModelAuthor | ModelAuthorEMail | ModelDescription | ModelWarmUpPhase | ModelRepeats | ModelClients |  ModelTerminationCondition | ModelTerminationTime | ModelTerminationConfidence | ModelRandomNumbersSeed | ModelAutocorrelation | ModelBatchSize | ModelUseWelford | ModelElements | Resources | ClientTypeData | ModelSchedules | ModelAdditionalStatistics | InitialVariable | ModelVariableRecording | InitialMap | ModelColor | ModelBackgroundImage | ModelSequences | ModelTransporters | ModelPathSegments | ModelAnimationImages | ModelStatisticsDistributionHours | ModelStatisticsDistributionValues | ModelStoppOnCalcError | ModelEdgesNormal | ModelEdgesSelected | ModelElementConnectionDrawStyle | ModelTimedChecks | ModelPathRecording | ModelRecordClientStationTimeSum | ModelRecordIncompleteClients | UserTemplates | ExternalData | ModelPluginsFolder| ModelJavaImports | SavedView | CriticalStationsSignature)*>
 <!ATTLIST Model
   xmlns	CDATA	#IMPLIED
   xmlns:xsi	CDATA	#IMPLIED
@@ -2504,6 +2525,8 @@
 >
 
 <!ELEMENT ModelBatchSize (#PCDATA)>
+
+<!ELEMENT ModelUseWelford (#PCDATA)>
 
 <!ELEMENT Resources (Resource)*>
 <!ATTLIST Resources
@@ -4223,6 +4246,7 @@
   Sum2						CDATA	#IMPLIED
   Sum3						CDATA	#IMPLIED
   Sum4						CDATA	#IMPLIED
+  WelfordM2					CDATA	#IMPLIED
   Type						CDATA	#REQUIRED
   CoefficientOfVariation	CDATA	#REQUIRED
   Skewness					CDATA	#IMPLIED
@@ -4268,6 +4292,7 @@
   Sum2						CDATA	#IMPLIED
   Sum3						CDATA	#IMPLIED
   Sum4						CDATA	#IMPLIED
+  WelfordM2					CDATA	#IMPLIED
   Type						CDATA	#REQUIRED
   CoefficientOfVariation	CDATA	#REQUIRED
   Skewness					CDATA	#IMPLIED
@@ -4323,6 +4348,7 @@
   Sum2						CDATA	#IMPLIED
   Sum3						CDATA	#IMPLIED
   Sum4						CDATA	#IMPLIED
+  WelfordM2					CDATA	#IMPLIED
   Type						CDATA	#REQUIRED
   CoefficientOfVariation	CDATA	#REQUIRED
   Skewness					CDATA	#IMPLIED
@@ -4346,6 +4372,7 @@
   Sum2						CDATA	#IMPLIED
   Sum3						CDATA	#IMPLIED
   Sum4						CDATA	#IMPLIED
+  WelfordM2					CDATA	#IMPLIED
   Type						CDATA	#REQUIRED
   CoefficientOfVariation	CDATA	#REQUIRED
   Skewness					CDATA	#IMPLIED
@@ -4371,6 +4398,7 @@
   Sum2						CDATA	#IMPLIED
   Sum3						CDATA	#IMPLIED
   Sum4						CDATA	#IMPLIED
+  WelfordM2					CDATA	#IMPLIED
   Type						CDATA	#REQUIRED
   CoefficientOfVariation	CDATA	#REQUIRED
   Skewness					CDATA	#IMPLIED
@@ -4402,6 +4430,7 @@
   Sum2						CDATA	#IMPLIED
   Sum3						CDATA	#IMPLIED
   Sum4						CDATA	#IMPLIED
+  WelfordM2					CDATA	#IMPLIED
   Type						CDATA	#REQUIRED
   CoefficientOfVariation	CDATA	#REQUIRED
   Skewness					CDATA	#IMPLIED
@@ -4433,6 +4462,7 @@
   Sum2						CDATA	#IMPLIED
   Sum3						CDATA	#IMPLIED
   Sum4						CDATA	#IMPLIED
+  WelfordM2					CDATA	#IMPLIED
   Type						CDATA	#REQUIRED
   CoefficientOfVariation	CDATA	#REQUIRED
   Skewness					CDATA	#IMPLIED
@@ -4456,6 +4486,7 @@
   Sum2						CDATA	#IMPLIED
   Sum3						CDATA	#IMPLIED
   Sum4						CDATA	#IMPLIED
+  WelfordM2					CDATA	#IMPLIED
   Type						CDATA	#REQUIRED
   CoefficientOfVariation	CDATA	#REQUIRED
   Skewness					CDATA	#IMPLIED
@@ -4504,6 +4535,7 @@
   Sum2						CDATA	#IMPLIED
   Sum3						CDATA	#IMPLIED
   Sum4						CDATA	#IMPLIED
+  WelfordM2					CDATA	#IMPLIED
   CoefficientOfVariation	CDATA	#REQUIRED
   Skewness					CDATA	#IMPLIED
   Kurt						CDATA	#IMPLIED
@@ -4542,6 +4574,7 @@
   Sum2						CDATA	#IMPLIED
   Sum3						CDATA	#IMPLIED
   Sum4						CDATA	#IMPLIED
+  WelfordM2					CDATA	#IMPLIED
   CoefficientOfVariation	CDATA	#REQUIRED
   Skewness					CDATA	#IMPLIED
   Kurt						CDATA	#IMPLIED
@@ -4563,6 +4596,7 @@
   Sum2						CDATA	#IMPLIED
   Sum3						CDATA	#IMPLIED
   Sum4						CDATA	#IMPLIED
+  WelfordM2					CDATA	#IMPLIED
   CoefficientOfVariation	CDATA	#REQUIRED
   Skewness					CDATA	#IMPLIED
   Kurt						CDATA	#IMPLIED
@@ -4584,6 +4618,7 @@
   Sum2						CDATA	#IMPLIED
   Sum3						CDATA	#IMPLIED
   Sum4						CDATA	#IMPLIED
+  WelfordM2					CDATA	#IMPLIED
   CoefficientOfVariation	CDATA	#REQUIRED
   Skewness					CDATA	#IMPLIED
   Kurt						CDATA	#IMPLIED
@@ -4617,6 +4652,7 @@
   Sum2						CDATA	#IMPLIED
   Sum3						CDATA	#IMPLIED
   Sum4						CDATA	#IMPLIED
+  WelfordM2					CDATA	#IMPLIED
   CoefficientOfVariation	CDATA	#REQUIRED
   Skewness					CDATA	#IMPLIED
   Kurt						CDATA	#IMPLIED
@@ -4640,6 +4676,7 @@
   Sum2						CDATA	#IMPLIED
   Sum3						CDATA	#IMPLIED
   Sum4						CDATA	#IMPLIED
+  WelfordM2					CDATA	#IMPLIED
   CoefficientOfVariation	CDATA	#REQUIRED
   Skewness					CDATA	#IMPLIED
   Kurt						CDATA	#IMPLIED
@@ -4663,6 +4700,7 @@
   Sum2						CDATA	#IMPLIED
   Sum3						CDATA	#IMPLIED
   Sum4						CDATA	#IMPLIED
+  WelfordM2					CDATA	#IMPLIED
   CoefficientOfVariation	CDATA	#REQUIRED
   Skewness					CDATA	#IMPLIED
   Kurt						CDATA	#IMPLIED
@@ -4697,6 +4735,7 @@
   Sum2						CDATA	#IMPLIED
   Sum3						CDATA	#IMPLIED
   Sum4						CDATA	#IMPLIED
+  WelfordM2					CDATA	#IMPLIED
   Type						CDATA	#REQUIRED
   CoefficientOfVariation	CDATA	#REQUIRED
   Skewness					CDATA	#IMPLIED
@@ -4742,6 +4781,7 @@
   Sum2						CDATA	#IMPLIED
   Sum3						CDATA	#IMPLIED
   Sum4						CDATA	#IMPLIED
+  WelfordM2					CDATA	#IMPLIED
   CoefficientOfVariation	CDATA	#REQUIRED
   Skewness					CDATA	#IMPLIED
   Kurt						CDATA	#IMPLIED
@@ -4797,6 +4837,7 @@
   Sum2						CDATA	#IMPLIED
   Sum3						CDATA	#IMPLIED
   Sum4						CDATA	#IMPLIED
+  WelfordM2					CDATA	#IMPLIED
   Type						CDATA	#REQUIRED
   CoefficientOfVariation	CDATA	#REQUIRED
   Skewness					CDATA	#IMPLIED

@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-29 00:03+0200\n"
+"POT-Creation-Date: 2022-05-07 17:30+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -3774,6 +3774,9 @@ msgstr "Die angegebene Dauer der Einschwingphase \"%s\" ist ungültig. Es muss e
 msgid "Editor.Dialog.Tab.Simulation.Criteria.Title"
 msgstr "Kriterium für Simulationsende"
 
+msgid "Editor.Dialog.Tab.Simulation.DistributionRecordClientDataValues.Error"
+msgstr "Der angegebene Wert für ide Kundendaten-Verteilung \"%s\" ist ungültig. Es muss eine nichtnegative Ganzzahl angegeben werden."
+
 msgid "Editor.Dialog.Tab.Simulation.DistributionRecordClientDataValues.Value"
 msgstr "In Kundendaten-Verteilungen aufzuzeichnende Werte"
 
@@ -3810,6 +3813,21 @@ msgstr "Weitere Simulationseinstellungen"
 msgid "Editor.Dialog.Tab.Simulation.NumberOfArrivals"
 msgstr "Zu simulierende Ankünfte"
 
+msgid "Editor.Dialog.Tab.Simulation.Precision"
+msgstr "Präzision der Varianzerfassung"
+
+msgid "Editor.Dialog.Tab.Simulation.Precision.Moments"
+msgstr "Momente erfassen"
+
+msgid "Editor.Dialog.Tab.Simulation.Precision.Moments.Info"
+msgstr "Diese Methode ist schnell und liefert in fast allen Fällen eine gute Präzision."
+
+msgid "Editor.Dialog.Tab.Simulation.Precision.Welford"
+msgstr "Erfassung mittels Welfords online Algorithmus"
+
+msgid "Editor.Dialog.Tab.Simulation.Precision.Welford.Info"
+msgstr "Der Welford-Algorithmus ist deutlich langsamer aber liefert bei sehr kleinen Variationskoeffizienten eine bessere Präzision."
+
 msgid "Editor.Dialog.Tab.Simulation.RecordIncompleteClients"
 msgstr "Kunden, die am Simulationsende das System noch nicht verlassen haben, erfassen"
 
@@ -3821,6 +3839,9 @@ msgstr "Die angegebene Anzahl %s an Wiederholungen des Simulationslaufs ist ung�
 
 msgid "Editor.Dialog.Tab.Simulation.RepeatCount.Value"
 msgstr "Anzahl an Wiederholungen des gesamten Simulationslaufs"
+
+msgid "Editor.Dialog.Tab.Simulation.StatisticVectorLength"
+msgstr "Anzahl der Einträge in vektoriell erfassten Daten"
 
 msgid "Editor.Dialog.Tab.Simulation.StoppOnCalcError"
 msgstr "Simulation abbrechen, wenn ein Rechenausdruck nicht ausgerechnet werden kann"
@@ -3883,6 +3904,12 @@ msgstr "Die Simulation des Modells wird %d mal wiederholt."
 
 msgid "Editor.Dialog.Tab.SimulationSystem.SingleCoreOnly"
 msgstr "Die Simulation des Modells kann aus folgenden Gründen nicht parallelisiert werden"
+
+msgid "Editor.Dialog.Tab.Statistics"
+msgstr "Statistik"
+
+msgid "Editor.Dialog.Tab.Statistics.InfoText"
+msgstr "Auf dieser Dialogseite können Einstellungen zur Statistikaufzeichnung während der Simulation vorgenommen."
 
 msgid "Editor.Dialog.Tab.Transporters"
 msgstr "Transporter"
@@ -22610,6 +22637,12 @@ msgstr "StatistikVariablenName"
 msgid "Statistics.XML.Warning"
 msgstr "StatistikModellWarnung"
 
+msgid "Statistics.XML.WelfordM2"
+msgstr "WelfordM2"
+
+msgid "Statistics.XML.WelfordM2.Error"
+msgstr "Das WelfordM2-Attribut im \"%s\"-Element muss eine nicht-negative Zahl sein, ist aber \"%s\"."
+
 msgid "Statistics.bySchedule"
 msgstr "gemäß Zeitplan"
 
@@ -31872,6 +31905,9 @@ msgstr "ModellAbbruchKonfidenz"
 
 msgid "Surface.XML.ModelTerminationTime"
 msgstr "ModellAbbruchzeit"
+
+msgid "Surface.XML.ModelUseWelford"
+msgstr "ModellWelfordVerverwenden"
 
 msgid "Surface.XML.ModelVersion"
 msgstr "ModellVersion"

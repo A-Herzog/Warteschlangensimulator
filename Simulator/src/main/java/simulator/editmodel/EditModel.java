@@ -255,6 +255,11 @@ public final class EditModel extends EditModelBase implements Cloneable  {
 	public boolean collectWaitingTimes;
 
 	/**
+	 * Soll der Welford-Algorithmus zur Erfassung der Varianz verwendet werden? (langsamer, aber bei ganz kleinen Variationskoeffizienten exakter)
+	 */
+	public boolean useWelford;
+
+	/**
 	 * Liste der Namen der globalen Variablen
 	 */
 	public final List<String> globalVariablesNames;
@@ -534,6 +539,7 @@ public final class EditModel extends EditModelBase implements Cloneable  {
 		correlationMode=Statistics.CorrelationMode.CORRELATION_MODE_OFF;
 		batchMeansSize=1;
 		collectWaitingTimes=false;
+		useWelford=false;
 		globalVariablesNames.clear();
 		globalVariablesExpressions.clear();
 		variableRecord=VariableRecord.OFF;
@@ -600,6 +606,7 @@ public final class EditModel extends EditModelBase implements Cloneable  {
 		clone.correlationMode=correlationMode;
 		clone.batchMeansSize=batchMeansSize;
 		clone.collectWaitingTimes=collectWaitingTimes;
+		clone.useWelford=useWelford;
 		clone.globalVariablesNames.addAll(globalVariablesNames);
 		clone.globalVariablesExpressions.addAll(globalVariablesExpressions);
 		clone.variableRecord=variableRecord;
@@ -682,6 +689,7 @@ public final class EditModel extends EditModelBase implements Cloneable  {
 		if (correlationMode!=otherModel.correlationMode) return false;
 		if (batchMeansSize!=otherModel.batchMeansSize) return false;
 		if (collectWaitingTimes!=otherModel.collectWaitingTimes) return false;
+		if (useWelford!=otherModel.useWelford) return false;
 		if (globalVariablesNames.size()!=otherModel.globalVariablesNames.size()) return false;
 		for (int i=0;i<globalVariablesNames.size();i++) if (!globalVariablesNames.get(i).equals(otherModel.globalVariablesNames.get(i))) return false;
 		if (globalVariablesExpressions.size()!=otherModel.globalVariablesExpressions.size()) return false;
@@ -862,6 +870,12 @@ public final class EditModel extends EditModelBase implements Cloneable  {
 		if (Language.trAll("Surface.XML.ModelCollectWaitingTimes",name)) {
 			final String s=Language.trAllAttribute("Surface.XML.Active",node);
 			collectWaitingTimes=s.equals("1");
+			return null;
+		}
+
+		if (Language.trAll("Surface.XML.ModelUseWelford",name)) {
+			final String s=Language.trAllAttribute("Surface.XML.Active",node);
+			useWelford=s.equals("1");
 			return null;
 		}
 
@@ -1201,6 +1215,11 @@ public final class EditModel extends EditModelBase implements Cloneable  {
 
 		if (collectWaitingTimes) {
 			node.appendChild(sub=doc.createElement(Language.trPrimary("Surface.XML.ModelCollectWaitingTimes"))); /* nicht in dtd/xsd, da das im normalen Programm nie vor kommt. */
+			sub.setAttribute(Language.trPrimary("Surface.XML.Active"),"1");
+		}
+
+		if (useWelford) {
+			node.appendChild(sub=doc.createElement(Language.trPrimary("Surface.XML.ModelUseWelford")));
 			sub.setAttribute(Language.trPrimary("Surface.XML.Active"),"1");
 		}
 

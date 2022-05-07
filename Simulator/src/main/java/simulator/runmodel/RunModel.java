@@ -297,6 +297,11 @@ public class RunModel {
 	public int distributionRecordClientDataValues;
 
 	/**
+	 * Soll der Welford-Algorithmus zur Erfassung der Varianz verwendet werden? (langsamer, aber bei ganz kleinen Variationskoeffizienten exakter)
+	 */
+	public boolean useWelford;
+
+	/**
 	 * Simulation abbrechen, wenn ein Rechenausdruck nicht ausgerechnet werden kann.
 	 */
 	public boolean stoppOnCalcError;
@@ -636,6 +641,9 @@ public class RunModel {
 		/* Erfassungsbereich für Verteilungen */
 		runModel.distributionRecordHours=editModel.distributionRecordHours;
 		runModel.distributionRecordClientDataValues=editModel.distributionRecordClientDataValues;
+
+		/* Welford-basierte Varianzerfassung */
+		runModel.useWelford=editModel.useWelford;
 
 		return null;
 	}

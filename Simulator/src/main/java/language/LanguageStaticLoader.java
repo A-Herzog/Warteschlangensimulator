@@ -968,6 +968,8 @@ public class LanguageStaticLoader {
 		StatisticsDataPerformanceIndicator.xmlNameRunVarError=Language.tr("Statistics.XML.Run.Error");
 		StatisticsDataPerformanceIndicator.xmlNameRunHalfWide=Language.trAll("Statistics.XML.RunHalfWide");
 		StatisticsDataPerformanceIndicator.xmlNameQuantil=Language.tr("Statistics.XML.Quantil");
+		StatisticsDataPerformanceIndicator.xmlNameWelfordM2=Language.trAll("Statistics.XML.WelfordM2");
+		StatisticsDataPerformanceIndicator.xmlNameWelfordM2Error=Language.tr("Statistics.XML.WelfordM2.Error");
 		StatisticsDataPerformanceIndicatorWithNegativeValues.xmlNameCount=Language.trAll("Statistics.XML.Count");
 		StatisticsDataPerformanceIndicatorWithNegativeValues.xmlNameCountError=Language.tr("Statistics.XML.Count.Error");
 		StatisticsDataPerformanceIndicatorWithNegativeValues.xmlNameSum=Language.trAll("Statistics.XML.Sum");
@@ -990,6 +992,8 @@ public class LanguageStaticLoader {
 		StatisticsDataPerformanceIndicatorWithNegativeValues.xmlNameDistribution=Language.trAll("Statistics.XML.Distribution");
 		StatisticsDataPerformanceIndicatorWithNegativeValues.xmlNameDistributionError=Language.tr("Statistics.XML.Distribution.Error");
 		StatisticsDataPerformanceIndicatorWithNegativeValues.xmlNameQuantil=Language.tr("Statistics.XML.Quantil");
+		StatisticsDataPerformanceIndicatorWithNegativeValues.xmlNameWelfordM2=Language.trAll("Statistics.XML.WelfordM2");
+		StatisticsDataPerformanceIndicatorWithNegativeValues.xmlNameWelfordM2Error=Language.tr("Statistics.XML.WelfordM2.Error");
 		StatisticsMultiPerformanceIndicator.xmlTypeName=Language.trAll("Statistics.XML.Type");
 		StatisticsMultiPerformanceIndicator.xmlInternalError=Language.tr("Statistics.XML.InternalError");
 		StatisticsSimulationBaseData.xmlNameRunDate=Language.trAll("Statistics.XML.RunDate");

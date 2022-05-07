@@ -206,7 +206,7 @@ public class SimulationClient implements AnySimulator {
 			case 3: /* Finish */
 				data=transfer.waitForStream(30_000);
 				if (data!=null) {
-					statistics=new Statistics(model.collectWaitingTimes);
+					statistics=new Statistics(model.collectWaitingTimes,model.useWelford);
 					if (statistics.loadFromStream(data)!=null) statistics=null;
 				}
 				started=false;

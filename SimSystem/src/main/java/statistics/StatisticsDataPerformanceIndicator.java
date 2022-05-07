@@ -88,7 +88,7 @@ public final class StatisticsDataPerformanceIndicator extends StatisticsPerforma
 	/** XML-Attribut für "BatchVarianz" */
 	public static String[] xmlNameBatchMeansVar=new String[]{"BatchVarianz"};
 	/** Fehlermeldung, wenn das "BatchVarianz"-Attribut nicht gelesen werden konnte. */
-	public static String xmlNameBatchMeansVarError="Das BatchVarianz-Attribut im \"%s\"-Element eine nicht-negative Zahl sein, ist aber \"%s\".";
+	public static String xmlNameBatchMeansVarError="Das BatchVarianz-Attribut im \"%s\"-Element muss eine nicht-negative Zahl sein, ist aber \"%s\".";
 	/** XML-Attribut für "MittelwertKonfidenzRadius" */
 	public static String[] xmlNameMeanBatchHalfWide=new String[]{"MittelwertKonfidenzRadius"};
 	/** XML-Attribut für "LaufAnzahl" */
@@ -98,11 +98,15 @@ public final class StatisticsDataPerformanceIndicator extends StatisticsPerforma
 	/** XML-Attribut für "LaufVarianz" */
 	public static String[] xmlNameRunVar=new String[]{"LaufVarianz"};
 	/** Fehlermeldung, wenn das "LaufVarianz"-Attribut nicht gelesen werden konnte. */
-	public static String xmlNameRunVarError="Das LaufVarianz-Attribut im \"%s\"-Element eine nicht-negative Zahl sein, ist aber \"%s\".";
+	public static String xmlNameRunVarError="Das LaufVarianz-Attribut im \"%s\"-Element muss eine nicht-negative Zahl sein, ist aber \"%s\".";
 	/** XML-Attribut für "LaufMittelwertKonfidenzRadius" */
 	public static String[] xmlNameRunHalfWide=new String[]{"LaufMittelwertKonfidenzRadius"};
 	/** XML-Attribut für "Quantil" */
 	public static String xmlNameQuantil="Quantil";
+	/** XML-Attribut für "WelfordM2" */
+	public static String[] xmlNameWelfordM2=new String[]{"WelfordM2"};
+	/** Fehlermeldung, wenn das "WelfordM2"-Attribut nicht gelesen werden konnte. */
+	public static String xmlNameWelfordM2Error="Das WelfordM2-Attribut im \"%s\"-Element muss eine nicht-negative Zahl sein, ist aber \"%s\".";
 
 	/**
 	 * Quantile, die aus der Häufigkeitsverteilung berechnet und in der xml-Datei gespeichert werden
@@ -281,6 +285,17 @@ public final class StatisticsDataPerformanceIndicator extends StatisticsPerforma
 	private long distributionZeroCount;
 
 	/**
+	 * Soll der Welford-Algorithmus zur Erfassung der Varianz verwendet werden? (langsamer, aber bei ganz kleinen Variationskoeffizienten exakter)
+	 */
+	private final boolean useWelford;
+
+	/**
+	 * Fortlaufend erfasster Wert M2 im Welford-Algorithmus
+	 * @see #useWelford
+	 */
+	private double welfordM2;
+
+	/**
 	 * Konstruktor der Klasse <code>StatisticsDataPerformanceIndicator</code>
 	 * Bei der Datenaufzeichnung wird eine Häufigkeitsverteilung der Werte angelegt
 	 * @param xmlNodeNames	Name des xml-Knotens, in dem die Daten gespeichert werden sollen
@@ -299,9 +314,10 @@ public final class StatisticsDataPerformanceIndicator extends StatisticsPerforma
 	 * @param steps	Gibt an, wie viele einzelne Werte für die Häufigkeitsverteilung vorgehalten werden sollen
 	 * @param correlationRange	Reichweite für die Erfassung der Autokorrelation (Werte &le;0 schalten die Erfassung aus)
 	 * @param batchSize	Wird hier ein Wert &gt;1 übergeben, so werden Batch-Means erfasst, auf deren Basis später Konfidenzintervalle bestimmt werden können
+	 * @param useWelford	Soll der Welford-Algorithmus zur Erfassung der Varianz verwendet werden? (langsamer, aber bei ganz kleinen Variationskoeffizienten exakter)
 	 */
-	public StatisticsDataPerformanceIndicator(final String[] xmlNodeNames, final double upperBound, final int steps, final int correlationRange, final int batchSize) {
-		this(xmlNodeNames,upperBound,steps,correlationRange,batchSize,false);
+	public StatisticsDataPerformanceIndicator(final String[] xmlNodeNames, final double upperBound, final int steps, final int correlationRange, final int batchSize, final boolean useWelford) {
+		this(xmlNodeNames,upperBound,steps,correlationRange,batchSize,useWelford,false);
 	}
 
 	/**
@@ -312,9 +328,10 @@ public final class StatisticsDataPerformanceIndicator extends StatisticsPerforma
 	 * @param steps	Gibt an, wie viele einzelne Werte für die Häufigkeitsverteilung vorgehalten werden sollen
 	 * @param correlationRange	Reichweite für die Erfassung der Autokorrelation (Werte &le;0 schalten die Erfassung aus)
 	 * @param batchSize	Wird hier ein Wert &gt;1 übergeben, so werden Batch-Means erfasst, auf deren Basis später Konfidenzintervalle bestimmt werden können
+	 * @param useWelford	Soll der Welford-Algorithmus zur Erfassung der Varianz verwendet werden? (langsamer, aber bei ganz kleinen Variationskoeffizienten exakter)
 	 * @param isEmpty	Gibt an, ob es sich bei diesem Objekt um eine leere Kopiervorlage handelt
 	 */
-	public StatisticsDataPerformanceIndicator(final String[] xmlNodeNames, final double upperBound, final int steps, final int correlationRange, final int batchSize, final boolean isEmpty) {
+	public StatisticsDataPerformanceIndicator(final String[] xmlNodeNames, final double upperBound, final int steps, final int correlationRange, final int batchSize, final boolean useWelford, final boolean isEmpty) {
 		super(xmlNodeNames);
 		this.upperBound=upperBound;
 		this.steps=steps;
@@ -330,6 +347,8 @@ public final class StatisticsDataPerformanceIndicator extends StatisticsPerforma
 		if (correlationRange>0) correlationTempValues=new double[correlationRange+CORRELATION_RANGE_STEPPING];
 
 		this.batchSize=batchSize;
+
+		this.useWelford=useWelford;
 
 		reset();
 	}
@@ -432,7 +451,32 @@ public final class StatisticsDataPerformanceIndicator extends StatisticsPerforma
 				batchTempCount=0;
 			}
 		}
+
+		if (useWelford) {
+			if (count>1) {
+				/* https://en.wikipedia.org/wiki/Algorithms_for_calculating_variance */
+				if (!hasLastWelfordMean) lastWelfordMean=(sum-value)/(count-1);
+				final double delta=value-lastWelfordMean;
+				final double newMean=sum/count;
+				final double delta2=value-newMean;
+				welfordM2+=delta*delta2;
+				hasLastWelfordMean=true;
+				lastWelfordMean=newMean;
+			} else {
+				welfordM2=0;
+			}
+		}
 	}
+
+	/**
+	 * Ist der Wert in {@link #lastWelfordMean} gültig.
+	 */
+	private boolean hasLastWelfordMean;
+
+	/**
+	 * Bisheriger Mittelwert beim letzten Aufruf von {@link #add(double)}
+	 */
+	private double lastWelfordMean;
 
 	/**
 	 * Fügt mehrere gleiche Werte zu der Messreihe hinzu.
@@ -442,7 +486,7 @@ public final class StatisticsDataPerformanceIndicator extends StatisticsPerforma
 	public void add(final double value, final long count) {
 		if (count<1) return;
 
-		if (correlationTempValues!=null || batchSize>1) {
+		if (correlationTempValues!=null || batchSize>1 || useWelford) {
 			/* Werte einzeln hinzufügen */
 			for (long l=1;l<=count;l++) add(value);
 			return;
@@ -452,12 +496,7 @@ public final class StatisticsDataPerformanceIndicator extends StatisticsPerforma
 		last=value;
 		this.count+=count;
 
-		if (value<=0.0d) {
-			/* Summe (entfällt), quadrierte Summe (entfällt), Minimum, Maximum, Verteilung der Werte */
-			min=0;
-			if (this.count==1) max=0;
-			if (dist==null) distributionZeroCount++; else densityData[0]++;
-		} else {
+		if (value>0.0d) {
 			/* Summe, quadrierte Summe */
 			sum+=value*count;
 			final double squared=value*value;
@@ -498,6 +537,11 @@ public final class StatisticsDataPerformanceIndicator extends StatisticsPerforma
 					}
 				}
 			}
+		} else {
+			/* Summe (entfällt), quadrierte Summe (entfällt), Minimum, Maximum, Verteilung der Werte */
+			min=0;
+			if (this.count==1) max=0;
+			if (dist==null) distributionZeroCount++; else densityData[0]++;
 		}
 	}
 
@@ -521,6 +565,8 @@ public final class StatisticsDataPerformanceIndicator extends StatisticsPerforma
 			}
 		}
 
+		final long countOld=count;
+		final double oldMean=getMean();
 		count+=moreDataStatistics.count;
 		sum+=moreDataStatistics.sum;
 		squaredSum+=moreDataStatistics.squaredSum;
@@ -565,6 +611,15 @@ public final class StatisticsDataPerformanceIndicator extends StatisticsPerforma
 		runSum+=moreDataStatistics.runSum;
 		runSum2+=moreDataStatistics.runSum2;
 		if (moreDataStatistics.runVar>0) runVar=moreDataStatistics.runVar;
+
+		/* Welford */
+		if (useWelford && moreDataStatistics.useWelford) {
+			/* https://en.wikipedia.org/wiki/Algorithms_for_calculating_variance */
+			final double delta=oldMean-moreDataStatistics.getMean();
+			welfordM2=welfordM2+moreDataStatistics.welfordM2+delta*delta*countOld*moreDataStatistics.count/(countOld+moreDataStatistics.count);
+		} else {
+			welfordM2=-1;
+		}
 	}
 
 	/**
@@ -607,6 +662,10 @@ public final class StatisticsDataPerformanceIndicator extends StatisticsPerforma
 		runSum=0;
 		runSum2=0;
 		runVar=0;
+
+		/* Welford */
+		welfordM2=-1;
+		hasLastWelfordMean=false;
 	}
 
 	/**
@@ -654,6 +713,9 @@ public final class StatisticsDataPerformanceIndicator extends StatisticsPerforma
 		runSum=data.runSum;
 		runSum2=data.runSum2;
 		runVar=data.runVar;
+
+		/* Welford */
+		welfordM2=data.welfordM2;
 	}
 
 	/**
@@ -662,7 +724,7 @@ public final class StatisticsDataPerformanceIndicator extends StatisticsPerforma
 	 */
 	@Override
 	public StatisticsDataPerformanceIndicator clone() {
-		final StatisticsDataPerformanceIndicator indicator=new StatisticsDataPerformanceIndicator(xmlNodeNames,upperBound,steps,(correlationTempValues==null)?-1:correlationTempValues.length,batchSize);
+		final StatisticsDataPerformanceIndicator indicator=new StatisticsDataPerformanceIndicator(xmlNodeNames,upperBound,steps,(correlationTempValues==null)?-1:correlationTempValues.length,batchSize,useWelford);
 		indicator.copyDataFrom(this);
 		return indicator;
 	}
@@ -674,7 +736,7 @@ public final class StatisticsDataPerformanceIndicator extends StatisticsPerforma
 	 */
 	@Override
 	public StatisticsDataPerformanceIndicator cloneEmpty() {
-		return new StatisticsDataPerformanceIndicator(xmlNodeNames,upperBound,steps,(correlationTempValues==null)?-1:correlationTempValues.length,batchSize);
+		return new StatisticsDataPerformanceIndicator(xmlNodeNames,upperBound,steps,(correlationTempValues==null)?-1:correlationTempValues.length,batchSize,useWelford);
 	}
 
 	/**
@@ -786,8 +848,14 @@ public final class StatisticsDataPerformanceIndicator extends StatisticsPerforma
 	 */
 	public double getSD() {
 		if (count<2) return 0;
-		final double v=squaredSum/(count-1)-(sum*sum)/count/(count-1);
-		return StrictMath.sqrt(Math.max(0,v));
+		final double v;
+		if (useWelford && welfordM2>=0) {
+			/* https://en.wikipedia.org/wiki/Algorithms_for_calculating_variance */
+			v=welfordM2/(count-1);
+		} else {
+			v=squaredSum/(count-1)-(sum*sum)/count/(count-1);
+		}
+		return Math.sqrt(Math.max(0,v));
 	}
 
 	/**
@@ -796,7 +864,13 @@ public final class StatisticsDataPerformanceIndicator extends StatisticsPerforma
 	 */
 	public double getVar() {
 		if (count<2) return 0;
-		final double v=squaredSum/(count-1)-(sum*sum)/count/(count-1);
+		final double v;
+		if (useWelford && welfordM2>=0) {
+			/* https://en.wikipedia.org/wiki/Algorithms_for_calculating_variance */
+			v=welfordM2/(count-1);
+		} else {
+			v=squaredSum/(count-1)-(sum*sum)/count/(count-1);
+		}
 		return Math.max(0,v);
 	}
 
@@ -1261,7 +1335,7 @@ public final class StatisticsDataPerformanceIndicator extends StatisticsPerforma
 		node.setAttribute(xmlNameSD[0],NumberTools.formatSystemNumber(getSD(),recycleStringBuilder));
 		node.setAttribute(xmlNameCV[0],NumberTools.formatSystemNumber(getCV(),recycleStringBuilder));
 		node.setAttribute(xmlNameSk[0],NumberTools.formatSystemNumber(getSk(),recycleStringBuilder));
-		node.setAttribute(xmlNameKurt[0],NumberTools.formatSystemNumber(getKurt(),recycleStringBuilder));
+		node.setAttribute(xmlNameKurt[0],NumberTools.formatSystemNumber(NumberTools.reduceDigits(getKurt(),8),recycleStringBuilder));
 		node.setAttribute(xmlNameMin[0],NumberTools.formatSystemNumber(getMin(),recycleStringBuilder));
 		node.setAttribute(xmlNameMax[0],NumberTools.formatSystemNumber(getMax(),recycleStringBuilder));
 
@@ -1283,21 +1357,21 @@ public final class StatisticsDataPerformanceIndicator extends StatisticsPerforma
 		if (batchMeansCount>0) {
 			node.setAttribute(xmlNameBatchSize[0],""+batchSize);
 			node.setAttribute(xmlNameBatchCount[0],""+batchMeansCount);
-			node.setAttribute(xmlNameBatchMeansVar[0],NumberTools.formatSystemNumber(getBatchVar()));
+			node.setAttribute(xmlNameBatchMeansVar[0],NumberTools.formatSystemNumber(getBatchVar(),recycleStringBuilder));
 			for (double level: CONFIDENCE_SAVE_LEVEL) {
 				String s=String.valueOf(Math.round((1-level)*100));
 				double radius=NumberTools.reduceDigits(getBatchMeanConfidenceHalfWide(level),8);
-				node.setAttribute(xmlNameMeanBatchHalfWide[0]+s,NumberTools.formatSystemNumber(radius));
+				node.setAttribute(xmlNameMeanBatchHalfWide[0]+s,NumberTools.formatSystemNumber(radius,recycleStringBuilder));
 			}
 		}
 
 		if (runCount>1) {
 			node.setAttribute(xmlNameRunCount[0],""+runCount);
-			node.setAttribute(xmlNameRunVar[0],NumberTools.formatSystemNumber(getRunVar()));
+			node.setAttribute(xmlNameRunVar[0],NumberTools.formatSystemNumber(getRunVar(),recycleStringBuilder));
 			for (double level: CONFIDENCE_SAVE_LEVEL) {
 				String s=String.valueOf(Math.round((1-level)*100));
 				double radius=NumberTools.reduceDigits(getRunConfidenceHalfWide(level),8);
-				node.setAttribute(xmlNameRunHalfWide[0]+s,NumberTools.formatSystemNumber(radius));
+				node.setAttribute(xmlNameRunHalfWide[0]+s,NumberTools.formatSystemNumber(radius,recycleStringBuilder));
 			}
 		}
 
@@ -1305,8 +1379,12 @@ public final class StatisticsDataPerformanceIndicator extends StatisticsPerforma
 			if (dist==null) initDistribution();
 			final double[] quantils=getQuantil(storeQuantilValues);
 			for (int i=0;i<storeQuantilValues.length;i++) {
-				node.setAttribute(xmlNameQuantil+Math.round(storeQuantilValues[i]*100),NumberTools.formatSystemNumber(quantils[i]));
+				node.setAttribute(xmlNameQuantil+Math.round(storeQuantilValues[i]*100),NumberTools.formatSystemNumber(quantils[i],recycleStringBuilder));
 			}
+		}
+
+		if (useWelford && welfordM2>=0) {
+			node.setAttribute(xmlNameWelfordM2[0],NumberTools.formatSystemNumber(welfordM2,recycleStringBuilder));
 		}
 	}
 
@@ -1426,6 +1504,13 @@ public final class StatisticsDataPerformanceIndicator extends StatisticsPerforma
 			} else {
 				runVar=D.doubleValue();
 			}
+		}
+
+		value=getAttributeValue(node,xmlNameWelfordM2);
+		if (!value.isEmpty()) {
+			Double D=NumberTools.getNotNegativeDouble(NumberTools.systemNumberToLocalNumber(value));
+			if (D==null) return String.format(xmlNameWelfordM2Error,node.getNodeName(),value);
+			welfordM2=D.doubleValue();
 		}
 
 		return null;
