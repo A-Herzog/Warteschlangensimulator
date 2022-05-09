@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-05-07 17:30+0200\n"
+"POT-Creation-Date: 2022-05-09 13:46+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -3207,9 +3207,6 @@ msgstr "Auf die Zeichenfläche klicken, um die neuen Elemente aus der Vorlage ei
 
 msgid "Editor.AnimationData.Info"
 msgstr "Zeigt einen Dialog zum Zugriff auf die Daten der laufenden Animation an."
-
-msgid "Editor.AnimationData.OnlyWhenStepping"
-msgstr "Der Datendialog kann nur angezeigt werden, während die Animation angehalten ist."
 
 msgid "Editor.AnimationData.Short"
 msgstr "Daten"
@@ -7532,6 +7529,9 @@ msgstr "Mittlere Wartezeit der Kunden"
 msgid "ExpressionCalculator.Tab.Clients.CurrentNumberInSystem"
 msgstr "Aktuelle Anzahl an Kunden im System"
 
+msgid "ExpressionCalculator.Tab.Clients.CurrentNumberInSystemProcess"
+msgstr "Aktuelle Anzahl an Kunden in Bedienung im System"
+
 msgid "ExpressionCalculator.Tab.Clients.CurrentNumberInSystemWaiting"
 msgstr "Aktuelle Anzahl an wartenden Kunden im System"
 
@@ -7555,6 +7555,9 @@ msgstr "Mittlere Transferzeit der Kunden"
 
 msgid "ExpressionCalculator.Tab.Expression"
 msgstr "Ausdruck berechnen"
+
+msgid "ExpressionCalculator.Tab.General.ArrivalCount"
+msgstr "Anzahl an Ankünften am System"
 
 msgid "ExpressionCalculator.Tab.GeneralData"
 msgstr "Allgemeine Daten"
@@ -7638,7 +7641,7 @@ msgid "ExpressionCalculator.Tab.Variables.Edit.Label"
 msgstr "Wert der Variable \"%s\" bearbeiten:"
 
 msgid "ExpressionCalculator.Title"
-msgstr "Berechnungen im Simulationskontext"
+msgstr "Simulationsdaten"
 
 msgid "ExpressionCalculator.Toolbar.Help.Hint"
 msgstr "Zeigt eine Hilfeseite zur Verwendung der Skriptfunktionen an."
@@ -33711,6 +33714,9 @@ msgstr "Das Dateiformat wurde nicht erkannt bzw. passt zu keinem Dateiformat die
 
 #~ msgid "Editor.AddElement.Info"
 #~ msgstr "Fügt ein neues Element zu dem Modell hinzu"
+
+#~ msgid "Editor.AnimationData.OnlyWhenStepping"
+#~ msgstr "Der Datendialog kann nur angezeigt werden, während die Animation angehalten ist."
 
 #~ msgid "Editor.ClientDialog.Tab.ColorAndIcon"
 #~ msgstr "Farbe & Icon"

@@ -116,6 +116,7 @@ import ui.modeleditor.ModelSurfaceAnimatorBase;
 import ui.modeleditor.ModelSurfacePanel;
 import ui.modeleditor.SavedViews;
 import ui.modeleditor.coreelements.ModelElement;
+import ui.modeleditor.coreelements.ModelElementAnimationInfoDialog;
 import ui.modeleditor.coreelements.ModelElementAnimationInfoDialog.ClientInfo;
 import ui.modeleditor.elements.ElementWithAnimationDisplay;
 import ui.modeleditor.elements.ModelElementAnalogValue;
@@ -1615,7 +1616,6 @@ public class AnimationPanel extends JPanel implements RunModelAnimationViewer {
 			buttonPlayPause.setText(Language.tr("Animation.Toolbar.Play"));
 			buttonPlayPause.setToolTipText(Language.tr("Animation.Toolbar.Play.Info")+" ("+keyStrokeToString(KeyStroke.getKeyStroke(KeyEvent.VK_F6,0))+")");
 			buttonPlayPause.setIcon(Images.ANIMATION_PLAY.getIcon());
-			buttonCurrentData.setEnabled(true);
 		} else {
 			/* Play */
 			logArea.setVisible(false);
@@ -1624,7 +1624,6 @@ public class AnimationPanel extends JPanel implements RunModelAnimationViewer {
 			buttonPlayPause.setText(Language.tr("Animation.Toolbar.Pause"));
 			buttonPlayPause.setToolTipText(Language.tr("Animation.Toolbar.Pause.Info")+" ("+keyStrokeToString(KeyStroke.getKeyStroke(KeyEvent.VK_F6,0))+")");
 			buttonPlayPause.setIcon(Images.ANIMATION_PAUSE.getIcon());
-			buttonCurrentData.setEnabled(false);
 		}
 	}
 
@@ -2292,11 +2291,6 @@ public class AnimationPanel extends JPanel implements RunModelAnimationViewer {
 	 * @see ExpressionCalculatorDialog
 	 */
 	private void calcExpression() {
-		if (running) {
-			MsgBox.error(this,Language.tr("Editor.AnimationData.Short"),Language.tr("Editor.AnimationData.OnlyWhenStepping"));
-			return;
-		}
-
 		final List<String> variables=new ArrayList<>();
 		final Map<String,Integer> variableIndices=new HashMap<>();
 		for (int i=0;i<simData.runModel.variableNames.length;i++) {
@@ -2311,38 +2305,82 @@ public class AnimationPanel extends JPanel implements RunModelAnimationViewer {
 
 		final EditModel editModel=simulator.getEditModel();
 
-		final ExpressionCalculatorDialog dialog=new ExpressionCalculatorDialog(
-				this,
-				editModel,
-				simData.runModel,
-				variables.toArray(new String[0]),
-				name->simData.runData.variableValues[variableIndices.get(name)],
-				(name,value)->{simData.runData.variableValues[variableIndices.get(name)]=value; simData.runData.updateVariableValueForStatistics(simData,variableIndices.get(name));},
-				simData.runData.getMapGlobal(),
-				s->calculateExpression(s),
-				()->simData.runData.clients.requestClientsInUseList().stream().map(client->new ClientInfo(editModel.animationImages,simData.runModel,client)).collect(Collectors.toList()),
-				nr->{
-					final List<RunDataClient> clientsList=simData.runData.clients.requestClientsInUseList();
-					final int size=clientsList.size();
-					for (int i=0;i<size;i++) if (clientsList.get(i).clientNumber==nr) return clientsList.get(i);
-					return null;
-				},
-				s->runJavaScript(s),
-				s->runJava(s),
-				lastCaluclationTab,
-				lastCaluclationExpression,
-				lastCaluclationJavaScript,
-				lastCaluclationJava
-				);
+		final ExpressionCalculatorDialog dialog;
+
+		if (running) {
+			dialog=new ExpressionCalculatorDialog(
+					this,
+					editModel,
+					simData,
+					variables.toArray(new String[0]),
+					name->simData.runData.variableValues[variableIndices.get(name)],
+					null,
+					simData.runData.getMapGlobal(),
+					null,
+					()->getAnimationRunTimeAllClientData(simulator),
+					null,
+					null,
+					null,
+					lastCaluclationTab,
+					lastCaluclationExpression,
+					lastCaluclationJavaScript,
+					lastCaluclationJava,
+					true
+					);
+		} else {
+			dialog=new ExpressionCalculatorDialog(
+					this,
+					editModel,
+					simData,
+					variables.toArray(new String[0]),
+					name->simData.runData.variableValues[variableIndices.get(name)],
+					(name,value)->{simData.runData.variableValues[variableIndices.get(name)]=value; simData.runData.updateVariableValueForStatistics(simData,variableIndices.get(name));},
+					simData.runData.getMapGlobal(),
+					s->calculateExpression(s),
+					()->getAnimationRunTimeAllClientData(simulator),
+					nr->{
+						final List<RunDataClient> clientsList=simData.runData.clients.requestClientsInUseList();
+						final int size=clientsList.size();
+						for (int i=0;i<size;i++) if (clientsList.get(i).clientNumber==nr) return clientsList.get(i);
+						return null;
+					},
+					s->runJavaScript(s),
+					s->runJava(s),
+					lastCaluclationTab,
+					lastCaluclationExpression,
+					lastCaluclationJavaScript,
+					lastCaluclationJava,
+					false
+					);
+		}
+
 		dialog.setVisible(true);
 
 		lastCaluclationTab=dialog.getLastMode();
-		lastCaluclationExpression=dialog.getLastExpression();
-		lastCaluclationJavaScript=dialog.getLastJavaScript();
-		lastCaluclationJava=dialog.getLastJava();
+		if (!running) {
+			lastCaluclationExpression=dialog.getLastExpression();
+			lastCaluclationJavaScript=dialog.getLastJavaScript();
+			lastCaluclationJava=dialog.getLastJava();
+		}
 
 		simData.runData.updateMapValuesForStatistics(simData);
 		simData.runData.fireStateChangeNotify(simData);
+	}
+
+	/**
+	 * Liefert eine Liste der Kunden im System.
+	 * Der Abruf erfolgt dabei synchronisiert zu einem möglicherweise laufenden Simulator.
+	 * @param simulator	Simulatorinstanz
+	 * @return	Liste der Kunden im System
+	 */
+	private List<ModelElementAnimationInfoDialog.ClientInfo> getAnimationRunTimeAllClientData(final Simulator simulator) {
+		final boolean wasPaused=simulator.isPaused();
+		if (!wasPaused) simulator.pauseExecutionAndWait();
+		try {
+			return simData.runData.clients.requestClientsInUseList().stream().map(client->new ClientInfo(simulator.getEditModel().animationImages,simData.runModel,client)).collect(Collectors.toList());
+		} finally {
+			if (!wasPaused) simulator.resumeExecution();
+		}
 	}
 
 	/**

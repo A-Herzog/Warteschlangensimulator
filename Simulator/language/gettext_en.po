@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-05-07 17:30+0200\n"
+"POT-Creation-Date: 2022-05-09 13:46+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -3202,9 +3202,6 @@ msgstr "Click on the model surface to insert the new elements from template."
 
 msgid "Editor.AnimationData.Info"
 msgstr "Displays a dialog for accessing the data of the running animation."
-
-msgid "Editor.AnimationData.OnlyWhenStepping"
-msgstr "The data dialog can only be displayed while the animation is paused."
 
 msgid "Editor.AnimationData.Short"
 msgstr "Data"
@@ -7543,6 +7540,9 @@ msgstr "Average waiting time of the clients"
 msgid "ExpressionCalculator.Tab.Clients.CurrentNumberInSystem"
 msgstr "Current number in system"
 
+msgid "ExpressionCalculator.Tab.Clients.CurrentNumberInSystemProcess"
+msgstr "Current number in system (in service process)"
+
 msgid "ExpressionCalculator.Tab.Clients.CurrentNumberInSystemWaiting"
 msgstr "Current number in system (waiting)"
 
@@ -7566,6 +7566,9 @@ msgstr "Average transfer time of the clients"
 
 msgid "ExpressionCalculator.Tab.Expression"
 msgstr "Evaluate expression"
+
+msgid "ExpressionCalculator.Tab.General.ArrivalCount"
+msgstr "System arrival count"
 
 msgid "ExpressionCalculator.Tab.GeneralData"
 msgstr "General data"
@@ -7649,7 +7652,7 @@ msgid "ExpressionCalculator.Tab.Variables.Edit.Label"
 msgstr "Edit value of variable \"%s\":"
 
 msgid "ExpressionCalculator.Title"
-msgstr "Calculations in simulation context"
+msgstr "Simulation data"
 
 msgid "ExpressionCalculator.Toolbar.Help.Hint"
 msgstr "Shows a help page with information about the usage of the scripting function."
@@ -33670,6 +33673,9 @@ msgstr "The file format is unknown respectively is not matching to any of the fi
 
 #~ msgid "Editor.AddElement.Info"
 #~ msgstr "Adds a new element to the model"
+
+#~ msgid "Editor.AnimationData.OnlyWhenStepping"
+#~ msgstr "The data dialog can only be displayed while the animation is paused."
 
 #~ msgid "Editor.ClientDialog.Tab.ColorAndIcon"
 #~ msgstr "Color & icon"

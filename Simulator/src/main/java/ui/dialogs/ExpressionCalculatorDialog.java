@@ -31,8 +31,11 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
 import java.io.Serializable;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.function.BiConsumer;
 import java.util.function.Function;
 import java.util.function.Supplier;
@@ -54,6 +57,7 @@ import javax.swing.JTabbedPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.JToolBar;
+import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -69,7 +73,7 @@ import scripting.java.DynamicFactory;
 import scripting.js.JSRunDataFilterTools;
 import simulator.editmodel.EditModel;
 import simulator.runmodel.RunDataClient;
-import simulator.runmodel.RunModel;
+import simulator.runmodel.SimulationData;
 import systemtools.BaseDialog;
 import systemtools.MsgBox;
 import tools.JTableExt;
@@ -80,6 +84,7 @@ import ui.modeleditor.ModelAnimationImages;
 import ui.modeleditor.ModelElementBaseDialog;
 import ui.modeleditor.coreelements.ModelElementAnimationEditClientDialog;
 import ui.modeleditor.coreelements.ModelElementAnimationInfoClientDialog;
+import ui.modeleditor.coreelements.ModelElementAnimationInfoDialog;
 import ui.modeleditor.coreelements.ModelElementAnimationInfoDialog.ClientInfo;
 import ui.modeleditor.coreelements.ModelElementAnimationInfoDialog.JClientInfoRender;
 import ui.script.ScriptEditorAreaBuilder;
@@ -115,9 +120,9 @@ public final class ExpressionCalculatorDialog extends BaseDialog {
 	private final EditModel model;
 
 	/**
-	 * Laufzeitmodell
+	 * Simulationsdatenobjekt
 	 */
-	private final RunModel runModel;
+	private final SimulationData simData;
 
 	/**
 	 * Funktion, die die Berechnungen erlaubt
@@ -135,9 +140,24 @@ public final class ExpressionCalculatorDialog extends BaseDialog {
 	private final Function<String,String> runJava;
 
 	/**
+	 * Timer für automatische Aktualisierungen
+	 */
+	private Timer timer;
+
+	/**
+	 * Schaltfläche zum Umschalten zwischen automatischer und manueller Aktualisierung
+	 */
+	private JButton buttonAutoUpdate;
+
+	/**
 	 * Registerreiter: Ausdruck auswerten, Javascript ausführen, Java ausführen
 	 */
 	private final JTabbedPane tabs;
+
+	/**
+	 * Label zur Anzeige der allgemeinen Informationen
+	 */
+	private JLabel infoLabel;
 
 	/**
 	 * Eingabefeld für den zu berechnenden Ausdruck
@@ -216,7 +236,7 @@ public final class ExpressionCalculatorDialog extends BaseDialog {
 	 * Konstruktor der Klasse
 	 * @param owner	Übergeordnetes Element
 	 * @param model	Editor-Modell als Information für den Expression-Builder
-	 * @param runModel	Laufzeitmodell
+	 * @param simData	Simulationsdatenobjekt
 	 * @param variableNames	Namen der globalen Variablen (kann <code>null</code> sein)
 	 * @param getVariable	Callback zum Abrufen eines Variablenwertes
 	 * @param setVariable	Callback zum Einstellen eines Variablenwertes
@@ -230,12 +250,13 @@ public final class ExpressionCalculatorDialog extends BaseDialog {
 	 * @param initialExpression	Startwert für das Eingabefeld
 	 * @param initialJavaScript	Startwert für das Javascript-Eingabefeld
 	 * @param initialJava	Startwert für das Java-Eingabefeld
+	 * @param readOnly	 Nur-Lese-Status
 	 * @see ExpressionCalculatorDialog#getLastExpression()
 	 */
-	public ExpressionCalculatorDialog(final Component owner, final EditModel model, final RunModel runModel, final String[] variableNames, final Function<String,Double> getVariable, final BiConsumer<String,Double> setVariable, final Map<String,Object> mapGlobal, final Function<String,Double> calc, final Supplier<List<ClientInfo>> clientInfo, final Function<Long,RunDataClient> getRealClient, final UnaryOperator<String> runJavaScript, final UnaryOperator<String> runJava, final int initialTab, final String initialExpression, final String initialJavaScript, final String initialJava) {
+	public ExpressionCalculatorDialog(final Component owner, final EditModel model, final SimulationData simData, final String[] variableNames, final Function<String,Double> getVariable, final BiConsumer<String,Double> setVariable, final Map<String,Object> mapGlobal, final Function<String,Double> calc, final Supplier<List<ClientInfo>> clientInfo, final Function<Long,RunDataClient> getRealClient, final UnaryOperator<String> runJavaScript, final UnaryOperator<String> runJava, final int initialTab, final String initialExpression, final String initialJavaScript, final String initialJava, final boolean readOnly) {
 		super(owner,Language.tr("ExpressionCalculator.Title"));
 		this.model=model;
-		this.runModel=runModel;
+		this.simData=simData;
 		this.calc=calc;
 		this.clientInfo=clientInfo;
 		this.getRealClient=getRealClient;
@@ -243,10 +264,22 @@ public final class ExpressionCalculatorDialog extends BaseDialog {
 		this.runJava=runJava;
 		this.modelImages=model.animationImages;
 
+		timer=null;
+
 		showCloseButton=true;
 		final JPanel content=createGUI(null);
 		content.setLayout(new BorderLayout());
 
+		if (readOnly) {
+			/* Toolbar */
+			final JToolBar toolbar=new JToolBar(SwingConstants.HORIZONTAL);
+			toolbar.setFloatable(false);
+			content.add(toolbar,BorderLayout.NORTH);
+			addButton(toolbar,Language.tr("Surface.PopupMenu.SimulationStatisticsData.Update"),Images.ANIMATION_DATA_UPDATE.getIcon(),Language.tr("Surface.PopupMenu.SimulationStatisticsData.UpdateHint"),e->commandUpdate());
+			buttonAutoUpdate=addButton(toolbar,Language.tr("Surface.PopupMenu.SimulationStatisticsData.AutoUpdate"),Images.ANIMATION_DATA_UPDATE_AUTO.getIcon(),Language.tr("Surface.PopupMenu.SimulationStatisticsData.AutoUpdateHint"),e->commandAutoUpdate());
+		}
+
+		/* Tabs */
 		content.add(tabs=new JTabbedPane(),BorderLayout.CENTER);
 		JPanel tab;
 		int index=0;
@@ -257,9 +290,11 @@ public final class ExpressionCalculatorDialog extends BaseDialog {
 		buildGeneralDataTab(tab);
 
 		/* Ausdruck berechnen */
-		tabs.add(Language.tr("ExpressionCalculator.Tab.Expression"),tab=new JPanel(new BorderLayout()));
-		tabs.setIconAt(index++,Images.SCRIPT_MODE_EXPRESSION.getIcon());
-		buildExpressionCalculatorTab(tab,initialExpression);
+		if (calc!=null) {
+			tabs.add(Language.tr("ExpressionCalculator.Tab.Expression"),tab=new JPanel(new BorderLayout()));
+			tabs.setIconAt(index++,Images.SCRIPT_MODE_EXPRESSION.getIcon());
+			buildExpressionCalculatorTab(tab,initialExpression);
+		}
 
 		/* Variablen */
 		if (variableNames!=null && variableNames.length>0) {
@@ -274,12 +309,14 @@ public final class ExpressionCalculatorDialog extends BaseDialog {
 		buildClientsTab(tab);
 
 		/* Javascript */
-		tabs.add(Language.tr("ExpressionCalculator.Tab.Javascript"),tab=new JPanel(new BorderLayout()));
-		tabs.setIconAt(index++,Images.SCRIPT_MODE_JAVASCRIPT.getIcon());
-		buildJavascriptTab(tab,initialJavaScript);
+		if (runJavaScript!=null && !readOnly) {
+			tabs.add(Language.tr("ExpressionCalculator.Tab.Javascript"),tab=new JPanel(new BorderLayout()));
+			tabs.setIconAt(index++,Images.SCRIPT_MODE_JAVASCRIPT.getIcon());
+			buildJavascriptTab(tab,initialJavaScript);
+		}
 
 		/* if (DynamicClass.isWindows()) { - brauchen wir nicht mehr bei fully intern */
-		if (DynamicFactory.isWindows() || DynamicFactory.isInMemoryProcessing()) {
+		if (runJava!=null && !readOnly && (DynamicFactory.isWindows() || DynamicFactory.isInMemoryProcessing())) {
 			/* Java */
 			tabs.add(Language.tr("ExpressionCalculator.Tab.Java"),tab=new JPanel(new BorderLayout()));
 			tabs.setIconAt(index++,Images.SCRIPT_MODE_JAVA.getIcon());
@@ -290,7 +327,7 @@ public final class ExpressionCalculatorDialog extends BaseDialog {
 		if (mapGlobal!=null) {
 			tabs.add(Language.tr("ExpressionCalculator.Tab.Map"),tab=new JPanel(new BorderLayout()));
 			tabs.setIconAt(index++,Images.SCRIPT_MAP.getIcon());
-			buildGlobalMapTab(tab,mapGlobal);
+			buildGlobalMapTab(tab,mapGlobal,readOnly);
 		}
 
 		/* Start */
@@ -304,6 +341,24 @@ public final class ExpressionCalculatorDialog extends BaseDialog {
 		setResizable(true);
 		setLocationRelativeTo(this.owner);
 		WindowSizeStorage.window(this,"AnimationExpressionCalculator");
+	}
+
+	/**
+	 * Erstellt eine neue Schaltfläche und fügt sie zur Symbolleiste hinzu.
+	 * @param toolbar	Symbolleiste auf der die neue Schaltfläche eingefügt werden soll
+	 * @param name	Beschriftung der Schaltfläche
+	 * @param hint	Tooltip für die Schaltfläche (darf <code>null</code> sein)
+	 * @param icon	Optionales Icon für die Schaltfläche (darf <code>null</code> sein)
+	 * @param listener	Aktion die beim Anklicken der Schaltfläche ausgeführt werden soll
+	 * @return	Neue Schaltfläche (ist bereits in die Symbolleiste eingefügt)
+	 */
+	private JButton addButton(final JToolBar toolbar, final String name, final Icon icon, final String hint, final ActionListener listener) {
+		final JButton button=new JButton(name);
+		if (icon!=null) button.setIcon(icon);
+		if (hint!=null && !hint.trim().isEmpty()) button.setToolTipText(hint);
+		button.addActionListener(listener);
+		toolbar.add(button);
+		return button;
 	}
 
 	/**
@@ -332,45 +387,72 @@ public final class ExpressionCalculatorDialog extends BaseDialog {
 		tab.add(sub,BorderLayout.NORTH);
 		sub.setLayout(new BoxLayout(sub,BoxLayout.PAGE_AXIS));
 		sub.setBorder(BorderFactory.createEmptyBorder(10,5,5,5));
+		sub.add(infoLabel=new JLabel());
+		commandUpdateGeneralData();
+	}
 
-		double d;
-
+	/**
+	 * Befehl: Seite "Globale Daten" aktualisieren
+	 */
+	private void commandUpdateGeneralData() {
 		final StringBuilder generalData=new StringBuilder();
 		generalData.append("<html><body>");
 
-		d=calc.apply("TNow()");
-		generalData.append(Language.tr("ExpressionBuilder.SimulationCharacteristics.CurrentTime")+": <b>"+StatisticTools.formatNumber(d)+"</b> (<b>"+StatisticTools.formatExactTime(d)+"</b>)\n");
-		generalData.append("<br>\n");
-		generalData.append("<br>\n");
-
-		generalData.append(Language.tr("ExpressionCalculator.Tab.Clients.CurrentNumberInSystem")+": <b>"+StatisticTools.formatNumber(calc.apply("NQ()"))+"</b>\n");
-		generalData.append("("+Language.tr("Statistics.Average")+": <b>"+StatisticTools.formatNumber(calc.apply("NQ_avg()"))+"</b>)");
-		generalData.append("<br>\n");
-		generalData.append(Language.tr("ExpressionCalculator.Tab.Clients.CurrentNumberInSystemWaiting")+": <b>"+StatisticTools.formatNumber(calc.apply("WIP()"))+"</b>\n");
-		generalData.append("("+Language.tr("Statistics.Average")+": <b>"+StatisticTools.formatNumber(calc.apply("WIP_avg()"))+"</b>)");
-		generalData.append("<br>\n");
+		final double time=simData.currentTime/1000.0;
+		generalData.append(Language.tr("ExpressionBuilder.SimulationCharacteristics.CurrentTime")+": <b>"+StatisticTools.formatNumber(time)+"</b> (<b>"+StatisticTools.formatExactTime(time)+"</b>)\n");
 		generalData.append("<br>\n");
 
-		d=calc.apply("Wartezeit_avg()");
-		generalData.append(Language.tr("ExpressionCalculator.Tab.Clients.AverageWaitingTime")+": <b>"+StatisticTools.formatNumber(d)+"</b> (<b>"+StatisticTools.formatExactTime(d)+"</b>)\n");
-		generalData.append("<br>\n");
-		d=calc.apply("Transferzeit_avg()");
-		generalData.append(Language.tr("ExpressionCalculator.Tab.Clients.TransferWaitingTime")+": <b>"+StatisticTools.formatNumber(d)+"</b> (<b>"+StatisticTools.formatExactTime(d)+"</b>)\n");
-		generalData.append("<br>\n");
-		d=calc.apply("Bedienzeit_avg()");
-		generalData.append(Language.tr("ExpressionCalculator.Tab.Clients.ProcessWaitingTime")+": <b>"+StatisticTools.formatNumber(d)+"</b> (<b>"+StatisticTools.formatExactTime(d)+"</b>)\n");
-		generalData.append("<br>\n");
-		d=calc.apply("Verweilzeit_avg()");
-		generalData.append(Language.tr("ExpressionCalculator.Tab.Clients.ResidenceWaitingTime")+": <b>"+StatisticTools.formatNumber(d)+"</b> (<b>"+StatisticTools.formatExactTime(d)+"</b>)\n");
-		generalData.append("<br>\n");
+		final long clientsArrived=simData.runData.clientsArrived;
+		generalData.append(Language.tr("ExpressionCalculator.Tab.General.ArrivalCount")+": <b>"+NumberTools.formatLong(clientsArrived)+"</b>\n");
 		generalData.append("<br>\n");
 
-		d=calc.apply("isWarmUp()");
-		generalData.append(Language.tr("ExpressionCalculator.Tab.Clients.SystemInWarmUpPhase")+": <b>"+((d>0)?Language.tr("Dialog.Button.Yes"):Language.tr("Dialog.Button.No"))+"</b>\n");
+		generalData.append("<br>\n");
+
+		final int nq=Arrays.stream(simData.runData.clientsInQueuesByType).sum();
+		final double nq_avg=simData.statistics.clientsInSystemQueues.getTimeMean();
+		generalData.append(Language.tr("ExpressionCalculator.Tab.Clients.CurrentNumberInSystem")+": <b>"+StatisticTools.formatNumber(nq)+"</b>\n");
+		generalData.append("("+Language.tr("Statistics.Average")+": <b>"+StatisticTools.formatNumber(nq_avg)+"</b>)");
+		generalData.append("<br>\n");
+
+		final int wip=Arrays.stream(simData.runData.clientsInSystemByType).sum();
+		final double wip_avg=simData.statistics.clientsInSystem.getTimeMean();
+		generalData.append(Language.tr("ExpressionCalculator.Tab.Clients.CurrentNumberInSystemWaiting")+": <b>"+StatisticTools.formatNumber(wip)+"</b>\n");
+		generalData.append("("+Language.tr("Statistics.Average")+": <b>"+StatisticTools.formatNumber(wip_avg)+"</b>)");
+		generalData.append("<br>\n");
+
+		final int ns=Arrays.stream(simData.runData.clientsInProcessByType).sum();
+		final double ns_avg=simData.statistics.clientsInSystemProcess.getTimeMean();
+		generalData.append(Language.tr("ExpressionCalculator.Tab.Clients.CurrentNumberInSystemProcess")+": <b>"+StatisticTools.formatNumber(ns)+"</b>\n");
+		generalData.append("("+Language.tr("Statistics.Average")+": <b>"+StatisticTools.formatNumber(ns_avg)+"</b>)");
+		generalData.append("<br>\n");
+
+		generalData.append("<br>\n");
+
+		final double W_avg=simData.statistics.clientsAllWaitingTimes.getMean();
+		generalData.append(Language.tr("ExpressionCalculator.Tab.Clients.AverageWaitingTime")+": <b>"+StatisticTools.formatNumber(W_avg)+"</b> (<b>"+StatisticTools.formatExactTime(W_avg)+"</b>)\n");
+		generalData.append("<br>\n");
+
+		final double T_avg=simData.statistics.clientsAllTransferTimes.getMean();
+		generalData.append(Language.tr("ExpressionCalculator.Tab.Clients.TransferWaitingTime")+": <b>"+StatisticTools.formatNumber(T_avg)+"</b> (<b>"+StatisticTools.formatExactTime(T_avg)+"</b>)\n");
+		generalData.append("<br>\n");
+
+		final double P_avg=simData.statistics.clientsAllProcessingTimes.getMean();
+		generalData.append(Language.tr("ExpressionCalculator.Tab.Clients.ProcessWaitingTime")+": <b>"+StatisticTools.formatNumber(P_avg)+"</b> (<b>"+StatisticTools.formatExactTime(P_avg)+"</b>)\n");
+		generalData.append("<br>\n");
+
+		final double V_avg=simData.statistics.clientsAllResidenceTimes.getMean();
+		generalData.append(Language.tr("ExpressionCalculator.Tab.Clients.ResidenceWaitingTime")+": <b>"+StatisticTools.formatNumber(V_avg)+"</b> (<b>"+StatisticTools.formatExactTime(V_avg)+"</b>)\n");
+		generalData.append("<br>\n");
+
+		generalData.append("<br>\n");
+
+		final boolean isWarmUp=simData.runData.isWarmUp;
+		generalData.append(Language.tr("ExpressionCalculator.Tab.Clients.SystemInWarmUpPhase")+": <b>"+(isWarmUp?Language.tr("Dialog.Button.Yes"):Language.tr("Dialog.Button.No"))+"</b>\n");
 		generalData.append("<br>\n");
 
 		generalData.append("</body></html>");
-		sub.add(new JLabel(generalData.toString()));
+
+		infoLabel.setText(generalData.toString());
 	}
 
 	/**
@@ -562,16 +644,19 @@ public final class ExpressionCalculatorDialog extends BaseDialog {
 	 * Erstellt den "Globale Zuordnung"-Tab
 	 * @param tab	Tab-Panel
 	 * @param mapGlobal	Zuordnung der globalen Scripting-Werte (kann <code>null</code> sein)
+	 * @param readOnly	Nur-Lese-Status
 	 */
-	private void buildGlobalMapTab(final JPanel tab, final Map<String,Object> mapGlobal) {
+	private void buildGlobalMapTab(final JPanel tab, final Map<String,Object> mapGlobal, final boolean readOnly) {
 		final JTableExt mapTable=new JTableExt();
-		mapTable.setModel(mapTableModel=new ExpressionCalculatorDialogTableModel(mapTable,mapGlobal));
+		mapTable.setModel(mapTableModel=new ExpressionCalculatorDialogTableModel(mapTable,mapGlobal,readOnly));
 		mapTable.getColumnModel().getColumn(0).setMaxWidth(125);
 		mapTable.getColumnModel().getColumn(0).setMinWidth(125);
 		mapTable.getColumnModel().getColumn(2).setMinWidth(150);
 		mapTable.getColumnModel().getColumn(2).setMaxWidth(150);
-		mapTable.getColumnModel().getColumn(3).setMinWidth(100);
-		mapTable.getColumnModel().getColumn(3).setMaxWidth(100);
+		if (!readOnly) {
+			mapTable.getColumnModel().getColumn(3).setMinWidth(100);
+			mapTable.getColumnModel().getColumn(3).setMaxWidth(100);
+		}
 		mapTable.setIsPanelCellTable(3);
 		tab.add(new JScrollPane(mapTable),BorderLayout.CENTER);
 	}
@@ -581,6 +666,8 @@ public final class ExpressionCalculatorDialog extends BaseDialog {
 	 * @see #expressionEdit
 	 */
 	private void recalc() {
+		if (expressionEdit==null) return;
+
 		final String expression=expressionEdit.getText().trim();
 
 		if (expression.isEmpty()) {
@@ -641,6 +728,68 @@ public final class ExpressionCalculatorDialog extends BaseDialog {
 	}
 
 	/**
+	 * Befehl: Anzeige aktualisieren
+	 */
+	private void commandUpdate() {
+		commandUpdateGeneralData();
+		commandUpdateClientList();
+		mapTableModel.updateAll();
+	}
+
+	/**
+	 * Timer-Task zur Aktualisierung der Daten
+	 * @see ModelElementAnimationInfoDialog#commandAutoUpdate()
+	 */
+	private class UpdateTimerTask extends TimerTask {
+		/**
+		 * Konstruktor der Klasse
+		 */
+		public UpdateTimerTask() {
+			/*
+			 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+			 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+			 */
+		}
+
+		@Override
+		public void run() {
+			if (buttonAutoUpdate.isSelected()) SwingUtilities.invokeLater(()->{
+				commandUpdate();
+				scheduleNextUpdate();
+			});
+		}
+	}
+
+	/**
+	 * Befehl: Anzeige automatisch aktualisieren (an/aus)
+	 */
+	private void commandAutoUpdate() {
+		buttonAutoUpdate.setSelected(!buttonAutoUpdate.isSelected());
+
+		if (buttonAutoUpdate.isSelected()) {
+			timer=new Timer("SimulationDataUpdate");
+			scheduleNextUpdate();
+		} else {
+			if (timer!=null) {timer.cancel(); timer=null;}
+		}
+	}
+
+	/**
+	 * Plant den nächsten Update-Schritt ein.
+	 * @see #commandAutoUpdate()
+	 * @see UpdateTimerTask
+	 */
+	private void scheduleNextUpdate() {
+		if (timer!=null) timer.schedule(new UpdateTimerTask(),250);
+	}
+
+	@Override
+	protected boolean closeButtonOK() {
+		if (timer!=null) {timer.cancel(); timer=null;}
+		return true;
+	}
+
+	/**
 	 * Befehl: Liste der Kunden aktualisieren
 	 */
 	private void commandUpdateClientList() {
@@ -673,7 +822,7 @@ public final class ExpressionCalculatorDialog extends BaseDialog {
 		final ClientInfo clientInfo=clientsList.getModel().getElementAt(index);
 		if (clientInfo==null) return;
 
-		final ModelElementAnimationInfoClientDialog infoDialog=new ModelElementAnimationInfoClientDialog(this,runModel,clientInfo,false,getRealClient!=null);
+		final ModelElementAnimationInfoClientDialog infoDialog=new ModelElementAnimationInfoClientDialog(this,simData.runModel,clientInfo,false,getRealClient!=null);
 		if (!infoDialog.getShowEditorDialog()) return;
 
 		commandEditClientData();
@@ -695,7 +844,7 @@ public final class ExpressionCalculatorDialog extends BaseDialog {
 			return;
 		}
 
-		final ModelElementAnimationEditClientDialog editDialog=new ModelElementAnimationEditClientDialog(this,modelImages,runModel,client);
+		final ModelElementAnimationEditClientDialog editDialog=new ModelElementAnimationEditClientDialog(this,modelImages,simData.runModel,client);
 		if (editDialog.getClosedBy()==BaseDialog.CLOSED_BY_OK) {
 			commandUpdateClientList();
 		}

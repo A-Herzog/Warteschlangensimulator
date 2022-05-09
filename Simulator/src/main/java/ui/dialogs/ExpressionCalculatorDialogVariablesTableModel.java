@@ -87,7 +87,7 @@ public class ExpressionCalculatorDialogVariablesTableModel extends JTableExtAbst
 
 	@Override
 	public final boolean isCellEditable(int rowIndex, int columnIndex) {
-		return columnIndex==1;
+		return (columnIndex==1) && (setVariable!=null);
 	}
 
 	@Override

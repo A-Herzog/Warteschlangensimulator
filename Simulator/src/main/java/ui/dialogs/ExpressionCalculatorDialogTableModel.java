@@ -192,6 +192,8 @@ public class ExpressionCalculatorDialogTableModel extends JTableExtAbstractTable
 	public Object getValueAt(final int rowIndex, final int columnIndex) {
 		if (rowIndex==map.size() && !readOnly) return getValueAtLastRow(columnIndex);
 
+		if (rowIndex<0 || rowIndex>=keys.length) return "";
+
 		switch (columnIndex) {
 		case 0:
 			return "<html><body>"+encodeHTML(keys[rowIndex])+"</body></html>";
@@ -213,8 +215,7 @@ public class ExpressionCalculatorDialogTableModel extends JTableExtAbstractTable
 		final ExpressionCalculatorDialogTableModelDialog dialog=new ExpressionCalculatorDialogTableModelDialog(table,null,null,keys);
 		if (dialog.getClosedBy()==BaseDialog.CLOSED_BY_OK) {
 			map.put(dialog.getNewKey(),dialog.getNewValue());
-			updateKeySet();
-			updateTable();
+			updateAll();
 		}
 	}
 
@@ -229,8 +230,7 @@ public class ExpressionCalculatorDialogTableModel extends JTableExtAbstractTable
 		if (dialog.getClosedBy()==BaseDialog.CLOSED_BY_OK) {
 			map.remove(oldKey);
 			map.put(dialog.getNewKey(),dialog.getNewValue());
-			updateKeySet();
-			updateTable();
+			updateAll();
 		}
 	}
 
@@ -244,7 +244,15 @@ public class ExpressionCalculatorDialogTableModel extends JTableExtAbstractTable
 			if (!MsgBox.confirm(table,Language.tr("ExpressionCalculator.Tab.Map.Delete.ConfirmTitle"),String.format(Language.tr("ExpressionCalculator.Tab.Map.Delete.ConfirmInfo"),keys[index]),Language.tr("ExpressionCalculator.Tab.Map.Delete.ConfirmInfoYes"),Language.tr("ExpressionCalculator.Tab.Map.Delete.ConfirmInfoNo"))) return;
 		}
 		map.remove(keys[index]);
+		updateAll();
+	}
+
+	/**
+	 * Aktualisiert alle Tabellendaten aus der Datenquelle und zeichnet die Tabelle neu.
+	 */
+	public void updateAll() {
 		updateKeySet();
 		updateTable();
+		table.repaint();
 	}
 }
