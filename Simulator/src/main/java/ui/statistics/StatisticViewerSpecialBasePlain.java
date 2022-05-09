@@ -36,6 +36,16 @@ public abstract class StatisticViewerSpecialBasePlain extends StatisticViewerSpe
 	 */
 	protected Container viewer;
 
+	/**
+	 * Konstruktor der Klasse
+	 */
+	public StatisticViewerSpecialBasePlain() {
+		/*
+		 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+		 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+		 */
+	}
+
 	@Override
 	public boolean getCanDo(CanDoAction canDoType) {
 		return false;

@@ -27,6 +27,16 @@ import simulator.runmodel.SimulationData;
  */
 public class InteractiveRadiobuttonClickedEvent extends Event {
 	/**
+	 * Konstruktor der Klasse
+	 */
+	public InteractiveRadiobuttonClickedEvent() {
+		/*
+		 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+		 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+		 */
+	}
+
+	/**
 	 * Zu benachrichtigendes Radiobutton
 	 */
 	public RunElementInteractiveRadiobutton interactiveRadiobutton;

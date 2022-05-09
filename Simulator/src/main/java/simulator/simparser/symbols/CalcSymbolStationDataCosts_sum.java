@@ -33,6 +33,16 @@ public class CalcSymbolStationDataCosts_sum extends CalcSymbolStationData {
 	 */
 	private static final String[] names=new String[]{"Costs","Kosten"};
 
+	/**
+	 * Konstruktor der Klasse
+	 */
+	public CalcSymbolStationDataCosts_sum() {
+		/*
+		 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+		 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+		 */
+	}
+
 	@Override
 	public String[] getNames() {
 		return names;

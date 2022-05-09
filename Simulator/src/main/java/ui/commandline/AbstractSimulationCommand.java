@@ -41,6 +41,16 @@ import xml.XMLTools;
  */
 public abstract class AbstractSimulationCommand extends AbstractCommand {
 	/**
+	 * Konstruktor der Klasse
+	 */
+	public AbstractSimulationCommand() {
+		/*
+		 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+		 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+		 */
+	}
+
+	/**
 	 * Lädt eine xml-Datei
 	 * @param file	Zu ladende Datei
 	 * @return Tritt ein Fehler auf, so wird <code>null</code> zurück gegeben, ansonsten das Root-Element der Daten

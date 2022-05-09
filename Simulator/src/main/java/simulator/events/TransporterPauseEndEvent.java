@@ -38,6 +38,16 @@ public class TransporterPauseEndEvent extends Event {
 	 */
 	public RunDataTransporterFailure failure;
 
+	/**
+	 * Konstruktor der Klasse
+	 */
+	public TransporterPauseEndEvent() {
+		/*
+		 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+		 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+		 */
+	}
+
 	@Override
 	public void run(SimData data) {
 		transporter.endDownTime((SimulationData)data);

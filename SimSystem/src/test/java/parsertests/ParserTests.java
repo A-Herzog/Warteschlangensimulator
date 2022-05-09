@@ -38,6 +38,16 @@ import parser.coresymbols.CalcSymbolPreOperator;
  */
 class ParserTests {
 	/**
+	 * Konstruktor der Klasse
+	 */
+	public ParserTests() {
+		/*
+		 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+		 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+		 */
+	}
+
+	/**
 	 * Testet die dem Konstruktor übergebenen Daten in einem {@link CalcSystem}.
 	 * @param calc	Rechensystem, das geprüft werden soll
 	 * @param text	Übergebener Text

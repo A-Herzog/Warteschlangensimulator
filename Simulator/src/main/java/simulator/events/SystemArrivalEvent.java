@@ -42,6 +42,16 @@ public class SystemArrivalEvent extends Event {
 	 */
 	public int index;
 
+	/**
+	 * Konstruktor der Klasse
+	 */
+	public SystemArrivalEvent() {
+		/*
+		 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+		 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+		 */
+	}
+
 	@Override
 	public void run(final SimData data) {
 		if (source instanceof RunSource) ((RunSource)source).processArrivalEvent((SimulationData)data,scheduleNext,index);

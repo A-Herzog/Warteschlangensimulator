@@ -31,6 +31,16 @@ public final class CalcSymbolDistributionBeta extends CalcSymbolDistribution {
 	 */
 	private static final String[] names=new String[]{"BetaDistribution","BetaDist","BetaVerteilung"};
 
+	/**
+	 * Konstruktor der Klasse
+	 */
+	public CalcSymbolDistributionBeta() {
+		/*
+		 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+		 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+		 */
+	}
+
 	@Override
 	public String[] getNames() {
 		return names;

@@ -563,6 +563,16 @@ public class ModelElementAnimationInfoDialog extends BaseDialog {
 	 * @see ModelElementAnimationInfoDialog#commandAutoUpdate()
 	 */
 	private class UpdateTimerTask extends TimerTask {
+		/**
+		 * Konstruktor der Klasse
+		 */
+		public UpdateTimerTask() {
+			/*
+			 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+			 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+			 */
+		}
+
 		@Override
 		public void run() {
 			if (buttonAutoUpdate.isSelected()) SwingUtilities.invokeLater(()->{

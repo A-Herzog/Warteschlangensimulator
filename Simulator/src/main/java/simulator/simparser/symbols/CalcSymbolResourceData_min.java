@@ -35,6 +35,16 @@ public class CalcSymbolResourceData_min extends CalcSymbolResourceData {
 			"resource_Minimum","utilization_Minimum"
 	};
 
+	/**
+	 * Konstruktor der Klasse
+	 */
+	public CalcSymbolResourceData_min() {
+		/*
+		 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+		 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+		 */
+	}
+
 	@Override
 	public String[] getNames() {
 		return names;

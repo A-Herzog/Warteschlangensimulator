@@ -35,6 +35,16 @@ public class CalcSymbolStationDataWIP_kurt extends CalcSymbolStationData {
 	 */
 	private static final String[] names=new String[]{"WIP_kurt","Station_kurt","N_kurt"};
 
+	/**
+	 * Konstruktor der Klasse
+	 */
+	public CalcSymbolStationDataWIP_kurt() {
+		/*
+		 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+		 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+		 */
+	}
+
 	@Override
 	public String[] getNames() {
 		return names;

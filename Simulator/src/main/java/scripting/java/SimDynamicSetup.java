@@ -38,6 +38,16 @@ public class SimDynamicSetup implements DynamicSetup {
 	 */
 	private String classPath=null;
 
+	/**
+	 * Konstruktor der Klasse
+	 */
+	public SimDynamicSetup() {
+		/*
+		 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+		 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+		 */
+	}
+
 	@Override
 	public String getTempFolderName() {
 		return "QSSim";

@@ -97,11 +97,25 @@ public class DateTimePanel extends JPanel {
 		 * @see Serializable
 		 */
 		private static final long serialVersionUID = -6177382334742454499L;
-		@Override public Object stringToValue(String text) {
+
+		/**
+		 * Konstruktor der Klasse
+		 */
+		public DateLabelFormatter() {
+			/*
+			 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+			 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+			 */
+		}
+
+		@Override
+		public Object stringToValue(String text) {
 			long l=DateTools.getUserDate(text);
 			return new Date((l<0)?0:l);
 		}
-		@Override public String valueToString(Object value) {
+
+		@Override
+		public String valueToString(Object value) {
 			if (!(value instanceof Calendar)) return "";
 			return DateTools.formatUserDateShort(((Calendar)value).getTimeInMillis()+TimeZone.getDefault().getRawOffset());
 		}

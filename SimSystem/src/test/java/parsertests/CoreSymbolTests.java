@@ -30,6 +30,16 @@ import parser.MathCalcError;
  */
 class CoreSymbolTests {
 	/**
+	 * Konstruktor der Klasse
+	 */
+	public CoreSymbolTests() {
+		/*
+		 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+		 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+		 */
+	}
+
+	/**
 	 * Test: Basis-Rechenoperationen
 	 */
 	@Test

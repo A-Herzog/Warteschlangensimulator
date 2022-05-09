@@ -31,6 +31,16 @@ public class CalcSymbolDiscreteDistributionPoisson extends CalcSymbolDiscreteDis
 	 */
 	private static final String[] names=new String[]{"PoissonDistribution","PoissonDist","PoissonVerteilung"};
 
+	/**
+	 * Konstruktor der Klasse
+	 */
+	public CalcSymbolDiscreteDistributionPoisson() {
+		/*
+		 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+		 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+		 */
+	}
+
 	@Override
 	public String[] getNames() {
 		return names;

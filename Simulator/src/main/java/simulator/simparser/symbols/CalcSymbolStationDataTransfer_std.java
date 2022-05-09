@@ -38,6 +38,16 @@ public class CalcSymbolStationDataTransfer_std extends CalcSymbolStationData {
 			"TransferTime_std","TransferTime_sd","TransferTime_Standardabweichung",
 	};
 
+	/**
+	 * Konstruktor der Klasse
+	 */
+	public CalcSymbolStationDataTransfer_std() {
+		/*
+		 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+		 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+		 */
+	}
+
 	@Override
 	public String[] getNames() {
 		return names;

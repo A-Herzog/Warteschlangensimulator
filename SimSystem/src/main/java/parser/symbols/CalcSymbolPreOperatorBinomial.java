@@ -35,6 +35,16 @@ public class CalcSymbolPreOperatorBinomial extends CalcSymbolPreOperator {
 	 */
 	private static final String[] names=new String[]{"binom","binomial","binomialkoeffizient","binomialcoefficient"};
 
+	/**
+	 * Konstruktor der Klasse
+	 */
+	public CalcSymbolPreOperatorBinomial() {
+		/*
+		 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+		 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+		 */
+	}
+
 	@Override
 	public String[] getNames() {
 		return names;

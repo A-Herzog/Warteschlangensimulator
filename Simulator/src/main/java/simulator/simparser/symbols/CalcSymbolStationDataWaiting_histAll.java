@@ -33,6 +33,16 @@ public class CalcSymbolStationDataWaiting_histAll extends CalcSymbolStationDataA
 	 */
 	private static final String[] names=new String[]{"Wartezeit_histAll","WaitingTime_histAll"};
 
+	/**
+	 * Konstruktor der Klasse
+	 */
+	public CalcSymbolStationDataWaiting_histAll() {
+		/*
+		 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+		 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+		 */
+	}
+
 	@Override
 	public String[] getNames() {
 		return names;

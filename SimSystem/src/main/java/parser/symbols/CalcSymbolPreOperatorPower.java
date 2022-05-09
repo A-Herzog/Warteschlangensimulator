@@ -24,6 +24,26 @@ import parser.coresymbols.CalcSymbolPreOperator;
  * @see CalcSymbolMiddleOperatorPower
  */
 public final class CalcSymbolPreOperatorPower extends CalcSymbolPreOperator {
+	/**
+	 * Namen für das Symbol
+	 * @see #getNames()
+	 */
+	private static final String[] names=new String[]{"power","pow","potenzieren","potenz"};
+
+	/**
+	 * Konstruktor der Klasse
+	 */
+	public CalcSymbolPreOperatorPower() {
+		/*
+		 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+		 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+		 */
+	}
+
+	@Override
+	public String[] getNames() {
+		return names;
+	}
 
 	@Override
 	protected double calc(double[] parameters) throws MathCalcError {
@@ -38,16 +58,4 @@ public final class CalcSymbolPreOperatorPower extends CalcSymbolPreOperator {
 		if (parameters[1]<0) return fallbackValue;
 		return Math.pow(parameters[0],parameters[1]); /* FastMath.pow(...) würde hier new double[2] durchführen! */
 	}
-
-	/**
-	 * Namen für das Symbol
-	 * @see #getNames()
-	 */
-	private static final String[] names=new String[]{"power","pow","potenzieren","potenz"};
-
-	@Override
-	public String[] getNames() {
-		return names;
-	}
-
 }

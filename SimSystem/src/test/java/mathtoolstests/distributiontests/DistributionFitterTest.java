@@ -40,6 +40,16 @@ import mathtools.distribution.tools.WrapperLogNormalDistribution;
  */
 class DistributionFitterTest {
 	/**
+	 * Konstruktor der Klasse
+	 */
+	public DistributionFitterTest() {
+		/*
+		 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+		 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+		 */
+	}
+
+	/**
 	 * Test: Verarbeitung von ungültigen Eingabedaten
 	 * @see DistributionFitter#processDensity(int[][])
 	 * @see DistributionFitter#processDensity(String[][])

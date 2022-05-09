@@ -32,7 +32,7 @@ public interface StateChangeListener {
 	boolean systemStateChangeNotify(final SimulationData simData);
 
 	/**
-	 *
+	 * Gibt an, ob die Station momentan daran interessiert ist, in regelm‰ﬂigen Abst‰nden (auch ohne Systemzustands‰nderungen) benachrichtigt zu werden.
 	 * @param simData	Simulationsdatenobjekt
 	 * @return	Gibt an, ob die Station momentan daran interessiert ist, in regelm‰ﬂigen Abst‰nden (auch ohne Systemzustands‰nderungen) benachrichtigt zu werden.
 	 * @see RunData#runTimedCheckNow(SimulationData)

@@ -38,6 +38,16 @@ public class CalcSymbolStationDataResidence_max extends CalcSymbolStationData {
 			"ResidenceTime_max","ResidenceTime_Maximum"
 	};
 
+	/**
+	 * Konstruktor der Klasse
+	 */
+	public CalcSymbolStationDataResidence_max() {
+		/*
+		 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+		 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+		 */
+	}
+
 	@Override
 	public String[] getNames() {
 		return names;

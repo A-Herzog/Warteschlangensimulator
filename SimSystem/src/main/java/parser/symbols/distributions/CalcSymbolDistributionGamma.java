@@ -30,6 +30,16 @@ public final class CalcSymbolDistributionGamma extends CalcSymbolDistribution {
 	 */
 	private static final String[] names=new String[]{"GammaDistribution","GammaDist","GammaVerteilung","ErlangDistribution","ErlangDist","ErlangVerteilung"};
 
+	/**
+	 * Konstruktor der Klasse
+	 */
+	public CalcSymbolDistributionGamma() {
+		/*
+		 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+		 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+		 */
+	}
+
 	@Override
 	public String[] getNames() {
 		return names;

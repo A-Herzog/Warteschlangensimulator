@@ -31,6 +31,16 @@ import simcore.Event;
  */
 public final class PriorityQueueEventManager extends EventManagerBase implements EventManager {
 	/**
+	 * Konstruktor der Klasse
+	 */
+	public PriorityQueueEventManager() {
+		/*
+		 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+		 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+		 */
+	}
+
+	/**
 	 * Internes {@link PriorityQueue}-Objekt zum Vorhalten der Ereignisse.
 	 */
 	private final PriorityQueue<Event> queue=new PriorityQueue<>();

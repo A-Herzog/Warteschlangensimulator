@@ -44,6 +44,16 @@ public class CalcSymbolStationDataQueue extends CalcSymbolSimData {
 	 */
 	private static final String[] names=new String[]{"NQ","Queue","Schlange","Warteschlange"};
 
+	/**
+	 * Konstruktor der Klasse
+	 */
+	public CalcSymbolStationDataQueue() {
+		/*
+		 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+		 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+		 */
+	}
+
 	@Override
 	public String[] getNames() {
 		return names;

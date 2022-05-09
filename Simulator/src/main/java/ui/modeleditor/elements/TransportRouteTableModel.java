@@ -66,7 +66,7 @@ public class TransportRouteTableModel extends JTableExtAbstractTableModel {
 	private final boolean readOnly;
 
 	/**
-	 *
+	 * Konstruktor der Klasse
 	 * @param table	Zugehörige Tabelle (um das Update der Tabelle veranlassen zu können, wenn sich die Daten verändert haben)
 	 * @param routes	Liste mit allen Routing-Zielen
 	 * @param clientTypes	Liste mit allen Kundentypennamen (für Kundentyp-abhängiges Routing)

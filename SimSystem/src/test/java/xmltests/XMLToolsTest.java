@@ -41,6 +41,16 @@ import xml.XMLTools;
  */
 class XMLToolsTest {
 	/**
+	 * Konstruktor der Klasse
+	 */
+	public XMLToolsTest() {
+		/*
+		 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+		 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+		 */
+	}
+
+	/**
 	 * Test: Basistests
 	 */
 	@Test

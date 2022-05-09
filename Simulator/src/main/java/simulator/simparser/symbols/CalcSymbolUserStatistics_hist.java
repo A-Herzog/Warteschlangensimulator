@@ -36,6 +36,16 @@ public class CalcSymbolUserStatistics_hist extends CalcSymbolUserStatistics {
 	 */
 	private static final String[] names=new String[] {"Statistik_hist","Statistics_hist"};
 
+	/**
+	 * Konstruktor der Klasse
+	 */
+	public CalcSymbolUserStatistics_hist() {
+		/*
+		 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+		 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+		 */
+	}
+
 	@Override
 	public String[] getNames() {
 		return names;

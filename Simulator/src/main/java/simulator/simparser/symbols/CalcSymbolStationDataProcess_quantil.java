@@ -35,6 +35,16 @@ public class CalcSymbolStationDataProcess_quantil extends CalcSymbolStationDataQ
 	 */
 	private static final String[] names=new String[] {"Bedienzeit_quantil","ProcessTime_quantil","ProcessingTime_quantil","ServiceTime_quantil"};
 
+	/**
+	 * Konstruktor der Klasse
+	 */
+	public CalcSymbolStationDataProcess_quantil() {
+		/*
+		 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+		 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+		 */
+	}
+
 	@Override
 	public String[] getNames() {
 		return names;

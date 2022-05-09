@@ -38,6 +38,16 @@ public abstract class CalcSymbolStationDataQuantil extends CalcSymbolSimData {
 	protected abstract double calc(final double p, final RunElementData data);
 
 	/**
+	 * Konstruktor der Klasse
+	 */
+	public CalcSymbolStationDataQuantil() {
+		/*
+		 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+		 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+		 */
+	}
+
+	/**
 	 * Stehen Daten über alle Kundentypen zur Verfügung?
 	 * @return	Wird <code>true</code> zurückgegeben, so muss {@link #calcAll(double)} implementiert werden.
 	 */

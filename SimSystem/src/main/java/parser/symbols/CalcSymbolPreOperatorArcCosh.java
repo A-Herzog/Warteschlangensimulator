@@ -25,6 +25,27 @@ import parser.coresymbols.CalcSymbolPreOperator;
  * @author Alexander Herzog
  */
 public final class CalcSymbolPreOperatorArcCosh extends CalcSymbolPreOperator {
+	/**
+	 * Namen für das Symbol
+	 * @see #getNames()
+	 */
+	private static final String[] names=new String[]{"arcuscosinush","arccosinush","arccosh","acosh"};
+
+	/**
+	 * Konstruktor der Klasse
+	 */
+	public CalcSymbolPreOperatorArcCosh() {
+		/*
+		 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+		 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+		 */
+	}
+
+	@Override
+	public String[] getNames() {
+		return names;
+	}
+
 	@Override
 	protected double calc(double[] parameters) throws MathCalcError {
 		if (parameters.length!=1) throw error();
@@ -38,16 +59,4 @@ public final class CalcSymbolPreOperatorArcCosh extends CalcSymbolPreOperator {
 		if (parameters[0]<1) return fallbackValue;
 		return FastMath.acosh(parameters[0]);
 	}
-
-	/**
-	 * Namen für das Symbol
-	 * @see #getNames()
-	 */
-	private static final String[] names=new String[]{"arcuscosinush","arccosinush","arccosh","acosh"};
-
-	@Override
-	public String[] getNames() {
-		return names;
-	}
-
 }

@@ -87,6 +87,16 @@ public abstract class AbstractReportCommand extends AbstractCommand {
 	 */
 	private String listEntry;
 
+	/**
+	 * Konstruktor der Klasse
+	 */
+	public AbstractReportCommand() {
+		/*
+		 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+		 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+		 */
+	}
+
 	@Override
 	public String prepare(String[] additionalArguments, InputStream in, PrintStream out) {
 		String s=parameterCountCheck(3,additionalArguments); if (s!=null) return s;

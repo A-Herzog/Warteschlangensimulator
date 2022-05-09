@@ -33,6 +33,16 @@ public class CalcSymbolUserStatistics_std extends CalcSymbolUserStatistics {
 			"Statistik_std","Statistics_std","Statistik_Standardabweichung"
 	};
 
+	/**
+	 * Konstruktor der Klasse
+	 */
+	public CalcSymbolUserStatistics_std() {
+		/*
+		 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+		 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+		 */
+	}
+
 	@Override
 	public String[] getNames() {
 		return names;

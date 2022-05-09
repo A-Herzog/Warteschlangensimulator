@@ -29,6 +29,16 @@ import statistics.StatisticsTimePerformanceIndicator;
  */
 public abstract class CalcSymbolResourceData extends CalcSymbolSimData {
 	/**
+	 * Konstruktor der Klasse
+	 */
+	public CalcSymbolResourceData() {
+		/*
+		 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+		 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+		 */
+	}
+
+	/**
 	 * Gibt an, ob der Rechenbefehl Daten über alle Ressourcengruppen hinweg enthält
 	 * @return	Wird hier <code>true</code> geliefert, so muss {@link #calcAllResources(StatisticsTimePerformanceIndicator[])} definiert sein
 	 */

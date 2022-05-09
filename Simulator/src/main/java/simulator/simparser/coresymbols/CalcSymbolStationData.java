@@ -32,6 +32,16 @@ import simulator.runmodel.SimulationData;
  */
 public abstract class CalcSymbolStationData extends CalcSymbolSimData {
 	/**
+	 * Konstruktor der Klasse
+	 */
+	public CalcSymbolStationData() {
+		/*
+		 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+		 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+		 */
+	}
+
+	/**
 	 * Berechnung der Daten auf Basis des Laufzeit-Datenobjekts
 	 * @param data	Laufzeit-Datenobjekt
 	 * @return	Berechneter Wert

@@ -33,6 +33,16 @@ public class CalcSymbolStationDataProcessCount_avg extends CalcSymbolStationData
 	 */
 	private static final String[] names=new String[]{"NS_avg","Process_avg","NS_average","NS_Mittelwert"};
 
+	/**
+	 * Konstruktor der Klasse
+	 */
+	public CalcSymbolStationDataProcessCount_avg() {
+		/*
+		 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+		 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+		 */
+	}
+
 	@Override
 	public String[] getNames() {
 		return names;

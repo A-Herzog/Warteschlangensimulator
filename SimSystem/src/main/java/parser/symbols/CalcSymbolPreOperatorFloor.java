@@ -24,6 +24,16 @@ import parser.coresymbols.CalcSymbolPreOperator;
  * @see CalcSymbolPreOperatorCeil
  */
 public final class CalcSymbolPreOperatorFloor extends CalcSymbolPreOperator {
+	/**
+	 * Konstruktor der Klasse
+	 */
+	public CalcSymbolPreOperatorFloor() {
+		/*
+		 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+		 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+		 */
+	}
+
 	@Override
 	protected double calc(double[] parameters) throws MathCalcError {
 		if (parameters.length!=1) throw error();

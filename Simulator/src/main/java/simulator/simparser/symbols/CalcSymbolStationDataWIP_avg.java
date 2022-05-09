@@ -35,6 +35,16 @@ public class CalcSymbolStationDataWIP_avg extends CalcSymbolStationData {
 	 */
 	private static final String[] names=new String[]{"WIP_avg","Station_avg","N_avg","WIP_average","Station_average","N_average","WIP_Mittelwert","Station_Mittelwert","N_Mittelwert"};
 
+	/**
+	 * Konstruktor der Klasse
+	 */
+	public CalcSymbolStationDataWIP_avg() {
+		/*
+		 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+		 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+		 */
+	}
+
 	@Override
 	public String[] getNames() {
 		return names;

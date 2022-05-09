@@ -28,6 +28,16 @@ import simulator.runmodel.SimulationData;
  * @see RunData#runTimedCheckNow(SimulationData)
  */
 public class TimedCheckEvent extends Event {
+	/**
+	 * Konstruktor der Klasse
+	 */
+	public TimedCheckEvent() {
+		/*
+		 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+		 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+		 */
+	}
+
 	@Override
 	public void run(SimData data) {
 		final SimulationData simData=(SimulationData)data;

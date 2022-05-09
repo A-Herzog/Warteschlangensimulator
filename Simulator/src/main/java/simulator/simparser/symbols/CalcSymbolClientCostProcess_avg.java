@@ -31,6 +31,16 @@ public class CalcSymbolClientCostProcess_avg extends CalcSymbolClientCosts {
 	 */
 	private static final String[] names=new String[]{"Costs_Process_avg","Costs_Process_average","Kosten_Bedienzeit_Mittelwert"};
 
+	/**
+	 * Konstruktor der Klasse
+	 */
+	public CalcSymbolClientCostProcess_avg() {
+		/*
+		 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+		 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+		 */
+	}
+
 	@Override
 	public String[] getNames() {
 		return names;

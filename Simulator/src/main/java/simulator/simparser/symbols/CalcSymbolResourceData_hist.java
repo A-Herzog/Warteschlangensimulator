@@ -36,6 +36,16 @@ public class CalcSymbolResourceData_hist extends CalcSymbolStationDataHistogram 
 	 */
 	private static final String[] names=new String[]{"resource_hist","utilization_hist"};
 
+	/**
+	 * Konstruktor der Klasse
+	 */
+	public CalcSymbolResourceData_hist() {
+		/*
+		 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+		 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+		 */
+	}
+
 	@Override
 	public String[] getNames() {
 		return names;

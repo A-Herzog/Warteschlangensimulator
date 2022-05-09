@@ -35,6 +35,16 @@ public class CalcSymbolStationDataWaiting_sum extends CalcSymbolStationData {
 			"WaitingTime_sum","WaitingTime_gesamt","WaitingTime_summe"
 	};
 
+	/**
+	 * Konstruktor der Klasse
+	 */
+	public CalcSymbolStationDataWaiting_sum() {
+		/*
+		 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+		 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+		 */
+	}
+
 	@Override
 	public String[] getNames() {
 		return names;

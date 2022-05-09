@@ -636,6 +636,16 @@ public class JDataDistributionEditPanel extends JPanel {
 	 * Listenklasse die auf das Klicken auf die Symbolleisten-Schaltflächen reagiert.
 	 */
 	private class ButtonListener implements ActionListener {
+		/**
+		 * Konstruktor der Klasse
+		 */
+		public ButtonListener() {
+			/*
+			 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+			 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+			 */
+		}
+
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			if (e.getSource()==pasteButton) {
@@ -732,6 +742,16 @@ public class JDataDistributionEditPanel extends JPanel {
 	 * @see #editLine
 	 */
 	private class EditListener implements KeyListener {
+		/**
+		 * Konstruktor der Klasse
+		 */
+		public EditListener() {
+			/*
+			 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+			 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+			 */
+		}
+
 		@Override
 		public void keyTyped(KeyEvent e) {updateDistributionFromEditLine();}
 		@Override

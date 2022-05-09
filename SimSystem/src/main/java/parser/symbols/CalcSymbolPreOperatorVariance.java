@@ -23,6 +23,27 @@ import parser.coresymbols.CalcSymbolPreOperator;
  * @author Alexander Herzog
  */
 public final class CalcSymbolPreOperatorVariance extends CalcSymbolPreOperator {
+	/**
+	 * Namen für das Symbol
+	 * @see #getNames()
+	 */
+	private static final String[] names=new String[]{"Variance","Varianz","Var"};
+
+	/**
+	 * Konstruktor der Klasse
+	 */
+	public CalcSymbolPreOperatorVariance() {
+		/*
+		 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+		 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+		 */
+	}
+
+	@Override
+	public String[] getNames() {
+		return names;
+	}
+
 	@Override
 	protected double calc(double[] parameters) throws MathCalcError {
 		if (parameters.length==0) throw error();
@@ -41,16 +62,5 @@ public final class CalcSymbolPreOperatorVariance extends CalcSymbolPreOperator {
 		for (double d:parameters) {sum+=d; sum2+=d*d;}
 		double n=parameters.length;
 		return 1/(n-1)*(sum2-sum*sum/n);
-	}
-
-	/**
-	 * Namen für das Symbol
-	 * @see #getNames()
-	 */
-	private static final String[] names=new String[]{"Variance","Varianz","Var"};
-
-	@Override
-	public String[] getNames() {
-		return names;
 	}
 }

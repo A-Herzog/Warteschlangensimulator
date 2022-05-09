@@ -39,6 +39,16 @@ public class CalcSymbolStationDataWIP_std extends CalcSymbolStationData {
 			"WIP_Standardabweichung","Station_Standardabweichung","N_Standardabweichung"
 	};
 
+	/**
+	 * Konstruktor der Klasse
+	 */
+	public CalcSymbolStationDataWIP_std() {
+		/*
+		 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+		 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+		 */
+	}
+
 	@Override
 	public String[] getNames() {
 		return names;

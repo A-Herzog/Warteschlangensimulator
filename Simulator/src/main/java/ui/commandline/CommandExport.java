@@ -42,6 +42,16 @@ public class CommandExport extends AbstractCommand {
 	/** Ausgabedatei */
 	private File outputFile;
 
+	/**
+	 * Konstruktor der Klasse
+	 */
+	public CommandExport() {
+		/*
+		 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+		 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+		 */
+	}
+
 	@Override
 	public String[] getKeys() {
 		List<String> list=new ArrayList<>();

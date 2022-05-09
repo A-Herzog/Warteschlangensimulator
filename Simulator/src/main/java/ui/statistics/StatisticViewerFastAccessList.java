@@ -497,6 +497,16 @@ public class StatisticViewerFastAccessList extends StatisticViewerFastAccessBase
 		 */
 		private static final long serialVersionUID = -1704779702001655809L;
 
+		/**
+		 * Konstruktor der Klasse
+		 */
+		public FilterListRenderer() {
+			/*
+			 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+			 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+			 */
+		}
+
 		@Override
 		public Component getListCellRendererComponent(JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
 			final Component result=super.getListCellRendererComponent(list,value,index,isSelected,cellHasFocus);

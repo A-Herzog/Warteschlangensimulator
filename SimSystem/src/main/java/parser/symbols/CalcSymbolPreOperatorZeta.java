@@ -23,6 +23,27 @@ import parser.coresymbols.CalcSymbolPreOperator;
  * @author Alexander Herzog
  */
 public class CalcSymbolPreOperatorZeta extends CalcSymbolPreOperator {
+	/**
+	 * Namen für das Symbol
+	 * @see #getNames()
+	 */
+	private static final String[] names=new String[]{"Zeta"};
+
+	/**
+	 * Konstruktor der Klasse
+	 */
+	public CalcSymbolPreOperatorZeta() {
+		/*
+		 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+		 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+		 */
+	}
+
+	@Override
+	public String[] getNames() {
+		return names;
+	}
+
 	@Override
 	protected double calc(double[] parameters) throws MathCalcError {
 		if (parameters.length!=1) throw error();
@@ -37,17 +58,6 @@ public class CalcSymbolPreOperatorZeta extends CalcSymbolPreOperator {
 		final double s=parameters[0];
 		if (s<=1.0) return fallbackValue;
 		return zeta(s);
-	}
-
-	/**
-	 * Namen für das Symbol
-	 * @see #getNames()
-	 */
-	private static final String[] names=new String[]{"Zeta"};
-
-	@Override
-	public String[] getNames() {
-		return names;
 	}
 
 	/**

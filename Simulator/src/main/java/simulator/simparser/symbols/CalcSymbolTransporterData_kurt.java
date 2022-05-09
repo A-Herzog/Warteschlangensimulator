@@ -29,6 +29,16 @@ public class CalcSymbolTransporterData_kurt extends CalcSymbolTransporterData {
 	 */
 	private static final String[] names=new String[]{"transporter_kurt","transporter_utilization_kurt"};
 
+	/**
+	 * Konstruktor der Klasse
+	 */
+	public CalcSymbolTransporterData_kurt() {
+		/*
+		 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+		 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+		 */
+	}
+
 	@Override
 	public String[] getNames() {
 		return names;

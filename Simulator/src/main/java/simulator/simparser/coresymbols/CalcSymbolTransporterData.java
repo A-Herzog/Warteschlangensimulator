@@ -29,6 +29,16 @@ import statistics.StatisticsTimePerformanceIndicator;
  */
 public abstract class CalcSymbolTransporterData extends CalcSymbolSimData {
 	/**
+	 * Konstruktor der Klasse
+	 */
+	public CalcSymbolTransporterData() {
+		/*
+		 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+		 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+		 */
+	}
+
+	/**
 	 * Gibt an, ob der Rechenbefehl Daten über alle Transportergruppen hinweg enthält
 	 * @return	Wird hier <code>true</code> geliefert, so muss {@link #calcAllTransporters(StatisticsTimePerformanceIndicator[])} definiert sein
 	 */

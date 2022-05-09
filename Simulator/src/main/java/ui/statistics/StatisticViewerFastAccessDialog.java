@@ -330,6 +330,16 @@ public class StatisticViewerFastAccessDialog extends BaseDialog {
 		 */
 		private static final long serialVersionUID = -7643893461330181707L;
 
+		/**
+		 * Konstruktor der Klasse
+		 */
+		public RadioButtonRenderer() {
+			/*
+			 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+			 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+			 */
+		}
+
 		@Override
 		public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
 			if (!(value instanceof Component)) return super.getTableCellRendererComponent(table,value,isSelected,hasFocus,row,column);
@@ -780,6 +790,16 @@ public class StatisticViewerFastAccessDialog extends BaseDialog {
 	 */
 	private class TreeSelectionChanged implements TreeSelectionListener {
 		/**
+		 * Konstruktor der Klasse
+		 */
+		public TreeSelectionChanged() {
+			/*
+			 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+			 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+			 */
+		}
+
+		/**
 		 * Liefert den aktuell in {@link StatisticViewerFastAccessDialog#tree}
 		 * gewählten Eintrag
 		 * @return	Aktuell ausgewählter Baumeintrag
@@ -813,7 +833,7 @@ public class StatisticViewerFastAccessDialog extends BaseDialog {
 
 		/**
 		 * Liste mit zusätzlich neu zu zeichnenden weiteren Tabellen
-		 * @se {@link #addTriggerRepaint(JRepaintTable)}
+		 * @see #addTriggerRepaint(JRepaintTable)
 		 */
 		private final Set<JRepaintTable> tables;
 

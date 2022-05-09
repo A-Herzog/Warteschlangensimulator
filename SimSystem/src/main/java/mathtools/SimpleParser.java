@@ -375,6 +375,16 @@ public class SimpleParser extends CalcSystemBase {
 	 */
 	private abstract static class Symbol {
 		/**
+		 * Konstruktor der Klasse
+		 */
+		public Symbol() {
+			/*
+			 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+			 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+			 */
+		}
+
+		/**
 		 * Führt die eigentliche Berechnung durch.
 		 * @param variableValues	Liste mit den Werten der Variablen.
 		 * @return	Berechneter Ausdruck

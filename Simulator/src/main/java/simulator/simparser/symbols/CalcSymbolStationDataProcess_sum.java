@@ -36,6 +36,16 @@ public class CalcSymbolStationDataProcess_sum extends CalcSymbolStationData {
 			"ServiceTime_sum","ServiceTime_gesamt","ServiceTime_summe"
 	};
 
+	/**
+	 * Konstruktor der Klasse
+	 */
+	public CalcSymbolStationDataProcess_sum() {
+		/*
+		 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+		 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+		 */
+	}
+
 	@Override
 	public String[] getNames() {
 		return names;

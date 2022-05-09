@@ -241,6 +241,17 @@ public final class JTableExt extends JTable {
 		 * @see Serializable
 		 */
 		private static final long serialVersionUID = -6047418281147307757L;
+
+		/**
+		 * Konstruktor der Klasse
+		 */
+		public CellRendererExt() {
+			/*
+			 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+			 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+			 */
+		}
+
 		@Override
 		public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
 			if (value instanceof JComponent) return (JComponent)value;
@@ -258,12 +269,35 @@ public final class JTableExt extends JTable {
 		 * @see Serializable
 		 */
 		private static final long serialVersionUID = 6362443731642362983L;
+
+		/**
+		 * Konstruktor der Klasse
+		 */
+		public CellEditorExt() {
+			/*
+			 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+			 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+			 */
+		}
+
 		@Override
 		public Component getTableCellEditorComponent(JTable table, Object value, boolean isSelected, int row, int column) {
 			return (value instanceof JComponent)?(JComponent)value:null;
 		}
-		@Override public Object getCellEditorValue() {return null;}
-		@Override public boolean isCellEditable(EventObject anEvent) {return true;}
-		@Override public boolean shouldSelectCell(EventObject anEvent) {return false;}
+
+		@Override
+		public Object getCellEditorValue() {
+			return null;
+		}
+
+		@Override
+		public boolean isCellEditable(EventObject anEvent) {
+			return true;
+		}
+
+		@Override
+		public boolean shouldSelectCell(EventObject anEvent) {
+			return false;
+		}
 	}
 }

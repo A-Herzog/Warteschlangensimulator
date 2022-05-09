@@ -33,6 +33,16 @@ import ui.modeleditor.ModelElementCatalogDescriptionBuilder;
  * @see CommandLineSystem
  */
 public class CommandGC extends AbstractCommand {
+	/**
+	 * Konstruktor der Klasse
+	 */
+	public CommandGC() {
+		/*
+		 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+		 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+		 */
+	}
+
 	@Override
 	public String[] getKeys() {
 		return Language.trAll("CommandLine.GC.Name");

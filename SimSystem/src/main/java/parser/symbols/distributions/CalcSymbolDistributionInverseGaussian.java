@@ -31,6 +31,16 @@ public final class CalcSymbolDistributionInverseGaussian extends CalcSymbolDistr
 	 */
 	private static final String[] names=new String[]{"InverseGaussianDistribution","InverseGaussianDist","InverseGaussVerteilung"};
 
+	/**
+	 * Konstruktor der Klasse
+	 */
+	public CalcSymbolDistributionInverseGaussian() {
+		/*
+		 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+		 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+		 */
+	}
+
 	@Override
 	public String[] getNames() {
 		return names;

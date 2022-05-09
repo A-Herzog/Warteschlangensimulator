@@ -59,6 +59,18 @@ public class Main {
 	private static File loadFile;
 
 	/**
+	 * Konstruktor der Klasse<br>
+	 * Diese Klasse kann nicht instanziert werden.
+	 * Sie stellt nur die statische Methode {@link #main(String[])} zur Verfügung.
+	 */
+	private Main() {
+		/*
+		 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+		 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+		 */
+	}
+
+	/**
 	 * Verarbeitet mögliche Kommandozeilen-Parameter
 	 * @param args	Die an <code>main</code> übergebenen Parameter
 	 * @return	Gibt <code>true</code> zurück, wenn alle Verarbeitungen bereits auf der Kommandozeile ausgeführt werden konnten und die grafische Oberfläche nicht gestartet werden muss
@@ -147,6 +159,16 @@ public class Main {
 	 * Ausführen der grafischen Oberfläche über ein <code>invokeLater</code>.
 	 */
 	private static final class RunSimulator implements Runnable {
+		/**
+		 * Konstruktor der Klasse
+		 */
+		public RunSimulator() {
+			/*
+			 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+			 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+			 */
+		}
+
 		@Override
 		public void run() {
 			final SetupData setup=SetupData.getSetup();

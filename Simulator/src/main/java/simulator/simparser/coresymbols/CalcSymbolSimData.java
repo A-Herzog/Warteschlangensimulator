@@ -32,6 +32,16 @@ import statistics.StatisticsTimePerformanceIndicator;
  */
 public abstract class CalcSymbolSimData extends CalcSymbolPreOperator {
 	/**
+	 * Konstruktor der Klasse
+	 */
+	public CalcSymbolSimData() {
+		/*
+		 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+		 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+		 */
+	}
+
+	/**
 	 * Liefert das zentrale {@link SimulationData}-Objekt für Berechnungen.
 	 * @return	Basis-Objekt der Simulation
 	 * @see ExpressionCalc#getSimData()

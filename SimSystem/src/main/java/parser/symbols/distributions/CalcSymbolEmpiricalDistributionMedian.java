@@ -32,6 +32,16 @@ public class CalcSymbolEmpiricalDistributionMedian extends CalcSymbolPreOperator
 	 */
 	private static final String[] names=new String[]{"EmpirischeVerteilungMedian","EmpiricalDistributionMedian"};
 
+	/**
+	 * Konstruktor der Klasse
+	 */
+	public CalcSymbolEmpiricalDistributionMedian() {
+		/*
+		 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+		 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+		 */
+	}
+
 	@Override
 	public String[] getNames() {
 		return names;

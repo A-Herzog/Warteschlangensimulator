@@ -23,6 +23,16 @@ import parser.symbols.CalcSymbolPreOperatorBinomial;
  */
 public class CalcSymbolDiscreteDistributionNegativeBinomial extends CalcSymbolDiscreteDistribution {
 	/**
+	 * Konstruktor der Klasse
+	 */
+	public CalcSymbolDiscreteDistributionNegativeBinomial() {
+		/*
+		 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+		 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+		 */
+	}
+
+	/**
 	 * Namen für das Symbol
 	 * @see #getNames()
 	 */

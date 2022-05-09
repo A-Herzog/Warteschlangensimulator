@@ -26,6 +26,27 @@ import parser.coresymbols.CalcSymbolPreOperator;
  * @author Alexander Herzog
  */
 public final class CalcSymbolPreOperatorSign extends CalcSymbolPreOperator {
+	/**
+	 * Namen für das Symbol
+	 * @see #getNames()
+	 */
+	private static final String[] names=new String[]{"signum","sign","vorzeichen","sgn"};
+
+	/**
+	 * Konstruktor der Klasse
+	 */
+	public CalcSymbolPreOperatorSign() {
+		/*
+		 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+		 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+		 */
+	}
+
+	@Override
+	public String[] getNames() {
+		return names;
+	}
+
 	@Override
 	protected double calc(double[] parameters) throws MathCalcError {
 		if (parameters.length!=1) throw error();
@@ -40,16 +61,5 @@ public final class CalcSymbolPreOperatorSign extends CalcSymbolPreOperator {
 		final double sign=Math.signum(parameters[0]);
 		if (sign<0) return -1;
 		return sign;
-	}
-
-	/**
-	 * Namen für das Symbol
-	 * @see #getNames()
-	 */
-	private static final String[] names=new String[]{"signum","sign","vorzeichen","sgn"};
-
-	@Override
-	public String[] getNames() {
-		return names;
 	}
 }

@@ -33,6 +33,16 @@ public class CalcSymbolStationDataProcess_histAll extends CalcSymbolStationDataA
 	 */
 	private static final String[] names=new String[]{"Bedienzeit_histAll","ProcessTime_histAll","ProcessingTime_histAll","ServiceTime_histAll"};
 
+	/**
+	 * Konstruktor der Klasse
+	 */
+	public CalcSymbolStationDataProcess_histAll() {
+		/*
+		 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+		 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+		 */
+	}
+
 	@Override
 	public String[] getNames() {
 		return names;

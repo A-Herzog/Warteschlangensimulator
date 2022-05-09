@@ -56,6 +56,16 @@ import mathtools.distribution.tools.DistributionTools;
  */
 class DistributionSwingTests {
 	/**
+	 * Konstruktor der Klasse
+	 */
+	public DistributionSwingTests() {
+		/*
+		 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+		 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+		 */
+	}
+
+	/**
 	 * Test: Konstruktor von {@link CommonVariables} ist privat? - Klasse stellt nur statische Methoden zur Verfügung und soll nicht initialisierbar sein
 	 * @throws NoSuchMethodException	Konstruktor konnte nicht gefunden werden
 	 * @throws IllegalAccessException	Zugriff verweigert
@@ -151,7 +161,21 @@ class DistributionSwingTests {
 	private static class MiniActionListener implements ActionListener {
 		/** Wurde das Ereignis ausgelöst? */
 		public boolean notify=false;
-		@Override public void actionPerformed(ActionEvent e) {notify=true;}
+
+		/**
+		 * Konstruktor der Klasse
+		 */
+		public MiniActionListener() {
+			/*
+			 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+			 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+			 */
+		}
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			notify=true;
+		}
 	}
 
 	/**

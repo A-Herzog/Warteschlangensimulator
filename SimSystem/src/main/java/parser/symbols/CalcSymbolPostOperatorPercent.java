@@ -30,6 +30,16 @@ public final class CalcSymbolPostOperatorPercent extends CalcSymbolPostOperator 
 	 */
 	private static final String[] names=new String[]{"%","percent","prozent","vonhundert"};
 
+	/**
+	 * Konstruktor der Klasse
+	 */
+	public CalcSymbolPostOperatorPercent() {
+		/*
+		 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+		 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+		 */
+	}
+
 	@Override
 	public String[] getNames() {
 		return names;

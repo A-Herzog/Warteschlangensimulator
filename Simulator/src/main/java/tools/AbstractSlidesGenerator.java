@@ -54,6 +54,15 @@ import systemtools.MsgBox;
  * @see <a href="https://poi.apache.org/components/slideshow/xslf-cookbook.html">https://poi.apache.org/components/slideshow/xslf-cookbook.html</a>
  */
 public abstract class AbstractSlidesGenerator {
+	/**
+	 * Konstruktor der Klasse
+	 */
+	public AbstractSlidesGenerator() {
+		/*
+		 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+		 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+		 */
+	}
 
 	/**
 	 * Diese Methode wird zur eigentlichen Erstellung der Präsentation

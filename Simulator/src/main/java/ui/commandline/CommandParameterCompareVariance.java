@@ -44,6 +44,16 @@ public class CommandParameterCompareVariance extends AbstractCommand {
 	/** Ankünfte pro Wiederholung */
 	private long arrivals;
 
+	/**
+	 * Konstruktor der Klasse
+	 */
+	public CommandParameterCompareVariance() {
+		/*
+		 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+		 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+		 */
+	}
+
 	@Override
 	public String[] getKeys() {
 		final List<String> list=new ArrayList<>();

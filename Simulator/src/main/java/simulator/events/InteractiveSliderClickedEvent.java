@@ -27,6 +27,16 @@ import simulator.runmodel.SimulationData;
  */
 public class InteractiveSliderClickedEvent extends Event {
 	/**
+	 * Konstruktor der Klasse
+	 */
+	public InteractiveSliderClickedEvent() {
+		/*
+		 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+		 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+		 */
+	}
+
+	/**
 	 * Zu benachrichtigender Schieberegler
 	 */
 	public RunElementInteractiveSlider interactiveSlider;

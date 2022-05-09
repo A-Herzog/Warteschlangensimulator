@@ -27,6 +27,16 @@ import simulator.runmodel.SimulationData;
  */
 public class ProcessReleaseResources extends Event {
 	/**
+	 * Konstruktor der Klasse
+	 */
+	public ProcessReleaseResources() {
+		/*
+		 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+		 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+		 */
+	}
+
+	/**
 	 * Station an der die Nachbearbeitungszeit endet
 	 */
 	public RunElementProcess station;

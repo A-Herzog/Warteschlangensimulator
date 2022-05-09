@@ -28,6 +28,16 @@ import java.util.stream.Collectors;
  */
 public class TextTransformer {
 	/**
+	 * Konstruktor der Klasse
+	 */
+	public TextTransformer() {
+		/*
+		 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+		 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+		 */
+	}
+
+	/**
 	 * Zuletzt verarbeitete Eingabezeile
 	 * @see #lastSingleOutput
 	 * @see #process(String)

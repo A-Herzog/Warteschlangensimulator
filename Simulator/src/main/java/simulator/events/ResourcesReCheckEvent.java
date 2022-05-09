@@ -33,6 +33,16 @@ public class ResourcesReCheckEvent extends Event {
 	 */
 	public long autoScheduleNext=0;
 
+	/**
+	 * Konstruktor der Klasse
+	 */
+	public ResourcesReCheckEvent() {
+		/*
+		 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+		 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+		 */
+	}
+
 	@Override
 	public void run(SimData data) {
 		final SimulationData simData=(SimulationData)data;

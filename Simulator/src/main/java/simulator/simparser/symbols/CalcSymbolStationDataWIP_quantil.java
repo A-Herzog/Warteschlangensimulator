@@ -35,6 +35,16 @@ public class CalcSymbolStationDataWIP_quantil extends CalcSymbolStationDataQuant
 	 */
 	private static final String[] names=new String[]{"WIP_quantil","Station_quantil","N_quantil"};
 
+	/**
+	 * Konstruktor der Klasse
+	 */
+	public CalcSymbolStationDataWIP_quantil() {
+		/*
+		 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+		 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+		 */
+	}
+
 	@Override
 	public String[] getNames() {
 		return names;

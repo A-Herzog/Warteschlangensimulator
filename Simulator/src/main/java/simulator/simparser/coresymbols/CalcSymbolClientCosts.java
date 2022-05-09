@@ -33,6 +33,16 @@ import statistics.StatisticsValuePerformanceIndicator;
  */
 public abstract class CalcSymbolClientCosts extends CalcSymbolSimData {
 	/**
+	 * Konstruktor der Klasse
+	 */
+	public CalcSymbolClientCosts() {
+		/*
+		 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+		 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+		 */
+	}
+
+	/**
 	 * Liefert den Wert aus einem {@link StatisticsValuePerformanceIndicator}-Objekt
 	 * @param indicator	Statistikobjekt aus dem der Wert ausgelesen werden soll
 	 * @return	Wert in dem Statistikobjekt

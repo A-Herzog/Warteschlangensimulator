@@ -28,6 +28,16 @@ public class CalcSymbolDiscreteDistributionZeta extends CalcSymbolDiscreteDistri
 	 */
 	private static final String[] names=new String[]{"ZetaDistribution","ZetaDist","ZetaDistribution","ZetaDist","ZetaVerteilung"};
 
+	/**
+	 * Konstruktor der Klasse
+	 */
+	public CalcSymbolDiscreteDistributionZeta() {
+		/*
+		 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+		 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+		 */
+	}
+
 	@Override
 	public String[] getNames() {
 		return names;

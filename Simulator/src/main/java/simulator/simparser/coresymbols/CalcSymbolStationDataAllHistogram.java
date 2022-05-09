@@ -36,6 +36,16 @@ public abstract class CalcSymbolStationDataAllHistogram extends CalcSymbolSimDat
 	 */
 	protected abstract DataDistributionImpl getDistribution(final Statistics statistics);
 
+	/**
+	 * Konstruktor der Klasse
+	 */
+	public CalcSymbolStationDataAllHistogram() {
+		/*
+		 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+		 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+		 */
+	}
+
 	@Override
 	protected double calc(double[] parameters) throws MathCalcError {
 		if (parameters.length<1 || parameters.length>2) throw error();

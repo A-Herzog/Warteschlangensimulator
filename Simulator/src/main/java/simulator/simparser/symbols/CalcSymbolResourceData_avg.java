@@ -36,6 +36,16 @@ public class CalcSymbolResourceData_avg extends CalcSymbolResourceData {
 			"resource_Mittelwert","utilization_Mittelwert"
 	};
 
+	/**
+	 * Konstruktor der Klasse
+	 */
+	public CalcSymbolResourceData_avg() {
+		/*
+		 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+		 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+		 */
+	}
+
 	@Override
 	public String[] getNames() {
 		return names;

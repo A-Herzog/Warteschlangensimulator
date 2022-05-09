@@ -35,6 +35,16 @@ public class CalcSymbolStationDataWIP_max extends CalcSymbolStationData {
 	 */
 	private static final String[] names=new String[]{"WIP_max","Station_max","N_max","WIP_Maximum","Station_Maximum","N_Maximum"};
 
+	/**
+	 * Konstruktor der Klasse
+	 */
+	public CalcSymbolStationDataWIP_max() {
+		/*
+		 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+		 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+		 */
+	}
+
 	@Override
 	public String[] getNames() {
 		return names;

@@ -233,6 +233,16 @@ public class UndoRedoDialog extends BaseDialog {
 		 */
 		private static final long serialVersionUID = 4327039078742103357L;
 
+		/**
+		 * Konstruktor der Klasse
+		 */
+		public ElementListCellRenderer() {
+			/*
+			 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+			 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+			 */
+		}
+
 		@Override
 		public Component getListCellRendererComponent(JList<?> list, Object value, int index,boolean isSelected, boolean cellHasFocus) {
 			Component renderer=super.getListCellRendererComponent(list,value, index, isSelected, cellHasFocus);

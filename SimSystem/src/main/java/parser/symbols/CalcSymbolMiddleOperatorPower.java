@@ -23,6 +23,15 @@ import parser.coresymbols.CalcSymbolMiddleOperator;
  * @author Alexander Herzog
  */
 public final class CalcSymbolMiddleOperatorPower extends CalcSymbolMiddleOperator {
+	/**
+	 * Konstruktor der Klasse
+	 */
+	public CalcSymbolMiddleOperatorPower() {
+		/*
+		 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+		 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+		 */
+	}
 
 	@Override
 	protected double calc(double left, double right) throws MathCalcError {

@@ -31,6 +31,16 @@ public abstract class CalcSymbolConst extends CalcSymbol {
 	 */
 	private double value;
 
+	/**
+	 * Konstruktor der Klasse
+	 */
+	public CalcSymbolConst() {
+		/*
+		 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+		 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+		 */
+	}
+
 	@Override
 	public final SymbolType getType() {
 		return CalcSymbol.SymbolType.TYPE_CONST;

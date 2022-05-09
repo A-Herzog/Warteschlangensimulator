@@ -25,9 +25,24 @@ import simcore.Event;
  * @version 1.0
  */
 public final class NoEventCache implements EventCache {
+	/**
+	 * Konstruktor der Klasse
+	 */
+	public NoEventCache() {
+		/*
+		 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+		 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+		 */
+	}
 
 	@Override
-	public Event get(final Class<? extends Event> eventClass) {try {return eventClass.getConstructor().newInstance();} catch (Exception e) {return null;}}
+	public Event get(final Class<? extends Event> eventClass) {
+		try {
+			return eventClass.getConstructor().newInstance();
+		} catch (Exception e) {
+			return null;
+		}
+	}
 
 	@Override
 	public void put(final Event event) {}
@@ -36,5 +51,7 @@ public final class NoEventCache implements EventCache {
 	public void clear() {}
 
 	@Override
-	public Event getOrNull(Class<? extends Event> eventClass) {return null;}
+	public Event getOrNull(Class<? extends Event> eventClass) {
+		return null;
+	}
 }

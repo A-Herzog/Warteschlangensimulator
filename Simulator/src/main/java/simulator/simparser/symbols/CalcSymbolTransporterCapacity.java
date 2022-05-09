@@ -35,6 +35,16 @@ public class CalcSymbolTransporterCapacity extends CalcSymbolSimData {
 	 */
 	private static final String[] names=new String[]{"resource_capacity"};
 
+	/**
+	 * Konstruktor der Klasse
+	 */
+	public CalcSymbolTransporterCapacity() {
+		/*
+		 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+		 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+		 */
+	}
+
 	@Override
 	public String[] getNames() {
 		return names;

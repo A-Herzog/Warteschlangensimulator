@@ -29,6 +29,16 @@ import parser.coresymbols.CalcSymbolPreOperator;
  */
 public class CalcSymbolPreOperatorIf extends CalcSymbolPreOperator {
 	/**
+	 * Konstruktor der Klasse
+	 */
+	public CalcSymbolPreOperatorIf() {
+		/*
+		 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+		 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+		 */
+	}
+
+	/**
 	 * Namen für das Symbol
 	 * @see #getNames()
 	 */

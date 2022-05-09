@@ -32,6 +32,16 @@ public class CalcSymbolDistributionSawtoothLeftDirect extends CalcSymbolDistribu
 	 */
 	private static final String[] names=new String[]{"LeftSawtoothDistributionDirect","LeftSawtoothDistDirect","LinkeSägezahnVerteilungDirekt"};
 
+	/**
+	 * Konstruktor der Klasse
+	 */
+	public CalcSymbolDistributionSawtoothLeftDirect() {
+		/*
+		 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+		 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+		 */
+	}
+
 	@Override
 	public String[] getNames() {
 		return names;

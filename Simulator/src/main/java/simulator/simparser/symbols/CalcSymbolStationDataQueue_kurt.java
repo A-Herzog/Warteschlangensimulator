@@ -35,6 +35,16 @@ public class CalcSymbolStationDataQueue_kurt extends CalcSymbolStationData {
 	 */
 	private static final String[] names=new String[]{"NQ_sk","Queue_kurt","Schlange_kurt","Warteschlange_kurt"};
 
+	/**
+	 * Konstruktor der Klasse
+	 */
+	public CalcSymbolStationDataQueue_kurt() {
+		/*
+		 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+		 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+		 */
+	}
+
 	@Override
 	public String[] getNames() {
 		return names;

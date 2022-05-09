@@ -41,6 +41,7 @@ public final class ModelResource implements Cloneable {
 	public static String[] XML_NODE_NAME=new String[]{"Ressource"}; /* wird dynamisch mit Sprachdaten geladen, siehe LanguageStaticLoader */
 
 	/**
+	 * Modus der Ressource
 	 * @see ModelResource#getMode()
 	 * @see ModelResource#getCount()
 	 * @see ModelResource#setCount(int)

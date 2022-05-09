@@ -33,6 +33,16 @@ public abstract class XMLData {
 	public static String errorOutOfMemory="Aufgrund der Speicherlimitierung durch die Java VM kann die xml-Datei nicht geladen werden.\nErhöhen Sie das Speichermaximum über den Parameter -Xmx.";
 
 	/**
+	 * Konstruktor der Klasse
+	 */
+	protected XMLData() {
+		/*
+		 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+		 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+		 */
+	}
+
+	/**
 	 * Liefert den Namen des Wurzel-Elements für xml-Dateien dieses Typs
 	 * @return	Alle zulässigen Namen für das Wurzel-Element für xml-Dateien dieses Typs
 	 */

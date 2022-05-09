@@ -32,6 +32,7 @@ import ui.modeleditor.descriptionbuilder.ModelDescriptionBuilder;
  */
 public final class TransportTimeRecord implements Cloneable {
 	/**
+	 * Art der Verzögerung beim Transport
 	 * @see TransportTimeRecord#getDelayType()
 	 * @see TransportTimeRecord#setDelayType(DelayType)
 	 */

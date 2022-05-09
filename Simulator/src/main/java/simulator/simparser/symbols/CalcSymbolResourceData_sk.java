@@ -29,6 +29,16 @@ public class CalcSymbolResourceData_sk extends CalcSymbolResourceData {
 	 */
 	private static final String[] names=new String[]{"resource_sk","utilization_sk"};
 
+	/**
+	 * Konstruktor der Klasse
+	 */
+	public CalcSymbolResourceData_sk() {
+		/*
+		 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+		 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+		 */
+	}
+
 	@Override
 	public String[] getNames() {
 		return names;

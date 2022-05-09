@@ -226,6 +226,16 @@ public class ClassLoaderCache {
 		private ClassLoader classLoader;
 
 		/**
+		 * Konstruktor der Klasse
+		 */
+		public CompileData() {
+			/*
+			 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+			 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+			 */
+		}
+
+		/**
 		 * Initialisiert Dateimanager und Classloader in Abhängigkeit
 		 * von einem externen Plugins-Verzeichnis.
 		 * @param additionalClassPath	Externes Plugins-Verzeichnis (kann <code>null</code> sein)

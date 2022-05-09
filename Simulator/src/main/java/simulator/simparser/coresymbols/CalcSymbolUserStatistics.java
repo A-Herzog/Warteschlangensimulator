@@ -31,6 +31,16 @@ import statistics.StatisticsPerformanceIndicator;
  */
 public abstract class CalcSymbolUserStatistics extends CalcSymbolSimData {
 	/**
+	 * Konstruktor der Klasse
+	 */
+	public CalcSymbolUserStatistics() {
+		/*
+		 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+		 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+		 */
+	}
+
+	/**
 	 * Führt die eigentlich Ermittlung der konkreten Kenngröße auf Basis des Statistikobjektes der Statistik-Station durch.
 	 * @param indicator	Statistikobjekt der Statistik-Station von dem eine Kenngröße ermittelt werden soll
 	 * @return	Kenngröße

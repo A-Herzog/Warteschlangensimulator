@@ -35,6 +35,16 @@ public class CalcSymbolStationDataQueue_scv extends CalcSymbolStationData {
 	 */
 	private static final String[] names=new String[]{"NQ_scv","Queue_scv","Schlange_scv","Warteschlange_scv"};
 
+	/**
+	 * Konstruktor der Klasse
+	 */
+	public CalcSymbolStationDataQueue_scv() {
+		/*
+		 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+		 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+		 */
+	}
+
 	@Override
 	public String[] getNames() {
 		return names;

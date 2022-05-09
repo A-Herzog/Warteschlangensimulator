@@ -335,14 +335,38 @@ public class InfoDialog extends JDialog {
 		 * @see Serializable
 		 */
 		private static final long serialVersionUID = -485008309903554823L;
+
+		/**
+		 * Konstruktor der Klasse
+		 */
+		public CloseListener() {
+			/*
+			 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+			 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+			 */
+		}
+
 		@Override
-		public void actionPerformed(ActionEvent actionEvent) {setVisible(false); dispose();}
+		public void actionPerformed(ActionEvent actionEvent) {
+			setVisible(false);
+			dispose();
+		}
 	}
 
 	/**
 	 * Wird ausgelöst, wenn in dem Infotext auf die E-Mail-Adresse geklickt wird.
 	 */
 	private class LinkListener implements HyperlinkListener {
+		/**
+		 * Konstruktor der Klasse
+		 */
+		public LinkListener() {
+			/*
+			 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+			 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+			 */
+		}
+
 		@Override
 		public void hyperlinkUpdate(HyperlinkEvent e) {
 			if (e.getEventType()!=HyperlinkEvent.EventType.ACTIVATED) return;

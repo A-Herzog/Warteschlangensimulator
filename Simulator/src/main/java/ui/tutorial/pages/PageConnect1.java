@@ -27,6 +27,16 @@ import ui.tutorial.TutorialWindow;
  * @see TutorialWindow
  */
 public class PageConnect1 implements TutorialPage {
+	/**
+	 * Konstruktor der Klasse
+	 */
+	public PageConnect1() {
+		/*
+		 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+		 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+		 */
+	}
+
 	@Override
 	public String getPageName() {
 		return "Connect1";

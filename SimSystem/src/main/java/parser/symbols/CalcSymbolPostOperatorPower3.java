@@ -28,6 +28,16 @@ public final class CalcSymbolPostOperatorPower3 extends CalcSymbolPostOperator {
 	 */
 	private static final String[] names=new String[]{"³"};
 
+	/**
+	 * Konstruktor der Klasse
+	 */
+	public CalcSymbolPostOperatorPower3() {
+		/*
+		 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+		 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+		 */
+	}
+
 	@Override
 	public String[] getNames() {
 		return names;

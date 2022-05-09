@@ -35,6 +35,16 @@ public class CalcSymbolStationDataQueue_quantil extends CalcSymbolStationDataQua
 	 */
 	private static final String[] names=new String[]{"NQ_quantil","Queue_quantil","Schlange_quantil","Warteschlange_quantil"};
 
+	/**
+	 * Konstruktor der Klasse
+	 */
+	public CalcSymbolStationDataQueue_quantil() {
+		/*
+		 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+		 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+		 */
+	}
+
 	@Override
 	public String[] getNames() {
 		return names;

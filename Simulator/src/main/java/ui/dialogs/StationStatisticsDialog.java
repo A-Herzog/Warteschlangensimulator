@@ -246,6 +246,16 @@ public class StationStatisticsDialog extends BaseDialog {
 	 * @see StationStatisticsDialog#listRecords
 	 */
 	private static class JCheckBoxCellRenderer implements ListCellRenderer<JCheckBox> {
+		/**
+		 * Konstruktor der Klasse
+		 */
+		public JCheckBoxCellRenderer() {
+			/*
+			 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+			 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+			 */
+		}
+
 		@Override
 		public Component getListCellRendererComponent(JList<? extends JCheckBox> list, JCheckBox value, int index, boolean isSelected, boolean cellHasFocus) {
 			value.setForeground(list.getForeground());

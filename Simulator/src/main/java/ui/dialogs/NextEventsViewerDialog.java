@@ -238,6 +238,16 @@ public class NextEventsViewerDialog extends BaseDialog {
 		 */
 		private static final long serialVersionUID = -9219657834226171890L;
 
+		/**
+		 * Konstruktor der Klasse
+		 */
+		public ListCellRenderer() {
+			/*
+			 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+			 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+			 */
+		}
+
 		@Override
 		public Component getListCellRendererComponent(JList<?> list, Object value, int index,boolean isSelected, boolean cellHasFocus) {
 			Component renderer=super.getListCellRendererComponent(list,value, index, isSelected, cellHasFocus);

@@ -102,7 +102,7 @@ public class ElementRendererTools {
 		/**
 		 * Liefert einen Gradientendarstellungsstil basierend auf seinem Namen
 		 * @param name	Name des Gradientendarstellungsstil
-		 * @return	Zugehöriger Gradientendarstellungsstil (mit Fallback zu {@value #OFF})
+		 * @return	Zugehöriger Gradientendarstellungsstil (mit Fallback zu {@link GradientStyle#OFF})
 		 */
 		public static GradientStyle fromName(final String name) {
 			for (GradientStyle style: values()) if (style.name.equalsIgnoreCase(name)) return style;

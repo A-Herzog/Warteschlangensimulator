@@ -38,6 +38,16 @@ import systemtools.images.SimToolsImages;
  */
 public class MsgBoxBackendTaskDialog implements MsgBoxBackend {
 	/**
+	 * Konstruktor der Klasse
+	 */
+	public MsgBoxBackendTaskDialog() {
+		/*
+		 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+		 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+		 */
+	}
+
+	/**
 	 * Liefert das zugehörige Fenster zu einer Komponente
 	 * @param component	Komponente zu der das zugehörige Fenster geliefert werden soll
 	 * @return	Fenster oder <code>null</code>, wenn kein passendes Fenster gefunden werden konnte

@@ -38,6 +38,16 @@ public class CalcSymbolStationDataWaiting_max extends CalcSymbolStationData {
 			"WaitingTime_max","WaitingTime_Maximum"
 	};
 
+	/**
+	 * Konstruktor der Klasse
+	 */
+	public CalcSymbolStationDataWaiting_max() {
+		/*
+		 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+		 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+		 */
+	}
+
 	@Override
 	public String[] getNames() {
 		return names;

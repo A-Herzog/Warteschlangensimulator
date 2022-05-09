@@ -27,6 +27,16 @@ import simulator.runmodel.SimulationData;
  */
 public class InteractiveCheckboxClickedEvent extends Event {
 	/**
+	 * Konstruktor der Klasse
+	 */
+	public InteractiveCheckboxClickedEvent() {
+		/*
+		 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+		 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+		 */
+	}
+
+	/**
 	 * Zu benachrichtigende Checkbox
 	 */
 	public RunElementInteractiveCheckbox interactiveCheckbox;

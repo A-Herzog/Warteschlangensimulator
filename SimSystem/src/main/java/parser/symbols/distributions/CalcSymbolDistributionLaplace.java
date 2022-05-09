@@ -31,6 +31,16 @@ public final class CalcSymbolDistributionLaplace extends CalcSymbolDistribution 
 	 */
 	private static final String[] names=new String[]{"LaplaceDistribution","LaplaceDist","Laplaceverteilung"};
 
+	/**
+	 * Konstruktor der Klasse
+	 */
+	public CalcSymbolDistributionLaplace() {
+		/*
+		 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+		 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+		 */
+	}
+
 	@Override
 	public String[] getNames() {
 		return names;

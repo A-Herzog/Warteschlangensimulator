@@ -60,6 +60,7 @@ public final class StatisticsLongRunPerformanceIndicator extends StatisticsPerfo
 	private static final int maxValues=2_000_000;
 
 	/**
+	 * Gibt ab, ob der Minimal-, Maximal- oder Durchschnittswert in dem Intervall erfasst werden soll
 	 * @see StatisticsLongRunPerformanceIndicator#init(long, Mode)
 	 */
 	public enum Mode {

@@ -29,6 +29,16 @@ public class CalcSymbolResourceData_cv extends CalcSymbolResourceData {
 	 */
 	private static final String[] names=new String[]{"resource_cv","utilization_cv"};
 
+	/**
+	 * Konstruktor der Klasse
+	 */
+	public CalcSymbolResourceData_cv() {
+		/*
+		 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+		 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+		 */
+	}
+
 	@Override
 	public String[] getNames() {
 		return names;

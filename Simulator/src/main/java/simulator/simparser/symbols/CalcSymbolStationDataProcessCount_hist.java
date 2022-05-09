@@ -37,6 +37,16 @@ public class CalcSymbolStationDataProcessCount_hist extends CalcSymbolStationDat
 	 */
 	private static final String[] names=new String[]{"NS_hist","Process_hist"};
 
+	/**
+	 * Konstruktor der Klasse
+	 */
+	public CalcSymbolStationDataProcessCount_hist() {
+		/*
+		 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+		 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+		 */
+	}
+
 	@Override
 	public String[] getNames() {
 		return names;

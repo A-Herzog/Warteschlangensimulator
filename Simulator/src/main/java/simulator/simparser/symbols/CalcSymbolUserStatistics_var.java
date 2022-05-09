@@ -31,6 +31,16 @@ public class CalcSymbolUserStatistics_var extends CalcSymbolUserStatistics {
 	 */
 	private static final String[] names=new String[] {"Statistik_var","Statistics_var","Statistik_Varianz"};
 
+	/**
+	 * Konstruktor der Klasse
+	 */
+	public CalcSymbolUserStatistics_var() {
+		/*
+		 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+		 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+		 */
+	}
+
 	@Override
 	public String[] getNames() {
 		return names;

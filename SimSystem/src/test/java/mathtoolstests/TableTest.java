@@ -47,6 +47,16 @@ import mathtools.TableChartBase.Range;
  */
 class TableTest {
 	/**
+	 * Konstruktor der Klasse
+	 */
+	public TableTest() {
+		/*
+		 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+		 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+		 */
+	}
+
+	/**
 	 * Wird intern verwendet, um zu prüfen, ob die Tabelle den
 	 * vorgegebenen Text-Inhalt besitzt.
 	 * @param table	Zu prüfende Tabelle (Annahme: Indizierungsmodus ist Zeilen zu erst)

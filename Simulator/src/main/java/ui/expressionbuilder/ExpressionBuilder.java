@@ -501,6 +501,16 @@ public class ExpressionBuilder extends BaseDialog {
 	 * @see ExpressionBuilder#input
 	 */
 	private class TreeMouseListener implements MouseListener {
+		/**
+		 * Konstruktor der Klasse
+		 */
+		public TreeMouseListener() {
+			/*
+			 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+			 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+			 */
+		}
+
 		@Override
 		public void mouseClicked(MouseEvent e) {}
 

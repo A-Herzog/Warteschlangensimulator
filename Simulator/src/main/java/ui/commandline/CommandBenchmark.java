@@ -44,6 +44,16 @@ public final class CommandBenchmark extends AbstractSimulationCommand {
 	/** Modelldatei für Modus 1 */
 	private File modelFile;
 
+	/**
+	 * Konstruktor der Klasse
+	 */
+	public CommandBenchmark() {
+		/*
+		 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+		 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+		 */
+	}
+
 	@Override
 	public String[] getKeys() {
 

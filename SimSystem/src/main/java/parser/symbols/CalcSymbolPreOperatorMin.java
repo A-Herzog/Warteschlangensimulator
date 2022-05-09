@@ -24,6 +24,27 @@ import parser.coresymbols.CalcSymbolPreOperator;
  * @see CalcSymbolPreOperatorMax
  */
 public final class CalcSymbolPreOperatorMin extends CalcSymbolPreOperator {
+	/**
+	 * Namen für das Symbol
+	 * @see #getNames()
+	 */
+	private static final String[] names=new String[]{"Minimum","Min","Mn"};
+
+	/**
+	 * Konstruktor der Klasse
+	 */
+	public CalcSymbolPreOperatorMin() {
+		/*
+		 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+		 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+		 */
+	}
+
+	@Override
+	public String[] getNames() {
+		return names;
+	}
+
 	@Override
 	protected double calc(double[] parameters) throws MathCalcError {
 		if (parameters.length==0) throw error();
@@ -38,16 +59,5 @@ public final class CalcSymbolPreOperatorMin extends CalcSymbolPreOperator {
 		double min=parameters[0];
 		for (double d:parameters) if (d<min) min=d;
 		return min;
-	}
-
-	/**
-	 * Namen für das Symbol
-	 * @see #getNames()
-	 */
-	private static final String[] names=new String[]{"Minimum","Min","Mn"};
-
-	@Override
-	public String[] getNames() {
-		return names;
 	}
 }

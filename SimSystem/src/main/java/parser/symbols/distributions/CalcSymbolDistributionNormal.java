@@ -32,6 +32,16 @@ public final class CalcSymbolDistributionNormal extends CalcSymbolDistribution {
 	 */
 	private static final String[] names=new String[]{"NormalDistribution","NormalDist","NormalVerteilung"};
 
+	/**
+	 * Konstruktor der Klasse
+	 */
+	public CalcSymbolDistributionNormal() {
+		/*
+		 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+		 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+		 */
+	}
+
 	@Override
 	public String[] getNames() {
 		return names;

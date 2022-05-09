@@ -30,6 +30,16 @@ public class CalcSymbolRepeatCount extends CalcSymbolSimData {
 	 */
 	private static final String[] names=new String[]{"RepeatCount","WiederholungenAnzahl"};
 
+	/**
+	 * Konstruktor der Klasse
+	 */
+	public CalcSymbolRepeatCount() {
+		/*
+		 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+		 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+		 */
+	}
+
 	@Override
 	public String[] getNames() {
 		return names;

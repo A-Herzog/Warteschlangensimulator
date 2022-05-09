@@ -30,6 +30,16 @@ public final class CalcSymbolDistributionChiSquare extends CalcSymbolDistributio
 	 */
 	private static final String[] names=new String[]{"ChiSquareDistribution","ChiSquareDist","ChiQuadratVerteilung"};
 
+	/**
+	 * Konstruktor der Klasse
+	 */
+	public CalcSymbolDistributionChiSquare() {
+		/*
+		 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+		 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+		 */
+	}
+
 	@Override
 	public String[] getNames() {
 		return names;

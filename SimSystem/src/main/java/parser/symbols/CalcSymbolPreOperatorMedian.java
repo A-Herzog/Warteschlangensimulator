@@ -26,6 +26,27 @@ import parser.coresymbols.CalcSymbolPreOperator;
  */
 public final class CalcSymbolPreOperatorMedian extends CalcSymbolPreOperator {
 	/**
+	 * Namen für das Symbol
+	 * @see #getNames()
+	 */
+	private static final String[] names=new String[]{"Median"};
+
+	/**
+	 * Konstruktor der Klasse
+	 */
+	public CalcSymbolPreOperatorMedian() {
+		/*
+		 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+		 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+		 */
+	}
+
+	@Override
+	public String[] getNames() {
+		return names;
+	}
+
+	/**
 	 * Liefert den Median der übergebenen Werte.<br>
 	 * Bei einer geraden Anzahl an Werten wird zwischen dem Wert vor und nach der Mitte gemittelt.
 	 * @param values	Werte deren Medien ermittelt werden soll
@@ -51,16 +72,5 @@ public final class CalcSymbolPreOperatorMedian extends CalcSymbolPreOperator {
 	protected double calcOrDefault(final double[] parameters, final double fallbackValue) {
 		if (parameters.length==0) return fallbackValue;
 		return calcMedian(Arrays.copyOf(parameters,parameters.length));
-	}
-
-	/**
-	 * Namen für das Symbol
-	 * @see #getNames()
-	 */
-	private static final String[] names=new String[]{"Median"};
-
-	@Override
-	public String[] getNames() {
-		return names;
 	}
 }

@@ -35,6 +35,16 @@ public class CalcSymbolStationDataProcess_kurt extends CalcSymbolStationData {
 	 */
 	private static final String[] names=new String[]{"Bedienzeit_kurt","ProcessTime_kurt","ProcessingTime_kurt","ServiceTime_kurt"};
 
+	/**
+	 * Konstruktor der Klasse
+	 */
+	public CalcSymbolStationDataProcess_kurt() {
+		/*
+		 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+		 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+		 */
+	}
+
 	@Override
 	public String[] getNames() {
 		return names;

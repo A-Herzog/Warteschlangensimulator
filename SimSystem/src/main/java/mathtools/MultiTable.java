@@ -66,6 +66,16 @@ public final class MultiTable {
 	private final List<Table> tables=new ArrayList<>();
 
 	/**
+	 * Konstruktor der Klasse
+	 */
+	public MultiTable() {
+		/*
+		 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+		 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+		 */
+	}
+
+	/**
 	 * Gibt an, wie viele Tabellen sich in der Arbeitsmappe befinden
 	 * @return	Anzahl der Tabellen in der Arbeitsmappe
 	 */

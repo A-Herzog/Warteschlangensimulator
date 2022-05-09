@@ -156,6 +156,16 @@ public class JSEngineRhinoDirect extends JSEngine {
 	 * @see JSEngineRhinoDirect#contextFactory
 	 */
 	private static final class FastContextFactory extends ContextFactory {
+		/**
+		 * Konstruktor der Klasse
+		 */
+		public FastContextFactory() {
+			/*
+			 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+			 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+			 */
+		}
+
 		@Override
 		protected boolean hasFeature(Context cx, int featureIndex) {
 			if (featureIndex==Context.FEATURE_INTEGER_WITHOUT_DECIMAL_PLACE) return true;

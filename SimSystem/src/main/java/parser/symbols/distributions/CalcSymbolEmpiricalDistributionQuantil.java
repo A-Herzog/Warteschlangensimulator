@@ -32,6 +32,16 @@ public class CalcSymbolEmpiricalDistributionQuantil extends CalcSymbolPreOperato
 	 */
 	private static final String[] names=new String[]{"EmpirischeVerteilungQuantil","EmpiricalDistributionQuantil"};
 
+	/**
+	 * Konstruktor der Klasse
+	 */
+	public CalcSymbolEmpiricalDistributionQuantil() {
+		/*
+		 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+		 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+		 */
+	}
+
 	@Override
 	public String[] getNames() {
 		return names;

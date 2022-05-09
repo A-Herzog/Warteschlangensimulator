@@ -35,6 +35,16 @@ public class CalcSymbolStationDataWIP_var extends CalcSymbolStationData {
 	 */
 	private static final String[] names=new String[]{"WIP_var","Station_var","N_var","WIP_Varianz","Station_Varianz","N_Varianz"};
 
+	/**
+	 * Konstruktor der Klasse
+	 */
+	public CalcSymbolStationDataWIP_var() {
+		/*
+		 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+		 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+		 */
+	}
+
 	@Override
 	public String[] getNames() {
 		return names;

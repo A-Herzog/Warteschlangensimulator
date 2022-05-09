@@ -31,6 +31,16 @@ public final class CalcSymbolDistributionTriangular extends CalcSymbolDistributi
 	 */
 	private static final String[] names=new String[]{"TriangularDistribution","TriangularDist","Dreiecksverteilung"};
 
+	/**
+	 * Konstruktor der Klasse
+	 */
+	public CalcSymbolDistributionTriangular() {
+		/*
+		 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+		 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+		 */
+	}
+
 	@Override
 	public String[] getNames() {
 		return names;

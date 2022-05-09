@@ -35,6 +35,16 @@ public class CalcSymbolStationDataProcess_cv extends CalcSymbolStationData {
 	 */
 	private static final String[] names=new String[]{"Bedienzeit_cv","ProcessTime_cv","ProcessingTime_cv","ServiceTime_cv"};
 
+	/**
+	 * Konstruktor der Klasse
+	 */
+	public CalcSymbolStationDataProcess_cv() {
+		/*
+		 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+		 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+		 */
+	}
+
 	@Override
 	public String[] getNames() {
 		return names;

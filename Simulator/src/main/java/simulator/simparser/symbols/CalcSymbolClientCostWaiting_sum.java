@@ -31,6 +31,16 @@ public class CalcSymbolClientCostWaiting_sum extends CalcSymbolClientCosts {
 	 */
 	private static final String[] names=new String[]{"Costs_Waiting_Sum","Kosten_Wartezeit_Summe"};
 
+	/**
+	 * Konstruktor der Klasse
+	 */
+	public CalcSymbolClientCostWaiting_sum() {
+		/*
+		 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+		 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+		 */
+	}
+
 	@Override
 	public String[] getNames() {
 		return names;

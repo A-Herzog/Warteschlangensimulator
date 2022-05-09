@@ -540,6 +540,16 @@ public class JDistributionEditorPanel extends JPanel {
 	 * @see JDistributionEditorPanel#makeDistributionFromData()
 	 */
 	private class TextFieldsEvents implements KeyListener {
+		/**
+		 * Konstruktor der Klasse
+		 */
+		public TextFieldsEvents() {
+			/*
+			 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+			 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+			 */
+		}
+
 		@Override
 		public void keyTyped(KeyEvent e) {makeDistributionFromData();}
 		@Override
@@ -589,6 +599,16 @@ public class JDistributionEditorPanel extends JPanel {
 	 * Listener, der auf Klicks auf die Schaltflächen reagiert
 	 */
 	private class ButtonListener implements ActionListener {
+		/**
+		 * Konstruktor der Klasse
+		 */
+		public ButtonListener() {
+			/*
+			 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+			 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+			 */
+		}
+
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			if (e.getSource()==buttonValueCopy) {

@@ -261,6 +261,16 @@ public final class InfoPanelDialog extends BaseDialog {
 		 */
 		private static final long serialVersionUID = -5361367157516885457L;
 
+		/**
+		 * Konstruktor der Klasse
+		 */
+		public CheckBoxCellRenderer() {
+			/*
+			 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+			 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+			 */
+		}
+
 		@Override
 		public Component getTreeCellRendererComponent(JTree tree, Object value, boolean selected, boolean expanded, boolean leaf, int row, boolean hasFocus) {
 			final DefaultMutableTreeNode node=(DefaultMutableTreeNode)value;

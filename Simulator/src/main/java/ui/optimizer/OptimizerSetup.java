@@ -38,6 +38,7 @@ import xml.XMLData;
  */
 public class OptimizerSetup extends XMLData implements Cloneable {
 	/**
+	 * Art des Wertes, der im <code>target</code>-Feld steht.
 	 * @see OptimizerSetup#targetType
 	 */
 	public enum TargetType {
@@ -49,6 +50,7 @@ public class OptimizerSetup extends XMLData implements Cloneable {
 	}
 
 	/**
+	 * Alle Statistikdaten (Zwischenergebnisse) speichern oder nur die Daten für den finalen Optimierungslauf
 	 * @see OptimizerSetup#outputMode
 	 */
 	public enum OutputMode{

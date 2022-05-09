@@ -46,6 +46,16 @@ public class CommandServerMQTT extends AbstractCommand {
 	/** Passwort, dass der Client angeben muss (kann <code>null</code> sein, wenn keine Authentifizierung stattfinden soll) */
 	private String authPassword;
 
+	/**
+	 * Konstruktor der Klasse
+	 */
+	public CommandServerMQTT() {
+		/*
+		 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+		 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+		 */
+	}
+
 	@Override
 	public String[] getKeys() {
 		List<String> list=new ArrayList<>();

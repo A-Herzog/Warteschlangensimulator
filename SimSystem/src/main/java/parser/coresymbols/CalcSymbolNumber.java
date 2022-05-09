@@ -21,6 +21,16 @@ package parser.coresymbols;
  * @see CalcSymbolConst
  */
 public class CalcSymbolNumber extends CalcSymbolConst {
+	/**
+	 * Konstruktor der Klasse
+	 */
+	public CalcSymbolNumber() {
+		/*
+		 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+		 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+		 */
+	}
+
 	@Override
 	public void setValue(double value) {
 		super.setValue(value);

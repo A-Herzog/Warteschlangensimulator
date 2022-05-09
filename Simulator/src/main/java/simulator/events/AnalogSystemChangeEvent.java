@@ -27,6 +27,16 @@ import simulator.runmodel.SimulationData;
  */
 public class AnalogSystemChangeEvent extends Event {
 	/**
+	 * Konstruktor der Klasse
+	 */
+	public AnalogSystemChangeEvent() {
+		/*
+		 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+		 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+		 */
+	}
+
+	/**
 	 * Daten-Element zu einer Analog-Wert-Station (Analoger Wert oder Tank) das benachrichtigt werden soll
 	 */
 	public RunElementAnalogProcessingData analogProcessingData;

@@ -162,6 +162,16 @@ abstract class HTMLFrame extends JFrame {
 	 * @see HTMLPanel#setProcessSpecialLink(Runnable)
 	 */
 	private final class SpecialLink implements Runnable {
+		/**
+		 * Konstruktor der Klasse
+		 */
+		public SpecialLink() {
+			/*
+			 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+			 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+			 */
+		}
+
 		@Override
 		public void run() {
 			if (panel.getSpecialLink().equalsIgnoreCase("special:escape")) {

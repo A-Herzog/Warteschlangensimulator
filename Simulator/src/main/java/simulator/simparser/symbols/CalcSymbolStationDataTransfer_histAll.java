@@ -33,6 +33,16 @@ public class CalcSymbolStationDataTransfer_histAll extends CalcSymbolStationData
 	 */
 	private static final String[] names=new String[]{"Transferzeit_histAll","TransferTime_histAll"};
 
+	/**
+	 * Konstruktor der Klasse
+	 */
+	public CalcSymbolStationDataTransfer_histAll() {
+		/*
+		 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+		 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+		 */
+	}
+
 	@Override
 	public String[] getNames() {
 		return names;

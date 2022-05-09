@@ -43,6 +43,16 @@ public class CommandBuildCatalogDescriptions extends AbstractCommand {
 		HTML
 	}
 
+	/**
+	 * Konstruktor der Klasse
+	 */
+	public CommandBuildCatalogDescriptions() {
+		/*
+		 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+		 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+		 */
+	}
+
 	/** Sprache */
 	private String language;
 	/** Pfad für die Ausgabedateien */

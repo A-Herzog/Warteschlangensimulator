@@ -35,6 +35,16 @@ public class CalcSymbolResourceDown extends CalcSymbolSimData {
 	 */
 	private static final String[] names=new String[]{"resource_down"};
 
+	/**
+	 * Konstruktor der Klasse
+	 */
+	public CalcSymbolResourceDown() {
+		/*
+		 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+		 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+		 */
+	}
+
 	@Override
 	public String[] getNames() {
 		return names;

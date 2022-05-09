@@ -24,6 +24,16 @@ import simcore.eventcache.AssociativeEventCache;
  */
 public abstract class Event implements Comparable<Event> {
 	/**
+	 * Konstruktor der Klasse
+	 */
+	public Event() {
+		/*
+		 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+		 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+		 */
+	}
+
+	/**
 	 * Wird von {@link AssociativeEventCache} verwendet.
 	 */
 	public Class<? extends Event> cacheClass;

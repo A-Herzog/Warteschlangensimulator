@@ -38,6 +38,16 @@ public class CalcSymbolStationDataResidence_avg extends CalcSymbolStationData {
 			"ResidenceTime_avg","ResidenceTime_average","ResidenceTime_Mittelwert"
 	};
 
+	/**
+	 * Konstruktor der Klasse
+	 */
+	public CalcSymbolStationDataResidence_avg() {
+		/*
+		 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+		 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+		 */
+	}
+
 	@Override
 	public String[] getNames() {
 		return names;

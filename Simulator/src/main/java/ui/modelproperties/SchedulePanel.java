@@ -482,6 +482,16 @@ public class SchedulePanel extends JPanel {
 	 * Reagiert auf Mausbewegungen und Mausklicks.
 	 */
 	private class SchedulePanelMouseListener extends MouseAdapter implements MouseMotionListener {
+		/**
+		 * Konstruktor der Klasse
+		 */
+		public SchedulePanelMouseListener() {
+			/*
+			 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+			 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+			 */
+		}
+
 		@Override
 		public void mousePressed(MouseEvent e) {
 			final int[] data=getSlotDataFromPosition(e.getX(),e.getY());

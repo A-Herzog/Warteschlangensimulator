@@ -35,6 +35,16 @@ public class CalcSymbolStationDataQueue_median extends CalcSymbolStationData {
 	 */
 	private static final String[] names=new String[]{"NQ_median","Queue_median","Schlange_median","Warteschlange_median"};
 
+	/**
+	 * Konstruktor der Klasse
+	 */
+	public CalcSymbolStationDataQueue_median() {
+		/*
+		 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+		 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+		 */
+	}
+
 	@Override
 	public String[] getNames() {
 		return names;

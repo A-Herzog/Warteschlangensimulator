@@ -43,6 +43,7 @@ import org.apache.poi.xwpf.usermodel.XWPFDocument;
  */
 public interface StatisticViewer {
 	/**
+	 * Gibt an, ob der Viewer Text, Tabelle oder Grafik ausgibt.
 	 * @see StatisticViewer#getType()
 	 */
 	public enum ViewerType {
@@ -65,6 +66,7 @@ public interface StatisticViewer {
 	}
 
 	/**
+	 * Gibt im Falle des Typs "Grafik" an, von welchem Typ die Grafik ist.
 	 * @see StatisticViewer#getImageType()
 	 * @author Alexander Herzog
 	 *
@@ -96,6 +98,7 @@ public interface StatisticViewer {
 	}
 
 	/**
+	 * Welche Aktionen können mit den aktuellen Viewer ausgeführt werden?
 	 * @see StatisticViewer#getCanDo(CanDoAction)
 	 */
 	public enum CanDoAction {

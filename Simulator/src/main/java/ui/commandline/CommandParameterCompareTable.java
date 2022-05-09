@@ -39,6 +39,16 @@ public class CommandParameterCompareTable extends AbstractCommand {
 	/** Tabellen-Ausgabedatei */
 	private File outFile;
 
+	/**
+	 * Konstruktor der Klasse
+	 */
+	public CommandParameterCompareTable() {
+		/*
+		 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+		 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+		 */
+	}
+
 	@Override
 	public String[] getKeys() {
 		final List<String> list=new ArrayList<>();

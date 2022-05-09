@@ -35,6 +35,16 @@ public class CalcSymbolStationDataQueue_avg extends CalcSymbolStationData {
 	 */
 	private static final String[] names=new String[]{"NQ_avg","Queue_avg","Schlange_avg","Warteschlange_avg","NQ_average","Queue_average","Schlange_average","Warteschlange_average","NQ_Mittelwert","Queue_Mittelwert","Schlange_Mittelwert","Warteschlange_Mittelwert"};
 
+	/**
+	 * Konstruktor der Klasse
+	 */
+	public CalcSymbolStationDataQueue_avg() {
+		/*
+		 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+		 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+		 */
+	}
+
 	@Override
 	public String[] getNames() {
 		return names;

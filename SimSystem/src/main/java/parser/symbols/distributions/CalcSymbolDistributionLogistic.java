@@ -31,6 +31,16 @@ public final class CalcSymbolDistributionLogistic extends CalcSymbolDistribution
 	 */
 	private static final String[] names=new String[]{"LogisticDistribution","LogisticDist","LogistischeVerteilung"};
 
+	/**
+	 * Konstruktor der Klasse
+	 */
+	public CalcSymbolDistributionLogistic() {
+		/*
+		 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+		 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+		 */
+	}
+
 	@Override
 	public String[] getNames() {
 		return names;

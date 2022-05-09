@@ -1243,6 +1243,16 @@ public class AnimationPanel extends JPanel implements RunModelAnimationViewer {
 	 * @see AnimationPanel#abortRunTest()
 	 */
 	private class UpdateInfoTask extends TimerTask {
+		/**
+		 * Konstruktor der Klasse
+		 */
+		public UpdateInfoTask() {
+			/*
+			 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+			 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+			 */
+		}
+
 		@Override
 		public void run() {
 			if (abortRunTest())	{
@@ -2474,6 +2484,16 @@ public class AnimationPanel extends JPanel implements RunModelAnimationViewer {
 	 * @see AnimationPanel#toolbarListener
 	 */
 	private class ToolBarListener implements ActionListener {
+		/**
+		 * Konstruktor der Klasse
+		 */
+		public ToolBarListener() {
+			/*
+			 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+			 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+			 */
+		}
+
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			final Object source=e.getSource();

@@ -431,6 +431,16 @@ public abstract class JQuickAccessTextField extends JPlaceholderTextField {
 		 */
 		private static final long serialVersionUID = 2375121310093542345L;
 
+		/**
+		 * Konstruktor der Klasse
+		 */
+		public QuickAccessListCellRenderer() {
+			/*
+			 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+			 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+			 */
+		}
+
 		@Override
 		public Component getListCellRendererComponent(JList<? extends JQuickAccessRecord> list, JQuickAccessRecord value, int index, boolean isSelected, boolean cellHasFocus) {
 			setIcon(null);

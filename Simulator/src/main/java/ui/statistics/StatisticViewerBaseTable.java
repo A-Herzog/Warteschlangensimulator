@@ -28,12 +28,22 @@ import ui.images.Images;
 
 /**
  * Basisklasse für alle Tabellen-Statistik-Viewer.<br>
- * (Diese Klasste stellt ein Einstellungen-Menü mit der Möglichkeit zur Konfiguration
+ * (Diese Klasse stellt ein Einstellungen-Menü mit der Möglichkeit zur Konfiguration
  * von anzuzeigenden Nachkommastellen usw. an.)
  * @author Alexander Herzog
  * @see StatisticViewerTable
  */
 public class StatisticViewerBaseTable extends StatisticViewerTable {
+	/**
+	 * Konstruktor der Klasse
+	 */
+	public StatisticViewerBaseTable() {
+		/*
+		 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+		 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+		 */
+	}
+
 	@Override
 	public String[] ownSettingsName() {
 		final List<String> names=new ArrayList<>();

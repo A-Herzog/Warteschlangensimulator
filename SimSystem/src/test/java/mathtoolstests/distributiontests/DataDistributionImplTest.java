@@ -52,6 +52,16 @@ class DataDistributionImplTest {
 	private final static int[] exampleDataInt=new int[] {3,4,2,0,1};
 
 	/**
+	 * Konstruktor der Klasse
+	 */
+	public DataDistributionImplTest() {
+		/*
+		 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+		 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+		 */
+	}
+
+	/**
 	 * Einstellung der Sprache für {@link NumberTools} um
 	 * unabhängig vom System immer vergleichbare Ergebnisse
 	 * zu erhalten.

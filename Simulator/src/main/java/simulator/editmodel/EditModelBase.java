@@ -22,6 +22,16 @@ import xml.XMLData;
  */
 public abstract class EditModelBase extends XMLData {
 	/**
+	 * Konstruktor der Klasse
+	 */
+	public EditModelBase() {
+		/*
+		 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+		 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+		 */
+	}
+
+	/**
 	 * Vergleich zwei Versionsnummern der Form x.y.z in Bezug auf die Komponenten x und y miteinander
 	 * @param currentVersion	Programmversion
 	 * @param dataVersion	Datendateiversion

@@ -31,6 +31,16 @@ public class CalcSymbolUserStatistics_avg extends CalcSymbolUserStatistics {
 	 */
 	private static final String[] names=new String[] {"Statistik_avg","Statistics_avg","Statistik_Mittelwert","Statistics_average"};
 
+	/**
+	 * Konstruktor der Klasse
+	 */
+	public CalcSymbolUserStatistics_avg() {
+		/*
+		 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+		 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+		 */
+	}
+
 	@Override
 	public String[] getNames() {
 		return names;

@@ -38,6 +38,16 @@ public class CalcSymbolStationDataWaiting_var extends CalcSymbolStationData {
 			"WaitingTime_var","WaitingTime_Varianz"
 	};
 
+	/**
+	 * Konstruktor der Klasse
+	 */
+	public CalcSymbolStationDataWaiting_var() {
+		/*
+		 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+		 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+		 */
+	}
+
 	@Override
 	public String[] getNames() {
 		return names;

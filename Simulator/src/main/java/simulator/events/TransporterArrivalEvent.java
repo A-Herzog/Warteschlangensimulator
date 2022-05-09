@@ -36,6 +36,16 @@ public class TransporterArrivalEvent extends Event {
 	 */
 	public RunDataTransporter transporter;
 
+	/**
+	 * Konstruktor der Klasse
+	 */
+	public TransporterArrivalEvent() {
+		/*
+		 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+		 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+		 */
+	}
+
 	@Override
 	public void run(SimData data) {
 		final SimulationData simData=(SimulationData)data;

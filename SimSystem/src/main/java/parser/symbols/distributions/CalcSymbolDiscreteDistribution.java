@@ -31,6 +31,16 @@ import parser.coresymbols.CalcSymbolPreOperator;
  */
 public abstract class CalcSymbolDiscreteDistribution extends CalcSymbolPreOperator {
 	/**
+	 * Konstruktor der Klasse
+	 */
+	public CalcSymbolDiscreteDistribution() {
+		/*
+		 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+		 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+		 */
+	}
+
+	/**
 	 * Liefert die Anzahl an Parametern der Wahrscheinlichkeitsverteilung (z.B. 1 für Exp-Verteilung, 2 für Normalverteilung und 4 für Beta-Verteilung)
 	 * @return	Anzahl an Parametern der Wahrscheinlichkeitsverteilung selbst
 	 * @see CalcSymbolDistribution#getDistribution(double[])

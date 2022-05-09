@@ -25,6 +25,16 @@ import java.io.PrintStream;
  */
 public abstract class AbstractCommand {
 	/**
+	 * Konstruktor der Klasse
+	 */
+	public AbstractCommand() {
+		/*
+		 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+		 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+		 */
+	}
+
+	/**
 	 * Referenz auf das Kommandozeilensystem selbst.<br>
 	 * Wird von {@link BaseCommandLineSystem} gesetzt, wenn der Befehl dort registriert wird.<br>
 	 * Kann <code>null</code> sein, wenn der Befehl über den Dialog ausgeführt wird.

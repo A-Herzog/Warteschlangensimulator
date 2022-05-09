@@ -117,6 +117,16 @@ public class RunElementSourceRecord {
 	private int index;
 
 	/**
+	 * Konstruktor der Klasse<br>
+	 */
+	public RunElementSourceRecord() {
+		/*
+		 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+		 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+		 */
+	}
+
+	/**
 	 * Überträgt die Daten aus einem {@link ModelElementSourceRecord}-Element in dieses.
 	 * @param record	Auszulesender Quell-Datensatz
 	 * @param name	Ist nicht {@link ModelElementSourceRecord#hasName()}, so kann hier ein Name für die Kundengruppe angegeben werden.
@@ -740,6 +750,16 @@ public class RunElementSourceRecord {
 	 * @see RunElementSourceRecord#getRuntimeExpressions(String[])
 	 */
 	public static class SourceSetExpressions {
+		/**
+		 * Konstruktor der Klasse
+		 */
+		public SourceSetExpressions() {
+			/*
+			 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+			 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+			 */
+		}
+
 		/**
 		 * Art der Datenquelle für die Zuweisung
 		 */

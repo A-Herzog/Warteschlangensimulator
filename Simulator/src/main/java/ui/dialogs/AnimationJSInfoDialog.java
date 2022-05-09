@@ -83,6 +83,16 @@ public class AnimationJSInfoDialog extends BaseDialog {
 		private final DefaultListCellRenderer defaultRenderer=new DefaultListCellRenderer();
 
 		/**
+		 * Konstruktor der Klasse
+		 */
+		public JSDataListCellRenderer() {
+			/*
+			 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+			 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+			 */
+		}
+
+		/**
 		 * Wandelt die Zeichen "&amp;", "&lt;" und "&gt;" in ihre entsprechenden
 		 * HTML-Entitäten um.
 		 * @param text	Umzuwandelnder Text

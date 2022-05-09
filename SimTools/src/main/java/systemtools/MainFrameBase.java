@@ -297,6 +297,16 @@ public class MainFrameBase extends JFrame {
 	 * @see MainPanelBase#connectToFrame(Runnable, Runnable, Runnable, Runnable, DropTargetRegister)
 	 */
 	private class DropTargetRegisterImpl implements DropTargetRegister {
+		/**
+		 * Konstruktor der Klasse
+		 */
+		public DropTargetRegisterImpl() {
+			/*
+			 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+			 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+			 */
+		}
+
 		@Override
 		public void registerJComponent(final JComponent component) {
 			if (component==null) return;
@@ -327,6 +337,16 @@ public class MainFrameBase extends JFrame {
 	 * Handler, der auf unvorhergesehene Fehler in diesem Thread reagieren soll.
 	 */
 	private final class ExceptionHandler implements Thread.UncaughtExceptionHandler {
+		/**
+		 * Konstruktor der Klasse
+		 */
+		public ExceptionHandler() {
+			/*
+			 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+			 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+			 */
+		}
+
 		/**
 		 * Liefert den aktuellen Zeitpunkt als Zeichenkette im internationalen Format
 		 * @return	Aktueller Zeitpunkt als Zeichenkette im internationalen Format

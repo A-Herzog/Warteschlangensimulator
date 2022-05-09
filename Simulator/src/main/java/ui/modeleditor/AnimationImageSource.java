@@ -503,7 +503,7 @@ public class AnimationImageSource {
 	}
 
 	/**
-	 *
+	 * Speichert ein Bild im Cache.
 	 * @param name	Name des Bildes (ohne Pfad und ohne Dateiendung)
 	 * @param preferredSize	Breite des Bildes
 	 * @param image	Zu speicherndes Bild
@@ -732,6 +732,16 @@ public class AnimationImageSource {
 		 * @see Serializable
 		 */
 		private static final long serialVersionUID = 6913560392242517601L;
+
+		/**
+		 * Konstruktor der Klasse
+		 */
+		public IconComboBoxCellRenderer() {
+			/*
+			 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+			 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+			 */
+		}
 
 		@Override
 		public Component getListCellRendererComponent(JList<?> list, Object value, int index,boolean isSelected, boolean cellHasFocus) {

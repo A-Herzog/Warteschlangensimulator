@@ -41,6 +41,16 @@ public class CommandParameterCompare extends AbstractCommand {
 	/** Tatsächliches inneres System zur Ausführung der Parameterreihensimulation */
 	private ParameterCompareRunner runner;
 
+	/**
+	 * Konstruktor der Klasse
+	 */
+	public CommandParameterCompare() {
+		/*
+		 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+		 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+		 */
+	}
+
 	@Override
 	public String[] getKeys() {
 		final List<String> list=new ArrayList<>();

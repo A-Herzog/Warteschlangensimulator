@@ -530,6 +530,7 @@ public class Statistics extends StatisticsBase {
 	public StatisticsDataCollector clientsAllWaitingTimesCollector;
 
 	/**
+	 * Art der Erfassung der Autokorrelation
 	 * @see Statistics#Statistics(int, CorrelationMode, int, boolean, int, int, boolean)
 	 */
 	public enum CorrelationMode {

@@ -24,6 +24,15 @@ import parser.coresymbols.CalcSymbolPostOperator;
  * @author Alexander Herzog
  */
 public final class CalcSymbolPostOperatorFactorial extends CalcSymbolPostOperator {
+	/**
+	 * Konstruktor der Klasse
+	 */
+	public CalcSymbolPostOperatorFactorial() {
+		/*
+		 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+		 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+		 */
+	}
 
 	@Override
 	protected double calc(double parameter) throws MathCalcError {

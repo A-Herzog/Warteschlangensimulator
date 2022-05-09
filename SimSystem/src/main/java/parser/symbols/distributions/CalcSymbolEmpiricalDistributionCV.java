@@ -32,6 +32,16 @@ public class CalcSymbolEmpiricalDistributionCV extends CalcSymbolPreOperator {
 	 */
 	private static final String[] names=new String[]{"EmpirischeVerteilungCV","EmpiricalDistributionCV"};
 
+	/**
+	 * Konstruktor der Klasse
+	 */
+	public CalcSymbolEmpiricalDistributionCV() {
+		/*
+		 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+		 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+		 */
+	}
+
 	@Override
 	public String[] getNames() {
 		return names;

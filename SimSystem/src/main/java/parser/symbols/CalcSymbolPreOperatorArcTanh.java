@@ -25,6 +25,27 @@ import parser.coresymbols.CalcSymbolPreOperator;
  * @author Alexander Herzog
  */
 public final class CalcSymbolPreOperatorArcTanh extends CalcSymbolPreOperator {
+	/**
+	 * Namen für das Symbol
+	 * @see #getNames()
+	 */
+	private static final String[] names=new String[]{"arcustangensh","arctangensh","arctanh","atanh"};
+
+	/**
+	 * Konstruktor der Klasse
+	 */
+	public CalcSymbolPreOperatorArcTanh() {
+		/*
+		 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+		 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+		 */
+	}
+
+	@Override
+	public String[] getNames() {
+		return names;
+	}
+
 	@Override
 	protected double calc(double[] parameters) throws MathCalcError {
 		if (parameters.length!=1) throw error();
@@ -36,16 +57,4 @@ public final class CalcSymbolPreOperatorArcTanh extends CalcSymbolPreOperator {
 		if (parameters.length!=1) return fallbackValue;
 		return FastMath.atanh(parameters[0]);
 	}
-
-	/**
-	 * Namen für das Symbol
-	 * @see #getNames()
-	 */
-	private static final String[] names=new String[]{"arcustangensh","arctangensh","arctanh","atanh"};
-
-	@Override
-	public String[] getNames() {
-		return names;
-	}
-
 }

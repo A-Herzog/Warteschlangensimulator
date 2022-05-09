@@ -35,6 +35,16 @@ public class CalcSymbolClientUserData extends CalcSymbolSimData  {
 	 */
 	public static final String[] CLIENT_DATA_COMMANDS=new String[]{"ClientData","KundenDaten"};
 
+	/**
+	 * Konstruktor der Klasse
+	 */
+	public CalcSymbolClientUserData() {
+		/*
+		 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+		 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+		 */
+	}
+
 	@Override
 	public String[] getNames() {
 		return CLIENT_DATA_COMMANDS;

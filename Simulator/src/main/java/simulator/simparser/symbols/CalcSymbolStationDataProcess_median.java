@@ -40,6 +40,16 @@ public class CalcSymbolStationDataProcess_median extends CalcSymbolStationData {
 		return names;
 	}
 
+	/**
+	 * Konstruktor der Klasse
+	 */
+	public CalcSymbolStationDataProcess_median() {
+		/*
+		 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+		 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+		 */
+	}
+
 	@Override
 	protected double calc(final RunElementData data) {
 		if (data.statisticProcess==null) return 0;

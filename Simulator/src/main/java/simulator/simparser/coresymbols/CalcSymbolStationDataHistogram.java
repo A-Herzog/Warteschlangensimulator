@@ -40,6 +40,16 @@ public abstract class CalcSymbolStationDataHistogram extends CalcSymbolSimData {
 	protected abstract DataDistributionImpl getDistribution(final RunElementData data);
 
 	/**
+	 * Konstruktor der Klasse
+	 */
+	public CalcSymbolStationDataHistogram() {
+		/*
+		 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+		 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+		 */
+	}
+
+	/**
 	 * Können Histogramme für einzelne Kundentypen erstellt werden?
 	 * @return	Wird hier <code>true</code> zurückgegeben, so müssen die Methoden {@link #getDistributionForClientType(String)} und {@link #getDistributionSumForClientType(String)} implementiert werden.
 	 */

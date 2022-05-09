@@ -38,6 +38,16 @@ public class CallbackLoggerWithJS extends CallbackLogger {
 	private final List<JSData> jsLogging=new ArrayList<>();
 
 	/**
+	 * Konstruktor der Klasse
+	 */
+	public CallbackLoggerWithJS() {
+		/*
+		 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+		 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+		 */
+	}
+
+	/**
 	 * Erfasst eine JS-Code-Ausführung
 	 * @param time	Zeitpunkt des Ereignisses
 	 * @param station	Station an der der JS-Code ausgeführt wurde

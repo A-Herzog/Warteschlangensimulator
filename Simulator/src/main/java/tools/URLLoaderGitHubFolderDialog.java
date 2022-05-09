@@ -146,6 +146,16 @@ public class URLLoaderGitHubFolderDialog extends BaseDialog {
 	 * @see URLLoaderGitHubFolderDialog#list
 	 */
 	private static class JLabelRender implements ListCellRenderer<JLabel> {
+		/**
+		 * Konstruktor der Klasse
+		 */
+		public JLabelRender() {
+			/*
+			 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+			 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+			 */
+		}
+
 		@Override
 		public Component getListCellRendererComponent(JList<? extends JLabel> list, JLabel value, int index, boolean isSelected, boolean cellHasFocus) {
 			if (isSelected) {

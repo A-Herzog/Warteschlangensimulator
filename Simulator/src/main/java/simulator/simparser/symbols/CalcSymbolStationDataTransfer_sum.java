@@ -35,6 +35,16 @@ public class CalcSymbolStationDataTransfer_sum extends CalcSymbolStationData {
 			"TransferTime_sum","TransferTime_gesamt","TransferTime_summe"
 	};
 
+	/**
+	 * Konstruktor der Klasse
+	 */
+	public CalcSymbolStationDataTransfer_sum() {
+		/*
+		 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+		 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+		 */
+	}
+
 	@Override
 	public String[] getNames() {
 		return names;

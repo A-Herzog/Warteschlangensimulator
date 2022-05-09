@@ -83,6 +83,16 @@ public class SimulationImpl implements SimulationInterface {
 	 */
 	public ModelImpl model=null;
 
+	/**
+	 * Konstruktor der Klasse
+	 */
+	public SimulationImpl() {
+		/*
+		 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+		 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+		 */
+	}
+
 	@Override
 	public RuntimeInterface getRuntime() {
 		if (runtime==null) runtime=new RuntimeImpl((system==null)?null:system.simData);

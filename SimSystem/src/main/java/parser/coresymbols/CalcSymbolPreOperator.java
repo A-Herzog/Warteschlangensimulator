@@ -39,6 +39,16 @@ public abstract class CalcSymbolPreOperator extends CalcSymbolFunction {
 	 */
 	protected CalcSymbol[] symbols=emptyParameters;
 
+	/**
+	 * Konstruktor der Klasse
+	 */
+	public CalcSymbolPreOperator() {
+		/*
+		 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+		 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+		 */
+	}
+
 	@Override
 	public final SymbolType getType() {
 		return CalcSymbol.SymbolType.TYPE_FUNCTION;

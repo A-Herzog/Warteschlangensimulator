@@ -33,6 +33,16 @@ public class CalcSymbolStationDataResidence_hist extends CalcSymbolStationDataHi
 	 */
 	private static final String[] names=new String[]{"Verweilzeit_hist","ResidenceTime_hist"};
 
+	/**
+	 * Konstruktor der Klasse
+	 */
+	public CalcSymbolStationDataResidence_hist() {
+		/*
+		 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+		 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+		 */
+	}
+
 	@Override
 	public String[] getNames() {
 		return names;

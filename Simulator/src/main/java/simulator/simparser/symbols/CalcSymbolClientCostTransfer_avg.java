@@ -31,6 +31,16 @@ public class CalcSymbolClientCostTransfer_avg extends CalcSymbolClientCosts {
 	 */
 	private static final String[] names=new String[]{"Costs_Transfer_avg","Costs_Transfer_average","Kosten_Transferzeit_Mittelwert"};
 
+	/**
+	 * Konstruktor der Klasse
+	 */
+	public CalcSymbolClientCostTransfer_avg() {
+		/*
+		 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+		 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+		 */
+	}
+
 	@Override
 	public String[] getNames() {
 		return names;

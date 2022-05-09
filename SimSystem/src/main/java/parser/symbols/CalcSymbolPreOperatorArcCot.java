@@ -29,6 +29,27 @@ public final class CalcSymbolPreOperatorArcCot extends CalcSymbolPreOperator {
 	 */
 	private static final double halfPI=Math.PI/2;
 
+	/**
+	 * Namen für das Symbol
+	 * @see #getNames()
+	 */
+	private static final String[] names=new String[]{"arcuscotangens","arccotangens","arccot","acot"};
+
+	/**
+	 * Konstruktor der Klasse
+	 */
+	public CalcSymbolPreOperatorArcCot() {
+		/*
+		 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+		 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+		 */
+	}
+
+	@Override
+	public String[] getNames() {
+		return names;
+	}
+
 	@Override
 	protected double calc(double[] parameters) throws MathCalcError {
 		if (parameters.length!=1) throw error();
@@ -48,16 +69,4 @@ public final class CalcSymbolPreOperatorArcCot extends CalcSymbolPreOperator {
 			return -halfPI+Math.atan(parameters[0]);
 		}
 	}
-
-	/**
-	 * Namen für das Symbol
-	 * @see #getNames()
-	 */
-	private static final String[] names=new String[]{"arcuscotangens","arccotangens","arccot","acot"};
-
-	@Override
-	public String[] getNames() {
-		return names;
-	}
-
 }

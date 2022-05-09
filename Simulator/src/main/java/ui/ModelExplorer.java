@@ -157,7 +157,24 @@ public class ModelExplorer extends JPanel {
 	 * Reagiert auf Mausklicks und Drag-Operationen
 	 */
 	private class ModelExplorerMouseListener extends MouseAdapter {
-		@Override public void mousePressed(MouseEvent e) {centerVisibleArea(e.getX(),e.getY());}
-		@Override public void mouseDragged(MouseEvent e) {centerVisibleArea(e.getX(),e.getY());}
+		/**
+		 * Konstruktor der Klasse
+		 */
+		public ModelExplorerMouseListener() {
+			/*
+			 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+			 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+			 */
+		}
+
+		@Override
+		public void mousePressed(MouseEvent e) {
+			centerVisibleArea(e.getX(),e.getY());
+		}
+
+		@Override
+		public void mouseDragged(MouseEvent e) {
+			centerVisibleArea(e.getX(),e.getY());
+		}
 	}
 }

@@ -32,6 +32,16 @@ public final class CommandHelp extends AbstractCommand {
 	/** Befehl zu dem die Hilfeseite angezeigt werden soll (<code>null</code> für eine Übersicht über alle verfügbaren Befehle) */
 	private String commandName=null;
 
+	/**
+	 * Konstruktor der Klasse
+	 */
+	public CommandHelp() {
+		/*
+		 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+		 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+		 */
+	}
+
 	@Override
 	public String[] getKeys() {
 		final List<String> list=new ArrayList<>();

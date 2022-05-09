@@ -30,6 +30,16 @@ public class CalcSymbolVariable extends CalcSymbol {
 	private int variableIndex;
 
 	/**
+	 * Konstruktor der Klasse
+	 */
+	public CalcSymbolVariable() {
+		/*
+		 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+		 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+		 */
+	}
+
+	/**
 	 * Stellt ein, auf welchen Variablenwert sich diese Variable beziehen soll
 	 * @param variableIndex	Index der Variable in der Liste der Variablen in {@link CalcSystemBase#variables}
 	 */

@@ -54,6 +54,7 @@ public final class ModelElementSourceRecord implements Cloneable {
 	private final boolean hasOwnArrivals;
 
 	/**
+	 * Art der Bestimmung der Zwischenankunftszeiten
 	 * @see ModelElementSourceRecord#getNextMode()
 	 */
 	public enum NextMode {

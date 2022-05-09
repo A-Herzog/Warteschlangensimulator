@@ -230,6 +230,16 @@ public class HTMLPanelSearchDialog extends BaseDialog {
 		private static final long serialVersionUID=-6622230833352872930L;
 
 		/**
+		 * Konstruktor der Klasse
+		 */
+		public ResultsRenderer() {
+			/*
+			 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+			 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+			 */
+		}
+
+		/**
 		 * Wandelt die Zeichen "&amp;", "&lt;" und "&gt;" in ihre entsprechenden
 		 * HTML-Entitäten um.
 		 * @param line	Umzuwandelnder Text

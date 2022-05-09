@@ -35,6 +35,26 @@ import parser.coresymbols.CalcSymbolPreOperator;
  * @author Alexander Herzog
  */
 public class CalcSymbolPreOperatorErlangC extends CalcSymbolPreOperator {
+	/**
+	 * Namen für das Symbol
+	 * @see #getNames()
+	 */
+	private static final String[] names=new String[]{"ErlangC"};
+
+	/**
+	 * Konstruktor der Klasse
+	 */
+	public CalcSymbolPreOperatorErlangC() {
+		/*
+		 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+		 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+		 */
+	}
+
+	@Override
+	public String[] getNames() {
+		return names;
+	}
 
 	@Override
 	protected double calc(double[] parameters) throws MathCalcError {
@@ -81,16 +101,5 @@ public class CalcSymbolPreOperatorErlangC extends CalcSymbolPreOperator {
 		}
 
 		throw error();
-	}
-
-	/**
-	 * Namen für das Symbol
-	 * @see #getNames()
-	 */
-	private static final String[] names=new String[]{"ErlangC"};
-
-	@Override
-	public String[] getNames() {
-		return names;
 	}
 }

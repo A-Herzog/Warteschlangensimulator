@@ -39,6 +39,15 @@ import mathtools.NumberTools;
  * @see NumberTools
  */
 class NumberToolsTest {
+	/**
+	 * Konstruktor der Klasse
+	 */
+	public NumberToolsTest() {
+		/*
+		 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+		 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+		 */
+	}
 
 	/**
 	 * Einstellung der Sprache für {@link NumberTools} um

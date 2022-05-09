@@ -37,6 +37,16 @@ public class CalcSymbolStationDataQueue_hist extends CalcSymbolStationDataHistog
 	 */
 	private static final String[] names=new String[]{"NQ_hist","Queue_hist","Schlange_hist","Warteschlange_hist"};
 
+	/**
+	 * Konstruktor der Klasse
+	 */
+	public CalcSymbolStationDataQueue_hist() {
+		/*
+		 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+		 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+		 */
+	}
+
 	@Override
 	public String[] getNames() {
 		return names;

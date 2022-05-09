@@ -38,6 +38,16 @@ public class CalcSymbolStationDataResidence_std extends CalcSymbolStationData {
 			"ResidenceTime_std","ResidenceTime_sd","ResidenceTime_Standardabweichung"
 	};
 
+	/**
+	 * Konstruktor der Klasse
+	 */
+	public CalcSymbolStationDataResidence_std() {
+		/*
+		 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+		 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+		 */
+	}
+
 	@Override
 	public String[] getNames() {
 		return names;

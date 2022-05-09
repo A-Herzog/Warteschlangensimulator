@@ -45,6 +45,16 @@ public final class TestEvent extends Event {
 	private TestEvent deleteTest;
 
 	/**
+	 * Konstruktor der Klasse
+	 */
+	public TestEvent() {
+		/*
+		 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+		 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+		 */
+	}
+
+	/**
 	 * Wandelt den Ausführungszeitpunkt {@link Event#time} in eine Zeichenkette um
 	 * @return	Ausführungszeitpunkt als Zeichenkette
 	 */

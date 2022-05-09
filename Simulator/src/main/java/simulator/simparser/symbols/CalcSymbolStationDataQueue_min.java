@@ -35,6 +35,16 @@ public class CalcSymbolStationDataQueue_min extends CalcSymbolStationData {
 	 */
 	private static final String[] names=new String[]{"NQ_min","Queue_min","Schlange_min","Warteschlange_min","NQ_Minimum","Queue_Minimum","Schlange_Minimum","Warteschlange_Minimum"};
 
+	/**
+	 * Konstruktor der Klasse
+	 */
+	public CalcSymbolStationDataQueue_min() {
+		/*
+		 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+		 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+		 */
+	}
+
 	@Override
 	public String[] getNames() {
 		return names;

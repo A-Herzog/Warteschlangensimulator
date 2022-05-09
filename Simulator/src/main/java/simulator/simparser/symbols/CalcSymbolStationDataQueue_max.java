@@ -35,6 +35,16 @@ public class CalcSymbolStationDataQueue_max extends CalcSymbolStationData {
 	 */
 	private static final String[] names=new String[]{"NQ_max","Queue_max","Schlange_max","Warteschlange_max","NQ_Maximum","Queue_Maximum","Schlange_Maximum","Warteschlange_Maximum"};
 
+	/**
+	 * Konstruktor der Klasse
+	 */
+	public CalcSymbolStationDataQueue_max() {
+		/*
+		 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+		 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+		 */
+	}
+
 	@Override
 	public String[] getNames() {
 		return names;

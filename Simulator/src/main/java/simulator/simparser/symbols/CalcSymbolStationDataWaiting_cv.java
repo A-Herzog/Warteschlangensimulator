@@ -35,6 +35,16 @@ public class CalcSymbolStationDataWaiting_cv extends CalcSymbolStationData {
 	 */
 	private static final String[] names=new String[]{"Wartezeit_cv","WaitingTime_cv"};
 
+	/**
+	 * Konstruktor der Klasse
+	 */
+	public CalcSymbolStationDataWaiting_cv() {
+		/*
+		 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+		 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+		 */
+	}
+
 	@Override
 	public String[] getNames() {
 		return names;

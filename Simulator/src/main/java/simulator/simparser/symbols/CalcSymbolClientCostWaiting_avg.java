@@ -31,6 +31,16 @@ public class CalcSymbolClientCostWaiting_avg extends CalcSymbolClientCosts {
 	 */
 	private static final String[] names=new String[]{"Costs_Waiting_avg","Costs_Waiting_average","Kosten_Wartezeit_Mittelwert"};
 
+	/**
+	 * Konstruktor der Klasse
+	 */
+	public CalcSymbolClientCostWaiting_avg() {
+		/*
+		 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+		 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+		 */
+	}
+
 	@Override
 	public String[] getNames() {
 		return names;

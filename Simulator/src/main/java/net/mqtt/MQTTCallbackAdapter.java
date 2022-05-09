@@ -30,6 +30,15 @@ import org.eclipse.paho.mqttv5.common.packet.MqttProperties;
  * @author Alexander Herzog
  */
 public class MQTTCallbackAdapter implements MqttCallback {
+	/**
+	 * Konstruktor der Klasse
+	 */
+	public MQTTCallbackAdapter() {
+		/*
+		 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+		 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+		 */
+	}
 
 	@Override
 	public void disconnected(MqttDisconnectResponse disconnectResponse) {

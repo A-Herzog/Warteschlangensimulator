@@ -198,6 +198,16 @@ public class MainFrame extends MainFrameBase {
 	 * das Fenster als solches neu geladen werden muss.
 	 */
 	private class ReloadWindow implements Runnable {
+		/**
+		 * Konstruktor der Klasse
+		 */
+		public ReloadWindow() {
+			/*
+			 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+			 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+			 */
+		}
+
 		@Override
 		public void run() {
 			if (!processReload()) return;

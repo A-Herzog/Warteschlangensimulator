@@ -88,6 +88,7 @@ public abstract class HelpBase {
 	public static String CONTENT_PAGE="index.html";
 
 	/**
+	 * Zu verwendendes Backend
 	 * @see HelpBase#viewerMode
 	 */
 	public enum ViewerMode {

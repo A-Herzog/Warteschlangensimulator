@@ -34,6 +34,16 @@ import parser.MathCalcError;
  */
 class SimpleParserTest {
 	/**
+	 * Konstruktor der Klasse
+	 */
+	public SimpleParserTest() {
+		/*
+		 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+		 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+		 */
+	}
+
+	/**
 	 * Test: Verschiedene Konstruktor-Varianten
 	 */
 	@Test

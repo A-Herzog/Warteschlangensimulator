@@ -31,6 +31,16 @@ import javax.swing.JOptionPane;
  * @version 1.2
  */
 public class MsgBoxBackendJOptionPane implements MsgBoxBackend {
+	/**
+	 * Konstruktor der Klasse
+	 */
+	public MsgBoxBackendJOptionPane() {
+		/*
+		 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+		 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+		 */
+	}
+
 	@Override
 	public void info(final Component parentComponent, final String title, String message) {
 		if (message.toLowerCase().indexOf("<html>")>=0) message=message.replaceAll("\\n"," ");

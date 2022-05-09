@@ -61,6 +61,7 @@ import xml.XMLTools;
  */
 public class SetupData extends SetupBase {
 	/**
+	 * Fenstergröße beim Programmstart
 	 * @see SetupData#startSizeMode
 	 */
 	public enum StartSizeMode {
@@ -75,6 +76,7 @@ public class SetupData extends SetupBase {
 	}
 
 	/**
+	 * Sichtbarkeit der Elemente-Vorlagen-Leiste beim Programmstart
 	 * @see SetupData#startTemplateMode
 	 */
 	public enum StartTemplateMode {
@@ -89,6 +91,7 @@ public class SetupData extends SetupBase {
 	}
 
 	/**
+	 * Gibt an, wie mit der Einschwingphase in der Animation umgegangen werden soll.
 	 * @see SetupData#animationWarmUpMode
 	 */
 	public enum AnimationMode {
@@ -106,6 +109,7 @@ public class SetupData extends SetupBase {
 	}
 
 	/**
+	 * Modell im Hintergrund prüfen und in Statuszeile anzeigen, ob Fehler vorliegen.
 	 * @see SetupData#backgroundSimulation
 	 */
 	public enum BackgroundProcessingMode {
@@ -123,6 +127,7 @@ public class SetupData extends SetupBase {
 	}
 
 	/**
+	 * Modell automatisch speichern?
 	 * @see SetupData#autoSaveMode
 	 */
 	public enum AutoSaveMode {
@@ -137,6 +142,7 @@ public class SetupData extends SetupBase {
 	}
 
 	/**
+	 * Wie soll beim Laden von Modellen mit potentiell sicherheitskritischen Elementen verfahren werden?
 	 * @see SetupData#modelSecurity
 	 */
 	public enum ModelSecurity {
@@ -151,6 +157,7 @@ public class SetupData extends SetupBase {
 	}
 
 	/**
+	 * Benachrichtigung beim Ende von Simulation, Parameterreihe oder Optimierung in System-Tray anzeigen?
 	 * @see SetupData#notifyMode
 	 */
 	public enum NotifyMode {
@@ -165,6 +172,7 @@ public class SetupData extends SetupBase {
 	}
 
 	/**
+	 * Aufzeichnungsmodus: in Datei oder per DDE zu Excel
 	 * @see SetupData#logMode
 	 */
 	public enum LogMode {

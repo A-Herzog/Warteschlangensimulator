@@ -38,6 +38,16 @@ public class CalcSymbolStationDataWaiting_std extends CalcSymbolStationData {
 			"WaitingTime_std","WaitingTime_sd","WaitingTime_Standardabweichung"
 	};
 
+	/**
+	 * Konstruktor der Klasse
+	 */
+	public CalcSymbolStationDataWaiting_std() {
+		/*
+		 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+		 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+		 */
+	}
+
 	@Override
 	public String[] getNames() {
 		return names;

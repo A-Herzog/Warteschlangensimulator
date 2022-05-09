@@ -30,6 +30,16 @@ public final class CalcSymbolDistributionF extends CalcSymbolDistribution {
 	 */
 	private static final String[] names=new String[]{"FDistribution","FDist","FVerteilung"};
 
+	/**
+	 * Konstruktor der Klasse
+	 */
+	public CalcSymbolDistributionF() {
+		/*
+		 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+		 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+		 */
+	}
+
 	@Override
 	public String[] getNames() {
 		return names;

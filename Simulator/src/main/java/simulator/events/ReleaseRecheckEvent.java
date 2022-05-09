@@ -32,6 +32,16 @@ import simulator.runmodel.SimulationData;
  */
 public class ReleaseRecheckEvent extends Event {
 	/**
+	 * Konstruktor der Klasse
+	 */
+	public ReleaseRecheckEvent() {
+		/*
+		 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+		 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+		 */
+	}
+
+	/**
 	 * Station, die über das normalen state-change-notify benachrichtigt werden soll.
 	 */
 	public StateChangeListener station;

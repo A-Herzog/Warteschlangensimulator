@@ -35,6 +35,16 @@ public class CalcSymbolStationDataResidence_sum extends CalcSymbolStationData {
 			"ResidenceTime_sum","ResidenceTime_gesamt","ResidenceTime_summe"
 	};
 
+	/**
+	 * Konstruktor der Klasse
+	 */
+	public CalcSymbolStationDataResidence_sum() {
+		/*
+		 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+		 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+		 */
+	}
+
 	@Override
 	public String[] getNames() {
 		return names;

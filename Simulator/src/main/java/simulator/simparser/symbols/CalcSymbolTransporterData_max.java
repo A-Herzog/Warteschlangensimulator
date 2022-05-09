@@ -35,6 +35,16 @@ public class CalcSymbolTransporterData_max extends CalcSymbolTransporterData {
 			"transporter_Maximum","transporter_utilization_Maximum"
 	};
 
+	/**
+	 * Konstruktor der Klasse
+	 */
+	public CalcSymbolTransporterData_max() {
+		/*
+		 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+		 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+		 */
+	}
+
 	@Override
 	public String[] getNames() {
 		return names;

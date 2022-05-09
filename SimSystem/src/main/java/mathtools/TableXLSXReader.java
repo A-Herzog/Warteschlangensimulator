@@ -245,6 +245,16 @@ public class TableXLSXReader {
 		/** Cache für die Ganzzahlen von 0 bis einschließlich {@link #MAX_CACHE} */
 		private final String[] cache=new String[MAX_CACHE+1];
 
+		/**
+		 * Konstruktor der Klasse
+		 */
+		public CachedDataFormatter() {
+			/*
+			 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+			 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+			 */
+		}
+
 		@Override
 		public String formatRawCellContents(double value, int formatIndex, String formatString) {
 			if (formatIndex!=CACHE_FORMAT_INDEX || !formatString.equals(CACHE_FORMAT_STRING)) return super.formatRawCellContents(value,formatIndex,formatString);

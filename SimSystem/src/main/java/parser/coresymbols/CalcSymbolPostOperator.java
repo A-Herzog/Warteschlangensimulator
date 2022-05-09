@@ -28,6 +28,16 @@ public abstract class CalcSymbolPostOperator extends CalcSymbolFunction {
 	 */
 	protected CalcSymbol sub;
 
+	/**
+	 * Konstruktor der Klasse
+	 */
+	public CalcSymbolPostOperator() {
+		/*
+		 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+		 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+		 */
+	}
+
 	@Override
 	public final SymbolType getType() {
 		return CalcSymbol.SymbolType.TYPE_POST_OPERATOR;

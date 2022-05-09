@@ -67,6 +67,16 @@ import mathtools.distribution.tools.DistributionTools;
  */
 class DistributionTests {
 	/**
+	 * Konstruktor der Klasse
+	 */
+	public DistributionTests() {
+		/*
+		 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+		 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+		 */
+	}
+
+	/**
 	 * Testet die Funktionen von {@link DistributionTools}
 	 * in Bezug auf eine bestimmte Verteilung
 	 * @param distribution	Verteilung, die in die {@link DistributionTools}-Funktionen eingesetzt werden soll

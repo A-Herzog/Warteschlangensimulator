@@ -33,6 +33,16 @@ import ui.tools.FlatLaFHelper;
  */
 public class AxisDrawer {
 	/**
+	 * Konstruktor der Klasse
+	 */
+	public AxisDrawer() {
+		/*
+		 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+		 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+		 */
+	}
+
+	/**
 	 * Aktueller Minimalwert
 	 */
 	private double minValue;

@@ -144,6 +144,17 @@ abstract class HTMLDialog extends JDialog {
 		 * @see Serializable
 		 */
 		private static final long serialVersionUID = -485008309903554823L;
+
+		/**
+		 * Konstruktor der Klasse
+		 */
+		public SpecialKeyListener() {
+			/*
+			 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+			 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+			 */
+		}
+
 		@Override
 		public void actionPerformed(ActionEvent actionEvent) {setVisible(false); dispose();}
 	}
@@ -169,6 +180,16 @@ abstract class HTMLDialog extends JDialog {
 	 * @see HTMLPanel#setProcessSpecialLink(Runnable)
 	 */
 	private final class SpecialLink implements Runnable {
+		/**
+		 * Konstruktor der Klasse
+		 */
+		public SpecialLink() {
+			/*
+			 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+			 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+			 */
+		}
+
 		@Override
 		public void run() {
 			specialLink=panel.getSpecialLink();

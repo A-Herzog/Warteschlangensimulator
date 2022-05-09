@@ -150,6 +150,16 @@ public class JDataDistributionPanel extends JPanel implements JGetImage {
 		private static final long serialVersionUID = 4036913455488209499L;
 
 		/**
+		 * Konstruktor der Klasse
+		 */
+		public JDataDistributionPlotter() {
+			/*
+			 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+			 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+			 */
+		}
+
+		/**
 		 * Berechnet die tatsächlich verfügbare Zeichenfläche
 		 * @return	Verfügbare Zeichenfläche
 		 */

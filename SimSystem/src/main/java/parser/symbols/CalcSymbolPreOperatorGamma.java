@@ -25,6 +25,15 @@ import parser.coresymbols.CalcSymbolPreOperator;
  * @author Alexander Herzog
  */
 public class CalcSymbolPreOperatorGamma extends CalcSymbolPreOperator {
+	/**
+	 * Konstruktor der Klasse
+	 */
+	public CalcSymbolPreOperatorGamma() {
+		/*
+		 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+		 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+		 */
+	}
 
 	@Override
 	protected double calc(double[] parameters) throws MathCalcError {

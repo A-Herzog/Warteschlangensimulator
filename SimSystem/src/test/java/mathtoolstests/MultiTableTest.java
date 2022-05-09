@@ -37,6 +37,15 @@ import mathtools.TableXLSXReader;
  * @see MultiTable
  */
 class MultiTableTest {
+	/**
+	 * Konstruktor der Klasse
+	 */
+	public MultiTableTest() {
+		/*
+		 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+		 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+		 */
+	}
 
 	/**
 	 * Einfache Tests zum Erstellen von Mehrfachtabellen und wieder Auslesen der einzelnen Blätter

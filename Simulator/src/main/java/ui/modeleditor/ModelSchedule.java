@@ -37,6 +37,7 @@ public final class ModelSchedule implements Cloneable {
 	public static String[] XML_NODE_NAME=new String[]{"ModellZeitplan"}; /* wird dynamisch mit Sprachdaten geladen, siehe LanguageStaticLoader */
 
 	/**
+	 * Art der Fortsetzung des Plans
 	 * @see ModelSchedule#getRepeatMode()
 	 * @see ModelSchedule#setRepeatMode(RepeatMode)
 	 */

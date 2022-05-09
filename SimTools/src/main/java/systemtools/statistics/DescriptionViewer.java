@@ -109,6 +109,16 @@ public class DescriptionViewer extends JPanel {
 	 * Führt Verarbeitungen durch, die erst nach dem Abschluss des Konstruktors möglich sind.
 	 */
 	private class InitRunnable implements Runnable {
+		/**
+		 * Konstruktor der Klasse
+		 */
+		public InitRunnable() {
+			/*
+			 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+			 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+			 */
+		}
+
 		@Override
 		public void run() {
 			try {

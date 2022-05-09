@@ -176,6 +176,17 @@ public class JCheckboxTable extends JTable {
 		 * @see Serializable
 		 */
 		private static final long serialVersionUID = 7961524422591759713L;
+
+		/**
+		 * Konstruktor der Klasse
+		 */
+		public JCheckboxTableModel() {
+			/*
+			 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+			 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+			 */
+		}
+
 		@Override public int getRowCount() {return keys.length;}
 		@Override public int getColumnCount() {return 2;}
 		@Override public Object getValueAt(int rowIndex, int columnIndex) {return (columnIndex==0)?select[rowIndex]:keys[rowIndex];}

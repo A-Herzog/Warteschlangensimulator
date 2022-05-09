@@ -40,6 +40,16 @@ public class CommandServer extends AbstractCommand {
 	/** Signalisiert dass der Server beendet werden soll. */
 	private boolean isQuit;
 
+	/**
+	 * Konstruktor der Klasse
+	 */
+	public CommandServer() {
+		/*
+		 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+		 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+		 */
+	}
+
 	@Override
 	public String[] getKeys() {
 		List<String> list=new ArrayList<>();

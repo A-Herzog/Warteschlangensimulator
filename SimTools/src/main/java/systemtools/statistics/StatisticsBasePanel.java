@@ -1675,6 +1675,16 @@ public abstract class StatisticsBasePanel extends JPanel implements AbstractRepo
 	 * Reagiert auf Klicks auf die verschiedenen Schaltflächen in den Symbolleisten
 	 */
 	private class ButtonListener implements ActionListener {
+		/**
+		 * Konstruktor der Klasse
+		 */
+		public ButtonListener() {
+			/*
+			 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+			 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+			 */
+		}
+
 		@Override
 		public void actionPerformed(final ActionEvent e) {
 			final Object sender=e.getSource();

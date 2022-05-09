@@ -66,7 +66,7 @@ public abstract class RunElementAnalogProcessing extends RunElement implements S
 	}
 
 	/**
-	 *
+	 * Prüft beim Erstellen des Laufzeit-Elements, ob der Sekundenwert für den Abstand (in MS) zwischen zwei Analog-Value-Update-Notify-Ereignissen gültig ist.
 	 * @param analogNotifiy	Prüft den Sekundenwert für den Abstand (in MS) zwischen zwei Analog-Value-Update-Notify-Ereignissen.
 	 * @param id	ID des zugehörigen Elements
 	 * @return	Gibt im Erfolgsfall <code>null</code> zurück, sonst eine Fehlermeldung.

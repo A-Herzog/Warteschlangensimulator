@@ -35,6 +35,16 @@ public class CommandSetMaxThreads extends AbstractCommand {
 	/** Maximalzahl an Threads (-1 für unbegrenzt) */
 	private int maxThreads=-1;
 
+	/**
+	 * Konstruktor der Klasse
+	 */
+	public CommandSetMaxThreads() {
+		/*
+		 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+		 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+		 */
+	}
+
 	@Override
 	public String[] getKeys() {
 		List<String> list=new ArrayList<>();

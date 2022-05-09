@@ -37,6 +37,16 @@ public class CommandBuildCatalogImages extends AbstractCommand {
 	/** Sprache */
 	private String language;
 
+	/**
+	 * Konstruktor der Klasse
+	 */
+	public CommandBuildCatalogImages() {
+		/*
+		 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+		 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+		 */
+	}
+
 	@Override
 	public String[] getKeys() {
 		List<String> list=new ArrayList<>();

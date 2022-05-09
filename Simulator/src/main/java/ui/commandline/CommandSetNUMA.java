@@ -36,6 +36,16 @@ public class CommandSetNUMA extends AbstractCommand {
 	/** NUMA an- oder ausschalten */
 	private boolean useNUMA=false;
 
+	/**
+	 * Konstruktor der Klasse
+	 */
+	public CommandSetNUMA() {
+		/*
+		 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+		 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+		 */
+	}
+
 	@Override
 	public String[] getKeys() {
 		List<String> list=new ArrayList<>();

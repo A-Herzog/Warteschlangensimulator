@@ -38,6 +38,16 @@ public class CalcSymbolStationDataTransfer_avg extends CalcSymbolStationData {
 			"TransferTime_avg","TransferTime_average","TransferTime_Mittelwert"
 	};
 
+	/**
+	 * Konstruktor der Klasse
+	 */
+	public CalcSymbolStationDataTransfer_avg() {
+		/*
+		 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+		 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+		 */
+	}
+
 	@Override
 	public String[] getNames() {
 		return names;

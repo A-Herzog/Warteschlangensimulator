@@ -37,6 +37,16 @@ import statistics.StatisticsCountPerformanceIndicator;
  */
 class StatisticsCountPerformanceIndicatorTest {
 	/**
+	 * Konstruktor der Klasse
+	 */
+	public StatisticsCountPerformanceIndicatorTest() {
+		/*
+		 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+		 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+		 */
+	}
+
+	/**
 	 * Test: Konstruktor-Varianten
 	 */
 	@Test

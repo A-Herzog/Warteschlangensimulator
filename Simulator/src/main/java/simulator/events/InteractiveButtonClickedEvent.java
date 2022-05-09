@@ -27,6 +27,16 @@ import simulator.runmodel.SimulationData;
  */
 public class InteractiveButtonClickedEvent extends Event {
 	/**
+	 * Konstruktor der Klasse
+	 */
+	public InteractiveButtonClickedEvent() {
+		/*
+		 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+		 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+		 */
+	}
+
+	/**
 	 * Zu benachrichtigende Schaltfläche
 	 */
 	public RunElementInteractiveButton interactiveButton;

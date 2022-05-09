@@ -39,6 +39,16 @@ public class CommandServerSocket extends AbstractCommand {
 	/** Abbruchzeit in Sekunden (Werte &le;0 bedeuten, dass keine Abbruchzeit gesetzt ist) */
 	private double timeout=-1;
 
+	/**
+	 * Konstruktor der Klasse
+	 */
+	public CommandServerSocket() {
+		/*
+		 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+		 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+		 */
+	}
+
 	@Override
 	public String[] getKeys() {
 		List<String> list=new ArrayList<>();

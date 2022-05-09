@@ -110,6 +110,16 @@ public class StatisticTree extends JTree {
 	 * @see StatisticTree#nodeSelected(StatisticNode, DefaultMutableTreeNode)
 	 */
 	private final class TreeSelectionChanged implements TreeSelectionListener {
+		/**
+		 * Konstruktor der Klasse
+		 */
+		public TreeSelectionChanged() {
+			/*
+			 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+			 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+			 */
+		}
+
 		@Override
 		public void valueChanged(TreeSelectionEvent e) {
 			DefaultMutableTreeNode node;
@@ -365,6 +375,16 @@ public class StatisticTree extends JTree {
 	 * @see StatisticTree#buildPopup(int, int, String, String, ViewerType)
 	 */
 	private class TreeMouseListener extends MouseAdapter {
+		/**
+		 * Konstruktor der Klasse
+		 */
+		public TreeMouseListener() {
+			/*
+			 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+			 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+			 */
+		}
+
 		@Override
 		public void mouseClicked(MouseEvent e) {
 			if (SwingUtilities.isRightMouseButton(e)) {
@@ -390,6 +410,16 @@ public class StatisticTree extends JTree {
 		 * @see Serializable
 		 */
 		private static final long serialVersionUID=-1581460374664214749L;
+
+		/**
+		 * Konstruktor der Klasse
+		 */
+		public StatisticTreeTransferHandler() {
+			/*
+			 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+			 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+			 */
+		}
 
 		@Override
 		public int getSourceActions(JComponent c) {

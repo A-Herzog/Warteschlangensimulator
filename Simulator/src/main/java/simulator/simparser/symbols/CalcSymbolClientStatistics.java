@@ -30,6 +30,16 @@ public class CalcSymbolClientStatistics extends CalcSymbolSimData {
 	 */
 	private static final String[] names=new String[]{"KundeInStatistik","ClientInStatistics","isClientInStatistics"};
 
+	/**
+	 * Konstruktor der Klasse
+	 */
+	public CalcSymbolClientStatistics() {
+		/*
+		 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+		 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+		 */
+	}
+
 	@Override
 	public String[] getNames() {
 		return names;

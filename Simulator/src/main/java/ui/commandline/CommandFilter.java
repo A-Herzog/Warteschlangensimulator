@@ -52,6 +52,16 @@ public final class CommandFilter extends AbstractSimulationCommand {
 	/** Ausgabedatei */
 	private File filterResultFile;
 
+	/**
+	 * Konstruktor der Klasse
+	 */
+	public CommandFilter() {
+		/*
+		 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+		 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+		 */
+	}
+
 	@Override
 	public String[] getKeys() {
 		List<String> list=new ArrayList<>();

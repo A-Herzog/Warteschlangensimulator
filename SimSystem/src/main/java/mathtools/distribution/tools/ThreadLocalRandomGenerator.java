@@ -38,6 +38,16 @@ public class ThreadLocalRandomGenerator implements RandomGenerator {
 	 */
 	private static final double TwoTimesPI=2*Math.PI;
 
+	/**
+	 * Konstruktor der Klasse
+	 */
+	public ThreadLocalRandomGenerator() {
+		/*
+		 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+		 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+		 */
+	}
+
 	@Override
 	public void setSeed(int seed) {
 		/* ThreadLocalRandom.current().setSeed(seed); */

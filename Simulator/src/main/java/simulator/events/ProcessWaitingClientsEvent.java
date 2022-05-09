@@ -32,6 +32,16 @@ import simulator.runmodel.SimulationData;
  */
 public class ProcessWaitingClientsEvent extends Event {
 	/**
+	 * Konstruktor der Klasse
+	 */
+	public ProcessWaitingClientsEvent() {
+		/*
+		 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+		 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+		 */
+	}
+
+	/**
 	 * Station an der das Warten auf weitere Kunden beendet werden soll
 	 */
 	public RunElement station;

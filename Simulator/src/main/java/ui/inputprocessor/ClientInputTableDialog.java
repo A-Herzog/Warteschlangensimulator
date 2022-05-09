@@ -423,6 +423,16 @@ public class ClientInputTableDialog extends BaseDialog {
 	 */
 	private static class ColumnSetupRender extends DefaultListCellRenderer {
 		/**
+		 * Konstruktor der Klasse
+		 */
+		public ColumnSetupRender() {
+			/*
+			 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+			 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+			 */
+		}
+
+		/**
 		 * Serialisierungs-ID der Klasse
 		 * @see Serializable
 		 */

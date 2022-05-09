@@ -31,6 +31,16 @@ public class CalcSymbolClientCostProcess_sum extends CalcSymbolClientCosts {
 	 */
 	private static final String[] names=new String[]{"Costs_Process_Sum","Kosten_Bedienzeit_Summe"};
 
+	/**
+	 * Konstruktor der Klasse
+	 */
+	public CalcSymbolClientCostProcess_sum() {
+		/*
+		 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+		 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+		 */
+	}
+
 	@Override
 	public String[] getNames() {
 		return names;

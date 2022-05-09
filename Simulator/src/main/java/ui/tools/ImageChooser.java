@@ -387,6 +387,16 @@ public class ImageChooser extends JPanel {
 		private static final long serialVersionUID = 4214953664624697281L;
 
 		/**
+		 * Konstruktor der Klasse
+		 */
+		public ImageHolderPanel() {
+			/*
+			 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+			 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+			 */
+		}
+
+		/**
 		 * Zeichnet das Bild in ein Grafik-Objekt
 		 * @param graphics	Grafik-Objekt in das das Bild gezeichnet werden soll
 		 */
@@ -418,6 +428,16 @@ public class ImageChooser extends JPanel {
 	 * Reagiert auf Klicks auf die verschiedenen Schaltflächen
 	 */
 	private class ButtonListener implements ActionListener {
+		/**
+		 * Konstruktor der Klasse
+		 */
+		public ButtonListener() {
+			/*
+			 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+			 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+			 */
+		}
+
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			Object source=e.getSource();

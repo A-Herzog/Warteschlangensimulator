@@ -39,6 +39,16 @@ public class CalcSymbolStationDataProcess_std extends CalcSymbolStationData {
 			"ServiceTime_std","ServiceTime_sd","ServiceTime_Standardabweichung"
 	};
 
+	/**
+	 * Konstruktor der Klasse
+	 */
+	public CalcSymbolStationDataProcess_std() {
+		/*
+		 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+		 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+		 */
+	}
+
 	@Override
 	public String[] getNames() {
 		return names;

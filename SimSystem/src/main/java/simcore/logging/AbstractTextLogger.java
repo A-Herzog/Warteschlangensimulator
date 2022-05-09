@@ -37,6 +37,16 @@ public abstract class AbstractTextLogger implements SimLogging {
 	protected SimLogging nextLogger;
 
 	/**
+	 * Konstruktor der Klasse
+	 */
+	public AbstractTextLogger() {
+		/*
+		 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+		 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+		 */
+	}
+
+	/**
 	 * Initialisiert die Aufzeichnung<br>
 	 * Im Erfolgfall wird <code>writeHeader</code> aufgerufen, um einen optionalen Dateikopf zu schreiben
 	 * @param logFile	Name der Logdatei

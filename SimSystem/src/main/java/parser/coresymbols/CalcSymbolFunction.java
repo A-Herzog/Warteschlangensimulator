@@ -26,6 +26,16 @@ package parser.coresymbols;
  */
 public abstract class CalcSymbolFunction extends CalcSymbol {
 	/**
+	 * Konstruktor der Klasse
+	 */
+	public CalcSymbolFunction() {
+		/*
+		 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+		 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+		 */
+	}
+
+	/**
 	 * Stellt die Parameter für die Funktion ein
 	 * @param symbols	Liste mit Parametern
 	 * @return	Liefert <code>true</code> wenn die Parameter für das Symbol sinnvoll waren und eingetragen werden konnten.

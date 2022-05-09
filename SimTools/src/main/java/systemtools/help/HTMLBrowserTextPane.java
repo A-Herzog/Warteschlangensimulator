@@ -258,6 +258,16 @@ public class HTMLBrowserTextPane extends JTextPane implements HTMLBrowserPanel {
 	 * @see HTMLBrowserTextPane#linkClickListener
 	 */
 	private final class LinkListener implements HyperlinkListener {
+		/**
+		 * Konstruktor der Klasse
+		 */
+		public LinkListener() {
+			/*
+			 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+			 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+			 */
+		}
+
 		@Override
 		public void hyperlinkUpdate(HyperlinkEvent e) {
 			if (e.getEventType()==HyperlinkEvent.EventType.ENTERED) {
@@ -292,6 +302,16 @@ public class HTMLBrowserTextPane extends JTextPane implements HTMLBrowserPanel {
 	 *
 	 */
 	private final class PageLoadListener implements PropertyChangeListener {
+		/**
+		 * Konstruktor der Klasse
+		 */
+		public PageLoadListener() {
+			/*
+			 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+			 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+			 */
+		}
+
 		@Override
 		public void propertyChange(PropertyChangeEvent evt) {
 			final Element root=((HTMLDocument)getStyledDocument()).getDefaultRootElement();

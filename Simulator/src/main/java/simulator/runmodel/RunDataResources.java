@@ -47,6 +47,16 @@ public final class RunDataResources implements Cloneable {
 	public ModelResources.SecondaryResourcePriority secondaryResourcePriority;
 
 	/**
+	 * Konstruktor der Klasse
+	 */
+	public RunDataResources() {
+		/*
+		 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+		 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+		 */
+	}
+
+	/**
 	 * Lädt die Laufzeit-Ressourcen-Daten aus einem Editor-Ressourcen-Objekt
 	 * @param resources	Editor-Ressourcen-Objekt, aus dem die Informationen, wie viele Bediener welchen Typs vorhanden sind, ausgelesen werden sollen
 	 * @param schedules	Editor-Zeitpläne-Objekt, aus dem ebenfalls Informationen, wie viele Bediener welchen Typs wann vorhanden sind, ausgelesen werden sollen

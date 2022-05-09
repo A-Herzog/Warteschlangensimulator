@@ -229,6 +229,16 @@ public class VariablesTableModel extends JTableExtAbstractTableModel {
 	 * Reagiert auf Klicks auf die Hinzufügen-Schaltfläche
 	 */
 	private class AddButtonListener implements ActionListener {
+		/**
+		 * Konstruktor der Klasse
+		 */
+		public AddButtonListener() {
+			/*
+			 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+			 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+			 */
+		}
+
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			if (readOnly) return;

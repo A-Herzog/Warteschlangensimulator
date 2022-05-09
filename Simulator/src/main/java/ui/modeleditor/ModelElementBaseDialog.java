@@ -875,6 +875,16 @@ public abstract class ModelElementBaseDialog extends BaseDialog {
 		 */
 		private static final long serialVersionUID = 6448329627127036343L;
 
+		/**
+		 * Konstruktor der Klasse
+		 */
+		public LineWidthComboBoxCellRenderer() {
+			/*
+			 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+			 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+			 */
+		}
+
 		@Override
 		public Component getListCellRendererComponent(JList<?> list, Object value, int index,boolean isSelected, boolean cellHasFocus) {
 			final Component renderer=super.getListCellRendererComponent(list,value, index, isSelected, cellHasFocus);
@@ -976,6 +986,16 @@ public abstract class ModelElementBaseDialog extends BaseDialog {
 		 * @see Serializable
 		 */
 		private static final long serialVersionUID = -1510471598523775390L;
+
+		/**
+		 * Konstruktor der Klasse
+		 */
+		public LineTypeComboBoxCellRenderer() {
+			/*
+			 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+			 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+			 */
+		}
 
 		@Override
 		public Component getListCellRendererComponent(JList<?> list, Object value, int index,boolean isSelected, boolean cellHasFocus) {
@@ -1127,6 +1147,16 @@ public abstract class ModelElementBaseDialog extends BaseDialog {
 		 * @see Serializable
 		 */
 		private static final long serialVersionUID = -929195057808593785L;
+
+		/**
+		 * Konstruktor der Klasse
+		 */
+		public FontFamilyComboBoxCellRenderer() {
+			/*
+			 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+			 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+			 */
+		}
 
 		@Override
 		public Component getListCellRendererComponent(JList<?> list, Object value, int index,boolean isSelected, boolean cellHasFocus) {

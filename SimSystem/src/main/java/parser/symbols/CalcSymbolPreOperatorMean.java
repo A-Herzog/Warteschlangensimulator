@@ -23,6 +23,27 @@ import parser.coresymbols.CalcSymbolPreOperator;
  * @author Alexander Herzog
  */
 public final class CalcSymbolPreOperatorMean extends CalcSymbolPreOperator {
+	/**
+	 * Namen für das Symbol
+	 * @see #getNames()
+	 */
+	private static final String[] names=new String[]{"Mean","Mittelwert","Mittel","Average"};
+
+	/**
+	 * Konstruktor der Klasse
+	 */
+	public CalcSymbolPreOperatorMean() {
+		/*
+		 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+		 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+		 */
+	}
+
+	@Override
+	public String[] getNames() {
+		return names;
+	}
+
 	@Override
 	protected double calc(double[] parameters) throws MathCalcError {
 		if (parameters.length==0) throw error();
@@ -37,16 +58,5 @@ public final class CalcSymbolPreOperatorMean extends CalcSymbolPreOperator {
 		double sum=0;
 		for (double d:parameters) sum+=d;
 		return sum/parameters.length;
-	}
-
-	/**
-	 * Namen für das Symbol
-	 * @see #getNames()
-	 */
-	private static final String[] names=new String[]{"Mean","Mittelwert","Mittel","Average"};
-
-	@Override
-	public String[] getNames() {
-		return names;
 	}
 }

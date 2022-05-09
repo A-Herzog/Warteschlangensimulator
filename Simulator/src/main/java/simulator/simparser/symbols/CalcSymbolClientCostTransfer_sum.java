@@ -31,6 +31,16 @@ public class CalcSymbolClientCostTransfer_sum extends CalcSymbolClientCosts {
 	 */
 	private static final String[] names=new String[]{"Costs_Transfer_Sum","Kosten_Transferzeit_Summe"};
 
+	/**
+	 * Konstruktor der Klasse
+	 */
+	public CalcSymbolClientCostTransfer_sum() {
+		/*
+		 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+		 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+		 */
+	}
+
 	@Override
 	public String[] getNames() {
 		return names;

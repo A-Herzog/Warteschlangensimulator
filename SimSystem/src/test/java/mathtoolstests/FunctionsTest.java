@@ -34,6 +34,16 @@ import mathtools.Functions;
  */
 class FunctionsTest {
 	/**
+	 * Konstruktor der Klasse
+	 */
+	public FunctionsTest() {
+		/*
+		 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+		 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+		 */
+	}
+
+	/**
 	 * Test: Konstruktor ist privat? - Klasse stellt nur statische Methoden zur Verfügung und soll nicht initialisierbar sein
 	 * @throws NoSuchMethodException	Konstruktor konnte nicht gefunden werden
 	 * @throws IllegalAccessException	Zugriff verweigert

@@ -38,6 +38,16 @@ public class CalcSymbolStationDataWaiting_avg extends CalcSymbolStationData {
 			"WaitingTime_avg","WaitingTime_average","WaitingTime_Mittelwert"
 	};
 
+	/**
+	 * Konstruktor der Klasse
+	 */
+	public CalcSymbolStationDataWaiting_avg() {
+		/*
+		 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+		 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+		 */
+	}
+
 	@Override
 	public String[] getNames() {
 		return names;

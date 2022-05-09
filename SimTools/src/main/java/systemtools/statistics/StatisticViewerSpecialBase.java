@@ -33,6 +33,16 @@ import org.apache.poi.xwpf.usermodel.XWPFDocument;
  * @author Alexander Herzog
  */
 public abstract class StatisticViewerSpecialBase implements StatisticViewer {
+	/**
+	 * Konstruktor der Klasse
+	 */
+	public StatisticViewerSpecialBase() {
+		/*
+		 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+		 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+		 */
+	}
+
 	@Override
 	public ViewerImageType getImageType() {
 		return ViewerImageType.IMAGE_TYPE_NOIMAGE;

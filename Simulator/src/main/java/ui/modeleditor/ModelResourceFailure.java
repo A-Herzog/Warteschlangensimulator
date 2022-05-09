@@ -37,6 +37,7 @@ public final class ModelResourceFailure implements Cloneable {
 	public static String[] XML_NODE_NAME=new String[]{"RessourceAusfall"}; /* wird dynamisch mit Sprachdaten geladen, siehe LanguageStaticLoader */
 
 	/**
+	 * Ressourcen-Ausfallmodus
 	 * @see ModelResourceFailure#getFailureMode()
 	 * @see ModelResourceFailure#getFailureNumber()
 	 * @see ModelResourceFailure#setFailureByNumber(int)

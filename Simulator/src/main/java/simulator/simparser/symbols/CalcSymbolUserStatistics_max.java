@@ -31,6 +31,16 @@ public class CalcSymbolUserStatistics_max extends CalcSymbolUserStatistics {
 	 */
 	private static final String[] names=new String[] {"Statistik_max","Statistics_max","Statistik_Maximum","Statistics_Maximum"};
 
+	/**
+	 * Konstruktor der Klasse
+	 */
+	public CalcSymbolUserStatistics_max() {
+		/*
+		 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+		 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+		 */
+	}
+
 	@Override
 	public String[] getNames() {
 		return names;

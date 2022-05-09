@@ -50,6 +50,16 @@ public class StatisticViewerPieChart extends StatisticViewerJFreeChart {
 	 */
 	protected DefaultPieDataset<String> data;
 
+	/**
+	 * Konstruktor der Klasse
+	 */
+	public StatisticViewerPieChart() {
+		/*
+		 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+		 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+		 */
+	}
+
 	@Override
 	public ViewerImageType getImageType() {
 		return ViewerImageType.IMAGE_TYPE_PIE;

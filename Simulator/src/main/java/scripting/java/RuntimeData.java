@@ -34,6 +34,16 @@ public class RuntimeData extends ThreadLocal<Map<String,Object>> {
 	 */
 	private Map<String,Object> lastRequest;
 
+	/**
+	 * Konstruktor der Klasse
+	 */
+	public RuntimeData() {
+		/*
+		 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+		 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+		 */
+	}
+
 	@Override
 	protected Map<String,Object> initialValue() {
 		return new HashMap<>();

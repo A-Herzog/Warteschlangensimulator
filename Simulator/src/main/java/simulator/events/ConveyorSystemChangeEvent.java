@@ -28,6 +28,16 @@ import simulator.runmodel.SimulationData;
  */
 public class ConveyorSystemChangeEvent extends Event {
 	/**
+	 * Konstruktor der Klasse
+	 */
+	public ConveyorSystemChangeEvent() {
+		/*
+		 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+		 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+		 */
+	}
+
+	/**
 	 * Daten-Element des Fließbandes das benachrichtigt werden soll
 	 */
 	public RunElementConveyorData conveyorData;

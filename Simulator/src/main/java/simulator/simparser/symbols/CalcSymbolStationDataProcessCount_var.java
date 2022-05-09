@@ -33,6 +33,16 @@ public class CalcSymbolStationDataProcessCount_var extends CalcSymbolStationData
 	 */
 	private static final String[] names=new String[]{"NS_var","Process_var","NS_Varianz","Process_Varianz"};
 
+	/**
+	 * Konstruktor der Klasse
+	 */
+	public CalcSymbolStationDataProcessCount_var() {
+		/*
+		 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+		 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+		 */
+	}
+
 	@Override
 	public String[] getNames() {
 		return names;

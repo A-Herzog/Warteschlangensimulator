@@ -30,6 +30,16 @@ public class CalcSymbolClientResourceAlternative extends CalcSymbolSimData {
 	 */
 	private static final String[] names=new String[]{"Alternative"};
 
+	/**
+	 * Konstruktor der Klasse
+	 */
+	public CalcSymbolClientResourceAlternative() {
+		/*
+		 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+		 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+		 */
+	}
+
 	@Override
 	public String[] getNames() {
 		return names;

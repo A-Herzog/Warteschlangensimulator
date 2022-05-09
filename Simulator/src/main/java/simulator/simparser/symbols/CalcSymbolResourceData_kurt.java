@@ -29,6 +29,16 @@ public class CalcSymbolResourceData_kurt extends CalcSymbolResourceData {
 	 */
 	private static final String[] names=new String[]{"resource_kurt","utilization_kurt"};
 
+	/**
+	 * Konstruktor der Klasse
+	 */
+	public CalcSymbolResourceData_kurt() {
+		/*
+		 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+		 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+		 */
+	}
+
 	@Override
 	public String[] getNames() {
 		return names;

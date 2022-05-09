@@ -37,6 +37,16 @@ import statistics.StatisticsQuotientPerformanceIndicator;
  */
 class StatisticsQuotientPerformanceIndicatorTest {
 	/**
+	 * Konstruktor der Klasse
+	 */
+	public StatisticsQuotientPerformanceIndicatorTest() {
+		/*
+		 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+		 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+		 */
+	}
+
+	/**
 	 * Test: Konstruktor-Varianten
 	 */
 	@Test

@@ -54,6 +54,16 @@ public abstract class JTableExtAbstractTableModel extends AbstractTableModel {
 	private static final long serialVersionUID = -4249212671820906541L;
 
 	/**
+	 * Konstruktor der Klasse
+	 */
+	public JTableExtAbstractTableModel() {
+		/*
+		 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+		 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+		 */
+	}
+
+	/**
 	 * Hintergrundfarbe für einzelne Tabellenzellen
 	 * @see #getCellBackgroundColor()
 	 */

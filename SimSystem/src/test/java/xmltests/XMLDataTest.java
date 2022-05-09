@@ -39,6 +39,16 @@ import xml.XMLTools;
  */
 class XMLDataTest {
 	/**
+	 * Konstruktor der Klasse
+	 */
+	public XMLDataTest() {
+		/*
+		 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+		 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+		 */
+	}
+
+	/**
 	 * Erzeugt ein xml-Daten-Objekt an dem im Folgenden die Tests durchgeführt werden können
 	 * @return	xml-Daten-Objekt
 	 */

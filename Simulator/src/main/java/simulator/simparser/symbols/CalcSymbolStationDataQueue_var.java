@@ -35,6 +35,16 @@ public class CalcSymbolStationDataQueue_var extends CalcSymbolStationData {
 	 */
 	private static final String[] names=new String[]{"NQ_var","Queue_var","Schlange_var","Warteschlange_var","NQ_Varianz","Queue_Varianz","Schlange_Varianz","Warteschlange_Varianz"};
 
+	/**
+	 * Konstruktor der Klasse
+	 */
+	public CalcSymbolStationDataQueue_var() {
+		/*
+		 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+		 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+		 */
+	}
+
 	@Override
 	public String[] getNames() {
 		return names;

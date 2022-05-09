@@ -89,6 +89,16 @@ class SimulatorBaseTest {
 	private static final List<Supplier<EventManager>> managers=new ArrayList<>();
 
 	/**
+	 * Konstruktor der Klasse
+	 */
+	public SimulatorBaseTest() {
+		/*
+		 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+		 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+		 */
+	}
+
+	/**
 	 * Initialisiert die Liste der zu prüfenden {@link EventManager}.
 	 * @see #managers
 	 */

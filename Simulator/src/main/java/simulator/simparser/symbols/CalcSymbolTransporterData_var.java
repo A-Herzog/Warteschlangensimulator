@@ -32,6 +32,16 @@ public class CalcSymbolTransporterData_var extends CalcSymbolTransporterData {
 			"transporter_Varianz","transporter_utilization_Varianz"
 	};
 
+	/**
+	 * Konstruktor der Klasse
+	 */
+	public CalcSymbolTransporterData_var() {
+		/*
+		 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+		 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+		 */
+	}
+
 	@Override
 	public String[] getNames() {
 		return names;

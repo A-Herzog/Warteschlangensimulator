@@ -346,6 +346,16 @@ public class LogSetupDialog extends BaseDialog {
 	 * Wird aufgerufen, wenn der Nutzer die Schaltfläche zur Dateiauswahl anklickt.
 	 */
 	private class SelectFileButtonListener implements ActionListener {
+		/**
+		 * Konstruktor der Klasse
+		 */
+		public SelectFileButtonListener() {
+			/*
+			 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+			 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+			 */
+		}
+
 		@Override
 		public void actionPerformed(ActionEvent e) {
 

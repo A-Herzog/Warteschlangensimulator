@@ -39,6 +39,16 @@ public class CalcSymbolStationDataProcess_avg extends CalcSymbolStationData {
 			"ServiceTime_avg","ServiceTime_average","ServiceTime_Mittelwert"
 	};
 
+	/**
+	 * Konstruktor der Klasse
+	 */
+	public CalcSymbolStationDataProcess_avg() {
+		/*
+		 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+		 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+		 */
+	}
+
 	@Override
 	public String[] getNames() {
 		return names;
