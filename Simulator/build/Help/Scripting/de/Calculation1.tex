@@ -1281,6 +1281,17 @@ Liefert den Variationskoeffizient der Verteilung.
 
 
 
+\section{Zufallszahlen gemäß benutzerdefinierter Verteilung}
+
+\cmd{RandomGenerator(distribution(RandomGeneratorX());min;max)}\\
+Erzeugt eine Zufallszahl gemäß der im ersten Parameter angegebenen Verteilungsfunktion (in der über \cm{RandomGeneratorX()} der Parameter spezifiziert wird) im Bereich, der über die Parameter zwei und drei festgelegt wird.
+
+Beispiel:\\
+\cmd{RandomGenerator(ExpDist(RandomGeneratorX();5;1);0;100)}\\
+erzeugt eine Zufallszahl gemäß der Exponentialverteilung mit Erwartungswert 5.
+
+
+
 \chapter{Erlang-C-Rechner}
 
 Mit Hilfe des folgenden Befehls können verschiedene Kenngrößen auf Basis der

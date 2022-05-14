@@ -74,6 +74,8 @@ import parser.symbols.CalcSymbolPreOperatorMin;
 import parser.symbols.CalcSymbolPreOperatorModulo;
 import parser.symbols.CalcSymbolPreOperatorPower;
 import parser.symbols.CalcSymbolPreOperatorRandom;
+import parser.symbols.CalcSymbolPreOperatorRandomGeneratorInvers;
+import parser.symbols.CalcSymbolPreOperatorRandomGeneratorInversX;
 import parser.symbols.CalcSymbolPreOperatorRound;
 import parser.symbols.CalcSymbolPreOperatorSCV;
 import parser.symbols.CalcSymbolPreOperatorSign;
@@ -377,6 +379,10 @@ public class CalcSymbolList {
 
 			addSymbol(new CalcSymbolConstE());
 			addSymbol(new CalcSymbolConstPi());
+
+			addSymbol(new CalcSymbolPreOperatorRandomGeneratorInversX());
+			addSymbol(new CalcSymbolPreOperatorRandomGeneratorInvers());
+
 		} finally {
 			initLock.release();
 		}

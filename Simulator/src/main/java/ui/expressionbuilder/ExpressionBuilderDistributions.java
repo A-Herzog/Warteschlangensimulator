@@ -198,6 +198,7 @@ public class ExpressionBuilderDistributions {
 		final String rnd=Language.tr("ExpressionBuilder.ProbabilityDistributions.RandomNumber");
 
 		final DefaultMutableTreeNode group=new DefaultMutableTreeNode(Language.tr("ExpressionBuilder.ProbabilityDistributions"));
+		DefaultMutableTreeNode sub;
 
 		/* Hypergeometrische Verteilung */
 
@@ -535,7 +536,7 @@ public class ExpressionBuilderDistributions {
 
 		/* Empirische Verteilung */
 
-		final DefaultMutableTreeNode sub=new DefaultMutableTreeNode(Language.tr("ExpressionBuilder.ProbabilityDistributions.EmpiricalDistribution"));
+		sub=new DefaultMutableTreeNode(Language.tr("ExpressionBuilder.ProbabilityDistributions.EmpiricalDistribution"));
 
 		addTreeNode(
 				sub,
@@ -591,6 +592,17 @@ public class ExpressionBuilderDistributions {
 				Language.tr("ExpressionBuilder.ProbabilityDistributions.EmpiricalDistribution")+", "+Language.tr("ExpressionBuilder.ProbabilityDistributions.EmpiricalDistribution.CV")+" (EmpiricalDistributionCV)",
 				"EmpiricalDistributionCV(value1;value2;value3;...;max)",
 				Language.tr("ExpressionBuilder.ProbabilityDistributions.EmpiricalDistribution.CVInfo"));
+
+		/* Zufallszahlen gemäß nutzerdefinierter Verteilungen */
+
+		sub=new DefaultMutableTreeNode(Language.tr("ExpressionBuilder.ProbabilityDistributions.CustomDistribution"));
+
+		addTreeNode(
+				sub,
+				filterUpper,
+				Language.tr("ExpressionBuilder.ProbabilityDistributions.CustomDistribution")+", "+rnd+" (RandomGenerator)",
+				"RandomGenerator(distribution(RandomGeneratorX());min;max)",
+				Language.tr("ExpressionBuilder.ProbabilityDistributions.CustomDistribution.RandomNumberInfo"));
 
 		if (sub.getChildCount()>0) group.add(sub);
 		if (group.getChildCount()>0) root.add(group);

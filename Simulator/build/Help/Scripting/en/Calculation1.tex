@@ -1331,6 +1331,17 @@ Number of available places in the system (waiting and processing places together
 
 
 
+\section{Random numbers according to a user-defined distribution}
+
+\cmd{RandomGenerator(distribution(RandomGeneratorX());min;max)}\\
+Generates a random number according to the probability distribution specified in the first parameter (using \cm{RandomGeneratorX()} as distribution parameter) in the range specified by the second and the third parameter.
+
+Example:\\
+\cmd{RandomGenerator(ExpDist(RandomGeneratorX();5;1);0;100)}\\
+will generate a random number according to the exponential distribution with mean 5.
+
+
+
 \chapter{Allen-Cunneen approximation formula}
 
 By using the following command some performance indicators can be calculated

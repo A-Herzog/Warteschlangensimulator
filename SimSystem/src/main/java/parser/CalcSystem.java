@@ -15,7 +15,9 @@
  */
 package parser;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import mathtools.NumberTools;
 import parser.coresymbols.CalcSymbol;
@@ -25,7 +27,7 @@ import parser.coresymbols.CalcSymbolPreOperator;
 /**
  * Formel-Praser
  * @author Alexander Herzog
- * @version 4.0
+ * @version 4.1
  */
 public class CalcSystem extends CalcSystemBase {
 	/**
@@ -53,6 +55,12 @@ public class CalcSystem extends CalcSystemBase {
 	 * @see NumberTools#fastPositiveFractionalResults
 	 */
 	public static final Double[] fastPositiveFractionalResults=NumberTools.fastPositiveFractionalResults;
+
+	/**
+	 * Zuordnung, die besondere Werte zur Kommunikation eines Symbols mit ihren Parametern vorhält.
+	 * @see #getSpecialValues()
+	 */
+	private Map<String,Double> specialValues;
 
 	/**
 	 * Erstellt eine Liste mit allen verfügbaren Symbolen.<br>
@@ -251,5 +259,14 @@ public class CalcSystem extends CalcSystemBase {
 	 */
 	public boolean isKnownSymbol(final String name) {
 		return getCalcSymbolList().findSymbol(name)!=null;
+	}
+
+	/**
+	 * Liefert die Zuordnung, die besondere Werte zur Kommunikation eines Symbols mit ihren Parametern vorhält.
+	 * @return	Zuordnung, die besondere Werte zur Kommunikation eines Symbols mit ihren Parametern vorhält
+	 */
+	public Map<String,Double> getSpecialValues() {
+		if (specialValues==null) specialValues=new HashMap<>();
+		return specialValues;
 	}
 }

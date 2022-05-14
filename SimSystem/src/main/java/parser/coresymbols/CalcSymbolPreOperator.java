@@ -146,7 +146,7 @@ public abstract class CalcSymbolPreOperator extends CalcSymbolFunction {
 	}
 
 	@Override
-	public final double getValue(final CalcSystem calc) throws MathCalcError {
+	public double getValue(final CalcSystem calc) throws MathCalcError {
 		calcSystem=calc;
 
 		if (symbols==null) throw error();

@@ -6226,6 +6226,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[15739] = "The condition \"%s\" at element id=%d is invalid at character %d.";
     t[15742] = "Simulation.Creator.InvalidTerminationCondition";
     t[15743] = "The specified expression \"%s\" for the end of simulation condition is invalid at character %d.";
+    t[15748] = "ExpressionBuilder.ProbabilityDistributions.CustomDistribution";
+    t[15749] = "User-defined distribution";
     t[15752] = "Surface.Reference.Dialog.Name";
     t[15753] = "%s %s (id=%d)";
     t[15756] = "Simulation.Log.Output";
@@ -6746,6 +6748,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[17001] = "Element separator in arrays";
     t[17006] = "Surface.HoldJS.Dialog.Condition";
     t[17007] = "Condition for script executing";
+    t[17008] = "ExpressionBuilder.ProbabilityDistributions.CustomDistribution.RandomNumberInfo";
+    t[17009] = "<p>Generates a random number according to the probability distribution specified in the first parameter (using <tt>RandomGeneratorX()</tt> as distribution parameter) in the range specified by the second and the third parameter.</p>\n\n<p>Example:<br>\n<tt>RandomGenerator(ExpDist(RandomGeneratorX();5;1);0;100)</tt><br>\nwill generate a random number according to the exponential distribution with mean 5.\n</p>";
     t[17010] = "ExpressionBuilder.ExponentialAndLogarithmFunctions";
     t[17011] = "Exponential and logarithm functions";
     t[17030] = "ExpressionBuilder.ClientsInServiceProcess.Kurt";
@@ -8024,16 +8028,16 @@ public class Messages_en extends java.util.ResourceBundle {
     t[20289] = "The settings have been changed since the last save.\nDo you want to save the changed settings now?";
     t[20290] = "Schedule.EditDialog.TimeStepEnd";
     t[20291] = "Last time slot";
-    t[20292] = "Dialog.Button.Cancel";
-    t[20293] = "Cancel";
-    t[20298] = "Surface.TankSensor.Dialog.Threshold.Type.Absolute";
-    t[20299] = "Absolut tank value";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_4 (java.lang.String[] t) {
+    t[20292] = "Dialog.Button.Cancel";
+    t[20293] = "Cancel";
+    t[20298] = "Surface.TankSensor.Dialog.Threshold.Type.Absolute";
+    t[20299] = "Absolut tank value";
     t[20302] = "Surface.TransportSource.Dialog.TimeBase";
     t[20303] = "Time base";
     t[20308] = "Main.Menu.Extras.QueueingCalculator.Mnemonic";
@@ -10030,16 +10034,16 @@ public class Messages_en extends java.util.ResourceBundle {
     t[25211] = "Show Sankey diagram directly";
     t[25214] = "Surface.XML.JavaImports";
     t[25215] = "ModelJavaImports";
-    t[25222] = "Surface.XML.RecordStationTotalClientTimes";
-    t[25223] = "ModelRecordClientStationTimeSum";
-    t[25234] = "CommandLine.BuildCommandlineDescriptions.Name";
-    t[25235] = "BuildCLIReference";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_5 (java.lang.String[] t) {
+    t[25222] = "Surface.XML.RecordStationTotalClientTimes";
+    t[25223] = "ModelRecordClientStationTimeSum";
+    t[25234] = "CommandLine.BuildCommandlineDescriptions.Name";
+    t[25235] = "BuildCLIReference";
     t[25238] = "ParameterCompare.Settings.Output.Mode.Command.ErrorInfo";
     t[25239] = "The specified expression \"%s\" is invalid at character %d.";
     t[25242] = "Surface.AnimationBarChart.HistogramWizard.ID";
@@ -12036,16 +12040,16 @@ public class Messages_en extends java.util.ResourceBundle {
     t[30229] = "not recorded";
     t[30230] = "AnalyticModelCompare.Dialog.Save";
     t[30231] = "Save";
-    t[30236] = "Main.Toolbar.ParameterSeries.Hint";
-    t[30237] = "Generate parameter series for the current model";
-    t[30244] = "Surface.AnimationTrafficLights.Dialog.ConditionFor.Green.Info";
-    t[30245] = "If none of the above conditions apply";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_6 (java.lang.String[] t) {
+    t[30236] = "Main.Toolbar.ParameterSeries.Hint";
+    t[30237] = "Generate parameter series for the current model";
+    t[30244] = "Surface.AnimationTrafficLights.Dialog.ConditionFor.Green.Info";
+    t[30245] = "If none of the above conditions apply";
     t[30254] = "Surface.Source.Dialog.Tab.NumberOfArrivals.Invalide";
     t[30255] = "invalid";
     t[30258] = "Animation.Log.Previous";
@@ -14042,16 +14046,16 @@ public class Messages_en extends java.util.ResourceBundle {
     t[35079] = "<p>Returns the skewness over all processing times that have occurred at the station whose ID was specified in the parameter (over all client types).</p>";
     t[35086] = "ModelDescription.Output.PropertyHeading";
     t[35087] = "Output heading property";
-    t[35088] = "Surface.AnimationBarStack.Dialog.Bar.right";
-    t[35089] = "from left to right";
-    t[35098] = "Surface.Record.Dialog.Expression1";
-    t[35099] = "Expression 1 (required)";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_7 (java.lang.String[] t) {
+    t[35088] = "Surface.AnimationBarStack.Dialog.Bar.right";
+    t[35089] = "from left to right";
+    t[35098] = "Surface.Record.Dialog.Expression1";
+    t[35099] = "Expression 1 (required)";
     t[35100] = "Simulation.Element.DecideByCondition.Name";
     t[35101] = "Decide by condition";
     t[35108] = "ExpressionBuilder.ClientsAtStation";
@@ -16048,16 +16052,16 @@ public class Messages_en extends java.util.ResourceBundle {
     t[39891] = "Moves the current list record one position up.";
     t[39894] = "Surface.SetJS.XML.Script";
     t[39895] = "ModelElementScriptText;ModelElementScript";
-    t[39898] = "Schedule.SettingsDialog.RepeatMode";
-    t[39899] = "At the end of the schedule";
-    t[39906] = "Surface.Action.Dialog.Edit.Tabs.Action.Signal";
-    t[39907] = "Trigger signal";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_8 (java.lang.String[] t) {
+    t[39898] = "Schedule.SettingsDialog.RepeatMode";
+    t[39899] = "At the end of the schedule";
+    t[39906] = "Surface.Action.Dialog.Edit.Tabs.Action.Signal";
+    t[39907] = "Trigger signal";
     t[39908] = "Editor.DialogBase.Search.Resource.Failure.InterDownTimeDistribution";
     t[39909] = "Distances between downtimes by distribution at group \"%s\"";
     t[39910] = "Surface.Decide.XML.Mode.ByClientsAtStationNext";
@@ -18054,16 +18058,16 @@ public class Messages_en extends java.util.ResourceBundle {
     t[44759] = "Loads the recently used file";
     t[44760] = "CommandLine.SetNUMA.Description.Short";
     t[44761] = "Set NUMA mode";
-    t[44764] = "Surface.ExpressionTableModel.Dialog.Pie";
-    t[44765] = "Edit pie segment";
-    t[44766] = "Surface.AnimationBarStack.XML.DataArea";
-    t[44767] = "ModelElementDataArea";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_9 (java.lang.String[] t) {
+    t[44764] = "Surface.ExpressionTableModel.Dialog.Pie";
+    t[44765] = "Edit pie segment";
+    t[44766] = "Surface.AnimationBarStack.XML.DataArea";
+    t[44767] = "ModelElementDataArea";
     t[44772] = "ModelGenerator.Counter.Cancel";
     t[44773] = "Canceled";
     t[44780] = "Surface.PickUp.Dialog.Mode.Batch.Error.Info";
@@ -20060,16 +20064,16 @@ public class Messages_en extends java.util.ResourceBundle {
     t[49659] = "Active";
     t[49660] = "Surface.XML.Layer";
     t[49661] = "ModelLayer";
-    t[49662] = "Surface.Line.Dialog.ArrowPosition.Bottom";
-    t[49663] = "bottom";
-    t[49678] = "Surface.Note.Name";
-    t[49679] = "note";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_10 (java.lang.String[] t) {
+    t[49662] = "Surface.Line.Dialog.ArrowPosition.Bottom";
+    t[49663] = "bottom";
+    t[49678] = "Surface.Note.Name";
+    t[49679] = "note";
     t[49688] = "Editor.DialogBase.Search.ValueForCondition";
     t[49689] = "Value for condition \"%s\"";
     t[49696] = "ExternalConnect.Dialog.CopyExampleFiles";
