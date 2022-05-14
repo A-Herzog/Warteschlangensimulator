@@ -190,6 +190,9 @@ public class ExpressionBuilderBasics {
 		addTreeNode(group,filterUpper,Language.tr("ExpressionBuilder.StatisticalFunctions.StandardDeviation")+" (sd)","sd("+value+"A;"+value+"B;"+value+"C;...)",Language.tr("ExpressionBuilder.StatisticalFunctions.StandardDeviation.Info"));
 		addTreeNode(group,filterUpper,Language.tr("ExpressionBuilder.StatisticalFunctions.CoefficientOfVariation")+" (cv)","cv("+value+"A;"+value+"B;"+value+"C;...)",Language.tr("ExpressionBuilder.StatisticalFunctions.CoefficientOfVariation.Info"));
 		addTreeNode(group,filterUpper,Language.tr("ExpressionBuilder.StatisticalFunctions.SquaredVariationCoefficient")+" (scv)","scv("+value+"A;"+value+"B;"+value+"C;...)",Language.tr("ExpressionBuilder.StatisticalFunctions.SquaredVariationCoefficient.Info"));
+		addTreeNode(group,filterUpper,Language.tr("ExpressionBuilder.StatisticalFunctions.Sk")+" (sk)","sk("+value+"A;"+value+"B;"+value+"C;...)",Language.tr("ExpressionBuilder.StatisticalFunctions.Sk.Info"));
+		addTreeNode(group,filterUpper,Language.tr("ExpressionBuilder.StatisticalFunctions.Kurt")+" (kurt)","kurt("+value+"A;"+value+"B;"+value+"C;...)",Language.tr("ExpressionBuilder.StatisticalFunctions.Kurt.Info"));
+
 		if (group.getChildCount()>0) root.add(group);
 	}
 }

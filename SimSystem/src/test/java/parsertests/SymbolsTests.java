@@ -1614,12 +1614,23 @@ class SymbolsTests {
 	}
 
 	/**
-	 * Test: Funktionen, Anfangsbuchstabem L und M
+	 * Test: Funktionen, Anfangsbuchstaben K, L und M
 	 */
 	@Test
-	void testPreOperatorsLM() {
+	void testPreOperatorsKLM() {
 		CalcSystem calc;
 		double d;
+
+		/* Kurt */
+
+		calc=new CalcSystem("kurt(1;2;2;3;3;3;3;4;4;4;4;4;5;5)");
+		assertTrue(calc.parse()<0);
+		try {
+			assertEquals(-0.13189417287153704,calc.calc(),0.0001);
+		} catch (MathCalcError e) {
+			assertTrue(false);
+		}
+		assertEquals(-0.13189417287153704,calc.calcOrDefault(new double[0],-123),0.0001);
 
 		/* Ld */
 
@@ -2325,6 +2336,17 @@ class SymbolsTests {
 		calc=new CalcSystem("sinh(a)",new String[]{"a"});
 		assertTrue(calc.parse()<0);
 		assertTrue(calc.calcOrDefault(new double[]{1},0)>0);
+
+		/* Sk */
+
+		calc=new CalcSystem("sk(1;2;2;3;3;3;3;4;4;4;4;4;5;5)");
+		assertTrue(calc.parse()<0);
+		try {
+			assertEquals(-0.4759749110056202,calc.calc(),0.0001);
+		} catch (MathCalcError e) {
+			assertTrue(false);
+		}
+		assertEquals(-0.4759749110056202,calc.calcOrDefault(new double[0],-123),0.0001);
 
 		/* Sqr */
 

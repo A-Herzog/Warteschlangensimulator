@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-05-10 11:46+0200\n"
+"POT-Creation-Date: 2022-05-14 20:16+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -7342,6 +7342,12 @@ msgstr "Coefficient of variation"
 msgid "ExpressionBuilder.StatisticalFunctions.CoefficientOfVariation.Info"
 msgstr "<p>Calculates the variation coefficients of the values passed as parameters.</p> <p>Example: <tt>cv(1;2;3;4)</tt> returns 0.51639777949432.</p>"
 
+msgid "ExpressionBuilder.StatisticalFunctions.Kurt"
+msgstr "Kurtosis"
+
+msgid "ExpressionBuilder.StatisticalFunctions.Kurt.Info"
+msgstr "<p>Calculates the skewness of the values passed as parameters.</p>"
+
 msgid "ExpressionBuilder.StatisticalFunctions.Maximum"
 msgstr "Maximum"
 
@@ -7365,6 +7371,12 @@ msgstr "Minimum"
 
 msgid "ExpressionBuilder.StatisticalFunctions.Minimum.Info"
 msgstr "<p>Calculates the minimum value of the values passed as parameters.</p> <p> Example: <tt>min(1;2;3)</tt> returns 1.</p>"
+
+msgid "ExpressionBuilder.StatisticalFunctions.Sk"
+msgstr "Skewness"
+
+msgid "ExpressionBuilder.StatisticalFunctions.Sk.Info"
+msgstr "<p>Calculates the kurtosis of the values passed as parameters.</p>"
 
 msgid "ExpressionBuilder.StatisticalFunctions.SquaredVariationCoefficient"
 msgstr "Squared variation coefficient"

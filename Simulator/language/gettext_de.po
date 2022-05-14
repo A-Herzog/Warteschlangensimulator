@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-05-10 11:46+0200\n"
+"POT-Creation-Date: 2022-05-14 20:16+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -7332,6 +7332,12 @@ msgstr "Vairationskoeffizient"
 msgid "ExpressionBuilder.StatisticalFunctions.CoefficientOfVariation.Info"
 msgstr "<p>Berechnet den Variationskoeffizienten der als Parameter übergebenen Werte.</p><p>Beispiel: <tt>cv(1;2;3;4)</tt> liefert 0,51639777949432.</p>"
 
+msgid "ExpressionBuilder.StatisticalFunctions.Kurt"
+msgstr "Exzess"
+
+msgid "ExpressionBuilder.StatisticalFunctions.Kurt.Info"
+msgstr "<p>Berechnet den Exzess (ein Maß für die Wölbung) der als Parameter übergebenen Werte.</p>"
+
 msgid "ExpressionBuilder.StatisticalFunctions.Maximum"
 msgstr "Maximum"
 
@@ -7355,6 +7361,12 @@ msgstr "Minimum"
 
 msgid "ExpressionBuilder.StatisticalFunctions.Minimum.Info"
 msgstr "<p>Berechnet das Minimum der als Parameter übergebenen Werte.</p><p>Beispiel: <tt>min(1;2;3)</tt> liefert 1.</p>"
+
+msgid "ExpressionBuilder.StatisticalFunctions.Sk"
+msgstr "Schiefe"
+
+msgid "ExpressionBuilder.StatisticalFunctions.Sk.Info"
+msgstr "<p>Berechnet die Schiefe der als Parameter übergebenen Werte.</p>"
 
 msgid "ExpressionBuilder.StatisticalFunctions.SquaredVariationCoefficient"
 msgstr "Quadrierter Vairationskoeffizient"
