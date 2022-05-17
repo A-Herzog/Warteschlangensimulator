@@ -28,6 +28,7 @@ import java.io.Serializable;
 import java.util.Arrays;
 import java.util.List;
 
+import javax.swing.BoxLayout;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -59,6 +60,11 @@ public class JDistributionEditorPanelRecordDialog extends JDialog {
 	private final JList<JDistributionEditorPanelRecord> list;
 
 	/**
+	 * Infozeile unten (zur Anzeige der Anzahl an ausgewählten Verteilungen)
+	 */
+	private final JLabel selectInfo;
+
+	/**
 	 * Gibt an, ob die "Ok"-Schaltfläche angeklickt wurde.
 	 * @see #getFilter()
 	 */
@@ -79,9 +85,9 @@ public class JDistributionEditorPanelRecordDialog extends JDialog {
 		setLayout(new BorderLayout());
 
 		/* Infozeile oben */
-		final JPanel infoPanel=new JPanel(new FlowLayout(FlowLayout.LEFT));
-		add(infoPanel,BorderLayout.NORTH);
-		infoPanel.add(new JLabel(JDistributionEditorPanel.SetupListInfo));
+		final JPanel upperInfoPanel=new JPanel(new FlowLayout(FlowLayout.LEFT));
+		add(upperInfoPanel,BorderLayout.NORTH);
+		upperInfoPanel.add(new JLabel(JDistributionEditorPanel.SetupListInfo));
 
 		/* Liste */
 		records=JDistributionEditorPanelRecord.getList(Arrays.asList(filter.trim().split("\\n")),true,true);
@@ -96,10 +102,20 @@ public class JDistributionEditorPanelRecordDialog extends JDialog {
 				}
 			}
 		});
-		updateList();
+
+		/* Info und Buttons unten */
+		final JPanel bottomArea=new JPanel();
+		bottomArea.setLayout(new BoxLayout(bottomArea,BoxLayout.PAGE_AXIS));
+		add(bottomArea,BorderLayout.SOUTH);
+
+		/* Infozeile unten */
+		final JPanel lowerInfoPanel=new JPanel(new FlowLayout(FlowLayout.LEFT));
+		bottomArea.add(lowerInfoPanel);
+		lowerInfoPanel.add(selectInfo=new JLabel());
 
 		/* Button-Zeile */
-		JPanel buttonPanel=new JPanel(new FlowLayout(FlowLayout.LEFT)); add(buttonPanel,BorderLayout.SOUTH);
+		JPanel buttonPanel=new JPanel(new FlowLayout(FlowLayout.LEFT));
+		bottomArea.add(buttonPanel,BorderLayout.SOUTH);
 
 		/* Ok */
 		final JButton okButton=new JButton(JDistributionEditorPanel.ButtonOk);
@@ -117,6 +133,7 @@ public class JDistributionEditorPanelRecordDialog extends JDialog {
 		getRootPane().setDefaultButton(okButton);
 
 		/* Dialog vorbereiten */
+		updateList();
 		setResizable(true);
 		setSize(520,640);
 		setMinimumSize(new Dimension(520,640));
@@ -140,6 +157,10 @@ public class JDistributionEditorPanelRecordDialog extends JDialog {
 			list.setSelectedIndex(i);
 			break;
 		}
+
+		final int count=(int)records.stream().filter(record->!record.isSeparator()).count();
+		final int highlightCount=(int)records.stream().filter(record->record.highlight && !record.isSeparator()).count();
+		selectInfo.setText(String.format((highlightCount==1)?JDistributionEditorPanel.SetupListInfoSingular:JDistributionEditorPanel.SetupListInfoPlural,highlightCount,count));
 	}
 
 	/**

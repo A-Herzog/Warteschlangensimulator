@@ -39,6 +39,7 @@ import mathtools.distribution.DataDistributionImpl;
 import mathtools.distribution.DiscreteBinomialDistributionImpl;
 import mathtools.distribution.DiscreteNegativeBinomialDistributionImpl;
 import mathtools.distribution.DiscretePoissonDistributionImpl;
+import mathtools.distribution.DiscreteUniformDistributionImpl;
 import mathtools.distribution.OnePointDistributionImpl;
 import mathtools.distribution.RayleighDistributionImpl;
 import mathtools.distribution.tools.AbstractDistributionWrapper;
@@ -185,6 +186,7 @@ class DistributionToolsTests {
 			if (dist1 instanceof ChiSquaredDistribution) exactStdAvailable=false;
 			if (dist1 instanceof RayleighDistributionImpl) exactStdAvailable=false;
 			if (dist1 instanceof DiscreteBinomialDistributionImpl) exactStdAvailable=false;
+			if (dist1 instanceof DiscreteUniformDistributionImpl) exactStdAvailable=false;
 			if (dist1 instanceof DiscretePoissonDistributionImpl) exactStdAvailable=false;
 			if (dist1 instanceof DiscreteNegativeBinomialDistributionImpl) exactStdAvailable=false;
 			if (exactStdAvailable) {
@@ -231,6 +233,7 @@ class DistributionToolsTests {
 			if (dist1 instanceof ChiSquaredDistribution) exactStdAvailable=false;
 			if (dist1 instanceof RayleighDistributionImpl) exactStdAvailable=false;
 			if (dist1 instanceof DiscreteBinomialDistributionImpl) exactStdAvailable=false;
+			if (dist1 instanceof DiscreteUniformDistributionImpl) exactStdAvailable=false;
 			if (dist1 instanceof DiscretePoissonDistributionImpl) exactStdAvailable=false;
 			if (dist1 instanceof DiscreteNegativeBinomialDistributionImpl) exactStdAvailable=false;
 			if (exactStdAvailable) {

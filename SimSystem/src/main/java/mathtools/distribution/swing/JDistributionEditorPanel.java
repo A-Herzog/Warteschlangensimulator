@@ -143,6 +143,12 @@ public class JDistributionEditorPanel extends JPanel {
 	/** Infozeile oben im Dialog zum Bearbeiten der hervorgehobenen Verteilungen */
 	public static String SetupListInfo="<html><body>Die jeweils ausgewählte Verteilung kann per Strg+Hoch<br>und Strg+Runter verschoben werden.</body></html>";
 
+	/** Infozeile unten im Dialog zum Bearbeiten der hervorgehobenen Verteilungen (eine Verteilung hervorgehoben) */
+	public static String SetupListInfoSingular="%d von %d Verteilungen ist hervorgehoben.";
+
+	/** Infozeile unten im Dialog zum Bearbeiten der hervorgehobenen Verteilungen (mehrere Verteilungen hervorgehoben) */
+	public static String SetupListInfoPlural="%d von %d Verteilungen sind hervorgehoben.";
+
 	/** Trenner zwischen den hervorgehobenen und den normalen Verteilungen */
 	public static String SetupListDivier="<html><body>Oben: hervorgehobene Verteilungen (angegebene Reihenfolge)<br>Unten: Normale Verteilungen (werden alphabetisch sortiert)</body></html>";
 

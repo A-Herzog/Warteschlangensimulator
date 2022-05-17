@@ -34,6 +34,7 @@ import mathtools.distribution.DiscreteBinomialDistributionImpl;
 import mathtools.distribution.DiscreteHyperGeomDistributionImpl;
 import mathtools.distribution.DiscreteNegativeBinomialDistributionImpl;
 import mathtools.distribution.DiscretePoissonDistributionImpl;
+import mathtools.distribution.DiscreteUniformDistributionImpl;
 import mathtools.distribution.DiscreteZetaDistributionImpl;
 import mathtools.distribution.ErlangDistributionImpl;
 import mathtools.distribution.ExtBetaDistributionImpl;
@@ -63,6 +64,7 @@ import mathtools.distribution.tools.WrapperCauchyDistribution;
 import mathtools.distribution.tools.WrapperChiDistribution;
 import mathtools.distribution.tools.WrapperChiSquaredDistribution;
 import mathtools.distribution.tools.WrapperDataDistribution;
+import mathtools.distribution.tools.WrapperDiscreteUniformDistribution;
 import mathtools.distribution.tools.WrapperErlangDistribution;
 import mathtools.distribution.tools.WrapperExponentialDistribution;
 import mathtools.distribution.tools.WrapperFDistribution;
@@ -284,6 +286,7 @@ public abstract class JDistributionEditorPanelRecord {
 		allRecords.add(new PoissonDistributionPanel());
 		allRecords.add(new NegativeBinomialDistributionPanel());
 		allRecords.add(new ZetaDistributionPanel());
+		allRecords.add(new DiscreteUniformDistributionPanel());
 	}
 
 	/**
@@ -1408,6 +1411,40 @@ public abstract class JDistributionEditorPanelRecord {
 		public AbstractRealDistribution getDistribution(JTextField[] fields, double maxXValue) {
 			final Double s=NumberTools.getNotNegativeDouble(fields[0],true); if (s==null || s<=1.0) return null;
 			return new DiscreteZetaDistributionImpl(s);
+		}
+	}
+
+	/** Diskrete Gleichverteilung */
+	private static class DiscreteUniformDistributionPanel extends JDistributionEditorPanelRecord {
+		/** Konstruktor der Klasse */
+		public DiscreteUniformDistributionPanel() {
+			super(new WrapperDiscreteUniformDistribution(),new String[]{"a","b"});
+		}
+
+		@Override
+		public String[] getEditValues(double meanD, String mean, double stdD, String std, String lower, String upper, double maxXValue) {
+			if (meanD<=0 || stdD<=0) return new String[]{"2","5"};
+			/* E=(a+b)/2, Var=((b-a+1)^2-1)/12 => b=sqrt(12Var+1)/2+E-1/2, a=2E-b */
+			int b=(int)Math.round(Math.sqrt(12*stdD*stdD+1)/2+meanD-0.5);
+			int a=(int)Math.round(2*meanD-b);
+			if (a<0) a=0;
+			if (b<a) b=a+1;
+			return new String[]{""+a,""+b};
+		}
+
+		@Override
+		public String[] getValues(AbstractRealDistribution distribution) {
+			return new String[] {
+					""+((DiscreteUniformDistributionImpl)distribution).a,
+					""+((DiscreteUniformDistributionImpl)distribution).b
+			};
+		}
+
+		@Override
+		public AbstractRealDistribution getDistribution(JTextField[] fields, double maxXValue) {
+			final Long a=NumberTools.getNotNegativeLong(fields[0],true); if (a==null) return null;
+			final Long b=NumberTools.getNotNegativeLong(fields[1],true); if (b==null) return null;
+			return new DiscreteUniformDistributionImpl(a.intValue(),b.intValue());
 		}
 	}
 }

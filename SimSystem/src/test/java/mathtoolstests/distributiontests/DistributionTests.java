@@ -37,6 +37,7 @@ import mathtools.distribution.DiscreteBinomialDistributionImpl;
 import mathtools.distribution.DiscreteHyperGeomDistributionImpl;
 import mathtools.distribution.DiscreteNegativeBinomialDistributionImpl;
 import mathtools.distribution.DiscretePoissonDistributionImpl;
+import mathtools.distribution.DiscreteUniformDistributionImpl;
 import mathtools.distribution.DiscreteZetaDistributionImpl;
 import mathtools.distribution.ErlangDistributionImpl;
 import mathtools.distribution.ExtBetaDistributionImpl;
@@ -1748,6 +1749,40 @@ class DistributionTests {
 
 		double rnd=dist.random(new DummyRandomGenerator(0.5));
 		assertTrue(rnd>=0);
+	}
+
+	/**
+	 * Test: Diskrete Gleichverteilung
+	 * @see DiscreteUniformDistributionImpl
+	 */
+	@Test
+	void testDiscreteUniformDistribution() {
+		DiscreteUniformDistributionImpl dist;
+
+		dist=new DiscreteUniformDistributionImpl(2,5);
+		assertEquals(2,dist.a);
+		assertEquals(5,dist.b);
+		assertEquals(0,dist.cumulativeProbability(-1));
+		assertEquals(1,dist.cumulativeProbability(5),0.000001);
+		assertEquals(1,dist.cumulativeProbability(6),0.000001);
+		assertEquals(-Double.MAX_VALUE,dist.inverseCumulativeProbability(-1));
+		assertEquals(Double.MAX_VALUE,dist.inverseCumulativeProbability(2));
+		assertEquals(3.0,dist.inverseCumulativeProbability(dist.cumulativeProbability(3)),0.000001);
+		assertEquals(4.0,dist.inverseCumulativeProbability(dist.cumulativeProbability(4)),0.000001);
+		assertEquals((2.0+5.0)/2,dist.getNumericalMean());
+		assertEquals(((5.0-2.0+1)*(5.0-2.0+1)-1)/12.0,dist.getNumericalVariance());
+		assertEquals(2,dist.getSupportLowerBound());
+		assertEquals(5,dist.getSupportUpperBound());
+		assertTrue(dist.isSupportLowerBoundInclusive());
+		assertTrue(dist.isSupportUpperBoundInclusive());
+		assertTrue(dist.isSupportConnected());
+
+		testDistributionTools(dist);
+		testDistributionParameters(dist,new double[] {2,5});
+
+		double rnd=dist.random(new DummyRandomGenerator(0.5));
+		assertTrue(rnd>=2);
+		assertTrue(rnd<=5);
 	}
 
 	/**

@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-05-14 20:16+0200\n"
+"POT-Creation-Date: 2022-05-15 12:59+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -2966,6 +2966,9 @@ msgstr "Degrees of freedom (Denominator)"
 msgid "Distribution.DegreesOfFreedom.Numerator"
 msgstr "Degrees of freedom (Numerator)"
 
+msgid "Distribution.DiscreteUniform"
+msgstr "Discrete uniform distribution"
+
 msgid "Distribution.DistJohnsonSU"
 msgstr "Johnson SU distribution"
 
@@ -3088,6 +3091,12 @@ msgstr "<html><body>Above: Highlighted distributions (given order)<br>Below: Non
 
 msgid "Distribution.SetupList.Info"
 msgstr "<html><body>The selected distribution can be moved up or down by Ctrl+Up and Ctrl+Down.</body></html>"
+
+msgid "Distribution.SetupList.Info.Plural"
+msgstr "%d of %d distributions are highlighted."
+
+msgid "Distribution.SetupList.Info.Singular"
+msgstr "%d of %d distributions is highlighted."
 
 msgid "Distribution.SetupList.Title"
 msgstr "Edit list of highlighted distributions"
@@ -5558,6 +5567,15 @@ msgstr ""
 
 msgid "ExpressionBuilder.ProbabilityDistributions.Density"
 msgstr "density"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.DiscreteUniformDist"
+msgstr "Discrete uniform distribution"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.DiscreteUniformDist.DensityInfo"
+msgstr "<p>Calculates the value of the density of the discrete uniform distribution at the location specified as first parameter within the range (integer numbers) specified by the second and the third parameter.</p>"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.DiscreteUniformDist.RandomNumberInfo"
+msgstr "<p>Generates a random number according to the discrete uniform distribution within the range (integer numbers) specified by the first and the second parameter.</p>"
 
 msgid "ExpressionBuilder.ProbabilityDistributions.DistributionFunction"
 msgstr "distribution function"

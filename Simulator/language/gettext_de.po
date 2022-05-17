@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-05-14 20:16+0200\n"
+"POT-Creation-Date: 2022-05-15 12:59+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -2971,6 +2971,9 @@ msgstr "Freiheitsgrade (Nenner)"
 msgid "Distribution.DegreesOfFreedom.Numerator"
 msgstr "Freiheitsgrade (Zähler)"
 
+msgid "Distribution.DiscreteUniform"
+msgstr "Diskrete Gleichverteilung"
+
 msgid "Distribution.DistJohnsonSU"
 msgstr "Johnson-SU-Verteilung"
 
@@ -3093,6 +3096,12 @@ msgstr "<html><body>Oben: hervorgehobene Verteilungen (angegebene Reihenfolge)<b
 
 msgid "Distribution.SetupList.Info"
 msgstr "<html><body>Die jeweils ausgewählte Verteilung kann per Strg+Hoch<br>und Strg+Runter verschoben werden.</body></html>"
+
+msgid "Distribution.SetupList.Info.Plural"
+msgstr "%d von %d Verteilungen sind hervorgehoben."
+
+msgid "Distribution.SetupList.Info.Singular"
+msgstr "%d von %d Verteilungen ist hervorgehoben."
 
 msgid "Distribution.SetupList.Title"
 msgstr "Liste der hervorgehobene Verteilungen bearbeiten"
@@ -5556,6 +5565,15 @@ msgstr ""
 
 msgid "ExpressionBuilder.ProbabilityDistributions.Density"
 msgstr "Dichte"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.DiscreteUniformDist"
+msgstr "Diskrete Gleichverteilung"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.DiscreteUniformDist.DensityInfo"
+msgstr "<p>Berechnet den Wert der Dichte der diskreten Gleichverteilung an der als ersten Parameter angegebenen Stelle über den Bereich, der im zweiten und dritten Parameter (jeweils Ganzzahlen) spezifiziert ist.</p>"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.DiscreteUniformDist.RandomNumberInfo"
+msgstr "<p>Erzeugt eine Zufallszahl gemäß der diskreten Gleichverteilung über den Bereich, der im ersten und zweiten Parameter (jeweils Ganzzahlen) spezifiziert ist.</p>"
 
 msgid "ExpressionBuilder.ProbabilityDistributions.DistributionFunction"
 msgstr "Verteilungsfunktion"

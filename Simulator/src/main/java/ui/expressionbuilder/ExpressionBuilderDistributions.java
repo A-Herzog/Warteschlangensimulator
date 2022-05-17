@@ -249,6 +249,13 @@ public class ExpressionBuilderDistributions {
 				Language.tr("ExpressionBuilder.ProbabilityDistributions.NegativeBinomialDistributionDirect.DensityInfo"),
 				Language.tr("ExpressionBuilder.ProbabilityDistributions.NegativeBinomialDistributionDirect.RandomNumberInfo"));
 
+		/* Diskrete Gleichverteilung */
+
+		addDiscreteDist(group,filterUpper,"DiscreteUniformDist","a;b",
+				Language.tr("ExpressionBuilder.ProbabilityDistributions.DiscreteUniformDist"),
+				Language.tr("ExpressionBuilder.ProbabilityDistributions.DiscreteUniformDist.DensityInfo"),
+				Language.tr("ExpressionBuilder.ProbabilityDistributions.DiscreteUniformDist.RandomNumberInfo"));
+
 		/* Exponentialverteilung */
 
 		addDist(group,filterUpper,"ExpDist","mean",

@@ -2832,6 +2832,50 @@ class SymbolsTests {
 				assertTrue(false);
 			}
 		}
+
+		/* Diskrete Gleichverteilung - Dichte */
+
+		calc=new CalcSystem("DiscreteUniformDist(x;a;b)",new String[]{"x","a","b"});
+		assertTrue(calc.parse()<0);
+
+		try {
+			d=calc.calc(new double[]{0,2,5});
+			assertEquals(0,d);
+		} catch (MathCalcError e) {
+			assertTrue(false);
+		}
+
+		for (int k=1;k<10;k++) {
+			try {
+				d=calc.calc(new double[]{k,2,5});
+				if (k<2 || k>5) {
+					assertEquals(0,d);
+				} else {
+					assertEquals(0.25,d);
+				}
+			} catch (MathCalcError e) {
+				assertTrue(false);
+			}
+		}
+
+		calc=new CalcSystem("DiscreteUniformDist(x;y;z;a;b)",new String[]{"x","y","z","a","b"});
+		assertTrue(calc.parse()<0);
+		d=calc.calcOrDefault(new double[]{1,2,3,4,5},-17);
+		assertEquals(-17.0,d);
+
+		/* Diskrete Gleichverteilung - Zufallszahlen */
+
+		calc=new CalcSystem("DiscreteUniformDist(a;b)",new String[]{"a","b"});
+		assertTrue(calc.parse()<0);
+
+		for (int i=0;i<100;i++) {
+			try {
+				d=calc.calc(new double[]{2,5});
+				assertTrue(d>=2.0 && d<=5.0);
+			} catch (MathCalcError e) {
+				assertTrue(false);
+			}
+		}
 	}
 
 	/**

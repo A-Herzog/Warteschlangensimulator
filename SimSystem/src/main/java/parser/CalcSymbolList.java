@@ -97,6 +97,7 @@ import parser.symbols.distributions.CalcSymbolDiscreteDistributionHyperGeom;
 import parser.symbols.distributions.CalcSymbolDiscreteDistributionNegativeBinomial;
 import parser.symbols.distributions.CalcSymbolDiscreteDistributionNegativeBinomialDirect;
 import parser.symbols.distributions.CalcSymbolDiscreteDistributionPoisson;
+import parser.symbols.distributions.CalcSymbolDiscreteDistributionUniform;
 import parser.symbols.distributions.CalcSymbolDiscreteDistributionZeta;
 import parser.symbols.distributions.CalcSymbolDistributionBeta;
 import parser.symbols.distributions.CalcSymbolDistributionBetaDirect;
@@ -253,6 +254,7 @@ public class CalcSymbolList {
 			addSymbol(new CalcSymbolDiscreteDistributionZeta());
 			addSymbol(new CalcSymbolDiscreteDistributionNegativeBinomial());
 			addSymbol(new CalcSymbolDiscreteDistributionNegativeBinomialDirect());
+			addSymbol(new CalcSymbolDiscreteDistributionUniform());
 
 			addSymbol(new CalcSymbolDistributionExp());
 			addSymbol(new CalcSymbolDistributionUniform());
