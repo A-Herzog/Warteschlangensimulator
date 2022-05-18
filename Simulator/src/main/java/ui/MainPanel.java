@@ -270,13 +270,13 @@ public class MainPanel extends MainPanelBase {
 	public static final boolean RELEASE_BUILD=false;
 
 	/** Aktuelle Unterversionsnummer in der Java 8 Versionsreihe */
-	private static final int JAVA8_SECURE_MIN_VERSION=322;
+	private static final int JAVA8_SECURE_MIN_VERSION=332;
 	/** Aktuelle Unterversionsnummer in der Java 9 Versionsreihe */
 	private static final int JAVA9_SECURE_MIN_VERSION=4;
 	/** Aktuelle Unterversionsnummer in der Java 10 Versionsreihe */
 	private static final int JAVA10_SECURE_MIN_VERSION=2;
 	/** Aktuelle Unterversionsnummer in der Java 11 Versionsreihe */
-	private static final int JAVA11_SECURE_MIN_VERSION=14;
+	private static final int JAVA11_SECURE_MIN_VERSION=15;
 	/** Aktuelle Unterversionsnummer in der Java 12 Versionsreihe */
 	private static final int JAVA12_SECURE_MIN_VERSION=2;
 	/** Aktuelle Unterversionsnummer in der Java 13 Versionsreihe */
@@ -288,7 +288,9 @@ public class MainPanel extends MainPanelBase {
 	/** Aktuelle Unterversionsnummer in der Java 16 Versionsreihe */
 	private static final int JAVA16_SECURE_MIN_VERSION=2;
 	/** Aktuelle Unterversionsnummer in der Java 17 Versionsreihe */
-	private static final int JAVA17_SECURE_MIN_VERSION=2;
+	private static final int JAVA17_SECURE_MIN_VERSION=3;
+	/** Aktuelle Unterversionsnummer in der Java 18 Versionsreihe */
+	private static final int JAVA18_SECURE_MIN_VERSION=1;
 
 	/**
 	 * Bezeichnung für "ungespeichertes Modell" in der Titelzeile für ein neues Modell, welches noch keinen Namen besitzt
@@ -778,6 +780,16 @@ public class MainPanel extends MainPanelBase {
 	 * @see MainPanel#welcomePanel
 	 */
 	private class SpecialLink implements Consumer<String> {
+		/**
+		 * Konstruktor der Klasse
+		 */
+		public SpecialLink() {
+			/*
+			 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+			 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+			 */
+		}
+
 		@Override
 		public void accept(String href) {
 			if (href.equalsIgnoreCase("ModelEditor")) {setCurrentPanel(editorPanel); return;}
@@ -2053,6 +2065,7 @@ public class MainPanel extends MainPanelBase {
 			if (ver[0]==15 && ver[1]<JAVA15_SECURE_MIN_VERSION) ok=false;
 			if (ver[0]==16 && ver[1]<JAVA16_SECURE_MIN_VERSION) ok=false;
 			if (ver[0]==17 && ver[1]<JAVA17_SECURE_MIN_VERSION) ok=false;
+			if (ver[0]==18 && ver[1]<JAVA18_SECURE_MIN_VERSION) ok=false;
 			if (ok) return;
 			setMessagePanel(Language.tr("Dialog.Title.Warning"),Language.tr("Window.JavaSecurityWarnung"),"https://"+MainPanel.JDK_URL,MessagePanelIcon.WARNING);
 			new Timer("HideSecurityInfoPanel").schedule(new TimerTask() {@Override public void run() {setMessagePanel(null,null,null);}},7500);
