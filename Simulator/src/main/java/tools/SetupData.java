@@ -324,6 +324,14 @@ public class SetupData extends SetupBase {
 	public boolean antialias;
 
 	/**
+	 * Soll eine leichte Abweichung von der vollkommenen Transparenz
+	 * für den Hintergrund beim Exportieren von Modellen als Bilddateien
+	 * verwendet werden (damit die Windows-Bildanzeige keinen schwarzen
+	 * Hintergrund anzeigt)?
+	 */
+	public boolean useTransparencyExportFix;
+
+	/**
 	 * Anzeige von Statistikdaten in Tooltips?
 	 */
 	public boolean statisticInTooltips;
@@ -1346,6 +1354,7 @@ public class SetupData extends SetupBase {
 		showIDs=false;
 		showStationDescription=false;
 		antialias=true;
+		useTransparencyExportFix=true;
 		statisticInTooltips=true;
 		showBackgroundTooltips=false;
 		statisticHeatMap=EditorPanelStatistics.HeatMapMode.OFF;
@@ -1890,6 +1899,11 @@ public class SetupData extends SetupBase {
 
 			if (name.equals("antialias")) {
 				antialias=loadBoolean(e.getTextContent(),true);
+				continue;
+			}
+
+			if (name.equals("transparencyexportfix")) {
+				useTransparencyExportFix=loadBoolean(e.getTextContent(),true);
 				continue;
 			}
 
@@ -2643,6 +2657,11 @@ public class SetupData extends SetupBase {
 
 		if (!antialias) {
 			root.appendChild(node=doc.createElement("AntiAlias"));
+			node.setTextContent("0");
+		}
+
+		if (!useTransparencyExportFix) {
+			root.appendChild(node=doc.createElement("TransparencyExportFix"));
 			node.setTextContent("0");
 		}
 

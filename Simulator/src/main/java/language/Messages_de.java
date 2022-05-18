@@ -18916,6 +18916,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[46731] = "Der eingegebene Ausdruck \"%s\" ist an Zeichen %d fehlerhaft.";
     t[46744] = "Surface.AnimationText.Dialog.FontFamily";
     t[46745] = "Schriftart";
+    t[46754] = "SystemInfo.Tools.Surface.ExportTransparencyFix";
+    t[46755] = "Modelle beim Export als Bild f\u00fcr Windows-Anzeige optimieren";
     t[46756] = "Surface.Costs.Dialog.TransferCosts.ErrorInfo";
     t[46757] = "Die angegebenen Transferzeit-Kosten \"%s\" sind an Zeichen %d fehlerhaft.";
     t[46758] = "Simulation.Log.ReleaseResource";
@@ -20062,14 +20064,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[49601] = "Soll der aktuelle Eintrag gel\u00f6scht werden?";
     t[49606] = "Surface.Popup.AddVisualization.AnalogRate";
     t[49607] = "\u00c4nderungsrate";
-    t[49630] = "Color.B8860B";
-    t[49631] = "Dunkel GoldenRod";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_10 (java.lang.String[] t) {
+    t[49630] = "Color.B8860B";
+    t[49631] = "Dunkel GoldenRod";
     t[49644] = "Surface.InputJS.XML.Script.Java";
     t[49645] = "Java";
     t[49646] = "Simulation.Element.TankFlowBySignal.Name";
@@ -21937,7 +21939,7 @@ public class Messages_de extends java.util.ResourceBundle {
     t[54216] = "LoadCalculator.Tab.WaitingTimeTolerance";
     t[54217] = "Wartezeittoleranz";
     t[54218] = "Statistics.Dashboard.EditDialog.XML";
-    t[54219] = "XML element";
+    t[54219] = "XML-Element";
     t[54224] = "ModelSecurityCheck.Column.StationName";
     t[54225] = "Stationsname";
     t[54226] = "Statistic.Viewer.Toolbar.SelectAll.Hint";

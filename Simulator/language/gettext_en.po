@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-05-15 12:59+0200\n"
+"POT-Creation-Date: 2022-05-17 08:25+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -32461,6 +32461,9 @@ msgstr "Use antialias"
 
 msgid "SystemInfo.Tools.Surface.BackgroundTooltips"
 msgstr "Show tooltips while dialog is open"
+
+msgid "SystemInfo.Tools.Surface.ExportTransparencyFix"
+msgstr "Optimize images for Windows image viewer when exporting models as images"
 
 msgid "SystemInfo.Tools.UserDefinedJavaCode"
 msgstr "User-defined Java code"

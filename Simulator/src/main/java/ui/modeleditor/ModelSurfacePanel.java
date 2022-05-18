@@ -1588,10 +1588,16 @@ public final class ModelSurfacePanel extends JPanel {
 		final int xSurfaceImage=(int)Math.ceil(p2.x*imageZoom);
 		final int ySurfaceImage=(int)Math.ceil(p2.y*imageZoom);
 
-		BufferedImage image=new BufferedImage(xSurfaceImage,ySurfaceImage,BufferedImage.TYPE_INT_ARGB);
-		Graphics g=image.getGraphics();
+		final BufferedImage image=new BufferedImage(xSurfaceImage,ySurfaceImage,BufferedImage.TYPE_INT_ARGB);
+		final Graphics2D g=(Graphics2D)image.getGraphics();
+
 		g.setClip(0,0,xSurfaceImage,ySurfaceImage);
-		((Graphics2D)g).setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING,RenderingHints.VALUE_TEXT_ANTIALIAS_DEFAULT);
+		if (SetupData.getSetup().useTransparencyExportFix) {
+			g.setColor(new Color(255,255,255,1)); /* Sonst zeigt die Windows-Bildanzeige (fälschlich) einen schwarzen Hintergrund an. */
+		}
+		g.fillRect(0,0,xSurfaceImage,ySurfaceImage);
+		g.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING,RenderingHints.VALUE_TEXT_ANTIALIAS_DEFAULT);
+
 		surface.drawToGraphics(g,new Rectangle(0,0,xSurfaceImage,ySurfaceImage),imageZoom,withBackground,backgroundImageMode,true,ModelSurface.Grid.OFF,null,backgroundImage,backgroundImageHash,backgroundImageScale,false);
 		if (additionalUserPaint!=null) {
 			g.setClip(new Rectangle(0,0,xSurfaceImage,ySurfaceImage));
@@ -1892,7 +1898,11 @@ public final class ModelSurfacePanel extends JPanel {
 			image=image2;
 		}
 
-		try {return ImageIO.write(image,format,file);} catch (IOException e) {return false;}
+		try {
+			return ImageIO.write(image,format,file);
+		} catch (IOException e) {
+			return false;
+		}
 	}
 
 	/**
@@ -3020,6 +3030,16 @@ public final class ModelSurfacePanel extends JPanel {
 	 * Reagiert auf Mausklicks auf der Zeichenfläche
 	 */
 	private class ModelSurfacePanelMouseListener implements MouseListener {
+		/**
+		 * Konstruktor der Klasse
+		 */
+		public ModelSurfacePanelMouseListener() {
+			/*
+			 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+			 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+			 */
+		}
+
 		@Override
 		public void mouseClicked(MouseEvent e) {
 		}
@@ -3308,6 +3328,16 @@ public final class ModelSurfacePanel extends JPanel {
 	 * Überfahren von Elementen usw.) auf der Zeichenfläche
 	 */
 	private class ModelSurfacePanelMouseMotionListener implements MouseMotionListener {
+		/**
+		 * Konstruktor der Klasse
+		 */
+		public ModelSurfacePanelMouseMotionListener() {
+			/*
+			 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+			 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+			 */
+		}
+
 		@Override
 		public void mouseDragged(MouseEvent e) {
 			if ((readOnly && !allowChangeOperationsOnReadOnly) || dragStartMousePosition==null) return;
@@ -3532,6 +3562,16 @@ public final class ModelSurfacePanel extends JPanel {
 	 * Reagiert auf Mausrad-Bewegungen auf der Zeichenfläche
 	 */
 	private class ModelSurfacePanelMouseWheelListener implements MouseWheelListener {
+		/**
+		 * Konstruktor der Klasse
+		 */
+		public ModelSurfacePanelMouseWheelListener() {
+			/*
+			 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+			 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+			 */
+		}
+
 		@Override
 		public void mouseWheelMoved(MouseWheelEvent e) {
 			if (e.isControlDown()) {
@@ -3578,6 +3618,16 @@ public final class ModelSurfacePanel extends JPanel {
 	 * Reagiert auf Tastendrücken auf der Zeichenfläche
 	 */
 	private class ModelSurfacePanelKeyListener implements KeyListener {
+		/**
+		 * Konstruktor der Klasse
+		 */
+		public ModelSurfacePanelKeyListener() {
+			/*
+			 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+			 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+			 */
+		}
+
 		@Override
 		public void keyTyped(KeyEvent e) {
 		}

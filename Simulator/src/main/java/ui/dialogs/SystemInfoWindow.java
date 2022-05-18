@@ -597,6 +597,9 @@ public class SystemInfoWindow extends JFrame {
 		menu.add(check=new JCheckBoxMenuItem(Language.tr("SystemInfo.Tools.Surface.Antialias"),setup.antialias));
 		check.addActionListener(e->{setup.antialias=!setup.antialias; setup.saveSetup();});
 
+		menu.add(check=new JCheckBoxMenuItem(Language.tr("SystemInfo.Tools.Surface.ExportTransparencyFix"),setup.useTransparencyExportFix));
+		check.addActionListener(e->{setup.useTransparencyExportFix=!setup.useTransparencyExportFix; setup.saveSetup();});
+
 		menu.add(check=new JCheckBoxMenuItem(Language.tr("SystemInfo.Tools.Surface.BackgroundTooltips"),setup.showBackgroundTooltips));
 		check.addActionListener(e->{setup.showBackgroundTooltips=!setup.showBackgroundTooltips; setup.saveSetup();});
 

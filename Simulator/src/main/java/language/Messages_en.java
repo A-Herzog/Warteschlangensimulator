@@ -18916,6 +18916,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[46731] = "The entered expression \"%s\" is invalid at character %d.";
     t[46744] = "Surface.AnimationText.Dialog.FontFamily";
     t[46745] = "Font";
+    t[46754] = "SystemInfo.Tools.Surface.ExportTransparencyFix";
+    t[46755] = "Optimize images for Windows image viewer when exporting models as images";
     t[46756] = "Surface.Costs.Dialog.TransferCosts.ErrorInfo";
     t[46757] = "The specified transfer time costs \"%s\" are invalid at character %d.";
     t[46758] = "Simulation.Log.ReleaseResource";
@@ -20062,14 +20064,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[49601] = "Dp you really want to delete the current record?";
     t[49606] = "Surface.Popup.AddVisualization.AnalogRate";
     t[49607] = "Change rate";
-    t[49630] = "Color.B8860B";
-    t[49631] = "Dark GoldenRod";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_10 (java.lang.String[] t) {
+    t[49630] = "Color.B8860B";
+    t[49631] = "Dark GoldenRod";
     t[49644] = "Surface.InputJS.XML.Script.Java";
     t[49645] = "Java";
     t[49646] = "Simulation.Element.TankFlowBySignal.Name";

@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-05-15 12:59+0200\n"
+"POT-Creation-Date: 2022-05-17 08:25+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20573,7 +20573,7 @@ msgid "Statistics.Dashboard.EditDialog.UserDefinedBackgroundColor"
 msgstr "Nutzerdefinierte Hintergrundfarbe verwenden"
 
 msgid "Statistics.Dashboard.EditDialog.XML"
-msgstr "XML element"
+msgstr "XML-Element"
 
 msgid "Statistics.Dashboard.EditDialog.XML.Button"
 msgstr "Auswählen"
@@ -32482,6 +32482,9 @@ msgstr "Antialiasing verwenden"
 
 msgid "SystemInfo.Tools.Surface.BackgroundTooltips"
 msgstr "Tooltips auch bei offenem Dialog anzeigen"
+
+msgid "SystemInfo.Tools.Surface.ExportTransparencyFix"
+msgstr "Modelle beim Export als Bild für Windows-Anzeige optimieren"
 
 msgid "SystemInfo.Tools.UserDefinedJavaCode"
 msgstr "Nutzerdefinierter Java-Code"
