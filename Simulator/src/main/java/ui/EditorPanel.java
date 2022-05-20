@@ -36,6 +36,7 @@ import java.awt.im.InputContext;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.File;
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Dictionary;
@@ -48,6 +49,7 @@ import java.util.function.Consumer;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
+import javax.imageio.ImageIO;
 import javax.swing.AbstractAction;
 import javax.swing.Action;
 import javax.swing.BorderFactory;
@@ -2194,6 +2196,24 @@ public final class EditorPanel extends EditorPanelBase {
 		/* Bild */
 		if (!surfacePanel.saveImageToFile(file,format,setup.imageSize,setup.imageSize,forceWithBackground)) return Language.tr("Editor.ExportModel.Error");
 		return null;
+	}
+
+	/**
+	 * Versucht ein Bild aus einer Datei auf der Zeichenfläche einzufügen
+	 * @param file	Einzufügendes Bild
+	 * @return	Liefert <code>true</code>, wenn das Bild geladen werden konnte und der Nutzer nun die Position auswählen kann
+	 */
+	public boolean importImage(final File file) {
+		if (file==null) return false;
+		try {
+			final BufferedImage image=ImageIO.read(file);
+			if (image==null) return false;
+			surfacePanel.pasteImage(image);
+		} catch (IOException e) {
+			return false;
+		}
+
+		return true;
 	}
 
 	/**

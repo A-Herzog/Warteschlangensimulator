@@ -8208,6 +8208,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[20727] = "Select input table";
     t[20728] = "SettingsDialog.ManualUpdate.Homepage";
     t[20729] = "Open homepage";
+    t[20732] = "Main.Menu.File.ImportImage";
+    t[20733] = "Import image...";
     t[20734] = "Git.List.Tab.LocalFolder.LocalFolder.Info.FolderDoesNotExist";
     t[20735] = "The foldes does not exist.";
     t[20740] = "Simulation.Element.Counter.Name";
@@ -10032,14 +10034,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[25199] = "For station %s it is planned to generate at maximum %d arrivals. This number has been reached.";
     t[25200] = "Statistics.XML.Count";
     t[25201] = "Count";
-    t[25202] = "Window.Check.AutoFixResources.NoInfo";
-    t[25203] = "Do not add resource.";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_5 (java.lang.String[] t) {
+    t[25202] = "Window.Check.AutoFixResources.NoInfo";
+    t[25203] = "Do not add resource.";
     t[25210] = "Simulation.ClientMovement.OutputFile.OutputDirect";
     t[25211] = "Show Sankey diagram directly";
     t[25214] = "Surface.XML.JavaImports";
@@ -12038,14 +12040,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[30207] = "An error occurred while decrypting file %s.";
     t[30212] = "ProblemReporter.Dialog.ItemNotAvailable";
     t[30213] = "These data are not available and therefore cannot be included in the report.";
-    t[30226] = "FindAndReplace.Select.None";
-    t[30227] = "Unselect all";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_6 (java.lang.String[] t) {
+    t[30226] = "FindAndReplace.Select.None";
+    t[30227] = "Unselect all";
     t[30228] = "Surface.PopupMenu.SimulationStatisticsData.Tab.WaitingClients.Field.Path.notRecorded";
     t[30229] = "not recorded";
     t[30230] = "AnalyticModelCompare.Dialog.Save";
@@ -14044,14 +14046,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[35071] = "MeanConfidenceRadius";
     t[35072] = "Surface.TransportSource.XML.Route";
     t[35073] = "ModelElementTransportRoute";
-    t[35074] = "Surface.LogicDo.Infotext";
-    t[35075] = "Do stations always forward clients to the next station. They are used as starting points of loops and as jump target for until stations.";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_7 (java.lang.String[] t) {
+    t[35074] = "Surface.LogicDo.Infotext";
+    t[35075] = "Do stations always forward clients to the next station. They are used as starting points of loops and as jump target for until stations.";
     t[35076] = "Simulation.Creator.ScriptError";
     t[35077] = "The following error occurred while preparing the script at station id=%d:";
     t[35078] = "ExpressionBuilder.SimulationCharacteristics.ProcessingTimesAtStations.Skewness";
@@ -14866,6 +14868,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[37073] = "Range";
     t[37080] = "Color.FFF8DC";
     t[37081] = "Cornsilk";
+    t[37084] = "Main.Menu.File.ImportImage.Mnemonic";
+    t[37085] = "I";
     t[37086] = "Animation.Icon.Key";
     t[37087] = "Key";
     t[37088] = "Optimizer.Error.CouldNotSaveResults";
@@ -16048,16 +16052,16 @@ public class Messages_en extends java.util.ResourceBundle {
     t[39857] = "Sequence %s does not contain any steps.";
     t[39860] = "ExpressionCalculator.Results";
     t[39861] = "Results";
-    t[39862] = "Surface.TankFlowBySignal.Dialog.Title";
-    t[39863] = "Edit flow";
-    t[39868] = "Simulation.Started";
-    t[39869] = "The simulation was started.";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_8 (java.lang.String[] t) {
+    t[39862] = "Surface.TankFlowBySignal.Dialog.Title";
+    t[39863] = "Edit flow";
+    t[39868] = "Simulation.Started";
+    t[39869] = "The simulation was started.";
     t[39882] = "ExpressionBuilder.SimulationCharacteristics.AnalogValues.CurrentNumber";
     t[39883] = "Gets the current value of a \"Analog value\" or a \"Tank\" element.";
     t[39884] = "Simulation.Log.Abort";
@@ -18054,16 +18058,16 @@ public class Messages_en extends java.util.ResourceBundle {
     t[44723] = "<p>Generates a random number according to the negative Binomial distribution with the given parameters.</p>";
     t[44726] = "ParameterCompare.Table.SaveStatistics.Hint";
     t[44727] = "Save statistic results";
-    t[44728] = "Surface.Action.Dialog.Edit.Tabs.Action.Assign.Variable.ErrorTitle";
-    t[44729] = "Invalid variable name";
-    t[44732] = "Main.Menu.Extras.SimulationServer";
-    t[44733] = "Server services...";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_9 (java.lang.String[] t) {
+    t[44728] = "Surface.Action.Dialog.Edit.Tabs.Action.Assign.Variable.ErrorTitle";
+    t[44729] = "Invalid variable name";
+    t[44732] = "Main.Menu.Extras.SimulationServer";
+    t[44733] = "Server services...";
     t[44738] = "Surface.InputDDE.XML.Variable";
     t[44739] = "ModelElementInputDDEVariable";
     t[44742] = "Main.Menu.View.Explorer.Mnemonic";
@@ -20060,16 +20064,16 @@ public class Messages_en extends java.util.ResourceBundle {
     t[49585] = "Delete Git configuration";
     t[49586] = "Statistic.FastAccess.Template.Reset.Tooltip";
     t[49587] = "Resets the model to the initial settings.";
-    t[49600] = "ModelLoadData.EditDialog.Delete.Confirm.Info";
-    t[49601] = "Dp you really want to delete the current record?";
-    t[49606] = "Surface.Popup.AddVisualization.AnalogRate";
-    t[49607] = "Change rate";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_10 (java.lang.String[] t) {
+    t[49600] = "ModelLoadData.EditDialog.Delete.Confirm.Info";
+    t[49601] = "Dp you really want to delete the current record?";
+    t[49606] = "Surface.Popup.AddVisualization.AnalogRate";
+    t[49607] = "Change rate";
     t[49630] = "Color.B8860B";
     t[49631] = "Dark GoldenRod";
     t[49644] = "Surface.InputJS.XML.Script.Java";

@@ -203,6 +203,7 @@ import ui.statistics.analyticcompare.AnalyticInfo;
 import ui.tools.BatchPanel;
 import ui.tools.FlatLaFHelper;
 import ui.tools.GlassInfo;
+import ui.tools.ImageChooser;
 import ui.tools.InputContextFix;
 import ui.tools.ServerPanel;
 import ui.tools.SpecialPanel;
@@ -607,6 +608,7 @@ public class MainPanel extends MainPanelBase {
 		addAction("FileSave",e->commandFileModelSave(false));
 		addAction("FileSaveAs",e->commandFileModelSave(true));
 		addAction("FileSaveCopyAs",e->commandFileModelSaveCopyAs());
+		addAction("FileImportImage",e->commandFileModelImportImage());
 		addAction("FileExport",e->commandFileModelExport());
 		addAction("FilePrint",e->commandFileModelPrint());
 		addAction("FileStatisticsLoad",e->commandFileStatisticsLoad(null,null));
@@ -1127,6 +1129,7 @@ public class MainPanel extends MainPanelBase {
 		createMenuItemCtrl(menu,Language.tr("Main.Menu.File.Save"),Images.MODEL_SAVE.getIcon(),Language.tr("Main.Menu.File.Save.Mnemonic"),KeyEvent.VK_S,"FileSave");
 		createMenuItemCtrl(menu,Language.tr("Main.Menu.File.SaveAs"),Language.tr("Main.Menu.File.SaveAs.Mnemonic"),KeyEvent.VK_U,"FileSaveAs");
 		createMenuItem(menu,Language.tr("Main.Menu.File.SaveCopyAs"),Language.tr("Main.Menu.File.SaveCopyAs.Mnemonic"),"FileSaveCopyAs");
+		createMenuItem(menu,Language.tr("Main.Menu.File.ImportImage"),Language.tr("Main.Menu.File.ImportImage.Mnemonic"),"FileImportImage");
 		createMenuItem(menu,Language.tr("Main.Menu.File.ExportModel"),Language.tr("Main.Menu.File.ExportModel.Mnemonic"),"FileExport");
 		createMenuItemCtrl(menu,Language.tr("Main.Menu.File.PrintModel"),Images.GENERAL_PRINT.getIcon(),Language.tr("Main.Menu.File.PrintModel.Mnemonic"),KeyEvent.VK_P,"FilePrint");
 		menu.addSeparator();
@@ -2252,6 +2255,14 @@ public class MainPanel extends MainPanelBase {
 			}
 		}
 		return error==null;
+	}
+
+	/**
+	 * Befehl: Datei - Bild importieren
+	 * @return Liefert <code>true</code>, wenn ein Bild in das Modell importiert werden konnte
+	 */
+	private boolean commandFileModelImportImage() {
+		return editorPanel.importImage(ImageChooser.selectImageToLoad(this));
 	}
 
 	/**

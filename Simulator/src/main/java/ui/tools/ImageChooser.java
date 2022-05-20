@@ -271,6 +271,30 @@ public class ImageChooser extends JPanel {
 		return false;
 	}
 
+	/**
+	 * Zeigt einen Auswahldialog für ein zu ladendes Bild an.
+	 * @param owner	Übergeaordnetes Element zur Ausrichtung des Dialogs
+	 * @return	Liefert im Erfolgsfall den Dateinamen des Bilddatei, sonst <code>null</code>
+	 */
+	public static File selectImageToLoad(final Component owner) {
+		final JFileChooser fc=new JFileChooser();
+		CommonVariables.initialDirectoryToJFileChooser(fc);
+		fc.setDialogTitle(Language.tr("Window.LoadImage"));
+		final FileFilter images=new FileNameExtensionFilter(Language.tr("FileType.AllImages")+" (*.jpg, *.jpeg, *.gif, *.png, *.bmp)","jpg","jpeg","gif","png","bmp");
+		fc.addChoosableFileFilter(images);
+		fc.setFileFilter(images);
+
+		if (fc.showOpenDialog(owner)!=JFileChooser.APPROVE_OPTION) return null;
+		CommonVariables.initialDirectoryFromJFileChooser(fc);
+		final File file=fc.getSelectedFile();
+
+		if (!file.exists()) {
+			MsgBox.error(owner,Language.tr("XML.LoadErrorTitle"),String.format(Language.tr("XML.FileNotFound"),file.toString()));
+			return null;
+		}
+
+		return file;
+	}
 
 	/**
 	 * Versucht aus einer Datei ein neues Bild zu laden.<br>
@@ -278,30 +302,19 @@ public class ImageChooser extends JPanel {
 	 * @return	Gibt <code>true</code> zurück, wenn das Bild geladen werden konnte
 	 */
 	public boolean loadFromFile() {
-		JFileChooser fc=new JFileChooser();
-		CommonVariables.initialDirectoryToJFileChooser(fc);
-		fc.setDialogTitle(Language.tr("Window.LoadImage"));
-		FileFilter images=new FileNameExtensionFilter(Language.tr("FileType.AllImages")+" (*.jpg, *.jpeg, *.gif, *.png, *.bmp)","jpg","jpeg","gif","png","bmp");
-		fc.addChoosableFileFilter(images);
-		fc.setFileFilter(images);
-
-		if (fc.showOpenDialog(this)!=JFileChooser.APPROVE_OPTION) return false;
-		CommonVariables.initialDirectoryFromJFileChooser(fc);
-		File file=fc.getSelectedFile();
-
-		if (!file.exists()) {
-			MsgBox.error(this,Language.tr("XML.LoadErrorTitle"),String.format(Language.tr("XML.FileNotFound"),file.toString()));
-			return false;
-		}
+		final File file=selectImageToLoad(this);
+		if (file==null) return false;
 
 		try {
-			BufferedImage newImage=ImageIO.read(file);
+			final BufferedImage newImage=ImageIO.read(file);
 			if(newImage!=null) {
 				setImage(newImage);
 				fireChange();
 				return true;
 			}
-		} catch (IOException e) {return false;}
+		} catch (IOException e) {
+			return false;
+		}
 		return false;
 	}
 

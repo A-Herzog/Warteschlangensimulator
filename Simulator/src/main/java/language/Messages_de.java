@@ -8208,6 +8208,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[20727] = "Eingabetabelle ausw\u00e4hlen";
     t[20728] = "SettingsDialog.ManualUpdate.Homepage";
     t[20729] = "Homepage aufrufen";
+    t[20732] = "Main.Menu.File.ImportImage";
+    t[20733] = "Bild importieren...";
     t[20734] = "Git.List.Tab.LocalFolder.LocalFolder.Info.FolderDoesNotExist";
     t[20735] = "Das Verzeichnis existiert nicht.";
     t[20740] = "Simulation.Element.Counter.Name";
@@ -10032,14 +10034,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[25199] = "Station %s soll nur maximal %d Ank\u00fcnfte generieren und hat diese Anzahl jetzt erreicht.";
     t[25200] = "Statistics.XML.Count";
     t[25201] = "Anzahl";
-    t[25202] = "Window.Check.AutoFixResources.NoInfo";
-    t[25203] = "Keine neue Bedienergruppe anlegen.";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_5 (java.lang.String[] t) {
+    t[25202] = "Window.Check.AutoFixResources.NoInfo";
+    t[25203] = "Keine neue Bedienergruppe anlegen.";
     t[25210] = "Simulation.ClientMovement.OutputFile.OutputDirect";
     t[25211] = "Sankey-Diagramm direkt anzeigen";
     t[25214] = "Surface.XML.JavaImports";
@@ -12038,14 +12040,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[30207] = "Es ist ein Fehler beim Entschl\u00fcsseln der Datei\n%s\naufgetreten.";
     t[30212] = "ProblemReporter.Dialog.ItemNotAvailable";
     t[30213] = "Diese Daten stehen nicht zur Verf\u00fcgung und k\u00f6nnen daher nicht in den Bericht aufgenommen werden.";
-    t[30226] = "FindAndReplace.Select.None";
-    t[30227] = "Alle abw\u00e4hlen";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_6 (java.lang.String[] t) {
+    t[30226] = "FindAndReplace.Select.None";
+    t[30227] = "Alle abw\u00e4hlen";
     t[30228] = "Surface.PopupMenu.SimulationStatisticsData.Tab.WaitingClients.Field.Path.notRecorded";
     t[30229] = "nicht aufgezeichnet";
     t[30230] = "AnalyticModelCompare.Dialog.Save";
@@ -14044,14 +14046,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[35071] = "MittelwertKonfidenzRadius";
     t[35072] = "Surface.TransportSource.XML.Route";
     t[35073] = "ModellElementTransportRoute";
-    t[35074] = "Surface.LogicDo.Infotext";
-    t[35075] = "Do-Stationen leiten Kunden stets an die n\u00e4chste Station weiter. Do-Stationen dienen als Startpunkt f\u00fcr eine durch ein sp\u00e4teres Until-Element initiierte Schleife.";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_7 (java.lang.String[] t) {
+    t[35074] = "Surface.LogicDo.Infotext";
+    t[35075] = "Do-Stationen leiten Kunden stets an die n\u00e4chste Station weiter. Do-Stationen dienen als Startpunkt f\u00fcr eine durch ein sp\u00e4teres Until-Element initiierte Schleife.";
     t[35076] = "Simulation.Creator.ScriptError";
     t[35077] = "Beim Vorbereiten des Skripts an Station id=%d ist der folgende Fehler aufgetreten:";
     t[35078] = "ExpressionBuilder.SimulationCharacteristics.ProcessingTimesAtStations.Skewness";
@@ -14866,6 +14868,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[37073] = "Wertebereich";
     t[37080] = "Color.FFF8DC";
     t[37081] = "Cornsilk";
+    t[37084] = "Main.Menu.File.ImportImage.Mnemonic";
+    t[37085] = "B";
     t[37086] = "Animation.Icon.Key";
     t[37087] = "Schl\u00fcssel";
     t[37088] = "Optimizer.Error.CouldNotSaveResults";
@@ -16048,16 +16052,16 @@ public class Messages_de extends java.util.ResourceBundle {
     t[39857] = "Fertigungsplan %s beinhaltet keine Schritte.";
     t[39860] = "ExpressionCalculator.Results";
     t[39861] = "Ergebnis";
-    t[39862] = "Surface.TankFlowBySignal.Dialog.Title";
-    t[39863] = "Fluss bearbeiten";
-    t[39868] = "Simulation.Started";
-    t[39869] = "Die Simulation wurde gestartet.";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_8 (java.lang.String[] t) {
+    t[39862] = "Surface.TankFlowBySignal.Dialog.Title";
+    t[39863] = "Fluss bearbeiten";
+    t[39868] = "Simulation.Started";
+    t[39869] = "Die Simulation wurde gestartet.";
     t[39882] = "ExpressionBuilder.SimulationCharacteristics.AnalogValues.CurrentNumber";
     t[39883] = "Liefert den aktuellen Wert eines \"Analoger Wert\"- oder eines \"Tank\"-Elements.";
     t[39884] = "Simulation.Log.Abort";
@@ -18054,16 +18058,16 @@ public class Messages_de extends java.util.ResourceBundle {
     t[44723] = "<p>Erzeugt eine Zufallszahl gem\u00e4\u00df der negativen Binomial-Verteilung mit den angegebenen Parametern.</p>";
     t[44726] = "ParameterCompare.Table.SaveStatistics.Hint";
     t[44727] = "Statistikergebnisse speichern";
-    t[44728] = "Surface.Action.Dialog.Edit.Tabs.Action.Assign.Variable.ErrorTitle";
-    t[44729] = "Ung\u00fcltiger Variablenname";
-    t[44732] = "Main.Menu.Extras.SimulationServer";
-    t[44733] = "Serverdienste...";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_9 (java.lang.String[] t) {
+    t[44728] = "Surface.Action.Dialog.Edit.Tabs.Action.Assign.Variable.ErrorTitle";
+    t[44729] = "Ung\u00fcltiger Variablenname";
+    t[44732] = "Main.Menu.Extras.SimulationServer";
+    t[44733] = "Serverdienste...";
     t[44738] = "Surface.InputDDE.XML.Variable";
     t[44739] = "ModellElementEingabeDDEVariable";
     t[44742] = "Main.Menu.View.Explorer.Mnemonic";
@@ -20060,16 +20064,16 @@ public class Messages_de extends java.util.ResourceBundle {
     t[49585] = "Git-Konfiguration l\u00f6schen";
     t[49586] = "Statistic.FastAccess.Template.Reset.Tooltip";
     t[49587] = "Setzt das Modell auf die Ausgangseinstellungen zur\u00fcck.";
-    t[49600] = "ModelLoadData.EditDialog.Delete.Confirm.Info";
-    t[49601] = "Soll der aktuelle Eintrag gel\u00f6scht werden?";
-    t[49606] = "Surface.Popup.AddVisualization.AnalogRate";
-    t[49607] = "\u00c4nderungsrate";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_10 (java.lang.String[] t) {
+    t[49600] = "ModelLoadData.EditDialog.Delete.Confirm.Info";
+    t[49601] = "Soll der aktuelle Eintrag gel\u00f6scht werden?";
+    t[49606] = "Surface.Popup.AddVisualization.AnalogRate";
+    t[49607] = "\u00c4nderungsrate";
     t[49630] = "Color.B8860B";
     t[49631] = "Dunkel GoldenRod";
     t[49644] = "Surface.InputJS.XML.Script.Java";

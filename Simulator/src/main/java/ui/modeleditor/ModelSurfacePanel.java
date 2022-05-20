@@ -2116,6 +2116,17 @@ public final class ModelSurfacePanel extends JPanel {
 	}
 
 	/**
+	 * Fügt ein Bild als Element in die Zeichnung ein.
+	 * @param image	Einzufügendes Bild
+	 */
+	public void pasteImage(final BufferedImage image) {
+		if (readOnly || image==null) return;
+		clipboardImage=image;
+		setMode(ClickMode.MODE_INSERT_IMAGE);
+		setCursor(Cursor.getPredefinedCursor(Cursor.CROSSHAIR_CURSOR));
+	}
+
+	/**
 	 * Prüft, ob zwischen zwei Elementen eine Verbindungkanten eingefügt werden darf.
 	 * @param element1	Mögliches Ausgangelement
 	 * @param element2	Mögliches Zielelement
