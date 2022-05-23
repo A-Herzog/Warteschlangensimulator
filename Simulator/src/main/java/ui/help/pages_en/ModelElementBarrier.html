@@ -23,7 +23,9 @@ The name of the barrier element has no further meaning. You have to specify a le
 The number of waiting clients which are released at an incoming signal can be set up as well as
 if the release should act on all client type or on only one client type.
 Furthermore, a number of clients who are allowed to pass the barrier before the counting begins
-can be defined.
+can be defined. If a signal arrives while no client is waiting, it is possible to specify whether
+this signal should be saved for a client who is then to be released immediately later, or whether
+it should be discarded.
 </p>
 
 </body>

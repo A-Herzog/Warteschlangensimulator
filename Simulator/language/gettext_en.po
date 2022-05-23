@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-05-18 09:23+0200\n"
+"POT-Creation-Date: 2022-05-21 00:15+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -10786,6 +10786,15 @@ msgstr "Initial release"
 
 msgid "ModelDescription.Barrier.Signal"
 msgstr "Release at Signal"
+
+msgid "ModelDescription.Barrier.StoreSignals"
+msgstr "If no client is waiting"
+
+msgid "ModelDescription.Barrier.StoreSignals.Discard"
+msgstr "Ignore signal"
+
+msgid "ModelDescription.Barrier.StoreSignals.Store"
+msgstr "Store signal"
 
 msgid "ModelDescription.BarrierPull.ControlledStation"
 msgstr "Controlled station"
@@ -24611,6 +24620,9 @@ msgstr "Yes, remove release signal from list."
 msgid "Surface.Barrier.Dialog.Description.AllClientTypes"
 msgstr "all client types"
 
+msgid "Surface.Barrier.Dialog.Description.DiscardSignals"
+msgstr "Discard signals, if no clients are waiting"
+
 msgid "Surface.Barrier.Dialog.Description.InitialRelease"
 msgstr "initial release"
 
@@ -24640,6 +24652,9 @@ msgstr "No signal selected"
 
 msgid "Surface.Barrier.Dialog.ReleaseSignal.NoSignalsAvailable"
 msgstr "no signals available"
+
+msgid "Surface.Barrier.Dialog.StoreSignals"
+msgstr "Store signals, if no clients are waiting"
 
 msgid "Surface.Barrier.Dialog.Title"
 msgstr "Edit barrier"
@@ -24679,6 +24694,9 @@ msgstr "ModelElementSignalName"
 
 msgid "Surface.Barrier.XML.SignalOption"
 msgstr "ModelElementBarrierOption"
+
+msgid "Surface.Barrier.XML.StoreSignals"
+msgstr "StoreSignals"
 
 msgid "Surface.BarrierPull.Dialog.ControlledElement"
 msgstr "Controlled station"

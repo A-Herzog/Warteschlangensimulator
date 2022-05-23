@@ -108,20 +108,24 @@ public class BarrierSignalTableModel extends JTableExtAbstractTableModel {
 	 * @return	Beschreibung
 	 */
 	private String getDescription(final ModelElementBarrierSignalOption option) {
-		final StringBuilder sb=new StringBuilder();
+		final StringBuilder result=new StringBuilder();
 
-		if (option.getClientType()==null) sb.append(Language.tr("Surface.Barrier.Dialog.Description.AllClientTypes")); else sb.append(option.getClientType());
+		if (option.getClientType()==null) result.append(Language.tr("Surface.Barrier.Dialog.Description.AllClientTypes")); else result.append(option.getClientType());
 		if (option.getInitialClients()>0) {
-			sb.append(", "+Language.tr("Surface.Barrier.Dialog.Description.InitialRelease")+"="+option.getInitialClients());
+			result.append(", "+Language.tr("Surface.Barrier.Dialog.Description.InitialRelease")+"="+option.getInitialClients());
 		}
-		sb.append(", "+Language.tr("Surface.Barrier.Dialog.Description.PerSignal")+"=");
+		result.append(", "+Language.tr("Surface.Barrier.Dialog.Description.PerSignal")+"=");
 		if (option.getClientsPerSignal()>=0) {
-			sb.append(option.getClientsPerSignal());
+			result.append(option.getClientsPerSignal());
 		} else {
-			sb.append(Language.tr("Surface.Barrier.Dialog.Description.PerSignal.All"));
+			result.append(Language.tr("Surface.Barrier.Dialog.Description.PerSignal.All"));
+		}
+		if (!option.isStoreSignals()) {
+			result.append(", ");
+			result.append(Language.tr("Surface.Barrier.Dialog.Description.DiscardSignals"));
 		}
 
-		return sb.toString();
+		return result.toString();
 	}
 
 	@Override

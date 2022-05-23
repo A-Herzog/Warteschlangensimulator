@@ -840,6 +840,7 @@
 <!ELEMENT ModellElementFreigabe EMPTY>
 <!ATTLIST ModellElementFreigabe
 	Anzahl	CDATA	#REQUIRED
+	SignaleZwischenspeichern	CDATA	#IMPLIED
 >
 
 <!ELEMENT ModellElementSchrankePull (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementBoxSchriftGross | ModellElementBoxSchriftKlein | ModellElementMaximalerDurchsatzSekunden | ModellElementEbene | ModellElementHintergrundfarbe | ModellElementStationsbild | ModellElementVerbindung | ModellElementSchrankePullKontrolle)*>
@@ -3314,6 +3315,7 @@
 <!ELEMENT ModelElementRelease EMPTY>
 <!ATTLIST ModelElementRelease
   Count	CDATA	#REQUIRED
+  StoreSignals	CDATA	#REQUIRED
 >
 
 <!ELEMENT ModelElementBarrierPull (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBoxFontLarge | ModelElementBoxFontSmall | ModelElementMaximumThroughputSeconds | ModelElementLayer | ModelElementBackgroundColor | ModelElementStationimage | ModelElementConnection | ModelElementBarrierPullControl)*>

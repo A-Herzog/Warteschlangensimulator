@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-05-18 09:23+0200\n"
+"POT-Creation-Date: 2022-05-21 00:15+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -10782,6 +10782,15 @@ msgstr "Anfängliche Freigabe"
 
 msgid "ModelDescription.Barrier.Signal"
 msgstr "Freigabe bei Signal"
+
+msgid "ModelDescription.Barrier.StoreSignals"
+msgstr "Wenn kein Kunde wartet"
+
+msgid "ModelDescription.Barrier.StoreSignals.Discard"
+msgstr "Signal ignorieren"
+
+msgid "ModelDescription.Barrier.StoreSignals.Store"
+msgstr "Signal zwischenspeichern"
 
 msgid "ModelDescription.BarrierPull.ControlledStation"
 msgstr "Überwachte Station"
@@ -24622,6 +24631,9 @@ msgstr "Ja, Auslösesignal aus der Liste entfernen."
 msgid "Surface.Barrier.Dialog.Description.AllClientTypes"
 msgstr "alle Kundentypen"
 
+msgid "Surface.Barrier.Dialog.Description.DiscardSignals"
+msgstr "Signale verwerfen, wenn keine Kunden warten"
+
 msgid "Surface.Barrier.Dialog.Description.InitialRelease"
 msgstr "initial Freigabe"
 
@@ -24651,6 +24663,9 @@ msgstr "Kein Signal gewählt"
 
 msgid "Surface.Barrier.Dialog.ReleaseSignal.NoSignalsAvailable"
 msgstr "keine Signale vorhanden"
+
+msgid "Surface.Barrier.Dialog.StoreSignals"
+msgstr "Signale zwischenspeichern, wenn keine Kunden warten"
 
 msgid "Surface.Barrier.Dialog.Title"
 msgstr "Schranke bearbeiten"
@@ -24690,6 +24705,9 @@ msgstr "ModellElementSignalname"
 
 msgid "Surface.Barrier.XML.SignalOption"
 msgstr "ModellElementSchrankeOption"
+
+msgid "Surface.Barrier.XML.StoreSignals"
+msgstr "SignaleZwischenspeichern"
 
 msgid "Surface.BarrierPull.Dialog.ControlledElement"
 msgstr "Kontrollierte Station"

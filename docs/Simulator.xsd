@@ -1047,6 +1047,7 @@
 </xs:complexType></xs:element>
 <xs:element name="ModellElementFreigabe"><xs:complexType>
   <xs:attribute name="Anzahl" type="xs:integer"/>
+  <xs:attribute name="SignaleZwischenspeichern" type="xs:integer"/>
 </xs:complexType></xs:element>
 
 <xs:element name="ModellElementSchrankePull"><xs:complexType><xs:complexContent><xs:extension base="ModellElementVerbundenBasis">
@@ -3290,6 +3291,7 @@
 </xs:complexType></xs:element>
 <xs:element name="ModelElementRelease"><xs:complexType>
   <xs:attribute name="Count" type="xs:integer"/>
+  <xs:attribute name="StoreSignals" type="xs:integer"/>
 </xs:complexType></xs:element>
 
 <xs:element name="ModelElementBarrierPull"><xs:complexType><xs:complexContent><xs:extension base="ModelElementConnectedBase">

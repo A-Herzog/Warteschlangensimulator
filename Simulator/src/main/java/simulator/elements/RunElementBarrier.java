@@ -61,6 +61,11 @@ public class RunElementBarrier extends RunElementPassThrough implements SignalLi
 	private int[] clientType;
 
 	/**
+	 * Signale zwischenspeichern, wenn keine Kunden warten?
+	 */
+	private boolean[] storeSignals;
+
+	/**
 	 * Konstruktor der Klasse
 	 * @param element Zugehöriges Editor-Element
 	 */
@@ -86,6 +91,7 @@ public class RunElementBarrier extends RunElementPassThrough implements SignalLi
 		barrier.initialClients=new int[options.size()];
 		barrier.clientsPerSignal=new int[options.size()];
 		barrier.clientType=new int[options.size()];
+		barrier.storeSignals=new boolean[options.size()];
 
 		for (int i=0;i<options.size();i++) {
 			final ModelElementBarrierSignalOption option=options.get(i);
@@ -97,6 +103,8 @@ public class RunElementBarrier extends RunElementPassThrough implements SignalLi
 
 			final int count=option.getClientsPerSignal();
 			barrier.clientsPerSignal[i]=(count>0)?count:Integer.MAX_VALUE;
+
+			barrier.storeSignals[i]=option.isStoreSignals();
 
 			final String type=option.getClientType();
 			if (type==null || type.trim().isEmpty()) {
@@ -244,7 +252,7 @@ public class RunElementBarrier extends RunElementPassThrough implements SignalLi
 			if (releaseClient(simData,data,clientType[index])) continue;
 
 			/* Sonst als Guthaben verbuchen */
-			if (clientsPerSignal[index]==Integer.MAX_VALUE) break;
+			if (clientsPerSignal[index]==Integer.MAX_VALUE || !storeSignals[index]) break;
 			data.initialClients[index]++;
 		}
 	}

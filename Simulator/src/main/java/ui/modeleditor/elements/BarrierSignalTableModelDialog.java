@@ -26,6 +26,7 @@ import java.util.List;
 
 import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
+import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -67,6 +68,8 @@ public class BarrierSignalTableModelDialog extends BaseDialog {
 	private final JRadioButton optionAll;
 	/** Eingabefeld für die Anzahl an Kunden die pro Signal freigegeben werden sollen */
 	private final JTextField clientsPerSignal;
+	/** Signale zwischenspeichern, wenn keine Kunden warten */
+	private final JCheckBox storeSignals;
 	/** Auswahl auf die Kunden welches Typs sich die Freigabe beziehen soll (inkl. der Möglichkeit "alle Kundentypen") */
 	private JComboBox<String> clientType;
 
@@ -122,6 +125,9 @@ public class BarrierSignalTableModelDialog extends BaseDialog {
 		group.add(optionAll);
 
 		content.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
+		line.add(storeSignals=new JCheckBox(Language.tr("Surface.Barrier.Dialog.StoreSignals")));
+
+		content.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
 		line.add(label=new JLabel(Language.tr("Surface.Barrier.Dialog.ClientType")+":"));
 		List<String> types=new ArrayList<>();
 		types.add(Language.tr("Surface.Barrier.Dialog.ClientType.All"));
@@ -129,8 +135,6 @@ public class BarrierSignalTableModelDialog extends BaseDialog {
 		line.add(clientType=new JComboBox<>(types.toArray(new String[0])));
 
 		label.setLabelFor(signal);
-
-
 
 		/* Felder mit Werten initialisieren */
 		if (signals.length==0) {
@@ -152,6 +156,7 @@ public class BarrierSignalTableModelDialog extends BaseDialog {
 			optionAll.setSelected(true);
 			clientsPerSignal.setText("1");
 		}
+		storeSignals.setSelected(option.isStoreSignals());
 		final String type=option.getClientType();
 		clientType.setSelectedIndex(0);
 		if (type!=null) for (int i=1;i<types.size();i++) if (type.equals(types.get(i))) {
@@ -242,6 +247,8 @@ public class BarrierSignalTableModelDialog extends BaseDialog {
 		} else {
 			option.setClientsPerSignal(-1);
 		}
+
+		option.setStoreSignals(storeSignals.isSelected());
 
 		if (clientType.getSelectedIndex()==0) {
 			option.setClientType(null);

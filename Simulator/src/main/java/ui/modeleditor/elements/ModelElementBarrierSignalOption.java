@@ -61,12 +61,20 @@ public final class ModelElementBarrierSignalOption implements Cloneable {
 	private int clientsPerSignal;
 
 	/**
+	 * Signale zwischenspeichern, wenn keine Kunden warten?
+	 * @see #isStoreSignals()
+	 * @see #setStoreSignals(boolean)
+	 */
+	private boolean storeSignals;
+
+	/**
 	 * Konstruktor der Klasse
 	 */
 	public ModelElementBarrierSignalOption() {
 		signalName="";
 		initialClients=0;
 		clientsPerSignal=1;
+		storeSignals=true;
 	}
 
 	/**
@@ -86,6 +94,7 @@ public final class ModelElementBarrierSignalOption implements Cloneable {
 		}
 		if (initialClients!=otherOption.initialClients) return false;
 		if (clientsPerSignal!=otherOption.clientsPerSignal) return false;
+		if (storeSignals!=otherOption.storeSignals) return false;
 		return true;
 	}
 
@@ -96,6 +105,7 @@ public final class ModelElementBarrierSignalOption implements Cloneable {
 		clone.clientType=clientType;
 		clone.initialClients=initialClients;
 		clone.clientsPerSignal=clientsPerSignal;
+		clone.storeSignals=storeSignals;
 		return clone;
 	}
 
@@ -164,6 +174,24 @@ public final class ModelElementBarrierSignalOption implements Cloneable {
 	}
 
 	/**
+	 * Sollen Signale zwischengespeichert werden, wenn keine Kunden warten?
+	 * @return	Signale zwischenspeichern, wenn keine Kunden warten
+	 * @see #setStoreSignals(boolean)
+	 */
+	public boolean isStoreSignals() {
+		return storeSignals;
+	}
+
+	/**
+	 * Sollen Signale zwischengespeichert werden, wenn keine Kunden warten?
+	 * @param storeSignals	Signale zwischenspeichern, wenn keine Kunden warten
+	 * @see #isStoreSignals()
+	 */
+	public void setStoreSignals(boolean storeSignals) {
+		this.storeSignals=storeSignals;
+	}
+
+	/**
 	 * Speichert die Daten in einem xml-Element
 	 * @param doc	xml-Dokument
 	 * @param parent	Übergeordnetes xml-Element
@@ -187,6 +215,9 @@ public final class ModelElementBarrierSignalOption implements Cloneable {
 			sub.setAttribute(Language.trPrimary("Surface.Barrier.XML.Count"),""+clientsPerSignal);
 		} else {
 			sub.setAttribute(Language.trPrimary("Surface.Barrier.XML.Count"),Language.trPrimary("Surface.Barrier.XML.Count.All"));
+		}
+		if (!storeSignals) {
+			sub.setAttribute(Language.trPrimary("Surface.Barrier.XML.StoreSignals"),"0");
 		}
 
 		if (clientType!=null) {
@@ -254,6 +285,8 @@ public final class ModelElementBarrierSignalOption implements Cloneable {
 					clientsPerSignal=(int)((long)L);
 				}
 			}
+			final String storeSignalsString=Language.trAllAttribute("Surface.Barrier.XML.StoreSignals",node);
+			if (storeSignalsString.equals("0")) storeSignals=false;
 			return null;
 		}
 
@@ -298,6 +331,14 @@ public final class ModelElementBarrierSignalOption implements Cloneable {
 			sb.append(" ");
 			sb.append((initialClients==1)?Language.tr("ModelDescription.Barrier.Client.Singular"):Language.tr("ModelDescription.Barrier.Client.Plural"));
 			sb.append("\n");
+		}
+
+		/* Signale zählen, wenn keine Kunden warten */
+		sb.append(Language.tr("ModelDescription.Barrier.StoreSignals")+": ");
+		if (storeSignals) {
+			sb.append(Language.tr("ModelDescription.Barrier.StoreSignals.Store"));
+		} else {
+			sb.append(Language.tr("ModelDescription.Barrier.StoreSignals.Discard"));
 		}
 
 		/* Name für Eigenschaft bestimmen */
