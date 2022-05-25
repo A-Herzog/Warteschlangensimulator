@@ -816,13 +816,14 @@
 >
 <!ELEMENT ModellElementBedingungScriptBedingung (#PCDATA)>
 
-<!ELEMENT ModellElementSignal (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementBoxSchriftGross | ModellElementBoxSchriftKlein | ModellElementMaximalerDurchsatzSekunden | ModellElementEbene | ModellElementHintergrundfarbe | ModellElementStationsbild | ModellElementVerbindung)*>
+<!ELEMENT ModellElementSignal (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementBoxSchriftGross | ModellElementBoxSchriftKlein | ModellElementMaximalerDurchsatzSekunden | ModellElementEbene | ModellElementHintergrundfarbe | ModellElementStationsbild | ModellElementVerbindung | ModellElementSignalVerzoegerteAusloesung)*>
 <!ATTLIST ModellElementSignal
   id			CDATA	#REQUIRED
   geschuetzt	CDATA	#IMPLIED
   statistik		CDATA	#IMPLIED
   SymbolSpiegeln	CDATA	#IMPLIED
 >
+<!ELEMENT ModellElementSignalVerzoegerteAusloesung (#PCDATA)>
 
 <!ELEMENT ModellElementSchranke (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementBoxSchriftGross | ModellElementBoxSchriftKlein | ModellElementMaximalerDurchsatzSekunden | ModellElementEbene | ModellElementHintergrundfarbe | ModellElementStationsbild | ModellElementVerbindung | ModellElementSchrankeOption)*>
 <!ATTLIST ModellElementSchranke
@@ -3291,13 +3292,14 @@
 >
 <!ELEMENT ModelElementHoldScriptAdditionalCondition (#PCDATA)>
 
-<!ELEMENT ModelElementSignal (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBoxFontLarge | ModelElementBoxFontSmall | ModelElementMaximumThroughputSeconds | ModelElementLayer | ModelElementBackgroundColor | ModelElementStationimage | ModelElementConnection)*>
+<!ELEMENT ModelElementSignal (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBoxFontLarge | ModelElementBoxFontSmall | ModelElementMaximumThroughputSeconds | ModelElementLayer | ModelElementBackgroundColor | ModelElementStationimage | ModelElementConnection | ModelElementSignalDelayedExecution)*>
 <!ATTLIST ModelElementSignal
   id		CDATA	#REQUIRED
   protected	CDATA	#IMPLIED
   statistics	CDATA	#IMPLIED
   MirrorSymbol	CDATA	#IMPLIED
 >
+<!ELEMENT ModelElementSignalDelayedExecution (#PCDATA)>
 
 <!ELEMENT ModelElementBarrier (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBoxFontLarge | ModelElementBoxFontSmall | ModelElementMaximumThroughputSeconds | ModelElementLayer | ModelElementBackgroundColor | ModelElementStationimage | ModelElementConnection | ModelElementBarrierOption)*>
 <!ATTLIST ModelElementBarrier

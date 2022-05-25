@@ -16,9 +16,11 @@
 package simulator.elements;
 
 import language.Language;
+import mathtools.TimeTools;
 import simulator.builder.RunModelCreatorStatus;
 import simulator.coreelements.RunElementPassThrough;
 import simulator.editmodel.EditModel;
+import simulator.events.FireSignalDelayed;
 import simulator.events.StationLeaveEvent;
 import simulator.runmodel.RunDataClient;
 import simulator.runmodel.RunModel;
@@ -35,6 +37,9 @@ import ui.modeleditor.elements.ModelElementSub;
 public class RunElementSignal extends RunElementPassThrough {
 	/** Name des auszulösenden Signals */
 	private String signalName;
+
+	/** Optionale verzögerte Auslösung des Signals (in MS) */
+	private long signalDelay;
 
 	/**
 	 * Konstruktor der Klasse
@@ -57,6 +62,9 @@ public class RunElementSignal extends RunElementPassThrough {
 		/* Name */
 		if (element.getName().isEmpty()) return String.format(Language.tr("Simulation.Creator.NoName"),element.getId());
 		signal.signalName=element.getName();
+
+		/* Optionale verzögerte Auslösung des Signals */
+		signal.signalDelay=Math.round(signalElement.getSignalDelay()*1000);
 
 		return signal;
 	}
@@ -81,8 +89,20 @@ public class RunElementSignal extends RunElementPassThrough {
 		/* Logging */
 		if (simData.loggingActive) log(simData,Language.tr("Simulation.Log.Signal"),String.format(Language.tr("Simulation.Log.Signal.Info"),client.logInfo(simData),name,signalName));
 
-		/* Signal auslösen */
-		simData.runData.fireSignal(simData,signalName);
+		if (signalDelay>0) {
+			/* Logging */
+			log(simData,Language.tr("Simulation.Log.Signal"),String.format(Language.tr("Simulation.Log.Signal.InfoDelay1"),TimeTools.formatLongTime(signalDelay/1000.0)));
+
+			/* Ereignis zur verzögerten Signalauslösung anlegen */
+			final FireSignalDelayed event=(FireSignalDelayed)simData.getEvent(FireSignalDelayed.class);
+			event.init(simData.currentTime+signalDelay);
+			event.signalStation=this;
+			event.signalName=signalName;
+			if (!simData.runData.stopp) simData.eventManager.addEvent(event);
+		} else {
+			/* Signal direkt auslösen */
+			simData.runData.fireSignal(simData,signalName);
+		}
 
 		/* Kunde zur nächsten Station leiten */
 		StationLeaveEvent.addLeaveEvent(simData,client,this,0);

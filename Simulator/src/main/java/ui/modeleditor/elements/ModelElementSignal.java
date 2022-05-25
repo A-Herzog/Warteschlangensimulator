@@ -28,6 +28,8 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 import language.Language;
+import mathtools.NumberTools;
+import mathtools.TimeTools;
 import simulator.editmodel.EditModel;
 import ui.images.Images;
 import ui.modeleditor.ModelClientData;
@@ -37,6 +39,7 @@ import ui.modeleditor.ModelSurfacePanel;
 import ui.modeleditor.coreelements.ModelElement;
 import ui.modeleditor.coreelements.ModelElementBox;
 import ui.modeleditor.coreelements.ModelElementMultiInSingleOutBox;
+import ui.modeleditor.descriptionbuilder.ModelDescriptionBuilder;
 import ui.modeleditor.fastpaint.Shapes;
 
 /**
@@ -45,6 +48,11 @@ import ui.modeleditor.fastpaint.Shapes;
  * @see ModelElementBarrier
  */
 public class ModelElementSignal extends ModelElementMultiInSingleOutBox implements ModelElementSignalTrigger {
+	/**
+	 * Optionale verzögerte Auslösung des Signals (in Sekunden)
+	 */
+	private double signalDelay=0;
+
 	/**
 	 * Konstruktor der Klasse <code>ModelElementSignal</code>
 	 * @param model	Modell zu dem dieses Element gehören soll (kann später nicht mehr geändert werden)
@@ -73,6 +81,22 @@ public class ModelElementSignal extends ModelElementMultiInSingleOutBox implemen
 	}
 
 	/**
+	 * Liefert den Sekundenwert der optionalen verzögerten Auslösung des Signals.
+	 * @return	Sekundenwert der optionalen verzögerten Auslösung des Signals
+	 */
+	public double getSignalDelay() {
+		return Math.max(0,signalDelay);
+	}
+
+	/**
+	 * Stellt einen Sekundenwert für eine optionale verzögerte Auslösung des Signals ein.
+	 * @param signalDelay	Sekundenwert der optionalen verzögerten Auslösung des Signals
+	 */
+	public void setSignalDelay(double signalDelay) {
+		this.signalDelay=Math.max(0,signalDelay);
+	}
+
+	/**
 	 * Überprüft, ob das Element mit dem angegebenen Element inhaltlich identisch ist.
 	 * @param element	Element mit dem dieses Element verglichen werden soll.
 	 * @return	Gibt <code>true</code> zurück, wenn die beiden Elemente identisch sind.
@@ -81,6 +105,10 @@ public class ModelElementSignal extends ModelElementMultiInSingleOutBox implemen
 	public boolean equalsModelElement(ModelElement element) {
 		if (!super.equalsModelElement(element)) return false;
 		if (!(element instanceof ModelElementSignal)) return false;
+
+		final ModelElementSignal otherSignal=(ModelElementSignal)element;
+
+		if (otherSignal.signalDelay!=signalDelay) return false;
 
 		return true;
 	}
@@ -92,6 +120,10 @@ public class ModelElementSignal extends ModelElementMultiInSingleOutBox implemen
 	@Override
 	public void copyDataFrom(ModelElement element) {
 		super.copyDataFrom(element);
+		if (element instanceof ModelElementSignal) {
+			final ModelElementSignal sourceSignal=(ModelElementSignal)element;
+			signalDelay=sourceSignal.signalDelay;
+		}
 	}
 
 	/**
@@ -196,6 +228,12 @@ public class ModelElementSignal extends ModelElementMultiInSingleOutBox implemen
 	@Override
 	protected void addPropertiesDataToXML(final Document doc, final Element node) {
 		super.addPropertiesDataToXML(doc,node);
+
+		if (signalDelay>0) {
+			Element sub;
+			node.appendChild(sub=doc.createElement(Language.trPrimary("Surface.Signal.XML.SignalDelay")));
+			sub.setTextContent(NumberTools.formatSystemNumber(signalDelay));
+		}
 	}
 
 	/**
@@ -207,7 +245,17 @@ public class ModelElementSignal extends ModelElementMultiInSingleOutBox implemen
 	 */
 	@Override
 	protected String loadProperty(final String name, final String content, final Element node) {
-		return super.loadProperty(name,content,node);
+		String error=super.loadProperty(name,content,node);
+		if (error!=null) return error;
+
+		if (Language.trAll("Surface.Signal.XML.SignalDelay",name)) {
+			final Double D=NumberTools.getNotNegativeDouble(content);
+			if (D==null) return String.format("Der Inhalt des %s-Elements eines %s-Elements ist ungültig. Es muss eine nichtnegative Zahl angegeben werden.",name,node.getParentNode().getNodeName());
+			signalDelay=D;
+			return null;
+		}
+
+		return null;
 	}
 
 	@Override
@@ -218,5 +266,15 @@ public class ModelElementSignal extends ModelElementMultiInSingleOutBox implemen
 	@Override
 	public String[] getSignalNames() {
 		return new String[]{getName()};
+	}
+
+	/**
+	 * Erstellt eine Beschreibung für das aktuelle Element
+	 * @param descriptionBuilder	Description-Builder, der die Beschreibungsdaten zusammenfasst
+	 */
+	@Override
+	public void buildDescription(final ModelDescriptionBuilder descriptionBuilder) {
+		super.buildDescription(descriptionBuilder);
+		if (signalDelay>0) descriptionBuilder.addProperty(Language.tr("ModelDescription.DelayedSignal"),TimeTools.formatExactSystemTime(signalDelay),1000);
 	}
 }

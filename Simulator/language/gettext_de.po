@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-05-21 00:15+0200\n"
+"POT-Creation-Date: 2022-05-23 08:19+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -10969,6 +10969,9 @@ msgstr "Wartezeit"
 msgid "ModelDescription.Delay.StationCostsPerClient"
 msgstr "Kosten an der Station pro Kunde"
 
+msgid "ModelDescription.DelayedSignal"
+msgstr "Verzögerte Auslösung"
+
 msgid "ModelDescription.Dialog.Copy"
 msgstr "Kopieren"
 
@@ -18457,6 +18460,12 @@ msgstr "Kunde: %s, Station: %s, Signalname: %s"
 
 msgid "Simulation.Log.Signal.Info2"
 msgstr "Signalname: %s"
+
+msgid "Simulation.Log.Signal.InfoDelay1"
+msgstr "Signal wird um %s verzögert"
+
+msgid "Simulation.Log.Signal.InfoDelay2"
+msgstr "Auslösung des verzögerten Signals \"%s\""
 
 msgid "Simulation.Log.Source"
 msgstr "Kundenankunftsplanung"
@@ -29567,6 +29576,15 @@ msgstr "aus"
 msgid "Surface.SetStatisticsMode.XML.StatisticsMode.Mode.On"
 msgstr "ein"
 
+msgid "Surface.Signal.Dialog.DelayedExecution"
+msgstr "Verzögerte Auslösung"
+
+msgid "Surface.Signal.Dialog.DelayedExecution.ErrorInfo"
+msgstr "Die Verzögerung bei der Signalauslösung muss eine nichtnegative Zahl sein."
+
+msgid "Surface.Signal.Dialog.DelayedExecution.ErrorTitle"
+msgstr "Ungültige Verzögerung"
+
 msgid "Surface.Signal.Dialog.Title"
 msgstr "Signal bearbeiten"
 
@@ -29581,6 +29599,9 @@ msgstr "Löst ein Signal aus, wenn eine Kunde dieses Element durchläuft."
 
 msgid "Surface.Signal.XML.Root"
 msgstr "ModellElementSignal"
+
+msgid "Surface.Signal.XML.SignalDelay"
+msgstr "ModellElementSignalVerzoegerteAusloesung"
 
 msgid "Surface.SingleCoreReason.AdditionalStatistics"
 msgstr "Es werden Statistikdaten zum Verlauf von Größen über den Simulationsprozess hinweg aufgezeichnet."

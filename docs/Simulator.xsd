@@ -1029,7 +1029,11 @@
   </xs:extension>
 </xs:simpleContent></xs:complexType></xs:element>
 
-<xs:element name="ModellElementSignal" type="ModellElementVerbundenBasis"/>
+<xs:element name="ModellElementSignal"><xs:complexType><xs:complexContent><xs:extension base="ModellElementVerbundenBasis">
+  <xs:sequence minOccurs="0" maxOccurs="unbounded"><xs:choice>
+	<xs:element name="ModellElementSignalVerzoegerteAusloesung" type="xs:string"/>
+  </xs:choice></xs:sequence>
+</xs:extension></xs:complexContent></xs:complexType></xs:element>
 
 <xs:element name="ModellElementSchranke"><xs:complexType><xs:complexContent><xs:extension base="ModellElementVerbundenBasis">
   <xs:sequence minOccurs="0" maxOccurs="unbounded"><xs:choice>
@@ -3273,7 +3277,11 @@
   </xs:extension>
 </xs:simpleContent></xs:complexType></xs:element>
 
-<xs:element name="ModelElementSignal" type="ModelElementConnectedBase"/>
+<xs:element name="ModelElementSignal"><xs:complexType><xs:complexContent><xs:extension base="ModelElementConnectedBase">
+  <xs:sequence minOccurs="0" maxOccurs="unbounded"><xs:choice>
+	<xs:element name="ModelElementSignalDelayedExecution" type="xs:string"/>
+  </xs:choice></xs:sequence>
+</xs:extension></xs:complexContent></xs:complexType></xs:element>
 
 <xs:element name="ModelElementBarrier"><xs:complexType><xs:complexContent><xs:extension base="ModelElementConnectedBase">
   <xs:sequence minOccurs="0" maxOccurs="unbounded"><xs:choice>

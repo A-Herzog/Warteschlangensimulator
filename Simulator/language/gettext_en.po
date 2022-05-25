@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-05-21 00:15+0200\n"
+"POT-Creation-Date: 2022-05-23 08:19+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -10973,6 +10973,9 @@ msgstr "Waiting time"
 msgid "ModelDescription.Delay.StationCostsPerClient"
 msgstr "Station costs per client"
 
+msgid "ModelDescription.DelayedSignal"
+msgstr "Delayed execution"
+
 msgid "ModelDescription.Dialog.Copy"
 msgstr "Copy"
 
@@ -18448,6 +18451,12 @@ msgstr "Client: %s, station: %s, signal name: %s"
 
 msgid "Simulation.Log.Signal.Info2"
 msgstr "Signal name: %s"
+
+msgid "Simulation.Log.Signal.InfoDelay1"
+msgstr "Signal will be delayed by %s"
+
+msgid "Simulation.Log.Signal.InfoDelay2"
+msgstr "Execution of delayed signal \"%s\""
 
 msgid "Simulation.Log.Source"
 msgstr "Client arrival planning"
@@ -29547,6 +29556,15 @@ msgstr "off"
 msgid "Surface.SetStatisticsMode.XML.StatisticsMode.Mode.On"
 msgstr "on"
 
+msgid "Surface.Signal.Dialog.DelayedExecution"
+msgstr "Delayed execution"
+
+msgid "Surface.Signal.Dialog.DelayedExecution.ErrorInfo"
+msgstr "The delay in signal triggering has to be a non-negative number."
+
+msgid "Surface.Signal.Dialog.DelayedExecution.ErrorTitle"
+msgstr "Invalid delay"
+
 msgid "Surface.Signal.Dialog.Title"
 msgstr "Edit signal"
 
@@ -29561,6 +29579,9 @@ msgstr "Triggers a signal when a clients passes this element."
 
 msgid "Surface.Signal.XML.Root"
 msgstr "ModelElementSignal"
+
+msgid "Surface.Signal.XML.SignalDelay"
+msgstr "ModelElementSignalDelayedExecution"
 
 msgid "Surface.SingleCoreReason.AdditionalStatistics"
 msgstr "Statistical data over the progression of some values over the simulation process are recorded."
