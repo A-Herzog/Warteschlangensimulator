@@ -1,0 +1,253 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE Model SYSTEM "https://a-herzog.github.io/Warteschlangensimulator/Simulator.dtd">
+<Model xmlns="https://a-herzog.github.io" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://a-herzog.github.io https://a-herzog.github.io/Warteschlangensimulator/Simulator.xsd">
+  <!-- This file was created using Warteschlangensimulator. Download address: https://github.com/A-Herzog/Warteschlangensimulator -->
+  <ModelVersion>5.1.0</ModelVersion>
+  <ModelName>Hitchhiker’s Paradoxon</ModelName>
+  <ModelDescription>See also:
+https://de.wikipedia.org/wiki/Wartezeitparadoxon
+(page only available in German Wikipedia)</ModelDescription>
+  <ModelAuthor>Alexander Herzog</ModelAuthor>
+  <ModelClients Active="1">100000000</ModelClients>
+  <ModelWarmUpPhase>0.01</ModelWarmUpPhase>
+  <ModelTerminationTime Active="0">10:00:00:00</ModelTerminationTime>
+  <ModelElements>
+    <ModelElementSource id="1">
+      <ModelElementName>Passengers</ModelElementName>
+      <ModelElementSize h="50" w="100" x="50" y="150"/>
+      <ModelElementConnection Element="9" Type="Out"/>
+      <ModelElementDistribution TimeBase="Seconds">One point distribution (3600)</ModelElementDistribution>
+      <ModelElementBatchData Size="1"/>
+    </ModelElementSource>
+    <ModelElementSource id="2">
+      <ModelElementName>Buses</ModelElementName>
+      <ModelElementSize h="50" w="100" x="50" y="300"/>
+      <ModelElementConnection Element="11" Type="Out"/>
+      <ModelElementExpression TimeBase="Seconds">LogNormalDist(60;cvI*60)</ModelElementExpression>
+      <ModelElementBatchData Size="1"/>
+    </ModelElementSource>
+    <ModelElementSignal id="3">
+      <ModelElementName>Bus at stop</ModelElementName>
+      <ModelElementSize h="50" w="100" x="450" y="300"/>
+      <ModelElementConnection Element="5" Type="In"/>
+      <ModelElementConnection Element="6" Type="Out"/>
+    </ModelElementSignal>
+    <ModelElementBarrier id="4">
+      <ModelElementName>Waiting area</ModelElementName>
+      <ModelElementSize h="50" w="100" x="450" y="150"/>
+      <ModelElementConnection Element="9" Type="In"/>
+      <ModelElementConnection Element="10" Type="Out"/>
+      <ModelElementBarrierOption>
+        <ModelElementSignalName>Bus at stop</ModelElementSignalName>
+        <ModelElementRelease Count="1" StoreSignals="0"/>
+      </ModelElementBarrierOption>
+    </ModelElementBarrier>
+    <ModelElementDispose id="7">
+      <ModelElementSize h="50" w="100" x="800" y="225"/>
+      <ModelElementConnection Element="8" Type="In"/>
+      <ModelElementConnection Element="37" Type="In"/>
+    </ModelElementDispose>
+    <ModelElementClientStatistics id="16">
+      <ModelElementSize h="50" w="100" x="650" y="300"/>
+      <ModelElementConnection Element="6" Type="In"/>
+      <ModelElementConnection Element="8" Type="Out"/>
+      <ModelElementClientStatisticsMode Mode="off"/>
+    </ModelElementClientStatistics>
+    <ModelElementText id="18">
+      <ModelElementSize h="23" w="203" x="50" y="50"/>
+      <ModelElementTextLine>Hitchhiker’s Paradoxon</ModelElementTextLine>
+      <ModelElementFontSize bold="1">18</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementText id="19">
+      <ModelElementSize h="32" w="156" x="50" y="220"/>
+      <ModelElementTextLine>One passenger arrives each</ModelElementTextLine>
+      <ModelElementTextLine>time after exactly one hour.</ModelElementTextLine>
+      <ModelElementFontSize>12</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementText id="20">
+      <ModelElementSize h="96" w="188" x="50" y="400"/>
+      <ModelElementTextLine>Buses arrive with an average</ModelElementTextLine>
+      <ModelElementTextLine>inter-arrival time of 60 seconds</ModelElementTextLine>
+      <ModelElementTextLine>at the bus bus stop. The departure</ModelElementTextLine>
+      <ModelElementTextLine>times are not controlled by a</ModelElementTextLine>
+      <ModelElementTextLine>timetable schedule, but by the</ModelElementTextLine>
+      <ModelElementTextLine>average distance.</ModelElementTextLine>
+      <ModelElementFontSize>12</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementRectangle id="21">
+      <ModelElementSize h="300" w="200" x="400" y="100"/>
+      <ModelElementLineWidth>2</ModelElementLineWidth>
+      <ModelElementColor>72,209,204</ModelElementColor>
+    </ModelElementRectangle>
+    <ModelElementText id="22">
+      <ModelElementSize h="21" w="69" x="405" y="105"/>
+      <ModelElementTextLine>Bus stop</ModelElementTextLine>
+      <ModelElementFontSize bold="1">16</ModelElementFontSize>
+      <ModelElementColor>72,209,204</ModelElementColor>
+    </ModelElementText>
+    <ModelElementText id="25">
+      <ModelElementSize h="48" w="112" x="650" y="370"/>
+      <ModelElementTextLine>Do not record buses</ModelElementTextLine>
+      <ModelElementTextLine>in statistics. Only</ModelElementTextLine>
+      <ModelElementTextLine>record passengers.</ModelElementTextLine>
+      <ModelElementFontSize>12</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementEdge id="8">
+      <ModelElementConnection Element1="16" Element2="7" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="9">
+      <ModelElementName>Arrivals (Passengers)</ModelElementName>
+      <ModelElementConnection Element1="1" Element2="4" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementAnimationPointerMeasuring id="15">
+      <ModelElementSize h="75" w="150" x="950" y="125"/>
+      <ModelElementAnimationPointerMeasuringExpression MaxValue="120" MinValue="0">Wartezeit_avg()</ModelElementAnimationPointerMeasuringExpression>
+      <ModelElementAnimationPointerMeasuringColor>255,0,0</ModelElementAnimationPointerMeasuringColor>
+    </ModelElementAnimationPointerMeasuring>
+    <ModelElementAnimationPointerMeasuring id="23">
+      <ModelElementSize h="80" w="150" x="950" y="470"/>
+      <ModelElementAnimationPointerMeasuringExpression MaxValue="120" MinValue="0">1/Throughput(2)</ModelElementAnimationPointerMeasuringExpression>
+      <ModelElementAnimationPointerMeasuringColor>0,0,255</ModelElementAnimationPointerMeasuringColor>
+    </ModelElementAnimationPointerMeasuring>
+    <ModelElementText id="24">
+      <ModelElementSize h="38" w="159" x="950" y="425"/>
+      <ModelElementTextLine>Average inter-arrival time</ModelElementTextLine>
+      <ModelElementTextLine>between two bus arrivals</ModelElementTextLine>
+      <ModelElementFontSize>14</ModelElementFontSize>
+      <ModelElementColor>0,0,255</ModelElementColor>
+    </ModelElementText>
+    <ModelElementText id="26">
+      <ModelElementSize h="38" w="130" x="950" y="75"/>
+      <ModelElementTextLine>Average waiting time</ModelElementTextLine>
+      <ModelElementTextLine>of the passengers</ModelElementTextLine>
+      <ModelElementFontSize>14</ModelElementFontSize>
+      <ModelElementColor>255,0,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementSlider id="27">
+      <ModelElementSize h="50" w="200" x="50" y="575"/>
+      <ModelElementSliderVariable>cvI</ModelElementSliderVariable>
+      <ModelElementSliderMinimum>0</ModelElementSliderMinimum>
+      <ModelElementSliderMaximum>2</ModelElementSliderMaximum>
+      <ModelElementSliderStepWide>0.1</ModelElementSliderStepWide>
+    </ModelElementSlider>
+    <ModelElementText id="28">
+      <ModelElementSize h="19" w="482" x="50" y="545"/>
+      <ModelElementTextLine>Coefficient of variation of the intermediate arrival times of the buses</ModelElementTextLine>
+      <ModelElementFontSize bold="1">14</ModelElementFontSize>
+      <ModelElementColor>0,0,255</ModelElementColor>
+    </ModelElementText>
+    <ModelElementText id="29">
+      <ModelElementSize h="16" w="457" x="50" y="630"/>
+      <ModelElementTextLine>(Coefficient of variation 1 corresponds to exponentially distributed inter-arrival times)</ModelElementTextLine>
+      <ModelElementFontSize>12</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementAnimationText id="30">
+      <ModelElementName>Average waiting time</ModelElementName>
+      <ModelElementSize h="30" w="87" x="1130" y="170"/>
+      <ModelElementFontSize>14</ModelElementFontSize>
+      <ModelElementColor>255,0,0</ModelElementColor>
+      <ModelElementAnimationMode Type="Number">Wartezeit_avg()</ModelElementAnimationMode>
+    </ModelElementAnimationText>
+    <ModelElementAnimationText id="31">
+      <ModelElementName>Average inter-arrival time</ModelElementName>
+      <ModelElementSize h="30" w="106" x="1130" y="520"/>
+      <ModelElementFontSize>14</ModelElementFontSize>
+      <ModelElementColor>0,0,255</ModelElementColor>
+      <ModelElementAnimationMode Type="Number">1/Throughput(2)</ModelElementAnimationMode>
+    </ModelElementAnimationText>
+    <ModelElementAnimationText id="32">
+      <ModelElementName>CV[I]</ModelElementName>
+      <ModelElementSize h="30" w="49" x="1260" y="520"/>
+      <ModelElementFontSize>14</ModelElementFontSize>
+      <ModelElementColor>0,0,255</ModelElementColor>
+      <ModelElementAnimationMode Type="Number">cvI</ModelElementAnimationMode>
+    </ModelElementAnimationText>
+    <ModelElementUserStatistics id="34">
+      <ModelElementSize h="50" w="100" x="650" y="150"/>
+      <ModelElementConnection Element="10" Type="In"/>
+      <ModelElementConnection Element="37" Type="Out"/>
+      <ModelElementUserStatisticsRecord IsContinuous="0" IsTime="0" Key="IntervalLength">CurrentArrival-LastArrival</ModelElementUserStatisticsRecord>
+    </ModelElementUserStatistics>
+    <ModelElementVariable id="35">
+      <ModelElementSize h="50" w="100" x="250" y="300"/>
+      <ModelElementConnection Element="11" Type="In"/>
+      <ModelElementConnection Element="5" Type="Out"/>
+      <ModelElementAssignmentData Variable="LastArrival">CurrentArrival</ModelElementAssignmentData>
+      <ModelElementAssignmentData Variable="CurrentArrival">TNow()</ModelElementAssignmentData>
+    </ModelElementVariable>
+    <ModelElementEdge id="11">
+      <ModelElementName>Arrivals (Buses)</ModelElementName>
+      <ModelElementConnection Element1="2" Element2="35" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="10">
+      <ModelElementConnection Element1="4" Element2="34" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="37">
+      <ModelElementConnection Element1="34" Element2="7" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementText id="38">
+      <ModelElementSize h="48" w="141" x="650" y="95"/>
+      <ModelElementTextLine>Record lengths of the bus</ModelElementTextLine>
+      <ModelElementTextLine>inter-arrival intervals in</ModelElementTextLine>
+      <ModelElementTextLine>which passengers arrive.</ModelElementTextLine>
+      <ModelElementFontSize>12</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementAnimationPointerMeasuring id="33">
+      <ModelElementSize h="80" w="150" x="950" y="295"/>
+      <ModelElementAnimationPointerMeasuringExpression MaxValue="120" MinValue="0">Statistik_avg(34;1)</ModelElementAnimationPointerMeasuringExpression>
+      <ModelElementAnimationPointerMeasuringColor>0,0,255</ModelElementAnimationPointerMeasuringColor>
+    </ModelElementAnimationPointerMeasuring>
+    <ModelElementText id="40">
+      <ModelElementSize h="38" w="290" x="950" y="250"/>
+      <ModelElementTextLine>Average bus inter-arrival times of the intervals</ModelElementTextLine>
+      <ModelElementTextLine>at which clients arrive</ModelElementTextLine>
+      <ModelElementFontSize>14</ModelElementFontSize>
+      <ModelElementColor>0,0,255</ModelElementColor>
+    </ModelElementText>
+    <ModelElementAnimationText id="41">
+      <ModelElementName>Average interval length at passenger arrival</ModelElementName>
+      <ModelElementSize h="30" w="183" x="1125" y="345"/>
+      <ModelElementFontSize>14</ModelElementFontSize>
+      <ModelElementColor>0,0,255</ModelElementColor>
+      <ModelElementAnimationMode Type="Number">Statistik_avg(34;1)</ModelElementAnimationMode>
+    </ModelElementAnimationText>
+    <ModelElementText id="39">
+      <ModelElementSize h="48" w="79" x="260" y="395"/>
+      <ModelElementTextLine>Save current</ModelElementTextLine>
+      <ModelElementTextLine>inter-arrival</ModelElementTextLine>
+      <ModelElementTextLine>interval length.</ModelElementTextLine>
+      <ModelElementFontSize>12</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementEdge id="6">
+      <ModelElementConnection Element1="3" Element2="16" Type="Edge"/>
+      <ModelElementConnectionDrawStyle>Direct</ModelElementConnectionDrawStyle>
+    </ModelElementEdge>
+    <ModelElementLine id="17">
+      <ModelElementSize h="95" w="0" x="500" y="205"/>
+      <ModelElementLineWidth>5</ModelElementLineWidth>
+      <ModelElementColor>72,209,204</ModelElementColor>
+      <ModelElementLineType>4</ModelElementLineType>
+    </ModelElementLine>
+    <ModelElementEdge id="5">
+      <ModelElementConnection Element1="35" Element2="3" Type="Edge"/>
+    </ModelElementEdge>
+  </ModelElements>
+  <Resources SecondaryPriority="Random"/>
+  <ClientTypeData>
+    <ClientData Icon="lorry" Name="Buses"/>
+    <ClientData Icon="lorry" Name="Busse"/>
+    <ClientData Icon="lorry" Name="Busses"/>
+  </ClientTypeData>
+  <InitialVariable Name="cvI">1</InitialVariable>
+  <InitialVariable Name="LastArrival">0</InitialVariable>
+  <ModelEdgesNormal Color="0,0,0" Type="0" Width="1"/>
+  <ModelEdgesSelected Type="0" Width="1"/>
+  <ModelElementConnectionDrawStyle>Angled around</ModelElementConnectionDrawStyle>
+</Model>

@@ -5542,8 +5542,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[13939] = "Simulation beenden";
     t[13948] = "Main.Menu.View.FlyOutZoom";
     t[13949] = "\u00dcbersichtszoom";
-    t[13950] = "Surface.XML.RootName.TransporterFailure";
-    t[13951] = "TransporterAusfall";
+    t[13950] = "Examples.BusStoppParadoxon";
+    t[13951] = "Bus-Stopp-Paradoxon";
     t[13952] = "Optimizer.Tab.Optimization.yAxisLogarithmic";
     t[13953] = "y-Achse logarithmisch";
     t[13954] = "ScriptPopup.Client.TransferTime.Batch";
@@ -10160,6 +10160,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[25445] = "%s-%d: Pause nach gefahrener Strecke beginnt bei %s, Dauer: %s";
     t[25460] = "Git.List.Tab.Server.Button.Pull";
     t[25461] = "Pull";
+    t[25470] = "Surface.XML.RootName.TransporterFailure";
+    t[25471] = "TransporterAusfall";
     t[25474] = "Surface.InputDB.XML.EofMode.Loop";
     t[25475] = "Wiederholen";
     t[25476] = "ParameterCompare.Settings.Input.Mode.Resource.Info";
@@ -12038,14 +12040,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[30189] = "Bedingung erf\u00fcllt, Kunde wird weitergeleitet";
     t[30190] = "ParameterCompare.Mode.WaitingTimeTolerances";
     t[30191] = "Wartezeittoleranzen";
-    t[30192] = "Surface.Output.Table.HeaderOutput";
-    t[30193] = "Ausgabe";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_6 (java.lang.String[] t) {
+    t[30192] = "Surface.Output.Table.HeaderOutput";
+    t[30193] = "Ausgabe";
     t[30194] = "Editor.DialogBase.Search.ArrivalRecord.Name";
     t[30195] = "Name des Kundentyps";
     t[30196] = "Surface.Record.Dialog.Expression2";
@@ -14044,14 +14046,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[35049] = "Verz\u00f6gerungszeiten";
     t[35052] = "ExpressionBuilder.SimulationCharacteristics.Costs.TransferAvgAll";
     t[35053] = "Summe der Transferzeitkosten";
-    t[35056] = "BuildClientSourceTable.SelectNone";
-    t[35057] = "Keine";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_7 (java.lang.String[] t) {
+    t[35056] = "BuildClientSourceTable.SelectNone";
+    t[35057] = "Keine";
     t[35058] = "Surface.Costs.XML.TransferTimeCosts";
     t[35059] = "ModellElementKostenKundenTransferzeit";
     t[35062] = "Surface.SourceDDE.Infotext";
@@ -16050,14 +16052,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[39813] = "ModellElementAusleiten";
     t[39814] = "Surface.AssignString.Table.Delete";
     t[39815] = "Zuweisung l\u00f6schen (Umschalt+Klick=ohne Best\u00e4tigungsdialog)";
-    t[39818] = "Surface.TransportTransporterSource.Dialog.WaitingCapacity.ErrorInfo";
-    t[39819] = "Die angegebene Parkplatzkapazit\u00e4t \"%s\" ist ung\u00fcltig. Es muss eine positive Ganzzahl angegeben werden.";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_8 (java.lang.String[] t) {
+    t[39818] = "Surface.TransportTransporterSource.Dialog.WaitingCapacity.ErrorInfo";
+    t[39819] = "Die angegebene Parkplatzkapazit\u00e4t \"%s\" ist ung\u00fcltig. Es muss eine positive Ganzzahl angegeben werden.";
     t[39824] = "SettingsDialog.Tabs.Simulation.ShowErlangC";
     t[39825] = "Erlang-C-Vergleich anzeigen";
     t[39830] = "ExpressionCalculator.Toolbar.Help.Hint";
@@ -18056,14 +18058,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[44681] = "Alle unterst\u00fctzten Dateiformate";
     t[44682] = "SettingsDialog.Tabs.ExportGraphics";
     t[44683] = "Grafiken";
-    t[44686] = "Surface.AnimationBarChart.Dialog.Data.ManualMaxValue.RangeError.Info";
-    t[44687] = "Der angegebene Maximalwert \"%s\" ist ung\u00fcltig. Der Maximalwert muss gr\u00f6\u00dfer sein als der Minimalwert.";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_9 (java.lang.String[] t) {
+    t[44686] = "Surface.AnimationBarChart.Dialog.Data.ManualMaxValue.RangeError.Info";
+    t[44687] = "Der angegebene Maximalwert \"%s\" ist ung\u00fcltig. Der Maximalwert muss gr\u00f6\u00dfer sein als der Minimalwert.";
     t[44692] = "Statistics.NumberOfClientsInProcess";
     t[44693] = "Anzahl an Kunden in Bedienung";
     t[44694] = "Statistics.IdleShare";
@@ -20062,14 +20064,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[49555] = "Erlang-C-Vergleich";
     t[49556] = "ExpressionBuilder.ProbabilityDistributions.LogLogisticDistribution.RandomNumberInfo";
     t[49557] = "<p>Erzeugt eine Zufallszahl gem\u00e4\u00df der Log-Logistischen Verteilung mit den Parametern gem\u00e4\u00df dem ersten (alpha) und zweiten (beta) Parameter.</p>";
-    t[49558] = "CalculatorDialog.Tab.Distributions.GenerateRandomNumbers.Generate";
-    t[49559] = "Zufallszahlen erzeugen";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_10 (java.lang.String[] t) {
+    t[49558] = "CalculatorDialog.Tab.Distributions.GenerateRandomNumbers.Generate";
+    t[49559] = "Zufallszahlen erzeugen";
     t[49560] = "FitDialog.LoadValues";
     t[49561] = "Messwerte laden";
     t[49562] = "Optimizer.Error.NoResourceNameForControlVariables";
