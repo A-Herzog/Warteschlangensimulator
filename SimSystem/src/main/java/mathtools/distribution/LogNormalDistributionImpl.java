@@ -100,7 +100,7 @@ public final class LogNormalDistributionImpl extends AbstractRealDistribution im
 	@Override
 	public double density(double x) {
 		if (x<=0) return 0;
-		return x*normal.density(Math.log(x)); /* StrictMath.log ist schneller als FastMath. Math.log laut Code StrictMath.log auf, aber in Wirklichkeit scheint hier der Compiler Magic zu machen, so dass Math.log schneller ist. */
+		return normal.density(Math.log(x))/sigma/x; /* StrictMath.log ist schneller als FastMath. Math.log laut Code StrictMath.log auf, aber in Wirklichkeit scheint hier der Compiler Magic zu machen, so dass Math.log schneller ist. */
 	}
 
 	@Override
@@ -129,6 +129,14 @@ public final class LogNormalDistributionImpl extends AbstractRealDistribution im
 	public double getSkewness() {
 		final double expSigma2=FastMath.exp(sigma2);
 		return (expSigma2+2)*Math.sqrt(expSigma2-1);
+	}
+
+	/**
+	 * Liefert den Modus der Verteilung.
+	 * @return	Modus der Verteilung
+	 */
+	public double getMode() {
+		return FastMath.exp(mu-sigma2);
 	}
 
 	@Override

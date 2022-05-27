@@ -49,7 +49,8 @@ public class WrapperPoissonDistribution extends AbstractDistributionWrapper {
 		final DiscretePoissonDistributionImpl dist=(DiscretePoissonDistributionImpl)distribution;
 		final String info="lambda="+NumberTools.formatNumber(dist.lambda,3);
 		final double sk=dist.getSkewness();
-		return new DistributionWrapperInfo(distribution,sk,info,null);
+		final double mode=dist.getMode();
+		return new DistributionWrapperInfo(distribution,sk,mode,info,null);
 	}
 
 	@Override

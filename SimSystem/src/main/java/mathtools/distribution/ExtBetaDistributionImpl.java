@@ -133,6 +133,22 @@ public final class ExtBetaDistributionImpl extends BetaDistribution implements C
 		return 2*(beta-alpha)*Math.sqrt(alpha+beta+1)/(alpha+beta+2)/Math.sqrt(alpha*beta);
 	}
 
+	/**
+	 * Liefert den Modus der Verteilung.
+	 * @return	Modus der Verteilung oder <code>null</code>, wenn die Verteilung nicht unimodal ist
+	 */
+	public Double getMode() {
+		final double alpha=getAlpha();
+		final double beta=getBeta();
+		final double a=getSupportLowerBound();
+		final double b=getSupportUpperBound();
+
+		if (alpha>0 && beta>0) return (alpha-1)/(alpha+beta-2)*(b-a)+a;
+		if (alpha<=1 && beta>1) return 0.0;
+		if (alpha>1 && beta<=1) return 1.0;
+		return null;
+	}
+
 	@Override
 	public ExtBetaDistributionImpl clone() {
 		return new ExtBetaDistributionImpl(domainLowerBound,domainUpperBound,getAlpha(),getBeta());

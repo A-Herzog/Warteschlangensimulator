@@ -46,7 +46,8 @@ public class WrapperNormalDistribution extends AbstractDistributionWrapper {
 
 	@Override
 	protected DistributionWrapperInfo getInfoInt(AbstractRealDistribution distribution) {
-		return new DistributionWrapperInfo(distribution,0.0);  /* Schiefe=0 immer */
+		final double mean=((NormalDistribution)distribution).getMean();
+		return new DistributionWrapperInfo(distribution,0.0,mean);  /* Schiefe=0 immer */
 	}
 
 	@Override

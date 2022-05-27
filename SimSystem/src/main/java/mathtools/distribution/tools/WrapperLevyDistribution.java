@@ -46,7 +46,7 @@ public class WrapperLevyDistribution extends AbstractDistributionWrapper {
 
 	@Override
 	protected DistributionWrapperInfo getInfoInt(AbstractRealDistribution distribution) {
-		return new DistributionWrapperInfo(null,null,null,null,null);
+		return new DistributionWrapperInfo(null,null,null,null,null,null);
 	}
 
 	@Override

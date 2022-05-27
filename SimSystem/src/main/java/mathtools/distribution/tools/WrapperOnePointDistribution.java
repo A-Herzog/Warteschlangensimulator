@@ -46,7 +46,8 @@ public class WrapperOnePointDistribution extends AbstractDistributionWrapper {
 
 	@Override
 	protected DistributionWrapperInfo getInfoInt(final AbstractRealDistribution distribution) {
-		return new DistributionWrapperInfo(distribution,0.0);
+		final double point=((OnePointDistributionImpl)distribution).point;
+		return new DistributionWrapperInfo(distribution,0.0,point);
 	}
 
 	@Override

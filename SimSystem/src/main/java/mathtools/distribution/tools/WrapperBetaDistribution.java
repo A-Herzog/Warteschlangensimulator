@@ -51,8 +51,8 @@ public class WrapperBetaDistribution extends AbstractDistributionWrapper {
 		final double beta=betaDist.getBeta();
 		final double a=betaDist.getSupportLowerBound();
 		final double b=betaDist.getSupportUpperBound();
-		final String info="alpha="+NumberTools.formatNumber(alpha,3)+"; beta="+NumberTools.formatNumber(beta,3)+"; "+DistributionTools.DistRange+"=["+NumberTools.formatNumber(a,3)+";"+NumberTools.formatNumber(b,3)+"]";
-		return new DistributionWrapperInfo(distribution,betaDist.getSkewness(),info,null);
+		final String info1="alpha="+NumberTools.formatNumber(alpha,3)+"; beta="+NumberTools.formatNumber(beta,3)+"; "+DistributionTools.DistRange+"=["+NumberTools.formatNumber(a,3)+";"+NumberTools.formatNumber(b,3)+"]";
+		return new DistributionWrapperInfo(distribution,betaDist.getSkewness(),betaDist.getMode(),info1,null);
 	}
 
 	@Override

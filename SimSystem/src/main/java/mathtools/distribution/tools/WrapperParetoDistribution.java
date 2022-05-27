@@ -46,12 +46,13 @@ public class WrapperParetoDistribution extends AbstractDistributionWrapper {
 
 	@Override
 	protected DistributionWrapperInfo getInfoInt(AbstractRealDistribution distribution) {
-		final double xmin=((ParetoDistributionImpl)distribution).xmin;
-		final double alpha=((ParetoDistributionImpl)distribution).alpha;
+		final ParetoDistributionImpl dist=(ParetoDistributionImpl)distribution;
+		final double xmin=dist.xmin;
+		final double alpha=dist.alpha;
 		final String info="xmin="+NumberTools.formatNumber(xmin,3)+"; alpha="+NumberTools.formatNumber(alpha,3);
 		final Double sk;
 		if (alpha>3) sk=2.0*(1+alpha)/(alpha-3)*Math.sqrt((alpha-2)/alpha); else sk=null;
-		return new DistributionWrapperInfo(distribution,sk,info,null);
+		return new DistributionWrapperInfo(distribution,sk,xmin,info,null);
 	}
 
 	@Override

@@ -46,7 +46,7 @@ public class WrapperUniformRealDistribution extends AbstractDistributionWrapper 
 
 	@Override
 	protected DistributionWrapperInfo getInfoInt(final AbstractRealDistribution distribution) {
-		return new DistributionWrapperInfo(distribution,0.0); /* Schiefe=0 immer */
+		return new DistributionWrapperInfo(distribution,0.0,null); /* Schiefe=0 immer */
 	}
 
 	@Override

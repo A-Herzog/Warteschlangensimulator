@@ -41,6 +41,11 @@ public class DistributionWrapperInfo {
 	public final Double Sk;
 
 	/**
+	 * Modalwert (kann <code>null</code> sein, wenn nicht verfügbar)
+	 */
+	public final Double mode;
+
+	/**
 	 * Vorangestellte Informationen (kann <code>null</code> sein)
 	 */
 	public final String info1;
@@ -55,13 +60,15 @@ public class DistributionWrapperInfo {
 	 * @param E	Erwartungswert (kann <code>null</code> sein, wenn nicht verfügbar)
 	 * @param Std	Standardabweichung (kann <code>null</code> sein, wenn nicht verfügbar)
 	 * @param Sk	Schiefe (kann <code>null</code> sein, wenn nicht verfügbar)
+	 * @param mode	Modalwert (kann <code>null</code> sein, wenn nicht verfügbar)
 	 * @param info1	Vorangestellte Informationen (kann <code>null</code> sein)
 	 * @param info2	Nachgelagerte Informationen (kann <code>null</code> sein)
 	 */
-	public DistributionWrapperInfo(final Double E, final Double Std, final Double Sk, final String info1, final String info2) {
+	public DistributionWrapperInfo(final Double E, final Double Std, final Double Sk, final Double mode, final String info1, final String info2) {
 		this.E=E;
 		this.Std=Std;
 		this.Sk=Sk;
+		this.mode=mode;
 		this.info1=info1;
 		this.info2=info2;
 	}
@@ -70,13 +77,20 @@ public class DistributionWrapperInfo {
 	 * Konstruktor der Klasse
 	 * @param distribution	Verteilung aus der Erwartungswert und Standardabweichung direkt ausgelesen werden
 	 * @param Sk	Schiefe (kann <code>null</code> sein, wenn nicht verfügbar)
+	 * @param mode	Modalwert (kann <code>null</code> sein, wenn nicht verfügbar)
 	 * @param info1	Vorangestellte Informationen (kann <code>null</code> sein)
 	 * @param info2	Nachgelagerte Informationen (kann <code>null</code> sein)
 	 */
-	public DistributionWrapperInfo(final AbstractRealDistribution distribution, final Double Sk, final String info1, final String info2) {
-		E=distribution.getNumericalMean();
-		Std=Math.sqrt(distribution.getNumericalVariance());
+	public DistributionWrapperInfo(final AbstractRealDistribution distribution, final Double Sk, final Double mode, final String info1, final String info2) {
+		if (distribution!=null) {
+			E=distribution.getNumericalMean();
+			Std=Math.sqrt(distribution.getNumericalVariance());
+		} else {
+			E=null;
+			Std=null;
+		}
 		this.Sk=Sk;
+		this.mode=mode;
 		this.info1=info1;
 		this.info2=info2;
 	}
@@ -85,14 +99,21 @@ public class DistributionWrapperInfo {
 	 * Konstruktor der Klasse
 	 * @param distribution	Verteilung aus der Erwartungswert und Standardabweichung direkt ausgelesen werden
 	 * @param Sk	Schiefe (kann <code>null</code> sein, wenn nicht verfügbar)
+	 * @param mode	Modalwert (kann <code>null</code> sein, wenn nicht verfügbar)
 	 */
-	public DistributionWrapperInfo(final AbstractRealDistribution distribution, final Double Sk) {
+	public DistributionWrapperInfo(final AbstractRealDistribution distribution, final Double Sk, final Double mode) {
 		E=distribution.getNumericalMean();
 		Std=Math.sqrt(distribution.getNumericalVariance());
 		this.Sk=Sk;
+		this.mode=mode;
 		info1=null;
 		info2=null;
 	}
+
+	/**
+	 * Unicode-Symbol für "Unendlich"
+	 */
+	private static final String infinity=Character.toString((char)0x221E);
 
 	/**
 	 * Liefert die Kenngrößen bzw. Parameter einer Verteilung
@@ -104,19 +125,23 @@ public class DistributionWrapperInfo {
 		if (info1!=null) result.append(info1);
 		if (E!=null) {
 			if (result.length()>0) result.append("; ");
-			result.append("E="+NumberTools.formatNumber(E,3));
+			result.append("E="+(Double.isInfinite(E)?infinity:NumberTools.formatNumber(E,3)));
 		}
-		if (Std!=null) {
+		if (Std!=null && !Double.isNaN(Std)) {
 			if (result.length()>0) result.append("; ");
-			result.append("Std="+NumberTools.formatNumber(Std,3));
+			result.append("Std="+(Double.isInfinite(Std)?infinity:NumberTools.formatNumber(Std,3)));
 		}
-		if (E!=null && Std!=null && E>0) {
+		if (E!=null && Std!=null && E>0 && !Double.isNaN(E) && !Double.isNaN(Std) && !Double.isInfinite(E) && !Double.isInfinite(Std)) {
 			if (result.length()>0) result.append("; ");
 			result.append("CV="+NumberTools.formatNumber(Std/E,3));
 		}
-		if (Sk!=null) {
+		if (Sk!=null && !Double.isNaN(Sk)) {
 			if (result.length()>0) result.append("; ");
-			result.append("Sk="+NumberTools.formatNumber(Sk,3));
+			result.append("Sk="+(Double.isInfinite(Sk)?infinity:NumberTools.formatNumber(Sk,3)));
+		}
+		if (mode!=null && !Double.isNaN(mode)) {
+			if (result.length()>0) result.append("; ");
+			result.append(DistributionTools.DistMode+"="+(Double.isInfinite(mode)?infinity:NumberTools.formatNumber(mode,3)));
 		}
 		if (info2!=null) {
 			if (result.length()>0) result.append("; ");

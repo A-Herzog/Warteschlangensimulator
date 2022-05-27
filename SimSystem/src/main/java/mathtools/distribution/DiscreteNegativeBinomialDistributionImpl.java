@@ -92,6 +92,15 @@ public final class DiscreteNegativeBinomialDistributionImpl extends AbstractDisc
 		return (2-p)/Math.sqrt(r*(1-p));
 	}
 
+	/**
+	 * Liefert den Modus der Verteilung.
+	 * @return	Modus der Verteilung
+	 */
+	public double getMode() {
+		if (r<=1) return 0;
+		return Math.floor(p*(r-1)/(1-p));
+	}
+
 	@Override
 	public double getSupportUpperBound() {
 		return Double.MAX_VALUE;

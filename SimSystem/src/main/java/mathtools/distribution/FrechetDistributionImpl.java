@@ -108,6 +108,7 @@ public final class FrechetDistributionImpl extends AbstractRealDistribution impl
 
 	@Override
 	public double getNumericalMean() {
+		if (alpha<=1) return Double.POSITIVE_INFINITY;
 		return delta+beta*Functions.getGamma(1-inverseAlpha);
 	}
 
@@ -129,6 +130,14 @@ public final class FrechetDistributionImpl extends AbstractRealDistribution impl
 		final double g2=Functions.getGamma(1-2*inverseAlpha);
 		final double g3=Functions.getGamma(1-3*inverseAlpha);
 		return (g3-3*g2*g1+2*g1*g1*g1)/Math.pow(g2-g1*g1,3.0/2.0);
+	}
+
+	/**
+	 * Liefert den Modus der Verteilung.
+	 * @return	Modus der Verteilung
+	 */
+	public double getMode() {
+		return delta+beta*Math.pow(alpha/(1+alpha),1/alpha);
 	}
 
 	@Override

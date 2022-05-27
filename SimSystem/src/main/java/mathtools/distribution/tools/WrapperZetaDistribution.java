@@ -62,7 +62,7 @@ public class WrapperZetaDistribution extends AbstractDistributionWrapper {
 			std=null;
 		}
 		final String info="s="+NumberTools.formatNumber(dist.s,3);
-		return new DistributionWrapperInfo(E,std,null,info,null);
+		return new DistributionWrapperInfo(E,std,null,1.0,info,null); /* immer Modus=1.0 */
 	}
 
 	@Override

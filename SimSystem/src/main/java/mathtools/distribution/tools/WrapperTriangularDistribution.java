@@ -51,7 +51,7 @@ public class WrapperTriangularDistribution extends AbstractDistributionWrapper {
 		final double Px=((TriangularDistributionImpl)distribution).mostLikelyX;
 		final double sk=Math.sqrt(2.0)*(A+B-2*Px)*(2*A-B-Px)*(A-2*B+Px)/5/Math.pow(A*A+B*B+Px*Px-A*B-A*Px-B*Px,3.0/2.0);
 		final String info=DistributionTools.DistRange+"=["+NumberTools.formatNumber(A,3)+";"+NumberTools.formatNumber(B,3)+"]; "+DistributionTools.DistMostLikely+"="+NumberTools.formatNumber(Px,3);
-		return new DistributionWrapperInfo(distribution,sk,info,null);
+		return new DistributionWrapperInfo(distribution,sk,Px,info,null);
 	}
 
 	@Override

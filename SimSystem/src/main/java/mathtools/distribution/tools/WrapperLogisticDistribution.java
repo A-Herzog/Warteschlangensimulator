@@ -46,10 +46,11 @@ public class WrapperLogisticDistribution extends AbstractDistributionWrapper {
 
 	@Override
 	protected DistributionWrapperInfo getInfoInt(AbstractRealDistribution distribution) {
-		final double mu=((LogisticDistributionImpl)distribution).mu;
-		final double s=((LogisticDistributionImpl)distribution).s;
+		final LogisticDistributionImpl dist=(LogisticDistributionImpl)distribution;
+		final double mu=dist.mu;
+		final double s=dist.s;
 		final String info="mu="+NumberTools.formatNumber(mu,3)+"; s="+NumberTools.formatNumber(s,3);
-		return new DistributionWrapperInfo(distribution,0.0,info,null); /* Schiefe=0 immer */
+		return new DistributionWrapperInfo(distribution,0.0,mu,info,null); /* Schiefe=0 immer */
 	}
 
 	@Override

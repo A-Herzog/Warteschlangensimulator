@@ -185,6 +185,9 @@ public final class DistributionTools {
 	/** Bezeichner "Schiefe" */
 	public static String DistSkewness="Schiefe";
 
+	/** Bezeichner "Modus" */
+	public static String DistMode="Modus";
+
 	/**
 	 * Diese Klasse kann nicht instanziert werden.
 	 */

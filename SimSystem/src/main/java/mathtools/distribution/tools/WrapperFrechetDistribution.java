@@ -50,8 +50,8 @@ public class WrapperFrechetDistribution extends AbstractDistributionWrapper {
 		final double delta=frechetDist.delta;
 		final double beta=frechetDist.beta;
 		final double alpha=frechetDist.alpha;
-		final String info=DistributionTools.DistLocation+"="+NumberTools.formatNumber(delta,3)+"; "+DistributionTools.DistScale+"="+NumberTools.formatNumber(beta,3)+"; Form="+NumberTools.formatNumber(alpha,3);
-		return new DistributionWrapperInfo(distribution,frechetDist.getSkewness(),info,null);
+		final String info1=DistributionTools.DistLocation+"="+NumberTools.formatNumber(delta,3)+"; "+DistributionTools.DistScale+"="+NumberTools.formatNumber(beta,3)+"; Form="+NumberTools.formatNumber(alpha,3);
+		return new DistributionWrapperInfo(distribution,frechetDist.getSkewness(),frechetDist.getMode(),info1,null);
 	}
 
 	@Override

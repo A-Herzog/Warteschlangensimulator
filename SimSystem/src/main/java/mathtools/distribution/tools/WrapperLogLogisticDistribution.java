@@ -46,10 +46,11 @@ public class WrapperLogLogisticDistribution extends AbstractDistributionWrapper 
 
 	@Override
 	protected DistributionWrapperInfo getInfoInt(AbstractRealDistribution distribution) {
-		final double alpha=((LogLogisticDistributionImpl)distribution).alpha;
-		final double beta=((LogLogisticDistributionImpl)distribution).beta;
+		final LogLogisticDistributionImpl dist=(LogLogisticDistributionImpl)distribution;
+		final double alpha=dist.alpha;
+		final double beta=dist.beta;
 		final String info="alpha="+NumberTools.formatNumber(alpha,3)+"; beta="+NumberTools.formatNumber(beta,3);
-		return new DistributionWrapperInfo(distribution,null,info,null); /* Schiefe nur schwer berechenbar, siehe https://www.causascientia.org/math_stat/Dists/Compendium.pdf */
+		return new DistributionWrapperInfo(distribution,null,dist.getMode(),info,null); /* Schiefe nur schwer berechenbar, siehe https://www.causascientia.org/math_stat/Dists/Compendium.pdf */
 	}
 
 	@Override

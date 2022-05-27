@@ -46,9 +46,10 @@ public class WrapperHyperGeomDistribution extends AbstractDistributionWrapper {
 	@Override
 	protected DistributionWrapperInfo getInfoInt(AbstractRealDistribution distribution) {
 		final DiscreteHyperGeomDistributionImpl dist=(DiscreteHyperGeomDistributionImpl)distribution;
-		final String info="N="+dist.N+"; K="+dist.K+"; n="+dist.n;
 		final double sk=dist.getSkewness();
-		return new DistributionWrapperInfo(distribution,sk,info,null);
+		final double mode=dist.getMode();
+		final String info1="N="+dist.N+"; K="+dist.K+"; n="+dist.n;
+		return new DistributionWrapperInfo(distribution,sk,mode,info1,null);
 	}
 
 	@Override

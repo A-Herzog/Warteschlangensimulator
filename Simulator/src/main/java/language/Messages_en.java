@@ -738,8 +738,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[1973] = "Off";
     t[1974] = "Statistics.StationsProcessTimes";
     t[1975] = "Process times at the stations";
-    t[1978] = "Statistics.TimeUnit.Minute";
-    t[1979] = "minute";
+    t[1978] = "Distribution.Mode";
+    t[1979] = "Mode";
     t[1980] = "Editor.AddEdge.Hint.RemoveButton.Hint";
     t[1981] = "Do not show this again.";
     t[1988] = "Simulation.Creator.SelectedSequenceDoesNotExist";
@@ -11190,6 +11190,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[28053] = "Gets the total number of operators";
     t[28054] = "Statistics.DistributionOfTheWaitingTimesTotal";
     t[28055] = "Distribution of the waiting times (totaled over multiple client arrivals)";
+    t[28060] = "Statistics.TimeUnit.Minute";
+    t[28061] = "minute";
     t[28064] = "ModelDescription.PickUp.SendAlone";
     t[28065] = "Send client alone if there are no clients in the other queue";
     t[28066] = "Statistics.ClientPathRecording.PathLength";
@@ -12038,14 +12040,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[30177] = "Edit state statistics counter";
     t[30188] = "Simulation.Log.Hold";
     t[30189] = "Condition fulfilled, client is released";
-    t[30190] = "ParameterCompare.Mode.WaitingTimeTolerances";
-    t[30191] = "Waiting time tolerances";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_6 (java.lang.String[] t) {
+    t[30190] = "ParameterCompare.Mode.WaitingTimeTolerances";
+    t[30191] = "Waiting time tolerances";
     t[30192] = "Surface.Output.Table.HeaderOutput";
     t[30193] = "Output";
     t[30194] = "Editor.DialogBase.Search.ArrivalRecord.Name";
@@ -14044,14 +14046,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[35041] = "ModelElementValveSetups";
     t[35048] = "ParameterCompare.Mode.Delay";
     t[35049] = "Delay times";
-    t[35052] = "ExpressionBuilder.SimulationCharacteristics.Costs.TransferAvgAll";
-    t[35053] = "Sum of transfer time costs";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_7 (java.lang.String[] t) {
+    t[35052] = "ExpressionBuilder.SimulationCharacteristics.Costs.TransferAvgAll";
+    t[35053] = "Sum of transfer time costs";
     t[35056] = "BuildClientSourceTable.SelectNone";
     t[35057] = "None";
     t[35058] = "Surface.Costs.XML.TransferTimeCosts";
@@ -16050,14 +16052,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[39807] = "Edit slider";
     t[39812] = "Surface.PickUp.XML.Root";
     t[39813] = "ModelElementPickUp";
-    t[39814] = "Surface.AssignString.Table.Delete";
-    t[39815] = "Delete assignment (Shift+Click=without confirmation dialog)";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_8 (java.lang.String[] t) {
+    t[39814] = "Surface.AssignString.Table.Delete";
+    t[39815] = "Delete assignment (Shift+Click=without confirmation dialog)";
     t[39818] = "Surface.TransportTransporterSource.Dialog.WaitingCapacity.ErrorInfo";
     t[39819] = "The entered parking lot capacity is invalid. A positive integer number has to be specified.";
     t[39824] = "SettingsDialog.Tabs.Simulation.ShowErlangC";
@@ -18056,14 +18058,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[44669] = "Client: %s, station: %s, resource release in: %s";
     t[44680] = "FileType.AllSupportedFiles";
     t[44681] = "All supported file formats";
-    t[44682] = "SettingsDialog.Tabs.ExportGraphics";
-    t[44683] = "Graphics";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_9 (java.lang.String[] t) {
+    t[44682] = "SettingsDialog.Tabs.ExportGraphics";
+    t[44683] = "Graphics";
     t[44686] = "Surface.AnimationBarChart.Dialog.Data.ManualMaxValue.RangeError.Info";
     t[44687] = "The specified maximum value \"%s\" is invalid. The maximum value has to be larger than the minimum value.";
     t[44692] = "Statistics.NumberOfClientsInProcess";
@@ -20062,14 +20064,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[49553] = "Copy";
     t[49554] = "Statistics.ErlangCCompare";
     t[49555] = "Erlang-C comparison";
-    t[49556] = "ExpressionBuilder.ProbabilityDistributions.LogLogisticDistribution.RandomNumberInfo";
-    t[49557] = "<p>Generates a random number according to the log-logistic distribution with the parameters according to the first (alpha) and second (beta) parameters.</p>";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_10 (java.lang.String[] t) {
+    t[49556] = "ExpressionBuilder.ProbabilityDistributions.LogLogisticDistribution.RandomNumberInfo";
+    t[49557] = "<p>Generates a random number according to the log-logistic distribution with the parameters according to the first (alpha) and second (beta) parameters.</p>";
     t[49558] = "CalculatorDialog.Tab.Distributions.GenerateRandomNumbers.Generate";
     t[49559] = "Generate random numbers";
     t[49560] = "FitDialog.LoadValues";

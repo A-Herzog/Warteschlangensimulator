@@ -51,7 +51,7 @@ public class WrapperFatigueLifeDistribution extends AbstractDistributionWrapper 
 		final double beta=fatigueDist.beta;
 		final double gamma=fatigueDist.gamma;
 		final String info=DistributionTools.DistLocation+"="+NumberTools.formatNumber(mu,3)+"; "+DistributionTools.DistScale+"="+NumberTools.formatNumber(beta,3)+"; Form="+NumberTools.formatNumber(gamma,3);
-		return new DistributionWrapperInfo(distribution,fatigueDist.getSkewness(),info,null);
+		return new DistributionWrapperInfo(distribution,fatigueDist.getSkewness(),null,info,null);
 	}
 
 	@Override

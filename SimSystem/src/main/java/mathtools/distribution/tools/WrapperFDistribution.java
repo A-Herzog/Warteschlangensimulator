@@ -46,12 +46,14 @@ public class WrapperFDistribution extends AbstractDistributionWrapper {
 
 	@Override
 	protected DistributionWrapperInfo getInfoInt(AbstractRealDistribution distribution) {
-		final double m=((FDistribution)distribution).getNumeratorDegreesOfFreedom();
-		final double n=((FDistribution)distribution).getDenominatorDegreesOfFreedom();
-		final String info=DistributionTools.DistDegreesOfFreedom+"="+NumberTools.formatNumber(m)+"/"+NumberTools.formatNumber(n);
+		final FDistribution dist=(FDistribution)distribution;
+		final double m=dist.getNumeratorDegreesOfFreedom();
+		final double n=dist.getDenominatorDegreesOfFreedom();
 		final Double sk;
 		if (n>6) sk=(2*m+n-2)*Math.sqrt(8*(n-4))/(n-6)/Math.sqrt(m*(m+n-2)); else sk=null;
-		return new DistributionWrapperInfo(distribution,sk,info,null);
+		final double mode=(m-2)/m*n/(n+2);
+		final String info1=DistributionTools.DistDegreesOfFreedom+"="+NumberTools.formatNumber(m)+"/"+NumberTools.formatNumber(n);
+		return new DistributionWrapperInfo(distribution,sk,mode,info1,null);
 	}
 
 	@Override

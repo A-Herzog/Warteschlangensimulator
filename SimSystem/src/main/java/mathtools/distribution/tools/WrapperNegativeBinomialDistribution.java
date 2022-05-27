@@ -59,7 +59,7 @@ public class WrapperNegativeBinomialDistribution extends AbstractDistributionWra
 		final DiscreteNegativeBinomialDistributionImpl dist=(DiscreteNegativeBinomialDistributionImpl)distribution;
 		final String info="p="+NumberTools.formatNumber(dist.p,3)+"; r="+dist.r;
 		final double sk=dist.getSkewness();
-		return new DistributionWrapperInfo(distribution,sk,info,null);
+		return new DistributionWrapperInfo(distribution,sk,dist.getMode(),info,null);
 	}
 
 	@Override

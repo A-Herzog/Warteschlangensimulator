@@ -97,6 +97,15 @@ public final class LogLogisticDistributionImpl extends AbstractRealDistribution 
 		return alpha*alpha*(2*b/Math.sin(2*b)-b*b/sinb/sinb);
 	}
 
+	/**
+	 * Liefert den Modus der Verteilung.
+	 * @return	Modus der Verteilung
+	 */
+	public double getMode() {
+		if (beta<=1) return 0;
+		return alpha*Math.pow((beta-1)/(beta+1),1/beta);
+	}
+
 	@Override
 	public double getSupportLowerBound() {return 0;}
 

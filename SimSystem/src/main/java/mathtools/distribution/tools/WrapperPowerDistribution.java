@@ -51,7 +51,10 @@ public class WrapperPowerDistribution extends AbstractDistributionWrapper {
 		final double b=powerDist.b;
 		final double c=powerDist.c;
 		final String info=DistributionTools.DistRange+"=["+NumberTools.formatNumber(a,3)+";"+NumberTools.formatNumber(b,3)+"]; c="+NumberTools.formatNumber(c,3);
-		return new DistributionWrapperInfo(distribution,null,info,null); /* Schiefe=null */
+		Double mode=null;
+		if (c<1) mode=a;
+		if (c>1) mode=b;
+		return new DistributionWrapperInfo(distribution,null,mode,info,null); /* Schiefe=null */
 	}
 
 	@Override

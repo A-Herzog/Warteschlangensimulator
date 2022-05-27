@@ -83,6 +83,18 @@ public final class DiscretePoissonDistributionImpl extends AbstractDiscreteRealD
 		return 1/Math.sqrt(lambda);
 	}
 
+	/**
+	 * Liefert den Modus der Verteilung.
+	 * @return	Modus der Verteilung
+	 */
+	public double getMode() {
+		final int x1=(int)Math.round(Math.ceil(lambda)-1);
+		final int x2=(int)Math.round(Math.floor(lambda));
+		final double d1=getCountDensity(x1);
+		final double d2=getCountDensity(x2);
+		return (d1>d2)?x1:x2;
+	}
+
 	@Override
 	public double getSupportUpperBound() {
 		return Double.MAX_VALUE;

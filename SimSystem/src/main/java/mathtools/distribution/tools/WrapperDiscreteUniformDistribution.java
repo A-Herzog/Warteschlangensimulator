@@ -58,7 +58,7 @@ public class WrapperDiscreteUniformDistribution extends AbstractDistributionWrap
 		final DiscreteUniformDistributionImpl dist=(DiscreteUniformDistributionImpl)distribution;
 		final String info="a="+dist.a+"; b="+dist.b;
 		final double sk=dist.getSkewness();
-		return new DistributionWrapperInfo(distribution,sk,info,null);
+		return new DistributionWrapperInfo(distribution,sk,null,info,null);
 	}
 
 	@Override

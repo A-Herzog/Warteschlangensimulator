@@ -46,14 +46,27 @@ public class WrapperChiSquaredDistribution extends AbstractDistributionWrapper {
 
 	@Override
 	protected DistributionWrapperInfo getInfoInt(AbstractRealDistribution distribution) {
-		final double n=((ChiSquaredDistribution)distribution).getDegreesOfFreedom();
-		final String info=DistributionTools.DistDegreesOfFreedom+"="+NumberTools.formatNumber(n);
-		return new DistributionWrapperInfo(distribution,2*Math.sqrt(2)/Math.sqrt(n),info,null);
+		final ChiSquaredDistribution dist=(ChiSquaredDistribution)distribution;
+		final double n=dist.getDegreesOfFreedom();
+		final double sk=2*Math.sqrt(2)/Math.sqrt(n);
+		final double mode=Math.max(n-2,0);
+		final String info1=DistributionTools.DistDegreesOfFreedom+"="+NumberTools.formatNumber(n);
+		return new DistributionWrapperInfo(distribution,sk,mode,info1,null);
 	}
 
 	@Override
 	public AbstractRealDistribution getDistribution(double mean, double sd) {
-		return new ChiSquaredDistribution(mean);
+		return new ChiSquaredDistribution(Math.round(mean));
+	}
+
+	@Override
+	protected boolean canSetMeanExact() {
+		return false;
+	}
+
+	@Override
+	protected boolean canSetStandardDeviationExact() {
+		return false;
 	}
 
 	@Override

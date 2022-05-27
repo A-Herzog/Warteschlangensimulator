@@ -49,8 +49,9 @@ public class WrapperWeibullDistribution extends AbstractDistributionWrapper {
 
 	@Override
 	protected DistributionWrapperInfo getInfoInt(AbstractRealDistribution distribution) {
-		final double beta=((WeibullDistribution)distribution).getShape();
-		final double lambda=1/((WeibullDistribution)distribution).getScale();
+		final WeibullDistribution dist=(WeibullDistribution)distribution;
+		final double beta=dist.getShape();
+		final double lambda=1/dist.getScale();
 		final String info=DistributionTools.DistScale+"="+NumberTools.formatNumber(lambda,3)+"; Form="+NumberTools.formatNumber(beta,3);
 
 		final double mu=distribution.getNumericalMean();
@@ -58,7 +59,11 @@ public class WrapperWeibullDistribution extends AbstractDistributionWrapper {
 
 		final double sk;
 		if (sigma>0) sk=(Functions.getGamma(1+3/beta)/(lambda*lambda*lambda)-3*mu*sigma*sigma-mu*mu*mu)/(sigma*sigma*sigma); else sk=0;
-		return new DistributionWrapperInfo(distribution,sk,info,null);
+
+		final double mode;
+		if (beta>1) mode=lambda*Math.pow((beta-1)/beta,1/beta); else mode=0;
+
+		return new DistributionWrapperInfo(distribution,sk,mode,info,null);
 	}
 
 	@Override

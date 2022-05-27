@@ -92,6 +92,18 @@ public final class DiscreteBinomialDistributionImpl extends AbstractDiscreteReal
 		return (1-2*p)/Math.sqrt(n*p*(1-p));
 	}
 
+	/**
+	 * Liefert den Modus der Verteilung.
+	 * @return	Modus der Verteilung
+	 */
+	public double getMode() {
+		final int x1=(int)Math.round(Math.floor((n+1)*p));
+		final int x2=(int)Math.round(Math.ceil((n+1)*p)+1);
+		final double d1=getCountDensity(x1);
+		final double d2=getCountDensity(x2);
+		return (d1>d2)?x1:x2;
+	}
+
 	@Override
 	public double getSupportUpperBound() {
 		return n;

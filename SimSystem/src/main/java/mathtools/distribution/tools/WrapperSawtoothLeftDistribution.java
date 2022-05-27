@@ -50,7 +50,7 @@ public class WrapperSawtoothLeftDistribution extends AbstractDistributionWrapper
 		final double A=sawtooth.a;
 		final double B=sawtooth.b;
 		final String info=DistributionTools.DistRange+"=["+NumberTools.formatNumber(A,3)+";"+NumberTools.formatNumber(B,3)+"]";
-		return new DistributionWrapperInfo(distribution,sawtooth.getSkewness(),info,null);
+		return new DistributionWrapperInfo(distribution,sawtooth.getSkewness(),A,info,null);
 	}
 
 	@Override

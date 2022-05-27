@@ -48,10 +48,11 @@ public class WrapperGumbelDistribution extends AbstractDistributionWrapper {
 
 	@Override
 	protected DistributionWrapperInfo getInfoInt(AbstractRealDistribution distribution) {
-		final double location=((GumbelDistribution)distribution).getLocation();
-		final double scale=((GumbelDistribution)distribution).getScale();
-		final String info=DistributionTools.DistLocation+"="+NumberTools.formatNumber(location,3)+"; "+DistributionTools.DistScale+"="+NumberTools.formatNumber(scale,3);
-		return new DistributionWrapperInfo(distribution,1.139547099404649,info,null); /* Schiefe: "12*sqrt(6)*zeta(3)/%pi^3, numer;" (Maxima) = 1.139547099404649 */
+		final GumbelDistribution dist=(GumbelDistribution)distribution;
+		final double location=dist.getLocation();
+		final double scale=dist.getScale();
+		final String info1=DistributionTools.DistLocation+"="+NumberTools.formatNumber(location,3)+"; "+DistributionTools.DistScale+"="+NumberTools.formatNumber(scale,3);
+		return new DistributionWrapperInfo(distribution,1.139547099404649,location,info1,null); /* Schiefe: "12*sqrt(6)*zeta(3)/%pi^3, numer;" (Maxima) = 1.139547099404649 */
 	}
 
 	@Override

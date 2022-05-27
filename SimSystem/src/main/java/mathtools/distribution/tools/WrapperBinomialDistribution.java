@@ -57,9 +57,10 @@ public class WrapperBinomialDistribution extends AbstractDistributionWrapper {
 	@Override
 	protected DistributionWrapperInfo getInfoInt(AbstractRealDistribution distribution) {
 		final DiscreteBinomialDistributionImpl dist=(DiscreteBinomialDistributionImpl)distribution;
-		final String info="p="+NumberTools.formatNumber(dist.p,3)+"; n="+dist.n;
 		final double sk=dist.getSkewness();
-		return new DistributionWrapperInfo(distribution,sk,info,null);
+		final double mode=dist.getMode();
+		final String info="p="+NumberTools.formatNumber(dist.p,3)+"; n="+dist.n;
+		return new DistributionWrapperInfo(distribution,sk,mode,info,null);
 	}
 
 	@Override

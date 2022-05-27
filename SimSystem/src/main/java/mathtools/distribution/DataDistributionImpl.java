@@ -16,6 +16,7 @@
 package mathtools.distribution;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -571,6 +572,22 @@ public final class DataDistributionImpl extends AbstractRealDistribution impleme
 		final double sigma=getStandardDeviation();
 		/* (E[X^3]-3*mu*sigma^2-mu^3)/sigma^3 */
 		return (getXPow3()-3*mu*sigma*sigma-mu*mu*mu)/(sigma*sigma*sigma);
+	}
+
+	/**
+	 * Liefert den Modus der Verteilung.
+	 * @return	Moduswerte der Verteilung (kann leer sein, aber ist nie <code>null</code>)
+	 */
+	public double[] getMode() {
+		if (densityData.length==0) return new double[0];
+		final List<Integer> mode=new ArrayList<>();
+		double max=-Double.MAX_VALUE;
+		for (int i=0;i<densityData.length;i++) {
+			final double x=densityData[i];
+			if (x>max) {max=x; mode.clear(); mode.add(i); continue;}
+			if (x==max) mode.add(i);
+		}
+		return mode.stream().mapToDouble(Integer::doubleValue).map(d->d/argumentScaleFactor).toArray();
 	}
 
 	@Override

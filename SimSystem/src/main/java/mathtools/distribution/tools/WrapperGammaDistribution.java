@@ -47,11 +47,13 @@ public class WrapperGammaDistribution extends AbstractDistributionWrapper {
 
 	@Override
 	protected DistributionWrapperInfo getInfoInt(AbstractRealDistribution distribution) {
-		final double alpha=((GammaDistribution)distribution).getShape();
-		final double beta=((GammaDistribution)distribution).getScale();
-		final String info="alpha="+NumberTools.formatNumber(alpha,3)+"; beta="+NumberTools.formatNumber(beta,3);
+		final GammaDistribution dist=(GammaDistribution)distribution;
+		final double alpha=dist.getShape();
+		final double beta=dist.getScale();
 		final double sk=2/Math.sqrt(alpha);
-		return new DistributionWrapperInfo(distribution,sk,info,null);
+		final double mode=(alpha>=1)?(alpha-1)*beta:0;
+		final String info1="alpha="+NumberTools.formatNumber(alpha,3)+"; beta="+NumberTools.formatNumber(beta,3);
+		return new DistributionWrapperInfo(distribution,sk,mode,info1,null);
 	}
 
 	@Override

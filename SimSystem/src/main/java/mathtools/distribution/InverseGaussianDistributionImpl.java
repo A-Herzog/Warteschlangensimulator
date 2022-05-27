@@ -109,6 +109,14 @@ public final class InverseGaussianDistributionImpl extends AbstractRealDistribut
 		return 3*Math.sqrt(mu/lambda);
 	}
 
+	/**
+	 * Liefert den Modus der Verteilung.
+	 * @return	Modus der Verteilung
+	 */
+	public double getMode() {
+		return mu*(Math.sqrt(1+9*mu*mu/4/lambda/lambda)-3*mu/2/lambda);
+	}
+
 	@Override
 	public double getSupportLowerBound() {
 		return 0;

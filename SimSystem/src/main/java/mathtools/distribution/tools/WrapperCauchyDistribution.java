@@ -46,8 +46,9 @@ public class WrapperCauchyDistribution extends AbstractDistributionWrapper {
 
 	@Override
 	protected DistributionWrapperInfo getInfoInt(AbstractRealDistribution distribution) {
-		final String info2=DistributionTools.DistScale+"="+NumberTools.formatNumber(((CauchyDistribution)distribution).getScale(),3);
-		return new DistributionWrapperInfo(((CauchyDistribution)distribution).getMedian(),null,null,null,info2);
+		final CauchyDistribution dist=(CauchyDistribution)distribution;
+		final String info2=DistributionTools.DistScale+"="+NumberTools.formatNumber(dist.getScale(),3);
+		return new DistributionWrapperInfo(dist.getMedian(),null,null,dist.getMedian(),null,info2);
 	}
 
 	@Override

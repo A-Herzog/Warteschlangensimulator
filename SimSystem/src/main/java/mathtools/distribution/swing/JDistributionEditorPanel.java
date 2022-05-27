@@ -529,8 +529,12 @@ public class JDistributionEditorPanel extends JPanel {
 		if (listUpdating) return;
 		if (distributionType.getSelectedIndex()==lastIndex) return;
 		lastIndex=distributionType.getSelectedIndex();
-		final double mean=NumberTools.reduceDigits(DistributionTools.getMean(distribution),10);
-		final double sd=NumberTools.reduceDigits(DistributionTools.getStandardDeviation(distribution),10);
+		double mean=DistributionTools.getMean(distribution);
+		if (Double.isNaN(mean) || Double.isInfinite(mean) || mean<0 || mean>10E10) mean=10;
+		mean=NumberTools.reduceDigits(mean,10);
+		double sd=DistributionTools.getStandardDeviation(distribution);
+		if (Double.isNaN(sd) || Double.isInfinite(sd) || sd<0 || sd>10E10) sd=1;
+		sd=NumberTools.reduceDigits(sd,10);
 
 		((CardLayout)editPanel.getLayout()).show(editPanel,((JDistributionEditorPanelRecord)distributionType.getSelectedItem()).getName());
 

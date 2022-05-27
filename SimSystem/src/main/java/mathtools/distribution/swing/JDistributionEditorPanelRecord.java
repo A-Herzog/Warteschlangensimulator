@@ -1308,7 +1308,7 @@ public abstract class JDistributionEditorPanelRecord {
 			if (meanD<=0 || stdD<=0) return new String[]{NumberTools.formatNumber(0.5),"10"};
 			/* E=n*p, Var=n*p*(1-p) => n=E/p, p=1-Var/E */
 			final double p=1-stdD*stdD/meanD;
-			if (p<=0 || p>1) return new String[]{NumberTools.formatNumber(0.5),"10"};
+			if (Double.isNaN(p) || p<=0 || p>1) return new String[]{NumberTools.formatNumber(0.5),"10"};
 			final int n=(int)Math.round(meanD/p);
 			return new String[]{NumberTools.formatNumber(p),""+n};
 		}

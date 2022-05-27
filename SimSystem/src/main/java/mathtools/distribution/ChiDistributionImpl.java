@@ -103,6 +103,15 @@ public final class ChiDistributionImpl extends AbstractRealDistribution implemen
 		return mu/(sigma*sigma*sigma)*(1-2*sigma*sigma);
 	}
 
+	/**
+	 * Liefert den Modus der Verteilung.
+	 * @return	Modus der Verteilung oder <code>null</code>, wenn es keinen Modus gibt
+	 */
+	public Double getMode() {
+		if (degreesOfFreedom>=1) return Math.sqrt(degreesOfFreedom-1);
+		return null;
+	}
+
 	@Override
 	public double getSupportLowerBound() {
 		return 0;

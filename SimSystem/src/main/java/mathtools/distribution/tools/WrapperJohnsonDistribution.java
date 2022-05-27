@@ -51,7 +51,7 @@ public class WrapperJohnsonDistribution extends AbstractDistributionWrapper {
 		final double delta=((JohnsonDistributionImpl)distribution).delta;
 		final double lambda=((JohnsonDistributionImpl)distribution).lambda;
 		final String info="gamma="+NumberTools.formatNumber(gamma)+"; xi="+NumberTools.formatNumber(xi)+"; delta="+NumberTools.formatNumber(delta)+"; lambda="+NumberTools.formatNumber(lambda);
-		return new DistributionWrapperInfo(distribution,null,info,null); /* Schiefe=null */
+		return new DistributionWrapperInfo(distribution,null,null,info,null); /* Schiefe=null, Modalwert=null */
 	}
 
 	@Override
