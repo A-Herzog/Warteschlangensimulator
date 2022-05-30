@@ -125,6 +125,24 @@ Example:\\
 \cm{Statistics.xmlCV("{}StatisticsProcessTimesClients->ClientType[Type=$\backslash$"{}ClientsA$\backslash$"]->\\{}[Distribution]")}
 
 \item
+\cmd{Statistics.xmlMedian("{}Path")}:\\
+Loads the xml field which is specified by the parameter, interprets it as a distribution and
+returns the median of values as a number.
+If the field cannot be interpreted as a distribution, a string containing an error message will be returned.
+	
+Example:\\
+\cm{Statistics.xmlMedian("{}StatisticsProcessTimesClients->ClientType[Type=$\backslash$"{}ClientsA$\backslash$"]->\\{}[Distribution]")}
+
+\item
+\cmd{Statistics.xmlMode("{}Path")}:\\
+Loads the xml field which is specified by the parameter, interprets it as a distribution and
+returns the mode value of values as a number.
+If the field cannot be interpreted as a distribution, a string containing an error message will be returned.
+	
+Example:\\
+\cm{Statistics.xmlMode("{}StatisticsProcessTimesClients->ClientType[Type=$\backslash$"{}ClientsA$\backslash$"]->\\{}[Distribution]")}
+
+\item
 \cmd{Statistics.translate("{}de")}:\\
 Translates the statistics data to English ("{}en") or German ("{}de") so the preferred xml tag names can be
 used independent of the language setting under which the statistics file was generated.

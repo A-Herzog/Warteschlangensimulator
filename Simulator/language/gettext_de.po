@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-05-27 00:26+0200\n"
+"POT-Creation-Date: 2022-05-28 12:26+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19538,6 +19538,18 @@ msgstr "Mittelwert einer Verteilung"
 
 msgid "Statistic.FastAccess.Template.StatisticsXMLMean.Hint"
 msgstr "Liefert den Mittelwert einer in einem XML-Element gespeicherten Verteilung."
+
+msgid "Statistic.FastAccess.Template.StatisticsXMLMedian"
+msgstr "Median einer Verteilung"
+
+msgid "Statistic.FastAccess.Template.StatisticsXMLMedian.Hint"
+msgstr "Liefert den Median einer in einem XML-Element gespeicherten Verteilung."
+
+msgid "Statistic.FastAccess.Template.StatisticsXMLMode"
+msgstr "Modalwert einer Verteilung"
+
+msgid "Statistic.FastAccess.Template.StatisticsXMLMode.Hint"
+msgstr "Liefert den Modalwert einer in einem XML-Element gespeicherten Verteilung."
 
 msgid "Statistic.FastAccess.Template.StatisticsXMLNumber"
 msgstr "XML-Elementinhalt als Zahl"

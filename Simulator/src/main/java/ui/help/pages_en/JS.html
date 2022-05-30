@@ -95,6 +95,20 @@ The following methods are in this object available:
   Example:
   <tt>Statistics.xmlCV("StatisticsProcessTimesClients-&gt;ClientType[Type=\"ClientsA\"]-&gt;[Distribution]")</tt>
   </li>
+  <li><tt>Statistics.xmlMedian("Path")</tt><br>
+  Loads the xml field which is specified by the parameter, interprets it as a distribution and
+  returns the median of values as a number.
+  If the field cannot be interpreted as a distribution, a string containing an error message will be returned.<br>
+  Example:
+  <tt>Statistics.xmlMedian("StatisticsProcessTimesClients-&gt;ClientType[Type=\"ClientsA\"]-&gt;[Distribution]")</tt>
+  </li>
+  <li><tt>Statistics.xmlMode("Path")</tt><br>
+  Loads the xml field which is specified by the parameter, interprets it as a distribution and
+  returns the mode value of values as a number.
+  If the field cannot be interpreted as a distribution, a string containing an error message will be returned.<br>
+  Example:
+  <tt>Statistics.xmlMode("StatisticsProcessTimesClients-&gt;ClientType[Type=\"ClientsA\"]-&gt;[Distribution]")</tt>
+  </li>
   <li><tt>Statistics.save("FileName")</tt><br>
   Saves the entry statistics data in the given file. This function is only available in the
   <a href="JSRunner.html">Run script</a> panel.

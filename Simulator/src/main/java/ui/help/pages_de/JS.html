@@ -109,7 +109,23 @@ Simulation steht das <tt>Statistics</tt>-Objekt nicht zur Verfügung. Das Objekt
   zurückgegeben.<br>
   Beispiel:
   <tt>Statistics.xmlCV("StatistikBedienzeitenKunden-&gt;Kundentyp[Typ=\"KundenA\"]-&gt;[Verteilung]")</tt>
+  </li>  
+  <li><tt>Statistics.xmlMedian("Pfad")</tt><br>
+  Lädt das XML-Datenfeld, dessen Pfad als Parameter angegeben wurde, interpretiert dieses als Verteilung,
+  bildet den Median der Werte und liefert diesen als Zahl zurück.
+  Konnte das Feld nicht als Verteilung interpretiert werden, so wird eine Zeichenkette mit einer Fehlermeldung
+  zurückgegeben.<br>
+  Beispiel:
+  <tt>Statistics.xmlMedian("StatistikBedienzeitenKunden-&gt;Kundentyp[Typ=\"KundenA\"]-&gt;[Verteilung]")</tt>
   </li>
+  <li><tt>Statistics.xmlMode("Pfad")</tt><br>
+  Lädt das XML-Datenfeld, dessen Pfad als Parameter angegeben wurde, interpretiert dieses als Verteilung,
+  bildet den Modalwert der Werte und liefert diesen als Zahl zurück.
+  Konnte das Feld nicht als Verteilung interpretiert werden, so wird eine Zeichenkette mit einer Fehlermeldung
+  zurückgegeben.<br>
+  Beispiel:
+  <tt>Statistics.xmlMode("StatistikBedienzeitenKunden-&gt;Kundentyp[Typ=\"KundenA\"]-&gt;[Verteilung]")</tt>
+  </li>  
   <li><tt>Statistics.save("Dateiname")</tt><br>
   Speichert die kompletten Statistikdaten in der angegebenen Datei. Diese Funktion steht nur in der Funktion zur
   <a href="JSRunner.html">Ausführung von Skripten</a> zur Verfügung.

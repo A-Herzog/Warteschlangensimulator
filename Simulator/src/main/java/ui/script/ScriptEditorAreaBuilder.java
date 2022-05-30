@@ -1066,6 +1066,8 @@ public class ScriptEditorAreaBuilder {
 		String statisticsXmlMean="";
 		String statisticsXmlSD="";
 		String statisticsXmlCV="";
+		String statisticsXmlMedian="";
+		String statisticsXmlMode="";
 		String statisticsGetID="";
 
 		final String path="\"Path\"";
@@ -1078,6 +1080,8 @@ public class ScriptEditorAreaBuilder {
 			statisticsXmlMean="Statistics.xmlMean("+path+")";
 			statisticsXmlSD="Statistics.xmlSD("+path+")";
 			statisticsXmlCV="Statistics.xmlCV("+path+")";
+			statisticsXmlMedian="Statistics.xmlMedian("+path+")";
+			statisticsXmlMode="Statistics.xmlMode("+path+")";
 			statisticsGetID="Statistics.getStationID(\"StationName\");";
 		}
 
@@ -1089,6 +1093,8 @@ public class ScriptEditorAreaBuilder {
 			statisticsXmlMean="sim.getStatistics().xmlMean("+path+")";
 			statisticsXmlSD="sim.getStatistics().xmlSD("+path+")";
 			statisticsXmlCV="sim.getStatistics().xmlCV("+path+")";
+			statisticsXmlMedian="sim.getStatistics().xmlMedian("+path+")";
+			statisticsXmlMode="sim.getStatistics().xmlMode("+path+")";
 			statisticsGetID="sim.getStatistics().getStationID(\"StationName\");";
 		}
 
@@ -1099,6 +1105,8 @@ public class ScriptEditorAreaBuilder {
 		addAutoComplete(Language.tr("Statistic.FastAccess.Template.StatisticsXMLMean"),Language.tr("Statistic.FastAccess.Template.StatisticsXMLMean.Hint"),Images.SCRIPT_RECORD_STATISTICS.getIcon(),statisticsXmlMean);
 		addAutoComplete(Language.tr("Statistic.FastAccess.Template.StatisticsXMLSD"),Language.tr("Statistic.FastAccess.Template.StatisticsXMLSD.Hint"),Images.SCRIPT_RECORD_STATISTICS.getIcon(),statisticsXmlSD);
 		addAutoComplete(Language.tr("Statistic.FastAccess.Template.StatisticsXMLCV"),Language.tr("Statistic.FastAccess.Template.StatisticsXMLCV.Hint"),Images.SCRIPT_RECORD_STATISTICS.getIcon(),statisticsXmlCV);
+		addAutoComplete(Language.tr("Statistic.FastAccess.Template.StatisticsXMLMedian"),Language.tr("Statistic.FastAccess.Template.StatisticsXMLMedian.Hint"),Images.SCRIPT_RECORD_STATISTICS.getIcon(),statisticsXmlMedian);
+		addAutoComplete(Language.tr("Statistic.FastAccess.Template.StatisticsXMLMode"),Language.tr("Statistic.FastAccess.Template.StatisticsXMLMode.Hint"),Images.SCRIPT_RECORD_STATISTICS.getIcon(),statisticsXmlMode);
 
 		addAutoComplete(Language.tr("Statistic.FastAccess.Template.StationID.Get"),Language.tr("Statistic.FastAccess.Template.StationID.Get.Tooltip"),Images.SCRIPT_RECORD_MODEL_EDIT.getIcon(),statisticsGetID);
 	}

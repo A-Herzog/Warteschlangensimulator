@@ -65,23 +65,37 @@ public interface StatisticsInterface {
 	/**
 	 * Bildet den Mittelwert der Werte der Verteilung, deren XML-Pfad im Parameter angegeben ist und liefert das Ergebnis als Double-Wert
 	 * @param path	String, der den XML-Pfad zu der Verteilung enthält
-	 * @return	Summe der Verteilungselemente als Double oder im Fehlerfall eine Zeichenkette
+	 * @return	Mittelwert der Verteilungselemente als Double oder im Fehlerfall eine Zeichenkette
 	 */
 	Object xmlMean(final String path);
 
 	/**
 	 * Bildet den Standardabweichung der Werte der Verteilung, deren XML-Pfad im Parameter angegeben ist und liefert das Ergebnis als Double-Wert
 	 * @param path	String, der den XML-Pfad zu der Verteilung enthält
-	 * @return	Summe der Verteilungselemente als Double oder im Fehlerfall eine Zeichenkette
+	 * @return	Standardabweichung der Verteilungselemente als Double oder im Fehlerfall eine Zeichenkette
 	 */
 	Object xmlSD(final String path);
 
 	/**
 	 * Bildet den Variationskoeffizient der Werte der Verteilung, deren XML-Pfad im Parameter angegeben ist und liefert das Ergebnis als Double-Wert
 	 * @param path	String, der den XML-Pfad zu der Verteilung enthält
-	 * @return	Summe der Verteilungselemente als Double oder im Fehlerfall eine Zeichenkette
+	 * @return	Variationskoeffizient der Verteilungselemente als Double oder im Fehlerfall eine Zeichenkette
 	 */
 	Object xmlCV(final String path);
+
+	/**
+	 * Bildet den Median der Werte der Verteilung, deren XML-Pfad im Parameter angegeben ist und liefert das Ergebnis als Double-Wert
+	 * @param path	String, der den XML-Pfad zu der Verteilung enthält
+	 * @return	Median der Verteilungselemente als Double oder im Fehlerfall eine Zeichenkette
+	 */
+	Object xmlMedian(final String path);
+
+	/**
+	 * Bildet den Modalwert der Werte der Verteilung, deren XML-Pfad im Parameter angegeben ist und liefert das Ergebnis als Double-Wert
+	 * @param path	String, der den XML-Pfad zu der Verteilung enthält
+	 * @return	Modalwert der Verteilungselemente als Double oder im Fehlerfall eine Zeichenkette
+	 */
+	Object xmlMode(final String path);
 
 	/**
 	 * Speichert das XML-Objekt in einer Datei

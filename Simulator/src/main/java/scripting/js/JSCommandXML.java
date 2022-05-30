@@ -495,7 +495,7 @@ public class JSCommandXML extends JSBaseCommand {
 	/**
 	 * Bildet den Mittelwert der Werte der Verteilung, deren XML-Pfad im Parameter angegeben ist und liefert das Ergebnis als Double-Wert
 	 * @param obj	String, der den XML-Pfad zu der Verteilung enthält
-	 * @return	Summe der Verteilungselemente als Double oder im Fehlerfall eine Zeichenkette
+	 * @return	Mittelwert der Verteilungselemente als Double oder im Fehlerfall eine Zeichenkette
 	 */
 	public Object xmlMean(final Object obj) {
 		if (xml==null) {
@@ -512,7 +512,7 @@ public class JSCommandXML extends JSBaseCommand {
 	/**
 	 * Bildet den Standardabweichung der Werte der Verteilung, deren XML-Pfad im Parameter angegeben ist und liefert das Ergebnis als Double-Wert
 	 * @param obj	String, der den XML-Pfad zu der Verteilung enthält
-	 * @return	Summe der Verteilungselemente als Double oder im Fehlerfall eine Zeichenkette
+	 * @return	Standardabweichung der Verteilungselemente als Double oder im Fehlerfall eine Zeichenkette
 	 */
 	public Object xmlSD(final Object obj) {
 		if (xml==null) {
@@ -529,7 +529,7 @@ public class JSCommandXML extends JSBaseCommand {
 	/**
 	 * Bildet den Variationskoeffizient der Werte der Verteilung, deren XML-Pfad im Parameter angegeben ist und liefert das Ergebnis als Double-Wert
 	 * @param obj	String, der den XML-Pfad zu der Verteilung enthält
-	 * @return	Summe der Verteilungselemente als Double oder im Fehlerfall eine Zeichenkette
+	 * @return	Variationskoeffizient der Verteilungselemente als Double oder im Fehlerfall eine Zeichenkette
 	 */
 	public Object xmlCV(final Object obj) {
 		if (xml==null) {
@@ -541,6 +541,40 @@ public class JSCommandXML extends JSBaseCommand {
 		if (dist instanceof String) return dist;
 
 		return DistributionTools.getCV((DataDistributionImpl)dist);
+	}
+
+	/**
+	 * Liefert den Median der Verteilung, deren XML-Pfad im Parameter angegeben ist und liefert das Ergebnis als Double-Wert
+	 * @param obj	String, der den XML-Pfad zu der Verteilung enthält
+	 * @return	Summe der Verteilungselemente als Double oder im Fehlerfall eine Zeichenkette
+	 */
+	public Object xmlMedian(final Object obj) {
+		if (xml==null) {
+			addOutput(Language.tr("Statistics.Filter.NoStatisticsAvailable"));
+			return null;
+		}
+
+		final Object dist=getDistribution(obj);
+		if (dist instanceof String) return dist;
+
+		return ((DataDistributionImpl)dist).getMedian();
+	}
+
+	/**
+	 * Liefert den Modalwert der Verteilung, deren XML-Pfad im Parameter angegeben ist und liefert das Ergebnis als Double-Wert
+	 * @param obj	String, der den XML-Pfad zu der Verteilung enthält
+	 * @return	Modalwert der Verteilungselemente als Double oder im Fehlerfall eine Zeichenkette
+	 */
+	public Object xmlMode(final Object obj) {
+		if (xml==null) {
+			addOutput(Language.tr("Statistics.Filter.NoStatisticsAvailable"));
+			return null;
+		}
+
+		final Object dist=getDistribution(obj);
+		if (dist instanceof String) return dist;
+
+		return ((DataDistributionImpl)dist).getMode();
 	}
 
 	/**

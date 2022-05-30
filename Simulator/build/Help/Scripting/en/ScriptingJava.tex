@@ -137,6 +137,24 @@ Example:\\
 \cm{sim.getStatistics().xmlCV("{}StatisticsProcessTimesClients->\\{}ClientType[Type=$\backslash$"{}ClientsA$\backslash$"]->[Distribution]")}
 
 \item
+\cmd{Object xmlMedian(final String path)}:\\
+Loads the xml field which is specified by the parameter, interprets it as a distribution and
+returns the median of values as a \cm{Double} number.
+If the field cannot be interpreted as a distribution, a string containing an error message will be returned.
+
+Example:\\
+\cm{sim.getStatistics().xmlMedian("{}StatisticsProcessTimesClients->\\{}ClientType[Type=$\backslash$"{}ClientsA$\backslash$"]->[Distribution]")}
+
+\item
+\cmd{Object xmlMode(final String path)}:\\
+Loads the xml field which is specified by the parameter, interprets it as a distribution and
+returns the mode value of values as a \cm{Double} number.
+If the field cannot be interpreted as a distribution, a string containing an error message will be returned.
+
+Example:\\
+\cm{sim.getStatistics().xmlMode("{}StatisticsProcessTimesClients->\\{}ClientType[Type=$\backslash$"{}ClientsA$\backslash$"]->[Distribution]")}
+
+\item
 \cmd{boolean translate(final String language)}:\\
 Translates the statistics data to English ("{}en") or German ("{}de") so the preferred xml tag names can be
 used independent of the language setting under which the statistics file was generated.

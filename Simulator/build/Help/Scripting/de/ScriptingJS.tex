@@ -142,6 +142,26 @@ Beispiel:\\
 \cm{Statistics.xmlCV("{}StatistikBedienzeitenKunden->Kundentyp[Typ=$\backslash$"{}KundenA$\backslash$"]->\\{}[Verteilung]")}
 
 \item
+\cmd{Statistics.xmlMedian("{}Pfad")}:\\
+Lädt das XML-Datenfeld, dessen Pfad als Parameter angegeben wurde, interpretiert dieses als Verteilung,
+bildet den Median der Werte und liefert diesen als Zahl zurück.
+Konnte das Feld nicht als Verteilung interpretiert werden, so wird eine Zeichenkette mit einer Fehlermeldung
+zurückgegeben.
+	
+Beispiel:\\
+\cm{Statistics.xmlMedian("{}StatistikBedienzeitenKunden->Kundentyp[Typ=$\backslash$"{}KundenA$\backslash$"]->\\{}[Verteilung]")}
+
+\item
+\cmd{Statistics.xmlMode("{}Pfad")}:\\
+Lädt das XML-Datenfeld, dessen Pfad als Parameter angegeben wurde, interpretiert dieses als Verteilung,
+bildet den Modalwert der Werte und liefert diesen als Zahl zurück.
+Konnte das Feld nicht als Verteilung interpretiert werden, so wird eine Zeichenkette mit einer Fehlermeldung
+zurückgegeben.
+	
+Beispiel:\\
+\cm{Statistics.xmlMode("{}StatistikBedienzeitenKunden->Kundentyp[Typ=$\backslash$"{}KundenA$\backslash$"]->\\{}[Verteilung]")}
+
+\item
 \cmd{Statistics.translate("{}en")}:\\
 Übersetzt die Statistikdaten ins Deutsche ("{}de") oder ins Englische ("{}en"), so dass jeweils die gewünschten
 xml-Bezeichner verwendet werden können, auch wenn die Statistikdaten evtl.\ mit einer anderen Spracheinstellung

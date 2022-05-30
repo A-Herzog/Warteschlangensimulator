@@ -468,11 +468,6 @@ public class StatisticsImpl implements StatisticsInterface {
 		return ((DataDistributionImpl)dist).getStandardDeviation();
 	}
 
-	/**
-	 * Bildet den Variationskoeffizient der Werte der Verteilung, deren XML-Pfad im Parameter angegeben ist und liefert das Ergebnis als Double-Wert
-	 * @param path	String, der den XML-Pfad zu der Verteilung enthält
-	 * @return	Summe der Verteilungselemente als Double oder im Fehlerfall eine Zeichenkette
-	 */
 	@Override
 	public Object xmlCV(final String path) {
 		if (xml==null) {
@@ -484,6 +479,32 @@ public class StatisticsImpl implements StatisticsInterface {
 		if (dist instanceof String) return dist;
 
 		return DistributionTools.getCV((DataDistributionImpl)dist);
+	}
+
+	@Override
+	public Object xmlMedian(final String path) {
+		if (xml==null) {
+			addOutput(Language.tr("Statistics.Filter.NoStatisticsAvailable"));
+			return null;
+		}
+
+		final Object dist=getDistribution(path);
+		if (dist instanceof String) return dist;
+
+		return ((DataDistributionImpl)dist).getMedian();
+	}
+
+	@Override
+	public Object xmlMode(final String path) {
+		if (xml==null) {
+			addOutput(Language.tr("Statistics.Filter.NoStatisticsAvailable"));
+			return null;
+		}
+
+		final Object dist=getDistribution(path);
+		if (dist instanceof String) return dist;
+
+		return ((DataDistributionImpl)dist).getMode();
 	}
 
 	@Override
