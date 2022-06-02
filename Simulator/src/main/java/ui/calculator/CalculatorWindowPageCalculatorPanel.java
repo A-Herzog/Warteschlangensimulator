@@ -239,7 +239,8 @@ public class CalculatorWindowPageCalculatorPanel extends JPanel {
 		final ExpressionCalc calc=buildExpressionCalc(expression);
 		if (calc==null) return;
 
-		final StatisticsDataPerformanceIndicatorWithNegativeValues indicator=new StatisticsDataPerformanceIndicatorWithNegativeValues(null,-1,-1);
+		final int distSize=1_000_000;
+		final StatisticsDataPerformanceIndicatorWithNegativeValues indicator=new StatisticsDataPerformanceIndicatorWithNegativeValues(null,distSize,distSize);
 		try {
 			for (int i=0;i<commonCalculationRepeatCount.repeatCount;i++) indicator.add(calc.calc());
 		} catch (MathCalcError e) {
@@ -257,7 +258,22 @@ public class CalculatorWindowPageCalculatorPanel extends JPanel {
 		info.append(String.format(Language.tr("Distribution.Kurt")+": Kurt=%s",NumberTools.formatNumber(indicator.getKurt(),3))+"\n");
 		info.append(String.format(Language.tr("Statistics.Minimum")+": Min=%s",NumberTools.formatNumber(indicator.getMin(),3))+"\n");
 		info.append(String.format(Language.tr("Statistics.Maximum")+": Max=%s",NumberTools.formatNumber(indicator.getMax(),3))+"\n");
-
+		info.append(String.format(Language.tr("Statistics.Median")+": %s",NumberTools.formatNumber(indicator.getMedian(),3))+"\n");
+		final double mode[]=indicator.getDistribution().getMode();
+		if (mode.length==1) {
+			info.append(String.format(Language.tr("Statistics.Mode")+": %s",NumberTools.formatNumber(mode[0]))+"\n");
+		} else {
+			if (mode.length>0) {
+				final StringBuilder modeBuilder=new StringBuilder();
+				modeBuilder.append(NumberTools.formatNumber(mode[0]));
+				for (int i=1;i<Math.min(5,mode.length);i++) {
+					modeBuilder.append(";");
+					modeBuilder.append(NumberTools.formatNumber(mode[i]));
+				}
+				if (mode.length>5) modeBuilder.append(";...");
+				info.append(String.format(Language.tr("Statistics.Mode.Plural")+": %s",modeBuilder.toString())+"\n");
+			}
+		}
 		MsgBox.info(this,Language.tr("CalculatorDialog.Tab.Distributions.GenerateRandomNumbers.Generate"),info.toString());
 	}
 
@@ -375,6 +391,7 @@ public class CalculatorWindowPageCalculatorPanel extends JPanel {
 		table.addLine(new String[] {NumberTools.formatNumberMax(numbers[nr++]),"",Language.tr("Distribution.Skewness"),"=SKEW("+range+")"});
 		table.addLine(new String[] {NumberTools.formatNumberMax(numbers[nr++]),"",Language.tr("Statistics.Minimum"),"=MIN("+range+")"});
 		table.addLine(new String[] {NumberTools.formatNumberMax(numbers[nr++]),"",Language.tr("Statistics.Maximum"),"=MAX("+range+")"});
+		table.addLine(new String[] {NumberTools.formatNumberMax(numbers[nr++]),"",Language.tr("Statistics.Median"),"=MEDIAN("+range+")"});
 		table.addLine(new String[] {NumberTools.formatNumberMax(numbers[nr++])});
 		table.addLine(new String[] {NumberTools.formatNumberMax(numbers[nr++]),"",Language.tr("Distribution.Range")+" "+Language.tr("Distribution.Range.from"),Language.tr("Distribution.Range")+" "+Language.tr("Distribution.Range.to"),Language.tr("Distribution.Range")+" "+Language.tr("Distribution.Range.center"),Language.tr("Statistics.Frequency")});
 		final int frequencyDistributionStartRow=nr+1;

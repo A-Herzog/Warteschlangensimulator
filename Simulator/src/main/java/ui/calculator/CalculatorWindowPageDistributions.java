@@ -131,7 +131,7 @@ public class CalculatorWindowPageDistributions extends CalculatorWindowPage {
 		if (distribution==null) distribution=new ExponentialDistribution(100);
 
 		/* Eingabefelder für den Wahrscheinlichkeitsverteilungsplotter */
-		add(distributionEditor=new JDistributionEditorPanel(distribution,1000,e->updateDistribution(),true),BorderLayout.SOUTH);
+		add(distributionEditor=new JDistributionEditorPanel(distribution,200,e->updateDistribution(),true),BorderLayout.SOUTH);
 
 		/* Start */
 		updateDistribution();
@@ -228,7 +228,9 @@ public class CalculatorWindowPageDistributions extends CalculatorWindowPage {
 	private void randomNumbersIndicators() {
 		final AbstractRealDistribution distribution=distributionEditor.getDistribution();
 
-		final StatisticsDataPerformanceIndicatorWithNegativeValues indicator=new StatisticsDataPerformanceIndicatorWithNegativeValues(null,-1,-1);
+		final int distSize=1_000_000;
+		final StatisticsDataPerformanceIndicatorWithNegativeValues indicator=new StatisticsDataPerformanceIndicatorWithNegativeValues(null,distSize,distSize);
+
 		for (int i=0;i<randomNumberCount;i++) {
 			indicator.add(DistributionRandomNumber.random(distribution));
 		}
@@ -243,6 +245,22 @@ public class CalculatorWindowPageDistributions extends CalculatorWindowPage {
 		info.append(String.format(Language.tr("Distribution.Kurt")+": Kurt=%s",NumberTools.formatNumber(indicator.getKurt(),3))+"\n");
 		info.append(String.format(Language.tr("Statistics.Minimum")+": Min=%s",NumberTools.formatNumber(indicator.getMin(),3))+"\n");
 		info.append(String.format(Language.tr("Statistics.Maximum")+": Max=%s",NumberTools.formatNumber(indicator.getMax(),3))+"\n");
+		info.append(String.format(Language.tr("Statistics.Median")+": %s",NumberTools.formatNumber(indicator.getMedian(),3))+"\n");
+		final double mode[]=indicator.getDistribution().getMode();
+		if (mode.length==1) {
+			info.append(String.format(Language.tr("Statistics.Mode")+": %s",NumberTools.formatNumber(mode[0]))+"\n");
+		} else {
+			if (mode.length>0) {
+				final StringBuilder modeBuilder=new StringBuilder();
+				modeBuilder.append(NumberTools.formatNumber(mode[0]));
+				for (int i=1;i<Math.min(5,mode.length);i++) {
+					modeBuilder.append(";");
+					modeBuilder.append(NumberTools.formatNumber(mode[i]));
+				}
+				if (mode.length>5) modeBuilder.append(";...");
+				info.append(String.format(Language.tr("Statistics.Mode.Plural")+": %s",modeBuilder.toString())+"\n");
+			}
+		}
 
 		MsgBox.info(this,Language.tr("CalculatorDialog.Tab.Distributions.GenerateRandomNumbers.Generate"),info.toString());
 	}
@@ -330,7 +348,6 @@ public class CalculatorWindowPageDistributions extends CalculatorWindowPage {
 		final String minString=(distribution.getSupportLowerBound()>-1_000_000_000)?NumberTools.formatNumberMax(distribution.getSupportLowerBound()):"";
 		final String maxString=(distribution.getSupportUpperBound()<1_000_000_000)?NumberTools.formatNumberMax(distribution.getSupportUpperBound()):"";
 
-
 		final String range="A2:A"+(count+1);
 
 		int nr=0;
@@ -349,6 +366,7 @@ public class CalculatorWindowPageDistributions extends CalculatorWindowPage {
 		table.addLine(new String[] {NumberTools.formatNumberMax(numbers[nr++]),"",Language.tr("Distribution.Kurt"),"","=KURT("+range+")"});
 		table.addLine(new String[] {NumberTools.formatNumberMax(numbers[nr++]),"",Language.tr("Statistics.Minimum"),minString,"=MIN("+range+")"});
 		table.addLine(new String[] {NumberTools.formatNumberMax(numbers[nr++]),"",Language.tr("Statistics.Maximum"),maxString,"=MAX("+range+")"});
+		table.addLine(new String[] {NumberTools.formatNumberMax(numbers[nr++]),"",Language.tr("Statistics.Median"),"","=MEDIAN("+range+")"});
 		table.addLine(new String[] {NumberTools.formatNumberMax(numbers[nr++])});
 		table.addLine(new String[] {NumberTools.formatNumberMax(numbers[nr++]),"",Language.tr("Distribution.Range")+" "+Language.tr("Distribution.Range.from"),Language.tr("Distribution.Range")+" "+Language.tr("Distribution.Range.to"),Language.tr("Distribution.Range")+" "+Language.tr("Distribution.Range.center"),Language.tr("Statistics.Frequency")});
 		final int frequencyDistributionStartRow=nr+1;

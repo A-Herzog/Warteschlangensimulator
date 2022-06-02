@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-05-28 12:26+0200\n"
+"POT-Creation-Date: 2022-06-01 09:42+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -21191,6 +21191,9 @@ msgstr "Maximum time"
 msgid "Statistics.MaximumWaitingTime"
 msgstr "Maximum waiting time"
 
+msgid "Statistics.Median"
+msgstr "Median"
+
 msgid "Statistics.MinimalInterArrivalTime"
 msgstr "Minimal inter-arrival time"
 
@@ -21238,6 +21241,12 @@ msgstr "Minimum waiting time"
 
 msgid "Statistics.Minutes"
 msgstr "Minutes"
+
+msgid "Statistics.Mode"
+msgstr "Mode"
+
+msgid "Statistics.Mode.Plural"
+msgstr "Modes"
 
 msgid "Statistics.ModelDescription"
 msgstr "Station descriptions"
