@@ -216,7 +216,7 @@ public class ScaledImageCache {
 		int oldW=original.getWidth(null);
 		int oldH=original.getHeight(null);
 		int newW, newH;
-		if (oldW/oldH*height>width) {
+		if (((double)oldW)/oldH*height>width) {
 			newH=(int)FastMath.round(((double)oldH)/oldW*width);
 			newW=width;
 		} else {
@@ -238,7 +238,7 @@ public class ScaledImageCache {
 		int oldW=original.getWidth(null);
 		int oldH=original.getHeight(null);
 		int newW, newH;
-		if (oldW/oldH*height>width) {
+		if (((double)oldW)/oldH*height>width) {
 			newH=(int)FastMath.round(((double)oldH)/oldW*width);
 			newW=width;
 		} else {
@@ -279,7 +279,7 @@ public class ScaledImageCache {
 		/* Größe des skalierten Bildes (evtl. nicht formatfüllend, weil im korrekten Seitenverhältnis) bestimmen */
 		int[] newSize=calcScaledSize(original,width,height);
 		/* In neues Bild einzeichnen */
-		scaledImage.getGraphics().drawImage(original,(width-newSize[0])/2,(height-newSize[1])/2,width,height,null);
+		scaledImage.getGraphics().drawImage(original,(width-newSize[0])/2,(height-newSize[1])/2,newSize[0],newSize[1],null);
 
 		/* In Cache speichern und zurück geben */
 		storeToCache(hash,scaledImage,width,height);
