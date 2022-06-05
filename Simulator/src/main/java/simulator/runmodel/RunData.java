@@ -1667,7 +1667,12 @@ public class RunData {
 			simData.runData.setClientVariableValues(null);
 			for (int i=0;i<freeResourcesListenerPriority.length;i++) {
 				if (freeResourcesListenerPriorityConst[i]!=null) {
-					freeResourcesListenerCurrentPriority[i]=freeResourcesListenerPriorityConst[i];
+					final double value=freeResourcesListenerCurrentPriority[i]=freeResourcesListenerPriorityConst[i];
+					if (allTheSamePriority) {
+						if (i==0) samePriorityValue=value; else {
+							if (value!=samePriorityValue) allTheSamePriority=false;
+						}
+					}
 				} else {
 					try {
 						final double value=NumberTools.fastBoxedValue(freeResourcesListenerPriority[i].calc(variableValues,simData,null));
