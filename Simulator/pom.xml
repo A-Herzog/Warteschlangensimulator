@@ -51,13 +51,13 @@
 	<dependency>
     		<groupId>org.firebirdsql.jdbc</groupId>
     		<artifactId>jaybird</artifactId>
-    		<version>4.0.5.java8</version>
+    		<version>4.0.6.java8</version>
 	</dependency>
 	<!-- https://mvnrepository.com/artifact/org.mariadb.jdbc/mariadb-java-client -->
 	<dependency>
     		<groupId>org.mariadb.jdbc</groupId>
     		<artifactId>mariadb-java-client</artifactId>
-    		<version>3.0.3</version>
+    		<version>3.0.5</version>
 	</dependency>
 	<!-- https://mvnrepository.com/artifact/org.nanohttpd/nanohttpd -->
 	<!--
@@ -77,7 +77,7 @@
 	<dependency>
     		<groupId>org.postgresql</groupId>
     		<artifactId>postgresql</artifactId>
-    		<version>42.3.3</version>
+    		<version>42.3.6</version>
 	</dependency>
 	<!-- https://mvnrepository.com/artifact/net.sf.ucanaccess/ucanaccess -->
 	<dependency>
@@ -113,13 +113,13 @@
 	<dependency>
     		<groupId>org.commonmark</groupId>
     		<artifactId>commonmark</artifactId>
-    		<version>0.18.2</version>
+    		<version>0.19.0</version>
 	</dependency>
 	<!-- https://mvnrepository.com/artifact/org.commonmark/commonmark-ext-autolink -->
 	<dependency>
     		<groupId>org.commonmark</groupId>
     		<artifactId>commonmark-ext-autolink</artifactId>
-    		<version>0.18.2</version>
+    		<version>0.19.0</version>
 	</dependency>
 	<!-- https://mvnrepository.com/artifact/org.jdatepicker/jdatepicker -->
 	<dependency>
@@ -180,7 +180,7 @@
 	<dependency>
 		<groupId>com.h2database</groupId>
 		<artifactId>h2</artifactId>
-		<version>2.1.210</version>
+		<version>2.1.212</version>
 	</dependency>
 	<!-- local -->
 	<dependency>
@@ -198,8 +198,41 @@
         <excludes><exclude>**/*.java</exclude></excludes>
       </resource>
     </resources>
+    
+    <pluginManagement>
+      <plugins>
+          <plugin>
+              <groupId>org.cyclonedx</groupId>
+              <artifactId>cyclonedx-maven-plugin</artifactId>
+              <version>2.7.0</version>
+              <executions>
+                <execution>
+                    <id>cyclonedx-aggregate</id>
+                    <phase>verify</phase>
+                    <goals>
+                        <goal>makeAggregateBom</goal>
+                    </goals>
+                </execution>
+              </executions>
+              <configuration>
+                <includeCompileScope>true</includeCompileScope>
+                <includeProvidedScope>true</includeProvidedScope>
+                <includeRuntimeScope>true</includeRuntimeScope>
+                <includeSystemScope>true</includeSystemScope>
+                <includeTestScope>false</includeTestScope>
+              </configuration>
+          </plugin>
+      </plugins>
+    </pluginManagement>
 
     <plugins>
+    
+      <plugin>
+        <groupId>org.cyclonedx</groupId>
+        <artifactId>cyclonedx-maven-plugin</artifactId>
+        <inherited>false</inherited>
+      </plugin>
+    
 
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
