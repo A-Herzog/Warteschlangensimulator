@@ -464,8 +464,14 @@ public class JDistributionEditorPanel extends JPanel {
 		final String[] text=records.get(index).getValues(distribution);
 		for (int i=0;i<text.length;i++) currentFields[i].setText(text[i]);
 
-		distributionType.setSelectedIndex(index);
-		((CardLayout)editPanel.getLayout()).show(editPanel,records.get(index).getName());
+		listUpdating=true;
+		try {
+			distributionType.setSelectedIndex(index);
+			((CardLayout)editPanel.getLayout()).show(editPanel,records.get(index).getName());
+			lastIndex=index;
+		} finally {
+			listUpdating=false;
+		}
 
 		if (dataChangedNotify!=null) dataChangedNotify.actionPerformed(new ActionEvent(this,AWTEvent.RESERVED_ID_MAX+1,""));
 	}
