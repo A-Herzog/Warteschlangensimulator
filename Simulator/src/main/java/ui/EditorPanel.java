@@ -934,6 +934,7 @@ public final class EditorPanel extends EditorPanelBase {
 		navigatorButtonSearch.setVisible(callbackElementSearch!=null);
 		navigatorButtonList.setVisible(callbackElementList!=null);
 		new PanelSlider(rightArea,navigatorVisible,fast || !SetupData.getSetup().useAnimations,()->fireNavigatorVisibleChanged());
+		if (navigatorVisible) updateNavigatorList();
 	}
 
 	/**
@@ -1590,6 +1591,8 @@ public final class EditorPanel extends EditorPanelBase {
 	private void updateNavigatorList() {
 		if (surfacePanel==null) return;
 		if (surfacePanel.isOperationRunning()) return;
+		if (!isNavigatorVisible()) return;
+
 		final ModelSurface surface=surfacePanel.getSurface();
 		if (surface==null) return;
 
@@ -1611,12 +1614,22 @@ public final class EditorPanel extends EditorPanelBase {
 				.map(element->(ModelElementBox)element)
 				.sorted((e1,e2)->navigatorCompare(e1,e2))
 				.collect(Collectors.toList());
-		if (navigatorModel.getSize()!=boxElements.size()) {
-			navigatorModel.clear();
-			for (ModelElementBox element: boxElements) navigatorModel.addElement(element);
+
+		if (boxElements.size()<20) {
+			/* Spart Speicher, aber wird bei vielen Elementen sehr langsam */
+			if (navigatorModel.getSize()!=boxElements.size()) {
+				navigatorModel.clear();
+				for (ModelElementBox element: boxElements) navigatorModel.addElement(element);
+			} else {
+				for (int i=0;i<boxElements.size();i++) if (navigatorModel.getElementAt(i)!=boxElements.get(i)) navigatorModel.setElementAt(boxElements.get(i),i);
+			}
 		} else {
-			for (int i=0;i<boxElements.size();i++) if (navigatorModel.getElementAt(i)!=boxElements.get(i)) navigatorModel.setElementAt(boxElements.get(i),i);
+			/* Erst alle Elemente anlegen, dann einfügen */
+			navigatorModel=new DefaultListModel<>();
+			for (ModelElementBox element: boxElements) navigatorModel.addElement(element);
+			navigator.setModel(navigatorModel);
 		}
+
 		final int navigatorIndex=boxElements.indexOf(surface.getSelectedElement());
 		if (navigatorIndex>=0) {
 			navigator.setSelectedIndex(navigatorIndex);
