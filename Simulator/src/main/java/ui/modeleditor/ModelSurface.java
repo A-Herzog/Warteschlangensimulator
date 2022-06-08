@@ -1538,6 +1538,24 @@ public final class ModelSurface {
 	}
 
 	/**
+	 * Liefert die minimal in der Elementenliste auftretende ID
+	 * @param list	Elementenliste von der die minimale ID bestimmt werden soll
+	 * @return	Minimal ID oder <code>null</code>, wenn die Liste leer oder <code>null</code> ist
+	 */
+	private static int getMinId(final List<ModelElement> list) {
+		if (list==null || list.isEmpty()) return 0;
+		int minId=Integer.MAX_VALUE;
+		for (ModelElement element: list) {
+			minId=FastMath.min(minId,element.getId());
+			if (element instanceof ModelElementSub) {
+				final int subMinId=getMinId(((ModelElementSub)element).getSubSurface().getElements());
+				if (subMinId>0) minId=FastMath.min(minId,subMinId);
+			}
+		}
+		return minId;
+	}
+
+	/**
 	 * Fügt die Daten aus einem in die Zwischenablage kopierten Stream in das Modell ein
 	 * @param stream	Stream, der die Daten enthält
 	 * @param point	Punkt (Mauskoordinaten), an dem die Elemente eingefügt werden sollen
@@ -1554,7 +1572,8 @@ public final class ModelSurface {
 		} else {
 			int maxId;
 			if (parentSurface!=null) maxId=parentSurface.getMaxId(); else maxId=getMaxId();
-			for (ModelElement element: temp.elements) element.setId(element.getId()+maxId+1);
+			final  int minId=getMinId(temp.elements);
+			for (ModelElement element: temp.elements) element.setId(element.getId()-minId+maxId+1);
 		}
 
 		/* Obere linke Ecke der einzufügenden Elemente bestimmen */
