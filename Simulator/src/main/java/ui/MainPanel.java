@@ -341,8 +341,14 @@ public class MainPanel extends MainPanelBase {
 	private JRadioButtonMenuItem menuViewGridOff;
 	/** Menüpunkt "Ansicht" - "Raster" - "Punktraster" */
 	private JRadioButtonMenuItem menuViewGridDots;
+	/** Menüpunkt "Ansicht" - "Raster" - "Kleine Pluszeichen" */
+	private JRadioButtonMenuItem menuViewGridSmallPlus;
+	/** Menüpunkt "Ansicht" - "Raster" - "Große Pluszeichen" */
+	private JRadioButtonMenuItem menuViewGridLargePlus;
 	/** Menüpunkt "Ansicht" - "Raster" - "Linienraster" */
 	private JRadioButtonMenuItem menuViewGridLines;
+	/** Menüpunkt "Ansicht" - "Raster" - "Intensives Linienraster" */
+	private JRadioButtonMenuItem menuViewGridDarkLines;
 	/** Menüpunkt "Ansicht" - "Statistik auf Zeichenfläche" - "Statistikinformationen in Tooltips" */
 	private JCheckBoxMenuItem menuViewStatisticsTooltips;
 	/** Menüpunkt "Ansicht" - "Statistik auf Zeichenfläche" -Heatmap-Modi */
@@ -661,7 +667,10 @@ public class MainPanel extends MainPanelBase {
 		addAction("ViewRulers",e->commandViewRulers());
 		addAction("ViewRasterOff",e->commandViewRaster(ModelSurface.Grid.OFF));
 		addAction("ViewRasterDots",e->commandViewRaster(ModelSurface.Grid.DOTS));
+		addAction("ViewRasterSmallPlus",e->commandViewRaster(ModelSurface.Grid.SMALL_PLUS));
+		addAction("ViewRasterLargePlus",e->commandViewRaster(ModelSurface.Grid.LARGE_PLUS));
 		addAction("ViewRasterRaster",e->commandViewRaster(ModelSurface.Grid.LINES));
+		addAction("ViewRasterDarkRaster",e->commandViewRaster(ModelSurface.Grid.DARK_LINES));
 		addAction("ViewStatisticsInfo",e->commandViewStatisticsInfo());
 		for (EditorPanelStatistics.HeatMapMode mode: EditorPanelStatistics.HeatMapMode.values()) {
 			final EditorPanelStatistics.HeatMapMode finalMode=mode;
@@ -855,7 +864,10 @@ public class MainPanel extends MainPanelBase {
 		/* Ansicht - Raster */
 		menuViewGridOff.setSelected(setup.grid==ModelSurface.Grid.OFF);
 		menuViewGridDots.setSelected(setup.grid==ModelSurface.Grid.DOTS);
+		menuViewGridSmallPlus.setSelected(setup.grid==ModelSurface.Grid.SMALL_PLUS);
+		menuViewGridLargePlus.setSelected(setup.grid==ModelSurface.Grid.LARGE_PLUS);
 		menuViewGridLines.setSelected(setup.grid==ModelSurface.Grid.LINES);
+		menuViewGridDarkLines.setSelected(setup.grid==ModelSurface.Grid.DARK_LINES);
 		editorPanel.setRaster(setup.grid);
 
 		/* Ansicht - Statistik - Tooltips anzeigen */
@@ -1216,10 +1228,16 @@ public class MainPanel extends MainPanelBase {
 		submenu.setIcon(Images.EDIT_VIEW_RASTER.getIcon());
 		enabledOnEditorPanel.add(menuViewGridOff=createRadioButtonMenuItem(submenu,Language.tr("Main.Menu.View.ShowRaster.Off"),Language.tr("Main.Menu.View.ShowRaster.Off.Mnemonic"),"ViewRasterOff"));
 		enabledOnEditorPanel.add(menuViewGridDots=createRadioButtonMenuItem(submenu,Language.tr("Main.Menu.View.ShowRaster.Dots"),Language.tr("Main.Menu.View.ShowRaster.Dots.Mnemonic"),"ViewRasterDots"));
+		enabledOnEditorPanel.add(menuViewGridSmallPlus=createRadioButtonMenuItem(submenu,Language.tr("Main.Menu.View.ShowRaster.SmallPlus"),Language.tr("Main.Menu.View.ShowRaster.SmallPlus.Mnemonic"),"ViewRasterSmallPlus"));
+		enabledOnEditorPanel.add(menuViewGridLargePlus=createRadioButtonMenuItem(submenu,Language.tr("Main.Menu.View.ShowRaster.LargePlus"),Language.tr("Main.Menu.View.ShowRaster.LargePlus.Mnemonic"),"ViewRasterLargePlus"));
 		enabledOnEditorPanel.add(menuViewGridLines=createRadioButtonMenuItem(submenu,Language.tr("Main.Menu.View.ShowRaster.Raster"),Language.tr("Main.Menu.View.ShowRaster.Raster.Mnemonic"),"ViewRasterRaster"));
+		enabledOnEditorPanel.add(menuViewGridDarkLines=createRadioButtonMenuItem(submenu,Language.tr("Main.Menu.View.ShowRaster.DarkRaster"),Language.tr("Main.Menu.View.ShowRaster.DarkRaster.Mnemonic"),"ViewRasterDarkRaster"));
 		menuViewGridOff.setSelected(setup.grid==ModelSurface.Grid.OFF);
 		menuViewGridDots.setSelected(setup.grid==ModelSurface.Grid.DOTS);
+		menuViewGridSmallPlus.setSelected(setup.grid==ModelSurface.Grid.SMALL_PLUS);
+		menuViewGridLargePlus.setSelected(setup.grid==ModelSurface.Grid.LARGE_PLUS);
 		menuViewGridLines.setSelected(setup.grid==ModelSurface.Grid.LINES);
+		menuViewGridDarkLines.setSelected(setup.grid==ModelSurface.Grid.DARK_LINES);
 
 		menu.add(submenu=new JMenu(Language.tr("Main.Menu.View.StatisticInfo")));
 		setMnemonic(submenu,Language.tr("Main.Menu.View.StatisticInfo.Mnemonic"));

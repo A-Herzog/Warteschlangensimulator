@@ -96,9 +96,19 @@ public final class ModelSurface {
 	public static final Color DEFAULT_RASTER_COLOR=new Color(240,240,240);
 
 	/**
+	 * Intensivere Standardfarbe des Rasters
+	 */
+	public static final Color DEFAULT_RASTER_COLOR_DARKER=new Color(230,230,230);
+
+	/**
 	 * Standardfarbe des Rasters (für das dunkle Layout)
 	 */
 	public static final Color DEFAULT_DARK_RASTER_COLOR=new Color(72,72,72);
+
+	/**
+	 * Intensivere Standardfarbe des Rasters (für das dunkle Layout)
+	 */
+	public static final Color DEFAULT_DARK_RASTER_COLOR_DARKER=new Color(85,85,85);
 
 	/**
 	 * Zeitbasis für Bedien-, Transport-, Verzögerungs- usw. Zeiten.
@@ -158,8 +168,14 @@ public final class ModelSurface {
 		OFF("off"),
 		/** Punktraster anzeigen */
 		DOTS("dots"),
+		/** Kleine Plus-Zeichen anzeigen */
+		SMALL_PLUS("plus"),
+		/** Große Plus-Zeichen anzeigen */
+		LARGE_PLUS("bigplus"),
 		/** Linienraster anzeigen */
-		LINES("raster");
+		LINES("raster"),
+		/** Dunkles Linienraster anzeigen */
+		DARK_LINES("darkraster");
 
 		/** ID der Raster-Anzeige-Art für das Setup */
 		public final String id;
@@ -637,9 +653,17 @@ public final class ModelSurface {
 		Color backgroundColor=DEFAULT_BACKGROUND_COLOR;
 		Color backgroundColorGradient=null;
 		Color rasterColor=DEFAULT_RASTER_COLOR;
+		Color rasterColorDarker=DEFAULT_RASTER_COLOR_DARKER;
 		if (colors!=null && colors.length>=2) {
 			if (colors[0]!=null) backgroundColor=colors[0];
-			if (colors[1]!=null) rasterColor=colors[1];
+			if (colors[1]!=null) {
+				rasterColor=colors[1];
+				if (FlatLaFHelper.isDark()) {
+					if (rasterColor.equals(DEFAULT_RASTER_COLOR)) rasterColorDarker=DEFAULT_DARK_RASTER_COLOR_DARKER;
+				} else {
+					if (rasterColor.equals(DEFAULT_RASTER_COLOR)) rasterColorDarker=DEFAULT_RASTER_COLOR_DARKER; else rasterColorDarker=rasterColor.brighter();
+				}
+			}
 			if (colors.length==3) backgroundColorGradient=colors[2];
 		}
 
@@ -647,6 +671,7 @@ public final class ModelSurface {
 			if (backgroundColor.equals(DEFAULT_BACKGROUND_COLOR)) backgroundColor=DEFAULT_DARK_BACKGROUND_COLOR;
 			if (backgroundColorGradient!=null && backgroundColorGradient.equals(DEFAULT_BACKGROUND_GRADIENT_COLOR)) backgroundColorGradient=DEFAULT_DARK_BACKGROUND_GRADIENT_COLOR;
 			if (rasterColor.equals(DEFAULT_RASTER_COLOR)) rasterColor=DEFAULT_DARK_RASTER_COLOR;
+			if (rasterColorDarker.equals(DEFAULT_RASTER_COLOR_DARKER)) rasterColorDarker=DEFAULT_DARK_RASTER_COLOR;
 		}
 
 		final boolean useHighContrasts=SetupData.getSetup().useHighContrasts;
@@ -670,7 +695,7 @@ public final class ModelSurface {
 
 		/* Erst Raster zeichnen, dann Bild darüber */
 		if (showBackground==BackgroundImageMode.IN_FRONT_OF_RASTER) {
-			drawRasterToGraphics(graphics,drawRect,zoom,raster,rasterColor);
+			drawRasterToGraphics(graphics,drawRect,zoom,raster,rasterColor,rasterColorDarker);
 		}
 
 		/* Hintergrundbild */
@@ -683,7 +708,7 @@ public final class ModelSurface {
 
 		/* Erst Bild zeichnen, dann Raster darüber */
 		if (showBackground!=BackgroundImageMode.IN_FRONT_OF_RASTER) {
-			drawRasterToGraphics(graphics,drawRect,zoom,raster,rasterColor);
+			drawRasterToGraphics(graphics,drawRect,zoom,raster,rasterColor,rasterColorDarker);
 		}
 	}
 
@@ -694,26 +719,57 @@ public final class ModelSurface {
 	 * @param zoom	Zoomfaktor
 	 * @param raster	Raster anzeigen?
 	 * @param rasterColor	Farbe für das Raster
+	 * @param darkerRasterColor	Farbe für das Raster im Modus "dunkler"
 	 */
-	private void drawRasterToGraphics(final Graphics graphics, final Rectangle drawRect, final double zoom, final Grid raster, final Color rasterColor) {
-		graphics.setColor(rasterColor);
+	private void drawRasterToGraphics(final Graphics graphics, final Rectangle drawRect, final double zoom, final Grid raster, final Color rasterColor, final Color darkerRasterColor) {
+		switch (raster) {
+		case OFF:
+			/* Kein Raster */
+			break;
+		case DOTS:
+		case SMALL_PLUS:
+		case LARGE_PLUS:
+		case LINES:
+			graphics.setColor(rasterColor);
+			break;
+		case DARK_LINES:
+			graphics.setColor(darkerRasterColor);
+			break;
+		}
+
 		final int step=(int)FastMath.round(50*zoom);
-		final int pointSize=(int)FastMath.round(3*zoom);
+		final int pointSizeSmall=Math.max(1,(int)FastMath.round(zoom));
+		final int pointSizeDefault=Math.max(1,(int)FastMath.round(3*zoom));
+		final int pointSizeLarge=Math.max(1,(int)FastMath.round(10*zoom));
 		final int xStart=(int)FastMath.round(FastMath.ceil(((double)drawRect.x)/step)*step);
 		final int xEnd=(int)FastMath.round(FastMath.floor(((double)(drawRect.x+drawRect.width))/step)*step);
 		final int yStart=(int)FastMath.round(FastMath.ceil(((double)drawRect.y)/step)*step);
 		final int yEnd=(int)FastMath.round(FastMath.floor(((double)(drawRect.y+drawRect.height))/step)*step);
+
 		switch (raster) {
 		case OFF:
 			/* Kein Raster */
 			break;
 		case DOTS:
 			for (int x=xStart;x<=xEnd;x+=step) for (int y=yStart;y<=yEnd;y+=step) {
-				graphics.drawLine(x-pointSize,y,x+pointSize,y);
-				graphics.drawLine(x,y-pointSize,x,y+pointSize);
+				graphics.drawLine(x-pointSizeSmall,y,x+pointSizeSmall,y);
+				graphics.drawLine(x,y-pointSizeSmall,x,y+pointSizeSmall);
+			}
+			break;
+		case SMALL_PLUS:
+			for (int x=xStart;x<=xEnd;x+=step) for (int y=yStart;y<=yEnd;y+=step) {
+				graphics.drawLine(x-pointSizeDefault,y,x+pointSizeDefault,y);
+				graphics.drawLine(x,y-pointSizeDefault,x,y+pointSizeDefault);
+			}
+			break;
+		case LARGE_PLUS:
+			for (int x=xStart;x<=xEnd;x+=step) for (int y=yStart;y<=yEnd;y+=step) {
+				graphics.drawLine(x-pointSizeLarge,y,x+pointSizeLarge,y);
+				graphics.drawLine(x,y-pointSizeLarge,x,y+pointSizeLarge);
 			}
 			break;
 		case LINES:
+		case DARK_LINES:
 			for (int x=xStart;x<=xEnd;x+=step) graphics.drawLine(x,drawRect.y,x,drawRect.y+drawRect.height);
 			for (int y=yStart;y<=yEnd;y+=step) graphics.drawLine(drawRect.x,y,drawRect.x+drawRect.width,y);
 			break;

@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-06-01 09:42+0200\n"
+"POT-Creation-Date: 2022-06-09 00:50+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -10342,11 +10342,23 @@ msgstr "I"
 msgid "Main.Menu.View.ShowRaster"
 msgstr "Raster"
 
+msgid "Main.Menu.View.ShowRaster.DarkRaster"
+msgstr "Intensives Linienraster"
+
+msgid "Main.Menu.View.ShowRaster.DarkRaster.Mnemonic"
+msgstr "I"
+
 msgid "Main.Menu.View.ShowRaster.Dots"
 msgstr "Punktraster"
 
 msgid "Main.Menu.View.ShowRaster.Dots.Mnemonic"
 msgstr "P"
+
+msgid "Main.Menu.View.ShowRaster.LargePlus"
+msgstr "Große Pluszeichen"
+
+msgid "Main.Menu.View.ShowRaster.LargePlus.Mnemonic"
+msgstr "G"
 
 msgid "Main.Menu.View.ShowRaster.Mnemonic"
 msgstr "R"
@@ -10362,6 +10374,12 @@ msgstr "Linienraster"
 
 msgid "Main.Menu.View.ShowRaster.Raster.Mnemonic"
 msgstr "L"
+
+msgid "Main.Menu.View.ShowRaster.SmallPlus"
+msgstr "Kleine Pluszeichen"
+
+msgid "Main.Menu.View.ShowRaster.SmallPlus.Mnemonic"
+msgstr "K"
 
 msgid "Main.Menu.View.ShowRulers"
 msgstr "Lineale anzeigen"
@@ -17104,9 +17122,6 @@ msgstr "Die von Element id=%d umbenannten Kunden besitzen keinen Namen."
 
 msgid "Simulation.Creator.NoCancelationEdge"
 msgstr "Für Element id=%d wurde keine Ausgangskante für Warteabbrecher eingetragen, obwohl Warteabbrecher auftreten können."
-
-msgid "Simulation.Creator.NoClientTypeInDecide"
-msgstr "Bei Element id=%d sollen Kunden des Typs \"%s\" zur %d. Ausgangskante weitergeleitet werden. Es gibt jedoch keine Kunden dieses Typs."
 
 msgid "Simulation.Creator.NoConnectedQueue"
 msgstr "Element id=%d besitzt keine verknüpfte Warteschlange."
@@ -34074,6 +34089,9 @@ msgstr "Das Dateiformat wurde nicht erkannt bzw. passt zu keinem Dateiformat die
 
 #~ msgid "SettingsDilog.Tabs.License.GetLicense.Prompt"
 #~ msgstr "Globaler Schlüssel zur Lizensierung dieses Computers"
+
+#~ msgid "Simulation.Creator.NoClientTypeInDecide"
+#~ msgstr "Bei Element id=%d sollen Kunden des Typs \"%s\" zur %d. Ausgangskante weitergeleitet werden. Es gibt jedoch keine Kunden dieses Typs."
 
 #~ msgid "Simulation.Creator.NoLicense"
 #~ msgstr "Diese Programmversion ist nicht lizensiert. Die Simulation kann nicht gestartet werden."

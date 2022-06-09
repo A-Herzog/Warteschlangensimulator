@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-06-01 09:42+0200\n"
+"POT-Creation-Date: 2022-06-09 00:50+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -10346,11 +10346,23 @@ msgstr "I"
 msgid "Main.Menu.View.ShowRaster"
 msgstr "Grid"
 
+msgid "Main.Menu.View.ShowRaster.DarkRaster"
+msgstr "Intense line grid"
+
+msgid "Main.Menu.View.ShowRaster.DarkRaster.Mnemonic"
+msgstr "I"
+
 msgid "Main.Menu.View.ShowRaster.Dots"
 msgstr "Dot grid"
 
 msgid "Main.Menu.View.ShowRaster.Dots.Mnemonic"
 msgstr "D"
+
+msgid "Main.Menu.View.ShowRaster.LargePlus"
+msgstr "Large plus signs"
+
+msgid "Main.Menu.View.ShowRaster.LargePlus.Mnemonic"
+msgstr "L"
 
 msgid "Main.Menu.View.ShowRaster.Mnemonic"
 msgstr "R"
@@ -10366,6 +10378,12 @@ msgstr "Line grid"
 
 msgid "Main.Menu.View.ShowRaster.Raster.Mnemonic"
 msgstr "L"
+
+msgid "Main.Menu.View.ShowRaster.SmallPlus"
+msgstr "Small plus signs"
+
+msgid "Main.Menu.View.ShowRaster.SmallPlus.Mnemonic"
+msgstr "S"
 
 msgid "Main.Menu.View.ShowRulers"
 msgstr "Show rulers"
@@ -17095,9 +17113,6 @@ msgstr "The clients renamed by element id=%d do not have a new name."
 
 msgid "Simulation.Creator.NoCancelationEdge"
 msgstr "For element id=%d no output edge for waiting cancelation is conencted. But clients can cancel waiting at this station."
-
-msgid "Simulation.Creator.NoClientTypeInDecide"
-msgstr "At element id=%d client of the type \"%s\" are forwarded to the %d th outgoing edge. But there are no clients of this type."
 
 msgid "Simulation.Creator.NoConnectedQueue"
 msgstr "Element id=%s has no connected queue."
@@ -34029,6 +34044,9 @@ msgstr "The file format is unknown respectively is not matching to any of the fi
 
 #~ msgid "SettingsDilog.Tabs.License.GetLicense.Prompt"
 #~ msgstr "Global key to license this computer"
+
+#~ msgid "Simulation.Creator.NoClientTypeInDecide"
+#~ msgstr "At element id=%d client of the type \"%s\" are forwarded to the %d th outgoing edge. But there are no clients of this type."
 
 #~ msgid "Simulation.Creator.NoLicense"
 #~ msgstr "This program version is not licensed. The simulation cannot be started."
