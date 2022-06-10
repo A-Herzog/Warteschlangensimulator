@@ -295,6 +295,12 @@
 		<copy file="${SimTools.location}/LICENSE_COMPONENTS.md" tofile="${Release.location}/docs/license_components_simtools.md"/>
 		<copy file="${SimSystem.location}/LICENSE_COMPONENTS.md" tofile="${Release.location}/docs/license_components_simsystem.md"/>
 		<copy file="${Simulator.location}/../LICENSE" tofile="${Release.location}/docs/license.txt"/>
+		<copy file="${Simulator.location}/target/bom.json" tofile="${Release.location}/docs/bom-Simulator.json"/>
+		<copy file="${Simulator.location}/target/bom.xml" tofile="${Release.location}/docs/bom-Simulator.xml"/>
+		<copy file="${SimTools.location}/target/bom.json" tofile="${Release.location}/docs/bom-SimTools.json"/>
+		<copy file="${SimTools.location}/target/bom.xml" tofile="${Release.location}/docs/bom-SimTools.xml"/>
+		<copy file="${SimSystem.location}/target/bom.json" tofile="${Release.location}/docs/bom-SimSystem.json"/>
+		<copy file="${SimSystem.location}/target/bom.xml" tofile="${Release.location}/docs/bom-SimSystem.xml"/>
 		
 		<echo message="Copy tools files" />
 		<copy todir="${Release.location}/tools">
