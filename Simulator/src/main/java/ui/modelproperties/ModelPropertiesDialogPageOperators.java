@@ -18,6 +18,7 @@ package ui.modelproperties;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 
+import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -65,6 +66,7 @@ public class ModelPropertiesDialogPageOperators extends ModelPropertiesDialogPag
 		content.add(new JScrollPane(table),BorderLayout.CENTER);
 
 		final JPanel setupArea=new JPanel(new FlowLayout(FlowLayout.LEFT));
+
 		final JLabel label=new JLabel(Language.tr("Resources.SecondaryPriority")+": ");
 		setupArea.add(label);
 		setupArea.add(secondaryResourcePriority=new JComboBox<>(new String[]{
@@ -75,7 +77,6 @@ public class ModelPropertiesDialogPageOperators extends ModelPropertiesDialogPag
 				Images.MODELPROPERTIES_PRIORITIES_RANDOM,
 				Images.MODELPROPERTIES_PRIORITIES_CLIENT
 		}));
-
 		label.setLabelFor(secondaryResourcePriority);
 		secondaryResourcePriority.setEnabled(!readOnly);
 		switch (dialog.localResources.secondaryResourcePriority) {
@@ -86,6 +87,11 @@ public class ModelPropertiesDialogPageOperators extends ModelPropertiesDialogPag
 			secondaryResourcePriority.setSelectedIndex(1);
 			break;
 		}
+
+		final JButton infoButton=new JButton(Language.tr("Resources.Usage"),Images.MODEL_ADD_STATION.getIcon());
+		infoButton.addActionListener(e->	new ModelPropertiesDialogPageOperatorsUsageDialog(dialog,model));
+		setupArea.add(infoButton);
+
 		content.add(setupArea,BorderLayout.SOUTH);
 	}
 

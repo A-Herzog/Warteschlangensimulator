@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-06-09 00:50+0200\n"
+"POT-Creation-Date: 2022-06-13 08:37+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -15002,7 +15002,7 @@ msgstr ""
 "The selected operators group is in use by the element with the following ID:"
 
 msgid "Resources.Group.RowTitle.Count"
-msgstr "Number"
+msgstr "Count"
 
 msgid "Resources.Group.RowTitle.Name"
 msgstr "Name"
@@ -15019,6 +15019,9 @@ msgstr "Increase number"
 msgid "Resources.Number.Infinite"
 msgstr "infinite"
 
+msgid "Resources.Number.bySchedule"
+msgstr "Count by schedule"
+
 msgid "Resources.SecondaryPriority"
 msgstr "Resource priority at a station in case of a tie"
 
@@ -15027,6 +15030,30 @@ msgstr "Client priority"
 
 msgid "Resources.SecondaryPriority.Random"
 msgstr "Station at random"
+
+msgid "Resources.Usage"
+msgstr "Resource usage"
+
+msgid "Resources.Usage.Dialog.Copy"
+msgstr "Copy"
+
+msgid "Resources.Usage.Dialog.Save"
+msgstr "Save"
+
+msgid "Resources.Usage.Dialog.Save.Failed.Info"
+msgstr ""
+"Saving the resource usage to file\n"
+"%s\n"
+"failed."
+
+msgid "Resources.Usage.Dialog.Save.Failed.Title"
+msgstr "Saving failed"
+
+msgid "Resources.Usage.Dialog.Save.Title"
+msgstr "Save resource usage"
+
+msgid "Resources.Usage.Dialog.Title"
+msgstr "Usage of the operator groups"
 
 msgid "SavedView.XML.Name"
 msgstr "Name"

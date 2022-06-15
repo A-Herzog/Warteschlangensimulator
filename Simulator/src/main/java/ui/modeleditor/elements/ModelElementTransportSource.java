@@ -19,7 +19,9 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Point;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.function.Consumer;
 
 import javax.swing.Icon;
@@ -39,6 +41,7 @@ import simulator.editmodel.FullTextSearch;
 import ui.images.Images;
 import ui.modeleditor.ModelClientData;
 import ui.modeleditor.ModelDataRenameListener;
+import ui.modeleditor.ModelDataResourceUsage;
 import ui.modeleditor.ModelSequences;
 import ui.modeleditor.ModelSurface;
 import ui.modeleditor.ModelSurfacePanel;
@@ -53,7 +56,7 @@ import ui.modeleditor.fastpaint.Shapes;
  * Routing Startpunkt
  * @author Alexander Herzog
  */
-public class ModelElementTransportSource extends ModelElementBox implements ModelDataRenameListener, ModelElementEdgeMultiIn, ModelElementAnimationForceMove {
+public class ModelElementTransportSource extends ModelElementBox implements ModelDataRenameListener, ModelElementEdgeMultiIn, ModelElementAnimationForceMove, ModelDataResourceUsage {
 	/**
 	 * Einlaufende Kanten
 	 */
@@ -609,5 +612,12 @@ public class ModelElementTransportSource extends ModelElementBox implements Mode
 
 		/* Namen der zugehörigen "Bereich betreten"-Station */
 		searcher.testString(this,Language.tr("Surface.TransportSource.Dialog.SectionEnd.SectionStart"),sectionStartName,newSectionStartName->{sectionStartName=newSectionStartName;});
+	}
+
+	@Override
+	public Map<String,Integer> getUsedResourcesInfo() {
+		final Map<String,Integer> map=new HashMap<>();
+		map.putAll(transportResourceRecord.getResources());
+		return map;
 	}
 }

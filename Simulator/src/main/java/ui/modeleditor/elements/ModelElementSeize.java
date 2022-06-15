@@ -18,6 +18,7 @@ package ui.modeleditor.elements;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Point;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeMap;
 import java.util.function.Consumer;
@@ -36,6 +37,7 @@ import simulator.editmodel.FullTextSearch;
 import ui.images.Images;
 import ui.modeleditor.ModelClientData;
 import ui.modeleditor.ModelDataRenameListener;
+import ui.modeleditor.ModelDataResourceUsage;
 import ui.modeleditor.ModelSequences;
 import ui.modeleditor.ModelSurface;
 import ui.modeleditor.ModelSurfacePanel;
@@ -51,7 +53,7 @@ import ui.modeleditor.fastpaint.Shapes;
  * @author Alexander Herzog
  * @see ModelElementRelease
  */
-public class ModelElementSeize extends ModelElementMultiInSingleOutBox implements ModelDataRenameListener, ModelElementAnimationForceMove {
+public class ModelElementSeize extends ModelElementMultiInSingleOutBox implements ModelDataRenameListener, ModelElementAnimationForceMove, ModelDataResourceUsage {
 	/**
 	 * Bedienergruppen und deren Anzahlen, die für die Bedienung der Kunden notwendig sind
 	 * @see #getNeededResources()
@@ -397,5 +399,12 @@ public class ModelElementSeize extends ModelElementMultiInSingleOutBox implement
 		/* Ressourcenzuordnung -> keine Suche */
 
 		searcher.testString(this,Language.tr("Surface.Seize.Dialog.ResourcePriority"),resourcePriority,newResourcePriority->{resourcePriority=newResourcePriority;});
+	}
+
+	@Override
+	public Map<String,Integer> getUsedResourcesInfo() {
+		final Map<String,Integer> map=new HashMap<>();
+		map.putAll(resources);
+		return map;
 	}
 }

@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-06-09 00:50+0200\n"
+"POT-Creation-Date: 2022-06-13 08:37+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -15024,6 +15024,9 @@ msgstr "Anzahl erhöhen"
 msgid "Resources.Number.Infinite"
 msgstr "unendlich viele"
 
+msgid "Resources.Number.bySchedule"
+msgstr "Anzahl gemäß Schichtplan"
+
 msgid "Resources.SecondaryPriority"
 msgstr "Ressourcenpriorität an einer Station bei Gleichstand"
 
@@ -15032,6 +15035,32 @@ msgstr "Kundenpriorität"
 
 msgid "Resources.SecondaryPriority.Random"
 msgstr "Station zufällig wählen"
+
+msgid "Resources.Usage"
+msgstr "Ressourcennutzung"
+
+msgid "Resources.Usage.Dialog.Copy"
+msgstr "Kopieren"
+
+msgid "Resources.Usage.Dialog.Save"
+msgstr "Speichern"
+
+msgid "Resources.Usage.Dialog.Save.Failed.Info"
+msgstr ""
+"Das Speichern der Ressourcennutzung in der Datei\n"
+"\n"
+"%s\n"
+"\n"
+"ist fehltgeschlagen."
+
+msgid "Resources.Usage.Dialog.Save.Failed.Title"
+msgstr "Speichern fehlgeschlagen"
+
+msgid "Resources.Usage.Dialog.Save.Title"
+msgstr "Ressourcennutzung speichern"
+
+msgid "Resources.Usage.Dialog.Title"
+msgstr "Nutzung der Bedienergruppen"
 
 msgid "SavedView.XML.Name"
 msgstr "Name"

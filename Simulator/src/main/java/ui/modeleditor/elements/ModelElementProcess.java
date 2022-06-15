@@ -19,6 +19,7 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Point;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
@@ -47,6 +48,7 @@ import ui.ModelChanger;
 import ui.images.Images;
 import ui.modeleditor.ModelClientData;
 import ui.modeleditor.ModelDataRenameListener;
+import ui.modeleditor.ModelDataResourceUsage;
 import ui.modeleditor.ModelResource;
 import ui.modeleditor.ModelSequences;
 import ui.modeleditor.ModelSurface;
@@ -67,7 +69,7 @@ import ui.parameterseries.ParameterCompareTemplatesDialog.TemplateRecord;
  * Hauptklasse für die Bearbeitung von Kunden (Warteschlange und Bedienschalter)
  * @author Alexander Herzog
  */
-public class ModelElementProcess extends ModelElementBox implements ModelDataRenameListener, ModelElementEdgeMultiIn, ModelElementEdgeMultiOut, ModelElementAnimationForceMove {
+public class ModelElementProcess extends ModelElementBox implements ModelDataRenameListener, ModelElementEdgeMultiIn, ModelElementEdgeMultiOut, ModelElementAnimationForceMove, ModelDataResourceUsage {
 	/**
 	 * Standardmäßige Priorität für Kundentypen
 	 */
@@ -1653,5 +1655,18 @@ public class ModelElementProcess extends ModelElementBox implements ModelDataRen
 
 		/* Kosten pro Nachbearbeitungssekunde */
 		searcher.testString(this,Language.tr("Surface.Process.Dialog.CostsPerPostProcessingSecond"),costsPerPostProcessSecond,newCostsPerPostProcessSecond->{costsPerPostProcessSecond=newCostsPerPostProcessSecond;});
+	}
+
+	@Override
+	public Map<String,Integer> getUsedResourcesInfo() {
+		final Map<String,Integer> map=new HashMap<>();
+
+		for (Map<String,Integer> alternative: resources) {
+			for (Map.Entry<String,Integer> entry: alternative.entrySet()) {
+				map.compute(entry.getKey(),(key,value)->(value==null)?entry.getValue():value+entry.getValue());
+			}
+		}
+
+		return map;
 	}
 }
