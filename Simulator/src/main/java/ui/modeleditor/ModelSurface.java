@@ -121,7 +121,10 @@ public final class ModelSurface {
 		TIMEBASE_MINUTES(1),
 
 		/** Zeitbasis: Stunden */
-		TIMEBASE_HOURS(2);
+		TIMEBASE_HOURS(2),
+
+		/** Zeitbasis: Tage */
+		TIMEBASE_DAYS(3);
 
 		/**
 		 * Interne ID des Zeitbasis-Wertes
@@ -154,6 +157,7 @@ public final class ModelSurface {
 			case 0: return TIMEBASE_SECONDS;
 			case 1: return TIMEBASE_MINUTES;
 			case 2: return TIMEBASE_HOURS;
+			case 3: return TIMEBASE_DAYS;
 			default: return TimeBase.TIMEBASE_SECONDS;
 			}
 		}
@@ -204,7 +208,7 @@ public final class ModelSurface {
 	/**
 	 * Multiplikatoren (relativ zu einer Sekunde) für die Zeitbasis-Werte
 	 */
-	private static final long[] TIMEBASE_MULTIPLY=new long[]{1,60,3600};
+	private static final long[] TIMEBASE_MULTIPLY=new long[]{1,60,3600,86400};
 
 	/**
 	 * Name des XML-Elements, das die Surface-Elemente enthält
@@ -332,7 +336,8 @@ public final class ModelSurface {
 		return new String[] {
 				Language.trPrimary("Surface.XML.TimeBase.Seconds"),
 				Language.trPrimary("Surface.XML.TimeBase.Minutes"),
-				Language.trPrimary("Surface.XML.TimeBase.Hours")
+				Language.trPrimary("Surface.XML.TimeBase.Hours"),
+				Language.trPrimary("Surface.XML.TimeBase.Days")
 		};
 	}
 
@@ -346,6 +351,7 @@ public final class ModelSurface {
 		case TIMEBASE_SECONDS: return Language.trPrimary("Surface.XML.TimeBase.Seconds");
 		case TIMEBASE_MINUTES: return Language.trPrimary("Surface.XML.TimeBase.Minutes");
 		case TIMEBASE_HOURS: return Language.trPrimary("Surface.XML.TimeBase.Hours");
+		case TIMEBASE_DAYS: return Language.trPrimary("Surface.XML.TimeBase.Days");
 		default: return Language.trPrimary("Surface.XML.TimeBase.Seconds");
 		}
 	}
@@ -360,6 +366,7 @@ public final class ModelSurface {
 		if (Language.trAll("Surface.XML.TimeBase.Seconds",timeBaseName)) return TimeBase.TIMEBASE_SECONDS;
 		if (Language.trAll("Surface.XML.TimeBase.Minutes",timeBaseName)) return TimeBase.TIMEBASE_MINUTES;
 		if (Language.trAll("Surface.XML.TimeBase.Hours",timeBaseName)) return TimeBase.TIMEBASE_HOURS;
+		if (Language.trAll("Surface.XML.TimeBase.Days",timeBaseName)) return TimeBase.TIMEBASE_DAYS;
 		return TimeBase.TIMEBASE_SECONDS;
 	}
 

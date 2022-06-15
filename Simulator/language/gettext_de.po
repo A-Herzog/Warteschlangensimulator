@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-06-13 08:37+0200\n"
+"POT-Creation-Date: 2022-06-15 08:05+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -32346,6 +32346,9 @@ msgstr "ProMinute"
 
 msgid "Surface.XML.Tank.Valve.TimeBase.PerSecond"
 msgstr "ProSekunde"
+
+msgid "Surface.XML.TimeBase.Days"
+msgstr "Tage"
 
 msgid "Surface.XML.TimeBase.Hours"
 msgstr "Stunden"
