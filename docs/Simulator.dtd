@@ -348,6 +348,7 @@
   IstTransferzeit	CDATA	#IMPLIED
   Anzahl            CDATA	#IMPLIED
   Kundenanzahl		CDATA	#IMPLIED
+  ErsteAnkunftBeiStart	CDATA	#IMPLIED
 >
 
 <!ELEMENT ModellElementAusdruck (#PCDATA)>
@@ -360,6 +361,7 @@
   Status			CDATA	#IMPLIED
   Anzahl            CDATA	#IMPLIED
   Kundenanzahl		CDATA	#IMPLIED
+  ErsteAnkunftBeiStart	CDATA	#IMPLIED
   Modus				CDATA	#IMPLIED
 >
 
@@ -2824,6 +2826,7 @@
   IsTransferTime	CDATA	#IMPLIED
   Count         	CDATA	#IMPLIED
   ClientCount      	CDATA	#IMPLIED
+  FirstArrivalAtStart	CDATA	#IMPLIED
 >
 
 <!ELEMENT ModelElementExpression (#PCDATA)>
@@ -2836,6 +2839,7 @@
   Status			CDATA	#IMPLIED
   Count         	CDATA	#IMPLIED
   ClientCount      	CDATA	#IMPLIED
+  FirstArrivalAtStart	CDATA	#IMPLIED
   Mode				CDATA	#IMPLIED
 >
 

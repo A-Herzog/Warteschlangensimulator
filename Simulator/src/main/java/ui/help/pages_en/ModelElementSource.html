@@ -62,6 +62,13 @@ starting the simulation. By defining some other start time the client generation
 (e.g. the first inter-arrival time before the first client arrival) will start at a later
 point of time.
 </p>
+<p>
+When generating arrivals with specific inter-arrival times (defined by a distribution
+or a calculation expression), the first inter-arrival time normally starts at the start time.
+The actual first arrival is then at start time+inter-arrival time. The option
+<b>First arrival at time 0</b> can be used to set the first arrival to occur
+directly at the start time.
+</p>
 
 <h3>Assignment of client variables</h3>
 

@@ -421,6 +421,7 @@
 	<xs:attribute name="IstTransferzeit" type="xs:integer"/>
     <xs:attribute name="Anzahl" type="xs:integer"/>
 	<xs:attribute name="Kundenanzahl" type="xs:integer"/>
+	<xs:attribute name="ErsteAnkunftBeiStart" type="xs:integer"/>
   </xs:extension>
 </xs:simpleContent></xs:complexType></xs:element>
 
@@ -434,6 +435,7 @@
 	<xs:attribute name="Status" type="xs:string"/>
     <xs:attribute name="Anzahl" type="xs:integer"/>
 	<xs:attribute name="Kundenanzahl" type="xs:integer"/>
+	<xs:attribute name="ErsteAnkunftBeiStart" type="xs:integer"/>
 	<xs:attribute name="Modus" type="xs:string"/>
   </xs:extension>
 </xs:simpleContent></xs:complexType></xs:element>
@@ -2669,6 +2671,7 @@
 	<xs:attribute name="IsTransferTime" type="xs:integer"/>
     <xs:attribute name="Count" type="xs:integer"/>
 	<xs:attribute name="ClientCount" type="xs:integer"/>
+	<xs:attribute name="FirstArrivalAtStart" type="xs:integer"/>
   </xs:extension>
 </xs:simpleContent></xs:complexType></xs:element>
 
@@ -2682,6 +2685,7 @@
 	<xs:attribute name="Status" type="xs:string"/>
 	<xs:attribute name="Count" type="xs:integer"/>
 	<xs:attribute name="ClientCount" type="xs:integer"/>
+	<xs:attribute name="FirstArrivalAtStart" type="xs:integer"/>
 	<xs:attribute name="Mode" type="xs:string"/>
   </xs:extension>
 </xs:simpleContent></xs:complexType></xs:element>

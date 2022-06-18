@@ -89,6 +89,8 @@ public class RunElementSourceRecord {
 	public int intervalExpressionsIntervalTime;
 	/** Intervallbasierte Anzahlen an Ankünften */
 	public String[] intervalExpressions;
+	/** Erste Ankunft zum Zeitpunkt 0? */
+	private boolean firstArrivalAt0;
 
 	/** Ankunfts-Batch-Größe oder <code>null</code>, wenn es mehrere verschiedene Batch-Größen geben soll */
 	public String batchSize;
@@ -158,6 +160,7 @@ public class RunElementSourceRecord {
 			arrivalStart=record.getArrivalStart();
 			if (arrivalStart<0) return new RunModelCreatorStatus(String.format(Language.tr("Simulation.Creator.SourceArrivalStart"),NumberTools.formatNumber(arrivalStart),id),RunModelCreatorStatus.Status.NEGATIVE_ARRIVAL_START_TIME);
 			arrivalStartMS=FastMath.round(arrivalStart*timeBaseMultiply*1000);
+			firstArrivalAt0=record.isFirstArrivalAt0();
 			break;
 		case NEXT_EXPRESSION:
 			final String expression=record.getInterarrivalTimeExpression();
@@ -167,6 +170,7 @@ public class RunElementSourceRecord {
 			arrivalStart=record.getArrivalStart();
 			if (arrivalStart<0) return new RunModelCreatorStatus(String.format(Language.tr("Simulation.Creator.SourceArrivalStart"),NumberTools.formatNumber(arrivalStart),id),RunModelCreatorStatus.Status.NEGATIVE_ARRIVAL_START_TIME);
 			arrivalStartMS=FastMath.round(arrivalStart*timeBaseMultiply*1000);
+			firstArrivalAt0=record.isFirstArrivalAt0();
 			break;
 		case NEXT_SCHEDULE:
 			ModelSchedule schedule=editModel.schedules.getSchedule(record.getInterarrivalTimeSchedule());
@@ -618,19 +622,27 @@ public class RunElementSourceRecord {
 		if (simData.runData.stopp) return 0;
 
 		if (distribution!=null) {
-			/* Zufällige Zwischenankunftszeit bestimmen */
-			double rawTimeDelta=DistributionRandomNumber.randomNonNegative(distribution);
+			final double rawTimeDelta;
+			if (isFirstArrival && firstArrivalAt0) {
+				rawTimeDelta=0;
+			} else {
+				rawTimeDelta=DistributionRandomNumber.randomNonNegative(distribution);
+			}
 			return scheduleNextArrivalTime(simData,rawTimeDelta,isFirstArrival,element,stationName);
 		}
 
 		if (recordData.expression!=null) {
 			simData.runData.setClientVariableValues(null);
 			double rawTimeDelta;
-			try {
-				rawTimeDelta=recordData.expression.calc(simData.runData.variableValues,simData,null);
-			} catch (MathCalcError e) {
-				simData.calculationErrorStation(recordData.expression,stationName);
+			if (isFirstArrival && firstArrivalAt0) {
 				rawTimeDelta=0;
+			} else {
+				try {
+					rawTimeDelta=recordData.expression.calc(simData.runData.variableValues,simData,null);
+				} catch (MathCalcError e) {
+					simData.calculationErrorStation(recordData.expression,stationName);
+					rawTimeDelta=0;
+				}
 			}
 			return scheduleNextArrivalTime(simData,rawTimeDelta,isFirstArrival,element,stationName);
 		}

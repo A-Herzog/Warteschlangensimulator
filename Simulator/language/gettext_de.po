@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-06-15 08:05+0200\n"
+"POT-Creation-Date: 2022-06-16 00:55+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -10743,6 +10743,9 @@ msgstr "Zwischenankunftszeitenverteilung"
 
 msgid "ModelDescription.Arrival.Expression"
 msgstr "Zwischenankunftszeitenausdruck"
+
+msgid "ModelDescription.Arrival.FirstArrivalAt0"
+msgstr "Erste Ankunft zum Zeitpunkt 0."
 
 msgid "ModelDescription.Arrival.IntervalExpressions"
 msgstr "Anzahl pro Intervall"
@@ -29887,6 +29890,9 @@ msgstr "Ausdruck fehlerhaft"
 msgid "Surface.Source.Dialog.Expression.Expression"
 msgstr "Ausdruck"
 
+msgid "Surface.Source.Dialog.FirstArrivalAt0"
+msgstr "Erste Ankunft zum Zeitpunkt 0"
+
 msgid "Surface.Source.Dialog.Schedule"
 msgstr "Ankünfte gemäß Zeitplan"
 
@@ -30156,6 +30162,9 @@ msgstr "Anzahl"
 
 msgid "Surface.Source.XML.Expression.TimeBase"
 msgstr "Zeitbasis"
+
+msgid "Surface.Source.XML.FirstArrivalAt0"
+msgstr "ErsteAnkunftBeiStart"
 
 msgid "Surface.Source.XML.IntervalExpression"
 msgstr "ModellElementIntervallAnzahl"

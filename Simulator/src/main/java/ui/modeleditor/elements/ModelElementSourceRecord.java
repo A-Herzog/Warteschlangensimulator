@@ -203,6 +203,13 @@ public final class ModelElementSourceRecord implements Cloneable {
 	private final List<String> intervalExpressions;
 
 	/**
+	 * Soll die erste Ankunft bei durch eine Verteilung
+	 * oder einen Rechenausdruck bestimmten Zwischenankunftszeiten
+	 * zum Zeitpunkt 0 erfolgen?
+	 */
+	private boolean firstArrivalAt0;
+
+	/**
 	 * Ankunfts-Batch-Größe oder <code>null</code>, wenn es mehrere verschiedene Batch-Größen geben soll
 	 * @see #getBatchSize()
 	 * @see #setBatchSize(String)
@@ -288,6 +295,7 @@ public final class ModelElementSourceRecord implements Cloneable {
 		thresholdDirectionUp=true;
 		intervalExpressionsIntervalTime=1800;
 		intervalExpressions=new ArrayList<>();
+		firstArrivalAt0=false;
 		batchSize="1";
 		batchSizeRates=null;
 		maxArrivalCount=-1;
@@ -720,6 +728,24 @@ public final class ModelElementSourceRecord implements Cloneable {
 	}
 
 	/**
+	 * Soll die erste Ankunft bei durch eine Verteilung oder einen Rechenausdruck bestimmten Zwischenankunftszeiten zum Zeitpunkt 0 erfolgen?
+	 * @return	Erste Ankunft zum Zeitpunkt 0 erzeugen?
+	 * @see #setFirstArrivalAt0(boolean)
+	 */
+	public boolean isFirstArrivalAt0() {
+		return firstArrivalAt0;
+	}
+
+	/**
+	 * Soll die erste Ankunft bei durch eine Verteilung oder einen Rechenausdruck bestimmten Zwischenankunftszeiten zum Zeitpunkt 0 erfolgen?
+	 * @param firstArrivalAt0	Erste Ankunft zum Zeitpunkt 0 erzeugen?
+	 * @see #isFirstArrivalAt0()
+	 */
+	public void setFirstArrivalAt0(boolean firstArrivalAt0) {
+		this.firstArrivalAt0=firstArrivalAt0;
+	}
+
+	/**
 	 * Stellt den Modus "Ausdrücke zur Festlegung der jeweils absoluten Anzahl an Ankünften pro Intervallen" ein.
 	 * @see ModelElementSourceRecord#getArrivalSignalNames()
 	 */
@@ -793,9 +819,11 @@ public final class ModelElementSourceRecord implements Cloneable {
 			switch (nextMode) {
 			case NEXT_DISTRIBUTION:
 				if (!DistributionTools.compare(distribution,record.distribution)) return false;
+				if (firstArrivalAt0!=record.firstArrivalAt0) return false;
 				break;
 			case NEXT_EXPRESSION:
 				if (!expression.equals(record.expression)) return false;
+				if (firstArrivalAt0!=record.firstArrivalAt0) return false;
 				break;
 			case NEXT_SCHEDULE:
 				if (!schedule.equals(record.schedule)) return false;
@@ -877,6 +905,7 @@ public final class ModelElementSourceRecord implements Cloneable {
 		intervalExpressionsIntervalTime=record.intervalExpressionsIntervalTime;
 		intervalExpressions.clear();
 		intervalExpressions.addAll(record.intervalExpressions);
+		firstArrivalAt0=record.firstArrivalAt0;
 		batchSize=record.batchSize;
 		if (batchSize==null && record.batchSizeRates!=null) batchSizeRates=Arrays.copyOf(record.batchSizeRates,record.batchSizeRates.length);
 		maxArrivalCount=record.maxArrivalCount;
@@ -940,6 +969,7 @@ public final class ModelElementSourceRecord implements Cloneable {
 				sub.setAttribute(Language.trPrimary("Surface.Source.XML.Distribution.TimeBase"),ModelSurface.getTimeBaseString(timeBase));
 				if (maxArrivalCount>0) sub.setAttribute(Language.trPrimary("Surface.Source.XML.Distribution.Count"),""+maxArrivalCount);
 				if (maxArrivalClientCount>0) sub.setAttribute(Language.trPrimary("Surface.Source.XML.Distribution.ClientCount"),""+maxArrivalClientCount);
+				if (firstArrivalAt0) sub.setAttribute(Language.trPrimary("Surface.Source.XML.FirstArrivalAt0"),"1");
 				break;
 			case NEXT_EXPRESSION:
 				node.appendChild(sub=doc.createElement(Language.trPrimary("Surface.Source.XML.Expression")));
@@ -947,6 +977,7 @@ public final class ModelElementSourceRecord implements Cloneable {
 				sub.setAttribute(Language.trPrimary("Surface.Source.XML.Expression.TimeBase"),ModelSurface.getTimeBaseString(timeBase));
 				if (maxArrivalCount>0) sub.setAttribute(Language.trPrimary("Surface.Source.XML.Expression.Count"),""+maxArrivalCount);
 				if (maxArrivalClientCount>0) sub.setAttribute(Language.trPrimary("Surface.Source.XML.Expression.ClientCount"),""+maxArrivalClientCount);
+				if (firstArrivalAt0) sub.setAttribute(Language.trPrimary("Surface.Source.XML.FirstArrivalAt0"),"1");
 				break;
 			case NEXT_SCHEDULE:
 				node.appendChild(sub=doc.createElement(Language.trPrimary("Surface.Source.XML.Schedule")));
@@ -1054,6 +1085,8 @@ public final class ModelElementSourceRecord implements Cloneable {
 				if (L==null || L==0) return String.format(Language.tr("Surface.XML.AttributeSubError"),Language.trPrimary("Surface.Source.XML.Distribution.ClientCount"),name,node.getParentNode().getNodeName());
 				maxArrivalClientCount=L;
 			}
+			final String firstArrivalAt0String=Language.trAllAttribute("Surface.Source.XML.FirstArrivalAt0",node);
+			if (!firstArrivalAt0String.isEmpty() && !firstArrivalAt0String.equals("0")) firstArrivalAt0=true;
 			return null;
 		}
 
@@ -1074,6 +1107,8 @@ public final class ModelElementSourceRecord implements Cloneable {
 				if (L==null || L==0) return String.format(Language.tr("Surface.XML.AttributeSubError"),Language.trPrimary("Surface.Source.XML.Expression.ClientCount"),name,node.getParentNode().getNodeName());
 				maxArrivalClientCount=L;
 			}
+			final String firstArrivalAt0String=Language.trAllAttribute("Surface.Source.XML.FirstArrivalAt0",node);
+			if (!firstArrivalAt0String.isEmpty() && !firstArrivalAt0String.equals("0")) firstArrivalAt0=true;
 			return null;
 		}
 
@@ -1251,7 +1286,7 @@ public final class ModelElementSourceRecord implements Cloneable {
 	}
 
 	/**
-	 * Liefert ein XML-Pfad für die Anzahl an Ankünften.
+	 * Liefert einen XML-Pfad für die Anzahl an Ankünften.
 	 * @return	XML-Pfad für die Anzahl an Ankünften (oder <code>null</code>, wenn ein Pfad in der aktuellen Konfiguration nicht ermittelt werden kann)
 	 */
 	public String getArrivalCountXMLPath() {
@@ -1275,7 +1310,7 @@ public final class ModelElementSourceRecord implements Cloneable {
 	}
 
 	/**
-	 * Liefert ein XML-Pfad für die Anzahl an Kundenankünften.
+	 * Liefert einen XML-Pfad für die Anzahl an Kundenankünften.
 	 * @return	XML-Pfad für die Anzahl an Kundenankünften (oder <code>null</code>, wenn ein Pfad in der aktuellen Konfiguration nicht ermittelt werden kann)
 	 */
 	public String getArrivalClientCountXMLPath() {
@@ -1312,11 +1347,19 @@ public final class ModelElementSourceRecord implements Cloneable {
 				sb.append(Language.tr("ModelDescription.Arrival.Distribution"));
 				sb.append(": ");
 				sb.append(ModelDescriptionBuilder.getDistributionInfo(distribution));
+				if (firstArrivalAt0) {
+					sb.append(", ");
+					sb.append(Language.tr("ModelDescription.Arrival.FirstArrivalAt0"));
+				}
 				break;
 			case NEXT_EXPRESSION:
 				sb.append(Language.tr("ModelDescription.Arrival.Expression"));
 				sb.append(": ");
 				sb.append(expression);
+				if (firstArrivalAt0) {
+					sb.append(", ");
+					sb.append(Language.tr("ModelDescription.Arrival.FirstArrivalAt0"));
+				}
 				break;
 			case NEXT_SCHEDULE:
 				sb.append(Language.tr("ModelDescription.Arrival.Schedule"));

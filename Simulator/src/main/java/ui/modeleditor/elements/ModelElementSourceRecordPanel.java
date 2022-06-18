@@ -136,6 +136,8 @@ public final class ModelElementSourceRecordPanel extends JPanel {
 	private final JComboBox<String> timeBase1;
 	/** Definition der Zwischenankunftszeiten über eine Verteilung */
 	private final JDistributionPanel distributionPanel;
+	/** Erste Ankunft zum Zeitpunkt 0? */
+	private final JCheckBox distributionFirstArrivalAt0;
 
 	/* Dialogseite "Zwichenankunftszeiten" -  Karte: "Ausdruck" */
 
@@ -143,6 +145,8 @@ public final class ModelElementSourceRecordPanel extends JPanel {
 	private JComboBox<String> timeBase2;
 	/** Eingabefeld zur Definition der Zwischenankunftszeiten über einen Rechenausdruck */
 	private final JTextField expression;
+	/** Erste Ankunft zum Zeitpunkt 0? */
+	private final JCheckBox expressionFirstArrivalAt0;
 
 	/* Dialogseite "Zwichenankunftszeiten" -  Karte: "Zeitplan" */
 
@@ -345,6 +349,7 @@ public final class ModelElementSourceRecordPanel extends JPanel {
 			updateTabTitle();
 			updateBatchInfo();
 		});
+		sub.add(distributionFirstArrivalAt0=new JCheckBox(Language.tr("Surface.Source.Dialog.FirstArrivalAt0")));
 		card.add(distributionPanel=new JDistributionPanel(new ExponentialDistribution(null,100,ExponentialDistribution.DEFAULT_INVERSE_ABSOLUTE_ACCURACY),3600,!readOnly) {
 			/**
 			 * Serialisierungs-ID der Klasse
@@ -388,6 +393,8 @@ public final class ModelElementSourceRecordPanel extends JPanel {
 			@Override public void keyReleased(KeyEvent e) {checkData(false);}
 			@Override public void keyPressed(KeyEvent e) {checkData(false);}
 		});
+		panel.add(sub=new JPanel(new FlowLayout(FlowLayout.LEFT)));
+		sub.add(expressionFirstArrivalAt0=new JCheckBox(Language.tr("Surface.Source.Dialog.FirstArrivalAt0")));
 
 		/* Karte: Zeitplan */
 
@@ -722,10 +729,12 @@ public final class ModelElementSourceRecordPanel extends JPanel {
 		/* Verteilung */
 		timeBase1.setSelectedIndex(record.getTimeBase().id);
 		distributionPanel.setDistribution(record.getInterarrivalTimeDistribution());
+		distributionFirstArrivalAt0.setSelected(record.isFirstArrivalAt0());
 
 		/* Ausdruck */
 		timeBase2.setSelectedIndex(record.getTimeBase().id);
 		expression.setText(record.getInterarrivalTimeExpression());
+		expressionFirstArrivalAt0.setSelected(record.isFirstArrivalAt0());
 
 		/* Zeitplan */
 		int index=-1;
@@ -1185,10 +1194,12 @@ public final class ModelElementSourceRecordPanel extends JPanel {
 		case 0: /* Verteilung */
 			record.setTimeBase(ModelSurface.TimeBase.byId(timeBase1.getSelectedIndex()));
 			record.setInterarrivalTimeDistribution(distributionPanel.getDistribution());
+			record.setFirstArrivalAt0(distributionFirstArrivalAt0.isSelected());
 			break;
 		case 1: /* Ausdruck */
 			record.setTimeBase(ModelSurface.TimeBase.byId(timeBase2.getSelectedIndex()));
 			record.setInterarrivalTimeExpression(expression.getText());
+			record.setFirstArrivalAt0(expressionFirstArrivalAt0.isSelected());
 			break;
 		case 2: /* Zeitplan */
 			String s="";

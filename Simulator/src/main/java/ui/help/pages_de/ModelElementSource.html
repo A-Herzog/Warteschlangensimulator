@@ -32,7 +32,7 @@ der Kundenquelle konfiguriert werden können:
 In Bezug auf die Zwischenankunftszeiten kann eingestellt werden, ob diese gemäß einer
 <b>Verteilung</b>, gemäß einem <b>Ausdruck</b>, über einen <b>Zeitplan</b>, über eine
 <b>Freigabebedingung</b> bzw. einen <b>Schwellenwert</b>, über ein oder mehrere
-<b>Signale</b> oder über eine <b>Anzalh pro Intervall</b> bestimmt werden sollen.
+<b>Signale</b> oder über eine <b>Anzahl pro Intervall</b> bestimmt werden sollen.
 </p>
 
 <h3>Batch-Größe</h3>
@@ -68,6 +68,13 @@ Normalerweise beginnt die Quelle sofort nach Start der Simulation mit der Generi
 Ankünften. Durch die Festlegung eines positiven Startzeitpunktes kann jedoch eingestellt
 werden, dass die erste Zwischenankunftszeit (an deren Ende die erste Kundenankunft steht) erst
 zu einem späteren Zeitpunkt beginnt.
+</p>
+<p>
+Bei der Erzeugung von Ankünften mit bestimmten Zwischenankunftszeiten (definiert über eine Verteilung
+oder einen Rechenausdruck) beginnt im Normalfall die erste Zwischenankunftszeit ab dem Startzeitpunkt.
+Die tatsächliche erste Ankunft erfolgt dann zum Zeitpunkt Startzeitpunkt+Zwischenankunftszeit. Über
+die Option <b>Erste Ankunft zum Zeitpunkt 0</b> kann eingestellt werden, dass bereits direkt zum
+Startzeitpunkt die erste Ankunft erfolgen soll.
 </p>
 
 <h3>Zuweisung von Kundenvariablen</h3>
