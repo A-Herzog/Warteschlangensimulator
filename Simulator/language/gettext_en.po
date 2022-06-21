@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-06-16 00:55+0200\n"
+"POT-Creation-Date: 2022-06-19 00:49+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -3182,6 +3182,9 @@ msgstr "Hide this hint"
 msgid "Editor.AddEdge.Info"
 msgstr "Adds a connection edge to the model"
 
+msgid "Editor.AddEdge.InfoMenu"
+msgstr "Add edges"
+
 msgid "Editor.AddEdge.PlacePoint1"
 msgstr "Click on the first element to be connected by the edge."
 
@@ -4682,6 +4685,9 @@ msgstr "Element templates"
 
 msgid "Editor.ToggleTemplates.Info"
 msgstr "Show/hide templates"
+
+msgid "Editor.ToggleTemplates.InfoLong"
+msgstr "Show/hide templates panel"
 
 msgid "Editor.ToggleTemplates.Short"
 msgstr "Element"
@@ -9637,6 +9643,9 @@ msgstr "Select undo/redo step..."
 
 msgid "Main.Menu.Edit.UndoRedoSelect.Mnemonic"
 msgstr "S"
+
+msgid "Main.Menu.Elements"
+msgstr "Elements"
 
 msgid "Main.Menu.Extras"
 msgstr "Extras"

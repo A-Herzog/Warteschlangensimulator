@@ -1038,6 +1038,9 @@ public final class EditorPanel extends EditorPanelBase {
 		if (!readOnly) {
 			final String hotkeyToggleTemplates=keyStrokeToString(KeyStroke.getKeyStroke(KeyEvent.VK_F2,0));
 			buttonTemplates=createRotatedToolbarButton(leftToolbar,Language.tr("Editor.ToggleTemplates.Short"),Language.tr("Editor.ToggleTemplates.Info")+" ("+hotkeyToggleTemplates+")",Images.ELEMENTTEMPLATES.getIcon());
+			buttonTemplates.addMouseListener(new MouseAdapter() {
+				@Override public void mousePressed(MouseEvent e) {if (SwingUtilities.isRightMouseButton(e) && e.getClickCount()==1) showElementsSettingsContextMenu(buttonTemplates);}
+			});
 			buttonAddEdge=createRotatedToolbarButton(leftToolbar,Language.tr("Editor.AddEdge.Short"),Language.tr("Editor.AddEdge.Info")+" ("+keyStrokeToString(KeyStroke.getKeyStroke(KeyEvent.VK_F3,InputEvent.CTRL_DOWN_MASK))+")",Images.EDIT_EDGES_ADD.getIcon());
 			buttonAddEdge.setEnabled(!readOnly);
 			buttonAddEdge.addMouseListener(new MouseAdapter() {
@@ -1128,6 +1131,40 @@ public final class EditorPanel extends EditorPanelBase {
 		buttonExplorer=createRotatedToolbarButton(leftToolbar,Language.tr("Editor.ModelOverview.Short"),Language.tr("Editor.ModelOverview.Info")+" ("+keyStrokeToString(KeyStroke.getKeyStroke(KeyEvent.VK_F12,InputEvent.CTRL_DOWN_MASK))+")",Images.GENERAL_FIND.getIcon());
 
 		return leftArea;
+	}
+
+	/**
+	 * Zeigt das Kontextmenü für die vertikale "Elemente"-Schaltfläche an
+	 * @param invoker	Aufrufende Schaltfläche
+	 */
+	private void showElementsSettingsContextMenu(final JButton invoker) {
+		final JPopupMenu menu=new JPopupMenu();
+
+		final SetupData setup=SetupData.getSetup();
+
+		JMenuItem item;
+		JRadioButtonMenuItem radioItem;
+
+		menu.add(item=new JMenuItem("<html><body>"+Language.tr("Main.Menu.Edit.RenameOnCopy")+"</body></html>"));
+		item.setEnabled(false);
+		menu.addSeparator();
+
+		menu.add(radioItem=new JRadioButtonMenuItem(Language.tr("Main.Menu.Edit.RenameOnCopy.Off")));
+		radioItem.setMnemonic(Language.tr("Main.Menu.Edit.AutoConnect.Off.Mnemonic").charAt(0));
+		radioItem.setSelected(setup.renameOnCopy==SetupData.RenameOnCopyMode.OFF);
+		radioItem.addActionListener(e->{setup.renameOnCopy=SetupData.RenameOnCopyMode.OFF; setup.saveSetup();});
+
+		menu.add(radioItem=new JRadioButtonMenuItem(Language.tr("Main.Menu.Edit.RenameOnCopy.Smart")));
+		radioItem.setMnemonic(Language.tr("Main.Menu.Edit.RenameOnCopy.Smart.Mnemonic").charAt(0));
+		radioItem.setSelected(setup.renameOnCopy==SetupData.RenameOnCopyMode.SMART);
+		radioItem.addActionListener(e->{setup.renameOnCopy=SetupData.RenameOnCopyMode.SMART; setup.saveSetup();});
+
+		menu.add(radioItem=new JRadioButtonMenuItem(Language.tr("Main.Menu.Edit.RenameOnCopy.Always")));
+		radioItem.setMnemonic(Language.tr("Main.Menu.Edit.RenameOnCopy.Always.Mnemonic").charAt(0));
+		radioItem.setSelected(setup.renameOnCopy==SetupData.RenameOnCopyMode.ALWAYS);
+		radioItem.addActionListener(e->{setup.renameOnCopy=SetupData.RenameOnCopyMode.ALWAYS; setup.saveSetup();});
+
+		menu.show(invoker,0,invoker.getHeight());
 	}
 
 	/**
@@ -1992,13 +2029,21 @@ public final class EditorPanel extends EditorPanelBase {
 	/**
 	 * Schaltet die Funktion zum Hinzufügen von Kanten ein oder aus.
 	 */
-	private void toggleAddEdge() {
+	public void toggleAddEdge() {
 		setupInfoLabels(true);
 		if (surfacePanel.getMode()==ModelSurfacePanel.ClickMode.MODE_ADD_EDGE_STEP1 || surfacePanel.getMode()==ModelSurfacePanel.ClickMode.MODE_ADD_EDGE_STEP2) {
 			surfacePanel.cancelAdd();
 		} else {
 			if (buttonAddEdge.isVisible()) surfacePanel.startAddEdge();
 		}
+	}
+
+	/**
+	 * Beginnt mit dem Hinzufügen eines Elements (welches keine Kante ist).
+	 * @param element	Vorlage für das hinzuzufügende Element
+	 */
+	public void startAddElement(final ModelElementPosition element) {
+		surfacePanel.startAddElement(element);
 	}
 
 	/**

@@ -1591,11 +1591,11 @@ public final class ModelSurfacePanel extends JPanel {
 		final BufferedImage image=new BufferedImage(xSurfaceImage,ySurfaceImage,BufferedImage.TYPE_INT_ARGB);
 		final Graphics2D g=(Graphics2D)image.getGraphics();
 
-		g.setClip(0,0,xSurfaceImage,ySurfaceImage);
 		if (SetupData.getSetup().useTransparencyExportFix) {
 			g.setColor(new Color(255,255,255,1)); /* Sonst zeigt die Windows-Bildanzeige (fälschlich) einen schwarzen Hintergrund an. */
 		}
-		g.fillRect(0,0,xSurfaceImage,ySurfaceImage);
+		g.fillRect(0,0,xSurfaceImage+1,ySurfaceImage+1);
+		g.setClip(0,0,xSurfaceImage,ySurfaceImage);
 		g.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING,RenderingHints.VALUE_TEXT_ANTIALIAS_DEFAULT);
 
 		surface.drawToGraphics(g,new Rectangle(0,0,xSurfaceImage,ySurfaceImage),imageZoom,withBackground,backgroundImageMode,true,ModelSurface.Grid.OFF,null,backgroundImage,backgroundImageHash,backgroundImageScale,false);

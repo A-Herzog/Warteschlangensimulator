@@ -164,12 +164,14 @@ import ui.inputprocessor.ClientInputTableDialog;
 import ui.inputprocessor.ClientOutputTableDialog;
 import ui.modeleditor.AnimationImageDialog;
 import ui.modeleditor.FilePathHelper;
+import ui.modeleditor.ModelElementCatalog;
 import ui.modeleditor.ModelLoadData;
 import ui.modeleditor.ModelLoadDataDialog;
 import ui.modeleditor.ModelSurface;
 import ui.modeleditor.ModelSurfacePanel;
 import ui.modeleditor.coreelements.ModelElement;
 import ui.modeleditor.coreelements.ModelElementBox;
+import ui.modeleditor.coreelements.ModelElementPosition;
 import ui.modeleditor.templates.EditTemplateDialog;
 import ui.modeleditor.templates.TemplatesListDialog;
 import ui.optimizer.OptimizerPanel;
@@ -694,6 +696,14 @@ public class MainPanel extends MainPanelBase {
 		addAction("ViewBackgroundColor",e->commandViewBackgroundColor());
 		addAction("ViewEdgeSettings",e->commandViewEdgeSettings());
 		addAction("ViewUserDefinedAnimationIcons",e->commandViewUserDefinedAnimationIcons());
+
+		/* Elemente */
+		addAction("ElementAddElement",e->editorPanel.setTemplatesVisible(!editorPanel.isTemplatesVisible(),false));
+		addAction("ElementAddEdge",e->editorPanel.toggleAddEdge());
+		final ModelElementCatalog catalog=ModelElementCatalog.getCatalog();
+		for (Map<String,ModelElementPosition> map: catalog.getAll().values()) for (Map.Entry<String,ModelElementPosition> entry: map.entrySet()) {
+			addAction("ElementAdd"+entry.getKey(),e->editorPanel.startAddElement(entry.getValue()));
+		}
 
 		/* Modell */
 		addAction("ModelCheck",e->commandModelCheck());
@@ -1277,6 +1287,22 @@ public class MainPanel extends MainPanelBase {
 		enabledOnEditorPanel.add(createMenuItem(menu,Language.tr("Main.Menu.View.BackgroundColor"),Images.EDIT_BACKGROUND_COLOR.getIcon(),Language.tr("Main.Menu.View.BackgroundColor.Mnemonic"),"ViewBackgroundColor"));
 		enabledOnEditorPanel.add(createMenuItem(menu,Language.tr("Main.Menu.View.EdgeSettings"),Images.EDIT_EDGES.getIcon(),Language.tr("Main.Menu.View.EdgeSettings.Mnemonic"),"ViewEdgeSettings"));
 		enabledOnEditorPanel.add(createMenuItem(menu,Language.tr("Main.Menu.View.UserDefinedAnimationIcons"),Language.tr("Main.Menu.View.UserDefinedAnimationIcons.Mnemonic"),"ViewUserDefinedAnimationIcons"));
+
+		/* Elemente */
+		menubar.add(menu=new JMenu(Language.tr("Main.Menu.Elements")));
+		enabledOnEditorPanel.add(createMenuItem(menu,Language.tr("Editor.ToggleTemplates.InfoLong"),Images.EDIT_ADD.getIcon(),"V",KeyEvent.VK_F2,"ElementAddElement"));
+		enabledOnEditorPanel.add(createMenuItemCtrl(menu,Language.tr("Editor.AddEdge.InfoMenu"),Images.EDIT_EDGES_ADD.getIcon(),"K",KeyEvent.VK_F3,"ElementAddEdge"));
+		menu.addSeparator();
+		final ModelElementCatalog catalog=ModelElementCatalog.getCatalog();
+		final Map<String,Map<String,ModelElementPosition>> map=catalog.getAll();
+		for (String groupName: ModelElementCatalog.GROUP_ORDER) {
+			final Map<String,ModelElementPosition> group=map.get(groupName);
+			final String[] names=group.keySet().stream().sorted().toArray(String[]::new);
+			menu.add(submenu=new JMenu(groupName));
+			for (String name: names) {
+				enabledOnEditorPanel.add(createMenuItem(submenu,name,catalog.getMenuIcon(name),"","ElementAdd"+name));
+			}
+		}
 
 		/* Modell */
 		menubar.add(menu=new JMenu(Language.tr("Main.Menu.Model")));

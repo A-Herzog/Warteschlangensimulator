@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-06-16 00:55+0200\n"
+"POT-Creation-Date: 2022-06-19 00:49+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -3187,6 +3187,9 @@ msgstr "Diesen Hinweis ausblenden"
 msgid "Editor.AddEdge.Info"
 msgstr "Fügt eine neue Verbindungskante in dem Modell hinzu"
 
+msgid "Editor.AddEdge.InfoMenu"
+msgstr "Kanten hinzufügen"
+
 msgid "Editor.AddEdge.PlacePoint1"
 msgstr "Ausgangselement für die Verknüpfung anklicken."
 
@@ -4689,6 +4692,9 @@ msgstr "Elementvorlagen"
 
 msgid "Editor.ToggleTemplates.Info"
 msgstr "Vorlagen ein-/ausklappen"
+
+msgid "Editor.ToggleTemplates.InfoLong"
+msgstr "Vorlagenleiste ein-/ausklappen"
 
 msgid "Editor.ToggleTemplates.Short"
 msgstr "Element"
@@ -9633,6 +9639,9 @@ msgstr "Rückgängig/Wiederholen-Schritt auswählen..."
 
 msgid "Main.Menu.Edit.UndoRedoSelect.Mnemonic"
 msgstr "S"
+
+msgid "Main.Menu.Elements"
+msgstr "Elemente"
 
 msgid "Main.Menu.Extras"
 msgstr "Extras"
