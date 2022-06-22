@@ -946,11 +946,11 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 				final double mean=indicator.getTimeMean();
 				if (mean>0) {
 					if (!headingWritten) {
-						addHeading(3,Language.tr("Statistics.AverageNumberOfWaitingClientsByClientTypes")+" E[NQ]");
+						addHeading(3,Language.tr("Statistics.AverageNumberOfClientsInProcessByClientTypes")+" E[NS]");
 						beginParagraph();
 						headingWritten=true;
 					}
-					addLine(Language.tr("Statistics.ClientType")+" "+clientType+": E[NQ]="+StatisticTools.formatNumber(mean),xmlMean(indicator));
+					addLine(Language.tr("Statistics.ClientType")+" "+clientType+": E[NS]="+StatisticTools.formatNumber(mean),xmlMean(indicator));
 				}
 			}
 			if (headingWritten) {

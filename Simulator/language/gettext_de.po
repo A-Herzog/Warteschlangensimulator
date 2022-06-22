@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-06-19 00:49+0200\n"
+"POT-Creation-Date: 2022-06-22 00:08+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20268,6 +20268,9 @@ msgstr "Mittlere Anzahl an Kunden (nach Stationen)"
 
 msgid "Statistics.AverageNumberOfClientsInProcess"
 msgstr "Mittlere Anzahl an Kunden in Bedienung"
+
+msgid "Statistics.AverageNumberOfClientsInProcessByClientTypes"
+msgstr "Mittlere Anzahl an Kunden in Bedienung (pro Kundentyp)"
 
 msgid "Statistics.AverageNumberOfClientsInProcessByStations"
 msgstr "Mittlere Anzahl an Kunden in Bedienung (nach Stationen)"

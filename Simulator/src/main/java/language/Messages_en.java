@@ -9782,6 +9782,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[24491] = "Save long run statistics";
     t[24492] = "CommandLine.FolderSimulation.Description.Long";
     t[24493] = "The command expects the name of the folder to process as additional parameter.";
+    t[24494] = "Statistics.AverageNumberOfClientsInProcessByClientTypes";
+    t[24495] = "Average number of clients in service process (by client type)";
     t[24498] = "ExpressionBuilder.SimulationCharacteristics.ResidenceTimesOverAll.SquaredCoefficientOfVariationOfTheTime";
     t[24499] = "<p>Returns the squared coefficient of variation over all residence times for all clients.</p>";
     t[24500] = "ModelDescription.Match.PropertyMode.Number";
@@ -10032,14 +10034,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[25123] = "Which files should be transferred to the Git repository automatically when saving?";
     t[25126] = "Statistic.Viewer.Report";
     t[25127] = "Generate report";
-    t[25134] = "Git.System.Error.Error";
-    t[25135] = "An error has occurred.";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_5 (java.lang.String[] t) {
+    t[25134] = "Git.System.Error.Error";
+    t[25135] = "An error has occurred.";
     t[25136] = "Surface.PopupMenu.SimulationStatisticsData.Save";
     t[25137] = "Save current simulation data...";
     t[25144] = "Surface.TransportSource.Dialog.DelayTimeIs.ProcessTime";
@@ -12038,14 +12040,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[30081] = "all other values";
     t[30082] = "Simulation.Log.InputDB.Info";
     t[30083] = "Client: %s, station: %s, %s:=%s";
-    t[30084] = "ExpressionCalculator.Tab.Map";
-    t[30085] = "Map";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_6 (java.lang.String[] t) {
+    t[30084] = "ExpressionCalculator.Tab.Map";
+    t[30085] = "Map";
     t[30090] = "ExpressionBuilder.SimulationCharacteristics.WaitingTimesOverAll.VarianceOfTheTime";
     t[30091] = "<p>Returns the variance over all waiting times for all clients.</p>";
     t[30096] = "Surface.Delay.XML.Distribution";
@@ -14044,14 +14046,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[34903] = "Jar";
     t[34910] = "ScriptPopup.Client.getTypeName.Hint";
     t[34911] = "Gets the name of the type of the client";
-    t[34916] = "SimulationServer.Setup.Port.ErrorInfoInvalidPort";
-    t[34917] = "The specified port number %d is not in the valid range. An integer number between 1 and 65535 has to be specified.";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_7 (java.lang.String[] t) {
+    t[34916] = "SimulationServer.Setup.Port.ErrorInfoInvalidPort";
+    t[34917] = "The specified port number %d is not in the valid range. An integer number between 1 and 65535 has to be specified.";
     t[34930] = "Surface.Output.Dialog.Tab.Headings.Mode";
     t[34931] = "Heading mode";
     t[34932] = "ExpressionBuilder.ClientsInServiceProcess.Skewness";
@@ -16050,14 +16052,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[39725] = "Waiting times of the clients by type";
     t[39726] = "ThreadCalibration.Dialog.Start";
     t[39727] = "Start";
-    t[39728] = "Simulation.Creator.Action.AnalogNoElement";
-    t[39729] = "There is no element with the specified id %d.";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_8 (java.lang.String[] t) {
+    t[39728] = "Simulation.Creator.Action.AnalogNoElement";
+    t[39729] = "There is no element with the specified id %d.";
     t[39732] = "Editor.Dialog.Tab.Operator.InfoText";
     t[39733] = "On this dialog page, the operator groups that serve the clients at the process stations can be created and configured.";
     t[39734] = "Statistic.FastAccess.Template.SetValue.Tooltip";
@@ -18056,14 +18058,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[44595] = "Controlled station";
     t[44598] = "Surface.Dispose.Dialog.Title";
     t[44599] = "Edit exit";
-    t[44602] = "Surface.XML.ModelElementDescription";
-    t[44603] = "ModelElementDescription";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_9 (java.lang.String[] t) {
+    t[44602] = "Surface.XML.ModelElementDescription";
+    t[44603] = "ModelElementDescription";
     t[44604] = "Editor.DialogBase.Search.MaximumDistributionHours";
     t[44605] = "Maximum number of hours to be recorded in distributions for statistics";
     t[44606] = "Surface.Hold.Dialog.Tab.Condition";
@@ -20062,14 +20064,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[49455] = "from top down";
     t[49456] = "Surface.SourceDB.Dialog.ColumnInfo.DoNotUse";
     t[49457] = "do not use";
-    t[49460] = "CommandLine.FolderFilter.Description.Short";
-    t[49461] = "Filter all statistic files in a folder.";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_10 (java.lang.String[] t) {
+    t[49460] = "CommandLine.FolderFilter.Description.Short";
+    t[49461] = "Filter all statistic files in a folder.";
     t[49474] = "Main.Menu.Edit.AutoConnect.Off.Mnemonic";
     t[49475] = "O";
     t[49476] = "ExpressionBuilder.StatisticalFunctions.Mean.Info";
