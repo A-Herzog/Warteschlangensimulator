@@ -24,6 +24,7 @@ import java.awt.event.KeyListener;
 import java.io.Serializable;
 
 import javax.swing.BorderFactory;
+import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -101,6 +102,8 @@ public class ModelElementProcessDialog extends ModelElementBaseDialog {
 	private JTextField textBatchMin;
 	/** Eingabefeld für die maximale Batch-Größe */
 	private JTextField textBatchMax;
+	/** Option: Kampagnen-Modus */
+	private JCheckBox campaignMode;
 	/** Tabelle zur Konfiguration der Prioritäten der Kundentypen */
 	private PriorityTableModel tablePriorityModel;
 
@@ -277,6 +280,9 @@ public class ModelElementProcessDialog extends ModelElementBaseDialog {
 			@Override public void keyReleased(KeyEvent e) {checkInput(false);}
 			@Override public void keyPressed(KeyEvent e) {checkInput(false);}
 		});
+		sub.add(Box.createHorizontalStrut(10));
+		sub.add(campaignMode=new JCheckBox(Language.tr("Surface.Process.Dialog.CampaignMode"),process.isCampaignMode()));
+		campaignMode.setToolTipText(Language.tr("Surface.Process.Dialog.CampaignMode.Info"));
 
 		final JTableExt tablePriority;
 		tab.add(new JScrollPane(tablePriority=new JTableExt()),BorderLayout.CENTER);
@@ -556,6 +562,7 @@ public class ModelElementProcessDialog extends ModelElementBaseDialog {
 
 		process.setBatchMinimum(NumberTools.getInteger(textBatchMin,true));
 		process.setBatchMaximum(NumberTools.getInteger(textBatchMax,true));
+		process.setCampaignMode(campaignMode.isSelected());
 		tablePriorityModel.storeData();
 
 		process.setResourcePriority(textResourcePriority.getText());

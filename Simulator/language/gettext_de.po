@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-06-22 00:08+0200\n"
+"POT-Creation-Date: 2022-06-23 00:16+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -11302,6 +11302,12 @@ msgstr "Kunden alleine weitersenden, wenn in anderer Warteschlange keine Kunden"
 msgid "ModelDescription.Process.BatchSize"
 msgstr "Batch-Größe"
 
+msgid "ModelDescription.Process.CampaignMode"
+msgstr "Kampagnen-Modus"
+
+msgid "ModelDescription.Process.CampaignMode.Yes"
+msgstr "Ja"
+
 msgid "ModelDescription.Process.CancelTime.ClientType"
 msgstr "Abbruchzeit für Kundentyp \"%s\""
 
@@ -17274,6 +17280,9 @@ msgstr "Bei Element id=%d wurde keine Arbeitsmappe, in die die Daten geschrieben
 
 msgid "Simulation.Creator.ProcessBatchRange"
 msgstr "Für Element id=%d ist kleinere maximale Batch-Größe als die minimale Batch-Größe angegeben."
+
+msgid "Simulation.Creator.ProcessCannotCombineBatchAndCampaign"
+msgstr "Der Kampagnen-Modus kann nicht mit Batch-Bedienungen kombiniert werden (an Station id=%d)."
 
 msgid "Simulation.Creator.ProcessCannotMixBatchAndSetupTimes"
 msgstr "An Element id=%d sollen Batch-Bedienungen und Rüstzeiten kombiniert werden, was jedoch nicht möglich ist."
@@ -28666,6 +28675,12 @@ msgstr "Bestehende Bedienergruppe verwenden"
 msgid "Surface.Process.Dialog.BatchSize"
 msgstr "Batch-Größe"
 
+msgid "Surface.Process.Dialog.CampaignMode"
+msgstr "Kampagnen-Modus"
+
+msgid "Surface.Process.Dialog.CampaignMode.Info"
+msgstr "Stets versuchen, Kunden desselben Typs nacheinander zu bedienen."
+
 msgid "Surface.Process.Dialog.ClientPlural"
 msgstr "Kunden"
 
@@ -28872,6 +28887,9 @@ msgstr "Maximum"
 
 msgid "Surface.Process.XML.Batch.Minimum"
 msgstr "Minimum"
+
+msgid "Surface.Process.XML.CampaignMode"
+msgstr "ModellElementKampagnenModus"
 
 msgid "Surface.Process.XML.Connection.Status"
 msgstr "Status"

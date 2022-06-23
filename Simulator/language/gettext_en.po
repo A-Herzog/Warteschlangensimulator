@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-06-22 00:08+0200\n"
+"POT-Creation-Date: 2022-06-23 00:16+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -11306,6 +11306,12 @@ msgstr "Send client alone if there are no clients in the other queue"
 msgid "ModelDescription.Process.BatchSize"
 msgstr "Batch size"
 
+msgid "ModelDescription.Process.CampaignMode"
+msgstr "Campaign mode"
+
+msgid "ModelDescription.Process.CampaignMode.Yes"
+msgstr "Yes"
+
 msgid "ModelDescription.Process.CancelTime.ClientType"
 msgstr "Waiting time tolerance in the general case"
 
@@ -17263,6 +17269,9 @@ msgstr "At element id=%d no workbook to write the data to was specified."
 
 msgid "Simulation.Creator.ProcessBatchRange"
 msgstr "For element id=%d a smaller maximum batch size than a minimum batch size was specified."
+
+msgid "Simulation.Creator.ProcessCannotCombineBatchAndCampaign"
+msgstr "The campaign mode cannot be combined with batch service (at station id=%d)."
 
 msgid "Simulation.Creator.ProcessCannotMixBatchAndSetupTimes"
 msgstr "At element id=%d batch processing and setup times are defined. Both cannot be used at the same time."
@@ -28644,6 +28653,12 @@ msgstr "Use existing operator group"
 msgid "Surface.Process.Dialog.BatchSize"
 msgstr "Batch size"
 
+msgid "Surface.Process.Dialog.CampaignMode"
+msgstr "Campaign mode"
+
+msgid "Surface.Process.Dialog.CampaignMode.Info"
+msgstr "Always try to serve clients of the same type in sequence."
+
 msgid "Surface.Process.Dialog.ClientPlural"
 msgstr "clients"
 
@@ -28850,6 +28865,9 @@ msgstr "Maximum"
 
 msgid "Surface.Process.XML.Batch.Minimum"
 msgstr "Minimum"
+
+msgid "Surface.Process.XML.CampaignMode"
+msgstr "ModelElementCampaignMode"
 
 msgid "Surface.Process.XML.Connection.Status"
 msgstr "Status"

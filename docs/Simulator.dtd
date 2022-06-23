@@ -384,6 +384,8 @@
   Maximum	CDATA	#IMPLIED
 >
 
+<!ELEMENT ModellElementKampagnenModus (#PCDATA)>
+
 <!ELEMENT ModellElementKundentyp (#PCDATA)>
 
 <!ELEMENT ModellElementBediener EMPTY>
@@ -764,7 +766,7 @@
   Modus     CDATA	#IMPLIED
 >
 
-<!ELEMENT ModellElementBedienstation (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementBoxSchriftGross | ModellElementBoxSchriftKlein | ModellElementMaximalerDurchsatzSekunden | ModellElementEbene | ModellElementHintergrundfarbe | ModellElementStationsbild | ModellElementVerbindung | ModellElementBatch | ModellElementVerteilung | ModellElementAusdruck | ModellElementRuestzeitVerteilung | ModellElementRuestzeitAusdruck | ModellElementPrioritaet | ModellElementBediener | ModellElementBedienerPrioritaet | ModellElementBedienstationKosten | ModellElementKostenZeit)*>
+<!ELEMENT ModellElementBedienstation (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementBoxSchriftGross | ModellElementBoxSchriftKlein | ModellElementMaximalerDurchsatzSekunden | ModellElementEbene | ModellElementHintergrundfarbe | ModellElementStationsbild | ModellElementVerbindung | ModellElementBatch | ModellElementKampagnenModus | ModellElementVerteilung | ModellElementAusdruck | ModellElementRuestzeitVerteilung | ModellElementRuestzeitAusdruck | ModellElementPrioritaet | ModellElementBediener | ModellElementBedienerPrioritaet | ModellElementBedienstationKosten | ModellElementKostenZeit)*>
 <!ATTLIST ModellElementBedienstation
   id			CDATA	#REQUIRED
   geschuetzt	CDATA	#IMPLIED

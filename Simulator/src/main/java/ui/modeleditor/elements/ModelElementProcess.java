@@ -160,6 +160,13 @@ public class ModelElementProcess extends ModelElementBox implements ModelDataRen
 	private int batchMax; /* >=batchMin */
 
 	/**
+	 * Sollen durch die Priorisierung Kampagnen (möglichst wenige Kundentyp-Wechsel) gebildet werden?
+	 * @see #isCampaignMode()
+	 * @see #setCampaignMode(boolean)
+	 */
+	private boolean campaignMode;
+
+	/**
 	 * Objekt, welches die Verteilungen und Ausdrücke für die Bedienzeiten vorhält
 	 * @see #getWorking()
 	 */
@@ -237,6 +244,7 @@ public class ModelElementProcess extends ModelElementBox implements ModelDataRen
 		processTimeType=ProcessType.PROCESS_TYPE_PROCESS;
 		batchMin=1;
 		batchMax=1;
+		campaignMode=false;
 
 		/* Um sicher zu stellen, dass die Language-Strings auch in den Sprachdateien vorhanden sind. Der folgende DistributionSystem-Konstruktor ist kein Scan-Ziel für die Sprachdateien. */
 		Language.tr("Surface.Process.XML.Distribution.ClientType");
@@ -313,14 +321,17 @@ public class ModelElementProcess extends ModelElementBox implements ModelDataRen
 		}
 
 		/* Zeitbasis */
-		if (((ModelElementProcess)element).timeBase!=timeBase) return false;
+		if (process.timeBase!=timeBase) return false;
 
 		/* Bedienzeit ist ... */
-		if (((ModelElementProcess)element).processTimeType!=processTimeType) return false;
+		if (process.processTimeType!=processTimeType) return false;
 
 		/* Batch-Größe */
 		if (batchMin!=process.batchMin) return false;
 		if (batchMax!=process.batchMax) return false;
+
+		/* Kampagnen-Modus */
+		if (campaignMode!=process.campaignMode) return false;
 
 		/* Bedienzeiten */
 		if (!working.equalsDistributionSystem(process.working)) return false;
@@ -409,6 +420,9 @@ public class ModelElementProcess extends ModelElementBox implements ModelDataRen
 			/* Batch-Größe */
 			batchMin=process.batchMin;
 			batchMax=process.batchMax;
+
+			/* Kampagnen-Modus */
+			campaignMode=process.campaignMode;
 
 			/* Bedienzeiten */
 			working=process.working.clone();
@@ -613,6 +627,11 @@ public class ModelElementProcess extends ModelElementBox implements ModelDataRen
 			sub.setAttribute(Language.trPrimary("Surface.Process.XML.Batch.Maximum"),""+batchMax);
 		}
 
+		if (campaignMode) {
+			node.appendChild(sub=doc.createElement(Language.trPrimary("Surface.Process.XML.CampaignMode")));
+			sub.setTextContent("1");
+		}
+
 		working.save(doc,node,element->{
 			element.setAttribute(Language.trPrimary("Surface.Process.XML.Distribution.TimeBase"),ModelSurface.getTimeBaseString(timeBase));
 			switch (processTimeType) {
@@ -705,6 +724,11 @@ public class ModelElementProcess extends ModelElementBox implements ModelDataRen
 			I=NumberTools.getNotNegativeInteger(Language.trAllAttribute("Surface.Process.XML.Batch.Maximum",node));
 			if (I==null || I<batchMin) return String.format(Language.tr("Surface.XML.AttributeSubError"),Language.trPrimary("Surface.Process.XML.Batch.Maximum"),name,node.getParentNode().getNodeName());
 			batchMax=I;
+			return null;
+		}
+
+		if (Language.trAll("Surface.Process.XML.CampaignMode",name)) {
+			campaignMode=(!content.isEmpty() && !content.equals("0"));
 			return null;
 		}
 
@@ -1226,6 +1250,24 @@ public class ModelElementProcess extends ModelElementBox implements ModelDataRen
 	}
 
 	/**
+	 * Gibt an, ob durch die Priorisierung Kampagnen (möglichst wenige Kundentyp-Wechsel) gebildet werden sollen.
+	 * @return	Kampagnen-Modus ja oder nein
+	 * @see #setCampaignMode(boolean)
+	 */
+	public boolean isCampaignMode() {
+		return campaignMode;
+	}
+
+	/**
+	 * Stellt ein, ob durch die Priorisierung Kampagnen (möglichst wenige Kundentyp-Wechsel) gebildet werden sollen.
+	 * @param campaignMode	Kampagnen-Modus ja oder nein
+	 * @see #isCampaignMode()
+	 */
+	public void setCampaignMode(final boolean campaignMode) {
+		this.campaignMode=campaignMode;
+	}
+
+	/**
 	 * Liefert das Objekt, welches die Verteilungen und Ausdrücke für die Bedienzeiten vorhält
 	 * @return	Bedienzeiten
 	 */
@@ -1542,6 +1584,11 @@ public class ModelElementProcess extends ModelElementBox implements ModelDataRen
 				size=NumberTools.formatLong(batchMin);
 			}
 			descriptionBuilder.addProperty(Language.tr("ModelDescription.Process.BatchSize"),size,7000);
+		}
+
+		/* Kampagnen-Modus */
+		if (campaignMode) {
+			descriptionBuilder.addProperty(Language.tr("ModelDescription.Process.CampaignMode"),Language.tr("ModelDescription.Process.CampaignMode.Yes"),7500);
 		}
 
 		/* Prioritäten */

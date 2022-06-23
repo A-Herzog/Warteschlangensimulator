@@ -132,7 +132,7 @@ public class RunElementProcessData extends RunElementData implements RunElementD
 	 * bestimmen zu können).
 	 * @see #getSetupTime(SimulationData, RunDataClient)
 	 */
-	private int lastClientIndex=-1;
+	public int lastClientIndex=-1;
 
 	/**
 	 * Konstruktor der Klasse {@link RunElementProcessData}

@@ -62,6 +62,9 @@ public class RunElementProcess extends RunElement implements FreeResourcesListen
 	/** Maximale Batch-Größe */
 	public int batchMaxSize;
 
+	/** Kampagnen-Modus */
+	private boolean campaignMode;
+
 	/** Multiplikationsfaktor um bei den Verteilungs- und Ausdruckswerten für Bedienzeiten usw. auf Sekunden zu kommen */
 	public double timeBaseMultiply;
 	/** Rüstzeit-Verteilungen */
@@ -138,6 +141,12 @@ public class RunElementProcess extends RunElement implements FreeResourcesListen
 		if (processElement.getBatchMaximum()<processElement.getBatchMinimum()) return String.format(Language.tr("Simulation.Creator.ProcessBatchRange"),element.getId());
 		process.batchMinSize=processElement.getBatchMinimum();
 		process.batchMaxSize=processElement.getBatchMaximum();
+
+		/* Kampagnen-Modus */
+		if (processElement.isCampaignMode() && runModel.clientTypes.length>1) {
+			if (process.batchMaxSize>1) return String.format(Language.tr("Simulation.Creator.ProcessCannotCombineBatchAndCampaign"),element.getId());
+			process.campaignMode=true;
+		}
 
 		/* Zeitbasis */
 		process.timeBaseMultiply=processElement.getTimeBase().multiply;
@@ -427,26 +436,50 @@ public class RunElementProcess extends RunElement implements FreeResourcesListen
 	private void startProcessingSingle(final SimulationData simData, final RunElementProcessData data, final int resourceAlternative, final double additionalPrepareTime) {
 		final RunElementProcessData processData=getData(simData);
 
-		RunDataClient selected;
-		int bestIndex=-1;
-		if (processData.allFirstComeFirstServe) {
+		RunDataClient selected=null;
+		int bestIndex=0;
+
+		if (processData.allFirstComeFirstServe && !campaignMode) {
 			/* Ganzes System ist FCFS */
 			selected=data.waitingClients.get(0);
-			bestIndex=0;
 		} else {
-			/* Kunden mit dem höchsten Score wählen */
 			final int count=data.waitingClients.size();
-			selected=data.waitingClients.get(0);
-			bestIndex=0;
-			double bestScore=-Double.MAX_VALUE;
-			if (count>1) for (int i=1;i<count;i++) {
-				final RunDataClient client=data.waitingClients.get(i);
-				final double score=getClientScore(simData,processData,client);
-				if (score>bestScore) {
-					/* Ein Kunde weiter hinten in der Liste (=spätere Ankunft) braucht eine höhere Score, um den vorherigen zu überbieten. D.h. bei Score-Gleichstand zwischen zwei Kunden gilt FIFO. */
-					bestScore=score;
-					bestIndex=i;
-					selected=client;
+			if (campaignMode && data.lastClientIndex>=0) {
+				/* Zuerst versuchen: Kunden mit dem höchsten Score und passendem Typ wählen */
+				final int campaignClientIndex=data.lastClientIndex;
+				double bestScore=-Double.MAX_VALUE;
+				for (int i=0;i<count;i++) {
+					final RunDataClient client=data.waitingClients.get(i);
+					if (client.type!=campaignClientIndex) continue; /* Erstmal nur passende Kunden */
+					if (processData.allFirstComeFirstServe) { /* Wenn innerhalb der Kampagne FIFO gilt, dann ersten passenden Kunden wählen */
+						bestIndex=i;
+						selected=client;
+						break;
+					}
+					final double score=getClientScore(simData,processData,client);
+					if (score>bestScore) {
+						/* Ein Kunde weiter hinten in der Liste (=spätere Ankunft) braucht eine höhere Score, um den vorherigen zu überbieten. D.h. bei Score-Gleichstand zwischen zwei Kunden gilt FIFO. */
+						bestIndex=i;
+						selected=client;
+					}
+				}
+				if (selected==null && processData.allFirstComeFirstServe) { /* Wenn es keinen passenden Kunden gibt, aber FIFO gilt, ersten Kunden in Warteschlange wählen. */
+					selected=data.waitingClients.get(0);
+				}
+			}
+			/* Kunden mit dem höchsten Score wählen */
+			if (selected==null) {
+				selected=data.waitingClients.get(0);
+				double bestScore=-Double.MAX_VALUE;
+				if (count>1) for (int i=1;i<count;i++) {
+					final RunDataClient client=data.waitingClients.get(i);
+					final double score=getClientScore(simData,processData,client);
+					if (score>bestScore) {
+						/* Ein Kunde weiter hinten in der Liste (=spätere Ankunft) braucht eine höhere Score, um den vorherigen zu überbieten. D.h. bei Score-Gleichstand zwischen zwei Kunden gilt FIFO. */
+						bestScore=score;
+						bestIndex=i;
+						selected=client;
+					}
 				}
 			}
 		}

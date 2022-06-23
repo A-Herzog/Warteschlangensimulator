@@ -101,11 +101,24 @@ bedient wird. Es wird jeweils der Kunde mit der höchsten Priorität als nächst
 "w" gibt dabei abweichend von der sonst üblichen Belegung die bisherige Wartezeit des Kunden an der aktuellen Station an (und nicht
 die gesamte bisherige Wartezeit des Kunden). Das bedeutet, dass die Formel "w" für die Priorität zu einer
 First-in-first-out-Warteschlange führt. "-w" hätte ein Last-in-first-out-System zur Folge.
+</p>
+
+<p>
 Die Batch-Größe gibt an, wie viele Kunden jeweils gleichzeitig von einem Bediener bedient werden können. Offensichtlich kann die
 minimale Batch-Größe höchsten so groß wie die maximale Batch-Größe sein. Sind beide Werte identisch, so ergibt sich eine feste
 Batch-Größe. Ist die minimale Batch-Größe echt kleiner als die maximale Batch-Größe, so wird nach dem Erreichen dieser Mindestanzahl
 an wartenden Kunden noch eine Millisekunde abgewartet, ob weitere Kunden eintreffen. Dann werden mindestens so viele Kunden wie zuvor
 eingetroffen (=minimale Batch-Größe) und höchstens so viele der dann wartenden Kunden wie die maximale Batch-Größe vorgibt, bedient. 
+</p>
+
+<p>
+Im Normalfall wird die Bedienreihenfolge über die (pro Kundentyp individuell einstellbare) Prioritätsformeln festgelegt. Dies kann
+jedoch zu sehr häufigen Wechseln des Kundentyps führen. Sind an einer Bedienstation Rüstzeiten beim Wechsel des Kundentyps vorgesehen,
+so kann es wünschenswert sein, möglichst viele Kunden eines Typs nacheinander zu bedienen. Dies kann durch die Aktivierung des
+Kampagnen-Modus erreicht werden. In diesem Fall erfolgt die Bewertung der Prioritäten zweigeteilt: Zunächst wird versucht unter den
+Kunden desselben Typs, wie beim zuletzt bedienten Kunden, denjenigen mit der höchsten Priorität für die Bedienung auszusuchen.
+Wartet kein Kunde desselben Typs wie der Typ des zuletzt bedienten Kunden, so wird die Prioritätsformel-basierte Suche auf alle
+wartenden Kunden ausgedehnt.
 </p>
 
 <p>
@@ -115,6 +128,14 @@ einer variablen Batch-Größe die Bedienung der Kundengruppe theoretisch immer m
 wenn unmittelbar die nächsten Kunden des virtuellen Batch eintreffen würden. Um dieser Tatsache Rechnung zu tragen, wartet der
 Simulator nach dem Eintreffen eines Kunden, der die Anzahl an wartenden Kunden auf die minimal notwendige Batch-Größe erhöht,
 noch eine Millisekunde, um so das hinzufügen von weiteren unmittelbar eintreffenden Kunden zu dem Batch zu ermöglichen.
+</p>
+
+<p>
+<u>Hinweis zur Batch-Bedienung und zum Kampagnen-Modus:</u><br>
+Ein Batch umfasst mehrere Kunden; die Kunden werden dabei gemäß ihrer Prioritäten zu Bedien-Batchen zusammengestellt.
+Dies bedeutet insbesondere, dass sich Kunden verschiedener Typen in einem Batch befinden können. Daher können Batche
+nicht mit dem Kampagnen-Modus, der voraussetzt dass es einen eindeutigen Typ für den jeweils zuletzt bedienten
+Kunden gibt, kombiniert werden. 
 </p>
 
 <h3>Bediener</h3>
