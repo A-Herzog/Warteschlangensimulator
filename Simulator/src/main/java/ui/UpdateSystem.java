@@ -214,7 +214,7 @@ public class UpdateSystem {
 	 * @param cmd	Auszuführender Befehl
 	 * @return	Liefert <code>true</code>, wenn der Befehl erfolgreich ans System übermittelt werden konnte
 	 */
-	private boolean runCommand(final String cmd) {
+	private boolean runCommand(final String[] cmd) {
 		try {
 			Runtime.getRuntime().exec(cmd);
 		} catch (IOException e) {return false;}
@@ -240,7 +240,7 @@ public class UpdateSystem {
 
 			if (!updateInstaller.renameTo(updateInstallerRun)) return false;
 
-			final String cmd=updateInstallerRun.getAbsolutePath()+" /S /D="+SetupData.getProgramFolder().toString();
+			final String[] cmd=new String[]{updateInstallerRun.getAbsolutePath(),"/S","/D="+SetupData.getProgramFolder().toString()};
 			Runtime.getRuntime().addShutdownHook(new Thread(()->runCommand(cmd),"RunUpdateThread"));
 			System.exit(0);
 
@@ -255,12 +255,7 @@ public class UpdateSystem {
 	 * @see #automaticUpdatePossible
 	 */
 	private void checkAutomaticUpdatePossible() {
-		boolean b=(System.getProperty("os.name").toUpperCase().contains("WIN") && SetupData.getProgramFolder().toString().equals(SetupData.getSetupFolder().toString()));
-		if (b) {
-			final File programFile=new File(SetupData.getProgramFolder(),"Simulator.exe");
-			b=programFile.exists();
-		}
-		automaticUpdatePossible=b;
+		automaticUpdatePossible=(System.getProperty("os.name").toUpperCase().contains("WIN") && SetupData.getOperationMode()==SetupData.OperationMode.USER_FOLDER_MODE);
 	}
 
 	/**
