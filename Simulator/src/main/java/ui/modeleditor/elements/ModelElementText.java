@@ -18,8 +18,6 @@ package ui.modeleditor.elements;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
-import java.awt.Font;
-import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.Rectangle;
@@ -91,6 +89,20 @@ public final class ModelElementText extends ModelElementPosition {
 	 * @see #setTextItalic(boolean)
 	 */
 	private boolean italic;
+
+	/**
+	 * Sollen HTML- und LaTeX-Symbole interpretiert werden?
+	 * @see #isInterpretSymbols()
+	 * @see #setInterpretSymbols(boolean)
+	 */
+	private boolean interpretSymbols;
+
+	/**
+	 * Soll Markdown interpretiert werden?
+	 * @see #isInterpretMarkdown()
+	 * @see #setInterpretMarkdown(boolean)
+	 */
+	private boolean interpretMarkdown;
 
 	/**
 	 * Textfarbe
@@ -174,6 +186,8 @@ public final class ModelElementText extends ModelElementPosition {
 		super(model,surface,new Dimension(0,0),Shapes.ShapeType.SHAPE_RECTANGLE);
 		useSizeOnCompare=false;
 		text=Language.tr("Surface.Text.DefaultText");
+		interpretSymbols=true;
+		interpretMarkdown=false;
 		textAlign=TextAlign.LEFT;
 	}
 
@@ -289,6 +303,38 @@ public final class ModelElementText extends ModelElementPosition {
 	}
 
 	/**
+	 * Sollen HTML- und LaTeX-Symbole interpretiert werden?
+	 * @return	HTML- und LaTeX-Symbole interpretieren
+	 */
+	public boolean isInterpretSymbols() {
+		return interpretSymbols;
+	}
+
+	/**
+	 * Stellt ein, ob HTML- und LaTeX-Symbole interpretiert werden sollen.
+	 * @param interpretSymbols	HTML- und LaTeX-Symbole interpretier
+	 */
+	public void setInterpretSymbols(boolean interpretSymbols) {
+		this.interpretSymbols=interpretSymbols;
+	}
+
+	/**
+	 * Soll Markdown interpretiert werden?
+	 * @return	Markdown interpretieren
+	 */
+	public boolean isInterpretMarkdown() {
+		return interpretMarkdown;
+	}
+
+	/**
+	 * Stellt ein, ob Markdown interpretiert werden soll.
+	 * @param interpretMarkdown	Markdown interpretieren
+	 */
+	public void setInterpretMarkdown(boolean interpretMarkdown) {
+		this.interpretMarkdown=interpretMarkdown;
+	}
+
+	/**
 	 * Liefert die aktuelle Textfarbe
 	 * @return	Aktuelle Textfarbe
 	 */
@@ -377,6 +423,8 @@ public final class ModelElementText extends ModelElementPosition {
 		if (textSize!=otherText.textSize) return false;
 		if (bold!=otherText.bold) return false;
 		if (italic!=otherText.italic) return false;
+		if (interpretSymbols!=otherText.interpretSymbols) return false;
+		if (interpretMarkdown!=otherText.interpretMarkdown) return false;
 		if (textAlign!=otherText.textAlign) return false;
 		if (fillColor!=otherText.fillColor) return false;
 		if (fillAlpha!=otherText.fillAlpha) return false;
@@ -397,6 +445,8 @@ public final class ModelElementText extends ModelElementPosition {
 			textSize=copySource.textSize;
 			bold=copySource.bold;
 			italic=copySource.italic;
+			interpretSymbols=copySource.interpretSymbols;
+			interpretMarkdown=copySource.interpretMarkdown;
 			color=copySource.color;
 			textAlign=copySource.textAlign;
 			fillColor=copySource.fillColor;
@@ -418,88 +468,10 @@ public final class ModelElementText extends ModelElementPosition {
 	}
 
 	/**
-	 * Schriftgröße beim letzten Aufruf von {@link #drawToGraphics(Graphics, Rectangle, double, boolean)}
+	 * Zu verwendender Text-Renderer
 	 * @see #drawToGraphics(Graphics, Rectangle, double, boolean)
 	 */
-	private int lastTextSize=-1;
-
-	/**
-	 * Zoomfaktor beim letzten Aufruf von {@link #drawToGraphics(Graphics, Rectangle, double, boolean)}
-	 * @see #drawToGraphics(Graphics, Rectangle, double, boolean)
-	 */
-	private double lastZoomFont=-1;
-
-	/**
-	 * Schriftausgestaltung (fett, kursiv) beim letzten Aufruf von {@link #drawToGraphics(Graphics, Rectangle, double, boolean)}
-	 * @see #drawToGraphics(Graphics, Rectangle, double, boolean)
-	 */
-	private double lastStyleFont=-1;
-
-	/**
-	 * Schriftart beim letzten Aufruf von {@link #drawToGraphics(Graphics, Rectangle, double, boolean)}
-	 * @see #drawToGraphics(Graphics, Rectangle, double, boolean)
-	 */
-	private FontCache.FontFamily lastFamily=null;
-
-	/**
-	 * In {@link #drawToGraphics(Graphics, Rectangle, double, boolean)} generierte
-	 * Schriftart für den Text
-	 * @see #drawToGraphics(Graphics, Rectangle, double, boolean)
-	 */
-	private Font lastFont;
-
-	/**
-	 * Letzter in {@link #drawToGraphics(Graphics, Rectangle, double, boolean)}
-	 * ausgegebener Text.
-	 * @see #drawToGraphics(Graphics, Rectangle, double, boolean)
-	 */
-	private String lastText;
-
-	/**
-	 * Aufgeteilter Text {@link #lastText}.<br>
-	 * Entspricht bei einem Aufruf von {@link #drawToGraphics(Graphics, Rectangle, double, boolean)}
-	 * der neue Text immer noch {@link #lastText}, so kann direkt dieser
-	 * bereits aufgeteilte Text wiederverwendet werden.
-	 * @see #lastText
-	 * @see #drawToGraphics(Graphics, Rectangle, double, boolean)
-	 */
-	private String[] lastTextSplit;
-
-	/**
-	 * Länge der längsten Zeile beim letzten Aufruf von
-	 * {@link #drawToGraphics(Graphics, Rectangle, double, boolean)}
-	 * @see #lastTextSplit
-	 * @see #drawToGraphics(Graphics, Rectangle, double, boolean)
-	 */
-	private int lastMaxWidth;
-
-	/**
-	 * Füllfarbe beim letzten Aufruf von {@link #drawToGraphics(Graphics, Rectangle, double, boolean)}
-	 * @see #lastFillAlpha
-	 * @see #lastComputedFillColor
-	 */
-	private Color lastFillColor=null;
-
-	/**
-	 * Deckkraft beim letzten Aufruf von {@link #drawToGraphics(Graphics, Rectangle, double, boolean)}
-	 * @see #lastFillColor
-	 * @see #lastComputedFillColor
-	 */
-	private double lastFillAlpha=0.0;
-
-	/**
-	 * Berechnete Füllfarbe beim letzten Aufruf von {@link #drawToGraphics(Graphics, Rectangle, double, boolean)}
-	 * @see #lastFillColor
-	 * @see #lastFillAlpha
-	 */
-	private Color lastComputedFillColor=null;
-
-	/**
-	 * Ermöglicht die Interpretation von HTML-Entities und LaTeX-Symbolen
-	 * @see #drawToGraphics(Graphics, Rectangle, double, boolean)
-	 * @see TextTransformer
-	 */
-	private TextTransformer textTransformer;
+	private ModelElementTextRenderer textRenderer;
 
 	/**
 	 * Zeichnet das Element in ein <code>Graphics</code>-Objekt
@@ -512,91 +484,36 @@ public final class ModelElementText extends ModelElementPosition {
 	public void drawToGraphics(final Graphics graphics, final Rectangle drawRect, final double zoom, final boolean showSelectionFrames) {
 		setClip(graphics,drawRect,null);
 
-		int style=Font.PLAIN;
-		if (bold) style+=Font.BOLD;
-		if (italic) style+=Font.ITALIC;
-		if (lastFamily!=fontFamily || textSize!=lastTextSize || zoom!=lastZoomFont || style!=lastStyleFont || lastFont==null) {
-			lastFont=FontCache.getFontCache().getFont(fontFamily,style,(int)Math.round(textSize*zoom));
-			lastFamily=fontFamily;
-			lastTextSize=textSize;
-			lastZoomFont=zoom;
-			lastStyleFont=style;
-			lastMaxWidth=0;
-		}
-		graphics.setFont(lastFont);
-		graphics.setColor(color);
-
-		if (lastText==null || !lastText.equals(getText())) {
-			lastText=getText();
-			if (textTransformer==null) textTransformer=new TextTransformer();
-			lastTextSplit=textTransformer.process(lastText.trim().split("\\n"));
-			lastMaxWidth=0;
+		/* Renderer vorbereiten */
+		if (interpretMarkdown) {
+			if (!(textRenderer instanceof ModelElementTextRendererMarkDown)) textRenderer=new ModelElementTextRendererMarkDown();
+		} else {
+			if (!(textRenderer instanceof ModelElementTextRendererPlain)) textRenderer=new ModelElementTextRendererPlain();
 		}
 
-		int width=0;
-		int height=0;
-		int lineHeight=graphics.getFontMetrics().getAscent()+graphics.getFontMetrics().getDescent();
+		/* Daten in Renderer laden */
+		textRenderer.setText(text,interpretSymbols);
+		textRenderer.setBackgroundColor(fillColor,fillAlpha);
+		textRenderer.setStyle(textSize,bold,italic,fontFamily.name,textAlign);
+		textRenderer.calc(graphics,zoom);
 
-		for (String line: lastTextSplit) {
-			width=FastMath.max(width,graphics.getFontMetrics().stringWidth(line));
-			height+=lineHeight;
-		}
-
-		int w=(int)FastMath.round(width/zoom);
-		int h=(int)FastMath.round(height/zoom);
-		if (getSize().width!=w || getSize().height!=h) setSize(new Dimension(w,h));
-
-
+		/* Position und Größe berechnen */
 		final Point pos=getPosition(true);
-		int x=(int)FastMath.round(pos.x*zoom);
-		int y=(int)FastMath.round(pos.y*zoom);
-		final int ascent=graphics.getFontMetrics().getAscent();
-		y+=ascent;
+		final int canvasX=(zoom==1.0)?pos.x:(int)FastMath.round(pos.x*zoom);
+		final int canvasY=(zoom==1.0)?pos.y:(int)FastMath.round(pos.y*zoom);
+		final int canvasW=textRenderer.getWidth();
+		final int canvasH=textRenderer.getHeight();
 
-		FontMetrics metrics=null;
-		if (lastMaxWidth==0) {
-			metrics=graphics.getFontMetrics();
-			for (String line: lastTextSplit) lastMaxWidth=Math.max(lastMaxWidth,metrics.stringWidth(line));
-		}
+		/* Wenn nötig Größe der Box anpassen */
+		final int boxW=(zoom==1.0)?canvasW:(int)FastMath.round(canvasW/zoom);
+		final int boxH=(zoom==1.0)?canvasH:(int)FastMath.round(canvasH/zoom);
+		final Dimension boxSize=getSize();
+		if (boxSize.width!=boxW || boxSize.height!=boxH) setSize(new Dimension(boxW,boxH));
 
-		if (fillColor!=lastFillColor || fillAlpha!=lastFillAlpha) {
-			if (fillColor==null) {
-				lastComputedFillColor=null;
-			} else {
-				lastComputedFillColor=new Color(fillColor.getRed(),fillColor.getGreen(),fillColor.getBlue(),Math.max(0,Math.min(255,((int)Math.round(255*fillAlpha)))));
-			}
-			lastFillColor=fillColor;
-			lastFillAlpha=fillAlpha;
-		}
+		/* Text ausgeben */
+		textRenderer.draw(graphics,canvasX,canvasY,color);
 
-		if (lastComputedFillColor!=null) {
-			graphics.setColor(lastComputedFillColor);
-			graphics.fillRect(x,y-ascent,lastMaxWidth,lineHeight*lastTextSplit.length);
-			graphics.setColor(color);
-		}
-
-		int lineWidth;
-		for (String line: lastTextSplit) {
-			switch (textAlign) {
-			case LEFT:
-				graphics.drawString(line,x,y);
-				break;
-			case CENTER:
-				if (metrics==null) metrics=graphics.getFontMetrics();
-				lineWidth=metrics.stringWidth(line);
-				graphics.drawString(line,x+(lastMaxWidth-lineWidth)/2,y);
-				break;
-			case RIGHT:
-				if (metrics==null) metrics=graphics.getFontMetrics();
-				lineWidth=metrics.stringWidth(line);
-				graphics.drawString(line,x+(lastMaxWidth-lineWidth),y);
-				break;
-			default:
-				graphics.drawString(line,x,y);
-				break;
-			}
-			y+=lineHeight;
-		}
+		/* Rahmen zeichnen */
 		if (isSelected() && showSelectionFrames) {
 			drawRect(graphics,drawRect,zoom,Color.GREEN,2,null,2);
 		} else {
@@ -670,9 +587,10 @@ public final class ModelElementText extends ModelElementPosition {
 		sub=doc.createElement(Language.trPrimary("Surface.Text.XML.FontSize"));
 		node.appendChild(sub);
 		sub.setTextContent(""+textSize);
-
 		if (bold) sub.setAttribute(Language.trPrimary("Surface.Text.XML.FontSize.Bold"),"1");
 		if (italic) sub.setAttribute(Language.trPrimary("Surface.Text.XML.FontSize.Italic"),"1");
+		sub.setAttribute(Language.trPrimary("Surface.Text.XML.FontSize.Symbols"),interpretSymbols?"1":"0");
+		if (interpretMarkdown) sub.setAttribute(Language.trPrimary("Surface.Text.XML.FontSize.Markdown"),"1");
 
 		/* Farbe */
 		sub=doc.createElement(Language.trPrimary("Surface.Text.XML.Color"));
@@ -729,6 +647,8 @@ public final class ModelElementText extends ModelElementPosition {
 			textSize=I;
 			bold=Language.trAllAttribute("Surface.Text.XML.FontSize.Bold",node).equals("1");
 			italic=Language.trAllAttribute("Surface.Text.XML.FontSize.Italic",node).equals("1");
+			interpretSymbols=!Language.trAllAttribute("Surface.Text.XML.FontSize.Symbols",node).equals("0");
+			interpretMarkdown=Language.trAllAttribute("Surface.Text.XML.FontSize.Markdown",node).equals("1");
 			return null;
 		}
 

@@ -65,6 +65,10 @@ public class ModelElementTextDialog extends ModelElementBaseDialog {
 	private JCheckBox optionBold;
 	/** Option: Text kursiv darstellen */
 	private JCheckBox optionItalic;
+	/** Option: HTML- und LaTeX-Symbole interpretieren */
+	private JCheckBox optionInterpretSymbols;
+	/** Option: Markdown interpretieren */
+	private JCheckBox optionInterpretMarkdown;
 	/** Ausrichtung */
 	private JComboBox<String> textAlign;
 	/** Auswahl der Textfarbe */
@@ -148,6 +152,14 @@ public class ModelElementTextDialog extends ModelElementBaseDialog {
 			optionBold.setEnabled(!readOnly);
 			subPanel.add(optionItalic=new JCheckBox("<html><i>"+Language.tr("Surface.Text.Dialog.Italic")+"</i></html>",text.getTextItalic()));
 			optionItalic.setEnabled(!readOnly);
+
+			/* Interpretation von Symbolen */
+			subPanel.add(optionInterpretSymbols=new JCheckBox(Language.tr("Surface.Text.Dialog.FontSize.HTMLLaTeX"),text.isInterpretSymbols()));
+			optionInterpretSymbols.setToolTipText(Language.tr("Surface.Text.Dialog.FontSize.HTMLLaTeX.Info"));
+			optionInterpretSymbols.setEnabled(!readOnly);
+			subPanel.add(optionInterpretMarkdown=new JCheckBox(Language.tr("Surface.Text.Dialog.FontSize.Markdown"),text.isInterpretMarkdown()));
+			optionInterpretMarkdown.setToolTipText(Language.tr("Surface.Text.Dialog.FontSize.Markdown.Info"));
+			optionInterpretMarkdown.setEnabled(!readOnly);
 
 			/* Ausrichtung */
 			bottomPanel.add(subPanel=new JPanel(new FlowLayout(FlowLayout.LEFT)));
@@ -263,6 +275,10 @@ public class ModelElementTextDialog extends ModelElementBaseDialog {
 		/* Fett/Kursiv */
 		text.setTextBold(optionBold.isSelected());
 		text.setTextItalic(optionItalic.isSelected());
+
+		/* Interpretation von Symbolen */
+		text.setInterpretSymbols(optionInterpretSymbols.isSelected());
+		text.setInterpretMarkdown(optionInterpretMarkdown.isSelected());
 
 		/* Ausrichtung */
 		switch (textAlign.getSelectedIndex()) {

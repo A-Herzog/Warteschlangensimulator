@@ -67,6 +67,8 @@ public class ModelElementAnimationTextSelectDialog extends ModelElementBaseDialo
 	private JCheckBox optionBold;
 	/** Option: Text kursiv darstellen */
 	private JCheckBox optionItalic;
+	/** Option: HTML- und LaTeX-Symbole interpretieren */
+	private JCheckBox optionInterpretSymbols;
 	/** Auswahl der Farbe für den Text */
 	private SmallColorChooser colorChooser;
 	/** Option: Hintergrundfarbe verwenden? */
@@ -162,6 +164,11 @@ public class ModelElementAnimationTextSelectDialog extends ModelElementBaseDialo
 		line.add(optionItalic=new JCheckBox("<html><i>"+Language.tr("Surface.AnimationText.Dialog.FontSize.Italic")+"</i></html>",false));
 		optionItalic.setEnabled(!readOnly);
 
+		/* Interpretation von Symbolen */
+		line.add(optionInterpretSymbols=new JCheckBox(Language.tr("Surface.AnimationText.Dialog.FontSize.HTMLLaTeX"),false));
+		optionInterpretSymbols.setToolTipText(Language.tr("Surface.AnimationText.Dialog.FontSize.HTMLLaTeX.Info"));
+		optionInterpretSymbols.setEnabled(!readOnly);
+
 		/* Zeile für Farben */
 		tab.add(subPanel=new JPanel(new FlowLayout(FlowLayout.LEFT)));
 
@@ -214,6 +221,7 @@ public class ModelElementAnimationTextSelectDialog extends ModelElementBaseDialo
 			sizeField.setText(""+text.getTextSize());
 			optionBold.setSelected(text.getTextBold());
 			optionItalic.setSelected(text.getTextItalic());
+			optionInterpretSymbols.setSelected(text.isInterpretSymbols());
 			colorChooser.setColor(text.getColor());
 			background.setSelected(text.getFillColor()!=null);
 			colorChooserBackground.setColor(text.getFillColor());
@@ -286,6 +294,9 @@ public class ModelElementAnimationTextSelectDialog extends ModelElementBaseDialo
 		/* Fett/Kursiv */
 		text.setTextBold(optionBold.isSelected());
 		text.setTextItalic(optionItalic.isSelected());
+
+		/* Interpretation von Symbolen */
+		text.setInterpretSymbols(optionInterpretSymbols.isSelected());
 
 		/* Schriftfarbe */
 		text.setColor(colorChooser.getColor());

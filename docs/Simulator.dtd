@@ -336,6 +336,8 @@
 <!ATTLIST ModellElementSchriftgrosse
   fett		(0|1)	#IMPLIED
   kursiv	(0|1)	#IMPLIED
+  Symbole	(0|1)	#IMPLIED
+  Markdown	(0|1)	#IMPLIED
 >
 
 <!ELEMENT ModellElementVerteilung (#PCDATA)>
@@ -2816,6 +2818,8 @@
 <!ATTLIST ModelElementFontSize
   bold		(0|1)	#IMPLIED
   italic	(0|1)	#IMPLIED
+  Symbols	(0|1)	#IMPLIED
+  Markdown	(0|1)	#IMPLIED
 >
 
 <!ELEMENT ModelElementDistribution (#PCDATA)>

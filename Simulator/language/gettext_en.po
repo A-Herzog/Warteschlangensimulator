@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-06-24 00:54+0200\n"
+"POT-Creation-Date: 2022-06-26 00:15+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -24203,6 +24203,12 @@ msgstr "The specified font size is invalid. The font size has to be a positive i
 msgid "Surface.AnimationText.Dialog.FontSize.Error.Title"
 msgstr "Invalid font size"
 
+msgid "Surface.AnimationText.Dialog.FontSize.HTMLLaTeX"
+msgstr "HTML and LaTeX symbols"
+
+msgid "Surface.AnimationText.Dialog.FontSize.HTMLLaTeX.Info"
+msgstr "Interpret HTML and LaTeX symbols in input"
+
 msgid "Surface.AnimationText.Dialog.FontSize.Italic"
 msgstr "Italic"
 
@@ -24421,6 +24427,9 @@ msgstr "bold"
 
 msgid "Surface.AnimationTextSelect.XML.FontSize.Italic"
 msgstr "italic"
+
+msgid "Surface.AnimationTextSelect.XML.FontSize.Symbols"
+msgstr "Symbols"
 
 msgid "Surface.AnimationTextSelect.XML.Root"
 msgstr "ModelElementAnimationTextSelect"
@@ -31128,6 +31137,18 @@ msgstr "The specified font size is invalid. The font size has to be a positive i
 msgid "Surface.Text.Dialog.FontSize.Error.Title"
 msgstr "Invalid font size"
 
+msgid "Surface.Text.Dialog.FontSize.HTMLLaTeX"
+msgstr "HTML and LaTeX symbols"
+
+msgid "Surface.Text.Dialog.FontSize.HTMLLaTeX.Info"
+msgstr "Interpret HTML and LaTeX symbols in input"
+
+msgid "Surface.Text.Dialog.FontSize.Markdown"
+msgstr "Markdown"
+
+msgid "Surface.Text.Dialog.FontSize.Markdown.Info"
+msgstr "Interpret simple Markdown formatting"
+
 msgid "Surface.Text.Dialog.Italic"
 msgstr "Italic"
 
@@ -31169,6 +31190,12 @@ msgstr "bold"
 
 msgid "Surface.Text.XML.FontSize.Italic"
 msgstr "italic"
+
+msgid "Surface.Text.XML.FontSize.Markdown"
+msgstr "Markdown"
+
+msgid "Surface.Text.XML.FontSize.Symbols"
+msgstr "Symbols"
 
 msgid "Surface.Text.XML.Root"
 msgstr "ModelElementText"

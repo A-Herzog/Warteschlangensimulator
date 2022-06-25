@@ -121,6 +121,13 @@ public class ModelElementAnimationTextSelect extends ModelElementPosition implem
 	private boolean italic;
 
 	/**
+	 * Sollen HTML- und LaTeX-Symbole interpretiert werden?
+	 * @see #isInterpretSymbols()
+	 * @see #setInterpretSymbols(boolean)
+	 */
+	private boolean interpretSymbols;
+
+	/**
 	 * Textfarbe
 	 * @see #getColor()
 	 * @see #setColor(Color)
@@ -148,6 +155,7 @@ public class ModelElementAnimationTextSelect extends ModelElementPosition implem
 	 */
 	public ModelElementAnimationTextSelect(final EditModel model, final ModelSurface surface) {
 		super(model,surface,new Dimension(0,0),Shapes.ShapeType.SHAPE_RECTANGLE);
+		interpretSymbols=true;
 		useSizeOnCompare=false;
 	}
 
@@ -277,6 +285,22 @@ public class ModelElementAnimationTextSelect extends ModelElementPosition implem
 	}
 
 	/**
+	 * Sollen HTML- und LaTeX-Symbole interpretiert werden?
+	 * @return	HTML- und LaTeX-Symbole interpretieren
+	 */
+	public boolean isInterpretSymbols() {
+		return interpretSymbols;
+	}
+
+	/**
+	 * Stellt ein, ob HTML- und LaTeX-Symbole interpretiert werden sollen.
+	 * @param interpretSymbols	HTML- und LaTeX-Symbole interpretier
+	 */
+	public void setInterpretSymbols(boolean interpretSymbols) {
+		this.interpretSymbols=interpretSymbols;
+	}
+
+	/**
 	 * Liefert die aktuelle Textfarbe
 	 * @return	Aktuelle Textfarbe
 	 */
@@ -350,6 +374,7 @@ public class ModelElementAnimationTextSelect extends ModelElementPosition implem
 		if (textSize!=otherText.textSize) return false;
 		if (bold!=otherText.bold) return false;
 		if (italic!=otherText.italic) return false;
+		if (interpretSymbols!=otherText.interpretSymbols) return false;
 		if (fillColor!=otherText.fillColor) return false;
 		if (fillAlpha!=otherText.fillAlpha) return false;
 
@@ -373,6 +398,7 @@ public class ModelElementAnimationTextSelect extends ModelElementPosition implem
 			textSize=copySource.textSize;
 			bold=copySource.bold;
 			italic=copySource.italic;
+			interpretSymbols=copySource.interpretSymbols;
 			color=copySource.color;
 			fillColor=copySource.fillColor;
 			fillAlpha=copySource.fillAlpha;
@@ -494,8 +520,13 @@ public class ModelElementAnimationTextSelect extends ModelElementPosition implem
 	 */
 	@Override
 	public void drawToGraphics(final Graphics graphics, final Rectangle drawRect, final double zoom, final boolean showSelectionFrames) {
-		if (textTransformer==null) textTransformer=new TextTransformer();
-		final String text=textTransformer.process(getDisplayText(false));
+		final String text;
+		if (interpretSymbols) {
+			if (textTransformer==null) textTransformer=new TextTransformer();
+			text=textTransformer.process(getDisplayText(false));
+		} else {
+			text=getDisplayText(false);
+		}
 		final String title=getDisplayText(true);
 
 		int style=Font.PLAIN;
@@ -632,6 +663,7 @@ public class ModelElementAnimationTextSelect extends ModelElementPosition implem
 		sub.setTextContent(""+textSize);
 		if (bold) sub.setAttribute(Language.trPrimary("Surface.AnimationTextSelect.XML.FontSize.Bold"),"1");
 		if (italic) sub.setAttribute(Language.trPrimary("Surface.AnimationTextSelect.XML.FontSize.Italic"),"1");
+		sub.setAttribute(Language.trPrimary("Surface.AnimationTextSelect.XML.FontSize.Symbols"),interpretSymbols?"1":"0");
 
 		/* Farbe */
 		sub=doc.createElement(Language.trPrimary("Surface.AnimationTextSelect.XML.Color"));
@@ -689,6 +721,7 @@ public class ModelElementAnimationTextSelect extends ModelElementPosition implem
 			textSize=I;
 			bold=(Language.trAllAttribute("Surface.AnimationTextSelect.XML.FontSize.Bold",node).equals("1"));
 			italic=(Language.trAllAttribute("Surface.AnimationTextSelect.XML.FontSize.Italic",node).equals("1"));
+			interpretSymbols=!Language.trAllAttribute("Surface.AnimationTextSelect.XML.FontSize.Symbols",node).equals("0");
 			return null;
 		}
 

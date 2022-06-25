@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-06-24 00:54+0200\n"
+"POT-Creation-Date: 2022-06-26 00:15+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -24216,6 +24216,12 @@ msgstr "Die angegebene Schriftgröße ist ungültig. Die Schriftgröße muss ein
 msgid "Surface.AnimationText.Dialog.FontSize.Error.Title"
 msgstr "Ungültige Schriftgröße"
 
+msgid "Surface.AnimationText.Dialog.FontSize.HTMLLaTeX"
+msgstr "HTML- und LaTeX-Symbole"
+
+msgid "Surface.AnimationText.Dialog.FontSize.HTMLLaTeX.Info"
+msgstr "HTML- und LaTeX-Symbole in der Eingabe interpretieren"
+
 msgid "Surface.AnimationText.Dialog.FontSize.Italic"
 msgstr "Kursiv"
 
@@ -24434,6 +24440,9 @@ msgstr "fett"
 
 msgid "Surface.AnimationTextSelect.XML.FontSize.Italic"
 msgstr "kursiv"
+
+msgid "Surface.AnimationTextSelect.XML.FontSize.Symbols"
+msgstr "Symbole"
 
 msgid "Surface.AnimationTextSelect.XML.Root"
 msgstr "ModellElementAnimationTextAuswahl"
@@ -31150,6 +31159,18 @@ msgstr "Die angegebene Schriftgröße ist ungültig. Die Schriftgröße muss ein
 msgid "Surface.Text.Dialog.FontSize.Error.Title"
 msgstr "Ungültige Schriftgröße"
 
+msgid "Surface.Text.Dialog.FontSize.HTMLLaTeX"
+msgstr "HTML- und LaTeX-Symbole"
+
+msgid "Surface.Text.Dialog.FontSize.HTMLLaTeX.Info"
+msgstr "HTML- und LaTeX-Symbole in der Eingabe interpretieren"
+
+msgid "Surface.Text.Dialog.FontSize.Markdown"
+msgstr "Markdown"
+
+msgid "Surface.Text.Dialog.FontSize.Markdown.Info"
+msgstr "Einfache Markdown-Formatierungen interpretieren"
+
 msgid "Surface.Text.Dialog.Italic"
 msgstr "Kursiv"
 
@@ -31191,6 +31212,12 @@ msgstr "fett"
 
 msgid "Surface.Text.XML.FontSize.Italic"
 msgstr "kursiv"
+
+msgid "Surface.Text.XML.FontSize.Markdown"
+msgstr "Markdown"
+
+msgid "Surface.Text.XML.FontSize.Symbols"
+msgstr "Symbole"
 
 msgid "Surface.Text.XML.Root"
 msgstr "ModellElementText"

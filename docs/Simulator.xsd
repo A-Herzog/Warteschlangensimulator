@@ -408,6 +408,8 @@
   <xs:extension base="xs:string">
     <xs:attribute name="fett" type="xs:integer"/>
 	<xs:attribute name="kursiv" type="xs:integer"/>
+	<xs:attribute name="Symbole" type="xs:integer"/>
+	<xs:attribute name="Markdown" type="xs:integer"/>
   </xs:extension>
 </xs:simpleContent></xs:complexType></xs:element>
 
@@ -2659,6 +2661,8 @@
   <xs:extension base="xs:string">
     <xs:attribute name="bold" type="xs:integer"/>
 	<xs:attribute name="italic" type="xs:integer"/>
+	<xs:attribute name="Symbols" type="xs:integer"/>
+	<xs:attribute name="Markdown" type="xs:integer"/>
   </xs:extension>
 </xs:simpleContent></xs:complexType></xs:element>
 
