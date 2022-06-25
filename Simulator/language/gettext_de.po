@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-06-23 00:16+0200\n"
+"POT-Creation-Date: 2022-06-24 00:54+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18892,6 +18892,12 @@ msgstr "Das Java KeyTool zur Erzeugung der Key-Store-Datei konnte nicht gefunden
 
 msgid "SimulationServer.Setup.TLSInfo.GenerateKeyStore.ErrorNoKeyStoreFile"
 msgstr "Es wurde kein Dateiname für die Key-Store-Datei angegeben."
+
+msgid "SimulationServer.Setup.TLSInfo.GenerateKeyStore.ErrorPasswordASCII"
+msgstr "Das Passwort darf nur Zeichen mit Zeichencodes zwischen 32 und 127 enthalten."
+
+msgid "SimulationServer.Setup.TLSInfo.GenerateKeyStore.ErrorPasswordTooShort"
+msgstr "Es muss ein mindestens 6 Zeichen langes Passwort angegeben werden."
 
 msgid "SimulationServer.Setup.TLSInfo.GenerateKeyStore.ExecuteError"
 msgstr "Bei der Ausführung von KeyTool ist ein Fehler aufgetreten."

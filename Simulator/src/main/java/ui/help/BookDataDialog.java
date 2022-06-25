@@ -584,20 +584,18 @@ public class BookDataDialog extends BaseDialog {
 
 		if (page<=0 || !canOpenPDFpage()) return openPDF(file);
 
-		final StringBuilder cmd=new StringBuilder();
-		cmd.append("\"");
+		final List<String> cmd=new ArrayList<>();
 		if (pdfViewer64.isFile()) {
-			cmd.append(pdfViewer64.toString());
+			cmd.add(pdfViewer64.toString());
 		} else {
-			if (pdfViewer32.isFile()) cmd.append(pdfViewer32.toString());
+			if (pdfViewer32.isFile()) cmd.add(pdfViewer32.toString());
 		}
-		cmd.append("\" /A \"page=");
-		cmd.append(page+data.getPageOffset(page));
-		cmd.append("\" \"");
-		cmd.append(file.toString());
-		cmd.append("\"");
+		cmd.add("/A");
+		cmd.add("page="+(page+data.getPageOffset(page)));
+		cmd.add(file.toString());
+
 		try {
-			Runtime.getRuntime().exec(cmd.toString());
+			Runtime.getRuntime().exec(cmd.toArray(new String[0]));
 			return true;
 		} catch (IOException e) {}
 

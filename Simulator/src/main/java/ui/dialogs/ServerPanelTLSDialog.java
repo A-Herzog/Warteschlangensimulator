@@ -20,6 +20,8 @@ import java.awt.FlowLayout;
 import java.io.File;
 import java.io.IOException;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -151,6 +153,16 @@ public class ServerPanelTLSDialog extends BaseDialog {
 			return;
 		}
 
+		final String passwd=editPassword.getText().trim();
+		if (passwd.length()<6) {
+			MsgBox.error(this,Language.tr("SimulationServer.Setup.TLSInfo.GenerateKeyStore"),Language.tr("SimulationServer.Setup.TLSInfo.GenerateKeyStore.ErrorPasswordTooShort"));
+			return;
+		}
+		if (passwd.chars().filter(i->(i<32 || i>127)).findFirst().isPresent()) {
+			MsgBox.error(this,Language.tr("SimulationServer.Setup.TLSInfo.GenerateKeyStore"),Language.tr("SimulationServer.Setup.TLSInfo.GenerateKeyStore.ErrorPasswordASCII"));
+			return;
+		}
+
 		/* KeyTool finden */
 		final File keyToolFolder=new File(System.getProperty("java.home"),"bin");
 		File keyToolFile=new File(keyToolFolder,"keytool.exe");
@@ -161,34 +173,35 @@ public class ServerPanelTLSDialog extends BaseDialog {
 		}
 
 		/* KeyTool-Befehl zusammensetzen */
-		final StringBuilder commandLine=new StringBuilder();
-		commandLine.append('"');
-		commandLine.append(keyToolFile.toString());
-		commandLine.append('"');
-		commandLine.append(" -genkey");
-		commandLine.append(" -noprompt");
-		commandLine.append(" -keyalg RSA");
-		commandLine.append(" -alias selfsigned");
-		commandLine.append(" -keystore \""+keyStoreFile.toString()+"\"");
-		commandLine.append(" -storepass \""+editPassword.getText().trim()+"\"");
-		commandLine.append(" -keysize 4096");
-		commandLine.append(" -ext SAN=DNS:localhost,IP:127.0.0.1");
-		commandLine.append(" -dname \"CN="+MainFrame.PROGRAM_NAME+", OU=, O=, L=, S=, C=\"");
-		commandLine.append(" -validity 365");
+		final List<String> commandLine=new ArrayList<>();
+		commandLine.add(keyToolFile.toString());
+		commandLine.add("-genkey");
+		commandLine.add("-noprompt");
+		commandLine.add("-keyalg");
+		commandLine.add("RSA");
+		commandLine.add("-alias");
+		commandLine.add("selfsigned");
+		commandLine.add("-keystore"); commandLine.add(keyStoreFile.toString());
+		commandLine.add("-storepass"); commandLine.add(passwd);
+		commandLine.add("-keysize"); commandLine.add("4096");
+		commandLine.add("-ext"); commandLine.add("SAN=DNS:localhost,IP:127.0.0.1");
+		commandLine.add("-dname"); commandLine.add("\"CN="+MainFrame.PROGRAM_NAME+", OU=, O=, L=, S=, C=\"");
+		commandLine.add("-validity"); commandLine.add("365");
 
 		/* KeyTool ausführen */
 		try {
-			final Process p=Runtime.getRuntime().exec(commandLine.toString());
+			final Process p=Runtime.getRuntime().exec(commandLine.toArray(new String[0]));
 			if (p==null) {
 				MsgBox.error(this,Language.tr("SimulationServer.Setup.TLSInfo.GenerateKeyStore"),Language.tr("SimulationServer.Setup.TLSInfo.GenerateKeyStore.ExecuteError"));
 				return;
 			}
 			p.waitFor();
+			/* try (InputStream stream=p.getInputStream()) {(new BufferedReader(new InputStreamReader(stream))).lines().forEach(System.out::println);	} */
 		} catch (IOException | InterruptedException e) {
 			MsgBox.error(this,Language.tr("SimulationServer.Setup.TLSInfo.GenerateKeyStore"),Language.tr("SimulationServer.Setup.TLSInfo.GenerateKeyStore.ExecuteError"));
 			return;
 		}
 
-		MsgBox.error(this,Language.tr("SimulationServer.Setup.TLSInfo.GenerateKeyStore"),Language.tr("SimulationServer.Setup.TLSInfo.GenerateKeyStore.Success"));
+		MsgBox.info(this,Language.tr("SimulationServer.Setup.TLSInfo.GenerateKeyStore"),Language.tr("SimulationServer.Setup.TLSInfo.GenerateKeyStore.Success"));
 	}
 }

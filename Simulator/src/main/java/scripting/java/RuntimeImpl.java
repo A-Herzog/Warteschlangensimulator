@@ -22,8 +22,12 @@ import java.io.Reader;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import language.Language;
 import mathtools.NumberTools;
@@ -112,6 +116,27 @@ public class RuntimeImpl implements RuntimeInterface {
 		return D.doubleValue();
 	}
 
+	/**
+	 * Regulärer Ausdruck für {@link #tokenize(String)}
+	 * @see #tokenize(String)
+	 */
+	private final Pattern tokenizePattern=Pattern.compile("\"([^\"]*)\"|(\\S+)");
+
+	/**
+	 * Zerlegt einen Gesamt-Befehl in seine einzelnen (durch Leerzeichen getrennte)
+	 * Bestandteile. Dabei werden Bereiche in Anführungszeichen zusammengehalten.
+	 * @param commandLine	Gesamt-Befehl als einzelne Zeichenkette
+	 * @return	Befehl aus Einzelkomponenten
+	 */
+	private String[] tokenize(final String commandLine) {
+		final List<String> list=new ArrayList<>();
+		final Matcher m=tokenizePattern.matcher(commandLine);
+		while (m.find()) {
+			if (m.group(1)!=null) list.add(m.group(1)); else list.add(m.group(2));
+		}
+		return list.toArray(new String[0]);
+	}
+
 	@Override
 	public boolean execute(final String commandLine) {
 		/* Sicherheitsprüfung */
@@ -119,7 +144,7 @@ public class RuntimeImpl implements RuntimeInterface {
 
 		/* Ausführung */
 		try {
-			final Process p=Runtime.getRuntime().exec(commandLine);
+			final Process p=Runtime.getRuntime().exec(tokenize(commandLine));
 			if (p==null) return false;
 			return true;
 		} catch (IOException e) {
@@ -134,7 +159,7 @@ public class RuntimeImpl implements RuntimeInterface {
 
 		/* Ausführung */
 		try {
-			final Process p=Runtime.getRuntime().exec(commandLine);
+			final Process p=Runtime.getRuntime().exec(tokenize(commandLine));
 			if (p==null) return null;
 			p.waitFor();
 
@@ -158,7 +183,7 @@ public class RuntimeImpl implements RuntimeInterface {
 
 		/* Ausführung */
 		try {
-			final Process p=Runtime.getRuntime().exec(commandLine);
+			final Process p=Runtime.getRuntime().exec(tokenize(commandLine));
 			if (p==null) return -1;
 			return p.waitFor();
 		} catch (IOException | InterruptedException e) {
