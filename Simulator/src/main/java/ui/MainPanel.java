@@ -2604,59 +2604,7 @@ public class MainPanel extends MainPanelBase {
 	 * Befehl: Modell - Modell prüfen
 	 */
 	private void commandModelCheck() {
-		EditorPanelRepair.autoFix(editorPanel);
-
-		int errorID=-1;
-		boolean isError=false;
-		String status;
-
-		int[] err=editorPanel.getModel().surface.checkDoubleIDs(false);
-		if (err.length>0) {
-			isError=true;
-			StringBuilder sb=new StringBuilder();
-			for (int e: err) {
-				if (sb.length()>0) sb.append(", ");
-				sb.append(e);
-			}
-			status="<span style=\"color: red\">"+String.format(Language.tr("Window.Check.ErrorDoubleIDs"),sb.toString())+"</span><br>";
-			EditModel model=editorPanel.getModel();
-			err=model.surface.checkDoubleIDs(true);
-			if (err.length==0) {
-				final File file=editorPanel.getLastFile();
-				editorPanel.setModel(model);
-				editorPanel.setLastFile(file);
-				status+="<span style=\"color: green\">"+Language.tr("Window.Check.Fixed")+"</span><br>"+Language.tr("Window.Check.PleaseRerun");
-			} else {
-				status+="<span style=\"color: red\"><b>"+Language.tr("Window.Check.CannotFix")+"</b></span>";
-			}
-		} else {
-			final StartAnySimulator.PrepareError prepareError=StartAnySimulator.testModel(editorPanel.getModel());
-			if (prepareError==null) {
-				status="<span style=\"color: green;\">"+Language.tr("Window.Check.Ok")+"</span>";
-			} else {
-				isError=true;
-				errorID=prepareError.id;
-				if (prepareError.additional.contains(StartAnySimulator.AdditionalPrepareErrorInfo.NO_COMPILER)) {
-					noJavaCompilerAvailableMessage();
-					return;
-				}
-				String error=prepareError.error;
-				if (error.length()>512) error=error.substring(0,512)+"...";
-				status=Language.tr("Window.Check.ErrorList")+"<br><span style=\"color: red\">"+error+"</span>";
-			}
-		}
-
-		if (isError) {
-			if (errorID>0) {
-				if (MsgBox.confirm(getOwnerWindow(),Language.tr("Window.Check.Title"),"<html><body>"+status+"<br><br>"+Language.tr("Window.Check.StationDialog.Question")+"</body></html>",Language.tr("Window.Check.StationDialog.InfoYes"),Language.tr("Window.Check.StationDialog.InfoNo"))) {
-					editorPanel.getByIdIncludingSubModelsButGetParent(errorID);
-				}
-			} else {
-				MsgBox.error(getOwnerWindow(),Language.tr("Window.Check.Title"),"<html><body>"+status+"</body></html>");
-			}
-		} else {
-			MsgBox.info(getOwnerWindow(),Language.tr("Window.Check.Title"),"<html><body>"+status+"</body></html>");
-		}
+		editorPanel.checkModel();
 	}
 
 	/**
@@ -2981,7 +2929,7 @@ public class MainPanel extends MainPanelBase {
 		if (error!=null) {
 			SwingUtilities.invokeLater(()->{
 				if (error.additional.contains(StartAnySimulator.AdditionalPrepareErrorInfo.NO_COMPILER)) {
-					noJavaCompilerAvailableMessage();
+					noJavaCompilerAvailableMessage(this);
 					return;
 				}
 				if (error.id>0) {
@@ -3043,7 +2991,7 @@ public class MainPanel extends MainPanelBase {
 		if (error!=null) {
 			if (!externalConnect) {
 				if (error.additional.contains(StartAnySimulator.AdditionalPrepareErrorInfo.NO_COMPILER)) {
-					noJavaCompilerAvailableMessage();
+					noJavaCompilerAvailableMessage(this);
 					return error.error;
 				}
 				if (error.id>0) {
@@ -3239,7 +3187,7 @@ public class MainPanel extends MainPanelBase {
 		if (obj instanceof StartAnySimulator.PrepareError) {
 			final StartAnySimulator.PrepareError error=(StartAnySimulator.PrepareError)obj;
 			if (error.additional.contains(StartAnySimulator.AdditionalPrepareErrorInfo.NO_COMPILER)) {
-				noJavaCompilerAvailableMessage();
+				noJavaCompilerAvailableMessage(this);
 				return;
 			}
 			if (error.id>0) {
@@ -4152,8 +4100,9 @@ public class MainPanel extends MainPanelBase {
 
 	/**
 	 * Zeigt einen Dialog zur Auswahl der Möglichkeiten zum Download eines JDK an.
+	 * @param parent	Übergeordnetes Element zur Ausrichtung von Meldungsfenstern
 	 */
-	private void noJavaCompilerAvailableMessage() {
+	public static void noJavaCompilerAvailableMessage(final JPanel parent) {
 		final boolean autoInstallPossible=(System.getProperty("os.name").toUpperCase().contains("WIN") && SetupData.getProgramFolder().toString().equals(SetupData.getSetupFolder().toString()));
 		final File downloader=new File(new File(SetupData.getProgramFolder(),"tools"),"JavaDownloader.exe");
 
@@ -4178,7 +4127,7 @@ public class MainPanel extends MainPanelBase {
 		options.add("<b>"+Language.tr("NoJDK.OptionCancel")+"</b>");
 		info.add(Language.tr("NoJDK.OptionCancel.Info"));
 
-		final int result=MsgBox.options(this,Language.tr("NoJDK.Title"),infoText.toString(),options.toArray(new String[0]),info.toArray(new String[0]));
+		final int result=MsgBox.options(parent,Language.tr("NoJDK.Title"),infoText.toString(),options.toArray(new String[0]),info.toArray(new String[0]));
 
 		if (autoInstallPossible && downloader.isFile()) {
 			switch (result) {
@@ -4186,17 +4135,16 @@ public class MainPanel extends MainPanelBase {
 				try {
 					Runtime.getRuntime().exec(new String[] {downloader.toString(),"/forceautodownload"});
 				} catch (IOException e) {
-					MsgBox.error(this,Language.tr("NoJDK.OptionAutomatic.ErrorTitle"),String.format(Language.tr("NoJDK.OptionAutomatic.ErrorInfo"),downloader.toString()));
+					MsgBox.error(parent,Language.tr("NoJDK.OptionAutomatic.ErrorTitle"),String.format(Language.tr("NoJDK.OptionAutomatic.ErrorInfo"),downloader.toString()));
 					return;
 				}
-				close();
 				break;
 			case 1:
-				JOpenURL.open(this,"https://"+JDK_URL);
+				JOpenURL.open(parent,"https://"+JDK_URL);
 				break;
 			}
 		} else {
-			if (result==0) JOpenURL.open(this,"https://"+JDK_URL);
+			if (result==0) JOpenURL.open(parent,"https://"+JDK_URL);
 		}
 	}
 }

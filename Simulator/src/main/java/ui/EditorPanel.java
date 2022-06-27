@@ -85,6 +85,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import language.Language;
 import mathtools.distribution.swing.CommonVariables;
 import mathtools.distribution.tools.FileDropperData;
+import simulator.StartAnySimulator;
 import simulator.editmodel.EditModel;
 import simulator.statistics.Statistics;
 import swingtools.ImageIOFormatCheck;
@@ -98,6 +99,7 @@ import tools.SlidesGenerator;
 import ui.dialogs.BackgroundColorDialog;
 import ui.dialogs.HeatMapSelectWindow;
 import ui.dialogs.LayersDialog;
+import ui.dialogs.ModelDescriptionDialog;
 import ui.images.Images;
 import ui.infopanel.InfoPanel;
 import ui.modeleditor.DrawIOExport;
@@ -1036,11 +1038,16 @@ public final class EditorPanel extends EditorPanelBase {
 		final String hotkeyProperties=keyStrokeToString(KeyStroke.getKeyStroke(KeyEvent.VK_F2,InputEvent.CTRL_DOWN_MASK));
 		buttonProperties=createRotatedToolbarButton(leftToolbar,Language.tr("Editor.ModelProperties.Short"),Language.tr("Editor.ModelProperties.Info")+" ("+hotkeyProperties+")",Images.MODEL.getIcon());
 		if (!readOnly) {
+			buttonProperties.addMouseListener(new MouseAdapter() {
+				@Override public void mousePressed(MouseEvent e) {if (SwingUtilities.isRightMouseButton(e) && e.getClickCount()==1) showModelSettingsContextMenu(buttonProperties);}
+			});
+
 			final String hotkeyToggleTemplates=keyStrokeToString(KeyStroke.getKeyStroke(KeyEvent.VK_F2,0));
 			buttonTemplates=createRotatedToolbarButton(leftToolbar,Language.tr("Editor.ToggleTemplates.Short"),Language.tr("Editor.ToggleTemplates.Info")+" ("+hotkeyToggleTemplates+")",Images.ELEMENTTEMPLATES.getIcon());
 			buttonTemplates.addMouseListener(new MouseAdapter() {
 				@Override public void mousePressed(MouseEvent e) {if (SwingUtilities.isRightMouseButton(e) && e.getClickCount()==1) showElementsSettingsContextMenu(buttonTemplates);}
 			});
+
 			buttonAddEdge=createRotatedToolbarButton(leftToolbar,Language.tr("Editor.AddEdge.Short"),Language.tr("Editor.AddEdge.Info")+" ("+keyStrokeToString(KeyStroke.getKeyStroke(KeyEvent.VK_F3,InputEvent.CTRL_DOWN_MASK))+")",Images.EDIT_EDGES_ADD.getIcon());
 			buttonAddEdge.setEnabled(!readOnly);
 			buttonAddEdge.addMouseListener(new MouseAdapter() {
@@ -1134,6 +1141,36 @@ public final class EditorPanel extends EditorPanelBase {
 	}
 
 	/**
+	 * Zeigt das Kontextmenü für die vertikale "Modell"-Schaltfläche an
+	 * @param invoker	Aufrufende Schaltfläche
+	 */
+	private void showModelSettingsContextMenu(final JButton invoker) {
+		final JPopupMenu menu=new JPopupMenu();
+
+		JMenuItem item;
+
+		menu.add(item=new JMenuItem(Language.tr("Main.Menu.CheckModel"),Images.SIMULATION_CHECK.getIcon()));
+		item.setMnemonic(Language.tr("Main.Menu.CheckModel.Mnemonic").charAt(0));
+		item.addActionListener(e->checkModel());
+
+		menu.add(item=new JMenuItem(Language.tr("Main.Menu.View.ModelDescription"),Images.MODEL_DESCRIPTION.getIcon()));
+		item.setMnemonic(Language.tr("Main.Menu.View.ModelDescription.Mnemonic").charAt(0));
+		item.addActionListener(e->new ModelDescriptionDialog(this,getModel()).setVisible(true));
+
+		menu.addSeparator();
+
+		menu.add(item=new JMenuItem("<html><b>"+Language.tr("Editor.Dialog.Title")+"</b></html>"));
+		item.setEnabled(false);
+
+		for (ModelPropertiesDialog.InitialPage page: ModelPropertiesDialog.InitialPage.values()) {
+			menu.add(item=new JMenuItem(page.getName(),page.getIcon()));
+			item.addActionListener(e->showModelPropertiesDialog(page));
+		}
+
+		menu.show(invoker,0,invoker.getHeight());
+	}
+
+	/**
 	 * Zeigt das Kontextmenü für die vertikale "Elemente"-Schaltfläche an
 	 * @param invoker	Aufrufende Schaltfläche
 	 */
@@ -1145,7 +1182,7 @@ public final class EditorPanel extends EditorPanelBase {
 		JMenuItem item;
 		JRadioButtonMenuItem radioItem;
 
-		menu.add(item=new JMenuItem("<html><body>"+Language.tr("Main.Menu.Edit.RenameOnCopy")+"</body></html>"));
+		menu.add(item=new JMenuItem("<html><body><b>"+Language.tr("Main.Menu.Edit.RenameOnCopy")+"</b></body></html>"));
 		item.setEnabled(false);
 		menu.addSeparator();
 
@@ -1181,7 +1218,7 @@ public final class EditorPanel extends EditorPanelBase {
 		JMenuItem item;
 		JRadioButtonMenuItem radioItem;
 
-		menu.add(item=new JMenuItem("<html><body>"+Language.tr("Main.Menu.Edit.AutoConnect")+"</body></html>"));
+		menu.add(item=new JMenuItem("<html><b>"+Language.tr("Main.Menu.Edit.AutoConnect")+"</b></html>"));
 		item.setEnabled(false);
 		menu.addSeparator();
 
@@ -1201,6 +1238,65 @@ public final class EditorPanel extends EditorPanelBase {
 		radioItem.addActionListener(e->{setup.autoConnect=ModelSurfacePanel.ConnectMode.SMART; setup.saveSetup();});
 
 		menu.show(invoker,0,invoker.getHeight());
+	}
+
+	/**
+	 * Führt eine Prüfung des Modells durch.
+	 */
+	public void checkModel() {
+		EditorPanelRepair.autoFix(this);
+
+		int errorID=-1;
+		boolean isError=false;
+		String status;
+
+		int[] err=getModel().surface.checkDoubleIDs(false);
+		if (err.length>0) {
+			isError=true;
+			StringBuilder sb=new StringBuilder();
+			for (int e: err) {
+				if (sb.length()>0) sb.append(", ");
+				sb.append(e);
+			}
+			status="<span style=\"color: red\">"+String.format(Language.tr("Window.Check.ErrorDoubleIDs"),sb.toString())+"</span><br>";
+			EditModel model=getModel();
+			err=model.surface.checkDoubleIDs(true);
+			if (err.length==0) {
+				final File file=getLastFile();
+				setModel(model);
+				setLastFile(file);
+				status+="<span style=\"color: green\">"+Language.tr("Window.Check.Fixed")+"</span><br>"+Language.tr("Window.Check.PleaseRerun");
+			} else {
+				status+="<span style=\"color: red\"><b>"+Language.tr("Window.Check.CannotFix")+"</b></span>";
+			}
+		} else {
+			final StartAnySimulator.PrepareError prepareError=StartAnySimulator.testModel(getModel());
+			if (prepareError==null) {
+				status="<span style=\"color: green;\">"+Language.tr("Window.Check.Ok")+"</span>";
+			} else {
+				isError=true;
+				errorID=prepareError.id;
+				if (prepareError.additional.contains(StartAnySimulator.AdditionalPrepareErrorInfo.NO_COMPILER)) {
+					MainPanel.noJavaCompilerAvailableMessage(this);
+					return;
+				}
+				String error=prepareError.error;
+				if (error.length()>512) error=error.substring(0,512)+"...";
+				status=Language.tr("Window.Check.ErrorList")+"<br><span style=\"color: red\">"+error+"</span>";
+			}
+		}
+
+		if (isError) {
+			if (errorID>0) {
+				if (MsgBox.confirm(getOwnerWindow(),Language.tr("Window.Check.Title"),"<html><body>"+status+"<br><br>"+Language.tr("Window.Check.StationDialog.Question")+"</body></html>",Language.tr("Window.Check.StationDialog.InfoYes"),Language.tr("Window.Check.StationDialog.InfoNo"))) {
+					getByIdIncludingSubModelsButGetParent(errorID);
+				}
+			} else {
+				MsgBox.error(getOwnerWindow(),Language.tr("Window.Check.Title"),"<html><body>"+status+"</body></html>");
+			}
+		} else {
+			MsgBox.info(getOwnerWindow(),Language.tr("Window.Check.Title"),"<html><body>"+status+"</body></html>");
+		}
 	}
 
 	/**
@@ -2589,7 +2685,7 @@ public final class EditorPanel extends EditorPanelBase {
 
 		JMenuItem item;
 
-		popup.add(item=new JMenuItem(Language.tr("Editor.TemplateFilter.Info")));
+		popup.add(item=new JMenuItem("<html><b>"+Language.tr("Editor.TemplateFilter.Info")+"</b></html>"));
 		item.setEnabled(false);
 		popup.addSeparator();
 
