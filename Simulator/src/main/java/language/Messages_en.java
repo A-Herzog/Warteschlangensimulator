@@ -3346,6 +3346,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[8585] = "Client: %s, station: %s, branching to output %d of %d";
     t[8586] = "AnalyticModelCompare.Dialog.DialogHint";
     t[8587] = "Simple queueing models can be calculated directly using analytical formulas. If the model is somewhat more complex, but still traceable to the basic concepts of the respective formula, an analytical comparison calculation is possible, the results of which will, however, differ from the simulation results.";
+    t[8590] = "Surface.Connection.Color";
+    t[8591] = "Color";
     t[8596] = "CommandLine.ReportBase.Done";
     t[8597] = "The report was successfully created.";
     t[8600] = "UndoRedoSelect.UndoStep";
@@ -4014,14 +4016,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[10123] = "The entered value for the lower bound of the target range is invalid. A valid number has to be specified.";
     t[10128] = "ExpressionBuilder.ProbabilityDistributions.ChiDistribution.RandomNumberInfo";
     t[10129] = "<p>Generates a random number according to the Chi distribution with the number of degrees of freedom according to the parameter.</p>";
-    t[10130] = "Editor.Dialog.Tab.OutputAnalysis.InfoText";
-    t[10131] = "The output analysis allows to determine the correlation of the individuel waiting times of the client and to calculate confidence intervals on this basis.";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_2 (java.lang.String[] t) {
+    t[10130] = "Editor.Dialog.Tab.OutputAnalysis.InfoText";
+    t[10131] = "The output analysis allows to determine the correlation of the individuel waiting times of the client and to calculate confidence intervals on this basis.";
     t[10132] = "Surface.SingleCoreReason.ScriptContent";
     t[10133] = "At station id=%d commands for loading external data are used.";
     t[10138] = "Surface.XML.Transporter.Expression";
@@ -6020,14 +6022,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[15197] = "Operator alternative";
     t[15202] = "Surface.AnimationTextSelect.Dialog.Title";
     t[15203] = "Edit text by simulation data";
-    t[15214] = "Simulation.Log.Record.Info1";
-    t[15215] = "Client: %s, station: %s, value 1: %s";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_3 (java.lang.String[] t) {
+    t[15214] = "Simulation.Log.Record.Info1";
+    t[15215] = "Client: %s, station: %s, value 1: %s";
     t[15216] = "Simulation.Log.Record.Info2";
     t[15217] = "Client: %s, station: %s, value 1: %s, value 2: %s";
     t[15218] = "SettingsDialog.Tabs.ExcelDDEConnect";
@@ -8026,14 +8028,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[20179] = "Parameter series simulation is completed.";
     t[20186] = "Editor.Dialog.Tab.OutputAnalysis.BatchMeans.Size.Error";
     t[20187] = "The specified batch size for confidence interval calculations \"%s\" is invalid. A positive integer number has to be specified.";
-    t[20194] = "Resources.Group.EditName.Dialog.CostsPerHour.Error.Title";
-    t[20195] = "Invalid costs";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_4 (java.lang.String[] t) {
+    t[20194] = "Resources.Group.EditName.Dialog.CostsPerHour.Error.Title";
+    t[20195] = "Invalid costs";
     t[20196] = "Statistics.Utilization.NumberOfOperators.Kurt";
     t[20197] = "Excess kurtosis of the number of available operators";
     t[20198] = "ExpressionBuilder.SimulationCharacteristics.ResidenceTimesByClientTypes.Median";
@@ -10032,14 +10034,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[25091] = "Delete sequence.";
     t[25094] = "Color.8B4513";
     t[25095] = "Saddle brown";
-    t[25100] = "Surface.AnimationBarChart.HistogramWizard.Count.ErrorInfo";
-    t[25101] = "The specified number of histogram bars \"%s\" is invalid. A positive integer number has to be specified.";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_5 (java.lang.String[] t) {
+    t[25100] = "Surface.AnimationBarChart.HistogramWizard.Count.ErrorInfo";
+    t[25101] = "The specified number of histogram bars \"%s\" is invalid. A positive integer number has to be specified.";
     t[25106] = "Surface.Batch.Dialog.SendAsNewClient";
     t[25107] = "Forward batched clients as a single new client; type:";
     t[25110] = "Statistics.MaximalPathLength";
@@ -10774,6 +10776,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[26865] = "The selected filter script\n%s\ndoes not exist.";
     t[26866] = "Surface.AnimationPieChart.Dialog.LabelMode.On";
     t[26867] = "On";
+    t[26872] = "Surface.XML.LineColor";
+    t[26873] = "ModelElementConnectionColor";
     t[26874] = "Batch.Parameter.Resource.Label";
     t[26875] = "Resource";
     t[26878] = "CommandLine.BuildExampleModelImages .Description.Long";
@@ -12036,16 +12040,16 @@ public class Messages_en extends java.util.ResourceBundle {
     t[30027] = "LineWidth";
     t[30028] = "Animation.Icon.Operator";
     t[30029] = "Operator";
-    t[30030] = "Surface.Separate.Name.Short";
-    t[30031] = "Separate";
-    t[30032] = "Server.Log.PrepareVersionMismatch";
-    t[30033] = "Client and server version do not match.";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_6 (java.lang.String[] t) {
+    t[30030] = "Surface.Separate.Name.Short";
+    t[30031] = "Separate";
+    t[30032] = "Server.Log.PrepareVersionMismatch";
+    t[30033] = "Client and server version do not match.";
     t[30040] = "ExpressionBuilder.ProbabilityDistributions.BetaDistributionDirect.RandomNumberInfo";
     t[30041] = "<p>Generates a random number according to the beta distribution with lower bound, upper bound, mean and standard deviation specified in parameters one to four.</p>\n<p>Example: <tt>BetaDistDirect(0;10;5;5)</tt>.</p>";
     t[30060] = "Surface.Set.Table.Delete.Error.NoInfo";
@@ -14042,16 +14046,16 @@ public class Messages_en extends java.util.ResourceBundle {
     t[34847] = "Match clients";
     t[34850] = "XML.UnknownFileFormat";
     t[34851] = "The file format is unknown respectively is not matching to any of the file formats of this program.";
-    t[34852] = "Surface.TankValveSetup.Table.MoveDown";
-    t[34853] = "Move down";
-    t[34854] = "Surface.PopupMenu.RemoveAllEdges";
-    t[34855] = "Remove all edges";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_7 (java.lang.String[] t) {
+    t[34852] = "Surface.TankValveSetup.Table.MoveDown";
+    t[34853] = "Move down";
+    t[34854] = "Surface.PopupMenu.RemoveAllEdges";
+    t[34855] = "Remove all edges";
     t[34860] = "Surface.Batch.Dialog.BatchSizeFixed";
     t[34861] = "Batch size";
     t[34862] = "Surface.Set.XML.Assignment.Variable";
@@ -16048,16 +16052,16 @@ public class Messages_en extends java.util.ResourceBundle {
     t[39663] = "Copies the image to the clipboard";
     t[39664] = "NotesDialog.Delete.Hint";
     t[39665] = "Deletes the selected note (Shift+Click=without confirmation dialog)";
-    t[39686] = "BatchPanel.Directory.Caption";
-    t[39687] = "Select folder";
-    t[39692] = "Schedule.SettingsDialog.IntervalDuration";
-    t[39693] = "Interval duration";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_8 (java.lang.String[] t) {
+    t[39686] = "BatchPanel.Directory.Caption";
+    t[39687] = "Select folder";
+    t[39692] = "Schedule.SettingsDialog.IntervalDuration";
+    t[39693] = "Interval duration";
     t[39700] = "Simulation.Log.Costs";
     t[39701] = "Costs";
     t[39702] = "ProblemReporter.Dialog.NoItemsErrorInfo";
@@ -18054,16 +18058,16 @@ public class Messages_en extends java.util.ResourceBundle {
     t[44537] = "p";
     t[44540] = "ScriptPopup.Client.ValueNumber.GetAll";
     t[44541] = "Get all values";
-    t[44544] = "ExpressionBuilder.TrigonometricFunctions.Tangens.Info";
-    t[44545] = "<p>Calculates the value of the tangent function with the value passed as parameter. The angle is assumed in <b>radian</b> (full circle=2pi).</p> <p> Example: <tt>tan(0)</p> returns 0.</p>";
-    t[44550] = "Statistics.AnalogValue.Flow.Stop.BySignal";
-    t[44551] = "stop at signal \"%s\"";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_9 (java.lang.String[] t) {
+    t[44544] = "ExpressionBuilder.TrigonometricFunctions.Tangens.Info";
+    t[44545] = "<p>Calculates the value of the tangent function with the value passed as parameter. The angle is assumed in <b>radian</b> (full circle=2pi).</p> <p> Example: <tt>tan(0)</p> returns 0.</p>";
+    t[44550] = "Statistics.AnalogValue.Flow.Stop.BySignal";
+    t[44551] = "stop at signal \"%s\"";
     t[44554] = "Surface.ScriptEditor.New.Hint";
     t[44555] = "Clears the current script.";
     t[44556] = "Surface.AssignString.Dialog.Title";
@@ -20060,16 +20064,16 @@ public class Messages_en extends java.util.ResourceBundle {
     t[49361] = "Use proxy server for interntet connections";
     t[49362] = "Main.Menu.Edit.Align.Top.Mnemonic";
     t[49363] = "T";
-    t[49370] = "ModelDescription.Input.EOFMode";
-    t[49371] = "At end of file";
-    t[49378] = "Optimizer.Tab.Target.Value.Range.InvalidRange.UpperBoundInteger";
-    t[49379] = "The entered value for the upper bound of the target range is invalid. A valid integer number has to be specified.";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_10 (java.lang.String[] t) {
+    t[49370] = "ModelDescription.Input.EOFMode";
+    t[49371] = "At end of file";
+    t[49378] = "Optimizer.Tab.Target.Value.Range.InvalidRange.UpperBoundInteger";
+    t[49379] = "The entered value for the upper bound of the target range is invalid. A valid integer number has to be specified.";
     t[49394] = "Animation.JSResults.ReturnValue";
     t[49395] = "Return value";
     t[49398] = "Color.90EE90";
@@ -22066,16 +22070,16 @@ public class Messages_en extends java.util.ResourceBundle {
     t[54219] = "XML element";
     t[54224] = "ModelSecurityCheck.Column.StationName";
     t[54225] = "Station name";
-    t[54226] = "Statistic.Viewer.Toolbar.SelectAll.Hint";
-    t[54227] = "Select all entries";
-    t[54228] = "UndoRedoSelect.Save";
-    t[54229] = "Save";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_11 (java.lang.String[] t) {
+    t[54226] = "Statistic.Viewer.Toolbar.SelectAll.Hint";
+    t[54227] = "Select all entries";
+    t[54228] = "UndoRedoSelect.Save";
+    t[54229] = "Save";
     t[54230] = "Git.List.Tab.Server.Button.Push.Hint";
     t[54231] = "Updates the server data with the data from the local Git directory.";
     t[54232] = "Server.Status.UseCompression";

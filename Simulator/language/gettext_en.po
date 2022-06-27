@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-06-26 00:15+0200\n"
+"POT-Creation-Date: 2022-06-26 00:21+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -25037,6 +25037,9 @@ msgstr "Name for teleport destination"
 msgid "Surface.Connection.AddVertex"
 msgstr "Add vertex on path"
 
+msgid "Surface.Connection.Color"
+msgstr "Color"
+
 msgid "Surface.Connection.LineMode"
 msgstr "Edge display mode"
 
@@ -32044,6 +32047,9 @@ msgstr "visible"
 
 msgid "Surface.XML.Level"
 msgstr "Level"
+
+msgid "Surface.XML.LineColor"
+msgstr "ModelElementConnectionColor"
 
 msgid "Surface.XML.LineMode"
 msgstr "ModelElementConnectionDrawStyle"

@@ -33,6 +33,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPopupMenu;
 
 import org.apache.commons.math3.util.FastMath;
+import org.apache.jena.ext.com.google.common.base.Objects;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -40,6 +41,7 @@ import language.Language;
 import mathtools.NumberTools;
 import simulator.editmodel.EditModel;
 import simulator.editmodel.FullTextSearch;
+import systemtools.SmallColorChooser;
 import ui.images.Images;
 import ui.modeleditor.ModelElementCatalog;
 import ui.modeleditor.ModelSurface;
@@ -158,6 +160,7 @@ public final class ModelElementEdge extends ModelElement {
 		if (connectionStart.getId()!=otherEdge.connectionStart.getId()) return false;
 		if (connectionEnd.getId()!=otherEdge.connectionEnd.getId()) return false;
 		if (lineMode!=otherEdge.lineMode) return false;
+		if (!Objects.equal(lineColor,otherEdge.lineColor)) return false;
 
 		return true;
 	}
@@ -170,9 +173,11 @@ public final class ModelElementEdge extends ModelElement {
 	public void copyDataFrom(ModelElement element) {
 		super.copyDataFrom(element);
 		if (element instanceof ModelElementEdge) {
-			if (((ModelElementEdge)element).connectionStart!=null) connectionStartId=((ModelElementEdge)element).connectionStart.getId();
-			if (((ModelElementEdge)element).connectionEnd!=null) connectionEndId=((ModelElementEdge)element).connectionEnd.getId();
-			lineMode=((ModelElementEdge)element).lineMode;
+			final ModelElementEdge otherEdge=(ModelElementEdge)element;
+			if (otherEdge.connectionStart!=null) connectionStartId=((ModelElementEdge)element).connectionStart.getId();
+			if (otherEdge.connectionEnd!=null) connectionEndId=((ModelElementEdge)element).connectionEnd.getId();
+			lineMode=otherEdge.lineMode;
+			setLineColor(otherEdge.lineColor);
 		}
 	}
 
@@ -205,6 +210,8 @@ public final class ModelElementEdge extends ModelElement {
 			connectionEndId=-1;
 		}
 		if ((connectionStart==null || connectionEnd==null) && surface!=null) surface.remove(this);
+
+		setLineColor(lineColor);
 	}
 
 	/**
@@ -241,11 +248,11 @@ public final class ModelElementEdge extends ModelElement {
 	protected void addContextMenuItems(final Component owner, final JPopupMenu popupMenu, final ModelSurfacePanel surfacePanel, final Point point, final boolean readOnly) {
 		if (readOnly) return;
 
+		JMenu menu;
 		JCheckBoxMenuItem check;
 		JMenuItem item;
 
-		final JMenu menu=new JMenu(Language.tr("Surface.Connection.LineMode"));
-		popupMenu.add(menu);
+		popupMenu.add(menu=new JMenu(Language.tr("Surface.Connection.LineMode")));
 
 		menu.add(check=new JCheckBoxMenuItem(Language.tr("Surface.Connection.LineMode.Global"),Images.MODEL.getIcon(),lineMode==null));
 		check.addActionListener(e->{lineMode=null; fireChanged();});
@@ -257,6 +264,14 @@ public final class ModelElementEdge extends ModelElement {
 		check.addActionListener(e->{lineMode=LineMode.MULTI_LINE_ROUNDED; fireChanged();});
 		menu.add(check=new JCheckBoxMenuItem(Language.tr("Surface.Connection.LineMode.CubicCurve"),Images.EDGE_MODE_CUBIC_CURVE.getIcon(),lineMode==LineMode.CUBIC_CURVE));
 		check.addActionListener(e->{lineMode=LineMode.CUBIC_CURVE	; fireChanged();});
+
+		popupMenu.add(menu=new JMenu(Language.tr("Surface.Connection.Color")));
+
+		menu.add(check=new JCheckBoxMenuItem("Standard",lineColor==null));
+		check.addActionListener(e->setLineColor(null));
+		final SmallColorChooser colorChooser=new SmallColorChooser(lineColor);
+		menu.add(colorChooser);
+		colorChooser.addClickListener(e->setLineColor(colorChooser.getColor()));
 
 		if ((connectionStart instanceof ModelElementPosition) && (connectionEnd instanceof ModelElementPosition)) {
 			popupMenu.add(item=new JMenuItem(Language.tr("Surface.Connection.AddVertex"),Images.MODELEDITOR_ELEMENT_VERTEX.getIcon()));
@@ -537,6 +552,43 @@ public final class ModelElementEdge extends ModelElement {
 	private final ComplexLine specialPainter=new ComplexLine();
 
 	/**
+	 * Linienfarbe im Standardfall<br>
+	 * (Kann <code>null</code> sein, dann wird {@link EditModel#edgePainterNormal} verwendet.)
+	 * @see #getLineColor()
+	 * @see #setLineColor(Color)
+	 */
+	private Color lineColor;
+
+	/**
+	 * Zeichenobjekt zur Umsetzung der Farbdaten aus {@link #lineColor}<br>
+	 * (Ist {@link #lineColor} <code>null</code>, dann auch dieses Objekt)
+	 * @see #setLineColor(Color)
+	 * @see #drawToGraphics(Graphics, Rectangle, double, boolean)
+	 */
+	private ComplexLine customNormalPainter=null;
+
+	/**
+	 * Liefert die eingestellte individuelle Linienfarbe.
+	 * @return	Linienfarbe oder <code>null</code>, wenn die Modellvorgabe verwendet werden soll
+	 */
+	public Color getLineColor() {
+		return lineColor;
+	}
+
+	/**
+	 * Stellt eine individuelle Farbe für die Verbindungslinie ein.
+	 * @param lineColor	Linienfarbe oder <code>null</code>, wenn die Modellvorgabe verwendet werden soll
+	 */
+	public void setLineColor(Color lineColor) {
+		this.lineColor=lineColor;
+		if (lineColor==null) {
+			customNormalPainter=null;
+		} else {
+			customNormalPainter=new ComplexLine(1,lineColor,0);
+		}
+	}
+
+	/**
 	 * Zeichnet das Element in ein <code>Graphics</code>-Objekt
 	 * @param graphics	<code>Graphics</code>-Objekt in das das Element eingezeichnet werden soll
 	 * @param drawRect	Tatsächlich sichtbarer Ausschnitt
@@ -562,7 +614,11 @@ public final class ModelElementEdge extends ModelElement {
 		final ComplexLine painter;
 		switch (drawMode) {
 		case NORMAL:
-			painter=(isSelected() && showSelectionFrames)?(getModel().edgePainterSelected):(getModel().edgePainterNormal);
+			if (isSelected() && showSelectionFrames) {
+				painter=getModel().edgePainterSelected;
+			} else {
+				if (customNormalPainter!=null) painter=customNormalPainter; else painter=getModel().edgePainterNormal;
+			}
 			break;
 		case GRAYED_OUT:
 			specialPainter.set(1,Color.GRAY,getModel().edgePainterNormal.getType());
@@ -1029,9 +1085,9 @@ public final class ModelElementEdge extends ModelElement {
 		if (connectionStart!=null || connectionEnd!=null) {
 			final Element sub=doc.createElement(Language.trPrimary("Surface.XML.Connection"));
 			node.appendChild(sub);
-			sub.setAttribute(Language.trPrimary("Surface.XML.Connection.Type"),Language.trPrimary("Surface.XML.Connection.Type.Edge")); // "Kante"
-			if (connectionStart!=null) sub.setAttribute(Language.trPrimary("Surface.XML.Connection.Element1"),""+connectionStart.getId()); // "Element1"
-			if (connectionEnd!=null) sub.setAttribute(Language.trPrimary("Surface.XML.Connection.Element2"),""+connectionEnd.getId()); // "Element2"
+			sub.setAttribute(Language.trPrimary("Surface.XML.Connection.Type"),Language.trPrimary("Surface.XML.Connection.Type.Edge"));
+			if (connectionStart!=null) sub.setAttribute(Language.trPrimary("Surface.XML.Connection.Element1"),""+connectionStart.getId());
+			if (connectionEnd!=null) sub.setAttribute(Language.trPrimary("Surface.XML.Connection.Element2"),""+connectionEnd.getId());
 		}
 		if (lineMode!=null) {
 			final Element sub=doc.createElement(Language.trPrimary("Surface.XML.LineMode"));
@@ -1042,6 +1098,11 @@ public final class ModelElementEdge extends ModelElement {
 			case MULTI_LINE_ROUNDED: sub.setTextContent(Language.trPrimary("Surface.XML.LineMode.MultiLineRounded")); break;
 			case CUBIC_CURVE: sub.setTextContent(Language.trPrimary("Surface.XML.LineMode.CubicCurve")); break;
 			}
+		}
+		if (lineColor!=null) {
+			final Element sub=doc.createElement(Language.trPrimary("Surface.XML.LineColor"));
+			node.appendChild(sub);
+			sub.setTextContent(EditModel.saveColor(lineColor));
 		}
 	}
 
@@ -1080,6 +1141,11 @@ public final class ModelElementEdge extends ModelElement {
 			if (Language.trAll("Surface.XML.LineMode.MultiLine",content)) lineMode=ModelElementEdge.LineMode.MULTI_LINE;
 			if (Language.trAll("Surface.XML.LineMode.MultiLineRounded",content)) lineMode=ModelElementEdge.LineMode.MULTI_LINE_ROUNDED;
 			if (Language.trAll("Surface.XML.LineMode.CubicCurve",content)) lineMode=ModelElementEdge.LineMode.CUBIC_CURVE;
+			return null;
+		}
+
+		if (Language.trAll("Surface.XML.LineColor",name)) {
+			lineColor=EditModel.loadColor(content);
 			return null;
 		}
 

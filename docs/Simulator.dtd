@@ -431,10 +431,12 @@
   neueelemente	CDATA	#IMPLIED
 >
 
-<!ELEMENT ModellElementKante (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementBoxSchriftGross | ModellElementBoxSchriftKlein | ModellElementMaximalerDurchsatzSekunden | ModellElementEbene | ModellElementVerbindung | ModellElementVerbindungsdarstellungsart)*>
+<!ELEMENT ModellElementKante (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementBoxSchriftGross | ModellElementBoxSchriftKlein | ModellElementMaximalerDurchsatzSekunden | ModellElementEbene | ModellElementVerbindung | ModellElementVerbindungsdarstellungsart | ModellElementVerbindungsfarbe)*>
 <!ATTLIST ModellElementKante
   id			CDATA	#REQUIRED
 >
+
+<!ELEMENT ModellElementVerbindungsfarbe (#PCDATA)>
 
 <!ELEMENT ModellElementText (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementBoxSchriftGross | ModellElementBoxSchriftKlein | ModellElementMaximalerDurchsatzSekunden | ModellElementEbene | ModellElementTextzeile | ModellElementSchriftart | ModellElementSchriftgrosse | ModellElementFarbe | ModellElementTextAusrichtung | ModellElementHintergrundfarbe)*>
 <!ATTLIST ModellElementText
@@ -2912,10 +2914,12 @@
   newelements	CDATA	#IMPLIED
 >
 
-<!ELEMENT ModelElementEdge (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBoxFontLarge | ModelElementBoxFontSmall | ModelElementMaximumThroughputSeconds | ModelElementLayer | ModelElementConnection | ModelElementConnectionDrawStyle)*>
+<!ELEMENT ModelElementEdge (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBoxFontLarge | ModelElementBoxFontSmall | ModelElementMaximumThroughputSeconds | ModelElementLayer | ModelElementConnection | ModelElementConnectionDrawStyle | ModelElementConnectionColor)*>
 <!ATTLIST ModelElementEdge
   id	CDATA	#REQUIRED
 >
+
+<!ELEMENT ModelElementConnectionColor (#PCDATA)>
 
 <!ELEMENT ModelElementText (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBoxFontLarge | ModelElementBoxFontSmall | ModelElementMaximumThroughputSeconds | ModelElementLayer | ModelElementTextLine | ModelElementFontFamily | ModelElementFontSize | ModelElementColor | ModelElementTextAlign | ModelElementBackgroundColor)*>
 <!ATTLIST ModelElementText
