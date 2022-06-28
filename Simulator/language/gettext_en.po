@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-06-26 00:21+0200\n"
+"POT-Creation-Date: 2022-06-27 08:12+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -11654,6 +11654,12 @@ msgstr "Statistic record \"%s\""
 msgid "ModelGenerator.AddVisualization"
 msgstr "Add visualization"
 
+msgid "ModelGenerator.AddVisualization.MeanRho"
+msgstr "Mean utilization"
+
+msgid "ModelGenerator.AddVisualization.MeanWaitingTime"
+msgstr "Mean waiting time"
+
 msgid "ModelGenerator.AddVisualization.WIP"
 msgstr "Number of clients in system"
 
@@ -11722,6 +11728,9 @@ msgstr "Lognormal distributed service times (CV[S]=0.25)"
 
 msgid "ModelGenerator.Model.Description.Properties.ServiceLognormalHighCV"
 msgstr "Lognormal distributed service times (CV[S]=0.75)"
+
+msgid "ModelGenerator.Model.Description.Properties.ServiceLognormalVeryHighCV"
+msgstr "Lognormal distributed service times (CV[S]=1.5)"
 
 msgid "ModelGenerator.Model.Description.Properties.ServiceRandom"
 msgstr "Serving clients in random order"
@@ -11816,6 +11825,9 @@ msgstr "Lognormal distribution (CV[S]=0.75)"
 msgid "ModelGenerator.ServiceDistribution.LogNormalLowCV"
 msgstr "Lognormal distribution (CV[S]=0.25)"
 
+msgid "ModelGenerator.ServiceDistribution.LogNormalVeryHighCV"
+msgstr "Lognormal distribution (CV[S]=1.5)"
+
 msgid "ModelGenerator.ServiceUtilization"
 msgstr "Utilization"
 
@@ -11842,6 +11854,12 @@ msgstr "Create simple model"
 
 msgid "ModelGenerator.UseWaitingTimeTolerance"
 msgstr "Clients are only willing to wait for a limited time"
+
+msgid "ModelGenerator.Visualization.MeanRhoTitle"
+msgstr "Mean operator utilization"
+
+msgid "ModelGenerator.Visualization.MeanWaitingTimeTitle"
+msgstr "Mean waiting time"
 
 msgid "ModelGenerator.Visualization.Title"
 msgstr "Number of clients in the system"

@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-06-26 00:21+0200\n"
+"POT-Creation-Date: 2022-06-27 08:12+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -11650,6 +11650,12 @@ msgstr "Statistikdatensatz \"%s\""
 msgid "ModelGenerator.AddVisualization"
 msgstr "Visualisierung hinzufügen"
 
+msgid "ModelGenerator.AddVisualization.MeanRho"
+msgstr "Mittlere Auslastung"
+
+msgid "ModelGenerator.AddVisualization.MeanWaitingTime"
+msgstr "Mittlere Wartezeit"
+
 msgid "ModelGenerator.AddVisualization.WIP"
 msgstr "Anzahl an Kunden im System"
 
@@ -11718,6 +11724,9 @@ msgstr "Lognormalverteilte Bedienzeiten (CV[S]=0,25)"
 
 msgid "ModelGenerator.Model.Description.Properties.ServiceLognormalHighCV"
 msgstr "Lognormalverteilte Bedienzeiten (CV[S]=0,75)"
+
+msgid "ModelGenerator.Model.Description.Properties.ServiceLognormalVeryHighCV"
+msgstr "Lognormalverteilte Bedienzeiten (CV[S]=1,5)"
 
 msgid "ModelGenerator.Model.Description.Properties.ServiceRandom"
 msgstr "Bedienung der Kunden in zufälliger Reihenfolge"
@@ -11812,6 +11821,9 @@ msgstr "Lognormalverteilung (CV[S]=0,75)"
 msgid "ModelGenerator.ServiceDistribution.LogNormalLowCV"
 msgstr "Lognormalverteilung (CV[S]=0,25)"
 
+msgid "ModelGenerator.ServiceDistribution.LogNormalVeryHighCV"
+msgstr "Lognormalverteilung (CV[S]=1,5)"
+
 msgid "ModelGenerator.ServiceUtilization"
 msgstr "Auslastung"
 
@@ -11825,7 +11837,7 @@ msgid "ModelGenerator.ServiceUtilization.Medium"
 msgstr "Mittel"
 
 msgid "ModelGenerator.SharedResource"
-msgstr "Geteilte Bedienerressource an den beiden Stationen verwenden"
+msgstr "Geteilte Bedienerressource an den Bedienstationen verwenden"
 
 msgid "ModelGenerator.Source"
 msgstr "Kundenquelle"
@@ -11838,6 +11850,12 @@ msgstr "Einfaches Modell erstellen"
 
 msgid "ModelGenerator.UseWaitingTimeTolerance"
 msgstr "Kunden sind nur bereit begrenzt lange zu warten"
+
+msgid "ModelGenerator.Visualization.MeanRhoTitle"
+msgstr "Mittlere Auslastung der Bediener"
+
+msgid "ModelGenerator.Visualization.MeanWaitingTimeTitle"
+msgstr "Mittlere Wartezeit"
 
 msgid "ModelGenerator.Visualization.Title"
 msgstr "Anzahl an Kunden im System"

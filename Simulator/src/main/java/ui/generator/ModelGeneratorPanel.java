@@ -46,6 +46,7 @@ import ui.modeleditor.ModelSurface;
 import ui.modeleditor.coreelements.ModelElementBox;
 import ui.modeleditor.elements.AnimationExpression;
 import ui.modeleditor.elements.ModelElementAnimationLineDiagram;
+import ui.modeleditor.elements.ModelElementAnimationTextValue;
 import ui.modeleditor.elements.ModelElementCounter;
 import ui.modeleditor.elements.ModelElementDecide;
 import ui.modeleditor.elements.ModelElementDispose;
@@ -88,8 +89,12 @@ public class ModelGeneratorPanel extends JPanel {
 	private final JComboBox<String> comboSelectQueue;
 	/** Begrenzte Wartezeittoleranz verwenden? */
 	private final JCheckBox	checkWaitingTimeTolerance;
-	/** Visualisierungen zum Modell hinzufügen? */
-	private final JCheckBox checkAddVisualization;
+	/** Visualisierungen zur Anzeige der Anzahl an Kunden im System zum Modell hinzufügen? */
+	private final JCheckBox checkAddWIPVisualization;
+	/** Visualisierungen zur Anzeige der mittleren Auslastung zum Modell hinzufügen? */
+	private final JCheckBox checkAddRhoVisualization;
+	/** Visualisierungen zur Anzeige der mittleren Wartezeit zum Modell hinzufügen? */
+	private final JCheckBox checkAddWVisualization;
 
 	/**
 	 * Konstruktor der Klasse
@@ -121,12 +126,13 @@ public class ModelGeneratorPanel extends JPanel {
 
 		/* Bedienstation */
 		addHeading(this,Language.tr("ModelGenerator.Process"),true);
-		spinnerStationCount=addSpinner(this,Language.tr("ModelGenerator.StationCount"),1,2,1);
+		spinnerStationCount=addSpinner(this,Language.tr("ModelGenerator.StationCount"),1,5,1);
 		comboServiceDistribution=addCombo(this,Language.tr("ModelGenerator.ServiceDistribution"),new String[]{
 				Language.tr("ModelGenerator.ServiceDistribution.Deterministic"),
 				Language.tr("ModelGenerator.ServiceDistribution.Exp"),
 				Language.tr("ModelGenerator.ServiceDistribution.LogNormalLowCV"),
 				Language.tr("ModelGenerator.ServiceDistribution.LogNormalHighCV"),
+				Language.tr("ModelGenerator.ServiceDistribution.LogNormalVeryHighCV")
 		});
 		comboServiceDistribution.setSelectedIndex(1);
 		comboServiceUtilization=addCombo(this,Language.tr("ModelGenerator.ServiceUtilization"),new String[]{
@@ -175,12 +181,14 @@ public class ModelGeneratorPanel extends JPanel {
 			comboSelectQueue.setEnabled(stationCount>1);
 		});
 		checkSharedResource.addActionListener(e->{
-			spinnerStationCount.setValue(2);
+			spinnerStationCount.setValue(Math.max(2,(int)spinnerStationCount.getValue()));
 		});
 
 		/* Visualisierung hinzufügen */
 		addHeading(this,Language.tr("ModelGenerator.AddVisualization"),true);
-		checkAddVisualization=addCheckBox(this,Language.tr("ModelGenerator.AddVisualization.WIP"),true);
+		checkAddWIPVisualization=addCheckBox(this,Language.tr("ModelGenerator.AddVisualization.WIP"),true);
+		checkAddRhoVisualization=addCheckBox(this,Language.tr("ModelGenerator.AddVisualization.MeanRho"),true);
+		checkAddWVisualization=addCheckBox(this,Language.tr("ModelGenerator.AddVisualization.MeanWaitingTime"),true);
 	}
 
 	/**
@@ -311,9 +319,22 @@ public class ModelGeneratorPanel extends JPanel {
 	 * @see #getModel()
 	 */
 	private void addEdge(final EditModel model, final ModelElementBox station1, final ModelElementBox station2) {
+		addEdge(model,station1,station2,false);
+	}
+
+	/**
+	 * Fügt in dem Modell eine Verbindungskante zwischen zwei Stationen ein
+	 * @param model	Modell bei dem die Kante auf der Hauptzeichenfläche eingefügt werden soll
+	 * @param station1	Ausgangsstation
+	 * @param station2	Zielstation
+	 * @param direct	 Soll die Verbindungskante normal (<code>false</code>) oder zwingend als gerade Linie (<code>true</code>) gezeichnet werden?
+	 * @see #getModel()
+	 */
+	private void addEdge(final EditModel model, final ModelElementBox station1, final ModelElementBox station2, final boolean direct) {
 		final ModelElementEdge edge=new ModelElementEdge(model,model.surface,station1,station2);
 		station1.addEdgeOut(edge);
 		station2.addEdgeIn(edge);
+		if (direct) edge.setLineMode(ModelElementEdge.LineMode.DIRECT);
 		model.surface.add(edge);
 	}
 
@@ -334,9 +355,11 @@ public class ModelGeneratorPanel extends JPanel {
 		final boolean sharedResource=checkSharedResource.isSelected();
 		final boolean shortestQueue=(comboSelectQueue.getSelectedIndex()==1);
 		final boolean useWaitingTimeTolerance=checkWaitingTimeTolerance.isSelected();
-		final boolean addVisualization=checkAddVisualization.isSelected();
+		final boolean addWIPVisualization=checkAddWIPVisualization.isSelected();
+		final boolean addRhoVisualization=checkAddRhoVisualization.isSelected();
+		final boolean addWVisualization=checkAddWVisualization.isSelected();
 
-		StringBuilder sb;
+		StringBuilder description;
 		ModelElementText label;
 		final ModelElementSource[] sources=new ModelElementSource[clientTypes];
 		final ModelElementProcess[] processes=new ModelElementProcess[stations];
@@ -350,8 +373,8 @@ public class ModelGeneratorPanel extends JPanel {
 		case 1: serviceTimeBase=60; break;
 		case 2: serviceTimeBase=65; break;
 		}
-		final double serviceTime=((stations==1 || sharedResource)?1:2)*serviceTimeBase;
-		final int resourceGroups=(stations==1 || sharedResource)?1:2;
+		final double serviceTime=((stations==1 || sharedResource)?1:stations)*serviceTimeBase;
+		final int resourceGroups=(stations==1 || sharedResource)?1:stations;
 		final double waitingTimeTolerance=600;
 
 		/* Modell anlegen */
@@ -359,26 +382,29 @@ public class ModelGeneratorPanel extends JPanel {
 		model.name=Language.tr("ModelGenerator.Model.Name");
 
 		/* Beschreibung */
-		sb=new StringBuilder();
-		sb.append(Language.tr("ModelGenerator.Model.Description"));
-		sb.append("\n\n");
-		sb.append(Language.tr("ModelGenerator.Model.Description.Properties")+":");
-		if (clientTypes>1) sb.append("\n- "+String.format(Language.tr("ModelGenerator.Model.Description.Properties.ClientTypes"),clientTypes));
-		if (priorities) sb.append("\n- "+Language.tr("ModelGenerator.Model.Description.Properties.Priorities"));
-		if (arrivalBatch>1) sb.append("\n- "+String.format(Language.tr("ModelGenerator.Model.Description.Properties.ArrivalBatch"),arrivalBatch));
-		if (serviceBatch>1) sb.append("\n- "+String.format(Language.tr("ModelGenerator.Model.Description.Properties.ServiceBatch"),serviceBatch));
+		description=new StringBuilder();
+		description.append(Language.tr("ModelGenerator.Model.Description"));
+		description.append("\n\n");
+		description.append(Language.tr("ModelGenerator.Model.Description.Properties")+":");
+		if (clientTypes>1) description.append("\n- "+String.format(Language.tr("ModelGenerator.Model.Description.Properties.ClientTypes"),clientTypes));
+		if (priorities) description.append("\n- "+Language.tr("ModelGenerator.Model.Description.Properties.Priorities"));
+		if (arrivalBatch>1) description.append("\n- "+String.format(Language.tr("ModelGenerator.Model.Description.Properties.ArrivalBatch"),arrivalBatch));
+		if (serviceBatch>1) description.append("\n- "+String.format(Language.tr("ModelGenerator.Model.Description.Properties.ServiceBatch"),serviceBatch));
 		switch (serviceDistribution) {
 		case 0:
-			sb.append("\n- "+Language.tr("ModelGenerator.Model.Description.Properties.ServiceDeterministic"));
+			description.append("\n- "+Language.tr("ModelGenerator.Model.Description.Properties.ServiceDeterministic"));
 			break;
 		case 1:
-			sb.append("\n- "+Language.tr("ModelGenerator.Model.Description.Properties.ServiceExp"));
+			description.append("\n- "+Language.tr("ModelGenerator.Model.Description.Properties.ServiceExp"));
 			break;
 		case 2:
-			sb.append("\n- "+Language.tr("ModelGenerator.Model.Description.Properties.ServiceLognormal"));
+			description.append("\n- "+Language.tr("ModelGenerator.Model.Description.Properties.ServiceLognormal"));
 			break;
 		case 3:
-			sb.append("\n- "+Language.tr("ModelGenerator.Model.Description.Properties.ServiceLognormalHighCV"));
+			description.append("\n- "+Language.tr("ModelGenerator.Model.Description.Properties.ServiceLognormalHighCV"));
+			break;
+		case 4:
+			description.append("\n- "+Language.tr("ModelGenerator.Model.Description.Properties.ServiceLognormalVeryHighCV"));
 			break;
 		}
 		switch (discipline) {
@@ -386,25 +412,25 @@ public class ModelGeneratorPanel extends JPanel {
 			/* Kein besonderer Hinweis auf FIFO */
 			break;
 		case 1:
-			sb.append("\n- "+Language.tr("ModelGenerator.Model.Description.Properties.ServiceLIFO"));
+			description.append("\n- "+Language.tr("ModelGenerator.Model.Description.Properties.ServiceLIFO"));
 			break;
 		case 2:
-			sb.append("\n- "+Language.tr("ModelGenerator.Model.Description.Properties.ServiceRandom"));
+			description.append("\n- "+Language.tr("ModelGenerator.Model.Description.Properties.ServiceRandom"));
 			break;
 		}
 		if (stations>1) {
-			sb.append("\n- "+String.format(Language.tr("ModelGenerator.Model.Description.Properties.MultiStations"),stations));
+			description.append("\n- "+String.format(Language.tr("ModelGenerator.Model.Description.Properties.MultiStations"),stations));
 			if (shortestQueue) {
-				sb.append("\n- "+Language.tr("ModelGenerator.Model.Description.Properties.Queue.Shortest"));
+				description.append("\n- "+Language.tr("ModelGenerator.Model.Description.Properties.Queue.Shortest"));
 			} else {
-				sb.append("\n- "+Language.tr("ModelGenerator.Model.Description.Properties.Queue.Random"));
+				description.append("\n- "+Language.tr("ModelGenerator.Model.Description.Properties.Queue.Random"));
 			}
-			if (sharedResource) sb.append("\n- "+Language.tr("ModelGenerator.Model.Description.Properties.SharedResource"));
+			if (sharedResource) description.append("\n- "+Language.tr("ModelGenerator.Model.Description.Properties.SharedResource"));
 		}
 		if (useWaitingTimeTolerance) {
-			sb.append("\n- "+Language.tr("ModelGenerator.Model.Description.Properties.LimitedWaitingTimeTolerance"));
+			description.append("\n- "+Language.tr("ModelGenerator.Model.Description.Properties.LimitedWaitingTimeTolerance"));
 		}
-		model.description=sb.toString();
+		model.description=description.toString();
 
 		/* Ressourcen */
 		for (int i=0;i<resourceGroups;i++) {
@@ -426,7 +452,7 @@ public class ModelGeneratorPanel extends JPanel {
 		int yPosition;
 
 		/* Quellen */
-		if (clientTypes>=stations) yPosition=100; else yPosition=150;
+		if (clientTypes>=stations) yPosition=100; else yPosition=100+50*stations-50*clientTypes;
 		if (useWaitingTimeTolerance && stations>1) yPosition+=50;
 		for (int i=0;i<sources.length;i++) {
 			model.surface.add(sources[i]=new ModelElementSource(model,model.surface));
@@ -452,13 +478,13 @@ public class ModelGeneratorPanel extends JPanel {
 		label.setPosition(new Point(xPosition,yPosition));
 		label.setTextItalic(true);
 		label.setTextSize(label.getTextSize()-2);
-		sb=new StringBuilder();
-		sb.append(Language.tr("Statistics.InterArrivalTimes")+":\nE[I]:="+NumberTools.formatNumber(interArrivalTime)+" "+Language.tr("Statistics.Seconds"));
+		description=new StringBuilder();
+		description.append(Language.tr("Statistics.InterArrivalTimes")+":\nE[I]:="+NumberTools.formatNumber(interArrivalTime)+" "+Language.tr("Statistics.Seconds"));
 		if (arrivalBatch>1) {
-			sb.append("\n\n");
-			sb.append(Language.tr("ModelGenerator.ArrivalBatch")+":\nb:="+arrivalBatch);
+			description.append("\n\n");
+			description.append(Language.tr("ModelGenerator.ArrivalBatch")+":\nb:="+arrivalBatch);
 		}
-		label.setText(sb.toString());
+		label.setText(description.toString());
 
 		/* Nächste Spalte */
 		xPosition+=250;
@@ -482,14 +508,14 @@ public class ModelGeneratorPanel extends JPanel {
 			label.setPosition(new Point(xPosition,yPosition));
 			label.setTextItalic(true);
 			label.setTextSize(label.getTextSize()-2);
-			sb=new StringBuilder();
-			sb.append(Language.tr("ModelGenerator.SelectQueue")+":\n");
+			description=new StringBuilder();
+			description.append(Language.tr("ModelGenerator.SelectQueue")+":\n");
 			if (shortestQueue) {
-				sb.append(Language.tr("ModelGenerator.SelectQueue.Shortest"));
+				description.append(Language.tr("ModelGenerator.SelectQueue.Shortest"));
 			} else {
-				sb.append(Language.tr("ModelGenerator.SelectQueue.Random"));
+				description.append(Language.tr("ModelGenerator.SelectQueue.Random"));
 			}
-			label.setText(sb.toString());
+			label.setText(description.toString());
 
 			/* Nächste Spalte */
 			xPosition+=200;
@@ -521,6 +547,9 @@ public class ModelGeneratorPanel extends JPanel {
 			case 3:
 				processes[i].getWorking().set(new LogNormalDistributionImpl(serviceTime,3*serviceTime/4));
 				break;
+			case 4:
+				processes[i].getWorking().set(new LogNormalDistributionImpl(serviceTime,3*serviceTime/2));
+				break;
 			}
 			switch (discipline) {
 			case 0:
@@ -544,81 +573,85 @@ public class ModelGeneratorPanel extends JPanel {
 		label.setPosition(new Point(xPosition,yPosition));
 		label.setTextItalic(true);
 		label.setTextSize(label.getTextSize()-2);
-		sb=new StringBuilder();
-		sb.append(Language.tr("ModelGenerator.ServiceDistribution")+":\n");
+		description=new StringBuilder();
+		description.append(Language.tr("ModelGenerator.ServiceDistribution")+":\n");
 		double cvS=0;
 		switch (serviceDistribution) {
 		case 0:
-			sb.append(Language.tr("ModelGenerator.ServiceDistribution.Deterministic")+"\n");
+			description.append(Language.tr("ModelGenerator.ServiceDistribution.Deterministic")+"\n");
 			cvS=0;
 			break;
 		case 1:
-			sb.append(Language.tr("ModelGenerator.ServiceDistribution.Exp")+"\n");
+			description.append(Language.tr("ModelGenerator.ServiceDistribution.Exp")+"\n");
 			cvS=1;
 			break;
 		case 2:
 			cvS=0.25;
-			sb.append(Language.tr("ModelGenerator.ServiceDistribution.LogNormal")+"\n");
+			description.append(Language.tr("ModelGenerator.ServiceDistribution.LogNormal")+"\n");
 			break;
 		case 3:
-			sb.append(Language.tr("ModelGenerator.ServiceDistribution.LogNormal")+"\n");
+			description.append(Language.tr("ModelGenerator.ServiceDistribution.LogNormal")+"\n");
 			cvS=0.75;
 			break;
+		case 4:
+			description.append(Language.tr("ModelGenerator.ServiceDistribution.LogNormal")+"\n");
+			cvS=1.5;
+			break;
 		}
-		sb.append("E[S]:="+NumberTools.formatNumber(serviceTime)+" "+Language.tr("Statistics.Seconds")+"\n");
-		sb.append("CV[S]:="+NumberTools.formatNumber(cvS,2)+"\n");
+		description.append("E[S]:="+NumberTools.formatNumber(serviceTime)+" "+Language.tr("Statistics.Seconds")+"\n");
+		description.append("CV[S]:="+NumberTools.formatNumber(cvS,2)+"\n");
 		if (stations==1) {
-			sb.append(Language.tr("ModelGenerator.NumberOfOperators")+": c:=1");
+			description.append(Language.tr("ModelGenerator.NumberOfOperators")+": c:=1");
 		} else {
 			if (sharedResource) {
-				sb.append(Language.tr("ModelGenerator.NumberOfOperators")+": c:=1 ("+Language.tr("ModelGenerator.NumberOfOperators.shared")+")");
+				description.append(Language.tr("ModelGenerator.NumberOfOperators")+": c:=1 ("+Language.tr("ModelGenerator.NumberOfOperators.shared")+")");
 			} else {
-				sb.append(Language.tr("ModelGenerator.NumberOfOperators")+": c:=1 ("+Language.tr("ModelGenerator.NumberOfOperators.perStation")+")");
+				description.append(Language.tr("ModelGenerator.NumberOfOperators")+": c:=1 ("+Language.tr("ModelGenerator.NumberOfOperators.perStation")+")");
 			}
 		}
 		if (serviceBatch>1) {
-			sb.append("\n");
-			sb.append(Language.tr("ModelGenerator.ServiceBatchSize")+": b="+serviceBatch);
+			description.append("\n");
+			description.append(Language.tr("ModelGenerator.ServiceBatchSize")+": b="+serviceBatch);
 		}
 		if (priorities) {
-			sb.append("\n");
+			description.append("\n");
 			switch (clientTypes) {
 			case 2:
-				sb.append(Language.tr("ModelGenerator.PrioritiesStrategy")+": "+Language.tr("ModelGenerator.PrioritiesStrategy.BA"));
+				description.append(Language.tr("ModelGenerator.PrioritiesStrategy")+": "+Language.tr("ModelGenerator.PrioritiesStrategy.BA"));
 				break;
 			case 3:
-				sb.append(Language.tr("ModelGenerator.PrioritiesStrategy")+": "+Language.tr("ModelGenerator.PrioritiesStrategy.CBA"));
+				description.append(Language.tr("ModelGenerator.PrioritiesStrategy")+": "+Language.tr("ModelGenerator.PrioritiesStrategy.CBA"));
 				break;
 			case 4:
-				sb.append(Language.tr("ModelGenerator.PrioritiesStrategy")+": "+Language.tr("ModelGenerator.PrioritiesStrategy.DCBA"));
+				description.append(Language.tr("ModelGenerator.PrioritiesStrategy")+": "+Language.tr("ModelGenerator.PrioritiesStrategy.DCBA"));
 				break;
 			case 5:
-				sb.append(Language.tr("ModelGenerator.PrioritiesStrategy")+": "+Language.tr("ModelGenerator.PrioritiesStrategy.EDCBA"));
+				description.append(Language.tr("ModelGenerator.PrioritiesStrategy")+": "+Language.tr("ModelGenerator.PrioritiesStrategy.EDCBA"));
 				break;
 			}
 		} else {
-			sb.append("\n");
+			description.append("\n");
 
 			switch (discipline) {
 			case 0:
-				sb.append(Language.tr("ModelGenerator.ServiceDiscipline")+": "+Language.tr("ModelGenerator.ServiceDiscipline.FIFO"));
+				description.append(Language.tr("ModelGenerator.ServiceDiscipline")+": "+Language.tr("ModelGenerator.ServiceDiscipline.FIFO"));
 				break;
 			case 1:
-				sb.append(Language.tr("ModelGenerator.ServiceDiscipline")+": "+Language.tr("ModelGenerator.ServiceDiscipline.LIFO"));
+				description.append(Language.tr("ModelGenerator.ServiceDiscipline")+": "+Language.tr("ModelGenerator.ServiceDiscipline.LIFO"));
 				break;
 			case 2:
-				sb.append(Language.tr("ModelGenerator.ServiceDiscipline")+": "+Language.tr("ModelGenerator.ServiceDiscipline.Random"));
+				description.append(Language.tr("ModelGenerator.ServiceDiscipline")+": "+Language.tr("ModelGenerator.ServiceDiscipline.Random"));
 				break;
 			}
 		}
 		if (useWaitingTimeTolerance) {
-			sb.append("\n\n");
-			sb.append(Language.tr("ModelGenerator.WaitingTimeToleranceDistribution")+":\n");
-			sb.append(Language.tr("ModelGenerator.WaitingTimeToleranceDistribution.Exp")+"\n");
-			sb.append("E[WT]:="+NumberTools.formatNumber(waitingTimeTolerance)+" "+Language.tr("Statistics.Seconds")+"\n");
-			sb.append("CV[WT]:=1\n");
+			description.append("\n\n");
+			description.append(Language.tr("ModelGenerator.WaitingTimeToleranceDistribution")+":\n");
+			description.append(Language.tr("ModelGenerator.WaitingTimeToleranceDistribution.Exp")+"\n");
+			description.append("E[WT]:="+NumberTools.formatNumber(waitingTimeTolerance)+" "+Language.tr("Statistics.Seconds")+"\n");
+			description.append("CV[WT]:=1\n");
 		}
-		label.setText(sb.toString());
+		label.setText(description.toString());
 
 		if (useWaitingTimeTolerance) {
 			/* Nächste Spalte */
@@ -658,33 +691,34 @@ public class ModelGeneratorPanel extends JPanel {
 			for (ModelElementSource source: sources) addEdge(model,source,processes[0]);
 		} else {
 			for (ModelElementSource source: sources) addEdge(model,source,decide);
-			addEdge(model,decide,processes[0]);
-			addEdge(model,decide,processes[1]);
+			for (int i=0;i<processes.length;i++) {
+				addEdge(model,decide,processes[i],processes.length>2);
+			}
 		}
 		if (!useWaitingTimeTolerance) {
-			for (ModelElementProcess process: processes) addEdge(model,process,dispose);
+			for (ModelElementProcess process: processes) addEdge(model,process,dispose,processes.length>2);
 		} else {
 			for (int i=0;i<processes.length;i++) {
 				addEdge(model,processes[i],counter[2*i]);
 				addEdge(model,processes[i],counter[2*i+1]);
-				addEdge(model,counter[2*i],dispose);
-				addEdge(model,counter[2*i+1],dispose);
+				addEdge(model,counter[2*i],dispose,processes.length>2);
+				addEdge(model,counter[2*i+1],dispose,processes.length>2);
 			}
 		}
 
+		/* Erst in drawToGraphics wird die Größe von Textfeldern berechnet, daher muss für ein valides Ergebnis in model.surface.getLowerRightModelCorner() das Modell einmal gezeichnet werden. */
+		final JPanel dummy=new JPanel();
+		add(dummy);
+		model.surface.drawToGraphics(dummy.getGraphics(),new Rectangle(1000,1000),1.0,true,ModelSurface.BackgroundImageMode.OFF,false,ModelSurface.Grid.OFF,new Color[] {Color.GRAY,Color.WHITE},null,null,1.0,false);
+		remove(dummy);
+
+		xPosition=50;
+		yPosition=model.surface.getLowerRightModelCorner().y+50;
+		if (yPosition%50!=0) yPosition=((int)(yPosition/50.0))*50+50;
+
 		/* Visualisierung */
-		if (addVisualization) {
-			xPosition=50;
 
-			/* Erst in drawToGraphics wird die Größe von Textfeldern berechnet, daher muss für ein valides Ergebnis in model.surface.getLowerRightModelCorner() das Modell einmal gezeichnet werden. */
-			final JPanel dummy=new JPanel();
-			add(dummy);
-			model.surface.drawToGraphics(dummy.getGraphics(),new Rectangle(1000,1000),1.0,true,ModelSurface.BackgroundImageMode.OFF,false,ModelSurface.Grid.OFF,new Color[] {Color.GRAY,Color.WHITE},null,null,1.0,false);
-			remove(dummy);
-
-			yPosition=model.surface.getLowerRightModelCorner().y+50;
-			if (yPosition%50!=0) yPosition=((int)(yPosition/50.0))*50+50;
-
+		if (addWIPVisualization) {
 			model.surface.add(label=new ModelElementText(model,model.surface));
 			label.setPosition(new Point(xPosition,yPosition-20));
 			label.setText(Language.tr("ModelGenerator.Visualization.Title"));
@@ -693,6 +727,7 @@ public class ModelGeneratorPanel extends JPanel {
 			final ModelElementAnimationLineDiagram diagram=new ModelElementAnimationLineDiagram(model,model.surface);
 			diagram.setPosition(new Point(xPosition,yPosition));
 			diagram.setBorderPointPosition(2,new Point(xPosition+550,yPosition+200));
+			xPosition+=600;
 			diagram.setBackgroundColor(new Color(240,240,240));
 			diagram.setTimeArea(5*60*60);
 			model.surface.add(diagram);
@@ -709,6 +744,44 @@ public class ModelGeneratorPanel extends JPanel {
 				}
 			}
 			diagram.setExpressionData(list);
+		}
+		if (addRhoVisualization) {
+			model.surface.add(label=new ModelElementText(model,model.surface));
+			label.setPosition(new Point(xPosition,yPosition-20));
+			label.setText(Language.tr("ModelGenerator.Visualization.MeanRhoTitle"));
+			label.setTextItalic(true);
+
+			final ModelElementAnimationTextValue textValue=new ModelElementAnimationTextValue(model,model.surface);
+			textValue.setPosition(new Point(xPosition,yPosition));
+			xPosition+=100;
+			textValue.setTextSize(14);
+			textValue.setTextBold(true);
+			textValue.setColor(Color.RED);
+			textValue.setMode(ModelElementAnimationTextValue.ModeExpression.MODE_EXPRESSION_PERCENT);
+			textValue.setDigits(1);
+			textValue.setExpression("Resource_avg()/Resource_count()");
+			model.surface.add(textValue);
+		}
+
+		if (addWVisualization) {
+			if (addRhoVisualization) {xPosition-=100; yPosition+=100;}
+
+			model.surface.add(label=new ModelElementText(model,model.surface));
+			label.setPosition(new Point(xPosition,yPosition-20));
+			label.setText(Language.tr("ModelGenerator.Visualization.MeanWaitingTimeTitle"));
+			label.setTextItalic(true);
+
+			final ModelElementAnimationTextValue textValue=new ModelElementAnimationTextValue(model,model.surface);
+			textValue.setPosition(new Point(xPosition,yPosition));
+			xPosition+=100;
+			textValue.setTextSize(14);
+			textValue.setTextBold(true);
+			textValue.setColor(Color.BLUE);
+			textValue.setDigits(1);
+			textValue.setExpression("WaitingTime_avg()");
+			model.surface.add(textValue);
+
+			if (addRhoVisualization) yPosition-=100;
 		}
 
 		return model;
