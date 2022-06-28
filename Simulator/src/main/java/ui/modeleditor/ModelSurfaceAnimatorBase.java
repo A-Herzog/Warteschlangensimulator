@@ -483,6 +483,7 @@ public class ModelSurfaceAnimatorBase {
 			staticDrawList=null;
 			stationClients=null;
 			staticIconsCache=null;
+			oldStaticIconsCache=null;
 			stationByIdCache=null;
 			stationAtMainLevelByIdCache=null;
 
@@ -778,6 +779,14 @@ public class ModelSurfaceAnimatorBase {
 	private DrawIcon[] newStaticIconsCache;
 
 	/**
+	 * Alte Cache-Liste für {@link DrawIcon}-Objekte<br>
+	 * (Spart das immer wieder Neuanlegen der Liste ein)
+	 * @see #addStaticIcon(int, int, String, Object)
+	 * @see DrawIcon
+	 */
+	private DrawIcon[] oldStaticIconsCache;
+
+	/**
 	 * Aktueller Index in {@link #newStaticIconsCache}
 	 * @see #newStaticIconsCache
 	 * @see #addStaticIcon(int, int, String, Object)
@@ -828,7 +837,7 @@ public class ModelSurfaceAnimatorBase {
 			staticDrawList.clear();
 			Arrays.fill(stationClients,0);
 			Arrays.fill(stationOperators,0);
-			Arrays.fill(stationTransporters,0);
+			if (transportersList!=null && transportersList.length>0) Arrays.fill(stationTransporters,0);
 		}
 
 		if (stationByIdCache==null) stationByIdCache=new ModelElementBox[surface.getMaxId()+1];
@@ -837,7 +846,11 @@ public class ModelSurfaceAnimatorBase {
 		if (clientsList!=null) cacheCount+=clientsList.length;
 		if (operatorsList!=null) cacheCount+=operatorsList.length;
 		if (transporersList!=null) cacheCount+=transporersList.length;
-		newStaticIconsCache=new DrawIcon[cacheCount];
+		if (oldStaticIconsCache!=null && oldStaticIconsCache.length>=cacheCount) {
+			newStaticIconsCache=oldStaticIconsCache;
+		} else {
+			newStaticIconsCache=new DrawIcon[cacheCount];
+		}
 		newStaticIconsCacheIndex=0;
 
 		/* Kunden hinzufügen */
@@ -911,6 +924,10 @@ public class ModelSurfaceAnimatorBase {
 			addStaticIcon(x,y,icon,transporter);
 		}
 
+		/* Alte Liste als Speicherobjekt aufheben */
+		oldStaticIconsCache=staticIconsCache;
+		if (oldStaticIconsCache!=null) Arrays.fill(oldStaticIconsCache,null);
+
 		/* Ergebnis zurückliefern */
 		staticIconsCache=newStaticIconsCache;
 		return staticDrawList;
@@ -973,6 +990,7 @@ public class ModelSurfaceAnimatorBase {
 	 */
 	private void addStaticClientIconDefault(final RunDataClient client, final String icon, final ModelElementBox element, final int stationID) {
 		final int waiting=stationClients[stationID];
+		if (waiting>10) return; /* Maximal an einer Station zu zeichnende Anzahl an Icons */
 		final Point p=element.getPosition(true);
 		final int boxWidth=elementBoxWidth[stationID];
 		final int x=p.x+boxWidth-ICON_SIZE-FastMath.min(boxWidth-ICON_SIZE,waiting*boxWidth/10);
