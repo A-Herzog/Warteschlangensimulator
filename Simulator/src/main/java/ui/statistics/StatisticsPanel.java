@@ -884,11 +884,13 @@ public class StatisticsPanel extends StatisticsBasePanel {
 			fastAccess=null;
 		}
 
-		/* Ergebnisübersicht */
+		/* Dashboard */
 
 		viewer=new ArrayList<>();
 		for(Statistics statistic : statistics) viewer.add(new StatisticViewerDashboard(statistic));
 		root.addChild(new StatisticNode(Language.tr("Statistics.Dashboard"),viewer));
+
+		/* Ergebnisübersicht */
 
 		viewer=new ArrayList<>();
 		for(Statistics statistic : statistics) viewer.add(new StatisticViewerOverviewText(statistic,StatisticViewerOverviewText.Mode.MODE_OVERVIEW,mode->modeClick(mode),(m,s)->fastAccess.addXML(m,s)));
@@ -1273,6 +1275,14 @@ public class StatisticsPanel extends StatisticsBasePanel {
 
 		viewer=new ArrayList<>();
 		for(Statistics statistic : statistics) viewer.add(new StatisticViewerTimeTable(statistic,StatisticViewerTimeTable.Mode.MODE_DISTRIBUTION_QUEUE_CLIENT_TYPE));
+		sub.addChild(new StatisticNode(Language.tr("Statistics.DistributionOfNumberOfClientsAtStationQueuesByClientTypes"),viewer));
+
+		viewer=new ArrayList<>();
+		for(Statistics statistic : statistics) viewer.add(new StatisticViewerTimeTable(statistic,StatisticViewerTimeTable.Mode.MODE_DISTRIBUTION_PROCESS));
+		sub.addChild(new StatisticNode(Language.tr("Statistics.DistributionOfNumberOfClientsAtStationQueues"),viewer));
+
+		viewer=new ArrayList<>();
+		for(Statistics statistic : statistics) viewer.add(new StatisticViewerTimeTable(statistic,StatisticViewerTimeTable.Mode.MODE_DISTRIBUTION_PROCESS_CLIENT_TYPE));
 		sub.addChild(new StatisticNode(Language.tr("Statistics.DistributionOfNumberOfClientsAtStationQueuesByClientTypes"),viewer));
 
 		viewer=new ArrayList<>();

@@ -170,6 +170,10 @@ public class StatisticViewerTimeTable extends StatisticViewerBaseTable {
 		MODE_DISTRIBUTION_QUEUE,
 		/** Verteilung der Anzahlen an Kunden in den Warteschlangen an den Stationen nach Kundentypen */
 		MODE_DISTRIBUTION_QUEUE_CLIENT_TYPE,
+		/** Verteilung der Anzahlen an Kunden in Bedienung an den Stationen */
+		MODE_DISTRIBUTION_PROCESS,
+		/** Verteilung der Anzahlen an Kunden in Bedienung an den Stationen nach Kundentypen */
+		MODE_DISTRIBUTION_PROCESS_CLIENT_TYPE,
 
 		/** Ressourcenauslastung (Übersichtstabelle) */
 		MODE_UTILIZATION,
@@ -1253,6 +1257,8 @@ public class StatisticViewerTimeTable extends StatisticViewerBaseTable {
 		case MODE_DISTRIBUTION_NUMBER_CLIENT: buildCountDistributionTable(statistics.clientsInSystemByClient,statistics.clientsInSystem); break;
 		case MODE_DISTRIBUTION_QUEUE: buildCountDistributionTable(statistics.clientsAtStationQueueByStation,statistics.clientsInSystemQueues); break;
 		case MODE_DISTRIBUTION_QUEUE_CLIENT_TYPE: buildCountDistributionTable(statistics.clientsAtStationQueueByStationAndClient,null); break;
+		case MODE_DISTRIBUTION_PROCESS: buildCountDistributionTable(statistics.clientsAtStationProcessByStation,statistics.clientsInSystemProcess); break;
+		case MODE_DISTRIBUTION_PROCESS_CLIENT_TYPE: buildCountDistributionTable(statistics.clientsAtStationProcessByStationAndClient,null); break;
 		case MODE_UTILIZATION: buildUtilizationTable(); break;
 		case MODE_DOWNTIMES: buildDownTimesTable(); break;
 		case MODE_TRANSPORTER_UTILIZATION: buildTransporterUtilizationTable(); break;
