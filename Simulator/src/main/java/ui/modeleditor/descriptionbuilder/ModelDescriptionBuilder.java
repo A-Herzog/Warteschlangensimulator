@@ -199,7 +199,7 @@ public abstract class ModelDescriptionBuilder {
 		final StringBuilder sb=new StringBuilder();
 		sb.append(DistributionTools.getDistributionName(distribution));
 		sb.append(" (");
-		sb.append(DistributionTools.getDistributionLongInfo(distribution));
+		sb.append(DistributionTools.getDistributionShortInfo(distribution));
 		sb.append(")");
 		return sb.toString();
 	}

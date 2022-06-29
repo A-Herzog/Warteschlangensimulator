@@ -308,6 +308,17 @@ public final class DistributionTools {
 	}
 
 	/**
+	 * Liefert die wesentlichen Kenngrößen bzw. Parameter einer Verteilung
+	 * @param distribution Verteilungsobjekt, zu dem Informationen zurück gegeben werden sollen.
+	 * @return Informationen zu der Verteilung als String
+	 */
+	public static String getDistributionShortInfo(final AbstractRealDistribution distribution) {
+		final AbstractDistributionWrapper wrapper=getWrapper(distribution);
+		if (wrapper==null) return "";
+		return wrapper.getInfo(distribution).getVeryShortInfo();
+	}
+
+	/**
 	 * Liefert die Kenngrößen bzw. Parameter einer Verteilung
 	 * @param distribution Verteilungsobjekt, zu dem Informationen zurück gegeben werden sollen.
 	 * @return Informationen zu der Verteilung als String

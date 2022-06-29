@@ -152,6 +152,34 @@ public class DistributionWrapperInfo {
 	}
 
 	/**
+	 * Liefert die wesentlichen Kenngrößen bzw. Parameter einer Verteilung
+	 * @return	Wesentliche Kenngrößen bzw. Parameter einer Verteilung
+	 */
+	public String getVeryShortInfo() {
+		final StringBuilder result=new StringBuilder();
+
+		if (info1!=null) result.append(info1);
+		if (E!=null) {
+			if (result.length()>0) result.append("; ");
+			result.append("E="+(Double.isInfinite(E)?infinity:NumberTools.formatNumber(E,3)));
+		}
+		if (Std!=null && !Double.isNaN(Std)) {
+			if (result.length()>0) result.append("; ");
+			result.append("Std="+(Double.isInfinite(Std)?infinity:NumberTools.formatNumber(Std,3)));
+		}
+		if (E!=null && Std!=null && E>0 && !Double.isNaN(E) && !Double.isNaN(Std) && !Double.isInfinite(E) && !Double.isInfinite(Std)) {
+			if (result.length()>0) result.append("; ");
+			result.append("CV="+NumberTools.formatNumber(Std/E,3));
+		}
+		if (info2!=null) {
+			if (result.length()>0) result.append("; ");
+			result.append(info2);
+		}
+
+		return result.toString();
+	}
+
+	/**
 	 * Liefert die Kenngrößen bzw. Parameter einer Verteilung (in ausgeschriebener Form)
 	 * @return	Kenngrößen bzw. Parameter einer Verteilung (in ausgeschriebener Form)
 	 */
