@@ -217,6 +217,7 @@ public abstract class SimulatorBase {
 		while (i<threads.length) {
 			if (threads[i]==null) {i++; continue;}
 			try {
+				threads[i].resumeExecution(); /* Stellt sicher, dass der SimThread ein zuvor ggf. ausgelöstes Abbruch-Ereignis auch verarbeiten kann. */
 				threads[i].join();
 				simDoneTime=Math.max(simDoneTime,threads[i].simDoneTime);
 				threadRuntimes[i]=(int)(threads[i].simDoneTime-threads[i].simStartTime);
