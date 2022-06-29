@@ -26,7 +26,7 @@ import org.apache.commons.math3.util.FastMath;
  * Enthält einige statische Routinen zur Umwandlung von Zeichenketten in Uhrzeiten
  * und umgekehrt.
  * @author Alexander Herzog
- * @version 1.4
+ * @version 1.5
  */
 public final class TimeTools {
 	/**
@@ -187,6 +187,54 @@ public final class TimeTools {
 	/**
 	 * Wandelt eine als Sekunden-Double-Wert gegebene Uhrzeit in eine Zeichenkette um
 	 * Die Zeitangabe kann dabei auch negativ sein und Nachkommastellen enthalten.
+	 * @param time Umzuwandelnde Uhrzeit
+	 * @param digits	Anzahl an Nachkommastellen des Sekundenwerts
+	 * @param separator	Dezimaltrenner
+	 * @return Uhrzeit als Zeichenkette
+	 * @see #formatExactSystemTime(double)
+	 * @see #formatExactTime(double)
+	 * @see #formatExactTime(double, int)
+	 */
+	private static String formatExactLongTimeInt(double time, final int digits, final char separator) {
+		final StringBuilder sb=new StringBuilder();
+		final boolean minus;
+		if (time<0) {
+			minus=true;
+			time=-time;
+		} else {
+			minus=false;
+		}
+		if (minus) sb.append("-");
+
+		sb.append(formatLongTime(FastMath.round(FastMath.floor(time))));
+
+		final double fraction=time-FastMath.floor(time);
+
+		double level=1;
+		for (int i=1;i<=digits;i++) level*=10;
+
+		if (fraction>=1.0/level) {
+			String t=""+FastMath.round(fraction*level);
+			if (t.length()>digits) {
+				sb.setLength(0);
+				if (minus) sb.append("-");
+				sb.append(formatLongTime(FastMath.round(FastMath.floor(time))+1));
+				return sb.toString();
+			}
+			while (t.length()<digits) t='0'+t;
+			while (t.length()>0 && t.charAt(t.length()-1)=='0') t=t.substring(0,t.length()-1);
+			if (t.length()>0) {
+				sb.append(separator);
+				sb.append(t);
+			}
+		}
+
+		return sb.toString();
+	}
+
+	/**
+	 * Wandelt eine als Sekunden-Double-Wert gegebene Uhrzeit in eine Zeichenkette um.
+	 * Die Zeitangabe kann dabei auch negativ sein und Nachkommastellen enthalten.
 	 * (Als Dezimaltrenner wird ein Komma verwendet.)
 	 * @param time Umzuwandelnde Uhrzeit
 	 * @return Uhrzeit als Zeichenkette
@@ -197,7 +245,7 @@ public final class TimeTools {
 	}
 
 	/**
-	 * Wandelt eine als Sekunden-Double-Wert gegebene Uhrzeit in eine Zeichenkette um
+	 * Wandelt eine als Sekunden-Double-Wert gegebene Uhrzeit in eine Zeichenkette um.
 	 * Die Zeitangabe kann dabei auch negativ sein und Nachkommastellen enthalten.
 	 * (Als Dezimaltrenner wird ein Komma verwendet.)
 	 * @param time Umzuwandelnde Uhrzeit
@@ -210,7 +258,7 @@ public final class TimeTools {
 	}
 
 	/**
-	 * Wandelt eine als Sekunden-Double-Wert gegebene Uhrzeit in eine Zeichenkette um
+	 * Wandelt eine als Sekunden-Double-Wert gegebene Uhrzeit in eine Zeichenkette um.
 	 * Die Zeitangabe kann dabei auch negativ sein und Nachkommastellen enthalten.
 	 * (Als Dezimaltrenner wird ein Punkt verwendet.)
 	 * @param time Umzuwandelnde Uhrzeit
@@ -220,6 +268,47 @@ public final class TimeTools {
 	 */
 	public static String formatExactSystemTime(final double time) {
 		return formatExactTimeInt(time,3,'.');
+	}
+
+	/**
+	 * Wandelt eine als Sekunden-Double-Wert gegebene Uhrzeit in eine Zeichenkette um.
+	 * Die Zeitangabe kann dabei auch negativ sein und Nachkommastellen enthalten.
+	 * Die Ausgabe erfolgt, wenn nötig, mit separater Angabe von Tagen.
+	 * (Als Dezimaltrenner wird ein Komma verwendet.)
+	 * @param time Umzuwandelnde Uhrzeit
+	 * @return Uhrzeit als Zeichenkette
+	 * @see #formatExactSystemTime(double)
+	 */
+	public static String formatExactLongTime(final double time) {
+		return formatExactLongTimeInt(time,1,NumberTools.getDecimalSeparator());
+	}
+
+	/**
+	 * Wandelt eine als Sekunden-Double-Wert gegebene Uhrzeit in eine Zeichenkette um.
+	 * Die Zeitangabe kann dabei auch negativ sein und Nachkommastellen enthalten.
+	 * Die Ausgabe erfolgt, wenn nötig, mit separater Angabe von Tagen.
+	 * (Als Dezimaltrenner wird ein Komma verwendet.)
+	 * @param time Umzuwandelnde Uhrzeit
+	 * @param digits	Anzahl an Nachkommastellen des Sekundenwerts
+	 * @return Uhrzeit als Zeichenkette
+	 * @see #formatExactSystemTime(double)
+	 */
+	public static String formatExactLongTime(final double time, final int digits) {
+		return formatExactLongTimeInt(time,digits,NumberTools.getDecimalSeparator());
+	}
+
+	/**
+	 * Wandelt eine als Sekunden-Double-Wert gegebene Uhrzeit in eine Zeichenkette um.
+	 * Die Zeitangabe kann dabei auch negativ sein und Nachkommastellen enthalten.
+	 * Die Ausgabe erfolgt, wenn nötig, mit separater Angabe von Tagen.
+	 * (Als Dezimaltrenner wird ein Punkt verwendet.)
+	 * @param time Umzuwandelnde Uhrzeit
+	 * @return Uhrzeit als Zeichenkette
+	 * @see #formatExactTime(double)
+	 * @see #formatExactTime(double, int)
+	 */
+	public static String formatExactLongSystemTime(final double time) {
+		return formatExactLongTimeInt(time,3,'.');
 	}
 
 	/**

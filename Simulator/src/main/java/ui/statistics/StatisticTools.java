@@ -101,7 +101,7 @@ public class StatisticTools {
 	 * @return Uhrzeit als Zeichenkette
 	 */
 	public static String formatExactTime(final double time) {
-		return TimeTools.formatExactTime(time,setup.statisticsNumberDigits);
+		return TimeTools.formatExactLongTime(time,setup.statisticsNumberDigits);
 	}
 
 	/**
@@ -113,6 +113,6 @@ public class StatisticTools {
 	 * @return Uhrzeit als Zeichenkette
 	 */
 	public static String formatExactTime(final double time, final int digits) {
-		return TimeTools.formatExactTime(time,Math.max(digits,setup.statisticsNumberDigits));
+		return TimeTools.formatExactLongTime(time,Math.max(digits,setup.statisticsNumberDigits));
 	}
 }
