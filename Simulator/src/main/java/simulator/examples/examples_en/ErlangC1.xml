@@ -1,7 +1,8 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE Model SYSTEM "https://a-herzog.github.io/Warteschlangensimulator/Simulator.dtd">
 <Model xmlns="https://a-herzog.github.io" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://a-herzog.github.io https://a-herzog.github.io/Warteschlangensimulator/Simulator.xsd">
-  <ModelVersion>1.0.0</ModelVersion>
+  <!-- This file was created using Warteschlangensimulator. Download address: https://github.com/A-Herzog/Warteschlangensimulator -->
+  <ModelVersion>5.1.0</ModelVersion>
   <ModelName>Erlang C comparison model</ModelName>
   <ModelDescription>Performance indicators of the model (for the Erlang C formula):
 
@@ -26,9 +27,7 @@ https://www.mathematik.tu-clausthal.de/interaktiv/warteschlangentheorie/erlang-c
   <ModelAuthor>Alexander Herzog</ModelAuthor>
   <ModelClients Active="1">5000000</ModelClients>
   <ModelWarmUpPhase>0.01</ModelWarmUpPhase>
-  <ModelTerminationCondition Active="0"/>
   <ModelTerminationTime Active="0">10:00:00:00</ModelTerminationTime>
-  <ModelRandomNumbersSeed Active="0">0</ModelRandomNumbersSeed>
   <ModelElements>
     <ModelElementProcessStation id="1">
       <ModelElementSize h="50" w="100" x="300" y="100"/>
@@ -44,6 +43,7 @@ https://www.mathematik.tu-clausthal.de/interaktiv/warteschlangentheorie/erlang-c
       <ModelElementSize h="50" w="100" x="50" y="100"/>
       <ModelElementConnection Element="4" Type="Out"/>
       <ModelElementDistribution TimeBase="Seconds">Exponential distribution (100)</ModelElementDistribution>
+      <ModelElementBatchData Size="1"/>
     </ModelElementSource>
     <ModelElementDispose id="3">
       <ModelElementSize h="50" w="100" x="550" y="100"/>
@@ -59,13 +59,13 @@ https://www.mathematik.tu-clausthal.de/interaktiv/warteschlangentheorie/erlang-c
     <ModelElementText id="6">
       <ModelElementSize h="23" w="242" x="50" y="50"/>
       <ModelElementTextLine>Erlang C comparison model</ModelElementTextLine>
-      <ModelElementFontSize bold="1">18</ModelElementFontSize>
+      <ModelElementFontSize Symbols="1" bold="1">18</ModelElementFontSize>
       <ModelElementColor>0,0,0</ModelElementColor>
     </ModelElementText>
     <ModelElementText id="7">
       <ModelElementSize h="19" w="412" x="50" y="180"/>
       <ModelElementTextLine>This simple model can be fully described by the Erlang C formula.</ModelElementTextLine>
-      <ModelElementFontSize italic="1">14</ModelElementFontSize>
+      <ModelElementFontSize Symbols="1" italic="1">14</ModelElementFontSize>
       <ModelElementColor>0,0,0</ModelElementColor>
     </ModelElementText>
     <ModelElementAnimationLineDiagram id="8">
@@ -76,11 +76,12 @@ https://www.mathematik.tu-clausthal.de/interaktiv/warteschlangentheorie/erlang-c
       <ModelElementDiagramElement LineColor="0,0,255" LineWidth="1" Maximum="10" Minimum="0">WIP()</ModelElementDiagramElement>
       <ModelElementDiagramElement LineColor="0,0,255" LineWidth="3" Maximum="10" Minimum="0">WIP_avg()</ModelElementDiagramElement>
       <ModelElementDiagramTimeRange>18000</ModelElementDiagramTimeRange>
+      <ModelElementAxisLabels>1</ModelElementAxisLabels>
     </ModelElementAnimationLineDiagram>
     <ModelElementText id="9">
       <ModelElementSize h="19" w="602" x="50" y="250"/>
       <ModelElementTextLine>Number of clients at the process station (current value and average over the complete run time)</ModelElementTextLine>
-      <ModelElementFontSize>14</ModelElementFontSize>
+      <ModelElementFontSize Symbols="1">14</ModelElementFontSize>
       <ModelElementColor>0,0,255</ModelElementColor>
     </ModelElementText>
     <ModelElementAnimationBarDiagram id="20">
@@ -88,7 +89,9 @@ https://www.mathematik.tu-clausthal.de/interaktiv/warteschlangentheorie/erlang-c
       <ModelElementLineWidth>1</ModelElementLineWidth>
       <ModelElementLineColor>0,0,0</ModelElementLineColor>
       <ModelElementBackgroundColor>240,240,240</ModelElementBackgroundColor>
+      <ModelElementUse3D>1</ModelElementUse3D>
       <ModelElementMaximumValue>0.5</ModelElementMaximumValue>
+      <ModelElementAxisLabels>1</ModelElementAxisLabels>
       <ModelElementDiagramElement BarColor="0,0,255">WIP_hist(1;0)</ModelElementDiagramElement>
       <ModelElementDiagramElement BarColor="0,195,0">WIP_hist(1;1)</ModelElementDiagramElement>
       <ModelElementDiagramElement BarColor="255,0,0">WIP_hist(1;2)</ModelElementDiagramElement>
@@ -105,19 +108,21 @@ https://www.mathematik.tu-clausthal.de/interaktiv/warteschlangentheorie/erlang-c
     <ModelElementText id="21">
       <ModelElementSize h="19" w="402" x="700" y="250"/>
       <ModelElementTextLine>Fraction of time for the numbers of clients at the process station</ModelElementTextLine>
-      <ModelElementFontSize>14</ModelElementFontSize>
+      <ModelElementFontSize Symbols="1">14</ModelElementFontSize>
       <ModelElementColor>0,0,255</ModelElementColor>
     </ModelElementText>
     <ModelElementText id="22">
       <ModelElementSize h="16" w="231" x="700" y="500"/>
       <ModelElementTextLine>(blue=0, green=1, red=2..10, orange=11...)</ModelElementTextLine>
-      <ModelElementFontSize>12</ModelElementFontSize>
+      <ModelElementFontSize Symbols="1">12</ModelElementFontSize>
       <ModelElementColor>0,0,0</ModelElementColor>
     </ModelElementText>
   </ModelElements>
-  <Resources>
+  <Resources SecondaryPriority="Random">
     <Resource Name="Operators group" Type="Number" Value="1"/>
   </Resources>
   <ClientTypeData/>
-  <ModelSchedules/>
+  <ModelEdgesNormal Color="0,0,0" Type="0" Width="1"/>
+  <ModelEdgesSelected Type="0" Width="1"/>
+  <ModelElementConnectionDrawStyle>Angled around</ModelElementConnectionDrawStyle>
 </Model>

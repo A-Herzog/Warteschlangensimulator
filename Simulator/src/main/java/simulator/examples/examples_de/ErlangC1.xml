@@ -1,7 +1,8 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE Modell SYSTEM "https://a-herzog.github.io/Warteschlangensimulator/Simulator.dtd">
 <Modell xmlns="https://a-herzog.github.io" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://a-herzog.github.io https://a-herzog.github.io/Warteschlangensimulator/Simulator.xsd">
-  <ModellVersion>1.0.0</ModellVersion>
+  <!-- Diese Datei wurde mit Warteschlangensimulator erstellt. Download-Adresse: https://github.com/A-Herzog/Warteschlangensimulator -->
+  <ModellVersion>5.1.0</ModellVersion>
   <ModellName>Erlang-C-Vergleichsmodell</ModellName>
   <ModellBeschreibung>Kenngrößen des Modells (für die Erlang-C-Formel):
 
@@ -26,9 +27,7 @@ https://www.mathematik.tu-clausthal.de/interaktiv/warteschlangentheorie/erlang-c
   <ModellAutor>Alexander Herzog</ModellAutor>
   <ModellKunden Aktiv="1">5000000</ModellKunden>
   <ModellAufwaermphase>0.01</ModellAufwaermphase>
-  <ModellAbbruchbedingung Aktiv="0"/>
   <ModellAbbruchzeit Aktiv="0">10:00:00:00</ModellAbbruchzeit>
-  <ModellZufallszahlenStartwert Aktiv="0">0</ModellZufallszahlenStartwert>
   <ModellElemente>
     <ModellElementBedienstation id="1">
       <ModellElementGroesse h="50" w="100" x="300" y="100"/>
@@ -44,6 +43,7 @@ https://www.mathematik.tu-clausthal.de/interaktiv/warteschlangentheorie/erlang-c
       <ModellElementGroesse h="50" w="100" x="50" y="100"/>
       <ModellElementVerbindung Element="4" Typ="Auslaufend"/>
       <ModellElementVerteilung Zeitbasis="Sekunden">Exponentialverteilung (100)</ModellElementVerteilung>
+      <ModellElementBatch Groesse="1"/>
     </ModellElementQuelle>
     <ModellElementEnde id="3">
       <ModellElementGroesse h="50" w="100" x="550" y="100"/>
@@ -59,13 +59,13 @@ https://www.mathematik.tu-clausthal.de/interaktiv/warteschlangentheorie/erlang-c
     <ModellElementText id="6">
       <ModellElementGroesse h="23" w="282" x="50" y="50"/>
       <ModellElementTextzeile>Erlang-C-Warteschlangenmodell</ModellElementTextzeile>
-      <ModellElementSchriftgrosse fett="1">18</ModellElementSchriftgrosse>
+      <ModellElementSchriftgrosse Symbole="1" fett="1">18</ModellElementSchriftgrosse>
       <ModellElementFarbe>0,0,0</ModellElementFarbe>
     </ModellElementText>
     <ModellElementText id="7">
       <ModellElementGroesse h="19" w="561" x="50" y="180"/>
       <ModellElementTextzeile>Dieses einfache Modell kann vollständig durch die Erlang-C-Formel beschrieben werden.</ModellElementTextzeile>
-      <ModellElementSchriftgrosse kursiv="1">14</ModellElementSchriftgrosse>
+      <ModellElementSchriftgrosse Symbole="1" kursiv="1">14</ModellElementSchriftgrosse>
       <ModellElementFarbe>0,0,0</ModellElementFarbe>
     </ModellElementText>
     <ModellElementAnimationLinienDiagramm id="8">
@@ -76,11 +76,12 @@ https://www.mathematik.tu-clausthal.de/interaktiv/warteschlangentheorie/erlang-c
       <ModellElementDiagrammElement Linienbreite="1" Linienfarbe="0,0,255" Maximum="10" Minimum="0">WIP()</ModellElementDiagrammElement>
       <ModellElementDiagrammElement Linienbreite="3" Linienfarbe="0,0,255" Maximum="10" Minimum="0">WIP_avg()</ModellElementDiagrammElement>
       <ModellElementDiagrammZeitbereich>18000</ModellElementDiagrammZeitbereich>
+      <ModellElementAchsenbeschriftung>1</ModellElementAchsenbeschriftung>
     </ModellElementAnimationLinienDiagramm>
     <ModellElementText id="9">
       <ModellElementGroesse h="19" w="610" x="50" y="250"/>
       <ModellElementTextzeile>Anzahl an Kunden an der Bedienstation (aktueller Wert und Mittelwert über die gesamte Laufzeit)</ModellElementTextzeile>
-      <ModellElementSchriftgrosse>14</ModellElementSchriftgrosse>
+      <ModellElementSchriftgrosse Symbole="1">14</ModellElementSchriftgrosse>
       <ModellElementFarbe>0,0,255</ModellElementFarbe>
     </ModellElementText>
     <ModellElementAnimationBalkenDiagramm id="10">
@@ -88,7 +89,9 @@ https://www.mathematik.tu-clausthal.de/interaktiv/warteschlangentheorie/erlang-c
       <ModellElementLinienBreite>1</ModellElementLinienBreite>
       <ModellElementLinienFarbe>0,0,0</ModellElementLinienFarbe>
       <ModellElementHintergrundfarbe>240,240,240</ModellElementHintergrundfarbe>
+      <ModellElement3DEffekt>1</ModellElement3DEffekt>
       <ModellElementMaximalwert>0.5</ModellElementMaximalwert>
+      <ModellElementAchsenbeschriftung>1</ModellElementAchsenbeschriftung>
       <ModellElementDiagrammElement Balkenfarbe="0,0,255">WIP_hist(1;0)</ModellElementDiagrammElement>
       <ModellElementDiagrammElement Balkenfarbe="0,195,0">WIP_hist(1;1)</ModellElementDiagrammElement>
       <ModellElementDiagrammElement Balkenfarbe="255,0,0">WIP_hist(1;2)</ModellElementDiagrammElement>
@@ -105,19 +108,21 @@ https://www.mathematik.tu-clausthal.de/interaktiv/warteschlangentheorie/erlang-c
     <ModellElementText id="11">
       <ModellElementGroesse h="19" w="360" x="700" y="250"/>
       <ModellElementTextzeile>Zeitanteile der Anzahlen an Kunden an der Bedienstation</ModellElementTextzeile>
-      <ModellElementSchriftgrosse>14</ModellElementSchriftgrosse>
+      <ModellElementSchriftgrosse Symbole="1">14</ModellElementSchriftgrosse>
       <ModellElementFarbe>0,0,255</ModellElementFarbe>
     </ModellElementText>
     <ModellElementText id="12">
       <ModellElementGroesse h="16" w="220" x="700" y="500"/>
       <ModellElementTextzeile>(blau=0, grün=1, rot=2..10, orange=11...)</ModellElementTextzeile>
-      <ModellElementSchriftgrosse>12</ModellElementSchriftgrosse>
+      <ModellElementSchriftgrosse Symbole="1">12</ModellElementSchriftgrosse>
       <ModellElementFarbe>0,0,0</ModellElementFarbe>
     </ModellElementText>
   </ModellElemente>
-  <Ressourcen>
+  <Ressourcen UntergeordnetePrioritaet="Zufaellig">
     <Ressource Name="Bedienergruppe" Typ="Anzahl" Wert="1"/>
   </Ressourcen>
   <KundentypenDaten/>
-  <ModellZeitplaene/>
+  <ModellKantenNormal Breite="1" Farbe="0,0,0" Typ="0"/>
+  <ModellKantenSelektiert Breite="1" Typ="0"/>
+  <ModellElementVerbindungsdarstellungsart>Abgerundet abgewinkelt</ModellElementVerbindungsdarstellungsart>
 </Modell>
