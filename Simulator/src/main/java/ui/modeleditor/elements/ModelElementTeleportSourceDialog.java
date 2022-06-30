@@ -19,10 +19,10 @@ import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.FlowLayout;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import javax.swing.BoxLayout;
 import javax.swing.JComboBox;
@@ -119,7 +119,7 @@ public class ModelElementTeleportSourceDialog extends ModelElementBaseDialog {
 			}
 		}
 
-		return new ArrayList<>(destinations);
+		return destinations.stream().sorted().collect(Collectors.toList());
 	}
 
 	/**

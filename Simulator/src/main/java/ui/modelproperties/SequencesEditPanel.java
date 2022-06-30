@@ -217,6 +217,7 @@ public class SequencesEditPanel extends JPanel {
 			}
 		}
 
+		list.sort(String::compareTo);
 		return list.toArray(new String[0]);
 	}
 
