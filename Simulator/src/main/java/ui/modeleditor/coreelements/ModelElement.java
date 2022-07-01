@@ -695,7 +695,7 @@ public class ModelElement {
 		panel.setBorder(BorderFactory.createEmptyBorder(10,5+32,10,5));
 		panel.setOpaque(false);
 
-		final String timeBaseName=(timeBase==null)?"":("; "+Language.tr("ModelDescription.TimeBase")+": "+ModelSurface.getTimeBaseString(timeBase));
+		final String timeBaseName=(timeBase==null)?"":("<br>"+Language.tr("ModelDescription.TimeBase")+": "+ModelSurface.getTimeBaseString(timeBase));
 
 		panel.add(new JLabel("<html><body><b>"+title+"</b></body></html>"),BorderLayout.NORTH);
 		final int intValue=Math.max(1,(int)Math.round(value));
@@ -709,14 +709,14 @@ public class ModelElement {
 		if (minor==1) slider.setSnapToTicks(true);
 		panel.add(slider,BorderLayout.CENTER);
 		final AbstractRealDistribution distribution=change.apply(null);
-		final String initialLabelText=DistributionTools.getDistributionName(distribution)+"; "+DistributionTools.getDistributionInfo(distribution)+timeBaseName;
+		final String initialLabelText="<html><body>"+DistributionTools.getDistributionName(distribution)+"<br>"+DistributionTools.getDistributionInfo(distribution)+timeBaseName+"</body></html>";
 		final JLabel info=new JLabel(initialLabelText);
 		panel.add(info,BorderLayout.SOUTH);
 
 		slider.addChangeListener(e->{
 			final int newValue=slider.getValue();
 			final AbstractRealDistribution newDistribution=change.apply(newValue);
-			final String labelText=DistributionTools.getDistributionName(newDistribution)+"; "+DistributionTools.getDistributionInfo(newDistribution)+timeBaseName;
+			final String labelText="<html><body>"+DistributionTools.getDistributionName(newDistribution)+"<br>"+DistributionTools.getDistributionInfo(newDistribution)+timeBaseName+"</body></html>";
 			info.setText(labelText);
 		});
 
@@ -741,7 +741,7 @@ public class ModelElement {
 		panel.setBorder(BorderFactory.createEmptyBorder(10,5+32,10,5));
 		panel.setOpaque(false);
 
-		final String timeBaseName=(timeBase==null)?"":("; "+Language.tr("ModelDescription.TimeBase")+": "+ModelSurface.getTimeBaseString(timeBase));
+		final String timeBaseName=(timeBase==null)?"":("<br> "+Language.tr("ModelDescription.TimeBase")+": "+ModelSurface.getTimeBaseString(timeBase));
 
 		panel.add(new JLabel("<html><body><b>"+title+"</b></body></html>"),BorderLayout.NORTH);
 		final int intValue=Math.max(1,(int)Math.round(DistributionTools.getMean(initialDistribution)));
@@ -754,7 +754,7 @@ public class ModelElement {
 		slider.setMinorTickSpacing(minor);
 		if (minor==1) slider.setSnapToTicks(true);
 		panel.add(slider,BorderLayout.CENTER);
-		final String initialLabelText=DistributionTools.getDistributionName(initialDistribution)+"; "+DistributionTools.getDistributionInfo(initialDistribution)+timeBaseName;
+		final String initialLabelText="<html><body>"+DistributionTools.getDistributionName(initialDistribution)+"<br>"+DistributionTools.getDistributionInfo(initialDistribution)+timeBaseName+"</body></html>";
 		final JLabel info=new JLabel(initialLabelText);
 		panel.add(info,BorderLayout.SOUTH);
 
@@ -762,7 +762,7 @@ public class ModelElement {
 			final int newValue=slider.getValue();
 			final AbstractRealDistribution newDistribution=DistributionTools.setMean(initialDistribution,newValue);
 			change.accept(newDistribution);
-			final String labelText=DistributionTools.getDistributionName(newDistribution)+"; "+DistributionTools.getDistributionInfo(newDistribution)+timeBaseName;
+			final String labelText="<html><body>"+DistributionTools.getDistributionName(newDistribution)+"<br>"+DistributionTools.getDistributionInfo(newDistribution)+timeBaseName+"</body></html>";
 			info.setText(labelText);
 		});
 
