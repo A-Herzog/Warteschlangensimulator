@@ -87,8 +87,11 @@ public class RunElementDecideByClientType extends RunElement {
 		/* Pro Kundentyp korrekte Nummer der Ausgangskante (Index in der Liste, nicht ID) bestimmen */
 		for (int i=0;i<edges.length-1;i++) {
 			int index=runModel.getClientTypeNr(clientTypes.get(i));
+			/*
 			if (index<0) return String.format(Language.tr("Simulation.Creator.NoClientTypeInDecide"),element.getId(),clientTypes.get(i),i+1);
-			decide.clientTypeConnectionIndex[index]=i;
+			Kanten mit Kundentypen, die es nicht gibt (=die z.B. temporär deaktiviert wurden) einfach ignorieren:
+			 */
+			if (index>=0) decide.clientTypeConnectionIndex[index]=i;
 		}
 
 		/* Kundentypzuweisungen */
