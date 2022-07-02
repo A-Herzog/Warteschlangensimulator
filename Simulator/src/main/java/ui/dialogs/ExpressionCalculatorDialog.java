@@ -408,22 +408,22 @@ public final class ExpressionCalculatorDialog extends BaseDialog {
 
 		generalData.append("<br>\n");
 
-		final int nq=Arrays.stream(simData.runData.clientsInQueuesByType).sum();
+		final int nq=(simData.runData.clientsInQueuesByType==null)?0:Arrays.stream(simData.runData.clientsInQueuesByType).sum();
 		final double nq_avg=simData.statistics.clientsInSystemQueues.getTimeMean();
-		generalData.append(Language.tr("ExpressionCalculator.Tab.Clients.CurrentNumberInSystem")+": <b>"+StatisticTools.formatNumber(nq)+"</b>\n");
+		generalData.append(Language.tr("ExpressionCalculator.Tab.Clients.CurrentNumberInSystemWaiting")+": <b>"+NumberTools.formatLong(nq)+"</b>\n");
 		generalData.append("("+Language.tr("Statistics.Average")+": <b>"+StatisticTools.formatNumber(nq_avg)+"</b>)");
 		generalData.append("<br>\n");
 
-		final int wip=Arrays.stream(simData.runData.clientsInSystemByType).sum();
-		final double wip_avg=simData.statistics.clientsInSystem.getTimeMean();
-		generalData.append(Language.tr("ExpressionCalculator.Tab.Clients.CurrentNumberInSystemWaiting")+": <b>"+StatisticTools.formatNumber(wip)+"</b>\n");
-		generalData.append("("+Language.tr("Statistics.Average")+": <b>"+StatisticTools.formatNumber(wip_avg)+"</b>)");
+		final int ns=(simData.runData.clientsInProcessByType==null)?0:Arrays.stream(simData.runData.clientsInProcessByType).sum();
+		final double ns_avg=simData.statistics.clientsInSystemProcess.getTimeMean();
+		generalData.append(Language.tr("ExpressionCalculator.Tab.Clients.CurrentNumberInSystemProcess")+": <b>"+NumberTools.formatLong(ns)+"</b>\n");
+		generalData.append("("+Language.tr("Statistics.Average")+": <b>"+StatisticTools.formatNumber(ns_avg)+"</b>)");
 		generalData.append("<br>\n");
 
-		final int ns=Arrays.stream(simData.runData.clientsInProcessByType).sum();
-		final double ns_avg=simData.statistics.clientsInSystemProcess.getTimeMean();
-		generalData.append(Language.tr("ExpressionCalculator.Tab.Clients.CurrentNumberInSystemProcess")+": <b>"+StatisticTools.formatNumber(ns)+"</b>\n");
-		generalData.append("("+Language.tr("Statistics.Average")+": <b>"+StatisticTools.formatNumber(ns_avg)+"</b>)");
+		final int wip=(simData.runData.clientsInSystemByType==null)?0:Arrays.stream(simData.runData.clientsInSystemByType).sum();
+		final double wip_avg=simData.statistics.clientsInSystem.getTimeMean();
+		generalData.append(Language.tr("ExpressionCalculator.Tab.Clients.CurrentNumberInSystem")+": <b>"+NumberTools.formatLong(wip)+"</b>\n");
+		generalData.append("("+Language.tr("Statistics.Average")+": <b>"+StatisticTools.formatNumber(wip_avg)+"</b>)");
 		generalData.append("<br>\n");
 
 		generalData.append("<br>\n");

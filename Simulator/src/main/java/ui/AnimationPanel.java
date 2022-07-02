@@ -2374,6 +2374,7 @@ public class AnimationPanel extends JPanel implements RunModelAnimationViewer {
 	 * @return	Liste der Kunden im System
 	 */
 	private List<ModelElementAnimationInfoDialog.ClientInfo> getAnimationRunTimeAllClientData(final Simulator simulator) {
+		if (simulator==null) return new ArrayList<>();
 		final boolean wasPaused=simulator.isPaused();
 		if (!wasPaused) simulator.pauseExecutionAndWait();
 		try {
