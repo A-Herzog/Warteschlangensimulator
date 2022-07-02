@@ -97,6 +97,8 @@ public class WaitPanel extends JPanel {
 	private JProgressBar progress;
 	/** Maximalwert für den Fortschrittsbalken */
 	private int progressMax;
+	/** Skalierungsfaktor der Kundenankünfte bei der Darstellung des Fortschrittsbalkens */
+	private int clientScale;
 	/** "Abbrechen"-Schaltfläche */
 	private JButton cancel;
 
@@ -218,10 +220,20 @@ public class WaitPanel extends JPanel {
 		}
 		info2.setText("");
 		switch (operationMode) {
-		case MODE_MULTI_DAYS: progress.setMaximum(progressMax=1000); break;
-		case MODE_SINGLE_LONG_RUN: progress.setMaximum(progressMax=Math.max(1,(int)(simulator.getCountClients()/1000))); break;
+		case MODE_MULTI_DAYS:
+			progressMax=1000;
+			break;
+		case MODE_SINGLE_LONG_RUN:
+			if (simulator.getCountClients()>=100_000) {
+				clientScale=1000;
+				progressMax=Math.max(1,(int)(simulator.getCountClients()/1000));
+			} else {
+				clientScale=1;
+				progressMax=Math.max(1,(int)(simulator.getCountClients()));
+			}
+			break;
 		}
-
+		progress.setMaximum(progressMax);
 		progress.setValue(0);
 
 		startTime=System.currentTimeMillis();
@@ -414,7 +426,7 @@ public class WaitPanel extends JPanel {
 					}
 				}
 			}
-			final int c=(int)(current/1000);
+			final int c=(int)(current/clientScale);
 			progress.setValue(c);
 			if (parentWindow==null) findParentWindow();
 			Notifier.setSimulationProgress(parentWindow,100*c/progressMax);
