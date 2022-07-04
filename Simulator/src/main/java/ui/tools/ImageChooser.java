@@ -21,6 +21,7 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.Point;
@@ -58,6 +59,7 @@ import mathtools.distribution.swing.CommonVariables;
 import swingtools.ImageIOFormatCheck;
 import systemtools.ImageTools;
 import systemtools.MsgBox;
+import systemtools.SmallColorChooser;
 import ui.images.Images;
 import ui.modeleditor.AnimationImageSource;
 import ui.modeleditor.ModelAnimationImages;
@@ -93,8 +95,6 @@ public class ImageChooser extends JPanel {
 	private JButton buttonLoad;
 	/** "Speichern"-Schaltfläche */
 	private JButton buttonSave;
-	/** "Vorlagebild auswählen"-Schaltfläche */
-	private JButton buttonTemplate;
 
 	/**
 	 * Konstruktor der Klasse <code>ImageChooser</code>
@@ -112,12 +112,14 @@ public class ImageChooser extends JPanel {
 		add(new ImageHolderPanel(),BorderLayout.CENTER);
 		add(toolBar=new JToolBar(),BorderLayout.SOUTH);
 		toolBar.setFloatable(false);
-		buttonCopy=addButton(Language.tr("Dialog.Button.Copy"),Language.tr("Dialog.Button.Copy.InfoImage"),Images.EDIT_COPY.getIcon());
-		buttonPaste=addButton(Language.tr("Dialog.Button.Paste"),Language.tr("Dialog.Button.Paste.InfoImage"),Images.EDIT_PASTE.getIcon());
-		buttonLoad=addButton(Language.tr("Dialog.Button.Load"),Language.tr("Dialog.Button.Load.InfoImage"),Images.IMAGE_LOAD.getIcon());
-		buttonSave=addButton(Language.tr("Dialog.Button.Save"),Language.tr("Dialog.Button.Save.InfoImage"),Images.IMAGE_SAVE.getIcon());
+		buttonCopy=addButton(Language.tr("Dialog.Button.Copy"),Language.tr("Dialog.Button.Copy.InfoImage"),Images.EDIT_COPY.getIcon(),e->copyToClipboard());
+		buttonPaste=addButton(Language.tr("Dialog.Button.Paste"),Language.tr("Dialog.Button.Paste.InfoImage"),Images.EDIT_PASTE.getIcon(),e->pasteFromClipboard());
+		buttonLoad=addButton(Language.tr("Dialog.Button.Load"),Language.tr("Dialog.Button.Load.InfoImage"),Images.IMAGE_LOAD.getIcon(),e->loadFromFile());
+		buttonSave=addButton(Language.tr("Dialog.Button.Save"),Language.tr("Dialog.Button.Save.InfoImage"),Images.IMAGE_SAVE.getIcon(),e->saveToFile());
 		toolBar.addSeparator();
-		buttonTemplate=addButton(Language.tr("Dialog.Button.Template"),Language.tr("Dialog.Button.Template.InfoImage"),Images.IMAGE_TEMPLATE.getIcon());
+		addButton(Language.tr("Dialog.Button.Template"),Language.tr("Dialog.Button.Template.InfoImage"),Images.IMAGE_TEMPLATE.getIcon(),e->showTemplatesMenu((JButton)e.getSource()));
+		addButton(Language.tr("Dialog.Button.Color"),Language.tr("Dialog.Button.Color.Info"),Images.EDIT_BACKGROUND_COLOR.getIcon(),e->showColorMenu((JButton)e.getSource()));
+
 		updateGUI();
 		initDropTarget();
 	}
@@ -158,14 +160,15 @@ public class ImageChooser extends JPanel {
 	 * @param name	Name der neuen Schaltfläche
 	 * @param hint	Optionaler Tooltip für die Schaltfläche
 	 * @param icon	Optionales Icon für die Schaltfläche
+	 * @param listener	Listener, der über Klicks auf die Schaltfläche benachrichtigt wird
 	 * @return	Liefert die neue Schaltfläche zurück (ist bereits an {@link #toolBar} angefügt)
 	 * @see #toolBar
 	 */
-	private JButton addButton(final String name, final String hint, final Icon icon) {
+	private JButton addButton(final String name, final String hint, final Icon icon, final ActionListener listener) {
 		JButton button=new JButton(name);
 		if (hint!=null) button.setToolTipText(hint);
 		if (icon!=null) button.setIcon(icon);
-		button.addActionListener(new ButtonListener());
+		button.addActionListener(listener);
 		toolBar.add(button);
 		return button;
 	}
@@ -373,7 +376,7 @@ public class ImageChooser extends JPanel {
 	 * @param parent	Elternkomponente zur Ausrichtung des Popupmenüs
 	 */
 	private void showTemplatesMenu(final Component parent) {
-		JPopupMenu menu=new JPopupMenu();
+		final JPopupMenu menu=new JPopupMenu();
 
 		final AnimationImageSource imageSource=new AnimationImageSource();
 		imageSource.addIconsToMenu(menu,name->{
@@ -385,6 +388,31 @@ public class ImageChooser extends JPanel {
 		},modelImages);
 
 		/* Vierspaltiges Layout */ menu.setLayout(new GridLayout((int)Math.round(Math.ceil(menu.getComponentCount()/4.0)),4));
+
+		menu.show(parent,0,parent.getHeight());
+	}
+
+	/**
+	 * Zeigt das Popupmenü zur Auswahl einer Farbe zur Ausfüllung des Bildes an.
+	 * @param parent	Elternkomponente zur Ausrichtung des Popupmenüs
+	 */
+	private void showColorMenu(final Component parent) {
+		final JPopupMenu menu=new JPopupMenu();
+
+		final SmallColorChooser colorChooser=new SmallColorChooser();
+		colorChooser.addClickListener(e->{
+			image=new BufferedImage(100,100,BufferedImage.TYPE_4BYTE_ABGR);
+			final Graphics2D g=(Graphics2D)image.getGraphics();
+			g.setColor(colorChooser.getColor());
+			g.fillRect(0,0,100,100);
+			imageHash=null;
+			fireChange();
+			updateGUI();
+			repaint();
+
+			menu.setVisible(false);
+		});
+		menu.add(colorChooser);
 
 		menu.show(parent,0,parent.getHeight());
 	}
@@ -434,31 +462,6 @@ public class ImageChooser extends JPanel {
 			graphics.drawRect(0,0,getWidth()-1,getHeight()-1);
 
 			drawImage(graphics);
-		}
-	}
-
-	/**
-	 * Reagiert auf Klicks auf die verschiedenen Schaltflächen
-	 */
-	private class ButtonListener implements ActionListener {
-		/**
-		 * Konstruktor der Klasse
-		 */
-		public ButtonListener() {
-			/*
-			 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
-			 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
-			 */
-		}
-
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			Object source=e.getSource();
-			if (source==buttonCopy) {copyToClipboard(); return;}
-			if (source==buttonPaste) {pasteFromClipboard(); return;}
-			if (source==buttonLoad) {loadFromFile(); return;}
-			if (source==buttonSave) {saveToFile(); return;}
-			if (source==buttonTemplate) {showTemplatesMenu(buttonTemplate); return;}
 		}
 	}
 

@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-06-27 08:12+0200\n"
+"POT-Creation-Date: 2022-07-03 00:06+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -2777,6 +2777,12 @@ msgstr "Schließen"
 
 msgid "Dialog.Button.Close.Hint"
 msgstr "Schließt die aktuelle Ansicht"
+
+msgid "Dialog.Button.Color"
+msgstr "Farbe"
+
+msgid "Dialog.Button.Color.Info"
+msgstr "Bild mit Farbe ausfüllen"
 
 msgid "Dialog.Button.Commands"
 msgstr "Befehle"
