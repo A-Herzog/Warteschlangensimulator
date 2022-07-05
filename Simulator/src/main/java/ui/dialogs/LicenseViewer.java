@@ -16,8 +16,11 @@
 package ui.dialogs;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.Cursor;
+import java.awt.FlowLayout;
+import java.awt.Font;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
@@ -27,11 +30,13 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.function.Supplier;
 
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextPane;
 import javax.swing.event.HyperlinkEvent;
+import javax.swing.event.HyperlinkListener;
 import javax.swing.text.html.HTMLEditorKit;
 
 import org.commonmark.Extension;
@@ -133,10 +138,12 @@ public class LicenseViewer extends BaseDialog{
 		content.add(tabs,BorderLayout.CENTER);
 
 		/* Tabs anlegen */
-		addViewer(tabs,LicensePart.MAIN);
-		addViewer(tabs,LicensePart.SIMSYSTEM_COMPONENTS);
-		addViewer(tabs,LicensePart.SIMTOOLS_COMPONENTS);
-		addViewer(tabs,LicensePart.SIMULATOR_COMPONENTS);
+		final Font font=new JLabel().getFont();
+		System.out.println(font.getSize());
+		addViewer(tabs,LicensePart.MAIN,"<html><body style=\"margin: 0px; padding: 0px; font-family: dialog; font-size: "+font.getSize()+"pt; font-weight: lighter;\">"+Language.tr("LicenseViewer.Info")+"</body></html>",true);
+		addViewer(tabs,LicensePart.SIMSYSTEM_COMPONENTS,null,false);
+		addViewer(tabs,LicensePart.SIMTOOLS_COMPONENTS,null,false);
+		addViewer(tabs,LicensePart.SIMULATOR_COMPONENTS,null,false);
 
 		/* Starten */
 		setMinSizeRespectingScreensize(600,500);
@@ -149,54 +156,64 @@ public class LicenseViewer extends BaseDialog{
 	 * Fügt ein Lizenz-Viewer-Tab zu dem Dialog hinzu.
 	 * @param tabs	Tabs-Element zu dem der neue Tab hinzugefügt werden soll
 	 * @param licensePart	Welche Daten sollen in dem Tab angezeigt werden?
+	 * @param headerText	Optionaler Text, der über dem Viewer angezeigt werden soll (kann <code>null</code> oder leer sein)
+	 * @param withHyperlink	Sollen Hyperlinks anklickbar gemacht werden?
 	 */
-	private void addViewer(final JTabbedPane tabs, final LicensePart licensePart) {
+	private void addViewer(final JTabbedPane tabs, final LicensePart licensePart, final String headerText, final boolean withHyperlink) {
 		if (licensePart==null) return;
 		final File file=licensePart.getFile();
 		if (file==null) return;
 
-		tabs.addTab(licensePart.getName(),getViewer(file));
+		tabs.addTab(licensePart.getName(),getViewer(file,headerText,withHyperlink));
 	}
 
 	/**
 	 * Lädt eine Datei (Text oder MD) und liefert ein Viewer-Panel für diese.
 	 * @param file	Zu ladende Datei
+	 * @param headerText	Optionaler Text, der über dem Viewer angezeigt werden soll (kann <code>null</code> oder leer sein)
+	 * @param withHyperlink	Sollen Hyperlinks anklickbar gemacht werden?
 	 * @return	Neues Viewer-Panel
 	 */
-	private JPanel getViewer(final File file) {
-		if (file==null) return getTextViewer(null);
+	private JPanel getViewer(final File file, final String headerText, final boolean withHyperlink) {
+		if (file==null) return getTextViewer(null,headerText,withHyperlink);
 
 		final String name=file.toString().toUpperCase();
-		if (name.endsWith(".MD")) return getMDViewer(file);
-		return getTextViewer(file);
+		if (name.endsWith(".MD")) return getMDViewer(file,headerText,withHyperlink);
+		return getTextViewer(file,headerText,withHyperlink);
 	}
 
 	/**
 	 * Lädt eine einfache Textdatei und liefert ein Viewer-Panel für diese.
 	 * @param file	Zu ladende Datei
+	 * @param headerText	Optionaler Text, der über dem Viewer angezeigt werden soll (kann <code>null</code> oder leer sein)
+	 * @param withHyperlink	Sollen Hyperlinks anklickbar gemacht werden?
 	 * @return	Neues Viewer-Panel
 	 */
-	private JPanel getTextViewer(final File file) {
+	private JPanel getTextViewer(final File file, final String headerText, final boolean withHyperlink) {
 		final String content=getHTMLFromText(file);
-		return getViewer(content);
+		return getViewer(content,headerText,withHyperlink);
 	}
 
 	/**
 	 * Lädt eine Markdown-Datei und liefert ein Viewer-Panel für diese.
 	 * @param file	Zu ladende Datei
+	 * @param headerText	Optionaler Text, der über dem Viewer angezeigt werden soll (kann <code>null</code> oder leer sein)
+	 * @param withHyperlink	Sollen Hyperlinks anklickbar gemacht werden?
 	 * @return	Neues Viewer-Panel
 	 */
-	private JPanel getMDViewer(final File file) {
+	private JPanel getMDViewer(final File file, final String headerText, final boolean withHyperlink) {
 		final String content=getHTMLFromMD(file);
-		return getViewer(content);
+		return getViewer(content,headerText,withHyperlink);
 	}
 
 	/**
 	 * Erstellt ein Viewer-Panel und füllt dieses mit einem HTML-Text.
 	 * @param content	HTML-Text für den Viewer
+	 * @param headerText	Optionaler Text, der über dem Viewer angezeigt werden soll (kann <code>null</code> oder leer sein)
+	 * @param withHyperlink	Sollen Hyperlinks anklickbar gemacht werden?
 	 * @return	Neues Viewer-Panel
 	 */
-	private JPanel getViewer(final String content) {
+	private JPanel getViewer(final String content, final String headerText, final boolean withHyperlink) {
 		final JTextPane viewer=new JTextPane();
 
 		viewer.setEditable(false);
@@ -207,8 +224,45 @@ public class LicenseViewer extends BaseDialog{
 		} catch (IOException e) {}
 
 		final JPanel panel=new JPanel(new BorderLayout());
+
 		panel.add(new JScrollPane(viewer),BorderLayout.CENTER);
+		if (headerText!=null && !headerText.trim().isEmpty()) {
+			if (withHyperlink) {
+				panel.add(getTextPane(headerText),BorderLayout.NORTH);
+			} else {
+				final JPanel top=new JPanel(new FlowLayout(FlowLayout.LEFT));
+				final JLabel label=new JLabel(headerText);
+				top.add(label);
+				panel.add(top,BorderLayout.NORTH);
+			}
+		}
+
 		return panel;
+	}
+
+	/**
+	 * Erzeugt ein {@link JTextPane} mit anklickbaren Links.
+	 * @param text	Auszugebender Text
+	 * @return	Element, in dem der Text angezeigt wird
+	 */
+	private JTextPane getTextPane(final String text) {
+		final JTextPane textPane=new JTextPane();
+
+		textPane.setContentType("text/html");
+		textPane.setText(text);
+		textPane.setEditable(false);
+		textPane.setOpaque(false);
+		textPane.setBackground(new Color(0,0,0,0));
+		textPane.addHyperlinkListener(new HyperlinkListener() {
+			@Override
+			public void hyperlinkUpdate(HyperlinkEvent e) {
+				if (e.getEventType()!=HyperlinkEvent.EventType.ACTIVATED) return;
+				final String link=e.getDescription();
+				JOpenURL.open(LicenseViewer.this,link);
+			}
+		});
+
+		return textPane;
 	}
 
 	/**
@@ -266,7 +320,7 @@ public class LicenseViewer extends BaseDialog{
 	 * Reagiert auf Klicks und Mausbewegungen über die Links
 	 * in den HTML-Viewern
 	 * @param e	Hyperlink-Ereignis, auf das reagiert werden soll
-	 * @see #getViewer(String)
+	 * @see #getViewer(String, String, boolean)
 	 */
 	private void linkProcessor(final HyperlinkEvent e) {
 		if (e.getEventType()==HyperlinkEvent.EventType.ENTERED) {
