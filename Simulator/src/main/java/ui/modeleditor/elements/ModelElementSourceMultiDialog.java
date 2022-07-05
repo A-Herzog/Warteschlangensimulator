@@ -70,7 +70,7 @@ public class ModelElementSourceMultiDialog extends ModelElementBaseDialog {
 	 */
 	@Override
 	protected void setDialogSize() {
-		setMinSizeRespectingScreensize(600,500);
+		setMinSizeRespectingScreensize(750,500);
 		pack();
 		setResizable(true);
 		setMaxSizeRespectingScreensize(1024,768);

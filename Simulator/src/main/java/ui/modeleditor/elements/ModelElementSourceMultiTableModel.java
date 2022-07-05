@@ -35,6 +35,7 @@ import javax.swing.table.TableCellEditor;
 import language.Language;
 import mathtools.NumberTools;
 import mathtools.TimeTools;
+import mathtools.distribution.tools.DistributionTools;
 import simulator.editmodel.EditModel;
 import systemtools.BaseDialog;
 import systemtools.MsgBox;
@@ -168,11 +169,22 @@ public class ModelElementSourceMultiTableModel extends JTableExtAbstractTableMod
 		if (hasOwnArrivals) switch (record.getNextMode()) {
 		case NEXT_DISTRIBUTION:
 			sb.append(Language.tr("Surface.MultiSourceTable.Info.NextDistribution"));
+			sb.append(" (");
+			sb.append(DistributionTools.getDistributionName(record.getInterarrivalTimeDistribution()));
+			sb.append(", ");
+			sb.append(Language.tr("Surface.Source.Dialog.TimeBase"));
+			sb.append(": ");
+			sb.append(ModelSurface.getTimeBaseString(record.getTimeBase()));
+			sb.append(")");
 			break;
 		case NEXT_EXPRESSION:
 			sb.append(Language.tr("Surface.MultiSourceTable.Info.NextExpression"));
 			sb.append(" (");
 			sb.append(record.getInterarrivalTimeExpression());
+			sb.append(", ");
+			sb.append(Language.tr("Surface.Source.Dialog.TimeBase"));
+			sb.append(": ");
+			sb.append(ModelSurface.getTimeBaseString(record.getTimeBase()));
 			sb.append(")");
 			break;
 		case NEXT_SCHEDULE:
