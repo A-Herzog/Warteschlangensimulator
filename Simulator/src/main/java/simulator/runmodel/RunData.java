@@ -1279,8 +1279,8 @@ public class RunData {
 
 			if (indicators==null) indicators=new StatisticsPerformanceIndicator[(id1+1)*2][];
 			if (indicators.length<=id1) indicators=Arrays.copyOf(indicators,(id1+1)*2);
-			if (indicators[id1]==null) indicators[id1]=new StatisticsPerformanceIndicator[(id2+1)*2];
-			if (indicators[id1].length<=id2) indicators[id1]=Arrays.copyOf(indicators[id1],(id2+1)*2);
+			if (indicators[id1]==null) indicators[id1]=new StatisticsPerformanceIndicator[Math.min(id2+1+1000,(id2+1)*2)];
+			if (indicators[id1].length<=id2) indicators[id1]=Arrays.copyOf(indicators[id1],Math.min(id2+1+1000,(id2+1)*2));
 			indicators[id1][id2]=indicator;
 
 			return indicator;
@@ -1308,8 +1308,8 @@ public class RunData {
 
 			if (indicators==null) indicators=new StatisticsPerformanceIndicator[(id1+1)*2][];
 			if (indicators.length<=id1) indicators=Arrays.copyOf(indicators,(id1+1)*2);
-			if (indicators[id1]==null) indicators[id1]=new StatisticsPerformanceIndicator[(id2+1)*2];
-			if (indicators[id1].length<=id2) indicators[id1]=Arrays.copyOf(indicators[id1],(id2+1)*2);
+			if (indicators[id1]==null) indicators[id1]=new StatisticsPerformanceIndicator[Math.min(id2+1+1000,(id2+1)*2)];
+			if (indicators[id1].length<=id2) indicators[id1]=Arrays.copyOf(indicators[id1],Math.min(id2+1+1000,(id2+1)*2));
 			indicators[id1][id2]=indicator;
 
 			return indicator;
