@@ -210,7 +210,7 @@ public class ModelPropertiesDialogPageSimulation extends ModelPropertiesDialogPa
 			fixedSeedButton.setIcon(Images.MODELPROPERTIES_SIMULATION_RANDOM_SEED.getIcon());
 			sub.add(fixedSeedButton);
 			fixedSeedButton.addActionListener(e->{
-				fixedSeed.setText(""+new ThreadLocalRandomGenerator().nextLong());
+				fixedSeed.setText(""+Math.abs(new ThreadLocalRandomGenerator().nextLong()));
 				useFixedSeed.setSelected(true);
 			});
 		}
