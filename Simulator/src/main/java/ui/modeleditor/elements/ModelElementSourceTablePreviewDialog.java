@@ -263,7 +263,7 @@ public class ModelElementSourceTablePreviewDialog extends BaseDialog {
 		if (table.getSize(0)-(firstRowIsHeading?1:0)>MAX_PREVIEW_ROWS) {
 			final JPanel infoPanel=new JPanel(new FlowLayout(FlowLayout.LEFT));
 			panel.add(infoPanel,BorderLayout.NORTH);
-			infoPanel.add(new JLabel(String.format(Language.tr("Surface.SourceTable.Dialog.Table.Preview.MaxSize"),NumberTools.formatLong(MAX_PREVIEW_ROWS),NumberTools.formatLong(table.getSize(0)))));
+			infoPanel.add(new JLabel(String.format(Language.tr("Surface.SourceTable.Dialog.Table.Preview.MaxSize"),NumberTools.formatLong(MAX_PREVIEW_ROWS),NumberTools.formatLong(table.getSize(0)-(firstRowIsHeading?1:0)))));
 		}
 
 		final JTableExt tableExt=new JTableExt();
