@@ -20,7 +20,6 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.math3.distribution.AbstractRealDistribution;
-import org.apache.commons.math3.util.FastMath;
 
 import language.Language;
 import mathtools.TimeTools;
@@ -172,8 +171,8 @@ public class RunElementDelay extends RunElementPassThrough {
 			}
 		}
 
-		final double delayTime=FastMath.max(0,value)*timeBaseMultiply;
-		final long delayTimeMS=FastMath.round(delayTime*1000);
+		final double delayTime=value*timeBaseMultiply;
+		final long delayTimeMS=(long)(delayTime*1000+0.5);
 
 		/* Logging */
 		if (simData.loggingActive) log(simData,Language.tr("Simulation.Log.Delay"),String.format(Language.tr("Simulation.Log.Delay.Info"),client.logInfo(simData),name,TimeTools.formatExactTime(delayTime)));
