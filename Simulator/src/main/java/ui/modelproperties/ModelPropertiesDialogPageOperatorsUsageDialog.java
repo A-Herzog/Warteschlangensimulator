@@ -107,11 +107,11 @@ public class ModelPropertiesDialogPageOperatorsUsageDialog extends BaseDialog {
 				StringBuilder name=new StringBuilder();
 				name.append(element.getContextMenuElementName());
 				if (!element.getName().isEmpty()) {
-					name.append("\"");
+					name.append(" \"");
 					name.append(element.getName());
 					name.append("\"");
 				}
-				name.append("(id=");
+				name.append(" (id=");
 				name.append(element.getId());
 				name.append(")");
 				final Map<String,Integer> data=((ModelDataResourceUsage)element).getUsedResourcesInfo();
