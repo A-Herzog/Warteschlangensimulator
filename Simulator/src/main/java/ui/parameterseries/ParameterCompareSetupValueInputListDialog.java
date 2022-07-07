@@ -130,7 +130,7 @@ public class ParameterCompareSetupValueInputListDialog extends ParameterCompareS
 	 * @return	Liefert <code>true</code>, wenn der Dialog mit "Ok" geschlossen wurde
 	 */
 	private boolean editInput(final ParameterCompareSetupValueInput record) {
-		final ParameterCompareSetupValueInputDialog dialog=new ParameterCompareSetupValueInputDialog(owner,record,model,help);
+		final ParameterCompareSetupValueInputDialog dialog=new ParameterCompareSetupValueInputDialog(this,record,model,help);
 		return dialog.getClosedBy()==BaseDialog.CLOSED_BY_OK;
 	}
 

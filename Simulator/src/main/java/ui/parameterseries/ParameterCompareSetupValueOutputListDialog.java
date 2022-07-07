@@ -144,7 +144,7 @@ public class ParameterCompareSetupValueOutputListDialog extends ParameterCompare
 	 * @return	Liefert <code>true</code>, wenn der Dialog mit "Ok" geschlossen wurde
 	 */
 	private boolean editOutput(final ParameterCompareSetupValueOutput record) {
-		final ParameterCompareSetupValueOutputDialog dialog=new ParameterCompareSetupValueOutputDialog(owner,record,model,miniStatistics,help);
+		final ParameterCompareSetupValueOutputDialog dialog=new ParameterCompareSetupValueOutputDialog(this,record,model,miniStatistics,help);
 		return dialog.getClosedBy()==BaseDialog.CLOSED_BY_OK;
 	}
 
@@ -242,7 +242,7 @@ public class ParameterCompareSetupValueOutputListDialog extends ParameterCompare
 		final ParameterCompareSetupValueOutput output=new ParameterCompareSetupValueOutput();
 		output.setName(record.title);
 		output.setTag(record.xml);
-		output.setFormat((record.xmlMode==XMLMode.XML_NUMBER_TIME)?ParameterCompareSetupValueOutput.OutputFormat.FORMAT_TIME:ParameterCompareSetupValueOutput.OutputFormat.FORMAT_PERCENT);
+		output.setFormat((record.xmlMode==XMLMode.XML_NUMBER_TIME)?ParameterCompareSetupValueOutput.OutputFormat.FORMAT_TIME:ParameterCompareSetupValueOutput.OutputFormat.FORMAT_NUMBER);
 		return output;
 	}
 
