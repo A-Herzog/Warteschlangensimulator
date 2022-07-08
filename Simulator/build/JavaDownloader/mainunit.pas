@@ -37,6 +37,7 @@ type
     fFindJava : TFindJava;
     fDownloadThread : TJavaLoaderThread;
     fExtractThread : TExtractJava;
+    fWindowsOnARM : Boolean;
     Procedure UpdateProgress(Sender: TObject);
     Procedure Step1Done(Sender: TObject);
     Procedure Step2Done(Sender: TObject);
@@ -50,7 +51,7 @@ var
 implementation
 
 uses
-  lclintf, ShellApi;
+  lclintf, ShellApi, testarm;
 
 {$R *.lfm}
 
@@ -63,6 +64,8 @@ begin
   fDownloadURL:='https://api.adoptium.net/v3/binary/latest/11/ga/windows/x64/jdk/hotspot/normal/adoptium';
   fHomepageURL:='https://adoptium.net/';
   fTempZipFile:=IncludeTrailingPathDelimiter(GetTempDir(false))+'AdoptiumOpenJDK-Download.zip';
+
+  fWindowsOnARM:=IsARM;
 end;
 
 procedure TMainForm.FormDestroy(Sender: TObject);
@@ -93,7 +96,7 @@ begin
     ForceAutoDownload:=True;
   end;
 
-  Fix2.Enabled:=UserMode;
+  Fix2.Enabled:=UserMode and not fWindowsOnARM;
 
   if not SimFound then begin
     MessageDlg('Warteschlangensimulator not found','No Warteschlangensimulator installation was found.',mtError,[mbOk],0);
@@ -102,15 +105,21 @@ begin
   end;
 
   If JavaFound and not ForceAutoDownload then begin
-    MessageDlg('Java environment found','A Java environment was found on your system. There is no need to download Java.',mtInformation,[mbOk],0);
+    MessageDlg('Java environment found','A Java environment was found on your system'+#13+'('+fFindJava.JavaPath+').'+#13+'There is no need to download Java.',mtInformation,[mbOk],0);
     Close;
+    Exit;
+  end;
+
+  if fWindowsOnARM then begin
+    InfoLabel.Caption:='A Windows on ARM Java environment cannot be installed automatically.';
+    fHomepageURL:='https://docs.microsoft.com/de-de/java/openjdk/download';
     Exit;
   end;
 
   if UserMode then begin
     InfoLabel.Caption:='Automatic installation is recommended and will not require admin rights.'+#13+'A manually downloaded Java installer will need admin rights for installation.';
   end else begin
-    InfoLabel.Caption:='Since Warteschlangensimulator is installed in program folder no automatisch Java installation (without admin rights) is possible.';
+    InfoLabel.Caption:='Since Warteschlangensimulator is installed in program folder no automatic Java installation (without admin rights) is possible.';
   end;
 
   if ForceAutoDownload then begin
@@ -127,6 +136,7 @@ end;
 
 procedure TMainForm.Fix1Click(Sender: TObject);
 begin
+  MessageDlg('Download Java environment','Please download a "AArch64 / ARM64" Java build for your system from the browser window which will be opened next.',mtInformation,[mbOK],0);
   OpenURL(fHomepageURL);
   Close;
 end;

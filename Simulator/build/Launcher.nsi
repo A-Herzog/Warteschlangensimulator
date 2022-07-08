@@ -173,15 +173,17 @@ Function GetJRE
   ;  2 - in JAVA_HOME environment variable
   ;  3a- jdk in the registry
   ;  3b- jre in the registry
-  ;  4a- in C:\Program Files\Eclipse Adoptium
-  ;  4b- in C:\Program Files\Eclipse Foundation
-  ;  4c- in C:\Program Files\AdoptOpenJDK and its subfolders  
-  ;  4d- in C:\Program Files\Java and its subfolders
-  ;  4d- in C:\Program Files\Amazon Corretto and its subfolders  
-  ;  4e- in C:\Program Files\Zulu and its subfolders
-  ;  4g- in C:\Program Files\Microsoft and its subfolders  
-  ;  4h- in C:\Program Files and its subfolders
-  ;  5 - assume javaw.exe in current dir or PATH
+  ;  4 - in C:\Program Files (Arm)\Microsoft
+  ;  5a- in C:\Program Files\Eclipse Adoptium
+  ;  5b- in C:\Program Files\Eclipse Foundation
+  ;  5c- in C:\Program Files\AdoptOpenJDK and its subfolders  
+  ;  5d- in C:\Program Files\Java and its subfolders
+  ;  5e- in C:\Program Files\Amazon Corretto and its subfolders  
+  ;  5f- in C:\Program Files\Zulu and its subfolders
+  ;  5g- in C:\Program Files\Microsoft and its subfolders  
+  ;  6 - Search javaw.exe on PATH  
+  ;  7 - in C:\Program Files and its subfolders
+  ;  8 - try to call javaw.exe without path
  
   Push $R0
   Push $R1
@@ -224,26 +226,37 @@ Function GetJRE
   StrCpy $R0 "$R0\bin\javaw.exe"
   IfErrors 0 JreFound
   
+  ; Unter "C:\Program Files (Arm)\Microsoft" suchen
+  !insertmacro CallFindFiles "C:\Program Files (Arm)\Microsoft" javaw.exe FindJava
+  DetailPrint "Microsoft (Arm): $9"
+  StrCmp $9 "" +3 0
+  StrCpy $R0 $9
+  Goto JreFound
+  
   ; Unter "C:\Program Files\Eclipse Adoptium" suchen
   !insertmacro CallFindFiles "$PROGRAMFILES64\Eclipse Adoptium" javaw.exe FindJava
+  DetailPrint "EclipseAdoptium: $9"
   StrCmp $9 "" +3 0
   StrCpy $R0 $9
   Goto JreFound  
      
   ; Unter "C:\Program Files\Eclipse Foundation" suchen
   !insertmacro CallFindFiles "$PROGRAMFILES64\Eclipse Foundation" javaw.exe FindJava
+  DetailPrint "EclipseFoundation: $9"
   StrCmp $9 "" +3 0
   StrCpy $R0 $9
   Goto JreFound
 	 
   ; Unter "C:\Program Files\AdoptOpenJDK" suchen
   !insertmacro CallFindFiles $PROGRAMFILES64\AdoptOpenJDK javaw.exe FindJava
+  DetailPrint "AdoptOpenJDK: $9"
   StrCmp $9 "" +3 0
   StrCpy $R0 $9
   Goto JreFound
  
   ; Unter "C:\Program Files\Java" suchen
   !insertmacro CallFindFiles $PROGRAMFILES64\Java javaw.exe FindJava
+  DetailPrint "Java: $9"
   StrCmp $9 "" +3 0
   StrCpy $R0 $9
   Goto JreFound
@@ -256,24 +269,32 @@ Function GetJRE
   
   ; Unter "C:\Program Files\Zulu" suchen
   !insertmacro CallFindFiles "$PROGRAMFILES64\Zulu" javaw.exe FindJava
+  DetailPrint "Zulu: $9"
   StrCmp $9 "" +3 0
   StrCpy $R0 $9
   Goto JreFound
   
   ; Unter "C:\Program Files\Microsoft" suchen
   !insertmacro CallFindFiles "$PROGRAMFILES64\Microsoft" javaw.exe FindJava
+  DetailPrint "Microsoft: $9"
   StrCmp $9 "" +3 0
   StrCpy $R0 $9
   Goto JreFound
+
+  ; Such im Suchpfad
+  SearchPath $9 "javaw.exe"
+  DetailPrint "Path: $9"
+  StrCpy $R0 $9
+  IfErrors 0 JreFound
   
   ; Unter "C:\Program Files" suchen
   !insertmacro CallFindFiles $PROGRAMFILES64 javaw.exe FindJava
+  DetailPrint "ProgramFiles: $9"
   StrCmp $9 "" +3 0
   StrCpy $R0 $9
   Goto JreFound
-   
+
   ; Versuch eines direkten Aufrufs
-  IfErrors 0 JreFound
   StrCpy $R0 "javaw.exe"
   
  JreFound:

@@ -1,7 +1,7 @@
 object MainForm: TMainForm
-  Left = 285
+  Left = 398
   Height = 360
-  Top = 145
+  Top = 154
   Width = 723
   BorderStyle = bsDialog
   Caption = 'Warteschlangensimulator - Java Downloader'

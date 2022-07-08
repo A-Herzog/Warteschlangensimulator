@@ -169,32 +169,39 @@ begin
   { 3b- jre in the registry }
   If SearchRegistry('Java Runtime Environment') then Exit;
 
-  { 4a- in C:\Program Files\Eclipse Foundation and its subfolders}
+  { 4 - in C:\Program Files (Arm)\Microsoft and its subfolders }
+  If IsJavaInSubFolder('C:\Program Files (Arm)\Microsoft',1) then Exit;
+
+  { 5a- in C:\Program Files\Eclipse Adoptium and its subfolders}
+  If IsJavaInSubFolder('C:\Program Files\Eclipse Adoptium',1) then Exit;
+
+  { 5b- in C:\Program Files\Eclipse Foundation and its subfolders}
   If IsJavaInSubFolder('C:\Program Files\Eclipse Foundation',1) then Exit;
 
-  { 4b- in C:\Program Files\AdoptOpenJDK and its subfolders}
+  { 5c- in C:\Program Files\AdoptOpenJDK and its subfolders}
   If IsJavaInSubFolder('C:\Program Files\AdoptOpenJDK',1) then Exit;
 
-  { 4c- in C:\Program Files\Java and its subfolders }
+  { 5d- in C:\Program Files\Java and its subfolders }
   If IsJavaInSubFolder('C:\Program Files\Java',1) then Exit;
 
-  { 4d- in C:\Program Files\Amazon Corretto and its subfolders }
+  { 5e- in C:\Program Files\Amazon Corretto and its subfolders }
   If IsJavaInSubFolder('C:\Program Files\Amazon Corretto',1) then Exit;
 
-  { 4e- in C:\Program Files\Zulu and its subfolders }
+  { 5f- in C:\Program Files\Zulu and its subfolders }
   If IsJavaInSubFolder('C:\Program Files\Zulu',1) then Exit;
 
-  { 4f- in C:\Program Files\Microsoft and its subfolders }
+  { 5g- in C:\Program Files\Microsoft and its subfolders }
   If IsJavaInSubFolder('C:\Program Files\Microsoft',1) then Exit;
 
-  { 4g- in C:\Program Files and its subfolders }
-  If IsJavaInSubFolder('C:\Program Files\',2) then Exit;
-
-  { 5 - assume javaw.exe in current dir or PATH }
+  { 6 - Search javaw.exe on PATH }
   Paths:=GetEnvironmentVariable('PATH').Split(';');
   For I:=0 to SizeOf(Paths) do begin
     If IsJavaPath(Paths[I]) then Exit;
   end;
+
+  { 7- in C:\Program Files and its subfolders }
+  If IsJavaInSubFolder('C:\Program Files\',2) then Exit;
+
 end;
 
 end.
