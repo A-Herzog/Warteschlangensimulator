@@ -1,18 +1,16 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.23 (MiKTeX 21.8) (preloaded format=pdflatex 2021.8.13)  6 MAR 2022 21:14
+This is pdfTeX, Version 3.141592653-2.6-1.40.23 (MiKTeX 21.8) (preloaded format=pdflatex 2021.8.13)  7 JUL 2022 12:12
 entering extended mode
 **./Warteschlangensimulator-de.tex
 (Warteschlangensimulator-de.tex
 LaTeX2e <2021-06-01> patch level 1
-L3 programming layer <2021-07-12>
-(C:\Program Files\MiKTeX 2.9\tex/latex/amsmath\amsmath.sty
+L3 programming layer <2021-07-12> (C:\Program Files\MiKTeX 2.9\tex/latex/amsmath\amsmath.sty
 Package: amsmath 2021/04/20 v2.17j AMS math features
 \@mathmargin=\skip47
 
 For additional information on amsmath, use the `?' option.
 (C:\Program Files\MiKTeX 2.9\tex/latex/amsmath\amstext.sty
 Package: amstext 2000/06/29 v2.01 AMS text
-
-(C:\Program Files\MiKTeX 2.9\tex/latex/amsmath\amsgen.sty
+ (C:\Program Files\MiKTeX 2.9\tex/latex/amsmath\amsgen.sty
 File: amsgen.sty 1999/11/30 v2.0 generic functions
 \@emptytoks=\toks16
 \ex@=\dimen138
@@ -20,8 +18,7 @@ File: amsgen.sty 1999/11/30 v2.0 generic functions
 (C:\Program Files\MiKTeX 2.9\tex/latex/amsmath\amsbsy.sty
 Package: amsbsy 1999/11/29 v1.2d Bold Symbols
 \pmbraise@=\dimen139
-)
-(C:\Program Files\MiKTeX 2.9\tex/latex/amsmath\amsopn.sty
+) (C:\Program Files\MiKTeX 2.9\tex/latex/amsmath\amsopn.sty
 Package: amsopn 2016/03/08 v2.02 operator names
 )
 \inf@bad=\count182
@@ -64,11 +61,11 @@ LaTeX Info: Redefining \] on input line 2924.
 )
 (C:\Program Files\MiKTeX 2.9\tex/latex/base\fix-cm.sty
 Package: fix-cm 2020/11/24 v1.1t fixes to LaTeX
-
-(C:\Program Files\MiKTeX 2.9\tex/latex/base\ts1enc.def
+ (C:\Program Files\MiKTeX 2.9\tex/latex/base\ts1enc.def
 File: ts1enc.def 2001/06/05 v3.0e (jk/car/fm) Standard LaTeX file
 LaTeX Font Info:    Redeclaring font encoding TS1 on input line 47.
-)) (svmono.cls
+))
+(svmono.cls
 Document Class: svmono 2009/12/17 v5.5 
 Springer Verlag global LaTeX document class for monographs
 Class Springer-SVMono Info: extra/valid Springer sub-package 
@@ -156,13 +153,11 @@ LaTeX Font Info:    Redeclaring math symbol \varOmega on input line 854.
 LaTeX Info: Redefining \abstract on input line 1894.
 ) (Macros.tex
 (C:\Users\Alexa\AppData\Roaming\MiKTeX\2.9\tex/latex/imakeidx\imakeidx.sty
-Package: imakeidx 2016/10/15 v1.3e Package for typesetting indices in a synchro
-nous mode
+Package: imakeidx 2016/10/15 v1.3e Package for typesetting indices in a synchronous mode
 
 (C:\Program Files\MiKTeX 2.9\tex/latex/xkeyval\xkeyval.sty
 Package: xkeyval 2020/11/20 v2.8 package option processing (HA)
-
-(C:\Program Files\MiKTeX 2.9\tex/generic/xkeyval\xkeyval.tex
+ (C:\Program Files\MiKTeX 2.9\tex/generic/xkeyval\xkeyval.tex
 (C:\Program Files\MiKTeX 2.9\tex/generic/xkeyval\xkvutils.tex
 \XKV@toks=\toks21
 \XKV@tempa@toks=\toks22
@@ -254,8 +249,7 @@ Package: multicol 2019/12/09 v1.8y multicolumn formatting (FMi)
 Package: inputenc 2021/02/14 v1.3d Input encoding file
 \inpenc@prehook=\toks23
 \inpenc@posthook=\toks24
-)
-(C:\Program Files\MiKTeX 2.9\tex/latex/amsfonts\amssymb.sty
+) (C:\Program Files\MiKTeX 2.9\tex/latex/amsfonts\amssymb.sty
 Package: amssymb 2013/01/14 v3.01 AMS font symbols
 
 (C:\Program Files\MiKTeX 2.9\tex/latex/amsfonts\amsfonts.sty
@@ -265,8 +259,7 @@ Package: amsfonts 2013/01/14 v3.01 Basic AMSFonts support
 LaTeX Font Info:    Redeclaring math symbol \hbar on input line 98.
 LaTeX Font Info:    Overwriting math alphabet `\mathfrak' in version `bold'
 (Font)                  U/euf/m/n --> U/euf/b/n on input line 106.
-))
-(C:\Program Files\MiKTeX 2.9\tex/generic/babel\babel.sty
+)) (C:\Program Files\MiKTeX 2.9\tex/generic/babel\babel.sty
 Package: babel 2021/07/22 3.63 The Babel package
 
 (C:\Program Files\MiKTeX 2.9\tex/generic/babel\babel.def
@@ -274,8 +267,7 @@ File: babel.def 2021/07/22 3.63 Babel common definitions
 \babel@savecnt=\count297
 \U@D=\dimen179
 \l@unhyphenated=\language83
-
-(C:\Program Files\MiKTeX 2.9\tex/generic/babel\txtbabel.def)
+ (C:\Program Files\MiKTeX 2.9\tex/generic/babel\txtbabel.def)
 \bbl@readstream=\read2
 )
 \bbl@dirlevel=\count298
@@ -284,16 +276,13 @@ File: babel.def 2021/07/22 3.63 Babel common definitions
 * Local config file bblopts.cfg used
 *
 (C:\Users\Alexa\AppData\Roaming\MiKTeX\2.9\tex/latex/arabi\bblopts.cfg
-File: bblopts.cfg 2005/09/08 v0.1 add Arabic and Farsi to "declared" options of
- babel
+File: bblopts.cfg 2005/09/08 v0.1 add Arabic and Farsi to "declared" options of babel
 )
 (C:\Program Files\MiKTeX 2.9\tex/latex/babel-german\ngerman.ldf
-Language: ngerman 2021/02/27 v2.13 German support for babel (post-1996 orthogra
-phy)
+Language: ngerman 2021/02/27 v2.13 German support for babel (post-1996 orthography)
 
 (C:\Program Files\MiKTeX 2.9\tex/latex/babel-german\ngermanb.ldf
-Language: ngermanb 2021/02/27 v2.13 German support for babel (post-1996 orthogr
-aphy)
+Language: ngermanb 2021/02/27 v2.13 German support for babel (post-1996 orthography)
 Package babel Info: Making " an active character on input line 122.
 )))
 (C:\Users\Alexa\AppData\Roaming\MiKTeX\2.9\tex/latex/epsf\epsf.sty
@@ -315,8 +304,7 @@ Package: graphicx 2020/12/05 v1.2c Enhanced LaTeX Graphics (DPC,SPQR)
 
 (C:\Program Files\MiKTeX 2.9\tex/latex/graphics\graphics.sty
 Package: graphics 2021/03/04 v1.4d Standard LaTeX Graphics (DPC,SPQR)
-
-(C:\Program Files\MiKTeX 2.9\tex/latex/graphics\trig.sty
+ (C:\Program Files\MiKTeX 2.9\tex/latex/graphics\trig.sty
 Package: trig 2016/01/03 v1.10 sin cos tan (DPC)
 )
 (C:\Program Files\MiKTeX 2.9\tex/latex/graphics-cfg\graphics.cfg
@@ -329,8 +317,7 @@ File: dvips.def 2017/06/20 v3.1d Graphics/color driver for dvips
 ))
 \Gin@req@height=\dimen188
 \Gin@req@width=\dimen189
-)
-(C:\Program Files\MiKTeX 2.9\tex/latex/base\ifthen.sty
+) (C:\Program Files\MiKTeX 2.9\tex/latex/base\ifthen.sty
 Package: ifthen 2020/11/24 v1.1c Standard LaTeX ifthen package (DPC)
 )
 \c@r@tfl@t=\count299
@@ -338,8 +325,7 @@ Package: ifthen 2020/11/24 v1.1c Standard LaTeX ifthen package (DPC)
 \rotFPbot=\skip55
 \rot@float@box=\box99
 \rot@mess@toks=\toks25
-)
-(C:\Users\Alexa\AppData\Roaming\MiKTeX\2.9\tex/latex/ntheorem\ntheorem.sty
+) (C:\Users\Alexa\AppData\Roaming\MiKTeX\2.9\tex/latex/ntheorem\ntheorem.sty
 Style `ntheorem', Version 1.33 <2011/08/15>
 Package: ntheorem 2011/08/15 1.33
 \theorem@style=\toks26
@@ -376,8 +362,7 @@ Package ntheorem Info: Option `thmmarks' loaded on input line 1175.
 \c@endNonectr=\count300
 \c@currNonectr=\count301
 \mysavskip=\skip64
-Package ntheorem Info: option `amsmath' handling for `thmmarks' loaded on input
- line 1175.
+Package ntheorem Info: option `amsmath' handling for `thmmarks' loaded on input line 1175.
 \thm@amstmpdepth=\dimen194
 \tagwidth=\dimen195
 ) (C:\Program Files\MiKTeX 2.9\tex/latex/hyperref\nameref.sty
@@ -392,8 +377,7 @@ Package: ltxcmds 2020-05-10 v1.25 LaTeX kernel commands for general use (HO)
 (C:\Users\Alexa\AppData\Roaming\MiKTeX\2.9\tex/generic/infwarerr\infwarerr.sty
 Package: infwarerr 2019/12/03 v1.5 Providing info/warning/error messages (HO)
 ))
-(C:\Users\Alexa\AppData\Roaming\MiKTeX\2.9\tex/generic/gettitlestring\gettitles
-tring.sty
+(C:\Users\Alexa\AppData\Roaming\MiKTeX\2.9\tex/generic/gettitlestring\gettitlestring.sty
 Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
 
 (C:\Users\Alexa\AppData\Roaming\MiKTeX\2.9\tex/latex/kvoptions\kvoptions.sty
@@ -405,7 +389,8 @@ Package: kvsetkeys 2019/12/15 v1.18 Key value parser (HO)
 \c@section@level=\count302
 LaTeX Info: Redefining \ref on input line 356.
 LaTeX Info: Redefining \pageref on input line 356.
-) (C:\Users\Alexa\AppData\Roaming\MiKTeX\2.9\tex/latex/hycolor\hycolor.sty
+)
+(C:\Users\Alexa\AppData\Roaming\MiKTeX\2.9\tex/latex/hycolor\hycolor.sty
 Package: hycolor 2020-01-27 v1.10 Color options for hyperref/bookmark (HO)
 )
 (C:\Users\Alexa\AppData\Roaming\MiKTeX\2.9\tex/latex/hyperxmp\hyperxmp.sty
@@ -415,18 +400,16 @@ Package: hyperxmp 2020/11/22 v5.9 Store hyperref metadata in XMP format
 (C:\Users\Alexa\AppData\Roaming\MiKTeX\2.9\tex/generic/pdfescape\pdfescape.sty
 Package: pdfescape 2019/12/09 v1.15 Implements pdfTeX's escape features (HO)
 
-(C:\Users\Alexa\AppData\Roaming\MiKTeX\2.9\tex/generic/pdftexcmds\pdftexcmds.st
-y
-Package: pdftexcmds 2020-06-27 v0.33 Utility functions of pdfTeX for LuaTeX (HO
-)
+(C:\Users\Alexa\AppData\Roaming\MiKTeX\2.9\tex/generic/pdftexcmds\pdftexcmds.sty
+Package: pdftexcmds 2020-06-27 v0.33 Utility functions of pdfTeX for LuaTeX (HO)
 Package pdftexcmds Info: \pdf@primitive is available.
 Package pdftexcmds Info: \pdf@ifprimitive is available.
 Package pdftexcmds Info: \pdfdraftmode found.
 ))
 (C:\Users\Alexa\AppData\Roaming\MiKTeX\2.9\tex/generic/stringenc\stringenc.sty
-Package: stringenc 2019/11/29 v1.12 Convert strings between diff. encodings (HO
+Package: stringenc 2019/11/29 v1.12 Convert strings between diff. encodings (HO)
 )
-) (C:\Users\Alexa\AppData\Roaming\MiKTeX\2.9\tex/generic/intcalc\intcalc.sty
+(C:\Users\Alexa\AppData\Roaming\MiKTeX\2.9\tex/generic/intcalc\intcalc.sty
 Package: intcalc 2019/12/15 v1.3 Expandable calculations with integers (HO)
 )
 (C:\Users\Alexa\AppData\Roaming\MiKTeX\2.9\tex/latex/ifmtarg\ifmtarg.sty
@@ -448,14 +431,13 @@ Package: everyshi 2020/11/18 v4.00 EveryShipout Package
 (C:\Program Files\MiKTeX 2.9\tex/latex/hyperref\hyperref.sty
 Package: hyperref 2021-06-07 v7.00m Hypertext links for LaTeX
 
-(C:\Users\Alexa\AppData\Roaming\MiKTeX\2.9\tex/generic/kvdefinekeys\kvdefinekey
-s.sty
+(C:\Users\Alexa\AppData\Roaming\MiKTeX\2.9\tex/generic/kvdefinekeys\kvdefinekeys.sty
 Package: kvdefinekeys 2019-12-19 v1.6 Define keys (HO)
 )
-(C:\Users\Alexa\AppData\Roaming\MiKTeX\2.9\tex/latex/letltxmacro\letltxmacro.st
-y
+(C:\Users\Alexa\AppData\Roaming\MiKTeX\2.9\tex/latex/letltxmacro\letltxmacro.sty
 Package: letltxmacro 2019/12/03 v1.6 Let assignment for LaTeX macros (HO)
-) (C:\Users\Alexa\AppData\Roaming\MiKTeX\2.9\tex/latex/auxhook\auxhook.sty
+)
+(C:\Users\Alexa\AppData\Roaming\MiKTeX\2.9\tex/latex/auxhook\auxhook.sty
 Package: auxhook 2019-12-17 v1.6 Hooks for auxiliary files (HO)
 )
 \@linkdim=\dimen196
@@ -468,8 +450,7 @@ Now handling font encoding PD1 ...
 ... no UTF-8 mapping file for font encoding PD1
 )
 (C:\Program Files\MiKTeX 2.9\tex/latex/hyperref\hyperref-langpatches.def
-File: hyperref-langpatches.def 2021-06-07 v7.00m Hyperref: patches for babel la
-nguages
+File: hyperref-langpatches.def 2021-06-07 v7.00m Hyperref: patches for babel languages
 )
 (C:\Users\Alexa\AppData\Roaming\MiKTeX\2.9\tex/generic/etexcmds\etexcmds.sty
 Package: etexcmds 2019/12/15 v1.7 Avoid name clashes with e-TeX commands (HO)
@@ -500,10 +481,8 @@ LaTeX Info: Redefining \url on input line 4804.
 (C:\Users\Alexa\AppData\Roaming\MiKTeX\2.9\tex/generic/bitset\bitset.sty
 Package: bitset 2019/12/09 v1.3 Handle bit-vector datatype (HO)
 
-(C:\Users\Alexa\AppData\Roaming\MiKTeX\2.9\tex/generic/bigintcalc\bigintcalc.st
-y
-Package: bigintcalc 2019/12/15 v1.5 Expandable calculations on big integers (HO
-)
+(C:\Users\Alexa\AppData\Roaming\MiKTeX\2.9\tex/generic/bigintcalc\bigintcalc.sty
+Package: bigintcalc 2019/12/15 v1.5 Expandable calculations on big integers (HO)
 ))
 \Fld@menulength=\count308
 \Field@Width=\dimen198
@@ -517,7 +496,8 @@ Package hyperref Info: Link coloring with OCG OFF on input line 6101.
 Package hyperref Info: PDF/A mode OFF on input line 6106.
 LaTeX Info: Redefining \ref on input line 6146.
 LaTeX Info: Redefining \pageref on input line 6150.
- (C:\Program Files\MiKTeX 2.9\tex/latex/base\atbegshi-ltx.sty
+
+(C:\Program Files\MiKTeX 2.9\tex/latex/base\atbegshi-ltx.sty
 Package: atbegshi-ltx 2021/01/10 v1.0c Emulation of the original atbegshi
 package with kernel methods
 )
@@ -531,29 +511,26 @@ Package hyperref Info: Driver (autodetected): hpdftex.
 File: hpdftex.def 2021-06-07 v7.00m Hyperref driver for pdfTeX
 
 (C:\Program Files\MiKTeX 2.9\tex/latex/base\atveryend-ltx.sty
-Package: atveryend-ltx 2020/08/19 v1.0a Emulation of the original atvery packag
-e
+Package: atveryend-ltx 2020/08/19 v1.0a Emulation of the original atvery package
 with kernel methods
 )
 \Fld@listcount=\count312
 \c@bookmark@seq@number=\count313
 
-(C:\Users\Alexa\AppData\Roaming\MiKTeX\2.9\tex/latex/rerunfilecheck\rerunfilech
-eck.sty
+(C:\Users\Alexa\AppData\Roaming\MiKTeX\2.9\tex/latex/rerunfilecheck\rerunfilecheck.sty
 Package: rerunfilecheck 2019/12/05 v1.9 Rerun checks for auxiliary files (HO)
 
-(C:\Users\Alexa\AppData\Roaming\MiKTeX\2.9\tex/generic/uniquecounter\uniquecoun
-ter.sty
+(C:\Users\Alexa\AppData\Roaming\MiKTeX\2.9\tex/generic/uniquecounter\uniquecounter.sty
 Package: uniquecounter 2019/12/15 v1.4 Provide unlimited unique counter (HO)
 )
-Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 2
-86.
+Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 286.
 )
 \Hy@SectionHShift=\skip65
 )
 Package hyperref Info: Option `bookmarksnumbered' set `true' on input line 75.
 Package hyperref Info: Option `colorlinks' set `true' on input line 75.
- (C:\Program Files\MiKTeX 2.9\tex/latex/float\float.sty
+
+(C:\Program Files\MiKTeX 2.9\tex/latex/float\float.sty
 Package: float 2001/11/08 v1.3d Float enhancements (AL)
 \c@float@type=\count314
 \float@exts=\toks45
@@ -574,8 +551,7 @@ Package: fancyvrb 2021/01/20 v3.7 verbatim text (tvz,hv)
 \@float@every@table=\toks48
 
 (C:\Users\Alexa\AppData\Roaming\MiKTeX\2.9\tex/latex/sectsty\sectsty.sty
-Package: sectsty 2002/02/25 v2.0.2 Commands to change all sectional heading sty
-les
+Package: sectsty 2002/02/25 v2.0.2 Commands to change all sectional heading styles
 
 
 LaTeX Warning: Command \underbar  has changed.
@@ -601,8 +577,7 @@ Package: appendix 2020/02/08 v1.2c extra appendix facilities
 )
 (C:\Program Files\MiKTeX 2.9\tex/latex/base\fontenc.sty
 Package: fontenc 2021/04/29 v2.0v Standard LaTeX package
-)
-(C:\Program Files\MiKTeX 2.9\tex/latex/eurosym\eurosym.sty
+) (C:\Program Files\MiKTeX 2.9\tex/latex/eurosym\eurosym.sty
 Package: eurosym 1998/08/06 v1.1 European currency symbol ``Euro''
 \@eurobox=\box103
 )
@@ -629,8 +604,7 @@ Package: longtable 2021-05-07 v4.16 Multi-page Table package (DPC)
 Package: adjustbox 2020/08/19 v1.3 Adjusting TeX boxes (trim, clip, ...)
 
 (C:\Users\Alexa\AppData\Roaming\MiKTeX\2.9\tex/latex/adjustbox\adjcalc.sty
-Package: adjcalc 2012/05/16 v1.1 Provides advanced setlength with multiple back
--ends (calc, etex, pgfmath)
+Package: adjcalc 2012/05/16 v1.1 Provides advanced setlength with multiple back-ends (calc, etex, pgfmath)
 )
 (C:\Users\Alexa\AppData\Roaming\MiKTeX\2.9\tex/latex/adjustbox\trimclip.sty
 Package: trimclip 2020/08/19 v1.2 Trim and clip general TeX material
@@ -644,6 +618,7 @@ Package: collectbox 2012/05/17 v0.4b Collect macro arguments as boxes
 \tc@urx=\dimen263
 \tc@ury=\dimen264
 Package trimclip Info: Using driver 'tc-dvips.def'.
+
 (C:\Users\Alexa\AppData\Roaming\MiKTeX\2.9\tex/latex/adjustbox\tc-dvips.def
 File: tc-dvips.def 2019/01/04 v2.2 Clipping driver for dvips
 ))
@@ -723,8 +698,7 @@ Package xcolor Info: Model `tHsb' substituted by `hsb' on input line 1368.
 Package xcolor Info: Model `HSB' substituted by `hsb' on input line 1369.
 Package xcolor Info: Model `Gray' substituted by `gray' on input line 1370.
 Package xcolor Info: Model `wave' substituted by `hsb' on input line 1371.
-)
-(C:\Program Files\MiKTeX 2.9\tex/latex/lm\lmodern.sty
+) (C:\Program Files\MiKTeX 2.9\tex/latex/lm\lmodern.sty
 Package: lmodern 2009/10/30 v1.6 Latin Modern Fonts
 LaTeX Font Info:    Overwriting symbol font `operators' in version `normal'
 (Font)                  OT1/cmr/m/n --> OT1/lmr/m/n on input line 22.
@@ -767,14 +741,12 @@ LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `bold'
 \WF@everypar=\toks51
 Package: wrapfig 2003/01/31  v 3.6
 )
-LaTeX Font Info:    Trying to load font information for T1+lmr on input line 19
-.
+LaTeX Font Info:    Trying to load font information for T1+lmr on input line 19.
 
 (C:\Program Files\MiKTeX 2.9\tex/latex/lm\t1lmr.fd
 File: t1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
-(C:\Users\Alexa\AppData\Roaming\MiKTeX\2.9\tex/latex/l3backend\l3backend-pdftex
-.def
+(C:\Users\Alexa\AppData\Roaming\MiKTeX\2.9\tex/latex/l3backend\l3backend-pdftex.def
 File: l3backend-pdftex.def 2021-08-04 L3 backend support: PDF output (pdfTeX)
 \l__color_backend_stack_int=\count334
 \l__pdf_internal_box=\box114
@@ -823,48 +795,39 @@ LaTeX Info: Redefining \nameref on input line 19.
 \MPnumerator=\count339
 \makeMPintoPDFobject=\count340
 \everyMPtoPDFconversion=\toks53
-)
-(C:\Users\Alexa\AppData\Roaming\MiKTeX\2.9\tex/latex/epstopdf-pkg\epstopdf-base
-.sty
+) (C:\Users\Alexa\AppData\Roaming\MiKTeX\2.9\tex/latex/epstopdf-pkg\epstopdf-base.sty
 Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
-Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
-85.
- (C:\Program Files\MiKTeX 2.9\tex/latex/00miktex\epstopdf-sys.cfg
+Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 485.
+
+(C:\Program Files\MiKTeX 2.9\tex/latex/00miktex\epstopdf-sys.cfg
 File: epstopdf-sys.cfg 2021/03/18 v2.0 Configuration of epstopdf for MiKTeX
 ))
 <../../Warteschlangennetz-mittel.jpg, id=68, 2902.33244pt x 1981.27437pt>
 File: ../../Warteschlangennetz-mittel.jpg Graphic file (type jpg)
 <use ../../Warteschlangennetz-mittel.jpg>
-Package pdftex.def Info: ../../Warteschlangennetz-mittel.jpg  used on input lin
-e 27.
+Package pdftex.def Info: ../../Warteschlangennetz-mittel.jpg  used on input line 27.
 (pdftex.def)             Requested size: 455.24408pt x 310.7524pt.
-
-(../../Version.tex) [1.1
+ (../../Version.tex) [1.1
 Non-PDF special ignored!
 <special> papersize=614.295pt,794.96999pt
 
-{C:/Users/Alexa/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map} <../../Warte
-schlangennetz-mittel.jpg>]
-LaTeX Font Info:    Trying to load font information for OT1+lmr on input line 3
-7.
- (C:\Program Files\MiKTeX 2.9\tex/latex/lm\ot1lmr.fd
+{C:/Users/Alexa/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map} <../../Warteschlangennetz-mittel.jpg>]
+LaTeX Font Info:    Trying to load font information for OT1+lmr on input line 37.
+
+(C:\Program Files\MiKTeX 2.9\tex/latex/lm\ot1lmr.fd
 File: ot1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
-LaTeX Font Info:    Trying to load font information for OML+lmm on input line 3
-7.
-(C:\Program Files\MiKTeX 2.9\tex/latex/lm\omllmm.fd
+LaTeX Font Info:    Trying to load font information for OML+lmm on input line 37.
+ (C:\Program Files\MiKTeX 2.9\tex/latex/lm\omllmm.fd
 File: omllmm.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
-LaTeX Font Info:    Trying to load font information for OMS+lmsy on input line 
-37.
+LaTeX Font Info:    Trying to load font information for OMS+lmsy on input line 37.
 
 (C:\Program Files\MiKTeX 2.9\tex/latex/lm\omslmsy.fd
 File: omslmsy.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
-LaTeX Font Info:    Trying to load font information for OMX+lmex on input line 
-37.
-
-(C:\Program Files\MiKTeX 2.9\tex/latex/lm\omxlmex.fd
+LaTeX Font Info:    Trying to load font information for OMX+lmex on input line 37.
+ (C:\Program Files\MiKTeX 2.9\tex/latex/lm\omxlmex.fd
 File: omxlmex.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
 LaTeX Font Info:    External font `lmex10' loaded for size
@@ -875,14 +838,11 @@ LaTeX Font Info:    External font `lmex10' loaded for size
 (Font)              <5> on input line 37.
 LaTeX Font Info:    Trying to load font information for U+msa on input line 37.
 
-
 (C:\Program Files\MiKTeX 2.9\tex/latex/amsfonts\umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
 LaTeX Font Info:    Trying to load font information for U+msb on input line 37.
-
-
-(C:\Program Files\MiKTeX 2.9\tex/latex/amsfonts\umsb.fd
+ (C:\Program Files\MiKTeX 2.9\tex/latex/amsfonts\umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
 (Warteschlangensimulator-de.toc)
@@ -907,14 +867,12 @@ File: ProgramWindow.png Graphic file (type png)
 <use ProgramWindow.png>
 Package pdftex.def Info: ProgramWindow.png  used on input line 57.
 (pdftex.def)             Requested size: 398.33858pt x 300.0641pt.
-LaTeX Font Info:    Trying to load font information for TS1+lmr on input line 6
-7.
+LaTeX Font Info:    Trying to load font information for TS1+lmr on input line 67.
 (C:\Program Files\MiKTeX 2.9\tex/latex/lm\ts1lmr.fd
 File: ts1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
 ) [3.5 <./ProgramWindow.png>] [4.6]
 Kapitel 3.
-LaTeX Font Info:    Trying to load font information for T1+lmss on input line 7
-8.
+LaTeX Font Info:    Trying to load font information for T1+lmss on input line 78.
 (C:\Program Files\MiKTeX 2.9\tex/latex/lm\t1lmss.fd
 File: t1lmss.fd 2009/10/30 v1.6 Font defs for Latin Modern
 ) [5.7
@@ -936,11 +894,11 @@ File: IconSource.png Graphic file (type png)
 <use IconSource.png>
 Package pdftex.def Info: IconSource.png  used on input line 134.
 (pdftex.def)             Requested size: 56.9055pt x 29.54762pt.
-<DialogSource.png, id=136, 775.39688pt x 691.08188pt>
+<DialogSource.png, id=136, 775.39688pt x 742.27313pt>
 File: DialogSource.png Graphic file (type png)
 <use DialogSource.png>
 Package pdftex.def Info: DialogSource.png  used on input line 141.
-(pdftex.def)             Requested size: 284.52756pt x 253.58728pt.
+(pdftex.def)             Requested size: 284.52756pt x 272.37152pt.
  [8.10 <./ProgramWindowModel.png> <./IconSource.png>]
 <IconProcess.png, id=142, 104.39pt x 54.2025pt>
 File: IconProcess.png Graphic file (type png)
@@ -948,11 +906,11 @@ File: IconProcess.png Graphic file (type png)
 Package pdftex.def Info: IconProcess.png  used on input line 155.
 (pdftex.def)             Requested size: 56.9055pt x 29.54762pt.
  [9.11 <./DialogSource.png>]
-<DialogProcess.png, id=149, 1142.01656pt x 846.91406pt>
+<DialogProcess.png, id=149, 1142.01656pt x 805.50937pt>
 File: DialogProcess.png Graphic file (type png)
 <use DialogProcess.png>
 Package pdftex.def Info: DialogProcess.png  used on input line 162.
-(pdftex.def)             Requested size: 398.33858pt x 295.40346pt.
+(pdftex.def)             Requested size: 398.33858pt x 280.9615pt.
  [10.12 <./IconProcess.png> <./DialogProcess.png>] [11.13] [12.14]
 Kapitel 5.
 <ProgramWindowResults.png, id=165, 1141.26375pt x 859.71187pt>
@@ -975,47 +933,47 @@ Package pdftex.def Info: DialogExpressionBuilder.png  used on input line 240.
 (pdftex.def)             Requested size: 398.33858pt x 300.43538pt.
 [17.19] [18.20 <./DialogExpressionBuilder.png>]
 Kapitel 7.
-<DialogModel.png, id=194, 621.07031pt x 578.16pt>
+<DialogModel.png, id=194, 935.74594pt x 923.70094pt>
 File: DialogModel.png Graphic file (type png)
 <use DialogModel.png>
 Package pdftex.def Info: DialogModel.png  used on input line 258.
-(pdftex.def)             Requested size: 398.33858pt x 370.81511pt.
+(pdftex.def)             Requested size: 398.33858pt x 393.20901pt.
 [19.21
 
 
- <./DialogModel.png>] [20.22] [21.23] [22.24]
+] [20.22 <./DialogModel.png>] [21.23] [22.24]
 Kapitel 8.
 [23.25
 
 
 ]
-<IconDelay.png, id=219, 104.39pt x 54.2025pt>
+<IconDelay.png, id=218, 104.39pt x 54.2025pt>
 File: IconDelay.png Graphic file (type png)
 <use IconDelay.png>
 Package pdftex.def Info: IconDelay.png  used on input line 368.
 (pdftex.def)             Requested size: 56.9055pt x 29.54762pt.
-<IconAssign.png, id=220, 104.39pt x 54.2025pt>
+<IconAssign.png, id=219, 104.39pt x 54.2025pt>
 File: IconAssign.png Graphic file (type png)
 <use IconAssign.png>
 Package pdftex.def Info: IconAssign.png  used on input line 377.
 (pdftex.def)             Requested size: 56.9055pt x 29.54762pt.
  [24.26 <./IconDelay.png>] [25.27 <./IconAssign.png>]
-<IconDecide.png, id=232, 104.39pt x 54.2025pt>
+<IconDecide.png, id=231, 104.39pt x 54.2025pt>
 File: IconDecide.png Graphic file (type png)
 <use IconDecide.png>
 Package pdftex.def Info: IconDecide.png  used on input line 389.
 (pdftex.def)             Requested size: 56.9055pt x 29.54762pt.
-<IconDuplicate.png, id=233, 104.39pt x 54.2025pt>
+<IconDuplicate.png, id=232, 104.39pt x 54.2025pt>
 File: IconDuplicate.png Graphic file (type png)
 <use IconDuplicate.png>
 Package pdftex.def Info: IconDuplicate.png  used on input line 410.
 (pdftex.def)             Requested size: 56.9055pt x 29.54762pt.
-<IconCondition.png, id=234, 104.39pt x 54.2025pt>
+<IconCondition.png, id=233, 104.39pt x 54.2025pt>
 File: IconCondition.png Graphic file (type png)
 <use IconCondition.png>
 Package pdftex.def Info: IconCondition.png  used on input line 419.
 (pdftex.def)             Requested size: 56.9055pt x 29.54762pt.
-<IconSubModel.png, id=235, 104.39pt x 54.2025pt>
+<IconSubModel.png, id=234, 104.39pt x 54.2025pt>
 File: IconSubModel.png Graphic file (type png)
 <use IconSubModel.png>
 Package pdftex.def Info: IconSubModel.png  used on input line 428.
@@ -1029,41 +987,28 @@ File: se-utf8.def 2019/11/29 v1.12 stringenc: UTF-8
 )
 (C:\Users\Alexa\AppData\Roaming\MiKTeX\2.9\tex/generic/stringenc\se-pdfdoc.def
 File: se-pdfdoc.def 2019/11/29 v1.12 stringenc: PDFDocEncoding
-) [26.28 <./IconDecide.png> <./IconDuplicate.png> <./IconCondition.png> <./Icon
-SubModel.png>] (Warteschlangensimulator-de.aux)
-
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
-
-
-Package rerunfilecheck Warning: File `Warteschlangensimulator-de.out' has chang
-ed.
-(rerunfilecheck)                Rerun to get outlines right
-(rerunfilecheck)                or use package `bookmark'.
-
-Package rerunfilecheck Info: Checksums for `Warteschlangensimulator-de.out':
-(rerunfilecheck)             Before: A67762F8FA1457AAE89E79707A9FAB9A;1107
-(rerunfilecheck)             After:  4B3A15D3DAFF205C80E5D78AD7D27EFF;3035.
+) [26.28 <./IconDecide.png> <./IconDuplicate.png> <./IconCondition.png> <./IconSubModel.png>] (Warteschlangensimulator-d
+e.aux)
+Package rerunfilecheck Info: File `Warteschlangensimulator-de.out' has not changed.
+(rerunfilecheck)             Checksum: 4B3A15D3DAFF205C80E5D78AD7D27EFF;3035.
  ) 
 Here is how much of TeX's memory you used:
- 15577 strings out of 478834
- 235728 string characters out of 2855332
- 618747 words of memory out of 3000000
- 33106 multiletter control sequences out of 15000+600000
+ 15572 strings out of 478834
+ 235683 string characters out of 2855332
+ 618766 words of memory out of 3000000
+ 33101 multiletter control sequences out of 15000+600000
  458146 words of font info for 59 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  77i,6n,83p,1546b,436s stack positions out of 5000i,500n,10000p,200000b,80000s
-{C:/Program Files/MiKTeX 2.9/fonts/enc/dvips/lm/lm-mathsy.enc}{C:/Program Fil
-es/MiKTeX 2.9/fonts/enc/dvips/lm/lm-ec.enc}{C:/Program Files/MiKTeX 2.9/fonts/e
-nc/dvips/lm/lm-ts1.enc}<C:/Program Files/MiKTeX 2.9/fonts/type1/public/lm/lmbx1
-0.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/lm/lmbx12.pfb><C:/Program
- Files/MiKTeX 2.9/fonts/type1/public/lm/lmcsc10.pfb><C:/Program Files/MiKTeX 2.
-9/fonts/type1/public/lm/lmr10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/publ
-ic/lm/lmr12.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/lm/lmr9.pfb><C:
-/Program Files/MiKTeX 2.9/fonts/type1/public/lm/lmssbx10.pfb><C:/Program Files/
-MiKTeX 2.9/fonts/type1/public/lm/lmsy10.pfb>
-Output written on Warteschlangensimulator-de.pdf (28 pages, 1591185 bytes).
+{C:/Program Files/MiKTeX 2.9/fonts/enc/dvips/lm/lm-mathsy.enc}{C:/Program Files/MiKTeX 2.9/fonts/enc/dvips/lm/lm-ec.en
+c}{C:/Program Files/MiKTeX 2.9/fonts/enc/dvips/lm/lm-ts1.enc}<C:/Program Files/MiKTeX 2.9/fonts/type1/public/lm/lmbx10.p
+fb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/lm/lmbx12.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/lm/lmcs
+c10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/lm/lmr10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/lm/
+lmr12.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/lm/lmr9.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/lm
+/lmssbx10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/lm/lmsy10.pfb>
+Output written on Warteschlangensimulator-de.pdf (28 pages, 1662626 bytes).
 PDF statistics:
- 299 PDF objects out of 1000 (max. 8388607)
+ 298 PDF objects out of 1000 (max. 8388607)
  59 named destinations out of 1000 (max. 500000)
  213 words of extra memory for PDF output out of 10000 (max. 10000000)
 

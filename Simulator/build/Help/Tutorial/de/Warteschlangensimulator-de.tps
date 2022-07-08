@@ -12,13 +12,13 @@ MaxPos.y=-1
 NormalPos.left=4
 NormalPos.top=36
 NormalPos.right=3272
-NormalPos.bottom=1510
+NormalPos.bottom=1541
 Class=LaTeXView
 Document=Warteschlangensimulator-de.tex
 
 [Frame0_View0,0]
-TopLine=420
-Cursor=42367
+TopLine=482
+Cursor=46225
 
 [SessionInfo]
 FrameCount=1
