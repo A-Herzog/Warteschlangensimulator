@@ -337,7 +337,7 @@ public class ModelElementInteractiveRadiobutton extends ModelElementPosition imp
 		}
 
 		/* Ggf. Fehlermeldung anzeigen */
-		if (!animationRunning && surface!=null) drawErrorMessage(graphics,drawRect,new Rectangle(x,y,w,h),zoom);
+		if (!animationRunning && surface!=null) drawErrorMessage(graphics,drawRect,new Rectangle(x,y,(int)Math.round(w*zoom),(int)Math.round(h*zoom)),zoom);
 	}
 
 	/**

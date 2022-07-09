@@ -407,7 +407,7 @@ public class ModelElementInteractiveSlider extends ModelElementPosition implemen
 			graphics.drawString(name,rectangle.x,rectangle.y+graphics.getFontMetrics().getAscent());
 		}
 
-		graphics.setStroke(new BasicStroke(5));
+		graphics.setStroke(new BasicStroke((float)(5*zoom)));
 		final int m=rectangle.y+rectangle.height/2;
 
 		graphics.setColor(Color.GRAY);
@@ -418,7 +418,8 @@ public class ModelElementInteractiveSlider extends ModelElementPosition implemen
 		if (percent>1) percent=1;
 		if (percent<0) percent=0;
 		final int pos=rectangle.x+(int)Math.round(rectangle.width*percent);
-		graphics.drawLine(pos,m-15,pos,m+15);
+		final int delta=(int)Math.round(15*zoom);
+		graphics.drawLine(pos,m-delta,pos,m+delta);
 
 		graphics.setColor(saveColor);
 		graphics.setStroke(saveStroke);
@@ -508,11 +509,11 @@ public class ModelElementInteractiveSlider extends ModelElementPosition implemen
 
 		if (isSelected() && showSelectionFrames) {
 			lineColor=Color.GREEN;
-			g2.setStroke(new BasicStroke(3));
+			g2.setStroke(new BasicStroke((float)(3*zoom)));
 		} else {
 			if (isSelectedArea() && showSelectionFrames) {
 				lineColor=Color.BLUE;
-				g2.setStroke(new BasicStroke(3));
+				g2.setStroke(new BasicStroke((float)(3*zoom)));
 			}
 		}
 

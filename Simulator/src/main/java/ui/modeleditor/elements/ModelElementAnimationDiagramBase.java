@@ -354,9 +354,6 @@ public abstract class ModelElementAnimationDiagramBase extends ModelElementPosit
 	public void drawToGraphics(final Graphics graphics, final Rectangle drawRect, final double zoom, final boolean showSelectionFrames) {
 		final Graphics2D g2=(Graphics2D)graphics;
 
-		/* Zeichenstift speichern */
-		final Stroke saveStroke=g2.getStroke();
-
 		/* Vorbereitungen */
 		setClip(graphics,drawRect,null);
 		final Point p=getPosition(true);
@@ -364,6 +361,16 @@ public abstract class ModelElementAnimationDiagramBase extends ModelElementPosit
 
 		/* Zeichenbereich bestimmen */
 		final Rectangle rectangle=new Rectangle((int)FastMath.round(FastMath.min(p.x,p.x+s.width)*zoom),(int)FastMath.round(FastMath.min(p.y,p.y+s.height)*zoom),(int)FastMath.round(Math.abs(s.width)*zoom),(int)FastMath.round(Math.abs(s.height)*zoom));
+
+		/* Nur zeichnen, wenn überhaupt im sichtbaren Bereich */
+		final int delta=(int)Math.round(50*zoom);
+		if (drawRect.x>rectangle.x+rectangle.width+delta) return;
+		if (drawRect.y>rectangle.y+rectangle.height+delta) return;
+		if (drawRect.x+drawRect.width<rectangle.x-delta) return;
+		if (drawRect.y+drawRect.height<rectangle.y-delta) return;
+
+		/* Zeichenstift speichern */
+		final Stroke saveStroke=g2.getStroke();
 
 		/* Hintergrund füllen */
 		if (backgroundColor!=null) {
@@ -380,18 +387,18 @@ public abstract class ModelElementAnimationDiagramBase extends ModelElementPosit
 		boolean drawBorder=false;
 		Color lineColor=borderColor;
 		if (borderWidth>0) {
-			g2.setStroke(new BasicStroke(borderWidth));
+			g2.setStroke(new BasicStroke((float)(borderWidth*zoom)));
 			drawBorder=true;
 		}
 
 		if (isSelected() && showSelectionFrames) {
 			lineColor=Color.GREEN;
-			g2.setStroke(new BasicStroke(FastMath.max(borderWidth,3)));
+			g2.setStroke(new BasicStroke((float)(FastMath.max(borderWidth,3)*zoom)));
 			drawBorder=true;
 		} else {
 			if (isSelectedArea() && showSelectionFrames) {
 				lineColor=Color.BLUE;
-				g2.setStroke(new BasicStroke(FastMath.max(borderWidth,3)));
+				g2.setStroke(new BasicStroke((float)(FastMath.max(borderWidth,3)*zoom)));
 				drawBorder=true;
 			}
 		}
