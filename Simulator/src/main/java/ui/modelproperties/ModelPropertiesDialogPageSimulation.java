@@ -17,6 +17,7 @@ package ui.modelproperties;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
 
 import javax.swing.Box;
@@ -31,9 +32,13 @@ import language.Language;
 import mathtools.NumberTools;
 import mathtools.TimeTools;
 import mathtools.distribution.tools.ThreadLocalRandomGenerator;
+import parser.MathCalcError;
 import simulator.editmodel.EditModel;
+import simulator.simparser.ExpressionCalc;
 import simulator.simparser.ExpressionEval;
+import systemtools.BaseDialog;
 import systemtools.MsgBox;
+import ui.expressionbuilder.ExpressionBuilder;
 import ui.images.Images;
 import ui.modeleditor.ModelElementBaseDialog;
 
@@ -93,12 +98,12 @@ public class ModelPropertiesDialogPageSimulation extends ModelPropertiesDialogPa
 	 * @see #warmUpTimeInfo
 	 */
 	private void updateWarmUpTimeInfo() {
-		final Integer I=NumberTools.getNotNegativeInteger(clientCount,true);
+		final long clientCount=calcClientCount(false);
 		final Double D=NumberTools.getNotNegativeDouble(warmUpTime,true);
-		if (I==null || I==0 || D==null) {
+		if (clientCount<=0 || D==null) {
 			warmUpTimeInfo.setVisible(false);
 		} else {
-			final int additionalClients=(int)Math.round(I.intValue()*D.doubleValue());
+			final int additionalClients=(int)Math.round(clientCount*D.doubleValue());
 			warmUpTimeInfo.setText("<html><body>"+String.format(Language.tr("Editor.Dialog.Tab.Simulation.WarmUpPhase.Info2"),NumberTools.formatLong(additionalClients)));
 			warmUpTimeInfo.setVisible(true);
 		}
@@ -124,14 +129,24 @@ public class ModelPropertiesDialogPageSimulation extends ModelPropertiesDialogPa
 		terminationByClientClount.addActionListener(e->dialog.testCorrelationWarning());
 
 		data=ModelElementBaseDialog.getInputPanel(Language.tr("Editor.Dialog.Tab.Simulation.NumberOfArrivals")+":",""+model.clientCount,10);
-		lines.add((JPanel)data[0]);
+		lines.add(sub=(JPanel)data[0]);
 		clientCount=(JTextField)data[1];
 		clientCount.setEditable(!readOnly);
 		addKeyListener(clientCount,()->{
 			terminationByClientClount.setSelected(true);
-			NumberTools.getNotNegativeInteger(clientCount,true);
+			calcClientCount(false);
 			dialog.testCorrelationWarning();
 			updateWarmUpTimeInfo();
+		});
+		final JButton buildButton=new JButton();
+		sub.add(buildButton);
+		buildButton.setPreferredSize(new Dimension(26,26));
+		buildButton.setIcon(Images.EXPRESSION_BUILDER.getIcon());
+		buildButton.setToolTipText(Language.tr("Editor.DialogBase.ExpressionEditTooltip"));
+		buildButton.addActionListener(e->{
+			final ExpressionBuilder builderDialog=new ExpressionBuilder(dialog,clientCount.getText(),false,new String[0],null,null,null,false,true,true);
+			builderDialog.setVisible(true);
+			if (builderDialog.getClosedBy()==BaseDialog.CLOSED_BY_OK) clientCount.setText(builderDialog.getExpression());
 		});
 
 		data=ModelElementBaseDialog.getInputPanel(Language.tr("Editor.Dialog.Tab.Simulation.WarmUpPhase")+":",NumberTools.formatPercent(model.warmUpTime,3),6);
@@ -328,11 +343,7 @@ public class ModelPropertiesDialogPageSimulation extends ModelPropertiesDialogPa
 			return false;
 		}
 
-		Integer I=NumberTools.getNotNegativeInteger(clientCount,true);
-		if (I==null) {
-			MsgBox.error(dialog,Language.tr("Dialog.Title.Error"),String.format(Language.tr("Editor.Dialog.Tab.Simulation.Criteria.ErrorClients"),clientCount.getText()));
-			return false;
-		}
+		calcClientCount(true);
 		Double D=NumberTools.getNotNegativeDouble(warmUpTime,true);
 		if (D==null) {
 			MsgBox.error(dialog,Language.tr("Dialog.Title.Error"),String.format(Language.tr("Editor.Dialog.Tab.Simulation.Criteria.ErrorWarmUp"),warmUpTime.getText()));
@@ -373,8 +384,8 @@ public class ModelPropertiesDialogPageSimulation extends ModelPropertiesDialogPa
 	@Override
 	public void storeData() {
 		model.useClientCount=terminationByClientClount.isSelected();
-		Long L=NumberTools.getNotNegativeLong(clientCount,true);
-		if (L!=null) model.clientCount=L;
+		final long clientCount=calcClientCount(false);
+		if (clientCount>0) model.clientCount=clientCount;
 		Double D=NumberTools.getNotNegativeDouble(warmUpTime,true);
 		if (D!=null) model.warmUpTime=D;
 		model.useTerminationCondition=terminationByCondition.isSelected();
@@ -383,7 +394,7 @@ public class ModelPropertiesDialogPageSimulation extends ModelPropertiesDialogPa
 		Integer I=TimeTools.getTime(terminationTime,true);
 		if (I==null) model.finishTime=10*86400; else model.finishTime=I;
 		model.useFixedSeed=useFixedSeed.isSelected();
-		L=NumberTools.getLong(fixedSeed,true);
+		Long L=NumberTools.getLong(fixedSeed,true);
 		if (L!=null) model.fixedSeed=L;
 		L=NumberTools.getPositiveLong(repeatCount,true);
 		if (L!=null) model.repeatCount=(int)L.longValue();
@@ -398,14 +409,50 @@ public class ModelPropertiesDialogPageSimulation extends ModelPropertiesDialogPa
 	}
 
 	/**
+	 * Berechnet die Anzahl an Ankünften aus der Text-Eingabe.
+	 * @param showErrorMessage	Soll eine Fehlermeldung ausgegeben werden, wenn die Eingabe nicht interpretiert werden konnte?
+	 * @return	Anzahl an Ankünften oder -1, wenn diese nicht bestimmt werden konnte
+	 */
+	private long calcClientCount(final boolean showErrorMessage) {
+		long l;
+
+		final String expression=clientCount.getText().trim();
+		if (expression.isEmpty()) {
+			l=-1;
+		} else {
+			final ExpressionCalc calc=new ExpressionCalc(null);
+			final int error=calc.parse(expression);
+			if (error>=0) {
+				l=-1;
+			} else {
+				try {
+					final double d=calc.calc();
+					l=Math.round(d);
+				} catch (MathCalcError e) {
+					l=-1;
+				}
+			}
+		}
+
+		if (l<=0) {
+			clientCount.setBackground(Color.RED);
+			if (showErrorMessage) {
+				MsgBox.error(dialog,Language.tr("Dialog.Title.Error"),String.format(Language.tr("Editor.Dialog.Tab.Simulation.Criteria.ErrorClients"),clientCount.getText()));
+			}
+			return -1;
+		} else {
+			clientCount.setBackground(NumberTools.getTextFieldDefaultBackground());
+			return l;
+		}
+	}
+
+	/**
 	 * Liefert die eingestellte Anzahl an zu simulierenden Kunden.
 	 * @return	Anzahl an zu simulierenden Kunden (kann -1 sein, wenn keine Zahl ermittelt werden konnte oder aber wenn die Anzahl an Ankünften kein Abbruchkriterium ist)
 	 */
 	public long getTerminationClientCount() {
 		if (!terminationByClientClount.isSelected()) return -1;
 
-		Long L=NumberTools.getNotNegativeLong(clientCount,true);
-		if (L==null) return -1;
-		return L.longValue();
+		return calcClientCount(false);
 	}
 }

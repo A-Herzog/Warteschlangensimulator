@@ -185,7 +185,7 @@ public class ResourceTableModel extends JTableExtAbstractTableModel {
 			if (value<0) return Language.tr("Resources.Number.Infinite"); else return ""+value;
 		}
 		if (resource.getMode()==ModelResource.Mode.MODE_SCHEDULE) {
-			return resource.getSchedule();
+			return Language.tr("Resources.Number.bySchedule")+" "+resource.getSchedule();
 		}
 		return Language.tr("Dialog.Title.Error");
 	}

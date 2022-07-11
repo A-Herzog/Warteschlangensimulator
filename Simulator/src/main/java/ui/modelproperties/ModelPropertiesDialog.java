@@ -263,7 +263,7 @@ public class ModelPropertiesDialog extends BaseDialog {
 	}
 
 	/**
-	 * Zeigt eine Warnung aus, wenn die gewählte Länge für die Korrelationsaufzeichnung
+	 * Zeigt eine Warnung an, wenn die gewählte Länge für die Korrelationsaufzeichnung
 	 * oberhalb bzw. nah bei der Anzahl an insgesamt zu simulierenden Kunden liegt und
 	 * damit eine vollständige Erfassung nicht möglich ist.
 	 */
