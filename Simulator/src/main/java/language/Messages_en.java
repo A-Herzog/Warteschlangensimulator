@@ -13130,6 +13130,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[32553] = "Condition";
     t[32554] = "Surface.Source.DialogBatchSize.Maximum";
     t[32555] = "Maximum batch size";
+    t[32556] = "SettingsDialog.Tabs.ProgramStart.ElementAddAdvice";
+    t[32557] = "Show advises for adding elements from menu";
     t[32560] = "Surface.AnimationRecord.Dialog.Data";
     t[32561] = "Frame width";
     t[32562] = "Surface.PopupMenu.BreakPoint.Condition.Error.Title";
@@ -14044,14 +14046,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[34795] = "Name of the operator group";
     t[34798] = "Optimizer.ControlVariableEdit.Error.NoXMLInfo";
     t[34799] = "No XML element was selected for the control variable.";
-    t[34804] = "ParameterCompare.Toolbar.ProcessResults.ResultsChartSave";
-    t[34805] = "Save charts...";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_7 (java.lang.String[] t) {
+    t[34804] = "ParameterCompare.Toolbar.ProcessResults.ResultsChartSave";
+    t[34805] = "Save charts...";
     t[34822] = "ModelDescription.FlowData.Destination.NotConnected";
     t[34823] = "Lead out of system.";
     t[34824] = "Resources.Group.EditName.Dialog.IconForResource";
@@ -16050,14 +16052,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[39623] = "Multi-core simulation: activated (previous state %s)";
     t[39624] = "Surface.ExpressionTableModel.Dialog.Range.Error.Title";
     t[39625] = "Invalid range";
-    t[39626] = "Surface.Counter.XML.Root";
-    t[39627] = "ModelElementCounter";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_8 (java.lang.String[] t) {
+    t[39626] = "Surface.Counter.XML.Root";
+    t[39627] = "ModelElementCounter";
     t[39630] = "Statistics.CostsForResources.Idle.All";
     t[39631] = "Costs for the idle time of the resources";
     t[39636] = "Surface.WayPoint.Table.StationFrom";
@@ -18056,14 +18058,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[44495] = "Beta distribution (direct characteristics)";
     t[44496] = "Surface.Source.XML.Schedule.Count";
     t[44497] = "Count";
-    t[44502] = "Statistic.FastAccess.Template.Expression.Tooltip";
-    t[44503] = "Inserts the result of a calculation expression.";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_9 (java.lang.String[] t) {
+    t[44502] = "Statistic.FastAccess.Template.Expression.Tooltip";
+    t[44503] = "Inserts the result of a calculation expression.";
     t[44512] = "SettingsDialog.AnimationWarmUp.Normal";
     t[44513] = "Always use defined warm-up phase";
     t[44522] = "ExpressionBuilder.ProbabilityDistributions.FatigueLifeDistribution.RandomNumberRangeInfo";
@@ -20062,14 +20064,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[49327] = "Show recent values";
     t[49328] = "Main.Menu.View.FindElement";
     t[49329] = "Find element by ID or name...";
-    t[49330] = "Git.System.Status.Ahead";
-    t[49331] = "The local branch is newer by %s commits than the branch on the server.";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_10 (java.lang.String[] t) {
+    t[49330] = "Git.System.Status.Ahead";
+    t[49331] = "The local branch is newer by %s commits than the branch on the server.";
     t[49336] = "ParameterCompare.Mode.Analog";
     t[49337] = "Initial value for analog value";
     t[49342] = "ParameterCompare.Toolbar.ProcessResults.ResultsLongRun.Save.ErrorInfo";
@@ -22068,14 +22070,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[54183] = "The icon assigned by element id=%d has no name.";
     t[54188] = "ParameterCompare.Settings.BaseModel";
     t[54189] = "Base model";
-    t[54190] = "Main.Menu.Help.HelpContent.Mnemonic";
-    t[54191] = "C";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_11 (java.lang.String[] t) {
+    t[54190] = "Main.Menu.Help.HelpContent.Mnemonic";
+    t[54191] = "C";
     t[54194] = "Editor.Dialog.Tab.RunTimeStatistics.Table.MoveUp";
     t[54195] = "Move up";
     t[54196] = "Surface.InteractiveRadiobutton.Dialog.Variable.ErrorTitle";

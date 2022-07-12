@@ -13130,6 +13130,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[32553] = "Bedingung";
     t[32554] = "Surface.Source.DialogBatchSize.Maximum";
     t[32555] = "Maximale Batch-Gr\u00f6\u00dfe";
+    t[32556] = "SettingsDialog.Tabs.ProgramStart.ElementAddAdvice";
+    t[32557] = "Hinweis zum Hinzuf\u00fcgen von Elementen aus dem Men\u00fc anzeigen";
     t[32560] = "Surface.AnimationRecord.Dialog.Data";
     t[32561] = "Daten";
     t[32562] = "Surface.PopupMenu.BreakPoint.Condition.Error.Title";
@@ -14044,14 +14046,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[34795] = "Name der Bedienergruppe";
     t[34798] = "Optimizer.ControlVariableEdit.Error.NoXMLInfo";
     t[34799] = "Es wurde kein XML-Element f\u00fcr die Kontrollvariable ausgew\u00e4hlt.";
-    t[34804] = "ParameterCompare.Toolbar.ProcessResults.ResultsChartSave";
-    t[34805] = "Diagramme speichern...";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_7 (java.lang.String[] t) {
+    t[34804] = "ParameterCompare.Toolbar.ProcessResults.ResultsChartSave";
+    t[34805] = "Diagramme speichern...";
     t[34822] = "ModelDescription.FlowData.Destination.NotConnected";
     t[34823] = "Aus System ausleiten.";
     t[34824] = "Resources.Group.EditName.Dialog.IconForResource";
@@ -16050,14 +16052,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[39623] = "Mehrkern-Simulation aktiviert (vorheriger Status: %s)";
     t[39624] = "Surface.ExpressionTableModel.Dialog.Range.Error.Title";
     t[39625] = "Ung\u00fcltiger Bereich";
-    t[39626] = "Surface.Counter.XML.Root";
-    t[39627] = "ModellElementZaehler";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_8 (java.lang.String[] t) {
+    t[39626] = "Surface.Counter.XML.Root";
+    t[39627] = "ModellElementZaehler";
     t[39630] = "Statistics.CostsForResources.Idle.All";
     t[39631] = "Kosten f\u00fcr die Leerlaufzeit der Ressourcen";
     t[39636] = "Surface.WayPoint.Table.StationFrom";
@@ -18056,14 +18058,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[44495] = "Beta-Verteilung (direkte Kenngr\u00f6\u00dfen)";
     t[44496] = "Surface.Source.XML.Schedule.Count";
     t[44497] = "Anzahl";
-    t[44502] = "Statistic.FastAccess.Template.Expression.Tooltip";
-    t[44503] = "F\u00fcgt das Ergebnis eines Rechenausdrucks ein.";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_9 (java.lang.String[] t) {
+    t[44502] = "Statistic.FastAccess.Template.Expression.Tooltip";
+    t[44503] = "F\u00fcgt das Ergebnis eines Rechenausdrucks ein.";
     t[44512] = "SettingsDialog.AnimationWarmUp.Normal";
     t[44513] = "Immer wie angegeben durchf\u00fchren";
     t[44522] = "ExpressionBuilder.ProbabilityDistributions.FatigueLifeDistribution.RandomNumberRangeInfo";
@@ -20062,14 +20064,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[49327] = "Letzte Werte anzeigen";
     t[49328] = "Main.Menu.View.FindElement";
     t[49329] = "Element \u00fcber ID oder Namen suchen...";
-    t[49330] = "Git.System.Status.Ahead";
-    t[49331] = "Der lokale Zweig ist um %d Commits neuer als der Zweig auf dem Server.";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_10 (java.lang.String[] t) {
+    t[49330] = "Git.System.Status.Ahead";
+    t[49331] = "Der lokale Zweig ist um %d Commits neuer als der Zweig auf dem Server.";
     t[49336] = "ParameterCompare.Mode.Analog";
     t[49337] = "Startwert f\u00fcr Analogwert";
     t[49342] = "ParameterCompare.Toolbar.ProcessResults.ResultsLongRun.Save.ErrorInfo";
@@ -22068,14 +22070,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[54183] = "Das von Element id=%d zugewiesene Icon besitzt keinen Namen.";
     t[54188] = "ParameterCompare.Settings.BaseModel";
     t[54189] = "Basismodell";
-    t[54190] = "Main.Menu.Help.HelpContent.Mnemonic";
-    t[54191] = "I";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_11 (java.lang.String[] t) {
+    t[54190] = "Main.Menu.Help.HelpContent.Mnemonic";
+    t[54191] = "I";
     t[54194] = "Editor.Dialog.Tab.RunTimeStatistics.Table.MoveUp";
     t[54195] = "Nach oben verschieben";
     t[54196] = "Surface.InteractiveRadiobutton.Dialog.Variable.ErrorTitle";

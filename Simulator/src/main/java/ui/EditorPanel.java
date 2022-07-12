@@ -1851,7 +1851,7 @@ public final class EditorPanel extends EditorPanelBase {
 			setStatusBarInfo(statusHTMLStart+elements+check+statusHTMLEnd,tooltip,icon);
 			break;
 		case MODE_ADD_ELEMENT:
-			setAdditionalInfoLabel(false,null);
+			setAdditionalInfoLabel(InfoPanel.getInstance().isVisible(InfoPanel.globalAddElementFromMenu),statusHTMLStart+"<b>"+Language.tr("Editor.AddElement.PlaceElement")+"</b>"+statusHTMLEnd);
 			setStatusBarInfo(statusHTMLStart+statusHTMLOrange+Language.tr("Editor.AddElement.PlaceElement")+statusHTMLSpanEnd+statusHTMLEnd,null,Images.MODEL_ADD_STATION.getIcon());
 			break;
 		case MODE_ADD_EDGE_STEP1:

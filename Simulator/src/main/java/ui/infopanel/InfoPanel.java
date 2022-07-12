@@ -71,6 +71,9 @@ public class InfoPanel {
 	/** Info-ID für den "Kante hinzufügen"-Hinweis */
 	public static final String globalAddEdge=groupWindow+"AddEdge";
 
+	/** Info-ID für den "Element (aus Menü) hinzufügen"-Hinweis */
+	public static final String globalAddElementFromMenu=groupWindow+"AddElementFromMenu";
+
 	/* "Modelleigenschaften"-Dialog" */
 
 	/** Info-ID für die Dialogseite "Modellbeschreibung" im Modelleigenschaften-Dialog */
@@ -595,6 +598,12 @@ public class InfoPanel {
 
 		register(globalAddEdge,
 				()->Language.tr("HintsDialog.TreeNodeMainWindow")+"|"+Language.tr("SettingsDialog.Tabs.ProgramStart.EdgeAddAdvice"),
+				()->"");
+
+		/* "Element (aus Menü) hinzufügen"-Hinweis */
+
+		register(globalAddElementFromMenu,
+				()->Language.tr("HintsDialog.TreeNodeMainWindow")+"|"+Language.tr("SettingsDialog.Tabs.ProgramStart.ElementAddAdvice"),
 				()->"");
 
 		/* "Modelleigenschaften"-Dialog" */

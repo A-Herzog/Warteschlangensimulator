@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-07-09 12:13+0200\n"
+"POT-Creation-Date: 2022-07-11 08:01+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16523,6 +16523,9 @@ msgstr "Hinweise in Dialogen anzeigen"
 
 msgid "SettingsDialog.Tabs.ProgramStart.EdgeAddAdvice"
 msgstr "Hinweis zum Hinzufügen von Verbindungskanten anzeigen"
+
+msgid "SettingsDialog.Tabs.ProgramStart.ElementAddAdvice"
+msgstr "Hinweis zum Hinzufügen von Elementen aus dem Menü anzeigen"
 
 msgid "SettingsDialog.Tabs.ProgramStart.WelcomePage"
 msgstr "Begrüßungsseite anzeigen"
