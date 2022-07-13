@@ -73,6 +73,10 @@ public abstract class HelpBase {
 	public static String buttonSearchResultCountPlural="auf %d Seiten gefunden";
 	/** Beschriftung für Auswahl des konkreten Suchtreffers */
 	public static String buttonSearchResultSelect="Passende Seiten zu dem Suchtreffer:";
+	/** Bezeichnung für die Schaltfläche "Drucken" */
+	public static String buttonPrint="Drucken";
+	/** Bezeichnung für den Tooltip für die Schaltfläche "Drucken" */
+	public static String buttonPrintInfo="Druckt die aktuelle Hilfeseite aus";
 	/** Titel der Fehlermeldung "Kein E-Mail-Programm festgelegt" */
 	public static String errorNoEMailTitle="Kein E-Mail-Programm festgelegt";
 	/** Inhalt Fehlermeldung "Kein E-Mail-Programm festgelegt" */
@@ -81,6 +85,12 @@ public abstract class HelpBase {
 	public static String errorNoInternetTitle="Keine Internet-Verbindung möglich";
 	/** Inhalt der Fehlermeldung "Keine Internet-Verbindung möglich" */
 	public static String errorNoInternetInfo="Die angegebene Adresse\n%s\nkonnte nicht aufgerufen werden.";
+	/** Titel der Fehlermeldung "Ausdrucken fehlgeschlagen" */
+	public static String errorPrintTitle="Ausdrucken fehlgeschlagen";
+	/** Inhalt der Fehlermeldung "Ausdrucken fehlgeschlagen - Kein HTML-Print-Handler" */
+	public static String errorPrintInfoNoHandler="Es ist keine Anwendung zum Ausdrucken von HTML-Dateien registriert.\nEs wird nun versucht, die HTML-Datei zur Anzeige zu öffnen.\nBitte rufen Sie dann von dort die Druckfunktion manuell auf.";
+	/** Inhalt der Fehlermeldung "Ausdrucken fehlgeschlagen" */
+	public static String errorPrintInfo="Die aktuelle Hilfeseite konnte nicht gedruckt werden.";
 
 	/**
 	 * Dateiname für die Startseite

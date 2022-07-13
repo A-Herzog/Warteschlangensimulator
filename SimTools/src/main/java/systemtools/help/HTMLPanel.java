@@ -21,12 +21,15 @@ import java.awt.Desktop;
 import java.awt.SystemColor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.Serializable;
 import java.net.MalformedURLException;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -45,6 +48,7 @@ import javax.swing.KeyStroke;
 import javax.swing.SwingUtilities;
 import javax.swing.text.Element;
 
+import mathtools.Table;
 import mathtools.distribution.swing.JOpenURL;
 import systemtools.BaseDialog;
 import systemtools.MsgBox;
@@ -85,6 +89,9 @@ public abstract class HTMLPanel extends JPanel {
 
 	/** "Suchen"-Schaltfläche */
 	private final JButton buttonSearch;
+
+	/** "Drucken"-Schaltfläche */
+	private final JButton buttonPrint;
 
 	/** Panel zur Anzeige des Hilfetextes */
 	private HTMLBrowserPanel textPane;
@@ -154,6 +161,7 @@ public abstract class HTMLPanel extends JPanel {
 		buttonContent.setVisible(false);
 		buttonSearch=addButton(HelpBase.buttonSearch,HelpBase.buttonSearchInfo,SimToolsImages.HELP_SEARCH.getIcon());
 		buttonSearch.setVisible(IndexSystem.getInstance().isReady());
+		buttonPrint=addButton(HelpBase.buttonPrint,HelpBase.buttonPrintInfo,SimToolsImages.HELP_PRINT.getIcon());
 
 		if (showBackAndNext) add(toolBar,BorderLayout.NORTH);
 
@@ -370,12 +378,14 @@ public abstract class HTMLPanel extends JPanel {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			if (e.getSource()==buttonClose) {
+			final Object source=e.getSource();
+
+			if (source==buttonClose) {
 				if (closeNotify!=null) closeNotify.run();
 				return;
 			}
 
-			if (e.getSource()==buttonBack) {
+			if (source==buttonBack) {
 				if (currentURL!=null) listNext.add(currentURL);
 				currentURL=listBack.get(listBack.size()-1);
 				listBack.remove(listBack.size()-1);
@@ -383,7 +393,7 @@ public abstract class HTMLPanel extends JPanel {
 				return;
 			}
 
-			if (e.getSource()==buttonNext) {
+			if (source==buttonNext) {
 				if (currentURL!=null) listBack.add(currentURL);
 				currentURL=listNext.get(listNext.size()-1);
 				listNext.remove(listNext.size()-1);
@@ -391,18 +401,18 @@ public abstract class HTMLPanel extends JPanel {
 				return;
 			}
 
-			if (e.getSource()==buttonHome) {
+			if (source==buttonHome) {
 				loadPage(homeURL);
 				return;
 			}
 
-			if (e.getSource()==buttonContent && !textPane.getPageContent().isEmpty()) {
+			if (source==buttonContent && !textPane.getPageContent().isEmpty()) {
 				initContentPopup();
 				contentPopup.show(buttonContent,0,buttonContent.getBounds().height);
 				return;
 			}
 
-			if (e.getSource()==buttonSearch) {
+			if (source==buttonSearch) {
 				final HTMLPanelSearchDialog searchDialog=new HTMLPanelSearchDialog(HTMLPanel.this);
 				if (searchDialog.getClosedBy()==BaseDialog.CLOSED_BY_OK) {
 					final Set<String> results=searchDialog.getResult();
@@ -421,12 +431,105 @@ public abstract class HTMLPanel extends JPanel {
 				}
 			}
 
-			if (e.getSource() instanceof JMenuItem) {
-				int i=contentPopup.getComponentIndex((JMenuItem)e.getSource());
+			if (source==buttonPrint) {
+				if (!printPage()) {
+					MsgBox.error(HTMLPanel.this,HelpBase.errorPrintTitle,HelpBase.errorPrintInfo);
+				}
+				return;
+			}
+
+			if (source instanceof JMenuItem) {
+				int i=contentPopup.getComponentIndex((JMenuItem)source);
 				if (i>=0) textPane.scrollToPageContent(i);
 				return;
 			}
 		}
+	}
+
+	/**
+	 * Lädt den Inhalt einer durch eine URL spezifizierten Textdatei.
+	 * @param url	URL der zu ladenden Textdatei
+	 * @return	Liefert im Erfolgsfall die Zeilen der Datei, sonst <code>null</code>
+	 */
+	private List<String> loadFile(final URL url) {
+		final List<String> lines=new ArrayList<>();
+		try(BufferedReader br=new BufferedReader(new InputStreamReader(url.openStream(),StandardCharsets.UTF_8))) {
+			String line=null;
+			while ((line=br.readLine())!=null) lines.add(line);
+		} catch (IOException e) {
+			return null;
+		}
+		return lines;
+	}
+
+	/**
+	 * Druckt die aktuelle Seite aus.
+	 * @return	Liefert <code>true</code>, wenn die Daten zusammengestellt werden konnten und das Ergebnis ans Betriebssystem zum Ausdrucken übergeben werden konnte.
+	 */
+	private boolean printPage() {
+		/* Seite Laden */
+		final List<String> lines=loadFile(currentURL);
+		if (lines==null) return false;
+
+		/* CSS integrieren */
+		for (int i=0;i<lines.size();i++) {
+			if (lines.get(i).contains("link rel=\"stylesheet\"")) lines.set(i,processCSSLine(lines.get(i)));
+		}
+
+		/* Speichern */
+		final File file;
+		try {
+			file=File.createTempFile("Print",".html");
+		} catch (IOException e) {
+			return false;
+		}
+		if (!Table.saveTextToFile(String.join("\n",lines),file)) return false;
+		file.deleteOnExit();
+
+		/* System-Drucken-Funktion aktivieren */
+		try {
+			Desktop.getDesktop().print(file);
+		} catch (IOException e) {
+			try {
+				MsgBox.error(HTMLPanel.this,HelpBase.errorPrintTitle,HelpBase.errorPrintInfoNoHandler);
+				Desktop.getDesktop().open(file);
+			} catch (IOException e1) {
+				return false;
+			}
+		}
+
+		return true;
+	}
+
+	/**
+	 * Lädt die in einer HTML-Zeile angegebene CSS-Datei und liefert ihren Inhalt inkl. umschließender HTML-Tags zurück.
+	 * @param cssLine	HTML-Zeile, in der ein "&lt;link ...&gt;"-Tag ausgewertet werden soll.
+	 * @return	Im Erfolgsfall der Inhalt der CSS-Datei inkl. umschließender HTML-Tags; sonst einfach die im Parameter übergebene HTML-Zeile.
+	 */
+	private String processCSSLine(final String cssLine) {
+		final int index1=cssLine.indexOf("href=");
+		if (index1<0 || index1+7>=cssLine.length()) return cssLine;
+		final char delimeter=cssLine.charAt(index1+5);
+		final int index2=cssLine.indexOf(delimeter,index1+6);
+		if (index2<0) return cssLine;
+
+		final String cssFileName=cssLine.substring(index1+6,index2);
+		final String htmlURL=currentURL.toString();
+		final int index3=htmlURL.lastIndexOf("/");
+		if (index3<0) return cssLine;
+		final URL cssURL;
+		try {
+			cssURL=new URL(htmlURL.substring(0,index3+1)+cssFileName);
+		} catch (MalformedURLException e) {
+			return cssLine;
+		}
+
+		final List<String> css=loadFile(cssURL);
+		if (css==null) return cssLine;
+
+		css.add(0,"<style>");
+		css.add("</style>");
+		return String.join("\n",css);
 	}
 
 	/**

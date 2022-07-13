@@ -12748,8 +12748,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[31683] = "<p>Returns the average number of clients in the system.</p>";
     t[31694] = "ModelDescription.Delay.Distribution.ClientType";
     t[31695] = "Delay distribution for client type %s";
-    t[31700] = "Surface.Resource.ErrorCostsPerProcessHour";
-    t[31701] = "The specified value \"%s\" for the costs per working hour for the resource type \"%s\" is invalid. A number has to be entered.";
+    t[31700] = "Help.Print.Info";
+    t[31701] = "Prints the current help page";
     t[31704] = "ExpressionBuilder.ProbabilityDistributions.BetaDistributionDirect.DistributionFunctionInfo";
     t[31705] = "<p>Calculates the value of the distribution function of the beta distribution at the location specified as first parameter with lower bound, upper bound, mean and standard deviation specified in parameters two to five.</p>\n<p>Example: <tt>BetaDistDirect(7;0;10;5;2;1)</tt> returns 0.81942684533674.</p>";
     t[31710] = "Surface.OutputLog.Name.Short";
@@ -13712,6 +13712,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[34001] = "This command expects exactly two additional parameters:\n1. Input parameter series file\n2. Output parameter series file\nThe input file has to exist.\nThe output has to be non existent.";
     t[34002] = "Resources.Group.EditName.Dialog.Failure.Expression";
     t[34003] = "Distances between downtimes by expression";
+    t[34004] = "Window.Info.PrintError.NoHandler";
+    t[34005] = "The current help page could not be printed.";
     t[34006] = "Surface.PopupMenu.SimulationStatisticsData.Tab.WaitingClients.Field.Number.Short";
     t[34007] = "Numeric data fields";
     t[34008] = "NoJDK.OptionManual.Info";
@@ -14044,14 +14046,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[34791] = "Move output element up";
     t[34794] = "Resources.Group.EditName.Dialog.Name";
     t[34795] = "Name of the operator group";
-    t[34798] = "Optimizer.ControlVariableEdit.Error.NoXMLInfo";
-    t[34799] = "No XML element was selected for the control variable.";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_7 (java.lang.String[] t) {
+    t[34798] = "Optimizer.ControlVariableEdit.Error.NoXMLInfo";
+    t[34799] = "No XML element was selected for the control variable.";
     t[34804] = "ParameterCompare.Toolbar.ProcessResults.ResultsChartSave";
     t[34805] = "Save charts...";
     t[34822] = "ModelDescription.FlowData.Destination.NotConnected";
@@ -14512,6 +14514,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[35975] = "Shiftplans";
     t[35976] = "CalculatorDialog.Tab.Distributions.GenerateRandomNumbers.Save";
     t[35977] = "Save...";
+    t[35978] = "Window.Info.PrintError.Info";
+    t[35979] = "There is no application registered for printing HTML files.\nAn attempt is now made to open the HTML file for display.\nPlease then call the print function manually from there.";
     t[35984] = "FileType.svg";
     t[35985] = "Scalable vector graphics files";
     t[35986] = "ParameterCompare.Settings.Input.Mode.XML.ErrorTitle";
@@ -14564,6 +14568,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[36107] = "Text information that is updated during animation by evaluating expressions of the model.";
     t[36110] = "ParameterCompare.Toolbar.ShowBaseModel.LoadToEditor.NewWindow";
     t[36111] = "Load model to new editor";
+    t[36114] = "Help.Print";
+    t[36115] = "Print";
     t[36118] = "Surface.Source.Dialog.CountInfo";
     t[36119] = "The number of arrival events and the number of arriving clients will only differ if batch arrives are in use.";
     t[36120] = "Surface.XML.LineMode";
@@ -14640,6 +14646,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[36279] = "Variable name for value assignment";
     t[36284] = "Animation.IconDialog.Edit";
     t[36285] = "Edit";
+    t[36296] = "Surface.Resource.ErrorCostsPerProcessHour";
+    t[36297] = "The specified value \"%s\" for the costs per working hour for the resource type \"%s\" is invalid. A number has to be entered.";
     t[36302] = "Surface.LogicElse.Tooltip";
     t[36303] = "Logic Else";
     t[36308] = "Resources.Group.EditName.Dialog.Failure.Working.Error.Info";
@@ -15696,6 +15704,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[38829] = "Mode";
     t[38830] = "Surface.ScriptEditor.Search.WholeWord";
     t[38831] = "Whole words only";
+    t[38836] = "Window.Info.PrintError";
+    t[38837] = "Printing failed";
     t[38840] = "SettingsDialog.WindowSizeProgrmStart.Normal";
     t[38841] = "Default window size";
     t[38850] = "Statistics.XML.RunDate";
@@ -16042,6 +16052,12 @@ public class Messages_en extends java.util.ResourceBundle {
     t[39601] = "Lavender";
     t[39606] = "SimulationServer.Status.On";
     t[39607] = "running";
+  }
+  /**
+   * Part of the language array creation
+   * @param t	Language data array
+   */
+  static void clinit_part_8 (java.lang.String[] t) {
     t[39608] = "ParameterCompare.Mode.Variables";
     t[39609] = "Initial value for variable";
     t[39612] = "CommandLine.Help.Name";
@@ -16052,12 +16068,6 @@ public class Messages_en extends java.util.ResourceBundle {
     t[39623] = "Multi-core simulation: activated (previous state %s)";
     t[39624] = "Surface.ExpressionTableModel.Dialog.Range.Error.Title";
     t[39625] = "Invalid range";
-  }
-  /**
-   * Part of the language array creation
-   * @param t	Language data array
-   */
-  static void clinit_part_8 (java.lang.String[] t) {
     t[39626] = "Surface.Counter.XML.Root";
     t[39627] = "ModelElementCounter";
     t[39630] = "Statistics.CostsForResources.Idle.All";
@@ -18048,6 +18058,12 @@ public class Messages_en extends java.util.ResourceBundle {
     t[44473] = "Moves one time step back.";
     t[44480] = "InfoDialog.InstallMode.ProgramFolder";
     t[44481] = "Program folder installation";
+  }
+  /**
+   * Part of the language array creation
+   * @param t	Language data array
+   */
+  static void clinit_part_9 (java.lang.String[] t) {
     t[44482] = "Surface.TankSensor.XML.Threshold.Direction.Down";
     t[44483] = "Down";
     t[44490] = "HintsDialog.TreeNodeMoreDialogs";
@@ -18058,12 +18074,6 @@ public class Messages_en extends java.util.ResourceBundle {
     t[44495] = "Beta distribution (direct characteristics)";
     t[44496] = "Surface.Source.XML.Schedule.Count";
     t[44497] = "Count";
-  }
-  /**
-   * Part of the language array creation
-   * @param t	Language data array
-   */
-  static void clinit_part_9 (java.lang.String[] t) {
     t[44502] = "Statistic.FastAccess.Template.Expression.Tooltip";
     t[44503] = "Inserts the result of a calculation expression.";
     t[44512] = "SettingsDialog.AnimationWarmUp.Normal";
@@ -20054,6 +20064,12 @@ public class Messages_en extends java.util.ResourceBundle {
     t[49297] = "Invalid resource priority";
     t[49300] = "Surface.Costs.Dialog.WaitingCosts.ErrorInfo";
     t[49301] = "The specified waiting time costs \"%s\" are invalid at character %d.";
+  }
+  /**
+   * Part of the language array creation
+   * @param t	Language data array
+   */
+  static void clinit_part_10 (java.lang.String[] t) {
     t[49308] = "ScriptPopup.Output.Format.Percent.Hint";
     t[49309] = "Using percent notation for numbers";
     t[49312] = "ExpressionBuilder.SimulationCharacteristics.TransferTimesAtStations.StandardDeviationOfTheTime";
@@ -20064,12 +20080,6 @@ public class Messages_en extends java.util.ResourceBundle {
     t[49327] = "Show recent values";
     t[49328] = "Main.Menu.View.FindElement";
     t[49329] = "Find element by ID or name...";
-  }
-  /**
-   * Part of the language array creation
-   * @param t	Language data array
-   */
-  static void clinit_part_10 (java.lang.String[] t) {
     t[49330] = "Git.System.Status.Ahead";
     t[49331] = "The local branch is newer by %s commits than the branch on the server.";
     t[49336] = "ParameterCompare.Mode.Analog";
@@ -22060,6 +22070,12 @@ public class Messages_en extends java.util.ResourceBundle {
     t[54141] = "Unknown symbol";
     t[54142] = "Simulation.Creator.SequenceNoName";
     t[54143] = "Sequence %d has no name.";
+  }
+  /**
+   * Part of the language array creation
+   * @param t	Language data array
+   */
+  static void clinit_part_11 (java.lang.String[] t) {
     t[54150] = "Optimizer.Error.ResourceNameForControlVariablesInvalid";
     t[54151] = "For control variable %d was resource \"%s\" selected. But there is no resource with this name or the number of operators in this resource cannot be changed.";
     t[54152] = "Surface.Set.Table.Heading.Variable";
@@ -22070,12 +22086,6 @@ public class Messages_en extends java.util.ResourceBundle {
     t[54183] = "The icon assigned by element id=%d has no name.";
     t[54188] = "ParameterCompare.Settings.BaseModel";
     t[54189] = "Base model";
-  }
-  /**
-   * Part of the language array creation
-   * @param t	Language data array
-   */
-  static void clinit_part_11 (java.lang.String[] t) {
     t[54190] = "Main.Menu.Help.HelpContent.Mnemonic";
     t[54191] = "C";
     t[54194] = "Editor.Dialog.Tab.RunTimeStatistics.Table.MoveUp";

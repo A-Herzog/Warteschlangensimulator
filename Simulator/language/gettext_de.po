@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-07-11 08:01+0200\n"
+"POT-Creation-Date: 2022-07-12 08:04+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -8861,6 +8861,12 @@ msgstr "Zeigt die Abschnittsüberschriften dieser Seite an"
 
 msgid "Help.Forward.Info"
 msgstr "Weiter zur nächsten Hilfeseite."
+
+msgid "Help.Print"
+msgstr "Drucken"
+
+msgid "Help.Print.Info"
+msgstr "Druckt die aktuelle Hilfeseite aus"
 
 msgid "Help.Search"
 msgstr "Suchen"
@@ -33722,6 +33728,18 @@ msgstr ""
 "Die angegebene Adresse\n"
 "%s\n"
 "konnte nicht aufgerufen werden."
+
+msgid "Window.Info.PrintError"
+msgstr "Ausdrucken fehlgeschlagen"
+
+msgid "Window.Info.PrintError.Info"
+msgstr "Die aktuelle Hilfeseite konnte nicht gedruckt werden."
+
+msgid "Window.Info.PrintError.NoHandler"
+msgstr ""
+"Es ist keine Anwendung zum Ausdrucken von HTML-Dateien registriert.\n"
+"Es wird nun versucht, die HTML-Datei zur Anzeige zu öffnen.\n"
+"Bitte rufen Sie dann von dort die Druckfunktion manuell auf."
 
 msgid "Window.JavaSecurityWarnung"
 msgstr "Die von Ihnen verwendete Java-Version ist veraltet und enthält möglicherweise Sicherheitslücken. Update:"

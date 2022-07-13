@@ -502,10 +502,15 @@ public class LanguageStaticLoader {
 		HelpBase.buttonSearchResultCountSingular=Language.tr("Help.Search.ResultCountSingular");
 		HelpBase.buttonSearchResultCountPlural=Language.tr("Help.Search.ResultCountPlural");
 		HelpBase.buttonSearchResultSelect=Language.tr("Help.Search.ResultSelect");
+		HelpBase.buttonPrint=Language.tr("Help.Print");
+		HelpBase.buttonPrintInfo=Language.tr("Help.Print.Info");
 		HelpBase.errorNoEMailTitle=Language.tr("Window.Info.NoEMailProgram.Title");
 		HelpBase.errorNoEMailInfo=Language.tr("Window.Info.NoHTMLPrint.Info");
 		HelpBase.errorNoInternetTitle=Language.tr("Window.Info.NoInternetConnection");
 		HelpBase.errorNoInternetInfo=Language.tr("Window.Info.NoInternetConnection.Address");
+		HelpBase.errorPrintTitle=Language.tr("Window.Info.PrintError");
+		HelpBase.errorPrintInfoNoHandler=Language.tr("Window.Info.PrintError.NoHandler");
+		HelpBase.errorPrintInfo=Language.tr("Window.Info.PrintError.Info");
 
 		/* XML-Daten */
 		XMLData.errorRootElementName=Language.tr("XML.RootElementNameError");

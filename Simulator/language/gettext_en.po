@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-07-11 08:01+0200\n"
+"POT-Creation-Date: 2022-07-12 08:04+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -8865,6 +8865,12 @@ msgstr "Shows a list of the section captions from this help page"
 
 msgid "Help.Forward.Info"
 msgstr "Goes forward to the next help page."
+
+msgid "Help.Print"
+msgstr "Print"
+
+msgid "Help.Print.Info"
+msgstr "Prints the current help page"
 
 msgid "Help.Search"
 msgstr "Search"
@@ -33697,6 +33703,18 @@ msgstr ""
 "The address\n"
 "%s\n"
 "could not be opened."
+
+msgid "Window.Info.PrintError"
+msgstr "Printing failed"
+
+msgid "Window.Info.PrintError.Info"
+msgstr ""
+"There is no application registered for printing HTML files.\n"
+"An attempt is now made to open the HTML file for display.\n"
+"Please then call the print function manually from there."
+
+msgid "Window.Info.PrintError.NoHandler"
+msgstr "The current help page could not be printed."
 
 msgid "Window.JavaSecurityWarnung"
 msgstr "The Java version you ware using is outdated and may be contains security vulnerabilities. Update:"

@@ -136,6 +136,9 @@ public enum SimToolsImages {
 	/** Symbol "Suchen" (in der Hilfe) */
 	HELP_SEARCH("find.png"),
 
+	/** Symbol "Drucken" (der aktuellen Hilfeseite) */
+	HELP_PRINT("printer.png"),
+
 	/** Symbol "Ebene 1" (in der Hilfe) */
 	HELP_MARKER_LEVEL1("flag_red.png"),
 
