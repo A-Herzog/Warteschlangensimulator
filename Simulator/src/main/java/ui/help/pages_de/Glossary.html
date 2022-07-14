@@ -76,7 +76,7 @@ Siehe auch Abschnitt <a href="book:3.2.2">Arbeitslast und Auslastung</a> im Lehr
 Im <a href="EditorModelDialog.html">Modelleigenschaften-Dialog</a> kann eingestellt werden, dass während der
 Simulation die Autokorrelation der Wartezeiten erfasst werden soll. Die Autokorrelation gibt an, wie stark
 die Wartezeit eines Kunden von den Wartezeiten der unmittelbar vorherigen Kunden abhängt. Auf Basis der
-Autokorrelation der Wartezeiten kann entschieden, wie viel Rest-Abhängigkeit für die Festlegung einer
+Autokorrelation der Wartezeiten kann entschieden werden, wie viel Rest-Abhängigkeit für die Festlegung einer
 Batch-Means Batch-Größe akzeptiert werden soll. Die Batch-Means-Methode ermöglicht es dann,
 Konfidenzintervalle für die Kenngrößen in der <a href="MainStatistik.html">Statistikansicht</a>
 auszuweisen.
@@ -283,7 +283,7 @@ Siehe auch Abschnitt <a href="book:7.6">Push-/Pull-Produktion</a> im Lehrbuch.
 
 <p>
 Die Push-Produktion stellt den Normalfall in einem Warteschlangenmodell dar. Ist eine Bedienstation
-mit der Bedienung eines Kunden fertig, so schieb sie den Kunden zur nächsten Station. Die Weiterleitung
+mit der Bedienung eines Kunden fertig, so schiebt sie den Kunden zur nächsten Station. Die Weiterleitung
 des Kunden ist dabei unabhängig davon, wie viele Kunden an der Folgestation bereits warten.
 </p>
 
@@ -307,7 +307,7 @@ Siehe auch Abschnitt <a href="book:5.3.3">Station: Bedienstation</a> im Lehrbuch
 
 <p>
 Die schiebende Fertigung, auch Push-Produktion genannt, stellt den Normalfall in einem Warteschlangenmodell dar.
-Ist eine Bedienstation mit der Bedienung eines Kunden fertig, so schieb sie den Kunden zur nächsten Station.
+Ist eine Bedienstation mit der Bedienung eines Kunden fertig, so schiebt sie den Kunden zur nächsten Station.
 Die Weiterleitung des Kunden ist dabei unabhängig davon, wie viele Kunden an der Folgestation bereits warten.
 </p>
 
@@ -318,7 +318,7 @@ Siehe auch Abschnitt <a href="book:7.6">Push-/Pull-Produktion</a> im Lehrbuch.
 <h2>Ungeduld</h2>
 
 <p>
-Sind die Kunden an einer <a href="ModelElementProcess.html">Bedienstationen</a> nur bereit begrenzt lange auf
+Sind die Kunden an einer <a href="ModelElementProcess.html">Bedienstationen</a> nur bereit, begrenzt lange auf
 ihre Bedienung zu warten, so spricht man von der Ungedulg der Kunden. Wie lange die Kunden in diesem Fall bereit
 sind zu warten, bevor sie das Warten aufgeben und die Station unbedient verlassen, wird über die Wartezeittoleranzen
 der Kunden festgelegt.
@@ -390,7 +390,7 @@ Siehe auch Abschnitt <a href="book:3.2.3">Warteschlangenlänge und Anzahl an Kun
 
 <p>
 Die Wartezeittoleranz gibt an, wie lange die Kunden an einer <a href="ModelElementProcess.html">Bedienstation</a>
-Bedienstation bereit sind auf ihre Bedienung zu warten. Es muss keine Wartezeittoleranz definiert werden; in diesem
+bereit sind auf ihre Bedienung zu warten. Es muss keine Wartezeittoleranz definiert werden; in diesem
 Fall sind die Kunden bereit, beliebig lange zu warten. Die eine endliche Wartezeittoleranz definiert und überschreitet
 ein Kunde diese Wartezeittoleranz, so bricht er den Wartevorgang ab und verlässt die Bedientation, ohne bedient
 worden zu sein.
@@ -403,7 +403,7 @@ Siehe auch Abschnitt <a href="book:7.2">Ungeduldige Kunden und Wiederholer</a> i
 <h2>Ziehende Fertigung</h2>
 
 <p>
-Bei ziehenden Fertigung, auch der Pull-Produktion genannt, führt eine Station nur dann einen Bedienvorgang aus, wenn die
+Bei der ziehenden Fertigung, auch der Pull-Produktion genannt, führt eine Station nur dann einen Bedienvorgang aus, wenn die
 jeweilige Folgestation einen Kunden bzw. ein Werkstück anfordert, d.h. die Kunden werden von den jeweiligen
 Folgestationen durch die Produktion gezogen. Auf diese Weise können die Bestände an den einzelnen
 Stationen begrenzt werden. Allerdings wird zum einen eine spezielle Steuerung erfordert und zum
