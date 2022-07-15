@@ -660,6 +660,7 @@ public class StatisticViewerTimeTable extends StatisticViewerBaseTable {
 		/* Infotext  */
 		if (type.equals("N")) addDescription("TableCountOverviewN");
 		if (type.equals("NQ")) addDescription("TableCountOverviewNQ");
+		if (type.equals("NS")) addDescription("TableCountOverviewNS");
 	}
 
 	/**
