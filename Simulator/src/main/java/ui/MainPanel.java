@@ -2729,7 +2729,7 @@ public class MainPanel extends MainPanelBase {
 		final EditModel model=editorPanel.getModel();
 		final EditModel modelOriginal=model.clone();
 
-		if (NotesDialog.getNotes(model).size()==0) {
+		if (!NotesDialog.hasNotesOrDescriptions(model)) {
 			MsgBox.error(this,Language.tr("NotesDialog.NoNotes.ErrorTitle"),Language.tr("NotesDialog.NoNotes.ErrorInfo"));
 			return;
 		}

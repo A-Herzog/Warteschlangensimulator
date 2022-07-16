@@ -4143,7 +4143,7 @@ public class Messages_en extends java.util.ResourceBundle {
     t[10410] = "CommandLine.ReportBase.Help";
     t[10411] = "This command expects exactly three additionall parameters:\n1. \"Inline\", \"SingleFiles\", \"List\", \"Text\", \"PDF\", \"LaTeX\", \"HTMLApp\" or a list entry, depending if\na) a html report with inline images,\nb) a html teport with separate images,\nc) an overview of all available individual documents,\nd) a docx report,\ne) a pdf report,\nf) a LaTeX report\ng) a html web app report or\nh) an individual document is to be reported.\n2. File name of the input file\n3. File name of the output file";
     t[10412] = "Main.Menu.Model.Notes";
-    t[10413] = "Notes...";
+    t[10413] = "Notes and element descriptions...";
     t[10414] = "ExpressionBuilder.MathematicalFunctions.Sign.Info";
     t[10415] = "<p>Returns depending on the sign of the value passed as parameter 1 (if value&gt10), 0 (if value=0), or -1 (if value&lt;0).</p> <p>Example: <tt>sign(-3)</tt> returns -1.</p>";
     t[10416] = "SettingsDialog.ImageAnimation.Folder";
@@ -8181,7 +8181,7 @@ public class Messages_en extends java.util.ResourceBundle {
     t[20518] = "Surface.Logic.Dialog.Condition.Error.Info";
     t[20519] = "The specified condition \"%s\" is invalid at character %d.";
     t[20520] = "NotesDialog.NoNotes.ErrorTitle";
-    t[20521] = "No notes in model";
+    t[20521] = "No notes or descriptions in model";
     t[20528] = "Simulation.Log.SourceArrival";
     t[20529] = "Client arrival";
     t[20534] = "FastAccessBuilder.CopyHint";
@@ -16721,7 +16721,7 @@ public class Messages_en extends java.util.ResourceBundle {
     t[41206] = "Statistic.FastAccess.Template.ResidenceTime.ByStationClient";
     t[41207] = "Residence time by station and client type";
     t[41212] = "NotesDialog.DialogHint";
-    t[41213] = "In this dialog, the notes that can be placed on the drawing surface via the \"Note\" elements from the \"Optical decorations\" category can be viewed and edited.";
+    t[41213] = "In this dialog, the notes that can be placed on the drawing surface via the \"Note\" elements from the \"Optical decorations\" category and element descriptions can be viewed and edited.";
     t[41216] = "Surface.PopupMenu.Layers";
     t[41217] = "Layers";
     t[41224] = "Editor.Dialog.Sequences.Edit.Assignments.Add.Hint";
@@ -19455,7 +19455,7 @@ public class Messages_en extends java.util.ResourceBundle {
     t[47774] = "ParameterCompare.Table.Info.Maximum";
     t[47775] = "Maximum";
     t[47776] = "NotesDialog.NoNotes.ErrorInfo";
-    t[47777] = "The current model does not contain notes.";
+    t[47777] = "The current model does not contain notes or element descriptions.";
     t[47780] = "ScriptPopup.Client.ValueNumber.GetAll.Hint";
     t[47781] = "Gets all numerical values stored for the client";
     t[47782] = "FileType.AllImages";

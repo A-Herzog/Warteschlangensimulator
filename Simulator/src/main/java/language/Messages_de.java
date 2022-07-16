@@ -4143,7 +4143,7 @@ public class Messages_de extends java.util.ResourceBundle {
     t[10410] = "CommandLine.ReportBase.Help";
     t[10411] = "Dieser Befehl erwartet genau drei weitere Parameter:\n1. \"Inline\", \"Einzeldateien\", \"Liste\", \"Text\", \"PDF\" , \"LaTeX\", \"HTMLApp\" oder ein Listeneintrag je nach dem, ob\na) ein HTML-Report mit eingebetteten Bildern,\nb) ein HTML-Report mit Bildern in separaten Dateien,\nc) eine \u00dcbersicht \u00fcber alle verf\u00fcgbaren Einzeldokumente,\nd) ein DOCX-Report,\ne) ein PDF-Report,\nf) ein LaTeX-Report,\ng) ein HTML-Web-App-Report oder\nh) ein bestimmtes Einzeldokument ausgegeben werden soll.\n2. Dateiname der Eingabedatei\n3. Dateiname der Ausgabedatei";
     t[10412] = "Main.Menu.Model.Notes";
-    t[10413] = "Notizen...";
+    t[10413] = "Notizen und Elementbeschreibungen...";
     t[10414] = "ExpressionBuilder.MathematicalFunctions.Sign.Info";
     t[10415] = "<p>Liefert in Abh\u00e4ngigkeit des Vorzeichens des als Parameters \u00fcbergebenen Wertes 1 (Wert&gt;0), 0 (Wert=0) oder -1 (Wert&lt;0).</p><p>Beispiel: <tt>sign(-3)</tt> liefert -1.</p>";
     t[10416] = "SettingsDialog.ImageAnimation.Folder";
@@ -8181,7 +8181,7 @@ public class Messages_de extends java.util.ResourceBundle {
     t[20518] = "Surface.Logic.Dialog.Condition.Error.Info";
     t[20519] = "Die angegebene Bedingung \"%s\" ist ab Zeichen %d fehlerhaft.";
     t[20520] = "NotesDialog.NoNotes.ErrorTitle";
-    t[20521] = "Keine Notizen im Modell";
+    t[20521] = "Keine Notizen oder Elementbeschreibungen im Modell";
     t[20528] = "Simulation.Log.SourceArrival";
     t[20529] = "Kundenankunft";
     t[20534] = "FastAccessBuilder.CopyHint";
@@ -16721,7 +16721,7 @@ public class Messages_de extends java.util.ResourceBundle {
     t[41206] = "Statistic.FastAccess.Template.ResidenceTime.ByStationClient";
     t[41207] = "Verweilzeit an einer Station pro Kundentyp";
     t[41212] = "NotesDialog.DialogHint";
-    t[41213] = "In diesem Dialog k\u00f6nnen die Notizen, die \u00fcber die \"Notiz\"-Elemente aus der Kategorie \"Optische Gestaltung\" auf der Zeichenfl\u00e4che platziert werden k\u00f6nnen, eingesehen und bearbeitet werden.";
+    t[41213] = "In diesem Dialog k\u00f6nnen die Notizen, die \u00fcber die \"Notiz\"-Elemente aus der Kategorie \"Optische Gestaltung\" auf der Zeichenfl\u00e4che platziert werden k\u00f6nnen, sowie Elementbeschreibungen eingesehen und bearbeitet werden.";
     t[41216] = "Surface.PopupMenu.Layers";
     t[41217] = "Ebenen";
     t[41224] = "Editor.Dialog.Sequences.Edit.Assignments.Add.Hint";
@@ -19455,7 +19455,7 @@ public class Messages_de extends java.util.ResourceBundle {
     t[47774] = "ParameterCompare.Table.Info.Maximum";
     t[47775] = "Maximum";
     t[47776] = "NotesDialog.NoNotes.ErrorInfo";
-    t[47777] = "In dem aktuellen Modell sind keine Notizen vorhanden.";
+    t[47777] = "In dem aktuellen Modell sind keine Notizen oder Elementbeschreibungen vorhanden.";
     t[47780] = "ScriptPopup.Client.ValueNumber.GetAll.Hint";
     t[47781] = "Liest alle zu dem Kunden gespeicherten Zahlenwerte aus";
     t[47782] = "FileType.AllImages";

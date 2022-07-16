@@ -23,13 +23,13 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.image.BufferedImage;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.BorderFactory;
 import javax.swing.DefaultListModel;
+import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -51,8 +51,10 @@ import ui.help.Help;
 import ui.images.Images;
 import ui.infopanel.InfoPanel;
 import ui.modeleditor.AnimationImageSource;
+import ui.modeleditor.ModelElementDescriptionDialog;
 import ui.modeleditor.ModelSurface;
 import ui.modeleditor.coreelements.ModelElement;
+import ui.modeleditor.coreelements.ModelElementPosition;
 import ui.modeleditor.elements.ModelElementNote;
 import ui.modeleditor.elements.ModelElementNoteDialog;
 import ui.modeleditor.elements.ModelElementSub;
@@ -82,7 +84,7 @@ public class NotesDialog extends BaseDialog {
 	/**
 	 * Liste der Notizen
 	 */
-	private final List<ModelElementNote> notesList;
+	private final List<ModelElement> notesList;
 
 	/**
 	 * Notizen-Liste
@@ -217,10 +219,44 @@ public class NotesDialog extends BaseDialog {
 		text.append("</span>");
 		text.append("<br>");
 		text.append("<b>");
-		boolean first=true;
+		int count=0;
 		for (String line: note.getNote().split("\\\n")) if (!line.trim().isEmpty()) {
-			if (first) first=false; else text.append("<br>");
+			if (count>0) text.append("<br>");
+			if (count>=3) {text.append("..."); break;}
 			text.append(encodeHTMLentities(line));
+			count++;
+		}
+		text.append("</b>");
+		text.append("</body></html>");
+
+		return text.toString();
+	}
+
+	/**
+	 * Erstellt den Text für den Listeneintrag für eine Elementbeschreibung.
+	 * @param element	Element dessen Beschreibung in der Liste dargestellt werden soll
+	 * @return	html-Text für den Listeneintrag
+	 */
+	private String buildDescriptionText(final ModelElement element) {
+		final StringBuilder text=new StringBuilder();
+
+		text.append("<html><body>");
+		text.append("<span style=\"color: blue\">");
+		if (element.getSurface().getParentSurface()==null) {
+			text.append(Language.tr("NotesDialog.Status.Main"));
+		} else {
+			final ModelElementSub sub=getSubElement(element.getSurface());
+			if (sub!=null) text.append(String.format(Language.tr("NotesDialog.Status.Sub"),sub.getId()));
+		}
+		text.append("</span>");
+		text.append("<br>");
+		text.append("<b>");
+		int count=0;
+		for (String line: element.getDescription().split("\\\n")) if (!line.trim().isEmpty()) {
+			if (count>0) text.append("<br>");
+			if (count>=3) {text.append("..."); break;}
+			text.append(encodeHTMLentities(line));
+			count++;
 		}
 		text.append("</b>");
 		text.append("</body></html>");
@@ -238,13 +274,27 @@ public class NotesDialog extends BaseDialog {
 		/* Listeneinträge erstellen */
 		notesList.clear();
 		notesList.addAll(getNotes(model));
-		for (ModelElementNote note: notesList) {
-			final BufferedImage image=imageSource.get(note.getIcon(),model.animationImages,ModelElementNote.ICON_SIZE);
-			final JLabel label;
-			if (image==null) {
-				listModel.addElement(label=new JLabel(buildNotesText(note)));
+		notesList.addAll(getElementsWithDescriptions(model));
+		for (ModelElement element: notesList) {
+			final Icon icon;
+			final String text;
+			if (element instanceof ModelElementNote) {
+				final ModelElementNote note=(ModelElementNote)element;
+				icon=new ImageIcon(imageSource.get(note.getIcon(),model.animationImages,ModelElementNote.ICON_SIZE));
+				text=buildNotesText(note);
 			} else {
-				listModel.addElement(label=new JLabel(buildNotesText(note),new ImageIcon(image),SwingConstants.LEADING));
+				if (element instanceof ModelElementPosition) {
+					icon=((ModelElementPosition)element).getAddElementIcon();
+				} else {
+					icon=Images.MODEL_ADD_STATION.getIcon();
+				}
+				text=buildDescriptionText(element);
+			}
+			final JLabel label;
+			if (icon==null) {
+				listModel.addElement(label=new JLabel(text));
+			} else {
+				listModel.addElement(label=new JLabel(text,icon,SwingConstants.LEADING));
 			}
 			label.setBorder(BorderFactory.createEmptyBorder(5,10,5,10));
 		}
@@ -263,8 +313,9 @@ public class NotesDialog extends BaseDialog {
 	 * Aktualisiert den Aktivierungsstatus der Symbolleisten-Schaltflächen.
 	 */
 	private void updateButtons() {
-		buttonEdit.setEnabled(list.getSelectedIndex()>=0);
-		buttonDelete.setEnabled(list.getSelectedIndex()>=0);
+		final int index=list.getSelectedIndex();
+		buttonEdit.setEnabled(index>=0);
+		buttonDelete.setEnabled(index>=0 && notesList.get(index) instanceof ModelElementNote);
 	}
 
 	/**
@@ -273,9 +324,17 @@ public class NotesDialog extends BaseDialog {
 	private void commandEdit() {
 		final int index=list.getSelectedIndex();
 		if (index<0) return;
-		final ModelElementNote note=notesList.get(list.getSelectedIndex());
+		final ModelElement element=notesList.get(list.getSelectedIndex());
 
-		new ModelElementNoteDialog(this,note,false);
+		if (element instanceof ModelElementNote) {
+			final ModelElementNote note=(ModelElementNote)element;
+			new ModelElementNoteDialog(this,note,false);
+		} else {
+			final ModelElementDescriptionDialog dialog=new ModelElementDescriptionDialog(this,element.getDescription(),false,element.getHelpPageName());
+			if (dialog.getClosedBy()==BaseDialog.CLOSED_BY_OK) {
+				element.setDescription(dialog.getDescription());
+			}
+		}
 
 		updateList(index);
 	}
@@ -287,7 +346,9 @@ public class NotesDialog extends BaseDialog {
 	private void commandDelete(final boolean isShiftDown) {
 		final int index=list.getSelectedIndex();
 		if (index<0) return;
-		final ModelElementNote note=notesList.get(list.getSelectedIndex());
+		final ModelElement element=notesList.get(list.getSelectedIndex());
+		if (!(element instanceof ModelElementNote)) return;
+		final ModelElementNote note=(ModelElementNote)element;
 		if (!isShiftDown) {
 			if (!MsgBox.confirm(this,Language.tr("NotesDialog.Delete.Confirm.Title"),Language.tr("NotesDialog.Delete.Confirm.Info"),Language.tr("NotesDialog.Delete.Confirm.InfoYes"),Language.tr("NotesDialog.Delete.Confirm.InfoNo"))) return;
 		}
@@ -338,6 +399,54 @@ public class NotesDialog extends BaseDialog {
 		final List<ModelElementNote> notes=new ArrayList<>();
 		findNotes(notes,model.surface);
 		return notes;
+	}
+
+	/**
+	 * Fügt alle Elemente mit Beschreibungen einer Zeichenfläche (und ihrer Unterzeichenfläche) zu einer Liste hinzu.
+	 * @param elements Zu ergänzende Liste
+	 * @param surface	Zeichenfläche deren Elemente mit Beschreibungen in die Liste aufgenommen werden sollen
+	 */
+	private static void findDescriptions(final List<ModelElement> elements, final ModelSurface surface) {
+		for (ModelElement element: surface.getElements()) {
+			if (!element.getDescription().trim().isEmpty()) elements.add(element);
+			if (element instanceof ModelElementSub) findDescriptions(elements,((ModelElementSub)element).getSubSurface());
+		}
+	}
+
+	/**
+	 * Liefert eine Liste mit Elementen im Modell, die Beschreibungen enthalten.
+	 * @param model	Modell dem die Liste der Elemente entnommen werden sollen
+	 * @return	Liste mit allen Elementen im Modell, die Beschreibungen enthalten
+	 */
+	public static List<ModelElement> getElementsWithDescriptions(final EditModel model) {
+		final List<ModelElement> elements=new ArrayList<>();
+		findDescriptions(elements,model.surface);
+		return elements;
+	}
+
+	/**
+	 * Existieren auf einer Zeichenfläche (oder deren Unterzeichenflächen) Notizen oder Elementbeschreibungen?
+	 * @param surface	Zu prüfende Zeichenfläche
+	 * @return	Existieren auf einer Zeichenfläche (oder deren Unterzeichenflächen) Notizen oder Elementbeschreibungen?
+	 */
+	public static boolean hasNotesOrDescriptions(final ModelSurface surface) {
+		for (ModelElement element: surface.getElements()) {
+			if (element instanceof ModelElementNote) return true;
+			if (!element.getDescription().trim().isEmpty()) return true;
+			if (element instanceof ModelElementSub) {
+				if (hasNotesOrDescriptions(((ModelElementSub)element).getSubSurface())) return true;
+			}
+		}
+		return false;
+	}
+
+	/**
+	 * Existieren in dem Modell Notizen oder Elementbeschreibungen?
+	 * @param model	Zu prüfendes Modell
+	 * @return	Existieren in dem Modell Notizen oder Elementbeschreibungen?
+	 */
+	public static boolean hasNotesOrDescriptions(final EditModel model) {
+		return hasNotesOrDescriptions(model.surface);
 	}
 
 	/**
