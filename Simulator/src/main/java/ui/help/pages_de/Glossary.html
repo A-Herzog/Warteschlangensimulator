@@ -46,6 +46,21 @@ Während der Nachbearbeitungszeit befindet sich der zuvor bediente Kunde bereits
 Siehe auch Abschnitt <a href="book:8.5">Rüstzeiten und Kampagnen</a> im Lehrbuch.
 </p>
 
+<h2>Allen-Cunneen-Näherungsformel</h2>
+
+<p>
+Mit Hilfe der Allen-Cunneen-Formel können Näherungswerte für die Kenngrößen von Warteschlangenmodellen, in denen die
+Zwischenankunftszeiten und die Bedienzeiten nicht notwendig exponentiell verteilt sind, berechnet werden. Während die
+Erlang-Formeln, die exponentiell verteilte Zwischenankunftszeiten und die Bedienzeiten voraussetzen, exakte Ergebnisse
+liefern, handelt es sich bei den Ergebnissen der Allen-Cunneen-Formel nur noch um Näherungswerte für die tatsächlichen
+Kenngrößen. Die Eingangsverteilungen werden bei der Allen-Cunneen-Näherungsformel über die Erwartungswerte und die
+Variationskoeffizienten charakterisiert, d.h. es muss der exakte Typ der Verteilungsfunktion nicht bekannt sein.
+</p>
+
+<p class="bookinfosmall">
+Siehe auch Abschnitt <a href="book:3.5.1">GI/G/c-System</a> im Lehrbuch.
+</p>
+
 <h2>Ankunftsrate</h2>
 
 <p>
@@ -55,6 +70,32 @@ In der <a href="QueueingCalculator.html">Warteschlangentheorie</a> wird die Anku
 
 <p class="bookinfosmall">
 Siehe auch Abschnitt <a href="book:3.2.1">Grundmodell der Warteschlangentheorie</a> im Lehrbuch.
+</p>
+
+<h2>Anzahl an Bedienern</h2>
+
+<p>
+An jeder <a href="ModelElementProcess.html">Bedienstation</a> arbeiten ein oder mehrere Bediener,
+die die eintreffenden Kunden bedienen. In der analytischen <a href="QueueingCalculator.html">Warteschlangentheorie</a>
+wird die Anzahl an Bedienern mit c bezeichnet und in der Kendeall-Notation an dritter Stelle angegeben. Die Bediener
+sind im analytischen Kontext fest einer Bedienstation zugeordnet. In einem Simulationsmodell muss eine solche
+feste Zuordnung nicht bestehen. Hier können sich verschiedene Bedienstationen Bedienergruppen teilen.
+</p>
+
+<p class="bookinfosmall">
+Siehe auch Abschnitt <a href="book:3.2.1">Grundmodell der Warteschlangentheorie</a> im Lehrbuch.
+</p>
+
+<h2>Arbeitslast</h2>
+
+<p>
+Die Arbeitslast ist der Quotient aus Ankunftsrate und Bedienrate. Rundet man die berechnete Arbeitslast zur
+nächsten ganzen Zahl auf, so ergibt sich die minimale Anzahl an notwendigen Bedienern. Die Arbeitslast wird in der 
+<a href="QueueingCalculator.html">Warteschlangentheorie</a> auch mit a bezeichnet.
+</p>
+
+<p class="bookinfosmall">
+Siehe auch Abschnitt <a href="book:3.2.2">Arbeitslast und Auslastung</a> im Lehrbuch.
 </p>
 
 <h2>Auslastung</h2>
@@ -201,6 +242,33 @@ berechnet werden.
 Siehe auch Abschnitt <a href="book:3.4.3">M/M/c-System</a> im Lehrbuch.
 </p>
 
+<h2>Exzess (Wölbung)</h2>
+
+<p>
+Der Exzess ist ein Maß für die Wölbung einer Messreihe.
+Ein Exzess von 0 bedeutet, dass die Wahrscheinlichkeitsverteilung bzw. die Messreihe genauso spitz wie eine Normalverteilung ist.
+Je größer der Exzess-Wert ist, desto spitzer ist die Dichte.  
+</p>
+
+<p class="bookinfosmall">
+Siehe auch Seite <a href="statistik_Kurt.html">Exzess (Wölbung)</a> in der Hilfe.
+</p>
+
+<h2>FIFO (FCFS)</h2>
+
+<p>
+Die Bedienreihenfolge FIFO (für First in first out) bzw. FCFS (für First come first serve) bedeutet,
+dass die Kunden in Ankünftsreihenfolge bedient werden. Dies entspricht gedanklich einer klassischen Warteschlange.
+Während die Bedienreihenfolge keine Auswirkungen auf die mittlere Wartezeit besitzt, verändert sich
+die Streuung der Wartezeiten je nach gewählter Bedienreihenfolge. FIFO führt dabei zu einer minimalen Streuung.
+Über eine formelbasierte Priorisierung der Kunden können neben den klassischen Bedienfolgen FIFO und LIFO auch
+beliebige weitere Strategien abgebildet werden.
+</p>
+
+<p class="bookinfosmall">
+Siehe auch Abschnitt <a href="book:7.4">Prioritäten</a> im Lehrbuch.
+</p>
+
 <h2>Flussgrad</h2>
 
 <p>
@@ -224,6 +292,135 @@ Simulationsende das System noch nicht verlassen haben, erfasst werden sollen.
 
 <p class="bookinfosmall">
 Siehe auch Abschnitt <a href="book:8.9">Geschlossene Warteschlangennetze</a> im Lehrbuch.
+</p>
+
+<h2>Jockeying</h2>
+
+<p>
+Wenn Kunden, nach dem sie sich an der Warteschlangen an einer Bedienstation angestellt haben,
+diese ggf. wieder verlassen, um sich an einer anderen Bedienstation, an der die Warteschlange
+kürzer ist, erneut anzustellen, so spricht man davon, dass Jockeying zwischen den Warteschlangen auftritt.
+</p>
+
+<h2>Kampagnen</h2>
+
+<p>
+Wird versucht, möglichst viele Kunden desselben Typs an einer <a href="ModelElementProcess.html">Bedienstation</a>
+in unmittelbarer Folge zu bedienen, so spricht man von einer Kampagnenfertigung. Eine Kampagnenfertigung ist
+besonders dann von Interesse, wenn bei dem Wechsel von einem Kundentyp zu einem anderen an der Bedienstation
+Rüstzeiten aufteten und es diese zu vermeiden gilt. Bei der Kampagnenfertigung wird die Priorisierung der
+wartenden Kunden so abgeändert, dass zunächst nur wartende Kunden des bisherigen Kundentyps für die nächste
+Bedienung in Frage kommen. Erst wenn keine Kunden des aktuellen Typs mehr in der Warteschlange vorhanden sind,
+wird die Suche auf alle Kundentypen ausgeweitet. Diese Veränderung in der Bedienreihenfolge führt zu einer 
+erhöhten Streuung der Wartezeiten verglichen mit einer über alle Kundentypen wirksamen FIFO-Bedienreihenfolge.
+</p>
+
+<h2>Kendall-Notation</h2>
+
+<p>
+Zur Beschreibung der Eigenschaften von Warteschlangenmodellen wurde 1953 die Kendall-Notation eingeführt.
+Diese beschreibt die Verteilungsfunktionen der Zwischenankunftszeiten und der Bedienzeiten, der Anzahl an
+Bedienern, der Systemgröße sowie optional weiterer Eigenschaften. Der Ausdruck M/M/c steht z.B. für ein
+Bediensystem mit jeweils exponentiell vertteilten Zwischenankunfts- und Bedienzeiten ("M") und c Bedienern.
+Weitere übliche Bezeichnungen statt "M" sind "G" für allgemeine Verteilungen und "D" für deterministische
+Zeitdauern. Ist nur ein Bediener im System vorhanden, so wird eine "1" statt des "c" geschrieben. Bei einer
+begrentzen Systemgröße wird nach der Anzahl an Bedienern diese getrennt durch einen weiteren Schrägstrich
+angegeben; fehlt sie, so wird von einem unbegrenzten System ausgegangen. Als Ergänzungen können Populationsgrößen,
+Wartezeittoleranzen der Kunden usw. angegeben werden. Warteschlangennetze werden beschrieben, in dem mehrere
+dieser Einzelnotationen durch Pfeile verbunden werden.
+</p>
+
+<p class="bookinfosmall">
+Siehe auch Abschnitt <a href="book:3.2.4">Kendall-Notation</a> im Lehrbuch.
+</p>
+
+<h2>Konfidenzintervalle</h2>
+
+<p>
+Die einzelnen Messwerte, die sich in der Simulation ergeben und auf
+deren Basis z.B. <a href="statistik_mittelwert.html">Mittelwerte</a>
+berechnet werden, stellen nur einige der möglichen Realisierungen,
+die sich in der Realität ergeben können dar. Daher wird häufig die
+Frage gestellt, wie nah der per Simulation ermittelte Mittelwert
+an dem tatsächlichen Mittelwert des Modells liegt. Hierüber geben
+die Konfidenzintervalle Aufschluss.
+</p>
+
+<p>
+Ein Konfidenzintervall ist der Zahlenbereich um einen gemessenen Mittelwert
+herum, in dem sich der tatsächliche Mittelwert mit einer bestimmten
+Wahrscheinlichkeit befindet. Je kleiner das Konfidenzintervall gewählt
+werden soll, desto geringer ist die Wahrscheinlichkeit, dass der tatsächliche
+Mittelwert in diesem Intervall liegt oder umso mehr Messwerte sind erforderlich,
+um diese Bedienung zu erfüllen. Dasselbe gilt für die Wahrscheinlichkeit,
+dass der tatsächliche Mittelwert in dem Intervall liegt (auch Konfidenzniveau genannt):
+Je höher das Konfidenzniveau gewählt wird, desto größer fällt das zugehörige
+Konfidenzintervall aus oder wiederum desto mehr Messwerte sind erforderlich.
+</p>
+
+<p class="bookinfosmall">
+Siehe auch Seite <a href="statistik_konfidenzintervall.html">Konfidenzintervalle</a> in der Hilfe.
+</p>
+
+<h2>Kunden im System</h2>
+
+<p>
+Die Anzahl an Kunden im System gibt an, wie viele Kunden sich insgesamt in dem Warteschlangenmodell
+befinden. Die umfasst die Kunden, die momentan bedient werden, und die Kunden, die momentan warten.
+In der analytischen <a href="QueueingCalculator.html">Warteschlangentheorie</a> wird die
+Anzahl an Kunden im System meist mit N bezeichnet.
+</p>
+
+<p class="bookinfosmall">
+Siehe auch Abschnitt <a href="book:3.2.1">Grundmodell der Warteschlangentheorie</a> im Lehrbuch.
+</p>
+
+<h2>LIFO (LCFS)</h2>
+
+<p>
+Die Bedienreihenfolge LIFO (für Last in first out) bzw. FCFS (für Last come first serve) bedeutet,
+dass die Kunden in umgekehrter Ankünftsreihenfolge bedient werden. Dies entspricht gedanklich einem Stapel
+auf den oben aufgelegt wird und von dem auch von oben gezogen wird.
+Während die Bedienreihenfolge keine Auswirkungen auf die mittlere Wartezeit besitzt, verändert sich
+die Streuung der Wartezeiten je nach gewählter Bedienreihenfolge. LIFO führt dabei zu einer maximalen Streuung.
+Über eine formelbasierte Priorisierung der Kunden können neben den klassischen Bedienfolgen FIFO und LIFO auch
+beliebige weitere Strategien abgebildet werden.
+</p>
+
+<p class="bookinfosmall">
+Siehe auch Abschnitt <a href="book:7.4">Prioritäten</a> im Lehrbuch.
+</p>
+
+<h2>Median</h2>
+
+<p>
+Im Zusammenhang mit dem <a href="statistik_mittelwert.html">Mittelwert</a>
+ist auch häufig vom Median die Rede. Während der Mittelwert die Vorteile
+mit sich bringt, dass er leicht berechnet werden kann und in vielen weiteren
+Formeln zur Berechnung statistischer Kennzahlen benötigt wird, besitzt er
+den Nachteil, dass er anfällig für Ausreißer ist. Wird in der Messreihe
+ein einziger Wert massiv erhöht, so hat dies große Auswirkungen auf den
+Mittelwert - obwohl sich bis auf den einen einzigen Ausreißer der Rest
+der Messreihe überhaupt nicht verändert hat. Der Median hingegen gibt
+"den Wert in der Mitte" einer Messreihe an. Wird der Wert eines einzelnen
+Ausreißers verändert, so hat dies keine Auswirkungen auf den Median.
+</p>
+
+<p class="bookinfosmall">
+Siehe auch Seite <a href="statistik_quantil.html">Quantile</a> in der Hilfe.
+</p>
+
+<h2>Mittelwert</h2>
+
+<p>
+Der Mittelwert ist die am häufigsten verwendete statistische Kenngröße.
+Er gibt den Durchschnitt der betrachteten Werte an und wird gebildet, in
+dem alle Messwerte aufsummiert werden und durch die Anzahl der Werte
+dividiert wird.
+</p>
+
+<p class="bookinfosmall">
+Siehe auch Seite <a href="statistik_mittelwert.html">Mittelwert</a> in der Hilfe.
 </p>
 
 <h2>Nachbearbeitungszeit</h2>
@@ -291,6 +488,25 @@ des Kunden ist dabei unabhängig davon, wie viele Kunden an der Folgestation ber
 Siehe auch Abschnitt <a href="book:7.6">Push-/Pull-Produktion</a> im Lehrbuch.
 </p>
 
+<h2>Quantile</h2>
+
+<p>
+Die Quantile geben Aufschluss darüber, wie sich die konkreten Werte einer
+Messreihe über den Wertebereich verteilen und stellen damit eine Ergänzung
+zur <a href="statistik_standardabweichung.html">Standardabweichung</a> aber
+auch zum <a href="statistik_mittelwert.html">Mittelwert</a> dar.
+</p>
+
+<p>
+Quantile geben an, ein wie großer Anteil der Messwerte jeweils kleiner oder gleich
+einem bestimmten Wert ist. Beträgt das 75%-Quantil der Wartezeiten z.B. 100 Sekunden,
+so bedeutet dies, dass 75% der Kunden höchstens 100 Sekunden warten mussten.  
+</p>
+
+<p class="bookinfosmall">
+Siehe auch Seite <a href="statistik_quantil.html">Quantile</a> in der Hilfe.
+</p>
+
 <h2>Rüstzeit</h2>
 
 <p>
@@ -315,6 +531,62 @@ Die Weiterleitung des Kunden ist dabei unabhängig davon, wie viele Kunden an de
 Siehe auch Abschnitt <a href="book:7.6">Push-/Pull-Produktion</a> im Lehrbuch.
 </p>
 
+<h2>Schiefe</h2>
+
+<p>
+Die Schiefe ist ein Maß für die Asymmetrie einer Messreihe.
+Eine Schiefe von 0 bedeutet, dass die Wahrscheinlichkeitsverteilung bzw. die Messreihe symmetrisch ist.
+Messreihen mit einer Schiefe kleiner als 0 werden als <b>linksschief</b> bezeichnet,
+Messreihen mit einer Schiefe größer als 0 als <b>rechtsschief</b>.
+</p>
+
+<p class="bookinfosmall">
+Siehe auch Seite <a href="statistik_Sk.html">Schiefe</a> in der Hilfe.
+</p>
+
+<h2>SIRO</h2>
+
+<p>
+Die Bedienreihenfolge SIRO (für Service in random order) bedeutet, dass die Kunden in zufälliger Reihenfolge
+der Warteschlange entnommen werden. Während die Bedienreihenfolge keine Auswirkungen auf die mittlere Wartezeit besitzt,
+verändert sich die Streuung der Wartezeiten je nach gewählter Bedienreihenfolge. Die Streuung liegt im Falle von SIRO
+zwischen den Werten für FIFO und LIFO.
+</p>
+
+<p class="bookinfosmall">
+Siehe auch Abschnitt <a href="book:7.4">Prioritäten</a> im Lehrbuch.
+</p>
+
+<h2>Skaleneffekt</h2>
+
+<p>
+Die Economy of Scale oder auch der positive Skaleneffekt beschreiben den bei vielen Produktionssystemen
+vorliegenden Effekt, dass in einem größeren System die Produktionsstückkosten geringer sind als in
+einem kleineren System. Die Ursache dafür kann darin liegen, dass sich die Fixkosten auf mehr Einheiten
+verteilen, oder aber, dass sich Schwankungen bedingt durch stochastischen Zwischenankunfts- und Bedienzeiten
+bei größeren System besser gegenseitig ausgleichen können.
+</p>
+
+<p class="bookinfosmall">
+Siehe auch Abschnitt <a href="book:3.4.4">Economy of Scale</a> im Lehrbuch.
+</p>
+
+<h2>Standardabweichung</h2>
+
+<p>
+Neben dem <a href="statistik_mittelwert.html">Mittelwert</a> sind
+Standardabweichung und Varianz zusammen die zweite wichtige Kenngröße
+einer Messreihe. Die beiden Werte geben an, wie weit die konkreten
+Werte im Durchschnitt vom Mittelwert abweichen. Eine Standardabweichung
+von 0 bedeutet, dass die Messreihe nur aus einem Wert besteht. Negative
+Standardabweichungen sind nicht möglich. Je größer die Standardabweichung
+ist, desto stärker variieren die Messwerte einer Messreihe.
+</p>
+
+<p class="bookinfosmall">
+Siehe auch Seite <a href="statistik_standardabweichung.html">Standardabweichungen und Varianzen</a> in der Hilfe.
+</p>
+
 <h2>Ungeduld</h2>
 
 <p>
@@ -326,6 +598,30 @@ der Kunden festgelegt.
 
 <p class="bookinfosmall">
 Siehe auch Abschnitt <a href="book:7.2">Ungeduldige Kunden und Wiederholer</a> im Lehrbuch.
+</p>
+
+<h2>Varianz</h2>
+
+<p>
+Bei der Varianz handelt es sich um die quadrierte Standardabweichung.
+</p>
+
+<p class="bookinfosmall">
+Siehe auch Seite <a href="statistik_standardabweichung.html">Standardabweichungen und Varianzen</a> in der Hilfe.
+</p>
+
+<h2>Variationskoeffizienten</h2>
+
+<p>
+Der Variationskoeffizient stellt eine normierte Fassung der
+<a href="statistik_standardabweichung.html">Standardabweichung</a>
+dar. Genauso wie die Standardabweichung nimmt der Variationskoeffizient
+nie Werte kleiner als 0 an und ein Wert von 0 bedeutet, dass die
+Messreihe nur aus einem Wert besteht.
+</p>
+
+<p class="bookinfosmall">
+Siehe auch Seite <a href="statistik_CV.html">Variationskoeffizient</a> in der Hilfe.
 </p>
 
 <h2>Verweilzeit</h2>
@@ -374,6 +670,21 @@ Im Warteraum wartet ein Kunde, bevor ein Bediener verfügbar, um ihn zu bedienen
 Siehe auch Abschnitt <a href="book:3.2.4">Kendall-Notation</a> im Lehrbuch.
 </p>
 
+<h2>Warteschlange</h2>
+
+<p>
+Wenn ein Kunde an einer <a href="ModelElementProcess.html">Bedienstation</a> eintrifft und
+nicht sofort bedient werden kann, weil momentan alle Bediener belegt sind, muss der Kunde zunächst warten.
+Die wartenden Kunden bilden die Warteschlange vor dem Bedienschalter. Wird ein Bediener frei, so wird
+der wartende Kunde mit der höchsten Priorität der Warteschlange entnommen und als nächstes bedient.
+In der analytischen <a href="QueueingCalculator.html">Warteschlangentheorie</a> wird die
+Warteschlangenlänge meist mit NQ bezeichnet.
+</p>
+
+<p class="bookinfosmall">
+Siehe auch Abschnitt <a href="book:3.2.1">Grundmodell der Warteschlangentheorie</a> im Lehrbuch.
+</p>
+
 <h2>Wartezeit</h2>
 
 <p>
@@ -398,6 +709,20 @@ worden zu sein.
 
 <p class="bookinfosmall">
 Siehe auch Abschnitt <a href="book:7.2">Ungeduldige Kunden und Wiederholer</a> im Lehrbuch.
+</p>
+
+<h2>Wiederholer</h2>
+
+<p>
+Wenn Kunden das Warten an einer <a href="ModelElementProcess.html">Bedienstation</a> aufgrund von
+zu langen Wartezeiten aufgeben und später einen neuen Anlauf tätigen, bedient zu werden,
+so spricht vom von Wiederholern. Wiederholer treten insbesondere bei einer hohen Auslastung einer
+Bedienstation auf und erhöhen in diesem Fall die Last noch weiter. Diese Effekte lassen sich besonders
+in Systemen, in denen Menschen bedient werden (wie z.B. in Callcentern) beobachten.
+</p>
+
+<p class="bookinfosmall">
+Siehe auch Abschnitt <a href="book:7.2.2">Wiederholer</a> im Lehrbuch.
 </p>
 
 <h2>Ziehende Fertigung</h2>
