@@ -223,6 +223,26 @@
 			<arg value="Warteschlangensimulator-Hotkeys-en.tex"/>
 		</exec>
 		
+		<echo message="Build glossary - de" />
+		<exec dir="${BuildTools.location}/Help/Glossary/de" executable="${pdfLaTeX32.location}/pdflatex.exe" if:set="pdflatex32.present" failonerror="true">
+			<arg value="-interaction=nonstopmode"/>
+			<arg value="Warteschlangensimulator-Glossary-de.tex"/>
+		</exec>
+		<exec dir="${BuildTools.location}/Help/Glossary/de" executable="${pdfLaTeX64.location}/pdflatex.exe" if:set="pdflatex64.present" failonerror="true">
+			<arg value="-interaction=nonstopmode"/>
+			<arg value="Warteschlangensimulator-Glossary-de.tex"/>
+		</exec>
+
+		<echo message="Build glossary - en" />
+		<exec dir="${BuildTools.location}/Help/Glossary/en" executable="${pdfLaTeX32.location}/pdflatex.exe" if:set="pdflatex32.present" failonerror="true">
+			<arg value="-interaction=nonstopmode"/>
+			<arg value="Warteschlangensimulator-Glossary-en.tex"/>
+		</exec>
+		<exec dir="${BuildTools.location}/Help/Glossary/en" executable="${pdfLaTeX64.location}/pdflatex.exe" if:set="pdflatex64.present" failonerror="true">
+			<arg value="-interaction=nonstopmode"/>
+			<arg value="Warteschlangensimulator-Glossary-en.tex"/>
+		</exec>
+		
 		<echo message="Build distribution xml reference - en only" />
 		<exec dir="${BuildTools.location}/Help/Distributions" executable="${pdfLaTeX32.location}/pdflatex.exe" if:set="pdflatex32.present" failonerror="true">
 			<arg value="-interaction=nonstopmode"/>
@@ -261,6 +281,32 @@
 		<delete file="${Simulator.location}/target/JavaDDE.dll" />
 		<delete file="${Simulator.location}/target/JavaDDEx64.dll" />
 	</target>
+	
+	<!-- Build Glossary LaTeX files -->
+	<target name="glossaryLaTeXFiles" description="Build LaTeX files for glossary">
+			<echo message="Prepearing environment" />
+			<copy file="${Simulator.location}/tools/JDDE/JavaDDE.dll" todir="${Simulator.location}/target" />
+			<copy file="${Simulator.location}/tools/JDDE/JavaDDEx64.dll" todir="${Simulator.location}/target" />
+					
+			<echo message="Building de" />
+			<java jar="${Simulator.location}/target/Simulator.jar" dir="${Simulator.location}/target" fork="yes">
+				<arg value="BuildGlossaryText"/>
+				<arg value="de"/>
+				<arg value="${Simulator.location}/build/Help/Glossary/de"/>
+			</java>
+					
+			<echo message="Building en" />
+			<java jar="${Simulator.location}/target/Simulator.jar" dir="${Simulator.location}/target" fork="yes">
+				<arg value="BuildGlossaryText"/>
+				<arg value="en"/>
+				<arg value="${Simulator.location}/build/Help/Glossary/en"/>
+			</java>
+						
+			<echo message="Clean up" />
+			<delete file="${Simulator.location}/target/JavaDDE.dll" />
+			<delete file="${Simulator.location}/target/JavaDDEx64.dll" />
+		</target>
+	
 	
 	<!-- Full simulator build process -->
 	<target name="build" description="Build simulator">

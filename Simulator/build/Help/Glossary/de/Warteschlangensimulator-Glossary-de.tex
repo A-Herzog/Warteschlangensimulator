@@ -1,0 +1,42 @@
+\RequirePackage{amsmath}
+\RequirePackage{fix-cm}
+\documentclass[deutsch]{svmono}
+
+\def\ColoredLinks{}
+\input{Macros.tex}
+\usepackage{xcolor}
+\usepackage{lmodern}
+\usepackage{wrapfig}
+
+\textwidth160mm
+\textheight220mm
+\oddsidemargin0mm
+\evensidemargin0mm
+\topmargin0mm
+
+\def\cmd#1{\textbf{,,\texttt{#1}''}}
+\def\cm#1{\textbf{\texttt{#1}}}
+
+\begin{document}
+
+\hypersetup{pageanchor=false}
+\thispagestyle{empty}
+\vskip5cm {\Huge\textbf{Glossar}}
+\vskip.5cm \hrule
+\vskip.5cm {\large \textsc{Alexander Herzog} (\href{mailto:alexander.herzog@tu-clausthal.de}{alexander.herzog@tu-clausthal.de})}
+\IfFileExists{../../Warteschlangennetz-mittel.png}{
+\vskip2cm \centerline{\fbox{\includegraphics[width=16cm]{../../Warteschlangennetz-mittel.jpg}}}
+}{}
+\vskip2cm {\color{gray}
+Diese Referenz bezieht sich auf die Version \input{../../Version.tex} des Warteschlangensimulators.\\
+Download-Adresse: \href{https://github.com/A-Herzog/Warteschlangensimulator/}{https://github.com/A-Herzog/Warteschlangensimulator/}.
+}
+
+\vfill
+\pagebreak
+
+\setcounter{page}{1}
+
+\input{Glossary-de.tex}
+
+\end{document}

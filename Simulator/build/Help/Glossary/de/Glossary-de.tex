@@ -1,0 +1,478 @@
+
+\section*{Abbruchrate}
+
+
+Verfügen die Kunden an einer Bedienstation nur über ein begrenzte
+Wartezeittoleranz, so gibt die Abbruchrate den Kehrwert der mittleren Wartezeittoleranz an.
+Die Abbruchrate wird in der Warteschlangentheorie auch mit $\nu$ bezeichnet.
+
+\section*{Abbruchzeit}
+
+
+Hat ein Kunde an einer Bedienstation das Warten aufgegeben, da er
+länger hätte warten müssen, als seine persönliche Wartezeittoleranz es zu ließ, so wird die Wartezeit
+des Kunden in der Statistikansicht als seine Abbruchzeit ausgewiesen.
+
+\section*{Abrüstzeit}
+
+
+Der Begriff Abrüstzeit ist ein Pseudonym für die Nachbearbeitungszeit.
+Die Nachbearbeitungszeit ist die Zeitspanne, die ein Bediener an einer Bedienstation
+nach dem ab Abschluss einer Bedienung eines Kunden benötigt, bevor er wieder für weitere Bedienprozesse zur Verfügung steht.
+Während der Nachbearbeitungszeit befindet sich der zuvor bediente Kunde bereits nicht mehr an der Bedienstation.
+
+\section*{Allen-Cunneen-Näherungsformel}
+
+
+Mit Hilfe der Allen-Cunneen-Formel können Näherungswerte für die Kenngrößen von Warteschlangenmodellen, in denen die
+Zwischenankunftszeiten und die Bedienzeiten nicht notwendig exponentiell verteilt sind, berechnet werden. Während die
+Erlang-Formeln, die exponentiell verteilte Zwischenankunftszeiten und die Bedienzeiten voraussetzen, exakte Ergebnisse
+liefern, handelt es sich bei den Ergebnissen der Allen-Cunneen-Formel nur noch um Näherungswerte für die tatsächlichen
+Kenngrößen. Die Eingangsverteilungen werden bei der Allen-Cunneen-Näherungsformel über die Erwartungswerte und die
+Variationskoeffizienten charakterisiert, d.h. es muss der exakte Typ der Verteilungsfunktion nicht bekannt sein.
+
+\section*{Ankunftsrate}
+
+
+Die Ankunftsrate ist der Kehrwert der Zwischenankunftszeiten an einer Quelle.
+In der Warteschlangentheorie wird die Ankunftsrate auch mit $\lambda$ bezeichnet.
+
+\section*{Anzahl an Bedienern}
+
+
+An jeder Bedienstation arbeiten ein oder mehrere Bediener,
+die die eintreffenden Kunden bedienen. In der analytischen Warteschlangentheorie
+wird die Anzahl an Bedienern mit c bezeichnet und in der Kendeall-Notation an dritter Stelle angegeben. Die Bediener
+sind im analytischen Kontext fest einer Bedienstation zugeordnet. In einem Simulationsmodell muss eine solche
+feste Zuordnung nicht bestehen. Hier können sich verschiedene Bedienstationen Bedienergruppen teilen.
+
+\section*{Arbeitslast}
+
+
+Die Arbeitslast ist der Quotient aus Ankunftsrate und Bedienrate. Rundet man die berechnete Arbeitslast zur
+nächsten ganzen Zahl auf, so ergibt sich die minimale Anzahl an notwendigen Bedienern. Die Arbeitslast wird in der
+Warteschlangentheorie auch mit a bezeichnet.
+
+\section*{Auslastung}
+
+
+Die in der Statistikansicht angezeigte Auslastung der Bedienergruppen gibt an,
+zu welchem Anteil ihrer verfügbaren Zeit die Bediener jeweils mit der Bedienung von Kunden beschäftigt waren.
+Die Auslastung ist folglich ein Wert zwischen 0 und 1. Die Auslastung wird in der
+Warteschlangentheorie auch mit $\rho$ bezeichnet.
+
+\section*{Autokorrelation}
+
+
+Im Modelleigenschaften-Dialog kann eingestellt werden, dass während der
+Simulation die Autokorrelation der Wartezeiten erfasst werden soll. Die Autokorrelation gibt an, wie stark
+die Wartezeit eines Kunden von den Wartezeiten der unmittelbar vorherigen Kunden abhängt. Auf Basis der
+Autokorrelation der Wartezeiten kann entschieden werden, wie viel Rest-Abhängigkeit für die Festlegung einer
+Batch-Means Batch-Größe akzeptiert werden soll. Die Batch-Means-Methode ermöglicht es dann,
+Konfidenzintervalle für die Kenngrößen in der Statistikansicht
+auszuweisen.
+
+\section*{Batch}
+
+
+Treffen jeweils mehrere Kunden gleichzeitig an einer Quelle
+ein oder aber werden mehrere Kunden gleichzeitig an einer Bedienstation
+bedient, so spricht man von Batch-Ankünften bzw. Batch-Bedienungen. Kunden können auch explizit an einer
+Zusammenfassen-Station zu einem Batch zusammengefasst werden.
+
+\section*{Batch-Means-Methode}
+
+
+Die Batch-Means-Methode ermöglicht es, Konfidenzintervalle zu den Kenngrößen in der
+Statistikansicht auszuweisen. Dies ist nicht auf direktem
+Wege möglich, da z.B. die Wartezeiten der unmittelbar aufeinander folgenden Kunden abhängig sind
+und dies für die Konfidenzintervallberechnung nicht zulässig ist. Die zu verwendende Batch-Größe
+für die Batch-Means-Methode kann über die Autokorrelations-Erfassung ermittelt werden. Beide
+Verfahren können im Modelleigenschaften-Dialog konfiguriert werden.
+
+\section*{Bedienrate}
+
+
+Die Bedienrate ist der Kehrwert der mittleren Bedienzeit an einer Bedienstation.
+Die Bedienrate wird in der Warteschlangentheorie auch mit $\mu$ bezeichnet.
+
+\section*{Bedienregel}
+
+
+Die Bedienregel gibt an, welcher von mehreren wartenden Kunden als nächstes an einer
+Bedienstation bedient werden soll. Die konkreten
+Bedienregeln werden an einer Bedienstation über die Prioritäten abgebildet.
+
+\section*{Bedienzeit}
+
+
+Über die Bedienzeit kann an einer Bedienstation eingestellt werden,
+wie lange der Prozess der Bedienung eines Kunden (oder im Fall von Batch-Bedienungen eines Kunden-Batches)
+durch einen Bediener dauern soll.
+In der Statistikansicht werden die Bedienzeiten mit \textbf{S} bezeichnet.
+
+\section*{Durchlaufzeit}
+
+
+Die Durchlaufzeit ist ein Pseudonym für die Verweilzeit.
+Die in der Statistikansicht mit \textbf{V} bezeichnete Verweilzeit
+gibt an, wie viel Zeit ein Kunde insgesamt im System oder an einer Station verbracht hat.
+
+\section*{Economy of Scale}
+
+
+Die Economy of Scale oder auch der positive Skaleneffekt beschreiben den bei vielen Produktionssystemen
+vorliegenden Effekt, dass in einem größeren System die Produktionsstückkosten geringer sind als in
+einem kleineren System. Die Ursache dafür kann darin liegen, dass sich die Fixkosten auf mehr Einheiten
+verteilen, oder aber, dass sich Schwankungen bedingt durch stochastischen Zwischenankunfts- und Bedienzeiten
+bei größeren System besser gegenseitig ausgleichen können.
+
+\section*{Einschwingphase}
+
+
+Bevor die Warte- und Bedienzeiten für die Statistik gezählt werden, können eine bestimmte Anzahl an Kunden
+das System durchlaufen, die nicht für die Statistik gezählt werden. Im
+Modelleigenschaften-Dialog kann eingestellt werden, wie lang diese
+Einschwingphase sein soll.
+
+\section*{Erlang-Formeln}
+
+
+Mit Hilfe der Erlang-B- und Erlang-C-Formeln lassen sich einfache Warteschlangenmodelle exakt berechnen.
+Im Warteschlangenrechner könne die Werte dieser Formeln direkt
+berechnet werden.
+
+\section*{Exzess (Wölbung)}
+
+
+Der Exzess ist ein Maß für die Wölbung einer Messreihe.
+Ein Exzess von 0 bedeutet, dass die Wahrscheinlichkeitsverteilung bzw. die Messreihe genauso spitz wie eine Normalverteilung ist.
+Je größer der Exzess-Wert ist, desto spitzer ist die Dichte.
+
+\section*{FIFO (FCFS)}
+
+
+Die Bedienreihenfolge FIFO (für First in first out) bzw. FCFS (für First come first serve) bedeutet,
+dass die Kunden in Ankünftsreihenfolge bedient werden. Dies entspricht gedanklich einer klassischen Warteschlange.
+Während die Bedienreihenfolge keine Auswirkungen auf die mittlere Wartezeit besitzt, verändert sich
+die Streuung der Wartezeiten je nach gewählter Bedienreihenfolge. FIFO führt dabei zu einer minimalen Streuung.
+Über eine formelbasierte Priorisierung der Kunden können neben den klassischen Bedienfolgen FIFO und LIFO auch
+beliebige weitere Strategien abgebildet werden.
+
+\section*{Flussgrad}
+
+
+Der in der Statistikansicht ausgewiesene Flussgrad ist
+das Verhältnis von Verweilzeit zu Bedienzeit. Der Flussgrad ist minimal 1. Ein Flussgrad
+von 1 bedeutet, dass keine Wartezeiten angefallen sind. Ein Flussgrad von 2 bedeutet, dass
+die Kunden genauso lange warten mussten, wie ihre Bedienungen gedauert haben usw.
+
+\section*{Geschlossenes Warteschlangennetz}
+
+
+In einem geschlossenen Warteschlangennetz zirkuliert eine endliche, feste Anzahl an Kunden.
+Im Gegensatz zu einem offenen Warteschlangennetz, verfügt ein geschlossenes Warteschlangennetz
+meist über keinen Ausgang. Da die Erfassung der Zeitdauern
+auf Kundenbasis normalerweise dann erfolgt, wenn ein Kunde das System verlässt, ist es für die Erfassung
+der Zeitdauern in einem geschlossenen Warteschlangennetz notwendig, im
+Modelleigenschaften-Dialog anzugeben, dass auch Kunden, die am
+Simulationsende das System noch nicht verlassen haben, erfasst werden sollen.
+
+\section*{Jockeying}
+
+
+Wenn Kunden, nach dem sie sich an der Warteschlangen an einer Bedienstation angestellt haben,
+diese ggf. wieder verlassen, um sich an einer anderen Bedienstation, an der die Warteschlange
+kürzer ist, erneut anzustellen, so spricht man davon, dass Jockeying zwischen den Warteschlangen auftritt.
+
+\section*{Kampagnen}
+
+
+Wird versucht, möglichst viele Kunden desselben Typs an einer Bedienstation
+in unmittelbarer Folge zu bedienen, so spricht man von einer Kampagnenfertigung. Eine Kampagnenfertigung ist
+besonders dann von Interesse, wenn bei dem Wechsel von einem Kundentyp zu einem anderen an der Bedienstation
+Rüstzeiten aufteten und es diese zu vermeiden gilt. Bei der Kampagnenfertigung wird die Priorisierung der
+wartenden Kunden so abgeändert, dass zunächst nur wartende Kunden des bisherigen Kundentyps für die nächste
+Bedienung in Frage kommen. Erst wenn keine Kunden des aktuellen Typs mehr in der Warteschlange vorhanden sind,
+wird die Suche auf alle Kundentypen ausgeweitet. Diese Veränderung in der Bedienreihenfolge führt zu einer
+erhöhten Streuung der Wartezeiten verglichen mit einer über alle Kundentypen wirksamen FIFO-Bedienreihenfolge.
+
+\section*{Kendall-Notation}
+
+
+Zur Beschreibung der Eigenschaften von Warteschlangenmodellen wurde 1953 die Kendall-Notation eingeführt.
+Diese beschreibt die Verteilungsfunktionen der Zwischenankunftszeiten und der Bedienzeiten, der Anzahl an
+Bedienern, der Systemgröße sowie optional weiterer Eigenschaften. Der Ausdruck M/M/c steht z.B. für ein
+Bediensystem mit jeweils exponentiell vertteilten Zwischenankunfts- und Bedienzeiten ("M") und c Bedienern.
+Weitere übliche Bezeichnungen statt "M" sind "G" für allgemeine Verteilungen und "D" für deterministische
+Zeitdauern. Ist nur ein Bediener im System vorhanden, so wird eine "1" statt des "c" geschrieben. Bei einer
+begrentzen Systemgröße wird nach der Anzahl an Bedienern diese getrennt durch einen weiteren Schrägstrich
+angegeben; fehlt sie, so wird von einem unbegrenzten System ausgegangen. Als Ergänzungen können Populationsgrößen,
+Wartezeittoleranzen der Kunden usw. angegeben werden. Warteschlangennetze werden beschrieben, in dem mehrere
+dieser Einzelnotationen durch Pfeile verbunden werden.
+
+\section*{Konfidenzintervalle}
+
+
+Die einzelnen Messwerte, die sich in der Simulation ergeben und auf
+deren Basis z.B. Mittelwerte
+berechnet werden, stellen nur einige der möglichen Realisierungen,
+die sich in der Realität ergeben können dar. Daher wird häufig die
+Frage gestellt, wie nah der per Simulation ermittelte Mittelwert
+an dem tatsächlichen Mittelwert des Modells liegt. Hierüber geben
+die Konfidenzintervalle Aufschluss.
+
+
+Ein Konfidenzintervall ist der Zahlenbereich um einen gemessenen Mittelwert
+herum, in dem sich der tatsächliche Mittelwert mit einer bestimmten
+Wahrscheinlichkeit befindet. Je kleiner das Konfidenzintervall gewählt
+werden soll, desto geringer ist die Wahrscheinlichkeit, dass der tatsächliche
+Mittelwert in diesem Intervall liegt oder umso mehr Messwerte sind erforderlich,
+um diese Bedienung zu erfüllen. Dasselbe gilt für die Wahrscheinlichkeit,
+dass der tatsächliche Mittelwert in dem Intervall liegt (auch Konfidenzniveau genannt):
+Je höher das Konfidenzniveau gewählt wird, desto größer fällt das zugehörige
+Konfidenzintervall aus oder wiederum desto mehr Messwerte sind erforderlich.
+
+\section*{Kunden im System}
+
+
+Die Anzahl an Kunden im System gibt an, wie viele Kunden sich insgesamt in dem Warteschlangenmodell
+befinden. Die umfasst die Kunden, die momentan bedient werden, und die Kunden, die momentan warten.
+In der analytischen Warteschlangentheorie wird die
+Anzahl an Kunden im System meist mit N bezeichnet.
+
+\section*{LIFO (LCFS)}
+
+
+Die Bedienreihenfolge LIFO (für Last in first out) bzw. FCFS (für Last come first serve) bedeutet,
+dass die Kunden in umgekehrter Ankünftsreihenfolge bedient werden. Dies entspricht gedanklich einem Stapel
+auf den oben aufgelegt wird und von dem auch von oben gezogen wird.
+Während die Bedienreihenfolge keine Auswirkungen auf die mittlere Wartezeit besitzt, verändert sich
+die Streuung der Wartezeiten je nach gewählter Bedienreihenfolge. LIFO führt dabei zu einer maximalen Streuung.
+Über eine formelbasierte Priorisierung der Kunden können neben den klassischen Bedienfolgen FIFO und LIFO auch
+beliebige weitere Strategien abgebildet werden.
+
+\section*{Median}
+
+
+Im Zusammenhang mit dem Mittelwert
+ist auch häufig vom Median die Rede. Während der Mittelwert die Vorteile
+mit sich bringt, dass er leicht berechnet werden kann und in vielen weiteren
+Formeln zur Berechnung statistischer Kennzahlen benötigt wird, besitzt er
+den Nachteil, dass er anfällig für Ausreißer ist. Wird in der Messreihe
+ein einziger Wert massiv erhöht, so hat dies große Auswirkungen auf den
+Mittelwert - obwohl sich bis auf den einen einzigen Ausreißer der Rest
+der Messreihe überhaupt nicht verändert hat. Der Median hingegen gibt
+"den Wert in der Mitte" einer Messreihe an. Wird der Wert eines einzelnen
+Ausreißers verändert, so hat dies keine Auswirkungen auf den Median.
+
+\section*{Mittelwert}
+
+
+Der Mittelwert ist die am häufigsten verwendete statistische Kenngröße.
+Er gibt den Durchschnitt der betrachteten Werte an und wird gebildet, in
+dem alle Messwerte aufsummiert werden und durch die Anzahl der Werte
+dividiert wird.
+
+\section*{Nachbearbeitungszeit}
+
+
+Die Nachbearbeitungszeit ist die Zeitspanne, die ein Bediener an einer Bedienstation
+nach dem ab Abschluss einer Bedienung eines Kunden benötigt, bevor er wieder für weitere Bedienprozesse zur Verfügung steht.
+Während der Nachbearbeitungszeit befindet sich der zuvor bediente Kunde bereits nicht mehr an der Bedienstation.
+
+\section*{Offenes Warteschlangennetz}
+
+
+Ein offenes Warteschlangennetz stellt den Normalfall für ein Modell im Warteschlangensimulator dar: Kunden
+treffen an einer oder mehreren Quellen ein, werden an einer oder
+mehreren Bedienstationen bedient und verlassen das System am Ende
+über einen oder mehrere Ausgänge. Einen Gegenentwurf dazu stellen
+geschlossene Warteschlangennetze dar, in denen eine endliche, feste Anzahl an Kunden fortwährend zirkuliert.
+
+\section*{Priorisierung}
+
+
+Über die Priorisierung der Kunden an einer Bedienstationen wird
+festgelegt, welcher der wartenden Kunden als nächstes bedient wird, wenn ein Bediener verfügbar wird.
+Es wird jeweils derjenige Kunde mit der höchsten Priorität als nächstes bedient.
+
+\section*{Pull-Produktion}
+
+
+Bei der Pull-Produktion führt eine Station nur dann einen Bedienvorgang aus, wenn die jeweilige
+Folgestation einen Kunden bzw. ein Werkstück anfordert, d.h. die Kunden werden von den jeweiligen
+Folgestationen durch die Produktion gezogen. Auf diese Weise können die Bestände an den einzelnen
+Stationen begrenzt werden. Allerdings wird zum einen eine spezielle Steuerung erfordert und zum
+anderen muss sichergestellt werden, dass dennoch genug Puffer vorhanden sind, so dass die Bedienstationen
+auch in diesem Fall nicht unnötig in Leerlauf geraten.
+
+\section*{Push-Produktion}
+
+
+Die Push-Produktion stellt den Normalfall in einem Warteschlangenmodell dar. Ist eine Bedienstation
+mit der Bedienung eines Kunden fertig, so schiebt sie den Kunden zur nächsten Station. Die Weiterleitung
+des Kunden ist dabei unabhängig davon, wie viele Kunden an der Folgestation bereits warten.
+
+\section*{Quantile}
+
+
+Die Quantile geben Aufschluss darüber, wie sich die konkreten Werte einer
+Messreihe über den Wertebereich verteilen und stellen damit eine Ergänzung
+zur Standardabweichung aber
+auch zum Mittelwert dar.
+
+
+Quantile geben an, ein wie großer Anteil der Messwerte jeweils kleiner oder gleich
+einem bestimmten Wert ist. Beträgt das 75%-Quantil der Wartezeiten z.B. 100 Sekunden,
+so bedeutet dies, dass 75% der Kunden höchstens 100 Sekunden warten mussten.
+
+\section*{Rüstzeit}
+
+
+Rüstzeiten können an Bedienstationenen auftreten, wenn beim Wechsel
+von einem Kundentyp zu einem anderen die Station als solches umkonfiguriert werden muss. Die Rüstzeit ist
+der jeweiligen Bedienzeit eines Kunden vorgelagert.
+
+\section*{Schiebende Fertigung}
+
+
+Die schiebende Fertigung, auch Push-Produktion genannt, stellt den Normalfall in einem Warteschlangenmodell dar.
+Ist eine Bedienstation mit der Bedienung eines Kunden fertig, so schiebt sie den Kunden zur nächsten Station.
+Die Weiterleitung des Kunden ist dabei unabhängig davon, wie viele Kunden an der Folgestation bereits warten.
+
+\section*{Schiefe}
+
+
+Die Schiefe ist ein Maß für die Asymmetrie einer Messreihe.
+Eine Schiefe von 0 bedeutet, dass die Wahrscheinlichkeitsverteilung bzw. die Messreihe symmetrisch ist.
+Messreihen mit einer Schiefe kleiner als 0 werden als \textbf{linksschief} bezeichnet,
+Messreihen mit einer Schiefe größer als 0 als \textbf{rechtsschief}.
+
+\section*{SIRO}
+
+
+Die Bedienreihenfolge SIRO (für Service in random order) bedeutet, dass die Kunden in zufälliger Reihenfolge
+der Warteschlange entnommen werden. Während die Bedienreihenfolge keine Auswirkungen auf die mittlere Wartezeit besitzt,
+verändert sich die Streuung der Wartezeiten je nach gewählter Bedienreihenfolge. Die Streuung liegt im Falle von SIRO
+zwischen den Werten für FIFO und LIFO.
+
+\section*{Skaleneffekt}
+
+
+Die Economy of Scale oder auch der positive Skaleneffekt beschreiben den bei vielen Produktionssystemen
+vorliegenden Effekt, dass in einem größeren System die Produktionsstückkosten geringer sind als in
+einem kleineren System. Die Ursache dafür kann darin liegen, dass sich die Fixkosten auf mehr Einheiten
+verteilen, oder aber, dass sich Schwankungen bedingt durch stochastischen Zwischenankunfts- und Bedienzeiten
+bei größeren System besser gegenseitig ausgleichen können.
+
+\section*{Standardabweichung}
+
+
+Neben dem Mittelwert sind
+Standardabweichung und Varianz zusammen die zweite wichtige Kenngröße
+einer Messreihe. Die beiden Werte geben an, wie weit die konkreten
+Werte im Durchschnitt vom Mittelwert abweichen. Eine Standardabweichung
+von 0 bedeutet, dass die Messreihe nur aus einem Wert besteht. Negative
+Standardabweichungen sind nicht möglich. Je größer die Standardabweichung
+ist, desto stärker variieren die Messwerte einer Messreihe.
+
+\section*{Ungeduld}
+
+
+Sind die Kunden an einer Bedienstationen nur bereit, begrenzt lange auf
+ihre Bedienung zu warten, so spricht man von der Ungedulg der Kunden. Wie lange die Kunden in diesem Fall bereit
+sind zu warten, bevor sie das Warten aufgeben und die Station unbedient verlassen, wird über die Wartezeittoleranzen
+der Kunden festgelegt.
+
+\section*{Varianz}
+
+
+Bei der Varianz handelt es sich um die quadrierte Standardabweichung.
+
+\section*{Variationskoeffizienten}
+
+
+Der Variationskoeffizient stellt eine normierte Fassung der
+Standardabweichung
+dar. Genauso wie die Standardabweichung nimmt der Variationskoeffizient
+nie Werte kleiner als 0 an und ein Wert von 0 bedeutet, dass die
+Messreihe nur aus einem Wert besteht.
+
+\section*{Verweilzeit}
+
+
+Die in der Statistikansicht mit \textbf{V} bezeichnete Verweilzeit
+gibt an, wie viel Zeit ein Kunde insgesamt im System oder an einer Station verbracht hat.
+
+\section*{Warm-up-Phase}
+
+
+Bevor die Warte- und Bedienzeiten für die Statistik gezählt werden, können eine bestimmte Anzahl an Kunden
+das System durchlaufen, die nicht für die Statistik gezählt werden. Im
+Modelleigenschaften-Dialog kann eingestellt werden, wie lang diese
+Warm-up-Phase, die auch Einschwingphase genannt wird, sein soll.
+
+\section*{Warteabbruch}
+
+
+Besitzt ein Kunde nur eine begrenzte Wartezeittoleranz und überschreitet seine bisherige Wartezeit
+seine individuelle Wartezeittoleranz, so bricht er das warten ab, ohne bedient worden zu sein.
+
+\section*{Warteraum}
+
+
+Ein Warteraum ist integraler Bestandteil einer jeder Bedienstation.
+Im Warteraum wartet ein Kunde, bevor ein Bediener verfügbar, um ihn zu bedienen.
+
+\section*{Warteschlange}
+
+
+Wenn ein Kunde an einer Bedienstation eintrifft und
+nicht sofort bedient werden kann, weil momentan alle Bediener belegt sind, muss der Kunde zunächst warten.
+Die wartenden Kunden bilden die Warteschlange vor dem Bedienschalter. Wird ein Bediener frei, so wird
+der wartende Kunde mit der höchsten Priorität der Warteschlange entnommen und als nächstes bedient.
+In der analytischen Warteschlangentheorie wird die
+Warteschlangenlänge meist mit NQ bezeichnet.
+
+\section*{Wartezeit}
+
+
+Wartezeiten der Kunden entstehen insbesondere an Bedienstation.
+Ein Kunde muss immer dann warten, wenn momentan kein Bediener verfügbar ist, der ihn bedienen könnte.
+In der Statistikansicht werden die Wartezeiten mit \textbf{W} bezeichnet.
+
+\section*{Wartezeittoleranz}
+
+
+Die Wartezeittoleranz gibt an, wie lange die Kunden an einer Bedienstation
+bereit sind auf ihre Bedienung zu warten. Es muss keine Wartezeittoleranz definiert werden; in diesem
+Fall sind die Kunden bereit, beliebig lange zu warten. Die eine endliche Wartezeittoleranz definiert und überschreitet
+ein Kunde diese Wartezeittoleranz, so bricht er den Wartevorgang ab und verlässt die Bedientation, ohne bedient
+worden zu sein.
+
+\section*{Wiederholer}
+
+
+Wenn Kunden das Warten an einer Bedienstation aufgrund von
+zu langen Wartezeiten aufgeben und später einen neuen Anlauf tätigen, bedient zu werden,
+so spricht vom von Wiederholern. Wiederholer treten insbesondere bei einer hohen Auslastung einer
+Bedienstation auf und erhöhen in diesem Fall die Last noch weiter. Diese Effekte lassen sich besonders
+in Systemen, in denen Menschen bedient werden (wie z.B. in Callcentern) beobachten.
+
+\section*{Ziehende Fertigung}
+
+
+Bei der ziehenden Fertigung, auch der Pull-Produktion genannt, führt eine Station nur dann einen Bedienvorgang aus, wenn die
+jeweilige Folgestation einen Kunden bzw. ein Werkstück anfordert, d.h. die Kunden werden von den jeweiligen
+Folgestationen durch die Produktion gezogen. Auf diese Weise können die Bestände an den einzelnen
+Stationen begrenzt werden. Allerdings wird zum einen eine spezielle Steuerung erfordert und zum
+anderen muss sichergestellt werden, dass dennoch genug Puffer vorhanden sind, so dass die Bedienstationen
+auch in diesem Fall nicht unnötig in Leerlauf geraten.
+
+\section*{Zwischenankunftszeiten}
+
+
+Die Zwischenankunftszeiten geben an einer Quelle
+die Zeitspannen zwischen den Ankünften zweier aufeinander folgender Kunden an. Je länger die
+Zwischenankunftszeiten sind, desto weniger Kunden treffen pro Zeiteinheit in dem System ein.

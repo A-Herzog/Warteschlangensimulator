@@ -5,10 +5,11 @@ build/Signer/
 tools/JDDE/
 build/Help/Warteschlangennetz-mittel.png
 build/Help/Warteschlangennetz-mittel.jpg
-build/Help/**/*.pdf
-build/Help/**/*.log
-build/Help/**/*.out
-build/Help/**/*.aux
+*.log
+*.out
+*.aux
+*.bbl
+*.blg
 src/main/java/ui/res/Warteschlangennetz.png
 Simulator.cfg
 Certificate.cfg

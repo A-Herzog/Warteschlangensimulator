@@ -34,19 +34,19 @@ public class CommandBuildExampleModelImages extends AbstractCommand {
 	@Override
 	public String[] getKeys() {
 		List<String> list=new ArrayList<>();
-		list.addAll(Arrays.asList(Language.trAll("CommandLine.BuildExampleModelImages .Name")));
-		for (String s: Language.trOther("CommandLine.BuildExampleModelImages .Name")) if (!list.contains(s)) list.add(s);
+		list.addAll(Arrays.asList(Language.trAll("CommandLine.BuildExampleModelImages.Name")));
+		for (String s: Language.trOther("CommandLine.BuildExampleModelImages.Name")) if (!list.contains(s)) list.add(s);
 		return list.toArray(new String[0]);
 	}
 
 	@Override
 	public String getShortDescription() {
-		return Language.tr("CommandLine.BuildExampleModelImages .Description.Short");
+		return Language.tr("CommandLine.BuildExampleModelImages.Description.Short");
 	}
 
 	@Override
 	public String[] getLongDescription() {
-		return Language.tr("CommandLine.BuildExampleModelImages .Description.Long").split("\n");
+		return Language.tr("CommandLine.BuildExampleModelImages.Description.Long").split("\n");
 	}
 
 	@Override
@@ -63,7 +63,7 @@ public class CommandBuildExampleModelImages extends AbstractCommand {
 	@Override
 	public void run(final AbstractCommand[] allCommands, final InputStream in, final PrintStream out) {
 		if (!Language.isSupportedLanguage(language)) {
-			out.println(String.format(Language.tr("CommandLine.BuildExampleModelImages .Error.Language"),language));
+			out.println(String.format(Language.tr("CommandLine.BuildExampleModelImages.Error.Language"),language));
 			return;
 		}
 

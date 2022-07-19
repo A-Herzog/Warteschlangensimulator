@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-07-16 11:49+0200\n"
+"POT-Creation-Date: 2022-07-17 10:50+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1774,19 +1774,37 @@ msgstr "Der angegebene Pfad \"%s\" existiert nicht."
 msgid "CommandLine.BuildCommandlineDescriptions.Name"
 msgstr "BuildCLIReference"
 
-msgid "CommandLine.BuildExampleModelImages .Description.Long"
+msgid "CommandLine.BuildExampleModelImages.Description.Long"
 msgstr ""
 "Der Befehl erwartet einen Parameter:\n"
 "1. Sprache \"de\" oder \"en\""
 
-msgid "CommandLine.BuildExampleModelImages .Description.Short"
+msgid "CommandLine.BuildExampleModelImages.Description.Short"
 msgstr "Erzeugt pro Beispielmodell ein Bild im Desktop-Ordner."
 
-msgid "CommandLine.BuildExampleModelImages .Error.Language"
+msgid "CommandLine.BuildExampleModelImages.Error.Language"
 msgstr "\"%s\" ist keine gültige Sprach-ID."
 
-msgid "CommandLine.BuildExampleModelImages .Name"
+msgid "CommandLine.BuildExampleModelImages.Name"
 msgstr "BuildExampleModelImages"
+
+msgid "CommandLine.BuildGlossary.Description.Long"
+msgstr ""
+"Der Befehl erwartet zwei Parameter:\n"
+"1. Sprache \"de\" oder \"en\"\n"
+"2. Ausgabeverzeichnis für die LaTeX-Dateien"
+
+msgid "CommandLine.BuildGlossary.Description.Short"
+msgstr "Generiert aus dem Glossar LaTeX-Code."
+
+msgid "CommandLine.BuildGlossary.Error.Language"
+msgstr "\"%s\" ist keine gültige Sprach-ID."
+
+msgid "CommandLine.BuildGlossary.Error.Path"
+msgstr "Der angegebene Pfad \"%s\" existiert nicht."
+
+msgid "CommandLine.BuildGlossary.Name"
+msgstr "BuildGlossaryText"
 
 msgid "CommandLine.Count.But0"
 msgstr "Es wurden jedoch keine weiteren Parameter übergeben."
@@ -1880,6 +1898,9 @@ msgstr "Beim Laden des Modells ist folgender Fehler aufgetreten:"
 
 msgid "CommandLine.Error.PreparationOfModel"
 msgstr "Beim Vorbereiten des Modells ist folgender Fehler aufgetreten"
+
+msgid "CommandLine.Error.UnableToSaveLaTeXCode"
+msgstr "Der LaTeX-Code konnte nicht gespeichert werden."
 
 msgid "CommandLine.Error.UnableToSaveParameterSeriesResults"
 msgstr "Die Parameterreihenergebnisse konnten nicht gespeichert werden."
@@ -9924,6 +9945,15 @@ msgstr "r"
 
 msgid "Main.Menu.Help.ElementReference.pdf"
 msgstr "Warteschlangensimulator-Reference-de.pdf"
+
+msgid "Main.Menu.Help.GlossaryPdf"
+msgstr "Glossar (pdf)"
+
+msgid "Main.Menu.Help.GlossaryPdf.Mnemonic"
+msgstr "G"
+
+msgid "Main.Menu.Help.GlossaryPdf.pdf"
+msgstr "Warteschlangensimulator-Glossary-de.pdf"
 
 msgid "Main.Menu.Help.Help"
 msgstr "Hilfe"
