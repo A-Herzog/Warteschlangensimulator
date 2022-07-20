@@ -18,6 +18,7 @@ package ui.dialogs;
 import java.io.Serializable;
 
 import javax.swing.JCheckBox;
+import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSpinner;
@@ -25,7 +26,9 @@ import javax.swing.SpinnerModel;
 import javax.swing.SpinnerNumberModel;
 
 import language.Language;
+import tools.IconListCellRenderer;
 import tools.SetupData;
+import ui.images.Images;
 import ui.modeleditor.ModelElementBaseDialog;
 import ui.quickaccess.JPlaceholderTextField;
 
@@ -78,6 +81,13 @@ public class SetupDialogPageStatistics extends SetupDialogPage {
 	private final JCheckBox openODS;
 	/** Anbieten, Statistik-Ergebnisse als pdf zu öffnen? */
 	private final JCheckBox openPDF;
+
+	/* Bereich: Unvollständige Statistik */
+
+	/** Wie soll nach dem Abbruch einer Animation mit den unvollständigen Statistikdaten umgegangen werden? */
+	private final JComboBox<String> canceledAnimationStatistics;
+	/** Wie soll nach dem Abbruch einer Simulation mit den unvollständigen Statistikdaten umgegangen werden? */
+	private final JComboBox<String> canceledSimulationStatistics;
 
 	/**
 	 * Konstruktor der Klasse
@@ -155,20 +165,59 @@ public class SetupDialogPageStatistics extends SetupDialogPage {
 		 */
 		addHeading(Language.tr("SettingsDialog.Tabs.Statistics.OpenExternal"));
 
-		/** Anbieten, Statistik-Texte in Word zu öffnen? */
-		addLine().add(openWord=new JCheckBox(Language.tr("SettingsDialog.Tabs.Statistics.OpenWord")));
+		/* Anbieten, Statistik-Texte in Word zu öffnen? */
+		line=addLine();
+		line.add(openWord=new JCheckBox(Language.tr("SettingsDialog.Tabs.Statistics.OpenWord")));
 
-		/** Anbieten, Statistik-Texte in Open/LibreOffice zu öffnen? */
-		addLine().add(openODT=new JCheckBox(Language.tr("SettingsDialog.Tabs.Statistics.OpenODT")));
+		/* Anbieten, Statistik-Texte in Open/LibreOffice zu öffnen? */
+		line.add(openODT=new JCheckBox(Language.tr("SettingsDialog.Tabs.Statistics.OpenODT")));
 
-		/** Anbieten, Statistik-Tabellen in Excel zu öffnen? */
-		addLine().add(openExcel=new JCheckBox(Language.tr("SettingsDialog.Tabs.Statistics.OpenExcel")));
+		/* Anbieten, Statistik-Tabellen in Excel zu öffnen? */
+		line=addLine();
+		line.add(openExcel=new JCheckBox(Language.tr("SettingsDialog.Tabs.Statistics.OpenExcel")));
 
-		/** Anbieten, Statistik-Tabellen in Open/LibreOffice zu öffnen? */
-		addLine().add(openODS=new JCheckBox(Language.tr("SettingsDialog.Tabs.Statistics.OpenODS")));
+		/* Anbieten, Statistik-Tabellen in Open/LibreOffice zu öffnen? */
+		line.add(openODS=new JCheckBox(Language.tr("SettingsDialog.Tabs.Statistics.OpenODS")));
 
-		/** Anbieten, Statistik-Ergebnisse als pdf zu öffnen? */
+		/* Anbieten, Statistik-Ergebnisse als pdf zu öffnen? */
 		addLine().add(openPDF=new JCheckBox(Language.tr("SettingsDialog.Tabs.Statistics.OpenPDF")));
+
+		/*
+		 * Bereich:
+		 * Unvollständige Statistik
+		 */
+
+		addHeading(Language.tr("SettingsDialog.Tabs.Statistics.IncompleteStatistics"));
+
+		/* Wie soll nach dem Abbruch einer Animation mit den unvollständigen Statistikdaten umgegangen werden? */
+		line=addLine();
+		line.add(label=new JLabel(Language.tr("SettingsDialog.Tabs.Statistics.IncompleteStatistics.Animation")+":"));
+		line.add(canceledAnimationStatistics=new JComboBox<>(new String[] {
+				Language.tr("SettingsDialog.Tabs.Statistics.IncompleteStatistics.Mode.Off"),
+				Language.tr("SettingsDialog.Tabs.Statistics.IncompleteStatistics.Mode.Ask"),
+				Language.tr("SettingsDialog.Tabs.Statistics.IncompleteStatistics.Mode.Show")
+		}));
+		canceledAnimationStatistics.setRenderer(new IconListCellRenderer(new Images[]{
+				Images.GENERAL_CANCEL,
+				Images.HELP,
+				Images.STATISTICS
+		}));
+		label.setLabelFor(canceledAnimationStatistics);
+
+		/* Wie soll nach dem Abbruch einer Simulation mit den unvollständigen Statistikdaten umgegangen werden? */
+		line=addLine();
+		line.add(label=new JLabel(Language.tr("SettingsDialog.Tabs.Statistics.IncompleteStatistics.Simulation")+":"));
+		line.add(canceledSimulationStatistics=new JComboBox<>(new String[] {
+				Language.tr("SettingsDialog.Tabs.Statistics.IncompleteStatistics.Mode.Off"),
+				Language.tr("SettingsDialog.Tabs.Statistics.IncompleteStatistics.Mode.Ask"),
+				Language.tr("SettingsDialog.Tabs.Statistics.IncompleteStatistics.Mode.Show")
+		}));
+		canceledSimulationStatistics.setRenderer(new IconListCellRenderer(new Images[]{
+				Images.GENERAL_CANCEL,
+				Images.HELP,
+				Images.STATISTICS
+		}));
+		label.setLabelFor(canceledSimulationStatistics);
 	}
 
 	@Override
@@ -186,6 +235,16 @@ public class SetupDialogPageStatistics extends SetupDialogPage {
 		openExcel.setSelected(setup.openExcel);
 		openODS.setSelected(setup.openODS);
 		openPDF.setSelected(setup.openPDF);
+		switch (setup.canceledAnimationStatistics) {
+		case OFF: canceledAnimationStatistics.setSelectedIndex(0); break;
+		case ASK: canceledAnimationStatistics.setSelectedIndex(1); break;
+		case SHOW: canceledAnimationStatistics.setSelectedIndex(2); break;
+		}
+		switch (setup.canceledSimulationStatistics) {
+		case OFF: canceledSimulationStatistics.setSelectedIndex(0); break;
+		case ASK: canceledSimulationStatistics.setSelectedIndex(1); break;
+		case SHOW: canceledSimulationStatistics.setSelectedIndex(2); break;
+		}
 	}
 
 	@Override
@@ -203,6 +262,16 @@ public class SetupDialogPageStatistics extends SetupDialogPage {
 		setup.openExcel=openExcel.isSelected();
 		setup.openODS=openODS.isSelected();
 		setup.openPDF=openPDF.isSelected();
+		switch (canceledAnimationStatistics.getSelectedIndex()) {
+		case 0: setup.canceledAnimationStatistics=SetupData.CanceledSimulationStatistics.OFF; break;
+		case 1: setup.canceledAnimationStatistics=SetupData.CanceledSimulationStatistics.ASK; break;
+		case 2: setup.canceledAnimationStatistics=SetupData.CanceledSimulationStatistics.SHOW; break;
+		}
+		switch (canceledSimulationStatistics.getSelectedIndex()) {
+		case 0: setup.canceledSimulationStatistics=SetupData.CanceledSimulationStatistics.OFF; break;
+		case 1: setup.canceledSimulationStatistics=SetupData.CanceledSimulationStatistics.ASK; break;
+		case 2: setup.canceledSimulationStatistics=SetupData.CanceledSimulationStatistics.SHOW; break;
+		}
 	}
 
 	@Override
@@ -220,5 +289,7 @@ public class SetupDialogPageStatistics extends SetupDialogPage {
 		openExcel.setSelected(true);
 		openODS.setSelected(false);
 		openPDF.setSelected(false);
+		canceledAnimationStatistics.setSelectedIndex(0);
+		canceledSimulationStatistics.setSelectedIndex(1);
 	}
 }

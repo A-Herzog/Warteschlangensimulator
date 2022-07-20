@@ -184,6 +184,44 @@ public class SetupData extends SetupBase {
 	}
 
 	/**
+	 * Wie soll nach dem Abbruch einer Simulation oder Animation
+	 * mit den unvollständigen Statistikdaten umgegangen werden?
+	 * @see SetupData#canceledAnimationStatistics
+	 * @see SetupData#canceledSimulationStatistics
+	 */
+	public enum CanceledSimulationStatistics {
+		/** Unvollständige Statistik verwerfen */
+		OFF("Off"),
+		/** Nutzer fragen, ob die unvollständige Statistik angezeigt werden soll */
+		ASK("Ask"),
+		/** Unvollständige Statistik immer anzeigen */
+		SHOW("Show");
+
+		/** Name des Statistik-Modus zum Speichern in der Konfiguration */
+		public final String name;
+
+		/**
+		 * Konstruktor des Enum
+		 * @param name	Name des Statistik-Modus zum Speichern in der Konfiguration
+		 */
+		CanceledSimulationStatistics(final String name) {
+			this.name=name;
+		}
+
+		/**
+		 * Liefert zu einem Namen das passende Statistik-Modus-Enum.
+		 * @param name	Name (aus der Konfiguration geladen)
+		 * @param defaultValue	Fallback-Wert falls es keinen Eintrag mit dem angegebenen Namen gibt
+		 * @return	Passendes Enum (oder Fallback-Wert)
+		 * @see #name
+		 */
+		public static CanceledSimulationStatistics getByName(final String name, final CanceledSimulationStatistics defaultValue) {
+			for (CanceledSimulationStatistics mode: values()) if (mode.name.equalsIgnoreCase(name)) return mode;
+			return defaultValue;
+		}
+	}
+
+	/**
 	 * Programmsprache
 	 */
 	public String language;
@@ -1293,6 +1331,15 @@ public class SetupData extends SetupBase {
 	 */
 	public boolean gradientNavigator;
 
+	/**
+	 * Wie soll nach dem Abbruch einer Animation mit den unvollständigen Statistikdaten umgegangen werden?
+	 */
+	public CanceledSimulationStatistics canceledAnimationStatistics;
+
+	/**
+	 * Wie soll nach dem Abbruch einer Simulation mit den unvollständigen Statistikdaten umgegangen werden?
+	 */
+	public CanceledSimulationStatistics canceledSimulationStatistics;
 
 	/**
 	 * Letzter Fehler
@@ -1520,6 +1567,8 @@ public class SetupData extends SetupBase {
 		dashboardSetup.clear();
 		gradientTempaltes=false;
 		gradientNavigator=false;
+		canceledAnimationStatistics=CanceledSimulationStatistics.OFF;
+		canceledSimulationStatistics=CanceledSimulationStatistics.ASK;
 		lastError=null;
 	}
 
@@ -2528,6 +2577,16 @@ public class SetupData extends SetupBase {
 				gradientNavigator=loadBoolean(e.getTextContent(),false);
 				continue;
 			}
+
+			if (name.equals("canceledanimationstatistics")) {
+				canceledAnimationStatistics=CanceledSimulationStatistics.getByName(e.getTextContent(),CanceledSimulationStatistics.OFF);
+				continue;
+			}
+
+			if (name.equals("canceledsimulationstatistics")) {
+				canceledSimulationStatistics=CanceledSimulationStatistics.getByName(e.getTextContent(),CanceledSimulationStatistics.ASK);
+				continue;
+			}
 		}
 
 		if (useLastFiles) {
@@ -3242,6 +3301,16 @@ public class SetupData extends SetupBase {
 		if (gradientNavigator) {
 			root.appendChild(node=doc.createElement("GradientNavigator"));
 			node.setTextContent("1");
+		}
+
+		if (canceledAnimationStatistics!=CanceledSimulationStatistics.OFF) {
+			root.appendChild(node=doc.createElement("CanceledAnimationStatistics"));
+			node.setTextContent(canceledAnimationStatistics.name);
+		}
+
+		if (canceledSimulationStatistics!=CanceledSimulationStatistics.ASK) {
+			root.appendChild(node=doc.createElement("CanceledSimulationStatistics"));
+			node.setTextContent(canceledSimulationStatistics.name);
 		}
 
 		if (lastError!=null && !lastError.trim().isEmpty()) {

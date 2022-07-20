@@ -2951,6 +2951,58 @@ public class MainPanel extends MainPanelBase {
 	}
 
 	/**
+	 * Führt die Abschlussverarbeitung nach einer Simulation oder einer Animation durch.
+	 * @param successful	Wurde die Simulation erfolgreich zu Ende geführt?
+	 * @param simulator	Simulatorobjekt, dem die Statistik entnommen werden soll
+	 * @param isAnimation	Handelte es sich um eine Animation (<code>true</code>) oder um eine Simulation (<code>false</code>)?
+	 * @param simulationStartTime	Startzeitpunkt der Simulation (in ms)
+	 */
+	private void processSimulationDone(final boolean successful, final AnySimulator simulator, final boolean isAnimation, final long simulationStartTime) {
+		enableMenuBar(true);
+
+		final Statistics statistics=simulator.getStatistic();
+
+		if (successful) {
+			statisticsPanel.setStatistics(statistics);
+			for (AbstractButton button: enabledOnStatisticsAvailable) button.setEnabled(true);
+			setCurrentPanel(statisticsPanel);
+			if (simulationStartTime>0) Notifier.run(Notifier.Message.SIMULATION_DONE,simulationStartTime);
+			return;
+		}
+
+		if (statistics!=null) {
+			final SetupData.CanceledSimulationStatistics mode;
+			if (isAnimation) mode=setup.canceledAnimationStatistics; else mode=setup.canceledSimulationStatistics;
+			boolean show=false;
+			switch (mode) {
+			case ASK:
+				show=MsgBox.confirm(this,Language.tr("Window.SimulationCanceled.Title"),Language.tr("Window.SimulationCanceled.Info"),Language.tr("Window.SimulationCanceled.InfoYes"),Language.tr("Window.SimulationCanceled.InfoNo"));
+				break;
+			case OFF:
+				show=false;
+				break;
+			case SHOW:
+				show=true;
+				break;
+			default:
+				show=false;
+				break;
+			}
+			if (show) {
+				statisticsPanel.setStatistics(statistics);
+				for (AbstractButton button: enabledOnStatisticsAvailable) button.setEnabled(true);
+				setCurrentPanel(statisticsPanel);
+				if (mode!=SetupData.CanceledSimulationStatistics.ASK) {
+					if (simulationStartTime>0) Notifier.run(Notifier.Message.SIMULATION_DONE,simulationStartTime);
+				}
+				return;
+			}
+		}
+
+		setCurrentPanel(editorPanel);
+	}
+
+	/**
 	 * Befehl: Simulation - Animation starten
 	 * @param recordFile	Datei für Videoaufzeichnung (kann <code>null</code> sein)
 	 * @param externalConnect Wird die Animation im Pausemodus gestartet, so wird direkt der erste Schritt ausgeführt. Über diese Funktion kann angegeben werden, dass dieser Schritt im vollständigen Erfassungsmodus durchgeführt werden soll.
@@ -3028,28 +3080,15 @@ public class MainPanel extends MainPanelBase {
 					reloadSetup();
 					editorPanel.setZoom(animationPanel.getZoom());
 					editorPanel.setTopPosition(animationPanel.getTopPosition());
-					if (animationPanel.isSimulationSuccessful()) {
-						statisticsPanel.setStatistics(simulator.getStatistic());
-						for (AbstractButton button: enabledOnStatisticsAvailable) button.setEnabled(true);
-						setCurrentPanel(statisticsPanel);
-					} else {
-						setCurrentPanel(editorPanel);
+					if (!simulator.isRunning()) { /* Wenn die Animation als Simulation zu Ende geführt werden soll. */
+						processSimulationDone(animationPanel.isSimulationSuccessful(),simulator,true,-1);
 					}
-					enableMenuBar(true);
 				},
 				()->{
 					editorPanel.setZoom(animationPanel.getZoom());
 					enableMenuBar(false);
-					waitPanel.setSimulator(simulator,()->{
-						if (waitPanel.isSimulationSuccessful()) {
-							statisticsPanel.setStatistics(simulator.getStatistic());
-							for (AbstractButton button: enabledOnStatisticsAvailable) button.setEnabled(true);
-							setCurrentPanel(statisticsPanel);
-						} else {
-							setCurrentPanel(editorPanel);
-						}
-						enableMenuBar(true);
-					});
+					final long simulationStartTime=System.currentTimeMillis();
+					waitPanel.setSimulator(simulator,()->processSimulationDone(waitPanel.isSimulationSuccessful(),simulator,false,simulationStartTime));
 					setCurrentPanel(waitPanel);
 				},
 				setup.animationStartPaused || externalConnect,
@@ -3209,15 +3248,7 @@ public class MainPanel extends MainPanelBase {
 
 		final long simulationStartTime=System.currentTimeMillis();
 		waitPanel.setSimulator(simulator,()->{
-			if (waitPanel.isSimulationSuccessful()) {
-				statisticsPanel.setStatistics(simulator.getStatistic());
-				for (AbstractButton button: enabledOnStatisticsAvailable) button.setEnabled(true);
-				setCurrentPanel(statisticsPanel);
-				Notifier.run(Notifier.Message.SIMULATION_DONE,simulationStartTime);
-			} else {
-				setCurrentPanel(editorPanel);
-			}
-			enableMenuBar(true);
+			processSimulationDone(waitPanel.isSimulationSuccessful(),simulator,false,simulationStartTime);
 			if (whenDone!=null) whenDone.run();
 		});
 		/* WaitPanel nur anzeigen, wenn die (Hintergrund-)Simulation nicht schon fertig ist. */

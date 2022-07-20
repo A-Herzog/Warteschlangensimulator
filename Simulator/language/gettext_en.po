@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-07-17 10:50+0200\n"
+"POT-Creation-Date: 2022-07-19 08:09+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16658,6 +16658,24 @@ msgstr "Levels"
 
 msgid "SettingsDialog.Tabs.Statistics.BatchMeansConfidenceLevels.Levels.Placeholder"
 msgstr "Keep empty for \"90%;95%;99%\""
+
+msgid "SettingsDialog.Tabs.Statistics.IncompleteStatistics"
+msgstr "Incomplete statistics"
+
+msgid "SettingsDialog.Tabs.Statistics.IncompleteStatistics.Animation"
+msgstr "After cancelled animation"
+
+msgid "SettingsDialog.Tabs.Statistics.IncompleteStatistics.Mode.Ask"
+msgstr "Ask user"
+
+msgid "SettingsDialog.Tabs.Statistics.IncompleteStatistics.Mode.Off"
+msgstr "Discard incomplete statistics"
+
+msgid "SettingsDialog.Tabs.Statistics.IncompleteStatistics.Mode.Show"
+msgstr "Show incomplete statistics"
+
+msgid "SettingsDialog.Tabs.Statistics.IncompleteStatistics.Simulation"
+msgstr "After cancelled simulation"
 
 msgid "SettingsDialog.Tabs.Statistics.NumberDigits"
 msgstr "Decimal digits for numerical values"
@@ -33849,6 +33867,20 @@ msgstr "Error initializing the simulation"
 
 msgid "Window.Simulation.ModelIsFaulty"
 msgstr "Model is invalid"
+
+msgid "Window.SimulationCanceled.Info"
+msgstr ""
+"The simulation was terminated prematurely.\n"
+"Do you want to show the incomplete statistics data anyway?"
+
+msgid "Window.SimulationCanceled.InfoNo"
+msgstr "Return to model editor."
+
+msgid "Window.SimulationCanceled.InfoYes"
+msgstr "Show incomplete statistics."
+
+msgid "Window.SimulationCanceled.Title"
+msgstr "Canceled simulation"
 
 msgid "Window.UnsavedFile"
 msgstr "unsaved model file"

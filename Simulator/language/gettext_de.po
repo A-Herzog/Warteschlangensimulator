@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-07-17 10:50+0200\n"
+"POT-Creation-Date: 2022-07-19 08:09+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16667,6 +16667,24 @@ msgstr "Niveaus"
 
 msgid "SettingsDialog.Tabs.Statistics.BatchMeansConfidenceLevels.Levels.Placeholder"
 msgstr "Leer lassen für \"90%;95%;99%\""
+
+msgid "SettingsDialog.Tabs.Statistics.IncompleteStatistics"
+msgstr "Unvollständige Statistik"
+
+msgid "SettingsDialog.Tabs.Statistics.IncompleteStatistics.Animation"
+msgstr "Nach abgebrochener Animation"
+
+msgid "SettingsDialog.Tabs.Statistics.IncompleteStatistics.Mode.Ask"
+msgstr "Nutzer Fragen"
+
+msgid "SettingsDialog.Tabs.Statistics.IncompleteStatistics.Mode.Off"
+msgstr "Unvollständige Statistik verwerfen"
+
+msgid "SettingsDialog.Tabs.Statistics.IncompleteStatistics.Mode.Show"
+msgstr "Unvollständige Statistik anzeigen"
+
+msgid "SettingsDialog.Tabs.Statistics.IncompleteStatistics.Simulation"
+msgstr "Nach abgebrochener Simulation"
 
 msgid "SettingsDialog.Tabs.Statistics.NumberDigits"
 msgstr "Nachkommastellen für Zahlenwerte"
@@ -33874,6 +33892,20 @@ msgstr "Fehler beim Initialisieren der Simulation"
 
 msgid "Window.Simulation.ModelIsFaulty"
 msgstr "Modell ist fehlerhaft"
+
+msgid "Window.SimulationCanceled.Info"
+msgstr ""
+"Die Simulation wurde vorzeitig abgebrochen.\n"
+"Sollen dennoch die unvollständigen Statistikdaten angezeigt werden?"
+
+msgid "Window.SimulationCanceled.InfoNo"
+msgstr "Zum Modell-Editor zurückkehren."
+
+msgid "Window.SimulationCanceled.InfoYes"
+msgstr "Unvollständige Statistikdaten anzeigen."
+
+msgid "Window.SimulationCanceled.Title"
+msgstr "Abgebrochene Simulation"
 
 msgid "Window.UnsavedFile"
 msgstr "ungespeichertes Modell"
