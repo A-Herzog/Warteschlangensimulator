@@ -39,5 +39,22 @@ immer größer oder gleich 1. Kleine Werte bedeuten, dass im Verhältnis zur Bed
 Warte- und Transferzeiten angefallen sind. Große Werte deuten auf verhältnismäßig lange
 Warte- und Transferzeiten hin. 
 </p>
+
+<h2>Konfidenzintervalle</h2>
+<p>
+Zu den auf dieser Seite angezeigten Größen können optional Konfidenzintervalle ausgegeben werden.
+Zur Berechnung von Konfidenzintervallen müssen die einzelnen Messwerte stochastisch unabhängig sein,
+was bei den in einem Warteschlangensystem erfassten Größen üblicherweise nicht der Fall ist.
+Um dennoch Konfidenzintervalle bestimmen zu können, wird daher eine feste Anzahl an Werten zu einem Batch zusammengefasst.
+Die Batch-Größen werden dabei so gewählt, dass zwischen diesen (fast) keine Abhängigkeiten mehr bestehen.
+(Diese virtuelle Zusammenfassung von Messwerten hat nichts mit Ankunfts- oder Bedien-Batchen zu tun.)
+Die Mittelwerte pro Batch werden dann als Eingangsgröße für die Berechnung der Konfidenzintervalle verwendet.
+</p>
+<p>
+Die Erfassung von Batch-Means-basierenden Konfidenzintervallen kann auf der Dialogseite <b>Ausgabeanalyse</b>
+im <b>Modelleigenschaften</b>-Dialog aktiviert werden. Dafür muss eine Batch-Größe vorgegeben werden.
+Diese kann vorab über den Menüpunkt <b>Statistik-Batch-Größe bestimmen</b> im <b>Simulation</b>-Menü
+automatisch bestimmt werden.
+</p>
   
 </body></html>

@@ -61,5 +61,21 @@
   90% of the time intervals were at most as long (in seconds) as shown in this cell.
   </li>
 </ul>
-  
+
+<h2>Confidence intervals</h2>
+<p>
+For the performance indicators displayed on this page, confidence intervals can optionally be output.
+To calculate confidence intervals, the individual measured values have to be stochastically independent,
+which is usually not the case with the indicators recorded in a queueing system. In order to be able to
+determine confidence intervals in spite of this, a fixed number of values is therefore combined to form
+a batch. The batch sizes are chosen in such a way that (almost) no dependencies exist between them.
+(This virtual grouping of measured values has nothing to do with arrival or service batches).
+The mean values per batch are then used as input variable for the calculation of the confidence intervals.
+</p>
+<p>
+The recording of batch-means-based confidence intervals can be activated on the <b>Output analysis</b> page
+in the <b>Model properties</b> dialog. A batch size has to be specified for this. This can be determined
+automatically in advance via the menu item <b>Determine statistics batch size</b> in the <b>Simulation</b> menu.
+</p>
+
 </body></html>

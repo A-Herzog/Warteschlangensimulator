@@ -54,6 +54,7 @@ import statistics.StatisticsTimeContinuousPerformanceIndicator;
 import statistics.StatisticsTimePerformanceIndicator;
 import statistics.StatisticsValuePerformanceIndicator;
 import systemtools.BaseDialog;
+import systemtools.MsgBox;
 import systemtools.images.SimToolsImages;
 import systemtools.statistics.StatisticViewerText;
 import systemtools.statistics.StatisticsBasePanel;
@@ -145,6 +146,12 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 		/** Statistik über die globalen Variablen */
 		MODE_USER_VARIABLES
 	}
+
+	/**
+	 * Zielangabe für Details-Links, wenn diese eine Information zur Bestimmung
+	 * von Konfidenzintervallen aufrufen sollen.
+	 */
+	private static final String MORE_CONFIDENCE_DATA_LINK="MoreConfidence";
 
 	/**
 	 * Konstruktor der Klasse
@@ -382,8 +389,10 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 		}
 		if (names.size()>0) {
 			addLine(String.format(Language.tr("Statistics.Confidence.InfoThread"),NumberTools.formatLong(statistics.simulationData.runThreads)));
-			endParagraph();
 		}
+
+		addLink(MORE_CONFIDENCE_DATA_LINK,Language.tr("Statistics.Confidence.More"));
+		endParagraph();
 	}
 
 	/**
@@ -1453,11 +1462,19 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 
 	@Override
 	protected void processLinkClick(final String link) {
+		/* Details-Links */
 		for (Mode mode: Mode.values()) if (mode.toString().equals(link)) {
 			if (modeClick!=null) modeClick.accept(mode);
 			return;
 		}
 
+		/* Konfidenzintervall-Hilfe-Link */
+		if (link.equals(MORE_CONFIDENCE_DATA_LINK)) {
+			MsgBox.info(getViewer(false),Language.tr("Statistics.Confidence.More"),"<html><body>"+Language.tr("Statistics.Confidence.More.Info").replace("\n","")+"</body></html>");
+			return;
+		}
+
+		/* Aufrufe externer Dateien (Anzeige von generierten Ausgabedateien) */
 		if (link.startsWith("file:")) {
 			try {
 				Desktop.getDesktop().open(new File(link.substring(5)));
