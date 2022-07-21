@@ -96,6 +96,7 @@ import simulator.runmodel.RunDataClient;
 import simulator.runmodel.RunDataTransporter;
 import simulator.runmodel.RunModel;
 import simulator.runmodel.SimulationData;
+import simulator.statistics.Statistics;
 import swingtools.ImageIOFormatCheck;
 import systemtools.MsgBox;
 import systemtools.SetupBase;
@@ -263,6 +264,8 @@ public class AnimationPanel extends JPanel implements RunModelAnimationViewer {
 	private final JButton buttonProperties;
 	/** Schaltfläche "Aktuelle Daten" */
 	private final JButton buttonCurrentData;
+	/** Schaltfläche "Statistik" */
+	private final JButton buttonCurrentStatistics;
 
 	/* Statusleiste */
 
@@ -399,6 +402,7 @@ public class AnimationPanel extends JPanel implements RunModelAnimationViewer {
 
 		buttonProperties=createRotatedToolbarButton(leftToolBar,Language.tr("Editor.ModelProperties.Short"),Language.tr("Editor.ModelProperties.Info")+" ("+keyStrokeToString(KeyStroke.getKeyStroke(KeyEvent.VK_F2,InputEvent.CTRL_DOWN_MASK))+")",Images.MODEL.getIcon());
 		buttonCurrentData=createRotatedToolbarButton(leftToolBar,Language.tr("Editor.AnimationData.Short"),Language.tr("Editor.AnimationData.Info")+" ("+keyStrokeToString(KeyStroke.getKeyStroke(KeyEvent.VK_F3,0))+")",Images.ANIMATION_EVALUATE_EXPRESSION.getIcon());
+		buttonCurrentStatistics=createRotatedToolbarButton(leftToolBar,Language.tr("Editor.Statistics.Short"),Language.tr("Editor.Statistics.Info"),Images.STATISTICS.getIcon());
 
 		/* Surface in der Mitte */
 		content.add(new RulerPanel(surfacePanel=new ModelSurfacePanel(true,false),SetupData.getSetup().showRulers),BorderLayout.CENTER);
@@ -1616,6 +1620,7 @@ public class AnimationPanel extends JPanel implements RunModelAnimationViewer {
 			buttonPlayPause.setText(Language.tr("Animation.Toolbar.Play"));
 			buttonPlayPause.setToolTipText(Language.tr("Animation.Toolbar.Play.Info")+" ("+keyStrokeToString(KeyStroke.getKeyStroke(KeyEvent.VK_F6,0))+")");
 			buttonPlayPause.setIcon(Images.ANIMATION_PLAY.getIcon());
+			buttonCurrentStatistics.setEnabled(true);
 		} else {
 			/* Play */
 			logArea.setVisible(false);
@@ -1624,6 +1629,7 @@ public class AnimationPanel extends JPanel implements RunModelAnimationViewer {
 			buttonPlayPause.setText(Language.tr("Animation.Toolbar.Pause"));
 			buttonPlayPause.setToolTipText(Language.tr("Animation.Toolbar.Pause.Info")+" ("+keyStrokeToString(KeyStroke.getKeyStroke(KeyEvent.VK_F6,0))+")");
 			buttonPlayPause.setIcon(Images.ANIMATION_PAUSE.getIcon());
+			buttonCurrentStatistics.setEnabled(false);
 		}
 	}
 
@@ -2368,6 +2374,21 @@ public class AnimationPanel extends JPanel implements RunModelAnimationViewer {
 	}
 
 	/**
+	 * Zeigt einen Statistikdialog zu den aktuell vorliegenden Statistikdaten an.
+	 */
+	private void showStatistics() {
+		final Statistics statistics=simulator.getIncompleteStatistic();
+		if (statistics==null) {
+			MsgBox.error(AnimationPanel.this,Language.tr("Editor.Statistics.ErrorTitle"),Language.tr("Editor.Statistics.ErrorInfo"));
+			return;
+		}
+
+		final ModelViewerFrame viewer=new ModelViewerFrame(window,model,statistics,true,null);
+		viewer.selectStatisticTab();
+		viewer.setVisible(true);
+	}
+
+	/**
 	 * Liefert eine Liste der Kunden im System.
 	 * Der Abruf erfolgt dabei synchronisiert zu einem möglicherweise laufenden Simulator.
 	 * @param simulator	Simulatorinstanz
@@ -2562,6 +2583,7 @@ public class AnimationPanel extends JPanel implements RunModelAnimationViewer {
 			if (source==menuRespectPauseCommand) {toggleRespectPauseCommand(); return;}
 			if (source==buttonProperties) {showModelPropertiesDialog(null); return;}
 			if (source==buttonCurrentData) {calcExpression(); return;}
+			if (source==buttonCurrentStatistics) {showStatistics(); return;}
 			if (source==logPrevious) {displayLogMessage(-1); return;}
 			if (source==logNext) {displayLogMessage(1); return;}
 			if (source==logCurrent) {displayLogMessage(0); return;}

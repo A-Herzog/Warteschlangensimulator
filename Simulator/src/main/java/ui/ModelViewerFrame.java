@@ -144,7 +144,8 @@ public class ModelViewerFrame extends JDialog {
 			statisticsPanel=null;
 		}
 
-		setMinimumSize(new Dimension((int)Math.round(800*SetupData.getSetup().scaleGUI),(int)Math.round(600*SetupData.getSetup().scaleGUI)));
+		final double scale=SetupData.getSetup().scaleGUI;
+		setMinimumSize(new Dimension((int)Math.round(1024*scale),(int)Math.round(768*scale)));
 		setLocationRelativeTo(owner);
 		WindowSizeStorage.window(this,"modelviewer");
 
@@ -192,6 +193,36 @@ public class ModelViewerFrame extends JDialog {
 		return rootPane;
 	}
 
+	/**
+	 * Zeigt die "Modell"-Dialogseite an.
+	 */
+	public void selectModelTab() {
+		if (buttonViewEditor==null || buttonViewEditor.isSelected()) return;
+		buttonViewEditor.setSelected(true);
+		buttonViewStatistics.setSelected(false);
+		Container c=getContentPane();
+		c.remove(statisticsPanel);
+		c.add(editorPanel,BorderLayout.CENTER);
+		c.revalidate();
+		editorPanel.setVisible(false);
+		editorPanel.setVisible(true);
+	}
+
+	/**
+	 * Zeigt die "Statistik"-Dialogseite an.
+	 */
+	public void selectStatisticTab() {
+		if (buttonViewStatistics==null || buttonViewStatistics.isSelected()) return;
+		buttonViewEditor.setSelected(false);
+		buttonViewStatistics.setSelected(true);
+		Container c=getContentPane();
+		c.remove(editorPanel);
+		c.add(statisticsPanel,BorderLayout.CENTER);
+		c.revalidate();
+		statisticsPanel.setVisible(false);
+		statisticsPanel.setVisible(true);
+	}
+
 	/** Reaktion auf das Anklicken einer Schaltfläche in der Symbolleiste */
 	private class ButtonListener implements ActionListener {
 		/**
@@ -223,27 +254,11 @@ public class ModelViewerFrame extends JDialog {
 				return;
 			}
 			if (sender==buttonViewEditor) {
-				if (buttonViewEditor.isSelected()) return;
-				buttonViewEditor.setSelected(true);
-				buttonViewStatistics.setSelected(false);
-				Container c=getContentPane();
-				c.remove(statisticsPanel);
-				c.add(editorPanel,BorderLayout.CENTER);
-				c.revalidate();
-				editorPanel.setVisible(false);
-				editorPanel.setVisible(true);
+				selectModelTab();
 				return;
 			}
 			if (sender==buttonViewStatistics) {
-				if (buttonViewStatistics.isSelected()) return;
-				buttonViewEditor.setSelected(false);
-				buttonViewStatistics.setSelected(true);
-				Container c=getContentPane();
-				c.remove(editorPanel);
-				c.add(statisticsPanel,BorderLayout.CENTER);
-				c.revalidate();
-				statisticsPanel.setVisible(false);
-				statisticsPanel.setVisible(true);
+				selectStatisticTab();
 				return;
 			}
 			if (sender==buttonLoadToCurrentEditor) {

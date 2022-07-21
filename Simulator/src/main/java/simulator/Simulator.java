@@ -412,6 +412,25 @@ public class Simulator extends SimulatorBase implements AnySimulator {
 	}
 
 	/**
+	 * Liefert einen unvollständigen Statistikdatensatz bezogen auf den
+	 * aktuellen Stand einer laufenden Simulation.<br>
+	 * (Voraussetzungen: Die Simulation muss im Single-Core-Modus laufen
+	 * und sie muss momentan pausiert sein.)
+	 * @return	Liefert im Erfolgsfall ein von dem internen Zustand entkoppeltes Statistikobjekt oder <code>null</code>, wenn die Voraussetzungen nicht erfüllt sind
+	 */
+	public Statistics getIncompleteStatistic() {
+		if (!isPaused() || !isRunning()) return null;
+		if (threads.length!=1) return null;
+
+		final Statistics statistics=new Statistics(runModel.correlationRange,runModel.correlationMode,runModel.batchMeansSize,runModel.collectWaitingTimes,runModel.distributionRecordHours,runModel.distributionRecordClientDataValues,runModel.useWelford);
+		writeBaseDataToStatistics(statistics);
+		statistics.addData(((SimulationData)threads[0].simData).statistics);
+		statistics.calc();
+
+		return statistics;
+	}
+
+	/**
 	 * Liefert nach Abschluss der Simulation die Statistikergebnisse zurück.
 	 * @return	Statistik-Objekt, welches alle Daten des Simulationslaufs enthält
 	 */
@@ -489,6 +508,7 @@ public class Simulator extends SimulatorBase implements AnySimulator {
 	 */
 	@Override
 	public final long getCountClients() {
+		if (runModel==null) return 0;
 		return (runModel.realArrivingClientCount+runModel.clientCountDiv*FastMath.round(runModel.warmUpTime*runModel.realArrivingClientCount))*runModel.repeatCount;
 	}
 
