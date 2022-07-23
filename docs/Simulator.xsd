@@ -1659,6 +1659,7 @@
   <xs:attribute name="Maximum" type="xs:string"/>
   <xs:attribute name="Richtung" type="xs:string" use="required"/>
   <xs:attribute name="Beschriftung" type="xs:string"/>
+  <xs:attribute name="Beschriftungstext" type="xs:string"/>
 </xs:complexType></xs:element>
 
 <xs:element name="ModellElementAnimationStapelBalken"><xs:complexType><xs:complexContent><xs:extension base="ModellElementEinfachBasis">
@@ -1669,9 +1670,17 @@
 	<xs:element name="ModellElementLinienFarbe" type="xs:string"/>
 	<xs:element name="ModellElementHintergrundfarbe" type="xs:string"/>
 	<xs:element name="ModellElementBalkenFarbe" type="xs:string"/>
-	<xs:element name="ModellElementAchsenbeschriftung" type="xs:string"/>
+	<xs:element ref="ModellElementAchsenbeschriftung"/>
   </xs:choice></xs:sequence>
 </xs:extension></xs:complexContent></xs:complexType></xs:element>
+
+<xs:element name="ModellElementAchsenbeschriftung"><xs:complexType><xs:simpleContent>
+  <xs:extension base="xs:string">
+    <xs:attribute name="Text" type="xs:string"/>
+	<xs:attribute name="TextX" type="xs:string"/>
+	<xs:attribute name="TextY" type="xs:string"/>
+  </xs:extension>
+</xs:simpleContent></xs:complexType></xs:element>
 
 <xs:element name="ModellElementAnimationAmpel"><xs:complexType><xs:complexContent><xs:extension base="ModellElementEinfachBasis">
   <xs:sequence minOccurs="0" maxOccurs="unbounded"><xs:choice>  
@@ -1722,7 +1731,7 @@
 	<xs:element name="ModellElementMinimalwert" type="xs:string"/>
     <xs:element name="ModellElementMaximalwert" type="xs:string"/>
 	<xs:element name="ModellElement3DEffekt" type="xs:string"/>
-	<xs:element name="ModellElementAchsenbeschriftung" type="xs:string"/>
+	<xs:element ref="ModellElementAchsenbeschriftung"/>
   </xs:choice></xs:sequence>
 </xs:extension></xs:complexContent></xs:complexType></xs:element>
 <xs:element name="ModellElementDiagrammElement"><xs:complexType><xs:simpleContent>
@@ -1744,7 +1753,7 @@
 	<xs:element name="ModellElementHintergrundfarbe" type="xs:string"/>	
     <xs:element ref="ModellElementDiagrammElement"/>
 	<xs:element name="ModellElementDiagrammZeitbereich" type="xs:string"/>
-	<xs:element name="ModellElementAchsenbeschriftung" type="xs:string"/>
+	<xs:element ref="ModellElementAchsenbeschriftung"/>
   </xs:choice></xs:sequence>
 </xs:extension></xs:complexContent></xs:complexType></xs:element>
 
@@ -1782,7 +1791,7 @@
     <xs:element name="ModellElementAnimationAufzeichnungElementID" type="xs:string"/>
 	<xs:element name="ModellElementAnimationAufzeichnungAnzahlPunkte" type="xs:string"/>
     <xs:element name="ModellElementAnimationAufzeichnungDatenfarbe" type="xs:string"/>
-	<xs:element name="ModellElementAchsenbeschriftung" type="xs:string"/>
+	<xs:element ref="ModellElementAchsenbeschriftung"/>
   </xs:choice></xs:sequence>
 </xs:extension></xs:complexContent></xs:complexType></xs:element>
 
@@ -3913,6 +3922,7 @@
   <xs:attribute name="Maximum" type="xs:string"/>
   <xs:attribute name="Direction" type="xs:string" use="required"/>
   <xs:attribute name="Labels" type="xs:string"/>
+  <xs:attribute name="LabelText" type="xs:string"/>
 </xs:complexType></xs:element>
 
 <xs:element name="ModelElementAnimationStackBar"><xs:complexType><xs:complexContent><xs:extension base="ModelElementSimpleBase">
@@ -3923,9 +3933,17 @@
 	<xs:element name="ModelElementLineColor" type="xs:string"/>
 	<xs:element name="ModelElementBackgroundColor" type="xs:string"/>
 	<xs:element name="ModelElementBarColor" type="xs:string"/>
-	<xs:element name="ModelElementAxisLabels" type="xs:string"/>
+	<xs:element ref="ModelElementAxisLabels"/>
   </xs:choice></xs:sequence>
 </xs:extension></xs:complexContent></xs:complexType></xs:element>
+
+<xs:element name="ModelElementAxisLabels"><xs:complexType><xs:simpleContent>
+  <xs:extension base="xs:string">
+    <xs:attribute name="Text" type="xs:string"/>
+	<xs:attribute name="TextX" type="xs:string"/>
+	<xs:attribute name="TextY" type="xs:string"/>
+  </xs:extension>
+</xs:simpleContent></xs:complexType></xs:element>
 
 <xs:element name="ModelElementAnimationTrafficLights"><xs:complexType><xs:complexContent><xs:extension base="ModelElementSimpleBase">
   <xs:sequence minOccurs="0" maxOccurs="unbounded"><xs:choice>  
@@ -3976,7 +3994,7 @@
 	<xs:element name="ModelElementMinimumValue" type="xs:string"/>
     <xs:element name="ModelElementMaximumValue" type="xs:string"/>
 	<xs:element name="ModelElementUse3D" type="xs:string"/>
-	<xs:element name="ModelElementAxisLabels" type="xs:string"/>
+	<xs:element ref="ModelElementAxisLabels"/>
   </xs:choice></xs:sequence>
 </xs:extension></xs:complexContent></xs:complexType></xs:element>
 <xs:element name="ModelElementDiagramElement"><xs:complexType><xs:simpleContent>
@@ -3998,7 +4016,7 @@
 	<xs:element name="ModelElementBackgroundColor" type="xs:string"/>	
     <xs:element ref="ModelElementDiagramElement"/>
 	<xs:element name="ModelElementDiagramTimeRange" type="xs:string"/>
-	<xs:element name="ModelElementAxisLabels" type="xs:string"/>
+	<xs:element ref="ModelElementAxisLabels"/>
   </xs:choice></xs:sequence>
 </xs:extension></xs:complexContent></xs:complexType></xs:element>
 
@@ -4036,7 +4054,7 @@
     <xs:element name="ModelElementAnimationRecordStationID" type="xs:string"/>
 	<xs:element name="ModelElementAnimationRecordDataPoints" type="xs:string"/>
     <xs:element name="ModelElementAnimationRecordDataColor" type="xs:string"/>
-	<xs:element name="ModelElementAxisLabels" type="xs:string"/>
+	<xs:element ref="ModelElementAxisLabels"/>
   </xs:choice></xs:sequence>
 </xs:extension></xs:complexContent></xs:complexType></xs:element>
 

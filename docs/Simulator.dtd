@@ -1524,6 +1524,7 @@
   Maximum	CDATA	#IMPLIED
   Richtung	CDATA	#REQUIRED
   Beschriftung	CDATA	#IMPLIED
+  Beschriftungstext	CDATA	#IMPLIED
 >
 <!ELEMENT ModellElementBalkenFarbe (#PCDATA)>
 
@@ -1589,6 +1590,11 @@
 <!ELEMENT ModellElementMaximalwert (#PCDATA)>
 <!ELEMENT ModellElement3DEffekt (#PCDATA)>
 <!ELEMENT ModellElementAchsenbeschriftung (#PCDATA)>
+<!ATTLIST ModellElementAchsenbeschriftung
+  Text	CDATA	#IMPLIED
+  TextX	CDATA	#IMPLIED
+  TextY	CDATA	#IMPLIED
+>
 <!ELEMENT ModellElementDiagrammElement (#PCDATA)>
 <!ATTLIST ModellElementDiagrammElement
   Minimum		CDATA	#IMPLIED
@@ -4006,6 +4012,7 @@
   Maximum	CDATA	#IMPLIED
   Direction	CDATA	#REQUIRED
   Labels	CDATA	#IMPLIED
+  LabelText	CDATA	#IMPLIED
 >
 <!ELEMENT ModelElementBarColor (#PCDATA)>
 
@@ -4071,6 +4078,11 @@
 <!ELEMENT ModelElementMaximumValue (#PCDATA)>
 <!ELEMENT ModelElementUse3D (#PCDATA)>
 <!ELEMENT ModelElementAxisLabels (#PCDATA)>
+<!ATTLIST ModelElementAxisLabels
+  Text	CDATA	#IMPLIED
+  TextX	CDATA	#IMPLIED
+  TextY	CDATA	#IMPLIED
+>
 <!ELEMENT ModelElementDiagramElement (#PCDATA)>
 <!ATTLIST ModelElementDiagramElement
   Minimum		CDATA	#IMPLIED

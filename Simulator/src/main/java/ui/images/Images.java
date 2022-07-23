@@ -375,6 +375,17 @@ public enum Images {
 	/** Symbol im Expression-Builder "Kundenspezifische Simulationsdaten" */
 	EXPRESSION_BUILDER_CLIENT_DATA("user.png"),
 
+	/* Achsenbeschriftung */
+
+	/** Keine Achenbeschriftung */
+	AXIS_OFF("cross.png"),
+
+	/** Nur Minimum und Maximum anzeigen */
+	AXIS_MIN_MAX("Bar.png"),
+
+	/** Mehrere Werte an der Achse anzeigen */
+	AXIS_FULL("Counter.png"),
+
 	/* Modell */
 
 	/** Symbol "Modell" */

@@ -62,7 +62,7 @@ public class ModelElementAnimationLineDiagramDialog extends ModelElementBaseDial
 	/** Auswahlbox für die Zeiteinheit für {@link #timeAreaEdit} */
 	private JComboBox<String> timeAreaComboBox;
 	/** Achsenbeschriftung anzeigen */
-	private JCheckBox axisLabels;
+	private AxisDrawerEdit axisLabels;
 	/** Tabelle zur Definition der Datenreihen */
 	private ExpressionTableModelLine expressionTableModel;
 	/** Auswahlbox für die Rahmenbreite */
@@ -126,9 +126,7 @@ public class ModelElementAnimationLineDiagramDialog extends ModelElementBaseDial
 		});
 
 		/* Achsenbeschriftung */
-		setup.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
-		line.add(axisLabels=new JCheckBox(Language.tr("Surface.AnimationDiagram.Dialog.AxisLabels")));
-		axisLabels.setToolTipText(Language.tr("Surface.AnimationDiagram.Dialog.AxisLabels.Info"));
+		setup.add(axisLabels=new AxisDrawerEdit(AxisDrawer.Mode.OFF,null,""));
 
 		final JTableExt expressionTable;
 		content.add(new JScrollPane(expressionTable=new JTableExt()),BorderLayout.CENTER);
@@ -187,7 +185,7 @@ public class ModelElementAnimationLineDiagramDialog extends ModelElementBaseDial
 					timeAreaComboBox.setSelectedIndex(0);
 				}
 			}
-			axisLabels.setSelected(diagram.isAxisLabels());
+			axisLabels.set(diagram.getAxisLabels(),null,diagram.getAxisLabelText());
 			lineWidth.setSelectedIndex(diagram.getBorderWidth());
 			colorChooserLine.setColor(diagram.getBorderColor());
 			background.setSelected(diagram.getBackgroundColor()!=null);
@@ -275,7 +273,8 @@ public class ModelElementAnimationLineDiagramDialog extends ModelElementBaseDial
 			case 1: diagram.setTimeArea((int)FastMath.round(D*60)); break;
 			case 2: diagram.setTimeArea((int)FastMath.round(D*3600)); break;
 			}
-			diagram.setAxisLabels(axisLabels.isSelected());
+			diagram.setAxisLabels(axisLabels.getMode());
+			diagram.setAxisLabelText(axisLabels.getYLabel());
 			expressionTableModel.storeData(diagram);
 
 			diagram.setBorderWidth(lineWidth.getSelectedIndex());

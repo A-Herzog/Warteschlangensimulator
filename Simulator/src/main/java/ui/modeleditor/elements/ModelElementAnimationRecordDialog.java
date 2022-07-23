@@ -66,7 +66,7 @@ public class ModelElementAnimationRecordDialog extends ModelElementBaseDialog {
 	/** Eingabefeld für die Anzahl an anzuzeigenden Punkten */
 	private JTextField displayPoints;
 	/** Achsenbeschriftung anzeigen */
-	private JCheckBox axisLabels;
+	private AxisDrawerEdit axisLabels;
 	/** Auswahl der Farbe für die Datenpunkte */
 	private SmallColorChooser colorChooserData;
 	/** Auswahlbox für die Rahmenbreite */
@@ -140,8 +140,7 @@ public class ModelElementAnimationRecordDialog extends ModelElementBaseDialog {
 		});
 
 		/* Achsenbeschriftung */
-		cell.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
-		line.add(axisLabels=new JCheckBox(Language.tr("Surface.AnimationRecord.Dialog.AxisLabels")));
+		cell.add(axisLabels=new AxisDrawerEdit(AxisDrawer.Mode.OFF,"",""));
 
 		content.add(cell=new JPanel(new BorderLayout()),BorderLayout.CENTER);
 		cell.add(label=new JLabel(Language.tr("Surface.AnimationRecord.Dialog.Appearance.DataColor")+":"),BorderLayout.NORTH);
@@ -185,7 +184,7 @@ public class ModelElementAnimationRecordDialog extends ModelElementBaseDialog {
 			if (index<0 && ids.size()>0) index=0;
 			if (index>=0) selectRecord.setSelectedIndex(index);
 			displayPoints.setText(""+record.getDisplayPoints());
-			axisLabels.setSelected(record.isAxisLabels());
+			axisLabels.set(record.getAxisLabels(),record.getAxisLabelXText(),record.getAxisLabelYText());
 			colorChooserData.setColor(record.getDataColor());
 			lineWidth.setSelectedIndex(record.getBorderWidth());
 			colorChooserLine.setColor(record.getBorderColor());
@@ -250,7 +249,9 @@ public class ModelElementAnimationRecordDialog extends ModelElementBaseDialog {
 
 			record.setRecordId(ids.get(selectRecord.getSelectedIndex()));
 			record.setDisplayPoints(NumberTools.getPositiveLong(displayPoints,true).intValue());
-			record.setAxisLabels(axisLabels.isSelected());
+			record.setAxisLabels(axisLabels.getMode());
+			record.setAxisLabelXText(axisLabels.getXLabel());
+			record.setAxisLabelYText(axisLabels.getYLabel());
 			record.setDataColor(colorChooserData.getColor());
 
 			record.setBorderWidth(lineWidth.getSelectedIndex());

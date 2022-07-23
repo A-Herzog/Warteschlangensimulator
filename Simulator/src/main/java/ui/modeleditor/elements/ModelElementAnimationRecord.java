@@ -102,9 +102,20 @@ public class ModelElementAnimationRecord extends ModelElementAnimationDiagramBas
 	private Color dataColor;
 
 	/**
-	 * Sollen Beschriftungen an der X- und der Y-Achse angezeigt werden?
+	 * Sollen Beschriftungen an der Achse angezeigt werden?
 	 */
-	private boolean axisLabels=false;
+	private AxisDrawer.Mode axisLabels=AxisDrawer.Mode.OFF;
+
+	/**
+	 * Beschriftungstext an der x-Achse
+	 */
+	private String axisLabelXText="";
+
+	/**
+	 * Beschriftungstext an der y-Achse
+	 */
+	private String axisLabelYText="";
+
 
 	/**
 	 * Konstruktor der Klasse <code>ModelElementAnimationRecord</code>
@@ -194,7 +205,7 @@ public class ModelElementAnimationRecord extends ModelElementAnimationDiagramBas
 	 * Sollen Achsenbeschriftungen dargestellt werden?
 	 * @return	Achsenbeschriftungen darstellen
 	 */
-	public boolean isAxisLabels() {
+	public AxisDrawer.Mode getAxisLabels() {
 		return axisLabels;
 	}
 
@@ -202,8 +213,47 @@ public class ModelElementAnimationRecord extends ModelElementAnimationDiagramBas
 	 * Stellt ein, ob Achsenbeschriftungen darstellen werden sollen.
 	 * @param axisLabels	Achsenbeschriftungen darstellen
 	 */
-	public void setAxisLabels(boolean axisLabels) {
+	public void setAxisLabels(final AxisDrawer.Mode axisLabels) {
 		this.axisLabels=axisLabels;
+		setXAxis(0,0,AxisDrawer.Mode.OFF,axisLabelXText);
+		setYAxis(0,0,AxisDrawer.Mode.OFF,axisLabelYText);
+		fireChanged();
+	}
+
+	/**
+	 * Liefert den Beschriftungstext an der x-Achse.
+	 * @return	Beschriftungstext an der x-Achse
+	 */
+	public String getAxisLabelXText() {
+		return axisLabelXText;
+	}
+
+	/**
+	 * Stellt den Beschriftungstext an der x-Achse ein.
+	 * @param axisLabelText	Beschriftungstext an der x-Achse
+	 */
+	public void setAxisLabelXText(final String axisLabelText) {
+		this.axisLabelXText=(axisLabelText==null)?"":axisLabelText;
+		setXAxis(0,0,AxisDrawer.Mode.OFF,axisLabelXText);
+		fireChanged();
+	}
+
+	/**
+	 * Liefert den Beschriftungstext an der y-Achse.
+	 * @return	Beschriftungstext an der y-Achse
+	 */
+	public String getAxisLabelYText() {
+		return axisLabelYText;
+	}
+
+	/**
+	 * Stellt den Beschriftungstext an der y-Achse ein.
+	 * @param axisLabelText	Beschriftungstext an der y-Achse
+	 */
+	public void setAxisLabelYText(final String axisLabelText) {
+		this.axisLabelYText=(axisLabelText==null)?"":axisLabelText;
+		setYAxis(0,0,AxisDrawer.Mode.OFF,axisLabelYText);
+		fireChanged();
 	}
 
 	/**
@@ -215,11 +265,14 @@ public class ModelElementAnimationRecord extends ModelElementAnimationDiagramBas
 	public boolean equalsModelElement(ModelElement element) {
 		if (!super.equalsModelElement(element)) return false;
 		if (!(element instanceof ModelElementAnimationRecord)) return false;
+		final ModelElementAnimationRecord other=(ModelElementAnimationRecord)element;
 
-		if (recordId!=((ModelElementAnimationRecord)element).recordId) return false;
-		if (displayPoints!=((ModelElementAnimationRecord)element).displayPoints) return false;
-		if (!((ModelElementAnimationRecord)element).dataColor.equals(dataColor)) return false;
-		if (axisLabels!=((ModelElementAnimationRecord)element).axisLabels) return false;
+		if (recordId!=other.recordId) return false;
+		if (displayPoints!=other.displayPoints) return false;
+		if (!other.dataColor.equals(dataColor)) return false;
+		if (axisLabels!=other.axisLabels) return false;
+		if (!axisLabelXText.equals(other.axisLabelXText)) return false;
+		if (!axisLabelYText.equals(other.axisLabelYText)) return false;
 
 		return true;
 	}
@@ -232,10 +285,17 @@ public class ModelElementAnimationRecord extends ModelElementAnimationDiagramBas
 	public void copyDataFrom(ModelElement element) {
 		super.copyDataFrom(element);
 		if (element instanceof ModelElementAnimationRecord) {
-			recordId=((ModelElementAnimationRecord)element).recordId;
-			displayPoints=((ModelElementAnimationRecord)element).displayPoints;
-			dataColor=((ModelElementAnimationRecord)element).dataColor;
-			axisLabels=((ModelElementAnimationRecord)element).axisLabels;
+			final ModelElementAnimationRecord source=(ModelElementAnimationRecord)element;
+
+			recordId=source.recordId;
+			displayPoints=source.displayPoints;
+			dataColor=source.dataColor;
+			axisLabels=source.axisLabels;
+			axisLabelXText=source.axisLabelXText;
+			axisLabelYText=source.axisLabelYText;
+
+			setXAxis(0,0,AxisDrawer.Mode.OFF,axisLabelXText);
+			setYAxis(0,0,AxisDrawer.Mode.OFF,axisLabelYText);
 		}
 	}
 
@@ -270,7 +330,7 @@ public class ModelElementAnimationRecord extends ModelElementAnimationDiagramBas
 			data1[3*i+2]=i+1;
 			data2[3*i+2]=i+1+FastMath.pow(-1,i+1)*v[9-i];
 		}
-		drawDiagramPoints(g,rectangle,data1,data2,data1.length);
+		drawDiagramPoints(g,rectangle,data1,data2,data1.length,true);
 	}
 
 	/**
@@ -281,7 +341,7 @@ public class ModelElementAnimationRecord extends ModelElementAnimationDiagramBas
 
 	/**
 	 * Zeichenstil für Punkte
-	 * @see #drawDiagramPoints(Graphics2D, Rectangle, double[], double[], int)
+	 * @see #drawDiagramPoints(Graphics2D, Rectangle, double[], double[], int, boolean)
 	 */
 	private final Stroke pointStroke=new BasicStroke(2);
 
@@ -321,7 +381,7 @@ public class ModelElementAnimationRecord extends ModelElementAnimationDiagramBas
 
 		if (min==max) return;
 
-		if (axisLabels) setYAxis(min,max);
+		setYAxis(min,max,axisLabels,axisLabelYText);
 
 		final double deltaX=rectangle.width/((double)(index2-index1));
 		final double deltaY=rectangle.height/(max-min);
@@ -347,8 +407,20 @@ public class ModelElementAnimationRecord extends ModelElementAnimationDiagramBas
 		final int ascent=g.getFontMetrics().getAscent();
 		final int descent=g.getFontMetrics().getDescent();
 		final int x=rectangle.x+2;
-		g.drawString(NumberTools.formatNumber(min),x,rectangle.y+rectangle.height-1-descent);
-		g.drawString(NumberTools.formatNumber(max)+", "+NumberTools.formatLong(Math.min(count,displayPoints))+" "+valuesString,x,rectangle.y+1+ascent);
+
+		if (axisLabels!=AxisDrawer.Mode.OFF) {
+			/* Achsenbeschriftung schon außen vorhanden, dann innen nur noch Anzahl der Werte ausgeben */
+			if (valuesString!=null) {
+				g.drawString(NumberTools.formatLong(Math.min(count,displayPoints))+" "+valuesString,x,rectangle.y+1+ascent);
+			}
+		} else {
+			g.drawString(NumberTools.formatNumber(min),x,rectangle.y+rectangle.height-1-descent);
+			if (valuesString==null) {
+				g.drawString(NumberTools.formatNumber(max),x,rectangle.y+1+ascent);
+			} else {
+				g.drawString(NumberTools.formatNumber(max)+", "+NumberTools.formatLong(Math.min(count,displayPoints))+" "+valuesString,x,rectangle.y+1+ascent);
+			}
+		}
 	}
 
 	/**
@@ -358,8 +430,9 @@ public class ModelElementAnimationRecord extends ModelElementAnimationDiagramBas
 	 * @param data1	x-Daten-Array
 	 * @param data2	y-Daten-Array
 	 * @param count	Anzahl an Werten in dem Daten-Array
+	 * @param isDummy	Handelt es sich um Dummy-Werte (für die dann keine Achsenwerte angezeigt werden sollen)?
 	 */
-	private void drawDiagramPoints(final Graphics2D g, final Rectangle rectangle, final double[] data1, final double[] data2, final int count) {
+	private void drawDiagramPoints(final Graphics2D g, final Rectangle rectangle, final double[] data1, final double[] data2, final int count, final boolean isDummy) {
 		if (count<2 || displayPoints<2) return;
 		final int index2=count-1;
 		final int index1=Math.max(0,count-displayPoints);
@@ -373,9 +446,9 @@ public class ModelElementAnimationRecord extends ModelElementAnimationDiagramBas
 			if (maxY<value2) maxY=value2;
 		}
 
-		if (axisLabels) {
-			setXAxis(0,maxX);
-			setYAxis(0,maxY);
+		if (!isDummy) {
+			setXAxis(0,maxX,axisLabels,axisLabelXText);
+			setYAxis(0,maxY,axisLabels,axisLabelYText);
 		}
 
 		final double deltaX=rectangle.width/maxX;
@@ -399,14 +472,24 @@ public class ModelElementAnimationRecord extends ModelElementAnimationDiagramBas
 		final int descent=g.getFontMetrics().getDescent();
 		final int x=rectangle.x+2;
 		final int y=rectangle.y+rectangle.height-1-descent;
-		g.drawString("0",x,y);
-		if (valuesString==null) {
-			g.drawString(NumberTools.formatNumber(maxY),x,rectangle.y+1+ascent);
-		} else {
-			g.drawString(NumberTools.formatNumber(maxY)+", "+NumberTools.formatLong(Math.min(count,displayPoints))+" "+valuesString,x,rectangle.y+1+ascent);
+
+		if (!isDummy) {
+			if (axisLabels!=AxisDrawer.Mode.OFF) {
+				/* Achsenbeschriftung schon außen vorhanden, dann innen nur noch Anzahl der Werte ausgeben */
+				if (valuesString!=null) {
+					g.drawString(NumberTools.formatLong(Math.min(count,displayPoints))+" "+valuesString,x,rectangle.y+1+ascent);
+				}
+			} else {
+				g.drawString("0",x,y);
+				if (valuesString==null) {
+					g.drawString(NumberTools.formatNumber(maxY),x,rectangle.y+1+ascent);
+				} else {
+					g.drawString(NumberTools.formatNumber(maxY)+", "+NumberTools.formatLong(Math.min(count,displayPoints))+" "+valuesString,x,rectangle.y+1+ascent);
+				}
+				final String s=NumberTools.formatNumber(maxX);
+				g.drawString(s,rectangle.x+rectangle.width-2-g.getFontMetrics().stringWidth(s),y);
+			}
 		}
-		final String s=NumberTools.formatNumber(maxX);
-		g.drawString(s,rectangle.x+rectangle.width-2-g.getFontMetrics().stringWidth(s),y);
 	}
 
 	@Override
@@ -430,7 +513,7 @@ public class ModelElementAnimationRecord extends ModelElementAnimationDiagramBas
 			final double[] data2=(statistics2==null)?null:statistics2.getValuesReadOnly();
 			final int count1=statistics1.getCount();
 			final int count2=(statistics2==null)?0:statistics2.getCount();
-			if (data2==null) drawDiagramLines(g,rectangle,data1,count1); else drawDiagramPoints(g,rectangle,data1,data2,Math.min(count1,count2));
+			if (data2==null) drawDiagramLines(g,rectangle,data1,count1); else drawDiagramPoints(g,rectangle,data1,data2,Math.min(count1,count2),false);
 		} finally {
 			drawLock.release();
 		}
@@ -500,7 +583,9 @@ public class ModelElementAnimationRecord extends ModelElementAnimationDiagramBas
 
 		sub=doc.createElement(Language.trPrimary("Surface.AnimationRecord.XML.Labels"));
 		node.appendChild(sub);
-		sub.setTextContent(axisLabels?"1":"0");
+		sub.setTextContent(""+axisLabels.nr);
+		if (!axisLabelXText.trim().isEmpty()) sub.setAttribute(Language.trPrimary("Surface.AnimationRecord.XML.LabelTextX"),axisLabelXText);
+		if (!axisLabelYText.trim().isEmpty()) sub.setAttribute(Language.trPrimary("Surface.AnimationRecord.XML.LabelTextY"),axisLabelYText);
 	}
 
 	/**
@@ -536,7 +621,9 @@ public class ModelElementAnimationRecord extends ModelElementAnimationDiagramBas
 		}
 
 		if (Language.trAll("Surface.AnimationRecord.XML.Labels",name)) {
-			axisLabels=content.equals("1");
+			axisLabels=AxisDrawer.Mode.fromNr(content);
+			axisLabelXText=Language.trAllAttribute("Surface.AnimationRecord.XML.LabelTextX",node);
+			axisLabelYText=Language.trAllAttribute("Surface.AnimationRecord.XML.LabelTextY",node);
 			return null;
 		}
 

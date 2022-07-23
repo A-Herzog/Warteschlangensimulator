@@ -62,7 +62,7 @@ public class ModelElementAnimationBarDialog extends ModelElementBaseDialog {
 	/** Eingabefeld für den Maximalwert */
 	private JTextField editMaximum;
 	/** Achsenbeschriftung anzeigen */
-	private JCheckBox axisLabels;
+	private AxisDrawerEdit axisLabels;
 	/** Auswahlbox für die Linienbreite */
 	private JComboBox<JLabel> lineWidth;
 	/** Auswahl der Linienfarbe */
@@ -147,8 +147,7 @@ public class ModelElementAnimationBarDialog extends ModelElementBaseDialog {
 		label.setLabelFor(editMaximum);
 
 		/* Achsenbeschriftung */
-		content.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
-		line.add(axisLabels=new JCheckBox(Language.tr("Surface.AnimationBar.Dialog.AxisLabels")));
+		content.add(axisLabels=new AxisDrawerEdit(AxisDrawer.Mode.OFF,null,""));
 
 		/* Rahmenbreite */
 		Object[] data=getLineWidthInputPanel(Language.tr("Surface.AnimationBar.Dialog.FrameWidth")+":",1,15);
@@ -184,20 +183,22 @@ public class ModelElementAnimationBarDialog extends ModelElementBaseDialog {
 
 		/* Daten eintragen */
 		if (element instanceof ModelElementAnimationBar) {
-			switch (((ModelElementAnimationBar)element).getDirection()) {
+			final ModelElementAnimationBar diagram=(ModelElementAnimationBar)element;
+
+			switch (diagram.getDirection()) {
 			case DIRECTION_UP: selectDirection.setSelectedIndex(0); break;
 			case DIRECTION_RIGHT: selectDirection.setSelectedIndex(1); break;
 			case DIRECTION_DOWN: selectDirection.setSelectedIndex(2); break;
 			case DIRECTION_LEFT: selectDirection.setSelectedIndex(3); break;
 			}
-			editMinimum.setText(NumberTools.formatNumber(((ModelElementAnimationBar)element).getMinValue()));
-			editMaximum.setText(NumberTools.formatNumber(((ModelElementAnimationBar)element).getMaxValue()));
-			axisLabels.setSelected(((ModelElementAnimationBar)element).isAxisLabels());
-			lineWidth.setSelectedIndex(((ModelElementAnimationBar)element).getBorderWidth()-1);
-			colorChooserLine.setColor(((ModelElementAnimationBar)element).getBorderColor());
-			background.setSelected(((ModelElementAnimationBar)element).getBackgroundColor()!=null);
-			if (((ModelElementAnimationBar)element).getBackgroundColor()!=null) colorChooserBackground.setColor(((ModelElementAnimationBar)element).getBackgroundColor());
-			colorChooserBar.setColor(((ModelElementAnimationBar)element).getBarColor());
+			editMinimum.setText(NumberTools.formatNumber(diagram.getMinValue()));
+			editMaximum.setText(NumberTools.formatNumber(diagram.getMaxValue()));
+			axisLabels.set(diagram.getAxisLabels(),null,diagram.getAxisLabelText());
+			lineWidth.setSelectedIndex(diagram.getBorderWidth()-1);
+			colorChooserLine.setColor(diagram.getBorderColor());
+			background.setSelected(diagram.getBackgroundColor()!=null);
+			if (diagram.getBackgroundColor()!=null) colorChooserBackground.setColor(diagram.getBackgroundColor());
+			colorChooserBar.setColor(diagram.getBarColor());
 		}
 
 		checkData(false);
@@ -282,7 +283,8 @@ public class ModelElementAnimationBarDialog extends ModelElementBaseDialog {
 		}
 		bar.setMinValue(NumberTools.getDouble(editMinimum,true));
 		bar.setMaxValue(NumberTools.getDouble(editMaximum,true));
-		bar.setAxisLabels(axisLabels.isSelected());
+		bar.setAxisLabels(axisLabels.getMode());
+		bar.setAxisLabelText(axisLabels.getYLabel());
 		bar.setBorderWidth(lineWidth.getSelectedIndex()+1);
 		bar.setBorderColor(colorChooserLine.getColor());
 		bar.setBackgroundColor((background.isSelected())?colorChooserBackground.getColor():null);

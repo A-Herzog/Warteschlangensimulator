@@ -144,9 +144,14 @@ public class ModelElementAnimationBarChart extends ModelElementPosition implemen
 	private GradientFill[] filler;
 
 	/**
-	 * Sollen Beschriftungen an der Y-Achse angezeigt werden?
+	 * Sollen Beschriftungen an der y-Achse angezeigt werden?
 	 */
-	private boolean axisLabels=false;
+	private AxisDrawer.Mode axisLabels=AxisDrawer.Mode.OFF;
+
+	/**
+	 * Beschriftungstext an der y-Achse
+	 */
+	private String axisLabelText="";
 
 	/**
 	 * Konstruktor der Klasse <code>ModelElementAnimationBarChart</code>
@@ -231,6 +236,8 @@ public class ModelElementAnimationBarChart extends ModelElementPosition implemen
 	 */
 	public void setMinValue(final Double minValue) {
 		this.minValue=minValue;
+		yAxisDrawer.setAxisValues((minValue==null)?0.0:minValue,(maxValue==null)?0.0:maxValue,(minValue==null || maxValue==null)?AxisDrawer.Mode.OFF:axisLabels,axisLabelText);
+		fireChanged();
 	}
 
 
@@ -248,6 +255,8 @@ public class ModelElementAnimationBarChart extends ModelElementPosition implemen
 	 */
 	public void setMaxValue(final Double maxValue) {
 		this.maxValue=maxValue;
+		yAxisDrawer.setAxisValues((minValue==null)?0.0:minValue,(maxValue==null)?0.0:maxValue,(minValue==null || maxValue==null)?AxisDrawer.Mode.OFF:axisLabels,axisLabelText);
+		fireChanged();
 	}
 
 	/**
@@ -264,6 +273,7 @@ public class ModelElementAnimationBarChart extends ModelElementPosition implemen
 	 */
 	public void setBorderWidth(final int borderWidth) {
 		if (borderWidth>=0 && borderWidth<=50) this.borderWidth=borderWidth;
+		fireChanged();
 	}
 
 	/**
@@ -321,7 +331,7 @@ public class ModelElementAnimationBarChart extends ModelElementPosition implemen
 	 * Sollen Achsenbeschriftungen dargestellt werden?
 	 * @return	Achsenbeschriftungen darstellen
 	 */
-	public boolean isAxisLabels() {
+	public AxisDrawer.Mode getAxisLabels() {
 		return axisLabels;
 	}
 
@@ -329,9 +339,30 @@ public class ModelElementAnimationBarChart extends ModelElementPosition implemen
 	 * Stellt ein, ob Achsenbeschriftungen darstellen werden sollen.
 	 * @param axisLabels	Achsenbeschriftungen darstellen
 	 */
-	public void setAxisLabels(boolean axisLabels) {
+	public void setAxisLabels(final AxisDrawer.Mode axisLabels) {
 		this.axisLabels=axisLabels;
+		yAxisDrawer.setAxisValues((minValue==null)?0.0:minValue,(maxValue==null)?0.0:maxValue,(minValue==null || maxValue==null)?AxisDrawer.Mode.OFF:axisLabels,axisLabelText);
+		fireChanged();
 	}
+
+	/**
+	 * Liefert den Beschriftungstext an der y-Achse.
+	 * @return	Beschriftungstext an der y-Achse
+	 */
+	public String getAxisLabelText() {
+		return axisLabelText;
+	}
+
+	/**
+	 * Stellt den Beschriftungstext an der y-Achse ein.
+	 * @param axisLabelText	Beschriftungstext an der y-Achse
+	 */
+	public void setAxisLabelText(final String axisLabelText) {
+		this.axisLabelText=(axisLabelText==null)?"":axisLabelText;
+		yAxisDrawer.setAxisValues((minValue==null)?0.0:minValue,(maxValue==null)?0.0:maxValue,(minValue==null || maxValue==null)?AxisDrawer.Mode.OFF:axisLabels,axisLabelText);
+		fireChanged();
+	}
+
 
 	/**
 	 * Überprüft, ob das Element mit dem angegebenen Element inhaltlich identisch ist.
@@ -372,6 +403,7 @@ public class ModelElementAnimationBarChart extends ModelElementPosition implemen
 		}
 		if (use3D!=other.use3D) return false;
 		if (axisLabels!=other.axisLabels) return false;
+		if (!axisLabelText.equals(other.axisLabelText)) return false;
 
 		return true;
 	}
@@ -397,6 +429,9 @@ public class ModelElementAnimationBarChart extends ModelElementPosition implemen
 			backgroundColor=source.backgroundColor;
 			use3D=source.use3D;
 			axisLabels=source.axisLabels;
+			axisLabelText=source.axisLabelText;
+
+			yAxisDrawer.setAxisValues((minValue==null)?0.0:minValue,(maxValue==null)?0.0:maxValue,(minValue==null || maxValue==null)?AxisDrawer.Mode.OFF:axisLabels,axisLabelText);
 		}
 	}
 
@@ -579,6 +614,22 @@ public class ModelElementAnimationBarChart extends ModelElementPosition implemen
 	private int[] yPoints=new int[4];
 
 	/**
+	 * Tatsächlicher Minimalwert
+	 * @see #drawDiagramBars(Graphics2D, Rectangle)
+	 * @see #drawToGraphics(Graphics, Rectangle, double, boolean)
+	 * @see #minValue
+	 */
+	private double drawMin;
+
+	/**
+	 * Tatsächlicher Maximalwert
+	 * @see #drawDiagramBars(Graphics2D, Rectangle)
+	 * @see #drawToGraphics(Graphics, Rectangle, double, boolean)
+	 * @see #maxValue
+	 */
+	private double drawMax;
+
+	/**
 	 * Zeichnet die Balken auf die Zeichenfläche
 	 * @param g	Grafik-Ausgabeobjekt
 	 * @param rectangle	Ausgaberechteck
@@ -609,9 +660,9 @@ public class ModelElementAnimationBarChart extends ModelElementPosition implemen
 			}
 
 			if (max<min) {final double d=min; min=max; max=d;}
+			drawMin=min;
+			drawMax=max;
 			if (max==min) return;
-
-			if (yAxisDrawer!=null && (minValue==null || maxValue==null)) yAxisDrawer.setAxisValues(min,max);
 
 			final int gap=use3D?10:5;
 
@@ -729,7 +780,10 @@ public class ModelElementAnimationBarChart extends ModelElementPosition implemen
 			drawBorderBox(g2,new Point(p.x+s.width,p.y+s.height),zoom);
 		}
 
-		if (yAxisDrawer!=null) yAxisDrawer.drawY(g2,zoom,rectangle);
+		if ((minValue==null || maxValue==null) && recordedValues!=null) {
+			yAxisDrawer.setAxisValues(drawMin,drawMax,axisLabels,axisLabelText);
+		}
+		yAxisDrawer.drawY(g2,zoom,rectangle);
 
 		g2.setStroke(saveStroke);
 	}
@@ -810,7 +864,8 @@ public class ModelElementAnimationBarChart extends ModelElementPosition implemen
 
 		sub=doc.createElement(Language.trPrimary("Surface.AnimationBarChart.XML.Labels"));
 		node.appendChild(sub);
-		sub.setTextContent(axisLabels?"1":"0");
+		sub.setTextContent(""+axisLabels.nr);
+		if (!axisLabelText.trim().isEmpty()) sub.setAttribute(Language.trPrimary("Surface.AnimationBarChart.XML.LabelText"),axisLabelText);
 
 		for (int i=0;i<expression.size();i++) {
 			sub=doc.createElement(Language.trPrimary("Surface.AnimationBarChart.XML.Set"));
@@ -890,7 +945,8 @@ public class ModelElementAnimationBarChart extends ModelElementPosition implemen
 		}
 
 		if (Language.trAll("Surface.AnimationBarChart.XML.Labels",name)) {
-			axisLabels=content.equals("1");
+			axisLabels=AxisDrawer.Mode.fromNr(content);
+			axisLabelText=Language.trAllAttribute("Surface.AnimationBarChart.XML.LabelText",node);
 			return null;
 		}
 
@@ -943,7 +999,7 @@ public class ModelElementAnimationBarChart extends ModelElementPosition implemen
 	/**
 	 * System zur Darstellung der y-Achsenbeschriftung
 	 */
-	private AxisDrawer yAxisDrawer;
+	private AxisDrawer yAxisDrawer=new AxisDrawer();
 
 	@Override
 	public void initAnimation(final SimulationData simData) {
@@ -951,11 +1007,6 @@ public class ModelElementAnimationBarChart extends ModelElementPosition implemen
 
 		for (int i=0;i<expression.size();i++) {
 			expression.get(i).initAnimation(this,simData);
-		}
-
-		if (axisLabels) {
-			yAxisDrawer=new AxisDrawer();
-			if (minValue!=null && maxValue!=null) yAxisDrawer.setAxisValues(minValue,maxValue);
 		}
 	}
 

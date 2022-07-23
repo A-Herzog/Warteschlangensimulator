@@ -63,7 +63,7 @@ public class ModelElementAnimationBarStackDialog extends ModelElementBaseDialog 
 	/** Eingabefeld für den Maximalwert */
 	private JTextField editMaximum;
 	/** Achsenbeschriftung anzeigen */
-	private JCheckBox axisLabels;
+	private AxisDrawerEdit axisLabels;
 	/** Tabelle zur Definition Balkensegmente */
 	private BarStackTableModel tableModel;
 	/** Auswahlbox für die Linienbreite */
@@ -133,9 +133,7 @@ public class ModelElementAnimationBarStackDialog extends ModelElementBaseDialog 
 		});
 
 		/* Achsenbeschriftung */
-		setup.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
-		line.add(axisLabels=new JCheckBox(Language.tr("Surface.AnimationBarStack.Dialog.AxisLabels")));
-		axisLabels.setToolTipText(Language.tr("Surface.AnimationBarStack.Dialog.AxisLabels.Info"));
+		setup.add(axisLabels=new AxisDrawerEdit(AxisDrawer.Mode.OFF,null,""));
 
 		final JTableExt table;
 		tab.add(new JScrollPane(table=new JTableExt()),BorderLayout.CENTER);
@@ -179,13 +177,14 @@ public class ModelElementAnimationBarStackDialog extends ModelElementBaseDialog 
 
 		/* Daten eintragen */
 		if (element instanceof ModelElementAnimationBarStack) {
-			switch (((ModelElementAnimationBarStack)element).getDirection()) {
+			final ModelElementAnimationBarStack diagram=(ModelElementAnimationBarStack)element;
+			switch (diagram.getDirection()) {
 			case DIRECTION_UP: selectDirection.setSelectedIndex(0); break;
 			case DIRECTION_RIGHT: selectDirection.setSelectedIndex(1); break;
 			case DIRECTION_DOWN: selectDirection.setSelectedIndex(2); break;
 			case DIRECTION_LEFT: selectDirection.setSelectedIndex(3); break;
 			}
-			final double max=((ModelElementAnimationBarStack)element).getMaxValue();
+			final double max=diagram.getMaxValue();
 			if (max<=0) {
 				useMaximum.setSelected(false);
 				editMaximum.setText("10");
@@ -193,11 +192,11 @@ public class ModelElementAnimationBarStackDialog extends ModelElementBaseDialog 
 				useMaximum.setSelected(true);
 				editMaximum.setText(NumberTools.formatNumberMax(max));
 			}
-			axisLabels.setSelected(((ModelElementAnimationBarStack)element).isAxisLabels());
-			lineWidth.setSelectedIndex(((ModelElementAnimationBarStack)element).getBorderWidth()-1);
-			colorChooserLine.setColor(((ModelElementAnimationBarStack)element).getBorderColor());
-			background.setSelected(((ModelElementAnimationBarStack)element).getBackgroundColor()!=null);
-			if (((ModelElementAnimationBarStack)element).getBackgroundColor()!=null) colorChooserBackground.setColor(((ModelElementAnimationBarStack)element).getBackgroundColor());
+			axisLabels.set(diagram.getAxisLabels(),null,diagram.getAxisLabelText());
+			lineWidth.setSelectedIndex(diagram.getBorderWidth()-1);
+			colorChooserLine.setColor(diagram.getBorderColor());
+			background.setSelected(diagram.getBackgroundColor()!=null);
+			if (diagram.getBackgroundColor()!=null) colorChooserBackground.setColor(diagram.getBackgroundColor());
 		}
 
 		checkData(false);
@@ -279,7 +278,8 @@ public class ModelElementAnimationBarStackDialog extends ModelElementBaseDialog 
 		} else {
 			bar.setMaxValue(0);
 		}
-		bar.setAxisLabels(axisLabels.isSelected());
+		bar.setAxisLabels(axisLabels.getMode());
+		bar.setAxisLabelText(axisLabels.getYLabel());
 		tableModel.storeData();
 		bar.setBorderWidth(lineWidth.getSelectedIndex()+1);
 		bar.setBorderColor(colorChooserLine.getColor());

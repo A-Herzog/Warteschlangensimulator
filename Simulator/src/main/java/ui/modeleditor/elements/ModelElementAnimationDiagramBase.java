@@ -286,53 +286,35 @@ public abstract class ModelElementAnimationDiagramBase extends ModelElementPosit
 	/**
 	 * System zur Darstellung der x-Achsenbeschriftung
 	 */
-	private AxisDrawer xAxisDrawer;
-
-	/**
-	 * Deaktiviert die Darstellung der x-Achsenbeschriftung
-	 * @see #xAxisDrawer
-	 * @see #setXAxis(double, double)
-	 */
-	protected final void setXAxisOff() {
-		xAxisDrawer=null;
-	}
+	private final AxisDrawer xAxisDrawer=new AxisDrawer();
 
 	/**
 	 * Definiert den Minimal- und den Maximalwert für die x-Achsenbeschriftung
 	 * @param min	Minimaler Wert
 	 * @param max	Maximaler Wert
+	 * @param mode	Darstellungsart
+	 * @param label	Beschriftungstext an der Achse
 	 * @see #xAxisDrawer
-	 * @see #setXAxisOff()
 	 */
-	protected final void setXAxis(final double min, final double max) {
-		if (xAxisDrawer==null) xAxisDrawer=new AxisDrawer();
-		xAxisDrawer.setAxisValues(min,max);
+	protected final void setXAxis(final double min, final double max, final AxisDrawer.Mode mode, final String label) {
+		xAxisDrawer.setAxisValues(min,max,mode,label);
 	}
 
 	/**
 	 * System zur Darstellung der y-Achsenbeschriftung
 	 */
-	private AxisDrawer yAxisDrawer;
-
-	/**
-	 * Deaktiviert die Darstellung der y-Achsenbeschriftung
-	 * @see #yAxisDrawer
-	 * @see #setYAxis(double, double)
-	 */
-	protected final void setYAxisOff() {
-		yAxisDrawer=null;
-	}
+	private final AxisDrawer yAxisDrawer=new AxisDrawer();
 
 	/**
 	 * Definiert den Minimal- und den Maximalwert für die y-Achsenbeschriftung
 	 * @param min	Minimaler Wert
 	 * @param max	Maximaler Wert
+	 * @param mode	Darstellungsart
+	 * @param label	Beschriftungstext an der Achse
 	 * @see #yAxisDrawer
-	 * @see #setYAxisOff()
 	 */
-	protected final void setYAxis(final double min, final double max) {
-		if (yAxisDrawer==null) yAxisDrawer=new AxisDrawer();
-		yAxisDrawer.setAxisValues(min,max);
+	protected final void setYAxis(final double min, final double max, final AxisDrawer.Mode mode, final String label) {
+		yAxisDrawer.setAxisValues(min,max,mode,label);
 	}
 
 	/**

@@ -148,9 +148,14 @@ public class ModelElementAnimationBarStack extends ModelElementPosition implemen
 	private final List<Color> barColors=new ArrayList<>();
 
 	/**
-	 * Sollen Beschriftungen an der Y-Achse angezeigt werden?
+	 * Sollen Beschriftungen an der y-Achse angezeigt werden?
 	 */
-	private boolean axisLabels=false;
+	private AxisDrawer.Mode axisLabels=AxisDrawer.Mode.OFF;
+
+	/**
+	 * Beschriftungstext an der y-Achse
+	 */
+	private String axisLabelText="";
 
 	/**
 	 * Konstruktor der Klasse <code>ModelElementAnimationBarStack</code>
@@ -225,6 +230,7 @@ public class ModelElementAnimationBarStack extends ModelElementPosition implemen
 	 */
 	public void setMaxValue(final double maxValue) {
 		this.maxValue=maxValue;
+		yAxisDrawer.setAxisValues(0,maxValue,(maxValue<=0)?AxisDrawer.Mode.OFF:axisLabels,axisLabelText);
 		fireChanged();
 	}
 
@@ -290,7 +296,7 @@ public class ModelElementAnimationBarStack extends ModelElementPosition implemen
 	 * Sollen Achsenbeschriftungen dargestellt werden?
 	 * @return	Achsenbeschriftungen darstellen
 	 */
-	public boolean isAxisLabels() {
+	public AxisDrawer.Mode getAxisLabels() {
 		return axisLabels;
 	}
 
@@ -298,8 +304,28 @@ public class ModelElementAnimationBarStack extends ModelElementPosition implemen
 	 * Stellt ein, ob Achsenbeschriftungen darstellen werden sollen.
 	 * @param axisLabels	Achsenbeschriftungen darstellen
 	 */
-	public void setAxisLabels(boolean axisLabels) {
+	public void setAxisLabels(final AxisDrawer.Mode axisLabels) {
 		this.axisLabels=axisLabels;
+		yAxisDrawer.setAxisValues(0,maxValue,(maxValue<=0)?AxisDrawer.Mode.OFF:axisLabels,axisLabelText);
+		fireChanged();
+	}
+
+	/**
+	 * Liefert den Beschriftungstext an der y-Achse.
+	 * @return	Beschriftungstext an der y-Achse
+	 */
+	public String getAxisLabelText() {
+		return axisLabelText;
+	}
+
+	/**
+	 * Stellt den Beschriftungstext an der y-Achse ein.
+	 * @param axisLabelText	Beschriftungstext an der y-Achse
+	 */
+	public void setAxisLabelText(final String axisLabelText) {
+		this.axisLabelText=(axisLabelText==null)?"":axisLabelText;
+		yAxisDrawer.setAxisValues(0,maxValue,(maxValue<=0)?AxisDrawer.Mode.OFF:axisLabels,axisLabelText);
+		fireChanged();
 	}
 
 	/**
@@ -341,6 +367,7 @@ public class ModelElementAnimationBarStack extends ModelElementPosition implemen
 		}
 
 		if (axisLabels!=other.axisLabels) return false;
+		if (!axisLabelText.equals(other.axisLabelText)) return false;
 
 		return true;
 	}
@@ -366,6 +393,9 @@ public class ModelElementAnimationBarStack extends ModelElementPosition implemen
 			barColors.clear();
 			barColors.addAll(source.barColors);
 			axisLabels=source.axisLabels;
+			axisLabelText=source.axisLabelText;
+
+			yAxisDrawer.setAxisValues(0,maxValue,(maxValue<=0)?AxisDrawer.Mode.OFF:axisLabels,axisLabelText);
 		}
 	}
 
@@ -497,10 +527,11 @@ public class ModelElementAnimationBarStack extends ModelElementPosition implemen
 	 * Füllt ein Rechteck gemäß dem in {@link #simValues} angegebenen Füllstand.
 	 * @param g	Grafik-Ausgabeobjekt
 	 * @param rectangle	Teilweise zu füllendes Rechteck
+	 * @return	Tatsächlicher Maximalwert (entweder {@link #maxValue} oder dynamisch berechnet)
 	 * @see #drawToGraphics(Graphics, Rectangle, double, boolean)
 	 * @see #simValues
 	 */
-	private void fillBox(final Graphics2D g, final Rectangle rectangle) {
+	private double fillBox(final Graphics2D g, final Rectangle rectangle) {
 		double[] d=null;
 		double maxVal=4;
 		drawLock.acquireUninterruptibly();
@@ -576,6 +607,8 @@ public class ModelElementAnimationBarStack extends ModelElementPosition implemen
 
 			sum+=value;
 		}
+
+		return maxVal;
 	}
 
 	/**
@@ -620,7 +653,7 @@ public class ModelElementAnimationBarStack extends ModelElementPosition implemen
 			g2.fill(rectangle);
 		}
 
-		fillBox(g2,rectangle);
+		final double maxVal=fillBox(g2,rectangle);
 
 		if (drawBorder) {
 			g2.setColor(lineColor);
@@ -636,7 +669,23 @@ public class ModelElementAnimationBarStack extends ModelElementPosition implemen
 
 		setClip(graphics,drawRect,null);
 
-		if (yAxisDrawer!=null) yAxisDrawer.drawY(g2,zoom,rectangle);
+		if (maxValue<=0) {
+			yAxisDrawer.setAxisValues(0,maxVal,axisLabels,axisLabelText);
+		}
+		switch (direction) {
+		case DIRECTION_DOWN:
+			yAxisDrawer.drawYInvers(g2,zoom,rectangle);
+			break;
+		case DIRECTION_LEFT:
+			yAxisDrawer.drawXInvers(g2,zoom,rectangle);
+			break;
+		case DIRECTION_RIGHT:
+			yAxisDrawer.drawX(g2,zoom,rectangle);
+			break;
+		case DIRECTION_UP:
+			yAxisDrawer.drawY(g2,zoom,rectangle);
+			break;
+		}
 
 		g2.setStroke(saveStroke);
 	}
@@ -737,8 +786,8 @@ public class ModelElementAnimationBarStack extends ModelElementPosition implemen
 
 		sub=doc.createElement(Language.trPrimary("Surface.AnimationBarStack.XML.Labels"));
 		node.appendChild(sub);
-		sub.setTextContent(axisLabels?"1":"0");
-
+		sub.setTextContent(""+axisLabels.nr);
+		if (!axisLabelText.trim().isEmpty()) sub.setAttribute(Language.trPrimary("Surface.AnimationBarStack.XML.LabelText"),axisLabelText);
 	}
 
 	/**
@@ -809,7 +858,8 @@ public class ModelElementAnimationBarStack extends ModelElementPosition implemen
 		}
 
 		if (Language.trAll("Surface.AnimationBarStack.XML.Labels",name)) {
-			axisLabels=content.equals("1");
+			axisLabels=AxisDrawer.Mode.fromNr(content);
+			axisLabelText=Language.trAllAttribute("Surface.AnimationBarStack.XML.LabelText",node);
 			return null;
 		}
 
@@ -833,18 +883,13 @@ public class ModelElementAnimationBarStack extends ModelElementPosition implemen
 	/**
 	 * System zur Darstellung der y-Achsenbeschriftung
 	 */
-	private AxisDrawer yAxisDrawer;
+	private final AxisDrawer yAxisDrawer=new AxisDrawer();
 
 	@Override
 	public void initAnimation(final SimulationData simData) {
 		simValues=new double[expressions.size()];
 		for (int i=0;i<expressions.size();i++) {
 			expressions.get(i).initAnimation(this,simData);
-		}
-
-		if (maxValue>0 && axisLabels) {
-			yAxisDrawer=new AxisDrawer();
-			yAxisDrawer.setAxisValues(0,maxValue);
 		}
 	}
 

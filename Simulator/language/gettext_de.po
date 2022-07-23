@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-07-22 00:06+0200\n"
+"POT-Creation-Date: 2022-07-23 19:56+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -622,6 +622,24 @@ msgstr "Automatisch gespeichertes Modell zum Laden auswählen"
 
 msgid "AutomaticHelp.Title"
 msgstr "Kontexthilfe"
+
+msgid "AxisDrawer.LabelX"
+msgstr "Beschriftung der x-Achse"
+
+msgid "AxisDrawer.LabelY"
+msgstr "Beschriftung der y-Achse"
+
+msgid "AxisDrawer.Mode"
+msgstr "Werte an Achse anzeigen"
+
+msgid "AxisDrawer.Mode.Full"
+msgstr "Mehrere Werte anzeigen"
+
+msgid "AxisDrawer.Mode.MinMax"
+msgstr "Minimum und Maximum anzeigen"
+
+msgid "AxisDrawer.Mode.Off"
+msgstr "Nicht anzeigen"
 
 msgid "Batch.MultiCoreInfo1"
 msgstr "Das Modell selbst kann bedingt durch seine Eigenschaften nicht parallel auf mehreren CPU-Kernen simuliert werden."
@@ -23506,6 +23524,9 @@ msgstr "nach rechts"
 msgid "Surface.AnimationBar.XML.DataArea.Direction.Up"
 msgstr "nach oben"
 
+msgid "Surface.AnimationBar.XML.DataArea.LabelText"
+msgstr "Beschriftungstext"
+
 msgid "Surface.AnimationBar.XML.DataArea.Labels"
 msgstr "Beschriftung"
 
@@ -23541,12 +23562,6 @@ msgstr "Rahmenbreite"
 
 msgid "Surface.AnimationBarChart.Dialog.Appearance.Use3D"
 msgstr "3D-Effekte für Balken verwenden"
-
-msgid "Surface.AnimationBarChart.Dialog.AxisLabels"
-msgstr "Minimal- und Maximalwert an Balken anzeigen, wenn möglich"
-
-msgid "Surface.AnimationBarChart.Dialog.AxisLabels.Info"
-msgstr "Zur Anzeige der Werte müssen feste Minimal- und Maximalwerte eingestellt sein."
 
 msgid "Surface.AnimationBarChart.Dialog.Data"
 msgstr "Daten"
@@ -23650,6 +23665,9 @@ msgstr "Balkendiagramm das während der Animation des Modells aktualisiert wird"
 msgid "Surface.AnimationBarChart.XML.BackgroundColor"
 msgstr "ModellElementHintergrundfarbe"
 
+msgid "Surface.AnimationBarChart.XML.LabelText"
+msgstr "Text"
+
 msgid "Surface.AnimationBarChart.XML.Labels"
 msgstr "ModellElementAchsenbeschriftung"
 
@@ -23679,12 +23697,6 @@ msgstr "ModellElement3DEffekt"
 
 msgid "Surface.AnimationBarStack.Dialog.Add"
 msgstr "Teilbalken hinzufügen"
-
-msgid "Surface.AnimationBarStack.Dialog.AxisLabels"
-msgstr "Minimal- und Maximalwert an Balken anzeigen, wenn möglich"
-
-msgid "Surface.AnimationBarStack.Dialog.AxisLabels.Info"
-msgstr "Zur Anzeige der Werte muss ein fester Maximalwert eingestellt sein."
 
 msgid "Surface.AnimationBarStack.Dialog.Bar"
 msgstr "Balken"
@@ -23806,6 +23818,9 @@ msgstr "Maximum"
 msgid "Surface.AnimationBarStack.XML.DataExpression"
 msgstr "ModellElementDatenausdruck"
 
+msgid "Surface.AnimationBarStack.XML.LabelText"
+msgstr "Text"
+
 msgid "Surface.AnimationBarStack.XML.Labels"
 msgstr "ModellElementAchsenbeschriftung"
 
@@ -23854,12 +23869,6 @@ msgstr "Rahmenfarbe"
 msgid "Surface.AnimationDiagram.Dialog.Appearance.FrameWidth"
 msgstr "Rahmenbreite"
 
-msgid "Surface.AnimationDiagram.Dialog.AxisLabels"
-msgstr "Minimal- und Maximalwert an Diagramm anzeigen, wenn möglich"
-
-msgid "Surface.AnimationDiagram.Dialog.AxisLabels.Info"
-msgstr "Zur Anzeige der Werte müssen alle Datenreihen auf denselben Wertebereich skaliert sein."
-
 msgid "Surface.AnimationDiagram.Dialog.Data"
 msgstr "Daten"
 
@@ -23898,6 +23907,9 @@ msgstr "Liniendiagramm das während der Animation des Modells aktualisiert wird"
 
 msgid "Surface.AnimationDiagram.XML.BackgroundColor"
 msgstr "ModellElementHintergrundfarbe"
+
+msgid "Surface.AnimationDiagram.XML.LabelText"
+msgstr "Text"
 
 msgid "Surface.AnimationDiagram.XML.Labels"
 msgstr "ModellElementAchsenbeschriftung"
@@ -24221,9 +24233,6 @@ msgstr "Rahmenfarbe"
 msgid "Surface.AnimationRecord.Dialog.Appearance.FrameWidth"
 msgstr "Rahmenbreite"
 
-msgid "Surface.AnimationRecord.Dialog.AxisLabels"
-msgstr "Minimal- und Maximalwert am Diagramm anzeigen"
-
 msgid "Surface.AnimationRecord.Dialog.Data"
 msgstr "Daten"
 
@@ -24271,6 +24280,12 @@ msgstr "ModellElementAnimationAufzeichnungDatenfarbe"
 
 msgid "Surface.AnimationRecord.XML.DisplayPoints"
 msgstr "ModellElementAnimationAufzeichnungAnzahlPunkte"
+
+msgid "Surface.AnimationRecord.XML.LabelTextX"
+msgstr "TextX"
+
+msgid "Surface.AnimationRecord.XML.LabelTextY"
+msgstr "TextY"
 
 msgid "Surface.AnimationRecord.XML.Labels"
 msgstr "ModellElementAchsenbeschriftung"
@@ -34396,6 +34411,18 @@ msgstr "Das Dateiformat wurde nicht erkannt bzw. passt zu keinem Dateiformat die
 #~ msgid "Surface.AnimationBar.Dialog.Expression.ErrorNoExpression.Info"
 #~ msgstr "Es wurde kein zu berechnender Ausdruck angegeben."
 
+#~ msgid "Surface.AnimationBarChart.Dialog.AxisLabels"
+#~ msgstr "Minimal- und Maximalwert an Balken anzeigen, wenn möglich"
+
+#~ msgid "Surface.AnimationBarChart.Dialog.AxisLabels.Info"
+#~ msgstr "Zur Anzeige der Werte müssen feste Minimal- und Maximalwerte eingestellt sein."
+
+#~ msgid "Surface.AnimationBarStack.Dialog.AxisLabels"
+#~ msgstr "Minimal- und Maximalwert an Balken anzeigen, wenn möglich"
+
+#~ msgid "Surface.AnimationBarStack.Dialog.AxisLabels.Info"
+#~ msgstr "Zur Anzeige der Werte muss ein fester Maximalwert eingestellt sein."
+
 #~ msgid "Surface.AnimationBarStack.Dialog.Expression"
 #~ msgstr "Ausdruck"
 
@@ -34410,6 +34437,12 @@ msgstr "Das Dateiformat wurde nicht erkannt bzw. passt zu keinem Dateiformat die
 
 #~ msgid "Surface.AnimationClock.Dialog.Expression.ErrorNoExpression.Info"
 #~ msgstr "Es wurde kein zu berechnender Ausdruck angegeben."
+
+#~ msgid "Surface.AnimationDiagram.Dialog.AxisLabels"
+#~ msgstr "Minimal- und Maximalwert an Diagramm anzeigen, wenn möglich"
+
+#~ msgid "Surface.AnimationDiagram.Dialog.AxisLabels.Info"
+#~ msgstr "Zur Anzeige der Werte müssen alle Datenreihen auf denselben Wertebereich skaliert sein."
 
 #~ msgid "Surface.AnimationLCD.Dialog.Digits.Error.Info"
 #~ msgstr ""
@@ -34442,6 +34475,9 @@ msgstr "Das Dateiformat wurde nicht erkannt bzw. passt zu keinem Dateiformat die
 
 #~ msgid "Surface.AnimationPointerMeasuring.Dialog.Expression.ErrorNoExpression.Info"
 #~ msgstr "Es wurde kein zu berechnender Ausdruck angegeben."
+
+#~ msgid "Surface.AnimationRecord.Dialog.AxisLabels"
+#~ msgstr "Minimal- und Maximalwert am Diagramm anzeigen"
 
 #~ msgid "Surface.AnimationText.Dialog.FontColor"
 #~ msgstr "Schriftfarbe"

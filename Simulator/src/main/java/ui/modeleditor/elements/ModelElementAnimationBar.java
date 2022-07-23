@@ -168,9 +168,14 @@ public class ModelElementAnimationBar extends ModelElementPosition implements El
 	private GradientFill filler;
 
 	/**
-	 * Sollen Beschriftungen an der Y-Achse angezeigt werden?
+	 * Sollen Beschriftungen an der y-Achse angezeigt werden?
 	 */
-	private boolean axisLabels=false;
+	private AxisDrawer.Mode axisLabels=AxisDrawer.Mode.OFF;
+
+	/**
+	 * Beschriftungstext an der y-Achse
+	 */
+	private String axisLabelText="";
 
 	/**
 	 * Konstruktor der Klasse <code>ModelElementAnimationBar</code>
@@ -256,6 +261,7 @@ public class ModelElementAnimationBar extends ModelElementPosition implements El
 	 */
 	public void setMinValue(final double minValue) {
 		this.minValue=minValue;
+		yAxisDrawer.setAxisValues(minValue,maxValue,axisLabels,axisLabelText);
 		fireChanged();
 	}
 
@@ -273,6 +279,7 @@ public class ModelElementAnimationBar extends ModelElementPosition implements El
 	 */
 	public void setMaxValue(final double maxValue) {
 		this.maxValue=maxValue;
+		yAxisDrawer.setAxisValues(minValue,maxValue,axisLabels,axisLabelText);
 		fireChanged();
 	}
 
@@ -347,7 +354,7 @@ public class ModelElementAnimationBar extends ModelElementPosition implements El
 	 * Sollen Achsenbeschriftungen dargestellt werden?
 	 * @return	Achsenbeschriftungen darstellen
 	 */
-	public boolean isAxisLabels() {
+	public AxisDrawer.Mode getAxisLabels() {
 		return axisLabels;
 	}
 
@@ -355,8 +362,28 @@ public class ModelElementAnimationBar extends ModelElementPosition implements El
 	 * Stellt ein, ob Achsenbeschriftungen darstellen werden sollen.
 	 * @param axisLabels	Achsenbeschriftungen darstellen
 	 */
-	public void setAxisLabels(boolean axisLabels) {
+	public void setAxisLabels(final AxisDrawer.Mode axisLabels) {
 		this.axisLabels=axisLabels;
+		yAxisDrawer.setAxisValues(minValue,maxValue,axisLabels,axisLabelText);
+		fireChanged();
+	}
+
+	/**
+	 * Liefert den Beschriftungstext an der y-Achse.
+	 * @return	Beschriftungstext an der y-Achse
+	 */
+	public String getAxisLabelText() {
+		return axisLabelText;
+	}
+
+	/**
+	 * Stellt den Beschriftungstext an der y-Achse ein.
+	 * @param axisLabelText	Beschriftungstext an der y-Achse
+	 */
+	public void setAxisLabelText(final String axisLabelText) {
+		this.axisLabelText=(axisLabelText==null)?"":axisLabelText;
+		yAxisDrawer.setAxisValues(minValue,maxValue,axisLabels,axisLabelText);
+		fireChanged();
 	}
 
 	/**
@@ -383,6 +410,7 @@ public class ModelElementAnimationBar extends ModelElementPosition implements El
 		}
 		if (!other.barColor.equals(barColor)) return false;
 		if (axisLabels!=other.axisLabels) return false;
+		if (!axisLabelText.equals(other.axisLabelText)) return false;
 
 		return true;
 	}
@@ -407,6 +435,9 @@ public class ModelElementAnimationBar extends ModelElementPosition implements El
 			backgroundColor=source.backgroundColor;
 			barColor=source.barColor;
 			axisLabels=source.axisLabels;
+			axisLabelText=source.axisLabelText;
+
+			yAxisDrawer.setAxisValues(minValue,maxValue,axisLabels,axisLabelText);
 		}
 	}
 
@@ -651,8 +682,20 @@ public class ModelElementAnimationBar extends ModelElementPosition implements El
 
 		setClip(graphics,drawRect,null);
 
-		if (yAxisDrawer!=null) yAxisDrawer.drawY(g2,zoom,rectangle);
-
+		switch (direction) {
+		case DIRECTION_DOWN:
+			yAxisDrawer.drawYInvers(g2,zoom,rectangle);
+			break;
+		case DIRECTION_LEFT:
+			yAxisDrawer.drawXInvers(g2,zoom,rectangle);
+			break;
+		case DIRECTION_RIGHT:
+			yAxisDrawer.drawX(g2,zoom,rectangle);
+			break;
+		case DIRECTION_UP:
+			yAxisDrawer.drawY(g2,zoom,rectangle);
+			break;
+		}
 		g2.setStroke(saveStroke);
 	}
 
@@ -725,7 +768,8 @@ public class ModelElementAnimationBar extends ModelElementPosition implements El
 		sub.setAttribute(Language.trPrimary("Surface.AnimationBar.XML.DataArea.Min"),NumberTools.formatSystemNumber(minValue));
 		sub.setAttribute(Language.trPrimary("Surface.AnimationBar.XML.DataArea.Max"),NumberTools.formatSystemNumber(maxValue));
 		sub.setAttribute(Language.trPrimary("Surface.AnimationBar.XML.DataArea.Direction"),getDirectionString(direction));
-		sub.setAttribute(Language.trPrimary("Surface.AnimationBar.XML.DataArea.Labels"),axisLabels?"1":"0");
+		sub.setAttribute(Language.trPrimary("Surface.AnimationBar.XML.DataArea.Labels"),""+axisLabels.nr);
+		if (!axisLabelText.trim().isEmpty()) sub.setAttribute(Language.trPrimary("Surface.AnimationBar.XML.DataArea.LabelText"),axisLabelText);
 
 		sub=doc.createElement(Language.trPrimary("Surface.AnimationBar.XML.LineWidth"));
 		node.appendChild(sub);
@@ -782,7 +826,8 @@ public class ModelElementAnimationBar extends ModelElementPosition implements El
 				if (!ok) return String.format(Language.tr("Surface.XML.AttributeSubError"),Language.trPrimary("Surface.AnimationBar.XML.DataArea.Direction"),name,node.getParentNode().getNodeName());
 			}
 
-			axisLabels=Language.trAllAttribute("Surface.AnimationBar.XML.DataArea.Labels",node).equals("1");
+			axisLabels=AxisDrawer.Mode.fromNr(Language.trAllAttribute("Surface.AnimationBar.XML.DataArea.Labels",node));
+			axisLabelText=Language.trAllAttribute("Surface.AnimationBar.XML.DataArea.LabelText",node);
 
 			return null;
 		}
@@ -832,18 +877,13 @@ public class ModelElementAnimationBar extends ModelElementPosition implements El
 	/**
 	 * System zur Darstellung der y-Achsenbeschriftung
 	 */
-	private AxisDrawer yAxisDrawer;
+	private final AxisDrawer yAxisDrawer=new AxisDrawer();
 
 	@Override
 	public void initAnimation(SimulationData simData) {
 		if (expression.initAnimation(this,simData)) {
 			simValue=0.0;
 			simValueActive=true;
-		}
-
-		if (axisLabels) {
-			yAxisDrawer=new AxisDrawer();
-			yAxisDrawer.setAxisValues(minValue,maxValue);
 		}
 	}
 

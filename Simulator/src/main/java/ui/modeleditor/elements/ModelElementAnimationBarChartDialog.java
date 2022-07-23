@@ -66,7 +66,7 @@ public class ModelElementAnimationBarChartDialog extends ModelElementBaseDialog 
 	/** Eingabefeld für den manuell festgelegten Maximalwert */
 	private JTextField maxValueEdit;
 	/** Achsenbeschriftung anzeigen */
-	private JCheckBox axisLabels;
+	private AxisDrawerEdit axisLabels;
 	/** Tabelle zur Definition der einzelnen Balken */
 	private ExpressionTableModelBar expressionTableModel;
 	/** Auswahlbox für die Linienbreite */
@@ -138,9 +138,7 @@ public class ModelElementAnimationBarChartDialog extends ModelElementBaseDialog 
 		minValueEdit.setEditable(!readOnly);
 
 		/* Achsenbeschriftung */
-		lines.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
-		line.add(axisLabels=new JCheckBox(Language.tr("Surface.AnimationBarChart.Dialog.AxisLabels")));
-		axisLabels.setToolTipText(Language.tr("Surface.AnimationBarChart.Dialog.AxisLabels.Info"));
+		lines.add(axisLabels=new AxisDrawerEdit(AxisDrawer.Mode.OFF,null,""));
 
 		final JTableExt expressionTable;
 		content.add(new JScrollPane(expressionTable=new JTableExt()),BorderLayout.CENTER);
@@ -199,8 +197,7 @@ public class ModelElementAnimationBarChartDialog extends ModelElementBaseDialog 
 			D=diagram.getMaxValue();
 			maxValueCheckBox.setSelected(D!=null);
 			maxValueEdit.setText(NumberTools.formatNumberMax((D==null)?0.0:D));
-			axisLabels.setSelected(diagram.isAxisLabels());
-
+			axisLabels.set(diagram.getAxisLabels(),null,diagram.getAxisLabelText());
 			lineWidth.setSelectedIndex(diagram.getBorderWidth());
 			colorChooserLine.setColor(diagram.getBorderColor());
 			background.setSelected(diagram.getBackgroundColor()!=null);
@@ -309,7 +306,8 @@ public class ModelElementAnimationBarChartDialog extends ModelElementBaseDialog 
 				diagram.setMaxValue(null);
 			}
 
-			diagram.setAxisLabels(axisLabels.isSelected());
+			diagram.setAxisLabels(axisLabels.getMode());
+			diagram.setAxisLabelText(axisLabels.getYLabel());
 
 			expressionTableModel.storeData(diagram);
 
