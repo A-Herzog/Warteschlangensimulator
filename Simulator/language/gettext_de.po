@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-07-21 00:17+0200\n"
+"POT-Creation-Date: 2022-07-22 00:06+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -23419,9 +23419,6 @@ msgstr "Zahlenwert, der sich im Zeitverlauf ändert"
 msgid "Surface.AnalogValue.XML.Root"
 msgstr "ModellElementAnalogerWert"
 
-msgid "Surface.AnimationBar.Dialog.AxisLabels"
-msgstr "Minimal- und Maximalwert an Balken anzeigen"
-
 msgid "Surface.AnimationBar.Dialog.Bar"
 msgstr "Balken"
 
@@ -33925,6 +33922,15 @@ msgstr "Videodatei wählen"
 msgid "Window.Simulation.ErrorInitializatingSimulation"
 msgstr "Fehler beim Initialisieren der Simulation"
 
+msgid "Window.Simulation.ModelIsEmpty"
+msgstr "Das Modell ist leer. Es gibt daher bislang nichts zu simulieren."
+
+msgid "Window.Simulation.ModelIsEmpty.Info"
+msgstr "Das Modell ist leer. Es gibt daher bislang nichts zu simulieren.<br><br>Sie haben folgende Möglichkeiten:<ul><li>Ziehen Sie Stationen aus der <b>Elementenvorlagenleiste</b> auf die Zeichenfläche, um ein Modell zu erstellen.</li><li>Laden Sie ein bestehendes Modell (über <b>Datei|Laden</b> oder per Drag&amp;Drop).</li><li>Wählen Sie über <b>Datei|Beispielmodell laden</b> ein Beispielmodell aus.</li></ul>"
+
+msgid "Window.Simulation.ModelIsEmpty.Title"
+msgstr "Leeres Modell"
+
 msgid "Window.Simulation.ModelIsFaulty"
 msgstr "Modell ist fehlerhaft"
 
@@ -34374,6 +34380,9 @@ msgstr "Das Dateiformat wurde nicht erkannt bzw. passt zu keinem Dateiformat die
 
 #~ msgid "Statistics.WaitingTransferProcessTimesAtStationsClients"
 #~ msgstr "Warte-, Transfer- und Bedienzeiten an den Stationen nach Kundentypen"
+
+#~ msgid "Surface.AnimationBar.Dialog.AxisLabels"
+#~ msgstr "Minimal- und Maximalwert an Balken anzeigen"
 
 #~ msgid "Surface.AnimationBar.Dialog.Expression"
 #~ msgstr "Ausdruck"

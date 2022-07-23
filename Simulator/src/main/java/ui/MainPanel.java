@@ -725,7 +725,7 @@ public class MainPanel extends MainPanelBase {
 		addAction("ModelAddTemplate",e->commandModelAddTemplate());
 
 		/* Simulation */
-		addAction("SimulationAnimation",e->commandSimulationAnimation(null,false,null,null,Simulator.logTypeFull));
+		addAction("SimulationAnimation",e->commandSimulationAnimation(null,false,null,null,Simulator.logTypeFull,false));
 		addAction("SimulationAnimationRecord",e->commandSimulationAnimationRecord());
 		addAction("SimulationAnimationLog",e->commandSimulationAnimationLog());
 		addAction("SimulationAnimationStartModeRun",e->commandSimulationAnimationStartMode(false));
@@ -2893,7 +2893,7 @@ public class MainPanel extends MainPanelBase {
 	 * @return	Im Erfolgsfall <code>null</code>, sonst eine Fehlermeldung.
 	 */
 	public String startRemoteControlledAnimation() {
-		return commandSimulationAnimation(null,true,null,null,Simulator.logTypeFull);
+		return commandSimulationAnimation(null,true,null,null,Simulator.logTypeFull,true);
 	}
 
 	/**
@@ -3009,12 +3009,15 @@ public class MainPanel extends MainPanelBase {
 	 * @param logging	Wird hier ein Wert ungleich <code>null</code> übergeben, so wird der Lauf durch den angegebenen Logger aufgezeichnet; ansonsten erfolgt nur die normale Aufzeichnung in der Statistik
 	 * @param loggingIDs	Liste der Stations-IDs deren Ereignisse beim Logging erfasst werden sollen (nur von Bedeutung, wenn das Logging als solches aktiv ist; kann <code>null</code> sein, dann werden die Ereignisse aller Stationen erfasst)
 	 * @param logType	Welche Arten von Ereignissen sollen erfasst werden? (<code>null</code> bedeutet: alles erfassen)
+	 * @param remoteControlled	Handelt es sich um eine lokal gestartete Animation (<code>false</code>) zu der auch Meldungen angezeigt werden dürfen oder um eine remote gestartete Animation (<code>true</code>) bei der lokal keine Meldungsfenster angezeigt werden können
 	 * @return	Liefert im Erfolgsfall <code>null</code>, sonst eine Fehlermeldung
 	 */
-	private String commandSimulationAnimation(final File recordFile, final boolean externalConnect, final SimLogging logging, final int[] loggingIDs, final Set<Simulator.LogType> logType) {
+	private String commandSimulationAnimation(final File recordFile, final boolean externalConnect, final SimLogging logging, final int[] loggingIDs, final Set<Simulator.LogType> logType, final boolean remoteControlled) {
 		EditorPanelRepair.autoFix(editorPanel);
 
 		EditModel editModel=editorPanel.getModel();
+
+		if (!testEmptyModel(editModel,!remoteControlled)) return Language.tr("Window.Simulation.ModelIsEmpty");
 
 		if (editModel.repeatCount>1) {
 			if (!externalConnect) MsgBox.info(getOwnerWindow(),Language.tr("Animation.NoRepeat.Title"),String.format(Language.tr("Animation.NoRepeat.Info"),editModel.repeatCount));
@@ -3107,7 +3110,7 @@ public class MainPanel extends MainPanelBase {
 
 		final File file=dialog.getVideoFile();
 
-		commandSimulationAnimation(file,false,null,null,Simulator.logTypeFull);
+		commandSimulationAnimation(file,false,null,null,Simulator.logTypeFull,false);
 	}
 
 	/**
@@ -3128,7 +3131,7 @@ public class MainPanel extends MainPanelBase {
 			final SimLogging logger=dialog.getLogger();
 			final int[] loggingIDs=dialog.getStationIDs();
 			final Set<Simulator.LogType> logType=dialog.getLogType();
-			if (logger!=null) commandSimulationAnimation(null,false,logger,loggingIDs,logType);
+			if (logger!=null) commandSimulationAnimation(null,false,logger,loggingIDs,logType,false);
 		}
 	}
 
@@ -3194,6 +3197,25 @@ public class MainPanel extends MainPanelBase {
 	}
 
 	/**
+	 * Prüft, ob überhaupt Stationen in dem Modell vorhanden sind.
+	 * @param editModel	Zu prüfendes Modell
+	 * @param showErrorMessage	Soll im Falle, dass das Modell leer ist, eine Fehlermeldung angezeigt werden?
+	 * @return	Liefert <code>true</code>, wenn das Modell Stationen beinhaltet
+	 */
+	private boolean testEmptyModel(final EditModel editModel, final boolean showErrorMessage) {
+		boolean hasBoxes=false;
+		for (ModelElement element: editModel.surface.getElements()) if (element instanceof ModelElementBox) {
+			hasBoxes=true;
+			break;
+		}
+		if (!hasBoxes && showErrorMessage) {
+			MsgBox.error(this,Language.tr("Window.Simulation.ModelIsEmpty.Title"),"<html><body>"+Language.tr("Window.Simulation.ModelIsEmpty.Info").replace("\n","")+"</body></html>");
+		}
+
+		return hasBoxes;
+	}
+
+	/**
 	 * Befehl: Simulation - Simulation starten
 	 * @param simModel	Ausgangs-Editor-Modell
 	 * @param logging	Wird hier ein Wert ungleich <code>null</code> übergeben, so wird der Lauf durch den angegebenen Logger aufgezeichnet; ansonsten erfolgt nur die normale Aufzeichnung in der Statistik
@@ -3209,6 +3231,8 @@ public class MainPanel extends MainPanelBase {
 		if (simModel==null) {
 			FilePathHelper.checkFilePaths(editModel,editorPanel.getLastFile());
 		}
+
+		if (!testEmptyModel(editModel,true)) return;
 
 		checkAutoSave();
 

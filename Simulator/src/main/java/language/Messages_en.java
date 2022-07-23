@@ -1008,6 +1008,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[2627] = "Pie chart that is updated during the animation of the model";
     t[2632] = "Surface.SourceDB.Dialog.ColumnLoad.ErrorInfo";
     t[2633] = "No table column from which the arrival times are to be loaded has been selected.";
+    t[2634] = "Window.Simulation.ModelIsEmpty.Title";
+    t[2635] = "Empty model";
     t[2638] = "SelectExampleWithPreview.DialogInfo";
     t[2639] = "In this dialog the examples ready to be loaded are listed and next to the list the selected example will be shown in a preview area.";
     t[2640] = "Editor.DialogBase.Search.MaxValue";
@@ -2008,14 +2010,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[5153] = "Initiales the flow between two tanks by a signal.";
     t[5156] = "JSRunner.Toolbar.Clear.Hint";
     t[5157] = "Clears the script output";
-    t[5158] = "Surface.Conveyor.Dialog.CapacityAvailable.ErrorTitle";
-    t[5159] = "Invalid available capacity";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_1 (java.lang.String[] t) {
+    t[5158] = "Surface.Conveyor.Dialog.CapacityAvailable.ErrorTitle";
+    t[5159] = "Invalid available capacity";
     t[5160] = "AutoRestore.Dialog.DeleteAllInfo";
     t[5161] = "Do you really want to delete all previous saved models?";
     t[5164] = "Surface.XML.Transporter.IconLeftEmpty";
@@ -4014,14 +4016,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[10075] = "Invalid minimum value";
     t[10076] = "Statistic.Viewer.DiagramSettings.Title";
     t[10077] = "Diagram settings";
-    t[10080] = "Surface.Database.Config.ButtonHintAccess";
-    t[10081] = "Select Access database file";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_2 (java.lang.String[] t) {
+    t[10080] = "Surface.Database.Config.ButtonHintAccess";
+    t[10081] = "Select Access database file";
     t[10086] = "Surface.TankFlowPanel.Source.ErrorNoValveInfo";
     t[10087] = "At the source tank no valve has been selected to be connected to the flow.";
     t[10090] = "JDistributionEditor.Paste.Info";
@@ -5808,6 +5810,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[14551] = "There are no models to be simulated.";
     t[14554] = "Dialog.Overwrite.Info";
     t[14555] = "The file\n%s\nalready exists.\nDo you want to overwrite this file?";
+    t[14556] = "Window.Simulation.ModelIsEmpty";
+    t[14557] = "The model is empty. Therefore, there is nothing to simulate so far.";
     t[14558] = "Surface.PopupMenu.QuickFix.Process.Resource.New";
     t[14559] = "Create new operators group \"%s\" and use it";
     t[14562] = "Surface.Conveyor.Dialog.TransportTime";
@@ -6018,16 +6022,16 @@ public class Messages_en extends java.util.ResourceBundle {
     t[15129] = "c";
     t[15132] = "Surface.OutputDB.Table.HeaderOutput";
     t[15133] = "Output";
-    t[15134] = "Surface.HoldJS.XML.Root";
-    t[15135] = "ModelElementHoldScript;ModelElementHoldJS";
-    t[15136] = "ThreadCalibration.Status.StartSimulation";
-    t[15137] = "Simulating model using %d threads and %s arrivals";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_3 (java.lang.String[] t) {
+    t[15134] = "Surface.HoldJS.XML.Root";
+    t[15135] = "ModelElementHoldScript;ModelElementHoldJS";
+    t[15136] = "ThreadCalibration.Status.StartSimulation";
+    t[15137] = "Simulating model using %d threads and %s arrivals";
     t[15142] = "Surface.Model.ErrorTerminationConfidenceHalfWidth";
     t[15143] = "The specified waiting time confidence radius for termination of the simulation \"%s\" is invalid. A positive number has to be specified.";
     t[15146] = "Main.Menu.Model.JavaImports";
@@ -8024,16 +8028,16 @@ public class Messages_en extends java.util.ResourceBundle {
     t[20047] = "Restore default imports";
     t[20056] = "Surface.SubConnect.ToID";
     t[20057] = "To id";
-    t[20058] = "ProxySettings.UseAuthentification";
-    t[20059] = "Authentificate using user name and password";
-    t[20060] = "SettingsDialog.Tabs.DefaultFormats.ParameterSeries";
-    t[20061] = "Parameter series";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_4 (java.lang.String[] t) {
+    t[20058] = "ProxySettings.UseAuthentification";
+    t[20059] = "Authentificate using user name and password";
+    t[20060] = "SettingsDialog.Tabs.DefaultFormats.ParameterSeries";
+    t[20061] = "Parameter series";
     t[20062] = "Statistics.SimulatedTime.StartTime";
     t[20063] = "Start time";
     t[20066] = "Surface.Barrier.Dialog.ReleaseSignal.NoSignalsAvailable";
@@ -8662,8 +8666,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[21611] = "Invalid waiting time";
     t[21618] = "Optimizer.XML.TimeoutSeconds";
     t[21619] = "OptimizerTimeout";
-    t[21622] = "Surface.AnimationBar.Dialog.AxisLabels";
-    t[21623] = "Show minimal and maximal value at bar";
+    t[21622] = "Surface.AnimationTextSelect.XML.BackgroundColor.Alpha";
+    t[21623] = "Alpha";
     t[21632] = "Surface.Delay.XML.Costs";
     t[21633] = "ModelElementDelayCosts";
     t[21634] = "Optimizer.Prepare.Canceled";
@@ -10030,16 +10034,16 @@ public class Messages_en extends java.util.ResourceBundle {
     t[24973] = "If no client is waiting";
     t[24978] = "Simulation.Log.InputDDE";
     t[24979] = "Input (DDE)";
-    t[24982] = "Simulation.Log.Action";
-    t[24983] = "Action";
-    t[24990] = "Animation.Icon.Disk";
-    t[24991] = "Disk";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_5 (java.lang.String[] t) {
+    t[24982] = "Simulation.Log.Action";
+    t[24983] = "Action";
+    t[24990] = "Animation.Icon.Disk";
+    t[24991] = "Disk";
     t[24994] = "Statistics.XML.Run.Error";
     t[24995] = "The RunVariance attribute in the \"%s\" element has to be a non-negative number but is \"%s\".";
     t[24996] = "Main.Toolbar.Help.Hint";
@@ -12036,16 +12040,16 @@ public class Messages_en extends java.util.ResourceBundle {
     t[29911] = "AnalogID";
     t[29912] = "Statistics.InterLeaveTimesAtTheSystem";
     t[29913] = "Inter-departure times from the system";
-    t[29922] = "SettingsDialog.Tabs.Statistics";
-    t[29923] = "Statistics";
-    t[29934] = "Surface.Costs.Name";
-    t[29935] = "Costs";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_6 (java.lang.String[] t) {
+    t[29922] = "SettingsDialog.Tabs.Statistics";
+    t[29923] = "Statistics";
+    t[29934] = "Surface.Costs.Name";
+    t[29935] = "Costs";
     t[29936] = "Simulation.Creator.RadiobuttonNoVariable";
     t[29937] = "At station id=%d no name was specified for the variable to be changed.";
     t[29942] = "ExternalConnect.Dialog.NoPluginMethodsInfo.WarningDirectImportIsOff";
@@ -14042,16 +14046,16 @@ public class Messages_en extends java.util.ResourceBundle {
     t[34679] = "This function allows to copy the current Warteschlangensimulator installation to another directory (e.g. on a USB stick). This way a portable installation can be created without having to download the simulator again.";
     t[34682] = "ModelDescription.InteractiveCheckbox.Description.Values";
     t[34683] = "Values";
-    t[34700] = "ParameterCompare.Settings.Input.Mode.GlobalMap.ErrorInfo";
-    t[34701] = "No global map entry for which the initial value is to be changed was selected.";
-    t[34702] = "Dialog.Button.Back";
-    t[34703] = "Back";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_7 (java.lang.String[] t) {
+    t[34700] = "ParameterCompare.Settings.Input.Mode.GlobalMap.ErrorInfo";
+    t[34701] = "No global map entry for which the initial value is to be changed was selected.";
+    t[34702] = "Dialog.Button.Back";
+    t[34703] = "Back";
     t[34706] = "FindAndReplace.ResultInfo.NoResults";
     t[34707] = "No matches were found for the search term.";
     t[34712] = "Surface.AnimationText.Dialog.Number";
@@ -16048,16 +16052,16 @@ public class Messages_en extends java.util.ResourceBundle {
     t[39521] = "Transfers data that have already been included in the local repositories to the server.";
     t[39524] = "Surface.Source.Dialog.Threshold";
     t[39525] = "Arrivales by threshold value";
-    t[39532] = "Statistics.SystemData.ThreadBalance.DeviationFromAverage";
-    t[39533] = "Deviation from average";
-    t[39534] = "FindElementDirect.NoElementsFound";
-    t[39535] = "No elements were found matching the search string.";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_8 (java.lang.String[] t) {
+    t[39532] = "Statistics.SystemData.ThreadBalance.DeviationFromAverage";
+    t[39533] = "Deviation from average";
+    t[39534] = "FindElementDirect.NoElementsFound";
+    t[39535] = "No elements were found matching the search string.";
     t[39536] = "ExpressionBuilder.SimulationCharacteristics.UserStatistics.StandardDeviationOfTheNumber";
     t[39537] = "<p>Gets the standard deviation of the performance indicator <tt>nr</tt> (1 based) recorded at station id.</p>";
     t[39538] = "Simulation.Creator.MultiEdgesToSameTarget";
@@ -16790,8 +16794,6 @@ public class Messages_en extends java.util.ResourceBundle {
     t[41275] = "No model was submitted that could be parameterized.";
     t[41278] = "Statistic.FastAccess.RunJava";
     t[41279] = "Run";
-    t[41282] = "Surface.AnimationTextSelect.XML.BackgroundColor.Alpha";
-    t[41283] = "Alpha";
     t[41284] = "Statistics.Dashboard.EditDialog.PostText";
     t[41285] = "Optional text after the value";
     t[41294] = "Editor.Dialog.Tab.Simulation.Criteria.Title";
@@ -17950,6 +17952,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[44065] = "defined more complex";
     t[44072] = "Surface.BatchMulti.Tooltip";
     t[44073] = "Collect client and let them pass only after a certain number has been arrived.";
+    t[44074] = "Window.Simulation.ModelIsEmpty.Info";
+    t[44075] = "The model is empty. Therefore, there is nothing to simulate so far.<br><br>You have the following options:<ul><li>Drag stations from the <b>Element template panel</b> onto the drawing surface to create a model.</li><li>Load an existing model (via <b>File|Load</b> or drag&amp;drop).</li><li>Select an example model via <b>File|Load example model</b>.</li></ul>";
     t[44078] = "Main.Menu.Extras.CopyInstallation";
     t[44079] = "Copy Warteschlangensimulator installation...";
     t[44080] = "ExpressionBuilder.SimulationCharacteristics.isWarmUp.Info";
@@ -18054,16 +18058,16 @@ public class Messages_en extends java.util.ResourceBundle {
     t[44335] = "Client in the system in service process";
     t[44338] = "ParameterCompare.XML.Models.OutputValue";
     t[44339] = "CompareModelsModelOutput";
-    t[44340] = "Main.Menu.View.Statistics.HeatMap.Waiting";
-    t[44341] = "Heatmap: Average waiting time at a station";
-    t[44342] = "Color.DA70D6";
-    t[44343] = "Orchid";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_9 (java.lang.String[] t) {
+    t[44340] = "Main.Menu.View.Statistics.HeatMap.Waiting";
+    t[44341] = "Heatmap: Average waiting time at a station";
+    t[44342] = "Color.DA70D6";
+    t[44343] = "Orchid";
     t[44346] = "Surface.XML.PathSegments.Connection";
     t[44347] = "ModelPathConnection";
     t[44352] = "Statistic.FastAccess.Template.ClientsCostsProcess";
@@ -20060,16 +20064,16 @@ public class Messages_en extends java.util.ResourceBundle {
     t[49177] = "Setup background color and image...";
     t[49180] = "BuildClientSourceTable.SelectAll.Hint";
     t[49181] = "Select all table columns for transfer.";
-    t[49184] = "Surface.Tank.Infotext";
-    t[49185] = "Tank stations represent a value which can change continuously over the time. The fill level of a tank cannot get negative and also has an upper limit. Tank stations do not have incoming or outgoing edges.";
-    t[49188] = "Main.Menu.View.QuickAccess.Mnemonic";
-    t[49189] = "q";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_10 (java.lang.String[] t) {
+    t[49184] = "Surface.Tank.Infotext";
+    t[49185] = "Tank stations represent a value which can change continuously over the time. The fill level of a tank cannot get negative and also has an upper limit. Tank stations do not have incoming or outgoing edges.";
+    t[49188] = "Main.Menu.View.QuickAccess.Mnemonic";
+    t[49189] = "q";
     t[49190] = "Simulation.Creator.IntervalExpressions.IntervalTimeInvalid";
     t[49191] = "At station id=%d the specified interval duration %d is invalid. A positive integer number has to be specified.";
     t[49198] = "Surface.Match.Dialog.OptionProperty.Number.Error.Info";
@@ -22066,16 +22070,16 @@ public class Messages_en extends java.util.ResourceBundle {
     t[54013] = "Do not delete image.";
     t[54024] = "Simulation.Creator.ProcessBatchRange";
     t[54025] = "For element id=%d a smaller maximum batch size than a minimum batch size was specified.";
-    t[54026] = "Simulation.Creator.SensorThreshold";
-    t[54027] = "At element id=%d as threshold value %s was defined. But threshold values cannot be negative values.";
-    t[54032] = "Surface.AnimationTrafficLights.Dialog.ConditionError.InfoRed";
-    t[54033] = "The entered expression \"%s\" for the red light is invalid at character %d.";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_11 (java.lang.String[] t) {
+    t[54026] = "Simulation.Creator.SensorThreshold";
+    t[54027] = "At element id=%d as threshold value %s was defined. But threshold values cannot be negative values.";
+    t[54032] = "Surface.AnimationTrafficLights.Dialog.ConditionError.InfoRed";
+    t[54033] = "The entered expression \"%s\" for the red light is invalid at character %d.";
     t[54038] = "SettingsDialog.Tabs.Simulation.UseMultiCoreOnRepeatedSimulations";
     t[54039] = "Split repeated simulations if reasonable";
     t[54044] = "Resources.Group.EditName.Dialog.CostsPerIdleHour";

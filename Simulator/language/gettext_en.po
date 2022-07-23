@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-07-21 00:17+0200\n"
+"POT-Creation-Date: 2022-07-22 00:06+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -23406,9 +23406,6 @@ msgstr "Analog changing value"
 msgid "Surface.AnalogValue.XML.Root"
 msgstr "ModelElementAnalogValue"
 
-msgid "Surface.AnimationBar.Dialog.AxisLabels"
-msgstr "Show minimal and maximal value at bar"
-
 msgid "Surface.AnimationBar.Dialog.Bar"
 msgstr "Bar"
 
@@ -33900,6 +33897,15 @@ msgstr "Select video file"
 msgid "Window.Simulation.ErrorInitializatingSimulation"
 msgstr "Error initializing the simulation"
 
+msgid "Window.Simulation.ModelIsEmpty"
+msgstr "The model is empty. Therefore, there is nothing to simulate so far."
+
+msgid "Window.Simulation.ModelIsEmpty.Info"
+msgstr "The model is empty. Therefore, there is nothing to simulate so far.<br><br>You have the following options:<ul><li>Drag stations from the <b>Element template panel</b> onto the drawing surface to create a model.</li><li>Load an existing model (via <b>File|Load</b> or drag&amp;drop).</li><li>Select an example model via <b>File|Load example model</b>.</li></ul>"
+
+msgid "Window.Simulation.ModelIsEmpty.Title"
+msgstr "Empty model"
+
 msgid "Window.Simulation.ModelIsFaulty"
 msgstr "Model is invalid"
 
@@ -34327,6 +34333,9 @@ msgstr "The file format is unknown respectively is not matching to any of the fi
 
 #~ msgid "Statistics.WaitingTransferProcessTimesAtStationsClients"
 #~ msgstr "Waiting, transfer and process times at the stations by client types"
+
+#~ msgid "Surface.AnimationBar.Dialog.AxisLabels"
+#~ msgstr "Show minimal and maximal value at bar"
 
 #~ msgid "Surface.AnimationBar.Dialog.Expression"
 #~ msgstr "Expression"
