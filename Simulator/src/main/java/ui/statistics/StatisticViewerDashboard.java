@@ -36,6 +36,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.SwingUtilities;
+import javax.swing.Timer;
 
 import language.Language;
 import simulator.statistics.Statistics;
@@ -196,6 +197,12 @@ public class StatisticViewerDashboard extends StatisticViewerSpecialBasePlain {
 	 */
 	private void testEditable() {
 		final StatisticsBasePanel statisticPanel=getParentStatisticPanel(viewerContainer);
+		if (statisticPanel==null) {
+			final Timer timer=new Timer(100,e->testEditable());
+			timer.setRepeats(false);
+			timer.start();
+			return;
+		}
 		if (!statisticPanel.isDataViewer(this)) {
 			readOnly=true;
 			rebuildViewer();
