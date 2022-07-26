@@ -821,14 +821,14 @@ public final class StatisticsTimePerformanceIndicator extends StatisticsPerforma
 		node.setAttribute(xmlNameMin[0],""+Math.max(0,getTimeMin()));
 		node.setAttribute(xmlNameMax[0],""+Math.max(0,getTimeMax()));
 
-		if (stateTime!=null) {
+		if (stateTime!=null && getTimeMean()>0) {
 			final int[] quantils=getQuantil(storeQuantilValues);
 			for (int i=0;i<storeQuantilValues.length;i++) {
 				node.setAttribute(xmlNameQuantil+Math.round(storeQuantilValues[i]*100),""+quantils[i]);
 			}
 		}
 
-		if (runCount>0) {
+		if (runCount>1) {
 			node.setAttribute(StatisticsDataPerformanceIndicator.xmlNameRunCount[0],""+runCount);
 			node.setAttribute(StatisticsDataPerformanceIndicator.xmlNameRunVar[0],NumberTools.formatSystemNumber(getRunVar(),recycleStringBuilder));
 			for (double level: CONFIDENCE_SAVE_LEVEL) {

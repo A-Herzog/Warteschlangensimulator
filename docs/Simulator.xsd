@@ -2008,6 +2008,7 @@
     <xs:attribute name="Quantil50" type="xs:string"/>
     <xs:attribute name="Quantil75" type="xs:string"/>
     <xs:attribute name="Quantil90" type="xs:string"/>
+	<xs:attribute name="QuantilLimit" type="xs:string"/>
   </xs:extension>
 </xs:simpleContent></xs:complexType>
 
@@ -4271,6 +4272,7 @@
     <xs:attribute name="Quantil50" type="xs:string"/>
     <xs:attribute name="Quantil75" type="xs:string"/>
     <xs:attribute name="Quantil90" type="xs:string"/>
+	<xs:attribute name="QuantilLimit" type="xs:string"/>
   </xs:extension>
 </xs:simpleContent></xs:complexType>
 

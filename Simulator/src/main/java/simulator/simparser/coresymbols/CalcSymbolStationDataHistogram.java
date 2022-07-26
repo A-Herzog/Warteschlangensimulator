@@ -85,24 +85,55 @@ public abstract class CalcSymbolStationDataHistogram extends CalcSymbolSimData {
 	}
 
 	/**
+	 * ID der Station, für die zuletzt Daten abgefragt wurden
+	 * @see #getDistributionByID(double)
+	 * @see #getDistributionSumByID(double)
+	 */
+	private double lastDistributionId=-1;
+
+	/**
+	 * Kundentypnamen zu der zuletzt abgefragten ID
+	 * @see #lastDistributionClientTypeName
+	 * @see #getDistributionByID(double)
+	 * @see #getDistributionSumByID(double)
+	 */
+	private String lastDistributionClientTypeName;
+
+	/**
+	 * Stationsdaten zu der zuletzt abgefragten ID
+	 * @see #lastDistributionClientTypeName
+	 * @see #getDistributionByID(double)
+	 * @see #getDistributionSumByID(double)
+	 */
+	private RunElementData lastDistributionRunElement=null;
+
+	/**
 	 * Liefert die Verteilung auf Basis einer Stations-ID (entweder um eine Stations-Kenngröße auszulesen oder um indirekt über eine Quelle einen Kundentyp zu identifizieren)
 	 * @param id	Stations-ID
 	 * @return	Verteilung auf deren Basis das Histogramm erstellt werden soll
 	 */
 	protected DataDistributionImpl getDistributionByID(final double id) {
-		final RunElementData data=getRunElementDataForID(id);
-		if (data==null) return null;
+		if (lastDistributionId==id && lastDistributionRunElement!=null) return getDistribution(lastDistributionRunElement);
 
 		if (hasSingleClientData()) {
+			if (lastDistributionId==id && lastDistributionClientTypeName!=null) return getDistributionForClientType(lastDistributionClientTypeName);
 			final RunElement element=getRunElementForID(id);
 			if (element==null) return null;
 			String name=null;
 			if (element instanceof RunElementSource) name=((RunElementSource)element).clientTypeName;
 			if (element instanceof RunElementAssign) name=((RunElementAssign)element).clientTypeName;
-			if (name!=null) return getDistributionForClientType(name);
+			if (name!=null) {
+				lastDistributionId=id;
+				lastDistributionClientTypeName=name;
+				return getDistributionForClientType(name);
+			}
 			/* name==null: Evtl. nicht pro Kundentyp sondern pro Station */
 		}
 
+		final RunElementData data=getRunElementDataForID(id);
+		if (data==null) return null;
+		lastDistributionId=id;
+		lastDistributionRunElement=data;
 		return getDistribution(data);
 	}
 
@@ -112,18 +143,27 @@ public abstract class CalcSymbolStationDataHistogram extends CalcSymbolSimData {
 	 * @return	Summe der Verteilungswerte
 	 */
 	protected double getDistributionSumByID(final double id) {
+		if (lastDistributionId==id && lastDistributionRunElement!=null) return getDistributionSum(lastDistributionRunElement);
+
 		if (hasSingleClientData()) {
+			if (lastDistributionId==id && lastDistributionClientTypeName!=null) return getDistributionSumForClientType(lastDistributionClientTypeName);
 			final RunElement element=getRunElementForID(id);
 			if (element==null) return 0.0;
 			String name=null;
 			if (element instanceof RunElementSource) name=((RunElementSource)element).clientTypeName;
 			if (element instanceof RunElementAssign) name=((RunElementAssign)element).clientTypeName;
-			if (name!=null) return getDistributionSumForClientType(name);
+			if (name!=null) {
+				lastDistributionId=id;
+				lastDistributionClientTypeName=name;
+				return getDistributionSumForClientType(name);
+			}
 			/* name==null: Evtl. nicht pro Kundentyp sondern pro Station */
 		}
 
 		final RunElementData data=getRunElementDataForID(id);
 		if (data==null) return 0;
+		lastDistributionId=id;
+		lastDistributionRunElement=data;
 		return getDistributionSum(data);
 	}
 
@@ -174,23 +214,25 @@ public abstract class CalcSymbolStationDataHistogram extends CalcSymbolSimData {
 
 		final DataDistributionImpl dist=getDistributionByID(parameters[0]);
 		if (dist==null) return 0.0;
+		final double[] densityData=dist.densityData;
 		final double sum=getDistributionSumByID(parameters[0]);
 		if (sum<1) return 0.0;
 
+		final double scale=densityData.length/dist.upperBound;
 		if (parameters.length==2) {
-			final int index=(int)FastMath.round(parameters[1]);
-			if (index<0 || index>=dist.densityData.length) return 0.0;
+			final int index=(int)(parameters[1]*scale+0.5);
+			if (index<0 || index>=densityData.length) return 0.0;
 			return dist.densityData[index]/sum;
 		} else {
-			final int index1=FastMath.max(-1,(int)FastMath.round(parameters[1]));
-			int index2=FastMath.max(0,(int)FastMath.round(parameters[2]));
-			if (index1<0 || index1>=dist.densityData.length) return 0.0;
-			if (index2>=dist.densityData.length) index2=dist.densityData.length-1;
-			if (index2<=index1) return 0.0;
+			final int index1=(int)(parameters[1]*scale+0.5);
+			int index2=(int)(parameters[2]*scale+0.5);
+			if (index1<0 || index1>=densityData.length) return 0.0;
+			if (index2>=densityData.length) index2=densityData.length-1;
+			if (index2<index1) return 0.0;
 
 			if (lastSum!=sum || lastParam1!=index1 || lastParam2!=index2) {
 				double part=0;
-				for (int i=index1+1;i<=index2;i++) part+=dist.densityData[i];
+				for (int i=index1+1;i<=index2;i++) part+=densityData[i];
 				lastSum=sum;
 				lastParam1=index1;
 				lastParam2=index2;
@@ -210,13 +252,14 @@ public abstract class CalcSymbolStationDataHistogram extends CalcSymbolSimData {
 		final double sum=getDistributionSumByID(parameters[0]);
 		if (sum<1) return 0;
 
+		final double scale=densityData.length/dist.upperBound;
 		if (parameters.length==2) {
-			final int index=(int)FastMath.round(parameters[1]);
+			final int index=(int)FastMath.round(parameters[1]*scale);
 			if (index<0 || index>=densityData.length) return 0;
 			return densityData[index]/sum;
 		} else {
-			final int index1=FastMath.max(-1,(int)FastMath.round(parameters[1]));
-			int index2=FastMath.max(0,(int)FastMath.round(parameters[2]));
+			final int index1=FastMath.max(-1,(int)FastMath.round(parameters[1]*scale));
+			int index2=FastMath.max(0,(int)FastMath.round(parameters[2]*scale));
 			if (index1<0 || index1>=densityData.length) return 0;
 			if (index2>=densityData.length) index2=densityData.length-1;
 			if (index2<=index1) return 0;

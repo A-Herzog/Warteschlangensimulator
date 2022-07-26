@@ -19568,6 +19568,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[47905] = "Client: %s, station: %s";
     t[47906] = "ExpressionBuilder.SimulationCharacteristics.ProcessingTimesByClientTypes.MaximalTime";
     t[47907] = "<p>Returns the maximal duration over all processing times of the clients created at the station whose ID was specified in the parameter.</p>";
+    t[47910] = "Statistics.XML.QuantilLimit";
+    t[47911] = "QuantilLimit";
     t[47916] = "JDistributionEditor.Edit.Info";
     t[47917] = "Shows a dialog for editing the distribution";
     t[47918] = "Surface.TransportSource.Dialog.Ressource.DelayedRelease.Dialog.Title";
@@ -20062,14 +20064,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[49131] = "<p>Returns the fraction of clients, who had spent the specified number of seconds as residence time.</p>";
     t[49132] = "SimulationServer.Setup.MQTTBrokerVerify.Hint";
     t[49133] = "Requires (if a encrypted connection is used) that the certificate used by the broker can be verified based on the root CAs stored in Java.";
-    t[49136] = "Surface.SourceDB.Tooltip";
-    t[49137] = "Source that generates arrivals based on a database table.";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_10 (java.lang.String[] t) {
+    t[49136] = "Surface.SourceDB.Tooltip";
+    t[49137] = "Source that generates arrivals based on a database table.";
     t[49142] = "Simulation.Log.PickUpForwarding";
     t[49143] = "Pick up - common forwarding";
     t[49166] = "Surface.Release.Dialog.SeizeElement";
@@ -22068,14 +22070,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[53963] = "Appearance";
     t[53976] = "Statistic.Viewer.Context.Width.This";
     t[53977] = "Column width - this column";
-    t[53980] = "BatchPanel.Script.Caption";
-    t[53981] = "Select filter script";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_11 (java.lang.String[] t) {
+    t[53980] = "BatchPanel.Script.Caption";
+    t[53981] = "Select filter script";
     t[53990] = "Surface.AnimationPointerMeasuring.Dialog.MaxValue.Error.Info";
     t[53991] = "The specified maximum value of the scale \"%s\" is invalid.\nA positive integer value larger than the minimum value has to be entered.";
     t[53994] = "Statistics.ClientData.Field.Variance";

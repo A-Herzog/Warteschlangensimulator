@@ -594,13 +594,17 @@ public class StatisticViewerTimeTable extends StatisticViewerBaseTable {
 
 		final String[] types=indicator.getNames();
 
+		double scale=1;
 		headers.add(label);
 		List<DataDistributionImpl> dists=new ArrayList<>();
 		for (String type: types) {
 			headers.add(Language.tr("Statistics.NumberOfClients")+" - "+type);
 			headers.add(Language.tr("Statistics.PartOfClients")+" - "+type);
 			final DataDistributionImpl dist=((StatisticsDataPerformanceIndicator)(indicator.get(type))).getDistribution();
-			if (dist!=null) dists.add(dist);
+			if (dist!=null) {
+				dists.add(dist);
+				scale=dist.upperBound/dist.densityData.length;
+			}
 		}
 
 		final List<Double> sum=new ArrayList<>();
@@ -608,7 +612,7 @@ public class StatisticViewerTimeTable extends StatisticViewerBaseTable {
 
 		if (dists.size()>0)	for (int i=0;i<dists.get(0).densityData.length;i++) {
 			List<String> line=new ArrayList<>();
-			line.add(NumberTools.formatLongNoGrouping(i));
+			line.add(NumberTools.formatLongNoGrouping(Math.round(i*scale)));
 			for (int j=0;j<dists.size();j++) {
 				double value=dists.get(j).densityData[i];
 				line.add(StatisticTools.formatNumber(value));
@@ -1039,6 +1043,7 @@ public class StatisticViewerTimeTable extends StatisticViewerBaseTable {
 		final Table table=new Table();
 		final List<String> headers=new ArrayList<>();
 
+		double scale=1;
 		headers.add(Language.tr("Statistics.Value"));
 		List<DataDistributionImpl> dists=new ArrayList<>();
 		for (String name: statistics.clientData.getNames()) {
@@ -1046,7 +1051,10 @@ public class StatisticViewerTimeTable extends StatisticViewerBaseTable {
 			headers.add(Language.tr("Statistics.Number")+" - "+field);
 			headers.add(Language.tr("Statistics.Part")+" - "+field);
 			final DataDistributionImpl dist=((StatisticsDataPerformanceIndicatorWithNegativeValues)(statistics.clientData.get(name))).getDistribution();
-			if (dist!=null) dists.add(dist);
+			if (dist!=null) {
+				dists.add(dist);
+				scale=dist.upperBound/dist.densityData.length;
+			}
 		}
 
 		final List<Double> sum=new ArrayList<>();
@@ -1054,7 +1062,7 @@ public class StatisticViewerTimeTable extends StatisticViewerBaseTable {
 
 		if (dists.size()>0)	for (int i=0;i<dists.get(0).densityData.length;i++) {
 			List<String> line=new ArrayList<>();
-			line.add(NumberTools.formatLongNoGrouping(i));
+			line.add(NumberTools.formatLongNoGrouping(Math.round(i*scale)));
 			for (int j=0;j<dists.size();j++) {
 				double value=dists.get(j).densityData[i];
 				line.add(StatisticTools.formatNumber(value));

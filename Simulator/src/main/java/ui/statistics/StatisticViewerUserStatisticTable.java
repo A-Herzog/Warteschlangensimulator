@@ -260,13 +260,17 @@ public class StatisticViewerUserStatisticTable extends StatisticViewerBaseTable 
 
 		final String[] types=statistics.userStatistics.getNames();
 
+		double scale=1;
 		headers.add(Language.tr("Statistics.Seconds")+"/"+Language.tr("Statistics.Value"));
 		List<DataDistributionImpl> dists=new ArrayList<>();
 		for (String type: types) {
 			headers.add(Language.tr("Statistics.NumberOfClients")+" - "+type);
 			headers.add(Language.tr("Statistics.PartOfClients")+" - "+type);
 			final DataDistributionImpl dist=((StatisticsDataPerformanceIndicatorWithNegativeValues)(statistics.userStatistics.get(type))).getDistribution();
-			if (dist!=null) dists.add(dist);
+			if (dist!=null) {
+				dists.add(dist);
+				scale=dist.upperBound/dist.densityData.length;
+			}
 		}
 
 		List<Double> sum=new ArrayList<>();
@@ -274,7 +278,7 @@ public class StatisticViewerUserStatisticTable extends StatisticViewerBaseTable 
 
 		if (dists.size()>0)	for (int i=0;i<dists.get(0).densityData.length;i++) {
 			List<String> line=new ArrayList<>();
-			line.add(NumberTools.formatLong(i));
+			line.add(NumberTools.formatLongNoGrouping(Math.round(i*scale)));
 			for (int j=0;j<dists.size();j++) {
 				double value=dists.get(j).densityData[i];
 				line.add(StatisticTools.formatNumber(value));

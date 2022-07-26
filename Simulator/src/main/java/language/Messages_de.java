@@ -19568,6 +19568,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[47905] = "Kunde: %s, Station: %s";
     t[47906] = "ExpressionBuilder.SimulationCharacteristics.ProcessingTimesByClientTypes.MaximalTime";
     t[47907] = "<p>Liefert die maximale Bedienzeit \u00fcber alle Kunden, die an der Bedienstation, deren ID in dem Parameter angegeben wurde, erzeugt wurden.</p>";
+    t[47910] = "Statistics.XML.QuantilLimit";
+    t[47911] = "QuantilLimit";
     t[47916] = "JDistributionEditor.Edit.Info";
     t[47917] = "\u00d6ffnet den Dialog zum Bearbeiten der Verteilung";
     t[47918] = "Surface.TransportSource.Dialog.Ressource.DelayedRelease.Dialog.Title";
@@ -20062,14 +20064,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[49131] = "<p>Liefert den Anteil der Kunden, der eine bestimmte Sekundenanzahl als Verweilzeit verbracht hat.</p>";
     t[49132] = "SimulationServer.Setup.MQTTBrokerVerify.Hint";
     t[49133] = "Verlangt (wenn eine verschl\u00fcsselte Verbindung verwendet wird), dass das vom Broker verwendete Zertifikat auf Basis der in Java hinterlegten Root-CAs verifiziert werden kann.";
-    t[49136] = "Surface.SourceDB.Tooltip";
-    t[49137] = "Quelle, die Ank\u00fcnfte gem\u00e4\u00df einer Datenbanktabelle generiert.";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_10 (java.lang.String[] t) {
+    t[49136] = "Surface.SourceDB.Tooltip";
+    t[49137] = "Quelle, die Ank\u00fcnfte gem\u00e4\u00df einer Datenbanktabelle generiert.";
     t[49142] = "Simulation.Log.PickUpForwarding";
     t[49143] = "Ausleiten - gemeinsame Weiterleitung erfolgt";
     t[49166] = "Surface.Release.Dialog.SeizeElement";
@@ -22068,14 +22070,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[53963] = "Darstellung";
     t[53976] = "Statistic.Viewer.Context.Width.This";
     t[53977] = "Spaltenbreite - diese Spalte";
-    t[53980] = "BatchPanel.Script.Caption";
-    t[53981] = "Filterskript ausw\u00e4hlen";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_11 (java.lang.String[] t) {
+    t[53980] = "BatchPanel.Script.Caption";
+    t[53981] = "Filterskript ausw\u00e4hlen";
     t[53990] = "Surface.AnimationPointerMeasuring.Dialog.MaxValue.Error.Info";
     t[53991] = "The angegebene Maximalwert f\u00fcr die Skala \"%s\" ist ung\u00fcltig.\nEs muss eine positive Ganzzahl, die gr\u00f6\u00dfer als der Minimalwert ist, angegeben werden.";
     t[53994] = "Statistics.ClientData.Field.Variance";

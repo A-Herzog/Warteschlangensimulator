@@ -1576,7 +1576,10 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 		if (indicator.getDistribution()==null) return;
 
 		double upperBound=Double.MAX_VALUE;
-		if (indicator.getDistribution()!=null) upperBound=indicator.getDistribution().upperBound-1;
+		if (indicator.getDistribution()!=null) {
+			final DataDistributionImpl dist=indicator.getDistribution();
+			upperBound=dist.upperBound-dist.upperBound/dist.densityData.length;
+		}
 
 		beginParagraph();
 		boolean hitMax=false;
@@ -1606,7 +1609,10 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 		if (indicator.getDistribution()==null) return;
 
 		double upperBound=Double.MAX_VALUE;
-		if (indicator.getDistribution()!=null) upperBound=indicator.getDistribution().upperBound-1;
+		if (indicator.getDistribution()!=null) {
+			final DataDistributionImpl dist=indicator.getDistribution();
+			upperBound=dist.upperBound-dist.upperBound/dist.densityData.length;
+		}
 
 		beginParagraph();
 		boolean hitMax=false;
@@ -1635,7 +1641,10 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 		if (!SetupData.getSetup().showQuantils) return;
 
 		double upperBound=Double.MAX_VALUE;
-		if (indicator.getDistribution()!=null) upperBound=indicator.getDistribution().upperBound-1;
+		if (indicator.getDistribution()!=null) {
+			final DataDistributionImpl dist=indicator.getDistribution();
+			upperBound=dist.upperBound-dist.upperBound/dist.densityData.length;
+		}
 
 		beginParagraph();
 		boolean hitMax=false;
@@ -1665,7 +1674,10 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 		if (!SetupData.getSetup().showQuantils) return;
 
 		double upperBound=Double.MAX_VALUE;
-		if (indicator.getReadOnlyDistribution()!=null) upperBound=indicator.getReadOnlyDistribution().upperBound-1;
+		if (indicator.getDistribution()!=null) {
+			final DataDistributionImpl dist=indicator.getDistribution();
+			upperBound=dist.upperBound-dist.upperBound/dist.densityData.length;
+		}
 
 		beginParagraph();
 		boolean hitMax=false;

@@ -103,6 +103,8 @@ public final class StatisticsDataPerformanceIndicator extends StatisticsPerforma
 	public static String[] xmlNameRunHalfWide=new String[]{"LaufMittelwertKonfidenzRadius"};
 	/** XML-Attribut für "Quantil" */
 	public static String xmlNameQuantil="Quantil";
+	/** XML-Attribut für "QuantilGrenze" */
+	public static String[] xmlNameQuantilLimit=new String[]{"QuantilGrenze"};
 	/** XML-Attribut für "WelfordM2" */
 	public static String[] xmlNameWelfordM2=new String[]{"WelfordM2"};
 	/** Fehlermeldung, wenn das "WelfordM2"-Attribut nicht gelesen werden konnte. */
@@ -338,8 +340,7 @@ public final class StatisticsDataPerformanceIndicator extends StatisticsPerforma
 
 		if (steps>0 && !isEmpty) {
 			hasDistribution=true;
-			argumentScaleFactor=steps/((upperBound==86399)?86400:upperBound);
-			argumentScaleFactorIsOne=(Math.abs(argumentScaleFactor-1)<1E-10);
+			setupArgumentScaleFactor(steps,upperBound);
 		} else {
 			hasDistribution=false;
 		}
@@ -351,6 +352,19 @@ public final class StatisticsDataPerformanceIndicator extends StatisticsPerforma
 		this.useWelford=useWelford;
 
 		reset();
+	}
+
+	/**
+	 * Berechnet die Skalierung zwischen Werten und Histogrammindicies
+	 * nach dem Erstellen des Objektes oder dem Laden von Daten.
+	 * @param steps	Gibt an, wie viele einzelne Werte für die Häufigkeitsverteilung vorgehalten werden sollen
+	 * @param upperBound	Gibt die Obergrenze des Trägers der Häufigkeitsverteilung an
+	 */
+	private void setupArgumentScaleFactor(final int steps, final double upperBound) {
+		if (steps>0 && upperBound>0) {
+			argumentScaleFactor=steps/((upperBound==86399)?86400:upperBound);
+			argumentScaleFactorIsOne=(Math.abs(argumentScaleFactor-1)<1E-10);
+		}
 	}
 
 	/**
@@ -1339,8 +1353,6 @@ public final class StatisticsDataPerformanceIndicator extends StatisticsPerforma
 		node.setAttribute(xmlNameMin[0],NumberTools.formatSystemNumber(getMin(),recycleStringBuilder));
 		node.setAttribute(xmlNameMax[0],NumberTools.formatSystemNumber(getMax(),recycleStringBuilder));
 
-		if (dist!=null) node.setAttribute(xmlNameDistribution[0],dist.storeToString(recycleStringBuilder));
-
 		calcCorrelation();
 		if (correlation!=null) {
 			/* Aufbereitete Daten (werden nur geschrieben, nicht wieder gelesen) */
@@ -1377,10 +1389,12 @@ public final class StatisticsDataPerformanceIndicator extends StatisticsPerforma
 
 		if (hasDistribution) {
 			if (dist==null) initDistribution();
+			node.setAttribute(xmlNameDistribution[0],dist.storeToString(recycleStringBuilder));
 			final double[] quantils=getQuantil(storeQuantilValues);
 			for (int i=0;i<storeQuantilValues.length;i++) {
 				node.setAttribute(xmlNameQuantil+Math.round(storeQuantilValues[i]*100),NumberTools.formatSystemNumber(quantils[i],recycleStringBuilder));
 			}
+			node.setAttribute(xmlNameQuantilLimit[0],NumberTools.formatSystemNumber(dist.upperBound));
 		}
 
 		if (useWelford && welfordM2>=0) {
@@ -1399,49 +1413,49 @@ public final class StatisticsDataPerformanceIndicator extends StatisticsPerforma
 
 		value=getAttributeValue(node,xmlNameCount);
 		if (!value.isEmpty()) {
-			Long count=NumberTools.getLong(value);
+			final Long count=NumberTools.getLong(value);
 			if (count==null || count<0) return String.format(xmlNameCountError,node.getNodeName(),value);
 			this.count=count;
 		}
 
 		value=NumberTools.systemNumberToLocalNumber(getAttributeValue(node,xmlNameSum));
 		if (!value.isEmpty()) {
-			Double sum=NumberTools.getDouble(value);
+			final Double sum=NumberTools.getDouble(value);
 			if (sum==null) return String.format(xmlNameSumError,node.getNodeName(),value);
 			this.sum=sum;
 		}
 
 		value=NumberTools.systemNumberToLocalNumber(getAttributeValue(node,xmlNameSumSquared));
 		if (!value.isEmpty()) {
-			Double sum2=NumberTools.getDouble(value);
+			final Double sum2=NumberTools.getDouble(value);
 			if (sum2==null || sum2<0) return String.format(xmlNameSumSquaredError,node.getNodeName(),value);
 			squaredSum=sum2;
 		}
 
 		value=NumberTools.systemNumberToLocalNumber(getAttributeValue(node,xmlNameSumCubic));
 		if (!value.isEmpty()) {
-			Double sum3=NumberTools.getDouble(value);
+			final Double sum3=NumberTools.getDouble(value);
 			if (sum3==null) return String.format(xmlNameSumCubicError,node.getNodeName(),value);
 			cubicSum=sum3;
 		}
 
 		value=NumberTools.systemNumberToLocalNumber(getAttributeValue(node,xmlNameSumQuartic));
 		if (!value.isEmpty()) {
-			Double sum4=NumberTools.getDouble(value);
+			final Double sum4=NumberTools.getDouble(value);
 			if (sum4==null) return String.format(xmlNameSumQuarticError,node.getNodeName(),value);
 			quarticSum=sum4;
 		}
 
 		value=NumberTools.systemNumberToLocalNumber(getAttributeValue(node,xmlNameMin));
 		if (!value.isEmpty()) {
-			Double min=NumberTools.getDouble(value);
+			final Double min=NumberTools.getDouble(value);
 			if (min==null) return String.format(xmlNameMinError,node.getNodeName(),value);
 			this.min=min;
 		}
 
 		value=NumberTools.systemNumberToLocalNumber(getAttributeValue(node,xmlNameMax));
 		if (!value.isEmpty()) {
-			Double max=NumberTools.getDouble(value);
+			final Double max=NumberTools.getDouble(value);
 			if (max==null) return String.format(xmlNameMaxError,node.getNodeName(),value);
 			this.max=max;
 		}
@@ -1450,11 +1464,18 @@ public final class StatisticsDataPerformanceIndicator extends StatisticsPerforma
 			if (dist==null) initDistribution();
 			value=getAttributeValue(node,xmlNameDistribution);
 			if (!value.isEmpty()) {
-				final DataDistributionImpl distLoaded=DataDistributionImpl.createFromString(value,dist.upperBound);
+				double upperBound=dist.upperBound;
+				final String limitString=NumberTools.systemNumberToLocalNumber(getAttributeValue(node,xmlNameQuantilLimit));
+				if (!limitString.isEmpty()) {
+					final Double limit=NumberTools.getDouble(limitString);
+					if (limit!=null && limit>0) upperBound=limit;
+				}
+				final DataDistributionImpl distLoaded=DataDistributionImpl.createFromString(value,upperBound);
 				if (distLoaded==null) return String.format(xmlNameDistributionError,node.getNodeName());
 				dist=distLoaded;
 				densityData=dist.densityData;
 				densityDataLength=densityData.length;
+				setupArgumentScaleFactor(densityDataLength,upperBound);
 			}
 		}
 
@@ -1468,35 +1489,35 @@ public final class StatisticsDataPerformanceIndicator extends StatisticsPerforma
 
 		value=getAttributeValue(node,xmlNameBatchSize);
 		if (!value.isEmpty()) {
-			Long L=NumberTools.getPositiveLong(value);
+			final Long L=NumberTools.getPositiveLong(value);
 			if (L==null) return String.format(xmlNameBatchSizeError,node.getNodeName(),value);
 			batchSize=L.intValue();
 		}
 
 		value=getAttributeValue(node,xmlNameBatchCount);
 		if (!value.isEmpty()) {
-			Long L=NumberTools.getPositiveLong(value);
+			final Long L=NumberTools.getPositiveLong(value);
 			if (L==null) return String.format(xmlNameBatchCountError,node.getNodeName(),value);
 			batchMeansCount=L.intValue();
 		}
 
 		value=getAttributeValue(node,xmlNameBatchMeansVar);
 		if (!value.isEmpty()) {
-			Double D=NumberTools.getNotNegativeDouble(NumberTools.systemNumberToLocalNumber(value));
+			final Double D=NumberTools.getNotNegativeDouble(NumberTools.systemNumberToLocalNumber(value));
 			if (D==null) return String.format(xmlNameBatchMeansVarError,node.getNodeName(),value);
 			batchMeansVar=D.doubleValue();
 		}
 
 		value=getAttributeValue(node,xmlNameRunCount);
 		if (!value.isEmpty()) {
-			Long L=NumberTools.getPositiveLong(value);
+			final Long L=NumberTools.getPositiveLong(value);
 			if (L==null) return String.format(xmlNameRunCountError,node.getNodeName(),value);
 			runCount=L.intValue();
 		}
 
 		value=getAttributeValue(node,xmlNameRunVar);
 		if (!value.isEmpty()) {
-			Double D=NumberTools.getNotNegativeDouble(NumberTools.systemNumberToLocalNumber(value));
+			final Double D=NumberTools.getNotNegativeDouble(NumberTools.systemNumberToLocalNumber(value));
 			if (D==null) {
 				final Double D2=NumberTools.getDouble(NumberTools.systemNumberToLocalNumber(value));
 				if (D2==null || D2.doubleValue()<-0.1) return String.format(xmlNameRunVarError,node.getNodeName(),value);
@@ -1508,7 +1529,7 @@ public final class StatisticsDataPerformanceIndicator extends StatisticsPerforma
 
 		value=getAttributeValue(node,xmlNameWelfordM2);
 		if (!value.isEmpty()) {
-			Double D=NumberTools.getNotNegativeDouble(NumberTools.systemNumberToLocalNumber(value));
+			final Double D=NumberTools.getNotNegativeDouble(NumberTools.systemNumberToLocalNumber(value));
 			if (D==null) return String.format(xmlNameWelfordM2Error,node.getNodeName(),value);
 			welfordM2=D.doubleValue();
 		}

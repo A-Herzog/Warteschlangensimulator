@@ -55,13 +55,14 @@ public abstract class CalcSymbolStationDataAllHistogram extends CalcSymbolSimDat
 		final double sum=dist.sum();
 		if (sum<1) return 0.0;
 
+		final double scale=dist.densityData.length/dist.upperBound;
 		if (parameters.length==1) {
-			final int index=(int)FastMath.round(parameters[0]);
+			final int index=(int)FastMath.round(parameters[0]*scale);
 			if (index<0 || index>=dist.densityData.length) return 0.0;
 			return dist.densityData[index]/sum;
 		} else {
-			final int index1=FastMath.max(-1,(int)FastMath.round(parameters[0]));
-			final int index2=FastMath.max(0,(int)FastMath.round(parameters[1]));
+			final int index1=FastMath.max(-1,(int)FastMath.round(parameters[0]*scale));
+			final int index2=FastMath.max(0,(int)FastMath.round(parameters[1]*scale));
 			if (index1>=dist.densityData.length) return 0.0;
 			if (index2>=dist.densityData.length) return 0.0;
 			if (index2<=index1) return 0.0;
@@ -80,13 +81,14 @@ public abstract class CalcSymbolStationDataAllHistogram extends CalcSymbolSimDat
 		final double sum=dist.sum();
 		if (sum<1) return 0;
 
+		final double scale=dist.densityData.length/dist.upperBound;
 		if (parameters.length==1) {
-			final int index=(int)FastMath.round(parameters[0]);
+			final int index=(int)FastMath.round(parameters[0]*scale);
 			if (index<0 || index>=dist.densityData.length) return 0;
 			return dist.densityData[index]/sum;
 		} else {
-			final int index1=FastMath.max(-1,(int)FastMath.round(parameters[0]));
-			final int index2=FastMath.max(0,(int)FastMath.round(parameters[1]));
+			final int index1=FastMath.max(-1,(int)FastMath.round(parameters[0]*scale));
+			final int index2=FastMath.max(0,(int)FastMath.round(parameters[1]*scale));
 			if (index1>=dist.densityData.length) return 0;
 			if (index2>=dist.densityData.length) return 0;
 			if (index2<=index1) return 0;
