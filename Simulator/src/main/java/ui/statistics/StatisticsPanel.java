@@ -16,6 +16,7 @@
 package ui.statistics;
 
 import java.awt.Color;
+import java.awt.Container;
 import java.io.File;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -76,7 +77,7 @@ public class StatisticsPanel extends StatisticsBasePanel {
 	 */
 	public StatisticsPanel(final int numberOfViewers, final Runnable startSimulation) {
 		super(numberOfViewers,Language.tr("Main.Menu.View.SimulationResults"),Images.STATISTICS_DARK.getURLs()[0],Language.trPrimary("CommandLine.Report.Name"),true);
-		setCallBacks(startSimulation,()->loadStatistics(null),()->Help.topicModal(StatisticsPanel.this,"MainStatistik"));
+		setCallBacks(startSimulation,()->loadStatistics(null,null),()->Help.topicModal(StatisticsPanel.this,"MainStatistik"));
 		this.statistics=new Statistics[]{null};
 		updateViewer(true);
 	}
@@ -301,11 +302,12 @@ public class StatisticsPanel extends StatisticsBasePanel {
 	/**
 	 * Lädt die Statistikdaten aus einer Datei
 	 * @param file	Datei, aus der die Statistikdaten geladen werden sollen. Wird hier <code>null</code> übergeben, so wird ein Dateiauswahl-Dialog angezeigt.
+	 * @param parent	Übergeordnetes Element (zur Ausrichtung des Lade-Dialogs); wird hier <code>null</code> übergeben, so wird das Elternelement dieses Panels verwendet
 	 * @return	Gibt im Erfolgsfall <code>null</code> zurück, sonst eine Fehlermeldung.
 	 */
-	public String loadStatistics(File file) {
+	public String loadStatistics(final Container parent, File file) {
 		if (file==null) {
-			file=XMLTools.showLoadDialog(getParent(),Language.tr("Main.Toolbar.LoadStatistics"));
+			file=XMLTools.showLoadDialog((parent==null)?getParent():parent,Language.tr("Main.Toolbar.LoadStatistics"));
 			if (file==null) return null;
 		}
 

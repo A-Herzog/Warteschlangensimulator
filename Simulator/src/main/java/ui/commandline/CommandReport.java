@@ -54,7 +54,7 @@ public class CommandReport extends AbstractReportCommand {
 	@Override
 	protected Object getReportCommandConnect(File input) {
 		StatisticsPanel panel=new StatisticsPanel(null);
-		String s=panel.loadStatistics(input); if (s!=null) return s;
+		String s=panel.loadStatistics(null,input); if (s!=null) return s;
 		return panel;
 	}
 }

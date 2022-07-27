@@ -2340,7 +2340,7 @@ public class MainPanel extends MainPanelBase {
 		if (rootOptional!=null) {
 			error=statisticsPanel.loadStatisticsFromXML(file,rootOptional);
 		} else {
-			error=statisticsPanel.loadStatistics(file);
+			error=statisticsPanel.loadStatistics(getParent(),file);
 		}
 		if (error==null) {
 			if (statisticsPanel.getStatistics()!=null) { /* Im Fall eines Nutzer-Ladedialog-Abbruchs gibt es keinen Fehler, aber dennoch keine Statistikdaten. */
