@@ -821,7 +821,7 @@ public final class ModelElementSourceRecordPanel extends JPanel {
 		Object[] data;
 
 		/* Zuweisungen (Zahlen) */
-		data=VariablesTableModel.buildTable(record.getSetRecord(),element,readOnly,helpRunnable);
+		data=VariablesTableModel.buildTable(record.getSetRecord(),element,readOnly,helpRunnable,true);
 		panelNumbers.add((JScrollPane)data[0],BorderLayout.CENTER);
 		modelNumbers=(VariablesTableModel)data[1];
 

@@ -61,6 +61,8 @@ public class VariablesTableModel extends JTableExtAbstractTableModel {
 	private final boolean readOnly;
 	/** Hilfe-Callback */
 	private final Runnable helpRunnable;
+	/** Nur clientdata(...)-Zuweisungen zulassen und keine globalen Variablen? */
+	private final boolean clientDataOnly;
 
 	/** Liste mit den Namen der Variablen (aus dem Modell oder aus dem Zuweisungsdatensatz) */
 	private final List<String> variables;
@@ -80,8 +82,9 @@ public class VariablesTableModel extends JTableExtAbstractTableModel {
 	 * @param element	Modell-Element über das Modell und Zeichenfläche abgefragt werden (für den Expression-Builder)
 	 * @param readOnly	Nur-Lese-Status
 	 * @param helpRunnable	Hilfe-Callback
+	 * @param clientDataOnly	Nur clientdata(...)-Zuweisungen zulassen und keine globalen Variablen?
 	 */
-	public VariablesTableModel(final JTableExt table, final ModelElementSetRecord record, final ModelElement element, final boolean readOnly, final Runnable helpRunnable) {
+	public VariablesTableModel(final JTableExt table, final ModelElementSetRecord record, final ModelElement element, final boolean readOnly, final Runnable helpRunnable, final boolean clientDataOnly) {
 		super();
 		this.table=table;
 		this.model=null;
@@ -91,6 +94,7 @@ public class VariablesTableModel extends JTableExtAbstractTableModel {
 		this.stationNameIDs=ExpressionBuilder.getStationNameIDs(element.getSurface());
 		this.readOnly=readOnly;
 		this.helpRunnable=helpRunnable;
+		this.clientDataOnly=clientDataOnly;
 
 		variables=new ArrayList<>(Arrays.asList(record.getVariables()));
 		initialVariableValues=element.getModel().getInitialVariablesWithValues();
@@ -105,7 +109,6 @@ public class VariablesTableModel extends JTableExtAbstractTableModel {
 	 * @param readOnly	Nur-Lese-Status
 	 * @param helpRunnable	Hilfe-Callback
 	 */
-
 	private VariablesTableModel(final JTableExt table, final EditModel model, final boolean readOnly, final Runnable helpRunnable) {
 		super();
 		this.table=table;
@@ -116,6 +119,7 @@ public class VariablesTableModel extends JTableExtAbstractTableModel {
 		this.stationNameIDs=ExpressionBuilder.getStationNameIDs(model.surface);
 		this.readOnly=readOnly;
 		this.helpRunnable=helpRunnable;
+		this.clientDataOnly=false;
 
 		variables=new ArrayList<>(model.globalVariablesNames);
 		initialVariableValues=model.getInitialVariablesWithValues();
@@ -244,10 +248,10 @@ public class VariablesTableModel extends JTableExtAbstractTableModel {
 			if (readOnly) return;
 			VariablesTableModelDialog dialog=null;
 			if (element!=null) {
-				dialog=new VariablesTableModelDialog(table,helpRunnable,"","",getVariableNames(false,variables.toArray(new String[0])),initialVariableValues,stationIDs,stationNameIDs,true);
+				dialog=new VariablesTableModelDialog(table,helpRunnable,"","",getVariableNames(false,variables.toArray(new String[0])),initialVariableValues,stationIDs,stationNameIDs,true,clientDataOnly);
 			}
 			if (model!=null) {
-				dialog=new VariablesTableModelDialog(table,helpRunnable,"","",model.surface.getVariableNames(variables.toArray(new String[0])),initialVariableValues,stationIDs,stationNameIDs,false);
+				dialog=new VariablesTableModelDialog(table,helpRunnable,"","",model.surface.getVariableNames(variables.toArray(new String[0])),initialVariableValues,stationIDs,stationNameIDs,false,clientDataOnly);
 			}
 			if (dialog==null) return;
 			dialog.setVisible(true);
@@ -286,10 +290,10 @@ public class VariablesTableModel extends JTableExtAbstractTableModel {
 			case 0:
 				VariablesTableModelDialog dialog=null;
 				if (element!=null) {
-					dialog=new VariablesTableModelDialog(table,helpRunnable,variables.get(row),expressions.get(row),getVariableNames(false,variables.toArray(new String[0])),initialVariableValues,stationIDs,stationNameIDs,true);
+					dialog=new VariablesTableModelDialog(table,helpRunnable,variables.get(row),expressions.get(row),getVariableNames(false,variables.toArray(new String[0])),initialVariableValues,stationIDs,stationNameIDs,true,clientDataOnly);
 				}
 				if (model!=null) {
-					dialog=new VariablesTableModelDialog(table,helpRunnable,variables.get(row),expressions.get(row),model.surface.getVariableNames(variables.toArray(new String[0])),initialVariableValues,stationIDs,stationNameIDs,false);
+					dialog=new VariablesTableModelDialog(table,helpRunnable,variables.get(row),expressions.get(row),model.surface.getVariableNames(variables.toArray(new String[0])),initialVariableValues,stationIDs,stationNameIDs,false,clientDataOnly);
 				}
 				if (dialog==null) return;
 				dialog.setVisible(true);
@@ -422,13 +426,14 @@ public class VariablesTableModel extends JTableExtAbstractTableModel {
 	 * @param element	Element, aus dem die Daten kommen
 	 * @param readOnly	Nur-Lese-Status
 	 * @param helpRunnable	Hilfe-Runnable
+	 * @param clientDataOnly	Nur clientdata(...)-Zuweisungen zulassen und keine globalen Variablen?
 	 * @return	2-elementiges Array aus <code>JScrollPane</code> (welches die Tabelle enthält) und dem Tabellenmodell
 	 */
-	public static Object[] buildTable(final ModelElementSetRecord record, final ModelElement element, final boolean readOnly, final Runnable helpRunnable) {
+	public static Object[] buildTable(final ModelElementSetRecord record, final ModelElement element, final boolean readOnly, final Runnable helpRunnable, final boolean clientDataOnly) {
 		final JTableExt table=new JTableExt();
 		final VariablesTableModel varModel;
 
-		table.setModel(varModel=new VariablesTableModel(table,record,element,readOnly,helpRunnable));
+		table.setModel(varModel=new VariablesTableModel(table,record,element,readOnly,helpRunnable,clientDataOnly));
 
 		table.getColumnModel().getColumn(0).setMaxWidth(175);
 		table.getColumnModel().getColumn(0).setMinWidth(175);
@@ -443,7 +448,7 @@ public class VariablesTableModel extends JTableExtAbstractTableModel {
 	 * Erstellt Tabelle und Tabellenmodell zum Bearbeiten von Zuweisungen
 	 * @param model	Modell, dessen Zuordnungsdaten bearbeitet werden sollen
 	 * @param readOnly	Nur-Lese-Status
-	 * @param helpRunnable	Hilfe-Runnable
+	 * @param helpRunnable	Hilfe-Runnable	 *
 	 * @return	2-elementiges Array aus <code>JScrollPane</code> (welches die Tabelle enthält) und dem Tabellenmodell
 	 */
 	public static Object[] buildTable(final EditModel model, final boolean readOnly, final Runnable helpRunnable) {

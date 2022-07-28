@@ -59,6 +59,8 @@ public class VariablesTableModelDialog extends BaseDialog {
 
 	/** Liste aller bisher vorhandenen Variablennamen */
 	private final String[] names;
+	/** Nur clientdata(...)-Zuweisungen zulassen und keine globalen Variablen? */
+	private final boolean clientDataOnly;
 	/** Eingabefeld für den Variablennamen */
 	private final JTextField variable;
 	/** Warnung, die angezeigt wird, wenn {@link #variable} einen ungültigen Variablennamen enthält */
@@ -87,13 +89,17 @@ public class VariablesTableModelDialog extends BaseDialog {
 	 * @param stationIDs	Zuordnung von Stations-IDs zu Stationsnamen
 	 * @param stationNameIDs	Zuordnung von Stations-IDs zu nutzerdefinierten Stationsnamen
 	 * @param showUserSpecificOptions	Auswahloptionen für Wartezeit des Kunden usw.
+	 * @param clientDataOnly	Nur clientdata(...)-Zuweisungen zulassen und keine globalen Variablen?
 	 */
-	public VariablesTableModelDialog(final Component owner, final Runnable help, final String variable, final String expression, final String[] names, final Map<String,String> initialVariableValues, final Map<Integer,String> stationIDs, final Map<Integer,String> stationNameIDs, final boolean showUserSpecificOptions) {
+	public VariablesTableModelDialog(final Component owner, final Runnable help, final String variable, final String expression, final String[] names, final Map<String,String> initialVariableValues, final Map<Integer,String> stationIDs, final Map<Integer,String> stationNameIDs, final boolean showUserSpecificOptions, final boolean clientDataOnly) {
 		super(owner,Language.tr("Surface.Set.Table.Edit"),false);
+
 		final Set<String> tempVariableNames=new HashSet<>();
 		if (names!=null) tempVariableNames.addAll(Arrays.asList(names));
 		if (initialVariableValues!=null) tempVariableNames.addAll(initialVariableValues.keySet());
 		this.names=tempVariableNames.toArray(new String[0]);
+
+		this.clientDataOnly=clientDataOnly;
 
 		final JPanel content=createGUI(help);
 		content.setLayout(new BoxLayout(content,BoxLayout.PAGE_AXIS));
@@ -185,13 +191,18 @@ public class VariablesTableModelDialog extends BaseDialog {
 			/* varNameOk bleibt true */
 			variable=null; /* nicht unten als Variablenname verbuchen */
 		} else {
-			varNameOk=ExpressionCalc.checkVariableName(variable);
-			String warning=null;
-			if (variable.trim().equalsIgnoreCase("w")) warning=Language.tr("Surface.Set.Table.Edit.VariableName.WaitingTime");
-			if (variable.trim().equalsIgnoreCase("t")) warning=Language.tr("Surface.Set.Table.Edit.VariableName.TransferTime");
-			if (variable.trim().equalsIgnoreCase("p")) warning=Language.tr("Surface.Set.Table.Edit.VariableName.ProcessTime");
-			if (warning!=null) warningLabel.setText(warning);
-			warningLabel.setVisible(warning!=null);
+			if (clientDataOnly) {
+				varNameOk=false;
+				warningLabel.setVisible(false);
+			} else {
+				varNameOk=ExpressionCalc.checkVariableName(variable);
+				String warning=null;
+				if (variable.trim().equalsIgnoreCase("w")) warning=Language.tr("Surface.Set.Table.Edit.VariableName.WaitingTime");
+				if (variable.trim().equalsIgnoreCase("t")) warning=Language.tr("Surface.Set.Table.Edit.VariableName.TransferTime");
+				if (variable.trim().equalsIgnoreCase("p")) warning=Language.tr("Surface.Set.Table.Edit.VariableName.ProcessTime");
+				if (warning!=null) warningLabel.setText(warning);
+				warningLabel.setVisible(warning!=null);
+			}
 		}
 
 		if (varNameOk) {

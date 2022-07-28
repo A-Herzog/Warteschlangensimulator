@@ -78,7 +78,7 @@ public class ModelElementSetDialog extends ModelElementBaseDialog {
 	protected JComponent getContentPanel() {
 		final JPanel content=new JPanel(new BorderLayout());
 		final ModelElementSet set=(ModelElementSet)element;
-		final Object[] data=VariablesTableModel.buildTable(set.getRecord(),set,readOnly,helpRunnable);
+		final Object[] data=VariablesTableModel.buildTable(set.getRecord(),set,readOnly,helpRunnable,false);
 		content.add((JScrollPane)data[0],BorderLayout.CENTER);
 		model=(VariablesTableModel)data[1];
 
