@@ -16,6 +16,7 @@
 package simulator.simparser.symbols;
 
 import simulator.coreelements.RunElementData;
+import simulator.runmodel.SimulationData;
 import simulator.simparser.coresymbols.CalcSymbolStationData;
 
 /**
@@ -42,6 +43,22 @@ public class CalcSymbolStationDataProcessCount extends CalcSymbolStationData {
 	@Override
 	public String[] getNames() {
 		return names;
+	}
+
+	@Override
+	protected boolean hasAllData() {
+		return true;
+	}
+
+	@Override
+	protected double calcAll() {
+		final SimulationData simData=getSimData();
+
+		final int[] count=simData.runData.clientsInProcessByType;
+		if (count==null) return 0.0;
+		double sum=0.0;
+		for (int c: count) sum+=c;
+		return sum;
 	}
 
 	@Override
