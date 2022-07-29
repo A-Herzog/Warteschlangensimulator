@@ -470,7 +470,7 @@ public final class RunDataResource implements Cloneable {
 					long duration=availableSchedule.getDurationPerSlot();
 					duration*=1000;
 					long time=duration;
-					if (time<simData.currentTime) time+=duration*(simData.currentTime%duration);
+					if (time<simData.currentTime) time=duration*(simData.currentTime/duration);
 					while (time<simData.currentTime) time+=duration;
 					event.init(time);
 					event.autoScheduleNext=duration;
