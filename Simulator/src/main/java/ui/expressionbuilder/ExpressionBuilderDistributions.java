@@ -541,6 +541,14 @@ public class ExpressionBuilderDistributions {
 				Language.tr("ExpressionBuilder.ProbabilityDistributions.LevyDistribution.DistributionFunctionInfo"),
 				Language.tr("ExpressionBuilder.ProbabilityDistributions.LevyDistribution.RandomNumberInfo"));
 
+		/* Maxwell-Boltzmann-Verteilung */
+
+		addDist(group,filterUpper,"MaxwellBoltzmannDist","a",
+				Language.tr("ExpressionBuilder.ProbabilityDistributions.MaxwellBoltzmannDistribution"),
+				Language.tr("ExpressionBuilder.ProbabilityDistributions.MaxwellBoltzmannDistribution.DensityInfo"),
+				Language.tr("ExpressionBuilder.ProbabilityDistributions.MaxwellBoltzmannDistribution.DistributionFunctionInfo"),
+				Language.tr("ExpressionBuilder.ProbabilityDistributions.MaxwellBoltzmannDistribution.RandomNumberInfo"));
+
 		/* Empirische Verteilung */
 
 		sub=new DefaultMutableTreeNode(Language.tr("ExpressionBuilder.ProbabilityDistributions.EmpiricalDistribution"));

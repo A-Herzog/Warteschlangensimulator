@@ -135,7 +135,7 @@ Gamma function, for example \cm{gamma(5)=4!=24}
 
 \item
 \cmd{zeta(x)}:
-Zeta function, for example \cm{zeta(2)=1.644934=\frac{\pi^2}{6}}
+Zeta function, for example \cm{zeta(2)=1.644934=$\frac{\pi^2}{6}$}
 
 \item
 \cmd{int(x)}:
@@ -1248,6 +1248,26 @@ Calculates the cumulative distribution function at $x$.
 
 \item
 \cmd{LevyDist(mu;c)}:
+Generates a random number based on this distribution.
+
+\end{itemize}
+
+
+
+\section{Maxwell Boltzmann distribution with parameter a}
+
+\begin{itemize}
+
+\item
+\cmd{MaxwellBoltzmannDist(x;mu;c;0)}:
+Calculates the probability density at $x$.
+
+\item
+\cmd{MaxwellBoltzmannDist(x;a;1)}:
+Calculates the cumulative distribution function at $x$.
+
+\item
+\cmd{MaxwellBoltzmannDist(a)}:
 Generates a random number based on this distribution.
 
 \end{itemize}

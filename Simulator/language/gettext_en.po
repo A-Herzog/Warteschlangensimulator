@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-07-25 13:27+0200\n"
+"POT-Creation-Date: 2022-07-29 19:07+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -3074,6 +3074,9 @@ msgstr "Lognormal distribution"
 msgid "Distribution.Logistic"
 msgstr "Logistic distribution"
 
+msgid "Distribution.MaxwellBoltzmann"
+msgstr "Maxwell Boltzmann distribution"
+
 msgid "Distribution.Mean"
 msgstr "Mean"
 
@@ -3094,6 +3097,9 @@ msgstr "No distribution selected"
 
 msgid "Distribution.Normal"
 msgstr "Normal distribution"
+
+msgid "Distribution.Parameter"
+msgstr "Parameter"
 
 msgid "Distribution.Pareto"
 msgstr "Pareto distribution"
@@ -6024,6 +6030,18 @@ msgid "ExpressionBuilder.ProbabilityDistributions.LogisticDistribution.RandomNum
 msgstr ""
 "<p>Generates a random number according to the Logistic distribution with the parameters according to the third (mean) and fourth (scale) parameters.</p>\n"
 "<p>The first and second parameter specify the range in which the random number should be located.</p>"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.MaxwellBoltzmannDistribution"
+msgstr "Maxwell Boltzmann distribution"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.MaxwellBoltzmannDistribution.DensityInfo"
+msgstr "<p>Calculates the value of the density of the Maxwell Boltzmann distribution at the location specified as the first parameter with the parameter a according to the second parameter.</p>"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.MaxwellBoltzmannDistribution.DistributionFunctionInfo"
+msgstr "<p>Calculates the value of the distribution function of the Maxwell Boltzmann distribution at the location specified as the first parameter with the parameter a according to the second parameter.</p>"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.MaxwellBoltzmannDistribution.RandomNumberInfo"
+msgstr "<p>Generates a random number according to the Maxwell Boltzmann distribution with the parameter a according to the parameter.</p>"
 
 msgid "ExpressionBuilder.ProbabilityDistributions.NegativeBinomialDistribution"
 msgstr "Negative Binomial distribution"
@@ -11835,7 +11853,7 @@ msgid "ModelGenerator.Priorities"
 msgstr "Different priorities for the client types"
 
 msgid "ModelGenerator.PrioritiesStrategy"
-msgstr "Kundenpriorisierung"
+msgstr "Client prioritization"
 
 msgid "ModelGenerator.PrioritiesStrategy.BA"
 msgstr "B before A"
@@ -18129,7 +18147,7 @@ msgid "Simulation.Log.DecideByClientType"
 msgstr "Decide by client type"
 
 msgid "Simulation.Log.DecideByClientType.Info"
-msgstr "Kunden: %s, station: %s, branching to output %d of %d"
+msgstr "Client: %s, station: %s, branching to output %d of %d"
 
 msgid "Simulation.Log.DecideByCondition"
 msgstr "Decide by condition"
@@ -18171,7 +18189,7 @@ msgid "Simulation.Log.Delay"
 msgstr "Delay"
 
 msgid "Simulation.Log.Delay.Info"
-msgstr "Kunde: %s, station: %s, delay: %s"
+msgstr "Client: %s, station: %s, delay: %s"
 
 msgid "Simulation.Log.DifferentialCounter"
 msgstr "Difference counter triggered"

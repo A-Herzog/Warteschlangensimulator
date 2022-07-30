@@ -176,6 +176,7 @@ public class LanguageStaticLoader {
 		DistributionTools.DistSawtoothLeft=Language.trAll("Distribution.SawtoothLeft");
 		DistributionTools.DistSawtoothRight=Language.trAll("Distribution.SawtoothRight");
 		DistributionTools.DistLevy=Language.trAll("Distribution.Levy");
+		DistributionTools.DistMaxwellBoltzmann=Language.trAll("Distribution.MaxwellBoltzmann");
 		DistributionTools.DistHyperGeom=Language.trAll("Distribution.HyperGeom");
 		DistributionTools.DistBinomial=Language.trAll("Distribution.Binomial");
 		DistributionTools.DistPoisson=Language.trAll("Distribution.Poisson");
@@ -195,6 +196,7 @@ public class LanguageStaticLoader {
 		DistributionTools.DistCV=Language.tr("Distribution.CV");
 		DistributionTools.DistSkewness=Language.tr("Distribution.Skewness");
 		DistributionTools.DistMode=Language.tr("Distribution.Mode");
+		DistributionTools.DistParameter=Language.tr("Distribution.Parameter");
 		JDataDistributionPanel.errorString=Language.tr("Distribution.NoDistribution");
 
 		/* DistributionFitter */

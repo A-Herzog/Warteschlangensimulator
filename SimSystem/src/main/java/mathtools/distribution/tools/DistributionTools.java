@@ -131,6 +131,9 @@ public final class DistributionTools {
 	/** Levy-Verteilung */
 	public static String[] DistLevy=new String[]{"Levy-Verteilung"};
 
+	/** Maxwell-Boltzmann-Verteilung */
+	public static String[] DistMaxwellBoltzmann=new String[]{"Maxwell-Boltzmann-Verteilung"};
+
 	/** Hypergeometrische Verteilung */
 	public static String[] DistHyperGeom=new String[]{"Hypergeometrische Verteilung"};
 
@@ -188,6 +191,9 @@ public final class DistributionTools {
 	/** Bezeichner "Modus" */
 	public static String DistMode="Modus";
 
+	/** Bezeichner "Parameter" */
+	public static String DistParameter="Parameter";
+
 	/**
 	 * Diese Klasse kann nicht instanziert werden.
 	 */
@@ -234,6 +240,7 @@ public final class DistributionTools {
 				new WrapperSawtoothLeftDistribution(),
 				new WrapperSawtoothRightDistribution(),
 				new WrapperLevyDistribution(),
+				new WrapperMaxwellBoltzmannDistribution(),
 				new WrapperHyperGeomDistribution(),
 				new WrapperBinomialDistribution(),
 				new WrapperPoissonDistribution(),

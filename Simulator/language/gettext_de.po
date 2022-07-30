@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-07-25 13:27+0200\n"
+"POT-Creation-Date: 2022-07-29 19:07+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -3079,6 +3079,9 @@ msgstr "Lognormalverteilung"
 msgid "Distribution.Logistic"
 msgstr "Logistische Verteilung"
 
+msgid "Distribution.MaxwellBoltzmann"
+msgstr "Maxwell-Boltzmann-Verteilung"
+
 msgid "Distribution.Mean"
 msgstr "Mittelwert"
 
@@ -3099,6 +3102,9 @@ msgstr "Keine Verteilung angegeben"
 
 msgid "Distribution.Normal"
 msgstr "Normalverteilung"
+
+msgid "Distribution.Parameter"
+msgstr "Parameter"
 
 msgid "Distribution.Pareto"
 msgstr "Pareto-Verteilung"
@@ -6016,6 +6022,18 @@ msgid "ExpressionBuilder.ProbabilityDistributions.LogisticDistribution.RandomNum
 msgstr ""
 "<p>Erzeugt eine Zufallszahl gemäß der Logistischen Verteilung mit den Parametern gemäß dem dritten (Mittelwert) und vierten (Skalierungsfaktor) Parameter.</p>\n"
 "<p>Der erste und zweite Parameter geben den Bereich an, in dem sich die Zufallszahl befinden soll.</p>"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.MaxwellBoltzmannDistribution"
+msgstr "Maxwell-Boltzmann-Verteilung"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.MaxwellBoltzmannDistribution.DensityInfo"
+msgstr "<p>Berechnet den Wert der Dichte der Maxwell-Boltzmann-Verteilung an der als ersten Parameter angegebenen Stelle mit dem Parameter a gemäß dem zweiten Parameter.</p>"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.MaxwellBoltzmannDistribution.DistributionFunctionInfo"
+msgstr "<p>Berechnet den Wert der Verteilungsfunktion der Maxwell-Boltzmann-Verteilung an der als ersten Parameter angegebenen Stelle mit dem Parameter a gemäß dem zweiten Parameter.</p>"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.MaxwellBoltzmannDistribution.RandomNumberInfo"
+msgstr "<p>Erzeugt eine Zufallszahl gemäß der Maxwell-Boltzmann-Verteilung mit dem Parametern a gemäß dem Parameter.</p>"
 
 msgid "ExpressionBuilder.ProbabilityDistributions.NegativeBinomialDistribution"
 msgstr "Negative Binomial-Verteilung"

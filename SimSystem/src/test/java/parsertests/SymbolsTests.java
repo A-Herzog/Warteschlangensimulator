@@ -4581,6 +4581,52 @@ class SymbolsTests {
 		} catch (MathCalcError e) {
 			assertTrue(false);
 		}
+
+		/* Maxwell-Boltzmann-Verteilung */
+
+		calc=new CalcSystem("MaxwellBoltzmannDist(x;a;0)",new String[]{"x","a"});
+		assertTrue(calc.parse()<0);
+
+		try {
+			d=calc.calc(new double[]{-2,10});
+			assertEquals(0,d);
+		} catch (MathCalcError e) {
+			assertTrue(false);
+		}
+
+		try {
+			d=calc.calc(new double[]{2,10});
+			assertTrue(d>0);
+		} catch (MathCalcError e) {
+			assertTrue(false);
+		}
+
+		calc=new CalcSystem("MaxwellBoltzmannDist(x;a;1)",new String[]{"x","a"});
+		assertTrue(calc.parse()<0);
+
+		try {
+			d=calc.calc(new double[]{0,10});
+			assertEquals(0,d);
+		} catch (MathCalcError e) {
+			assertTrue(false);
+		}
+
+		try {
+			d=calc.calc(new double[]{2,10});
+			assertTrue(d>0);
+		} catch (MathCalcError e) {
+			assertTrue(false);
+		}
+
+		calc=new CalcSystem("MaxwellBoltzmannDist(a)",new String[]{"a"});
+		assertTrue(calc.parse()<0);
+
+		try {
+			d=calc.calc(new double[]{10});
+			assertTrue(d>=0);
+		} catch (MathCalcError e) {
+			assertTrue(false);
+		}
 	}
 
 	/**

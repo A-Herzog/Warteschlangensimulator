@@ -119,6 +119,7 @@ import parser.symbols.distributions.CalcSymbolDistributionLevy;
 import parser.symbols.distributions.CalcSymbolDistributionLogLogistic;
 import parser.symbols.distributions.CalcSymbolDistributionLogNormal;
 import parser.symbols.distributions.CalcSymbolDistributionLogistic;
+import parser.symbols.distributions.CalcSymbolDistributionMaxwellBoltzmann;
 import parser.symbols.distributions.CalcSymbolDistributionNormal;
 import parser.symbols.distributions.CalcSymbolDistributionPareto;
 import parser.symbols.distributions.CalcSymbolDistributionPert;
@@ -288,6 +289,7 @@ public class CalcSymbolList {
 			addSymbol(new CalcSymbolDistributionSawtoothRight());
 			addSymbol(new CalcSymbolDistributionSawtoothRightDirect());
 			addSymbol(new CalcSymbolDistributionLevy());
+			addSymbol(new CalcSymbolDistributionMaxwellBoltzmann());
 
 			addSymbol(new CalcSymbolEmpiricalDistributionPDF());
 			addSymbol(new CalcSymbolEmpiricalDistributionCDF());

@@ -48,6 +48,7 @@ import mathtools.distribution.LevyDistribution;
 import mathtools.distribution.LogLogisticDistributionImpl;
 import mathtools.distribution.LogNormalDistributionImpl;
 import mathtools.distribution.LogisticDistributionImpl;
+import mathtools.distribution.MaxwellBoltzmannDistribution;
 import mathtools.distribution.OnePointDistributionImpl;
 import mathtools.distribution.ParetoDistributionImpl;
 import mathtools.distribution.PertDistributionImpl;
@@ -81,6 +82,7 @@ import mathtools.distribution.tools.WrapperLevyDistribution;
 import mathtools.distribution.tools.WrapperLogLogisticDistribution;
 import mathtools.distribution.tools.WrapperLogNormalDistribution;
 import mathtools.distribution.tools.WrapperLogisticDistribution;
+import mathtools.distribution.tools.WrapperMaxwellBoltzmannDistribution;
 import mathtools.distribution.tools.WrapperNegativeBinomialDistribution;
 import mathtools.distribution.tools.WrapperNormalDistribution;
 import mathtools.distribution.tools.WrapperOnePointDistribution;
@@ -281,6 +283,7 @@ public abstract class JDistributionEditorPanelRecord {
 		allRecords.add(new SawtoothLeftDistributionPanel());
 		allRecords.add(new SawtoothRightDistributionPanel());
 		allRecords.add(new LevyDistributionPanel());
+		allRecords.add(new MaxwellBoltzmannDistributionPanel());
 		allRecords.add(new HyperGeomDistributionPanel());
 		allRecords.add(new BinomialDistributionPanel());
 		allRecords.add(new PoissonDistributionPanel());
@@ -1263,6 +1266,33 @@ public abstract class JDistributionEditorPanelRecord {
 			final Double d1=NumberTools.getNotNegativeDouble(fields[0],true); if (d1==null) return null;
 			final Double d2=NumberTools.getPositiveDouble(fields[1],true); if (d2==null) return null;
 			return new LevyDistribution(d1,d2);
+		}
+	}
+
+	/** Maxwell-Boltzmann-Verteilung */
+	private static class MaxwellBoltzmannDistributionPanel extends JDistributionEditorPanelRecord {
+		/** Konstruktor der Klasse */
+		public MaxwellBoltzmannDistributionPanel() {
+			super(new WrapperMaxwellBoltzmannDistribution(),new String[] {DistributionTools.DistParameter+" (a)"});
+		}
+
+		@Override
+		public String[] getEditValues(double meanD, String mean, double stdD, String std, String lower, String upper, double maxXValue) {
+			final double a=meanD/2*Math.sqrt(Math.PI/2);
+			return new String[]{NumberTools.formatNumber(a)};
+		}
+
+		@Override
+		public String[] getValues(AbstractRealDistribution distribution) {
+			return new String[] {
+					NumberTools.formatNumberMax(Math.max(0,((MaxwellBoltzmannDistribution)distribution).a))
+			};
+		}
+
+		@Override
+		public AbstractRealDistribution getDistribution(JTextField[] fields, double maxXValue) {
+			final Double a=NumberTools.getPositiveDouble(fields[0],true); if (a==null) return null;
+			return new MaxwellBoltzmannDistribution(a);
 		}
 	}
 
