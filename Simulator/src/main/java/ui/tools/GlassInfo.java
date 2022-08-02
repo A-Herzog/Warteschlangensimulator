@@ -23,7 +23,9 @@ import java.awt.FlowLayout;
 import java.awt.Window;
 import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -52,26 +54,15 @@ public class GlassInfo {
 	}
 
 	/**
-	 * Minimaler Zeitabstand (in Sekunden) nach der dieselbe Meldung erneut eingeblendet wird.
-	 */
-	private static final int MIN_REPEAT_SECONDS=15;
-
-	/**
 	 * Anzahl an Sekunden, für die die Meldung angezeigt werden soll
 	 */
 	private static final int DISPLAY_SECONDS=4;
 
 	/**
-	 * Zuletzt angezeigte Meldung.
+	 * Bereits angezeigte Meldung.
 	 * @see #info(Component, String, int, boolean)
 	 */
-	private static String lastText;
-
-	/**
-	 * Zeitpunkt an dem {@link #lastText} eingeblendet wurde.
-	 * @see #info(Component, String, int, boolean)
-	 */
-	private static long lastTime;
+	private static Set<String> lastText=new HashSet<>();
 
 	/**
 	 * Zuordnung von Glas-Panes zu Timern (um diese ggf. vorzeitig abbrechen zu können)
@@ -117,9 +108,10 @@ public class GlassInfo {
 		if (glassPane.isVisible() && !force) return;
 
 		/* Text nicht zu häufig anzeigen */
-		if (!force && info.equals(lastText) && lastTime+1000*(MIN_REPEAT_SECONDS+DISPLAY_SECONDS)>System.currentTimeMillis()) return;
-		lastText=info;
-		lastTime=System.currentTimeMillis();
+		if (!force) {
+			if (lastText.contains(info)) return;
+			lastText.add(info);
+		}
 
 		/* Bisherige Anzeige entfernen */
 		glassPane.setVisible(false);
