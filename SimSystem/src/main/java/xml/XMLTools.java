@@ -706,9 +706,12 @@ public final class XMLTools {
 	private FileType guessFileTypeFromStream(final InputStream stream) {
 		if (fileType!=FileType.AUTO) return fileType;
 
+		removeLeadingBlankLines(stream);
+
 		try {
 			if (stream==null || stream.available()<2 || !stream.markSupported()) return FileType.XML;
 			try {
+				stream.mark(10);
 				final byte[] b=new byte[2];
 				int read=0;
 				while (read<2) read+=stream.read(b,read,2-read);
@@ -723,6 +726,29 @@ public final class XMLTools {
 			}
 		} catch (IOException e) {
 			return FileType.XML;
+		}
+	}
+
+	/**
+	 * Stellt die Position im Stream wenn möglich so ein, dass führende
+	 * Zeilenumbrüche im Folgenden übergangen werden.
+	 * @param stream	Stream bei dem die Leseposition wenn nötig verschoben werden soll
+	 */
+	private void removeLeadingBlankLines(final InputStream stream) {
+		if (!stream.markSupported()) return;
+		byte[] b=new byte[1];
+		try {
+			stream.mark(100);
+			int pos=0;
+			while (stream.available()>0) {
+				if (stream.read(b)<1) break;
+				if (b[0]!=10 && b[0]!=13) break;
+				pos++;
+			}
+			stream.reset();
+			for (int i=0;i<pos;i++) stream.read(b);
+		} catch (IOException e) {
+			try {stream.reset();} catch (IOException e1) {}
 		}
 	}
 
@@ -837,6 +863,7 @@ public final class XMLTools {
 		} catch (ParserConfigurationException e) {lastError=errorInitXMLInterpreter; return null;}
 		db.setErrorHandler(null);
 		Element root=null;
+		removeLeadingBlankLines(stream);
 		try {root=db.parse(stream,"").getDocumentElement();} catch (SAXException | IOException e) {lastError=errorXMLProcess; return null;}
 
 		return root;
