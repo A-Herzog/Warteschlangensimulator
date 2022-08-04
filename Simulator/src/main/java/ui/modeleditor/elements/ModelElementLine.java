@@ -272,7 +272,7 @@ public class ModelElementLine extends ModelElementDecoration {
 			}
 		}
 
-		final ComplexLine line=new ComplexLine((int)Math.round(useWidth*zoom),useColor,lineType);
+		final ComplexLine line=new ComplexLine(useWidth,useColor,lineType);
 
 		/* Basislinie */
 		line1.x=(int)Math.round(p1.x*zoom);
@@ -281,8 +281,8 @@ public class ModelElementLine extends ModelElementDecoration {
 		line2.y=(int)Math.round(p2.y*zoom);
 		line.draw(graphics,line1,line2,zoom);
 
-		double vx=p2.x-p1.x;
-		double vy=p2.y-p1.y;
+		double vx=(p2.x-p1.x)*zoom;
+		double vy=(p2.y-p1.y)*zoom;
 		final double length=Math.sqrt(vx*vx+vy*vy);
 		vx=vx/length;
 		vy=vy/length;
@@ -292,10 +292,10 @@ public class ModelElementLine extends ModelElementDecoration {
 		/* Pfeil am Linienstart */
 		if (arrowStart>0) {
 			final double len=arrowStart*ARROW_SIZE_UNIT*zoom;
-			arrow1.x=(int)FastMath.round(p1.x+len*vx+len*wx);
-			arrow1.y=(int)FastMath.round(p1.y+len*vy+len*wy);
-			arrow2.x=(int)FastMath.round(p1.x+len*vx-len*wx);
-			arrow2.y=(int)FastMath.round(p1.y+len*vy-len*wy);
+			arrow1.x=(int)FastMath.round(p1.x*zoom+len*vx+len*wx);
+			arrow1.y=(int)FastMath.round(p1.y*zoom+len*vy+len*wy);
+			arrow2.x=(int)FastMath.round(p1.x*zoom+len*vx-len*wx);
+			arrow2.y=(int)FastMath.round(p1.y*zoom+len*vy-len*wy);
 			line.draw(graphics,line1,arrow1,zoom);
 			line.draw(graphics,line1,arrow2,zoom);
 		}
@@ -303,10 +303,10 @@ public class ModelElementLine extends ModelElementDecoration {
 		/* Pfeil am Linienende */
 		if (arrowEnd>0) {
 			final double len=arrowEnd*ARROW_SIZE_UNIT*zoom;
-			arrow1.x=(int)FastMath.round(p2.x-len*vx+len*wx);
-			arrow1.y=(int)FastMath.round(p2.y-len*vy+len*wy);
-			arrow2.x=(int)FastMath.round(p2.x-len*vx-len*wx);
-			arrow2.y=(int)FastMath.round(p2.y-len*vy-len*wy);
+			arrow1.x=(int)FastMath.round(p2.x*zoom-len*vx+len*wx);
+			arrow1.y=(int)FastMath.round(p2.y*zoom-len*vy+len*wy);
+			arrow2.x=(int)FastMath.round(p2.x*zoom-len*vx-len*wx);
+			arrow2.y=(int)FastMath.round(p2.y*zoom-len*vy-len*wy);
 			line.draw(graphics,line2,arrow1,zoom);
 			line.draw(graphics,line2,arrow2,zoom);
 		}
