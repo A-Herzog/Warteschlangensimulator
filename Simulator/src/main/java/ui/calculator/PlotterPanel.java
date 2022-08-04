@@ -177,6 +177,9 @@ public class PlotterPanel extends JPanel {
 		inputMinX.addKeyListener(new KeyAdapter() {@Override public void keyReleased(KeyEvent e) {inputXChanged();}});
 		inputMaxX.addKeyListener(new KeyAdapter() {@Override public void keyReleased(KeyEvent e) {inputXChanged();}});
 
+		inputMinX.setText("-10");
+		inputMaxX.setText("10");
+
 		/* Zeichenfläche */
 		data=new XYSeriesCollection();
 		chart=ChartFactory.createXYLineChart(null,"x","y",data,PlotOrientation.VERTICAL,false,true,false);
@@ -451,8 +454,8 @@ public class PlotterPanel extends JPanel {
 
 		justChangingZoom=true;
 		try {
-			plot.getDomainAxis().setRange(minX,maxX);
-			plot.getRangeAxis().setRange(minY,maxY);
+			if (maxX>minX) plot.getDomainAxis().setRange(minX,maxX);
+			if (maxY>minY) plot.getRangeAxis().setRange(minY,maxY);
 		} finally {
 			justChangingZoom=false;
 		}
@@ -478,7 +481,7 @@ public class PlotterPanel extends JPanel {
 
 		justChangingZoom=true;
 		try {
-			plot.getRangeAxis().setRange(minY,maxY);
+			if (maxY>minY) plot.getRangeAxis().setRange(minY,maxY);
 		} finally {
 			justChangingZoom=false;
 		}
@@ -509,8 +512,6 @@ public class PlotterPanel extends JPanel {
 	 * @see #getGraphs()
 	 */
 	public void reload() {
-		inputMinX.setText("-10");
-		inputMaxX.setText("10");
 		inputXChanged();
 	}
 
@@ -662,6 +663,12 @@ public class PlotterPanel extends JPanel {
 		}
 
 		/**
+		 * Stellt sicher, dass es keine Kollisionen bei den Schlüsseln für die Serien gibt,
+		 * wenn zwei Serien mit demselben Funktionsterm angezeigt werden sollen.
+		 */
+		private static long uniqueID=0;
+
+		/**
 		 * Erstellt basierend auf dem Funktionterm eine {@link JFreeChart}-Serie ({@link XYSeries})
 		 * @param xMin	Minimaler x-Wert
 		 * @param xMax	Maximaler x-Wert
@@ -674,7 +681,7 @@ public class PlotterPanel extends JPanel {
 			final ExpressionCalc calc=getParser();
 			if (calc==null) {lastPlotOk=false; return null;}
 
-			final XYSeries series=new XYSeries(expression);
+			final XYSeries series=new XYSeries(expression+""+(uniqueID++));
 
 			boolean atLeastOneValueOk=false;
 			for (int i=0;i<steps;i++) {
