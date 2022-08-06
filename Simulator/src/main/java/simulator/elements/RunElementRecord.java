@@ -174,9 +174,9 @@ public class RunElementRecord extends RunElementPassThrough {
 		/* Logging */
 		if (simData.loggingActive) {
 			if (hasValue2) {
-				log(simData,Language.tr("Simulation.Log.Record"),String.format(Language.tr("Simulation.Log.Record.Info1"),client.logInfo(simData),name,NumberTools.formatNumber(value1),NumberTools.formatNumber(value2)));
+				log(simData,Language.tr("Simulation.Log.Record"),String.format(Language.tr("Simulation.Log.Record.Info2"),client.logInfo(simData),name,NumberTools.formatNumber(value1),NumberTools.formatNumber(value2)));
 			} else {
-				log(simData,Language.tr("Simulation.Log.Record"),String.format(Language.tr("Simulation.Log.Record.Info2"),client.logInfo(simData),name,NumberTools.formatNumber(value1)));
+				log(simData,Language.tr("Simulation.Log.Record"),String.format(Language.tr("Simulation.Log.Record.Info1"),client.logInfo(simData),name,NumberTools.formatNumber(value1)));
 			}
 		}
 
