@@ -77,7 +77,7 @@
 	<dependency>
     		<groupId>org.postgresql</groupId>
     		<artifactId>postgresql</artifactId>
-    		<version>42.3.6</version>
+    		<version>42.4.1</version>
 	</dependency>
 	<!-- https://mvnrepository.com/artifact/net.sf.ucanaccess/ucanaccess -->
 	<dependency>
