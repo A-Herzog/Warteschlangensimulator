@@ -26,7 +26,7 @@
 	<dependency>
     		<groupId>org.xerial</groupId>
     		<artifactId>sqlite-jdbc</artifactId>
-    		<version>3.36.0.3</version>
+    		<version>3.39.2.0</version>
 	</dependency>
 	<!-- https://mvnrepository.com/artifact/org.apache.commons/commons-math3 -->
 	<dependency>
@@ -68,14 +68,14 @@
 	<dependency>
     		<groupId>org.junit.jupiter</groupId>
     		<artifactId>junit-jupiter-api</artifactId>
-    		<version>5.8.2</version>
+    		<version>5.9.0</version>
     		<scope>test</scope>
 	</dependency>
 	<!-- https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-engine -->
     <dependency>
         <groupId>org.junit.jupiter</groupId>
         <artifactId>junit-jupiter-engine</artifactId>
-        <version>5.8.2</version>
+        <version>5.9.0</version>
         <scope>test</scope>
     </dependency>   
     <!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-nop -->

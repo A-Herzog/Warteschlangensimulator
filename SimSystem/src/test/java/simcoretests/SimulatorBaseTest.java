@@ -103,7 +103,7 @@ class SimulatorBaseTest {
 	 * @see #managers
 	 */
 	@BeforeAll
-	private static void initEventManagersSuppliersList() {
+	static void initEventManagersSuppliersList() {
 		managers.add(()->new LongRunMultiPriorityQueueEventManager(4));
 		managers.add(()->new LongRunMultiSortedArrayListEventManager(4));
 		managers.add(()->new MapEventManager());
