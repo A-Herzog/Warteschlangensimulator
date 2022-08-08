@@ -1,3 +1,12 @@
+\section{\texttt{Export}}
+
+\textbf{Exports a model.}
+
+The command expects exactly two additional parameters:\\
+1. Name of the input file\\
+3. Name of the output file which will contain the exported model\\
+The input file has to be existent, the output has to be non existent.
+
 \section{\texttt{Filter}}
 
 \textbf{Filter statistic file.}
@@ -48,6 +57,15 @@ This command expects exactly two additional parameters:\\
 1. Input model file\\
 2. Optimizer configuration file\\
 Both input files have to exist.
+
+\section{\texttt{Outputtable}}
+
+\textbf{Processes an output table generated at a Save+Exit station.}
+
+This command expects two additional parameters:\\
+1. Input table file\\
+3. Output table file\\
+The input file has to be existent, the output file has to be non existent.
 
 \section{\texttt{ParameterSeriesVarianceAnalysis}}
 
@@ -150,8 +168,8 @@ the address of the MQTT broker, the MQTT topic and optionally the user name and 
 
 \textbf{Starts the program as socket-based simulation server.}
 
-This command expects one additional parameter:\\
-the port to be used.
+This command expects one or two additional parameters:\\
+the port to be used and optionally a timeout value (in seconds) for individual simulations.
 
 \section{\texttt{ServerWeb}}
 

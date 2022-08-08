@@ -602,6 +602,7 @@ public class ModelElementCatalogDescriptionBuilder {
 		String result=line.replace("&amp;","\\&");
 		result=result.replace("&lt;","<");
 		result=result.replace("&gt;",">");
+		result=result.replace("#","\\#");
 		return result;
 	}
 

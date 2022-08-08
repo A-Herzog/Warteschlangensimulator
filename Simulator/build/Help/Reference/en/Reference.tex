@@ -35,6 +35,8 @@ or \texttt{w=Formula}. (Instead of \texttt{w} also \texttt{t}, \texttt{p},
 If multiple assignments are to be made for an arriving client
 the expressions can be split by \textbf{tabs} in the cell.
 
+See also the explanations on the help page for the table source (see page \pageref{ref:ModelElementSourceTable}) station.
+
 
 \section{Excel DDE source}
 \label{ref:ModelElementSourceDDE}
@@ -66,11 +68,35 @@ start of the simulation or since the last client arrival.
 In the second column the client type names of clients which arrive at the times
 noted in the first column are defined. Rows containing a client type which is
 not in the client types list in the table source element are ignored.
-All optional further columns have to contain expressions of the form
-\texttt{ClientData(nr)=Formula}, \texttt{ClientData('key')=TextValue},
-\texttt{w=Formula}, \texttt{t=Formula}, \texttt{p=Formula},
-\texttt{wCosts=Formula}, \texttt{tCosts=Formula} or \texttt{pCosts=Formula}.
-Using these expression new client objects can get client-specific data directly.
+All optional further columns have to contain expressions of the following form:
+
+\begin{itemize}
+  \item \texttt{ClientData(nr)=Formula}<br>
+  Assigns the result of the evaluation of \texttt{formula} to the numeric
+  client data field with index \texttt{nr}. 
+  \item \texttt{ClientData('key')=TextValue}<br>
+  Assigns \texttt{TextValue} to \texttt{key}. 
+  \item \texttt{w=Formula}<br>
+  Sets the result of the evaluation of \texttt{formula} as the
+  initial value of the waiting time counter of the client.   
+  \item \texttt{t=Formula}<br>
+  Sets the result of the evaluation of \texttt{formula} as the
+  initial value of the transport time counter of the client.   
+  \item \texttt{p=Formula}<br>
+  Sets the result of the evaluation of \texttt{formula} as the
+  initial value of the service time counter of the client. 
+  \item \texttt{wCosts=Formula}<br>
+  Sets the result of the evaluation of \texttt{formula} as the
+  initial value of the waiting time depending costs counter of the client. 
+  \item \texttt{tCosts=Formula}<br>
+  Sets the result of the evaluation of \texttt{formula} as the
+  initial value of the transport time depending costs counter of the client. 
+  \item \texttt{pCosts=Formula}<br>
+  Sets the result of the evaluation of \texttt{formula} as the
+  initial value of the service time depending costs counter of the client. 
+\end{itemize}
+
+Using these expression new client objects can get client-specific data directly. 
 
 
 \section{Exit}
@@ -120,8 +146,8 @@ The dialog consists of a number of tabs which allow to setup the different prope
 
 With respect to the inter-arrival times, it is possible to determine whether these
 should be determined according to a \textbf{distribution}, according to an \textbf{expression},
-on a \textbf{schedule} or by a \textbf{release condition}, a \textbf{threshold value} or by
-one or multiple \textbf{signals}.
+on a \textbf{schedule}, by a \textbf{release condition}, a \textbf{threshold value}, by
+one or multiple \textbf{signals} or by a \textbf{number of arrivals per interval}.
 
 \subsubsection*{Batch size}
 
@@ -150,6 +176,12 @@ starting the simulation. By defining some other start time the client generation
 (e.g. the first inter-arrival time before the first client arrival) will start at a later
 point of time.
 
+When generating arrivals with specific inter-arrival times (defined by a distribution
+or a calculation expression), the first inter-arrival time normally starts at the start time.
+The actual first arrival is then at start time+inter-arrival time. The option
+\textbf{First arrival at time 0} can be used to set the first arrival to occur
+directly at the start time.
+
 \subsubsection*{Assignment of client variables}
 
 On this tab client variable assignment to variables like \texttt{ClientData(nr)} can be setup.
@@ -159,6 +191,29 @@ These assignments are applied to each client created by this source.
 
 On this tab client text assignments like key:=value can be setup.
 These assignments are applied to each client created by this source.
+
+\subsection*{Load client types}
+
+If a large number of client types is to be used in a model, this function can be used
+to load several client types from a table. Each table line contains the data for one client type.
+
+The first column specifies the name of the client type, the second the definition of the inter-arrival times.
+Thereby the inter-arrival times can be defined either by a calculation expression or by the definition of a
+distribution. The format of the distributions is documented in the pdf document
+"Distribution XML reference for Warteschlangensimulator". These two columns can be followed by any number
+of additional columns with the following contents:
+
+\begin{itemize}
+  \item \texttt{batch=}<br>
+  Specifies the arrival batch size. Either a positive integer can be specified, or a series of values separated
+  by ";" of the form \texttt{size=rate} to define different rates for different batch sizes. 
+  \item \texttt{count=}<br>
+  Indicates the total number of arrival events. 
+  \item \texttt{start=}<br>
+  Specifies the start of the first inter-arrival time. 
+\end{itemize}
+
+Additionally a assignment, that can be made at a Table source (see page \pageref{ref:ModelElementSourceTable}) , can be used.
 
 
 \section{Save and exit}
@@ -188,6 +243,10 @@ The name of the exit element has no further meaning for the simulation.
 The exit element can be defined as an emergency exit: In this mode, the simulation is aborted
 as soon as a client arrives at the station.
 
+\subsection*{Note}
+
+The tables created at this station can be converted into normal tables via the <a hrref="ProcessClientOutputTable.html">Process output table</a> dialog.
+
 
 \section{Source}
 \label{ref:ModelElementSource}
@@ -210,8 +269,8 @@ The dialog consists of a number of tabs which allow to setup the different prope
 
 With respect to the inter-arrival times, it is possible to determine whether these
 should be determined according to a \textbf{distribution}, according to an \textbf{expression},
-on a \textbf{schedule} or by a \textbf{release condition}, a \textbf{threshold value} or by
-one or multiple \textbf{signals}.
+on a \textbf{schedule}, by a \textbf{release condition}, a \textbf{threshold value}, by
+one or multiple \textbf{signals} or by a \textbf{number of arrivals per interval}.
 
 \subsubsection*{Batch size}
 
@@ -239,6 +298,12 @@ In the default case the source elements starts generating arrivals immediately a
 starting the simulation. By defining some other start time the client generation
 (e.g. the first inter-arrival time before the first client arrival) will start at a later
 point of time.
+
+When generating arrivals with specific inter-arrival times (defined by a distribution
+or a calculation expression), the first inter-arrival time normally starts at the start time.
+The actual first arrival is then at start time+inter-arrival time. The option
+\textbf{First arrival at time 0} can be used to set the first arrival to occur
+directly at the start time.
 
 \subsubsection*{Assignment of client variables}
 
@@ -272,7 +337,12 @@ At a table source the \textbf{file name of the table} from which the arrivals
 are to be loaded and the \textbf{list of the client types} for which client
 arrivals are to be loaded from the table have to be specified.
 
-\textbf{Format of the table:}~\\
+If a table is to be used \textbf{directly without preprocessing} at a table source, 
+the meaning of the table columns has to be configured via the dialog that can be
+called up via the gearwheel symbol to the right of the input field
+for the file name of the table. In case of a \textbf{preprocessed} table this is not necessary.
+
+\textbf{Format of a preprocessed table:}~\\
 Tables to be used at a table source element have to consist of at least two columns.
 The first column has to contain the time stamps of the individual client arrivals
 or the inter-arrival times. The values represent the number of seconds since the
@@ -280,11 +350,35 @@ start of the simulation or since the last client arrival.
 In the second column the client type names of clients which arrive at the times
 noted in the first column are defined. Rows containing a client type which is
 not in the client types list in the table source element are ignored.
-All optional further columns have to contain expressions of the form
-\texttt{ClientData(nr)=Formula}, \texttt{ClientData('key')=TextValue},
-\texttt{w=Formula}, \texttt{t=Formula}, \texttt{p=Formula},
-\texttt{wCosts=Formula}, \texttt{tCosts=Formula} or \texttt{pCosts=Formula}.
-Using these expression new client objects can get client-specific data directly.
+All optional further columns have to contain expressions of the following form:
+
+\begin{itemize}
+  \item \texttt{ClientData(nr)=Formula}<br>
+  Assigns the result of the evaluation of \texttt{formula} to the numeric
+  client data field with index \texttt{nr}. 
+  \item \texttt{ClientData('key')=TextValue}<br>
+  Assigns \texttt{TextValue} to \texttt{key}. 
+  \item \texttt{w=Formula}<br>
+  Sets the result of the evaluation of \texttt{formula} as the
+  initial value of the waiting time counter of the client.   
+  \item \texttt{t=Formula}<br>
+  Sets the result of the evaluation of \texttt{formula} as the
+  initial value of the transport time counter of the client.   
+  \item \texttt{p=Formula}<br>
+  Sets the result of the evaluation of \texttt{formula} as the
+  initial value of the service time counter of the client. 
+  \item \texttt{wCosts=Formula}<br>
+  Sets the result of the evaluation of \texttt{formula} as the
+  initial value of the waiting time depending costs counter of the client. 
+  \item \texttt{tCosts=Formula}<br>
+  Sets the result of the evaluation of \texttt{formula} as the
+  initial value of the transport time depending costs counter of the client. 
+  \item \texttt{pCosts=Formula}<br>
+  Sets the result of the evaluation of \texttt{formula} as the
+  initial value of the service time depending costs counter of the client. 
+\end{itemize}
+
+Using these expression new client objects can get client-specific data directly. 
 
 \textbf{Hint:}
 The button to the right of the table file input line can be used to open the 
@@ -319,6 +413,16 @@ can be specified for each client type.
 If clients are to be released via an external script element for further movement through the system before the delay time has elapsed,
 it must be activated via the corresponding checkbox that a corresponding list for script access should be provided. The provision of
 this list slows down the simulation, even if it is not accessed.
+
+\subsection*{Load client types}
+
+If a large number of client types with different settings is to be used at a station, this function can be used
+to load several client type settings from a table. Each table line contains the data for one client type.
+
+The first column specifies the name of the client type, the second the definition of the corresponding times.
+Thereby the times can be defined either by a calculation expression or by the definition of a
+distribution. The format of the distributions is documented in the pdf document
+"Distribution XML reference for Warteschlangensimulator".
 
 
 \section{Process station}
@@ -402,19 +506,33 @@ priorities. The client with the highest priority will be served next.
 "w" indicates here the client's previous waiting time at the current station. (In all other cases "w" is the total
 waiting time of the current client.) This means that the formula "w" for the priority results
 in a first-in-first-out queue. "-w" would result in a last-in-first-out system.
+
 The batch size indicates how many clients can be operated simultaneously by an operator. Obviously, the minimum batch
 size can not be larger as the maximum batch size. If both values are identical, a fixed batch size is obtained.
 If the minimum batch size is actually smaller than the maximum batch size, after waiting for this minimum number of
 waiting customers, a millisecond is still waited to see if further customers arrive. Then at least as many clients
 as before (= minimum batch size) and at most as many of the waiting clients as the maximum batch size are served.
 
-\textbf{Note about variable batch sizes in the simulation:}~\\
+In the default case, the service order is determined via the priority formulas (which can be set individually for each client type).
+However, this can lead to very frequent changes of the client type. If setup times are used at an process station when changing the
+client type, it may be desirable to serve as many clients of one type as possible in succession. This can be achieved by activating
+the campaign mode. In this case, the evaluation of priorities is divided into two parts: First, an attempt is made to select the
+client with the highest priority for service among the clients of the same type, as in the case of the last client served.
+If no client of the same type as the type of the last served client is waiting, the priority formula-based search is extended
+to all waiting clients.
+
+\textbf{Note on variable batch sizes in the simulation:}~\\
 Clients are basically moving through the queueing network as individual objects.
 As a result, when a variable batch size is used, the client group operation would theoretically always
 start with the minimum batch size. - Even if the next client of the virtual batch would arrive immediately.
 In order to accommodate this fact, the simulator waits a millisecond after the arrival of a client, which
 increases the number of waiting clients to the minimum necessary batch size, so as to allow the addition
 of further directly incoming clients to the batch.
+
+\textbf{Note on batch service and campaign mode:}~\\
+A batch consists of several clients; the clients are arranged into service batches according to their priorities.
+This means in particular that clients of different types can be in one batch. Therefore, batches cannot
+be combined with the campaign mode, which requires that there is a unique type for the last served client.
 
 \subsubsection*{Operators}
 
@@ -434,6 +552,16 @@ if there are multiple process stations that need the same resource.
 On this page, you can optionally set the costs incurred by the clients. This are costs of the process station.
 For the waiting, transfer and operating times costs per client can be defined in the clients settings for each
 client type. Also the costs for allocation and availability of the resources can be defined in the resource settings.
+
+\subsection*{Load client types}
+
+If a large number of client types with different settings is to be used at a station, this function can be used
+to load several client type settings from a table. Each table line contains the data for one client type.
+
+The first column specifies the name of the client type, the second the definition of the corresponding times.
+Thereby the times can be defined either by a calculation expression or by the definition of a
+distribution. The format of the distributions is documented in the pdf document
+"Distribution XML reference for Warteschlangensimulator".
 
 
 
@@ -937,7 +1065,9 @@ Signal element (see page \pageref{ref:ModelElementSignal}) that signals the rele
 The number of waiting clients which are released at an incoming signal can be set up as well as
 if the release should act on all client type or on only one client type.
 Furthermore, a number of clients who are allowed to pass the barrier before the counting begins
-can be defined.
+can be defined. If a signal arrives while no client is waiting, it is possible to specify whether
+this signal should be saved for a client who is then to be released immediately later, or whether
+it should be discarded.
 
 
 \section{Condition}
@@ -955,7 +1085,7 @@ When the condition element is passed, the clients are stopped until the defined 
 
 The name of the condition element has no further meaning.
 If clients are in the queue, the system checks whether the condition is fulfilled.
-If yes, the next client is released. After a (simulation time) millisecond the next check
+If yes, the client with the highest priority is released. After a (simulation time) millisecond the next check
 is performed and, if necessary, the next client is released.
 It can be set whether the condition is to be considered globally (without the option of using client-specific variables)
 or whether the condition is to be interpreted on a client-specific basis (including the option of using client-specific variables).
@@ -1072,6 +1202,16 @@ In addition, a time span can be specified between the arrival of a client at the
 the release of the resources. If such a time period has been defined, the client will already have
 left the release element when the relevant resources are actually released.
 
+\subsection*{Load client types}
+
+If a large number of client types with different settings is to be used at a station, this function can be used
+to load several client type settings from a table. Each table line contains the data for one client type.
+
+The first column specifies the name of the client type, the second the definition of the corresponding times.
+Thereby the times can be defined either by a calculation expression or by the definition of a
+distribution. The format of the distributions is documented in the pdf document
+"Distribution XML reference for Warteschlangensimulator".
+
 
 \section{Seize resource}
 \label{ref:ModelElementSeize}
@@ -1120,6 +1260,8 @@ Barrier elements (see page \pageref{ref:ModelElementBarrier}) can be notified by
 \subsection*{Settings}
 
 The name of the signal element is also the name of the signal that is triggered when a client passes the element.
+In addition, a time period can be set by which the triggering of the signal is to be delayed after a client arrival.
+If no delay time is set, the event is triggered as soon as a client arrives at the station.
 
 
 
@@ -1294,6 +1436,25 @@ These assignments are applied to each client created by this source.
 Independently of the settings per partial sub source, it is possible to set that
 the numeric and text-based client data should be transferred from the source client
 to the newly generated clients.
+
+\subsection*{Load client types}
+
+If a large number of client types is to be used in a model, this function can be used
+to load several client types from a table. Each table line contains the data for one client type.
+
+The first column specifies the name of the client type, the second the definition of the inter-arrival times.
+Thereby the inter-arrival times can be defined either by a calculation expression or by the definition of a
+distribution. The format of the distributions is documented in the pdf document
+"Distribution XML reference for Warteschlangensimulator". These two columns can be followed by any number
+of additional columns with the following contents:
+
+\begin{itemize}
+  \item \texttt{batch=}<br>
+  Specifies the arrival batch size. Either a positive integer can be specified, or a series of values separated
+  by ";" of the form \texttt{size=rate} to define different rates for different batch sizes. 
+\end{itemize}
+
+Additionally a assignment, that can be made at a Table source (see page \pageref{ref:ModelElementSourceTable}) , can be used.
 
 
 
@@ -2475,6 +2636,9 @@ The name of the simulation data element is displayed on the drawing area directl
 You can define any number of conditions and strings and also one default string which is displayed,
 if non of the conditions apply.
 
+Furthermore, you can set whether some special HTML and LaTeX symbols (see page \pageref{ref:TextEntities}) should
+be interpreted accordingly.
+
 
 
 
@@ -2615,6 +2779,10 @@ and serve only for the optical design of the model
 \subsection*{Settings}
 
 In addition to the text itself, a font family and a font size can also be set for each description text element.
+
+Furthermore, you can set whether some special HTML and LaTeX symbols (see page \pageref{ref:TextEntities}) should
+be interpreted accordingly and whether formatting should be performed according to the Markdown symbols
+\texttt{\#}, \texttt{\#\#}, \texttt{\#\#\#}, \texttt{*} and \texttt{**}.
 
 
 \section{Ellipse}

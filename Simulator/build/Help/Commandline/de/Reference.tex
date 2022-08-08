@@ -1,3 +1,21 @@
+\section{\texttt{Ausgabetabelle}}
+
+\textbf{Verarbeitet eine an einer Speichern+Ausgang-Station erzeugte Tabelle.}
+
+Dieser Befehl erwartet zwei weitere Parameter:\\
+1. Eingabe-Tabellendatei\\
+2. Eingabe-Tabelledatei\\
+Die Eingabedatei muss existieren, die Ausgabedatei darf nicht existieren.
+
+\section{\texttt{Export}}
+
+\textbf{Exportiert ein Modell.}
+
+Dieser Befehl erwartet genau zwei weitere Parameter:\\
+1. Name der Eingabe-Datei\\
+2. Name der Ausgabedatei, die die Exportergebnisse aufnehmen soll\\
+Die Eingabedatei muss existieren, die Ausgabedatei darf nicht existieren.
+
 \section{\texttt{Filter}}
 
 \textbf{Datei mit Statistikergebnissen filtern.}
@@ -117,8 +135,8 @@ die Adresse des zu verwendenden MQTT-Brokers, den Namen des MQTT-Topic optional 
 
 \textbf{Simulator als Socket-basierten Rechenserver starten.}
 
-Dieser Befehl erwartet genau einen weiteren Parameter:\\
-den zu verwendenden Port.
+Dieser Befehl erwartet einen oder zwei weiteren Parameter:\\
+den zu verwendenden Port und optional einen Timeout-Wert (in Sekunden) für einzelne Simulationen.
 
 \section{\texttt{ServerWeb}}
 

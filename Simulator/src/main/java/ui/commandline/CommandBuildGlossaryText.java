@@ -233,4 +233,9 @@ public class CommandBuildGlossaryText extends AbstractCommand {
 
 		return results;
 	}
+
+	@Override
+	public boolean isHidden() {
+		return true;
+	}
 }

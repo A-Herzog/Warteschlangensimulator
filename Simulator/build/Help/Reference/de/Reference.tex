@@ -60,7 +60,9 @@ der Form ,,\texttt{ClientData(1)=Formel}'', ,,\texttt{ClientData('Schlüssel')=T
 oder \texttt{w=Formel} enthält. (Statt \texttt{w} stehen auch \texttt{t}, \texttt{p},
 \texttt{wCosts}, \texttt{tCosts} und \texttt{pCosts} zur Verfügung.)
 Es können auch mehrere Kundendatenfelder gesetzt werden.
-Die Ausdrücke müssen dann innerhalb der Zelle durch \textbf{Tabulatoren} getrennt werden. 
+Die Ausdrücke müssen dann innerhalb der Zelle durch \textbf{Tabulatoren} getrennt werden.
+
+Siehe auch die Erklärungen auf der Hilfeseite zur Tabellenquelle (siehe Seite \pageref{ref:ModelElementSourceTable}) -Station.
 
 
 \section{Excel-DDE-Quelle}
@@ -96,11 +98,36 @@ der Ankünfte der Kunden untereinander ebenfalls gemessen in Sekunden. Die zweit
 enthält zu jedem Ankunftszeitpunkt den Namen des Kundentyps des Kunden, der an dem
 angegebenen Zeitpunkt eintreffen soll. Zeilen, bei denen der angegebene Kundentyp
 nicht in der im Element eingestellten Liste der Kundentypnamen enthalten ist, werden ignoriert.
-Alle weiteren Spalten enthalten optional Ausdrücke der Form \texttt{ClientData(nr)=Formel},
-\texttt{ClientData('Schlüssel')=Textwert}, \texttt{w=Formel}, \texttt{t=Formel},
-\texttt{p=Formel}, \texttt{wCosts=Formel}, \texttt{tCosts=Formel} oder\texttt{pCosts=Formel}.
+Alle weiteren Spalten enthalten optional Ausdrücke der folgenden Formen:
+
+\begin{itemize}
+  \item \texttt{ClientData(nr)=Formel}<br>
+  Weist an das numerische Kundendatenfeld mit dem Index \texttt{nr} das Ergebnis der
+  Auswertung von \texttt{Formel} zu. 
+  \item \texttt{ClientData('Schlüssel')=Textwert}<br>
+  Weist an \texttt{Schlüssel} den Wert \texttt{Textwert} zu. 
+  \item \texttt{w=Formel}<br>
+  Stellt den Wartezeitzähler des Kunden initial auf das Ergebnis der
+  Auswertung von \texttt{Formel}.   
+  \item \texttt{t=Formel}<br>
+  Stellt den Transportzeitzähler des Kunden initial auf das Ergebnis der
+  Auswertung von \texttt{Formel}. 
+  \item \texttt{p=Formel}<br>
+  Stellt den Bedienzeitzähler des Kunden initial auf das Ergebnis der
+  Auswertung von \texttt{Formel}. 
+  \item \texttt{wCosts=Formel}<br>
+  Stellt die wartezeitabhängigen Kosten initial auf das Ergebnis der
+  Auswertung von \texttt{Formel}. 
+  \item \texttt{tCosts=Formel}<br>
+  Stellt die transportzeitabhängigen Kosten initial auf das Ergebnis der
+  Auswertung von \texttt{Formel}. 
+  \item \texttt{pCosts=Formel}<br>
+  Stellt die bedienzeitabhängigen Kosten initial auf das Ergebnis der
+  Auswertung von \texttt{Formel}. 
+\end{itemize}
+
 Auf diese Weise können in den neu erstellten Kundenobjekten direkt kundenspezifische Daten
-hinterlegt werden.
+hinterlegt werden. 
 
 
 \section{Mehrfachquelle}
@@ -131,9 +158,9 @@ der Kundenquelle konfiguriert werden können:
 \subsubsection*{Zwischenankunftszeiten}
 
 In Bezug auf die Zwischenankunftszeiten kann eingestellt werden, ob diese gemäß einer
-\textbf{Verteilung}, gemäß einem \textbf{Ausdruck}, über einen \textbf{Zeitplan} oder über eine
-\textbf{Freigabebedingung} bzw. einen \textbf{Schwellenwert} oder über
-ein oder mehrere \textbf{Signale} bestimmt werden sollen.
+\textbf{Verteilung}, gemäß einem \textbf{Ausdruck}, über einen \textbf{Zeitplan}, über eine
+\textbf{Freigabebedingung} bzw. einen \textbf{Schwellenwert}, über ein oder mehrere
+\textbf{Signale} oder über eine \textbf{Anzahl pro Intervall} bestimmt werden sollen.
 
 \subsubsection*{Batch-Größe}
 
@@ -164,6 +191,12 @@ Ankünften. Durch die Festlegung eines positiven Startzeitpunktes kann jedoch ei
 werden, dass die erste Zwischenankunftszeit (an deren Ende die erste Kundenankunft steht) erst
 zu einem späteren Zeitpunkt beginnt.
 
+Bei der Erzeugung von Ankünften mit bestimmten Zwischenankunftszeiten (definiert über eine Verteilung
+oder einen Rechenausdruck) beginnt im Normalfall die erste Zwischenankunftszeit ab dem Startzeitpunkt.
+Die tatsächliche erste Ankunft erfolgt dann zum Zeitpunkt Startzeitpunkt+Zwischenankunftszeit. Über
+die Option \textbf{Erste Ankunft zum Zeitpunkt 0} kann eingestellt werden, dass bereits direkt zum
+Startzeitpunkt die erste Ankunft erfolgen soll.
+
 \subsubsection*{Zuweisung von Kundenvariablen}
 
 Auf dieser Registerkarte können Kundenvariablen vom Typ \texttt{ClientData(nr)} eingetragen werden,
@@ -173,6 +206,29 @@ die jedem neu erstellten Kunden automatisch zugewiesen werden sollen.
 
 Auf dieser Registerkarte können Textzuweisungen vom Typ Schlüssel:=Text eingetragen werden,
 die jedem neu erstellten Kunden automatisch zugewiesen werden sollen.
+
+\subsection*{Kundentypen laden}
+
+Sollen in einem Modell sehr viele Kundentypen verwendet werden, so können über diese Funktion mehrere
+Kundentypen aus einer Tabelle geladen werden. Jede Tabellenzeile enthält dabei die Daten zu einem Kundentyp.
+
+Die erste Spalte muss den Namen des Kundentyps angeben, die zweite die Definition der Zwischenankunftszeiten.
+Dabei können die Zwischenankunftszeiten entweder über einen Rechenausdruck oder über die Definition einer
+Verteilungsfunktion festgelegt werden. Das Format der Verteilungsfunktionsdefinition ist in dem pdf-Dokument
+"Distribution XML reference for Warteschlangensimulator'' dokumentiert. Auf diese beiden Spalten können beliebig
+viele weitere Spalten mit folgenden Inhalten folgen:
+
+\begin{itemize}
+  \item \texttt{batch=}<br>
+  Gibt die Ankunfts-Batch-Größe an. Es kann entweder eine positive Ganzzahl angegeben werden oder eine Reihe von
+  durch ,,;'' getrennte Werte der Form \texttt{Größe=Rate} zur Definition verschiedener Raten für verschiedene Batch-Größen. 
+  \item \texttt{count=}<br>
+  Gibt die Gesamtanzahl an Ankunftsereignissen an. 
+  \item \texttt{start=}<br>
+  Gibt den Start der ersten Zwischenankunftszeit an. 
+\end{itemize}
+
+Außerdem stehen die Zuweisungen, die an einer Tabellenquelle (siehe Seite \pageref{ref:ModelElementSourceTable}) genutzt werden können, zur Verfügung.
 
 
 \section{Quelle}
@@ -199,9 +255,9 @@ der Kundenquelle konfiguriert werden können:
 \subsubsection*{Zwischenankunftszeiten}
 
 In Bezug auf die Zwischenankunftszeiten kann eingestellt werden, ob diese gemäß einer
-\textbf{Verteilung}, gemäß einem \textbf{Ausdruck}, über einen \textbf{Zeitplan} oder über eine
-\textbf{Freigabebedingung} bzw. einen \textbf{Schwellenwert} oder über
-ein oder mehrere \textbf{Signale} bestimmt werden sollen.
+\textbf{Verteilung}, gemäß einem \textbf{Ausdruck}, über einen \textbf{Zeitplan}, über eine
+\textbf{Freigabebedingung} bzw. einen \textbf{Schwellenwert}, über ein oder mehrere
+\textbf{Signale} oder über eine \textbf{Anzahl pro Intervall} bestimmt werden sollen.
 
 \subsubsection*{Batch-Größe}
 
@@ -231,6 +287,12 @@ Normalerweise beginnt die Quelle sofort nach Start der Simulation mit der Generi
 Ankünften. Durch die Festlegung eines positiven Startzeitpunktes kann jedoch eingestellt
 werden, dass die erste Zwischenankunftszeit (an deren Ende die erste Kundenankunft steht) erst
 zu einem späteren Zeitpunkt beginnt.
+
+Bei der Erzeugung von Ankünften mit bestimmten Zwischenankunftszeiten (definiert über eine Verteilung
+oder einen Rechenausdruck) beginnt im Normalfall die erste Zwischenankunftszeit ab dem Startzeitpunkt.
+Die tatsächliche erste Ankunft erfolgt dann zum Zeitpunkt Startzeitpunkt+Zwischenankunftszeit. Über
+die Option \textbf{Erste Ankunft zum Zeitpunkt 0} kann eingestellt werden, dass bereits direkt zum
+Startzeitpunkt die erste Ankunft erfolgen soll.
 
 \subsubsection*{Zuweisung von Kundenvariablen}
 
@@ -270,6 +332,11 @@ in der Komponente auf der Zeichenfläche angezeigt.
 Zusätzlich kann eingestellt werden, dass ein Ausgang-Element als Notausgang verwendet werden soll: Befindet sich das Element
 in diesem Modus, so wird die Simulation abgebrochen, so bald an der Station ein Kunde eintrifft.
 
+\subsection*{Hinweis}
+
+Die an dieser Station erzeugten Tabellen können über den <a hrref="ProcessClientOutputTable.html">Ausgabetabelle aufbereiten</a>-Dialog
+in normale Tabellen umgewandelt werden.
+
 
 \section{Tabellenquelle}
 \label{ref:ModelElementSourceTable}
@@ -296,16 +363,46 @@ Bei jeder Tabellenquelle müssen der \textbf{Dateiname der Tabelle}, aus
 der die Ankünfte geladen werden sollen, sowie die \textbf{Liste der Kundentypnamen},
 für die Ankünfte aus der Tabelle geladen werden sollen, angegeben werden.
 
-\textbf{Aufbau der Tabelle:}~\\
+Soll an einer Tabellenquelle eine Tabelle \textbf{direkt ohne Vorverarbeitung}
+verwendet werden, so muss über den über das Zahnrad-Symbol rechts neben dem Eingabefeld
+für den Dateinamen der Tabelle aufrufbaren Dialog die Bedeutung der Tabellen konfiguriert werden.
+Im Falle einer \textbf{bereits vorab aufbereiteten} Tabelle ist dies nicht notwendig.
+
+\textbf{Aufbau einer aufbereiteten Tabelle:}~\\
 Die Tabelle muss aus mindestens zwei Spalten bestehen. Die erste Spalte enthält die Ankunftszeitpunkte
 der Kunden gemessen in Sekunden beginnend mit dem Start der Simulation oder aber die Abstände
 der Ankünfte der Kunden untereinander ebenfalls gemessen in Sekunden. Die zweite Spalte
 enthält zu jedem Ankunftszeitpunkt den Namen des Kundentyps des Kunden, der an dem
 angegebenen Zeitpunkt eintreffen soll. Zeilen, bei denen der angegebene Kundentyp
 nicht in der im Element eingestellten Liste der Kundentypnamen enthalten ist, werden ignoriert.
-Alle weiteren Spalten enthalten optional Ausdrücke der Form \texttt{ClientData(nr)=Formel},
-\texttt{ClientData('Schlüssel')=Textwert}, \texttt{w=Formel}, \texttt{t=Formel},
-\texttt{p=Formel}, \texttt{wCosts=Formel}, \texttt{tCosts=Formel} oder\texttt{pCosts=Formel}.
+Alle weiteren Spalten enthalten optional Ausdrücke der folgenden Formen:
+
+\begin{itemize}
+  \item \texttt{ClientData(nr)=Formel}<br>
+  Weist an das numerische Kundendatenfeld mit dem Index \texttt{nr} das Ergebnis der
+  Auswertung von \texttt{Formel} zu. 
+  \item \texttt{ClientData('Schlüssel')=Textwert}<br>
+  Weist an \texttt{Schlüssel} den Wert \texttt{Textwert} zu. 
+  \item \texttt{w=Formel}<br>
+  Stellt den Wartezeitzähler des Kunden initial auf das Ergebnis der
+  Auswertung von \texttt{Formel}.   
+  \item \texttt{t=Formel}<br>
+  Stellt den Transportzeitzähler des Kunden initial auf das Ergebnis der
+  Auswertung von \texttt{Formel}. 
+  \item \texttt{p=Formel}<br>
+  Stellt den Bedienzeitzähler des Kunden initial auf das Ergebnis der
+  Auswertung von \texttt{Formel}. 
+  \item \texttt{wCosts=Formel}<br>
+  Stellt die wartezeitabhängigen Kosten initial auf das Ergebnis der
+  Auswertung von \texttt{Formel}. 
+  \item \texttt{tCosts=Formel}<br>
+  Stellt die transportzeitabhängigen Kosten initial auf das Ergebnis der
+  Auswertung von \texttt{Formel}. 
+  \item \texttt{pCosts=Formel}<br>
+  Stellt die bedienzeitabhängigen Kosten initial auf das Ergebnis der
+  Auswertung von \texttt{Formel}. 
+\end{itemize}
+
 Auf diese Weise können in den neu erstellten Kundenobjekten direkt kundenspezifische Daten
 hinterlegt werden. 
 
@@ -404,11 +501,20 @@ bedient wird. Es wird jeweils der Kunde mit der höchsten Priorität als nächst
 "w'' gibt dabei abweichend von der sonst üblichen Belegung die bisherige Wartezeit des Kunden an der aktuellen Station an (und nicht
 die gesamte bisherige Wartezeit des Kunden). Das bedeutet, dass die Formel ,,w'' für die Priorität zu einer
 First-in-first-out-Warteschlange führt. ,,-w'' hätte ein Last-in-first-out-System zur Folge.
+
 Die Batch-Größe gibt an, wie viele Kunden jeweils gleichzeitig von einem Bediener bedient werden können. Offensichtlich kann die
 minimale Batch-Größe höchsten so groß wie die maximale Batch-Größe sein. Sind beide Werte identisch, so ergibt sich eine feste
 Batch-Größe. Ist die minimale Batch-Größe echt kleiner als die maximale Batch-Größe, so wird nach dem Erreichen dieser Mindestanzahl
 an wartenden Kunden noch eine Millisekunde abgewartet, ob weitere Kunden eintreffen. Dann werden mindestens so viele Kunden wie zuvor
 eingetroffen (=minimale Batch-Größe) und höchstens so viele der dann wartenden Kunden wie die maximale Batch-Größe vorgibt, bedient. 
+
+Im Normalfall wird die Bedienreihenfolge über die (pro Kundentyp individuell einstellbare) Prioritätsformeln festgelegt. Dies kann
+jedoch zu sehr häufigen Wechseln des Kundentyps führen. Sind an einer Bedienstation Rüstzeiten beim Wechsel des Kundentyps vorgesehen,
+so kann es wünschenswert sein, möglichst viele Kunden eines Typs nacheinander zu bedienen. Dies kann durch die Aktivierung des
+Kampagnen-Modus erreicht werden. In diesem Fall erfolgt die Bewertung der Prioritäten zweigeteilt: Zunächst wird versucht unter den
+Kunden desselben Typs, wie beim zuletzt bedienten Kunden, denjenigen mit der höchsten Priorität für die Bedienung auszusuchen.
+Wartet kein Kunde desselben Typs wie der Typ des zuletzt bedienten Kunden, so wird die Prioritätsformel-basierte Suche auf alle
+wartenden Kunden ausgedehnt.
 
 \textbf{Hinweis zu variablen Batch-Größen in der Simulation:}~\\
 Kunden bewegen sich grundsätzlich als individuelle Objekte durch das Warteschlangennetz. Dies hat zur Folge, dass bei Verwendung
@@ -416,6 +522,12 @@ einer variablen Batch-Größe die Bedienung der Kundengruppe theoretisch immer m
 wenn unmittelbar die nächsten Kunden des virtuellen Batch eintreffen würden. Um dieser Tatsache Rechnung zu tragen, wartet der
 Simulator nach dem Eintreffen eines Kunden, der die Anzahl an wartenden Kunden auf die minimal notwendige Batch-Größe erhöht,
 noch eine Millisekunde, um so das hinzufügen von weiteren unmittelbar eintreffenden Kunden zu dem Batch zu ermöglichen.
+
+\textbf{Hinweis zur Batch-Bedienung und zum Kampagnen-Modus:}~\\
+Ein Batch umfasst mehrere Kunden; die Kunden werden dabei gemäß ihrer Prioritäten zu Bedien-Batchen zusammengestellt.
+Dies bedeutet insbesondere, dass sich Kunden verschiedener Typen in einem Batch befinden können. Daher können Batche
+nicht mit dem Kampagnen-Modus, der voraussetzt dass es einen eindeutigen Typ für den jeweils zuletzt bedienten
+Kunden gibt, kombiniert werden. 
 
 \subsubsection*{Bediener}
 
@@ -436,6 +548,15 @@ Auf dieser Seite kann optional eingestellt werden, welche Kosten durch die Bedie
 Es handelt sich hierbei um die Kosten aus Sicht der Bedienstation. Für die Warte-, Transfer- und Bedienzeiten pro
 Kunde kann in den Kundeneinstellungen pro Kundentyp ein Kostenwert hinterlegt werden. Auch können die Kosten durch
 die Belegung und Bereithaltung der Ressourcen in den Ressourceneinstellungen festgelegt werden.
+
+\subsection*{Kundentypen laden}
+
+Sollen an einer Station sehr viele Kundentypen mit unterschiedlichen Einstellungen verwendet werden, so können über diese Funktion mehrere Kundentypdaten aus einer Tabelle geladen werden. Jede Tabellenzeile enthält dabei die Daten zu einem Kundentyp.
+
+Die erste Spalte muss den Namen des Kundentyps angeben, die zweite die Definition der entsprechenden Zeitdauer.
+Dabei können die Zeitdauern entweder über einen Rechenausdruck oder über die Definition einer
+Verteilungsfunktion festgelegt werden. Das Format der Verteilungsfunktionsdefinition ist in dem pdf-Dokument
+"Distribution XML reference for Warteschlangensimulator'' dokumentiert.
 
 
 \section{Verzögerung}
@@ -462,6 +583,15 @@ Sollen Kunden vor Ablauf der Verzögerungszeit über ein externes Skript-Element
 freigegeben werden, so muss über das entsprechende Auswahlfeld aktiviert werden, dass eine entsprechende Liste für den
 Skriptzugriff vorgehalten werden soll. Die Bereitstellung dieser Liste verlangsamt die Simulation, auch wenn nicht auf
 sie zugegriffen wird.
+
+\subsection*{Kundentypen laden}
+
+Sollen an einer Station sehr viele Kundentypen mit unterschiedlichen Einstellungen verwendet werden, so können über diese Funktion mehrere Kundentypdaten aus einer Tabelle geladen werden. Jede Tabellenzeile enthält dabei die Daten zu einem Kundentyp.
+
+Die erste Spalte muss den Namen des Kundentyps angeben, die zweite die Definition der entsprechenden Zeitdauer.
+Dabei können die Zeitdauern entweder über einen Rechenausdruck oder über die Definition einer
+Verteilungsfunktion festgelegt werden. Das Format der Verteilungsfunktionsdefinition ist in dem pdf-Dokument
+"Distribution XML reference for Warteschlangensimulator'' dokumentiert.
 
 
 
@@ -981,12 +1111,12 @@ Bei dem Durchlaufen des Bedingung-Elements werden die Kunden so lange aufgehalte
 \subsection*{Einstellungen}
 
 Der Name des Bedingung-Elements hat keine weitere Bedeutung. Befinden sich Kunden in der Warteschlange, so wird ständig geprüft,
-ob die Bedingung erfüllt ist. Wenn ja, wird der nächste Kunde freigegeben. Danach wird eine (Simulationszeit) Millisekunde gewartet bis die nächste
-Prüfung erfolgt und ggf. der nächste Kunde freigegeben wird. Es kann dabei eingestellt werden, ob die Bedingung global betrachtet werden soll
-(ohne die Möglichkeit, kundenspezifische Variablen zu verwenden) oder ob die Bedingung kundenspezifisch interpretiert werden soll (inkl. der
-Möglichkeit, kundenspezifische Variablen zu verwenden). Im Falle einer globalen Interpretation wird die Bedingung nur einmal ausgewertet; wenn
-sie nicht zutrifft, wird die Verarbeitung in diesem Schritt abgeschlossen. Im Falle der kundenspezifischen Interpretation wird die Bedingung
-in jedem Schritt für jeden wartenden Kunden einzeln ausgewertet (was die Simulation verlangsamt).
+ob die Bedingung erfüllt ist. Wenn ja, wird der Kunde mit der höchsten Priorität freigegeben. Danach wird eine (Simulationszeit) Millisekunde
+gewartet bis die nächste Prüfung erfolgt und ggf. der nächste Kunde freigegeben wird. Es kann dabei eingestellt werden, ob die Bedingung global
+betrachtet werden soll (ohne die Möglichkeit, kundenspezifische Variablen zu verwenden) oder ob die Bedingung kundenspezifisch interpretiert
+werden soll (inkl. der Möglichkeit, kundenspezifische Variablen zu verwenden). Im Falle einer globalen Interpretation wird die Bedingung nur
+einmal ausgewertet; wenn sie nicht zutrifft, wird die Verarbeitung in diesem Schritt abgeschlossen. Im Falle der kundenspezifischen Interpretation
+wird die Bedingung in jedem Schritt für jeden wartenden Kunden einzeln ausgewertet (was die Simulation verlangsamt).
 Gehen in die Bedingung Werte ein, die sich unabhängig von Ereignissen verändern können (z.B. die simulierte Zeit), so kann es notwendig sein,
 die Option ,,Bedingung zusätzlich zeitgesteuert prüfen'' zu aktivieren. In diesem Fall wird der Wert der Bedingung zusätzlich in bestimmten
 Zeitabständen geprüft. Wie lange diese Abstände sind, kann im Modelleigenschaften -Dialog konfiguriert
@@ -1139,6 +1269,15 @@ Zusätzlich kann eine Zeitspanne angegeben werden, die zwischen der Ankunft eine
 der Freigabe der Ressourcen eingeplant werden soll. Ist eine solche Zeitspanne festgelegt, so hat der Kunde
 das Freigabeelement bereits verlassen, wenn die zugehörigen Ressourcen tatsächlich freigegeben werden.  
 
+\subsection*{Kundentypen laden}
+
+Sollen an einer Station sehr viele Kundentypen mit unterschiedlichen Einstellungen verwendet werden, so können über diese Funktion mehrere Kundentypdaten aus einer Tabelle geladen werden. Jede Tabellenzeile enthält dabei die Daten zu einem Kundentyp.
+
+Die erste Spalte muss den Namen des Kundentyps angeben, die zweite die Definition der entsprechenden Zeitdauer.
+Dabei können die Zeitdauern entweder über einen Rechenausdruck oder über die Definition einer
+Verteilungsfunktion festgelegt werden. Das Format der Verteilungsfunktionsdefinition ist in dem pdf-Dokument
+"Distribution XML reference for Warteschlangensimulator'' dokumentiert.
+
 
 \section{Schranke}
 \label{ref:ModelElementBarrier}
@@ -1164,7 +1303,9 @@ von hier wartenden Kunden signalisiert. Es kann dabei eingestellt werden,
 wie viele wartende Kunden pro eintreffendem Signal maximal freigegeben werden sollen und ob sich
 die Freigabe auf alle wartenden Kundentypen oder nur einen bestimmten Kundentyp beziehen soll.
 Des Weiteren kann eine Anzahl an Kunden festgelegt werden, die die Schranke passieren dürfen,
-bevor die Zählung beginnt.
+bevor die Zählung beginnt. Trifft ein Signal ein, während kein Kunde wartet, so kann angegeben
+werden, ob dies für einen später dann sofort freizugebenden Kunden gespeichert werden soll,
+oder ob es verworfen werden soll.
 
 
 \section{Signal}
@@ -1186,6 +1327,8 @@ wartende Kunden freigeben.
 \subsection*{Einstellungen}
 
 Der Name des Signal-Elements ist gleichzeitig der Name des Signal, das ausgelöst wird, wenn ein Kunde das Element passiert.
+Zusätzlich kann eine Zeitdauer eingestellt werden, um die die Auslösung des Signals nach dem Eintreffen des Kunden verzögert werden soll.
+Ist keine Verzögerungszeit eingestellt, so wird das Ereignis ausgelöst, sobald ein Kunde an der Station eintrifft.
 
 
 
@@ -1328,6 +1471,25 @@ die jedem neu erstellten Kunden automatisch zugewiesen werden sollen.
 Unabhängig von den Einstellungen pro Teil-Kundenquelle kann eingestellt werden,
 dass die numerischen und Text-basierenden Kundendaten von dem Ausgangskunden
 auf die neu generierten Kunden übertragen werden sollen.
+
+\subsection*{Kundentypen laden}
+
+Sollen in einem Modell sehr viele Kundentypen verwendet werden, so können über diese Funktion Funktion mehrere
+Kundentypen aus einer Tabelle geladen werden. Jede Tabellenzeile enthält dabei die Daten zu einem Kundentyp.
+
+Die erste Spalte muss den Namen des Kundentyps angeben, die zweite die Definition der Zwischenankunftszeiten.
+Dabei können die Zwischenankunftszeiten entweder über einen Rechenausdruck oder über die Definition einer
+Verteilungsfunktion festgelegt werden. Das Format der Verteilungsfunktionsdefinition ist in dem pdf-Dokument
+"Distribution XML reference for Warteschlangensimulator'' dokumentiert. Auf diese beiden Spalten können beliebig
+viele weitere Spalten mit folgenden Inhalten folgen:
+
+\begin{itemize}
+  \item \texttt{batch=}<br>
+  Gibt die Ankunfts-Batch-Größe an. Es kann entweder eine positive Ganzzahl angegeben werden oder eine Reihe von
+  durch ,,;'' getrennte Werte der Form \texttt{Größe=Rate} zur Definition verschiedener Raten für verschiedene Batch-Größen. 
+\end{itemize}
+
+Außerdem stehen die Zuweisungen, die an einer Tabellenquelle (siehe Seite \pageref{ref:ModelElementSourceTable}) genutzt werden können, zur Verfügung.
 
 
 \section{Zusammenfassen}
@@ -2748,6 +2910,9 @@ Der Name des Simulationsdaten-Elements wird auf der Zeichenfläche direkt oberha
 Es können beliebig viele Bedingungen und Zeichenketten definiert werden.
 Außerdem kann eine Zeichenkette angegeben werden, die ausgegeben wird, wenn keine der Bedingungen zutrifft.
 
+Des Weiteren kann eingestellt werden, ob einige besondere HTML- und LaTeX-Symbole (siehe Seite \pageref{ref:TextEntities}) entsprechend
+interpretiert werden sollen.
+
 
 
 
@@ -2877,6 +3042,10 @@ Beschreibungstexte besitzen für den Ablauf der Simulation keine Funktion und di
 \subsection*{Einstellungen}
 
 Neben dem Text selbst können für jedes Beschreibungstext-Element auch eine Schriftart und eine Schriftgröße eingestellt werden.
+
+Des Weiteren kann eingestellt werden, ob einige besondere HTML- und LaTeX-Symbole (siehe Seite \pageref{ref:TextEntities}) entsprechend
+interpretiert werden sollen und ob Formatierungen gemäß der Markdown-Symbole \texttt{\#}, \texttt{\#\#}, \texttt{\#\#\#}, \texttt{*}
+und \texttt{**} durchgeführt werden sollen.
 
 
 \section{Bild}
