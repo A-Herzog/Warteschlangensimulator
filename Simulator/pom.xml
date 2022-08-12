@@ -103,6 +103,18 @@
     		<artifactId>autocomplete</artifactId>
     		<version>3.2.0</version>
 	</dependency>
+	<!-- https://mvnrepository.com/artifact/com.fifesoft/spellchecker -->
+	<dependency>
+    		<groupId>com.fifesoft</groupId>
+    		<artifactId>spellchecker</artifactId>
+    		<version>3.2.0</version>
+	</dependency>
+	<!-- https://mvnrepository.com/artifact/com.gitlab.dumonts/hunspell -->
+	<dependency>
+    		<groupId>com.gitlab.dumonts</groupId>
+    		<artifactId>hunspell</artifactId>
+    		<version>1.1.1</version>
+	</dependency>
 	<!-- https://mvnrepository.com/artifact/de.erichseifert.vectorgraphics2d/VectorGraphics2D -->
 	<dependency>
 	    	<groupId>de.erichseifert.vectorgraphics2d</groupId>

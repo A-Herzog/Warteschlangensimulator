@@ -21,6 +21,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.IntStream;
 
+import javax.swing.Box;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
@@ -114,6 +115,9 @@ public class SetupDialogPageUI extends SetupDialogPage {
 		languages.setRenderer(new IconListCellRenderer(new Images[]{Images.LANGUAGE_EN,Images.LANGUAGE_DE}));
 		languages.setToolTipText(Language.tr("SettingsDialog.Languages.Info"));
 		label.setLabelFor(languages);
+		line.add(Box.createHorizontalStrut(10));
+		line.add(button=new JButton(Language.tr("SettingsDialog.Tabs.ProgramStart.SpellChecking"),Images.SPELL_CHECK.getIcon()));
+		button.addActionListener(e->showSpellCheckingDialog());
 
 		/* Zu verwendendes Theme */
 		line=addLine();
@@ -300,6 +304,13 @@ public class SetupDialogPageUI extends SetupDialogPage {
 	 */
 	private void showMQTTSettings() {
 		new SetupDialogMQTTSettings(this);
+	}
+
+	/**
+	 * Zeigt einen Dialog zur Konfiguration der Rechtschreibungprüfung-Wörterbücher an.
+	 */
+	private void showSpellCheckingDialog() {
+		new SetupDialogSpellChecking(this);
 	}
 
 	@Override

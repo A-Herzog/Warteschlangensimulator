@@ -40,11 +40,10 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
-import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
-import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
+import org.fife.ui.rsyntaxtextarea.RSyntaxTextArea;
 import org.w3c.dom.Element;
 
 import gitconnect.GitSetup;
@@ -59,6 +58,7 @@ import tools.SetupData;
 import ui.dialogs.ModelSecurityCheckDialog;
 import ui.modeleditor.FilePathHelper;
 import ui.modeleditor.ModelLoadData;
+import ui.script.ScriptEditorAreaBuilder;
 import xml.XMLTools;
 
 /**
@@ -607,22 +607,22 @@ public abstract class EditorPanelBase extends JPanel {
 	 * @param readOnly	Gibt an, ob der Text in dem Feld geändert werden darf
 	 * @return	Neu eingefügtes Eingabefeld
 	 */
-	public static final JTextArea addInputArea(final JPanel parent, final String title, final boolean readOnly) {
+	public static final RSyntaxTextArea addInputArea(final JPanel parent, final String title, final boolean readOnly) {
 		addLabel(parent,title);
 
 		JPanel p,p2;
-		JTextArea text;
+		RSyntaxTextArea text;
 
 		parent.add(p=new JPanel(new BorderLayout()));
 		p.add(p2=new JPanel());
 		p2.setLayout(new BoxLayout(p2,BoxLayout.LINE_AXIS));
 		p2.add(Box.createHorizontalStrut(3));
-		p2.add(new JScrollPane(text=new JTextArea()),BorderLayout.CENTER);
+		p2.add(new ScriptEditorAreaBuilder.RScrollPane(text=ScriptEditorAreaBuilder.getPlainTextField(null,readOnly)),BorderLayout.CENTER);
 		p2.add(Box.createHorizontalStrut(3));
 
 		text.setLineWrap(true);
 		text.setWrapStyleWord(true);
-		if (readOnly) text.setEditable(false);
+
 		return text;
 	}
 

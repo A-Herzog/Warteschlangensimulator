@@ -216,6 +216,10 @@ Section "Install" Inst
   
   File /r "..\..\Release\userscripts\*.*"
   
+  SetOutPath "$INSTDIR\dictionaries"
+  
+  File /r "..\..\Release\dictionaries\*.*"
+  
   CreateShortCut "$SMPROGRAMS\${PrgName}.lnk" "$INSTDIR\${PROGEXE}"
   
   !insertmacro MULTIUSER_RegistryAddInstallInfo
@@ -254,6 +258,7 @@ Section "un.Uninstall" uninst
   Delete "$INSTDIR\Simulator.jar"
   Delete "$INSTDIR\Simulator_Reset.exe"
   Delete "$INSTDIR\Simulator.cfg"
+  Delete "$INSTDIR\User-spelling.cfg"
   Delete "$INSTDIR\JDBC.cfg"
   Delete "$INSTDIR\Certificate.cfg"
   Delete "$INSTDIR\Training.dat"
@@ -266,6 +271,7 @@ Section "un.Uninstall" uninst
   RmDir /r $INSTDIR\libs
   RmDir /r $INSTDIR\tools
   RmDir /r $INSTDIR\userscripts
+  RmDir /r $INSTDIR\dictionaries
   
   Delete "$APPDATA\Temp\${SetupFileName}.part"
   Delete "$APPDATA\Temp\${SetupFileName}"

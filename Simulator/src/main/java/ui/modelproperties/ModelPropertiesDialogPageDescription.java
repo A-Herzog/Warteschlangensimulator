@@ -23,9 +23,9 @@ import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
 import javax.swing.JTextField;
+
+import org.fife.ui.rsyntaxtextarea.RSyntaxTextArea;
 
 import language.Language;
 import simulator.editmodel.EditModel;
@@ -36,6 +36,7 @@ import ui.modeleditor.coreelements.ModelElement;
 import ui.modeleditor.coreelements.ModelElementPosition;
 import ui.modeleditor.descriptionbuilder.ModelDescriptionBuilderStyled;
 import ui.modeleditor.elements.ModelElementText;
+import ui.script.ScriptEditorAreaBuilder;
 
 /**
  * Dialogseite "Modellbeschreibung"
@@ -51,7 +52,7 @@ public class ModelPropertiesDialogPageDescription extends ModelPropertiesDialogP
 	/** Eingabefeld: "E-Mail-Adresse des Autors des Modells" */
 	private JTextField authorEMail;
 	/** Eingabefeld: "Modellbeschreibung" */
-	private JTextArea description;
+	private RSyntaxTextArea description;
 
 	/**
 	 * Konstruktor der Klasse
@@ -185,10 +186,8 @@ public class ModelPropertiesDialogPageDescription extends ModelPropertiesDialogP
 
 		content.add(sub=new JPanel(new BorderLayout()),BorderLayout.CENTER);
 		label=addLabel(sub,Language.tr("Editor.Dialog.Tab.ModelDescription.ModelDescription")+":",BorderLayout.NORTH);
-		sub.add(new JScrollPane(description=new JTextArea(model.description)),BorderLayout.CENTER);
-		description.setEditable(!readOnly);
+		sub.add(new ScriptEditorAreaBuilder.RScrollPane(description=ScriptEditorAreaBuilder.getPlainTextField(model.description,readOnly)),BorderLayout.CENTER);
 		label.setLabelFor(description);
-		ModelElementBaseDialog.addUndoFeature(description);
 
 		content.add(sub=new JPanel(),BorderLayout.SOUTH);
 		sub.setLayout(new BoxLayout(sub,BoxLayout.PAGE_AXIS));

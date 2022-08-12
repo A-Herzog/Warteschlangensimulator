@@ -21,6 +21,7 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.Serializable;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
@@ -35,6 +36,7 @@ import org.fife.ui.autocomplete.DefaultCompletionProvider;
 import org.fife.ui.rsyntaxtextarea.RSyntaxTextArea;
 import org.fife.ui.rsyntaxtextarea.SyntaxConstants;
 import org.fife.ui.rsyntaxtextarea.Theme;
+import org.fife.ui.rtextarea.RTextScrollPane;
 import org.fife.ui.rtextarea.SearchContext;
 import org.fife.ui.rtextarea.SearchEngine;
 
@@ -126,14 +128,10 @@ public class ScriptEditorAreaBuilder {
 	}
 
 	/**
-	 * Liefert das konfigurierte Eingabefeld
-	 * @return	Neues Eingabefeld
+	 * Stellt ggf. das Dark Theme ein.
+	 * @param editor	Eingabefeld für das das Thema gesetzt werden soll
 	 */
-	public RSyntaxTextArea get() {
-		/* Konstruktor */
-		final RSyntaxTextArea editor=new RSyntaxTextArea();
-
-		/* Wenn nötig Dark Theme */
+	private static void setupTheme(final RSyntaxTextArea editor) {
 		if (FlatLaFHelper.isDark()) {
 			try (InputStream inputStream=Theme.class.getResourceAsStream("themes/dark.xml")) {
 				final Theme theme=Theme.load(inputStream);
@@ -142,6 +140,18 @@ public class ScriptEditorAreaBuilder {
 				/* Wenn das Theme nicht verfügbar ist, weisen wir eben nichts zu. */
 			}
 		}
+	}
+
+	/**
+	 * Liefert das konfigurierte Eingabefeld
+	 * @return	Neues Eingabefeld
+	 */
+	public RSyntaxTextArea get() {
+		/* Konstruktor */
+		final RSyntaxTextArea editor=new RSyntaxTextArea();
+
+		/* Wenn nötig Dark Theme */
+		setupTheme(editor);
 
 		/* Schriftgröße */
 		setupFontSize(editor);
@@ -155,6 +165,11 @@ public class ScriptEditorAreaBuilder {
 		switch (language) {
 		case Javascript: editor.setSyntaxEditingStyle(SyntaxConstants.SYNTAX_STYLE_JAVASCRIPT); break;
 		case Java: editor.setSyntaxEditingStyle(SyntaxConstants.SYNTAX_STYLE_JAVA); break;
+		}
+
+		/* Rechtschreibprüfung */
+		if (!readOnly) {
+			editor.addParser(HunspellDictionaries.getInstance().getSpellingParser());
 		}
 
 		/* Undo */
@@ -206,6 +221,95 @@ public class ScriptEditorAreaBuilder {
 
 		/* Ergebnis liefern */
 		return editor;
+	}
+
+	/**
+	 * Generiert ein mehrzeiliges Textfeld für Freitexteingaben (d.h. nicht für Programmcode) mit Rechtschreibkorrektur
+	 * @param initialText	Initial anzuzeigender Text (kann leer oder <code>null</code> sein)
+	 * @param readOnly	Nur-Lese-Status
+	 * @return	Neues Eingabefeld
+	 */
+	public static RSyntaxTextArea getPlainTextField(final String initialText, final boolean readOnly) {
+		/* Konstruktor */
+		final RSyntaxTextArea editor=new RSyntaxTextArea();
+
+		/* Wenn nötig Dark Theme */
+		setupTheme(editor);
+
+		/* Text setzen */
+		if (initialText!=null && !initialText.isEmpty()) {
+			editor.setText(initialText);
+		}
+
+		/* Rechtschreibprüfung */
+		if (!readOnly) {
+			editor.addParser(HunspellDictionaries.getInstance().getSpellingParser());
+		}
+
+		/* Undo */
+		ModelElementBaseDialog.addUndoFeature(editor);
+
+		/* Read-only */
+		editor.setEditable(!readOnly);
+
+		/* Ergebnis liefern */
+		return editor;
+	}
+
+	/**
+	 * Generiert ein mehrzeiliges Textfeld für Freitexteingaben (d.h. nicht für Programmcode) mit Rechtschreibkorrektur
+	 * @param rows	Anzahl an Zeilen in dem Eingabefeld
+	 * @param cols	Anzahl an Spalten in dem Eingabefeld
+	 * @param initialText	Initial anzuzeigender Text (kann leer oder <code>null</code> sein)
+	 * @param readOnly	Nur-Lese-Status
+	 * @return	Neues Eingabefeld
+	 */
+	public static RSyntaxTextArea getPlainTextField(final int rows, final int cols, final String initialText, final boolean readOnly) {
+		/* Konstruktor */
+		final RSyntaxTextArea editor=new RSyntaxTextArea(rows,cols);
+
+		/* Wenn nötig Dark Theme */
+		setupTheme(editor);
+
+		/* Text setzen */
+		if (initialText!=null && !initialText.isEmpty()) {
+			editor.setText(initialText);
+		}
+
+		/* Rechtschreibprüfung */
+		if (!readOnly) {
+			editor.addParser(HunspellDictionaries.getInstance().getSpellingParser());
+		}
+
+		/* Undo */
+		ModelElementBaseDialog.addUndoFeature(editor);
+
+		/* Read-only */
+		editor.setEditable(!readOnly);
+
+		/* Ergebnis liefern */
+		return editor;
+	}
+
+	/**
+	 * Bietet ein {@link RTextScrollPane}-Objekt mit abgeschalteter Zeilennummerierung an.
+	 * @see ScriptEditorAreaBuilder#getPlainTextField(String, boolean)
+	 */
+	public static class RScrollPane extends RTextScrollPane {
+		/**
+		 * Serialisierungs-ID der Klasse
+		 * @see Serializable
+		 */
+		private static final long serialVersionUID=-1763129555489974454L;
+
+		/**
+		 * Konstruktor der Klasse
+		 * @param editor	Editorfeld, welches in den Scoll-Rahmen eingebettet werden soll
+		 */
+		public RScrollPane(final RSyntaxTextArea editor) {
+			super(editor);
+			setLineNumbersEnabled(false);
+		}
 	}
 
 	/**

@@ -25,18 +25,19 @@ import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
 import javax.swing.JSpinner;
-import javax.swing.JTextArea;
 import javax.swing.SpinnerModel;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.SwingUtilities;
+
+import org.fife.ui.rsyntaxtextarea.RSyntaxTextArea;
 
 import language.Language;
 import ui.images.Images;
 import ui.infopanel.InfoPanel;
 import ui.modeleditor.ModelElementBaseDialog;
 import ui.modeleditor.coreelements.ModelElement;
+import ui.script.ScriptEditorAreaBuilder;
 
 /**
  * Dialog, der Einstellungen für ein {@link ModelElementSub}-Element anbietet
@@ -63,7 +64,7 @@ public class ModelElementSubDialog extends ModelElementBaseDialog {
 	/**
 	 * Beschreibung für das Untermodell
 	 */
-	private JTextArea description;
+	private RSyntaxTextArea description;
 
 	/**
 	 * Liefert <code>true</code>, wenn nach dem Schließen dieses Dialogs der Untermodell-Editor geöffnet werden soll
@@ -138,11 +139,9 @@ public class ModelElementSubDialog extends ModelElementBaseDialog {
 
 			content.add(main=new JPanel(new BorderLayout()),BorderLayout.CENTER);
 			main.add(sub=new JPanel(new FlowLayout(FlowLayout.LEFT)),BorderLayout.NORTH);
-			sub.add(new JLabel(Language.tr("Surface.Sub.Dialog.Description")+":"));
-
-			main.add(new JScrollPane(description=new JTextArea(((ModelElementSub)element).getDescription())),BorderLayout.CENTER);
-			description.setEditable(!readOnly);
-			addUndoFeature(description);
+			sub.add(label=new JLabel(Language.tr("Surface.Sub.Dialog.Description")+":"));
+			main.add(new ScriptEditorAreaBuilder.RScrollPane(description=ScriptEditorAreaBuilder.getPlainTextField(((ModelElementSub)element).getDescription(),readOnly)),BorderLayout.CENTER);
+			label.setLabelFor(description);
 		}
 		return content;
 	}

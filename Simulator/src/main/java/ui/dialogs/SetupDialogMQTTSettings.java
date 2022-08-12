@@ -130,5 +130,6 @@ public class SetupDialogMQTTSettings extends BaseDialog {
 		setup.serverAuthName=editName.getText().trim();
 		setup.serverAuthPassword=editPassword.getText().trim();
 		setup.notifyMQTTTopic=editTopic.getText().trim();
+		setup.saveSetup();
 	}
 }

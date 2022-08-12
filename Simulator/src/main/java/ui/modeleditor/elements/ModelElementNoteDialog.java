@@ -25,13 +25,14 @@ import javax.swing.JComboBox;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
+
+import org.fife.ui.rsyntaxtextarea.RSyntaxTextArea;
 
 import language.Language;
 import ui.infopanel.InfoPanel;
 import ui.modeleditor.AnimationImageSource;
 import ui.modeleditor.ModelElementBaseDialog;
+import ui.script.ScriptEditorAreaBuilder;
 
 /**
  * Dialog, der Einstellungen für ein {@link ModelElementNote}-Element anbietet
@@ -48,7 +49,7 @@ public class ModelElementNoteDialog extends ModelElementBaseDialog {
 	/**
 	 * Eingabefeld für die Notiz
 	 */
-	private JTextArea edit;
+	private RSyntaxTextArea edit;
 
 	/**
 	 * Datenmodell für das Icon Auswahlfeld
@@ -103,7 +104,7 @@ public class ModelElementNoteDialog extends ModelElementBaseDialog {
 		sub.add(label=new JLabel(Language.tr("Surface.Note.Dialog.Note")+":"));
 
 		/* Eingabebereich */
-		content.add(new JScrollPane(edit=new JTextArea(note.getNote())),BorderLayout.CENTER);
+		content.add(new ScriptEditorAreaBuilder.RScrollPane(edit=ScriptEditorAreaBuilder.getPlainTextField(note.getNote(),readOnly)),BorderLayout.CENTER);
 		label.setLabelFor(edit);
 
 		/* Icon-Auswahl */

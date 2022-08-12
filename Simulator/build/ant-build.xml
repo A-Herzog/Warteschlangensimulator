@@ -355,6 +355,9 @@
 		<copy todir="${Release.location}/userscripts">
 			<fileset dir="${BuildTools.location}/UserScripts"/>
 		</copy>
+		<copy todir="${Release.location}/dictionaries">
+			<fileset dir="${BuildTools.location}/Dictionaries"/>
+		</copy>
 	
 		<echo message="Generate exe wrapper" />
 		<available file="${NSIS.location}\makensis.exe" property="NSIS.present"/>
@@ -381,7 +384,7 @@
 				
 		<echo message="Generate zip package" />
 		<zip destfile="${Release.location}/Simulator.zip">
-		  <zipfileset dir="${Release.location}" includes="Simulator.jar,Simulator.exe,Simulator.sh,Simulator_Reset.exe,JDBC.cfg,docs/**,libs/**,tools/**,userscripts/**"/>
+		  <zipfileset dir="${Release.location}" includes="Simulator.jar,Simulator.exe,Simulator.sh,Simulator_Reset.exe,JDBC.cfg,docs/**,libs/**,tools/**,userscripts/**,dictionaries/**"/>
 		  <zipfileset dir="${Simulator.location}/tools/JDDE" includes="*.dll"/>
 		</zip>
 
@@ -397,6 +400,7 @@
 		<delete dir="${Release.location}/libs" />
 		<delete dir="${Release.location}/tools" />
 		<delete dir="${Release.location}/userscripts" />
+		<delete dir="${Release.location}/dictionaries" />
 	</target>
 		
 </project>

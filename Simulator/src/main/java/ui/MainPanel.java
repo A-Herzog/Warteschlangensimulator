@@ -197,6 +197,7 @@ import ui.quickaccess.JQuickAccessBuilderSettings;
 import ui.quickaccess.JQuickAccessBuilderStatistics;
 import ui.quickaccess.JQuickAccessRecord;
 import ui.quickaccess.JQuickAccessTextField;
+import ui.script.HunspellDictionaries;
 import ui.scriptrunner.JSModelRunnerPanel;
 import ui.speedup.BackgroundPrepareCompiledClasses;
 import ui.speedup.BackgroundSystem;
@@ -557,12 +558,17 @@ public class MainPanel extends MainPanelBase {
 
 			/* Zeitverzögerte Startaktionen */
 			if (!isReload) {
+				/* Wörterbücher zeitverzögert in eigenem Thread laden */
+				HunspellDictionaries.initPreloadDirectories();
+				/* Simulationsklassen kompilieren */
 				if (!fileLoadedOnLoad && setup.startModel.isEmpty() && !isAutoRestore) BackgroundPrepareCompiledClasses.run();
+				/* Hilfeindex zeitverzögert in eigenem Thread aufbauen */
 				final IndexSystem indexSystem=IndexSystem.getInstance();
 				indexSystem.addLanguage("de","pages_de");
 				indexSystem.addLanguage("en","pages_en");
 				indexSystem.init(Help.class);
 				indexSystem.setLanguage(Language.getCurrentLanguage());
+				/* Build-Hinweis */
 				if (!fileLoadedOnLoad && !isAutoRestore) {
 					if (MainFrame.customBuild) MsgBox.warning(this,Language.tr("Editor.SurfaceTooltip.CustomBuild.Title"),Language.tr("Editor.SurfaceTooltip.CustomBuild"));
 				}

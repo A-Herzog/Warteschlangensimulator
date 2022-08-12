@@ -1342,6 +1342,11 @@ public class SetupData extends SetupBase {
 	public CanceledSimulationStatistics canceledSimulationStatistics;
 
 	/**
+	 * Aktive Sprachen für die Rechtschreibprüfung (durch ";" getrennte Liste der Sprachnamen)
+	 */
+	public String spellCheckingLanguages;
+
+	/**
 	 * Letzter Fehler
 	 * (Hier wird die Setup-Datei als Logdatei für solche Ereignisse verwendet.)
 	 */
@@ -1569,6 +1574,7 @@ public class SetupData extends SetupBase {
 		gradientNavigator=false;
 		canceledAnimationStatistics=CanceledSimulationStatistics.OFF;
 		canceledSimulationStatistics=CanceledSimulationStatistics.ASK;
+		spellCheckingLanguages="de-DE;en-US";
 		lastError=null;
 	}
 
@@ -2587,6 +2593,11 @@ public class SetupData extends SetupBase {
 				canceledSimulationStatistics=CanceledSimulationStatistics.getByName(e.getTextContent(),CanceledSimulationStatistics.ASK);
 				continue;
 			}
+
+			if (name.equals("spellcheckinglanguages")) {
+				spellCheckingLanguages=e.getTextContent();
+				continue;
+			}
 		}
 
 		if (useLastFiles) {
@@ -3312,6 +3323,9 @@ public class SetupData extends SetupBase {
 			root.appendChild(node=doc.createElement("CanceledSimulationStatistics"));
 			node.setTextContent(canceledSimulationStatistics.name);
 		}
+
+		root.appendChild(node=doc.createElement("SpellCheckingLanguages"));
+		node.setTextContent(spellCheckingLanguages);
 
 		if (lastError!=null && !lastError.trim().isEmpty()) {
 			root.appendChild(node=doc.createElement("LastError"));

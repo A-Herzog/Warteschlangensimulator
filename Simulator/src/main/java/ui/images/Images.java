@@ -146,6 +146,15 @@ public enum Images {
 	/** Symbol "Aktualisieren" */
 	GENERAL_UPDATE("arrow_refresh.png"),
 
+	/** Symbol "Rechtschreibprüfung" */
+	SPELL_CHECK("spellcheck.png"),
+
+	/** Symbol "Wörterbücher" */
+	SPELL_CHECK_DICTIONARIES("book.png"),
+
+	/** Symbol "Benutzerdefinierte Wörter" */
+	SPELL_CHECK_USER_WORDS("user.png"),
+
 	/** Symbol "Dialog-Button 'Ok'" */
 	MSGBOX_OK("accept.png"),
 

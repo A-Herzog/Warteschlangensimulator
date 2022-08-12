@@ -28,10 +28,10 @@ import javax.swing.JComboBox;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
 import javax.swing.JSlider;
-import javax.swing.JTextArea;
 import javax.swing.JTextField;
+
+import org.fife.ui.rsyntaxtextarea.RSyntaxTextArea;
 
 import language.Language;
 import mathtools.NumberTools;
@@ -42,6 +42,7 @@ import ui.images.Images;
 import ui.infopanel.InfoPanel;
 import ui.modeleditor.ModelElementBaseDialog;
 import ui.modeleditor.elements.ModelElementText.TextAlign;
+import ui.script.ScriptEditorAreaBuilder;
 
 /**
  * Dialog, der Einstellungen für ein {@link ModelElementText}-Element anbietet
@@ -56,7 +57,7 @@ public class ModelElementTextDialog extends ModelElementBaseDialog {
 	private static final long serialVersionUID = -2715231750705476641L;
 
 	/** Eingabefeld für den anzuzeigenden Text */
-	private JTextArea textField;
+	private RSyntaxTextArea textField;
 	/** Auswahl der Schriftart */
 	private JComboBox<FontCache.FontFamily> fontFamilyComboBox;
 	/** Eingabefeld für die Schriftgröße */
@@ -119,9 +120,7 @@ public class ModelElementTextDialog extends ModelElementBaseDialog {
 			panel.add(subPanel=new JPanel(new FlowLayout(FlowLayout.LEFT)),BorderLayout.NORTH);
 			subPanel.add(label=new JLabel(Language.tr("Surface.Text.Dialog.Text")+":"));
 
-			panel.add(new JScrollPane(textField=new JTextArea(5,50)),BorderLayout.CENTER);
-			textField.setEditable(!readOnly);
-			textField.setText(text.getText());
+			panel.add(new ScriptEditorAreaBuilder.RScrollPane(textField=ScriptEditorAreaBuilder.getPlainTextField(5,50,text.getText(),readOnly)),BorderLayout.CENTER);
 			label.setLabelFor(textField);
 			addUndoFeature(textField);
 

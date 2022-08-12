@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-07-29 19:07+0200\n"
+"POT-Creation-Date: 2022-08-11 22:01+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16610,6 +16610,30 @@ msgstr "Hinweis zum Hinzufügen von Verbindungskanten anzeigen"
 
 msgid "SettingsDialog.Tabs.ProgramStart.ElementAddAdvice"
 msgstr "Hinweis zum Hinzufügen von Elementen aus dem Menü anzeigen"
+
+msgid "SettingsDialog.Tabs.ProgramStart.SpellChecking"
+msgstr "Rechtschreibprüfung"
+
+msgid "SettingsDialog.Tabs.ProgramStart.SpellChecking.Dictionaries"
+msgstr "Wörterbücher"
+
+msgid "SettingsDialog.Tabs.ProgramStart.SpellChecking.Dictionaries.Folder"
+msgstr "Wörterbücher-Verzeichnis"
+
+msgid "SettingsDialog.Tabs.ProgramStart.SpellChecking.Dictionaries.Folder.Hint"
+msgstr "Öffnet das Wörterbücher-Verzeichnis im Dateimanager."
+
+msgid "SettingsDialog.Tabs.ProgramStart.SpellChecking.Dictionaries.Website"
+msgstr "Webseite für weitere Wörterbücher"
+
+msgid "SettingsDialog.Tabs.ProgramStart.SpellChecking.Dictionaries.Website.Hint"
+msgstr "Öffnet die Webseite von der Wörterbücher für weitere Sprachen heruntergeladen werden können."
+
+msgid "SettingsDialog.Tabs.ProgramStart.SpellChecking.Title"
+msgstr "Rechtschreibprüfung"
+
+msgid "SettingsDialog.Tabs.ProgramStart.SpellChecking.UserWords"
+msgstr "Nutzerdefinierte Wörter"
 
 msgid "SettingsDialog.Tabs.ProgramStart.WelcomePage"
 msgstr "Begrüßungsseite anzeigen"

@@ -22,12 +22,13 @@ import java.io.Serializable;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
+
+import org.fife.ui.rsyntaxtextarea.RSyntaxTextArea;
 
 import language.Language;
 import systemtools.BaseDialog;
 import ui.help.Help;
+import ui.script.ScriptEditorAreaBuilder;
 
 /**
  * Ermöglicht das Editieren einer Beschreibung für ein Modell-Element
@@ -42,7 +43,7 @@ public class ModelElementDescriptionDialog extends BaseDialog {
 	private static final long serialVersionUID = 2244792499807474032L;
 
 	/** Eingabefeld für die Modellbeschreibung */
-	private final JTextArea descriptionEdit;
+	private final RSyntaxTextArea descriptionEdit;
 
 	/**
 	 * Konstruktor der Klasse
@@ -54,14 +55,15 @@ public class ModelElementDescriptionDialog extends BaseDialog {
 	public ModelElementDescriptionDialog(final Component owner, final String description, final boolean readOnly, final String helpPage) {
 		super(owner,Language.tr("Editor.DialogBase.Description.Dialog.Title"),readOnly);
 
+		JLabel label;
+
 		final JPanel content=createGUI(()->Help.topicModal(this,helpPage));
 		content.setLayout(new BorderLayout());
 		JPanel line;
 		content.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)),BorderLayout.NORTH);
-		line.add(new JLabel(Language.tr("Editor.DialogBase.Description.Dialog.Info")));
-		content.add(new JScrollPane(descriptionEdit=new JTextArea(description)),BorderLayout.CENTER);
-		descriptionEdit.setEditable(!readOnly);
-		ModelElementBaseDialog.addUndoFeature(descriptionEdit);
+		line.add(label=new JLabel(Language.tr("Editor.DialogBase.Description.Dialog.Info")));
+		content.add(new ScriptEditorAreaBuilder.RScrollPane(descriptionEdit=ScriptEditorAreaBuilder.getPlainTextField(description,readOnly)),BorderLayout.CENTER);
+		label.setLabelFor(descriptionEdit);
 
 		setMinSizeRespectingScreensize(700,500);
 		setSizeRespectingScreensize(700,500);

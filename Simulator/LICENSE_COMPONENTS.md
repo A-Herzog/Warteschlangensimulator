@@ -69,6 +69,13 @@ This file lists the third-party components used by "Simulator" project and their
 - License URL: https://opensource.org/licenses/MPL-2.0
 - Homepage: https://h2database.com/html/main.html
 
+### Hunspell
+
+- Repository: https://mvnrepository.com/artifact/com.gitlab.dumonts/hunspell
+- License: Apache 2.0
+- License URL: https://opensource.org/licenses/Apache-2.0
+- Homepage: https://gitlab.com/dumonts/hunspell-java
+
 ### HyperSQL Database
 
 - Repository: https://mvnrepository.com/artifact/org.hsqldb/hsqldb
@@ -164,6 +171,13 @@ This file lists the third-party components used by "Simulator" project and their
 - Repository: https://github.com/monceaux/java-mjpeg
 - License: MIT
 - License URL: https://opensource.org/licenses/MIT
+
+### SpellChecker
+
+- Repository: https://mvnrepository.com/artifact/com.fifesoft/spellchecker
+- License: GNU LGPL 2.1
+- License URL: https://opensource.org/licenses/LGPL-2.1
+- Homepage: https://github.com/bobbylight/SpellChecker
 
 ### UCanAccess
 
@@ -496,6 +510,22 @@ http://java.sun.com/products/java-media/jai
 - License: Apache 2.0
 - License URL: https://opensource.org/licenses/Apache-2.0
 - Used by: Batik Anim, Batik CSS, Batik DOM, Batik Parser, Batik SVG DOM and Xalan Java Serializer
+
+---
+
+## Spell checking dictionaries
+
+### English United States Dictionary von Jorg K
+
+- Repository: https://addons.mozilla.org/de/firefox/addon/us-english-dictionary/
+- License: Custom License
+- License URL: https://addons.mozilla.org/de/firefox/addon/us-english-dictionary/license/
+
+### Deutsches Wörterbuch von KaiRo
+
+- Repository: https://addons.mozilla.org/de/firefox/addon/german-dictionary/
+- License: GNU LGPL 2.1
+- License URL: https://opensource.org/licenses/LGPL-2.1
 
 ---
 

@@ -1565,7 +1565,7 @@ public final class XMLTools {
 			if (name.length()>2 && name.charAt(0)=='"' && name.charAt(name.length()-1)=='"') name=substringAndTrim(name,1,name.length()-1);
 			String param=substringAndTrim(data[i],j+1,data[i].length());
 			data[i]=null; /* Speicher sparen */
-			if (param.length()<2) return false;
+			if (param.length()<1) return false;
 
 			if (name.equalsIgnoreCase("xmlcontent")) {
 				if (param.charAt(0)!='"' || param.charAt(param.length()-1)!='"') return false;
