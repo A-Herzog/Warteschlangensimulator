@@ -577,18 +577,63 @@ public final class ModelSurfacePanel extends JPanel {
 	}
 
 	/**
-	 * Stellt den Zoomfaktor ein
+	 * Stellt den Zoomfaktor ein.
 	 * @param zoom	Neuer Zoomfaktor
 	 */
 	public void setZoom(final double zoom) {
+		setZoom(zoom,true,-1,-1,true);
+	}
+
+	/**
+	 * Stellt den Zoomfaktor ein.
+	 * @param zoom	Neuer Zoomfaktor
+	 * @param keepMiddlePosition	So die bisherige zentrale Modellposition beibehalten werden (durch eine Verschiebung der oberen linken Kante des sichtbaren Bereichs)?
+	 * @param x	Wenn die Modellposition beibehalten werden soll und hier und für y ein nichtnegativer Wert übergeben wird, wird diese Position statt der Mitte festgehalten
+	 * @param y	Wenn die Modellposition beibehalten werden soll und hier und für x ein nichtnegativer Wert übergeben wird, wird diese Position statt der Mitte festgehalten
+	 * @param fireListeners	Sollen am Ende der Zoom-Listener ausgelöst werden?
+	 */
+	private void setZoom(final double zoom, final boolean keepMiddlePosition, final int x, final int y, final boolean fireListeners) {
 		if (zoom<0.01 || zoom>10) return;
 		if (zoom==this.zoom) return;
+
+		final double oldZoom=this.zoom;
 		this.zoom=zoom;
-		fireZoomChangeListeners();
-		final SetupData setup=SetupData.getSetup();
-		if (zoom!=setup.lastZoom) {
-			setup.lastZoom=zoom;
-			setup.saveSetup();
+
+		if (keepMiddlePosition) {
+			final Rectangle rect=getViewRect();
+			if (rect!=null) {
+				final double newW=rect.width/zoom;
+				final double newH=rect.height/zoom;
+				final double newX;
+				final double newY;
+				if (x>=0 && y>=0) {
+					final double mx=x/oldZoom;
+					final double my=y/oldZoom;
+					final double xPart=(x-rect.x)/((double)(rect.width));
+					final double yPart=(y-rect.y)/((double)(rect.height));
+					newX=Math.max(0,mx-newW*xPart);
+					newY=Math.max(0,my-newH*yPart);
+				} else {
+					final double oldX=rect.x/oldZoom;
+					final double oldY=rect.y/oldZoom;
+					final double oldW=rect.width/oldZoom;
+					final double oldH=rect.height/oldZoom;
+					final double mx=oldX+oldW/2;
+					final double my=oldY+oldH/2;
+					newX=Math.max(0,mx-newW/2);
+					newY=Math.max(0,my-newH/2);
+				}
+				setTopPosition(new Point((int)Math.round(newX*zoom),(int)Math.round(newY*zoom)));
+			}
+		}
+
+		if (fireListeners) {
+			fireZoomChangeListeners();
+			final SetupData setup=SetupData.getSetup();
+			if (zoom!=setup.lastZoom) {
+				setup.lastZoom=zoom;
+				setup.saveSetup();
+			}
 		}
 		repaint();
 	}
@@ -604,7 +649,10 @@ public final class ModelSurfacePanel extends JPanel {
 		final JViewport viewport=(JViewport)getParent();
 		final Rectangle viewArea=viewport.getViewRect();
 
-		point.translate(-(int)Math.round(viewArea.width/zoom/2.0),-(int)Math.round(viewArea.height/zoom/2.0));
+		point.x=(int)Math.round(point.x*zoom);
+		point.y=(int)Math.round(point.y*zoom);
+
+		point.translate(-(int)Math.round(viewArea.width/2.0),-(int)Math.round(viewArea.height/2.0));
 		point.x=Math.max(0,point.x);
 		point.y=Math.max(0,point.y);
 
@@ -695,7 +743,7 @@ public final class ModelSurfacePanel extends JPanel {
 			final Point top=getTopPosition();
 
 			final double oldZoom=zoom;
-			setZoom(newZoom);
+			setZoom(newZoom,false,-1,-1,false);
 			int x=(int)Math.round(top.x*newZoom/oldZoom);
 			int y=(int)Math.round(top.y*newZoom/oldZoom);
 
@@ -709,7 +757,7 @@ public final class ModelSurfacePanel extends JPanel {
 			final double nextZoom=newZoom*FLY_ZOOM_STEP_FACTOR;
 			SwingUtilities.invokeLater(()->flyOutZoomStep(nextZoom));
 		} else {
-			setZoom(0.2);
+			setZoom(0.2,false,-1,-1,true);
 		}
 	}
 
@@ -736,13 +784,13 @@ public final class ModelSurfacePanel extends JPanel {
 			final int x=Math.max(0,newCenter.x-rect.width/2);
 			final int y=Math.max(0,newCenter.y-rect.height/2);
 
-			setZoom(newZoom);
+			setZoom(newZoom,false,-1,-1,false);
 			final Point newTop=new Point(x,y);
 			setTopPosition(newTop);
 
 			SwingUtilities.invokeLater(()->flyInZoomStep(newCenter));
 		} else {
-			setZoom(flyOutOriginalZoom);
+			setZoom(flyOutOriginalZoom,false,-1,-1,true);
 			flyOutOriginalZoom=-1;
 		}
 	}
@@ -3588,7 +3636,7 @@ public final class ModelSurfacePanel extends JPanel {
 			if (e.isControlDown()) {
 				if (Math.abs(e.getWheelRotation())==1) {
 					/* Rad */
-					setZoom(Math.max(ZOOM_MIN,Math.min(ZOOM_MAX,zoom-ZOOM_STEP*e.getWheelRotation())));
+					setZoom(Math.max(ZOOM_MIN,Math.min(ZOOM_MAX,zoom-ZOOM_STEP*e.getWheelRotation())),true,e.getX(),e.getY(),true);
 				}
 			} else {
 				if (getParent() instanceof JViewport) {
