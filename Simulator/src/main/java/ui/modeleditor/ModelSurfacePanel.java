@@ -3442,6 +3442,11 @@ public final class ModelSurfacePanel extends JPanel {
 						point.x=5*(int)Math.round(point.x/5.0);
 						point.y=5*(int)Math.round(point.y/5.0);
 					}
+					if (e.isAltDown()) {
+						final int xDelta=Math.abs(dragStartElementPosition.x-point.x);
+						final int yDelta=Math.abs(dragStartElementPosition.y-point.y);
+						if (xDelta>yDelta) point.y=dragStartElementPosition.y; else point.x=dragStartElementPosition.x;
+					}
 					dragCopyElement.setPosition(point);
 				} else {
 					/* Elemente verschieben */
@@ -3465,7 +3470,11 @@ public final class ModelSurfacePanel extends JPanel {
 						point.x=5*(int)Math.round(point.x/5.0);
 						point.y=5*(int)Math.round(point.y/5.0);
 					}
-
+					if (e.isAltDown()) {
+						final int xDelta=Math.abs(dragStartElementPosition.x-point.x);
+						final int yDelta=Math.abs(dragStartElementPosition.y-point.y);
+						if (xDelta>yDelta) point.y=dragStartElementPosition.y; else point.x=dragStartElementPosition.x;
+					}
 					subDelta.x=point.x-subDelta.x;
 					subDelta.y=point.y-subDelta.y;
 					operationRunning=true;
