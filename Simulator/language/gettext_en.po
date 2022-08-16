@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-08-11 22:01+0200\n"
+"POT-Creation-Date: 2022-08-13 19:04+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -4214,6 +4214,9 @@ msgstr "Inter-arrival distribution"
 
 msgid "Editor.DialogBase.Search.InterarrivalArrival.Expression"
 msgstr "Inter-arrival expression"
+
+msgid "Editor.DialogBase.Search.InterarrivalArrival.IntervalDistributions"
+msgstr "Inter-arrival time per interval"
 
 msgid "Editor.DialogBase.Search.InterarrivalArrival.IntervalExpression"
 msgstr "Number per interval"
@@ -10853,6 +10856,12 @@ msgstr "Inter-arrival times expression"
 msgid "ModelDescription.Arrival.FirstArrivalAt0"
 msgstr "First arrival at time 0."
 
+msgid "ModelDescription.Arrival.IntervalDistributions"
+msgstr "Inter-arrival time per interval"
+
+msgid "ModelDescription.Arrival.IntervalDistributions.IntervalTime"
+msgstr "Interval duration"
+
 msgid "ModelDescription.Arrival.IntervalExpressions"
 msgstr "Number per interval"
 
@@ -17192,6 +17201,15 @@ msgstr "At element id=%d the number of internal output connections is not machin
 msgid "Simulation.Creator.InternalOutputNotConnected"
 msgstr "At element id=%d the %dth output edge is internal not connected to any element."
 
+msgid "Simulation.Creator.IntervalDistributions"
+msgstr "At station id=%d the caluclation expression for the inter-arrival times for interval %d \"%s\" is invalid at character %d."
+
+msgid "Simulation.Creator.IntervalDistributions.Empty"
+msgstr "At station id=%d no calculation expressions were given to determine the inter-arrival times per interval."
+
+msgid "Simulation.Creator.IntervalDistributions.IntervalTimeInvalid"
+msgstr "At station id=%d the specified interval duration %d is invalid. A positive integer number has to be specified."
+
 msgid "Simulation.Creator.IntervalExpressions"
 msgstr "At station id=%d the caluclation expression for interval %d \"%s\" is invalid at character %d."
 
@@ -18685,6 +18703,9 @@ msgstr "Execution of delayed signal \"%s\""
 
 msgid "Simulation.Log.Source"
 msgstr "Client arrival planning"
+
+msgid "Simulation.Log.Source.ErrorInterArrivalZero"
+msgstr "The %d. inter-arrival time expression was evaluated to 0."
 
 msgid "Simulation.Log.Source.Info"
 msgstr "Arrival time: %s, client type: \"%s\", station: %s"
@@ -27560,6 +27581,9 @@ msgstr "batch arrival"
 msgid "Surface.MultiSourceTable.Info.ClientTypeName"
 msgstr "Client type name"
 
+msgid "Surface.MultiSourceTable.Info.IntervalDistributions"
+msgstr "Inter-arrival times per interval"
+
 msgid "Surface.MultiSourceTable.Info.IntervalExpressions"
 msgstr "Number per interval"
 
@@ -29984,6 +30008,33 @@ msgstr "Probability distribution"
 msgid "Surface.Source.Dialog.CalculationOfTheInterarrivalTimes.Expression"
 msgstr "Expression"
 
+msgid "Surface.Source.Dialog.CalculationOfTheInterarrivalTimes.IntervalDistributions"
+msgstr "Inter-arrival times per interval"
+
+msgid "Surface.Source.Dialog.CalculationOfTheInterarrivalTimes.IntervalDistributions.EditExpression"
+msgstr "Edit expression"
+
+msgid "Surface.Source.Dialog.CalculationOfTheInterarrivalTimes.IntervalDistributions.Error.Info"
+msgstr "The calculation expression for interval %d \"%s\" is invalid at character %d."
+
+msgid "Surface.Source.Dialog.CalculationOfTheInterarrivalTimes.IntervalDistributions.Error.Title"
+msgstr "Invalid calculation expression for interval"
+
+msgid "Surface.Source.Dialog.CalculationOfTheInterarrivalTimes.IntervalDistributions.Info.Empty"
+msgstr "No arrivals have been defined yet."
+
+msgid "Surface.Source.Dialog.CalculationOfTheInterarrivalTimes.IntervalDistributions.Info.Multi"
+msgstr "%d intervals have been defined. The schedule repeats every %s."
+
+msgid "Surface.Source.Dialog.CalculationOfTheInterarrivalTimes.IntervalDistributions.Info.One"
+msgstr "1 interval has been defined. The schedule repeats every %s."
+
+msgid "Surface.Source.Dialog.CalculationOfTheInterarrivalTimes.IntervalDistributions.IntervalTime"
+msgstr "Interval duration"
+
+msgid "Surface.Source.Dialog.CalculationOfTheInterarrivalTimes.IntervalDistributions.Label"
+msgstr "Caluclation expressions for the inter-arrival times per interval (values in seconds)"
+
 msgid "Surface.Source.Dialog.CalculationOfTheInterarrivalTimes.IntervalExpressions"
 msgstr "Number per interval"
 
@@ -30367,6 +30418,12 @@ msgstr "TimeBase"
 
 msgid "Surface.Source.XML.FirstArrivalAt0"
 msgstr "FirstArrivalAtStart"
+
+msgid "Surface.Source.XML.IntervalDistribution"
+msgstr "ModelElementInterArrivalPerInterval"
+
+msgid "Surface.Source.XML.IntervalDistribution.IntervalTime"
+msgstr "IntervalDuration"
 
 msgid "Surface.Source.XML.IntervalExpression"
 msgstr "ModelElementCountPerInterval"

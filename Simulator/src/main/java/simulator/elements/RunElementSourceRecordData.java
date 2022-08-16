@@ -43,6 +43,8 @@ public class RunElementSourceRecordData {
 	public final ExpressionMultiEval condition;
 	/** Ausdrücke für die intervallabhängigen Anzahlen an Ankünften */
 	public final ExpressionCalc[] intervalExpressions;
+	/** Ausdrücke für die intervallabhängigen Zwischenankunftszeiten */
+	public final ExpressionCalc[] intervalDistributions;
 
 	/** Rechenausdruck für den Schwellenwert zur Erzeugung von Ankünften */
 	private final ExpressionCalc threshold;
@@ -97,6 +99,16 @@ public class RunElementSourceRecordData {
 			for (int i=0;i<record.intervalExpressions.length;i++) {
 				this.intervalExpressions[i]=new ExpressionCalc(variableNames);
 				this.intervalExpressions[i].parse(record.intervalExpressions[i]);
+			}
+		}
+
+		if (record.intervalDistributions==null) {
+			this.intervalDistributions=null;
+		} else {
+			this.intervalDistributions=new ExpressionCalc[record.intervalDistributions.length];
+			for (int i=0;i<record.intervalDistributions.length;i++) {
+				this.intervalDistributions[i]=new ExpressionCalc(variableNames);
+				this.intervalDistributions[i].parse(record.intervalDistributions[i]);
 			}
 		}
 

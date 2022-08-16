@@ -89,6 +89,12 @@ public class RunElementSourceRecord {
 	public int intervalExpressionsIntervalTime;
 	/** Intervallbasierte Anzahlen an Ankünften */
 	public String[] intervalExpressions;
+
+	/** Intervallelänge (in Sekunden) für invallbasierte Zwischenankunftszeiten */
+	public int intervalDistributionsIntervalTime;
+	/** Intervallbasierte Zwischenankunftszeiten */
+	public String[] intervalDistributions;
+
 	/** Erste Ankunft zum Zeitpunkt 0? */
 	private boolean firstArrivalAt0;
 
@@ -222,6 +228,17 @@ public class RunElementSourceRecord {
 			}
 			this.intervalExpressions=intervalExpressions.toArray(new String[0]);
 			break;
+		case NEXT_INTERVAL_DISTRIBUTIONS:
+			if (record.getIntervalDistributionsIntervalTime()<=0) return new RunModelCreatorStatus(String.format(Language.tr("Simulation.Creator.IntervalDistributions.IntervalTimeInvalid"),id,record.getIntervalDistributionsIntervalTime()));
+			this.intervalDistributionsIntervalTime=record.getIntervalDistributionsIntervalTime();
+			final List<String> intervalDistributions=record.getIntervalDistributions();
+			if (intervalDistributions.size()==0) return new RunModelCreatorStatus(String.format(Language.tr("Simulation.Creator.IntervalDistributions.Empty"),id));
+			for (int i=0;i<intervalDistributions.size();i++) {
+				error=ExpressionCalc.check(intervalDistributions.get(i),runModel.variableNames);
+				if (error>=0) return new RunModelCreatorStatus(String.format(Language.tr("Simulation.Creator.IntervalDistributions"),id,i+1,intervalDistributions.get(i),error+1));
+			}
+			this.intervalDistributions=intervalDistributions.toArray(new String[0]);
+			break;
 		}
 
 		batchSize=record.getBatchSize();
@@ -339,6 +356,9 @@ public class RunElementSourceRecord {
 			break;
 		case NEXT_INTERVAL_EXPRESSIONS:
 			if (record.getIntervalExpressionsIntervalTime()<=0) return new RunModelCreatorStatus(String.format(Language.tr("Simulation.Creator.IntervalExpressions.IntervalTimeInvalid"),id,record.getIntervalExpressionsIntervalTime()));
+			break;
+		case NEXT_INTERVAL_DISTRIBUTIONS:
+			if (record.getIntervalDistributionsIntervalTime()<=0) return new RunModelCreatorStatus(String.format(Language.tr("Simulation.Creator.IntervalDistributions.IntervalTimeInvalid"),id,record.getIntervalDistributionsIntervalTime()));
 			break;
 		}
 
@@ -609,6 +629,67 @@ public class RunElementSourceRecord {
 	}
 
 	/**
+	 * Plant die nächste Ankunft (bei intervallabhängigen Zwischenankunftszeiten) ein.
+	 * @param simData	Simulationsdatenobjekt
+	 * @param element	Referenz auf das Source- oder SourceMulti-Element
+	 * @param stationName	Name der Station
+	 * @param isFirstArrival	Gibt an, ob es sich um die erste Ankunft durch dieses Element handelt
+	 * @param intervalDistributions	Rechenausdrücke zur Bestimmung der Zwischenankunftszeiten pro Intervall
+	 * @param intervalDistributionsIntervalTime	Intervallelänge (in Sekunden)
+	 * @return	Gibt die Anzahl an erzeugten Kundenankünften zurück
+	 */
+	private int scheduleArrivalByIntervalDistribution(final SimulationData simData, final RunElement element, final String stationName, final boolean isFirstArrival, final ExpressionCalc[] intervalDistributions, final int intervalDistributionsIntervalTime) {
+		final long currentSec=simData.currentTime/1000;
+
+		/* Index des Intervalls */
+		int intervalIndex;
+		if (isFirstArrival) {
+			intervalIndex=0;
+		} else {
+			long intervalNr=currentSec/intervalDistributionsIntervalTime;
+			intervalIndex=(int)(intervalNr%intervalDistributions.length);
+		}
+
+		/* Zwischenankunftszeit bestimmen */
+		double interArrivalTime=0;
+		try {
+			for (int i=0;i<1;i++) {
+				interArrivalTime=intervalDistributions[intervalIndex].calc(simData.runData.variableValues,simData,null);
+				if (interArrivalTime>0) break;
+			}
+		} catch (MathCalcError e) {
+			simData.calculationErrorStation(intervalDistributions[intervalIndex],stationName);
+			return 0;
+		}
+
+		/* Ist die Zwischenankunftszeit 0, Simulation abbrechen */
+		if (interArrivalTime==0) {
+			simData.doEmergencyShutDown(element.name+": "+String.format(Language.tr("Simulation.Log.Source.ErrorInterArrivalZero"),intervalIndex+1));
+			return 0;
+		}
+
+		/* Ankunftsereignis generieren */
+		final SystemArrivalEvent nextArrival=(SystemArrivalEvent)simData.getEvent(SystemArrivalEvent.class);
+
+		/* Ausführungszeitpunkt festlegen */
+		final long arrivalTime=Math.round((currentSec+interArrivalTime)*1000);
+		nextArrival.init(arrivalTime);
+
+		/* Logging */
+		if (simData.loggingActive) log(simData,Language.tr("Simulation.Log.Source"),String.format(Language.tr("Simulation.Log.Source.Info"),SimData.formatSimTime(arrivalTime),simData.runModel.clientTypes[clientType],stationName),element);
+
+		/* Konfiguration in Element eintragen */
+		nextArrival.source=element;
+		nextArrival.scheduleNext=true;
+		nextArrival.index=index;
+
+		/* Zur Ereignisliste hinzufügen */
+		simData.eventManager.addEvent(nextArrival);
+
+		return 1;
+	}
+
+	/**
 	 * Plant die nächste Kundenankunft (bzw. Batch-Ankunft) ein
 	 * @param simData	Simulationsdatenobjekt
 	 * @param isFirstArrival	Gibt an, ob es sich um die erste Ankunft durch dieses Element handelt
@@ -665,6 +746,10 @@ public class RunElementSourceRecord {
 
 		if (recordData.intervalExpressions!=null) {
 			return scheduleArrivalByIntervalExpression(simData,element,stationName,isFirstArrival,recordData.intervalExpressions,intervalExpressionsIntervalTime);
+		}
+
+		if (recordData.intervalDistributions!=null) {
+			return scheduleArrivalByIntervalDistribution(simData,element,stationName,isFirstArrival,recordData.intervalDistributions,intervalDistributionsIntervalTime);
 		}
 
 		return 0;

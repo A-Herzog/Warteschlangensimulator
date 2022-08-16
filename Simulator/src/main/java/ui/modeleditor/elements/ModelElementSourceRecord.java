@@ -77,7 +77,10 @@ public final class ModelElementSourceRecord implements Cloneable {
 		NEXT_SIGNAL,
 
 		/** Mehrere Ausdrücke zur Festlegung der jeweils absoluten Anzahl an Ankünften in einzelnen Intervallen */
-		NEXT_INTERVAL_EXPRESSIONS(true);
+		NEXT_INTERVAL_EXPRESSIONS(true),
+
+		/** Mehrere Ausdrücke zur Festlegung der jeweiligen Zwischenankunftszeiten in den einzelnen Intervallen */
+		NEXT_INTERVAL_DISTRIBUTIONS(true);
 
 		/**
 		 * Setzt dieser Modus den Single-Core-Modus voraus?
@@ -203,6 +206,20 @@ public final class ModelElementSourceRecord implements Cloneable {
 	private final List<String> intervalExpressions;
 
 	/**
+	 * Zeitdauer für ein Intervall in {@link #intervalDistributions}
+	 * @see #getIntervalDistributionsIntervalTime()
+	 * @see #setIntervalDistributionsIntervalTime(int)
+	 */
+	private int intervalDistributionsIntervalTime;
+
+	/**
+	 * Ausdrücke zur Berechnung der Ankünfte pro Intervall
+	 * @see #getIntervalDistributions()
+	 */
+	private final List<String> intervalDistributions;
+
+
+	/**
 	 * Soll die erste Ankunft bei durch eine Verteilung
 	 * oder einen Rechenausdruck bestimmten Zwischenankunftszeiten
 	 * zum Zeitpunkt 0 erfolgen?
@@ -295,6 +312,8 @@ public final class ModelElementSourceRecord implements Cloneable {
 		thresholdDirectionUp=true;
 		intervalExpressionsIntervalTime=1800;
 		intervalExpressions=new ArrayList<>();
+		intervalDistributionsIntervalTime=1800;
+		intervalDistributions=new ArrayList<>();
 		firstArrivalAt0=false;
 		batchSize="1";
 		batchSizeRates=null;
@@ -728,6 +747,33 @@ public final class ModelElementSourceRecord implements Cloneable {
 	}
 
 	/**
+	 * Liefert die Zeitdauer für ein Intervall in {@link #getIntervalDistributions()}.
+	 * @return	Zeitdauer für ein Intervall
+	 * @see #setIntervalDistributionsIntervalTime(int)
+	 */
+	public int getIntervalDistributionsIntervalTime() {
+		return intervalDistributionsIntervalTime;
+	}
+
+	/**
+	 * Stellt	die Zeitdauer für ein Intervall in {@link #getIntervalDistributions()} ein.
+	 * @param intervalDistributionsIntervalTime	Zeitdauer für ein Intervall
+	 * @see #getIntervalDistributionsIntervalTime()
+	 */
+	public void setIntervalDistributionsIntervalTime(int intervalDistributionsIntervalTime) {
+		this.intervalDistributionsIntervalTime=intervalDistributionsIntervalTime;
+		nextMode=NextMode.NEXT_INTERVAL_DISTRIBUTIONS;
+	}
+
+	/**
+	 * Liefert die Liste der Ausdrücke zur Berechnung der Zwischenankunftszeiten pro Intervall.
+	 * @return	Liste der Ausdrücke zur Berechnung der Zwischenankunftszeiten pro Intervall
+	 */
+	public List<String> getIntervalDistributions() {
+		return intervalDistributions;
+	}
+
+	/**
 	 * Soll die erste Ankunft bei durch eine Verteilung oder einen Rechenausdruck bestimmten Zwischenankunftszeiten zum Zeitpunkt 0 erfolgen?
 	 * @return	Erste Ankunft zum Zeitpunkt 0 erzeugen?
 	 * @see #setFirstArrivalAt0(boolean)
@@ -844,6 +890,10 @@ public final class ModelElementSourceRecord implements Cloneable {
 				if (intervalExpressionsIntervalTime!=record.intervalExpressionsIntervalTime) return false;
 				if (!Objects.deepEquals(intervalExpressions,record.intervalExpressions)) return false;
 				break;
+			case NEXT_INTERVAL_DISTRIBUTIONS:
+				if (intervalDistributionsIntervalTime!=record.intervalDistributionsIntervalTime) return false;
+				if (!Objects.deepEquals(intervalDistributions,record.intervalDistributions)) return false;
+				break;
 			}
 		}
 
@@ -905,6 +955,9 @@ public final class ModelElementSourceRecord implements Cloneable {
 		intervalExpressionsIntervalTime=record.intervalExpressionsIntervalTime;
 		intervalExpressions.clear();
 		intervalExpressions.addAll(record.intervalExpressions);
+		intervalDistributionsIntervalTime=record.intervalDistributionsIntervalTime;
+		intervalDistributions.clear();
+		intervalDistributions.addAll(record.intervalDistributions);
 		firstArrivalAt0=record.firstArrivalAt0;
 		batchSize=record.batchSize;
 		if (batchSize==null && record.batchSizeRates!=null) batchSizeRates=Arrays.copyOf(record.batchSizeRates,record.batchSizeRates.length);
@@ -961,6 +1014,8 @@ public final class ModelElementSourceRecord implements Cloneable {
 			sub.setTextContent(name);
 		}
 
+		boolean first;
+
 		if (hasOwnArrivals) {
 			switch (nextMode) {
 			case NEXT_DISTRIBUTION:
@@ -1009,12 +1064,23 @@ public final class ModelElementSourceRecord implements Cloneable {
 				}
 				break;
 			case NEXT_INTERVAL_EXPRESSIONS:
-				boolean first=true;
+				first=true;
 				for (String expression: intervalExpressions) {
 					node.appendChild(sub=doc.createElement(Language.trPrimary("Surface.Source.XML.IntervalExpression")));
 					sub.setTextContent(expression);
 					if (first) {
 						sub.setAttribute(Language.trPrimary("Surface.Source.XML.IntervalExpression.IntervalTime"),""+intervalExpressionsIntervalTime);
+						first=false;
+					}
+				}
+				break;
+			case NEXT_INTERVAL_DISTRIBUTIONS:
+				first=true;
+				for (String distribution: intervalDistributions) {
+					node.appendChild(sub=doc.createElement(Language.trPrimary("Surface.Source.XML.IntervalDistribution")));
+					sub.setTextContent(distribution);
+					if (first) {
+						sub.setAttribute(Language.trPrimary("Surface.Source.XML.IntervalDistribution.IntervalTime"),""+intervalDistributionsIntervalTime);
 						first=false;
 					}
 				}
@@ -1210,8 +1276,22 @@ public final class ModelElementSourceRecord implements Cloneable {
 			final String intervalTimeString=Language.trAllAttribute("Surface.Source.XML.IntervalExpression.IntervalTime",node);
 			if (!intervalTimeString.isEmpty()) {
 				final Long L=NumberTools.getNotNegativeLong(intervalTimeString);
-				if (L==null || L==0) return String.format(Language.tr("Surface.XML.AttributeSubError"),Language.trPrimary("Surface.Source.XML.Signal.Count"),name,node.getParentNode().getNodeName());
+				if (L==null || L==0) return String.format(Language.tr("Surface.XML.AttributeSubError"),Language.trPrimary("Surface.Source.XML.IntervalExpression.IntervalTime"),name,node.getParentNode().getNodeName());
 				intervalExpressionsIntervalTime=L.intValue();
+			}
+			return null;
+		}
+
+		if (Language.trAll("Surface.Source.XML.IntervalDistribution",name)) {
+			if (!content.trim().isEmpty()) {
+				nextMode=NextMode.NEXT_INTERVAL_DISTRIBUTIONS;
+				intervalDistributions.add(content);
+			}
+			final String intervalTimeString=Language.trAllAttribute("Surface.Source.XML.IntervalExpression.IntervalTime",node);
+			if (!intervalTimeString.isEmpty()) {
+				final Long L=NumberTools.getNotNegativeLong(intervalTimeString);
+				if (L==null || L==0) return String.format(Language.tr("Surface.XML.AttributeSubError"),Language.trPrimary("Surface.Source.XML.IntervalExpression.IntervalTime"),name,node.getParentNode().getNodeName());
+				intervalDistributionsIntervalTime=L.intValue();
 			}
 			return null;
 		}
@@ -1400,6 +1480,13 @@ public final class ModelElementSourceRecord implements Cloneable {
 					sb.append(""+(i+1)+": "+intervalExpressions.get(i)+"\n");
 				}
 				break;
+			case NEXT_INTERVAL_DISTRIBUTIONS:
+				sb.append(Language.tr("ModelDescription.Arrival.IntervalDistributions")+"\n");
+				sb.append(Language.tr("ModelDescription.Arrival.IntervalDistributions.IntervalTime")+": "+NumberTools.formatLong(intervalDistributionsIntervalTime)+"\n");
+				for (int i=0;i<intervalDistributions.size();i++) {
+					sb.append(""+(i+1)+": "+intervalDistributions.get(i)+"\n");
+				}
+				break;
 			}
 			sb.append("\n");
 
@@ -1518,6 +1605,12 @@ public final class ModelElementSourceRecord implements Cloneable {
 			for (int i=0;i<intervalExpressions.size();i++) {
 				final int index=i;
 				searcher.testString(station,Language.tr("Editor.DialogBase.Search.InterarrivalArrival.IntervalExpression"),intervalExpressions.get(index),newintervalExpression->intervalExpressions.set(index,newintervalExpression));
+			}
+			break;
+		case NEXT_INTERVAL_DISTRIBUTIONS:
+			for (int i=0;i<intervalDistributions.size();i++) {
+				final int index=i;
+				searcher.testString(station,Language.tr("Editor.DialogBase.Search.InterarrivalArrival.IntervalDistributions"),intervalDistributions.get(index),newintervalDistribution->intervalDistributions.set(index,newintervalDistribution));
 			}
 			break;
 		}

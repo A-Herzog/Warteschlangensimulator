@@ -220,6 +220,9 @@ public class ModelElementSourceMultiTableModel extends JTableExtAbstractTableMod
 		case NEXT_INTERVAL_EXPRESSIONS:
 			sb.append(Language.tr("Surface.MultiSourceTable.Info.IntervalExpressions"));
 			break;
+		case NEXT_INTERVAL_DISTRIBUTIONS:
+			sb.append(Language.tr("Surface.MultiSourceTable.Info.IntervalDistributions"));
+			break;
 		}
 
 		if (record.getBatchSize()==null || !record.getBatchSize().trim().equals("1")) {

@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-08-11 22:01+0200\n"
+"POT-Creation-Date: 2022-08-13 19:04+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -4221,6 +4221,9 @@ msgstr "Zwischenankunftszeitenverteilung"
 
 msgid "Editor.DialogBase.Search.InterarrivalArrival.Expression"
 msgstr "Zwischenankunftszeitenausdruck"
+
+msgid "Editor.DialogBase.Search.InterarrivalArrival.IntervalDistributions"
+msgstr "Zwischenankunftszeiten pro Intervall"
 
 msgid "Editor.DialogBase.Search.InterarrivalArrival.IntervalExpression"
 msgstr "Anzahl pro Intervall"
@@ -10849,6 +10852,12 @@ msgstr "Zwischenankunftszeitenausdruck"
 msgid "ModelDescription.Arrival.FirstArrivalAt0"
 msgstr "Erste Ankunft zum Zeitpunkt 0."
 
+msgid "ModelDescription.Arrival.IntervalDistributions"
+msgstr "Zwischenankunftszeiten pro Intervall"
+
+msgid "ModelDescription.Arrival.IntervalDistributions.IntervalTime"
+msgstr "Intervalldauer"
+
 msgid "ModelDescription.Arrival.IntervalExpressions"
 msgstr "Anzahl pro Intervall"
 
@@ -17203,6 +17212,15 @@ msgstr "Bei Element id=%d passt die Anzahl der internen Ausgangsverknüpfungen n
 msgid "Simulation.Creator.InternalOutputNotConnected"
 msgstr "Bei Element id=%d ist die %d. auslaufende Kante intern mit keinem Element verbunden."
 
+msgid "Simulation.Creator.IntervalDistributions"
+msgstr "An Station id=%d ist der Rechenausdruck die Zwischenankunftszeiten für das %d. Intervall \"%s\" ab Zeichen %d ungültig."
+
+msgid "Simulation.Creator.IntervalDistributions.Empty"
+msgstr "An Station id=%d wurden keine Rechenausdrücke zur Bestimmung der Zwischenankunftszeiten pro Intervall angegeben."
+
+msgid "Simulation.Creator.IntervalDistributions.IntervalTimeInvalid"
+msgstr "Die an Station id=%d angegebene Intervalldauer %d ist ungültig. Es muss eine positive Ganzzahl angegeben werden."
+
 msgid "Simulation.Creator.IntervalExpressions"
 msgstr "An Station id=%d ist der Rechenausdruck für das %d. Intervall \"%s\" ab Zeichen %d ungültig."
 
@@ -18696,6 +18714,9 @@ msgstr "Auslösung des verzögerten Signals \"%s\""
 
 msgid "Simulation.Log.Source"
 msgstr "Kundenankunftsplanung"
+
+msgid "Simulation.Log.Source.ErrorInterArrivalZero"
+msgstr "Der %d. Zwischenankunftszeitenausdruck wurde zu 0 ausgewertet."
 
 msgid "Simulation.Log.Source.Info"
 msgstr "Ankunftszeit: %s, Kundentyp: \"%s\", Station: %s"
@@ -27579,6 +27600,9 @@ msgstr "Gruppenankünfte"
 msgid "Surface.MultiSourceTable.Info.ClientTypeName"
 msgstr "Kundentypname"
 
+msgid "Surface.MultiSourceTable.Info.IntervalDistributions"
+msgstr "Zwischenankunftszeiten pro Intervall"
+
 msgid "Surface.MultiSourceTable.Info.IntervalExpressions"
 msgstr "Anzahl pro Intervall"
 
@@ -30006,6 +30030,33 @@ msgstr "Wahrscheinlichkeitsverteilung"
 msgid "Surface.Source.Dialog.CalculationOfTheInterarrivalTimes.Expression"
 msgstr "Ausdruck"
 
+msgid "Surface.Source.Dialog.CalculationOfTheInterarrivalTimes.IntervalDistributions"
+msgstr "Zwischenankunftszeiten pro Intervall"
+
+msgid "Surface.Source.Dialog.CalculationOfTheInterarrivalTimes.IntervalDistributions.EditExpression"
+msgstr "Ausdruck bearbeiten"
+
+msgid "Surface.Source.Dialog.CalculationOfTheInterarrivalTimes.IntervalDistributions.Error.Info"
+msgstr "Der für das %d. Intervall angegebene Rechenausdruck \"%s\" ist ab Zeichen %d ungültig."
+
+msgid "Surface.Source.Dialog.CalculationOfTheInterarrivalTimes.IntervalDistributions.Error.Title"
+msgstr "Ungültiger Rechenausdruck für Intervall"
+
+msgid "Surface.Source.Dialog.CalculationOfTheInterarrivalTimes.IntervalDistributions.Info.Empty"
+msgstr "Es wurden noch keine Ankünfte definiert."
+
+msgid "Surface.Source.Dialog.CalculationOfTheInterarrivalTimes.IntervalDistributions.Info.Multi"
+msgstr "Es wurden %d Intervalle definiert. Der Plan wiederholt sich alle %s."
+
+msgid "Surface.Source.Dialog.CalculationOfTheInterarrivalTimes.IntervalDistributions.Info.One"
+msgstr "Es wurde 1 Intervall definiert. Der Plan wiederholt sich alle %s."
+
+msgid "Surface.Source.Dialog.CalculationOfTheInterarrivalTimes.IntervalDistributions.IntervalTime"
+msgstr "Intervalldauer"
+
+msgid "Surface.Source.Dialog.CalculationOfTheInterarrivalTimes.IntervalDistributions.Label"
+msgstr "Rechenausdrücke für die Zwischenankunftszeiten pro Intervall (Werte in Sekunden)"
+
 msgid "Surface.Source.Dialog.CalculationOfTheInterarrivalTimes.IntervalExpressions"
 msgstr "Anzahl pro Intervall"
 
@@ -30389,6 +30440,12 @@ msgstr "Zeitbasis"
 
 msgid "Surface.Source.XML.FirstArrivalAt0"
 msgstr "ErsteAnkunftBeiStart"
+
+msgid "Surface.Source.XML.IntervalDistribution"
+msgstr "ModellElementIntervallVerteilung"
+
+msgid "Surface.Source.XML.IntervalDistribution.IntervalTime"
+msgstr "Intervalldauer"
 
 msgid "Surface.Source.XML.IntervalExpression"
 msgstr "ModellElementIntervallAnzahl"
