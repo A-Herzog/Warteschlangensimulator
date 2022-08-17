@@ -85,6 +85,8 @@ public class ModelElementActionRecord {
 		ACTION_SCRIPT,
 		/** Aktion: Simulation beenden */
 		ACTION_STOP,
+		/** Aktion: Sound abspielen */
+		ACTION_SOUND
 	}
 
 	/**
@@ -120,33 +122,62 @@ public class ModelElementActionRecord {
 	 */
 	private ActionType actionType;
 
+	/* Auslöser: Bedingung */
+
 	/** Auslösende Bedingung im Fall <code>conditionType=ConditionType.CONDITION_CONDITION</code> */
 	private String condition;
 	/** Minimaler zeitliche Abstand zur Auslösung von Sktionen durch {@link #condition} im Fall <code>conditionType=ConditionType.CONDITION_CONDITION</code> */
 	private double conditionMinDistance;
+
+	/* Auslöser: Schwellenwert */
+
 	/** Schwellenwert-Rechenausdruck im Fall <code>conditionType=ConditionType.CONDITION_THRESHOLD</code> */
 	private String thresholdExpression;
 	/** Schwellenwert-Zahlenwert im Fall <code>conditionType=ConditionType.CONDITION_THRESHOLD</code> */
 	private double thresholdValue;
 	/** Aktion beim unter- oder überschreiten des Schwellenwerts im Fall <code>conditionType=ConditionType.CONDITION_THRESHOLD</code> auslösen? */
 	private ThresholdDirection thresholdDirection;
+
+	/* Auslöser: Signal */
+
 	/** Signal das im Fall <code>conditionType=ConditionType.CONDITION_SIGNAL</code> die Aktion auslöst */
 	private String conditionSignal;
+
+	/* Aktion: Variablenzuweisung vornehmen */
 
 	/** Name der Variable für die Variablenzuweisung bei Aktionstyp <code>actionType=ActionType.ACTION_ASSIGN</code> */
 	private String assignVariable;
 	/** Wert für die Variable für die Variablenzuweisung bei Aktionstyp <code>actionType=ActionType.ACTION_ASSIGN</code> */
 	private String assignExpression;
+
+	/* Aktion: Signal auslösen */
+
 	/** Name des auszulösenden Signals bei Aktionstyp <code>actionType=ActionType.ACTION_SIGNAL</code> */
 	private String signalName;
+
+	/* Aktion: Analogwert ändern */
+
 	/** ID der Analogwert-Station im Fall bei Aktionstyp <code>actionType=ActionType.ACTION_ANALOG_VALUE</code> */
 	private int analogID;
 	/** Zuzuweisender Analogwert im Fall bei Aktionstyp <code>actionType=ActionType.ACTION_ANALOG_VALUE</code> */
 	private String analogValue;
+
+	/* Aktion: Skript ausführen */
+
 	/** Auszuführendes Skript bei Aktionstyp <code>actionType=ActionType.ACTION_SCRIPT</code> */
 	private String script;
 	/** Sprache des auszuführenden Skripts bei Aktionstyp <code>actionType=ActionType.ACTION_SCRIPT</code> */
 	private ScriptMode scriptMode;
+
+	/* Aktion: Simulation beenden */
+	/* keine Einstellungen */
+
+	/* Aktion: Sound abspielen */
+
+	/** Abzuspielender Sound bei <code>actionType=ActionType.ACTION_SOUD</code> */
+	private String sound;
+	/** Maximaldauer (in Sekunden) des abzuspielenden Sounds bei <code>actionType=ActionType.ACTION_SOUD</code> */
+	private int soundMaxSeconds;
 
 	/**
 	 * Konstruktor der Klasse
@@ -200,6 +231,8 @@ public class ModelElementActionRecord {
 			analogValue=copySource.analogValue;
 			script=copySource.script;
 			scriptMode=copySource.scriptMode;
+			sound=copySource.sound;
+			soundMaxSeconds=copySource.soundMaxSeconds;
 		}
 	}
 
@@ -253,6 +286,10 @@ public class ModelElementActionRecord {
 			break;
 		case ACTION_STOP:
 			/* Keine weiteren Einstellungen */
+			break;
+		case ACTION_SOUND:
+			if (!Objects.equals(sound,otherRecord.sound)) return false;
+			if (soundMaxSeconds!=otherRecord.soundMaxSeconds) return false;
 			break;
 		}
 
@@ -574,6 +611,61 @@ public class ModelElementActionRecord {
 	}
 
 	/**
+	 * Liefert den auszugebenden Sound.
+	 * @return	Auszugebender Sound
+	 * @see #setSound(String)
+	 * @see #getSoundMaxSeconds()
+	 */
+	public String getSound() {
+		return sound;
+	}
+
+	/**
+	 * Stellt den auszugebenden Sound ein.
+	 * @param sound	Auszugebender Sound
+	 * @see #getSound()
+	 * @see #setSoundMaxSeconds(int)
+	 */
+	public void setSound(final String sound) {
+		actionType=ActionType.ACTION_SOUND;
+		this.sound=(sound==null)?"":sound;
+	}
+
+	/**
+	 * Stellt den auszugebenden Sound ein.
+	 * @param sound	Auszugebender Sound
+	 * @param soundMaxSeconds	Maximale Anzahl an Sekunden für die Sound-Ausgabe (oder ein Wert &le;0 für keine Beschränkung)
+	 * @see #getSound()
+	 * @see #setSoundMaxSeconds(int)
+	 */
+	public void setSound(final String sound, final int soundMaxSeconds) {
+		actionType=ActionType.ACTION_SOUND;
+		this.sound=(sound==null)?"":sound;
+		this.soundMaxSeconds=soundMaxSeconds;
+	}
+
+	/**
+	 * Liefert die maximale Anzahl an Sekunden, die {@link #getSound()} ausgegeben werden soll.
+	 * @return	Maximale Anzahl an Sekunden für die Sound-Ausgabe (oder ein Wert &le;0 für keine Beschränkung)
+	 * @see #setSoundMaxSeconds(int)
+	 * @see #getSound()
+	 */
+	public int getSoundMaxSeconds() {
+		return soundMaxSeconds;
+	}
+
+	/**
+	 * Stellt die maximale Anzahl an Sekunden, die {@link #getSound()} ausgegeben werden soll, ein.
+	 * @param soundMaxSeconds	Maximale Anzahl an Sekunden für die Sound-Ausgabe (oder ein Wert &le;0 für keine Beschränkung)
+	 * @see #getSoundMaxSeconds()
+	 * @see #setSound(String)
+	 */
+	public void setSoundMaxSeconds(final int soundMaxSeconds) {
+		actionType=ActionType.ACTION_SOUND;
+		this.soundMaxSeconds=soundMaxSeconds;
+	}
+
+	/**
 	 * Stellt ein, das die Aktion darin bestehen soll, die Simulation zu beenden.
 	 */
 	public void setStopSimulation() {
@@ -616,6 +708,7 @@ public class ModelElementActionRecord {
 			break;
 		case ACTION_SIGNAL: type=Language.trPrimary("Surface.Action.XML.Record.ActionType.Signal"); break;
 		case ACTION_STOP: type=Language.trPrimary("Surface.Action.XML.Record.ActionType.Stopp"); break;
+		case ACTION_SOUND: type=Language.trPrimary("Surface.Action.XML.Record.ActionType.PlaySound"); break;
 		default: type=""; break;
 		}
 		node.setAttribute(Language.trPrimary("Surface.Action.XML.Record.ActionType"),type);
@@ -664,6 +757,10 @@ public class ModelElementActionRecord {
 		case ACTION_STOP:
 			/* Keine weiteren Einstellungen */
 			break;
+		case ACTION_SOUND:
+			node.setTextContent(sound);
+			if (soundMaxSeconds>0) node.setAttribute(Language.trPrimary("Surface.Action.XML.Record.Action.SoundMaxSeconds"),""+soundMaxSeconds);
+			break;
 		}
 	}
 
@@ -692,6 +789,7 @@ public class ModelElementActionRecord {
 		if (Language.trAll("Surface.Action.XML.Record.ActionType.Java",actionTypeString)) {actionType=ActionType.ACTION_SCRIPT; scriptMode=ScriptMode.Java;}
 		if (Language.trAll("Surface.Action.XML.Record.ActionType.Signal",actionTypeString)) actionType=ActionType.ACTION_SIGNAL;
 		if (Language.trAll("Surface.Action.XML.Record.ActionType.Stopp",actionTypeString)) actionType=ActionType.ACTION_STOP;
+		if (Language.trAll("Surface.Action.XML.Record.ActionType.PlaySound",actionTypeString)) actionType=ActionType.ACTION_SOUND;
 
 		if (actionMode==ActionMode.TRIGGER_AND_ACTION) {
 			/* Bedingung */
@@ -746,6 +844,11 @@ public class ModelElementActionRecord {
 			break;
 		case ACTION_STOP:
 			/* Keine weiteren Einstellungen */
+			break;
+		case ACTION_SOUND:
+			sound=node.getTextContent();
+			final Long L=NumberTools.getPositiveLong(Language.trAllAttribute("Surface.Action.XML.Record.Action.SoundMaxSeconds",node));
+			if (L!=null) soundMaxSeconds=L.intValue();
 			break;
 		}
 
@@ -806,6 +909,9 @@ public class ModelElementActionRecord {
 		case ACTION_STOP:
 			s=Language.tr("Surface.Action.Dialog.Edit.Tabs.Action.EndSimulation");
 			break;
+		case ACTION_SOUND:
+			s=Language.tr("Surface.Action.Dialog.Edit.Tabs.Action.PlaySound")+": "+sound;
+			break;
 		}
 		descriptionBuilder.addProperty(Language.tr("ModelDescription.Action.Action"),s,level+1);
 	}
@@ -852,6 +958,9 @@ public class ModelElementActionRecord {
 			break;
 		case ACTION_STOP:
 			/* Keine zu prüfenden Einstellungen */
+			break;
+		case ACTION_SOUND:
+			searcher.testString(station,Language.tr("Editor.DialogBase.Search.Sound"),sound,newSound->{sound=newSound; soundMaxSeconds=-1;});
 			break;
 		}
 	}

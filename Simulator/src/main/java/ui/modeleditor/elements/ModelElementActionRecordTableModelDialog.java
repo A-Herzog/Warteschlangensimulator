@@ -50,6 +50,7 @@ import ui.modeleditor.ModelElementBaseDialog;
 import ui.modeleditor.ModelSurface;
 import ui.modeleditor.coreelements.ModelElement;
 import ui.script.ScriptEditorPanel;
+import ui.tools.SoundSystemPanel;
 
 /**
  * Dieser Dialog ermöglicht das Bearbeiten eines einzelnen Eintrags
@@ -99,11 +100,17 @@ public class ModelElementActionRecordTableModelDialog extends BaseDialog {
 	private final JRadioButton actionScript;
 	/** Art der auszulösenden Aktion: Simulation beenden */
 	private final JRadioButton actionStop;
+	/** Art der auszulösenden Aktion: Sound abspielen */
+	private final JRadioButton actionSound;
+
+	/* Auslöser: Bedingung */
 
 	/** Eingabefeld für die Bedingung im Fall {@link #triggerCondition} */
 	private final JTextField conditionEdit;
 	/** Eingabefeld für den minimalen zeitlichen Abstand für zwei bedingungs-ausgelöste Aktionen im Fall {@link #triggerCondition} */
 	private final JTextField conditionMinDistanceEdit;
+
+	/* Auslöser: Schwellenwert */
 
 	/** Eingabefeld für den Schwellenwert-Ausdruck im Fall {@link #triggerThreshold} */
 	private final JTextField thresholdExpressionEdit;
@@ -114,13 +121,19 @@ public class ModelElementActionRecordTableModelDialog extends BaseDialog {
 	/** Option: Schwellenwert muss für Signalauslösung unterschritten werden (im Fall {@link #triggerThreshold}) */
 	private final JRadioButton thresholdDirectionDown;
 
+	/* Auslöser: Signal */
+
 	/** Signal das die Aktion auslöst im Fall {@link #triggerSignal} */
 	private final JComboBox<String> triggerSignalName;
+
+	/* Aktion: Variablenzuweisung vornehmen */
 
 	/** Textfeld für den Variablennamen bei einer {@link #actionAssign} Aktion */
 	private final JTextField assignVariableEdit;
 	/** Textfeld für den Ausdruck für die Variablenzuweisung bei einer {@link #actionAssign} Aktion */
 	private final JTextField assignExpressionEdit;
+
+	/* Aktion: Analogwert ändern */
 
 	/** Namen aller Analogwert-Stationen */
 	private String[] analogIDNames;
@@ -131,11 +144,20 @@ public class ModelElementActionRecordTableModelDialog extends BaseDialog {
 	/** Textfeld für den Wert für eine analoger Wert Zuweisung bei einer {@link #actionAnalog} Aktion */
 	private final JTextField analogExpressionEdit;
 
+	/* Aktion: Signal auslösen */
+
 	/** Textfeld für das auszulösende Signal bei einer {@link #actionSignal} Aktion */
 	private final JTextField signalNameEdit;
 
+	/* Aktion: Skript ausführen */
+
 	/** Textfeld für das auszuführende Skript bei einer {@link #actionScript} Aktion */
 	private final ScriptEditorPanel scriptEdit;
+
+	/* Aktion: Sound abspielen */
+
+	/** Panel zur Konfiguration des Sounds bei einer {@link #actionSound} Aktion */
+	private final SoundSystemPanel soundEdit;
 
 	/**
 	 * Konstruktor der Klasse
@@ -335,6 +357,13 @@ public class ModelElementActionRecordTableModelDialog extends BaseDialog {
 		line.add(actionStop=new JRadioButton(bold1+Language.tr("Surface.Action.Dialog.Edit.Tabs.Action.EndSimulation")+bold2));
 		actionStop.addActionListener(e->checkData(false));
 
+		/* Sound abspielen */
+
+		tab.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
+		line.add(actionSound=new JRadioButton(bold1+Language.tr("Surface.Action.Dialog.Edit.Tabs.Action.PlaySound")+bold2));
+		actionSound.addActionListener(e->checkData(false));
+		tab.add(soundEdit=new SoundSystemPanel(record.getSound(),record.getSoundMaxSeconds(),readOnly));
+
 		/* Javascript ausführen */
 
 		tab.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
@@ -356,14 +385,16 @@ public class ModelElementActionRecordTableModelDialog extends BaseDialog {
 		case ACTION_SIGNAL: actionSignal.setSelected(true); break;
 		case ACTION_SCRIPT: actionScript.setSelected(true); break;
 		case ACTION_STOP: actionStop.setSelected(true); break;
+		case ACTION_SOUND: actionSound.setSelected(true); break;
 		}
 
 		buttonGroup=new ButtonGroup();
 		buttonGroup.add(actionAssign);
 		buttonGroup.add(actionAnalog);
 		buttonGroup.add(actionSignal);
-		buttonGroup.add(actionScript);
 		buttonGroup.add(actionStop);
+		buttonGroup.add(actionSound);
+		buttonGroup.add(actionScript);
 
 		/* Icons */
 
@@ -378,7 +409,7 @@ public class ModelElementActionRecordTableModelDialog extends BaseDialog {
 
 		checkData(false);
 
-		setMinSizeRespectingScreensize(600,500);
+		setMinSizeRespectingScreensize(1024,768);
 		pack();
 
 		setLocationRelativeTo(this.owner);
@@ -648,6 +679,10 @@ public class ModelElementActionRecordTableModelDialog extends BaseDialog {
 
 		if (actionStop.isSelected()) {
 			record.setStopSimulation();
+		}
+
+		if (actionSound.isSelected()) {
+			record.setSound(soundEdit.getSound(),soundEdit.getMaxSeconds());
 		}
 	}
 }

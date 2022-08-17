@@ -1471,6 +1471,7 @@
   SchwellenwertRichtung     CDATA   #IMPLIED
   AnalogID                  CDATA   #IMPLIED
   Variable                  CDATA   #IMPLIED
+  SoundMaxSekunden			CDATA   #IMPLIED
 >
 
 <!ELEMENT ModellElementIcon (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementBoxSchriftGross | ModellElementBoxSchriftKlein | ModellElementMaximalerDurchsatzSekunden | ModellElementEbene | ModellElementHintergrundfarbe | ModellElementStationsbild | ModellElementVerbindung | ModellElementIconName)*>
@@ -3988,6 +3989,7 @@
   ThresholdDirection        CDATA   #IMPLIED
   AnalogID                  CDATA   #IMPLIED
   Variable                  CDATA   #IMPLIED
+  SoundMaxSeconds			CDATA   #IMPLIED
 >
 
 <!ELEMENT ModelElementIcon (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBoxFontLarge | ModelElementBoxFontSmall | ModelElementMaximumThroughputSeconds | ModelElementLayer | ModelElementBackgroundColor | ModelElementStationimage | ModelElementConnection | ModelElementIconName)*>

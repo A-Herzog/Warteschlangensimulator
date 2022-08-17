@@ -1597,6 +1597,7 @@
     <xs:attribute name="SchwellenwertRichtung" type="xs:string"/>
     <xs:attribute name="AnalogID" type="xs:string"/>
     <xs:attribute name="Variable" type="xs:string"/>
+	<xs:attribute name="SoundMaxSekunden" type="xs:string"/>
   </xs:extension>
 </xs:simpleContent></xs:complexType></xs:element>
 
@@ -3875,6 +3876,7 @@
     <xs:attribute name="ThresholdDirection" type="xs:string"/>
     <xs:attribute name="AnalogID" type="xs:string"/>
     <xs:attribute name="Variable" type="xs:string"/>
+	<xs:attribute name="SoundMaxSeconds" type="xs:string"/>
   </xs:extension>
 </xs:simpleContent></xs:complexType></xs:element>
 

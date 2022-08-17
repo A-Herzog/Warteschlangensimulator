@@ -40,6 +40,7 @@ import ui.modeleditor.elements.ModelElementActionRecord.ConditionType;
 import ui.modeleditor.elements.ModelElementActionRecord.ThresholdDirection;
 import ui.modeleditor.elements.ModelElementAnalogValue;
 import ui.modeleditor.elements.ModelElementTank;
+import ui.tools.SoundSystem;
 
 /**
  * Diese Klasse stellt einen einzelnen Action-Datensatz dar
@@ -111,6 +112,10 @@ public class RunElementActionRecord {
 	private JSRunSimulationData jsRunner;
 	/** Ausführungssystem für Javas-Code aus {@link #script} */
 	private DynamicRunner javaRunner;
+	/** Abzuspielender Sound */
+	private String sound;
+	/** Maximaldauer des abzuspielenden Sounds */
+	private int soundMaxSeconds;
 
 	/** Zeitpunkt der letzten Auslösung des Ereignisses über die Bedingung im Modus ConditionType#CONDITION_CONDITION */
 	private long lastConditionTrigger;
@@ -157,6 +162,8 @@ public class RunElementActionRecord {
 		analogValue=runRecord.analogValue;
 		script=runRecord.script;
 		scriptMode=runRecord.scriptMode;
+		sound=runRecord.sound;
+		soundMaxSeconds=runRecord.soundMaxSeconds;
 	}
 
 	/**
@@ -231,6 +238,10 @@ public class RunElementActionRecord {
 		case ACTION_STOP:
 			/* Keine weiteren Einstellungen. */
 			break;
+		case ACTION_SOUND:
+			sound=editRecord.getSound();
+			soundMaxSeconds=editRecord.getSoundMaxSeconds();
+			break;
 		}
 
 		return null;
@@ -273,7 +284,10 @@ public class RunElementActionRecord {
 			if (editRecord.getSignalName().trim().isEmpty()) Language.tr("Simulation.Creator.Action.NoSignalName");
 			break;
 		case ACTION_STOP:
-			/* nicht vorzubereiten */
+			/* nichts vorzubereiten */
+			break;
+		case ACTION_SOUND:
+			/* nichts vorzubereiten */
 			break;
 		default:
 			return Language.tr("Simulation.Creator.Action.ErrorUnknownAction");
@@ -341,6 +355,9 @@ public class RunElementActionRecord {
 			/* nicht vorzubereiten */
 			break;
 		case ACTION_STOP:
+			/* nicht vorzubereiten */
+			break;
+		case ACTION_SOUND:
 			/* nicht vorzubereiten */
 			break;
 		}
@@ -493,6 +510,11 @@ public class RunElementActionRecord {
 			break;
 		case ACTION_STOP:
 			simData.doShutDown();
+			break;
+		case ACTION_SOUND:
+			if (simData.runModel.isAnimation) {
+				SoundSystem.getInstance().playAll(sound,soundMaxSeconds);
+			}
 			break;
 		}
 	}

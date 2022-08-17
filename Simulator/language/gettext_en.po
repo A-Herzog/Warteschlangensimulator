@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-08-16 08:18+0200\n"
+"POT-Creation-Date: 2022-08-17 10:03+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -4364,6 +4364,9 @@ msgstr "Variable name for value assignment"
 
 msgid "Editor.DialogBase.Search.SignalToStartFlow"
 msgstr "Signal to start the flow"
+
+msgid "Editor.DialogBase.Search.Sound"
+msgstr "Sound to play"
 
 msgid "Editor.DialogBase.Search.Table"
 msgstr "Table"
@@ -19236,6 +19239,42 @@ msgstr "Modell description"
 msgid "SlidesGenerator.ModellParameters"
 msgstr "Model parameters"
 
+msgid "SoundSelectDialog.AllSupportedFormats"
+msgstr "All supported formats"
+
+msgid "SoundSelectDialog.Files"
+msgstr "files"
+
+msgid "SoundSelectDialog.Title"
+msgstr "Select sound file"
+
+msgid "SoundSelectPanel.MaxSeconds"
+msgstr "Maximum playback duration (in seconds)"
+
+msgid "SoundSelectPanel.ModeFile"
+msgstr "Sound files"
+
+msgid "SoundSelectPanel.ModeSystem"
+msgstr "System event sounds"
+
+msgid "SoundSelectPanel.ModeWindows"
+msgstr "Windows sounds"
+
+msgid "SoundSelectPanel.Play"
+msgstr "Play"
+
+msgid "SoundSelectPanel.Play.ErrorInfo"
+msgstr ""
+"Sound file\n"
+"%s\n"
+"could not be played."
+
+msgid "SoundSelectPanel.Play.ErrorTitle"
+msgstr "Sound output error"
+
+msgid "SoundSelectPanel.Play.Info"
+msgstr "The maximum playback time for files is limited to 10 seconds in this preview."
+
 msgid "StationStatistics.DialogHint"
 msgstr "The simulation can be accelerated and the scope of statistics reduced by deactivating the statistics recording at individual stations. In the default case it is recommended to leave the recording at all stations in the active state. The recording of the maximum throughput requires the definition of intervals to be considered in each case. These interval lengths can be defined individually for each station. For better comparability of the values, however, the use of a uniform value is recommended."
 
@@ -23115,6 +23154,9 @@ msgstr "Terminate simulation"
 msgid "Surface.Action.Dialog.Edit.Tabs.Action.JS"
 msgstr "Run script"
 
+msgid "Surface.Action.Dialog.Edit.Tabs.Action.PlaySound"
+msgstr "Play sound"
+
 msgid "Surface.Action.Dialog.Edit.Tabs.Action.Signal"
 msgstr "Trigger signal"
 
@@ -23220,6 +23262,9 @@ msgstr "Action: Terminate simulation"
 msgid "Surface.Action.Dialog.Info.IsDeactivated"
 msgstr "Action is deactivated."
 
+msgid "Surface.Action.Dialog.Info.PlaySound"
+msgstr "Play sound (%s)"
+
 msgid "Surface.Action.Dialog.Info.Signal"
 msgstr "Signal"
 
@@ -23259,6 +23304,9 @@ msgstr "AnalogID"
 msgid "Surface.Action.XML.Record.Action.AssignVariable"
 msgstr "Variable"
 
+msgid "Surface.Action.XML.Record.Action.SoundMaxSeconds"
+msgstr "SoundMaxSeconds"
+
 msgid "Surface.Action.XML.Record.ActionType"
 msgstr "ActionType"
 
@@ -23273,6 +23321,9 @@ msgstr "Javascript"
 
 msgid "Surface.Action.XML.Record.ActionType.Java"
 msgstr "Java"
+
+msgid "Surface.Action.XML.Record.ActionType.PlaySound"
+msgstr "Sound"
 
 msgid "Surface.Action.XML.Record.ActionType.Signal"
 msgstr "Signal"

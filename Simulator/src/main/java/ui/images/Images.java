@@ -146,6 +146,18 @@ public enum Images {
 	/** Symbol "Aktualisieren" */
 	GENERAL_UPDATE("arrow_refresh.png"),
 
+	/** Symbol "Abspielen starten" */
+	GENERAL_PLAY("control_play_blue.png"),
+
+	/** Sound-Typ-Auswahl "Systemereignis-Sounds" */
+	SOUND_EVENT("flag_red.png"),
+
+	/** Sound-Typ-Auswahl "Windows-Sounds" */
+	SOUND_WINDOWS("windows.png"),
+
+	/** Sound-Typ-Auswahl "Sound-Dateien" */
+	SOUND_FILE("folder_page_white.png"),
+
 	/** Symbol "Rechtschreibprüfung" */
 	SPELL_CHECK("spellcheck.png"),
 
