@@ -60,6 +60,7 @@ import ui.modeleditor.elements.ModelElementEdge;
 import ui.modeleditor.elements.ModelElementSub;
 import ui.modeleditor.elements.ModelElementTeleportDestination;
 import ui.modeleditor.elements.ModelElementTeleportSource;
+import ui.modeleditor.elements.ModelElementTeleportSourceMulti;
 import ui.modeleditor.elements.ModelElementTransportDestination;
 import ui.modeleditor.elements.ModelElementTransportParking;
 import ui.modeleditor.elements.ModelElementTransportSource;
@@ -1043,7 +1044,7 @@ public class ModelSurfaceAnimatorBase {
 	 */
 	private AnimationPath getDirectAnimationPath(final RunDataClient client, final ModelElementBox stationFrom, final ModelElementBox stationTo) {
 		/* Teleport-Übergänge zeichnen sich gerade dadurch aus, nicht in der Animation sichtbar zu sein. */
-		if ((stationFrom instanceof ModelElementTeleportSource) && (stationTo instanceof ModelElementTeleportDestination)) {
+		if (((stationFrom instanceof ModelElementTeleportSource) || (stationFrom instanceof ModelElementTeleportSourceMulti)) && (stationTo instanceof ModelElementTeleportDestination)) {
 			return null;
 		}
 
@@ -1168,7 +1169,7 @@ public class ModelSurfaceAnimatorBase {
 		List<ModelElement> path=new ArrayList<>();
 
 		/* Teleport-Übergänge zeichnen sich gerade dadurch aus, nicht in der Animation sichtbar zu sein. */
-		if ((stationFrom instanceof ModelElementTeleportSource) && (stationTo instanceof ModelElementTeleportDestination)) {
+		if (((stationFrom instanceof ModelElementTeleportSource) || (stationFrom instanceof ModelElementTeleportSourceMulti)) && (stationTo instanceof ModelElementTeleportDestination)) {
 			return null;
 		}
 

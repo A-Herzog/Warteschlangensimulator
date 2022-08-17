@@ -360,6 +360,9 @@ public class InfoPanel {
 	/** Info-ID für den "Teleport-Transport Startpunkt"-Bearbeiten-Dialog (Gruppe "Transport") */
 	public static final String stationTeleportSource=groupElement+"TeleportSource";
 
+	/** Info-ID für den "Duplizieren & Teleportieren"-Bearbeiten-Dialog (Gruppe "Transport") */
+	public static final String stationTeleportSourceMulti=groupElement+"TeleportSourceMulti";
+
 	/** Info-ID für den "Teleport-Transport Zielpunkt"-Bearbeiten-Dialog (Gruppe "Transport") */
 	public static final String stationTeleportDestination=groupElement+"TeleportDestination";
 
@@ -1016,6 +1019,10 @@ public class InfoPanel {
 		register(stationTeleportSource,
 				()->Language.tr("HintsDialog.TreeNodeStations")+"|"+ModelElementCatalog.GROUP_TRANSPORT+"|"+Language.tr("Surface.TeleportSource.Name"),
 				()->Language.tr("Surface.TeleportSource.Infotext"));
+
+		register(stationTeleportSourceMulti,
+				()->Language.tr("HintsDialog.TreeNodeStations")+"|"+ModelElementCatalog.GROUP_TRANSPORT+"|"+Language.tr("Surface.TeleportSourceMulti.Name"),
+				()->Language.tr("Surface.TeleportSourceMulti.Infotext"));
 
 		register(stationTeleportDestination,
 				()->Language.tr("HintsDialog.TreeNodeStations")+"|"+ModelElementCatalog.GROUP_TRANSPORT+"|"+Language.tr("Surface.TeleportDestination.Name"),

@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-08-13 19:04+0200\n"
+"POT-Creation-Date: 2022-08-16 08:18+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -11648,6 +11648,9 @@ msgstr "Maximum flow at tank id=%d, valve %d"
 msgid "ModelDescription.TeleportSource.Destination"
 msgstr "Teleport destination"
 
+msgid "ModelDescription.TeleportSourceMulti.Destination"
+msgstr "Teleport destination"
+
 msgid "ModelDescription.TimeBase"
 msgstr "Time base"
 
@@ -17954,6 +17957,9 @@ msgstr "Teleport transport destination"
 msgid "Simulation.Element.TeleportSource.Name"
 msgstr "Teleport transport source"
 
+msgid "Simulation.Element.TeleportSourceMulti.Name"
+msgstr "Duplicate and teleport"
+
 msgid "Simulation.Element.Throughput.Name"
 msgstr "Throughput"
 
@@ -18784,6 +18790,12 @@ msgstr "Teleport transport destination"
 
 msgid "Simulation.Log.TeleportDestination.Info"
 msgstr "Client: %s, station: %s"
+
+msgid "Simulation.Log.TeleportMulti"
+msgstr "Duplicate and teleport"
+
+msgid "Simulation.Log.TeleportMulti.Info"
+msgstr "Client: %s, station: %s, teleport destination: %s"
 
 msgid "Simulation.Log.Throughput"
 msgstr "Throughput"
@@ -31333,6 +31345,33 @@ msgstr "ModelElementTeleportOriginToTarget"
 
 msgid "Surface.TeleportSource.XML.Root"
 msgstr "ModelElementTeleportOrigin"
+
+msgid "Surface.TeleportSourceMulti.Dialog.DestinationCount"
+msgstr "Number of teleport destinations"
+
+msgid "Surface.TeleportSourceMulti.Dialog.DestinationNr"
+msgstr "Destination %d"
+
+msgid "Surface.TeleportSourceMulti.Dialog.Target"
+msgstr "Teleport destination"
+
+msgid "Surface.TeleportSourceMulti.Dialog.Title"
+msgstr "Edit duplicate and teleport"
+
+msgid "Surface.TeleportSourceMulti.Infotext"
+msgstr "Splits arriving clients and transfers them without any delay to the defined teleport destinations."
+
+msgid "Surface.TeleportSourceMulti.Name"
+msgstr "Duplicate and teleport"
+
+msgid "Surface.TeleportSourceMulti.Tooltip"
+msgstr "Source for a timeless transport to multiple teleport transport destination stations."
+
+msgid "Surface.TeleportSourceMulti.XML.Destination"
+msgstr "ModelElementTeleportOriginToTarget"
+
+msgid "Surface.TeleportSourceMulti.XML.Root"
+msgstr "ModelElementDuplicateTeleportOrigin"
 
 msgid "Surface.Text.DefaultText"
 msgstr "Description text"

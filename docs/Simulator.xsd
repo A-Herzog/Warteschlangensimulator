@@ -564,6 +564,7 @@
   <xs:element ref="ModellElementTransportParkplatz"/>
   <xs:element ref="ModellElementWegpunkt"/>
   <xs:element ref="ModellElementTeleportStart"/>
+  <xs:element ref="ModellElementDuplizierenTeleportStart"/>
   <xs:element ref="ModellElementTeleportZiel"/>
   <xs:element ref="ModellElementFliessband"/>
   <xs:element ref="ModellElementAnalogerWert"/>
@@ -1450,6 +1451,12 @@
 </xs:extension></xs:complexContent></xs:complexType></xs:element>
 
 <xs:element name="ModellElementTeleportZiel"><xs:complexType><xs:complexContent><xs:extension base="ModellElementVerbundenBasis">
+</xs:extension></xs:complexContent></xs:complexType></xs:element>
+
+<xs:element name="ModellElementDuplizierenTeleportStart"><xs:complexType><xs:complexContent><xs:extension base="ModellElementVerbundenBasis">
+  <xs:sequence minOccurs="0" maxOccurs="1"><xs:choice>
+	<xs:element name="ModellElementTeleportStartZuZiel" type="xs:string"/>
+  </xs:choice></xs:sequence>
 </xs:extension></xs:complexContent></xs:complexType></xs:element>
 
 <xs:element name="ModellElementFliessband"><xs:complexType><xs:complexContent><xs:extension base="ModellElementVerbundenBasis">
@@ -2836,6 +2843,7 @@
   <xs:element ref="ModelElementTransportParkingLot"/>
   <xs:element ref="ModelElementWayPoint"/>
   <xs:element ref="ModelElementTeleportOrigin"/>
+  <xs:element ref="ModelElementDuplicateTeleportOrigin"/>
   <xs:element ref="ModelElementTeleportDestination"/>
   <xs:element ref="ModelElementConveyor"/>
   <xs:element ref="ModelElementAnalogValue"/>
@@ -3721,6 +3729,12 @@
 </xs:extension></xs:complexContent></xs:complexType></xs:element>
 
 <xs:element name="ModelElementTeleportDestination"><xs:complexType><xs:complexContent><xs:extension base="ModelElementConnectedBase">
+</xs:extension></xs:complexContent></xs:complexType></xs:element>
+
+<xs:element name="ModelElementDuplicateTeleportOrigin"><xs:complexType><xs:complexContent><xs:extension base="ModelElementConnectedBase">
+  <xs:sequence minOccurs="0" maxOccurs="1"><xs:choice>
+	<xs:element name="ModelElementTeleportOriginToTarget" type="xs:string"/>
+  </xs:choice></xs:sequence>
 </xs:extension></xs:complexContent></xs:complexType></xs:element>
 
 <xs:element name="ModelElementConveyor"><xs:complexType><xs:complexContent><xs:extension base="ModelElementConnectedBase">

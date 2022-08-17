@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Modell-Element: Duplizieren und Teleportieren</title>
+<link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body>
+
+<h1>Modell-Element: Duplizieren und Teleportieren</h1>
+
+<p>
+Teleport-Transporte ermöglichen es, einen Kunden ohne Zeitverzug
+von einem Teleport-Transport Startpunkt zu einem 
+<a href="ModelElementTeleportDestination.html">Teleport-Transport Zielpunkt</a>
+zu bewegen. Im Gegensatz zu normalen Transporten geht es hierbei nicht darum,
+einen tatsächlichen Transport eines Kunden (der eine gewisse Zeit dauern und
+Ressourcen benötigen kann) zu modellieren, sondern darum dass Modell übersichtlich
+zu halten. Betritt ein Kunde einen Teleport-Transport Startpunkt, so wird er
+augenblicklich zu dem dort angegeben Teleport-Transport Zielpunkt befördert.
+Start- und Zielpunkt können sich an verschiedenen Stellen im Modell befinden;
+im Gegensatz zu einem Transport über eine Kante wird keine Verbindunglinie
+zwischen Start und Ziel eingezeichnet.
+</p>
+
+<p>
+Eine Duplizieren und Teleportieren Station kombiniert die Funktionalität
+einer <a href="ModelElementDuplicate.html">Duplizieren</a>-Station mit einer
+<a href="ModelElementTeleportSource.html">Teleport-Transport Startpunkt</a>-Station:
+Zunächst wird das Kundenobjekt in mehrere gleichartige Objekte (mit stets denselben Daten)
+aufgeteilt. Dann werden die Kundenobjekte zu allen in der Station konfigurierten Zielen
+gleichzeitig geschickt.
+</p>
+
+<h2>Einstellungen</h2>
+
+<p>
+Der Name des Duplizieren und Teleportieren Station besitzt keine weitere Bedeutung
+für die Simulation. Allerdings müssen Name der
+<a href="ModelElementTeleportDestination.html">Teleport-Transport Zielpunkt</a>
+Elements angegeben werden, zu denen die eintreffenden Kunden befördert werden sollen.
+Die Liste der Namen der Ziele gibt dabei auch gleichzeitig an, wie viele Kopien
+des Kundenobjektes erzeugt werden sollen. Es können einzelne Ziele auch mehrfach
+ausgewählt werden; in diesem Fall werden mehrere Kundenobjekte zu dem jeweiligen Ziel geschickt.  
+</p>
+
+</body>
+</html>

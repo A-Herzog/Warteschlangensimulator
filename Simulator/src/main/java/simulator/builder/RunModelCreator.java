@@ -108,6 +108,7 @@ import simulator.elements.RunElementTankSensor;
 import simulator.elements.RunElementTankValveSetup;
 import simulator.elements.RunElementTeleportDestination;
 import simulator.elements.RunElementTeleportSource;
+import simulator.elements.RunElementTeleportSourceMulti;
 import simulator.elements.RunElementThroughput;
 import simulator.elements.RunElementTransportDestination;
 import simulator.elements.RunElementTransportParking;
@@ -226,6 +227,7 @@ public final class RunModelCreator {
 		templates.add(new RunElementTransportParking(null));
 		templates.add(new RunElementTransportTransporterSource(null));
 		templates.add(new RunElementTeleportSource(null));
+		templates.add(new RunElementTeleportSourceMulti(null));
 		templates.add(new RunElementTeleportDestination(null));
 		templates.add(new RunElementConveyor(null));
 		templates.add(new RunElementLogicIf(null));

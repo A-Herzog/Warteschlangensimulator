@@ -69,6 +69,9 @@ public class Shapes {
 		/** Rechteck */
 		SHAPE_RECTANGLE("rectangle"),
 
+		/** Rechteck mit auseinanderlaufenden Linien innen */
+		SHAPE_RECTANGLE_LINES_INSIDE("rectangleLinesInside"),
+
 		/** Abgerundetes Rechteck */
 		SHAPE_ROUNDED_RECTANGLE("roundedRectangle"),
 
@@ -281,6 +284,7 @@ public class Shapes {
 	private void fill(final Graphics graphics, final Rectangle rect, final int offsetX, final int offsetY, final boolean isShadow, final boolean flipped) {
 		switch (shapeType) {
 		case SHAPE_RECTANGLE:
+		case SHAPE_RECTANGLE_LINES_INSIDE:
 		case SHAPE_RECTANGLE_DOUBLE_LINE:
 		case SHAPE_RECTANGLE_123:
 		case SHAPE_RECTANGLE_ABC:
@@ -434,6 +438,35 @@ public class Shapes {
 	}
 
 	/**
+	 * Zeichnet auseinanderlaufende Linien in ein Rechteck.
+	 * Es wird dabei die aktuelle Farbe verwendet.
+	 * @param graphics	Grafik-Ausgabeobjekt
+	 * @param objectRect	Rechteck
+	 * @param borderWidth	Rahmenbreite
+	 * @param flipped	Gespiegelt zeichnen?
+	 */
+	private void drawDuplicateLines(final Graphics graphics, final Rectangle objectRect, final int borderWidth, final boolean flipped) {
+		final int x1;
+		final int x2;
+		if (flipped) {
+			x2=objectRect.x;
+			x1=x2+objectRect.width;
+		} else {
+			x1=objectRect.x;
+			x2=x1+objectRect.width;
+		}
+
+		final int y1=objectRect.y;
+		final int y2=objectRect.y+objectRect.height/2;
+		final int y3=objectRect.y+objectRect.height;
+
+		for (int i=0;i<borderWidth;i++) graphics.drawLine(x1,y2+i,x2,y1+i);
+		for (int i=-borderWidth/2;i<=borderWidth/2;i++) graphics.drawLine(x1,y2+i,x2,y2+i);
+		for (int i=0;i<borderWidth;i++) graphics.drawLine(x1,y2-i,x2,y3-i);
+
+	}
+
+	/**
 	 * Farbe für den oberen Bereich des Rahmens in {@link #drawInlinedFrameRectangle(Graphics, Rectangle, int)}
 	 * @see #drawInlinedFrameRectangle(Graphics, Rectangle, int)
 	 */
@@ -557,6 +590,10 @@ public class Shapes {
 		switch (drawShapeType) {
 		case SHAPE_RECTANGLE:
 			drawFrameRectangle(graphics,objectRect,borderWidth);
+			break;
+		case SHAPE_RECTANGLE_LINES_INSIDE:
+			drawFrameRectangle(graphics,objectRect,borderWidth);
+			drawDuplicateLines(graphics,objectRect,borderWidth,flipped);
 			break;
 		case SHAPE_ROUNDED_RECTANGLE:
 			drawFrameRoundedRectangle(graphics,objectRect,borderWidth);
@@ -1148,6 +1185,7 @@ public class Shapes {
 			/* Nichts zeichnen */
 			break;
 		case SHAPE_RECTANGLE:
+		case SHAPE_RECTANGLE_LINES_INSIDE:
 			if (setup.useShadows) outputBuilder.addJSUserFunction("shadowRectangleInt",builder->getHTMLShadowRectangle(builder));
 			outputBuilder.addJSUserFunction("rectangleInt",builder->getHTMLRectangle());
 			outputBuilder.addJSUserFunction("rectanglePartialInt",builder->getHTMLRectanglePartial());

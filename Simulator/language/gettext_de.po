@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-08-13 19:04+0200\n"
+"POT-Creation-Date: 2022-08-16 08:18+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -11644,6 +11644,9 @@ msgstr "Maximaler Durchfluss für Tank id=%d, Ventil %d"
 msgid "ModelDescription.TeleportSource.Destination"
 msgstr "Teleportziel"
 
+msgid "ModelDescription.TeleportSourceMulti.Destination"
+msgstr "Teleportziel"
+
 msgid "ModelDescription.TimeBase"
 msgstr "Zeitbasis"
 
@@ -17965,6 +17968,9 @@ msgstr "Teleport-Transport Zielpunkt"
 msgid "Simulation.Element.TeleportSource.Name"
 msgstr "Teleport-Transport Startpunkt"
 
+msgid "Simulation.Element.TeleportSourceMulti.Name"
+msgstr "Duplizieren & Teleportieren"
+
 msgid "Simulation.Element.Throughput.Name"
 msgstr "Durchsatz"
 
@@ -18795,6 +18801,12 @@ msgstr "Teleport-Transport Zielpunkt"
 
 msgid "Simulation.Log.TeleportDestination.Info"
 msgstr "Kunde: %s, Station: %s"
+
+msgid "Simulation.Log.TeleportMulti"
+msgstr "Duplizieren und Teleportieren"
+
+msgid "Simulation.Log.TeleportMulti.Info"
+msgstr "Kunde: %s, Station: %s, Teleportationsziel: %s"
 
 msgid "Simulation.Log.Throughput"
 msgstr "Durchsatz"
@@ -31355,6 +31367,33 @@ msgstr "ModellElementTeleportStartZuZiel"
 
 msgid "Surface.TeleportSource.XML.Root"
 msgstr "ModellElementTeleportStart"
+
+msgid "Surface.TeleportSourceMulti.Dialog.DestinationCount"
+msgstr "Anzahl an Teleport-Ausgängen"
+
+msgid "Surface.TeleportSourceMulti.Dialog.DestinationNr"
+msgstr "Ziel %d"
+
+msgid "Surface.TeleportSourceMulti.Dialog.Target"
+msgstr "Teleportationsziel"
+
+msgid "Surface.TeleportSourceMulti.Dialog.Title"
+msgstr "Duplizieren und Teleportieren bearbeiten"
+
+msgid "Surface.TeleportSourceMulti.Infotext"
+msgstr "Dupliziert eintreffende Kunde und transportiert diese ohne Verzug zu den angegeben Teleport-Zielpunkten."
+
+msgid "Surface.TeleportSourceMulti.Name"
+msgstr "Duplizieren und Teleportieren"
+
+msgid "Surface.TeleportSourceMulti.Tooltip"
+msgstr "Startpunkt für einen Teleporttransport, der einen Kunden aufteilt und ohne Zeitbedarf zu mehereren Teleportzielstationen befördert."
+
+msgid "Surface.TeleportSourceMulti.XML.Destination"
+msgstr "ModellElementTeleportStartZuZiel"
+
+msgid "Surface.TeleportSourceMulti.XML.Root"
+msgstr "ModellElementDuplizierenTeleportStart"
 
 msgid "Surface.Text.DefaultText"
 msgstr "Beschreibungstext"
