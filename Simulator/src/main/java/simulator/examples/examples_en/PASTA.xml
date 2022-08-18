@@ -15,7 +15,7 @@ Erlang C calculator comparison results:
 Work load a=0,8
 Utilization (rho)=79.98%
 Utilization (rho)=79.98% (after subtracting waiting cancelations)
-Average queue lenght E[NQ]=3.19
+Average queue length E[NQ]=3.19
 Average number of clients in the system E[N]=3.99
 Average waiting time E[W]=319.5 (in seconds)
 Average residence time E[V]=399.48 (in seconds)

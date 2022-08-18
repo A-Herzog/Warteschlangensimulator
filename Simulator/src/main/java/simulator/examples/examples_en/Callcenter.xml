@@ -320,7 +320,7 @@
       <ModelElementTextLine>E[I_A]=1 clients/minute</ModelElementTextLine>
       <ModelElementTextLine>E[I_B]=0.75 clients/minute</ModelElementTextLine>
       <ModelElementTextLine>E[I_C]=2 clients/minute</ModelElementTextLine>
-      <ModelElementTextLine>(Interarrival times are exp distributed)</ModelElementTextLine>
+      <ModelElementTextLine>(Inter-arrival times are exp distributed)</ModelElementTextLine>
       <ModelElementFontSize>14</ModelElementFontSize>
       <ModelElementColor>0,0,0</ModelElementColor>
     </ModelElementText>
@@ -464,7 +464,7 @@
       <ModelElementSize h="76" w="303" x="650" y="800"/>
       <ModelElementTextLine>Possible extension of the model:</ModelElementTextLine>
       <ModelElementTextLine>Costs</ModelElementTextLine>
-      <ModelElementTextLine>Individuel shift plans for the agents</ModelElementTextLine>
+      <ModelElementTextLine>Individual shift plans for the agents</ModelElementTextLine>
       <ModelElementTextLine>Multi skill agents which work on multiple stations</ModelElementTextLine>
       <ModelElementFontSize italic="1">14</ModelElementFontSize>
       <ModelElementColor>180,0,180</ModelElementColor>

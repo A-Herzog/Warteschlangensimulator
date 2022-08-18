@@ -2,7 +2,7 @@
 <!DOCTYPE Model SYSTEM "https://a-herzog.github.io/Warteschlangensimulator/Simulator.dtd">
 <Model xmlns="https://a-herzog.github.io" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://a-herzog.github.io https://a-herzog.github.io/Warteschlangensimulator/Simulator.xsd">
   <ModelVersion>1.5.0</ModelVersion>
-  <ModelName>Transporting workpieces with transporters</ModelName>
+  <ModelName>Transporting work pieces with transporters</ModelName>
   <ModelDescription/>
   <ModelAuthor>Alexander Herzog</ModelAuthor>
   <ModelClients Active="1">10000000</ModelClients>
@@ -378,7 +378,7 @@
       <ModelElementSize h="57" w="321" x="700" y="615"/>
       <ModelElementTextLine>In one segment the driving time is 5 seconds. From</ModelElementTextLine>
       <ModelElementTextLine>one segment to the next the time is 20 seconds.</ModelElementTextLine>
-      <ModelElementTextLine>To the second next 40 second and so on.</ModelElementTextLine>
+      <ModelElementTextLine>To the second next 40 seconds and so on.</ModelElementTextLine>
       <ModelElementFontSize italic="1">14</ModelElementFontSize>
       <ModelElementColor>0,0,0</ModelElementColor>
     </ModelElementText>
@@ -430,7 +430,7 @@
     </ModelElementAnimationText>
     <ModelElementText id="155">
       <ModelElementSize h="19" w="284" x="700" y="730"/>
-      <ModelElementTextLine>Workpieces waiting for transport (in average)</ModelElementTextLine>
+      <ModelElementTextLine>Work pieces waiting for transport (in average)</ModelElementTextLine>
       <ModelElementFontSize>14</ModelElementFontSize>
       <ModelElementColor>0,0,255</ModelElementColor>
     </ModelElementText>

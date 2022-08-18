@@ -57,7 +57,7 @@ later start another call attempt.</ModelDescription>
     </ModelElementDelay>
     <ModelElementText id="18">
       <ModelElementSize h="23" w="514" x="50" y="50"/>
-      <ModelElementTextLine>Queue model with waiting cancelations and repeatersholern</ModelElementTextLine>
+      <ModelElementTextLine>Queue model with waiting cancelations and repeaters</ModelElementTextLine>
       <ModelElementFontSize bold="1">18</ModelElementFontSize>
       <ModelElementColor>0,0,0</ModelElementColor>
     </ModelElementText>

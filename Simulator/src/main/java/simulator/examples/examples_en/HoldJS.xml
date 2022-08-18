@@ -140,7 +140,7 @@ for (var i=0;i&lt;count;i++) {
     </ModelElementText>
     <ModelElementText id="17">
       <ModelElementSize h="16" w="314" x="400" y="650"/>
-      <ModelElementTextLine>(bold lines=in the system, thin linies=at the process station)</ModelElementTextLine>
+      <ModelElementTextLine>(bold lines=in the system, thin lines=at the process station)</ModelElementTextLine>
       <ModelElementFontSize>12</ModelElementFontSize>
       <ModelElementColor>0,0,0</ModelElementColor>
     </ModelElementText>

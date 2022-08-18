@@ -145,7 +145,7 @@
     </ModelElementRectangle>
     <ModelElementText id="33">
       <ModelElementSize h="48" w="243" x="55" y="260"/>
-      <ModelElementTextLine>Generatin 3 operators at</ModelElementTextLine>
+      <ModelElementTextLine>Generating 3 operators at</ModelElementTextLine>
       <ModelElementTextLine>the beginning of the simulation</ModelElementTextLine>
       <ModelElementFontSize>18</ModelElementFontSize>
       <ModelElementColor>0,0,255</ModelElementColor>
@@ -153,7 +153,7 @@
     <ModelElementText id="34">
       <ModelElementSize h="38" w="101" x="600" y="410"/>
       <ModelElementTextLine>Orders or</ModelElementTextLine>
-      <ModelElementTextLine>operators wating</ModelElementTextLine>
+      <ModelElementTextLine>operators waiting</ModelElementTextLine>
       <ModelElementFontSize>14</ModelElementFontSize>
       <ModelElementColor>0,0,0</ModelElementColor>
     </ModelElementText>
@@ -266,7 +266,7 @@
     <ModelElementText id="50">
       <ModelElementSize h="56" w="176" x="600" y="700"/>
       <ModelElementTextLine>Products leaving the system.</ModelElementTextLine>
-      <ModelElementTextLine>Operators are reouted back</ModelElementTextLine>
+      <ModelElementTextLine>Operators are routed back</ModelElementTextLine>
       <ModelElementTextLine>to the mach element.</ModelElementTextLine>
       <ModelElementFontSize>14</ModelElementFontSize>
       <ModelElementColor>0,0,0</ModelElementColor>

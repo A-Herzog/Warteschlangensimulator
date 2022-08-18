@@ -420,7 +420,7 @@ Output.print(ausgang);</ModellElementVerzweigenSkript>
       <ModellElementTextzeile>Rüstzeiten beim Kundentypwechselt auftreten, zu verdeutlichen.</ModellElementTextzeile>
       <ModellElementTextzeile>Beide Modelleigenschaften lassen sich auch direkt innerhalb einer</ModellElementTextzeile>
       <ModellElementTextzeile>Bedienstation konfigurieren, so dass die zahlreichen hier</ModellElementTextzeile>
-      <ModellElementTextzeile>dargestellten Stationen nicht notwendig sind, um dieselb die</ModellElementTextzeile>
+      <ModellElementTextzeile>dargestellten Stationen nicht notwendig sind, um die</ModellElementTextzeile>
       <ModellElementTextzeile>entsprechenden Effekte in der Simulation zu erzielen.</ModellElementTextzeile>
       <ModellElementSchriftgrosse>14</ModellElementSchriftgrosse>
       <ModellElementFarbe>105,105,105</ModellElementFarbe>

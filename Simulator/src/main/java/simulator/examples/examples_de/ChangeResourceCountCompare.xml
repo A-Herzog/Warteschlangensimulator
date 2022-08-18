@@ -114,7 +114,7 @@ Simulation.setResourceCount(1,count);</ModellElementSkript>
       <ModellElementGroesse h="56" w="266" x="800" y="225"/>
       <ModellElementTextzeile>(Wird ein Bediener aus der Station abgezogen, so führt</ModellElementTextzeile>
       <ModellElementTextzeile>er die aktuelle Bedienung dennoch zu Ende, so dass die</ModellElementTextzeile>
-      <ModellElementTextzeile>akuelle Anzahl an Bedienern niedriger sein kann, als</ModellElementTextzeile>
+      <ModellElementTextzeile>aktuelle Anzahl an Bedienern niedriger sein kann, als</ModellElementTextzeile>
       <ModellElementTextzeile>die Anzahl an aktuell arbeitenden Bedienern.)</ModellElementTextzeile>
       <ModellElementSchriftgrosse>10</ModellElementSchriftgrosse>
       <ModellElementFarbe>0,0,0</ModellElementFarbe>

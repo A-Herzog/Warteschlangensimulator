@@ -3,7 +3,7 @@
 <Model xmlns="https://a-herzog.github.io" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://a-herzog.github.io https://a-herzog.github.io/Warteschlangensimulator/Simulator.xsd">
   <ModelVersion>3.3.0</ModelVersion>
   <ModelName>Law of large numbers</ModelName>
-  <ModelDescription>After a long period of time, the shares of all 4 counters shoud converge
+  <ModelDescription>After a long period of time, the shares of all 4 counters should converge
 to 25% each.</ModelDescription>
   <ModelAuthor>Alexander Herzog</ModelAuthor>
   <ModelClients Active="1">5000000</ModelClients>

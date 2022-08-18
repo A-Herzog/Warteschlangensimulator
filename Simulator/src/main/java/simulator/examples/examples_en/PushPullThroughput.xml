@@ -92,7 +92,7 @@
     </ModelElementAnimationText>
     <ModelElementText id="14">
       <ModelElementSize h="33" w="145" x="300" y="160"/>
-      <ModelElementTextLine>Ensurce there are never more than</ModelElementTextLine>
+      <ModelElementTextLine>Ensure there are never more than</ModelElementTextLine>
       <ModelElementTextLine>the selected number of clients in</ModelElementTextLine>
       <ModelElementTextLine>the buffer at station 2.</ModelElementTextLine>
       <ModelElementFontSize>9</ModelElementFontSize>

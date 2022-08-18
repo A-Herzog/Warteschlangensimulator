@@ -204,7 +204,7 @@
     </ModelElementAnimationText>
     <ModelElementText id="33">
       <ModelElementSize h="19" w="227" x="100" y="580"/>
-      <ModelElementTextLine>Number of clients at the stationen</ModelElementTextLine>
+      <ModelElementTextLine>Number of clients at the stations</ModelElementTextLine>
       <ModelElementFontSize bold="1">14</ModelElementFontSize>
       <ModelElementColor>0,0,0</ModelElementColor>
     </ModelElementText>
@@ -222,7 +222,7 @@
     </ModelElementText>
     <ModelElementText id="36">
       <ModelElementSize h="38" w="174" x="1150" y="565"/>
-      <ModelElementTextLine>Percentage of workpieces</ModelElementTextLine>
+      <ModelElementTextLine>Percentage of work pieces</ModelElementTextLine>
       <ModelElementTextLine>requiring rework</ModelElementTextLine>
       <ModelElementFontSize bold="1">14</ModelElementFontSize>
       <ModelElementColor>0,0,0</ModelElementColor>

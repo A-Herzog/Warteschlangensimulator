@@ -127,7 +127,7 @@
       <ModelElementSize h="42" w="196" x="250" y="150"/>
       <ModelElementTextLine>Only if there are no more then maxA</ModelElementTextLine>
       <ModelElementTextLine>clients in station A and the output</ModelElementTextLine>
-      <ModelElementTextLine>buffer, clients are forewarded to station A.</ModelElementTextLine>
+      <ModelElementTextLine>buffer, clients are forwarded to station A.</ModelElementTextLine>
       <ModelElementFontSize>10</ModelElementFontSize>
       <ModelElementColor>0,0,0</ModelElementColor>
     </ModelElementText>
@@ -187,7 +187,7 @@
     </ModelElementAnimationLineDiagram>
     <ModelElementText id="30">
       <ModelElementSize h="19" w="338" x="600" y="955"/>
-      <ModelElementTextLine>Thin line = maxmum values, thick line = current values</ModelElementTextLine>
+      <ModelElementTextLine>Thin line = maximum values, thick line = current values</ModelElementTextLine>
       <ModelElementFontSize italic="1">14</ModelElementFontSize>
       <ModelElementColor>0,0,0</ModelElementColor>
     </ModelElementText>
