@@ -1822,6 +1822,9 @@ public enum Images {
 	/** Symbol "Modelleditor - Gruppe 'Animation' - Element 'Datenaufzeichnung anzeigen'" */
 	MODELEDITOR_ELEMENT_ANIMATION_RECORD("chart_curve.png"),
 
+	/** Symbol "Modelleditor - Gruppe 'Animation' - Element 'Alarm'" */
+	MODELEDITOR_ELEMENT_ANIMATION_ALARM("error.png"),
+
 	/* Modelleditor: Animation - Interaktiv */
 
 	/** Symbol "Modelleditor - Gruppe 'Animation - Interaktiv' - Element 'Schaltfläche'" */

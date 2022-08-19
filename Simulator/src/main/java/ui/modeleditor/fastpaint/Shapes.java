@@ -75,6 +75,9 @@ public class Shapes {
 		/** Abgerundetes Rechteck */
 		SHAPE_ROUNDED_RECTANGLE("roundedRectangle"),
 
+		/** Abgerundetes Rechteck mit Lautsprechersymbol */
+		SHAPE_ROUNDED_RECTANGLE_SPEAKER("roundedRectangleSpeaker"),
+
 		/** Pfeil nach rechts */
 		SHAPE_ARROW_RIGHT("arrowRight","arrowLeft"),
 
@@ -323,6 +326,7 @@ public class Shapes {
 			}
 			break;
 		case SHAPE_ROUNDED_RECTANGLE:
+		case SHAPE_ROUNDED_RECTANGLE_SPEAKER:
 		case SHAPE_ROUNDED_RECTANGLE_123:
 		case SHAPE_ROUNDED_RECTANGLE_ABC:
 		case SHAPE_ROUNDED_RECTANGLE_PLUSMINUS:
@@ -536,6 +540,28 @@ public class Shapes {
 	}
 
 	/**
+	 * Zeichnet ein kleines Lautsprecher-Symbol in die linke obere Ecke eines bestehenden Rechtecks
+	 * @param graphics	Grafik-Ausgabeobjekt
+	 * @param objectRect	Rechteck
+	 * @param zoom	Zoomfaktor
+	 * @param flipped	Gespiegelt zeichnen? (Also in die rechte obere Ecke.)
+	 */
+	private void drawSpeakerSymbolUpperLeftCorner(final Graphics graphics, final Rectangle objectRect, final double zoom, final boolean flipped) {
+		final int h=objectRect.height;
+
+		for (int i=0;i<Math.max(1,Math.round(zoom));i++) {
+			final int x;
+			if (flipped) x=objectRect.x+objectRect.width-2*h/5+i; else x=objectRect.x+h/5+i;
+			final int y=objectRect.y+h/5+i;
+
+			graphics.drawRect(x,y,h/20,h/10);
+			graphics.drawLine(x+h/20,y,x+h/10,y-h/20);
+			graphics.drawLine(x+h/20,y+h/10,x+h/10,y+3*h/20);
+			graphics.drawLine(x+h/10,y-h/20,x+h/10,y+3*h/20);
+		}
+	}
+
+	/**
 	 * Zeichnet einen Text in der linken oberen Ecke eines bestehenden Rechtecks ein
 	 * @param graphics	Grafik-Ausgabeobjekt
 	 * @param objectRect	Rechteck
@@ -597,6 +623,10 @@ public class Shapes {
 			break;
 		case SHAPE_ROUNDED_RECTANGLE:
 			drawFrameRoundedRectangle(graphics,objectRect,borderWidth);
+			break;
+		case SHAPE_ROUNDED_RECTANGLE_SPEAKER:
+			drawFrameRoundedRectangle(graphics,objectRect,borderWidth);
+			drawSpeakerSymbolUpperLeftCorner(graphics,objectRect,zoom,flipped);
 			break;
 		case SHAPE_RECTANGLE_DOUBLE_LINE:
 			drawFrameRectangle(graphics,objectRect,borderWidth);
@@ -1249,6 +1279,7 @@ public class Shapes {
 			sb.append("  drawTextUpperLeftCorner(rect,\"+/-\",0.05);\n");
 			break;
 		case SHAPE_ROUNDED_RECTANGLE:
+		case SHAPE_ROUNDED_RECTANGLE_SPEAKER:
 			if (setup.useShadows) outputBuilder.addJSUserFunction("shadowRoundedRectangleInt",builder->getHTMLShadowRoundedRectangle(builder));
 			outputBuilder.addJSUserFunction("roundedRectangleInt",builder->getHTMLRoundedRectangle());
 			if (setup.useShadows) sb.append("  drawShadowRoundedRectangleInt(rect,"+(SHADOW_WIDTH*SHADOW_DIRECTION_X)+","+(SHADOW_WIDTH*SHADOW_DIRECTION_Y)+",\""+HTMLOutputBuilder.colorToHTML(SHADOW_COLOR)+"\");\n");

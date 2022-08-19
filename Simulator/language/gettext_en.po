@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-08-17 10:03+0200\n"
+"POT-Creation-Date: 2022-08-18 00:11+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -10832,6 +10832,12 @@ msgstr "Change rate (per second)"
 msgid "ModelDescription.AnalogValue.UpdateStepWide"
 msgstr "Update notify (seconds distance)"
 
+msgid "ModelDescription.AnimationAlarm"
+msgstr "Alarm"
+
+msgid "ModelDescription.AnimationAlarm.Sound"
+msgstr "Sound"
+
 msgid "ModelDescription.Arrival"
 msgstr "Arrivals"
 
@@ -17717,6 +17723,9 @@ msgstr "Change analog value"
 msgid "Simulation.Element.AnalogValue.Name"
 msgstr "Analog value"
 
+msgid "Simulation.Element.AnimationAlarm.Name"
+msgstr "Alarm"
+
 msgid "Simulation.Element.AnimationConnect.Name"
 msgstr "Animation mode"
 
@@ -23552,6 +23561,27 @@ msgstr "Analog changing value"
 
 msgid "Surface.AnalogValue.XML.Root"
 msgstr "ModelElementAnalogValue"
+
+msgid "Surface.AnimationAlarm.Dialog.Title"
+msgstr "Edit alarm"
+
+msgid "Surface.AnimationAlarm.Infotext"
+msgstr "A sound is played when a client passes the station in animation mode."
+
+msgid "Surface.AnimationAlarm.Name"
+msgstr "Alarm"
+
+msgid "Surface.AnimationAlarm.Tooltip"
+msgstr "Plays a sound when a client passes the station."
+
+msgid "Surface.AnimationAlarm.XML.Root"
+msgstr "ModelElementAnimationAlarm"
+
+msgid "Surface.AnimationAlarm.XML.Sound"
+msgstr "ModelElementAnimationAlarmSound"
+
+msgid "Surface.AnimationAlarm.XML.SoundMaxSeconds"
+msgstr "SoundMaxSeconds"
 
 msgid "Surface.AnimationBar.Dialog.Bar"
 msgstr "Bar"

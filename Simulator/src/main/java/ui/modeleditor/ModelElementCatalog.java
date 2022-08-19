@@ -353,6 +353,7 @@ public final class ModelElementCatalog {
 				addElement(new ModelElementAnimationImage(null,null),Language.tr("Surface.AnimationImage.Name"),GROUP_ANIMATION);
 				addElement(new ModelElementAnimationRecord(null,null),Language.tr("Surface.AnimationRecord.Name"),GROUP_ANIMATION);
 				addElement(new ModelElementAnimationPointerMeasuring(null,null),Language.tr("Surface.AnimationPointerMeasuring.Name"),GROUP_ANIMATION);
+				addElement(new ModelElementAnimationAlarm(null,null),Language.tr("Surface.AnimationAlarm.Name"),GROUP_ANIMATION);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}

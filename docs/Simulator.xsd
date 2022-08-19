@@ -590,6 +590,7 @@
   <xs:element ref="ModellElementAnimationUhr"/>
   <xs:element ref="ModellElementAnimationBild"/>
   <xs:element ref="ModellElementAnimationAufzeichnung"/>
+  <xs:element ref="ModellElementAnimationAlarm"/>
   <xs:element ref="ModellElementUntermodell"/>
   <xs:element ref="ModellElementUntermodellEingang"/>
   <xs:element ref="ModellElementUntermodellAusgang"/>
@@ -1810,6 +1811,17 @@
   </xs:choice></xs:sequence>
 </xs:extension></xs:complexContent></xs:complexType></xs:element>
 
+<xs:element name="ModellElementAnimationAlarm"><xs:complexType><xs:complexContent><xs:extension base="ModellElementVerbundenBasis">
+  <xs:sequence minOccurs="0" maxOccurs="unbounded"><xs:choice>
+    <xs:element ref="ModellElementAnimationAlarmSound"/>
+  </xs:choice></xs:sequence>
+</xs:extension></xs:complexContent></xs:complexType></xs:element>
+<xs:element name="ModellElementAnimationAlarmSound"><xs:complexType><xs:simpleContent>
+  <xs:extension base="xs:string">
+    <xs:attribute name="SoundMaxSekunden" type="xs:integer"/>
+  </xs:extension>
+</xs:simpleContent></xs:complexType></xs:element>
+
 <xs:element name="ModellElementUntermodell"><xs:complexType><xs:complexContent><xs:extension base="ModellElementVerbundenBasis">
   <xs:sequence minOccurs="0" maxOccurs="unbounded"><xs:choice>
     <xs:element ref="ModellElementUntermodellVerbindungen"/>
@@ -2870,6 +2882,7 @@
   <xs:element ref="ModelElementAnimationClock"/>
   <xs:element ref="ModelElementAnimationImage"/>
   <xs:element ref="ModelElementAnimationRecord"/>
+  <xs:element ref="ModelElementAnimationAlarm"/>
   <xs:element ref="ModelElementSubModel"/>
   <xs:element ref="ModelElementSubModelInput"/>
   <xs:element ref="ModelElementSubModelOutput"/>
@@ -4088,6 +4101,17 @@
 	<xs:element ref="ModelElementAxisLabels"/>
   </xs:choice></xs:sequence>
 </xs:extension></xs:complexContent></xs:complexType></xs:element>
+
+<xs:element name="ModelElementAnimationAlarm"><xs:complexType><xs:complexContent><xs:extension base="ModelElementConnectedBase">
+  <xs:sequence minOccurs="0" maxOccurs="unbounded"><xs:choice>
+    <xs:element ref="ModelElementAnimationAlarmSound"/>
+  </xs:choice></xs:sequence>
+</xs:extension></xs:complexContent></xs:complexType></xs:element>
+<xs:element name="ModelElementAnimationAlarmSound"><xs:complexType><xs:simpleContent>
+  <xs:extension base="xs:string">
+    <xs:attribute name="SoundMaxSeconds" type="xs:integer"/>
+  </xs:extension>
+</xs:simpleContent></xs:complexType></xs:element>
 
 <xs:element name="ModelElementSubModel"><xs:complexType><xs:complexContent><xs:extension base="ModelElementConnectedBase">
   <xs:sequence minOccurs="0" maxOccurs="unbounded"><xs:choice>

@@ -26,6 +26,7 @@ import simulator.editmodel.EditModel;
 import simulator.elements.RunElementAction;
 import simulator.elements.RunElementAnalogAssign;
 import simulator.elements.RunElementAnalogValue;
+import simulator.elements.RunElementAnimationAlarm;
 import simulator.elements.RunElementAnimationConnect;
 import simulator.elements.RunElementAssign;
 import simulator.elements.RunElementAssignSequence;
@@ -250,6 +251,7 @@ public final class RunModelCreator {
 		templates.add(new RunElementInteractiveSlider(null));
 		templates.add(new RunElementInteractiveCheckbox(null));
 		templates.add(new RunElementInteractiveRadiobutton(null));
+		templates.add(new RunElementAnimationAlarm(null));
 	}
 
 	/**
