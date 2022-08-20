@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-08-18 00:11+0200\n"
+"POT-Creation-Date: 2022-08-20 00:50+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -6265,6 +6265,12 @@ msgstr "Runden"
 
 msgid "ExpressionBuilder.Rounding.round.Info"
 msgstr "<p>Rundet den als Parameter übergebenen Wert zur nächsten ganzen Zahl auf oder ab.</p><p>Beispiel: <tt>round(1,4)</tt> liefert 1 und <tt>round(1,5)</tt> liefert 2.</p>"
+
+msgid "ExpressionBuilder.Rounding.trunc"
+msgstr "Dezimalstellen abschneiden"
+
+msgid "ExpressionBuilder.Rounding.trunc.Info"
+msgstr "<p>Schneidet die Nachkommastellen der als Parameter übergebenen Zahl ab.</p><p>Beispiele: <tt>trunc(1,4)</tt> und <tt>trunc(1,5)</tt> liefern 1 und <tt>trunc(-1,5)</tt> und <tt>trunc(-1,4)</tt> liefern -1.</p>"
 
 msgid "ExpressionBuilder.SimulationCharacteristics"
 msgstr "Simulationskenngrößen"

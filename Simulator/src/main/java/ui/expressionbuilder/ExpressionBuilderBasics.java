@@ -119,6 +119,7 @@ public class ExpressionBuilderBasics {
 		addTreeNode(group,filterUpper,Language.tr("ExpressionBuilder.Rounding.round")+" (round)","round("+value+")",Language.tr("ExpressionBuilder.Rounding.round.Info"));
 		addTreeNode(group,filterUpper,Language.tr("ExpressionBuilder.Rounding.floor")+" (floor)","floor("+value+")",Language.tr("ExpressionBuilder.Rounding.floor.Info"));
 		addTreeNode(group,filterUpper,Language.tr("ExpressionBuilder.Rounding.ceil")+" (ceil)","ceil("+value+")",Language.tr("ExpressionBuilder.Rounding.ceil.Info"));
+		addTreeNode(group,filterUpper,Language.tr("ExpressionBuilder.Rounding.trunc")+" (trunc)","trunc("+value+")",Language.tr("ExpressionBuilder.Rounding.trunc.Info"));
 		if (group.getChildCount()>0) root.add(group);
 
 		/* Mathematische Funktionen */

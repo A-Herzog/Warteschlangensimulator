@@ -89,6 +89,7 @@ import parser.symbols.CalcSymbolPreOperatorStdDev;
 import parser.symbols.CalcSymbolPreOperatorSum;
 import parser.symbols.CalcSymbolPreOperatorTan;
 import parser.symbols.CalcSymbolPreOperatorTanh;
+import parser.symbols.CalcSymbolPreOperatorTruncate;
 import parser.symbols.CalcSymbolPreOperatorVariance;
 import parser.symbols.CalcSymbolPreOperatorZeta;
 import parser.symbols.distributions.CalcSymbolDiscreteDistributionBinomial;
@@ -356,6 +357,7 @@ public class CalcSymbolList {
 			addSymbol(new CalcSymbolPreOperatorRound());
 			addSymbol(new CalcSymbolPreOperatorFloor());
 			addSymbol(new CalcSymbolPreOperatorCeil());
+			addSymbol(new CalcSymbolPreOperatorTruncate());
 			addSymbol(new CalcSymbolPreOperatorFactorial());
 			addSymbol(new CalcSymbolPreOperatorBinomial());
 			addSymbol(new CalcSymbolPreOperatorRandom());

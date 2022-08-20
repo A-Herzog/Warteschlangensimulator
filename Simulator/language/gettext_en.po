@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-08-18 00:11+0200\n"
+"POT-Creation-Date: 2022-08-20 00:50+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -6273,6 +6273,12 @@ msgstr "Round"
 
 msgid "ExpressionBuilder.Rounding.round.Info"
 msgstr "<p>Rounds the value passed as parameter up or down to the next integer.</p><p>Example: <tt>round(1.4)</tt> returns 1 and <tt>round(1.5)</tt> returns 2.</p>"
+
+msgid "ExpressionBuilder.Rounding.trunc"
+msgstr "Truncate decimal digits"
+
+msgid "ExpressionBuilder.Rounding.trunc.Info"
+msgstr "<p>Truncates the decimal digits of the number passed as parameter.</p><p>Examples: <tt>trunc(1.4)</tt> and <tt>trunc(1.5)</tt> will return 1 and <tt>trunc(-1.5)</tt> and <tt>trunc(-1.4)</tt> will return -1.</p>"
 
 msgid "ExpressionBuilder.SimulationCharacteristics"
 msgstr "Simulation characteristics"
