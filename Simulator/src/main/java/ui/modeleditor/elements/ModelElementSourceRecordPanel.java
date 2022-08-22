@@ -20,10 +20,13 @@ import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.function.Supplier;
 
 import javax.swing.BorderFactory;
@@ -198,6 +201,19 @@ public final class ModelElementSourceRecordPanel extends JPanel {
 	/** Info-Label zur Anzeige der Anzahl an Intervallen */
 	private final JLabel intervalDistributionsInfo;
 
+	/* Dialogseite "Zwichenankunftszeiten" -  Karte: "Zahlenwerte" */
+
+	/** Zeiteinheit für {@link #dataStream} */
+	private final JComboBox<String> timeBase3;
+	/** Auswahlbox für die Art der Zahlenwerte in {@link #dataStream} */
+	private final JComboBox<String> dataStreamType;
+	/** Erste Ankunft zum Zeitpunkt 0? */
+	private final JCheckBox dataStreamFirstArrivalAt0;
+	/** Zahlenwerte zur Bestimmung der Ankunfts- oder Zwischenankunftszeiten */
+	private final JTextArea dataStream;
+	/** Zeigt die Anzahl der Werte in {@link #dataStream} an. */
+	private final JLabel dataStreamValueCount;
+
 	/* Dialogseite "Batch-Größe" */
 
 	/** Option: Feste Batch-Größe */
@@ -320,6 +336,7 @@ public final class ModelElementSourceRecordPanel extends JPanel {
 				Language.tr("Surface.Source.Dialog.CalculationOfTheInterarrivalTimes.Signals"),
 				Language.tr("Surface.Source.Dialog.CalculationOfTheInterarrivalTimes.IntervalExpressions"),
 				Language.tr("Surface.Source.Dialog.CalculationOfTheInterarrivalTimes.IntervalDistributions"),
+				Language.tr("Surface.Source.Dialog.CalculationOfTheInterarrivalTimes.DataStream")
 		}));
 		selectCard.setRenderer(new IconListCellRenderer(new Images[]{
 				Images.MODELEDITOR_ELEMENT_SOURCE_MODE_DISTRIBUTION,
@@ -329,16 +346,18 @@ public final class ModelElementSourceRecordPanel extends JPanel {
 				Images.MODELEDITOR_ELEMENT_SOURCE_MODE_THRESHOLD,
 				Images.MODELEDITOR_ELEMENT_SOURCE_MODE_SIGNALS,
 				Images.MODELEDITOR_ELEMENT_SOURCE_MODE_INTERVAL_EXPRESSIONS,
-				Images.MODELEDITOR_ELEMENT_SOURCE_MODE_INTERVAL_DISTRIBUTIONS
+				Images.MODELEDITOR_ELEMENT_SOURCE_MODE_INTERVAL_DISTRIBUTIONS,
+				Images.MODELEDITOR_ELEMENT_SOURCE_MODE_DATA_STREAM
 		}));
 		label.setLabelFor(selectCard);
 		selectCard.addActionListener(e->{
 			final int index=selectCard.getSelectedIndex();
 			((CardLayout)cards.getLayout()).show(cards,"Seite"+(index+1));
-			if (arrivalStartSub1!=null) arrivalStartSub1.setVisible(index!=2 && index!=3 && index!=5);
-			if (arrivalStartSub2!=null) arrivalStartSub2.setVisible(index!=2 && index!=3 && index!=5);
+			if (arrivalStartSub1!=null) arrivalStartSub1.setVisible(index==0 || index==1 || index==4);
+			if (arrivalStartSub2!=null) arrivalStartSub2.setVisible(index==0 || index==1 || index==4);
 			checkData(false);
 			updateBatchInfo();
+			updateTabTitle();
 		});
 		selectCard.setEnabled(!readOnly);
 
@@ -353,17 +372,11 @@ public final class ModelElementSourceRecordPanel extends JPanel {
 		panel.add(sub=new JPanel(new FlowLayout(FlowLayout.LEFT)));
 		sub.add(new JLabel("<html><b>"+Language.tr("Surface.Source.Dialog.Distribution")+":</b></html>"));
 		panel.add(sub=new JPanel(new FlowLayout(FlowLayout.LEFT)));
-		sub.add(label=new JLabel(Language.tr("Surface.Source.Dialog.TimeBase")+":"));
-		sub.add(timeBase1=new JComboBox<>(ModelSurface.getTimeBaseStrings()));
-		timeBase1.setEnabled(!readOnly);
-		label.setLabelFor(timeBase1);
-		timeBase1.addActionListener(e->{
-			timeBase2.setSelectedIndex(timeBase1.getSelectedIndex());
-			arrivalStartTimeUnit.setText((String)timeBase1.getSelectedItem());
-			updateTabTitle();
-			updateBatchInfo();
-		});
+
+		timeBase1=buildSyncedTimeBaseComboBox(sub);
+		timeBase1.addActionListener(e->{arrivalStartTimeUnit.setText((String)timeBase1.getSelectedItem()); updateBatchInfo();});
 		sub.add(distributionFirstArrivalAt0=new JCheckBox(Language.tr("Surface.Source.Dialog.FirstArrivalAt0")));
+		distributionFirstArrivalAt0.addActionListener(e->syncFirstArrivalAt0CheckBoxes(e));
 		card.add(distributionPanel=new JDistributionPanel(new ExponentialDistribution(null,100,ExponentialDistribution.DEFAULT_INVERSE_ABSOLUTE_ACCURACY),3600,!readOnly) {
 			/**
 			 * Serialisierungs-ID der Klasse
@@ -387,15 +400,10 @@ public final class ModelElementSourceRecordPanel extends JPanel {
 		panel.add(sub=new JPanel(new FlowLayout(FlowLayout.LEFT)));
 		sub.add(new JLabel("<html><b>"+Language.tr("Surface.Source.Dialog.Expression")+":</b></html>"));
 		panel.add(sub=new JPanel(new FlowLayout(FlowLayout.LEFT)));
-		sub.add(label=new JLabel(Language.tr("Surface.Source.Dialog.TimeBase")+":"));
-		sub.add(timeBase2=new JComboBox<>(ModelSurface.getTimeBaseStrings()));
-		timeBase2.setEnabled(!readOnly);
-		label.setLabelFor(timeBase2);
-		timeBase2.addActionListener(e->{
-			timeBase1.setSelectedIndex(timeBase2.getSelectedIndex());
-			arrivalStartTimeUnit.setText((String)timeBase2.getSelectedItem());
-			updateTabTitle();
-		});
+		timeBase2=buildSyncedTimeBaseComboBox(sub);
+		timeBase2.addActionListener(e->{arrivalStartTimeUnit.setText((String)timeBase2.getSelectedItem());});
+		sub.add(expressionFirstArrivalAt0=new JCheckBox(Language.tr("Surface.Source.Dialog.FirstArrivalAt0")));
+		expressionFirstArrivalAt0.addActionListener(e->syncFirstArrivalAt0CheckBoxes(e));
 		data=ModelElementBaseDialog.getInputPanel(Language.tr("Surface.Source.Dialog.Expression.Expression")+":","");
 		sub=(JPanel)data[0];
 		panel.add(sub);
@@ -407,8 +415,6 @@ public final class ModelElementSourceRecordPanel extends JPanel {
 			@Override public void keyReleased(KeyEvent e) {checkData(false);}
 			@Override public void keyPressed(KeyEvent e) {checkData(false);}
 		});
-		panel.add(sub=new JPanel(new FlowLayout(FlowLayout.LEFT)));
-		sub.add(expressionFirstArrivalAt0=new JCheckBox(Language.tr("Surface.Source.Dialog.FirstArrivalAt0")));
 
 		/* Karte: Zeitplan */
 
@@ -528,7 +534,6 @@ public final class ModelElementSourceRecordPanel extends JPanel {
 		/* Karte: Anzahlen pro Intervall */
 
 		cards.add(card=new JPanel(new BorderLayout()),"Seite7");
-
 		card.add(panel=new JPanel(),BorderLayout.NORTH);
 		panel.setLayout(new BoxLayout(panel,BoxLayout.PAGE_AXIS));
 		panel.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
@@ -569,7 +574,6 @@ public final class ModelElementSourceRecordPanel extends JPanel {
 		/* Karte: Zwischenankunftszeiten pro Intervall */
 
 		cards.add(card=new JPanel(new BorderLayout()),"Seite8");
-
 		card.add(panel=new JPanel(),BorderLayout.NORTH);
 		panel.setLayout(new BoxLayout(panel,BoxLayout.PAGE_AXIS));
 		panel.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
@@ -606,6 +610,45 @@ public final class ModelElementSourceRecordPanel extends JPanel {
 		distributionBuilderButton.addActionListener(e->editIntervalDistributions());
 		panel.add(Box.createHorizontalStrut(10));
 		panel.add(intervalDistributionsInfo=new JLabel());
+
+		/* Karte: Zahlenwerte */
+
+		cards.add(card=new JPanel(new BorderLayout()),"Seite9");
+
+		card.add(panel=new JPanel(),BorderLayout.NORTH);
+		panel.setLayout(new BoxLayout(panel,BoxLayout.PAGE_AXIS));
+		panel.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
+		timeBase3=buildSyncedTimeBaseComboBox(line);
+		line.add(label=new JLabel(Language.tr("Surface.Source.Dialog.CalculationOfTheInterarrivalTimes.DataStream.Mode")+":"));
+		line.add(dataStreamType=new JComboBox<>(new String[] {
+				Language.tr("Surface.Source.Dialog.CalculationOfTheInterarrivalTimes.DataStream.Mode.ArrivalTimes"),
+				Language.tr("Surface.Source.Dialog.CalculationOfTheInterarrivalTimes.DataStream.Mode.InterArrivalTimes")
+		}));
+		dataStreamType.setEnabled(!readOnly);
+		label.setLabelFor(dataStreamType);
+		line.add(dataStreamFirstArrivalAt0=new JCheckBox(Language.tr("Surface.Source.Dialog.FirstArrivalAt0")));
+		dataStreamFirstArrivalAt0.addActionListener(e->syncFirstArrivalAt0CheckBoxes(e));
+
+		panel.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
+		line.add(label=new JLabel(Language.tr("Surface.Source.Dialog.CalculationOfTheInterarrivalTimes.DataStream.Values")+":"));
+
+		card.add(new JScrollPane(dataStream=new JTextArea()),BorderLayout.CENTER);
+		dataStream.setEditable(!readOnly);
+		dataStream.addKeyListener(new KeyListener() {
+			@Override public void keyTyped(KeyEvent e) {checkData(false);}
+			@Override public void keyReleased(KeyEvent e) {checkData(false);}
+			@Override public void keyPressed(KeyEvent e) {checkData(false);}
+		});
+		label.setLabelFor(dataStream);
+
+		card.add(panel=new JPanel(),BorderLayout.SOUTH);
+		panel.setLayout(new BoxLayout(panel,BoxLayout.PAGE_AXIS));
+		panel.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
+		final JButton generateButton=new JButton("Zufallszahlen generieren",Images.MODELEDITOR_ELEMENT_SOURCE_MODE_DISTRIBUTION.getIcon());
+		line.add(generateButton);
+		generateButton.addActionListener(e->generateDataStream());
+		line.add(Box.createHorizontalStrut(5));
+		line.add(dataStreamValueCount=new JLabel());
 
 		/* Batch */
 
@@ -725,8 +768,8 @@ public final class ModelElementSourceRecordPanel extends JPanel {
 		arrivalStartSub2.add(arrivalStartTimeUnit=new JLabel((String)timeBase1.getSelectedItem()));
 
 		final int cardIndex=selectCard.getSelectedIndex();
-		arrivalStartSub1.setVisible(cardIndex!=2 && cardIndex!=3 && cardIndex!=5);
-		arrivalStartSub2.setVisible(cardIndex!=2 && cardIndex!=3 && cardIndex!=5);
+		arrivalStartSub1.setVisible(cardIndex==0 || cardIndex==1 || cardIndex==4);
+		arrivalStartSub2.setVisible(cardIndex==0 || cardIndex==1 || cardIndex==4);
 
 		/* Zuweisungen (Zahlen) */
 
@@ -747,6 +790,48 @@ public final class ModelElementSourceRecordPanel extends JPanel {
 		}
 		tabs.setIconAt(index++,Images.MODELEDITOR_ELEMENT_SOURCE_PAGE_SET_NUMBERS.getIcon());
 		tabs.setIconAt(index++,Images.MODELEDITOR_ELEMENT_SOURCE_PAGE_SET_TEXTS.getIcon());
+	}
+
+	/**
+	 * Stellt sicher, dass alle "Erste Ankunft zum Zeitpunkt 0"-Checkboxen denselben Wert haben.
+	 * @param e	Ereignis, über das diese Methode aufgerufen wurde
+	 */
+	private void syncFirstArrivalAt0CheckBoxes(final ActionEvent e) {
+		if (!(e.getSource() instanceof JCheckBox)) return;
+		final boolean selected=((JCheckBox)e.getSource()).isSelected();
+
+		distributionFirstArrivalAt0.setSelected(selected);
+		expressionFirstArrivalAt0.setSelected(selected);
+		dataStreamFirstArrivalAt0.setSelected(selected);
+	}
+
+	/**
+	 * Liste aller über {@link #buildSyncedTimeBaseComboBox(JPanel)} erzeugten Zeitbasis-Comboboxen
+	 * @see #buildSyncedTimeBaseComboBox(JPanel)
+	 */
+	private final List<JComboBox<String>> syncedTimeBased=new ArrayList<>();
+
+	/**
+	 * Erzeugt eine beschriftete und synchronisierte Zeitbasis-Combobox
+	 * @param parent	Übergeordnetes Element in das Beschriftung und Combobox eingefügt werden sollen
+	 * @return	Neue Combobox
+	 */
+	private JComboBox<String> buildSyncedTimeBaseComboBox(final JPanel parent) {
+		final JLabel label=new JLabel(Language.tr("Surface.Source.Dialog.TimeBase")+":");
+		parent.add(label);
+		final JComboBox<String> timeBase=new JComboBox<>(ModelSurface.getTimeBaseStrings());
+		parent.add(timeBase);
+		timeBase.setEnabled(!readOnly);
+		label.setLabelFor(timeBase);
+		timeBase.addActionListener(e->{
+			if (!(e.getSource() instanceof JComboBox)) return;
+			@SuppressWarnings("unchecked")
+			final int index=((JComboBox<String>)e.getSource()).getSelectedIndex();
+			syncedTimeBased.forEach(comboBox->comboBox.setSelectedIndex(index));
+			updateTabTitle();
+		});
+		syncedTimeBased.add(timeBase);
+		return timeBase;
 	}
 
 	/**
@@ -783,6 +868,7 @@ public final class ModelElementSourceRecordPanel extends JPanel {
 		case NEXT_SIGNAL: selectCard.setSelectedIndex(5); break;
 		case NEXT_INTERVAL_EXPRESSIONS: selectCard.setSelectedIndex(6); break;
 		case NEXT_INTERVAL_DISTRIBUTIONS: selectCard.setSelectedIndex(7); break;
+		case NEXT_STREAM: selectCard.setSelectedIndex(8); break;
 		}
 
 		/* Verteilung */
@@ -836,6 +922,12 @@ public final class ModelElementSourceRecordPanel extends JPanel {
 		intervalDistributionsIntervalTimeTimeBase.setSelectedIndex(timeBase);
 		intervalDistributions.setText(Strings.join(record.getIntervalDistributions(),'\n').trim());
 
+		/* Zahlenwerte */
+		timeBase3.setSelectedIndex(record.getTimeBase().id);
+		dataStreamType.setSelectedIndex(record.isDataStreamIsInterArrival()?1:0);
+		dataStreamFirstArrivalAt0.setSelected(record.isFirstArrivalAt0());
+		dataStream.setText(String.join("\n",record.getDataStream()));
+
 		/* Passende Seite aktivieren */
 		switch (record.getNextMode()) {
 		case NEXT_DISTRIBUTION:
@@ -861,6 +953,9 @@ public final class ModelElementSourceRecordPanel extends JPanel {
 			break;
 		case NEXT_INTERVAL_DISTRIBUTIONS:
 			((CardLayout)cards.getLayout()).show(cards,"Seite8");
+			break;
+		case NEXT_STREAM:
+			((CardLayout)cards.getLayout()).show(cards,"Seite9");
 			break;
 		}
 
@@ -1059,17 +1154,21 @@ public final class ModelElementSourceRecordPanel extends JPanel {
 
 		/* Startzeit */
 		if (hasOwnArrivals) {
-			final Double D=NumberTools.getNotNegativeDouble(arrivalStart,true);
-			if (D==null) {
-				info=Language.tr("Surface.Source.Dialog.Tab.StartingTime.Invalid");
-			} else {
-				if (D.doubleValue()==0.0) {
-					info=Language.tr("Surface.Source.Dialog.Tab.StartingTime.Immediately");
+			if (arrivalStartSub1.isVisible()) {
+				final Double D=NumberTools.getNotNegativeDouble(arrivalStart,true);
+				if (D==null) {
+					info=Language.tr("Surface.Source.Dialog.Tab.StartingTime.Invalid");
 				} else {
-					info=String.format(Language.tr("Surface.Source.Dialog.Tab.StartingTime.AfterTime"),NumberTools.formatNumber(D.doubleValue())+" "+(String)timeBase1.getSelectedItem());
+					if (D.doubleValue()==0.0) {
+						info=Language.tr("Surface.Source.Dialog.Tab.StartingTime.Immediately");
+					} else {
+						info=String.format(Language.tr("Surface.Source.Dialog.Tab.StartingTime.AfterTime"),NumberTools.formatNumber(D.doubleValue())+" "+(String)timeBase1.getSelectedItem());
+					}
 				}
+				tabs.setTitleAt(3,Language.tr("Surface.Source.Dialog.Tab.StartingTime")+": "+info);
+			} else {
+				tabs.setTitleAt(3,Language.tr("Surface.Source.Dialog.Tab.StartingTime"));
 			}
-			tabs.setTitleAt(3,Language.tr("Surface.Source.Dialog.Tab.StartingTime")+": "+info);
 		}
 	}
 
@@ -1258,6 +1357,34 @@ public final class ModelElementSourceRecordPanel extends JPanel {
 			intervalDistributions.setBackground(linesOk?NumberTools.getTextFieldDefaultBackground():Color.RED);
 			if (showErrorMessage && !linesOk) return false;
 			break;
+		case 8: /* Zahlenwerte */
+			lines=dataStream.getText().trim().split("\\n");
+			linesOk=true;
+			int count=0;
+			for (int i=0;i<lines.length;i++) {
+				final String line=lines[i].trim();
+				if (!line.isEmpty()) {
+					count++;
+					final Double D=NumberTools.getDouble(line);
+					if (D==null) {
+						linesOk=false;
+						ok=false;
+						if (showErrorMessage) {
+							MsgBox.error(this,Language.tr("Surface.Source.Dialog.CalculationOfTheInterarrivalTimes.DataStream.Values.ErrorTitle"),String.format(Language.tr("Surface.Source.Dialog.CalculationOfTheInterarrivalTimes.DataStream.Values.ErrorInfo"),i+1,line));
+							break;
+						}
+					}
+				}
+			}
+			if (ok) {
+				dataStreamValueCount.setText(String.format(((count==1)?Language.tr("Surface.Source.Dialog.CalculationOfTheInterarrivalTimes.DataStream.Values.InfoSingular"):Language.tr("Surface.Source.Dialog.CalculationOfTheInterarrivalTimes.DataStream.Values.InfoPlural")),NumberTools.formatLong(count)));
+				dataStreamValueCount.setVisible(true);
+			} else {
+				dataStreamValueCount.setVisible(false);
+			}
+			dataStream.setBackground(linesOk?NumberTools.getTextFieldDefaultBackground():Color.RED);
+			if (showErrorMessage && !linesOk) return false;
+			break;
 		}
 
 		error=ExpressionCalc.check(batchField.getText(),surface.getMainSurfaceVariableNames(model.getModelVariableNames(),false));
@@ -1373,6 +1500,12 @@ public final class ModelElementSourceRecordPanel extends JPanel {
 			record.getIntervalDistributions().clear();
 			record.getIntervalDistributions().addAll(Arrays.asList(intervalDistributions.getText().trim().split("\\n")));
 			break;
+		case 8: /* Zahlenwerte */
+			record.setTimeBase(ModelSurface.TimeBase.byId(timeBase3.getSelectedIndex()));
+			record.setDataStreamIsInterArrival(dataStreamType.getSelectedIndex()==1);
+			record.setFirstArrivalAt0(dataStreamFirstArrivalAt0.isSelected());
+			record.setDataStream(dataStream.getText().trim());
+			break;
 		}
 
 		if (optionFixedSize.isSelected()) {
@@ -1445,5 +1578,17 @@ public final class ModelElementSourceRecordPanel extends JPanel {
 		}
 
 		if (ModelPropertiesDialogPageClients.editClientData(this,helpRunnable,model,name,readOnly)) ModelElementBaseDialog.setClientIcon(name,nameButton,model);
+	}
+
+	/**
+	 * Zeigt einen Dialog zur Generierung von Werten für {@link #dataStream} an.
+	 * @see #dataStream
+	 */
+	private void generateDataStream() {
+		final ModelElementSourceRecordPanelGenerateDialog dialog=new ModelElementSourceRecordPanelGenerateDialog(this);
+		if (dialog.getClosedBy()==BaseDialog.CLOSED_BY_OK) {
+			dataStream.setText(dialog.getNewValues());
+			checkData(false);
+		}
 	}
 }

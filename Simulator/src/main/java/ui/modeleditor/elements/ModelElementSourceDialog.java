@@ -91,6 +91,14 @@ public final class ModelElementSourceDialog extends ModelElementBaseDialog {
 	protected void setDialogSize() {
 		setMinSizeRespectingScreensize(700,600);
 		pack();
+		setMaxSizeRespectingScreensize(1024,768);
+	}
+
+	/**
+	 * Stellt die Größe des Dialogfensters unmittelbar vor dem Sicherbarmachen ein.
+	 */
+	@Override
+	protected void setDialogSizeLater() {
 	}
 
 	@Override

@@ -727,7 +727,10 @@
 	<xs:element ref="ModellElementAnkunftsschwellenwert"/>
 	<xs:element ref="ModellElementAnkunftssignal"/>
 	<xs:element ref="ModellElementIntervallAnzahl"/>
-	<xs:element ref="ModellElementIntervallVerteilung"/>
+	<xs:element ref="ModellElementIntervallAnzahlEinstellungen"/>
+	<xs:element ref="ModellElementIntervallVerteilung"/>	
+	<xs:element ref="ModellElementIntervallVerteilungEinstellungen"/>
+	<xs:element ref="ModellElemenZahlenwerte"/>
 	<xs:element ref="ModellElementBatch"/>
 	<xs:element name="ModellElementStartZeitpunkt" type="xs:string"/>
   </xs:choice></xs:sequence>
@@ -764,9 +767,25 @@
 	<xs:attribute name="Intervalldauer" type="xs:string"/>
   </xs:extension>
 </xs:simpleContent></xs:complexType></xs:element>
+<xs:element name="ModellElementIntervallAnzahlEinstellungen"><xs:complexType>
+  <xs:attribute name="Anzahl" type="xs:string"/>
+  <xs:attribute name="Kundenanzahl" type="xs:string"/>
+</xs:complexType></xs:element>
 <xs:element name="ModellElementIntervallVerteilung"><xs:complexType><xs:simpleContent>
   <xs:extension base="xs:string">
 	<xs:attribute name="Intervalldauer" type="xs:string"/>
+  </xs:extension>
+</xs:simpleContent></xs:complexType></xs:element>
+<xs:element name="ModellElementIntervallVerteilungEinstellungen"><xs:complexType>
+  <xs:attribute name="Anzahl" type="xs:string"/>
+  <xs:attribute name="Kundenanzahl" type="xs:string"/>
+</xs:complexType></xs:element>
+<xs:element name="ModellElemenZahlenwerte"><xs:complexType><xs:simpleContent>
+  <xs:extension base="xs:string">
+    <xs:attribute name="Zeitbasis" type="xs:string"/>
+    <xs:attribute name="Zwischenankunftszeiten" type="xs:string"/>
+	<xs:attribute name="Anzahl" type="xs:string"/>
+	<xs:attribute name="Kundenanzahl" type="xs:string"/>
   </xs:extension>
 </xs:simpleContent></xs:complexType></xs:element>
 
@@ -787,7 +806,10 @@
 	<xs:element ref="ModellElementAnkunftsschwellenwert"/>
 	<xs:element ref="ModellElementAnkunftssignal"/>
 	<xs:element ref="ModellElementIntervallAnzahl"/>
+	<xs:element ref="ModellElementIntervallAnzahlEinstellungen"/>
 	<xs:element ref="ModellElementIntervallVerteilung"/>
+	<xs:element ref="ModellElementIntervallVerteilungEinstellungen"/>
+	<xs:element ref="ModellElemenZahlenwerte"/>
 	<xs:element ref="ModellElementBatch"/>
 	<xs:element name="ModellElementStartZeitpunkt" type="xs:string"/>
 	<xs:element ref="ModellElementVariablenzuweisung"/>
@@ -3018,7 +3040,10 @@
 	<xs:element ref="ModelElementArrivalThreshold"/>
 	<xs:element ref="ModelElementArrivalSignal"/>
 	<xs:element ref="ModelElementCountPerInterval"/>
+	<xs:element ref="ModelElementCountPerIntervalSetup"/>
 	<xs:element ref="ModelElementInterArrivalPerInterval"/>
+	<xs:element ref="ModelElementInterArrivalPerIntervalSetup"/>
+	<xs:element ref="ModelElementDataStream"/>
 	<xs:element ref="ModelElementBatchData"/>
 	<xs:element name="ModelElementStartTime" type="xs:string"/>
   </xs:choice></xs:sequence>
@@ -3055,9 +3080,25 @@
 	<xs:attribute name="IntervalDuration" type="xs:string"/>
   </xs:extension>
 </xs:simpleContent></xs:complexType></xs:element>
+<xs:element name="ModelElementCountPerIntervalSetup"><xs:complexType>
+  <xs:attribute name="Count" type="xs:string"/>
+  <xs:attribute name="ClientCount" type="xs:string"/>
+</xs:complexType></xs:element>
 <xs:element name="ModelElementInterArrivalPerInterval"><xs:complexType><xs:simpleContent>
   <xs:extension base="xs:string">
 	<xs:attribute name="IntervalDuration" type="xs:string"/>
+  </xs:extension>
+</xs:simpleContent></xs:complexType></xs:element>
+<xs:element name="ModelElementInterArrivalPerIntervalSetup"><xs:complexType>
+  <xs:attribute name="Count" type="xs:string"/>
+  <xs:attribute name="ClientCount" type="xs:string"/>
+</xs:complexType></xs:element>
+<xs:element name="ModelElementDataStream"><xs:complexType><xs:simpleContent>
+  <xs:extension base="xs:string">
+    <xs:attribute name="TimeBase" type="xs:string"/>
+    <xs:attribute name="InterArrivalTimes" type="xs:string"/>
+	<xs:attribute name="Count" type="xs:string"/>
+	<xs:attribute name="ClientCount" type="xs:string"/>
   </xs:extension>
 </xs:simpleContent></xs:complexType></xs:element>
 
@@ -3079,7 +3120,10 @@
 	<xs:element ref="ModelElementArrivalSignal"/>
 	<xs:element ref="ModelElementBatchData"/>
 	<xs:element ref="ModelElementCountPerInterval"/>
+	<xs:element ref="ModelElementCountPerIntervalSetup"/>
 	<xs:element ref="ModelElementInterArrivalPerInterval"/>
+	<xs:element ref="ModelElementInterArrivalPerIntervalSetup"/>
+	<xs:element ref="ModelElementDataStream"/>
 	<xs:element name="ModelElementStartTime" type="xs:string"/>
 	<xs:element ref="ModelElementAssignmentData"/>
 	<xs:element ref="ModelElementAssignmentTextRecord"/>

@@ -1436,6 +1436,9 @@ public enum Images {
 	/** Symbol "Modelleditor - Gruppe 'Eingang/Ausgang' - Element 'Quelle' - Dialogseite 'Zwischenankunftszeiten pro Intervall'" */
 	MODELEDITOR_ELEMENT_SOURCE_MODE_INTERVAL_DISTRIBUTIONS("Table.png"),
 
+	/** Symbol "Modelleditor - Gruppe 'Eingang/Ausgang' - Element 'Quelle' - Dialogseite 'Zahlenwerte'" */
+	MODELEDITOR_ELEMENT_SOURCE_MODE_DATA_STREAM("Counter.png"),
+
 	/** Symbol "Modelleditor - Gruppe 'Eingang/Ausgang' - Element 'Quelle' - Dialogseite 'Zwischenankunftszeiten'" */
 	MODELEDITOR_ELEMENT_SOURCE_PAGE_INTERARRIVAL("time.png"),
 

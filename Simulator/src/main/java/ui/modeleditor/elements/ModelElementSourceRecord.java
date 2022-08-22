@@ -80,7 +80,10 @@ public final class ModelElementSourceRecord implements Cloneable {
 		NEXT_INTERVAL_EXPRESSIONS(true),
 
 		/** Mehrere Ausdrücke zur Festlegung der jeweiligen Zwischenankunftszeiten in den einzelnen Intervallen */
-		NEXT_INTERVAL_DISTRIBUTIONS(true);
+		NEXT_INTERVAL_DISTRIBUTIONS(true),
+
+		/** Liste mit Ankunftszeitpunkten */
+		NEXT_STREAM(true);
 
 		/**
 		 * Setzt dieser Modus den Single-Core-Modus voraus?
@@ -218,6 +221,21 @@ public final class ModelElementSourceRecord implements Cloneable {
 	 */
 	private final List<String> intervalDistributions;
 
+	/**
+	 * Zahlenwerte, die Ankunfts- oder Zwischenankunftszeiten darstellen sollen (Werte durch Zeilenumbrüche getrennt)
+	 * @see #getDataStream()
+	 * @see #setDataStream(String)
+	 */
+	private String dataStream;
+
+	/**
+	 * Angabe, ob die Zahlenwerte in {@link #dataStream}
+	 * Ankunftszeiten (<code>false</code>) oder Zwischenankunftszeiten
+	 * (<code>true</code>) sein sollen
+	 * @see #isDataStreamIsInterArrival()
+	 * @see #setDataStreamIsInterArrival(boolean)
+	 */
+	private boolean dataStreamIsInterArrival;
 
 	/**
 	 * Soll die erste Ankunft bei durch eine Verteilung
@@ -314,6 +332,8 @@ public final class ModelElementSourceRecord implements Cloneable {
 		intervalExpressions=new ArrayList<>();
 		intervalDistributionsIntervalTime=1800;
 		intervalDistributions=new ArrayList<>();
+		dataStream="";
+		dataStreamIsInterArrival=false;
 		firstArrivalAt0=false;
 		batchSize="1";
 		batchSizeRates=null;
@@ -756,7 +776,7 @@ public final class ModelElementSourceRecord implements Cloneable {
 	}
 
 	/**
-	 * Stellt	die Zeitdauer für ein Intervall in {@link #getIntervalDistributions()} ein.
+	 * Stellt die Zeitdauer für ein Intervall in {@link #getIntervalDistributions()} ein.
 	 * @param intervalDistributionsIntervalTime	Zeitdauer für ein Intervall
 	 * @see #getIntervalDistributionsIntervalTime()
 	 */
@@ -771,6 +791,55 @@ public final class ModelElementSourceRecord implements Cloneable {
 	 */
 	public List<String> getIntervalDistributions() {
 		return intervalDistributions;
+	}
+
+	/**
+	 * Gibt an, ob die Werte in {@link #getDataStream()} Zeitdauern (<code>false</code>)
+	 * oder Zwischenankunftszeiten (<code>true</code>) sind.
+	 * @return	Art der Werte in {@link #getDataStream()}
+	 * @see #setDataStreamIsInterArrival(boolean)
+	 * @see #getDataStream()
+	 */
+	public boolean isDataStreamIsInterArrival() {
+		return dataStreamIsInterArrival;
+	}
+
+	/**
+	 * Stellt die Art der Werte in {@link #getDataStream()} ein.
+	 * @param dataStreamIsInterArrival	Zeitdauern (<code>false</code>) oder Zwischenankunftszeiten (<code>true</code>)
+	 * @see #isDataStreamIsInterArrival()
+	 * @see #getDataStream()
+	 */
+	public void setDataStreamIsInterArrival(boolean dataStreamIsInterArrival) {
+		this.dataStreamIsInterArrival=dataStreamIsInterArrival;
+		nextMode=NextMode.NEXT_STREAM;
+	}
+
+	/**
+	 * Liefert die Liste der Werte, die als Ankunftszeiten oder
+	 * Zwischenankunftszeiten verwendet werden sollen.
+	 * (Pro Zeile ein Wert.)
+	 * @return	Liste der Ankunftszeiten oder Zwischenankunftszeiten
+	 * @see #setDataStream(String)
+	 * @see #isDataStreamIsInterArrival()
+	 * @see #setDataStreamIsInterArrival(boolean)
+	 */
+	public String getDataStream() {
+		return dataStream;
+	}
+
+	/**
+	 * Stellt die Liste der Werte, die als Ankunftszeiten oder
+	 * Zwischenankunftszeiten verwendet werden sollen, ein.
+	 * (Pro Zeile ein Wert.)
+	 * @param dataStream	Liste der Ankunftszeiten oder Zwischenankunftszeiten
+	 * @see #getDataStream()
+	 * @see #isDataStreamIsInterArrival()
+	 * @see #setDataStreamIsInterArrival(boolean)
+	 */
+	public void setDataStream(final String dataStream) {
+		this.dataStream=(dataStream==null)?"":dataStream;
+		nextMode=NextMode.NEXT_STREAM;
 	}
 
 	/**
@@ -894,6 +963,11 @@ public final class ModelElementSourceRecord implements Cloneable {
 				if (intervalDistributionsIntervalTime!=record.intervalDistributionsIntervalTime) return false;
 				if (!Objects.deepEquals(intervalDistributions,record.intervalDistributions)) return false;
 				break;
+			case NEXT_STREAM:
+				if (dataStreamIsInterArrival!=record.dataStreamIsInterArrival) return false;
+				if (firstArrivalAt0!=record.firstArrivalAt0) return false;
+				if (!dataStream.equals(record.dataStream)) return false;
+				break;
 			}
 		}
 
@@ -958,6 +1032,8 @@ public final class ModelElementSourceRecord implements Cloneable {
 		intervalDistributionsIntervalTime=record.intervalDistributionsIntervalTime;
 		intervalDistributions.clear();
 		intervalDistributions.addAll(record.intervalDistributions);
+		dataStream=record.dataStream;
+		dataStreamIsInterArrival=record.dataStreamIsInterArrival;
 		firstArrivalAt0=record.firstArrivalAt0;
 		batchSize=record.batchSize;
 		if (batchSize==null && record.batchSizeRates!=null) batchSizeRates=Arrays.copyOf(record.batchSizeRates,record.batchSizeRates.length);
@@ -1073,6 +1149,11 @@ public final class ModelElementSourceRecord implements Cloneable {
 						first=false;
 					}
 				}
+				if (maxArrivalCount>0 || maxArrivalClientCount>0) {
+					node.appendChild(sub=doc.createElement(Language.trPrimary("Surface.Source.XML.IntervalExpression.Setup")));
+					if (maxArrivalCount>0) sub.setAttribute(Language.trPrimary("Surface.Source.XML.IntervalExpression.Count"),""+maxArrivalCount);
+					if (maxArrivalClientCount>0) sub.setAttribute(Language.trPrimary("Surface.Source.XML.IntervalExpression.ClientCount"),""+maxArrivalClientCount);
+				}
 				break;
 			case NEXT_INTERVAL_DISTRIBUTIONS:
 				first=true;
@@ -1084,6 +1165,20 @@ public final class ModelElementSourceRecord implements Cloneable {
 						first=false;
 					}
 				}
+				if (maxArrivalCount>0 || maxArrivalClientCount>0) {
+					node.appendChild(sub=doc.createElement(Language.trPrimary("Surface.Source.XML.IntervalDistribution.Setup")));
+					if (maxArrivalCount>0) sub.setAttribute(Language.trPrimary("Surface.Source.XML.IntervalDistribution.Count"),""+maxArrivalCount);
+					if (maxArrivalClientCount>0) sub.setAttribute(Language.trPrimary("Surface.Source.XML.IntervalDistribution.ClientCount"),""+maxArrivalClientCount);
+				}
+				break;
+			case NEXT_STREAM:
+				node.appendChild(sub=doc.createElement(Language.trPrimary("Surface.Source.XML.DataStream")));
+				sub.setTextContent(dataStream);
+				if (dataStreamIsInterArrival) sub.setAttribute(Language.trPrimary("Surface.Source.XML.DataStream.InterArrivalTimes"),"1");
+				sub.setAttribute(Language.trPrimary("Surface.Source.XML.DataStream.TimeBase"),ModelSurface.getTimeBaseString(timeBase));
+				if (maxArrivalCount>0) sub.setAttribute(Language.trPrimary("Surface.Source.XML.DataStream.Count"),""+maxArrivalCount);
+				if (maxArrivalClientCount>0) sub.setAttribute(Language.trPrimary("Surface.Source.XML.DataStream.ClientCount"),""+maxArrivalClientCount);
+				if (firstArrivalAt0) sub.setAttribute(Language.trPrimary("Surface.Source.XML.FirstArrivalAt0"),"1");
 				break;
 			}
 		}
@@ -1099,7 +1194,7 @@ public final class ModelElementSourceRecord implements Cloneable {
 		}
 
 		if (hasOwnArrivals) {
-			if (arrivalsStart>0 && nextMode!=NextMode.NEXT_SCHEDULE && nextMode!=NextMode.NEXT_CONDITION) {
+			if (arrivalsStart>0 && (nextMode==NextMode.NEXT_DISTRIBUTION || nextMode==NextMode.NEXT_EXPRESSION || nextMode==NextMode.NEXT_THRESHOLD)) {
 				node.appendChild(sub=doc.createElement(Language.trPrimary("Surface.Source.XML.Expression.ArrivalStart")));
 				sub.setTextContent(NumberTools.formatSystemNumber(arrivalsStart));
 			}
@@ -1107,6 +1202,33 @@ public final class ModelElementSourceRecord implements Cloneable {
 
 		setRecord.saveToXML(doc,node);
 		stringRecord.saveToXML(doc,node);
+	}
+
+	/**
+	 * Lädt die Anzahl an geplanten Ankünften aus XML-Attributen
+	 * @param node	XML-Knoten (wird bei der Erstellung von Fehlermeldungen benötigt)
+	 * @param countString	Textwert des Attributes für die Anzahl an Ankünften
+	 * @param clientCountString	Textwert des Attributes für die Anzahl eintreffenden Kunden
+	 * @param errorName1	Name des Attributes für die Anzahl an Ankünften (für Fehlermeldungen)
+	 * @param errorName2	Name des Attributes für die Anzahl eintreffenden Kunden (für Fehlermeldungen)
+	 * @return	Liefert im Erfolgsfall <code>null</code>, sonst eine Fehlermeldung
+	 * @see #maxArrivalCount
+	 * @see #maxArrivalClientCount
+	 */
+	private String loadCountData(final Element node, final String countString, final String clientCountString, final String errorName1, final String errorName2) {
+		if (!countString.isEmpty()) {
+			final Long L=NumberTools.getNotNegativeLong(countString);
+			if (L==null || L==0) return String.format(Language.tr("Surface.XML.AttributeSubError"),errorName1,name,node.getParentNode().getNodeName());
+			maxArrivalCount=L;
+		}
+
+		if (!clientCountString.isEmpty()) {
+			final Long L=NumberTools.getNotNegativeLong(clientCountString);
+			if (L==null || L==0) return String.format(Language.tr("Surface.XML.AttributeSubError"),errorName2,name,node.getParentNode().getNodeName());
+			maxArrivalClientCount=L;
+		}
+
+		return null;
 	}
 
 	/**
@@ -1140,17 +1262,9 @@ public final class ModelElementSourceRecord implements Cloneable {
 			final String timeBaseName=Language.trAllAttribute("Surface.Source.XML.Distribution.TimeBase",node);
 			timeBase=ModelSurface.getTimeBaseInteger(timeBaseName);
 			final String countString=Language.trAllAttribute("Surface.Source.XML.Distribution.Count",node);
-			if (!countString.isEmpty()) {
-				final Long L=NumberTools.getNotNegativeLong(countString);
-				if (L==null || L==0) return String.format(Language.tr("Surface.XML.AttributeSubError"),Language.trPrimary("Surface.Source.XML.Distribution.Count"),name,node.getParentNode().getNodeName());
-				maxArrivalCount=L;
-			}
 			final String clientCountString=Language.trAllAttribute("Surface.Source.XML.Distribution.ClientCount",node);
-			if (!clientCountString.isEmpty()) {
-				final Long L=NumberTools.getNotNegativeLong(clientCountString);
-				if (L==null || L==0) return String.format(Language.tr("Surface.XML.AttributeSubError"),Language.trPrimary("Surface.Source.XML.Distribution.ClientCount"),name,node.getParentNode().getNodeName());
-				maxArrivalClientCount=L;
-			}
+			final String arrivalCountError=loadCountData(node,countString,clientCountString,Language.trPrimary("Surface.Source.XML.Distribution.Count"),Language.trPrimary("Surface.Source.XML.Distribution.ClientCount"));
+			if (arrivalCountError!=null) return arrivalCountError;
 			final String firstArrivalAt0String=Language.trAllAttribute("Surface.Source.XML.FirstArrivalAt0",node);
 			if (!firstArrivalAt0String.isEmpty() && !firstArrivalAt0String.equals("0")) firstArrivalAt0=true;
 			return null;
@@ -1162,17 +1276,9 @@ public final class ModelElementSourceRecord implements Cloneable {
 			final String timeBaseName=Language.trAllAttribute("Surface.Source.XML.Expression.TimeBase",node);
 			timeBase=ModelSurface.getTimeBaseInteger(timeBaseName);
 			final String countString=Language.trAllAttribute("Surface.Source.XML.Expression.Count",node);
-			if (!countString.isEmpty()) {
-				final Long L=NumberTools.getNotNegativeLong(countString);
-				if (L==null || L==0) return String.format(Language.tr("Surface.XML.AttributeSubError"),Language.trPrimary("Surface.Source.XML.Expression.Count"),name,node.getParentNode().getNodeName());
-				maxArrivalCount=L;
-			}
 			final String clientCountString=Language.trAllAttribute("Surface.Source.XML.Expression.ClientCount",node);
-			if (!clientCountString.isEmpty()) {
-				final Long L=NumberTools.getNotNegativeLong(clientCountString);
-				if (L==null || L==0) return String.format(Language.tr("Surface.XML.AttributeSubError"),Language.trPrimary("Surface.Source.XML.Expression.ClientCount"),name,node.getParentNode().getNodeName());
-				maxArrivalClientCount=L;
-			}
+			final String arrivalCountError=loadCountData(node,countString,clientCountString,Language.trPrimary("Surface.Source.XML.Expression.Count"),Language.trPrimary("Surface.Source.XML.Expression.ClientCount"));
+			if (arrivalCountError!=null) return arrivalCountError;
 			final String firstArrivalAt0String=Language.trAllAttribute("Surface.Source.XML.FirstArrivalAt0",node);
 			if (!firstArrivalAt0String.isEmpty() && !firstArrivalAt0String.equals("0")) firstArrivalAt0=true;
 			return null;
@@ -1182,17 +1288,9 @@ public final class ModelElementSourceRecord implements Cloneable {
 			schedule=content;
 			nextMode=NextMode.NEXT_SCHEDULE;
 			final String countString=Language.trAllAttribute("Surface.Source.XML.Schedule.Count",node);
-			if (!countString.isEmpty()) {
-				final Long L=NumberTools.getNotNegativeLong(countString);
-				if (L==null || L==0) return String.format(Language.tr("Surface.XML.AttributeSubError"),Language.trPrimary("Surface.Source.XML.Schedule.Count"),name,node.getParentNode().getNodeName());
-				maxArrivalCount=L;
-			}
 			final String clientCountString=Language.trAllAttribute("Surface.Source.XML.Schedule.ClientCount",node);
-			if (!clientCountString.isEmpty()) {
-				final Long L=NumberTools.getNotNegativeLong(clientCountString);
-				if (L==null || L==0) return String.format(Language.tr("Surface.XML.AttributeSubError"),Language.trPrimary("Surface.Source.XML.Schedule.ClientCount"),name,node.getParentNode().getNodeName());
-				maxArrivalClientCount=L;
-			}
+			final String arrivalCountError=loadCountData(node,countString,clientCountString,Language.trPrimary("Surface.Source.XML.Schedule.Count"),Language.trPrimary("Surface.Source.XML.Schedule.ClientCount"));
+			if (arrivalCountError!=null) return arrivalCountError;
 			return null;
 		}
 
@@ -1206,17 +1304,9 @@ public final class ModelElementSourceRecord implements Cloneable {
 				conditionMinDistance=D;
 			}
 			final String countString=Language.trAllAttribute("Surface.Source.XML.Condition.Count",node);
-			if (!countString.isEmpty()) {
-				final Long L=NumberTools.getNotNegativeLong(countString);
-				if (L==null || L==0) return String.format(Language.tr("Surface.XML.AttributeSubError"),Language.trPrimary("Surface.Source.XML.Condition.Count"),name,node.getParentNode().getNodeName());
-				maxArrivalCount=L;
-			}
 			final String clientCountString=Language.trAllAttribute("Surface.Source.XML.Condition.ClientCount",node);
-			if (!clientCountString.isEmpty()) {
-				final Long L=NumberTools.getNotNegativeLong(clientCountString);
-				if (L==null || L==0) return String.format(Language.tr("Surface.XML.AttributeSubError"),Language.trPrimary("Surface.Source.XML.Condition.ClientCount"),name,node.getParentNode().getNodeName());
-				maxArrivalClientCount=L;
-			}
+			final String arrivalCountError=loadCountData(node,countString,clientCountString,Language.trPrimary("Surface.Source.XML.Condition.Count"),Language.trPrimary("Surface.Source.XML.Condition.ClientCount"));
+			if (arrivalCountError!=null) return arrivalCountError;
 			return null;
 		}
 
@@ -1234,17 +1324,9 @@ public final class ModelElementSourceRecord implements Cloneable {
 				thresholdDirectionUp=Language.trAll("Surface.Source.XML.Threshold.Direction.Up",thresholdDirectionUpString);
 			}
 			final String countString=Language.trAllAttribute("Surface.Source.XML.Threshold.Count",node);
-			if (!countString.isEmpty()) {
-				final Long L=NumberTools.getNotNegativeLong(countString);
-				if (L==null || L==0) return String.format(Language.tr("Surface.XML.AttributeSubError"),Language.trPrimary("Surface.Source.XML.Threshold.Count"),name,node.getParentNode().getNodeName());
-				maxArrivalCount=L;
-			}
 			final String clientCountString=Language.trAllAttribute("Surface.Source.XML.Threshold.ClientCount",node);
-			if (!clientCountString.isEmpty()) {
-				final Long L=NumberTools.getNotNegativeLong(clientCountString);
-				if (L==null || L==0) return String.format(Language.tr("Surface.XML.AttributeSubError"),Language.trPrimary("Surface.Source.XML.Threshold.ClientCount"),name,node.getParentNode().getNodeName());
-				maxArrivalClientCount=L;
-			}
+			final String arrivalCountError=loadCountData(node,countString,clientCountString,Language.trPrimary("Surface.Source.XML.Threshold.Count"),Language.trPrimary("Surface.Source.XML.Threshold.ClientCount"));
+			if (arrivalCountError!=null) return arrivalCountError;
 			return null;
 		}
 
@@ -1254,17 +1336,9 @@ public final class ModelElementSourceRecord implements Cloneable {
 				signalNames.add(content);
 			}
 			final String countString=Language.trAllAttribute("Surface.Source.XML.Signal.Count",node);
-			if (!countString.isEmpty()) {
-				final Long L=NumberTools.getNotNegativeLong(countString);
-				if (L==null || L==0) return String.format(Language.tr("Surface.XML.AttributeSubError"),Language.trPrimary("Surface.Source.XML.Signal.Count"),name,node.getParentNode().getNodeName());
-				maxArrivalCount=L;
-			}
 			final String clientCountString=Language.trAllAttribute("Surface.Source.XML.Signal.ClientCount",node);
-			if (!clientCountString.isEmpty()) {
-				final Long L=NumberTools.getNotNegativeLong(clientCountString);
-				if (L==null || L==0) return String.format(Language.tr("Surface.XML.AttributeSubError"),Language.trPrimary("Surface.Source.XML.Signal.ClientCount"),name,node.getParentNode().getNodeName());
-				maxArrivalClientCount=L;
-			}
+			final String arrivalCountError=loadCountData(node,countString,clientCountString,Language.trPrimary("Surface.Source.XML.Signal.Count"),Language.trPrimary("Surface.Source.XML.Signal.ClientCount"));
+			if (arrivalCountError!=null) return arrivalCountError;
 			return null;
 		}
 
@@ -1282,6 +1356,14 @@ public final class ModelElementSourceRecord implements Cloneable {
 			return null;
 		}
 
+		if (Language.trAll("Surface.Source.XML.IntervalExpression.Setup",name)) {
+			final String countString=Language.trAllAttribute("Surface.Source.XML.IntervalExpression.Count",node);
+			final String clientCountString=Language.trAllAttribute("Surface.Source.XML.IntervalExpression.ClientCount",node);
+			final String arrivalCountError=loadCountData(node,countString,clientCountString,Language.trPrimary("Surface.Source.XML.IntervalExpression.Count"),Language.trPrimary("Surface.Source.XML.IntervalExpression.ClientCount"));
+			if (arrivalCountError!=null) return arrivalCountError;
+			return null;
+		}
+
 		if (Language.trAll("Surface.Source.XML.IntervalDistribution",name)) {
 			if (!content.trim().isEmpty()) {
 				nextMode=NextMode.NEXT_INTERVAL_DISTRIBUTIONS;
@@ -1293,6 +1375,27 @@ public final class ModelElementSourceRecord implements Cloneable {
 				if (L==null || L==0) return String.format(Language.tr("Surface.XML.AttributeSubError"),Language.trPrimary("Surface.Source.XML.IntervalExpression.IntervalTime"),name,node.getParentNode().getNodeName());
 				intervalDistributionsIntervalTime=L.intValue();
 			}
+			return null;
+		}
+
+		if (Language.trAll("Surface.Source.XML.IntervalDistribution.Setup",name)) {
+			final String countString=Language.trAllAttribute("Surface.Source.XML.IntervalDistribution.Count",node);
+			final String clientCountString=Language.trAllAttribute("Surface.Source.XML.IntervalDistribution.ClientCount",node);
+			final String arrivalCountError=loadCountData(node,countString,clientCountString,Language.trPrimary("Surface.Source.XML.IntervalDistribution.Count"),Language.trPrimary("Surface.Source.XML.IntervalDistribution.ClientCount"));
+			if (arrivalCountError!=null) return arrivalCountError;
+			return null;
+		}
+
+		if (Language.trAll("Surface.Source.XML.DataStream",name)) {
+			nextMode=NextMode.NEXT_STREAM;
+			dataStream=content;
+			dataStreamIsInterArrival=Language.trAllAttribute("Surface.Source.XML.DataStream.InterArrivalTimes",node).equals("1");
+			final String timeBaseName=Language.trAllAttribute("Surface.Source.XML.DataStream.TimeBase",node);
+			timeBase=ModelSurface.getTimeBaseInteger(timeBaseName);
+			final String countString=Language.trAllAttribute("Surface.Source.XML.DataStream.Count",node);
+			final String clientCountString=Language.trAllAttribute("Surface.Source.XML.DataStream.ClientCount",node);
+			final String arrivalCountError=loadCountData(node,countString,clientCountString,Language.trPrimary("Surface.Source.XML.DataStream.Count"),Language.trPrimary("Surface.Source.XML.DataStream.ClientCount"));
+			if (arrivalCountError!=null) return arrivalCountError;
 			return null;
 		}
 
@@ -1418,82 +1521,89 @@ public final class ModelElementSourceRecord implements Cloneable {
 	 * @param descriptionBuilder	Description-Builder, der die Beschreibungsdaten zusammenfasst
 	 */
 	public void buildDescriptionProperty(final ModelDescriptionBuilder descriptionBuilder) {
-		final StringBuilder sb=new StringBuilder();
+		final StringBuilder info=new StringBuilder();
 
 		if (hasOwnArrivals) {
 			/* Nächster Kunde */
 			switch (nextMode) {
 			case NEXT_DISTRIBUTION:
-				sb.append(Language.tr("ModelDescription.Arrival.Distribution"));
-				sb.append(": ");
-				sb.append(ModelDescriptionBuilder.getDistributionInfo(distribution));
+				info.append(Language.tr("ModelDescription.Arrival.Distribution"));
+				info.append(": ");
+				info.append(ModelDescriptionBuilder.getDistributionInfo(distribution));
 				if (firstArrivalAt0) {
-					sb.append(", ");
-					sb.append(Language.tr("ModelDescription.Arrival.FirstArrivalAt0"));
+					info.append(", ");
+					info.append(Language.tr("ModelDescription.Arrival.FirstArrivalAt0"));
 				}
 				break;
 			case NEXT_EXPRESSION:
-				sb.append(Language.tr("ModelDescription.Arrival.Expression"));
-				sb.append(": ");
-				sb.append(expression);
+				info.append(Language.tr("ModelDescription.Arrival.Expression"));
+				info.append(": ");
+				info.append(expression);
 				if (firstArrivalAt0) {
-					sb.append(", ");
-					sb.append(Language.tr("ModelDescription.Arrival.FirstArrivalAt0"));
+					info.append(", ");
+					info.append(Language.tr("ModelDescription.Arrival.FirstArrivalAt0"));
 				}
 				break;
 			case NEXT_SCHEDULE:
-				sb.append(Language.tr("ModelDescription.Arrival.Schedule"));
-				sb.append(": ");
-				sb.append(schedule);
+				info.append(Language.tr("ModelDescription.Arrival.Schedule"));
+				info.append(": ");
+				info.append(schedule);
 				break;
 			case NEXT_CONDITION:
-				sb.append(Language.tr("ModelDescription.Arrival.Condition"));
-				sb.append(": ");
-				sb.append(condition);
-				sb.append(" (");
-				sb.append(Language.tr("ModelDescription.Arrival.Condition.MinDistance"));
-				sb.append(": ");
-				sb.append(NumberTools.formatNumber(conditionMinDistance));
-				sb.append(")");
+				info.append(Language.tr("ModelDescription.Arrival.Condition"));
+				info.append(": ");
+				info.append(condition);
+				info.append(" (");
+				info.append(Language.tr("ModelDescription.Arrival.Condition.MinDistance"));
+				info.append(": ");
+				info.append(NumberTools.formatNumber(conditionMinDistance));
+				info.append(")");
 				break;
 			case NEXT_THRESHOLD:
-				sb.append(Language.tr("ModelDescription.Arrival.Threshold"));
-				sb.append(": ");
-				sb.append(thresholdExpression);
-				sb.append(" ");
+				info.append(Language.tr("ModelDescription.Arrival.Threshold"));
+				info.append(": ");
+				info.append(thresholdExpression);
+				info.append(" ");
 				if (thresholdDirectionUp) Language.tr("ModelDescription.Arrival.Threshold.Up"); else Language.tr("ModelDescription.Arrival.Threshold.Down");
-				sb.append(" ");
-				sb.append(NumberTools.formatNumber(thresholdValue));
+				info.append(" ");
+				info.append(NumberTools.formatNumber(thresholdValue));
 				break;
 			case NEXT_SIGNAL:
-				sb.append(Language.tr("ModelDescription.Arrival.Signal"));
-				sb.append(": ");
+				info.append(Language.tr("ModelDescription.Arrival.Signal"));
+				info.append(": ");
 				for (int i=0;i<signalNames.size();i++) {
-					if (i>0) sb.append(", ");
-					sb.append(signalNames.get(i));
+					if (i>0) info.append(", ");
+					info.append(signalNames.get(i));
 				}
 				break;
 			case NEXT_INTERVAL_EXPRESSIONS:
-				sb.append(Language.tr("ModelDescription.Arrival.IntervalExpressions")+"\n");
-				sb.append(Language.tr("ModelDescription.Arrival.IntervalExpressions.IntervalTime")+": "+NumberTools.formatLong(intervalExpressionsIntervalTime)+"\n");
+				info.append(Language.tr("ModelDescription.Arrival.IntervalExpressions")+"\n");
+				info.append(Language.tr("ModelDescription.Arrival.IntervalExpressions.IntervalTime")+": "+NumberTools.formatLong(intervalExpressionsIntervalTime)+"\n");
 				for (int i=0;i<intervalExpressions.size();i++) {
-					sb.append(""+(i+1)+": "+intervalExpressions.get(i)+"\n");
+					info.append(""+(i+1)+": "+intervalExpressions.get(i)+"\n");
 				}
 				break;
 			case NEXT_INTERVAL_DISTRIBUTIONS:
-				sb.append(Language.tr("ModelDescription.Arrival.IntervalDistributions")+"\n");
-				sb.append(Language.tr("ModelDescription.Arrival.IntervalDistributions.IntervalTime")+": "+NumberTools.formatLong(intervalDistributionsIntervalTime)+"\n");
+				info.append(Language.tr("ModelDescription.Arrival.IntervalDistributions")+"\n");
+				info.append(Language.tr("ModelDescription.Arrival.IntervalDistributions.IntervalTime")+": "+NumberTools.formatLong(intervalDistributionsIntervalTime)+"\n");
 				for (int i=0;i<intervalDistributions.size();i++) {
-					sb.append(""+(i+1)+": "+intervalDistributions.get(i)+"\n");
+					info.append(""+(i+1)+": "+intervalDistributions.get(i)+"\n");
+				}
+				break;
+			case NEXT_STREAM:
+				if (dataStreamIsInterArrival) {
+					info.append(Language.tr("ModelDescription.Arrival.DataStream.InterArrivalTimes"));
+				} else {
+					info.append(Language.tr("ModelDescription.Arrival.DataStream.ArrivalTimes"));
 				}
 				break;
 			}
-			sb.append("\n");
+			info.append("\n");
 
 			/* Zeitbasis */
 			if (nextMode==NextMode.NEXT_DISTRIBUTION || nextMode==NextMode.NEXT_EXPRESSION) {
-				sb.append(ModelDescriptionBuilder.getTimeBase(timeBase));
-				sb.append("\n");
+				info.append(ModelDescriptionBuilder.getTimeBase(timeBase));
+				info.append("\n");
 			}
 		}
 
@@ -1506,37 +1616,37 @@ public final class ModelElementSourceRecord implements Cloneable {
 		}
 		if (sizes.size()>0) {
 			if (sizes.size()>1 || !sizes.get(0).equals("1")) {
-				sb.append((sizes.size()==1)?Language.tr("ModelDescription.Arrival.BatchSize.Fixed"):Language.tr("ModelDescription.Arrival.BatchSize.Multi"));
-				sb.append(": ");
+				info.append((sizes.size()==1)?Language.tr("ModelDescription.Arrival.BatchSize.Fixed"):Language.tr("ModelDescription.Arrival.BatchSize.Multi"));
+				info.append(": ");
 				for (int i=0;i<sizes.size();i++) {
-					if (i>0) sb.append(", ");
-					sb.append(sizes.get(i));
+					if (i>0) info.append(", ");
+					info.append(sizes.get(i));
 				}
-				sb.append("\n");
+				info.append("\n");
 			}
 		}
 
 		if (hasOwnArrivals) {
 			/* Anzahl an Ankünften */
 			if (maxArrivalCount>=0) {
-				sb.append(Language.tr("ModelDescription.Arrival.NumberOfArrivals"));
-				sb.append(": ");
-				sb.append(NumberTools.formatLong(maxArrivalCount));
-				sb.append("\n");
+				info.append(Language.tr("ModelDescription.Arrival.NumberOfArrivals"));
+				info.append(": ");
+				info.append(NumberTools.formatLong(maxArrivalCount));
+				info.append("\n");
 			}
 			if (maxArrivalClientCount>=0) {
-				sb.append(Language.tr("ModelDescription.Arrival.NumberOfClientArrivals"));
-				sb.append(": ");
-				sb.append(NumberTools.formatLong(maxArrivalClientCount));
-				sb.append("\n");
+				info.append(Language.tr("ModelDescription.Arrival.NumberOfClientArrivals"));
+				info.append(": ");
+				info.append(NumberTools.formatLong(maxArrivalClientCount));
+				info.append("\n");
 			}
 
 			/* Start der Ankünfte */
 			if (arrivalsStart>0) {
-				sb.append(Language.tr("ModelDescription.Arrival.ArrivalStart"));
-				sb.append(": ");
-				sb.append(NumberTools.formatNumber(arrivalsStart));
-				sb.append("\n");
+				info.append(Language.tr("ModelDescription.Arrival.ArrivalStart"));
+				info.append(": ");
+				info.append(NumberTools.formatNumber(arrivalsStart));
+				info.append("\n");
 			}
 		}
 
@@ -1550,18 +1660,18 @@ public final class ModelElementSourceRecord implements Cloneable {
 
 		/* Zuweisungen */
 		for (String line: setRecord.getDescription()) {
-			sb.append(line);
-			sb.append("\n");
+			info.append(line);
+			info.append("\n");
 		}
 
 		/* Textzuweisungen */
 		for (String line: stringRecord.getDescription()) {
-			sb.append(line);
-			sb.append("\n");
+			info.append(line);
+			info.append("\n");
 		}
 
 		/* Ergebnis ausgeben */
-		descriptionBuilder.addProperty(propertyName,sb.toString(),1000);
+		descriptionBuilder.addProperty(propertyName,info.toString(),1000);
 	}
 
 	/**
@@ -1612,6 +1722,9 @@ public final class ModelElementSourceRecord implements Cloneable {
 				final int index=i;
 				searcher.testString(station,Language.tr("Editor.DialogBase.Search.InterarrivalArrival.IntervalDistributions"),intervalDistributions.get(index),newintervalDistribution->intervalDistributions.set(index,newintervalDistribution));
 			}
+			break;
+		case NEXT_STREAM:
+			/* keine Werte zum Suchen */
 			break;
 		}
 

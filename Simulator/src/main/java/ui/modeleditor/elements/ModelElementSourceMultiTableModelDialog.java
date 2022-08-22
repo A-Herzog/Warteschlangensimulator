@@ -80,6 +80,7 @@ public class ModelElementSourceMultiTableModelDialog extends BaseDialog {
 
 		setMinSizeRespectingScreensize(700,625);
 		pack();
+		setMaxSizeRespectingScreensize(1024,768);
 		setLocationRelativeTo(this.owner);
 		setResizable(true);
 	}

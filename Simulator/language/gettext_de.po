@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-08-20 00:50+0200\n"
+"POT-Creation-Date: 2022-08-21 00:51+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -8416,6 +8416,33 @@ msgstr "Serifenlose Schrift"
 msgid "FontFamily.Serif"
 msgstr "Serifenbehaftete Schrift"
 
+msgid "GenerateArrivalDataStream.CalculationExpression"
+msgstr "Rechenausdruck"
+
+msgid "GenerateArrivalDataStream.CalculationExpression.ErrorInfo"
+msgstr "Der angegebene Rechenausdruck \"%s\" ist ab Zeichen %d ungültig."
+
+msgid "GenerateArrivalDataStream.CalculationExpression.ErrorTitle"
+msgstr "Ungültiger Rechenausdruck"
+
+msgid "GenerateArrivalDataStream.ExampleValues"
+msgstr "Beispielwerte"
+
+msgid "GenerateArrivalDataStream.NumberOfRandomNumbers"
+msgstr "Anzahl an zu erzeugenden Zufallszahlen"
+
+msgid "GenerateArrivalDataStream.NumberOfRandomNumbers.ErrorInfo"
+msgstr "Die angegeben Anzahl an zu erzeugenden Zufallszahlen \"%s\" ist ungültig. Es muss eine positive Ganzzahl angegeben werden."
+
+msgid "GenerateArrivalDataStream.NumberOfRandomNumbers.ErrorTitle"
+msgstr "Ungültige Anzahl an Zufallszahlen"
+
+msgid "GenerateArrivalDataStream.ProbabilityDistribution"
+msgstr "Wahrscheinlichkeitsverteilung"
+
+msgid "GenerateArrivalDataStream.Title"
+msgstr "Zufallszahlen generieren"
+
 msgid "Git.Edit.Title"
 msgstr "Git-Konfiguration bearbeiten"
 
@@ -10857,6 +10884,12 @@ msgstr "Bedingung für nächste Ankunft"
 
 msgid "ModelDescription.Arrival.Condition.MinDistance"
 msgstr "Mindestzeitabstand"
+
+msgid "ModelDescription.Arrival.DataStream.ArrivalTimes"
+msgstr "Ankünfte über vorgegebene Ankunftszeiten"
+
+msgid "ModelDescription.Arrival.DataStream.InterArrivalTimes"
+msgstr "Ankünfte über vorgegebene Zwischenankunftszeiten"
 
 msgid "ModelDescription.Arrival.Distribution"
 msgstr "Zwischenankunftszeitenverteilung"
@@ -17109,6 +17142,9 @@ msgstr "An Element id=%d wurden keine Ventile definiert."
 
 msgid "Simulation.Creator.AnalogNotifyDistance"
 msgstr "An Element id=%d wurde der ungültige Systembenachrichtigungsabstand %s angegeben. Der Abstand muss eine positive Zeitangabe sein."
+
+msgid "Simulation.Creator.ArrivalStream"
+msgstr "Der %d. Ankunftszeitenwert \"%s\" an Station id=%d ist ungültig."
 
 msgid "Simulation.Creator.BalkingCondition"
 msgstr "Die Zurückschreckbedingung \"%s\" von Element id=%d enthält an Position %d eine Fehler."
@@ -27699,6 +27735,9 @@ msgstr "Gruppenankünfte"
 msgid "Surface.MultiSourceTable.Info.ClientTypeName"
 msgstr "Kundentypname"
 
+msgid "Surface.MultiSourceTable.Info.DataStream"
+msgstr "Vorgegebene Zahlenwerte"
+
 msgid "Surface.MultiSourceTable.Info.IntervalDistributions"
 msgstr "Zwischenankunftszeiten pro Intervall"
 
@@ -30123,6 +30162,33 @@ msgstr "Berechnung der Zwischenankunftszeiten"
 msgid "Surface.Source.Dialog.CalculationOfTheInterarrivalTimes.Condition"
 msgstr "Bedingung"
 
+msgid "Surface.Source.Dialog.CalculationOfTheInterarrivalTimes.DataStream"
+msgstr "Zahlenwerte"
+
+msgid "Surface.Source.Dialog.CalculationOfTheInterarrivalTimes.DataStream.Mode"
+msgstr "Bedeutung der Zahlenwerte"
+
+msgid "Surface.Source.Dialog.CalculationOfTheInterarrivalTimes.DataStream.Mode.ArrivalTimes"
+msgstr "Ankunftszeitpunkte"
+
+msgid "Surface.Source.Dialog.CalculationOfTheInterarrivalTimes.DataStream.Mode.InterArrivalTimes"
+msgstr "Zwischenankunftszeiten"
+
+msgid "Surface.Source.Dialog.CalculationOfTheInterarrivalTimes.DataStream.Values"
+msgstr "Zahlenwerte"
+
+msgid "Surface.Source.Dialog.CalculationOfTheInterarrivalTimes.DataStream.Values.ErrorInfo"
+msgstr "Der in Zeile %d angegebene Zahlenwert \"%s\" ist ungültig."
+
+msgid "Surface.Source.Dialog.CalculationOfTheInterarrivalTimes.DataStream.Values.ErrorTitle"
+msgstr "Zahlenwert ungültig"
+
+msgid "Surface.Source.Dialog.CalculationOfTheInterarrivalTimes.DataStream.Values.InfoPlural"
+msgstr "Die Liste enthält %s Werte."
+
+msgid "Surface.Source.Dialog.CalculationOfTheInterarrivalTimes.DataStream.Values.InfoSingular"
+msgstr "Die Liste enthält %s Wert."
+
 msgid "Surface.Source.Dialog.CalculationOfTheInterarrivalTimes.Distribution"
 msgstr "Wahrscheinlichkeitsverteilung"
 
@@ -30510,6 +30576,21 @@ msgstr "Anzahl"
 msgid "Surface.Source.XML.Condition.MinDistance"
 msgstr "MinimalerAbstand"
 
+msgid "Surface.Source.XML.DataStream"
+msgstr "ModellElemenZahlenwerte"
+
+msgid "Surface.Source.XML.DataStream.ClientCount"
+msgstr "Kundenanzahl"
+
+msgid "Surface.Source.XML.DataStream.Count"
+msgstr "Anzahl"
+
+msgid "Surface.Source.XML.DataStream.InterArrivalTimes"
+msgstr "Zwischenankunftszeiten"
+
+msgid "Surface.Source.XML.DataStream.TimeBase"
+msgstr "Zeitbasis"
+
 msgid "Surface.Source.XML.Distribution"
 msgstr "ModellElementVerteilung"
 
@@ -30543,14 +30624,32 @@ msgstr "ErsteAnkunftBeiStart"
 msgid "Surface.Source.XML.IntervalDistribution"
 msgstr "ModellElementIntervallVerteilung"
 
+msgid "Surface.Source.XML.IntervalDistribution.ClientCount"
+msgstr "Kundenanzahl"
+
+msgid "Surface.Source.XML.IntervalDistribution.Count"
+msgstr "Anzahl"
+
 msgid "Surface.Source.XML.IntervalDistribution.IntervalTime"
 msgstr "Intervalldauer"
+
+msgid "Surface.Source.XML.IntervalDistribution.Setup"
+msgstr "ModellElementIntervallVerteilungEinstellungen"
 
 msgid "Surface.Source.XML.IntervalExpression"
 msgstr "ModellElementIntervallAnzahl"
 
+msgid "Surface.Source.XML.IntervalExpression.ClientCount"
+msgstr "Kundenanzahl"
+
+msgid "Surface.Source.XML.IntervalExpression.Count"
+msgstr "Anzahl"
+
 msgid "Surface.Source.XML.IntervalExpression.IntervalTime"
 msgstr "Intervalldauer"
+
+msgid "Surface.Source.XML.IntervalExpression.Setup"
+msgstr "ModellElementIntervallAnzahlEinstellungen"
 
 msgid "Surface.Source.XML.Root"
 msgstr "ModellElementQuelle"

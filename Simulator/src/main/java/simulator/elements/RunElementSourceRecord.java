@@ -16,6 +16,7 @@
 package simulator.elements;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.apache.commons.math3.distribution.AbstractRealDistribution;
@@ -94,6 +95,9 @@ public class RunElementSourceRecord {
 	public int intervalDistributionsIntervalTime;
 	/** Intervallbasierte Zwischenankunftszeiten */
 	public String[] intervalDistributions;
+
+	/** Ankunftszeitpunkte aus Datenstrom */
+	public double[] arrivalStream;
 
 	/** Erste Ankunft zum Zeitpunkt 0? */
 	private boolean firstArrivalAt0;
@@ -239,6 +243,38 @@ public class RunElementSourceRecord {
 			}
 			this.intervalDistributions=intervalDistributions.toArray(new String[0]);
 			break;
+		case NEXT_STREAM:
+			/* Werte laden */
+			firstArrivalAt0=record.isFirstArrivalAt0();
+			final String[] stream=record.getDataStream().split("\\n");
+			final int streamSize=stream.length;
+			double[] values=new double[streamSize];
+			int streamSizeUsed=0;
+			for (int i=0;i<streamSize;i++) {
+				final String line=stream[i].trim();
+				if (!line.isEmpty()) {
+					final Double D=NumberTools.getDouble(line);
+					if (D==null) return new RunModelCreatorStatus(String.format(Language.tr("Simulation.Creator.ArrivalStream"),i+1,line,id));
+					values[streamSizeUsed]=D;
+					streamSizeUsed++;
+				}
+			}
+			values=Arrays.copyOf(values,streamSizeUsed);
+			/* Werte interpretieren */
+			if (record.isDataStreamIsInterArrival()) {
+				/* Zwischenankunftszeiten: Umrechnen in Zeitpunkte */
+				arrivalStream=new double[values.length];
+				double sum=0;
+				for (int i=0;i<values.length;i++) {
+					sum+=values[i];
+					arrivalStream[i]=sum;
+				}
+			} else {
+				/* Ankunftszeitpunkte: Sortieren */
+				Arrays.sort(values);
+				arrivalStream=values;
+			}
+			break;
 		}
 
 		batchSize=record.getBatchSize();
@@ -359,6 +395,16 @@ public class RunElementSourceRecord {
 			break;
 		case NEXT_INTERVAL_DISTRIBUTIONS:
 			if (record.getIntervalDistributionsIntervalTime()<=0) return new RunModelCreatorStatus(String.format(Language.tr("Simulation.Creator.IntervalDistributions.IntervalTimeInvalid"),id,record.getIntervalDistributionsIntervalTime()));
+			break;
+		case NEXT_STREAM:
+			final String[] stream=record.getDataStream().split("\\n");
+			final int streamSize=stream.length;
+			for (int i=0;i<streamSize;i++) {
+				final String line=stream[i].trim();
+				if (!line.isEmpty()) {
+					if (NumberTools.getDouble(line)==null) return new RunModelCreatorStatus(String.format(Language.tr("Simulation.Creator.ArrivalStream"),i+1,line,id));
+				}
+			}
 			break;
 		}
 
@@ -750,6 +796,19 @@ public class RunElementSourceRecord {
 
 		if (recordData.intervalDistributions!=null) {
 			return scheduleArrivalByIntervalDistribution(simData,element,stationName,isFirstArrival,recordData.intervalDistributions,intervalDistributionsIntervalTime);
+		}
+
+		if (arrivalStream!=null) {
+			double rawTimeDelta;
+			if (isFirstArrival && firstArrivalAt0 && arrivalStream.length>0) {
+				rawTimeDelta=0;
+			} else {
+				if (recordData.arrivalTimeValueNext>=arrivalStream.length) return 0;
+				final double arrivalTime=arrivalStream[recordData.arrivalTimeValueNext]*timeBaseMultiply;
+				recordData.arrivalTimeValueNext++;
+				rawTimeDelta=(arrivalTime-simData.currentTime/1000.0)/timeBaseMultiply; /* in scheduleNextArrivalTime wird mit timeBaseMultiply multipliziert, daher hier die Division */
+			}
+			return scheduleNextArrivalTime(simData,rawTimeDelta,isFirstArrival,element,stationName);
 		}
 
 		return 0;

@@ -45,6 +45,8 @@ public class RunElementSourceRecordData {
 	public final ExpressionCalc[] intervalExpressions;
 	/** Ausdrücke für die intervallabhängigen Zwischenankunftszeiten */
 	public final ExpressionCalc[] intervalDistributions;
+	/** Nächster zu verwendender Eintrag aus {@link RunElementSourceRecord#arrivalStream} */
+	public int arrivalTimeValueNext;
 
 	/** Rechenausdruck für den Schwellenwert zur Erzeugung von Ankünften */
 	private final ExpressionCalc threshold;
@@ -122,6 +124,8 @@ public class RunElementSourceRecordData {
 		this.thresholdIsDirectionUp=record.thresholdDirectionUp;
 
 		this.setData=record.getRuntimeExpressions(simData.runModel.variableNames);
+
+		arrivalTimeValueNext=0;
 	}
 
 	/**
