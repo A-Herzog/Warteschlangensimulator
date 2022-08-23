@@ -68,6 +68,13 @@ import parser.symbols.CalcSymbolPreOperatorKurt;
 import parser.symbols.CalcSymbolPreOperatorLd;
 import parser.symbols.CalcSymbolPreOperatorLg;
 import parser.symbols.CalcSymbolPreOperatorLog;
+import parser.symbols.CalcSymbolPreOperatorLogicAnd;
+import parser.symbols.CalcSymbolPreOperatorLogicNAnd;
+import parser.symbols.CalcSymbolPreOperatorLogicNOr;
+import parser.symbols.CalcSymbolPreOperatorLogicNXor;
+import parser.symbols.CalcSymbolPreOperatorLogicNot;
+import parser.symbols.CalcSymbolPreOperatorLogicOr;
+import parser.symbols.CalcSymbolPreOperatorLogicXor;
 import parser.symbols.CalcSymbolPreOperatorMax;
 import parser.symbols.CalcSymbolPreOperatorMean;
 import parser.symbols.CalcSymbolPreOperatorMedian;
@@ -374,6 +381,13 @@ public class CalcSymbolList {
 			addSymbol(new CalcSymbolPreOperatorAllenCunneen());
 			addSymbol(new CalcSymbolPreOperatorModulo());
 			addSymbol(new CalcSymbolPreOperatorIf());
+			addSymbol(new CalcSymbolPreOperatorLogicAnd());
+			addSymbol(new CalcSymbolPreOperatorLogicOr());
+			addSymbol(new CalcSymbolPreOperatorLogicXor());
+			addSymbol(new CalcSymbolPreOperatorLogicNot());
+			addSymbol(new CalcSymbolPreOperatorLogicNAnd());
+			addSymbol(new CalcSymbolPreOperatorLogicNOr());
+			addSymbol(new CalcSymbolPreOperatorLogicNXor());
 
 			addSymbol(new CalcSymbolMiddleOperatorPlus());
 			addSymbol(new CalcSymbolMiddleOperatorMinus());

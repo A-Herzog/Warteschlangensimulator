@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-08-21 00:51+0200\n"
+"POT-Creation-Date: 2022-08-22 21:19+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -5442,6 +5442,51 @@ msgstr "<p>Berechnet den Logarithmus des als Parameter übergebenen Wertes zur a
 
 msgid "ExpressionBuilder.Info"
 msgstr "Per Doppelklick auf einen Eintrag in der Baumstruktur kann das Symbol in den Ausdruck eingefügt werden."
+
+msgid "ExpressionBuilder.LogicFunctions"
+msgstr "Logik-Funktionen"
+
+msgid "ExpressionBuilder.LogicFunctions.And"
+msgstr "Logisches \"Und\""
+
+msgid "ExpressionBuilder.LogicFunctions.And.Info"
+msgstr "<p>Liefert 1, wenn alle Parameter ungleich 0 sind, und 0 sonst.</p>"
+
+msgid "ExpressionBuilder.LogicFunctions.Nand"
+msgstr "Logisches \"Nicht und\""
+
+msgid "ExpressionBuilder.LogicFunctions.Nand.Info"
+msgstr "<p>Liefert 0, wenn alle Parameter ungleich 0 sind, und 1 sonst.</p>"
+
+msgid "ExpressionBuilder.LogicFunctions.Nor"
+msgstr "Logisches \"Nicht oder\""
+
+msgid "ExpressionBuilder.LogicFunctions.Nor.Info"
+msgstr "<p>Liefert 0, wenn mindestens ein Parameter ungleich 0 ist, und 1 sonst.</p>"
+
+msgid "ExpressionBuilder.LogicFunctions.Not"
+msgstr "Logisches \"Nicht\""
+
+msgid "ExpressionBuilder.LogicFunctions.Not.Info"
+msgstr "<p>Liefert 1, wenn der Parameter 0 ist, und 0 sonst.</p>"
+
+msgid "ExpressionBuilder.LogicFunctions.Nxor"
+msgstr "Logisches \"Nicht exklusives oder\""
+
+msgid "ExpressionBuilder.LogicFunctions.Nxor.Info"
+msgstr "<p>Liefert 1, wenn die Anzahl der Parameter mit einem Wert ungleich 0 gerade ist, und 0 sonst.</p>"
+
+msgid "ExpressionBuilder.LogicFunctions.Or"
+msgstr "Logisches \"Oder\""
+
+msgid "ExpressionBuilder.LogicFunctions.Or.Info"
+msgstr "<p>Liefert 1, wenn mindestens ein Parameter ungleich 0 ist, und 0 sonst.</p>"
+
+msgid "ExpressionBuilder.LogicFunctions.Xor"
+msgstr "Logisches \"Exklusives oder\""
+
+msgid "ExpressionBuilder.LogicFunctions.Xor.Info"
+msgstr "<p>Liefert 1, wenn die Anzahl der Parameter mit einem Wert ungleich 0 ungerade ist, und 0 sonst.</p>"
 
 msgid "ExpressionBuilder.MathematicalConstants"
 msgstr "Mathematische Konstanten"

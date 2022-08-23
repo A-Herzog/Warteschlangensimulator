@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-08-21 00:51+0200\n"
+"POT-Creation-Date: 2022-08-22 21:19+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -5435,6 +5435,51 @@ msgstr "<p>Calculates the logarithm of the value passed as parameter to the base
 
 msgid "ExpressionBuilder.Info"
 msgstr "By double-clicking on an entry in the tree structure, a symbol can be inserted into the expression."
+
+msgid "ExpressionBuilder.LogicFunctions"
+msgstr "Logic functions"
+
+msgid "ExpressionBuilder.LogicFunctions.And"
+msgstr "Logic \"and\""
+
+msgid "ExpressionBuilder.LogicFunctions.And.Info"
+msgstr "<p>Returns 1, if all parameters if all parameters are not equal to 0, and 0 otherwise.</p>"
+
+msgid "ExpressionBuilder.LogicFunctions.Nand"
+msgstr "Logic \"not and\""
+
+msgid "ExpressionBuilder.LogicFunctions.Nand.Info"
+msgstr "<p>Returns 0, if all parameters if all parameters are not equal to 0, and 1 otherwise.</p>"
+
+msgid "ExpressionBuilder.LogicFunctions.Nor"
+msgstr "Logic \"not or\""
+
+msgid "ExpressionBuilder.LogicFunctions.Nor.Info"
+msgstr "<p>Returns 0, if at least one parameter is not equal to 0, and 1 otherwise.</p>"
+
+msgid "ExpressionBuilder.LogicFunctions.Not"
+msgstr "Logic \"not\""
+
+msgid "ExpressionBuilder.LogicFunctions.Not.Info"
+msgstr "<p>Returns 1, if the parameter is 0, and 0 otherwise.</p>"
+
+msgid "ExpressionBuilder.LogicFunctions.Nxor"
+msgstr "Logic \"not exclusive or\""
+
+msgid "ExpressionBuilder.LogicFunctions.Nxor.Info"
+msgstr "<p>Returns 1, if the number of parameters not equal to 0 is even, and 0 otherwise.</p>"
+
+msgid "ExpressionBuilder.LogicFunctions.Or"
+msgstr "Logic \"or\""
+
+msgid "ExpressionBuilder.LogicFunctions.Or.Info"
+msgstr "<p>Returns 1, if at least one parameter is not equal to 0, and 0 otherwise.</p>"
+
+msgid "ExpressionBuilder.LogicFunctions.Xor"
+msgstr "Logic \"exclusive or\""
+
+msgid "ExpressionBuilder.LogicFunctions.Xor.Info"
+msgstr "<p>Returns 1, if the number of parameters not equal to 0 is odd, and 0 otherwise.</p>"
 
 msgid "ExpressionBuilder.MathematicalConstants"
 msgstr "Mathematical constants"

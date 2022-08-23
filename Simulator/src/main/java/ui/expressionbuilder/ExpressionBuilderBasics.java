@@ -179,6 +179,18 @@ public class ExpressionBuilderBasics {
 		addTreeNodeConst(group,filterUpper,Language.tr("ExpressionBuilder.MathematicalConstants.e"),"e",Language.tr("ExpressionBuilder.MathematicalConstants.e.Info"));
 		if (group.getChildCount()>0) root.add(group);
 
+		/* Logik-Funktionen */
+
+		group=new DefaultMutableTreeNode(Language.tr("ExpressionBuilder.LogicFunctions"));
+		addTreeNode(group,filterUpper,Language.tr("ExpressionBuilder.LogicFunctions.And")+" (and)","and("+value+";"+value+")",Language.tr("ExpressionBuilder.LogicFunctions.And.Info"));
+		addTreeNode(group,filterUpper,Language.tr("ExpressionBuilder.LogicFunctions.Or"),"or("+value+";"+value+")",Language.tr("ExpressionBuilder.LogicFunctions.Or.Info"));
+		addTreeNode(group,filterUpper,Language.tr("ExpressionBuilder.LogicFunctions.Xor"),"xor("+value+";"+value+")",Language.tr("ExpressionBuilder.LogicFunctions.Xor.Info"));
+		addTreeNode(group,filterUpper,Language.tr("ExpressionBuilder.LogicFunctions.Not"),"not("+value+";"+value+")",Language.tr("ExpressionBuilder.LogicFunctions.Not.Info"));
+		addTreeNode(group,filterUpper,Language.tr("ExpressionBuilder.LogicFunctions.Nand"),"nand("+value+";"+value+")",Language.tr("ExpressionBuilder.LogicFunctions.Nand.Info"));
+		addTreeNode(group,filterUpper,Language.tr("ExpressionBuilder.LogicFunctions.Nor"),"nor("+value+";"+value+")",Language.tr("ExpressionBuilder.LogicFunctions.Nor.Info"));
+		addTreeNode(group,filterUpper,Language.tr("ExpressionBuilder.LogicFunctions.Nxor"),"nxor("+value+";"+value+")",Language.tr("ExpressionBuilder.LogicFunctions.Nxor.Info"));
+		if (group.getChildCount()>0) root.add(group);
+
 		/* Statistik-Funktionen */
 
 		group=new DefaultMutableTreeNode(Language.tr("ExpressionBuilder.StatisticalFunctions"));
