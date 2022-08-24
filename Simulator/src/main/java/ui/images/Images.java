@@ -149,6 +149,9 @@ public enum Images {
 	/** Symbol "Abspielen starten" */
 	GENERAL_PLAY("control_play_blue.png"),
 
+	/** Symbol "Maus" */
+	GENERAL_MOUSE("mouse.png"),
+
 	/** Sound-Typ-Auswahl "Systemereignis-Sounds" */
 	SOUND_EVENT("flag_red.png"),
 

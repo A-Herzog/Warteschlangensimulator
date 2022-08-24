@@ -1347,6 +1347,11 @@ public class SetupData extends SetupBase {
 	public String spellCheckingLanguages;
 
 	/**
+	 * Mausposition beim Zoomen per Mausrad festhalten
+	 */
+	public boolean mouseWheelZoomFixMousePosition;
+
+	/**
 	 * Letzter Fehler
 	 * (Hier wird die Setup-Datei als Logdatei für solche Ereignisse verwendet.)
 	 */
@@ -1575,6 +1580,7 @@ public class SetupData extends SetupBase {
 		canceledAnimationStatistics=CanceledSimulationStatistics.OFF;
 		canceledSimulationStatistics=CanceledSimulationStatistics.ASK;
 		spellCheckingLanguages="de-DE;en-US";
+		mouseWheelZoomFixMousePosition=true;
 		lastError=null;
 	}
 
@@ -2598,6 +2604,11 @@ public class SetupData extends SetupBase {
 				spellCheckingLanguages=e.getTextContent();
 				continue;
 			}
+
+			if (name.equals("mousewheetzoomfixmousePosition")) {
+				mouseWheelZoomFixMousePosition=loadBoolean(e.getTextContent(),true);
+				continue;
+			}
 		}
 
 		if (useLastFiles) {
@@ -3326,6 +3337,11 @@ public class SetupData extends SetupBase {
 
 		root.appendChild(node=doc.createElement("SpellCheckingLanguages"));
 		node.setTextContent(spellCheckingLanguages);
+
+		if (!mouseWheelZoomFixMousePosition) {
+			root.appendChild(node=doc.createElement("MouseWheelZoomFixMousePosition"));
+			node.setTextContent("0");
+		}
 
 		if (lastError!=null && !lastError.trim().isEmpty()) {
 			root.appendChild(node=doc.createElement("LastError"));

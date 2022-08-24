@@ -360,6 +360,10 @@ public class MainPanel extends MainPanelBase {
 	private JCheckBoxMenuItem menuViewShowIDs;
 	/** Menüpunkt "Ansicht" - "Stationsbeschreibungen in Tooltips" */
 	private JCheckBoxMenuItem menuViewShowStationDescription;
+	/** Menüpunkt "Ansicht" - "Mausrad-Zoom" - "Mausposition fixieren" */
+	private JRadioButtonMenuItem menuViewMouseWheelZoomFixMousePosition;
+	/** Menüpunkt "Ansicht" - "Mausrad-Zoom" - "Fenstermitte fixieren" */
+	private JRadioButtonMenuItem menuViewMouseWheelZoomFixScreenCenter;
 	/** Menüpunkt "Ansicht" - "Farbverläufe verwenden" */
 	private JCheckBoxMenuItem menuViewGradients;
 	/** Menüpunkt "Ansicht" - "Schatten an den Stationen anzeigen" */
@@ -702,6 +706,8 @@ public class MainPanel extends MainPanelBase {
 		addAction("ViewBackgroundColor",e->commandViewBackgroundColor());
 		addAction("ViewEdgeSettings",e->commandViewEdgeSettings());
 		addAction("ViewUserDefinedAnimationIcons",e->commandViewUserDefinedAnimationIcons());
+		addAction("ViewMouseWheelZoomFixMousePosition",e->commandViewMouseWheelZoom(true));
+		addAction("ViewMouseWheelZoomFixScreenCenter",e->commandViewMouseWheelZoom(false));
 
 		/* Elemente */
 		addAction("ElementAddElement",e->editorPanel.setTemplatesVisible(!editorPanel.isTemplatesVisible(),false));
@@ -906,6 +912,10 @@ public class MainPanel extends MainPanelBase {
 
 		/* Ansicht - Schatten */
 		menuViewShadows.setState(setup.useShadows);
+
+		/* Ansicht - Mausrad-Zoom */
+		menuViewMouseWheelZoomFixMousePosition.setSelected(setup.mouseWheelZoomFixMousePosition);
+		menuViewMouseWheelZoomFixScreenCenter.setSelected(!setup.mouseWheelZoomFixMousePosition);
 
 		/* Simulation - Animation - Start */
 		menuSimulationAnimationStartModeRun.setSelected(!setup.animationStartPaused);
@@ -1289,6 +1299,15 @@ public class MainPanel extends MainPanelBase {
 		enabledOnEditorPanel.add(createMenuItemCtrl(menu,Language.tr("Main.Menu.View.CenterModel"),Images.ZOOM_CENTER_MODEL.getIcon(),Language.tr("Main.Menu.View.CenterModel.Mnemonic"),KeyEvent.VK_NUMPAD0,"ViewCenterModel"));
 		enabledOnEditorPanel.add(createMenuItemCtrl(menu,Language.tr("Main.Menu.View.ScrollTopLeft"),Language.tr("Main.Menu.View.ScrollTopLeft.Mnemonic"),KeyEvent.VK_HOME,"ViewTop"));
 		enabledOnEditorPanel.add(createMenuItemCtrl(menu,Language.tr("Main.Menu.View.FlyOutZoom"),Language.tr("Main.Menu.View.FlyOutZoom.Mnemonic"),KeyEvent.VK_DIVIDE,"ViewFlyOut"));
+		menu.add(submenu=new JMenu(Language.tr("Main.Menu.View.MouseWheelZoom")));
+		submenu.setIcon(Images.GENERAL_MOUSE.getIcon());
+		enabledOnEditorPanel.add(menuViewMouseWheelZoomFixMousePosition=createRadioButtonMenuItem(submenu,Language.tr("Main.Menu.View.MouseWheelZoom.FixMousePosition"),Language.tr("Main.Menu.View.MouseWheelZoom.FixMousePosition.Mnemonic"),"ViewMouseWheelZoomFixMousePosition"));
+		menuViewMouseWheelZoomFixMousePosition.setSelected(setup.mouseWheelZoomFixMousePosition);
+		enabledOnEditorPanel.add(menuViewMouseWheelZoomFixScreenCenter=createRadioButtonMenuItem(submenu,Language.tr("Main.Menu.View.MouseWheelZoom.FixWindowPosition"),Language.tr("Main.Menu.View.MouseWheelZoom.FixWindowPosition.Mnemonic"),"ViewMouseWheelZoomFixScreenCenter"));
+		menuViewMouseWheelZoomFixScreenCenter.setSelected(!setup.mouseWheelZoomFixMousePosition);
+		buttonGroup=new ButtonGroup();
+		buttonGroup.add(menuViewMouseWheelZoomFixMousePosition);
+		buttonGroup.add(menuViewMouseWheelZoomFixScreenCenter);
 		menu.addSeparator();
 		enabledOnEditorPanel.add(createMenuItemCtrlShift(menu,Language.tr("Main.Menu.View.Layers"),Images.EDIT_LAYERS.getIcon(),Language.tr("Main.Menu.View.Layers.Mnemonic"),KeyEvent.VK_F9,"ViewLayers"));
 		enabledOnEditorPanel.add(createMenuItem(menu,Language.tr("Main.Menu.View.BackgroundColor"),Images.EDIT_BACKGROUND_COLOR.getIcon(),Language.tr("Main.Menu.View.BackgroundColor.Mnemonic"),"ViewBackgroundColor"));
@@ -2606,6 +2625,16 @@ public class MainPanel extends MainPanelBase {
 		editorPanel.setModel(model);
 		editorPanel.setLastFile(file);
 		editorPanel.setModelChanged(true);
+	}
+
+	/**
+	 * Befehl: Ansicht - Mausrad-Zoom
+	 * @param fixMousePosition	Soll die Mausposition statt der Fenstermitte festgehalten werden?
+	 */
+	private void commandViewMouseWheelZoom(final boolean fixMousePosition) {
+		setup.mouseWheelZoomFixMousePosition=!setup.mouseWheelZoomFixMousePosition;
+		setup.saveSetup();
+		reloadSetup();
 	}
 
 	/**

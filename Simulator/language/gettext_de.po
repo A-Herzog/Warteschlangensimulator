@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-08-22 21:19+0200\n"
+"POT-Creation-Date: 2022-08-23 08:13+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -10494,6 +10494,21 @@ msgstr "Modell-Editor"
 
 msgid "Main.Menu.View.ModelEditor.Mnemonic"
 msgstr "E"
+
+msgid "Main.Menu.View.MouseWheelZoom"
+msgstr "Mausrad-Zoom"
+
+msgid "Main.Menu.View.MouseWheelZoom.FixMousePosition"
+msgstr "Mausposition fixieren"
+
+msgid "Main.Menu.View.MouseWheelZoom.FixMousePosition.Mnemonic"
+msgstr "M"
+
+msgid "Main.Menu.View.MouseWheelZoom.FixWindowPosition"
+msgstr "Fenstermitte fixieren"
+
+msgid "Main.Menu.View.MouseWheelZoom.FixWindowPosition.Mnemonic"
+msgstr "F"
 
 msgid "Main.Menu.View.NavigatorBar"
 msgstr "Navigator anzeigen"
