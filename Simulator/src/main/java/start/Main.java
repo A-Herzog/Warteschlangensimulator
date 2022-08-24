@@ -29,6 +29,7 @@ import language.Messages_Java11;
 import mathtools.Table;
 import mathtools.distribution.swing.JDistributionEditorPanel;
 import mathtools.distribution.swing.JDistributionEditorPanelRecord;
+import simulator.simparser.ExpressionCalcUserFunctionsManager;
 import systemtools.BaseDialog;
 import systemtools.GUITools;
 import systemtools.MsgBox;
@@ -111,6 +112,9 @@ public class Main {
 		/* Programmname für Export */
 		Table.ExportTitle=MainFrame.PROGRAM_NAME;
 		StatisticsBasePanel.program_name=MainFrame.PROGRAM_NAME;
+
+		/* Nutzerdefinierte Funktionen laden */
+		ExpressionCalcUserFunctionsManager.getInstance();
 
 		/* Update */
 		UpdateSystem.getUpdateSystem();

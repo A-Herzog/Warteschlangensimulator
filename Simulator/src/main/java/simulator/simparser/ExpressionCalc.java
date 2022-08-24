@@ -66,6 +66,21 @@ public class ExpressionCalc extends CalcSystem {
 	}
 
 	/**
+	 * Liefert ein {@link ExpressionCalc}-Objekt, welches innerhalb einer nutzerdefinierten Funktion verwendet werden kann.
+	 * @param parameterCount	Anzahl an Parametern (die Namen werden als Parameter1, Parameter2 usw. festgelegt)
+	 * @return	{@link ExpressionCalc}-Objekt mit der angegebenen Anzahl an Parametern (und fortlaufenden Parameternamen) und ohne Verwenden von nutzerdefinierten Funktionen
+	 * @see CalcSymbolUserFunction
+	 */
+	public static ExpressionCalc getUserFunctionCompiler(int parameterCount) {
+		parameterCount=Math.max(0,parameterCount);
+		final String[] parameterNames=new String[parameterCount];
+		for (int i=0;i<parameterNames.length;i++) parameterNames[i]="Parameter"+(i+1);
+		final ExpressionCalc calc=new ExpressionCalc(parameterNames);
+		calc.justCompilingUserFunction=true;
+		return calc;
+	}
+
+	/**
 	 * Liefert das zentrale {@link SimulationData}-Objekt für Berechnungen.
 	 * @return	Basis-Objekt der Simulation
 	 * @see CalcSymbolSimData#getSimData()
@@ -272,7 +287,7 @@ public class ExpressionCalc extends CalcSystem {
 		functions.add(new CalcSymbolAnalogValve());
 
 		functions.add(new CalcSymbolStationDataNumberIn());
-		functions.add(new CalcSymbolStationDataNumberOut());
+		functions.add(new CalcSymbolStationDataNumberLeave());
 		functions.add(new CalcSymbolStationDataThroughput());
 		functions.add(new CalcSymbolStationDataThroughputMax());
 		functions.add(new CalcSymbolStationDataThroughputMaxInterval());
@@ -342,9 +357,32 @@ public class ExpressionCalc extends CalcSystem {
 		functions.add(new CalcSymbolUserStatistics_hist());
 	}
 
+	/**
+	 * Sollten nutzerdefinierte Funktionen zum Zusammenstellen
+	 * der Liste aller Symbole berücksichtigt werden (<code>false</code>)
+	 * oder sollen diese übersprüngen werden (<code>true</code>)?
+	 * @see #userFunctions
+	 * @see #getUserFunctions()
+	 */
+	protected boolean justCompilingUserFunction=false;
+
+	/**
+	 * Liste der nutzerdefinierten Funktionen (kann <code>null</code> sein)
+	 * @see CalcSymbolUserFunction
+	 * @see #getUserFunctions()
+	 * @see ExpressionCalcUserFunctionsManager
+	 */
+	static List<CalcSymbolUserFunction> userFunctions=null;
+
 	@Override
 	protected List<CalcSymbolPreOperator> getUserFunctions() {
-		return functions;
+		if (justCompilingUserFunction || userFunctions==null || userFunctions.size()==0) {
+			return functions;
+		} else {
+			final List<CalcSymbolPreOperator> list=new ArrayList<>(functions);
+			list.addAll(userFunctions);
+			return list;
+		}
 	}
 
 	/**

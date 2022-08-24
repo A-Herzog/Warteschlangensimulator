@@ -61,6 +61,14 @@ public class CalcSymbolTruncatedDistribution extends CalcSymbolPreOperator {
 		distParameters=new double[parameterCount];
 	}
 
+	/**
+	 * Liefert den Klassennamen der eingebetteten Verteilung.
+	 * @return	Klassenname der eingebetteten Verteilung
+	 */
+	public Class<? extends CalcSymbolDistribution> getInnerDistributionClass() {
+		return innerDistribution.getClass();
+	}
+
 	@Override
 	public String[] getNames() {
 		if (names==null) {

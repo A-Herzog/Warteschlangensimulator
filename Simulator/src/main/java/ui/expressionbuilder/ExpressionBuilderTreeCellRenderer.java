@@ -48,6 +48,8 @@ class ExpressionBuilderTreeCellRenderer extends DefaultTreeCellRenderer {
 	private Image iconVariable=null;
 	/** Icon für Funktionen */
 	private Image iconFunction=null;
+	/** Icon für nutzerdefinierte Funktionen */
+	private Image iconUserFunction=null;
 	/** Icon für Wahrscheinlichkeitsverteilungen */
 	private Image iconDistribution=null;
 	/** Icon für Simulationsdaten */
@@ -67,6 +69,7 @@ class ExpressionBuilderTreeCellRenderer extends DefaultTreeCellRenderer {
 		iconConst=Images.EXPRESSION_BUILDER_CONST.getImage();
 		iconVariable=Images.EXPRESSION_BUILDER_VARIABLE.getImage();
 		iconFunction=Images.EXPRESSION_BUILDER_FUNCTION.getImage();
+		iconUserFunction=Images.EXPRESSION_BUILDER_USER_FUNCTION.getImage();
 		iconDistribution=Images.EXPRESSION_BUILDER_DISTRIBUTION.getImage();
 		iconSimData=Images.EXPRESSION_BUILDER_SIMDATA.getImage();
 		iconStationID=Images.EXPRESSION_BUILDER_STATION_ID.getImage();
@@ -128,6 +131,7 @@ class ExpressionBuilderTreeCellRenderer extends DefaultTreeCellRenderer {
 		case TYPE_CONST: return iconConst;
 		case TYPE_VARIABLE: return iconVariable;
 		case TYPE_FUNCTION: return iconFunction;
+		case TYPE_USER_FUNCTION: return iconUserFunction;
 		case TYPE_DISTRIBUTION: return iconDistribution;
 		case TYPE_SIMDATA: return iconSimData;
 		case TYPE_STATION_ID: return iconStationID;

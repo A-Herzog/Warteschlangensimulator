@@ -76,6 +76,8 @@ public class ExpressionBuilder extends BaseDialog {
 
 	/** Gibt an, ob es sich bei dem Ausdruck um einen Vergleich (<code>true</code>) oder um einen zu einer Zahl auszurechnenden Ausdruck (<code>false</code>) handelt */
 	private final boolean isCompare;
+	/** Nutzerdefinierte Funktionen anzeigen? */
+	private final boolean allowUserDefinedFunctions;
 	/** Liste mit den im System vorhandenen Variablen */
 	private final String[] variables;
 	/** Liste der initialen Variablen mit Werten */
@@ -123,9 +125,28 @@ public class ExpressionBuilder extends BaseDialog {
 	 * @param noSimulator	Gibt an, dass überhaupt keine Funktionen, die sich auf Simulation oder Ergebnisse beziehen, angeboten werden sollen.
 	 */
 	public ExpressionBuilder(final Component owner, final String expression, final boolean isCompare, final String[] variables, final Map<String,String> initialVariables, final Map<Integer,String> stations, final Map<Integer,String> stationNames, final boolean hasClientData, final boolean statisticsOnly, final boolean noSimulator) {
+		this(owner,expression,isCompare,variables,initialVariables,stations,stationNames,hasClientData,statisticsOnly,noSimulator,true);
+	}
+
+	/**
+	 * Konstruktor der Klasse <code>ExpressionBuilder</code>
+	 * @param owner	Übergeordnetes Element
+	 * @param expression	Bisheriger Ausdruck, wird initial im Eingabefeld angezeigt
+	 * @param isCompare	Gibt an, ob es sich bei dem Ausdruck um einen Vergleich (<code>true</code>) oder um einen zu einer Zahl auszurechnenden Ausdruck (<code>false</code>) handelt
+	 * @param variables	Liste mit den im System vorhandenen Variablen
+	 * @param initialVariables	Liste der initialen Variablen mit Werten
+	 * @param stations	Zuordnung von Stations-IDs und Stationsnamen (kann über die statische Funktion <code>getStationIDs(surface)</code> erstellt werden)
+	 * @param stationNames	Zuordnung von Stations-IDs zu vom Nutzer angegebenen Stationsnamen
+	 * @param hasClientData	Gibt an, ob Funktionen zum Zugriff auf Kundenobjekt-spezifische Datenfelder angeboten werden sollen
+	 * @param statisticsOnly	Gibt an, dass nur Funktionen angeboten werden sollen, deren Ergebnisse aus Statistikdaten gewonnen werden können (keine reinen Runtime-Daten)
+	 * @param noSimulator	Gibt an, dass überhaupt keine Funktionen, die sich auf Simulation oder Ergebnisse beziehen, angeboten werden sollen.
+	 * @param allowUserDefinedFunctions	Nutzerdefinierte Funktionen anzeigen?
+	 */
+	public ExpressionBuilder(final Component owner, final String expression, final boolean isCompare, final String[] variables, final Map<String,String> initialVariables, final Map<Integer,String> stations, final Map<Integer,String> stationNames, final boolean hasClientData, final boolean statisticsOnly, final boolean noSimulator, final boolean allowUserDefinedFunctions) {
 		super(owner,Language.tr("ExpressionBuilder.Title"));
 
 		this.isCompare=isCompare;
+		this.allowUserDefinedFunctions=allowUserDefinedFunctions;
 		final Set<String> tempVariables=new HashSet<>();
 		if (variables!=null) tempVariables.addAll(Arrays.asList(variables));
 		if (hasClientData) for (String var: RunModel.additionalVariables) {
@@ -322,6 +343,7 @@ public class ExpressionBuilder extends BaseDialog {
 
 		buildTreeDataVariables(root,filterUpper);
 		ExpressionBuilderBasics.build(root,pathsToOpen,filterUpper);
+		if (allowUserDefinedFunctions) ExpressionBuilderUserFunctions.build(root,pathsToOpen,filterUpper);
 		ExpressionBuilderDistributions.build(root,pathsToOpen,filterUpper);
 		ExpressionBuilderQueueingTheory.build(root,pathsToOpen,filterUpper);
 		if (!noSimulator) {
@@ -421,6 +443,11 @@ public class ExpressionBuilder extends BaseDialog {
 		 * Allgemeine Funktion
 		 */
 		TYPE_FUNCTION,
+
+		/**
+		 * Nutzerdefinierte Funktion
+		 */
+		TYPE_USER_FUNCTION,
 
 		/**
 		 * Verteilungsfunktion (Dichte, Verteilung, Erzeugung einer Zufallsvariable)

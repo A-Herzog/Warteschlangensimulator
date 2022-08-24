@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-08-23 08:13+0200\n"
+"POT-Creation-Date: 2022-08-24 12:44+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -7672,6 +7672,9 @@ msgstr "Tangent hyperbolicus"
 msgid "ExpressionBuilder.TrigonometricFunctions.TangensHyperbolicus.Info"
 msgstr "<p>Calculates the value of the tangent hyperbolicus function with the value passed as parameter.</p> <p> Example: <tt>tanh(0)</p> returns 0.</p>"
 
+msgid "ExpressionBuilder.UserFunctions"
+msgstr "User-defined function"
+
 msgid "ExpressionBuilder.Value"
 msgstr "Value"
 
@@ -9910,6 +9913,12 @@ msgstr "Test database connection..."
 
 msgid "Main.Menu.Extras.TestDatabaseConnection.Mnemonic"
 msgstr "d"
+
+msgid "Main.Menu.Extras.UserDefinedFunctions"
+msgstr "User-defined functions..."
+
+msgid "Main.Menu.Extras.UserDefinedFunctions.Mnemonic"
+msgstr "U"
 
 msgid "Main.Menu.File"
 msgstr "File"
@@ -33752,6 +33761,63 @@ msgstr "%s clients arrivals have been simulated so far."
 
 msgid "UsageStatistics.Title"
 msgstr "Usage statistics"
+
+msgid "UserDefinedFunctions.Edit.CalculationCommand"
+msgstr "Calculation command"
+
+msgid "UserDefinedFunctions.Edit.CalculationCommandErrorInfo"
+msgstr "The specified calculation command \"%s\" is invalid at character %d."
+
+msgid "UserDefinedFunctions.Edit.CalculationCommandErrorTitle"
+msgstr "Invalid calculation command name"
+
+msgid "UserDefinedFunctions.Edit.Name"
+msgstr "Name of the function"
+
+msgid "UserDefinedFunctions.Edit.NameErrorInfo"
+msgstr "The specified function name \"%s\" is invalid."
+
+msgid "UserDefinedFunctions.Edit.NameErrorTitle"
+msgstr "Invalid function name"
+
+msgid "UserDefinedFunctions.Edit.NumberOfParameters"
+msgstr "Number of parameters"
+
+msgid "UserDefinedFunctions.EditTitle"
+msgstr "Edit user-defined function"
+
+msgid "UserDefinedFunctions.List.Add"
+msgstr "Add"
+
+msgid "UserDefinedFunctions.List.AddHint"
+msgstr "Add a new user-defined function"
+
+msgid "UserDefinedFunctions.List.Delete"
+msgstr "Delete"
+
+msgid "UserDefinedFunctions.List.DeleteConfirmInfo"
+msgstr "Do you really want to delete the function \"%s\"?"
+
+msgid "UserDefinedFunctions.List.DeleteConfirmInfoNo"
+msgstr "Keep user-defined function."
+
+msgid "UserDefinedFunctions.List.DeleteConfirmInfoYes"
+msgstr "Delete user-defined function."
+
+msgid "UserDefinedFunctions.List.DeleteConfirmTitle"
+msgstr "Delete user-defined function"
+
+msgid "UserDefinedFunctions.List.DeleteHint"
+msgstr "Delete the selected user-defined function"
+
+msgid "UserDefinedFunctions.List.Edit"
+msgstr "Edit"
+
+msgid "UserDefinedFunctions.List.EditHint"
+msgstr "Edit the selected user-defined function"
+
+msgid "UserDefinedFunctions.ListTitle"
+msgstr "User-defined functions"
 
 msgid "UserTemplates.AddDialog.Global"
 msgstr "Save template global (instead of at the model)"

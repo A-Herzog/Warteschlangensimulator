@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-08-23 08:13+0200\n"
+"POT-Creation-Date: 2022-08-24 12:44+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -7662,6 +7662,9 @@ msgstr "Tangens hyperbolicus"
 msgid "ExpressionBuilder.TrigonometricFunctions.TangensHyperbolicus.Info"
 msgstr "<p>Berechnet den Wert der Tangens-hyperbolicus-Funktion des als Parameter übergebenen Wertes.</p><p>Beispiel: <tt>tanh(0)</tt> liefert 0.</p>"
 
+msgid "ExpressionBuilder.UserFunctions"
+msgstr "Nutzerdefinierte Funktionen"
+
 msgid "ExpressionBuilder.Value"
 msgstr "Wert"
 
@@ -9906,6 +9909,12 @@ msgstr "Datenbankverbindung prüfen..."
 
 msgid "Main.Menu.Extras.TestDatabaseConnection.Mnemonic"
 msgstr "D"
+
+msgid "Main.Menu.Extras.UserDefinedFunctions"
+msgstr "Nutzerdefinierte Funktionen..."
+
+msgid "Main.Menu.Extras.UserDefinedFunctions.Mnemonic"
+msgstr "N"
 
 msgid "Main.Menu.File"
 msgstr "Datei"
@@ -33776,6 +33785,63 @@ msgstr "Bislang wurden %s Kundenankünfte simuliert."
 
 msgid "UsageStatistics.Title"
 msgstr "Nutzungsstatistik"
+
+msgid "UserDefinedFunctions.Edit.CalculationCommand"
+msgstr "Rechenbefehl"
+
+msgid "UserDefinedFunctions.Edit.CalculationCommandErrorInfo"
+msgstr "Der angegebene Rechenbefehl \"%s\" ist ab Zeichen %d fehlerhaft."
+
+msgid "UserDefinedFunctions.Edit.CalculationCommandErrorTitle"
+msgstr "Ungültiger Rechenbefehl"
+
+msgid "UserDefinedFunctions.Edit.Name"
+msgstr "Name der Funktion"
+
+msgid "UserDefinedFunctions.Edit.NameErrorInfo"
+msgstr "Der angegebene Name \"%s\" für die Funktion ist ungültig."
+
+msgid "UserDefinedFunctions.Edit.NameErrorTitle"
+msgstr "Ungültiger Funktionsname"
+
+msgid "UserDefinedFunctions.Edit.NumberOfParameters"
+msgstr "Anzahl an Parametern"
+
+msgid "UserDefinedFunctions.EditTitle"
+msgstr "Benutzerdefinierte Funktion bearbeiten"
+
+msgid "UserDefinedFunctions.List.Add"
+msgstr "Hinzufügen"
+
+msgid "UserDefinedFunctions.List.AddHint"
+msgstr "Benutzerdefinierte Funktion hinzufügen"
+
+msgid "UserDefinedFunctions.List.Delete"
+msgstr "Löschen"
+
+msgid "UserDefinedFunctions.List.DeleteConfirmInfo"
+msgstr "Soll die Funktion \"%s\" wirklich gelöscht werden?"
+
+msgid "UserDefinedFunctions.List.DeleteConfirmInfoNo"
+msgstr "Benutzerdefinierte Funktion unverändert beibehalten."
+
+msgid "UserDefinedFunctions.List.DeleteConfirmInfoYes"
+msgstr "Benutzerdefinierte Funktion löschen."
+
+msgid "UserDefinedFunctions.List.DeleteConfirmTitle"
+msgstr "Benutzerdefinierte Funktion löschen"
+
+msgid "UserDefinedFunctions.List.DeleteHint"
+msgstr "Ausgewählte benutzerdefinierte Funktion löschen"
+
+msgid "UserDefinedFunctions.List.Edit"
+msgstr "Bearbeiten"
+
+msgid "UserDefinedFunctions.List.EditHint"
+msgstr "Ausgewählte benutzerdefinierte Funktion bearbeiten"
+
+msgid "UserDefinedFunctions.ListTitle"
+msgstr "Benutzerdefinierte Funktionen"
 
 msgid "UserTemplates.AddDialog.Global"
 msgstr "Vorlage global (statt beim Modell) speichern"

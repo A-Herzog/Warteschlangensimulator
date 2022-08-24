@@ -38,6 +38,7 @@ import language.Messages_Java11;
 import mathtools.NumberTools;
 import scripting.java.SimDynamicSetup;
 import simulator.editmodel.EditModel;
+import simulator.simparser.ExpressionCalcUserFunctionsManager;
 import statistics.StatisticsDataPerformanceIndicator;
 import systemtools.GUITools;
 import systemtools.SetupBase;
@@ -1352,6 +1353,12 @@ public class SetupData extends SetupBase {
 	public boolean mouseWheelZoomFixMousePosition;
 
 	/**
+	 * Nutzerdefinierte Rechenfunktionen
+	 * @see ExpressionCalcUserFunctionsManager
+	 */
+	public List<String> userDefinedCalculationFunctions;
+
+	/**
 	 * Letzter Fehler
 	 * (Hier wird die Setup-Datei als Logdatei für solche Ereignisse verwendet.)
 	 */
@@ -1581,6 +1588,8 @@ public class SetupData extends SetupBase {
 		canceledSimulationStatistics=CanceledSimulationStatistics.ASK;
 		spellCheckingLanguages="de-DE;en-US";
 		mouseWheelZoomFixMousePosition=true;
+		if (userDefinedCalculationFunctions==null) userDefinedCalculationFunctions=new ArrayList<>();
+		userDefinedCalculationFunctions.clear();
 		lastError=null;
 	}
 
@@ -2609,6 +2618,11 @@ public class SetupData extends SetupBase {
 				mouseWheelZoomFixMousePosition=loadBoolean(e.getTextContent(),true);
 				continue;
 			}
+
+			if (name.equals("userdefinedcalculationfunctions")) {
+				userDefinedCalculationFunctions.add(e.getTextContent());
+				continue;
+			}
 		}
 
 		if (useLastFiles) {
@@ -3341,6 +3355,11 @@ public class SetupData extends SetupBase {
 		if (!mouseWheelZoomFixMousePosition) {
 			root.appendChild(node=doc.createElement("MouseWheelZoomFixMousePosition"));
 			node.setTextContent("0");
+		}
+
+		for (String userFunction: userDefinedCalculationFunctions) {
+			root.appendChild(node=doc.createElement("UserDefinedCalculationFunctions"));
+			node.setTextContent(userFunction);
 		}
 
 		if (lastError!=null && !lastError.trim().isEmpty()) {

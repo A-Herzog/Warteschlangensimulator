@@ -384,6 +384,9 @@ public enum Images {
 	/** Symbol im Expression-Builder "Funktion" */
 	EXPRESSION_BUILDER_FUNCTION("fx.png"),
 
+	/** Symbol im Expression-Builder "Nutzerdefinierte Funktion" */
+	EXPRESSION_BUILDER_USER_FUNCTION("user.png"),
+
 	/** Symbol im Expression-Builder "Verteilung" */
 	EXPRESSION_BUILDER_DISTRIBUTION("chart_curve.png"),
 
@@ -897,6 +900,9 @@ public enum Images {
 
 	/** Symbol "Warteschlangenrechner" */
 	EXTRAS_QUEUE("Symbol.png"),
+
+	/** Symbol "Extras - Nutzerdefinierte Funktionen" */
+	EXTRAS_USER_FUNCTIONS("fx.png"),
 
 	/** Symbol "Verteilung anpassen" */
 	EXTRAS_FIT_DISTRIBUTION("chart_curve.png"),

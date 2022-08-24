@@ -130,6 +130,7 @@ import ui.dialogs.CopyInstallationDialog;
 import ui.dialogs.DataCheckDialog;
 import ui.dialogs.DataPrivacyDialog;
 import ui.dialogs.EdgeStyleSetupDialog;
+import ui.dialogs.ExpressionCalcUserFunctionsListDialog;
 import ui.dialogs.FindAndReplaceDialog;
 import ui.dialogs.FindBatchSizeDialog;
 import ui.dialogs.FindElementDialog;
@@ -765,6 +766,7 @@ public class MainPanel extends MainPanelBase {
 		addAction("ExtrasCompare",e->commandExtrasCompare());
 		addAction("ExtrasCalculator",e->commandExtrasCalculator(null,null));
 		addAction("ExtrasQueueingCalculator",e->commandExtrasQueueingCalculator());
+		addAction("ExtrasUserDefinedFunctions",e->commandUserDefinedFunctions());
 		addAction("ExtrasFit",e->commandExtrasFit());
 		addAction("ExtrasInputTableProcessor",e->commandExtrasInputTableProcessor());
 		addAction("ExtrasOutputTableProcessor",e->commandExtrasOutputTableProcessor());
@@ -1438,6 +1440,7 @@ public class MainPanel extends MainPanelBase {
 		menu.addSeparator();
 		createMenuItem(menu,Language.tr("Main.Menu.Extras.Calculator"),Images.EXTRAS_CALCULATOR.getIcon(),Language.tr("Main.Menu.Extras.Calculator.Mnemonic"),KeyEvent.VK_F11,"ExtrasCalculator");
 		createMenuItem(menu,Language.tr("Main.Menu.Extras.QueueingCalculator"),Images.EXTRAS_QUEUE.getIcon(),Language.tr("Main.Menu.Extras.QueueingCalculator.Mnemonic"),"ExtrasQueueingCalculator");
+		createMenuItem(menu,Language.tr("Main.Menu.Extras.UserDefinedFunctions"),Images.EXTRAS_USER_FUNCTIONS.getIcon(),Language.tr("Main.Menu.Extras.UserDefinedFunctions.Mnemonic"),"ExtrasUserDefinedFunctions");
 		menu.addSeparator();
 		createMenuItem(menu,Language.tr("Main.Menu.Extras.FitDistribution"),Images.EXTRAS_FIT_DISTRIBUTION.getIcon(),Language.tr("Main.Menu.Extras.FitDistribution.Mnemonic"),"ExtrasFit");
 		createMenuItem(menu,Language.tr("Main.Menu.Extras.InputTableProcessor"),Images.GENERAL_TABLE.getIcon(),Language.tr("Main.Menu.Extras.InputTableProcessor.Mnemonic"),"ExtrasInputTableProcessor");
@@ -3783,6 +3786,13 @@ public class MainPanel extends MainPanelBase {
 	private void commandExtrasQueueingCalculator() {
 		final QueueingCalculatorDialog dialog=new QueueingCalculatorDialog(this);
 		dialog.setVisible(true);
+	}
+
+	/**
+	 * Befehl: Extras - Nutzerdefinierte Funktionen
+	 */
+	private void commandUserDefinedFunctions() {
+		new ExpressionCalcUserFunctionsListDialog(this);
 	}
 
 	/**

@@ -22,7 +22,7 @@ import simulator.simparser.coresymbols.CalcSymbolStationData;
  * Liefert die Anzahl an Kundenabgängen von Station id (1. Parameter).
  * @author Alexander Herzog
  */
-public class CalcSymbolStationDataNumberOut extends CalcSymbolStationData {
+public class CalcSymbolStationDataNumberLeave extends CalcSymbolStationData {
 	/**
 	 * Namen für das Symbol
 	 * @see #getNames()
@@ -32,7 +32,7 @@ public class CalcSymbolStationDataNumberOut extends CalcSymbolStationData {
 	/**
 	 * Konstruktor der Klasse
 	 */
-	public CalcSymbolStationDataNumberOut() {
+	public CalcSymbolStationDataNumberLeave() {
 		/*
 		 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
 		 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
