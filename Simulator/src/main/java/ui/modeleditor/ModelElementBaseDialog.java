@@ -56,6 +56,8 @@ import javax.swing.undo.CannotRedoException;
 import javax.swing.undo.CannotUndoException;
 import javax.swing.undo.UndoManager;
 
+import org.fife.ui.rsyntaxtextarea.RSyntaxTextArea;
+
 import language.Language;
 import mathtools.NumberTools;
 import simulator.editmodel.EditModel;
@@ -73,6 +75,7 @@ import ui.modeleditor.coreelements.ModelElementPosition;
 import ui.modeleditor.elements.ComplexLine;
 import ui.modeleditor.elements.FontCache;
 import ui.quickaccess.JPlaceholderTextField;
+import ui.script.ScriptEditorAreaBuilder;
 import ui.tools.FlatLaFHelper;
 
 /**
@@ -112,7 +115,7 @@ public abstract class ModelElementBaseDialog extends BaseDialog {
 	/** Titel des Fensters (ohne Ergänzungen) */
 	private final String plainTitle;
 	/** Eingabefeld für den Namen des Elements */
-	private final JTextField nameField;
+	private final RSyntaxTextArea nameField;
 	/** Standard-Farbe für das Element */
 	private final Color defaultColor;
 	/** Benutzerdefinierte Farbe für das Element */
@@ -169,8 +172,9 @@ public abstract class ModelElementBaseDialog extends BaseDialog {
 		fullContentPanel.add(contentPanel,BorderLayout.CENTER);
 
 		if (hasNameField()) {
-			final Object[] data=getInputPanel(Language.tr("Editor.DialogBase.NameLabel")+":",element.getName());
-			nameField=(JTextField)data[1];
+			//final Object[] data=getInputPanel(Language.tr("Editor.DialogBase.NameLabel")+":",element.getName());
+			final Object[] data=ScriptEditorAreaBuilder.getInputPanel(Language.tr("Editor.DialogBase.NameLabel")+":",element.getName());
+			nameField=(RSyntaxTextArea)data[1];
 			nameField.setEditable(!readOnly);
 			contentPanel.add((JPanel)data[0],BorderLayout.NORTH);
 

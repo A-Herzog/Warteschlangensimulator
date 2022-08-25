@@ -46,7 +46,7 @@ import ui.script.ScriptEditorAreaBuilder;
  */
 public class ModelPropertiesDialogPageDescription extends ModelPropertiesDialogPage {
 	/** Eingabefeld: "Name des Modells" */
-	private JTextField name;
+	private RSyntaxTextArea name;
 	/** Eingabefeld: "Autor des Modells" */
 	private JTextField author;
 	/** Eingabefeld: "E-Mail-Adresse des Autors des Modells" */
@@ -155,9 +155,9 @@ public class ModelPropertiesDialogPageDescription extends ModelPropertiesDialogP
 		top.setLayout(new BoxLayout(top,BoxLayout.PAGE_AXIS));
 		content.add(top,BorderLayout.NORTH);
 
-		data=ModelElementBaseDialog.getInputPanel(Language.tr("Editor.Dialog.Tab.ModelDescription.NameOfTheModel")+":",model.name);
+		data=ScriptEditorAreaBuilder.getInputPanel(Language.tr("Editor.Dialog.Tab.ModelDescription.NameOfTheModel")+":",model.name);
 		top.add(sub=(JPanel)data[0]);
-		name=(JTextField)data[1];
+		name=(RSyntaxTextArea)data[1];
 		name.setEditable(!readOnly);
 		final JButton buttonAsNameToSurface;
 		sub.add(buttonAsNameToSurface=new JButton(),BorderLayout.EAST);

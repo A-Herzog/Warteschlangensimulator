@@ -21,6 +21,8 @@ import java.awt.event.KeyListener;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import org.fife.ui.rsyntaxtextarea.RSyntaxTextArea;
+
 import simulator.editmodel.EditModel;
 
 /**
@@ -90,6 +92,19 @@ public abstract class ModelPropertiesDialogPage {
 	 * @param action	Aktion die bei Tastendrücken ausgelöst werden soll
 	 */
 	protected final void addKeyListener(final JTextField field, final Runnable action) {
+		field.addKeyListener(new KeyListener(){
+			@Override public void keyTyped(KeyEvent e) {action.run();}
+			@Override public void keyPressed(KeyEvent e) {action.run();}
+			@Override public void keyReleased(KeyEvent e) {action.run();}
+		});
+	}
+
+	/**
+	 * Fügt eine Callback zur Reaktion auf Tastendrücke zu einem Eingabefeld hinzu.
+	 * @param field	Eingabefeld
+	 * @param action	Aktion die bei Tastendrücken ausgelöst werden soll
+	 */
+	protected final void addKeyListener(final RSyntaxTextArea field, final Runnable action) {
 		field.addKeyListener(new KeyListener(){
 			@Override public void keyTyped(KeyEvent e) {action.run();}
 			@Override public void keyPressed(KeyEvent e) {action.run();}

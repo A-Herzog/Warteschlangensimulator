@@ -15,10 +15,14 @@
  */
 package ui.script;
 
+import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.Serializable;
@@ -27,7 +31,14 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.function.Consumer;
 
+import javax.swing.BorderFactory;
+import javax.swing.Box;
 import javax.swing.Icon;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.ScrollPaneConstants;
+import javax.swing.UIManager;
+import javax.swing.event.HyperlinkEvent.EventType;
 
 import org.fife.ui.autocomplete.AutoCompletion;
 import org.fife.ui.autocomplete.BasicCompletion;
@@ -41,6 +52,7 @@ import org.fife.ui.rtextarea.SearchContext;
 import org.fife.ui.rtextarea.SearchEngine;
 
 import language.Language;
+import mathtools.distribution.swing.JOpenURL;
 import mathtools.distribution.tools.FileDropper;
 import net.dde.DDEConnect;
 import systemtools.MsgBox;
@@ -150,6 +162,9 @@ public class ScriptEditorAreaBuilder {
 		/* Konstruktor */
 		final RSyntaxTextArea editor=new RSyntaxTextArea();
 
+		/* Keine automatischen Zeilenumbrüche */
+		editor.setLineWrap(false);
+
 		/* Wenn nötig Dark Theme */
 		setupTheme(editor);
 
@@ -177,6 +192,12 @@ public class ScriptEditorAreaBuilder {
 
 		/* Read-only */
 		editor.setEditable(!readOnly);
+
+		/* Links */
+		editor.addHyperlinkListener(l->{
+			if (l.getEventType()==EventType.ACTIVATED) JOpenURL.open(editor,l.getURL());
+		});
+		editor.setHyperlinksEnabled(true);
 
 		/* Auf Tastendrücke reagieren */
 		if (keyListener!=null) editor.addKeyListener(new KeyAdapter() {
@@ -233,6 +254,15 @@ public class ScriptEditorAreaBuilder {
 		/* Konstruktor */
 		final RSyntaxTextArea editor=new RSyntaxTextArea();
 
+		/* Keine automatischen Zeilenumbrüche */
+		editor.setLineWrap(false);
+
+		/* Aktuelle Zeile nicht gesondert hervorheben */
+		editor.setHighlightCurrentLine(false);
+
+		/* Schriftart */
+		editor.setFont(UIManager.getDefaults().getFont("TextArea.font"));
+
 		/* Wenn nötig Dark Theme */
 		setupTheme(editor);
 
@@ -251,6 +281,12 @@ public class ScriptEditorAreaBuilder {
 
 		/* Read-only */
 		editor.setEditable(!readOnly);
+
+		/* Links */
+		editor.addHyperlinkListener(l->{
+			if (l.getEventType()==EventType.ACTIVATED) JOpenURL.open(editor,l.getURL());
+		});
+		editor.setHyperlinksEnabled(true);
 
 		/* Ergebnis liefern */
 		return editor;
@@ -268,6 +304,15 @@ public class ScriptEditorAreaBuilder {
 		/* Konstruktor */
 		final RSyntaxTextArea editor=new RSyntaxTextArea(rows,cols);
 
+		/* Keine automatischen Zeilenumbrüche */
+		editor.setLineWrap(false);
+
+		/* Aktuelle Zeile nicht gesondert hervorheben */
+		editor.setHighlightCurrentLine(false);
+
+		/* Schriftart */
+		editor.setFont(UIManager.getDefaults().getFont("TextArea.font"));
+
 		/* Wenn nötig Dark Theme */
 		setupTheme(editor);
 
@@ -287,8 +332,100 @@ public class ScriptEditorAreaBuilder {
 		/* Read-only */
 		editor.setEditable(!readOnly);
 
+		/* Links */
+		editor.addHyperlinkListener(l->{
+			if (l.getEventType()==EventType.ACTIVATED) JOpenURL.open(editor,l.getURL());
+		});
+		editor.setHyperlinksEnabled(true);
+
 		/* Ergebnis liefern */
 		return editor;
+	}
+
+	/**
+	 * Erstellt ein Textfeld mit einem Label links davor.
+	 * @param labelText	Text des Labels
+	 * @param value	Initialer Wert des Textfeldes
+	 * @return	Liefert ein Objekt aus zwei Elementen: das <code>JPanel</code> das beide Elemente enthält und als zweites das <code>JTextField</code>
+	 */
+	public static final Object[] getInputPanel(final String labelText, final String value) {
+		return getInputPanel(labelText,value,-1);
+	}
+
+	/**
+	 * Erstellt ein Textfeld mit einem Label links davor.
+	 * @param labelText	Text des Labels
+	 * @param value	Initialer Wert des Textfeldes
+	 * @param size	Breite des Textfeldes
+	 * @return	Liefert ein Objekt aus zwei Elementen: das <code>JPanel</code> das beide Elemente enthält und als zweites das <code>JTextField</code>
+	 */
+	public static final Object[] getInputPanel(final String labelText, final String value, final int size) {
+		JPanel panel;
+		JLabel label;
+		final RSyntaxTextArea field;
+		final RScrollPane scroll;
+
+		if (size>0) {
+			panel=new JPanel(new FlowLayout(FlowLayout.LEFT));
+			panel.add(label=new JLabel(labelText));
+			panel.add(scroll=new RScrollPane(field=getPlainTextField(1,size,value,false)));
+		} else {
+			panel=new JPanel(new BorderLayout(5,0));
+
+			Box box;
+
+			box=Box.createVerticalBox();
+			box.add(Box.createVerticalGlue());
+			final JPanel panelLeft=new JPanel(new FlowLayout());
+			panelLeft.add(label=new JLabel(labelText));
+			box.add(panelLeft);
+			box.add(Box.createVerticalGlue());
+			panel.add(box,BorderLayout.WEST);
+
+			field=getPlainTextField(1,0,value,false);
+			field.setMaximumSize(new Dimension(field.getMaximumSize().width,field.getPreferredSize().height));
+			box=Box.createVerticalBox();
+			box.add(Box.createVerticalGlue());
+			box.add(scroll=new RScrollPane(field));
+			box.add(Box.createVerticalGlue());
+			panel.add(box,BorderLayout.CENTER);
+		}
+
+		/* Bei einzeiligen Eingabefeldern: Keine Zeilenumbrüche zulassen - weder per Enter noch per Copy&Paste */
+		field.addKeyListener(new KeyListener() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				if (e.getKeyCode()==KeyEvent.VK_ENTER) {e.consume(); return;}
+				if (field.getText().contains("\n")) field.setText(field.getText().replace("\n"," "));
+			}
+			@Override
+			public void keyReleased(KeyEvent e) {
+				if (e.getKeyCode()==KeyEvent.VK_ENTER) {e.consume(); return;}
+				if (field.getText().contains("\n")) field.setText(field.getText().replace("\n"," "));
+			}
+			@Override
+			public void keyPressed(KeyEvent e) {
+				if (e.getKeyCode()==KeyEvent.VK_ENTER) {e.consume(); return;}
+				if (field.getText().contains("\n")) field.setText(field.getText().replace("\n"," "));
+			}
+		});
+
+		/* Ohne ScrollPane-Rahmen kommen wir nicht zu nach rechts rauslaufenden Zeilen,
+		 * aber Scrollbalken wollen wir bei einzeiligen Textfeldern auch nicht. */
+		scroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
+		scroll.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+		//
+
+		/* Rahmen und Schriftart wie bei {@link JTextField} */
+		field.setFont(UIManager.getDefaults().getFont("TextField.font"));
+		scroll.setBorder(BorderFactory.createCompoundBorder(
+				UIManager.getDefaults().getBorder("TextField.border"),
+				BorderFactory.createEmptyBorder(0,2,0,2)
+				));
+		scroll.setBackground(field.getBackground()); /* Um die 2 Pixel beim inneren Border passend einzufärben */
+
+		label.setLabelFor(field);
+		return new Object[]{panel,field};
 	}
 
 	/**
@@ -309,6 +446,7 @@ public class ScriptEditorAreaBuilder {
 		public RScrollPane(final RSyntaxTextArea editor) {
 			super(editor);
 			setLineNumbersEnabled(false);
+			setBorder(UIManager.getDefaults().getBorder("ScrollPane.border"));
 		}
 	}
 

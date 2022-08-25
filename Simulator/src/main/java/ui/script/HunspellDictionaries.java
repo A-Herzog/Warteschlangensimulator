@@ -107,7 +107,7 @@ public class HunspellDictionaries {
 			"exponentialverteilung",
 			"exponentialverteilt",
 			"exp-verteilt",
-			"wrlang-verteilt",
+			"erlang-verteilt",
 			"poisson-verteilung",
 			"zählvariable",
 			"batche",
@@ -133,6 +133,7 @@ public class HunspellDictionaries {
 			"queueing",
 			"retryers",
 			"galton",
+			"vergleichsmodell",
 			/* Bezeichner */
 			"mu",
 			"lambda",
