@@ -48,6 +48,7 @@ import tools.SetupData;
 import ui.help.Help;
 import ui.images.Images;
 import ui.script.HunspellDictionaries;
+import ui.script.HunspellDictionaryRecord;
 import ui.tools.FlatLaFHelper;
 
 /**
@@ -145,6 +146,17 @@ public class SetupDialogSpellChecking extends BaseDialog {
 				if (SwingUtilities.isLeftMouseButton(e)) commandOpenDictionariesWebsite();
 			}
 		});
+
+		if (HunspellDictionaryRecord.isGlobalOff()) {
+			tab.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
+			String info;
+			if (SetupData.getSetup().allowSpellCheck) {
+				info=Language.tr("SettingsDialog.Tabs.ProgramStart.SpellChecking.GlobalOffBySystem");
+			} else {
+				info=Language.tr("SettingsDialog.Tabs.ProgramStart.SpellChecking.GlobalOffByUser");
+			}
+			line.add(label=new JLabel(info));
+		}
 
 		/* Tab "Nutzerdefinierte Wörter" */
 		tabs.addTab(Language.tr("SettingsDialog.Tabs.ProgramStart.SpellChecking.UserWords"),tabOuter=new JPanel(new BorderLayout()));

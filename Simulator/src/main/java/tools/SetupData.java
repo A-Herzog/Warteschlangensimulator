@@ -1359,6 +1359,11 @@ public class SetupData extends SetupBase {
 	public List<String> userDefinedCalculationFunctions;
 
 	/**
+	 * Wird dieser Wert auf <code>false</code> gesetzt, so wird das Hunspell-System komplett deaktiviert (für den Fall, dass es Fehler verursacht).
+	 */
+	public boolean allowSpellCheck;
+
+	/**
 	 * Letzter Fehler
 	 * (Hier wird die Setup-Datei als Logdatei für solche Ereignisse verwendet.)
 	 */
@@ -1590,6 +1595,7 @@ public class SetupData extends SetupBase {
 		mouseWheelZoomFixMousePosition=true;
 		if (userDefinedCalculationFunctions==null) userDefinedCalculationFunctions=new ArrayList<>();
 		userDefinedCalculationFunctions.clear();
+		allowSpellCheck=true;
 		lastError=null;
 	}
 
@@ -2623,6 +2629,11 @@ public class SetupData extends SetupBase {
 				userDefinedCalculationFunctions.add(e.getTextContent());
 				continue;
 			}
+
+			if (name.equals("allowspellcheck")) {
+				allowSpellCheck=loadBoolean(e.getTextContent(),true);
+				continue;
+			}
 		}
 
 		if (useLastFiles) {
@@ -3360,6 +3371,11 @@ public class SetupData extends SetupBase {
 		for (String userFunction: userDefinedCalculationFunctions) {
 			root.appendChild(node=doc.createElement("UserDefinedCalculationFunctions"));
 			node.setTextContent(userFunction);
+		}
+
+		if (!allowSpellCheck) {
+			root.appendChild(node=doc.createElement("AllowSpellCheck"));
+			node.setTextContent("0");
 		}
 
 		if (lastError!=null && !lastError.trim().isEmpty()) {

@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-08-24 12:44+0200\n"
+"POT-Creation-Date: 2022-08-25 18:07+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16750,6 +16750,12 @@ msgstr "Website for more dictionaries"
 msgid "SettingsDialog.Tabs.ProgramStart.SpellChecking.Dictionaries.Website.Hint"
 msgstr "Opens the website where dictionaries for more languages can be downloaded."
 
+msgid "SettingsDialog.Tabs.ProgramStart.SpellChecking.GlobalOffBySystem"
+msgstr "The necessary library cannot be loaded. Therefore, the spell checker is disabled globally."
+
+msgid "SettingsDialog.Tabs.ProgramStart.SpellChecking.GlobalOffByUser"
+msgstr "The spell checker has been globally disabled via the System information dialog."
+
 msgid "SettingsDialog.Tabs.ProgramStart.SpellChecking.Title"
 msgstr "Spell checking"
 
@@ -33195,6 +33201,9 @@ msgstr "Clear memory cache"
 
 msgid "SystemInfo.Tools.UserInterface"
 msgstr "User interface"
+
+msgid "SystemInfo.Tools.UserInterface.ActivateSpellCheckingSystem"
+msgstr "Activate spell checking system"
 
 msgid "SystemInfo.Tools.UserInterface.Feedback"
 msgstr "Show feedback link"

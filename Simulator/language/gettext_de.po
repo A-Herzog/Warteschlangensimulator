@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-08-24 12:44+0200\n"
+"POT-Creation-Date: 2022-08-25 18:07+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16758,6 +16758,12 @@ msgstr "Webseite für weitere Wörterbücher"
 msgid "SettingsDialog.Tabs.ProgramStart.SpellChecking.Dictionaries.Website.Hint"
 msgstr "Öffnet die Webseite von der Wörterbücher für weitere Sprachen heruntergeladen werden können."
 
+msgid "SettingsDialog.Tabs.ProgramStart.SpellChecking.GlobalOffBySystem"
+msgstr "Die notwendige Bibliothek kann nicht geladen werden. Daher ist die Rechtschreibprüfung insgesamt deaktiviert."
+
+msgid "SettingsDialog.Tabs.ProgramStart.SpellChecking.GlobalOffByUser"
+msgstr "Die Rechtschreibprüfung wurde global über den Systeminformationen-Dialog deaktiviert."
+
 msgid "SettingsDialog.Tabs.ProgramStart.SpellChecking.Title"
 msgstr "Rechtschreibprüfung"
 
@@ -33218,6 +33224,9 @@ msgstr "Speicher-Cache löschen"
 
 msgid "SystemInfo.Tools.UserInterface"
 msgstr "Programmoberfläche"
+
+msgid "SystemInfo.Tools.UserInterface.ActivateSpellCheckingSystem"
+msgstr "Rechtschreibprüfungssystem aktivieren"
 
 msgid "SystemInfo.Tools.UserInterface.Feedback"
 msgstr "Feedback-Link anzeigen"

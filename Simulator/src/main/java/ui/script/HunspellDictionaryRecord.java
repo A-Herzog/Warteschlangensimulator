@@ -35,6 +35,7 @@ import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.NodeList;
 
 import dumonts.hunspell.Hunspell;
+import tools.SetupData;
 import xml.XMLTools;
 
 /**
@@ -70,6 +71,27 @@ public class HunspellDictionaryRecord {
 	private Hunspell hunspell;
 
 	/**
+	 * Muss Hunspell global deaktiviert werden?
+	 * (Z.B. wegen für die shared library nicht unterstützter CPU-Plattform.)
+	 */
+	private static boolean hunspellGlobalOff=false;
+
+	static {
+		/* Leider unterstützt Hunspell kein Windows on ARM. Daher müssen wir das System in diesem Fall deaktivieren. */
+		if ("aarch64".equals(System.getProperty("os.arch")) && File.separatorChar=='\\') hunspellGlobalOff=true;
+		/* Abschalten per Setup */
+		if (!SetupData.getSetup().allowSpellCheck) hunspellGlobalOff=true;
+	}
+
+	/**
+	 * Wurde das Rechtschreibprüfungssystem global deaktiviert?
+	 * @return	Liefert <code>true</code>, wenn das System global deaktiviert wurde.
+	 */
+	public static boolean isGlobalOff() {
+		return hunspellGlobalOff;
+	}
+
+	/**
 	 * Konstruktor der Klasse
 	 * @param file	oxt-Datei, in der sich die Sprachdaten befinden
 	 * @param dicRecord	Relativer Pfad zur dic-Datei innerhalb der oxt-Datei
@@ -85,9 +107,10 @@ public class HunspellDictionaryRecord {
 
 	/**
 	 * Liefert das Hunspell-Objekt zu diesem Sprachdatensatz
-	 * @return	Hunspell-Objekt zu diesem Sprachdatensatz
+	 * @return	Hunspell-Objekt zu diesem Sprachdatensatz oder <code>null</code>, wenn kein Hunspell-Objekt angelegt werden kann
 	 */
 	public Hunspell getHunspell() {
+		if (hunspellGlobalOff) return null;
 		if (hunspell!=null) return hunspell;
 
 		File dicFile=null;
@@ -116,7 +139,7 @@ public class HunspellDictionaryRecord {
 		try {
 			hunspell=new Hunspell(dicFile.toPath(),affFile.toPath());
 			return hunspell;
-		} catch (RuntimeException e) {
+		} catch (RuntimeException | NoClassDefFoundError | UnsatisfiedLinkError e) {
 			return null;
 		}
 	}

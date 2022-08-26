@@ -629,6 +629,9 @@ public class SystemInfoWindow extends JFrame {
 		menu.add(check=new JCheckBoxMenuItem(Language.tr("SystemInfo.Tools.UserInterface.GradientNavigator"),setup.gradientNavigator));
 		check.addActionListener(e->{setup.gradientNavigator=!setup.gradientNavigator; setup.saveSetup();});
 
+		menu.add(check=new JCheckBoxMenuItem(Language.tr("SystemInfo.Tools.UserInterface.ActivateSpellCheckingSystem"),setup.allowSpellCheck));
+		check.addActionListener(e->{setup.allowSpellCheck=!setup.allowSpellCheck; setup.saveSetup();});
+
 		/* Simulation */
 
 		menu.add(label=new JMenuItem("<html><b>"+Language.tr("SystemInfo.Tools.Simulation")+"</b></html>"));
