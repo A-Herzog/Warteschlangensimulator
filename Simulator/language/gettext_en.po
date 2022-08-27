@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-08-25 18:07+0200\n"
+"POT-Creation-Date: 2022-08-27 00:54+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16755,6 +16755,30 @@ msgstr "The necessary library cannot be loaded. Therefore, the spell checker is 
 
 msgid "SettingsDialog.Tabs.ProgramStart.SpellChecking.GlobalOffByUser"
 msgstr "The spell checker has been globally disabled via the System information dialog."
+
+msgid "SettingsDialog.Tabs.ProgramStart.SpellChecking.Mode"
+msgstr "Inputs to check"
+
+msgid "SettingsDialog.Tabs.ProgramStart.SpellChecking.Mode.Code"
+msgstr "Comments in script code"
+
+msgid "SettingsDialog.Tabs.ProgramStart.SpellChecking.Mode.ElementDescription"
+msgstr "Element descriptions"
+
+msgid "SettingsDialog.Tabs.ProgramStart.SpellChecking.Mode.ElementName"
+msgstr "Element names"
+
+msgid "SettingsDialog.Tabs.ProgramStart.SpellChecking.Mode.ModelDescription"
+msgstr "Model description"
+
+msgid "SettingsDialog.Tabs.ProgramStart.SpellChecking.Mode.ModelName"
+msgstr "Model name"
+
+msgid "SettingsDialog.Tabs.ProgramStart.SpellChecking.Mode.NoteElement"
+msgstr "Content of note elements"
+
+msgid "SettingsDialog.Tabs.ProgramStart.SpellChecking.Mode.TextElement"
+msgstr "Content of text elements"
 
 msgid "SettingsDialog.Tabs.ProgramStart.SpellChecking.Title"
 msgstr "Spell checking"

@@ -30,6 +30,8 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.function.Consumer;
+import java.util.function.Supplier;
+import java.util.stream.Stream;
 
 import javax.swing.BorderFactory;
 import javax.swing.Box;
@@ -70,6 +72,63 @@ import ui.tools.FlatLaFHelper;
  * @see RSyntaxTextArea
  */
 public class ScriptEditorAreaBuilder {
+	/**
+	 * Bei welchen Elementen soll eine Rechtschreibprüfung erfolgen?
+	 */
+	public enum TextAreaMode {
+		/** Modelname prüfen */
+		MODEL_NAME("ModelName",()->Language.tr("SettingsDialog.Tabs.ProgramStart.SpellChecking.Mode.ModelName")),
+		/** Modellbeschreibung prüfen */
+		MODEL_DESCRIPTION("ModelDescription",()->Language.tr("SettingsDialog.Tabs.ProgramStart.SpellChecking.Mode.ModelDescription")),
+		/** Elementennamen prüfen */
+		ELEMENT_NAME("ElementName",()->Language.tr("SettingsDialog.Tabs.ProgramStart.SpellChecking.Mode.ElementName")),
+		/** Elementenbeschreibungen prüfen */
+		ELEMENT_DESCRIPTION("ElementDescription",()->Language.tr("SettingsDialog.Tabs.ProgramStart.SpellChecking.Mode.ElementDescription")),
+		/** Inhalt von Text-Elementen prüfen */
+		TEXT_ELEMENT("TextElement",()->Language.tr("SettingsDialog.Tabs.ProgramStart.SpellChecking.Mode.TextElement")),
+		/** Inhalt von Notiz-Elementen prüfen */
+		NOTE_ELEMENT("NoteElement",()->Language.tr("SettingsDialog.Tabs.ProgramStart.SpellChecking.Mode.NoteElement")),
+		/** Kommentare in Programmcode prüfen */
+		CODE("Code",()->Language.tr("SettingsDialog.Tabs.ProgramStart.SpellChecking.Mode.Code"));
+
+		/**
+		 * Name des Modus (zur Identifikation beim Speichern als xml-Datei)
+		 */
+		public final String name;
+
+		/**
+		 * Callback welches den Anzeigenamen für das Element in der aktuellen Sprache liefert
+		 */
+		private final Supplier<String> languageName;
+
+		/**
+		 * Konstruktor des Enum
+		 * @param name	Name des Modus (zur Identifikation beim Speichern als xml-Datei)
+		 * @param languageName	Callback welches den Anzeigenamen für das Element in der aktuellen Sprache liefert
+		 */
+		TextAreaMode(final String name, final Supplier<String> languageName) {
+			this.name=name;
+			this.languageName=languageName;
+		}
+
+		/**
+		 * Liefert den Anzeigenamen für das Element in der aktuellen Sprache.
+		 * @return	Anzeigenamen für das Element in der aktuellen Sprache
+		 */
+		public String getLanguageName() {
+			return languageName.get();
+		}
+
+		/**
+		 * Liefert das passende Enum-Objekt zu einem Namen
+		 * @param name	Name für den das Enum-Objekt gesucht werden soll
+		 * @return	Enum-Objekt zu dem Namen oder <code>null</code>, wenn es kein Objekt in dieser Enumeration mit diesem Namen gibt
+		 */
+		public static TextAreaMode getFromString(final String name) {
+			return Stream.of(values()).filter(mode->mode.name.equals(name)).findFirst().orElseGet(()->null);
+		}
+	}
+
 	/** In dem Editor zu bearbeitende Sprache */
 	private final ScriptPopup.ScriptMode language;
 	/** Nur-Lese-Status */
@@ -183,7 +242,7 @@ public class ScriptEditorAreaBuilder {
 		}
 
 		/* Rechtschreibprüfung */
-		if (!readOnly) {
+		if (!readOnly && SetupData.getSetup().spellCheckMode.contains(TextAreaMode.CODE)) {
 			editor.addParser(HunspellDictionaries.getInstance().getSpellingParser());
 		}
 
@@ -248,9 +307,10 @@ public class ScriptEditorAreaBuilder {
 	 * Generiert ein mehrzeiliges Textfeld für Freitexteingaben (d.h. nicht für Programmcode) mit Rechtschreibkorrektur
 	 * @param initialText	Initial anzuzeigender Text (kann leer oder <code>null</code> sein)
 	 * @param readOnly	Nur-Lese-Status
+	 * @param mode	Um was für ein Element handelt es sich? (Zur Bestimmung, ob die Rechtschreibprüfung für dieses Element aktiviert werden soll)
 	 * @return	Neues Eingabefeld
 	 */
-	public static RSyntaxTextArea getPlainTextField(final String initialText, final boolean readOnly) {
+	public static RSyntaxTextArea getPlainTextField(final String initialText, final boolean readOnly, final TextAreaMode mode) {
 		/* Konstruktor */
 		final RSyntaxTextArea editor=new RSyntaxTextArea();
 
@@ -272,7 +332,7 @@ public class ScriptEditorAreaBuilder {
 		}
 
 		/* Rechtschreibprüfung */
-		if (!readOnly) {
+		if (!readOnly && SetupData.getSetup().spellCheckMode.contains(mode)) {
 			editor.addParser(HunspellDictionaries.getInstance().getSpellingParser());
 		}
 
@@ -298,9 +358,10 @@ public class ScriptEditorAreaBuilder {
 	 * @param cols	Anzahl an Spalten in dem Eingabefeld
 	 * @param initialText	Initial anzuzeigender Text (kann leer oder <code>null</code> sein)
 	 * @param readOnly	Nur-Lese-Status
+	 * @param mode	Um was für ein Element handelt es sich? (Zur Bestimmung, ob die Rechtschreibprüfung für dieses Element aktiviert werden soll)
 	 * @return	Neues Eingabefeld
 	 */
-	public static RSyntaxTextArea getPlainTextField(final int rows, final int cols, final String initialText, final boolean readOnly) {
+	public static RSyntaxTextArea getPlainTextField(final int rows, final int cols, final String initialText, final boolean readOnly, final TextAreaMode mode) {
 		/* Konstruktor */
 		final RSyntaxTextArea editor=new RSyntaxTextArea(rows,cols);
 
@@ -322,7 +383,7 @@ public class ScriptEditorAreaBuilder {
 		}
 
 		/* Rechtschreibprüfung */
-		if (!readOnly) {
+		if (!readOnly && SetupData.getSetup().spellCheckMode.contains(mode)) {
 			editor.addParser(HunspellDictionaries.getInstance().getSpellingParser());
 		}
 
@@ -346,10 +407,11 @@ public class ScriptEditorAreaBuilder {
 	 * Erstellt ein Textfeld mit einem Label links davor.
 	 * @param labelText	Text des Labels
 	 * @param value	Initialer Wert des Textfeldes
+	 * @param mode	Um was für ein Element handelt es sich? (Zur Bestimmung, ob die Rechtschreibprüfung für dieses Element aktiviert werden soll)
 	 * @return	Liefert ein Objekt aus zwei Elementen: das <code>JPanel</code> das beide Elemente enthält und als zweites das <code>JTextField</code>
 	 */
-	public static final Object[] getInputPanel(final String labelText, final String value) {
-		return getInputPanel(labelText,value,-1);
+	public static final Object[] getInputPanel(final String labelText, final String value, final TextAreaMode mode) {
+		return getInputPanel(labelText,value,-1,mode);
 	}
 
 	/**
@@ -357,9 +419,10 @@ public class ScriptEditorAreaBuilder {
 	 * @param labelText	Text des Labels
 	 * @param value	Initialer Wert des Textfeldes
 	 * @param size	Breite des Textfeldes
+	 * @param mode	Um was für ein Element handelt es sich? (Zur Bestimmung, ob die Rechtschreibprüfung für dieses Element aktiviert werden soll)
 	 * @return	Liefert ein Objekt aus zwei Elementen: das <code>JPanel</code> das beide Elemente enthält und als zweites das <code>JTextField</code>
 	 */
-	public static final Object[] getInputPanel(final String labelText, final String value, final int size) {
+	public static final Object[] getInputPanel(final String labelText, final String value, final int size, final TextAreaMode mode) {
 		JPanel panel;
 		JLabel label;
 		final RSyntaxTextArea field;
@@ -368,7 +431,7 @@ public class ScriptEditorAreaBuilder {
 		if (size>0) {
 			panel=new JPanel(new FlowLayout(FlowLayout.LEFT));
 			panel.add(label=new JLabel(labelText));
-			panel.add(scroll=new RScrollPane(field=getPlainTextField(1,size,value,false)));
+			panel.add(scroll=new RScrollPane(field=getPlainTextField(1,size,value,false,mode)));
 		} else {
 			panel=new JPanel(new BorderLayout(5,0));
 
@@ -382,7 +445,7 @@ public class ScriptEditorAreaBuilder {
 			box.add(Box.createVerticalGlue());
 			panel.add(box,BorderLayout.WEST);
 
-			field=getPlainTextField(1,0,value,false);
+			field=getPlainTextField(1,0,value,false,mode);
 			field.setMaximumSize(new Dimension(field.getMaximumSize().width,field.getPreferredSize().height));
 			box=Box.createVerticalBox();
 			box.add(Box.createVerticalGlue());
@@ -395,17 +458,44 @@ public class ScriptEditorAreaBuilder {
 		field.addKeyListener(new KeyListener() {
 			@Override
 			public void keyTyped(KeyEvent e) {
-				if (e.getKeyCode()==KeyEvent.VK_ENTER) {e.consume(); return;}
+				if (e.getKeyCode()==KeyEvent.VK_ENTER) {
+					field.getParent().dispatchEvent(e);
+					e.consume();
+					return;
+				}
+				if (e.getKeyCode()==KeyEvent.VK_TAB) {
+					if (e.isShiftDown()) field.getParent().dispatchEvent(e); else field.transferFocus();
+					e.consume();
+					return;
+				}
 				if (field.getText().contains("\n")) field.setText(field.getText().replace("\n"," "));
 			}
 			@Override
 			public void keyReleased(KeyEvent e) {
-				if (e.getKeyCode()==KeyEvent.VK_ENTER) {e.consume(); return;}
+				if (e.getKeyCode()==KeyEvent.VK_ENTER) {
+					field.getParent().dispatchEvent(e);
+					e.consume();
+					return;
+				}
+				if (e.getKeyCode()==KeyEvent.VK_TAB) {
+					if (e.isShiftDown()) field.getParent().dispatchEvent(e); else field.transferFocus();
+					e.consume();
+					return;
+				}
 				if (field.getText().contains("\n")) field.setText(field.getText().replace("\n"," "));
 			}
 			@Override
 			public void keyPressed(KeyEvent e) {
-				if (e.getKeyCode()==KeyEvent.VK_ENTER) {e.consume(); return;}
+				if (e.getKeyCode()==KeyEvent.VK_ENTER) {
+					field.getParent().dispatchEvent(e);
+					e.consume();
+					return;
+				}
+				if (e.getKeyCode()==KeyEvent.VK_TAB) {
+					if (e.isShiftDown()) field.getParent().dispatchEvent(e); else field.transferFocus();
+					e.consume();
+					return;
+				}
 				if (field.getText().contains("\n")) field.setText(field.getText().replace("\n"," "));
 			}
 		});
@@ -430,7 +520,7 @@ public class ScriptEditorAreaBuilder {
 
 	/**
 	 * Bietet ein {@link RTextScrollPane}-Objekt mit abgeschalteter Zeilennummerierung an.
-	 * @see ScriptEditorAreaBuilder#getPlainTextField(String, boolean)
+	 * @see ScriptEditorAreaBuilder#getPlainTextField(String, boolean, TextAreaMode)
 	 */
 	public static class RScrollPane extends RTextScrollPane {
 		/**

@@ -49,6 +49,8 @@ import ui.help.Help;
 import ui.images.Images;
 import ui.script.HunspellDictionaries;
 import ui.script.HunspellDictionaryRecord;
+import ui.script.ScriptEditorAreaBuilder;
+import ui.script.ScriptEditorAreaBuilder.TextAreaMode;
 import ui.tools.FlatLaFHelper;
 
 /**
@@ -77,6 +79,12 @@ public class SetupDialogSpellChecking extends BaseDialog {
 	 * Eingabefeld für die nutzerdefinierten zusätzlichen Wörter
 	 */
 	private final JTextArea userWords;
+
+	/**
+	 * Checkboxen für die Auswahl der zu prüfenden Elemente
+	 * @see TextAreaMode
+	 */
+	private final List<JCheckBox> modes;
 
 	/**
 	 * Konstruktor der Klasse
@@ -163,9 +171,22 @@ public class SetupDialogSpellChecking extends BaseDialog {
 		tabOuter.add(new JScrollPane(userWords=new JTextArea()));
 		userWords.setText(String.join("\n",HunspellDictionaries.getUserDictionaryWords().toArray(new String[0])));
 
+		/* Tab "Zu prüfende Elemente" */
+		tabs.addTab(Language.tr("SettingsDialog.Tabs.ProgramStart.SpellChecking.Mode"),tabOuter=new JPanel(new BorderLayout()));
+		tabOuter.add(tab=new JPanel(),BorderLayout.NORTH);
+		tab.setLayout(new BoxLayout(tab,BoxLayout.PAGE_AXIS));
+		modes=new ArrayList<>();
+		for (ScriptEditorAreaBuilder.TextAreaMode mode: ScriptEditorAreaBuilder.TextAreaMode.values()) {
+			tab.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
+			final JCheckBox checkBox=new JCheckBox(mode.getLanguageName(),setup.spellCheckMode.contains(mode));
+			line.add(checkBox);
+			modes.add(checkBox);
+		}
+
 		/* Icons auf Tabs */
 		tabs.setIconAt(0,Images.SPELL_CHECK_DICTIONARIES.getIcon());
 		tabs.setIconAt(1,Images.SPELL_CHECK_USER_WORDS.getIcon());
+		tabs.setIconAt(2,Images.SPELL_CHECK_ELEMENTS.getIcon());
 
 		/* Dialog starten */
 		pack();
@@ -199,8 +220,20 @@ public class SetupDialogSpellChecking extends BaseDialog {
 
 	@Override
 	protected void storeData() {
+		/* Tab "Wörterbücher" */
 		setup.spellCheckingLanguages=String.join(";",localesCheckBoxes.stream().filter(checkBox->checkBox.isSelected()).map(checkBox->checkBox.getText()).toArray(String[]::new));
+
+		/* Tab "Nutzerdefinierte Wörter" */
 		HunspellDictionaries.setUserDictionaryWords(Arrays.asList(userWords.getText().split("\\n")));
+
+		/* Tab "Zu prüfende Elemente" */
+		setup.spellCheckMode.clear();
+		int index=0;
+		for (ScriptEditorAreaBuilder.TextAreaMode mode: ScriptEditorAreaBuilder.TextAreaMode.values()) {
+			if (modes.get(index).isSelected()) setup.spellCheckMode.add(mode);
+			index++;
+		}
+
 		setup.saveSetup();
 	}
 }

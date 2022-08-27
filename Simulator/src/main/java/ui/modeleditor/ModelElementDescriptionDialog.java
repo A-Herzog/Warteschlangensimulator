@@ -62,7 +62,7 @@ public class ModelElementDescriptionDialog extends BaseDialog {
 		JPanel line;
 		content.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)),BorderLayout.NORTH);
 		line.add(label=new JLabel(Language.tr("Editor.DialogBase.Description.Dialog.Info")));
-		content.add(new ScriptEditorAreaBuilder.RScrollPane(descriptionEdit=ScriptEditorAreaBuilder.getPlainTextField(description,readOnly)),BorderLayout.CENTER);
+		content.add(new ScriptEditorAreaBuilder.RScrollPane(descriptionEdit=ScriptEditorAreaBuilder.getPlainTextField(description,readOnly,ScriptEditorAreaBuilder.TextAreaMode.ELEMENT_DESCRIPTION)),BorderLayout.CENTER);
 		label.setLabelFor(descriptionEdit);
 
 		setMinSizeRespectingScreensize(700,500);

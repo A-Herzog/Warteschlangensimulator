@@ -173,7 +173,7 @@ public abstract class ModelElementBaseDialog extends BaseDialog {
 
 		if (hasNameField()) {
 			//final Object[] data=getInputPanel(Language.tr("Editor.DialogBase.NameLabel")+":",element.getName());
-			final Object[] data=ScriptEditorAreaBuilder.getInputPanel(Language.tr("Editor.DialogBase.NameLabel")+":",element.getName());
+			final Object[] data=ScriptEditorAreaBuilder.getInputPanel(Language.tr("Editor.DialogBase.NameLabel")+":",element.getName(),ScriptEditorAreaBuilder.TextAreaMode.ELEMENT_NAME);
 			nameField=(RSyntaxTextArea)data[1];
 			nameField.setEditable(!readOnly);
 			contentPanel.add((JPanel)data[0],BorderLayout.NORTH);

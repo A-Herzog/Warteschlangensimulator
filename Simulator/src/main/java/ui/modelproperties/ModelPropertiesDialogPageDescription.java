@@ -155,7 +155,7 @@ public class ModelPropertiesDialogPageDescription extends ModelPropertiesDialogP
 		top.setLayout(new BoxLayout(top,BoxLayout.PAGE_AXIS));
 		content.add(top,BorderLayout.NORTH);
 
-		data=ScriptEditorAreaBuilder.getInputPanel(Language.tr("Editor.Dialog.Tab.ModelDescription.NameOfTheModel")+":",model.name);
+		data=ScriptEditorAreaBuilder.getInputPanel(Language.tr("Editor.Dialog.Tab.ModelDescription.NameOfTheModel")+":",model.name,ScriptEditorAreaBuilder.TextAreaMode.MODEL_NAME);
 		top.add(sub=(JPanel)data[0]);
 		name=(RSyntaxTextArea)data[1];
 		name.setEditable(!readOnly);
@@ -186,7 +186,7 @@ public class ModelPropertiesDialogPageDescription extends ModelPropertiesDialogP
 
 		content.add(sub=new JPanel(new BorderLayout()),BorderLayout.CENTER);
 		label=addLabel(sub,Language.tr("Editor.Dialog.Tab.ModelDescription.ModelDescription")+":",BorderLayout.NORTH);
-		sub.add(new ScriptEditorAreaBuilder.RScrollPane(description=ScriptEditorAreaBuilder.getPlainTextField(model.description,readOnly)),BorderLayout.CENTER);
+		sub.add(new ScriptEditorAreaBuilder.RScrollPane(description=ScriptEditorAreaBuilder.getPlainTextField(model.description,readOnly,ScriptEditorAreaBuilder.TextAreaMode.MODEL_DESCRIPTION)),BorderLayout.CENTER);
 		label.setLabelFor(description);
 
 		content.add(sub=new JPanel(),BorderLayout.SOUTH);

@@ -605,9 +605,10 @@ public abstract class EditorPanelBase extends JPanel {
 	 * @param parent	Übergeordnetes Panel
 	 * @param title	Über dem Eingabefeld anzuzeigender Titel (wird <code>null</code> übergeben, so wird kein Titel angezeigt)
 	 * @param readOnly	Gibt an, ob der Text in dem Feld geändert werden darf
+	 * @param mode	Um was für ein Element handelt es sich? (Zur Bestimmung, ob die Rechtschreibprüfung für dieses Element aktiviert werden soll)
 	 * @return	Neu eingefügtes Eingabefeld
 	 */
-	public static final RSyntaxTextArea addInputArea(final JPanel parent, final String title, final boolean readOnly) {
+	public static final RSyntaxTextArea addInputArea(final JPanel parent, final String title, final boolean readOnly, final ScriptEditorAreaBuilder.TextAreaMode mode) {
 		addLabel(parent,title);
 
 		JPanel p,p2;
@@ -617,7 +618,7 @@ public abstract class EditorPanelBase extends JPanel {
 		p.add(p2=new JPanel());
 		p2.setLayout(new BoxLayout(p2,BoxLayout.LINE_AXIS));
 		p2.add(Box.createHorizontalStrut(3));
-		p2.add(new ScriptEditorAreaBuilder.RScrollPane(text=ScriptEditorAreaBuilder.getPlainTextField(null,readOnly)),BorderLayout.CENTER);
+		p2.add(new ScriptEditorAreaBuilder.RScrollPane(text=ScriptEditorAreaBuilder.getPlainTextField(null,readOnly,mode)),BorderLayout.CENTER);
 		p2.add(Box.createHorizontalStrut(3));
 
 		text.setLineWrap(true);

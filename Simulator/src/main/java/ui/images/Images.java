@@ -170,6 +170,9 @@ public enum Images {
 	/** Symbol "Benutzerdefinierte Wörter" */
 	SPELL_CHECK_USER_WORDS("user.png"),
 
+	/** Symbol "Zu prüfende Eingaben" */
+	SPELL_CHECK_ELEMENTS("find.png"),
+
 	/** Symbol "Dialog-Button 'Ok'" */
 	MSGBOX_OK("accept.png"),
 
@@ -404,7 +407,7 @@ public enum Images {
 
 	/* Achsenbeschriftung */
 
-	/** Keine Achenbeschriftung */
+	/** Keine Achsenbeschriftung */
 	AXIS_OFF("cross.png"),
 
 	/** Nur Minimum und Maximum anzeigen */

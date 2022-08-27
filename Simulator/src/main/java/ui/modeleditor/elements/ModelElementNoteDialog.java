@@ -104,7 +104,7 @@ public class ModelElementNoteDialog extends ModelElementBaseDialog {
 		sub.add(label=new JLabel(Language.tr("Surface.Note.Dialog.Note")+":"));
 
 		/* Eingabebereich */
-		content.add(new ScriptEditorAreaBuilder.RScrollPane(edit=ScriptEditorAreaBuilder.getPlainTextField(note.getNote(),readOnly)),BorderLayout.CENTER);
+		content.add(new ScriptEditorAreaBuilder.RScrollPane(edit=ScriptEditorAreaBuilder.getPlainTextField(note.getNote(),readOnly,ScriptEditorAreaBuilder.TextAreaMode.NOTE_ELEMENT)),BorderLayout.CENTER);
 		label.setLabelFor(edit);
 
 		/* Icon-Auswahl */

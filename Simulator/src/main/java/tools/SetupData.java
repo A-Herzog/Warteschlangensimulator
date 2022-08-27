@@ -22,7 +22,10 @@ import java.awt.Point;
 import java.io.File;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.concurrent.Semaphore;
 
 import org.w3c.dom.Document;
@@ -1348,6 +1351,11 @@ public class SetupData extends SetupBase {
 	public String spellCheckingLanguages;
 
 	/**
+	 * Bei der Rechtschreibprüfung zu berücksichtigende Textfelder
+	 */
+	public Set<ScriptEditorAreaBuilder.TextAreaMode> spellCheckMode;
+
+	/**
 	 * Mausposition beim Zoomen per Mausrad festhalten
 	 */
 	public boolean mouseWheelZoomFixMousePosition;
@@ -1592,6 +1600,7 @@ public class SetupData extends SetupBase {
 		canceledAnimationStatistics=CanceledSimulationStatistics.OFF;
 		canceledSimulationStatistics=CanceledSimulationStatistics.ASK;
 		spellCheckingLanguages="de-DE;en-US";
+		if (spellCheckMode==null) spellCheckMode=new HashSet<>();
 		mouseWheelZoomFixMousePosition=true;
 		if (userDefinedCalculationFunctions==null) userDefinedCalculationFunctions=new ArrayList<>();
 		userDefinedCalculationFunctions.clear();
@@ -1650,6 +1659,9 @@ public class SetupData extends SetupBase {
 		/* Thema einstellen */
 		final String os=System.getProperty("os.name").toLowerCase();
 		if (os.contains("nix") || os.contains("nux") || os.contains("aix")) lookAndFeel=new FlatLightLaf().getName();
+
+		/* Alle Elemente für Rechtschreibprüfung auswählen */
+		spellCheckMode.addAll(Arrays.asList(ScriptEditorAreaBuilder.TextAreaMode.values()));
 
 		autoInitActive=true;
 		saveSetup();
@@ -2620,6 +2632,12 @@ public class SetupData extends SetupBase {
 				continue;
 			}
 
+			if (name.equals("spellcheckingmode")) {
+				ScriptEditorAreaBuilder.TextAreaMode mode=ScriptEditorAreaBuilder.TextAreaMode.getFromString(e.getTextContent());
+				if (mode!=null) spellCheckMode.add(mode);
+				continue;
+			}
+
 			if (name.equals("mousewheetzoomfixmousePosition")) {
 				mouseWheelZoomFixMousePosition=loadBoolean(e.getTextContent(),true);
 				continue;
@@ -2640,6 +2658,11 @@ public class SetupData extends SetupBase {
 			lastFiles=addToArray(lastFiles,files);
 		} else {
 			lastFiles=null;
+		}
+
+		/* Wenn nichts gewählt ist, dann war das wahrscheinlich ein Update von einer früheren Version. Dann Standard wiederherstellen. */
+		if (spellCheckMode.size()==0) {
+			spellCheckMode.addAll(Arrays.asList(ScriptEditorAreaBuilder.TextAreaMode.values()));
 		}
 	}
 
@@ -3362,6 +3385,11 @@ public class SetupData extends SetupBase {
 
 		root.appendChild(node=doc.createElement("SpellCheckingLanguages"));
 		node.setTextContent(spellCheckingLanguages);
+
+		for (ScriptEditorAreaBuilder.TextAreaMode mode: spellCheckMode) {
+			root.appendChild(node=doc.createElement("SpellCheckingMode"));
+			node.setTextContent(mode.name);
+		}
 
 		if (!mouseWheelZoomFixMousePosition) {
 			root.appendChild(node=doc.createElement("MouseWheelZoomFixMousePosition"));

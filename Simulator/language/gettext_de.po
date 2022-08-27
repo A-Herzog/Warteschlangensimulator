@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-08-25 18:07+0200\n"
+"POT-Creation-Date: 2022-08-27 00:54+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16763,6 +16763,30 @@ msgstr "Die notwendige Bibliothek kann nicht geladen werden. Daher ist die Recht
 
 msgid "SettingsDialog.Tabs.ProgramStart.SpellChecking.GlobalOffByUser"
 msgstr "Die Rechtschreibprüfung wurde global über den Systeminformationen-Dialog deaktiviert."
+
+msgid "SettingsDialog.Tabs.ProgramStart.SpellChecking.Mode"
+msgstr "Zu prüfende Eingaben"
+
+msgid "SettingsDialog.Tabs.ProgramStart.SpellChecking.Mode.Code"
+msgstr "Kommentare in Skriptcode"
+
+msgid "SettingsDialog.Tabs.ProgramStart.SpellChecking.Mode.ElementDescription"
+msgstr "Elementbeschreibungen"
+
+msgid "SettingsDialog.Tabs.ProgramStart.SpellChecking.Mode.ElementName"
+msgstr "Elementnamen"
+
+msgid "SettingsDialog.Tabs.ProgramStart.SpellChecking.Mode.ModelDescription"
+msgstr "Modelbeschreibung"
+
+msgid "SettingsDialog.Tabs.ProgramStart.SpellChecking.Mode.ModelName"
+msgstr "Modellname"
+
+msgid "SettingsDialog.Tabs.ProgramStart.SpellChecking.Mode.NoteElement"
+msgstr "Inhalte von Notiz-Elementen"
+
+msgid "SettingsDialog.Tabs.ProgramStart.SpellChecking.Mode.TextElement"
+msgstr "Inhalte von Text-Elementen"
 
 msgid "SettingsDialog.Tabs.ProgramStart.SpellChecking.Title"
 msgstr "Rechtschreibprüfung"

@@ -120,7 +120,7 @@ public class ModelElementTextDialog extends ModelElementBaseDialog {
 			panel.add(subPanel=new JPanel(new FlowLayout(FlowLayout.LEFT)),BorderLayout.NORTH);
 			subPanel.add(label=new JLabel(Language.tr("Surface.Text.Dialog.Text")+":"));
 
-			panel.add(new ScriptEditorAreaBuilder.RScrollPane(textField=ScriptEditorAreaBuilder.getPlainTextField(5,50,text.getText(),readOnly)),BorderLayout.CENTER);
+			panel.add(new ScriptEditorAreaBuilder.RScrollPane(textField=ScriptEditorAreaBuilder.getPlainTextField(5,50,text.getText(),readOnly,ScriptEditorAreaBuilder.TextAreaMode.TEXT_ELEMENT)),BorderLayout.CENTER);
 			label.setLabelFor(textField);
 			addUndoFeature(textField);
 
