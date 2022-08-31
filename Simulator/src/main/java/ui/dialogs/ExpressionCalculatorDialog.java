@@ -31,6 +31,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
@@ -57,6 +58,7 @@ import javax.swing.JTabbedPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.JToolBar;
+import javax.swing.ListModel;
 import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
 import javax.swing.filechooser.FileFilter;
@@ -67,6 +69,7 @@ import org.fife.ui.rtextarea.RTextScrollPane;
 
 import language.Language;
 import mathtools.NumberTools;
+import mathtools.Table;
 import mathtools.distribution.swing.CommonVariables;
 import mathtools.distribution.tools.FileDropperData;
 import scripting.java.DynamicFactory;
@@ -89,6 +92,7 @@ import ui.modeleditor.coreelements.ModelElementAnimationInfoDialog.ClientInfo;
 import ui.modeleditor.coreelements.ModelElementAnimationInfoDialog.JClientInfoRender;
 import ui.script.ScriptEditorAreaBuilder;
 import ui.script.ScriptPopup;
+import ui.script.ScriptTools;
 import ui.statistics.StatisticTools;
 import ui.tools.WindowSizeStorage;
 
@@ -196,6 +200,8 @@ public final class ExpressionCalculatorDialog extends BaseDialog {
 	private JButton buttonJavaScriptTools;
 	/** "Ausführen"-Schaltfläche für den Javascript-Code */
 	private JButton buttonJavaScriptRun;
+	/** "Ergebnisse kopieren"-Schaltfläche für den Javascript-Code */
+	private JButton buttonJavaScriptCopyResults;
 	/** "Hilfe"-Schaltfläche für den Javascript-Code */
 	private JButton buttonJavaScriptHelp;
 	/** Eingabefeld für den Javascript-Code */
@@ -215,6 +221,8 @@ public final class ExpressionCalculatorDialog extends BaseDialog {
 	private JButton buttonJavaTools;
 	/** "Ausführen"-Schaltfläche für den Java-Code */
 	private JButton buttonJavaRun;
+	/** "Ergebnisse kopieren"-Schaltfläche für den Java-Code */
+	private JButton buttonJavaCopyResults;
 	/** "Hilfe"-Schaltfläche für den Java-Code */
 	private JButton buttonJavaHelp;
 	/** Eingabefeld für den Java-Code */
@@ -379,12 +387,52 @@ public final class ExpressionCalculatorDialog extends BaseDialog {
 	}
 
 	/**
+	 * Erzeugt eine Symbolleiste mit einer "Kopieren"- und einer "Speichern"-Schaltfläche
+	 * @param parent	Übergeordnetes Element, bei dem die Symbolleiste oben eingefügt werden soll
+	 * @param getData	Callback, welches den auszugebenden Text liefert
+	 * @param isTable	Sollen die Daten als Text (<code>false</code>) oder als Tabelle (<code>true</code>) gespeichert werden?
+	 */
+	private void addCopySaveToolbar(final JPanel parent, final Supplier<String> getData, final boolean isTable) {
+		final JToolBar toolbar=new JToolBar();
+		toolbar.setFloatable(false);
+		parent.add(toolbar,BorderLayout.NORTH);
+
+		JButton button;
+
+		toolbar.add(button=new JButton(Language.tr("Dialog.Button.Copy")));
+		button.setToolTipText(Language.tr("Dialog.Button.Copy.Info"));
+		button.setIcon(Images.EDIT_COPY.getIcon());
+		button.addActionListener(e->getToolkit().getSystemClipboard().setContents(new StringSelection(getData.get()),null));
+
+		toolbar.add(button=new JButton(Language.tr("Dialog.Button.Save")));
+		button.setIcon(Images.GENERAL_SAVE.getIcon());
+		if (isTable) {
+			button.setToolTipText(Language.tr("ExpressionCalculator.Tab.General.SaveTable"));
+			button.addActionListener(e->{
+				final File file=Table.showSaveDialog(this,Language.tr("ExpressionCalculator.Tab.General.SaveTable.Title"),null,null,null);
+				if (file!=null) {
+					final Table table=new Table();
+					table.load(getData.get());
+					table.save(file);
+				}
+			});
+		} else {
+			button.setToolTipText(Language.tr("ExpressionCalculator.Tab.General.SaveText"));
+			button.addActionListener(e->{
+				final String fileName=ScriptTools.selectTextSaveFile(this,Language.tr("ExpressionCalculator.Tab.General.SaveText.Info"),null);
+				if (fileName!=null) Table.saveTextToFile(getData.get(),new File(fileName));
+			});
+		}
+	}
+
+	/**
 	 * Erstellt den "Globale Daten"-Tab
 	 * @param tab	Tab-Panel
 	 */
 	private void buildGeneralDataTab(final JPanel tab) {
 		final JPanel sub=new JPanel();
-		tab.add(sub,BorderLayout.NORTH);
+		addCopySaveToolbar(tab,()->makeHTMLPlain(getGeneralData()),false);
+		tab.add(sub,BorderLayout.CENTER);
 		sub.setLayout(new BoxLayout(sub,BoxLayout.PAGE_AXIS));
 		sub.setBorder(BorderFactory.createEmptyBorder(10,5,5,5));
 		sub.add(infoLabel=new JLabel());
@@ -392,67 +440,90 @@ public final class ExpressionCalculatorDialog extends BaseDialog {
 	}
 
 	/**
-	 * Befehl: Seite "Globale Daten" aktualisieren
+	 * Liefert den anzuzeigenden Text für den "Globale Daten"-Tab.
+	 * @return	HTML-formatierter Text für den "Globale Daten"-Tab
+	 * @see #commandUpdateGeneralData()
 	 */
-	private void commandUpdateGeneralData() {
+	private String getGeneralData() {
 		final StringBuilder generalData=new StringBuilder();
+
 		generalData.append("<html><body>");
 
 		final double time=simData.currentTime/1000.0;
-		generalData.append(Language.tr("ExpressionBuilder.SimulationCharacteristics.CurrentTime")+": <b>"+StatisticTools.formatNumber(time)+"</b> (<b>"+StatisticTools.formatExactTime(time)+"</b>)\n");
+		generalData.append(Language.tr("ExpressionBuilder.SimulationCharacteristics.CurrentTime")+": <b>"+StatisticTools.formatNumber(time)+"</b> (<b>"+StatisticTools.formatExactTime(time)+"</b>)");
 		generalData.append("<br>\n");
 
 		final long clientsArrived=simData.runData.clientsArrived;
 		generalData.append(Language.tr("ExpressionCalculator.Tab.General.ArrivalCount")+": <b>"+NumberTools.formatLong(clientsArrived)+"</b>\n");
-		generalData.append("<br>\n");
-
-		generalData.append("<br>\n");
+		generalData.append("<br><br>\n");
 
 		final int nq=(simData.runData.clientsInQueuesByType==null)?0:Arrays.stream(simData.runData.clientsInQueuesByType).sum();
 		final double nq_avg=simData.statistics.clientsInSystemQueues.getTimeMean();
-		generalData.append(Language.tr("ExpressionCalculator.Tab.Clients.CurrentNumberInSystemWaiting")+": <b>"+NumberTools.formatLong(nq)+"</b>\n");
+		generalData.append(Language.tr("ExpressionCalculator.Tab.Clients.CurrentNumberInSystemWaiting")+": <b>"+NumberTools.formatLong(nq)+"</b> ");
 		generalData.append("("+Language.tr("Statistics.Average")+": <b>"+StatisticTools.formatNumber(nq_avg)+"</b>)");
 		generalData.append("<br>\n");
 
 		final int ns=(simData.runData.clientsInProcessByType==null)?0:Arrays.stream(simData.runData.clientsInProcessByType).sum();
 		final double ns_avg=simData.statistics.clientsInSystemProcess.getTimeMean();
-		generalData.append(Language.tr("ExpressionCalculator.Tab.Clients.CurrentNumberInSystemProcess")+": <b>"+NumberTools.formatLong(ns)+"</b>\n");
+		generalData.append(Language.tr("ExpressionCalculator.Tab.Clients.CurrentNumberInSystemProcess")+": <b>"+NumberTools.formatLong(ns)+"</b> ");
 		generalData.append("("+Language.tr("Statistics.Average")+": <b>"+StatisticTools.formatNumber(ns_avg)+"</b>)");
 		generalData.append("<br>\n");
 
 		final int wip=(simData.runData.clientsInSystemByType==null)?0:Arrays.stream(simData.runData.clientsInSystemByType).sum();
 		final double wip_avg=simData.statistics.clientsInSystem.getTimeMean();
-		generalData.append(Language.tr("ExpressionCalculator.Tab.Clients.CurrentNumberInSystem")+": <b>"+NumberTools.formatLong(wip)+"</b>\n");
+		generalData.append(Language.tr("ExpressionCalculator.Tab.Clients.CurrentNumberInSystem")+": <b>"+NumberTools.formatLong(wip)+"</b> ");
 		generalData.append("("+Language.tr("Statistics.Average")+": <b>"+StatisticTools.formatNumber(wip_avg)+"</b>)");
 		generalData.append("<br>\n");
 
 		generalData.append("<br>\n");
 
 		final double W_avg=simData.statistics.clientsAllWaitingTimes.getMean();
-		generalData.append(Language.tr("ExpressionCalculator.Tab.Clients.AverageWaitingTime")+": <b>"+StatisticTools.formatNumber(W_avg)+"</b> (<b>"+StatisticTools.formatExactTime(W_avg)+"</b>)\n");
+		generalData.append(Language.tr("ExpressionCalculator.Tab.Clients.AverageWaitingTime")+": <b>"+StatisticTools.formatNumber(W_avg)+"</b> (<b>"+StatisticTools.formatExactTime(W_avg)+"</b>)");
 		generalData.append("<br>\n");
 
 		final double T_avg=simData.statistics.clientsAllTransferTimes.getMean();
-		generalData.append(Language.tr("ExpressionCalculator.Tab.Clients.TransferWaitingTime")+": <b>"+StatisticTools.formatNumber(T_avg)+"</b> (<b>"+StatisticTools.formatExactTime(T_avg)+"</b>)\n");
+		generalData.append(Language.tr("ExpressionCalculator.Tab.Clients.TransferWaitingTime")+": <b>"+StatisticTools.formatNumber(T_avg)+"</b> (<b>"+StatisticTools.formatExactTime(T_avg)+"</b>)");
 		generalData.append("<br>\n");
 
 		final double P_avg=simData.statistics.clientsAllProcessingTimes.getMean();
-		generalData.append(Language.tr("ExpressionCalculator.Tab.Clients.ProcessWaitingTime")+": <b>"+StatisticTools.formatNumber(P_avg)+"</b> (<b>"+StatisticTools.formatExactTime(P_avg)+"</b>)\n");
+		generalData.append(Language.tr("ExpressionCalculator.Tab.Clients.ProcessWaitingTime")+": <b>"+StatisticTools.formatNumber(P_avg)+"</b> (<b>"+StatisticTools.formatExactTime(P_avg)+"</b>)");
 		generalData.append("<br>\n");
 
 		final double V_avg=simData.statistics.clientsAllResidenceTimes.getMean();
-		generalData.append(Language.tr("ExpressionCalculator.Tab.Clients.ResidenceWaitingTime")+": <b>"+StatisticTools.formatNumber(V_avg)+"</b> (<b>"+StatisticTools.formatExactTime(V_avg)+"</b>)\n");
+		generalData.append(Language.tr("ExpressionCalculator.Tab.Clients.ResidenceWaitingTime")+": <b>"+StatisticTools.formatNumber(V_avg)+"</b> (<b>"+StatisticTools.formatExactTime(V_avg)+"</b>)");
 		generalData.append("<br>\n");
 
 		generalData.append("<br>\n");
 
 		final boolean isWarmUp=simData.runData.isWarmUp;
-		generalData.append(Language.tr("ExpressionCalculator.Tab.Clients.SystemInWarmUpPhase")+": <b>"+(isWarmUp?Language.tr("Dialog.Button.Yes"):Language.tr("Dialog.Button.No"))+"</b>\n");
-		generalData.append("<br>\n");
+		generalData.append(Language.tr("ExpressionCalculator.Tab.Clients.SystemInWarmUpPhase")+": <b>"+(isWarmUp?Language.tr("Dialog.Button.Yes"):Language.tr("Dialog.Button.No"))+"</b>");
 
 		generalData.append("</body></html>");
 
-		infoLabel.setText(generalData.toString());
+		return generalData.toString();
+	}
+
+	/**
+	 * Befehl: Seite "Globale Daten" aktualisieren
+	 */
+	private void commandUpdateGeneralData() {
+		infoLabel.setText(getGeneralData());
+	}
+
+	/**
+	 * Entfernt &lt;html&gt;, &lt;body&gt;, &lt;b&gt; und &lt;br&gt; Tags.
+	 * @param html	Zu bereinigender HTML-String
+	 * @return	Unformatierter Text
+	 */
+	private String makeHTMLPlain(final String html) {
+		String plain=html.replace("<b>","");
+		plain=plain.replace("</b>","");
+		plain=plain.replace("<br>","");
+		plain=plain.replace("<html>","");
+		plain=plain.replace("<body>","");
+		plain=plain.replace("</html>","");
+		plain=plain.replace("</body>","");
+		return plain;
 	}
 
 	/**
@@ -500,6 +571,7 @@ public final class ExpressionCalculatorDialog extends BaseDialog {
 	 * @param setVariable	Callback zum Einstellen eines Variablenwertes
 	 */
 	private void buildVariablesTab(final JPanel tab, final String[] variableNames, final Function<String,Double> getVariable, final BiConsumer<String,Double> setVariable) {
+		addCopySaveToolbar(tab,()->variablesTableModel.getTableData().toString(),true);
 		final JTableExt variablesTable=new JTableExt();
 		variablesTable.setModel(variablesTableModel=new ExpressionCalculatorDialogVariablesTableModel(variablesTable,variableNames,getVariable,setVariable));
 		variablesTable.setIsPanelCellTable(1);
@@ -511,6 +583,12 @@ public final class ExpressionCalculatorDialog extends BaseDialog {
 	 * @param tab	Tab-Panel
 	 */
 	private void buildClientsTab(final JPanel tab) {
+		addCopySaveToolbar(tab,()->{
+			final ListModel<ClientInfo> model=clientsList.getModel();
+			final List<ClientInfo> list=new ArrayList<>();
+			for (int i=0;i<model.getSize();i++) list.add(model.getElementAt(i));
+			return ModelElementAnimationInfoDialog.buildTable(list).toString();
+		},true);
 		clientsList=new JList<>(new DefaultListModel<ClientInfo>());
 		tab.add(new JScrollPane(clientsList),BorderLayout.CENTER);
 		clientsList.setCellRenderer(new JClientInfoRender(new AnimationImageSource(),false));
@@ -569,6 +647,7 @@ public final class ExpressionCalculatorDialog extends BaseDialog {
 		buttonJavaScriptTools=addToolbarButton(toolbar,Language.tr("ExpressionCalculator.Toolbar.Tools"),Images.SCRIPT_TOOLS.getIcon(),Language.tr("ExpressionCalculator.Toolbar.Tools.Hint"));
 		toolbar.addSeparator();
 		buttonJavaScriptRun=addToolbarButton(toolbar,Language.tr("ExpressionCalculator.Toolbar.Run"),Images.SCRIPT_RUN.getIcon(),Language.tr("ExpressionCalculator.Toolbar.Run.Hint"));
+		buttonJavaScriptCopyResults=addToolbarButton(toolbar,Language.tr("ExpressionCalculator.Toolbar.CopyScriptResult"),Images.EDIT_COPY.getIcon(),Language.tr("ExpressionCalculator.Toolbar.CopyScriptResult.Hint"));
 		toolbar.addSeparator();
 		buttonJavaScriptHelp=addToolbarButton(toolbar,Language.tr("Main.Toolbar.Help"),Images.HELP.getIcon(),Language.tr("ExpressionCalculator.Toolbar.Help.Hint"));
 		sub.add(toolbar,BorderLayout.NORTH);
@@ -615,6 +694,7 @@ public final class ExpressionCalculatorDialog extends BaseDialog {
 		buttonJavaTools=addToolbarButton(toolbar,Language.tr("ExpressionCalculator.Toolbar.ToolsJava"),Images.SCRIPT_TOOLS.getIcon(),Language.tr("ExpressionCalculator.Toolbar.ToolsJava.Hint"));
 		toolbar.addSeparator();
 		buttonJavaRun=addToolbarButton(toolbar,Language.tr("ExpressionCalculator.Toolbar.RunJava"),Images.SCRIPT_RUN.getIcon(),Language.tr("ExpressionCalculator.Toolbar.RunJava.Hint"));
+		buttonJavaCopyResults=addToolbarButton(toolbar,Language.tr("ExpressionCalculator.Toolbar.CopyScriptResult"),Images.EDIT_COPY.getIcon(),Language.tr("ExpressionCalculator.Toolbar.CopyScriptResult.Hint"));
 		toolbar.addSeparator();
 		buttonJavaHelp=addToolbarButton(toolbar,Language.tr("Main.Toolbar.Help"),Images.HELP.getIcon(),Language.tr("ExpressionCalculator.Toolbar.Help.Hint"));
 		sub.add(toolbar,BorderLayout.NORTH);
@@ -647,6 +727,7 @@ public final class ExpressionCalculatorDialog extends BaseDialog {
 	 * @param readOnly	Nur-Lese-Status
 	 */
 	private void buildGlobalMapTab(final JPanel tab, final Map<String,Object> mapGlobal, final boolean readOnly) {
+		addCopySaveToolbar(tab,()->mapTableModel.getTableData().toString(),true);
 		final JTableExt mapTable=new JTableExt();
 		mapTable.setModel(mapTableModel=new ExpressionCalculatorDialogTableModel(mapTable,mapGlobal,readOnly));
 		mapTable.getColumnModel().getColumn(0).setMaxWidth(125);
@@ -1022,8 +1103,10 @@ public final class ExpressionCalculatorDialog extends BaseDialog {
 		public void actionPerformed(ActionEvent e) {
 			if (readOnly) return;
 
-			if (e.getSource() instanceof FileDropperData) {
-				final FileDropperData data=(FileDropperData)e.getSource();
+			final Object source=e.getSource();
+
+			if (source instanceof FileDropperData) {
+				final FileDropperData data=(FileDropperData)source;
 				final File file=data.getFile();
 				if (file.isFile()) {
 					if (data.getDropComponent()==scriptJavaScriptEdit) {
@@ -1039,7 +1122,7 @@ public final class ExpressionCalculatorDialog extends BaseDialog {
 
 			/* Javascript */
 
-			if (e.getSource()==buttonJavaScriptNew) {
+			if (source==buttonJavaScriptNew) {
 				if (allowDiscardJavaScript()) {
 					scriptJavaScriptEdit.setText("");
 					lastJavaScript=scriptJavaScriptEdit.getText();
@@ -1047,22 +1130,27 @@ public final class ExpressionCalculatorDialog extends BaseDialog {
 				return;
 			}
 
-			if (e.getSource()==buttonJavaScriptLoad) {
+			if (source==buttonJavaScriptLoad) {
 				if (allowDiscardJavaScript()) commandLoadJavaScript(null);
 				return;
 			}
 
-			if (e.getSource()==buttonJavaScriptSave) {
+			if (source==buttonJavaScriptSave) {
 				commandSaveJavaScript();
 				return;
 			}
 
-			if (e.getSource()==buttonJavaScriptRun) {
+			if (source==buttonJavaScriptRun) {
 				commandRunJavaScript();
 				return;
 			}
 
-			if (e.getSource()==buttonJavaScriptTools) {
+			if (source==buttonJavaScriptCopyResults) {
+				getToolkit().getSystemClipboard().setContents(new StringSelection(scriptJavaScriptResults.getText()),null);
+				return;
+			}
+
+			if (source==buttonJavaScriptTools) {
 				final ScriptPopup popup=new ScriptPopup(buttonJavaScriptTools,model,ScriptPopup.ScriptMode.Javascript,null);
 				popup.addFeature(ScriptPopup.ScriptFeature.Simulation);
 				popup.addFeature(ScriptPopup.ScriptFeature.Output);
@@ -1071,14 +1159,14 @@ public final class ExpressionCalculatorDialog extends BaseDialog {
 				return;
 			}
 
-			if (e.getSource()==buttonJavaScriptHelp) {
+			if (source==buttonJavaScriptHelp) {
 				Help.topicModal(ExpressionCalculatorDialog.this,"JS");
 				return;
 			}
 
 			/* Java */
 
-			if (e.getSource()==buttonJavaNew) {
+			if (source==buttonJavaNew) {
 				if (allowDiscardJava()) {
 					scriptJavaEdit.setText("");
 					lastJava=scriptJavaEdit.getText();
@@ -1086,17 +1174,17 @@ public final class ExpressionCalculatorDialog extends BaseDialog {
 				return;
 			}
 
-			if (e.getSource()==buttonJavaLoad) {
+			if (source==buttonJavaLoad) {
 				if (allowDiscardJava()) commandLoadJava(null);
 				return;
 			}
 
-			if (e.getSource()==buttonJavaSave) {
+			if (source==buttonJavaSave) {
 				commandSaveJava();
 				return;
 			}
 
-			if (e.getSource()==buttonJavaTools) {
+			if (source==buttonJavaTools) {
 				final ScriptPopup popup=new ScriptPopup(buttonJavaTools,model,ScriptPopup.ScriptMode.Java,null);
 				popup.addFeature(ScriptPopup.ScriptFeature.Simulation);
 				popup.addFeature(ScriptPopup.ScriptFeature.Output);
@@ -1105,12 +1193,17 @@ public final class ExpressionCalculatorDialog extends BaseDialog {
 				return;
 			}
 
-			if (e.getSource()==buttonJavaRun) {
+			if (source==buttonJavaRun) {
 				commandRunJava();
 				return;
 			}
 
-			if (e.getSource()==buttonJavaHelp) {
+			if (source==buttonJavaCopyResults) {
+				getToolkit().getSystemClipboard().setContents(new StringSelection(scriptJavaResults.getText()),null);
+				return;
+			}
+
+			if (source==buttonJavaHelp) {
 				Help.topicModal(ExpressionCalculatorDialog.this,"Java");
 				return;
 			}

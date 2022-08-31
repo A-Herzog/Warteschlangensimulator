@@ -426,6 +426,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[1065] = "Java";
     t[1070] = "Simulation.Creator.UnknownNumberForResource";
     t[1071] = "Die Anzahl an Bediener in der Gruppe \"%s\" soll auf dem Zeitplan \"%s\" basieren, den es aber nicht gibt.";
+    t[1074] = "ExpressionCalculator.Tab.General.SaveTable.Title";
+    t[1075] = "Daten speichern";
     t[1076] = "Animation.IconDialog.Edit.Hint";
     t[1077] = "Bearbeitet das ausgew\u00e4hlte Icon";
     t[1082] = "Surface.Database.Config.InfoH2Server";
@@ -726,6 +728,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[1889] = "Am Datenende";
     t[1892] = "ExpressionBuilder.SimulationCharacteristics.WaitingTimesOverAll.MinimalTime";
     t[1893] = "<p>Liefert die minimale bisher entstandene Wartezeit (\u00fcber alle Kundentypen).</p>";
+    t[1894] = "ExpressionCalculator.Toolbar.CopyScriptResult.Hint";
+    t[1895] = "Kopiert das Ergebnis der Skriptausf\u00fchrung in die Zwischenablage.";
     t[1906] = "Simulation.Log.Input.InfoClientData";
     t[1907] = "Kunde: %s, Station: %s, KundenDaten(%d):=%s";
     t[1908] = "Main.Menu.View.ZoomIn.Mnemonic";
@@ -2006,16 +2010,16 @@ public class Messages_de extends java.util.ResourceBundle {
     t[5019] = "ModellElementTeleportZiel";
     t[5020] = "Surface.PopupMenu.SimulationStatisticsData.UnzoomHint";
     t[5021] = "Stellt den Standardzoomfaktor wieder her.";
-    t[5022] = "Statistic.Viewer.SpecialText.Category";
-    t[5023] = "<p>Bitte w\u00e4hlen Sie in der Baumstruktur eine <b>Kategorie</b> aus, um die entsprechenden Informationen angezeigt zu bekommen.</p>";
-    t[5024] = "Surface.AnimationTextJS.XML.BackgroundColor";
-    t[5025] = "ModellElementHintergrundfarbe";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_1 (java.lang.String[] t) {
+    t[5022] = "Statistic.Viewer.SpecialText.Category";
+    t[5023] = "<p>Bitte w\u00e4hlen Sie in der Baumstruktur eine <b>Kategorie</b> aus, um die entsprechenden Informationen angezeigt zu bekommen.</p>";
+    t[5024] = "Surface.AnimationTextJS.XML.BackgroundColor";
+    t[5025] = "ModellElementHintergrundfarbe";
     t[5028] = "Surface.AnimationText.Dialog.FontSize.Italic";
     t[5029] = "Kursiv";
     t[5042] = "Batch.Parameter.Variable.Label";
@@ -2208,6 +2212,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[5529] = "Formatierung der Ausgabe";
     t[5530] = "ExpressionBuilder.SimulationCharacteristics.ProcessingTimesOverAll.AverageTime";
     t[5531] = "<p>Liefert die mittlere Dauer \u00fcber alle Bedienzeiten aller Kunden.</p>";
+    t[5534] = "ExpressionCalculator.Tab.General.SaveText";
+    t[5535] = "Speichert die aktuellen Informationen als Text.";
     t[5538] = "ModelDescription.DelayedSignal";
     t[5539] = "Verz\u00f6gerte Ausl\u00f6sung";
     t[5542] = "Statistics.Dashboard.Buttons.MoveDown";
@@ -4010,18 +4016,18 @@ public class Messages_de extends java.util.ResourceBundle {
     t[9917] = "unendlich viele";
     t[9918] = "Editor.Dialog.Sequences.Edit.Column.Control";
     t[9919] = "Steuerung";
-    t[9924] = "Surface.PopupMenu.SimulationStatisticsData.Data.ClientsAtStationQueue";
-    t[9925] = "Momentane Anzahl an Kunden in der Warteschlange der Station: %s";
-    t[9930] = "Window.Layers.Visible.Title";
-    t[9931] = "Sichtbar machen";
-    t[9940] = "LogSimulation.OptionMultiLine";
-    t[9941] = "Ereignisname und Ereignisbeschreibung in zwei Zeilen aufteilen";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_2 (java.lang.String[] t) {
+    t[9924] = "Surface.PopupMenu.SimulationStatisticsData.Data.ClientsAtStationQueue";
+    t[9925] = "Momentane Anzahl an Kunden in der Warteschlange der Station: %s";
+    t[9930] = "Window.Layers.Visible.Title";
+    t[9931] = "Sichtbar machen";
+    t[9940] = "LogSimulation.OptionMultiLine";
+    t[9941] = "Ereignisname und Ereignisbeschreibung in zwei Zeilen aufteilen";
     t[9944] = "Statistics.XML.Element.ResourceIdleCosts";
     t[9945] = "StatistikRessourcenLeerlaufKosten";
     t[9948] = "SimulationServer.Setup.OpenBrowser.Hint";
@@ -6016,18 +6022,18 @@ public class Messages_de extends java.util.ResourceBundle {
     t[14893] = "Der angegebene Wert \"%s\" f\u00fcr die Anzahl an eintreffenden Kunden ist ung\u00fcltig. Es muss eine positive ganze Zahl angegeben werden.";
     t[14896] = "Statistics.XML.Time";
     t[14897] = "Zeit";
-    t[14898] = "Main.Menu.Help.RecommendedLiterature.Mnemonic.LiteratureBolch";
-    t[14899] = "M";
-    t[14902] = "Main.Menu.Help.TutorialSlides.pdf";
-    t[14903] = "Warteschlangensimulator-Tutorial-de.pdf";
-    t[14908] = "Surface.Process.Dialog.Tab.Operators.Alternative.Add";
-    t[14909] = "F\u00fcgt eine neue alternative Bedienerbelegung hinzu.";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_3 (java.lang.String[] t) {
+    t[14898] = "Main.Menu.Help.RecommendedLiterature.Mnemonic.LiteratureBolch";
+    t[14899] = "M";
+    t[14902] = "Main.Menu.Help.TutorialSlides.pdf";
+    t[14903] = "Warteschlangensimulator-Tutorial-de.pdf";
+    t[14908] = "Surface.Process.Dialog.Tab.Operators.Alternative.Add";
+    t[14909] = "F\u00fcgt eine neue alternative Bedienerbelegung hinzu.";
     t[14910] = "Statistics.ProcessTimesByClientTypes";
     t[14911] = "Bedienzeiten nach Kundentypen";
     t[14916] = "BatchPanel.Directory";
@@ -8022,18 +8028,18 @@ public class Messages_de extends java.util.ResourceBundle {
     t[19741] = "Das BatchVarianz-Attribut im \"%s\"-Element eine nicht-negative Zahl sein, ist aber \"%s\".";
     t[19744] = "ExpressionBuilder.SimulationCharacteristics.WaitingTimesAtStations.Median";
     t[19745] = "<p>Liefert den Median \u00fcber alle Wartezeiten, die an der Bedienstation, deren ID in dem Parameter angegeben wurde, entstanden sind (\u00fcber alle Kundentypen).</p>";
-    t[19748] = "CopyInstallation.ErrorInfoSetup";
-    t[19749] = "Die Konfigurationsatei\n%s\nkonnten nicht angelegt werden.";
-    t[19750] = "Surface.Output.XML.Element";
-    t[19751] = "ModellElementAusgabeElement";
-    t[19756] = "FileType.HTMLApp";
-    t[19757] = "html-App-Dateien";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_4 (java.lang.String[] t) {
+    t[19748] = "CopyInstallation.ErrorInfoSetup";
+    t[19749] = "Die Konfigurationsatei\n%s\nkonnten nicht angelegt werden.";
+    t[19750] = "Surface.Output.XML.Element";
+    t[19751] = "ModellElementAusgabeElement";
+    t[19756] = "FileType.HTMLApp";
+    t[19757] = "html-App-Dateien";
     t[19760] = "ModelDescription.Process.Resources.Resource";
     t[19761] = "Ressource \"%s\": %d ben\u00f6tigt";
     t[19766] = "FileType.Text";
@@ -8342,6 +8348,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[20535] = "Kopiert den folgenden Text in die Zwischenablage";
     t[20544] = "ParameterCompare.Table.Info.Minimum";
     t[20545] = "Minimum";
+    t[20546] = "Simulation.Creator.IntervalExpressions.IntervalTimeInvalid";
+    t[20547] = "Die an Station id=%d angegebene Intervalldauer %d ist ung\u00fcltig. Es muss eine positive Ganzzahl angegeben werden.";
     t[20554] = "Editor.AddEdge.PlacePoint1.Long";
     t[20555] = "Klicken Sie jetzt das Ausgangselement f\u00fcr die neue Verkn\u00fcpfung an.";
     t[20562] = "Surface.PopupMenu.SimulationStatisticsData.UpdateClientsHint";
@@ -10026,6 +10034,12 @@ public class Messages_de extends java.util.ResourceBundle {
     t[24547] = "Zeitdauer pro Abschnitt";
     t[24552] = "XML.NoFileSelected";
     t[24553] = "Es wurde keine Datei angegeben.";
+  }
+  /**
+   * Part of the language array creation
+   * @param t	Language data array
+   */
+  static void clinit_part_5 (java.lang.String[] t) {
     t[24556] = "Distribution.DegreesOfFreedom";
     t[24557] = "Freiheitsgrade";
     t[24558] = "Statistic.FastAccess.Template.Parameter.Path";
@@ -10034,12 +10048,6 @@ public class Messages_de extends java.util.ResourceBundle {
     t[24569] = "Startwert";
     t[24572] = "ModelLoadData.XML.Mode.DDE";
     t[24573] = "DDE";
-  }
-  /**
-   * Part of the language array creation
-   * @param t	Language data array
-   */
-  static void clinit_part_5 (java.lang.String[] t) {
     t[24574] = "Main.Menu.View.ModelDescription.Mnemonic";
     t[24575] = "B";
     t[24586] = "Dialog.OpenURL.InfoNo";
@@ -11576,6 +11584,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[28307] = "Anzahl an auf dem Server gestarteten Simulationen";
     t[28308] = "ExpressionBuilder.ProbabilityDistributions.GumbelDistribution.RandomNumberInfo";
     t[28309] = "<p>Erzeugt eine Zufallszahl gem\u00e4\u00df der Gumbel-Verteilung mit Erwartungswert und Standardabweichung gem\u00e4\u00df den Parametern eins und zwei.</p>";
+    t[28316] = "ExpressionCalculator.Toolbar.CopyScriptResult";
+    t[28317] = "Ausgabe kopieren";
     t[28318] = "Surface.AnimationTextJS.Dialog.Script";
     t[28319] = "Skript zur Ausgabe der Daten";
     t[28324] = "Surface.XML.Database.Root";
@@ -12030,6 +12040,12 @@ public class Messages_de extends java.util.ResourceBundle {
     t[29395] = "ZeitabhaengigePruefungen";
     t[29396] = "ParameterCompare.Select.Title.Store";
     t[29397] = "Statistikergebnisse speichern";
+  }
+  /**
+   * Part of the language array creation
+   * @param t	Language data array
+   */
+  static void clinit_part_6 (java.lang.String[] t) {
     t[29406] = "ScriptPopup.Part";
     t[29407] = "Teil %d von %d (%s ... %s)";
     t[29408] = "ExpressionBuilder.ProbabilityDistributions.LogisticDistribution";
@@ -12040,12 +12056,6 @@ public class Messages_de extends java.util.ResourceBundle {
     t[29419] = "ModellElementTransportRessourcePrioritaet";
     t[29420] = "SettingsDialog.Update.SectionSimulator";
     t[29421] = "Simulator";
-  }
-  /**
-   * Part of the language array creation
-   * @param t	Language data array
-   */
-  static void clinit_part_6 (java.lang.String[] t) {
     t[29422] = "Statistics.XML.Element.UtilizationResource";
     t[29423] = "StatistikRessource";
     t[29424] = "LoadCalculator.Tab.AllenCunneen";
@@ -14036,6 +14046,12 @@ public class Messages_de extends java.util.ResourceBundle {
     t[34059] = "Leerzeichen";
     t[34066] = "SettingsDialog.Tabs.Statistics.IncompleteStatistics";
     t[34067] = "Unvollst\u00e4ndige Statistik";
+  }
+  /**
+   * Part of the language array creation
+   * @param t	Language data array
+   */
+  static void clinit_part_7 (java.lang.String[] t) {
     t[34068] = "Surface.AnalogAssign.Dialog.Delete.ConfirmInfoYes";
     t[34069] = "Zuweisung jetzt l\u00f6schen.";
     t[34070] = "Simulation.Creator.SeizeReleaseClient";
@@ -14046,12 +14062,6 @@ public class Messages_de extends java.util.ResourceBundle {
     t[34075] = "Sprache";
     t[34076] = "ExpressionBuilder.SimulationCharacteristics.MaximalTime";
     t[34077] = "Maximale Zeit";
-  }
-  /**
-   * Part of the language array creation
-   * @param t	Language data array
-   */
-  static void clinit_part_7 (java.lang.String[] t) {
     t[34078] = "Surface.ScriptEditor.Check";
     t[34079] = "Pr\u00fcfen";
     t[34084] = "Surface.AssignString.XML.Value";
@@ -14524,6 +14534,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[35269] = "Namen f\u00fcr den %d Kundendatensatz auf \"%s\" einstellen";
     t[35270] = "Animation.Icon.Database";
     t[35271] = "Datenbank";
+    t[35276] = "ExpressionCalculator.Tab.General.SaveTable";
+    t[35277] = "Speichert die aktuellen Informationen als Tabelle.";
     t[35282] = "ExpressionBuilder.ProbabilityDistributions.ExponentialDistribution.RandomNumberInfo";
     t[35283] = "<p>Erzeugt eine Zufallszahl gem\u00e4\u00df der Exponentialverteilung mit dem Verteilungsparameter &lambda; gem\u00e4\u00df dem Kehrwert des zweiten Parameters.</p>\n<p>Beispiel: <tt>ExpDist(2)</tt>.</p>";
     t[35290] = "Statistics.Confidence.InfoThread";
@@ -15558,6 +15570,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[37717] = "Flie\u00dfband-Transportzeit";
     t[37720] = "CommandLine.Simulation.Done";
     t[37721] = "Die Simulation ist abgeschlossen. Ben\u00f6tigte Zeit: %s ms.";
+    t[37722] = "Dialog.Button.Copy.Info";
+    t[37723] = "Kopiert die aktuellen Informationen in die Zwischenablage.";
     t[37730] = "Surface.XML.RootName.PathSegments";
     t[37731] = "ModellPfadsegmente";
     t[37732] = "Statistics.XML.RunThreads.NUMA";
@@ -16038,6 +16052,12 @@ public class Messages_de extends java.util.ResourceBundle {
     t[38869] = "Schritteweite f\u00fcr Schieberegler auf %s setzen";
     t[38872] = "Editor.Dialog.Tab.OutputAnalysis.RecordAutocorrelation.Fast";
     t[38873] = "Autokorrelation f\u00fcr Wartezeit \u00fcber alle Kunden erfassen";
+  }
+  /**
+   * Part of the language array creation
+   * @param t	Language data array
+   */
+  static void clinit_part_8 (java.lang.String[] t) {
     t[38874] = "Surface.AnimationBarChart.Dialog.Appearance.FrameColor";
     t[38875] = "Rahmenfarbe";
     t[38878] = "ExpressionBuilder.MathematicalFunctions.ZetaFunction.Info";
@@ -16052,12 +16072,6 @@ public class Messages_de extends java.util.ResourceBundle {
     t[38895] = "Bedienzeiten f\u00fcr Kunden vom Typ \"%s\"";
     t[38896] = "Statistics.ErlangCompare.Distribution.WaitingTimeTolerance";
     t[38897] = "Wartezeittoleranzverteilung";
-  }
-  /**
-   * Part of the language array creation
-   * @param t	Language data array
-   */
-  static void clinit_part_8 (java.lang.String[] t) {
     t[38898] = "Surface.Source.Dialog.Tab.BatchSize";
     t[38899] = "Batch-Gr\u00f6\u00dfe";
     t[38900] = "CommandLine.FolderSimulation.NoFilesInFolder";
@@ -18044,6 +18058,12 @@ public class Messages_de extends java.util.ResourceBundle {
     t[43525] = "Alle aktivieren";
     t[43528] = "QuickAccess.Menu.Hint";
     t[43529] = "F\u00fchrt die gew\u00e4hlte Programmfunktion aus";
+  }
+  /**
+   * Part of the language array creation
+   * @param t	Language data array
+   */
+  static void clinit_part_9 (java.lang.String[] t) {
     t[43536] = "ParameterCompare.Toolbar.ProcessResults.ResultsChart.Copy.Hint";
     t[43537] = "Kopiert das Diagramm in die Zwischenablage.";
     t[43540] = "Editor.Dialog.Tab.OutputAnalysis.RecordAutocorrelation.Range.Error";
@@ -18058,12 +18078,6 @@ public class Messages_de extends java.util.ResourceBundle {
     t[43563] = "<p>Rundet den als Parameter \u00fcbergebenen Wert zur n\u00e4chsten ganzen Zahl ab.</p><p>Beispiel: <tt>floor(1,9)</tt> liefert 1.</p>";
     t[43564] = "Surface.XML.ModelName";
     t[43565] = "ModellName";
-  }
-  /**
-   * Part of the language array creation
-   * @param t	Language data array
-   */
-  static void clinit_part_9 (java.lang.String[] t) {
     t[43566] = "FitDalog.InvalidDataClipboard";
     t[43567] = "Es konnten keine Messwerte zur Verarbeitung aus der Zwischenablage geladen werden.";
     t[43568] = "Surface.XML.Schedule.RepeatSchedule.LastValue";
@@ -20050,6 +20064,12 @@ public class Messages_de extends java.util.ResourceBundle {
     t[48257] = "F\u00fcr Parameter %s in Zeile %d wurde keine Ganzzahl angegeben. Dieser Parameter muss jedoch eine Ganzzahl sein.";
     t[48260] = "Window.Info.NoInternetConnection.Address";
     t[48261] = "Die angegebene Adresse\n%s\nkonnte nicht aufgerufen werden.";
+  }
+  /**
+   * Part of the language array creation
+   * @param t	Language data array
+   */
+  static void clinit_part_10 (java.lang.String[] t) {
     t[48262] = "Surface.Duplicate.Name.Short";
     t[48263] = "Duplizieren";
     t[48264] = "Editor.DialogBase.Search.InterarrivalArrival.Signal";
@@ -20064,12 +20084,6 @@ public class Messages_de extends java.util.ResourceBundle {
     t[48283] = "Kundendatenfelder";
     t[48284] = "ScriptPopup.Clients.ProcessTime";
     t[48285] = "Bisherige Bedienzeit";
-  }
-  /**
-   * Part of the language array creation
-   * @param t	Language data array
-   */
-  static void clinit_part_10 (java.lang.String[] t) {
     t[48288] = "Simulation.Creator.InternalErrorNoCounters";
     t[48289] = "Interner Fehler an Station id=%d: Es wurden keine Z\u00e4hler definiert.";
     t[48294] = "ProcessClientOutputTable.ColumnHeader.WaitingTime";
@@ -20418,8 +20432,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[49185] = "Ein Tank repr\u00e4sentieren einen sich \u00fcber die Zeit kontinuierlich \u00e4ndern k\u00f6nnenden Wert. Der Tankinhalt kann nie negativ werden und besitzt au\u00dferdem eine Obergrenze. Tank-Stationen besitzen werder ein- noch auslaufende Kanten.";
     t[49188] = "Main.Menu.View.QuickAccess.Mnemonic";
     t[49189] = "S";
-    t[49190] = "Simulation.Creator.IntervalExpressions.IntervalTimeInvalid";
-    t[49191] = "Die an Station id=%d angegebene Intervalldauer %d ist ung\u00fcltig. Es muss eine positive Ganzzahl angegeben werden.";
+    t[49190] = "ExpressionCalculator.Tab.General.SaveText.Info";
+    t[49191] = "Daten speichern";
     t[49198] = "Surface.Match.Dialog.OptionProperty.Number.Error.Info";
     t[49199] = "Es wurde kein g\u00fcltigter Index f\u00fcr ein Kundendatenfeld angegeben. Es muss eine nichtnegative Ganzzahl angegeben werden.";
     t[49202] = "ScriptPopup.Simulation.Log";
@@ -22056,6 +22070,12 @@ public class Messages_de extends java.util.ResourceBundle {
     t[53079] = "Tempor\u00e4ren Batch erzeugen";
     t[53090] = "Optimizer.Tab.Optimization.Kernel.Parameters.Tab.Serial.ChangeRate2.ErrorTitle";
     t[53091] = "Ung\u00fcltige \u00c4nderungsrate in der zweiten Runde";
+  }
+  /**
+   * Part of the language array creation
+   * @param t	Language data array
+   */
+  static void clinit_part_11 (java.lang.String[] t) {
     t[53092] = "Simulation.Element.InteractiveCheckbox.Name";
     t[53093] = "Checkbox";
     t[53094] = "CommandLine.Error.File.InputNoValidOptimizerInput";
@@ -22070,12 +22090,6 @@ public class Messages_de extends java.util.ResourceBundle {
     t[53129] = "StatistikBenutzerdefiniertDatensatz";
     t[53130] = "ScriptPopup.Runtime.Execute";
     t[53131] = "Programm ausf\u00fchren";
-  }
-  /**
-   * Part of the language array creation
-   * @param t	Language data array
-   */
-  static void clinit_part_11 (java.lang.String[] t) {
     t[53132] = "Surface.Set.Table.Special.WaitingTime";
     t[53133] = "Bisherige Wartezeit des Kunden";
     t[53136] = "Surface.XML.RootName.Sequences";

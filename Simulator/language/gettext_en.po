@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-08-28 16:34+0200\n"
+"POT-Creation-Date: 2022-08-31 08:04+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -2823,6 +2823,9 @@ msgstr "Commands"
 
 msgid "Dialog.Button.Copy"
 msgstr "Copy"
+
+msgid "Dialog.Button.Copy.Info"
+msgstr "Copies the current information to the clipboard."
 
 msgid "Dialog.Button.Copy.InfoImage"
 msgstr "Copies the image to the clipboard"
@@ -7759,6 +7762,18 @@ msgstr "Evaluate expression"
 msgid "ExpressionCalculator.Tab.General.ArrivalCount"
 msgstr "System arrival count"
 
+msgid "ExpressionCalculator.Tab.General.SaveTable"
+msgstr "Saves the current information as a table."
+
+msgid "ExpressionCalculator.Tab.General.SaveTable.Title"
+msgstr "Save data"
+
+msgid "ExpressionCalculator.Tab.General.SaveText"
+msgstr "Saves the current information as text."
+
+msgid "ExpressionCalculator.Tab.General.SaveText.Info"
+msgstr "Save data"
+
 msgid "ExpressionCalculator.Tab.GeneralData"
 msgstr "General data"
 
@@ -7842,6 +7857,12 @@ msgstr "Edit value of variable \"%s\":"
 
 msgid "ExpressionCalculator.Title"
 msgstr "Simulation data"
+
+msgid "ExpressionCalculator.Toolbar.CopyScriptResult"
+msgstr "Copy results"
+
+msgid "ExpressionCalculator.Toolbar.CopyScriptResult.Hint"
+msgstr "Copies the result of the script execution to the clipboard."
 
 msgid "ExpressionCalculator.Toolbar.Help.Hint"
 msgstr "Shows a help page with information about the usage of the scripting function."

@@ -26,6 +26,7 @@ import javax.swing.table.TableCellEditor;
 
 import language.Language;
 import mathtools.NumberTools;
+import mathtools.Table;
 import systemtools.BaseDialog;
 import systemtools.MsgBox;
 import tools.JTableExt;
@@ -254,5 +255,28 @@ public class ExpressionCalculatorDialogTableModel extends JTableExtAbstractTable
 		updateKeySet();
 		updateTable();
 		table.repaint();
+	}
+
+	/**
+	 * Liefert die angezeigten Tabellendaten als {@link Table}-Objekt.
+	 * @return	{@link Table}-Objekt, welches die Daten zu den Zuordnungen enthält
+	 */
+
+	public Table getTableData() {
+		final Table table=new Table();
+
+		table.addLine(new String[] {
+				Language.tr("ExpressionCalculator.Tab.Map.Column.Key"),
+				Language.tr("ExpressionCalculator.Tab.Map.Column.Value"),
+				Language.tr("ExpressionCalculator.Tab.Map.Column.Type")
+		});
+		for (Map.Entry<String,Object> entry: map.entrySet()) {
+			table.addLine(new String[] {
+					entry.getKey(),
+					processValue(entry.getValue()),
+					entry.getValue().getClass().getSimpleName()
+			});
+		}
+		return table;
 	}
 }

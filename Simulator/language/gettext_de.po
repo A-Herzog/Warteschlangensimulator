@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-08-28 16:34+0200\n"
+"POT-Creation-Date: 2022-08-31 08:04+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -2828,6 +2828,9 @@ msgstr "Befehle"
 
 msgid "Dialog.Button.Copy"
 msgstr "Kopieren"
+
+msgid "Dialog.Button.Copy.Info"
+msgstr "Kopiert die aktuellen Informationen in die Zwischenablage."
 
 msgid "Dialog.Button.Copy.InfoImage"
 msgstr "Kopiert das Bild in die Zwischenablage"
@@ -7749,6 +7752,18 @@ msgstr "Ausdruck berechnen"
 msgid "ExpressionCalculator.Tab.General.ArrivalCount"
 msgstr "Anzahl an Ankünften am System"
 
+msgid "ExpressionCalculator.Tab.General.SaveTable"
+msgstr "Speichert die aktuellen Informationen als Tabelle."
+
+msgid "ExpressionCalculator.Tab.General.SaveTable.Title"
+msgstr "Daten speichern"
+
+msgid "ExpressionCalculator.Tab.General.SaveText"
+msgstr "Speichert die aktuellen Informationen als Text."
+
+msgid "ExpressionCalculator.Tab.General.SaveText.Info"
+msgstr "Daten speichern"
+
 msgid "ExpressionCalculator.Tab.GeneralData"
 msgstr "Allgemeine Daten"
 
@@ -7832,6 +7847,12 @@ msgstr "Wert der Variable \"%s\" bearbeiten:"
 
 msgid "ExpressionCalculator.Title"
 msgstr "Simulationsdaten"
+
+msgid "ExpressionCalculator.Toolbar.CopyScriptResult"
+msgstr "Ausgabe kopieren"
+
+msgid "ExpressionCalculator.Toolbar.CopyScriptResult.Hint"
+msgstr "Kopiert das Ergebnis der Skriptausführung in die Zwischenablage."
 
 msgid "ExpressionCalculator.Toolbar.Help.Hint"
 msgstr "Zeigt eine Hilfeseite zur Verwendung der Skriptfunktionen an."

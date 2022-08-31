@@ -341,7 +341,7 @@ public class ModelElementAnimationInfoDialog extends BaseDialog {
 	 * @param list	Kundeliste
 	 * @return	Kundentabelle
 	 */
-	private Table buildTable(final List<ClientInfo> list) {
+	public static Table buildTable(final List<ClientInfo> list) {
 		final Table table=new Table();
 
 		final Set<Integer> clientDataKeys=new HashSet<>();
@@ -745,12 +745,12 @@ public class ModelElementAnimationInfoDialog extends BaseDialog {
 		}
 
 		/**
-		 * Erzeugt ein Label zur Anzeige in der Liste zu diesem Kundeninfo-Datensatz
-		 * @param images	Objekt welches die Icons für die Animation vorhält
+		 * Liefert den in dem Label anzuzeigenden Text
 		 * @param isWaitingClientsList	Handelt es sich um einen noch wartenden Kunden?
-		 * @return	Label zur Anzeige in der Liste
+		 * @return	In dem Label anzuzeigenden HTML-formatierter Text
+		 * @see #buildLabel(AnimationImageSource, boolean)
 		 */
-		public JLabel buildLabel(final AnimationImageSource images, final boolean isWaitingClientsList) {
+		public String getLabelText(final boolean isWaitingClientsList) {
 			final StringBuilder text=new StringBuilder();
 
 			text.append("<html><body>");
@@ -767,7 +767,7 @@ public class ModelElementAnimationInfoDialog extends BaseDialog {
 			text.append(typeName);
 			text.append("</b> (id=");
 			text.append(typeId);
-			text.append(")<br>");
+			text.append(")<br>\n");
 			text.append("w=");
 			text.append(TimeTools.formatExactTime(waitingTime));
 			text.append(", t=");
@@ -781,7 +781,7 @@ public class ModelElementAnimationInfoDialog extends BaseDialog {
 				text.append(Language.tr("Surface.PopupMenu.SimulationStatisticsData.Tab.WaitingClients.OnArrivalAtStation"));
 				text.append(")");
 			}
-			text.append("<br>");
+			text.append("<br>\n");
 
 			text.append(Language.tr("Surface.PopupMenu.SimulationStatisticsData.Tab.WaitingClients.Field.Number")+": ");
 			text.append(clientData.size());
@@ -789,9 +789,19 @@ public class ModelElementAnimationInfoDialog extends BaseDialog {
 			text.append(Language.tr("Surface.PopupMenu.SimulationStatisticsData.Tab.WaitingClients.Field.Text")+": ");
 			text.append(clientTextData.size());
 
-			text.append("</body></html>");
+			text.append("</body></html>\n");
 
-			final JLabel label=new JLabel(text.toString(),getIcon(images),SwingConstants.LEADING);
+			return text.toString();
+		}
+
+		/**
+		 * Erzeugt ein Label zur Anzeige in der Liste zu diesem Kundeninfo-Datensatz
+		 * @param images	Objekt welches die Icons für die Animation vorhält
+		 * @param isWaitingClientsList	Handelt es sich um einen noch wartenden Kunden?
+		 * @return	Label zur Anzeige in der Liste
+		 */
+		public JLabel buildLabel(final AnimationImageSource images, final boolean isWaitingClientsList) {
+			final JLabel label=new JLabel(getLabelText(isWaitingClientsList),getIcon(images),SwingConstants.LEADING);
 			label.setBorder(BorderFactory.createEmptyBorder(5,10,5,10));
 			return label;
 		}

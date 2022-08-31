@@ -24,6 +24,7 @@ import javax.swing.table.TableCellEditor;
 
 import language.Language;
 import mathtools.NumberTools;
+import mathtools.Table;
 import systemtools.MsgBox;
 import tools.JTableExt;
 import tools.JTableExtAbstractTableModel;
@@ -135,5 +136,22 @@ public class ExpressionCalculatorDialogVariablesTableModel extends JTableExtAbst
 		}
 		setVariable.accept(name,D);
 		updateTable();
+	}
+
+	/**
+	 * Liefert die angezeigten Tabellendaten als {@link Table}-Objekt.
+	 * @return	{@link Table}-Objekt, welches die Daten zu den Variablen enthält
+	 */
+	public Table getTableData() {
+		final Table table=new Table();
+		table.addLine(new String[] {
+				Language.tr("ExpressionCalculator.Tab.Variables.Column.Name"),
+				Language.tr("ExpressionCalculator.Tab.Variables.Column.Value")
+		});
+		for (int i=0;i<variableNames.length;i++) table.addLine(new String[] {
+				variableNames[i],
+				NumberTools.formatNumberMax(getVariable.apply(variableNames[i]))
+		});
+		return table;
 	}
 }
