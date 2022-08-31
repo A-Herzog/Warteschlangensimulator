@@ -145,8 +145,8 @@ public class RunElementDecideByCondition extends RunElement {
 		/* Zielstation bestimmen */
 		int nr=-1;
 		simData.runData.setClientVariableValues(client);
-		for (int i=0;i<data.conditions.length;i++) if (data.conditions[i].eval(simData.runData.variableValues,simData,client)) {nr=i; break;}
-		if (nr==-1) nr=data.conditions.length;
+		for (int i=0;i<data.conditions.length;i++) if (data.conditions[i]==null || data.conditions[i].eval(simData.runData.variableValues,simData,client)) {nr=i; break;}
+		if (nr==-1) nr=data.conditions.length-1;
 
 		client.stationInformationInt=nr;
 

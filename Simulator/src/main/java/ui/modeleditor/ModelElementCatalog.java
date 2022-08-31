@@ -269,6 +269,7 @@ public final class ModelElementCatalog {
 				addElement(new ModelElementWayPoint(null,null),Language.tr("Surface.WayPoint.Name"),GROUP_TRANSPORT);
 				addElement(new ModelElementTeleportSource(null,null),null,GROUP_TRANSPORT);
 				addElement(new ModelElementTeleportSourceMulti(null,null),null,GROUP_TRANSPORT);
+				addElement(new ModelElementDecideAndTeleport(null,null),null,GROUP_TRANSPORT);
 				addElement(new ModelElementTeleportDestination(null,null),null,GROUP_TRANSPORT);
 				addElement(new ModelElementConveyor(null,null),null,GROUP_TRANSPORT);
 			} catch (Exception e) {

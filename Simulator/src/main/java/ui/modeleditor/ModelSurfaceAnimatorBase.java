@@ -56,6 +56,7 @@ import ui.modeleditor.coreelements.ModelElementBox;
 import ui.modeleditor.coreelements.ModelElementPosition;
 import ui.modeleditor.elements.ElementWithAnimationDisplay;
 import ui.modeleditor.elements.ModelElementConveyor;
+import ui.modeleditor.elements.ModelElementDecideAndTeleport;
 import ui.modeleditor.elements.ModelElementEdge;
 import ui.modeleditor.elements.ModelElementSub;
 import ui.modeleditor.elements.ModelElementTeleportDestination;
@@ -1044,7 +1045,7 @@ public class ModelSurfaceAnimatorBase {
 	 */
 	private AnimationPath getDirectAnimationPath(final RunDataClient client, final ModelElementBox stationFrom, final ModelElementBox stationTo) {
 		/* Teleport-Übergänge zeichnen sich gerade dadurch aus, nicht in der Animation sichtbar zu sein. */
-		if (((stationFrom instanceof ModelElementTeleportSource) || (stationFrom instanceof ModelElementTeleportSourceMulti)) && (stationTo instanceof ModelElementTeleportDestination)) {
+		if (((stationFrom instanceof ModelElementTeleportSource) || (stationFrom instanceof ModelElementTeleportSourceMulti) || (stationFrom instanceof ModelElementDecideAndTeleport)) && (stationTo instanceof ModelElementTeleportDestination)) {
 			return null;
 		}
 
@@ -1169,7 +1170,7 @@ public class ModelSurfaceAnimatorBase {
 		List<ModelElement> path=new ArrayList<>();
 
 		/* Teleport-Übergänge zeichnen sich gerade dadurch aus, nicht in der Animation sichtbar zu sein. */
-		if (((stationFrom instanceof ModelElementTeleportSource) || (stationFrom instanceof ModelElementTeleportSourceMulti)) && (stationTo instanceof ModelElementTeleportDestination)) {
+		if (((stationFrom instanceof ModelElementTeleportSource) || (stationFrom instanceof ModelElementTeleportSourceMulti) || (stationFrom instanceof ModelElementDecideAndTeleport)) && (stationTo instanceof ModelElementTeleportDestination)) {
 			return null;
 		}
 

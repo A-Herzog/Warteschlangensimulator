@@ -40,6 +40,7 @@ import ui.modeleditor.elements.ModelElementSourceDDE;
 import ui.modeleditor.elements.ModelElementSourceMulti;
 import ui.modeleditor.elements.ModelElementSourceTable;
 import ui.modeleditor.elements.ModelElementSub;
+import ui.modeleditor.elements.ModelElementTeleportDestination;
 import ui.modeleditor.elements.ModelElementVertex;
 
 /**
@@ -164,6 +165,21 @@ public abstract class ModelDescriptionBuilder {
 			}
 		}
 		return (ModelElementBox)element;
+	}
+
+	/**
+	 * Liefert die Teleport-Ziel-Station zu einem Teleport-Ziel-Stationsnamen
+	 * @param destinationName	Teleport-Ziel-Stationsnamen
+	 * @return	Teleport-Ziel-Station oder <code>null</code>, wenn zu dem Namen keine Transport-Ziel-Station ermittelt werden konnte
+	 */
+	private ModelElementTeleportDestination getTeleportDestination(final String destinationName) {
+		for (ModelElement e1: model.surface.getElements()) {
+			if ((e1 instanceof ModelElementTeleportDestination) && e1.getName().equals(destinationName)) return (ModelElementTeleportDestination)e1;
+			if (e1 instanceof ModelElementSub) for (ModelElement e2: ((ModelElementSub)e1).getSubSurface().getElements()) {
+				if ((e2 instanceof ModelElementTeleportDestination) && e2.getName().equals(destinationName)) return (ModelElementTeleportDestination)e2;
+			}
+		}
+		return null;
 	}
 
 	/**
@@ -335,6 +351,22 @@ public abstract class ModelDescriptionBuilder {
 			addProperty(Language.tr("ModelDescription.NextElement"),next,Integer.MAX_VALUE);
 		} else {
 			addProperty(condition,next,Integer.MAX_VALUE);
+		}
+	}
+
+	/**
+	 * Erfasst die Eigenschaft "Folgestation" zu einer Teleport-Station
+	 * @param condition	Beschreibung, warum diese Folgestation gewählt wird
+	 * @param destinationName	Name des Teleportziels
+	 */
+	public final void addConditionalTeleportDestination(final String condition, final String destinationName) {
+		final ModelElementTeleportDestination destination=getTeleportDestination(destinationName);
+		if (destination==null) return;
+		if (nextElementSuggestion==null) nextElementSuggestion=destination;
+		if (condition==null || condition.trim().isEmpty()) {
+			addProperty(Language.tr("ModelDescription.NextElement"),destinationName,Integer.MAX_VALUE);
+		} else {
+			addProperty(condition,destinationName,Integer.MAX_VALUE);
 		}
 	}
 

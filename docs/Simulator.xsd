@@ -400,6 +400,7 @@
   <xs:attribute name="Bedingung" type="xs:string"/>
   <xs:attribute name="ZeitabhaengigePruefungen" type="xs:string"/>
   <xs:attribute name="Kundentyp" type="xs:string"/>
+  <xs:attribute name="Texteigenschaft" type="xs:string"/>
   <xs:attribute name="Status" type="xs:string"/>
   <xs:attribute name="NeuerKundentyp" type="xs:string"/>
 </xs:complexType></xs:element>
@@ -565,6 +566,7 @@
   <xs:element ref="ModellElementWegpunkt"/>
   <xs:element ref="ModellElementTeleportStart"/>
   <xs:element ref="ModellElementDuplizierenTeleportStart"/>
+  <xs:element ref="ModellElementVerzweigenTeleportStart"/>
   <xs:element ref="ModellElementTeleportZiel"/>
   <xs:element ref="ModellElementFliessband"/>
   <xs:element ref="ModellElementAnalogerWert"/>
@@ -1481,6 +1483,22 @@
 	<xs:element name="ModellElementTeleportStartZuZiel" type="xs:string"/>
   </xs:choice></xs:sequence>
 </xs:extension></xs:complexContent></xs:complexType></xs:element>
+
+<xs:element name="ModellElementVerzweigenTeleportStart"><xs:complexType><xs:complexContent><xs:extension base="ModellElementVerbundenBasis">
+  <xs:sequence minOccurs="0" maxOccurs="1"><xs:choice>
+    <xs:element name="ModellElementVerzweigungsmodus" type="xs:string"/>
+    <xs:element ref="ModellElementVerzweigSchluessel"/>
+	<xs:element ref="ModellElementTeleportStartZuZiel"/>
+  </xs:choice></xs:sequence>
+</xs:extension></xs:complexContent></xs:complexType></xs:element>
+<xs:element name="ModellElementTeleportStartZuZiel"><xs:complexType><xs:simpleContent>
+  <xs:extension base="xs:string">
+    <xs:attribute name="Rate" type="xs:string"/>
+    <xs:attribute name="Bedingung" type="xs:string"/>
+    <xs:attribute name="Kundentyp" type="xs:string"/>
+    <xs:attribute name="Texteigenschaft" type="xs:string"/>
+  </xs:extension>
+</xs:simpleContent></xs:complexType></xs:element>
 
 <xs:element name="ModellElementFliessband"><xs:complexType><xs:complexContent><xs:extension base="ModellElementVerbundenBasis">
   <xs:sequence minOccurs="0" maxOccurs="1"><xs:choice>
@@ -2714,6 +2732,7 @@
   <xs:attribute name="Condition" type="xs:string"/>
   <xs:attribute name="TimedChecks" type="xs:string"/>
   <xs:attribute name="ClientType" type="xs:string"/>
+  <xs:attribute name="Value" type="xs:string"/>
   <xs:attribute name="Status" type="xs:string"/>
   <xs:attribute name="NewClientType" type="xs:string"/>
 </xs:complexType></xs:element>
@@ -2879,6 +2898,7 @@
   <xs:element ref="ModelElementWayPoint"/>
   <xs:element ref="ModelElementTeleportOrigin"/>
   <xs:element ref="ModelElementDuplicateTeleportOrigin"/>
+  <xs:element ref="ModelElementDecideTeleportOrigin"/>
   <xs:element ref="ModelElementTeleportDestination"/>
   <xs:element ref="ModelElementConveyor"/>
   <xs:element ref="ModelElementAnalogValue"/>
@@ -3794,6 +3814,22 @@
 	<xs:element name="ModelElementTeleportOriginToTarget" type="xs:string"/>
   </xs:choice></xs:sequence>
 </xs:extension></xs:complexContent></xs:complexType></xs:element>
+
+<xs:element name="ModelElementDecideTeleportOrigin"><xs:complexType><xs:complexContent><xs:extension base="ModelElementConnectedBase">
+  <xs:sequence minOccurs="0" maxOccurs="1"><xs:choice>
+    <xs:element name="ModelElementDecideMode" type="xs:string"/>
+    <xs:element ref="ModelElementDecideKey"/>
+	<xs:element name="ModelElementTeleportOriginToTarget" type="xs:string"/>
+  </xs:choice></xs:sequence>
+</xs:extension></xs:complexContent></xs:complexType></xs:element>
+<xs:element name="ModelElementTeleportOriginToTarget"><xs:complexType><xs:simpleContent>
+  <xs:extension base="xs:string">
+    <xs:attribute name="Rate" type="xs:string"/>
+    <xs:attribute name="Condition" type="xs:string"/>
+    <xs:attribute name="ClientType" type="xs:string"/>
+    <xs:attribute name="Value" type="xs:string"/>
+  </xs:extension>
+</xs:simpleContent></xs:complexType></xs:element>
 
 <xs:element name="ModelElementConveyor"><xs:complexType><xs:complexContent><xs:extension base="ModelElementConnectedBase">
   <xs:sequence minOccurs="0" maxOccurs="1"><xs:choice>

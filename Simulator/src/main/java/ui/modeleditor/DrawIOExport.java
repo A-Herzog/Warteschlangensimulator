@@ -286,6 +286,8 @@ public class DrawIOExport {
 			break;
 		case SHAPE_RECTANGLE_LINES_INSIDE:
 			break;
+		case SHAPE_RECTANGLE_TWO_LINES_INSIDE:
+			break;
 		case SHAPE_RECTANGLE_123:
 			break;
 		case SHAPE_RECTANGLE_ABC:

@@ -1,5 +1,5 @@
 /**
- * Copyright 2020 Alexander Herzog
+ * Copyright 2021 Alexander Herzog
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,12 +20,12 @@ import simulator.coreelements.RunElementData;
 import simulator.simparser.ExpressionMultiEval;
 
 /**
- * Laufzeitdaten eines <code>RunElementDecideByCondition</code>-Laufzeit-Objekts
+ * Laufzeitdaten eines {@link RunElementTeleportDecideByCondition}-Laufzeit-Objekts
  * @author Alexander Herzog
- * @see RunElementDecideByCondition
+ * @see RunElementTeleportDecideByCondition
  * @see RunElementData
  */
-public class RunElementDecideByConditionData extends RunElementData {
+public class RunElementTeleportDecideByConditionData extends RunElementData {
 	/** Für die verschiedenen Pfade zu prüfenden Bedingungen */
 	public ExpressionMultiEval[] conditions;
 
@@ -35,7 +35,7 @@ public class RunElementDecideByConditionData extends RunElementData {
 	 * @param conditions	Bedingungen gemäß denen die Aufteilung der Kunden erfolgt
 	 * @param variableNames	Liste der global verfügbaren Variablennamen
 	 */
-	public RunElementDecideByConditionData(final RunElement station, final String[] conditions, final String[] variableNames) {
+	public RunElementTeleportDecideByConditionData(final RunElement station, final String[] conditions, final String[] variableNames) {
 		super(station);
 
 		this.conditions=new ExpressionMultiEval[conditions.length];

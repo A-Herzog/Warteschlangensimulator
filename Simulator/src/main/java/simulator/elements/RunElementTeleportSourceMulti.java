@@ -28,7 +28,6 @@ import simulator.runmodel.RunModel;
 import simulator.runmodel.SimulationData;
 import ui.modeleditor.coreelements.ModelElement;
 import ui.modeleditor.elements.ModelElementSub;
-import ui.modeleditor.elements.ModelElementTeleportDestination;
 import ui.modeleditor.elements.ModelElementTeleportSourceMulti;
 
 /**
@@ -52,38 +51,6 @@ public class RunElementTeleportSourceMulti extends RunElement {
 		super(element,buildName(element,Language.tr("Simulation.Element.TeleportSourceMulti.Name")));
 	}
 
-	/**
-	 * Sucht das Teleport-Ziel-Element mit dem angegebenen Namen
-	 * @param editModel	Editormodell das alle Elemente enthält
-	 * @param name	Name des Teleport-Ziel-Elements
-	 * @return	Teleport-Ziel-Element Objekt oder <code>null</code>, wenn kein Teleport-Ziel mit dem angegebenen Namen gefunden wurde
-	 */
-	public static ModelElementTeleportDestination getDestination(final EditModel editModel, final String name) {
-		if (name==null || name.trim().isEmpty()) return null;
-
-		for (ModelElement e1 : editModel.surface.getElements()) {
-			if (e1 instanceof ModelElementTeleportDestination && e1.getName().equals(name)) return (ModelElementTeleportDestination)e1;
-			if (e1 instanceof ModelElementSub) {
-				for (ModelElement e2 : ((ModelElementSub)e1).getSubSurface().getElements()) {
-					if (e2 instanceof ModelElementTeleportDestination && e2.getName().equals(name)) return (ModelElementTeleportDestination)e2;
-				}
-			}
-		}
-		return null;
-	}
-
-	/**
-	 * Sucht das Teleport-Ziel-Element mit dem angegebenen Namen und liefert seine ID
-	 * @param editModel	Editormodell das alle Elemente enthält
-	 * @param name	Name des Teleport-Ziel-Elements
-	 * @return	ID des Teleport-Ziel-Element Objekts oder -1, wenn kein Teleport-Ziel mit dem angegebenen Namen gefunden wurde
-	 */
-	public static int getDestinationID(final EditModel editModel, final String name) {
-		final ModelElementTeleportDestination destination=getDestination(editModel,name);
-		if (destination==null) return -1;
-		return destination.getId();
-	}
-
 	@Override
 	public Object build(EditModel editModel, RunModel runModel, ModelElement element, ModelElementSub parent, boolean testOnly) {
 		if (!(element instanceof ModelElementTeleportSourceMulti)) return null;
@@ -95,7 +62,7 @@ public class RunElementTeleportSourceMulti extends RunElement {
 		if (source.destinationStrings.length==0) return String.format(Language.tr("Simulation.Creator.NoTeleportDestination"),element.getId());
 		source.destinationIDs=new int[source.destinationStrings.length];
 		for (int i=0;i<source.destinationStrings.length;i++) {
-			final int id=getDestinationID(editModel,source.destinationStrings[i]);
+			final int id=RunElementTeleportSource.getDestinationID(editModel,source.destinationStrings[i]);
 			if (id<0) return String.format(Language.tr("Simulation.Creator.InvalidTeleportDestination"),element.getId(),source.destinationStrings[i]);
 			source.destinationIDs[i]=id;
 		}
@@ -112,7 +79,7 @@ public class RunElementTeleportSourceMulti extends RunElement {
 		final List<String> destinationStrings=sourceElement.getDestinations();
 		if (destinationStrings.size()==0) return new RunModelCreatorStatus(String.format(Language.tr("Simulation.Creator.NoTeleportDestination"),element.getId()),RunModelCreatorStatus.Status.TELEPORT_INVALID_DESTINATION);
 		for (String destination: destinationStrings) {
-			final int destinationID=getDestinationID(element.getModel(),destination);
+			final int destinationID=RunElementTeleportSource.getDestinationID(element.getModel(),destination);
 			if (destinationID<0) return new RunModelCreatorStatus(String.format(Language.tr("Simulation.Creator.InvalidTeleportDestination"),element.getId(),destination),RunModelCreatorStatus.Status.TELEPORT_INVALID_DESTINATION);
 		}
 

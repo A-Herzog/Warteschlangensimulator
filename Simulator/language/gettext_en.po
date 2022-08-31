@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-08-27 00:54+0200\n"
+"POT-Creation-Date: 2022-08-28 16:34+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17315,6 +17315,9 @@ msgstr "At station id=%d no counter name for condition %d was given."
 msgid "Simulation.Creator.EmptyCounterNameElse"
 msgstr "At station id=%d no counter name for the case that no condition is met was given."
 
+msgid "Simulation.Creator.ExitToNoValidNextElement"
+msgstr "From element id=%d the teleport connection id=%d is leading to no valid next element."
+
 msgid "Simulation.Creator.HoldClientPriority"
 msgstr "At element id=%d for client type \"%s\" the invalid value \"%s\" is specified as priority (error at character %d)."
 
@@ -18103,6 +18106,24 @@ msgstr "Sensor"
 
 msgid "Simulation.Element.TankValveSetup.Name"
 msgstr "Valve setup"
+
+msgid "Simulation.Element.TeleportDecideByChance.Name"
+msgstr "Decide and teleport by chance"
+
+msgid "Simulation.Element.TeleportDecideByClientType.Name"
+msgstr "Decide and teleport by client type"
+
+msgid "Simulation.Element.TeleportDecideByCondition.Name"
+msgstr "Decide and teleport by condition"
+
+msgid "Simulation.Element.TeleportDecideByKeyValue.Name"
+msgstr "Decide and teleport by string property"
+
+msgid "Simulation.Element.TeleportDecideBySequence.Name"
+msgstr "Decide and teleport by sequence"
+
+msgid "Simulation.Element.TeleportDecideByStation.Name"
+msgstr "Decide and teleport by station data"
 
 msgid "Simulation.Element.TeleportDestination.Name"
 msgstr "Teleport transport destination"
@@ -18937,6 +18958,42 @@ msgstr "Teleport transport source"
 
 msgid "Simulation.Log.Teleport.Info"
 msgstr "Client: %s, station: %s, teleport destination: %s"
+
+msgid "Simulation.Log.TeleportDecideByChance"
+msgstr "Verzweigen und Teleportieren (Zufall)"
+
+msgid "Simulation.Log.TeleportDecideByChance.Info"
+msgstr "Kunde: %s, Station: %s, Verzweigung zu Ausgang %d von %d"
+
+msgid "Simulation.Log.TeleportDecideByClientType"
+msgstr "Verzweigen und Teleportieren (Kundentyp)"
+
+msgid "Simulation.Log.TeleportDecideByClientType.Info"
+msgstr "Kunde: %s, Station: %s, Verzweigung zu Ausgang %d von %d"
+
+msgid "Simulation.Log.TeleportDecideByCondition"
+msgstr "Decide and teleport by condition"
+
+msgid "Simulation.Log.TeleportDecideByCondition.Info"
+msgstr "Client: %s, station: %s, branching to output %d of %d"
+
+msgid "Simulation.Log.TeleportDecideByKeyValue"
+msgstr "Decide and teleport by string property"
+
+msgid "Simulation.Log.TeleportDecideByKeyValue.Info"
+msgstr "Client: %s, station: %s, %s=%s, branching to output %d of %d"
+
+msgid "Simulation.Log.TeleportDecideBySequence"
+msgstr "Decide and teleport by sequence"
+
+msgid "Simulation.Log.TeleportDecideBySequence.Info"
+msgstr "Client: %s, station: %s, branching to output %d of %d"
+
+msgid "Simulation.Log.TeleportDecideByStation"
+msgstr "Decide and teleport by station data"
+
+msgid "Simulation.Log.TeleportDecideByStation.Info"
+msgstr "Client: %s, station: %s, branch to output %d of %d"
 
 msgid "Simulation.Log.TeleportDestination"
 msgstr "Teleport transport destination"
@@ -26237,6 +26294,18 @@ msgstr "String property"
 
 msgid "Surface.Decide.XML.Root"
 msgstr "ModelElementDecide"
+
+msgid "Surface.DecideAndTeleport.Infotext"
+msgstr "Branches the arriving clients based on various possible rules to multiple teleport destinations."
+
+msgid "Surface.DecideAndTeleport.Name"
+msgstr "Decide and teleport"
+
+msgid "Surface.DecideAndTeleport.Tooltip"
+msgstr "Teleports clients in different directions."
+
+msgid "Surface.DecideAndTeleport.XML.Root"
+msgstr "ModelElementDecideTeleportOrigin"
 
 msgid "Surface.DecideJS.Dialog.Title"
 msgstr "Edit script-based branching"

@@ -1,5 +1,5 @@
 /**
- * Copyright 2020 Alexander Herzog
+ * Copyright 2022 Alexander Herzog
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,15 +17,12 @@ package ui.modeleditor.elements;
 
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.Point;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
-import java.util.function.Consumer;
 
 import javax.swing.Icon;
-import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
 
@@ -36,7 +33,6 @@ import language.Language;
 import mathtools.NumberTools;
 import simulator.editmodel.EditModel;
 import simulator.editmodel.FullTextSearch;
-import simulator.runmodel.RunModelFixer;
 import ui.images.Images;
 import ui.modeleditor.ModelClientData;
 import ui.modeleditor.ModelDataRenameListener;
@@ -46,47 +42,17 @@ import ui.modeleditor.ModelSurfacePanel;
 import ui.modeleditor.coreelements.ModelElement;
 import ui.modeleditor.coreelements.ModelElementBox;
 import ui.modeleditor.coreelements.ModelElementEdgeMultiIn;
-import ui.modeleditor.coreelements.ModelElementEdgeMultiOut;
-import ui.modeleditor.coreelements.QuickFixNextElements;
 import ui.modeleditor.descriptionbuilder.ModelDescriptionBuilder;
+import ui.modeleditor.elements.ModelElementDecide.DecideMode;
 import ui.modeleditor.fastpaint.Shapes;
 
 /**
- * Verzweigt die eintreffenden Kunden in verschiedene Richtungen
+ * Verzweigt die eintreffenden Kunden in verschiedene Richtungen und teleportiert sie zu den Zielstationen
  * @author Alexander Herzog
  */
-public class ModelElementDecide extends ModelElementBox implements ModelDataRenameListener, ModelElementEdgeMultiIn, ModelElementEdgeMultiOut, ElementWithNewClientNames, ElementWithDecideData {
-	/**
-	 * Art der Verzweigung
-	 * @author Alexander Herzog
-	 * @see ModelElementDecide#getMode()
-	 * @see ModelElementDecide#setMode(DecideMode)
-	 */
-	public enum DecideMode {
-		/** Zufällig */
-		MODE_CHANCE,
-		/** Gemäß Bedingung */
-		MODE_CONDITION,
-		/** Nach Kundentyp */
-		MODE_CLIENTTYPE,
-		/** Reihum */
-		MODE_SEQUENCE,
-		/** Kürzeste Warteschlange an der nächsten Station */
-		MODE_SHORTEST_QUEUE_NEXT_STATION,
-		/** Kürzeste Warteschlange an der nächsten Bedienstation */
-		MODE_SHORTEST_QUEUE_PROCESS_STATION,
-		/** Wenigster Kunden an der nächsten Station */
-		MODE_MIN_CLIENTS_NEXT_STATION,
-		/** Wenigster Kunden an der nächsten Bedienstation */
-		MODE_MIN_CLIENTS_PROCESS_STATION,
-		/** Gemäß Wert eines Kundendaten-Textfeldes */
-		MODE_KEY_VALUE
-	}
-
+public class ModelElementDecideAndTeleport extends ModelElementBox implements ModelDataRenameListener, ModelElementEdgeMultiIn, ElementWithDecideData {
 	/** Liste der einlaufenden Kanten */
 	private final List<ModelElementEdge> connectionsIn;
-	/** Liste der auslaufenden Kanten */
-	private final List<ModelElementEdge> connectionsOut;
 
 	/**
 	 * Liste der IDs der einlaufenden Kanten (wird nur beim Laden und Clonen verwendet, ist sonst <code>null</code>)
@@ -95,17 +61,17 @@ public class ModelElementDecide extends ModelElementBox implements ModelDataRena
 	private List<Integer> connectionsInIds=null;
 
 	/**
-	 * Liste der IDs der auslaufenden Kanten (wird nur beim Laden und Clonen verwendet, ist sonst <code>null</code>)
-	 * @see #connectionsOut
-	 */
-	private List<Integer> connectionsOutIds=null;
-
-	/**
 	 * Verzweigungsmodus
 	 * @see #getMode()
 	 * @see DecideMode
 	 */
-	private DecideMode mode=DecideMode.MODE_CHANCE;
+	private DecideMode mode=ModelElementDecide.DecideMode.MODE_CHANCE;
+
+	/**
+	 * Namen der Zielstationen
+	 * @see #getDestinations()
+	 */
+	private final List<String> destinations;
 
 	/**
 	 * Liste der Raten für die Verzweigungen
@@ -145,19 +111,16 @@ public class ModelElementDecide extends ModelElementBox implements ModelDataRena
 	private boolean multiTextValues;
 
 	/**
-	 * Liste mit neuen Kundentypen gemäß den Ausgängen (leere Strings stehen für "keine Änderung")
-	 */
-	private List<String> newClientTypes=null;
-
-	/**
 	 * Konstruktor der Klasse <code>ModelElementDecide</code>
 	 * @param model	Modell zu dem dieses Element gehören soll (kann später nicht mehr geändert werden)
 	 * @param surface	Zeichenfläche zu dem dieses Element gehören soll (kann später nicht mehr geändert werden)
 	 */
-	public ModelElementDecide(final EditModel model, final ModelSurface surface) {
-		super(model,surface,Shapes.ShapeType.SHAPE_OCTAGON);
+	public ModelElementDecideAndTeleport(final EditModel model, final ModelSurface surface) {
+		super(model,surface,Shapes.ShapeType.SHAPE_RECTANGLE_TWO_LINES_INSIDE);
+		setSize(new Dimension(30,30));
+		setDrawText(false);
 		connectionsIn=new ArrayList<>();
-		connectionsOut=new ArrayList<>();
+		destinations=new ArrayList<>();
 		key="";
 		rates=new ArrayList<>();
 		conditions=new ArrayList<>();
@@ -172,7 +135,7 @@ public class ModelElementDecide extends ModelElementBox implements ModelDataRena
 	 */
 	@Override
 	public Icon getAddElementIcon() {
-		return Images.MODELEDITOR_ELEMENT_DECIDE.getIcon();
+		return Images.MODELEDITOR_ELEMENT_TELEPORT_SOURCE.getIcon();
 	}
 
 	/**
@@ -181,90 +144,15 @@ public class ModelElementDecide extends ModelElementBox implements ModelDataRena
 	 */
 	@Override
 	public String getToolTip() {
-		return Language.tr("Surface.Decide.Tooltip");
+		return Language.tr("Surface.DecideAndTeleport.Tooltip");
 	}
 
 	/**
-	 * Muss aufgerufen werden, wenn sich eine Eigenschaft des Elements ändert.
+	 * Gibt die Namen der Zielstationen an.
+	 * @return	Namen der Zielstationen
 	 */
-	@Override
-	public void fireChanged() {
-		updateEdgeLabel();
-		super.fireChanged();
-	}
-
-	/**
-	 * Liefert den Kundentyp je Ausgangskante
-	 * @param index	Index der Ausgangskante
-	 * @return	Kundentypbeschriftung an Ausgangskante
-	 */
-	private String getNewClientType(final int index) {
-		if (index<0 || newClientTypes==null || newClientTypes.size()<=index) return "";
-		final String newClientType=newClientTypes.get(index).trim();
-		if (newClientType.isEmpty()) return "";
-		return Language.tr("Surface.Duplicate.NewClientType")+": "+newClientType;
-	}
-
-	/**
-	 * Aktualisiert die Beschriftung der auslaufenden Kante
-	 * @see #fireChanged()
-	 */
-	private void updateEdgeLabel() {
-		if (connectionsOut==null) return;
-
-		double sum=0;
-		if (mode==DecideMode.MODE_CHANCE) {
-			while (rates.size()<connectionsOut.size()) rates.add(1.0);
-			for (int i=0;i<connectionsOut.size();i++) {
-				Double rate=rates.get(i);
-				if (rate<0) rate=0.0;
-				rates.set(i,rate);
-				sum+=rate;
-			}
-			if (sum==0) sum=1;
-		}
-
-		for (int i=0;i<connectionsOut.size();i++) {
-			final ModelElementEdge connection=connectionsOut.get(i);
-			String name="";
-			String s;
-			switch (mode) {
-			case MODE_CHANCE:
-				final double rate=(i>=rates.size())?1.0:rates.get(i);
-				name=Language.tr("Surface.Decide.Rate")+" "+NumberTools.formatNumber(rate)+" ("+NumberTools.formatPercent(rate/sum)+")";
-				break;
-			case MODE_CONDITION:
-				name=(i<connectionsOut.size()-1)?(Language.tr("Surface.Decide.Condition")+" "+(i+1)):Language.tr("Surface.Decide.Condition.ElseCase");
-				break;
-			case MODE_CLIENTTYPE:
-				s=(i>=clientTypes.size())?Language.tr("Dialog.Title.Error").toUpperCase():clientTypes.get(i);
-				name=(i<connectionsOut.size()-1)?s:Language.tr("Surface.Decide.AllOtherClientTypes");
-				break;
-			case MODE_SEQUENCE:
-				name=String.format(Language.tr("Surface.Decide.SequenceNumber"),i+1);
-				break;
-			case MODE_SHORTEST_QUEUE_NEXT_STATION:
-				name="";
-				break;
-			case MODE_SHORTEST_QUEUE_PROCESS_STATION:
-				name="";
-				break;
-			case MODE_MIN_CLIENTS_NEXT_STATION:
-				name="";
-				break;
-			case MODE_MIN_CLIENTS_PROCESS_STATION:
-				name="";
-				break;
-			case MODE_KEY_VALUE:
-				s=(i>=values.size())?Language.tr("Dialog.Title.Error").toUpperCase():(key+"="+values.get(i));
-				name=(i<connectionsOut.size()-1)?s:Language.tr("Surface.Decide.AllOtherValues");
-				break;
-			}
-
-			final String newClientType=getNewClientType(i);
-			if (!newClientType.isEmpty()) name=name+", "+newClientType;
-			connection.setName(name);
-		}
+	public List<String> getDestinations() {
+		return destinations;
 	}
 
 	/**
@@ -275,24 +163,24 @@ public class ModelElementDecide extends ModelElementBox implements ModelDataRena
 	@Override
 	public boolean equalsModelElement(ModelElement element) {
 		if (!super.equalsModelElement(element)) return false;
-		if (!(element instanceof ModelElementDecide)) return false;
+		if (!(element instanceof ModelElementDecideAndTeleport)) return false;
 
-		final ModelElementDecide decide=(ModelElementDecide)element;
+		final ModelElementDecideAndTeleport decide=(ModelElementDecideAndTeleport)element;
 
 		final List<ModelElementEdge> connectionsIn2=decide.connectionsIn;
 		if (connectionsIn==null || connectionsIn2==null || connectionsIn.size()!=connectionsIn2.size()) return false;
 		for (int i=0;i<connectionsIn.size();i++) if (connectionsIn.get(i).getId()!=connectionsIn2.get(i).getId()) return false;
 
-		final List<ModelElementEdge> connectionsOut2=decide.connectionsOut;
-		if (connectionsOut==null || connectionsOut2==null || connectionsOut.size()!=connectionsOut2.size()) return false;
-		for (int i=0;i<connectionsOut.size();i++) if (connectionsOut.get(i).getId()!=connectionsOut2.get(i).getId()) return false;
+		final List<String> destinations2=decide.destinations;
+		if (destinations.size()!=destinations2.size()) return false;
+		for (int i=0;i<destinations.size();i++) if (!destinations.get(i).equals(destinations2.get(i))) return false;
 
 		if (decide.mode!=mode) return false;
 
 		switch (mode) {
 		case MODE_CHANCE:
 			List<Double> rates2=decide.rates;
-			for (int i=0;i<connectionsOut.size();i++) {
+			for (int i=0;i<destinations.size();i++) {
 				if (i>=rates.size() && i>=rates2.size()) continue;
 				if (i>=rates.size() || i>=rates2.size()) return false;
 				if (rates.get(i).doubleValue()!=rates2.get(i).doubleValue()) return false;
@@ -300,7 +188,7 @@ public class ModelElementDecide extends ModelElementBox implements ModelDataRena
 			break;
 		case MODE_CONDITION:
 			List<String> conditions2=decide.conditions;
-			for (int i=0;i<connectionsOut.size()-1;i++) { /* das letzte ist "sonst", daher nur bis <size-1 */
+			for (int i=0;i<destinations.size()-1;i++) { /* das letzte ist "sonst", daher nur bis <size-1 */
 				if (i>=conditions.size() && i>=conditions2.size()) continue;
 				if (i>=conditions.size() || i>=conditions2.size()) return false;
 				if (!conditions.get(i).equals(conditions2.get(i))) return false;
@@ -308,7 +196,7 @@ public class ModelElementDecide extends ModelElementBox implements ModelDataRena
 			break;
 		case MODE_CLIENTTYPE:
 			List<String> clientTypes2=decide.clientTypes;
-			for (int i=0;i<connectionsOut.size()-1;i++) { /* das letzte ist "sonst", daher nur bis <size-1 */
+			for (int i=0;i<destinations.size()-1;i++) { /* das letzte ist "sonst", daher nur bis <size-1 */
 				if (i>=clientTypes.size() && i>=clientTypes2.size()) continue;
 				if (i>=clientTypes.size() || i>=clientTypes2.size()) return false;
 				if (!clientTypes.get(i).equals(clientTypes2.get(i))) return false;
@@ -332,28 +220,13 @@ public class ModelElementDecide extends ModelElementBox implements ModelDataRena
 		case MODE_KEY_VALUE:
 			if (!key.equals(decide.key)) return false;
 			List<String> values2=decide.values;
-			for (int i=0;i<connectionsOut.size()-1;i++) { /* das letzte ist "sonst", daher nur bis <size-1 */
+			for (int i=0;i<destinations.size()-1;i++) { /* das letzte ist "sonst", daher nur bis <size-1 */
 				if (i>=values.size() && i>=values2.size()) continue;
 				if (i>=values.size() || i>=values2.size()) return false;
 				if (!values.get(i).equals(values2.get(i))) return false;
 			}
 			if (multiTextValues!=decide.multiTextValues) return false;
 			break;
-		}
-
-		if (connectionsOut.size()>0) {
-			final List<String> newClientTypes2=decide.newClientTypes;
-			if (newClientTypes==null && newClientTypes2!=null) return false;
-			if (newClientTypes!=null && newClientTypes2==null) return false;
-			if (newClientTypes!=null && newClientTypes2!=null) {
-				for (int i=0;i<connectionsOut.size();i++) {
-					String name1="";
-					String name2="";
-					if (newClientTypes.size()>i) name1=newClientTypes.get(i);
-					if (newClientTypes2.size()>i) name2=newClientTypes2.get(i);
-					if (!name1.equals(name2)) return false;
-				}
-			}
 		}
 
 		return true;
@@ -366,8 +239,8 @@ public class ModelElementDecide extends ModelElementBox implements ModelDataRena
 	@Override
 	public void copyDataFrom(ModelElement element) {
 		super.copyDataFrom(element);
-		if (element instanceof ModelElementDecide) {
-			final ModelElementDecide source=(ModelElementDecide)element;
+		if (element instanceof ModelElementDecideAndTeleport) {
+			final ModelElementDecideAndTeleport source=(ModelElementDecideAndTeleport)element;
 
 			connectionsIn.clear();
 			final List<ModelElementEdge> connectionsIn2=source.connectionsIn;
@@ -376,12 +249,8 @@ public class ModelElementDecide extends ModelElementBox implements ModelDataRena
 				for (int i=0;i<connectionsIn2.size();i++) connectionsInIds.add(connectionsIn2.get(i).getId());
 			}
 
-			connectionsOut.clear();
-			final List<ModelElementEdge> connectionsOut2=source.connectionsOut;
-			if (connectionsOut2!=null) {
-				connectionsOutIds=new ArrayList<>();
-				for (int i=0;i<connectionsOut2.size();i++) connectionsOutIds.add(connectionsOut2.get(i).getId());
-			}
+			destinations.clear();
+			destinations.addAll(source.destinations);
 
 			mode=source.mode;
 
@@ -417,8 +286,6 @@ public class ModelElementDecide extends ModelElementBox implements ModelDataRena
 			}
 
 			multiTextValues=source.multiTextValues;
-
-			if (((ModelElementDecide)element).newClientTypes!=null) newClientTypes=new ArrayList<>(((ModelElementDecide)element).newClientTypes);
 		}
 	}
 
@@ -429,8 +296,8 @@ public class ModelElementDecide extends ModelElementBox implements ModelDataRena
 	 * @return	Kopiertes Element
 	 */
 	@Override
-	public ModelElementDecide clone(final EditModel model, final ModelSurface surface) {
-		final ModelElementDecide element=new ModelElementDecide(model,surface);
+	public ModelElementDecideAndTeleport clone(final EditModel model, final ModelSurface surface) {
+		final ModelElementDecideAndTeleport element=new ModelElementDecideAndTeleport(model,surface);
 		element.copyDataFrom(this);
 		return element;
 	}
@@ -450,22 +317,6 @@ public class ModelElementDecide extends ModelElementBox implements ModelDataRena
 				if (element instanceof ModelElementEdge) connectionsIn.add((ModelElementEdge)element);
 			}
 			connectionsInIds=null;
-			updateEdgeLabel();
-		}
-
-		if (connectionsOutIds!=null) {
-			for (int i=0;i<connectionsOutIds.size();i++) {
-				element=surface.getById(connectionsOutIds.get(i));
-				if (element instanceof ModelElementEdge) connectionsOut.add((ModelElementEdge)element);
-			}
-			connectionsOutIds=null;
-			updateEdgeLabel();
-		}
-
-		if (newClientTypes!=null) {
-			while (newClientTypes.size()>connectionsOut.size()) newClientTypes.remove(newClientTypes.size()-1);
-			while (newClientTypes.size()<connectionsOut.size()) newClientTypes.add("");
-			updateEdgeLabel();
 		}
 	}
 
@@ -475,7 +326,19 @@ public class ModelElementDecide extends ModelElementBox implements ModelDataRena
 	 */
 	@Override
 	public String getContextMenuElementName() {
-		return Language.tr("Surface.Decide.Name");
+		return Language.tr("Surface.DecideAndTeleport.Name");
+	}
+
+	/**
+	 * Liefert einen Fehlertext, der unter der Box angezeigt werden soll.<br>
+	 * Ist das Element in Ordnung, so soll <code>null</code> zurückgegeben werden.
+	 * @return	Optionale Fehlermeldung oder <code>null</code> wenn kein Fehler vorliegt.
+	 */
+	@Override
+	protected String getErrorMessage() {
+		if (destinations.size()==0) return Language.tr("Surface.ErrorInfo.NoTeleportDestination");
+
+		return null;
 	}
 
 	/**
@@ -484,7 +347,7 @@ public class ModelElementDecide extends ModelElementBox implements ModelDataRena
 	 */
 	@Override
 	public String getTypeName() {
-		return Language.tr("Surface.Decide.Name.Short");
+		return Language.tr("Surface.DecideAndTeleport.Name");
 	}
 
 	/**
@@ -534,19 +397,8 @@ public class ModelElementDecide extends ModelElementBox implements ModelDataRena
 	@Override
 	public Runnable getProperties(final Component owner, final boolean readOnly, final ModelClientData clientData, final ModelSequences sequences) {
 		return ()->{
-			new ModelElementDecideDialog(owner,ModelElementDecide.this,readOnly);
+			new ModelElementDecideAndTeleportDialog(owner,ModelElementDecideAndTeleport.this,readOnly);
 		};
-	}
-
-	/**
-	 * Fügt optionale Menüpunkte zu einem "Folgestation hinzufügen"-Untermenü hinzu, welche
-	 * es ermöglichen, zu dem aktuellen Element passende Folgestationen hinzuzufügen.
-	 * @param parentMenu	Untermenü des Kontextmenüs, welches die Einträge aufnimmt
-	 * @param addNextStation	Callback, das aufgerufen werden kann, wenn ein Element zur Zeichenfläche hinzugefügt werden soll
-	 */
-	@Override
-	protected void addNextStationContextMenuItems(final JMenu parentMenu, final Consumer<ModelElementBox> addNextStation) {
-		NextStationHelper.nextStationsDecide(this,parentMenu,addNextStation);
 	}
 
 	/**
@@ -561,7 +413,6 @@ public class ModelElementDecide extends ModelElementBox implements ModelDataRena
 	protected void addContextMenuItems(final Component owner, final JPopupMenu popupMenu, final ModelSurfacePanel surfacePanel, final Point point, final boolean readOnly) {
 		JMenuItem item;
 		final Icon icon=Images.EDIT_EDGES_DELETE.getIcon();
-		boolean needSeparator=false;
 
 		if (connectionsIn!=null && connectionsIn.size()>0) {
 			popupMenu.add(item=new JMenuItem(Language.tr("Surface.PopupMenu.RemoveEdgesIn")));
@@ -570,46 +421,7 @@ public class ModelElementDecide extends ModelElementBox implements ModelDataRena
 			});
 			if (icon!=null) item.setIcon(icon);
 			item.setEnabled(!readOnly);
-			needSeparator=true;
-		}
-
-		if (connectionsOut!=null && connectionsOut.size()>0) {
-			popupMenu.add(item=new JMenuItem(Language.tr("Surface.PopupMenu.RemoveEdgesOut")));
-			item.addActionListener(e->{
-				for (ModelElementEdge element : new ArrayList<>(connectionsOut)) surface.remove(element);
-			});
-			if (icon!=null) item.setIcon(icon);
-			item.setEnabled(!readOnly);
-			needSeparator=true;
-
-			if (connectionsOut.size()>1) {
-				final JMenu menu=new JMenu(Language.tr("Surface.Connection.LineMode.ChangeAllEdgesOut"));
-				popupMenu.add(menu);
-
-				menu.add(item=new JMenuItem(Language.tr("Surface.Connection.LineMode.Global"),Images.MODEL.getIcon()));
-				item.addActionListener(e->setEdgeOutLineMode(null));
-				menu.add(item=new JMenuItem(Language.tr("Surface.Connection.LineMode.Direct"),Images.EDGE_MODE_DIRECT.getIcon()));
-				item.addActionListener(e->setEdgeOutLineMode(ModelElementEdge.LineMode.DIRECT));
-				menu.add(item=new JMenuItem(Language.tr("Surface.Connection.LineMode.MultiLine"),Images.EDGE_MODE_MULTI_LINE.getIcon()));
-				item.addActionListener(e->setEdgeOutLineMode(ModelElementEdge.LineMode.MULTI_LINE));
-				menu.add(item=new JMenuItem(Language.tr("Surface.Connection.LineMode.MultiLineRounded"),Images.EDGE_MODE_MULTI_LINE_ROUNDED.getIcon()));
-				item.addActionListener(e->setEdgeOutLineMode(ModelElementEdge.LineMode.MULTI_LINE_ROUNDED));
-				menu.add(item=new JMenuItem(Language.tr("Surface.Connection.LineMode.CubicCurve"),Images.EDGE_MODE_CUBIC_CURVE.getIcon()));
-				item.addActionListener(e->setEdgeOutLineMode(ModelElementEdge.LineMode.CUBIC_CURVE));
-			}
-		}
-
-		if (needSeparator) popupMenu.addSeparator();
-	}
-
-	/**
-	 * Stellt den Darstellungsmodus für alle auslaufenden Kanten ein.
-	 * @param lineMode	Neuer Darstellungsmodus
-	 */
-	private void setEdgeOutLineMode(final ModelElementEdge.LineMode lineMode) {
-		for (ModelElementEdge edge: connectionsOut) {
-			edge.setLineMode(lineMode);
-			edge.fireChanged();
+			popupMenu.addSeparator();
 		}
 	}
 
@@ -624,12 +436,6 @@ public class ModelElementDecide extends ModelElementBox implements ModelDataRena
 				surface.remove(element);
 			}
 		}
-		if (connectionsOut!=null) {
-			while (connectionsOut.size()>0) {
-				ModelElement element=connectionsOut.remove(0);
-				surface.remove(element);
-			}
-		}
 	}
 
 	/**
@@ -638,7 +444,6 @@ public class ModelElementDecide extends ModelElementBox implements ModelDataRena
 	@Override
 	public void removeConnectionNotify(final ModelElement element) {
 		if (connectionsIn!=null && connectionsIn.indexOf(element)>=0) {connectionsIn.remove(element); fireChanged();}
-		if (connectionsOut!=null && connectionsOut.indexOf(element)>=0) {connectionsOut.remove(element); fireChanged();}
 	}
 
 	/**
@@ -647,7 +452,7 @@ public class ModelElementDecide extends ModelElementBox implements ModelDataRena
 	 */
 	@Override
 	public String[] getXMLNodeNames() {
-		return Language.trAll("Surface.Decide.XML.Root");
+		return Language.trAll("Surface.DecideAndTeleport.XML.Root");
 	}
 
 	/**
@@ -686,12 +491,11 @@ public class ModelElementDecide extends ModelElementBox implements ModelDataRena
 			sub.setAttribute(Language.trPrimary("Surface.XML.Connection.Type"),Language.trPrimary("Surface.XML.Connection.Type.In"));
 		}
 
-		if (connectionsOut!=null) for (int i=0;i<connectionsOut.size();i++) {
-			ModelElementEdge element=connectionsOut.get(i);
-			node.appendChild(sub=doc.createElement(Language.trPrimary("Surface.XML.Connection")));
-			sub.setAttribute(Language.trPrimary("Surface.XML.Connection.Element"),""+element.getId());
-			sub.setAttribute(Language.trPrimary("Surface.XML.Connection.Type"),Language.trPrimary("Surface.XML.Connection.Type.Out"));
-			if (newClientTypes!=null && newClientTypes.size()>i && !newClientTypes.get(i).trim().isEmpty()) sub.setAttribute(Language.trPrimary("Surface.XML.Connection.NewClientType"),newClientTypes.get(i).trim());
+		for (int i=0;i<destinations.size();i++) {
+			final String destination=destinations.get(i);
+			node.appendChild(sub=doc.createElement(Language.trPrimary("Surface.TeleportSourceMulti.XML.Destination")));
+			sub.setTextContent(destination);
+
 			switch (mode) {
 			case MODE_CHANCE:
 				double rate=(i>=rates.size())?1.0:rates.get(i);
@@ -699,14 +503,14 @@ public class ModelElementDecide extends ModelElementBox implements ModelDataRena
 				sub.setAttribute(Language.trPrimary("Surface.Decide.XML.Connection.Rate"),NumberTools.formatSystemNumber(rate));
 				break;
 			case MODE_CONDITION:
-				if (i<connectionsOut.size()-1) {
+				if (i<destinations.size()-1) {
 					String condition=(i>=conditions.size())?"":conditions.get(i);
 					if (condition==null) condition="";
 					sub.setAttribute(Language.trPrimary("Surface.Decide.XML.Connection.Condition"),condition);
 				}
 				break;
 			case MODE_CLIENTTYPE:
-				if (i<connectionsOut.size()-1) {
+				if (i<destinations.size()-1) {
 					String clientType=(i>=clientTypes.size())?"":clientTypes.get(i);
 					sub.setAttribute(Language.trPrimary("Surface.Decide.XML.Connection.ClientType"),clientType);
 				}
@@ -727,7 +531,7 @@ public class ModelElementDecide extends ModelElementBox implements ModelDataRena
 				/* nichts zu speichern */
 				break;
 			case MODE_KEY_VALUE:
-				if (i<connectionsOut.size()-1) {
+				if (i<destinations.size()-1) {
 					String value=(i>=values.size())?"":values.get(i);
 					sub.setAttribute(Language.trPrimary("Surface.Decide.XML.Connection.Value"),value);
 				}
@@ -779,36 +583,30 @@ public class ModelElementDecide extends ModelElementBox implements ModelDataRena
 				if (connectionsInIds==null) connectionsInIds=new ArrayList<>();
 				connectionsInIds.add(I);
 			}
-			if (Language.trAll("Surface.XML.Connection.Type.Out",s)) {
-				if (connectionsOutIds==null) connectionsOutIds=new ArrayList<>();
-				connectionsOutIds.add(I);
+		}
 
-				final String newClientType=Language.trAllAttribute("Surface.XML.Connection.NewClientType",node);
-				if (!newClientType.trim().isEmpty()) {
-					if (newClientTypes==null) newClientTypes=new ArrayList<>();
-					while (newClientTypes.size()<connectionsOutIds.size()-1) newClientTypes.add("");
-					newClientTypes.add(newClientType);
-				}
+		if (Language.trAll("Surface.TeleportSourceMulti.XML.Destination",name)) {
+			if (!content.trim().isEmpty()) destinations.add(content.trim());
 
-				/* Chance */
-				final String rateString=Language.trAllAttribute("Surface.Decide.XML.Connection.Rate",node);
-				if (!rateString.isEmpty()) {
-					Double rate=NumberTools.getNotNegativeDouble(rateString);
-					if (rate==null) return String.format(Language.tr("Surface.XML.AttributeSubError"),Language.trPrimary("Surface.Decide.XML.Connection.Rate"),name,node.getParentNode().getNodeName());
-					rates.add(rate);
-				} else {
-					rates.add(1.0);
-				}
-
-				/* Condition */
-				conditions.add(Language.trAllAttribute("Surface.Decide.XML.Connection.Condition",node));
-
-				/* ClientType */
-				clientTypes.add(Language.trAllAttribute("Surface.Decide.XML.Connection.ClientType",node));
-
-				/* Key=Value */
-				values.add(Language.trAllAttribute("Surface.Decide.XML.Connection.Value",node));
+			/* Chance */
+			final String rateString=Language.trAllAttribute("Surface.Decide.XML.Connection.Rate",node);
+			if (!rateString.isEmpty()) {
+				Double rate=NumberTools.getNotNegativeDouble(rateString);
+				if (rate==null) return String.format(Language.tr("Surface.XML.AttributeSubError"),Language.trPrimary("Surface.Decide.XML.Connection.Rate"),name,node.getParentNode().getNodeName());
+				rates.add(rate);
+			} else {
+				rates.add(1.0);
 			}
+
+			/* Condition */
+			conditions.add(Language.trAllAttribute("Surface.Decide.XML.Connection.Condition",node));
+
+			/* ClientType */
+			clientTypes.add(Language.trAllAttribute("Surface.Decide.XML.Connection.ClientType",node));
+
+			/* Key=Value */
+			values.add(Language.trAllAttribute("Surface.Decide.XML.Connection.Value",node));
+
 			return null;
 		}
 
@@ -831,7 +629,7 @@ public class ModelElementDecide extends ModelElementBox implements ModelDataRena
 	 */
 	@Override
 	public boolean addEdgeIn(ModelElementEdge edge) {
-		if (edge!=null && connectionsIn.indexOf(edge)<0 && connectionsOut.indexOf(edge)<0) {
+		if (edge!=null && connectionsIn.indexOf(edge)<0) {
 			connectionsIn.add(edge);
 			fireChanged();
 			return true;
@@ -846,39 +644,6 @@ public class ModelElementDecide extends ModelElementBox implements ModelDataRena
 	@Override
 	public ModelElementEdge[] getEdgesIn() {
 		return connectionsIn.toArray(new ModelElementEdge[0]);
-	}
-
-	/**
-	 * Gibt an, ob das Element momentan eine (weitere) auslaufende Kante annehmen kann.
-	 * @return	Gibt <code>true</code> zurück, wenn eine (weitere) auslaufende Kante angenommen werden kann.
-	 */
-	@Override
-	public boolean canAddEdgeOut() {
-		return true;
-	}
-
-	/**
-	 * Fügt eine auslaufende Kante hinzu.
-	 * @param edge	Hinzuzufügende Kante
-	 * @return	Gibt <code>true</code> zurück, wenn die auslaufende Kante hinzugefügt werden konnte.
-	 */
-	@Override
-	public boolean addEdgeOut(ModelElementEdge edge) {
-		if (edge!=null && connectionsIn.indexOf(edge)<0 && connectionsOut.indexOf(edge)<0) {
-			connectionsOut.add(edge);
-			fireChanged();
-			return true;
-		}
-		return false;
-	}
-
-	/**
-	 * Auslaufende Kanten
-	 * @return	Auslaufenden Kante
-	 */
-	@Override
-	public ModelElementEdge[] getEdgesOut() {
-		return connectionsOut.toArray(new ModelElementEdge[0]);
 	}
 
 	/**
@@ -976,30 +741,6 @@ public class ModelElementDecide extends ModelElementBox implements ModelDataRena
 	}
 
 	/**
-	 * Liefert die Liste der Namen der neuen Kundentypen, die bei Weiterleitung über die verschiedenen Ausgangskanten zugewiesen werden sollen.
-	 * @return	Liste mit neuen Kundentypen (Länge entspricht der Anzahl an Ausgangskanten; leere Strings stehen für "keine Änderung"; Rückgabewert ist nie <code>null</code> und Einträge sind ebenfalls nie <code>null</code>)
-	 */
-	public List<String> getChangedClientTypes() {
-		final List<String> result=new ArrayList<>();
-		if (newClientTypes!=null) for (int i=0;i<Math.min(newClientTypes.size(),connectionsOut.size());i++) result.add(newClientTypes.get(i).trim());
-		while (result.size()<connectionsOut.size()) result.add("");
-		return result;
-	}
-
-	/**
-	 * Stellt die Namen der neuen Kundentypen, die bei Weiterleitung über die verschiedenen Ausgangskanten zugewiesen werden sollen, ein.
-	 * @param changedClientTypes	Liste mit neuen Kundentypen (leere Strings stehen für "keine Änderung")
-	 */
-	public void setChangedClientTypes(final List<String> changedClientTypes) {
-		if (newClientTypes==null) newClientTypes=new ArrayList<>();
-		newClientTypes.clear();
-		if (changedClientTypes!=null) for (int i=0;i<Math.min(changedClientTypes.size(),connectionsOut.size());i++) {
-			if (changedClientTypes.get(i)==null) newClientTypes.add(""); else  newClientTypes.add(changedClientTypes.get(i).trim());
-		}
-		while (newClientTypes.size()<connectionsOut.size()) newClientTypes.add("");
-	}
-
-	/**
 	 * Gibt an, ob es in das Element einlaufende Kanten gibt.<br><br>
 	 * Wenn nicht, kann es in der Simulation überhaupt nicht erreicht werden und kann daher
 	 * bei der Initialisierung übersprungen werden, d.h. in diesem Fall ist es dann egal,
@@ -1019,23 +760,14 @@ public class ModelElementDecide extends ModelElementBox implements ModelDataRena
 
 	@Override
 	public void objectRenamed(String oldName, String newName, ModelDataRenameListener.RenameType type) {
-		if (!isRenameType(oldName,newName,type,ModelDataRenameListener.RenameType.RENAME_TYPE_CLIENT_TYPE)) return;
-		if (mode!=DecideMode.MODE_CLIENTTYPE) return;
-
-		for (int i=0;i<clientTypes.size();i++) if (clientTypes.get(i).equals(oldName)) {
-			clientTypes.set(i,newName);
-			updateEdgeLabel();
-		}
-
-		if (newClientTypes!=null) for (int i=0;i<newClientTypes.size();i++) if (newClientTypes.get(i).equals(oldName)) {
-			newClientTypes.set(i,newName);
-			updateEdgeLabel();
+		if (isRenameType(oldName,newName,type,ModelDataRenameListener.RenameType.RENAME_TYPE_TELEPORT_DESTINATION)) {
+			for (int i=0;i<destinations.size();i++) if (destinations.get(i).equals(oldName)) destinations.set(i,newName);
 		}
 	}
 
 	@Override
 	public String getHelpPageName() {
-		return "ModelElementDecide";
+		return "ModelElementDecideAndTeleport";
 	}
 
 	/**
@@ -1049,95 +781,86 @@ public class ModelElementDecide extends ModelElementBox implements ModelDataRena
 		switch (mode) {
 		case MODE_CHANCE:
 			descriptionBuilder.addProperty(Language.tr("ModelDescription.Decide.Mode"),Language.tr("ModelDescription.Decide.Mode.Rate"),1000);
-			for (int i=0;i<connectionsOut.size();i++) {
-				final ModelElementEdge edge=connectionsOut.get(i);
-				final String edgeDescription=String.format(Language.tr("ModelDescription.Decide.Rate"),NumberTools.formatNumber((i>=rates.size())?1.0:rates.get(i)));
-				String newClientType=getNewClientType(i); if (!newClientType.isEmpty()) newClientType=", "+newClientType;
-				descriptionBuilder.addConditionalEdgeOut(edgeDescription+newClientType,edge);
+			for (int i=0;i<destinations.size();i++) {
+				final String destinationName=destinations.get(i);
+				final String destinationDescription=String.format(Language.tr("ModelDescription.Decide.Rate"),NumberTools.formatNumber((i>=rates.size())?1.0:rates.get(i)));
+				descriptionBuilder.addConditionalTeleportDestination(destinationDescription,destinationName);
 			}
 			break;
 		case MODE_CONDITION:
 			descriptionBuilder.addProperty(Language.tr("ModelDescription.Decide.Mode"),Language.tr("ModelDescription.Decide.Mode.Condition"),1000);
-			for (int i=0;i<connectionsOut.size();i++) {
-				final ModelElementEdge edge=connectionsOut.get(i);
-				final String edgeDescription;
-				if (i<connectionsOut.size()-1) {
-					edgeDescription=String.format(Language.tr("ModelDescription.Decide.Condition"),(i>=conditions.size())?"":conditions.get(i));
+			for (int i=0;i<destinations.size();i++) {
+				final String destinationName=destinations.get(i);
+				final String destinationDescription;
+				if (i<destinations.size()-1) {
+					destinationDescription=String.format(Language.tr("ModelDescription.Decide.Condition"),(i>=conditions.size())?"":conditions.get(i));
 				} else {
-					edgeDescription=Language.tr("ModelDescription.Decide.Condition.Else");
+					destinationDescription=Language.tr("ModelDescription.Decide.Condition.Else");
 				}
-				String newClientType=getNewClientType(i); if (!newClientType.isEmpty()) newClientType=", "+newClientType;
-				descriptionBuilder.addConditionalEdgeOut(edgeDescription+newClientType,edge);
+				descriptionBuilder.addConditionalTeleportDestination(destinationDescription,destinationName);
 			}
 			break;
 		case MODE_CLIENTTYPE:
 			descriptionBuilder.addProperty(Language.tr("ModelDescription.Decide.Mode"),Language.tr("ModelDescription.Decide.Mode.ClientType"),1000);
-			for (int i=0;i<connectionsOut.size();i++) {
-				final ModelElementEdge edge=connectionsOut.get(i);
-				final String edgeDescription;
-				if (i<connectionsOut.size()-1) {
+			for (int i=0;i<destinations.size();i++) {
+				final String destinationName=destinations.get(i);
+				final String destinationDescription;
+				if (i<destinations.size()-1) {
 					final String s=(i<clientTypes.size())?clientTypes.get(i):"";
-					edgeDescription=String.format(Language.tr("ModelDescription.Decide.ClientType"),s);
+					destinationDescription=String.format(Language.tr("ModelDescription.Decide.ClientType"),s);
 				} else {
-					edgeDescription=Language.tr("ModelDescription.Decide.ClientType.Else");
+					destinationDescription=Language.tr("ModelDescription.Decide.ClientType.Else");
 				}
-				String newClientType=getNewClientType(i); if (!newClientType.isEmpty()) newClientType=", "+newClientType;
-				descriptionBuilder.addConditionalEdgeOut(edgeDescription+newClientType,edge);
+				descriptionBuilder.addConditionalTeleportDestination(destinationDescription,destinationName);
 			}
 			break;
 		case MODE_SEQUENCE:
 			descriptionBuilder.addProperty(Language.tr("ModelDescription.Decide.Mode"),Language.tr("ModelDescription.Decide.Mode.Sequence"),1000);
-			for (int i=0;i<connectionsOut.size();i++) {
-				final ModelElementEdge edge=connectionsOut.get(i);
-				String newClientType=getNewClientType(i); if (!newClientType.isEmpty()) newClientType=", "+newClientType;
-				descriptionBuilder.addConditionalEdgeOut(Language.tr("ModelDescription.NextElement")+newClientType,edge);
+			for (int i=0;i<destinations.size();i++) {
+				final String destinationName=destinations.get(i);
+				descriptionBuilder.addConditionalTeleportDestination(Language.tr("ModelDescription.NextElement"),destinationName);
 			}
 			break;
 		case MODE_SHORTEST_QUEUE_NEXT_STATION:
 			descriptionBuilder.addProperty(Language.tr("ModelDescription.Decide.Mode"),Language.tr("ModelDescription.Decide.Mode.ShortestQueueNextStation"),1000);
-			for (int i=0;i<connectionsOut.size();i++) {
-				final ModelElementEdge edge=connectionsOut.get(i);
-				String newClientType=getNewClientType(i); if (!newClientType.isEmpty()) newClientType=", "+newClientType;
-				descriptionBuilder.addConditionalEdgeOut(Language.tr("ModelDescription.NextElement")+newClientType,edge);
+			for (int i=0;i<destinations.size();i++) {
+				final String destinationName=destinations.get(i);
+				descriptionBuilder.addConditionalTeleportDestination(Language.tr("ModelDescription.NextElement"),destinationName);
 			}
 			break;
 		case MODE_SHORTEST_QUEUE_PROCESS_STATION:
 			descriptionBuilder.addProperty(Language.tr("ModelDescription.Decide.Mode"),Language.tr("ModelDescription.Decide.Mode.ShortestQueueNextProcessStation"),1000);
-			for (int i=0;i<connectionsOut.size();i++) {
-				final ModelElementEdge edge=connectionsOut.get(i);
-				String newClientType=getNewClientType(i); if (!newClientType.isEmpty()) newClientType=", "+newClientType;
-				descriptionBuilder.addConditionalEdgeOut(Language.tr("ModelDescription.NextElement")+newClientType,edge);
+			for (int i=0;i<destinations.size();i++) {
+				final String destinationName=destinations.get(i);
+				descriptionBuilder.addConditionalTeleportDestination(Language.tr("ModelDescription.NextElement"),destinationName);
 			}
 			break;
 		case MODE_MIN_CLIENTS_NEXT_STATION:
 			descriptionBuilder.addProperty(Language.tr("ModelDescription.Decide.Mode"),Language.tr("ModelDescription.Decide.Mode.LeastClientsNextStation"),1000);
-			for (int i=0;i<connectionsOut.size();i++) {
-				final ModelElementEdge edge=connectionsOut.get(i);
-				String newClientType=getNewClientType(i); if (!newClientType.isEmpty()) newClientType=", "+newClientType;
-				descriptionBuilder.addConditionalEdgeOut(Language.tr("ModelDescription.NextElement")+newClientType,edge);
+			for (int i=0;i<destinations.size();i++) {
+				final String destinationName=destinations.get(i);
+				descriptionBuilder.addConditionalTeleportDestination(Language.tr("ModelDescription.NextElement"),destinationName);
 			}
 			break;
 		case MODE_MIN_CLIENTS_PROCESS_STATION:
 			descriptionBuilder.addProperty(Language.tr("ModelDescription.Decide.Mode"),Language.tr("ModelDescription.Decide.Mode.LeastClientsNextProcessStation"),1000);
-			for (int i=0;i<connectionsOut.size();i++) {
-				final ModelElementEdge edge=connectionsOut.get(i);
-				String newClientType=getNewClientType(i); if (!newClientType.isEmpty()) newClientType=", "+newClientType;
-				descriptionBuilder.addConditionalEdgeOut(Language.tr("ModelDescription.NextElement")+newClientType,edge);
+			for (int i=0;i<destinations.size();i++) {
+				final String destinationName=destinations.get(i);
+				descriptionBuilder.addConditionalTeleportDestination(Language.tr("ModelDescription.NextElement"),destinationName);
 			}
 			break;
 		case MODE_KEY_VALUE:
 			descriptionBuilder.addProperty(Language.tr("ModelDescription.Decide.Mode"),Language.tr("ModelDescription.Decide.Mode.StringProperty"),1000);
-			for (int i=0;i<connectionsOut.size();i++) {
-				final ModelElementEdge edge=connectionsOut.get(i);
-				final String edgeDescription;
-				if (i<connectionsOut.size()-1) {
+			for (int i=0;i<destinations.size();i++) {
+				final String destinationName=destinations.get(i);
+				final String destinationDescription;
+				if (i<destinations.size()-1) {
 					final String s=(i<values.size())?values.get(i):"";
-					edgeDescription=String.format(Language.tr("ModelDescription.Decide.StringProperty"),key,s);
+					destinationDescription=String.format(Language.tr("ModelDescription.Decide.StringProperty"),key,s);
 				} else {
-					edgeDescription=Language.tr("ModelDescription.Decide.StringProperty.Else");
+					destinationDescription=Language.tr("ModelDescription.Decide.StringProperty.Else");
 				}
-				String newClientType=getNewClientType(i); if (!newClientType.isEmpty()) newClientType=", "+newClientType;
-				descriptionBuilder.addConditionalEdgeOut(edgeDescription+newClientType,edge);
+				descriptionBuilder.addConditionalTeleportDestination(destinationDescription,destinationName);
 			}
 			break;
 		}
@@ -1148,27 +871,17 @@ public class ModelElementDecide extends ModelElementBox implements ModelDataRena
 		this.connectionsIn.clear();
 		this.connectionsIn.addAll(connectionsIn);
 
-		this.connectionsOut.clear();
-		this.connectionsOut.addAll(connectionsOut);
-
 		return true;
-	}
-
-	@Override
-	public String[] getNewClientTypes() {
-		final Set<String> set=new HashSet<>();
-		if (newClientTypes!=null) for (String newClientType: newClientTypes) set.add(newClientType);
-		return set.toArray(new String[0]);
-	}
-
-	@Override
-	protected void addEdgeOutFixes(final List<RunModelFixer> fixer) {
-		findEdgesTo(QuickFixNextElements.duplicate,fixer);
 	}
 
 	@Override
 	public void search(final FullTextSearch searcher) {
 		super.search(searcher);
+
+		for (int i=0;i<destinations.size();i++) {
+			final int index=i;
+			searcher.testString(this,Language.tr("Surface.TeleportSourceMulti.Dialog.Target"),destinations.get(index),newDestination->{destinations.set(index,newDestination);});
+		}
 
 		switch (mode) {
 		case MODE_CHANCE:
