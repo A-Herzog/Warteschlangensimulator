@@ -789,6 +789,7 @@ public class MainPanel extends MainPanelBase {
 		addAction("HelpScriptingReference",e->commandHelpScriptingReference());
 		addAction("HelpElementReference",e->commandHelpElementReference());
 		addAction("HelpGlossaryPdf",e->commandHelpGlossaryPdf());
+		addAction("HelpLecturersGuide",e->commandHelpLecturersGuide());
 		addAction("HelpCommandLineReference",e->commandHelpCommandLineReference());
 		addAction("HelpHotkeyReference",e->commandHelpHotkeyReference());
 		addAction("HelpDistributionReference",e->commandHelpDistributionReference());
@@ -1474,6 +1475,7 @@ public class MainPanel extends MainPanelBase {
 		createMenuItem(submenu,Language.tr("Main.Menu.Help.ScriptingReference"),Images.HELP_SCRIPTING.getIcon(),Language.tr("Main.Menu.Help.ScriptingReference.Mnemonic"),"HelpScriptingReference");
 		createMenuItem(submenu,Language.tr("Main.Menu.Help.ElementReference"),Images.HELP_STATIONS_INTERACTIVE.getIcon(),Language.tr("Main.Menu.Help.ElementReference.Mnemonic"),"HelpElementReference");
 		createMenuItem(submenu,Language.tr("Main.Menu.Help.GlossaryPdf"),Language.tr("Main.Menu.Help.GlossaryPdf.Mnemonic"),"HelpGlossaryPdf");
+		createMenuItem(submenu,Language.tr("Main.Menu.Help.LecturersGuide"),Language.tr("Main.Menu.Help.LecturersGuide.Mnemonic"),"HelpLecturersGuide");
 		createMenuItem(submenu,Language.tr("Main.Menu.Help.CommandLineReference"),Images.EXTRAS_COMMANDLINE.getIcon(),Language.tr("Main.Menu.Help.CommandLineReference.Mnemonic"),"HelpCommandLineReference");
 		createMenuItem(submenu,Language.tr("Main.Menu.Help.HotkeyReference"),Images.HELP_HOTKEY_REFERENCE.getIcon(),Language.tr("Main.Menu.Help.HotkeyReference.Mnemonic"),"HelpHotkeyReference");
 		createMenuItem(submenu,Language.tr("Main.Menu.Help.DistributionReference"),Images.EXPRESSION_BUILDER_DISTRIBUTION.getIcon(),Language.tr("Main.Menu.Help.DistributionReference.Mnemonic"),"HelpDistributionReference");
@@ -3980,6 +3982,13 @@ public class MainPanel extends MainPanelBase {
 	 */
 	private void commandHelpGlossaryPdf() {
 		openPDF(Language.tr("Main.Menu.Help.GlossaryPdf.pdf"));
+	}
+
+	/**
+	 * Befehl: Hilfe - Referenzen - Informationen für Dozenten
+	 */
+	private void commandHelpLecturersGuide() {
+		openPDF(Language.tr("Main.Menu.Help.LecturersGuide.pdf"));
 	}
 
 	/**

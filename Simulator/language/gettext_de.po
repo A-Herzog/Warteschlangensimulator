@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-08-31 08:04+0200\n"
+"POT-Creation-Date: 2022-09-01 00:51+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -10155,6 +10155,15 @@ msgstr "Interaktive Einführung"
 
 msgid "Main.Menu.Help.InteractiveTutorial.Mnemonic"
 msgstr "E"
+
+msgid "Main.Menu.Help.LecturersGuide"
+msgstr "Informationen für Dozenten (pdf)"
+
+msgid "Main.Menu.Help.LecturersGuide.Mnemonic"
+msgstr "D"
+
+msgid "Main.Menu.Help.LecturersGuide.pdf"
+msgstr "Warteschlangensimulator-LecturersGuide-de.pdf"
 
 msgid "Main.Menu.Help.LicenseInformation"
 msgstr "Lizenzinformationen..."
