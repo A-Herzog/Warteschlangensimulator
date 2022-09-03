@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-01 00:51+0200\n"
+"POT-Creation-Date: 2022-09-02 00:28+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -5521,6 +5521,12 @@ msgstr "Binomialkoeffizient"
 msgid "ExpressionBuilder.MathematicalFunctions.Binomial.Info"
 msgstr "<p>Berechnet den Binomialkoeffizient.</p>"
 
+msgid "ExpressionBuilder.MathematicalFunctions.Cuberoot"
+msgstr "Kubikwurzel"
+
+msgid "ExpressionBuilder.MathematicalFunctions.Cuberoot.Info"
+msgstr "<p>Berechnet die Kubikwurzel aus dem als Parameter übergebenen Wert.</p><p>Beispiel: <tt>cbrt(27)</tt> liefert 3.</p>"
+
 msgid "ExpressionBuilder.MathematicalFunctions.Factorial"
 msgstr "Fakultät"
 
@@ -5539,11 +5545,23 @@ msgstr "Gamma-Funktion"
 msgid "ExpressionBuilder.MathematicalFunctions.GammaFunction.Info"
 msgstr "<p>Liefert den Wert des Gamma-Funktion für den als Parameter übergebenen Wert.</p><p>Beispiel: <tt>gamma(7)</tt> liefert 720.</p>"
 
+msgid "ExpressionBuilder.MathematicalFunctions.Gcd"
+msgstr "Größter gemeinsamer Teiler"
+
+msgid "ExpressionBuilder.MathematicalFunctions.Gcd.Info"
+msgstr "<p>Berechnet den größten gemeinsamen Teiler (ggT) der übergebenen Zahlen.<br>Die Zahlen werden dabei wenn nötig zu Ganzzahlen gerundet und negative Vorzeichen verworfen.</p><p>Beispiel: <tt>gcd(6;10)</tt> liefert 2.</p>"
+
 msgid "ExpressionBuilder.MathematicalFunctions.IntegerPart"
 msgstr "Ganzzahl-Anteil"
 
 msgid "ExpressionBuilder.MathematicalFunctions.IntegerPart.Info"
 msgstr "<p>Liefert den Ganzzahl-Anteil des als Parameters übergebenen Wertes.</p><p>Beispiel: <tt>int(3,4)</tt> liefert 3.</p>"
+
+msgid "ExpressionBuilder.MathematicalFunctions.Lcm"
+msgstr "Kleinstes gemeinsames Vielfaches"
+
+msgid "ExpressionBuilder.MathematicalFunctions.Lcm.Info"
+msgstr "<p>Berechnet das kleinste gemeinsame Vielfache (kgV) der übergebenen Zahlen.<br>Die Zahlen werden dabei wenn nötig zu Ganzzahlen gerundet und negative Vorzeichen verworfen.</p><p>Beispiel: <tt>lcm(6;10)</tt> liefert 30.</p>"
 
 msgid "ExpressionBuilder.MathematicalFunctions.Potentiate"
 msgstr "Potenzieren"

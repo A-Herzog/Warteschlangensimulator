@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-01 00:51+0200\n"
+"POT-Creation-Date: 2022-09-02 00:28+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -5518,6 +5518,12 @@ msgstr "Binomial coefficient"
 msgid "ExpressionBuilder.MathematicalFunctions.Binomial.Info"
 msgstr "<p>Calculates the binomial coefficient.</p>"
 
+msgid "ExpressionBuilder.MathematicalFunctions.Cuberoot"
+msgstr "Cube root"
+
+msgid "ExpressionBuilder.MathematicalFunctions.Cuberoot.Info"
+msgstr "<p>Calculates the cube root from the value passed as parameter.</p><p>Example: <tt>cbrt(27)</tt> returns 3.</p>"
+
 msgid "ExpressionBuilder.MathematicalFunctions.Factorial"
 msgstr "Factorial"
 
@@ -5536,11 +5542,23 @@ msgstr "Gamma function"
 msgid "ExpressionBuilder.MathematicalFunctions.GammaFunction.Info"
 msgstr "<p>Returns the value of the Gamma function for the parameter passed as parameter.</p> <p>Example: <tt>gamma(7)</tt> returns 720.</p>"
 
+msgid "ExpressionBuilder.MathematicalFunctions.Gcd"
+msgstr "Greatest common divisor"
+
+msgid "ExpressionBuilder.MathematicalFunctions.Gcd.Info"
+msgstr "<p>Calculates the greatest common divisor of the passed numbers.<br>The numbers are rounded to integers if necessary and negative signs are discarded.</p><p>Example: <tt>gcd(6;10)</tt> returns 2.</p>"
+
 msgid "ExpressionBuilder.MathematicalFunctions.IntegerPart"
 msgstr "Integer part"
 
 msgid "ExpressionBuilder.MathematicalFunctions.IntegerPart.Info"
 msgstr "<p>Returns the integer part of the value passed as parameter.</p> <p>Example: <tt>int(3.4)</tt> returns 3.</p>"
+
+msgid "ExpressionBuilder.MathematicalFunctions.Lcm"
+msgstr "Least common multiple"
+
+msgid "ExpressionBuilder.MathematicalFunctions.Lcm.Info"
+msgstr "<p>Calculates the least common multiple of the passed numbers.<br>The numbers are rounded to integers if necessary and negative signs are discarded.</p><p>Example: <tt>lcm(6;10)</tt> returns 30.</p>"
 
 msgid "ExpressionBuilder.MathematicalFunctions.Potentiate"
 msgstr "Potentiate"

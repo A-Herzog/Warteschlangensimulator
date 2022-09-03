@@ -98,6 +98,7 @@ The following expressions can be written directly behind a number:
 <table class="border">
   <tr><td>abs(x)</td><td>Absolute value, abs(-5)=5</td></tr>
   <tr><td>binom(n;k)</td><td>Binomial coefficient</td></tr>
+  <tr><td>cbrt(x)</td><td>Cube root, cbrt(27)=3</td></tr>
   <tr><td>ceil(x)</td><td>Round to next bigger integer number, ceil(2.1)=3</td></tr>
   <tr><td>exp(x)</td><td>Exponential function e<sup>x</sup></td></tr>
   <tr><td>factorial(x)</td><td>Factorial, 4!=1*2*3*4=24</td></tr>    
@@ -117,8 +118,8 @@ The following expressions can be written directly behind a number:
   <tr><td>random(x)</td><td>Random number between 0 (inclusive) and x (exclusive).</td></tr>
   <tr><td>round(x)</td><td>Round, round(4.4)=4, round(4.5)=5</td></tr>
   <tr><td>sign(x)</td><td>Sign of a number, sign(3)=1, sign(-3)=-1</td></tr>
-  <tr><td>sqrt(x)</td><td>Square root</td></tr>
-  <tr><td>sqr(x)</td><td>Square the number</td></tr>
+  <tr><td>sqr(x)</td><td>Square the number, sqr(5)=25</td></tr>
+  <tr><td>sqrt(x)</td><td>Square root, sqrt(25)=5</td></tr>  
   <tr><td>trunc(x)</td><td>Truncation of the decimal digits, trunc(2.9)=2, trunc(-1.9)=-1</td></tr>
   <tr><td>zeta(x)</td><td>Zeta function, zeta(2)=1.644934</td></tr>
 </table>  
@@ -166,6 +167,8 @@ The following expressions can be written directly behind a number:
   <tr><td>CV(a;b;c;...)</td><td>Calculates the coefficient of variation of the given numbers</td></tr>  
   <tr><td>Sk(a;b;c;...)</td><td>Calculates the skewness of the values passed as parameters.</td></tr>
   <tr><td>Kurt(a;b;c;...)</td><td>Calculates the kurtosis of the values passed as parameters.</td></tr>
+  <tr><td>gcd(a;b;c;...)</td><td>Calculates the greatest common divisor of the passed numbers. The numbers are rounded to integers if necessary and negative signs are discarded.</td></tr>
+  <tr><td>lcm(a;b;c;...)</td><td>Calculates the least common multiple of the passed numbers. The numbers are rounded to integers if necessary and negative signs are discarded.</td></tr>
 </table>
 
 

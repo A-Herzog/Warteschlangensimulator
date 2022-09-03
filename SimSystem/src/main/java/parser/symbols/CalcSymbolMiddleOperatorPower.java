@@ -49,7 +49,7 @@ public final class CalcSymbolMiddleOperatorPower extends CalcSymbolMiddleOperato
 	 * Namen für das Symbol
 	 * @see #getNames()
 	 */
-	private static final String[] names=new String[]{"^"};
+	private static final String[] names=new String[]{"^","**"};
 
 	@Override
 	public String[] getNames() {

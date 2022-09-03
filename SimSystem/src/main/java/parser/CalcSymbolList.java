@@ -51,6 +51,7 @@ import parser.symbols.CalcSymbolPreOperatorArcTan;
 import parser.symbols.CalcSymbolPreOperatorArcTanh;
 import parser.symbols.CalcSymbolPreOperatorBinomial;
 import parser.symbols.CalcSymbolPreOperatorCV;
+import parser.symbols.CalcSymbolPreOperatorCbrt;
 import parser.symbols.CalcSymbolPreOperatorCeil;
 import parser.symbols.CalcSymbolPreOperatorCos;
 import parser.symbols.CalcSymbolPreOperatorCosh;
@@ -62,9 +63,11 @@ import parser.symbols.CalcSymbolPreOperatorFactorial;
 import parser.symbols.CalcSymbolPreOperatorFloor;
 import parser.symbols.CalcSymbolPreOperatorFrac;
 import parser.symbols.CalcSymbolPreOperatorGamma;
+import parser.symbols.CalcSymbolPreOperatorGcd;
 import parser.symbols.CalcSymbolPreOperatorIf;
 import parser.symbols.CalcSymbolPreOperatorInt;
 import parser.symbols.CalcSymbolPreOperatorKurt;
+import parser.symbols.CalcSymbolPreOperatorLcm;
 import parser.symbols.CalcSymbolPreOperatorLd;
 import parser.symbols.CalcSymbolPreOperatorLg;
 import parser.symbols.CalcSymbolPreOperatorLog;
@@ -331,6 +334,7 @@ public class CalcSymbolList {
 			addSymbol(new CalcSymbolTruncatedDistribution(new CalcSymbolDistributionHyperbolicSecant()));
 
 			addSymbol(new CalcSymbolPreOperatorSqrt());
+			addSymbol(new CalcSymbolPreOperatorCbrt());
 			addSymbol(new CalcSymbolPreOperatorSqr());
 			addSymbol(new CalcSymbolPreOperatorPower());
 			addSymbol(new CalcSymbolPreOperatorSinh());
@@ -388,6 +392,8 @@ public class CalcSymbolList {
 			addSymbol(new CalcSymbolPreOperatorLogicNAnd());
 			addSymbol(new CalcSymbolPreOperatorLogicNOr());
 			addSymbol(new CalcSymbolPreOperatorLogicNXor());
+			addSymbol(new CalcSymbolPreOperatorGcd());
+			addSymbol(new CalcSymbolPreOperatorLcm());
 
 			addSymbol(new CalcSymbolMiddleOperatorPlus());
 			addSymbol(new CalcSymbolMiddleOperatorMinus());

@@ -63,7 +63,18 @@ public final class LogNormalDistributionImpl extends AbstractRealDistribution im
 	 * Eingebettete Normalverteilung.
 	 * @see #density(double)
 	 */
-	private final NormalDistribution normal;
+
+	/**
+	 * Faktor 1 zur Beschleunigung der Berechnung der Dichte.
+	 * @see #density(double)
+	 */
+	private final double densityFactor1;
+
+	/**
+	 * Faktor 2 zur Beschleunigung der Berechnung der Dichte.
+	 * @see #density(double)
+	 */
+	private final double densityFactor2;
 
 	/**
 	 * Standardnormalverteilung, die verwendet wird, um Verteilungswerte
@@ -83,11 +94,16 @@ public final class LogNormalDistributionImpl extends AbstractRealDistribution im
 		this.mean=mean;
 		this.sd=sd;
 
+		/*
+		 * Siehe Formel für PDF in https://en.wikipedia.org/wiki/Log-normal_distribution
+		 * Oder auch S. 331 in Callcenter - Analyse und Management
+		 */
 		sigma2=Math.log(FastMath.pow(sd/mean,2)+1);
 		mu=Math.log(mean)-sigma2/2; /* StrictMath.log ist schneller als FastMath. Math.log laut Code StrictMath.log auf, aber in Wirklichkeit scheint hier der Compiler Magic zu machen, so dass Math.log schneller ist. */
 		sigma=StrictMath.sqrt(sigma2);
 
-		normal=new NormalDistribution(null,mu,sigma,NormalDistribution.DEFAULT_INVERSE_ABSOLUTE_ACCURACY);
+		densityFactor1=1/(sigma*Math.sqrt(2*Math.PI));
+		densityFactor2=1/(2*sigma2);
 	}
 
 	/**
@@ -100,11 +116,14 @@ public final class LogNormalDistributionImpl extends AbstractRealDistribution im
 	@Override
 	public double density(double x) {
 		if (x<=0) return 0;
-		return normal.density(Math.log(x))/sigma/x; /* StrictMath.log ist schneller als FastMath. Math.log laut Code StrictMath.log auf, aber in Wirklichkeit scheint hier der Compiler Magic zu machen, so dass Math.log schneller ist. */
+		/* Dies entspricht =LOGNORM.VERT(x;mu;sigma;0) in Excel. */
+		return densityFactor1/x*Math.exp(-Math.pow((Math.log(x)-mu),2)*densityFactor2);
+		/* StrictMath.log ist schneller als FastMath. Math.log laut Code StrictMath.log auf, aber in Wirklichkeit scheint hier der Compiler Magic zu machen, so dass Math.log schneller ist. */
 	}
 
 	@Override
 	public double cumulativeProbability(final double x) {
+		/* Dies entspricht =LOGNORM.VERT(x;mu;sigma;1) in Excel. */
 		return stdNormal.cumulativeProbability((Math.log(x)-mu)/sigma); /* StrictMath.log ist schneller als FastMath. Math.log laut Code StrictMath.log auf, aber in Wirklichkeit scheint hier der Compiler Magic zu machen, so dass Math.log schneller ist. */
 	}
 

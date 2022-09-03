@@ -126,6 +126,7 @@ public class ExpressionBuilderBasics {
 
 		group=new DefaultMutableTreeNode(Language.tr("ExpressionBuilder.MathematicalFunctions"));
 		addTreeNode(group,filterUpper,Language.tr("ExpressionBuilder.MathematicalFunctions.Squareroot")+" (sqrt)","sqrt("+value+")",Language.tr("ExpressionBuilder.MathematicalFunctions.Squareroot.Info"));
+		addTreeNode(group,filterUpper,Language.tr("ExpressionBuilder.MathematicalFunctions.Cuberoot")+" (cbrt)","cbrt("+value+")",Language.tr("ExpressionBuilder.MathematicalFunctions.Cuberoot.Info"));
 		addTreeNode(group,filterUpper,Language.tr("ExpressionBuilder.MathematicalFunctions.Square")+" (sqr)","sqr("+value+")",Language.tr("ExpressionBuilder.MathematicalFunctions.Square.Info"));
 		addTreeNode(group,filterUpper,Language.tr("ExpressionBuilder.MathematicalFunctions.Potentiate")+" (power)","power("+value+"A;"+value+"B)",Language.tr("ExpressionBuilder.MathematicalFunctions.Potentiate.Info"));
 		addTreeNode(group,filterUpper,Language.tr("ExpressionBuilder.MathematicalFunctions.AbsolutValue")+" (abs)","abs("+value+")",Language.tr("ExpressionBuilder.MathematicalFunctions.AbsolutValue.Info"));
@@ -137,37 +138,39 @@ public class ExpressionBuilderBasics {
 		addTreeNode(group,filterUpper,Language.tr("ExpressionBuilder.MathematicalFunctions.GammaFunction")+" (gamma)","gamma("+value+")",Language.tr("ExpressionBuilder.MathematicalFunctions.GammaFunction.Info"));
 		addTreeNode(group,filterUpper,Language.tr("ExpressionBuilder.MathematicalFunctions.ZetaFunction")+" (zeta)","zeta("+value+")",Language.tr("ExpressionBuilder.MathematicalFunctions.ZetaFunction.Info"));
 		addTreeNode(group,filterUpper,Language.tr("ExpressionBuilder.MathematicalFunctions.Random")+" (random)","random()",Language.tr("ExpressionBuilder.MathematicalFunctions.Random.Info"));
+		addTreeNode(group,filterUpper,Language.tr("ExpressionBuilder.MathematicalFunctions.Gcd")+" (gcd)","gcd("+value+";"+value+")",Language.tr("ExpressionBuilder.MathematicalFunctions.Gcd.Info"));
+		addTreeNode(group,filterUpper,Language.tr("ExpressionBuilder.MathematicalFunctions.Lcm")+" (lcm)","lcm("+value+";"+value+")",Language.tr("ExpressionBuilder.MathematicalFunctions.Lcm.Info"));
 
 		/* Mathematische Funktionen -> Exponential- und Logarithmus-Funktionen */
 
 		sub=new DefaultMutableTreeNode(Language.tr("ExpressionBuilder.ExponentialAndLogarithmFunctions"));
-		addTreeNode(group,filterUpper,Language.tr("ExpressionBuilder.ExponentialAndLogarithmFunctions.ExponentialFunction")+" (exp)","exp("+value+")",Language.tr("ExpressionBuilder.ExponentialAndLogarithmFunctions.ExponentialFunction.Info"));
-		addTreeNode(group,filterUpper,Language.tr("ExpressionBuilder.ExponentialAndLogarithmFunctions.NaturalLogarithm")+" (ln)","ln("+value+")",Language.tr("ExpressionBuilder.ExponentialAndLogarithmFunctions.NaturalLogarithm.Info"));
-		addTreeNode(group,filterUpper,Language.tr("ExpressionBuilder.ExponentialAndLogarithmFunctions.10Logarithm")+" (lg)","lg("+value+")",Language.tr("ExpressionBuilder.ExponentialAndLogarithmFunctions.10Logarithm.Info"));
-		addTreeNode(group,filterUpper,Language.tr("ExpressionBuilder.ExponentialAndLogarithmFunctions.2Logarithm")+" (ld)","ld("+value+")",Language.tr("ExpressionBuilder.ExponentialAndLogarithmFunctions.2Logarithm.Info"));
-		addTreeNode(group,filterUpper,Language.tr("ExpressionBuilder.ExponentialAndLogarithmFunctions.AnyBaseLogarithm")+" (log)","log("+value+";"+Language.tr("ExpressionBuilder.Base")+")",Language.tr("ExpressionBuilder.ExponentialAndLogarithmFunctions.AnyBaseLogarithm.Info"));
+		addTreeNode(sub,filterUpper,Language.tr("ExpressionBuilder.ExponentialAndLogarithmFunctions.ExponentialFunction")+" (exp)","exp("+value+")",Language.tr("ExpressionBuilder.ExponentialAndLogarithmFunctions.ExponentialFunction.Info"));
+		addTreeNode(sub,filterUpper,Language.tr("ExpressionBuilder.ExponentialAndLogarithmFunctions.NaturalLogarithm")+" (ln)","ln("+value+")",Language.tr("ExpressionBuilder.ExponentialAndLogarithmFunctions.NaturalLogarithm.Info"));
+		addTreeNode(sub,filterUpper,Language.tr("ExpressionBuilder.ExponentialAndLogarithmFunctions.10Logarithm")+" (lg)","lg("+value+")",Language.tr("ExpressionBuilder.ExponentialAndLogarithmFunctions.10Logarithm.Info"));
+		addTreeNode(sub,filterUpper,Language.tr("ExpressionBuilder.ExponentialAndLogarithmFunctions.2Logarithm")+" (ld)","ld("+value+")",Language.tr("ExpressionBuilder.ExponentialAndLogarithmFunctions.2Logarithm.Info"));
+		addTreeNode(sub,filterUpper,Language.tr("ExpressionBuilder.ExponentialAndLogarithmFunctions.AnyBaseLogarithm")+" (log)","log("+value+";"+Language.tr("ExpressionBuilder.Base")+")",Language.tr("ExpressionBuilder.ExponentialAndLogarithmFunctions.AnyBaseLogarithm.Info"));
 		if (sub.getChildCount()>0) group.add(sub);
 
 		/* Mathematische Funktionen -> Trigonometrische Funktionen */
 
 		sub=new DefaultMutableTreeNode(Language.tr("ExpressionBuilder.TrigonometricFunctions"));
-		addTreeNode(group,filterUpper,Language.tr("ExpressionBuilder.TrigonometricFunctions.Sinus")+" (sin)","sin("+value+")",Language.tr("ExpressionBuilder.TrigonometricFunctions.Sinus.Info"));
-		addTreeNode(group,filterUpper,Language.tr("ExpressionBuilder.TrigonometricFunctions.Cosinus")+" (cos)","cos("+value+")",Language.tr("ExpressionBuilder.TrigonometricFunctions.Cosinus.Info"));
-		addTreeNode(group,filterUpper,Language.tr("ExpressionBuilder.TrigonometricFunctions.Tangens")+" (tan)","tan("+value+")",Language.tr("ExpressionBuilder.TrigonometricFunctions.Tangens.Info"));
-		addTreeNode(group,filterUpper,Language.tr("ExpressionBuilder.TrigonometricFunctions.Cotangens")+" (cot)","cot("+value+")",Language.tr("ExpressionBuilder.TrigonometricFunctions.Cotangens.Info"));
-		addTreeNode(group,filterUpper,Language.tr("ExpressionBuilder.TrigonometricFunctions.ArcusSinus")+" (arcsin)","arcsin("+value+")",Language.tr("ExpressionBuilder.TrigonometricFunctions.ArcusSinus.Info"));
-		addTreeNode(group,filterUpper,Language.tr("ExpressionBuilder.TrigonometricFunctions.ArcusCosinus")+" (arccos)","arccos("+value+")",Language.tr("ExpressionBuilder.TrigonometricFunctions.ArcusCosinus.Info"));
-		addTreeNode(group,filterUpper,Language.tr("ExpressionBuilder.TrigonometricFunctions.ArcusTangens")+" (arctan)","arctan("+value+")",Language.tr("ExpressionBuilder.TrigonometricFunctions.ArcusTangens.Info"));
-		addTreeNode(group,filterUpper,Language.tr("ExpressionBuilder.TrigonometricFunctions.ArcusCotangens")+" (arccot)","arccot("+value+")",Language.tr("ExpressionBuilder.TrigonometricFunctions.ArcusCotangens.Info"));
-		addTreeNode(group,filterUpper,Language.tr("ExpressionBuilder.TrigonometricFunctions.SinusHyperbolicus")+" (sinh)","sinh("+value+")",Language.tr("ExpressionBuilder.TrigonometricFunctions.SinusHyperbolicus.Info"));
-		addTreeNode(group,filterUpper,Language.tr("ExpressionBuilder.TrigonometricFunctions.CosinusHyperbolicus")+" (cosh)","cosh("+value+")",Language.tr("ExpressionBuilder.TrigonometricFunctions.CosinusHyperbolicus.Info"));
-		addTreeNode(group,filterUpper,Language.tr("ExpressionBuilder.TrigonometricFunctions.TangensHyperbolicus")+" (tanh)","tanh("+value+")",Language.tr("ExpressionBuilder.TrigonometricFunctions.TangensHyperbolicus.Info"));
-		addTreeNode(group,filterUpper,Language.tr("ExpressionBuilder.TrigonometricFunctions.CotangensHyperbolicus")+" (coth)","coth("+value+")",Language.tr("ExpressionBuilder.TrigonometricFunctions.CotangensHyperbolicus.Info"));
-		addTreeNode(group,filterUpper,Language.tr("ExpressionBuilder.TrigonometricFunctions.ArcusSinusHyperbolicus")+" (arcsinh)","arcsinh("+value+")",Language.tr("ExpressionBuilder.TrigonometricFunctions.ArcusSinusHyperbolicus.Info"));
-		addTreeNode(group,filterUpper,Language.tr("ExpressionBuilder.TrigonometricFunctions.ArcusCosinusHyperbolicus")+" (arccosh)","arccosh("+value+")",Language.tr("ExpressionBuilder.TrigonometricFunctions.ArcusCosinusHyperbolicus.Info"));
-		addTreeNode(group,filterUpper,Language.tr("ExpressionBuilder.TrigonometricFunctions.ArcusTangensHyperbolicus")+" (arctanh)","arctanh("+value+")",Language.tr("ExpressionBuilder.TrigonometricFunctions.ArcusTangensHyperbolicus.Info"));
-		addTreeNode(group,filterUpper,Language.tr("ExpressionBuilder.TrigonometricFunctions.ArcusCotangensHyperbolicus")+" (arccoth)","arccoth("+value+")",Language.tr("ExpressionBuilder.TrigonometricFunctions.ArcusCotangensHyperbolicus.Info"));
-		addTreeNode(group,filterUpper,Language.tr("ExpressionBuilder.TrigonometricFunctions.DegreeToRadians")+" (°)","°",Language.tr("ExpressionBuilder.TrigonometricFunctions.DegreeToRadians.Info"));
+		addTreeNode(sub,filterUpper,Language.tr("ExpressionBuilder.TrigonometricFunctions.Sinus")+" (sin)","sin("+value+")",Language.tr("ExpressionBuilder.TrigonometricFunctions.Sinus.Info"));
+		addTreeNode(sub,filterUpper,Language.tr("ExpressionBuilder.TrigonometricFunctions.Cosinus")+" (cos)","cos("+value+")",Language.tr("ExpressionBuilder.TrigonometricFunctions.Cosinus.Info"));
+		addTreeNode(sub,filterUpper,Language.tr("ExpressionBuilder.TrigonometricFunctions.Tangens")+" (tan)","tan("+value+")",Language.tr("ExpressionBuilder.TrigonometricFunctions.Tangens.Info"));
+		addTreeNode(sub,filterUpper,Language.tr("ExpressionBuilder.TrigonometricFunctions.Cotangens")+" (cot)","cot("+value+")",Language.tr("ExpressionBuilder.TrigonometricFunctions.Cotangens.Info"));
+		addTreeNode(sub,filterUpper,Language.tr("ExpressionBuilder.TrigonometricFunctions.ArcusSinus")+" (arcsin)","arcsin("+value+")",Language.tr("ExpressionBuilder.TrigonometricFunctions.ArcusSinus.Info"));
+		addTreeNode(sub,filterUpper,Language.tr("ExpressionBuilder.TrigonometricFunctions.ArcusCosinus")+" (arccos)","arccos("+value+")",Language.tr("ExpressionBuilder.TrigonometricFunctions.ArcusCosinus.Info"));
+		addTreeNode(sub,filterUpper,Language.tr("ExpressionBuilder.TrigonometricFunctions.ArcusTangens")+" (arctan)","arctan("+value+")",Language.tr("ExpressionBuilder.TrigonometricFunctions.ArcusTangens.Info"));
+		addTreeNode(sub,filterUpper,Language.tr("ExpressionBuilder.TrigonometricFunctions.ArcusCotangens")+" (arccot)","arccot("+value+")",Language.tr("ExpressionBuilder.TrigonometricFunctions.ArcusCotangens.Info"));
+		addTreeNode(sub,filterUpper,Language.tr("ExpressionBuilder.TrigonometricFunctions.SinusHyperbolicus")+" (sinh)","sinh("+value+")",Language.tr("ExpressionBuilder.TrigonometricFunctions.SinusHyperbolicus.Info"));
+		addTreeNode(sub,filterUpper,Language.tr("ExpressionBuilder.TrigonometricFunctions.CosinusHyperbolicus")+" (cosh)","cosh("+value+")",Language.tr("ExpressionBuilder.TrigonometricFunctions.CosinusHyperbolicus.Info"));
+		addTreeNode(sub,filterUpper,Language.tr("ExpressionBuilder.TrigonometricFunctions.TangensHyperbolicus")+" (tanh)","tanh("+value+")",Language.tr("ExpressionBuilder.TrigonometricFunctions.TangensHyperbolicus.Info"));
+		addTreeNode(sub,filterUpper,Language.tr("ExpressionBuilder.TrigonometricFunctions.CotangensHyperbolicus")+" (coth)","coth("+value+")",Language.tr("ExpressionBuilder.TrigonometricFunctions.CotangensHyperbolicus.Info"));
+		addTreeNode(sub,filterUpper,Language.tr("ExpressionBuilder.TrigonometricFunctions.ArcusSinusHyperbolicus")+" (arcsinh)","arcsinh("+value+")",Language.tr("ExpressionBuilder.TrigonometricFunctions.ArcusSinusHyperbolicus.Info"));
+		addTreeNode(sub,filterUpper,Language.tr("ExpressionBuilder.TrigonometricFunctions.ArcusCosinusHyperbolicus")+" (arccosh)","arccosh("+value+")",Language.tr("ExpressionBuilder.TrigonometricFunctions.ArcusCosinusHyperbolicus.Info"));
+		addTreeNode(sub,filterUpper,Language.tr("ExpressionBuilder.TrigonometricFunctions.ArcusTangensHyperbolicus")+" (arctanh)","arctanh("+value+")",Language.tr("ExpressionBuilder.TrigonometricFunctions.ArcusTangensHyperbolicus.Info"));
+		addTreeNode(sub,filterUpper,Language.tr("ExpressionBuilder.TrigonometricFunctions.ArcusCotangensHyperbolicus")+" (arccoth)","arccoth("+value+")",Language.tr("ExpressionBuilder.TrigonometricFunctions.ArcusCotangensHyperbolicus.Info"));
+		addTreeNode(sub,filterUpper,Language.tr("ExpressionBuilder.TrigonometricFunctions.DegreeToRadians")+" (°)","°",Language.tr("ExpressionBuilder.TrigonometricFunctions.DegreeToRadians.Info"));
 		if (sub.getChildCount()>0) group.add(sub);
 
 		if (group.getChildCount()>0) root.add(group);
@@ -183,12 +186,12 @@ public class ExpressionBuilderBasics {
 
 		group=new DefaultMutableTreeNode(Language.tr("ExpressionBuilder.LogicFunctions"));
 		addTreeNode(group,filterUpper,Language.tr("ExpressionBuilder.LogicFunctions.And")+" (and)","and("+value+";"+value+")",Language.tr("ExpressionBuilder.LogicFunctions.And.Info"));
-		addTreeNode(group,filterUpper,Language.tr("ExpressionBuilder.LogicFunctions.Or"),"or("+value+";"+value+")",Language.tr("ExpressionBuilder.LogicFunctions.Or.Info"));
-		addTreeNode(group,filterUpper,Language.tr("ExpressionBuilder.LogicFunctions.Xor"),"xor("+value+";"+value+")",Language.tr("ExpressionBuilder.LogicFunctions.Xor.Info"));
-		addTreeNode(group,filterUpper,Language.tr("ExpressionBuilder.LogicFunctions.Not"),"not("+value+";"+value+")",Language.tr("ExpressionBuilder.LogicFunctions.Not.Info"));
-		addTreeNode(group,filterUpper,Language.tr("ExpressionBuilder.LogicFunctions.Nand"),"nand("+value+";"+value+")",Language.tr("ExpressionBuilder.LogicFunctions.Nand.Info"));
-		addTreeNode(group,filterUpper,Language.tr("ExpressionBuilder.LogicFunctions.Nor"),"nor("+value+";"+value+")",Language.tr("ExpressionBuilder.LogicFunctions.Nor.Info"));
-		addTreeNode(group,filterUpper,Language.tr("ExpressionBuilder.LogicFunctions.Nxor"),"nxor("+value+";"+value+")",Language.tr("ExpressionBuilder.LogicFunctions.Nxor.Info"));
+		addTreeNode(group,filterUpper,Language.tr("ExpressionBuilder.LogicFunctions.Or")+" (or)","or("+value+";"+value+")",Language.tr("ExpressionBuilder.LogicFunctions.Or.Info"));
+		addTreeNode(group,filterUpper,Language.tr("ExpressionBuilder.LogicFunctions.Xor")+" (xor)","xor("+value+";"+value+")",Language.tr("ExpressionBuilder.LogicFunctions.Xor.Info"));
+		addTreeNode(group,filterUpper,Language.tr("ExpressionBuilder.LogicFunctions.Not")+" (not)","not("+value+")",Language.tr("ExpressionBuilder.LogicFunctions.Not.Info"));
+		addTreeNode(group,filterUpper,Language.tr("ExpressionBuilder.LogicFunctions.Nand")+" (nand)","nand("+value+";"+value+")",Language.tr("ExpressionBuilder.LogicFunctions.Nand.Info"));
+		addTreeNode(group,filterUpper,Language.tr("ExpressionBuilder.LogicFunctions.Nor")+" (nor)","nor("+value+";"+value+")",Language.tr("ExpressionBuilder.LogicFunctions.Nor.Info"));
+		addTreeNode(group,filterUpper,Language.tr("ExpressionBuilder.LogicFunctions.Nxor")+" (nxor)","nxor("+value+";"+value+")",Language.tr("ExpressionBuilder.LogicFunctions.Nxor.Info"));
 		if (group.getChildCount()>0) root.add(group);
 
 		/* Statistik-Funktionen */
