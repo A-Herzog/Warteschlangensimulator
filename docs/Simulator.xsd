@@ -786,6 +786,7 @@
   <xs:extension base="xs:string">
     <xs:attribute name="Zeitbasis" type="xs:string"/>
     <xs:attribute name="Zwischenankunftszeiten" type="xs:string"/>
+	<xs:attribute name="Wiederholen" type="xs:string"/>
 	<xs:attribute name="Anzahl" type="xs:string"/>
 	<xs:attribute name="Kundenanzahl" type="xs:string"/>
   </xs:extension>
@@ -3117,6 +3118,7 @@
   <xs:extension base="xs:string">
     <xs:attribute name="TimeBase" type="xs:string"/>
     <xs:attribute name="InterArrivalTimes" type="xs:string"/>
+	<xs:attribute name="Repeat" type="xs:string"/>
 	<xs:attribute name="Count" type="xs:string"/>
 	<xs:attribute name="ClientCount" type="xs:string"/>
   </xs:extension>

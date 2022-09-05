@@ -207,6 +207,8 @@ public final class ModelElementSourceRecordPanel extends JPanel {
 	private final JComboBox<String> timeBase3;
 	/** Auswahlbox für die Art der Zahlenwerte in {@link #dataStream} */
 	private final JComboBox<String> dataStreamType;
+	/** Datenstrom-Zwischenankunftszeiten am Ende wiederholen? */
+	private final JCheckBox dataStreamRepeat;
 	/** Erste Ankunft zum Zeitpunkt 0? */
 	private final JCheckBox dataStreamFirstArrivalAt0;
 	/** Zahlenwerte zur Bestimmung der Ankunfts- oder Zwischenankunftszeiten */
@@ -626,6 +628,8 @@ public final class ModelElementSourceRecordPanel extends JPanel {
 		}));
 		dataStreamType.setEnabled(!readOnly);
 		label.setLabelFor(dataStreamType);
+		line.add(dataStreamRepeat=new JCheckBox(Language.tr("Surface.Source.Dialog.CalculationOfTheInterarrivalTimes.DataStream.Mode.InterArrivalTimes.Repeat")));
+		dataStreamType.addActionListener(e->dataStreamRepeat.setEnabled(dataStreamType.getSelectedIndex()==1));
 		line.add(dataStreamFirstArrivalAt0=new JCheckBox(Language.tr("Surface.Source.Dialog.FirstArrivalAt0")));
 		dataStreamFirstArrivalAt0.addActionListener(e->syncFirstArrivalAt0CheckBoxes(e));
 
@@ -925,6 +929,8 @@ public final class ModelElementSourceRecordPanel extends JPanel {
 		/* Zahlenwerte */
 		timeBase3.setSelectedIndex(record.getTimeBase().id);
 		dataStreamType.setSelectedIndex(record.isDataStreamIsInterArrival()?1:0);
+		dataStreamRepeat.setSelected(record.isDataStreamRepeat());
+		dataStreamRepeat.setEnabled(dataStreamType.getSelectedIndex()==1);
 		dataStreamFirstArrivalAt0.setSelected(record.isFirstArrivalAt0());
 		dataStream.setText(String.join("\n",record.getDataStream()));
 
@@ -1503,6 +1509,7 @@ public final class ModelElementSourceRecordPanel extends JPanel {
 		case 8: /* Zahlenwerte */
 			record.setTimeBase(ModelSurface.TimeBase.byId(timeBase3.getSelectedIndex()));
 			record.setDataStreamIsInterArrival(dataStreamType.getSelectedIndex()==1);
+			record.setDataStreamRepeat((dataStreamType.getSelectedIndex()==1) && dataStreamRepeat.isSelected());
 			record.setFirstArrivalAt0(dataStreamFirstArrivalAt0.isSelected());
 			record.setDataStream(dataStream.getText().trim());
 			break;

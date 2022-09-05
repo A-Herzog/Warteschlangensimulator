@@ -566,6 +566,7 @@
 <!ATTLIST ModellElemenZahlenwerte
   Zeitbasis			CDATA	#IMPLIED
   Zwischenankunftszeiten	CDATA	#IMPLIED
+  Wiederholen				CDATA	#IMPLIED
   Anzahl					CDATA	#IMPLIED
   Kundenanzahl				CDATA	#IMPLIED
 >
@@ -3130,6 +3131,7 @@
 <!ATTLIST ModelElementDataStream
   TimeBase			CDATA	#IMPLIED
   InterArrivalTimes	CDATA	#IMPLIED
+  Repeat			CDATA	#IMPLIED
   Count				CDATA	#IMPLIED
   ClientCount		CDATA	#IMPLIED
 >

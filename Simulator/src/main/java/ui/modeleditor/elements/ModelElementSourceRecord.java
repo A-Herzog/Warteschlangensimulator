@@ -238,6 +238,13 @@ public final class ModelElementSourceRecord implements Cloneable {
 	private boolean dataStreamIsInterArrival;
 
 	/**
+	 * Soll am Ende des Datenstroms wieder am Anfang angefangen werden (wenn die Daten Zwischenankunftszeiten sind)?
+	 * @see #isDataStreamRepeat()
+	 * @see #setDataStreamRepeat(boolean)
+	 */
+	private boolean dataStreamRepeat;
+
+	/**
 	 * Soll die erste Ankunft bei durch eine Verteilung
 	 * oder einen Rechenausdruck bestimmten Zwischenankunftszeiten
 	 * zum Zeitpunkt 0 erfolgen?
@@ -334,6 +341,7 @@ public final class ModelElementSourceRecord implements Cloneable {
 		intervalDistributions=new ArrayList<>();
 		dataStream="";
 		dataStreamIsInterArrival=false;
+		dataStreamRepeat=false;
 		firstArrivalAt0=false;
 		batchSize="1";
 		batchSizeRates=null;
@@ -816,6 +824,29 @@ public final class ModelElementSourceRecord implements Cloneable {
 	}
 
 	/**
+	 * Wenn die Werte in {@link #getDataStream()} Zwischenankunftszeiten darstellen,
+	 * solle diese am Ende der Liste wiederholt werden?
+	 * @return	Zwischenankunftszeiten wiederholen?
+	 * @see #setDataStreamRepeat(boolean)
+	 * @see #getDataStream()
+	 */
+	public boolean isDataStreamRepeat() {
+		return dataStreamRepeat;
+	}
+
+	/**
+	 * Wenn die Werte in {@link #getDataStream()} Zwischenankunftszeiten darstellen,
+	 * solle diese am Ende der Liste wiederholt werden?
+	 * @param dataStreamRepeat	Zwischenankunftszeiten wiederholen?
+	 * @see #isDataStreamIsInterArrival()
+	 * @see #getDataStream()
+	 */
+	public void setDataStreamRepeat(boolean dataStreamRepeat) {
+		this.dataStreamRepeat=dataStreamRepeat;
+		nextMode=NextMode.NEXT_STREAM;
+	}
+
+	/**
 	 * Liefert die Liste der Werte, die als Ankunftszeiten oder
 	 * Zwischenankunftszeiten verwendet werden sollen.
 	 * (Pro Zeile ein Wert.)
@@ -965,6 +996,9 @@ public final class ModelElementSourceRecord implements Cloneable {
 				break;
 			case NEXT_STREAM:
 				if (dataStreamIsInterArrival!=record.dataStreamIsInterArrival) return false;
+				if (dataStreamIsInterArrival) {
+					if (dataStreamRepeat!=record.dataStreamRepeat) return false;
+				}
 				if (firstArrivalAt0!=record.firstArrivalAt0) return false;
 				if (!dataStream.equals(record.dataStream)) return false;
 				break;
@@ -1034,6 +1068,7 @@ public final class ModelElementSourceRecord implements Cloneable {
 		intervalDistributions.addAll(record.intervalDistributions);
 		dataStream=record.dataStream;
 		dataStreamIsInterArrival=record.dataStreamIsInterArrival;
+		dataStreamRepeat=record.dataStreamRepeat;
 		firstArrivalAt0=record.firstArrivalAt0;
 		batchSize=record.batchSize;
 		if (batchSize==null && record.batchSizeRates!=null) batchSizeRates=Arrays.copyOf(record.batchSizeRates,record.batchSizeRates.length);
@@ -1174,7 +1209,10 @@ public final class ModelElementSourceRecord implements Cloneable {
 			case NEXT_STREAM:
 				node.appendChild(sub=doc.createElement(Language.trPrimary("Surface.Source.XML.DataStream")));
 				sub.setTextContent(dataStream);
-				if (dataStreamIsInterArrival) sub.setAttribute(Language.trPrimary("Surface.Source.XML.DataStream.InterArrivalTimes"),"1");
+				if (dataStreamIsInterArrival) {
+					sub.setAttribute(Language.trPrimary("Surface.Source.XML.DataStream.InterArrivalTimes"),"1");
+					if (dataStreamRepeat) sub.setAttribute(Language.trPrimary("Surface.Source.XML.DataStream.InterArrivalTimes.Repeat"),"1");
+				}
 				sub.setAttribute(Language.trPrimary("Surface.Source.XML.DataStream.TimeBase"),ModelSurface.getTimeBaseString(timeBase));
 				if (maxArrivalCount>0) sub.setAttribute(Language.trPrimary("Surface.Source.XML.DataStream.Count"),""+maxArrivalCount);
 				if (maxArrivalClientCount>0) sub.setAttribute(Language.trPrimary("Surface.Source.XML.DataStream.ClientCount"),""+maxArrivalClientCount);
@@ -1390,6 +1428,7 @@ public final class ModelElementSourceRecord implements Cloneable {
 			nextMode=NextMode.NEXT_STREAM;
 			dataStream=content;
 			dataStreamIsInterArrival=Language.trAllAttribute("Surface.Source.XML.DataStream.InterArrivalTimes",node).equals("1");
+			dataStreamRepeat=Language.trAllAttribute("Surface.Source.XML.DataStream.InterArrivalTimes.Repeat",node).equals("1");
 			final String timeBaseName=Language.trAllAttribute("Surface.Source.XML.DataStream.TimeBase",node);
 			timeBase=ModelSurface.getTimeBaseInteger(timeBaseName);
 			final String countString=Language.trAllAttribute("Surface.Source.XML.DataStream.Count",node);
@@ -1593,6 +1632,9 @@ public final class ModelElementSourceRecord implements Cloneable {
 			case NEXT_STREAM:
 				if (dataStreamIsInterArrival) {
 					info.append(Language.tr("ModelDescription.Arrival.DataStream.InterArrivalTimes"));
+					if (dataStreamRepeat) {
+						info.append(Language.tr("ModelDescription.Arrival.DataStream.InterArrivalTimes.Repeat"));
+					}
 				} else {
 					info.append(Language.tr("ModelDescription.Arrival.DataStream.ArrivalTimes"));
 				}

@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-02 00:28+0200\n"
+"POT-Creation-Date: 2022-09-04 01:38+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -11011,6 +11011,9 @@ msgstr "Arrivals at predefined arrival times"
 
 msgid "ModelDescription.Arrival.DataStream.InterArrivalTimes"
 msgstr "Arrivals at predefined inter-arrival times"
+
+msgid "ModelDescription.Arrival.DataStream.InterArrivalTimes.Repeat"
+msgstr "The data stream will be repeated at the end."
 
 msgid "ModelDescription.Arrival.Distribution"
 msgstr "Inter-arrival times distribution"
@@ -30368,6 +30371,9 @@ msgstr "Arrival times"
 msgid "Surface.Source.Dialog.CalculationOfTheInterarrivalTimes.DataStream.Mode.InterArrivalTimes"
 msgstr "Inter-arrival times"
 
+msgid "Surface.Source.Dialog.CalculationOfTheInterarrivalTimes.DataStream.Mode.InterArrivalTimes.Repeat"
+msgstr "Repeat at the end"
+
 msgid "Surface.Source.Dialog.CalculationOfTheInterarrivalTimes.DataStream.Values"
 msgstr "Values"
 
@@ -30781,6 +30787,9 @@ msgstr "Count"
 
 msgid "Surface.Source.XML.DataStream.InterArrivalTimes"
 msgstr "InterArrivalTimes"
+
+msgid "Surface.Source.XML.DataStream.InterArrivalTimes.Repeat"
+msgstr "Repeat"
 
 msgid "Surface.Source.XML.DataStream.TimeBase"
 msgstr "TimeBase"

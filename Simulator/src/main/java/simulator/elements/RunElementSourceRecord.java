@@ -98,6 +98,10 @@ public class RunElementSourceRecord {
 
 	/** Ankunftszeitpunkte aus Datenstrom */
 	public double[] arrivalStream;
+	/** Handelt es sich bei den Zeiten in {@link #arrivalStream} um Zwischenankunftszeiten (<code>true</code>) oder um absolute Ankunftszeiten (<code>false</code>)? */
+	public boolean isArrivalStreamInterArrival;
+	/** Wenn es sich bei den Zeiten in {@link #arrivalStream} um Zwischenankunftszeiten handelt: Sollen diese am Ende der Liete wiederholt werden? */
+	public boolean isArrivalStreamInterArrivalRepeat;
 
 	/** Erste Ankunft zum Zeitpunkt 0? */
 	private boolean firstArrivalAt0;
@@ -262,13 +266,10 @@ public class RunElementSourceRecord {
 			values=Arrays.copyOf(values,streamSizeUsed);
 			/* Werte interpretieren */
 			if (record.isDataStreamIsInterArrival()) {
-				/* Zwischenankunftszeiten: Umrechnen in Zeitpunkte */
-				arrivalStream=new double[values.length];
-				double sum=0;
-				for (int i=0;i<values.length;i++) {
-					sum+=values[i];
-					arrivalStream[i]=sum;
-				}
+				/* Zwischenankunftszeiten */
+				arrivalStream=values;
+				isArrivalStreamInterArrival=true;
+				isArrivalStreamInterArrivalRepeat=record.isDataStreamRepeat();
 			} else {
 				/* Ankunftszeitpunkte: Sortieren */
 				Arrays.sort(values);
@@ -804,9 +805,16 @@ public class RunElementSourceRecord {
 				rawTimeDelta=0;
 			} else {
 				if (recordData.arrivalTimeValueNext>=arrivalStream.length) return 0;
-				final double arrivalTime=arrivalStream[recordData.arrivalTimeValueNext]*timeBaseMultiply;
-				recordData.arrivalTimeValueNext++;
-				rawTimeDelta=(arrivalTime-simData.currentTime/1000.0)/timeBaseMultiply; /* in scheduleNextArrivalTime wird mit timeBaseMultiply multipliziert, daher hier die Division */
+				if (isArrivalStreamInterArrival) {
+					final double interArrivalTime=arrivalStream[recordData.arrivalTimeValueNext]*timeBaseMultiply;
+					recordData.arrivalTimeValueNext++;
+					if (recordData.arrivalTimeValueNext>=arrivalStream.length && isArrivalStreamInterArrivalRepeat) recordData.arrivalTimeValueNext=0;
+					rawTimeDelta=interArrivalTime/timeBaseMultiply; /* in scheduleNextArrivalTime wird mit timeBaseMultiply multipliziert, daher hier die Division */
+				} else {
+					final double arrivalTime=arrivalStream[recordData.arrivalTimeValueNext]*timeBaseMultiply;
+					recordData.arrivalTimeValueNext++;
+					rawTimeDelta=(arrivalTime-simData.currentTime/1000.0)/timeBaseMultiply; /* in scheduleNextArrivalTime wird mit timeBaseMultiply multipliziert, daher hier die Division */
+				}
 			}
 			return scheduleNextArrivalTime(simData,rawTimeDelta,isFirstArrival,element,stationName);
 		}
