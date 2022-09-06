@@ -74,7 +74,6 @@ import simulator.simparser.ExpressionCalc;
 import swingtools.ImageIOFormatCheck;
 import systemtools.ImageTools;
 import systemtools.MsgBox;
-import systemtools.statistics.PDFWriter;
 import systemtools.statistics.StatisticsBasePanel;
 import systemtools.statistics.XWPFDocumentPictureTools;
 import tools.SetupData;
@@ -399,10 +398,7 @@ public class PlotterPanel extends JPanel {
 		}
 
 		if (s.equals("pdf")) {
-			final PDFWriter pdf=new PDFWriter(this,15,10);
-			if (!pdf.systemOK) return false;
-			if (!pdf.writeImage(image,25)) return false;
-			return pdf.save(file);
+			return ImageTools.saveImage(this,image,file);
 		}
 
 		try {return ImageIO.write(image,s,file);} catch (IOException e) {return false;}

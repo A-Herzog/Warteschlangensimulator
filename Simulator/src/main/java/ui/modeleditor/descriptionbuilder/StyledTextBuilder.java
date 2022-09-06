@@ -55,8 +55,10 @@ import org.odftoolkit.simple.text.Paragraph;
 
 import language.Language;
 import mathtools.distribution.swing.CommonVariables;
+import systemtools.ImageTools;
 import systemtools.MsgBox;
 import systemtools.statistics.PDFWriter;
+import systemtools.statistics.ReportStyle;
 import systemtools.statistics.XWPFDocumentPictureTools;
 import ui.tools.FlatLaFHelper;
 
@@ -283,7 +285,7 @@ public class StyledTextBuilder {
 				/* Überschriften */
 				if (result.length()>0 && !lastWasParagraph) result.append("\n");
 				result.append(line);
-				result.append("\n\n");
+				if (type==1 || type==2) result.append("\n\n"); else result.append("\n");
 				lastWasParagraph=true;
 				continue;
 			}
@@ -518,11 +520,16 @@ public class StyledTextBuilder {
 	 * @return	Gibt im Erfolgsfall <code>true</code> zurück
 	 */
 	public boolean savePDF(final Component owner, final File file, final BufferedImage additionalImage) {
-		final PDFWriter pdf=new PDFWriter(owner,15,10);
-		if (!pdf.systemOK) return false;
+		final ReportStyle style=new ReportStyle();
 		if (additionalImage!=null) {
-			if (!pdf.writeImage(additionalImage,25)) return false;
+			style.logo=ImageTools.imageToBufferedImage(additionalImage);
+			style.logoPosition=ReportStyle.ReportPosition.LEFT;
+			style.logoMaxWidthMM=100;
+			style.logoMaxHeightMM=50;
+			style.logoRepeat=false;
 		}
+		final PDFWriter pdf=new PDFWriter(owner,style);
+		if (!pdf.isSystemOk()) return false;
 
 		if (!savePDF(pdf)) return false;
 		return pdf.save(file);

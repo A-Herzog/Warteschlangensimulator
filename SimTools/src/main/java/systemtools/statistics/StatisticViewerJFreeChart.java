@@ -48,8 +48,6 @@ import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 import javax.swing.SwingUtilities;
 
-import org.apache.poi.xwpf.usermodel.Document;
-import org.apache.poi.xwpf.usermodel.XWPFDocument;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.StandardChartTheme;
@@ -441,18 +439,13 @@ public abstract class StatisticViewerJFreeChart implements StatisticViewer {
 	}
 
 	@Override
-	public boolean saveDOCX(XWPFDocument doc) {
+	public boolean saveDOCX(DOCXWriter doc) {
 		if (chartPanel==null) firstChartRequest();
 
 		final int imageSize=getImageSize();
 		final BufferedImage image=ImageTools.drawToImage(chart,imageSize,imageSize);
 
-		try (ByteArrayOutputStream streamOut=new ByteArrayOutputStream()) {
-			try {if (!ImageIO.write(image,"png",streamOut)) return false;} catch (IOException e) {return false;}
-			if (!XWPFDocumentPictureTools.addPicture(doc,streamOut,Document.PICTURE_TYPE_PNG,image.getWidth(),image.getHeight())) return false;
-		} catch (IOException e) {return false;}
-
-		return true;
+		return doc.writeImage(image);
 	}
 
 	@Override
@@ -462,7 +455,7 @@ public abstract class StatisticViewerJFreeChart implements StatisticViewer {
 		final int imageSize=getImageSize();
 		final BufferedImage image=ImageTools.drawToImage(chart,imageSize,imageSize);
 
-		return pdf.writeImage(image,25);
+		return pdf.writeImageFullWidth(image);
 	}
 
 	@Override
@@ -561,7 +554,7 @@ public abstract class StatisticViewerJFreeChart implements StatisticViewer {
 		try {
 			final File file=File.createTempFile(StatisticsBasePanel.viewersToolbarExcelPrefix+"_",".pdf");
 
-			final PDFWriter pdf=new PDFWriter(owner,15,10);
+			final PDFWriter pdf=new PDFWriter(owner,new ReportStyle());
 			if (!pdf.systemOK) return;
 			if (!savePDF(pdf)) return;
 			if (!pdf.save(file)) return;

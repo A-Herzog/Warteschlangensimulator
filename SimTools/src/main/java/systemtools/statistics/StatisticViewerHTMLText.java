@@ -48,8 +48,6 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.text.html.HTMLDocument;
 import javax.swing.text.html.HTMLFrameHyperlinkEvent;
 
-import org.apache.poi.xwpf.usermodel.XWPFDocument;
-
 import mathtools.NumberTools;
 import mathtools.Table;
 import mathtools.distribution.swing.CommonVariables;
@@ -264,14 +262,16 @@ class StatisticViewerHTMLText implements StatisticViewer {
 	}
 
 	@Override
-	public boolean saveDOCX(XWPFDocument doc) {
-		doc.createParagraph().createRun().setText(infoText);
+	public boolean saveDOCX(DOCXWriter doc) {
+		doc.writeText(infoText);
 		return true;
 	}
 
 	@Override
 	public boolean savePDF(PDFWriter pdf) {
-		return pdf.writeText(infoText,11,false,25);
+		if (!pdf.writeStyledText(infoText)) return false;
+		pdf.writeStyledParSkip();
+		return true;
 	}
 
 	@Override

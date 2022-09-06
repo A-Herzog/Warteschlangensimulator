@@ -34,7 +34,7 @@ import systemtools.BaseDialog;
 import systemtools.GUITools;
 import systemtools.MsgBox;
 import systemtools.MsgBoxBackendTaskDialog;
-import systemtools.statistics.PDFWriter;
+import systemtools.statistics.PDFWriterBase;
 import systemtools.statistics.StatisticsBasePanel;
 import tools.SetupData;
 import ui.MainFrame;
@@ -107,7 +107,7 @@ public class Main {
 		XMLTools.xsd="Simulator.xsd";
 
 		/* Cache-Ordner für PDFWriter einstellen */
-		PDFWriter.cacheFolder=SetupData.getSetupFolder();
+		PDFWriterBase.cacheFolder=SetupData.getSetupFolder();
 
 		/* Programmname für Export */
 		Table.ExportTitle=MainFrame.PROGRAM_NAME;

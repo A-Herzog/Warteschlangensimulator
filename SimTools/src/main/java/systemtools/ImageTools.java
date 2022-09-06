@@ -25,6 +25,8 @@ import java.awt.datatransfer.Transferable;
 import java.awt.datatransfer.UnsupportedFlavorException;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
+import java.awt.image.ColorModel;
+import java.awt.image.WritableRaster;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -46,6 +48,7 @@ import mathtools.TableChart;
 import mathtools.distribution.swing.CommonVariables;
 import swingtools.ImageIOFormatCheck;
 import systemtools.statistics.PDFWriter;
+import systemtools.statistics.ReportStyle;
 import systemtools.statistics.StatisticsBasePanel;
 import systemtools.statistics.XWPFDocumentPictureTools;
 
@@ -184,6 +187,43 @@ public class ImageTools {
 	}
 
 	/**
+	 * Zeigt einen Dialog zur Auswahl eines Dateinamens zum Laden eines Bildes an
+	 * @param owner	Übergeordnetes Element (zum Ausrichten des Dialogs)
+	 * @return	Gewählter Dateiname oder <code>null</code>, wenn die Auswahl abgebrochen wurde
+	 */
+	public static File showLoadDialog(final Component owner) {
+		final JFileChooser fc=new JFileChooser();
+		CommonVariables.initialDirectoryToJFileChooser(fc);
+		fc.setDialogTitle(StatisticsBasePanel.viewersLoadImage);
+		final FileFilter jpg=new FileNameExtensionFilter(StatisticsBasePanel.fileTypeJPG+" (*.jpg, *.jpeg)","jpg","jpeg");
+		final FileFilter gif=new FileNameExtensionFilter(StatisticsBasePanel.fileTypeGIF+" (*.gif)","gif");
+		final FileFilter png=new FileNameExtensionFilter(StatisticsBasePanel.fileTypePNG+" (*.png)","png");
+		final FileFilter bmp=new FileNameExtensionFilter(StatisticsBasePanel.fileTypeBMP+" (*.bmp)","bmp");
+		final FileFilter tiff=new FileNameExtensionFilter(StatisticsBasePanel.fileTypeTIFF+" (*.tiff, *.tif)","tiff","tif");
+		fc.addChoosableFileFilter(png);
+		fc.addChoosableFileFilter(jpg);
+		fc.addChoosableFileFilter(gif);
+		fc.addChoosableFileFilter(bmp);
+		if (ImageIOFormatCheck.hasTIFF()) fc.addChoosableFileFilter(tiff);
+		fc.setFileFilter(png);
+		fc.setAcceptAllFileFilterUsed(false);
+
+		if (fc.showOpenDialog(owner)!=JFileChooser.APPROVE_OPTION) return null;
+		CommonVariables.initialDirectoryFromJFileChooser(fc);
+		File file=fc.getSelectedFile();
+
+		if (file.getName().indexOf('.')<0) {
+			if (fc.getFileFilter()==jpg) file=new File(file.getAbsoluteFile()+".jpg");
+			if (fc.getFileFilter()==gif) file=new File(file.getAbsoluteFile()+".gif");
+			if (fc.getFileFilter()==png) file=new File(file.getAbsoluteFile()+".png");
+			if (fc.getFileFilter()==bmp) file=new File(file.getAbsoluteFile()+".bmp");
+			if (fc.getFileFilter()==tiff) file=new File(file.getAbsoluteFile()+".tiff");
+		}
+
+		return file;
+	}
+
+	/**
 	 * Speichert eine Diagramm als Datei
 	 * @param owner	Übergeordnetes Element (zum Ausrichten von Meldungsfenstern)
 	 * @param chart	Zu speicherndes Diagramm
@@ -224,9 +264,9 @@ public class ImageTools {
 		}
 
 		if (s.equals("pdf")) {
-			final PDFWriter pdf=new PDFWriter(owner,15,10);
-			if (!pdf.systemOK) return false;
-			if (!pdf.writeImage(image,25)) return false;
+			final PDFWriter pdf=new PDFWriter(owner,new ReportStyle());
+			if (!pdf.isSystemOk()) return false;
+			if (!pdf.writeImageFullWidth(image)) return false;
 			return pdf.save(file);
 		}
 
@@ -264,9 +304,9 @@ public class ImageTools {
 		}
 
 		if (s.equals("pdf")) {
-			final PDFWriter pdf=new PDFWriter(owner,15,10);
-			if (!pdf.systemOK) return false;
-			if (!pdf.writeImage(image,25)) return false;
+			final PDFWriter pdf=new PDFWriter(owner,new ReportStyle());
+			if (!pdf.isSystemOk()) return false;
+			if (!pdf.writeImageFullWidth(image)) return false;
 			return pdf.save(file);
 		}
 
@@ -350,5 +390,19 @@ public class ImageTools {
 		} catch (IOException e) {
 			return "";
 		}
+	}
+
+	/**
+	 * Erstellt eine Kopie eines Bildobjektes
+	 * @param source	Ausgangs-Bildobjekt
+	 * @return	Kopie des Bildobjektes
+	 */
+	public static BufferedImage copyImage(final BufferedImage source) {
+		if (source==null) return null;
+
+		final ColorModel cm=source.getColorModel();
+		final boolean isAlphaPremultiplied=cm.isAlphaPremultiplied();
+		final WritableRaster raster=source.copyData(null);
+		return new BufferedImage(cm,raster,isAlphaPremultiplied,null);
 	}
 }

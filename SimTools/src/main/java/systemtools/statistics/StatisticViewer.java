@@ -32,8 +32,6 @@ import javax.swing.JButton;
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
 
-import org.apache.poi.xwpf.usermodel.XWPFDocument;
-
 /**
  * Das Interface <code>StatisticViewer</code> definiert Methoden um beliebige Statistikdaten
  * innerhalb eines <code>StatisticsBasePanel</code> anzuzeigen.
@@ -232,7 +230,7 @@ public interface StatisticViewer {
 	 * @param doc	Aktives docx-Dokument
 	 * @return	Liefert <code>true</code> zurück, wenn die Daten erfolgreich geschrieben werden konnten.
 	 */
-	boolean saveDOCX(XWPFDocument doc);
+	boolean saveDOCX(DOCXWriter doc);
 
 	/**
 	 * Schreibt die Daten in ein pdf-Dokument

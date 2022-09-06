@@ -108,7 +108,7 @@ public class StatisticViewerErlangCCompare extends StatisticViewerText {
 		addLine("E[NQ]="+StatisticTools.formatNumber(simulationResults.ENQ));
 		addLine("E[NS]="+StatisticTools.formatNumber(simulationResults.ENS));
 		addLine("E[N]="+StatisticTools.formatNumber(simulationResults.EN));
-		beginParagraph();
+		endParagraph();
 
 		addHeading(3,Language.tr("Statistics.ErlangCompare.Times"));
 		beginParagraph();

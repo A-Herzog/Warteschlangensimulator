@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-05 08:44+0200\n"
+"POT-Creation-Date: 2022-09-06 21:38+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20373,6 +20373,9 @@ msgstr "Diagram settings"
 msgid "Statistic.Viewer.Information"
 msgstr "Information"
 
+msgid "Statistic.Viewer.LoadImage"
+msgstr "Load image"
+
 msgid "Statistic.Viewer.MailError.Info"
 msgstr ""
 "The e-mail link\n"
@@ -20426,6 +20429,126 @@ msgstr "As linked image files (multiple image files next to the html output file
 
 msgid "Statistic.Viewer.Report.SaveHTMLImages.Inline"
 msgstr "Directly in the html file (only one output file; cannot be read by Word)"
+
+msgid "Statistic.Viewer.Report.Settings.Fonts"
+msgstr "Fonts"
+
+msgid "Statistic.Viewer.Report.Settings.Fonts.Bold"
+msgstr "bold"
+
+msgid "Statistic.Viewer.Report.Settings.Fonts.Footer"
+msgstr "Footer"
+
+msgid "Statistic.Viewer.Report.Settings.Fonts.Header"
+msgstr "Header level %d"
+
+msgid "Statistic.Viewer.Report.Settings.Fonts.ParSkip"
+msgstr "Paragraph spacing (in pt)"
+
+msgid "Statistic.Viewer.Report.Settings.Fonts.Size"
+msgstr "Font size"
+
+msgid "Statistic.Viewer.Report.Settings.Fonts.TableHeader"
+msgstr "Table header"
+
+msgid "Statistic.Viewer.Report.Settings.Fonts.TableText"
+msgstr "Table content"
+
+msgid "Statistic.Viewer.Report.Settings.Fonts.Text"
+msgstr "Text"
+
+msgid "Statistic.Viewer.Report.Settings.Footer"
+msgstr "Footer"
+
+msgid "Statistic.Viewer.Report.Settings.Footer.Date"
+msgstr "Date in footer"
+
+msgid "Statistic.Viewer.Report.Settings.Footer.PageNumber"
+msgstr "Page number in footer"
+
+msgid "Statistic.Viewer.Report.Settings.Header"
+msgstr "Header"
+
+msgid "Statistic.Viewer.Report.Settings.Header.Logo"
+msgstr "Logo in header"
+
+msgid "Statistic.Viewer.Report.Settings.Header.Logo.Alignment"
+msgstr "Alignment"
+
+msgid "Statistic.Viewer.Report.Settings.Header.Logo.Alignment.Center"
+msgstr "center"
+
+msgid "Statistic.Viewer.Report.Settings.Header.Logo.Alignment.Left"
+msgstr "left"
+
+msgid "Statistic.Viewer.Report.Settings.Header.Logo.Alignment.Right"
+msgstr "right"
+
+msgid "Statistic.Viewer.Report.Settings.Header.Logo.Load"
+msgstr "Load"
+
+msgid "Statistic.Viewer.Report.Settings.Header.Logo.Load.Hint"
+msgstr "Loads an image from file."
+
+msgid "Statistic.Viewer.Report.Settings.Header.Logo.MaxHeight"
+msgstr "Maximum height of the logo (in mm)"
+
+msgid "Statistic.Viewer.Report.Settings.Header.Logo.MaxWidth"
+msgstr "Maximum width of the logo (in mm)"
+
+msgid "Statistic.Viewer.Report.Settings.Header.Logo.Paste"
+msgstr "Paste"
+
+msgid "Statistic.Viewer.Report.Settings.Header.Logo.Paste.Hint"
+msgstr "Pastes an image from clipboard."
+
+msgid "Statistic.Viewer.Report.Settings.Header.Logo.Remove"
+msgstr "Remove"
+
+msgid "Statistic.Viewer.Report.Settings.Header.Logo.Remove.Hint"
+msgstr "Removes the images."
+
+msgid "Statistic.Viewer.Report.Settings.Header.Logo.Repeat"
+msgstr "Repeat logo on each page"
+
+msgid "Statistic.Viewer.Report.Settings.Header.Logo.Repeat.Hint"
+msgstr "If this option is disabled, the logo will be printed only on the first page."
+
+msgid "Statistic.Viewer.Report.Settings.Margins"
+msgstr "Page margins"
+
+msgid "Statistic.Viewer.Report.Settings.Margins.Bottom"
+msgstr "Bottom (in mm)"
+
+msgid "Statistic.Viewer.Report.Settings.Margins.Left"
+msgstr "Left (in mm)"
+
+msgid "Statistic.Viewer.Report.Settings.Margins.Right"
+msgstr "Right (in mm)"
+
+msgid "Statistic.Viewer.Report.Settings.Margins.Top"
+msgstr "Top (in mm)"
+
+msgid "Statistic.Viewer.Report.Settings.MenuItem"
+msgstr "Report customization..."
+
+msgid "Statistic.Viewer.Report.Settings.Reset"
+msgstr "Reset"
+
+msgid "Statistic.Viewer.Report.Settings.Reset.AllPages"
+msgstr "All pages"
+
+msgid "Statistic.Viewer.Report.Settings.Reset.ThisPage"
+msgstr "This page"
+
+msgid "Statistic.Viewer.Report.Settings.Title"
+msgstr "Edit report format"
+
+msgid "Statistic.Viewer.Report.Settings.Type.PDFandDOCX"
+msgstr "These settings are used for pdf and docx reports."
+
+msgid "Statistic.Viewer.Report.Settings.Type.PDFonly"
+msgstr "These settings are used for pdf reports only."
 
 msgid "Statistic.Viewer.Report.Workbook"
 msgstr "Save workbook"

@@ -22,6 +22,7 @@ import mathtools.NumberTools;
 import simcore.SimData;
 import simcore.logging.SimLogging;
 import systemtools.statistics.PDFWriter;
+import systemtools.statistics.ReportStyle;
 
 /**
  * Schreibt die Logging-Daten in eine PDF-Datei.
@@ -72,9 +73,9 @@ public class PDFLogger implements SimLogging {
 		String[] h;
 		if (headings==null || headings.length==0) h=new String[]{"Simulationsergebnisse"}; else h=headings;
 
-		pdf=new PDFWriter(null,15,10);
+		pdf=new PDFWriter(null,new ReportStyle());
 
-		if (pdf.systemOK) {
+		if (pdf.isSystemOk()) {
 			pdf.writeText(h[0],15,true,0);
 			for (int i=1;i<h.length;i++) pdf.writeText(h[i],12,true,0);
 		}
@@ -83,7 +84,7 @@ public class PDFLogger implements SimLogging {
 
 	@Override
 	public boolean ready() {
-		return pdf.systemOK;
+		return pdf.isSystemOk();
 	}
 
 	@Override

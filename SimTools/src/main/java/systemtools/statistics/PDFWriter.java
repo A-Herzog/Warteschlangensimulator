@@ -17,95 +17,55 @@ package systemtools.statistics;
 
 import java.awt.Color;
 import java.awt.Component;
-import java.awt.Font;
-import java.awt.FontMetrics;
-import java.awt.Graphics;
+import java.awt.Dimension;
 import java.awt.image.BufferedImage;
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
-import java.net.URISyntaxException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.imageio.ImageIO;
-import javax.xml.transform.TransformerException;
 
-import org.apache.pdfbox.pdmodel.PDDocument;
-import org.apache.pdfbox.pdmodel.PDDocumentCatalog;
-import org.apache.pdfbox.pdmodel.PDPage;
-import org.apache.pdfbox.pdmodel.PDPageContentStream;
-import org.apache.pdfbox.pdmodel.common.PDMetadata;
-import org.apache.pdfbox.pdmodel.common.PDRectangle;
 import org.apache.pdfbox.pdmodel.font.PDType1Font;
-import org.apache.pdfbox.pdmodel.graphics.color.PDOutputIntent;
-import org.apache.pdfbox.pdmodel.graphics.image.JPEGFactory;
-import org.apache.pdfbox.pdmodel.graphics.image.PDImageXObject;
-import org.apache.xmpbox.XMPMetadata;
-import org.apache.xmpbox.schema.PDFAIdentificationSchema;
-import org.apache.xmpbox.type.BadFieldValueException;
-import org.apache.xmpbox.xml.XmpSerializer;
 
 /**
  * Klasse zur Erstellung von pdf-Dateien.
- * Diese Klasse stellt nur Basisfunktionen zur Verfügung.
  * @author Alexander Herzog
  * @see org.apache.pdfbox
- * @version 1.3
  */
-public class PDFWriter {
+public class PDFWriter extends PDFWriterBase {
 	/**
-	 * PDF-Dokument
+	 * Horizontale Ausrichtung der Seitenzahl in der Fußzeile
 	 */
-	private final PDDocument doc;
+	private static final ReportStyle.ReportPosition footerPageNuberPosition=ReportStyle.ReportPosition.CENTER;
 
 	/**
-	 * Ausgabestrem für die aktuelle Seite
-	 * @see #newPage()
+	 * Horizontale Ausrichtung des Datums in der Fußzeile
 	 */
-	private PDPageContentStream contentStream;
+	private static final ReportStyle.ReportPosition footerDatePosition=ReportStyle.ReportPosition.RIGHT;
 
 	/**
-	 * Maße für die Schriftart im Normalmodus
+	 * Abstand (in pt) nach einem Bild
 	 */
-	private final FontMetrics metricsPlain;
+	private static final int imageVerticalMarginBottomPt=25;
 
 	/**
-	 * Maße für die Schriftart im Fett-Modus
+	 * Konfigurationsobjekt
 	 */
-	private final FontMetrics metricsBold;
+	private final ReportStyle style;
 
 	/**
-	 * Ordner in dem das PDF-System einen Font-Cache-Datei ablegt.
+	 * Hält die Schriftgrößen in pt vor
 	 */
-	public static File cacheFolder=getProgramFolder();
+	private final PDFFontMetrics fontMetrics;
 
 	/**
-	 * Gibt an, ob das System korrekt initialisiert werden konnte (wird vom Konstruktor gesetzt).
-	 * Wenn <code>systemOK</code> auf <code>false</code> steht, sind keine weiteren Bearbeitungen möglich.
+	 * Seitenränder in pt
 	 */
-	public final boolean systemOK;
-
-	/**
-	 * Liefert die Höhe der aktuellen Seiten in PT.
-	 */
-	protected int pageHeightPT;
-
-	/**
-	 * Liefert die Breite der aktuellen Seiten in PT.
-	 */
-	protected int pageWidthPT;
-
-	/**
-	 * Liefert den Rand oben und unten in PT.
-	 */
-	protected final int borderTopBottomPT;
-
-	/**
-	 * Liefert den Rand links und rechts in PT.
-	 */
-	protected final int borderLeftRightPT;
+	private final PDFWriterBorderPT border;
 
 	/**
 	 * Liefert die aktuelle Y-Position für die Text-Ausgabe.
@@ -113,145 +73,108 @@ public class PDFWriter {
 	protected int positionY;
 
 	/**
+	 * 1-basierte Nummer der aktuellen Seite
+	 * @see #newPage()
+	 */
+	protected int currentPageNumber;
+
+	/**
 	 * Konstruktor der Klasse <code>PDFWriterBase</code>
 	 * @param owner Übergeordnetes Element; das Element muss zum Zeitpunkt dem Aufruf dieser Methode sichtbar sein, da <code>getGraphics()</code> des <code>owner</code>-Elements aufgerufen wird.
-	 * @param borderTopBottomMM	Linker und rechter Abstand von Text zum Seitenrand in Millimetern
-	 * @param borderLeftRightMM	Oberer und unterer Abstand von Text zum Seitenrand in Millimetern
+	 * @param style	Konfigurationsobjekt
 	 */
-	public PDFWriter(final Component owner, final int borderTopBottomMM, final int borderLeftRightMM) {
-		/* Verzeichnis für ".pdfbox.cache"-Datei - lässt sich leider nicht komplett abschalten. */
-		System.setProperty("pdfbox.fontcache",cacheFolder.toString());
+	public PDFWriter(final Component owner, final ReportStyle style) {
+		this.style=(style==null)?new ReportStyle():new ReportStyle(style);
 
-		/* Rand in PT speichern */
-		borderTopBottomPT=(int)Math.round(borderTopBottomMM/25.4*72);
-		borderLeftRightPT=(int)Math.round(borderLeftRightMM/25.4*72);
-
-		/* Dokument erstellen */
-		doc=new PDDocument();
-
-		/* In etwa passende AWT-Fonts laden zur späteren Berechnung der Breite von Texten */
-		Graphics g=null;
-		if (owner!=null) g=owner.getGraphics();
-
-		/* Wenn wir ohne Bildschirmausgabe laufen */
-		if (g==null) {
-			BufferedImage offscreenImage=new BufferedImage(10,10,BufferedImage.TYPE_INT_BGR);
-			g=offscreenImage.getGraphics();
-		}
-
-		if (g!=null) {
-			metricsPlain=g.getFontMetrics(new Font(Font.SANS_SERIF,Font.PLAIN,100));
-			metricsBold=g.getFontMetrics(new Font(Font.SANS_SERIF,Font.BOLD,100));
-		} else {
-			metricsPlain=null;
-			metricsBold=null;
-		}
+		/* Schriftgrößen bestimmen */
+		fontMetrics=new PDFFontMetrics(owner);
 
 		/* Schriftarten ok? */
-		systemOK=(metricsPlain!=null && metricsBold!=null);
+		systemOK=fontMetrics.systemOK;
+
+		/* Rand in PT speichern */
+		border=new PDFWriterBorderPT(style);
 
 		/* Erste Seite anlegen */
 		newPage();
 	}
 
 	/**
-	 * Liefert wenn möglich das Programmverzeichnis (in dem sich die jar-Datei befindet), sonst
-	 * das Nutzerverzeichnis.<br>
-	 * (Um einen Speicherort für die pdf-Font-Cache festzulegen.)
-	 * @return	Programmverzeichnis oder als Fallback das Nutzerverzeichnis
-	 */
-	private static File getProgramFolder() {
-		try {
-			final File source=new File(PDFWriter.class.getProtectionDomain().getCodeSource().getLocation().toURI());
-			if (source.toString().toLowerCase().endsWith(".jar")) return new File(source.getParent());
-		} catch (URISyntaxException e1) {}
-		return new File(System.getProperty("user.dir"));
-	}
-
-	/**
 	 * Beginnt eine neue Seite im Dokument.
 	 */
-	protected void newPage() {
-		if (!systemOK) return;
-		donePage();
+	@Override
+	protected boolean newPage() {
+		if (!super.newPage()) return false;
 
-		PDPage page=new PDPage(PDRectangle.A4);
-		doc.addPage(page);
+		positionY=pageHeightPT-border.top;
+		currentPageNumber++;
 
-		pageHeightPT=Math.round(page.getMediaBox().getUpperRightY());
-		pageWidthPT=Math.round(page.getMediaBox().getUpperRightX());
-		positionY=pageHeightPT-borderTopBottomPT;
-
-		try {contentStream=new PDPageContentStream(doc,page);} catch (IOException e) {contentStream=null; /* Für FindBugs. */}
-	}
-
-	/**
-	 * Beendet die aktuelle Seite.
-	 * Wird implizit von {@link #newPage()} und {@link #save(File)}
-	 * automatisch aufgerufen.
-	 * @see #newPage()
-	 * @see #save(File)
-	 */
-	private void donePage() {
-		if (contentStream!=null) {
-			try {contentStream.close();} catch (IOException e) {contentStream=null; /* Für FindBugs. */}
-			contentStream=null;
+		if (style.logo!=null && (currentPageNumber==1 || style.logoRepeat)) {
+			return writeImage(style.logo,style.logoPosition,positionY,style.logoMaxWidthMM,style.logoMaxHeightMM,imageVerticalMarginBottomPt);
+		} else {
+			return true;
 		}
 	}
 
 	/**
-	 * Speichert die pdf-Daten in einer Datei.
-	 * Nach dem Aufruf von save darf das Objekt nicht weiter verwendet werden.
-	 * @param file	Dateiname, in der die pdf-Daten gespeichert werden sollen.
-	 * @return	Gibt <code>true</code> zurück, wenn die Daten erfolgreich geschrieben werden konnten.
+	 * Liefert basierend auf Schriftfamilie und fett/nicht fett Status die zugehörige PDF-Schriftfamilie
+	 * @param font	Schriftart
+	 * @return	PDF-Schriftfamilie
 	 */
-	public boolean save(File file) {
-		if (!systemOK) return false;
-		donePage();
-
-		PDDocumentCatalog cat=doc.getDocumentCatalog();
-		PDMetadata metadata=new PDMetadata(doc);
-		cat.setMetadata(metadata);
-
-		XMPMetadata xmp=XMPMetadata.createXMPMetadata();
-		try {
-			PDFAIdentificationSchema pdfaid=xmp.createAndAddPFAIdentificationSchema();
-			pdfaid.setConformance("B");
-			pdfaid.setPart(1);
-			pdfaid.setAboutAsSimple("");
-			XmpSerializer serializer=new XmpSerializer();
-			ByteArrayOutputStream baos=new ByteArrayOutputStream();
-			serializer.serialize(xmp,baos,false);
-			metadata.importXMPMetadata(baos.toByteArray());
-		} catch(BadFieldValueException | TransformerException | IOException e){return false;}
-
-		try (InputStream colorProfile=PDFWriter.class.getResourceAsStream("res/sRGB Color Space Profile.icm")) {
-
-			PDOutputIntent oi;
-			try {oi=new PDOutputIntent(doc,colorProfile);} catch (Exception e) {return false;}
-			oi.setInfo("sRGB IEC61966-2.1");
-			oi.setOutputCondition("sRGB IEC61966-2.1");
-			oi.setOutputConditionIdentifier("sRGB IEC61966-2.1");
-			oi.setRegistryName("http://www.color.org");
-			cat.addOutputIntent(oi);
-
-			try {doc.save(file);} catch (IOException e) {return false;}
-
-			try {doc.close();} catch (IOException e) {}
-		} catch (IOException e1) {return false;}
-		return true;
+	private PDType1Font getPDFFontFamily(final ReportStyle.ReportFont font) {
+		switch (font.family) {
+		case SANS_SERIF: return font.bold?PDType1Font.HELVETICA_BOLD:PDType1Font.HELVETICA;
+		case SERIF: return font.bold?PDType1Font.TIMES_BOLD:PDType1Font.TIMES_ROMAN;
+		case TYPEWRITER: return font.bold?PDType1Font.COURIER_BOLD:PDType1Font.COURIER;
+		default: return font.bold?PDType1Font.HELVETICA_BOLD:PDType1Font.HELVETICA;
+		}
 	}
 
 	/**
-	 * Liefert die Breite einer Zeichenkette in PT.
-	 * @param text	Zeichenkette, deren Breite bestimmt werden soll
-	 * @param fontSize	Schriftgröße in PT
-	 * @param fontBold	Gibt an, ob die Schrift fett oder normal ausgegeben werden soll.
-	 * @return	Per AWT-Font geschätzte Breite der Zeichenkette
+	 * Gibt ein einfaches Textobjekt aus.
+	 * @param text	Auszugebender Text
+	 * @param font	Schriftart
+	 * @param x	x-Koordinate für das Textobjekt
+	 * @param y	y-Koordinate für das Textobjekt
+	 * @param color	Gibt optional (d.h. kann auch <code>null</code> sein) eine Textfarbe an
+	 * @return	Gibt <code>true</code> zurück, wenn das Text-Objekt erfolgreich in die pdf eingefügt werden konnte
 	 */
-	protected int getTextWidth(String text, int fontSize, boolean fontBold) {
-		if (!systemOK) return 0;
-		return (int)Math.round((double)(fontBold?metricsBold:metricsPlain).stringWidth(text)*fontSize/100);
+	private boolean writeTextObject(final String text, final ReportStyle.ReportFont font, final int x, final int y, final Color color) {
+		return writeTextObject(text,font.size,getPDFFontFamily(font),x,y,color);
+	}
+
+	/**
+	 * Gibt ein einfaches Textobjekt aus.
+	 * @param text	Auszugebender Text
+	 * @param font	Schriftart
+	 * @param align	Horizontale Ausrichtung der Textzeile
+	 * @param y	y-Koordinate für das Textobjekt
+	 * @param color	Gibt optional (d.h. kann auch <code>null</code> sein) eine Textfarbe an
+	 * @return	Gibt <code>true</code> zurück, wenn das Text-Objekt erfolgreich in die pdf eingefügt werden konnte
+	 */
+	private boolean writeTextObject(final String text, final ReportStyle.ReportFont font, final ReportStyle.ReportPosition align, final int y, final Color color) {
+		final int w=fontMetrics.getTextWidth(text,font);
+		final int x;
+
+		switch (align) {
+		case LEFT: x=border.left; break;
+		case CENTER: x=pageWidthPT/2-w/2; break;
+		case RIGHT: x=pageWidthPT-border.right-w; break;
+		default: x=border.left; break;
+		}
+		return writeTextObject(text,font,x,y,color);
+	}
+
+	@Override
+	protected void outputPageFooter() {
+		if (style.footerPageNumbers) {
+			final String text=""+currentPageNumber;
+			writeTextObject(text,style.footerFont,footerPageNuberPosition,border.bottom,null);
+		}
+		if (style.footerDate) {
+			final String text=LocalDateTime.now().format(DateTimeFormatter.ofLocalizedDate(FormatStyle.SHORT));
+			writeTextObject(text,style.footerFont,footerDatePosition,border.bottom,null);
+		}
 	}
 
 	/**
@@ -263,7 +186,7 @@ public class PDFWriter {
 	 * @param forceWidth	Umbruch nur an Leerzeichen oder zur Not (um <code>maxWidth</code> einzuhalten) auch mitten im Wort
 	 * @return	Text in Form von einzelnen Zeilen
 	 */
-	protected String[] splitLine(String[] text, int fontSize, boolean fontBold, int maxWidth, boolean forceWidth) {
+	private String[] splitLine(String[] text, int fontSize, boolean fontBold, int maxWidth, boolean forceWidth) {
 		final List<String> output=new ArrayList<>();
 		for (int i=0;i<text.length;i++) {
 			String[] lines=text[i].split("\n");
@@ -272,7 +195,7 @@ public class PDFWriter {
 				while (!rest.isEmpty()) {
 					String line=rest;
 					rest="";
-					while (getTextWidth(line,fontSize,fontBold)>maxWidth) {
+					while (fontMetrics.getTextWidth(line,fontSize,fontBold)>maxWidth) {
 						int k=line.lastIndexOf(' ');
 						if (k==-1) {
 							if (!forceWidth) break;
@@ -292,13 +215,13 @@ public class PDFWriter {
 	}
 
 	/**
-	 * Gibt an, wie viele PT für Buchstabenbereiche unter der Basislinie pro Zeile hinzugefügt werden müssen.
-	 * @param fontSize	Schriftgröße in PT
-	 * @param fontBold	Gibt an, ob die Schrift fett oder normal ausgegeben werden soll.
-	 * @return Anzahl an PT, die pro Zeile auf die Schriftgröße aufaddiert werden müssen.
+	 * Gibt die auf der aktuellen Seite noch verfügbare Höhe zurück.
+	 * @return	Noch verfügbare Höhe in pt
 	 */
-	protected int getDescent(int fontSize, boolean fontBold) {
-		return (int)Math.round((fontBold?metricsBold:metricsPlain).getDescent()/100.0*fontSize);
+	private int availableHeight() {
+		if (!systemOK) return 0;
+		final int footer=(style.footerPageNumbers || style.footerDate)?fontMetrics.getLineHeight(style.footerFont):0;
+		return Math.max(0,positionY-footer-border.bottom);
 	}
 
 	/**
@@ -308,9 +231,20 @@ public class PDFWriter {
 	 * @param lines	Gibt an, wie viele Zeilen noch auf die Seite passen sollen.
 	 * @return	Gibt <code>true</code> zurück, wenn die Zeile nicht mehr auf die Seite passt, also eine neue Seite benötigt wird.
 	 */
-	protected boolean newPageNeeded(int fontSize, boolean fontBold, int lines) {
+	private boolean newPageNeeded(final int fontSize, final boolean fontBold, final int lines) {
 		if (!systemOK) return false;
-		return positionY<=borderTopBottomPT+(fontSize+getDescent(fontSize,fontBold))*lines;
+		return availableHeight()<fontMetrics.getLineHeight(fontSize,fontBold)*lines;
+	}
+
+	/**
+	 * Gibt an, ob eine weitere Zeile in einer bestimmten Schriftgröße auf die Seite passt (unter Einhaltung der angegebenen Ränder).
+	 * @param font	Schriftart
+	 * @param lines	Gibt an, wie viele Zeilen noch auf die Seite passen sollen.
+	 * @return	Gibt <code>true</code> zurück, wenn die Zeile nicht mehr auf die Seite passt, also eine neue Seite benötigt wird.
+	 */
+	private boolean newPageNeeded(final ReportStyle.ReportFont font, final int lines) {
+		if (!systemOK) return false;
+		return availableHeight()<fontMetrics.getLineHeight(font)*lines;
 	}
 
 	/**
@@ -323,28 +257,50 @@ public class PDFWriter {
 	 * @param textColor	Gibt optional (d.h. kann auch <code>null</code> sein) eine Textfarbe an
 	 * @return	Gibt <code>true</code> zurück, wenn das Text-Objekt erfolgreich in die pdf eingefügt werden konnte
 	 */
-	protected boolean writeTextObject(String text, int fontSize, boolean fontBold,int lineSeparation, int additionalIndent, Color textColor) {
-		if (!systemOK) return false;
+	private boolean writeText(final String text, final int fontSize, final boolean fontBold, final int lineSeparation, final int additionalIndent, final Color textColor) {
+		if (!writeTextObject(text,fontSize,fontBold,border.left+additionalIndent,positionY,textColor)) return false;
+		positionY-=(fontMetrics.getLineHeight(fontSize,fontBold)+lineSeparation);
+		return true;
+	}
 
-		try {
-			contentStream.beginText();
-			contentStream.setFont(fontBold?PDType1Font.HELVETICA_BOLD:PDType1Font.HELVETICA,fontSize);
-			contentStream.newLineAtOffset(borderLeftRightPT+additionalIndent,positionY-fontSize);
-			if (textColor!=null) contentStream.setNonStrokingColor(textColor);
-			contentStream.showText(text);
-			contentStream.endText();
-			contentStream.saveGraphicsState();
-		} catch (IOException e) {return false;}
-
-		positionY-=(fontSize+getDescent(fontSize,fontBold)+lineSeparation);
-
+	/**
+	 * Gibt ein einfaches Textobjekt (ohne Zeilenumbrüche und ohne Berücksichtigung der Ränder) aus.
+	 * @param text	Auszugebender Text
+	 * @param font	Schriftart
+	 * @param additionalIndent	Gibt an, um wie viele PT des Textobjekt zusätzlich von links eingerückt werden soll
+	 * @param textColor	Gibt optional (d.h. kann auch <code>null</code> sein) eine Textfarbe an
+	 * @return	Gibt <code>true</code> zurück, wenn das Text-Objekt erfolgreich in die pdf eingefügt werden konnte
+	 */
+	private boolean writeText(final String text, final ReportStyle.ReportFont font, final int additionalIndent, final Color textColor) {
+		if (!writeTextObject(text,font,border.left+additionalIndent,positionY,textColor)) return false;
+		positionY-=fontMetrics.getLineHeight(font);
 		return true;
 	}
 
 	/**
 	 * Gibt mehrere einfache Textobjekte (ohne Zeilenumbrüche und ohne Berücksichtigung der Ränder) untereinander aus.
 	 * Nötigenfalls werden Seitenumbrüche eingefügt.
-	 * @param lines	Auszugebendee Zeilen
+	 * @param lines	Auszugebende Zeilen
+	 * @param font	Schriftart
+	 * @param additionalIndent	Gibt an, um wie viele PT des Textobjekt zusätzlich von links eingerückt werden soll
+	 * @param textColor	Gibt optional (d.h. kann auch <code>null</code> sein) eine Textfarbe an
+	 * @return	Gibt <code>true</code> zurück, wenn die Text-Objekte erfolgreich in die pdf eingefügt werden konnten
+	 */
+	private boolean writeText(final String[] lines, final ReportStyle.ReportFont font, final int additionalIndent, final Color textColor) {
+		final ReportStyle.ReportFont fontNoLineSkip=new ReportStyle.ReportFont(font);
+		fontNoLineSkip.lineSeparation=0;
+
+		for (int i=0;i<lines.length;i++) {
+			if (newPageNeeded(font,1)) newPage();
+			if (!writeText(lines[i],(i==lines.length-1)?font:fontNoLineSkip,additionalIndent,textColor)) return false;
+		}
+		return true;
+	}
+
+	/**
+	 * Gibt mehrere einfache Textobjekte (ohne Zeilenumbrüche und ohne Berücksichtigung der Ränder) untereinander aus.
+	 * Nötigenfalls werden Seitenumbrüche eingefügt.
+	 * @param lines	Auszugebende Zeilen
 	 * @param fontSize	Schriftgröße in PT
 	 * @param fontBold	Gibt an, ob die Schrift fett oder normal ausgegeben werden soll.
 	 * @param lineSeparation	Zugehörige Anzahl an PT, um die die Y-Position nach der letzten Zeile verschoben werden soll
@@ -352,44 +308,93 @@ public class PDFWriter {
 	 * @param textColor	Gibt optional (d.h. kann auch <code>null</code> sein) eine Textfarbe an
 	 * @return	Gibt <code>true</code> zurück, wenn die Text-Objekte erfolgreich in die pdf eingefügt werden konnten
 	 */
-	protected boolean writeTextObjects(String[] lines, int fontSize, boolean fontBold, int lineSeparation, int additionalIndent, Color textColor) {
+	private boolean writeText(final String[] lines, final int fontSize, final boolean fontBold, final int lineSeparation, final int additionalIndent, final Color textColor) {
 		for (int i=0;i<lines.length;i++) {
 			if (newPageNeeded(fontSize,fontBold,1)) newPage();
-			if (!writeTextObject(lines[i],fontSize,fontBold,(i==lines.length-1)?lineSeparation:0,additionalIndent,textColor)) return false;
+			if (!writeText(lines[i],fontSize,fontBold,(i==lines.length-1)?lineSeparation:0,additionalIndent,textColor)) return false;
 		}
 		return true;
 	}
 
 	/**
-	 * Zeichnet eine Linie
-	 * @param x1	Start-X-Koordinate (in PT)
-	 * @param y1	Start-Y-Koordinate (in PT)
-	 * @param x2	End-X-Koordinate (in PT)
-	 * @param y2	End-Y-Koordinate (in PT)
-	 * @param lineWidthMM	Linienbreite (in MM)
-	 * @param color	Farbe der Linie
-	 * @return	Gibt <code>true</code> zurück, wenn die Linie erfolgreich in die pdf eingefügt werden konnte
+	 * Gibt eine Überschrift unter Verwendung der Style-Konfiguration aus.
+	 * @param text	Auszugebender Text
+	 * @param level	Level der Überschrift (1-3)
+	 * @param additionalIndent	Zusätzliche Einrückung
+	 * @param textColor	Gibt optional (d.h. kann auch <code>null</code> sein) eine Textfarbe an
+	 * @return	Gibt <code>true</code> zurück, wenn das Text-Objekt erfolgreich in die pdf eingefügt werden konnte
 	 */
-	protected boolean drawLine(float x1, float y1, float x2, float y2, float lineWidthMM, Color color) {
-		if (!systemOK) return false;
+	public boolean writeStyledHeading(final String text, int level, final int additionalIndent, final Color textColor) {
+		level=Math.max(1,Math.min(style.headingFont.length,level));
 
-		try {
-			contentStream.setLineWidth((float) (lineWidthMM/25.4*72));
-			contentStream.setNonStrokingColor(color);
-			contentStream.setStrokingColor(color);
-			contentStream.moveTo(x1,y1);
-			contentStream.lineTo(x2,y2);
-			contentStream.stroke();
-		} catch (IOException e) {return false;}
+		final ReportStyle.ReportFont baseFont=style.headingFont[level-1];
+		final ReportStyle.ReportFont baseFontNoLineSkip=new ReportStyle.ReportFont(baseFont);
+		baseFontNoLineSkip.lineSeparation=0;
+
+		final String[] lines=splitLine(new String[]{text},baseFont.size,baseFont.bold,pageWidthPT-border.left-border.right,true);
+		for (int i=0;i<lines.length;i++) {
+			final ReportStyle.ReportFont font=(i==lines.length-1)?baseFont:baseFontNoLineSkip;
+			if (newPageNeeded(font,1)) newPage();
+			if (!writeText(lines[i],font,additionalIndent,textColor)) return false;
+		}
 
 		return true;
+	}
+
+	/**
+	 * Gibt eine Überschrift unter Verwendung der Style-Konfiguration aus.
+	 * @param text	Auszugebender Text
+	 * @param level	Level der Überschrift (1-3)
+	 * @return	Gibt <code>true</code> zurück, wenn das Text-Objekt erfolgreich in die pdf eingefügt werden konnte
+	 */
+	public boolean writeStyledHeading(final String text, int level) {
+		return writeStyledHeading(text,level,0,null);
+	}
+
+	/**
+	 * Gibt einen Text unter Verwendung der Style-Konfiguration aus.
+	 * @param text	Auszugebender Text
+	 * @param additionalIndent	Zusätzliche Einrückung
+	 * @param textColor	Gibt optional (d.h. kann auch <code>null</code> sein) eine Textfarbe an
+	 * @return	Gibt <code>true</code> zurück, wenn das Text-Objekt erfolgreich in die pdf eingefügt werden konnte
+	 */
+	public boolean writeStyledText(final String text, final int additionalIndent, final Color textColor) {
+		final ReportStyle.ReportFont baseFont=style.textFont;
+
+		final ReportStyle.ReportFont baseFontNoLineSkip=new ReportStyle.ReportFont(baseFont);
+		baseFontNoLineSkip.lineSeparation=0;
+
+		final String[] lines=splitLine(new String[]{text},baseFont.size,baseFont.bold,pageWidthPT-border.left-border.right,true);
+		for (int i=0;i<lines.length;i++) {
+			final ReportStyle.ReportFont font=(i==lines.length-1)?baseFont:baseFontNoLineSkip;
+			if (newPageNeeded(font,1)) newPage();
+			if (!writeText(lines[i],font,additionalIndent,textColor)) return false;
+		}
+
+		return true;
+	}
+
+	/**
+	 * Gibt einen Text unter Verwendung der Style-Konfiguration aus.
+	 * @param text	Auszugebender Text
+	 * @return	Gibt <code>true</code> zurück, wenn das Text-Objekt erfolgreich in die pdf eingefügt werden konnte
+	 */
+	public boolean writeStyledText(final String text) {
+		return writeStyledText(text,0,null);
+	}
+
+	/**
+	 * Gibt einen Absatz-Abstand unter Verwendung der Style-Konfiguration aus.
+	 */
+	public void writeStyledParSkip() {
+		positionY-=style.parSkip;
 	}
 
 	/**
 	 * Fügt etwas Abstand unter der aktuellen Ausgabe ein.
 	 * @param lineSeparation	Einzufügender Abstand in PT
 	 */
-	public void writeEmptySpace(int lineSeparation) {
+	public void writeEmptySpace(final int lineSeparation) {
 		positionY-=lineSeparation;
 	}
 
@@ -401,22 +406,9 @@ public class PDFWriter {
 	 * @param lineSeparation	Gibt an, wie viele Punkte nach der Textzeile Abstand gehalten werden sollen.
 	 * @return	Gibt <code>true</code> zurück, wenn die Daten erfolgreich in die pdf aufgenommen werden konnten.
 	 */
-	public boolean writeText(String text, int fontSize, boolean fontBold, int lineSeparation) {
-		String[] lines=splitLine(new String[]{text},fontSize,fontBold,pageWidthPT-2*borderLeftRightPT,true);
-		return writeTextObjects(lines,fontSize,fontBold,lineSeparation,0,null);
-	}
-
-	/**
-	 * Gibt eine Zeichenkette aus, die wenn nötig umgebrochen wird.
-	 * @param text	Auszugebende Zeichenkette
-	 * @param fontSize	Schriftgröße in PT
-	 * @param fontBold	Gibt an, ob die Schrift fett oder normal ausgegeben werden soll.
-	 * @param lineSeparation	Gibt an, wie viele Punkte nach der Textzeile Abstand gehalten werden sollen.
-	 * @return	Gibt <code>true</code> zurück, wenn die Daten erfolgreich in die pdf aufgenommen werden konnten.
-	 */
-	public boolean writeText(String[] text, int fontSize, boolean fontBold, int lineSeparation) {
-		String[] lines=splitLine(text,fontSize,fontBold,pageWidthPT-2*borderLeftRightPT,true);
-		return writeTextObjects(lines,fontSize,fontBold,lineSeparation,0,null);
+	public boolean writeText(final String text, final int fontSize, final boolean fontBold, final int lineSeparation) {
+		final String[] lines=splitLine(new String[]{text},fontSize,fontBold,pageWidthPT-border.left-border.right,true);
+		return writeText(lines,fontSize,fontBold,lineSeparation,0,null);
 	}
 
 	/**
@@ -428,49 +420,20 @@ public class PDFWriter {
 	 * @param textColor	Gibt optional (d.h. kann auch <code>null</code> sein) eine Textfarbe an
 	 * @return	Gibt <code>true</code> zurück, wenn die Daten erfolgreich in die pdf aufgenommen werden konnten.
 	 */
-	public boolean writeText(String text, int fontSize, boolean fontBold, int lineSeparation, Color textColor) {
-		String[] lines=splitLine(new String[]{text},fontSize,fontBold,pageWidthPT-2*borderLeftRightPT,true);
-		return writeTextObjects(lines,fontSize,fontBold,lineSeparation,0,textColor);
-	}
-
-	/**
-	 * Gibt eine Zeichenkette aus, die wenn nötig umgebrochen wird.
-	 * @param text	Auszugebende Zeichenkette
-	 * @param fontSize	Schriftgröße in PT
-	 * @param fontBold	Gibt an, ob die Schrift fett oder normal ausgegeben werden soll.
-	 * @param lineSeparation	Gibt an, wie viele Punkte nach der Textzeile Abstand gehalten werden sollen.
-	 * @param textColor	Gibt optional (d.h. kann auch <code>null</code> sein) eine Textfarbe an
-	 * @return	Gibt <code>true</code> zurück, wenn die Daten erfolgreich in die pdf aufgenommen werden konnten.
-	 */
-	public boolean writeText(String[] text, int fontSize, boolean fontBold, int lineSeparation, Color textColor) {
-		String[] lines=splitLine(text,fontSize,fontBold,pageWidthPT-2*borderLeftRightPT,true);
-		return writeTextObjects(lines,fontSize,fontBold,lineSeparation,0,textColor);
-	}
-
-	/**
-	 * Gibt eine Zeichenkette aus, die wenn nötig umgebrochen wird.
-	 * @param text	Auszugebende Zeichenkette
-	 * @param fontSize	Schriftgröße in PT
-	 * @param fontBold	Gibt an, ob die Schrift fett oder normal ausgegeben werden soll.
-	 * @param lineSeparation	Gibt an, wie viele Punkte nach der Textzeile Abstand gehalten werden sollen.
-	 * @return	Gibt <code>true</code> zurück, wenn die Daten erfolgreich in die pdf aufgenommen werden konnten.
-	 */
-	public boolean writeText(List<String> text, int fontSize, boolean fontBold, int lineSeparation) {
-		for (int i=0;i<text.size();i++) if (!writeText(text.get(i),fontSize,fontBold,(i==text.size()-1)?lineSeparation:0)) return false;
-		return true;
+	public boolean writeText(final String text, final int fontSize, final boolean fontBold, final int lineSeparation, final Color textColor) {
+		final String[] lines=splitLine(new String[]{text},fontSize,fontBold,pageWidthPT-border.left-border.right,true);
+		return writeText(lines,fontSize,fontBold,lineSeparation,0,textColor);
 	}
 
 	/**
 	 * Gibt eine Tabellenzeile aus (inkl. Rahmen um die Zellen).
 	 * Die Spaltenbreiten werden dabei gleich verteilt, allerdings ist die erste Spalte doppelt so breit, wie die anderen.
 	 * @param text	Zeichenketten für die einzelnen Spalten.
-	 * @param fontSize	Schriftgröße in PT
-	 * @param fontBold	Gibt an, ob die Schrift fett oder normal ausgegeben werden soll.
-	 * @param lineSeparation	Gibt an, wie viele Punkte nach der Zeile an zusätzlichem Abstand eingefügt werden sollen.
+	 * @param font	Schriftart
 	 * @return	Gibt <code>true</code> zurück, wenn die Daten erfolgreich in die pdf aufgenommen werden konnten.
 	 */
-	public boolean writeTableLine(String[] text, int fontSize, boolean fontBold, int lineSeparation) {
-		int contentAreaWidthPT=pageWidthPT-2*borderLeftRightPT;
+	private boolean writeTableLine(final String[] text, final ReportStyle.ReportFont font) {
+		int contentAreaWidthPT=pageWidthPT-border.left-border.right;
 
 		final float lineWidthMM=0.1f;
 		final Color lineColor=Color.BLACK;
@@ -479,44 +442,51 @@ public class PDFWriter {
 		int maxLines=0;
 		for (int i=0;i<text.length;i++) {
 			int colWidth=(int)Math.round((double)contentAreaWidthPT*((i==0)?2:1)/(text.length+1));
-			String[] lines=splitLine(new String[]{text[i]},fontSize,fontBold,colWidth,true);
+			String[] lines=splitLine(new String[]{text[i]},font.size,font.bold,colWidth,true);
 			cols.add(lines);
 			maxLines=Math.max(maxLines,lines.length);
 		}
 
-		if (newPageNeeded(fontSize,fontBold,maxLines)) newPage();
+		if (newPageNeeded(font,maxLines)) newPage();
 
 		int indent=0;
 		int storePositionY=positionY;
 		int minPositionY=positionY;
 		for (int i=0;i<cols.size();i++) {
 			int colWidth=(int)Math.round((double)contentAreaWidthPT*((i==0)?2:1)/(text.length+1));
-			if (!writeTextObjects(cols.get(i),fontSize,fontBold,lineSeparation,indent,null)) return false;
-			if (!drawLine(borderLeftRightPT+indent,storePositionY,borderLeftRightPT+indent,storePositionY-maxLines*(fontSize+getDescent(fontSize,fontBold)),lineWidthMM,lineColor)) return false;
+			if (!writeText(cols.get(i),font,indent,null)) return false;
+			if (!drawLine(border.left+indent,storePositionY,border.left+indent,storePositionY-maxLines*(font.size+fontMetrics.getDescent(font)),lineWidthMM,lineColor)) return false;
 			indent+=colWidth;
 			if (i==cols.size()-1) {
-				if (!drawLine(borderLeftRightPT+indent,storePositionY,borderLeftRightPT+indent,storePositionY-maxLines*(fontSize+getDescent(fontSize,fontBold)),lineWidthMM,lineColor)) return false;
+				if (!drawLine(border.left+indent,storePositionY,border.left+indent,storePositionY-maxLines*(font.size+fontMetrics.getDescent(font)),lineWidthMM,lineColor)) return false;
 			}
 			minPositionY=Math.min(minPositionY,positionY);
 			if (i<cols.size()-1) positionY=storePositionY; else positionY=minPositionY;
 		}
-		if (!drawLine(borderLeftRightPT,storePositionY,borderLeftRightPT+indent,storePositionY,lineWidthMM,lineColor)) return false;
-		if (!drawLine(borderLeftRightPT,storePositionY-maxLines*(fontSize+getDescent(fontSize,fontBold)),borderLeftRightPT+indent,storePositionY-maxLines*(fontSize+getDescent(fontSize,fontBold)),lineWidthMM,lineColor)) return false;
+		if (!drawLine(border.left,storePositionY,border.left+indent,storePositionY,lineWidthMM,lineColor)) return false;
+		if (!drawLine(border.left,storePositionY-maxLines*(font.size+fontMetrics.getDescent(font)),border.left+indent,storePositionY-maxLines*(font.size+fontMetrics.getDescent(font)),lineWidthMM,lineColor)) return false;
 
 		return true;
 	}
 
 	/**
-	 * Gibt eine Tabellenzeile aus (inkl. Rahmen um die Zellen).
-	 * Die Spaltenbreiten werden dabei gleich verteilt, allerdings ist die erste Spalte doppelt so breit, wie die anderen.
-	 * @param text	Zeichenketten für die einzelnen Spalten.
-	 * @param fontSize	Schriftgröße in PT
-	 * @param fontBold	Gibt an, ob die Schrift fett oder normal ausgegeben werden soll.
-	 * @param lineSeparation	Gibt an, wie viele Punkte nach der Zeile an zusätzlichem Abstand eingefügt werden sollen.
+	 * Gibt eine Tabellenüberschriftzeile aus.
+	 * @param text	Zellen in der Tabellen Zeile
 	 * @return	Gibt <code>true</code> zurück, wenn die Daten erfolgreich in die pdf aufgenommen werden konnten.
 	 */
-	public boolean writeTableLine(List<String> text, int fontSize, boolean fontBold, int lineSeparation) {
-		return writeTableLine(text.toArray(new String[0]),fontSize,fontBold,lineSeparation);
+	public boolean writeStyledTableHeader(final List<String> text) {
+		return writeTableLine(text.toArray(new String[0]),style.tableHeadingFont);
+	}
+
+	/**
+	 * Gibt eine Tabelleninhaltszeile aus.
+	 * @param text	Zellen in der Tabellen Zeile
+	 * @param isLastLine	Handelt es sich um die letzte Zeile der Tabelle?
+	 * @return	Gibt <code>true</code> zurück, wenn die Daten erfolgreich in die pdf aufgenommen werden konnten.
+	 */
+	public boolean writeStyledTableLine(final List<String> text, final boolean isLastLine) {
+		final ReportStyle.ReportFont font=isLastLine?style.tableLastLineTextFont:style.tableTextFont;
+		return writeTableLine(text.toArray(new String[0]),font);
 	}
 
 	/**
@@ -525,18 +495,89 @@ public class PDFWriter {
 	 * @param lineSeparation	Abstand in PT, der unter dem Bild eingefügt werden soll
 	 * @return	Gibt <code>true</code> zurück, wenn das Bild erfolgreich in die pdf eingefügt werden konnte
 	 */
-	public boolean writeImage(BufferedImage image, int lineSeparation) {
+	public boolean writeImageFullWidth(final BufferedImage image, final int lineSeparation) {
 		if (!systemOK) return false;
 
-		int contentWidth=(pageWidthPT-2*borderLeftRightPT);
-		float neededHeight=((float)image.getHeight())/image.getWidth()*contentWidth;
-		try {
-			if (positionY<=borderTopBottomPT+neededHeight) newPage();
-			final PDImageXObject img=JPEGFactory.createFromImage(doc,image);
-			contentStream.drawImage(img,borderLeftRightPT,positionY-neededHeight,contentWidth,neededHeight);
-		} catch (IOException e) {return false;}
-		positionY-=(neededHeight+lineSeparation);
+		final int contentWidth=(pageWidthPT-border.left-border.right);
+		final float neededHeight=((float)image.getHeight())/image.getWidth()*contentWidth;
 
+		if (availableHeight()<neededHeight) newPage();
+		if (!writeImageObject(image,border.left,positionY-neededHeight,contentWidth,neededHeight)) return false;
+
+		positionY-=(neededHeight+lineSeparation);
+		return true;
+	}
+
+	/**
+	 * Schreibt das angegebene Bild in die pdf-Datei
+	 * @param image	Einzufügendes Bild
+	 * @return	Gibt <code>true</code> zurück, wenn das Bild erfolgreich in die pdf eingefügt werden konnte
+	 */
+	public boolean writeImageFullWidth(final BufferedImage image) {
+		return writeImageFullWidth(image,imageVerticalMarginBottomPt);
+
+	}
+
+	/**
+	 * Berechnet die Ausgabegröße für ein Bild.
+	 * @param image	Auszugebendes Bild
+	 * @param maxWidthMM	Maximale Breite in MM
+	 * @param maxHeightMM	Maximale Höhe in MM
+	 * @return	Größe in pt
+	 */
+	private Dimension calcImageSize(final BufferedImage image, int maxWidthMM, int maxHeightMM) {
+		if (maxWidthMM<=0) maxWidthMM=500;
+		if (maxHeightMM<=0) maxHeightMM=500;
+
+		int maxWidth=(int)Math.round(maxWidthMM/25.4*72);
+		int maxHeight=(int)Math.round(maxHeightMM/25.4*72);
+
+		final int maxContentWidth=pageWidthPT-border.left-border.right;
+		if (maxWidth>maxContentWidth) maxWidth=maxContentWidth;
+
+		final int maxContentHeight=pageHeightPT-border.top-border.bottom-((style.footerPageNumbers || style.footerDate)?fontMetrics.getLineHeight(style.footerFont):0);
+		if (maxHeight>maxContentHeight) maxHeight=maxContentHeight;
+
+		final double ratio=((double)image.getWidth())/image.getHeight();
+
+		int width;
+		int height;
+		if (maxWidth/ratio>maxHeight) {
+			height=maxHeight;
+			width=(int)Math.round(height*ratio);
+		} else {
+			width=maxWidth;
+			height=(int)Math.round(width/ratio);
+		}
+
+		return new Dimension(width,height);
+	}
+
+	/**
+	 * Schreibt das angegebene Bild in die pdf-Datei
+	 * @param image	Einzufügendes Bild
+	 * @param align	Horizontale Ausrichtung des Bildes
+	 * @param y	y-Koordinate für das Bild
+	 * @param maxWidthMM	Maximale Breite in MM
+	 * @param maxHeightMM	Maximale Höhe in MM
+	 * @param lineSeparation	Zugehörige Anzahl an PT, um die die Y-Position nach der Zeile verschoben werden soll
+	 * @return	Gibt <code>true</code> zurück, wenn das Bild erfolgreich in die pdf eingefügt werden konnte
+	 */
+	private boolean writeImage(final BufferedImage image, final ReportStyle.ReportPosition align, final int y, final int maxWidthMM, final int maxHeightMM, final int lineSeparation) {
+		if (!systemOK) return false;
+		final Dimension size=calcImageSize(image,maxWidthMM,maxHeightMM);
+
+		if (availableHeight()<size.height) newPage();
+		final int x;
+		switch (align) {
+		case LEFT: x=border.left; break;
+		case CENTER: x=pageWidthPT/2-size.width/2; break;
+		case RIGHT: x=pageWidthPT-border.right-size.width; break;
+		default: x=border.left; break;
+		}
+		if (!writeImageObject(image,x,positionY-size.height,size.width,size.height)) return false;
+
+		positionY-=(size.height+lineSeparation);
 		return true;
 	}
 
@@ -547,8 +588,8 @@ public class PDFWriter {
 	 * @param outputPDF	Ausgabe-pdf-Datei.
 	 * @return	Gibt <code>true</code> zurück, wenn die pdf erfolgreich erstellt werden konnte.
 	 */
-	public static boolean example(Component owner, File inputImage, File outputPDF) {
-		PDFWriter pdf=new PDFWriter(owner,10,15);
+	public static boolean example(final Component owner, final File inputImage, final File outputPDF) {
+		PDFWriter pdf=new PDFWriter(owner,new ReportStyle());
 		if (!pdf.systemOK) return false;
 
 		/* Text */
@@ -557,14 +598,14 @@ public class PDFWriter {
 		for (int i=1;i<100;i++) if (!pdf.writeText("Test "+i,12,false,0)) return false;
 
 		/* Tabelle */
-		if (!pdf.writeTableLine(new String[]{"Überschrift Spalte 1","Überschrift Spalte 2","Überschrift Spalte 3","Dies ist eine lange Überschrift für Spalte 4"},12,true,0)) return false;
-		if (!pdf.writeTableLine(new String[]{"Spalte 1","0123456789012345678901234567890","Spalte 3","Spalte 4"},12,false,10)) return false;
+		if (!pdf.writeTableLine(new String[]{"Überschrift Spalte 1","Überschrift Spalte 2","Überschrift Spalte 3","Dies ist eine lange Überschrift für Spalte 4"},new ReportStyle.ReportFont(12,true,0))) return false;
+		if (!pdf.writeTableLine(new String[]{"Spalte 1","0123456789012345678901234567890","Spalte 3","Spalte 4"},new ReportStyle.ReportFont(12,false,10))) return false;
 		if (!pdf.writeText("Text unter der Tabelle",12,false,2)) return false;
 
 		/* Bilder */
 		try {
 			BufferedImage image=ImageIO.read(inputImage);
-			if (!pdf.writeImage(image,10)) return false;
+			if (!pdf.writeImageFullWidth(image,10)) return false;
 		} catch (IOException e) {return false;}
 
 		return pdf.save(outputPDF);

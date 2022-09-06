@@ -111,7 +111,6 @@ import systemtools.BaseDialog;
 import systemtools.GUITools;
 import systemtools.ImageTools;
 import systemtools.MsgBox;
-import systemtools.statistics.PDFWriter;
 import systemtools.statistics.XWPFDocumentPictureTools;
 import tools.SetupData;
 import ui.EditorPanel;
@@ -1910,10 +1909,7 @@ public final class ModelSurfacePanel extends JPanel {
 		final int MAX_IMAGE_SIZE=10_000; /* Maximale Größe */
 
 		if (format.equalsIgnoreCase("pdf")) {
-			PDFWriter pdf=new PDFWriter(this,15,10);
-			if (!pdf.systemOK) return false;
-			if (!pdf.writeImage(getImage(PDF_IMAGE_SIZE,PDF_IMAGE_SIZE),25)) return false;
-			return pdf.save(file);
+			return ImageTools.saveImage(this,getImage(PDF_IMAGE_SIZE,PDF_IMAGE_SIZE),file);
 		}
 
 		if (format.equalsIgnoreCase("svg")) {

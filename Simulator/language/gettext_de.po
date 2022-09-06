@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-05 08:44+0200\n"
+"POT-Creation-Date: 2022-09-06 21:38+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20384,6 +20384,9 @@ msgstr "Diagrammeinstellungen"
 msgid "Statistic.Viewer.Information"
 msgstr "Information"
 
+msgid "Statistic.Viewer.LoadImage"
+msgstr "Bild laden"
+
 msgid "Statistic.Viewer.MailError.Info"
 msgstr ""
 "Der angegeben E-Mail-Link\n"
@@ -20437,6 +20440,126 @@ msgstr "Als verknüpfte Grafikdateien (mehrere Grafikdateien neben der html-Ausg
 
 msgid "Statistic.Viewer.Report.SaveHTMLImages.Inline"
 msgstr "Direkt in der html-Datei (insgesamt nur eine Ausgabedatei; kann von Word nicht gelesen werden)"
+
+msgid "Statistic.Viewer.Report.Settings.Fonts"
+msgstr "Schriftarten"
+
+msgid "Statistic.Viewer.Report.Settings.Fonts.Bold"
+msgstr "fett"
+
+msgid "Statistic.Viewer.Report.Settings.Fonts.Footer"
+msgstr "Fußzeile"
+
+msgid "Statistic.Viewer.Report.Settings.Fonts.Header"
+msgstr "Überschriften Ebene %d"
+
+msgid "Statistic.Viewer.Report.Settings.Fonts.ParSkip"
+msgstr "Absatzabstand (in pt)"
+
+msgid "Statistic.Viewer.Report.Settings.Fonts.Size"
+msgstr "Schriftgröße"
+
+msgid "Statistic.Viewer.Report.Settings.Fonts.TableHeader"
+msgstr "Tabellenüberschriften"
+
+msgid "Statistic.Viewer.Report.Settings.Fonts.TableText"
+msgstr "Tabelleninhalt"
+
+msgid "Statistic.Viewer.Report.Settings.Fonts.Text"
+msgstr "Text"
+
+msgid "Statistic.Viewer.Report.Settings.Footer"
+msgstr "Fußzeile"
+
+msgid "Statistic.Viewer.Report.Settings.Footer.Date"
+msgstr "Datum in Fußzeile"
+
+msgid "Statistic.Viewer.Report.Settings.Footer.PageNumber"
+msgstr "Seitennummer in Fußzeile"
+
+msgid "Statistic.Viewer.Report.Settings.Header"
+msgstr "Kopfzeile"
+
+msgid "Statistic.Viewer.Report.Settings.Header.Logo"
+msgstr "In der Kopfzeile darzustellendes Logo"
+
+msgid "Statistic.Viewer.Report.Settings.Header.Logo.Alignment"
+msgstr "Ausrichtung"
+
+msgid "Statistic.Viewer.Report.Settings.Header.Logo.Alignment.Center"
+msgstr "zentriert"
+
+msgid "Statistic.Viewer.Report.Settings.Header.Logo.Alignment.Left"
+msgstr "linksbündig"
+
+msgid "Statistic.Viewer.Report.Settings.Header.Logo.Alignment.Right"
+msgstr "rechtsbündig"
+
+msgid "Statistic.Viewer.Report.Settings.Header.Logo.Load"
+msgstr "Laden"
+
+msgid "Statistic.Viewer.Report.Settings.Header.Logo.Load.Hint"
+msgstr "Lädt ein Bild aus einer Datei."
+
+msgid "Statistic.Viewer.Report.Settings.Header.Logo.MaxHeight"
+msgstr "Maximale Höhe des Logos (in mm)"
+
+msgid "Statistic.Viewer.Report.Settings.Header.Logo.MaxWidth"
+msgstr "Maximale Breite des Logos (in mm)"
+
+msgid "Statistic.Viewer.Report.Settings.Header.Logo.Paste"
+msgstr "Einfügen"
+
+msgid "Statistic.Viewer.Report.Settings.Header.Logo.Paste.Hint"
+msgstr "Fügt ein Bild aus der Zwischenablage ein."
+
+msgid "Statistic.Viewer.Report.Settings.Header.Logo.Remove"
+msgstr "Löschen"
+
+msgid "Statistic.Viewer.Report.Settings.Header.Logo.Remove.Hint"
+msgstr "Entfernt das Logo."
+
+msgid "Statistic.Viewer.Report.Settings.Header.Logo.Repeat"
+msgstr "Logo auf jeder Seite wiederholen"
+
+msgid "Statistic.Viewer.Report.Settings.Header.Logo.Repeat.Hint"
+msgstr "Ist diese Option deaktiviert, so wird das Logo nur auf der ersten Seite ausgegeben."
+
+msgid "Statistic.Viewer.Report.Settings.Margins"
+msgstr "Seitenränder"
+
+msgid "Statistic.Viewer.Report.Settings.Margins.Bottom"
+msgstr "Unten (in mm)"
+
+msgid "Statistic.Viewer.Report.Settings.Margins.Left"
+msgstr "Links (in mm)"
+
+msgid "Statistic.Viewer.Report.Settings.Margins.Right"
+msgstr "Rechts (in mm)"
+
+msgid "Statistic.Viewer.Report.Settings.Margins.Top"
+msgstr "Oben (in mm)"
+
+msgid "Statistic.Viewer.Report.Settings.MenuItem"
+msgstr "Formateinstellungen für die Zusammenfassung..."
+
+msgid "Statistic.Viewer.Report.Settings.Reset"
+msgstr "Zurücksetzen"
+
+msgid "Statistic.Viewer.Report.Settings.Reset.AllPages"
+msgstr "Alle Dialogseiten"
+
+msgid "Statistic.Viewer.Report.Settings.Reset.ThisPage"
+msgstr "Diese Dialogseite"
+
+msgid "Statistic.Viewer.Report.Settings.Title"
+msgstr "Formateinstellungen für die Zusammenfassung bearbeiten"
+
+msgid "Statistic.Viewer.Report.Settings.Type.PDFandDOCX"
+msgstr "Diese Einstellungen werden für pdf- und docx-Zusammenfassungen verwendet."
+
+msgid "Statistic.Viewer.Report.Settings.Type.PDFonly"
+msgstr "Diese Einstellungen werden nur für pdf-Zusammenfassungen verwendet."
 
 msgid "Statistic.Viewer.Report.Workbook"
 msgstr "Arbeitsmappe speichern"

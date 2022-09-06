@@ -43,6 +43,7 @@ import statistics.StatisticsTimePerformanceIndicator;
 import statistics.StatisticsValuePerformanceIndicator;
 import systemtools.MsgBox;
 import systemtools.statistics.ChartSetup;
+import systemtools.statistics.ReportStyle;
 import systemtools.statistics.StatisticNode;
 import systemtools.statistics.StatisticViewer;
 import systemtools.statistics.StatisticsBasePanel;
@@ -2057,4 +2058,17 @@ public class StatisticsPanel extends StatisticsBasePanel {
 		if (lastRoot!=null) return lastRoot;
 		return super.getStatisticNodeRoot();
 	}
+
+	@Override
+	protected ReportStyle getReportStyle() {
+		return SetupData.getSetup().reportStyle;
+	}
+
+	@Override
+	protected void setReportStyle(final ReportStyle reportStyle) {
+		final SetupData setup=SetupData.getSetup();
+		setup.reportStyle=reportStyle;
+		setup.saveSetupWithWarning(this);
+	}
+
 }

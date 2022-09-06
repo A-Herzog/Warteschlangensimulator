@@ -46,9 +46,6 @@ import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
-import org.apache.poi.xwpf.usermodel.Document;
-import org.apache.poi.xwpf.usermodel.XWPFDocument;
-
 import mathtools.NumberTools;
 import mathtools.distribution.swing.JGetImage;
 import systemtools.ImageTools;
@@ -176,16 +173,25 @@ public class StatisticViewerImage implements StatisticViewer, Printable {
 	 * Erzeugt ein Bild für den Export.
 	 * @return	Bild für den Export
 	 * @see #save(Component, File)
-	 * @see #saveDOCX(XWPFDocument)
+	 * @see #saveDOCX(DOCXWriter)
 	 * @see #savePDF(PDFWriter)
 	 */
 	private BufferedImage getImage() {
-		if (panel==null) panelNeeded();
+		BufferedImage image;
+
+		/* Versuch 1: Bild direkt in der passenden Größe anfordern */
 		final int imageSize=getImageSize();
-		final BufferedImage image=new BufferedImage(imageSize,imageSize,BufferedImage.TYPE_INT_RGB);
+		image=getImage(imageSize,imageSize);
+		if (image!=null) return image;
+
+		/* Versuch 2: Bild über die reguläre Paint-Methode abrufen */
+		if (panel==null) panelNeeded();
+		image=new BufferedImage(imageSize,imageSize,BufferedImage.TYPE_INT_RGB);
 		final Graphics g=image.getGraphics();
 		g.setClip(0,0,imageSize,imageSize);
-		if (panel instanceof JGetImage) ((JGetImage)panel).paintToGraphics(g); else	{
+		if (panel instanceof JGetImage) {
+			((JGetImage)panel).paintToGraphics(g);
+		} else {
 			Dimension d=panel.getSize();
 			panel.setSize(imageSize,imageSize);
 			panel.paint(g);
@@ -229,6 +235,17 @@ public class StatisticViewerImage implements StatisticViewer, Printable {
 	 * @param g	{@link Graphics}-Objekt in das das Bild gezeichnet werden soll
 	 */
 	protected void paintImage(Graphics g) {}
+
+	/**
+	 * Über diese Methode kann das Bild zum Speichern optional in einem
+	 * nichtquadratischen Format bereitgestellt werden.
+	 * @param maxX	Maximale Breite
+	 * @param maxY	Maximale Höhe
+	 * @return	Liefert das Bild zurück oder <code>null</code>, wenn das Bild über die normale Paint-Routine abgerufen werden soll
+	 */
+	protected BufferedImage getImage(final int maxX, final int maxY) {
+		return null;
+	}
 
 	/**
 	 * Speichert ein Bild als png in einer Datei
@@ -326,18 +343,13 @@ public class StatisticViewerImage implements StatisticViewer, Printable {
 	}
 
 	@Override
-	public boolean saveDOCX(XWPFDocument doc) {
-		BufferedImage image=getImage();
-		try (ByteArrayOutputStream streamOut=new ByteArrayOutputStream()) {
-			try {if (!ImageIO.write(image,"png",streamOut)) return false;} catch (IOException e) {return false;}
-			if (!XWPFDocumentPictureTools.addPicture(doc,streamOut,Document.PICTURE_TYPE_PNG,image.getWidth(),image.getHeight())) return false;
-		} catch (IOException e) {return false;}
-		return true;
+	public boolean saveDOCX(DOCXWriter doc) {
+		return doc.writeImage(getImage());
 	}
 
 	@Override
 	public boolean savePDF(PDFWriter pdf) {
-		return pdf.writeImage(getImage(),25);
+		return pdf.writeImageFullWidth(getImage());
 	}
 
 	@Override

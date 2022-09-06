@@ -20,6 +20,7 @@ import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
 import simulator.statistics.Statistics;
+import systemtools.GUITools;
 import systemtools.statistics.StatisticViewerImage;
 import ui.modeleditor.ModelSurfacePanel;
 
@@ -69,7 +70,14 @@ public class StatisticViewerModelImage extends StatisticViewerImage {
 	 */
 	private void buildImage(final int width, final int height) {
 		if (surfacePanel==null) panelNeeded();
-		image=surfacePanel.getImage(width,height);
+		final double scaleFactor=GUITools.getOSScaleFactor();
+		image=surfacePanel.getImage((int)Math.round(width*scaleFactor),(int)Math.round(height*scaleFactor));
+	}
+
+	@Override
+	protected BufferedImage getImage(final int maxX, final int maxY) {
+		if (surfacePanel==null) panelNeeded();
+		return surfacePanel.getImage(maxX,maxY);
 	}
 
 	@Override
@@ -79,6 +87,14 @@ public class StatisticViewerModelImage extends StatisticViewerImage {
 		g.setColor(Color.WHITE);
 		g.fillRect(0,0,w,h);
 		if (image==null || w!=image.getWidth() || h!=image.getHeight()) buildImage(w,h);
-		g.drawImage(image,0,0,null);
+
+		final double ratio=((double)image.getWidth())/image.getHeight();
+		final int drawH=(int)Math.floor(w/ratio);
+		if (drawH<h) {
+			g.drawImage(image,0,0,w,drawH,null);
+		} else {
+			final int drawW=(int)Math.floor(h*ratio);
+			g.drawImage(image,0,0,drawW,h,null);
+		}
 	}
 }

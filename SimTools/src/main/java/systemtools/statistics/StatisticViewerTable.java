@@ -53,8 +53,6 @@ import javax.swing.table.TableColumnModel;
 import javax.swing.table.TableModel;
 import javax.swing.text.JTextComponent;
 
-import org.apache.poi.xwpf.usermodel.XWPFDocument;
-
 import mathtools.NumberTools;
 import mathtools.Table;
 import mathtools.TimeTools;
@@ -327,7 +325,7 @@ public class StatisticViewerTable implements StatisticViewer {
 		try {
 			final File file=File.createTempFile(StatisticsBasePanel.viewersToolbarExcelPrefix+"_",".pdf");
 
-			final PDFWriter pdf=new PDFWriter(owner,15,10);
+			final PDFWriter pdf=new PDFWriter(owner,new ReportStyle());
 			if (!pdf.systemOK) return;
 			if (!savePDF(pdf)) return;
 			if (!pdf.save(file)) return;
@@ -642,7 +640,7 @@ public class StatisticViewerTable implements StatisticViewer {
 		if (columnNames.isEmpty()) buildTable();
 
 		if (file.getName().toLowerCase().endsWith(".pdf")) {
-			final PDFWriter pdf=new PDFWriter(owner,15,10);
+			final PDFWriter pdf=new PDFWriter(owner,new ReportStyle());
 			if (!pdf.systemOK) return false;
 			if (!savePDF(pdf)) return false;
 			return pdf.save(file);
@@ -783,8 +781,8 @@ public class StatisticViewerTable implements StatisticViewer {
 	}
 
 	@Override
-	public boolean saveDOCX(XWPFDocument doc) {
-		toTable().saveToDOCX(doc);
+	public boolean saveDOCX(DOCXWriter doc) {
+		doc.writeTable(toTable());
 		return true;
 	}
 
@@ -793,8 +791,8 @@ public class StatisticViewerTable implements StatisticViewer {
 		if (columnNames.isEmpty()) buildTable();
 		initData();
 
-		if (!pdf.writeTableLine(columnNames,11,true,0)) return false;
-		for (int i=0;i<data.size();i++) if (!pdf.writeTableLine(data.get(i),11,false,(i==data.size()-1)?25:0)) return false;
+		if (!pdf.writeStyledTableHeader(columnNames)) return false;
+		for (int i=0;i<data.size();i++) if (!pdf.writeStyledTableLine(data.get(i),i==data.size()-1)) return false;
 
 		return true;
 	}

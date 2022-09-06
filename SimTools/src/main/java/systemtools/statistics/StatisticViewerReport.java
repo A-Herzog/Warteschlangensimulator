@@ -52,8 +52,6 @@ import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
-import org.apache.poi.xwpf.usermodel.XWPFParagraph;
-import org.apache.poi.xwpf.usermodel.XWPFRun;
 
 import mathtools.MultiTable;
 import mathtools.distribution.swing.CommonVariables;
@@ -132,7 +130,13 @@ public class StatisticViewerReport extends StatisticViewerSpecialBase {
 	private final List<String> names;
 
 	/**
-	 * Vollstände Pfade der Viewer im Baum
+	 * Namen der Viewer (ohne angehängte Typenangabe)
+	 * @see #viewers
+	 */
+	private final List<String> namesShort;
+
+	/**
+	 * Vollständige Pfade der Viewer im Baum
 	 * @see #viewers
 	 */
 	private final List<String> fullPath;
@@ -162,6 +166,7 @@ public class StatisticViewerReport extends StatisticViewerSpecialBase {
 		this.helpRunnable=helpRunnable;
 		this.modelName=modelName;
 		names=new ArrayList<>();
+		namesShort=new ArrayList<>();
 		fullPath=new ArrayList<>();
 		viewers=new ArrayList<>();
 		addChildNodes(root,viewerIndex);
@@ -189,11 +194,13 @@ public class StatisticViewerReport extends StatisticViewerSpecialBase {
 			}
 			String path=node.name+add;
 			String name=node.name+add;
+			String nameShort=node.name;
 			StatisticNode branch=node;
 			while (branch.getParent()!=null) {
 				branch=branch.getParent();
 				if (branch.name!=null && !branch.name.isEmpty()) {
 					name=branch.name+" - "+name;
+					nameShort=branch.name+" - "+nameShort;
 					path=branch.name+"\n"+path;
 				}
 			}
@@ -202,6 +209,7 @@ public class StatisticViewerReport extends StatisticViewerSpecialBase {
 			if (node.viewer[viewerIndex].getType()==StatisticViewer.ViewerType.TYPE_REPORT || node.viewer[viewerIndex].getType()==StatisticViewer.ViewerType.TYPE_SPECIAL) continue;
 			viewers.add(node.viewer[viewerIndex]);
 			names.add(name);
+			namesShort.add(nameShort);
 			fullPath.add(path);
 		}
 	}
@@ -383,10 +391,10 @@ public class StatisticViewerReport extends StatisticViewerSpecialBase {
 			if (i>0) bw.newLine();
 			switch (mode) {
 			case HTML:
-				bw.write("<h1>"+names.get(i)+"</h1>");
+				bw.write("<h1>"+namesShort.get(i)+"</h1>");
 				break;
 			case LATEX:
-				bw.write("\\section{"+names.get(i)+"}");
+				bw.write("\\section{"+namesShort.get(i)+"}");
 				break;
 			}
 
@@ -819,22 +827,20 @@ public class StatisticViewerReport extends StatisticViewerSpecialBase {
 	 * Speichert den gesamten Report als docx-Datei.
 	 * @param file	Datei, in der die Statistikdaten gespeichert werden soll.
 	 * @param exportAllItems	Alle Viewer ausgeben (<code>true</code>) oder nur die gewählten (<code>false</code>)
+	 * @param style	Zu verwendende Style-Konfiguration
 	 * @return	Liefert im Erfolgsfall <code>true</code>
 	 * @see #save(Component, File)
 	 */
-	private boolean writeReportToWordFile(File file, boolean exportAllItems) {
+	private boolean writeReportToWordFile(final File file, final boolean exportAllItems, final ReportStyle style) {
 		if (table==null) getViewer(false);
 
 		try (XWPFDocument doc=new XWPFDocument()) {
+			final DOCXWriter writer=new DOCXWriter(doc,style);
 
 			boolean[] select=table.getSelected();
 			for (int i=0;i<select.length;i++) if (select[i] || exportAllItems) {
-				XWPFParagraph p=doc.createParagraph();
-				XWPFRun r=p.createRun();
-				r.setFontSize(24);
-				r.setBold(true);
-				r.setText(names.get(i));
-				if (!viewers.get(i).saveDOCX(doc)) return false;
+				if (viewers.get(i).getType()!=ViewerType.TYPE_TEXT) writer.writeHeading(namesShort.get(i),1);
+				if (!viewers.get(i).saveDOCX(writer)) return false;
 			}
 
 			try (FileOutputStream out=new FileOutputStream(file)) {doc.write(out);}
@@ -848,18 +854,21 @@ public class StatisticViewerReport extends StatisticViewerSpecialBase {
 	 * @param owner	Übergeordnete Komponente für die eventuelle Anzeige von Dialogen
 	 * @param file	Datei, in der die Statistikdaten gespeichert werden soll.
 	 * @param exportAllItems	Alle Viewer ausgeben (<code>true</code>) oder nur die gewählten (<code>false</code>)
+	 * @param style	Zu verwendende Style-Konfiguration
 	 * @return	Liefert im Erfolgsfall <code>true</code>
 	 * @see #save(Component, File)
 	 */
-	private boolean writeReportToPDFFile(Component owner, File file, boolean exportAllItems) {
+	private boolean writeReportToPDFFile(final Component owner, final File file, final boolean exportAllItems, final ReportStyle style) {
 		if (table==null) getViewer(false);
 
-		PDFWriter pdf=new PDFWriter(owner,15,10);
+		PDFWriter pdf=new PDFWriter(owner,style);
 		if (!pdf.systemOK) return false;
 
 		boolean[] select=table.getSelected();
 		for (int i=0;i<select.length;i++) if (select[i] || exportAllItems) {
-			if (!pdf.writeText(names.get(i),24,true,10)) return false;
+			if (viewers.get(i).getType()!=ViewerType.TYPE_TEXT) {
+				if (!pdf.writeStyledHeading(namesShort.get(i),1)) return false;
+			}
 			if (!viewers.get(i).savePDF(pdf)) return false;
 		}
 
@@ -898,11 +907,13 @@ public class StatisticViewerReport extends StatisticViewerSpecialBase {
 		fileFormat=getFileFormat(fileFormat,file);
 		if (fileFormat==null) return false;
 
+		final ReportStyle style=getReportStyle();
+
 		switch (fileFormat) {
 		case FORMAT_DOCX:
-			return writeReportToWordFile(file,exportAllItems);
+			return writeReportToWordFile(file,exportAllItems,style);
 		case FORMAT_PDF:
-			return writeReportToPDFFile(owner,file,exportAllItems);
+			return writeReportToPDFFile(owner,file,exportAllItems,style);
 		case FORMAT_HTML:
 		case FORMAT_HTML_INLINE:
 		case FORMAT_HTML_JS:
@@ -1078,6 +1089,15 @@ public class StatisticViewerReport extends StatisticViewerSpecialBase {
 	 * @param settings	Zu wählende Reporterstellungs-Kategorien
 	 */
 	protected void setSelectSettings(String settings) {}
+
+	/**
+	 * Liest den Report-Style aus der Konfiguration aus und liefert ihn für diese Klasse zurück.<br>
+	 * (Sollte von abgeleiteten Klassen überschrieben werden, wenn diese Report-Style-Konfigurationen verwenden.
+	 * @return	Zu verwendender Report-Style
+	 */
+	protected ReportStyle getReportStyle() {
+		return new ReportStyle();
+	}
 
 	/** Tabelle mit den Checkboxen */
 	private final class JReportCheckboxTable extends JCheckboxTable {

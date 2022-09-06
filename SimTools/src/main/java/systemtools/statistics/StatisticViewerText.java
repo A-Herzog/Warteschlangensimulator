@@ -70,8 +70,6 @@ import javax.swing.text.StyleContext;
 
 import org.apache.commons.math3.distribution.TDistribution;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
-import org.apache.poi.xwpf.usermodel.XWPFParagraph;
-import org.apache.poi.xwpf.usermodel.XWPFRun;
 import org.odftoolkit.simple.TextDocument;
 import org.odftoolkit.simple.style.StyleTypeDefinitions;
 import org.odftoolkit.simple.text.Paragraph;
@@ -830,7 +828,7 @@ public abstract class StatisticViewerText implements StatisticViewer {
 	 * @see #save(Component, File)
 	 */
 	private boolean savePDF(final Component owner, final File file) {
-		PDFWriter pdf=new PDFWriter(owner,15,10);
+		PDFWriter pdf=new PDFWriter(owner,new ReportStyle());
 		if (!pdf.systemOK) return false;
 		if (!savePDF(pdf)) return false;
 		return pdf.save(file);
@@ -844,7 +842,7 @@ public abstract class StatisticViewerText implements StatisticViewer {
 	 */
 	private boolean saveDOCX(final File file) {
 		try(XWPFDocument doc=new XWPFDocument()) {
-			if (!saveDOCX(doc)) return false;
+			if (!saveDOCX(new DOCXWriter(doc))) return false;
 			try (FileOutputStream out=new FileOutputStream(file)) {doc.write(out);}
 			return true;
 		} catch (IOException e) {return false;}
@@ -1147,14 +1145,12 @@ public abstract class StatisticViewerText implements StatisticViewer {
 	}
 
 	@Override
-	public boolean saveDOCX(final XWPFDocument doc) {
+	public boolean saveDOCX(final DOCXWriter doc) {
 		if (textPane==null) {
 			buildText();
 			initTextPane();
 			initDescriptionPane();
 		}
-
-		XWPFParagraph p=null;
 
 		for (int i=0;i<lines.size();i++) {
 			final String line=lines.get(i);
@@ -1162,41 +1158,27 @@ public abstract class StatisticViewerText implements StatisticViewer {
 
 			if (type==-1) {
 				/* Absatzanfang */
-				p=doc.createParagraph();
+				doc.beginParagraph();
 				continue;
 			}
 			if (type==-2) {
 				/* Absatzende */
-				p=null;
+				doc.endParagraph();
 				continue;
 			}
 			if (type==-4) {
 				/* Link (als Text, nicht kleiner Info-Link) */
-				if (p==null) p=doc.createParagraph();
-				p.createRun().setText(line);
-				p.createRun().addBreak();
+				doc.writeText(line);
 				continue;
 			}
 			if (type==0) {
 				/* Normaler Text */
-				if (p==null) p=doc.createParagraph();
-				p.createRun().setText(line);
-				p.createRun().addBreak();
+				doc.writeText(line);
 				continue;
 			}
 			if (type>0) {
 				/* Überschriften */
-				p=doc.createParagraph();
-				XWPFRun r=p.createRun();
-				r.setBold(true);
-				int fs=12;
-				switch (type) {
-				case 1: fs=18; break;
-				case 2: fs=15; break;
-				}
-				r.setFontSize(fs);
-				r.setText(line);
-				p=null;
+				doc.writeHeading(line,type);
 				continue;
 			}
 		}
@@ -1230,30 +1212,27 @@ public abstract class StatisticViewerText implements StatisticViewer {
 			}
 			if (type==-4) {
 				/* Link (als Text, nicht kleiner Info-Link) */
-				if (newParagraph) {pdf.writeEmptySpace(10); newParagraph=false;}
-				if (!pdf.writeText(line,11,false,0)) return false;
+				if (newParagraph) {pdf.writeStyledParSkip(); newParagraph=false;}
+				if (!pdf.writeStyledText(line)) return false;
 				continue;
 			}
 			if (type==0) {
 				/* Normaler Text */
-				if (newParagraph) {pdf.writeEmptySpace(10); newParagraph=false;}
-				if (!pdf.writeText(line,11,false,0)) return false;
+				if (newParagraph) {pdf.writeStyledParSkip(); newParagraph=false;}
+				if (!pdf.writeStyledText(line)) return false;
 				continue;
 			}
 			if (type>0) {
 				/* Überschriften */
-				int fs=12;
-				switch (type) {
-				case 1: fs=18; break;
-				case 2: fs=15; break;
-				}
-				pdf.writeEmptySpace(20);
-				if (!pdf.writeText(line,fs,true,0)) return false;
+				pdf.writeStyledParSkip();
+				pdf.writeStyledParSkip();
+				if (!pdf.writeStyledHeading(line,type)) return false;
 				newParagraph=true;
 				continue;
 			}
 		}
-		pdf.writeEmptySpace(25);
+		pdf.writeStyledParSkip();
+		pdf.writeStyledParSkip();
 
 		return true;
 	}

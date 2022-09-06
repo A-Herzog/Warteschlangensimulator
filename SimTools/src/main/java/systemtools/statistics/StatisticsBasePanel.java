@@ -70,6 +70,7 @@ import org.jfree.data.Range;
 import mathtools.Table;
 import mathtools.distribution.tools.FileDropper;
 import mathtools.distribution.tools.FileDropperData;
+import systemtools.BaseDialog;
 import systemtools.commandline.AbstractReportCommandConnect;
 import systemtools.images.SimToolsImages;
 import systemtools.statistics.StatisticViewer.CanDoAction;
@@ -81,7 +82,7 @@ import xml.XMLData;
 /**
  * Diese Klasse stellt Basisfunktionen zur Anzeige von Statistikdaten bereit
  * @author Alexander Herzog
- * @version 1.8
+ * @version 1.9
  */
 public abstract class StatisticsBasePanel extends JPanel implements AbstractReportCommandConnect {
 	/**
@@ -159,6 +160,8 @@ public abstract class StatisticsBasePanel extends JPanel implements AbstractRepo
 	public static String viewersSaveTable="Tabelle speichern";
 	/** Titel des Bild-Speichern Dateiauswahldialogs */
 	public static String viewersSaveImage="Bild speichern";
+	/** Titel des Bild-Laden Dateiauswahldialogs */
+	public static String viewersLoadImage="Bild laden";
 
 	/** Titel des Eingabedialogs zur Definition der Größe der zu speichernden Bilder */
 	public static String viewersSaveImageSizeTitle="Exportieren von Grafiken";
@@ -246,6 +249,86 @@ public abstract class StatisticsBasePanel extends JPanel implements AbstractRepo
 	public static String viewersReportSaveHTMLAppInfo="Wählen Sie in der Baumstruktur die anzuzeigende Rubrik aus.";
 	/** Bezeichner für noscript-Warnung im interaktiven html-Report */
 	public static String viewersReportSaveHTMLAppJSError="Zur Anzeige der interaktiven Statistik wird Javascript benötigt.";
+	/** Menüpunkt zum Aufrufen des Report-Formatierungs-Dialogs */
+	public static String viewersReportCustomize="Formateinstellungen für die Zusammenfassung...";
+	/** Titel für den Report-Formatierungs-Dialog */
+	public static String viewersReportCustomizeTitle="Formateinstellungen für die Zusammenfassung bearbeiten";
+	/** Report-Formatierungs-Dialog: Zurücksetzen-Schaltfläche */
+	public static String viewersReportCustomizeReset="Zurücksetzen";
+	/** Report-Formatierungs-Dialog: Zurücksetzen-Auswahl "Diese Dialogseite" */
+	public static String viewersReportCustomizeResetThisPage="Diese Dialogseite";
+	/** Report-Formatierungs-Dialog: Zurücksetzen-Auswahl "Alle Dialogseiten" */
+	public static String viewersReportCustomizeResetAllPages="Alle Dialogseiten";
+	/** Report-Formatierungs-Dialogseite "Seitenränder" */
+	public static String viewersReportCustomizeTabPageMargins="Seitenränder";
+	/** Report-Formatierungs-Dialog: Seitenrand oben */
+	public static String viewersReportCustomizeTabPageMarginsTop="Oben (in mm)";
+	/** Report-Formatierungs-Dialog: Seitenrand rechts */
+	public static String viewersReportCustomizeTabPageMarginsRight="Rechts (in mm)";
+	/** Report-Formatierungs-Dialog: Seitenrand unten */
+	public static String viewersReportCustomizeTabPageMarginsBottom="Unten (in mm)";
+	/** Report-Formatierungs-Dialog: Seitenrand links */
+	public static String viewersReportCustomizeTabPageMarginsLeft="Links (in mm)";
+	/** Report-Formatierungs-Dialogseite "Kopfzeile" */
+	public static String viewersReportCustomizeTabHeader="Kopfzeile";
+	/** Report-Formatierungs-Dialog: Logo in der Kopfzeile */
+	public static String viewersReportCustomizeTabHeaderLogo="In der Kopfzeile darzustellendes Logo";
+	/** Report-Formatierungs-Dialog: Logo in der Kopfzeile - Laden */
+	public static String viewersReportCustomizeTabHeaderLogoLoad="Laden";
+	/** Report-Formatierungs-Dialog: Logo in der Kopfzeile - Laden (Tooltip) */
+	public static String viewersReportCustomizeTabHeaderLogoLoadHint="Lädt ein Bild aus einer Datei.";
+	/** Report-Formatierungs-Dialog: Logo in der Kopfzeile - Einfügen */
+	public static String viewersReportCustomizeTabHeaderLogoPaste="Einfügen";
+	/** Report-Formatierungs-Dialog: Logo in der Kopfzeile - Einfügen (Tooltip) */
+	public static String viewersReportCustomizeTabHeaderLogoPasteHint="Fügt ein Bild aus der Zwischenablage ein.";
+	/** Report-Formatierungs-Dialog: Logo in der Kopfzeile - Löschen */
+	public static String viewersReportCustomizeTabHeaderLogoRemove="Löschen";
+	/** Report-Formatierungs-Dialog: Logo in der Kopfzeile - Löschen (Tooltip) */
+	public static String viewersReportCustomizeTabHeaderLogoRemoveHint="Entfernt das Logo.";
+	/** Report-Formatierungs-Dialog: Ausrichtung des Logos in der Kopfzeile */
+	public static String viewersReportCustomizeTabHeaderLogoAlignment="Ausrichtung";
+	/** Report-Formatierungs-Dialog: Ausrichtung des Logos in der Kopfzeile - linksbündig */
+	public static String viewersReportCustomizeTabHeaderLogoAlignmentLeft="linksbündig";
+	/** Report-Formatierungs-Dialog: Ausrichtung des Logos in der Kopfzeile - zentriert */
+	public static String viewersReportCustomizeTabHeaderLogoAlignmentCenter="zentriert";
+	/** Report-Formatierungs-Dialog: Ausrichtung des Logos in der Kopfzeile - rechtsbündig */
+	public static String viewersReportCustomizeTabHeaderLogoAlignmentRight="rechtsbündig";
+	/** Report-Formatierungs-Dialog: Maximale Breite des Logos in der Kopfzeile */
+	public static String viewersReportCustomizeTabHeaderLogoMaxWidth="Maximale Breite des Logos (in mm)";
+	/** Report-Formatierungs-Dialog: Maximale Höhe des Logos in der Kopfzeile */
+	public static String viewersReportCustomizeTabHeaderLogoMaxHeight="Maximale Höhe des Logos (in mm)";
+	/** Report-Formatierungs-Dialog: Logo in Kopfzeile auf jeder Seite wiederholen */
+	public static String viewersReportCustomizeTabHeaderLogoRepeat="Logo auf jeder Seite wiederholen";
+	/** Report-Formatierungs-Dialog: Logo in Kopfzeile auf jeder Seite wiederholen (Tooltip) */
+	public static String viewersReportCustomizeTabHeaderLogoRepeatHint="Ist diese Option deaktiviert, so wird das Logo nur auf der ersten Seite ausgegeben.";
+	/** Report-Formatierungs-Dialogseite "Fußzeile" */
+	public static String viewersReportCustomizeTabFooter="Fußzeile";
+	/** Report-Formatierungs-Dialog: Seitennummer in Fußzeile */
+	public static String viewersReportCustomizeTabFooterPageNumber="Seitennummer in Fußzeile";
+	/** Report-Formatierungs-Dialog: Datum in Fußzeile */
+	public static String viewersReportCustomizeTabFooterDate="Datum in Fußzeile";
+	/** Report-Formatierungs-Dialogseite "Schriftarten" */
+	public static String viewersReportCustomizeTabFonts="Schriftarten";
+	/** Report-Formatierungs-Dialog: Schriftart für Überschriften */
+	public static String viewersReportCustomizeTabFontsHeader="Überschriften Ebene %d";
+	/** Report-Formatierungs-Dialog: Schriftart für normalen Text */
+	public static String viewersReportCustomizeTabFontsText="Text";
+	/** Report-Formatierungs-Dialog: Schriftart für Tabellenüberschriften */
+	public static String viewersReportCustomizeTabFontsTableHeader="Tabellenüberschriften";
+	/** Report-Formatierungs-Dialog: Schriftart für Tabelleninhalte */
+	public static String viewersReportCustomizeTabFontsTableText="Tabelleninhalt";
+	/** Report-Formatierungs-Dialog: Schriftart für Fußzeilen */
+	public static String viewersReportCustomizeTabFontsFooter="Fußzeile";
+	/** Report-Formatierungs-Dialog: Schriftart für Absatzabstand */
+	public static String viewersReportCustomizeTabFontsParSkip="Absatzabstand (in pt)";
+	/** Report-Formatierungs-Dialog: Schriftgröße */
+	public static String viewersReportCustomizeTabFontsSize="Schriftgröße";
+	/** Report-Formatierungs-Dialog: Schriftausprägung "fett" */
+	public static String viewersReportCustomizeTabFontsBold="fett";
+	/** Report-Formatierungs-Dialog: Dialogseiten-Info "pdf und docx" */
+	public static String viewersReportCustomizePDFandDOCX="Diese Einstellungen werden für pdf- und docx-Zusammenfassungen verwendet.";
+	/** Report-Formatierungs-Dialog: Dialogseiten-Info "nur pdf" */
+	public static String viewersReportCustomizePDFonly="Diese Einstellungen werden nur für pdf-Zusammenfassungen verwendet.";
 
 	/** Bezeichner für das Toolbar-Button "Standardzoom" */
 	public static String viewersToolbarZoom="Standardzoom";
@@ -893,6 +976,25 @@ public abstract class StatisticsBasePanel extends JPanel implements AbstractRepo
 	}
 
 	/**
+	 * Liefert den zu verwendenden Report-Style aus der Konfiguration.<br>
+	 * Wird hier ein Wert ungleich <code>null</code> zurückgegeben, so
+	 * wird eine Konfigurieren-Schaltfläche angezeigt und Änderungen
+	 * werden über {@link #setReportStyle(ReportStyle)} gemeldet.
+	 * @return	Zu verwendender Report-Style (oder <code>null</code> für Vorgabewerte)
+	 */
+	protected ReportStyle getReportStyle() {
+		return null;
+	}
+
+	/**
+	 * Wird aufgerufen, wenn der Dialog zum Bearbeiten des Report-Styles
+	 * per "Ok" geschlossen wurde.
+	 * @param reportStyle	Neuer Report-Style
+	 */
+	protected void setReportStyle(final ReportStyle reportStyle) {
+	}
+
+	/**
 	 * Aktualisiert die Diagrammeinstellungen in allen aktuellen Diagrammen.
 	 * @param chartSetup	Neue Einstellungen der Diagramme
 	 */
@@ -1119,6 +1221,22 @@ public abstract class StatisticsBasePanel extends JPanel implements AbstractRepo
 				protected boolean loadImagesInline() {return getImagesInlineSetting();}
 				@Override
 				protected void saveImagesInline(final boolean imagesInline) {setImagesInlineSetting(imagesInline);}
+				@Override
+				protected ReportStyle getReportStyle() {final ReportStyle reportStyle=StatisticsBasePanel.this.getReportStyle(); return (reportStyle!=null)?reportStyle:new ReportStyle();}
+				@Override
+				public String[] ownSettingsName() {return (StatisticsBasePanel.this.getReportStyle()==null)?null:new String[]{viewersReportCustomize};}
+				@Override
+				public Icon[] ownSettingsIcon() {return new Icon[] {SimToolsImages.SETUP.getIcon()};}
+				@Override
+				public boolean ownSettings(final StatisticsBasePanel owner, final int nr) {
+					final ReportStyleSetupDialog dialog=new ReportStyleSetupDialog(StatisticsBasePanel.this,StatisticsBasePanel.this.getReportStyle());
+					if (dialog.getClosedBy()==BaseDialog.CLOSED_BY_OK) {
+						setReportStyle(dialog.getReportStyle());
+						return true;
+					} else {
+						return false;
+					}
+				}
 			});
 			rootNode.add(reportNode=new DefaultMutableTreeNode(new StatisticNode(viewersReport,list)));
 		} else {
@@ -1256,13 +1374,17 @@ public abstract class StatisticsBasePanel extends JPanel implements AbstractRepo
 	 * Diese Funktion wird aufgerufen, wenn die Einstellungen, welche Report-Einträge ausgewählt sein sollen, abgefragt werden sollen.
 	 * @return	Einstellungen, welche Report-Einträge selektiert sein sollen
 	 */
-	protected String getReportSelectSettings() {return "";}
+	protected String getReportSelectSettings() {
+		return "";
+	}
 
 	/**
 	 * Diese Funktion wird aufgerufen, wenn die Einstellungen, welche Report-Einträge ausgewählt sind, gespeichert werden sollen.
 	 * @param settings	Neue Einstellungen, welche Report-Einträge selektiert sind
 	 */
-	protected void setReportSelectSettings(String settings) {}
+	protected void setReportSelectSettings(String settings) {
+
+	}
 
 	/**
 	 * Lädt die Einstellung, ob Bilder bei HTML-Reports inline ausgegeben werden sollen, aus dem Setup (in einer abgeleiteten Klasse)

@@ -208,7 +208,32 @@ public enum SimToolsImages {
 	MSGBOX_CANCEL("arrow_redo2.png"),
 
 	/** Symbol "Dialog-Button 'Kopieren'" */
-	MSGBOX_COPY("page_copy.png");
+	MSGBOX_COPY("page_copy.png"),
+
+	/* Ausrichtung */
+
+	/** Symbol "Ausrichtung - linksbündig" */
+	TEXT_ALIGN_LEFT("shape_align_left.png"),
+
+	/** Symbol "Ausrichtung - zentriert" */
+	TEXT_ALIGN_CENTER("shape_align_center.png"),
+
+	/** Symbol "Ausrichtung - rechtsbündig" */
+	TEXT_ALIGN_RIGHT("shape_align_right.png"),
+
+	/* Zusammenfassung konfigurieren */
+
+	/** Symbol "Zusammenfassung konfigurieren - Seitenränder */
+	REPORT_MARGINS("page.png"),
+
+	/** Symbol "Zusammenfassung konfigurieren - Kopfzeile */
+	REPORT_HEADER("page_red_top.png"),
+
+	/** Symbol "Zusammenfassung konfigurieren - Fußzeile */
+	REPORT_FOOTER("page_red.png"),
+
+	/** Symbol "Zusammenfassung konfigurieren - Schriftarten */
+	REPORT_FONTS("font.png");
 
 	/**
 	 * Dateiname des Icons

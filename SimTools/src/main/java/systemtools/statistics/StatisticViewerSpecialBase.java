@@ -25,8 +25,6 @@ import java.util.function.Supplier;
 import javax.swing.Icon;
 import javax.swing.JButton;
 
-import org.apache.poi.xwpf.usermodel.XWPFDocument;
-
 /**
  * Basisklasse für Reports und sonstige Sonderklassen, die nicht direkt Texte, Tabellen oder Grafiken anzeigen.
  * Diese Klasse kann nur innerhalb dieses Package verwendet werden.
@@ -59,7 +57,7 @@ public abstract class StatisticViewerSpecialBase implements StatisticViewer {
 	}
 
 	@Override
-	public boolean saveDOCX(XWPFDocument doc) {
+	public boolean saveDOCX(DOCXWriter doc) {
 		return false;
 	}
 

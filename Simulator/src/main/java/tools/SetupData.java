@@ -46,6 +46,7 @@ import statistics.StatisticsDataPerformanceIndicator;
 import systemtools.GUITools;
 import systemtools.SetupBase;
 import systemtools.statistics.ChartSetup;
+import systemtools.statistics.ReportStyle;
 import ui.EditorPanelStatistics;
 import ui.MainFrame;
 import ui.UpdateSystem;
@@ -423,6 +424,12 @@ public class SetupData extends SetupBase {
 	 * Gibt an, welche Einträge im Reportgenerator zuletzt aktiviert waren
 	 */
 	public String reportSettings;
+
+	/**
+	 * Formatierungseinstellungen für den pdf- und docx-Export im Reportgenerator
+	 * @see ReportStyle
+	 */
+	public ReportStyle reportStyle;
 
 	/**
 	 * Sollen die zuletzt verwendeten Dateien erfasst werden?
@@ -1442,6 +1449,7 @@ public class SetupData extends SetupBase {
 		statisticHeatMapColorHigh=HeatMapImage.DEFAULT_COLOR_HIGH_INTENSITY;
 		imagesInline=true;
 		reportSettings="";
+		reportStyle=new ReportStyle();
 		useLastFiles=true;
 		lastFiles=null;
 		testJavaVersion=true;
@@ -2023,6 +2031,11 @@ public class SetupData extends SetupBase {
 
 			if (name.equals("report")) {
 				reportSettings=e.getTextContent();
+				continue;
+			}
+
+			if (name.equals(ReportStyle.XML_NODE_NAME_LOWER)) {
+				reportStyle.load(e);
 				continue;
 			}
 
@@ -2822,6 +2835,8 @@ public class SetupData extends SetupBase {
 			root.appendChild(node=doc.createElement("Report"));
 			node.setTextContent(reportSettings);
 		}
+
+		reportStyle.save(root);
 
 		if (useLastFiles) {
 			if (lastFiles!=null && lastFiles.length>0) for (int i=0;i<lastFiles.length;i++) {
