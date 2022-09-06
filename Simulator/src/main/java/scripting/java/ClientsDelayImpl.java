@@ -15,9 +15,8 @@
  */
 package scripting.java;
 
-import simulator.elements.RunElementDelay;
+import simulator.elements.DelayWithClientsList;
 import simulator.runmodel.SimulationData;
-
 
 /**
  * Implementierungsklasse für das Interface {@link ClientsInterface} (für Kunden an einer Verzögerung-Station)
@@ -28,14 +27,14 @@ public class ClientsDelayImpl extends ClientsBaseImpl {
 	/**
 	 * Zu dieser Kundenliste gehörende Verzögerung-Station
 	 */
-	private final RunElementDelay delay;
+	private final DelayWithClientsList delay;
 
 	/**
 	 * Konstruktor der Klasse
 	 * @param simData	Simulationsdatenobjekt, dessen Daten bereitgestellt werden sollen
 	 * @param delay	Zu dieser Kundenliste gehörende Verzögerung-Station
 	 */
-	public ClientsDelayImpl(final SimulationData simData, final RunElementDelay delay) {
+	public ClientsDelayImpl(final SimulationData simData, final DelayWithClientsList delay) {
 		super(simData);
 		this.delay=delay;
 	}

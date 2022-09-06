@@ -15,7 +15,7 @@
  */
 package scripting.js;
 
-import simulator.elements.RunElementDelay;
+import simulator.elements.DelayWithClientsList;
 import simulator.runmodel.SimulationData;
 
 /**
@@ -26,7 +26,7 @@ public final class JSCommandClientsDelay extends JSCommandClientsBase {
 	/**
 	 * Zu dieser Kundenliste gehörende Verzögerung-Station
 	 */
-	private RunElementDelay delay;
+	private DelayWithClientsList delay;
 
 	/**
 	 * Konstruktor der Klasse
@@ -40,7 +40,7 @@ public final class JSCommandClientsDelay extends JSCommandClientsBase {
 	 * @param simData	Simulationsdaten-Objekt (kann auch <code>null</code> sein)
 	 * @param delay	Zu dieser Kundenliste gehörende Verzögerung-Station
 	 */
-	public void setSimulationData(final SimulationData simData, final RunElementDelay delay) {
+	public void setSimulationData(final SimulationData simData, final DelayWithClientsList delay) {
 		this.delay=delay;
 		super.setSimulationData(simData,delay.getClientsAtStation(simData));
 	}

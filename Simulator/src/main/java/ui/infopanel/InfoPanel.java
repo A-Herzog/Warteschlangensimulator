@@ -233,6 +233,9 @@ public class InfoPanel {
 	/** Info-ID für den "Verzögerung"-Bearbeiten-Dialog (Gruppe "Verarbeitung") */
 	public static final String stationDelay=groupElement+"Delay";
 
+	/** Info-ID für den "Verzögerung (Skript)"-Bearbeiten-Dialog (Gruppe "Verarbeitung") */
+	public static final String stationDelayJS=groupElement+"DelayJS";
+
 	/* Stationen - Zuweisungen */
 
 	/** Info-ID für den "Typzuweisung"-Bearbeiten-Dialog (Gruppe "Zuweisungen") */
@@ -860,6 +863,10 @@ public class InfoPanel {
 		register(stationDelay,
 				()->Language.tr("HintsDialog.TreeNodeStations")+"|"+ModelElementCatalog.GROUP_PROCESSING+"|"+Language.tr("Surface.Delay.Name"),
 				()->Language.tr("Surface.Delay.Infotext"));
+
+		register(stationDelay,
+				()->Language.tr("HintsDialog.TreeNodeStations")+"|"+ModelElementCatalog.GROUP_PROCESSING+"|"+Language.tr("Surface.DelayJS.Name"),
+				()->Language.tr("Surface.DelayJS.Infotext"));
 
 		/* Stationen - Zuweisungen */
 

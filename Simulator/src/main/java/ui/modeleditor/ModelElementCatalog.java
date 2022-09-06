@@ -178,6 +178,7 @@ public final class ModelElementCatalog {
 			try {
 				addElement(new ModelElementProcess(null,null),null,GROUP_PROCESSING);
 				addElement(new ModelElementDelay(null,null),null,GROUP_PROCESSING);
+				addElement(new ModelElementDelayJS(null,null),null,GROUP_PROCESSING);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}

@@ -24,8 +24,8 @@ import language.Language;
 import mathtools.NumberTools;
 import parser.MathCalcError;
 import simulator.coreelements.RunElement;
+import simulator.elements.DelayWithClientsList;
 import simulator.elements.RunElementAnalogValue;
-import simulator.elements.RunElementDelay;
 import simulator.elements.RunElementHoldJS;
 import simulator.elements.RunElementProcess;
 import simulator.elements.RunElementSetJS;
@@ -376,8 +376,8 @@ public class SystemImpl implements SystemInterface {
 		ClientsDelayImpl delayInterface=delayInterfaces.get(id);
 		if (delayInterface==null) {
 			final RunElement element=simData.runModel.elementsFast[id];
-			if (!(element instanceof RunElementDelay)) return null;
-			delayInterface=new ClientsDelayImpl(simData,(RunElementDelay)element);
+			if (!(element instanceof DelayWithClientsList)) return null;
+			delayInterface=new ClientsDelayImpl(simData,(DelayWithClientsList)element);
 			delayInterfaces.put(id,delayInterface);
 		}
 

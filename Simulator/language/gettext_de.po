@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-04 01:38+0200\n"
+"POT-Creation-Date: 2022-09-05 08:44+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -11275,6 +11275,24 @@ msgstr "Wartezeit"
 msgid "ModelDescription.Delay.StationCostsPerClient"
 msgstr "Kosten an der Station pro Kunde"
 
+msgid "ModelDescription.DelayJS.Mode"
+msgstr "Verzögerung für den Kunden erfassen als"
+
+msgid "ModelDescription.DelayJS.Mode.Nothing"
+msgstr "nichts"
+
+msgid "ModelDescription.DelayJS.Mode.Process"
+msgstr "Bedienzeit"
+
+msgid "ModelDescription.DelayJS.Mode.Transfer"
+msgstr "Transferzeit"
+
+msgid "ModelDescription.DelayJS.Mode.Waiting"
+msgstr "Wartezeit"
+
+msgid "ModelDescription.DelayJS.StationCostsPerClient"
+msgstr "Kosten an der Station pro Kunde"
+
 msgid "ModelDescription.DelayedSignal"
 msgstr "Verzögerte Auslösung"
 
@@ -17998,6 +18016,9 @@ msgstr "Verzweigen (Stationseigenschaften)"
 msgid "Simulation.Element.Delay.Name"
 msgstr "Verzögerung"
 
+msgid "Simulation.Element.DelayJS.Name"
+msgstr "Verzögerung (Skript)"
+
 msgid "Simulation.Element.DifferentialCounter.Name"
 msgstr "Differenzzähler"
 
@@ -18473,6 +18494,18 @@ msgid "Simulation.Log.Delay"
 msgstr "Verzögerung"
 
 msgid "Simulation.Log.Delay.Info"
+msgstr "Kunde: %s, Station: %s, Verzögerung: %s"
+
+msgid "Simulation.Log.DelayJS"
+msgstr "Verzögerung (Skript)"
+
+msgid "Simulation.Log.DelayJS.ErrorNoNumber"
+msgstr "Das Skript-Ergebnis ist keine Zahl, Station: %s, Skriptergebnis: %s"
+
+msgid "Simulation.Log.DelayJS.ErrorScript"
+msgstr "Fehler bei der Skriptausführung, Station: %s"
+
+msgid "Simulation.Log.DelayJS.Info"
 msgstr "Kunde: %s, Station: %s, Verzögerung: %s"
 
 msgid "Simulation.Log.DifferentialCounter"
@@ -26501,6 +26534,87 @@ msgid "Surface.Delay.XML.Type.TransferTime"
 msgstr "Transferzeit"
 
 msgid "Surface.Delay.XML.Type.WaitingTime"
+msgstr "Wartezeit"
+
+msgid "Surface.DelayJS.Dialog.CostsPerClient"
+msgstr "Kosten pro Kunde"
+
+msgid "Surface.DelayJS.Dialog.CostsPerClient.Error.Info"
+msgstr "Die angegebenen Kosten pro Kunde \"%s\" sind ab Zeichen %d ungültig."
+
+msgid "Surface.DelayJS.Dialog.CostsPerClient.Error.Title"
+msgstr "Ungültige Kosten"
+
+msgid "Surface.DelayJS.Dialog.DelayTimeIs"
+msgstr "Verzögerungszeit ist"
+
+msgid "Surface.DelayJS.Dialog.DelayTimeIs.Nothing"
+msgstr "<nicht erfassen>"
+
+msgid "Surface.DelayJS.Dialog.DelayTimeIs.ProcessTime"
+msgstr "Bedienzeit"
+
+msgid "Surface.DelayJS.Dialog.DelayTimeIs.TransferTime"
+msgstr "Transferzeit"
+
+msgid "Surface.DelayJS.Dialog.DelayTimeIs.WaitingTime"
+msgstr "Wartezeit"
+
+msgid "Surface.DelayJS.Dialog.HasClientsList"
+msgstr "Kundenliste für Scripting-Zugriff an der Station führen"
+
+msgid "Surface.DelayJS.Dialog.HasClientsList.Tooltip"
+msgstr "Dies ist nur notwendig, wenn per Skript auf die Liste der Kunden an dieser Station zugegriffen werden soll. Dies verlangsamt die Simulation."
+
+msgid "Surface.DelayJS.Dialog.Script"
+msgstr "Auszuführendes Skript"
+
+msgid "Surface.DelayJS.Dialog.Title"
+msgstr "Skriptbasierte Kundenverzögerung bearbeiten"
+
+msgid "Surface.DelayJS.Infotext"
+msgstr "An Verzögerung (Skript) Stationen werden Kunden für eine auf Basis des Rückgabewertes eines Skripts einstellbare Zeitdauer aufgehalten, bevor sie ihren Weg durch das System fortsetzen können. Es werden dabei keine Bediener benötigt, d.h. insbesondere, dass die Verzögerung ist unabhängig von der Anzahl an Kunden an der Station erfolgt."
+
+msgid "Surface.DelayJS.Name"
+msgstr "Verzögerung (Skript)"
+
+msgid "Surface.DelayJS.Tooltip"
+msgstr "Verzögert die Kunden, die dieses Element durchlaufen, gemäß dem Rückgabewert eines Skripts."
+
+msgid "Surface.DelayJS.XML.ClientsList"
+msgstr "ModellElementVerzoegerungKundenliste"
+
+msgid "Surface.DelayJS.XML.Costs"
+msgstr "ModellElementVerzoegerungKosten"
+
+msgid "Surface.DelayJS.XML.Root"
+msgstr "ModellElementVerzoegerungSkript"
+
+msgid "Surface.DelayJS.XML.Script"
+msgstr "ModellElementSkriptText"
+
+msgid "Surface.DelayJS.XML.Script.Java"
+msgstr "Java"
+
+msgid "Surface.DelayJS.XML.Script.Javascript"
+msgstr "Javascript"
+
+msgid "Surface.DelayJS.XML.Script.Language"
+msgstr "Sprache"
+
+msgid "Surface.DelayJS.XML.Type"
+msgstr "Typ"
+
+msgid "Surface.DelayJS.XML.Type.Nothing"
+msgstr "nichts"
+
+msgid "Surface.DelayJS.XML.Type.ProcessTime"
+msgstr "Bedienzeit"
+
+msgid "Surface.DelayJS.XML.Type.TransferTime"
+msgstr "Transferzeit"
+
+msgid "Surface.DelayJS.XML.Type.WaitingTime"
 msgstr "Wartezeit"
 
 msgid "Surface.DifferentialCounter.Dialog.Increment"

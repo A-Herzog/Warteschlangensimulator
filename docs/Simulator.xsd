@@ -510,6 +510,7 @@
   <xs:element ref="ModellElementFertigungsplanZuweisung"/>
   <xs:element ref="ModellElementKosten"/>
   <xs:element ref="ModellElementVerzoegerung"/>
+  <xs:element ref="ModellElementVerzoegerungSkript"/>
   <xs:element ref="ModellElementTrennen"/>
   <xs:element ref="ModellElementZusammenfassen"/>
   <xs:element ref="ModellElementMehrfachZusammenfassen"/>
@@ -913,6 +914,14 @@
   </xs:choice></xs:sequence>
 </xs:extension></xs:complexContent></xs:complexType></xs:element>
 
+<xs:element name="ModellElementVerzoegerungSkript"><xs:complexType><xs:complexContent><xs:extension base="ModellElementVerbundenBasis">
+  <xs:sequence minOccurs="0" maxOccurs="unbounded"><xs:choice>
+    <xs:element ref="ModellElementSkriptText"/>
+    <xs:element name="ModellElementVerzoegerungKundenliste" type="xs:string"/>
+    <xs:element name="ModellElementVerzoegerungKosten" type="xs:string"/>
+  </xs:choice></xs:sequence>
+</xs:extension></xs:complexContent></xs:complexType></xs:element>
+
 <xs:element name="ModellElementTrennen" type="ModellElementVerbundenBasis"/>
 
 <xs:element name="ModellElementZusammenfassen"><xs:complexType><xs:complexContent><xs:extension base="ModellElementVerbundenBasis">
@@ -1155,6 +1164,7 @@
 <xs:element name="ModellElementSkriptText"><xs:complexType><xs:simpleContent>
   <xs:extension base="xs:string">
     <xs:attribute name="Sprache" type="xs:string"/>
+	<xs:attribute name="Typ" type="xs:string"/>
   </xs:extension>
 </xs:simpleContent></xs:complexType></xs:element>
 
@@ -2843,6 +2853,7 @@
   <xs:element ref="ModelElementSequenceAssignment"/>
   <xs:element ref="ModelElementCosts"/>
   <xs:element ref="ModelElementDelay"/>
+  <xs:element ref="ModelElementDelayScript"/>
   <xs:element ref="ModelElementSeparate"/>
   <xs:element ref="ModelElementBatch"/>
   <xs:element ref="ModelElementMultiBatch"/>
@@ -3245,6 +3256,14 @@
   </xs:choice></xs:sequence>
 </xs:extension></xs:complexContent></xs:complexType></xs:element>
 
+<xs:element name="ModelElementDelayScript"><xs:complexType><xs:complexContent><xs:extension base="ModelElementConnectedBase">
+  <xs:sequence minOccurs="0" maxOccurs="unbounded"><xs:choice>
+    <xs:element ref="ModelElementScriptText"/>
+    <xs:element name="ModelElementDelayClientsList" type="xs:string"/>
+    <xs:element name="ModelElementDelayCosts" type="xs:string"/>
+  </xs:choice></xs:sequence>
+</xs:extension></xs:complexContent></xs:complexType></xs:element>
+
 <xs:element name="ModelElementSeparate" type="ModelElementConnectedBase"/>
 
 <xs:element name="ModelElementBatch"><xs:complexType><xs:complexContent><xs:extension base="ModelElementConnectedBase">
@@ -3480,13 +3499,14 @@
 
 <xs:element name="ModelElementScript"><xs:complexType><xs:complexContent><xs:extension base="ModelElementConnectedBase">
   <xs:sequence minOccurs="0" maxOccurs="1"><xs:choice>
-    <xs:element name="ModelElementScriptText" type="xs:string"/>
+    <xs:element ref="ModelElementScriptText"/>
   </xs:choice></xs:sequence>
 </xs:extension></xs:complexContent></xs:complexType></xs:element>
 
 <xs:element name="ModelElementScriptText"><xs:complexType><xs:simpleContent>
   <xs:extension base="xs:string">
     <xs:attribute name="Language" type="xs:string"/>
+	<xs:attribute name="Type" type="xs:string"/>
   </xs:extension>
 </xs:simpleContent></xs:complexType></xs:element>
 

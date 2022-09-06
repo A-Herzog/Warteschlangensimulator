@@ -1513,6 +1513,9 @@ public enum Images {
 	/** Symbol "Modelleditor - Gruppe 'Verarbeitung' - Element 'Verzögerung'" */
 	MODELEDITOR_ELEMENT_DELAY("Delay.png"),
 
+	/** Symbol "Modelleditor - Gruppe 'Verarbeitung' - Element 'Verzögerung (Skript)'" */
+	MODELEDITOR_ELEMENT_DELAY_JS("Delay.png"),
+
 	/* Modelleditor: Zuweisungen */
 
 	/** Symbol "Modelleditor - Gruppe 'Zuweisungen' - Element 'Typzuweisung'" */

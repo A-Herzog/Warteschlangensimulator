@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Modell-Element: Verzögerung (Skript)</title>
+<link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body>
+
+<h1>Modell-Element: Verzögerung (Skript)</h1>
+
+<p>
+Bei dem Durchlaufen des Verzögerung (Skript)-Elements werden die Kunden für eine bestimmte, per Skriptergebnis
+festlegbare Zeitdauer verzögert. Es erfolgt keine weitere Bedienung der Kunden.
+</p>
+
+<h2>Einstellungen</h2>
+
+<p>
+Der Name des Elements hat keine weitere Bedeutung. Über den Rückgabewert des Skriptcodes
+wird jeweils bei Ankunft eines Kunden die Verzögerungszeit bestimmt.
+</p>
+
+<p>
+Der Skript-Code kann beliebige Javascript-Befehle oder Java-Befehle enthalten
+und kann über die <a href="JS.html">zusätzlichen Javascript-Befehle</a> bzw.
+die <a href="Java.html">zusätzlichen Java-Befehle</a> auf das Simulationssystem
+zugreifen. Als Rückgabewert (auszugeben über <tt>Output.print()</tt>) wird ein Zahlenwert
+erwartet, der die Verzögerungszeit in Sekunden angibt.
+</p>
+
+<p>
+Sollen Kunden vor Ablauf der Verzögerungszeit über ein externes Skript-Element für die weitere Bewegung durch das System
+freigegeben werden, so muss über das entsprechende Auswahlfeld aktiviert werden, dass eine entsprechende Liste für den
+Skriptzugriff vorgehalten werden soll. Die Bereitstellung dieser Liste verlangsamt die Simulation, auch wenn nicht auf
+sie zugegriffen wird.
+</p>
+
+</body>
+</html>

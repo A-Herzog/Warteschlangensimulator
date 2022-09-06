@@ -78,6 +78,7 @@ public final class RunModelCreator {
 		templates.add(new RunElementAssign(null));
 		templates.add(new RunElementAssignString(null));
 		templates.add(new RunElementDelay(null));
+		templates.add(new RunElementDelayJS(null));
 		templates.add(new RunElementBatch(null));
 		templates.add(new RunElementBatchMulti(null));
 		templates.add(new RunElementSeparate(null));

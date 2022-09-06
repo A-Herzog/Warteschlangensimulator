@@ -1,5 +1,5 @@
 /**
- * Copyright 2020 Alexander Herzog
+ * Copyright 2022 Alexander Herzog
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,13 +19,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.math3.distribution.AbstractRealDistribution;
-
 import language.Language;
 import mathtools.TimeTools;
-import mathtools.distribution.tools.DistributionRandomNumber;
-import mathtools.distribution.tools.DistributionTools;
 import parser.MathCalcError;
+import scripting.java.DynamicFactory;
+import scripting.java.DynamicRunner;
 import simulator.builder.RunModelCreatorStatus;
 import simulator.coreelements.RunElementPassThrough;
 import simulator.editmodel.EditModel;
@@ -35,21 +33,23 @@ import simulator.runmodel.RunModel;
 import simulator.runmodel.SimulationData;
 import simulator.simparser.ExpressionCalc;
 import ui.modeleditor.coreelements.ModelElement;
+import ui.modeleditor.elements.ModelElementDecideJS;
 import ui.modeleditor.elements.ModelElementDelay;
+import ui.modeleditor.elements.ModelElementDelayJS;
 import ui.modeleditor.elements.ModelElementSub;
 
 /**
- * Äquivalent zu <code>ModelElementDelay</code>
+ * Äquivalent zu {@link ModelElementDelayJS}
  * @author Alexander Herzog
- * @see ModelElementDelay
+ * @see ModelElementDelayJS
  */
-public class RunElementDelay extends RunElementPassThrough implements DelayWithClientsList {
-	/** Multiplikationsfaktor für {@link #distribution} oder {@link #expression} */
-	private double timeBaseMultiply;
-	/** Verteilung zur Kundentyp-abhängigen Bestimmung der Verzögerung */
-	private AbstractRealDistribution[] distribution;
-	/** Rechenausdruck zur Kundentyp-abhängigen Bestimmung der Verzögerung; wird nur ausgewertet, wenn der entsprechende {@link #distribution}-Eintrag <code>null</code> ist */
-	private String[] expression;
+public class RunElementDelayJS extends RunElementPassThrough implements DelayWithClientsList {
+	/** Auszuführendes Skript */
+	private String script;
+	/** Skriptspache für {@link #script} */
+	private ModelElementDecideJS.ScriptMode mode;
+	/** Bereits in {@link #build(EditModel, RunModel, ModelElement, ModelElementSub, boolean)} vorbereiteter (optionale) Java-Runner */
+	private DynamicRunner jRunner;
 	/** Art wie die Verzögerung für die Kundenstatistik gezählt werden soll */
 	private ModelElementDelay.DelayType delayType;
 	/** Kosten pro Bedienvorgang */
@@ -61,58 +61,30 @@ public class RunElementDelay extends RunElementPassThrough implements DelayWithC
 	 * Konstruktor der Klasse
 	 * @param element	Zugehöriges Editor-Element
 	 */
-	public RunElementDelay(final ModelElementDelay element) {
-		super(element,buildName(element,Language.tr("Simulation.Element.Delay.Name")));
+	public RunElementDelayJS(final ModelElementDelayJS element) {
+		super(element,buildName(element,Language.tr("Simulation.Element.DelayJS.Name")));
 	}
 
 	@Override
-	public Object build(final EditModel editModel, final RunModel runModel, final ModelElement element, final ModelElementSub parent, final boolean testOnly) {
-		if (!(element instanceof ModelElementDelay)) return null;
-		final ModelElementDelay delayElement=(ModelElementDelay)element;
-		final RunElementDelay delay=new RunElementDelay(delayElement);
+	public Object build(EditModel editModel, RunModel runModel, ModelElement element, ModelElementSub parent, boolean testOnly) {
+		if (!(element instanceof ModelElementDelayJS)) return null;
+		final ModelElementDelayJS delayElement=(ModelElementDelayJS)element;
+		final RunElementDelayJS delay=new RunElementDelayJS(delayElement);
 
 		/* Auslaufende Kante */
 		final String edgeError=delay.buildEdgeOut(delayElement);
 		if (edgeError!=null) return edgeError;
 
-		/* Zeitbasis */
-		delay.timeBaseMultiply=delayElement.getTimeBase().multiply;
-
 		/* Verzögerungstyp */
 		delay.delayType=delayElement.getDelayType();
 
-		delay.distribution=new AbstractRealDistribution[runModel.clientTypes.length];
-		delay.expression=new String[runModel.clientTypes.length];
-		for (int i=0;i<delay.distribution.length;i++) {
-			AbstractRealDistribution dist=delayElement.getDelayTime(runModel.clientTypes[i]);
-			if (dist!=null) {
-				delay.distribution[i]=DistributionTools.cloneDistribution(dist);
-				continue;
-			}
-
-			String expression=delayElement.getDelayExpression(runModel.clientTypes[i]);
-			if (expression!=null) {
-				final int error=ExpressionCalc.check(expression,runModel.variableNames);
-				if (error>=0) return String.format(Language.tr("Simulation.Creator.DelayCondition"),expression,element.getId(),error+1);
-				delay.expression[i]=expression;
-				continue;
-			}
-
-			dist=delayElement.getDelayTime();
-			if (dist!=null) {
-				delay.distribution[i]=DistributionTools.cloneDistribution(dist);
-				continue;
-			}
-
-			expression=delayElement.getDelayExpression();
-			if (expression!=null) {
-				final int error=ExpressionCalc.check(expression,runModel.variableNames);
-				if (error>=0) return String.format(Language.tr("Simulation.Creator.DelayCondition"),expression,element.getId(),error+1);
-				delay.expression[i]=expression;
-				continue;
-			}
-
-			return String.format(Language.tr("Simulation.Creator.DelayNoDistributionOrCondition"),element.getId());
+		/* Skript */
+		delay.script=delayElement.getScript();
+		delay.mode=delayElement.getMode();
+		if (delay.mode==ModelElementDecideJS.ScriptMode.Java && !testOnly) {
+			final Object runner=DynamicFactory.getFactory().test(delay.script,runModel.javaImports,true);
+			if (runner instanceof String) return String.format(Language.tr("Simulation.Creator.ScriptError"),element.getId())+"\n"+runner;
+			delay.jRunner=(DynamicRunner)runner;
 		}
 
 		/* Kosten */
@@ -132,23 +104,28 @@ public class RunElementDelay extends RunElementPassThrough implements DelayWithC
 	}
 
 	@Override
-	public RunModelCreatorStatus test(final ModelElement element) {
-		if (!(element instanceof ModelElementDelay)) return null;
-		final ModelElementDelay delayElement=(ModelElementDelay)element;
+	public RunModelCreatorStatus test(ModelElement element) {
+		if (!(element instanceof ModelElementDelayJS)) return null;
+		final ModelElementDelayJS delayElement=(ModelElementDelayJS)element;
 
 		/* Auslaufende Kante */
 		final RunModelCreatorStatus edgeError=testEdgeOut(delayElement);
 		if (edgeError!=null) return edgeError;
 
+		/* Skript */
+		if (delayElement.getScript().trim().isEmpty()) {
+			return RunModelCreatorStatus.noScript(element);
+		}
+
 		return RunModelCreatorStatus.ok;
 	}
 
 	@Override
-	public RunElementDelayData getData(final SimulationData simData) {
-		RunElementDelayData data;
-		data=(RunElementDelayData)(simData.runData.getStationData(this));
+	public RunElementDelayJSData getData(final SimulationData simData) {
+		RunElementDelayJSData data;
+		data=(RunElementDelayJSData)(simData.runData.getStationData(this));
 		if (data==null) {
-			data=new RunElementDelayData(this,expression,simData.runModel.variableNames,costs,hasClientsList);
+			data=new RunElementDelayJSData(this,script,mode,jRunner,simData,simData.runModel.variableNames,costs,hasClientsList);
 			simData.runData.setStationData(this,data);
 		}
 		return data;
@@ -156,26 +133,14 @@ public class RunElementDelay extends RunElementPassThrough implements DelayWithC
 
 	@Override
 	public void processArrival(final SimulationData simData, final RunDataClient client) {
-		/* Verzögerung bestimmen */
-		double value;
-		if (distribution[client.type]!=null) {
-			value=DistributionRandomNumber.randomNonNegative(distribution[client.type]);
-		} else {
-			simData.runData.setClientVariableValues(client);
-			try {
-				value=getData(simData).expression[client.type].calc(simData.runData.variableValues,simData,client);
-				if (value<0) value=0;
-			} catch (MathCalcError e) {
-				simData.calculationErrorStation(getData(simData).expression[client.type],this);
-				value=0;
-			}
-		}
+		final RunElementDelayJSData data=getData(simData);
 
-		final double delayTime=value*timeBaseMultiply;
+		/* Verzögerung bestimmen */
+		final double delayTime=data.getDelayTime(simData,client);
 		final long delayTimeMS=(long)(delayTime*1000+0.5);
 
 		/* Logging */
-		if (simData.loggingActive) log(simData,Language.tr("Simulation.Log.Delay"),String.format(Language.tr("Simulation.Log.Delay.Info"),client.logInfo(simData),name,TimeTools.formatExactTime(delayTime)));
+		if (simData.loggingActive) log(simData,Language.tr("Simulation.Log.DelayJS"),String.format(Language.tr("Simulation.Log.DelayJS.Info"),client.logInfo(simData),name,TimeTools.formatExactTime(delayTime)));
 
 		/* Erfassung der Zeit in der Statistik */
 		client.lastWaitingStart=simData.currentTime;
@@ -190,9 +155,9 @@ public class RunElementDelay extends RunElementPassThrough implements DelayWithC
 			simData.runData.setClientVariableValues(client);
 			double c=0;
 			try {
-				c=getData(simData).costs.calc(simData.runData.variableValues);
+				c=data.costs.calc(simData.runData.variableValues);
 			} catch (MathCalcError e) {
-				simData.calculationErrorStation(getData(simData).costs,this);
+				simData.calculationErrorStation(data.costs,this);
 				c=0;
 			}
 			simData.runData.logStationCosts(simData,this,c);
@@ -234,7 +199,7 @@ public class RunElementDelay extends RunElementPassThrough implements DelayWithC
 	 * @param client	Aktueller Kunde
 	 * @param delayTimeMS	Verzögerungszeit in MS
 	 */
-	private void logDelay(final SimulationData simData, final RunDataClient client, final long delayTimeMS) {
+	public void logDelay(final SimulationData simData, final RunDataClient client, final long delayTimeMS) {
 		/* Bedienzeit in Statistik */
 		switch (delayType) {
 		case DELAY_TYPE_WAITING:

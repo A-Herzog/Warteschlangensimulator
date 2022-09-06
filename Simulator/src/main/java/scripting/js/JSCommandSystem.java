@@ -37,8 +37,8 @@ import mathtools.TimeTools;
 import parser.MathCalcError;
 import scripting.java.RuntimeData;
 import simulator.coreelements.RunElement;
+import simulator.elements.DelayWithClientsList;
 import simulator.elements.RunElementAnalogValue;
-import simulator.elements.RunElementDelay;
 import simulator.elements.RunElementHoldJS;
 import simulator.elements.RunElementProcess;
 import simulator.elements.RunElementSetJS;
@@ -1148,8 +1148,8 @@ public final class JSCommandSystem extends JSBaseCommand {
 	 */
 	public JSCommandClientsDelay getDelayStationData(final int id) {
 		final RunElement element=simData.runModel.elementsFast[id];
-		if (!(element instanceof RunElementDelay)) return null;
-		final RunElementDelay delayElement=(RunElementDelay)element;
+		if (!(element instanceof DelayWithClientsList)) return null;
+		final DelayWithClientsList delayElement=(DelayWithClientsList)element;
 
 		JSCommandClientsDelay delayCommand=delayInterfaces.get(id);
 		if (delayCommand==null) {

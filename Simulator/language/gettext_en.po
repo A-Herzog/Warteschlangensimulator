@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-04 01:38+0200\n"
+"POT-Creation-Date: 2022-09-05 08:44+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -11279,6 +11279,24 @@ msgstr "Waiting time"
 msgid "ModelDescription.Delay.StationCostsPerClient"
 msgstr "Station costs per client"
 
+msgid "ModelDescription.DelayJS.Mode"
+msgstr "Count delay for the clients as"
+
+msgid "ModelDescription.DelayJS.Mode.Nothing"
+msgstr "nothing"
+
+msgid "ModelDescription.DelayJS.Mode.Process"
+msgstr "Service time"
+
+msgid "ModelDescription.DelayJS.Mode.Transfer"
+msgstr "Transfer time"
+
+msgid "ModelDescription.DelayJS.Mode.Waiting"
+msgstr "Waiting time"
+
+msgid "ModelDescription.DelayJS.StationCostsPerClient"
+msgstr "Station costs per client"
+
 msgid "ModelDescription.DelayedSignal"
 msgstr "Delayed execution"
 
@@ -17987,6 +18005,9 @@ msgstr "Decide by station data"
 msgid "Simulation.Element.Delay.Name"
 msgstr "Delay"
 
+msgid "Simulation.Element.DelayJS.Name"
+msgstr "Delay (Skript)"
+
 msgid "Simulation.Element.DifferentialCounter.Name"
 msgstr "Difference counter"
 
@@ -18462,6 +18483,18 @@ msgid "Simulation.Log.Delay"
 msgstr "Delay"
 
 msgid "Simulation.Log.Delay.Info"
+msgstr "Client: %s, station: %s, delay: %s"
+
+msgid "Simulation.Log.DelayJS"
+msgstr "Delay (Script)"
+
+msgid "Simulation.Log.DelayJS.ErrorNoNumber"
+msgstr "The script result is no number, station: %s, script result: %s"
+
+msgid "Simulation.Log.DelayJS.ErrorScript"
+msgstr "Error executing the script, station: %s"
+
+msgid "Simulation.Log.DelayJS.Info"
 msgstr "Client: %s, station: %s, delay: %s"
 
 msgid "Simulation.Log.DifferentialCounter"
@@ -26443,7 +26476,7 @@ msgid "Surface.Delay.Name"
 msgstr "Delay"
 
 msgid "Surface.Delay.Tooltip"
-msgstr "Delays client passing this ellement according to a given distribution."
+msgstr "Delays client passing this element according to a given distribution."
 
 msgid "Surface.Delay.XML.ClientsList"
 msgstr "ModelElementDelayClientsList"
@@ -26482,6 +26515,87 @@ msgid "Surface.Delay.XML.Type.TransferTime"
 msgstr "TransferTime"
 
 msgid "Surface.Delay.XML.Type.WaitingTime"
+msgstr "WaitingTime"
+
+msgid "Surface.DelayJS.Dialog.CostsPerClient"
+msgstr "Costs per client"
+
+msgid "Surface.DelayJS.Dialog.CostsPerClient.Error.Info"
+msgstr "The specified costs per client \"%s\" are invalid at character %d."
+
+msgid "Surface.DelayJS.Dialog.CostsPerClient.Error.Title"
+msgstr "Invalid costs"
+
+msgid "Surface.DelayJS.Dialog.DelayTimeIs"
+msgstr "Delay time is"
+
+msgid "Surface.DelayJS.Dialog.DelayTimeIs.Nothing"
+msgstr "<do not record>"
+
+msgid "Surface.DelayJS.Dialog.DelayTimeIs.ProcessTime"
+msgstr "process time"
+
+msgid "Surface.DelayJS.Dialog.DelayTimeIs.TransferTime"
+msgstr "transfer time"
+
+msgid "Surface.DelayJS.Dialog.DelayTimeIs.WaitingTime"
+msgstr "waiting time"
+
+msgid "Surface.DelayJS.Dialog.HasClientsList"
+msgstr "List clients for scripting access at the station"
+
+msgid "Surface.DelayJS.Dialog.HasClientsList.Tooltip"
+msgstr "This is only needed if the list of clients at this station is to be accessed via scripts. This slows down the simulation."
+
+msgid "Surface.DelayJS.Dialog.Script"
+msgstr "Script to be executed"
+
+msgid "Surface.DelayJS.Dialog.Title"
+msgstr "Edit script-based client delay"
+
+msgid "Surface.DelayJS.Infotext"
+msgstr "At delay (script) stations, clients are delayed based on the result value of a script for an adjustable amount of time before they can continue their way through the system. No resourcrs are needed for this. In particular, the delay time is regardless of the number of clients at the station."
+
+msgid "Surface.DelayJS.Name"
+msgstr "Delay (Script)"
+
+msgid "Surface.DelayJS.Tooltip"
+msgstr "Delays client passing this element according to the result value of a script."
+
+msgid "Surface.DelayJS.XML.ClientsList"
+msgstr "ModelElementDelayClientsList"
+
+msgid "Surface.DelayJS.XML.Costs"
+msgstr "ModelElementDelayCosts"
+
+msgid "Surface.DelayJS.XML.Root"
+msgstr "ModelElementDelayScript"
+
+msgid "Surface.DelayJS.XML.Script"
+msgstr "ModelElementScriptText"
+
+msgid "Surface.DelayJS.XML.Script.Java"
+msgstr "Java"
+
+msgid "Surface.DelayJS.XML.Script.Javascript"
+msgstr "Javascript"
+
+msgid "Surface.DelayJS.XML.Script.Language"
+msgstr "Language"
+
+msgid "Surface.DelayJS.XML.Type"
+msgstr "Type"
+
+msgid "Surface.DelayJS.XML.Type.Nothing"
+msgstr "nothing"
+
+msgid "Surface.DelayJS.XML.Type.ProcessTime"
+msgstr "ProcessTime"
+
+msgid "Surface.DelayJS.XML.Type.TransferTime"
+msgstr "TransferTime"
+
+msgid "Surface.DelayJS.XML.Type.WaitingTime"
 msgstr "WaitingTime"
 
 msgid "Surface.DifferentialCounter.Dialog.Increment"
