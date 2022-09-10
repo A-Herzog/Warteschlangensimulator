@@ -17,8 +17,10 @@ package simulator.examples;
 
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Frame;
+import java.awt.Toolkit;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -175,6 +177,7 @@ public class EditModelExamples {
 		addExample(Language.trAll("Examples.SetUpTimes"),"SetUpTimes.xml",ExampleType.TYPE_PROPERTIES);
 		addExample(Language.trAll("Examples.Rework"),"Rework.xml",ExampleType.TYPE_PROPERTIES);
 		addExample(Language.trAll("Examples.HoldJS"),"HoldJS.xml",ExampleType.TYPE_PROPERTIES);
+		addExample(Language.trAll("Examples.DelayJS"),"DelayJS.xml",ExampleType.TYPE_COMPARE);
 		addExample(Language.trAll("Examples.RestrictedBuffer"),"RestriktierterPuffer.xml",ExampleType.TYPE_PROPERTIES);
 		addExample(Language.trAll("Examples.Analog"),"Analog.xml",ExampleType.TYPE_PROPERTIES);
 		addExample(Language.trAll("Examples.Jockeying"),"Jockeying.xml",ExampleType.TYPE_PROPERTIES);
@@ -263,7 +266,7 @@ public class EditModelExamples {
 	}
 
 	/**
-	 * Für eine Gruppe zu dem Menü hinzu
+	 * Fügt eine Gruppe zu dem Menü hinzu.
 	 * @param owner	Übergeordnetes Elementes (zum Ausrichten von Fehlermeldungen). Wird hier <code>null</code> übergeben, so werden Fehlermeldungen auf der Konsole ausgegeben
 	 * @param menu	Menü, in dem die Beispiele als Unterpunkte eingefügt werden sollen
 	 * @param listener	Listener, der mit einem Modell aufgerufen wird, wenn dieses geladen werden soll.
@@ -304,6 +307,40 @@ public class EditModelExamples {
 	}
 
 	/**
+	 * Fügt eine Gruppe als Untermenü zu dem Menü hinzu.
+	 * @param owner	Übergeordnetes Elementes (zum Ausrichten von Fehlermeldungen). Wird hier <code>null</code> übergeben, so werden Fehlermeldungen auf der Konsole ausgegeben
+	 * @param menu	Menü, in dem die Beispiele über ein Untermenü als Punkte eingefügt werden sollen
+	 * @param listener	Listener, der mit einem Modell aufgerufen wird, wenn dieses geladen werden soll.
+	 * @param group	Beispielgruppe
+	 * @see #addToMenu(Component, JMenu, Consumer)
+	 */
+	private void addGroupToSubMenu(final Component owner, final JMenu menu, final Consumer<EditModel> listener, final ExampleType group) {
+		final JMenu sub=new JMenu(getGroupName(group));
+		menu.add(sub);
+
+		for (Example example: list) if (example.type==group) {
+			final JMenuItem item=new JMenuItem(example.names[0]);
+			item.addActionListener(e->{
+				final EditModel editModel=new EditModel();
+				try (InputStream in=EditModelExamples.class.getResourceAsStream("examples_"+Language.tr("Numbers.Language")+"/"+example.file)) {
+					final String error=editModel.loadFromStream(in);
+					if (error!=null) {
+						if (owner==null) {
+							System.out.println(error);
+						} else {
+							MsgBox.error(owner,Language.tr("XML.LoadErrorTitle"),error);
+						}
+						return;
+					}
+					if (FlatLaFHelper.isDark()) EditModelDark.processModel(editModel,EditModelDark.ColorMode.LIGHT,EditModelDark.ColorMode.DARK);
+					if (listener!=null) listener.accept(editModel);
+				} catch (IOException e1) {}
+			});
+			sub.add(item);
+		}
+	}
+
+	/**
 	 * Fügt alle Beispiele zu einem Menü hinzu
 	 * @param owner	Übergeordnetes Elementes (zum Ausrichten von Fehlermeldungen). Wird hier <code>null</code> übergeben, so werden Fehlermeldungen auf der Konsole ausgegeben
 	 * @param menu	Menü, in dem die Beispiele als Unterpunkte eingefügt werden sollen
@@ -311,7 +348,13 @@ public class EditModelExamples {
 	 */
 	public static void addToMenu(final Component owner, final JMenu menu, final Consumer<EditModel> listener) {
 		final EditModelExamples examples=new EditModelExamples();
-		for (ExampleType type: ExampleType.values()) examples.addGroupToMenu(owner,menu,listener,type);
+		final Dimension screenSize=Toolkit.getDefaultToolkit().getScreenSize();
+		if (screenSize.height>1080) {
+			for (ExampleType type: ExampleType.values()) examples.addGroupToMenu(owner,menu,listener,type);
+		} else {
+			menu.addSeparator();
+			for (ExampleType type: ExampleType.values()) examples.addGroupToSubMenu(owner,menu,listener,type);
+		}
 	}
 
 	/**

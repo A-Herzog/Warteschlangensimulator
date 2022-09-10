@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-06 21:38+0200\n"
+"POT-Creation-Date: 2022-09-07 10:36+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -4838,6 +4838,9 @@ msgstr "Client types with different priorities"
 
 msgid "Examples.CombiningOrdersAndItems"
 msgstr "Combining orders and warehouse items"
+
+msgid "Examples.DelayJS"
+msgstr "Homogenization of the number of clients"
 
 msgid "Examples.ErlangC"
 msgstr "Erlang C comparison model"
