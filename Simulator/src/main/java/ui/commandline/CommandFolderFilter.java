@@ -15,6 +15,7 @@
  */
 package ui.commandline;
 
+import java.awt.Color;
 import java.io.File;
 import java.io.InputStream;
 import java.io.PrintStream;
@@ -55,18 +56,21 @@ public class CommandFolderFilter extends AbstractCommand {
 
 	/**
 	 * Konstruktor der Klasse
+	 * @param system	Referenz auf das Kommandozeilensystem
 	 */
-	public CommandFolderFilter() {
-		super();
+	public CommandFolderFilter(final BaseCommandLineSystem system) {
+		super(system);
 	}
 
 	/**
 	 * Konstruktor der Klasse
+	 * @param system	Referenz auf das Kommandozeilensystem
 	 * @param folder	Zu verarbeitendes Verzeichnis
 	 * @param filterFile	Filterskript
 	 * @param filterResultFile	Ausgabedatei
 	 */
-	public CommandFolderFilter(final File folder, final File filterFile, final File filterResultFile) {
+	public CommandFolderFilter(final BaseCommandLineSystem system, final File folder, final File filterFile, final File filterResultFile) {
+		this(system);
 		this.folder=folder;
 		this.filterFile=filterFile;
 		this.filterResultFile=filterResultFile;
@@ -116,26 +120,34 @@ public class CommandFolderFilter extends AbstractCommand {
 	 */
 	private boolean processFile(final File file, final String commands, final PrintStream out) {
 		if (file.isDirectory()) return false;
-		out.println(file.getName()+":");
+
+		/* Info ausgeben */
+		style.setColor(Color.GREEN);
+		out.println(file.getName()+" + "+filterFile.getName()+" -> "+filterResultFile.getName());
+		style.setColor(null);
 
 		try {
 			/* Datei laden */
 			final XMLTools xml=new XMLTools(file);
 			final Element root=xml.load();
 			if (root==null) {
+				style.setErrorStyle();
 				out.println(Language.tr("CommandLine.FolderFilter.CannotProcessFile"));
+				style.setNormalStyle();
 				return false;
 			}
 
 			/* Als Statistikdaten verarbeiten */
 			final Statistics statistics=new Statistics();
 			if (statistics.loadFromXML(root)!=null) {
+				style.setErrorStyle();
 				out.println(Language.tr("CommandLine.FolderFilter.NoStatisticFile"));
+				style.setNormalStyle();
 				return false;
 			}
 			statistics.loadedStatistics=file;
 
-			return CommandFilter.runFilter(statistics,commands,filterResultFile,out);
+			return CommandFilter.runFilter(statistics,commands,filterResultFile,out,style);
 
 		} finally {
 			out.println("");
@@ -146,7 +158,9 @@ public class CommandFolderFilter extends AbstractCommand {
 	public void run(AbstractCommand[] allCommands, InputStream in, PrintStream out) {
 		final String[] files=folder.list();
 		if (files==null) {
+			style.setErrorStyle();
 			out.println(String.format(Language.tr("CommandLine.FolderFilter.NoFilesInFolder"),folder.toString()));
+			style.setNormalStyle();
 			return;
 		}
 
@@ -154,7 +168,9 @@ public class CommandFolderFilter extends AbstractCommand {
 
 		final String commands=Table.loadTextFromFile(filterFile);
 		if (commands==null) {
+			style.setErrorStyle();
 			out.println(BaseCommandLineSystem.errorBig+": "+Language.tr("CommandLine.FolderFilter.ErrorLoadingFilterConfiguration"));
+			style.setNormalStyle();
 			return;
 		}
 
@@ -163,10 +179,12 @@ public class CommandFolderFilter extends AbstractCommand {
 			if (processFile(new File(folder,file),commands,out)) count++;
 		}
 
+		style.setBold(true);
 		if (count==1) {
 			out.println(String.format(Language.tr("CommandLine.FolderFilter.ResultCount.Singular"),count));
 		} else {
 			out.println(String.format(Language.tr("CommandLine.FolderFilter.ResultCount.Plural"),count));
 		}
+		style.setBold(false);
 	}
 }

@@ -28,6 +28,7 @@ import net.mqtt.MQTTBrokerURL;
 import net.mqtt.MQTTSimClient;
 import simulator.editmodel.EditModel;
 import systemtools.commandline.AbstractCommand;
+import systemtools.commandline.BaseCommandLineSystem;
 import tools.SetupData;
 import xml.XMLTools;
 
@@ -55,12 +56,10 @@ public class CommandServerMQTTFixed extends AbstractCommand {
 
 	/**
 	 * Konstruktor der Klasse
+	 * @param system	Referenz auf das Kommandozeilensystem
 	 */
-	public CommandServerMQTTFixed() {
-		/*
-		 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
-		 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
-		 */
+	public CommandServerMQTTFixed(final BaseCommandLineSystem system) {
+		super(system);
 	}
 
 	@Override
@@ -150,7 +149,11 @@ public class CommandServerMQTTFixed extends AbstractCommand {
 		/* Server starten */
 		error=server.start(broker,null,topic,topicInfo,model,authName,authPassword);
 		if (error!=null) {
-			if (out!=null) out.println(error);
+			if (out!=null) {
+				style.setErrorStyle();
+				out.println(error);
+				style.setNormalStyle();
+			}
 			return;
 		}
 		if (out!=null) {

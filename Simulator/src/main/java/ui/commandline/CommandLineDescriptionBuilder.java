@@ -98,7 +98,7 @@ public class CommandLineDescriptionBuilder {
 	public static void buildDescription(final String language, final String folder, final PrintStream out) {
 		if (!new File(folder).isDirectory()) {
 			if (!new File(folder).mkdirs()) {
-				out.println("error mkdir "+folder);
+				out.println("Error mkdir "+folder);
 				return;
 			}
 		}
@@ -139,7 +139,7 @@ public class CommandLineDescriptionBuilder {
 			return;
 		}
 		if (!Language.isSupportedLanguage(args[0])) {
-			System.out.println("Language "+args[0]+" not supported");
+			System.out.println("Language "+args[0]+" not supported.");
 			return;
 		}
 		if (!new File(args[1]).isDirectory()) {

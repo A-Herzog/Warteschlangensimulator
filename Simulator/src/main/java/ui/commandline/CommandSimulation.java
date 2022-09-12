@@ -50,16 +50,19 @@ public class CommandSimulation extends AbstractSimulationCommand {
 
 	/**
 	 * Konstruktor der Klasse
+	 * @param system	Referenz auf das Kommandozeilensystem
 	 */
-	public CommandSimulation() {
-		this(false);
+	public CommandSimulation(final BaseCommandLineSystem system) {
+		this(system,false);
 	}
 
 	/**
 	 * Konstruktor der Klasse
+	 * @param system	Referenz auf das Kommandozeilensystem
 	 * @param withTimeout	 Soll über die Parameter ein Timeout-Wert angenommen werden?
 	 */
-	protected CommandSimulation(final boolean withTimeout) {
+	protected CommandSimulation(final BaseCommandLineSystem system, final boolean withTimeout) {
+		super(system);
 		this.withTimeout=withTimeout;
 	}
 
@@ -115,7 +118,9 @@ public class CommandSimulation extends AbstractSimulationCommand {
 		EditModel editModel=new EditModel();
 		final String error=editModel.loadFromFile(modelFile);
 		if (error!=null) {
+			style.setErrorStyle();
 			out.println(BaseCommandLineSystem.errorBig+": "+Language.tr("CommandLine.Error.LoadingModel")+" "+error);
+			style.setNormalStyle();
 			return;
 		}
 
@@ -127,7 +132,9 @@ public class CommandSimulation extends AbstractSimulationCommand {
 		} else {
 			final MultiTable table=new MultiTable();
 			if (!table.load(dataInputFile)) {
+				style.setErrorStyle();
 				out.println(BaseCommandLineSystem.errorBig+": "+String.format(Language.tr("CommandLine.Error.LoadingFile"),dataInputFile.toString()));
+				style.setNormalStyle();
 				return;
 			}
 			changedEditModel=editModel.modelLoadData.changeModel(editModel,table,dataInputFile.getName(),true);

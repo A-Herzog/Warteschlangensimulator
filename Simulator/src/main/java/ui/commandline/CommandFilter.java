@@ -15,6 +15,7 @@
  */
 package ui.commandline;
 
+import java.awt.Color;
 import java.io.File;
 import java.io.InputStream;
 import java.io.PrintStream;
@@ -31,6 +32,7 @@ import scripting.java.StatisticsImpl;
 import scripting.js.JSRunDataFilter;
 import scripting.js.JSRunDataFilterTools;
 import simulator.statistics.Statistics;
+import systemtools.commandline.ANSIFormat;
 import systemtools.commandline.AbstractCommand;
 import systemtools.commandline.BaseCommandLineSystem;
 import ui.script.ScriptPanel;
@@ -54,12 +56,10 @@ public final class CommandFilter extends AbstractSimulationCommand {
 
 	/**
 	 * Konstruktor der Klasse
+	 * @param system	Referenz auf das Kommandozeilensystem
 	 */
-	public CommandFilter() {
-		/*
-		 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
-		 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
-		 */
+	public CommandFilter(final BaseCommandLineSystem system) {
+		super(system);
 	}
 
 	@Override
@@ -100,9 +100,10 @@ public final class CommandFilter extends AbstractSimulationCommand {
 	 * @param commands	Auszuführender Filter
 	 * @param results	Ausgabedatei
 	 * @param out	Konsolen-Ausgabe (für Fehlermeldungen usw.)
+	 * @param style	System, um die Ausgabe über ANSI-Escape-Codes zu formatieren
 	 * @return	Liefert <code>true</code>, wenn der Filter erfolgreich angewandt werden konnte und die Ergebnisse gespeichert werden konnten
 	 */
-	public static boolean runFilter(final Statistics statistic, final String commands, final File results, final PrintStream out) {
+	public static boolean runFilter(final Statistics statistic, final String commands, final File results, final PrintStream out, final ANSIFormat style) {
 		boolean error=false;
 		String result=null;
 
@@ -149,14 +150,18 @@ public final class CommandFilter extends AbstractSimulationCommand {
 		/* Ausgabe der Ergebnisse */
 
 		if (error) {
+			style.setErrorStyle();
 			out.println(Language.tr("CommandLine.Filter.Done.Error")+":");
 			out.println(result);
+			style.setNormalStyle();
 			return false;
 		}
 
 		if (result==null) {
+			style.setErrorStyle();
 			out.println(Language.tr("CommandLine.Filter.Done.Error")+":");
 			out.println(Language.tr("CommandLine.Filter.Done.Error.CouldNotProcess"));
+			style.setNormalStyle();
 			return false;
 		}
 
@@ -164,26 +169,37 @@ public final class CommandFilter extends AbstractSimulationCommand {
 			out.println(Language.tr("CommandLine.Filter.Done.Success"));
 			return true;
 		} else {
+			style.setErrorStyle();
 			out.println(String.format(Language.tr("CommandLine.Filter.Done.CouldNotSave"),results.toString()));
+			style.setNormalStyle();
 			return false;
 		}
 	}
 
 	@Override
 	public void run(AbstractCommand[] allCommands, InputStream in, PrintStream out) {
+		/* Info ausgeben */
+		style.setColor(Color.GREEN);
+		out.println(statisticsInputFile.getName()+" + "+filterFile.getName()+" -> "+filterResultFile.getName());
+		style.setColor(null);
+
 		final Statistics inputStatistics=new Statistics();
 		final String error=inputStatistics.loadFromFile(statisticsInputFile);
 		if (error!=null) {
+			style.setErrorStyle();
 			out.println(BaseCommandLineSystem.errorBig+": "+Language.tr("CommandLine.Filter.ErrorLoadingStatistic")+": "+error);
+			style.setNormalStyle();
 			return;
 		}
 		inputStatistics.loadedStatistics=statisticsInputFile;
 
 		final String commands=Table.loadTextFromFile(filterFile);
 		if (commands==null) {
+			style.setErrorStyle();
 			out.println(BaseCommandLineSystem.errorBig+": "+Language.tr("CommandLine.Filter.ErrorLoadingFilterConfiguration"));
+			style.setNormalStyle();
 			return;
 		}
-		runFilter(inputStatistics,commands,filterResultFile,out);
+		runFilter(inputStatistics,commands,filterResultFile,out,style);
 	}
 }

@@ -15,6 +15,7 @@
  */
 package ui.commandline;
 
+import java.awt.Color;
 import java.io.File;
 import java.io.InputStream;
 import java.io.PrintStream;
@@ -66,16 +67,19 @@ public class CommandFolderSimulation extends AbstractCommand {
 
 	/**
 	 * Konstruktor der Klasse
+	 * @param system	Referenz auf das Kommandozeilensystem
 	 */
-	public CommandFolderSimulation() {
-		super();
+	public CommandFolderSimulation(final BaseCommandLineSystem system) {
+		super(system);
 	}
 
 	/**
 	 * Konstruktor der Klasse
+	 * @param system	Referenz auf das Kommandozeilensystem
 	 * @param folder	Zu verarbeitendes Verzeichnis
 	 */
-	public CommandFolderSimulation(final File folder) {
+	public CommandFolderSimulation(final BaseCommandLineSystem system, final File folder) {
+		this(system);
 		this.folder=folder;
 	}
 
@@ -156,13 +160,17 @@ public class CommandFolderSimulation extends AbstractCommand {
 		final Statistics statistics=simulator.getStatistic();
 		simulator=null;
 		if (statistics==null) {
+			style.setErrorStyle();
 			out.println(Language.tr("CommandLine.Simulation.NoResults"));
+			style.setNormalStyle();
 			return false;
 		}
 
 		out.println(String.format(Language.tr("CommandLine.Simulation.Done"),NumberTools.formatLong(statistics.simulationData.runTime)));
 		if (!statistics.saveToFile(getOutputFile(file))) {
+			style.setErrorStyle();
 			out.println(BaseCommandLineSystem.errorBig+": "+Language.tr("CommandLine.Error.UnableToSaveStatistic"));
+			style.setNormalStyle();
 			return false;
 		}
 
@@ -187,7 +195,9 @@ public class CommandFolderSimulation extends AbstractCommand {
 		runner=new ParameterCompareRunner(null,null,log->out.println(log));
 		final String error=runner.check(setup);
 		if (error!=null) {
+			style.setErrorStyle();
 			out.println(BaseCommandLineSystem.errorBig+": "+error);
+			style.setNormalStyle();
 			return false;
 		}
 
@@ -197,7 +207,9 @@ public class CommandFolderSimulation extends AbstractCommand {
 
 		/* Ergebnisse speichern */
 		if (!setup.saveToFile(getOutputFile(file))) {
+			style.setErrorStyle();
 			out.println(BaseCommandLineSystem.errorBig+": "+Language.tr("CommandLine.Error.UnableToSaveParameterSeriesResults"));
+			style.setNormalStyle();
 			return false;
 		}
 
@@ -213,11 +225,17 @@ public class CommandFolderSimulation extends AbstractCommand {
 	 */
 	private boolean processFile(final File file, final PrintStream out) {
 		if (file.isDirectory()) return false;
+
+		/* Info ausgeben */
+		style.setColor(Color.GREEN);
 		out.println(file.getName()+":");
+		style.setColor(null);
 
 		try {
 			if (getOutputFile(file).isFile()) {
+				style.setErrorStyle();
 				out.println(Language.tr("CommandLine.FolderSimulation.OutputFileExists"));
+				style.setNormalStyle();
 				return false;
 			}
 
@@ -225,7 +243,9 @@ public class CommandFolderSimulation extends AbstractCommand {
 			final XMLTools xml=new XMLTools(file);
 			final Element root=xml.load();
 			if (root==null) {
+				style.setErrorStyle();
 				out.println(Language.tr("CommandLine.FolderSimulation.CannotProcessFile"));
+				style.setNormalStyle();
 				return false;
 			}
 
@@ -241,7 +261,9 @@ public class CommandFolderSimulation extends AbstractCommand {
 				return processParameterSeries(file,setup,out);
 			}
 
+			style.setErrorStyle();
 			out.println(Language.tr("CommandLine.FolderSimulation.CannotProcessFile"));
+			style.setNormalStyle();
 			return false;
 		} finally {
 			out.println("");
@@ -252,7 +274,9 @@ public class CommandFolderSimulation extends AbstractCommand {
 	public void run(AbstractCommand[] allCommands, InputStream in, PrintStream out) {
 		final String[] files=folder.list();
 		if (files==null) {
+			style.setErrorStyle();
 			out.println(String.format(Language.tr("CommandLine.FolderSimulation.NoFilesInFolder"),folder.toString()));
+			style.setNormalStyle();
 			return;
 		}
 
@@ -264,11 +288,13 @@ public class CommandFolderSimulation extends AbstractCommand {
 			if (isQuit) break;
 		}
 
+		style.setBold(true);
 		if (count==1) {
 			out.println(String.format(Language.tr("CommandLine.FolderSimulation.ResultCount.Singular"),count));
 		} else {
 			out.println(String.format(Language.tr("CommandLine.FolderSimulation.ResultCount.Plural"),count));
 		}
+		style.setBold(false);
 	}
 
 	@Override

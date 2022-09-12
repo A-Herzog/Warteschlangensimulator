@@ -24,6 +24,7 @@ import java.util.List;
 
 import language.Language;
 import systemtools.commandline.AbstractCommand;
+import systemtools.commandline.BaseCommandLineSystem;
 
 /**
  * Dieser Befehl erstellt die LaTeX-Dokumentation zu Kommandozeilenbefehlen
@@ -40,12 +41,10 @@ public class CommandBuildCommandlineDescriptions extends AbstractCommand {
 
 	/**
 	 * Konstruktor der Klasse
+	 * @param system	Referenz auf das Kommandozeilensystem
 	 */
-	public CommandBuildCommandlineDescriptions() {
-		/*
-		 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
-		 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
-		 */
+	public CommandBuildCommandlineDescriptions(final BaseCommandLineSystem system) {
+		super(system);
 	}
 
 	@Override

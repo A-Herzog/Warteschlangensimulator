@@ -8048,6 +8048,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[19607] = "Zeitpunkt an dem die Simulation endet";
     t[19608] = "Surface.Output.Dialog.Tab.Headings.Active";
     t[19609] = "Skript zur Ausgabe einer \u00dcberschrift verwenden";
+    t[19610] = "SystemInfo.Tools.UserInterface.UseColorsInCommandLineConsoleOutput";
+    t[19611] = "Farben in Kommandozeilen-Konsolenausgabe verwenden";
     t[19612] = "Surface.Decide.Dialog.OutgoingEdge.MultiValues.Hint";
     t[19613] = "Wenn aktiviert, k\u00f6nnen mehrere Werte pro Ausgang angegeben werden. Allerdings d\u00fcrften die Werte selbst dann keine \";\" enthalten.";
     t[19618] = "ExpressionBuilder.SimulationCharacteristics.ProcessingTimesAtStations.AverageTime";
@@ -10032,14 +10034,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[24339] = "Die verschiedenen gew\u00e4hlten Simulationsergebnisse werden in einer gemeinsamen Ansicht nebeneinander angezeigt. Die zu vergleichenden Statistikdateien k\u00f6nnen auch per Drag&Drop auf diesen Dialog gezogen werden.";
     t[24342] = "Simulation.Log.PickUpEmptyQueue";
     t[24343] = "Ausleiten - andere Warteschlange ist leer, Kunde wird alleine weitergeleitet";
-    t[24346] = "ScriptPopup.ClientsList.Hint";
-    t[24347] = "Befehle zum Zugriff auf die Liste der wartenden Kunden";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_5 (java.lang.String[] t) {
+    t[24346] = "ScriptPopup.ClientsList.Hint";
+    t[24347] = "Befehle zum Zugriff auf die Liste der wartenden Kunden";
     t[24348] = "Simulation.Output.ResidenceTime";
     t[24349] = "Verweilzeit";
     t[24352] = "Surface.Action.XML.Record.ActionType.Java";
@@ -12038,14 +12040,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[29103] = "Analoge Werte";
     t[29110] = "Statistics.Throughput.NoThroughput";
     t[29111] = "Das Simulationsmodell enth\u00e4lt keine Durchsatzz\u00e4hler.";
-    t[29112] = "Surface.AnimationLCD.Name";
-    t[29113] = "LCD-Anzeige";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_6 (java.lang.String[] t) {
+    t[29112] = "Surface.AnimationLCD.Name";
+    t[29113] = "LCD-Anzeige";
     t[29118] = "Surface.AnimationPieChart.Dialog.DiagrameType";
     t[29119] = "Darstellungsart";
     t[29132] = "SettingsDialog.Tabs.DefaultUserName";
@@ -14044,14 +14046,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[33717] = "Bearbeiten";
     t[33722] = "ExpressionBuilder.ProbabilityDistributions.Density";
     t[33723] = "Dichte";
-    t[33736] = "Main.Menu.View.SimulationResults";
-    t[33737] = "Simulationsergebnisse";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_7 (java.lang.String[] t) {
+    t[33736] = "Main.Menu.View.SimulationResults";
+    t[33737] = "Simulationsergebnisse";
     t[33742] = "Wait.Info.StartNoRemoteAvailable";
     t[33743] = "Die Simulation l\u00e4uft lokal. Der Server \"%s\" ist nicht verf\u00fcgbar.";
     t[33746] = "Resources.Group.EditName.Dialog.Tab.Count";
@@ -16050,14 +16052,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[38495] = "Modell zur\u00fccksetzen";
     t[38496] = "Surface.TankFlowPanel.SourceDestination.ErrorSameTitle";
     t[38497] = "Ung\u00fcltige Quelle-Ziel-Kombination";
-    t[38502] = "Statistic.Viewer.Toolbar.SelectNone";
-    t[38503] = "Keine";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_8 (java.lang.String[] t) {
+    t[38502] = "Statistic.Viewer.Toolbar.SelectNone";
+    t[38503] = "Keine";
     t[38506] = "Surface.OutputDDE.Table.Add";
     t[38507] = "Ausgabeelement hinzuf\u00fcgen";
     t[38510] = "Schedule.SettingsDialog.30Minutes";
@@ -18056,14 +18058,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[43099] = "Ung\u00fcltiger Skalierungsfaktor";
     t[43100] = "Surface.Batch.NewClientType";
     t[43101] = "Neuer Kundentyp";
-    t[43108] = "FontFamily.Serif";
-    t[43109] = "Serifenbehaftete Schrift";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_9 (java.lang.String[] t) {
+    t[43108] = "FontFamily.Serif";
+    t[43109] = "Serifenbehaftete Schrift";
     t[43114] = "Surface.Source.XML.Expression.TimeBase";
     t[43115] = "Zeitbasis";
     t[43118] = "Resources.Usage.Dialog.Save";
@@ -20062,14 +20064,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[47887] = "Evtl. wurde die Simulation beendet, bevor die Einschwingphase (deren Kunden nicht in der Statistik erfasst werden) abgeschlossen wurde.";
     t[47896] = "Statistics.ErlangCompare.NoProcessDistribution";
     t[47897] = "Keine Bedienzeitenverteilung angegeben.";
-    t[47902] = "Surface.TankFlowPanel.StopCondition.Time.Seconds";
-    t[47903] = "Sekunden";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_10 (java.lang.String[] t) {
+    t[47902] = "Surface.TankFlowPanel.StopCondition.Time.Seconds";
+    t[47903] = "Sekunden";
     t[47904] = "Simulation.Creator.SeizeArrival.Info";
     t[47905] = "Kunde: %s, Station: %s";
     t[47906] = "ExpressionBuilder.SimulationCharacteristics.ProcessingTimesByClientTypes.MaximalTime";
@@ -22068,14 +22070,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[52657] = "Schwellenwert (absoluter F\u00fcllstand)";
     t[52660] = "ExpressionBuilder.SimulationCharacteristics.WaitingTimesAtStations";
     t[52661] = "Wartezeiten an einer Station";
-    t[52662] = "Surface.Conveyor.XML.MoveDirection";
-    t[52663] = "ModellElementFliessbandRichtung";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_11 (java.lang.String[] t) {
+    t[52662] = "Surface.Conveyor.XML.MoveDirection";
+    t[52663] = "ModellElementFliessbandRichtung";
     t[52670] = "FindElement.Sorting.IDs";
     t[52671] = "IDs";
     t[52674] = "Surface.TransportSource.Dialog.Ressource.Priority.ErrorInfo";

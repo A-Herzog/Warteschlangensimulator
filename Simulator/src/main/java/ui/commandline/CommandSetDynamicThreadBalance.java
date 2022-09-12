@@ -24,6 +24,7 @@ import java.util.List;
 import language.Language;
 import mathtools.NumberTools;
 import systemtools.commandline.AbstractCommand;
+import systemtools.commandline.BaseCommandLineSystem;
 import tools.SetupData;
 
 /**
@@ -38,12 +39,10 @@ public class CommandSetDynamicThreadBalance extends AbstractCommand {
 
 	/**
 	 * Konstruktor der Klasse
+	 * @param system	Referenz auf das Kommandozeilensystem
 	 */
-	public CommandSetDynamicThreadBalance() {
-		/*
-		 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
-		 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
-		 */
+	public CommandSetDynamicThreadBalance(final BaseCommandLineSystem system) {
+		super(system);
 	}
 
 	@Override
@@ -82,7 +81,9 @@ public class CommandSetDynamicThreadBalance extends AbstractCommand {
 		setup.useDynamicThreadBalance=useDynamicThreadBalance;
 
 		if (!setup.saveSetup()) {
-			out.println(Language.tr("CommandLine.SetDynamicThreadBalance.Error.CannotSaveSetup"));
+			style.setErrorStyle();
+			out.println(BaseCommandLineSystem.errorBig+": "+Language.tr("CommandLine.SetDynamicThreadBalance.Error.CannotSaveSetup"));
+			style.setNormalStyle();
 			return;
 		}
 

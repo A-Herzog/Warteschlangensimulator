@@ -24,6 +24,7 @@ import java.util.List;
 
 import language.Language;
 import systemtools.commandline.AbstractCommand;
+import systemtools.commandline.BaseCommandLineSystem;
 import ui.MainFrame;
 import ui.modeleditor.ModelElementCatalogDescriptionBuilder;
 
@@ -45,12 +46,10 @@ public class CommandBuildCatalogDescriptions extends AbstractCommand {
 
 	/**
 	 * Konstruktor der Klasse
+	 * @param system	Referenz auf das Kommandozeilensystem
 	 */
-	public CommandBuildCatalogDescriptions() {
-		/*
-		 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
-		 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
-		 */
+	public CommandBuildCatalogDescriptions(final BaseCommandLineSystem system) {
+		super(system);
 	}
 
 	/** Sprache */

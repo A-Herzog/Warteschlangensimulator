@@ -21,6 +21,7 @@ import java.util.List;
 
 import language.Language;
 import systemtools.commandline.AbstractReportCommand;
+import systemtools.commandline.BaseCommandLineSystem;
 import ui.statistics.StatisticsPanel;
 
 /**
@@ -30,12 +31,10 @@ import ui.statistics.StatisticsPanel;
 public class CommandReport extends AbstractReportCommand {
 	/**
 	 * Konstruktor der Klasse
+	 * @param system	Referenz auf das Kommandozeilensystem
 	 */
-	public CommandReport() {
-		/*
-		 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
-		 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
-		 */
+	public CommandReport(final BaseCommandLineSystem system) {
+		super(system);
 	}
 
 	@Override

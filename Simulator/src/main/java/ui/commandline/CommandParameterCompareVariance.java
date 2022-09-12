@@ -46,12 +46,10 @@ public class CommandParameterCompareVariance extends AbstractCommand {
 
 	/**
 	 * Konstruktor der Klasse
+	 * @param system	Referenz auf das Kommandozeilensystem
 	 */
-	public CommandParameterCompareVariance() {
-		/*
-		 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
-		 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
-		 */
+	public CommandParameterCompareVariance(final BaseCommandLineSystem system) {
+		super(system);
 	}
 
 	@Override
@@ -106,7 +104,9 @@ public class CommandParameterCompareVariance extends AbstractCommand {
 		final EditModel editModel=new EditModel();
 		final String loadError=editModel.loadFromFile(inFile);
 		if (loadError!=null) {
+			style.setErrorStyle();
 			out.println(BaseCommandLineSystem.errorBig+": "+loadError);
+			style.setNormalStyle();
 			return;
 		}
 		if (arrivals>0) {
@@ -123,7 +123,9 @@ public class CommandParameterCompareVariance extends AbstractCommand {
 		if (setup.saveToFile(outFile)) {
 			out.println(String.format(Language.tr("CommandLine.ParameterCompareVariance.SaveOk"),outFile.toString()));
 		} else {
+			style.setErrorStyle();
 			out.println(BaseCommandLineSystem.errorBig+": "+String.format(Language.tr("CommandLine.ParameterCompareVariance.SaveErrorInfo"),outFile.toString()));
+			style.setNormalStyle();
 		}
 	}
 }

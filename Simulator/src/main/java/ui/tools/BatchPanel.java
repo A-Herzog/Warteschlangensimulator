@@ -51,6 +51,7 @@ import tools.Notifier;
 import tools.SetupData;
 import ui.commandline.CommandFolderFilter;
 import ui.commandline.CommandFolderSimulation;
+import ui.commandline.CommandLineSystem;
 import ui.help.Help;
 import ui.images.Images;
 import ui.modeleditor.ModelElementBaseDialog;
@@ -356,10 +357,11 @@ public class BatchPanel extends SpecialPanel {
 		}
 
 		/* Befehl erstellen */
+		final CommandLineSystem cli=new CommandLineSystem(null,null);
 		if (scriptFile==null) {
-			return new CommandFolderSimulation(folder);
+			return new CommandFolderSimulation(cli,folder);
 		} else {
-			return new CommandFolderFilter(folder,scriptFile,resultsFile);
+			return new CommandFolderFilter(cli,folder,scriptFile,resultsFile);
 		}
 	}
 

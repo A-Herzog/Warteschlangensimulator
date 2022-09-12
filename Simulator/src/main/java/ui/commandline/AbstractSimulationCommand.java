@@ -40,14 +40,13 @@ import xml.XMLTools;
  * @see CommandLineSystem
  */
 public abstract class AbstractSimulationCommand extends AbstractCommand {
+
 	/**
 	 * Konstruktor der Klasse
+	 * @param system	Referenz auf das Kommandozeilensystem
 	 */
-	public AbstractSimulationCommand() {
-		/*
-		 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
-		 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
-		 */
+	public AbstractSimulationCommand(final BaseCommandLineSystem system) {
+		super(system);
 	}
 
 	/**

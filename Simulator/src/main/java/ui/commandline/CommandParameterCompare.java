@@ -43,12 +43,10 @@ public class CommandParameterCompare extends AbstractCommand {
 
 	/**
 	 * Konstruktor der Klasse
+	 * @param system	Referenz auf das Kommandozeilensystem
 	 */
-	public CommandParameterCompare() {
-		/*
-		 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
-		 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
-		 */
+	public CommandParameterCompare(final BaseCommandLineSystem system) {
+		super(system);
 	}
 
 	@Override
@@ -89,14 +87,18 @@ public class CommandParameterCompare extends AbstractCommand {
 
 		error=setup.loadFromFile(inFile);
 		if (error!=null) {
+			style.setErrorStyle();
 			out.println(BaseCommandLineSystem.errorBig+": "+error);
+			style.setNormalStyle();
 			return;
 		}
 
 		runner=new ParameterCompareRunner(null,null,log->out.println(log));
 		error=runner.check(setup);
 		if (error!=null) {
+			style.setErrorStyle();
 			out.println(BaseCommandLineSystem.errorBig+": "+error);
+			style.setNormalStyle();
 			return;
 		}
 
@@ -104,7 +106,9 @@ public class CommandParameterCompare extends AbstractCommand {
 		runner.waitForFinish();
 
 		if (!setup.saveToFile(outFile)) {
+			style.setErrorStyle();
 			out.println(BaseCommandLineSystem.errorBig+": "+Language.tr("CommandLine.Error.UnableToSaveParameterSeriesResults"));
+			style.setNormalStyle();
 		}
 
 		runner=null;

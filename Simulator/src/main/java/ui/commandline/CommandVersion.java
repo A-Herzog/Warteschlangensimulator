@@ -22,6 +22,7 @@ import java.util.List;
 
 import language.Language;
 import systemtools.commandline.AbstractCommand;
+import systemtools.commandline.BaseCommandLineSystem;
 import ui.dialogs.InfoDialog;
 
 /**
@@ -33,12 +34,10 @@ import ui.dialogs.InfoDialog;
 public class CommandVersion extends AbstractCommand {
 	/**
 	 * Konstruktor der Klasse
+	 * @param system	Referenz auf das Kommandozeilensystem
 	 */
-	public CommandVersion() {
-		/*
-		 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
-		 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
-		 */
+	public CommandVersion(final BaseCommandLineSystem system) {
+		super(system);
 	}
 
 	@Override

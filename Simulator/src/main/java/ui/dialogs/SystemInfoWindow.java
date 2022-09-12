@@ -632,6 +632,9 @@ public class SystemInfoWindow extends JFrame {
 		menu.add(check=new JCheckBoxMenuItem(Language.tr("SystemInfo.Tools.UserInterface.ActivateSpellCheckingSystem"),setup.allowSpellCheck));
 		check.addActionListener(e->{setup.allowSpellCheck=!setup.allowSpellCheck; setup.saveSetup();});
 
+		menu.add(check=new JCheckBoxMenuItem(Language.tr("SystemInfo.Tools.UserInterface.UseColorsInCommandLineConsoleOutput"),setup.commandLineUseANSI));
+		check.addActionListener(e->{setup.commandLineUseANSI=!setup.commandLineUseANSI; setup.saveSetup();});
+
 		/* Simulation */
 
 		menu.add(label=new JMenuItem("<html><b>"+Language.tr("SystemInfo.Tools.Simulation")+"</b></html>"));

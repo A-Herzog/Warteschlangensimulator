@@ -26,6 +26,7 @@ import org.w3c.dom.Element;
 import language.Language;
 import simulator.editmodel.EditModel;
 import systemtools.commandline.AbstractCommand;
+import systemtools.commandline.BaseCommandLineSystem;
 import ui.optimizer.OptimizerBase;
 import ui.optimizer.OptimizerCatalog;
 import ui.optimizer.OptimizerSetup;
@@ -49,12 +50,10 @@ public class CommandOptimizer extends AbstractCommand {
 
 	/**
 	 * Konstruktor der Klasse
+	 * @param system	Referenz auf das Kommandozeilensystem
 	 */
-	public CommandOptimizer() {
-		/*
-		 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
-		 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
-		 */
+	public CommandOptimizer(final BaseCommandLineSystem system) {
+		super(system);
 	}
 
 	@Override
@@ -133,17 +132,32 @@ public class CommandOptimizer extends AbstractCommand {
 
 		final EditModel model=new EditModel();
 		error=model.loadFromFile(modelFile);
-		if (error!=null) {out.print(Language.tr("Optimizer.Error.CouldNotStart")+":\n"+error); return;}
+		if (error!=null) {
+			style.setErrorStyle();
+			out.println(Language.tr("Optimizer.Error.CouldNotStart")+":\n"+error);
+			style.setNormalStyle();
+			return;
+		}
 
 		if (model.modelLoadData.willChangeModel()) out.println(Language.tr("ModelLoadData.IncompatibleWarning.Optimization"));
 
 		final OptimizerSetup setup=new OptimizerSetup();
 		error=setup.loadFromFile(setupFile);
-		if (error!=null) {out.print(Language.tr("Optimizer.Error.CouldNotStart")+":\n"+error); return;}
+		if (error!=null) {
+			style.setErrorStyle();
+			out.println(Language.tr("Optimizer.Error.CouldNotStart")+":\n"+error);
+			style.setNormalStyle();
+			return;
+		}
 
 		optimizer=new OptimizerCatalog(null).getOptimizer(setup.optimizerName);
 		error=optimizer.check(model,setup,text->out.println(text),b->setOptimizationDone(),null);
-		if (error!=null) {out.print(Language.tr("Optimizer.Error.CouldNotStart")+":\n"+error); return;}
+		if (error!=null) {
+			style.setErrorStyle();
+			out.println(Language.tr("Optimizer.Error.CouldNotStart")+":\n"+error);
+			style.setNormalStyle();
+			return;
+		}
 		optimizer.start();
 
 		CloseRequestSignal signal=new CloseRequestSignal(true,in);

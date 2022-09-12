@@ -41,12 +41,10 @@ public class CommandParameterCompareTable extends AbstractCommand {
 
 	/**
 	 * Konstruktor der Klasse
+	 * @param system	Referenz auf das Kommandozeilensystem
 	 */
-	public CommandParameterCompareTable() {
-		/*
-		 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
-		 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
-		 */
+	public CommandParameterCompareTable(final BaseCommandLineSystem system) {
+		super(system);
 	}
 
 	@Override
@@ -85,7 +83,9 @@ public class CommandParameterCompareTable extends AbstractCommand {
 		final ParameterCompareSetup setup=new ParameterCompareSetup(null);
 		final String error=setup.loadFromFile(inFile);
 		if (error!=null) {
+			style.setErrorStyle();
 			out.println(BaseCommandLineSystem.errorBig+": "+error);
+			style.setNormalStyle();
 			return;
 		}
 
@@ -93,7 +93,9 @@ public class CommandParameterCompareTable extends AbstractCommand {
 		if (table.save(outFile)) {
 			out.println(String.format(Language.tr("CommandLine.ParameterCompareTable.SaveOk"),outFile.toString()));
 		} else {
+			style.setErrorStyle();
 			out.println(BaseCommandLineSystem.errorBig+": "+String.format(Language.tr("ParameterCompare.Toolbar.ProcessResults.ResultsTable.Save.ErrorInfo"),outFile.toString()));
+			style.setNormalStyle();
 		}
 	}
 }

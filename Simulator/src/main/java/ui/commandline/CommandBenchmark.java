@@ -15,6 +15,7 @@
  */
 package ui.commandline;
 
+import java.awt.Color;
 import java.io.File;
 import java.io.InputStream;
 import java.io.PrintStream;
@@ -44,14 +45,13 @@ public final class CommandBenchmark extends AbstractSimulationCommand {
 	/** Modelldatei für Modus 1 */
 	private File modelFile;
 
+
 	/**
 	 * Konstruktor der Klasse
+	 * @param system	Referenz auf das Kommandozeilensystem
 	 */
-	public CommandBenchmark() {
-		/*
-		 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
-		 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
-		 */
+	public CommandBenchmark(final BaseCommandLineSystem system) {
+		super(system);
 	}
 
 	@Override
@@ -104,6 +104,7 @@ public final class CommandBenchmark extends AbstractSimulationCommand {
 	public void run(AbstractCommand[] allCommands, InputStream in, PrintStream out) {
 		EditModel editModel=null;
 
+		style.setColor(Color.GREEN);
 		switch (speedTestMode) {
 		case 0:
 			final String exampleName=EditModelExamples.getBenchmarkExampleName();
@@ -113,10 +114,16 @@ public final class CommandBenchmark extends AbstractSimulationCommand {
 		case 1:
 			editModel=new EditModel();
 			String s=editModel.loadFromFile(modelFile);
-			if (s!=null) {out.println(BaseCommandLineSystem.errorBig+": "+Language.tr("CommandLine.Error.LoadingModel")+": "+s); return;}
+			if (s!=null) {
+				style.setErrorStyle();
+				out.println(BaseCommandLineSystem.errorBig+": "+Language.tr("CommandLine.Error.LoadingModel")+": "+s);
+				style.setNormalStyle();
+				return;
+			}
 			out.println(Language.tr("CommandLine.Benchmark.UsedModel")+": "+modelFile.getName());
 			break;
 		}
+		style.setColor(null);
 
 		if (editModel==null) return;
 
@@ -133,11 +140,24 @@ public final class CommandBenchmark extends AbstractSimulationCommand {
 
 		for (int i=0;i<5;i++) {
 			if (isCanceled()) break;
-			if (i>0) out.println(Language.tr("CommandLine.Benchmark.SimulaionRun")+" "+(i+1));
+			if (i>0) {
+				style.setBold(true);
+				out.println(Language.tr("CommandLine.Benchmark.SimulaionRun")+" "+(i+1));
+				style.setBold(false);
+			}
 			final Statistics statistics=singleSimulation(editModel,true,maxThreads,out,false,-1);
-			if (statistics==null) {out.println(BaseCommandLineSystem.errorBig+": "+Language.tr("CommandLine.Benchmark.SimulaionFailed")); return;}
+			if (statistics==null) {
+				style.setErrorStyle();
+				out.println(BaseCommandLineSystem.errorBig+": "+Language.tr("CommandLine.Benchmark.SimulaionFailed"));
+				style.setNormalStyle();
+				return;
+			}
 			if (i==0) out.println(Language.tr("CommandLine.Benchmark.Threads")+": "+NumberTools.formatLong(statistics.simulationData.runThreads));
-			if (i==0) out.println(Language.tr("CommandLine.Benchmark.SimulaionRun")+" "+(i+1));
+			if (i==0) {
+				style.setBold(true);
+				out.println(Language.tr("CommandLine.Benchmark.SimulaionRun")+" "+(i+1));
+				style.setBold(false);
+			}
 			out.println("  "+Language.tr("CommandLine.Benchmark.NeededCalculationTime")+": "+NumberTools.formatLong(statistics.simulationData.runTime)+" ms");
 			long sum=0;
 			for (StatisticsDataPerformanceIndicator indicator: (StatisticsDataPerformanceIndicator[])statistics.clientsInterarrivalTime.getAll(StatisticsDataPerformanceIndicator.class)) sum+=indicator.getCount();

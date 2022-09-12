@@ -47,12 +47,10 @@ public class CommandBuildGlossaryText extends AbstractCommand {
 
 	/**
 	 * Konstruktor der Klasse
+	 * @param system	Referenz auf das Kommandozeilensystem
 	 */
-	public CommandBuildGlossaryText() {
-		/*
-		 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
-		 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
-		 */
+	public CommandBuildGlossaryText(final BaseCommandLineSystem system) {
+		super(system);
 	}
 
 	@Override

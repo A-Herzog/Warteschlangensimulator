@@ -13,14 +13,13 @@ import java.util.List;
  * @see BaseCommandLineSystem
  */
 public class CommandInteractive extends AbstractCommand {
+
 	/**
 	 * Konstruktor der Klasse
+	 * @param system	Referenz auf das Kommandozeilensystem
 	 */
-	public CommandInteractive() {
-		/*
-		 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
-		 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
-		 */
+	public CommandInteractive(final BaseCommandLineSystem system) {
+		super(system);
 	}
 
 	@Override

@@ -15,6 +15,7 @@
  */
 package systemtools.commandline;
 
+import java.awt.Color;
 import java.io.File;
 import java.io.InputStream;
 import java.io.PrintStream;
@@ -140,8 +141,17 @@ public class BaseCommandLineSystem {
 	private final InputStream in;
 	/** Ein {@link PrintStream}-Objekt, über das Texte ausgegeben werden können. */
 	private final PrintStream out;
+	/** System, um die Ausgabe über ANSI-Escape-Codes zu formatieren */
+	private final ANSIFormat style;
 	/** In {@link #run(String[])} identifizierter, auszuführender Befehl. */
 	private AbstractCommand command;
+
+	/**
+	 * Soll es möglich sein, dass Textausgaben auf der Konsole formatiert werden können?
+	 * @see ANSIFormat
+	 * @see #getStyle()
+	 */
+	public static boolean useANSI=true;
 
 	/**
 	 * Konstruktor der Klasse <code>BaseCommandLineSystem</code>
@@ -156,9 +166,9 @@ public class BaseCommandLineSystem {
 		this.version=version;
 		this.author=author;
 		this.commands=getCommands().toArray(new AbstractCommand[0]);
-		for (AbstractCommand cmd: this.commands) cmd.system=this;
 		this.in=in;
 		this.out=out;
+		style=new ANSIFormat(useANSI?out:null);
 	}
 
 	/**
@@ -168,8 +178,8 @@ public class BaseCommandLineSystem {
 	protected List<AbstractCommand> getCommands() {
 		List<AbstractCommand> list=new ArrayList<>();
 
-		list.add(new CommandHelp());
-		list.add(new CommandInteractive());
+		list.add(new CommandHelp(this));
+		list.add(new CommandInteractive(this));
 
 		return list;
 	}
@@ -216,12 +226,18 @@ public class BaseCommandLineSystem {
 	private void runInternal(final String[] arguments) {
 		command=findCommand(arguments[0]);
 		if (command==null) {
+			style.setErrorStyle();
 			out.println(errorBig+": "+unknownCommand);
+			style.setNormalStyle();
 		} else {
 			List<String> argsAsList=new ArrayList<>(Arrays.asList(arguments));
 			argsAsList.remove(0);
 			String s=command.prepare(argsAsList.toArray(new String[0]),in,out);
-			if (s!=null) out.println(errorBig+": "+s); else {
+			if (s!=null) {
+				style.setErrorStyle();
+				out.println(errorBig+": "+s);
+				style.setNormalStyle();
+			} else {
 				if (canRun(command)) command.run(commands,in,out);
 			}
 		}
@@ -234,7 +250,10 @@ public class BaseCommandLineSystem {
 	 */
 	public boolean run(final String[] arguments) {
 		if (arguments.length==0) return false;
+		style.setColor(Color.BLUE);
+		style.setBold(true);
 		out.println(programName+" "+version+", (c) "+author);
+		style.setNormalStyle();
 		runInternal(arguments);
 		return true;
 	}
@@ -303,16 +322,28 @@ public class BaseCommandLineSystem {
 
 		try (Scanner scanner=new Scanner(in)) {
 			out.println(readyInfo);
+			style.setBold(true);
 			while(scanner.hasNext()){
 				final String cmd=scanner.nextLine();
 				if (cmd==null || cmd.trim().isEmpty()) continue;
+				style.setBold(false);
 
 				final String cmdLower=cmd.toLowerCase();
 				if (cmdLower.equals("exit") || cmdLower.equals("quit") || cmdLower.equals("exit()") || cmdLower.equals("quit()")) break;
 
 				runDirect(cmd);
 				out.println(readyInfo);
+				style.setBold(true);
 			}
 		}
+	}
+
+	/**
+	 * Liefert das zu <code>out</code> gehörende System, um die Ausgabe über ANSI-Escape-Codes zu formatieren.
+	 * @return	System, um die Ausgabe über ANSI-Escape-Codes zu formatieren
+	 * @see ANSIFormat
+	 */
+	public ANSIFormat getStyle() {
+		return style;
 	}
 }

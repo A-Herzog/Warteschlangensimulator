@@ -15,6 +15,7 @@
  */
 package ui.commandline;
 
+import java.awt.Color;
 import java.io.File;
 import java.io.InputStream;
 import java.io.PrintStream;
@@ -42,14 +43,13 @@ public class CommandExport extends AbstractCommand {
 	/** Ausgabedatei */
 	private File outputFile;
 
+
 	/**
 	 * Konstruktor der Klasse
+	 * @param system	Referenz auf das Kommandozeilensystem
 	 */
-	public CommandExport() {
-		/*
-		 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
-		 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
-		 */
+	public CommandExport(final BaseCommandLineSystem system) {
+		super(system);
 	}
 
 	@Override
@@ -83,6 +83,11 @@ public class CommandExport extends AbstractCommand {
 
 	@Override
 	public void run(AbstractCommand[] allCommands, InputStream in, PrintStream out) {
+		/* Info ausgeben */
+		style.setColor(Color.GREEN);
+		out.println(inputFile.getName()+" -> "+outputFile.getName());
+		style.setColor(null);
+
 		/* Modell oder Statistik laden */
 		EditModel editModel=new EditModel();
 		Statistics statistics=null;
@@ -95,7 +100,9 @@ public class CommandExport extends AbstractCommand {
 			}
 		}
 		if (error!=null) {
+			style.setErrorStyle();
 			out.println(BaseCommandLineSystem.errorBig+": "+Language.tr("CommandLine.Error.LoadingModel")+" "+error);
+			style.setNormalStyle();
 			return;
 		}
 
@@ -104,7 +111,9 @@ public class CommandExport extends AbstractCommand {
 		surfacePanel.setSurface(editModel,editModel.surface,editModel.clientData,editModel.sequences);
 		error=EditorPanel.exportModelToFile(editModel,statistics,surfacePanel,outputFile,null,false);
 		if (error!=null) {
+			style.setErrorStyle();
 			out.println(BaseCommandLineSystem.errorBig+": "+error);
+			style.setNormalStyle();
 			return;
 		}
 	}

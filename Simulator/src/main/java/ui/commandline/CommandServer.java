@@ -25,6 +25,7 @@ import language.Language;
 import mathtools.NumberTools;
 import net.calc.SimulationServer;
 import systemtools.commandline.AbstractCommand;
+import systemtools.commandline.BaseCommandLineSystem;
 
 /**
  * Startet einen Simulationsserver mit unbegrenzter Anzahl an gleichzeitig zulässigen Simulationsthreads.
@@ -42,12 +43,10 @@ public class CommandServer extends AbstractCommand {
 
 	/**
 	 * Konstruktor der Klasse
+	 * @param system	Referenz auf das Kommandozeilensystem
 	 */
-	public CommandServer() {
-		/*
-		 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
-		 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
-		 */
+	public CommandServer(final BaseCommandLineSystem system) {
+		super(system);
 	}
 
 	@Override

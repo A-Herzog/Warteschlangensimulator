@@ -46,12 +46,10 @@ public class CommandProcessOutput extends AbstractCommand {
 
 	/**
 	 * Konstruktor der Klasse
+	 * @param system	Referenz auf das Kommandozeilensystem
 	 */
-	public CommandProcessOutput() {
-		/*
-		 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
-		 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
-		 */
+	public CommandProcessOutput(final BaseCommandLineSystem system) {
+		super(system);
 	}
 
 	@Override
@@ -88,13 +86,17 @@ public class CommandProcessOutput extends AbstractCommand {
 	public void run(AbstractCommand[] allCommands, InputStream in, PrintStream out) {
 		final Table inputTable=new Table();
 		if (!inputTable.load(inputFile)) {
+			style.setErrorStyle();
 			out.println(BaseCommandLineSystem.errorBig+": "+Language.tr("CommandLine.ProcessOutput.ErrorLoadingInputTable"));
+			style.setNormalStyle();
 			return;
 		}
 		final Table outputTable=new Table();
 		ClientOutputTableDialog.process(inputTable,outputTable);
 		if (!outputTable.save(outputFile)) {
+			style.setErrorStyle();
 			out.println(BaseCommandLineSystem.errorBig+": "+Language.tr("CommandLine.ProcessOutput.ErrorSavingOutputTable"));
+			style.setNormalStyle();
 		}
 	}
 }

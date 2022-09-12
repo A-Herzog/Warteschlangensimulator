@@ -24,6 +24,7 @@ import language.Language;
 import net.mqtt.MQTTBrokerURL;
 import net.mqtt.MQTTSimClient;
 import systemtools.commandline.AbstractCommand;
+import systemtools.commandline.BaseCommandLineSystem;
 import tools.SetupData;
 
 /**
@@ -46,12 +47,10 @@ public class CommandServerMQTTTest extends AbstractCommand {
 
 	/**
 	 * Konstruktor der Klasse
+	 * @param system	Referenz auf das Kommandozeilensystem
 	 */
-	public CommandServerMQTTTest() {
-		/*
-		 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
-		 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
-		 */
+	public CommandServerMQTTTest(final BaseCommandLineSystem system) {
+		super(system);
 	}
 
 	@Override
@@ -101,7 +100,11 @@ public class CommandServerMQTTTest extends AbstractCommand {
 		/* Server starten */
 		final String error=server.start(broker,topic,null,null,authName,authPassword);
 		if (error!=null) {
-			if (out!=null) out.println(error);
+			if (out!=null) {
+				style.setErrorStyle();
+				out.println(error);
+				style.setNormalStyle();
+			}
 			return;
 		}
 		if (out!=null) {

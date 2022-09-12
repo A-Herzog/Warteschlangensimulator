@@ -20,6 +20,7 @@ import java.util.List;
 
 import language.Language;
 import systemtools.commandline.AbstractCommand;
+import systemtools.commandline.BaseCommandLineSystem;
 
 /**
  * Führt eine einzelne Simulation aus und bricht diese ggf. ab,
@@ -32,9 +33,10 @@ import systemtools.commandline.AbstractCommand;
 public class CommandSimulationTimeout extends CommandSimulation {
 	/**
 	 * Konstruktor der Klasse
+	 * @param system	Referenz auf das Kommandozeilensystem
 	 */
-	public CommandSimulationTimeout() {
-		super(true);
+	public CommandSimulationTimeout(final BaseCommandLineSystem system) {
+		super(system,true);
 	}
 
 	@Override

@@ -24,6 +24,7 @@ import language.Language;
 import mathtools.NumberTools;
 import net.socket.SocketServerCalc;
 import systemtools.commandline.AbstractCommand;
+import systemtools.commandline.BaseCommandLineSystem;
 
 /**
  * Startet einen Socket-basierten Simulationsserver.
@@ -41,12 +42,10 @@ public class CommandServerSocket extends AbstractCommand {
 
 	/**
 	 * Konstruktor der Klasse
+	 * @param system	Referenz auf das Kommandozeilensystem
 	 */
-	public CommandServerSocket() {
-		/*
-		 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
-		 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
-		 */
+	public CommandServerSocket(final BaseCommandLineSystem system) {
+		super(system);
 	}
 
 	@Override
@@ -98,7 +97,11 @@ public class CommandServerSocket extends AbstractCommand {
 	public void run(AbstractCommand[] allCommands, InputStream in, PrintStream out) {
 		final SocketServerCalc server=new SocketServerCalc(timeout);
 		if (!server.start(serverPort)) {
-			if (out!=null) out.println(String.format(Language.tr("CommandLine.ServerSocket.StartError"),serverPort));
+			if (out!=null) {
+				style.setErrorStyle();
+				out.println(String.format(BaseCommandLineSystem.errorBig+": "+Language.tr("CommandLine.ServerSocket.StartError"),serverPort));
+				style.setNormalStyle();
+			}
 			return;
 		}
 		if (out!=null) out.println(String.format(Language.tr("CommandLine.ServerSocket.Started"),serverPort));

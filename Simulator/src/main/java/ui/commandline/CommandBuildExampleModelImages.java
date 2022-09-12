@@ -10,6 +10,7 @@ import java.util.List;
 import language.Language;
 import simulator.examples.EditModelExamples;
 import systemtools.commandline.AbstractCommand;
+import systemtools.commandline.BaseCommandLineSystem;
 
 /**
  * Erstellt Bilder die die Beispielmodelle darstellen.
@@ -23,12 +24,10 @@ public class CommandBuildExampleModelImages extends AbstractCommand {
 
 	/**
 	 * Konstruktor der Klasse
+	 * @param system	Referenz auf das Kommandozeilensystem
 	 */
-	public CommandBuildExampleModelImages() {
-		/*
-		 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
-		 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
-		 */
+	public CommandBuildExampleModelImages(final BaseCommandLineSystem system) {
+		super(system);
 	}
 
 	@Override

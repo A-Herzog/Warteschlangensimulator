@@ -686,6 +686,11 @@ public class SetupData extends SetupBase {
 	public String commandLineDialogParameters;
 
 	/**
+	 * Sollen bei der Konsolenausgabe von Kommandozeilenbefehlen ANSI-Escape-Sequenzen verwendet werden?
+	 */
+	public boolean commandLineUseANSI;
+
+	/**
 	 * Modell im Hintergrund prüfen und in Statuszeile anzeigen, ob Fehler vorliegen.
 	 * @see SetupData.BackgroundProcessingMode#BACKGROUND_NOTHING
 	 * @see SetupData.BackgroundProcessingMode#BACKGROUND_CHECK_ONLY
@@ -1492,6 +1497,7 @@ public class SetupData extends SetupBase {
 		scriptFontSize=ScriptEditorAreaBuilder.DEFAULT_FONT_SIZE;
 		fontName="";
 		commandLineDialogParameters="";
+		commandLineUseANSI=true;
 		backgroundSimulation=BackgroundProcessingMode.BACKGROUND_SIMULATION;
 		autoConnect=ModelSurfacePanel.ConnectMode.OFF;
 		renameOnCopy=RenameOnCopyMode.SMART;
@@ -2211,6 +2217,11 @@ public class SetupData extends SetupBase {
 
 			if (name.equals("commandlineparameters")) {
 				commandLineDialogParameters=e.getTextContent();
+				continue;
+			}
+
+			if (name.equals("commandlineansi")) {
+				commandLineUseANSI=loadBoolean(e.getTextContent(),true);
 				continue;
 			}
 
@@ -2998,6 +3009,11 @@ public class SetupData extends SetupBase {
 		if (commandLineDialogParameters!=null && !commandLineDialogParameters.trim().isEmpty()) {
 			root.appendChild(node=doc.createElement("CommandLineParameters"));
 			node.setTextContent(commandLineDialogParameters);
+		}
+
+		if (!commandLineUseANSI) {
+			root.appendChild(node=doc.createElement("CommandLineANSI"));
+			node.setTextContent("0");
 		}
 
 		if (backgroundSimulation!=BackgroundProcessingMode.BACKGROUND_SIMULATION) {

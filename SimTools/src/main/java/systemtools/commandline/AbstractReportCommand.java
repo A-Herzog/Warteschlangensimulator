@@ -89,12 +89,10 @@ public abstract class AbstractReportCommand extends AbstractCommand {
 
 	/**
 	 * Konstruktor der Klasse
+	 * @param system	Referenz auf das Kommandozeilensystem
 	 */
-	public AbstractReportCommand() {
-		/*
-		 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
-		 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
-		 */
+	public AbstractReportCommand(final BaseCommandLineSystem system) {
+		super(system);
 	}
 
 	@Override
@@ -155,12 +153,18 @@ public abstract class AbstractReportCommand extends AbstractCommand {
 		final Object obj=getReportCommandConnect(input);
 
 		if (obj instanceof String) {
+			style.setErrorStyle();
 			out.println(BaseCommandLineSystem.errorBig+": "+((String)obj));
+			style.setNormalStyle();
 			return;
 		}
 
 		if (obj instanceof AbstractReportCommandConnect) {
-			if (!process((AbstractReportCommandConnect)obj)) out.println(BaseCommandLineSystem.errorBig+": "+BaseCommandLineSystem.commandReportError);
+			if (!process((AbstractReportCommandConnect)obj)) {
+				style.setErrorStyle();
+				out.println(BaseCommandLineSystem.errorBig+": "+BaseCommandLineSystem.commandReportError);
+				style.setNormalStyle();
+			}
 			return;
 		}
 

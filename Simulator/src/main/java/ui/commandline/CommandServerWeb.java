@@ -24,6 +24,7 @@ import language.Language;
 import mathtools.NumberTools;
 import net.webcalc.CalcWebServer;
 import systemtools.commandline.AbstractCommand;
+import systemtools.commandline.BaseCommandLineSystem;
 import tools.SetupData;
 
 /**
@@ -44,12 +45,10 @@ public class CommandServerWeb extends AbstractCommand {
 
 	/**
 	 * Konstruktor der Klasse
+	 * @param system	Referenz auf das Kommandozeilensystem
 	 */
-	public CommandServerWeb() {
-		/*
-		 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
-		 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
-		 */
+	public CommandServerWeb(final BaseCommandLineSystem system) {
+		super(system);
 	}
 
 	@Override
@@ -111,7 +110,11 @@ public class CommandServerWeb extends AbstractCommand {
 		/* Server starten */
 		final String error=server.start(serverPort);
 		if (error!=null) {
-			if (out!=null) out.println(error);
+			if (out!=null) {
+				style.setErrorStyle();
+				out.println(error);
+				style.setNormalStyle();
+			}
 			return;
 		}
 		if (out!=null) {

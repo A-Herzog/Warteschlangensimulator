@@ -23,6 +23,7 @@ import java.util.List;
 import language.Language;
 import mathtools.NumberTools;
 import systemtools.commandline.AbstractCommand;
+import systemtools.commandline.BaseCommandLineSystem;
 import tools.SetupData;
 
 /**
@@ -37,12 +38,10 @@ public class CommandSetMaxThreads extends AbstractCommand {
 
 	/**
 	 * Konstruktor der Klasse
+	 * @param system	Referenz auf das Kommandozeilensystem
 	 */
-	public CommandSetMaxThreads() {
-		/*
-		 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
-		 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
-		 */
+	public CommandSetMaxThreads(final BaseCommandLineSystem system) {
+		super(system);
 	}
 
 	@Override
@@ -83,7 +82,9 @@ public class CommandSetMaxThreads extends AbstractCommand {
 		setup.useMultiCoreSimulationMaxCount=(maxThreads<=0)?1024:maxThreads;
 
 		if (!setup.saveSetup()) {
-			out.println(Language.tr("CommandLine.SetMaxThreads.Error.CannotSaveSetup"));
+			style.setErrorStyle();
+			out.println(BaseCommandLineSystem.errorBig+": "+Language.tr("CommandLine.SetMaxThreads.Error.CannotSaveSetup"));
+			style.setNormalStyle();
 			return;
 		}
 

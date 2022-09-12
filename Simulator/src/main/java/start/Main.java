@@ -34,6 +34,7 @@ import systemtools.BaseDialog;
 import systemtools.GUITools;
 import systemtools.MsgBox;
 import systemtools.MsgBoxBackendTaskDialog;
+import systemtools.commandline.BaseCommandLineSystem;
 import systemtools.statistics.PDFWriterBase;
 import systemtools.statistics.StatisticsBasePanel;
 import tools.SetupData;
@@ -95,8 +96,10 @@ public class Main {
 	 * Nimmt alle GUI-unabhängigen Vorbereitungen zum Start des Simulators vor.
 	 */
 	public static void prepare() {
+		final SetupData setup=SetupData.getSetup();
+
 		/* Sprache */
-		Language.init(SetupData.getSetup().language);
+		Language.init(setup.language);
 		LanguageStaticLoader.setLanguage();
 		if (Messages_Java11.isFixNeeded()) Messages_Java11.setupMissingSwingMessages();
 
@@ -115,6 +118,9 @@ public class Main {
 
 		/* Nutzerdefinierte Funktionen laden */
 		ExpressionCalcUserFunctionsManager.getInstance();
+
+		/* Darstellung für Kommandozeilenmodus einstellen */
+		BaseCommandLineSystem.useANSI=setup.commandLineUseANSI;
 
 		/* Update */
 		UpdateSystem.getUpdateSystem();
