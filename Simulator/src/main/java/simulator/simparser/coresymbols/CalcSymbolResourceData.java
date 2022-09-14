@@ -70,6 +70,9 @@ public abstract class CalcSymbolResourceData extends CalcSymbolSimData {
 		final StatisticsTimePerformanceIndicator[] statistics=getUsageStatistics();
 		if (statistics==null) throw error();
 
+		final SimulationData simData=getSimData();
+		simData.runData.resources.updateStatistics(simData);
+
 		if (parameters.length==0 && hasAllResourceData()) return calcAllResources(statistics);
 
 		if (parameters.length==1) {
@@ -85,6 +88,9 @@ public abstract class CalcSymbolResourceData extends CalcSymbolSimData {
 	protected double calcOrDefault(final double[] parameters, final double fallbackValue) {
 		final StatisticsTimePerformanceIndicator[] statistics=getUsageStatistics();
 		if (statistics==null) return fallbackValue;
+
+		final SimulationData simData=getSimData();
+		simData.runData.resources.updateStatistics(simData);
 
 		if (parameters.length==0 && hasAllResourceData()) return calcAllResources(statistics);
 

@@ -388,7 +388,7 @@ public final class RunDataResource implements Cloneable {
 
 	/**
 	 * Bestimmt wie viele Bediener in der Gruppe in einem bestimmten Zeitbereich verfügbar waren.
-	 * @param timeMS1	Start des Zeitbereits
+	 * @param timeMS1	Start des Zeitbereichs
 	 * @param timeMS2	Ende des Zeitbereichs
 	 * @return	Anzahl an verfügbaren Bediener-Stunden
 	 * @see #timesToStatistics(SimulationData)
@@ -406,13 +406,13 @@ public final class RunDataResource implements Cloneable {
 	private int lastInUse;
 
 	/**
-	 * Erfasst eine Zeitspanne in der Statistik
+	 * Erfasst eine Zeitspanne in der Statistik.
 	 * @param simData	Simulationsdatenobjekt
 	 * @see #lockDo(int, SimulationData, int)
 	 * @see #releaseDo(int, SimulationData)
 	 * @see #setCount(SimulationData, int)
 	 */
-	private void timesToStatistics(final SimulationData simData) {
+	public void timesToStatistics(final SimulationData simData) {
 		/* Wenn noch nicht geschehen: Statistik-Sub-Objekte für schnelleren Zugriff direkt cachen */
 		if (statisticsUsage==null) initStatistics(simData);
 

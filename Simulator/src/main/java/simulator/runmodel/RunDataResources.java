@@ -281,6 +281,19 @@ public final class RunDataResources implements Cloneable {
 	}
 
 	/**
+	 * Erfasst eine Zeitspanne in für alle Ressourcengruppen in der Statistik.<br>
+	 * Muss am Simulationsende und wenn aktuelle Werte aus der Statistik während
+	 * einer laufenden Simulation abgerufen werden sollen (und vorher Teilintervalle
+	 * in die Statistik übertragen werden sollen) aufgerufen werden.<br>
+	 * Bei der Belegung und Freigabe von Ressourcen ist dies nicht nötig;
+	 * in diesem Fall erfolgt die Erfassung automatisch.
+	 * @param simData	Simulationsdatenobjekt
+	 */
+	public void updateStatistics(final SimulationData simData) {
+		for (RunDataResource resource: list) resource.timesToStatistics(simData);
+	}
+
+	/**
 	 * Muss zum Zeitpunkt 0 aufgerufen werden, um evtl. Ausfallzeitpunkte einzuplanen
 	 * und Bediener zu initialisieren, wenn Rüstzeiten auf Bedienerseite vorgesehen sind.
 	 * @param simData	Simulationsdatenobjekt

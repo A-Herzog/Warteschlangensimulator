@@ -526,6 +526,9 @@ public class RunData {
 		/* Anzahl an Kunden im System letztmalig erfassen */
 		clients.finalizeNumberOfClientsInSystem(simData);
 
+		/* Auslastung letztmalig erfassen */
+		resources.updateStatistics(simData);
+
 		/* Variablenwerte letztmalig erfassen */
 		for (int i=0;i<variableValues.length-3;i++) updateVariableValueForStatistics(simData,i);
 		updateMapValuesForStatistics(simData);
