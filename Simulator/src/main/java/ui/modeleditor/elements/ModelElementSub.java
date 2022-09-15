@@ -262,6 +262,8 @@ public class ModelElementSub extends ModelElementBox implements ElementWithNewCl
 				countOut++;
 			}
 		}
+
+		updateConnectionStationNames();
 	}
 
 	/**
@@ -355,7 +357,7 @@ public class ModelElementSub extends ModelElementBox implements ElementWithNewCl
 			idsIn[i]=-1;
 			if (i>=edgesIn.length) continue;
 			if (edgesIn[i]==null) continue;
-			element=edgesIn[i].getConnectionEnd();
+			element=edgesIn[i].getConnectionStart();
 			if (element!=null) idsIn[i]=element.getId();
 		}
 		final int[] idsOut=new int[countConnectionsOut];
@@ -613,7 +615,12 @@ public class ModelElementSub extends ModelElementBox implements ElementWithNewCl
 			idsIn[i]=-1;
 			if (i>=edgesIn.length) continue;
 			if (edgesIn[i]==null) continue;
-			element=edgesIn[i].getConnectionEnd();
+			element=edgesIn[i].getConnectionStart();
+			if (element==null) {
+				/* Kante wurde ggf. selbst noch nicht initialisiert. Dann Initialisierung vornehmen. Wenn diese später noch einmal ausgeführt wird, stört das nicht. */
+				edgesIn[i].initAfterLoadOrClone();
+				element=edgesIn[i].getConnectionStart();
+			}
 			if (element!=null) idsIn[i]=element.getId();
 		}
 		final int[] idsOut=new int[countConnectionsOut];
@@ -623,6 +630,11 @@ public class ModelElementSub extends ModelElementBox implements ElementWithNewCl
 			if (i>=edgesOut.length) continue;
 			if (edgesOut[i]==null) continue;
 			element=edgesOut[i].getConnectionEnd();
+			if (element==null) {
+				/* Kante wurde ggf. selbst noch nicht initialisiert. Dann Initialisierung vornehmen. Wenn diese später noch einmal ausgeführt wird, stört das nicht. */
+				edgesOut[i].initAfterLoadOrClone();
+				element=edgesOut[i].getConnectionEnd();
+			}
 			if (element!=null) idsOut[i]=element.getId();
 		}
 

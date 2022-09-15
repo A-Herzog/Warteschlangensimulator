@@ -101,7 +101,7 @@ public class ModelElementSubIn extends ModelElementSubConnect implements ModelEl
 		super.copyDataFrom(element);
 		if (element instanceof ModelElementSubIn) {
 			if (((ModelElementSubIn)element).connectionOut!=null) connectionOutId=((ModelElementSubIn)element).connectionOut.getId();
-			if (connectionStationID<0) setName(Language.tr("Surface.SubConnect.NotConnected")); else setName("Zu id="+connectionStationID);
+			if (connectionStationID<0) setName(Language.tr("Surface.SubConnect.NotConnected")); else setName(Language.tr("Surface.SubConnect.FromID")+"="+connectionStationID);
 		}
 	}
 

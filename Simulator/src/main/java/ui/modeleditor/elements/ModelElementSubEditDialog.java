@@ -80,6 +80,29 @@ public class ModelElementSubEditDialog extends BaseDialog {
 		ownModel.resources=mainSurface.getResources().clone();
 		ownModel.surface=subSurface.clone(false,null,null,mainSurface,model);
 
+		/* Beschriftungen der Ein- und Ausgänge anpassen */
+		int countIn=0;
+		int countOut=0;
+		for (ModelElement element: ownModel.surface.getElements()) {
+			if (element instanceof ModelElementSubIn) {
+				if (countIn<edgesIn.length) {
+					final ModelElementSubIn in=(ModelElementSubIn)element;
+					final ModelElement previous=mainSurface.getById(edgesIn[countIn]);
+					if (previous!=null) in.setConnectionData(countIn,previous.getId());
+				}
+				countIn++;
+
+			}
+			if (element instanceof ModelElementSubOut) {
+				if (countOut<edgesOut.length) {
+					final ModelElementSubOut out=(ModelElementSubOut)element;
+					final ModelElement next=mainSurface.getById(edgesOut[countOut]);
+					if (next!=null) out.setConnectionData(countOut,next.getId());
+				}
+				countOut++;
+			}
+		}
+
 		/* GUI */
 		final JPanel all=createGUI(()->Help.topicModal(ModelElementSubEditDialog.this,isFullSubModel?"ModelElementSub":"ModelElementDashboard"));
 		all.setLayout(new BorderLayout());
