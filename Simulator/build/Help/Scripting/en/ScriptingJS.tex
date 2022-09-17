@@ -531,16 +531,16 @@ Sets the maximum flow (per second) at the specified valve (1 based) of the "Tank
 with the specified \cm{id}. The maximum flow has to be a non-negative number.  
 
 \item
-\cmd{Simulation.getWIP(id)}:\\
-Gets the current number of clients at the station with the specified id.
+\cmd{Simulation.getWIP(idOrName)}:\\
+Gets the current number of clients at the station with the specified id (Integer) or the specified station name (String).
   
 \item
-\cmd{Simulation.getNQ(id)}:\\
-Gets the current number of clients in the queue at the station with the specified id.
+\cmd{Simulation.getNQ(idOrName)}:\\
+Gets the current number of clients in the queue at the station with the specified id (Integer) or the specified station name (String).
 
 \item
-\cmd{Simulation.getNS(id)}:\\
-Gets the current number of clients in service process at the station with the specified id.
+\cmd{Simulation.getNS(idOrName)}:\\
+Gets the current number of clients in service process at the station with the specified id (Integer) or the specified station name (String).
 
 \item
 \cmd{Simulation.getWIP()}:\\

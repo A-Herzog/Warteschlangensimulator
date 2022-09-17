@@ -43,11 +43,18 @@ public interface SystemInterface {
 	boolean isWarmUp();
 
 	/**
-	 * Liefert die Anzahl an Kunden an einer Station
+	 * Liefert die Anzahl an Kunden an einer Station.
 	 * @param id	ID der Station
 	 * @return	Anzahl an Kunden an der Station
 	 */
 	int getWIP(final int id);
+
+	/**
+	 * Liefert die Anzahl an Kunden an einer Station.
+	 * @param stationName Name der Station (identisch zu den Namen, die in $("...") Befehlen in Rechenausdrücken verwendet werden können)
+	 * @return Anzahl an Kunden an der Station
+	 */
+	int getWIP(final String stationName);
 
 	/**
 	 * Liefert die Anzahl an Kunden in der Warteschlange an einer Station
@@ -57,11 +64,25 @@ public interface SystemInterface {
 	int getNQ(final int id);
 
 	/**
+	 * Liefert die Anzahl an Kunden in der Warteschlange an einer Station.
+	 * @param stationName Name der Station (identisch zu den Namen, die in $("...") Befehlen in Rechenausdrücken verwendet werden können)
+	 * @return Anzahl an Kunden in der Warteschlange an der Station
+	 */
+	int getNQ(final String stationName);
+
+	/**
 	 * Liefert die Anzahl an Kunden in Bedienung an einer Station
 	 * @param id ID der Station
 	 * @return Anzahl an Kunden in Bedienung an der Station
 	 */
 	int getNS(final int id);
+
+	/**
+	 * Liefert die Anzahl an Kunden in Bedienung an einer Station.
+	 * @param stationName Name der Station (identisch zu den Namen, die in $("...") Befehlen in Rechenausdrücken verwendet werden können)
+	 * @return Anzahl an Kunden in Bedienung an der Station
+	 */
+	int getNS(final String stationName);
 
 	/**
 	 * Liefert die Anzahl an Kunden an allen Stationen zusammen

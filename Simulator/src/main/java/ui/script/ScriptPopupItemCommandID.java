@@ -32,6 +32,8 @@ public class ScriptPopupItemCommandID extends ScriptPopupItemCommandModel {
 	private final boolean preferProcessStations;
 	/** Soll auch ein leerer Parameter zulässig sein? */
 	private final boolean allowEmpty;
+	/** Soll es zulässig sein, Stationen über ihre Namen zu identifizieren? */
+	private final boolean allowNames;
 	/** Liste der Klassen der Elementtypen auf die die Auswahl eingeschränkt werden soll (wird hier <code>null</code> oder eine leere Liste übergeben, so erfolgt keine Einschränkung) */
 	private final Class<?>[] stationTypes;
 
@@ -50,6 +52,7 @@ public class ScriptPopupItemCommandID extends ScriptPopupItemCommandModel {
 		stationTypes=null;
 		preferProcessStations=false;
 		allowEmpty=false;
+		allowNames=false;
 	}
 
 	/**
@@ -68,6 +71,7 @@ public class ScriptPopupItemCommandID extends ScriptPopupItemCommandModel {
 		stationTypes=null;
 		this.preferProcessStations=preferProcessStations;
 		allowEmpty=false;
+		allowNames=false;
 	}
 
 	/**
@@ -87,6 +91,28 @@ public class ScriptPopupItemCommandID extends ScriptPopupItemCommandModel {
 		stationTypes=null;
 		this.preferProcessStations=preferProcessStations;
 		this.allowEmpty=allowEmpty;
+		allowNames=false;
+	}
+
+	/**
+	 * Konstruktor der Klasse
+	 * @param name	Name des Eintrags (kann <code>null</code> sein)
+	 * @param hint	Tooltip des Eintrags (kann <code>null</code> sein)
+	 * @param icon	Icon für den Eintrag (kann <code>null</code> sein)
+	 * @param command	Befehl, der in das Textfeld eingefügt werden soll (muss ein "%s" enthalten).
+	 * @param owner	Übergeordnetes Element (zur Ausrichtung des Dialogs)
+	 * @param model	Editor-Modell dem die Daten entnommen werden sollen
+	 * @param help	Hilfe-Runnable (für Dialog)
+	 * @param preferProcessStations	Soll wenn möglich in der Liste eine Bedienstation oder Verzögerungsstation initial ausgewählt werden?
+	 * @param allowEmpty	Soll auch ein leerer Parameter zulässig sein?
+	 * @param allowNames	Soll es zulässig sein, Stationen über ihre Namen zu identifizieren?
+	 */
+	public ScriptPopupItemCommandID(final String name, final String hint, final Icon icon, final String command, final Component owner, final EditModel model, final Runnable help, final boolean preferProcessStations, final boolean allowEmpty, final boolean allowNames) {
+		super(name,hint,icon,command,owner,model,help);
+		stationTypes=null;
+		this.preferProcessStations=preferProcessStations;
+		this.allowEmpty=allowEmpty;
+		this.allowNames=allowNames;
 	}
 
 	/**
@@ -105,15 +131,21 @@ public class ScriptPopupItemCommandID extends ScriptPopupItemCommandModel {
 		this.stationTypes=stationTypes;
 		preferProcessStations=false;
 		allowEmpty=false;
+		allowNames=false;
 	}
 
 	@Override
 	protected String getParameter(final Component owner, final EditModel model, final Runnable help) {
-		final SelectIDDialog dialog=new SelectIDDialog(owner,model,help,stationTypes,preferProcessStations,allowEmpty);
+		final SelectIDDialog dialog=new SelectIDDialog(owner,model,help,stationTypes,preferProcessStations,allowEmpty,allowNames);
 		if (dialog.getClosedBy()!=BaseDialog.CLOSED_BY_OK) return null;
-		final int id=dialog.getSelectedID();
-		if (allowEmpty && id==-2) return "";
-		if (id<0) return null;
-		return ""+id;
+		final String name=dialog.getSelectedName();
+		if (name!=null && !name.trim().isEmpty()) {
+			return "\""+name+"\"";
+		} else {
+			final int id=dialog.getSelectedID();
+			if (allowEmpty && id==-2) return "";
+			if (id<0) return null;
+			return ""+id;
+		}
 	}
 }

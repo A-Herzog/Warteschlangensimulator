@@ -617,8 +617,10 @@ public class ScriptEditorAreaBuilder {
 		String systemTerminateSimulation="";
 		String systemWIP="";
 		String systemNQ="";
+		String systemNS="";
 		String systemWIPAll="";
 		String systemNQAll="";
+		String systemNSAll="";
 		String systemVar="";
 		String systemSetAnalogValue="";
 		String systemSetAnalogRate="";
@@ -668,10 +670,12 @@ public class ScriptEditorAreaBuilder {
 			systemMapGlobal="Simulation.getMapGlobal()";
 			systemPauseAnimation="Simulation.pauseAnimation();";
 			systemTerminateSimulation="Simulation.terminateSimulation(\"message\");";
-			systemWIP="Simulation.getWIP(id);";
-			systemNQ="Simulation.getNQ(id);";
+			systemWIP="Simulation.getWIP(idOrName);";
+			systemNQ="Simulation.getNQ(idOrName);";
+			systemNS="Simulation.getNS(idOrName);";
 			systemWIPAll="Simulation.getWIP();";
 			systemNQAll="Simulation.getNQ();";
+			systemNSAll="Simulation.getNS();";
 			systemVar="Simulation.set(\"variable\",123);";
 			systemSetAnalogValue="Simulation.setValue(id,123);";
 			systemSetAnalogRate="Simulation.setRate(id,Wert);";
@@ -719,10 +723,12 @@ public class ScriptEditorAreaBuilder {
 			systemMapGlobal="sim.getSystem().getMapGlobal()";
 			systemPauseAnimation="sim.getSystem().pauseAnimation();";
 			systemTerminateSimulation="sim.getSystem().terminateSimulation(\"message\");";
-			systemWIP="sim.getSystem().getWIP(id);";
-			systemNQ="sim.getSystem().getNQ(id);";
+			systemWIP="sim.getSystem().getWIP(idOrName);";
+			systemNQ="sim.getSystem().getNQ(idOrName);";
+			systemNS="sim.getSystem().getNS(idOrName);";
 			systemWIPAll="sim.getSystem().getWIP();";
 			systemNQAll="sim.getSystem().getNQ();";
+			systemNSAll="sim.getSystem().getNS();";
 			systemVar="sim.getSystem().set(\"variable\",123);";
 			systemSetAnalogValue="sim.getSystem().setAnalogValue(id,123);";
 			systemSetAnalogRate="sim.getSystem().setAnalogRate(id,123);";
@@ -773,8 +779,10 @@ public class ScriptEditorAreaBuilder {
 
 		addAutoComplete(Language.tr("ScriptPopup.Simulation.getWIP"),Language.tr("ScriptPopup.Simulation.getWIP.Hint"),Images.SCRIPT_RECORD_DATA_STATION.getIcon(),systemWIP);
 		addAutoComplete(Language.tr("ScriptPopup.Simulation.getNQ"),Language.tr("ScriptPopup.Simulation.getNQ.Hint"),Images.SCRIPT_RECORD_DATA_STATION_QUEUE.getIcon(),systemNQ);
+		addAutoComplete(Language.tr("ScriptPopup.Simulation.getNS"),Language.tr("ScriptPopup.Simulation.getNS.Hint"),Images.SCRIPT_RECORD_DATA_RESOURCE.getIcon(),systemNS);
 		addAutoComplete(Language.tr("ScriptPopup.Simulation.getWIPAll"),Language.tr("ScriptPopup.Simulation.getWIPAll.Hint"),Images.SCRIPT_RECORD_DATA_STATION.getIcon(),systemWIPAll);
 		addAutoComplete(Language.tr("ScriptPopup.Simulation.getNQAll"),Language.tr("ScriptPopup.Simulation.getNQAll.Hint"),Images.SCRIPT_RECORD_DATA_STATION_QUEUE.getIcon(),systemNQAll);
+		addAutoComplete(Language.tr("ScriptPopup.Simulation.getNSAll"),Language.tr("ScriptPopup.Simulation.getNSAll.Hint"),Images.SCRIPT_RECORD_DATA_RESOURCE.getIcon(),systemNSAll);
 
 		addAutoComplete(Language.tr("ScriptPopup.Simulation.setVariable"),Language.tr("ScriptPopup.Simulation.setVariable.Hint"),Images.SCRIPT_RECORD_VARIABLE.getIcon(),systemVar);
 

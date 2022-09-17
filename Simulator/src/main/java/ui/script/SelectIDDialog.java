@@ -23,8 +23,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.IntStream;
 
 import javax.swing.BoxLayout;
+import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -76,6 +78,12 @@ public class SelectIDDialog extends BaseDialog {
 	private int selectedID;
 
 	/**
+	 * Name der gewählten Station
+	 * @see #getSelectedID()
+	 */
+	private String selectedName;
+
+	/**
 	 * Initial zu wählender Eintrag in {@link #combo}
 	 * @see #getIDs(EditModel)
 	 */
@@ -87,9 +95,24 @@ public class SelectIDDialog extends BaseDialog {
 	private int[] ids;
 
 	/**
+	 * Namen der Stationen in {@link #combo}
+	 */
+	private String[] names;
+
+	/**
+	 * Namen aller Stationen im Modell
+	 */
+	private List<String> allNames;
+
+	/**
 	 * Auswahlbox zur Auswahl einer Station
 	 */
 	private final JComboBox<String> combo;
+
+	/**
+	 * Option: Stationen wenn möglich über ihre Namen identifizieren?
+	 */
+	private final JCheckBox byNameCheckBox;
 
 	/**
 	 * Soll auch ein leerer Parameter zulässig sein?
@@ -100,16 +123,19 @@ public class SelectIDDialog extends BaseDialog {
 	 * Konstruktor der Klasse
 	 * @param owner	Übergeordnetes Element
 	 * @param ids	Zuordnung von vorhandenen IDs zu Stationen
+	 * @param allNames	Namen aller Stationen im Modell
 	 * @param help	Hilfe-Runnable
 	 * @param stationRestrictions	Gibt an, ob es sich bei der Zuordnung um eine Liste aller Stationen (<code>false</code>) oder nur um eine bestimmte Auswahl (<code>true</code>) handelt
 	 * @param preferProcessStations	Soll wenn möglich in der Liste eine Bedienstation oder Verzögerungsstation initial ausgewählt werden?
 	 * @param allowEmpty	Soll auch ein leerer Parameter zulässig sein?
+	 * @param allowNames	Soll es zulässig sein, Stationen über ihre Namen zu identifizieren?
 	 */
-	public SelectIDDialog(final Component owner, final Map<Integer,ModelElementBox> ids, final Runnable help, final boolean stationRestrictions, final boolean preferProcessStations, final boolean allowEmpty) {
+	public SelectIDDialog(final Component owner, final Map<Integer,ModelElementBox> ids, final List<String> allNames, final Runnable help, final boolean stationRestrictions, final boolean preferProcessStations, final boolean allowEmpty, final boolean allowNames) {
 		super(owner,Language.tr("ScriptPopup.SelectIDDialog.Title"));
 		this.allowEmpty=allowEmpty;
 		selectedID=-1;
 		selectedIndex=-1;
+		this.allNames=allNames;
 		if (ids.size()==0) {
 			if (stationRestrictions) {
 				MsgBox.error(owner,Language.tr("ScriptPopup.SelectIDDialog.ErrorMatchingNoStations.Title"),Language.tr("ScriptPopup.SelectIDDialog.ErrorMatchingNoStations.Info"));
@@ -117,24 +143,36 @@ public class SelectIDDialog extends BaseDialog {
 				MsgBox.error(owner,Language.tr("ScriptPopup.SelectIDDialog.ErrorNoStations.Title"),Language.tr("ScriptPopup.SelectIDDialog.ErrorNoStations.Info"));
 			}
 			combo=null;
+			byNameCheckBox=null;
 			return;
 		}
 
+		/* GUI */
 		final JPanel content=createGUI(help);
 		content.setLayout(new BorderLayout());
+
+		JPanel line;
+
 		final JPanel setup=new JPanel();
 		content.add(setup,BorderLayout.NORTH);
 		setup.setLayout(new BoxLayout(setup,BoxLayout.PAGE_AXIS));
-		final JPanel line=new JPanel(new FlowLayout(FlowLayout.LEFT));
-		setup.add(line);
 
+		/* Auswahl der Station */
+		setup.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
 		final JLabel label=new JLabel(Language.tr("ScriptPopup.SelectIDDialog.Station")+":");
 		line.add(label);
-
 		line.add(combo=new JComboBox<>(getIDNames(ids,preferProcessStations,allowEmpty)));
 		if (selectedIndex<0) selectedIndex=0;
 		combo.setSelectedIndex(selectedIndex);
 		label.setLabelFor(combo);
+
+		/* Wenn möglich über Name adressieren? */
+		if (allowNames) {
+			setup.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
+			line.add(byNameCheckBox=new JCheckBox(Language.tr("ScriptPopup.SelectIDDialog.byName")));
+		} else {
+			byNameCheckBox=null;
+		}
 
 		setMinSizeRespectingScreensize(500,0);
 		pack();
@@ -150,9 +188,10 @@ public class SelectIDDialog extends BaseDialog {
 	 * @param stationTypes	Optionale Liste der Klassennamen der Stationen, die in die Auswahl aufgenommen werden sollen (wird hier <code>null</code> oder eine leere Liste übergeben, so erfolgt keine Einschränkung)
 	 * @param preferProcessStations	Soll wenn möglich in der Liste eine Bedienstation oder Verzögerungsstation initial ausgewählt werden?
 	 * @param allowEmpty	Soll auch ein leerer Parameter zulässig sein?
+	 * @param allowNames	Soll es zulässig sein, Stationen über ihre Namen zu identifizieren?
 	 */
-	public SelectIDDialog(final Component owner, final EditModel model, final Runnable help, final Class<?>[] stationTypes, final boolean preferProcessStations, final boolean allowEmpty) {
-		this(owner,getIDs(model,stationTypes),help,(stationTypes!=null && stationTypes.length>0),true,allowEmpty);
+	public SelectIDDialog(final Component owner, final EditModel model, final Runnable help, final Class<?>[] stationTypes, final boolean preferProcessStations, final boolean allowEmpty, final boolean allowNames) {
+		this(owner,getIDs(model,stationTypes),getAllNames(model),help,(stationTypes!=null && stationTypes.length>0),true,allowEmpty,allowNames);
 	}
 
 	/**
@@ -162,7 +201,7 @@ public class SelectIDDialog extends BaseDialog {
 	 * @param help	Hilfe-Runnable
 	 */
 	public SelectIDDialog(final Component owner, final EditModel model, final Runnable help) {
-		this(owner,model,help,null,false,false);
+		this(owner,model,help,null,false,false,false);
 	}
 
 	/**
@@ -173,6 +212,7 @@ public class SelectIDDialog extends BaseDialog {
 	 */
 	private static void addIDsToMap(final ModelSurface surface, final Map<Integer,ModelElementBox> ids, final Class<?>[] stationTypes) {
 		for (ModelElement element: surface.getElements()) if (element instanceof ModelElementBox) {
+
 			if (element instanceof ModelElementSource) continue;
 			if (element instanceof ModelElementSourceDB) continue;
 			if (element instanceof ModelElementSourceDDE) continue;
@@ -228,6 +268,30 @@ public class SelectIDDialog extends BaseDialog {
 	}
 
 	/**
+	 * Liefert eine Liste der Namen aller Stationen im Modell.
+	 * @param model	Modell aus dem die Daten ausgelesen werden sollen
+	 * @return Namen aller Stationen im Modell
+	 */
+	private static List<String> getAllNames(final EditModel model) {
+		final List<String> result=new ArrayList<>();
+		getAllNames(model.surface,result);
+		return result;
+	}
+
+	/**
+	 * Fügt die Namen der Stationen auf einer Zeichenfläche zu der Gesamtliste der Stationsnamen hinzu.
+	 * @param surface	Zeichenfläche deren Stationen betrachtet werden sollen
+	 * @param allNames	Liste zu der die Stationsnamen hinzugefügt werden sollen
+	 * @see #getAllNames(EditModel)
+	 */
+	private static void getAllNames(final ModelSurface surface, final List<String> allNames) {
+		for (ModelElement element: surface.getElements()) if (element instanceof ModelElementBox) {
+			allNames.add(((ModelElementBox)element).getName());
+			if (element instanceof ModelElementSub) getAllNames(((ModelElementSub)element).getSubSurface(),allNames);
+		}
+	}
+
+	/**
 	 * Liefert eine Liste mit Stationsnamen (und ihren IDs)
 	 * @param ids	Zuordnung von IDs zu Stationselementen
 	 * @param preferProcessStations	Bedienstationen an den Anfang stellen
@@ -236,6 +300,7 @@ public class SelectIDDialog extends BaseDialog {
 	 */
 	private String[] getIDNames(final Map<Integer,ModelElementBox> ids, final boolean preferProcessStations, final boolean allowEmpty) {
 		this.ids=ids.keySet().stream().mapToInt(i->i).sorted().toArray();
+		this.names=IntStream.of(this.ids).mapToObj(id->ids.get(id).getName()).toArray(String[]::new);
 
 		final List<String> names=new ArrayList<>();
 		if (allowEmpty) names.add(Language.tr("ScriptPopup.SelectIDDialog.Station.NoID"));
@@ -258,20 +323,36 @@ public class SelectIDDialog extends BaseDialog {
 		final int index=combo.getSelectedIndex();
 		if (index<0) {
 			selectedID=-1;
+			selectedName=null;
 		} else {
 			if (allowEmpty) {
-				if (index==0) selectedID=-2; else selectedID=ids[index-1];
+				if (index==0) selectedID=-2; else {
+					selectedID=ids[index-1];
+					selectedName=names[index-1];
+					if (allNames.stream().filter(name->name.equalsIgnoreCase(selectedName)).count()>1) selectedName=null;
+				}
 			} else {
 				selectedID=ids[index];
+				selectedName=names[index];
+				if (allNames.stream().filter(name->name.equalsIgnoreCase(selectedName)).count()>1) selectedName=null;
 			}
 		}
 	}
 
 	/**
-	 * Liefert die ID der gewählten Station
+	 * Liefert die ID der gewählten Station.
 	 * @return	ID der gewählten Station oder -1, wenn keine Auswahl erfolgt ist
 	 */
 	public int getSelectedID() {
 		return selectedID;
+	}
+
+	/**
+	 * Liefert den Namen der gewählten Station sofern eine Identifikation über den Namen möglich und gewünscht ist.
+	 * @return Name der gewählten Station oder <code>null</code>
+	 */
+	public String getSelectedName() {
+		if (byNameCheckBox!=null && byNameCheckBox.isSelected() && selectedName!=null) return selectedName;
+		return null;
 	}
 }

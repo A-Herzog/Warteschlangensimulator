@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-11 00:05+0200\n"
+"POT-Creation-Date: 2022-09-15 19:36+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16112,6 +16112,9 @@ msgstr "<no ID, all data>"
 msgid "ScriptPopup.SelectIDDialog.Title"
 msgstr "Select station"
 
+msgid "ScriptPopup.SelectIDDialog.byName"
+msgstr "Identify station by name instead of by Id if possible"
+
 msgid "ScriptPopup.SelectVariableDialog.ErrorNoVariables.Info"
 msgstr "The model does not contain any variables."
 
@@ -16246,6 +16249,12 @@ msgstr "Clients in service process at station"
 
 msgid "ScriptPopup.Simulation.getNS.Hint"
 msgstr "Current number of clients in service process at a station"
+
+msgid "ScriptPopup.Simulation.getNSAll"
+msgstr "Clients in service process in the system"
+
+msgid "ScriptPopup.Simulation.getNSAll.Hint"
+msgstr "Current number of clients in service process in the whole system"
 
 msgid "ScriptPopup.Simulation.getResourceCount"
 msgstr "Number of operators in a group"

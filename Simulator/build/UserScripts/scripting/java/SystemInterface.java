@@ -47,6 +47,13 @@ public interface SystemInterface {
 	 * @return	Number of clients at the station
 	 */
 	int getWIP(final int id);
+	
+	/**
+	 * Returns the number of clients at a station.
+	 * @param stationName	Name of the station
+	 * @return	Number of clients at the station
+	 */
+	int getWIP(final String stationName);
 
 	/**
 	 * Returns the number of clients in the queue at a station.
@@ -56,11 +63,25 @@ public interface SystemInterface {
 	int getNQ(final int id);
 	
 	/**
+	 * Returns the number of clients in the queue at a station.
+	 * @param stationName	Name of the station
+	 * @return	Number of clients in the queue at the station
+	 */
+	int getNQ(final String stationName);
+	
+	/**
 	 * Returns the number of clients in service process at a station.
 	 * @param id	ID of the station
 	 * @return	Number of clients in service process at the station
 	 */
 	int getNS(final int id);
+	
+	/**
+	 * Returns the number of clients in service process at a station.
+	 * @param stationName	Name of the station
+	 * @return	Number of clients in service process at the station
+	 */
+	int getNS(final String stationName);
 
 	/**
 	 * Returns the number of clients at all stations together.

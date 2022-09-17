@@ -117,10 +117,45 @@ public class SystemImpl implements SystemInterface {
 		return simData.runData.isWarmUp;
 	}
 
+	/**
+	 * Dynamisch aufgebaute Zuordnung von Stationsnamen zu Laufzeitelementen
+	 * @see #elementFromName(String)
+	 */
+	private Map<String,RunElement> namesToElements;
+
+	/**
+	 * Liefert das Stations-Laufzeit-Element zu einem Namen
+	 * @param stationName	Name der Station (identisch zu den Namen, die in $("...") Befehlen in Rechenausdrücken verwendet werden können)
+	 * @return	Stations-Laufzeit-Element oder <code>null</code>, wenn es keine Station mit dem angegebenen Namen gibt
+	 */
+	private RunElement elementFromName(final String stationName) {
+		if (stationName==null) return null;
+
+		if (namesToElements!=null) {
+			final RunElement element=namesToElements.get(stationName);
+			if (element!=null) return element;
+		}
+
+		if (simData==null) return null;
+		final Integer I=simData.runModel.namesToIDs.get(stationName);
+		if (I==null) return null;
+		final RunElement element=simData.runModel.elementsFast[I];
+
+		if (namesToElements==null) namesToElements=new HashMap<>();
+		namesToElements.put(stationName,element);
+		return element;
+	}
+
 	@Override
 	public int getWIP(final int id) {
 		if (id<0 || id>=runModel.elementsFast.length) return 0;
 		final RunElement element=runModel.elementsFast[id];
+		if (element==null) return 0;
+		return element.getData(simData).reportedClientsAtStation(simData);
+	}
+
+	public int getWIP(final String stationName) {
+		final RunElement element=elementFromName(stationName);
 		if (element==null) return 0;
 		return element.getData(simData).reportedClientsAtStation(simData);
 	}
@@ -133,10 +168,22 @@ public class SystemImpl implements SystemInterface {
 		return element.getData(simData).clientsAtStationQueue;
 	}
 
+	public int getNQ(final String stationName) {
+		final RunElement element=elementFromName(stationName);
+		if (element==null) return 0;
+		return element.getData(simData).clientsAtStationQueue;
+	}
+
 	@Override
 	public int getNS(final int id) {
 		if (id<0 || id>=runModel.elementsFast.length) return 0;
 		final RunElement element=runModel.elementsFast[id];
+		if (element==null) return 0;
+		return element.getData(simData).clientsAtStationProcess;
+	}
+
+	public int getNS(final String stationName) {
+		final RunElement element=elementFromName(stationName);
 		if (element==null) return 0;
 		return element.getData(simData).clientsAtStationProcess;
 	}

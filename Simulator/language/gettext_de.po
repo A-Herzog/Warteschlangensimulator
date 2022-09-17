@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-11 00:05+0200\n"
+"POT-Creation-Date: 2022-09-15 19:36+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16120,6 +16120,9 @@ msgstr "<keine ID, über alle>"
 msgid "ScriptPopup.SelectIDDialog.Title"
 msgstr "Station wählen"
 
+msgid "ScriptPopup.SelectIDDialog.byName"
+msgstr "Station wenn möglich über ihren Namen statt über die ID identifizieren"
+
 msgid "ScriptPopup.SelectVariableDialog.ErrorNoVariables.Info"
 msgstr "Das Modell enthält keine Variablen."
 
@@ -16254,6 +16257,12 @@ msgstr "Anzahl an Kunden in Bedienung"
 
 msgid "ScriptPopup.Simulation.getNS.Hint"
 msgstr "Aktuelle Anzahl an Kunden im Bedienprozess an einer Station"
+
+msgid "ScriptPopup.Simulation.getNSAll"
+msgstr "Anzahl an Kunden in Bedienung (gesamt)"
+
+msgid "ScriptPopup.Simulation.getNSAll.Hint"
+msgstr "Aktuelle Anzahl an Kunden im Bedienprozess im gesamten System"
 
 msgid "ScriptPopup.Simulation.getResourceCount"
 msgstr "Bediener in einer Gruppe"

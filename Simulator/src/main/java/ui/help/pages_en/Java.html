@@ -8,7 +8,7 @@
 
 <body>
 
-<h1>Javas Scripting</h1>
+<h1>Java Scripting</h1>
 
 <p>
 Scripts can be used at different locations in the simulator.
@@ -271,6 +271,18 @@ The following methods are available in this interface:
   
   <li><tt>int getNS(final int id)</tt><br>
   Gets the current number of clients in service process at the station with the specified id.
+  </li>
+  
+  <li><tt>int getWIP(final String stationName)</tt><br>
+  Gets the current number of clients at the station with the specified name.
+  </li>
+  
+  <li><tt>int getNQ(final String stationName)</tt><br>
+  Gets the current number of clients in the queue at the station with the specified name.
+  </li>
+  
+  <li><tt>int getNS(final String stationName)</tt><br>
+  Gets the current number of clients in service process at the station with the specified name.
   </li>
   
   <li><tt>int getWIP()</tt><br>
