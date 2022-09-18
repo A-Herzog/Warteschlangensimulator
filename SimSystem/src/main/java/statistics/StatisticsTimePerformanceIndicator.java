@@ -30,7 +30,7 @@ import mathtools.distribution.DataDistributionImpl;
  * Sollen hingegen durch einen (String-)Namen definierte Zustände erfasst werden,
  * so kann dafür die Klasse {@link StatisticsStateTimePerformanceIndicator} verwendet werden.
  * @author Alexander Herzog
- * @version 3.4
+ * @version 3.5
  */
 public final class StatisticsTimePerformanceIndicator extends StatisticsPerformanceIndicator implements Cloneable {
 	/**
@@ -170,6 +170,14 @@ public final class StatisticsTimePerformanceIndicator extends StatisticsPerforma
 	private boolean explicitTimeInit=false;
 
 	/**
+	 * Ist eine Initialisierung über eine Zeitangabe erfolgt?
+	 * @see #setTime(double)
+	 * @see #explicitTimeInit
+	 * @see #set(double, int)
+	 */
+	private boolean wasExplicitTimeInit=false;
+
+	/**
 	 * Anzahl an erfassten Teil-Simulationsläufen
 	 */
 	private int runCount;
@@ -223,12 +231,13 @@ public final class StatisticsTimePerformanceIndicator extends StatisticsPerforma
 	 * @param newState	Neuer Zustand (muss eine nicht-negative Zahl sein)
 	 */
 	public void set(final double time, final int newState) {
-		if (time!=lastTime) {
+		if (time!=lastTime || explicitTimeInit) {
 			int max=(lastState>newState)?lastState:newState;
 			if (max<1) max=1;
 			if (max>MAX_STATE) max=MAX_STATE;
-			final boolean init=(lastTime<=0.0d && stateTime==null) || explicitTimeInit;
+			final boolean init=(lastTime<=0.0d && stateTime==null && !wasExplicitTimeInit) || explicitTimeInit;
 
+			if (explicitTimeInit) wasExplicitTimeInit=true;
 			explicitTimeInit=false;
 			if (stateTime==null && time0<0 && timeMax<0) {
 				this.min=-1;

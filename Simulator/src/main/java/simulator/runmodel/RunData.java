@@ -498,6 +498,8 @@ public class RunData {
 		}
 
 		if (recordIncompleteClients) clients.requestFastClientsInUseList();
+
+		if (!hasWarmUp) simData.endWarmUp();
 	}
 
 	/**

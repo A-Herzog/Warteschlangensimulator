@@ -238,7 +238,10 @@ public class SimulationData extends SimData {
 	 * @see #endWarmUp()
 	 */
 	private void resetAllTimePerformanceIndicators(final StatisticsMultiPerformanceIndicator indicators, final double time) {
-		for (StatisticsTimePerformanceIndicator indicator: (StatisticsTimePerformanceIndicator[])indicators.getAll(StatisticsTimePerformanceIndicator.class)) indicator.setTime(time);
+		for (StatisticsTimePerformanceIndicator indicator: (StatisticsTimePerformanceIndicator[])indicators.getAll(StatisticsTimePerformanceIndicator.class)) {
+			indicator.setTime(time);
+			if (time==0.0) indicator.set(0.0,0);
+		}
 	}
 
 	/**
@@ -284,8 +287,11 @@ public class SimulationData extends SimData {
 		resetAllDataPerformanceIndicators(statistics.stationsProcessingTimesByClientType);
 		resetAllDataPerformanceIndicators(statistics.stationsResidenceTimesByClientType);
 		statistics.clientsInSystem.setTime(time);
+		if (time==0.0) statistics.clientsInSystem.set(0.0,0);
 		statistics.clientsInSystemQueues.setTime(time);
+		if (time==0.0) statistics.clientsInSystemQueues.set(0.0,0);
 		statistics.clientsInSystemProcess.setTime(time);
+		if (time==0.0) statistics.clientsInSystemProcess.set(0.0,0);
 		resetAllTimePerformanceIndicators(statistics.clientsAtStationByStation,time);
 		resetAllTimePerformanceIndicators(statistics.clientsAtStationByStationAndClient,time);
 		resetAllTimePerformanceIndicators(statistics.clientsInSystemByClient,time);
@@ -298,6 +304,7 @@ public class SimulationData extends SimData {
 		resetAllTimePerformanceIndicators(statistics.resourceCount,time);
 		resetAllTimePerformanceIndicators(statistics.resourceUtilization,time);
 		statistics.resourceUtilizationAll.setTime(time);
+		if (time==0.0) statistics.resourceUtilizationAll.set(0.0,0);
 		resetAllTimePerformanceIndicators(statistics.resourceInDownTime,time);
 		resetAllTimePerformanceIndicators(statistics.transporterUtilization,time);
 		resetAllTimePerformanceIndicators(statistics.transporterInDownTime,time);
