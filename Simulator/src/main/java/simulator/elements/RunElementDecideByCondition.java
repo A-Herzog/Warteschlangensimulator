@@ -146,7 +146,7 @@ public class RunElementDecideByCondition extends RunElement {
 		int nr=-1;
 		simData.runData.setClientVariableValues(client);
 		for (int i=0;i<data.conditions.length;i++) if (data.conditions[i]==null || data.conditions[i].eval(simData.runData.variableValues,simData,client)) {nr=i; break;}
-		if (nr==-1) nr=data.conditions.length-1;
+		if (nr==-1) nr=data.conditions.length; /* Nicht: length-1, denn conditions sind bereits eine weniger als Ausgänge */
 
 		client.stationInformationInt=nr;
 
