@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-15 19:36+0200\n"
+"POT-Creation-Date: 2022-09-17 17:15+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -9563,6 +9563,18 @@ msgstr "Do not start simulation."
 
 msgid "LogSimulation.LargeModelWarning.YesInfo"
 msgstr "Start simulation anyway. The resulting log file might gets very large."
+
+msgid "LogSimulation.LimitRecords"
+msgstr "Limit number of records"
+
+msgid "LogSimulation.LimitRecords.ErrorInfo"
+msgstr "The value for the maximum number of entries to be stored has to be a positive integer."
+
+msgid "LogSimulation.LimitRecords.ErrorTitle"
+msgstr "Limited number of records"
+
+msgid "LogSimulation.LimitRecords.Info"
+msgstr "Only the last entries will be stored. Available for text files only."
 
 msgid "LogSimulation.LogFile"
 msgstr "Log file"

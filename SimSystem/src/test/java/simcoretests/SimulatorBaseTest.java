@@ -50,6 +50,7 @@ import simcore.eventmanager.PriorityQueueEventManager;
 import simcore.logging.CallbackLogger;
 import simcore.logging.HTMLLogger;
 import simcore.logging.PlainTextLogger;
+import simcore.logging.PlainTextLoggerLimited;
 import simcore.logging.RTFLogger;
 import simcoretests.simcoreimpl.EventTestImpl;
 import simcoretests.simcoreimpl.SimulatorBaseTestImpl;
@@ -521,6 +522,21 @@ class SimulatorBaseTest {
 			log.clear();
 			final SimulatorBaseTestImpl simulator=new SimulatorBaseTestImpl(coreCount,false,false,manager,()->new ListEventCache(),(data,nr)->{
 				data.activateLogging(new PlainTextLogger(null,true,true,false,false));
+				assertTrue(!data.loggingActive); /* ohne Datei kein Logging */
+				return buildSortInitialEvents(2).apply(data,nr);
+			});
+			assertEquals(coreCount,simulator.threadCount);
+			runSimulator(simulator);
+			assertEquals(3000*simulator.threadCount,simulator.getEventCount());
+			assertEquals(3000,log.size());
+			assertTrue(simulator.getEventsPerSecond()>0);
+			assertTrue(simulator.getSimDayCount()>0);
+		}
+
+		for (int coreCount=1;coreCount<=2;coreCount++) for (Supplier<EventManager> manager: managers) {
+			log.clear();
+			final SimulatorBaseTestImpl simulator=new SimulatorBaseTestImpl(coreCount,false,false,manager,()->new ListEventCache(),(data,nr)->{
+				data.activateLogging(new PlainTextLoggerLimited(null,true,true,false,false,100));
 				assertTrue(!data.loggingActive); /* ohne Datei kein Logging */
 				return buildSortInitialEvents(2).apply(data,nr);
 			});

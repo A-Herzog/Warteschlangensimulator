@@ -421,7 +421,7 @@ public class SimulationData extends SimData {
 
 	@Override
 	protected SimLogging getLogger(final File logFile) {
-		return new MultiTypeTextLogger(logFile,true,SetupData.getSetup().singleLineEventLog,true,true,true,new String[]{Language.tr("Simulation.Log.Title")});
+		return new MultiTypeTextLogger(logFile,true,SetupData.getSetup().singleLineEventLog,true,true,true,new String[]{Language.tr("Simulation.Log.Title")},-1);
 	}
 
 	/**

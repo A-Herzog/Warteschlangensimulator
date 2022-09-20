@@ -17,11 +17,12 @@ package ui.dialogs;
 
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.io.File;
 import java.io.Serializable;
 import java.util.HashSet;
@@ -100,6 +101,10 @@ public class LogSetupDialog extends BaseDialog {
 	private final JCheckBox optionFormatedTime;
 	/** Stations-IDs in eigener Spalte ausgeben? (Datei-Logging) */
 	private final JCheckBox optionPrintIDs;
+	/** Anzahl an Einträgen begrenzen? */
+	private final JCheckBox optionMaxRecords;
+	/** Maximale Anzahl an Einträgen */
+	private final JTextField maxRecords;
 
 	/* Seite "DDE" */
 
@@ -172,9 +177,16 @@ public class LogSetupDialog extends BaseDialog {
 
 		optionMultiLine=addOption(card,Language.tr("LogSimulation.OptionMultiLine"));
 		optionGroup=addOption(card,Language.tr("LogSimulation.OptionGroup"));
-		optionColor=addOption(card,Language.tr("LogSimulation.OptionColor"),Language.tr("LogSimulation.OptionColor.Info"));
-		optionFormatedTime=addOption(card,Language.tr("LogSimulation.FormatTime"),Language.tr("LogSimulation.FormatTime.Info"));
+		optionColor=addOption(card,Language.tr("LogSimulation.OptionColor"),Language.tr("LogSimulation.OptionColor.Info"),null);
+		optionFormatedTime=addOption(card,Language.tr("LogSimulation.FormatTime"),Language.tr("LogSimulation.FormatTime.Info"),null);
 		optionPrintIDs=addOption(card,Language.tr("LogSimulation.PrintIDs"));
+		optionMaxRecords=addOption(card,Language.tr("LogSimulation.LimitRecords")+":",Language.tr("LogSimulation.LimitRecords.Info"),maxRecords=new JTextField(6));
+		optionMaxRecords.addActionListener(e->checkData(false));
+		maxRecords.addKeyListener(new KeyListener() {
+			@Override public void keyTyped(KeyEvent e) {checkData(false);	}
+			@Override public void keyReleased(KeyEvent e) {checkData(false);}
+			@Override public void keyPressed(KeyEvent e) {checkData(false);}
+		});
 
 		/* Seite "DDE" */
 
@@ -219,6 +231,8 @@ public class LogSetupDialog extends BaseDialog {
 		optionColor.setSelected(setup.logColors);
 		optionFormatedTime.setSelected(setup.logFormatedTime);
 		optionPrintIDs.setSelected(setup.logPrintIDs);
+		optionMaxRecords.setSelected(setup.logMaxRecords>0);
+		maxRecords.setText((setup.logMaxRecords>0)?(""+setup.logMaxRecords):"1000");
 
 		if (logMode==null) {
 			pageLayout.show(page,"0");
@@ -265,26 +279,27 @@ public class LogSetupDialog extends BaseDialog {
 	 * @return	Neue Checkbox
 	 */
 	private JCheckBox addOption(final JPanel parent, final String label) {
-		return addOption(parent,label,null);
+		return addOption(parent,label,null,null);
 	}
 
 	/**
 	 * Fügt eine Checkbox ein
 	 * @param parent	Übergeordnetes Element
 	 * @param label	Beschriftung der Checkbox
-	 * @param tooltip	Tooltip für die Checkbox
+	 * @param tooltip	Tooltip für die Checkbox (optional, kann <code>null</code> sein)
+	 * @param field	Unter der Checkbox anzuzeigendes Eingabefeld (optional, kann <code>null</code> sein)
 	 * @return	Neue Checkbox
 	 */
-	private JCheckBox addOption(final JPanel parent, final String label, final String tooltip) {
+	private JCheckBox addOption(final JPanel parent, final String label, final String tooltip, final JTextField field) {
 		final JPanel line;
 		final JCheckBox option;
 
 		parent.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
 		line.add(option=new JCheckBox(label));
-
 		if (tooltip!=null && !tooltip.trim().isEmpty()) {
 			option.setToolTipText(tooltip);
 		}
+		if (field!=null) line.add(field);
 
 		return option;
 	}
@@ -310,7 +325,7 @@ public class LogSetupDialog extends BaseDialog {
 		button.setIcon(Images.GENERAL_SELECT_FILE.getIcon());
 		button.setPreferredSize(new Dimension(24,24));
 		button.setToolTipText(tooltipSelect);
-		button.addActionListener(new SelectFileButtonListener());
+		button.addActionListener(e->selectFile());
 
 		return field;
 	}
@@ -345,127 +360,164 @@ public class LogSetupDialog extends BaseDialog {
 	/**
 	 * Wird aufgerufen, wenn der Nutzer die Schaltfläche zur Dateiauswahl anklickt.
 	 */
-	private class SelectFileButtonListener implements ActionListener {
-		/**
-		 * Konstruktor der Klasse
-		 */
-		public SelectFileButtonListener() {
-			/*
-			 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
-			 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
-			 */
+	public void selectFile() {
+		JFileChooser fc=new JFileChooser();
+		CommonVariables.initialDirectoryToJFileChooser(fc);
+		fc.setDialogTitle(Language.tr("LogSimulation.LogFile.Select"));
+		FileFilter docx=new FileNameExtensionFilter(Language.tr("FileType.Word")+" (*.docx)","docx");
+		FileFilter rtf=new FileNameExtensionFilter(Language.tr("FileType.RTF")+" (*.rtf)","rtf");
+		FileFilter html=new FileNameExtensionFilter(Language.tr("FileType.HTML")+" (*.html, *.htm)","html","htm");
+		FileFilter txt=new FileNameExtensionFilter(Language.tr("FileType.Text")+" (*.txt)","txt");
+		FileFilter pdf=new FileNameExtensionFilter(Language.tr("FileType.PDF")+" (*.pdf)","pdf");
+		FileFilter csv=new FileNameExtensionFilter(Language.tr("FileType.CSV")+" (*.csv)","cslv");
+		FileFilter xlsx=new FileNameExtensionFilter(Language.tr("FileType.Excel")+" (*.xlsx)","xlsx");
+		FileFilter xls=new FileNameExtensionFilter(Language.tr("FileType.ExcelOld")+" (*.xls)","xls");
+		FileFilter ods=new FileNameExtensionFilter(Language.tr("FileType.FileTypeODS")+" (*.ods)","ods");
+		FileFilter odt=new FileNameExtensionFilter(Language.tr("FileType.FileTypeODT")+" (*.odt)","odt");
+		fc.addChoosableFileFilter(xlsx);
+		fc.addChoosableFileFilter(xls);
+		fc.addChoosableFileFilter(csv);
+		fc.addChoosableFileFilter(ods);
+		fc.addChoosableFileFilter(txt);
+		fc.addChoosableFileFilter(docx);
+		fc.addChoosableFileFilter(rtf);
+		fc.addChoosableFileFilter(html);
+		fc.addChoosableFileFilter(pdf);
+		fc.addChoosableFileFilter(odt);
+		fc.setFileFilter(txt);
+		fc.setAcceptAllFileFilterUsed(false);
+
+		if (fc.showSaveDialog(owner)!=JFileChooser.APPROVE_OPTION) return;
+		CommonVariables.initialDirectoryFromJFileChooser(fc);
+		File file=fc.getSelectedFile();
+
+		if (file.getName().indexOf('.')<0) {
+			if (fc.getFileFilter()==xlsx) file=new File(file.getAbsoluteFile()+".xlsx");
+			if (fc.getFileFilter()==xls) file=new File(file.getAbsoluteFile()+".xls");
+			if (fc.getFileFilter()==csv) file=new File(file.getAbsoluteFile()+".csv");
+			if (fc.getFileFilter()==ods) file=new File(file.getAbsoluteFile()+".ods");
+			if (fc.getFileFilter()==docx) file=new File(file.getAbsoluteFile()+".docx");
+			if (fc.getFileFilter()==rtf) file=new File(file.getAbsoluteFile()+".rtf");
+			if (fc.getFileFilter()==html) file=new File(file.getAbsoluteFile()+".html");
+			if (fc.getFileFilter()==txt) file=new File(file.getAbsoluteFile()+".txt");
+			if (fc.getFileFilter()==pdf) file=new File(file.getAbsoluteFile()+".pdf");
+			if (fc.getFileFilter()==odt) file=new File(file.getAbsoluteFile()+".odt");
 		}
 
-		@Override
-		public void actionPerformed(ActionEvent e) {
-
-			JFileChooser fc=new JFileChooser();
-			CommonVariables.initialDirectoryToJFileChooser(fc);
-			fc.setDialogTitle(Language.tr("LogSimulation.LogFile.Select"));
-			FileFilter docx=new FileNameExtensionFilter(Language.tr("FileType.Word")+" (*.docx)","docx");
-			FileFilter rtf=new FileNameExtensionFilter(Language.tr("FileType.RTF")+" (*.rtf)","rtf");
-			FileFilter html=new FileNameExtensionFilter(Language.tr("FileType.HTML")+" (*.html, *.htm)","html","htm");
-			FileFilter txt=new FileNameExtensionFilter(Language.tr("FileType.Text")+" (*.txt)","txt");
-			FileFilter pdf=new FileNameExtensionFilter(Language.tr("FileType.PDF")+" (*.pdf)","pdf");
-			FileFilter csv=new FileNameExtensionFilter(Language.tr("FileType.CSV")+" (*.csv)","cslv");
-			FileFilter xlsx=new FileNameExtensionFilter(Language.tr("FileType.Excel")+" (*.xlsx)","xlsx");
-			FileFilter xls=new FileNameExtensionFilter(Language.tr("FileType.ExcelOld")+" (*.xls)","xls");
-			FileFilter ods=new FileNameExtensionFilter(Language.tr("FileType.FileTypeODS")+" (*.ods)","ods");
-			FileFilter odt=new FileNameExtensionFilter(Language.tr("FileType.FileTypeODT")+" (*.odt)","odt");
-			fc.addChoosableFileFilter(xlsx);
-			fc.addChoosableFileFilter(xls);
-			fc.addChoosableFileFilter(csv);
-			fc.addChoosableFileFilter(ods);
-			fc.addChoosableFileFilter(txt);
-			fc.addChoosableFileFilter(docx);
-			fc.addChoosableFileFilter(rtf);
-			fc.addChoosableFileFilter(html);
-			fc.addChoosableFileFilter(pdf);
-			fc.addChoosableFileFilter(odt);
-			fc.setFileFilter(txt);
-			fc.setAcceptAllFileFilterUsed(false);
-
-			if (fc.showSaveDialog(owner)!=JFileChooser.APPROVE_OPTION) return;
-			CommonVariables.initialDirectoryFromJFileChooser(fc);
-			File file=fc.getSelectedFile();
-
-			if (file.getName().indexOf('.')<0) {
-				if (fc.getFileFilter()==xlsx) file=new File(file.getAbsoluteFile()+".xlsx");
-				if (fc.getFileFilter()==xls) file=new File(file.getAbsoluteFile()+".xls");
-				if (fc.getFileFilter()==csv) file=new File(file.getAbsoluteFile()+".csv");
-				if (fc.getFileFilter()==ods) file=new File(file.getAbsoluteFile()+".ods");
-				if (fc.getFileFilter()==docx) file=new File(file.getAbsoluteFile()+".docx");
-				if (fc.getFileFilter()==rtf) file=new File(file.getAbsoluteFile()+".rtf");
-				if (fc.getFileFilter()==html) file=new File(file.getAbsoluteFile()+".html");
-				if (fc.getFileFilter()==txt) file=new File(file.getAbsoluteFile()+".txt");
-				if (fc.getFileFilter()==pdf) file=new File(file.getAbsoluteFile()+".pdf");
-				if (fc.getFileFilter()==odt) file=new File(file.getAbsoluteFile()+".odt");
-			}
-
-			logFileEdit.setText(file.toString());
-		}
+		logFileEdit.setText(file.toString());
 	}
 
 	/**
 	 * Prüft, ob die Liste der eingegebenen IDs gültig ist.
 	 * @param field	Textfeld das die IDs enthält.
+	 * @param showErrorMessage	Wird hier <code>true</code> übergeben, so wird eine Fehlermeldung ausgegeben, wenn die Daten nicht in Ordnung sind.
 	 * @return	Liefert <code>true</code>, wenn die Liste nur gültige IDs enthält.
 	 * @see #stationIDsFileEdit
 	 * @see #stationIDsDDEEdit
 	 * @see #checkData()
 	 */
-	private boolean checkIDs(final JTextField field) {
-		if (field.getText().trim().isEmpty()) return true;
+	private boolean checkIDs(final JTextField field, final boolean showErrorMessage) {
+		if (field.getText().trim().isEmpty()) {
+			field.setBackground(NumberTools.getTextFieldDefaultBackground());
+			return true;
+		}
 
 		final String[] ids=field.getText().trim().split(";");
 		for (String id: ids) {
 			if (NumberTools.getNotNegativeInteger(id)==null) {
-				MsgBox.error(this,Language.tr("Dialog.InvalidID.Title"),String.format(Language.tr("Dialog.InvalidID.Info"),id));
+				field.setBackground(Color.RED);
+				if (showErrorMessage) {
+					MsgBox.error(this,Language.tr("Dialog.InvalidID.Title"),String.format(Language.tr("Dialog.InvalidID.Info"),id));
+				}
 				return false;
 			}
 		}
+
+		field.setBackground(NumberTools.getTextFieldDefaultBackground());
 		return true;
+	}
+
+	/**
+	 * Prüft, ob die eingegebenen Daten in Ordnung sind.
+	 * @param showErrorMessage	Wird hier <code>true</code> übergeben, so wird eine Fehlermeldung ausgegeben, wenn die Daten nicht in Ordnung sind.
+	 * @return	Gibt <code>true</code> zurück, wenn die Daten in Ordnung sind.
+	 */
+	private boolean checkData(final boolean showErrorMessage) {
+		final int mode=getLogMode();
+
+		if (mode==0) {
+			boolean ok=true;
+			if (showErrorMessage) {
+				final File file=new File(logFileEdit.getText());
+				if (file.exists()) {
+					if (!MsgBox.confirmOverwrite(this,file)) return false;
+				}
+				File path=file.getParentFile();
+				if (path==null || !path.exists()) {
+					MsgBox.error(this,Language.tr("Dialog.InvalidFile.Title"),String.format(Language.tr("Dialog.InvalidFile.Info"),file.toString()));
+					return false;
+				}
+			}
+
+			if (!checkIDs(stationIDsFileEdit,showErrorMessage )) {
+				ok=false;
+				if (showErrorMessage) return false;
+			}
+
+			if (!optionFileTypeArrival.isSelected() && !optionFileTypeLeave.isSelected() && !optionFileTypeStation.isSelected() && !optionFileTypeSystem.isSelected()) {
+				if (showErrorMessage) {
+					MsgBox.error(this,Language.tr("LogSimulation.Mode.ErrorTitle"),Language.tr("LogSimulation.Mode.ErrorInfo"));
+					return false;
+				}
+				ok=false;
+			}
+
+			if (optionMaxRecords.isSelected()) {
+				if (NumberTools.getPositiveLong(maxRecords,true)==null) {
+					ok=false;
+					if (showErrorMessage) {
+						MsgBox.error(this,Language.tr("LogSimulation.LimitRecords.ErrorTitle"),Language.tr("LogSimulation.LimitRecords.ErrorInfo"));
+						return false;
+					}
+				}
+			} else {
+				maxRecords.setBackground(NumberTools.getTextFieldDefaultBackground());
+			}
+
+			return ok;
+		}
+
+		if (mode==1) {
+			boolean ok=true;
+			if (editDDE!=null) {
+				if (!editDDE.checkData(showErrorMessage)) {
+					ok=false;
+					if (showErrorMessage) return false;
+				}
+			}
+
+			if (!checkIDs(stationIDsFileEdit,showErrorMessage )) {
+				ok=false;
+				if (showErrorMessage) return false;
+			}
+
+			if (!optionDDETypeArrival.isSelected() && !optionDDETypeLeave.isSelected() && !optionDDETypeStation.isSelected() && !optionDDETypeSystem.isSelected()) {
+				if (showErrorMessage) {
+					MsgBox.error(this,Language.tr("LogSimulation.Mode.ErrorTitle"),Language.tr("LogSimulation.Mode.ErrorInfo"));
+					return false;
+				}
+				ok=false;
+			}
+
+			return ok;
+		}
+
+		return false;
 	}
 
 	@Override
 	protected boolean checkData() {
-		final int mode=getLogMode();
-
-		if (mode==0) {
-			final File file=new File(logFileEdit.getText());
-			if (file.exists()) {
-				if (!MsgBox.confirmOverwrite(this,file)) return false;
-			}
-			File path=file.getParentFile();
-			if (path==null || !path.exists()) {
-				MsgBox.error(this,Language.tr("Dialog.InvalidFile.Title"),String.format(Language.tr("Dialog.InvalidFile.Info"),file.toString()));
-				return false;
-			}
-
-			if (!checkIDs(stationIDsFileEdit)) return false;
-
-			if (!optionFileTypeArrival.isSelected() && !optionFileTypeLeave.isSelected() && !optionFileTypeStation.isSelected() && !optionFileTypeSystem.isSelected()) {
-				MsgBox.error(this,Language.tr("LogSimulation.Mode.ErrorTitle"),Language.tr("LogSimulation.Mode.ErrorInfo"));
-				return false;
-			}
-
-			return true;
-		}
-
-		if (mode==1) {
-			if (editDDE!=null) return editDDE.checkData(true);
-
-			if (!checkIDs(stationIDsDDEEdit)) return false;
-
-			if (!optionDDETypeArrival.isSelected() && !optionDDETypeLeave.isSelected() && !optionDDETypeStation.isSelected() && !optionDDETypeSystem.isSelected()) {
-				MsgBox.error(this,Language.tr("LogSimulation.Mode.ErrorTitle"),Language.tr("LogSimulation.Mode.ErrorInfo"));
-				return false;
-			}
-
-			return true;
-		}
-
-		return false;
+		return checkData(true);
 	}
 
 	@Override
@@ -481,6 +533,7 @@ public class LogSetupDialog extends BaseDialog {
 				setup.logTypeLeave=optionFileTypeLeave.isSelected();
 				setup.logTypeInfoStation=optionFileTypeStation.isSelected();
 				setup.logTypeInfoSystem=optionFileTypeSystem.isSelected();
+				setup.logMaxRecords=optionMaxRecords.isSelected()?NumberTools.getPositiveLong(maxRecords,true).intValue():-1;
 				break;
 			case 1:
 				setup.logMode=SetupData.LogMode.DDE;
@@ -541,7 +594,8 @@ public class LogSetupDialog extends BaseDialog {
 					optionColor.isSelected(),
 					optionFormatedTime.isSelected(),
 					optionPrintIDs.isSelected(),
-					new String[]{Language.tr("LogSimulation.Heading")}
+					new String[]{Language.tr("LogSimulation.Heading")},
+					optionMaxRecords.isSelected()?NumberTools.getPositiveLong(maxRecords,true).intValue():-1
 					);
 		}
 

@@ -40,6 +40,9 @@ public class PlainTextLogger extends AbstractTextLogger {
 	/** Zeitpunkt an dem das letzte Ereignis auftrat (für das optionale Gruppieren) */
 	private long lastEventTime=-1;
 
+	/** Wiederzuverwendendes {@link StringBuilder}-Objekt in {@link #log(long, Color, String, int, String)} */
+	private final StringBuilder lineBuilder;
+
 	/**
 	 * Konstruktor der Klasse <code>PlainTextLogger</code>
 	 * @param logFile	Dateiname der Logfile-Datei
@@ -55,6 +58,7 @@ public class PlainTextLogger extends AbstractTextLogger {
 		this.timeMode=timeMode;
 		this.csvMode=csvMode;
 		this.printIDs=printIDs;
+		lineBuilder=new StringBuilder();
 		init(logFile);
 	}
 
@@ -75,60 +79,78 @@ public class PlainTextLogger extends AbstractTextLogger {
 	 * @param cell	Text
 	 * @return	CSV-gekappseter Text
 	 */
-	private String toCSV(String cell) {
+	public static String toCSV(String cell) {
 		cell=cell.replace("\"","\"\"");
 		if (cell.indexOf('"')!=-1 || cell.indexOf(';')!=-1) cell='"'+cell+'"';
 		if (cell.equalsIgnoreCase("id")) cell='"'+cell+'"';
 		return cell;
 	}
 
-	@Override
-	public boolean log(final long time, final Color color, final String event, final int id, final String info) {
-		final StringBuilder sb=new StringBuilder();
-
-		if (groupSameTimeEvents && lastEventTime!=time) {
-			if (lastEventTime>=0) sb.append(System.lineSeparator());
-			lastEventTime=time;
-		}
-
+	/**
+	 * Erstellt die konkret auszugebende Logging-Zeile aus den Teilangaben.
+	 * @param timeMode	Wie sollen Zeitangaben ausgegeben werden?
+	 * @param singleLineMode	Ereignisse in einer Zeile (Name und Beschreibung durch Tabulator getrennt) oder in mehreren Zeilen ausgeben
+	 * @param printIDs	IDs mit ausgeben
+	 * @param csvMode	Text im CSV-Modus (<code>true</code>) oder Tabulator-getrennt (<code>false</code>) ausgeben
+	 * @param time	Zeitpunkt des Ereignisses
+	 * @param color	Farbe in die die Log-Zeile eingefärbt werden soll (kann Logger-abhängig ignoriert werden)
+	 * @param event	Gibt den Namen des Event, das die Logging-Aktion ausgelöst hat, an.
+	 * @param id	ID der Station, an der das Ereignis stattfand (Werte kleiner als 0 für "keine Station")
+	 * @param info	Enthält eine Beschreibung, die zu dem Logeintrag gespeichert werden soll.
+	 * @param result	{@link StringBuilder}-Objekt in das das Ergebnis geschrieben werden soll
+	 */
+	public static void processLine(final PlainTextLoggerTimeMode timeMode, final boolean singleLineMode, final boolean printIDs, final boolean csvMode, final long time, final Color color, final String event, final int id, final String info, final StringBuilder result) {
 		switch (timeMode) {
-		case PLAIN: sb.append(NumberTools.formatNumber(time/1000.0)); break;
-		case TIME: sb.append(SimData.formatSimTime(time)); break;
-		case DATETIME: sb.append(SimData.formatSimDateTime(time)); break;
+		case PLAIN: result.append(NumberTools.formatNumber(time/1000.0)); break;
+		case TIME: result.append(SimData.formatSimTime(time)); break;
+		case DATETIME: result.append(SimData.formatSimDateTime(time)); break;
 		}
-		if (singleLineMode) sb.append(csvMode?';':'\t'); else sb.append(csvMode?';':' ');
+		if (singleLineMode) result.append(csvMode?';':'\t'); else result.append(csvMode?';':' ');
 
 		if (event!=null && !event.isEmpty()) {
 			if (csvMode) {
-				sb.append(toCSV(event.replace("\n"," ")));
+				result.append(toCSV(event.replace("\n"," ")));
 			} else {
-				sb.append(event.replace("\n",System.lineSeparator()));
+				result.append(event.replace("\n",System.lineSeparator()));
 			}
 		}
 
 		if (printIDs) {
-			if (singleLineMode) sb.append(csvMode?';':'\t'); else sb.append(System.lineSeparator());
+			if (singleLineMode) result.append(csvMode?';':'\t'); else result.append(System.lineSeparator());
 			final String idString=(id>=0)?(""+id):"";
 			if (csvMode) {
-				sb.append(toCSV(idString));
+				result.append(toCSV(idString));
 			} else {
-				sb.append(idString);
+				result.append(idString);
 			}
 		}
 
 		if (info!=null && !info.isEmpty()) {
-			if (singleLineMode) sb.append(csvMode?';':'\t'); else sb.append(System.lineSeparator());
+			if (singleLineMode) result.append(csvMode?';':'\t'); else result.append(System.lineSeparator());
 			if (csvMode) {
-				sb.append(toCSV(info.replace("\n"," ")));
+				result.append(toCSV(info.replace("\n"," ")));
 			} else {
-				sb.append(info.replace("\n",System.lineSeparator()));
+				result.append(info.replace("\n",System.lineSeparator()));
 			}
 		}
 
-		sb.append(System.lineSeparator());
+		result.append(System.lineSeparator());
+
+	}
+
+	@Override
+	public boolean log(final long time, final Color color, final String event, final int id, final String info) {
+		lineBuilder.setLength(0);
+
+		if (groupSameTimeEvents && lastEventTime!=time) {
+			if (lastEventTime>=0) lineBuilder.append(System.lineSeparator());
+			lastEventTime=time;
+		}
+
+		processLine(timeMode,singleLineMode,printIDs,csvMode,time,color,event,id,info,lineBuilder);
 
 		if (nextLogger!=null) nextLogger.log(time,color,event,id,info);
 
-		return writeString(sb.toString());
+		return writeString(lineBuilder.toString());
 	}
 }

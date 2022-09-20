@@ -20,6 +20,7 @@ import java.io.File;
 
 import simcore.logging.HTMLLogger;
 import simcore.logging.PlainTextLogger;
+import simcore.logging.PlainTextLoggerLimited;
 import simcore.logging.PlainTextLoggerTimeMode;
 import simcore.logging.RTFLogger;
 import simcore.logging.SimLogging;
@@ -45,8 +46,9 @@ public class MultiTypeTextLogger implements SimLogging {
 	 * @param formatedTime	Zeit als HH:MM:SS,s (<code>true</code>) oder als Sekunden-Zahlenwert (<code>false</code>) ausgeben
 	 * @param printIDs	IDs mit ausgeben
 	 * @param headings	Auszugebende Überschriftzeilen
+	 * @param maxLines	Im Textmodus maximal auszugebende Anzahl an Zeilen (Werte &le;0 für unbegrenzt)
 	 */
-	public MultiTypeTextLogger(final File logFile, final boolean groupSameTimeEvents, final boolean singleLineMode, final boolean useColors, final boolean formatedTime, final boolean printIDs, final String[] headings) {
+	public MultiTypeTextLogger(final File logFile, final boolean groupSameTimeEvents, final boolean singleLineMode, final boolean useColors, final boolean formatedTime, final boolean printIDs, final String[] headings, final int maxLines) {
 		final String filename=logFile.getName().toUpperCase();
 
 		SimLogging l=null;
@@ -58,8 +60,13 @@ public class MultiTypeTextLogger implements SimLogging {
 		if (filename.endsWith(".XLS")) l=new XLSXLogger(logFile,groupSameTimeEvents,singleLineMode,useColors,formatedTime,printIDs,headings,true);
 		if (filename.endsWith(".ODS")) l=new ODSLogger(logFile,groupSameTimeEvents,singleLineMode,useColors,formatedTime,printIDs,headings);
 		if (filename.endsWith(".PDF")) l=new PDFLogger(logFile,groupSameTimeEvents,singleLineMode,useColors,formatedTime,printIDs,headings);
-		if (filename.endsWith(".CSV")) l=new PlainTextLogger(logFile,groupSameTimeEvents,singleLineMode,formatedTime?PlainTextLoggerTimeMode.TIME:PlainTextLoggerTimeMode.PLAIN,printIDs,true);
-		if (l==null) l=new PlainTextLogger(logFile,groupSameTimeEvents,singleLineMode,formatedTime?PlainTextLoggerTimeMode.TIME:PlainTextLoggerTimeMode.PLAIN,printIDs,false);
+		if (maxLines>0) {
+			if (filename.endsWith(".CSV")) l=new PlainTextLoggerLimited(logFile,groupSameTimeEvents,singleLineMode,formatedTime?PlainTextLoggerTimeMode.TIME:PlainTextLoggerTimeMode.PLAIN,printIDs,true,maxLines);
+			if (l==null) l=new PlainTextLoggerLimited(logFile,groupSameTimeEvents,singleLineMode,formatedTime?PlainTextLoggerTimeMode.TIME:PlainTextLoggerTimeMode.PLAIN,printIDs,false,maxLines);
+		} else {
+			if (filename.endsWith(".CSV")) l=new PlainTextLogger(logFile,groupSameTimeEvents,singleLineMode,formatedTime?PlainTextLoggerTimeMode.TIME:PlainTextLoggerTimeMode.PLAIN,printIDs,true);
+			if (l==null) l=new PlainTextLogger(logFile,groupSameTimeEvents,singleLineMode,formatedTime?PlainTextLoggerTimeMode.TIME:PlainTextLoggerTimeMode.PLAIN,printIDs,false);
+		}
 		logger=l;
 	}
 

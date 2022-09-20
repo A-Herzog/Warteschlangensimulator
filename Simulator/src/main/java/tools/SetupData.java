@@ -581,6 +581,11 @@ public class SetupData extends SetupBase {
 	public boolean logPrintIDs;
 
 	/**
+	 * Maximale Anzahl an auszugebenden Logging-Einträgen (es werden nur die letzten ausgegeben). Wird nur berücksichtigt, wenn &ge;1.
+	 */
+	public int logMaxRecords;
+
+	/**
 	 * Aufzeichnungsmodus: in Datei oder per DDE zu Excel
 	 */
 	public LogMode logMode;
@@ -1476,6 +1481,7 @@ public class SetupData extends SetupBase {
 		logColors=true;
 		logFormatedTime=true;
 		logPrintIDs=true;
+		logMaxRecords=-1;
 		logMode=LogMode.FILE;
 		logDDEworkbook="";
 		logDDEsheet="";
@@ -2120,6 +2126,8 @@ public class SetupData extends SetupBase {
 				logColors=loadMultiBoolean(new String[]{e.getAttribute("UseColors"),e.getAttribute("FarbigeLogdateien")},true);
 				logFormatedTime=loadBoolean(e.getAttribute("FormatedTime"),true);
 				logPrintIDs=loadBoolean(e.getAttribute("PrintIDs"),true);
+				final Long L=NumberTools.getPositiveLong(e.getAttribute("MaxRecords"));
+				if (L!=null) logMaxRecords=L.intValue();
 				if (loadBoolean(e.getAttribute("DDE"),false)) logMode=LogMode.DDE; else logMode=LogMode.FILE;
 				logDDEworkbook=e.getAttribute("DDEWorkbook");
 				logDDEsheet=e.getAttribute("DDESheet");
@@ -2908,7 +2916,7 @@ public class SetupData extends SetupBase {
 			node.setTextContent("0");
 		}
 
-		if (!lastLogFile.isEmpty() || !singleLineEventLog || !logGrouped || !logColors || !logFormatedTime || !logPrintIDs || logMode==LogMode.DDE || !logDDEworkbook.trim().isEmpty() || !logDDEsheet.trim().isEmpty() || !logStationIDs.isEmpty() || !logTypeArrival || !logTypeLeave || !logTypeInfoStation || !logTypeInfoSystem) {
+		if (!lastLogFile.isEmpty() || !singleLineEventLog || !logGrouped || !logColors || !logFormatedTime || !logPrintIDs || logMaxRecords>0 || logMode==LogMode.DDE || !logDDEworkbook.trim().isEmpty() || !logDDEsheet.trim().isEmpty() || !logStationIDs.isEmpty() || !logTypeArrival || !logTypeLeave || !logTypeInfoStation || !logTypeInfoSystem) {
 			root.appendChild(node=doc.createElement("Logging"));
 			node.setTextContent(lastLogFile);
 			if (!singleLineEventLog) node.setAttribute("CompactFormat","0");
@@ -2916,6 +2924,7 @@ public class SetupData extends SetupBase {
 			if (!logColors) node.setAttribute("UseColors","0");
 			if (!logFormatedTime) node.setAttribute("FormatedTime","0");
 			if (!logPrintIDs) node.setAttribute("PrintIDs","0");
+			if (logMaxRecords>0) node.setAttribute("MaxRecords",""+logMaxRecords);
 			if (logMode==LogMode.DDE) node.setAttribute("DDE","1");
 			if (!logDDEworkbook.trim().isEmpty()) node.setAttribute("DDEWorkbook",logDDEworkbook);
 			if (!logDDEsheet.trim().isEmpty()) node.setAttribute("DDESheet",logDDEsheet);
