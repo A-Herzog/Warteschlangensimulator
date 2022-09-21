@@ -20,6 +20,7 @@ import java.util.List;
 import language.Language;
 import simulator.runmodel.RunDataClient;
 import simulator.runmodel.SimulationData;
+import tools.SetupData;
 
 /**
  * Javascript-Interpreter zur Verarbeitung von Daten während der Simulation
@@ -83,7 +84,7 @@ public class JSRunSimulationData {
 	 * @return	Gibt <code>true</code> zurück, wenn das Skript erfolgreich geladen werden konnte.
 	 */
 	public boolean compile(final String script) {
-		final JSBuilder builder=new JSBuilder(2_000);
+		final JSBuilder builder=new JSBuilder(SetupData.getSetup().maxJSRunTimeSeconds*1_000);
 		builder.addBinding("Simulation",simulatorCommand);
 		if (hasOutput) builder.addBinding("Output",outputCommand=new JSCommandOutput(builder.output,false));
 		if (hasMultiClientData) builder.addBinding("Clients",clientsCommand=new JSCommandClients());

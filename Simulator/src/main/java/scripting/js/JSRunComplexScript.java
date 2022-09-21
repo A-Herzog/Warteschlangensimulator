@@ -116,7 +116,7 @@ public class JSRunComplexScript {
 	 * @return	Liefert im Erfolgsfall <code>true</code>
 	 */
 	public boolean run(final String script) {
-		final JSBuilder builder=new JSBuilder(100*86_400,outputCallback);
+		final JSBuilder builder=new JSBuilder(1000*86_400,outputCallback);
 		builder.addBinding("System",new JSCommandSystem());
 		builder.addBinding("Output",new JSCommandOutput(builder.output,false));
 		builder.addBinding("Model",modelJS=new JSRunComplexScriptModel(builder.output,this));

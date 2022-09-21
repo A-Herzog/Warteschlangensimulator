@@ -82,6 +82,8 @@ public class SetupDialogPagePerformance extends SetupDialogPage {
 	private final JComboBox<String> jsEngine;
 	/** Simulation bei Skriptfehler abbrechen? */
 	private final JCheckBox cancelSimulationOnScriptError;
+	/** Maximale Laufzeit für Javascript-Code (in Sekunden) */
+	private final SpinnerModel maxJSRunTime;
 
 	/* Bereich: Netzwerksimulation */
 
@@ -193,6 +195,18 @@ public class SetupDialogPagePerformance extends SetupDialogPage {
 		/* Simulation bei Skriptfehler abbrechen? */
 		addLine().add(cancelSimulationOnScriptError=new JCheckBox(Language.tr("SettingsDialog.Tabs.Performance.CancelSimulationOnScriptError")));
 
+		/* Maximale Laufzeit für Javascript-Code */
+		line=addLine();
+		line.add(label=new JLabel(Language.tr("SettingsDialog.Tabs.Simulation.MaxJSRunTime")+":"));
+		final JSpinner maxJSRunTimeSpinner=new JSpinner(maxJSRunTime=new SpinnerNumberModel(1,1,60,1));
+		JSpinner.NumberEditor editor=new JSpinner.NumberEditor(maxJSRunTimeSpinner);
+		editor.getFormat().setGroupingUsed(false);
+		editor.getTextField().setColumns(3);
+		maxJSRunTimeSpinner.setEditor(editor);
+		line.add(maxJSRunTimeSpinner);
+		label.setLabelFor(maxJSRunTimeSpinner);
+		line.add(new JLabel(" ("+Language.tr("SettingsDialog.Tabs.Simulation.MaxJSRunTime.Seconds")+")"));
+
 		/*
 		 * Bereich:
 		 * Netzwerksimulation
@@ -216,7 +230,7 @@ public class SetupDialogPagePerformance extends SetupDialogPage {
 		line=addLine();
 		line.add(label=new JLabel(Language.tr("SettingsDialog.Tabs.Simulation.Server.Port")+":"));
 		final JSpinner serverPortSpinner=new JSpinner(serverPort=new SpinnerNumberModel(1,1,65535,1));
-		final JSpinner.NumberEditor editor=new JSpinner.NumberEditor(serverPortSpinner);
+		editor=new JSpinner.NumberEditor(serverPortSpinner);
 		editor.getFormat().setGroupingUsed(false);
 		editor.getTextField().setColumns(6);
 		serverPortSpinner.setEditor(editor);
@@ -288,6 +302,7 @@ public class SetupDialogPagePerformance extends SetupDialogPage {
 		useNUMAMode.setSelected(setup.useNUMAMode);
 		JSEngineNames engine=JSEngineNames.fromName(setup.jsEngine);
 		cancelSimulationOnScriptError.setSelected(setup.cancelSimulationOnScriptError);
+		maxJSRunTime.setValue(setup.maxJSRunTimeSeconds);
 		if (engine==null) engine=JSEngineNames.DEFAULT;
 		switch (engine) {
 		case DEFAULT: jsEngine.setSelectedIndex(0); break;
@@ -339,6 +354,7 @@ public class SetupDialogPagePerformance extends SetupDialogPage {
 		case 3: setup.jsEngine=JSEngineNames.GRAALJSNative.name; break;
 		}
 		setup.cancelSimulationOnScriptError=cancelSimulationOnScriptError.isSelected();
+		setup.maxJSRunTimeSeconds=(Integer)maxJSRunTime.getValue();
 
 		setup.serverUse=serverUse.isSelected();
 		final StringBuilder sb=new StringBuilder();

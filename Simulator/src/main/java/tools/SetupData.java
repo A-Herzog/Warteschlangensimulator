@@ -953,6 +953,13 @@ public class SetupData extends SetupBase {
 	public boolean cancelSimulationOnScriptError;
 
 	/**
+	 * Maximale Laufzeit für Javascript-Code zur Filterung von
+	 * Simulationsergebnissen und zur Skriptausführung während
+	 * einer Simulation.
+	 */
+	public int maxJSRunTimeSeconds;
+
+	/**
 	 * Wie soll beim Laden von Modellen mit potentiell sicherheitskritischen Elementen verfahren werden?
 	 */
 	public ModelSecurity modelSecurity;
@@ -1550,6 +1557,7 @@ public class SetupData extends SetupBase {
 		javaJDKPath="";
 		jsEngine="";
 		cancelSimulationOnScriptError=true;
+		maxJSRunTimeSeconds=2;
 		modelSecurity=ModelSecurity.ASK;
 		signModels=true;
 		modelSecurityAllowExecuteExternal=false;
@@ -2403,6 +2411,12 @@ public class SetupData extends SetupBase {
 				continue;
 			}
 
+			if (name.equals("maxjavascriptruntime")) {
+				final Long L=NumberTools.getPositiveLong(e.getTextContent());
+				if (L!=null) maxJSRunTimeSeconds=Math.min(L.intValue(),60);
+				continue;
+			}
+
 			if (name.equals("modelsecurity")) {
 				final String text=e.getTextContent().toLowerCase();
 				if (text.equals("allowall")) {modelSecurity=ModelSecurity.ALLOWALL; continue;}
@@ -3186,6 +3200,11 @@ public class SetupData extends SetupBase {
 		if (!cancelSimulationOnScriptError) {
 			root.appendChild(node=doc.createElement("CancelSimulationOnScriptError"));
 			node.setTextContent("0");
+		}
+
+		if (maxJSRunTimeSeconds!=2) {
+			root.appendChild(node=doc.createElement("MaxJavascriptRunTime"));
+			node.setTextContent(""+maxJSRunTimeSeconds);
 		}
 
 		if (modelSecurity!=ModelSecurity.ASK || !signModels) {

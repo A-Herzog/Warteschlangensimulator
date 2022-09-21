@@ -22,6 +22,7 @@ import org.w3c.dom.Document;
 import language.Language;
 import simulator.Simulator;
 import simulator.statistics.Statistics;
+import tools.SetupData;
 
 /**
  * Javascript-Interpreter zur Filterung von Statistikausgaben
@@ -68,7 +69,7 @@ public final class JSRunDataFilter {
 	 * @return	Liefert im Erfolgsfall <code>true</code>
 	 */
 	public boolean run(final String script) {
-		final JSBuilder builder=new JSBuilder(2_000);
+		final JSBuilder builder=new JSBuilder(SetupData.getSetup().maxJSRunTimeSeconds*1_000);
 		final Statistics statistics=new Statistics();
 		statistics.loadFromXML(xml.getDocumentElement());
 		statistics.loadedStatistics=xmlFile;

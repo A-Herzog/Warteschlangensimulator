@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-17 17:15+0200\n"
+"POT-Creation-Date: 2022-09-20 11:49+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16910,6 +16910,12 @@ msgstr "Allgemein"
 
 msgid "SettingsDialog.Tabs.Simulation.Local"
 msgstr "Lokale Simulation"
+
+msgid "SettingsDialog.Tabs.Simulation.MaxJSRunTime"
+msgstr "Maximale Laufzeit für Javascript-Code"
+
+msgid "SettingsDialog.Tabs.Simulation.MaxJSRunTime.Seconds"
+msgstr "Sekunden"
 
 msgid "SettingsDialog.Tabs.Simulation.PaintTimeStamp"
 msgstr "Simulationszeit in aufgezeichneter Animation einblenden"
