@@ -11,6 +11,7 @@ Diese Readme-Datei beschreibt, wie die Skripte in diesem Verzeichnis und in den 
 Python script for running a filter script on multiple statistics files.
 
 
+
 # JavaDownloader.exe
 
 This program is invoked by Simulator.exe when no Java runtime environment could be found.
@@ -18,6 +19,16 @@ There is no reason to call JavaDownloader.exe directly.
 
 Dieses Programm wird von Simulator.exe aufgerufen, wenn keine Java-Laufzeitumgebung gefunden werden konnte.
 Es gibt keinen Grund, JavaDownloader.exe direkt aufzurufen.
+
+
+
+# SimulatorCLIGetJava.exe
+
+This program is invoked by SimulatorCLI.bat to get the path of the Java runtime environment.
+There is no reason to call SimulatorCLIGetJava.exe directly.
+
+Dieses Programm wird von SimulatorCLI.bat aufgerufen, um den Pfad zur Java-Laufzeitumgebung zu ermitteln.
+Es gibt keinen Grund, SimulatorCLIGetJava.exe direkt aufzurufen.
 
 
 

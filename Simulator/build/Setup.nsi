@@ -186,6 +186,7 @@ Section "Install" Inst
   File "..\..\Release\Simulator.jar"
   File "..\..\Release\Simulator.exe"
   File "..\..\Release\Simulator.sh"
+  File "..\..\Release\SimulatorCLI.bat"
   File "..\..\Release\Simulator_Reset.exe"
   File "..\..\Release\JDBC.cfg"
   File "..\tools\JDDE\JavaDDEx64.dll"
@@ -252,6 +253,7 @@ Section "un.Uninstall" uninst
   RmDir /r $INSTDIR\jdk
 
   Delete "$INSTDIR\Simulator.sh"
+  Delete "$INSTDIR\SimulatorCLI.bat"
   Delete "$INSTDIR\Simulator.exe"
   Delete "$INSTDIR\Simulator.old"
   Delete "$INSTDIR\Simulator.new"
