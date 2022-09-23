@@ -382,6 +382,7 @@ public class ModelElementSub extends ModelElementBox implements ElementWithNewCl
 			if (dialog.getClosedBy()==BaseDialog.CLOSED_BY_OK) {
 				subSurface=dialog.getSurface();
 				surface.getResources().setDataFrom(subSurface.getResources());
+				getModel().clientData.setDataFrom(dialog.getClientData());
 				surface.fireStateChangeListener();
 			} else {
 				subSurface=temp.clone(false,subSurface.getResources(),subSurface.getSchedules(),subSurface.getParentSurface(),getModel());

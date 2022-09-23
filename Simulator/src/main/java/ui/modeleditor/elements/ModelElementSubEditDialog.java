@@ -38,6 +38,7 @@ import systemtools.BaseDialog;
 import ui.EditorPanel;
 import ui.help.Help;
 import ui.infopanel.InfoPanel;
+import ui.modeleditor.ModelClientData;
 import ui.modeleditor.ModelSurface;
 import ui.modeleditor.coreelements.ModelElement;
 import ui.tools.GlassInfo;
@@ -283,5 +284,13 @@ public class ModelElementSubEditDialog extends BaseDialog {
 		final EditModel model=editorPanel.getModel();
 		model.surface.setSelectedElement(null);
 		return model.surface;
+	}
+
+	/**
+	 * Liefert die möglicherweise veränderten Kunden-Einstellungen.
+	 * @return	Kunden-Einstellungen
+	 */
+	public ModelClientData getClientData() {
+		return editorPanel.getModel().clientData;
 	}
 }
