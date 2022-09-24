@@ -36,6 +36,8 @@ public class ParameterCompareRunner {
 	/** Übergeordnetes Fenster */
 	private final Window parentWindow;
 
+	/** Welches Modell soll simuliert werden? (Werte &lt;0 für alle) */
+	private final int modelToSimulate;
 	/** Wird aufgerufen, wenn Ergebnisse vorliegen und die Tabelle angepasst werden soll */
 	private final Consumer<Integer> updateTable;
 	/** Wird aufgerufen, wenn die Verarbeitung beendet wurde (sowohl wenn alle Modelle erfolgreich zu Ende simuliert wurden als auch wenn die Verarbeitung abgebrochen wurde) */
@@ -77,7 +79,20 @@ public class ParameterCompareRunner {
 	 * @param logOutput	Wird aufgerufen, wenn Logging-Daten ausgegeben werden sollen
 	 */
 	public ParameterCompareRunner(final Window parentWindow, final Consumer<Integer> updateTable, final Consumer<Boolean> whenDone, final Consumer<String> logOutput) {
+		this(parentWindow,-1,updateTable,whenDone,logOutput);
+	}
+
+	/**
+	 * Konstruktor der Klasse
+	 * @param parentWindow	Übergeordnetes Fenster
+	 * @param modelToSimulate	Welches Modell soll simuliert werden? (Werte &lt;0 für alle)
+	 * @param updateTable	Wird aufgerufen, wenn Ergebnisse vorliegen und die Tabelle angepasst werden soll
+	 * @param whenDone	Wird aufgerufen, wenn die Verarbeitung beendet wurde (sowohl wenn alle Modelle erfolgreich zu Ende simuliert wurden als auch wenn die Verarbeitung abgebrochen wurde)
+	 * @param logOutput	Wird aufgerufen, wenn Logging-Daten ausgegeben werden sollen
+	 */
+	public ParameterCompareRunner(final Window parentWindow, final int modelToSimulate, final Consumer<Integer> updateTable, final Consumer<Boolean> whenDone, final Consumer<String> logOutput) {
 		this.parentWindow=parentWindow;
+		this.modelToSimulate=modelToSimulate;
 		this.updateTable=updateTable;
 		this.whenDone=whenDone;
 		this.logOutput=logOutput;
@@ -91,7 +106,7 @@ public class ParameterCompareRunner {
 	 * @param logOutput	Wird aufgerufen, wenn Logging-Daten ausgegeben werden sollen
 	 */
 	public ParameterCompareRunner(final Consumer<Integer> updateTable, final Consumer<Boolean> whenDone, final Consumer<String> logOutput) {
-		this(null,updateTable,whenDone,logOutput);
+		this(null,-1,updateTable,whenDone,logOutput);
 	}
 
 	/**
@@ -205,12 +220,21 @@ public class ParameterCompareRunner {
 
 		/* Modelle anlegen */
 		modelRunner=new ParameterCompareRunnerModel[setup.getModels().size()];
-		for (int i=0;i<modelRunner.length;i++) {
-			final ParameterCompareSetupModel model=setup.getModels().get(i);
-			if (model.isStatisticsAvailable()) continue;
-			modelRunner[i]=new ParameterCompareRunnerModel(i,r->modelDone(r),s->logOutput(s),setup,outputScripts);
-			final String err=modelRunner[i].prepare(editModel,model);
-			if (err!=null) return err+" ("+String.format(Language.tr("ParameterCompare.Run.Error.PreparingModel"),i+1,model.getName())+")";
+		if (modelToSimulate>=0) {
+			/* Nur ein bestimmtes Modell simulieren */
+			final ParameterCompareSetupModel model=setup.getModels().get(modelToSimulate);
+			modelRunner[modelToSimulate]=new ParameterCompareRunnerModel(modelToSimulate,true,r->modelDone(r),s->logOutput(s),setup,outputScripts);
+			final String err=modelRunner[modelToSimulate].prepare(editModel,model);
+			if (err!=null) return err+" ("+String.format(Language.tr("ParameterCompare.Run.Error.PreparingModel"),modelToSimulate+1,model.getName())+")";
+		} else {
+			/* Alle Modelle simulieren */
+			for (int i=0;i<modelRunner.length;i++) {
+				final ParameterCompareSetupModel model=setup.getModels().get(i);
+				if (model.isStatisticsAvailable()) continue;
+				modelRunner[i]=new ParameterCompareRunnerModel(i,false,r->modelDone(r),s->logOutput(s),setup,outputScripts);
+				final String err=modelRunner[i].prepare(editModel,model);
+				if (err!=null) return err+" ("+String.format(Language.tr("ParameterCompare.Run.Error.PreparingModel"),i+1,model.getName())+")";
+			}
 		}
 
 		return null;
@@ -271,9 +295,14 @@ public class ParameterCompareRunner {
 			if (nextWaiting==null && running==0) {
 				/* Alles erledigt */
 				if (parentWindow!=null) Notifier.setSimulationProgress(parentWindow,-1);
-				logOutput(String.format(Language.tr("Batch.Simulation.Done1"),modelRunner.length));
 				final double time=(System.currentTimeMillis()-startTime)/1000.0;
-				logOutput(String.format(Language.tr("Batch.Simulation.Done2"),Math.round(time),Math.round(time/modelRunner.length)));
+				if (modelToSimulate>=0) {
+					logOutput(String.format(Language.tr("Batch.Simulation.Done1"),1));
+					logOutput(String.format(Language.tr("Batch.Simulation.Done2"),Math.round(time),Math.round(time/1)));
+				} else {
+					logOutput(String.format(Language.tr("Batch.Simulation.Done1"),modelRunner.length));
+					logOutput(String.format(Language.tr("Batch.Simulation.Done2"),Math.round(time),Math.round(time/modelRunner.length)));
+				}
 				done(true);
 				return;
 			}

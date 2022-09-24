@@ -65,10 +65,11 @@ public class ParameterCompareTable extends JPanel {
 	 * @param compareResults	Wird aufgerufen, wenn der Nutzer den Button zum Vergleichen der Statistikergebnisse verschiedener Modell anklickt
 	 * @param showResultsChart	Wird aufgerufen, wenn der Nutzer auf eine Schaltfläche in der letzten Zeile (zur Anzeige der Vergleichsdiagramme) klickt
 	 * @param connectParameters	Wird aufgerufen, wenn der Nutzer auf eine Schaltfläche in der letzten Zeile (zur Verbindung der Eingabeparameter) klickt
+	 * @param runModel	Wird aufgerufen, wenn der Nutzer auf die Schaltfläche zur neu Simulation eines Modells klickt
 	 * @param setupInput	Wird aufgerufen, wenn der Nutzer auf die Spaltenüberschrift einer Eingabeparameter-Spalte doppelt klickt.
 	 * @param setupOutput	Wird aufgerufen, wenn der Nutzer auf die Spaltenüberschrift einer Ausgabeparameter-Spalte doppelt klickt.
 	 */
-	public ParameterCompareTable(final ParameterCompareSetup setup, final Runnable help, final Consumer<Statistics> loadToEditor, final Runnable compareResults, final Consumer<Integer> showResultsChart, final Consumer<Integer> connectParameters, final Runnable setupInput, final Runnable setupOutput) {
+	public ParameterCompareTable(final ParameterCompareSetup setup, final Runnable help, final Consumer<Statistics> loadToEditor, final Runnable compareResults, final Consumer<Integer> showResultsChart, final Consumer<Integer> connectParameters, final Consumer<Integer> runModel, final Runnable setupInput, final Runnable setupOutput) {
 		super();
 
 		setLayout(new BorderLayout());
@@ -106,7 +107,7 @@ public class ParameterCompareTable extends JPanel {
 			}
 		});
 
-		table.setModel(tableModel=new ParameterCompareTableModel(table,setup,help,()->{updateTable(); table.setIsPanelCellTable();},loadToEditor,compareResults,showResultsChart,connectParameters));
+		table.setModel(tableModel=new ParameterCompareTableModel(table,setup,help,()->{updateTable(); table.setIsPanelCellTable();},loadToEditor,compareResults,showResultsChart,connectParameters,runModel));
 		table.setIsPanelCellTable();
 		table.getTableHeader().addMouseListener(new MouseAdapter() {
 			@Override
@@ -191,7 +192,7 @@ public class ParameterCompareTable extends JPanel {
 
 		final int count=table.getColumnModel().getColumnCount();
 
-		final int LAST_COL_WIDTH=175;
+		final int LAST_COL_WIDTH=200;
 
 		for (int i=0;i<count;i++) {
 			final TableColumn column=table.getColumnModel().getColumn(i);

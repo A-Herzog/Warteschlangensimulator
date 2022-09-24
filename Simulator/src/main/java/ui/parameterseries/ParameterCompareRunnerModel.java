@@ -93,19 +93,20 @@ public class ParameterCompareRunnerModel {
 	/**
 	 * Konstruktor der Klasse
 	 * @param nr	Nummer des Modells in der Liste (0-basierend)
+	 * @param forceSimulation	Erzwingt die Simulation auch wenn das Modell nicht aktiv ist (für die gezielte Simulation einzelner Modelle)
 	 * @param whenDone	Wird aufgerufen, wenn die Verarbeitung erfolgreich abgeschlossen wurde
 	 * @param logOutput	Callback über das Meldungen (z.B. zum Misserfolg von Skripten) ausgegeben werden
 	 * @param setup	Parameter-Variationsstudien-Setup
 	 * @param outputScripts	Liste mit den Ausgabeskripten
 	 */
-	public ParameterCompareRunnerModel(final int nr, final Consumer<ParameterCompareRunnerModel> whenDone, final Consumer<String> logOutput, final ParameterCompareSetup setup, final String[] outputScripts) {
+	public ParameterCompareRunnerModel(final int nr, final boolean forceSimulation, final Consumer<ParameterCompareRunnerModel> whenDone, final Consumer<String> logOutput, final ParameterCompareSetup setup, final String[] outputScripts) {
 		this.nr=nr;
 		this.whenDone=whenDone;
 		this.logOutput=logOutput;
 		this.setup=setup;
 		this.outputScripts=outputScripts;
 
-		if (setup.getModels().get(nr).isActive()) {
+		if (setup.getModels().get(nr).isActive() || forceSimulation) {
 			status=Status.STATUS_WAITING;
 		} else {
 			status=Status.STATUS_DONE;

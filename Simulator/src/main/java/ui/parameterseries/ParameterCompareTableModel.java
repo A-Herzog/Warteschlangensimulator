@@ -89,6 +89,8 @@ public class ParameterCompareTableModel extends JTableExtAbstractTableModel {
 	private final Consumer<Integer> showResultsChart;
 	/** Wird aufgerufen, wenn der Nutzer auf eine Schaltfläche in der letzten Zeile (zur Verbindung der Eingabeparameter) klickt */
 	private final Consumer<Integer> connectParameters;
+	/** Wird aufgerufen, wenn der Nutzer auf die Schaltfläche zur neu Simulation eines Modells klickt */
+	private final Consumer<Integer> runModel;
 
 	/**
 	 * Konstruktor der Klasse
@@ -100,8 +102,9 @@ public class ParameterCompareTableModel extends JTableExtAbstractTableModel {
 	 * @param compareResults	Wird aufgerufen, wenn der Nutzer den Button zum Vergleichen der Statistikergebnisse verschiedener Modell anklickt
 	 * @param showResultsChart	Wird aufgerufen, wenn der Nutzer auf eine Schaltfläche in der letzten Zeile (zur Anzeige der Vergleichsdiagramme) klickt
 	 * @param connectParameters	Wird aufgerufen, wenn der Nutzer auf eine Schaltfläche in der letzten Zeile (zur Verbindung der Eingabeparameter) klickt
+	 * @param runModel	Wird aufgerufen, wenn der Nutzer auf die Schaltfläche zur neu Simulation eines Modells klickt
 	 */
-	public ParameterCompareTableModel(final JTableExt table, final ParameterCompareSetup setup, final Runnable help, final Runnable update, final Consumer<Statistics> loadToEditor, final Runnable compareResults, final Consumer<Integer> showResultsChart, final Consumer<Integer> connectParameters) {
+	public ParameterCompareTableModel(final JTableExt table, final ParameterCompareSetup setup, final Runnable help, final Runnable update, final Consumer<Statistics> loadToEditor, final Runnable compareResults, final Consumer<Integer> showResultsChart, final Consumer<Integer> connectParameters, final Consumer<Integer> runModel) {
 		super();
 		digits=1;
 		this.table=table;
@@ -112,6 +115,7 @@ public class ParameterCompareTableModel extends JTableExtAbstractTableModel {
 		this.compareResults=compareResults;
 		this.showResultsChart=showResultsChart;
 		this.connectParameters=connectParameters;
+		this.runModel=runModel;
 	}
 
 	/**
@@ -625,6 +629,21 @@ public class ParameterCompareTableModel extends JTableExtAbstractTableModel {
 	}
 
 	/**
+	 * Befehl: Einzelnes Modell (neu) simulieren
+	 * @param index	Index des Modells
+	 * @param hasStatistics	Liegen für das Modell bereits Statistikergebnisse vor?
+	 */
+	private void commandSimulateSingleModel(final int index, final boolean hasStatistics) {
+		if (index<0) return;
+
+		if (hasStatistics) {
+			if (!MsgBox.confirm(table,Language.tr("ParameterCompare.Table.SimulateSingleModel.ConfirmTitle"),Language.tr("ParameterCompare.Table.SimulateSingleModel.ConfirmInfo"),Language.tr("ParameterCompare.Table.SimulateSingleModel.ConfirmInfoYes"),Language.tr("ParameterCompare.Table.SimulateSingleModel.ConfirmInfoNo"))) return;
+		}
+
+		runModel.accept(index);
+	}
+
+	/**
 	 * Befehl: Statistikergebnisse zu einem bestimmten Modell anzeigen
 	 * @param index	Index des Modells
 	 */
@@ -722,7 +741,7 @@ public class ParameterCompareTableModel extends JTableExtAbstractTableModel {
 			super();
 			panelModel=model;
 			this.rowIndex=rowIndex;
-			buttons=new JButton[6];
+			buttons=new JButton[7];
 
 			setLayout(new FlowLayout(FlowLayout.LEFT));
 
@@ -744,18 +763,23 @@ public class ParameterCompareTableModel extends JTableExtAbstractTableModel {
 
 			toolbar.add(getButton("",(panelModel==null)?Language.tr("ParameterCompare.Table.DeleteModel.HintAll"):Language.tr("ParameterCompare.Table.DeleteModel.Hint"),Images.EDIT_DELETE.getIcon(),modifiers->commandDelete(rowIndex,model,modifiers)));
 
-			toolbar.add(b=getButton("",Language.tr("ParameterCompare.Table.MoveModelUp.Hint"),Images.ARROW_UP.getIcon(),modifiers->commandMoveUp(rowIndex)));
-			buttons[2]=b;
+			if (rowIndex>=0) {
+				toolbar.add(b=getButton("",Language.tr("ParameterCompare.Table.MoveModelUp.Hint"),Images.ARROW_UP.getIcon(),modifiers->commandMoveUp(rowIndex)));
+				buttons[2]=b;
 
-			toolbar.add(b=getButton("",Language.tr("ParameterCompare.Table.MoveModelDown.Hint"),Images.ARROW_DOWN.getIcon(),modifiers->commandMoveDown(rowIndex)));
-			buttons[3]=b;
+				toolbar.add(b=getButton("",Language.tr("ParameterCompare.Table.MoveModelDown.Hint"),Images.ARROW_DOWN.getIcon(),modifiers->commandMoveDown(rowIndex)));
+				buttons[3]=b;
+
+				toolbar.add(b=getButton("",Language.tr("ParameterCompare.Table.SimulateSingleModel.Hint"),Images.SIMULATION.getIcon(),modifiers->commandSimulateSingleModel(rowIndex,buttons[5].isEnabled())));
+				buttons[4]=b;
+			}
 
 			toolbar.add(b=getButton("",Language.tr("ParameterCompare.Table.ShowStatistics.Hint"),Images.PARAMETERSERIES_PROCESS_RESULTS_CHARTS.getIcon(),modifiers->commandShowStatistics(rowIndex)));
-			buttons[4]=b;
+			buttons[5]=b;
 
 			if (rowIndex>=0) {
 				toolbar.add(b=getButton("",Language.tr("ParameterCompare.Table.SaveStatistics.Hint"),Images.GENERAL_SAVE.getIcon(),modifiers->commandSaveStatistics(rowIndex)));
-				buttons[5]=b;
+				buttons[6]=b;
 			}
 
 			toolbar.setBorder(BorderFactory.createEmptyBorder(0,0,0,0));
@@ -768,11 +792,14 @@ public class ParameterCompareTableModel extends JTableExtAbstractTableModel {
 		public void updateButtons() {
 			buttons[0].setEnabled(panelModel!=null);
 			if (buttons[1]!=null) buttons[1].setEnabled(true);
-			buttons[2].setEnabled(panelModel!=null && rowIndex>0);
-			buttons[3].setEnabled(panelModel!=null && rowIndex<setup.getModels().size()-1);
-			buttons[4].setEnabled((panelModel==null && hasResults()) || (panelModel!=null && panelModel.isStatisticsAvailable()));
 			if (rowIndex>=0) {
-				buttons[5].setEnabled((panelModel==null && hasResults()) || (panelModel!=null && panelModel.isStatisticsAvailable()));
+				buttons[2].setEnabled(panelModel!=null && rowIndex>0);
+				buttons[3].setEnabled(panelModel!=null && rowIndex<setup.getModels().size()-1);
+				buttons[4].setEnabled(true);
+			}
+			buttons[5].setEnabled((panelModel==null && hasResults()) || (panelModel!=null && panelModel.isStatisticsAvailable()));
+			if (rowIndex>=0) {
+				buttons[6].setEnabled((panelModel==null && hasResults()) || (panelModel!=null && panelModel.isStatisticsAvailable()));
 			}
 		}
 

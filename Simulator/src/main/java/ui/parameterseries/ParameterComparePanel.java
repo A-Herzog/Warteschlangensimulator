@@ -223,6 +223,7 @@ public class ParameterComparePanel extends SpecialPanel {
 				()->commandPopupCompareStatistics(),
 				i->commandShowResultsChart(i),
 				i->commandConnectInputParameters(i),
+				i->commandSimulateSingleModel(i),
 				()->commandSetupInput(),
 				()->commandSetupOutput()));
 		table.setDisplayDigits(SetupData.getSetup().parameterSeriesTableDigits);
@@ -1066,6 +1067,26 @@ public class ParameterComparePanel extends SpecialPanel {
 		if (dialog.getClosedBy()==BaseDialog.CLOSED_BY_OK) {
 			table.updateTable();
 		}
+	}
+
+	/**
+	 * Befehl: Einzelnes Modell simulieren
+	 * @param index	0-basierter Index des Modells
+	 */
+	private void commandSimulateSingleModel(final int index) {
+		setup.getModels().get(index).clearOutputs();
+		logOutput.setText("");
+
+		final long simulationStartTime=System.currentTimeMillis();
+		runner=new ParameterCompareRunner(owner,index,row->table.updateTableContentOnly(row),b->{setGUIRunMode(false); if (b) Notifier.run(Notifier.Message.PARAMETER_SERIES_DONE,simulationStartTime);},s->logOutput(s));
+		String error=runner.check(setup);
+		if (error!=null) {
+			runner=null;
+			MsgBox.error(ParameterComparePanel.this,Language.tr("ParameterCompare.Error.CouldNotStart.Title"),Language.tr("ParameterCompare.Error.CouldNotStart")+":\n"+error);
+			return;
+		}
+		setGUIRunMode(true);
+		runner.start();
 	}
 
 	/**

@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-22 00:06+0200\n"
+"POT-Creation-Date: 2022-09-24 05:34+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -14298,6 +14298,21 @@ msgstr "Save statistic results"
 
 msgid "ParameterCompare.Table.ShowStatistics.Hint"
 msgstr "Show statistic results"
+
+msgid "ParameterCompare.Table.SimulateSingleModel.ConfirmInfo"
+msgstr "Statistical results are already available for the model. Do you still want to re-simulate it?"
+
+msgid "ParameterCompare.Table.SimulateSingleModel.ConfirmInfoNo"
+msgstr "Keep current results."
+
+msgid "ParameterCompare.Table.SimulateSingleModel.ConfirmInfoYes"
+msgstr "Discard previous results and re-simulate model."
+
+msgid "ParameterCompare.Table.SimulateSingleModel.ConfirmTitle"
+msgstr "Re-simulate model"
+
+msgid "ParameterCompare.Table.SimulateSingleModel.Hint"
+msgstr "Simulate this model now"
 
 msgid "ParameterCompare.Table.SortModels.ErrorNoInput.Info"
 msgstr ""
