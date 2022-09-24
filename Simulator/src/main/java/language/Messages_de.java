@@ -19818,6 +19818,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[47305] = "Ung\u00fcltiger Wert";
     t[47306] = "ModelLoadData.ProcessError.WorkbookDoesNotContainSheet";
     t[47307] = "Die Arbeitsmappe \"%s\" enth\u00e4lt keine Tabelle mit dem Namen \"%s\".";
+    t[47308] = "Schedule.ValueFor";
+    t[47309] = "Wert f\u00fcr";
     t[47324] = "Statistics.MaximumProcessTime";
     t[47325] = "Maximale Bedienzeit";
     t[47328] = "CommandLine.Report.Description.Short";
@@ -20062,14 +20064,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[47853] = "Kundenanzahl";
     t[47854] = "Statistic.FastAccess.FilterList.Edit";
     t[47855] = "Bearbeiten";
-    t[47860] = "Surface.Source.DialogBatchSize.TableColumn.Size.ContainsErrorInfo";
-    t[47861] = "Die angegebene Batch-Gr\u00f6\u00dfe %s wird bereits in einer anderen Zeile verwendet.";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_10 (java.lang.String[] t) {
+    t[47860] = "Surface.Source.DialogBatchSize.TableColumn.Size.ContainsErrorInfo";
+    t[47861] = "Die angegebene Batch-Gr\u00f6\u00dfe %s wird bereits in einer anderen Zeile verwendet.";
     t[47862] = "Surface.DDE.Select.NoData.ErrorTitle";
     t[47863] = "Keine DDE-Daten";
     t[47866] = "AutoRestore.Dialog.DeleteAllTitle";
@@ -20904,6 +20906,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[49847] = "Optimierer-Einstellungen";
     t[49850] = "Surface.Source.Dialog.CalculationOfTheInterarrivalTimes.DataStream.Mode.InterArrivalTimes.Repeat";
     t[49851] = "Am Ende wiederholen";
+    t[49854] = "Schedule.EditDialog.EditInfo";
+    t[49855] = "Die H\u00f6hen der einzelnen Balken k\u00f6nnen durch Mausklicks, per Mausrad, \u00fcber das Kontextmen\u00fc oder \u00fcber die folgenden Tasten ver\u00e4ndert werden:<br>+ = Wert um 1 erh\u00f6hen<br>- = Wert um 1 verringern<br>* = Wert f\u00fcr den aktuellen Balken vom Vorg\u00e4ngerbalken \u00fcbernehmen<br>Bild hoch = Wert um 10 erh\u00f6hen<br>Bild runter = Wert um 10 verringern";
     t[49858] = "ModelDescription.InputDB.EOFMode.DefaultValue";
     t[49859] = "Vorgabewert verwenden";
     t[49862] = "Resources.Group.EditName.Dialog.FailureTitle";
@@ -22066,16 +22070,16 @@ public class Messages_de extends java.util.ResourceBundle {
     t[52609] = "Station %s soll nur maximal %d Kunden generieren und hat diese Anzahl jetzt erreicht.";
     t[52612] = "Surface.XML.Resource.CostsPerIdleHour";
     t[52613] = "KostenProLeerlaufstunde";
-    t[52614] = "Animation.Icon.ColorOrange";
-    t[52615] = "Farbe - Orange";
-    t[52624] = "Surface.DDE.Workbook.ErrorTitle";
-    t[52625] = "Keine Arbeitsmappe angegeben";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_11 (java.lang.String[] t) {
+    t[52614] = "Animation.Icon.ColorOrange";
+    t[52615] = "Farbe - Orange";
+    t[52624] = "Surface.DDE.Workbook.ErrorTitle";
+    t[52625] = "Keine Arbeitsmappe angegeben";
     t[52626] = "Schedule.EditDialog.TimeStepFurther";
     t[52627] = "Weiter";
     t[52628] = "ParameterCompare.Table.DeleteModel.Hint";

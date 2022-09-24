@@ -99,16 +99,13 @@ public class ScheduleTableModelDataDialog extends BaseDialog {
 		repeatMode=schedule.getRepeatMode();
 
 		/* GUI */
-
 		final JPanel content=createGUI(help);
 		content.setLayout(new BorderLayout());
 
 		/* Zeitslot-Editor */
-
 		content.add(schedulePanel=new SchedulePanel(schedule.getSlots(),editorMaxY,durationPerSlot,40),BorderLayout.CENTER);
 
 		/* Toolbar */
-
 		final JToolBar toolBar=new JToolBar();
 		toolBar.setFloatable(false);
 		content.add(toolBar,BorderLayout.NORTH);
@@ -146,8 +143,12 @@ public class ScheduleTableModelDataDialog extends BaseDialog {
 
 		enableButtons();
 
-		/* Drag & Drop einrichten */
+		/* Info */
+		final JPanel line=new JPanel(new FlowLayout(FlowLayout.LEFT));
+		content.add(line,BorderLayout.SOUTH);
+		line.add(new JLabel("<html><body>"+Language.tr("Schedule.EditDialog.EditInfo")+"</body></html>"));
 
+		/* Drag & Drop einrichten */
 		new FileDropper(this,e->{
 			final FileDropperData data=(FileDropperData)e.getSource();
 			loadFile(data.getFile());
@@ -155,42 +156,49 @@ public class ScheduleTableModelDataDialog extends BaseDialog {
 		});
 
 		/* Hotkeys registrieren */
-
 		final InputMap input=content.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
 		input.put(KeyStroke.getKeyStroke('C',InputEvent.CTRL_DOWN_MASK),"cmdCopy");
 		input.put(KeyStroke.getKeyStroke(KeyEvent.VK_INSERT,InputEvent.CTRL_DOWN_MASK),"cmdCopy");
 		input.put(KeyStroke.getKeyStroke('V',InputEvent.CTRL_DOWN_MASK),"cmdPaste");
 		input.put(KeyStroke.getKeyStroke(KeyEvent.VK_INSERT,InputEvent.SHIFT_DOWN_MASK),"cmdPaste");
-		final ActionMap actions=content.getActionMap();
-		actions.put("cmdCopy",new AbstractAction() {
-			/**
-			 * Serialisierungs-ID der Klasse
-			 * @see Serializable
-			 */
-			private static final long serialVersionUID=3318003178596230044L;
+		input.put(KeyStroke.getKeyStroke(KeyEvent.VK_PLUS,0),"cmdUp");
+		input.put(KeyStroke.getKeyStroke(KeyEvent.VK_ADD,0),"cmdUp");
+		input.put(KeyStroke.getKeyStroke(KeyEvent.VK_MINUS,0),"cmdDown");
+		input.put(KeyStroke.getKeyStroke(KeyEvent.VK_SUBTRACT,0),"cmdDown");
+		input.put(KeyStroke.getKeyStroke(KeyEvent.VK_PAGE_UP,0),"cmdPageUp");
+		input.put(KeyStroke.getKeyStroke(KeyEvent.VK_PAGE_DOWN,0),"cmdPageDown");
+		input.put(KeyStroke.getKeyStroke(KeyEvent.VK_MULTIPLY,0),"cmdFromPrevious");
 
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				copyToClipboard();
-			}
-		});
-		actions.put("cmdPaste",new AbstractAction() {
-			/**
-			 * Serialisierungs-ID der Klasse
-			 * @see Serializable
-			 */
-			private static final long serialVersionUID=2269962377381294718L;
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				loadFromClipboard();
-			}
-		});
+		addAction(content,"cmdCopy",a->copyToClipboard());
+		addAction(content,"cmdPaste",a->loadFromClipboard());
+		addAction(content,"cmdUp",a->schedulePanel.changeCurrentValueDelta(1));
+		addAction(content,"cmdDown",a->schedulePanel.changeCurrentValueDelta(-1));
+		addAction(content,"cmdPageUp",a->schedulePanel.changeCurrentValueDelta(10));
+		addAction(content,"cmdPageDown",a->schedulePanel.changeCurrentValueDelta(-10));
+		addAction(content,"cmdFromPrevious",a->schedulePanel.changeCurrentValueToPreviousValue());
 
 		/* Dialog starten */
 		setResizable(true);
+		setMinSizeRespectingScreensize(800,600);
 		setLocationRelativeTo(getOwner());
 		setVisible(true);
+	}
+
+	/**
+	 * Legt eine Aktion an und fügt diese in die {@link ActionMap} eines Panels ein.
+	 * @param name	Name der Aktion
+	 * @param action	Auszuführendes Callback beim Aufruf der Aktion
+	 * @param panel	Panel in dem die Aktion registriert werden soll
+	 */
+	private void addAction(final JPanel panel, final String name, final Consumer<ActionEvent> action) {
+		panel.getActionMap().put(name,new AbstractAction() {
+			private static final long serialVersionUID=-7682578458732771324L;
+
+			@Override
+			public void actionPerformed(final ActionEvent e) {
+				if (action!=null) action.accept(e);
+			}
+		});
 	}
 
 	/**

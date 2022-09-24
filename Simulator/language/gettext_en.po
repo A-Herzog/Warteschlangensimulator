@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-20 11:49+0200\n"
+"POT-Creation-Date: 2022-09-22 00:06+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -15460,6 +15460,9 @@ msgstr "Edit schedule"
 msgid "Schedule.Edit"
 msgstr "Edit schedule"
 
+msgid "Schedule.EditDialog.EditInfo"
+msgstr "The heights of the individual bars can be changed by mouse clicks, by mouse wheel, via the context menu or via the following keys:<br>+ = Increase value by 1<br>- = Decrease value by 1<br>* = Transfer value from the previous bar to the current bar<br>Page up = Increase value by 10<br>Page down = Decrease value by 10"
+
 msgid "Schedule.EditDialog.Load"
 msgstr "Import"
 
@@ -15661,6 +15664,9 @@ msgstr "Time slots"
 
 msgid "Schedule.TimeSlot.Singular"
 msgstr "Time slot"
+
+msgid "Schedule.ValueFor"
+msgstr "Value for"
 
 msgid "ScriptPopup.Client"
 msgstr "Client"

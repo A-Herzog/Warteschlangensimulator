@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-20 11:49+0200\n"
+"POT-Creation-Date: 2022-09-22 00:06+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -15467,6 +15467,9 @@ msgstr "Zeitplan bearbeiten"
 msgid "Schedule.Edit"
 msgstr "Zeitplan bearbeiten"
 
+msgid "Schedule.EditDialog.EditInfo"
+msgstr "Die Höhen der einzelnen Balken können durch Mausklicks, per Mausrad, über das Kontextmenü oder über die folgenden Tasten verändert werden:<br>+ = Wert um 1 erhöhen<br>- = Wert um 1 verringern<br>* = Wert für den aktuellen Balken vom Vorgängerbalken übernehmen<br>Bild hoch = Wert um 10 erhöhen<br>Bild runter = Wert um 10 verringern"
+
 msgid "Schedule.EditDialog.Load"
 msgstr "Importieren"
 
@@ -15669,6 +15672,9 @@ msgstr "Zeitslots"
 
 msgid "Schedule.TimeSlot.Singular"
 msgstr "Zeitslot"
+
+msgid "Schedule.ValueFor"
+msgstr "Wert für"
 
 msgid "ScriptPopup.Client"
 msgstr "Kunde"

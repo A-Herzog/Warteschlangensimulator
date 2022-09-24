@@ -21,15 +21,23 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.SystemColor;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionListener;
+import java.awt.event.MouseWheelEvent;
+import java.awt.event.MouseWheelListener;
 import java.awt.geom.Rectangle2D;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JPopupMenu;
+import javax.swing.JTextField;
+import javax.swing.SwingUtilities;
 
 import language.Language;
 import mathtools.NumberTools;
@@ -122,6 +130,7 @@ public class SchedulePanel extends JPanel {
 		setSetupData(editorMaxY,durationPerSlot);
 		addMouseListener(new SchedulePanelMouseListener());
 		addMouseMotionListener(new SchedulePanelMouseListener());
+		addMouseWheelListener(new SchedulePanelMouseListener());
 
 		fontDefault=new Font(Font.DIALOG,0,12);
 		fontBold=new Font(Font.DIALOG,Font.BOLD,12);
@@ -392,7 +401,7 @@ public class SchedulePanel extends JPanel {
 	 */
 	private void setDataValue(final int nr, final int value) {
 		while (data.size()<=nr) data.add(0);
-		data.set(nr,value);
+		data.set(nr,Math.max(0,Math.min(editorMaxY,value)));
 	}
 
 	/**
@@ -479,9 +488,55 @@ public class SchedulePanel extends JPanel {
 	}
 
 	/**
+	 * Liefert den aktuellen Wert für einen Balken.
+	 * @param nr	Index des Balkens bzw. des Zeitslots
+	 * @return	Aktueller Wert des Balken
+	 */
+	private int getCurrentValue(final int nr) {
+		return (this.data.size()<=nr)?0:this.data.get(nr);
+	}
+
+	/**
+	 * Verändert den Wert des Balken, über dem sich der Mauszeiger befindet relativ.
+	 * @param delta	Relative Veränderung
+	 */
+	public void changeCurrentValueDelta(final int delta) {
+		if (lastMousePoint==null) return;
+		final int[] data=getSlotDataFromPosition(lastMousePoint.x,lastMousePoint.y);
+		if (data==null) return;
+
+		setDataValue(data[0],getCurrentValue(data[0])+delta);
+		repaint();
+	}
+
+	/**
+	 * Stellt den Wert des aktuellen Balkens auf den Wert des vorherigen Balkens.
+	 */
+	public void changeCurrentValueToPreviousValue() {
+		if (lastMousePoint==null) return;
+		final int[] data=getSlotDataFromPosition(lastMousePoint.x,lastMousePoint.y);
+		if (data==null) return;
+
+		if (data[0]==0) return;
+		setDataValue(data[0],getCurrentValue(data[0]-1));
+		repaint();
+	}
+
+	/**
+	 * Prüft die Textfeld-Eingabe und ändert ggf. den Wert eines Balken.
+	 * @param nr	Index des Balkens bzw. des Zeitslots
+	 * @param input	Textfeld dem der neue Wert entnommen werden soll
+	 */
+	private void checkAndChange(final int nr, final JTextField input) {
+		final Integer I=NumberTools.getNotNegativeInteger(input,true);
+		if (I!=null) setDataValue(nr,I);
+		repaint();
+	}
+
+	/**
 	 * Reagiert auf Mausbewegungen und Mausklicks.
 	 */
-	private class SchedulePanelMouseListener extends MouseAdapter implements MouseMotionListener {
+	private class SchedulePanelMouseListener extends MouseAdapter implements MouseMotionListener, MouseWheelListener {
 		/**
 		 * Konstruktor der Klasse
 		 */
@@ -495,8 +550,23 @@ public class SchedulePanel extends JPanel {
 		@Override
 		public void mousePressed(MouseEvent e) {
 			final int[] data=getSlotDataFromPosition(e.getX(),e.getY());
-			if (data!=null) setDataValue(data[0],data[1]);
-			repaint();
+			if (data==null) return;
+			if (SwingUtilities.isLeftMouseButton(e)) {
+				setDataValue(data[0],data[1]);
+				repaint();
+			}
+			if (SwingUtilities.isRightMouseButton(e)) {
+				final JPopupMenu menu=new JPopupMenu();
+				menu.add(new JLabel(Language.tr("Schedule.ValueFor")+" "+getSlotInfo(data[0])+" - "+getSlotInfo(data[0]+1)));
+				final JTextField input=new JTextField(""+getCurrentValue(data[0]));
+				menu.add(input);
+				input.addKeyListener(new KeyListener() {
+					@Override public void keyTyped(KeyEvent e) {checkAndChange(data[0],input);}
+					@Override public void keyReleased(KeyEvent e) {checkAndChange(data[0],input);}
+					@Override public void keyPressed(KeyEvent e) {checkAndChange(data[0],input);}
+				});
+				menu.show(SchedulePanel.this,e.getX(),e.getY());
+			}
 		}
 
 		@Override
@@ -509,6 +579,15 @@ public class SchedulePanel extends JPanel {
 		public void mouseMoved(MouseEvent e) {
 			lastMousePoint=new Point(e.getX(),e.getY());
 			repaint();
+		}
+
+		@Override
+		public void mouseWheelMoved(MouseWheelEvent e) {
+			final int[] data=getSlotDataFromPosition(e.getX(),e.getY());
+			if (data==null) return;
+
+			final int wheel=e.getWheelRotation();
+			if (wheel<0) changeCurrentValueDelta(1); else changeCurrentValueDelta(-1);
 		}
 	}
 }

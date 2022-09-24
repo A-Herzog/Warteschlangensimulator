@@ -19818,6 +19818,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[47305] = "Invalid value";
     t[47306] = "ModelLoadData.ProcessError.WorkbookDoesNotContainSheet";
     t[47307] = "The workbook \"%s\" does not contain the table \"%s\".";
+    t[47308] = "Schedule.ValueFor";
+    t[47309] = "Value for";
     t[47324] = "Statistics.MaximumProcessTime";
     t[47325] = "Maximum process time";
     t[47328] = "CommandLine.Report.Description.Short";
@@ -20062,14 +20064,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[47853] = "ClientCount";
     t[47854] = "Statistic.FastAccess.FilterList.Edit";
     t[47855] = "Edit";
-    t[47860] = "Surface.Source.DialogBatchSize.TableColumn.Size.ContainsErrorInfo";
-    t[47861] = "The specified batch size %s is already defined in another row.";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_10 (java.lang.String[] t) {
+    t[47860] = "Surface.Source.DialogBatchSize.TableColumn.Size.ContainsErrorInfo";
+    t[47861] = "The specified batch size %s is already defined in another row.";
     t[47862] = "Surface.DDE.Select.NoData.ErrorTitle";
     t[47863] = "No DDE data";
     t[47866] = "AutoRestore.Dialog.DeleteAllTitle";
@@ -20904,6 +20906,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[49847] = "Optimizer setups";
     t[49850] = "Surface.Source.Dialog.CalculationOfTheInterarrivalTimes.DataStream.Mode.InterArrivalTimes.Repeat";
     t[49851] = "Repeat at the end";
+    t[49854] = "Schedule.EditDialog.EditInfo";
+    t[49855] = "The heights of the individual bars can be changed by mouse clicks, by mouse wheel, via the context menu or via the following keys:<br>+ = Increase value by 1<br>- = Decrease value by 1<br>* = Transfer value from the previous bar to the current bar<br>Page up = Increase value by 10<br>Page down = Decrease value by 10";
     t[49858] = "ModelDescription.InputDB.EOFMode.DefaultValue";
     t[49859] = "Use default value";
     t[49862] = "Resources.Group.EditName.Dialog.FailureTitle";
@@ -22066,16 +22070,16 @@ public class Messages_en extends java.util.ResourceBundle {
     t[52609] = "For station %s it is planned to generate at maximum %d clients. This number has been reached.";
     t[52612] = "Surface.XML.Resource.CostsPerIdleHour";
     t[52613] = "CostsPerIdleHour";
-    t[52614] = "Animation.Icon.ColorOrange";
-    t[52615] = "Color - Orange";
-    t[52624] = "Surface.DDE.Workbook.ErrorTitle";
-    t[52625] = "No workbook specified";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_11 (java.lang.String[] t) {
+    t[52614] = "Animation.Icon.ColorOrange";
+    t[52615] = "Color - Orange";
+    t[52624] = "Surface.DDE.Workbook.ErrorTitle";
+    t[52625] = "No workbook specified";
     t[52626] = "Schedule.EditDialog.TimeStepFurther";
     t[52627] = "Forward";
     t[52628] = "ParameterCompare.Table.DeleteModel.Hint";
