@@ -22,6 +22,7 @@ import simulator.runmodel.RunDataClient;
 import simulator.runmodel.RunModel;
 import simulator.runmodel.SimulationData;
 import ui.modeleditor.coreelements.ModelElementBox;
+import ui.modeleditor.coreelements.ModelElementEdgeMultiOut;
 import ui.modeleditor.coreelements.ModelElementEdgeOut;
 import ui.modeleditor.elements.ModelElementEdge;
 
@@ -76,6 +77,19 @@ public abstract class RunElementPassThrough extends RunElement {
 	}
 
 	/**
+	 * Trägt die angegebene Modell-Kante als auslaufende Kante in das Laufzeitelement ein
+	 * @param element	Element von dem die Kante ausgeht
+	 * @return	Gibt im Erfolgsfall <code>null</code> zurück, sonst eine Fehlermeldung.
+	 */
+	protected final String buildEdgeOut(final ModelElementEdgeMultiOut element) {
+		for (ModelElementEdge edge: element.getEdgesOut()) {
+			final String error=buildEdgeOut(edge);
+			if (error!=null) return error;
+		}
+		return null;
+	}
+
+	/**
 	 * Prüft eine Modell-Kante zur Verwendung als auslaufende Kante für dieses Laufzeitelement
 	 * @param edge	Modell-Kante zum nächsten Element
 	 * @param element	Modell-Element welches zu diesem Laufzeit-Element gehört
@@ -93,6 +107,18 @@ public abstract class RunElementPassThrough extends RunElement {
 	 */
 	protected final RunModelCreatorStatus testEdgeOut(final ModelElementEdgeOut element) {
 		if (findNextId(element.getEdgeOut())<0) return RunModelCreatorStatus.noEdgeOut(element);
+		return null;
+	}
+
+	/**
+	 * Prüft eine Modell-Kante zur Verwendung als auslaufende Kante für dieses Laufzeitelement
+	 * @param element	Modell-Element welches zu diesem Laufzeit-Element gehört
+	 * @return	Gibt im Erfolgsfall <code>null</code> zurück, sonst eine Fehlermeldung.
+	 */
+	protected final RunModelCreatorStatus testEdgeOut(final ModelElementEdgeMultiOut element) {
+		for (ModelElementEdge edge: element.getEdgesOut()) {
+			if (findNextId(edge)<0) return RunModelCreatorStatus.noEdgeOut(element);
+		}
 		return null;
 	}
 

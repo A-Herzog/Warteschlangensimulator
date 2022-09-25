@@ -18,13 +18,16 @@ package ui.modeleditor.elements;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Point;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 import java.util.function.Consumer;
 
 import javax.swing.Icon;
 import javax.swing.JMenu;
+import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
 
 import org.w3c.dom.Document;
@@ -43,7 +46,8 @@ import ui.modeleditor.ModelSurface;
 import ui.modeleditor.ModelSurfacePanel;
 import ui.modeleditor.coreelements.ModelElement;
 import ui.modeleditor.coreelements.ModelElementBox;
-import ui.modeleditor.coreelements.ModelElementMultiInSingleOutBox;
+import ui.modeleditor.coreelements.ModelElementEdgeMultiIn;
+import ui.modeleditor.coreelements.ModelElementEdgeMultiOut;
 import ui.modeleditor.coreelements.ModelElementPosition;
 import ui.modeleditor.descriptionbuilder.ModelDescriptionBuilder;
 import ui.modeleditor.fastpaint.Shapes;
@@ -53,7 +57,39 @@ import ui.modeleditor.fastpaint.Shapes;
  * @author Alexander Herzog
  * @see ModelElementRelease
  */
-public class ModelElementSeize extends ModelElementMultiInSingleOutBox implements ModelDataRenameListener, ModelElementAnimationForceMove, ModelDataResourceUsage {
+public class ModelElementSeize extends ModelElementBox implements ModelElementEdgeMultiIn, ModelElementEdgeMultiOut, ModelDataRenameListener, ModelElementAnimationForceMove, ModelDataResourceUsage {
+	/**
+	 * Liste der einlaufenden Kanten
+	 */
+	protected final List<ModelElementEdge> connectionsIn;
+
+	/**
+	 * Auslaufende Kante (Ressource wurde belegt)
+	 */
+	protected ModelElementEdge connectionOutSuccess;
+
+	/**
+	 * Auslaufende Kante (Timeout für Ressourcenbelegung)
+	 */
+	protected ModelElementEdge connectionOutCancel;
+
+	/**
+	 * IDs der einlaufenden Kanten (Wird nur beim Laden und Clonen verwendet.)
+	 */
+	private List<Integer> connectionsInIds=null;
+
+	/**
+	 * IDs der auslaufenden Kante für erfolgreiche Kunden (wird nur beim Laden und Clonen verwendet)
+	 * @see #connectionOutSuccess
+	 */
+	private int connectionOutSuccessId=-1;
+
+	/**
+	 * IDs der auslaufenden Kante für Warteabbrecher (wird nur beim Laden und Clonen verwendet)
+	 * @see #connectionOutCancel
+	 */
+	private int connectionOutCancelId=-1;
+
 	/**
 	 * Bedienergruppen und deren Anzahlen, die für die Bedienung der Kunden notwendig sind
 	 * @see #getNeededResources()
@@ -68,6 +104,11 @@ public class ModelElementSeize extends ModelElementMultiInSingleOutBox implement
 	private String resourcePriority;
 
 	/**
+	 * Wartezeit (in Sekunden) nach der ein wartender Kunde aufgibt
+	 */
+	private double timeOut;
+
+	/**
 	 * Konstruktor der Klasse <code>ModelElementSeize</code>
 	 * @param model	Modell zu dem dieses Element gehören soll (kann später nicht mehr geändert werden)
 	 * @param surface	Zeichenfläche zu dem dieses Element gehören soll (kann später nicht mehr geändert werden)
@@ -75,8 +116,33 @@ public class ModelElementSeize extends ModelElementMultiInSingleOutBox implement
 	public ModelElementSeize(final EditModel model, final ModelSurface surface) {
 		super(model,surface,Shapes.ShapeType.SHAPE_RECTANGLE);
 
+		connectionsIn=new ArrayList<>();
+
 		resources=new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
 		resourcePriority=ModelElementProcess.DEFAULT_RESOURCE_PRIORITY;
+
+		timeOut=-1;
+	}
+
+	/**
+	 * Muss aufgerufen werden, wenn sich eine Eigenschaft des Elements ändert.
+	 */
+	@Override
+	public void fireChanged() {
+		updateEdgeLabel();
+		super.fireChanged();
+	}
+
+	/**
+	 * Gibt die Möglichkeit, das Label an den auslaufenden Kanten zu aktualisieren, nachdem sich im Element Veränderungen ergeben haben.
+	 */
+	protected void updateEdgeLabel() {
+		if (connectionOutCancel==null) {
+			if (connectionOutSuccess!=null) connectionOutSuccess.setName("");
+		} else {
+			if (connectionOutSuccess!=null) connectionOutSuccess.setName(Language.tr("Surface.Process.Label.Success"));
+			connectionOutCancel.setName(Language.tr("Surface.Process.Label.WaitingCancelation"));
+		}
 	}
 
 	/**
@@ -109,6 +175,28 @@ public class ModelElementSeize extends ModelElementMultiInSingleOutBox implement
 
 		final ModelElementSeize seize=(ModelElementSeize)element;
 
+		/* Einlaufende Kanten */
+		final List<ModelElementEdge> connectionsIn2=seize.connectionsIn;
+		if (connectionsIn==null || connectionsIn2==null || connectionsIn.size()!=connectionsIn2.size()) return false;
+		for (int i=0;i<connectionsIn.size();i++) if (connectionsIn.get(i).getId()!=connectionsIn2.get(i).getId()) return false;
+
+		/* Auslaufende Kante (Erfolg) */
+		if (connectionOutSuccess==null) {
+			if (seize.connectionOutSuccess!=null) return false;
+		} else {
+			if (seize.connectionOutSuccess==null) return false;
+			if (connectionOutSuccess.getId()!=seize.connectionOutSuccess.getId()) return false;
+		}
+
+		/* Auslaufende Kante (Warteabbrecher) */
+		if (connectionOutCancel==null) {
+			if (seize.connectionOutCancel!=null) return false;
+		} else {
+			if (seize.connectionOutCancel==null) return false;
+			if (connectionOutCancel.getId()!=seize.connectionOutCancel.getId()) return false;
+		}
+
+		/* Ressourcen */
 		Map<String,Integer> resourcesA=resources;
 		Map<String,Integer> resourcesB=seize.resources;
 		for (Map.Entry<String,Integer> entry : resourcesA.entrySet()) {
@@ -118,6 +206,9 @@ public class ModelElementSeize extends ModelElementMultiInSingleOutBox implement
 			if (!entry.getValue().equals(resourcesA.get(entry.getKey()))) return false;
 		}
 		if (!resourcePriority.equalsIgnoreCase(seize.resourcePriority)) return false;
+
+		/* Timeout */
+		if (timeOut!=seize.timeOut) return false;
 
 		return true;
 	}
@@ -133,9 +224,25 @@ public class ModelElementSeize extends ModelElementMultiInSingleOutBox implement
 
 			final ModelElementSeize seize=(ModelElementSeize)element;
 
+			/* Einlaufende Kanten */
+			connectionsIn.clear();
+			final List<ModelElementEdge> connectionsIn2=seize.connectionsIn;
+			if (connectionsIn2!=null) {
+				connectionsInIds=new ArrayList<>();
+				for (int i=0;i<connectionsIn2.size();i++) connectionsInIds.add(connectionsIn2.get(i).getId());
+			}
+
+			/* Auslaufende Kanten */
+			if (seize.connectionOutSuccess!=null) connectionOutSuccessId=seize.connectionOutSuccess.getId();
+			if (seize.connectionOutCancel!=null) connectionOutCancelId=seize.connectionOutCancel.getId();
+
+			/* Ressourcendaten */
 			resources.clear();
 			for (Map.Entry<String,Integer> entry: seize.resources.entrySet()) resources.put(entry.getKey(),entry.getValue());
 			resourcePriority=seize.resourcePriority;
+
+			/* Timeout */
+			timeOut=seize.timeOut;
 		}
 	}
 
@@ -150,6 +257,40 @@ public class ModelElementSeize extends ModelElementMultiInSingleOutBox implement
 		final ModelElementSeize element=new ModelElementSeize(model,surface);
 		element.copyDataFrom(this);
 		return element;
+	}
+
+	/**
+	 * Optionale Initialisierungen nach dem Laden bzw. Clonen.
+	 */
+	@Override
+	public void initAfterLoadOrClone() {
+		super.initAfterLoadOrClone();
+
+		ModelElement element;
+
+		if (connectionsInIds!=null) {
+			for (int i=0;i<connectionsInIds.size();i++) {
+				element=surface.getById(connectionsInIds.get(i));
+				if (element instanceof ModelElementEdge) connectionsIn.add((ModelElementEdge)element);
+			}
+			connectionsInIds=null;
+		}
+
+		if (connectionOutSuccessId>=0) {
+			element=surface.getById(connectionOutSuccessId);
+			if (element instanceof ModelElementEdge) connectionOutSuccess=(ModelElementEdge)element;
+			connectionOutSuccessId=-1;
+			updateEdgeLabel();
+		}
+
+		if (connectionOutCancelId>=0) {
+			if (connectionOutSuccess!=null) { /* Ohne Erfolgskante keine Abbruchkante */
+				element=surface.getById(connectionOutCancelId);
+				if (element instanceof ModelElementEdge) connectionOutCancel=(ModelElementEdge)element;
+			}
+			connectionOutCancelId=-1;
+			updateEdgeLabel();
+		}
 	}
 
 	/**
@@ -255,7 +396,82 @@ public class ModelElementSeize extends ModelElementMultiInSingleOutBox implement
 	 */
 	@Override
 	protected void addContextMenuItems(final Component owner, final JPopupMenu popupMenu, final ModelSurfacePanel surfacePanel, final Point point, final boolean readOnly) {
-		if (addRemoveEdgesContextMenuItems(popupMenu,readOnly)) popupMenu.addSeparator();
+		JMenuItem item;
+		final Icon icon=Images.EDIT_EDGES_DELETE.getIcon();
+		boolean needSeparator=false;
+
+		if (connectionsIn!=null && connectionsIn.size()>0) {
+			popupMenu.add(item=new JMenuItem(Language.tr("Surface.PopupMenu.RemoveEdgesIn")));
+			item.addActionListener(e->{for (ModelElementEdge element : new ArrayList<>(connectionsIn)) surface.remove(element);});
+			item.setIcon(Images.EDIT_EDGES_DELETE.getIcon());
+			item.setEnabled(!readOnly);
+			needSeparator=true;
+		}
+
+		if (connectionOutSuccess!=null) {
+			popupMenu.add(item=new JMenuItem(Language.tr("Surface.PopupMenu.RemoveEdgesOut")));
+			item.addActionListener(e->{
+				if (connectionOutCancel!=null) surface.remove(connectionOutCancel);
+				surface.remove(connectionOutSuccess);
+			});
+			if (icon!=null) item.setIcon(icon);
+			item.setEnabled(!readOnly);
+			needSeparator=true;
+
+			if (connectionOutCancel!=null) {
+				final JMenu menu=new JMenu(Language.tr("Surface.Connection.LineMode.ChangeAllEdgesOut"));
+				popupMenu.add(menu);
+
+				menu.add(item=new JMenuItem(Language.tr("Surface.Connection.LineMode.Global"),Images.MODEL.getIcon()));
+				item.addActionListener(e->setEdgeOutLineMode(null));
+				menu.add(item=new JMenuItem(Language.tr("Surface.Connection.LineMode.Direct"),Images.EDGE_MODE_DIRECT.getIcon()));
+				item.addActionListener(e->setEdgeOutLineMode(ModelElementEdge.LineMode.DIRECT));
+				menu.add(item=new JMenuItem(Language.tr("Surface.Connection.LineMode.MultiLine"),Images.EDGE_MODE_MULTI_LINE.getIcon()));
+				item.addActionListener(e->setEdgeOutLineMode(ModelElementEdge.LineMode.MULTI_LINE));
+				menu.add(item=new JMenuItem(Language.tr("Surface.Connection.LineMode.MultiLineRounded"),Images.EDGE_MODE_MULTI_LINE_ROUNDED.getIcon()));
+				item.addActionListener(e->setEdgeOutLineMode(ModelElementEdge.LineMode.MULTI_LINE_ROUNDED));
+				menu.add(item=new JMenuItem(Language.tr("Surface.Connection.LineMode.CubicCurve"),Images.EDGE_MODE_CUBIC_CURVE.getIcon()));
+				item.addActionListener(e->setEdgeOutLineMode(ModelElementEdge.LineMode.CUBIC_CURVE));
+			}
+		}
+
+		if (needSeparator) popupMenu.addSeparator();
+	}
+
+	/**
+	 * Stellt den Darstellungsmodus für alle auslaufenden Kanten ein.
+	 * @param lineMode	Neuer Darstellungsmodus
+	 */
+	private void setEdgeOutLineMode(final ModelElementEdge.LineMode lineMode) {
+		connectionOutSuccess.setLineMode(lineMode);
+		connectionOutSuccess.fireChanged();
+		connectionOutCancel.setLineMode(lineMode);
+		connectionOutCancel.fireChanged();
+	}
+
+	/**
+	 * Benachrichtigt das Element, dass es aus der Surface-Liste ausgetragen wurde.
+	 */
+	@Override
+	public void removeNotify() {
+		if (connectionsIn!=null) {
+			while (connectionsIn.size()>0) {
+				ModelElement element=connectionsIn.remove(0);
+				surface.remove(element);
+			}
+		}
+		if (connectionOutSuccess!=null) surface.remove(connectionOutSuccess);
+		if (connectionOutCancel!=null) surface.remove(connectionOutCancel);
+	}
+
+	/**
+	 * Benachrichtigt das Element, dass ein mit ihm in Verbindung stehendes Element entfernt wurde.
+	 */
+	@Override
+	public void removeConnectionNotify(final ModelElement element) {
+		if (connectionsIn!=null && connectionsIn.indexOf(element)>=0) {connectionsIn.remove(element); fireChanged();}
+		if (connectionOutSuccess==element) {connectionOutSuccess=null; fireChanged();}
+		if (connectionOutCancel==element) {connectionOutCancel=null; fireChanged();}
 	}
 
 	/**
@@ -278,6 +494,28 @@ public class ModelElementSeize extends ModelElementMultiInSingleOutBox implement
 
 		Element sub;
 
+		/* Kanten */
+
+		if (connectionsIn!=null) for (ModelElementEdge element: connectionsIn) {
+			node.appendChild(sub=doc.createElement(Language.trPrimary("Surface.XML.Connection")));
+			sub.setAttribute(Language.trPrimary("Surface.XML.Connection.Element"),""+element.getId());
+			sub.setAttribute(Language.trPrimary("Surface.XML.Connection.Type"),Language.trPrimary("Surface.XML.Connection.Type.In"));
+		}
+
+		if (connectionOutSuccess!=null) {
+			node.appendChild(sub=doc.createElement(Language.trPrimary("Surface.XML.Connection")));
+			sub.setAttribute(Language.trPrimary("Surface.XML.Connection.Element"),""+connectionOutSuccess.getId());
+			sub.setAttribute(Language.trPrimary("Surface.XML.Connection.Type"),Language.tr("Surface.XML.Connection.Type.Out"));
+		}
+		if (connectionOutCancel!=null) {
+			node.appendChild(sub=doc.createElement(Language.trPrimary("Surface.XML.Connection")));
+			sub.setAttribute(Language.trPrimary("Surface.XML.Connection.Element"),""+connectionOutCancel.getId());
+			sub.setAttribute(Language.trPrimary("Surface.XML.Connection.Type"),Language.tr("Surface.XML.Connection.Type.Out"));
+			sub.setAttribute(Language.trPrimary("Surface.Process.XML.Connection.Status"),Language.tr("Surface.Process.XML.Connection.Status.WaitingCancelation"));
+		}
+
+		/* Ressourcen */
+
 		for (Map.Entry<String,Integer> entry : resources.entrySet()) if (entry.getValue()!=null) {
 			node.appendChild(sub=doc.createElement(Language.trPrimary("Surface.Seize.XML.Operators")));
 			sub.setAttribute(Language.trPrimary("Surface.Seize.XML.Operators.Group"),entry.getKey());
@@ -286,6 +524,12 @@ public class ModelElementSeize extends ModelElementMultiInSingleOutBox implement
 
 		node.appendChild(sub=doc.createElement(Language.trPrimary("Surface.Seize.XML.Priority")));
 		sub.setTextContent(resourcePriority);
+
+		/* Timeout */
+		if (timeOut>=0) {
+			node.appendChild(sub=doc.createElement(Language.trPrimary("Surface.Seize.XML.TimeOut")));
+			sub.setTextContent(NumberTools.formatSystemNumber(timeOut));
+		}
 	}
 
 	/**
@@ -300,6 +544,30 @@ public class ModelElementSeize extends ModelElementMultiInSingleOutBox implement
 		String error=super.loadProperty(name,content,node);
 		if (error!=null) return error;
 
+		/* Kanten */
+
+		if (Language.trAll("Surface.XML.Connection",name)) {
+			Integer I;
+			I=NumberTools.getNotNegativeInteger(Language.trAllAttribute("Surface.XML.Connection.Element",node));
+			if (I==null) return String.format(Language.tr("Surface.XML.AttributeSubError"),Language.trPrimary("Surface.XML.Connection.Element"),name,node.getParentNode().getNodeName());
+			final String s=Language.trAllAttribute("Surface.XML.Connection.Type",node);
+			if (Language.trAll("Surface.XML.Connection.Type.In",s)) {
+				if (connectionsInIds==null) connectionsInIds=new ArrayList<>();
+				connectionsInIds.add(I);
+			}
+			if (Language.trAll("Surface.XML.Connection.Type.Out",s)) {
+				final String status=Language.trAllAttribute("Surface.Process.XML.Connection.Status",node);
+				if (Language.trAll("Surface.Process.XML.Connection.Status.WaitingCancelation",status)) {
+					connectionOutCancelId=I;
+				} else {
+					connectionOutSuccessId=I;
+				}
+			}
+			return null;
+		}
+
+		/* Ressourcen */
+
 		if (Language.trAll("Surface.Seize.XML.Operators",name)) {
 			final String typ=Language.trAllAttribute("Surface.Seize.XML.Operators.Group",node);
 			final Long L=NumberTools.getPositiveLong(Language.trAllAttribute("Surface.Seize.XML.Operators.Count",node));
@@ -311,9 +579,131 @@ public class ModelElementSeize extends ModelElementMultiInSingleOutBox implement
 
 		if (Language.trAll("Surface.Seize.XML.Priority",name)) {
 			resourcePriority=node.getTextContent();
+			return null;
+		}
+
+		/* Timeout */
+
+		if (Language.trAll("Surface.Seize.XML.TimeOut",name)) {
+			final Double D=NumberTools.getDouble(node.getTextContent());
+			if (D==null) return String.format(Language.tr("Surface.XML.ElementSubError"),name,node.getParentNode().getNodeName());
+			timeOut=D;
+			return null;
 		}
 
 		return null;
+	}
+
+	/**
+	 * Gibt an, ob das Element momentan eine (weitere) einlaufende Kante annehmen kann.
+	 * @return	Gibt <code>true</code> zurück, wenn eine (weitere) einlaufende Kante angenommen werden kann.
+	 */
+	@Override
+	public boolean canAddEdgeIn() {
+		return true;
+	}
+
+	/**
+	 * Fügt eine einlaufende Kante hinzu.
+	 * @param edge	Hinzuzufügende Kante
+	 * @return	Gibt <code>true</code> zurück, wenn die einlaufende Kante hinzugefügt werden konnte.
+	 */
+	@Override
+	public boolean addEdgeIn(ModelElementEdge edge) {
+		if (edge!=null && connectionsIn.indexOf(edge)<0) {
+			connectionsIn.add(edge);
+			fireChanged();
+			return true;
+		}
+		return false;
+	}
+
+	/**
+	 * Gibt an, ob das Element momentan eine (weitere) auslaufende Kante annehmen kann.
+	 * @return	Gibt <code>true</code> zurück, wenn eine (weitere) auslaufende Kante angenommen werden kann.
+	 */
+	@Override
+	public boolean canAddEdgeOut() {
+		return (connectionOutSuccess==null) || (connectionOutCancel==null);
+	}
+
+	/**
+	 * Fügt eine auslaufende Kante hinzu.
+	 * @param edge	Hinzuzufügende Kante
+	 * @return	Gibt <code>true</code> zurück, wenn die auslaufende Kante hinzugefügt werden konnte.
+	 */
+	@Override
+	public boolean addEdgeOut(ModelElementEdge edge) {
+		if (connectionOutSuccess!=null && connectionOutCancel!=null) return false;
+		if (edge==null || connectionsIn.indexOf(edge)>=0) return false;
+
+		if (connectionOutSuccess==null) {
+			connectionOutSuccess=edge;
+			connectionOutSuccessId=-1;
+		} else {
+			connectionOutCancel=edge;
+			connectionOutCancelId=-1;
+		}
+		fireChanged();
+		return true;
+	}
+
+	/**
+	 * Einlaufende Kanten
+	 * @return Einlaufende Kanten
+	 */
+	@Override
+	public ModelElementEdge[] getEdgesIn() {
+		return connectionsIn.toArray(new ModelElementEdge[0]);
+	}
+
+	/**
+	 * Auslaufende Kanten
+	 * @return	Auslaufende Kanten
+	 */
+	@Override
+	public ModelElementEdge[] getEdgesOut() {
+		if (connectionOutSuccess==null) {
+			if (connectionOutCancel==null) return new ModelElementEdge[0];
+			return new ModelElementEdge[]{connectionOutCancel};
+		} else {
+			if (connectionOutCancel==null) return new ModelElementEdge[]{connectionOutSuccess};
+			return new ModelElementEdge[]{connectionOutSuccess, connectionOutCancel};
+		}
+	}
+
+	/**
+	 * Liefert die auslaufende Kante für erfolgreiche Kunden.
+	 * @return	Auslaufende Kante (erfolgreiche Kunden)
+	 */
+	public ModelElementEdge getEdgeOutSuccess() {
+		return connectionOutSuccess;
+	}
+
+	/**
+	 * Liefert die auslaufende Kante für Warteabbrecher.
+	 * @return	Auslaufende Kante (Warteabbrecher)
+	 */
+	public ModelElementEdge getEdgeOutCancel() {
+		return connectionOutCancel;
+	}
+
+	/**
+	 * Gibt an, ob es in das Element einlaufende Kanten gibt.<br><br>
+	 * Wenn nicht, kann es in der Simulation überhaupt nicht erreicht werden und kann daher
+	 * bei der Initialisierung übersprungen werden, d.h. in diesem Fall ist es dann egal,
+	 * ob das Element in Bezug auf die Konfiguration fehlerhaft ist, z.B. keine auslaufenden
+	 * Kanten hat.<br><br>
+	 * Bei Variablenzuweisungen wird die Liste der Zuweisungen dennoch bei der Initialisierung
+	 * der Simulation berücksichtigt: Es wird so ermittelt, welche Variablennamen in im Modell
+	 * vorkommen (d.h. auf diese Variablen kann an anderer Stelle zugegriffen werden, ohne dass
+	 * sie noch einmal deklariert werden müssten).
+	 * @return	Gibt <code>true</code> zurück, wenn es mindestens eine in das Element einlaufende
+	 * Kante gibt.
+	 */
+	@Override
+	public boolean inputConnected() {
+		return connectionsIn.size()>0;
 	}
 
 	/**
@@ -339,6 +729,24 @@ public class ModelElementSeize extends ModelElementMultiInSingleOutBox implement
 	public void setResourcePriority(final String newResourcePriority) {
 		if (newResourcePriority==null || newResourcePriority.trim().isEmpty()) return;
 		resourcePriority=newResourcePriority;
+	}
+
+	/**
+	 * Liefert die maximale Wartezeit (in Sekunden) nach der ein wartender Kunde aufgibt.
+	 * @return	Wartezeit (in Sekunden) nach der ein wartender Kunde aufgibt
+	 * @see #setTimeOut(double)
+	 */
+	public double getTimeOut() {
+		return timeOut;
+	}
+
+	/**
+	 * Stellt die maximale Wartezeit (in Sekunden) nach der ein wartender Kunde aufgibt ein.
+	 * @param timeOut	Wartezeit (in Sekunden) nach der ein wartender Kunde aufgibt
+	 * @see #getTimeOut()
+	 */
+	public void setTimeOut(final double timeOut) {
+		this.timeOut=(timeOut<0)?-1:timeOut;
 	}
 
 	/**
@@ -390,6 +798,30 @@ public class ModelElementSeize extends ModelElementMultiInSingleOutBox implement
 		} else {
 			descriptionBuilder.addProperty(Language.tr("ModelDescription.Seize.ResourcePriority"),ModelElementProcess.DEFAULT_RESOURCE_PRIORITY,2000);
 		}
+
+		/* Timeout */
+		if (timeOut>=0 && connectionOutCancel!=null) {
+			descriptionBuilder.addProperty(Language.tr("ModelDescription.Seize.Timeout"),NumberTools.formatNumber(timeOut)+" "+Language.tr("Statistic.Seconds"),3000);
+		}
+
+		/* Nächste Stationen */
+		descriptionBuilder.addEdgeOut(connectionOutSuccess);
+		if (connectionOutCancel!=null) descriptionBuilder.addConditionalEdgeOut(Language.tr("ModelDescription.Process.EdgeOutCancel"),connectionOutCancel);
+	}
+
+	@Override
+	public boolean setReferenceEdges(List<ModelElementEdge> connectionsIn, List<ModelElementEdge> connectionsOut) {
+		if (connectionsOut.size()>2) return false;
+
+		this.connectionsIn.clear();
+		this.connectionsIn.addAll(connectionsIn);
+
+		this.connectionOutSuccess=null;
+		if (connectionsOut.size()>0) this.connectionOutSuccess=connectionsOut.get(0);
+		this.connectionOutCancel=null;
+		if (connectionsOut.size()>1) this.connectionOutCancel=connectionsOut.get(0);
+
+		return true;
 	}
 
 	@Override
@@ -399,6 +831,8 @@ public class ModelElementSeize extends ModelElementMultiInSingleOutBox implement
 		/* Ressourcenzuordnung -> keine Suche */
 
 		searcher.testString(this,Language.tr("Surface.Seize.Dialog.ResourcePriority"),resourcePriority,newResourcePriority->{resourcePriority=newResourcePriority;});
+
+		if (timeOut>=0) searcher.testDouble(Language.tr("Surface.Seize.Dialog.Timeout"),timeOut);
 	}
 
 	@Override

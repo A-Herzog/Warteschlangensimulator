@@ -31,6 +31,7 @@ import simulator.runmodel.RunDataClient;
 import simulator.runmodel.RunModel;
 import simulator.runmodel.SimulationData;
 import ui.modeleditor.coreelements.ModelElement;
+import ui.modeleditor.coreelements.ModelElementEdgeMultiOut;
 import ui.modeleditor.elements.ModelElementDecideJS;
 import ui.modeleditor.elements.ModelElementEdge;
 import ui.modeleditor.elements.ModelElementSub;
@@ -95,7 +96,7 @@ public class RunElementDecideByScript extends RunElement {
 		final ModelElementDecideJS decideElement=(ModelElementDecideJS)element;
 
 		final ModelElementEdge[] edges=decideElement.getEdgesOut();
-		if (edges.length==0) return RunModelCreatorStatus.noEdgeOut(decideElement);
+		if (edges.length==0) return RunModelCreatorStatus.noEdgeOut((ModelElementEdgeMultiOut)decideElement);
 		for (ModelElementEdge edge : edges) {
 			final int id=findNextId(edge);
 			if (id<0) return RunModelCreatorStatus.edgeToNowhere(element,edge);

@@ -898,13 +898,14 @@
   Maximum	CDATA	#REQUIRED
 >
 
-<!ELEMENT ModellElementRessourceBelegen (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementBoxSchriftGross | ModellElementBoxSchriftKlein | ModellElementMaximalerDurchsatzSekunden | ModellElementEbene | ModellElementHintergrundfarbe | ModellElementStationsbild | ModellElementVerbindung | ModellElementBediener | ModellElementBedienerPrioritaet)*>
+<!ELEMENT ModellElementRessourceBelegen (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementBoxSchriftGross | ModellElementBoxSchriftKlein | ModellElementMaximalerDurchsatzSekunden | ModellElementEbene | ModellElementHintergrundfarbe | ModellElementStationsbild | ModellElementVerbindung | ModellElementBediener | ModellElementBedienerPrioritaet | ModellElementRessourceBelegenMaximaleZeit)*>
 <!ATTLIST ModellElementRessourceBelegen
   id			CDATA	#REQUIRED
   geschuetzt	CDATA	#IMPLIED
   statistik		CDATA	#IMPLIED
   SymbolSpiegeln	CDATA	#IMPLIED
 >
+<!ELEMENT ModellElementRessourceBelegenMaximaleZeit (#PCDATA)>
 
 <!ELEMENT ModellElementRessourceFreigeben (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementBoxSchriftGross | ModellElementBoxSchriftKlein | ModellElementMaximalerDurchsatzSekunden | ModellElementEbene | ModellElementHintergrundfarbe | ModellElementStationsbild | ModellElementVerbindung | ModellElementBelegteRessource | ModellElementVerteilung | ModellElementAusdruck)*>
 <!ATTLIST ModellElementRessourceFreigeben
@@ -3472,13 +3473,14 @@
   Maximum	CDATA	#REQUIRED
 >
 
-<!ELEMENT ModelElementSeizeResource (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBoxFontLarge | ModelElementBoxFontSmall | ModelElementMaximumThroughputSeconds | ModelElementLayer | ModelElementBackgroundColor | ModelElementStationimage | ModelElementConnection | ModelElementOperators | ModelElementOperatorsPriority)*>
+<!ELEMENT ModelElementSeizeResource (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBoxFontLarge | ModelElementBoxFontSmall | ModelElementMaximumThroughputSeconds | ModelElementLayer | ModelElementBackgroundColor | ModelElementStationimage | ModelElementConnection | ModelElementOperators | ModelElementOperatorsPriority | ModelElementSeizeResourceMaximumTime)*>
 <!ATTLIST ModelElementSeizeResource
   id		CDATA	#REQUIRED
   protected	CDATA	#IMPLIED
   statistics	CDATA	#IMPLIED
   MirrorSymbol	CDATA	#IMPLIED
 >
+<!ELEMENT ModelElementSeizeResourceMaximumTime (#PCDATA)>
 
 <!ELEMENT ModelElementReleaseResource (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBoxFontLarge | ModelElementBoxFontSmall | ModelElementMaximumThroughputSeconds | ModelElementLayer | ModelElementBackgroundColor | ModelElementStationimage | ModelElementConnection | ModelElementSeizedResource | ModelElementDistribution | ModelElementExpression)*>
 <!ATTLIST ModelElementReleaseResource

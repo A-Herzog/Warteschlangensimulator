@@ -23,7 +23,10 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.Serializable;
 
+import javax.swing.BoxLayout;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
+import javax.swing.JComboBox;
 import javax.swing.JComponent;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -37,6 +40,7 @@ import systemtools.MsgBox;
 import tools.JTableExt;
 import ui.infopanel.InfoPanel;
 import ui.modeleditor.ModelElementBaseDialog;
+import ui.modeleditor.ModelSurface;
 
 /**
  * Dialog, der Einstellungen für ein {@link ModelElementSeize}-Element anbietet
@@ -54,6 +58,13 @@ public class ModelElementSeizeDialog extends ModelElementBaseDialog {
 	private JTextField textResourcePriority;
 	/** Tabelle zur Definition der zu belegenden Ressourcen */
 	private ResourceTableModel tableResource;
+
+	/** Auswahlbox: Timeout verwenden? */
+	private JCheckBox hasTimeOut;
+	/** Eingabefeld für Timeout-Werte */
+	private JTextField timeOut;
+	/** Zeiteinheit für Timeout-Werte */
+	private JComboBox<String> timeOutTimeBase;
 
 	/**
 	 * Konstruktor der Klasse
@@ -94,6 +105,7 @@ public class ModelElementSeizeDialog extends ModelElementBaseDialog {
 		final JPanel content=new JPanel(new BorderLayout());
 		JPanel sub;
 
+		/* Ressourcenpriorität */
 		final Object[] data=getInputPanel(Language.tr("Surface.Seize.Dialog.ResourcePriority")+":",((ModelElementSeize)element).getResourcePriority());
 		sub=(JPanel)data[0];
 		textResourcePriority=(JTextField)data[1];
@@ -106,6 +118,7 @@ public class ModelElementSeizeDialog extends ModelElementBaseDialog {
 			@Override public void keyPressed(KeyEvent e) {checkInput(false);}
 		});
 
+		/* Ressourcen */
 		final JTable table;
 		content.add(new JScrollPane(table=new JTableExt()),BorderLayout.CENTER);
 		table.setModel(tableResource=new ResourceTableModel(((JTableExt)table),((ModelElementSeize)element).getNeededResources(),element.getModel(),element.getSurface().getResources(),readOnly,helpRunnable));
@@ -115,15 +128,61 @@ public class ModelElementSeizeDialog extends ModelElementBaseDialog {
 		((JTableExt)table).setIsPanelCellTable(1);
 		table.setEnabled(!readOnly);
 
+		/* Setup-Bereich unten */
+		final JPanel setup=new JPanel();
+		setup.setLayout(new BoxLayout(setup,BoxLayout.PAGE_AXIS));
+		content.add(setup,BorderLayout.SOUTH);
+
+		/* Timeout */
+		setup.add(sub=new JPanel(new FlowLayout(FlowLayout.LEFT)));
+		sub.add(hasTimeOut=new JCheckBox(Language.tr("Surface.Seize.Dialog.Timeout")+":"));
+		hasTimeOut.setEnabled(!readOnly);
+		sub.add(timeOut=new JTextField(10));
+		timeOut.addKeyListener(new KeyListener() {
+			@Override public void keyTyped(KeyEvent e) {hasTimeOut.setSelected(true); checkInput(false);}
+			@Override public void keyReleased(KeyEvent e) {hasTimeOut.setSelected(true); checkInput(false);}
+			@Override public void keyPressed(KeyEvent e) {hasTimeOut.setSelected(true); checkInput(false);}
+		});
+		timeOut.setEnabled(!readOnly);
+		sub.add(timeOutTimeBase=new JComboBox<>(ModelSurface.getTimeBaseStrings()));
+		timeOutTimeBase.addActionListener(e->{hasTimeOut.setSelected(true); checkInput(false);});
+		timeOutTimeBase.setEnabled(!readOnly);
+		double timeOutValue=((ModelElementSeize)element).getTimeOut();
+		if (timeOutValue<0) {
+			timeOut.setText("0");
+			timeOutTimeBase.setSelectedIndex(0);
+			hasTimeOut.setSelected(false);
+		} else {
+			hasTimeOut.setSelected(true);
+			int index=0;
+			if (timeOutValue>60) {
+				/* Sekunden -> Minuten */
+				timeOutValue/=60;
+				index++;
+				if (timeOutValue>60) {
+					/* Minuten -> Stunden */
+					timeOutValue/=60;
+					index++;
+					if (timeOutValue>24) {
+						/* Stunden -> Tage */
+						timeOutValue/=24;
+						index++;
+					}
+				}
+			}
+			timeOut.setText(NumberTools.formatNumberMax(timeOutValue));
+			timeOutTimeBase.setSelectedIndex(index);
+		}
+
+		/* Button zum Öffnen der Ressourceneinstellungen */
 		final JButton resourceButton=getOpenModelOperatorsButton();
 		if (resourceButton!=null) {
-			content.add(sub=new JPanel(new FlowLayout(FlowLayout.LEFT)),BorderLayout.SOUTH);
+			setup.add(sub=new JPanel(new FlowLayout(FlowLayout.LEFT)));
 			sub.add(resourceButton);
 		}
 
 		return content;
 	}
-
 
 	/**
 	 * Überprüft die Eingaben
@@ -137,11 +196,27 @@ public class ModelElementSeizeDialog extends ModelElementBaseDialog {
 
 		final int error=ExpressionCalc.check(textResourcePriority.getText(),element.getSurface().getMainSurfaceVariableNames(element.getModel().getModelVariableNames(),false));
 		if (error>=0) {
-			textResourcePriority.setBackground(Color.red);
-			if (showErrorMessage) MsgBox.error(this,Language.tr("Surface.Seize.Dialog.ResourcePriority.Error.Title"),String.format(Language.tr("Surface.Seize.Dialog.ResourcePriority.Error.Info"),textResourcePriority.getText()));
+			textResourcePriority.setBackground(Color.RED);
+			if (showErrorMessage) {
+				MsgBox.error(this,Language.tr("Surface.Seize.Dialog.ResourcePriority.Error.Title"),String.format(Language.tr("Surface.Seize.Dialog.ResourcePriority.Error.Info"),textResourcePriority.getText()));
+				return false;
+			}
 			ok=false;
 		} else {
 			textResourcePriority.setBackground(NumberTools.getTextFieldDefaultBackground());
+		}
+
+		if (hasTimeOut.isSelected()) {
+			final Double D=NumberTools.getNotNegativeDouble(timeOut,true);
+			if (D==null) {
+				if (showErrorMessage) {
+					MsgBox.error(this,Language.tr("Surface.Seize.Dialog.Timeout.ErrorTitle"),Language.tr("Surface.Seize.Dialog.Timeout.ErrorInfo"));
+					return false;
+				}
+				ok=false;
+			}
+		} else {
+			timeOut.setBackground(NumberTools.getTextFieldDefaultBackground());
 		}
 
 		return ok;
@@ -170,5 +245,11 @@ public class ModelElementSeizeDialog extends ModelElementBaseDialog {
 
 		seize.setResourcePriority(textResourcePriority.getText());
 		tableResource.storeData(seize.getNeededResources());
+
+		if (hasTimeOut.isSelected()) {
+			seize.setTimeOut(NumberTools.getNotNegativeDouble(timeOut,true)*ModelSurface.TimeBase.byId(timeOutTimeBase.getSelectedIndex()).multiply);
+		} else {
+			seize.setTimeOut(-1);
+		}
 	}
 }

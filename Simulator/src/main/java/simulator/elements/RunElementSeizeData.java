@@ -17,9 +17,12 @@ package simulator.elements;
 
 import java.util.ArrayDeque;
 import java.util.Deque;
+import java.util.HashMap;
+import java.util.Map;
 
 import language.Language;
 import simulator.coreelements.RunElementData;
+import simulator.events.SeizeWaitingCancelEvent;
 import simulator.runmodel.RunDataClient;
 import simulator.runmodel.SimulationData;
 import simulator.simparser.ExpressionCalc;
@@ -33,6 +36,9 @@ import simulator.simparser.ExpressionCalc;
 public class RunElementSeizeData extends RunElementData {
 	/** Liste mit den momentan an der Station wartenden Kunden */
 	public final Deque<RunDataClient> waitingClients;
+
+	/** Liste der Warteabbruch-Ereignisse (um diese ggf. unbearbeitet löschen zu können) */
+	public final Map<RunDataClient,SeizeWaitingCancelEvent> waitingCancelEvents;
 
 	/** Zu dem Datenobjekt zugehöriges {@link RunElementSeize}-Element */
 	private final RunElementSeize station;
@@ -55,6 +61,7 @@ public class RunElementSeizeData extends RunElementData {
 	public RunElementSeizeData(final RunElementSeize station, final String[] variableNames) {
 		super(station);
 		waitingClients=new ArrayDeque<>();
+		waitingCancelEvents=new HashMap<>();
 		blockedRessourcesCount=0;
 
 		this.station=station;
@@ -82,7 +89,7 @@ public class RunElementSeizeData extends RunElementData {
 	}
 
 	/**
-	 * Entfernt einen Kunden aus der Warteschlange
+	 * Entfernt einen Kunden aus der Warteschlange und reduziert den Zähler der belegten Ressourcen.
 	 * @param simData	Simulationsdatenobjekt
 	 * @return	Gibt das Kundenobjekt zurück
 	 */
@@ -97,5 +104,20 @@ public class RunElementSeizeData extends RunElementData {
 		simData.runData.logClientLeavesStationQueue(simData,station,this,client);
 
 		return client;
+	}
+
+	/**
+	 * Entfernt einen Kunden aus der Warteschlange, der das Warten aufgegeben hat.
+	 * @param simData	Simulationsdatenobjekt
+	 * @param client	Zu entfernender Kunde
+	 * @return	Gibt <code>true</code> zurück, wenn sich der Kunde in der Warteschlange befand und entfernt werden konnte
+	 */
+	public boolean removeClientFromQueueForCancelation(final SimulationData simData, final RunDataClient client) {
+		if (!waitingClients.remove(client)) return false;
+
+		/* Statistik */
+		simData.runData.logClientLeavesStationQueue(simData,station,this,client);
+
+		return true;
 	}
 }

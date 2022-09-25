@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-24 05:34+0200\n"
+"POT-Creation-Date: 2022-09-25 00:26+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -11724,6 +11724,9 @@ msgstr "Benötigte Ressourcen"
 
 msgid "ModelDescription.Seize.Resources.Resource"
 msgstr "Ressource \"%s\": %d benötigt"
+
+msgid "ModelDescription.Seize.Timeout"
+msgstr "Maximale Wartezeit auf das Freiwerden der Ressourcen"
 
 msgid "ModelDescription.Set"
 msgstr "Zuweisung"
@@ -30279,6 +30282,15 @@ msgstr "Die eingegebene Ressourcen-Priorität \"%s\" ist nicht gültig."
 msgid "Surface.Seize.Dialog.ResourcePriority.Error.Title"
 msgstr "Ungültige Ressourcen-Priorität"
 
+msgid "Surface.Seize.Dialog.Timeout"
+msgstr "Wartezeit auf Freiwerden der Ressource begrenzen"
+
+msgid "Surface.Seize.Dialog.Timeout.ErrorInfo"
+msgstr "Die maximale Wartezeit auf das Freiwerden der Ressourcen ist ungültig. Es muss eine nichtnegative Zahl angegeben werden."
+
+msgid "Surface.Seize.Dialog.Timeout.ErrorTitle"
+msgstr "Maximale Wartezeit ungültig"
+
 msgid "Surface.Seize.Dialog.Title"
 msgstr "Ressourcenbelegung bearbeiten"
 
@@ -30308,6 +30320,9 @@ msgstr "ModellElementBedienerPrioritaet"
 
 msgid "Surface.Seize.XML.Root"
 msgstr "ModellElementRessourceBelegen"
+
+msgid "Surface.Seize.XML.TimeOut"
+msgstr "ModellElementRessourceBelegenMaximaleZeit"
 
 msgid "Surface.Separate.Dialog.Title"
 msgstr "Batch-Auflösen-Element bearbeiten"

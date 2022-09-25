@@ -1119,6 +1119,7 @@
   <xs:sequence minOccurs="0" maxOccurs="unbounded"><xs:choice>
 	<xs:element ref="ModellElementBediener"/>	
     <xs:element name="ModellElementBedienerPrioritaet" type="xs:string"/>
+	<xs:element name="ModellElementRessourceBelegenMaximaleZeit" type="xs:string"/>
   </xs:choice></xs:sequence>
 </xs:extension></xs:complexContent></xs:complexType></xs:element>
 
@@ -3461,6 +3462,7 @@
   <xs:sequence minOccurs="0" maxOccurs="unbounded"><xs:choice>
 	<xs:element ref="ModelElementOperators"/>	
     <xs:element name="ModelElementOperatorsPriority" type="xs:string"/>
+	<xs:element name="ModelElementSeizeResourceMaximumTime" type="xs:string"/>
   </xs:choice></xs:sequence>
 </xs:extension></xs:complexContent></xs:complexType></xs:element>
 

@@ -28,4 +28,12 @@ public interface ModelElementEdgeMultiOut {
 	 * @return	Auslaufende Kanten
 	 */
 	ModelElementEdge[] getEdgesOut();
+
+	/**
+	 * Die getID-Funktion implementieren sowieso alle Elemente.
+	 * So kann auf diese auch über ein Interface-Cast zugegriffen werden.
+	 * @return	ID des Elements
+	 * @see ModelElement#getId()
+	 */
+	int getId();
 }

@@ -23,6 +23,7 @@ import language.Language;
 import simulator.coreelements.RunElement;
 import simulator.runmodel.RunModelFixer;
 import ui.modeleditor.coreelements.ModelElement;
+import ui.modeleditor.coreelements.ModelElementEdgeMultiOut;
 import ui.modeleditor.coreelements.ModelElementEdgeOut;
 import ui.modeleditor.coreelements.ModelElementPosition;
 import ui.modeleditor.elements.ModelElementEdge;
@@ -284,6 +285,16 @@ public class RunModelCreatorStatus {
 	 * @see Status#NO_EDGE_OUT
 	 */
 	public static RunModelCreatorStatus noEdgeOut(final ModelElementEdgeOut element) {
+		return new RunModelCreatorStatus(String.format(Language.tr("Simulation.Creator.NoEdgeOut"),element.getId()),Status.NO_EDGE_OUT);
+	}
+
+	/**
+	 * Liefert den Fehlerstatus "kein auslaufende Kante"
+	 * @param element	Editor-Element auf den sich der Fehler bezieht
+	 * @return	Fehlerstatusobjekt
+	 * @see Status#NO_EDGE_OUT
+	 */
+	public static RunModelCreatorStatus noEdgeOut(final ModelElementEdgeMultiOut element) {
 		return new RunModelCreatorStatus(String.format(Language.tr("Simulation.Creator.NoEdgeOut"),element.getId()),Status.NO_EDGE_OUT);
 	}
 

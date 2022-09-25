@@ -17,9 +17,11 @@ package simulator.elements;
 
 import language.Language;
 import simulator.builder.RunModelCreatorStatus;
-import simulator.coreelements.RunElementPassThrough;
+import simulator.coreelements.RunElement;
 import simulator.editmodel.EditModel;
+import simulator.events.SeizeWaitingCancelEvent;
 import simulator.events.StationLeaveEvent;
+import simulator.events.WaitingCancelEvent;
 import simulator.runmodel.RunDataClient;
 import simulator.runmodel.RunModel;
 import simulator.runmodel.SimulationData;
@@ -33,11 +35,23 @@ import ui.modeleditor.elements.ModelElementSub;
  * @author Alexander Herzog
  * @see ModelElementSeize
  */
-public class RunElementSeize extends RunElementPassThrough implements FreeResourcesListener {
+public class RunElementSeize extends RunElement implements FreeResourcesListener {
+	/** ID der Station an die erfolgreiche Kunden weitergeleitet werden */
+	private int connectionIdSuccess;
+	/** ID der Station an die Warteabbrecher weitergeleitet werden */
+	private int connectionIdCancel;
+	/** Station an die erfolgreiche Kunden weitergeleitet werden (Übersetzung von {@link #connectionIdSuccess}) */
+	private RunElement connectionSuccess;
+	/** Station an die Warteabbrecher weitergeleitet werden (Übersetzung von {@link #connectionIdSuccess}) */
+	private RunElement connectionCancel;
+
 	/** Formel-String zur Ermittlung der Ressourcenpriorität dieser Station */
 	public String resourcePriority;
 	/** Gibt an wie viele Bediener in welcher Bedienergruppe zu belegen sind */
 	private int[] resources;
+
+	/** Timeout in MS bevor ein wartender Kunde aufgibt und die Station durch den Ausgang {@link #connectionCancel} verlässt. */
+	private long timeOutMS;
 
 	/**
 	 * Konstruktor der Klasse
@@ -53,9 +67,16 @@ public class RunElementSeize extends RunElementPassThrough implements FreeResour
 		final ModelElementSeize seizeElement=(ModelElementSeize)element;
 		final RunElementSeize seize=new RunElementSeize((ModelElementSeize)element);
 
-		/* Auslaufende Kante */
-		final String edgeError=seize.buildEdgeOut(seizeElement);
-		if (edgeError!=null) return edgeError;
+		/* Auslaufende Kanten */
+		seize.connectionIdSuccess=findNextId(seizeElement.getEdgeOutSuccess());
+		if (seize.connectionIdSuccess<0) return String.format(Language.tr("Simulation.Creator.NoEdgeOut"),element.getId());
+		if (seizeElement.getEdgeOutCancel()==null && seizeElement.getTimeOut()>=0) {
+			seize.connectionIdCancel=-1;
+			seize.timeOutMS=-1;
+		} else {
+			seize.connectionIdCancel=findNextId(seizeElement.getEdgeOutCancel());
+			seize.timeOutMS=Math.round(seizeElement.getTimeOut()*1000);
+		}
 
 		/* Ressourcen-Priorität */
 		final int error=ExpressionCalc.check(seizeElement.getResourcePriority(),runModel.variableNames);
@@ -74,14 +95,19 @@ public class RunElementSeize extends RunElementPassThrough implements FreeResour
 		if (!(element instanceof ModelElementSeize)) return null;
 		final ModelElementSeize seizeElement=(ModelElementSeize)element;
 
-		/* Auslaufende Kante */
-		final RunModelCreatorStatus edgeError=testEdgeOut(seizeElement);
-		if (edgeError!=null) return edgeError;
+		/* Auslaufende Kanten */
+		if (findNextId(seizeElement.getEdgeOutSuccess())<0) return RunModelCreatorStatus.noEdgeOut(element);
 
 		/* Ressourcen */
 		if (seizeElement.getNeededResources().size()==0) return new RunModelCreatorStatus(String.format(Language.tr("Simulation.Creator.SeizeInvalidResource"),element.getId()));
 
 		return RunModelCreatorStatus.ok;
+	}
+
+	@Override
+	public void prepareRun(final RunModel runModel) {
+		connectionSuccess=runModel.elements.get(connectionIdSuccess);
+		if (connectionIdCancel>=0) connectionCancel=runModel.elements.get(connectionIdCancel);
 	}
 
 	@Override
@@ -102,6 +128,16 @@ public class RunElementSeize extends RunElementPassThrough implements FreeResour
 		if (client!=null) {
 			/* Kunde an Warteschlange anstellen */
 			data.addClientToQueue(client,simData.currentTime,simData);
+
+			/* Abbruch-Ereignis anlegen */
+			if (timeOutMS>=0) {
+				final SeizeWaitingCancelEvent event=(SeizeWaitingCancelEvent)simData.getEvent(SeizeWaitingCancelEvent.class);
+				event.init(simData.currentTime+timeOutMS);
+				event.station=this;
+				event.client=client;
+				simData.eventManager.addEvent(event);
+				data.waitingCancelEvents.put(client,event);
+			}
 		}
 
 		/* Warten Kunden? */
@@ -122,8 +158,24 @@ public class RunElementSeize extends RunElementPassThrough implements FreeResour
 		simData.runData.logStationProcess(simData,this,client,waitingTime,0,0,waitingTime);
 		client.addStationTime(id,waitingTime,0,0,waitingTime);
 
+		/* Ausgang für "Erfolg" wählen */
+		client.lastQueueSuccess=true;
+
+		/* Abbruch-Ereignis löschen */
+		if (timeOutMS>=0) {
+			final SeizeWaitingCancelEvent event=data.waitingCancelEvents.remove(client);
+			if (event!=null) {
+				simData.eventManager.deleteEvent(event,simData);
+			}
+		}
+
 		/* Weiterleitung zu nächster Station nach Bedienzeit-Ende */
 		StationLeaveEvent.addLeaveEvent(simData,client,this,0);
+	}
+
+	@Override
+	public void processLeave(SimulationData simData, RunDataClient client) {
+		StationLeaveEvent.sendToStation(simData,client,this,client.lastQueueSuccess?connectionSuccess:connectionCancel);
 	}
 
 	@Override
@@ -140,5 +192,40 @@ public class RunElementSeize extends RunElementPassThrough implements FreeResour
 	@Override
 	public double getSecondaryResourcePriority(SimulationData simData) {
 		return 0.0;
+	}
+
+	@Override
+	public RunElement getNext() {
+		return connectionSuccess;
+	}
+
+	/**
+	 * Wird von {@link WaitingCancelEvent} aufgerufen, wenn die Wartezeittoleranz
+	 * eines Kunden erschöpft ist.
+	 * @param simData	Simulationsdatenobjekt
+	 * @param client	Kunde, der das Warten aufgibt
+	 */
+	public void processWaitingCancel(final SimulationData simData, final RunDataClient client) {
+		final RunElementSeizeData data=getData(simData);
+
+		/* Kunden aus Warteschlange entfernen */
+		data.removeClientFromQueueForCancelation(simData,client);
+
+		/* Auch Abbruchereignis aus der Liste entfernen */
+		data.waitingCancelEvents.remove(client);
+
+		/* Logging */
+		if (simData.loggingActive) log(simData,Language.tr("Simulation.Log.ProcessCancelation"),String.format(Language.tr("Simulation.Log.ProcessCancelation.Info"),client.logInfo(simData),name));
+
+		/* Bedienzeit in Statistik */
+		long waitingTime=simData.currentTime-client.lastWaitingStart;
+		simData.runData.logStationProcess(simData,this,client,waitingTime,0,0,waitingTime);
+		client.addStationTime(id,waitingTime,0,0,waitingTime);
+
+		/* Ausgang für "Abbruch" wählen */
+		client.lastQueueSuccess=false;
+
+		/* Weiter zur nächsten Station */
+		StationLeaveEvent.addLeaveEvent(simData,client,this,0);
 	}
 }

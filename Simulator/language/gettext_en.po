@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-24 05:34+0200\n"
+"POT-Creation-Date: 2022-09-25 00:26+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -11728,6 +11728,9 @@ msgstr "Needed resources"
 
 msgid "ModelDescription.Seize.Resources.Resource"
 msgstr "Resource \"%s\": %d needed"
+
+msgid "ModelDescription.Seize.Timeout"
+msgstr "Maximum waiting time for the resources to be released"
 
 msgid "ModelDescription.Set"
 msgstr "Assignment"
@@ -30257,6 +30260,15 @@ msgstr "The specified resource priority \"%s\" is invalid."
 msgid "Surface.Seize.Dialog.ResourcePriority.Error.Title"
 msgstr "Invalid resource priority"
 
+msgid "Surface.Seize.Dialog.Timeout"
+msgstr "Limit waiting time for resource to become free"
+
+msgid "Surface.Seize.Dialog.Timeout.ErrorInfo"
+msgstr "The maximum waiting time for the resources to become free is invalid. A non-negative number has to be specified."
+
+msgid "Surface.Seize.Dialog.Timeout.ErrorTitle"
+msgstr "Invalid maximum waiting time"
+
 msgid "Surface.Seize.Dialog.Title"
 msgstr "Edit seize resource"
 
@@ -30286,6 +30298,9 @@ msgstr "ModelElementOperatorPriority"
 
 msgid "Surface.Seize.XML.Root"
 msgstr "ModelElementSeizeResource"
+
+msgid "Surface.Seize.XML.TimeOut"
+msgstr "ModelElementSeizeResourceMaximumTime"
 
 msgid "Surface.Separate.Dialog.Title"
 msgstr "Edit dissolve batch element"
