@@ -316,7 +316,7 @@ public final class TimeTools {
 	 * @param s	String, der den umzuwandelnden Zeitwert enthält
 	 * @return	Zeit in Sekunden als <code>Integer</code>; wenn die Umwandlung fehlschlägt, wird <code>null</code> zurückgegeben.
 	 */
-	public static Integer getTime(final String s) {
+	public static Long getTime(final String s) {
 		if (s==null || s.isEmpty()) return null;
 		final String[] l=s.split(":");
 
@@ -324,9 +324,9 @@ public final class TimeTools {
 
 		final int[] multiply=new int[]{1,60,3600,86400};
 
-		int result=0;
+		long result=0;
 		for (int i=0;i<l.length;i++) {
-			final int value;
+			final long value;
 			if (l[i].equals("0") || l[i].equals("00")) {
 				value=0;
 			} else {
@@ -352,13 +352,13 @@ public final class TimeTools {
 	 * @param setColor	Ist dieser Parameter auf <code>true</code> gesetzt, so wird das Textfeld rot eingefärbt, wenn die Umwandlung fehltschlägt und wieder normal eingefärbt, wenn die Umwandlung erfolgreich ist.
 	 * @return	Zahl als <code>Integer</code>; wenn die Umwandlung fehlschlägt, wird <code>null</code> zurückgegeben.
 	 */
-	public static Integer getTime(final TextField field, final boolean setColor) {
+	public static Long getTime(final TextField field, final boolean setColor) {
 		if (field==null) return null;
-		final Integer i=getTime(field.getText());
+		final Long L=getTime(field.getText());
 		if (setColor) {
-			if (i==null) field.setBackground(Color.red); else field.setBackground(NumberTools.getTextFieldDefaultBackground());
+			if (L==null) field.setBackground(Color.RED); else field.setBackground(NumberTools.getTextFieldDefaultBackground());
 		}
-		return i;
+		return L;
 	}
 
 	/**
@@ -368,13 +368,13 @@ public final class TimeTools {
 	 * @param setColor	Ist dieser Parameter auf <code>true</code> gesetzt, so wird das Textfeld rot eingefärbt, wenn die Umwandlung fehltschlägt und wieder normal eingefärbt, wenn die Umwandlung erfolgreich ist.
 	 * @return	Zahl als <code>Integer</code>; wenn die Umwandlung fehlschlägt, wird <code>null</code> zurückgegeben.
 	 */
-	public static Integer getTime(final JTextField field, final boolean setColor) {
+	public static Long getTime(final JTextField field, final boolean setColor) {
 		if (field==null) return null;
-		final Integer i=getTime(field.getText());
+		final Long L=getTime(field.getText());
 		if (setColor) {
-			if (i==null) field.setBackground(Color.red); else field.setBackground(NumberTools.getTextFieldDefaultBackground());
+			if (L==null) field.setBackground(Color.RED); else field.setBackground(NumberTools.getTextFieldDefaultBackground());
 		}
-		return i;
+		return L;
 	}
 
 	/**
@@ -396,7 +396,7 @@ public final class TimeTools {
 			frac=f.doubleValue(); s=s.substring(0,i);
 		}
 
-		Integer time=getTime(s);
+		Long time=getTime(s);
 		if (time==null) return null;
 
 		double t=time+frac;

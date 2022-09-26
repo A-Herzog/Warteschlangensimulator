@@ -44,7 +44,7 @@ public class DateTimePanel extends JPanel {
 	/** Eingabefeld für die Zeit */
 	private JTextField timeEdit;
 	/** Letzter gültiger Zeitstempel */
-	private int lastValidTime=0;
+	private long lastValidTime=0;
 
 	/**
 	 * Konstruktor der Klasse
@@ -68,8 +68,8 @@ public class DateTimePanel extends JPanel {
 		add(timeEdit=new JTextField(8));
 		timeEdit.setEditable(!readOnly);
 		EditorPanelBase.addCheckInput(timeEdit,()->{
-			Integer I=TimeTools.getTime(timeEdit,true);
-			if (I!=null) lastValidTime=I;
+			Long L=TimeTools.getTime(timeEdit,true);
+			if (L!=null) lastValidTime=L;
 			fireChangeListener();
 		});
 
@@ -130,7 +130,7 @@ public class DateTimePanel extends JPanel {
 		final Date[] parts=DateTools.split(ms);
 
 		dateModel.setValue(DateTools.toDate(DateTools.toMS(parts[0])+TimeZone.getDefault().getRawOffset()));
-		lastValidTime=(int)(DateTools.toMS(parts[1])/1000);
+		lastValidTime=DateTools.toMS(parts[1])/1000;
 		timeEdit.setText(TimeTools.formatTime(lastValidTime));
 	}
 

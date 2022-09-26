@@ -391,10 +391,10 @@ public class ModelPropertiesDialogPageSimulation extends ModelPropertiesDialogPa
 		model.useTerminationCondition=terminationByCondition.isSelected();
 		model.terminationCondition=terminationCondition.getText();
 		model.useFinishTime=terminationByTime.isSelected();
-		Integer I=TimeTools.getTime(terminationTime,true);
-		if (I==null) model.finishTime=10*86400; else model.finishTime=I;
+		Long L=TimeTools.getTime(terminationTime,true);
+		if (L==null) model.finishTime=10*86400; else model.finishTime=L;
 		model.useFixedSeed=useFixedSeed.isSelected();
-		Long L=NumberTools.getLong(fixedSeed,true);
+		L=NumberTools.getLong(fixedSeed,true);
 		if (L!=null) model.fixedSeed=L;
 		L=NumberTools.getPositiveLong(repeatCount,true);
 		if (L!=null) model.repeatCount=(int)L.longValue();
