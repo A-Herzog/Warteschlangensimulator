@@ -510,7 +510,7 @@ public class StatisticViewerTimeTable extends StatisticViewerBaseTable {
 			}
 			if (indicator4!=null && type4!=null) {
 				data=(StatisticsDataPerformanceIndicator)(indicator4.get(type));
-				getDataLine(type4+" "+typeName,data,hasConfidence?confidenceLevels:null);
+				line=getDataLine(type4+" "+typeName,data,hasConfidence?confidenceLevels:null);
 				if (addThroughput) {
 					line=Arrays.copyOf(line,line.length+2);
 					final String[] throughput=StatisticViewerOverviewText.getThroughputColumns(data.getCount(),statistics);
