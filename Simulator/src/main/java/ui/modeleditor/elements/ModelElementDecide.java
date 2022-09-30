@@ -21,6 +21,7 @@ import java.awt.Point;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 import java.util.function.Consumer;
 
@@ -123,7 +124,7 @@ public class ModelElementDecide extends ModelElementBox implements ModelDataRena
 	 * Liste der Namen der Kundentypen für die Verzweigungen
 	 * @see #getClientTypes()
 	 */
-	private final List<String> clientTypes;
+	private final List<List<String>> clientTypes;
 
 	/**
 	 * Schlüssel gemäß dessen Werten die Verzweigung erfolgen soll
@@ -237,7 +238,14 @@ public class ModelElementDecide extends ModelElementBox implements ModelDataRena
 				name=(i<connectionsOut.size()-1)?(Language.tr("Surface.Decide.Condition")+" "+(i+1)):Language.tr("Surface.Decide.Condition.ElseCase");
 				break;
 			case MODE_CLIENTTYPE:
-				s=(i>=clientTypes.size())?Language.tr("Dialog.Title.Error").toUpperCase():clientTypes.get(i);
+				if (i>=clientTypes.size() || clientTypes.get(i).size()==0) {
+					s=Language.tr("Dialog.Title.Error").toUpperCase();
+				} else {
+					final List<String> list=clientTypes.get(i);
+					s=list.get(0);
+					for (int j=1;j<Math.min(3,list.size());j++) s+=","+list.get(j);
+					if (list.size()>3) s+=",...";
+				}
 				name=(i<connectionsOut.size()-1)?s:Language.tr("Surface.Decide.AllOtherClientTypes");
 				break;
 			case MODE_SEQUENCE:
@@ -307,11 +315,11 @@ public class ModelElementDecide extends ModelElementBox implements ModelDataRena
 			}
 			break;
 		case MODE_CLIENTTYPE:
-			List<String> clientTypes2=decide.clientTypes;
+			List<List<String>> clientTypes2=decide.clientTypes;
 			for (int i=0;i<connectionsOut.size()-1;i++) { /* das letzte ist "sonst", daher nur bis <size-1 */
 				if (i>=clientTypes.size() && i>=clientTypes2.size()) continue;
 				if (i>=clientTypes.size() || i>=clientTypes2.size()) return false;
-				if (!clientTypes.get(i).equals(clientTypes2.get(i))) return false;
+				if (!Objects.deepEquals(clientTypes.get(i),clientTypes2.get(i))) return false;
 			}
 			break;
 		case MODE_SEQUENCE:
@@ -393,7 +401,7 @@ public class ModelElementDecide extends ModelElementBox implements ModelDataRena
 				conditions.addAll(source.conditions);
 				break;
 			case MODE_CLIENTTYPE:
-				clientTypes.addAll(source.clientTypes);
+				source.clientTypes.stream().map(l->{List<String> l2=new ArrayList<>(); l2.addAll(l); return l2;}).forEach(l->clientTypes.add(l));
 				break;
 			case MODE_SEQUENCE:
 				/* nichts zu kopieren */
@@ -707,7 +715,12 @@ public class ModelElementDecide extends ModelElementBox implements ModelDataRena
 				break;
 			case MODE_CLIENTTYPE:
 				if (i<connectionsOut.size()-1) {
-					String clientType=(i>=clientTypes.size())?"":clientTypes.get(i);
+					String clientType;
+					if (i>=clientTypes.size()) {
+						clientType="";
+					} else {
+						clientType=String.join(";",clientTypes.get(i).stream().map(s->s.replace(";","\\;")).toArray(String[]::new));
+					}
 					sub.setAttribute(Language.trPrimary("Surface.Decide.XML.Connection.ClientType"),clientType);
 				}
 				break;
@@ -804,7 +817,25 @@ public class ModelElementDecide extends ModelElementBox implements ModelDataRena
 				conditions.add(Language.trAllAttribute("Surface.Decide.XML.Connection.Condition",node));
 
 				/* ClientType */
-				clientTypes.add(Language.trAllAttribute("Surface.Decide.XML.Connection.ClientType",node));
+				final String line=Language.trAllAttribute("Surface.Decide.XML.Connection.ClientType",node);
+				final List<String> list=new ArrayList<>();
+				final StringBuilder type=new StringBuilder();
+				for (int i=0;i<line.length();i++) {
+					final char c=line.charAt(i);
+					if (c==';') {
+						if (i>0 && line.charAt(i-1)=='\\') {
+							type.setLength(type.length()-1);
+							type.append(';');
+						} else {
+							if (type.length()>0) list.add(type.toString());
+							type.setLength(0);
+						}
+					} else {
+						type.append(c);
+					}
+				}
+				if (type.length()>0) list.add(type.toString());
+				clientTypes.add(list);
 
 				/* Key=Value */
 				values.add(Language.trAllAttribute("Surface.Decide.XML.Connection.Value",node));
@@ -925,7 +956,7 @@ public class ModelElementDecide extends ModelElementBox implements ModelDataRena
 	 * @return	Liste der Namen der Kundentypen für die Verzweigungen
 	 */
 	@Override
-	public List<String> getClientTypes() {
+	public List<List<String>> getClientTypes() {
 		return clientTypes;
 	}
 
@@ -1022,8 +1053,8 @@ public class ModelElementDecide extends ModelElementBox implements ModelDataRena
 		if (!isRenameType(oldName,newName,type,ModelDataRenameListener.RenameType.RENAME_TYPE_CLIENT_TYPE)) return;
 		if (mode!=DecideMode.MODE_CLIENTTYPE) return;
 
-		for (int i=0;i<clientTypes.size();i++) if (clientTypes.get(i).equals(oldName)) {
-			clientTypes.set(i,newName);
+		for (int i=0;i<clientTypes.size();i++) for (int j=0;j<clientTypes.get(i).size();j++) if (clientTypes.get(i).get(j).equals(oldName)) {
+			clientTypes.get(i).set(j,newName);
 			updateEdgeLabel();
 		}
 
@@ -1076,7 +1107,7 @@ public class ModelElementDecide extends ModelElementBox implements ModelDataRena
 				final ModelElementEdge edge=connectionsOut.get(i);
 				final String edgeDescription;
 				if (i<connectionsOut.size()-1) {
-					final String s=(i<clientTypes.size())?clientTypes.get(i):"";
+					final String s=(i<clientTypes.size() && clientTypes.get(i).size()>0)?String.join(", ",clientTypes.get(i)):"";
 					edgeDescription=String.format(Language.tr("ModelDescription.Decide.ClientType"),s);
 				} else {
 					edgeDescription=Language.tr("ModelDescription.Decide.ClientType.Else");
@@ -1185,8 +1216,11 @@ public class ModelElementDecide extends ModelElementBox implements ModelDataRena
 			break;
 		case MODE_CLIENTTYPE:
 			for (int i=0;i<clientTypes.size();i++) {
-				final int index=i;
-				searcher.testString(this,Language.tr("Surface.Decide.Dialog.OutgoingEdge")+" "+(i+1),clientTypes.get(i),newClientType->clientTypes.set(index,newClientType));
+				final int index1=i;
+				for (int j=0;j<clientTypes.get(i).size();j++) {
+					final int index2=j;
+					searcher.testString(this,Language.tr("Surface.Decide.Dialog.OutgoingEdge")+" "+(i+1),clientTypes.get(i).get(j),newClientType->clientTypes.get(index1).set(index2,newClientType));
+				}
 			}
 			break;
 		case MODE_SEQUENCE:

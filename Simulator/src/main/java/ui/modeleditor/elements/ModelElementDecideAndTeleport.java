@@ -21,6 +21,7 @@ import java.awt.Dimension;
 import java.awt.Point;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import javax.swing.Icon;
 import javax.swing.JMenuItem;
@@ -89,7 +90,7 @@ public class ModelElementDecideAndTeleport extends ModelElementBox implements Mo
 	 * Liste der Namen der Kundentypen für die Verzweigungen
 	 * @see #getClientTypes()
 	 */
-	private final List<String> clientTypes;
+	private final List<List<String>> clientTypes;
 
 	/**
 	 * Schlüssel gemäß dessen Werten die Verzweigung erfolgen soll
@@ -195,11 +196,11 @@ public class ModelElementDecideAndTeleport extends ModelElementBox implements Mo
 			}
 			break;
 		case MODE_CLIENTTYPE:
-			List<String> clientTypes2=decide.clientTypes;
+			List<List<String>> clientTypes2=decide.clientTypes;
 			for (int i=0;i<destinations.size()-1;i++) { /* das letzte ist "sonst", daher nur bis <size-1 */
 				if (i>=clientTypes.size() && i>=clientTypes2.size()) continue;
 				if (i>=clientTypes.size() || i>=clientTypes2.size()) return false;
-				if (!clientTypes.get(i).equals(clientTypes2.get(i))) return false;
+				if (!Objects.deepEquals(clientTypes.get(i),clientTypes2.get(i))) return false;
 			}
 			break;
 		case MODE_SEQUENCE:
@@ -262,7 +263,7 @@ public class ModelElementDecideAndTeleport extends ModelElementBox implements Mo
 				conditions.addAll(source.conditions);
 				break;
 			case MODE_CLIENTTYPE:
-				clientTypes.addAll(source.clientTypes);
+				source.clientTypes.stream().map(l->{List<String> l2=new ArrayList<>(); l2.addAll(l); return l2;}).forEach(l->clientTypes.add(l));
 				break;
 			case MODE_SEQUENCE:
 				/* nichts zu kopieren */
@@ -511,7 +512,12 @@ public class ModelElementDecideAndTeleport extends ModelElementBox implements Mo
 				break;
 			case MODE_CLIENTTYPE:
 				if (i<destinations.size()-1) {
-					String clientType=(i>=clientTypes.size())?"":clientTypes.get(i);
+					String clientType;
+					if (i>=clientTypes.size()) {
+						clientType="";
+					} else {
+						clientType=String.join(";",clientTypes.get(i).stream().map(s->s.replace(";","\\;")).toArray(String[]::new));
+					}
 					sub.setAttribute(Language.trPrimary("Surface.Decide.XML.Connection.ClientType"),clientType);
 				}
 				break;
@@ -602,7 +608,25 @@ public class ModelElementDecideAndTeleport extends ModelElementBox implements Mo
 			conditions.add(Language.trAllAttribute("Surface.Decide.XML.Connection.Condition",node));
 
 			/* ClientType */
-			clientTypes.add(Language.trAllAttribute("Surface.Decide.XML.Connection.ClientType",node));
+			final String line=Language.trAllAttribute("Surface.Decide.XML.Connection.ClientType",node);
+			final List<String> list=new ArrayList<>();
+			final StringBuilder type=new StringBuilder();
+			for (int i=0;i<line.length();i++) {
+				final char c=line.charAt(i);
+				if (c==';') {
+					if (i>0 && line.charAt(i-1)=='\\') {
+						type.setLength(type.length()-1);
+						type.append(';');
+					} else {
+						if (type.length()>0) list.add(type.toString());
+						type.setLength(0);
+					}
+				} else {
+					type.append(c);
+				}
+			}
+			if (type.length()>0) list.add(type.toString());
+			clientTypes.add(list);
 
 			/* Key=Value */
 			values.add(Language.trAllAttribute("Surface.Decide.XML.Connection.Value",node));
@@ -690,7 +714,7 @@ public class ModelElementDecideAndTeleport extends ModelElementBox implements Mo
 	 * @return	Liste der Namen der Kundentypen für die Verzweigungen
 	 */
 	@Override
-	public List<String> getClientTypes() {
+	public List<List<String>> getClientTypes() {
 		return clientTypes;
 	}
 
@@ -763,6 +787,12 @@ public class ModelElementDecideAndTeleport extends ModelElementBox implements Mo
 		if (isRenameType(oldName,newName,type,ModelDataRenameListener.RenameType.RENAME_TYPE_TELEPORT_DESTINATION)) {
 			for (int i=0;i<destinations.size();i++) if (destinations.get(i).equals(oldName)) destinations.set(i,newName);
 		}
+
+		if (isRenameType(oldName,newName,type,ModelDataRenameListener.RenameType.RENAME_TYPE_CLIENT_TYPE)) {
+			for (int i=0;i<clientTypes.size();i++) for (int j=0;j<clientTypes.get(i).size();j++) if (clientTypes.get(i).get(j).equals(oldName)) {
+				clientTypes.get(i).set(j,newName);
+			}
+		}
 	}
 
 	@Override
@@ -806,7 +836,7 @@ public class ModelElementDecideAndTeleport extends ModelElementBox implements Mo
 				final String destinationName=destinations.get(i);
 				final String destinationDescription;
 				if (i<destinations.size()-1) {
-					final String s=(i<clientTypes.size())?clientTypes.get(i):"";
+					final String s=(i<clientTypes.size() && clientTypes.get(i).size()>0)?String.join(", ",clientTypes.get(i)):"";
 					destinationDescription=String.format(Language.tr("ModelDescription.Decide.ClientType"),s);
 				} else {
 					destinationDescription=Language.tr("ModelDescription.Decide.ClientType.Else");
@@ -898,8 +928,11 @@ public class ModelElementDecideAndTeleport extends ModelElementBox implements Mo
 			break;
 		case MODE_CLIENTTYPE:
 			for (int i=0;i<clientTypes.size();i++) {
-				final int index=i;
-				searcher.testString(this,Language.tr("Surface.Decide.Dialog.OutgoingEdge")+" "+(i+1),clientTypes.get(i),newClientType->clientTypes.set(index,newClientType));
+				final int index1=i;
+				for (int j=0;j<clientTypes.get(i).size();j++) {
+					final int index2=j;
+					searcher.testString(this,Language.tr("Surface.Decide.Dialog.OutgoingEdge")+" "+(i+1),clientTypes.get(i).get(j),newClientType->clientTypes.get(index1).set(index2,newClientType));
+				}
 			}
 			break;
 		case MODE_SEQUENCE:

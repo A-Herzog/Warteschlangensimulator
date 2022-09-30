@@ -56,7 +56,7 @@ public interface ElementWithDecideData {
 	 * Liefert eine Liste aller Kundentypen-Verzweigungen
 	 * @return	Liste der Namen der Kundentypen für die Verzweigungen
 	 */
-	List<String> getClientTypes();
+	List<List<String>> getClientTypes();
 
 	/**
 	 * Erfolgt die Verzweigung im Key-Value-Modus, so liefert diese Funktion den Schlüssel

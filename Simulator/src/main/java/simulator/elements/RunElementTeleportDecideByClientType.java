@@ -73,7 +73,7 @@ public class RunElementTeleportDecideByClientType extends RunElement {
 			count++;
 		}
 
-		final List<String> clientTypes=decideElement.getClientTypes();
+		final List<List<String>> clientTypes=decideElement.getClientTypes();
 		if (clientTypes.size()<decide.destinationStrings.length-1) return String.format(Language.tr("Simulation.Creator.NotClientTypesForAllDecideConnections"),element.getId());
 
 		/* Array der Verbindungs-Indices erstellen und erstmal alle Kundentypen auf die letzte "Sonst"-Ecke einstellen */
@@ -81,8 +81,8 @@ public class RunElementTeleportDecideByClientType extends RunElement {
 		for (int i=0;i<decide.clientTypeConnectionIndex.length;i++) decide.clientTypeConnectionIndex[i]=decide.destinationStrings.length-1;
 
 		/* Pro Kundentyp korrekte Nummer der Ausgangskante (Index in der Liste, nicht ID) bestimmen */
-		for (int i=0;i<decide.destinationStrings.length-1;i++) {
-			int index=runModel.getClientTypeNr(clientTypes.get(i));
+		for (int i=0;i<decide.destinationStrings.length-1;i++) for (int j=0;j<clientTypes.get(i).size();j++) {
+			int index=runModel.getClientTypeNr(clientTypes.get(i).get(j));
 			/*
 			if (index<0) return String.format(Language.tr("Simulation.Creator.NoClientTypeInDecide"),element.getId(),clientTypes.get(i),i+1);
 			Kanten mit Kundentypen, die es nicht gibt (=die z.B. temporär deaktiviert wurden) einfach ignorieren:

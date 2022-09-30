@@ -62,6 +62,11 @@ public abstract class DecideDataPanel extends JPanel {
 	private final ModelElement element;
 
 	/**
+	 * Nur-Lese-Status
+	 */
+	private final boolean readOnly;
+
+	/**
 	 * Decide-artiges Element, auf das sich die Daten beziehen
 	 * (zum Laden und Speichern der Einstellungen)
 	 */
@@ -78,8 +83,15 @@ public abstract class DecideDataPanel extends JPanel {
 	/** Eingabefelder für die Bedingungen */
 	private List<JTextField> conditions;
 
+	/**
+	 * Äußeres Element, in das {@link #clientTypesPanel} dynamisch eingebettet wird
+	 * @see #reloadClientTypeSettings()
+	 * @see #clientTypesPanel
+	 */
+	private JPanel clientTypesPanelOuter;
+
 	/** Auswahlboxen für die Kundentypen */
-	private List<JComboBox<String>> clientTypes;
+	private DecideDataPanelClientTypes clientTypesPanel;
 
 	/** Eingabefeld für den Schlüssel */
 	private JTextField key;
@@ -109,6 +121,7 @@ public abstract class DecideDataPanel extends JPanel {
 	public DecideDataPanel(final ModelElement element, final DecideDataPanel oldPanel, final boolean readOnly) {
 		this.element=element;
 		this.decide=(ElementWithDecideData)element;
+		this.readOnly=readOnly;
 
 		setLayout(new BorderLayout());
 
@@ -230,50 +243,12 @@ public abstract class DecideDataPanel extends JPanel {
 		/* Seite "Kundentyp" */
 		contentCards.add(content=new JPanel(),modeSelect.getItemAt(2));
 		content.setLayout(new BoxLayout(content,BoxLayout.PAGE_AXIS));
-
-		clientTypes=new ArrayList<>();
-		List<String> allClientTypesList=element.getSurface().getClientTypes();
-		final List<String> typesList=decide.getClientTypes();
-		for (int i=0;i<destinations.size();i++) {
-			final String name=destinations.get(i);
-
-			final JPanel option=new JPanel(new BorderLayout()); content.add(option);
-
-			final JPanel labelPanel=new JPanel(new FlowLayout(FlowLayout.LEFT)); option.add(labelPanel,BorderLayout.NORTH);
-			label=new JLabel(HTML1+name+HTML2); labelPanel.add(label);
-
-			final JPanel inputPanel=new JPanel(new FlowLayout(FlowLayout.LEFT)); option.add(inputPanel,BorderLayout.CENTER);
-			inputPanel.add(new JLabel(Language.tr("Surface.Decide.Dialog.OutgoingEdge.ClientType")+":"));
-
-			String[] items;
-			if (i==destinations.size()-1) {
-				items=new String[]{Language.tr("Surface.Decide.Dialog.OutgoingEdge.ClientType.Else")};
-			} else {
-				items=allClientTypesList.toArray(new String[0]);
-			}
-			JComboBox<String> input=new JComboBox<>(items);
-			if (i!=destinations.size()-1) {
-				input.setRenderer(new IconListCellRenderer(IconListCellRenderer.buildClientTypeIcons(items,element.getModel())));
-			}
-			clientTypes.add(input);
-			inputPanel.add(input);
-			label.setLabelFor(input);
-
-			if (i==destinations.size()-1) {
-				input.setEnabled(false);
-				input.setSelectedIndex(0);
-			} else {
-				input.setEnabled(!readOnly);
-				if (oldPanel!=null) {
-					int index=(oldPanel.clientTypes.size()-1>i)?oldPanel.clientTypes.get(i).getSelectedIndex():0;
-					if (index>=0 && input.getItemCount()>0) input.setSelectedIndex(index);
-				} else {
-					if (typesList.size()>i) {
-						int index=allClientTypesList.indexOf(typesList.get(i));
-						if (index>=0 && input.getItemCount()>0) input.setSelectedIndex(index);
-					}
-				}
-			}
+		content.add(clientTypesPanelOuter=new JPanel(new BorderLayout()));
+		clientTypesPanelOuter.add(clientTypesPanel=new DecideDataPanelClientTypes(element,destinations,readOnly,()->reloadClientTypeSettings()));
+		if (oldPanel!=null) {
+			clientTypesPanel.loadData(oldPanel.clientTypesPanel);
+		} else {
+			clientTypesPanel.loadData(decide.getClientTypes());
 		}
 
 		/* Seite "Reihenfolge" */
@@ -424,6 +399,21 @@ public abstract class DecideDataPanel extends JPanel {
 	}
 
 	/**
+	 * Wird aufgerufen, wenn bei der Verzweigung nach Kundentypen eine Kundentyp-Auswahlbox für eine
+	 * auslaufende Kante hinzugefügt oder entfernt wurde (und daher das Panel neu aufgebaut werden muss).
+	 */
+	private void reloadClientTypeSettings() {
+		final DecideDataPanelClientTypes oldPanel=clientTypesPanel;
+		clientTypesPanelOuter.remove(oldPanel);
+
+		clientTypesPanelOuter.add(clientTypesPanel=new DecideDataPanelClientTypes(element,oldPanel.destinations,readOnly,()->reloadClientTypeSettings()));
+		clientTypesPanel.loadData(oldPanel);
+
+		clientTypesPanelOuter.setVisible(false);
+		clientTypesPanelOuter.setVisible(true);
+	}
+
+	/**
 	 * Liefert die Raten für die Verzweigungen gemäß den Einstellungen
 	 * @param showErrorDialog	Im Fehlerfall eine Meldung ausgeben?
 	 * @return	Liefert im Erfolgsfall die Raten und im Fehlerfall <code>null</code>
@@ -479,30 +469,6 @@ public abstract class DecideDataPanel extends JPanel {
 		}
 
 		return values;
-	}
-
-	/**
-	 * Prüft die Einstellungen in {@link #clientTypes}.
-	 * @return	Liefert im Erfolgsfall <code>true</code> (im Fehlerfall wird außerdem eine Fehlermeldung ausgegeben)
-	 */
-	private boolean getCheckClientTypes() {
-		final List<String> usedClientTypes=new ArrayList<>();
-
-		for (int i=0;i<clientTypes.size()-1;i++) {
-			JComboBox<String> comboBox=clientTypes.get(i);
-			if (comboBox.getSelectedIndex()<0) {
-				MsgBox.error(this,Language.tr("Surface.Decide.Dialog.OutgoingEdge.ClientType.ErrorMissing.Title"),String.format(Language.tr("Surface.Decide.Dialog.OutgoingEdge.ClientType.ErrorMissing.Info"),i+1));
-				return false;
-			}
-			String name=(String)comboBox.getSelectedItem();
-			if (usedClientTypes.indexOf(name)>=0) {
-				MsgBox.error(this,Language.tr("Surface.Decide.Dialog.OutgoingEdge.ClientType.ErrorDouble.Title"),String.format(Language.tr("Surface.Decide.Dialog.OutgoingEdge.ClientType.ErrorDouble.Info"),i+1,name));
-				return false;
-			}
-			usedClientTypes.add(name);
-		}
-
-		return true;
 	}
 
 	/**
@@ -568,7 +534,7 @@ public abstract class DecideDataPanel extends JPanel {
 		switch (modeSelect.getSelectedIndex()) {
 		case 0: return getRates(true)!=null;
 		case 1: return getConditions(true)!=null;
-		case 2: return getCheckClientTypes();
+		case 2: return clientTypesPanel.checkClientTypes();
 		case 3: return true;
 		case 4: return true;
 		case 5: return true;
@@ -610,9 +576,9 @@ public abstract class DecideDataPanel extends JPanel {
 			conditionsList.addAll(getConditions(false));
 			break;
 		case MODE_CLIENTTYPE:
-			final List<String> clientTypesList=decide.getClientTypes();
+			final List<List<String>> clientTypesList=decide.getClientTypes();
 			clientTypesList.clear();
-			for (int i=0;i<clientTypes.size()-1;i++) clientTypesList.add((String)clientTypes.get(i).getSelectedItem());
+			clientTypesList.addAll(clientTypesPanel.getClientTypes());
 			break;
 		case MODE_SEQUENCE:
 			/* nichts zurück zu schreiben */

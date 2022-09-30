@@ -68,7 +68,7 @@ public class RunElementDecideByClientType extends RunElement {
 
 		decide.connectionIds=new ArrayList<>();
 		ModelElementEdge[] edges=((ModelElementDecide)element).getEdgesOut();
-		List<String> clientTypes=((ModelElementDecide)element).getClientTypes();
+		List<List<String>> clientTypes=((ModelElementDecide)element).getClientTypes();
 		if (clientTypes.size()<edges.length-1) return String.format(Language.tr("Simulation.Creator.NotClientTypesForAllDecideConnections"),element.getId());
 
 		/* Ausgangskanten erfassen */
@@ -85,8 +85,8 @@ public class RunElementDecideByClientType extends RunElement {
 		for (int i=0;i<decide.clientTypeConnectionIndex.length;i++) decide.clientTypeConnectionIndex[i]=edges.length-1;
 
 		/* Pro Kundentyp korrekte Nummer der Ausgangskante (Index in der Liste, nicht ID) bestimmen */
-		for (int i=0;i<edges.length-1;i++) {
-			int index=runModel.getClientTypeNr(clientTypes.get(i));
+		for (int i=0;i<edges.length-1;i++) for (int j=0;j<clientTypes.get(i).size();j++) {
+			int index=runModel.getClientTypeNr(clientTypes.get(i).get(j));
 			/*
 			if (index<0) return String.format(Language.tr("Simulation.Creator.NoClientTypeInDecide"),element.getId(),clientTypes.get(i),i+1);
 			Kanten mit Kundentypen, die es nicht gibt (=die z.B. temporär deaktiviert wurden) einfach ignorieren:
@@ -108,7 +108,7 @@ public class RunElementDecideByClientType extends RunElement {
 		if (((ModelElementDecide)element).getMode()!=ModelElementDecide.DecideMode.MODE_CLIENTTYPE) return null;
 
 		ModelElementEdge[] edges=((ModelElementDecide)element).getEdgesOut();
-		List<String> clientTypes=((ModelElementDecide)element).getClientTypes();
+		List<List<String>> clientTypes=((ModelElementDecide)element).getClientTypes();
 		if (clientTypes.size()<edges.length-1) return new RunModelCreatorStatus(String.format(Language.tr("Simulation.Creator.NotClientTypesForAllDecideConnections"),element.getId()));
 
 		/* Ausgangskanten erfassen */

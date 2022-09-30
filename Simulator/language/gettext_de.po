@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-25 00:26+0200\n"
+"POT-Creation-Date: 2022-09-27 22:42+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -26437,11 +26437,14 @@ msgstr "Auslaufende Kante"
 msgid "Surface.Decide.Dialog.OutgoingEdge.ClientType"
 msgstr "Kundentyp"
 
+msgid "Surface.Decide.Dialog.OutgoingEdge.ClientType.Add"
+msgstr "Weiteren Kundentyp für auslaufende Kante hinzufügen"
+
 msgid "Surface.Decide.Dialog.OutgoingEdge.ClientType.Else"
 msgstr "Wenn keine der obigen Bedingungen zutrifft."
 
 msgid "Surface.Decide.Dialog.OutgoingEdge.ClientType.ErrorDouble.Info"
-msgstr "Für die %d. Verzweigungsoption wurde der Kundentyp \"%s\" angegeben.Dieser wurde jedoch bereits für eine vorherige Verzweigung verwendet."
+msgstr "Für die %d. Verzweigungsoption wurde der Kundentyp \"%s\" angegeben. Dieser wurde jedoch bereits für eine vorherige Verzweigung verwendet."
 
 msgid "Surface.Decide.Dialog.OutgoingEdge.ClientType.ErrorDouble.Title"
 msgstr "Doppelte Verwendung eines Kundentyps"
@@ -26451,6 +26454,9 @@ msgstr "Für die %d. Verzweigung wurde kein Kundentyp angegeben."
 
 msgid "Surface.Decide.Dialog.OutgoingEdge.ClientType.ErrorMissing.Title"
 msgstr "Kein Kundentyp für Verzweigungsoption"
+
+msgid "Surface.Decide.Dialog.OutgoingEdge.ClientType.Remove"
+msgstr "Kundentyp für auslaufende Kante entfernen"
 
 msgid "Surface.Decide.Dialog.OutgoingEdge.Condition"
 msgstr "Bedingung"

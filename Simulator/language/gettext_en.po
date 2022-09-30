@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-25 00:26+0200\n"
+"POT-Creation-Date: 2022-09-27 22:42+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -26418,6 +26418,9 @@ msgstr "Outgoing edge"
 msgid "Surface.Decide.Dialog.OutgoingEdge.ClientType"
 msgstr "Client type"
 
+msgid "Surface.Decide.Dialog.OutgoingEdge.ClientType.Add"
+msgstr "Add client type for outgoing edge"
+
 msgid "Surface.Decide.Dialog.OutgoingEdge.ClientType.Else"
 msgstr "If none of the above conditions apply."
 
@@ -26432,6 +26435,9 @@ msgstr "No client type has be specified for the %d th transition."
 
 msgid "Surface.Decide.Dialog.OutgoingEdge.ClientType.ErrorMissing.Title"
 msgstr "No client type for transition option"
+
+msgid "Surface.Decide.Dialog.OutgoingEdge.ClientType.Remove"
+msgstr "Remove client type for outgoing edge"
 
 msgid "Surface.Decide.Dialog.OutgoingEdge.Condition"
 msgstr "Condition"
