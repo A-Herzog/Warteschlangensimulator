@@ -1509,6 +1509,9 @@
   Aktiv						CDATA	#IMPLIED
   Bedingungstyp             CDATA	#REQUIRED
   Aktionstyp                CDATA	#IMPLIED
+  ZeitInitial				CDATA	#IMPLIED
+  ZeitIntervall				CDATA	#IMPLIED
+  ZeitWiederholungen		CDATA	#IMPLIED
   Bedingung                 CDATA   #IMPLIED
   BedingungMindestabstand   CDATA   #IMPLIED
   Schwellenwert             CDATA   #IMPLIED
@@ -4081,9 +4084,12 @@
 >
 <!ELEMENT ModelElementActionRecord (#PCDATA)>
 <!ATTLIST ModelElementActionRecord
-  Active		             CDATA	#IMPLIED
+  Active		            CDATA	#IMPLIED
   ConditionType             CDATA	#IMPLIED
   ActionType                CDATA	#REQUIRED
+  TimeInitial				CDATA   #IMPLIED
+  TimeInterval				CDATA   #IMPLIED
+  TimeRepetitions			CDATA   #IMPLIED
   Condition                 CDATA   #IMPLIED
   ConditionMinimumDistance  CDATA   #IMPLIED
   Threshold                 CDATA   #IMPLIED

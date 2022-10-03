@@ -26,6 +26,7 @@ import javax.swing.table.TableCellEditor;
 
 import language.Language;
 import mathtools.NumberTools;
+import mathtools.TimeTools;
 import simulator.editmodel.EditModel;
 import systemtools.BaseDialog;
 import systemtools.MsgBox;
@@ -132,6 +133,18 @@ public class ModelElementActionRecordTableModel extends JTableExtAbstractTableMo
 
 		if (actionMode==ModelElementActionRecord.ActionMode.TRIGGER_AND_ACTION) {
 			switch (record.getConditionType()) {
+			case CONDITION_TIME:
+				result.append(Language.tr("Surface.Action.Dialog.Info.Time")+": ");
+				if (record.getTimeRepeatCount()>0) {
+					if (record.getTimeRepeatCount()==1) {
+						result.append("<b>"+TimeTools.formatExactLongTime(record.getTimeInitial())+"</b>");
+					} else {
+						result.append("<b>"+TimeTools.formatExactLongTime(record.getTimeInitial())+"</b> +n*<b>"+TimeTools.formatExactLongTime(record.getTimeRepeat())+"</b> ("+record.getTimeRepeatCount()+" "+Language.tr("Surface.Action.Dialog.Info.Time.Repeat")+")");
+					}
+				} else {
+					result.append("<b>"+TimeTools.formatExactLongTime(record.getTimeInitial())+"</b> +n*<b>"+TimeTools.formatExactLongTime(record.getTimeRepeat())+"</b>");
+				}
+				break;
 			case CONDITION_CONDITION:
 				result.append(Language.tr("Surface.Action.Dialog.Info.Condition")+": ");
 				result.append("<b>"+record.getCondition()+"</b> ");

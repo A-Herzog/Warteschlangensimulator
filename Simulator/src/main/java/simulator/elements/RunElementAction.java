@@ -22,6 +22,7 @@ import language.Language;
 import simulator.builder.RunModelCreatorStatus;
 import simulator.coreelements.RunElement;
 import simulator.editmodel.EditModel;
+import simulator.events.TimedActionEvent;
 import simulator.runmodel.RunDataClient;
 import simulator.runmodel.RunModel;
 import simulator.runmodel.SimulationData;
@@ -63,7 +64,7 @@ public class RunElementAction extends RunElement implements StateChangeListener,
 		for (int i=0;i<actionElement.getRecordsList().size();i++) {
 			final ModelElementActionRecord editRecord=actionElement.getRecordsList().get(i);
 			if (!editRecord.isActive()) continue;
-			final RunElementActionRecord record=new RunElementActionRecord(editRecord,id);
+			final RunElementActionRecord record=new RunElementActionRecord(editRecord,action.id);
 			final String error=record.build(editModel,runModel,testOnly);
 			if (error!=null) return error+" ("+String.format(Language.tr("Simulation.Creator.Action.ErrorInfo"),actionElement.getId(),i+1)+")";
 			action.records.add(record);
@@ -102,7 +103,7 @@ public class RunElementAction extends RunElement implements StateChangeListener,
 		data=(RunElementActionData)(simData.runData.getStationData(this));
 		if (data==null) {
 			final RunElementActionRecord[] dataRecords=records.stream().map(record->new RunElementActionRecord(record)).toArray(RunElementActionRecord[]::new);
-			for (RunElementActionRecord record: dataRecords) record.initRunData(simData);
+			for (int i=0;i<dataRecords.length;i++) dataRecords[i].initRunData(simData,i);
 			data=new RunElementActionData(this,dataRecords);
 			simData.runData.setStationData(this,data);
 		}
@@ -148,5 +149,16 @@ public class RunElementAction extends RunElement implements StateChangeListener,
 			}
 		}
 		if (actionsTriggered) simData.runData.fireStateChangeNotify(simData);
+	}
+
+	/**
+	 * Führt eine Aktion innerhalb des Elements zeitgesteuert aus.
+	 * @param simData	Simulationsdatenobjekt
+	 * @param index	Index des auszuführenden Datensatzes innerhalb dieses Action-Elements
+	 * @see TimedActionEvent
+	 */
+	public void timeTrigger(final SimulationData simData, final int index) {
+		final RunElementActionData data=getData(simData);
+		data.records[index].runTimedAction(simData,name,logTextColor,index);
 	}
 }

@@ -22,6 +22,7 @@ import org.w3c.dom.Element;
 
 import language.Language;
 import mathtools.NumberTools;
+import mathtools.TimeTools;
 import simulator.editmodel.FullTextSearch;
 import ui.modeleditor.coreelements.ModelElementBox;
 import ui.modeleditor.descriptionbuilder.ModelDescriptionBuilder;
@@ -63,6 +64,8 @@ public class ModelElementActionRecord {
 	 * @author Alexander Herzog
 	 */
 	public enum ConditionType {
+		/** Aktion zeitgesteuert auslösen */
+		CONDITION_TIME,
 		/** Aktion durch Bedingung auslösen */
 		CONDITION_CONDITION,
 		/** Aktion durch Schwellenwert auslösen */
@@ -121,6 +124,15 @@ public class ModelElementActionRecord {
 	 * @see ActionType
 	 */
 	private ActionType actionType;
+
+	/* Auslöser: Zeit */
+
+	/** Zeitdauer bis zu ersten Auslösung des Ereignisses */
+	private double timeInitial;
+	/** Zeitabstände zwischen den Auslösungen der Ereignisse */
+	private double timeRepeat;
+	/** Anzahl der Wiederholungen der Ereignisauslösungen (Werte &le;0 für unbegrenzt) */
+	private int timeRepeatCount;
 
 	/* Auslöser: Bedingung */
 
@@ -189,6 +201,9 @@ public class ModelElementActionRecord {
 		conditionType=ConditionType.CONDITION_CONDITION;
 		actionType=ActionType.ACTION_ASSIGN;
 
+		timeInitial=120;
+		timeRepeat=60;
+		timeRepeatCount=-1;
 		condition="";
 		conditionMinDistance=1.0;
 		thresholdExpression="";
@@ -217,6 +232,9 @@ public class ModelElementActionRecord {
 			conditionType=copySource.conditionType;
 			actionType=copySource.actionType;
 
+			timeInitial=copySource.timeInitial;
+			timeRepeat=copySource.timeRepeat;
+			timeRepeatCount=copySource.timeRepeatCount;
 			condition=copySource.condition;
 			conditionMinDistance=copySource.conditionMinDistance;
 			thresholdExpression=copySource.thresholdExpression;
@@ -253,6 +271,11 @@ public class ModelElementActionRecord {
 
 		if (actionMode==ActionMode.TRIGGER_AND_ACTION) {
 			switch (conditionType) {
+			case CONDITION_TIME:
+				if (timeInitial!=otherRecord.timeInitial) return false;
+				if (timeRepeat!=otherRecord.timeRepeat) return false;
+				if (timeRepeatCount!=otherRecord.timeRepeatCount) return false;
+				break;
 			case CONDITION_CONDITION:
 				if (!Objects.equals(condition,otherRecord.condition)) return false;
 				if (conditionMinDistance!=otherRecord.conditionMinDistance) return false;
@@ -328,6 +351,69 @@ public class ModelElementActionRecord {
 	 */
 	public ConditionType getConditionType() {
 		return conditionType;
+	}
+
+	/**
+	 * Liefert die Zeitdauer bis zu ersten Auslösung des Ereignisses.
+	 * @return	Zeitdauer (in Sekunden) bis zu ersten Auslösung des Ereignisses
+	 * @see #getConditionType()
+	 * @see #setTimeInitial(double)
+	 */
+	public double getTimeInitial() {
+		return timeInitial;
+	}
+
+	/**
+	 * Stellt die Zeitdauer bis zu ersten Auslösung des Ereignisses ein.
+	 * @param timeInitial	Zeitdauer (in Sekunden) bis zu ersten Auslösung des Ereignisses
+	 * @see #getConditionType()
+	 * @see #getTimeInitial()
+	 */
+	public void setTimeInitial(double timeInitial) {
+		conditionType=ConditionType.CONDITION_TIME;
+		this.timeInitial=Math.max(0,timeInitial);
+	}
+
+	/**
+	 * Liefert die Zeitabstände zwischen den Auslösungen der Ereignisse.
+	 * @return	Zeitabstände (in Sekunden) zwischen den Auslösungen der Ereignisse
+	 * @see #getConditionType()
+	 * @see #setTimeRepeat(double)
+	 */
+	public double getTimeRepeat() {
+		return timeRepeat;
+	}
+
+	/**
+	 * Stellt die Zeitabstände zwischen den Auslösungen der Ereignisse ein.
+	 * @param timeRepeat	Zeitabstände (in Sekunden) zwischen den Auslösungen der Ereignisse
+	 * @see #getConditionType()
+	 * @see #getTimeRepeat()
+	 */
+	public void setTimeRepeat(double timeRepeat) {
+		conditionType=ConditionType.CONDITION_TIME;
+		this.timeRepeat=Math.max(0.001,timeRepeat);
+	}
+
+	/**
+	 * Liefert Anzahl der Wiederholungen der Ereignisauslösungen.
+	 * @return	Anzahl der Wiederholungen der Ereignisauslösungen (Werte &le;0 für unbegrenzt)
+	 * @see #getConditionType()
+	 * @see #setTimeRepeatCount(int)
+	 */
+	public int getTimeRepeatCount() {
+		return timeRepeatCount;
+	}
+
+	/**
+	 * Stellt die Anzahl der Wiederholungen der Ereignisauslösungen ein.
+	 * @param timeRepeatCount	Anzahl der Wiederholungen der Ereignisauslösungen (Werte &le;0 für unbegrenzt)
+	 * @see #getConditionType()
+	 * @see #getTimeRepeatCount()
+	 */
+	public void setTimeRepeatCount(int timeRepeatCount) {
+		conditionType=ConditionType.CONDITION_TIME;
+		this.timeRepeatCount=timeRepeatCount;
 	}
 
 	/**
@@ -687,6 +773,7 @@ public class ModelElementActionRecord {
 		if (actionMode==ActionMode.TRIGGER_AND_ACTION) {
 			/* Typ der Bedingung */
 			switch (conditionType) {
+			case CONDITION_TIME: type=Language.trPrimary("Surface.Action.XML.Record.ConditionType.Time"); break;
 			case CONDITION_CONDITION: type=Language.trPrimary("Surface.Action.XML.Record.ConditionType.Condition"); break;
 			case CONDITION_THRESHOLD: type=Language.trPrimary("Surface.Action.XML.Record.ConditionType.Threshold"); break;
 			case CONDITION_SIGNAL: type=Language.trPrimary("Surface.Action.XML.Record.ConditionType.Signal"); break;
@@ -716,6 +803,11 @@ public class ModelElementActionRecord {
 		if (actionMode==ActionMode.TRIGGER_AND_ACTION) {
 			/* Bedingung */
 			switch (conditionType) {
+			case CONDITION_TIME:
+				node.setAttribute(Language.trPrimary("Surface.Action.XML.Record.Time.Initial"),NumberTools.formatSystemNumber(timeInitial));
+				node.setAttribute(Language.trPrimary("Surface.Action.XML.Record.Time.Interval"),NumberTools.formatSystemNumber(timeRepeat));
+				if (timeRepeatCount>0) node.setAttribute(Language.trPrimary("Surface.Action.XML.Record.Time.RepeatCount"),""+timeRepeatCount);
+				break;
 			case CONDITION_CONDITION:
 				node.setAttribute(Language.trPrimary("Surface.Action.XML.Record.Condition.Condition"),condition);
 				node.setAttribute(Language.trPrimary("Surface.Action.XML.Record.Condition.ConditionMinDistance"),NumberTools.formatSystemNumber(conditionMinDistance));
@@ -776,6 +868,7 @@ public class ModelElementActionRecord {
 		if (actionMode==ActionMode.TRIGGER_AND_ACTION) {
 			/* Typ der Bedingung */
 			final String conditionTypeString=Language.trAllAttribute("Surface.Action.XML.Record.ConditionType",node);
+			if (Language.trAll("Surface.Action.XML.Record.ConditionType.Time",conditionTypeString)) conditionType=ConditionType.CONDITION_TIME;
 			if (Language.trAll("Surface.Action.XML.Record.ConditionType.Condition",conditionTypeString)) conditionType=ConditionType.CONDITION_CONDITION;
 			if (Language.trAll("Surface.Action.XML.Record.ConditionType.Threshold",conditionTypeString)) conditionType=ConditionType.CONDITION_THRESHOLD;
 			if (Language.trAll("Surface.Action.XML.Record.ConditionType.Signal",conditionTypeString)) conditionType=ConditionType.CONDITION_SIGNAL;
@@ -794,6 +887,14 @@ public class ModelElementActionRecord {
 		if (actionMode==ActionMode.TRIGGER_AND_ACTION) {
 			/* Bedingung */
 			switch (conditionType) {
+			case CONDITION_TIME:
+				final Double D1=NumberTools.getNotNegativeDouble(Language.trAllAttribute("Surface.Action.XML.Record.Time.Initial",node));
+				if (D1==null) return String.format(Language.tr("Surface.XML.AttributeSubError"),Language.trPrimary("Surface.Action.XML.Record.Time.Initial"),node.getNodeName(),node.getParentNode().getNodeName());
+				final Double D2=NumberTools.getPositiveDouble(Language.trAllAttribute("Surface.Action.XML.Record.Time.Interval",node));
+				if (D2==null) return String.format(Language.tr("Surface.XML.AttributeSubError"),Language.trPrimary("Surface.Action.XML.Record.Time.Interval"),node.getNodeName(),node.getParentNode().getNodeName());
+				final Integer I=NumberTools.getInteger(Language.trAllAttribute("Surface.Action.XML.Record.Time.RepeatCount",node));
+				if (I!=null && I>0) timeRepeatCount=I; else timeRepeatCount=-1;
+				break;
 			case CONDITION_CONDITION:
 				condition=Language.trAllAttribute("Surface.Action.XML.Record.Condition.Condition",node);
 				final String conditionMinDistanceString=Language.trAllAttribute("Surface.Action.XML.Record.Condition.ConditionMinDistance",node);
@@ -870,6 +971,17 @@ public class ModelElementActionRecord {
 		if (actionMode==ActionMode.TRIGGER_AND_ACTION) {
 			/* Bedingung */
 			switch (conditionType) {
+			case CONDITION_TIME:
+				descriptionBuilder.addProperty(Language.tr("Surface.Action.Dialog.Edit.Tabs.Trigger.Time.Initial"),TimeTools.formatExactLongTime(timeInitial),level);
+				if (timeRepeatCount!=1) {
+					descriptionBuilder.addProperty(Language.tr("Surface.Action.Dialog.Edit.Tabs.Trigger.Time.Interval"),TimeTools.formatExactLongTime(timeRepeat),level);
+				}
+				if (timeRepeatCount>0) {
+					if (timeRepeatCount>1) descriptionBuilder.addProperty(Language.tr("Surface.Action.Dialog.Info.Time.Repeat"),""+timeRepeatCount,level);
+				} else {
+					descriptionBuilder.addProperty(Language.tr("Surface.Action.Dialog.Info.Time.Repeat"),Language.tr("Surface.Action.Dialog.Info.Time.Repeat.Unlimited"),level);
+				}
+				break;
 			case CONDITION_CONDITION:
 				s=String.format(Language.tr("ModelDescription.Action.Condition.Condition.MinDistance"),NumberTools.formatNumber(conditionMinDistance));
 				descriptionBuilder.addProperty(Language.tr("ModelDescription.Action.Condition.Condition"),condition+" ("+s+")",level);
@@ -925,6 +1037,15 @@ public class ModelElementActionRecord {
 	public void search(final FullTextSearch searcher, final ModelElementBox station) {
 		/* Ursache */
 		if (actionMode==ActionMode.TRIGGER_AND_ACTION) switch (conditionType) {
+		case CONDITION_TIME:
+			searcher.testDouble(station,Language.tr("Surface.Action.Dialog.Edit.Tabs.Trigger.Time.Initial"),timeInitial,newTimeInitial->{if(newTimeInitial>=0) timeInitial=newTimeInitial;});
+			if (timeRepeatCount!=1) {
+				searcher.testDouble(station,Language.tr("Surface.Action.Dialog.Edit.Tabs.Trigger.Time.Interval"),timeRepeat,newTimeRepeat->{if(newTimeRepeat>0) timeRepeat=newTimeRepeat;});
+			}
+			if (timeRepeatCount>0) {
+				searcher.testInteger(station,Language.tr("Surface.Action.Dialog.Edit.Tabs.Trigger.Time.LimitRepetitions"),timeRepeatCount,newTimeRepeatCount->{if(newTimeRepeatCount>0) timeRepeatCount=newTimeRepeatCount;});
+			}
+			break;
 		case CONDITION_CONDITION:
 			searcher.testString(station,Language.tr("Surface.Action.Dialog.Edit.Tabs.Trigger.Condition"),condition,newCondition->{condition=newCondition;});
 			searcher.testDouble(station,Language.tr("Surface.Action.Dialog.Edit.Tabs.Trigger.Condition.MinDistance"),conditionMinDistance,newConditionMinDistance->{if(newConditionMinDistance>0) conditionMinDistance=newConditionMinDistance;});

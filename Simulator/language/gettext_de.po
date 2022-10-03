@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-27 22:42+0200\n"
+"POT-Creation-Date: 2022-10-01 18:31+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17284,6 +17284,14 @@ msgstr "Die angegebene Auslösebedingung \"%s\" ist ab Zeichen %d fehlerhaft."
 msgid "Simulation.Creator.Action.InvalidConditionMinDistance"
 msgstr "Der angegeben minimale Abstand zwischen zwei Auslösebedingungsprüfungen %s ist ungültig. Es muss eine positive Zahl angegeben werden."
 
+msgid "Simulation.Creator.Action.InvalidInitialTime"
+msgstr ""
+"Die Zeit bis zu ersten Auslösung \"%s\" ist ungültig. Es muss eine \"\n"
+"\"nichtnegative Zahl angegeben werden."
+
+msgid "Simulation.Creator.Action.InvalidRepeatTime"
+msgstr "Der angegebene Zeitabstand zwischen den Auslösungen \"%s\" ist ungültig. Es \"muss eine positive Zahl angegeben werden."
+
 msgid "Simulation.Creator.Action.InvalidThresholdExpression"
 msgstr "Der angegeben Schwellenwertausdruck \"%s\" ist ab Zeichen %d ungütlig."
 
@@ -23710,6 +23718,30 @@ msgstr "Der angegebene Schwellenwert \"%s\" ist ungütltig. Es muss eine Zahl an
 msgid "Surface.Action.Dialog.Edit.Tabs.Trigger.ThresholdValue.ErrorTitle"
 msgstr "Ungültiger Schwellenwert"
 
+msgid "Surface.Action.Dialog.Edit.Tabs.Trigger.Time"
+msgstr "Zeitgesteuert"
+
+msgid "Surface.Action.Dialog.Edit.Tabs.Trigger.Time.Initial"
+msgstr "Zeit bis zu ersten Auslösung"
+
+msgid "Surface.Action.Dialog.Edit.Tabs.Trigger.Time.Initial.ErrorInfo"
+msgstr "Die Zeit bis zu ersten Auslösung \"%s\" ist ungültig. Es muss eine nichtnegative Zahl angegeben werden."
+
+msgid "Surface.Action.Dialog.Edit.Tabs.Trigger.Time.Initial.ErrorTitle"
+msgstr "Ungültige Zeit bis zu ersten Auslösung"
+
+msgid "Surface.Action.Dialog.Edit.Tabs.Trigger.Time.Interval"
+msgstr "Zeitabstände zwischen den Auslösungen"
+
+msgid "Surface.Action.Dialog.Edit.Tabs.Trigger.Time.Interval.ErrorInfo"
+msgstr "Der angegebene Zeitabstand zwischen den Auslösungen \"%s\" ist ungültig. Es muss eine positive Zahl angegeben werden."
+
+msgid "Surface.Action.Dialog.Edit.Tabs.Trigger.Time.Interval.ErrorTitle"
+msgstr "Ungültiger Zeitabstand zwischen den Auslösungen"
+
+msgid "Surface.Action.Dialog.Edit.Tabs.Trigger.Time.LimitRepetitions"
+msgstr "Anzahl an Aktionsauslösungen begrenzen"
+
 msgid "Surface.Action.Dialog.Enable"
 msgstr "Aktivieren"
 
@@ -23757,6 +23789,15 @@ msgstr "Auslösung beim Unterschreiten von %s."
 
 msgid "Surface.Action.Dialog.Info.ThresholdCondition.Up"
 msgstr "Auslösung beim Überschreiten von %s."
+
+msgid "Surface.Action.Dialog.Info.Time"
+msgstr "Zeitgesteuert"
+
+msgid "Surface.Action.Dialog.Info.Time.Repeat"
+msgstr "Wiederholungen"
+
+msgid "Surface.Action.Dialog.Info.Time.Repeat.Unlimited"
+msgstr "unbegrenzt"
 
 msgid "Surface.Action.Dialog.MoveDown"
 msgstr "Nach unten verschieben"
@@ -23850,6 +23891,18 @@ msgstr "Signal"
 
 msgid "Surface.Action.XML.Record.ConditionType.Threshold"
 msgstr "Schwellenwert"
+
+msgid "Surface.Action.XML.Record.ConditionType.Time"
+msgstr "Zeitgesteuert"
+
+msgid "Surface.Action.XML.Record.Time.Initial"
+msgstr "ZeitInitial"
+
+msgid "Surface.Action.XML.Record.Time.Interval"
+msgstr "ZeitIntervall"
+
+msgid "Surface.Action.XML.Record.Time.RepeatCount"
+msgstr "ZeitWiederholungen"
 
 msgid "Surface.Action.XML.Root"
 msgstr "ModellElementAktion"
@@ -30632,6 +30685,9 @@ msgstr "Es wurde ein Wartezeiten-Konfidenzradius für den Abschluss der Simulati
 
 msgid "Surface.SingleCoreReason.TerminalTimeUsed"
 msgstr "Es wurde ein expliziter Abbruchzeitpunkt für die Simulation angegeben."
+
+msgid "Surface.SingleCoreReason.TimedAction"
+msgstr "An Aktion-Station id=%d werden Aktionen zeitgesteuert ausgelöst."
 
 msgid "Surface.Source.AverageInterArrivalTime"
 msgstr "Mittlere Zwischenankunftszeit"

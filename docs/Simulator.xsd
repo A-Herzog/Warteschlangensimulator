@@ -1643,6 +1643,9 @@
     <xs:attribute name="Aktiv" type="xs:string"/>
     <xs:attribute name="Bedingungstyp" type="xs:string"/>
     <xs:attribute name="Aktionstyp" type="xs:string" use="required"/>
+	<xs:attribute name="ZeitInitial" type="xs:string"/>
+	<xs:attribute name="ZeitIntervall" type="xs:string"/>
+	<xs:attribute name="ZeitWiederholungen" type="xs:string"/>
     <xs:attribute name="Bedingung" type="xs:string"/>
     <xs:attribute name="BedingungMindestabstand" type="xs:string"/>
     <xs:attribute name="Schwellenwert" type="xs:string"/>
@@ -3986,6 +3989,9 @@
     <xs:attribute name="Active" type="xs:string"/>
     <xs:attribute name="ConditionType" type="xs:string"/>
     <xs:attribute name="ActionType" type="xs:string" use="required"/>
+    <xs:attribute name="TimeInitial" type="xs:string"/>
+    <xs:attribute name="TimeInterval" type="xs:string"/>
+    <xs:attribute name="TimeRepetitions" type="xs:string"/>
     <xs:attribute name="Condition" type="xs:string"/>
     <xs:attribute name="ConditionMinimumDistance" type="xs:string"/>
     <xs:attribute name="Threshold" type="xs:string"/>

@@ -103,7 +103,7 @@ public class RunElementInteractiveButton extends RunElement {
 		data=(RunElementInteractiveButtonData)(simData.runData.getStationData(this));
 		if (data==null) {
 			final RunElementActionRecord[] dataRecords=records.stream().map(record->new RunElementActionRecord(record)).toArray(RunElementActionRecord[]::new);
-			for (RunElementActionRecord record: dataRecords) record.initRunData(simData);
+			for (int i=0;i<dataRecords.length;i++) dataRecords[i].initRunData(simData,i);
 			data=new RunElementInteractiveButtonData(this,dataRecords);
 			simData.runData.setStationData(this,data);
 		}

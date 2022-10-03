@@ -28,6 +28,7 @@ import scripting.js.JSRunSimulationData;
 import simulator.coreelements.RunElementAnalogProcessingData;
 import simulator.editmodel.EditModel;
 import simulator.events.SystemChangeEvent;
+import simulator.events.TimedActionEvent;
 import simulator.logging.CallbackLoggerWithJS;
 import simulator.runmodel.RunModel;
 import simulator.runmodel.SimulationData;
@@ -68,6 +69,13 @@ public class RunElementActionRecord {
 	private ModelElementActionRecord.ActionType actionType;
 
 	/* Auslöser */
+
+	/** Zeitpunkt für erste zeitgesteuerte Aktionsauslösung */
+	private long timeInitialMS;
+	/** Abstände zwischen den zeitgesteuerten Aktionsauslösungen */
+	private long timeIntervalMS;
+	/** Anzahl an zeitgesteuerten Aktionsauslösungen */
+	private int timeRepeatCount;
 
 	/** Bedingung, die, wenn sie erfüllt ist, die Aktion auslöst (im Modus {@link ConditionType#CONDITION_CONDITION}) */
 	private String condition;
@@ -148,6 +156,10 @@ public class RunElementActionRecord {
 		conditionType=runRecord.conditionType;
 		actionType=runRecord.actionType;
 
+		timeInitialMS=runRecord.timeInitialMS;
+		timeIntervalMS=runRecord.timeIntervalMS;
+		timeRepeatCount=runRecord.timeRepeatCount;
+
 		condition=runRecord.condition;
 		conditionMinDistance=runRecord.conditionMinDistance;
 		thresholdExpression=runRecord.thresholdExpression;
@@ -183,6 +195,15 @@ public class RunElementActionRecord {
 			/* Bedingung */
 			conditionType=editRecord.getConditionType();
 			switch (conditionType) {
+			case CONDITION_TIME:
+				if (editRecord.getTimeInitial()<0) return String.format(Language.tr("Simulation.Creator.Action.InvalidInitialTime"),NumberTools.formatNumber(editRecord.getTimeInitial()));
+				if (editRecord.getTimeRepeatCount()!=1) {
+					if (editRecord.getTimeRepeat()<0.001) return String.format(Language.tr("Simulation.Creator.Action.InvalidRepeatTime"),NumberTools.formatNumber(editRecord.getTimeRepeat()));
+				}
+				timeInitialMS=Math.round(editRecord.getTimeInitial()*1000);
+				timeIntervalMS=Math.max(1,Math.round(editRecord.getTimeRepeat()*1000));
+				timeRepeatCount=(editRecord.getTimeRepeatCount()<=0)?-1:editRecord.getTimeRepeatCount();
+				break;
 			case CONDITION_CONDITION:
 				condition=editRecord.getCondition();
 				error=ExpressionMultiEval.check(condition,runModel.variableNames);
@@ -255,6 +276,12 @@ public class RunElementActionRecord {
 		if (actionMode==ModelElementActionRecord.ActionMode.TRIGGER_AND_ACTION) {
 			/* Bedingung */
 			switch (editRecord.getConditionType()) {
+			case CONDITION_TIME:
+				if (editRecord.getTimeInitial()<0) return String.format(Language.tr("Simulation.Creator.Action.InvalidInitialTime"),NumberTools.formatNumber(editRecord.getTimeInitial()));
+				if (editRecord.getTimeRepeatCount()!=1) {
+					if (editRecord.getTimeRepeat()<0.001) return String.format(Language.tr("Simulation.Creator.Action.InvalidRepeatTime"),NumberTools.formatNumber(editRecord.getTimeRepeat()));
+				}
+				break;
 			case CONDITION_CONDITION:
 				if (editRecord.getConditionMinDistance()<=0) return String.format(Language.tr("Simulation.Creator.Action.InvalidConditionMinDistance"),NumberTools.formatNumber(editRecord.getConditionMinDistance()));
 				break;
@@ -301,13 +328,17 @@ public class RunElementActionRecord {
 	 * nach dem Start der Simulation, unmittelbar bevor dieses Objekt
 	 * an die jeweilige Daten-Klasse der Station übergeben wird, aufgerufen.
 	 * @param simData	Simulationsdatenobjekt
+	 * @param actionRecordIndex	Index dieses Datensatzes innerhalb des Action-Elements
 	 */
-	public void initRunData(final SimulationData simData) {
+	public void initRunData(final SimulationData simData, final int actionRecordIndex) {
 		final String[] variableNames=simData.runModel.variableNames;
 
 		if (actionMode==ModelElementActionRecord.ActionMode.TRIGGER_AND_ACTION) {
 			/* Bedingung */
 			switch (conditionType) {
+			case CONDITION_TIME:
+				scheduleNextTimedAction(simData,timeInitialMS,actionRecordIndex);
+				break;
 			case CONDITION_CONDITION:
 				conditionObj=new ExpressionMultiEval(variableNames);
 				conditionObj.parse(condition);
@@ -361,6 +392,38 @@ public class RunElementActionRecord {
 			/* nicht vorzubereiten */
 			break;
 		}
+	}
+
+	/**
+	 * Zählt, wie häufig wie Ereigniswarteschlange beim Aufruf von
+	 * {@link #scheduleNextTimedAction(SimulationData, long, int)}
+	 * vollständig leer war. (Wenn die Ereigniswarteschlange stets
+	 * leer ist, ist das ein Indiz, dass die Simulation eigentlich
+	 * zu Ende ist nur nur durch die regelmäßigen Aktion-Ereignisse
+	 * unnötig weiterläuft.)
+	 * @see #scheduleNextTimedAction(SimulationData, long, int)
+	 */
+	private int triggerIsOnlyEvent=0;
+
+	/**
+	 * Legt ein Ereignis zur zeitgesteuerten Ausführung der Aktion an.
+	 * @param simData	Simulationsdatenobjekt
+	 * @param time	(Absoluter) Zeitpunkt zu dem das Ereignis ausgelöst werden soll
+	 * @param actionRecordIndex	Index dieses Datensatzes innerhalb des Action-Elements
+	 */
+	private void scheduleNextTimedAction(final SimulationData simData, final long time, final int actionRecordIndex) {
+		if (timeRepeatCount<0 && simData.eventManager.eventQueueLength()==0) {
+			triggerIsOnlyEvent++;
+			if (triggerIsOnlyEvent>1000) return;
+		} else {
+			triggerIsOnlyEvent=0;
+		}
+
+		final TimedActionEvent event=(TimedActionEvent)simData.getEvent(TimedActionEvent.class);
+		event.init(time);
+		event.actionStation=(RunElementAction)simData.runModel.elementsFast[stationID];
+		event.actionIndex=actionRecordIndex;
+		simData.eventManager.addEvent(event);
 	}
 
 	/**
@@ -455,6 +518,34 @@ public class RunElementActionRecord {
 		} else {
 			return false;
 		}
+	}
+
+	/**
+	 * Führt die in der Action hinterlegte Aktion aus und plant die nächste zeitgesteuerte Ausführung ein.
+	 * @param simData	Simulationsdatenobjekt
+	 * @param stationLogName	Name der Station an der die Aktion ausgelöst wird (für das Logging)
+	 * @param stationLogColor	Farbe beim Logging für die Station an der die Aktion ausgelöst wird
+	 * @param actionRecordIndex	Index dieses Datensatzes innerhalb des Action-Elements
+	 */
+	public void runTimedAction(final SimulationData simData, final String stationLogName, final Color stationLogColor, final int actionRecordIndex) {
+		/* Ggf. nächstes Ereignis planen */
+		final boolean scheduleNext;
+		if (timeRepeatCount<0) {
+			/* Unendliche viele Ereignisse */
+			scheduleNext=true;
+		} else if (timeRepeatCount>0) {
+			timeRepeatCount--;
+			scheduleNext=(timeRepeatCount>0);
+		} else {
+			scheduleNext=false;
+		}
+
+		if (scheduleNext) {
+			scheduleNextTimedAction(simData,simData.currentTime+timeIntervalMS,actionRecordIndex);
+		}
+
+		/* Aktion auslösen */
+		runAction(simData,stationLogName,stationLogColor);
 	}
 
 	/**

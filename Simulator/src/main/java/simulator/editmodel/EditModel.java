@@ -63,6 +63,8 @@ import ui.modeleditor.coreelements.ModelElementBox;
 import ui.modeleditor.elements.ComplexLine;
 import ui.modeleditor.elements.ElementNoRemoteSimulation;
 import ui.modeleditor.elements.ElementWithScript;
+import ui.modeleditor.elements.ModelElementAction;
+import ui.modeleditor.elements.ModelElementActionRecord;
 import ui.modeleditor.elements.ModelElementAnimationConnect;
 import ui.modeleditor.elements.ModelElementDashboard;
 import ui.modeleditor.elements.ModelElementDisposeWithTable;
@@ -1435,6 +1437,18 @@ public final class EditModel extends EditModelBase implements Cloneable  {
 				if (record.getNextMode().isSingleCoreOnlyMode) {schedule=record.getInterarrivalTimeSchedule(); break;}
 			}
 			if (schedule!=null) reasons.add(String.format(Language.tr("Surface.SingleCoreReason.SourceUsesSchedule"),element.getId(),schedule));
+		}
+
+		/* Zeitgesteuerte Actions */
+
+		if (element instanceof ModelElementAction) {
+			final ModelElementAction action=(ModelElementAction)element;
+			for (ModelElementActionRecord record: action.getRecordsList()) {
+				if (record.getConditionType()==ModelElementActionRecord.ConditionType.CONDITION_TIME) {
+					reasons.add(String.format(Language.tr("Surface.SingleCoreReason.TimedAction"),element.getId()));
+					break;
+				}
+			}
 		}
 	}
 

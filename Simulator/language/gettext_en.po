@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-27 22:42+0200\n"
+"POT-Creation-Date: 2022-10-01 18:31+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17273,6 +17273,12 @@ msgstr "The specified trigger condition \"%s\" is invalid at a character %d."
 msgid "Simulation.Creator.Action.InvalidConditionMinDistance"
 msgstr "The specified minimum distance between two trigger condition checks %s is invalid. A positive number has to be specified."
 
+msgid "Simulation.Creator.Action.InvalidInitialTime"
+msgstr "The time until first triggering \"%s\" is invalid. A non-negative number has to be specified."
+
+msgid "Simulation.Creator.Action.InvalidRepeatTime"
+msgstr "The time intervals value between triggers \"%s\" is invalid. A positive \"number has to be specified."
+
 msgid "Simulation.Creator.Action.InvalidThresholdExpression"
 msgstr "The specified threshold value expression \"%s\" is invalid at character %d."
 
@@ -23697,6 +23703,30 @@ msgstr "The specified threshold value %d is invalid. A number has to be specifie
 msgid "Surface.Action.Dialog.Edit.Tabs.Trigger.ThresholdValue.ErrorTitle"
 msgstr "Invalid threshold value"
 
+msgid "Surface.Action.Dialog.Edit.Tabs.Trigger.Time"
+msgstr "Timed"
+
+msgid "Surface.Action.Dialog.Edit.Tabs.Trigger.Time.Initial"
+msgstr "Time until first triggering"
+
+msgid "Surface.Action.Dialog.Edit.Tabs.Trigger.Time.Initial.ErrorInfo"
+msgstr "The time until first triggering \"%s\" is invalid. A non-negative number has to be specified."
+
+msgid "Surface.Action.Dialog.Edit.Tabs.Trigger.Time.Initial.ErrorTitle"
+msgstr "Invalid time until first triggering"
+
+msgid "Surface.Action.Dialog.Edit.Tabs.Trigger.Time.Interval"
+msgstr "Time intervals between triggers"
+
+msgid "Surface.Action.Dialog.Edit.Tabs.Trigger.Time.Interval.ErrorInfo"
+msgstr "The time intervals value between triggers \"%s\" is invalid. A positive number has to be specified."
+
+msgid "Surface.Action.Dialog.Edit.Tabs.Trigger.Time.Interval.ErrorTitle"
+msgstr "Invalid time intervals between triggers"
+
+msgid "Surface.Action.Dialog.Edit.Tabs.Trigger.Time.LimitRepetitions"
+msgstr "Limit number of action triggers"
+
 msgid "Surface.Action.Dialog.Enable"
 msgstr "Enable"
 
@@ -23744,6 +23774,15 @@ msgstr "Trigger when falling below %s."
 
 msgid "Surface.Action.Dialog.Info.ThresholdCondition.Up"
 msgstr "Trigger when exceeding %s."
+
+msgid "Surface.Action.Dialog.Info.Time"
+msgstr "Time"
+
+msgid "Surface.Action.Dialog.Info.Time.Repeat"
+msgstr "Repetitions"
+
+msgid "Surface.Action.Dialog.Info.Time.Repeat.Unlimited"
+msgstr "unlimited"
 
 msgid "Surface.Action.Dialog.MoveDown"
 msgstr "Move down"
@@ -23837,6 +23876,18 @@ msgstr "Signal"
 
 msgid "Surface.Action.XML.Record.ConditionType.Threshold"
 msgstr "Threshold"
+
+msgid "Surface.Action.XML.Record.ConditionType.Time"
+msgstr "Time"
+
+msgid "Surface.Action.XML.Record.Time.Initial"
+msgstr "TimeInitial"
+
+msgid "Surface.Action.XML.Record.Time.Interval"
+msgstr "TimeInterval"
+
+msgid "Surface.Action.XML.Record.Time.RepeatCount"
+msgstr "TimeRepetitions"
 
 msgid "Surface.Action.XML.Root"
 msgstr "ModelElementAction"
@@ -30610,6 +30661,9 @@ msgstr "A waiting time confidence radius was specified for the termination of th
 
 msgid "Surface.SingleCoreReason.TerminalTimeUsed"
 msgstr "An explicit termination time for the simulation was specified."
+
+msgid "Surface.SingleCoreReason.TimedAction"
+msgstr "At action station id=%d actions are triggered in a time-controlled manner."
 
 msgid "Surface.Source.AverageInterArrivalTime"
 msgstr "Average inter-arrival time"

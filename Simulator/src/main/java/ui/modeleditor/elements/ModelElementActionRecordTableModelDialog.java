@@ -34,8 +34,11 @@ import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
+import javax.swing.JSpinner;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
+import javax.swing.SpinnerModel;
+import javax.swing.SpinnerNumberModel;
 
 import language.Language;
 import mathtools.NumberTools;
@@ -83,6 +86,8 @@ public class ModelElementActionRecordTableModelDialog extends BaseDialog {
 	/** Ist die Teilaktion aktiv? */
 	private final JCheckBox activeCheckBox;
 
+	/** Art der Bedingung: Zeitgesteuert */
+	private final JRadioButton triggerTime;
 	/** Art der Bedingung: Rechenausdruck-Bedingung */
 	private final JRadioButton triggerCondition;
 	/** Art der Bedingung: Schwellenwert */
@@ -102,6 +107,21 @@ public class ModelElementActionRecordTableModelDialog extends BaseDialog {
 	private final JRadioButton actionStop;
 	/** Art der auszulösenden Aktion: Sound abspielen */
 	private final JRadioButton actionSound;
+
+	/* Auslöser: Zeitgesteuert */
+
+	/** Eingabefeld für die Zeitdauer bis zur ersten Auslösung */
+	private final JTextField timeInitial;
+	/** Auswahlbox für die Zeitbasis für die Zeitdauer bis zur ersten Auslösung */
+	private final JComboBox<String> timeInitialTimeBase;
+	/** Eingabefeld für die Wiederholungsabstände */
+	private final JTextField timeInterval;
+	/** Auswahlbox für die Zeitbasis für die Wiederholungsabstände */
+	private final JComboBox<String> timeIntervalTimeBase;
+	/** Zeitgesteuertes Ereignis nur begrenzt oft auslösen? */
+	private final JCheckBox timeLimitRepetitions;
+	/** Anzahl der Wiederholungen des zeitgesteuerten Ereignisses */
+	private final SpinnerModel timeLimitRepetitionsCount;
 
 	/* Auslöser: Bedingung */
 
@@ -167,6 +187,7 @@ public class ModelElementActionRecordTableModelDialog extends BaseDialog {
 	 * @param model	Vollständiges Modell (für Expression-Builder)
 	 * @param help	Hilfe-Callback
 	 */
+	@SuppressWarnings("unchecked")
 	public ModelElementActionRecordTableModelDialog(final Component owner, final ModelElementActionRecord record, final ModelSurface surface, final EditModel model, final Runnable help) {
 		super(owner,Language.tr("Surface.Action.Dialog.Edit"));
 		this.record=record;
@@ -200,6 +221,35 @@ public class ModelElementActionRecordTableModelDialog extends BaseDialog {
 			tabOuter.add(tab=new JPanel(),BorderLayout.NORTH);
 			tab.setLayout(new BoxLayout(tab,BoxLayout.PAGE_AXIS));
 			tab.setBorder(BorderFactory.createEmptyBorder(0,5,10,5));
+
+			/* Zeitgesteuert */
+
+			tab.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
+			line.add(triggerTime=new JRadioButton(bold1+Language.tr("Surface.Action.Dialog.Edit.Tabs.Trigger.Time")+bold2));
+			triggerTime.addActionListener(e->checkData(false));
+
+			data=buildTimeInput(tab,Language.tr("Surface.Action.Dialog.Edit.Tabs.Trigger.Time.Initial")+":",record.getTimeInitial());
+			timeInitial=(JTextField)data[0];
+			timeInitialTimeBase=(JComboBox<String>)data[1];
+
+			data=buildTimeInput(tab,Language.tr("Surface.Action.Dialog.Edit.Tabs.Trigger.Time.Interval")+":",record.getTimeRepeat());
+			timeInterval=(JTextField)data[0];
+			timeIntervalTimeBase=(JComboBox<String>)data[1];
+
+			tab.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
+			line.add(timeLimitRepetitions=new JCheckBox(Language.tr("Surface.Action.Dialog.Edit.Tabs.Trigger.Time.LimitRepetitions"),record.getTimeRepeatCount()>0));
+			final JSpinner spinner=new JSpinner(timeLimitRepetitionsCount=new SpinnerNumberModel(Math.max(1,record.getTimeRepeatCount()),1,10000,1));
+			JSpinner.NumberEditor editor=new JSpinner.NumberEditor(spinner);
+			editor.getFormat().setGroupingUsed(false);
+			editor.getTextField().setColumns(5);
+			spinner.setEditor(editor);
+			line.add(spinner);
+			spinner.addChangeListener(e->timeLimitRepetitions.setSelected(true));
+			spinner.addKeyListener(new KeyListener() {
+				@Override public void keyTyped(KeyEvent e) {timeLimitRepetitions.setSelected(true);}
+				@Override public void keyReleased(KeyEvent e) {timeLimitRepetitions.setSelected(true);}
+				@Override public void keyPressed(KeyEvent e) {timeLimitRepetitions.setSelected(true);}
+			});
 
 			/* Bedingung */
 
@@ -267,20 +317,30 @@ public class ModelElementActionRecordTableModelDialog extends BaseDialog {
 			/* Auslöser-Radiobuttons zusammenfassen */
 
 			buttonGroup=new ButtonGroup();
+			buttonGroup.add(triggerTime);
 			buttonGroup.add(triggerCondition);
 			buttonGroup.add(triggerThreshold);
 			buttonGroup.add(triggerSignal);
 
 			switch (record.getConditionType()) {
+			case CONDITION_TIME: triggerTime.setSelected(true); break;
 			case CONDITION_CONDITION: triggerCondition.setSelected(true); break;
 			case CONDITION_THRESHOLD: triggerThreshold.setSelected(true); break;
 			case CONDITION_SIGNAL: triggerSignal.setSelected(true); break;
 			}
 		} else {
+			triggerTime=null;
 			triggerCondition=null;
 			triggerThreshold=null;
 			triggerSignal=null;
 			triggerSignalName=null;
+
+			timeInitial=null;
+			timeInitialTimeBase=null;
+			timeInterval=null;
+			timeIntervalTimeBase=null;
+			timeLimitRepetitions=null;
+			timeLimitRepetitionsCount=null;
 
 			conditionEdit=null;
 			conditionMinDistanceEdit=null;
@@ -431,6 +491,57 @@ public class ModelElementActionRecordTableModelDialog extends BaseDialog {
 	}
 
 	/**
+	 * Erstellt ein Zeit-Eingabefeld und eine Auswahlbox für die Zeitbasis.
+	 * @param parent	Übergeordnetes Element in das die neue Zeile eingefügt werden soll
+	 * @param labelText	Beschriftung für das Eingabefeld
+	 * @param value	Initialer Wert
+	 * @return	2-elementiges Array aus Eingabefeld und Auswahlbox
+	 */
+	private Object[] buildTimeInput(final JPanel parent, final String labelText, double value) {
+		final JPanel line=new JPanel(new FlowLayout(FlowLayout.LEFT));
+		parent.add(line);
+
+		final JLabel label=new JLabel(labelText);
+		line.add(label);
+
+		final JTextField input=new JTextField(10);
+		line.add(input);
+		label.setLabelFor(input);
+
+		final JComboBox<String> timeBase=new JComboBox<>(ModelSurface.getTimeBaseStrings());
+		line.add(timeBase);
+
+		if (value<0) {
+			input.setText("0");
+			timeBase.setSelectedIndex(0);
+		} else {
+			int index=0;
+			if (value>60) {
+				/* Sekunden -> Minuten */
+				value/=60;
+				index++;
+				if (value>60) {
+					/* Minuten -> Stunden */
+					value/=60;
+					index++;
+					if (value>24) {
+						/* Stunden -> Tage */
+						value/=24;
+						index++;
+					}
+				}
+			}
+			input.setText(NumberTools.formatNumberMax(value));
+			timeBase.setSelectedIndex(index);
+		}
+
+		addKeyListener(input,null);
+		timeBase.addActionListener(e->checkData(false));
+
+		return new Object[] {input,timeBase};
+	}
+
+	/**
 	 * Erstellt Listen mit Namen und IDs der Analogwert-Stationen
 	 * @param mainSurface	Hauptzeichenfläche
 	 * @see #analogIDNames
@@ -485,6 +596,30 @@ public class ModelElementActionRecordTableModelDialog extends BaseDialog {
 
 		if (record.getActionMode()==ModelElementActionRecord.ActionMode.TRIGGER_AND_ACTION) {
 			/* Auslöser */
+
+			if (triggerTime.isSelected()) {
+				Double D;
+				D=NumberTools.getNotNegativeDouble(timeInitial,true);
+				if (D==null) {
+					ok=false;
+					if (showErrorMessages) {
+						MsgBox.error(this,Language.tr("Surface.Action.Dialog.Edit.Tabs.Trigger.Time.Initial.ErrorTitle"),String.format(Language.tr("Surface.Action.Dialog.Edit.Tabs.Trigger.Time.Initial.ErrorInfo"),timeInitial.getText()));
+						return false;
+					}
+				}
+				if (timeLimitRepetitions.isSelected() && ((Integer)timeLimitRepetitionsCount.getValue())==1) {
+					timeInterval.setBackground(NumberTools.getTextFieldDefaultBackground());
+				} else {
+					D=NumberTools.getPositiveDouble(timeInterval,true);
+					if (D==null) {
+						ok=false;
+						if (showErrorMessages) {
+							MsgBox.error(this,Language.tr("Surface.Action.Dialog.Edit.Tabs.Trigger.Time.Interval.ErrorTitle"),String.format(Language.tr("Surface.Action.Dialog.Edit.Tabs.Trigger.Time.Interval.ErrorInfo"),timeInterval.getText()));
+							return false;
+						}
+					}
+				}
+			}
 
 			if (triggerCondition.isSelected()) {
 				final int error=ExpressionMultiEval.check(conditionEdit.getText(),variables);
@@ -636,6 +771,23 @@ public class ModelElementActionRecordTableModelDialog extends BaseDialog {
 
 		if (record.getActionMode()==ModelElementActionRecord.ActionMode.TRIGGER_AND_ACTION) {
 			/* Auslöser */
+
+			if (triggerTime.isSelected()) {
+				record.setTimeInitial(NumberTools.getNotNegativeDouble(timeInitial,true)*ModelSurface.TimeBase.byId(timeInitialTimeBase.getSelectedIndex()).multiply);
+				if (timeLimitRepetitions.isSelected()) {
+					final int count=(Integer)timeLimitRepetitionsCount.getValue();
+					final Double D=NumberTools.getPositiveDouble(timeInterval,true);
+					if (count==1) {
+						if (D!=null) record.setTimeRepeat(D*ModelSurface.TimeBase.byId(timeIntervalTimeBase.getSelectedIndex()).multiply);
+					} else {
+						record.setTimeRepeat(D*ModelSurface.TimeBase.byId(timeIntervalTimeBase.getSelectedIndex()).multiply);
+					}
+					record.setTimeRepeatCount(count);
+				} else {
+					record.setTimeRepeat(NumberTools.getNotNegativeDouble(timeInterval,true)*ModelSurface.TimeBase.byId(timeIntervalTimeBase.getSelectedIndex()).multiply);
+					record.setTimeRepeatCount(-1);
+				}
+			}
 
 			if (triggerCondition.isSelected()) {
 				record.setCondition(conditionEdit.getText());
