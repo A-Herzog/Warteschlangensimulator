@@ -21,6 +21,11 @@ import java.io.File;
 import java.io.Serializable;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.ThreadFactory;
+import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import javax.swing.Icon;
 import javax.swing.JButton;
@@ -68,6 +73,21 @@ public class StatisticViewerFastAccessJS extends StatisticViewerFastAccessBase {
 	private JSRunDataFilter dataFilter;
 
 	/**
+	 * Thread-Pool zur Hintergrundausführung von Skripten
+	 * @see #process(boolean)
+	 */
+	private final ThreadPoolExecutor executor;
+
+	/**
+	 * Fortlaufende Nummer der Skriptausführungen, um zu verhindern,
+	 * dass eine alte fertig werdende Ausführung die Ergebnisse einer neuen
+	 * Ausführung überschreibt.
+	 * @see #process(boolean)
+	 */
+	private int executionNr=0;
+
+
+	/**
 	 * Konstruktor der Klasse
 	 * @param helpFastAccess	Hilfe für Schnellzugriff-Seite
 	 * @param helpFastAccessModal	Hilfe für Schnellzugriff-Dialog
@@ -76,6 +96,15 @@ public class StatisticViewerFastAccessJS extends StatisticViewerFastAccessBase {
 	 */
 	public StatisticViewerFastAccessJS(final Runnable helpFastAccess, final Runnable helpFastAccessModal, final Statistics statistics, final Runnable resultsChanged) {
 		super(helpFastAccess,helpFastAccessModal,statistics,resultsChanged,true);
+
+		executor=new ThreadPoolExecutor(0,1,10,TimeUnit.SECONDS,new LinkedBlockingQueue<>(),new ThreadFactory() {
+			private final AtomicInteger threadNumber=new AtomicInteger(1);
+			@Override
+			public Thread newThread(Runnable r) {
+				return new Thread(r,"DelayedFastAccessJSProcessingPart2 "+threadNumber.getAndIncrement());
+			}
+		});
+		executor.allowCoreThreadTimeOut(true);
 
 		/* Filtertext */
 		final ScriptEditorAreaBuilder builder=new ScriptEditorAreaBuilder(ScriptPopup.ScriptMode.Javascript,false,e->requestProcessing());
@@ -91,13 +120,14 @@ public class StatisticViewerFastAccessJS extends StatisticViewerFastAccessBase {
 				data.dragDropConsumed();
 			}
 		});
+
 		final RTextScrollPane scrollFilter;
 		add(scrollFilter=new RTextScrollPane(filter=builder.get()));
 		scrollFilter.setLineNumbersEnabled(true);
 
 		/* Filtertext laden */
 		filter.setText(SetupData.getSetup().filterJavascript);
-		process(true);
+		requestProcessing();
 		lastSavedFilterText="";
 	}
 
@@ -144,7 +174,7 @@ public class StatisticViewerFastAccessJS extends StatisticViewerFastAccessBase {
 	 * @see #lastJsExecutionTimerTask
 	 */
 	private void requestProcessing() {
-		if (jsExecutionTimer==null) jsExecutionTimer=new Timer("DelayedFastAccessJSExecution",true);
+		if (jsExecutionTimer==null) jsExecutionTimer=new Timer("DelayedFastAccessJSProcessingPart1",true);
 
 		if (lastJsExecutionTimerTask!=null) lastJsExecutionTimerTask.cancel();
 		lastJsExecutionTimerTask=new TimerTask() {
@@ -165,24 +195,33 @@ public class StatisticViewerFastAccessJS extends StatisticViewerFastAccessBase {
 	 */
 	public void process(final boolean forceProcess) {
 		final String text=filter.getText();
-		if (lastInterpretedFilterText!=null && text.equals(lastInterpretedFilterText) && lastInterpretedFilterResult!=null && !forceProcess) {
-			setResults(lastInterpretedFilterResult);
+		if (lastInterpretedFilterText!=null && text.equals(lastInterpretedFilterText) && !forceProcess) {
+			if (lastInterpretedFilterResult!=null) setResults(lastInterpretedFilterResult);
 			return;
 		}
 		lastInterpretedFilterText=text;
 
+		SetupData setup=SetupData.getSetup();
+		setup.filterJavascript=text;
+		setup.saveSetupWithWarning(null);
+
 		if (text.trim().isEmpty()) {
 			lastInterpretedFilterResult="";
+			setResults(lastInterpretedFilterResult);
 		} else {
-			if (dataFilter==null) dataFilter=new JSRunDataFilter(statistics.saveToXMLDocument(),statistics.loadedStatistics);
-			dataFilter.run(text);
-			lastInterpretedFilterResult=dataFilter.getResults();
+			lastInterpretedFilterResult="";
+			executionNr++;
+			final int ownEexecutionNr=executionNr;
+			executor.submit(()->{
+				if (dataFilter==null) dataFilter=new JSRunDataFilter(statistics.saveToXMLDocument(),statistics.loadedStatistics);
+				dataFilter.run(text);
+				final String result=dataFilter.getResults();
+				if (executionNr==ownEexecutionNr) {
+					lastInterpretedFilterResult=result;
+					SwingUtilities.invokeLater(()->setResults(lastInterpretedFilterResult));
+				}
+			});
 		}
-		setResults(lastInterpretedFilterResult);
-
-		SetupData setup=SetupData.getSetup();
-		setup.filterJavascript=filter.getText();
-		setup.saveSetupWithWarning(null);
 	}
 
 	/**

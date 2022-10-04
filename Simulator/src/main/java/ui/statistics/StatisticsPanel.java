@@ -2070,5 +2070,4 @@ public class StatisticsPanel extends StatisticsBasePanel {
 		setup.reportStyle=reportStyle;
 		setup.saveSetupWithWarning(this);
 	}
-
 }
