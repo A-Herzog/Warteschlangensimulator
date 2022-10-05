@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-10-01 18:31+0200\n"
+"POT-Creation-Date: 2022-10-04 10:25+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -5382,6 +5382,9 @@ msgstr "ResidenceTime"
 msgid "ExpressionBuilder.CommandName.Resource"
 msgstr "Resource"
 
+msgid "ExpressionBuilder.CommandName.SetupTime"
+msgstr "SetupTime"
+
 msgid "ExpressionBuilder.CommandName.TransferTime"
 msgstr "TransferTime"
 
@@ -7053,6 +7056,74 @@ msgstr ""
 
 msgid "ExpressionBuilder.SimulationCharacteristics.Resources"
 msgstr "Resources"
+
+msgid "ExpressionBuilder.SimulationCharacteristics.SetupTimeAtStations.HistogramMultiple"
+msgstr ""
+"<p>Returns the fraction of setup time values, which are at the process station whose ID is specified in the specified range of seconds (exclusive the lower and inclusive the upper bound).</p>\n"
+"<p>Attention: The setup times are also recorded as part of the service times.</p>"
+
+msgid "ExpressionBuilder.SimulationCharacteristics.SetupTimesAtStations"
+msgstr "Setup times at a station"
+
+msgid "ExpressionBuilder.SimulationCharacteristics.SetupTimesAtStations.AverageTime"
+msgstr ""
+"<p>Returns the average duration over all setup times that have occurred at the process station whose ID was specified in the parameter.</p>\n"
+"<p>Attention: The setup times are also recorded as part of the service times.</p>"
+
+msgid "ExpressionBuilder.SimulationCharacteristics.SetupTimesAtStations.CoefficientOfVariationOfTheTime"
+msgstr ""
+"<p>Returns the coefficient of variation over all setup times that have occurred at the process station whose ID was specified in the parameter.</p>\n"
+"<p>Attention: The setup times are also recorded as part of the service times.</p>"
+
+msgid "ExpressionBuilder.SimulationCharacteristics.SetupTimesAtStations.HistogramSingle"
+msgstr ""
+"<p>Returns the fraction of values, who equal at the process station whose ID is specified the specified number of seconds as setup time.</p>\n"
+"<p>Attention: The setup times are also recorded as part of the service times.</p>"
+
+msgid "ExpressionBuilder.SimulationCharacteristics.SetupTimesAtStations.Kurt"
+msgstr ""
+"<p>Returns the excess kurtosis over all setup times that have occurred at the process station whose ID was specified in the parameter.</p>\n"
+"<p>Attention: The setup times are also recorded as part of the service times.</p>"
+
+msgid "ExpressionBuilder.SimulationCharacteristics.SetupTimesAtStations.MaximalTime"
+msgstr ""
+"<p>Returns the maximal duration over all setup times that have occurred at the process station whose ID was specified in the parameter.</p>\n"
+"<p>Attention: The setup times are also recorded as part of the service times.</p>"
+
+msgid "ExpressionBuilder.SimulationCharacteristics.SetupTimesAtStations.Median"
+msgstr ""
+"<p>Returns the median of the duration over all setup times that have occurred at the process station whose ID was specified in the parameter.</p>\n"
+"<p>Attention: The setup times are also recorded as part of the service times.</p>"
+
+msgid "ExpressionBuilder.SimulationCharacteristics.SetupTimesAtStations.MinimalTime"
+msgstr ""
+"<p>Returns the minimal duration over all setup times that have occurred at the process station whose ID was specified in the parameter.</p>\n"
+"<p>Attention: The setup times are also recorded as part of the service times.</p>"
+
+msgid "ExpressionBuilder.SimulationCharacteristics.SetupTimesAtStations.Quantil"
+msgstr ""
+"<p>Returns the quantil for probability p of the duration over all setup times that have occurred at the process station whose ID was specified in the parameter.</p>\n"
+"<p>Attention: The setup times are also recorded as part of the service times.</p>"
+
+msgid "ExpressionBuilder.SimulationCharacteristics.SetupTimesAtStations.Skewness"
+msgstr ""
+"<p>Returns the skewness over all setup times that have occurred at the process station whose ID was specified in the parameter.</p>\n"
+"<p>Attention: The setup times are also recorded as part of the service times.</p>"
+
+msgid "ExpressionBuilder.SimulationCharacteristics.SetupTimesAtStations.SquaredCoefficientOfVariationOfTheTime"
+msgstr ""
+"<p>Returns the squared coefficient of variation over all setup times that have occurred at the process station whose ID was specified in the parameter.</p>\n"
+"<p>Attention: The setup times are also recorded as part of the service times.</p>"
+
+msgid "ExpressionBuilder.SimulationCharacteristics.SetupTimesAtStations.StandardDeviationOfTheTime"
+msgstr ""
+"<p>Returns the standard deviation over all setup times that have occurred at the process station whose ID was specified in the parameter.</p>\n"
+"<p>Attention: The setup times are also recorded as part of the service times.</p>"
+
+msgid "ExpressionBuilder.SimulationCharacteristics.SetupTimesAtStations.VarianceOfTheTime"
+msgstr ""
+"<p>Returns the variance over all setup times that have occurred at the process station whose ID was specified in the parameter.</p>\n"
+"<p>Attention: The setup times are also recorded as part of the service times.</p>"
 
 msgid "ExpressionBuilder.SimulationCharacteristics.Skewness"
 msgstr "Skewness"
@@ -20121,6 +20192,9 @@ msgstr "Change value"
 msgid "Statistic.FastAccess.Template.SetValue.Tooltip"
 msgstr "Changes a numerical value"
 
+msgid "Statistic.FastAccess.Template.SetupTime.ByStation"
+msgstr "Setup time by station"
+
 msgid "Statistic.FastAccess.Template.StationCosts"
 msgstr "Costs at the stations"
 
@@ -20997,6 +21071,9 @@ msgstr "Average process time"
 msgid "Statistics.AverageResidenceTime"
 msgstr "Average residence time"
 
+msgid "Statistics.AverageSetupTime"
+msgstr "Average setup time"
+
 msgid "Statistics.AverageTransferTime"
 msgstr "Average transfer time"
 
@@ -21038,6 +21115,9 @@ msgstr "Coefficient of variation of the process times"
 
 msgid "Statistics.CVResidenceTime"
 msgstr "Coefficient of variation of the residence times"
+
+msgid "Statistics.CVSetupTime"
+msgstr "Coefficient of variation of the setup times"
 
 msgid "Statistics.CVTransferTime"
 msgstr "Coefficient of variation of the transfer times"
@@ -21502,6 +21582,9 @@ msgstr "Distribution of the residence times at the stations"
 msgid "Statistics.DistributionOfStationsResidenceTimesTotal"
 msgstr "Distribution of the residence times at the stations (totaled over multiple client arrivals)"
 
+msgid "Statistics.DistributionOfStationsSetupTimes"
+msgstr "Distribution of the setup times at the stations"
+
 msgid "Statistics.DistributionOfStationsTransferTimes"
 msgstr "Distribution of the transfer times at the stations"
 
@@ -21546,6 +21629,9 @@ msgstr "Distribution of the residence times"
 
 msgid "Statistics.DistributionOfTheResidenceTimesTotal"
 msgstr "Distribution of the residence times (totaled over multiple client arrivals)"
+
+msgid "Statistics.DistributionOfTheSetupTimes"
+msgstr "Distribution of the setup times"
 
 msgid "Statistics.DistributionOfTheTransferTimes"
 msgstr "Distribution of the transfer times"
@@ -21976,6 +22062,9 @@ msgstr "Maximum process time"
 msgid "Statistics.MaximumResidenceTime"
 msgstr "Maximum residence time"
 
+msgid "Statistics.MaximumSetupTime"
+msgstr "Maximum setup time"
+
 msgid "Statistics.MaximumTransferTime"
 msgstr "Maximum transfer time"
 
@@ -22023,6 +22112,9 @@ msgstr "Minimum process time"
 
 msgid "Statistics.MinimumResidenceTime"
 msgstr "Minimum residence time"
+
+msgid "Statistics.MinimumSetupTime"
+msgstr "Minimum setup time"
 
 msgid "Statistics.MinimumTransferTime"
 msgstr "Minimum transfer time"
@@ -22356,6 +22448,15 @@ msgstr "Schedule"
 msgid "Statistics.Seconds"
 msgstr "Seconds"
 
+msgid "Statistics.SetupTime"
+msgstr "Setup times"
+
+msgid "Statistics.SetupTimes"
+msgstr "Setup times"
+
+msgid "Statistics.SetupTimesByStations"
+msgstr "Setup times by stations"
+
 msgid "Statistics.ShareInDownTime"
 msgstr "Share in down time"
 
@@ -22461,6 +22562,9 @@ msgstr "Residence times at the stations"
 msgid "Statistics.StationsResidenceTimesTotal"
 msgstr "Residence times at the stations (totaled over multiple client arrivals)"
 
+msgid "Statistics.StationsSetupTimes"
+msgstr "Setup times at the stations"
+
 msgid "Statistics.StationsTransferTimes"
 msgstr "Transfer times at the stations"
 
@@ -22502,6 +22606,9 @@ msgstr "Standard deviation of the process times"
 
 msgid "Statistics.StdDevResidenceTime"
 msgstr "Standard deviation of the residence times"
+
+msgid "Statistics.StdDevSetupTime"
+msgstr "Standard deviation of the setup times"
 
 msgid "Statistics.StdDevTransferTime"
 msgstr "Standard deviation of the transfer times"
@@ -22920,6 +23027,9 @@ msgstr "Variance of the process times"
 msgid "Statistics.VarianceResidenceTime"
 msgstr "Variance of the residence times"
 
+msgid "Statistics.VarianceSetupTime"
+msgstr "Variance of the setup times"
+
 msgid "Statistics.VarianceTransferTime"
 msgstr "Variance of the transfer times"
 
@@ -23225,6 +23335,9 @@ msgstr "StatisticsResourcesWorkTimeCosts"
 
 msgid "Statistics.XML.Element.Rho"
 msgstr "StatisticsUtilizationRho"
+
+msgid "Statistics.XML.Element.SetupStations"
+msgstr "StatisticsSetupTimesStations"
 
 msgid "Statistics.XML.Element.Simulation"
 msgstr "SimulationData"

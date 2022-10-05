@@ -1208,6 +1208,23 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 			endParagraph();
 		}
 
+		/* Rüstzeiten an den Stationen */
+
+		writeBlock=false;
+		for (String type: statistics.stationsSetupTimes.getNames()) if (((StatisticsDataPerformanceIndicator)statistics.stationsSetupTimes.get(type)).getMean()>0) {writeBlock=true; break;}
+
+		if (writeBlock) {
+			addHeading(3,Language.tr("Statistics.SetupTimesByStations")+" E[Setup]");
+			beginParagraph();
+			for (String station: statistics.stationsSetupTimes.getNames()) {
+				final StatisticsDataPerformanceIndicator indicator=((StatisticsDataPerformanceIndicator)statistics.stationsSetupTimes.get(station));
+				final double time=indicator.getMean();
+				addLine(fullStationName(station)+": E[V]="+timeAndNumber(time),xmlMean(indicator));
+			}
+			addModeLink(Mode.MODE_WAITINGPROCESSING_STATIONS);
+			endParagraph();
+		}
+
 		/* Flussgrade nach Stationen */
 
 		writeBlock=false;
@@ -2509,6 +2526,7 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 			final StatisticsDataPerformanceIndicator transferTime=(StatisticsDataPerformanceIndicator)(statistics.stationsTransferTimes.get(station));
 			final StatisticsDataPerformanceIndicator processingTime=(StatisticsDataPerformanceIndicator)(statistics.stationsProcessingTimes.get(station));
 			final StatisticsDataPerformanceIndicator residenceTime=(StatisticsDataPerformanceIndicator)(statistics.stationsResidenceTimes.get(station));
+			final StatisticsDataPerformanceIndicator setupTime=(StatisticsDataPerformanceIndicator)(statistics.stationsSetupTimes.get(station));
 			if (waitingTime.getMean()>0 || transferTime.getMean()>0 || processingTime.getMean()>0 || residenceTime.getMean()>0) {
 
 				addHeading(2,fullStationName(station));
@@ -2587,6 +2605,25 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 					outputQuantilInfoTime("V",residenceTime);
 
 					outputConfidenceData(residenceTime);
+				}
+
+				if (setupTime.getMean()>0) {
+					addHeading(3,Language.tr("Statistics.SetupTimes"));
+					beginParagraph();
+					addLine(Language.tr("Statistics.Number")+": "+NumberTools.formatLong(setupTime.getCount())+repeatInfo,xmlCount(setupTime));
+					addLine(Language.tr("Statistics.AverageSetupTime")+": E[Setup]="+timeAndNumber(setupTime.getMean()),xmlMean(setupTime));
+					addLine(Language.tr("Statistics.StdDevSetupTime")+": Std[Setup]="+timeAndNumber(setupTime.getSD()),fastAccessBuilder.getXMLSelector(setupTime,IndicatorMode.SD));
+					addLine(Language.tr("Statistics.VarianceSetupTime")+": Var[Setup]="+timeAndNumber(setupTime.getVar()));
+					addLine(Language.tr("Statistics.CVSetupTime")+": CV[Setup]="+StatisticTools.formatNumber(setupTime.getCV()),fastAccessBuilder.getXMLSelector(setupTime,IndicatorMode.CV));
+					addLine(Language.tr("Statistics.Skewness")+": Sk[Setup]="+StatisticTools.formatNumber(setupTime.getSk()),fastAccessBuilder.getXMLSelector(setupTime,IndicatorMode.Sk));
+					addLine(Language.tr("Statistics.Kurt")+": Kurt[Setup]="+StatisticTools.formatNumber(setupTime.getKurt()),fastAccessBuilder.getXMLSelector(setupTime,IndicatorMode.Kurt));
+					addLine(Language.tr("Statistics.MinimumSetupTime")+": Min[Setup]="+timeAndNumber(setupTime.getMin()),fastAccessBuilder.getXMLSelector(setupTime,IndicatorMode.MINIMUM));
+					addLine(Language.tr("Statistics.MaximumSetupTime")+": Max[Setup]="+timeAndNumber(setupTime.getMax()),fastAccessBuilder.getXMLSelector(setupTime,IndicatorMode.MAXIMUM));
+					endParagraph();
+
+					outputQuantilInfoTime("Setup",setupTime);
+
+					outputConfidenceData(setupTime);
 				}
 
 				if (processingTime.getMean()>0 && residenceTime.getMean()>0) {

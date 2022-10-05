@@ -457,6 +457,7 @@ public class StatisticViewerFastAccessDialog extends BaseDialog {
 				Language.trPrimary("XML.Statistic.BaseElement")+","+Language.trPrimary("Statistics.XML.Element.TransferStations")+","+Language.trPrimary("Statistics.XML.Station"),
 				Language.trPrimary("XML.Statistic.BaseElement")+","+Language.trPrimary("Statistics.XML.Element.ProcessStations")+","+Language.trPrimary("Statistics.XML.Station"),
 				Language.trPrimary("XML.Statistic.BaseElement")+","+Language.trPrimary("Statistics.XML.Element.ResidenceStations")+","+Language.trPrimary("Statistics.XML.Station"),
+				Language.trPrimary("XML.Statistic.BaseElement")+","+Language.trPrimary("Statistics.XML.Element.SetupStations")+","+Language.trPrimary("Statistics.XML.Station"),
 				Language.trPrimary("XML.Statistic.BaseElement")+","+Language.trPrimary("Statistics.XML.Element.WaitingStationsByClientType")+","+Language.trPrimary("Statistics.XML.Station"),
 				Language.trPrimary("XML.Statistic.BaseElement")+","+Language.trPrimary("Statistics.XML.Element.TransferStationsByClientType")+","+Language.trPrimary("Statistics.XML.Station"),
 				Language.trPrimary("XML.Statistic.BaseElement")+","+Language.trPrimary("Statistics.XML.Element.ProcessStationsByClientType")+","+Language.trPrimary("Statistics.XML.Station"),

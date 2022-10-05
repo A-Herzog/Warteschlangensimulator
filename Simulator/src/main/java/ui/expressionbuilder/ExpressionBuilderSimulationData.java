@@ -1037,6 +1037,90 @@ public class ExpressionBuilderSimulationData {
 
 		if (sub.getChildCount()>0) subgroup.add(sub);
 
+		/* Simulationskenngrößen -> Zeiten an den Stationen -> Rüstzeiten an einer Station */
+
+		sub=new DefaultMutableTreeNode(Language.tr("ExpressionBuilder.SimulationCharacteristics.SetupTimesAtStations"));
+		addTreeNode(
+				sub,
+				filterUpper,
+				Language.tr("ExpressionBuilder.SimulationCharacteristics.AverageTime")+" ("+Language.tr("ExpressionBuilder.CommandName.SetupTime")+"_avg)",
+				Language.tr("ExpressionBuilder.CommandName.SetupTime")+"_avg(id)",
+				Language.tr("ExpressionBuilder.SimulationCharacteristics.SetupTimesAtStations.AverageTime"));
+		addTreeNode(
+				sub,
+				filterUpper,
+				Language.tr("ExpressionBuilder.SimulationCharacteristics.Median")+" ("+Language.tr("ExpressionBuilder.CommandName.SetupTime")+"_median)",
+				Language.tr("ExpressionBuilder.CommandName.SetupTime")+"_median(id)",
+				Language.tr("ExpressionBuilder.SimulationCharacteristics.SetupTimesAtStations.Median"));
+		addTreeNode(
+				sub,
+				filterUpper,
+				Language.tr("ExpressionBuilder.SimulationCharacteristics.Quantil")+" ("+Language.tr("ExpressionBuilder.CommandName.SetupTime")+"_quantil)",
+				Language.tr("ExpressionBuilder.CommandName.SetupTime")+"_quantil(p;id)",
+				Language.tr("ExpressionBuilder.SimulationCharacteristics.SetupTimesAtStations.Quantil"));
+		addTreeNode(
+				sub,
+				filterUpper,
+				Language.tr("ExpressionBuilder.SimulationCharacteristics.MinimalTime")+" ("+Language.tr("ExpressionBuilder.CommandName.SetupTime")+"_min)",
+				Language.tr("ExpressionBuilder.CommandName.SetupTime")+"_min(id)",
+				Language.tr("ExpressionBuilder.SimulationCharacteristics.SetupTimesAtStations.MinimalTime"));
+		addTreeNode(
+				sub,
+				filterUpper,
+				Language.tr("ExpressionBuilder.SimulationCharacteristics.MaximalTime")+" ("+Language.tr("ExpressionBuilder.CommandName.SetupTime")+"_max)",
+				Language.tr("ExpressionBuilder.CommandName.SetupTime")+"_max(id)",
+				Language.tr("ExpressionBuilder.SimulationCharacteristics.SetupTimesAtStations.MaximalTime"));
+		addTreeNode(
+				sub,
+				filterUpper,
+				Language.tr("ExpressionBuilder.SimulationCharacteristics.VarianceOfTheTime")+" ("+Language.tr("ExpressionBuilder.CommandName.SetupTime")+"_var)",
+				Language.tr("ExpressionBuilder.CommandName.SetupTime")+"_var(id)",
+				Language.tr("ExpressionBuilder.SimulationCharacteristics.SetupTimesAtStations.VarianceOfTheTime"));
+		addTreeNode(
+				sub,
+				filterUpper,
+				Language.tr("ExpressionBuilder.SimulationCharacteristics.StandardDeviationOfTheTime")+" ("+Language.tr("ExpressionBuilder.CommandName.SetupTime")+"_std)",
+				Language.tr("ExpressionBuilder.CommandName.SetupTime")+"_std(id)",
+				Language.tr("ExpressionBuilder.SimulationCharacteristics.SetupTimesAtStations.StandardDeviationOfTheTime"));
+		addTreeNode(
+				sub,
+				filterUpper,
+				Language.tr("ExpressionBuilder.SimulationCharacteristics.CoefficientOfVariationOfTheTime")+" ("+Language.tr("ExpressionBuilder.CommandName.SetupTime")+"_cv)",
+				Language.tr("ExpressionBuilder.CommandName.SetupTime")+"_cv(id)",
+				Language.tr("ExpressionBuilder.SimulationCharacteristics.SetupTimesAtStations.CoefficientOfVariationOfTheTime"));
+		addTreeNode(
+				sub,
+				filterUpper,
+				Language.tr("ExpressionBuilder.SimulationCharacteristics.SquaredCoefficientOfVariationOfTheTime")+" ("+Language.tr("ExpressionBuilder.CommandName.SetupTime")+"_scv)",
+				Language.tr("ExpressionBuilder.CommandName.SetupTime")+"_scv(id)",
+				Language.tr("ExpressionBuilder.SimulationCharacteristics.SetupTimesAtStations.SquaredCoefficientOfVariationOfTheTime"));
+		addTreeNode(
+				sub,
+				filterUpper,
+				Language.tr("ExpressionBuilder.SimulationCharacteristics.Skewness")+" ("+Language.tr("ExpressionBuilder.CommandName.SetupTime")+"_sk)",
+				Language.tr("ExpressionBuilder.CommandName.SetupTime")+"_sk(id)",
+				Language.tr("ExpressionBuilder.SimulationCharacteristics.SetupTimesAtStations.Skewness"));
+		addTreeNode(
+				sub,
+				filterUpper,
+				Language.tr("ExpressionBuilder.SimulationCharacteristics.Kurt")+" ("+Language.tr("ExpressionBuilder.CommandName.SetupTime")+"_kurt)",
+				Language.tr("ExpressionBuilder.CommandName.SetupTime")+"_kurt(id)",
+				Language.tr("ExpressionBuilder.SimulationCharacteristics.SetupTimesAtStations.Kurt"));
+		addTreeNode(
+				sub,
+				filterUpper,
+				Language.tr("ExpressionBuilder.SimulationCharacteristics.HistogramSingle")+" ("+Language.tr("ExpressionBuilder.CommandName.SetupTime")+"_hist)",
+				Language.tr("ExpressionBuilder.CommandName.SetupTime")+"_hist(id;state)",
+				Language.tr("ExpressionBuilder.SimulationCharacteristics.SetupTimesAtStations.HistogramSingle"));
+		addTreeNode(
+				sub,
+				filterUpper,
+				Language.tr("ExpressionBuilder.SimulationCharacteristics.HistogramMultiple")+" ("+Language.tr("ExpressionBuilder.CommandName.SetupTime")+"_hist)",
+				Language.tr("ExpressionBuilder.CommandName.SetupTime")+"_hist(id;stateMin;stateMax)",
+				Language.tr("ExpressionBuilder.SimulationCharacteristics.SetupTimeAtStations.HistogramMultiple"));
+
+		if (sub.getChildCount()>0) subgroup.add(sub);
+
 		if (subgroup.getChildCount()>0) group.add(subgroup);
 
 		/* Simulationskenngrößen -> Zeiten nach Kundentypen */

@@ -632,6 +632,7 @@ public class StatisticsPanel extends StatisticsBasePanel {
 			if (statistic.stationsTransferTimes.size()>1) return true;
 			if (statistic.stationsProcessingTimes.size()>1) return true;
 			if (statistic.stationsResidenceTimes.size()>1) return true;
+			if (statistic.stationsSetupTimes.size()>1) return true;
 		}
 		return false;
 	}
@@ -795,6 +796,18 @@ public class StatisticsPanel extends StatisticsBasePanel {
 	private boolean testProcessTimes(final Statistics[] statistics) {
 		for (Statistics statistic: statistics) {
 			if (statistic.clientsAllProcessingTimes.getMax()>0) return true;
+		}
+		return false;
+	}
+
+	/**
+	 * Sind Rüstzeiten in den Statistiken enthalten?
+	 * @param statistics	Zu prüfende Statistikdaten
+	 * @return	Liefert <code>true</code>, wenn in mindestens einem Statistikobjekt Rüstzeiten enthalten sind
+	 */
+	private boolean testSetupTimes(final Statistics[] statistics) {
+		for (Statistics statistic: statistics) {
+			if (statistic.stationsSetupTimes.size()>0) return true;
 		}
 		return false;
 	}
@@ -1506,6 +1519,12 @@ public class StatisticsPanel extends StatisticsBasePanel {
 				group.addChild(new StatisticNode(Language.tr("Statistics.StationsResidenceTimes"),viewer));
 			}
 
+			if (testMultiTypesPositive(statistics,statistic->statistic.stationsSetupTimes)) {
+				viewer=new ArrayList<>();
+				for(Statistics statistic : statistics) viewer.add(new StatisticViewerTimeBarChart(statistic,StatisticViewerTimeBarChart.Mode.MODE_SETUP_STATION));
+				group.addChild(new StatisticNode(Language.tr("Statistics.StationsSetupTimes"),viewer));
+			}
+
 			if (testMultiTypesPositive(statistics,statistic->statistic.stationsProcessingTimes)) {
 				viewer=new ArrayList<>();
 				for(Statistics statistic : statistics) viewer.add(new StatisticViewerTimeBarChart(statistic,StatisticViewerTimeBarChart.Mode.MODE_FLOW_FACTOR_STATION));
@@ -1629,6 +1648,12 @@ public class StatisticsPanel extends StatisticsBasePanel {
 			for(Statistics statistic : statistics) viewer.add(new StatisticViewerTimeTable(statistic,StatisticViewerTimeTable.Mode.MODE_DISTRIBUTION_STATIONS_RESIDENCE));
 			sub.addChild(new StatisticNode(Language.tr("Statistics.DistributionOfStationsResidenceTimes"),viewer));
 
+			if (testSetupTimes(statistics)) {
+				viewer=new ArrayList<>();
+				for(Statistics statistic : statistics) viewer.add(new StatisticViewerTimeTable(statistic,StatisticViewerTimeTable.Mode.MODE_DISTRIBUTION_STATIONS_SETUP));
+				sub.addChild(new StatisticNode(Language.tr("Statistics.DistributionOfStationsSetupTimes"),viewer));
+			}
+
 			if (testWaitingTimes(statistics)) {
 				viewer=new ArrayList<>();
 				for(Statistics statistic : statistics) viewer.add(new StatisticViewerDistributionTimeLineChart(statistic,StatisticViewerDistributionTimeLineChart.Mode.MODE_WAITING_STATION));
@@ -1650,6 +1675,12 @@ public class StatisticsPanel extends StatisticsBasePanel {
 			viewer=new ArrayList<>();
 			for(Statistics statistic : statistics) viewer.add(new StatisticViewerDistributionTimeLineChart(statistic,StatisticViewerDistributionTimeLineChart.Mode.MODE_RESIDENCE_STATION));
 			sub.addChild(new StatisticNode(Language.tr("Statistics.DistributionOfStationsResidenceTimes"),viewer));
+
+			if (testSetupTimes(statistics)) {
+				viewer=new ArrayList<>();
+				for(Statistics statistic : statistics) viewer.add(new StatisticViewerDistributionTimeLineChart(statistic,StatisticViewerDistributionTimeLineChart.Mode.MODE_SETUP_STATION));
+				sub.addChild(new StatisticNode(Language.tr("Statistics.DistributionOfStationsSetupTimes"),viewer));
+			}
 
 			if (testWaitingTimes(statistics)) {
 				viewer=new ArrayList<>();

@@ -1438,6 +1438,68 @@ Liefert den Exzess (ein Maß für die Wölbung) der Verweilzeiten der Kunden, de
 
 
 
+\subsection{Rüstzeiten an einer Station}
+
+Achtung: Die Rüstzeiten werden auch als Teil der Bedienzeiten erfasst.
+
+\begin{itemize}
+
+\item
+\cmd{Rüstzeit\_avg(id)} oder \cmd{Rüstzeit\_average(id)} oder \cmd{Rüstzeit\_Mittelwert(id)}:\\
+Liefert die mittlere Rüstzeit der Kunden an Station \cm{id} (in Sekunden).
+
+\item
+\cmd{Rüstzeit\_median(id)}:\\
+Liefert den Median der Rüstzeiten der Kunden an Station \cm{id} (in Sekunden).
+
+\item
+\cmd{Rüstzeit\_quantil(p;id)}:\\
+Liefert das Quantil zur Wahrscheinlichkeit p der Rüstzeiten der Kunden an Station \cm{id} (in Sekunden).
+
+\item
+\cmd{Rüstzeit\_min(id)} oder \cmd{Rüstzeit\_Minimum(id)}:\\  
+Liefert die minimale Rüstzeit der Kunden an Station \cm{id} (in Sekunden).
+
+\item
+\cmd{Rüstzeit\_max(id)} oder \cmd{Rüstzeit\_Maximum(id)}:\\
+Liefert die maximale Rüstzeit der Kunden an Station \cm{id} (in Sekunden).
+
+\item
+\cmd{Rüstzeit\_var(id)} oder \cmd{Rüstzeit\_Varianz(id)}:\\
+Liefert die Varianz der Rüstzeiten der Kunden an Station \cm{id} (bezogen auf Sekunden).
+
+\item
+\cmd{Rüstzeit\_sd(id)} oder \cmd{Rüstzeit\_Standardabweichung(id)}:\\
+Liefert die Standardabweichung der Rüstzeiten der Kunden an Station \cm{id} (bezogen auf Sekunden).
+
+\item
+\cmd{Rüstzeit\_cv(id)}:\\
+Liefert den Variationskoeffizienten der Rüstzeiten der Kunden an Station \cm{id}.
+
+\item
+\cmd{Rüstzeit\_scv(id)}:\\
+Liefert den quadrierten Variationskoeffizienten der Rüstzeiten der Kunden an Station \cm{id}.
+
+\item
+\cmd{Rüstzeit\_sk(id)}:\\
+Liefert die Schiefe der Rüstzeiten der Kunden an Station \cm{id}.
+
+\item
+\cmd{Rüstzeit\_kurt(id)}:\\
+Liefert den Exzess (ein Maß für die Wölbung) der Rüstzeiten der Kunden an Station \cm{id}.
+
+\item
+\cmd{Rüstzeit\_hist(id;time)}:\\
+Liefert den Anteil der Werte, für den die Rüstzeit an Station \cm{id} \cm{time} Sekunden gedauert hat.
+
+\item
+\cmd{Rüstzeit\_hist(id;timeA;timeB)}:\\
+Liefert den Anteil der Werte, für den die Rüstzeit an Station \cm{id} mehr als \cm{timeA} und höchstens \cm{timeB} Sekunden gedauert hat.
+
+\end{itemize}
+
+
+
 \section{Auslastung der Ressourcen}
 
 

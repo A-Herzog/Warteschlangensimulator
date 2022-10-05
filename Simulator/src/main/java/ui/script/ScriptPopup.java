@@ -1567,6 +1567,22 @@ public class ScriptPopup {
 			}
 		}
 
+		/* Rüstzeiten */
+
+		if (statistics.stationsSetupTimes.getNames().length>1) {
+			parent.addChild(sub=new ScriptPopupItemSub(Language.tr("Statistic.FastAccess.Template.SetupTime.ByStation"),null,Images.SCRIPT_RECORD_DATA_STATION_QUEUE.getIcon()));
+			final String xmlMain=Language.tr("Statistics.XML.Element.SetupStations");
+			for (String name: statistics.stationsSetupTimes.getNames()) {
+				xmlSub=xmlMain+"->"+Language.tr("Statistics.XML.Station")+"["+Language.tr("Statistics.XML.Type")+"=\""+name+"\"]->";
+				sub.addChild(sub2=new ScriptPopupItemSub(name,null,null));
+				sub2.addChild(new ScriptPopupItemStatistics(Language.tr("Statistics.Average"),null,null,XMLMode.XML_NUMBER_TIME,xmlSub+mean,scriptMode));
+				sub2.addChild(new ScriptPopupItemStatistics(Language.tr("Statistics.StdDev"),null,null,XMLMode.XML_NUMBER_TIME,xmlSub+Std,scriptMode));
+				sub2.addChild(new ScriptPopupItemStatistics(Language.tr("Statistics.CV"),null,null,XMLMode.XML_NUMBER,xmlSub+CV,scriptMode));
+				sub2.addChild(new ScriptPopupItemStatistics(Language.tr("Statistics.Minimum"),null,null,XMLMode.XML_NUMBER_TIME,xmlSub+Min,scriptMode));
+				sub2.addChild(new ScriptPopupItemStatistics(Language.tr("Statistics.Maximum"),null,null,XMLMode.XML_NUMBER_TIME,xmlSub+Max,scriptMode));
+			}
+		}
+
 		/* Trenner */
 
 		parent.addSeparator();

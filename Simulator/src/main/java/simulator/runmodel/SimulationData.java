@@ -286,6 +286,7 @@ public class SimulationData extends SimData {
 		resetAllDataPerformanceIndicators(statistics.stationsTransferTimesByClientType);
 		resetAllDataPerformanceIndicators(statistics.stationsProcessingTimesByClientType);
 		resetAllDataPerformanceIndicators(statistics.stationsResidenceTimesByClientType);
+		resetAllDataPerformanceIndicators(statistics.stationsSetupTimes);
 		statistics.clientsInSystem.setTime(time);
 		if (time==0.0) statistics.clientsInSystem.set(0.0,0);
 		statistics.clientsInSystemQueues.setTime(time);

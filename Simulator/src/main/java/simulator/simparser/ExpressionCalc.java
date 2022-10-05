@@ -282,6 +282,19 @@ public class ExpressionCalc extends CalcSystem {
 		functions.add(new CalcSymbolStationDataResidence_hist());
 		functions.add(new CalcSymbolStationDataResidence_histAll());
 
+		functions.add(new CalcSymbolStationDataSetup_avg());
+		functions.add(new CalcSymbolStationDataSetup_median());
+		functions.add(new CalcSymbolStationDataSetup_quantil());
+		functions.add(new CalcSymbolStationDataSetup_min());
+		functions.add(new CalcSymbolStationDataSetup_max());
+		functions.add(new CalcSymbolStationDataSetup_var());
+		functions.add(new CalcSymbolStationDataSetup_std());
+		functions.add(new CalcSymbolStationDataSetup_cv());
+		functions.add(new CalcSymbolStationDataSetup_scv());
+		functions.add(new CalcSymbolStationDataSetup_sk());
+		functions.add(new CalcSymbolStationDataSetup_kurt());
+		functions.add(new CalcSymbolStationDataSetup_hist());
+
 		functions.add(new CalcSymbolAnalogValue());
 		functions.add(new CalcSymbolAnalogRate());
 		functions.add(new CalcSymbolAnalogValve());

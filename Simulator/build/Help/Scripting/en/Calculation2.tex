@@ -1449,6 +1449,68 @@ Gets the excess kurtosis of the residence times of the clients, whos name appear
 
 
 
+\subsection{Setup times at a station}
+
+Attention: The setup times are also recorded as part of the service times.
+
+\begin{itemize}
+
+\item
+\cmd{SetupTime\_avg(id)} or \cmd{SetupTime\_average(id)} or\\ \cmd{SetupTime\_Mittelwert(id)}:\\
+Gets the average setup time of the clients at station \cm{id} (in seconds).
+
+\item
+\cmd{SetupTime\_median(id)}:\\
+Gets the median of the setup times of the clients at station \cm{id} (in seconds).
+
+\item
+\cmd{SetupTime\_quantil(p;id)}:\\
+Gets the quantil for the probability p of the setup times of the clients at station \cm{id} (in seconds).
+
+\item
+\cmd{SetupTime\_min(id)} or \cmd{SetupTime\_Minimum(id)}:\\  
+Gets the minimum setup time of the clients at station \cm{id} (in seconds).
+
+\item
+\cmd{SetupTime\_max(id)} or \cmd{SetupTime\_Maximum(id)}:\\
+Gets the maximum setup time of the clients at station \cm{id} (in seconds).
+
+\item
+\cmd{SetupTime\_var(id)} or \cmd{SetupTime\_Varianz(id)}:\\
+Gets the variation of the setup times of the clients at station \cm{id} (based on seconds).
+
+\item
+\cmd{SetupTime\_sd(id)} or \cmd{SetupTime\_Standardabweichung(id)}:\\
+Gets the standard deviation of the setup times of the clients at station \cm{id} (based on seconds).
+
+\item
+\cmd{SetupTime\_cv(id)}:\\
+Gets the coefficient of variation of the setup times of the clients at station \cm{id}. 
+
+\item
+\cmd{SetupTime\_scv(id)}:\\
+Gets the squared coefficient of variation of the setup times of the clients at station \cm{id}.
+
+\item
+\cmd{SetupTime\_sk(id)}:\\
+Gets the skewness of the setup times of the clients at station \cm{id}. 
+
+\item
+\cmd{SetupTime\_kurt(id)}:\\
+Gets the excess kurtosis of the setup times of the clients at station \cm{id}. 
+
+\item
+\cmd{SetupTime\_hist(id;time)}:\\
+Gets the fraction of values for which the setup time at stations \cm{id} was \cm{time} seconds.
+
+\item
+\cmd{SetupTime\_hist(id;timeA;timeB)}:\\
+Gets the fraction of values for which the setup time at stations \cm{id} was more than \cm{timeA} and at most \cm{timeB} seconds.
+
+\end{itemize}
+
+
+
 \section{Utilization of the resources}
 
 

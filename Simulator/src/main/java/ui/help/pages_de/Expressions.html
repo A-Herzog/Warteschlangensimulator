@@ -505,7 +505,7 @@ Allen-Cunneen-Approximationsformel berechnet werden:
   
   
   
-  <tr><td colspan="2"><h3 style="margin">Anzahl an Kunden im System</h3></td></tr>
+  <tr><td colspan="2"><h3>Anzahl an Kunden im System</h3></td></tr>
 
   <tr><td>WIP()</td><td rowspan="2">Liefert die aktuelle Gesamtanzahl an Kunden im System.</td></tr>
   <tr><td>N()</td></tr>
@@ -571,7 +571,7 @@ Allen-Cunneen-Approximationsformel berechnet werden:
 
 
 
-  <tr><td colspan="2"><h3 style="margin">Anzahl an wartenden Kunden im System</h3></td></tr>
+  <tr><td colspan="2"><h3>Anzahl an wartenden Kunden im System</h3></td></tr>
 
   <tr><td>NQ()</td><td rowspan="4">Liefert die aktuelle Anzahl an Kunden in allen Warteschlange zusammen.</td></tr>   
   <tr><td>Queue()</td></tr>
@@ -655,7 +655,7 @@ Allen-Cunneen-Approximationsformel berechnet werden:
 
 
 
-  <tr><td colspan="2"><h3 style="margin">Anzahl an Kunden im System in Bedienung</h3></td></tr>
+  <tr><td colspan="2"><h3>Anzahl an Kunden im System in Bedienung</h3></td></tr>
 
   <tr><td>Process()</td><td rowspan="2">Liefert die aktuelle Anzahl an Kunden in Bedienung.</td></tr>   
   <tr><td>NS()</td></tr>
@@ -705,7 +705,7 @@ Allen-Cunneen-Approximationsformel berechnet werden:
 
 
 
-  <tr><td colspan="2"><h3 style="margin">Anzahl an Kunden an einer Station</h3></td></tr>
+  <tr><td colspan="2"><h3>Anzahl an Kunden an einer Station</h3></td></tr>
 
   <tr><td>WIP(id)</td><td rowspan="3">Liefert die aktuelle Gesamtanzahl an Kunden an Station id.</td></tr>
   <tr><td>N(id)</td></tr>
@@ -939,7 +939,7 @@ Allen-Cunneen-Approximationsformel berechnet werden:
 
 
 
-  <tr><td colspan="2"><h3 style="margin">Anzahl an Kunden eines Typs im System</h3></td></tr>
+  <tr><td colspan="2"><h3>Anzahl an Kunden eines Typs im System</h3></td></tr>
 
   <tr><td>WIP(id)</td><td rowspan="3">Liefert die aktuelle Gesamtanzahl an Kunden, deren Name an Quelle bzw. Namenszuweisung id auftritt.</td></tr>
   <tr><td>N(id)</td></tr>
@@ -1014,7 +1014,7 @@ Allen-Cunneen-Approximationsformel berechnet werden:
 
 
 
-  <tr><td colspan="2"><h3 style="margin">Anzahl an wartenden Kunden eines Typs im System</h3></td></tr>
+  <tr><td colspan="2"><h3>Anzahl an wartenden Kunden eines Typs im System</h3></td></tr>
   
   <tr><td>NQ(id)</td><td rowspan="4">Liefert die aktuelle Anzahl an wartenden Kunden, deren Name an Quelle bzw. Namenszuweisung id auftritt.</td></tr>   
   <tr><td>Queue(id)</td></tr>
@@ -1108,7 +1108,7 @@ Allen-Cunneen-Approximationsformel berechnet werden:
   
   
   
-  <tr><td colspan="2"><h3 style="margin">Anzahl an Kunden eines Typs in Bedienung</h3></td></tr>
+  <tr><td colspan="2"><h3>Anzahl an Kunden eines Typs in Bedienung</h3></td></tr>
 
   <tr><td>Process_avg(id)</td><td rowspan="4">Liefert die mittlere Anzahl an Kunden in Bedienung, deren Name an Quelle bzw. Namenszuweisung id auftritt.</td></tr>
   <tr><td>NS_avg(id)</td></tr>
@@ -1640,6 +1640,44 @@ Allen-Cunneen-Approximationsformel berechnet werden:
   <tr><td>Verweilzeit_sk(id)</td><td>Liefert die Schiefe der Verweilzeiten der Kunden, deren Name an Quelle bzw. Namenszuweisung id auftritt.</td></tr>
   
   <tr><td>Verweilzeit_kurt(id)</td><td>Liefert den Exzess (ein Maß für die Wölbung) der Verweilzeiten der Kunden, deren Name an Quelle bzw. Namenszuweisung id auftritt.</td></tr>
+
+
+
+  <tr><td colspan="2"><h3>Rüstzeiten an einer Station</h3></td></tr>
+  
+  <tr><td colspan="2">(Achtung: Die Rüstzeiten werden auch als Teil der Bedienzeiten erfasst.)</td></tr>
+
+  <tr><td>Rüstzeit_avg(id)</td><td rowspan="3">Liefert die mittlere Rüstzeit der Kunden an Bedienstation id (in Sekunden).</td></tr>
+  <tr><td>Rüstzeit_average(id)</td></tr>
+  <tr><td>Rüstzeit_Mittelwert(id)</td></tr>
+  
+  <tr><td>Rüstzeit_median(id)</td><td rowspan="1">Liefert den Median der Rüstzeiten der Kunden an Bedienstation id (in Sekunden).</td></tr>
+  
+  <tr><td>Rüstzeit_quantil(p;id)</td><td rowspan="1">Liefert das Quantil zur Wahrscheinlichkeit p der Rüstzeiten der Kunden an Bedienstation id (in Sekunden).</td></tr>
+  
+  <tr><td>Rüstzeit_min(id)</td><td rowspan="2">Liefert die minimale Rüstzeit der Kunden an Bedienstation id (in Sekunden).</td></tr>
+  <tr><td>Rüstzeit_Minimum(id)</td></tr>
+  
+  <tr><td>Rüstzeit_max(id)</td><td rowspan="2">Liefert die maximale Rüstzeit der Kunden an Bedienstation id (in Sekunden).</td></tr>
+  <tr><td>Rüstzeit_Maximum(id)</td></tr>
+  
+  <tr><td>Rüstzeit_var(id)</td><td rowspan="2">Liefert die Varianz der Rüstzeiten der Kunden an Bedienstation id (bezogen auf Sekunden).</td></tr>
+  <tr><td>Rüstzeit_Varianz(id)</td></tr>
+  
+  <tr><td>Rüstzeit_sd(id)</td><td rowspan="2">Liefert die Standardabweichung der Rüstzeiten der Kunden an Bedienstation id (bezogen auf Sekunden).</td></tr>
+  <tr><td>Rüstzeit_Standardabweichung(id)</td></tr>
+  
+  <tr><td>Rüstzeit_cv(id)</td><td>Liefert den Variationskoeffizienten der Rüstzeiten der Kunden an Bedienstation id.</td></tr>
+  
+  <tr><td>Rüstzeit_scv(id)</td><td>Liefert den quadrierten Variationskoeffizienten der Rüstzeiten der Kunden an Bedienstation id.</td></tr>
+  
+  <tr><td>Rüstzeit_sk(id)</td><td>Liefert die Schiefe der Rüstzeiten der Kunden an Bedienstation id.</td></tr>
+  
+  <tr><td>Rüstzeit_kurt(id)</td><td>Liefert den Exzess (ein Maß für die Wölbung) der Rüstzeiten der Kunden an Bedienstation id.</td></tr>
+  
+  <tr><td>Rüstzeit_hist(id;time)</td><td>Liefert den Anteil der Kunden, für den die Rüstzeit an Bedienstation id time Sekunden gedauert hat.</td></tr>
+
+  <tr><td>Rüstzeit_hist(id;timeA;timeB)</td><td>Liefert den Anteil der Kunden, für den die Rüstzeit an Bedienstation id mehr als timeA und höchstens timeB Sekunden gedauert hat.</td></tr>
 
 
 

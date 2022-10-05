@@ -1967,6 +1967,7 @@
   <xs:element ref="StatistikTransferzeitenStationen"/>
   <xs:element ref="StatistikBedienzeitenStationen"/>
   <xs:element ref="StatistikVerweilzeitenStationen"/>
+  <xs:element ref="StatistikRuestzeitenStationen"/>
   <xs:element ref="StatistikWartezeitenStationenKunden"/>
   <xs:element ref="StatistikTransferzeitenStationenKunden"/>
   <xs:element ref="StatistikBedienzeitenStationenKunden"/>
@@ -2187,6 +2188,7 @@
 <xs:element name="StatistikTransferzeitenStationen" type="StatistikStationBasis"/>
 <xs:element name="StatistikBedienzeitenStationen" type="StatistikStationBasis"/>
 <xs:element name="StatistikVerweilzeitenStationen" type="StatistikStationBasis"/>
+<xs:element name="StatistikRuestzeitenStationen" type="StatistikStationBasis"/>
 <xs:element name="StatistikWartezeitenStationenKunden" type="StatistikStationBasis"/>
 <xs:element name="StatistikTransferzeitenStationenKunden" type="StatistikStationBasis"/>
 <xs:element name="StatistikBedienzeitenStationenKunden" type="StatistikStationBasis"/>
@@ -4313,6 +4315,7 @@
   <xs:element ref="StatisticsTransferTimesStations"/>
   <xs:element ref="StatisticsProcessTimesStations"/>  
   <xs:element ref="StatisticsResidenceTimesStations"/>
+  <xs:element ref="StatisticsSetupTimesStations"/>
   <xs:element ref="StatisticsWaitingTimesStationsClients"/>
   <xs:element ref="StatisticsTransferTimesStationsClients"/>
   <xs:element ref="StatisticsProcessTimesStationsClients"/>
@@ -4533,6 +4536,7 @@
 <xs:element name="StatisticsTransferTimesStations" type="StatisticsStationBase"/>
 <xs:element name="StatisticsProcessTimesStations" type="StatisticsStationBase"/>
 <xs:element name="StatisticsResidenceTimesStations" type="StatisticsStationBase"/>
+<xs:element name="StatisticsSetupTimesStations" type="StatisticsStationBase"/>
 <xs:element name="StatisticsWaitingTimesStationsClients" type="StatisticsStationBase"/>
 <xs:element name="StatisticsTransferTimesStationsClients" type="StatisticsStationBase"/>
 <xs:element name="StatisticsProcessTimesStationsClients" type="StatisticsStationBase"/>

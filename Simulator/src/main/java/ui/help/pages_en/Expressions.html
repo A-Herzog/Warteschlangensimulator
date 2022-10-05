@@ -1642,6 +1642,44 @@ using the Allen-Cunneen approximation formula:
 
 
 
+  <tr><td colspan="2"><h3>Setup times at a station</h3></td></tr>
+  
+  <tr><td colspan="2">(Attention: The setup times are also recorded as part of the service times.)</td></tr>
+
+  <tr><td>SetupTime_avg(id)</td><td rowspan="3">Gets the average setup time of the clients at process station id (in seconds).</td></tr>
+  <tr><td>SetupTime_average(id)</td></tr>
+  <tr><td>SetupTime_Mittelwert(id)</td></tr>
+  
+  <tr><td>SetupTime_median(id)</td><td rowspan="1">Gets the median of the setup times of the clients at process station id (in seconds).</td></tr>
+  
+  <tr><td>SetupTime_quantil(p;id)</td><td rowspan="1">Gets the quantil for the probability p of the setup times of the clients at process station id (in seconds).</td></tr>
+  
+  <tr><td>SetupTime_min(id)</td><td rowspan="2">Gets the minimum setup time of the clients at process station id (in seconds).</td></tr>
+  <tr><td>SetupTime_Minimum(id)</td></tr>
+  
+  <tr><td>SetupTime_max(id)</td><td rowspan="2">Gets the maximum setup time of the clients at process station id (in seconds).</td></tr>
+  <tr><td>SetupTime_Maximum(id)</td></tr>
+  
+  <tr><td>SetupTime_var(id)</td><td rowspan="2">Gets the variation of the setup times of the clients at process station id (based on seconds).</td></tr>
+  <tr><td>SetupTime_Varianz(id)</td></tr>
+  
+  <tr><td>SetupTime_sd(id)</td><td rowspan="2">Gets the standard deviation of the setup times of the clients at process station id (based on seconds).</td></tr>
+  <tr><td>SetupTime_Standardabweichung(id)</td></tr>
+  
+  <tr><td>SetupTime_cv(id)</td><td>Gets the coefficient of variation of the setup times of the clients at process station id.</td></tr>
+  
+  <tr><td>SetupTime_scv(id)</td><td>Gets the squared coefficient of variation of the setup times of the clients at process station id.</td></tr>
+  
+  <tr><td>SetupTime_sk(id)</td><td>Gets the skewness of the setup times of the clients at process station id.</td></tr>
+  
+  <tr><td>SetupTime_kurt(id)</td><td>Gets the excess kurtosis of the setup times of the clients at process station id.</td></tr>
+  
+  <tr><td>SetupTime_hist(id;time)</td><td>Gets the fraction of clients for which the setup time at stations id was time seconds.</td></tr>
+
+  <tr><td>SetupTime_hist(id;timeA;timeB)</td><td>Gets the fraction of clients for which the setup time at stations id was more than timeA and at most timeB seconds.</td></tr>
+
+
+
   <tr><td colspan="2"><h3>Utilization of a resource</h3></td></tr>
   
   <tr><td>resource_count(id)</td><td rowspan="3">Gets the number of currently existing operators in the specified resource.</td></tr>

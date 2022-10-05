@@ -262,6 +262,11 @@ public class Statistics extends StatisticsBase {
 	 */
 	public final StatisticsMultiPerformanceIndicator stationsResidenceTimesByClientType;
 
+	/**
+	 * Rüstzeiten an den Bedienstationen
+	 */
+	public final StatisticsMultiPerformanceIndicator stationsSetupTimes;
+
 	/* ====================================================
 	 * Anzahlen an Kunden
 	 * ====================================================
@@ -638,6 +643,7 @@ public class Statistics extends StatisticsBase {
 		addPerformanceIndicator(stationsTransferTimesByClientType=new StatisticsMultiPerformanceIndicator(Language.trAll("Statistics.XML.Element.TransferStationsByClientType"),new StatisticsDataPerformanceIndicator(nameStation,secondsToRecordInDistributions,timeSteps,-1,batchSize,useWelford,true)));
 		addPerformanceIndicator(stationsProcessingTimesByClientType=new StatisticsMultiPerformanceIndicator(Language.trAll("Statistics.XML.Element.ProcessStationsByClientType"),new StatisticsDataPerformanceIndicator(nameStation,secondsToRecordInDistributions,timeSteps,-1,batchSize,useWelford,true)));
 		addPerformanceIndicator(stationsResidenceTimesByClientType=new StatisticsMultiPerformanceIndicator(Language.trAll("Statistics.XML.Element.ResidenceStationsByClientType"),new StatisticsDataPerformanceIndicator(nameStation,secondsToRecordInDistributions,timeSteps,-1,batchSize,useWelford,true)));
+		addPerformanceIndicator(stationsSetupTimes=new StatisticsMultiPerformanceIndicator(Language.trAll("Statistics.XML.Element.SetupStations"),new StatisticsDataPerformanceIndicator(nameStation,secondsToRecordInDistributions,timeSteps,rangeFull,batchSize,useWelford,true)));
 
 		/* Anzahlen an Kunden */
 		addPerformanceIndicator(clientsInSystem=new StatisticsTimePerformanceIndicator(Language.trAll("Statistics.XML.Element.ClientsInSystem")));

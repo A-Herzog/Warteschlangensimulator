@@ -91,6 +91,8 @@ public class StatisticViewerDistributionTimeLineChart extends StatisticViewerLin
 		MODE_PROCESSING_STATION,
 		/** Verteilungsdiagramm der an den Stationen aufgetretenen Verweilzeiten */
 		MODE_RESIDENCE_STATION,
+		/** Verteilungsdiagramm der an den Stationen aufgetretenen Rüstzeiten */
+		MODE_SETUP_STATION,
 		/** Verteilungsdiagramm der an den Stationen aufgetretenen Wartezeiten (Einzelzeiten der Kunden summiert) */
 		MODE_WAITING_STATION_TOTAL,
 		/** Verteilungsdiagramm der an den Stationen aufgetretenen Transportzeiten (Einzelzeiten der Kunden summiert) */
@@ -399,6 +401,10 @@ public class StatisticViewerDistributionTimeLineChart extends StatisticViewerLin
 			break;
 		case MODE_RESIDENCE_STATION:
 			requestDiagrammTimeDistribution(Language.tr("Statistics.DistributionOfTheResidenceTimes"),statistics.stationsResidenceTimes,Language.tr("Statistics.ResidenceTime"),null);
+			addDescription("PlotTimeDistribution");
+			break;
+		case MODE_SETUP_STATION:
+			requestDiagrammTimeDistribution(Language.tr("Statistics.DistributionOfTheSetupTimes"),statistics.stationsSetupTimes,Language.tr("Statistics.SetupTime"),null);
 			addDescription("PlotTimeDistribution");
 			break;
 		case MODE_WAITING_STATION_TOTAL:

@@ -101,6 +101,8 @@ public class StatisticViewerTimeBarChart extends StatisticViewerBarChart {
 		MODE_PROCESSING_STATION,
 		/** Balkendiagramm zum Vergleich der mittleren Verweilzeiten zwischen den Stationen */
 		MODE_RESIDENCE_STATION,
+		/** Balkendiagramm zum Vergleich der mittleren Rüstzeiten zwischen den Stationen */
+		MODE_SETUP_STATION,
 		/** Balkendiagramm zum Vergleich der mittleren Wartezeiten zwischen den Stationen (Einzelzeiten der Kunden summiert) */
 		MODE_WAITING_STATION_TOTAL,
 		/** Balkendiagramm zum Vergleich der mittleren Transportzeiten zwischen den Stationen (Einzelzeiten der Kunden summiert) */
@@ -522,6 +524,10 @@ public class StatisticViewerTimeBarChart extends StatisticViewerBarChart {
 			break;
 		case MODE_RESIDENCE_STATION:
 			chartRequest(Language.tr("Statistics.ResidenceTimes"),Language.tr("Statistics.Station"),statistics.stationsResidenceTimes,null,false);
+			addDescription("PlotBarCompareStations");
+			break;
+		case MODE_SETUP_STATION:
+			chartRequest(Language.tr("Statistics.SetupTimes"),Language.tr("Statistics.Station"),statistics.stationsSetupTimes,null,false);
 			addDescription("PlotBarCompareStations");
 			break;
 		case MODE_WAITING_STATION_TOTAL:

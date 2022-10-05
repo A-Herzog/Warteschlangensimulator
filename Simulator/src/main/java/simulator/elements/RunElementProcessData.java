@@ -30,6 +30,7 @@ import simulator.events.WaitingCancelEvent;
 import simulator.runmodel.RunDataClient;
 import simulator.runmodel.SimulationData;
 import simulator.simparser.ExpressionCalc;
+import statistics.StatisticsDataPerformanceIndicator;
 
 /**
  * Laufzeitdaten eines <code>RunElementProcess</code>-Laufzeit-Objekts
@@ -125,6 +126,11 @@ public class RunElementProcessData extends RunElementData implements RunElementD
 	 * Wurden überhaupt Kosten definiert?
 	 */
 	public final boolean hasCosts;
+
+	/**
+	 * Statistikobjekt für die Rüstzeiten (wird erst bei Bedarf initialisiert)
+	 */
+	public StatisticsDataPerformanceIndicator setupTimes;
 
 	/**
 	 * Kundentyp des Kunden dessen Bedienung

@@ -38,6 +38,7 @@ import simulator.runmodel.RunDataClient;
 import simulator.runmodel.RunModel;
 import simulator.runmodel.SimulationData;
 import simulator.simparser.ExpressionCalc;
+import statistics.StatisticsDataPerformanceIndicator;
 import ui.modeleditor.coreelements.ModelElement;
 import ui.modeleditor.elements.ModelElementProcess;
 import ui.modeleditor.elements.ModelElementSub;
@@ -519,6 +520,10 @@ public class RunElementProcess extends RunElement implements FreeResourcesListen
 		case PROCESS_TYPE_NOTHING: /* nicht erfassen */ break;
 		}
 		selected.lastAlternative=resourceAlternative+1;
+
+		/* Rüstzeiten in Statistik */
+		if (processData.setupTimes==null) processData.setupTimes=(StatisticsDataPerformanceIndicator)simData.statistics.stationsSetupTimes.get(name);
+		processData.setupTimes.add(setupTime);
 
 		/* Weiterleitung zu nächster Station nach Bedienzeit-Ende */
 		final StationLeaveEvent leaveEvent=StationLeaveEvent.addLeaveEvent(simData,selected,this,setupTimeMS+processingTimeMS);

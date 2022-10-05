@@ -131,6 +131,8 @@ public class StatisticViewerTimeTable extends StatisticViewerBaseTable {
 		MODE_DISTRIBUTION_STATIONS_PROCESSING,
 		/** Verteilung der Verweilzeiten an den Stationen */
 		MODE_DISTRIBUTION_STATIONS_RESIDENCE,
+		/** Verteilung der Rüstzeiten an den Stationen */
+		MODE_DISTRIBUTION_STATIONS_SETUP,
 		/** Verteilung der Wartezeiten an den Stationen (Einzelzeiten der Kunden summiert) */
 		MODE_DISTRIBUTION_STATIONS_WAITING_TOTAL,
 		/** Verteilung der Transportzeiten an den Stationen (Einzelzeiten der Kunden summiert) */
@@ -1247,6 +1249,7 @@ public class StatisticViewerTimeTable extends StatisticViewerBaseTable {
 		case MODE_DISTRIBUTION_STATIONS_TRANSFER: buildTimesDistributionTable(statistics.stationsTransferTimes,Language.tr("Statistics.Seconds")); break;
 		case MODE_DISTRIBUTION_STATIONS_PROCESSING: buildTimesDistributionTable(statistics.stationsProcessingTimes,Language.tr("Statistics.Seconds")); break;
 		case MODE_DISTRIBUTION_STATIONS_RESIDENCE: buildTimesDistributionTable(statistics.stationsResidenceTimes,Language.tr("Statistics.Seconds")); break;
+		case MODE_DISTRIBUTION_STATIONS_SETUP: buildTimesDistributionTable(statistics.stationsSetupTimes,Language.tr("Statistics.Seconds")); break;
 		case MODE_DISTRIBUTION_STATIONS_WAITING_TOTAL: buildTimesDistributionTable(statistics.stationsTotalWaitingTimes,Language.tr("Statistics.Seconds")); break;
 		case MODE_DISTRIBUTION_STATIONS_TRANSFER_TOTAL: buildTimesDistributionTable(statistics.stationsTotalTransferTimes,Language.tr("Statistics.Seconds")); break;
 		case MODE_DISTRIBUTION_STATIONS_PROCESSING_TOTAL: buildTimesDistributionTable(statistics.stationsTotalProcessingTimes,Language.tr("Statistics.Seconds")); break;

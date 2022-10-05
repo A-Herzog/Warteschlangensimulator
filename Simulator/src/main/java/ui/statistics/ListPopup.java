@@ -440,6 +440,22 @@ public class ListPopup {
 			}
 		}
 
+		/* Rüstzeiten */
+
+		if (statistics.stationsSetupTimes.getNames().length>1) {
+			sub=getSubList(list,Language.tr("Statistic.FastAccess.Template.SetupTime.ByStation"),null,Images.SCRIPT_RECORD_DATA_STATION.getIcon());
+			final String xmlMain=Language.tr("Statistics.XML.Element.SetupStations");
+			for (String name: statistics.stationsSetupTimes.getNames()) {
+				xmlSub=xmlMain+"->"+Language.tr("Statistics.XML.Station")+"["+Language.tr("Statistics.XML.Type")+"=\""+name+"\"]->";
+				sub2=getSubList(sub,name,null,null);
+				tryAddRecord(sub2,allowAdd,Language.tr("Statistics.Average"),null,null,XMLMode.XML_NUMBER_TIME,xmlSub+mean);
+				tryAddRecord(sub2,allowAdd,Language.tr("Statistics.StdDev"),null,null,XMLMode.XML_NUMBER_TIME,xmlSub+Std);
+				tryAddRecord(sub2,allowAdd,Language.tr("Statistics.CV"),null,null,XMLMode.XML_NUMBER,xmlSub+CV);
+				tryAddRecord(sub2,allowAdd,Language.tr("Statistics.Minimum"),null,null,XMLMode.XML_NUMBER_TIME,xmlSub+Min);
+				tryAddRecord(sub2,allowAdd,Language.tr("Statistics.Maximum"),null,null,XMLMode.XML_NUMBER_TIME,xmlSub+Max);
+			}
+		}
+
 		/* Trenner */
 
 		list.add(null);

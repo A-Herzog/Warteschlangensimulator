@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-10-01 18:31+0200\n"
+"POT-Creation-Date: 2022-10-04 10:25+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -5389,6 +5389,9 @@ msgstr "Verweilzeit"
 msgid "ExpressionBuilder.CommandName.Resource"
 msgstr "Resource"
 
+msgid "ExpressionBuilder.CommandName.SetupTime"
+msgstr "Rüstzeit"
+
 msgid "ExpressionBuilder.CommandName.TransferTime"
 msgstr "Transferzeit"
 
@@ -7043,6 +7046,74 @@ msgstr ""
 
 msgid "ExpressionBuilder.SimulationCharacteristics.Resources"
 msgstr "Ressourcen"
+
+msgid "ExpressionBuilder.SimulationCharacteristics.SetupTimeAtStations.HistogramMultiple"
+msgstr ""
+"<p>Liefert den Anteil der Rüsrzeit-Werte, der an der Bedienstation, deren ID in dem Parameter angegeben wurde, in einen bestimmten Zeitbereich (in Sekunden) liegt (ausschließlich der unteren angegebenen und einschließlich der oberen angegebenen Grenze).</p>\n"
+"<p>Achtung: Die Rüstzeiten werden auch als Teil der Bedienzeiten erfasst.</p>"
+
+msgid "ExpressionBuilder.SimulationCharacteristics.SetupTimesAtStations"
+msgstr "Rüstzeiten an einer Station"
+
+msgid "ExpressionBuilder.SimulationCharacteristics.SetupTimesAtStations.AverageTime"
+msgstr ""
+"<p>Liefert die mittlere Dauer über alle Rüstzeiten, die an der Bedienstation, deren ID in dem Parameter angegeben wurde, entstanden sind.</p>\n"
+"<p>Achtung: Die Rüstzeiten werden auch als Teil der Bedienzeiten erfasst.</p>"
+
+msgid "ExpressionBuilder.SimulationCharacteristics.SetupTimesAtStations.CoefficientOfVariationOfTheTime"
+msgstr ""
+"<p>Liefert den Variationskoeffizienten über alle Rüstzeiten, die an der Bedienstation, deren ID in dem Parameter angegeben wurde, entstanden sind.</p>\n"
+"<p>Achtung: Die Rüstzeiten werden auch als Teil der Bedienzeiten erfasst.</p>"
+
+msgid "ExpressionBuilder.SimulationCharacteristics.SetupTimesAtStations.HistogramSingle"
+msgstr ""
+"<p>Liefert den Anteil der Werte, der an der Bedienstation, deren ID in dem Parameter angegeben wurde, eine bestimmte Sekundenanzahl als Rüstzeit erreicht hat.</p>\n"
+"<p>Achtung: Die Rüstzeiten werden auch als Teil der Bedienzeiten erfasst.</p>"
+
+msgid "ExpressionBuilder.SimulationCharacteristics.SetupTimesAtStations.Kurt"
+msgstr ""
+"<p>Liefert den Exzess (Wölbung) über alle Rüstzeiten, die an der Bedienstation, deren ID in dem Parameter angegeben wurde, entstanden sind.</p>\n"
+"<p>Achtung: Die Rüstzeiten werden auch als Teil der Bedienzeiten erfasst.</p>"
+
+msgid "ExpressionBuilder.SimulationCharacteristics.SetupTimesAtStations.MaximalTime"
+msgstr ""
+"<p>Liefert die maximale Rüstzeit, die bisher an der Bedienstation, deren ID in dem Parameter angegeben wurde, entstanden ist.</p>\n"
+"<p>Achtung: Die Rüstzeiten werden auch als Teil der Bedienzeiten erfasst.</p>"
+
+msgid "ExpressionBuilder.SimulationCharacteristics.SetupTimesAtStations.Median"
+msgstr ""
+"<p>Liefert den Median der Dauer über alle Rüstzeiten, die an der Bedienstation, deren ID in dem Parameter angegeben wurde, entstanden sind.</p>\n"
+"<p>Achtung: Die Rüstzeiten werden auch als Teil der Bedienzeiten erfasst.</p>"
+
+msgid "ExpressionBuilder.SimulationCharacteristics.SetupTimesAtStations.MinimalTime"
+msgstr ""
+"<p>Liefert die minimale Rüstzeit, die bisher an der Bedienstation, deren ID in dem Parameter angegeben wurde, entstanden ist.</p>\n"
+"<p>Achtung: Die Rüstzeiten werden auch als Teil der Bedienzeiten erfasst.</p>"
+
+msgid "ExpressionBuilder.SimulationCharacteristics.SetupTimesAtStations.Quantil"
+msgstr ""
+"<p>Liefert das Quantil zur Wahrscheinlichkeit p der Dauer über alle Rüstzeiten, die an der Bedienstation, deren ID in dem Parameter angegeben wurde, entstanden sind.</p>\n"
+"<p>Achtung: Die Rüstzeiten werden auch als Teil der Bedienzeiten erfasst.</p>"
+
+msgid "ExpressionBuilder.SimulationCharacteristics.SetupTimesAtStations.Skewness"
+msgstr ""
+"<p>Liefert die Schiefe über alle Rüstzeiten, die an der Bedienstation, deren ID in dem Parameter angegeben wurde, entstanden sind.</p>\n"
+"<p>Achtung: Die Rüstzeiten werden auch als Teil der Bedienzeiten erfasst.</p>"
+
+msgid "ExpressionBuilder.SimulationCharacteristics.SetupTimesAtStations.SquaredCoefficientOfVariationOfTheTime"
+msgstr ""
+"<p>Liefert den quadrierten Variationskoeffizienten über alle Rüstzeiten, die an der Bedienstation, deren ID in dem Parameter angegeben wurde, entstanden sind.</p>\n"
+"<p>Achtung: Die Rüstzeiten werden auch als Teil der Bedienzeiten erfasst.</p>"
+
+msgid "ExpressionBuilder.SimulationCharacteristics.SetupTimesAtStations.StandardDeviationOfTheTime"
+msgstr ""
+"<p>Liefert die Standardabweichung über alle Rüstzeiten, die an der Bedienstation, deren ID in dem Parameter angegeben wurde, entstanden sind.</p>\n"
+"<p>Achtung: Die Rüstzeiten werden auch als Teil der Bedienzeiten erfasst.</p>"
+
+msgid "ExpressionBuilder.SimulationCharacteristics.SetupTimesAtStations.VarianceOfTheTime"
+msgstr ""
+"<p>Liefert die Varianz über alle Rüstzeiten, die an der Bedienstation, deren ID in dem Parameter angegeben wurde, entstanden sind.</p>\n"
+"<p>Achtung: Die Rüstzeiten werden auch als Teil der Bedienzeiten erfasst.</p>"
 
 msgid "ExpressionBuilder.SimulationCharacteristics.Skewness"
 msgstr "Schiefe"
@@ -20134,6 +20205,9 @@ msgstr "Zahlenwert einstellen"
 msgid "Statistic.FastAccess.Template.SetValue.Tooltip"
 msgstr "Ändert den Zahlenwert einer Eigenschaft"
 
+msgid "Statistic.FastAccess.Template.SetupTime.ByStation"
+msgstr "Rüstzeit an einer Station"
+
 msgid "Statistic.FastAccess.Template.StationCosts"
 msgstr "Kosten an den Stationen"
 
@@ -21012,6 +21086,9 @@ msgstr "Mittlere Bedienzeit"
 msgid "Statistics.AverageResidenceTime"
 msgstr "Mittlere Verweilzeit"
 
+msgid "Statistics.AverageSetupTime"
+msgstr "Mittlere Rüstzeit"
+
 msgid "Statistics.AverageTransferTime"
 msgstr "Mittlere Transferzeit"
 
@@ -21053,6 +21130,9 @@ msgstr "Variationskoeffizient der Bedienzeiten"
 
 msgid "Statistics.CVResidenceTime"
 msgstr "Variationskoeffizient der Verweilzeiten"
+
+msgid "Statistics.CVSetupTime"
+msgstr "Variationskoeffizient der Rüstzeiten"
 
 msgid "Statistics.CVTransferTime"
 msgstr "Variationskoeffizient der Transferzeiten"
@@ -21517,6 +21597,9 @@ msgstr "Verteilung der Verweilzeiten an den Stationen"
 msgid "Statistics.DistributionOfStationsResidenceTimesTotal"
 msgstr "Verteilung der Verweilzeiten an den Stationen (summiert über mehrfache Kundenankünfte)"
 
+msgid "Statistics.DistributionOfStationsSetupTimes"
+msgstr "Verteilung der Rüstzeiten an den Stationen"
+
 msgid "Statistics.DistributionOfStationsTransferTimes"
 msgstr "Verteilung der Transferzeiten an den Stationen"
 
@@ -21561,6 +21644,9 @@ msgstr "Verteilung der Verweilzeiten"
 
 msgid "Statistics.DistributionOfTheResidenceTimesTotal"
 msgstr "Verteilung der Verweilzeiten (summiert über mehrfache Kundenankünfte)"
+
+msgid "Statistics.DistributionOfTheSetupTimes"
+msgstr "Verteilung der Rüstzeiten"
 
 msgid "Statistics.DistributionOfTheTransferTimes"
 msgstr "Verteilung der Transferzeiten"
@@ -21991,6 +22077,9 @@ msgstr "Maximale Bedienzeit"
 msgid "Statistics.MaximumResidenceTime"
 msgstr "Maximale Verweilzeit"
 
+msgid "Statistics.MaximumSetupTime"
+msgstr "Maximale Rüstzeit"
+
 msgid "Statistics.MaximumTransferTime"
 msgstr "Maximale Transferzeit"
 
@@ -22038,6 +22127,9 @@ msgstr "Minimale Bedienzeit"
 
 msgid "Statistics.MinimumResidenceTime"
 msgstr "Minimale Verweilzeit"
+
+msgid "Statistics.MinimumSetupTime"
+msgstr "Minimale Rüstzeit"
 
 msgid "Statistics.MinimumTransferTime"
 msgstr "Minimale Transferzeit"
@@ -22371,6 +22463,15 @@ msgstr "Zeitplan"
 msgid "Statistics.Seconds"
 msgstr "Sekunden"
 
+msgid "Statistics.SetupTime"
+msgstr "Rüstzeit"
+
+msgid "Statistics.SetupTimes"
+msgstr "Rüstzeiten"
+
+msgid "Statistics.SetupTimesByStations"
+msgstr "Rüstzeiten nach Stationen"
+
 msgid "Statistics.ShareInDownTime"
 msgstr "Anteil in Pause"
 
@@ -22476,6 +22577,9 @@ msgstr "Verweilzeiten an den Stationen"
 msgid "Statistics.StationsResidenceTimesTotal"
 msgstr "Verweilzeiten an den Stationen(summiert über mehrfache Kundenankünfte)"
 
+msgid "Statistics.StationsSetupTimes"
+msgstr "Rüstzeiten an den Stationen"
+
 msgid "Statistics.StationsTransferTimes"
 msgstr "Transferzeiten an den Stationen"
 
@@ -22517,6 +22621,9 @@ msgstr "Standardabweichung der Bedienzeiten"
 
 msgid "Statistics.StdDevResidenceTime"
 msgstr "Standardabweichung der Verweilzeiten"
+
+msgid "Statistics.StdDevSetupTime"
+msgstr "Standardabweichung der Rüstzeiten"
 
 msgid "Statistics.StdDevTransferTime"
 msgstr "Standardabweichung der Transferzeiten"
@@ -22935,6 +23042,9 @@ msgstr "Varianz der Bedienzeiten"
 msgid "Statistics.VarianceResidenceTime"
 msgstr "Varianz der Verweilzeiten"
 
+msgid "Statistics.VarianceSetupTime"
+msgstr "Varianz der Rüstzeiten"
+
 msgid "Statistics.VarianceTransferTime"
 msgstr "Varianz der Transferzeiten"
 
@@ -23240,6 +23350,9 @@ msgstr "StatistikRessourcenAuslastungsKosten"
 
 msgid "Statistics.XML.Element.Rho"
 msgstr "StatistikAuslastungRho"
+
+msgid "Statistics.XML.Element.SetupStations"
+msgstr "StatistikRuestzeitenStationen"
 
 msgid "Statistics.XML.Element.Simulation"
 msgstr "Simulation"
