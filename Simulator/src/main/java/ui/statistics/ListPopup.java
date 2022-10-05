@@ -43,6 +43,12 @@ import ui.modeleditor.ModelResource;
  * @author Alexander Herzog
  */
 public class ListPopup {
+	/**
+	 * Maximalanzahl an Einträgen in einem Popupmenü
+	 * auf einer unteren Ebene
+	 */
+	private static final int MAX_ITEMS_PER_MENU=45;
+
 	/** Element unter dem das Popup-Menü eingeblendet werden soll */
 	private final Component owner;
 	/** Hilfe-Runnable */
@@ -856,13 +862,13 @@ public class ListPopup {
 	}
 
 	/**
-	 * Erstellt ein Untermenü
+	 * Erstellt ein Untermenü in Ebene 2 oder höher
 	 * @param parent	Übergeordnetes Menü
 	 * @param main	Wurzel-Script-Helper-Objekt
 	 * @param listener	Liste der Unterpunkte
 	 * @return	Liefert <code>true</code>, wenn Einträge hinzugefügt werden konnten
 	 */
-	private boolean addSub(final JMenu parent, final ScriptHelperSub main, final Consumer<ScriptHelperRecord> listener) {
+	private boolean addSubLevel2(final JMenu parent, final ScriptHelperSub main, final Consumer<ScriptHelperRecord> listener) {
 		if (main.list.isEmpty()) return false;
 		final JMenu menu=main.addToPopup(parent);
 		boolean lastSubIsSeparator=false;
@@ -877,11 +883,36 @@ public class ListPopup {
 			lastSubIsSeparator=false;
 			if (sub instanceof ScriptHelperRecord) ((ScriptHelperRecord)sub).addToPopup(menu,listener);
 			if (sub instanceof ScriptHelperSub) {
-				if (addSub(menu,(ScriptHelperSub)sub,listener)) lastSubIsSeparator=false;
+				if (addSubLevel2(menu,(ScriptHelperSub)sub,listener)) lastSubIsSeparator=false;
 			}
 		}
 		if (menu.getComponentCount()>0 && menu.getComponent(menu.getComponentCount()-1) instanceof javax.swing.JPopupMenu.Separator) menu.remove(menu.getComponentCount()-1);
 		return true;
+	}
+
+	/**
+	 * Erstellt ein Untermenü in Ebene 1
+	 * @param parent	Übergeordnetes Menü
+	 * @param list	Liste der hinzuzufügenden Script-Helper-Objekt
+	 * @param indexFrom	Erster Index auf <code>list</code>, der hinzugefügt werden soll
+	 * @param indexTo	Letzter Index auf <code>list</code>, der hinzugefügt werden soll
+	 * @param listener	Liste der Unterpunkte
+	 */
+	private void addSubLevel1(final JMenu parent, final List<Object> list, final int indexFrom, final int indexTo, final Consumer<ScriptHelperRecord> listener) {
+		boolean lastSubIsSeparator=false;
+		for (int i=indexFrom;i<=indexTo;i++) {
+			final Object sub=list.get(i);
+			if (sub==null) {
+				if (parent.getComponentCount()>0 && !lastSubIsSeparator) {parent.addSeparator(); lastSubIsSeparator=true;}
+				continue;
+			}
+			lastSubIsSeparator=false;
+			if (sub instanceof ScriptHelperRecord) ((ScriptHelperRecord)sub).addToPopup(parent,listener);
+			if (sub instanceof ScriptHelperSub) {
+				if (addSubLevel2(parent,(ScriptHelperSub)sub,listener)) lastSubIsSeparator=false;
+			}
+		}
+		if (parent.getComponentCount()>0 && parent.getComponent(parent.getComponentCount()-1) instanceof javax.swing.JPopupMenu.Separator) parent.remove(parent.getComponentCount()-1);
 	}
 
 	/**
@@ -906,6 +937,27 @@ public class ListPopup {
 				if (((ScriptHelperSub)obj).list.isEmpty()) continue;
 				lastObjIsSeparator=false;
 				final JMenu menu=((ScriptHelperSub)obj).addToPopup(popupMenu);
+				final int count=((ScriptHelperSub)obj).list.size();
+				if (count<=MAX_ITEMS_PER_MENU) {
+					addSubLevel1(menu,((ScriptHelperSub)obj).list,0,count-1,listener);
+				} else {
+					final int parts=count/MAX_ITEMS_PER_MENU+((count%MAX_ITEMS_PER_MENU!=0)?1:0);
+					for (int part=0;part<parts;part++) {
+						final JMenu sub=new JMenu("");
+						addSubLevel1(sub,((ScriptHelperSub)obj).list,part*MAX_ITEMS_PER_MENU,Math.min((part+1)*MAX_ITEMS_PER_MENU-1,count-1),listener);
+						final int subCount=sub.getMenuComponentCount();
+						if (subCount>0) {
+							String name1=((JMenuItem)sub.getMenuComponent(0)).getText();
+							String name2=((JMenuItem)sub.getMenuComponent(subCount-1)).getText();
+							if (name1.length()>10) name1=name1.substring(0,10);
+							if (name2.length()>10) name2=name2.substring(0,10);
+							sub.setText(String.format(Language.tr("ScriptPopup.Part"),part+1,parts,name1,name2));
+							menu.add(sub);
+						}
+					}
+				}
+
+				/*
 				boolean lastSubIsSeparator=false;
 				for (Object sub: ((ScriptHelperSub)obj).list) {
 					if (sub==null) {
@@ -915,10 +967,11 @@ public class ListPopup {
 					lastSubIsSeparator=false;
 					if (sub instanceof ScriptHelperRecord) ((ScriptHelperRecord)sub).addToPopup(menu,listener);
 					if (sub instanceof ScriptHelperSub) {
-						if (addSub(menu,(ScriptHelperSub)sub,listener)) lastSubIsSeparator=false;
+						if (addSubLevel2(menu,(ScriptHelperSub)sub,listener)) lastSubIsSeparator=false;
 					}
 				}
 				if (menu.getComponentCount()>0 && menu.getComponent(menu.getComponentCount()-1) instanceof javax.swing.JPopupMenu.Separator) menu.remove(menu.getComponentCount()-1);
+				 */
 			}
 		}
 		if (popupMenu.getComponentCount()>0 && popupMenu.getComponent(popupMenu.getComponentCount()-1) instanceof javax.swing.JPopupMenu.Separator) popupMenu.remove(popupMenu.getComponentCount()-1);
@@ -1181,7 +1234,7 @@ public class ListPopup {
 
 	/**
 	 * Hält die Daten für ein Untermenü für das Popupmenü vor.
-	 * @see ListPopup#addSub(JMenu, ScriptHelperSub, Consumer)
+	 * @see ListPopup#addSubLevel2(JMenu, ScriptHelperSub, Consumer)
 	 */
 	public static class ScriptHelperSub {
 		/** Name des Untermenüs */
