@@ -40,6 +40,7 @@ import org.fife.ui.rsyntaxtextarea.spell.SpellingParser;
 
 import dumonts.hunspell.Hunspell;
 import tools.SetupData;
+import ui.modeleditor.elements.TextTransformer;
 
 /**
  * Diese Singleton-Klasse kapselt alle Hunspell-Wörterbücher und ermöglicht es,
@@ -134,6 +135,10 @@ public class HunspellDictionaries {
 			"retryers",
 			"galton",
 			"vergleichsmodell",
+			"quantil",
+			"quantile",
+			"quantils",
+			"statistikdaten",
 			/* Bezeichner */
 			"mu",
 			"lambda",
@@ -170,6 +175,10 @@ public class HunspellDictionaries {
 			"getclass",
 			"getname"
 			));
+
+	static {
+		internalDictionary.addAll(TextTransformer.getAllSymbolsPlain());
+	}
 
 	/**
 	 * Liefert (bzw. generiert wenn nötig) die Instanz dieses Singletons

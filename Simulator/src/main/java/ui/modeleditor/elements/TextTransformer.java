@@ -17,7 +17,9 @@ package ui.modeleditor.elements;
 
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 import java.util.function.BiFunction;
 import java.util.stream.Collectors;
 
@@ -522,5 +524,31 @@ public class TextTransformer {
 		result.append("</table>\n");
 
 		return result.toString();
+	}
+
+	/**
+	 * Liefert eine Liste mit allen Symbolnamen in der Form, in der sie die Rechtschreibprüfung verarbeiten kann.
+	 * @return	Liste mit allen Symbolnamen
+	 */
+	public static Set<String> getAllSymbolsPlain() {
+		final Set<String> results=new HashSet<>();
+
+		entitiesHTML.values().forEach(map->map.keySet().stream().map(s->s.substring(0,s.length()-1)).forEach(results::add));
+		entitiesLaTeX.values().forEach(map->map.keySet().stream().forEach(results::add));
+
+		return results;
+	}
+
+	/**
+	 * Liefert eine Liste mit allen Symbolnamen in der Form, in der sie die Autovervollständigung verarbeiten kann.
+	 * @return	Liste mit allen Symbolnamen
+	 */
+	public static Set<String> getAllSymbolsFull() {
+		final Set<String> results=new HashSet<>();
+
+		entitiesHTML.values().forEach(map->map.keySet().stream().map(s->"&"+s).forEach(results::add));
+		entitiesLaTeX.values().forEach(map->map.keySet().stream().map(s->"\\"+s).forEach(results::add));
+
+		return results;
 	}
 }
