@@ -16,6 +16,7 @@
 package ui.script;
 
 import java.awt.BorderLayout;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
@@ -37,6 +38,7 @@ import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.Icon;
 import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.UIManager;
@@ -61,6 +63,7 @@ import systemtools.MsgBox;
 import tools.SetupData;
 import ui.images.Images;
 import ui.modeleditor.ModelElementBaseDialog;
+import ui.modeleditor.elements.TextTransformer;
 import ui.script.ScriptPopup.ScriptFeature;
 import ui.script.ScriptPopup.ScriptMode;
 import ui.tools.FlatLaFHelper;
@@ -1503,6 +1506,61 @@ public class ScriptEditorAreaBuilder {
 		final boolean found=SearchEngine.find(textArea,context).wasFound();
 		if (!found) {
 			MsgBox.error(textArea,Language.tr("Surface.ScriptEditor.Search"),String.format(Language.tr("Surface.ScriptEditor.Search.NotHit"),setup.text));
+		}
+	}
+
+	/**
+	 * Autovervollständigung-System für normale Textfelder
+	 * @see #setEntityAutoComplete(RSyntaxTextArea, boolean)
+	 */
+	private static AutoCompletion entityAutoComplete;
+
+	/**
+	 * Aktiviert oder deaktiviert eine Autovervollständigung für html- und LaTeX-Symbole
+	 * für normale Textfelder.
+	 * @param textField	Textfeld für das die Autovervollständigung aktiviert oder deaktiviert werden soll
+	 * @param enable	Autovervollständigung aktivieren oder deaktivieren
+	 */
+	public static void setEntityAutoComplete(final RSyntaxTextArea textField, boolean enable) {
+		if (enable) {
+			final String[] words=TextTransformer.getAllSymbolsFull().toArray(new String[0]);
+			final DefaultCompletionProvider entityAutoCompleteProvider=new DefaultCompletionProvider(words) {
+				@Override
+				protected boolean isValidChar(char ch) {
+					return super.isValidChar(ch) || ch=='.' || ch=='&' || ch=='\\';
+				}
+			};
+
+			final CompletionCellRenderer entityCellRenderer=new CompletionCellRenderer() {
+				/**
+				 * Serialisierungs-ID der Klasse
+				 * @see Serializable
+				 */
+				private static final long serialVersionUID=-1395995804545918731L;
+
+				@Override
+				public Component getListCellRendererComponent(@SuppressWarnings("rawtypes") JList list, Object value, int index, boolean selected, boolean hasFocus) {
+					if (value instanceof BasicCompletion) {
+						final BasicCompletion oldCompletion=(BasicCompletion)value;
+						final String s=oldCompletion.getReplacementText();
+						if (s.startsWith("&")) {
+							final BasicCompletion newCompletion=new BasicCompletion(oldCompletion.getProvider(),"&amp;"+s.substring(1),s);
+							return super.getListCellRendererComponent(list,newCompletion,index,selected,hasFocus);
+						}
+					}
+					return super.getListCellRendererComponent(list,value,index,selected,hasFocus);
+				}
+			};
+
+			entityAutoComplete=new AutoCompletion(entityAutoCompleteProvider);
+			entityAutoComplete.setListCellRenderer(entityCellRenderer);
+			entityAutoComplete.setShowDescWindow(true);
+			entityAutoComplete.install(textField);
+		} else {
+			if (entityAutoComplete!=null) {
+				entityAutoComplete.uninstall();
+				entityAutoComplete=null;
+			}
 		}
 	}
 

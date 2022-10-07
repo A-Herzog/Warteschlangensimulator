@@ -123,6 +123,7 @@ public class ModelElementTextDialog extends ModelElementBaseDialog {
 			panel.add(new ScriptEditorAreaBuilder.RScrollPane(textField=ScriptEditorAreaBuilder.getPlainTextField(5,50,text.getText(),readOnly,ScriptEditorAreaBuilder.TextAreaMode.TEXT_ELEMENT)),BorderLayout.CENTER);
 			label.setLabelFor(textField);
 			addUndoFeature(textField);
+			if (text.isInterpretSymbols()) ScriptEditorAreaBuilder.setEntityAutoComplete(textField,true);
 
 			/* Bereich unten */
 			JPanel bottomPanel=new JPanel();
@@ -156,6 +157,11 @@ public class ModelElementTextDialog extends ModelElementBaseDialog {
 			subPanel.add(optionInterpretSymbols=new JCheckBox(Language.tr("Surface.Text.Dialog.FontSize.HTMLLaTeX"),text.isInterpretSymbols()));
 			optionInterpretSymbols.setToolTipText(Language.tr("Surface.Text.Dialog.FontSize.HTMLLaTeX.Info"));
 			optionInterpretSymbols.setEnabled(!readOnly);
+			optionInterpretSymbols.addActionListener(e->{
+				ScriptEditorAreaBuilder.setEntityAutoComplete(textField,optionInterpretSymbols.isSelected());
+			});
+
+			/* Interpretation von Mardown */
 			subPanel.add(optionInterpretMarkdown=new JCheckBox(Language.tr("Surface.Text.Dialog.FontSize.Markdown"),text.isInterpretMarkdown()));
 			optionInterpretMarkdown.setToolTipText(Language.tr("Surface.Text.Dialog.FontSize.Markdown.Info"));
 			optionInterpretMarkdown.setEnabled(!readOnly);
