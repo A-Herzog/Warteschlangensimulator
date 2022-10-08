@@ -17,6 +17,8 @@ package systemtools.help;
 
 import java.awt.BorderLayout;
 import java.awt.Container;
+import java.awt.Dimension;
+import java.awt.Toolkit;
 import java.awt.Window;
 import java.awt.event.ActionEvent;
 import java.io.Serializable;
@@ -103,7 +105,11 @@ abstract class HTMLFrame extends JFrame {
 		panel.setHome(panel.getPageURL(HelpBase.CONTENT_PAGE));
 		panel.setProcessSpecialLink(new SpecialLink());
 
-		setSize(750,650);
+		/* Allgemeine Fenster-Einstellungen */
+		final Dimension screenSize=Toolkit.getDefaultToolkit().getScreenSize();
+		if (screenSize.width>=1920) setSize(1024,887);
+		else if (screenSize.width>=1440) setSize(850,737);
+		else setSize(750,650);
 		setMinimumSize(getSize());
 		setLocationRelativeTo(owner);
 		setVisible(true);

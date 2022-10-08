@@ -18,6 +18,8 @@ package systemtools.help;
 import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.Dialog;
+import java.awt.Dimension;
+import java.awt.Toolkit;
 import java.awt.Window;
 import java.awt.event.ActionEvent;
 import java.io.Serializable;
@@ -104,7 +106,10 @@ abstract class HTMLDialog extends JDialog {
 		panel.setProcessSpecialLink(new SpecialLink());
 
 		/* Allgemeine Fenster-Einstellungen */
-		setSize(750,650);
+		final Dimension screenSize=Toolkit.getDefaultToolkit().getScreenSize();
+		if (screenSize.width>=1920) setSize(1024,887);
+		else if (screenSize.width>=1440) setSize(850,737);
+		else setSize(750,650);
 		setMinimumSize(getSize());
 		setLocationRelativeTo(owner);
 	}
