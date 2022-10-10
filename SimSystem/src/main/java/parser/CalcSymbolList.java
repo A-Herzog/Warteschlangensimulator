@@ -175,7 +175,7 @@ public class CalcSymbolList {
 	/** Liste mit den Namen aller Symbole */
 	private static final List<String> listNames=new ArrayList<>();
 	/** Liste mit den Namen aller Symbole in Kleinbuchstaben */
-	private static final List<String> listNamesLower=new ArrayList<>();
+	private static List<String> listNamesLower;
 
 	/**
 	 * Lock um die Initialisierung Thread-sicher zu gestalten
@@ -219,7 +219,10 @@ public class CalcSymbolList {
 				for (int i=0;i<listMiddleOperator.size();i++) listNames.addAll(Arrays.asList(listMiddleOperator.get(i).getNames()));
 				for (int i=0;i<listPostOperator.size();i++) listNames.addAll(Arrays.asList(listPostOperator.get(i).getNames()));
 				for (int i=0;i<listConst.size();i++) listNames.addAll(Arrays.asList(listConst.get(i).getNames()));
-				for (String name: listNames) listNamesLower.add(name.toLowerCase());
+				//for (String name: listNames) listNamesLower.add(name.toLowerCase());
+				final String[] arr=new String[listNames.size()];
+				for (int i=0;i<listNames.size();i++) arr[i]=listNames.get(i).toLowerCase();
+				listNamesLower=new ImmutableArrayList<>(arr);
 			}
 		}
 	}
@@ -518,7 +521,7 @@ public class CalcSymbolList {
 			size+=variables.length;
 
 			final List<String> allSymbolNamesList=new ArrayList<>(size);
-			if (listPreOperatorUser!=null) for (int i=0;i<listPreOperatorUser.size();i++) allSymbolNamesList.addAll(Arrays.asList(listPreOperatorUser.get(i).getNames()));
+			if (listPreOperatorUser!=null) for (int i=0;i<listPreOperatorUser.size();i++) allSymbolNamesList.addAll(new ImmutableArrayList<>(listPreOperatorUser.get(i).getNames()));
 			allSymbolNamesList.addAll(listNamesLower);
 			for (final String variable: variables) if (variable!=null) {
 				final String s=variable.trim();
