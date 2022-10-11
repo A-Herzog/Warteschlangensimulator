@@ -442,7 +442,8 @@ public class RunModel {
 	 * @see #getRunModel(EditModel, boolean, boolean)
 	 */
 	private static String initGeneralData(final EditModel editModel, final RunModel runModel) {
-		if (!editModel.useClientCount && !editModel.useFinishTime && !(editModel.useTerminationCondition && !editModel.terminationCondition.trim().isEmpty()) && !editModel.useFinishConfidence) return Language.tr("Simulation.Creator.NoEndCriteria");
+		/* Auch Modelle ohne explizites Ende-Kriterium zulassen. In ModelPropertiesDialogPageSimulation erfolgt hierzu eine Warnung. */
+		/* if (!editModel.useClientCount && !editModel.useFinishTime && !(editModel.useTerminationCondition && !editModel.terminationCondition.trim().isEmpty()) && !editModel.useFinishConfidence) return Language.tr("Simulation.Creator.NoEndCriteria"); */
 
 		/* Anzahl der zu simulierenden Kundenankünfte */
 		if (editModel.useClientCount) {

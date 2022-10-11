@@ -339,8 +339,10 @@ public class ModelPropertiesDialogPageSimulation extends ModelPropertiesDialogPa
 	@Override
 	public boolean checkData() {
 		if (!terminationByClientClount.isSelected() && !terminationByCondition.isSelected() && !terminationByTime.isSelected()) {
-			MsgBox.error(dialog,Language.tr("Editor.Dialog.Tab.Simulation.Criteria.Title"),Language.tr("Editor.Dialog.Tab.Simulation.Criteria.ErrorAtLeastOne"));
-			return false;
+			if (!MsgBox.confirm(dialog,Language.tr("Editor.Dialog.Tab.Simulation.Criteria.Title"),Language.tr("Editor.Dialog.Tab.Simulation.Criteria.WarningNoCriterium"),Language.tr("Editor.Dialog.Tab.Simulation.Criteria.YesRunWithout"),Language.tr("Editor.Dialog.Tab.Simulation.Criteria.NoKeepDialogOpen"))) return false;
+			/* Auch Modelle ohne explizites Ende-Kriterium zulassen. Siehe auch RunModel.initGeneralData. */
+			/* MsgBox.error(dialog,Language.tr("Editor.Dialog.Tab.Simulation.Criteria.Title"),Language.tr("Editor.Dialog.Tab.Simulation.Criteria.ErrorAtLeastOne"));
+			return false; */
 		}
 
 		calcClientCount(true);

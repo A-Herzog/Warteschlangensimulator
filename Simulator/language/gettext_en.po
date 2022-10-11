@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-10-04 10:25+0200\n"
+"POT-Creation-Date: 2022-10-09 15:05+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -3815,9 +3815,6 @@ msgstr "Simulation"
 msgid "Editor.Dialog.Tab.Simulation.Condition"
 msgstr "Condition for end of simulation"
 
-msgid "Editor.Dialog.Tab.Simulation.Criteria.ErrorAtLeastOne"
-msgstr "There has to be at least one criterion for terminating the simulation."
-
 msgid "Editor.Dialog.Tab.Simulation.Criteria.ErrorClients"
 msgstr "The specified number of clients to be simulated \"%s\" is invalid. The number has to be a positive integer."
 
@@ -3830,8 +3827,17 @@ msgstr "The specified simulation end time \"%s\" is invalid."
 msgid "Editor.Dialog.Tab.Simulation.Criteria.ErrorWarmUp"
 msgstr "The specified duration of the warm-up phase \"%s\" is invalid. A non-negative value has to be specified."
 
+msgid "Editor.Dialog.Tab.Simulation.Criteria.NoKeepDialogOpen"
+msgstr "Leave dialog open to change settings."
+
 msgid "Editor.Dialog.Tab.Simulation.Criteria.Title"
 msgstr "Criteria for the end of the simulation"
+
+msgid "Editor.Dialog.Tab.Simulation.Criteria.WarningNoCriterium"
+msgstr "No explicit criterion for the end of the simulation was specified. Should the settings be applied anyway?"
+
+msgid "Editor.Dialog.Tab.Simulation.Criteria.YesRunWithout"
+msgstr "Apply settings and close dialog."
 
 msgid "Editor.Dialog.Tab.Simulation.DistributionRecordClientDataValues.Error"
 msgstr "The value \"%s\" for client data distribution size is invalid. A non-negative integer value has to be specified."
@@ -17706,9 +17712,6 @@ msgstr "Element id=%d has no outgoing edge."
 
 msgid "Simulation.Creator.NoEdgeOutBalking"
 msgstr "Element id=%d has no outgoing edge for clients balking to enter the queue."
-
-msgid "Simulation.Creator.NoEndCriteria"
-msgstr "At least one criterion for terminating the simulation (number of arrivals, condition, end time or confidence radius) has to be be activated."
 
 msgid "Simulation.Creator.NoFailureAndSchedule"
 msgstr "For resource \"%s\" there are a schedule and failure/breaking times defined. Both cannot be used at the same time for one resource."
@@ -35183,6 +35186,9 @@ msgstr "The file format is unknown respectively is not matching to any of the fi
 #~ msgid "Editor.Delete.Info"
 #~ msgstr "Deletes the selected element"
 
+#~ msgid "Editor.Dialog.Tab.Simulation.Criteria.ErrorAtLeastOne"
+#~ msgstr "There has to be at least one criterion for terminating the simulation."
+
 #~ msgid "Editor.Edit"
 #~ msgstr "Edit"
 
@@ -35412,6 +35418,9 @@ msgstr "The file format is unknown respectively is not matching to any of the fi
 
 #~ msgid "Simulation.Creator.NoClientTypeInDecide"
 #~ msgstr "At element id=%d client of the type \"%s\" are forwarded to the %d th outgoing edge. But there are no clients of this type."
+
+#~ msgid "Simulation.Creator.NoEndCriteria"
+#~ msgstr "At least one criterion for terminating the simulation (number of arrivals, condition, end time or confidence radius) has to be be activated."
 
 #~ msgid "Simulation.Creator.NoLicense"
 #~ msgstr "This program version is not licensed. The simulation cannot be started."

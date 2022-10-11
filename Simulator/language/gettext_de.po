@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-10-04 10:25+0200\n"
+"POT-Creation-Date: 2022-10-09 15:05+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -3822,9 +3822,6 @@ msgstr "Simulation"
 msgid "Editor.Dialog.Tab.Simulation.Condition"
 msgstr "Bedingung für Simulationsende"
 
-msgid "Editor.Dialog.Tab.Simulation.Criteria.ErrorAtLeastOne"
-msgstr "Es muss mindestens ein Kriterium zum Beenden der Simulation angegeben werden."
-
 msgid "Editor.Dialog.Tab.Simulation.Criteria.ErrorClients"
 msgstr "Die angegebene Anzahl an zu simulierenden Kundenankünften \"%s\" ist ungültig. Die Anzahl muss eine postive ganze Zahl sein."
 
@@ -3837,8 +3834,17 @@ msgstr "Der angegebene Simulations-Ende-Zeitpunkt \"%s\" ist ungültig."
 msgid "Editor.Dialog.Tab.Simulation.Criteria.ErrorWarmUp"
 msgstr "Die angegebene Dauer der Einschwingphase \"%s\" ist ungültig. Es muss ein nichtnegativer Wert angegeben werden."
 
+msgid "Editor.Dialog.Tab.Simulation.Criteria.NoKeepDialogOpen"
+msgstr "Dialog geöffnet lassen, um die Einstellungen zu verändern."
+
 msgid "Editor.Dialog.Tab.Simulation.Criteria.Title"
 msgstr "Kriterium für Simulationsende"
+
+msgid "Editor.Dialog.Tab.Simulation.Criteria.WarningNoCriterium"
+msgstr "Es wurde kein explizites Kriterium für das Ende der Simulation angegeben. Sollen die Einstellungen dennoch übernommen werden?"
+
+msgid "Editor.Dialog.Tab.Simulation.Criteria.YesRunWithout"
+msgstr "Einstellungen übernehmen und Dialog schließen."
 
 msgid "Editor.Dialog.Tab.Simulation.DistributionRecordClientDataValues.Error"
 msgstr "Der angegebene Wert für ide Kundendaten-Verteilung \"%s\" ist ungültig. Es muss eine nichtnegative Ganzzahl angegeben werden."
@@ -17719,9 +17725,6 @@ msgstr "Element id=%d besitzt keine Ausgangskante."
 
 msgid "Simulation.Creator.NoEdgeOutBalking"
 msgstr "Element id=%d besitzt keine Ausgangskante für Kunden die vor der Warteschlange zurückschrecken."
-
-msgid "Simulation.Creator.NoEndCriteria"
-msgstr "Es muss mindestens ein Kriterium zum Beenden der Simulation (Anzahl an Ankünften, Bedingung, Endzeitpunkt oder Konfidenzradius) aktiviert werden."
 
 msgid "Simulation.Creator.NoFailureAndSchedule"
 msgstr "Für Ressource \"%s\" sind ein Zeitplan und Ausfälle/Pausenzeiten definiert. Beides kann nicht gleichzeitig angewandt werden."
@@ -35229,6 +35232,9 @@ msgstr "Das Dateiformat wurde nicht erkannt bzw. passt zu keinem Dateiformat die
 #~ msgid "Editor.Delete.Info"
 #~ msgstr "Ausgewähltes Element löschen"
 
+#~ msgid "Editor.Dialog.Tab.Simulation.Criteria.ErrorAtLeastOne"
+#~ msgstr "Es muss mindestens ein Kriterium zum Beenden der Simulation angegeben werden."
+
 #~ msgid "Editor.Edit"
 #~ msgstr "Bearbeiten"
 
@@ -35461,6 +35467,9 @@ msgstr "Das Dateiformat wurde nicht erkannt bzw. passt zu keinem Dateiformat die
 
 #~ msgid "Simulation.Creator.NoClientTypeInDecide"
 #~ msgstr "Bei Element id=%d sollen Kunden des Typs \"%s\" zur %d. Ausgangskante weitergeleitet werden. Es gibt jedoch keine Kunden dieses Typs."
+
+#~ msgid "Simulation.Creator.NoEndCriteria"
+#~ msgstr "Es muss mindestens ein Kriterium zum Beenden der Simulation (Anzahl an Ankünften, Bedingung, Endzeitpunkt oder Konfidenzradius) aktiviert werden."
 
 #~ msgid "Simulation.Creator.NoLicense"
 #~ msgstr "Diese Programmversion ist nicht lizensiert. Die Simulation kann nicht gestartet werden."
