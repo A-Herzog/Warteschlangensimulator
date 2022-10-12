@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-10-09 15:05+0200\n"
+"POT-Creation-Date: 2022-10-11 08:11+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -122,6 +122,9 @@ msgstr "Cart"
 msgid "Animation.Icon.Cat"
 msgstr "Cat"
 
+msgid "Animation.Icon.Character"
+msgstr "Letter"
+
 msgid "Animation.Icon.Clock"
 msgstr "Clock"
 
@@ -161,6 +164,9 @@ msgstr "Computer"
 msgid "Animation.Icon.Database"
 msgstr "Database"
 
+msgid "Animation.Icon.Digit"
+msgstr "Digit"
+
 msgid "Animation.Icon.Disk"
 msgstr "Disk"
 
@@ -199,6 +205,27 @@ msgstr "Flask"
 
 msgid "Animation.Icon.Flower"
 msgstr "Flower"
+
+msgid "Animation.Icon.Folder"
+msgstr "Folder"
+
+msgid "Animation.Icon.FolderBlue"
+msgstr "Folder - blue"
+
+msgid "Animation.Icon.FolderGreen"
+msgstr "Folder - green"
+
+msgid "Animation.Icon.FolderOrange"
+msgstr "Folder - orange"
+
+msgid "Animation.Icon.FolderPink"
+msgstr "Folder - pink"
+
+msgid "Animation.Icon.FolderPurple"
+msgstr "Folder - purple"
+
+msgid "Animation.Icon.FolderRed"
+msgstr "Folder - red"
 
 msgid "Animation.Icon.Hamburger"
 msgstr "Hamburger"

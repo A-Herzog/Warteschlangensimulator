@@ -17,8 +17,12 @@ package ui.modeleditor;
 
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Font;
+import java.awt.FontMetrics;
 import java.awt.Graphics;
+import java.awt.GraphicsEnvironment;
 import java.awt.Image;
+import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.Serializable;
@@ -196,6 +200,24 @@ public class AnimationImageSource {
 	public static String iconNameArrowUp="Pfeil - nach oben";
 	/** Name für Animationssymbol "Fragezeichen" */
 	public static String iconNameQuestionmark="Fragezeichen";
+	/** Name für Animationssymbol "Ordner" */
+	public static String iconNameFolder="Ordner";
+	/** Name für Animationssymbol "Ordner - Blau" */
+	public static String iconNameFolderBlue="Ordner - Blau";
+	/** Name für Animationssymbol "Ordner - Grün" */
+	public static String iconNameFolderGreen="Ordner - Grün";
+	/** Name für Animationssymbol "Ordner - Orange" */
+	public static String iconNameFolderOrange="Ordner - Orange";
+	/** Name für Animationssymbol "Ordner - Pink" */
+	public static String iconNameFolderPink="Ordner - Pink";
+	/** Name für Animationssymbol "Ordner - Lila" */
+	public static String iconNameFolderPurple="Ordner - Lila";
+	/** Name für Animationssymbol "Ordner - Rot" */
+	public static String iconNameFolderRed="Ordner - Rot";
+	/** Name für Animationssymbol "Buchstabe" */
+	public static String iconNameCharacter="Buchstabe";
+	/** Name für Animationssymbol "Ziffer" */
+	public static String iconNameDigit="Ziffer";
 
 	/* p.yusukekamiyamane Icons */
 
@@ -251,6 +273,20 @@ public class AnimationImageSource {
 	public static String iconNameUmbrella="Regenschirm";
 	/** Name für Animationssymbol "Wassertropfen" */
 	public static String iconNameWaterDrop="Wassertropfen";
+
+	/**
+	 * Prefix für dynamisch generierte Icons, die einfach nur Farben darstellen
+	 * @see #loadImageFromResource(String, ModelAnimationImages, int)
+	 * @see #getInternalImageColor(int, int)
+	 */
+	private static final String INTERN_COLOR="Intern-";
+
+	/**
+	 * Prefix für dynamisch generierte Icons, die einfache Zeichen darstellen
+	 * @see #loadImageFromResource(String, ModelAnimationImages, int)
+	 * @see #getInternalImageCharacter(String, int)
+	 */
+	private static final String INTERN_CHARACTER="Intern-Character-";
 
 	/**
 	 * Zuordnung von Animationssymbol-Namen zu Dateinamen für die Symbole
@@ -327,19 +363,18 @@ public class AnimationImageSource {
 		ICONS.put(iconNameHouse,"house");
 		ICONS.put(iconNameBricks,"bricks");
 		ICONS.put(iconNameOperator,"status_online");
-		ICONS.put(iconNameColorRed,"Intern-1");
-		ICONS.put(iconNameColorBlue,"Intern-2");
-		ICONS.put(iconNameColorYellow,"Intern-3");
-		ICONS.put(iconNameColorGreen,"Intern-4");
-		ICONS.put(iconNameColorBlack,"Intern-5");
-		ICONS.put(iconNameColorWhite,"Intern-6");
-		ICONS.put(iconNameColorOrange,"Intern-7");
-		ICONS.put(iconNameColorGray,"Intern-8");
 		ICONS.put(iconNameArrowDown,"arrow_down");
 		ICONS.put(iconNameArrowLeft,"arrow_left");
 		ICONS.put(iconNameArrowRight,"arrow_right");
 		ICONS.put(iconNameArrowUp,"arrow_up");
 		ICONS.put(iconNameQuestionmark,"questionmark");
+		ICONS.put(iconNameFolder,"folder");
+		ICONS.put(iconNameFolderBlue,"folder-blue");
+		ICONS.put(iconNameFolderGreen,"folder-green");
+		ICONS.put(iconNameFolderOrange,"folder-orange");
+		ICONS.put(iconNameFolderPink,"folder-pink");
+		ICONS.put(iconNameFolderPurple,"folder-purple");
+		ICONS.put(iconNameFolderRed,"folder-red");
 
 		/* p.yusukekamiyamane Icons */
 
@@ -369,6 +404,19 @@ public class AnimationImageSource {
 		ICONS.put(iconNameTrafficCone,"traffic-cone");
 		ICONS.put(iconNameUmbrella,"umbrella");
 		ICONS.put(iconNameWaterDrop,"water");
+
+		/* Dynamisch generierte Icons */
+
+		ICONS.put(iconNameColorRed,INTERN_COLOR+"1");
+		ICONS.put(iconNameColorBlue,INTERN_COLOR+"2");
+		ICONS.put(iconNameColorYellow,INTERN_COLOR+"3");
+		ICONS.put(iconNameColorGreen,INTERN_COLOR+"4");
+		ICONS.put(iconNameColorBlack,INTERN_COLOR+"5");
+		ICONS.put(iconNameColorWhite,INTERN_COLOR+"6");
+		ICONS.put(iconNameColorOrange,INTERN_COLOR+"7");
+		ICONS.put(iconNameColorGray,INTERN_COLOR+"8");
+		for (char c='A';c<='Z';c++) ICONS.put(iconNameCharacter+" "+c,INTERN_CHARACTER+c);
+		for (int i=0;i<=9;i++) ICONS.put(iconNameDigit+" "+i,INTERN_CHARACTER+i);
 	}
 
 	static {
@@ -387,10 +435,23 @@ public class AnimationImageSource {
 	private Map<Long,BufferedImage> cache;
 
 	/**
+	 * Bildschirm-DPI-Zahl<br>
+	 * Wird zur Umrechnung von Box-Größen (in Pixeln) auf Schriftgrößen (in Punkten) verwendet.
+	 * @see #getInternalImageCharacter(String, int)
+	 */
+	private final int screenDPI;
+
+	/**
 	 * Konstruktor der Klasse
 	 */
 	public AnimationImageSource() {
 		cache=new HashMap<>();
+
+		if (GraphicsEnvironment.isHeadless()) {
+			screenDPI=150;
+		} else {
+			screenDPI=Toolkit.getDefaultToolkit().getScreenResolution();
+		}
 	}
 
 	/**
@@ -435,50 +496,63 @@ public class AnimationImageSource {
 	}
 
 	/**
-	 * Liefert ein mit einer bestimmten Farbe gefülltes Bild
+	 * Liefert ein mit einer bestimmten Farbe gefülltes Bild.
 	 * @param index	Auswahl der Farbe
 	 * @param preferredSize	Größe des Bildes
 	 * @return	Neues Bild
 	 */
-	private BufferedImage getInternalImage(final int index, int preferredSize) {
+	private BufferedImage getInternalImageColor(final int index, int preferredSize) {
 		if (preferredSize<=0) preferredSize=128;
 		if (preferredSize>=2048) preferredSize=2048;
 		final BufferedImage image=new BufferedImage(preferredSize,preferredSize,BufferedImage.TYPE_4BYTE_ABGR);
 		final Graphics g=image.getGraphics();
 		switch (index) {
-		case 1:
-			g.setColor(Color.RED);
-			g.fillRect(0,0,preferredSize,preferredSize);
-			break;
-		case 2:
-			g.setColor(Color.BLUE);
-			g.fillRect(0,0,preferredSize,preferredSize);
-			break;
-		case 3:
-			g.setColor(Color.YELLOW);
-			g.fillRect(0,0,preferredSize,preferredSize);
-			break;
-		case 4:
-			g.setColor(Color.GREEN);
-			g.fillRect(0,0,preferredSize,preferredSize);
-			break;
-		case 5:
-			g.setColor(Color.BLACK);
-			g.fillRect(0,0,preferredSize,preferredSize);
-			break;
-		case 6:
-			g.setColor(Color.WHITE);
-			g.fillRect(0,0,preferredSize,preferredSize);
-			break;
-		case 7:
-			g.setColor(Color.ORANGE);
-			g.fillRect(0,0,preferredSize,preferredSize);
-			break;
-		case 8:
-			g.setColor(Color.GRAY);
-			g.fillRect(0,0,preferredSize,preferredSize);
-			break;
+		case 1: g.setColor(Color.RED); break;
+		case 2: g.setColor(Color.BLUE); break;
+		case 3: g.setColor(Color.YELLOW); break;
+		case 4: g.setColor(Color.GREEN); break;
+		case 5: g.setColor(Color.BLACK); break;
+		case 6: g.setColor(Color.WHITE); break;
+		case 7: g.setColor(Color.ORANGE); break;
+		case 8: g.setColor(Color.GRAY); break;
 		}
+		g.fillRect(0,0,preferredSize,preferredSize);
+
+		return image;
+	}
+
+	/**
+	 * Cache für Schriftart-Objekte in Abhängigkeit von der Darstellungsgröße
+	 * @see #getInternalImageCharacter(String, int)
+	 */
+	private final Map<Integer,Font> characterFontCache=new HashMap<>();
+
+	/**
+	 * Liefert ein Bild in dem ein bestimmtes Zeichen steht.
+	 * @param character	Darzustellendes Zeichen
+	 * @param preferredSize	Größe des Bildes
+	 * @return	Neues Bild
+	 */
+	private BufferedImage getInternalImageCharacter(final String character, int preferredSize) {
+		if (preferredSize<=0) preferredSize=128;
+		if (preferredSize>=2048) preferredSize=2048;
+		final BufferedImage image=new BufferedImage(preferredSize,preferredSize,BufferedImage.TYPE_4BYTE_ABGR);
+		final Graphics g=image.getGraphics();
+
+		Font font=characterFontCache.get(preferredSize);
+		if (font==null) {
+			final float fontSize=72.0f*preferredSize/screenDPI;
+			font=g.getFont().deriveFont(fontSize);
+			characterFontCache.put(preferredSize,font);
+		}
+		g.setFont(font);
+
+		final FontMetrics metrics=g.getFontMetrics();
+		final int x=Math.max(0,(preferredSize-metrics.stringWidth(character))/2);
+		final int y=g.getFontMetrics().getAscent();
+
+		g.setColor(Color.BLACK);
+		g.drawString(character,x,y);
 
 		return image;
 	}
@@ -572,12 +646,16 @@ public class AnimationImageSource {
 		}
 
 		/* Per Zeichenbefehle generierte Bilder */
-		final String INTERN="Intern-";
-		if (name.startsWith(INTERN)) {
+		if (name.startsWith(INTERN_CHARACTER)) {
+			final String id=name.substring(INTERN_CHARACTER.length());
+			return getInternalImageCharacter(id,preferredSize);
+		}
+		if (name.startsWith(INTERN_COLOR)) {
+			final String id=name.substring(INTERN_COLOR.length());
 			try {
-				final int index=Integer.parseInt(name.substring(INTERN.length()));
-				return getInternalImage(index,preferredSize);
-			} catch (NumberFormatException e) {} /* weiter unten */
+				final int index=Integer.parseInt(id);
+				return getInternalImageColor(index,preferredSize);
+			} catch (NumberFormatException e) {} /* weiter unten weiter */
 		}
 
 		/* Bild wenn möglich aus Cache holen */

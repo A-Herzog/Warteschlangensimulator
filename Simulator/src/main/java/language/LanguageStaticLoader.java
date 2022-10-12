@@ -919,6 +919,15 @@ public class LanguageStaticLoader {
 		AnimationImageSource.iconNameArrowRight=Language.tr("Animation.Icon.ArrowRight");
 		AnimationImageSource.iconNameArrowUp=Language.tr("Animation.Icon.ArrowUp");
 		AnimationImageSource.iconNameQuestionmark=Language.tr("Animation.Icon.Questionmark");
+		AnimationImageSource.iconNameFolder=Language.tr("Animation.Icon.Folder");
+		AnimationImageSource.iconNameFolderBlue=Language.tr("Animation.Icon.FolderBlue");
+		AnimationImageSource.iconNameFolderGreen=Language.tr("Animation.Icon.FolderGreen");
+		AnimationImageSource.iconNameFolderOrange=Language.tr("Animation.Icon.FolderOrange");
+		AnimationImageSource.iconNameFolderPink=Language.tr("Animation.Icon.FolderPink");
+		AnimationImageSource.iconNameFolderPurple=Language.tr("Animation.Icon.FolderPurple");
+		AnimationImageSource.iconNameFolderRed=Language.tr("Animation.Icon.FolderRed");
+		AnimationImageSource.iconNameCharacter=Language.tr("Animation.Icon.Character");
+		AnimationImageSource.iconNameDigit=Language.tr("Animation.Icon.Digit");
 		AnimationImageSource.iconNameAnimalDog=Language.tr("Animation.Icon.Dog");
 		AnimationImageSource.iconNameAnimalMonkey=Language.tr("Animation.Icon.Monkey");
 		AnimationImageSource.iconNameAnimalPenguin=Language.tr("Animation.Icon.Penguin");
