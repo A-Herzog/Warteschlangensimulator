@@ -165,12 +165,18 @@ public class ExpressionBuilder extends BaseDialog {
 
 		pathsToOpen=new ArrayList<>();
 
+		/* GUI */
+
 		final JPanel content=createGUI(()->Help.topicModal(ExpressionBuilder.this,"Expressions"));
 		content.setLayout(new BorderLayout());
+
+		/* Bereich oben */
 
 		final JPanel panel=new JPanel(new FlowLayout(FlowLayout.LEFT));
 		content.add(panel,BorderLayout.NORTH);
 		panel.add(new JLabel(Language.tr("ExpressionBuilder.Info")));
+
+		/* Baumstruktur und Info */
 
 		tree=new JTree();
 		tree.setRootVisible(false);
@@ -204,7 +210,14 @@ public class ExpressionBuilder extends BaseDialog {
 		scroll1.setMinimumSize(new Dimension(300,0));
 		scroll2.setMinimumSize(new Dimension(300,0));
 
-		content.add(new JScrollPane(input=new JTextArea(5,0)),BorderLayout.SOUTH);
+		/* Bereich unten */
+
+		final JPanel bottomArea=new JPanel(new BorderLayout());
+		content.add(bottomArea,BorderLayout.SOUTH);
+
+		/* Ausgabebereich */
+
+		bottomArea.add(new JScrollPane(input=new JTextArea(5,0)),BorderLayout.CENTER);
 		input.setWrapStyleWord(true);
 		input.setLineWrap(true);
 		input.setText(expression);
@@ -220,6 +233,15 @@ public class ExpressionBuilder extends BaseDialog {
 		ModelElementBaseDialog.addUndoFeature(input);
 
 		ExpressionBuilderAutoComplete.process(this,input);
+
+		/* Infozeile */
+
+		final JPanel bottomInfoLine=new JPanel(new FlowLayout(FlowLayout.LEFT));
+		bottomArea.add(bottomInfoLine,BorderLayout.SOUTH);
+		final ExpressionCalc calc=new ExpressionCalc(variables);
+		bottomInfoLine.add(new JLabel(String.format(Language.tr("ExpressionBuilder.SymbolCountInfo"),calc.getSymbolCount(!noSimulator))));
+
+		/* Dialog starten */
 
 		setSizeRespectingScreensize(800,600);
 		setMinSizeRespectingScreensize(800,600);
@@ -293,29 +315,45 @@ public class ExpressionBuilder extends BaseDialog {
 	 * @param filterUpper	Filtertext (kann <code>null</code> sein); ist ein Filtertext angegeben, so wird ein Eintrag nur in die Baumstruktur aufgenommen, wenn er zum Filtertext passt
 	 */
 	private void buildTreeDataStationIDs(final DefaultMutableTreeNode root, final String filterUpper) {
-		DefaultMutableTreeNode group;
-
 		if (stations!=null && stations.size()>0) {
-			group=new DefaultMutableTreeNode(Language.tr("ExpressionBuilder.SimulationCharacteristics.StationIDs"));
+			final DefaultMutableTreeNode group=new DefaultMutableTreeNode(Language.tr("ExpressionBuilder.SimulationCharacteristics.StationIDs"));
+			final Map<String,String[]> tempMap=new HashMap<>();
 			for (Map.Entry<Integer,String> entry: stations.entrySet()) {
 				String title=entry.getValue();
 				title=title.replaceAll("<","&lt;");
 				title=title.replaceAll(">","&gt;");
-				addTreeNode(group,filterUpper,title+" (id="+entry.getKey()+")",""+entry.getKey(),"<p>"+Language.tr("ExpressionBuilder.SimulationCharacteristics.StationIDs.idOfStation")+" <b>"+title+"</b></p>",ExpressionSymbolType.TYPE_STATION_ID);
+				tempMap.put(title+" (id="+entry.getKey()+")",new String[] {
+						""+entry.getKey(),
+						"<p>"+Language.tr("ExpressionBuilder.SimulationCharacteristics.StationIDs.idOfStation")+" <b>"+title+"</b></p>"
+				});
 			}
+
+			tempMap.keySet().stream().sorted().forEach(key->{
+				final String[] val=tempMap.get(key);
+				addTreeNode(group,filterUpper,key,val[0],val[1],ExpressionSymbolType.TYPE_STATION_ID);
+			});
 			if (group.getChildCount()>0) root.add(group);
 		}
 
 		if (stations!=null && stationNames!=null && stationNames.size()>0) {
-			group=null;
+			DefaultMutableTreeNode group=null;
+			final Map<String,String[]> tempMap=new HashMap<>();
 			for (Map.Entry<Integer,String> entry: stationNames.entrySet()) {
 				String title=entry.getValue();
 				if (title.trim().isEmpty()) continue;
 				if (group==null) group=new DefaultMutableTreeNode(Language.tr("ExpressionBuilder.SimulationCharacteristics.StationIDsByNames"));
 				String longTitle=stations.get(entry.getKey());
 				if (longTitle==null) longTitle=title;
-				addTreeNode(group,filterUpper,longTitle+" (id="+entry.getKey()+")","$(\""+title.replaceAll("\"","\\\\\"")+"\")","<p>"+Language.tr("ExpressionBuilder.SimulationCharacteristics.StationIDsByNames.idOfStation")+" <b>"+longTitle+"</b></p>",ExpressionSymbolType.TYPE_STATION_ID);
+				tempMap.put(longTitle+" (id="+entry.getKey()+")",new String[] {
+						"$(\""+title.replaceAll("\"","\\\\\"")+"\")",
+						"<p>"+Language.tr("ExpressionBuilder.SimulationCharacteristics.StationIDsByNames.idOfStation")+" <b>"+longTitle+"</b></p>"
+				});
 			}
+			final DefaultMutableTreeNode groupFinal=group;
+			tempMap.keySet().stream().sorted().forEach(key->{
+				final String[] val=tempMap.get(key);
+				addTreeNode(groupFinal,filterUpper,key,val[0],val[1],ExpressionSymbolType.TYPE_STATION_ID);
+			});
 			if (group!=null && group.getChildCount()>0) root.add(group);
 		}
 	}

@@ -245,8 +245,10 @@ public class CalcSystem extends CalcSystemBase {
 	}
 
 	/**
-	 * Liefert eine Liste aller dem System bekannten Symbole (einschließlich Variablennamen)
+	 * Liefert eine Liste aller dem System bekannten Symbole (einschließlich Variablennamen).
+	 * Verschiedene Schreibweisen werden hier als verschiedene Symbole erfasst.
 	 * @return	Liste aller bekannten Symbole
+	 * @see #getSymbolCount(boolean)
 	 */
 	public String[] getAllSymbolNames() {
 		return getCalcSymbolList().getAllSymbolNames();
@@ -259,6 +261,16 @@ public class CalcSystem extends CalcSystemBase {
 	 */
 	public boolean isKnownSymbol(final String name) {
 		return getCalcSymbolList().findSymbol(name)!=null;
+	}
+
+	/**
+	 * Liefert die Anzahl an verschiedenen erkannten Symbolen (d.h. ein Symbol in allen seinen Schreibweisen zählt nur als ein Symbol).
+	 * @param includeUserFunctions	Sollen auch die über {@link #getUserFunctions()} abrufbaren Symbole mitgezählt werden?
+	 * @return	Anzahl an verschiedenen erkannten Symbolen
+	 * @see #getAllSymbolNames()
+	 */
+	public int getSymbolCount(final boolean includeUserFunctions) {
+		return getCalcSymbolList().getSymbolCount(includeUserFunctions);
 	}
 
 	/**

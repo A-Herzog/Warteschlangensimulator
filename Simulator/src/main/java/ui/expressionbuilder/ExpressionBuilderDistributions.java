@@ -608,7 +608,22 @@ public class ExpressionBuilderDistributions {
 				"EmpiricalDistributionCV(value1;value2;value3;...;max)",
 				Language.tr("ExpressionBuilder.ProbabilityDistributions.EmpiricalDistribution.CVInfo"));
 
-		/* Zufallszahlen gemäß nutzerdefinierter Verteilungen */
+		if (sub.getChildCount()>0) group.add(sub);
+
+		/* Zufällige Auswahl eines von mehreren Werten */
+
+		sub=new DefaultMutableTreeNode(Language.tr("ExpressionBuilder.ProbabilityDistributions.RandomValues"));
+
+		addTreeNode(
+				sub,
+				filterUpper,
+				Language.tr("ExpressionBuilder.ProbabilityDistributions.RandomValues")+", "+rnd+" (RandomValues)",
+				"RandomValues(rate1;value1;rate2;value2;...)",
+				Language.tr("ExpressionBuilder.ProbabilityDistributions.RandomValues.RandomNumberInfo"));
+
+		if (sub.getChildCount()>0) group.add(sub);
+
+		/* Zufallszahlen gemäß nutzerdefinierter Verteilung */
 
 		sub=new DefaultMutableTreeNode(Language.tr("ExpressionBuilder.ProbabilityDistributions.CustomDistribution"));
 
@@ -620,6 +635,7 @@ public class ExpressionBuilderDistributions {
 				Language.tr("ExpressionBuilder.ProbabilityDistributions.CustomDistribution.RandomNumberInfo"));
 
 		if (sub.getChildCount()>0) group.add(sub);
+
 		if (group.getChildCount()>0) root.add(group);
 	}
 }
