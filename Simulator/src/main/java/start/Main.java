@@ -136,6 +136,9 @@ public class Main {
 		systemProperties.setProperty("org.apache.logging.log4j.level","OFF"); /* wird von org.apache.logging.log4j.core.config.AbstractConfiguration.setToDefault() gelesen */
 		systemProperties.setProperty("log4j2.formatMsgNoLookups","true"); /* wird von org.apache.logging.log4j.core.util.Constants gelesen */
 
+		/* HSQLDB security fix */
+		systemProperties.setProperty("hsqldb.method_class_names","java.lang.Math");
+
 		/* System initialisieren */
 		try {
 			prepare();
