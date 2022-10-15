@@ -63,9 +63,9 @@ public class ScaledImageCache {
 		final int maxMemoryMB=(int)(Runtime.getRuntime().maxMemory()/1024/1024);
 
 		int maxCacheRecords=MAX_CACHE_SIZE;
-		if (maxMemoryMB<=8_192) maxCacheRecords=25;
-		if (maxMemoryMB<=4_096) maxCacheRecords=10;
-		if (maxMemoryMB<=2_048) maxCacheRecords=5;
+		if (maxMemoryMB<8_000) maxCacheRecords=25;
+		if (maxMemoryMB<4_000) maxCacheRecords=10;
+		if (maxMemoryMB<2_000) maxCacheRecords=5;
 
 		cacheHash=new String[maxCacheRecords];
 		cacheData=new BufferedImage[maxCacheRecords];

@@ -87,11 +87,21 @@ public class ModelElementImage extends ModelElementDecoration {
 	 * Konstruktor der Klasse <code>ModelElementPosition</code>
 	 * @param model	Modell zu dem dieses Element gehören soll (kann später nicht mehr geändert werden)
 	 * @param surface	Zeichenfläche zu dem dieses Element gehören soll (kann später nicht mehr geändert werden)
+	 * @param loadDummy	Soll initial das Dummy-Bild geladen werden? (Darf nur auf <code>false</code> gesetzt werden, wenn als nächstes direkt {@link #copyDataFrom(ModelElement)} aufgerufen wird)
 	 */
-	public ModelElementImage(final EditModel model, final ModelSurface surface) {
+	private ModelElementImage(final EditModel model, final ModelSurface surface, final boolean loadDummy) {
 		super(model,surface,new Dimension(50,50));
 		lineWidth=1;
-		loadDummyImage();
+		if (loadDummy) loadDummyImage();
+	}
+
+	/**
+	 * Konstruktor der Klasse <code>ModelElementPosition</code>
+	 * @param model	Modell zu dem dieses Element gehören soll (kann später nicht mehr geändert werden)
+	 * @param surface	Zeichenfläche zu dem dieses Element gehören soll (kann später nicht mehr geändert werden)
+	 */
+	public ModelElementImage(final EditModel model, final ModelSurface surface) {
+		this(model,surface,true);
 	}
 
 	/**
@@ -209,7 +219,7 @@ public class ModelElementImage extends ModelElementDecoration {
 	 */
 	@Override
 	public ModelElementImage clone(final EditModel model, final ModelSurface surface) {
-		final ModelElementImage element=new ModelElementImage(model,surface);
+		final ModelElementImage element=new ModelElementImage(model,surface,false); /* false=Dummy-Bild nicht laden, da gleich copyDataFrom aufgerufen wird. */
 		requireImageLoaded();
 		element.copyDataFrom(this);
 		return element;

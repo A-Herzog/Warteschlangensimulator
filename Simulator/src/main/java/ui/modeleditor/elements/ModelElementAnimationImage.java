@@ -25,6 +25,8 @@ import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.Stroke;
 import java.awt.image.BufferedImage;
+import java.awt.image.ColorModel;
+import java.awt.image.WritableRaster;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -48,7 +50,6 @@ import simulator.editmodel.FullTextSearch;
 import simulator.runmodel.SimulationData;
 import simulator.simparser.ExpressionEval;
 import ui.images.Images;
-import ui.modeleditor.ModelAnimationImages;
 import ui.modeleditor.ModelClientData;
 import ui.modeleditor.ModelSequences;
 import ui.modeleditor.ModelSurface;
@@ -91,9 +92,15 @@ public class ModelElementAnimationImage extends ModelElementPosition implements 
 	 */
 	private Semaphore drawLock=new Semaphore(1);
 
-	/** Bedingungen zur Auswahl der Bilder */
+	/**
+	 * Bedingungen zur Auswahl der Bilder
+	 */
 	private final List<String> expression=new ArrayList<>();
-	/** Anzuzeigende Bilder */
+
+	/**
+	 * Anzuzeigende Bilder<br>
+	 * Die einzelnen Einträge werden Immutable behandelt, daher können diese als Referenz an Clone von ModelElementAnimationImage weitergegeben werden. Bei Änderungen wird hier ein neuer Wert gesetzt.
+	 */
 	private final List<BufferedImage> expressionImage=new ArrayList<>();
 
 	/**
@@ -176,6 +183,18 @@ public class ModelElementAnimationImage extends ModelElementPosition implements 
 	}
 
 	/**
+	 * Erstellt eine Kopie eines Bildobjektes
+	 * @param source	Ausgangs-Bildobjekt
+	 * @return	Kopie des Bildobjektes
+	 */
+	private static BufferedImage copyImage(final BufferedImage source) {
+		final ColorModel cm=source.getColorModel();
+		final boolean isAlphaPremultiplied=cm.isAlphaPremultiplied();
+		final WritableRaster raster=source.copyData(null);
+		return new BufferedImage(cm,raster,isAlphaPremultiplied,null);
+	}
+
+	/**
 	 * Ersetzt die bisherigen Diagramm-Einträge durch eine neue Liste.<br>
 	 * Jeder Diagramm-Eintrag besteht aus 2 Objekten in einem Array: Ausdruck (String), Balkenfarbe (Color).
 	 * @param data	Liste der neuen Diagramm-Einträge
@@ -188,7 +207,7 @@ public class ModelElementAnimationImage extends ModelElementPosition implements 
 			if (row[0]!=null && !(row[0] instanceof String)) continue;
 			if (!(row[1] instanceof BufferedImage)) continue;
 			expression.add((String)row[0]);
-			expressionImage.add((BufferedImage)row[1]);
+			expressionImage.add(copyImage((BufferedImage)row[1]));
 		}
 	}
 
@@ -266,13 +285,12 @@ public class ModelElementAnimationImage extends ModelElementPosition implements 
 		super.copyDataFrom(element);
 		if (element instanceof ModelElementAnimationImage) {
 
-			expression.addAll(((ModelElementAnimationImage)element).expression);
-			for (BufferedImage image: ((ModelElementAnimationImage)element).expressionImage) {
-				expressionImage.add(ModelAnimationImages.copyImage(image));
-			}
+			final ModelElementAnimationImage source=(ModelElementAnimationImage)element;
+			expression.addAll(source.expression);
+			expressionImage.addAll(source.expressionImage); /* Dürfen wir, da in der Quelle bei Änderungen ein neues Objekt in den Feldern hinterlegt wird. Das bestehende Objekt selbst wird inhaltlich nie geändert. */
 
-			borderWidth=((ModelElementAnimationImage)element).borderWidth;
-			borderColor=((ModelElementAnimationImage)element).borderColor;
+			borderWidth=source.borderWidth;
+			borderColor=source.borderColor;
 		}
 	}
 
