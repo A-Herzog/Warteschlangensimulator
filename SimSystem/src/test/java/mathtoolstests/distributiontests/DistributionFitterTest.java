@@ -30,6 +30,7 @@ import mathtools.distribution.DataDistributionImpl;
 import mathtools.distribution.LogNormalDistributionImpl;
 import mathtools.distribution.PertDistributionImpl;
 import mathtools.distribution.tools.DistributionFitter;
+import mathtools.distribution.tools.DistributionFitterBase;
 import mathtools.distribution.tools.DistributionTools;
 import mathtools.distribution.tools.WrapperLogNormalDistribution;
 
@@ -223,12 +224,12 @@ class DistributionFitterTest {
 	 */
 	@Test
 	void testFitterNormalDistData() {
-		final Object[] obj=DistributionFitter.dataDistributionFromValues(new double[][]{normalDistData});
+		final Object[] obj=DistributionFitterBase.dataDistributionFromValues(new double[][]{normalDistData});
 		assertNotNull(obj);
 		final DataDistributionImpl distribution=(DataDistributionImpl)obj[0];
 
 		final DistributionFitter fitter=new DistributionFitter();
-		fitter.process(distribution);
+		fitter.processDensity(distribution);
 
 		assertNotNull(fitter.getSamplesDistribution());
 		assertNotNull(fitter.getResult(true));
@@ -236,7 +237,7 @@ class DistributionFitterTest {
 		assertNotNull(fitter.getResultList());
 		assertNotNull(fitter.getResultListDist());
 		assertNotNull(fitter.getResultListError());
-		final AbstractRealDistribution dist=fitter.getFitDistribution();
+		final AbstractRealDistribution dist=fitter.getFitDistribution().get(0);
 		assertNotNull(dist);
 		assertTrue((dist instanceof NormalDistribution) || (dist instanceof PertDistributionImpl));
 	}

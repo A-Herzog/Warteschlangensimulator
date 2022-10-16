@@ -27,6 +27,7 @@ import mathtools.distribution.swing.JDataLoader;
 import mathtools.distribution.swing.JDistributionEditorPanel;
 import mathtools.distribution.swing.JDistributionPanel;
 import mathtools.distribution.tools.DistributionFitter;
+import mathtools.distribution.tools.DistributionFitterBase;
 import mathtools.distribution.tools.DistributionTools;
 import net.calc.NetServer;
 import net.calc.SimulationClient;
@@ -200,11 +201,11 @@ public class LanguageStaticLoader {
 		JDataDistributionPanel.errorString=Language.tr("Distribution.NoDistribution");
 
 		/* DistributionFitter */
-		DistributionFitter.ErrorInvalidFormat=Language.tr("DistributionFitter.ErrorInvalidFormat");
-		DistributionFitter.ValueCount=Language.tr("DistributionFitter.ValueCount");
-		DistributionFitter.ValueRange=Language.tr("DistributionFitter.ValueRange");
-		DistributionFitter.Mean=Language.tr("DistributionFitter.Mean");
-		DistributionFitter.StdDev=Language.tr("DistributionFitter.StdDev");
+		DistributionFitterBase.ErrorInvalidFormat=Language.tr("DistributionFitter.ErrorInvalidFormat");
+		DistributionFitterBase.ValueCount=Language.tr("DistributionFitter.ValueCount");
+		DistributionFitterBase.ValueRange=Language.tr("DistributionFitter.ValueRange");
+		DistributionFitterBase.Mean=Language.tr("DistributionFitter.Mean");
+		DistributionFitterBase.StdDev=Language.tr("DistributionFitter.StdDev");
 		DistributionFitter.ComparedDistributions=Language.tr("DistributionFitter.ComparedDistributions");
 		DistributionFitter.MeanSquares=Language.tr("DistributionFitter.MeanSquares");
 		DistributionFitter.PValue=Language.tr("DistributionFitter.PValue");

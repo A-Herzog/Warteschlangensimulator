@@ -16,7 +16,9 @@
 package mathtools.distribution.tools;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.commons.math3.distribution.AbstractRealDistribution;
 import org.apache.commons.math3.distribution.ChiSquaredDistribution;
@@ -31,41 +33,13 @@ import mathtools.distribution.OnePointDistributionImpl;
  * Versucht zu gegebenen Messwerten eine Verteilungsfunktion zu finden,
  * die diese möglichst gut beschreibt.
  * @author Alexander Herzog
- * @version 2.0
+ * @version 2.1
  */
-public class DistributionFitter {
+public class DistributionFitter extends DistributionFitterBase {
 	/**
-	 * Fehlermeldung "Die Eingangswerte konnten nicht interpretiert werden."
-	 * @see #processSamples(int[])
-	 * @see #processSamples(String[])
-	 * @see #processDensity(int[][])
-	 * @see #processDensity(String[][])
+	 * Anzahl an anzuzeigenden am besten passenden Fits
 	 */
-	public static String ErrorInvalidFormat="Die Eingangswerte konnten nicht interpretiert werden.";
-
-	/**
-	 * Bezeichner für "Anzahl an Messwerten"
-	 * @see #processSamples(int[])
-	 * @see #processSamples(String[])
-	 * @see #processDensity(int[][])
-	 * @see #processDensity(String[][])
-	 */
-	public static String ValueCount="Anzahl an Messwerten";
-
-	/**
-	 * Bezeichner für "Wertebereich"
-	 */
-	public static String ValueRange="Wertebereich";
-
-	/**
-	 * Bezeichner für "Mittelwert der Messwerte"
-	 */
-	public static String Mean="Mittelwert der Messwerte";
-
-	/**
-	 * Bezeichner für "Standardabweichung der Messwerte"
-	 */
-	public static String StdDev="Standardabweichung der Messwerte";
+	private static final int DISPLAY_NUMBER_OF_FITS=5;
 
 	/**
 	 * Bezeichner für "Geprüfte Verteilungen"
@@ -103,49 +77,10 @@ public class DistributionFitter {
 	public static String FitError="Abweichung";
 
 	/**
-	 * Nimmt die Statusausgaben in unformatierter Form auf.
-	 * @see #getResult(boolean)
-	 */
-	private final StringBuilder outputPlain;
-
-	/**
-	 * Nimmt die Statusausgaben in html-Form auf.
-	 * @see #getResult(boolean)
-	 */
-	private final StringBuilder outputHTML;
-
-	/**
-	 * Anzahl der erfassten Messwerte
-	 * @see #prepareProcessing(DataDistributionImpl)
-	 */
-	private int count;
-
-	/**
-	 * Messwerte so wie sie {@link #process(DataDistributionImpl)} übergeben wurden
-	 */
-	private DataDistributionImpl rawSamples;
-
-	/**
-	 * Messwerte in normalisierter Form (gegenüber {@link #rawSamples})
-	 */
-	private DataDistributionImpl samples;
-
-	/**
-	 * Am besten zu den Werten passende Verteilung
+	 * Angabe der quadratischen Abweichungen der Verteilungen
 	 * @see #getFitDistribution()
 	 */
-	private AbstractRealDistribution fit;
-
-	/**
-	 * Quadratische Abweichung der Messwerte zur unter {@link #fit} gespeicherten Verteilung.
-	 */
-	private double fitError;
-
-	/**
-	 * Liste mit Informationen (in Textform) zu den getesteten Verteilungen
-	 * @see #getResultList()
-	 */
-	private final List<String> outputInfo;
+	private Map<AbstractRealDistribution,Double> fit;
 
 	/**
 	 * Liste mit den Verteilungen, die getestet wurden
@@ -160,145 +95,41 @@ public class DistributionFitter {
 	private final List<Double> outputError;
 
 	/**
+	 * Liste mit Informationen (in Textform) zu den getesteten Verteilungen
+	 * @see #getResultList()
+	 */
+	protected final List<String> outputInfo;
+
+	/**
 	 * Konstruktor der Klasse
 	 */
 	public DistributionFitter() {
-		outputPlain=new StringBuilder();
-		outputHTML=new StringBuilder();
-		outputInfo=new ArrayList<>();
+		fit=new HashMap<>();
 		outputDist=new ArrayList<>();
 		outputError=new ArrayList<>();
+		outputInfo=new ArrayList<>();
 		clear();
 	}
 
 	/**
 	 * Setzt alle geladenen Daten und Verarbeitetungsergebnisse zurück.
 	 */
+	@Override
 	public void clear() {
-		outputPlain.setLength(0);
-		outputHTML.setLength(0);
-		outputInfo.clear();
+		super.clear();
 		outputDist.clear();
 		outputError.clear();
-		rawSamples=null;
-		samples=null;
-		count=0;
-		fit=null;
-		fitError=Integer.MAX_VALUE;
-	}
-
-	/**
-	 * Verarbeitet eine Reihe von Messwerten, die als Zeichenketten vorliegen
-	 * @param data	Zu verarbeitende Messwerte
-	 * @return	Gibt <code>true</code> zurück, wenn die Daten verarveitet werden konnten.
-	 */
-	public boolean processSamples(String[] data) {
-		clear();
-		DataDistributionImpl dist=DataDistributionImpl.createFromSamplesArray(data,false);
-		if (dist==null) {
-			outputPlain.append(ErrorInvalidFormat+"\n");
-			outputHTML.append(ErrorInvalidFormat+"<br>\n");
-			return false;
-		}
-		return process(dist);
-	}
-
-	/**
-	 * Verarbeitet eine Reihe von Messwerten, die als Zeichenketten vorliegen
-	 * @param data	Zu verarbeitende Messwerte
-	 * @return	Gibt <code>true</code> zurück, wenn die Daten verarbeitet werden konnten.
-	 */
-	public boolean processSamples(int[] data) {
-		clear();
-		DataDistributionImpl dist=DataDistributionImpl.createFromSamplesArray(data,false);
-		if (dist==null) {
-			outputPlain.append(ErrorInvalidFormat+"\n");
-			outputHTML.append(ErrorInvalidFormat+"<br>\n");
-			return false;
-		}
-		return process(dist);
-	}
-
-	/**
-	 * Verarbeitet eine Reihe von Dichte-Angaben (zwei Zeilen)
-	 * @param data	ZU verarbeitende Dichte-Angaben
-	 * @return	Gibt <code>true</code> zurück, wenn die Daten verarbeitet werden konnten.
-	 */
-	public boolean processDensity(String[][] data) {
-		clear();
-		DataDistributionImpl dist=DataDistributionImpl.createFromSamplesArray(data,false);
-		if (dist==null) {
-			outputPlain.append(ErrorInvalidFormat+"\n");
-			outputHTML.append(ErrorInvalidFormat+"<br>\n");
-			return false;
-		}
-		return process(dist);
-	}
-
-	/**
-	 * Verarbeitet eine Reihe von Dichte-Angaben (zwei Zeilen)
-	 * @param data	ZU verarbeitende Dichte-Angaben
-	 * @return	Gibt <code>true</code> zurück, wenn die Daten verarbeitet werden konnten.
-	 */
-	public boolean processDensity(int[][] data) {
-		clear();
-		DataDistributionImpl dist=DataDistributionImpl.createFromSamplesArray(data,false);
-		if (dist==null) {
-			outputPlain.append(ErrorInvalidFormat+"\n");
-			outputHTML.append(ErrorInvalidFormat+"<br>\n");
-			return false;
-		}
-		return process(dist);
-	}
-
-	/**
-	 * Vorverarbeitung der Messwerte
-	 * (Normalisierung, Ausgabe der generellen Informationen in {@link #outputPlain} and {@link #outputHTML})
-	 * @param dist	Zu verarbeitende Verteilung
-	 * @return	Gibt an, ob die Vorverarbeitung erfolgreich war, die Datenreihe also verwendet werden kann
-	 * @see #process(DataDistributionImpl)
-	 */
-	private boolean prepareProcessing(final DataDistributionImpl dist) {
-		clear();
-		if (dist==null || dist.densityData.length<2) return false;
-		samples=dist.clone();
-		rawSamples=dist.clone();
-		count=(int)Math.round(samples.sum());
-		samples.normalizeDensity();
-
-		final double mean=samples.getMean();
-		final double sd=samples.getStandardDeviation();
-
-		int m1=-1; int m2=0;
-		for (int i=0;i<samples.densityData.length;i++) if (samples.densityData[i]>0) {
-			if (m1<0) m1=i;
-			m2=i;
-		}
-		outputPlain.append(ValueCount+": "+count+"\n");
-		outputPlain.append(ValueRange+": "+m1+".."+m2+"\n");
-		outputPlain.append("\n");
-		outputPlain.append(Mean+": "+NumberTools.formatNumber(mean,3)+"\n");
-		outputPlain.append(StdDev+": "+NumberTools.formatNumber(sd,3)+"\n");
-		outputPlain.append("\n");
-		outputHTML.append(ValueCount+": "+count+"<br>\n");
-		outputHTML.append(ValueRange+": "+m1+".."+m2+"<br>\n");
-		outputHTML.append("<br>\n");
-		outputHTML.append(Mean+": "+NumberTools.formatNumber(mean,3)+"<br>\n");
-		outputHTML.append(StdDev+": "+NumberTools.formatNumber(sd,3)+"<br>\n");
-		outputHTML.append("<br>\n");
-
-		return true;
+		outputInfo.clear();
+		fit.clear();
 	}
 
 	/**
 	 * Verarbeitet eine Messwerte-Dichte-Verteilung
 	 * @param dist	Messwerte-Dichte-Verteilung
 	 * @return	Gibt <code>true</code> zurück, wenn die Daten verarbeitet werden konnten.
-	 * @see DistributionFitter#dataDistributionFromValues(double[][])
 	 */
-	public boolean process(final DataDistributionImpl dist) {
-		if (!prepareProcessing(dist)) return false;
-
+	@Override
+	protected boolean process(final DataDistributionImpl dist) {
 		final double mean=samples.getMean();
 		final double sd=samples.getStandardDeviation();
 		final double min=dist.getMin();
@@ -313,9 +144,22 @@ public class DistributionFitter {
 
 		outputPlain.append("\n");
 		outputPlain.append(BestFitFor+"\n");
-		outputPlain.append(DistributionTools.getDistributionName(fit)+" ("+DistributionTools.getDistributionInfo(fit)+")\n");
 		outputHTML.append("<h3>"+BestFitFor+"</h3>");
-		outputHTML.append(DistributionTools.getDistributionName(fit)+" ("+DistributionTools.getDistributionInfo(fit)+")<br>");
+		final List<AbstractRealDistribution> dists=getFitDistribution();
+		for (int i=0;i<Math.min(DISPLAY_NUMBER_OF_FITS,dists.size());i++) {
+			final AbstractRealDistribution fitDist=dists.get(i);
+			final String name=DistributionTools.getDistributionName(fitDist);
+			final String info=DistributionTools.getDistributionInfo(fitDist);
+			double diff=0;
+			for (Map.Entry<AbstractRealDistribution,Double> entry: fit.entrySet()) if (entry.getKey().getClass()==fitDist.getClass()) {
+				diff=entry.getValue();
+				break;
+			}
+			String error=NumberTools.formatNumber(diff,3);
+			if (error.equals("0")) error=NumberTools.formatNumber(diff,9);
+			outputPlain.append(""+(i+1)+". "+name+" ("+info+"), "+MeanSquares+": "+error+"\n");
+			outputHTML.append(""+(i+1)+". "+name+" ("+info+"), "+MeanSquares+": <b>"+error+"</b><br>");
+		}
 
 		return true;
 	}
@@ -480,7 +324,6 @@ public class DistributionFitter {
 	 * (quadrierte mittlere Abweichung und auch verschiedene Anpassungstests)
 	 * @param dist	Zu prüfende Verteilung
 	 * @see #fit
-	 * @see #fitError
 	 */
 	private void calcMatch(final AbstractRealDistribution dist) {
 		/* Quadrierte mittlere Abweichung ausrechnen */
@@ -517,11 +360,8 @@ public class DistributionFitter {
 			outputHTML.append(PValueAndersonDarling+": "+NumberTools.formatPercent(pAndersonDarling)+"<br>");
 		}
 
-		/* Ist der Fit besser? */
-		if (diff<fitError) {
-			fit=DistributionTools.cloneDistribution(dist);
-			fitError=diff;
-		}
+		/* Qualität des Fits speichern */
+		fit.put(DistributionTools.cloneDistribution(dist),diff);
 
 		/* Ergebnis in Liste aufnehmen */
 		addResultToOutputList(dist,diff);
@@ -543,15 +383,6 @@ public class DistributionFitter {
 	}
 
 	/**
-	 * Liefert alle Statusausgaben
-	 * @param html	Gibt an, ob die Ergebnisse als einfacher Text (<code>false</code>) oder mit HTML-Auszeichnungen (<code>true</code>) ausgegeben werden sollen.
-	 * @return	Statusausgaben zur Verteilungsanpassung
-	 */
-	public String getResult(final boolean html) {
-		if (html) return outputHTML.toString(); else return outputPlain.toString();
-	}
-
-	/**
 	 * Liefert die Verteilung der Messwerte (Eingangsdaten)
 	 * @return Verteilung der Messwerte
 	 */
@@ -563,8 +394,22 @@ public class DistributionFitter {
 	 * Liefert die am besten zu den Messwerten passende Verteilung
 	 * @return Am besten zu den Messwerten passende Verteilung
 	 */
-	public AbstractRealDistribution getFitDistribution() {
-		return fit;
+	public List<AbstractRealDistribution> getFitDistribution() {
+		final List<AbstractRealDistribution> results=new ArrayList<>();
+
+		final Map<AbstractRealDistribution,Double> data=new HashMap<>(fit);
+		while (data.size()>0) {
+			double bestValue=Double.MAX_VALUE;
+			AbstractRealDistribution bestDist=null;
+			for (Map.Entry<AbstractRealDistribution,Double> entry: data.entrySet()) if (entry.getValue()<bestValue) {
+				bestValue=entry.getValue();
+				bestDist=entry.getKey();
+			}
+			data.remove(bestDist);
+			results.add(bestDist);
+		}
+
+		return results;
 	}
 
 	/**
@@ -595,34 +440,5 @@ public class DistributionFitter {
 	 */
 	public List<Double> getResultListError() {
 		return outputError;
-	}
-
-	/**
-	 * Erstellt eine Verteilung auf Basis der übergebenen Messwerten (eine Zeile) oder Dichtewerten (zwei Zeilen).
-	 * @param values	Array aus einem oder zwei gleichlangen Unterarrays
-	 * @return	Im Fehlerfalle <code>null</code> sonst zwei Elemente: die Verteilung und ein boolscher Wert, der angibt, ob Werte gerundet werden mussten
-	 */
-	public static Object[] dataDistributionFromValues(double[][] values) {
-		if (values==null || values.length==0 || values[0]==null || values[0].length==0) return null;
-
-		double maxValue=1;
-		for (double d: values[0]) maxValue=Math.max(d,maxValue);
-		maxValue=Math.ceil(maxValue);
-		int maxIndex=(int)Math.round(maxValue);
-		DataDistributionImpl distribution=new DataDistributionImpl(maxValue,maxIndex+1);
-		boolean hasFloat=false;
-		if (values.length==1) {
-			for (double d: values[0]) {
-				distribution.densityData[(int)Math.max(0,Math.min(Math.round(d),maxIndex))]++;
-				if (Math.abs(Math.round(d)-d)>0.0001) hasFloat=true;
-			}
-		} else {
-			for (int i=0;i<Math.min(values[0].length,values[1].length);i++) {
-				distribution.densityData[(int)Math.max(0,Math.min(Math.round(values[0][i]),maxIndex))]=values[1][i];
-				if (Math.abs(Math.round(values[0][i])-values[0][i])>0.0001) hasFloat=true;
-				if (Math.abs(Math.round(values[1][i])-values[1][i])>0.0001) hasFloat=true;
-			}
-		}
-		return new Object[]{distribution,hasFloat};
 	}
 }

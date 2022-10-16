@@ -49,7 +49,7 @@ public class WrapperDataDistribution extends AbstractDistributionWrapper {
 		final int c=dataDist.densityData.length;
 		final String info=c+" "+((c>1)?DistributionTools.DistDataPoints:DistributionTools.DistDataPoint);
 		final double[] modeValues=dataDist.getMode();
-		final double mode=(modeValues.length==1)?modeValues[0]:null;
+		final Double mode=(modeValues.length==1)?modeValues[0]:null;
 		return new DistributionWrapperInfo(distribution,dataDist.getSkewness(),mode,info,null);
 	}
 

@@ -63,7 +63,7 @@ public final class ExtBetaDistributionImpl extends BetaDistribution implements C
 	 * @param beta	Verteilungsparameter beta
 	 */
 	public ExtBetaDistributionImpl(final double domainLowerBound, final double domainUpperBound, final double alpha, final double beta) {
-		super(null,alpha,beta,BetaDistribution.DEFAULT_INVERSE_ABSOLUTE_ACCURACY);
+		super(null,Math.max(1,alpha),Math.max(1,beta),BetaDistribution.DEFAULT_INVERSE_ABSOLUTE_ACCURACY);
 		this.domainLowerBound=domainLowerBound;
 		this.domainUpperBound=domainUpperBound;
 		inverseRange=1.0/(domainUpperBound-domainLowerBound);
@@ -79,7 +79,7 @@ public final class ExtBetaDistributionImpl extends BetaDistribution implements C
 	 * @param inverseCumAccuracy	Genauigkeit für die Funktion <code>inverseCumulativeProbability</code>
 	 */
 	public ExtBetaDistributionImpl(final double domainLowerBound, final double domainUpperBound, final double alpha, final double beta, final double inverseCumAccuracy) {
-		super(null,alpha,beta,inverseCumAccuracy);
+		super(null,Math.max(1,alpha),Math.max(1,beta),inverseCumAccuracy);
 		this.domainLowerBound=domainLowerBound;
 		this.domainUpperBound=domainUpperBound;
 		inverseRange=1.0/(domainUpperBound-domainLowerBound);

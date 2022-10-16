@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-10-12 08:05+0200\n"
+"POT-Creation-Date: 2022-10-15 18:05+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -8563,6 +8563,12 @@ msgstr "Es wurden %d Messwerte geladen."
 
 msgid "FitDalog.Loaded.List"
 msgstr "Auflistung der Messwerte"
+
+msgid "FitDalog.Loaded.Max"
+msgstr "Maximaler Wert: %s"
+
+msgid "FitDalog.Loaded.Min"
+msgstr "Minimaler Wert: %s"
 
 msgid "FitDalog.Loaded.Title"
 msgstr "Messwerte geladen"
