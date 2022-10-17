@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-10-15 18:05+0200\n"
+"POT-Creation-Date: 2022-10-17 10:10+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -3252,6 +3252,36 @@ msgstr "Anzahl an Messwerten"
 
 msgid "DistributionFitter.ValueRange"
 msgstr "Wertebereich"
+
+msgid "DistributionFitterMultiModal.Approximation"
+msgstr "Näherung"
+
+msgid "DistributionFitterMultiModal.CalculationCommand"
+msgstr "Rechenbefehl für die zusammengesetzte Verteilung"
+
+msgid "DistributionFitterMultiModal.Fraction"
+msgstr "Anteil"
+
+msgid "DistributionFitterMultiModal.FractionPostOptimization"
+msgstr "Nachoptimierung der Anteile der Verteilungen"
+
+msgid "DistributionFitterMultiModal.FractionPostOptimizationCurrent"
+msgstr "Bisherige Anteile"
+
+msgid "DistributionFitterMultiModal.FractionPostOptimizationNew"
+msgstr "Optimierte Anteile"
+
+msgid "DistributionFitterMultiModal.Mode"
+msgstr "Modalwert der Verteilung"
+
+msgid "DistributionFitterMultiModal.NoMode"
+msgstr "Es konnte kein Modalwert ermittelt werden. Ende der Anpassung."
+
+msgid "DistributionFitterMultiModal.Step"
+msgstr "Verteilungsanpassung Schritt %d"
+
+msgid "DistributionFitterMultiModal.UsedDistribution"
+msgstr "Für die Anpassung verwendete Verteilung"
 
 msgid "Editor.AddEdge.Hint.RemoveAllButton"
 msgstr "Alle Hinweise ausblenden"
@@ -8606,6 +8636,12 @@ msgstr "Messwerte einfügen"
 msgid "FitDialog.PasteValues.Tooltip"
 msgstr "Lädt eine Reihe von Messwerten aus der Zwischenablage"
 
+msgid "FitDialog.SaveResults"
+msgstr "Ergebnis speichern"
+
+msgid "FitDialog.SaveResults.Tooltip"
+msgstr "Speichert die Ergebnisse der Anpassung"
+
 msgid "FitDialog.Tab.EmpiricalDistribution"
 msgstr "Empirische Verteilung"
 
@@ -8617,6 +8653,45 @@ msgstr "Messwerte"
 
 msgid "FitDialog.Title"
 msgstr "Verteilung anpassen"
+
+msgid "FitDialog.TypeSelect.Default"
+msgstr "Wahrscheinlichkeitsverteilung für Messwerte finden"
+
+msgid "FitDialog.TypeSelect.Default.Info"
+msgstr "Prüft, welche der verfügbaren Wahrscheinlichkeitsverteilungen<br>eine Reihe von Messwerten am besten beschreibt."
+
+msgid "FitDialog.TypeSelect.MultiModal.Gamma"
+msgstr "Multimodale Verteilung in Gamma-Verteilungen zerlegen"
+
+msgid "FitDialog.TypeSelect.MultiModal.Gamma.Info"
+msgstr "Zerlegt eine in Form von Messwerten gegebene multimodale Verteilung in eine Reihe von<br>Gamma-Verteilungen, die in Summe die Werte möglichst gut beschreiben."
+
+msgid "FitDialog.TypeSelect.MultiModal.LogNormal"
+msgstr "Multimodale Verteilung in Log-Normalverteilungen zerlegen"
+
+msgid "FitDialog.TypeSelect.MultiModal.LogNormal.Info"
+msgstr "Zerlegt eine in Form von Messwerten gegebene multimodale Verteilung in eine Reihe von<br>Log-Normalverteilungen, die in Summe die Werte möglichst gut beschreiben."
+
+msgid "FitDialog.TypeSelect.Title"
+msgstr "Welche Art von Verteilungsanpassung soll durchgeführt werden?"
+
+msgid "FitDialogMultiModal.CompleteApproximation"
+msgstr "Gesamte Näherung"
+
+msgid "FitDialogMultiModal.DialogHint"
+msgstr "Die Funktion zur multimodalen Verteilungsanpassung zerlegt eine in Form von Messwerten gegebene Verteilung in mehrere Wahrscheinlichkeitsverteilung. Dieser Vorgang wird auch Input-Analyse genannt."
+
+msgid "FitDialogMultiModal.InitialDensity"
+msgstr "Ausgangsdichte"
+
+msgid "FitDialogMultiModal.PartialDensity"
+msgstr "Teildichte"
+
+msgid "FitDialogMultiModal.Residuum"
+msgstr "Residuum"
+
+msgid "FitDialogMultiModal.Title"
+msgstr "Multimodale Verteilung anpassen"
 
 msgid "FontFamily.Dialog"
 msgstr "Java-Standardschrift"

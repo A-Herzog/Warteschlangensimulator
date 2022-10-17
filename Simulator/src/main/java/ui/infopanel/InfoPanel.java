@@ -163,6 +163,9 @@ public class InfoPanel {
 	/** Info-ID für den "Verteilung anpassen"-Dialog */
 	public static final String globalFit="Fit";
 
+	/** Info-ID für den "Verteilung anpassen (multimodal)"-Dialog */
+	public static final String globalFitMultiModal="FitMultiModal";
+
 	/** Info-ID für den "Varianzanalyse"-Dialog */
 	public static final String globalVarianceAnalysis="VarianceAnalysis";
 
@@ -749,6 +752,10 @@ public class InfoPanel {
 		register(globalFit,
 				()->Language.tr("HintsDialog.TreeNodeMoreDialogs")+"|"+Language.tr("FitDialog.Title"),
 				()->Language.tr("FitDialog.DialogHint"));
+
+		register(globalFitMultiModal,
+				()->Language.tr("HintsDialog.TreeNodeMoreDialogs")+"|"+Language.tr("FitDialogMultiModal.Title"),
+				()->Language.tr("FitDialogMultiModal.DialogHint"));
 
 		/* Varianzanalyse */
 

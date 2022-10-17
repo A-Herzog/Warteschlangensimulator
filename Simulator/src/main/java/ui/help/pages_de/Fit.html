@@ -14,6 +14,17 @@ Siehe auch Abschnitt <a href="book:4.3">Verteilungsanpassung</a> im Lehrbuch.
 </p>
 
 <p>
+Die Verteilungsanpassung kann auf zwei Arten erfolgen: Es kann entweder eine einzelne
+Verteilungsfunktion (aus einer großen Menge möglicher Verteilungsfunktionen) gesucht
+werden, die die angegebenen Messwerte möglichst gut beschreibt. Oder aber die Messwerte
+können als eine Überlagerung von mehreren Verteilungen (mit vorgegebenem, bekanntem Typ)
+angenommen werden. Die Verteilungsanpassung versucht dann aus dieser multimodalen Messreihe
+die einzelnen Verteilungen zu extrahieren.
+</p>
+
+<h2>Ermittlung einer einzelnen, die Messwerte möglichst gut beschreibenden Verteilungsfunktion</h2>
+
+<p>
 Die Funktion zur Verteilungsanpassung ermöglicht es, basierend auf einer Reihe von Messwerten
 eine Verteilung zu finden, die die Werte jeweils bestmöglich widerspiegelt.
 Es werden dafür zunächst Mittelwert und Standardabweichung der Messwerte bestimmt und basieren
@@ -36,6 +47,16 @@ Anderson-Darling-Test, der eine Modifikation des Kolmogorov-Smirnov-Tests darste
 durchgeführt.
 </p>
 
+<h2>Zerlegung einer Messreihe in mehrere Verteilungen</h2>
+
+<p>
+In dieser Betriebsart muss zunächst ausgewählt werden, ob Log-Normal- oder Gamma-Verteilungen
+für die einzelnen Verteilungen herangezogen werden. Die Verteilungsanpassung versucht dann
+sukzessive Verteilungen zu finden, die jeweils die Messreihe insgesamt möglichst gut beschreiben.
+Solch eine Teilverteilung wird dann von der vorgegebenen Gesamtverteilung abgezogen und der
+Algorithmus wird erneut auf die verbleibende Verteilung angewandt. Dieser Prozess wird iteriert,
+bis die Summe der Teilverteilungen mindestens 99% der Messwerte-Verteilung beschreibt.
+</p>
 
 </body>
 </html>

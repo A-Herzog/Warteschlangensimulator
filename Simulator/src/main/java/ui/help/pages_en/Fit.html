@@ -10,6 +10,17 @@
 <h1>Fit distribution dialog</h1>
 
 <p>
+The distribution fitting can be done in two ways: Either a single distribution function
+(from a large set of possible distribution functions) can be selected that describes
+the specified measured values as well as possible. Or the measured values can be assumed
+as a superposition of several distributions (with a given, known type). The distribution
+fitting then tries to extract the individual distributions from this multimodal measurement
+series.
+</p>
+
+<h2>Determination of a single distribution function that describes the measured values as well as possible</h2>
+
+<p>
 The distribution fit function allows you to find a distribution based on a series of measured values
 that best reflects the values. For this purpose, the mean value and the standard deviation of the
 measured values are initially determined and distributing functions for all built-in probability
@@ -27,6 +38,18 @@ and the Chi<sup>2</sup> fit test are performed. While the Kolmogorov-Smirnov fit
 the maximum deviations between the measured samples and distribution function,
 the Chi<sup>2</sup> fit test considers the mean deviations. For the normal distribution,
 the Anderson-Darling test, which is a modification of the Kolmogorov-Smirnov test, is also performed.
+</p>
+
+<h2>Decomposition of a measurement series into several distributions</h2>
+
+<p>
+In this operating mode, one first has to select whether log-normal or gamma distributions
+are to be used for the individual distributions. The distribution fitting then tries to
+find successive distributions, each of which describes the measurement series as a whole
+as well as possible. Such a partial distribution is then subtracted from the given overall
+distribution and the algorithm is applied again to the remaining distribution.
+This process is iterated until the sum of the partial distributions describes
+at least 99% of the measurement distribution.
 </p>
 
 </body>

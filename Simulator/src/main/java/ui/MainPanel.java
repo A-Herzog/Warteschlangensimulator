@@ -93,6 +93,7 @@ import mathtools.Table.SaveMode;
 import mathtools.distribution.swing.CommonVariables;
 import mathtools.distribution.swing.JOpenURL;
 import mathtools.distribution.tools.AbstractDistributionWrapper;
+import mathtools.distribution.tools.DistributionFitterMultiModal;
 import mathtools.distribution.tools.FileDropperData;
 import net.calc.ServerStatus;
 import scripting.java.ExternalConnectDialog;
@@ -135,6 +136,7 @@ import ui.dialogs.FindAndReplaceDialog;
 import ui.dialogs.FindBatchSizeDialog;
 import ui.dialogs.FindElementDialog;
 import ui.dialogs.FitDialog;
+import ui.dialogs.FitDialogMultiModal;
 import ui.dialogs.HeatMapSelectWindow;
 import ui.dialogs.HeatMapSetupDialog;
 import ui.dialogs.InfoDialog;
@@ -296,6 +298,8 @@ public class MainPanel extends MainPanelBase {
 	private static final int JAVA17_SECURE_MIN_VERSION=4;
 	/** Aktuelle Unterversionsnummer in der Java 18 Versionsreihe */
 	private static final int JAVA18_SECURE_MIN_VERSION=2;
+	/** Aktuelle Unterversionsnummer in der Java 19 Versionsreihe */
+	private static final int JAVA19_SECURE_MIN_VERSION=0;
 
 	/**
 	 * Bezeichnung für "ungespeichertes Modell" in der Titelzeile für ein neues Modell, welches noch keinen Namen besitzt
@@ -2145,6 +2149,7 @@ public class MainPanel extends MainPanelBase {
 			if (ver[0]==16 && ver[1]<JAVA16_SECURE_MIN_VERSION) ok=false;
 			if (ver[0]==17 && ver[1]<JAVA17_SECURE_MIN_VERSION) ok=false;
 			if (ver[0]==18 && ver[1]<JAVA18_SECURE_MIN_VERSION) ok=false;
+			if (ver[0]==19 && ver[1]<JAVA19_SECURE_MIN_VERSION) ok=false;
 			if (ok) return;
 			setMessagePanel(Language.tr("Dialog.Title.Warning"),Language.tr("Window.JavaSecurityWarnung"),"https://"+MainPanel.JDK_URL,MessagePanelIcon.WARNING);
 			new Timer("HideSecurityInfoPanel").schedule(new TimerTask() {@Override public void run() {setMessagePanel(null,null,null);}},7500);
@@ -3801,7 +3806,26 @@ public class MainPanel extends MainPanelBase {
 	 * Befehl: Extras - Verteilung anpassen
 	 */
 	private void commandExtrasFit() {
-		final FitDialog dialog=new FitDialog(this);
+		final int option=MsgBox.options(this,Language.tr("FitDialog.Title"),Language.tr("FitDialog.TypeSelect.Title"),
+				new String[]{
+						"<b>"+Language.tr("FitDialog.TypeSelect.Default")+"</b>",
+						"<b>"+Language.tr("FitDialog.TypeSelect.MultiModal.LogNormal")+"</b>",
+						"<b>"+Language.tr("FitDialog.TypeSelect.MultiModal.Gamma")+"</b>"
+		},
+				new String[] {
+						Language.tr("FitDialog.TypeSelect.Default.Info"),
+						Language.tr("FitDialog.TypeSelect.MultiModal.LogNormal.Info"),
+						Language.tr("FitDialog.TypeSelect.MultiModal.Gamma.Info")
+		});
+
+		BaseDialog dialog;
+		switch (option) {
+		case 0: dialog=new FitDialog(this); break;
+		case 1: dialog=new FitDialogMultiModal(this,DistributionFitterMultiModal.FitDistribution.LOG_NORMAL); break;
+		case 2: dialog=new FitDialogMultiModal(this,DistributionFitterMultiModal.FitDistribution.GAMMA); break;
+		default: return;
+		}
+
 		dialog.setVisible(true);
 	}
 

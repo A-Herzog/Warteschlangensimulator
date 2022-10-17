@@ -28,6 +28,7 @@ import mathtools.distribution.swing.JDistributionEditorPanel;
 import mathtools.distribution.swing.JDistributionPanel;
 import mathtools.distribution.tools.DistributionFitter;
 import mathtools.distribution.tools.DistributionFitterBase;
+import mathtools.distribution.tools.DistributionFitterMultiModal;
 import mathtools.distribution.tools.DistributionTools;
 import net.calc.NetServer;
 import net.calc.SimulationClient;
@@ -200,12 +201,14 @@ public class LanguageStaticLoader {
 		DistributionTools.DistParameter=Language.tr("Distribution.Parameter");
 		JDataDistributionPanel.errorString=Language.tr("Distribution.NoDistribution");
 
-		/* DistributionFitter */
+		/* DistributionFitterBase */
 		DistributionFitterBase.ErrorInvalidFormat=Language.tr("DistributionFitter.ErrorInvalidFormat");
 		DistributionFitterBase.ValueCount=Language.tr("DistributionFitter.ValueCount");
 		DistributionFitterBase.ValueRange=Language.tr("DistributionFitter.ValueRange");
 		DistributionFitterBase.Mean=Language.tr("DistributionFitter.Mean");
 		DistributionFitterBase.StdDev=Language.tr("DistributionFitter.StdDev");
+
+		/* DistributionFitter */
 		DistributionFitter.ComparedDistributions=Language.tr("DistributionFitter.ComparedDistributions");
 		DistributionFitter.MeanSquares=Language.tr("DistributionFitter.MeanSquares");
 		DistributionFitter.PValue=Language.tr("DistributionFitter.PValue");
@@ -213,6 +216,18 @@ public class LanguageStaticLoader {
 		DistributionFitter.PValueAndersonDarling=Language.tr("DistributionFitter.PValueAndersonDarling");
 		DistributionFitter.BestFitFor=Language.tr("DistributionFitter.BestFitFor");
 		DistributionFitter.FitError=Language.tr("DistributionFitter.FitError");
+
+		/* DistributionFitterMultiModal */
+		DistributionFitterMultiModal.usedDistribution=Language.tr("DistributionFitterMultiModal.UsedDistribution");
+		DistributionFitterMultiModal.step=Language.tr("DistributionFitterMultiModal.Step");
+		DistributionFitterMultiModal.mode=Language.tr("DistributionFitterMultiModal.Mode");
+		DistributionFitterMultiModal.noMode=Language.tr("DistributionFitterMultiModal.NoMode");
+		DistributionFitterMultiModal.approximation=Language.tr("DistributionFitterMultiModal.Approximation");
+		DistributionFitterMultiModal.fraction=Language.tr("DistributionFitterMultiModal.Fraction");
+		DistributionFitterMultiModal.fractionsPostOptimization=Language.tr("DistributionFitterMultiModal.FractionPostOptimization");
+		DistributionFitterMultiModal.fractionsPostOptimizationCurrent=Language.tr("DistributionFitterMultiModal.FractionPostOptimizationCurrent");
+		DistributionFitterMultiModal.fractionsPostOptimizationNew=Language.tr("DistributionFitterMultiModal.FractionPostOptimizationNew");
+		DistributionFitterMultiModal.calculationCommand=Language.tr("DistributionFitterMultiModal.CalculationCommand");
 
 		/* Table */
 		Table.BoolTrue=Language.tr("Table.BoolTrue");

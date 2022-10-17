@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-10-15 18:05+0200\n"
+"POT-Creation-Date: 2022-10-17 10:10+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -3247,6 +3247,36 @@ msgstr "Number of values"
 
 msgid "DistributionFitter.ValueRange"
 msgstr "Range"
+
+msgid "DistributionFitterMultiModal.Approximation"
+msgstr "Approximation"
+
+msgid "DistributionFitterMultiModal.CalculationCommand"
+msgstr "Calculation command for the composite distribution"
+
+msgid "DistributionFitterMultiModal.Fraction"
+msgstr "Fraction"
+
+msgid "DistributionFitterMultiModal.FractionPostOptimization"
+msgstr "Post-optimization of the fractions of the distributions"
+
+msgid "DistributionFitterMultiModal.FractionPostOptimizationCurrent"
+msgstr "Current fractions"
+
+msgid "DistributionFitterMultiModal.FractionPostOptimizationNew"
+msgstr "Optimized fractions"
+
+msgid "DistributionFitterMultiModal.Mode"
+msgstr "Mode of the distribution"
+
+msgid "DistributionFitterMultiModal.NoMode"
+msgstr "No modal value could be determined. End of fitting."
+
+msgid "DistributionFitterMultiModal.Step"
+msgstr "Distribution fitting step %s"
+
+msgid "DistributionFitterMultiModal.UsedDistribution"
+msgstr "Distribution used for fitting"
 
 msgid "Editor.AddEdge.Hint.RemoveAllButton"
 msgstr "Hide all hints"
@@ -8614,6 +8644,12 @@ msgstr "Paste values"
 msgid "FitDialog.PasteValues.Tooltip"
 msgstr "Pastes values from the clipboard"
 
+msgid "FitDialog.SaveResults"
+msgstr "Save result"
+
+msgid "FitDialog.SaveResults.Tooltip"
+msgstr "Saves the results of the fit"
+
 msgid "FitDialog.Tab.EmpiricalDistribution"
 msgstr "Empirical distribution"
 
@@ -8625,6 +8661,45 @@ msgstr "Values"
 
 msgid "FitDialog.Title"
 msgstr "Fit distribution"
+
+msgid "FitDialog.TypeSelect.Default"
+msgstr "Find probability distribution for measured values"
+
+msgid "FitDialog.TypeSelect.Default.Info"
+msgstr "Checks which of the available probability distributions<br>best describes a set of measured values."
+
+msgid "FitDialog.TypeSelect.MultiModal.Gamma"
+msgstr "Decompose multimodal distribution into Gamma distributions"
+
+msgid "FitDialog.TypeSelect.MultiModal.Gamma.Info"
+msgstr "Decomposes a multimodal distribution given in the form of measured values into a series of<br>Gamma distributions which, in sum, describe the values as well as possible."
+
+msgid "FitDialog.TypeSelect.MultiModal.LogNormal"
+msgstr "Decompose multimodal distribution into log-normal distributions"
+
+msgid "FitDialog.TypeSelect.MultiModal.LogNormal.Info"
+msgstr "Decomposes a multimodal distribution given in the form of measured values into a series of<br>log-normal distributions which, in sum, describe the values as well as possible."
+
+msgid "FitDialog.TypeSelect.Title"
+msgstr "What type of distribution fitting should be performed?"
+
+msgid "FitDialogMultiModal.CompleteApproximation"
+msgstr "Complete approximation"
+
+msgid "FitDialogMultiModal.DialogHint"
+msgstr "The multimodal distribution fitting function decomposes a distribution given in the form of measured values into several probability distributions. This process is also called input analysis."
+
+msgid "FitDialogMultiModal.InitialDensity"
+msgstr "Initial density"
+
+msgid "FitDialogMultiModal.PartialDensity"
+msgstr "Partial density"
+
+msgid "FitDialogMultiModal.Residuum"
+msgstr "Residuum"
+
+msgid "FitDialogMultiModal.Title"
+msgstr "Fit multimodal distribution"
 
 msgid "FontFamily.Dialog"
 msgstr "Java default font"
