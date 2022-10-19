@@ -517,7 +517,7 @@ public abstract class JDistributionEditorPanelRecord {
 		public AbstractRealDistribution getDistribution(final JTextField[] fields, final double maxXValue) {
 			final Double d1=NumberTools.getDouble(fields[0],true); if (d1==null) return null;
 			final Double d2=NumberTools.getDouble(fields[1],true); if (d2==null) return null;
-			if (d1>d2) return null;
+			if (d1>=d2) return null;
 			return new UniformRealDistribution(d1,d2);
 		}
 	}
