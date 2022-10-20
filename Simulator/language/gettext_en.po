@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-10-17 10:10+0200\n"
+"POT-Creation-Date: 2022-10-18 10:05+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -8597,7 +8597,7 @@ msgid "FitDalog.InvalidDataTitle"
 msgstr "No data loaded"
 
 msgid "FitDalog.Loaded.Info"
-msgstr "%d values have been loaded."
+msgstr "%s values have been loaded."
 
 msgid "FitDalog.Loaded.List"
 msgstr "List of the loaded values"
@@ -8622,6 +8622,12 @@ msgstr "Copies the results of the fit to the clipboard"
 
 msgid "FitDialog.DialogHint"
 msgstr "The distribution fitting function trys to find an analytical probability distribution for given measured values that describes them as well as possible. This process is also called input analysis."
+
+msgid "FitDialog.GenerateValues"
+msgstr "Generate values"
+
+msgid "FitDialog.GenerateValues.Tooltip"
+msgstr "Generates a series of test measurements"
 
 msgid "FitDialog.InfoValuesRounded"
 msgstr "The input values have been rounded to integer numbers."
@@ -8700,6 +8706,60 @@ msgstr "Residuum"
 
 msgid "FitDialogMultiModal.Title"
 msgstr "Fit multimodal distribution"
+
+msgid "FitDialogMultiModalGenerator.Distribution"
+msgstr "Distribution %d"
+
+msgid "FitDialogMultiModalGenerator.ExpectedValue"
+msgstr "Expected value"
+
+msgid "FitDialogMultiModalGenerator.ExpectedValue.ErrorInfo1"
+msgstr ""
+"The specified expected value for the first distribution is invalid.\n"
+"A non-negative number has to be specified."
+
+msgid "FitDialogMultiModalGenerator.ExpectedValue.ErrorInfo2"
+msgstr ""
+"The specified expected value for the second distribution is invalid.\n"
+"A non-negative number has to be specified."
+
+msgid "FitDialogMultiModalGenerator.ExpectedValue.ErrorTitle"
+msgstr "Invalid expected value"
+
+msgid "FitDialogMultiModalGenerator.NumberOfValues"
+msgstr "Number of values"
+
+msgid "FitDialogMultiModalGenerator.NumberOfValues.ErrorInfo1"
+msgstr ""
+"The number of values to be generated according to the first distribution is invalid.\n"
+"A positive integer has to be specified."
+
+msgid "FitDialogMultiModalGenerator.NumberOfValues.ErrorInfo2"
+msgstr ""
+"The number of values to be generated according to the second distribution is invalid.\n"
+"A positive integer has to be specified."
+
+msgid "FitDialogMultiModalGenerator.NumberOfValues.ErrorTitle"
+msgstr "Invalid number of values"
+
+msgid "FitDialogMultiModalGenerator.StandardDeviation"
+msgstr "Standard deviation"
+
+msgid "FitDialogMultiModalGenerator.StandardDeviation.ErrorInfo1"
+msgstr ""
+"The specified standard deviation for the first distribution is invalid.\n"
+"A non-negative number has to be specified."
+
+msgid "FitDialogMultiModalGenerator.StandardDeviation.ErrorInfo2"
+msgstr ""
+"The specified standard deviation for the second distribution is invalid.\n"
+"A non-negative number has to be specified."
+
+msgid "FitDialogMultiModalGenerator.StandardDeviation.ErrorTitle"
+msgstr "Invalid standard deviation"
+
+msgid "FitDialogMultiModalGenerator.Title"
+msgstr "Generate test measurement values"
 
 msgid "FontFamily.Dialog"
 msgstr "Java default font"

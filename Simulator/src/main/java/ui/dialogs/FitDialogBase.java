@@ -136,15 +136,16 @@ public abstract class FitDialogBase extends BaseDialog {
 	 * @param title	Titel des Fensters
 	 * @param helpTopic	Bezeichner für die Hilfeseite
 	 * @param infoPanelTopic	Bezeichner für den Info-Datensatz (darf <code>null</code> sein)
+	 * @param showGenerateSamplesButton	Soll die Schaltfläche zur Generieren von Testmesswerten angezeigt werden?
 	 */
-	public FitDialogBase(final Component owner, final String title, final String helpTopic, final String infoPanelTopic) {
+	public FitDialogBase(final Component owner, final String title, final String helpTopic, final String infoPanelTopic, final boolean showGenerateSamplesButton) {
 		super(owner,title,false);
 
 		final JPanel content=createGUI(()->Help.topicModal(FitDialogBase.this,helpTopic));
 		content.setLayout(new BorderLayout());
 		if (infoPanelTopic!=null) InfoPanel.addTopPanel(content,infoPanelTopic);
 		content.add(tabs=new JTabbedPane(),BorderLayout.CENTER);
-		createTabs(tabs);
+		createTabs(tabs,showGenerateSamplesButton);
 
 		final Dimension screenSize=Toolkit.getDefaultToolkit().getScreenSize();
 		if (screenSize.width>=1920) setSize(1280,904);
@@ -158,30 +159,37 @@ public abstract class FitDialogBase extends BaseDialog {
 	/**
 	 * Erstellt die Tabs innerhalb von {@link #tabs}
 	 * @param tabs	Tabs-Elternelement
+	 * @param showGenerateSamplesButton	Soll die Schaltfläche zur Generieren von Testmesswerten angezeigt werden?
 	 */
-	private void createTabs(final JTabbedPane tabs) {
+	private void createTabs(final JTabbedPane tabs, final boolean showGenerateSamplesButton) {
 		JPanel p,p2;
 		JToolBar toolbar;
-		JButton b;
-		JScrollPane sp;
+		JButton button;
+		JScrollPane scroll;
 
 		/* Dialogseite "Messwerte" */
 		tabs.addTab(Language.tr("FitDialog.Tab.Values"),p=new JPanel(new BorderLayout()));
 		p.add(toolbar=new JToolBar(),BorderLayout.NORTH);
 		toolbar.setFloatable(false);
 		toolbar.setBorder(BorderFactory.createEmptyBorder(5,5,0,5));
-		toolbar.add(b=new JButton(Language.tr("FitDialog.PasteValues")));
-		b.setToolTipText(Language.tr("FitDialog.PasteValues.Tooltip"));
-		b.addActionListener(e->pasteFromClipboard());
-		b.setIcon(Images.EDIT_PASTE.getIcon());
-		toolbar.add(b=new JButton(Language.tr("FitDialog.LoadValues")));
-		b.setToolTipText(Language.tr("FitDialog.LoadValues.Tooltip"));
-		b.addActionListener(e->loadFromFile());
-		b.setIcon(Images.GENERAL_SELECT_FILE.getIcon());
+		toolbar.add(button=new JButton(Language.tr("FitDialog.PasteValues")));
+		button.setToolTipText(Language.tr("FitDialog.PasteValues.Tooltip"));
+		button.addActionListener(e->pasteFromClipboard());
+		button.setIcon(Images.EDIT_PASTE.getIcon());
+		toolbar.add(button=new JButton(Language.tr("FitDialog.LoadValues")));
+		button.setToolTipText(Language.tr("FitDialog.LoadValues.Tooltip"));
+		button.addActionListener(e->loadFromFile());
+		button.setIcon(Images.GENERAL_SELECT_FILE.getIcon());
+		if (showGenerateSamplesButton) {
+			toolbar.add(button=new JButton(Language.tr("FitDialog.GenerateValues")));
+			button.setToolTipText(Language.tr("FitDialog.GenerateValues.Tooltip"));
+			button.addActionListener(e->generateSamples());
+			button.setIcon(Images.EXTRAS_CALCULATOR.getIcon());
+		}
 		p.add(p2=new JPanel(new BorderLayout()),BorderLayout.CENTER);
 		p2.setBorder(BorderFactory.createEmptyBorder(5,5,5,5));
-		p2.add(sp=new JScrollPane(inputValues=new JTextPane()),BorderLayout.CENTER);
-		sp.setBorder(BorderFactory.createLineBorder(Color.GRAY));
+		p2.add(scroll=new JScrollPane(inputValues=new JTextPane()),BorderLayout.CENTER);
+		scroll.setBorder(BorderFactory.createLineBorder(Color.GRAY));
 		inputValues.setEditable(false);
 		inputValues.setContentType("text/html");
 		inputValues.setText((FlatLaFHelper.isDark()?htmlHeadDark:htmlHead)+Language.tr("FitDialog.PasteOrLoadValues")+htmlFoot);
@@ -196,14 +204,14 @@ public abstract class FitDialogBase extends BaseDialog {
 		p.add(toolbar=new JToolBar(),BorderLayout.NORTH);
 		toolbar.setFloatable(false);
 		toolbar.setBorder(BorderFactory.createEmptyBorder(5,5,0,5));
-		toolbar.add(b=new JButton(Language.tr("FitDialog.CopyResults")));
-		b.addActionListener(e->copyResults());
-		b.setToolTipText(Language.tr("FitDialog.CopyResults.Tooltip"));
-		b.setIcon(Images.EDIT_COPY.getIcon());
+		toolbar.add(button=new JButton(Language.tr("FitDialog.CopyResults")));
+		button.addActionListener(e->copyResults());
+		button.setToolTipText(Language.tr("FitDialog.CopyResults.Tooltip"));
+		button.setIcon(Images.EDIT_COPY.getIcon());
 		p.add(p2=new JPanel(new BorderLayout()),BorderLayout.CENTER);
 		p2.setBorder(BorderFactory.createEmptyBorder(5,5,5,5));
-		p2.add(sp=new JScrollPane(outputText=new JTextPane()),BorderLayout.CENTER);
-		sp.setBorder(BorderFactory.createLineBorder(Color.GRAY));
+		p2.add(scroll=new JScrollPane(outputText=new JTextPane()),BorderLayout.CENTER);
+		scroll.setBorder(BorderFactory.createLineBorder(Color.GRAY));
 		outputText.setEditable(false);
 		outputText.setContentType("text/html");
 		outputText.setText((FlatLaFHelper.isDark()?htmlHeadDark:htmlHead)+htmlFoot);
@@ -277,6 +285,26 @@ public abstract class FitDialogBase extends BaseDialog {
 	}
 
 	/**
+	 * Reagiert auf einen Klick auf die "Messwerte generieren"-Schaltfläche
+	 */
+	private void generateSamples() {
+		final double[] values=generateSampleValues();
+		if (values==null) return;
+		if (loadValuesFromArray(new double[][] {values})) {
+			calcFit();
+		}
+	}
+
+	/**
+	 * Wird aufgerufen, wenn Testmesswerte generiert werden sollen.<br>
+	 * Diese Methode muss von abgeleiteten Klassen überschrieben werden, wenn Testmesswerte bereitgestellt werden sollen.
+	 * @return	Liefert im Erfolgsfalls die Testmesswerte, sonst <code>null</code>
+	 */
+	protected double[] generateSampleValues() {
+		return null;
+	}
+
+	/**
 	 * Lädt die Werte aus einem Array
 	 * @param newValues	Zu ladende Werte
 	 * @return	Liefert <code>true</code>, wenn die Daten verarbeitet werden konnten.
@@ -284,21 +312,22 @@ public abstract class FitDialogBase extends BaseDialog {
 	private boolean loadValuesFromArray(double[][] newValues) {
 		if (newValues==null || newValues.length==0 || newValues[0]==null || newValues[0].length==0) return false;
 
-		/* Messwerte-Diagramm füllen */
 		final Object[] obj=DistributionFitterBase.dataDistributionFromValues(newValues);
 		if (obj==null) return false;
 		inputDistribution.setDistribution((DataDistributionImpl)obj[0]);
-		double[] density=((DataDistributionImpl)obj[0]).densityData;
+		final double[] density=((DataDistributionImpl)obj[0]).densityData;
+		hasFloat=(Boolean)obj[1];
+
+		/* Messwerte-Diagramm füllen */
 		inputValuesMax=density.length-1;
 		double inputValueMin=-1;
 		for (int i=0;i<density.length;i++) if (density[i]!=0) {inputValueMin=i; break;}
-		hasFloat=(Boolean)obj[1];
 
 		/* Messwerte-Liste füllen */
 		StringBuilder sb=new StringBuilder();
 		sb.append("<h2>"+Language.tr("FitDalog.Loaded.Title")+"</h2>");
 		sb.append("<p>");
-		sb.append(String.format(Language.tr("FitDalog.Loaded.Info"),newValues[0].length)+"<br>");
+		sb.append(String.format(Language.tr("FitDalog.Loaded.Info"),NumberTools.formatLong(newValues[0].length))+"<br>");
 		if (inputValueMin>=0) sb.append(String.format(Language.tr("FitDalog.Loaded.Min"),NumberTools.formatNumber(inputValueMin))+"<br>");
 		sb.append(String.format(Language.tr("FitDalog.Loaded.Max"),NumberTools.formatNumber(inputValuesMax)));
 		sb.append("</p>");

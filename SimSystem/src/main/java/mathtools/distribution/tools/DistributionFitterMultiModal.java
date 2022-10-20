@@ -132,6 +132,11 @@ public class DistributionFitterMultiModal extends DistributionFitterBase {
 	private final List<Double> fitFraction;
 
 	/**
+	 * Soll der Rechenbefehl, der notwendig ist, um Zufallszahlen gem‰ﬂ der zusammengesetzten Verteilung zu generieren, mit ausgegeben werden?
+	 */
+	private boolean showCalculationCommand;
+
+	/**
 	 * Konstruktor der Klasse
 	 * @param fitDistribution	Welche Verteilung soll f¸r die Teildichten verwendet werden?
 	 */
@@ -141,6 +146,7 @@ public class DistributionFitterMultiModal extends DistributionFitterBase {
 		fitMean=new ArrayList<>();
 		fitSd=new ArrayList<>();
 		fitFraction=new ArrayList<>();
+		showCalculationCommand=false;
 		clear();
 	}
 
@@ -156,6 +162,22 @@ public class DistributionFitterMultiModal extends DistributionFitterBase {
 		fitFraction.clear();
 	}
 
+
+	/**
+	 * Gibt an, ob der Rechenbefehl, der notwendig ist, um Zufallszahlen gem‰ﬂ der zusammengesetzten Verteilung zu generieren, mit ausgegeben werden soll.
+	 * @return	Soll der Rechenbefehl, der notwendig ist, um Zufallszahlen gem‰ﬂ der zusammengesetzten Verteilung zu generieren, mit ausgegeben werden?
+	 */
+	public boolean isShowCalculationCommand() {
+		return showCalculationCommand;
+	}
+
+	/**
+	 * Stellt ein, ob der Rechenbefehl, der notwendig ist, um Zufallszahlen gem‰ﬂ der zusammengesetzten Verteilung zu generieren, mit ausgegeben werden soll.
+	 * @param showCalculationCommand	Soll der Rechenbefehl, der notwendig ist, um Zufallszahlen gem‰ﬂ der zusammengesetzten Verteilung zu generieren, mit ausgegeben werden?
+	 */
+	public void setShowCalculationCommand(boolean showCalculationCommand) {
+		this.showCalculationCommand=showCalculationCommand;
+	}
 
 	/**
 	 * Liefert den Typ der Verteilung gegen die gefittet werden soll.
@@ -348,28 +370,30 @@ public class DistributionFitterMultiModal extends DistributionFitterBase {
 		optimizeFractions(dist);
 
 		/* Berechnungsfunktion ausgeben */
-		final StringBuilder command=new StringBuilder();
-		command.append("RandomValues(");
-		for (int i=0;i<fitMean.size();i++) {
-			if (i>0) command.append(";");
-			command.append(NumberTools.formatNumber(fitFraction.get(i),2));
-			command.append(";");
-			switch (fitDistribution) {
-			case LOG_NORMAL: command.append("LogNormalDist"); break;
-			case GAMMA: command.append("GammaDistDirect"); break;
+		if (showCalculationCommand) {
+			final StringBuilder command=new StringBuilder();
+			command.append("RandomValues(");
+			for (int i=0;i<fitMean.size();i++) {
+				if (i>0) command.append(";");
+				command.append(NumberTools.formatNumber(fitFraction.get(i),2));
+				command.append(";");
+				switch (fitDistribution) {
+				case LOG_NORMAL: command.append("LogNormalDist"); break;
+				case GAMMA: command.append("GammaDistDirect"); break;
+				}
+				command.append("(");
+				command.append(NumberTools.formatNumber(fitMean.get(i)));
+				command.append(";");
+				command.append(NumberTools.formatNumber(fitSd.get(i)));
+				command.append(")");
 			}
-			command.append("(");
-			command.append(NumberTools.formatNumber(fitMean.get(i)));
-			command.append(";");
-			command.append(NumberTools.formatNumber(fitSd.get(i)));
 			command.append(")");
+			outputPlain.append("\n");
+			outputPlain.append(calculationCommand+":\n");
+			outputPlain.append("  "+command.toString());
+			outputHTML.append("<h3>"+calculationCommand+"</h3>");
+			outputHTML.append("<tt>"+command.toString()+"</tt>");
 		}
-		command.append(")");
-		outputPlain.append("\n");
-		outputPlain.append(calculationCommand+":\n");
-		outputPlain.append("  "+command.toString());
-		outputHTML.append("<h3>"+calculationCommand+"</h3>");
-		outputHTML.append("<tt>"+command.toString()+"</tt>");
 
 		return true;
 	}

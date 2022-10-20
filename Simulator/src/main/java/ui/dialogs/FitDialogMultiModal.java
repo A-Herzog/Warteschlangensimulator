@@ -43,6 +43,7 @@ import org.jfree.data.xy.XYSeriesCollection;
 import language.Language;
 import mathtools.distribution.DataDistributionImpl;
 import mathtools.distribution.tools.DistributionFitterMultiModal;
+import systemtools.BaseDialog;
 import systemtools.ImageTools;
 import systemtools.images.SimToolsImages;
 import systemtools.statistics.ChartSetup;
@@ -91,13 +92,19 @@ public class FitDialogMultiModal extends FitDialogBase {
 	private XYSeriesCollection data;
 
 	/**
+	 * Einstellungen für den Dialog zum Generieren von Testmesswerten
+	 */
+	private FitDialogMultiModalGenerate.GenerateSetup generateSetup;
+
+	/**
 	 * Konstruktor der Klasse
 	 * @param owner	Übergeordnetes Element
 	 * @param fitDistribution	Welche Verteilung soll für die Teildichten verwendet werden?
 	 */
 	public FitDialogMultiModal(final Component owner, final DistributionFitterMultiModal.FitDistribution fitDistribution) {
-		super(owner,Language.tr("FitDialogMultiModal.Title"),"Fit",InfoPanel.globalFitMultiModal);
+		super(owner,Language.tr("FitDialogMultiModal.Title"),"Fit",InfoPanel.globalFitMultiModal,true);
 		this.fitDistribution=fitDistribution;
+		generateSetup=new FitDialogMultiModalGenerate.GenerateSetup();
 	}
 
 	@Override
@@ -184,6 +191,7 @@ public class FitDialogMultiModal extends FitDialogBase {
 	@Override
 	protected void calcFit() {
 		final DistributionFitterMultiModal fitter=new DistributionFitterMultiModal(fitDistribution);
+		fitter.setShowCalculationCommand(true);
 		calcFitIntern(fitter);
 
 		data.removeAllSeries();
@@ -266,5 +274,13 @@ public class FitDialogMultiModal extends FitDialogBase {
 
 		final int imageSize=SetupData.getSetup().imageSize;
 		ImageTools.saveChart(this,chart,file,imageSize,null);
+	}
+
+	@Override
+	protected double[] generateSampleValues() {
+		final FitDialogMultiModalGenerate dialog=new FitDialogMultiModalGenerate(this,fitDistribution,generateSetup);
+		if (dialog.getClosedBy()!=BaseDialog.CLOSED_BY_OK) return null;
+		generateSetup=dialog.getNewGenerateSetup();
+		return generateSetup.generateValues(fitDistribution);
 	}
 }

@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-10-17 10:10+0200\n"
+"POT-Creation-Date: 2022-10-18 10:05+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -8589,7 +8589,7 @@ msgid "FitDalog.InvalidDataTitle"
 msgstr "Keine Daten geladen"
 
 msgid "FitDalog.Loaded.Info"
-msgstr "Es wurden %d Messwerte geladen."
+msgstr "Es wurden %s Messwerte geladen."
 
 msgid "FitDalog.Loaded.List"
 msgstr "Auflistung der Messwerte"
@@ -8614,6 +8614,12 @@ msgstr "Kopiert die Ergebnisse der Anpassung in die Zwischenablage"
 
 msgid "FitDialog.DialogHint"
 msgstr "Die Funktion zur Verteilungsanpassung sucht zu vorgegebenen Messwerten eine analytische Wahrscheinlichkeitsverteilung, die diese möglichst gut beschreibt. Dieser Vorgang wird auch Input-Analyse genannt."
+
+msgid "FitDialog.GenerateValues"
+msgstr "Messwerte generieren"
+
+msgid "FitDialog.GenerateValues.Tooltip"
+msgstr "Generiert eine Reihe von Testmesswerten"
 
 msgid "FitDialog.InfoValuesRounded"
 msgstr "Die Eingabewerte wurden auf ganze Zahlen gerundet."
@@ -8692,6 +8698,60 @@ msgstr "Residuum"
 
 msgid "FitDialogMultiModal.Title"
 msgstr "Multimodale Verteilung anpassen"
+
+msgid "FitDialogMultiModalGenerator.Distribution"
+msgstr "Verteilung %d"
+
+msgid "FitDialogMultiModalGenerator.ExpectedValue"
+msgstr "Erwartungswert"
+
+msgid "FitDialogMultiModalGenerator.ExpectedValue.ErrorInfo1"
+msgstr ""
+"Der angegebene Erwartungswert für die erste Verteilung ist ungültig.\n"
+"Es muss eine nicht-negative Zahl angegeben werden."
+
+msgid "FitDialogMultiModalGenerator.ExpectedValue.ErrorInfo2"
+msgstr ""
+"Der angegebene Erwartungswert für die zweite Verteilung ist ungültig.\n"
+"Es muss eine nicht-negative Zahl angegeben werden."
+
+msgid "FitDialogMultiModalGenerator.ExpectedValue.ErrorTitle"
+msgstr "Ungültiger Erwartungswert"
+
+msgid "FitDialogMultiModalGenerator.NumberOfValues"
+msgstr "Anzahl an Werten"
+
+msgid "FitDialogMultiModalGenerator.NumberOfValues.ErrorInfo1"
+msgstr ""
+"Die Anzahl an zu generierenden Werten gemäß der ersten Verteilung ist ungültig.\n"
+"Es muss eine positive Ganzzahl angegeben werden."
+
+msgid "FitDialogMultiModalGenerator.NumberOfValues.ErrorInfo2"
+msgstr ""
+"Die Anzahl an zu generierenden Werten gemäß der zweiten Verteilung ist ungültig.\n"
+"Es muss eine positive Ganzzahl angegeben werden."
+
+msgid "FitDialogMultiModalGenerator.NumberOfValues.ErrorTitle"
+msgstr "Ungültige Anzahl an Werten"
+
+msgid "FitDialogMultiModalGenerator.StandardDeviation"
+msgstr "Standardabweichung"
+
+msgid "FitDialogMultiModalGenerator.StandardDeviation.ErrorInfo1"
+msgstr ""
+"Die angegebene Standardabweichung für die erste Verteilung ist ungültig.\n"
+"Es muss eine nicht-negative Zahl angegeben werden."
+
+msgid "FitDialogMultiModalGenerator.StandardDeviation.ErrorInfo2"
+msgstr ""
+"Die angegebene Standardabweichung für die zweite Verteilung ist ungültig.\n"
+"Es muss eine nicht-negative Zahl angegeben werden."
+
+msgid "FitDialogMultiModalGenerator.StandardDeviation.ErrorTitle"
+msgstr "Ungültige Standardabweichung"
+
+msgid "FitDialogMultiModalGenerator.Title"
+msgstr "Testmesswerte generieren"
 
 msgid "FontFamily.Dialog"
 msgstr "Java-Standardschrift"

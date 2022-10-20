@@ -22,10 +22,16 @@ import java.io.Serializable;
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 
+import org.apache.commons.math3.distribution.AbstractRealDistribution;
+
 import language.Language;
 import mathtools.distribution.DataDistributionImpl;
+import mathtools.distribution.LogNormalDistributionImpl;
+import mathtools.distribution.swing.JDistributionEditorDialog;
 import mathtools.distribution.swing.JDistributionPanel;
 import mathtools.distribution.tools.DistributionFitter;
+import mathtools.distribution.tools.DistributionRandomNumber;
+import tools.SetupData;
 import ui.infopanel.InfoPanel;
 
 /**
@@ -49,7 +55,7 @@ public class FitDialog extends FitDialogBase {
 	 * @param owner	Übergeordnetes Element
 	 */
 	public FitDialog(final Component owner) {
-		super(owner,Language.tr("FitDialog.Title"),"Fit",InfoPanel.globalFit);
+		super(owner,Language.tr("FitDialog.Title"),"Fit",InfoPanel.globalFit,true);
 	}
 
 	@Override
@@ -70,5 +76,17 @@ public class FitDialog extends FitDialogBase {
 
 		outputDistribution.setMaxXValue(inputValuesMax);
 		outputDistribution.setDistribution(fitter.getFitDistribution().get(0));
+	}
+
+	@Override
+	protected double[] generateSampleValues() {
+		final JDistributionEditorDialog dialog=new JDistributionEditorDialog(this,new LogNormalDistributionImpl(100,30),1000,JDistributionPanel.BOTH,true,true,SetupData.getSetup().imageSize);
+		dialog.setVisible(true);
+		final AbstractRealDistribution dist=dialog.getNewDistribution();
+		if (dist==null) return null;
+
+		final double[] result=new double[100_000];
+		for (int i=0;i<result.length;i++) result[i]=DistributionRandomNumber.random(dist);
+		return result;
 	}
 }
