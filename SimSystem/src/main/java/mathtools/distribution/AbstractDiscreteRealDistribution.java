@@ -52,7 +52,7 @@ public abstract class AbstractDiscreteRealDistribution extends AbstractRealDistr
 	@Override
 	public double cumulativeProbability(double x) {
 		if (x<0) return 0;
-		int k=(int)Math.ceil(x);
+		int k=(int)Math.floor(x);
 		double sum=0;
 		for (int i=0;i<=k;i++) sum+=getCountDensity(i);
 		return sum;
