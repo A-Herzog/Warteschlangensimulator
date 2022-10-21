@@ -269,15 +269,15 @@ class TimeToolsTest {
 		assertNull(TimeTools.getTime("0:1:2:3:4"));
 		assertNull(TimeTools.getTime("0:1:2:3:4:5"));
 
-		assertEquals(Integer.valueOf(123),TimeTools.getTime("123"));
-		assertEquals(Integer.valueOf(61),TimeTools.getTime("1:1"));
-		assertEquals(Integer.valueOf(3601),TimeTools.getTime("1::1"));
-		assertEquals(Integer.valueOf(61),TimeTools.getTime("0:1:1"));
-		assertEquals(Integer.valueOf(61),TimeTools.getTime("0:01:01"));
-		assertEquals(Integer.valueOf(61),TimeTools.getTime("0:00:61"));
-		assertEquals(Integer.valueOf(10*3600+61),TimeTools.getTime("10:00:61"));
-		assertEquals(Integer.valueOf(30*3600+61),TimeTools.getTime("30:00:61"));
-		assertEquals(Integer.valueOf(30*3600+61),TimeTools.getTime("1:06:00:61"));
+		assertEquals(Long.valueOf(123),TimeTools.getTime("123"));
+		assertEquals(Long.valueOf(61),TimeTools.getTime("1:1"));
+		assertEquals(Long.valueOf(3601),TimeTools.getTime("1::1"));
+		assertEquals(Long.valueOf(61),TimeTools.getTime("0:1:1"));
+		assertEquals(Long.valueOf(61),TimeTools.getTime("0:01:01"));
+		assertEquals(Long.valueOf(61),TimeTools.getTime("0:00:61"));
+		assertEquals(Long.valueOf(10*3600+61),TimeTools.getTime("10:00:61"));
+		assertEquals(Long.valueOf(30*3600+61),TimeTools.getTime("30:00:61"));
+		assertEquals(Long.valueOf(30*3600+61),TimeTools.getTime("1:06:00:61"));
 
 		TextField f=null;
 
@@ -286,12 +286,12 @@ class TimeToolsTest {
 
 		assertNull(TimeTools.getTime(f=new TextField("הצü"),false));
 		assertEquals(null,f.getBackground());
-		assertEquals(Integer.valueOf(61),TimeTools.getTime(f=new TextField("1:1"),false));
+		assertEquals(Long.valueOf(61),TimeTools.getTime(f=new TextField("1:1"),false));
 		assertEquals(null,f.getBackground());
 
 		assertNull(TimeTools.getTime(f=new TextField("הצü"),true));
 		assertEquals(Color.RED,f.getBackground());
-		assertEquals(Integer.valueOf(61),TimeTools.getTime(f=new TextField("1:1"),true));
+		assertEquals(Long.valueOf(61),TimeTools.getTime(f=new TextField("1:1"),true));
 		assertEquals(SystemColor.text,f.getBackground());
 
 		JTextField j=null;
@@ -301,12 +301,12 @@ class TimeToolsTest {
 
 		assertNull(TimeTools.getTime(j=new JTextField("הצü"),false));
 		assertEquals(SystemColor.text,j.getBackground());
-		assertEquals(Integer.valueOf(61),TimeTools.getTime(j=new JTextField("1:1"),false));
+		assertEquals(Long.valueOf(61),TimeTools.getTime(j=new JTextField("1:1"),false));
 		assertEquals(SystemColor.text,j.getBackground());
 
 		assertNull(TimeTools.getTime(j=new JTextField("הצü"),true));
 		assertEquals(Color.RED,j.getBackground());
-		assertEquals(Integer.valueOf(61),TimeTools.getTime(j=new JTextField("1:1"),true));
+		assertEquals(Long.valueOf(61),TimeTools.getTime(j=new JTextField("1:1"),true));
 		assertEquals(SystemColor.text,j.getBackground());
 	}
 
