@@ -48,6 +48,8 @@ public class SetupDialogPageSecurity extends SetupDialogPage {
 
 	/** Verhalten beim Landen von Modellen mit Sicherheitsproblemen */
 	private final JComboBox<String> modelSecurity;
+	/** Für welche Modelle gelten die Einschränkungen? */
+	private final JComboBox<String> modelSecurityOrigin;
 	/** Modelle mit Skripten signieren */
 	private final JCheckBox signModels;
 	/** Externe Programme via Skript startbar? */
@@ -88,9 +90,6 @@ public class SetupDialogPageSecurity extends SetupDialogPage {
 		}));
 		label.setLabelFor(modelSecurity);
 
-		/* Modelle mit Skripten signieren */
-		addLine().add(signModels=new JCheckBox(Language.tr("SettingsDialog.ModellSecurity.SignModels")));
-
 		/* Gespeicherte Zertifikate löschen? */
 		line.add(toolbar=new JToolBar());
 		toolbar.setFloatable(false);
@@ -111,6 +110,22 @@ public class SetupDialogPageSecurity extends SetupDialogPage {
 				});
 			}
 		}
+
+		/* Für welche Modelle gelten die Einschränkungen? */
+		line=addLine();
+		line.add(label=new JLabel(Language.tr("SettingsDialog.ModellSecurityOrigin")+":"));
+		line.add(modelSecurityOrigin=new JComboBox<>(new String[]{
+				Language.tr("SettingsDialog.ModellSecurityOrigin.Internet"),
+				Language.tr("SettingsDialog.ModellSecurityOrigin.All")
+		}));
+		modelSecurityOrigin.setRenderer(new IconListCellRenderer(new Images[]{
+				Images.SETUP_FILE_SECURITY_INTERNET,
+				Images.SETUP_FILE_SECURITY_ALL
+		}));
+		label.setLabelFor(modelSecurityOrigin);
+
+		/* Modelle mit Skripten signieren */
+		addLine().add(signModels=new JCheckBox(Language.tr("SettingsDialog.ModellSecurity.SignModels")));
 
 		/* Externe Programme via Skript startbar? */
 		line=addLine();
@@ -150,6 +165,8 @@ public class SetupDialogPageSecurity extends SetupDialogPage {
 		case STRICT: modelSecurity.setSelectedIndex(2); break;
 		}
 
+		modelSecurityOrigin.setSelectedIndex(setup.modelSecurityOnlyOnInternetFiles?0:1);
+
 		signModels.setSelected(setup.signModels);
 
 		modelSecurityExternal.setSelected(setup.modelSecurityAllowExecuteExternal);
@@ -165,6 +182,8 @@ public class SetupDialogPageSecurity extends SetupDialogPage {
 		case 2: setup.modelSecurity=SetupData.ModelSecurity.STRICT; break;
 		}
 
+		setup.modelSecurityOnlyOnInternetFiles=(modelSecurityOrigin.getSelectedIndex()==0);
+
 		setup.signModels=signModels.isSelected();
 
 		setup.modelSecurityAllowExecuteExternal=modelSecurityExternal.isSelected();
@@ -175,6 +194,7 @@ public class SetupDialogPageSecurity extends SetupDialogPage {
 	@Override
 	public void resetSettings() {
 		modelSecurity.setSelectedIndex(1);
+		modelSecurityOrigin.setSelectedIndex(0);
 		signModels.setSelected(true);
 		modelSecurityExternal.setSelected(false);
 	}

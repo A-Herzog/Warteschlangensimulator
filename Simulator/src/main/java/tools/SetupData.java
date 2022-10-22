@@ -965,6 +965,12 @@ public class SetupData extends SetupBase {
 	public ModelSecurity modelSecurity;
 
 	/**
+	 * Soll {@link #modelSecurity} für alle Dateien (<code>false</code>) oder nur für Dateien,
+	 * die aus dem Netz geladen wurden (<code>true</code>) gelten?
+	 */
+	public boolean modelSecurityOnlyOnInternetFiles;
+
+	/**
 	 * Modelle, die Skripte enthalten, signieren
 	 */
 	public boolean signModels;
@@ -1559,6 +1565,7 @@ public class SetupData extends SetupBase {
 		cancelSimulationOnScriptError=true;
 		maxJSRunTimeSeconds=2;
 		modelSecurity=ModelSecurity.ASK;
+		modelSecurityOnlyOnInternetFiles=true;
 		signModels=true;
 		modelSecurityAllowExecuteExternal=false;
 		allowToOpenLinks=true;
@@ -2423,6 +2430,7 @@ public class SetupData extends SetupBase {
 				if (text.equals("ask")) {modelSecurity=ModelSecurity.ASK; continue;}
 				if (text.equals("strict")) {modelSecurity=ModelSecurity.STRICT; continue;}
 				signModels=loadBoolean(e.getAttribute("SignModels"),true);
+				modelSecurityOnlyOnInternetFiles=loadBoolean(e.getAttribute("RestrictOnlyFileFromInternet"),true);
 				continue;
 			}
 
@@ -3215,6 +3223,7 @@ public class SetupData extends SetupBase {
 			case STRICT: node.setTextContent("Strict"); break;
 			}
 			if (!signModels) node.setAttribute("SignModels","0");
+			if (!modelSecurityOnlyOnInternetFiles) node.setAttribute("RestrictOnlyFileFromInternet","0");
 		}
 
 		if (modelSecurityAllowExecuteExternal) {

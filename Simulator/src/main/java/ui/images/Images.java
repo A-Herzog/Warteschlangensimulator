@@ -1353,6 +1353,12 @@ public enum Images {
 	/** Symbol "Einstellungen - Einschwingphase bei Animationen - Vorab ohne Animation ausführen" */
 	SETUP_ANIMATION_START_FAST("control_fastforward_blue.png"),
 
+	/** Symbol "Einstellungen - Restriktionen anwenden auf - Modelle aus dem Internet" */
+	SETUP_FILE_SECURITY_INTERNET("world.png"),
+
+	/** Symbol "Einstellungen - Restriktionen anwenden auf - Alle Modelldateien" */
+	SETUP_FILE_SECURITY_ALL("computer.png"),
+
 	/* Modelleditor */
 
 	/** Symbol "Modelleditor - Element hinzufügen nicht zulässig" */

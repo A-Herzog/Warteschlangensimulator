@@ -377,7 +377,7 @@ public abstract class EditorPanelBase extends JPanel {
 		lastLoadTime=System.currentTimeMillis()-loadStart;
 		if (error!=null) return error;
 
-		if (!ModelSecurityCheckDialog.doSecurityCheck(newModel,this)) {
+		if (!ModelSecurityCheckDialog.doSecurityCheck(file,newModel,this)) {
 			return Language.tr("ModelSecurityCheck.LoadingCanceled");
 		}
 
@@ -410,7 +410,7 @@ public abstract class EditorPanelBase extends JPanel {
 		lastLoadTime=System.currentTimeMillis()-loadStart;
 		if (error!=null) return error;
 
-		if (!ModelSecurityCheckDialog.doSecurityCheck(newModel,this)) {
+		if (!ModelSecurityCheckDialog.doSecurityCheck(null,newModel,this)) {
 			return Language.tr("ModelSecurityCheck.LoadingCanceled");
 		}
 
@@ -440,7 +440,7 @@ public abstract class EditorPanelBase extends JPanel {
 		lastLoadTime=System.currentTimeMillis()-loadStart;
 		if (error!=null) return error;
 
-		if (!ModelSecurityCheckDialog.doSecurityCheck(newModel,this)) {
+		if (!ModelSecurityCheckDialog.doSecurityCheck(fileName,newModel,this)) {
 			return Language.tr("ModelSecurityCheck.LoadingCanceled");
 		}
 

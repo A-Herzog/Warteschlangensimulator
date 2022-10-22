@@ -18,6 +18,7 @@ package ui.dialogs;
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.FlowLayout;
+import java.io.File;
 import java.io.Serializable;
 import java.security.PublicKey;
 import java.util.ArrayList;
@@ -41,6 +42,7 @@ import systemtools.BaseDialog;
 import tools.JTableExt;
 import tools.JTableExtAbstractTableModel;
 import tools.SetupData;
+import tools.ZoneIdentifier;
 import ui.help.Help;
 import ui.images.Images;
 import ui.modeleditor.ModelSurface;
@@ -60,7 +62,7 @@ import ui.modeleditor.elements.ModelElementSub;
 /**
  * Prüft ein in den Editor zu ladendes Modell auf Sicherheitsrisiken
  * @author Alexander Herzog
- * @see ModelSecurityCheckDialog#doSecurityCheck(EditModel, Component)
+ * @see ModelSecurityCheckDialog#doSecurityCheck(File, EditModel, Component)
  */
 public class ModelSecurityCheckDialog extends BaseDialog {
 	/**
@@ -219,7 +221,7 @@ public class ModelSecurityCheckDialog extends BaseDialog {
 	 * Liefert Informationen zu den sicherheitskritischen Eigenschaften aller Stationen.
 	 * @param surface	Haupt-Zeichenfläche
 	 * @return	Liste mit allen sicherheitskritischen Eigenschaften (kann leer sein, ist aber nie <code>null</code>)
-	 * @see #doSecurityCheck(EditModel, Component)
+	 * @see #doSecurityCheck(File, EditModel, Component)
 	 */
 	public static List<CriticalElement> getCriticalElements(final ModelSurface surface) {
 		final List<CriticalElement> list=new ArrayList<>();
@@ -238,7 +240,7 @@ public class ModelSecurityCheckDialog extends BaseDialog {
 	 * Liefert Informationen zu den sicherheitskritischen Eigenschaften des Modells als solches.
 	 * @param model	Editor-Model
 	 * @return	Liste mit allen sicherheitskritischen Eigenschaften (kann leer sein, ist aber nie <code>null</code>)
-	 * @see #doSecurityCheck(EditModel, Component)
+	 * @see #doSecurityCheck(File, EditModel, Component)
 	 */
 	public static List<CriticalElement> getCriticalModelProperties(final EditModel model) {
 		final List<CriticalElement> list=new ArrayList<>();
@@ -265,15 +267,23 @@ public class ModelSecurityCheckDialog extends BaseDialog {
 
 	/**
 	 * Führt die Sicherheitsprüfung eines Modells durch und zeigt dabei nötigenfalls einen Dialog an.
+	 * @param file	Optional Modelldatei (wird, wenn ungleich <code>null</code> bei der Prüfung verwendet, um zu bestimmten, ob die Datei aus dem Netz stammt)
 	 * @param model	Zu prüfendes Modell
 	 * @param owner Übergeordnetes visuelles Element (zur Ausrichtung des Dialogs)
 	 * @return	Gibt <code>true</code> zurück, wenn das Laden des Modells freigegeben wurde.
 	 */
-	public static boolean doSecurityCheck(final EditModel model, final Component owner) {
-		final SetupData.ModelSecurity security=SetupData.getSetup().modelSecurity;
+	public static boolean doSecurityCheck(final File file, final EditModel model, final Component owner) {
+		final SetupData setup=SetupData.getSetup();
+		final SetupData.ModelSecurity security=setup.modelSecurity;
+		final boolean modelSecurityOnlyOnInternetFiles=setup.modelSecurityOnlyOnInternetFiles;
 
 		/* Alles erlauben? */
 		if (security==SetupData.ModelSecurity.ALLOWALL) return true;
+
+		/* Lokale Datei? */
+		if (file!=null && modelSecurityOnlyOnInternetFiles) {
+			if (!ZoneIdentifier.isFileFromInternet(file)) return true;
+		}
 
 		/* Erlauben auf Basis einer Signatur? */
 		signatureExternalUserName=null;
