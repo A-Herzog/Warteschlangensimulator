@@ -509,6 +509,17 @@ public class Simulator extends SimulatorBase implements AnySimulator {
 	@Override
 	public final long getCountClients() {
 		if (runModel==null) return 0;
+		if (runModel.clientCountDiv==0) {
+			if (threads==null || threads.length==0) return 0;
+			final RunModel threadRunModel;
+			if (threads[0]==null || threads[0].simData==null) {
+				threadRunModel=runModel;
+			} else {
+				threadRunModel=((SimulationData)threads[0].simData).runModel;
+			}
+			if (threadRunModel==null) return 0;
+			runModel.clientCountDiv=threadRunModel.clientCountDiv;
+		}
 		return (runModel.realArrivingClientCount+runModel.clientCountDiv*FastMath.round(runModel.warmUpTime*runModel.realArrivingClientCount))*runModel.repeatCount;
 	}
 
@@ -523,6 +534,7 @@ public class Simulator extends SimulatorBase implements AnySimulator {
 			if (thread==null) continue;
 			final SimulationData data=(SimulationData)(thread.simData);
 			if (data==null) continue;
+			if (runModel.clientCountDiv==0 && ((SimulationData)thread.simData).runModel!=null) runModel.clientCountDiv=((SimulationData)thread.simData).runModel.clientCountDiv;
 			if (runModel.clientCount>0 && thread.currentDay>1) sum+=(thread.currentDay-1)*FastMath.round(runModel.realArrivingClientCount*(1+runModel.warmUpTime)/runModel.clientCountDiv);
 			if (!data.runData.isWarmUp && runModel.clientCount>0) sum+=FastMath.round(runModel.warmUpTime*runModel.clientCount);
 			sum+=data.runData.clientsArrived;
