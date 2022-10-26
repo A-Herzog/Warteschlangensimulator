@@ -824,6 +824,27 @@ public final class ModelSurface {
 	}
 
 	/**
+	 * Liefert die nächste freie ID oberhalb eines bestimmten Wertes.<br>
+	 * Die Prüfung erfolgt dabei global, d.h. es wird zunächst die Kette zum primären Surface verfolgt und von diesem aus geprüft, welche IDs bereits vergeben sind
+	 * @param aboveThis	Ausgangspunkt der Suche; es werden nur IDs zurückgeliefert, die größer als die angegebene ID sind
+	 * @return	Nächste globale freie ID
+	 */
+	public int getNextFreeId(final int aboveThis) {
+		if (turnOffIDScanner) return aboveThis+1; /* Wenn das Element nur temporär initialisiert wird und gleich sowieso alles beim Laden überschrieben wird, brauchen wir auch keine ID zu suchen. */
+		int nextFreeId=aboveThis+1;
+		while (true) {
+			boolean ok=true;
+			ModelSurface surface=this;
+			while (surface!=null) {
+				if (!surface.isFreeId(nextFreeId)) {ok=false; break;}
+				surface=surface.getParentSurface();
+			}
+			if (ok) return nextFreeId;
+			nextFreeId++;
+		}
+	}
+
+	/**
 	 * Liefert das übergeordnete <code>ModelSurface</code>-Elemente
 	 * @return	Übergeordnetes <code>ModelSurface</code>-Elemente oder <code>null</code>, wenn dies das primäre Surface ist
 	 */
@@ -1605,6 +1626,7 @@ public final class ModelSurface {
 	 * @param list	Elementenliste von der die minimale ID bestimmt werden soll
 	 * @return	Minimal ID oder <code>null</code>, wenn die Liste leer oder <code>null</code> ist
 	 */
+	/*
 	private static int getMinId(final List<ModelElement> list) {
 		if (list==null || list.isEmpty()) return 0;
 		int minId=Integer.MAX_VALUE;
@@ -1617,6 +1639,7 @@ public final class ModelSurface {
 		}
 		return minId;
 	}
+	 */
 
 	/**
 	 * Fügt die Daten aus einem in die Zwischenablage kopierten Stream in das Modell ein
@@ -1633,10 +1656,9 @@ public final class ModelSurface {
 			final ModelElement element=temp.elements.get(0);
 			element.setId(nextID);
 		} else {
-			int maxId;
-			if (parentSurface!=null) maxId=parentSurface.getMaxId(); else maxId=getMaxId();
-			final  int minId=getMinId(temp.elements);
-			for (ModelElement element: temp.elements) element.setId(element.getId()-minId+maxId+1);
+			final int ids[]=new int[temp.elements.size()];
+			for (int i=0;i<ids.length;i++) ids[i]=getNextFreeId((i==0)?0:ids[i-1]);
+			for (int i=0;i<temp.elements.size();i++) temp.elements.get(i).setId(ids[i]);
 		}
 
 		/* Obere linke Ecke der einzufügenden Elemente bestimmen */
