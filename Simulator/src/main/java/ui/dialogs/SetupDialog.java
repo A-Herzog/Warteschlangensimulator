@@ -18,16 +18,20 @@ package ui.dialogs;
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.FlowLayout;
+import java.awt.GraphicsEnvironment;
 import java.io.Serializable;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Supplier;
 
+import javax.swing.BorderFactory;
 import javax.swing.Icon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
+import javax.swing.ScrollPaneConstants;
 
 import language.Language;
 import systemtools.BaseDialog;
@@ -157,8 +161,11 @@ public final class SetupDialog extends BaseDialog {
 			pages.add(tab);
 
 			final JPanel tabOuter=new JPanel(new FlowLayout(FlowLayout.LEFT));
-			tabs.addTab(page.getName(),tabOuter);
 			tabOuter.add(tab);
+			final JScrollPane tabOuter2=new JScrollPane(tabOuter,ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+			tabOuter2.setBorder(BorderFactory.createEmptyBorder());
+			tabs.addTab(page.getName(),tabOuter2);
+
 			tabs.setIconAt(pages.size()-1,page.getIcon());
 			tab.loadData();
 		}
@@ -175,6 +182,8 @@ public final class SetupDialog extends BaseDialog {
 		}
 		setMinSizeRespectingScreensize(750,0);
 		pack();
+		final int maxAllowedHeight=(int)Math.round(GraphicsEnvironment.getLocalGraphicsEnvironment().getMaximumWindowBounds().getHeight());
+		if (getHeight()>maxAllowedHeight) setSize(getWidth(),maxAllowedHeight);
 		setLocationRelativeTo(this.owner);
 		setVisible(true);
 	}

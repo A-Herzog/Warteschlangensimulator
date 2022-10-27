@@ -16,6 +16,7 @@
 package ui.dialogs;
 
 import java.awt.BorderLayout;
+import java.awt.FlowLayout;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.File;
@@ -263,7 +264,9 @@ public class SetupDialogPageFileFormats extends SetupDialogPage {
 		addLine().add(imagesAnimationHome=new JRadioButton(Language.tr("SettingsDialog.ImageAnimation.Home")+" ("+FileSystemView.getFileSystemView().getHomeDirectory()+")"));
 		/* Speichern von Schnappschüssen während der Animation in manuell konfiguriertem Verzeichnis */
 		add(line=new JPanel(new BorderLayout()));
-		line.add(imagesAnimationFolder=new JRadioButton(Language.tr("SettingsDialog.ImageAnimation.Folder")+":"),BorderLayout.WEST);
+		final JPanel part=new JPanel(new FlowLayout(FlowLayout.LEFT));
+		line.add(part,BorderLayout.WEST);
+		part.add(imagesAnimationFolder=new JRadioButton(Language.tr("SettingsDialog.ImageAnimation.Folder")+":"));
 		/* Verzeichnis zum Speichern von Schnappschüssen während der Animation */
 		line.add(imagesAnimationFolderEdit=new JTextField(),BorderLayout.CENTER);
 		imagesAnimationFolderEdit.addKeyListener(new KeyListener() {
