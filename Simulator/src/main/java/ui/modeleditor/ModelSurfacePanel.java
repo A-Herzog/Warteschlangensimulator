@@ -3410,7 +3410,7 @@ public final class ModelSurfacePanel extends JPanel {
 
 				GlassInfo.info(getParent(),Language.tr("Editor.SurfaceTooltip.Glass.DragElement"),500);
 
-				if (e.isControlDown() && dragElement.canCopy() && !readOnly) {
+				if ((e.isControlDown() && !e.isAltGraphDown()) && dragElement.canCopy() && !readOnly) {
 					/* Kopie platzieren */
 					final Point dragPos=dragElement.getPosition(false);
 					if (dragPos.x!=dragStartElementPosition.x || dragPos.y!=dragStartElementPosition.y) {
@@ -3438,7 +3438,7 @@ public final class ModelSurfacePanel extends JPanel {
 						point.x=5*(int)Math.round(point.x/5.0);
 						point.y=5*(int)Math.round(point.y/5.0);
 					}
-					if (e.isAltDown()) {
+					if (e.isAltDown() || e.isAltGraphDown()) {
 						final int xDelta=Math.abs(dragStartElementPosition.x-point.x);
 						final int yDelta=Math.abs(dragStartElementPosition.y-point.y);
 						if (xDelta>yDelta) point.y=dragStartElementPosition.y; else point.x=dragStartElementPosition.x;
@@ -3466,7 +3466,7 @@ public final class ModelSurfacePanel extends JPanel {
 						point.x=5*(int)Math.round(point.x/5.0);
 						point.y=5*(int)Math.round(point.y/5.0);
 					}
-					if (e.isAltDown()) {
+					if (e.isAltDown() || e.isAltGraphDown()) {
 						final int xDelta=Math.abs(dragStartElementPosition.x-point.x);
 						final int yDelta=Math.abs(dragStartElementPosition.y-point.y);
 						if (xDelta>yDelta) point.y=dragStartElementPosition.y; else point.x=dragStartElementPosition.x;
@@ -3638,7 +3638,7 @@ public final class ModelSurfacePanel extends JPanel {
 
 		@Override
 		public void mouseWheelMoved(MouseWheelEvent e) {
-			if (e.isControlDown()) {
+			if (e.isControlDown() && !e.isAltGraphDown()) {
 				if (Math.abs(e.getWheelRotation())==1) {
 					/* Rad */
 					setZoom(Math.max(ZOOM_MIN,Math.min(ZOOM_MAX,zoom-ZOOM_STEP*e.getWheelRotation())),true,e.getX(),e.getY(),true);
@@ -3647,7 +3647,7 @@ public final class ModelSurfacePanel extends JPanel {
 				if (getParent() instanceof JViewport) {
 					JViewport viewport=(JViewport)getParent();
 					Point point=viewport.getViewPosition();
-					if (e.isAltDown()) {
+					if (e.isAltDown() || e.isAltGraphDown()) {
 						if (Math.abs(e.getWheelRotation())==1) {
 							/* Rad */
 							point.x+=viewport.getWidth()/WHEEL_SCROLL_FRACTION*e.getWheelRotation();
