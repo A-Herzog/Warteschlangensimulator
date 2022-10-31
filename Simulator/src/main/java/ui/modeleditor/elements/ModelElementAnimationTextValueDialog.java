@@ -45,6 +45,8 @@ import simulator.simparser.ExpressionCalc;
 import systemtools.MsgBox;
 import systemtools.SmallColorChooser;
 import tools.DateTools;
+import tools.IconListCellRenderer;
+import ui.images.Images;
 import ui.infopanel.InfoPanel;
 import ui.modeleditor.ModelElementBaseDialog;
 import ui.tools.DateTimePanel;
@@ -143,6 +145,11 @@ public class ModelElementAnimationTextValueDialog extends ModelElementBaseDialog
 				Language.tr("Surface.AnimationText.Dialog.Number"),
 				Language.tr("Surface.AnimationText.Dialog.PercentValue"),
 				Language.tr("Surface.AnimationText.Dialog.TimeValue")
+		}));
+		optionFormat.setRenderer(new IconListCellRenderer(new Images[] {
+				Images.GENERAL_NUMBERS,
+				Images.GENERAL_PERCENT,
+				Images.GENERAL_TIME,
 		}));
 		optionFormat.setEnabled(!readOnly);
 		optionFormat.addActionListener(e->digits.setEnabled(optionFormat.isEnabled() && optionFormat.getSelectedIndex()<2));
