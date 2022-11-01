@@ -82,9 +82,9 @@ public class ModelElementAnimationRecordDialog extends ModelElementBaseDialog {
 	 * Konstruktor der Klasse
 	 * @param owner	Übergeordnetes Fenster
 	 * @param element	Zu bearbeitendes {@link ModelElementAnimationRecord}
-	 * @param readOnly	Wird dieser Parameter auf <code>true</code> gesetzt, so wird die "Ok"-Schaltfläche deaktiviert
+	 * @param readOnly	Nur-Lese-Status
 	 */
-	public ModelElementAnimationRecordDialog(final Component owner, final ModelElementAnimationRecord element, final boolean readOnly) {
+	public ModelElementAnimationRecordDialog(final Component owner, final ModelElementAnimationRecord element, final ModelElementBaseDialog.ReadOnlyMode readOnly) {
 		super(owner,Language.tr("Surface.AnimationRecord.Dialog.Title"),element,"ModelElementAnimationRecord",readOnly);
 	}
 
@@ -140,7 +140,7 @@ public class ModelElementAnimationRecordDialog extends ModelElementBaseDialog {
 		});
 
 		/* Achsenbeschriftung */
-		cell.add(axisLabels=new AxisDrawerEdit(AxisDrawer.Mode.OFF,"",""));
+		cell.add(axisLabels=new AxisDrawerEdit(AxisDrawer.Mode.OFF,"","",readOnly));
 
 		content.add(cell=new JPanel(new BorderLayout()),BorderLayout.CENTER);
 		cell.add(label=new JLabel(Language.tr("Surface.AnimationRecord.Dialog.Appearance.DataColor")+":"),BorderLayout.NORTH);

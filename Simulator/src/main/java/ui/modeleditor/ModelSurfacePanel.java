@@ -125,6 +125,7 @@ import ui.modeleditor.descriptionbuilder.ModelDescriptionBuilderSingleStation;
 import ui.modeleditor.descriptionbuilder.ModelDescriptionBuilderStyled;
 import ui.modeleditor.elements.AnimationExpression;
 import ui.modeleditor.elements.ElementAnimationClickable;
+import ui.modeleditor.elements.ElementWithAnimationDisplay;
 import ui.modeleditor.elements.FontCache;
 import ui.modeleditor.elements.ModelElementAnimationBar;
 import ui.modeleditor.elements.ModelElementAnimationLineDiagram;
@@ -1025,7 +1026,7 @@ public final class ModelSurfacePanel extends JPanel {
 	 * Löst die Listener, die benachrichtigt werden sollen, wenn sich der Selektionmodus ändert, aus.
 	 * @see #stateChangeListener
 	 */
-	private void fireStateChangeListener() {
+	public void fireStateChangeListener() {
 		if (delayStateChangeListener) {needToFireStateChangeListener=true; return;}
 		final ActionEvent event=new ActionEvent(this,AWTEvent.RESERVED_ID_MAX+1,"statechange");
 		for (ActionListener listener: stateChangeListener) listener.actionPerformed(event);
@@ -2039,12 +2040,30 @@ public final class ModelSurfacePanel extends JPanel {
 			return;
 		}
 
+		/* Elementeigenschaften während angehaltener Animation bearbeiten */
+		if (simData!=null && mainAnimator!=null && simData.simulator.isPaused()) {
+			final Runnable propertiesSemiEditableRunner=element.getPropertiesSemiEditable(this,clientData,sequences);
+			if (propertiesSemiEditableRunner!=null) {
+				propertiesSemiEditableRunner.run();
+				return;
+			}
+		}
+
 		/* Elementeigenschaften bearbeiten */
 		final Runnable propertiesRunner=element.getProperties(this,readOnly && !allowChangeOperationsOnReadOnly,clientData,sequences);
-		if (propertiesRunner!=null) {
-			propertiesRunner.run();
-			fireStateChangeListener();
-		}
+		if (propertiesRunner!=null) propertiesRunner.run();
+	}
+
+	/**
+	 * Reinitialisiert die Animationsdaten in einem Element nach dem der Bearbeitendialog
+	 * während einer angehaltenen Animation aufgerufen wurde.<br>
+	 * Diese Methode sollte nur von {@link ModelElementBaseDialog} aus aufgerufen werden.
+	 * @param element	Element für das die Animationsdaten reinitialisiert werden sollen.
+	 * @see ModelElementBaseDialog#storeData()
+	 */
+	public void updateElementAnimationSystem(final ElementWithAnimationDisplay element) {
+		if (simData==null) return;
+		element.initAnimation(simData);
 	}
 
 	/**

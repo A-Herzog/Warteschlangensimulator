@@ -64,9 +64,9 @@ public class ModelElementAnimationLCDDialog extends ModelElementBaseDialog {
 	 * Konstruktor der Klasse
 	 * @param owner	Übergeordnetes Fenster
 	 * @param element	Zu bearbeitendes {@link ModelElementAnimationLCD}
-	 * @param readOnly	Wird dieser Parameter auf <code>true</code> gesetzt, so wird die "Ok"-Schaltfläche deaktiviert
+	 * @param readOnly	Nur-Lese-Modus
 	 */
-	public ModelElementAnimationLCDDialog(final Component owner, final ModelElementAnimationLCD element, final boolean readOnly) {
+	public ModelElementAnimationLCDDialog(final Component owner, final ModelElementAnimationLCD element, final ModelElementBaseDialog.ReadOnlyMode readOnly) {
 		super(owner,Language.tr("Surface.AnimationLCD.Dialog.Title"),element,"ModelElementAnimationLCD",readOnly);
 	}
 

@@ -82,9 +82,9 @@ public class ModelElementAnimationTextSelectDialog extends ModelElementBaseDialo
 	 * Konstruktor der Klasse
 	 * @param owner	Übergeordnetes Fenster
 	 * @param element	Zu bearbeitendes {@link ModelElementAnimationTextSelect}
-	 * @param readOnly	Wird dieser Parameter auf <code>true</code> gesetzt, so wird die "Ok"-Schaltfläche deaktiviert
+	 * @param readOnly	Nur-Lese-Status
 	 */
-	public ModelElementAnimationTextSelectDialog(final Component owner, final ModelElementAnimationTextSelect element, final boolean readOnly) {
+	public ModelElementAnimationTextSelectDialog(final Component owner, final ModelElementAnimationTextSelect element, final ModelElementBaseDialog.ReadOnlyMode readOnly) {
 		super(owner,Language.tr("Surface.AnimationTextSelect.Dialog.Title"),element,"ModelElementAnimationTextSelect",readOnly);
 	}
 

@@ -51,6 +51,7 @@ import simulator.runmodel.SimulationData;
 import simulator.simparser.ExpressionEval;
 import ui.images.Images;
 import ui.modeleditor.ModelClientData;
+import ui.modeleditor.ModelElementBaseDialog;
 import ui.modeleditor.ModelSequences;
 import ui.modeleditor.ModelSurface;
 import ui.modeleditor.ScaledImageCache;
@@ -286,7 +287,9 @@ public class ModelElementAnimationImage extends ModelElementPosition implements 
 		if (element instanceof ModelElementAnimationImage) {
 
 			final ModelElementAnimationImage source=(ModelElementAnimationImage)element;
+			expression.clear();
 			expression.addAll(source.expression);
+			expressionImage.clear();
 			expressionImage.addAll(source.expressionImage); /* Dürfen wir, da in der Quelle bei Änderungen ein neues Objekt in den Feldern hinterlegt wird. Das bestehende Objekt selbst wird inhaltlich nie geändert. */
 
 			borderWidth=source.borderWidth;
@@ -520,7 +523,14 @@ public class ModelElementAnimationImage extends ModelElementPosition implements 
 	@Override
 	public Runnable getProperties(final Component owner, final boolean readOnly, final ModelClientData clientData, final ModelSequences sequences) {
 		return ()->{
-			new ModelElementAnimationImageDialog(owner,ModelElementAnimationImage.this,readOnly);
+			new ModelElementAnimationImageDialog(owner,ModelElementAnimationImage.this,readOnly?ModelElementBaseDialog.ReadOnlyMode.FULL_READ_ONLY:ModelElementBaseDialog.ReadOnlyMode.ALLOW_ALL);
+		};
+	}
+
+	@Override
+	public Runnable getPropertiesSemiEditable(final Component owner, final ModelClientData clientData, final ModelSequences sequences) {
+		return ()->{
+			new ModelElementAnimationImageDialog(owner,ModelElementAnimationImage.this,ModelElementBaseDialog.ReadOnlyMode.ALLOW_CONTENT_DATA_EDIT);
 		};
 	}
 

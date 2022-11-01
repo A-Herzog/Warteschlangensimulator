@@ -73,6 +73,7 @@ import ui.modeleditor.coreelements.ModelElement;
 import ui.modeleditor.coreelements.ModelElementBox;
 import ui.modeleditor.coreelements.ModelElementPosition;
 import ui.modeleditor.elements.ComplexLine;
+import ui.modeleditor.elements.ElementWithAnimationDisplay;
 import ui.modeleditor.elements.FontCache;
 import ui.quickaccess.JPlaceholderTextField;
 import ui.script.ScriptEditorAreaBuilder;
@@ -88,6 +89,18 @@ public abstract class ModelElementBaseDialog extends BaseDialog {
 	 * @see Serializable
 	 */
 	private static final long serialVersionUID = -6340641625398515847L;
+
+	/**
+	 * Detaileinstellungen zum Nur-Lese-Modus
+	 */
+	public enum ReadOnlyMode {
+		/** Alle Einstellungen zulassen (kein Nur-Lese-Status) */
+		ALLOW_ALL,
+		/** Inhaltseinstellungen zu dem Element dürfen verändert werden, aber Name, ID usw. dürfen nicht verändert werden */
+		ALLOW_CONTENT_DATA_EDIT,
+		/** Vollständiger Nur-Lese-Status; es dürfen keine Einstellungen verändert werden */
+		FULL_READ_ONLY
+	}
 
 	/**
 	 * Objekt vom Typ <code>ModelElement</code>, welches in diesem Dialog bearbeitet werden soll
@@ -147,8 +160,8 @@ public abstract class ModelElementBaseDialog extends BaseDialog {
 	 * @param readOnly	Wird dieser Parameter auf <code>true</code> gesetzt, so wird die "Ok"-Schaltfläche deaktiviert
 	 * @param makeDialogVisible	Gibt an, ob der Dialog direkt durch den Konstruktur sichtbar geschaltet werden soll
 	 */
-	protected ModelElementBaseDialog(final Component owner, final String title, final ModelElement element, final String helpTopic, final String infoPanelID, final boolean readOnly, final boolean makeDialogVisible) {
-		super(owner,title+" (id="+element.getId()+")",readOnly);
+	protected ModelElementBaseDialog(final Component owner, final String title, final ModelElement element, final String helpTopic, final String infoPanelID, final ReadOnlyMode readOnly, final boolean makeDialogVisible) {
+		super(owner,title+" (id="+element.getId()+")",readOnly==ReadOnlyMode.FULL_READ_ONLY);
 		if (owner instanceof ModelSurfacePanel) surfacePanel=(ModelSurfacePanel)owner; else surfacePanel=null;
 		plainTitle=title;
 		this.element=element;
@@ -172,10 +185,9 @@ public abstract class ModelElementBaseDialog extends BaseDialog {
 		fullContentPanel.add(contentPanel,BorderLayout.CENTER);
 
 		if (hasNameField()) {
-			//final Object[] data=getInputPanel(Language.tr("Editor.DialogBase.NameLabel")+":",element.getName());
 			final Object[] data=ScriptEditorAreaBuilder.getInputPanel(Language.tr("Editor.DialogBase.NameLabel")+":",element.getName(),ScriptEditorAreaBuilder.TextAreaMode.ELEMENT_NAME);
 			nameField=(RSyntaxTextArea)data[1];
-			nameField.setEditable(!readOnly);
+			nameField.setEditable(readOnly==ReadOnlyMode.ALLOW_ALL);
 			contentPanel.add((JPanel)data[0],BorderLayout.NORTH);
 
 			final JPanel sub=new JPanel(new FlowLayout(FlowLayout.LEFT));
@@ -187,7 +199,7 @@ public abstract class ModelElementBaseDialog extends BaseDialog {
 				sub.add(idButton=new JButton("id="+element.getId()));
 				idButton.setToolTipText(Language.tr("Editor.DialogBase.ID.Tooltip"));
 				idButton.addActionListener(e->changeID());
-				idButton.setEnabled(!readOnly);
+				idButton.setEnabled(readOnly==ReadOnlyMode.ALLOW_ALL);
 			} else {
 				idButton=null;
 			}
@@ -196,7 +208,7 @@ public abstract class ModelElementBaseDialog extends BaseDialog {
 			protectedButton.setPreferredSize(new Dimension(26,26));
 			protectedButton.setToolTipText(Language.tr("Editor.DialogBase.Protected.Tooltip"));
 			protectedButton.addActionListener(e->protectedButton.setSelected(!protectedButton.isSelected()));
-			protectedButton.setEnabled(!readOnly);
+			protectedButton.setEnabled(readOnly==ReadOnlyMode.ALLOW_ALL);
 			protectedButton.setIcon(Images.GENERAL_LOCK_CLOSED.getIcon());
 			protectedButton.setSelected(element.isDeleteProtected());
 
@@ -207,7 +219,7 @@ public abstract class ModelElementBaseDialog extends BaseDialog {
 				fontButton.setPreferredSize(new Dimension(26,26));
 				fontButton.setToolTipText(Language.tr("Editor.DialogBase.Font.Tooltip"));
 				fontButton.addActionListener(e->showFontDialog());
-				fontButton.setEnabled(!readOnly);
+				fontButton.setEnabled(readOnly==ReadOnlyMode.ALLOW_ALL);
 				fontButton.setIcon(Images.GENERAL_FONT.getIcon());
 				fontLarge=boxElement.getFontLarge();
 				fontSmall=boxElement.getFontSmall();
@@ -270,6 +282,19 @@ public abstract class ModelElementBaseDialog extends BaseDialog {
 	 * @param makeDialogVisible	Gibt an, ob der Dialog direkt durch den Konstruktur sichtbar geschaltet werden soll
 	 */
 	protected ModelElementBaseDialog(final Component owner, final String title, final ModelElement element, final String helpTopic, final boolean readOnly, final boolean makeDialogVisible) {
+		this(owner,title,element,helpTopic,null,readOnly?ReadOnlyMode.FULL_READ_ONLY:ReadOnlyMode.ALLOW_ALL,makeDialogVisible);
+	}
+
+	/**
+	 * Konstruktor der Klasse <code>ModelElementBaseDialog</code>
+	 * @param owner	Übergeordnetes Fenster
+	 * @param title	Titel des Fensters
+	 * @param element	Zu bearbeitendes <code>ModelElement</code>
+	 * @param helpTopic	Name des Hilfethemas mit dem die Hilfeschaltfläche verknüpft werden soll
+	 * @param readOnly	Detail-Nur-Lese-Status
+	 * @param makeDialogVisible	Gibt an, ob der Dialog direkt durch den Konstruktur sichtbar geschaltet werden soll
+	 */
+	protected ModelElementBaseDialog(final Component owner, final String title, final ModelElement element, final String helpTopic, final ReadOnlyMode readOnly, final boolean makeDialogVisible) {
 		this(owner,title,element,helpTopic,null,readOnly,makeDialogVisible);
 	}
 
@@ -291,11 +316,23 @@ public abstract class ModelElementBaseDialog extends BaseDialog {
 	 * @param title	Titel des Fensters
 	 * @param element	Zu bearbeitendes <code>ModelElement</code>
 	 * @param helpTopic	Name des Hilfethemas mit dem die Hilfeschaltfläche verknüpft werden soll
+	 * @param readOnly	Detail-Nur-Lese-Status
+	 */
+	protected ModelElementBaseDialog(final Component owner, final String title, final ModelElement element, final String helpTopic, final ReadOnlyMode readOnly) {
+		this(owner,title,element,helpTopic,readOnly,true);
+	}
+
+	/**
+	 * Konstruktor der Klasse <code>ModelElementBaseDialog</code>
+	 * @param owner	Übergeordnetes Fenster
+	 * @param title	Titel des Fensters
+	 * @param element	Zu bearbeitendes <code>ModelElement</code>
+	 * @param helpTopic	Name des Hilfethemas mit dem die Hilfeschaltfläche verknüpft werden soll
 	 * @param infoPanelID	ID für einen Infotext oben im Dialog zurück
 	 * @param readOnly	Wird dieser Parameter auf <code>true</code> gesetzt, so wird die "Ok"-Schaltfläche deaktiviert
 	 */
 	protected ModelElementBaseDialog(final Component owner, final String title, final ModelElement element, final String helpTopic, final String infoPanelID, final boolean readOnly) {
-		this(owner,title,element,helpTopic,infoPanelID,readOnly,true);
+		this(owner,title,element,helpTopic,infoPanelID,readOnly?ReadOnlyMode.FULL_READ_ONLY:ReadOnlyMode.ALLOW_ALL,true);
 	}
 
 	/**
@@ -758,9 +795,13 @@ public abstract class ModelElementBaseDialog extends BaseDialog {
 	@Override
 	protected void storeData() {
 		storeBaseProperties();
-		if (element instanceof ModelElementBox) SwingUtilities.invokeLater(()->{
-			((ModelElementBox)element).fireChanged();
+		SwingUtilities.invokeLater(()->{
+			if (element instanceof ModelElementBox) ((ModelElementBox)element).fireChanged();
 			element.getSurface().updateAdditionalIcons();
+			if (surfacePanel!=null) {
+				surfacePanel.fireStateChangeListener();
+				if (element instanceof ElementWithAnimationDisplay) surfacePanel.updateElementAnimationSystem((ElementWithAnimationDisplay)element);
+			}
 		});
 	}
 

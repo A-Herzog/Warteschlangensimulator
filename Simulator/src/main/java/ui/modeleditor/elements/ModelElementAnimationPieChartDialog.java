@@ -71,9 +71,9 @@ public class ModelElementAnimationPieChartDialog extends ModelElementBaseDialog 
 	 * Konstruktor der Klasse
 	 * @param owner	Übergeordnetes Fenster
 	 * @param element	Zu bearbeitendes {@link ModelElementAnimationPieChart}
-	 * @param readOnly	Wird dieser Parameter auf <code>true</code> gesetzt, so wird die "Ok"-Schaltfläche deaktiviert
+	 * @param readOnly	Nur-Lese-Status
 	 */
-	public ModelElementAnimationPieChartDialog(final Component owner, final ModelElementAnimationPieChart element, final boolean readOnly) {
+	public ModelElementAnimationPieChartDialog(final Component owner, final ModelElementAnimationPieChart element, final ModelElementBaseDialog.ReadOnlyMode readOnly) {
 		super(owner,Language.tr("Surface.AnimationPieChart.Dialog.Title"),element,"ModelElementAnimationPieChart",readOnly);
 	}
 

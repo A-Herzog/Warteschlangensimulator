@@ -84,9 +84,9 @@ public class ModelElementAnimationBarChartDialog extends ModelElementBaseDialog 
 	 * Konstruktor der Klasse
 	 * @param owner	Übergeordnetes Fenster
 	 * @param element	Zu bearbeitendes {@link ModelElementAnimationBarChart}
-	 * @param readOnly	Wird dieser Parameter auf <code>true</code> gesetzt, so wird die "Ok"-Schaltfläche deaktiviert
+	 * @param readOnly	Nur-Lese-Status
 	 */
-	public ModelElementAnimationBarChartDialog(final Component owner, final ModelElementAnimationBarChart element, final boolean readOnly) {
+	public ModelElementAnimationBarChartDialog(final Component owner, final ModelElementAnimationBarChart element, final ModelElementBaseDialog.ReadOnlyMode readOnly) {
 		super(owner,Language.tr("Surface.AnimationBarChart.Dialog.Title"),element,"ModelElementAnimationBarChart",readOnly);
 	}
 
@@ -138,7 +138,7 @@ public class ModelElementAnimationBarChartDialog extends ModelElementBaseDialog 
 		minValueEdit.setEditable(!readOnly);
 
 		/* Achsenbeschriftung */
-		lines.add(axisLabels=new AxisDrawerEdit(AxisDrawer.Mode.OFF,null,""));
+		lines.add(axisLabels=new AxisDrawerEdit(AxisDrawer.Mode.OFF,null,"",readOnly));
 
 		final JTableExt expressionTable;
 		content.add(new JScrollPane(expressionTable=new JTableExt()),BorderLayout.CENTER);

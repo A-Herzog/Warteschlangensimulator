@@ -72,9 +72,9 @@ public class ModelElementAnimationPointerMeasuringDialog extends ModelElementBas
 	 * Konstruktor der Klasse
 	 * @param owner	Übergeordnetes Fenster
 	 * @param element	Zu bearbeitendes {@link ModelElementAnimationPointerMeasuring}
-	 * @param readOnly	Wird dieser Parameter auf <code>true</code> gesetzt, so wird die "Ok"-Schaltfläche deaktiviert
+	 * @param readOnly	Nur-Lese-Status
 	 */
-	public ModelElementAnimationPointerMeasuringDialog(final Component owner, final ModelElementAnimationPointerMeasuring element, final boolean readOnly) {
+	public ModelElementAnimationPointerMeasuringDialog(final Component owner, final ModelElementAnimationPointerMeasuring element, final ModelElementBaseDialog.ReadOnlyMode readOnly) {
 		super(owner,Language.tr("Surface.AnimationPointerMeasuring.Dialog.Title"),element,"ModelElementAnimationPointerMeasuring",readOnly);
 	}
 
@@ -238,8 +238,10 @@ public class ModelElementAnimationPointerMeasuringDialog extends ModelElementBas
 			if (L==null || (L1!=null && L.longValue()<L1.longValue()) || (L2!=null && L.longValue()>L2.longValue())) {
 				editYellowAreaStartValue.setBackground(Color.red); /* Müssen wir manuell einfärben, da die obige Funktion nur prüft, ob die Zahl als solches gültig ist. */
 				ok=false;
-				MsgBox.error(this,Language.tr("Surface.AnimationPointerMeasuring.Dialog.YellowAreaStartValue.Error.Title"),String.format(Language.tr("Surface.AnimationPointerMeasuring.Dialog.YellowAreaStartValue.Error.Info"),editYellowAreaStartValue.getText()));
-				return false;
+				if (showErrorMessages) {
+					MsgBox.error(this,Language.tr("Surface.AnimationPointerMeasuring.Dialog.YellowAreaStartValue.Error.Title"),String.format(Language.tr("Surface.AnimationPointerMeasuring.Dialog.YellowAreaStartValue.Error.Info"),editYellowAreaStartValue.getText()));
+					return false;
+				}
 			}
 		} else {
 			editYellowAreaStartValue.setBackground(NumberTools.getTextFieldDefaultBackground());
@@ -251,8 +253,10 @@ public class ModelElementAnimationPointerMeasuringDialog extends ModelElementBas
 			if (L==null || (L1!=null && L.longValue()<L1.longValue()) || (L2!=null && L.longValue()>L2.longValue())) {
 				editRedAreaStartValue.setBackground(Color.red); /* Müssen wir manuell einfärben, da die obige Funktion nur prüft, ob die Zahl als solches gültig ist. */
 				ok=false;
-				MsgBox.error(this,Language.tr("Surface.AnimationPointerMeasuring.Dialog.RedAreaStartValue.Error.Title"),String.format(Language.tr("Surface.AnimationPointerMeasuring.Dialog.RedAreaStartValue.Error.Info"),editRedAreaStartValue.getText()));
-				return false;
+				if (showErrorMessages) {
+					MsgBox.error(this,Language.tr("Surface.AnimationPointerMeasuring.Dialog.RedAreaStartValue.Error.Title"),String.format(Language.tr("Surface.AnimationPointerMeasuring.Dialog.RedAreaStartValue.Error.Info"),editRedAreaStartValue.getText()));
+					return false;
+				}
 			}
 		} else {
 			editRedAreaStartValue.setBackground(NumberTools.getTextFieldDefaultBackground());

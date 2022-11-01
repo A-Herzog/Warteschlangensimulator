@@ -43,6 +43,7 @@ import simulator.runmodel.SimulationData;
 import tools.SetupData;
 import ui.images.Images;
 import ui.modeleditor.ModelClientData;
+import ui.modeleditor.ModelElementBaseDialog;
 import ui.modeleditor.ModelSequences;
 import ui.modeleditor.ModelSurface;
 import ui.modeleditor.ModelSurfacePanel;
@@ -719,7 +720,14 @@ public class ModelElementAnimationBar extends ModelElementPosition implements El
 	@Override
 	public Runnable getProperties(final Component owner, final boolean readOnly, final ModelClientData clientData, final ModelSequences sequences) {
 		return ()->{
-			new ModelElementAnimationBarDialog(owner,ModelElementAnimationBar.this,readOnly);
+			new ModelElementAnimationBarDialog(owner,ModelElementAnimationBar.this,readOnly?ModelElementBaseDialog.ReadOnlyMode.FULL_READ_ONLY:ModelElementBaseDialog.ReadOnlyMode.ALLOW_ALL);
+		};
+	}
+
+	@Override
+	public Runnable getPropertiesSemiEditable(final Component owner, final ModelClientData clientData, final ModelSequences sequences) {
+		return ()->{
+			new ModelElementAnimationBarDialog(owner,ModelElementAnimationBar.this,ModelElementBaseDialog.ReadOnlyMode.ALLOW_CONTENT_DATA_EDIT);
 		};
 	}
 

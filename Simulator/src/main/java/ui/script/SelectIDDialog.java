@@ -38,6 +38,7 @@ import systemtools.MsgBox;
 import ui.modeleditor.ModelSurface;
 import ui.modeleditor.coreelements.ModelElement;
 import ui.modeleditor.coreelements.ModelElementBox;
+import ui.modeleditor.elements.ModelElementAnimationConnect;
 import ui.modeleditor.elements.ModelElementDelay;
 import ui.modeleditor.elements.ModelElementDispose;
 import ui.modeleditor.elements.ModelElementDisposeWithTable;
@@ -230,6 +231,7 @@ public class SelectIDDialog extends BaseDialog {
 			if (element instanceof ModelElementOutputJS) continue;
 			if (element instanceof ModelElementOutputLog) continue;
 			if (element instanceof ModelElementRecord) continue;
+			if (element instanceof ModelElementAnimationConnect) continue;
 
 			if (stationTypes!=null && stationTypes.length>0) {
 				boolean ok=false;

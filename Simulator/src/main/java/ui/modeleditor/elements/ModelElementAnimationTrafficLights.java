@@ -36,6 +36,7 @@ import simulator.runmodel.SimulationData;
 import simulator.simparser.ExpressionMultiEval;
 import ui.images.Images;
 import ui.modeleditor.ModelClientData;
+import ui.modeleditor.ModelElementBaseDialog;
 import ui.modeleditor.ModelSequences;
 import ui.modeleditor.ModelSurface;
 import ui.modeleditor.coreelements.ModelElement;
@@ -254,7 +255,14 @@ public class ModelElementAnimationTrafficLights extends ModelElementAnimationCus
 	@Override
 	public Runnable getProperties(final Component owner, final boolean readOnly, final ModelClientData clientData, final ModelSequences sequences) {
 		return ()->{
-			new ModelElementAnimationTrafficLightsDialog(owner,ModelElementAnimationTrafficLights.this,readOnly);
+			new ModelElementAnimationTrafficLightsDialog(owner,ModelElementAnimationTrafficLights.this,readOnly?ModelElementBaseDialog.ReadOnlyMode.FULL_READ_ONLY:ModelElementBaseDialog.ReadOnlyMode.ALLOW_ALL);
+		};
+	}
+
+	@Override
+	public Runnable getPropertiesSemiEditable(final Component owner, final ModelClientData clientData, final ModelSequences sequences) {
+		return ()->{
+			new ModelElementAnimationTrafficLightsDialog(owner,ModelElementAnimationTrafficLights.this,ModelElementBaseDialog.ReadOnlyMode.ALLOW_CONTENT_DATA_EDIT);
 		};
 	}
 

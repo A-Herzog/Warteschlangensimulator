@@ -53,9 +53,9 @@ public class ModelElementAnimationClockDialog extends ModelElementBaseDialog {
 	 * Konstruktor der Klasse
 	 * @param owner	Übergeordnetes Fenster
 	 * @param element	Zu bearbeitendes {@link ModelElementAnimationClock}
-	 * @param readOnly	Wird dieser Parameter auf <code>true</code> gesetzt, so wird die "Ok"-Schaltfläche deaktiviert
+	 * @param readOnly	Nur-Lese-Statua
 	 */
-	public ModelElementAnimationClockDialog(final Component owner, final ModelElementAnimationClock element, final boolean readOnly) {
+	public ModelElementAnimationClockDialog(final Component owner, final ModelElementAnimationClock element, final ModelElementBaseDialog.ReadOnlyMode readOnly) {
 		super(owner,Language.tr("Surface.AnimationClock.Dialog.Title"),element,"ModelElementAnimationClock",readOnly);
 	}
 

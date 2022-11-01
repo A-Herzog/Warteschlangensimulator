@@ -44,6 +44,7 @@ import simulator.editmodel.FullTextSearch;
 import simulator.runmodel.SimulationData;
 import ui.images.Images;
 import ui.modeleditor.ModelClientData;
+import ui.modeleditor.ModelElementBaseDialog;
 import ui.modeleditor.ModelSequences;
 import ui.modeleditor.ModelSurface;
 import ui.modeleditor.coreelements.ModelElement;
@@ -418,7 +419,9 @@ public class ModelElementAnimationBarChart extends ModelElementPosition implemen
 		if (element instanceof ModelElementAnimationBarChart) {
 			final ModelElementAnimationBarChart source=(ModelElementAnimationBarChart)element;
 
+			expression.clear();
 			expression.addAll(source.expression.stream().map(ex->new AnimationExpression(ex)).collect(Collectors.toList()));
+			expressionColor.clear();
 			expressionColor.addAll(source.expressionColor);
 
 			minValue=source.minValue;
@@ -808,7 +811,14 @@ public class ModelElementAnimationBarChart extends ModelElementPosition implemen
 	@Override
 	public Runnable getProperties(final Component owner, final boolean readOnly, final ModelClientData clientData, final ModelSequences sequences) {
 		return ()->{
-			new ModelElementAnimationBarChartDialog(owner,ModelElementAnimationBarChart.this,readOnly);
+			new ModelElementAnimationBarChartDialog(owner,ModelElementAnimationBarChart.this,readOnly?ModelElementBaseDialog.ReadOnlyMode.FULL_READ_ONLY:ModelElementBaseDialog.ReadOnlyMode.ALLOW_ALL);
+		};
+	}
+
+	@Override
+	public Runnable getPropertiesSemiEditable(final Component owner, final ModelClientData clientData, final ModelSequences sequences) {
+		return ()->{
+			new ModelElementAnimationBarChartDialog(owner,ModelElementAnimationBarChart.this,ModelElementBaseDialog.ReadOnlyMode.ALLOW_CONTENT_DATA_EDIT);
 		};
 	}
 
@@ -1004,6 +1014,7 @@ public class ModelElementAnimationBarChart extends ModelElementPosition implemen
 	@Override
 	public void initAnimation(final SimulationData simData) {
 		recordedValues=null;
+		dataSets=null;
 
 		for (int i=0;i<expression.size();i++) {
 			expression.get(i).initAnimation(this,simData);

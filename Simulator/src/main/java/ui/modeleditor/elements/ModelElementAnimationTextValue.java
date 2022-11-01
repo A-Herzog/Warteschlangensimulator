@@ -40,6 +40,7 @@ import simulator.simparser.ExpressionCalc;
 import tools.DateTools;
 import ui.images.Images;
 import ui.modeleditor.ModelClientData;
+import ui.modeleditor.ModelElementBaseDialog;
 import ui.modeleditor.ModelSequences;
 import ui.modeleditor.ModelSurface;
 import ui.modeleditor.coreelements.ModelElement;
@@ -689,7 +690,14 @@ public class ModelElementAnimationTextValue extends ModelElementPosition impleme
 	@Override
 	public Runnable getProperties(final Component owner, final boolean readOnly, final ModelClientData clientData, final ModelSequences sequences) {
 		return ()->{
-			new ModelElementAnimationTextValueDialog(owner,ModelElementAnimationTextValue.this,readOnly);
+			new ModelElementAnimationTextValueDialog(owner,ModelElementAnimationTextValue.this,readOnly?ModelElementBaseDialog.ReadOnlyMode.FULL_READ_ONLY:ModelElementBaseDialog.ReadOnlyMode.ALLOW_ALL);
+		};
+	}
+
+	@Override
+	public Runnable getPropertiesSemiEditable(final Component owner, final ModelClientData clientData, final ModelSequences sequences) {
+		return ()->{
+			new ModelElementAnimationTextValueDialog(owner,ModelElementAnimationTextValue.this,ModelElementBaseDialog.ReadOnlyMode.ALLOW_CONTENT_DATA_EDIT);
 		};
 	}
 
@@ -963,6 +971,8 @@ public class ModelElementAnimationTextValue extends ModelElementPosition impleme
 
 	@Override
 	public void initAnimation(SimulationData simData) {
+		simTextValue=null;
+
 		animationExpression=new ExpressionCalc(simData.runModel.variableNames);
 		if (animationExpression.parse(expression)>=0) animationExpression=null;
 	}

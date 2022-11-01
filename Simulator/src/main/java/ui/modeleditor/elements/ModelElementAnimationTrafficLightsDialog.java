@@ -63,9 +63,9 @@ public class ModelElementAnimationTrafficLightsDialog extends ModelElementBaseDi
 	 * Konstruktor der Klasse
 	 * @param owner	Übergeordnetes Fenster
 	 * @param element	Zu bearbeitendes {@link ModelElementAnimationTrafficLights}
-	 * @param readOnly	Wird dieser Parameter auf <code>true</code> gesetzt, so wird die "Ok"-Schaltfläche deaktiviert
+	 * @param readOnly	Nur-Lese-Status
 	 */
-	public ModelElementAnimationTrafficLightsDialog(final Component owner, final ModelElementAnimationTrafficLights element, final boolean readOnly) {
+	public ModelElementAnimationTrafficLightsDialog(final Component owner, final ModelElementAnimationTrafficLights element, final ModelElementBaseDialog.ReadOnlyMode readOnly) {
 		super(owner,Language.tr("Surface.AnimationTrafficLights.Dialog.Title"),element,"ModelElementAnimationTrafficLights",readOnly);
 	}
 

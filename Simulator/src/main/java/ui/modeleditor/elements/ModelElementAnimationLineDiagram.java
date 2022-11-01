@@ -45,6 +45,7 @@ import simulator.editmodel.FullTextSearch;
 import simulator.runmodel.SimulationData;
 import ui.images.Images;
 import ui.modeleditor.ModelClientData;
+import ui.modeleditor.ModelElementBaseDialog;
 import ui.modeleditor.ModelSequences;
 import ui.modeleditor.ModelSurface;
 import ui.modeleditor.ModelSurfacePanel;
@@ -336,10 +337,15 @@ public class ModelElementAnimationLineDiagram extends ModelElementAnimationDiagr
 		if (element instanceof ModelElementAnimationLineDiagram) {
 			final ModelElementAnimationLineDiagram source=(ModelElementAnimationLineDiagram)element;
 
+			expression.clear();
 			expression.addAll(source.expression.stream().map(ex->new AnimationExpression(ex)).collect(Collectors.toList()));
+			minValue.clear();
 			minValue.addAll(source.minValue);
+			maxValue.clear();
 			maxValue.addAll(source.maxValue);
+			expressionColor.clear();
 			expressionColor.addAll(source.expressionColor);
+			expressionWidth.clear();
 			expressionWidth.addAll(source.expressionWidth);
 
 			timeArea=source.timeArea;
@@ -427,14 +433,14 @@ public class ModelElementAnimationLineDiagram extends ModelElementAnimationDiagr
 	 * {@link #drawDiagramData(Graphics2D, Rectangle, double)}
 	 * @see #drawDiagramData(Graphics2D, Rectangle, double)
 	 */
-	private static Integer[] drawIntegersPlus=new Integer[1000];
+	private static final Integer[] drawIntegersPlus=new Integer[1000];
 
 	/**
 	 * Cache für positive {@link Integer}-Werte in
 	 * {@link #drawDiagramData(Graphics2D, Rectangle, double)}
 	 * @see #drawDiagramData(Graphics2D, Rectangle, double)
 	 */
-	private static Integer[] drawIntegersMinus=new Integer[1000];
+	private static final Integer[] drawIntegersMinus=new Integer[1000];
 
 	static {
 		for (int i=0;i<drawIntegersPlus.length;i++) drawIntegersPlus[i]=i;
@@ -545,7 +551,14 @@ public class ModelElementAnimationLineDiagram extends ModelElementAnimationDiagr
 	@Override
 	public Runnable getProperties(final Component owner, final boolean readOnly, final ModelClientData clientData, final ModelSequences sequences) {
 		return ()->{
-			new ModelElementAnimationLineDiagramDialog(owner,ModelElementAnimationLineDiagram.this,readOnly);
+			new ModelElementAnimationLineDiagramDialog(owner,ModelElementAnimationLineDiagram.this,readOnly?ModelElementBaseDialog.ReadOnlyMode.FULL_READ_ONLY:ModelElementBaseDialog.ReadOnlyMode.ALLOW_ALL);
+		};
+	}
+
+	@Override
+	public Runnable getPropertiesSemiEditable(final Component owner, final ModelClientData clientData, final ModelSequences sequences) {
+		return ()->{
+			new ModelElementAnimationLineDiagramDialog(owner,ModelElementAnimationLineDiagram.this,ModelElementBaseDialog.ReadOnlyMode.ALLOW_CONTENT_DATA_EDIT);
 		};
 	}
 
@@ -732,6 +745,10 @@ public class ModelElementAnimationLineDiagram extends ModelElementAnimationDiagr
 		recordedValues=null;
 		drawCacheStroke=null;
 		drawCacheColor=null;
+		drawCacheXValues=null;
+		drawCacheYValues=null;
+		cacheDouble.clear();
+		cacheInteger.clear();
 
 		for (int i=0;i<expression.size();i++) {
 			expression.get(i).initAnimation(this,simData);

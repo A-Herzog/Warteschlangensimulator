@@ -60,9 +60,10 @@ public class AxisDrawerEdit extends JPanel {
 	 * @param mode	Beschriftungsmodus
 	 * @param xLabel	Textbeschriftung an der x-Achse (kann <code>null</code> sein, wenn es keine x-Achse gibt)
 	 * @param yLabel	Textbeschriftung an der y-Achse (kann <code>null</code> sein, wenn es keine y-Achse gibt)
+	 * @param readOnly	Nur-Lese-Modus
 	 */
 	@SuppressWarnings("unchecked")
-	public AxisDrawerEdit(final AxisDrawer.Mode mode, final String xLabel, final String yLabel) {
+	public AxisDrawerEdit(final AxisDrawer.Mode mode, final String xLabel, final String yLabel, final boolean readOnly) {
 		setLayout(new BoxLayout(this,BoxLayout.PAGE_AXIS));
 
 		Object[] data;
@@ -81,6 +82,7 @@ public class AxisDrawerEdit extends JPanel {
 				Images.AXIS_FULL
 		}));
 		this.mode.setSelectedIndex(mode.nr);
+		this.mode.setEnabled(!readOnly);
 
 		/* Textbeschriftung an der x-Achse */
 		if (xLabel==null) {
@@ -89,6 +91,7 @@ public class AxisDrawerEdit extends JPanel {
 			data=ModelElementBaseDialog.getInputPanel(Language.tr("AxisDrawer.LabelX")+":",xLabel);
 			add((JPanel)data[0]);
 			this.xLabel=(JTextField)data[1];
+			this.xLabel.setEnabled(!readOnly);
 		}
 
 		/* Textbeschriftung an der y-Achse */
@@ -98,6 +101,7 @@ public class AxisDrawerEdit extends JPanel {
 			data=ModelElementBaseDialog.getInputPanel(Language.tr("AxisDrawer.LabelY")+":",yLabel);
 			add((JPanel)data[0]);
 			this.yLabel=(JTextField)data[1];
+			this.yLabel.setEnabled(!readOnly);
 		}
 	}
 

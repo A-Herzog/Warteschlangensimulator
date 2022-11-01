@@ -37,6 +37,7 @@ import simulator.editmodel.EditModel;
 import simulator.editmodel.FullTextSearch;
 import ui.images.Images;
 import ui.modeleditor.ModelClientData;
+import ui.modeleditor.ModelElementBaseDialog;
 import ui.modeleditor.ModelSequences;
 import ui.modeleditor.ModelSurface;
 import ui.modeleditor.coreelements.ModelElement;
@@ -383,7 +384,14 @@ public class ModelElementAnimationLCD extends ModelElementAnimationCustomDrawExp
 	@Override
 	public Runnable getProperties(final Component owner, final boolean readOnly, final ModelClientData clientData, final ModelSequences sequences) {
 		return ()->{
-			new ModelElementAnimationLCDDialog(owner,ModelElementAnimationLCD.this,readOnly);
+			new ModelElementAnimationLCDDialog(owner,ModelElementAnimationLCD.this,readOnly?ModelElementBaseDialog.ReadOnlyMode.FULL_READ_ONLY:ModelElementBaseDialog.ReadOnlyMode.ALLOW_ALL);
+		};
+	}
+
+	@Override
+	public Runnable getPropertiesSemiEditable(final Component owner, final ModelClientData clientData, final ModelSequences sequences) {
+		return ()->{
+			new ModelElementAnimationLCDDialog(owner,ModelElementAnimationLCD.this,ModelElementBaseDialog.ReadOnlyMode.ALLOW_CONTENT_DATA_EDIT);
 		};
 	}
 

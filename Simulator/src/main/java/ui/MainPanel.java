@@ -3127,6 +3127,8 @@ public class MainPanel extends MainPanelBase {
 				()->{
 					reloadSetup();
 					editorPanel.setZoom(animationPanel.getZoom());
+					animationPanel.updateEditorModel(editorPanel.getOriginalSurface());
+					editorPanel.isModelChanged(); /* Rückgabewert interessiert nicht; aber Aufruf prüft, ob das Modell verändert wurde und setzt ggf. Changed-Status */
 					editorPanel.setTopPosition(animationPanel.getTopPosition());
 					if (!simulator.isRunning()) { /* Wenn die Animation als Simulation zu Ende geführt werden soll. */
 						processSimulationDone(animationPanel.isSimulationSuccessful(),simulator,true,-1);

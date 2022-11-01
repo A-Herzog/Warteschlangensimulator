@@ -40,6 +40,7 @@ import simulator.runmodel.SimulationData;
 import simulator.simparser.ExpressionEval;
 import ui.images.Images;
 import ui.modeleditor.ModelClientData;
+import ui.modeleditor.ModelElementBaseDialog;
 import ui.modeleditor.ModelSequences;
 import ui.modeleditor.ModelSurface;
 import ui.modeleditor.coreelements.ModelElement;
@@ -392,7 +393,9 @@ public class ModelElementAnimationTextSelect extends ModelElementPosition implem
 			final ModelElementAnimationTextSelect copySource=(ModelElementAnimationTextSelect)element;
 
 			textDefault=copySource.textDefault;
+			textExpressions.clear();
 			textExpressions.addAll(copySource.textExpressions);
+			textValues.clear();
 			textValues.addAll(copySource.textValues);
 			fontFamily=copySource.fontFamily;
 			textSize=copySource.textSize;
@@ -626,7 +629,14 @@ public class ModelElementAnimationTextSelect extends ModelElementPosition implem
 	@Override
 	public Runnable getProperties(final Component owner, final boolean readOnly, final ModelClientData clientData, final ModelSequences sequences) {
 		return ()->{
-			new ModelElementAnimationTextSelectDialog(owner,ModelElementAnimationTextSelect.this,readOnly);
+			new ModelElementAnimationTextSelectDialog(owner,ModelElementAnimationTextSelect.this,readOnly?ModelElementBaseDialog.ReadOnlyMode.FULL_READ_ONLY:ModelElementBaseDialog.ReadOnlyMode.ALLOW_ALL);
+		};
+	}
+
+	@Override
+	public Runnable getPropertiesSemiEditable(final Component owner, final ModelClientData clientData, final ModelSequences sequences) {
+		return ()->{
+			new ModelElementAnimationTextSelectDialog(owner,ModelElementAnimationTextSelect.this,ModelElementBaseDialog.ReadOnlyMode.ALLOW_CONTENT_DATA_EDIT);
 		};
 	}
 

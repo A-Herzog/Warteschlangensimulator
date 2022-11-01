@@ -2607,4 +2607,31 @@ public class AnimationPanel extends JPanel implements RunModelAnimationViewer {
 		}
 		for (RunModelAnimationViewer subViewer: viewers) subViewer.animationTerminated();
 	}
+
+	/**
+	 * Aktualisiert während einer Animation möglicherweise geänderte Diagramm-Element-Daten in dem Editor-Modell.
+	 * @param editorSurface	Editor-Zeichenfläche (Ziel für das Kopieren)
+	 * @param animationSurface	Animations-Zeichenfläche (von hier aus werden Änderungen übertragen)
+	 */
+	private void updateEditorModel(final ModelSurface editorSurface, final ModelSurface animationSurface) {
+		for (ModelElement element: editorSurface.getElements()) {
+			if (element instanceof ElementWithAnimationDisplay) {
+				if (element.getPropertiesSemiEditable(this,null,null)!=null) element.copyDataFrom(animationSurface.getById(element.getId()));
+			}
+			if (element instanceof ModelElementSub) {
+				final ModelSurface editorSubSurface=((ModelElementSub)element).getSubSurface();
+				final ModelSurface animationSubSurface=((ModelElementSub)animationSurface.getById(element.getId())).getSubSurface();
+				updateEditorModel(editorSubSurface,animationSubSurface);
+
+			}
+		}
+	}
+
+	/**
+	 * Aktualisiert während einer Animation möglicherweise geänderte Diagramm-Element-Daten in dem Editor-Modell.
+	 * @param editorSurface	Hauptzeichenfläche des Editor-Modells
+	 */
+	public void updateEditorModel(final ModelSurface editorSurface) {
+		updateEditorModel(editorSurface,surfacePanel.getSurface());
+	}
 }

@@ -561,6 +561,17 @@ public class ModelElement {
 	}
 
 	/**
+	 * Liefert ein <code>Runnable</code>-Objekt zurück, welches aufgerufen werden kann, wenn die Eigenschaften des Elements während einer angehaltenen Animation verändert werden sollen.
+	 * @param owner	Übergeordnetes Fenster
+	 * @param clientData	Kundendaten-Objekt
+	 * @param sequences	Fertigungspläne-Liste
+	 * @return	<code>Runnable</code>-Objekt zur Einstellung der Eigenschaften oder <code>null</code>, wenn das Element keine Eigenschaften besitzt
+	 */
+	public Runnable getPropertiesSemiEditable(final Component owner, final ModelClientData clientData, final ModelSequences sequences) {
+		return null;
+	}
+
+	/**
 	 * Fügt stations-bedingte zusätzliche Daten zur Laufzeitstatistik hinzu
 	 * @param builder	Laufzeitdaten-Builder
 	 */
@@ -1070,12 +1081,19 @@ public class ModelElement {
 		/* Fehlerprüfung */
 		if (!readOnly) addQuickFix(popupMenu,true);
 
+		/* Elementeigenschaften während angehaltener Animation bearbeiten */
+		Runnable propertiesRunnable=null;
+		if (simData!=null && simData.simulator.isPaused()) {
+			propertiesRunnable=getPropertiesSemiEditable(invoker,clientData,sequences);
+		}
+
 		/* Einstellungen */
-		final Runnable propertiesRunnable=getProperties(invoker,readOnly && !allowEditOnReadOnly,clientData,sequences);
+		if (propertiesRunnable==null) propertiesRunnable=getProperties(invoker,readOnly && !allowEditOnReadOnly,clientData,sequences);
 		if (propertiesRunnable!=null) {
+			final Runnable propertiesRunnableFinal=propertiesRunnable;
 			item=new JMenuItem(Language.tr("Surface.PopupMenu.Properties"));
 			item.setFont(item.getFont().deriveFont(Font.BOLD));
-			item.addActionListener(e->propertiesRunnable.run());
+			item.addActionListener(e->propertiesRunnableFinal.run());
 			item.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_ENTER,ActionEvent.CTRL_MASK));
 			item.setIcon(Images.MODELEDITOR_ELEMENT_PROPERTIES.getIcon());
 			popupMenu.add(item);

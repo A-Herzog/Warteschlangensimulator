@@ -78,9 +78,9 @@ public class ModelElementAnimationLineDiagramDialog extends ModelElementBaseDial
 	 * Konstruktor der Klasse
 	 * @param owner	Übergeordnetes Fenster
 	 * @param element	Zu bearbeitendes {@link ModelElementAnimationLineDiagram}
-	 * @param readOnly	Wird dieser Parameter auf <code>true</code> gesetzt, so wird die "Ok"-Schaltfläche deaktiviert
+	 * @param readOnly	Nur-Lese-Modus
 	 */
-	public ModelElementAnimationLineDiagramDialog(final Component owner, final ModelElementAnimationLineDiagram element, final boolean readOnly) {
+	public ModelElementAnimationLineDiagramDialog(final Component owner, final ModelElementAnimationLineDiagram element, final ModelElementBaseDialog.ReadOnlyMode readOnly) {
 		super(owner,Language.tr("Surface.AnimationDiagram.Dialog.Title"),element,"ModelElementAnimationDiagram",readOnly);
 	}
 
@@ -126,7 +126,7 @@ public class ModelElementAnimationLineDiagramDialog extends ModelElementBaseDial
 		});
 
 		/* Achsenbeschriftung */
-		setup.add(axisLabels=new AxisDrawerEdit(AxisDrawer.Mode.OFF,null,""));
+		setup.add(axisLabels=new AxisDrawerEdit(AxisDrawer.Mode.OFF,null,"",readOnly));
 
 		final JTableExt expressionTable;
 		content.add(new JScrollPane(expressionTable=new JTableExt()),BorderLayout.CENTER);

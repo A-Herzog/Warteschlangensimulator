@@ -78,9 +78,9 @@ public class ModelElementAnimationBarDialog extends ModelElementBaseDialog {
 	 * Konstruktor der Klasse
 	 * @param owner	Übergeordnetes Fenster
 	 * @param element	Zu bearbeitendes {@link ModelElementAnimationBar}
-	 * @param readOnly	Wird dieser Parameter auf <code>true</code> gesetzt, so wird die "Ok"-Schaltfläche deaktiviert
+	 * @param readOnly	Nur-Lese-Modus
 	 */
-	public ModelElementAnimationBarDialog(final Component owner, final ModelElementAnimationBar element, final boolean readOnly) {
+	public ModelElementAnimationBarDialog(final Component owner, final ModelElementAnimationBar element, final ModelElementBaseDialog.ReadOnlyMode readOnly) {
 		super(owner,Language.tr("Surface.AnimationBar.Dialog.Title"),element,"ModelElementAnimationBar",readOnly);
 	}
 
@@ -147,7 +147,7 @@ public class ModelElementAnimationBarDialog extends ModelElementBaseDialog {
 		label.setLabelFor(editMaximum);
 
 		/* Achsenbeschriftung */
-		content.add(axisLabels=new AxisDrawerEdit(AxisDrawer.Mode.OFF,null,""));
+		content.add(axisLabels=new AxisDrawerEdit(AxisDrawer.Mode.OFF,null,"",readOnly));
 
 		/* Rahmenbreite */
 		Object[] data=getLineWidthInputPanel(Language.tr("Surface.AnimationBar.Dialog.FrameWidth")+":",1,15);
