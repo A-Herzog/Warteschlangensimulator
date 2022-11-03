@@ -70,13 +70,23 @@ a portion of the arrivals indicated here to be simulated.
 <p>
 Before the counting of the waiting and processing times for the statistics starts, 
 a certain number of clients can pass through the system and will not be counted for the statistics.
-In this field you can specify the number of clients who are not counted for the statistics
+In this field you can specify the <b>number of clients</b> who are not counted for the statistics
 in relation to the total number of clients. This number is not subtracted from the number
 of clients to be simulated, but it is preempted to it.
 </p>
 <p>
 The warm-up phase will also be applied if the total number of arrivals to be simulated
 is not used as an termination criterion for the simulation.
+</p>
+
+<h3>End warm-up phase time-controlled</h3>
+<p>
+Alternatively, the warm-up phase can also be ended after a certain <b>time duration</b>.
+This time duration can be defined in this input field.
+</p>
+<p>
+If both a number of arrivals and a time duration to end the warm-up phase are defined,
+the warm-up phase is ended by the event that occurs first.
 </p>
 
 <h3>Use condition as a criterion for the end of the simulation</h3>
@@ -181,15 +191,15 @@ the performance indicators (like mean etc.) will always be exact
 independent of the size of the values distribution.
 </p>
 
-<h3>Präzision der Varianzerfassung</h3>
+<h3>Precision of variance recording</h3>
 <p>
-Die Varianzen von Kenngrößen können während einer Simulation auf zwei verschiedene Arten erfasst werden.
-Die standardmäßig aktive Erfassung über die Momente der Messreihe ist sehr schnell und liefert in den
-meisten in der Warteschlangentheorie relevanten Fällen numerisch präzise Ergebnisse. Lediglich bei
-Wahrscheinlichkeitsverteilungen mit einem Variationskoeffizienten von 0,01 und kleiner kann es zu
-numerischen Instabilitäten kommen, die die ausgegebene Präzision verringern. Der Welford online Algorithmus
-besitzt diese Probleme nicht und liefert stets numerisch präzise Ergebnisse. Dafür aber wird für die
-Statistikerfassung während der Simulation deutlich mehr Rechenzeit benötigt.
+The variances of performance indicators can be recorded in two different ways during a simulation.
+The default method of recording the moments of the measurement series is very fast and provides
+numerically precise results in most cases relevant in queueing theory. Only for probability
+distributions with a coefficient of variation of 0.01 and smaller numerical instabilities may occur,
+reducing the output precision. The Welford online algorithm does not have these problems and always
+delivers numerically precise results. However, significantly more computing time is required for
+statistics collection during the simulation.
 </p>
 
 

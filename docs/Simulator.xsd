@@ -14,6 +14,7 @@
   <xs:element name="ModellAutorEMail" type="xs:string"/>
   <xs:element name="ModellBeschreibung" type="xs:string"/>
   <xs:element name="ModellAufwaermphase" type="xs:string"/>
+  <xs:element name="ModellAufwaermphaseSekunden" type="xs:string"/>
   <xs:element name="ModellWiederholungen" type="xs:string"/>
   <xs:element ref="ModellKunden"/>
   <xs:element ref="ModellAbbruchbedingung"/>
@@ -2363,6 +2364,7 @@
   <xs:element name="ModelAuthorEMail" type="xs:string"/>
   <xs:element name="ModelDescription" type="xs:string"/>
   <xs:element name="ModelWarmUpPhase" type="xs:string"/>
+  <xs:element name="ModelWarmUpPhaseSeconds" type="xs:string"/>
   <xs:element name="ModelRepeats" type="xs:string"/>
   <xs:element ref="ModelClients"/>
   <xs:element ref="ModelTerminationCondition"/>

@@ -879,7 +879,7 @@ public class AnimationPanel extends JPanel implements RunModelAnimationViewer {
 		model.surface.add(animationConnect);
 
 		/* Umgang mit der Warm-Up-Phase */
-		if (model.warmUpTime<=0) return false; /* Kein Warm-Up definiert, also nix zu tun. */
+		if (model.warmUpTime<=0.0 && model.warmUpTimeTime<=0) return false; /* Kein Warm-Up definiert, also nix zu tun. */
 
 		final SetupData.AnimationMode warmUpMode=setup.animationWarmUpMode;
 		boolean skip=false;
@@ -915,7 +915,10 @@ public class AnimationPanel extends JPanel implements RunModelAnimationViewer {
 			break;
 		}
 
-		if (skip) model.warmUpTime=0;
+		if (skip) {
+			model.warmUpTime=0.0;
+			model.warmUpTimeTime=0;
+		}
 		return fast;
 	}
 

@@ -360,4 +360,11 @@ public abstract class RunElement {
 	public RunElement getNext() {
 		return null;
 	}
+
+	/**
+	 * Diese Methode wird von {@link SimulationData#endWarmUp()} aufgerufen, wenn die Einschwingphase beendet wird.
+	 * @param simData	Simulationsdatenobjekt
+	 */
+	public void endWarmUpNotify(final SimulationData simData) {
+	}
 }

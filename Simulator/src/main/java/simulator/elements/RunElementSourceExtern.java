@@ -424,10 +424,8 @@ public abstract class RunElementSourceExtern extends RunElement implements RunSo
 		/* Evtl. WarmUp-Zeit beenden */
 		if (simData.runData.isWarmUp) {
 			/* Warm-Up-Phasenlänge wird nicht durch Threadanzahl geteilt, sondern auf jedem Kern wird die angegebene Anzahl simuliert */
-			if (simData.runData.clientsArrived>=FastMath.round(simData.runModel.warmUpTime*simData.runModel.clientCountModel)) {
-				simData.runData.isWarmUp=false;
+			if (simData.runData.clientsArrived>=FastMath.round(simData.runModel.warmUpTime*simData.runModel.clientCountModel) && simData.runModel.warmUpTime>0) { /* runModel.warmUpTime>0 bedeutet, dass die Beendigung der Einschwingphase nach Zeit nur dann erfolgt, wenn diese in diesem Modus überhaupt aktiv ist. */
 				simData.endWarmUp();
-				simData.runData.clientsArrived=0;
 				/* Logging */
 				if (simData.loggingActive) log(simData,Language.tr("Simulation.Log.WarmUpEnd"),Language.tr("Simulation.Log.WarmUpEnd.Info"));
 			}

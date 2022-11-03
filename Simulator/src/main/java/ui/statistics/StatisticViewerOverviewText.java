@@ -633,9 +633,10 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 		if (statistics.simulationData.runRepeatCount>1) repeatInfo=" ("+Language.tr("Statistics.SimulatedClients.RepeatInfo")+")";
 		addLine(Language.tr("Statistics.SimulatedClients")+": "+NumberTools.formatLong(sum)+repeatInfo);
 		if (statistics.simulationData.runRepeatCount>1) addLine(Language.tr("Statistics.SystemData.RepeatCount")+": "+NumberTools.formatLong(statistics.simulationData.runRepeatCount));
-		if (sum==0 && statistics.editModel.warmUpTime>0) {
+		if (sum==0 && (statistics.editModel.warmUpTime>0.0 || statistics.editModel.warmUpTimeTime>0)) {
 			addLine(Language.tr("Statistics.SimulatedClients.Zero"));
-			addLine(String.format(Language.tr("Statistics.SimulatedClients.Zero.Info"),NumberTools.formatLong(Math.round(statistics.editModel.clientCount*statistics.editModel.warmUpTime))));
+			if (statistics.editModel.warmUpTime>0.0) addLine(String.format(Language.tr("Statistics.SimulatedClients.Zero.Info"),NumberTools.formatLong(Math.round(statistics.editModel.clientCount*statistics.editModel.warmUpTime))));
+			if (statistics.editModel.warmUpTimeTime>0) addLine(String.format(Language.tr("Statistics.SimulatedClients.Zero.InfoTime"),TimeTools.formatLongTime(statistics.editModel.warmUpTimeTime)));
 		}
 		addModeLink(Mode.MODE_MODEL);
 		endParagraph();
@@ -1528,12 +1529,15 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 			if (statistics.simulationData.runRepeatCount>1) repeatInfo=" ("+Language.tr("Statistics.SimulatedClients.RepeatInfo")+")";
 			addLine(Language.tr("Statistics.SimulatedClients")+": "+NumberTools.formatLong(sum)+repeatInfo);
 			if (statistics.simulationData.runRepeatCount>1) addLine(Language.tr("Statistics.SystemData.RepeatCount")+": "+NumberTools.formatLong(statistics.simulationData.runRepeatCount));
-			addLine(Language.tr("Statistics.SimulatedClients.WarmUp")+": "+NumberTools.formatLong(FastMath.round(statistics.editModel.clientCount*statistics.editModel.warmUpTime))+" ("+StatisticTools.formatPercent(statistics.editModel.warmUpTime)+")");
+			if (statistics.editModel.warmUpTime>0.0) addLine(Language.tr("Statistics.SimulatedClients.WarmUp")+": "+NumberTools.formatLong(FastMath.round(statistics.editModel.clientCount*statistics.editModel.warmUpTime))+" ("+StatisticTools.formatPercent(statistics.editModel.warmUpTime)+")");
+			if (statistics.editModel.warmUpTimeTime>0) addLine(Language.tr("Statistics.SimulatedClients.WarmUpTime")+": "+TimeTools.formatLongTime(statistics.editModel.warmUpTimeTime));
+			if (statistics.editModel.warmUpTime>0.0 && statistics.editModel.warmUpTimeTime>0) addLine(Language.tr("Statistics.SimulatedClients.WarmUpBothInfo"));
 			endParagraph();
-			if (sum==0 && statistics.editModel.warmUpTime>0) {
+			if (sum==0 && (statistics.editModel.warmUpTime>0.0 || statistics.editModel.warmUpTimeTime>0)) {
 				beginParagraph();
 				addLine(Language.tr("Statistics.SimulatedClients.Zero"));
-				addLine(String.format(Language.tr("Statistics.SimulatedClients.Zero.Info"),NumberTools.formatLong(Math.round(statistics.editModel.clientCount*statistics.editModel.warmUpTime))));
+				if (statistics.editModel.warmUpTime>0.0) addLine(String.format(Language.tr("Statistics.SimulatedClients.Zero.Info"),NumberTools.formatLong(Math.round(statistics.editModel.clientCount*statistics.editModel.warmUpTime))));
+				if (statistics.editModel.warmUpTimeTime>0) addLine(String.format(Language.tr("Statistics.SimulatedClients.Zero.InfoTime"),TimeTools.formatLongTime(statistics.editModel.warmUpTimeTime)));
 				addLine(Language.tr("Statistics.SimulatedClients.Zero.Info2"));
 				endParagraph();
 			}

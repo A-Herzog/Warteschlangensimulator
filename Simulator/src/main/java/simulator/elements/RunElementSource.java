@@ -173,15 +173,10 @@ public class RunElementSource extends RunElement implements StateChangeListener,
 			/* Evtl. WarmUp-Zeit beenden */
 			if (simData.runData.isWarmUp) {
 				/* Warm-Up-Phasenlänge wird nicht durch Threadanzahl geteilt, sondern auf jedem Kern wird die angegebene Anzahl simuliert */
-				if (simData.runData.clientsArrived>=warmUpClients) {
-					simData.runData.isWarmUp=false;
+				if (simData.runData.clientsArrived>=warmUpClients && simData.runModel.warmUpTime>0) { /* runModel.warmUpTime>0 bedeutet, dass die Beendigung der Einschwingphase nach Zeit nur dann erfolgt, wenn diese in diesem Modus überhaupt aktiv ist. */
 					simData.endWarmUp();
-					simData.runData.clientsArrived=0;
-					data.recordData.arrivalCount=0;
-					data.recordData.arrivalClientCount=0;
 					/* Logging */
 					if (simData.loggingActive) log(simData,Language.tr("Simulation.Log.WarmUpEnd"),Language.tr("Simulation.Log.WarmUpEnd.Info"));
-					/* Warm-up-Status für Kunden wieder entfernen */
 				}
 			}
 
@@ -327,5 +322,13 @@ public class RunElementSource extends RunElement implements StateChangeListener,
 	@Override
 	public RunElement getNext() {
 		return connection;
+	}
+
+	@Override
+	public void endWarmUpNotify(final SimulationData simData) {
+		final RunElementSourceData data=getData(simData);
+		simData.runData.clientsArrived=0;
+		data.recordData.arrivalCount=0;
+		data.recordData.arrivalClientCount=0;
 	}
 }

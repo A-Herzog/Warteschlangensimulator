@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-10-20 13:21+0200\n"
+"POT-Creation-Date: 2022-11-01 22:22+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -3891,6 +3891,9 @@ msgstr "Der angegebene Simulations-Ende-Zeitpunkt \"%s\" ist ungültig."
 msgid "Editor.Dialog.Tab.Simulation.Criteria.ErrorWarmUp"
 msgstr "Die angegebene Dauer der Einschwingphase \"%s\" ist ungültig. Es muss ein nichtnegativer Wert angegeben werden."
 
+msgid "Editor.Dialog.Tab.Simulation.Criteria.ErrorWarmUpTime"
+msgstr "Die angegebene Zeitdauer der Einschwingphase \"%s\" ist ungültig. Es muss eine positive ganzzahlige Sekundenanzahl angegeben werden."
+
 msgid "Editor.Dialog.Tab.Simulation.Criteria.NoKeepDialogOpen"
 msgstr "Dialog geöffnet lassen, um die Einstellungen zu verändern."
 
@@ -4006,6 +4009,12 @@ msgstr "Wird auch verwendet, wenn Ankünfteanzahl nicht Abbruchkriterium ist."
 
 msgid "Editor.Dialog.Tab.Simulation.WarmUpPhase.Info2"
 msgstr "Während der Einschwingphase werden %s zusätzliche Kunden simuliert,<br>die nicht in der Statistik erfasst werden."
+
+msgid "Editor.Dialog.Tab.Simulation.WarmUpPhaseTime"
+msgstr "Einschwingphase zeitgesteuert beenden"
+
+msgid "Editor.Dialog.Tab.Simulation.WarmUpPhaseTime.Info"
+msgstr "Ist eine Anzahl an Ankünften und eine Zeitdauer angegeben, so wird die Einschwingphase gemäß dem, was zuerst erreicht ist, beendet."
 
 msgid "Editor.Dialog.Tab.SimulationSystem"
 msgstr "Simulationssystem"
@@ -22684,14 +22693,23 @@ msgstr "in Summe über alle Wiederholungen der Simulation"
 msgid "Statistics.SimulatedClients.WarmUp"
 msgstr "Zusätzlich vorab als Einschwingphase"
 
+msgid "Statistics.SimulatedClients.WarmUpBothInfo"
+msgstr "Die tatsächliche Einschwingphase wurde durch das Ereignis, welches zuerst eintrat (Anzahl an Ankünften bzw. Zeitdauer), beendet."
+
+msgid "Statistics.SimulatedClients.WarmUpTime"
+msgstr "Zusätzlich vorab als Einschwingphasenzeit"
+
 msgid "Statistics.SimulatedClients.Zero"
 msgstr "Evtl. wurde die Simulation beendet, bevor die Einschwingphase (deren Kunden nicht in der Statistik erfasst werden) abgeschlossen wurde."
 
 msgid "Statistics.SimulatedClients.Zero.Info"
-msgstr "Es wurde eine Einschwingphase der Länge %s eingestellt. Erst nach dem Abschluss dieser Einschwingphase beginnt die Statistikaufzeichnung."
+msgstr "Es wurde eine Einschwingphase der Länge von %s Kundenankünften eingestellt. Erst nach dem Abschluss dieser Einschwingphase beginnt die Statistikaufzeichnung."
 
 msgid "Statistics.SimulatedClients.Zero.Info2"
-msgstr "Die Länge der Einschwingphase kann im Modelleigenschaften-Dialog auf der Seite \"Simulation\" eingestellt werden. Werden Ankünfte aus externen Quellen geladne, so sollte die Einschwingphase auf 0 gesetzt werden."
+msgstr "Die Länge der Einschwingphase kann im Modelleigenschaften-Dialog auf der Seite \"Simulation\" eingestellt werden. Werden Ankünfte aus externen Quellen geladen, so sollte die Einschwingphase auf 0 gesetzt werden."
+
+msgid "Statistics.SimulatedClients.Zero.InfoTime"
+msgstr "Es wurde eine Einschwingphase der Länge  %s eingestellt. Erst nach dem Abschluss dieser Einschwingphase beginnt die Statistikaufzeichnung."
 
 msgid "Statistics.SimulatedTime"
 msgstr "Simulierte Zeit"
@@ -28560,6 +28578,9 @@ msgstr "Das angegebene Konfidenzniveau für den Abschluss der Simulation \"%s\" 
 msgid "Surface.Model.ErrorWarmUp"
 msgstr "Der angegebene Wert \"%s\" für die Dauer der Aufwärmphase ist ungültig. Es muss ein nichtnegativer Anteil angegeben werden."
 
+msgid "Surface.Model.ErrorWarmUpTime"
+msgstr "Der angegebene Wert \"%s\" für die Zeitdauer der Aufwärmphase ist ungültig. Es muss eine positive Ganzzahl angegeben werden."
+
 msgid "Surface.MultiSourceTable.Activate"
 msgstr "Aktivieren"
 
@@ -33509,6 +33530,9 @@ msgstr "ModellVersion"
 
 msgid "Surface.XML.ModelWarmUpPhase"
 msgstr "ModellAufwaermphase"
+
+msgid "Surface.XML.ModelWarmUpPhaseTime"
+msgstr "ModellAufwaermphaseSekunden"
 
 msgid "Surface.XML.NrAttributeSubError"
 msgstr "Das %d. \"%s\"-Attribut eines \"%s\"-Elements eines \"%s\"-Elements ist ungültig."

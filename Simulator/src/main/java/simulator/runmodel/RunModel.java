@@ -94,9 +94,16 @@ public class RunModel {
 
 	/**
 	 * Länge der Einschwingphase (als Anteil der Kundenankünfte), bevor die Statistikzählung beginnt.<br>
-	 * Die Einschwingphase wird nicht von der Kundenanzahl abgezogen, sondern besteht aus zusätzlichen Ankünften.
+	 * Die Einschwingphase wird nicht von der Kundenanzahl abgezogen, sondern besteht aus zusätzlichen Ankünften.<br>
+	 * (Soll keine Kundenanzahl-abhängige Einschwingphase verwendet werden, so steht dieser Wert auf 0.)
 	 */
 	public double warmUpTime;
+
+	/**
+	 * Zeitpunkt (in Sekunden), zu dem die Einschwingphase beendet werden soll.<br>
+	 * (Werte &le;0 bedeuten, dass keine zeitgesteuerte Beendigung der Einschwingphase erfolgen soll.)
+	 */
+	public long warmUpTimeTime;
 
 	/**
 	 * Gibt an, wie oft der Simulationslauf als Ganzes wiederholt werden soll.
@@ -457,6 +464,8 @@ public class RunModel {
 		runModel.clientCountModel=Math.max(0,editModel.clientCount);
 		if (editModel.warmUpTime<0) return String.format(Language.tr("Simulation.Creator.InvalidWarmUpPeriod"),NumberTools.formatNumber(editModel.warmUpTime));
 		runModel.warmUpTime=editModel.warmUpTime;
+
+		runModel.warmUpTimeTime=(editModel.warmUpTimeTime>0)?editModel.warmUpTimeTime:-1;
 
 		/* Wiederholungen der Simulation */
 		if (editModel.repeatCount<1) return String.format(Language.tr("Simulation.Creator.InvalidRepeatCount"),editModel.repeatCount);

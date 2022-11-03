@@ -204,7 +204,7 @@ public class StatisticViewerRemarksText extends StatisticViewerText {
 		for (StatisticsDataPerformanceIndicator indicator: (StatisticsDataPerformanceIndicator[])statistics.clientsInterarrivalTime.getAll(StatisticsDataPerformanceIndicator.class)) sum+=indicator.getCount();
 
 		/* Einschwingphase vorhanden? */
-		final boolean hasWarmUp=(statistics.editModel.warmUpTime>0);
+		final boolean hasWarmUp=(statistics.editModel.warmUpTime>0.0 || statistics.editModel.warmUpTimeTime>0);
 
 		/* Sind externe Datenquellen angebunden? */
 		final boolean hasExternalDataSource=hasExternalDataSource(statistics.editModel.surface);

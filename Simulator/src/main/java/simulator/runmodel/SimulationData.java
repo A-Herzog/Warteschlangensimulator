@@ -258,8 +258,13 @@ public class SimulationData extends SimData {
 	 * Wird beim Erreichen des Endes der Einschwingphase durch eine Kundenquelle aufgerufen.
 	 */
 	public void endWarmUp() {
+		if (!runData.isWarmUp) return;
+
 		final double time=currentTime/1000.0;
 		runData.warmUpEndTime=time;
+		runData.isWarmUp=false;
+		runData.clientsArrived=0;
+		for (RunElement element: runModel.elements.values()) element.endWarmUpNotify(this);
 
 		resetAllDataPerformanceIndicators(statistics.clientsInterarrivalTime);
 		resetAllDataPerformanceIndicators(statistics.stationsInterarrivalTime);

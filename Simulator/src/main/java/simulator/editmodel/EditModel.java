@@ -143,9 +143,16 @@ public final class EditModel extends EditModelBase implements Cloneable  {
 
 	/**
 	 * Länge der Einschwingphase (als Anteil der Kundenankünfte), bevor die Statistikzählung beginnt.<br>
-	 * Die Einschwingphase wird nicht von der Kundenanzahl abgezogen, sondern besteht aus zusätzlichen Ankünften.
+	 * Die Einschwingphase wird nicht von der Kundenanzahl abgezogen, sondern besteht aus zusätzlichen Ankünften.<br>
+	 * (Soll keine Kundenanzahl-abhängige Einschwingphase verwendet werden, so steht dieser Wert auf 0.)
 	 */
 	public double warmUpTime;
+
+	/**
+	 * Zeitpunkt (in Sekunden), zu dem die Einschwingphase beendet werden soll.<br>
+	 * (Werte &le;0 bedeuten, dass keine zeitgesteuerte Beendigung der Einschwingphase erfolgen soll.)
+	 */
+	public long warmUpTimeTime;
 
 	/**
 	 * Gibt an, wie oft der Simulationslauf als Ganzes wiederholt werden soll.
@@ -522,6 +529,7 @@ public final class EditModel extends EditModelBase implements Cloneable  {
 		useClientCount=true;
 		clientCount=10_000_000;
 		warmUpTime=0.01;
+		warmUpTimeTime=-1;
 		repeatCount=1;
 		useTerminationCondition=false;
 		terminationCondition="";
@@ -589,6 +597,7 @@ public final class EditModel extends EditModelBase implements Cloneable  {
 		clone.useClientCount=useClientCount;
 		clone.clientCount=clientCount;
 		clone.warmUpTime=warmUpTime;
+		clone.warmUpTimeTime=warmUpTimeTime;
 		clone.repeatCount=repeatCount;
 		clone.useTerminationCondition=useTerminationCondition;
 		clone.terminationCondition=terminationCondition;
@@ -671,6 +680,7 @@ public final class EditModel extends EditModelBase implements Cloneable  {
 		if (clientCount!=otherModel.clientCount) return false;
 		if (!ignoreAnimationData) {
 			if (warmUpTime!=otherModel.warmUpTime) return false;
+			if (warmUpTimeTime!=otherModel.warmUpTimeTime) return false;
 		}
 		if (repeatCount!=otherModel.repeatCount) return false;
 		if (useTerminationCondition!=otherModel.useTerminationCondition) return false;
@@ -805,6 +815,12 @@ public final class EditModel extends EditModelBase implements Cloneable  {
 			final Double D=NumberTools.getExtProbability(text);
 			if (D==null || D<0) return String.format(Language.tr("Surface.Model.ErrorWarmUp"),text);
 			warmUpTime=D;
+			return null;
+		}
+		if (Language.trAll("Surface.XML.ModelWarmUpPhaseTime",name)) {
+			final Long L=NumberTools.getPositiveLong(text);
+			if (L==null) return String.format(Language.tr("Surface.Model.ErrorWarmUpTime"),text);
+			warmUpTimeTime=L;
 			return null;
 		}
 		if (Language.trAll("Surface.XML.ModelRepeatCount",name)) {
@@ -1191,6 +1207,7 @@ public final class EditModel extends EditModelBase implements Cloneable  {
 		sub=addTextToXML(doc,node,Language.trPrimary("Surface.XML.ModelClients"),clientCount);
 		sub.setAttribute(Language.trPrimary("Surface.XML.Active"),useClientCount?"1":"0");
 		addTextToXML(doc,node,Language.trPrimary("Surface.XML.ModelWarmUpPhase"),NumberTools.formatSystemNumber(warmUpTime));
+		if (warmUpTimeTime>0) addTextToXML(doc,node,Language.trPrimary("Surface.XML.ModelWarmUpPhaseTime"),""+warmUpTimeTime);
 		if (repeatCount>1) addTextToXML(doc,node,Language.trPrimary("Surface.XML.ModelRepeatCount"),""+repeatCount);
 		if (useTerminationCondition || !terminationCondition.isEmpty()) {
 			sub=addTextToXML(doc,node,Language.trPrimary("Surface.XML.ModelTerminationCondition"),terminationCondition);
@@ -1696,6 +1713,9 @@ public final class EditModel extends EditModelBase implements Cloneable  {
 
 		/* Länge der Einschwingphase (als Anteil der Kundenankünfte), bevor die Statistikzählung beginnt. */
 		searcher.testDouble(Language.tr("Editor.Dialog.Tab.Simulation.WarmUpPhase"),warmUpTime,newWarmUpTime->{if (newWarmUpTime>=0) warmUpTime=newWarmUpTime;});
+
+		/* Länge der Einschwingphase (als Sekundenwert), bevor die Statistikzählung beginnt. */
+		if (warmUpTimeTime>0) searcher.testLong(Language.tr("Editor.Dialog.Tab.Simulation.WarmUpPhaseTime"),warmUpTimeTime,newWarmUpTimeTime->{if (newWarmUpTimeTime>=0) warmUpTimeTime=newWarmUpTimeTime;});
 
 		/* Gibt an, wie oft der Simulationslauf als Ganzes wiederholt werden soll. */
 		searcher.testInteger(Language.tr("Editor.Dialog.Tab.Simulation.RepeatCount.Value"),repeatCount,newRepeatCount->{if (newRepeatCount>0) repeatCount=newRepeatCount;});

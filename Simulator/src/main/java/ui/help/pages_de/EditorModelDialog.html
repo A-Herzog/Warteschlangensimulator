@@ -75,13 +75,23 @@ nur ein Anteil der hier angegebenen Ankünfte simuliert wird.
 <p>
 Bevor die Warte- und Bedienzeiten für die Statistik gezählt werden, können eine bestimmte Anzahl
 an Kunden das System durchlaufen, die nicht für die Statistik gezählt werden. In diesem Feld kann
-angegeben werden, wie viele Kunden bezogen auf die Gesamtzahl an Kunden nicht für die Statistik
+angegeben werden, wie viele <b>Kunden</b>b> bezogen auf die Gesamtzahl an Kunden nicht für die Statistik
 gezählt werden sollen. Diese Anzahl wird nicht von der Anzahl an zu simulierenden Kunden abgezogen,
 sondern dieser vorangestellt bzw. auf diese aufgeschlagen.
 </p>
 <p>
 Die Einschwingphase kommt auch dann zum Tragen, wenn die Gesamtanzahl an zu simulierenden Ankünften
 nicht als Abbruchkriterium für die Simulation verwendet wird.
+</p>
+
+<h3>Einschwingphase zeitgesteuert beenden</h3>
+<p>
+Alternativ kann die Einschwingphase auch nach einer bestimmten <b>Zeitdauer</b> beendet werden.
+Diese Zeitdauer kann in diesem Eingabefeld definiert werden.
+</p>
+<p>
+Sind sowohl eine Anzahl an Ankünften als auch eine Zeitdauer zur Beendigung der Einschwingphase
+definiert, so wird die Einschwingphase durch das Ereignis, das zuerst eintritt, beendet.
 </p>
 
 <h3>Zu prüfende Bedingung als Kriterium für das Simulationsende verwenden</h3>
@@ -184,15 +194,15 @@ für die Simulation benötigt. Die Erfassung der übrigen Kenngrößen
 (wie Mittelwerten usw.) erfolgt unabhängig von dieser Einstellung immer exakt.
 </p>
 
-<h3>Precision of variance recording</h3>
+<h3>Präzision der Varianzerfassung</h3>
 <p>
-The variances of performance indicators can be recorded in two different ways during a simulation.
-The default method of recording the moments of the measurement series is very fast and provides
-numerically precise results in most cases relevant in queueing theory. Only for probability
-distributions with a coefficient of variation of 0.01 and smaller numerical instabilities may occur,
-reducing the output precision. The Welford online algorithm does not have these problems and always
-delivers numerically precise results. However, significantly more computing time is required for
-statistics collection during the simulation.
+Die Varianzen von Kenngrößen können während einer Simulation auf zwei verschiedene Arten erfasst werden.
+Die standardmäßig aktive Erfassung über die Momente der Messreihe ist sehr schnell und liefert in den
+meisten in der Warteschlangentheorie relevanten Fällen numerisch präzise Ergebnisse. Lediglich bei
+Wahrscheinlichkeitsverteilungen mit einem Variationskoeffizienten von 0,01 und kleiner kann es zu
+numerischen Instabilitäten kommen, die die ausgegebene Präzision verringern. Der Welford online Algorithmus
+besitzt diese Probleme nicht und liefert stets numerisch präzise Ergebnisse. Dafür aber wird für die
+Statistikerfassung während der Simulation deutlich mehr Rechenzeit benötigt.
 </p>
 
 

@@ -1262,7 +1262,7 @@ public abstract class ModelElementBaseDialog extends BaseDialog {
 	 */
 	public JPanel getWarmUpInfoPanel() {
 		final EditModel model=element.getModel();
-		if (model.warmUpTime==0) return null;
+		if (model.warmUpTime==0 && model.warmUpTimeTime<=0) return null;
 
 		ModelSurface surface=element.getSurface();
 		if (surface.getParentSurface()!=null) surface=surface.getParentSurface();
@@ -1289,6 +1289,7 @@ public abstract class ModelElementBaseDialog extends BaseDialog {
 		buttonPanel.add(button);
 		button.addActionListener(e->{
 			editorPanel.setWarmUpTime(0.0);
+			editorPanel.setWarmUpTimeTime(-1);
 			result.setVisible(false);
 		});
 

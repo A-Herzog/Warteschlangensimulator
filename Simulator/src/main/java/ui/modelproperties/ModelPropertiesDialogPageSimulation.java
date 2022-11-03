@@ -57,6 +57,10 @@ public class ModelPropertiesDialogPageSimulation extends ModelPropertiesDialogPa
 	private JTextField warmUpTime;
 	/** Erklärung zu Eingabefeld {@link #warmUpTime} */
 	private JLabel warmUpTimeInfo;
+	/** Option "Einschwingphase zeitgesteuert beenden" */
+	private JCheckBox warmUpTimeTimeCheck;
+	/** Eingabefeld für "Einschwingphase zeitgesteuert beenden" */
+	private JTextField warmUpTimeTimeEdit;
 	/** Option "Zu prüfende Bedingung als Kriterium für das Simulationsende verwenden" */
 	private JCheckBox terminationByCondition;
 	/** Eingabefeld "Bedingung für Simulationsende" */
@@ -149,6 +153,8 @@ public class ModelPropertiesDialogPageSimulation extends ModelPropertiesDialogPa
 			if (builderDialog.getClosedBy()==BaseDialog.CLOSED_BY_OK) clientCount.setText(builderDialog.getExpression());
 		});
 
+		/* Einschwingphase als Kundenanzahl-Anteil */
+
 		data=ModelElementBaseDialog.getInputPanel(Language.tr("Editor.Dialog.Tab.Simulation.WarmUpPhase")+":",NumberTools.formatPercent(model.warmUpTime,3),6);
 		lines.add((JPanel)data[0]);
 		warmUpTime=(JTextField)data[1];
@@ -161,6 +167,21 @@ public class ModelPropertiesDialogPageSimulation extends ModelPropertiesDialogPa
 		lines.add(sub=new JPanel(new FlowLayout(FlowLayout.LEFT)));
 		sub.add(warmUpTimeInfo=new JLabel());
 		updateWarmUpTimeInfo();
+
+		/* Einschwingphase zeitgesteuert beenden */
+
+		lines.add(sub=new JPanel(new FlowLayout(FlowLayout.LEFT)));
+		sub.add(warmUpTimeTimeCheck=new JCheckBox(Language.tr("Editor.Dialog.Tab.Simulation.WarmUpPhaseTime")+":"));
+		warmUpTimeTimeCheck.setToolTipText(Language.tr("Editor.Dialog.Tab.Simulation.WarmUpPhaseTime.Info"));
+		warmUpTimeTimeCheck.setEnabled(!readOnly);
+		warmUpTimeTimeCheck.setSelected(model.warmUpTimeTime>0);
+		warmUpTimeTimeCheck.addActionListener(e->checkWarmUpTimeTime());
+		sub.add(warmUpTimeTimeEdit=new JTextField(TimeTools.formatLongTime((model.warmUpTimeTime>0)?model.warmUpTimeTime:300),15));
+		warmUpTimeTimeEdit.setEnabled(!readOnly);
+		addKeyListener(warmUpTimeTimeEdit,()->{
+			warmUpTimeTimeCheck.setSelected(true);
+			checkWarmUpTimeTime();
+		});
 
 		lines.add(Box.createVerticalStrut(25));
 
@@ -276,6 +297,15 @@ public class ModelPropertiesDialogPageSimulation extends ModelPropertiesDialogPa
 	}
 
 	/**
+	 * Prüft die angegebene Einschwingphasen-Zeitdauer.
+	 * @return	Liefert <code>true</code>, wenn die Einschwingphasen-Zeitdauer gültig ist oder überhaupt nicht verwendet werden soll.
+	 */
+	private boolean checkWarmUpTimeTime() {
+		if (!warmUpTimeTimeCheck.isSelected()) return true;
+		return TimeTools.getTime(warmUpTimeTimeEdit,true)!=null;
+	}
+
+	/**
 	 * Prüft die eingegebene Abbruchbedingung für die Simulation.
 	 * @return	Liefert im Erfolgsfall -1, sonst die 0-basierende Position des Fehlers innerhalb der Zeichenkette
 	 * @see #terminationCondition
@@ -352,6 +382,11 @@ public class ModelPropertiesDialogPageSimulation extends ModelPropertiesDialogPa
 			return false;
 		}
 
+		if (!checkWarmUpTimeTime()) {
+			MsgBox.error(dialog,Language.tr("Dialog.Title.Error"),String.format(Language.tr("Editor.Dialog.Tab.Simulation.Criteria.ErrorWarmUpTime"),warmUpTimeTimeEdit.getText()));
+			return false;
+		}
+
 		final int error=checkTerminationCondition();
 		if (error>=0 && terminationByCondition.isSelected()) {
 			MsgBox.error(dialog,Language.tr("Dialog.Title.Error"),String.format(Language.tr("Editor.Dialog.Tab.Simulation.Criteria.ErrorCondition"),terminationCondition.getText(),error+1));
@@ -385,28 +420,45 @@ public class ModelPropertiesDialogPageSimulation extends ModelPropertiesDialogPa
 
 	@Override
 	public void storeData() {
+		Double D;
+		Long L;
+
 		model.useClientCount=terminationByClientClount.isSelected();
 		final long clientCount=calcClientCount(false);
 		if (clientCount>0) model.clientCount=clientCount;
-		Double D=NumberTools.getNotNegativeDouble(warmUpTime,true);
+
+		D=NumberTools.getNotNegativeDouble(warmUpTime,true);
 		if (D!=null) model.warmUpTime=D;
+
+		if (warmUpTimeTimeCheck.isSelected()) {
+			model.warmUpTimeTime=TimeTools.getTime(warmUpTimeTimeEdit,true);
+		} else {
+			model.warmUpTimeTime=-1;
+		}
+
 		model.useTerminationCondition=terminationByCondition.isSelected();
 		model.terminationCondition=terminationCondition.getText();
+
 		model.useFinishTime=terminationByTime.isSelected();
-		Long L=TimeTools.getTime(terminationTime,true);
+		L=TimeTools.getTime(terminationTime,true);
 		if (L==null) model.finishTime=10*86400; else model.finishTime=L;
+
 		model.useFixedSeed=useFixedSeed.isSelected();
 		L=NumberTools.getLong(fixedSeed,true);
 		if (L!=null) model.fixedSeed=L;
+
 		L=NumberTools.getPositiveLong(repeatCount,true);
 		if (L!=null) model.repeatCount=(int)L.longValue();
+
 		model.stoppOnCalcError=stoppOnCalcError.isSelected();
+
 		if (useTimedChecks.isSelected()) {
 			D=NumberTools.getPositiveDouble(editTimedChecks,true);
 			if (D!=null) model.timedChecksDelta=(int)Math.round(D.doubleValue()*1000);
 		} else {
 			model.timedChecksDelta=-1;
 		}
+
 		model.recordIncompleteClients=recordIncompleteClients.isSelected();
 	}
 

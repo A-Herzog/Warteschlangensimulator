@@ -44,6 +44,7 @@ import simulator.elements.SignalListener;
 import simulator.elements.StateChangeListener;
 import simulator.elements.TransporterMoveListener;
 import simulator.elements.TransporterPosition;
+import simulator.events.EndWarmUpEvent;
 import simulator.events.SystemChangeEvent;
 import simulator.events.TimedCheckEvent;
 import simulator.simparser.ExpressionCalc;
@@ -383,7 +384,7 @@ public class RunData {
 		this.runModel=runModel;
 		this.dynamicLoadBalancer=dynamicLoadBalancer;
 		clientsArrived=0;
-		hasWarmUp=runModel.warmUpTime>0;
+		hasWarmUp=runModel.warmUpTime>0 || runModel.warmUpTimeTime>0;
 		isWarmUp=hasWarmUp;
 		clients=new RunDataClients();
 		this.resources=runModel.resourcesTemplate.clone();
@@ -493,13 +494,24 @@ public class RunData {
 		/* Ist eine Abbruchzeit gesetzt, dann sicherstellen, dass zu diesem Zeitpunkt auch ein Ereignis ausgeführt wird. */
 		if (runModel.terminationTime>0) {
 			final SystemChangeEvent event=(SystemChangeEvent)simData.getEvent(SystemChangeEvent.class);
-			event.init(runModel.terminationTime*1000);
+			long warmUpTimeAddon=0;
+			if (runModel.warmUpTimeTime>0) warmUpTimeAddon=runModel.warmUpTimeTime;
+			event.init((runModel.terminationTime+warmUpTimeAddon)*1000);
 			simData.eventManager.addEvent(event);
 		}
 
 		if (recordIncompleteClients) clients.requestFastClientsInUseList();
 
-		if (!hasWarmUp) simData.endWarmUp();
+		if (hasWarmUp) {
+			if (runModel.warmUpTimeTime>0) {
+				/* Ereignis für zeitgesteuertes Ende der Einschwingphase anlegen. */
+				final EndWarmUpEvent event=(EndWarmUpEvent)simData.getEvent(EndWarmUpEvent.class);
+				event.init(runModel.warmUpTimeTime*1000);
+				simData.eventManager.addEvent(event);
+			}
+		} else {
+			simData.endWarmUp();
+		}
 	}
 
 	/**
@@ -1931,7 +1943,6 @@ public class RunData {
 			if (simData.runModel.terminationCondition.eval(simData.runData.variableValues,simData,null)) {
 				/* Logging */
 				if (simData.loggingActive && simData.logInfoSystem) simData.logEventExecution(Color.BLACK,Language.tr("Simulation.Log.EndOfSimulation"),-1,String.format(Language.tr("Simulation.Log.EndOfSimulation.Condition"),simData.runModel.terminationCondition.getCondition()));
-
 				/* Ende */
 				simData.doShutDown();
 			}
@@ -1939,10 +1950,11 @@ public class RunData {
 
 		/* Simulationsende über Zeitpunkt */
 		if (simData.runModel.terminationTime>=0) {
-			if (simData.currentTime>=simData.runModel.terminationTime*1000) {
+			long warmUpTimeAddon=0;
+			if (runModel.warmUpTimeTime>0) warmUpTimeAddon=runModel.warmUpTimeTime;
+			if (simData.currentTime>=(simData.runModel.terminationTime+warmUpTimeAddon)*1000) {
 				/* Logging */
 				if (simData.loggingActive && simData.logInfoSystem) simData.logEventExecution(Color.BLACK,Language.tr("Simulation.Log.EndOfSimulation"),-1,Language.tr("Simulation.Log.EndOfSimulation.Time"));
-
 				/* Ende */
 				simData.doShutDown();
 			}

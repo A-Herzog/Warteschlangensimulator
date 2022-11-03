@@ -3398,6 +3398,7 @@ public class MainPanel extends MainPanelBase {
 	private void commandSimulationFindWarmUpSize() {
 		final EditModel editModel=editorPanel.getModel();
 		editModel.warmUpTime=0.0; /* Keine Warm-Up-Phase sind der Simulation; verschiedene Warp-Up-Bereiche werden später in der Rechnung angenommen. */
+		editModel.warmUpTimeTime=-1;
 		editModel.collectWaitingTimes=true;
 
 		BackgroundSystem.getBackgroundSystem(editorPanel).stop(); /* Das Modell wird in der vorherigen Zeile verändert, kann daher ganz sicher nicht per Background gestartet werden. */
@@ -3421,6 +3422,7 @@ public class MainPanel extends MainPanelBase {
 						final String sOld=NumberTools.formatPercent(editorPanel.getModel().warmUpTime,3);
 						if (MsgBox.confirm(getOwnerWindow(),Language.tr("FindWarmUp.Title"),String.format(Language.tr("FindWarmUp.Info"),sNew),String.format(Language.tr("FindWarmUp.Info.Yes"),sNew),String.format(Language.tr("FindWarmUp.Info.No"),sOld))) {
 							final EditModel model=editorPanel.getModel();
+							model.warmUpTimeTime=-1;
 							if (model.warmUpTime!=d) {
 								model.warmUpTime=d;
 								final File file=editorPanel.getLastFile();

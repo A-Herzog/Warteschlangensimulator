@@ -196,6 +196,13 @@ public final class EditorPanel extends EditorPanelBase {
 	 */
 	private double warmUpTime;
 
+	/**
+	 * Zeitpunkt (in Sekunden), zu dem die Einschwingphase beendet werden soll.<br>
+	 * (Werte &le;0 bedeuten, dass keine zeitgesteuerte Beendigung der Einschwingphase erfolgen soll.)
+	 * @see EditModel#warmUpTimeTime
+	 */
+	public long warmUpTimeTime;
+
 	/* Allgemeines zur GUI */
 
 	/** Übergeordnetes Element */
@@ -1945,6 +1952,7 @@ public final class EditorPanel extends EditorPanelBase {
 		model.authorEMail=authorEMail;
 		model.clientCount=clientCount;
 		model.warmUpTime=warmUpTime;
+		model.warmUpTimeTime=warmUpTimeTime;
 		ModelSurface surface=surfacePanel.getSurface();
 		model.resources=surface.getResources().clone();
 		model.schedules=surface.getSchedules().clone();
@@ -1965,6 +1973,7 @@ public final class EditorPanel extends EditorPanelBase {
 		authorEMail=model.authorEMail;
 		clientCount=model.clientCount;
 		warmUpTime=model.warmUpTime;
+		warmUpTimeTime=model.warmUpTimeTime;
 		if (surfacePanel!=null) {
 			surfacePanel.setColors(model.surfaceColors); /* Reihenfolge ist wichtig. setSurface würde bedingt durch fireNotify Farbe von Modell aus surfacePanel überschreiben, daher erst Farbe aus Modell in surfacePanel übertragen. */
 			surfacePanel.setBackgroundImage((isMainSurface || model.surfaceBackgroundImageInSubModels)?model.surfaceBackgroundImage:null,model.surfaceBackgroundImageScale,model.surfaceBackgroundImageMode);
@@ -3068,18 +3077,34 @@ public final class EditorPanel extends EditorPanelBase {
 	}
 
 	/**
-	 * Liefert die Länge der Einschwingphase.
-	 * @return	Länge der Einschwingphase
+	 * Liefert die Länge der Einschwingphase (als Anteil der geplanten Kundenankünfte).
+	 * @return	Länge der Einschwingphase (als Anteil der geplanten Kundenankünfte)
 	 */
 	public double getWarmUpTime() {
 		return warmUpTime;
 	}
 
 	/**
-	 * Stellt die Länge der Einschwingphase ein.
-	 * @param warmUpTime	Länge der Einschwingphase
+	 * Stellt die Länge der Einschwingphase (als Anteil der geplanten Kundenankünfte) ein.
+	 * @param warmUpTime	Länge der Einschwingphase (als Anteil der geplanten Kundenankünfte)
 	 */
-	public void setWarmUpTime(double warmUpTime) {
+	public void setWarmUpTime(final double warmUpTime) {
 		this.warmUpTime=warmUpTime;
+	}
+
+	/**
+	 * Liefert die Länge der Einschwingphase (als Sekundenwert).
+	 * @return	Länge der Einschwingphase (als Sekundenwert)
+	 */
+	public long getWarmUpTimeTime() {
+		return warmUpTimeTime;
+	}
+
+	/**
+	 * Stellt die Länge der Einschwingphase (als Sekundenwert) ein.
+	 * @param warmUpTimeTime	Länge der Einschwingphase (als Sekundenwert)
+	 */
+	public void setWarmUpTimeTime(final long warmUpTimeTime) {
+		this.warmUpTimeTime=warmUpTimeTime;
 	}
 }

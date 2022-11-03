@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-10-20 13:21+0200\n"
+"POT-Creation-Date: 2022-11-01 22:22+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -3884,6 +3884,9 @@ msgstr "The specified simulation end time \"%s\" is invalid."
 msgid "Editor.Dialog.Tab.Simulation.Criteria.ErrorWarmUp"
 msgstr "The specified duration of the warm-up phase \"%s\" is invalid. A non-negative value has to be specified."
 
+msgid "Editor.Dialog.Tab.Simulation.Criteria.ErrorWarmUpTime"
+msgstr "The specified time duration of the warm-up phase \"%s\" is invalid. A positive integer seconds value has to be specified."
+
 msgid "Editor.Dialog.Tab.Simulation.Criteria.NoKeepDialogOpen"
 msgstr "Leave dialog open to change settings."
 
@@ -3999,6 +4002,12 @@ msgstr "Also used when the number of arrivals is not a termination criterion."
 
 msgid "Editor.Dialog.Tab.Simulation.WarmUpPhase.Info2"
 msgstr "During the warm-up phase %s additional clients are simulated,<br>who are not included in the statistics."
+
+msgid "Editor.Dialog.Tab.Simulation.WarmUpPhaseTime"
+msgstr "End warm-up phase time-controlled"
+
+msgid "Editor.Dialog.Tab.Simulation.WarmUpPhaseTime.Info"
+msgstr "If a number of arrivals and a time duration is specified, the warm-up phase is terminated according to whichever is reached first."
 
 msgid "Editor.Dialog.Tab.SimulationSystem"
 msgstr "Simulation system"
@@ -22668,14 +22677,23 @@ msgstr "in total over all repetitions of the simulation"
 msgid "Statistics.SimulatedClients.WarmUp"
 msgstr "Additionally in advance as warm-up phase"
 
+msgid "Statistics.SimulatedClients.WarmUpBothInfo"
+msgstr "The actual warm-up phase was terminated by the event that occurred first (number of arrivals or duration)."
+
+msgid "Statistics.SimulatedClients.WarmUpTime"
+msgstr "Additionally in advance as warm-up phase time"
+
 msgid "Statistics.SimulatedClients.Zero"
 msgstr "Possibly. the simulation was ended before the warm-up phase (in which the clients are not recorded in the statistics) was completed."
 
 msgid "Statistics.SimulatedClients.Zero.Info"
-msgstr "A warm-up phase of length %s has been defined. Only after the completion of this warm-up phase does the statistics recording begin."
+msgstr "A warm-up phase of length of %s client arrivals has been defined. Only after the completion of this warm-up phase does the statistics recording begin."
 
 msgid "Statistics.SimulatedClients.Zero.Info2"
 msgstr "The length of the warm-up phase can be defined in the model properties dialog on the \"Simulation\" page. If arrivals from external sources are loaded, the warm-up phase should be set to 0."
+
+msgid "Statistics.SimulatedClients.Zero.InfoTime"
+msgstr "A warm-up phase of length %s has been defined. Only after the completion of this warm-up phase does the statistics recording begin."
 
 msgid "Statistics.SimulatedTime"
 msgstr "Simulated time"
@@ -28538,6 +28556,9 @@ msgstr "The specified confidence level for termination of the simulation \"%s\" 
 msgid "Surface.Model.ErrorWarmUp"
 msgstr "The value \"%s\" for the duration of the warm-up phase is invald. A non-negative fraction has to be specified."
 
+msgid "Surface.Model.ErrorWarmUpTime"
+msgstr "The value \"%s\" for the the warm-up time is invald. A positive integer number has to be specified."
+
 msgid "Surface.MultiSourceTable.Activate"
 msgstr "Activate"
 
@@ -33483,6 +33504,9 @@ msgstr "ModelVersion"
 
 msgid "Surface.XML.ModelWarmUpPhase"
 msgstr "ModelWarmUpPhase"
+
+msgid "Surface.XML.ModelWarmUpPhaseTime"
+msgstr "ModelWarmUpPhaseSeconds"
 
 msgid "Surface.XML.NrAttributeSubError"
 msgstr "The %d th \"%s\" attribute of a \"%s\" element of a \"%s\" element is invalid."
