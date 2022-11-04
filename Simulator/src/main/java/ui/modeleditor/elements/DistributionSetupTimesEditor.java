@@ -143,6 +143,9 @@ public class DistributionSetupTimesEditor extends JPanel {
 		panel.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
 		line.add(label=new JLabel(Language.tr("Surface.Process.Dialog.SetupTimes.Type")+":"));
 		line.add(typeCombo=new JComboBox<>(getTypeItems()));
+		final Dimension d=typeCombo.getPreferredSize();
+		d.width=Math.min(450,d.width);
+		typeCombo.setPreferredSize(d);
 		label.setLabelFor(typeCombo);
 
 		if (clientTypes.length>0) {
@@ -346,8 +349,10 @@ public class DistributionSetupTimesEditor extends JPanel {
 		}
 
 		typeLast=typeCombo.getSelectedIndex();
-		final String type1=clientTypes[typeLast/clientTypes.length];
-		final String type2=clientTypes[typeLast%clientTypes.length];
+		String type1=clientTypes[typeLast/clientTypes.length];
+		String type2=clientTypes[typeLast%clientTypes.length];
+		if (type1.length()>55) type1=type1.substring(0,50);
+		if (type2.length()>55) type2=type2.substring(0,50);
 		infoLabel.setText(String.format(Language.tr("Surface.Process.Dialog.SetupTimes.Info"),type1,type2));
 		final Object obj=data.get(type1,type2);
 		activeCheckBox.setSelected(obj!=null);

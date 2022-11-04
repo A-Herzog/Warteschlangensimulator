@@ -199,6 +199,9 @@ public class DistributionBySubTypeEditor extends JPanel {
 			}
 			subTypeSelect.setRenderer(new IconListCellRenderer(IconListCellRenderer.buildIconsList(this,modeIcons)));
 		}
+		final Dimension d=subTypeSelect.getPreferredSize();
+		d.width=Math.min(450,d.width);
+		subTypeSelect.setPreferredSize(d);
 		sub.add(useGlobal=new JCheckBox(Language.tr("Surface.DistributionByClientTypeEditor.UseGlobal")));
 		useGlobal.setEnabled(!readOnly);
 		if (mode==Mode.MODE_CLIENTS) {

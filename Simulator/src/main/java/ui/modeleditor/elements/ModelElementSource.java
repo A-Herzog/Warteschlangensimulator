@@ -120,7 +120,8 @@ public class ModelElementSource extends ModelElementBox implements ElementWithNe
 	 * @see #fireChanged()
 	 */
 	private void updateEdgeLabel() {
-		final String name=getName().trim();
+		String name=getName().trim();
+		if (name.length()>23) name=name.substring(0,20)+"...";
 		if (connection!=null) connection.setName(Language.tr("Surface.Source.LabelArrivals")+((name.isEmpty())?"":(" ("+name+")")));
 	}
 
