@@ -26,7 +26,7 @@ import simulator.events.StationLeaveEvent;
 import simulator.runmodel.RunDataClient;
 import simulator.runmodel.RunModel;
 import simulator.runmodel.SimulationData;
-import simulator.simparser.ExpressionEval;
+import simulator.simparser.ExpressionMultiEval;
 import ui.modeleditor.coreelements.ModelElement;
 import ui.modeleditor.elements.ModelElementCounterMulti;
 import ui.modeleditor.elements.ModelElementSub;
@@ -71,7 +71,7 @@ public class RunElementCounterMulti extends RunElementPassThrough {
 		final List<String> counterNames=new ArrayList<>();
 		for (int i=0;i<size-1;i++) {
 			final String condition=counterElement.getConditions().get(i);
-			final int error=ExpressionEval.check(condition,runModel.variableNames);
+			final int error=ExpressionMultiEval.check(condition,runModel.variableNames);
 			if (error>=0) return String.format(Language.tr("Simulation.Creator.InvalidCounterExpression"),element.getId(),i+1,condition,error+1);
 			conditions.add(condition);
 			final String counterName=counterElement.getCounterNames().get(i);

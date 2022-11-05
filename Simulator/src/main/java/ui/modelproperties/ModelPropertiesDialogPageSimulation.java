@@ -35,7 +35,7 @@ import mathtools.distribution.tools.ThreadLocalRandomGenerator;
 import parser.MathCalcError;
 import simulator.editmodel.EditModel;
 import simulator.simparser.ExpressionCalc;
-import simulator.simparser.ExpressionEval;
+import simulator.simparser.ExpressionMultiEval;
 import systemtools.BaseDialog;
 import systemtools.MsgBox;
 import ui.expressionbuilder.ExpressionBuilder;
@@ -317,7 +317,7 @@ public class ModelPropertiesDialogPageSimulation extends ModelPropertiesDialogPa
 			return -1;
 		}
 
-		final int error=ExpressionEval.check(terminationCondition.getText(),model.surface.getMainSurfaceVariableNames(model.getModelVariableNames(),false));
+		final int error=ExpressionMultiEval.check(terminationCondition.getText(),model.surface.getMainSurfaceVariableNames(model.getModelVariableNames(),false));
 		if (error>=0) terminationCondition.setBackground(Color.red); else terminationCondition.setBackground(NumberTools.getTextFieldDefaultBackground());
 		return error;
 	}

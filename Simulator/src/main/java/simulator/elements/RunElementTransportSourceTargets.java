@@ -27,6 +27,7 @@ import simulator.runmodel.RunDataClient;
 import simulator.runmodel.RunModel;
 import simulator.runmodel.SimulationData;
 import simulator.simparser.ExpressionEval;
+import simulator.simparser.ExpressionMultiEval;
 import ui.modeleditor.coreelements.ModelElement;
 import ui.modeleditor.elements.ModelElementTransportSource;
 import ui.modeleditor.elements.ModelElementTransportTransporterSource;
@@ -120,7 +121,7 @@ public class RunElementTransportSourceTargets {
 				} else {
 					/* Ausdruck */
 					routingClientTypeList.add(-1);
-					final int error=ExpressionEval.check(route.routingCondition,runModel.variableNames);
+					final int error=ExpressionMultiEval.check(route.routingCondition,runModel.variableNames);
 					if (error>=0) return String.format(Language.tr("Simulation.Creator.RoutingCondition.Expression"),route.routingCondition,element.getId(),error+1);
 					routingExpressionList.add(route.routingCondition);
 				}
@@ -189,7 +190,7 @@ public class RunElementTransportSourceTargets {
 	 * @param client	Aktueller Kunde
 	 * @param testOnly	Keine Verarbeitung von Zuweisungen und Erhöhung des Feritungsplansschritts, sondern nur die Station liefern
 	 * @return	ID der Zielstation
-	 * @see #getDestinationStation(SimulationData, RunDataClient, ExpressionEval[], boolean)
+	 * @see #getDestinationStation(SimulationData, RunDataClient, ExpressionMultiEval[], boolean)
 	 */
 	private int getDestinationStationByClientSequence(final SimulationData simData, final RunDataClient client, final boolean testOnly) {
 		final int nr=client.sequenceNr;
@@ -224,9 +225,9 @@ public class RunElementTransportSourceTargets {
 	 * @param client	Aktueller Kunde
 	 * @param routingExpresions	Auszuwertende Rechenausdrücke
 	 * @return	ID der Zielstation
-	 * @see #getDestinationStation(SimulationData, RunDataClient, ExpressionEval[], boolean)
+	 * @see #getDestinationStation(SimulationData, RunDataClient, ExpressionMultiEval[], boolean)
 	 */
-	private int getDestinationStationByRouting(final SimulationData simData, final RunDataClient client, final ExpressionEval[] routingExpresions) {
+	private int getDestinationStationByRouting(final SimulationData simData, final RunDataClient client, final ExpressionMultiEval[] routingExpresions) {
 		for (int i=0;i<routingDestination.length;i++) {
 			final int clientType=routingClientType[i];
 			if (clientType>=0) {
@@ -234,7 +235,7 @@ public class RunElementTransportSourceTargets {
 				continue;
 			}
 
-			final ExpressionEval eval=routingExpresions[i];
+			final ExpressionMultiEval eval=routingExpresions[i];
 			if (eval!=null) {
 				final double additionalWaitingTime=(simData.currentTime-client.lastWaitingStart)*toSec;
 				simData.runData.setClientVariableValues(client,additionalWaitingTime);
@@ -253,7 +254,7 @@ public class RunElementTransportSourceTargets {
 	 * @param simData	Simulationsdatenobjekt
 	 * @param client	Aktueller Kunde
 	 * @return	ID der Zielstation
-	 * @see #getDestinationStation(SimulationData, RunDataClient, ExpressionEval[], boolean)
+	 * @see #getDestinationStation(SimulationData, RunDataClient, ExpressionMultiEval[], boolean)
 	 */
 	private int getDestinationStationByClientProperty(final SimulationData simData, final RunDataClient client) {
 		/* Texteigenschaft für Zielstation vorhanden? */
@@ -280,7 +281,7 @@ public class RunElementTransportSourceTargets {
 	 * @param testOnly	Keine Verarbeitung von Zuweisungen und Erhöhung des Feritungsplansschritts, sondern nur die Station liefern
 	 * @return	ID der Zielstation
 	 */
-	public int getDestinationStation(final SimulationData simData, final RunDataClient client, final ExpressionEval[] routingExpresions, final boolean testOnly) {
+	public int getDestinationStation(final SimulationData simData, final RunDataClient client, final ExpressionMultiEval[] routingExpresions, final boolean testOnly) {
 		switch (mode) {
 		case ROUTING_MODE_EXPLICITE: return getDestinationStationByRouting(simData,client,routingExpresions);
 		case ROUTING_MODE_SEQUENCE: return getDestinationStationByClientSequence(simData,client,testOnly);

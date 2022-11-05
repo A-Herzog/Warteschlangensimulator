@@ -35,7 +35,7 @@ import javax.swing.JTextField;
 import language.Language;
 import mathtools.NumberTools;
 import simulator.editmodel.EditModel;
-import simulator.simparser.ExpressionEval;
+import simulator.simparser.ExpressionMultiEval;
 import systemtools.BaseDialog;
 import systemtools.MsgBox;
 import tools.IconListCellRenderer;
@@ -167,7 +167,7 @@ public class TransportRouteTableModelDialog extends BaseDialog {
 			editExpression.setBackground(NumberTools.getTextFieldDefaultBackground());
 			return true;
 		}
-		final int error=ExpressionEval.check(editExpression.getText(),variables);
+		final int error=ExpressionMultiEval.check(editExpression.getText(),variables);
 		if (error>=0) {
 			editExpression.setBackground(Color.RED);
 			if (showErrorMessage) {

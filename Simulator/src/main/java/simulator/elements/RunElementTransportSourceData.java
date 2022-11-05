@@ -24,7 +24,7 @@ import simulator.coreelements.RunElementData;
 import simulator.runmodel.RunDataClient;
 import simulator.runmodel.SimulationData;
 import simulator.simparser.ExpressionCalc;
-import simulator.simparser.ExpressionEval;
+import simulator.simparser.ExpressionMultiEval;
 
 /**
  * Laufzeitdaten eines <code>RunElementTransportSource</code>-Laufzeit-Objekts
@@ -46,7 +46,7 @@ public class RunElementTransportSourceData extends RunElementData {
 	/**
 	 * Routingziel-Ausdrücke
 	 */
-	public final ExpressionEval[] routingExpresions;
+	public final ExpressionMultiEval[] routingExpresions;
 
 	/**
 	 * Priorität bei der Ressourcenzuweisung
@@ -80,9 +80,9 @@ public class RunElementTransportSourceData extends RunElementData {
 		}
 
 		if (routingExpresionStrings!=null) {
-			routingExpresions=new ExpressionEval[routingExpresionStrings.length];
+			routingExpresions=new ExpressionMultiEval[routingExpresionStrings.length];
 			for (int i=0;i<routingExpresionStrings.length;i++) if (routingExpresionStrings[i]!=null) {
-				routingExpresions[i]=new ExpressionEval(variableNames);
+				routingExpresions[i]=new ExpressionMultiEval(variableNames);
 				routingExpresions[i].parse(routingExpresionStrings[i]);
 			}
 		} else {

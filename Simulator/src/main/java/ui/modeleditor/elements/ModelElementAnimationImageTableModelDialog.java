@@ -29,7 +29,7 @@ import javax.swing.JTextField;
 import language.Language;
 import mathtools.NumberTools;
 import simulator.editmodel.EditModel;
-import simulator.simparser.ExpressionEval;
+import simulator.simparser.ExpressionMultiEval;
 import systemtools.BaseDialog;
 import systemtools.MsgBox;
 import ui.modeleditor.ModelElementBaseDialog;
@@ -104,7 +104,7 @@ public class ModelElementAnimationImageTableModelDialog extends BaseDialog {
 	private boolean checkData(final boolean showErrorMessage) {
 		if (expressionEdit==null) return true;
 
-		final int error=ExpressionEval.check(expressionEdit.getText(),surface.getMainSurfaceVariableNames(model.getModelVariableNames(),false));
+		final int error=ExpressionMultiEval.check(expressionEdit.getText(),surface.getMainSurfaceVariableNames(model.getModelVariableNames(),false));
 		if (error>=0) {
 			expressionEdit.setBackground(Color.RED);
 			if (showErrorMessage) MsgBox.error(this,Language.tr("Surface.AnimationImage.Dialog.Images.Expression.Error.Title"),String.format(Language.tr("Surface.AnimationImage.Dialog.Images.Expression.Error.Info"),expressionEdit.getText(),error+1));

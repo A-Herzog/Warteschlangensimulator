@@ -37,7 +37,7 @@ import mathtools.NumberTools;
 import simulator.editmodel.EditModel;
 import simulator.editmodel.FullTextSearch;
 import simulator.runmodel.SimulationData;
-import simulator.simparser.ExpressionEval;
+import simulator.simparser.ExpressionMultiEval;
 import ui.images.Images;
 import ui.modeleditor.ModelClientData;
 import ui.modeleditor.ModelElementBaseDialog;
@@ -780,7 +780,7 @@ public class ModelElementAnimationTextSelect extends ModelElementPosition implem
 	 * @see #initAnimation(SimulationData)
 	 * @see #updateSimulationData(SimulationData, boolean)
 	 */
-	private ExpressionEval[] animationExpression;
+	private ExpressionMultiEval[] animationExpression;
 
 	/**
 	 * Animationstexte von {@link #textValues} abgeleitet
@@ -820,11 +820,11 @@ public class ModelElementAnimationTextSelect extends ModelElementPosition implem
 	@Override
 	public void initAnimation(SimulationData simData) {
 		final int size=Math.min(textExpressions.size(),textValues.size());
-		animationExpression=new ExpressionEval[size];
+		animationExpression=new ExpressionMultiEval[size];
 		animationText=new String[size];
 		for (int i=0;i<size;i++) {
 			animationText[i]=textValues.get(i);
-			animationExpression[i]=new ExpressionEval(simData.runModel.variableNames);
+			animationExpression[i]=new ExpressionMultiEval(simData.runModel.variableNames);
 			if (animationExpression[i].parse(textExpressions.get(i))>=0) animationExpression[i]=null;
 		}
 	}

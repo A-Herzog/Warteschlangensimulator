@@ -29,7 +29,7 @@ import javax.swing.JTextField;
 
 import language.Language;
 import mathtools.NumberTools;
-import simulator.simparser.ExpressionEval;
+import simulator.simparser.ExpressionMultiEval;
 import systemtools.BaseDialog;
 import systemtools.MsgBox;
 import ui.modeleditor.ModelElementBaseDialog;
@@ -113,7 +113,7 @@ public class ExpressionTableModelTextDialog extends BaseDialog {
 	private boolean checkData(final boolean showErrorMessages) {
 		boolean ok=true;
 
-		int error=ExpressionEval.check(expressionEdit.getText(),variableNames);
+		int error=ExpressionMultiEval.check(expressionEdit.getText(),variableNames);
 		if (error>=0) {
 			ok=false;
 			expressionEdit.setBackground(Color.red);

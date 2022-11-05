@@ -43,7 +43,7 @@ import simulator.editmodel.EditModel;
 import simulator.elements.RunElementSourceTable;
 import simulator.elements.RunSource;
 import simulator.simparser.ExpressionCalc;
-import simulator.simparser.ExpressionEval;
+import simulator.simparser.ExpressionMultiEval;
 import simulator.simparser.symbols.CalcSymbolClientUserData;
 import simulator.statistics.Statistics;
 import simulator.statistics.Statistics.CorrelationMode;
@@ -124,7 +124,7 @@ public class RunModel {
 	/**
 	 * Abbruchbedingung (kann <code>null</code> sein, wenn keine Abbruchbedingung definiert ist)
 	 */
-	public ExpressionEval terminationCondition;
+	public ExpressionMultiEval terminationCondition;
 
 	/**
 	 * Abbruchzeitpunkt in Sekunden (kann -1 sein, wenn keine Abbruchzeit definiert ist)
@@ -602,7 +602,7 @@ public class RunModel {
 
 		/* Abbruchbedingung */
 		if (editModel.useTerminationCondition && !editModel.terminationCondition.trim().isEmpty()) {
-			runModel.terminationCondition=new ExpressionEval(runModel.variableNames);
+			runModel.terminationCondition=new ExpressionMultiEval(runModel.variableNames);
 			final int error=runModel.terminationCondition.parse(editModel.terminationCondition);
 			if (error>=0) return String.format(Language.tr("Simulation.Creator.InvalidTerminationCondition"),editModel.terminationCondition,error+1);
 		} else {

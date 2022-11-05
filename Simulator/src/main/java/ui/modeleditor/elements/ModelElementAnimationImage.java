@@ -48,7 +48,7 @@ import mathtools.NumberTools;
 import simulator.editmodel.EditModel;
 import simulator.editmodel.FullTextSearch;
 import simulator.runmodel.SimulationData;
-import simulator.simparser.ExpressionEval;
+import simulator.simparser.ExpressionMultiEval;
 import ui.images.Images;
 import ui.modeleditor.ModelClientData;
 import ui.modeleditor.ModelElementBaseDialog;
@@ -648,7 +648,7 @@ public class ModelElementAnimationImage extends ModelElementPosition implements 
 	 * @see #initAnimation(SimulationData)
 	 * @see #updateSimulationData(SimulationData, boolean)
 	 */
-	private ExpressionEval[] animationExpression;
+	private ExpressionMultiEval[] animationExpression;
 
 	/**
 	 * Wertet {@link #animationExpression} aus und liefert
@@ -659,7 +659,7 @@ public class ModelElementAnimationImage extends ModelElementPosition implements 
 	 * @see #animationExpression
 	 */
 	private boolean evalExpression(final SimulationData simData, final int index) {
-		final ExpressionEval calc=animationExpression[index];
+		final ExpressionMultiEval calc=animationExpression[index];
 		if (calc==null) return false;
 		simData.runData.setClientVariableValues(null);
 		return calc.eval(simData.runData.variableValues,simData,null);
@@ -684,10 +684,10 @@ public class ModelElementAnimationImage extends ModelElementPosition implements 
 
 	@Override
 	public void initAnimation(SimulationData simData) {
-		animationExpression=new ExpressionEval[expression.size()-1];
+		animationExpression=new ExpressionMultiEval[expression.size()-1];
 
 		for (int i=0;i<expression.size()-1;i++) {
-			animationExpression[i]=new ExpressionEval(simData.runModel.variableNames);
+			animationExpression[i]=new ExpressionMultiEval(simData.runModel.variableNames);
 			if (animationExpression[i].parse(expression.get(i))>=0) animationExpression[i]=null;
 		}
 	}
