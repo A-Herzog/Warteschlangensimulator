@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-11-01 22:22+0100\n"
+"POT-Creation-Date: 2022-11-05 19:04+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -175,6 +175,9 @@ msgstr "Document"
 
 msgid "Animation.Icon.Dog"
 msgstr "Dog"
+
+msgid "Animation.Icon.Exclamationmark"
+msgstr "Exclamationmark"
 
 msgid "Animation.Icon.Eye"
 msgstr "Eye"

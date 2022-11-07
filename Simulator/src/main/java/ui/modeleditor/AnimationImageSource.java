@@ -200,6 +200,8 @@ public class AnimationImageSource {
 	public static String iconNameArrowUp="Pfeil - nach oben";
 	/** Name für Animationssymbol "Fragezeichen" */
 	public static String iconNameQuestionmark="Fragezeichen";
+	/** Name für Animationssymbol "Ausrufezeichen" */
+	public static String iconNameExclamationmark="Ausrufezeichen";
 	/** Name für Animationssymbol "Ordner" */
 	public static String iconNameFolder="Ordner";
 	/** Name für Animationssymbol "Ordner - Blau" */
@@ -368,6 +370,7 @@ public class AnimationImageSource {
 		ICONS.put(iconNameArrowRight,"arrow_right");
 		ICONS.put(iconNameArrowUp,"arrow_up");
 		ICONS.put(iconNameQuestionmark,"questionmark");
+		ICONS.put(iconNameExclamationmark,"exclamationmark");
 		ICONS.put(iconNameFolder,"folder");
 		ICONS.put(iconNameFolderBlue,"folder-blue");
 		ICONS.put(iconNameFolderGreen,"folder-green");
