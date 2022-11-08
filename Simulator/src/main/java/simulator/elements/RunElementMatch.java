@@ -312,6 +312,9 @@ public class RunElementMatch extends RunElementPassThrough {
 		simData.runData.logClientEntersStation(simData,this,data,batchedClient);
 		if (parentId>=0) simData.runData.logClientEntersStation(simData,simData.runModel.elementsFast[parentId],null,batchedClient);
 
+		/* Maximalzahl an Kunden im System eingehalten */
+		if (!simData.testMaxAllowedClientsInSystem()) return;
+
 		/* Kunden weiterleiten */
 		StationLeaveEvent.addLeaveEvent(simData,batchedClient,this,0);
 	}
@@ -402,6 +405,9 @@ public class RunElementMatch extends RunElementPassThrough {
 		/* Kunde betritt Station (wird sonst über die Events realisiert) */
 		simData.runData.logClientEntersStation(simData,this,data,batchedClient);
 		if (parentId>=0) simData.runData.logClientEntersStation(simData,simData.runModel.elementsFast[parentId],null,batchedClient);
+
+		/* Maximalzahl an Kunden im System eingehalten */
+		if (!simData.testMaxAllowedClientsInSystem()) return;
 
 		/* Kunden weiterleiten */
 		StationLeaveEvent.addLeaveEvent(simData,batchedClient,this,0);

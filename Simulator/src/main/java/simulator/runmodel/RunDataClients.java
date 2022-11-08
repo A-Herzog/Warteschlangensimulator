@@ -34,19 +34,26 @@ import statistics.StatisticsValuePerformanceIndicator;
  * @see RunDataClient
  */
 public final class RunDataClients {
+	/*
+	 * Die folgenden beiden Werte sind so konfiguriert, dass bei einem System mit 16 logischen Kernen
+	 * max. 2 GB Speicher belegt werden (d.h. dass 8 GB RAM ausreichen); bei 24 logischen Kernen
+	 * max. 3 GB Speicherbelegung (d.h. 12 GB RAM) und bei 32 und mehr logischen Kernen max. 4 GB Speicher
+	 * belegt werden, also bei Java-RAM-Max=1/4*System-RAM höchstens 16 GB RAM vorhanden sein müssen.
+	 */
+
 	/**
 	 * Anzahl an Kunden im System, bei deren Überschreitung der Simulationsthread abgebrochen wird
-	 * (im Fall einer Multi-Core-Simulation)
+	 * (im Fall einer Multi-Core-Simulation; pro Thread)
 	 * @see SimulationData#testMaxAllowedClientsInSystem()
 	 */
-	public static final int MAX_CLIENTS_IN_SYSTEM_MULTI_CORE=350_000;
+	public static final int MAX_CLIENTS_IN_SYSTEM_MULTI_CORE=180_000;
 
 	/**
 	 * Anzahl an Kunden im System, bei deren Überschreitung der Simulationsthread abgebrochen wird
 	 * (im Fall einer Single-Core-Simulation)
 	 * @see SimulationData#testMaxAllowedClientsInSystem()
 	 */
-	public static final int MAX_CLIENTS_IN_SYSTEM_SINGLE_CORE=5_000_000;
+	public static final int MAX_CLIENTS_IN_SYSTEM_SINGLE_CORE=6_000_000;
 
 	/**
 	 * Anzahl an Kunden im System, bei deren Überschreitung der Simulationsthread abgebrochen wird

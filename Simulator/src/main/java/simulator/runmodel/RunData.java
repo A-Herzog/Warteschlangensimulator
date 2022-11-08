@@ -98,6 +98,13 @@ public class RunData {
 	 */
 	public boolean stopp=false;
 
+	/**
+	 * Bei der zustandsabhängigen Erfassung der Zwischenankunftszeiten an den Stationen,
+	 * wie viele Zustände sollen maximal unterschieden werden?
+	 * @see RunElement#isInterarrivalByQueueStation()
+	 */
+	public static final int MAX_STATE_INTER_ARRIVAL_TIME_STATES=100;
+
 	/*
 	 * Zugriff auf die stationsabhängigen Daten beschleunigen, in dem diese direkt nach IDs sortiert in
 	 * einem Array gespeichert werden und nicht jedes Mal die HashMap nach dem Namen durchsucht werden muss.
@@ -303,7 +310,7 @@ public class RunData {
 	 * Hält den Cache der momentan nicht verwendeten <code>RunDataClient</code>-Objekte vor und
 	 * erfasst am Lebensdauerende eines <code>RunDataClient</code>-Objektes die Daten in der Statistik
 	 */
-	public final RunDataClients clients;
+	public RunDataClients clients;
 
 	/**
 	 * Laufzeitdaten für die <code>RunElement</code>-Objekte<br>
@@ -619,7 +626,7 @@ public class RunData {
 
 				/* Pro Zustand */
 				if (station.isInterarrivalByQueueStation()) {
-					final int count=data.clientsAtStationQueue;
+					final int count=Math.min(data.clientsAtStationQueue,MAX_STATE_INTER_ARRIVAL_TIME_STATES);
 					indicator=(StatisticsDataPerformanceIndicator)cacheStationsInterarrivalTimeByState.get(station,count);
 					indicator.add(delta);
 				}

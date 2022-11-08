@@ -152,6 +152,12 @@ public final class SimThread extends Thread {
 	}
 
 	/**
+	 * Soll versucht werden, im Falle von "Out of memory" einen Stack-Trace zu erstellen (der evtl. noch mehr Speicher belegt)?
+	 * @see #run()
+	 */
+	public static boolean TRY_TO_GET_STACK_TRACE_ON_OUT_OF_MEMOY=false;
+
+	/**
 	 * Arbeitsroutine des Simulationsthreads
 	 */
 	@Override
@@ -203,7 +209,11 @@ public final class SimThread extends Thread {
 			simData.eventCache.clear();
 			eventManager.deleteAllEvents();
 			/* Fehler erfassen */
-			simData.catchOutOfMemory(traceInfo(e.getStackTrace()));
+			if (TRY_TO_GET_STACK_TRACE_ON_OUT_OF_MEMOY) {
+				simData.catchOutOfMemory(traceInfo(e.getStackTrace()));
+			} else {
+				simData.catchOutOfMemory("");
+			}
 		}
 
 		simDoneTime=System.currentTimeMillis();

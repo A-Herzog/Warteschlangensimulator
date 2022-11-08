@@ -436,9 +436,9 @@ public class SimulationData extends SimData {
 	 */
 	public void doEmergencyShutDown(final String message) {
 		statistics.simulationData.emergencyShutDown=true;
+		doShutDown();
 		addWarning(Language.tr("Simulation.RunTimeError").toUpperCase()+": "+message);
 		logEventExecution(Language.tr("Simulation.Log.Abort"),-1,message);
-		doShutDown();
 	}
 
 	/**
@@ -530,9 +530,20 @@ public class SimulationData extends SimData {
 		doEmergencyShutDown(text);
 	}
 
+	/**
+	 * Text für "Out of memory" bereits früher bereitstellen, da dies bei "Out of memory" selbst evtl. nicht mehr möglich ist.
+	 * @see #catchOutOfMemory(String)
+	 */
+	private final String outOfMemoryText=Language.tr("Simulation.OutOfMemory");
+
 	@Override
 	public void catchOutOfMemory(final String text) {
-		doEmergencyShutDown(Language.tr("Simulation.OutOfMemory")+"\n"+text);
+		try {
+			runData.clients=null;
+			doEmergencyShutDown(outOfMemoryText);
+		} catch (OutOfMemoryError e) {
+			/* Erst wird die Simulation abgebrochen, dann werden speicherkritische Operationen durchgeführt, so dass wir diese Exception hier ignorieren dürfen. */
+		}
 	}
 
 	/**
@@ -550,7 +561,7 @@ public class SimulationData extends SimData {
 	public boolean testMaxAllowedClientsInSystem() {
 		final int count=runData.clients.getClientsInSystem();
 		if (maxAllowed<=0)  {
-			maxAllowed=FastMath.max(RunDataClients.MAX_CLIENTS_IN_SYSTEM_MULTI_CORE,RunDataClients.MAX_CLIENTS_IN_SYSTEM_SINGLE_CORE/threadCount);
+			maxAllowed=FastMath.min(RunDataClients.MAX_CLIENTS_IN_SYSTEM_MULTI_CORE,RunDataClients.MAX_CLIENTS_IN_SYSTEM_SINGLE_CORE/threadCount);
 			if (logging instanceof CallbackLogger) {
 				maxAllowed=RunDataClients.MAX_CLIENTS_IN_SYSTEM_ANIMATION;
 			}
