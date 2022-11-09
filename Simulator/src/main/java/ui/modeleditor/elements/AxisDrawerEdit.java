@@ -41,6 +41,16 @@ public class AxisDrawerEdit extends JPanel {
 	private static final long serialVersionUID=-3338560238487581613L;
 
 	/**
+	 * Um welche Achse handelt es sich?
+	 */
+	public enum AxisName {
+		/** X-Achse */
+		X,
+		/** Y-Achse */
+		Y
+	}
+
+	/**
 	 * Beschriftungsmodus
 	 */
 	private final JComboBox<String> mode;
@@ -62,14 +72,33 @@ public class AxisDrawerEdit extends JPanel {
 	 * @param yLabel	Textbeschriftung an der y-Achse (kann <code>null</code> sein, wenn es keine y-Achse gibt)
 	 * @param readOnly	Nur-Lese-Modus
 	 */
-	@SuppressWarnings("unchecked")
 	public AxisDrawerEdit(final AxisDrawer.Mode mode, final String xLabel, final String yLabel, final boolean readOnly) {
+		this(null,mode,xLabel,yLabel,readOnly);
+	}
+
+	/**
+	 * Konstruktor der Klasse
+	 * @param axisName	Um welche Achse handelt es sich? (Darf <code>null</code>, sein, dann wird nur von der "Achse" ohne weitere Spezifikation gesprochen.)
+	 * @param mode	Beschriftungsmodus
+	 * @param xLabel	Textbeschriftung an der x-Achse (kann <code>null</code> sein, wenn es keine x-Achse gibt)
+	 * @param yLabel	Textbeschriftung an der y-Achse (kann <code>null</code> sein, wenn es keine y-Achse gibt)
+	 * @param readOnly	Nur-Lese-Modus
+	 */
+	@SuppressWarnings("unchecked")
+	public AxisDrawerEdit(final AxisName axisName, final AxisDrawer.Mode mode, final String xLabel, final String yLabel, final boolean readOnly) {
 		setLayout(new BoxLayout(this,BoxLayout.PAGE_AXIS));
 
 		Object[] data;
 
 		/* Beschriftungsmodus */
-		data=ModelElementBaseDialog.getComboBoxPanel(Language.tr("AxisDrawer.Mode")+":",Arrays.asList(
+		final String labelText;
+		switch (axisName) {
+		case X: labelText=Language.tr("AxisDrawer.ModeX"); break;
+		case Y: labelText=Language.tr("AxisDrawer.ModeY"); break;
+		default: labelText=Language.tr("AxisDrawer.Mode"); break;
+
+		}
+		data=ModelElementBaseDialog.getComboBoxPanel(labelText+":",Arrays.asList(
 				Language.tr("AxisDrawer.Mode.Off"),
 				Language.tr("AxisDrawer.Mode.MinMax"),
 				Language.tr("AxisDrawer.Mode.Full")

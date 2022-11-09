@@ -1658,6 +1658,7 @@
   TextX	CDATA	#IMPLIED
   TextY	CDATA	#IMPLIED
 >
+<!ELEMENT ModellElementAchsenbeschriftungZeit (#PCDATA)>
 <!ELEMENT ModellElementDiagrammElement (#PCDATA)>
 <!ATTLIST ModellElementDiagrammElement
   Minimum		CDATA	#IMPLIED
@@ -1669,7 +1670,7 @@
   Modus			CDATA	#IMPLIED
 >
 
-<!ELEMENT ModellElementAnimationLinienDiagramm (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementBoxSchriftGross | ModellElementBoxSchriftKlein | ModellElementMaximalerDurchsatzSekunden | ModellElementEbene | ModellElementLinienBreite | ModellElementLinienFarbe | ModellElementHintergrundfarbe | ModellElementDiagrammElement | ModellElementDiagrammZeitbereich | ModellElementAchsenbeschriftung)*>
+<!ELEMENT ModellElementAnimationLinienDiagramm (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementBoxSchriftGross | ModellElementBoxSchriftKlein | ModellElementMaximalerDurchsatzSekunden | ModellElementEbene | ModellElementLinienBreite | ModellElementLinienFarbe | ModellElementHintergrundfarbe | ModellElementDiagrammElement | ModellElementDiagrammZeitbereich | ModellElementAchsenbeschriftung | ModellElementAchsenbeschriftungZeit)*>
 <!ATTLIST ModellElementAnimationLinienDiagramm
   id			CDATA	#REQUIRED
   geschuetzt	CDATA	#IMPLIED
@@ -4238,6 +4239,7 @@
   TextX	CDATA	#IMPLIED
   TextY	CDATA	#IMPLIED
 >
+<!ELEMENT ModelElementAxisLabelsTime (#PCDATA)>
 <!ELEMENT ModelElementDiagramElement (#PCDATA)>
 <!ATTLIST ModelElementDiagramElement
   Minimum		CDATA	#IMPLIED
@@ -4249,7 +4251,7 @@
   Mode			CDATA	#IMPLIED
 >
 
-<!ELEMENT ModelElementAnimationLineDiagram (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBoxFontLarge | ModelElementBoxFontSmall | ModelElementMaximumThroughputSeconds | ModelElementLayer | ModelElementLineWidth | ModelElementLineColor | ModelElementBackgroundColor | ModelElementDiagramElement | ModelElementDiagramTimeRange | ModelElementAxisLabels)*>
+<!ELEMENT ModelElementAnimationLineDiagram (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBoxFontLarge | ModelElementBoxFontSmall | ModelElementMaximumThroughputSeconds | ModelElementLayer | ModelElementLineWidth | ModelElementLineColor | ModelElementBackgroundColor | ModelElementDiagramElement | ModelElementDiagramTimeRange | ModelElementAxisLabels | ModelElementAxisLabelsTime)*>
 <!ATTLIST ModelElementAnimationLineDiagram
   id		CDATA	#REQUIRED
   protected	CDATA	#IMPLIED

@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-11-05 19:04+0100\n"
+"POT-Creation-Date: 2022-11-07 09:38+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -670,6 +670,12 @@ msgstr "Minimum und Maximum anzeigen"
 
 msgid "AxisDrawer.Mode.Off"
 msgstr "Nicht anzeigen"
+
+msgid "AxisDrawer.ModeX"
+msgstr "Werte an x-Achse anzeigen"
+
+msgid "AxisDrawer.ModeY"
+msgstr "Werte an y-Achse anzeigen"
 
 msgid "Batch.MultiCoreInfo1"
 msgstr "Das Modell selbst kann bedingt durch seine Eigenschaften nicht parallel auf mehreren CPU-Kernen simuliert werden."
@@ -24912,6 +24918,9 @@ msgstr "Text"
 
 msgid "Surface.AnimationDiagram.XML.Labels"
 msgstr "ModellElementAchsenbeschriftung"
+
+msgid "Surface.AnimationDiagram.XML.LabelsTime"
+msgstr "ModellElementAchsenbeschriftungZeit"
 
 msgid "Surface.AnimationDiagram.XML.LineColor"
 msgstr "ModellElementLinienFarbe"

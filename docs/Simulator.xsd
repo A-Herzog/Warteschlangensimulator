@@ -1743,6 +1743,7 @@
 	<xs:element name="ModellElementHintergrundfarbe" type="xs:string"/>
 	<xs:element name="ModellElementBalkenFarbe" type="xs:string"/>
 	<xs:element ref="ModellElementAchsenbeschriftung"/>
+	<xs:element name="ModellElementAchsenbeschriftungZeit" type="xs:string"/>
   </xs:choice></xs:sequence>
 </xs:extension></xs:complexContent></xs:complexType></xs:element>
 
@@ -4092,6 +4093,7 @@
 	<xs:element name="ModelElementBackgroundColor" type="xs:string"/>
 	<xs:element name="ModelElementBarColor" type="xs:string"/>
 	<xs:element ref="ModelElementAxisLabels"/>
+	<xs:element name="ModelElementAxisLabelsTime" type="xs:string"/>
   </xs:choice></xs:sequence>
 </xs:extension></xs:complexContent></xs:complexType></xs:element>
 

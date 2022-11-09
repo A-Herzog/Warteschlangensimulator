@@ -301,6 +301,17 @@ public abstract class ModelElementAnimationDiagramBase extends ModelElementPosit
 	}
 
 	/**
+	 * Definiert den Minimalwert für die x-Achsenbeschriftung mit Zeitwerten (Maximalwert ist "Jetzt")
+	 * @param min	Minimaler Wert
+	 * @param mode	Darstellungsart
+	 * @param label	Beschriftungstext an der Achse
+	 * @see #xAxisDrawer
+	 */
+	protected final void setTimeXAxis(final long min, final AxisDrawer.Mode mode, final String label) {
+		xAxisDrawer.setAxisTimeValues(min,mode,label);
+	}
+
+	/**
 	 * System zur Darstellung der y-Achsenbeschriftung
 	 */
 	private final AxisDrawer yAxisDrawer=new AxisDrawer();

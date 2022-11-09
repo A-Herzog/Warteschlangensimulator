@@ -131,9 +131,14 @@ public class ModelElementAnimationLineDiagram extends ModelElementAnimationDiagr
 	private long timeArea=60*5;
 
 	/**
+	 * Sollen Beschriftungen an der x-Achse angezeigt werden?
+	 */
+	private AxisDrawer.Mode xAxisLabels=AxisDrawer.Mode.OFF;
+
+	/**
 	 * Sollen Beschriftungen an der y-Achse angezeigt werden?
 	 */
-	private AxisDrawer.Mode axisLabels=AxisDrawer.Mode.OFF;
+	private AxisDrawer.Mode yAxisLabels=AxisDrawer.Mode.OFF;
 
 	/**
 	 * Beschriftungstext an der y-Achse
@@ -241,19 +246,37 @@ public class ModelElementAnimationLineDiagram extends ModelElementAnimationDiagr
 	}
 
 	/**
-	 * Sollen Achsenbeschriftungen dargestellt werden?
-	 * @return	Achsenbeschriftungen darstellen
+	 * Sollen X-Achsenbeschriftungen dargestellt werden?
+	 * @return	X-Achsenbeschriftungen darstellen
 	 */
-	public AxisDrawer.Mode getAxisLabels() {
-		return axisLabels;
+	public AxisDrawer.Mode getXAxisLabels() {
+		return xAxisLabels;
 	}
 
 	/**
-	 * Stellt ein, ob Achsenbeschriftungen darstellen werden sollen.
-	 * @param axisLabels	Achsenbeschriftungen darstellen
+	 * Stellt ein, ob X-Achsenbeschriftungen darstellen werden sollen.
+	 * @param axisLabels	X-Achsenbeschriftungen darstellen
 	 */
-	public void setAxisLabels(final AxisDrawer.Mode axisLabels) {
-		this.axisLabels=axisLabels;
+	public void setXAxisLabels(final AxisDrawer.Mode axisLabels) {
+		this.xAxisLabels=axisLabels;
+		setTimeXAxis(0,AxisDrawer.Mode.OFF,null);
+		fireChanged();
+	}
+
+	/**
+	 * Sollen Y-Achsenbeschriftungen dargestellt werden?
+	 * @return	Y-Achsenbeschriftungen darstellen
+	 */
+	public AxisDrawer.Mode getYAxisLabels() {
+		return yAxisLabels;
+	}
+
+	/**
+	 * Stellt ein, ob Y-Achsenbeschriftungen darstellen werden sollen.
+	 * @param axisLabels	Y-Achsenbeschriftungen darstellen
+	 */
+	public void setYAxisLabels(final AxisDrawer.Mode axisLabels) {
+		this.yAxisLabels=axisLabels;
 		setYAxis(0,0,AxisDrawer.Mode.OFF,axisLabelText);
 		fireChanged();
 	}
@@ -321,7 +344,8 @@ public class ModelElementAnimationLineDiagram extends ModelElementAnimationDiagr
 		}
 
 		if (timeArea!=other.timeArea) return false;
-		if (axisLabels!=other.axisLabels) return false;
+		if (xAxisLabels!=other.xAxisLabels) return false;
+		if (yAxisLabels!=other.yAxisLabels) return false;
 		if (!axisLabelText.equals(other.axisLabelText)) return false;
 
 		return true;
@@ -349,7 +373,8 @@ public class ModelElementAnimationLineDiagram extends ModelElementAnimationDiagr
 			expressionWidth.addAll(source.expressionWidth);
 
 			timeArea=source.timeArea;
-			axisLabels=source.axisLabels;
+			xAxisLabels=source.xAxisLabels;
+			yAxisLabels=source.yAxisLabels;
 			axisLabelText=source.axisLabelText;
 
 			setYAxis(0,0,AxisDrawer.Mode.OFF,axisLabelText);
@@ -596,9 +621,13 @@ public class ModelElementAnimationLineDiagram extends ModelElementAnimationDiagr
 		node.appendChild(sub);
 		sub.setTextContent(""+timeArea);
 
+		sub=doc.createElement(Language.trPrimary("Surface.AnimationDiagram.XML.LabelsTime"));
+		node.appendChild(sub);
+		sub.setTextContent(""+xAxisLabels.nr);
+
 		sub=doc.createElement(Language.trPrimary("Surface.AnimationDiagram.XML.Labels"));
 		node.appendChild(sub);
-		sub.setTextContent(""+axisLabels.nr);
+		sub.setTextContent(""+yAxisLabels.nr);
 		if (!axisLabelText.trim().isEmpty()) sub.setAttribute(Language.trPrimary("Surface.AnimationDiagram.XML.LabelText"),axisLabelText);
 	}
 
@@ -647,8 +676,13 @@ public class ModelElementAnimationLineDiagram extends ModelElementAnimationDiagr
 			return null;
 		}
 
+		if (Language.trAll("Surface.AnimationDiagram.XML.LabelsTime",name)) {
+			xAxisLabels=AxisDrawer.Mode.fromNr(content);
+			return null;
+		}
+
 		if (Language.trAll("Surface.AnimationDiagram.XML.Labels",name)) {
-			axisLabels=AxisDrawer.Mode.fromNr(content);
+			yAxisLabels=AxisDrawer.Mode.fromNr(content);
 			axisLabelText=Language.trAllAttribute("Surface.AnimationDiagram.XML.LabelText",node);
 			return null;
 		}
@@ -762,7 +796,8 @@ public class ModelElementAnimationLineDiagram extends ModelElementAnimationDiagr
 				drawYAxis=false;
 				break;
 			}
-			if (drawYAxis) setYAxis(drawYAxisMin,drawYAxisMax,drawYAxis?axisLabels:AxisDrawer.Mode.OFF,axisLabelText);
+			setTimeXAxis(-timeArea,xAxisLabels,null);
+			if (drawYAxis) setYAxis(drawYAxisMin,drawYAxisMax,drawYAxis?yAxisLabels:AxisDrawer.Mode.OFF,axisLabelText);
 		} else {
 			setYAxis(0,0,AxisDrawer.Mode.OFF,axisLabelText);
 		}

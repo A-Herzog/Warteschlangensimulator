@@ -61,8 +61,10 @@ public class ModelElementAnimationLineDiagramDialog extends ModelElementBaseDial
 	private JTextField timeAreaEdit;
 	/** Auswahlbox für die Zeiteinheit für {@link #timeAreaEdit} */
 	private JComboBox<String> timeAreaComboBox;
-	/** Achsenbeschriftung anzeigen */
-	private AxisDrawerEdit axisLabels;
+	/** X-Achsenbeschriftung anzeigen */
+	private AxisDrawerEdit xAxisLabels;
+	/** Y-Achsenbeschriftung anzeigen */
+	private AxisDrawerEdit yAxisLabels;
 	/** Tabelle zur Definition der Datenreihen */
 	private ExpressionTableModelLine expressionTableModel;
 	/** Auswahlbox für die Rahmenbreite */
@@ -125,8 +127,11 @@ public class ModelElementAnimationLineDiagramDialog extends ModelElementBaseDial
 			@Override public void keyPressed(KeyEvent e) {checkData(false);}
 		});
 
-		/* Achsenbeschriftung */
-		setup.add(axisLabels=new AxisDrawerEdit(AxisDrawer.Mode.OFF,null,"",readOnly));
+		/* X-Achsenbeschriftung */
+		setup.add(xAxisLabels=new AxisDrawerEdit(AxisDrawerEdit.AxisName.X,AxisDrawer.Mode.OFF,null,null,readOnly));
+
+		/* Y-Achsenbeschriftung */
+		setup.add(yAxisLabels=new AxisDrawerEdit(AxisDrawerEdit.AxisName.X,AxisDrawer.Mode.OFF,null,"",readOnly));
 
 		final JTableExt expressionTable;
 		content.add(new JScrollPane(expressionTable=new JTableExt()),BorderLayout.CENTER);
@@ -185,7 +190,8 @@ public class ModelElementAnimationLineDiagramDialog extends ModelElementBaseDial
 					timeAreaComboBox.setSelectedIndex(0);
 				}
 			}
-			axisLabels.set(diagram.getAxisLabels(),null,diagram.getAxisLabelText());
+			xAxisLabels.set(diagram.getXAxisLabels(),null,null);
+			yAxisLabels.set(diagram.getYAxisLabels(),null,diagram.getAxisLabelText());
 			lineWidth.setSelectedIndex(diagram.getBorderWidth());
 			colorChooserLine.setColor(diagram.getBorderColor());
 			background.setSelected(diagram.getBackgroundColor()!=null);
@@ -273,8 +279,9 @@ public class ModelElementAnimationLineDiagramDialog extends ModelElementBaseDial
 			case 1: diagram.setTimeArea((int)FastMath.round(D*60)); break;
 			case 2: diagram.setTimeArea((int)FastMath.round(D*3600)); break;
 			}
-			diagram.setAxisLabels(axisLabels.getMode());
-			diagram.setAxisLabelText(axisLabels.getYLabel());
+			diagram.setXAxisLabels(xAxisLabels.getMode());
+			diagram.setYAxisLabels(yAxisLabels.getMode());
+			diagram.setAxisLabelText(yAxisLabels.getYLabel());
 			expressionTableModel.storeData(diagram);
 
 			diagram.setBorderWidth(lineWidth.getSelectedIndex());

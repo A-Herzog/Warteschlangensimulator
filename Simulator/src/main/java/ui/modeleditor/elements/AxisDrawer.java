@@ -26,6 +26,7 @@ import org.apache.commons.math3.util.FastMath;
 import org.apache.jena.ext.com.google.common.base.Objects;
 
 import mathtools.NumberTools;
+import mathtools.TimeTools;
 import ui.modeleditor.coreelements.ModelElementBox;
 import ui.tools.FlatLaFHelper;
 
@@ -79,6 +80,19 @@ public class AxisDrawer {
 			return fromNr(I.intValue());
 		}
 	}
+
+	/**
+	 * Zahlenformat der Achsenbeschriftungswerte
+	 */
+	private enum NumberFormat {
+		/** Beschriftung mit Zahlenwerten */
+		NUMBER,
+		/** Beschriftung mit Zeitangaben */
+		TIME
+	}
+
+	/** Zahlenformat der Achsenbeschriftungswerte */
+	private NumberFormat numberFormat=NumberFormat.NUMBER;
 
 	/** Rotations-System für die Beschriftung der y-Achse */
 	private final AffineTransform transformRotate;
@@ -164,6 +178,11 @@ public class AxisDrawer {
 	private static final int VALUE_STEP_WIDE=50;
 
 	/**
+	 * Abstand zwischen zwei Zeitbeschriftungen
+	 */
+	private static final int TIME_STEP_WIDE=150;
+
+	/**
 	 * Konstruktor der Klasse
 	 */
 	public AxisDrawer() {
@@ -182,13 +201,71 @@ public class AxisDrawer {
 		if (mode==null) mode=Mode.OFF;
 		if (min==max) mode=Mode.OFF;
 		if (label!=null && label.trim().isEmpty()) label=null;
-		if (minValue==min && maxValue==max && this.mode==mode && Objects.equal(label,this.label)) return;
+		if (minValue==min && maxValue==max && this.mode==mode && Objects.equal(label,this.label) && numberFormat==NumberFormat.NUMBER) return;
+		numberFormat=NumberFormat.NUMBER;
 		minValue=min;
 		maxValue=max;
 		this.mode=mode;
 		this.label=label;
 		needUpdateText=true;
 		fontColor=FlatLaFHelper.isDark()?Color.LIGHT_GRAY:Color.BLACK;
+	}
+
+	/**
+	 * Stellt den Minimalwert für eine Beschriftung mit Zeitangaben ein.
+	 * @param min	Minimalwert
+	 * @param mode	Darstellungsmodus
+	 * @param label	Beschriftung für die Achse (kann <code>null</code> oder leer sein)
+	 */
+	public void setAxisTimeValues(final long min, Mode mode, String label) {
+		if (mode==null) mode=Mode.OFF;
+		if (min==0) mode=Mode.OFF;
+		if (label!=null && label.trim().isEmpty()) label=null;
+		if (minValue==min && maxValue==0 && this.mode==mode && Objects.equal(label,this.label) && numberFormat==NumberFormat.TIME) return;
+		numberFormat=NumberFormat.TIME;
+		minValue=min;
+		maxValue=0;
+		this.mode=mode;
+		this.label=label;
+		needUpdateText=true;
+		fontColor=FlatLaFHelper.isDark()?Color.LIGHT_GRAY:Color.BLACK;
+	}
+
+	/**
+	 * Generiert Zahlenwert-Beschriftungen.
+	 * @param steps	Anzahl an Schritten
+	 * @see NumberFormat#NUMBER
+	 * @see #prepare(Graphics2D, double, int)
+	 */
+	private void generateAxisTextsNumbers(final int steps) {
+		boolean ok=false;
+		int digits=1;
+		while (!ok) {
+			ok=true;
+			for (int i=0;i<steps;i++) {
+				final double value=minValue+(maxValue-minValue)*i/(steps-1);
+				final String s=NumberTools.formatNumber(value,digits);
+				if (digits<3) {
+					for (int j=0;j<i;j++) if (text[j].equals(s)) {ok=false; break;}
+					if (!ok) {digits++; break;}
+				}
+				text[i]=s;
+			}
+		}
+	}
+
+	/**
+	 * Generiert Zeit-Beschriftungen.
+	 * @param steps	Anzahl an Schritten
+	 * @see NumberFormat#TIME
+	 * @see #prepare(Graphics2D, double, int)
+	 */
+	private void generateAxisTextsTimes(final int steps) {
+		for (int i=0;i<steps-1;i++) {
+			final double value=minValue+(maxValue-minValue)*i/(steps-1);
+			text[i]=TimeTools.formatLongTime(value);
+		}
+		text[steps-1]="Jetzt";
 	}
 
 	/**
@@ -220,7 +297,13 @@ public class AxisDrawer {
 			/* Anzahl an Zwischenschritten */
 			final int steps;
 			if (mode==Mode.FULL) {
-				steps=(int)Math.round((range/zoom)/VALUE_STEP_WIDE)+1;
+				final int delta;
+				switch (numberFormat) {
+				case NUMBER: delta=VALUE_STEP_WIDE; break;
+				case TIME: delta=TIME_STEP_WIDE; break;
+				default: delta=VALUE_STEP_WIDE; break;
+				}
+				steps=(int)Math.round((range/zoom)/delta)+1;
 			} else {
 				steps=2;
 			}
@@ -232,19 +315,10 @@ public class AxisDrawer {
 			}
 			if (needUpdateText) {
 				needUpdateTextWidth=true;
-				boolean ok=false;
-				int digits=1;
-				while (!ok) {
-					ok=true;
-					for (int i=0;i<steps;i++) {
-						final double value=minValue+(maxValue-minValue)*i/(steps-1);
-						final String s=NumberTools.formatNumber(value,digits);
-						if (digits<3) {
-							for (int j=0;j<i;j++) if (text[j].equals(s)) {ok=false; break;}
-							if (!ok) {digits++; break;}
-						}
-						text[i]=s;
-					}
+				switch (numberFormat) {
+				case NUMBER: generateAxisTextsNumbers(steps); break;
+				case TIME: generateAxisTextsTimes(steps); break;
+				default: generateAxisTextsNumbers(steps); break;
 				}
 				needUpdateText=false;
 			}

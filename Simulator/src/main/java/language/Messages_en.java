@@ -7650,6 +7650,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[18357] = "User (simulation run)";
     t[18368] = "Surface.AnimationBarChart.HistogramWizard.Type";
     t[18369] = "Histogram type";
+    t[18378] = "Surface.AnimationDiagram.XML.LabelsTime";
+    t[18379] = "ModelElementAxisLabelsTime";
     t[18382] = "Surface.Process.Dialog.SetupTimes.Type";
     t[18383] = "Client type change";
     t[18384] = "ExpressionBuilder.CommandName.Resource";
@@ -8026,14 +8028,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[19329] = "The entered conveyor length \"%s\" is invalid. A positive integer number has to be specified.";
     t[19330] = "Statistics.XML.BatchCount";
     t[19331] = "BatchCount";
-    t[19334] = "Editor.Dialog.Sequences.AssignmentsInfo";
-    t[19335] = "%d assignments";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_4 (java.lang.String[] t) {
+    t[19334] = "Editor.Dialog.Sequences.AssignmentsInfo";
+    t[19335] = "%d assignments";
     t[19338] = "ScriptPopup.Client.WaitingTime";
     t[19339] = "Waiting time";
     t[19342] = "Surface.Decide.Dialog.DecideBy.Sequence";
@@ -10032,14 +10034,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[24065] = "No input file";
     t[24066] = "Editor.ColorChooser.Flipped";
     t[24067] = "Display station symbol mirrored";
-    t[24068] = "Surface.Assign.NewClientType";
-    t[24069] = "New client type";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_5 (java.lang.String[] t) {
+    t[24068] = "Surface.Assign.NewClientType";
+    t[24069] = "New client type";
     t[24078] = "LoadCalculator.Title";
     t[24079] = "Queueing calculator";
     t[24082] = "ModelDescription.SourceTable.ClientTypes";
@@ -12038,14 +12040,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[28713] = "High coefficient of variation of the residence times at station \"%s\": CV[V]=%s";
     t[28714] = "Surface.Source.XML.Batch";
     t[28715] = "ModelElementBatchData";
-    t[28718] = "Statistics.WaitingTime";
-    t[28719] = "Waiting time";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_6 (java.lang.String[] t) {
+    t[28718] = "Statistics.WaitingTime";
+    t[28719] = "Waiting time";
     t[28728] = "ParameterCompare.ScriptRunner.Results.Save.Error.Info";
     t[28729] = "The script results could not be saved as\n%s";
     t[28730] = "ExpressionBuilder.MathematicalFunctions.Factorial";
@@ -14044,14 +14046,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[33359] = "<p>Generates a random number according to the Erlang distribution with the parameters n and &lambda; according to the first and second parameters.</p>\n<p>Example: <tt>ErlangDist(5;3)</tt>.</p>";
     t[33360] = "Color.696969";
     t[33361] = "dimgray";
-    t[33368] = "Simulation.Log.LogicEndWhile.EndLoop";
-    t[33369] = "Client: %s, end of the loop";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_7 (java.lang.String[] t) {
+    t[33368] = "Simulation.Log.LogicEndWhile.EndLoop";
+    t[33369] = "Client: %s, end of the loop";
     t[33370] = "Surface.Action.Dialog.Enable";
     t[33371] = "Enable";
     t[33374] = "Simulation.Creator.HoldCondition";
@@ -16050,14 +16052,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[38025] = "CompareModelsName";
     t[38026] = "Surface.Source.XML.Expression.Count";
     t[38027] = "Count";
-    t[38028] = "CommandLine.BuildCatalogDescriptions.Description.Long";
-    t[38029] = "The command expects two additional parameters:\n1. Language \"en\" or \"de\"\n2. Output folder for the LaTeX and image files";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_8 (java.lang.String[] t) {
+    t[38028] = "CommandLine.BuildCatalogDescriptions.Description.Long";
+    t[38029] = "The command expects two additional parameters:\n1. Language \"en\" or \"de\"\n2. Output folder for the LaTeX and image files";
     t[38032] = "Surface.Resource.NumberIncrease";
     t[38033] = "Increase needed number";
     t[38034] = "Simulation.Log.Balking.QueueAtTarget";
@@ -18056,14 +18058,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[42595] = "The choosen variable name \\\"%s\\\" is invalid.";
     t[42596] = "Resources.Failure.RowTitle.Buttons";
     t[42597] = "Edit";
-    t[42598] = "Statistic.Viewer.Report.HTMLApp.JSError";
-    t[42599] = "Javascript is needed for displaying this interactive statistics.";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_9 (java.lang.String[] t) {
+    t[42598] = "Statistic.Viewer.Report.HTMLApp.JSError";
+    t[42599] = "Javascript is needed for displaying this interactive statistics.";
     t[42604] = "Main.Menu.Help.HotkeyReference.pdf";
     t[42605] = "Warteschlangensimulator-Hotkeys-en.pdf";
     t[42606] = "Editor.DialogBase.Search.Resource.Failure.DownTimeDistribution";
@@ -19066,6 +19068,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[45027] = "Sienna";
     t[45030] = "CommandLine.Version.Description.Short";
     t[45031] = "Displays the current version number.";
+    t[45038] = "Surface.AnimationBarChart.Dialog.Data.ManualMaxValue.Error.Info";
+    t[45039] = "The specified maximum value \"%s\" is invalid. A number has to be entered.";
     t[45040] = "Surface.InputDB.Dialog.Table";
     t[45041] = "Table";
     t[45042] = "CommandLine.ServerWebFixedModel.Description.Long";
@@ -20060,16 +20064,16 @@ public class Messages_en extends java.util.ResourceBundle {
     t[47337] = "<p>Returns the skewness over all transfer times that have occurred at the station whose ID was specified in the parameter (over all client types).</p>";
     t[47348] = "Editor.DialogBase.Search.InterarrivalArrival.Schedule";
     t[47349] = "Arrival schedule";
-    t[47354] = "Optimizer.ControlVariableEdit.Error.InvalidInitialValue";
-    t[47355] = "Invalid initial value";
-    t[47356] = "FileType.jpeg";
-    t[47357] = "jpeg files";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_10 (java.lang.String[] t) {
+    t[47354] = "Optimizer.ControlVariableEdit.Error.InvalidInitialValue";
+    t[47355] = "Invalid initial value";
+    t[47356] = "FileType.jpeg";
+    t[47357] = "jpeg files";
     t[47358] = "QuickAccess.ModelProperties.Hint";
     t[47359] = "Open model properties dialog";
     t[47362] = "Surface.Resource.EditName.Dialog.AddNew.Name";
@@ -21624,8 +21628,10 @@ public class Messages_en extends java.util.ResourceBundle {
     t[50939] = "The update installer was downloaded.";
     t[50942] = "Surface.PopupMenu.SimulationStatisticsData.Tab.WaitingClients";
     t[50943] = "Waiting clients";
-    t[50948] = "Surface.AnimationBarChart.Dialog.Data.ManualMaxValue.Error.Info";
-    t[50949] = "The specified maximum value \"%s\" is invalid. A number has to be entered.";
+    t[50946] = "AxisDrawer.ModeX";
+    t[50947] = "Display values at x axis";
+    t[50948] = "AxisDrawer.ModeY";
+    t[50949] = "Display values at y axis";
     t[50950] = "ParameterCompare.Settings.Output.List.Edit.Hint";
     t[50951] = "Edits the selected output value (Return)";
     t[50954] = "Main.Menu.Help.Homepage";
@@ -22064,18 +22070,18 @@ public class Messages_en extends java.util.ResourceBundle {
     t[51969] = "Training data for next stations";
     t[51972] = "QuickAccess.Help";
     t[51973] = "Help";
-    t[51974] = "Statistic.FastAccess.Template.StatisticsXML";
-    t[51975] = "XML text value";
-    t[51990] = "Surface.AnimationBarStack.XML.DataArea.Direction.Left";
-    t[51991] = "left";
-    t[51992] = "ExpressionBuilder.SimulationCharacteristics.ResidenceTimesOverAll.CoefficientOfVariationOfTheTime";
-    t[51993] = "<p>Returns the coefficient of variation over all residence times for all clients.</p>";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_11 (java.lang.String[] t) {
+    t[51974] = "Statistic.FastAccess.Template.StatisticsXML";
+    t[51975] = "XML text value";
+    t[51990] = "Surface.AnimationBarStack.XML.DataArea.Direction.Left";
+    t[51991] = "left";
+    t[51992] = "ExpressionBuilder.SimulationCharacteristics.ResidenceTimesOverAll.CoefficientOfVariationOfTheTime";
+    t[51993] = "<p>Returns the coefficient of variation over all residence times for all clients.</p>";
     t[51994] = "Editor.DialogBase.Search.YellowRange";
     t[51995] = "Yellow range";
     t[51996] = "Surface.TransportSource.Dialog.Tab.RoutingTargets.Edit.Dialog.DestinationStation";
