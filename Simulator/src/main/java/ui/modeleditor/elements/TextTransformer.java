@@ -80,12 +80,18 @@ public class TextTransformer {
 	private static Map<Character,Map<String,String>> entitiesLaTeX;
 
 	/**
+	 * Länge des längsten Schlüssels
+	 */
+	private static int mapKeysMaxLength=0;
+
+	/**
 	 * Fügt einen Eintrag zu einer Bezeichner-Symbol-Liste hinzu.
 	 * @param map	Bezeichner-Symbol-Liste
 	 * @param key	Bezeichner
 	 * @param value	Symbol
 	 */
 	private static void addEntity(final Map<Character,Map<String,String>> map, final String key, final String value) {
+		if (key.length()>mapKeysMaxLength) mapKeysMaxLength=key.length();
 		final Character firstChar=key.charAt(0);
 		Map<String,String> subMap=map.get(firstChar);
 		if (subMap==null) map.put(firstChar,subMap=new HashMap<>());
@@ -218,6 +224,7 @@ public class TextTransformer {
 		addEntity(entitiesHTML,"radic;",8730);
 		addEntity(entitiesHTML,"prop;",8733);
 		addEntity(entitiesHTML,"infin;",8734);
+		addEntity(entitiesHTML,"infty;",8734);
 		addEntity(entitiesHTML,"ang;",8736);
 		addEntity(entitiesHTML,"and;",8743);
 		addEntity(entitiesHTML,"or;",8744);
@@ -336,7 +343,31 @@ public class TextTransformer {
 		addEntity(entitiesHTML,"clubs;",9827);
 		addEntity(entitiesHTML,"hearts;",9829);
 		addEntity(entitiesHTML,"diams;",9830);
+		addEntity(entitiesHTML,"larrow;",8592);
+		addEntity(entitiesHTML,"uarrow;",8593);
+		addEntity(entitiesHTML,"rarrow;",8594);
+		addEntity(entitiesHTML,"darrow;",8595);
+		addEntity(entitiesHTML,"harrow;",8596);
+		addEntity(entitiesHTML,"crarrow;",8629);
+		addEntity(entitiesHTML,"exists;",8707);
 
+		addEntity(entitiesLaTeX,"leftarrow",8592);
+		addEntity(entitiesLaTeX,"gets",8592);
+		addEntity(entitiesLaTeX,"uparrow",8593);
+		addEntity(entitiesLaTeX,"rightarrow",8594);
+		addEntity(entitiesLaTeX,"to",8594);
+		addEntity(entitiesLaTeX,"downarrow",8595);
+		addEntity(entitiesLaTeX,"Leftarrow",8637);
+		addEntity(entitiesLaTeX,"Uparrow",8657);
+		addEntity(entitiesLaTeX,"Rightarrow",8658);
+		addEntity(entitiesLaTeX,"Downarrow",8659);
+		addEntity(entitiesLaTeX,"leftrightarrow",8703);
+		addEntity(entitiesLaTeX,"Leftrightarrow",8660);
+		addEntity(entitiesLaTeX,"updownarrow",11021);
+		addEntity(entitiesLaTeX,"Updownarrow",8661);
+		addEntity(entitiesLaTeX,"iff",8660);
+		addEntity(entitiesLaTeX,"leadsto",10547);
+		addEntity(entitiesLaTeX,"mapsto",10236);
 		addEntity(entitiesLaTeX,"gt",">");
 		addEntity(entitiesLaTeX,"lt","<");
 		addEntity(entitiesLaTeX,"ge",8805);
@@ -344,11 +375,13 @@ public class TextTransformer {
 		addEntity(entitiesLaTeX,"le",8804);
 		addEntity(entitiesLaTeX,"leq",8804);
 		addEntity(entitiesLaTeX,"sim",8764);
+		addEntity(entitiesLaTeX,"simeq",8771);
 		addEntity(entitiesLaTeX,"cong",8773);
 		addEntity(entitiesLaTeX,"asymp",8776);
 		addEntity(entitiesLaTeX,"ne",8800);
 		addEntity(entitiesLaTeX,"neq",8800);
 		addEntity(entitiesLaTeX,"equiv",8801);
+		addEntity(entitiesLaTeX,"approx",8776);
 		addEntity(entitiesLaTeX,"Alpha",913);
 		addEntity(entitiesLaTeX,"Beta",914);
 		addEntity(entitiesLaTeX,"Gamma",915);
@@ -401,6 +434,32 @@ public class TextTransformer {
 		addEntity(entitiesLaTeX,"thetasym",977);
 		addEntity(entitiesLaTeX,"prod",8719);
 		addEntity(entitiesLaTeX,"sum",8721);
+		addEntity(entitiesLaTeX,"int",8747);
+		addEntity(entitiesLaTeX,"cdot",8729);
+		addEntity(entitiesLaTeX,"cup",8899);
+		addEntity(entitiesLaTeX,"cap",8898);
+		addEntity(entitiesLaTeX,"mathbbN",8469);
+		addEntity(entitiesLaTeX,"setN",8469);
+		addEntity(entitiesLaTeX,"mathbbZ",8484);
+		addEntity(entitiesLaTeX,"setZ",8484);
+		addEntity(entitiesLaTeX,"mathbbQ",8474);
+		addEntity(entitiesLaTeX,"setQ",8474);
+		addEntity(entitiesLaTeX,"mathbbR",8477);
+		addEntity(entitiesLaTeX,"setR",8477);
+		addEntity(entitiesLaTeX,"mathbbC",8450);
+		addEntity(entitiesLaTeX,"setC",8450);
+		addEntity(entitiesLaTeX,"subset",8834);
+		addEntity(entitiesLaTeX,"subseteq",8838);
+		addEntity(entitiesLaTeX,"supset",8835);
+		addEntity(entitiesLaTeX,"supseteq",8839);
+		addEntity(entitiesLaTeX,"in",8712);
+		addEntity(entitiesLaTeX,"notin",8713);
+		addEntity(entitiesLaTeX,"ni",8715);
+		addEntity(entitiesLaTeX,"notni",8716);
+		addEntity(entitiesLaTeX,"cdots",8943);
+		addEntity(entitiesLaTeX,"forall",8704);
+		addEntity(entitiesLaTeX,"exists",8707);
+		addEntity(entitiesLaTeX,"infty",8734);
 	}
 
 	/**
@@ -463,7 +522,7 @@ public class TextTransformer {
 
 			boolean found=false;
 			final Map<String,String> subMap=map.get(text.charAt(startIndex));
-			if (subMap!=null) for (String key: subMap.keySet()) {
+			if (subMap!=null) for (int len=mapKeysMaxLength;len>=1;len--) for (String key: subMap.keySet()) if (key.length()==len) {
 				final int endIndex=startIndex+key.length();
 				if (endIndex>text.length()) continue;
 				if (!text.substring(startIndex,endIndex).equals(key)) continue;
