@@ -122,9 +122,9 @@ public class ModelElementMatchDialog extends ModelElementBaseDialog {
 		optionTemporary.addActionListener(e->checkData(false));
 		line.add(tempTypeField=new JTextField(25));
 		tempTypeField.addKeyListener(new KeyListener() {
-			@Override public void keyTyped(KeyEvent e) {optionTemporary.setSelected(true);}
-			@Override public void keyReleased(KeyEvent e) {optionTemporary.setSelected(true);}
-			@Override public void keyPressed(KeyEvent e) {optionTemporary.setSelected(true);}
+			@Override public void keyTyped(KeyEvent e) {optionTemporary.setSelected(true); checkData(false);}
+			@Override public void keyReleased(KeyEvent e) {optionTemporary.setSelected(true); checkData(false);}
+			@Override public void keyPressed(KeyEvent e) {optionTemporary.setSelected(true); checkData(false);}
 		});
 		tempTypeField.setEditable(!readOnly);
 
@@ -134,9 +134,9 @@ public class ModelElementMatchDialog extends ModelElementBaseDialog {
 		optionNewType.addActionListener(e->checkData(false));
 		line.add(newTypeField=new JTextField(25));
 		newTypeField.addKeyListener(new KeyListener() {
-			@Override public void keyTyped(KeyEvent e) {optionNewType.setSelected(true);}
-			@Override public void keyReleased(KeyEvent e) {optionNewType.setSelected(true);}
-			@Override public void keyPressed(KeyEvent e) {optionNewType.setSelected(true);}
+			@Override public void keyTyped(KeyEvent e) {optionNewType.setSelected(true); checkData(false);}
+			@Override public void keyReleased(KeyEvent e) {optionNewType.setSelected(true); checkData(false);}
+			@Override public void keyPressed(KeyEvent e) {optionNewType.setSelected(true); checkData(false);}
 		});
 		newTypeField.setEditable(!readOnly);
 

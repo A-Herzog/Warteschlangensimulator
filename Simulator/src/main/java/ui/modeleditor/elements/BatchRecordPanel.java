@@ -158,9 +158,9 @@ public class BatchRecordPanel extends JPanel {
 		optionTemporary.addActionListener(e->{setActive(); checkData(false);});
 		line.add(tempTypeField=new JTextField(25));
 		tempTypeField.addKeyListener(new KeyListener() {
-			@Override public void keyTyped(KeyEvent e) {setActive(); optionTemporary.setSelected(true);}
-			@Override public void keyReleased(KeyEvent e) {setActive(); optionTemporary.setSelected(true);}
-			@Override public void keyPressed(KeyEvent e) {setActive(); optionTemporary.setSelected(true);}
+			@Override public void keyTyped(KeyEvent e) {setActive(); optionTemporary.setSelected(true); checkData(false);}
+			@Override public void keyReleased(KeyEvent e) {setActive(); optionTemporary.setSelected(true); checkData(false);}
+			@Override public void keyPressed(KeyEvent e) {setActive(); optionTemporary.setSelected(true); checkData(false);}
 		});
 		tempTypeField.setEditable(!readOnly);
 
@@ -170,9 +170,9 @@ public class BatchRecordPanel extends JPanel {
 		optionNewType.addActionListener(e->{setActive(); checkData(false);});
 		line.add(newTypeField=new JTextField(25));
 		newTypeField.addKeyListener(new KeyListener() {
-			@Override public void keyTyped(KeyEvent e) {setActive(); optionNewType.setSelected(true);}
-			@Override public void keyReleased(KeyEvent e) {setActive(); optionNewType.setSelected(true);}
-			@Override public void keyPressed(KeyEvent e) {setActive(); optionNewType.setSelected(true);}
+			@Override public void keyTyped(KeyEvent e) {setActive(); optionNewType.setSelected(true); checkData(false);}
+			@Override public void keyReleased(KeyEvent e) {setActive(); optionNewType.setSelected(true); checkData(false);}
+			@Override public void keyPressed(KeyEvent e) {setActive(); optionNewType.setSelected(true); checkData(false);}
 		});
 		newTypeField.setEditable(!readOnly);
 
