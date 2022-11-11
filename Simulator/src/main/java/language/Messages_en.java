@@ -16124,6 +16124,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[38163] = "ModelElementInputDDE";
     t[38178] = "Surface.Output.XML.File.HeadingMode.UserDefined";
     t[38179] = "User-defined";
+    t[38184] = "Surface.Connection.ShowLabel";
+    t[38185] = "Show labeling";
     t[38186] = "Statistics.Dashboard.EditDialog.Format.Time";
     t[38187] = "Time";
     t[38188] = "ScriptPopup.Output.Separator.Line.Hint";
@@ -17084,6 +17086,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[40433] = "Insert method";
     t[40436] = "Simulation.Log.TransporterFailure.Scheduled";
     t[40437] = "%s-%d: start of scheduled down time at %s, duration: %s";
+    t[40440] = "Surface.Connection.Color.Default";
+    t[40441] = "Default";
     t[40442] = "Statistics.Confidence.InfoRun";
     t[40443] = "(The calculation of the confidence intervals based on %s repetitions of the simulation and a standard deviation of %s between the repetitions.)";
     t[40444] = "Surface.XML.Transporter.LoadExpression";
@@ -18054,16 +18058,16 @@ public class Messages_en extends java.util.ResourceBundle {
     t[42589] = "Residence times";
     t[42592] = "Surface.AssignString.XML.Assignment.Key";
     t[42593] = "Key";
-    t[42594] = "Surface.InputDDE.Dialog.Variable.ErrorInfo";
-    t[42595] = "The choosen variable name \\\"%s\\\" is invalid.";
-    t[42596] = "Resources.Failure.RowTitle.Buttons";
-    t[42597] = "Edit";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_9 (java.lang.String[] t) {
+    t[42594] = "Surface.InputDDE.Dialog.Variable.ErrorInfo";
+    t[42595] = "The choosen variable name \\\"%s\\\" is invalid.";
+    t[42596] = "Resources.Failure.RowTitle.Buttons";
+    t[42597] = "Edit";
     t[42598] = "Statistic.Viewer.Report.HTMLApp.JSError";
     t[42599] = "Javascript is needed for displaying this interactive statistics.";
     t[42604] = "Main.Menu.Help.HotkeyReference.pdf";
@@ -18732,6 +18736,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[44225] = "Action: Run Javascript";
     t[44230] = "Surface.AnimationText.Type.SimulationTime";
     t[44231] = "Simulation time";
+    t[44236] = "Surface.XML.LineLabel";
+    t[44237] = "ModelElementConnectionLabel";
     t[44248] = "Surface.PickUp.Dialog.SendTemporaryBatched.Error.Info";
     t[44249] = "No name was specified for the temporary client type.";
     t[44260] = "Batch.Simulation.RunNoValue";
@@ -20058,18 +20064,18 @@ public class Messages_en extends java.util.ResourceBundle {
     t[47331] = "global template";
     t[47332] = "Surface.ExpressionTableModelText.Add";
     t[47333] = "Add condition";
-    t[47334] = "Statistics.Utilization.NumberOfOperators.Sk";
-    t[47335] = "Skewness of the number of available operators";
-    t[47336] = "ExpressionBuilder.SimulationCharacteristics.TransferTimesAtStations.Skewness";
-    t[47337] = "<p>Returns the skewness over all transfer times that have occurred at the station whose ID was specified in the parameter (over all client types).</p>";
-    t[47348] = "Editor.DialogBase.Search.InterarrivalArrival.Schedule";
-    t[47349] = "Arrival schedule";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_10 (java.lang.String[] t) {
+    t[47334] = "Statistics.Utilization.NumberOfOperators.Sk";
+    t[47335] = "Skewness of the number of available operators";
+    t[47336] = "ExpressionBuilder.SimulationCharacteristics.TransferTimesAtStations.Skewness";
+    t[47337] = "<p>Returns the skewness over all transfer times that have occurred at the station whose ID was specified in the parameter (over all client types).</p>";
+    t[47348] = "Editor.DialogBase.Search.InterarrivalArrival.Schedule";
+    t[47349] = "Arrival schedule";
     t[47354] = "Optimizer.ControlVariableEdit.Error.InvalidInitialValue";
     t[47355] = "Invalid initial value";
     t[47356] = "FileType.jpeg";
@@ -22064,18 +22070,18 @@ public class Messages_en extends java.util.ResourceBundle {
     t[51953] = "Number of operators";
     t[51954] = "ClientTypeLoader.ReplaceWarning.NoInfo";
     t[51955] = "Do not load table.";
-    t[51958] = "Statistics.XML.Element.InDownTimeTransporter";
-    t[51959] = "StatisticsTransporterDownTimes";
-    t[51968] = "SystemInfo.Tools.NextStationTraining";
-    t[51969] = "Training data for next stations";
-    t[51972] = "QuickAccess.Help";
-    t[51973] = "Help";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_11 (java.lang.String[] t) {
+    t[51958] = "Statistics.XML.Element.InDownTimeTransporter";
+    t[51959] = "StatisticsTransporterDownTimes";
+    t[51968] = "SystemInfo.Tools.NextStationTraining";
+    t[51969] = "Training data for next stations";
+    t[51972] = "QuickAccess.Help";
+    t[51973] = "Help";
     t[51974] = "Statistic.FastAccess.Template.StatisticsXML";
     t[51975] = "XML text value";
     t[51990] = "Surface.AnimationBarStack.XML.DataArea.Direction.Left";

@@ -652,6 +652,7 @@
   <xs:sequence minOccurs="0" maxOccurs="unbounded"><xs:choice>
 	<xs:element name="ModellElementVerbindungsdarstellungsart" type="xs:string"/>
 	<xs:element name="ModellElementVerbindungsfarbe" type="xs:string"/>
+	<xs:element name="ModellElementVerbindungsbeschriftung" type="xs:string"/>
   </xs:choice></xs:sequence>
 </xs:extension></xs:complexContent></xs:complexType></xs:element>
 
@@ -2396,6 +2397,7 @@
   <xs:element ref="ModelEdgesSelected"/>
   <xs:element name="ModelElementConnectionDrawStyle" type="xs:string"/>
   <xs:element name="ModelElementConnectionColor" type="xs:string"/>
+  <xs:element name="ModelElementConnectionLabel" type="xs:string"/>
   <xs:element name="ModelTimedChecks" type="xs:string"/>
   <xs:element ref="ModelPathRecording"/>
   <xs:element name="ModelRecordClientStationTimeSum" type="xs:string"/>

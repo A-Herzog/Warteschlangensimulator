@@ -100,6 +100,11 @@ public final class ModelElementEdge extends ModelElement {
 	private LineMode lineMode=null;
 
 	/**
+	 * Beschriftung (wenn vorhanden) an Kante anzeigen?
+	 */
+	private boolean drawName=true;
+
+	/**
 	 * Element von dem die Kante ausgeht
 	 */
 	private ModelElement connectionStart;
@@ -161,6 +166,7 @@ public final class ModelElementEdge extends ModelElement {
 		if (connectionEnd.getId()!=otherEdge.connectionEnd.getId()) return false;
 		if (lineMode!=otherEdge.lineMode) return false;
 		if (!Objects.equal(lineColor,otherEdge.lineColor)) return false;
+		if (drawName!=otherEdge.drawName) return false;
 
 		return true;
 	}
@@ -178,6 +184,7 @@ public final class ModelElementEdge extends ModelElement {
 			if (otherEdge.connectionEnd!=null) connectionEndId=((ModelElementEdge)element).connectionEnd.getId();
 			lineMode=otherEdge.lineMode;
 			setLineColor(otherEdge.lineColor);
+			drawName=otherEdge.drawName;
 		}
 	}
 
@@ -252,6 +259,8 @@ public final class ModelElementEdge extends ModelElement {
 		JCheckBoxMenuItem check;
 		JMenuItem item;
 
+		/* Kantenführen */
+
 		popupMenu.add(menu=new JMenu(Language.tr("Surface.Connection.LineMode")));
 
 		menu.add(check=new JCheckBoxMenuItem(Language.tr("Surface.Connection.LineMode.Global"),Images.MODEL.getIcon(),lineMode==null));
@@ -265,21 +274,35 @@ public final class ModelElementEdge extends ModelElement {
 		menu.add(check=new JCheckBoxMenuItem(Language.tr("Surface.Connection.LineMode.CubicCurve"),Images.EDGE_MODE_CUBIC_CURVE.getIcon(),lineMode==LineMode.CUBIC_CURVE));
 		check.addActionListener(e->{lineMode=LineMode.CUBIC_CURVE	; fireChanged();});
 
+		/* Farbe */
+
 		popupMenu.add(menu=new JMenu(Language.tr("Surface.Connection.Color")));
 
-		menu.add(check=new JCheckBoxMenuItem("Standard",lineColor==null));
+		menu.add(check=new JCheckBoxMenuItem(Language.tr("Surface.Connection.Color.Default"),lineColor==null));
 		check.addActionListener(e->setLineColor(null));
 		final SmallColorChooser colorChooser=new SmallColorChooser(lineColor);
 		menu.add(colorChooser);
 		colorChooser.addClickListener(e->setLineColor(colorChooser.getColor()));
 
+		/* Beschriftung anzeigen */
+
+		final String name=getName();
+		if (name!=null && !name.trim().isEmpty()) {
+			popupMenu.add(check=new JCheckBoxMenuItem(Language.tr("Surface.Connection.ShowLabel"),drawName));
+			check.addActionListener(e->{drawName=!drawName; fireChanged();});
+		}
+
+		/* Kante aufsplitten */
+
 		if ((connectionStart instanceof ModelElementPosition) && (connectionEnd instanceof ModelElementPosition)) {
+			/* Ecke auf Pfad einfügen */
 			popupMenu.add(item=new JMenuItem(Language.tr("Surface.Connection.AddVertex"),Images.MODELEDITOR_ELEMENT_VERTEX.getIcon()));
 			item.addActionListener(e->{
 				final double zoom=surfacePanel.getZoom();
 				contextAddVertex(surfacePanel,(ModelElementPosition)connectionStart,(ModelElementPosition)connectionEnd,new Point((int)Math.round(point.x/zoom),(int)Math.round(point.y/zoom)));
 			});
 
+			/* Teleport auf Pfad einfügen */
 			popupMenu.add(item=new JMenuItem(Language.tr("Surface.Connection.AddTeleport"),Images.MODELEDITOR_ELEMENT_TELEPORT.getIcon()));
 			item.addActionListener(e->{
 				final double zoom=surfacePanel.getZoom();
@@ -740,7 +763,7 @@ public final class ModelElementEdge extends ModelElement {
 		}
 
 		/* Text ausgeben */
-		drawText(graphics,middle,zoom);
+		if (drawName) drawText(graphics,middle,zoom);
 	}
 
 	/**
@@ -1104,6 +1127,11 @@ public final class ModelElementEdge extends ModelElement {
 			node.appendChild(sub);
 			sub.setTextContent(EditModel.saveColor(lineColor));
 		}
+		if (!drawName) {
+			final Element sub=doc.createElement(Language.trPrimary("Surface.XML.LineLabel"));
+			node.appendChild(sub);
+			sub.setTextContent("0");
+		}
 	}
 
 	/**
@@ -1146,6 +1174,11 @@ public final class ModelElementEdge extends ModelElement {
 
 		if (Language.trAll("Surface.XML.LineColor",name)) {
 			lineColor=EditModel.loadColor(content);
+			return null;
+		}
+
+		if (Language.trAll("Surface.XML.LineLabel",name)) {
+			if (content.equals("0")) drawName=false;
 			return null;
 		}
 
@@ -1259,14 +1292,16 @@ public final class ModelElementEdge extends ModelElement {
 		sb.append("  context.lineTo(p1b,p2b);\n");
 		sb.append("  context.stroke();\n");
 
-		sb.append("  if (typeof(text)!=\"undefined\") {\n");
-		sb.append("    var middle={x: Math.round((p1.x+p2.x)/2), y: Math.round((p1.y+p2.y)/2)};\n");
-		sb.append("    context.font=\"11px Verdana,Lucida,sans-serif\";\n");
-		sb.append("    context.textAlign=\"center\";\n");
-		sb.append("    context.textBaseline=\"bottom\";\n");
-		sb.append("    context.fillStyle=\"Black\";\n");
-		sb.append("    context.fillText(text,middle.x,middle.y);\n");
-		sb.append("  }\n");
+		if (drawName) {
+			sb.append("  if (typeof(text)!=\"undefined\") {\n");
+			sb.append("    var middle={x: Math.round((p1.x+p2.x)/2), y: Math.round((p1.y+p2.y)/2)};\n");
+			sb.append("    context.font=\"11px Verdana,Lucida,sans-serif\";\n");
+			sb.append("    context.textAlign=\"center\";\n");
+			sb.append("    context.textBaseline=\"bottom\";\n");
+			sb.append("    context.fillStyle=\"Black\";\n");
+			sb.append("    context.fillText(text,middle.x,middle.y);\n");
+			sb.append("  }\n");
+		}
 
 		sb.append("}\n");
 

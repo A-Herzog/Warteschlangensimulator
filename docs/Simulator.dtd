@@ -432,12 +432,13 @@
   neueelemente	CDATA	#IMPLIED
 >
 
-<!ELEMENT ModellElementKante (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementBoxSchriftGross | ModellElementBoxSchriftKlein | ModellElementMaximalerDurchsatzSekunden | ModellElementEbene | ModellElementVerbindung | ModellElementVerbindungsdarstellungsart | ModellElementVerbindungsfarbe)*>
+<!ELEMENT ModellElementKante (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementBoxSchriftGross | ModellElementBoxSchriftKlein | ModellElementMaximalerDurchsatzSekunden | ModellElementEbene | ModellElementVerbindung | ModellElementVerbindungsdarstellungsart | ModellElementVerbindungsfarbe | ModellElementVerbindungsbeschriftung)*>
 <!ATTLIST ModellElementKante
   id			CDATA	#REQUIRED
 >
 
 <!ELEMENT ModellElementVerbindungsfarbe (#PCDATA)>
+<!ELEMENT ModellElementVerbindungsbeschriftung (#PCDATA)>
 
 <!ELEMENT ModellElementText (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementBoxSchriftGross | ModellElementBoxSchriftKlein | ModellElementMaximalerDurchsatzSekunden | ModellElementEbene | ModellElementTextzeile | ModellElementSchriftart | ModellElementSchriftgrosse | ModellElementFarbe | ModellElementTextAusrichtung | ModellElementHintergrundfarbe)*>
 <!ATTLIST ModellElementText
@@ -3014,12 +3015,13 @@
   newelements	CDATA	#IMPLIED
 >
 
-<!ELEMENT ModelElementEdge (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBoxFontLarge | ModelElementBoxFontSmall | ModelElementMaximumThroughputSeconds | ModelElementLayer | ModelElementConnection | ModelElementConnectionDrawStyle | ModelElementConnectionColor)*>
+<!ELEMENT ModelElementEdge (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBoxFontLarge | ModelElementBoxFontSmall | ModelElementMaximumThroughputSeconds | ModelElementLayer | ModelElementConnection | ModelElementConnectionDrawStyle | ModelElementConnectionColor | ModelElementConnectionLabel)*>
 <!ATTLIST ModelElementEdge
   id	CDATA	#REQUIRED
 >
 
 <!ELEMENT ModelElementConnectionColor (#PCDATA)>
+<!ELEMENT ModelElementConnectionLabel (#PCDATA)>
 
 <!ELEMENT ModelElementText (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBoxFontLarge | ModelElementBoxFontSmall | ModelElementMaximumThroughputSeconds | ModelElementLayer | ModelElementTextLine | ModelElementFontFamily | ModelElementFontSize | ModelElementColor | ModelElementTextAlign | ModelElementBackgroundColor)*>
 <!ATTLIST ModelElementText

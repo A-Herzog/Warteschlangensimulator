@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-11-07 09:38+0100\n"
+"POT-Creation-Date: 2022-11-09 13:19+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -26176,6 +26176,9 @@ msgstr "Add vertex on path"
 msgid "Surface.Connection.Color"
 msgstr "Color"
 
+msgid "Surface.Connection.Color.Default"
+msgstr "Default"
+
 msgid "Surface.Connection.LineMode"
 msgstr "Edge display mode"
 
@@ -26199,6 +26202,9 @@ msgstr "Angled around"
 
 msgid "Surface.Connection.Name"
 msgstr "Connection"
+
+msgid "Surface.Connection.ShowLabel"
+msgstr "Show labeling"
 
 msgid "Surface.Connection.Tooltip.From"
 msgstr "From"
@@ -33435,6 +33441,9 @@ msgstr "Level"
 
 msgid "Surface.XML.LineColor"
 msgstr "ModelElementConnectionColor"
+
+msgid "Surface.XML.LineLabel"
+msgstr "ModelElementConnectionLabel"
 
 msgid "Surface.XML.LineMode"
 msgstr "ModelElementConnectionDrawStyle"

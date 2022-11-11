@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-11-07 09:38+0100\n"
+"POT-Creation-Date: 2022-11-09 13:19+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -26192,6 +26192,9 @@ msgstr "Ecke auf Pfad einfügen"
 msgid "Surface.Connection.Color"
 msgstr "Farbe"
 
+msgid "Surface.Connection.Color.Default"
+msgstr "Standard"
+
 msgid "Surface.Connection.LineMode"
 msgstr "Kantenführung"
 
@@ -26215,6 +26218,9 @@ msgstr "Abgerundet abgewinkelt"
 
 msgid "Surface.Connection.Name"
 msgstr "Verbindung"
+
+msgid "Surface.Connection.ShowLabel"
+msgstr "Beschriftung anzeigen"
 
 msgid "Surface.Connection.Tooltip.From"
 msgstr "Von"
@@ -33461,6 +33467,9 @@ msgstr "Niveau"
 
 msgid "Surface.XML.LineColor"
 msgstr "ModellElementVerbindungsfarbe"
+
+msgid "Surface.XML.LineLabel"
+msgstr "ModellElementVerbindungsbeschriftung"
 
 msgid "Surface.XML.LineMode"
 msgstr "ModellElementVerbindungsdarstellungsart"
