@@ -236,27 +236,33 @@ public class ModelElementBatch extends ModelElementMultiInSingleOutBox implement
 		final List<JPanel> panels=new ArrayList<>();
 
 		if (batchRecord.getBatchSizeMode()==BatchRecord.BatchSizeMode.FIXED) {
-			if (batchRecord.getBatchSizeFixed()>=1) {
+			final Double D=NumberTools.getDouble(batchRecord.getBatchSizeFixed());
+			if (D!=null && Math.round(D)>=1) {
+				final int currentValue=(int)Math.round(D);
 				final Function<Integer,String> batchChanger=value->{
-					if (value==null) return NumberTools.formatNumber(batchRecord.getBatchSizeFixed())+" "+((batchRecord.getBatchSizeFixed()==1)?Language.tr("Surface.Batch.BatchSize.ClientSingular"):Language.tr("Surface.Batch.BatchSize.ClientPlural"));
+					if (value==null) return batchRecord.getBatchSizeFixed()+" "+((currentValue==1)?Language.tr("Surface.Batch.BatchSize.ClientSingular"):Language.tr("Surface.Batch.BatchSize.ClientPlural"));
 					final int count=value.intValue();
-					batchRecord.setBatchSizeFixed(count);
+					batchRecord.setBatchSizeFixed(""+count);
 					return count+" "+((count==1)?Language.tr("Surface.Batch.BatchSize.ClientSingular"):Language.tr("Surface.Batch.BatchSize.ClientPlural"));
 				};
-				panels.add(createContextMenuSliderValue(Language.tr("Surface.Batch.BatchSize"),batchRecord.getBatchSizeFixed(),20,batchChanger));
+				panels.add(createContextMenuSliderValue(Language.tr("Surface.Batch.BatchSize"),currentValue,20,batchChanger));
 			}
+
 		}
 
 		if (batchRecord.getBatchSizeMode()==BatchRecord.BatchSizeMode.RANGE) {
-			if (batchRecord.getBatchSizeMin()==batchRecord.getBatchSizeMax() && batchRecord.getBatchSizeMin()>=1) {
+			final Double Dmin=NumberTools.getDouble(batchRecord.getBatchSizeMin());
+			final Double Dmax=NumberTools.getDouble(batchRecord.getBatchSizeMax());
+			if (Dmin!=null && Dmax!=null && Dmin.doubleValue()==Dmax.doubleValue() && Math.round(Dmin)>=1) {
+				final int currentValue=(int)Math.round(Dmin);
 				final Function<Integer,String> batchChanger=value->{
-					if (value==null) return NumberTools.formatNumber(batchRecord.getBatchSizeMin())+" "+((batchRecord.getBatchSizeMin()==1)?Language.tr("Surface.Batch.BatchSize.ClientSingular"):Language.tr("Surface.Batch.BatchSize.ClientPlural"));
+					if (value==null) return batchRecord.getBatchSizeMin()+" "+((currentValue==1)?Language.tr("Surface.Batch.BatchSize.ClientSingular"):Language.tr("Surface.Batch.BatchSize.ClientPlural"));
 					final int count=value.intValue();
-					batchRecord.setBatchSizeMin(count);
-					batchRecord.setBatchSizeMax(count);
+					batchRecord.setBatchSizeMin(""+count);
+					batchRecord.setBatchSizeMax(""+count);
 					return count+" "+((count==1)?Language.tr("Surface.Batch.BatchSize.ClientSingular"):Language.tr("Surface.Batch.BatchSize.ClientPlural"));
 				};
-				panels.add(createContextMenuSliderValue(Language.tr("Surface.Batch.BatchSize"),batchRecord.getBatchSizeMin(),20,batchChanger));
+				panels.add(createContextMenuSliderValue(Language.tr("Surface.Batch.BatchSize"),currentValue,20,batchChanger));
 			}
 		}
 

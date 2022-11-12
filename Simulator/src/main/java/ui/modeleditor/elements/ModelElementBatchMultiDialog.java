@@ -110,7 +110,7 @@ public class ModelElementBatchMultiDialog extends ModelElementBaseDialog {
 			final BatchRecord editRecord=new BatchRecord();
 			final BatchRecord record=map.get(clientTypes.get(i));
 			if (record!=null) editRecord.copyDataFrom(record);
-			final BatchRecordPanel batchRecordPanel=new BatchRecordPanel(editRecord,readOnly,true);
+			final BatchRecordPanel batchRecordPanel=new BatchRecordPanel(editRecord,readOnly,true,element.getModel(),element.getSurface());
 			batchRecordPanel.setActive(record!=null);
 			batchRecordPanels.add(batchRecordPanel);
 			main.add(batchRecordPanel,""+i);

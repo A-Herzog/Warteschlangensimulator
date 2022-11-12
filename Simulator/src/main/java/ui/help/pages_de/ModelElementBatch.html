@@ -29,7 +29,16 @@ Batch zusammengefasst werden sollen (der später über das <a href="ModelElement
 wieder aufgelöst werden kann) oder ob für die Kunden der Weg durch
 das Netz an dieser Stelle endet (weil die beiden Kunden z.B. Teilkomponenten darstellen, die zu einem größeren Element
 zusammengesetzt werden) und statt dessen ein neues Kundenobjekt erzeugt und ab diesem Punkt gestartet wird.
-</p> 
+</p>
+
+<h2>Hinweis zu den Batch-Größen</h2>
+
+<p>
+Batch-Größen müssen positive Ganzzahlen sein.
+Es können auch Rechenausdrücke für die Batch-Größen angegeben werden.
+Wenn diese Variablen oder Funktionen enthalten, die erst im Simulationskontext gültig sind, so werden diese zu Beginn der Simulation <b>einmalig</b> ausgewertet.
+Das bedeutet, dass sich die an einer Station eingestellten Batch-Größen während einer laufenden Simulation nicht verändern.
+</p>
 
 </body>
 </html>

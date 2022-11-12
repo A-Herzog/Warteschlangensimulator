@@ -34,5 +34,14 @@ zusammengesetzt werden) und statt dessen ein neues Kundenobjekt erzeugt und ab d
 Kunden, für deren Typ keine Batch-Bildungsregel definiert ist, passieren die Station ohne weitere Verzögerung.
 </p>
 
+<h2>Hinweis zu den Batch-Größen</h2>
+
+<p>
+Batch-Größen müssen positive Ganzzahlen sein.
+Es können auch Rechenausdrücke für die Batch-Größen angegeben werden.
+Wenn diese Variablen oder Funktionen enthalten, die erst im Simulationskontext gültig sind, so werden diese zu Beginn der Simulation <b>einmalig</b> ausgewertet.
+Das bedeutet, dass sich die an einer Station eingestellten Batch-Größen während einer laufenden Simulation nicht verändern.
+</p>
+
 </body>
 </html>

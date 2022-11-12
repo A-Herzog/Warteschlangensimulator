@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-11-09 13:19+0100\n"
+"POT-Creation-Date: 2022-11-12 21:23+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -26019,13 +26019,13 @@ msgid "Surface.Batch.BatchSize.ClientSingular"
 msgstr "Kunde"
 
 msgid "Surface.Batch.Dialog.BatchSize.Error.InfoFixed"
-msgstr "Der angegebene Wert \"%s\" für die Batch-Größe ist ungültig. Es muss eine positive ganze Zahl angegeben werden."
+msgstr "Der angegebene Wert \"%s\" für die Batch-Größe ist ungültig. Es muss eine positive ganze Zahl oder ein Rechenausdruck angegeben werden."
 
 msgid "Surface.Batch.Dialog.BatchSize.Error.InfoMax"
-msgstr "Der angegebene Wert \"%s\" für die maximale Batch-Größe ist ungültig. Es muss eine positive ganze Zahl angegeben werden."
+msgstr "Der angegebene Wert \"%s\" für die maximale Batch-Größe ist ungültig. Es muss eine positive ganze Zahl oder ein Rechenausdruck angegeben werden."
 
 msgid "Surface.Batch.Dialog.BatchSize.Error.InfoMin"
-msgstr "Der angegebene Wert \"%s\" für die minimale Batch-Größe ist ungültig. Es muss eine positive ganze Zahl angegeben werden."
+msgstr "Der angegebene Wert \"%s\" für die minimale Batch-Größe ist ungültig. Es muss eine positive ganze Zahl oder ein Rechenausdruck angegeben werden."
 
 msgid "Surface.Batch.Dialog.BatchSize.Error.InfoRange"
 msgstr "Die angegebene minimale Batch-Größe %d ist kleiner als die angegebene maximale Batch-Größe %d."
@@ -26035,6 +26035,9 @@ msgstr "Ungültige Batch-Größe"
 
 msgid "Surface.Batch.Dialog.BatchSizeFixed"
 msgstr "Batch-Größe"
+
+msgid "Surface.Batch.Dialog.BatchSizeInfo"
+msgstr "Rechenausdrücke für die Batch-Größe werden einmalig zu Beginn der Simulation (mit der dann gültigen Variablenbelegung) ausgewertet.<br>Die Batch-Größenangaben ändern sich nicht während einer laufenden Simulation."
 
 msgid "Surface.Batch.Dialog.BatchSizeMax"
 msgstr "Maximale Batch-Größe"

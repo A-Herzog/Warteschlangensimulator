@@ -9119,7 +9119,7 @@ public class Messages_de extends java.util.ResourceBundle {
     t[21868] = "Transporter.Group.Edit.Dialog.Failure.Distance.Error.Info";
     t[21869] = "Der angegebene Wert f\u00fcr die Ausf\u00e4lle nach Fahrtstrecke ist ung\u00fcltig. Eine positive Zahl muss angegeben werden.";
     t[21870] = "Surface.Batch.Dialog.BatchSize.Error.InfoMax";
-    t[21871] = "Der angegebene Wert \"%s\" f\u00fcr die maximale Batch-Gr\u00f6\u00dfe ist ung\u00fcltig. Es muss eine positive ganze Zahl angegeben werden.";
+    t[21871] = "Der angegebene Wert \"%s\" f\u00fcr die maximale Batch-Gr\u00f6\u00dfe ist ung\u00fcltig. Es muss eine positive ganze Zahl oder ein Rechenausdruck angegeben werden.";
     t[21872] = "CommandLine.Benchmark.Threads";
     t[21873] = "Rechenthreads";
     t[21874] = "SimulationServer.Toolbar.MQTTStop.Hint";
@@ -9325,7 +9325,7 @@ public class Messages_de extends java.util.ResourceBundle {
     t[22342] = "Statistics.AverageClientsInSystemInProcess";
     t[22343] = "Mittlere Anzahl an Kunden im System in Bedienung";
     t[22346] = "Surface.Batch.Dialog.BatchSize.Error.InfoMin";
-    t[22347] = "Der angegebene Wert \"%s\" f\u00fcr die minimale Batch-Gr\u00f6\u00dfe ist ung\u00fcltig. Es muss eine positive ganze Zahl angegeben werden.";
+    t[22347] = "Der angegebene Wert \"%s\" f\u00fcr die minimale Batch-Gr\u00f6\u00dfe ist ung\u00fcltig. Es muss eine positive ganze Zahl oder ein Rechenausdruck angegeben werden.";
     t[22348] = "Main.Menu.Edit.MoveBack.Mnemonic";
     t[22349] = "H";
     t[22350] = "Transporters.Group.Edit.Dialog.Capacity.ErrorInfo";
@@ -10181,7 +10181,7 @@ public class Messages_de extends java.util.ResourceBundle {
     t[24352] = "Surface.Action.XML.Record.ActionType.Java";
     t[24353] = "Java";
     t[24354] = "Surface.Batch.Dialog.BatchSize.Error.InfoFixed";
-    t[24355] = "Der angegebene Wert \"%s\" f\u00fcr die Batch-Gr\u00f6\u00dfe ist ung\u00fcltig. Es muss eine positive ganze Zahl angegeben werden.";
+    t[24355] = "Der angegebene Wert \"%s\" f\u00fcr die Batch-Gr\u00f6\u00dfe ist ung\u00fcltig. Es muss eine positive ganze Zahl oder ein Rechenausdruck angegeben werden.";
     t[24360] = "Surface.AnimationPointerMeasuring.Dialog.YellowAreaStartValue.Error.Title";
     t[24361] = "Gelber Bereich ung\u00fcltig";
     t[24362] = "Animation.Icon.FlagRed";
@@ -21260,6 +21260,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[50121] = "csv-Dateien";
     t[50122] = "Git.List.DialogHint";
     t[50123] = "In diesem Dialog k\u00f6nnen Git-Verzeichnisse definiert werden. Wird eine Datei im Simulator in einem solchen Verzeichnis gespeichert, so kann sie automatisch in das zugeh\u00f6rige Git-Repository \u00fcbernommen werden.";
+    t[50126] = "Surface.Batch.Dialog.BatchSizeInfo";
+    t[50127] = "Rechenausdr\u00fccke f\u00fcr die Batch-Gr\u00f6\u00dfe werden einmalig zu Beginn der Simulation (mit der dann g\u00fcltigen Variablenbelegung) ausgewertet.<br>Die Batch-Gr\u00f6\u00dfenangaben \u00e4ndern sich nicht w\u00e4hrend einer laufenden Simulation.";
     t[50134] = "Surface.AnimationPointerMeasuring.Dialog.RedAreaStartValue.Error.Info";
     t[50135] = "Der angegebene Startwert f\u00fcr den roten Bereich \"%s\" ist ung\u00fcltig. Es muss eine nicht-negative Ganzzahl angegeben werden.";
     t[50146] = "Statistics.ErlangCompare.SimulationDelta";
@@ -22068,14 +22070,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[51945] = "Diagrammtitel";
     t[51952] = "Surface.PopupMenu.ParameterCompare.ChangeOperatorCount.Short";
     t[51953] = "Anzahl an Bedienern";
-    t[51954] = "ClientTypeLoader.ReplaceWarning.NoInfo";
-    t[51955] = "Tabelle nicht laden.";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_11 (java.lang.String[] t) {
+    t[51954] = "ClientTypeLoader.ReplaceWarning.NoInfo";
+    t[51955] = "Tabelle nicht laden.";
     t[51958] = "Statistics.XML.Element.InDownTimeTransporter";
     t[51959] = "StatistikTransporterPausenzeiten";
     t[51968] = "SystemInfo.Tools.NextStationTraining";

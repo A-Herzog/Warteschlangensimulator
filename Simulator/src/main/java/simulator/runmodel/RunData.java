@@ -101,7 +101,7 @@ public class RunData {
 	/**
 	 * Bei der zustandsabhängigen Erfassung der Zwischenankunftszeiten an den Stationen,
 	 * wie viele Zustände sollen maximal unterschieden werden?
-	 * @see RunElement#isInterarrivalByQueueStation()
+	 * @see RunElement#isInterarrivalByQueueStation(SimulationData)
 	 */
 	public static final int MAX_STATE_INTER_ARRIVAL_TIME_STATES=100;
 
@@ -625,7 +625,7 @@ public class RunData {
 				indicator.add(delta);
 
 				/* Pro Zustand */
-				if (station.isInterarrivalByQueueStation()) {
+				if (station.isInterarrivalByQueueStation(simData)) {
 					final int count=Math.min(data.clientsAtStationQueue,MAX_STATE_INTER_ARRIVAL_TIME_STATES);
 					indicator=(StatisticsDataPerformanceIndicator)cacheStationsInterarrivalTimeByState.get(station,count);
 					indicator.add(delta);

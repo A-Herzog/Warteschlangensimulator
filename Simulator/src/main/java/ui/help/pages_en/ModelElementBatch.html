@@ -25,7 +25,16 @@ can be dissolved by the <a href="ModelElementSeparate.html">Dissolve batch</a> e
 through the network ends for the clients ends at this point (because the two clients, for example, represent
 partial components that are combined into a larger element) and instead a new client object is created and
 started from this point.
-</p> 
+</p>
+
+<h2>Note on batch sizes</h2>
+
+<p>
+Batch sizes have to be positive integer numbers.
+Calculation expressions for the batch sizes can also be specified.
+If these contain variables or functions that are only valid in the simulation context, these are evaluated <b>once</b>b> at the start of the simulation.
+This means that the batch sizes set at a station do not change during a running simulation.
+</p>
 
 </body>
 </html>

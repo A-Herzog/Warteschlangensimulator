@@ -268,9 +268,10 @@ public abstract class RunElement {
 	/**
 	 * Erfassung der Zwischenankunftszeiten in Abhängigkeit von der Warteschlangenlänge?
 	 * @return	Zwischenankunftszeiten in Abhängigkeit von der Warteschlangenlänge
+	 * @param simData	Simulationsdatenobjekt
 	 * @see Statistics#stationsInterarrivalTimeByState
 	 */
-	public boolean isInterarrivalByQueueStation() {
+	public boolean isInterarrivalByQueueStation(final SimulationData simData) {
 		return false;
 	}
 

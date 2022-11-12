@@ -30,5 +30,14 @@ started from this point.
 Clients for whose type no batch formation rule is defined will pass the station without further delay.
 </p>
 
+<h2>Note on batch sizes</h2>
+
+<p>
+Batch sizes have to be positive integer numbers.
+Calculation expressions for the batch sizes can also be specified.
+If these contain variables or functions that are only valid in the simulation context, these are evaluated <b>once</b>b> at the start of the simulation.
+This means that the batch sizes set at a station do not change during a running simulation.
+</p>
+
 </body>
 </html>

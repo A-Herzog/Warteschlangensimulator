@@ -71,7 +71,7 @@ public class ModelElementBatchDialog extends ModelElementBaseDialog {
 	 */
 	@Override
 	protected JComponent getContentPanel() {
-		return batchRecordPanel=new BatchRecordPanel(((ModelElementBatch)element).getBatchRecord(),readOnly);
+		return batchRecordPanel=new BatchRecordPanel(((ModelElementBatch)element).getBatchRecord(),readOnly,element.getModel(),element.getSurface());
 	}
 
 	/**

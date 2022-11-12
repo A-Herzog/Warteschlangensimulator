@@ -19,6 +19,7 @@ import java.util.List;
 import java.util.Map;
 
 import language.Language;
+import mathtools.NumberTools;
 import simulator.builder.RunModelCreatorStatus;
 import simulator.coreelements.RunElementPassThrough;
 import simulator.editmodel.EditModel;
@@ -27,6 +28,7 @@ import simulator.events.StationLeaveEvent;
 import simulator.runmodel.RunDataClient;
 import simulator.runmodel.RunModel;
 import simulator.runmodel.SimulationData;
+import simulator.simparser.ExpressionCalc;
 import ui.modeleditor.coreelements.ModelElement;
 import ui.modeleditor.elements.BatchRecord;
 import ui.modeleditor.elements.ModelElementBatch;
@@ -42,12 +44,12 @@ public class RunElementBatchMulti extends RunElementPassThrough {
 	/**
 	 * Minimale Batch-Größe pro Kundentyp (Einträge haben nur eine Bedeutung, wenn der zugehörige <code>batchMode</code>-Eintrag ungleich <code>null</code> ist)
 	 */
-	public int[] batchSizeMin;
+	public String[] batchSizeMin;
 
 	/**
 	 * Maximale Batch-Größe pro Kundentyp (Einträge haben nur eine Bedeutung, wenn der zugehörige <code>batchMode</code>-Eintrag ungleich <code>null</code> ist)
 	 */
-	public int[] batchSizeMax;
+	public String[] batchSizeMax;
 
 	/**
 	 * Batch-Modus pro Kundentyp (Einträge können <code>null</code> sein, wenn Kunden des Typs nicht gebatcht werden sollen)
@@ -79,8 +81,8 @@ public class RunElementBatchMulti extends RunElementPassThrough {
 
 		/* Batch-Bildung */
 
-		batch.batchSizeMin=new int[runModel.clientTypes.length];
-		batch.batchSizeMax=new int[runModel.clientTypes.length];
+		batch.batchSizeMin=new String[runModel.clientTypes.length];
+		batch.batchSizeMax=new String[runModel.clientTypes.length];
 		batch.batchMode=new BatchRecord.BatchMode[runModel.clientTypes.length];
 		batch.newClientType=new int[runModel.clientTypes.length];
 		for (Map.Entry<String,BatchRecord> entry: batchElement.getBatchRecords().entrySet()) {
@@ -90,16 +92,32 @@ public class RunElementBatchMulti extends RunElementPassThrough {
 			final BatchRecord batchRecord=entry.getValue();
 
 			switch (batchRecord.getBatchSizeMode()) {
+
 			case FIXED:
-				batch.batchSizeMin[index]=batchRecord.getBatchSizeFixed();
-				if (batch.batchSizeMin[index]<=0) return String.format(Language.tr("Simulation.Creator.InvalidBatchSize"),element.getId());
-				batch.batchSizeMax[index]=batchRecord.getBatchSizeFixed();
+				final String valueStr=batchRecord.getBatchSizeFixed();
+
+				final Double D=NumberTools.getDouble(valueStr);
+				if (D!=null && Math.round(D)<=0) return String.format(Language.tr("Simulation.Creator.InvalidBatchSize"),element.getId());
+
+				if (ExpressionCalc.check(valueStr,runModel.variableNames)>=0) return String.format(Language.tr("Simulation.Creator.InvalidBatchSize"),element.getId());
+
+				batch.batchSizeMin[index]=valueStr;
+				batch.batchSizeMax[index]=valueStr;
 				break;
 			case RANGE:
-				batch.batchSizeMin[index]=batchRecord.getBatchSizeMin();
-				if (batch.batchSizeMin[index]<=0) return String.format(Language.tr("Simulation.Creator.InvalidBatchSize"),element.getId());
-				batch.batchSizeMax[index]=batchRecord.getBatchSizeMax();
-				if (batch.batchSizeMax[index]<batch.batchSizeMin[index]) return String.format(Language.tr("Simulation.Creator.InvalidMaximumBatchSize"),element.getId());
+				final String minStr=batchRecord.getBatchSizeMin();
+				final String maxStr=batchRecord.getBatchSizeMax();
+
+				final Double min=NumberTools.getDouble(minStr);
+				final Double max=NumberTools.getDouble(maxStr);
+				if (min!=null && Math.round(min)<=0) return String.format(Language.tr("Simulation.Creator.InvalidBatchSize"),element.getId());
+				if (min!=null && max!=null && Math.round(max)<Math.round(min)) return String.format(Language.tr("Simulation.Creator.InvalidMaximumBatchSize"),element.getId());
+
+				if (ExpressionCalc.check(minStr,runModel.variableNames)>=0) return String.format(Language.tr("Simulation.Creator.InvalidBatchSize"),element.getId());
+				if (ExpressionCalc.check(maxStr,runModel.variableNames)>=0) return String.format(Language.tr("Simulation.Creator.InvalidMaximumBatchSize"),element.getId());
+
+				batch.batchSizeMin[index]=minStr;
+				batch.batchSizeMax[index]=maxStr;
 				break;
 			}
 
@@ -134,11 +152,14 @@ public class RunElementBatchMulti extends RunElementPassThrough {
 			final BatchRecord batchRecord=entry.getValue();
 			switch (batchRecord.getBatchSizeMode()) {
 			case FIXED:
-				if (batchRecord.getBatchSizeFixed()<=0) return new RunModelCreatorStatus(String.format(Language.tr("Simulation.Creator.InvalidBatchSize"),element.getId()),RunModelCreatorStatus.Status.FIXED_BATCH_SIZE_LOWER_THAN_1);
+				final Double D=NumberTools.getDouble(batchRecord.getBatchSizeMin());
+				if (D!=null && Math.round(D)<=0) return new RunModelCreatorStatus(String.format(Language.tr("Simulation.Creator.InvalidBatchSize"),element.getId()),RunModelCreatorStatus.Status.FIXED_BATCH_SIZE_LOWER_THAN_1);
 				break;
 			case RANGE:
-				if (batchRecord.getBatchSizeMin()<=0) return new RunModelCreatorStatus(String.format(Language.tr("Simulation.Creator.InvalidBatchSize"),element.getId()),RunModelCreatorStatus.Status.MIN_BATCH_SIZE_LOWER_THAN_1);
-				if (batchRecord.getBatchSizeMax()<batchRecord.getBatchSizeMin()) return new RunModelCreatorStatus(String.format(Language.tr("Simulation.Creator.InvalidMaximumBatchSize"),element.getId()),RunModelCreatorStatus.Status.MAX_BATCH_SIZE_LOWER_THAN_MIN);
+				final Double min=NumberTools.getDouble(batchRecord.getBatchSizeMin());
+				final Double max=NumberTools.getDouble(batchRecord.getBatchSizeMax());
+				if (min!=null && Math.round(min)<=0) return new RunModelCreatorStatus(String.format(Language.tr("Simulation.Creator.InvalidBatchSize"),element.getId()),RunModelCreatorStatus.Status.MIN_BATCH_SIZE_LOWER_THAN_1);
+				if (min!=null && max!=null && Math.round(max)<Math.round(min)) return new RunModelCreatorStatus(String.format(Language.tr("Simulation.Creator.InvalidMaximumBatchSize"),element.getId()),RunModelCreatorStatus.Status.MAX_BATCH_SIZE_LOWER_THAN_MIN);
 				break;
 			}
 		}
@@ -151,7 +172,7 @@ public class RunElementBatchMulti extends RunElementPassThrough {
 		RunElementBatchMultiData data;
 		data=(RunElementBatchMultiData)(simData.runData.getStationData(this));
 		if (data==null) {
-			data=new RunElementBatchMultiData(this);
+			data=new RunElementBatchMultiData(this,simData);
 			simData.runData.setStationData(this,data);
 		}
 		return data;
@@ -324,7 +345,7 @@ public class RunElementBatchMulti extends RunElementPassThrough {
 	 * @param newClient	Aktuell gerade eingetroffener Kunde (kann <code>null</code> sein)
 	 */
 	private void processSend(final SimulationData simData, final RunElementBatchMultiData data, final RunDataClient newClient) {
-		for (int i=0;i<batchMode.length;i++) if (batchMode[i]!=null && data.waiting[i]>=batchSizeMin[i]) {
+		for (int i=0;i<batchMode.length;i++) if (batchMode[i]!=null && data.waiting[i]>=data.batchSizeMin[i]) {
 			switch (batchMode[i]) {
 			case BATCH_MODE_COLLECT:
 				processSendMultipleClients(simData,data,i,newClient);

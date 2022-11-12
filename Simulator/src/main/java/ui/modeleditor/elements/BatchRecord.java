@@ -21,7 +21,6 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 import language.Language;
-import mathtools.NumberTools;
 import simulator.editmodel.FullTextSearch;
 import ui.modeleditor.coreelements.ModelElementBox;
 import ui.modeleditor.descriptionbuilder.ModelDescriptionBuilder;
@@ -64,11 +63,11 @@ public class BatchRecord implements Cloneable {
 	}
 
 	/** Feste Batch-Größe */
-	private int batchSizeFixed;
+	private String batchSizeFixed;
 	/** Minimale Batch-Größe im Fall einer variablen Batch-Größe */
-	private int batchSizeMin;
+	private String batchSizeMin;
 	/** Maximale Batch-Größe im Fall einer variablen Batch-Größe */
-	private int batchSizeMax;
+	private String batchSizeMax;
 	/** Art der Batch-Bildung */
 	private BatchMode batchMode;
 	/** Feste oder variable Batch-Größe */
@@ -80,9 +79,9 @@ public class BatchRecord implements Cloneable {
 	 * Konstruktor der Klasse
 	 */
 	public BatchRecord() {
-		batchSizeMin=1;
-		batchSizeMax=1;
-		batchSizeFixed=1;
+		batchSizeMin="1";
+		batchSizeMax="1";
+		batchSizeFixed="1";
 		batchMode=BatchMode.BATCH_MODE_COLLECT;
 		batchSizeMode=BatchSizeMode.FIXED;
 		newClientType="";
@@ -104,11 +103,11 @@ public class BatchRecord implements Cloneable {
 
 		switch (batchSizeMode) {
 		case FIXED:
-			if (batchSizeFixed!=otherBatchRecord.batchSizeFixed) return false;
+			if (!batchSizeFixed.equals(otherBatchRecord.batchSizeFixed)) return false;
 			break;
 		case RANGE:
-			if (batchSizeMin!=otherBatchRecord.batchSizeMin) return false;
-			if (batchSizeMax!=otherBatchRecord.batchSizeMax) return false;
+			if (!batchSizeMin.equals(otherBatchRecord.batchSizeMin)) return false;
+			if (!batchSizeMax.equals(otherBatchRecord.batchSizeMax)) return false;
 			break;
 		}
 
@@ -218,7 +217,7 @@ public class BatchRecord implements Cloneable {
 	 * @return	Batch-Größe
 	 * @see BatchSizeMode
 	 */
-	public int getBatchSizeFixed() {
+	public String getBatchSizeFixed() {
 		return batchSizeFixed;
 	}
 
@@ -227,8 +226,8 @@ public class BatchRecord implements Cloneable {
 	 * @param batchSizeFixed	Neue Batch-Größe
 	 * @see BatchSizeMode
 	 */
-	public void setBatchSizeFixed(int batchSizeFixed) {
-		this.batchSizeFixed=batchSizeFixed;
+	public void setBatchSizeFixed(final String batchSizeFixed) {
+		this.batchSizeFixed=(batchSizeFixed==null)?"1":batchSizeFixed;
 	}
 
 
@@ -237,7 +236,7 @@ public class BatchRecord implements Cloneable {
 	 * @return Minimale Batch-Größe
 	 * @see BatchSizeMode
 	 */
-	public int getBatchSizeMin() {
+	public String getBatchSizeMin() {
 		return batchSizeMin;
 	}
 
@@ -246,7 +245,7 @@ public class BatchRecord implements Cloneable {
 	 * @return Maximale Batch-Größe
 	 * @see BatchSizeMode
 	 */
-	public int getBatchSizeMax() {
+	public String getBatchSizeMax() {
 		return batchSizeMax;
 	}
 
@@ -255,8 +254,8 @@ public class BatchRecord implements Cloneable {
 	 * @param batchSizeMin	Neue minimale Batch-Größe
 	 * @see BatchSizeMode
 	 */
-	public void setBatchSizeMin(final int batchSizeMin) {
-		if (batchSizeMin>=1) this.batchSizeMin=batchSizeMin;
+	public void setBatchSizeMin(final String batchSizeMin) {
+		this.batchSizeMin=(batchSizeMin==null)?"0":batchSizeMin;
 	}
 
 	/**
@@ -264,8 +263,8 @@ public class BatchRecord implements Cloneable {
 	 * @param batchSizeMax	Neue maximale Batch-Größe
 	 * @see BatchSizeMode
 	 */
-	public void setBatchSizeMax(final int batchSizeMax) {
-		if (batchSizeMax>=1) this.batchSizeMax=batchSizeMax;
+	public void setBatchSizeMax(final String batchSizeMax) {
+		this.batchSizeMax=(batchSizeMax==null)?"1":batchSizeMax;
 	}
 
 	/**
@@ -309,12 +308,12 @@ public class BatchRecord implements Cloneable {
 		switch (batchSizeMode) {
 		case FIXED:
 			node.appendChild(sub=doc.createElement(Language.trPrimary("Surface.Batch.XML.Batch")));
-			sub.setAttribute(Language.trPrimary("Surface.Batch.XML.Batch.Size"),""+batchSizeFixed);
+			sub.setAttribute(Language.trPrimary("Surface.Batch.XML.Batch.Size"),batchSizeFixed);
 			break;
 		case RANGE:
 			node.appendChild(sub=doc.createElement(Language.trPrimary("Surface.Batch.XML.Batch")));
-			sub.setAttribute(Language.trPrimary("Surface.Batch.XML.Batch.SizeMin"),""+batchSizeMin);
-			sub.setAttribute(Language.trPrimary("Surface.Batch.XML.Batch.SizeMax"),""+batchSizeMax);
+			sub.setAttribute(Language.trPrimary("Surface.Batch.XML.Batch.SizeMin"),batchSizeMin);
+			sub.setAttribute(Language.trPrimary("Surface.Batch.XML.Batch.SizeMax"),batchSizeMax);
 			break;
 		}
 	}
@@ -348,27 +347,19 @@ public class BatchRecord implements Cloneable {
 
 			size=Language.trAllAttribute("Surface.Batch.XML.Batch.SizeMin",node);
 			if (!size.isEmpty()) {
-				final Long L=NumberTools.getPositiveLong(size);
-				if (L==null) return String.format(Language.tr("Surface.XML.AttributeSubError"),Language.trPrimary("Surface.Batch.XML.Batch.SizeMin"),name,node.getParentNode().getNodeName());
-				batchSizeMin=(int)((long)L);
-				if (batchSizeMax<batchSizeMin) batchSizeMax=batchSizeMin;
+				batchSizeMin=size;
 				batchSizeMode=BatchSizeMode.RANGE;
 			}
 
 			size=Language.trAllAttribute("Surface.Batch.XML.Batch.SizeMax",node);
 			if (!size.isEmpty()) {
-				final Long L=NumberTools.getPositiveLong(size);
-				if (L==null) return String.format(Language.tr("Surface.XML.AttributeSubError"),Language.trPrimary("Surface.Batch.XML.Batch.SizeMax"),name,node.getParentNode().getNodeName());
-				batchSizeMax=(int)((long)L);
-				if (batchSizeMin>batchSizeMax) batchSizeMin=batchSizeMax;
+				batchSizeMax=size;
 				batchSizeMode=BatchSizeMode.RANGE;
 			}
 
 			size=Language.trAllAttribute("Surface.Batch.XML.Batch.Size",node);
 			if (!size.isEmpty()) {
-				final Long L=NumberTools.getPositiveLong(size);
-				if (L==null) return String.format(Language.tr("Surface.XML.AttributeSubError"),Language.trPrimary("Surface.Batch.XML.Batch.Size"),name,node.getParentNode().getNodeName());
-				batchSizeFixed=(int)((long)L);
+				batchSizeFixed=size;
 				batchSizeMode=BatchSizeMode.FIXED;
 			}
 
@@ -460,13 +451,13 @@ public class BatchRecord implements Cloneable {
 		/* Batchgröße */
 		switch (batchSizeMode) {
 		case FIXED:
-			descriptionBuilder.addProperty(Language.tr("ModelDescription.Batch.Size"),""+batchSizeFixed,level+1);
+			descriptionBuilder.addProperty(Language.tr("ModelDescription.Batch.Size"),batchSizeFixed,level+1);
 			break;
 		case RANGE:
 			if (batchSizeMin==batchSizeMax) {
-				descriptionBuilder.addProperty(Language.tr("ModelDescription.Batch.Size"),""+batchSizeMin,level+1);
+				descriptionBuilder.addProperty(Language.tr("ModelDescription.Batch.Size"),batchSizeMin,level+1);
 			} else {
-				descriptionBuilder.addProperty(Language.tr("ModelDescription.Batch.Size"),""+batchSizeMin+".."+batchSizeMax,level+1);
+				descriptionBuilder.addProperty(Language.tr("ModelDescription.Batch.Size"),batchSizeMin+".."+batchSizeMax,level+1);
 			}
 			break;
 		}
@@ -494,10 +485,10 @@ public class BatchRecord implements Cloneable {
 
 		/* Batch-Größe */
 		if (batchSizeMode==BatchSizeMode.FIXED) {
-			searcher.testInteger(station,Language.tr("Surface.Batch.Dialog.BatchSizeFixed")+addon,batchSizeFixed,newBatchSizeFixed->{if (newBatchSizeFixed>0) batchSizeFixed=newBatchSizeFixed;});
+			searcher.testString(station,Language.tr("Surface.Batch.Dialog.BatchSizeFixed")+addon,batchSizeFixed,newBatchSizeFixed->{if (newBatchSizeFixed!=null) batchSizeFixed=newBatchSizeFixed;});
 		} else {
-			searcher.testInteger(station,Language.tr("Surface.Batch.Dialog.BatchSizeMin")+addon,batchSizeMin,newBatchSizeMin->{if (newBatchSizeMin>0) batchSizeMin=newBatchSizeMin;});
-			searcher.testInteger(station,Language.tr("Surface.Batch.Dialog.BatchSizeMax")+addon,batchSizeMax,newBatchSizeMax->{if (newBatchSizeMax>0) batchSizeMax=newBatchSizeMax;});
+			searcher.testString(station,Language.tr("Surface.Batch.Dialog.BatchSizeMin")+addon,batchSizeMin,newBatchSizeMin->{if (newBatchSizeMin!=null) batchSizeMin=newBatchSizeMin;});
+			searcher.testString(station,Language.tr("Surface.Batch.Dialog.BatchSizeMax")+addon,batchSizeMax,newBatchSizeMax->{if (newBatchSizeMax!=null) batchSizeMax=newBatchSizeMax;});
 		}
 
 		/* Neuer Kundentyp */

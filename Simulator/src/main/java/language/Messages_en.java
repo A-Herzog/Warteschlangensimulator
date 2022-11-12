@@ -9119,7 +9119,7 @@ public class Messages_en extends java.util.ResourceBundle {
     t[21868] = "Transporter.Group.Edit.Dialog.Failure.Distance.Error.Info";
     t[21869] = "The specified value for the failures by distance is invalid. A positive number has to be entered.";
     t[21870] = "Surface.Batch.Dialog.BatchSize.Error.InfoMax";
-    t[21871] = "The specified value \"%s\" for the maximum batch size is invalid. A positive integer number has to be entered.";
+    t[21871] = "The specified value \"%s\" for the maximum batch size is invalid. A positive integer number or a calculation expression has to be entered.";
     t[21872] = "CommandLine.Benchmark.Threads";
     t[21873] = "Threads";
     t[21874] = "SimulationServer.Toolbar.MQTTStop.Hint";
@@ -9325,7 +9325,7 @@ public class Messages_en extends java.util.ResourceBundle {
     t[22342] = "Statistics.AverageClientsInSystemInProcess";
     t[22343] = "Average number of clients in the system in service process";
     t[22346] = "Surface.Batch.Dialog.BatchSize.Error.InfoMin";
-    t[22347] = "The specified value \"%s\" for the minimum batch size is invalid. A positive integer number has to be entered.";
+    t[22347] = "The specified value \"%s\" for the minimum batch size is invalid. A positive integer number has or a calculation expression has to be entered.";
     t[22348] = "Main.Menu.Edit.MoveBack.Mnemonic";
     t[22349] = "B";
     t[22350] = "Transporters.Group.Edit.Dialog.Capacity.ErrorInfo";
@@ -10181,7 +10181,7 @@ public class Messages_en extends java.util.ResourceBundle {
     t[24352] = "Surface.Action.XML.Record.ActionType.Java";
     t[24353] = "Java";
     t[24354] = "Surface.Batch.Dialog.BatchSize.Error.InfoFixed";
-    t[24355] = "The specified value \"%s\" for the batch size is invalid. A positive integer number has to be entered.";
+    t[24355] = "The specified value \"%s\" for the batch size is invalid. A positive integer number or a calculation expression has to be entered.";
     t[24360] = "Surface.AnimationPointerMeasuring.Dialog.YellowAreaStartValue.Error.Title";
     t[24361] = "Invalid yellow area";
     t[24362] = "Animation.Icon.FlagRed";
@@ -21260,6 +21260,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[50121] = "csv files";
     t[50122] = "Git.List.DialogHint";
     t[50123] = "In this dialog, Git directories can be defined. If a file is stored in such a directory in the simulator, it can be transferred to the associated Git repository automatically.";
+    t[50126] = "Surface.Batch.Dialog.BatchSizeInfo";
+    t[50127] = "Calculation expressions for the batch size are evaluated once at the beginning of the simulation (with the then valid variable assignment).<br>The batch size specifications do not change during a running simulation.";
     t[50134] = "Surface.AnimationPointerMeasuring.Dialog.RedAreaStartValue.Error.Info";
     t[50135] = "The specified start value for the red area \"%s\" is invalid. A non negative integer number has to be specified.";
     t[50146] = "Statistics.ErlangCompare.SimulationDelta";
@@ -22068,14 +22070,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[51945] = "Diagram titel";
     t[51952] = "Surface.PopupMenu.ParameterCompare.ChangeOperatorCount.Short";
     t[51953] = "Number of operators";
-    t[51954] = "ClientTypeLoader.ReplaceWarning.NoInfo";
-    t[51955] = "Do not load table.";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_11 (java.lang.String[] t) {
+    t[51954] = "ClientTypeLoader.ReplaceWarning.NoInfo";
+    t[51955] = "Do not load table.";
     t[51958] = "Statistics.XML.Element.InDownTimeTransporter";
     t[51959] = "StatisticsTransporterDownTimes";
     t[51968] = "SystemInfo.Tools.NextStationTraining";

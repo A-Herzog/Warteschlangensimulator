@@ -381,7 +381,7 @@ public class RunModelFixerHelper {
 					element,
 					status,
 					Language.tr("Surface.PopupMenu.QuickFix.Batch.SetFixed1"),
-					fix->batch.getBatchRecord().setBatchSizeFixed(1)
+					fix->batch.getBatchRecord().setBatchSizeFixed("1")
 					));
 		}
 		return options;
@@ -402,7 +402,7 @@ public class RunModelFixerHelper {
 					element,
 					status,
 					Language.tr("Surface.PopupMenu.QuickFix.Batch.SetMin1"),
-					fix->batch.getBatchRecord().setBatchSizeMin(1)
+					fix->batch.getBatchRecord().setBatchSizeMin("1")
 					));
 		}
 		return options;
@@ -419,7 +419,7 @@ public class RunModelFixerHelper {
 		final List<RunModelFixer> options=new ArrayList<>();
 		if (element instanceof ModelElementBatch) {
 			final ModelElementBatch batch=(ModelElementBatch)element;
-			final int value=batch.getBatchRecord().getBatchSizeMin();
+			final String value=batch.getBatchRecord().getBatchSizeMin();
 			options.add(new RunModelFixer(
 					element,
 					status,

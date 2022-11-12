@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-11-09 13:19+0100\n"
+"POT-Creation-Date: 2022-11-12 21:23+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -26003,13 +26003,13 @@ msgid "Surface.Batch.BatchSize.ClientSingular"
 msgstr "client"
 
 msgid "Surface.Batch.Dialog.BatchSize.Error.InfoFixed"
-msgstr "The specified value \"%s\" for the batch size is invalid. A positive integer number has to be entered."
+msgstr "The specified value \"%s\" for the batch size is invalid. A positive integer number or a calculation expression has to be entered."
 
 msgid "Surface.Batch.Dialog.BatchSize.Error.InfoMax"
-msgstr "The specified value \"%s\" for the maximum batch size is invalid. A positive integer number has to be entered."
+msgstr "The specified value \"%s\" for the maximum batch size is invalid. A positive integer number or a calculation expression has to be entered."
 
 msgid "Surface.Batch.Dialog.BatchSize.Error.InfoMin"
-msgstr "The specified value \"%s\" for the minimum batch size is invalid. A positive integer number has to be entered."
+msgstr "The specified value \"%s\" for the minimum batch size is invalid. A positive integer number has or a calculation expression has to be entered."
 
 msgid "Surface.Batch.Dialog.BatchSize.Error.InfoRange"
 msgstr "The specified minimum batch size %d is smaller than the specified maximum batch size %d."
@@ -26019,6 +26019,9 @@ msgstr "Invalid batch size"
 
 msgid "Surface.Batch.Dialog.BatchSizeFixed"
 msgstr "Batch size"
+
+msgid "Surface.Batch.Dialog.BatchSizeInfo"
+msgstr "Calculation expressions for the batch size are evaluated once at the beginning of the simulation (with the then valid variable assignment).<br>The batch size specifications do not change during a running simulation."
 
 msgid "Surface.Batch.Dialog.BatchSizeMax"
 msgstr "Maximum batch size"

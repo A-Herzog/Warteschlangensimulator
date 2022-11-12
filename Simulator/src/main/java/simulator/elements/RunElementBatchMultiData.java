@@ -15,8 +15,12 @@
  */
 package simulator.elements;
 
+import language.Language;
+import parser.MathCalcError;
 import simulator.coreelements.RunElementData;
 import simulator.runmodel.RunDataClient;
+import simulator.runmodel.SimulationData;
+import simulator.simparser.ExpressionCalc;
 
 /**
  * Laufzeitdaten eines {@link RunElementBatchMulti}-Laufzeit-Objekts
@@ -26,10 +30,14 @@ import simulator.runmodel.RunDataClient;
  */
 public class RunElementBatchMultiData extends RunElementData {
 	/**
-	 * Minimale Batch-Größen<br>
-	 * (die maximalen Batch-Größen ergeben sich implizit aus z.B. der Länge von {@link #clients})
+	 * Minimale Batch-Größen
 	 */
-	private int[] batchSizeMin;
+	public final int[] batchSizeMin;
+
+	/**
+	 * Maximale Batch-Größen
+	 */
+	public final int[] batchSizeMax;
 
 	/**
 	 * Liste der wartenden Kunden (pro Kundentyp)<br>
@@ -58,22 +66,59 @@ public class RunElementBatchMultiData extends RunElementData {
 	/**
 	 * Konstruktor der Klasse
 	 * @param station	Station zu diesem Datenelement
+	 * @param simData	Simulationsdatenobjekt
 	 */
-	public RunElementBatchMultiData(final RunElementBatchMulti station) {
+	public RunElementBatchMultiData(final RunElementBatchMulti station, final SimulationData simData) {
 		super(station);
 
 		batchSizeMin=new int[station.batchMode.length];
+		batchSizeMax=new int[station.batchMode.length];
 		clients=new RunDataClient[station.batchMode.length][];
 		clientAddTime=new long[station.batchMode.length][];
 		waiting=new int[station.batchMode.length];
+		waitingTotal=0;
 
 		for (int i=0;i<station.batchMode.length;i++) if (station.batchMode[i]!=null) {
-			batchSizeMin[i]=station.batchSizeMin[i];
-			clients[i]=new RunDataClient[station.batchSizeMax[i]];
-			clientAddTime[i]=new long[station.batchSizeMax[i]];
+			batchSizeMin[i]=1;
+			batchSizeMin[i]=2;
+			clients[i]=new RunDataClient[1];
+			clientAddTime[i]=new long[1];
 		}
 
-		waitingTotal=0;
+		for (int i=0;i<station.batchMode.length;i++) if (station.batchMode[i]!=null) {
+			ExpressionCalc calc;
+			final Double min, max;
+
+			calc=new ExpressionCalc(simData.runModel.variableNames);
+			calc.parse(station.batchSizeMin[i]);
+			try {
+				min=calc.calc(simData.runData.variableValues,simData,null);
+			} catch (MathCalcError e) {
+				simData.doEmergencyShutDown(String.format(Language.tr("Simulation.Creator.InvalidBatchSize"),station.id));
+				return;
+			}
+
+			calc=new ExpressionCalc(simData.runModel.variableNames);
+			calc.parse(station.batchSizeMax[i]);
+			try {
+				max=calc.calc(simData.runData.variableValues,simData,null);
+			} catch (MathCalcError e) {
+				simData.doEmergencyShutDown(String.format(Language.tr("Simulation.Creator.InvalidBatchSize"),station.id));
+				return;
+			}
+
+			final int minInt=min.intValue();
+			final int maxInt=max.intValue();
+			if (minInt>maxInt) {
+				simData.doEmergencyShutDown(String.format(Language.tr("Simulation.Creator.InvalidMaximumBatchSize"),station.id));
+				return;
+			}
+
+			batchSizeMin[i]=minInt;
+			batchSizeMax[i]=maxInt;
+			clients[i]=new RunDataClient[maxInt];
+			clientAddTime[i]=new long[maxInt];
+		}
 	}
 
 	/**

@@ -608,7 +608,7 @@ public class RunElementMatch extends RunElementPassThrough {
 	}
 
 	@Override
-	public boolean isInterarrivalByQueueStation() {
+	public boolean isInterarrivalByQueueStation(final SimulationData simData) {
 		return true;
 	}
 }

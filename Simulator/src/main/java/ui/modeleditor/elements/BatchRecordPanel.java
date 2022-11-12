@@ -31,7 +31,11 @@ import javax.swing.JTextField;
 
 import language.Language;
 import mathtools.NumberTools;
+import simulator.editmodel.EditModel;
+import simulator.simparser.ExpressionCalc;
 import systemtools.MsgBox;
+import ui.modeleditor.ModelElementBaseDialog;
+import ui.modeleditor.ModelSurface;
 
 /**
  * In diesem Panel können die Daten eines einzelnen Batch-Datensatzes bearbeitet werden.
@@ -47,6 +51,9 @@ public class BatchRecordPanel extends JPanel {
 
 	/** Batch-Datensatz der in diesem Panel zum Bearbeiten angeboten werden soll */
 	private final BatchRecord batchRecord;
+
+	/** Namen aller modellweit verfügbaren Variablennamen */
+	private String[] variableNames;
 
 	/** Soll der Datensatz aktiv sein? */
 	private JCheckBox active;
@@ -77,10 +84,14 @@ public class BatchRecordPanel extends JPanel {
 	 * @param batchRecord	Batch-Datensatz der in diesem Panel zum Bearbeiten angeboten werden soll
 	 * @param readOnly	Nur-Lese-Status
 	 * @param useActiveCheckbox	Soll eine Checkbox zum Aktivieren/Deaktivieren dieses Datensatzes angezeigt werden?
+	 * @param model	Editor-Modell (für Expression-Builder)
+	 * @param surface	Zeichenfläche (für Expression-Builder)
 	 */
-	public BatchRecordPanel(final BatchRecord batchRecord, final boolean readOnly, final boolean useActiveCheckbox) {
+	public BatchRecordPanel(final BatchRecord batchRecord, final boolean readOnly, final boolean useActiveCheckbox, final EditModel model, final ModelSurface surface) {
 		super();
 		this.batchRecord=batchRecord;
+
+		variableNames=surface.getMainSurfaceVariableNames(model.getModelVariableNames(),false);
 
 		setLayout(new BoxLayout(this,BoxLayout.PAGE_AXIS));
 
@@ -103,7 +114,7 @@ public class BatchRecordPanel extends JPanel {
 		modeFixed.setEnabled(!readOnly);
 
 		line.add(label=new JLabel(Language.tr("Surface.Batch.Dialog.BatchSizeFixed")+":"));
-		line.add(batchFieldFixed=new JTextField(4));
+		line.add(batchFieldFixed=new JTextField(10));
 		batchFieldFixed.setEditable(!readOnly);
 		batchFieldFixed.setText(""+batchRecord.getBatchSizeFixed());
 		label.setLabelFor(batchFieldFixed);
@@ -112,6 +123,7 @@ public class BatchRecordPanel extends JPanel {
 			@Override public void keyReleased(KeyEvent e) {setActive(); modeFixed.setSelected(true); checkData(false);}
 			@Override public void keyPressed(KeyEvent e) {setActive(); modeFixed.setSelected(true); checkData(false);}
 		});
+		if (!readOnly) line.add(ModelElementBaseDialog.getExpressionEditButton(this,batchFieldFixed,false,false,model,surface));
 
 		add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
 
@@ -119,7 +131,7 @@ public class BatchRecordPanel extends JPanel {
 		modeRange.setEnabled(!readOnly);
 
 		line.add(label=new JLabel(Language.tr("Surface.Batch.Dialog.BatchSizeMin")+":"));
-		line.add(batchFieldMin=new JTextField(4));
+		line.add(batchFieldMin=new JTextField(10));
 		batchFieldMin.setEditable(!readOnly);
 		batchFieldMin.setText(""+batchRecord.getBatchSizeMin());
 		label.setLabelFor(batchFieldMin);
@@ -128,9 +140,10 @@ public class BatchRecordPanel extends JPanel {
 			@Override public void keyReleased(KeyEvent e) {setActive(); modeRange.setSelected(true); checkData(false);}
 			@Override public void keyPressed(KeyEvent e) {setActive(); modeRange.setSelected(true); checkData(false);}
 		});
+		if (!readOnly) line.add(ModelElementBaseDialog.getExpressionEditButton(this,batchFieldMin,false,false,model,surface));
 
 		line.add(label=new JLabel(Language.tr("Surface.Batch.Dialog.BatchSizeMax")+":"));
-		line.add(batchFieldMax=new JTextField(4));
+		line.add(batchFieldMax=new JTextField(10));
 		batchFieldMax.setEditable(!readOnly);
 		batchFieldMax.setText(""+batchRecord.getBatchSizeMax());
 		label.setLabelFor(batchFieldMax);
@@ -139,10 +152,14 @@ public class BatchRecordPanel extends JPanel {
 			@Override public void keyReleased(KeyEvent e) {setActive(); modeRange.setSelected(true); checkData(false);}
 			@Override public void keyPressed(KeyEvent e) {setActive(); modeRange.setSelected(true); checkData(false);}
 		});
+		if (!readOnly) line.add(ModelElementBaseDialog.getExpressionEditButton(this,batchFieldMax,false,false,model,surface));
 
 		buttonGroup=new ButtonGroup();
 		buttonGroup.add(modeFixed);
 		buttonGroup.add(modeRange);
+
+		add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
+		line.add(new JLabel("<html><body>"+Language.tr("Surface.Batch.Dialog.BatchSizeInfo")+"</body></html>"));
 
 		add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
 		line.add(new JLabel("<html><body><b>"+Language.tr("Surface.Batch.Dialog.SendMode.Heading")+"</b></body></html>"));
@@ -200,9 +217,11 @@ public class BatchRecordPanel extends JPanel {
 	 * Konstruktor der Klasse
 	 * @param batchRecord	Batch-Datensatz der in diesem Panel zum Bearbeiten angeboten werden soll
 	 * @param readOnly	Nur-Lese-Status
+	 * @param model	Editor-Modell (für Expression-Builder)
+	 * @param surface	Zeichenfläche (für Expression-Builder)
 	 */
-	public BatchRecordPanel(final BatchRecord batchRecord, final boolean readOnly) {
-		this(batchRecord,readOnly,false);
+	public BatchRecordPanel(final BatchRecord batchRecord, final boolean readOnly, final EditModel model, final ModelSurface surface) {
+		this(batchRecord,readOnly,false,model,surface);
 	}
 
 	/**
@@ -244,45 +263,91 @@ public class BatchRecordPanel extends JPanel {
 
 		if (active!=null && !active.isSelected()) return true;
 
+		/* Fester Wert */
 		if (modeFixed.isSelected()) {
-			final Long L=NumberTools.getPositiveLong(batchFieldFixed,true);
-			if (L==null) {
+			boolean error=false;
+			final String value=batchFieldFixed.getText().trim();
+			if (ExpressionCalc.check(value,variableNames)>=0) {
+				error=true;
+			} else {
+				final Double D=NumberTools.getDouble(batchFieldFixed,true);
+				if (D!=null) {
+					if (Math.round(D)<1) error=true;
+				}
+			}
+			if (error) {
+				batchFieldFixed.setBackground(Color.RED);
 				if (showErrorMessage) {
-					MsgBox.error(this,Language.tr("Surface.Batch.Dialog.BatchSize.Error.Title"),String.format(Language.tr("Surface.Batch.Dialog.BatchSize.Error.InfoFixed"),batchFieldFixed.getText()));
+					MsgBox.error(this,Language.tr("Surface.Batch.Dialog.BatchSize.Error.Title"),String.format(Language.tr("Surface.Batch.Dialog.BatchSize.Error.InfoFixed"),value));
 					return false;
 				}
 				ok=false;
+			} else {
+				batchFieldFixed.setBackground(NumberTools.getTextFieldDefaultBackground());
 			}
+		} else {
+			batchFieldFixed.setBackground(NumberTools.getTextFieldDefaultBackground());
 		}
 
+		/* Bereich */
 		if (modeRange.isSelected()) {
-			final Long Lmin=NumberTools.getPositiveLong(batchFieldMin,true);
-			if (Lmin==null) {
+			boolean error1=false;
+			boolean error2=false;
+			Integer min=null;
+			Integer max=null;
+			final String minStr=batchFieldMin.getText().trim();
+			final String maxStr=batchFieldMax.getText().trim();
+
+			if (ExpressionCalc.check(minStr,variableNames)>=0) {
+				error1=true;
+			} else {
+				final Double D=NumberTools.getDouble(batchFieldMin,true);
+				if (D!=null) {
+					if (Math.round(D)<1) error1=true; else min=(int)Math.round(D);
+				}
+			}
+			if (error1) {
+				batchFieldMin.setBackground(Color.RED);
 				if (showErrorMessage) {
-					MsgBox.error(this,Language.tr("Surface.Batch.Dialog.BatchSize.Error.Title"),String.format(Language.tr("Surface.Batch.Dialog.BatchSize.Error.InfoMin"),batchFieldMin.getText()));
+					MsgBox.error(this,Language.tr("Surface.Batch.Dialog.BatchSize.Error.Title"),String.format(Language.tr("Surface.Batch.Dialog.BatchSize.Error.InfoMin"),minStr));
 					return false;
 				}
 				ok=false;
+			} else {
+				batchFieldMin.setBackground(NumberTools.getTextFieldDefaultBackground());
 			}
 
-			final Long Lmax=NumberTools.getPositiveLong(batchFieldMax,true);
-			if (Lmax==null) {
+			if (ExpressionCalc.check(maxStr,variableNames)>=0) {
+				error2=true;
+			} else {
+				final Double D=NumberTools.getDouble(batchFieldMax,true);
+				if (D!=null) {
+					if (Math.round(D)<1) error2=true; else max=(int)Math.round(D);
+				}
+			}
+			if (error2) {
+				batchFieldMax.setBackground(Color.RED);
 				if (showErrorMessage) {
-					MsgBox.error(this,Language.tr("Surface.Batch.Dialog.BatchSize.Error.Title"),String.format(Language.tr("Surface.Batch.Dialog.BatchSize.Error.InfoMax"),batchFieldMax.getText()));
+					MsgBox.error(this,Language.tr("Surface.Batch.Dialog.BatchSize.Error.Title"),String.format(Language.tr("Surface.Batch.Dialog.BatchSize.Error.InfoMax"),maxStr));
 					return false;
 				}
 				ok=false;
+			} else {
+				batchFieldMax.setBackground(NumberTools.getTextFieldDefaultBackground());
 			}
 
-			if (Lmin!=null && Lmax!=null && Lmin.longValue()>Lmax.longValue()) {
+			if (min!=null && max!=null && min>max) {
+				batchFieldMin.setBackground(Color.RED);
+				batchFieldMax.setBackground(Color.RED);
 				if (showErrorMessage) {
-					MsgBox.error(this,Language.tr("Surface.Batch.Dialog.BatchSize.Error.Title"),String.format(Language.tr("Surface.Batch.Dialog.BatchSize.Error.InfoRange"),Lmin.longValue(),Lmax.longValue()));
+					MsgBox.error(this,Language.tr("Surface.Batch.Dialog.BatchSize.Error.Title"),String.format(Language.tr("Surface.Batch.Dialog.BatchSize.Error.InfoRange"),min,max));
 					return false;
-				} else {
-					batchFieldMax.setBackground(Color.red);
 				}
 				ok=false;
 			}
+		} else {
+			batchFieldMin.setBackground(NumberTools.getTextFieldDefaultBackground());
+			batchFieldMax.setBackground(NumberTools.getTextFieldDefaultBackground());
 		}
 
 		if (optionNewType.isSelected() && newTypeField.getText().isEmpty()) {
@@ -306,23 +371,19 @@ public class BatchRecordPanel extends JPanel {
 
 	/**
 	 * Schreibt die Einstellungen in den im Konstruktor angegeben Batch-Datensatz zurück.
-	 * @see #BatchRecordPanel(BatchRecord, boolean)
+	 * @see #BatchRecordPanel(BatchRecord, boolean, EditModel, ModelSurface)
+	 * @see #BatchRecordPanel(BatchRecord, boolean, boolean, EditModel, ModelSurface)
 	 */
 	public void storeData() {
-		Long L;
-
 		if (modeFixed.isSelected()) {
 			batchRecord.setBatchSizeMode(BatchRecord.BatchSizeMode.FIXED);
-			L=NumberTools.getPositiveLong(batchFieldFixed,true);
-			if (L!=null) batchRecord.setBatchSizeFixed((int)((long)L));
+			batchRecord.setBatchSizeFixed(batchFieldFixed.getText().trim());
 		}
 
 		if (modeRange.isSelected()) {
 			batchRecord.setBatchSizeMode(BatchRecord.BatchSizeMode.RANGE);
-			L=NumberTools.getPositiveLong(batchFieldMin,true);
-			if (L!=null) batchRecord.setBatchSizeMin((int)((long)L));
-			L=NumberTools.getPositiveLong(batchFieldMax,true);
-			if (L!=null) batchRecord.setBatchSizeMax((int)((long)L));
+			batchRecord.setBatchSizeMin(batchFieldMin.getText().trim());
+			batchRecord.setBatchSizeMax(batchFieldMax.getText().trim());
 		}
 
 		if (optionForward.isSelected()) batchRecord.setBatchMode(BatchRecord.BatchMode.BATCH_MODE_COLLECT);
