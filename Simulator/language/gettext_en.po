@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-11-12 21:23+0100\n"
+"POT-Creation-Date: 2022-11-13 13:56+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16743,7 +16743,7 @@ msgid "SettingsDialog.AnimationWarmUp"
 msgstr "Warm-up phase at animation"
 
 msgid "SettingsDialog.AnimationWarmUp.Ask"
-msgstr "Ask if to skip at statistics visualizations"
+msgstr "Always ask"
 
 msgid "SettingsDialog.AnimationWarmUp.FastForward"
 msgstr "Simulate warm-up phase previously, then start animation"
@@ -16752,7 +16752,7 @@ msgid "SettingsDialog.AnimationWarmUp.Normal"
 msgstr "Always use defined warm-up phase"
 
 msgid "SettingsDialog.AnimationWarmUp.SkipIfNeeded"
-msgstr "Always skip if statistics visualizations are active"
+msgstr "Always skip"
 
 msgid "SettingsDialog.AutoRestore"
 msgstr "Restore last edited model at next program start"
@@ -19561,6 +19561,9 @@ msgstr "Runtime error"
 
 msgid "Simulation.Started"
 msgstr "The simulation was started."
+
+msgid "Simulation.WarningEndWhileWarmUp"
+msgstr "The simulation was completed before the warm-up phase was finished. Therefore, the statistics recording has not been started yet and no statistics values are available now. The settings for the simulation duration and the duration of the warm-up phase should be checked."
 
 msgid "SimulationServer.AuthRequestInfo"
 msgstr "Please enter the login data to the server."
@@ -22676,6 +22679,9 @@ msgstr "Share in this group"
 
 msgid "Statistics.SimulatedClients"
 msgstr "Simulated clients"
+
+msgid "Statistics.SimulatedClients.ClosedNetworkAndWarmUp"
+msgstr "The model represents a closed queueing network. In this case, a a warm-up phase is usually not useful. However, such a warm-up phase is defined for this model."
 
 msgid "Statistics.SimulatedClients.ExternalSourceAndWarmUp"
 msgstr "Client arrivals are loaded from an external data source. Nevertheless, a warm-up phase is defined. As a result, some of the loaded clients are not included in the statistics."

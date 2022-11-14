@@ -556,6 +556,11 @@ public class RunData {
 
 		/* Kunden zwangsweise aus dem System austragen (funktioniert nur, wenn auch die Erfassung der aktuellen Kunden aktiv ist) */
 		if (disposeClients) clients.disposeAll(simData);
+
+		/* Sind wir immer noch in der Warm-up-Phase? */
+		if (isWarmUp) {
+			simData.addWarning(String.format(Language.tr("Simulation.WarningEndWhileWarmUp"),NumberTools.formatLong(clientsArrived)));
+		}
 	}
 
 	/**

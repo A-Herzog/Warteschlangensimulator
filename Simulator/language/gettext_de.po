@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-11-12 21:23+0100\n"
+"POT-Creation-Date: 2022-11-13 13:56+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16752,7 +16752,7 @@ msgid "SettingsDialog.AnimationWarmUp"
 msgstr "Einschwingphase während der Animation"
 
 msgid "SettingsDialog.AnimationWarmUp.Ask"
-msgstr "Bei Statistik-Visualisierung fragen, ob sie übersprungen werden soll"
+msgstr "Fragen, ob sie übersprungen werden soll"
 
 msgid "SettingsDialog.AnimationWarmUp.FastForward"
 msgstr "Einschwingphase vorab simulieren, dann Animation starten"
@@ -16761,7 +16761,7 @@ msgid "SettingsDialog.AnimationWarmUp.Normal"
 msgstr "Immer wie angegeben durchführen"
 
 msgid "SettingsDialog.AnimationWarmUp.SkipIfNeeded"
-msgstr "Überspringen, wenn Statistikvisualisierungen verwendet werden"
+msgstr "Überspringen"
 
 msgid "SettingsDialog.AutoRestore"
 msgstr "Zuletzt bearbeitetes Modell beim nächsten Programmstart wiederherstellen"
@@ -19575,6 +19575,9 @@ msgstr "Laufzeitfehler"
 
 msgid "Simulation.Started"
 msgstr "Die Simulation wurde gestartet."
+
+msgid "Simulation.WarningEndWhileWarmUp"
+msgstr "Die Simulation wurde abgeschlossen, bevor die Einschwingphase beendet wurde. Daher wurde die Statistikerfassung noch nicht gestartet und es liegen nun keine Statistikwerte vor. Die Einstellungen zur Simulationsdauer und zur Dauer der Einschwinphase sollten überprüft werden."
 
 msgid "SimulationServer.AuthRequestInfo"
 msgstr "Bitte geben Sie zu Zugangsdaten zu dem Server an."
@@ -22692,6 +22695,9 @@ msgstr "Anteil in dieser Gruppe"
 
 msgid "Statistics.SimulatedClients"
 msgstr "Simulierte Kunden"
+
+msgid "Statistics.SimulatedClients.ClosedNetworkAndWarmUp"
+msgstr "Das Modell stellt ein geschlossenes Warteschlangennetzwerk dar. In diesem Fall ist eine Einschwingphase meist nicht sinnvoll. Eine solche Einschwingphase ist jedoch für dieses Modell eingestellt."
 
 msgid "Statistics.SimulatedClients.ExternalSourceAndWarmUp"
 msgstr "Es werden Kundenankünfte aus einer externen Datenquelle geladen. Dennoch ist eine Einschwingphase definiert. Dadurch werden einige der geladenen Kunden nicht in der Statistik erfasst."

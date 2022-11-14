@@ -438,7 +438,7 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 		if (statistics.simulationData.emergencyShutDown) {
 			addLine(Language.tr("Statistics.EmergencyShutDown"));
 		} else {
-			if (!fullInfo && statistics.simulationData.warnings!=null) addLine(Language.tr("Statistics.Warnings.Info"));
+			if (!fullInfo && statistics.simulationData.warnings!=null && statistics.simulationData.warnings.length!=1) addLine(Language.tr("Statistics.Warnings.Info"));
 		}
 		if (fullInfo) {
 			if (statistics.simulationData.warnings!=null) Arrays.asList(statistics.simulationData.warnings).stream().forEach(s->{if (s!=null) addLine(s);});
@@ -633,11 +633,17 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 		if (statistics.simulationData.runRepeatCount>1) repeatInfo=" ("+Language.tr("Statistics.SimulatedClients.RepeatInfo")+")";
 		addLine(Language.tr("Statistics.SimulatedClients")+": "+NumberTools.formatLong(sum)+repeatInfo);
 		if (statistics.simulationData.runRepeatCount>1) addLine(Language.tr("Statistics.SystemData.RepeatCount")+": "+NumberTools.formatLong(statistics.simulationData.runRepeatCount));
+
 		if (sum==0 && (statistics.editModel.warmUpTime>0.0 || statistics.editModel.warmUpTimeTime>0)) {
 			addLine(Language.tr("Statistics.SimulatedClients.Zero"));
 			if (statistics.editModel.warmUpTime>0.0) addLine(String.format(Language.tr("Statistics.SimulatedClients.Zero.Info"),NumberTools.formatLong(Math.round(statistics.editModel.clientCount*statistics.editModel.warmUpTime))));
 			if (statistics.editModel.warmUpTimeTime>0) addLine(String.format(Language.tr("Statistics.SimulatedClients.Zero.InfoTime"),TimeTools.formatLongTime(statistics.editModel.warmUpTimeTime)));
+		} else {
+			if (statistics.editModel.warmUpTime>0.0) addLine(Language.tr("Statistics.SimulatedClients.WarmUp")+": "+NumberTools.formatLong(FastMath.round(statistics.editModel.clientCount*statistics.editModel.warmUpTime))+" ("+StatisticTools.formatPercent(statistics.editModel.warmUpTime)+")");
+			if (statistics.editModel.warmUpTimeTime>0) addLine(Language.tr("Statistics.SimulatedClients.WarmUpTime")+": "+TimeTools.formatLongTime(statistics.editModel.warmUpTimeTime));
+			if (statistics.editModel.warmUpTime>0.0 && statistics.editModel.warmUpTimeTime>0) addLine(Language.tr("Statistics.SimulatedClients.WarmUpBothInfo"));
 		}
+
 		addModeLink(Mode.MODE_MODEL);
 		endParagraph();
 
