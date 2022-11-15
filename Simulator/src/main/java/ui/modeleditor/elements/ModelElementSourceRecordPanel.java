@@ -1140,6 +1140,7 @@ public final class ModelElementSourceRecordPanel extends JPanel {
 				info=Language.tr("Surface.Source.Dialog.Tab.NumberOfArrivals.Infinite");
 			} else {
 				if (optionFixedNumberArrivals.isSelected()) {
+					numberFieldClients.setBackground(NumberTools.getTextFieldDefaultBackground());
 					L=NumberTools.getPositiveLong(numberFieldArrivals,true);
 					if (L==null) {
 						info=Language.tr("Surface.Source.Dialog.Tab.NumberOfArrivals.Invalide");
@@ -1147,6 +1148,7 @@ public final class ModelElementSourceRecordPanel extends JPanel {
 						info=NumberTools.formatLong(L.longValue());
 					}
 				} else {
+					numberFieldArrivals.setBackground(NumberTools.getTextFieldDefaultBackground());
 					L=NumberTools.getPositiveLong(numberFieldClients,true);
 					if (L==null) {
 						info=Language.tr("Surface.Source.Dialog.Tab.NumberOfArrivals.Clients.Invalide");
