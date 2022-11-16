@@ -34,7 +34,6 @@ import javax.swing.table.TableCellEditor;
 
 import language.Language;
 import mathtools.NumberTools;
-import mathtools.TimeTools;
 import mathtools.distribution.tools.DistributionTools;
 import simulator.editmodel.EditModel;
 import systemtools.BaseDialog;
@@ -199,7 +198,7 @@ public class ModelElementSourceMultiTableModel extends JTableExtAbstractTableMod
 			sb.append(record.getArrivalCondition());
 			sb.append(", "+Language.tr("Surface.MultiSourceTable.Info.NextCondition.MinDistance"));
 			sb.append(": ");
-			sb.append(TimeTools.formatExactTime(record.getArrivalConditionMinDistance()));
+			sb.append(record.getArrivalConditionMinDistance());
 			sb.append(")");
 			break;
 		case NEXT_THRESHOLD:

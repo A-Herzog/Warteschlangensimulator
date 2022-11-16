@@ -243,7 +243,7 @@ public class RunElementSourceMulti extends RunElement implements StateChangeList
 						scheduleNextArrival(simData,false,index);
 					} else {
 						/* Prüfung der Bedingung zu passender Zeit auslösen */
-						SystemChangeEvent.triggerEvent(simData,records[index].conditionMinDistanceMS);
+						SystemChangeEvent.triggerEvent(simData,data.recordData[index].getConditionMinDistanceMS(simData,name));
 					}
 				}
 			} else {

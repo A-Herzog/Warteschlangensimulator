@@ -21059,7 +21059,7 @@ public class Messages_de extends java.util.ResourceBundle {
     t[49650] = "ExpressionBuilder.ClientsAtStation.MaximalNumber";
     t[49651] = "<p>Liefert die maximale Anzahl an Kunden an der Bedienstation, deren ID in dem Parameter angegeben wurde.</p>\n<p>Alternativ kann auch die ID einer Kundenquelle angegeben werden, dann beziehen sich die Ergebnisse auf die Kunden des dort erzeugten Kundentyps.</p>";
     t[49652] = "Simulation.Creator.SourceConditionMinDistance";
-    t[49653] = "Der angegebene Mindestabstand zwischen zwei Ank\u00fcnften \"%s\" an Element id=%d ist ung\u00fcltig. Es muss eine positive Zahl angegeben werden.";
+    t[49653] = "Der angegebene Mindestabstand zwischen zwei Ank\u00fcnften \"%s\" an Element id=%d ist ab Position %d ung\u00fcltig.";
     t[49654] = "Editor.ModelOverview.Navigator";
     t[49655] = "Navigator";
     t[49658] = "Window.Layers.Active.Title";

@@ -452,7 +452,7 @@ public final class ModelElementSourceRecordPanel extends JPanel {
 		data=ModelElementBaseDialog.getInputPanel(Language.tr("Surface.Source.Dialog.Condition.Condition")+":","");
 		sub=(JPanel)data[0];
 		panel.add(sub);
-		sub.add(ModelElementBaseDialog.getExpressionEditButton(this,(JTextField)data[1],false,false,model,surface),BorderLayout.EAST);
+		sub.add(ModelElementBaseDialog.getExpressionEditButton(this,(JTextField)data[1],true,false,model,surface),BorderLayout.EAST);
 		condition=(JTextField)data[1];
 		condition.setEditable(!readOnly);
 		condition.addKeyListener(new KeyListener() {
@@ -461,10 +461,11 @@ public final class ModelElementSourceRecordPanel extends JPanel {
 			@Override public void keyPressed(KeyEvent e) {checkData(false);}
 		});
 
-		data=ModelElementBaseDialog.getInputPanel(Language.tr("Surface.Source.Dialog.Condition.MinDistance")+":","",10);
+		data=ModelElementBaseDialog.getInputPanel(Language.tr("Surface.Source.Dialog.Condition.MinDistance")+":","",20);
 		sub=(JPanel)data[0];
 		sub.add(new JLabel(Language.tr("Surface.Source.Dialog.Condition.MinDistance.InSeconds")));
 		panel.add(sub);
+		sub.add(ModelElementBaseDialog.getExpressionEditButton(this,(JTextField)data[1],false,false,model,surface),BorderLayout.EAST);
 		conditionMinDistance=(JTextField)data[1];
 		conditionMinDistance.setEditable(!readOnly);
 		conditionMinDistance.addKeyListener(new KeyListener() {
@@ -892,7 +893,7 @@ public final class ModelElementSourceRecordPanel extends JPanel {
 
 		/* Bedingung */
 		condition.setText(record.getArrivalCondition());
-		conditionMinDistance.setText(NumberTools.formatNumberMax(record.getArrivalConditionMinDistance()));
+		conditionMinDistance.setText(record.getArrivalConditionMinDistance());
 
 		/* Schwellenwert */
 		thresholdExpression.setText(record.getThresholdExpression());
@@ -1288,12 +1289,16 @@ public final class ModelElementSourceRecordPanel extends JPanel {
 			} else {
 				condition.setBackground(NumberTools.getTextFieldDefaultBackground());
 			}
-			if (NumberTools.getPositiveDouble(conditionMinDistance,true)==null) {
+			error=ExpressionCalc.check(conditionMinDistance.getText(),surface.getMainSurfaceVariableNames(model.getModelVariableNames(),false));
+			if (error>=0) {
+				conditionMinDistance.setBackground(Color.RED);
 				if (showErrorMessage) {
-					MsgBox.error(this,Language.tr("Surface.Source.Dialog.ConditionMinDistance.Error.Title"),String.format(Language.tr("Surface.Source.Dialog.ConditionMinDistance.Error.Info"),conditionMinDistance.getText()));
+					MsgBox.error(this,Language.tr("Surface.Source.Dialog.ConditionMinDistance.Error.Title"),String.format(Language.tr("Surface.Source.Dialog.ConditionMinDistance.Error.Info"),conditionMinDistance.getText(),error+1));
 					return false;
 				}
 				ok=false;
+			} else {
+				conditionMinDistance.setBackground(NumberTools.getTextFieldDefaultBackground());
 			}
 			break;
 		case 4: /* Schwellenwert */
@@ -1480,9 +1485,7 @@ public final class ModelElementSourceRecordPanel extends JPanel {
 			record.setInterarrivalTimeSchedule(s);
 			break;
 		case 3: /* Bedingung */
-			D=NumberTools.getPositiveDouble(conditionMinDistance,true);
-			final double conditionMinDistance=(D!=null)?D.doubleValue():0.0;
-			record.setArrivalCondition(condition.getText(),conditionMinDistance);
+			record.setArrivalCondition(condition.getText(),conditionMinDistance.getText());
 			break;
 		case 4: /* Schwellenwert */
 			D=NumberTools.getDouble(thresholdExpressionValue,true);

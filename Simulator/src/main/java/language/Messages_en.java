@@ -21059,7 +21059,7 @@ public class Messages_en extends java.util.ResourceBundle {
     t[49650] = "ExpressionBuilder.ClientsAtStation.MaximalNumber";
     t[49651] = "<p>Returns the maximal number of clients at the station whose ID is specified in the parameter.</p>\n<p>Alternatively, the ID of a client source can be specified, in which case the results refer to the clients which are created created at the selected source.</p>";
     t[49652] = "Simulation.Creator.SourceConditionMinDistance";
-    t[49653] = "The specified minimum distance between two arrival \"%s\" at element id=%d is invalid. A positive number has to be given.";
+    t[49653] = "The specified minimum distance between two arrival \"%s\" at element id=%d is invalid at character %d.";
     t[49654] = "Editor.ModelOverview.Navigator";
     t[49655] = "Navigator";
     t[49658] = "Window.Layers.Active.Title";

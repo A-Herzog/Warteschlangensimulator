@@ -41,6 +41,13 @@ public class RunElementSourceRecordData {
 	public final ExpressionCalc expression;
 	/** Bedingung zur Kundenfreigabe  (kann <code>null</code> sein) */
 	public final ExpressionMultiEval condition;
+	/** Minimaler Abstand zwischen zwei Ankünften (kann <code>null</code> sein) */
+	private final ExpressionCalc conditionMinDistance;
+	/** Aktueller gemäß {@link #conditionMinDistance} berechneter minimaler Abstand zwischen zwei Ankünften (in MS) (ist -1, wenn momentan kein gültiger Wert vorliegt) */
+	private long conditionMinDistanceCalculatedMS;
+	/** Ist {@link #conditionMinDistance} ein konstanter Wert? Dann muss {@link #conditionMinDistanceCalculatedMS} nie verworfen und neu berechnet werden. */
+	private boolean conditionMinDistanceIsConst;
+
 	/** Ausdrücke für die intervallabhängigen Anzahlen an Ankünften */
 	public final ExpressionCalc[] intervalExpressions;
 	/** Ausdrücke für die intervallabhängigen Zwischenankunftszeiten */
@@ -89,9 +96,15 @@ public class RunElementSourceRecordData {
 
 		if (record.condition==null) {
 			this.condition=null;
+			this.conditionMinDistance=null;
+			this.conditionMinDistanceCalculatedMS=-1;
 		} else {
 			this.condition=new ExpressionMultiEval(variableNames);
 			this.condition.parse(record.condition);
+			this.conditionMinDistance=new ExpressionCalc(variableNames);
+			this.conditionMinDistance.parse(record.conditionMinDistance);
+			this.conditionMinDistanceIsConst=this.conditionMinDistance.isConstValue();
+			this.conditionMinDistanceCalculatedMS=-1;
 		}
 
 		if (record.intervalExpressions==null) {
@@ -126,6 +139,35 @@ public class RunElementSourceRecordData {
 		this.setData=record.getRuntimeExpressions(simData.runModel.variableNames);
 
 		arrivalTimeValueNext=0;
+	}
+
+	/**
+	 * Liefert die minimale zulässig Zwischenankunftszeit (bei der Bestimmung von Ankünften gemäß einer Bedingung)
+	 * @param simData	Simulationsdatenobjekt
+	 * @param stationName	Name der Station
+	 * @return	Minimale zulässig Zwischenankunftszeit
+	 * @see #clearConditionMinDistanceCalculated()
+	 */
+	public long getConditionMinDistanceMS(final SimulationData simData, final String stationName) {
+		if (conditionMinDistanceCalculatedMS<0) {
+			try {
+				conditionMinDistanceCalculatedMS=Math.round(Math.max(0,conditionMinDistance.calc(simData.runData.variableValues,simData,null)*1000));
+			} catch (MathCalcError e) {
+				simData.calculationErrorStation(conditionMinDistance,stationName);
+				conditionMinDistanceCalculatedMS=0;
+			}
+		}
+		return conditionMinDistanceCalculatedMS;
+	}
+
+	/**
+	 * Definiert die aktuell berechnete minimale zulässige Zwischenankunftszeit als verwendet.
+	 * Beim nächsten Aufruf von {@link #getConditionMinDistanceMS(SimulationData, String)} wird dann eine neue Zeitdauer berechnet.
+	 * @see #getConditionMinDistanceMS(SimulationData, String)
+	 */
+	public void clearConditionMinDistanceCalculated() {
+		if (conditionMinDistanceIsConst) return; /* Wenn die minimale Zwishchenankunftszeit fix ist, brauchen wir diese nicht verwerfen und neu berechnen. */
+		conditionMinDistanceCalculatedMS=-1;
 	}
 
 	/**

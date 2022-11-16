@@ -156,16 +156,16 @@ public final class ModelElementSourceRecord implements Cloneable {
 	/**
 	 * Bedingung gemäß derer weitere Kundenankünfte ausgelöst werden sollen
 	 * @see #getArrivalCondition()
-	 * @see #setArrivalCondition(String, double)
+	 * @see #setArrivalCondition(String, String)
 	 */
 	private String condition;
 
 	/**
 	 * Mindestabstand zwischen Kundenankünften, die über eine Bedingung ausgelöst werden sollen
 	 * @see #getArrivalConditionMinDistance()
-	 * @see #setArrivalCondition(String, double)
+	 * @see #setArrivalCondition(String, String)
 	 */
-	private double conditionMinDistance;
+	private String conditionMinDistance;
 
 	/**
 	 * Liste der Signalnamen, die eine Kundenankunft auslösen sollen
@@ -330,7 +330,7 @@ public final class ModelElementSourceRecord implements Cloneable {
 		expression="";
 		schedule="";
 		condition="";
-		conditionMinDistance=1;
+		conditionMinDistance="1";
 		signalNames=new ArrayList<>();
 		thresholdExpression="";
 		thresholdValue=0.0;
@@ -599,7 +599,7 @@ public final class ModelElementSourceRecord implements Cloneable {
 	 * @return	Mindestabstand zwischen Kundenankünften, die über eine Bedingung ausgelöst werden sollen
 	 * @see ModelElementSourceRecord#getArrivalCondition()
 	 */
-	public double getArrivalConditionMinDistance() {
+	public String getArrivalConditionMinDistance() {
 		return conditionMinDistance;
 	}
 
@@ -661,7 +661,7 @@ public final class ModelElementSourceRecord implements Cloneable {
 	 * @param condition	Bedingung, gemäß derer weitere Kundenankünfte ausgelöst werden sollen
 	 * @param conditionMinDistance	Mindestabstand zwischen zwei per Bedinung ausgelösten Kundenankünften
 	 */
-	public void setArrivalCondition(final String condition, final double conditionMinDistance) {
+	public void setArrivalCondition(final String condition, final String conditionMinDistance) {
 		if (condition!=null) {
 			this.condition=condition.trim();
 			this.conditionMinDistance=conditionMinDistance;
@@ -976,7 +976,7 @@ public final class ModelElementSourceRecord implements Cloneable {
 				break;
 			case NEXT_CONDITION:
 				if (!condition.equals(record.condition)) return false;
-				if (conditionMinDistance!=record.conditionMinDistance) return false;
+				if (!conditionMinDistance.equals(record.conditionMinDistance)) return false;
 				break;
 			case NEXT_THRESHOLD:
 				if (!Objects.deepEquals(thresholdExpression,record.thresholdExpression)) return false;
@@ -1154,7 +1154,7 @@ public final class ModelElementSourceRecord implements Cloneable {
 			case NEXT_CONDITION:
 				node.appendChild(sub=doc.createElement(Language.trPrimary("Surface.Source.XML.Condition")));
 				sub.setTextContent(condition);
-				sub.setAttribute(Language.trPrimary("Surface.Source.XML.Condition.MinDistance"),NumberTools.formatSystemNumber(conditionMinDistance));
+				sub.setAttribute(Language.trPrimary("Surface.Source.XML.Condition.MinDistance"),conditionMinDistance);
 				if (maxArrivalCount>0) sub.setAttribute(Language.trPrimary("Surface.Source.XML.Condition.Count"),""+maxArrivalCount);
 				if (maxArrivalClientCount>0) sub.setAttribute(Language.trPrimary("Surface.Source.XML.Condition.ClientCount"),""+maxArrivalClientCount);
 				break;
@@ -1336,11 +1336,7 @@ public final class ModelElementSourceRecord implements Cloneable {
 			condition=content;
 			nextMode=NextMode.NEXT_CONDITION;
 			final String minDistanceString=Language.trAllAttribute("Surface.Source.XML.Condition.MinDistance",node);
-			if (!minDistanceString.isEmpty()) {
-				final Double D=NumberTools.getPositiveDouble(NumberTools.systemNumberToLocalNumber(minDistanceString));
-				if (D==null) return String.format(Language.tr("Surface.XML.AttributeSubError"),Language.trPrimary("Surface.Source.XML.Condition.MinDistance"),name,node.getParentNode().getNodeName());
-				conditionMinDistance=D;
-			}
+			if (!minDistanceString.isEmpty()) conditionMinDistance=minDistanceString;
 			final String countString=Language.trAllAttribute("Surface.Source.XML.Condition.Count",node);
 			final String clientCountString=Language.trAllAttribute("Surface.Source.XML.Condition.ClientCount",node);
 			final String arrivalCountError=loadCountData(node,countString,clientCountString,Language.trPrimary("Surface.Source.XML.Condition.Count"),Language.trPrimary("Surface.Source.XML.Condition.ClientCount"));
@@ -1595,7 +1591,7 @@ public final class ModelElementSourceRecord implements Cloneable {
 				info.append(" (");
 				info.append(Language.tr("ModelDescription.Arrival.Condition.MinDistance"));
 				info.append(": ");
-				info.append(NumberTools.formatNumber(conditionMinDistance));
+				info.append(conditionMinDistance);
 				info.append(")");
 				break;
 			case NEXT_THRESHOLD:
@@ -1741,7 +1737,7 @@ public final class ModelElementSourceRecord implements Cloneable {
 			break;
 		case NEXT_CONDITION:
 			searcher.testString(station,Language.tr("Editor.DialogBase.Search.InterarrivalArrival.Condition"),condition,newCondition->{condition=newCondition;});
-			searcher.testDouble(station,Language.tr("Editor.DialogBase.Search.InterarrivalArrival.Condition.MinDistance"),conditionMinDistance,newConditionMinDistance->{if (newConditionMinDistance>0) conditionMinDistance=newConditionMinDistance;});
+			searcher.testString(station,Language.tr("Editor.DialogBase.Search.InterarrivalArrival.Condition.MinDistance"),conditionMinDistance,newConditionMinDistance->{if (newConditionMinDistance!=null) conditionMinDistance=newConditionMinDistance;});
 			break;
 		case NEXT_SIGNAL:
 			for (int i=0;i<signalNames.size();i++) {

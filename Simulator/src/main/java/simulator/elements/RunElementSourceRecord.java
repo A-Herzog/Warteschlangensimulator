@@ -74,7 +74,7 @@ public class RunElementSourceRecord {
 	/** Bedingung gemäß derer weitere Kundenankünfte ausgelöst werden sollen */
 	public String condition;
 	/** Mindestabstand zwischen Kundenankünften (in Millisekunden), die über eine Bedingung ausgelöst werden sollen */
-	public long conditionMinDistanceMS;
+	public String conditionMinDistance;
 
 	/** Für eine Kundenankunft zu prüfender Schwellenwertausdruck */
 	public String thresholdExpression;
@@ -197,8 +197,10 @@ public class RunElementSourceRecord {
 			error=ExpressionMultiEval.check(condition,runModel.variableNames);
 			if (error>=0) return new RunModelCreatorStatus(String.format(Language.tr("Simulation.Creator.SourceCondition"),condition,id,error+1));
 			this.condition=condition;
-			if (record.getArrivalConditionMinDistance()<=0) return new RunModelCreatorStatus(String.format(Language.tr("Simulation.Creator.SourceConditionMinDistance"),NumberTools.formatNumber(record.getArrivalConditionMinDistance()),id));
-			this.conditionMinDistanceMS=FastMath.round(record.getArrivalConditionMinDistance()*1000);
+			final String conditionMinDistance=record.getArrivalConditionMinDistance();
+			error=ExpressionCalc.check(conditionMinDistance,runModel.variableNames);
+			if (error>=0) return new RunModelCreatorStatus(String.format(Language.tr("Simulation.Creator.SourceConditionMinDistance"),conditionMinDistance,id,error+1));
+			this.conditionMinDistance=conditionMinDistance;
 			arrivalStart=record.getArrivalStart();
 			if (arrivalStart<0) return new RunModelCreatorStatus(String.format(Language.tr("Simulation.Creator.SourceArrivalStart"),NumberTools.formatNumber(arrivalStart),id),RunModelCreatorStatus.Status.NEGATIVE_ARRIVAL_START_TIME);
 			arrivalStartMS=FastMath.round(arrivalStart*timeBaseMultiply*1000);
@@ -552,13 +554,15 @@ public class RunElementSourceRecord {
 	 * @param simData	Simulationsdatenobjekt
 	 * @param element	Referenz auf das Source- oder SourceMulti-Element
 	 * @param condition	Zu prüfende Bedingung (nur wenn diese erfüllt ist, wird eine Ankunft eingeplant)
+	 * @param conditionMinDistanceMS	Minimaler Abstand zur vorherigen Ankunft (in MS)
 	 * @param lastArrival	Letzter Ankunftszeitpunkt (kann -1 sein, wenn noch keine Ankünfte vorhanden sind)
 	 * @param stationName	Name der Station
 	 * @param arrivalCount	Anzahl an bislang erzeugten Ankünften (um ggf. bei einer eingestellten Maximalanzahl keine weiteren Ankünfte mehr zu generieren)
 	 * @param arrivalClientCount	Anzahl an bislang erzeugten Kunden  (um ggf. bei einer eingestellten Maximalanzahl keine weiteren Ankünfte mehr zu generieren)
+	 * @param data	Thread-lokales Datenobjekt zu diesem Ankunftsdatensatz
 	 * @return	Gibt die Anzahl an erzeugten Kundenankünften zurück
 	 */
-	private int scheduleArrivalByCondition(final SimulationData simData, final RunElement element, final ExpressionMultiEval condition, final long lastArrival, final String stationName, final long arrivalCount, final long arrivalClientCount) {
+	private int scheduleArrivalByCondition(final SimulationData simData, final RunElement element, final ExpressionMultiEval condition, final long conditionMinDistanceMS, final long lastArrival, final String stationName, final long arrivalCount, final long arrivalClientCount, final RunElementSourceRecordData data) {
 		/* Nach Abbruch ist wirklich Schluss */
 		if (simData.runData.stopp) return 0;
 
@@ -587,6 +591,9 @@ public class RunElementSourceRecord {
 
 			/* Zur Ereignisliste hinzufügen */
 			simData.eventManager.addEvent(nextArrival);
+
+			/* Minimal einzuhaltende Zwischenankunftszeit wurde verwendet, daher verwerfen und nächstes Mal neu berechnen */
+			data.clearConditionMinDistanceCalculated();
 
 			/* Ankunft zählen */
 			return 1;
@@ -780,7 +787,7 @@ public class RunElementSourceRecord {
 		}
 
 		if (recordData.condition!=null) {
-			return scheduleArrivalByCondition(simData,element,recordData.condition,recordData.arrivalTime,stationName,recordData.arrivalCount,recordData.arrivalClientCount);
+			return scheduleArrivalByCondition(simData,element,recordData.condition,recordData.getConditionMinDistanceMS(simData,stationName),recordData.arrivalTime,stationName,recordData.arrivalCount,recordData.arrivalClientCount,recordData);
 		}
 
 		if (thresholdExpression!=null) {

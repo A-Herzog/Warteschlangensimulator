@@ -233,7 +233,7 @@ public class RunElementSource extends RunElement implements StateChangeListener,
 						scheduleNextArrival(simData,false);
 					} else {
 						/* Prüfung der Bedingung zu passender Zeit auslösen */
-						SystemChangeEvent.triggerEvent(simData,record.conditionMinDistanceMS);
+						SystemChangeEvent.triggerEvent(simData,data.recordData.getConditionMinDistanceMS(simData,name));
 					}
 				}
 			} else {
