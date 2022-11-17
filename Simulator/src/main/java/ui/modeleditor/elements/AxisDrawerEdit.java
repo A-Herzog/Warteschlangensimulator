@@ -92,11 +92,14 @@ public class AxisDrawerEdit extends JPanel {
 
 		/* Beschriftungsmodus */
 		final String labelText;
-		switch (axisName) {
-		case X: labelText=Language.tr("AxisDrawer.ModeX"); break;
-		case Y: labelText=Language.tr("AxisDrawer.ModeY"); break;
-		default: labelText=Language.tr("AxisDrawer.Mode"); break;
-
+		if (axisName==null) {
+			labelText=Language.tr("AxisDrawer.Mode");
+		} else {
+			switch (axisName) {
+			case X: labelText=Language.tr("AxisDrawer.ModeX"); break;
+			case Y: labelText=Language.tr("AxisDrawer.ModeY"); break;
+			default: labelText=Language.tr("AxisDrawer.Mode"); break;
+			}
 		}
 		data=ModelElementBaseDialog.getComboBoxPanel(labelText+":",Arrays.asList(
 				Language.tr("AxisDrawer.Mode.Off"),
