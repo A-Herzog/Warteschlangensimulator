@@ -61,6 +61,8 @@ import ui.modeleditor.elements.ModelElementAnimationConnect;
 import ui.modeleditor.elements.ModelElementEdge;
 import ui.modeleditor.elements.ModelElementSignalTrigger;
 import ui.modeleditor.elements.ModelElementSub;
+import ui.modeleditor.elements.ModelElementTeleportDestination;
+import ui.modeleditor.elements.ModelElementTransportDestination;
 import ui.modeleditor.fastpaint.GradientFill;
 import ui.tools.FlatLaFHelper;
 import xml.XMLData;
@@ -2114,6 +2116,23 @@ public final class ModelSurface {
 	}
 
 	/**
+	 * Sucht eine Station einer bestimmten Klasse und mit einem bestimmten Namen.
+	 * @param cls	Klasse der zu suchenden Station
+	 * @param name	Name der zu suchenden Station
+	 * @return	Liefert im Erfolgsfall die Station (auch aus einem Untermodell), sonst <code>null</code>
+	 */
+	private ModelElement findStationTypeAndName(final Class<? extends ModelElement> cls, final String name) {
+		for (ModelElement element: elements) {
+			if (element.getClass().equals(cls) && element.getName().equals(name)) return element;
+			if (element instanceof ModelElementSub) {
+				final ModelElement subElement=((ModelElementSub)element).getSubSurface().findStationTypeAndName(cls,name);
+				if (subElement!=null) return subElement;
+			}
+		}
+		return null;
+	}
+
+	/**
 	 * Informiert alle Elemente (die sich dafür interessieren), dass ein Objekt
 	 * (z.B. ein Kundentyp) umbenannt wurde, so dass diese ggf. Daten kopieren
 	 * können (sofern für den neuen Namen nicht bereits Daten vorliegen).
@@ -2132,7 +2151,15 @@ public final class ModelSurface {
 		/* Wurde der Name überhaupt geändert? */
 		if (oldName==null || oldName.isEmpty() || newName==null || newName.isEmpty() || oldName.equals(newName)) return;
 
-		/* Einstellungen in Stationen kopieren */
+		/* Gibt es eine andere Station desselben Typs mit demselben Namen? Wenn ja, könnten sich die Verknüpfungen auch auf diese beziehen. Ein Umbenennen wäre daher nachteilhaft. */
+		if (type==ModelDataRenameListener.RenameType.RENAME_TYPE_TELEPORT_DESTINATION) {
+			if (findStationTypeAndName(ModelElementTeleportDestination.class,oldName)!=null) return;
+		}
+		if (type==ModelDataRenameListener.RenameType.RENAME_TYPE_TRANSPORT_DESTINATION) {
+			if (findStationTypeAndName(ModelElementTransportDestination.class,oldName)!=null) return;
+		}
+
+		/* Information an alle Station übermitteln */
 		for (ModelElement element: elements) {
 			if (element instanceof ModelDataRenameListener) ((ModelDataRenameListener)element).objectRenamed(oldName,newName,type);
 		}
