@@ -1585,7 +1585,7 @@ public class AnimationPanel extends JPanel implements RunModelAnimationViewer {
 
 				/* Wichtig, weil sonst das Modell intern weiter sein kann, als die Anzeige. Die Anzeige wird dann beim nächste regulären Repaint aktualisiert, was zu Verwirrungen führen kann. */
 				if (simData!=null) {
-					surfaceAnimator.process(simData,(RunDataClient)null,0);
+					if (surfaceAnimator!=null) surfaceAnimator.process(simData,(RunDataClient)null,0);
 					updateStatus(simData.currentTime,true);
 					repaint();
 				}
