@@ -522,8 +522,10 @@ public class RunElementProcess extends RunElement implements FreeResourcesListen
 		selected.lastAlternative=resourceAlternative+1;
 
 		/* Rüstzeiten in Statistik */
-		if (processData.setupTimes==null) processData.setupTimes=(StatisticsDataPerformanceIndicator)simData.statistics.stationsSetupTimes.get(name);
-		processData.setupTimes.add(setupTime);
+		if (!simData.runData.isWarmUp) {
+			if (processData.setupTimes==null) processData.setupTimes=(StatisticsDataPerformanceIndicator)simData.statistics.stationsSetupTimes.get(name);
+			processData.setupTimes.add(setupTime);
+		}
 
 		/* Weiterleitung zu nächster Station nach Bedienzeit-Ende */
 		final StationLeaveEvent leaveEvent=StationLeaveEvent.addLeaveEvent(simData,selected,this,setupTimeMS+processingTimeMS);
