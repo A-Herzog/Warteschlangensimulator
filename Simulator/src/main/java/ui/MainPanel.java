@@ -2157,12 +2157,40 @@ public class MainPanel extends MainPanelBase {
 	}
 
 	/**
+	 * Datei, die als Vorlage für leere Modelle verwendet werden soll.
+	 * @see #getNewModel()
+	 */
+	private static final String emptyTemplateFileName="Normal.xml";
+
+	/**
+	 * Liefert das über Datei|Neu aufrufbare Modell.
+	 * @return	Modell-Ausgangsobjekt für neue Modelle (kann <code>null</code> sein, was bedeutet "interne Vorgaben verwenden")
+	 */
+	private EditModel getNewModel() {
+		EditModel model=null;
+		File file;
+		file=new File(SetupData.getSetupFolder(),emptyTemplateFileName);
+		if (file.isFile()) {
+			model=new EditModel();
+			if (model.loadFromFile(file)!=null) model=null;
+		}
+		if (model==null && !SetupData.getProgramFolder().equals(SetupData.getSetupFolder())) {
+			file=new File(SetupData.getProgramFolder(),emptyTemplateFileName);
+			if (file.isFile()) {
+				model=new EditModel();
+				if (model.loadFromFile(file)!=null) model=null;
+			}
+		}
+		return model;
+	}
+
+	/**
 	 * Befehl: Datei - Neu
 	 * @return	Liefert <code>true</code>, wenn ein neues Modell angelegt werden konnte
 	 */
 	private boolean commandFileModelNew() {
 		if (!isDiscardModelOk()) return false;
-		editorPanel.setModel(null);
+		editorPanel.setModel(getNewModel());
 		statisticsPanel.setStatistics(null);
 		for (AbstractButton button: enabledOnStatisticsAvailable) button.setEnabled(false);
 		setAdditionalTitle(UNSAVED_MODEL);
