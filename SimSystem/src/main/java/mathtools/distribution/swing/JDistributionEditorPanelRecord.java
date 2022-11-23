@@ -108,7 +108,7 @@ public abstract class JDistributionEditorPanelRecord {
 	/**
 	 * Wrapper-Klasse der Verteilung auf die sich dieser Datensatz beziehen soll
 	 */
-	private final AbstractDistributionWrapper wrapper;
+	protected final AbstractDistributionWrapper wrapper;
 
 	/**
 	 * Namen der Eingabefelder
@@ -511,6 +511,16 @@ public abstract class JDistributionEditorPanelRecord {
 					NumberTools.formatNumberMax(((UniformRealDistribution)distribution).getSupportLowerBound()),
 					NumberTools.formatNumberMax(((UniformRealDistribution)distribution).getSupportUpperBound())
 			};
+		}
+
+		@Override
+		public void setValues(final JTextField[] fields, final double mean, final double sd) {
+			UniformRealDistribution distribution=(UniformRealDistribution)wrapper.getDistribution(mean,sd);
+			if (distribution!=null) {
+				if (distribution.getSupportLowerBound()<0) distribution=new UniformRealDistribution(0,mean*2);
+				final String[] text=getValues(distribution);
+				if (text!=null && text.length==fields.length) for (int i=0;i<text.length;i++) fields[i].setText(text[i]);
+			}
 		}
 
 		@Override
