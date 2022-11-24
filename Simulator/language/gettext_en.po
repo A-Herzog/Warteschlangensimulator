@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-11-14 10:23+0100\n"
+"POT-Creation-Date: 2022-11-24 00:08+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -2922,6 +2922,18 @@ msgstr "Templates"
 
 msgid "Dialog.Button.Template.InfoImage"
 msgstr "Select template image"
+
+msgid "Dialog.Button.TextGenerator"
+msgstr "Text"
+
+msgid "Dialog.Button.TextGenerator.ImageSize"
+msgstr "Size of the output image"
+
+msgid "Dialog.Button.TextGenerator.Info"
+msgstr "Draw letters to image"
+
+msgid "Dialog.Button.TextGenerator.Title"
+msgstr "Image generator"
 
 msgid "Dialog.Button.Yes"
 msgstr "Yes"

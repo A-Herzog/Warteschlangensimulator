@@ -57,6 +57,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import language.Language;
 import mathtools.distribution.swing.CommonVariables;
 import swingtools.ImageIOFormatCheck;
+import systemtools.BaseDialog;
 import systemtools.ImageTools;
 import systemtools.MsgBox;
 import systemtools.SmallColorChooser;
@@ -119,6 +120,7 @@ public class ImageChooser extends JPanel {
 		toolBar.addSeparator();
 		addButton(Language.tr("Dialog.Button.Template"),Language.tr("Dialog.Button.Template.InfoImage"),Images.IMAGE_TEMPLATE.getIcon(),e->showTemplatesMenu((JButton)e.getSource()));
 		addButton(Language.tr("Dialog.Button.Color"),Language.tr("Dialog.Button.Color.Info"),Images.EDIT_BACKGROUND_COLOR.getIcon(),e->showColorMenu((JButton)e.getSource()));
+		addButton(Language.tr("Dialog.Button.TextGenerator"),Language.tr("Dialog.Button.TextGenerator.Info"),Images.GENERAL_FONT.getIcon(),e->showGeneratorDialog());
 
 		updateGUI();
 		initDropTarget();
@@ -415,6 +417,20 @@ public class ImageChooser extends JPanel {
 		menu.add(colorChooser);
 
 		menu.show(parent,0,parent.getHeight());
+	}
+
+	/**
+	 * Zeigt einen Dialog zur Erzeugung von Schriftzug-Bildern an.
+	 */
+	private void showGeneratorDialog() {
+		final ImageChooserGeneratorDialog dialog=new ImageChooserGeneratorDialog(this);
+		if (dialog.getClosedBy()==BaseDialog.CLOSED_BY_OK) {
+			image=dialog.getImage();
+			imageHash=null;
+			fireChange();
+			updateGUI();
+			repaint();
+		}
 	}
 
 	/**
