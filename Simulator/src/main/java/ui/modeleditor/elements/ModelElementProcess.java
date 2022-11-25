@@ -1481,6 +1481,11 @@ public class ModelElementProcess extends ModelElementBox implements ModelDataRen
 	}
 
 	@Override
+	public boolean hasQueue() {
+		return true;
+	}
+
+	@Override
 	public void objectRenamed(String oldName, String newName, ModelDataRenameListener.RenameType type) {
 		if (isRenameType(oldName,newName,type,ModelDataRenameListener.RenameType.RENAME_TYPE_CLIENT_TYPE)) {
 			/* Keine Kopie anlegen, wenn es bereits Daten für den neuen Namen gibt. */

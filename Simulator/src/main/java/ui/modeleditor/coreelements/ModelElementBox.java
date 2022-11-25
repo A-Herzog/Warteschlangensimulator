@@ -218,6 +218,8 @@ public class ModelElementBox extends ModelElementPosition implements ElementWith
 
 		if (box.maxThroughputIntervalSeconds!=maxThroughputIntervalSeconds) return false;
 
+		if (box.drawQueueAll!=drawQueueAll) return false;
+
 		return true;
 	}
 
@@ -234,6 +236,7 @@ public class ModelElementBox extends ModelElementPosition implements ElementWith
 			boxFontLarge=box.boxFontLarge;
 			boxFontSmall=box.boxFontSmall;
 			maxThroughputIntervalSeconds=box.maxThroughputIntervalSeconds;
+			drawQueueAll=box.drawQueueAll;
 		}
 	}
 
@@ -619,6 +622,49 @@ public class ModelElementBox extends ModelElementPosition implements ElementWith
 	}
 
 	/**
+	 * Sollen während einer Animation immer alle wartenden Kunden gezeichnet
+	 * werden (dann ggf. in mehreren Zeilen übereinander)? Wenn nein, werden
+	 * nur maximal 10 wartende Kunden dargestellt.
+	 * @see #isDrawQueueAll()
+	 * @see #setDrawQueueAll(boolean)
+	 */
+	private boolean drawQueueAll=false;
+
+	/**
+	 * Sollen während einer Animation immer alle wartenden Kunden gezeichnet
+	 * werden (dann ggf. in mehreren Zeilen übereinander)? Wenn nein, werden
+	 * nur maximal 10 wartende Kunden dargestellt.
+	 * @return	Immer alle wartenden Kunden während einer Animation darstellen
+	 * @see #setDrawQueueAll(boolean)
+	 */
+	public boolean isDrawQueueAll() {
+		return drawQueueAll;
+	}
+
+	/**
+	 * Stellt ein, ob während einer Animation immer alle wartenden Kunden
+	 * gezeichnet werden sollen (statt nur max. 10 Kunden).
+	 * @param drawQueueAll	Alle wartenden Kunden zeichnen?
+	 * @see #isDrawQueueAll()
+	 */
+	public void setDrawQueueAll(final boolean drawQueueAll) {
+		this.drawQueueAll=drawQueueAll;
+	}
+
+	/**
+	 * Kann an der Station eine Warteschlange auftreten?<br>
+	 * (Wenn ja, werden im Eigenschaftendialog Funktionen angeboten,
+	 * um einzustellen, ob diese während einer Animation immer
+	 * vollständig oder verkürzt gezeichnet werden soll.)
+	 * @see #isDrawQueueAll()
+	 * @see #setDrawQueueAll(boolean)
+	 * @return	Kann an der Station eine Warteschlange entstehen?
+	 */
+	public boolean hasQueue() {
+		return false;
+	}
+
+	/**
 	 * Speichert die Eigenschaften des Modell-Elements als Untereinträge eines xml-Knotens
 	 * @param doc	Übergeordnetes xml-Dokument
 	 * @param node	Übergeordneter xml-Knoten, in dessen Kindelementen die Daten des Objekts gespeichert werden sollen
@@ -670,6 +716,11 @@ public class ModelElementBox extends ModelElementPosition implements ElementWith
 			} else {
 				sub.setTextContent(""+maxThroughputIntervalSeconds);
 			}
+		}
+		if (drawQueueAll) {
+			final Element sub=doc.createElement(Language.tr("Surface.XML.QueueAnimationComplete"));
+			node.appendChild(sub);
+			sub.setTextContent("1");
 		}
 	}
 
@@ -738,6 +789,11 @@ public class ModelElementBox extends ModelElementPosition implements ElementWith
 		if (Language.trAll("Surface.XML.MaxThroughputSeconds",name)) {
 			final Integer I=NumberTools.getInteger(content);
 			if (I==null) maxThroughputIntervalSeconds=DEFAULT_MAX_THROUGHPUT_INTERVAL_SECONDS; else maxThroughputIntervalSeconds=I;
+			return null;
+		}
+
+		if (Language.trAll("Surface.XML.QueueAnimationComplete",name)) {
+			drawQueueAll=content.equals("1");
 			return null;
 		}
 

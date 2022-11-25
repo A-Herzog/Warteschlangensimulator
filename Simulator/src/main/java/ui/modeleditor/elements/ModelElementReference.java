@@ -622,4 +622,11 @@ public class ModelElementReference extends ModelElementBox implements ModelEleme
 		if (element!=null) return element.showFullAnimationRunData();
 		return super.showFullAnimationRunData();
 	}
+
+	@Override
+	public boolean hasQueue() {
+		final ModelElementBox element=getReferenceElement();
+		if (element!=null) return element.hasQueue();
+		return super.hasQueue();
+	}
 }

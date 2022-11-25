@@ -444,6 +444,11 @@ public class ModelElementHoldJS extends ModelElementMultiInSingleOutBox implemen
 	}
 
 	@Override
+	public boolean hasQueue() {
+		return true;
+	}
+
+	@Override
 	public String getHelpPageName() {
 		return "ModelElementHoldJS";
 	}

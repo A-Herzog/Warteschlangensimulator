@@ -258,6 +258,11 @@ public class ModelElementSectionStart extends ModelElementMultiInSingleOutBox {
 	}
 
 	@Override
+	public boolean hasQueue() {
+		return true;
+	}
+
+	@Override
 	public String getHelpPageName() {
 		return "ModelElementSectionStart";
 	}

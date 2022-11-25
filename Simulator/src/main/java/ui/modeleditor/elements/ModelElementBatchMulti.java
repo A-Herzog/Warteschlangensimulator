@@ -326,6 +326,11 @@ public class ModelElementBatchMulti extends ModelElementMultiInSingleOutBox impl
 	}
 
 	@Override
+	public boolean hasQueue() {
+		return true;
+	}
+
+	@Override
 	public String getHelpPageName() {
 		return "ModelElementBatchMulti";
 	}

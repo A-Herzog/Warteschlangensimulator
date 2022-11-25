@@ -332,6 +332,11 @@ public class ModelElementBarrierPull extends ModelElementMultiInSingleOutBox imp
 	}
 
 	@Override
+	public boolean hasQueue() {
+		return true;
+	}
+
+	@Override
 	public String getHelpPageName() {
 		return "ModelElementBarrierPull";
 	}

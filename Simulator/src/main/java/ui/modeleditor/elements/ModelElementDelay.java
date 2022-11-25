@@ -736,6 +736,11 @@ public class ModelElementDelay extends ModelElementMultiInSingleOutBox implement
 	}
 
 	@Override
+	public boolean hasQueue() {
+		return true;
+	}
+
+	@Override
 	public void objectRenamed(String oldName, String newName, ModelDataRenameListener.RenameType type) {
 		if (!isRenameType(oldName,newName,type,ModelDataRenameListener.RenameType.RENAME_TYPE_CLIENT_TYPE)) return;
 

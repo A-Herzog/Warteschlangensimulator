@@ -992,11 +992,23 @@ public class ModelSurfaceAnimatorBase {
 	 */
 	private void addStaticClientIconDefault(final RunDataClient client, final String icon, final ModelElementBox element, final int stationID) {
 		final int waiting=stationClients[stationID];
-		if (waiting>10) return; /* Maximal an einer Station zu zeichnende Anzahl an Icons */
+		final boolean drawCompleteQueue=element.isDrawQueueAll();
+		if (drawCompleteQueue) { /* Maximal an einer Station zu zeichnende Anzahl an Icons */
+			if (waiting>200) return;
+		} else {
+			if (waiting>10) return;
+		}
 		final Point p=element.getPosition(true);
 		final int boxWidth=elementBoxWidth[stationID];
-		final int x=p.x+boxWidth-ICON_SIZE-FastMath.min(boxWidth-ICON_SIZE,waiting*boxWidth/10);
-		final int y=p.y-ICON_SIZE/2;
+		final int x;
+		final int y;
+		if (drawCompleteQueue) {
+			x=p.x+boxWidth-ICON_SIZE-(waiting%10)*boxWidth/13;
+			y=p.y-ICON_SIZE/2-ICON_SIZE*(waiting/10)*9/10;
+		} else {
+			x=p.x+boxWidth-ICON_SIZE-FastMath.min(boxWidth-ICON_SIZE,waiting*boxWidth/10);
+			y=p.y-ICON_SIZE/2;
+		}
 		stationClients[stationID]=waiting+1;
 		addStaticIcon(x,y,icon,client);
 	}

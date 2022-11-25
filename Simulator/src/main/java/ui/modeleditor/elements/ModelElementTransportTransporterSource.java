@@ -746,6 +746,11 @@ public class ModelElementTransportTransporterSource extends ModelElementBox impl
 	}
 
 	@Override
+	public boolean hasQueue() {
+		return true;
+	}
+
+	@Override
 	public void objectRenamed(String oldName, String newName, ModelDataRenameListener.RenameType type) {
 		if (isRenameType(oldName,newName,type,ModelDataRenameListener.RenameType.RENAME_TYPE_CLIENT_TYPE)) {
 			transportTargetSystem.clientTypeRenamed(oldName,newName);

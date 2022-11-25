@@ -438,6 +438,11 @@ public class ModelElementHold extends ModelElementMultiInSingleOutBox implements
 	}
 
 	@Override
+	public boolean hasQueue() {
+		return true;
+	}
+
+	@Override
 	protected String getIDInfo() {
 		return super.getIDInfo()+", "+Language.tr("Surface.Hold.Dialog.Condition")+": "+condition;
 	}

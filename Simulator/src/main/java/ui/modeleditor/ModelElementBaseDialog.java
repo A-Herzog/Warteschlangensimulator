@@ -88,7 +88,7 @@ public abstract class ModelElementBaseDialog extends BaseDialog {
 	 * Serialisierungs-ID der Klasse
 	 * @see Serializable
 	 */
-	private static final long serialVersionUID = -6340641625398515847L;
+	private static final long serialVersionUID=-6340641625398515847L;
 
 	/**
 	 * Detaileinstellungen zum Nur-Lese-Modus
@@ -139,7 +139,7 @@ public abstract class ModelElementBaseDialog extends BaseDialog {
 	private boolean flipped;
 	/** Schaltfläche zum Ändern der ID des Elements */
 	private final JButton idButton;
-	/** Schaltfläche Schriftarten  */
+	/** Schaltfläche Schriftarten */
 	private final JButton fontButton;
 	/** Schaltfläche zum Aktivieren/Deaktivieren des Schreibschutzes für das Element */
 	private final JButton protectedButton;
@@ -147,22 +147,27 @@ public abstract class ModelElementBaseDialog extends BaseDialog {
 	private final JButton colorButton;
 	/** Schaltfläche zum Bearbeiten der Beschreibung des Elements */
 	private final JButton descriptionButton;
+	/** Soll die Warteschlange während einer Animation immer vollständig gezeichnet werden? */
+	private boolean drawQueue;
+	/** Schaltfläche zum Bearbeiten der Animations-Warteschlangen-Darstellung */
+	private final JButton drawQueueButton;
 	/** ID für einen Infotext oben im Dialog */
 	private final String infoPanelID;
 
 	/**
 	 * Konstruktor der Klasse <code>ModelElementBaseDialog</code>
-	 * @param owner	Übergeordnetes Fenster
-	 * @param title	Titel des Fensters
-	 * @param element	Zu bearbeitendes <code>ModelElement</code>
-	 * @param helpTopic	Name des Hilfethemas mit dem die Hilfeschaltfläche verknüpft werden soll
-	 * @param infoPanelID	ID für einen Infotext oben im Dialog
-	 * @param readOnly	Wird dieser Parameter auf <code>true</code> gesetzt, so wird die "Ok"-Schaltfläche deaktiviert
-	 * @param makeDialogVisible	Gibt an, ob der Dialog direkt durch den Konstruktur sichtbar geschaltet werden soll
+	 * @param owner Übergeordnetes Fenster
+	 * @param title Titel des Fensters
+	 * @param element Zu bearbeitendes <code>ModelElement</code>
+	 * @param helpTopic Name des Hilfethemas mit dem die Hilfeschaltfläche verknüpft werden soll
+	 * @param infoPanelID ID für einen Infotext oben im Dialog
+	 * @param readOnly Wird dieser Parameter auf <code>true</code> gesetzt, so wird die "Ok"-Schaltfläche deaktiviert
+	 * @param makeDialogVisible Gibt an, ob der Dialog direkt durch den Konstruktur sichtbar geschaltet werden soll
 	 */
 	protected ModelElementBaseDialog(final Component owner, final String title, final ModelElement element, final String helpTopic, final String infoPanelID, final ReadOnlyMode readOnly, final boolean makeDialogVisible) {
 		super(owner,title+" (id="+element.getId()+")",readOnly==ReadOnlyMode.FULL_READ_ONLY);
-		if (owner instanceof ModelSurfacePanel) surfacePanel=(ModelSurfacePanel)owner; else surfacePanel=null;
+		if (owner instanceof ModelSurfacePanel) surfacePanel=(ModelSurfacePanel)owner;
+		else surfacePanel=null;
 		plainTitle=title;
 		this.element=element;
 		this.infoPanelID=infoPanelID;
@@ -241,12 +246,30 @@ public abstract class ModelElementBaseDialog extends BaseDialog {
 				flipped=false;
 				colorButton=null;
 			}
+
 			description=element.getDescription();
 			sub.add(descriptionButton=new JButton());
 			descriptionButton.setPreferredSize(new Dimension(26,26));
 			descriptionButton.setToolTipText(Language.tr("Editor.DialogBase.Description.Tooltip"));
 			descriptionButton.addActionListener(e->showDescriptionEditDialog());
 			descriptionButton.setIcon(Images.MODELEDITOR_COMMENT.getIcon());
+
+			if (element instanceof ModelElementBox) {
+				final ModelElementBox boxElement=(ModelElementBox)element;
+				if (boxElement.hasQueue()) {
+					drawQueue=boxElement.isDrawQueueAll();
+					sub.add(drawQueueButton=new JButton());
+					drawQueueButton.setPreferredSize(new Dimension(26,26));
+					drawQueueButton.setToolTipText(Language.tr("Editor.DialogBase.DisplayQueue.Tooltip"));
+					drawQueueButton.addActionListener(e->showQueueDrawEditDialog());
+					drawQueueButton.setIcon(Images.MODELEDITOR_QUEUE.getIcon());
+
+				} else {
+					drawQueueButton=null;
+				}
+			} else {
+				drawQueueButton=null;
+			}
 		} else {
 			nameField=null;
 			fontButton=null;
@@ -256,13 +279,14 @@ public abstract class ModelElementBaseDialog extends BaseDialog {
 			protectedButton=null;
 			colorButton=null;
 			descriptionButton=null;
+			drawQueueButton=null;
 		}
 
 		JComponent content=getContentPanel();
 		if (content!=null) contentPanel.add(content,BorderLayout.CENTER);
 
 		setDialogSize();
-		SwingUtilities.invokeLater(()->{
+		SwingUtilities.invokeLater(()-> {
 			if (infoPanel!=null) infoPanel.setPreferredSize(infoPanel.getSize());
 			setDialogSizeLater();
 			setLocationRelativeTo(this.owner);
@@ -274,12 +298,12 @@ public abstract class ModelElementBaseDialog extends BaseDialog {
 
 	/**
 	 * Konstruktor der Klasse <code>ModelElementBaseDialog</code>
-	 * @param owner	Übergeordnetes Fenster
-	 * @param title	Titel des Fensters
-	 * @param element	Zu bearbeitendes <code>ModelElement</code>
-	 * @param helpTopic	Name des Hilfethemas mit dem die Hilfeschaltfläche verknüpft werden soll
-	 * @param readOnly	Wird dieser Parameter auf <code>true</code> gesetzt, so wird die "Ok"-Schaltfläche deaktiviert
-	 * @param makeDialogVisible	Gibt an, ob der Dialog direkt durch den Konstruktur sichtbar geschaltet werden soll
+	 * @param owner Übergeordnetes Fenster
+	 * @param title Titel des Fensters
+	 * @param element Zu bearbeitendes <code>ModelElement</code>
+	 * @param helpTopic Name des Hilfethemas mit dem die Hilfeschaltfläche verknüpft werden soll
+	 * @param readOnly Wird dieser Parameter auf <code>true</code> gesetzt, so wird die "Ok"-Schaltfläche deaktiviert
+	 * @param makeDialogVisible Gibt an, ob der Dialog direkt durch den Konstruktur sichtbar geschaltet werden soll
 	 */
 	protected ModelElementBaseDialog(final Component owner, final String title, final ModelElement element, final String helpTopic, final boolean readOnly, final boolean makeDialogVisible) {
 		this(owner,title,element,helpTopic,null,readOnly?ReadOnlyMode.FULL_READ_ONLY:ReadOnlyMode.ALLOW_ALL,makeDialogVisible);
@@ -287,12 +311,12 @@ public abstract class ModelElementBaseDialog extends BaseDialog {
 
 	/**
 	 * Konstruktor der Klasse <code>ModelElementBaseDialog</code>
-	 * @param owner	Übergeordnetes Fenster
-	 * @param title	Titel des Fensters
-	 * @param element	Zu bearbeitendes <code>ModelElement</code>
-	 * @param helpTopic	Name des Hilfethemas mit dem die Hilfeschaltfläche verknüpft werden soll
-	 * @param readOnly	Detail-Nur-Lese-Status
-	 * @param makeDialogVisible	Gibt an, ob der Dialog direkt durch den Konstruktur sichtbar geschaltet werden soll
+	 * @param owner Übergeordnetes Fenster
+	 * @param title Titel des Fensters
+	 * @param element Zu bearbeitendes <code>ModelElement</code>
+	 * @param helpTopic Name des Hilfethemas mit dem die Hilfeschaltfläche verknüpft werden soll
+	 * @param readOnly Detail-Nur-Lese-Status
+	 * @param makeDialogVisible Gibt an, ob der Dialog direkt durch den Konstruktur sichtbar geschaltet werden soll
 	 */
 	protected ModelElementBaseDialog(final Component owner, final String title, final ModelElement element, final String helpTopic, final ReadOnlyMode readOnly, final boolean makeDialogVisible) {
 		this(owner,title,element,helpTopic,null,readOnly,makeDialogVisible);
@@ -300,11 +324,11 @@ public abstract class ModelElementBaseDialog extends BaseDialog {
 
 	/**
 	 * Konstruktor der Klasse <code>ModelElementBaseDialog</code>
-	 * @param owner	Übergeordnetes Fenster
-	 * @param title	Titel des Fensters
-	 * @param element	Zu bearbeitendes <code>ModelElement</code>
-	 * @param helpTopic	Name des Hilfethemas mit dem die Hilfeschaltfläche verknüpft werden soll
-	 * @param readOnly	Wird dieser Parameter auf <code>true</code> gesetzt, so wird die "Ok"-Schaltfläche deaktiviert
+	 * @param owner Übergeordnetes Fenster
+	 * @param title Titel des Fensters
+	 * @param element Zu bearbeitendes <code>ModelElement</code>
+	 * @param helpTopic Name des Hilfethemas mit dem die Hilfeschaltfläche verknüpft werden soll
+	 * @param readOnly Wird dieser Parameter auf <code>true</code> gesetzt, so wird die "Ok"-Schaltfläche deaktiviert
 	 */
 	protected ModelElementBaseDialog(final Component owner, final String title, final ModelElement element, final String helpTopic, final boolean readOnly) {
 		this(owner,title,element,helpTopic,readOnly,true);
@@ -312,11 +336,11 @@ public abstract class ModelElementBaseDialog extends BaseDialog {
 
 	/**
 	 * Konstruktor der Klasse <code>ModelElementBaseDialog</code>
-	 * @param owner	Übergeordnetes Fenster
-	 * @param title	Titel des Fensters
-	 * @param element	Zu bearbeitendes <code>ModelElement</code>
-	 * @param helpTopic	Name des Hilfethemas mit dem die Hilfeschaltfläche verknüpft werden soll
-	 * @param readOnly	Detail-Nur-Lese-Status
+	 * @param owner Übergeordnetes Fenster
+	 * @param title Titel des Fensters
+	 * @param element Zu bearbeitendes <code>ModelElement</code>
+	 * @param helpTopic Name des Hilfethemas mit dem die Hilfeschaltfläche verknüpft werden soll
+	 * @param readOnly Detail-Nur-Lese-Status
 	 */
 	protected ModelElementBaseDialog(final Component owner, final String title, final ModelElement element, final String helpTopic, final ReadOnlyMode readOnly) {
 		this(owner,title,element,helpTopic,readOnly,true);
@@ -324,12 +348,12 @@ public abstract class ModelElementBaseDialog extends BaseDialog {
 
 	/**
 	 * Konstruktor der Klasse <code>ModelElementBaseDialog</code>
-	 * @param owner	Übergeordnetes Fenster
-	 * @param title	Titel des Fensters
-	 * @param element	Zu bearbeitendes <code>ModelElement</code>
-	 * @param helpTopic	Name des Hilfethemas mit dem die Hilfeschaltfläche verknüpft werden soll
-	 * @param infoPanelID	ID für einen Infotext oben im Dialog zurück
-	 * @param readOnly	Wird dieser Parameter auf <code>true</code> gesetzt, so wird die "Ok"-Schaltfläche deaktiviert
+	 * @param owner Übergeordnetes Fenster
+	 * @param title Titel des Fensters
+	 * @param element Zu bearbeitendes <code>ModelElement</code>
+	 * @param helpTopic Name des Hilfethemas mit dem die Hilfeschaltfläche verknüpft werden soll
+	 * @param infoPanelID ID für einen Infotext oben im Dialog zurück
+	 * @param readOnly Wird dieser Parameter auf <code>true</code> gesetzt, so wird die "Ok"-Schaltfläche deaktiviert
 	 */
 	protected ModelElementBaseDialog(final Component owner, final String title, final ModelElement element, final String helpTopic, final String infoPanelID, final boolean readOnly) {
 		this(owner,title,element,helpTopic,infoPanelID,readOnly?ReadOnlyMode.FULL_READ_ONLY:ReadOnlyMode.ALLOW_ALL,true);
@@ -338,7 +362,7 @@ public abstract class ModelElementBaseDialog extends BaseDialog {
 	/**
 	 * Gibt optional die ID für einen Infotext oben im Dialog zurück.
 	 * Kann überschrieben werden, um einen Wert zu liefern oder über den Konstruktor mit einem Wert belegt werden
-	 * @return	ID für einen Infotext oben im Dialog (kann <code>null</code> sein)
+	 * @return ID für einen Infotext oben im Dialog (kann <code>null</code> sein)
 	 * @see InfoPanel
 	 */
 	protected String getInfoPanelID() {
@@ -354,7 +378,7 @@ public abstract class ModelElementBaseDialog extends BaseDialog {
 
 	/**
 	 * Gibt abgeleiteten Klassen die Möglichkeit, benutzerdefinierte Buttons hinter dem Name-Eingabefeld hinzuzufügen
-	 * @param panel	Panel, in das die Buttons eingefügt werden können
+	 * @param panel Panel, in das die Buttons eingefügt werden können
 	 */
 	protected void initUserNameFieldButtons(final JPanel panel) {
 	}
@@ -363,7 +387,7 @@ public abstract class ModelElementBaseDialog extends BaseDialog {
 	 * Gibt an, ob der Dialog eine Zeile zur Eingabe eines Namens für das Element anzeigen soll.<br>
 	 * Diese Methode liefert standardmäßig <code>true</code> und muss nur überschrieben werden,
 	 * wenn kein Namen geliefert werden soll.
-	 * @return	Gibt <code>true</code> zurück, wenn eine Name-Zeile angezeigt werden soll.
+	 * @return Gibt <code>true</code> zurück, wenn eine Name-Zeile angezeigt werden soll.
 	 */
 	protected boolean hasNameField() {
 		return true;
@@ -385,9 +409,9 @@ public abstract class ModelElementBaseDialog extends BaseDialog {
 
 	/**
 	 * Erstellt ein Textfeld mit einem Label links davor.
-	 * @param labelText	Text des Labels
-	 * @param value	Initialer Wert des Textfeldes
-	 * @return	Liefert ein Objekt aus zwei Elementen: das <code>JPanel</code> das beide Elemente enthält und als zweites das <code>JTextField</code>
+	 * @param labelText Text des Labels
+	 * @param value Initialer Wert des Textfeldes
+	 * @return Liefert ein Objekt aus zwei Elementen: das <code>JPanel</code> das beide Elemente enthält und als zweites das <code>JTextField</code>
 	 */
 	public static final Object[] getInputPanel(final String labelText, final String value) {
 		return getInputPanel(labelText,value,-1);
@@ -395,10 +419,10 @@ public abstract class ModelElementBaseDialog extends BaseDialog {
 
 	/**
 	 * Erstellt ein Textfeld mit einem Label links davor.
-	 * @param labelText	Text des Labels
-	 * @param value	Initialer Wert des Textfeldes
-	 * @param size	Breite des Textfeldes
-	 * @return	Liefert ein Objekt aus zwei Elementen: das <code>JPanel</code> das beide Elemente enthält und als zweites das <code>JTextField</code>
+	 * @param labelText Text des Labels
+	 * @param value Initialer Wert des Textfeldes
+	 * @param size Breite des Textfeldes
+	 * @return Liefert ein Objekt aus zwei Elementen: das <code>JPanel</code> das beide Elemente enthält und als zweites das <code>JTextField</code>
 	 */
 	public static final Object[] getInputPanel(final String labelText, final String value, final int size) {
 		JPanel panel;
@@ -433,15 +457,15 @@ public abstract class ModelElementBaseDialog extends BaseDialog {
 
 		label.setLabelFor(field);
 		if (value!=null) field.setText(value);
-		return new Object[]{panel,field};
+		return new Object[] {panel, field};
 	}
 
 	/**
 	 * Erstellt ein Textfeld mit einem Label links davor.
-	 * @param labelText	Text des Labels
-	 * @param placeholder	Platzhaltertext (darf <code>null</code> oder leer sein)
-	 * @param value	Initialer Wert des Textfeldes
-	 * @return	Liefert ein Objekt aus zwei Elementen: das <code>JPanel</code> das beide Elemente enthält und als zweites das <code>JTextField</code>
+	 * @param labelText Text des Labels
+	 * @param placeholder Platzhaltertext (darf <code>null</code> oder leer sein)
+	 * @param value Initialer Wert des Textfeldes
+	 * @return Liefert ein Objekt aus zwei Elementen: das <code>JPanel</code> das beide Elemente enthält und als zweites das <code>JTextField</code>
 	 */
 	public static final Object[] getPlaceholderInputPanel(final String labelText, final String placeholder, final String value) {
 		return getPlaceholderInputPanel(labelText,placeholder,value,-1);
@@ -449,11 +473,11 @@ public abstract class ModelElementBaseDialog extends BaseDialog {
 
 	/**
 	 * Erstellt ein Textfeld mit einem Label links davor.
-	 * @param labelText	Text des Labels
-	 * @param placeholder	Platzhaltertext (darf <code>null</code> oder leer sein)
-	 * @param value	Initialer Wert des Textfeldes
-	 * @param size	Breite des Textfeldes
-	 * @return	Liefert ein Objekt aus zwei Elementen: das <code>JPanel</code> das beide Elemente enthält und als zweites das <code>JTextField</code>
+	 * @param labelText Text des Labels
+	 * @param placeholder Platzhaltertext (darf <code>null</code> oder leer sein)
+	 * @param value Initialer Wert des Textfeldes
+	 * @param size Breite des Textfeldes
+	 * @return Liefert ein Objekt aus zwei Elementen: das <code>JPanel</code> das beide Elemente enthält und als zweites das <code>JTextField</code>
 	 */
 	public static final Object[] getPlaceholderInputPanel(final String labelText, final String placeholder, final String value, final int size) {
 		JPanel panel;
@@ -490,13 +514,13 @@ public abstract class ModelElementBaseDialog extends BaseDialog {
 
 		label.setLabelFor(field);
 		if (value!=null) field.setText(value);
-		return new Object[]{panel,field};
+		return new Object[] {panel, field};
 	}
 
 	/**
 	 * Erstellt eine Hilfe-Schaltfläche, die die Hilfe-Seite zur Berechnung von Ausdrücken öffnet
-	 * @param owner	Übergeordnetes Element
-	 * @return	Hilfe-Schaltfläche
+	 * @param owner Übergeordnetes Element
+	 * @return Hilfe-Schaltfläche
 	 */
 	public static final JButton getExpressionHelpButton(final Container owner) {
 		final JButton button=new JButton();
@@ -511,13 +535,13 @@ public abstract class ModelElementBaseDialog extends BaseDialog {
 	/**
 	 * Erstellt eine Bearbeiten-Schaltfläche, die das Bearbeiten eines Ausdrucks (Vergleich oder Rechengröße)
 	 * in einem Expression-Builder-Dialog erlaubt.
-	 * @param owner	Übergeordnetes Element
-	 * @param inputLine	Eingabezeile, aus der der Ausdruck entnommen werden soll und in den der Ausdruck zurückgeschrieben werden soll
-	 * @param isCompare	Gibt an, ob es sich bei dem Ausdruck um einen Vergleich (<code>true</code>) oder um einen zu einer Zahl auszurechnenden Ausdruck (<code>false</code>) handelt
-	 * @param hasClientData	Gibt an, ob Funktionen zum Zugriff auf Kundenobjekt-spezifische Datenfelder angeboten werden sollen
-	 * @param model	Element vom Typ <code>EditModel</code> (wird benötigt, um die Liste der globalen Variablen zu laden)
-	 * @param surface	Zeichenfläche, die alle Elemente enthält
-	 * @return	Bearbeiten-Schaltfläche
+	 * @param owner Übergeordnetes Element
+	 * @param inputLine Eingabezeile, aus der der Ausdruck entnommen werden soll und in den der Ausdruck zurückgeschrieben werden soll
+	 * @param isCompare Gibt an, ob es sich bei dem Ausdruck um einen Vergleich (<code>true</code>) oder um einen zu einer Zahl auszurechnenden Ausdruck (<code>false</code>) handelt
+	 * @param hasClientData Gibt an, ob Funktionen zum Zugriff auf Kundenobjekt-spezifische Datenfelder angeboten werden sollen
+	 * @param model Element vom Typ <code>EditModel</code> (wird benötigt, um die Liste der globalen Variablen zu laden)
+	 * @param surface Zeichenfläche, die alle Elemente enthält
+	 * @return Bearbeiten-Schaltfläche
 	 */
 	public static final JButton getExpressionEditButton(final Container owner, final JTextField inputLine, final boolean isCompare, final boolean hasClientData, final EditModel model, final ModelSurface surface) {
 		ModelSurface mainSurface=(surface==null)?null:surface.getParentSurface();
@@ -543,14 +567,14 @@ public abstract class ModelElementBaseDialog extends BaseDialog {
 	/**
 	 * Erstellt eine Bearbeiten-Schaltfläche, die das Bearbeiten eines Ausdrucks (Vergleich oder Rechengröße)
 	 * in einem Expression-Builder-Dialog erlaubt.
-	 * @param owner	Übergeordnetes Element
-	 * @param inputLine	Eingabezeile, aus der der Ausdruck entnommen werden soll und in den der Ausdruck zurückgeschrieben werden soll
-	 * @param isCompare	Gibt an, ob es sich bei dem Ausdruck um einen Vergleich (<code>true</code>) oder um einen zu einer Zahl auszurechnenden Ausdruck (<code>false</code>) handelt
-	 * @param hasClientData	Gibt an, ob Funktionen zum Zugriff auf Kundenobjekt-spezifische Datenfelder angeboten werden sollen
-	 * @param model	Element vom Typ <code>EditModel</code> (wird benötigt, um die Liste der globalen Variablen zu laden)
-	 * @param surface	Zeichenfläche, die alle Elemente enthält
-	 * @param additionalVariableNames	Liste mit zusätzlichen Variablennamen, die sich nicht aus den vorherigen Parametern ergeben
-	 * @return	Bearbeiten-Schaltfläche
+	 * @param owner Übergeordnetes Element
+	 * @param inputLine Eingabezeile, aus der der Ausdruck entnommen werden soll und in den der Ausdruck zurückgeschrieben werden soll
+	 * @param isCompare Gibt an, ob es sich bei dem Ausdruck um einen Vergleich (<code>true</code>) oder um einen zu einer Zahl auszurechnenden Ausdruck (<code>false</code>) handelt
+	 * @param hasClientData Gibt an, ob Funktionen zum Zugriff auf Kundenobjekt-spezifische Datenfelder angeboten werden sollen
+	 * @param model Element vom Typ <code>EditModel</code> (wird benötigt, um die Liste der globalen Variablen zu laden)
+	 * @param surface Zeichenfläche, die alle Elemente enthält
+	 * @param additionalVariableNames Liste mit zusätzlichen Variablennamen, die sich nicht aus den vorherigen Parametern ergeben
+	 * @return Bearbeiten-Schaltfläche
 	 */
 	public static final JButton getExpressionEditButton(final Container owner, final JTextField inputLine, final boolean isCompare, final boolean hasClientData, final EditModel model, final ModelSurface surface, final String[] additionalVariableNames) {
 		ModelSurface mainSurface=surface.getParentSurface();
@@ -564,15 +588,15 @@ public abstract class ModelElementBaseDialog extends BaseDialog {
 	/**
 	 * Erstellt eine Bearbeiten-Schaltfläche, die das Bearbeiten eines Ausdrucks (Vergleich oder Rechengröße)
 	 * in einem Expression-Builder-Dialog erlaubt.
-	 * @param owner	Übergeordnetes Element
-	 * @param inputLine	Eingabezeile, aus der der Ausdruck entnommen werden soll und in den der Ausdruck zurückgeschrieben werden soll
-	 * @param isCompare	Gibt an, ob es sich bei dem Ausdruck um einen Vergleich (<code>true</code>) oder um einen zu einer Zahl auszurechnenden Ausdruck (<code>false</code>) handelt
-	 * @param variableNames	Liste mit allen bekannten Variablennamen
-	 * @param initialVariableValues	Liste der initialen Variablen mit Werten
-	 * @param stationIDs	Liste mit den Zuordnungen von Stations-IDs zu Stationsnamen
-	 * @param stationNameIDs	Liste mit den Zuordnungen von Stations-IDs zu nutzerdefinierten Stationsnamen
-	 * @param hasClientData	Gibt an, ob Funktionen zum Zugriff auf Kundenobjekt-spezifische Datenfelder angeboten werden sollen
-	 * @return	Bearbeiten-Schaltfläche
+	 * @param owner Übergeordnetes Element
+	 * @param inputLine Eingabezeile, aus der der Ausdruck entnommen werden soll und in den der Ausdruck zurückgeschrieben werden soll
+	 * @param isCompare Gibt an, ob es sich bei dem Ausdruck um einen Vergleich (<code>true</code>) oder um einen zu einer Zahl auszurechnenden Ausdruck (<code>false</code>) handelt
+	 * @param variableNames Liste mit allen bekannten Variablennamen
+	 * @param initialVariableValues Liste der initialen Variablen mit Werten
+	 * @param stationIDs Liste mit den Zuordnungen von Stations-IDs zu Stationsnamen
+	 * @param stationNameIDs Liste mit den Zuordnungen von Stations-IDs zu nutzerdefinierten Stationsnamen
+	 * @param hasClientData Gibt an, ob Funktionen zum Zugriff auf Kundenobjekt-spezifische Datenfelder angeboten werden sollen
+	 * @return Bearbeiten-Schaltfläche
 	 */
 	public static final JButton getExpressionEditButton(final Container owner, final JTextField inputLine, final boolean isCompare, final String[] variableNames, final Map<String,String> initialVariableValues, final Map<Integer,String> stationIDs, final Map<Integer,String> stationNameIDs, final boolean hasClientData) {
 		return getExpressionEditButton(owner,inputLine,isCompare,variableNames,initialVariableValues,stationIDs,stationNameIDs,hasClientData,false);
@@ -581,22 +605,22 @@ public abstract class ModelElementBaseDialog extends BaseDialog {
 	/**
 	 * Erstellt eine Bearbeiten-Schaltfläche, die das Bearbeiten eines Ausdrucks (Vergleich oder Rechengröße)
 	 * in einem Expression-Builder-Dialog erlaubt.
-	 * @param owner	Übergeordnetes Element
-	 * @param inputLine	Eingabezeile, aus der der Ausdruck entnommen werden soll und in den der Ausdruck zurückgeschrieben werden soll
-	 * @param isCompare	Gibt an, ob es sich bei dem Ausdruck um einen Vergleich (<code>true</code>) oder um einen zu einer Zahl auszurechnenden Ausdruck (<code>false</code>) handelt
-	 * @param variableNames	Liste mit allen bekannten Variablennamen
-	 * @param initialVariableValues	Liste der initialen Variablen mit Werten
-	 * @param stationIDs	Liste mit den Zuordnungen von Stations-IDs zu Stationsnamen
-	 * @param stationNameIDs	Liste mit den Zuordnungen von Stations-IDs zu nutzerdefinierten Stationsnamen
-	 * @param hasClientData	Gibt an, ob Funktionen zum Zugriff auf Kundenobjekt-spezifische Datenfelder angeboten werden sollen
-	 * @param statisticsOnly	Gibt an, dass nur Funktionen angeboten werden sollen, deren Ergebnisse aus Statistikdaten gewonnen werden können (keine reinen Runtime-Daten)
-	 * @return	Bearbeiten-Schaltfläche
+	 * @param owner Übergeordnetes Element
+	 * @param inputLine Eingabezeile, aus der der Ausdruck entnommen werden soll und in den der Ausdruck zurückgeschrieben werden soll
+	 * @param isCompare Gibt an, ob es sich bei dem Ausdruck um einen Vergleich (<code>true</code>) oder um einen zu einer Zahl auszurechnenden Ausdruck (<code>false</code>) handelt
+	 * @param variableNames Liste mit allen bekannten Variablennamen
+	 * @param initialVariableValues Liste der initialen Variablen mit Werten
+	 * @param stationIDs Liste mit den Zuordnungen von Stations-IDs zu Stationsnamen
+	 * @param stationNameIDs Liste mit den Zuordnungen von Stations-IDs zu nutzerdefinierten Stationsnamen
+	 * @param hasClientData Gibt an, ob Funktionen zum Zugriff auf Kundenobjekt-spezifische Datenfelder angeboten werden sollen
+	 * @param statisticsOnly Gibt an, dass nur Funktionen angeboten werden sollen, deren Ergebnisse aus Statistikdaten gewonnen werden können (keine reinen Runtime-Daten)
+	 * @return Bearbeiten-Schaltfläche
 	 */
 	public static final JButton getExpressionEditButton(final Container owner, final JTextField inputLine, final boolean isCompare, final String[] variableNames, final Map<String,String> initialVariableValues, final Map<Integer,String> stationIDs, final Map<Integer,String> stationNameIDs, final boolean hasClientData, final boolean statisticsOnly) {
 		final JButton button=new JButton();
 		button.setToolTipText(Language.tr("Editor.DialogBase.ExpressionEditTooltip"));
 		button.setIcon(Images.EXPRESSION_BUILDER.getIcon());
-		button.addActionListener(e->{
+		button.addActionListener(e-> {
 			if (!inputLine.isEditable() || !inputLine.isEnabled()) return;
 			final ExpressionBuilder dialog=new ExpressionBuilder(owner,inputLine.getText(),isCompare,variableNames,initialVariableValues,stationIDs,stationNameIDs,hasClientData,statisticsOnly,false);
 			dialog.setVisible(true);
@@ -617,12 +641,12 @@ public abstract class ModelElementBaseDialog extends BaseDialog {
 	/**
 	 * Erstellt eine Bearbeiten-Schaltfläche, die das Bearbeiten eines Ausdrucks (Vergleich oder Rechengröße)
 	 * in einem Expression-Builder-Dialog erlaubt. Es werden dabei nur die Funktionen, deren Daten auch aus reinen Statistikdaten gewonnen werden können, angeboten.
-	 * @param owner	Übergeordnetes Element
-	 * @param inputLine	Eingabezeile, aus der der Ausdruck entnommen werden soll und in den der Ausdruck zurückgeschrieben werden soll
-	 * @param isCompare	Gibt an, ob es sich bei dem Ausdruck um einen Vergleich (<code>true</code>) oder um einen zu einer Zahl auszurechnenden Ausdruck (<code>false</code>) handelt
-	 * @param stationIDs	Liste mit den Zuordnungen von Stations-IDs zu Stationsnamen
-	 * @param stationNameIDs	Liste mit den Zuordnungen von Stations-IDs zu nutzerdefinierten Stationsnamen
-	 * @return	Bearbeiten-Schaltfläche
+	 * @param owner Übergeordnetes Element
+	 * @param inputLine Eingabezeile, aus der der Ausdruck entnommen werden soll und in den der Ausdruck zurückgeschrieben werden soll
+	 * @param isCompare Gibt an, ob es sich bei dem Ausdruck um einen Vergleich (<code>true</code>) oder um einen zu einer Zahl auszurechnenden Ausdruck (<code>false</code>) handelt
+	 * @param stationIDs Liste mit den Zuordnungen von Stations-IDs zu Stationsnamen
+	 * @param stationNameIDs Liste mit den Zuordnungen von Stations-IDs zu nutzerdefinierten Stationsnamen
+	 * @return Bearbeiten-Schaltfläche
 	 */
 	public static final JButton getStatisticsExpressionEditButton(final Container owner, final JTextField inputLine, final boolean isCompare, final Map<Integer,String> stationIDs, final Map<Integer,String> stationNameIDs) {
 		return getExpressionEditButton(owner,inputLine,isCompare,null,null,stationIDs,stationNameIDs,false,true);
@@ -631,12 +655,12 @@ public abstract class ModelElementBaseDialog extends BaseDialog {
 	/**
 	 * Erstellt eine Bearbeiten-Schaltfläche, die das Bearbeiten eines Ausdrucks (Vergleich oder Rechengröße)
 	 * in einem Expression-Builder-Dialog erlaubt. Es werden dabei nur die Funktionen, deren Daten auch aus reinen Statistikdaten gewonnen werden können, angeboten.
-	 * @param owner	Übergeordnetes Element
-	 * @param inputLine	Eingabezeile, aus der der Ausdruck entnommen werden soll und in den der Ausdruck zurückgeschrieben werden soll
-	 * @param isCompare	Gibt an, ob es sich bei dem Ausdruck um einen Vergleich (<code>true</code>) oder um einen zu einer Zahl auszurechnenden Ausdruck (<code>false</code>) handelt
-	 * @param model	Element vom Typ <code>EditModel</code> (wird benötigt, um die Liste der globalen Variablen zu laden)
-	 * @param surface	Zeichenfläche, die alle Elemente enthält
-	 * @return	Bearbeiten-Schaltfläche
+	 * @param owner Übergeordnetes Element
+	 * @param inputLine Eingabezeile, aus der der Ausdruck entnommen werden soll und in den der Ausdruck zurückgeschrieben werden soll
+	 * @param isCompare Gibt an, ob es sich bei dem Ausdruck um einen Vergleich (<code>true</code>) oder um einen zu einer Zahl auszurechnenden Ausdruck (<code>false</code>) handelt
+	 * @param model Element vom Typ <code>EditModel</code> (wird benötigt, um die Liste der globalen Variablen zu laden)
+	 * @param surface Zeichenfläche, die alle Elemente enthält
+	 * @return Bearbeiten-Schaltfläche
 	 */
 	public static final JButton getStatisticsExpressionEditButton(final Container owner, final JTextField inputLine, final boolean isCompare, final EditModel model, final ModelSurface surface) {
 		ModelSurface mainSurface=surface.getParentSurface();
@@ -647,20 +671,20 @@ public abstract class ModelElementBaseDialog extends BaseDialog {
 
 	/**
 	 * Erstellt und liefert das Panel, welches im Content-Bereich des Dialogs angezeigt werden soll
-	 * @return	Panel mit den Dialogelementen
+	 * @return Panel mit den Dialogelementen
 	 */
 	protected abstract JComponent getContentPanel();
 
 	/**
 	 * Liefert den im Dialog eingestellten Namen des Elements
-	 * @return	Neuer Name für das Element
+	 * @return Neuer Name für das Element
 	 */
 	protected final String getElementName() {
 		if (nameField!=null) {
 			String s=nameField.getText();
 			/*
-			s=s.replaceAll("<","");
-			s=s.replaceAll(">","");
+			 * s=s.replaceAll("<","");
+			 * s=s.replaceAll(">","");
 			 */
 			return s.trim();
 		} else {
@@ -670,7 +694,7 @@ public abstract class ModelElementBaseDialog extends BaseDialog {
 
 	/**
 	 * Liefert die im Dialog eingestellte Hintergrundfarbe für das Element
-	 * @return	Hintergrundfarbe für das Element oder <code>null</code>, wenn die Vorgabe-Hintergrundfarbe verwendet werden soll
+	 * @return Hintergrundfarbe für das Element oder <code>null</code>, wenn die Vorgabe-Hintergrundfarbe verwendet werden soll
 	 */
 	protected final Color getElementColor() {
 		return userColor;
@@ -678,7 +702,7 @@ public abstract class ModelElementBaseDialog extends BaseDialog {
 
 	/**
 	 * Liefert das im Dialog eingestellte Bild für das Element
-	 * @return	Bild für das Element oder <code>null</code>, wenn die normale Form verwendet werden soll
+	 * @return Bild für das Element oder <code>null</code>, wenn die normale Form verwendet werden soll
 	 */
 	protected final BufferedImage getElementImage() {
 		return userImage;
@@ -740,13 +764,26 @@ public abstract class ModelElementBaseDialog extends BaseDialog {
 	}
 
 	/**
-	 * Zeit den Dialog zum Bearbeiten der Stationsbeschreibung an.
+	 * Zeigt den Dialog zum Bearbeiten der Stationsbeschreibung an.
 	 * @see ModelElementDescriptionDialog
 	 */
 	private void showDescriptionEditDialog() {
 		final ModelElementDescriptionDialog dialog=new ModelElementDescriptionDialog(this,description,readOnly,element.getHelpPageName());
 		if (dialog.getClosedBy()==BaseDialog.CLOSED_BY_OK) {
 			description=dialog.getDescription();
+		}
+	}
+
+	/**
+	 * Zeigt den Dialog zur Konfiguration des Warteschlangen-Darstellungsmodus an.
+	 * @see ModelElementBaseQueueDialog
+	 * @see ModelElementBox#hasQueue()
+	 * @see ModelElementBox#isDrawQueueAll()
+	 */
+	private void showQueueDrawEditDialog() {
+		final ModelElementBaseQueueDialog dialog=new ModelElementBaseQueueDialog(this,drawQueue);
+		if (dialog.getClosedBy()==BaseDialog.CLOSED_BY_OK) {
+			drawQueue=dialog.getDrawQueueAll();
 		}
 	}
 
@@ -783,6 +820,7 @@ public abstract class ModelElementBaseDialog extends BaseDialog {
 			if (boxElement.isFlipable()) boxElement.setFlipShape(flipped);
 			boxElement.setFontLarge(fontLarge);
 			boxElement.setFontSmall(fontSmall);
+			boxElement.setDrawQueueAll(drawQueue);
 		}
 		if (protectedButton!=null) element.setDeleteProtection(protectedButton.isSelected());
 	}
@@ -795,7 +833,7 @@ public abstract class ModelElementBaseDialog extends BaseDialog {
 	@Override
 	protected void storeData() {
 		storeBaseProperties();
-		SwingUtilities.invokeLater(()->{
+		SwingUtilities.invokeLater(()-> {
 			if (element instanceof ModelElementBox) ((ModelElementBox)element).fireChanged();
 			element.getSurface().updateAdditionalIcons();
 			if (surfacePanel!=null) {
@@ -807,9 +845,9 @@ public abstract class ModelElementBaseDialog extends BaseDialog {
 
 	/**
 	 * Erzeugt ein Bild, das eine bestimmt Linienbreite für ein Auswahlfeld darstellt.
-	 * @param width	Linienbreite
-	 * @param imageSize	Größe für das Bild
-	 * @return	Bild zur Darstellung einer Linienbreite
+	 * @param width Linienbreite
+	 * @param imageSize Größe für das Bild
+	 * @return Bild zur Darstellung einer Linienbreite
 	 */
 	private static BufferedImage getLineWidthImage(final int width, final int imageSize) {
 		final BufferedImage image=new BufferedImage(imageSize,imageSize,BufferedImage.TYPE_4BYTE_ABGR);
@@ -824,16 +862,16 @@ public abstract class ModelElementBaseDialog extends BaseDialog {
 
 	/**
 	 * Liefert ein Button, welches beim Anklicken den Dialog (nach Rückfrage) per Ok schließt und die Bediener-Seite im Modelleigenschaften-Dialog öffnet.
-	 * @return	Button oder <code>null</code>, wenn kein Callback zum Aufruf des Modelleigenschaften-Dialogs verfügbar ist
+	 * @return Button oder <code>null</code>, wenn kein Callback zum Aufruf des Modelleigenschaften-Dialogs verfügbar ist
 	 */
 	protected final JButton getOpenModelOperatorsButton() {
 		if (surfacePanel==null) return null;
 
 		final JButton resourceButton=new JButton(Language.tr("Editor.DialogBase.OpenModelResources"));
 		resourceButton.setIcon(Images.MODELPROPERTIES_OPERATORS.getIcon());
-		resourceButton.addActionListener(e->{
+		resourceButton.addActionListener(e-> {
 			if (!MsgBox.confirm(ModelElementBaseDialog.this,Language.tr("Editor.DialogBase.OpenModelResources"),Language.tr("Editor.DialogBase.OpenModelResources.Info"),Language.tr("Editor.DialogBase.OpenModelResources.InfoYes"),Language.tr("Editor.DialogBase.OpenModelResources.InfoNo"))) return;
-			if (close(BaseDialog.CLOSED_BY_OK)) SwingUtilities.invokeLater(()->{
+			if (close(BaseDialog.CLOSED_BY_OK)) SwingUtilities.invokeLater(()-> {
 				surfacePanel.fireShowPropertiesDialog(ModelSurfacePanel.PROPERTIES_TYPE_PROPERTIES_OPERATORS);
 			});
 		});
@@ -843,16 +881,16 @@ public abstract class ModelElementBaseDialog extends BaseDialog {
 
 	/**
 	 * Liefert ein Button, welches beim Anklicken den Dialog (nach Rückfrage) per Ok schließt und die Transporter-Seite im Modelleigenschaften-Dialog öffnet.
-	 * @return	Button oder <code>null</code>, wenn kein Callback zum Aufruf des Modelleigenschaften-Dialogs verfügbar ist
+	 * @return Button oder <code>null</code>, wenn kein Callback zum Aufruf des Modelleigenschaften-Dialogs verfügbar ist
 	 */
 	protected final JButton getOpenModelTransportersButton() {
 		if (surfacePanel==null) return null;
 
 		final JButton resourceButton=new JButton(Language.tr("Editor.DialogBase.OpenModelTranporters"));
 		resourceButton.setIcon(Images.MODELPROPERTIES_TRANSPORTERS.getIcon());
-		resourceButton.addActionListener(e->{
+		resourceButton.addActionListener(e-> {
 			if (!MsgBox.confirm(ModelElementBaseDialog.this,Language.tr("Editor.DialogBase.OpenModelTranporters"),Language.tr("Editor.DialogBase.OpenModelTranporters.Info"),Language.tr("Editor.DialogBase.OpenModelTranporters.InfoYes"),Language.tr("Editor.DialogBase.OpenModelTranporters.InfoNo"))) return;
-			if (close(BaseDialog.CLOSED_BY_OK)) SwingUtilities.invokeLater(()->{
+			if (close(BaseDialog.CLOSED_BY_OK)) SwingUtilities.invokeLater(()-> {
 				surfacePanel.fireShowPropertiesDialog(ModelSurfacePanel.PROPERTIES_TYPE_PROPERTIES_TRANSPORTERS);
 			});
 		});
@@ -862,26 +900,26 @@ public abstract class ModelElementBaseDialog extends BaseDialog {
 
 	/**
 	 * Liefert ein Button, welches beim Anklicken den Dialog (nach Rückfrage) per Ok schließt und die Zeitpläne-Seite im Modelleigenschaften-Dialog öffnet.
-	 * @param childDialogCloser	Optionales Callback über das zunächst die Close-Routine eines untergeordneten Dialogs aufgerufen werden kann
-	 * @return	Button oder <code>null</code>, wenn kein Callback zum Aufruf des Modelleigenschaften-Dialogs verfügbar ist
+	 * @param childDialogCloser Optionales Callback über das zunächst die Close-Routine eines untergeordneten Dialogs aufgerufen werden kann
+	 * @return Button oder <code>null</code>, wenn kein Callback zum Aufruf des Modelleigenschaften-Dialogs verfügbar ist
 	 */
 	protected final JButton getOpenModelSchedulesButton(final Supplier<Boolean> childDialogCloser) {
 		if (surfacePanel==null) return null;
 
 		final JButton resourceButton=new JButton(Language.tr("Editor.DialogBase.OpenModelSchedules"));
 		resourceButton.setIcon(Images.MODELPROPERTIES_SCHEDULES.getIcon());
-		resourceButton.addActionListener(e->{
+		resourceButton.addActionListener(e-> {
 			if (!MsgBox.confirm(ModelElementBaseDialog.this,Language.tr("Editor.DialogBase.OpenModelSchedules"),Language.tr("Editor.DialogBase.OpenModelSchedules.Info"),Language.tr("Editor.DialogBase.OpenModelSchedules.InfoYes"),Language.tr("Editor.DialogBase.OpenModelSchedules.InfoNo"))) return;
 			if (childDialogCloser!=null) {
 				if (childDialogCloser.get()) {
-					SwingUtilities.invokeLater(()->{
-						if (close(BaseDialog.CLOSED_BY_OK)) SwingUtilities.invokeLater(()->{
+					SwingUtilities.invokeLater(()-> {
+						if (close(BaseDialog.CLOSED_BY_OK)) SwingUtilities.invokeLater(()-> {
 							surfacePanel.fireShowPropertiesDialog(ModelSurfacePanel.PROPERTIES_TYPE_PROPERTIES_SCHEDULES);
 						});
 					});
 				}
 			} else {
-				if (close(BaseDialog.CLOSED_BY_OK)) SwingUtilities.invokeLater(()->{
+				if (close(BaseDialog.CLOSED_BY_OK)) SwingUtilities.invokeLater(()-> {
 					surfacePanel.fireShowPropertiesDialog(ModelSurfacePanel.PROPERTIES_TYPE_PROPERTIES_SCHEDULES);
 				});
 			}
@@ -892,9 +930,9 @@ public abstract class ModelElementBaseDialog extends BaseDialog {
 
 	/**
 	 * Erstellt ein ComboBox-Modell, welches verschiedene Linienbreiten darstellt
-	 * @param min	Minimale Linienbreite in Pixeln
-	 * @param max	Maximale Linienbreite in Pixeln
-	 * @return	ComboBox-Modell mit Einträgen für verschiedene Linienbreiten
+	 * @param min Minimale Linienbreite in Pixeln
+	 * @param max Maximale Linienbreite in Pixeln
+	 * @return ComboBox-Modell mit Einträgen für verschiedene Linienbreiten
 	 * @see LineWidthComboBoxCellRenderer
 	 */
 	public static DefaultComboBoxModel<JLabel> getLineWidthComboBoxModel(final int min, final int max) {
@@ -918,7 +956,7 @@ public abstract class ModelElementBaseDialog extends BaseDialog {
 		 * Serialisierungs-ID der Klasse
 		 * @see Serializable
 		 */
-		private static final long serialVersionUID = 6448329627127036343L;
+		private static final long serialVersionUID=6448329627127036343L;
 
 		/**
 		 * Konstruktor der Klasse
@@ -931,8 +969,8 @@ public abstract class ModelElementBaseDialog extends BaseDialog {
 		}
 
 		@Override
-		public Component getListCellRendererComponent(JList<?> list, Object value, int index,boolean isSelected, boolean cellHasFocus) {
-			final Component renderer=super.getListCellRendererComponent(list,value, index, isSelected, cellHasFocus);
+		public Component getListCellRendererComponent(JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
+			final Component renderer=super.getListCellRendererComponent(list,value,index,isSelected,cellHasFocus);
 			if (value instanceof JLabel) {
 				((LineWidthComboBoxCellRenderer)renderer).setText(((JLabel)value).getText());
 				((LineWidthComboBoxCellRenderer)renderer).setIcon(((JLabel)value).getIcon());
@@ -943,10 +981,10 @@ public abstract class ModelElementBaseDialog extends BaseDialog {
 
 	/**
 	 * Erstellt eine ComboBox zur Auswahl einer Linienbreite
-	 * @param min	Minimale Linienbreite in Pixeln
-	 * @param max	Maximale Linienbreite in Pixeln
-	 * @param value	Zu Anfang ausgewählte Linienbreite (nicht notwendig Index des Eintrags)
-	 * @return	ComboBox zur Auswahl einer Linienbreite
+	 * @param min Minimale Linienbreite in Pixeln
+	 * @param max Maximale Linienbreite in Pixeln
+	 * @param value Zu Anfang ausgewählte Linienbreite (nicht notwendig Index des Eintrags)
+	 * @return ComboBox zur Auswahl einer Linienbreite
 	 */
 	public static JComboBox<JLabel> getLineWidthComboBox(final int min, final int max, final int value) {
 		final JComboBox<JLabel> lineWidthComboBox=getLineWidthComboBox(min,max);
@@ -956,9 +994,9 @@ public abstract class ModelElementBaseDialog extends BaseDialog {
 
 	/**
 	 * Erstellt eine ComboBox zur Auswahl einer Linienbreite
-	 * @param min	Minimale Linienbreite in Pixeln
-	 * @param max	Maximale Linienbreite in Pixeln
-	 * @return	ComboBox zur Auswahl einer Linienbreite
+	 * @param min Minimale Linienbreite in Pixeln
+	 * @param max Maximale Linienbreite in Pixeln
+	 * @return ComboBox zur Auswahl einer Linienbreite
 	 */
 	public static JComboBox<JLabel> getLineWidthComboBox(final int min, final int max) {
 		final JComboBox<JLabel> lineWidthComboBox=new JComboBox<>();
@@ -969,10 +1007,10 @@ public abstract class ModelElementBaseDialog extends BaseDialog {
 
 	/**
 	 * Erstellt ein Panel, in dem sich ein Label und eine ComboBox zur Auswahl einer Linienbreite befinden
-	 * @param labelText	Beschriftungstext, der vor der ComboBox stehen soll
-	 * @param min	Minimale Linienbreite in Pixeln
-	 * @param max	Maximale Linienbreite in Pixeln
-	 * @return	Liefert ein 2-elementiges Array: <code>JPanel</code>-Objekt, in dem sich Label und ComboBox befinden, und <code>JComboBox</code> vom Typ <code>JLabel</code>
+	 * @param labelText Beschriftungstext, der vor der ComboBox stehen soll
+	 * @param min Minimale Linienbreite in Pixeln
+	 * @param max Maximale Linienbreite in Pixeln
+	 * @return Liefert ein 2-elementiges Array: <code>JPanel</code>-Objekt, in dem sich Label und ComboBox befinden, und <code>JComboBox</code> vom Typ <code>JLabel</code>
 	 */
 	public static Object[] getLineWidthInputPanel(final String labelText, final int min, final int max) {
 		final JPanel panel=new JPanel(new FlowLayout(FlowLayout.LEFT));
@@ -982,16 +1020,16 @@ public abstract class ModelElementBaseDialog extends BaseDialog {
 		panel.add(lineWidthComboBox);
 		label.setLabelFor(lineWidthComboBox);
 
-		return new Object[]{panel,lineWidthComboBox};
+		return new Object[] {panel, lineWidthComboBox};
 	}
 
 	/**
 	 * Erstellt ein Panel, in dem sich ein Label und eine ComboBox zur Auswahl einer Linienbreite befinden
-	 * @param labelText	Beschriftungstext, der vor der ComboBox stehen soll
-	 * @param min	Minimale Linienbreite in Pixeln
-	 * @param max	Maximale Linienbreite in Pixeln
-	 * @param value	Zu Anfang ausgewählte Linienbreite (nicht notwendig Index des Eintrags)
-	 * @return	Liefert ein 2-elementiges Array: <code>JPanel</code>-Objekt, in dem sich Label und ComboBox befinden, und <code>JComboBox</code> vom Typ <code>JLabel</code>
+	 * @param labelText Beschriftungstext, der vor der ComboBox stehen soll
+	 * @param min Minimale Linienbreite in Pixeln
+	 * @param max Maximale Linienbreite in Pixeln
+	 * @param value Zu Anfang ausgewählte Linienbreite (nicht notwendig Index des Eintrags)
+	 * @return Liefert ein 2-elementiges Array: <code>JPanel</code>-Objekt, in dem sich Label und ComboBox befinden, und <code>JComboBox</code> vom Typ <code>JLabel</code>
 	 */
 	public static Object[] getLineWidthInputPanel(final String labelText, final int min, final int max, final int value) {
 		final JPanel panel=new JPanel(new FlowLayout(FlowLayout.LEFT));
@@ -1001,12 +1039,12 @@ public abstract class ModelElementBaseDialog extends BaseDialog {
 		panel.add(lineWidthComboBox);
 		label.setLabelFor(lineWidthComboBox);
 
-		return new Object[]{panel,lineWidthComboBox};
+		return new Object[] {panel, lineWidthComboBox};
 	}
 
 	/**
 	 * Erstellt ein ComboBox-Modell, welches verschiedene Linientypen darstellt
-	 * @return	ComboBox-Modell mit Einträgen für verschiedene Linientypen
+	 * @return ComboBox-Modell mit Einträgen für verschiedene Linientypen
 	 * @see LineWidthComboBoxCellRenderer
 	 */
 	public static DefaultComboBoxModel<JLabel> getLineTypeComboBoxModel() {
@@ -1030,7 +1068,7 @@ public abstract class ModelElementBaseDialog extends BaseDialog {
 		 * Serialisierungs-ID der Klasse
 		 * @see Serializable
 		 */
-		private static final long serialVersionUID = -1510471598523775390L;
+		private static final long serialVersionUID=-1510471598523775390L;
 
 		/**
 		 * Konstruktor der Klasse
@@ -1043,8 +1081,8 @@ public abstract class ModelElementBaseDialog extends BaseDialog {
 		}
 
 		@Override
-		public Component getListCellRendererComponent(JList<?> list, Object value, int index,boolean isSelected, boolean cellHasFocus) {
-			Component renderer=super.getListCellRendererComponent(list,value, index, isSelected, cellHasFocus);
+		public Component getListCellRendererComponent(JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
+			Component renderer=super.getListCellRendererComponent(list,value,index,isSelected,cellHasFocus);
 			if (value instanceof JLabel) {
 				((LineTypeComboBoxCellRenderer)renderer).setText(((JLabel)value).getText());
 				((LineTypeComboBoxCellRenderer)renderer).setIcon(((JLabel)value).getIcon());
@@ -1055,8 +1093,8 @@ public abstract class ModelElementBaseDialog extends BaseDialog {
 
 	/**
 	 * Erstellt eine ComboBox zur Auswahl eines Linientyps
-	 * @param value	Initial ausgewählter Linientyp
-	 * @return	ComboBox zur Auswahl eines Linientyps
+	 * @param value Initial ausgewählter Linientyp
+	 * @return ComboBox zur Auswahl eines Linientyps
 	 */
 	public static JComboBox<JLabel> getLineTypeComboBox(final int value) {
 		final JComboBox<JLabel> lineTypeComboBox=getLineTypeComboBox();
@@ -1066,7 +1104,7 @@ public abstract class ModelElementBaseDialog extends BaseDialog {
 
 	/**
 	 * Erstellt eine ComboBox zur Auswahl eines Linientyps
-	 * @return	ComboBox zur Auswahl eines Linientyps
+	 * @return ComboBox zur Auswahl eines Linientyps
 	 */
 	public static JComboBox<JLabel> getLineTypeComboBox() {
 		final JComboBox<JLabel> lineTypeComboBox=new JComboBox<>();
@@ -1077,8 +1115,8 @@ public abstract class ModelElementBaseDialog extends BaseDialog {
 
 	/**
 	 * Erstellt ein Panel, in dem sich ein Label und eine ComboBox zur Auswahl eines Linientyps befinden
-	 * @param labelText	Beschriftungstext, der vor der ComboBox stehen soll
-	 * @return	Liefert ein 2-elementiges Array: <code>JPanel</code>-Objekt, in dem sich Label und ComboBox befinden, und <code>JComboBox</code> vom Typ <code>JLabel</code>
+	 * @param labelText Beschriftungstext, der vor der ComboBox stehen soll
+	 * @return Liefert ein 2-elementiges Array: <code>JPanel</code>-Objekt, in dem sich Label und ComboBox befinden, und <code>JComboBox</code> vom Typ <code>JLabel</code>
 	 */
 	public static Object[] getLineWidthTypePanel(final String labelText) {
 		final JPanel panel=new JPanel(new FlowLayout(FlowLayout.LEFT));
@@ -1088,14 +1126,14 @@ public abstract class ModelElementBaseDialog extends BaseDialog {
 		panel.add(lineTypeComboBox);
 		label.setLabelFor(lineTypeComboBox);
 
-		return new Object[]{panel,lineTypeComboBox};
+		return new Object[] {panel, lineTypeComboBox};
 	}
 
 	/**
 	 * Erstellt ein Panel, in dem sich ein Label und eine ComboBox zur Auswahl eines Linientyps befinden
-	 * @param labelText	Beschriftungstext, der vor der ComboBox stehen soll
-	 * @param value	Zu Anfang ausgewählte Linienbreite (nicht notwendig Index des Eintrags)
-	 * @return	Liefert ein 2-elementiges Array: <code>JPanel</code>-Objekt, in dem sich Label und ComboBox befinden, und <code>JComboBox</code> vom Typ <code>JLabel</code>
+	 * @param labelText Beschriftungstext, der vor der ComboBox stehen soll
+	 * @param value Zu Anfang ausgewählte Linienbreite (nicht notwendig Index des Eintrags)
+	 * @return Liefert ein 2-elementiges Array: <code>JPanel</code>-Objekt, in dem sich Label und ComboBox befinden, und <code>JComboBox</code> vom Typ <code>JLabel</code>
 	 */
 	public static Object[] getLineWidthTypePanel(final String labelText, final int value) {
 		final JPanel panel=new JPanel(new FlowLayout(FlowLayout.LEFT));
@@ -1105,15 +1143,15 @@ public abstract class ModelElementBaseDialog extends BaseDialog {
 		panel.add(lineTypeComboBox);
 		label.setLabelFor(lineTypeComboBox);
 
-		return new Object[]{panel,lineTypeComboBox};
+		return new Object[] {panel, lineTypeComboBox};
 	}
 
 	/**
 	 * Erstellt ein Panel, in dem sich ein Label und eine ComboBox mit aktivem Editor befinden
-	 * @param labelText	Beschriftungstext, der vor der ComboBox stehen soll
-	 * @param value	Text, der im ComboBox-Editor angezeigt werden soll
-	 * @param values	Mögliche Auswahlwerte für die ComboBox
-	 * @return	Liefert ein 2-elementiges Array: <code>JPanel</code>-Objekt, in dem sich Label und ComboBox befinden, und <code>JComboBox</code> vom Typ <code>String</code>
+	 * @param labelText Beschriftungstext, der vor der ComboBox stehen soll
+	 * @param value Text, der im ComboBox-Editor angezeigt werden soll
+	 * @param values Mögliche Auswahlwerte für die ComboBox
+	 * @return Liefert ein 2-elementiges Array: <code>JPanel</code>-Objekt, in dem sich Label und ComboBox befinden, und <code>JComboBox</code> vom Typ <code>String</code>
 	 */
 	public static Object[] getComboBoxPanel(final String labelText, final String value, final Collection<String> values) {
 		final JPanel panel=new JPanel(new FlowLayout(FlowLayout.LEFT));
@@ -1125,14 +1163,14 @@ public abstract class ModelElementBaseDialog extends BaseDialog {
 		panel.add(comboBox);
 		label.setLabelFor(comboBox);
 
-		return new Object[]{panel,comboBox};
+		return new Object[] {panel, comboBox};
 	}
 
 	/**
 	 * Erstellt ein Panel, in dem sich ein Label und eine ComboBox ohne Edit-Möglichkeit befinden
-	 * @param labelText	Beschriftungstext, der vor der ComboBox stehen soll
-	 * @param values	Mögliche Auswahlwerte für die ComboBox
-	 * @return	Liefert ein 2-elementiges Array: <code>JPanel</code>-Objekt, in dem sich Label und ComboBox befinden, und <code>JComboBox</code> vom Typ <code>String</code>
+	 * @param labelText Beschriftungstext, der vor der ComboBox stehen soll
+	 * @param values Mögliche Auswahlwerte für die ComboBox
+	 * @return Liefert ein 2-elementiges Array: <code>JPanel</code>-Objekt, in dem sich Label und ComboBox befinden, und <code>JComboBox</code> vom Typ <code>String</code>
 	 */
 	public static Object[] getComboBoxPanel(final String labelText, final Collection<String> values) {
 		final JPanel panel=new JPanel(new FlowLayout(FlowLayout.LEFT));
@@ -1143,16 +1181,16 @@ public abstract class ModelElementBaseDialog extends BaseDialog {
 		panel.add(comboBox);
 		label.setLabelFor(comboBox);
 
-		return new Object[]{panel,comboBox};
+		return new Object[] {panel, comboBox};
 	}
 
 	/**
 	 * Erstellt eine ComboBox zur Auswahl einer Schriftart
-	 * @param initialValue	Initial auszuwählende Schriftart (darf <code>null</code> sein)
-	 * @return	ComboBox zur Auswahl einer Schriftart
+	 * @param initialValue Initial auszuwählende Schriftart (darf <code>null</code> sein)
+	 * @return ComboBox zur Auswahl einer Schriftart
 	 */
 	public static JComboBox<FontCache.FontFamily> getFontFamilyComboBox(final FontCache.FontFamily initialValue) {
-		List<FontCache.FontFamily> fontFamilies=Arrays.stream(FontCache.FontFamily.values()).sorted((f1,f2)->f1.getLocalName().compareToIgnoreCase(f2.getLocalName())).collect(Collectors.toList());
+		List<FontCache.FontFamily> fontFamilies=Arrays.stream(FontCache.FontFamily.values()).sorted((f1, f2)->f1.getLocalName().compareToIgnoreCase(f2.getLocalName())).collect(Collectors.toList());
 
 		int index=-1;
 		if (initialValue!=null) index=fontFamilies.indexOf(initialValue);
@@ -1167,9 +1205,9 @@ public abstract class ModelElementBaseDialog extends BaseDialog {
 
 	/**
 	 * Erstellt ein Panel, in dem sich ein Label und eine ComboBox zur Auswahl einer Schriftart befinden
-	 * @param labelText	Beschriftungstext, der vor der ComboBox stehen soll
-	 * @param initialValue	Initial auszuwählende Schriftart (darf <code>null</code> sein)
-	 * @return	Liefert ein 2-elementiges Array: <code>JPanel</code>-Objekt, in dem sich Label und ComboBox befinden, und <code>JComboBox</code> vom Typ <code>FontCache.FontFamily</code>
+	 * @param labelText Beschriftungstext, der vor der ComboBox stehen soll
+	 * @param initialValue Initial auszuwählende Schriftart (darf <code>null</code> sein)
+	 * @return Liefert ein 2-elementiges Array: <code>JPanel</code>-Objekt, in dem sich Label und ComboBox befinden, und <code>JComboBox</code> vom Typ <code>FontCache.FontFamily</code>
 	 */
 	public static Object[] getFontFamilyComboBoxPanel(final String labelText, final FontCache.FontFamily initialValue) {
 		final JPanel panel=new JPanel(new FlowLayout(FlowLayout.LEFT));
@@ -1179,7 +1217,7 @@ public abstract class ModelElementBaseDialog extends BaseDialog {
 		panel.add(comboBox);
 		label.setLabelFor(comboBox);
 
-		return new Object[]{panel,comboBox};
+		return new Object[] {panel, comboBox};
 	}
 
 	/**
@@ -1191,7 +1229,7 @@ public abstract class ModelElementBaseDialog extends BaseDialog {
 		 * Serialisierungs-ID der Klasse
 		 * @see Serializable
 		 */
-		private static final long serialVersionUID = -929195057808593785L;
+		private static final long serialVersionUID=-929195057808593785L;
 
 		/**
 		 * Konstruktor der Klasse
@@ -1204,8 +1242,8 @@ public abstract class ModelElementBaseDialog extends BaseDialog {
 		}
 
 		@Override
-		public Component getListCellRendererComponent(JList<?> list, Object value, int index,boolean isSelected, boolean cellHasFocus) {
-			final Component renderer=super.getListCellRendererComponent(list,value, index, isSelected, cellHasFocus);
+		public Component getListCellRendererComponent(JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
+			final Component renderer=super.getListCellRendererComponent(list,value,index,isSelected,cellHasFocus);
 			if (value instanceof FontCache.FontFamily) {
 				final FontCache.FontFamily fontFamily=(FontCache.FontFamily)value;
 				((FontFamilyComboBoxCellRenderer)renderer).setFont(FontCache.getFontCache().getFont(fontFamily,0,12));
@@ -1217,7 +1255,7 @@ public abstract class ModelElementBaseDialog extends BaseDialog {
 
 	/**
 	 * Aktiviert die Undo/Redo-Funktionen für ein Textfeld
-	 * @param textArea	Textfeld, bei dem die Funktionen aktiviert werden sollen
+	 * @param textArea Textfeld, bei dem die Funktionen aktiviert werden sollen
 	 */
 	public static void addUndoFeature(final JTextArea textArea) {
 		final UndoManager manager=new UndoManager();
@@ -1227,12 +1265,18 @@ public abstract class ModelElementBaseDialog extends BaseDialog {
 			@Override
 			public void keyPressed(KeyEvent e) {
 				if (e.getKeyCode()==KeyEvent.VK_Z && e.isControlDown()) {
-					try {manager.undo();} catch (CannotUndoException e2) {}
+					try {
+						manager.undo();
+					} catch (CannotUndoException e2) {
+					}
 					e.consume();
 					return;
 				}
 				if (e.getKeyCode()==KeyEvent.VK_Y && e.isControlDown()) {
-					try {manager.redo();} catch (CannotRedoException e2) {}
+					try {
+						manager.redo();
+					} catch (CannotRedoException e2) {
+					}
 					e.consume();
 					return;
 				}
@@ -1242,9 +1286,9 @@ public abstract class ModelElementBaseDialog extends BaseDialog {
 
 	/**
 	 * Zeichnet das Animationsicon eines Kundentyps auf einer Schaltfläche ein
-	 * @param clientTypeName	Name des Kundentyps dessen Animationsicon verwendet werden soll
-	 * @param button	Schaltfläche auf der das Icon eingezeichnet werden soll
-	 * @param model	Modell dem die notwendigen Daten entnommen werden sollen
+	 * @param clientTypeName Name des Kundentyps dessen Animationsicon verwendet werden soll
+	 * @param button Schaltfläche auf der das Icon eingezeichnet werden soll
+	 * @param model Modell dem die notwendigen Daten entnommen werden sollen
 	 */
 	public static void setClientIcon(final String clientTypeName, final JButton button, final EditModel model) {
 		AnimationImageSource imageSource=new AnimationImageSource();
@@ -1258,7 +1302,7 @@ public abstract class ModelElementBaseDialog extends BaseDialog {
 	 * externen Daten nicht kombiniert werden sollten und bietet die
 	 * Möglichkeit an, die Einschwingphase auszuschalten.<br>
 	 * (Sollte daher nur in die Dialoge von Quellen mit externen Daten eingefügt werden.)
-	 * @return	Panel mit Hinweis oder <code>null</code>, wenn keine Einschwingphase vorgesehen ist
+	 * @return Panel mit Hinweis oder <code>null</code>, wenn keine Einschwingphase vorgesehen ist
 	 */
 	public JPanel getWarmUpInfoPanel() {
 		final EditModel model=element.getModel();
@@ -1287,14 +1331,13 @@ public abstract class ModelElementBaseDialog extends BaseDialog {
 		result.add(buttonPanel,BorderLayout.EAST);
 		final JButton button=new JButton(Language.tr("Editor.DialogBase.WarmUpExternalSourceWarning.Button"));
 		buttonPanel.add(button);
-		button.addActionListener(e->{
+		button.addActionListener(e-> {
 			editorPanel.setWarmUpTime(0.0);
 			editorPanel.setWarmUpTimeTime(-1);
 			result.setVisible(false);
 		});
 
 		return result;
-
 
 	}
 }

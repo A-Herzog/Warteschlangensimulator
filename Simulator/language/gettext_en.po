@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-11-24 00:08+0100\n"
+"POT-Creation-Date: 2022-11-25 00:24+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -4083,6 +4083,18 @@ msgstr "Edit description"
 
 msgid "Editor.DialogBase.Description.Tooltip"
 msgstr "Edit description for this element"
+
+msgid "Editor.DialogBase.DisplayQueue.Full"
+msgstr "Always display all waiting clients; use multiple lines if necessary"
+
+msgid "Editor.DialogBase.DisplayQueue.Limited"
+msgstr "Draw 10 clients in queue at maximum"
+
+msgid "Editor.DialogBase.DisplayQueue.Title"
+msgstr "Queue display during animation"
+
+msgid "Editor.DialogBase.DisplayQueue.Tooltip"
+msgstr "Queue display during animation"
 
 msgid "Editor.DialogBase.ExpressionEditTooltip"
 msgstr "Edit expression in editor"
@@ -33576,6 +33588,9 @@ msgstr "ModelPluginsFolder"
 
 msgid "Surface.XML.PluginsFolder.AllowClassLoading"
 msgstr "AllowClassLoading"
+
+msgid "Surface.XML.QueueAnimationComplete"
+msgstr "ModelElementQueueAnimationComplete"
 
 msgid "Surface.XML.RecordIncompleteClients"
 msgstr "ModelRecordIncompleteClients"

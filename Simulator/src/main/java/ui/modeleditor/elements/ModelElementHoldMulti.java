@@ -602,6 +602,11 @@ public class ModelElementHoldMulti extends ModelElementBox implements ModelEleme
 		return true;
 	}
 
+	@Override
+	public boolean hasQueue() {
+		return true;
+	}
+
 	/**
 	 * Liefert die Bedingungen, mit denen die Kunden zu den einzelnen Zielstationen der auslaufenden Kanten weitergeleitet werden.
 	 * @return	Maps, die den Stations-IDs die jeweiligen Bedingungen zuordnet.

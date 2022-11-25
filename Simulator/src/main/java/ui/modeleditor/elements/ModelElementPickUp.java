@@ -484,6 +484,11 @@ public class ModelElementPickUp extends ModelElementMultiInSingleOutBox implemen
 	}
 
 	@Override
+	public boolean hasQueue() {
+		return true;
+	}
+
+	@Override
 	public String getHelpPageName() {
 		return "ModelElementPickUp";
 	}

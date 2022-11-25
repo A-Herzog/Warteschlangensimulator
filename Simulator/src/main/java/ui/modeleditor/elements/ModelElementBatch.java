@@ -401,6 +401,11 @@ public class ModelElementBatch extends ModelElementMultiInSingleOutBox implement
 	}
 
 	@Override
+	public boolean hasQueue() {
+		return true;
+	}
+
+	@Override
 	protected String getIDInfo() {
 		if (batchRecord.getBatchMode()==BatchRecord.BatchMode.BATCH_MODE_TEMPORARY || batchRecord.getBatchMode()==BatchRecord.BatchMode.BATCH_MODE_PERMANENT) {
 			return super.getIDInfo()+", "+Language.tr("Surface.Batch.Dialog.NewType")+"="+batchRecord.getNewClientType();

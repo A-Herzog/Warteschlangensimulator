@@ -476,6 +476,11 @@ public class ModelElementDelayJS extends ModelElementMultiInSingleOutBox impleme
 	}
 
 	@Override
+	public boolean hasQueue() {
+		return true;
+	}
+
+	@Override
 	public String getHelpPageName() {
 		return "ModelElementDelayJS";
 	}

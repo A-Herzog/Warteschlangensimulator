@@ -828,6 +828,11 @@ public class ModelElementMatch extends ModelElementBox implements ElementWithNew
 	}
 
 	@Override
+	public boolean hasQueue() {
+		return true;
+	}
+
+	@Override
 	public String getHelpPageName() {
 		return "ModelElementMatch";
 	}

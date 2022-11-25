@@ -420,6 +420,8 @@
 
 <!ELEMENT ModellElementMaximalerDurchsatzSekunden (#PCDATA)>
 
+<!ELEMENT ModellElementWarteschlangeAnimationVollstaendig (#PCDATA)>
+
 
 
 <!-- Beschreibung der Modell-Elemente: Einzelne Elemente -->
@@ -689,7 +691,7 @@
 <!ELEMENT ModellElementKostenKundenBedienzeit (#PCDATA)>
 <!ELEMENT ModellElementKostenStation (#PCDATA)>
 
-<!ELEMENT ModellElementVerzoegerung (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementBoxSchriftGross | ModellElementBoxSchriftKlein | ModellElementMaximalerDurchsatzSekunden | ModellElementEbene | ModellElementHintergrundfarbe | ModellElementStationsbild | ModellElementVerbindung | ModellElementVerteilung | ModellElementAusdruck | ModellElementVerzoegerungKosten | ModellElementVerzoegerungKundenliste)*>
+<!ELEMENT ModellElementVerzoegerung (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementBoxSchriftGross | ModellElementBoxSchriftKlein | ModellElementMaximalerDurchsatzSekunden | ModellElementWarteschlangeAnimationVollstaendig | ModellElementEbene | ModellElementHintergrundfarbe | ModellElementStationsbild | ModellElementVerbindung | ModellElementVerteilung | ModellElementAusdruck | ModellElementVerzoegerungKosten | ModellElementVerzoegerungKundenliste)*>
 <!ATTLIST ModellElementVerzoegerung
   id			CDATA	#REQUIRED
   geschuetzt	CDATA	#IMPLIED
@@ -699,7 +701,7 @@
 <!ELEMENT ModellElementVerzoegerungKosten (#PCDATA)>
 <!ELEMENT ModellElementVerzoegerungKundenliste (#PCDATA)>
 
-<!ELEMENT ModellElementVerzoegerungSkript (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementBoxSchriftGross | ModellElementBoxSchriftKlein | ModellElementMaximalerDurchsatzSekunden | ModellElementEbene | ModellElementHintergrundfarbe | ModellElementStationsbild | ModellElementVerbindung | ModellElementSkriptText | ModellElementVerzoegerungKosten | ModellElementVerzoegerungKundenliste)*>
+<!ELEMENT ModellElementVerzoegerungSkript (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementBoxSchriftGross | ModellElementBoxSchriftKlein | ModellElementMaximalerDurchsatzSekunden | ModellElementWarteschlangeAnimationVollstaendig | ModellElementEbene | ModellElementHintergrundfarbe | ModellElementStationsbild | ModellElementVerbindung | ModellElementSkriptText | ModellElementVerzoegerungKosten | ModellElementVerzoegerungKundenliste)*>
 <!ATTLIST ModellElementVerzoegerungSkript
   id			CDATA	#REQUIRED
   geschuetzt	CDATA	#IMPLIED
@@ -715,7 +717,7 @@
   SymbolSpiegeln	CDATA	#IMPLIED
 >
 
-<!ELEMENT ModellElementZusammenfassen (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementBoxSchriftGross | ModellElementBoxSchriftKlein | ModellElementMaximalerDurchsatzSekunden | ModellElementEbene | ModellElementHintergrundfarbe | ModellElementStationsbild | ModellElementVerbindung | ModellElementKundentyp | ModellElementBatchModus | ModellElementBatch)*>
+<!ELEMENT ModellElementZusammenfassen (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementBoxSchriftGross | ModellElementBoxSchriftKlein | ModellElementMaximalerDurchsatzSekunden | ModellElementWarteschlangeAnimationVollstaendig | ModellElementEbene | ModellElementHintergrundfarbe | ModellElementStationsbild | ModellElementVerbindung | ModellElementKundentyp | ModellElementBatchModus | ModellElementBatch)*>
 <!ATTLIST ModellElementZusammenfassen
   id			CDATA	#REQUIRED
   geschuetzt	CDATA	#IMPLIED
@@ -724,7 +726,7 @@
 >
 <!ELEMENT ModellElementBatchModus (#PCDATA)>
 
-<!ELEMENT ModellElementMehrfachZusammenfassen (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementBoxSchriftGross | ModellElementBoxSchriftKlein | ModellElementMaximalerDurchsatzSekunden | ModellElementEbene | ModellElementHintergrundfarbe | ModellElementStationsbild | ModellElementVerbindung | ModellElementZusammenfassenKundentyp)*>
+<!ELEMENT ModellElementMehrfachZusammenfassen (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementBoxSchriftGross | ModellElementBoxSchriftKlein | ModellElementMaximalerDurchsatzSekunden | ModellElementWarteschlangeAnimationVollstaendig | ModellElementEbene | ModellElementHintergrundfarbe | ModellElementStationsbild | ModellElementVerbindung | ModellElementZusammenfassenKundentyp)*>
 <!ATTLIST ModellElementMehrfachZusammenfassen
   id			CDATA	#REQUIRED
   geschuetzt	CDATA	#IMPLIED
@@ -737,7 +739,7 @@
   name	CDATA	#REQUIRED
 >
 
-<!ELEMENT ModellElementZusammenfuehren (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementBoxSchriftGross | ModellElementBoxSchriftKlein | ModellElementMaximalerDurchsatzSekunden | ModellElementEbene | ModellElementHintergrundfarbe | ModellElementStationsbild | ModellElementVerbindung | ModellElementKundentyp | ModellElementBatchModus | ModellElementMatchEigenschaft)*>
+<!ELEMENT ModellElementZusammenfuehren (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementBoxSchriftGross | ModellElementBoxSchriftKlein | ModellElementMaximalerDurchsatzSekunden | ModellElementWarteschlangeAnimationVollstaendig | ModellElementEbene | ModellElementHintergrundfarbe | ModellElementStationsbild | ModellElementVerbindung | ModellElementKundentyp | ModellElementBatchModus | ModellElementMatchEigenschaft)*>
 <!ATTLIST ModellElementZusammenfuehren
   id			CDATA	#REQUIRED
   geschuetzt	CDATA	#IMPLIED
@@ -806,7 +808,7 @@
   Modus     CDATA	#IMPLIED
 >
 
-<!ELEMENT ModellElementBedienstation (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementBoxSchriftGross | ModellElementBoxSchriftKlein | ModellElementMaximalerDurchsatzSekunden | ModellElementEbene | ModellElementHintergrundfarbe | ModellElementStationsbild | ModellElementVerbindung | ModellElementBatch | ModellElementKampagnenModus | ModellElementVerteilung | ModellElementAusdruck | ModellElementRuestzeitVerteilung | ModellElementRuestzeitAusdruck | ModellElementPrioritaet | ModellElementBediener | ModellElementBedienerPrioritaet | ModellElementBedienstationKosten | ModellElementKostenZeit)*>
+<!ELEMENT ModellElementBedienstation (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementBoxSchriftGross | ModellElementBoxSchriftKlein | ModellElementMaximalerDurchsatzSekunden | ModellElementWarteschlangeAnimationVollstaendig | ModellElementEbene | ModellElementHintergrundfarbe | ModellElementStationsbild | ModellElementVerbindung | ModellElementBatch | ModellElementKampagnenModus | ModellElementVerteilung | ModellElementAusdruck | ModellElementRuestzeitVerteilung | ModellElementRuestzeitAusdruck | ModellElementPrioritaet | ModellElementBediener | ModellElementBedienerPrioritaet | ModellElementBedienstationKosten | ModellElementKostenZeit)*>
 <!ATTLIST ModellElementBedienstation
   id			CDATA	#REQUIRED
   geschuetzt	CDATA	#IMPLIED
@@ -824,7 +826,7 @@
   Nachbearbeitungssekunde	CDATA	#IMPLIED
 >
 
-<!ELEMENT ModellElementBedingung (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementBoxSchriftGross | ModellElementBoxSchriftKlein | ModellElementMaximalerDurchsatzSekunden | ModellElementEbene | ModellElementHintergrundfarbe | ModellElementStationsbild | ModellElementVerbindung | ModellElementBedingungText | ModellElementPrioritaet)*>
+<!ELEMENT ModellElementBedingung (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementBoxSchriftGross | ModellElementBoxSchriftKlein | ModellElementMaximalerDurchsatzSekunden | ModellElementWarteschlangeAnimationVollstaendig | ModellElementEbene | ModellElementHintergrundfarbe | ModellElementStationsbild | ModellElementVerbindung | ModellElementBedingungText | ModellElementPrioritaet)*>
 <!ATTLIST ModellElementBedingung
   id			CDATA	#REQUIRED
   geschuetzt	CDATA	#IMPLIED
@@ -837,7 +839,7 @@
   ZeitabhaengigePruefungen	CDATA	#IMPLIED
 >
 
-<!ELEMENT ModellElementBedingungMehrfach (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementBoxSchriftGross | ModellElementBoxSchriftKlein | ModellElementMaximalerDurchsatzSekunden | ModellElementEbene | ModellElementHintergrundfarbe | ModellElementStationsbild | ModellElementVerbindung)*>
+<!ELEMENT ModellElementBedingungMehrfach (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementBoxSchriftGross | ModellElementBoxSchriftKlein | ModellElementMaximalerDurchsatzSekunden | ModellElementWarteschlangeAnimationVollstaendig | ModellElementEbene | ModellElementHintergrundfarbe | ModellElementStationsbild | ModellElementVerbindung)*>
 <!ATTLIST ModellElementBedingungMehrfach
   id			CDATA	#REQUIRED
   geschuetzt	CDATA	#IMPLIED
@@ -845,7 +847,7 @@
   SymbolSpiegeln	CDATA	#IMPLIED
 >
 
-<!ELEMENT ModellElementBedingungScript (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementBoxSchriftGross | ModellElementBoxSchriftKlein | ModellElementMaximalerDurchsatzSekunden | ModellElementEbene | ModellElementHintergrundfarbe | ModellElementStationsbild | ModellElementVerbindung | ModellElementBedingungScriptText | ModellElementBedingungScriptBedingung)*>
+<!ELEMENT ModellElementBedingungScript (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementBoxSchriftGross | ModellElementBoxSchriftKlein | ModellElementMaximalerDurchsatzSekunden | ModellElementWarteschlangeAnimationVollstaendig | ModellElementEbene | ModellElementHintergrundfarbe | ModellElementStationsbild | ModellElementVerbindung | ModellElementBedingungScriptText | ModellElementBedingungScriptBedingung)*>
 <!ATTLIST ModellElementBedingungScript
   id			CDATA	#REQUIRED
   geschuetzt	CDATA	#IMPLIED
@@ -869,7 +871,7 @@
 >
 <!ELEMENT ModellElementSignalVerzoegerteAusloesung (#PCDATA)>
 
-<!ELEMENT ModellElementSchranke (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementBoxSchriftGross | ModellElementBoxSchriftKlein | ModellElementMaximalerDurchsatzSekunden | ModellElementEbene | ModellElementHintergrundfarbe | ModellElementStationsbild | ModellElementVerbindung | ModellElementSchrankeOption)*>
+<!ELEMENT ModellElementSchranke (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementBoxSchriftGross | ModellElementBoxSchriftKlein | ModellElementMaximalerDurchsatzSekunden | ModellElementWarteschlangeAnimationVollstaendig | ModellElementEbene | ModellElementHintergrundfarbe | ModellElementStationsbild | ModellElementVerbindung | ModellElementSchrankeOption)*>
 <!ATTLIST ModellElementSchranke
   id			CDATA	#REQUIRED
   geschuetzt	CDATA	#IMPLIED
@@ -888,7 +890,7 @@
 	SignaleZwischenspeichern	CDATA	#IMPLIED
 >
 
-<!ELEMENT ModellElementSchrankePull (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementBoxSchriftGross | ModellElementBoxSchriftKlein | ModellElementMaximalerDurchsatzSekunden | ModellElementEbene | ModellElementHintergrundfarbe | ModellElementStationsbild | ModellElementVerbindung | ModellElementSchrankePullKontrolle)*>
+<!ELEMENT ModellElementSchrankePull (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementBoxSchriftGross | ModellElementBoxSchriftKlein | ModellElementMaximalerDurchsatzSekunden | ModellElementWarteschlangeAnimationVollstaendig | ModellElementEbene | ModellElementHintergrundfarbe | ModellElementStationsbild | ModellElementVerbindung | ModellElementSchrankePullKontrolle)*>
 <!ATTLIST ModellElementSchrankePull
   id			CDATA	#REQUIRED
   geschuetzt	CDATA	#IMPLIED
@@ -900,7 +902,7 @@
   Maximum	CDATA	#REQUIRED
 >
 
-<!ELEMENT ModellElementRessourceBelegen (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementBoxSchriftGross | ModellElementBoxSchriftKlein | ModellElementMaximalerDurchsatzSekunden | ModellElementEbene | ModellElementHintergrundfarbe | ModellElementStationsbild | ModellElementVerbindung | ModellElementBediener | ModellElementBedienerPrioritaet | ModellElementRessourceBelegenMaximaleZeit)*>
+<!ELEMENT ModellElementRessourceBelegen (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementBoxSchriftGross | ModellElementBoxSchriftKlein | ModellElementMaximalerDurchsatzSekunden | ModellElementWarteschlangeAnimationVollstaendig | ModellElementEbene | ModellElementHintergrundfarbe | ModellElementStationsbild | ModellElementVerbindung | ModellElementBediener | ModellElementBedienerPrioritaet | ModellElementRessourceBelegenMaximaleZeit)*>
 <!ATTLIST ModellElementRessourceBelegen
   id			CDATA	#REQUIRED
   geschuetzt	CDATA	#IMPLIED
@@ -1172,7 +1174,7 @@
 >
 <!ELEMENT ModellElementDifferenzZaehlerInkrement (#PCDATA)>
 
-<!ELEMENT ModellElementBereichStart (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementBoxSchriftGross | ModellElementBoxSchriftKlein | ModellElementMaximalerDurchsatzSekunden | ModellElementEbene | ModellElementHintergrundfarbe | ModellElementStationsbild | ModellElementVerbindung)*>
+<!ELEMENT ModellElementBereichStart (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementBoxSchriftGross | ModellElementBoxSchriftKlein | ModellElementMaximalerDurchsatzSekunden | ModellElementWarteschlangeAnimationVollstaendig | ModellElementEbene | ModellElementHintergrundfarbe | ModellElementStationsbild | ModellElementVerbindung)*>
 <!ATTLIST ModellElementBereichStart
   id			CDATA	#REQUIRED
   geschuetzt	CDATA	#IMPLIED
@@ -1189,7 +1191,7 @@
 >
 <!ELEMENT ModellElementBereichStartName (#PCDATA)>
 
-<!ELEMENT ModellElementAusleiten (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementBoxSchriftGross | ModellElementBoxSchriftKlein | ModellElementMaximalerDurchsatzSekunden | ModellElementEbene | ModellElementHintergrundfarbe | ModellElementStationsbild | ModellElementVerbindung | ModellElementWarteschlange | ModellElementKundentyp | ModellElementBatchModus)*>
+<!ELEMENT ModellElementAusleiten (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementBoxSchriftGross | ModellElementBoxSchriftKlein | ModellElementMaximalerDurchsatzSekunden | ModellElementWarteschlangeAnimationVollstaendig | ModellElementEbene | ModellElementHintergrundfarbe | ModellElementStationsbild | ModellElementVerbindung | ModellElementWarteschlange | ModellElementKundentyp | ModellElementBatchModus)*>
 <!ATTLIST ModellElementAusleiten
   id			CDATA	#REQUIRED
   geschuetzt	CDATA	#IMPLIED
@@ -1266,7 +1268,7 @@
   SymbolSpiegeln	CDATA	#IMPLIED
 >
 
-<!ELEMENT ModellElementTransportStart (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementBoxSchriftGross | ModellElementBoxSchriftKlein | ModellElementMaximalerDurchsatzSekunden | ModellElementEbene | ModellElementHintergrundfarbe | ModellElementStationsbild | ModellElementVerbindung | ModellElementVerteilung | ModellElementAusdruck | ModellElementTransportRoute | ModellElementTransportRouteNachSequenz | ModellElementTransportRouteNachEigenschaft | ModellElementTransportRessource | ModellElementTransportRessourcePrioritaet | ModellElementTransportRessourceVerzoegerteFreigabe | ModellElementTransportBereichStartName)*>
+<!ELEMENT ModellElementTransportStart (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementBoxSchriftGross | ModellElementBoxSchriftKlein | ModellElementMaximalerDurchsatzSekunden | ModellElementWarteschlangeAnimationVollstaendig | ModellElementEbene | ModellElementHintergrundfarbe | ModellElementStationsbild | ModellElementVerbindung | ModellElementVerteilung | ModellElementAusdruck | ModellElementTransportRoute | ModellElementTransportRouteNachSequenz | ModellElementTransportRouteNachEigenschaft | ModellElementTransportRessource | ModellElementTransportRessourcePrioritaet | ModellElementTransportRessourceVerzoegerteFreigabe | ModellElementTransportBereichStartName)*>
 <!ATTLIST ModellElementTransportStart
   id			CDATA	#REQUIRED
   geschuetzt	CDATA	#IMPLIED
@@ -1300,7 +1302,7 @@
   SymbolSpiegeln	CDATA	#IMPLIED
 >
 
-<!ELEMENT ModellElementTransporterStart (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementBoxSchriftGross | ModellElementBoxSchriftKlein | ModellElementMaximalerDurchsatzSekunden | ModellElementEbene | ModellElementHintergrundfarbe | ModellElementStationsbild | ModellElementVerbindung | ModellElementTransportRoute | ModellElementTransportRouteNachSequenz | ModellElementTransportRouteNachEigenschaft | ModellElementTransporterTyp | ModellElementTransporterMindestWartezahl | ModellElementTransporterAnforderungsPrioritaet | ModellElementTransporterWarteplaetze | ModellElementTransporterWartePrioritaet | ModellElementTransporterPrioritaet | ModellElementTransporterBereichStartName)*>
+<!ELEMENT ModellElementTransporterStart (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementBoxSchriftGross | ModellElementBoxSchriftKlein | ModellElementMaximalerDurchsatzSekunden | ModellElementWarteschlangeAnimationVollstaendig | ModellElementEbene | ModellElementHintergrundfarbe | ModellElementStationsbild | ModellElementVerbindung | ModellElementTransportRoute | ModellElementTransportRouteNachSequenz | ModellElementTransportRouteNachEigenschaft | ModellElementTransporterTyp | ModellElementTransporterMindestWartezahl | ModellElementTransporterAnforderungsPrioritaet | ModellElementTransporterWarteplaetze | ModellElementTransporterWartePrioritaet | ModellElementTransporterPrioritaet | ModellElementTransporterBereichStartName)*>
 <!ATTLIST ModellElementTransporterStart
   id			CDATA	#REQUIRED
   geschuetzt	CDATA	#IMPLIED
@@ -1729,7 +1731,7 @@
   SoundMaxSekunden	CDATA	#IMPLIED
 >
 
-<!ELEMENT ModellElementUntermodell (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementBoxSchriftGross | ModellElementBoxSchriftKlein | ModellElementMaximalerDurchsatzSekunden | ModellElementEbene | ModellElementHintergrundfarbe | ModellElementStationsbild | ModellElementVerbindung | ModellElementUntermodellVerbindungen | ModellElemente)*>
+<!ELEMENT ModellElementUntermodell (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementBoxSchriftGross | ModellElementBoxSchriftKlein | ModellElementMaximalerDurchsatzSekunden | ModellElementWarteschlangeAnimationVollstaendig | ModellElementEbene | ModellElementHintergrundfarbe | ModellElementStationsbild | ModellElementVerbindung | ModellElementUntermodellVerbindungen | ModellElemente)*>
 <!ATTLIST ModellElementUntermodell
   id			CDATA	#REQUIRED
   geschuetzt	CDATA	#IMPLIED
@@ -1767,7 +1769,7 @@
   SymbolSpiegeln	CDATA	#IMPLIED
 >
 
-<!ELEMENT ModellElementReferenz (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementBoxSchriftGross | ModellElementBoxSchriftKlein | ModellElementMaximalerDurchsatzSekunden | ModellElementEbene | ModellElementHintergrundfarbe | ModellElementStationsbild | ModellElementVerbindung | ModellElementReferenzID)*>
+<!ELEMENT ModellElementReferenz (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementBoxSchriftGross | ModellElementBoxSchriftKlein | ModellElementMaximalerDurchsatzSekunden | ModellElementWarteschlangeAnimationVollstaendig | ModellElementEbene | ModellElementHintergrundfarbe | ModellElementStationsbild | ModellElementVerbindung | ModellElementReferenzID)*>
 <!ATTLIST ModellElementReferenz
   id			CDATA	#REQUIRED
   geschuetzt	CDATA	#IMPLIED
@@ -3003,6 +3005,8 @@
 
 <!ELEMENT ModelElementMaximumThroughputSeconds (#PCDATA)>
 
+<!ELEMENT ModelElementQueueAnimationComplete (#PCDATA)>
+
 
 
 <!-- Documentation of the model elements: individual elements -->
@@ -3271,7 +3275,7 @@
 <!ELEMENT ModelElementCostsClientsProcessingTime (#PCDATA)>
 <!ELEMENT ModelElementCostsStation (#PCDATA)>
 
-<!ELEMENT ModelElementDelay (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBoxFontLarge | ModelElementBoxFontSmall | ModelElementMaximumThroughputSeconds | ModelElementLayer | ModelElementBackgroundColor | ModelElementStationimage | ModelElementConnection | ModelElementDistribution | ModelElementExpression | ModelElementDelayCosts | ModelElementDelayClientsList)*>
+<!ELEMENT ModelElementDelay (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBoxFontLarge | ModelElementBoxFontSmall | ModelElementMaximumThroughputSeconds | ModelElementQueueAnimationComplete | ModelElementLayer | ModelElementBackgroundColor | ModelElementStationimage | ModelElementConnection | ModelElementDistribution | ModelElementExpression | ModelElementDelayCosts | ModelElementDelayClientsList)*>
 <!ATTLIST ModelElementDelay
   id		CDATA	#REQUIRED
   protected	CDATA	#IMPLIED
@@ -3281,7 +3285,7 @@
 <!ELEMENT ModelElementDelayCosts (#PCDATA)>
 <!ELEMENT ModelElementDelayClientsList (#PCDATA)>
 
-<!ELEMENT ModelElementDelayScript (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBoxFontLarge | ModelElementBoxFontSmall | ModelElementMaximumThroughputSeconds | ModelElementLayer | ModelElementBackgroundColor | ModelElementStationimage | ModelElementConnection | ModelElementScriptText | ModelElementDelayCosts | ModelElementDelayClientsList)*>
+<!ELEMENT ModelElementDelayScript (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBoxFontLarge | ModelElementBoxFontSmall | ModelElementMaximumThroughputSeconds | ModelElementQueueAnimationComplete | ModelElementLayer | ModelElementBackgroundColor | ModelElementStationimage | ModelElementConnection | ModelElementScriptText | ModelElementDelayCosts | ModelElementDelayClientsList)*>
 <!ATTLIST ModelElementDelayScript
   id		CDATA	#REQUIRED
   protected	CDATA	#IMPLIED
@@ -3297,7 +3301,7 @@
   MirrorSymbol	CDATA	#IMPLIED
 >
 
-<!ELEMENT ModelElementBatch (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBoxFontLarge | ModelElementBoxFontSmall | ModelElementMaximumThroughputSeconds | ModelElementLayer | ModelElementBackgroundColor | ModelElementStationimage | ModelElementConnection | ModelElementClientType | ModelElementBatchMode | ModelElementBatchData)*>
+<!ELEMENT ModelElementBatch (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBoxFontLarge | ModelElementBoxFontSmall | ModelElementMaximumThroughputSeconds | ModelElementQueueAnimationComplete | ModelElementLayer | ModelElementBackgroundColor | ModelElementStationimage | ModelElementConnection | ModelElementClientType | ModelElementBatchMode | ModelElementBatchData)*>
 <!ATTLIST ModelElementBatch
   id		CDATA	#REQUIRED
   protected	CDATA	#IMPLIED
@@ -3306,7 +3310,7 @@
 >
 <!ELEMENT ModelElementBatchMode (#PCDATA)>
 
-<!ELEMENT ModelElementMultiBatch (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBoxFontLarge | ModelElementBoxFontSmall | ModelElementMaximumThroughputSeconds | ModelElementLayer | ModelElementBackgroundColor | ModelElementStationimage | ModelElementConnection | ModelElementBatchClientType)*>
+<!ELEMENT ModelElementMultiBatch (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBoxFontLarge | ModelElementBoxFontSmall | ModelElementMaximumThroughputSeconds | ModelElementQueueAnimationComplete | ModelElementLayer | ModelElementBackgroundColor | ModelElementStationimage | ModelElementConnection | ModelElementBatchClientType)*>
 <!ATTLIST ModelElementMultiBatch
   id		CDATA	#REQUIRED
   protected	CDATA	#IMPLIED
@@ -3319,7 +3323,7 @@
   name	CDATA	#REQUIRED
 >
 
-<!ELEMENT ModelElementMatch (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBoxFontLarge | ModelElementBoxFontSmall | ModelElementMaximumThroughputSeconds | ModelElementLayer | ModelElementBackgroundColor | ModelElementStationimage | ModelElementConnection | ModelElementClientType | ModelElementBatchMode | ModelElementMatchProperty)*>
+<!ELEMENT ModelElementMatch (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBoxFontLarge | ModelElementBoxFontSmall | ModelElementMaximumThroughputSeconds | ModelElementQueueAnimationComplete | ModelElementLayer | ModelElementBackgroundColor | ModelElementStationimage | ModelElementConnection | ModelElementClientType | ModelElementBatchMode | ModelElementMatchProperty)*>
 <!ATTLIST ModelElementMatch
   id		CDATA	#REQUIRED
   protected	CDATA	#IMPLIED
@@ -3388,7 +3392,7 @@
   Mode          CDATA	#IMPLIED
 >
 
-<!ELEMENT ModelElementProcessStation (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBoxFontLarge | ModelElementBoxFontSmall | ModelElementMaximumThroughputSeconds | ModelElementLayer | ModelElementBackgroundColor | ModelElementStationimage | ModelElementConnection | ModelElementBatchData | ModelElementDistribution | ModelElementExpression | ModelElementSetupTimesDistribution | ModelElementSetupTimesExpression | ModelElementPriority | ModelElementOperators | ModelElementOperatorsPriority | ModelElementStationCosts | ModelElementTimeCosts)*>
+<!ELEMENT ModelElementProcessStation (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBoxFontLarge | ModelElementBoxFontSmall | ModelElementMaximumThroughputSeconds | ModelElementQueueAnimationComplete | ModelElementLayer | ModelElementBackgroundColor | ModelElementStationimage | ModelElementConnection | ModelElementBatchData | ModelElementDistribution | ModelElementExpression | ModelElementSetupTimesDistribution | ModelElementSetupTimesExpression | ModelElementPriority | ModelElementOperators | ModelElementOperatorsPriority | ModelElementStationCosts | ModelElementTimeCosts)*>
 <!ATTLIST ModelElementProcessStation
   id		CDATA	#REQUIRED
   protected	CDATA	#IMPLIED
@@ -3406,7 +3410,7 @@
   PostProcessingSecond	CDATA	#IMPLIED
 >
 
-<!ELEMENT ModelElementHold (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBoxFontLarge | ModelElementBoxFontSmall | ModelElementMaximumThroughputSeconds | ModelElementLayer | ModelElementBackgroundColor | ModelElementStationimage | ModelElementConnection | ModelElementHoldCondition | ModelElementPriority)*>
+<!ELEMENT ModelElementHold (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBoxFontLarge | ModelElementBoxFontSmall | ModelElementMaximumThroughputSeconds | ModelElementQueueAnimationComplete | ModelElementLayer | ModelElementBackgroundColor | ModelElementStationimage | ModelElementConnection | ModelElementHoldCondition | ModelElementPriority)*>
 <!ATTLIST ModelElementHold
   id		CDATA	#REQUIRED
   protected	CDATA	#IMPLIED
@@ -3419,7 +3423,7 @@
   TimedChecks	CDATA	#IMPLIED
 >
 
-<!ELEMENT ModelElementHoldMulti (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBoxFontLarge | ModelElementBoxFontSmall | ModelElementMaximumThroughputSeconds | ModelElementLayer | ModelElementBackgroundColor | ModelElementStationimage | ModelElementConnection)*>
+<!ELEMENT ModelElementHoldMulti (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBoxFontLarge | ModelElementBoxFontSmall | ModelElementMaximumThroughputSeconds | ModelElementQueueAnimationComplete | ModelElementLayer | ModelElementBackgroundColor | ModelElementStationimage | ModelElementConnection)*>
 <!ATTLIST ModelElementHoldMulti
   id		CDATA	#REQUIRED
   protected	CDATA	#IMPLIED
@@ -3427,7 +3431,7 @@
   MirrorSymbol	CDATA	#IMPLIED
 >
 
-<!ELEMENT ModelElementHoldScript (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBoxFontLarge | ModelElementBoxFontSmall | ModelElementMaximumThroughputSeconds | ModelElementLayer | ModelElementBackgroundColor | ModelElementStationimage | ModelElementConnection | ModelElementHoldScriptCondition | ModelElementHoldScriptAdditionalCondition)*>
+<!ELEMENT ModelElementHoldScript (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBoxFontLarge | ModelElementBoxFontSmall | ModelElementMaximumThroughputSeconds | ModelElementQueueAnimationComplete | ModelElementLayer | ModelElementBackgroundColor | ModelElementStationimage | ModelElementConnection | ModelElementHoldScriptCondition | ModelElementHoldScriptAdditionalCondition)*>
 <!ATTLIST ModelElementHoldScript
   id		CDATA	#REQUIRED
   protected	CDATA	#IMPLIED
@@ -3451,7 +3455,7 @@
 >
 <!ELEMENT ModelElementSignalDelayedExecution (#PCDATA)>
 
-<!ELEMENT ModelElementBarrier (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBoxFontLarge | ModelElementBoxFontSmall | ModelElementMaximumThroughputSeconds | ModelElementLayer | ModelElementBackgroundColor | ModelElementStationimage | ModelElementConnection | ModelElementBarrierOption)*>
+<!ELEMENT ModelElementBarrier (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBoxFontLarge | ModelElementBoxFontSmall | ModelElementMaximumThroughputSeconds | ModelElementQueueAnimationComplete | ModelElementLayer | ModelElementBackgroundColor | ModelElementStationimage | ModelElementConnection | ModelElementBarrierOption)*>
 <!ATTLIST ModelElementBarrier
   id		CDATA	#REQUIRED
   protected	CDATA	#IMPLIED
@@ -3470,7 +3474,7 @@
   StoreSignals	CDATA	#REQUIRED
 >
 
-<!ELEMENT ModelElementBarrierPull (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBoxFontLarge | ModelElementBoxFontSmall | ModelElementMaximumThroughputSeconds | ModelElementLayer | ModelElementBackgroundColor | ModelElementStationimage | ModelElementConnection | ModelElementBarrierPullControl)*>
+<!ELEMENT ModelElementBarrierPull (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBoxFontLarge | ModelElementBoxFontSmall | ModelElementMaximumThroughputSeconds | ModelElementQueueAnimationComplete | ModelElementLayer | ModelElementBackgroundColor | ModelElementStationimage | ModelElementConnection | ModelElementBarrierPullControl)*>
 <!ATTLIST ModelElementBarrierPull
   id		CDATA	#REQUIRED
   protected	CDATA	#IMPLIED
@@ -3482,7 +3486,7 @@
   Maximum	CDATA	#REQUIRED
 >
 
-<!ELEMENT ModelElementSeizeResource (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBoxFontLarge | ModelElementBoxFontSmall | ModelElementMaximumThroughputSeconds | ModelElementLayer | ModelElementBackgroundColor | ModelElementStationimage | ModelElementConnection | ModelElementOperators | ModelElementOperatorsPriority | ModelElementSeizeResourceMaximumTime)*>
+<!ELEMENT ModelElementSeizeResource (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBoxFontLarge | ModelElementBoxFontSmall | ModelElementMaximumThroughputSeconds | ModelElementQueueAnimationComplete | ModelElementLayer | ModelElementBackgroundColor | ModelElementStationimage | ModelElementConnection | ModelElementOperators | ModelElementOperatorsPriority | ModelElementSeizeResourceMaximumTime)*>
 <!ATTLIST ModelElementSeizeResource
   id		CDATA	#REQUIRED
   protected	CDATA	#IMPLIED
@@ -3754,7 +3758,7 @@
 >
 <!ELEMENT ModelElementDifferenceCounterIncrement (#PCDATA)>
 
-<!ELEMENT ModelElementSectionStart (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBoxFontLarge | ModelElementBoxFontSmall | ModelElementMaximumThroughputSeconds | ModelElementLayer | ModelElementBackgroundColor | ModelElementStationimage | ModelElementConnection)*>
+<!ELEMENT ModelElementSectionStart (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBoxFontLarge | ModelElementBoxFontSmall | ModelElementMaximumThroughputSeconds | ModelElementQueueAnimationComplete | ModelElementLayer | ModelElementBackgroundColor | ModelElementStationimage | ModelElementConnection)*>
 <!ATTLIST ModelElementSectionStart
   id		CDATA	#REQUIRED
   protected	CDATA	#IMPLIED
@@ -3771,7 +3775,7 @@
 >
 <!ELEMENT ModelElementSectionStartName (#PCDATA)>
 
-<!ELEMENT ModelElementPickUp (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBoxFontLarge | ModelElementBoxFontSmall | ModelElementMaximumThroughputSeconds | ModelElementLayer | ModelElementBackgroundColor | ModelElementStationimage | ModelElementConnection | ModelElementQueue | ModelElementClientType | ModelElementBatchMode)*>
+<!ELEMENT ModelElementPickUp (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBoxFontLarge | ModelElementBoxFontSmall | ModelElementMaximumThroughputSeconds | ModelElementQueueAnimationComplete | ModelElementLayer | ModelElementBackgroundColor | ModelElementStationimage | ModelElementConnection | ModelElementQueue | ModelElementClientType | ModelElementBatchMode)*>
 <!ATTLIST ModelElementPickUp
   id		CDATA	#REQUIRED
   protected	CDATA	#IMPLIED
@@ -3848,7 +3852,7 @@
   MirrorSymbol	CDATA	#IMPLIED
 >
 
-<!ELEMENT ModelElementTransportOrigin (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBoxFontLarge | ModelElementBoxFontSmall | ModelElementMaximumThroughputSeconds | ModelElementLayer | ModelElementBackgroundColor | ModelElementStationimage | ModelElementConnection | ModelElementDistribution | ModelElementExpression | ModelElementTransportRoute | ModelElementTransportRouteBySequence | ModelElementTransportRouteByProperty | ModelElementTransportResource | ModelElementTransportResourcePriority | ModelElementTransportResourceDelayedRelease | ModelElementTransportSectionStartName)*>
+<!ELEMENT ModelElementTransportOrigin (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBoxFontLarge | ModelElementBoxFontSmall | ModelElementMaximumThroughputSeconds | ModelElementQueueAnimationComplete | ModelElementLayer | ModelElementBackgroundColor | ModelElementStationimage | ModelElementConnection | ModelElementDistribution | ModelElementExpression | ModelElementTransportRoute | ModelElementTransportRouteBySequence | ModelElementTransportRouteByProperty | ModelElementTransportResource | ModelElementTransportResourcePriority | ModelElementTransportResourceDelayedRelease | ModelElementTransportSectionStartName)*>
 <!ATTLIST ModelElementTransportOrigin
   id		CDATA	#REQUIRED
   protected	CDATA	#IMPLIED
@@ -3882,7 +3886,7 @@
   MirrorSymbol	CDATA	#IMPLIED
 >
 
-<!ELEMENT ModelElementTransporterOrigin (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBoxFontLarge | ModelElementBoxFontSmall | ModelElementMaximumThroughputSeconds | ModelElementLayer | ModelElementBackgroundColor | ModelElementStationimage | ModelElementConnection | ModelElementTransportRoute | ModelElementTransportRouteBySequence | ModelElementTransportRouteByProperty | ModelElementTransporterType | ModelElementTransporterMinimumWaiting | ModelElementTransporterRequestPriority | ModelElementTransporterWaitingCapacity | ModelElementTransporterWaitingPriority | ModelElementTransporterPriority | ModelElementTransporterSectionStartName)*>
+<!ELEMENT ModelElementTransporterOrigin (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBoxFontLarge | ModelElementBoxFontSmall | ModelElementMaximumThroughputSeconds | ModelElementQueueAnimationComplete | ModelElementLayer | ModelElementBackgroundColor | ModelElementStationimage | ModelElementConnection | ModelElementTransportRoute | ModelElementTransportRouteBySequence | ModelElementTransportRouteByProperty | ModelElementTransporterType | ModelElementTransporterMinimumWaiting | ModelElementTransporterRequestPriority | ModelElementTransporterWaitingCapacity | ModelElementTransporterWaitingPriority | ModelElementTransporterPriority | ModelElementTransporterSectionStartName)*>
 <!ATTLIST ModelElementTransporterOrigin
   id		CDATA	#REQUIRED
   protected	CDATA	#IMPLIED
@@ -4311,7 +4315,7 @@
   SoundMaxSeconds	CDATA	#IMPLIED
 >
 
-<!ELEMENT ModelElementSubModel (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBoxFontLarge | ModelElementBoxFontSmall | ModelElementMaximumThroughputSeconds | ModelElementLayer | ModelElementBackgroundColor | ModelElementStationimage | ModelElementConnection | ModelElementSubModelConnections | ModelElements)*>
+<!ELEMENT ModelElementSubModel (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBoxFontLarge | ModelElementBoxFontSmall | ModelElementMaximumThroughputSeconds | ModelElementQueueAnimationComplete | ModelElementLayer | ModelElementBackgroundColor | ModelElementStationimage | ModelElementConnection | ModelElementSubModelConnections | ModelElements)*>
 <!ATTLIST ModelElementSubModel
   id		CDATA	#REQUIRED
   protected	CDATA	#IMPLIED
@@ -4349,7 +4353,7 @@
   MirrorSymbol	CDATA	#IMPLIED
 >
 
-<!ELEMENT ModelElementReference (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBoxFontLarge | ModelElementBoxFontSmall | ModelElementMaximumThroughputSeconds | ModelElementLayer | ModelElementBackgroundColor | ModelElementStationimage | ModelElementConnection | ModelElementReferenceID)*>
+<!ELEMENT ModelElementReference (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBoxFontLarge | ModelElementBoxFontSmall | ModelElementMaximumThroughputSeconds | ModelElementQueueAnimationComplete | ModelElementLayer | ModelElementBackgroundColor | ModelElementStationimage | ModelElementConnection | ModelElementReferenceID)*>
 <!ATTLIST ModelElementReference
   id		CDATA	#REQUIRED
   protected	CDATA	#IMPLIED

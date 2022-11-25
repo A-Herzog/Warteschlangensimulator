@@ -863,6 +863,11 @@ public class ModelElementSub extends ModelElementBox implements ElementWithNewCl
 	}
 
 	@Override
+	public boolean hasQueue() {
+		return true;
+	}
+
+	@Override
 	public void objectRenamed(String oldName, String newName, ModelDataRenameListener.RenameType type) {
 		subSurface.objectRenamed(oldName,newName,type,false);
 	}

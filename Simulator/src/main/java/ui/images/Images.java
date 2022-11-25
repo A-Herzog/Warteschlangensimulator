@@ -1370,6 +1370,9 @@ public enum Images {
 	/** Symbol "Modelleditor - Beschreibung zu einzelnem Element" */
 	MODELEDITOR_COMMENT("comment_edit.png"),
 
+	/** Symbol "Modelleditor - Warteschlangendarstellung während der Animation" */
+	MODELEDITOR_QUEUE("Symbol.png"),
+
 	/** Symbol "Modelleditor - Vorlagen - Gruppe ausklappen (Plus)" */
 	MODELEDITOR_GROUP_PLUS("SmallPlus.png"),
 

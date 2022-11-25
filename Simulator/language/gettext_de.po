@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-11-24 00:08+0100\n"
+"POT-Creation-Date: 2022-11-25 00:24+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -4090,6 +4090,18 @@ msgstr "Beschreibung bearbeiten"
 
 msgid "Editor.DialogBase.Description.Tooltip"
 msgstr "Beschreibung zu diesem Element bearbeiten"
+
+msgid "Editor.DialogBase.DisplayQueue.Full"
+msgstr "Immer alle wartenden Kunden darstellen; dafür notwendigenfalls mehrere Zeilen verwenden"
+
+msgid "Editor.DialogBase.DisplayQueue.Limited"
+msgstr "Nur maximal 10 Kunden in Warteschlange zeichnen"
+
+msgid "Editor.DialogBase.DisplayQueue.Title"
+msgstr "Warteschlangendarstellung während der Animation"
+
+msgid "Editor.DialogBase.DisplayQueue.Tooltip"
+msgstr "Warteschlangendarstellung während der Animation"
 
 msgid "Editor.DialogBase.ExpressionEditTooltip"
 msgstr "Ausdruck im Editor bearbeiten"
@@ -33602,6 +33614,9 @@ msgstr "ModellPluginsVerzeichnis"
 
 msgid "Surface.XML.PluginsFolder.AllowClassLoading"
 msgstr "KlassenLadenZulaessig"
+
+msgid "Surface.XML.QueueAnimationComplete"
+msgstr "ModellElementWarteschlangeAnimationVollstaendig"
 
 msgid "Surface.XML.RecordIncompleteClients"
 msgstr "ModellUnvollstaendigeKundenAufzeichnung"

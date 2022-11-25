@@ -761,6 +761,11 @@ public class ModelElementSeize extends ModelElementBox implements ModelElementEd
 	}
 
 	@Override
+	public boolean hasQueue() {
+		return true;
+	}
+
+	@Override
 	public void objectRenamed(String oldName, String newName, ModelDataRenameListener.RenameType type) {
 		if (isRenameType(oldName,newName,type,ModelDataRenameListener.RenameType.RENAME_TYPE_RESOURCE)) {
 			final Map<String,Integer> map=getNeededResources();

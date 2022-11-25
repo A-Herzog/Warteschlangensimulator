@@ -641,6 +641,8 @@
 	<xs:element ref="ModellElementBoxSchriftGross"/>
 	<xs:element ref="ModellElementBoxSchriftKlein"/>
 	<xs:element name="ModellElementMaximalerDurchsatzSekunden" type="xs:string"/>
+	<xs:element name="ModellElementWarteschlangeAnimationVollstaendig" type="xs:string"/>
+	
   </xs:choice></xs:sequence>
   <xs:attribute name="id" type="xs:integer" use="required"/>
   <xs:attribute name="geschuetzt" type="xs:integer"/>
@@ -2994,6 +2996,7 @@
 	<xs:element ref="ModelElementBoxFontLarge"/>
 	<xs:element ref="ModelElementBoxFontSmall"/>
 	<xs:element name="ModelElementMaximumThroughputSeconds" type="xs:string"/>
+	<xs:element name="ModelElementQueueAnimationComplete" type="xs:string"/>
   </xs:choice></xs:sequence>
   <xs:attribute name="id" type="xs:integer" use="required"/>
   <xs:attribute name="protected" type="xs:integer"/>
