@@ -139,6 +139,7 @@ public class HunspellDictionaries {
 			"quantile",
 			"quantils",
 			"statistikdaten",
+			"gleichverteilt",
 			/* Bezeichner */
 			"mu",
 			"lambda",
@@ -355,12 +356,12 @@ public class HunspellDictionaries {
 			final Map<String,Integer> suggestions=new HashMap<>();
 
 			for (Hunspell hunspell: hunspells) {
-				final List<String> list=hunspell.suggest(word);
+				final String[] list=hunspell.suggest(word);
 				if (list!=null) {
-					final int size=list.size();
+					final int size=list.length;
 					for (int i=0;i<size;i++) {
 						final int score=size-i;
-						suggestions.compute(list.get(i),(k,v)->(v==null)?score:Math.max(v,score));
+						suggestions.compute(list[i],(k,v)->(v==null)?score:Math.max(v,score));
 					}
 				}
 			}
