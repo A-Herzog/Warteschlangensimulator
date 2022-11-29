@@ -7,6 +7,7 @@
 	<property name="SimSystem.location" location="../../SimSystem" />
 	<property name="BuildTools.location" location="." />
 	<property name="NSIS.location" location="C:\Program Files (x86)\NSIS" />
+	<property name="Signer.location" location="C:\Program Files (x86)\Windows Kits\10\bin\10.0.22621.0\x64" /> 
 	<property name="sed.location" location="../language/sed/bin" />
 	<property name="pdfLaTeX32.location" location="C:/Program Files (x86)/MiKTeX 2.9/miktex/bin"/>
 	<property name="pdfLaTeX64.location" location="C:/Program Files/MiKTeX 2.9/miktex/bin/x64"/>
@@ -377,32 +378,74 @@
 		<copy todir="${Release.location}/dictionaries">
 			<fileset dir="${BuildTools.location}/Dictionaries"/>
 		</copy>
-	
-		<echo message="Generate exe wrapper" />
+
 		<available file="${NSIS.location}\makensis.exe" property="NSIS.present"/>
+		<condition property="Signer.present">
+			<and>
+				<available file="${NSIS.location}\makensis.exe" />
+				<available file="${Signer.location}\SignTool.exe" />
+			</and>
+		</condition>
+		
+		<echo message="Generate exe wrapper" />
 		<exec executable="${NSIS.location}\makensis.exe" dir="${BuildTools.location}" if:set="NSIS.present">
 			<arg value="Launcher.nsi" />
 		</exec>
+		<exec executable="${Signer.location}\SignTool.exe" dir="${BuildTools.location}" if:set="Signer.present">
+			<arg value="sign"/>
+			<arg value="/n"/>
+			<arg value="Clausthal"/>
+			<arg value="/fd"/>
+			<arg value="SHA256"/>
+			<arg value="Simulator.exe"/>
+		</exec>
+		<move file="${BuildTools.location}/Simulator.exe" tofile="${Release.location}/Simulator.exe" />
+		<copy file="${BuildTools.location}/Simulator.sh" tofile="${Release.location}/Simulator.sh" />
+		
 		<echo message="Generate exe Java Path Getter" />
 		<available file="${NSIS.location}\makensis.exe" property="NSIS.present"/>
 		<exec executable="${NSIS.location}\makensis.exe" dir="${BuildTools.location}" if:set="NSIS.present">
 			<arg value="LauncherCLI.nsi" />
 		</exec>
-		<move file="${BuildTools.location}/Simulator.exe" tofile="${Release.location}/Simulator.exe" />
-		<move file="${BuildTools.location}/SimulatorCLIGetJava.exe" tofile="${Release.location}/tools/SimulatorCLIGetJava.exe" />
-		<copy file="${BuildTools.location}/Simulator.sh" tofile="${Release.location}/Simulator.sh" />
+		<exec executable="${Signer.location}\SignTool.exe" dir="${BuildTools.location}" if:set="Signer.present">
+			<arg value="sign"/>
+			<arg value="/n"/>
+			<arg value="Clausthal"/>
+			<arg value="/fd"/>
+			<arg value="SHA256"/>
+			<arg value="SimulatorCLIGetJava.exe"/>
+		</exec>
+		<move file="${BuildTools.location}/SimulatorCLIGetJava.exe" tofile="${Release.location}/tools/SimulatorCLIGetJava.exe" />		
 		<copy file="${BuildTools.location}/SimulatorCLI.bat" tofile="${Release.location}/SimulatorCLI.bat" />
+		
+		<echo message="Generate configuration resetter" />
 		<exec executable="${NSIS.location}\makensis.exe" dir="${BuildTools.location}" if:set="NSIS.present">
-			<arg value="ResetConfiguration.nsi" />
+			<arg value="ResetConfiguration.nsi" />			
+		</exec>
+		<exec executable="${Signer.location}\SignTool.exe" dir="${BuildTools.location}" if:set="Signer.present">
+			<arg value="sign"/>
+			<arg value="/n"/>
+			<arg value="Clausthal"/>
+			<arg value="/fd"/>
+			<arg value="SHA256"/>
+			<arg value="Simulator_Reset.exe"/>
 		</exec>
 		<move file="${BuildTools.location}/Simulator_Reset.exe" tofile="${Release.location}/Simulator_Reset.exe" />
 
 		<echo message="Generate installer" />
 		<exec executable="${NSIS.location}\makensis.exe" dir="${BuildTools.location}" if:set="NSIS.present">
-			<arg value="Setup.nsi" />
+			<arg value="Setup.nsi" />			
 		</exec>
-		
-		<echo message="Sign installer (if signer is available)" />
+		<exec executable="${Signer.location}\SignTool.exe" dir="${Release.location}" if:set="Signer.present">
+			<arg value="sign"/>
+			<arg value="/n"/>
+			<arg value="Clausthal"/>
+			<arg value="/fd"/>
+			<arg value="SHA256"/>
+			<arg value="SimulatorSetup.exe"/>
+		</exec>
+				
+		<echo message="Generate external sign file with own key (if signer is available)" />
 		<available file="${BuildTools.location}/Signer/Signer.jar" property="signer.present"/>
 		<java jar="${BuildTools.location}/Signer/Signer.jar" fork="true" if:set="signer.present">
 		  	<arg value="${Release.location}/SimulatorSetup.exe"/>
