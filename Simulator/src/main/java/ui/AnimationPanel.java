@@ -1882,7 +1882,13 @@ public class AnimationPanel extends JPanel implements RunModelAnimationViewer {
 	 * bevor auf den eigenständigen Aktualisierungs-Thread umgeschaltet wird
 	 * @see #loggerCallback(CallbackLoggerData)
 	 */
-	private static final int MAX_LOG_PER_TIME_STEP=50;
+	private static final int MAX_LOG_PER_TIME_STEP=25;
+
+	/**
+	 * Minimaler Zeitabstand (in MS) zwischen zwei Logging-Ausgaben
+	 * @see LogUpdateThread#setLog(String)
+	 */
+	private static final int MIN_LOG_TIME_DELTA_MS=500;
 
 	/**
 	 * Zeitpunkt der letzten Logging-Aktion
@@ -1994,7 +2000,7 @@ public class AnimationPanel extends JPanel implements RunModelAnimationViewer {
 		public void setLog(final String message) {
 			synchronized(signal) {
 				this.message=message;
-				this.time=System.currentTimeMillis()+10;
+				this.time=System.currentTimeMillis()+MIN_LOG_TIME_DELTA_MS;
 				synchronized(signal) {
 					signal.notify();
 				}
