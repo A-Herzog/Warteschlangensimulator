@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-11-25 00:24+0100\n"
+"POT-Creation-Date: 2022-12-01 00:02+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -3321,13 +3321,13 @@ msgid "Editor.AddEdge.PlacePoint1"
 msgstr "Click on the first element to be connected by the edge."
 
 msgid "Editor.AddEdge.PlacePoint1.Long"
-msgstr "Now Click on the starting element to be connected by the new edge."
+msgstr "Now click on the starting element to be connected by the new edge."
 
 msgid "Editor.AddEdge.PlacePoint2"
 msgstr "Click on the second element to be connected by the edge."
 
 msgid "Editor.AddEdge.PlacePoint2.Long"
-msgstr "Now Click on the destination element to be connected by the new edge."
+msgstr "Now click on the destination element to be connected by the new edge."
 
 msgid "Editor.AddEdge.Short"
 msgstr "Edge"
@@ -9432,6 +9432,9 @@ msgstr "Elements"
 
 msgid "InfoDialog.BuildDate"
 msgstr "Build date"
+
+msgid "InfoDialog.Homepage"
+msgstr "Website"
 
 msgid "InfoDialog.InstallFolder"
 msgstr "Installation folder"

@@ -67,6 +67,7 @@ import javax.swing.event.HyperlinkListener;
 
 import language.Language;
 import mathtools.NumberTools;
+import mathtools.distribution.swing.JOpenURL;
 import scripting.java.DynamicFactory;
 import scripting.js.JSEngineNames;
 import systemtools.GUITools;
@@ -185,8 +186,8 @@ public class InfoDialog extends JDialog {
 		mainarea.add(p=new JPanel(new FlowLayout(FlowLayout.CENTER))); p.add(image=new JLabel());
 		image.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 
-		final ExecutorService executor=new ThreadPoolExecutor(0,1,1,TimeUnit.SECONDS,new LinkedBlockingQueue<>(),(ThreadFactory)r->new Thread(r,"Image loader"));
 		final URL imageURL=MainFrame.class.getResource("res/Warteschlangennetz.png");
+		final ExecutorService executor=new ThreadPoolExecutor(0,1,1,TimeUnit.SECONDS,new LinkedBlockingQueue<>(),(ThreadFactory)r->new Thread(r,"Image loader"));
 		executor.execute(new FutureTask<Integer>(()->{
 			if (imageURL!=null) image.setIcon(new ImageIcon(imageURL)); else image.setVisible(false);
 			return null;
@@ -201,7 +202,9 @@ public class InfoDialog extends JDialog {
 		final String htmlAuthor="&copy; "+MainPanel.AUTHOR+" (<a href=\"mailto:"+MainPanel.AUTHOR_EMAIL+"\" style=\"text-decoration: none;\">"+MainPanel.AUTHOR_EMAIL+"</a>)";
 		String htmlLinks=null;
 		if (!plainMode) {
-			htmlLinks="<a href=\"special:changelog\" style=\"text-decoration: none;\">"+Language.tr("InfoDialog.ShowVersionHistory")+"</a>"+
+			htmlLinks="<a href=\"special:homepage\" style=\"text-decoration: none;\">"+Language.tr("InfoDialog.Homepage")+"</a>"+
+					"&nbsp;&nbsp;"+
+					"<a href=\"special:changelog\" style=\"text-decoration: none;\">"+Language.tr("InfoDialog.ShowVersionHistory")+"</a>"+
 					"&nbsp;&nbsp;"+
 					"<a href=\"special:license\" style=\"text-decoration: none;\">"+Language.tr("InfoDialog.ShowLicenses")+"</a>";
 		}
@@ -384,6 +387,7 @@ public class InfoDialog extends JDialog {
 			if (link.toLowerCase().startsWith("special:")) {
 				if (link.equalsIgnoreCase("special:changelog")) {showVersionHistory=true; setVisible(false); dispose();}
 				if (link.equalsIgnoreCase("special:license")) {showLicenses=true; setVisible(false); dispose();}
+				if (link.equalsIgnoreCase("special:homepage")) {JOpenURL.open(InfoDialog.this,"https://"+MainPanel.WEB_URL);}
 			}
 		}
 	}
