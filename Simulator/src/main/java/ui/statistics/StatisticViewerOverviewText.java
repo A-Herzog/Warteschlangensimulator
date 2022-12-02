@@ -3295,6 +3295,8 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 					beginParagraph();
 					addLine(Language.tr("Statistics.Utilization.Schedule")+": "+resourceObj.getSchedule());
 					endParagraph();
+					final StatisticsSimpleValuePerformanceIndicator rhoObj=(StatisticsSimpleValuePerformanceIndicator)statistics.resourceRho.getOrNull(resource);
+					if (rhoObj!=null) rho=rhoObj.get();
 				}
 			}
 

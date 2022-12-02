@@ -33,6 +33,7 @@ import statistics.StatisticsDataPerformanceIndicatorWithNegativeValues;
 import statistics.StatisticsMultiPerformanceIndicator;
 import statistics.StatisticsPerformanceIndicator;
 import statistics.StatisticsSimpleValueMaxPerformanceIndicator;
+import statistics.StatisticsSimpleValuePerformanceIndicator;
 import statistics.StatisticsTimeContinuousPerformanceIndicator;
 import statistics.StatisticsTimePerformanceIndicator;
 import systemtools.statistics.StatisticViewerTable;
@@ -808,7 +809,12 @@ public class StatisticViewerTimeTable extends StatisticViewerBaseTable {
 			} else {
 				if (resourceObj!=null && resourceObj.getMode()==ModelResource.Mode.MODE_SCHEDULE) {
 					line.add(Language.tr("Statistics.Schedule")+": "+resourceObj.getSchedule());
-					line.add("-");
+					final StatisticsSimpleValuePerformanceIndicator rhoObj=(StatisticsSimpleValuePerformanceIndicator)statistics.resourceRho.getOrNull(resource);
+					if (rhoObj==null) {
+						line.add("-");
+					} else {
+						line.add(StatisticTools.formatPercent(rhoObj.get()));
+					}
 				} else {
 					line.add("-");
 					line.add("-");

@@ -34,6 +34,7 @@ import mathtools.NumberTools;
 import simulator.statistics.Statistics;
 import statistics.StatisticsDataPerformanceIndicator;
 import statistics.StatisticsMultiPerformanceIndicator;
+import statistics.StatisticsSimpleValuePerformanceIndicator;
 import statistics.StatisticsTimePerformanceIndicator;
 import systemtools.statistics.StatisticViewerBarChart;
 import ui.help.Help;
@@ -125,6 +126,8 @@ public class StatisticViewerTimeBarChart extends StatisticViewerBarChart {
 		MODE_FLOW_FACTOR_STATION_CLIENT,
 		/** Balkendiagramm zum Vergleich der Auslastungen der Bedienergruppen  */
 		MODE_RESOURCE_UTILIZATION,
+		/** Balkendiagramm zum Vergleich der relativen Auslastungen der Bedienergruppen  */
+		MODE_RESOURCE_UTILIZATION_RHO,
 		/** Balkendiagramm zum Vergleich der Auslastungen der Transportergruppen  */
 		MODE_TRANSPORTER_UTILIZATION,
 		/** Ankünfte pro Thread */
@@ -294,6 +297,28 @@ public class StatisticViewerTimeBarChart extends StatisticViewerBarChart {
 		plot.getRenderer().setSeriesVisibleInLegend(0,true);
 		plot.getRenderer().setSeriesVisibleInLegend(1,true);
 		plot.getRenderer().setSeriesVisibleInLegend(2,true);
+
+		initTooltips();
+		setOutlineColor(Color.BLACK);
+	}
+
+	/**
+	 * Balkendiagramm zum Vergleich der relativen Auslastungen der Bedienergruppen
+	 * @see Mode#MODE_RESOURCE_UTILIZATION_RHO
+	 */
+	private void resourceUtilizationRhoChartRequest() {
+		initBarChart(Language.tr("Statistics.UtilizationRho"));
+		setupBarChart(Language.tr("Statistics.UtilizationRho"),Language.tr("Statistics.UtilizationRho.Type"),Language.tr("Statistics.UtilizationRho.Mean"),true);
+
+		final String[] names=statistics.resourceRho.getNames();
+		final StatisticsSimpleValuePerformanceIndicator[] indicators=statistics.resourceRho.getAll(StatisticsSimpleValuePerformanceIndicator.class);
+
+		for (int i=0;i<names.length;i++) {
+			final double part1=(i<indicators.length && indicators[i]!=null)?indicators[i].get():0;
+			data.addValue(part1,Language.tr("Statistics.UtilizationRho.Rho"),names[i]);
+		}
+
+		plot.getRendererForDataset(data).setSeriesPaint(0,getGradientPaint(Color.RED));
 
 		initTooltips();
 		setOutlineColor(Color.BLACK);
@@ -578,6 +603,10 @@ public class StatisticViewerTimeBarChart extends StatisticViewerBarChart {
 		case MODE_RESOURCE_UTILIZATION:
 			resourceUtilizationChartRequest();
 			addDescription("PlotBarCompareUtilizationOperators");
+			break;
+		case MODE_RESOURCE_UTILIZATION_RHO:
+			resourceUtilizationRhoChartRequest();
+			addDescription("PlotBarCompareUtilizationOperatorsRho");
 			break;
 		case MODE_TRANSPORTER_UTILIZATION:
 			transporterUtilizationChartRequest();

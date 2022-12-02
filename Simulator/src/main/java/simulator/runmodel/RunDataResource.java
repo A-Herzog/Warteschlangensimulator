@@ -420,7 +420,16 @@ public final class RunDataResource implements Cloneable {
 		final double time=timeMS*toSecFactor;
 
 		/* Anzahl an vorhandenen Bedienern */
-		if (operators!=null) statisticsCount.set(time,operators.length); else statisticsCount.set(time,available);
+		if (operators!=null) {
+			statisticsCount.set(time,operators.length);
+		} else {
+			if (available>=0) {
+				statisticsCount.set(time,available);
+			} else {
+				if (available==-1) statisticsCount.set(time,0);
+				if (available==-2) statisticsCount.set(time,availableSchedule.getValueAtTime((long)time));
+			}
+		}
 
 		/* Kosten für Arbeitszeit erfassen */
 		if (hasCosts && !simData.runData.isWarmUp && timeMS!=lastStateChange) {

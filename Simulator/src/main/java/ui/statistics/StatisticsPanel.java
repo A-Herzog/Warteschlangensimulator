@@ -1802,6 +1802,9 @@ public class StatisticsPanel extends StatisticsBasePanel {
 			for(Statistics statistic : statistics) viewer.add(new StatisticViewerMultiPieChart(statistic,StatisticViewerMultiPieChart.Mode.MODE_RESOURCE_UTILIZATION));
 			group.addChild(new StatisticNode(Language.tr("Statistics.UtilizationAndFailures"),viewer));
 
+			viewer=new ArrayList<>();
+			for(Statistics statistic : statistics) viewer.add(new StatisticViewerTimeBarChart(statistic,StatisticViewerTimeBarChart.Mode.MODE_RESOURCE_UTILIZATION_RHO));
+			group.addChild(new StatisticNode(Language.tr("Statistics.UtilizationRho"),viewer));
 		}
 
 		/* Transporterauslastung */
