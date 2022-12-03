@@ -18466,8 +18466,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[43473] = "At station id=%d no key for client data matching was defined.";
     t[43474] = "CommandLine.ProcessOutput.ErrorSavingOutputTable";
     t[43475] = "Saving the output file failed.";
-    t[43476] = "Surface.Resource.EditNumber.Dialog.TypeName";
-    t[43477] = "Needed number of operator of type <b>%s</b>";
+    t[43476] = "InfoDialog.OS";
+    t[43477] = "Operating system";
     t[43494] = "Statistics.XML.Element.ProcessAllClients";
     t[43495] = "StatisticsProcessTimesAllClients";
     t[43510] = "ExpressionBuilder.ProbabilityDistributions";
@@ -22238,6 +22238,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[52231] = "Align below";
     t[52232] = "Surface.PopupMenu.SimulationStatisticsData.Tab.WaitingClients.FieldTable.Delete.Info";
     t[52233] = "Do you really want to delete record \"%s\"?";
+    t[52234] = "Surface.Resource.EditNumber.Dialog.TypeName";
+    t[52235] = "Needed number of operator of type <b>%s</b>";
     t[52236] = "Statistics.Transporter";
     t[52237] = "Transporter";
     t[52240] = "Compare.Kept.Info";

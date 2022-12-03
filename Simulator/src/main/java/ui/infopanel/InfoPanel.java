@@ -1483,6 +1483,7 @@ public class InfoPanel {
 		pane.setOpaque(false);
 		pane.setEditable(false);
 		pane.setBorder(BorderFactory.createEmptyBorder(5,5,5,5));
+		pane.setHighlighter(null);
 		pane.setComponentPopupMenu(removePanelMenu);
 		topInner.add(pane,BorderLayout.CENTER);
 

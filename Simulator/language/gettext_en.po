@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-12-02 00:07+0100\n"
+"POT-Creation-Date: 2022-12-03 00:14+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -9486,6 +9486,9 @@ msgstr "Available memory (for application)"
 
 msgid "InfoDialog.MemoryUsage"
 msgstr "Memory usage (by application)"
+
+msgid "InfoDialog.OS"
+msgstr "Operating system"
 
 msgid "InfoDialog.ShowLicenses"
 msgstr "Licenses"

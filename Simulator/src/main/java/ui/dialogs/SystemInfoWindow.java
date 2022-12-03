@@ -147,6 +147,11 @@ public class SystemInfoWindow extends JFrame {
 	private final String infoJS;
 
 	/**
+	 * Betriebssystem
+	 */
+	private final String infoOS;
+
+	/**
 	 * Timer zu aktualisierung der Daten
 	 * @see #UPDATE_SPEED
 	 */
@@ -235,11 +240,12 @@ public class SystemInfoWindow extends JFrame {
 		});
 
 		/* Statische Daten erheben */
-		infoVersion=Language.tr("InfoDialog.JavaVersion")+": "+System.getProperty("java.version")+" ("+System.getProperty("java.vm.name")+")";
+		infoVersion=Language.tr("InfoDialog.JavaVersion")+": "+System.getProperty("java.version")+" ("+System.getProperty("java.vm.name")+", "+System.getProperty("os.arch")+")";
 		infoPath=Language.tr("InfoDialog.JavaPath")+": "+System.getProperty("java.home");
 		infoBit=Language.tr("InfoDialog.Is64Bit")+": "+(System.getProperty("os.arch").contains("64")?Language.tr("InfoDialog.Is64Bit.Yes"):Language.tr("InfoDialog.Is64Bit.No"));
 		infoCompiler=Language.tr("InfoDialog.JavaCompiler")+": "+(DynamicFactory.hasCompiler()?Language.tr("InfoDialog.JavaCompiler.Yes"):Language.tr("InfoDialog.JavaCompiler.No"));
 		infoJS=Language.tr("InfoDialog.JSEngine")+": "+String.join(", ",JSEngineNames.available().stream().map(e->e.name).toArray(String[]::new));
+		infoOS=Language.tr("InfoDialog.OS")+": "+System.getProperty("os.name");
 
 		/* Gesamter Inhaltsbereich */
 		final Container all=getContentPane();
@@ -423,6 +429,7 @@ public class SystemInfoWindow extends JFrame {
 		infoText.append(infoVersion+"<br>");
 		infoText.append(infoPath+"<br>");
 		infoText.append(infoBit+"<br>");
+		infoText.append(infoOS+"<br>");
 		infoText.append("</p>\n");
 		infoText.append("<h4>"+Language.tr("SystemInfo.UserDefinedCode")+"</h4>\n");
 		infoText.append("<p>\n");

@@ -18466,8 +18466,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[43473] = "An Station id=%d wurde kein Schl\u00fcssel f\u00fcr den Abgleich \u00fcber die Kundendaten angegeben.";
     t[43474] = "CommandLine.ProcessOutput.ErrorSavingOutputTable";
     t[43475] = "Das Speichern der Ausgabedatei ist fehlgeschlagen.";
-    t[43476] = "Surface.Resource.EditNumber.Dialog.TypeName";
-    t[43477] = "Ben\u00f6tigte Bediener vom Typ <b>%s</b>";
+    t[43476] = "InfoDialog.OS";
+    t[43477] = "Betriebssystem";
     t[43494] = "Statistics.XML.Element.ProcessAllClients";
     t[43495] = "StatistikBedienzeitenAlleKunden";
     t[43510] = "ExpressionBuilder.ProbabilityDistributions";
@@ -22238,6 +22238,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[52231] = "Unten ausrichten";
     t[52232] = "Surface.PopupMenu.SimulationStatisticsData.Tab.WaitingClients.FieldTable.Delete.Info";
     t[52233] = "Soll der Datensatz \"%s\" wirklich gel\u00f6scht werden?";
+    t[52234] = "Surface.Resource.EditNumber.Dialog.TypeName";
+    t[52235] = "Ben\u00f6tigte Bediener vom Typ <b>%s</b>";
     t[52236] = "Statistics.Transporter";
     t[52237] = "Transporter";
     t[52240] = "Compare.Kept.Info";
