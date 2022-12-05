@@ -454,7 +454,7 @@ public class BatchRecord implements Cloneable {
 			descriptionBuilder.addProperty(Language.tr("ModelDescription.Batch.Size"),batchSizeFixed,level+1);
 			break;
 		case RANGE:
-			if (batchSizeMin==batchSizeMax) {
+			if (batchSizeMin.equals(batchSizeMax)) {
 				descriptionBuilder.addProperty(Language.tr("ModelDescription.Batch.Size"),batchSizeMin,level+1);
 			} else {
 				descriptionBuilder.addProperty(Language.tr("ModelDescription.Batch.Size"),batchSizeMin+".."+batchSizeMax,level+1);

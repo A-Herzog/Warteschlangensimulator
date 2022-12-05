@@ -735,7 +735,7 @@ public final class XMLTools {
 	 * @param stream	Stream bei dem die Leseposition wenn nötig verschoben werden soll
 	 */
 	private void removeLeadingBlankLines(final InputStream stream) {
-		if (!stream.markSupported()) return;
+		if (stream==null || !stream.markSupported()) return;
 		byte[] b=new byte[1];
 		try {
 			stream.mark(100);

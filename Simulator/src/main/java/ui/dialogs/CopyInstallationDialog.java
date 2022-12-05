@@ -330,7 +330,7 @@ public class CopyInstallationDialog extends BaseDialog {
 				if (File.separator.equals("\\")) {
 					folder=filePath.split("\\\\");
 				} else {
-					folder=filePath.split(File.separator);
+					folder=filePath.split("/");
 				}
 			}
 

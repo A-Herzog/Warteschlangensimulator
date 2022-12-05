@@ -4640,8 +4640,8 @@ class SymbolsTests {
 
 		/* Dichte */
 
-		d=-1;
-		while (d<=15) {
+		for (int i=-10;i<=150;i++) {
+			d=i/10.0;
 			calc=new CalcSystem("EmpirischeDichte("+NumberTools.formatNumber(d)+";2;1;3;10)");
 			assertTrue(calc.parse()<0);
 			try {
@@ -4654,14 +4654,13 @@ class SymbolsTests {
 			} catch (MathCalcError e) {
 				assertTrue(false);
 			}
-			d+=0.1;
 		}
 
 		/* Verteilungsfunktion */
 
-		d=-1;
 		double last=-1;
-		while (d<=15) {
+		for (int i=-10;i<=150;i++) {
+			d=i/10.0;
 			calc=new CalcSystem("EmpirischeVerteilung("+NumberTools.formatNumber(d)+";2;1;3;10)");
 			assertTrue(calc.parse()<0);
 			try {
@@ -4678,7 +4677,6 @@ class SymbolsTests {
 			} catch (MathCalcError e) {
 				assertTrue(false);
 			}
-			d+=0.1;
 		}
 
 		/* Zufallszahlen */

@@ -93,7 +93,7 @@ public class PDFWriter extends PDFWriterBase {
 		systemOK=fontMetrics.systemOK;
 
 		/* Rand in PT speichern */
-		border=new PDFWriterBorderPT(style);
+		border=new PDFWriterBorderPT(this.style);
 
 		/* Erste Seite anlegen */
 		newPage();

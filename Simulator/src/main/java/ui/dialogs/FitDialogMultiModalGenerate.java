@@ -332,7 +332,7 @@ public class FitDialogMultiModalGenerate extends BaseDialog {
 
 			mean2=150;
 			sd2=30;
-			n2=Math.round(n1/3);
+			n2=(int)Math.round(n1/3.0);
 		}
 
 		/**

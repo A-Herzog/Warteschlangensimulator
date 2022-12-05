@@ -1521,7 +1521,7 @@ public class ScriptEditorAreaBuilder {
 	 * @param textField	Textfeld für das die Autovervollständigung aktiviert oder deaktiviert werden soll
 	 * @param enable	Autovervollständigung aktivieren oder deaktivieren
 	 */
-	public static void setEntityAutoComplete(final RSyntaxTextArea textField, boolean enable) {
+	public static synchronized void setEntityAutoComplete(final RSyntaxTextArea textField, boolean enable) {
 		if (enable) {
 			final String[] words=TextTransformer.getAllSymbolsFull().toArray(new String[0]);
 			final DefaultCompletionProvider entityAutoCompleteProvider=new DefaultCompletionProvider(words) {

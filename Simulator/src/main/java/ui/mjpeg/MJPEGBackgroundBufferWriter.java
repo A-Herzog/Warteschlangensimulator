@@ -142,6 +142,16 @@ public class MJPEGBackgroundBufferWriter extends MJPEGBufferWriterBase {
 	 */
 	private class WriterThread extends Thread {
 		/**
+		 * Konstruktor der Klasse
+		 */
+		public WriterThread() {
+			/*
+			 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+			 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+			 */
+		}
+
+		/**
 		 * Speichert alle momentan wartenden Frames im temporäre Daten-Stream
 		 * @return	Wenn sich der Thread beenden soll (weil keine weiteren Frames mehr folgen können), wird <code>true</code> zurückgeliefert; sonst <code>false</code>
 		 * @see MJPEGBackgroundBufferWriter#storeImageToStream

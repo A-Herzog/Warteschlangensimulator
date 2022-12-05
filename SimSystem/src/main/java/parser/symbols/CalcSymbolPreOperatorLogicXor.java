@@ -50,7 +50,7 @@ public class CalcSymbolPreOperatorLogicXor extends CalcSymbolPreOperator {
 		if (parameters.length==0) throw error();
 		int count=0;
 		for (double d: parameters) if (Math.abs(d)>=10E-10) count++;
-		return (count%2==1)?1.0:0.0;
+		return (count%2!=0)?1.0:0.0; /* "==1" sieht SpotBug als Probem an, da dies bei negativen Werten (die hier nicht auftreten können) nicht funktioniert. Also "!=0" statt "==1". */
 	}
 
 	@Override
@@ -58,6 +58,6 @@ public class CalcSymbolPreOperatorLogicXor extends CalcSymbolPreOperator {
 		if (parameters.length==0) return fallbackValue;
 		int count=0;
 		for (double d: parameters) if (Math.abs(d)>=10E-10) count++;
-		return (count%2==1)?1.0:0.0;
+		return (count%2!=0)?1.0:0.0; /* "==1" sieht SpotBug als Probem an, da dies bei negativen Werten (die hier nicht auftreten können) nicht funktioniert. Also "!=0" statt "==1". */
 	}
 }

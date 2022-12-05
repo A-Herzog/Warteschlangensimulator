@@ -95,6 +95,16 @@ public class ModelElementTextRendererPlain extends ModelElementTextRenderer {
 	 */
 	private int lineHeight;
 
+	/**
+	 * Konstruktor der Klasse
+	 */
+	public ModelElementTextRendererPlain() {
+		/*
+		 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+		 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+		 */
+	}
+
 	@Override
 	protected void processLines(String[] lines) {
 		this.lines=lines;
@@ -102,7 +112,7 @@ public class ModelElementTextRendererPlain extends ModelElementTextRenderer {
 
 	@Override
 	public void setStyle(final int fontSize, final boolean bold, final boolean italic, final String fontFamily, final ModelElementText.TextAlign textAlign) {
-		if (fontSize==this.fontSize && bold==this.bold && italic==this.italic && fontFamily==this.fontFamily && textAlign==this.textAlign) return;
+		if (fontSize==this.fontSize && bold==this.bold && italic==this.italic && fontFamily.equals(this.fontFamily) && textAlign==this.textAlign) return;
 		this.fontSize=fontSize;
 		this.bold=bold;
 		this.italic=italic;

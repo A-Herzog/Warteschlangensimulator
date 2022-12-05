@@ -91,6 +91,16 @@ public class AnimationRecordWaitDialog extends JDialog {
 	 * @see AnimationRecordWaitDialog#timer
 	 */
 	private class UpdateInfoTask extends TimerTask {
+		/**
+		 * Konstruktor der Klasse
+		 */
+		public UpdateInfoTask() {
+			/*
+			 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+			 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+			 */
+		}
+
 		@Override
 		public void run() {
 			if (mjpeg.getFramesToWrite()==0) return;

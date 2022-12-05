@@ -797,7 +797,7 @@ public class ModelElementAnimationLineDiagram extends ModelElementAnimationDiagr
 				break;
 			}
 			setTimeXAxis(-timeArea,xAxisLabels,null);
-			if (drawYAxis) setYAxis(drawYAxisMin,drawYAxisMax,drawYAxis?yAxisLabels:AxisDrawer.Mode.OFF,axisLabelText);
+			if (drawYAxis) setYAxis(drawYAxisMin,drawYAxisMax,yAxisLabels,axisLabelText);
 		} else {
 			setYAxis(0,0,AxisDrawer.Mode.OFF,axisLabelText);
 		}

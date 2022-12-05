@@ -93,6 +93,16 @@ public abstract class ModelElementTextRenderer {
 	private Color lastComputedFillColor=null;
 
 	/**
+	 * Konstruktor der Klasse
+	 */
+	public ModelElementTextRenderer() {
+		/*
+		 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+		 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+		 */
+	}
+
+	/**
 	 * Stellt den auszugebenden Text ein.
 	 * @param text	Auszugebender Text
 	 * @param processSymbols	Sollen HTML- und LaTeX-Symbole interpretiert werden?
