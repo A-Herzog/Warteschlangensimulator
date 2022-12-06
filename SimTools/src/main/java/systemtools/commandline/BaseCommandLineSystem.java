@@ -165,10 +165,10 @@ public class BaseCommandLineSystem {
 		this.programName=programName;
 		this.version=version;
 		this.author=author;
-		this.commands=getCommands().toArray(new AbstractCommand[0]);
 		this.in=in;
 		this.out=out;
 		style=new ANSIFormat(useANSI?out:null);
+		this.commands=getCommands().toArray(new AbstractCommand[0]);
 	}
 
 	/**
