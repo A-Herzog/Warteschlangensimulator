@@ -215,9 +215,9 @@ public class DecideDataPanelClientTypes extends JPanel {
 			if (i==destinations.size()-1) {
 				buildComboLine(section,null);
 			} else {
-				final int size=Math.max(1,clientTypes.get(i).size());
+				final int size=(clientTypes.size()>i)?Math.max(1,clientTypes.get(i).size()):1;
 				for (int j=0;j<size;j++) {
-					final String clientType=(j>=clientTypes.get(i).size())?"":clientTypes.get(i).get(j);
+					final String clientType=(i>=clientTypes.size() || j>=clientTypes.get(i).size())?"":clientTypes.get(i).get(j);
 					final Object[] obj=buildComboLine(section,clientType);
 					final JPanel line=(JPanel)obj[0];
 					clientTypeCombos.get(i).add((JComboBox<String>)obj[1]);
