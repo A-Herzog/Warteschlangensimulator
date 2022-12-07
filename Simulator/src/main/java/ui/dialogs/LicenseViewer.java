@@ -139,7 +139,6 @@ public class LicenseViewer extends BaseDialog{
 
 		/* Tabs anlegen */
 		final Font font=new JLabel().getFont();
-		System.out.println(font.getSize());
 		addViewer(tabs,LicensePart.MAIN,"<html><body style=\"margin: 0px; padding: 0px; font-family: dialog; font-size: "+font.getSize()+"pt; font-weight: lighter;\">"+Language.tr("LicenseViewer.Info")+"</body></html>",true);
 		addViewer(tabs,LicensePart.SIMSYSTEM_COMPONENTS,null,false);
 		addViewer(tabs,LicensePart.SIMTOOLS_COMPONENTS,null,false);

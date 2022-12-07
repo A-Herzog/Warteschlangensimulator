@@ -521,7 +521,7 @@ http://java.sun.com/products/java-media/jai
 - License: Custom License
 - License URL: https://addons.mozilla.org/de/firefox/addon/us-english-dictionary/license/
 
-### Deutsches Wörterbuch von KaiRo
+### Deutsches W&ouml;rterbuch von KaiRo
 
 - Repository: https://addons.mozilla.org/de/firefox/addon/german-dictionary/
 - License: GNU LGPL 2.1
