@@ -241,12 +241,12 @@ public abstract class ModelElementAnimationCustomDraw extends ModelElementPositi
 
 		if (isSelected() && showSelectionFrames) {
 			lineColor=Color.GREEN;
-			g2.setStroke(new BasicStroke(3));
+			g2.setStroke(new BasicStroke((float)(3*zoom)));
 			drawBorder=true;
 		} else {
 			if (isSelectedArea() && showSelectionFrames) {
 				lineColor=Color.BLUE;
-				g2.setStroke(new BasicStroke(3));
+				g2.setStroke(new BasicStroke((float)(3*zoom)));
 				drawBorder=true;
 			}
 		}
