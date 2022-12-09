@@ -68,7 +68,7 @@ public abstract class ModelElementAnimationDiagramBase extends ModelElementPosit
 	/**
 	 * Füllfarbe des Kastens
 	 */
-	protected Color backgroundColor=null;
+	protected Color backgroundColor=new Color(240,240,240);
 
 	/**
 	 * Konstruktor der Klasse <code>ModelElementAnimationDiagramBase</code>

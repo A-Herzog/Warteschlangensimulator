@@ -128,7 +128,7 @@ public class ModelElementAnimationBarChart extends ModelElementPosition implemen
 	 * @see #getBackgroundColor()
 	 * @see #setBackgroundColor(Color)
 	 */
-	private Color backgroundColor=null;
+	private Color backgroundColor=new Color(240,240,240);
 
 	/**
 	 * 3D-Effekte für die Balken
