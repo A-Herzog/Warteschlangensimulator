@@ -56,7 +56,7 @@ import systemtools.images.SimToolsImages;
 /**
  * Diese Klasse stellt einige Basisfunktionen zum Erstellen von Dialogen bereit.
  * @author Alexander Herzog
- * @version 2.1
+ * @version 2.2
  */
 public class BaseDialog extends JDialog {
 	/**
@@ -364,11 +364,12 @@ public class BaseDialog extends JDialog {
 	 * Diese Funktion muss <b>vor</b> <code>createGUI</code> aufgerufen werden.
 	 * @param caption	Name der Schaltfläche
 	 * @param icon	URL des Icons der Schaltfläche (kann <code>null</code> sein)
+	 * @return	Neu erstellte Schaltfläche
 	 * @see BaseDialog#getUserButton(int)
 	 * @see BaseDialog#userButtonClick(int, JButton)
 	 */
-	protected final void addUserButton(String caption, URL icon) {
-		addUserButton(caption,null,icon);
+	protected final JButton addUserButton(String caption, URL icon) {
+		return addUserButton(caption,null,icon);
 	}
 
 	/**
@@ -376,11 +377,12 @@ public class BaseDialog extends JDialog {
 	 * Diese Funktion muss <b>vor</b> <code>createGUI</code> aufgerufen werden.
 	 * @param caption	Name der Schaltfläche
 	 * @param icon	Icon der Schaltfläche (kann <code>null</code> sein)
+	 * @return	Neu erstellte Schaltfläche
 	 * @see BaseDialog#getUserButton(int)
 	 * @see BaseDialog#userButtonClick(int, JButton)
 	 */
-	protected final void addUserButton(String caption, Icon icon) {
-		addUserButton(caption,null,icon);
+	protected final JButton addUserButton(String caption, Icon icon) {
+		return addUserButton(caption,null,icon);
 	}
 
 	/**
@@ -389,15 +391,17 @@ public class BaseDialog extends JDialog {
 	 * @param caption	Name der Schaltfläche
 	 * @param tooltip	Tooltip für die Schaltfläche (kann <code>null</code> sein)
 	 * @param icon	URL des Icons der Schaltfläche (kann <code>null</code> sein)
+	 * @return	Neu erstellte Schaltfläche
 	 * @see BaseDialog#getUserButton(int)
 	 * @see BaseDialog#userButtonClick(int, JButton)
 	 */
-	protected final void addUserButton(String caption, String tooltip, URL icon) {
+	protected final JButton addUserButton(String caption, String tooltip, URL icon) {
 		JButton button=new JButton(caption);
 		if (tooltip!=null && !tooltip.isEmpty()) button.setToolTipText(tooltip);
 		if (icon!=null)	button.setIcon(new ImageIcon(icon));
 		button.addActionListener(userButtonListener);
 		userButtons.add(button);
+		return button;
 	}
 
 	/**
@@ -406,15 +410,17 @@ public class BaseDialog extends JDialog {
 	 * @param caption	Name der Schaltfläche
 	 * @param tooltip	Tooltip für die Schaltfläche (kann <code>null</code> sein)
 	 * @param icon	Icons der Schaltfläche (kann <code>null</code> sein)
+	 * @return	Neu erstellte Schaltfläche
 	 * @see BaseDialog#getUserButton(int)
 	 * @see BaseDialog#userButtonClick(int, JButton)
 	 */
-	protected final void addUserButton(String caption, String tooltip, Icon icon) {
+	protected final JButton addUserButton(String caption, String tooltip, Icon icon) {
 		JButton button=new JButton(caption);
 		if (tooltip!=null && !tooltip.isEmpty()) button.setToolTipText(tooltip);
 		if (icon!=null)	button.setIcon(icon);
 		button.addActionListener(userButtonListener);
 		userButtons.add(button);
+		return button;
 	}
 
 	/**
@@ -487,7 +493,7 @@ public class BaseDialog extends JDialog {
 	 * Aktiviert oder deaktiviert alle Schaltflächen.
 	 * @param enabled	 Gibt an, ob die Schaltflächen aktiviert oder deaktiviert werden sollen.
 	 */
-	protected final void setEnableButtons(boolean enabled) {
+	protected final void setEnableButtons(final boolean enabled) {
 		if (okButton!=null) okButton.setEnabled(enabled);
 		if (cancelButton!=null) cancelButton.setEnabled(enabled);
 		if (previousButton!=null) previousButton.setEnabled(enabled);
@@ -495,6 +501,14 @@ public class BaseDialog extends JDialog {
 		if (closeButton!=null) closeButton.setEnabled(enabled);
 		if (helpButton!=null) helpButton.setEnabled(enabled);
 		for (JButton userButton: userButtons) userButton.setEnabled(enabled);
+	}
+
+	/**
+	 * Aktiviert oder deaktiviert die Ok-Schaltfläche.
+	 * @param enabled	Gibt an, ob die Schaltfläche aktiviert oder deaktiviert werden soll.
+	 */
+	protected final void setEnableOk(final boolean enabled) {
+		if (okButton!=null) okButton.setEnabled(enabled);
 	}
 
 	/**

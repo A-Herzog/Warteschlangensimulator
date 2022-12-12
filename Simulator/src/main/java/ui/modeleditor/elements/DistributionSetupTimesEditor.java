@@ -49,6 +49,7 @@ import mathtools.NumberTools;
 import mathtools.distribution.swing.JDistributionPanel;
 import simulator.editmodel.EditModel;
 import simulator.simparser.ExpressionCalc;
+import systemtools.BaseDialog;
 import systemtools.MsgBox;
 import tools.IconListCellRenderer;
 import ui.images.Images;
@@ -72,18 +73,18 @@ public class DistributionSetupTimesEditor extends JPanel {
 	private static final String cardExpression="Expression";
 
 	/** Element vom Typ <code>EditModel</code> (wird benötigt, um die Liste der globalen Variablen zu laden) */
-	private final EditModel model;
+	final EditModel model;
 	/** Element vom Typ <code>ModelSurface</code> (wird benötigt, um die Liste der Kundentypen oder Stationen auszulesen) */
-	private final ModelSurface surface;
+	final ModelSurface surface;
 	/** Nur-Lese-Status */
 	private final boolean readOnly;
 
 	/** Im Konstruktor übergebenes Datenobjekt in das bei {@link #storeData()} die Daten zurückgeschrieben werden */
 	private final DistributionSystemSetupTimes dataOriginal;
 	/** Temporäres Datenobjekt für die Arbeit in dem Panel; bei Erfolg werden die Daten am Ende in {@link #dataOriginal} zurückgeschrieben */
-	private final DistributionSystemSetupTimes data;
+	final DistributionSystemSetupTimes data;
 	/** Namen der Untertypen (Kundentypen) */
-	private final String[] clientTypes;
+	final String[] clientTypes;
 
 	/** Index des zuletzt in {@link #typeCombo} ausgewählten Eintrags */
 	private int typeLast;
@@ -93,6 +94,8 @@ public class DistributionSetupTimesEditor extends JPanel {
 	private final JCheckBox activeCheckBox;
 	/** Schaltfläche zum Laden von Kundentypdaten */
 	private final JButton loadButton;
+	/** Schaltfläche für Rüstzeiten-Assistent */
+	private final JButton assistantButton;
 	/** Zeigt den Infotext an, von welchem Kundentyp zu welchem Kundentyp die aktuelle Rüstzeit gilt */
 	private final JLabel infoLabel;
 	/** Auswahl: Verteilung oder Rechenausdruck */
@@ -162,6 +165,10 @@ public class DistributionSetupTimesEditor extends JPanel {
 			loadButton.setEnabled(!readOnly);
 			loadButton.addActionListener(e->loadClientTypeData());
 
+			line.add(assistantButton=new JButton(Language.tr("Surface.Process.Dialog.SetupTimes.Assistant.Button"),Images.MODELEDITOR_ELEMENT_PROCESS_PAGE_SETUP_ASSISTANT.getIcon()));
+			assistantButton.setEnabled(!readOnly);
+			assistantButton.addActionListener(e->showSetupTimesAssistant());
+
 			panel.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
 			line.add(infoLabel=new JLabel());
 			line.add(modeSelect=new JComboBox<>(new String[]{
@@ -219,6 +226,7 @@ public class DistributionSetupTimesEditor extends JPanel {
 		} else {
 			activeCheckBox=null;
 			loadButton=null;
+			assistantButton=null;
 			infoLabel=null;
 			modeSelect=null;
 			cards=null;
@@ -419,6 +427,18 @@ public class DistributionSetupTimesEditor extends JPanel {
 
 		typeLast=-1;
 		activeClientTypeChanged();
+	}
+
+	/**
+	 * Schaltfläche "Rüstzeiten-Assistent"
+	 * @see #assistantButton
+	 */
+	private void showSetupTimesAssistant() {
+		final DistributionSetupTimesEditorAssistantDialog dialog=new DistributionSetupTimesEditorAssistantDialog(this);
+		if (dialog.getClosedBy()==BaseDialog.CLOSED_BY_OK) {
+			typeLast=-1;
+			activeClientTypeChanged();
+		}
 	}
 
 	/**

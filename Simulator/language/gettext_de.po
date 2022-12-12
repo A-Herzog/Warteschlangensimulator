@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-12-11 00:50+0100\n"
+"POT-Creation-Date: 2022-12-12 11:34+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -30089,6 +30089,48 @@ msgstr "Ungültige Ressourcen-Priorität"
 
 msgid "Surface.Process.Dialog.SetupTimes.Active"
 msgstr "Rüstzeit für diese Kundentypkombination aktiv"
+
+msgid "Surface.Process.Dialog.SetupTimes.Assistant.Button"
+msgstr "Rüstzeiten-Assistent..."
+
+msgid "Surface.Process.Dialog.SetupTimes.Assistant.ExpressionErrorInfo"
+msgstr "Der Rechenausdruck \"%s\" für die Rüstzeit ist ab Zeichen %d ungültig."
+
+msgid "Surface.Process.Dialog.SetupTimes.Assistant.ExpressionErrorTitle"
+msgstr "Rechenausdruck fehlerhaft"
+
+msgid "Surface.Process.Dialog.SetupTimes.Assistant.Infotext"
+msgstr "Der Rüstzeiten-Assistent vereinfacht das Einstellen von mehrfach gleichen Rüstzeiten in Modellen mit vielen Kundentypen."
+
+msgid "Surface.Process.Dialog.SetupTimes.Assistant.Mode.Dual"
+msgstr "Einheitliche Rüstzeit jeweils bei gleichem Kundentyp und bei Kundentypwechsel"
+
+msgid "Surface.Process.Dialog.SetupTimes.Assistant.Mode.Dual.ClientTypeChange"
+msgstr "Rüstzeit bei Wechsel des Kundentyps"
+
+msgid "Surface.Process.Dialog.SetupTimes.Assistant.Mode.Dual.NoClientTypeChange"
+msgstr "Rüstzeit bei Beibehaltung des Kundentyps"
+
+msgid "Surface.Process.Dialog.SetupTimes.Assistant.Mode.Off"
+msgstr "Alle Rüstzeiten deaktivieren"
+
+msgid "Surface.Process.Dialog.SetupTimes.Assistant.Mode.Single"
+msgstr "Einheitliche Rüstzeit (unabhängig vom Kundentypwechsel) vor allen Bedienungen"
+
+msgid "Surface.Process.Dialog.SetupTimes.Assistant.Mode.SingleOnChange"
+msgstr "Einheitliche Rüstzeit bei Kundentypwechsel, sonst keine Rüstzeit"
+
+msgid "Surface.Process.Dialog.SetupTimes.Assistant.PagesNext"
+msgstr "Weiter"
+
+msgid "Surface.Process.Dialog.SetupTimes.Assistant.PagesPrevious"
+msgstr "Zurück"
+
+msgid "Surface.Process.Dialog.SetupTimes.Assistant.SetupTimesBy"
+msgstr "Rüstzeiten festlegen"
+
+msgid "Surface.Process.Dialog.SetupTimes.Assistant.Title"
+msgstr "Rüstzeiten-Assistent"
 
 msgid "Surface.Process.Dialog.SetupTimes.Info"
 msgstr "Rüstzeit von %s nach %s"

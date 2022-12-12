@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-12-11 00:50+0100\n"
+"POT-Creation-Date: 2022-12-12 11:34+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -30064,6 +30064,48 @@ msgstr "Invalid resource priority"
 
 msgid "Surface.Process.Dialog.SetupTimes.Active"
 msgstr "Use setup time for this client type combination"
+
+msgid "Surface.Process.Dialog.SetupTimes.Assistant.Button"
+msgstr "Setup times assistant..."
+
+msgid "Surface.Process.Dialog.SetupTimes.Assistant.ExpressionErrorInfo"
+msgstr "The calculation expression \"%s\" for the setup time is invalid at character %d."
+
+msgid "Surface.Process.Dialog.SetupTimes.Assistant.ExpressionErrorTitle"
+msgstr "Invalid calculation expression"
+
+msgid "Surface.Process.Dialog.SetupTimes.Assistant.Infotext"
+msgstr "The setup time assistant simplifies the setting of multiple identical setup times in models with many client types."
+
+msgid "Surface.Process.Dialog.SetupTimes.Assistant.Mode.Dual"
+msgstr "Uniform setup times in each case for the same client type and for client type changes"
+
+msgid "Surface.Process.Dialog.SetupTimes.Assistant.Mode.Dual.ClientTypeChange"
+msgstr "Setup time when changing the client type"
+
+msgid "Surface.Process.Dialog.SetupTimes.Assistant.Mode.Dual.NoClientTypeChange"
+msgstr "Setup time when retention the client type"
+
+msgid "Surface.Process.Dialog.SetupTimes.Assistant.Mode.Off"
+msgstr "Deactivate all setup times"
+
+msgid "Surface.Process.Dialog.SetupTimes.Assistant.Mode.Single"
+msgstr "Uniform setup times (independent of client type change) before all service processes"
+
+msgid "Surface.Process.Dialog.SetupTimes.Assistant.Mode.SingleOnChange"
+msgstr "Uniform setup times on client type change, otherwise no setup time"
+
+msgid "Surface.Process.Dialog.SetupTimes.Assistant.PagesNext"
+msgstr "Next"
+
+msgid "Surface.Process.Dialog.SetupTimes.Assistant.PagesPrevious"
+msgstr "Previous"
+
+msgid "Surface.Process.Dialog.SetupTimes.Assistant.SetupTimesBy"
+msgstr "Define setup times"
+
+msgid "Surface.Process.Dialog.SetupTimes.Assistant.Title"
+msgstr "Setup times assistant"
 
 msgid "Surface.Process.Dialog.SetupTimes.Info"
 msgstr "Define setup time from %s to %s"

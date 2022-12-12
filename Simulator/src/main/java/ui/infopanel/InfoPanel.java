@@ -231,7 +231,10 @@ public class InfoPanel {
 	/* Stationen - Verarbeitung */
 
 	/** Info-ID für den "Bedienstation"-Bearbeiten-Dialog (Gruppe "Verarbeitung") */
-	public static final String stationProcess=groupElement+"Process";
+	public static final String stationProcess=groupElement+"Process";/** Info-ID für den "Bedienstation"-Bearbeiten-Dialog (Gruppe "Verarbeitung") */
+
+	/** Info-ID für den "Rüstzeiten-Assistent"-Dialog (aufzurufen us dem "Bedienstation"-Bearbeiten-Dialog; Gruppe "Verarbeitung") */
+	public static final String stationProcessSetupTimesAssistant=groupElement+"ProcessSetupTimesAssistant";
 
 	/** Info-ID für den "Verzögerung"-Bearbeiten-Dialog (Gruppe "Verarbeitung") */
 	public static final String stationDelay=groupElement+"Delay";
@@ -866,6 +869,10 @@ public class InfoPanel {
 		register(stationProcess,
 				()->Language.tr("HintsDialog.TreeNodeStations")+"|"+ModelElementCatalog.GROUP_PROCESSING+"|"+Language.tr("Surface.Process.Name"),
 				()->Language.tr("Surface.Process.Infotext"));
+
+		register(stationProcessSetupTimesAssistant,
+				()->Language.tr("HintsDialog.TreeNodeStations")+"|"+ModelElementCatalog.GROUP_PROCESSING+"|"+Language.tr("Surface.Process.Name")+" - "+Language.tr("Surface.Process.Dialog.SetupTimes.Assistant.Title"),
+				()->Language.tr("Surface.Process.Dialog.SetupTimes.Assistant.Infotext"));
 
 		register(stationDelay,
 				()->Language.tr("HintsDialog.TreeNodeStations")+"|"+ModelElementCatalog.GROUP_PROCESSING+"|"+Language.tr("Surface.Delay.Name"),

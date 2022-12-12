@@ -1504,6 +1504,9 @@ public enum Images {
 	/** Symbol "Modelleditor - Gruppe 'Verarbeitung' - Element 'Bedienstation' - Dialogseite 'Rüstzeiten'" */
 	MODELEDITOR_ELEMENT_PROCESS_PAGE_SETUP("chart_curve.png"),
 
+	/** Symbol "Modelleditor - Gruppe 'Verarbeitung' - Element 'Bedienstation' - Dialogseite 'Rüstzeiten'" - Schaltfläche "Rüstzeiten-Assistent" */
+	MODELEDITOR_ELEMENT_PROCESS_PAGE_SETUP_ASSISTANT("wand.png"),
+
 	/** Symbol "Modelleditor - Gruppe 'Verarbeitung' - Element 'Bedienstation' - Dialogseite 'Nachbearbeitungszeiten'" */
 	MODELEDITOR_ELEMENT_PROCESS_PAGE_POST_PROCESS("chart_curve.png"),
 
