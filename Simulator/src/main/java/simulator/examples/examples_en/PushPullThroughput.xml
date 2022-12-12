@@ -2,7 +2,7 @@
 <!DOCTYPE Model SYSTEM "https://a-herzog.github.io/Warteschlangensimulator/Simulator.dtd">
 <Model xmlns="https://a-herzog.github.io" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://a-herzog.github.io https://a-herzog.github.io/Warteschlangensimulator/Simulator.xsd">
   <ModelVersion>3.0.0</ModelVersion>
-  <ModelName>Waiting time depending process times</ModelName>
+  <ModelName>Queue length depending process times</ModelName>
   <ModelAuthor>Alexander Herzog</ModelAuthor>
   <ModelClients Active="1">10000000</ModelClients>
   <ModelWarmUpPhase>0.01</ModelWarmUpPhase>
@@ -252,7 +252,7 @@
     </ModelElementAnimationText>
     <ModelElementText id="271">
       <ModelElementSize h="23" w="329" x="50" y="50"/>
-      <ModelElementTextLine>Waiting time depending process times</ModelElementTextLine>
+      <ModelElementTextLine>Queue length depending process times</ModelElementTextLine>
       <ModelElementFontSize bold="1">18</ModelElementFontSize>
       <ModelElementColor>0,0,0</ModelElementColor>
     </ModelElementText>

@@ -2,7 +2,7 @@
 <!DOCTYPE Modell SYSTEM "https://a-herzog.github.io/Warteschlangensimulator/Simulator.dtd">
 <Modell xmlns="https://a-herzog.github.io" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://a-herzog.github.io https://a-herzog.github.io/Warteschlangensimulator/Simulator.xsd">
   <ModellVersion>4.4.0</ModellVersion>
-  <ModellName>Wartezeitabhängige Bedienzeiten</ModellName>
+  <ModellName>Warteschlangenlängeabhängige Bedienzeiten</ModellName>
   <ModellAutor>Alexander Herzog</ModellAutor>
   <ModellKunden Aktiv="1">10000000</ModellKunden>
   <ModellAufwaermphase>0.01</ModellAufwaermphase>
@@ -251,7 +251,7 @@
     </ModellElementAnimationText>
     <ModellElementText id="271">
       <ModellElementGroesse h="23" w="293" x="50" y="50"/>
-      <ModellElementTextzeile>Wartezeitabhängige Bedienzeiten</ModellElementTextzeile>
+      <ModellElementTextzeile>Warteschlangenlängeabhängige Bedienzeiten</ModellElementTextzeile>
       <ModellElementSchriftgrosse fett="1">18</ModellElementSchriftgrosse>
       <ModellElementFarbe>0,0,0</ModellElementFarbe>
     </ModellElementText>

@@ -10741,7 +10741,7 @@ public class Messages_de extends java.util.ResourceBundle {
     t[25586] = "Surface.InteractiveSlider.XML.Variable";
     t[25587] = "ModellElementSchiebereglerVariable";
     t[25590] = "Examples.PushPullThroughput";
-    t[25591] = "Wartezeitabh\u00e4ngige Bedienzeiten";
+    t[25591] = "Warteschlangenl\u00e4ngeabh\u00e4ngige Bedienzeiten";
     t[25592] = "Surface.SourceTable.Dialog.ColumnOne.TimeStamps";
     t[25593] = "Zahlenwerte sind Zeitangaben";
     t[25596] = "ExpressionBuilder.SimulationCharacteristics.StationInputOutput.ThroughputMaxInterval";
