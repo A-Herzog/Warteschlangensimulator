@@ -156,9 +156,19 @@ public class ModelElementTextRendererMarkDown extends ModelElementTextRenderer {
 	 */
 	private ModelElementText.TextAlign textAlign;
 
+	/**
+	 * Konstruktor der Klasse
+	 */
+	public ModelElementTextRendererMarkDown() {
+		/*
+		 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+		 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+		 */
+	}
+
 	@Override
 	public void setStyle(final int fontSize, final boolean bold, final boolean italic, final String fontFamily, final ModelElementText.TextAlign textAlign) {
-		if (fontSize==this.fontSize && fontFamily==this.fontFamily && textAlign==this.textAlign) return;
+		if (fontSize==this.fontSize && fontFamily.equals(this.fontFamily) && textAlign==this.textAlign) return;
 		this.fontSize=fontSize;
 		this.bold=bold;
 		this.italic=italic;
@@ -277,6 +287,9 @@ public class ModelElementTextRendererMarkDown extends ModelElementTextRenderer {
 		lineAscent.clear();
 		lineDescent.clear();
 
+		int defaultAscent=-1;
+		int defaultDescent=-1;
+
 		for (List<LineElement> line: lines) {
 			int lWidth=0;
 			int lAscent=0;
@@ -288,6 +301,20 @@ public class ModelElementTextRendererMarkDown extends ModelElementTextRenderer {
 				lWidth+=metrics.stringWidth(element.text);
 				lAscent=Math.max(lAscent,metrics.getAscent());
 				lDescent=Math.max(lDescent,metrics.getDescent());
+			}
+			if (line.size()==0) {
+				if (defaultAscent<0) {
+					int style=Font.PLAIN;
+					if (bold) style+=Font.BOLD;
+					if (italic) style+=Font.ITALIC;
+					final Font font=FontCache.getFontCache().getFont(fontFamily,style,(int)Math.round(fontSize*zoom));
+					graphics.setFont(font);
+					final FontMetrics metrics=graphics.getFontMetrics();
+					defaultAscent=metrics.getAscent();
+					defaultDescent=metrics.getDescent();
+				}
+				lAscent=defaultAscent;
+				lDescent=defaultDescent;
 			}
 			lineWidth.add(lWidth);
 			lineAscent.add(lAscent);
