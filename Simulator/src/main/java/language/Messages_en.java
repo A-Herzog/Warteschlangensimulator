@@ -10098,6 +10098,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[24117] = "Always";
     t[24122] = "Statistics.Part";
     t[24123] = "Part";
+    t[24132] = "Main.Menu.Edit.DeleteAndCloseGap.Mnemonic";
+    t[24133] = "p";
     t[24134] = "Color.FFE4E1";
     t[24135] = "Mistyrose";
     t[24136] = "ParameterCompare.Toolbar.ProcessResults.ClearStatistics";
@@ -12038,14 +12040,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[28625] = "References";
     t[28630] = "LoadCalculator.Units.InSeconds";
     t[28631] = "in seconds";
-    t[28642] = "Transporters.Group.Delete.NoInfo";
-    t[28643] = "Keep transporter.";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_6 (java.lang.String[] t) {
+    t[28642] = "Transporters.Group.Delete.NoInfo";
+    t[28643] = "Keep transporter.";
     t[28648] = "Surface.AnimationImage.Tooltip";
     t[28649] = "Displays different images depending on the simulation data.";
     t[28656] = "ExpressionBuilder.LogicFunctions.Nxor";
@@ -14044,14 +14046,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[33293] = "Current simulation time";
     t[33294] = "Dialog.SaveNow.Cancel.Info";
     t[33295] = "Do not execute the current command. All data will remain unchanged.";
-    t[33296] = "Editor.DialogBase.Search.TimedChecksDelta";
-    t[33297] = "Time interval for timed condition checks";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_7 (java.lang.String[] t) {
+    t[33296] = "Editor.DialogBase.Search.TimedChecksDelta";
+    t[33297] = "Time interval for timed condition checks";
     t[33298] = "Surface.AnimationRecord.XML.LabelTextX";
     t[33299] = "TextX";
     t[33300] = "Surface.AnimationRecord.XML.LabelTextY";
@@ -14988,6 +14990,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[35523] = "Light coral";
     t[35526] = "Main.Menu.Help.Help";
     t[35527] = "Help";
+    t[35536] = "Dialog.Button.DeleteAndCloseGap";
+    t[35537] = "Delete and close path";
     t[35538] = "ModelDescription.Balking.ProbabilityClientType";
     t[35539] = "Balking probability (client type: %s)";
     t[35542] = "ModelDescription.PickUp.Queue";
@@ -15926,6 +15930,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[37677] = "ModelElementAnimationLCDExpression";
     t[37682] = "Surface.Conveyor.Dialog.CapacityNeededGlobal.ErrorInfo";
     t[37683] = "The needed capacity per client (in the default case) \"%s\" is invalid at character %d.";
+    t[37684] = "Surface.AnimationPieChart.Dialog.Appearance";
+    t[37685] = "Appearance";
     t[37686] = "Main.Menu.Model.AddTemplate";
     t[37687] = "Add template...";
     t[37688] = "ParameterCompare.Settings.Model.Name";
@@ -16046,18 +16052,18 @@ public class Messages_en extends java.util.ResourceBundle {
     t[37943] = "Font";
     t[37944] = "ExpressionBuilder.ProbabilityDistributions.ChiDistribution";
     t[37945] = "Chi distribution";
-    t[37946] = "Optimizer.Error.ControlValueCondition";
-    t[37947] = "The %dth constrain \"%s\" is invalid at character %d.";
-    t[37948] = "Simulation.Creator.InvalidWarmUpPeriod";
-    t[37949] = "%s was specified as the relative duration of the warm up phase. The duration of the warm up phase has be a non-negative value.";
-    t[37954] = "Simulation.Creator.NoName";
-    t[37955] = "Element id=%d has no name.";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_8 (java.lang.String[] t) {
+    t[37946] = "Optimizer.Error.ControlValueCondition";
+    t[37947] = "The %dth constrain \"%s\" is invalid at character %d.";
+    t[37948] = "Simulation.Creator.InvalidWarmUpPeriod";
+    t[37949] = "%s was specified as the relative duration of the warm up phase. The duration of the warm up phase has be a non-negative value.";
+    t[37954] = "Simulation.Creator.NoName";
+    t[37955] = "Element id=%d has no name.";
     t[37958] = "Simulation.Element.TankSensor.Name";
     t[37959] = "Sensor";
     t[37960] = "SlidesGenerator.ModellParameters";
@@ -18052,18 +18058,18 @@ public class Messages_en extends java.util.ResourceBundle {
     t[42481] = "Output file";
     t[42482] = "Surface.LogicWhile.Infotext";
     t[42483] = "While stations forward clients depending on a condition either to the next station or to the following endWhile station.";
-    t[42484] = "Surface.TransportSource.Dialog.Tab.RoutingTargets.Delete";
-    t[42485] = "Delete transport target (Shift+Click=without confirmation dialog)";
-    t[42490] = "Statistic.FastAccess.Template.StatisticsFileFull";
-    t[42491] = "Path and file name of the statistics file";
-    t[42494] = "Git.List.Push.NoCommitsToPush";
-    t[42495] = "There are no commits that have not yet been committed to the server.";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_9 (java.lang.String[] t) {
+    t[42484] = "Surface.TransportSource.Dialog.Tab.RoutingTargets.Delete";
+    t[42485] = "Delete transport target (Shift+Click=without confirmation dialog)";
+    t[42490] = "Statistic.FastAccess.Template.StatisticsFileFull";
+    t[42491] = "Path and file name of the statistics file";
+    t[42494] = "Git.List.Push.NoCommitsToPush";
+    t[42495] = "There are no commits that have not yet been committed to the server.";
     t[42502] = "Surface.Database.Config";
     t[42503] = "Connection settings";
     t[42504] = "ModelSecurityCheck.Station.WithName";
@@ -20058,18 +20064,18 @@ public class Messages_en extends java.util.ResourceBundle {
     t[47187] = "<p>Calculates the value of the sine function with the value passed as parameter. The angle is assumed in <b>radian</b> (full circle=2pi).</p> <p> Example: <tt>sin(pi/2)</tt> return 1.</p>";
     t[47196] = "Main.Menu.Extras.CompareWithKeptModel.Mnemonic";
     t[47197] = "E";
-    t[47198] = "Editor.Dialog.Tab.PathRecording.StationTransitions";
-    t[47199] = "Count station transitions";
-    t[47204] = "Statistics.StationsWaitingTimesTotal";
-    t[47205] = "Waiting times at the stations (totaled over multiple client arrivals)";
-    t[47214] = "Editor.DialogBase.Search.MinValueForExpression";
-    t[47215] = "Minimum value for expression \"%s\"";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_10 (java.lang.String[] t) {
+    t[47198] = "Editor.Dialog.Tab.PathRecording.StationTransitions";
+    t[47199] = "Count station transitions";
+    t[47204] = "Statistics.StationsWaitingTimesTotal";
+    t[47205] = "Waiting times at the stations (totaled over multiple client arrivals)";
+    t[47214] = "Editor.DialogBase.Search.MinValueForExpression";
+    t[47215] = "Minimum value for expression \"%s\"";
     t[47220] = "Statistics.NumberOfClientsAtStationProcess.Short";
     t[47221] = "Number of clients in service process";
     t[47222] = "Statistics.Filter.GeneralError";
@@ -21028,8 +21034,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[49475] = "O";
     t[49476] = "ExpressionBuilder.StatisticalFunctions.Mean.Info";
     t[49477] = "<p>Calculates the arithmetic mean of the values passed as parameters.</p> <p>Example: <tt>mean(1;2;3;4)</tt> returns 2.5.</p>";
-    t[49478] = "Surface.AnimationPieChart.Dialog.Appearance";
-    t[49479] = "Appearance";
+    t[49478] = "Main.Menu.Edit.DeleteAndCloseGap";
+    t[49479] = "Delete and close path";
     t[49484] = "Animation.Log.Current";
     t[49485] = "Show current message";
     t[49486] = "Animation.Toolbar.Speed.Normal";
@@ -22064,18 +22070,18 @@ public class Messages_en extends java.util.ResourceBundle {
     t[51815] = "Script for heading";
     t[51816] = "ExpressionBuilder.SimulationCharacteristics.Comparisons.Equal";
     t[51817] = "Equal";
-    t[51826] = "Editor.UnknownElements.Title";
-    t[51827] = "Unknown elements in the model file";
-    t[51828] = "Surface.Process.Label.Success";
-    t[51829] = "Success";
-    t[51830] = "CommandLine.BuildExampleModelImages.Description.Short";
-    t[51831] = "Generates per example model an image in the desktop folder.";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_11 (java.lang.String[] t) {
+    t[51826] = "Editor.UnknownElements.Title";
+    t[51827] = "Unknown elements in the model file";
+    t[51828] = "Surface.Process.Label.Success";
+    t[51829] = "Success";
+    t[51830] = "CommandLine.BuildExampleModelImages.Description.Short";
+    t[51831] = "Generates per example model an image in the desktop folder.";
     t[51832] = "SimulationServer.Setup.TLSInfo.GenerateKeyStore";
     t[51833] = "Generate key store file";
     t[51836] = "Editor.DialogBase.Search.TransporterGroup.Capacity";

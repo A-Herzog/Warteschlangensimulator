@@ -36,6 +36,7 @@ import java.util.Set;
 import java.util.TreeSet;
 import java.util.function.Function;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import org.apache.commons.math3.util.FastMath;
 import org.w3c.dom.Document;
@@ -53,12 +54,16 @@ import ui.AnimationPanel;
 import ui.EditorPanel;
 import ui.modeleditor.coreelements.ModelElement;
 import ui.modeleditor.coreelements.ModelElementBox;
+import ui.modeleditor.coreelements.ModelElementEdgeMultiIn;
+import ui.modeleditor.coreelements.ModelElementEdgeMultiOut;
+import ui.modeleditor.coreelements.ModelElementEdgeOut;
 import ui.modeleditor.coreelements.ModelElementPosition;
 import ui.modeleditor.descriptionbuilder.ModelDescriptionBuilderStyled;
 import ui.modeleditor.elements.ElementWithNewClientNames;
 import ui.modeleditor.elements.ElementWithNewVariableNames;
 import ui.modeleditor.elements.ModelElementAnimationConnect;
 import ui.modeleditor.elements.ModelElementEdge;
+import ui.modeleditor.elements.ModelElementEdgeMultiOutNumbered;
 import ui.modeleditor.elements.ModelElementSignalTrigger;
 import ui.modeleditor.elements.ModelElementSub;
 import ui.modeleditor.elements.ModelElementTeleportDestination;
@@ -527,9 +532,79 @@ public final class ModelSurface {
 	}
 
 	/**
+	 * Prüft, ob es möglich ist, das Element so zu entfernen, dass die Lücke mit einer neuen Kante geschlossen werden kann.
+	 * @param element	Zu entfernendes Element
+	 * @return	Liefert <code>true</code>, wenn das Element entfernt werden kann und neue, passende Kanten zum Schließen der Lücke automatisch eingefügt werden können
+	 * @see #removeAndCloseGap(ModelElement)
+	 */
+	public boolean canDeleteAndCloseGap(final ModelElement element) {
+		final int index=elements.indexOf(element);
+		if (index<0) return false;
+
+		if (!(element instanceof ModelElementEdgeMultiIn)) return false;
+		final int edgeInCount=((ModelElementEdgeMultiIn)element).getEdgesIn().length;
+
+		int edgeOutCount=0;
+		if ((element instanceof ModelElementEdgeOut)) edgeOutCount=(((ModelElementEdgeOut)element).getEdgeOut()==null)?0:1;
+		if ((element instanceof ModelElementEdgeMultiOut)) edgeOutCount=((ModelElementEdgeMultiOut)element).getEdgesOut().length;
+
+		if (edgeInCount==0 || edgeOutCount==0) return false;
+		if (edgeInCount>1 && edgeOutCount>1) return false;
+
+		return true;
+	}
+
+	/**
+	 * Entfernt ein bestimmte Element aus dem Modell und versucht die Lücke mit neuen Kanten zu schließen.
+	 * @param element	Zu entfernendes Element
+	 * @return	Gibt im Erfolgsfall <code>true</code> zurück.
+	 * @see #canDeleteAndCloseGap(ModelElement)
+	 */
+	public boolean removeAndCloseGap(final ModelElement element) {
+		if (!canDeleteAndCloseGap(element)) return remove(element);
+
+		/* Ausgangselemente der einlaufenden und Zielelemente der auslaufenden Kanten ermitteln */
+		final ModelElementEdge[] edgesIn=((ModelElementEdgeMultiIn)element).getEdgesIn();
+		final ModelElement[] fromElements=Stream.of(edgesIn).map(edge->edge.getConnectionStart()).toArray(ModelElement[]::new);
+		final int[] fromElementsEdgeIndices=Stream.of(edgesIn).mapToInt(edge->{
+			final ModelElement start=edge.getConnectionStart();
+			return (start instanceof ModelElementEdgeMultiOutNumbered)?Arrays.asList(((ModelElementEdgeMultiOutNumbered)start).getEdgesOut()).indexOf(edge):-1;
+		}).toArray();
+		final ModelElement[] toElements;
+		if (element instanceof ModelElementEdgeOut) {
+			toElements=new ModelElement[] {((ModelElementEdgeOut)element).getEdgeOut().getConnectionEnd()};
+		} else {
+			toElements=Stream.of(((ModelElementEdgeMultiOut)element).getEdgesOut()).map(edge->edge.getConnectionEnd()).toArray(ModelElement[]::new);
+		}
+
+		/* Element entfernen */
+		if (!remove(element)) return false;
+
+		/* Vorgänger- und Nachfolgerelemente verbinden */
+		for (int i=0;i<fromElements.length;i++) for (ModelElement toElement: toElements) {
+			final ModelElement fromElement=fromElements[i];
+			if (!(fromElement instanceof ModelElementPosition)) continue;
+			if (!(toElement instanceof ModelElementPosition)) continue;
+			if (!((ModelElementPosition)fromElement).canAddEdgeOut()) continue;
+			if (!((ModelElementPosition)toElement).canAddEdgeIn()) continue;
+
+			final ModelElementEdge edge=new ModelElementEdge(model,this,fromElement,toElement);
+			if (fromElement instanceof ModelElementEdgeMultiOutNumbered) {
+				((ModelElementEdgeMultiOutNumbered)fromElement).addEdgeOut(edge,fromElementsEdgeIndices[i]);
+			}
+			((ModelElementPosition)fromElement).addEdgeOut(edge);
+			((ModelElementPosition)toElement).addEdgeIn(edge);
+			add(edge);
+		}
+
+		return true;
+	}
+
+
+	/**
 	 * Liefert eine Kopie des kompletten Modells.
 	 * @param copyRedrawListeners	Gibt an, ob die in dem Ausgangsmodell hinterlegten Redraw-Listener auch in der Kopie eingetragen werden sollen
-	 * @param resources	Resourcenliste, die für die Kopie verwendet werden soll
+	 * @param resources	Ressourcenliste, die für die Kopie verwendet werden soll
 	 * @param schedules	Zeitpläne, die für die Kopie verwendet werden sollen
 	 * @param parentSurface	Übergeordnete Zeichenfläche
 	 * @param model	Editor-Modell

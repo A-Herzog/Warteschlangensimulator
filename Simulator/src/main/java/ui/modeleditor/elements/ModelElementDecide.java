@@ -47,7 +47,6 @@ import ui.modeleditor.ModelSurfacePanel;
 import ui.modeleditor.coreelements.ModelElement;
 import ui.modeleditor.coreelements.ModelElementBox;
 import ui.modeleditor.coreelements.ModelElementEdgeMultiIn;
-import ui.modeleditor.coreelements.ModelElementEdgeMultiOut;
 import ui.modeleditor.coreelements.QuickFixNextElements;
 import ui.modeleditor.descriptionbuilder.ModelDescriptionBuilder;
 import ui.modeleditor.fastpaint.Shapes;
@@ -56,7 +55,7 @@ import ui.modeleditor.fastpaint.Shapes;
  * Verzweigt die eintreffenden Kunden in verschiedene Richtungen
  * @author Alexander Herzog
  */
-public class ModelElementDecide extends ModelElementBox implements ModelDataRenameListener, ModelElementEdgeMultiIn, ModelElementEdgeMultiOut, ElementWithNewClientNames, ElementWithDecideData {
+public class ModelElementDecide extends ModelElementBox implements ModelDataRenameListener, ModelElementEdgeMultiIn, ModelElementEdgeMultiOutNumbered, ElementWithNewClientNames, ElementWithDecideData {
 	/**
 	 * Art der Verzweigung
 	 * @author Alexander Herzog
@@ -901,6 +900,21 @@ public class ModelElementDecide extends ModelElementBox implements ModelDataRena
 			return true;
 		}
 		return false;
+	}
+
+	/**
+	 * Fügt eine auslaufende Kante an einer bestimmten Stelle in der Liste der auslaufenden Kanten hinzu.
+	 * @param edge	Hinzuzufügende Kante
+	 * @param index	Index der neuen Kante in der Liste der Kanten
+	 * @return	Gibt <code>true</code> zurück, wenn die auslaufende Kante hinzugefügt werden konnte.
+	 */
+	@Override
+	public boolean addEdgeOut(ModelElementEdge edge, int index) {
+		if (edge==null || connectionsIn.indexOf(edge)>=0 || connectionsOut.indexOf(edge)>=0) return false;
+		if (index<0 || index>connectionsOut.size()) return addEdgeOut(edge);
+		connectionsOut.add(index,edge);
+		fireChanged();
+		return true;
 	}
 
 	/**

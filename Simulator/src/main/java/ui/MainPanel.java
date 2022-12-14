@@ -653,6 +653,7 @@ public class MainPanel extends MainPanelBase {
 		addAction("EditCopyModel",e->editorPanel.exportModelToClipboard());
 		addAction("EditPaste",e->editorPanel.pasteFromClipboard());
 		addAction("EditDelete",e->editorPanel.deleteSelectedElements());
+		addAction("EditDeleteAndCloseGap",e->editorPanel.deleteSelectedElementAndCloseGap());
 		addAction("EditSelectAll",e->editorPanel.selectAll());
 		addAction("EditSendFront",e->editorPanel.moveSelectedElementToFront(true));
 		addAction("EditSendForwards",e->editorPanel.moveSelectedElementToFront(false));
@@ -1204,6 +1205,7 @@ public class MainPanel extends MainPanelBase {
 		enabledOnEditorPanel.add(createMenuItemCtrlShift(menu,Language.tr("Main.Menu.Edit.CopyAsImage"),Images.EDIT_COPY_AS_IMAGE.getIcon(),Language.tr("Main.Menu.Edit.CopyAsImage.Mnemonic"),KeyEvent.VK_C,"EditCopyModel"));
 		enabledOnEditorPanel.add(createMenuItemCtrl(menu,Language.tr("Main.Menu.Edit.Paste"),Images.EDIT_PASTE.getIcon(),Language.tr("Main.Menu.Edit.Paste.Mnemonic"),KeyEvent.VK_V,"EditPaste"));
 		enabledOnEditorPanel.add(createMenuItem(menu,Language.tr("Main.Menu.Edit.Delete"),Images.EDIT_DELETE.getIcon(),Language.tr("Main.Menu.Edit.Delete.Mnemonic"),KeyEvent.VK_DELETE,"EditDelete"));
+		enabledOnEditorPanel.add(createMenuItemShift(menu,Language.tr("Main.Menu.Edit.DeleteAndCloseGap"),Images.EDIT_EDGES_ADD.getIcon(),Language.tr("Main.Menu.Edit.DeleteAndCloseGap.Mnemonic"),KeyEvent.VK_DELETE,"EditDeleteAndCloseGap"));
 		enabledOnEditorPanel.add(createMenuItemCtrl(menu,Language.tr("Main.Menu.Edit.SelectAll"),Language.tr("Main.Menu.Edit.SelectAll.Mnemonic"),KeyEvent.VK_A,"EditSelectAll"));
 		menu.addSeparator();
 		menu.add(submenu=new JMenu(Language.tr("Main.Menu.Edit.Arrange")));

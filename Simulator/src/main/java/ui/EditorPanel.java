@@ -2451,6 +2451,13 @@ public final class EditorPanel extends EditorPanelBase {
 	}
 
 	/**
+	 * Löscht das gewählte Element und versucht die Lücke mit einer neuen Kante zu schließen.
+	 */
+	public void deleteSelectedElementAndCloseGap() {
+		surfacePanel.deleteSelectedElementAndCloseGap();
+	}
+
+	/**
 	 * Wählt alle Element aus.
 	 */
 	public void selectAll() {

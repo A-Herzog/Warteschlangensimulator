@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-12-12 11:34+0100\n"
+"POT-Creation-Date: 2022-12-13 08:39+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -2876,6 +2876,9 @@ msgstr "Ausschneiden"
 
 msgid "Dialog.Button.Delete"
 msgstr "Löschen"
+
+msgid "Dialog.Button.DeleteAndCloseGap"
+msgstr "Löschen und Pfad schließen"
 
 msgid "Dialog.Button.DeleteProtection"
 msgstr "Löschschutz"
@@ -10093,6 +10096,12 @@ msgstr "Löschen"
 
 msgid "Main.Menu.Edit.Delete.Mnemonic"
 msgstr "L"
+
+msgid "Main.Menu.Edit.DeleteAndCloseGap"
+msgstr "Löschen und Pfad schließen"
+
+msgid "Main.Menu.Edit.DeleteAndCloseGap.Mnemonic"
+msgstr "P"
 
 msgid "Main.Menu.Edit.Mnemonic"
 msgstr "B"

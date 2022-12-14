@@ -23,6 +23,7 @@ import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
+import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.Hashtable;
@@ -1214,6 +1215,15 @@ public class ModelElement {
 			item.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_DELETE,0));
 			item.setIcon(Images.EDIT_DELETE.getIcon());
 			popupMenu.add(item);
+
+			if (surface.canDeleteAndCloseGap(ModelElement.this)) {
+				item=new JMenuItem(Language.tr("Dialog.Button.DeleteAndCloseGap"));
+				item.setEnabled(!readOnly && !deleteProtection);
+				item.addActionListener(e->surface.removeAndCloseGap(ModelElement.this));
+				item.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_DELETE,InputEvent.SHIFT_DOWN_MASK));
+				item.setIcon(Images.EDIT_EDGES_ADD.getIcon());
+				popupMenu.add(item);
+			}
 
 			if (canSetDeleteProtection()) {
 				final JCheckBoxMenuItem itemCheck=new JCheckBoxMenuItem(Language.tr("Dialog.Button.DeleteProtection"));

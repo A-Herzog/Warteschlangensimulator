@@ -1107,6 +1107,24 @@ public final class ModelSurfacePanel extends JPanel {
 	}
 
 	/**
+	 * Löscht das gewählte Element und versucht die Lücke mit einer neuen Kante zu schließen.
+	 */
+	public void deleteSelectedElementAndCloseGap() {
+		if (!readOnly) {
+			startDelayStateChangeListener();
+			try {
+				final ModelElement element=surface.getSelectedElement();
+				if (element!=null) {
+					surface.removeAndCloseGap(element);
+					fireStateChangeListener();
+				}
+			} finally {
+				finishDelayStateChangeListener();
+			}
+		}
+	}
+
+	/**
 	 * Wählt alle Elemente aus.
 	 */
 	public void selectAll() {
@@ -3744,6 +3762,13 @@ public final class ModelSurfacePanel extends JPanel {
 
 			if (e.getKeyCode()==KeyEvent.VK_DELETE && !e.isControlDown() && !e.isShiftDown() && !e.isAltDown()) {
 				if (!readOnly) deleteSelectedElements();
+				fireStateChangeListener();
+				e.consume();
+				return;
+			}
+
+			if (e.getKeyCode()==KeyEvent.VK_DELETE && !e.isControlDown() && e.isShiftDown() && !e.isAltDown()) {
+				if (!readOnly) deleteSelectedElementAndCloseGap();
 				fireStateChangeListener();
 				e.consume();
 				return;
