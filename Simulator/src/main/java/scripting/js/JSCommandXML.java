@@ -27,6 +27,7 @@ import org.apache.commons.math3.distribution.AbstractRealDistribution;
 import org.apache.commons.math3.util.FastMath;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 import language.Language;
@@ -53,8 +54,10 @@ public class JSCommandXML extends JSBaseCommand {
 	 */
 	private boolean canceled=false;
 
-	/** XMl-Statistik-Daten, die gefiltert werden sollen */
+	/** XML-Statistik-Daten, die gefiltert werden sollen */
 	private Document xml;
+	/** Aus den XML-Daten extrahiertes Modell (ist <code>null</code>, bevor zum ersten Mal {@link #getStationID(String)} aufgerufen wurde) */
+	private EditModel model;
 	/** Optional: Name der Datei aus der die XML-Statistik-Daten stammen */
 	private File xmlFile;
 	/** Gibt an, ob die Statistikdaten als Datei gespeichert werden dürfen */
@@ -689,6 +692,44 @@ public class JSCommandXML extends JSBaseCommand {
 	}
 
 	/**
+	 * Lädt aus einem Modell- oder Statistik-XML-Objekt nur die Modelldaten.
+	 * @param xml	XML-Objekt, welches entweder ein Modell oder einen Statistikdatensatz repräsentieren muss
+	 * @return	Liefert ein Editor-Modell. Trat beim Laden ein Problem auf, so wird ein leeres Modell geliefert.
+	 */
+	public static EditModel getModelFromXml(final Document xml) {
+		if (xml==null) return new EditModel();
+
+		final Element root=xml.getDocumentElement();
+
+		final String[] statisticsXMLRootNames=new Statistics().getRootNodeNames();
+		final String xmlRootName=root.getNodeName();
+		boolean isStatistics=false;
+		for (String testRootName: statisticsXMLRootNames) if (xmlRootName.equals(testRootName)) {isStatistics=true; break;}
+
+		if (isStatistics) {
+			final String[] modelXMLRootNames=new EditModel().getRootNodeNames();
+			final NodeList list=root.getChildNodes();
+			for (int i=0;i<list.getLength();i++) {
+				final Node node=list.item(i);
+				if (!(node instanceof Element)) continue;
+				final String nodeName=node.getNodeName();
+				boolean isModelNode=false;
+				for (String testRootName: modelXMLRootNames) if (nodeName.equals(testRootName)) {isModelNode=true; break;}
+				if (isModelNode) {
+					final EditModel model=new EditModel();
+					if (model.loadFromXML((Element)node)!=null) return new EditModel();
+					return model;
+				}
+			}
+			return new EditModel();
+		} else {
+			final EditModel model=new EditModel();
+			if (model.loadFromXML(root)!=null) return new EditModel();
+			return model;
+		}
+	}
+
+	/**
 	 * Versucht basierend auf dem Namen einer Station die zugehörige ID zu ermitteln
 	 * @param name	Name der Station
 	 * @return	Zugehörige ID oder -1, wenn keine passende Station gefunden wurde
@@ -696,18 +737,9 @@ public class JSCommandXML extends JSBaseCommand {
 	public int getStationID(final String name) {
 		if (name==null || name.trim().isEmpty()) return -1;
 
-		final Element root=xml.getDocumentElement();
+		if (model==null) model=getModelFromXml(xml);
 
-		final EditModel model=new EditModel();
-		if (model.loadFromXML(root)==null) return getStationID(model.surface,name);
-
-		final Statistics statistics=new Statistics();
-		if (statistics.loadFromXML(root)==null) {
-			statistics.loadedStatistics=xmlFile;
-			return getStationID(statistics.editModel.surface,name);
-		}
-
-		return -1;
+		return getStationID(model.surface,name);
 	}
 
 	/**

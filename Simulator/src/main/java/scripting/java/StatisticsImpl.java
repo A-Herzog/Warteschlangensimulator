@@ -36,6 +36,7 @@ import mathtools.NumberTools;
 import mathtools.TimeTools;
 import mathtools.distribution.DataDistributionImpl;
 import mathtools.distribution.tools.DistributionTools;
+import scripting.js.JSCommandXML;
 import scripting.js.JSRunDataFilter;
 import simulator.editmodel.EditModel;
 import simulator.statistics.Statistics;
@@ -62,8 +63,10 @@ public class StatisticsImpl implements StatisticsInterface {
 	 */
 	private final boolean allowSave;
 
-	/** XMl-Statistik-Daten, die gefiltert werden sollen */
+	/** XML-Statistik-Daten, die gefiltert werden sollen */
 	private Document xml;
+	/** Aus den XML-Daten extrahiertes Modell (ist <code>null</code>, bevor zum ersten Mal {@link #getStationID(String)} aufgerufen wurde) */
+	private EditModel model;
 	/** Optional: Name der Datei aus der die XML-Statistik-Daten stammen */
 	private File xmlFile;
 	/** Wird aufgerufen, wenn Meldungen usw. ausgegeben werden sollen */
@@ -650,18 +653,9 @@ public class StatisticsImpl implements StatisticsInterface {
 	public int getStationID(final String name) {
 		if (name==null || name.trim().isEmpty()) return -1;
 
-		final Element root=xml.getDocumentElement();
+		if (model==null) model=JSCommandXML.getModelFromXml(xml);
 
-		final EditModel model=new EditModel();
-		if (model.loadFromXML(root)==null) return getStationID(model.surface,name);
-
-		final Statistics statistics=new Statistics();
-		if (statistics.loadFromXML(root)==null) {
-			statistics.loadedStatistics=xmlFile;
-			return getStationID(statistics.editModel.surface,name);
-		}
-
-		return -1;
+		return getStationID(model.surface,name);
 	}
 
 	@Override
