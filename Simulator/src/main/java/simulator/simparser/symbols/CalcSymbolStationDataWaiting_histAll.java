@@ -52,4 +52,9 @@ public class CalcSymbolStationDataWaiting_histAll extends CalcSymbolStationDataA
 	protected DataDistributionImpl getDistribution(final Statistics statistics) {
 		return statistics.clientsAllWaitingTimes.getDistribution();
 	}
+
+	@Override
+	protected double getDistributionSum(final Statistics statistics) {
+		return statistics.clientsAllWaitingTimes.getCount();
+	}
 }

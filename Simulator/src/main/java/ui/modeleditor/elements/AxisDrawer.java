@@ -173,6 +173,11 @@ public class AxisDrawer {
 	private int axisFontDescent;
 
 	/**
+	 * Erzwingt eine höhere Anzahl an Nachkommastellen (wird nur verwendet, wenn nur 2 Werte ausgegeben werden sollen)
+	 */
+	private final boolean forceMoreDigits;
+
+	/**
 	 * Abstand zwischen zwei Wertebeschriftungen
 	 */
 	private static final int VALUE_STEP_WIDE=50;
@@ -184,10 +189,19 @@ public class AxisDrawer {
 
 	/**
 	 * Konstruktor der Klasse
+	 * @param forceMoreDigits	Erzwingt eine höhere Anzahl an Nachkommastellen (wird nur verwendet, wenn nur 2 Werte ausgegeben werden sollen)
 	 */
-	public AxisDrawer() {
+	public AxisDrawer(final boolean forceMoreDigits) {
 		transformRotate=new AffineTransform();
 		transformRotate.rotate(Math.toRadians(-90));
+		this.forceMoreDigits=forceMoreDigits;
+	}
+
+	/**
+	 * Konstruktor der Klasse
+	 */
+	public AxisDrawer() {
+		this(false);
 	}
 
 	/**
@@ -234,12 +248,13 @@ public class AxisDrawer {
 	/**
 	 * Generiert Zahlenwert-Beschriftungen.
 	 * @param steps	Anzahl an Schritten
+	 * @param forceMoreDigits	Erzwingt eine höhere Anzahl an Nachkommastellen
 	 * @see NumberFormat#NUMBER
 	 * @see #prepare(Graphics2D, double, int)
 	 */
-	private void generateAxisTextsNumbers(final int steps) {
+	private void generateAxisTextsNumbers(final int steps, final boolean forceMoreDigits) {
 		boolean ok=false;
-		int digits=1;
+		int digits=forceMoreDigits?3:1;
 		while (!ok) {
 			ok=true;
 			for (int i=0;i<steps;i++) {
@@ -316,9 +331,9 @@ public class AxisDrawer {
 			if (needUpdateText) {
 				needUpdateTextWidth=true;
 				switch (numberFormat) {
-				case NUMBER: generateAxisTextsNumbers(steps); break;
+				case NUMBER: generateAxisTextsNumbers(steps,steps==2 && forceMoreDigits); break;
 				case TIME: generateAxisTextsTimes(steps); break;
-				default: generateAxisTextsNumbers(steps); break;
+				default: generateAxisTextsNumbers(steps,steps==2 && forceMoreDigits); break;
 				}
 				needUpdateText=false;
 			}

@@ -59,38 +59,46 @@ public class CalcSymbolUserStatistics_hist extends CalcSymbolUserStatistics {
 	@Override
 	protected double processHistogram(final StatisticsPerformanceIndicator indicator, int value) {
 		if (!(indicator instanceof StatisticsDataPerformanceIndicatorWithNegativeValues)) return 0.0;
-		final DataDistributionImpl dist=((StatisticsDataPerformanceIndicatorWithNegativeValues)indicator).getDistribution();
+		final StatisticsDataPerformanceIndicatorWithNegativeValues dataIndicator=(StatisticsDataPerformanceIndicatorWithNegativeValues)indicator;
+		final DataDistributionImpl dist=dataIndicator.getDistribution();
 		if (dist==null) return 0.0;
 		final double scale=dist.densityData.length/dist.upperBound;
-		value=(int)Math.round(value*scale);
+		if (scale!=1.0) {
+			value=(int)Math.round(value*scale);
+		}
 		if (value<0 || value>=dist.densityData.length) return 0.0;
-		final double sum=dist.sum();
-		if (sum==0.0) return 0.0;
+		final long sum=dataIndicator.getCount();
+		if (sum==0) return 0.0;
 		return dist.densityData[value]/sum;
 	}
 
 	@Override
 	protected double processHistogram(final StatisticsPerformanceIndicator indicator, int value1, int value2) {
 		if (!(indicator instanceof StatisticsDataPerformanceIndicatorWithNegativeValues)) return 0.0;
-		final DataDistributionImpl dist=((StatisticsDataPerformanceIndicatorWithNegativeValues)indicator).getDistribution();
+		final StatisticsDataPerformanceIndicatorWithNegativeValues dataIndicator=(StatisticsDataPerformanceIndicatorWithNegativeValues)indicator;
+		final DataDistributionImpl dist=dataIndicator.getDistribution();
 		if (dist==null) return 0.0;
 
-		final double scale=dist.densityData.length/dist.upperBound;
-		value1=(int)Math.round(value1*scale);
-		value2=(int)Math.round(value2*scale);
+		final int len=dist.densityData.length;
+		final double scale=len/dist.upperBound;
+		if (scale!=1.0) {
+			value1=(int)Math.round(value1*scale);
+			value2=(int)Math.round(value2*scale);
+		}
 
 		value1=FastMath.max(-1,value1);
 		value2=FastMath.max(0,value2);
 
-		if (value1>=dist.densityData.length) return 0.0;
-		if (value2>=dist.densityData.length) return 0.0;
+		if (value1>=len) return 0.0;
+		if (value2>=len) return 0.0;
 		if (value2<=value1) return 0.0;
 
-		final double sum=dist.sum();
-		if (sum==0.0) return 0.0;
+		final long sum=dataIndicator.getCount();
+		if (sum==0) return 0.0;
 
+		double[] data=dist.densityData;
 		double part=0;
-		for (int i=value1+1;i<=value2;i++) part+=dist.densityData[i];
+		for (int i=value1+1;i<=value2;i++) part+=data[i];
 		return part/sum;
 	}
 

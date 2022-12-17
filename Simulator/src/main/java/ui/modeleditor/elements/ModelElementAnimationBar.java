@@ -152,7 +152,7 @@ public class ModelElementAnimationBar extends ModelElementPosition implements El
 	 * @see #getBackgroundColor()
 	 * @see #setBackgroundColor(Color)
 	 */
-	private Color backgroundColor=null;
+	private Color backgroundColor=new Color(240,240,240);
 
 	/**
 	 * Farbe des Balkens
@@ -885,7 +885,7 @@ public class ModelElementAnimationBar extends ModelElementPosition implements El
 	/**
 	 * System zur Darstellung der y-Achsenbeschriftung
 	 */
-	private final AxisDrawer yAxisDrawer=new AxisDrawer();
+	private final AxisDrawer yAxisDrawer=new AxisDrawer(true);
 
 	@Override
 	public void initAnimation(SimulationData simData) {

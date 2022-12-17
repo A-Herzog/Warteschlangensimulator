@@ -52,4 +52,9 @@ public class CalcSymbolStationDataResidence_histAll extends CalcSymbolStationDat
 	protected DataDistributionImpl getDistribution(final Statistics statistics) {
 		return statistics.clientsAllResidenceTimes.getDistribution();
 	}
+
+	@Override
+	protected double getDistributionSum(final Statistics statistics) {
+		return statistics.clientsAllResidenceTimes.getCount();
+	}
 }

@@ -191,8 +191,8 @@ public class ModelElementAnimationBarDialog extends ModelElementBaseDialog {
 			case DIRECTION_DOWN: selectDirection.setSelectedIndex(2); break;
 			case DIRECTION_LEFT: selectDirection.setSelectedIndex(3); break;
 			}
-			editMinimum.setText(NumberTools.formatNumber(diagram.getMinValue()));
-			editMaximum.setText(NumberTools.formatNumber(diagram.getMaxValue()));
+			editMinimum.setText(NumberTools.formatNumberMax(diagram.getMinValue()));
+			editMaximum.setText(NumberTools.formatNumberMax(diagram.getMaxValue()));
 			axisLabels.set(diagram.getAxisLabels(),null,diagram.getAxisLabelText());
 			lineWidth.setSelectedIndex(diagram.getBorderWidth()-1);
 			colorChooserLine.setColor(diagram.getBorderColor());

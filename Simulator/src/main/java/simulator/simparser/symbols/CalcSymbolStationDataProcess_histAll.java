@@ -52,4 +52,9 @@ public class CalcSymbolStationDataProcess_histAll extends CalcSymbolStationDataA
 	protected DataDistributionImpl getDistribution(final Statistics statistics) {
 		return statistics.clientsAllProcessingTimes.getDistribution();
 	}
+
+	@Override
+	protected double getDistributionSum(final Statistics statistics) {
+		return statistics.clientsAllProcessingTimes.getCount();
+	}
 }

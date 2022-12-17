@@ -314,7 +314,7 @@ public abstract class ModelElementAnimationDiagramBase extends ModelElementPosit
 	/**
 	 * System zur Darstellung der y-Achsenbeschriftung
 	 */
-	private final AxisDrawer yAxisDrawer=new AxisDrawer();
+	private final AxisDrawer yAxisDrawer=new AxisDrawer(true);
 
 	/**
 	 * Definiert den Minimal- und den Maximalwert für die y-Achsenbeschriftung

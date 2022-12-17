@@ -598,7 +598,7 @@ public class ModelElementAnimationBarChart extends ModelElementPosition implemen
 	}
 
 	/**
-	 * Cache für das Recheckobjekt das in {@link #drawDiagramBars(Graphics2D, Rectangle)}
+	 * Cache für das Rechteckobjekt das in {@link #drawDiagramBars(Graphics2D, Rectangle)}
 	 * benötigt wird.
 	 * @see #drawDiagramBars(Graphics2D, Rectangle)
 	 */
@@ -667,11 +667,12 @@ public class ModelElementAnimationBarChart extends ModelElementPosition implemen
 			drawMax=max;
 			if (max==min) return;
 
-			final int gap=use3D?10:5;
+			final int gap=Math.max(1,Math.min(use3D?10:5,rectangle.width/(2*recordedValues.length)));
 
-			final int w=(rectangle.width-2*10-(recordedValues.length-1)*gap)/recordedValues.length;
-			int x=rectangle.x+10;
+			final int w=Math.max(1,(rectangle.width-2*10-(recordedValues.length-1)*gap)/recordedValues.length);
+			double x=rectangle.x+10;
 			final int shadow=w/5;
+			final double wDelta=gap+(rectangle.width-2*10-(recordedValues.length-1)*gap)/((double)recordedValues.length);
 
 			if (filler==null || filler.length!=recordedValues.length) {
 				filler=new GradientFill[recordedValues.length];
@@ -683,7 +684,7 @@ public class ModelElementAnimationBarChart extends ModelElementPosition implemen
 				final int h=(int)FastMath.round(rectangle.height*(value-min)/(max-min));
 				final Color c=expressionColor.get(i%expressionColor.size());
 
-				final int startX=x;
+				final int startX=(int)Math.round(x);
 				final int startY=rectangle.y+rectangle.height-h;
 
 				if (use3D) {
@@ -718,7 +719,7 @@ public class ModelElementAnimationBarChart extends ModelElementPosition implemen
 				g.fill(barDrawRect);
 
 				/* Abstand zwischen den Balken */
-				x+=w+gap;
+				x+=wDelta;
 			}
 		} finally {
 			drawLock.release();
@@ -994,7 +995,7 @@ public class ModelElementAnimationBarChart extends ModelElementPosition implemen
 			dataSets[nextDataSet][i]=value;
 			if (!needUpdate) needUpdate=(dataSets[drawActiveDataSet][i]!=value);
 		}
-		if (!needUpdate) return false;
+		if (!needUpdate && recordedValues!=null) return false; /* Per "recordedValues!=null" wird erzwungen, dass ganz am Anfang wenigstens einmal Daten an die Zeichenroutine übergeben werden. */
 
 		drawLock.acquireUninterruptibly();
 		try {
@@ -1009,7 +1010,7 @@ public class ModelElementAnimationBarChart extends ModelElementPosition implemen
 	/**
 	 * System zur Darstellung der y-Achsenbeschriftung
 	 */
-	private AxisDrawer yAxisDrawer=new AxisDrawer();
+	private AxisDrawer yAxisDrawer=new AxisDrawer(true);
 
 	@Override
 	public void initAnimation(final SimulationData simData) {

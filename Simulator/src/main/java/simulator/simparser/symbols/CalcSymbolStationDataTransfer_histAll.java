@@ -52,4 +52,9 @@ public class CalcSymbolStationDataTransfer_histAll extends CalcSymbolStationData
 	protected DataDistributionImpl getDistribution(final Statistics statistics) {
 		return statistics.clientsAllTransferTimes.getDistribution();
 	}
+
+	@Override
+	protected double getDistributionSum(final Statistics statistics) {
+		return statistics.clientsAllTransferTimes.getCount();
+	}
 }
