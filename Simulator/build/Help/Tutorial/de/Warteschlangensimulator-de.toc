@@ -6,7 +6,7 @@
 \contentsline {section}{\numberline {3.2}Zeichenfläche}{6}{section.3.2}%
 \contentsline {chapter}{\numberline {4}Vorstellung eines einfachen Warteschlangenmodells}{7}{chapter.4}%
 \contentsline {section}{\numberline {4.1}Konfiguration der Kundenquelle}{8}{section.4.1}%
-\contentsline {section}{\numberline {4.2}Konfiguration der Bedienstation}{10}{section.4.2}%
+\contentsline {section}{\numberline {4.2}Konfiguration der Bedienstation}{9}{section.4.2}%
 \contentsline {chapter}{\numberline {5}Simulation und Statistikausgabe}{13}{chapter.5}%
 \contentsline {chapter}{\numberline {6}Animation}{17}{chapter.6}%
 \contentsline {section}{\numberline {6.1}Spezielle Elemente für die Animation}{17}{section.6.1}%

@@ -160,7 +160,9 @@ der Kundenquelle konfiguriert werden können:
 In Bezug auf die Zwischenankunftszeiten kann eingestellt werden, ob diese gemäß einer
 \textbf{Verteilung}, gemäß einem \textbf{Ausdruck}, über einen \textbf{Zeitplan}, über eine
 \textbf{Freigabebedingung} bzw. einen \textbf{Schwellenwert}, über ein oder mehrere
-\textbf{Signale} oder über eine \textbf{Anzahl pro Intervall} bestimmt werden sollen.
+\textbf{Signale}, über eine \textbf{Anzahl pro Intervall}, über \textbf{Zwischenankunftszeiten pro Intervall}
+oder über vorgegebene \textbf{Zahlenwerte}, die Ankunftszeitpunkte oder Zwischenankunftszeiten
+repräsentieren bestimmt werden sollen.
 
 \subsubsection*{Batch-Größe}
 
@@ -257,7 +259,9 @@ der Kundenquelle konfiguriert werden können:
 In Bezug auf die Zwischenankunftszeiten kann eingestellt werden, ob diese gemäß einer
 \textbf{Verteilung}, gemäß einem \textbf{Ausdruck}, über einen \textbf{Zeitplan}, über eine
 \textbf{Freigabebedingung} bzw. einen \textbf{Schwellenwert}, über ein oder mehrere
-\textbf{Signale} oder über eine \textbf{Anzahl pro Intervall} bestimmt werden sollen.
+\textbf{Signale}, über eine \textbf{Anzahl pro Intervall}, über \textbf{Zwischenankunftszeiten pro Intervall}
+oder über vorgegebene \textbf{Zahlenwerte}, die Ankunftszeitpunkte oder Zwischenankunftszeiten
+repräsentieren bestimmt werden sollen.
 
 \subsubsection*{Batch-Größe}
 
@@ -592,6 +596,35 @@ Die erste Spalte muss den Namen des Kundentyps angeben, die zweite die Definitio
 Dabei können die Zeitdauern entweder über einen Rechenausdruck oder über die Definition einer
 Verteilungsfunktion festgelegt werden. Das Format der Verteilungsfunktionsdefinition ist in dem pdf-Dokument
 "Distribution XML reference for Warteschlangensimulator'' dokumentiert.
+
+
+\section{Verzögerung (Skript)}
+\label{ref:ModelElementDelayJS}
+
+\begin{wrapfigure}{l}{2.5cm}
+\vspace{-22pt}
+\includegraphics[width=2cm]{imageModelElementDelayJS.png}
+\vspace{-22pt}
+\end{wrapfigure}
+
+Bei dem Durchlaufen des Verzögerung (Skript)-Elements werden die Kunden für eine bestimmte, per Skriptergebnis
+festlegbare Zeitdauer verzögert. Es erfolgt keine weitere Bedienung der Kunden.
+
+\subsection*{Einstellungen}
+
+Der Name des Elements hat keine weitere Bedeutung. Über den Rückgabewert des Skriptcodes
+wird jeweils bei Ankunft eines Kunden die Verzögerungszeit bestimmt.
+
+Der Skript-Code kann beliebige Javascript-Befehle oder Java-Befehle enthalten
+und kann über die zusätzlichen Javascript-Befehle bzw.
+die zusätzlichen Java-Befehle auf das Simulationssystem
+zugreifen. Als Rückgabewert (auszugeben über \texttt{Output.print()}) wird ein Zahlenwert
+erwartet, der die Verzögerungszeit in Sekunden angibt.
+
+Sollen Kunden vor Ablauf der Verzögerungszeit über ein externes Skript-Element für die weitere Bewegung durch das System
+freigegeben werden, so muss über das entsprechende Auswahlfeld aktiviert werden, dass eine entsprechende Liste für den
+Skriptzugriff vorgehalten werden soll. Die Bereitstellung dieser Liste verlangsamt die Simulation, auch wenn nicht auf
+sie zugegriffen wird.
 
 
 
@@ -1244,6 +1277,9 @@ berücksichtigt werden soll, wenn eine Ressource, die an dieser Station notwendi
 frei wird. Größere Werte bedeuten eine höhere Priorität bzw. eine höhere Wahrscheinlichkeit, dass dieses Element
 die entsprechenden Ressourcen erhält, wenn es mehrere Stationen gibt, die dieselbe Ressource benötigen.
 
+Zusätzlich kann eine maximale Wartezeit angegeben werden. Ist diese für einen Kunden verstrichen,
+so verlässt er die Station über die zweite auslaufende Kante, ohne dass eine Ressourcenbelegung erfolgt.
+
 
 \section{Ressource freigeben}
 \label{ref:ModelElementRelease}
@@ -1397,6 +1433,13 @@ das Netz an dieser Stelle endet (weil die beiden Kunden z.B. Teilkomponenten dar
 zusammengesetzt werden) und statt dessen ein neues Kundenobjekt erzeugt und ab diesem Punkt gestartet wird.
 Kunden, für deren Typ keine Batch-Bildungsregel definiert ist, passieren die Station ohne weitere Verzögerung.
 
+\subsection*{Hinweis zu den Batch-Größen}
+
+Batch-Größen müssen positive Ganzzahlen sein.
+Es können auch Rechenausdrücke für die Batch-Größen angegeben werden.
+Wenn diese Variablen oder Funktionen enthalten, die erst im Simulationskontext gültig sind, so werden diese zu Beginn der Simulation \textbf{einmalig} ausgewertet.
+Das bedeutet, dass sich die an einer Station eingestellten Batch-Größen während einer laufenden Simulation nicht verändern.
+
 
 \section{Trennen}
 \label{ref:ModelElementSeparate}
@@ -1518,6 +1561,13 @@ wieder aufgelöst werden kann) oder ob für die Kunden der Weg durch
 das Netz an dieser Stelle endet (weil die beiden Kunden z.B. Teilkomponenten darstellen, die zu einem größeren Element
 zusammengesetzt werden) und statt dessen ein neues Kundenobjekt erzeugt und ab diesem Punkt gestartet wird.
 
+\subsection*{Hinweis zu den Batch-Größen}
+
+Batch-Größen müssen positive Ganzzahlen sein.
+Es können auch Rechenausdrücke für die Batch-Größen angegeben werden.
+Wenn diese Variablen oder Funktionen enthalten, die erst im Simulationskontext gültig sind, so werden diese zu Beginn der Simulation \textbf{einmalig} ausgewertet.
+Das bedeutet, dass sich die an einer Station eingestellten Batch-Größen während einer laufenden Simulation nicht verändern.
+
 
 \section{Zusammenführen}
 \label{ref:ModelElementMatch}
@@ -1553,6 +1603,45 @@ so dass Kunden nur dann gemeinsam weitergeleitet werden, wenn für sie der Wert 
 
 
 \chapter{Transport}
+
+\section{Duplizieren und Teleportieren}
+\label{ref:ModelElementTeleportSourceMulti}
+
+\begin{wrapfigure}{l}{2.5cm}
+\vspace{-22pt}
+\includegraphics[width=2cm]{imageModelElementTeleportSourceMulti.png}
+\vspace{-22pt}
+\end{wrapfigure}
+
+Teleport-Transporte ermöglichen es, einen Kunden ohne Zeitverzug
+von einem Teleport-Transport Startpunkt zu einem 
+Teleport-Transport Zielpunkt (siehe Seite \pageref{ref:ModelElementTeleportDestination}) 
+zu bewegen. Im Gegensatz zu normalen Transporten geht es hierbei nicht darum,
+einen tatsächlichen Transport eines Kunden (der eine gewisse Zeit dauern und
+Ressourcen benötigen kann) zu modellieren, sondern darum dass Modell übersichtlich
+zu halten. Betritt ein Kunde einen Teleport-Transport Startpunkt, so wird er
+augenblicklich zu dem dort angegeben Teleport-Transport Zielpunkt befördert.
+Start- und Zielpunkt können sich an verschiedenen Stellen im Modell befinden;
+im Gegensatz zu einem Transport über eine Kante wird keine Verbindunglinie
+zwischen Start und Ziel eingezeichnet.
+
+Eine Duplizieren und Teleportieren Station kombiniert die Funktionalität
+einer Duplizieren (siehe Seite \pageref{ref:ModelElementDuplicate}) -Station mit einer
+Teleport-Transport Startpunkt (siehe Seite \pageref{ref:ModelElementTeleportSource}) -Station:
+Zunächst wird das Kundenobjekt in mehrere gleichartige Objekte (mit stets denselben Daten)
+aufgeteilt. Dann werden die Kundenobjekte zu allen in der Station konfigurierten Zielen
+gleichzeitig geschickt.
+
+\subsection*{Einstellungen}
+
+Der Name des Duplizieren und Teleportieren Station besitzt keine weitere Bedeutung
+für die Simulation. Allerdings müssen Name der
+Teleport-Transport Zielpunkt (siehe Seite \pageref{ref:ModelElementTeleportDestination}) 
+Elements angegeben werden, zu denen die eintreffenden Kunden befördert werden sollen.
+Die Liste der Namen der Ziele gibt dabei auch gleichzeitig an, wie viele Kopien
+des Kundenobjektes erzeugt werden sollen. Es können einzelne Ziele auch mehrfach
+ausgewählt werden; in diesem Fall werden mehrere Kundenobjekte zu dem jeweiligen Ziel geschickt.  
+
 
 \section{Fließband}
 \label{ref:ModelElementConveyor}
@@ -1851,6 +1940,133 @@ muss keine Verbindungskante zwischen den Elementen bestehen.
 
 Die Transportzielelemente werden über ihren Namen bei dem Routing der Kunden von
 einem Transportstartelement identifiziert.
+
+
+\section{Verzweigen und Teleportieren}
+\label{ref:ModelElementDecideAndTeleport}
+
+\begin{wrapfigure}{l}{2.5cm}
+\vspace{-22pt}
+\includegraphics[width=2cm]{imageModelElementDecideAndTeleport.png}
+\vspace{-22pt}
+\end{wrapfigure}
+
+Teleport-Transporte ermöglichen es, einen Kunden ohne Zeitverzug
+von einem Teleport-Transport Startpunkt zu einem 
+Teleport-Transport Zielpunkt (siehe Seite \pageref{ref:ModelElementTeleportDestination}) 
+zu bewegen. Im Gegensatz zu normalen Transporten geht es hierbei nicht darum,
+einen tatsächlichen Transport eines Kunden (der eine gewisse Zeit dauern und
+Ressourcen benötigen kann) zu modellieren, sondern darum dass Modell übersichtlich
+zu halten. Betritt ein Kunde einen Teleport-Transport Startpunkt, so wird er
+augenblicklich zu dem dort angegeben Teleport-Transport Zielpunkt befördert.
+Start- und Zielpunkt können sich an verschiedenen Stellen im Modell befinden;
+im Gegensatz zu einem Transport über eine Kante wird keine Verbindunglinie
+zwischen Start und Ziel eingezeichnet.
+
+Eine Verzweigen und Teleportieren Station kombiniert die Funktionalität
+einer Verzweigen (siehe Seite \pageref{ref:ModelElementDecide}) -Station mit einer
+Teleport-Transport Startpunkt (siehe Seite \pageref{ref:ModelElementTeleportSource}) -Station:
+Zunächst wird das Kundenobjekt gemäß bestimmter Regeln in eine vorgegebene
+Richtung geleitet. Dann wird es per Teleporttransport ohne Verbindungskante
+zu diesem Ziel transportiert.
+
+Die Verzweigung kann dabei nach folgenden Kriterien erfolgen:
+
+\begin{itemize}
+  \item 
+    \textbf{Zufällig:}
+    Pro Ausgangsrichtung wird eine Rate angegeben, die die Wahrscheinlichkeit für diesen Weg bestimmt.
+
+  \item 
+    \textbf{Bedingung:}
+    Für alle Ausgangsrichtungen (außer für die letzte Richtung) wird eine Bedingung definiert. Trifft ein
+    Kunde ein, so werden von oben nach unten diese Bedingungen geprüft. Der Kunde wird in die Richtung,
+    bei der zum ersten Mal die Bedingung erfüllt war, weitergeleitet. Trifft keine der Bedingungen zu,
+    so wird der Kunde in die letzte Richtung (für die keine Bedingung angegeben ist) weitergeleitet.    
+
+  \item 
+    \textbf{Kundentyp:}
+    Für alle Ausgangsrichtungen (außer für die letzte Richtung) wird ein Kundentyp festgelegt. Ist ein
+    eintreffender Kunde von einem dieser Typen, so wird er in die entsprechende Richtung weitergeleitet.
+    Stimmt der Typ des eingetroffenen Kunden mit keinem der angegebenen Kundentypen überein,
+    so wird der Kunde in die letzte Richtung (für die kein Kundentyp angegeben ist) weitergeleitet.
+
+  \item 
+    \textbf{Reihenfolge:}
+    Es wird jeweils der Reihe nach einer der Kunden an einen der Ausgänge geleitet. Nachdem ein Kunde
+    an den als letztes angebundenen Ausgang geleitet wurde, wird der nächste Kunde wieder an den
+    ersten Ausgang geleitet. 
+
+  \item 
+    \textbf{Kürzeste Warteschlange an der nächsten Station:}
+    Leitet den Kunden über den Pfad weiter, bei dem an der direkten Folgestation
+    die Warteschlangenlänge minimal ist. Bei Gleichstand zwischen zwei Pfaden wird
+    zufällig entschieden.
+
+  \item 
+    \textbf{Kürzeste Warteschlange an der nächsten Bedienstation:}
+    Leitet den Kunden über den Pfad weiter, bei dem an der nächsten
+    darin auftretenden Bedienstation die Warteschlangenlänge minimal ist.
+    Andere Stationen, die zwischen dem Verzweigen-Element und der
+    Bedienstation liegen, werden bei der Bestimmung der Warteschlangenlänge
+    nicht berücksichtigt. Bei Gleichstand zwischen zwei Pfaden wird
+    zufällig entschieden.
+
+  \item 
+    \textbf{Geringste Anzahl an Kunden an der nächsten Station:}
+    Leitet den Kunden über den Pfad weiter, bei dem sich an der direkten Folgestation
+    die geringste Anzahl an Kunden befinden. Bei Gleichstand zwischen zwei Pfaden wird
+    zufällig entschieden.
+
+  \item 
+    \textbf{Geringste Anzahl an Kunden an der nächsten Bedienstation:}
+    Leitet den Kunden über den Pfad weiter, bei dem sich an der nächsten
+    darin auftretenden Bedienstation die geringste Anzahl an Kunden befinden.
+    Andere Stationen, die zwischen dem Verzweigen-Element und der
+    Bedienstation liegen, werden bei der Bestimmung der Anzahl an Kunden
+    nicht berücksichtigt. Bei Gleichstand zwischen zwei Pfaden wird
+    zufällig entschieden.
+
+  \item 
+    \textbf{Texteigenschaft:}
+    Für alle Ausgangsrichtungen (außer für die letzte Richtung) wird ein Wert festgelegt.
+    Wenn die Texteigenschaft des jeweiligen Kunden den jeweiligen Wert aufweist,
+    so wird er in die entsprechende Richtung weitergeleitet.
+    Stimmt der Wert mit keinem der angegebenen Wert überein,
+    so wird der Kunde in die letzte Richtung (für die kein Wert angegeben ist) weitergeleitet.
+
+\end{itemize}
+
+\subsection*{Einstellungen}
+
+\subsubsection*{Modus ,,Zufall''}
+
+Die Weiterleitungswahrscheinlichkeiten in die verschiedenen möglichen Ausgangsrichtungen müssen nicht in
+Form von Wahrscheinlichkeiten, die sich in ihrer Summe zu 1 aufaddieren müssen, angegeben werden, sondern
+es genügt, Raten anzugeben. Diese Raten werden vom Programm automatisch zu Wahrscheinlichkeiten normiert.
+Es gelten lediglich folgende Voraussetzungen: Die Raten dürfen nicht negativ sein und mindestens eine der
+angegebenen Raten muss echt größer als 0 sein.
+
+\subsubsection*{Modus ,,Bedingung''}
+
+Pro vorhandener Verzweigung muss eine Bedingung angegeben werden, unter der die Kunden in diese Richtung
+geleitet werden. Die Bedingungen müssen sich nicht gegenseitig ausschließen und werden von oben nach unten
+abgearbeitet. Für die letzte Verzweigungsmöglichkeit kann keine Bedingung angegeben werden. Diese Verzweigung
+wird in der Simulation immer dann gewählt, wenn keine der vorherigen Bedingungen zutreffend war.
+
+\subsubsection*{Modus ,,Kundentyp''}
+
+Pro vorhandener Verzweigung muss ein Kundentyp angegeben werden, dessen Kunden in diese Richtung
+geleitet werden. Für die letzte Verzweigungsmöglichkeit kann kein Kundentyp angegeben werden. Diese Verzweigung
+wird in der Simulation immer dann gewählt, wenn keine der vorherigen Bedingungen zutreffend war.
+
+\subsubsection*{Modus ,,Texteigenschaft''}
+
+Es muss ein Schlüssel, dessen Werte bei den Kunden betrachtet werden sollen, angegeben werden.
+Außerdem muss pro vorhandener Verzweigung ein Wert angegeben werden. Kunden bei denen der Schlüssel
+den angegebenen Wert besitzt, werden in diese Richtung geleitet. Für die letzte Verzweigungsmöglichkeit
+kann kein Wert angegeben werden. Diese Verzweigung wird in der Simulation immer dann gewählt,
+wenn keine der vorherigen Bedingungen zutreffend war.
 
 
 
@@ -2545,6 +2761,25 @@ eingestellt werden sollen.
 
 \chapter{Animation}
 
+\section{Alarm}
+\label{ref:ModelElementAnimationAlarm}
+
+\begin{wrapfigure}{l}{2.5cm}
+\vspace{-22pt}
+\includegraphics[width=2cm]{imageModelElementAnimationAlarm.png}
+\vspace{-22pt}
+\end{wrapfigure}
+
+Passiert ein Kunde im Animations-Modus ein Alarm-Element, so wird ein nutzerdefinierter Sound abgespielt.
+Im Simulations-Modus führt ein Alarm-Element keine Handlungen aus.
+
+\subsection*{Einstellungen}
+
+Der Name des ,,Alarm''-Elements besitzt keine weitere Bedeutung für die Simulation.
+Es kann eingestellt werden, welche Sound-Datei bzw. welcher System-Sound abgespielt werden soll,
+wenn ein Kunde die Station im Animations-Modus erreicht.
+
+
 \section{Analogskalaanzeige}
 \label{ref:ModelElementAnimationPointerMeasuring}
 
@@ -3189,6 +3424,8 @@ Folgende Aktionen können durch ein ,,Aktion''-Element ausgelöst werden:
   (Analoger Wert (siehe Seite \pageref{ref:ModelElementAnalogValue}) oder Tank (siehe Seite \pageref{ref:ModelElementTank}) )
   \item Auslösen eines Signals 
   \item Ausführung von Javascript-Code oder Java-Code 
+  \item Abbrechen der Simulation 
+  \item Ausgabe eines Sounds (wird nur bei Animationen tatsächlich ausgeführt) 
 \end{itemize}
 
 \subsection*{Einstellungen}

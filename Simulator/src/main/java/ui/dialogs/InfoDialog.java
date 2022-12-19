@@ -140,7 +140,7 @@ public class InfoDialog extends JDialog {
 		list.add("");
 
 		/* Java-Version */
-		list.add(Language.tr("InfoDialog.JavaVersion")+": "+System.getProperty("java.version")+" ("+System.getProperty("java.vm.name")+")");
+		list.add(Language.tr("InfoDialog.JavaVersion")+": "+System.getProperty("java.version")+" ("+System.getProperty("java.vm.name")+", "+System.getProperty("os.arch")+")");
 		list.add(Language.tr("InfoDialog.JavaPath")+": "+System.getProperty("java.home"));
 		list.add(Language.tr("InfoDialog.Is64Bit")+": "+(System.getProperty("os.arch").contains("64")?Language.tr("InfoDialog.Is64Bit.Yes"):Language.tr("InfoDialog.Is64Bit.No")));
 

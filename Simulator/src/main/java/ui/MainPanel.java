@@ -269,7 +269,7 @@ public class MainPanel extends MainPanelBase {
 	/**
 	 * Programmversion
 	 */
-	public static final String VERSION="5.2.0";
+	public static final String VERSION="5.3.0";
 
 	/**
 	 * Ist dies ein offizieller Release-Build?
@@ -3142,6 +3142,8 @@ public class MainPanel extends MainPanelBase {
 		BackgroundSystem.getBackgroundSystem(editorPanel).stop();
 
 		enableMenuBar(false);
+
+		statisticsPanel.setStatistics(null);
 
 		animationPanel.setSimulator(
 				editModel,

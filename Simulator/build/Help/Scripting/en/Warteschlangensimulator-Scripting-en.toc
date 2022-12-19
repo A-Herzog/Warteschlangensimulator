@@ -6,154 +6,157 @@
 \contentsline {chapter}{\numberline {4}Basic arithmetic operations}{9}{chapter.4}%
 \contentsline {chapter}{\numberline {5}Trailing instructions}{11}{chapter.5}%
 \contentsline {chapter}{\numberline {6}General functions}{13}{chapter.6}%
-\contentsline {section}{\numberline {6.1}Random numbers}{13}{section.6.1}%
+\contentsline {section}{\numberline {6.1}Random numbers}{14}{section.6.1}%
 \contentsline {chapter}{\numberline {7}Trigonometric functions}{15}{chapter.7}%
 \contentsline {section}{\numberline {7.1}Elementary trigonometric functions}{15}{section.7.1}%
 \contentsline {section}{\numberline {7.2}Hyperbolic trigonometric functions}{15}{section.7.2}%
 \contentsline {section}{\numberline {7.3}Inverse of the elementary trigonometric functions}{15}{section.7.3}%
 \contentsline {section}{\numberline {7.4}Inverse of the hyperbolic trigonometric functions}{15}{section.7.4}%
 \contentsline {chapter}{\numberline {8}Functions with multiple parameters}{17}{chapter.8}%
-\contentsline {chapter}{\numberline {9}Probability distributions}{19}{chapter.9}%
-\contentsline {section}{\numberline {9.1}Hypergeometric distribution $Hg(N,K,n)$}{19}{section.9.1}%
-\contentsline {section}{\numberline {9.2}Binomial distribution $B(n,p)$}{19}{section.9.2}%
-\contentsline {section}{\numberline {9.3}Binomial distribution with mean $a$ and standard deviation $b$}{19}{section.9.3}%
-\contentsline {section}{\numberline {9.4}Poisson distribution $P(l)$}{19}{section.9.4}%
-\contentsline {section}{\numberline {9.5}Zeta distribution $Z(s)$}{19}{section.9.5}%
-\contentsline {section}{\numberline {9.6}Negative binomial distribution $NB(r,p)$}{20}{section.9.6}%
-\contentsline {section}{\numberline {9.7}Negative binomial distribution with mean $a$ and standard deviation $b$}{20}{section.9.7}%
-\contentsline {section}{\numberline {9.8}Discrete uniform distribution in the interval $[a;b]$ (integer numbers)}{20}{section.9.8}%
-\contentsline {section}{\numberline {9.9}Exponential distribution with mean $a$}{20}{section.9.9}%
-\contentsline {section}{\numberline {9.10}Uniform distribution in the interval $[a;b]$}{20}{section.9.10}%
-\contentsline {section}{\numberline {9.11}Normal distribution with mean $a$ and standard deviation $b$}{20}{section.9.11}%
-\contentsline {section}{\numberline {9.12}Log-normal distribution with mean $a$ and standard deviation $b$}{21}{section.9.12}%
-\contentsline {section}{\numberline {9.13}Gamma distribution with parameters $\alpha =a$ and $\beta =b$}{21}{section.9.13}%
-\contentsline {section}{\numberline {9.14}Gamma distribution with mean $a$ and standard deviation $b$}{21}{section.9.14}%
-\contentsline {section}{\numberline {9.15}Erlang distribution with parameters $n$ and $\lambda =l$}{21}{section.9.15}%
-\contentsline {section}{\numberline {9.16}Beta distribution in the interval $[a;b]$ and with parameters $\alpha =c$ and $\beta =d$}{21}{section.9.16}%
-\contentsline {section}{\numberline {9.17}Beta distribution in the interval $[a;b]$ and with mean $c$ and standard deviation $d$}{22}{section.9.17}%
-\contentsline {section}{\numberline {9.18}Weibull distribution with parameters Scale=$a$ and Form=$b$}{22}{section.9.18}%
-\contentsline {section}{\numberline {9.19}Cauchy distribution with mean $a$ and Scale=$b$}{22}{section.9.19}%
-\contentsline {section}{\numberline {9.20}Chi$^2$ distribution with $n$ degrees of freedom}{22}{section.9.20}%
-\contentsline {section}{\numberline {9.21}Chi distribution with $n$ degrees of freedom}{22}{section.9.21}%
-\contentsline {section}{\numberline {9.22}F distribution with $a$ degrees of freedom for the numerator and $b$ degrees of freedom for the denominator}{23}{section.9.22}%
-\contentsline {section}{\numberline {9.23}Johnson SU distribution with parameters $\gamma =a$, $\xi =b$, $\delta =c$ and $\lambda =d$}{23}{section.9.23}%
-\contentsline {section}{\numberline {9.24}Triangular distribution over $[a;c]$ with most likely value $b$}{23}{section.9.24}%
-\contentsline {section}{\numberline {9.25}Pert distribution over $[a;c]$ with most likely value $b$}{23}{section.9.25}%
-\contentsline {section}{\numberline {9.26}Laplace distribution with mean $mu$ and scale factor $b$}{23}{section.9.26}%
-\contentsline {section}{\numberline {9.27}Pareto distribution with scale parameter $x_{\rm min}=xmin$ and shape parameter $\alpha =a$}{24}{section.9.27}%
-\contentsline {section}{\numberline {9.28}Logistic distribution with mean $\mu =mu$ and scale parameter $s$}{24}{section.9.28}%
-\contentsline {section}{\numberline {9.29}Inverse gaussian distribution with $\lambda =l$ and mean $mu$}{24}{section.9.29}%
-\contentsline {section}{\numberline {9.30}Rayleigh distribution with mean $mu$}{24}{section.9.30}%
-\contentsline {section}{\numberline {9.31}Log-Logistic distribution with $\alpha $ and mean $\beta $}{24}{section.9.31}%
-\contentsline {section}{\numberline {9.32}Power distribution on $[a;b]$ with exponent $c$}{25}{section.9.32}%
-\contentsline {section}{\numberline {9.33}Gumbel distribution with expected value $a$ and standard deviation $b$}{25}{section.9.33}%
-\contentsline {section}{\numberline {9.34}Fatigue life distribution with location parameter $\mu $, scale parameter $\beta $ and form parameter $\gamma $}{25}{section.9.34}%
-\contentsline {section}{\numberline {9.35}Frechet distribution with location parameter $\delta $, scale parameter $\beta $ and form parameter $\alpha $}{25}{section.9.35}%
-\contentsline {section}{\numberline {9.36}Hyperbolic secant distribution with mean $a$ and standard deviation $b$}{25}{section.9.36}%
-\contentsline {section}{\numberline {9.37}Left sawtooth distribution over $[a;b]$}{26}{section.9.37}%
-\contentsline {section}{\numberline {9.38}Left sawtooth distribution with mean $a$ and standard deviation $b$}{26}{section.9.38}%
-\contentsline {section}{\numberline {9.39}Right sawtooth distribution over $[a;b]$}{26}{section.9.39}%
-\contentsline {section}{\numberline {9.40}Right sawtooth distribution with mean $a$ and standard deviation $b$}{26}{section.9.40}%
-\contentsline {section}{\numberline {9.41}Levy distribution with location parameter $\mu $ and form parameter $c$}{26}{section.9.41}%
-\contentsline {section}{\numberline {9.42}Maxwell Boltzmann distribution with parameter a}{26}{section.9.42}%
-\contentsline {section}{\numberline {9.43}Distribution based on empirical values}{27}{section.9.43}%
-\contentsline {chapter}{\numberline {10}Erlang C calculator}{29}{chapter.10}%
-\contentsline {section}{\numberline {10.1}Random numbers according to a user-defined distribution}{29}{section.10.1}%
-\contentsline {chapter}{\numberline {11}Allen-Cunneen approximation formula}{31}{chapter.11}%
-\contentsline {chapter}{\numberline {12}Accessing model properties}{33}{chapter.12}%
-\contentsline {section}{\numberline {12.1}General simulation data}{33}{section.12.1}%
-\contentsline {section}{\numberline {12.2}Clients in the system}{33}{section.12.2}%
-\contentsline {subsection}{\numberline {12.2.1}Number of clients in the system}{33}{subsection.12.2.1}%
-\contentsline {subsection}{\numberline {12.2.2}Number of waiting clients in the system}{34}{subsection.12.2.2}%
-\contentsline {subsection}{\numberline {12.2.3}Number of clients in service process in the system}{35}{subsection.12.2.3}%
-\contentsline {section}{\numberline {12.3}Clients at the stations}{35}{section.12.3}%
-\contentsline {subsection}{\numberline {12.3.1}Number of clients at a station}{35}{subsection.12.3.1}%
-\contentsline {subsection}{\numberline {12.3.2}Number of clients at the queue at a station}{36}{subsection.12.3.2}%
-\contentsline {subsection}{\numberline {12.3.3}Number of clients in service process at a station}{37}{subsection.12.3.3}%
-\contentsline {subsection}{\numberline {12.3.4}Number of arrivals and departures at a station}{38}{subsection.12.3.4}%
-\contentsline {section}{\numberline {12.4}Clients in system by client type}{38}{section.12.4}%
-\contentsline {subsection}{\numberline {12.4.1}Number of clients in the system by client type}{38}{subsection.12.4.1}%
-\contentsline {subsection}{\numberline {12.4.2}Number of waiting clients in the system by client type}{39}{subsection.12.4.2}%
-\contentsline {subsection}{\numberline {12.4.3}Number of clients in service process by client type}{41}{subsection.12.4.3}%
-\contentsline {section}{\numberline {12.5}Counter and throughput}{42}{section.12.5}%
-\contentsline {section}{\numberline {12.6}Waiting times}{42}{section.12.6}%
-\contentsline {subsection}{\numberline {12.6.1}Waiting times at a station}{42}{subsection.12.6.1}%
-\contentsline {subsection}{\numberline {12.6.2}Waiting times over all client types}{43}{subsection.12.6.2}%
-\contentsline {subsection}{\numberline {12.6.3}Waiting times for a specific client type}{44}{subsection.12.6.3}%
-\contentsline {section}{\numberline {12.7}Transfer times}{44}{section.12.7}%
-\contentsline {subsection}{\numberline {12.7.1}Transfer times at a station}{44}{subsection.12.7.1}%
-\contentsline {subsection}{\numberline {12.7.2}Transfer times over all client types}{45}{subsection.12.7.2}%
-\contentsline {subsection}{\numberline {12.7.3}Transfer times for a specific client type}{46}{subsection.12.7.3}%
-\contentsline {section}{\numberline {12.8}Process times}{47}{section.12.8}%
-\contentsline {subsection}{\numberline {12.8.1}Process times at a station}{47}{subsection.12.8.1}%
-\contentsline {subsection}{\numberline {12.8.2}Process times over all client types}{48}{subsection.12.8.2}%
-\contentsline {subsection}{\numberline {12.8.3}Process times for a specific client type}{48}{subsection.12.8.3}%
-\contentsline {section}{\numberline {12.9}Residence times}{49}{section.12.9}%
-\contentsline {subsection}{\numberline {12.9.1}Residence times at a station}{49}{subsection.12.9.1}%
-\contentsline {subsection}{\numberline {12.9.2}Residence times over all client types}{50}{subsection.12.9.2}%
-\contentsline {subsection}{\numberline {12.9.3}Residence times for a specific client type}{51}{subsection.12.9.3}%
-\contentsline {section}{\numberline {12.10}Utilization of the resources}{52}{section.12.10}%
-\contentsline {subsection}{\numberline {12.10.1}Utilization of a resource}{52}{subsection.12.10.1}%
-\contentsline {subsection}{\numberline {12.10.2}Utilization of all resource together}{52}{subsection.12.10.2}%
-\contentsline {section}{\numberline {12.11}Utilization of the transporters}{53}{section.12.11}%
-\contentsline {subsection}{\numberline {12.11.1}Utilization of a transporter group}{53}{subsection.12.11.1}%
-\contentsline {subsection}{\numberline {12.11.2}Utilization of all transporters together}{54}{subsection.12.11.2}%
-\contentsline {section}{\numberline {12.12}Accessing the Statistics stations records}{54}{section.12.12}%
-\contentsline {section}{\numberline {12.13}Accessing analog values}{55}{section.12.13}%
-\contentsline {section}{\numberline {12.14}Accessing the client object specific data fields}{55}{section.12.14}%
-\contentsline {section}{\numberline {12.15}Accessing the costs}{56}{section.12.15}%
-\contentsline {chapter}{\numberline {13}Comparison}{59}{chapter.13}%
-\contentsline {section}{\numberline {13.1}Comparison function}{59}{section.13.1}%
-\contentsline {part}{II\hspace {1em}Javascript commands reference}{61}{part.2}%
-\contentsline {chapter}{\numberline {14}\texttt {Statistics} object}{63}{chapter.14}%
-\contentsline {section}{\numberline {14.1}Definition of the output format}{63}{section.14.1}%
-\contentsline {section}{\numberline {14.2}Accessing statistics xml data}{63}{section.14.2}%
-\contentsline {section}{\numberline {14.3}Saving the statistics data to files}{65}{section.14.3}%
-\contentsline {section}{\numberline {14.4}Accessing station data}{65}{section.14.4}%
-\contentsline {chapter}{\numberline {15}\texttt {System} object}{67}{chapter.15}%
-\contentsline {chapter}{\numberline {16}\texttt {Simulation} object}{69}{chapter.16}%
-\contentsline {section}{\numberline {16.1}Base functions}{69}{section.16.1}%
-\contentsline {section}{\numberline {16.2}Accessing client-specific data}{70}{section.16.2}%
-\contentsline {section}{\numberline {16.3}Temporary batches}{72}{section.16.3}%
-\contentsline {section}{\numberline {16.4}Accessing parameters of the simulation model}{72}{section.16.4}%
-\contentsline {section}{\numberline {16.5}Accessing the current input value}{73}{section.16.5}%
-\contentsline {section}{\numberline {16.6}Number of operators in a resource}{73}{section.16.6}%
-\contentsline {section}{\numberline {16.7}Fire signal}{74}{section.16.7}%
-\contentsline {section}{\numberline {16.8}Trigger script execution}{74}{section.16.8}%
-\contentsline {section}{\numberline {16.9}Output message in logging}{74}{section.16.9}%
-\contentsline {section}{\numberline {16.10}Release clients at delay stations}{74}{section.16.10}%
-\contentsline {section}{\numberline {16.11}Clients in the queue of a process station}{74}{section.16.11}%
-\contentsline {chapter}{\numberline {17}\texttt {Clients} object}{75}{chapter.17}%
-\contentsline {chapter}{\numberline {18}\texttt {Output} object}{77}{chapter.18}%
-\contentsline {chapter}{\numberline {19}\texttt {FileOutput} object}{79}{chapter.19}%
-\contentsline {chapter}{\numberline {20}\texttt {Model} object}{81}{chapter.20}%
-\contentsline {section}{\numberline {20.1}Accessing station data}{82}{section.20.1}%
-\contentsline {section}{\numberline {20.2}Retrieve the associated statistics file}{82}{section.20.2}%
-\contentsline {chapter}{\numberline {21}XML selection commands}{83}{chapter.21}%
-\contentsline {part}{III\hspace {1em}Java commands reference}{85}{part.3}%
-\contentsline {chapter}{\numberline {22}\texttt {StatisticsInterface} accessible via \texttt {sim.getStatistics()}}{87}{chapter.22}%
-\contentsline {section}{\numberline {22.1}Definition of the output format}{87}{section.22.1}%
-\contentsline {section}{\numberline {22.2}Accessing statistics xml data}{87}{section.22.2}%
-\contentsline {section}{\numberline {22.3}Saving the statistics data to files}{89}{section.22.3}%
-\contentsline {section}{\numberline {22.4}Accessing station data}{89}{section.22.4}%
-\contentsline {section}{\numberline {22.5}Retrieve the associated statistics file}{89}{section.22.5}%
-\contentsline {chapter}{\numberline {23}\texttt {RuntimeInterface} accessible via \texttt {sim.getRuntime()}}{91}{chapter.23}%
-\contentsline {chapter}{\numberline {24}\texttt {SystemInterface} accessible via \texttt {sim.getSystem()}}{93}{chapter.24}%
-\contentsline {section}{\numberline {24.1}Base functions}{93}{section.24.1}%
-\contentsline {section}{\numberline {24.2}Accessing parameters of the simulation model}{93}{section.24.2}%
-\contentsline {section}{\numberline {24.3}Number of operators in a resource}{94}{section.24.3}%
-\contentsline {section}{\numberline {24.4}Fire signal}{95}{section.24.4}%
-\contentsline {section}{\numberline {24.5}Trigger script execution}{95}{section.24.5}%
-\contentsline {section}{\numberline {24.6}Run external code}{95}{section.24.6}%
-\contentsline {section}{\numberline {24.7}Output message in logging}{95}{section.24.7}%
-\contentsline {section}{\numberline {24.8}Release clients at delay stations}{95}{section.24.8}%
-\contentsline {section}{\numberline {24.9}Clients in the queue of a process station}{95}{section.24.9}%
-\contentsline {chapter}{\numberline {25}\texttt {ClientInterface} accessible via \texttt {sim.getClient()}}{97}{chapter.25}%
-\contentsline {section}{\numberline {25.1}Temporary batches}{98}{section.25.1}%
-\contentsline {chapter}{\numberline {26}\texttt {InputValueInterface} accessible via \texttt {sim.getInputValue()}}{101}{chapter.26}%
-\contentsline {chapter}{\numberline {27}\texttt {ClientsInterface} accessible via \texttt {sim.getClients()}}{103}{chapter.27}%
-\contentsline {chapter}{\numberline {28}\texttt {OutputInterface} accessible via \texttt {sim.getOutput()}}{105}{chapter.28}%
-\contentsline {chapter}{\numberline {29}\texttt {FileOutputInterface} accessible via \texttt {sim.getFileOutput()}}{107}{chapter.29}%
-\contentsline {chapter}{\numberline {30}\texttt {ModelInterface} accessible via \texttt {sim.getModel()}}{109}{chapter.30}%
-\contentsline {section}{\numberline {30.1}Accessing station data}{110}{section.30.1}%
-\contentsline {chapter}{\numberline {31}XML selection commands}{111}{chapter.31}%
+\contentsline {chapter}{\numberline {9}Logic functions}{19}{chapter.9}%
+\contentsline {chapter}{\numberline {10}Probability distributions}{21}{chapter.10}%
+\contentsline {section}{\numberline {10.1}Hypergeometric distribution $Hg(N,K,n)$}{21}{section.10.1}%
+\contentsline {section}{\numberline {10.2}Binomial distribution $B(n,p)$}{21}{section.10.2}%
+\contentsline {section}{\numberline {10.3}Binomial distribution with mean $a$ and standard deviation $b$}{21}{section.10.3}%
+\contentsline {section}{\numberline {10.4}Poisson distribution $P(l)$}{21}{section.10.4}%
+\contentsline {section}{\numberline {10.5}Zeta distribution $Z(s)$}{21}{section.10.5}%
+\contentsline {section}{\numberline {10.6}Negative binomial distribution $NB(r,p)$}{22}{section.10.6}%
+\contentsline {section}{\numberline {10.7}Negative binomial distribution with mean $a$ and standard deviation $b$}{22}{section.10.7}%
+\contentsline {section}{\numberline {10.8}Discrete uniform distribution in the interval $[a;b]$ (integer numbers)}{22}{section.10.8}%
+\contentsline {section}{\numberline {10.9}Exponential distribution with mean $a$}{22}{section.10.9}%
+\contentsline {section}{\numberline {10.10}Uniform distribution in the interval $[a;b]$}{22}{section.10.10}%
+\contentsline {section}{\numberline {10.11}Normal distribution with mean $a$ and standard deviation $b$}{22}{section.10.11}%
+\contentsline {section}{\numberline {10.12}Log-normal distribution with mean $a$ and standard deviation $b$}{23}{section.10.12}%
+\contentsline {section}{\numberline {10.13}Gamma distribution with parameters $\alpha =a$ and $\beta =b$}{23}{section.10.13}%
+\contentsline {section}{\numberline {10.14}Gamma distribution with mean $a$ and standard deviation $b$}{23}{section.10.14}%
+\contentsline {section}{\numberline {10.15}Erlang distribution with parameters $n$ and $\lambda =l$}{23}{section.10.15}%
+\contentsline {section}{\numberline {10.16}Beta distribution in the interval $[a;b]$ and with parameters $\alpha =c$ and $\beta =d$}{23}{section.10.16}%
+\contentsline {section}{\numberline {10.17}Beta distribution in the interval $[a;b]$ and with mean $c$ and standard deviation $d$}{24}{section.10.17}%
+\contentsline {section}{\numberline {10.18}Weibull distribution with parameters Scale=$a$ and Form=$b$}{24}{section.10.18}%
+\contentsline {section}{\numberline {10.19}Cauchy distribution with mean $a$ and Scale=$b$}{24}{section.10.19}%
+\contentsline {section}{\numberline {10.20}Chi$^2$ distribution with $n$ degrees of freedom}{24}{section.10.20}%
+\contentsline {section}{\numberline {10.21}Chi distribution with $n$ degrees of freedom}{24}{section.10.21}%
+\contentsline {section}{\numberline {10.22}F distribution with $a$ degrees of freedom for the numerator and $b$ degrees of freedom for the denominator}{25}{section.10.22}%
+\contentsline {section}{\numberline {10.23}Johnson SU distribution with parameters $\gamma =a$, $\xi =b$, $\delta =c$ and $\lambda =d$}{25}{section.10.23}%
+\contentsline {section}{\numberline {10.24}Triangular distribution over $[a;c]$ with most likely value $b$}{25}{section.10.24}%
+\contentsline {section}{\numberline {10.25}Pert distribution over $[a;c]$ with most likely value $b$}{25}{section.10.25}%
+\contentsline {section}{\numberline {10.26}Laplace distribution with mean $mu$ and scale factor $b$}{25}{section.10.26}%
+\contentsline {section}{\numberline {10.27}Pareto distribution with scale parameter $x_{\rm min}=xmin$ and shape parameter $\alpha =a$}{26}{section.10.27}%
+\contentsline {section}{\numberline {10.28}Logistic distribution with mean $\mu =mu$ and scale parameter $s$}{26}{section.10.28}%
+\contentsline {section}{\numberline {10.29}Inverse gaussian distribution with $\lambda =l$ and mean $mu$}{26}{section.10.29}%
+\contentsline {section}{\numberline {10.30}Rayleigh distribution with mean $mu$}{26}{section.10.30}%
+\contentsline {section}{\numberline {10.31}Log-Logistic distribution with $\alpha $ and mean $\beta $}{26}{section.10.31}%
+\contentsline {section}{\numberline {10.32}Power distribution on $[a;b]$ with exponent $c$}{27}{section.10.32}%
+\contentsline {section}{\numberline {10.33}Gumbel distribution with expected value $a$ and standard deviation $b$}{27}{section.10.33}%
+\contentsline {section}{\numberline {10.34}Fatigue life distribution with location parameter $\mu $, scale parameter $\beta $ and form parameter $\gamma $}{27}{section.10.34}%
+\contentsline {section}{\numberline {10.35}Frechet distribution with location parameter $\delta $, scale parameter $\beta $ and form parameter $\alpha $}{27}{section.10.35}%
+\contentsline {section}{\numberline {10.36}Hyperbolic secant distribution with mean $a$ and standard deviation $b$}{27}{section.10.36}%
+\contentsline {section}{\numberline {10.37}Left sawtooth distribution over $[a;b]$}{28}{section.10.37}%
+\contentsline {section}{\numberline {10.38}Left sawtooth distribution with mean $a$ and standard deviation $b$}{28}{section.10.38}%
+\contentsline {section}{\numberline {10.39}Right sawtooth distribution over $[a;b]$}{28}{section.10.39}%
+\contentsline {section}{\numberline {10.40}Right sawtooth distribution with mean $a$ and standard deviation $b$}{28}{section.10.40}%
+\contentsline {section}{\numberline {10.41}Levy distribution with location parameter $\mu $ and form parameter $c$}{28}{section.10.41}%
+\contentsline {section}{\numberline {10.42}Maxwell Boltzmann distribution with parameter a}{28}{section.10.42}%
+\contentsline {section}{\numberline {10.43}Distribution based on empirical values}{29}{section.10.43}%
+\contentsline {chapter}{\numberline {11}Erlang C calculator}{31}{chapter.11}%
+\contentsline {section}{\numberline {11.1}Random selection of one of several values}{31}{section.11.1}%
+\contentsline {section}{\numberline {11.2}Random numbers according to a user-defined distribution}{32}{section.11.2}%
+\contentsline {chapter}{\numberline {12}Allen-Cunneen approximation formula}{33}{chapter.12}%
+\contentsline {chapter}{\numberline {13}Accessing model properties}{35}{chapter.13}%
+\contentsline {section}{\numberline {13.1}General simulation data}{35}{section.13.1}%
+\contentsline {section}{\numberline {13.2}Clients in the system}{35}{section.13.2}%
+\contentsline {subsection}{\numberline {13.2.1}Number of clients in the system}{35}{subsection.13.2.1}%
+\contentsline {subsection}{\numberline {13.2.2}Number of waiting clients in the system}{36}{subsection.13.2.2}%
+\contentsline {subsection}{\numberline {13.2.3}Number of clients in service process in the system}{37}{subsection.13.2.3}%
+\contentsline {section}{\numberline {13.3}Clients at the stations}{37}{section.13.3}%
+\contentsline {subsection}{\numberline {13.3.1}Number of clients at a station}{37}{subsection.13.3.1}%
+\contentsline {subsection}{\numberline {13.3.2}Number of clients at the queue at a station}{38}{subsection.13.3.2}%
+\contentsline {subsection}{\numberline {13.3.3}Number of clients in service process at a station}{39}{subsection.13.3.3}%
+\contentsline {subsection}{\numberline {13.3.4}Number of arrivals and departures at a station}{40}{subsection.13.3.4}%
+\contentsline {section}{\numberline {13.4}Clients in system by client type}{40}{section.13.4}%
+\contentsline {subsection}{\numberline {13.4.1}Number of clients in the system by client type}{40}{subsection.13.4.1}%
+\contentsline {subsection}{\numberline {13.4.2}Number of waiting clients in the system by client type}{41}{subsection.13.4.2}%
+\contentsline {subsection}{\numberline {13.4.3}Number of clients in service process by client type}{43}{subsection.13.4.3}%
+\contentsline {section}{\numberline {13.5}Counter and throughput}{44}{section.13.5}%
+\contentsline {section}{\numberline {13.6}Waiting times}{44}{section.13.6}%
+\contentsline {subsection}{\numberline {13.6.1}Waiting times at a station}{44}{subsection.13.6.1}%
+\contentsline {subsection}{\numberline {13.6.2}Waiting times over all client types}{45}{subsection.13.6.2}%
+\contentsline {subsection}{\numberline {13.6.3}Waiting times for a specific client type}{46}{subsection.13.6.3}%
+\contentsline {section}{\numberline {13.7}Transfer times}{46}{section.13.7}%
+\contentsline {subsection}{\numberline {13.7.1}Transfer times at a station}{46}{subsection.13.7.1}%
+\contentsline {subsection}{\numberline {13.7.2}Transfer times over all client types}{47}{subsection.13.7.2}%
+\contentsline {subsection}{\numberline {13.7.3}Transfer times for a specific client type}{48}{subsection.13.7.3}%
+\contentsline {section}{\numberline {13.8}Process times}{49}{section.13.8}%
+\contentsline {subsection}{\numberline {13.8.1}Process times at a station}{49}{subsection.13.8.1}%
+\contentsline {subsection}{\numberline {13.8.2}Process times over all client types}{50}{subsection.13.8.2}%
+\contentsline {subsection}{\numberline {13.8.3}Process times for a specific client type}{50}{subsection.13.8.3}%
+\contentsline {section}{\numberline {13.9}Residence times}{51}{section.13.9}%
+\contentsline {subsection}{\numberline {13.9.1}Residence times at a station}{51}{subsection.13.9.1}%
+\contentsline {subsection}{\numberline {13.9.2}Residence times over all client types}{52}{subsection.13.9.2}%
+\contentsline {subsection}{\numberline {13.9.3}Residence times for a specific client type}{53}{subsection.13.9.3}%
+\contentsline {subsection}{\numberline {13.9.4}Setup times at a station}{54}{subsection.13.9.4}%
+\contentsline {section}{\numberline {13.10}Utilization of the resources}{54}{section.13.10}%
+\contentsline {subsection}{\numberline {13.10.1}Utilization of a resource}{54}{subsection.13.10.1}%
+\contentsline {subsection}{\numberline {13.10.2}Utilization of all resource together}{55}{subsection.13.10.2}%
+\contentsline {section}{\numberline {13.11}Utilization of the transporters}{56}{section.13.11}%
+\contentsline {subsection}{\numberline {13.11.1}Utilization of a transporter group}{56}{subsection.13.11.1}%
+\contentsline {subsection}{\numberline {13.11.2}Utilization of all transporters together}{57}{subsection.13.11.2}%
+\contentsline {section}{\numberline {13.12}Accessing the Statistics stations records}{57}{section.13.12}%
+\contentsline {section}{\numberline {13.13}Accessing analog values}{58}{section.13.13}%
+\contentsline {section}{\numberline {13.14}Accessing the client object specific data fields}{58}{section.13.14}%
+\contentsline {section}{\numberline {13.15}Accessing the costs}{59}{section.13.15}%
+\contentsline {chapter}{\numberline {14}Comparison}{61}{chapter.14}%
+\contentsline {section}{\numberline {14.1}Comparison function}{61}{section.14.1}%
+\contentsline {part}{II\hspace {1em}Javascript commands reference}{63}{part.2}%
+\contentsline {chapter}{\numberline {15}\texttt {Statistics} object}{65}{chapter.15}%
+\contentsline {section}{\numberline {15.1}Definition of the output format}{65}{section.15.1}%
+\contentsline {section}{\numberline {15.2}Accessing statistics xml data}{65}{section.15.2}%
+\contentsline {section}{\numberline {15.3}Saving the statistics data to files}{67}{section.15.3}%
+\contentsline {section}{\numberline {15.4}Accessing station data}{67}{section.15.4}%
+\contentsline {chapter}{\numberline {16}\texttt {System} object}{69}{chapter.16}%
+\contentsline {chapter}{\numberline {17}\texttt {Simulation} object}{71}{chapter.17}%
+\contentsline {section}{\numberline {17.1}Base functions}{71}{section.17.1}%
+\contentsline {section}{\numberline {17.2}Accessing client-specific data}{72}{section.17.2}%
+\contentsline {section}{\numberline {17.3}Temporary batches}{74}{section.17.3}%
+\contentsline {section}{\numberline {17.4}Accessing parameters of the simulation model}{74}{section.17.4}%
+\contentsline {section}{\numberline {17.5}Accessing the current input value}{75}{section.17.5}%
+\contentsline {section}{\numberline {17.6}Number of operators in a resource}{75}{section.17.6}%
+\contentsline {section}{\numberline {17.7}Fire signal}{76}{section.17.7}%
+\contentsline {section}{\numberline {17.8}Trigger script execution}{76}{section.17.8}%
+\contentsline {section}{\numberline {17.9}Output message in logging}{76}{section.17.9}%
+\contentsline {section}{\numberline {17.10}Release clients at delay stations}{76}{section.17.10}%
+\contentsline {section}{\numberline {17.11}Clients in the queue of a process station}{76}{section.17.11}%
+\contentsline {chapter}{\numberline {18}\texttt {Clients} object}{77}{chapter.18}%
+\contentsline {chapter}{\numberline {19}\texttt {Output} object}{79}{chapter.19}%
+\contentsline {chapter}{\numberline {20}\texttt {FileOutput} object}{81}{chapter.20}%
+\contentsline {chapter}{\numberline {21}\texttt {Model} object}{83}{chapter.21}%
+\contentsline {section}{\numberline {21.1}Accessing station data}{84}{section.21.1}%
+\contentsline {section}{\numberline {21.2}Retrieve the associated statistics file}{84}{section.21.2}%
+\contentsline {chapter}{\numberline {22}XML selection commands}{85}{chapter.22}%
+\contentsline {part}{III\hspace {1em}Java commands reference}{87}{part.3}%
+\contentsline {chapter}{\numberline {23}\texttt {StatisticsInterface} accessible via \texttt {sim.getStatistics()}}{89}{chapter.23}%
+\contentsline {section}{\numberline {23.1}Definition of the output format}{89}{section.23.1}%
+\contentsline {section}{\numberline {23.2}Accessing statistics xml data}{89}{section.23.2}%
+\contentsline {section}{\numberline {23.3}Saving the statistics data to files}{91}{section.23.3}%
+\contentsline {section}{\numberline {23.4}Accessing station data}{91}{section.23.4}%
+\contentsline {section}{\numberline {23.5}Retrieve the associated statistics file}{91}{section.23.5}%
+\contentsline {chapter}{\numberline {24}\texttt {RuntimeInterface} accessible via \texttt {sim.getRuntime()}}{93}{chapter.24}%
+\contentsline {chapter}{\numberline {25}\texttt {SystemInterface} accessible via \texttt {sim.getSystem()}}{95}{chapter.25}%
+\contentsline {section}{\numberline {25.1}Base functions}{95}{section.25.1}%
+\contentsline {section}{\numberline {25.2}Accessing parameters of the simulation model}{95}{section.25.2}%
+\contentsline {section}{\numberline {25.3}Number of operators in a resource}{96}{section.25.3}%
+\contentsline {section}{\numberline {25.4}Fire signal}{97}{section.25.4}%
+\contentsline {section}{\numberline {25.5}Trigger script execution}{97}{section.25.5}%
+\contentsline {section}{\numberline {25.6}Run external code}{97}{section.25.6}%
+\contentsline {section}{\numberline {25.7}Output message in logging}{97}{section.25.7}%
+\contentsline {section}{\numberline {25.8}Release clients at delay stations}{97}{section.25.8}%
+\contentsline {section}{\numberline {25.9}Clients in the queue of a process station}{97}{section.25.9}%
+\contentsline {chapter}{\numberline {26}\texttt {ClientInterface} accessible via \texttt {sim.getClient()}}{99}{chapter.26}%
+\contentsline {section}{\numberline {26.1}Temporary batches}{100}{section.26.1}%
+\contentsline {chapter}{\numberline {27}\texttt {InputValueInterface} accessible via \texttt {sim.getInputValue()}}{103}{chapter.27}%
+\contentsline {chapter}{\numberline {28}\texttt {ClientsInterface} accessible via \texttt {sim.getClients()}}{105}{chapter.28}%
+\contentsline {chapter}{\numberline {29}\texttt {OutputInterface} accessible via \texttt {sim.getOutput()}}{107}{chapter.29}%
+\contentsline {chapter}{\numberline {30}\texttt {FileOutputInterface} accessible via \texttt {sim.getFileOutput()}}{109}{chapter.30}%
+\contentsline {chapter}{\numberline {31}\texttt {ModelInterface} accessible via \texttt {sim.getModel()}}{111}{chapter.31}%
+\contentsline {section}{\numberline {31.1}Accessing station data}{112}{section.31.1}%
+\contentsline {chapter}{\numberline {32}XML selection commands}{113}{chapter.32}%

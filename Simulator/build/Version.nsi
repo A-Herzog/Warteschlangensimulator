@@ -1,1 +1,1 @@
-!define VERSION "5.2.0"
+!define VERSION "5.3.0"

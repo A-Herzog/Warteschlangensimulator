@@ -147,7 +147,9 @@ The dialog consists of a number of tabs which allow to setup the different prope
 With respect to the inter-arrival times, it is possible to determine whether these
 should be determined according to a \textbf{distribution}, according to an \textbf{expression},
 on a \textbf{schedule}, by a \textbf{release condition}, a \textbf{threshold value}, by
-one or multiple \textbf{signals} or by a \textbf{number of arrivals per interval}.
+one or multiple \textbf{signals}, by a \textbf{number of arrivals per interval}, by
+\textbf{inter-arrival times per interval} or by fixed \textbf{numerical values}
+representing arrival times or inter-arrival times.
 
 \subsubsection*{Batch size}
 
@@ -270,7 +272,9 @@ The dialog consists of a number of tabs which allow to setup the different prope
 With respect to the inter-arrival times, it is possible to determine whether these
 should be determined according to a \textbf{distribution}, according to an \textbf{expression},
 on a \textbf{schedule}, by a \textbf{release condition}, a \textbf{threshold value}, by
-one or multiple \textbf{signals} or by a \textbf{number of arrivals per interval}.
+one or multiple \textbf{signals}, by a \textbf{number of arrivals per interval}, by
+\textbf{inter-arrival times per interval} or by fixed \textbf{numerical values}
+representing arrival times or inter-arrival times.
 
 \subsubsection*{Batch size}
 
@@ -423,6 +427,34 @@ The first column specifies the name of the client type, the second the definitio
 Thereby the times can be defined either by a calculation expression or by the definition of a
 distribution. The format of the distributions is documented in the pdf document
 "Distribution XML reference for Warteschlangensimulator".
+
+
+\section{Delay (Script)}
+\label{ref:ModelElementDelayJS}
+
+\begin{wrapfigure}{l}{2.5cm}
+\vspace{-22pt}
+\includegraphics[width=2cm]{imageModelElementDelayJS.png}
+\vspace{-22pt}
+\end{wrapfigure}
+
+When passing a delay element, the clients are delayed for a specific time period which can be determined
+ by means of a distribution function or an expression. There will be no further processing on the clients.
+
+\subsection*{Settings}
+
+The name of the delay element has no further meaning. 
+The return value of the script code is used to determine the delay time each time a client arrives. 
+
+The script code can contain any Javascript or Java commands as well as some
+special Javascript commands or
+special Java commands for accessing the simulation system.
+As return value (to be output by \texttt{Output.print()}) a numerical value
+which denotes the delay time in seconds is expected.
+
+If clients are to be released via an external script element for further movement through the system before the delay time has elapsed,
+it must be activated via the corresponding checkbox that a corresponding list for script access should be provided. The provision of
+this list slows down the simulation, even if it is not accessed.
 
 
 \section{Process station}
@@ -1244,6 +1276,9 @@ The resource priority can be used to define the priority of this element when a 
 is necessary at this station becomes free. Larger values mean a higher priority or a higher probability
 that this element receives the corresponding resources if there are several stations that need the same resource.
 
+In addition, a maximum waiting time can be specified (timeout value). If this has elapsed for a client, he leaves
+the station via the second exit edge without any resources being allocated.
+
 
 \section{Signal}
 \label{ref:ModelElementSignal}
@@ -1291,6 +1326,13 @@ can be dissolved by the Dissolve batch element (see page \pageref{ref:ModelEleme
 through the network ends for the clients ends at this point (because the two clients, for example, represent
 partial components that are combined into a larger element) and instead a new client object is created and
 started from this point.
+
+\subsection*{Note on batch sizes}
+
+Batch sizes have to be positive integer numbers.
+Calculation expressions for the batch sizes can also be specified.
+If these contain variables or functions that are only valid in the simulation context, these are evaluated \textbf{once}b> at the start of the simulation.
+This means that the batch sizes set at a station do not change during a running simulation.
 
 
 \section{Match}
@@ -1343,6 +1385,13 @@ through the network ends for the clients ends at this point (because the two cli
 partial components that are combined into a larger element) and instead a new client object is created and
 started from this point.
 Clients for whose type no batch formation rule is defined will pass the station without further delay.
+
+\subsection*{Note on batch sizes}
+
+Batch sizes have to be positive integer numbers.
+Calculation expressions for the batch sizes can also be specified.
+If these contain variables or functions that are only valid in the simulation context, these are evaluated \textbf{once}b> at the start of the simulation.
+This means that the batch sizes set at a station do not change during a running simulation.
 
 
 \section{Pick up}
@@ -1505,6 +1554,159 @@ Transporting a client along the conveyor will take some defineable fixed
 time. This means a client cannot overtake another client on the conveyor.
 Additionally the movement direction of the clients on the conveyor during
 the animation can be set up.
+
+
+\section{Decide and teleport}
+\label{ref:ModelElementDecideAndTeleport}
+
+\begin{wrapfigure}{l}{2.5cm}
+\vspace{-22pt}
+\includegraphics[width=2cm]{imageModelElementDecideAndTeleport.png}
+\vspace{-22pt}
+\end{wrapfigure}
+
+Teleport transports allow to timeless transport a client from a teleport transport source
+to a teleport transport destination (see page \pageref{ref:ModelElementTeleportDestination}) .
+In contrast to normal transports, this is not about modeling a clients's actual transport
+(which may takes a certain amount of time and requires some resources), but to keep the model clear.
+If a client enters a teleport transport source, he is immediately transported to the specified
+teleport transport destination. Start and end points can be located in different places in the model;
+unlike a transport over an edge, no connection line between start and finish is drawn.
+
+A Decide and Teleport station combines the functions of a
+einer Decide (see page \pageref{ref:ModelElementDecide}) station with a
+Teleport transport source (see page \pageref{ref:ModelElementTeleportSource}) station:
+In a first step, the client object is branched into several directions.
+Then the client object is sent to the selected destination via a teleport transport.
+
+The branching can be carried out according to the following criteria:
+
+\begin{itemize}
+  \item 
+    \textbf{Random:}
+    For each exit direction a rate is specified, which determines the probability for this route.
+
+  \item 
+    \textbf{Condition:}
+    Conditions are defined for all output directions (except for the last direction).
+    If a client arrives, these conditions are checked from top to bottom.
+    The client is forwarded in the direction in which the condition was fulfilled for the first time.
+    If none of the conditions apply, the customer is forwarded in the last direction
+    (for which no condition is specified).
+
+  \item 
+    \textbf{Client type:}
+    Client types are defined for all output directions (except for the last direction).
+    If an arriving client is of one of these types, it is forwarded in the corresponding direction.
+    If the type of the arrived client does not correspond to any of the specified client types,
+    the client is forwarded in the last direction (for which no client type is specified).
+
+  \item 
+    \textbf{Sequence:}
+    One of the clients is directed to one of the outputs in sequence. After a client is routed to the last
+    connected output, the next client is routed back to the first output.
+
+  \item 
+    \textbf{Shortest queue at the next station:}
+    Routes the client to the path where the next station
+    has the shortest queue. In the case of the same value
+    for multiple paths, a random decision will be made.
+
+  \item 
+    \textbf{Shortest queue at the next process station:}
+    Routes the client to the path where the next process station
+    has the shortest queue. Stations between the decide element
+    and the process station on the path will be ignored when
+    calculating the queue length. In the case of the same value
+    for multiple paths, a random decision will be made.
+
+  \item  
+    \textbf{Least number of clients at the next station:}
+    Routes the client to the path where the next station
+    has the least current number of clients. In the case of the same value
+    for multiple paths, a random decision will be made.    
+
+  \item 
+    \textbf{Least number of clients at the next process station:}
+    Routes the client to the path where the next process station
+    has the least current number of clients. Stations between the decide element
+    and the process station on the path will be ignored when
+    calculating the number of clients at the process station.    
+    In the case of the same value
+    for multiple paths, a random decision will be made.    
+
+  \item 
+    \textbf{Text property:}
+    Values are defined for all output directions (except for the last direction).
+    If some special key of an arriving client has the specified value , the client
+    is forwarded in the corresponding direction.
+    If the value of the arrived client does not correspond to any of the specified values,
+    the client is forwarded in the last direction (for which no value is specified).
+
+\end{itemize}
+
+\subsection*{Settings}
+
+\subsubsection*{Mode "Random"}
+
+The forwarding probabilities in the various possible output directions need not be given in the form
+of probabilities which have to sum up to 1, but it is sufficient to specify rates. These rates are
+automatically normalized by the program to probabilities. The following prerequisites apply:
+The rates may not be negative and at least one of the specified rates has to be greater than 0.
+
+\subsubsection*{Mode "Condition"}
+
+For each existing direction, a condition has to be specified under which the clients are routed in this
+direction. The conditions do not have to be mutually exclusive and are tested from top to bottom.
+No condition can be specified for the last direction. This direction is selected in the simulation
+whenever none of the previous conditions were true.
+
+\subsubsection*{Mode "Client type"}
+
+For each direction, a client type has to be specified whose clients are routed in this direction.
+No client type can be specified for the last direction. This direction is selected in the simulation
+whenever none of the previous conditions were true.
+
+\subsubsection*{Mode "Text property"}
+
+A clients key from which the values are to be read has to be specified.
+Additionally for each direction, a value has to be specified. If the client key has this value the client
+is routed in this direction. No value can be specified for the last direction. This direction is selected in the simulation
+whenever none of the previous conditions were true.
+
+
+\section{Duplicate and teleport}
+\label{ref:ModelElementTeleportSourceMulti}
+
+\begin{wrapfigure}{l}{2.5cm}
+\vspace{-22pt}
+\includegraphics[width=2cm]{imageModelElementTeleportSourceMulti.png}
+\vspace{-22pt}
+\end{wrapfigure}
+
+Teleport transports allow to timeless transport a client from a teleport transport source
+to a teleport transport destination (see page \pageref{ref:ModelElementTeleportDestination}) .
+In contrast to normal transports, this is not about modeling a clients's actual transport
+(which may takes a certain amount of time and requires some resources), but to keep the model clear.
+If a client enters a teleport transport source, he is immediately transported to the specified
+teleport transport destination. Start and end points can be located in different places in the model;
+unlike a transport over an edge, no connection line between start and finish is drawn.
+
+A Duplicate and Teleport station combines the functions of a
+einer Duplicate (see page \pageref{ref:ModelElementDuplicate}) station with a
+Teleport transport source (see page \pageref{ref:ModelElementTeleportSource}) station:
+In a first step, the client object is divided into several similar objects
+(always with the same data). Then the client objects are sent to all destinations
+configured in the station simultaneously.
+
+\subsection*{Settings}
+
+The name of the teleport transport source element has no further meaning for the simulation.
+However, the names of Teleport transport destination (see page \pageref{ref:ModelElementTeleportDestination}) 
+station are to be configured to define to which stations the arriving clients are to be transported.
+The list of destination names also specifies how many copies of the client object are to be created.
+Individual destinations can also be selected multiple times; in this case, multiple client objects
+are sent to the respective destination.
 
 
 \section{Parking lot}
@@ -2324,6 +2526,25 @@ One can specify any number of valves which are to be set to a new maximum flow.
 
 \chapter{Animation}
 
+\section{Alarm}
+\label{ref:ModelElementAnimationAlarm}
+
+\begin{wrapfigure}{l}{2.5cm}
+\vspace{-22pt}
+\includegraphics[width=2cm]{imageModelElementAnimationAlarm.png}
+\vspace{-22pt}
+\end{wrapfigure}
+
+If a client passes an alarm element in animation mode, a user-defined sound is played.
+In simulation mode, an alarm element does not perform any actions.
+
+\subsection*{Settings}
+
+The name of the alarm element has no further meaning for the simulation.
+It can be set which sound file or system sound should be played when a client
+reaches the station in animation mode.
+
+
 \section{Analogue scale display}
 \label{ref:ModelElementAnimationPointerMeasuring}
 
@@ -2903,6 +3124,8 @@ These action types can be triggered by an "Action" element:
   (Analog value (see page \pageref{ref:ModelElementAnalogValue}) or Tank (see page \pageref{ref:ModelElementTank}) )
   \item Triggering a signal 
   \item Running some Javascript or Java code 
+  \item Stopp simulation 
+  \item Playback a sound (will only be executed during animations) 
 \end{itemize}
 
 \subsection*{Settings}
