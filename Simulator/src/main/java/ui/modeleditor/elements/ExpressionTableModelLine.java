@@ -138,7 +138,10 @@ public class ExpressionTableModelLine extends JTableExtAbstractTableModel {
 	public Object getValueAt(int rowIndex, int columnIndex) {
 		if (rowIndex==expression.size()) {
 			if (columnIndex>0) return "";
-			return makeButtonPanel(new String[]{Language.tr("Surface.ExpressionTableModel.Add")},new Icon[]{Images.MODELEDITOR_ELEMENT_ANIMATION_DIAGRAM_ADD.getIcon()},new ActionListener[]{new EditButtonListener(0,-1)});
+			return makeButtonPanel(
+					new String[]{Language.tr("Surface.ExpressionTableModel.Add"),Language.tr("Surface.ExpressionTableModel.DeleteAll")},
+					new Icon[]{Images.MODELEDITOR_ELEMENT_ANIMATION_DIAGRAM_ADD.getIcon(),Images.EDIT_DELETE.getIcon()},
+					new ActionListener[]{new EditButtonListener(0,-1),new DeleteButtonListener(-1)});
 		}
 
 		switch (columnIndex) {
@@ -355,6 +358,18 @@ public class ExpressionTableModelLine extends JTableExtAbstractTableModel {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			if (readOnly) return;
+
+			if (row<0) {
+				if (expression.size()==0) return;
+				if (!MsgBox.confirm(table,Language.tr("Surface.ExpressionTableModel.DeleteAll.Confirmation.Title"),Language.tr("Surface.ExpressionTableModel.DeleteAll.Confirmation.Info"),Language.tr("Surface.ExpressionTableModel.DeleteAll.Confirmation.YesInfo"),Language.tr("Surface.ExpressionTableModel.DeleteAll.Confirmation.NoInfo"))) return;
+				expression.clear();
+				minValue.clear();
+				maxValue.clear();
+				expressionColor.clear();
+				expressionWidth.clear();
+				updateTable();
+				return;
+			}
 
 			final AnimationExpression ex=expression.get(row);
 			final String info;

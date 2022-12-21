@@ -138,8 +138,10 @@ public class ModelElementAnimationLineDiagramDialog extends ModelElementBaseDial
 		if (element instanceof ModelElementAnimationLineDiagram) {
 			expressionTable.setModel(expressionTableModel=new ExpressionTableModelLine(expressionTable,(ModelElementAnimationLineDiagram)element,readOnly,helpRunnable));
 		}
-		expressionTable.getColumnModel().getColumn(0).setMaxWidth(200);
-		expressionTable.getColumnModel().getColumn(0).setMinWidth(200);
+		expressionTable.getColumnModel().getColumn(1).setMaxWidth(150);
+		expressionTable.getColumnModel().getColumn(1).setMinWidth(150);
+		expressionTable.getColumnModel().getColumn(2).setMaxWidth(150);
+		expressionTable.getColumnModel().getColumn(2).setMinWidth(150);
 		expressionTable.setIsPanelCellTable(0);
 		expressionTable.setIsPanelCellTable(1);
 		expressionTable.setIsPanelCellTable(2);

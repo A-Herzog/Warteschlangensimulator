@@ -172,7 +172,10 @@ public class ExpressionTableModelBar extends JTableExtAbstractTableModel {
 				image=null;
 				addString="";
 			}
-			return makeButtonPanel(new String[]{addString},new Icon[]{(image==null)?null:image.getIcon()},new ActionListener[]{new EditButtonListener(0,-1)});
+			return makeButtonPanel(
+					new String[]{addString,Language.tr("Surface.ExpressionTableModel.DeleteAll")},
+					new Icon[]{(image==null)?null:image.getIcon(),Images.EDIT_DELETE.getIcon()},
+					new ActionListener[]{new EditButtonListener(0,-1),new DeleteButtonListener(-1)});
 		}
 
 		switch (columnIndex) {
@@ -394,6 +397,15 @@ public class ExpressionTableModelBar extends JTableExtAbstractTableModel {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			if (readOnly) return;
+
+			if (row<0) {
+				if (expression.size()==0) return;
+				if (!MsgBox.confirm(table,Language.tr("Surface.ExpressionTableModel.DeleteAll.Confirmation.Title"),Language.tr("Surface.ExpressionTableModel.DeleteAll.Confirmation.Info"),Language.tr("Surface.ExpressionTableModel.DeleteAll.Confirmation.YesInfo"),Language.tr("Surface.ExpressionTableModel.DeleteAll.Confirmation.NoInfo"))) return;
+				expression.clear();
+				expressionColor.clear();
+				updateTable();
+				return;
+			}
 
 			final AnimationExpression ex=expression.get(row);
 			final String info;

@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-12-13 08:39+0100\n"
+"POT-Creation-Date: 2022-12-20 09:37+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -27491,6 +27491,21 @@ msgstr "Remove data row"
 
 msgid "Surface.ExpressionTableModel.Delete.Confirmation.YesInfo"
 msgstr "Remove the data row from list."
+
+msgid "Surface.ExpressionTableModel.DeleteAll"
+msgstr "Delete all"
+
+msgid "Surface.ExpressionTableModel.DeleteAll.Confirmation.Info"
+msgstr "Do you really want to delete all data rows?"
+
+msgid "Surface.ExpressionTableModel.DeleteAll.Confirmation.NoInfo"
+msgstr "Keep the data rows."
+
+msgid "Surface.ExpressionTableModel.DeleteAll.Confirmation.Title"
+msgstr "Remove all data rows"
+
+msgid "Surface.ExpressionTableModel.DeleteAll.Confirmation.YesInfo"
+msgstr "Remove all data rows."
 
 msgid "Surface.ExpressionTableModel.Dialog"
 msgstr "Edit data row"
