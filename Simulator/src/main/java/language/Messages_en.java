@@ -5762,8 +5762,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[13791] = "Number of arrivals";
     t[13800] = "Window.Check.AutoFixConnection.Title";
     t[13801] = "Missing element connections";
-    t[13802] = "Statistics.Dashboard.ResetTiles.InfoYes";
-    t[13803] = "Restore default tiles";
+    t[13802] = "Main.Menu.Help.Wiki";
+    t[13803] = "Warteschlangensimulator Wiki";
     t[13804] = "Surface.XML.Transporter.Icon";
     t[13805] = "Icon";
     t[13810] = "ExpressionBuilder.SimulationCharacteristics.Counter.Counter";
@@ -6322,6 +6322,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[15197] = "Operator alternative";
     t[15202] = "Surface.AnimationTextSelect.Dialog.Title";
     t[15203] = "Edit text by simulation data";
+    t[15208] = "Statistics.Dashboard.ResetTiles.InfoYes";
+    t[15209] = "Restore default tiles";
     t[15214] = "Simulation.Log.Record.Info1";
     t[15215] = "Client: %s, station: %s, value 1: %s";
     t[15216] = "Simulation.Log.Record.Info2";
@@ -8026,14 +8028,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[19251] = "Levels";
     t[19252] = "Statistics.SystemData.ThreadBalance.NumberOfArrivals";
     t[19253] = "Number of arrivals";
-    t[19254] = "Surface.InputDB.XML.EofMode.DefaultValue";
-    t[19255] = "DefaultValue";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_4 (java.lang.String[] t) {
+    t[19254] = "Surface.InputDB.XML.EofMode.DefaultValue";
+    t[19255] = "DefaultValue";
     t[19256] = "Statistics.Dashboard.EditDialog.PreText";
     t[19257] = "Optional text before the value";
     t[19260] = "ExpressionBuilder.SimulationCharacteristics.WaitingTimesAtStations.Quantil";
@@ -10032,14 +10034,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[23977] = "Bottom (in mm)";
     t[23984] = "Surface.Output.Dialog.Tab.Headings.Off";
     t[23985] = "Do not output any headings";
-    t[23998] = "Statistics.RecordedValue";
-    t[23999] = "Value no.";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_5 (java.lang.String[] t) {
+    t[23998] = "Statistics.RecordedValue";
+    t[23999] = "Value no.";
     t[24000] = "Statistic.Viewer.Toolbar.Search.NotFound";
     t[24001] = "The text \"%s\" could not be found.";
     t[24002] = "ModelDescription.Action.EnabledStatus.IsDisabled";
@@ -12038,14 +12040,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[28605] = "Green yellow";
     t[28606] = "Surface.Action.XML.Record.Active";
     t[28607] = "active";
-    t[28612] = "SimulationServer.Toolbar.DDEStart.Hint";
-    t[28613] = "Starts the DDE server";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_6 (java.lang.String[] t) {
+    t[28612] = "SimulationServer.Toolbar.DDEStart.Hint";
+    t[28613] = "Starts the DDE server";
     t[28616] = "ExpressionBuilder.SimulationCharacteristics.ProcessingTimesByClientTypes.SquaredCoefficientOfVariationOfTheTime";
     t[28617] = "<p>Returns the squared coefficient of variation over all processing times of the clients created at the station whose ID was specified in the parameter.</p>";
     t[28620] = "ModelDescription.TransportTransporterSource.RequestMinWaiting";
@@ -14044,14 +14046,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[33279] = "Do you really want to delete all connections?";
     t[33280] = "Batch.Parameter.Type.Resource";
     t[33281] = "Number of operators in a resource";
-    t[33284] = "Surface.Resource.Group.Schedule";
-    t[33285] = "Schedule";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_7 (java.lang.String[] t) {
+    t[33284] = "Surface.Resource.Group.Schedule";
+    t[33285] = "Schedule";
     t[33286] = "ScriptPopup.Output.Print.Hint";
     t[33287] = "Outputs the passed expression.";
     t[33288] = "Statistics.ClientsResidenceTimes";
@@ -14674,6 +14676,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[34701] = "No global map entry for which the initial value is to be changed was selected.";
     t[34702] = "Dialog.Button.Back";
     t[34703] = "Back";
+    t[34704] = "Main.Menu.Help.Wiki.Mnemonic";
+    t[34705] = "W";
     t[34706] = "FindAndReplace.ResultInfo.NoResults";
     t[34707] = "No matches were found for the search term.";
     t[34712] = "Surface.AnimationText.Dialog.Number";
@@ -16048,16 +16052,16 @@ public class Messages_en extends java.util.ResourceBundle {
     t[37919] = "<p>Calculates the value of the density of the normal distribution at the location specified as the first parameter with the parameters &mu; and &sigma; according to the second and third parameters. &mu; is the expected value and &sigma; the standard deviation.</p>\n<p>Example: <tt>NormalDist(7;5;3;0)</tt> returns 0.10648266850745.</p>";
     t[37922] = "BuildClientSourceTable.ColumnsInfo";
     t[37923] = "Double-click list record to edit table column usage:";
-    t[37926] = "Color.6495ED";
-    t[37927] = "Cornflower blue";
-    t[37928] = "Optimizer.Toolbar.Load";
-    t[37929] = "Load";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_8 (java.lang.String[] t) {
+    t[37926] = "Color.6495ED";
+    t[37927] = "Cornflower blue";
+    t[37928] = "Optimizer.Toolbar.Load";
+    t[37929] = "Load";
     t[37930] = "Git.ListBranches.Checkout.Confirm.InfoNo";
     t[37931] = "Keep branch \"%s\" activated.";
     t[37932] = "Statistics.CVUser";
@@ -18054,16 +18058,16 @@ public class Messages_en extends java.util.ResourceBundle {
     t[42455] = "Push all";
     t[42456] = "Statistics.ArrivalsByModel";
     t[42457] = "Arrivals according to model";
-    t[42460] = "RecordAnimation.Scale";
-    t[42461] = "Scaling";
-    t[42462] = "Git.List.Tab.Server.Auth.UserNamePassword.Password";
-    t[42463] = "Password";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_9 (java.lang.String[] t) {
+    t[42460] = "RecordAnimation.Scale";
+    t[42461] = "Scaling";
+    t[42462] = "Git.List.Tab.Server.Auth.UserNamePassword.Password";
+    t[42463] = "Password";
     t[42468] = "ParameterCompare.Settings.Output.List.Add.Hint";
     t[42469] = "Adds an output value (Insert)";
     t[42472] = "ParameterCompare.XML.Outputs.Data.Format.Time";
@@ -20060,16 +20064,16 @@ public class Messages_en extends java.util.ResourceBundle {
     t[47163] = "User name";
     t[47168] = "InfoDialog.ShowLicenses";
     t[47169] = "Licenses";
-    t[47170] = "CommandLine.SetNUMA.Description.Long";
-    t[47171] = "The function expects a \"1\" or a \"0\" as parameter.";
-    t[47172] = "UserTemplates.TemplatesDialog.ContentInfo.Stations";
-    t[47173] = "%d stations";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_10 (java.lang.String[] t) {
+    t[47170] = "CommandLine.SetNUMA.Description.Long";
+    t[47171] = "The function expects a \"1\" or a \"0\" as parameter.";
+    t[47172] = "UserTemplates.TemplatesDialog.ContentInfo.Stations";
+    t[47173] = "%d stations";
     t[47176] = "SimulationServer.Setup.AccessControl";
     t[47177] = "Login data for web and remote control server and MQTT client";
     t[47178] = "ModelGenerator.ServiceDistribution";
@@ -22066,16 +22070,16 @@ public class Messages_en extends java.util.ResourceBundle {
     t[51783] = "At sequence %s in step %s for assignment to ClientData(%d) the expression \"%s\" was specified. This expression is invalid at character %d.";
     t[51784] = "Surface.AnalogAssign.XML.Root";
     t[51785] = "ModelElementAnalogValueAssignment";
-    t[51794] = "Surface.Transporter.ErrorFailureDistance";
-    t[51795] = "The specified value \"%s\" for the driving distance before a failure occures for the transporter type \"%s\" is invalid. A positive integer number has to be entered.";
-    t[51798] = "Server.Log.SimulationStarted";
-    t[51799] = "Simulation started";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_11 (java.lang.String[] t) {
+    t[51794] = "Surface.Transporter.ErrorFailureDistance";
+    t[51795] = "The specified value \"%s\" for the driving distance before a failure occures for the transporter type \"%s\" is invalid. A positive integer number has to be entered.";
+    t[51798] = "Server.Log.SimulationStarted";
+    t[51799] = "Simulation started";
     t[51800] = "Git.List.Tab.Server.Auth.Off";
     t[51801] = "Off";
     t[51804] = "Main.Menu.AnimationFinishMode.Pause";
