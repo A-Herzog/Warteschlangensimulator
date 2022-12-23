@@ -111,7 +111,7 @@ public class ModelElementDecide extends ModelElementBox implements ModelDataRena
 	 * Liste der Raten für die Verzweigungen
 	 * @see #getRates()
 	 */
-	private final List<Double> rates;
+	private final List<String> rates;
 
 	/**
 	 * Liste der Bedingungen für die Verzweigungen
@@ -214,12 +214,11 @@ public class ModelElementDecide extends ModelElementBox implements ModelDataRena
 
 		double sum=0;
 		if (mode==DecideMode.MODE_CHANCE) {
-			while (rates.size()<connectionsOut.size()) rates.add(1.0);
+			while (rates.size()<connectionsOut.size()) rates.add("1");
 			for (int i=0;i<connectionsOut.size();i++) {
-				Double rate=rates.get(i);
-				if (rate<0) rate=0.0;
-				rates.set(i,rate);
-				sum+=rate;
+				final Double rate=NumberTools.getPlainDouble(rates.get(i));
+				if (rate==null) {sum=-1; break;}
+				sum+=Math.max(0,rate);
 			}
 			if (sum==0) sum=1;
 		}
@@ -230,8 +229,13 @@ public class ModelElementDecide extends ModelElementBox implements ModelDataRena
 			String s;
 			switch (mode) {
 			case MODE_CHANCE:
-				final double rate=(i>=rates.size())?1.0:rates.get(i);
-				name=Language.tr("Surface.Decide.Rate")+" "+NumberTools.formatNumber(rate)+" ("+NumberTools.formatPercent(rate/sum)+")";
+				final String rateString=(i>=rates.size())?"1":rates.get(i);
+				String info="";
+				if (sum>0) {
+					final Double rate=NumberTools.getPlainDouble(rateString);
+					if (rate!=null) info=" ("+NumberTools.formatPercent(rate/sum)+")";
+				}
+				name=Language.tr("Surface.Decide.Rate")+" "+rateString+info;
 				break;
 			case MODE_CONDITION:
 				name=(i<connectionsOut.size()-1)?(Language.tr("Surface.Decide.Condition")+" "+(i+1)):Language.tr("Surface.Decide.Condition.ElseCase");
@@ -298,11 +302,11 @@ public class ModelElementDecide extends ModelElementBox implements ModelDataRena
 
 		switch (mode) {
 		case MODE_CHANCE:
-			List<Double> rates2=decide.rates;
+			List<String> rates2=decide.rates;
 			for (int i=0;i<connectionsOut.size();i++) {
 				if (i>=rates.size() && i>=rates2.size()) continue;
 				if (i>=rates.size() || i>=rates2.size()) return false;
-				if (rates.get(i).doubleValue()!=rates2.get(i).doubleValue()) return false;
+				if (!rates.get(i).equals(rates2.get(i))) return false;
 			}
 			break;
 		case MODE_CONDITION:
@@ -701,9 +705,7 @@ public class ModelElementDecide extends ModelElementBox implements ModelDataRena
 			if (newClientTypes!=null && newClientTypes.size()>i && !newClientTypes.get(i).trim().isEmpty()) sub.setAttribute(Language.trPrimary("Surface.XML.Connection.NewClientType"),newClientTypes.get(i).trim());
 			switch (mode) {
 			case MODE_CHANCE:
-				double rate=(i>=rates.size())?1.0:rates.get(i);
-				if (rate<0) rate=0.0;
-				sub.setAttribute(Language.trPrimary("Surface.Decide.XML.Connection.Rate"),NumberTools.formatSystemNumber(rate));
+				sub.setAttribute(Language.trPrimary("Surface.Decide.XML.Connection.Rate"),rates.get(i));
 				break;
 			case MODE_CONDITION:
 				if (i<connectionsOut.size()-1) {
@@ -805,11 +807,9 @@ public class ModelElementDecide extends ModelElementBox implements ModelDataRena
 				/* Chance */
 				final String rateString=Language.trAllAttribute("Surface.Decide.XML.Connection.Rate",node);
 				if (!rateString.isEmpty()) {
-					Double rate=NumberTools.getNotNegativeDouble(rateString);
-					if (rate==null) return String.format(Language.tr("Surface.XML.AttributeSubError"),Language.trPrimary("Surface.Decide.XML.Connection.Rate"),name,node.getParentNode().getNodeName());
-					rates.add(rate);
+					rates.add(rateString);
 				} else {
-					rates.add(1.0);
+					rates.add("1");
 				}
 
 				/* Condition */
@@ -952,7 +952,7 @@ public class ModelElementDecide extends ModelElementBox implements ModelDataRena
 	 * @return	Liste der Raten für die Verzweigungen
 	 */
 	@Override
-	public List<Double> getRates() {
+	public List<String> getRates() {
 		return rates;
 	}
 
@@ -1096,7 +1096,7 @@ public class ModelElementDecide extends ModelElementBox implements ModelDataRena
 			descriptionBuilder.addProperty(Language.tr("ModelDescription.Decide.Mode"),Language.tr("ModelDescription.Decide.Mode.Rate"),1000);
 			for (int i=0;i<connectionsOut.size();i++) {
 				final ModelElementEdge edge=connectionsOut.get(i);
-				final String edgeDescription=String.format(Language.tr("ModelDescription.Decide.Rate"),NumberTools.formatNumber((i>=rates.size())?1.0:rates.get(i)));
+				final String edgeDescription=String.format(Language.tr("ModelDescription.Decide.Rate"),(i>=rates.size())?"1":rates.get(i));
 				String newClientType=getNewClientType(i); if (!newClientType.isEmpty()) newClientType=", "+newClientType;
 				descriptionBuilder.addConditionalEdgeOut(edgeDescription+newClientType,edge);
 			}
@@ -1219,7 +1219,7 @@ public class ModelElementDecide extends ModelElementBox implements ModelDataRena
 		case MODE_CHANCE:
 			for (int i=0;i<rates.size();i++) {
 				final int index=i;
-				searcher.testDouble(this,Language.tr("Surface.Decide.Dialog.OutgoingEdge")+" "+(i+1),rates.get(i),newRate->{if (newRate>=0) rates.set(index,newRate);});
+				searcher.testString(this,Language.tr("Surface.Decide.Dialog.OutgoingEdge")+" "+(i+1),rates.get(i),newRate->rates.set(index,newRate));
 			}
 			break;
 		case MODE_CONDITION:

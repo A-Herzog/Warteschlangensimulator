@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import language.Language;
+import mathtools.NumberTools;
 import mathtools.distribution.tools.DistributionRandomNumber;
 import simulator.builder.RunModelCreatorStatus;
 import simulator.coreelements.RunElement;
@@ -27,6 +28,7 @@ import simulator.events.StationLeaveEvent;
 import simulator.runmodel.RunDataClient;
 import simulator.runmodel.RunModel;
 import simulator.runmodel.SimulationData;
+import simulator.simparser.ExpressionCalc;
 import ui.modeleditor.coreelements.ModelElement;
 import ui.modeleditor.elements.ModelElementDecide;
 import ui.modeleditor.elements.ModelElementEdge;
@@ -44,6 +46,8 @@ public class RunElementDecideByChance extends RunElement {
 	private RunElement[] connections;
 	/** Wahrscheinlichkeiten für die verschiedenen auslaufenden Kanten */
 	private double[] probabilites;
+	/** Rechenausdrücke für die Raten für die verschiedenen auslaufenden Kanten */
+	private String[] probabilitesStrings;
 
 	/** Kundentyp-Zuweisungen an den Ausgängen */
 	private String[] clientTypeNames;
@@ -73,20 +77,35 @@ public class RunElementDecideByChance extends RunElement {
 		ModelElementEdge[] edges=((ModelElementDecide)element).getEdgesOut();
 		if (edges.length==0) return String.format(Language.tr("Simulation.Creator.NoEdgeOut"),element.getId());
 		decide.probabilites=new double[edges.length];
-		final List<Double> editRates=((ModelElementDecide)element).getRates();
+		decide.probabilitesStrings=new String[edges.length];
+		final List<String> editRates=((ModelElementDecide)element).getRates();
 		for (ModelElementEdge edge : edges) {
 			final int id=findNextId(edge);
 			if (id<0) return String.format(Language.tr("Simulation.Creator.EdgeToNowhere"),element.getId(),edge.getId());
 			decide.connectionIds.add(id);
-			double d=(count>=editRates.size())?1.0:editRates.get(count);
-			if (d<0) d=0.0;
-			decide.probabilites[count]=d;
+			final String rate=(count>=editRates.size())?"1":editRates.get(count);
+			decide.probabilitesStrings[count]=rate;
+			final Double D=NumberTools.getPlainDouble(rate);
+			if (D==null || sum==-1) {
+				sum=-1;
+				decide.probabilites=null;
+			} else {
+				decide.probabilites[count]=Math.max(0,D);
+				sum+=Math.max(0,D);
+			}
 			count++;
-			sum+=d;
 		}
-		if (sum==0) return String.format(Language.tr("Simulation.Creator.NoDecideByChanceRates"),element.getId());
 
-		for (int i=0;i<decide.probabilites.length;i++) decide.probabilites[i]=decide.probabilites[i]/sum;
+		if (decide.probabilites==null) {
+			for (int i=0;i<decide.probabilitesStrings.length;i++) {
+				final int error=ExpressionCalc.check(decide.probabilitesStrings[i],runModel.variableNames);
+				if (error>=0) return String.format(Language.tr("Simulation.Creator.DecideRate"),i+1,decide.probabilitesStrings[i],element.getId(),error+1);
+			}
+		} else {
+			decide.probabilitesStrings=null;
+			if (sum==0) return String.format(Language.tr("Simulation.Creator.NoDecideByChanceRates"),element.getId());
+			for (int i=0;i<decide.probabilites.length;i++) decide.probabilites[i]=decide.probabilites[i]/sum;
+		}
 
 		/* Kundentypzuweisungen */
 		decide.clientTypeNames=((ModelElementDecide)element).getChangedClientTypes().toArray(new String[0]);
@@ -105,14 +124,16 @@ public class RunElementDecideByChance extends RunElement {
 		ModelElementEdge[] edges=((ModelElementDecide)element).getEdgesOut();
 		if (edges.length==0) return RunModelCreatorStatus.noEdgeOut(element);
 		int count=0;
-		final List<Double> editRates=((ModelElementDecide)element).getRates();
+		final List<String> editRates=((ModelElementDecide)element).getRates();
 		for (ModelElementEdge edge : edges) {
 			final int id=findNextId(edge);
 			if (id<0) return RunModelCreatorStatus.edgeToNowhere(element,edge);
 
-			double d=(count>=editRates.size())?1.0:editRates.get(count);
-			if (d<0) d=0.0;
-			sum+=d;
+			final String rateString=(count>=editRates.size())?"1":editRates.get(count);
+			if (sum>=0) {
+				Double D=NumberTools.getDouble(rateString);
+				if (D==null) sum=-1; else sum+=Math.max(0,D);
+			}
 			count++;
 		}
 		if (sum==0) return new RunModelCreatorStatus(String.format(Language.tr("Simulation.Creator.NoDecideByChanceRates"),element.getId()));
@@ -136,6 +157,17 @@ public class RunElementDecideByChance extends RunElement {
 	}
 
 	@Override
+	public RunElementDecideByChanceData getData(final SimulationData simData) {
+		RunElementDecideByChanceData data;
+		data=(RunElementDecideByChanceData)(simData.runData.getStationData(this));
+		if (data==null) {
+			data=new RunElementDecideByChanceData(this,probabilitesStrings,simData.runModel.variableNames);
+			simData.runData.setStationData(this,data);
+		}
+		return data;
+	}
+
+	@Override
 	public void processArrival(SimulationData simData, RunDataClient client) {
 		StationLeaveEvent.addLeaveEvent(simData,client,this,0);
 	}
@@ -143,14 +175,22 @@ public class RunElementDecideByChance extends RunElement {
 	@Override
 	public void processLeave(SimulationData simData, RunDataClient client) {
 		/* Zielstation bestimmen */
-		final double rnd=DistributionRandomNumber.nextDouble();
-		double sum=0;
 		int nr=-1;
-		for (int i=0;i<probabilites.length;i++) {
-			sum+=probabilites[i];
-			if (sum>=rnd) {nr=i; break;}
+		if (probabilites==null) {
+			/* Rechenausdrücke auswerten */
+			simData.runData.setClientVariableValues(client);
+			nr=getData(simData).getDestinationIndex(simData);
+			if (nr<0) nr=probabilitesStrings.length-1;
+		} else {
+			/* Einfache Wahrscheinlichkeiten */
+			final double rnd=DistributionRandomNumber.nextDouble();
+			double sum=0;
+			for (int i=0;i<probabilites.length;i++) {
+				sum+=probabilites[i];
+				if (sum>=rnd) {nr=i; break;}
+			}
+			if (nr<0) nr=probabilites.length-1;
 		}
-		if (nr<0) nr=probabilites.length-1;
 
 		/* Logging */
 		if (simData.loggingActive) log(simData,Language.tr("Simulation.Log.DecideByChance"),String.format(Language.tr("Simulation.Log.DecideByChance.Info"),client.logInfo(simData),name,nr+1,connections.length));

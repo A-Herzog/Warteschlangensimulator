@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-12-21 08:14+0100\n"
+"POT-Creation-Date: 2022-12-22 11:20+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17708,7 +17708,7 @@ msgid "Simulation.Creator.ArrivalStream"
 msgstr "Der %d. Ankunftszeitenwert \"%s\" an Station id=%d ist ungültig."
 
 msgid "Simulation.Creator.BalkingCondition"
-msgstr "Die Zurückschreckbedingung \"%s\" von Element id=%d enthält an Position %d eine Fehler."
+msgstr "Die Zurückschreckbedingung \"%s\" von Element id=%d enthält an Position %d einen Fehler."
 
 msgid "Simulation.Creator.BarrierPull.InvalidNext"
 msgstr "Für Station id=%d wurde als zu überwachende Station \"%s\" angegeben. Es existiert jedoch keine Station mit diesem Namen."
@@ -17765,7 +17765,10 @@ msgid "Simulation.Creator.DatabaseTableDoesNotExist"
 msgstr "Bei Element id=%d sollen Werte in die Tabelle \"%s\" geschrieben werden, die jedoch nicht existiert."
 
 msgid "Simulation.Creator.DecideCondition"
-msgstr "Die %d. Übergangsbedingung \"%s\" von Element id=%d aus enthält an Position %d eine Fehler."
+msgstr "Die %d. Übergangsbedingung \"%s\" von Element id=%d aus enthält an Position %d einen Fehler."
+
+msgid "Simulation.Creator.DecideRate"
+msgstr "Die %d. Übergangsrate \"%s\" von Element id=%d aus enthält an Position %d einen Fehler."
 
 msgid "Simulation.Creator.DelayCondition"
 msgstr "Die Bedingung \"%s\" von Element id=%d enthält an Position %d einen Fehler."
@@ -17801,7 +17804,7 @@ msgid "Simulation.Creator.HoldJSCondition"
 msgstr "Die zusätzliche Bedingung \"%s\" von Element id=%d enthält an Position %d einen Fehler."
 
 msgid "Simulation.Creator.HoldMultiCondition"
-msgstr "Die %d. Übergangsbedingung \"%s\" von Element id=%d aus enthält an Position %d eine Fehler."
+msgstr "Die %d. Übergangsbedingung \"%s\" von Element id=%d aus enthält an Position %d einen Fehler."
 
 msgid "Simulation.Creator.InputConnectionsNotMatching"
 msgstr "Bei Element id=%d stimmt die Anzahl an geplanten und an tatsächlichen einlaufenden Kanten nicht überein."
@@ -26954,7 +26957,7 @@ msgid "Surface.Decide.Dialog.OutgoingEdge.Rate.Error.InfoAllZero"
 msgstr "Es ist keine positive Übergangsrate angegeben. Es muss mindestens eine Übergangsrate größe als Null sein."
 
 msgid "Surface.Decide.Dialog.OutgoingEdge.Rate.Error.InfoInvalid"
-msgstr "Die %d. Übergangsrate ist ungültig. Die Übergangsraten müssen nichtnegative Zahlen sein."
+msgstr "Die %d. Übergangsrate ist ab Zeichen %d ungültig."
 
 msgid "Surface.Decide.Dialog.OutgoingEdge.Rate.Error.Title"
 msgstr "Ungültige Übergangsrate"

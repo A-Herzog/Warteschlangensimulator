@@ -5565,7 +5565,7 @@ public class Messages_en extends java.util.ResourceBundle {
     t[13304] = "Surface.PopupMenu.SimulationStatisticsData.Tab.WaitingClients.FieldTable.Delete.InfoYes";
     t[13305] = "Delete record.";
     t[13310] = "Surface.Decide.Dialog.OutgoingEdge.Rate.Error.InfoInvalid";
-    t[13311] = "The %d th transition rate is invalid. The transition rates have to be non-negative numbers.";
+    t[13311] = "The %d th transition rate is invalid at character %d.";
     t[13312] = "Surface.InputDB.Dialog.Title";
     t[13313] = "Edit database input";
     t[13316] = "SimulationServer.Status.Socket";
@@ -22022,6 +22022,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[51681] = "Invalid variable name";
     t[51684] = "Surface.ExpressionTableModel.Dialog.MinimalValue";
     t[51685] = "Minimum value to be displayed";
+    t[51688] = "Simulation.Creator.DecideRate";
+    t[51689] = "The %d. branching rate \"%s\" at element id=%d is invalid at character %d.";
     t[51690] = "ExpressionBuilder.SimulationCharacteristics.ProcessingTimesAtStations.Kurt";
     t[51691] = "<p>Returns the excess kurtosis over all processing times that have occurred at the station whose ID was specified in the parameter (over all client types).</p>";
     t[51696] = "Editor.ClientDialog.Tab.ColorAndIcon.Color.Automatic";
@@ -22068,14 +22070,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[51781] = "<p>Returns the squared coefficient of variation over all waiting times for all clients.</p>";
     t[51782] = "Simulation.Creator.SequenceInvalidExpression";
     t[51783] = "At sequence %s in step %s for assignment to ClientData(%d) the expression \"%s\" was specified. This expression is invalid at character %d.";
-    t[51784] = "Surface.AnalogAssign.XML.Root";
-    t[51785] = "ModelElementAnalogValueAssignment";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_11 (java.lang.String[] t) {
+    t[51784] = "Surface.AnalogAssign.XML.Root";
+    t[51785] = "ModelElementAnalogValueAssignment";
     t[51794] = "Surface.Transporter.ErrorFailureDistance";
     t[51795] = "The specified value \"%s\" for the driving distance before a failure occures for the transporter type \"%s\" is invalid. A positive integer number has to be entered.";
     t[51798] = "Server.Log.SimulationStarted";

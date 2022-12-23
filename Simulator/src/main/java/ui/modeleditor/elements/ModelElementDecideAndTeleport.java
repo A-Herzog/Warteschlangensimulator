@@ -78,7 +78,7 @@ public class ModelElementDecideAndTeleport extends ModelElementBox implements Mo
 	 * Liste der Raten für die Verzweigungen
 	 * @see #getRates()
 	 */
-	private final List<Double> rates;
+	private final List<String> rates;
 
 	/**
 	 * Liste der Bedingungen für die Verzweigungen
@@ -180,11 +180,11 @@ public class ModelElementDecideAndTeleport extends ModelElementBox implements Mo
 
 		switch (mode) {
 		case MODE_CHANCE:
-			List<Double> rates2=decide.rates;
+			List<String> rates2=decide.rates;
 			for (int i=0;i<destinations.size();i++) {
 				if (i>=rates.size() && i>=rates2.size()) continue;
 				if (i>=rates.size() || i>=rates2.size()) return false;
-				if (rates.get(i).doubleValue()!=rates2.get(i).doubleValue()) return false;
+				if (!rates.get(i).equals(rates2.get(i))) return false;
 			}
 			break;
 		case MODE_CONDITION:
@@ -499,9 +499,7 @@ public class ModelElementDecideAndTeleport extends ModelElementBox implements Mo
 
 			switch (mode) {
 			case MODE_CHANCE:
-				double rate=(i>=rates.size())?1.0:rates.get(i);
-				if (rate<0) rate=0.0;
-				sub.setAttribute(Language.trPrimary("Surface.Decide.XML.Connection.Rate"),NumberTools.formatSystemNumber(rate));
+				sub.setAttribute(Language.trPrimary("Surface.Decide.XML.Connection.Rate"),rates.get(i));
 				break;
 			case MODE_CONDITION:
 				if (i<destinations.size()-1) {
@@ -597,11 +595,9 @@ public class ModelElementDecideAndTeleport extends ModelElementBox implements Mo
 			/* Chance */
 			final String rateString=Language.trAllAttribute("Surface.Decide.XML.Connection.Rate",node);
 			if (!rateString.isEmpty()) {
-				Double rate=NumberTools.getNotNegativeDouble(rateString);
-				if (rate==null) return String.format(Language.tr("Surface.XML.AttributeSubError"),Language.trPrimary("Surface.Decide.XML.Connection.Rate"),name,node.getParentNode().getNodeName());
-				rates.add(rate);
+				rates.add(rateString);
 			} else {
-				rates.add(1.0);
+				rates.add("1");
 			}
 
 			/* Condition */
@@ -696,7 +692,7 @@ public class ModelElementDecideAndTeleport extends ModelElementBox implements Mo
 	 * @return	Liste der Raten für die Verzweigungen
 	 */
 	@Override
-	public List<Double> getRates() {
+	public List<String> getRates() {
 		return rates;
 	}
 
@@ -813,7 +809,7 @@ public class ModelElementDecideAndTeleport extends ModelElementBox implements Mo
 			descriptionBuilder.addProperty(Language.tr("ModelDescription.Decide.Mode"),Language.tr("ModelDescription.Decide.Mode.Rate"),1000);
 			for (int i=0;i<destinations.size();i++) {
 				final String destinationName=destinations.get(i);
-				final String destinationDescription=String.format(Language.tr("ModelDescription.Decide.Rate"),NumberTools.formatNumber((i>=rates.size())?1.0:rates.get(i)));
+				final String destinationDescription=String.format(Language.tr("ModelDescription.Decide.Rate"),(i>=rates.size())?"1":rates.get(i));
 				descriptionBuilder.addConditionalTeleportDestination(destinationDescription,destinationName);
 			}
 			break;
@@ -917,7 +913,7 @@ public class ModelElementDecideAndTeleport extends ModelElementBox implements Mo
 		case MODE_CHANCE:
 			for (int i=0;i<rates.size();i++) {
 				final int index=i;
-				searcher.testDouble(this,Language.tr("Surface.Decide.Dialog.OutgoingEdge")+" "+(i+1),rates.get(i),newRate->{if (newRate>=0) rates.set(index,newRate);});
+				searcher.testString(this,Language.tr("Surface.Decide.Dialog.OutgoingEdge")+" "+(i+1),rates.get(i),newRate->rates.set(index,newRate));
 			}
 			break;
 		case MODE_CONDITION:

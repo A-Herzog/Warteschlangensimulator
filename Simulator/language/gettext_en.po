@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-12-21 08:14+0100\n"
+"POT-Creation-Date: 2022-12-22 11:20+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17753,6 +17753,9 @@ msgstr "At element id=%d values are to be written in the table \"%s\", but this 
 msgid "Simulation.Creator.DecideCondition"
 msgstr "The %d. branching condition \"%s\" at element id=%d is invalid at character %d."
 
+msgid "Simulation.Creator.DecideRate"
+msgstr "The %d. branching rate \"%s\" at element id=%d is invalid at character %d."
+
 msgid "Simulation.Creator.DelayCondition"
 msgstr "The condition \"%s\" at element id=%d is invalid at character %d."
 
@@ -26932,7 +26935,7 @@ msgid "Surface.Decide.Dialog.OutgoingEdge.Rate.Error.InfoAllZero"
 msgstr "No positive transition rate is specified. There has to be at least one transition rate which is greater than zero."
 
 msgid "Surface.Decide.Dialog.OutgoingEdge.Rate.Error.InfoInvalid"
-msgstr "The %d th transition rate is invalid. The transition rates have to be non-negative numbers."
+msgstr "The %d th transition rate is invalid at character %d."
 
 msgid "Surface.Decide.Dialog.OutgoingEdge.Rate.Error.Title"
 msgstr "Invalid transition rate"

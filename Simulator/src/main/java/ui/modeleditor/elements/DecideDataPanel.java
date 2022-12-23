@@ -35,6 +35,7 @@ import javax.swing.JTextField;
 
 import language.Language;
 import mathtools.NumberTools;
+import simulator.simparser.ExpressionCalc;
 import simulator.simparser.ExpressionMultiEval;
 import systemtools.MsgBox;
 import tools.IconListCellRenderer;
@@ -181,12 +182,10 @@ public abstract class DecideDataPanel extends JPanel {
 			if (oldPanel!=null) {
 				decideText=(oldPanel.rates.size()>i)?oldPanel.rates.get(i).getText():"1";
 			} else {
-				double d=(decide.getRates().size()<=i)?1.0:decide.getRates().get(i);
-				if (d<0) d=0.0;
-				decideText=NumberTools.formatNumber(d);
+				decideText=(decide.getRates().size()<=i)?"1":decide.getRates().get(i);
 			}
 			final Object[] data=ModelElementBaseDialog.getInputPanel(Language.tr("Surface.Decide.Dialog.OutgoingEdge.Rate")+":",decideText,10);
-			option.add((JPanel)data[0],BorderLayout.CENTER);
+			option.add(line=(JPanel)data[0],BorderLayout.CENTER);
 			final JTextField input=(JTextField)data[1];
 			input.setEditable(!readOnly);
 			input.addKeyListener(new KeyListener(){
@@ -194,6 +193,7 @@ public abstract class DecideDataPanel extends JPanel {
 				@Override public void keyPressed(KeyEvent e) {getRates(false);}
 				@Override public void keyReleased(KeyEvent e) {getRates(false);}
 			});
+			line.add(ModelElementBaseDialog.getExpressionEditButton(this,input,false,true,element.getModel(),element.getSurface()));
 
 			rates.add(input);
 		}
@@ -418,23 +418,26 @@ public abstract class DecideDataPanel extends JPanel {
 	 * @param showErrorDialog	Im Fehlerfall eine Meldung ausgeben?
 	 * @return	Liefert im Erfolgsfall die Raten und im Fehlerfall <code>null</code>
 	 */
-	private List<Double> getRates(final boolean showErrorDialog) {
-		List<Double> values=new ArrayList<>();
+	private List<String> getRates(final boolean showErrorDialog) {
+		List<String> values=new ArrayList<>();
 
 		double sum=0;
 		for (int i=0;i<rates.size();i++) {
-			Double D=NumberTools.getNotNegativeDouble(rates.get(i),true);
-			if (D==null) {
-				if (showErrorDialog) {
-					MsgBox.error(this,Language.tr("Surface.Decide.Dialog.OutgoingEdge.Rate.Error.Title"),String.format(Language.tr("Surface.Decide.Dialog.OutgoingEdge.Rate.Error.InfoInvalid"),i+1));
+			final JTextField field=rates.get(i);
+			final Double D=NumberTools.getDouble(field,false);
+			if (D==null || sum==-1) sum=-1; else sum+=Math.max(0,D);
 
+			final int error=ExpressionCalc.check(field.getText(),element.getSurface().getMainSurfaceVariableNames(element.getModel().getModelVariableNames(),true));
+			if (error>=0) field.setBackground(Color.RED); else field.setBackground(NumberTools.getTextFieldDefaultBackground());
+
+			if (error>=0) {
+				if (showErrorDialog) {
+					MsgBox.error(this,Language.tr("Surface.Decide.Dialog.OutgoingEdge.Rate.Error.Title"),String.format(Language.tr("Surface.Decide.Dialog.OutgoingEdge.Rate.Error.InfoInvalid"),i+1,error+1));
 					return null;
 				}
 				values=null;
-			} else {
-				sum+=D;
 			}
-			if (values!=null) values.add(D);
+			if (values!=null) values.add(field.getText().trim());
 		}
 		if (values!=null && rates.size()>0 && sum==0) {
 			if (showErrorDialog) MsgBox.error(this,Language.tr("Surface.Decide.Dialog.OutgoingEdge.Rate.Error.Title"),Language.tr("Surface.Decide.Dialog.OutgoingEdge.Rate.Error.InfoAllZero"));
@@ -456,7 +459,7 @@ public abstract class DecideDataPanel extends JPanel {
 			final JTextField field=conditions.get(i);
 			final String condition=field.getText();
 			final int error=ExpressionMultiEval.check(condition,element.getSurface().getMainSurfaceVariableNames(element.getModel().getModelVariableNames(),true));
-			if (error>=0) field.setBackground(Color.red); else field.setBackground(NumberTools.getTextFieldDefaultBackground());
+			if (error>=0) field.setBackground(Color.RED); else field.setBackground(NumberTools.getTextFieldDefaultBackground());
 
 			if (error>=0) {
 				if (showErrorDialog) {
@@ -566,7 +569,7 @@ public abstract class DecideDataPanel extends JPanel {
 
 		switch (mode) {
 		case MODE_CHANCE:
-			final List<Double> ratesList=decide.getRates();
+			final List<String> ratesList=decide.getRates();
 			ratesList.clear();
 			ratesList.addAll(getRates(false));
 			break;

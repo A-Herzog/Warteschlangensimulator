@@ -44,7 +44,7 @@ public interface ElementWithDecideData {
 	 * Liefert die Raten, mit denen die Kunden zu den einzelnen Zielstationen der auslaufenden Kanten weitergeleitet werden.
 	 * @return	Liste der Raten für die Verzweigungen
 	 */
-	List<Double> getRates();
+	List<String> getRates();
 
 	/**
 	 * Liefert die Bedingungen, mit denen die Kunden zu den einzelnen Zielstationen der auslaufenden Kanten weitergeleitet werden.
