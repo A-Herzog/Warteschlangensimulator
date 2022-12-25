@@ -33,6 +33,7 @@ import ui.modeleditor.coreelements.ModelElement;
 import ui.modeleditor.coreelements.ModelElementBox;
 import ui.modeleditor.coreelements.ModelElementEdgeMultiOut;
 import ui.modeleditor.coreelements.ModelElementEdgeOut;
+import ui.modeleditor.elements.ElementWithDecideData;
 import ui.modeleditor.elements.ModelElementDecide;
 import ui.modeleditor.elements.ModelElementDecideAndTeleport;
 import ui.modeleditor.elements.ModelElementEdge;
@@ -48,6 +49,8 @@ import ui.modeleditor.elements.ModelElementVertex;
  * @see ModelElementDecideAndTeleport
  */
 public class RunElementTeleportDecideByStation extends RunElement {
+	/** Wie soll bei Gleichstand zwischen mehreren Ausgängen entschieden werden? */
+	private ElementWithDecideData.DecideByStationOnTie decideModeOnTie;
 	/** Namen der Teleport-Zielstationen */
 	private String[] destinationStrings;
 	/** IDs der Teleport-Zielstationen */
@@ -131,6 +134,7 @@ public class RunElementTeleportDecideByStation extends RunElement {
 		final RunElementTeleportDecideByStation decide=new RunElementTeleportDecideByStation((ModelElementDecideAndTeleport)element);
 
 		decide.mode=mode;
+		decide.decideModeOnTie=decideElement.getDecideByStationOnTie();
 		decide.destinationStrings=decideElement.getDestinations().toArray(new String[0]);
 		decide.destinationIDs=new int[decide.destinationStrings.length];
 		decide.nextIds=new int[decide.destinationStrings.length];
@@ -231,8 +235,20 @@ public class RunElementTeleportDecideByStation extends RunElement {
 			nr=bestIndices[0];
 		}
 		if (bestIndicesUsed>1) {
-			/* Bei gleichem Wert Ziel zufällig wählen. */
-			nr=(int)FastMath.round(FastMath.floor(bestIndicesUsed*DistributionRandomNumber.nextDouble()));
+			switch (decideModeOnTie) {
+			case FIRST: /* Bei Gleichstand erste Kante wählen */
+				nr=bestIndices[0];
+				break;
+			case LAST:  /* Bei Gleichstand letzte Kante wählen */
+				nr=bestIndices[bestIndicesUsed-1];
+				break;
+			case RANDOM: /* Bei gleichem Wert Ziel zufällig wählen. */
+				nr=(int)FastMath.round(FastMath.floor(bestIndicesUsed*DistributionRandomNumber.nextDouble()));
+				break;
+			default:
+				nr=bestIndices[(int)FastMath.round(FastMath.floor(bestIndicesUsed*DistributionRandomNumber.nextDouble()))];
+				break;
+			}
 		}
 
 		/* Logging */

@@ -103,6 +103,18 @@ public abstract class DecideDataPanel extends JPanel {
 	/** Eingabefelder für die Werte */
 	private List<JTextField> values;
 
+	/** Auswahlbox 1 für Verhalten bei Gleichstand */
+	private JComboBox<String> comboBoxAtTie1;
+
+	/** Auswahlbox 2 für Verhalten bei Gleichstand */
+	private JComboBox<String> comboBoxAtTie2;
+
+	/** Auswahlbox 3 für Verhalten bei Gleichstand */
+	private JComboBox<String> comboBoxAtTie3;
+
+	/** Auswahlbox 4 für Verhalten bei Gleichstand */
+	private JComboBox<String> comboBoxAtTie4;
+
 	/**
 	 * HTML-Vorspann zum Anzeigen der Ziele als fette Texte
 	 */
@@ -129,6 +141,7 @@ public abstract class DecideDataPanel extends JPanel {
 		JPanel sub;
 		JPanel line;
 		JLabel label;
+		Object[] data;
 
 		add(sub=new JPanel(new FlowLayout(FlowLayout.LEFT)),BorderLayout.NORTH);
 		sub.add(label=new JLabel(Language.tr("Surface.Decide.Dialog.DecideBy")+":"));
@@ -162,6 +175,7 @@ public abstract class DecideDataPanel extends JPanel {
 		add(new JScrollPane(contentCardsOuter),BorderLayout.CENTER);
 		contentCardsOuter.add(contentCards=new JPanel(new CardLayout()),BorderLayout.NORTH);
 		JPanel content;
+		JPanel contentOuter;
 
 		final List<String> destinations=getDestinations();
 
@@ -184,7 +198,7 @@ public abstract class DecideDataPanel extends JPanel {
 			} else {
 				decideText=(decide.getRates().size()<=i)?"1":decide.getRates().get(i);
 			}
-			final Object[] data=ModelElementBaseDialog.getInputPanel(Language.tr("Surface.Decide.Dialog.OutgoingEdge.Rate")+":",decideText,10);
+			data=ModelElementBaseDialog.getInputPanel(Language.tr("Surface.Decide.Dialog.OutgoingEdge.Rate")+":",decideText,10);
 			option.add(line=(JPanel)data[0],BorderLayout.CENTER);
 			final JTextField input=(JTextField)data[1];
 			input.setEditable(!readOnly);
@@ -211,7 +225,7 @@ public abstract class DecideDataPanel extends JPanel {
 			final JPanel labelPanel=new JPanel(new FlowLayout(FlowLayout.LEFT)); option.add(labelPanel,BorderLayout.NORTH);
 			label=new JLabel(HTML1+name+HTML2); labelPanel.add(label);
 
-			final Object[] data=ModelElementBaseDialog.getInputPanel(Language.tr("Surface.Decide.Dialog.OutgoingEdge.Condition")+":","");
+			data=ModelElementBaseDialog.getInputPanel(Language.tr("Surface.Decide.Dialog.OutgoingEdge.Condition")+":","");
 			final JPanel inputPanel=(JPanel)data[0];
 			option.add(inputPanel,BorderLayout.CENTER);
 			final JTextField input=(JTextField)data[1];
@@ -258,28 +272,40 @@ public abstract class DecideDataPanel extends JPanel {
 		sub.add(new JLabel(Language.tr("Surface.Decide.Dialog.DecideBy.Sequence.Info")));
 
 		/* Seite "Kürzeste Warteschlange an der nächsten Station" */
-		contentCards.add(content=new JPanel(),modeSelect.getItemAt(4));
+		contentCards.add(contentOuter=new JPanel(new BorderLayout()),modeSelect.getItemAt(4));
+		contentOuter.add(content=new JPanel(),BorderLayout.NORTH);
 		content.setLayout(new BoxLayout(content,BoxLayout.PAGE_AXIS));
 		content.add(sub=new JPanel(new FlowLayout(FlowLayout.LEFT)));
 		sub.add(new JLabel("<html><body>"+Language.tr("Surface.Decide.Dialog.DecideBy.ShortestQueueNextStation.Info").replaceAll("\\n","<br>")+"</body></html>"));
+		content.add(sub=new JPanel(new FlowLayout(FlowLayout.LEFT)));
+		comboBoxAtTie1=addAtTieComboBox(sub,decide);
 
 		/* Seite "Kürzeste Warteschlange an der nächsten Bedienstation" */
-		contentCards.add(content=new JPanel(),modeSelect.getItemAt(5));
+		contentCards.add(contentOuter=new JPanel(new BorderLayout()),modeSelect.getItemAt(5));
+		contentOuter.add(content=new JPanel(),BorderLayout.NORTH);
 		content.setLayout(new BoxLayout(content,BoxLayout.PAGE_AXIS));
 		content.add(sub=new JPanel(new FlowLayout(FlowLayout.LEFT)));
 		sub.add(new JLabel("<html><body>"+Language.tr("Surface.Decide.Dialog.DecideBy.ShortestQueueNextProcessStation.Info").replaceAll("\\n","<br>")+"</body></html>"));
+		content.add(sub=new JPanel(new FlowLayout(FlowLayout.LEFT)));
+		comboBoxAtTie2=addAtTieComboBox(sub,decide);
 
 		/* Seite "Geringste Anzahl an Kunden an der nächsten Station" */
-		contentCards.add(content=new JPanel(),modeSelect.getItemAt(6));
+		contentCards.add(contentOuter=new JPanel(new BorderLayout()),modeSelect.getItemAt(6));
+		contentOuter.add(content=new JPanel(),BorderLayout.NORTH);
 		content.setLayout(new BoxLayout(content,BoxLayout.PAGE_AXIS));
 		content.add(sub=new JPanel(new FlowLayout(FlowLayout.LEFT)));
 		sub.add(new JLabel("<html><body>"+Language.tr("Surface.Decide.Dialog.DecideBy.LeastClientsNextStation.Info").replaceAll("\\n","<br>")+"</body></html>"));
+		content.add(sub=new JPanel(new FlowLayout(FlowLayout.LEFT)));
+		comboBoxAtTie3=addAtTieComboBox(sub,decide);
 
 		/* Seite "Geringste Anzahl an Kunden an der nächsten Bedienstation" */
-		contentCards.add(content=new JPanel(),modeSelect.getItemAt(7));
+		contentCards.add(contentOuter=new JPanel(new BorderLayout()),modeSelect.getItemAt(7));
+		contentOuter.add(content=new JPanel(),BorderLayout.NORTH);
 		content.setLayout(new BoxLayout(content,BoxLayout.PAGE_AXIS));
 		content.add(sub=new JPanel(new FlowLayout(FlowLayout.LEFT)));
 		sub.add(new JLabel("<html><body>"+Language.tr("Surface.Decide.Dialog.DecideBy.LeastClientsNextProcessStation.Info").replaceAll("\\n","<br>")+"</body></html>"));
+		content.add(sub=new JPanel(new FlowLayout(FlowLayout.LEFT)));
+		comboBoxAtTie4=addAtTieComboBox(sub,decide);
 
 		/* Seite "Texteigenschaft" */
 		contentCards.add(content=new JPanel(),modeSelect.getItemAt(8));
@@ -291,7 +317,7 @@ public abstract class DecideDataPanel extends JPanel {
 		} else {
 			keyString=decide.getKey();
 		}
-		Object[] data=ModelElementBaseDialog.getInputPanel(Language.tr("Surface.Decide.Dialog.OutgoingEdge.Key")+":",keyString);
+		data=ModelElementBaseDialog.getInputPanel(Language.tr("Surface.Decide.Dialog.OutgoingEdge.Key")+":",keyString);
 		content.add((JPanel)data[0]);
 		key=(JTextField)data[1];
 		key.setEditable(!readOnly);
@@ -379,6 +405,48 @@ public abstract class DecideDataPanel extends JPanel {
 	 */
 	public DecideDataPanel(final ModelElement element, final boolean readOnly) {
 		this(element,null,readOnly);
+	}
+
+	/**
+	 * Legt eine Auswahlbox für den Modus der Wahl des Ausgangs bei Gleichstand zwischen den Stationen an.
+	 * @param parent	Übergeordnetes Element an das die neue Zeile angehängt werden soll
+	 * @param decide	Verzweigungs-Element aus dem die Daten ausgelesen werden sollen
+	 * @return	Neue Auswahlbox (schon in das übergeordnete Element eingefügt)
+	 */
+	private JComboBox<String> addAtTieComboBox(final JPanel parent, final ElementWithDecideData decide) {
+		final Object[] data=ModelElementBaseDialog.getComboBoxPanel(Language.tr("Surface.Decide.Dialog.DecideBy.AtTie")+":",new String[] {
+				Language.tr("Surface.Decide.Dialog.DecideBy.AtTie.First"),
+				Language.tr("Surface.Decide.Dialog.DecideBy.AtTie.Random"),
+				Language.tr("Surface.Decide.Dialog.DecideBy.AtTie.Last")
+		});
+		parent.add((JPanel)data[0]);
+		@SuppressWarnings("unchecked")
+		final JComboBox<String> comboBox=(JComboBox<String>)data[1];
+
+		comboBox.setRenderer(new IconListCellRenderer(new Images[]{
+				Images.MODELEDITOR_ELEMENT_DECIDE_AT_TIE_FIRST,
+				Images.MODELEDITOR_ELEMENT_DECIDE_AT_TIE_RANDOM,
+				Images.MODELEDITOR_ELEMENT_DECIDE_AT_TIE_LAST
+		}));
+
+		switch (decide.getDecideByStationOnTie()) {
+		case FIRST: comboBox.setSelectedIndex(0); break;
+		case RANDOM: comboBox.setSelectedIndex(1); break;
+		case LAST: comboBox.setSelectedIndex(2); break;
+		default: comboBox.setSelectedIndex(1); break;
+		}
+
+		comboBox.addActionListener(e->{
+			final Object source=e.getSource();
+			if (!(source instanceof JComboBox<?>)) return;
+			final int index=((JComboBox<?>)source).getSelectedIndex();
+			if (comboBoxAtTie1!=null && comboBoxAtTie1!=source) comboBoxAtTie1.setSelectedIndex(index);
+			if (comboBoxAtTie2!=null && comboBoxAtTie2!=source) comboBoxAtTie2.setSelectedIndex(index);
+			if (comboBoxAtTie3!=null && comboBoxAtTie3!=source) comboBoxAtTie3.setSelectedIndex(index);
+			if (comboBoxAtTie4!=null && comboBoxAtTie1!=source) comboBoxAtTie4.setSelectedIndex(index);
+		});
+
+		return comboBox;
 	}
 
 	/**
@@ -587,16 +655,32 @@ public abstract class DecideDataPanel extends JPanel {
 			/* nichts zurück zu schreiben */
 			break;
 		case MODE_SHORTEST_QUEUE_NEXT_STATION:
-			/* nichts zurück zu schreiben */
+			switch (comboBoxAtTie1.getSelectedIndex()) {
+			case 0: decide.setDecideByStationOnTie(ElementWithDecideData.DecideByStationOnTie.FIRST); break;
+			case 1: decide.setDecideByStationOnTie(ElementWithDecideData.DecideByStationOnTie.RANDOM); break;
+			case 2: decide.setDecideByStationOnTie(ElementWithDecideData.DecideByStationOnTie.LAST); break;
+			}
 			break;
 		case MODE_SHORTEST_QUEUE_PROCESS_STATION:
-			/* nichts zurück zu schreiben */
+			switch (comboBoxAtTie2.getSelectedIndex()) {
+			case 0: decide.setDecideByStationOnTie(ElementWithDecideData.DecideByStationOnTie.FIRST); break;
+			case 1: decide.setDecideByStationOnTie(ElementWithDecideData.DecideByStationOnTie.RANDOM); break;
+			case 2: decide.setDecideByStationOnTie(ElementWithDecideData.DecideByStationOnTie.LAST); break;
+			}
 			break;
 		case MODE_MIN_CLIENTS_NEXT_STATION:
-			/* nichts zurück zu schreiben */
+			switch (comboBoxAtTie3.getSelectedIndex()) {
+			case 0: decide.setDecideByStationOnTie(ElementWithDecideData.DecideByStationOnTie.FIRST); break;
+			case 1: decide.setDecideByStationOnTie(ElementWithDecideData.DecideByStationOnTie.RANDOM); break;
+			case 2: decide.setDecideByStationOnTie(ElementWithDecideData.DecideByStationOnTie.LAST); break;
+			}
 			break;
 		case MODE_MIN_CLIENTS_PROCESS_STATION:
-			/* nichts zurück zu schreiben */
+			switch (comboBoxAtTie4.getSelectedIndex()) {
+			case 0: decide.setDecideByStationOnTie(ElementWithDecideData.DecideByStationOnTie.FIRST); break;
+			case 1: decide.setDecideByStationOnTie(ElementWithDecideData.DecideByStationOnTie.RANDOM); break;
+			case 2: decide.setDecideByStationOnTie(ElementWithDecideData.DecideByStationOnTie.LAST); break;
+			}
 			break;
 		case MODE_KEY_VALUE:
 			decide.setKey(key.getText().trim());

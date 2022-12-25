@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-12-22 11:20+0100\n"
+"POT-Creation-Date: 2022-12-23 18:26+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -26831,8 +26831,32 @@ msgstr "Bedingung"
 msgid "Surface.Decide.Condition.ElseCase"
 msgstr "Fall \"sonst\""
 
+msgid "Surface.Decide.DecideByStationOnTie.XMLName"
+msgstr "ModellElementVerzweigBeiGleichstand"
+
+msgid "Surface.Decide.DecideByStationOnTie.XMLNameFirst"
+msgstr "Erster"
+
+msgid "Surface.Decide.DecideByStationOnTie.XMLNameLast"
+msgstr "Letzter"
+
+msgid "Surface.Decide.DecideByStationOnTie.XMLNameRandom"
+msgstr "Zufällig"
+
 msgid "Surface.Decide.Dialog.DecideBy"
 msgstr "Verzweigen nach"
+
+msgid "Surface.Decide.Dialog.DecideBy.AtTie"
+msgstr "Bei Gleichstand zwischen mehreren Stationen"
+
+msgid "Surface.Decide.Dialog.DecideBy.AtTie.First"
+msgstr "Ersten Ausgang (mit niedrigstem Wert) wählen"
+
+msgid "Surface.Decide.Dialog.DecideBy.AtTie.Last"
+msgstr "Letzten Ausgang (mit niedrigstem Wert) wählen"
+
+msgid "Surface.Decide.Dialog.DecideBy.AtTie.Random"
+msgstr "Ausgang zufällig wählen"
 
 msgid "Surface.Decide.Dialog.DecideBy.Chance"
 msgstr "Zufall"

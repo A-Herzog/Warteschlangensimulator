@@ -16,7 +16,9 @@
 package ui.modeleditor.elements;
 
 import java.util.List;
+import java.util.function.Supplier;
 
+import language.Language;
 import ui.modeleditor.elements.ModelElementDecide.DecideMode;
 
 /**
@@ -87,4 +89,72 @@ public interface ElementWithDecideData {
 	 * @param multiTextValues	Kann jeweils ein {@link #getValues()}-Eintrag mehrere, durch ";" getrennte Werte enthalten?
 	 */
 	void setMultiTextValues(boolean multiTextValues);
+
+	/**
+	 * Wie soll bei Gleichstand zwischen mehreren Ausgängen entschieden werden?
+	 */
+	enum DecideByStationOnTie {
+		/** Folgestation unter den gleichguten besten Möglichkeiten zufällig wählen */
+		RANDOM(()->Language.tr("Surface.Decide.DecideByStationOnTie.XMLNameRandom"),()->Language.trAll("Surface.Decide.DecideByStationOnTie.XMLNameRandom")),
+		/** Erste der gleichguten besten Möglichkeiten wählen */
+		FIRST(()->Language.tr("Surface.Decide.DecideByStationOnTie.XMLNameFirst"),()->Language.trAll("Surface.Decide.DecideByStationOnTie.XMLNameFirst")),
+		/** Letzte der gleichguten besten Möglichkeiten wählen */
+		LAST(()->Language.tr("Surface.Decide.DecideByStationOnTie.XMLNameLast"),()->Language.trAll("Surface.Decide.DecideByStationOnTie.XMLNameLast"));
+
+		/**
+		 * Callback, welches den primären Namen des Elements liefert
+		 */
+		private final Supplier<String> nameGetter;
+
+		/**
+		 * Callback, welches alle Namen des Elements liefert
+		 */
+		private final Supplier<String[]> allNamesGetter;
+
+		/**
+		 * Konstruktor des Enum
+		 * @param nameGetter	Callback, welches den primären Namen des Elements liefert
+		 * @param allNamesGetter	Callback, welches alle Namen des Elements liefert
+		 */
+		DecideByStationOnTie(final Supplier<String> nameGetter, final Supplier<String[]> allNamesGetter) {
+			this.nameGetter=nameGetter;
+			this.allNamesGetter=allNamesGetter;
+		}
+
+		/**
+		 * Liefert den primären Namen des Elements.
+		 * @return	Primärer Name des Elements
+		 */
+		public String getName() {
+			return nameGetter.get();
+		}
+
+		/**
+		 * Versucht zu einem vorgegebenen Namen den passenden Eintrag zu liefern.
+		 * @param name	Name für den der passende Enum-Eintrag geliefert werden soll.
+		 * @return	Enum-Eintrag oder Vorgabewert, wenn kein Eintrag zu dem Namen passt
+		 */
+		public static DecideByStationOnTie byName(final String name) {
+			if (name==null) return RANDOM;
+			for (DecideByStationOnTie value: values()) {
+				final String[] names=value.allNamesGetter.get();
+				for (String test: names) if (test.equalsIgnoreCase(name)) return value;
+			}
+			return RANDOM;
+		}
+	}
+
+	/**
+	 * Liefert die Einstellung, wie soll bei Gleichstand zwischen mehreren Ausgängen entschieden werden soll.
+	 * @return	Wie soll bei Gleichstand zwischen mehreren Ausgängen entschieden werden?
+	 * @see DecideByStationOnTie
+	 */
+	DecideByStationOnTie getDecideByStationOnTie();
+
+	/**
+	 * Stellt ein, wie soll bei Gleichstand zwischen mehreren Ausgängen entschieden werden soll.
+	 * @param decideByStationOnTie	Wie soll bei Gleichstand zwischen mehreren Ausgängen entschieden werden?
+	 * @see DecideByStationOnTie
+	 */
+	void setDecideByStationOnTie(DecideByStationOnTie decideByStationOnTie);
 }

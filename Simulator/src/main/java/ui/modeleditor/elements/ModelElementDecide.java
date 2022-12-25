@@ -145,6 +145,12 @@ public class ModelElementDecide extends ModelElementBox implements ModelDataRena
 	private boolean multiTextValues;
 
 	/**
+	 * Wie soll im Modus kürzeste Warteschlange / geringstes WIP bei Gleichstand zwischen mehreren Ausgängen entschieden werden?
+	 */
+	private DecideByStationOnTie decideByStationOnTie;
+
+
+	/**
 	 * Liste mit neuen Kundentypen gemäß den Ausgängen (leere Strings stehen für "keine Änderung")
 	 */
 	private List<String> newClientTypes=null;
@@ -163,6 +169,7 @@ public class ModelElementDecide extends ModelElementBox implements ModelDataRena
 		conditions=new ArrayList<>();
 		values=new ArrayList<>();
 		multiTextValues=true;
+		decideByStationOnTie=DecideByStationOnTie.RANDOM;
 		clientTypes=new ArrayList<>();
 	}
 
@@ -329,16 +336,16 @@ public class ModelElementDecide extends ModelElementBox implements ModelDataRena
 			/* immer alles ok */
 			break;
 		case MODE_SHORTEST_QUEUE_NEXT_STATION:
-			/* immer alles ok */
+			if (decideByStationOnTie!=decide.decideByStationOnTie) return false;
 			break;
 		case MODE_SHORTEST_QUEUE_PROCESS_STATION:
-			/* immer alles ok */
+			if (decideByStationOnTie!=decide.decideByStationOnTie) return false;
 			break;
 		case MODE_MIN_CLIENTS_NEXT_STATION:
-			/* immer alles ok */
+			if (decideByStationOnTie!=decide.decideByStationOnTie) return false;
 			break;
 		case MODE_MIN_CLIENTS_PROCESS_STATION:
-			/* immer alles ok */
+			if (decideByStationOnTie!=decide.decideByStationOnTie) return false;
 			break;
 		case MODE_KEY_VALUE:
 			if (!key.equals(decide.key)) return false;
@@ -354,16 +361,12 @@ public class ModelElementDecide extends ModelElementBox implements ModelDataRena
 
 		if (connectionsOut.size()>0) {
 			final List<String> newClientTypes2=decide.newClientTypes;
-			if (newClientTypes==null && newClientTypes2!=null) return false;
-			if (newClientTypes!=null && newClientTypes2==null) return false;
-			if (newClientTypes!=null && newClientTypes2!=null) {
-				for (int i=0;i<connectionsOut.size();i++) {
-					String name1="";
-					String name2="";
-					if (newClientTypes.size()>i) name1=newClientTypes.get(i);
-					if (newClientTypes2.size()>i) name2=newClientTypes2.get(i);
-					if (!name1.equals(name2)) return false;
-				}
+			for (int i=0;i<connectionsOut.size();i++) {
+				String name1="";
+				String name2="";
+				if (newClientTypes!=null && newClientTypes.size()>i) name1=newClientTypes.get(i);
+				if (newClientTypes2!=null && newClientTypes2.size()>i) name2=newClientTypes2.get(i);
+				if (!name1.equals(name2)) return false;
 			}
 		}
 
@@ -430,6 +433,8 @@ public class ModelElementDecide extends ModelElementBox implements ModelDataRena
 			multiTextValues=source.multiTextValues;
 
 			if (((ModelElementDecide)element).newClientTypes!=null) newClientTypes=new ArrayList<>(((ModelElementDecide)element).newClientTypes);
+
+			decideByStationOnTie=source.decideByStationOnTie;
 		}
 	}
 
@@ -691,6 +696,11 @@ public class ModelElementDecide extends ModelElementBox implements ModelDataRena
 			sub.setAttribute(Language.trPrimary("Surface.Decide.XML.Key.MultiTextValues"),multiTextValues?"1":"0");
 		}
 
+		if (mode==DecideMode.MODE_MIN_CLIENTS_NEXT_STATION || mode==DecideMode.MODE_SHORTEST_QUEUE_NEXT_STATION || mode==DecideMode.MODE_MIN_CLIENTS_PROCESS_STATION || mode==DecideMode.MODE_SHORTEST_QUEUE_PROCESS_STATION) {
+			node.appendChild(sub=doc.createElement(Language.trPrimary("Surface.Decide.DecideByStationOnTie.XMLName")));
+			sub.setTextContent(decideByStationOnTie.getName());
+		}
+
 		if (connectionsIn!=null) for (ModelElementEdge element: connectionsIn) {
 			node.appendChild(sub=doc.createElement(Language.trPrimary("Surface.XML.Connection")));
 			sub.setAttribute(Language.trPrimary("Surface.XML.Connection.Element"),""+element.getId());
@@ -781,6 +791,11 @@ public class ModelElementDecide extends ModelElementBox implements ModelDataRena
 			key=content;
 			final String strMultiTextValues=Language.trAllAttribute("Surface.Decide.XML.Key.MultiTextValues",node);
 			if (strMultiTextValues.equals("0")) multiTextValues=false; else multiTextValues=true;
+			return null;
+		}
+
+		if (Language.trAll("Surface.Decide.DecideByStationOnTie.XMLName",name)) {
+			decideByStationOnTie=ElementWithDecideData.DecideByStationOnTie.byName(content);
 			return null;
 		}
 
@@ -1018,6 +1033,16 @@ public class ModelElementDecide extends ModelElementBox implements ModelDataRena
 	@Override
 	public void setMultiTextValues(boolean multiTextValues) {
 		this.multiTextValues=multiTextValues;
+	}
+
+	@Override
+	public DecideByStationOnTie getDecideByStationOnTie() {
+		return (decideByStationOnTie==null)?DecideByStationOnTie.RANDOM:decideByStationOnTie;
+	}
+
+	@Override
+	public void setDecideByStationOnTie(DecideByStationOnTie decideByStationOnTie) {
+		this.decideByStationOnTie=(decideByStationOnTie==null)?DecideByStationOnTie.RANDOM:decideByStationOnTie;
 	}
 
 	/**

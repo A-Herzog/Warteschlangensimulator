@@ -1607,6 +1607,15 @@ public enum Images {
 	/** Symbol "Modelleditor - Gruppe 'Verzweigungen' - Element 'Verzweigen' - nach Texteigenschaft" */
 	MODELEDITOR_ELEMENT_DECIDE_BY_TEXT_PROPERTY("Text.png"),
 
+	/** Symbol "Modelleditor - Gruppe 'Verzweigungen' - Element 'Verzweigen' - bei Gleichstand zwischen Stationen von oben nach unten */
+	MODELEDITOR_ELEMENT_DECIDE_AT_TIE_FIRST("arrow_down.png"),
+
+	/** Symbol "Modelleditor - Gruppe 'Verzweigungen' - Element 'Verzweigen' - bei Gleichstand zwischen Stationen zufällig */
+	MODELEDITOR_ELEMENT_DECIDE_AT_TIE_RANDOM("arrow_switch.png"),
+
+	/** Symbol "Modelleditor - Gruppe 'Verzweigungen' - Element 'Verzweigen' - bei Gleichstand zwischen Stationen von unten nach oben */
+	MODELEDITOR_ELEMENT_DECIDE_AT_TIE_LAST("arrow_up.png"),
+
 	/** Symbol "Modelleditor - Gruppe 'Verzweigungen' - Element 'Verzweigen (Skript)'" */
 	MODELEDITOR_ELEMENT_DECIDE_JS("Decide.png"),
 

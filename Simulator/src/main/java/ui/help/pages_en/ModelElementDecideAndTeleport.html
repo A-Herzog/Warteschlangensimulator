@@ -59,23 +59,20 @@ The branching can be carried out according to the following criteria:
   <li>
     <b>Shortest queue at the next station:</b>
     Routes the client to the path where the next station
-    has the shortest queue. In the case of the same value
-    for multiple paths, a random decision will be made.
+    has the shortest queue.
   </li>
   <li>
     <b>Shortest queue at the next process station:</b>
     Routes the client to the path where the next process station
     has the shortest queue. Stations between the decide element
     and the process station on the path will be ignored when
-    calculating the queue length. In the case of the same value
-    for multiple paths, a random decision will be made.
+    calculating the queue length.
     
   </li>
   <li> 
     <b>Least number of clients at the next station:</b>
     Routes the client to the path where the next station
-    has the least current number of clients. In the case of the same value
-    for multiple paths, a random decision will be made.    
+    has the least current number of clients.    
   </li>
   <li>
     <b>Least number of clients at the next process station:</b>
@@ -83,8 +80,6 @@ The branching can be carried out according to the following criteria:
     has the least current number of clients. Stations between the decide element
     and the process station on the path will be ignored when
     calculating the number of clients at the process station.    
-    In the case of the same value
-    for multiple paths, a random decision will be made.    
   </li>
   <li>
     <b>Text property:</b>

@@ -112,6 +112,11 @@ public class ModelElementDecideAndTeleport extends ModelElementBox implements Mo
 	private boolean multiTextValues;
 
 	/**
+	 * Wie soll im Modus kürzeste Warteschlange / geringstes WIP bei Gleichstand zwischen mehreren Ausgängen entschieden werden?
+	 */
+	private DecideByStationOnTie decideByStationOnTie;
+
+	/**
 	 * Konstruktor der Klasse <code>ModelElementDecide</code>
 	 * @param model	Modell zu dem dieses Element gehören soll (kann später nicht mehr geändert werden)
 	 * @param surface	Zeichenfläche zu dem dieses Element gehören soll (kann später nicht mehr geändert werden)
@@ -127,6 +132,7 @@ public class ModelElementDecideAndTeleport extends ModelElementBox implements Mo
 		conditions=new ArrayList<>();
 		values=new ArrayList<>();
 		multiTextValues=true;
+		decideByStationOnTie=DecideByStationOnTie.RANDOM;
 		clientTypes=new ArrayList<>();
 	}
 
@@ -230,6 +236,8 @@ public class ModelElementDecideAndTeleport extends ModelElementBox implements Mo
 			break;
 		}
 
+		if (decideByStationOnTie!=decide.decideByStationOnTie) return false;
+
 		return true;
 	}
 
@@ -287,6 +295,8 @@ public class ModelElementDecideAndTeleport extends ModelElementBox implements Mo
 			}
 
 			multiTextValues=source.multiTextValues;
+
+			decideByStationOnTie=source.decideByStationOnTie;
 		}
 	}
 
@@ -486,6 +496,11 @@ public class ModelElementDecideAndTeleport extends ModelElementBox implements Mo
 			sub.setAttribute(Language.trPrimary("Surface.Decide.XML.Key.MultiTextValues"),multiTextValues?"1":"0");
 		}
 
+		if (mode==DecideMode.MODE_MIN_CLIENTS_NEXT_STATION || mode==DecideMode.MODE_SHORTEST_QUEUE_NEXT_STATION || mode==DecideMode.MODE_MIN_CLIENTS_PROCESS_STATION || mode==DecideMode.MODE_SHORTEST_QUEUE_PROCESS_STATION) {
+			node.appendChild(sub=doc.createElement(Language.trPrimary("Surface.Decide.DecideByStationOnTie.XMLName")));
+			sub.setTextContent(decideByStationOnTie.getName());
+		}
+
 		if (connectionsIn!=null) for (ModelElementEdge element: connectionsIn) {
 			node.appendChild(sub=doc.createElement(Language.trPrimary("Surface.XML.Connection")));
 			sub.setAttribute(Language.trPrimary("Surface.XML.Connection.Element"),""+element.getId());
@@ -575,6 +590,11 @@ public class ModelElementDecideAndTeleport extends ModelElementBox implements Mo
 			key=content;
 			final String strMultiTextValues=Language.trAllAttribute("Surface.Decide.XML.Key.MultiTextValues",node);
 			if (strMultiTextValues.equals("0")) multiTextValues=false; else multiTextValues=true;
+			return null;
+		}
+
+		if (Language.trAll("Surface.Decide.DecideByStationOnTie.XMLName",name)) {
+			decideByStationOnTie=ElementWithDecideData.DecideByStationOnTie.byName(content);
 			return null;
 		}
 
@@ -758,6 +778,16 @@ public class ModelElementDecideAndTeleport extends ModelElementBox implements Mo
 	@Override
 	public void setMultiTextValues(boolean multiTextValues) {
 		this.multiTextValues=multiTextValues;
+	}
+
+	@Override
+	public DecideByStationOnTie getDecideByStationOnTie() {
+		return (decideByStationOnTie==null)?DecideByStationOnTie.RANDOM:decideByStationOnTie;
+	}
+
+	@Override
+	public void setDecideByStationOnTie(DecideByStationOnTie decideByStationOnTie) {
+		this.decideByStationOnTie=(decideByStationOnTie==null)?DecideByStationOnTie.RANDOM:decideByStationOnTie;
 	}
 
 	/**

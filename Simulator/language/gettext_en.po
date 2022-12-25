@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-12-22 11:20+0100\n"
+"POT-Creation-Date: 2022-12-23 18:26+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -26815,8 +26815,32 @@ msgstr "Condition"
 msgid "Surface.Decide.Condition.ElseCase"
 msgstr "Case \"else\""
 
+msgid "Surface.Decide.DecideByStationOnTie.XMLName"
+msgstr "ModelElementDecideAtTie"
+
+msgid "Surface.Decide.DecideByStationOnTie.XMLNameFirst"
+msgstr "First"
+
+msgid "Surface.Decide.DecideByStationOnTie.XMLNameLast"
+msgstr "Last"
+
+msgid "Surface.Decide.DecideByStationOnTie.XMLNameRandom"
+msgstr "Random"
+
 msgid "Surface.Decide.Dialog.DecideBy"
 msgstr "Decide by"
+
+msgid "Surface.Decide.Dialog.DecideBy.AtTie"
+msgstr "In case of a tie between several stations"
+
+msgid "Surface.Decide.Dialog.DecideBy.AtTie.First"
+msgstr "Select first exit (with lowest value)"
+
+msgid "Surface.Decide.Dialog.DecideBy.AtTie.Last"
+msgstr "Select last exit (with lowest value)"
+
+msgid "Surface.Decide.Dialog.DecideBy.AtTie.Random"
+msgstr "Select exit randomly"
 
 msgid "Surface.Decide.Dialog.DecideBy.Chance"
 msgstr "Chance"

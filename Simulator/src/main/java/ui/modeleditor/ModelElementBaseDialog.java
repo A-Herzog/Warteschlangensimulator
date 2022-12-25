@@ -1167,6 +1167,17 @@ public abstract class ModelElementBaseDialog extends BaseDialog {
 	}
 
 	/**
+	 * Erstellt ein Panel, in dem sich ein Label und eine ComboBox mit aktivem Editor befinden
+	 * @param labelText Beschriftungstext, der vor der ComboBox stehen soll
+	 * @param value Text, der im ComboBox-Editor angezeigt werden soll
+	 * @param values Mögliche Auswahlwerte für die ComboBox
+	 * @return Liefert ein 2-elementiges Array: <code>JPanel</code>-Objekt, in dem sich Label und ComboBox befinden, und <code>JComboBox</code> vom Typ <code>String</code>
+	 */
+	public static Object[] getComboBoxPanel(final String labelText, final String value, final String[] values) {
+		return getComboBoxPanel(labelText,value,Arrays.asList(values));
+	}
+
+	/**
 	 * Erstellt ein Panel, in dem sich ein Label und eine ComboBox ohne Edit-Möglichkeit befinden
 	 * @param labelText Beschriftungstext, der vor der ComboBox stehen soll
 	 * @param values Mögliche Auswahlwerte für die ComboBox
@@ -1182,6 +1193,16 @@ public abstract class ModelElementBaseDialog extends BaseDialog {
 		label.setLabelFor(comboBox);
 
 		return new Object[] {panel, comboBox};
+	}
+
+	/**
+	 * Erstellt ein Panel, in dem sich ein Label und eine ComboBox ohne Edit-Möglichkeit befinden
+	 * @param labelText Beschriftungstext, der vor der ComboBox stehen soll
+	 * @param values Mögliche Auswahlwerte für die ComboBox
+	 * @return Liefert ein 2-elementiges Array: <code>JPanel</code>-Objekt, in dem sich Label und ComboBox befinden, und <code>JComboBox</code> vom Typ <code>String</code>
+	 */
+	public static Object[] getComboBoxPanel(final String labelText, final String[] values) {
+		return getComboBoxPanel(labelText,Arrays.asList(values));
 	}
 
 	/**
