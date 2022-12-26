@@ -57,6 +57,12 @@ public class DecideDataPanelClientTypes extends JPanel {
 	private static String HTML2="</b></body></html>";
 
 	/**
+	 * Liste der Beschriftungslabels für die verschiedenen Ausgänge
+	 * @see #getLabels()
+	 */
+	private final List<JLabel> labels;
+
+	/**
 	 * Liste mit allen im Modell vorhandenen Kundentypennamen
 	 */
 	private final List<String> allClientTypesList;
@@ -97,6 +103,7 @@ public class DecideDataPanelClientTypes extends JPanel {
 		allClientTypesList=element.getSurface().getClientTypes();
 		model=element.getModel();
 
+		labels=new ArrayList<>();
 		this.destinations=destinations;
 		clientTypeCombos=new ArrayList<>();
 		for (int i=0;i<destinations.size();i++) clientTypeCombos.add(new ArrayList<>());
@@ -120,6 +127,7 @@ public class DecideDataPanelClientTypes extends JPanel {
 		final JPanel labelPanel=new JPanel(new FlowLayout(FlowLayout.LEFT));
 		section.add(labelPanel,BorderLayout.NORTH);
 		final JLabel label=new JLabel(HTML1+title+HTML2);
+		labels.add(label);
 		labelPanel.add(label);
 
 		final JPanel lines=new JPanel();
@@ -233,14 +241,15 @@ public class DecideDataPanelClientTypes extends JPanel {
 	 */
 	@SuppressWarnings("unchecked")
 	public void loadData(final DecideDataPanelClientTypes oldPanel) {
+		labels.clear();
 		for (int i=0;i<destinations.size();i++) {
 			final JPanel section=addSection(destinations.get(i));
 			if (i==destinations.size()-1) {
 				buildComboLine(section,null);
 			} else {
-				final int size=Math.max(1,oldPanel.clientTypeCombos.get(i).size());
+				final int size=(oldPanel.clientTypeCombos.size()>i)?Math.max(1,oldPanel.clientTypeCombos.get(i).size()):1;
 				for (int j=0;j<size;j++) {
-					final String clientType=(j>=oldPanel.clientTypeCombos.get(i).size())?"":(String)oldPanel.clientTypeCombos.get(i).get(j).getSelectedItem();
+					final String clientType=(i>=oldPanel.clientTypeCombos.size() || j>=oldPanel.clientTypeCombos.get(i).size())?"":(String)oldPanel.clientTypeCombos.get(i).get(j).getSelectedItem();
 					final Object[] obj=buildComboLine(section,clientType);
 					final JPanel line=(JPanel)obj[0];
 					clientTypeCombos.get(i).add((JComboBox<String>)obj[1]);
@@ -287,5 +296,13 @@ public class DecideDataPanelClientTypes extends JPanel {
 			result.add(list);
 		}
 		return result;
+	}
+
+	/**
+	 * Liefert die Liste der Beschriftungslabels für die verschiedenen Ausgänge.
+	 * @return	Liste der Beschriftungslabels für die verschiedenen Ausgänge
+	 */
+	public List<JLabel> getLabels() {
+		return labels;
 	}
 }

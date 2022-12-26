@@ -78,6 +78,15 @@ public abstract class DecideDataPanel extends JPanel {
 	/** Konfigurationspanel für die gewählte Verzweigungsart */
 	private JPanel contentCards;
 
+	/** Beschriftungen für die Eingabefelder für Verzweigen nach Raten */
+	private List<JLabel> labels1;
+	/** Beschriftungen für die Eingabefelder für Verzweigen nach Bedingungen */
+	private List<JLabel> labels2;
+	/** Beschriftungen für die Eingabefelder für Verzweigen nach Kundentypen */
+	private List<JLabel> labels3;
+	/** Beschriftungen für die Eingabefelder für Verzweigen nach Texteigenschaften */
+	private List<JLabel> labels4;
+
 	/** Eingabefelder für die Raten (im Zufall-Modus) */
 	private List<JTextField> rates;
 
@@ -178,6 +187,9 @@ public abstract class DecideDataPanel extends JPanel {
 		JPanel contentOuter;
 
 		final List<String> destinations=getDestinations();
+		labels1=new ArrayList<>();
+		labels2=new ArrayList<>();
+		labels4=new ArrayList<>();
 
 		/* Seite "Zufall" */
 		contentCards.add(content=new JPanel(),modeSelect.getItemAt(0));
@@ -191,6 +203,7 @@ public abstract class DecideDataPanel extends JPanel {
 
 			final JPanel labelPanel=new JPanel(new FlowLayout(FlowLayout.LEFT)); option.add(labelPanel,BorderLayout.NORTH);
 			label=new JLabel(HTML1+name+HTML2); labelPanel.add(label);
+			labels1.add(label);
 
 			final String decideText;
 			if (oldPanel!=null) {
@@ -224,6 +237,7 @@ public abstract class DecideDataPanel extends JPanel {
 
 			final JPanel labelPanel=new JPanel(new FlowLayout(FlowLayout.LEFT)); option.add(labelPanel,BorderLayout.NORTH);
 			label=new JLabel(HTML1+name+HTML2); labelPanel.add(label);
+			labels2.add(label);
 
 			data=ModelElementBaseDialog.getInputPanel(Language.tr("Surface.Decide.Dialog.OutgoingEdge.Condition")+":","");
 			final JPanel inputPanel=(JPanel)data[0];
@@ -264,6 +278,7 @@ public abstract class DecideDataPanel extends JPanel {
 		} else {
 			clientTypesPanel.loadData(decide.getClientTypes());
 		}
+		labels3=clientTypesPanel.getLabels();
 
 		/* Seite "Reihenfolge" */
 		contentCards.add(content=new JPanel(),modeSelect.getItemAt(3));
@@ -347,6 +362,7 @@ public abstract class DecideDataPanel extends JPanel {
 
 			final JPanel labelPanel=new JPanel(new FlowLayout(FlowLayout.LEFT)); option.add(labelPanel,BorderLayout.NORTH);
 			label=new JLabel(HTML1+name+HTML2); labelPanel.add(label);
+			labels4.add(label);
 
 			data=ModelElementBaseDialog.getInputPanel(Language.tr("Surface.Decide.Dialog.OutgoingEdge.Value")+":","");
 			option.add((JPanel)data[0],BorderLayout.CENTER);
@@ -405,6 +421,24 @@ public abstract class DecideDataPanel extends JPanel {
 	 */
 	public DecideDataPanel(final ModelElement element, final boolean readOnly) {
 		this(element,null,readOnly);
+	}
+
+	/**
+	 * Aktualisiert die Beschriftungen an den Eingabefeldern.
+	 */
+	public void updateLabels() {
+		final List<String> destinations=getDestinations();
+		int min=destinations.size();
+		min=Math.min(min,labels1.size());
+		min=Math.min(min,labels2.size());
+		min=Math.min(min,labels3.size());
+		min=Math.min(min,labels4.size());
+		for (int i=0;i<min;i++) {
+			labels1.get(i).setText(HTML1+destinations.get(i)+HTML2);
+			labels2.get(i).setText(HTML1+destinations.get(i)+HTML2);
+			labels3.get(i).setText(HTML1+destinations.get(i)+HTML2);
+			labels4.get(i).setText(HTML1+destinations.get(i)+HTML2);
+		}
 	}
 
 	/**

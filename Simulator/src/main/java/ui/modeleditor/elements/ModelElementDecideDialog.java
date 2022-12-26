@@ -65,6 +65,7 @@ public final class ModelElementDecideDialog extends ModelElementBaseDialog {
 	protected void setDialogSize() {
 		setMinSizeRespectingScreensize(800,600);
 		pack();
+		setResizable(true);
 		setMaxSizeRespectingScreensize(1024,768);
 	}
 

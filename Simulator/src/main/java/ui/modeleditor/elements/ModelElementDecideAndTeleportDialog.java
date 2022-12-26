@@ -25,6 +25,7 @@ import java.util.stream.Collectors;
 import javax.swing.JComponent;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
+import javax.swing.Timer;
 
 import language.Language;
 import ui.images.Images;
@@ -54,6 +55,11 @@ public class ModelElementDecideAndTeleportDialog extends ModelElementBaseDialog 
 	private DecideDataPanel decideDataPanel;
 
 	/**
+	 * Anzahl an Zielen
+	 */
+	private int lastDestinationCount;
+
+	/**
 	 * Konstruktor der Klasse
 	 * @param owner	Übergeordnetes Fenster
 	 * @param element	Zu bearbeitendes {@link ModelElementDecide}
@@ -67,6 +73,7 @@ public class ModelElementDecideAndTeleportDialog extends ModelElementBaseDialog 
 	protected void setDialogSize() {
 		setMinSizeRespectingScreensize(800,600);
 		pack();
+		setResizable(true);
 		setMaxSizeRespectingScreensize(1024,768);
 	}
 
@@ -107,8 +114,16 @@ public class ModelElementDecideAndTeleportDialog extends ModelElementBaseDialog 
 		tabs.setIconAt(0,Images.MODELEDITOR_ELEMENT_TELEPORT_DESTINATION.getIcon());
 		tabs.setIconAt(1,Images.MODELEDITOR_ELEMENT_DECIDE.getIcon());
 
+		lastDestinationCount=teleportDestinations.getDestinations().size();
+
 		return content;
 	}
+
+	/**
+	 * Cache für die Zuordnung von Teleport-Ziel-Namen zu den zugehörigen Elementen
+	 * @see DecideAndTeleportDecideDataPanel#getDestinations()
+	 */
+	private Map<String,ModelElementTeleportDestination> destinations;
 
 	/**
 	 * Verzweigungsregeln-Panel
@@ -120,12 +135,6 @@ public class ModelElementDecideAndTeleportDialog extends ModelElementBaseDialog 
 		 * @see Serializable
 		 */
 		private static final long serialVersionUID=-1776207700552175574L;
-
-		/**
-		 * Cache für die Zuordnung von Teleport-Ziel-Namen zu den zugehörigen Elementen
-		 * @see #getDestinations()
-		 */
-		private Map<String,ModelElementTeleportDestination> destinations;
 
 		/**
 		 * Konstruktor der Klasse
@@ -146,8 +155,8 @@ public class ModelElementDecideAndTeleportDialog extends ModelElementBaseDialog 
 
 		@Override
 		protected List<String> getDestinations() {
+			if (destinations==null) destinations=TeleportDestinationsPanel.getAllDestinations(element.getModel());
 			return teleportDestinations.getDestinations().stream().map(destination->{
-				if (destinations==null) destinations=TeleportDestinationsPanel.getAllDestinations(element.getModel());
 				final ModelElementTeleportDestination destinationStation=destinations.get(destination);
 				return (destinationStation==null)?destination:String.format("%s (id=%d)",destination,destinationStation.getId());
 			}).collect(Collectors.toList());
@@ -155,13 +164,43 @@ public class ModelElementDecideAndTeleportDialog extends ModelElementBaseDialog 
 	}
 
 	/**
-	 * Aktualisiert Anzahl und Bezeichnungen im Verzweigungsregeln-Panel
+	 * Aktualisiert das Verzweigungsregeln-Panel vollständig
 	 */
-	private void rebuildDecidePanel() {
+	private void rebuildDecidePanelNow() {
 		final JPanel tab=(JPanel)decideDataPanel.getParent();
 		final DecideDataPanel oldDecideDataPanel=decideDataPanel;
 		tab.remove(oldDecideDataPanel);
 		tab.add(decideDataPanel=new DecideAndTeleportDecideDataPanel(oldDecideDataPanel));
+	}
+
+	/**
+	 * Timer zur Verzögerten Aktualisierung des Verzweigungsregeln-Panels
+	 * @see #rebuildDecidePanel()
+	 */
+	private Timer rebuildDecidePanelTimer=null;
+
+	/**
+	 * Aktualisiert Anzahl und Bezeichnungen im Verzweigungsregeln-Panel
+	 */
+	private void rebuildDecidePanel() {
+		final int newDestinationCount=teleportDestinations.getDestinations().size();
+		if (lastDestinationCount==newDestinationCount) {
+			decideDataPanel.updateLabels();
+			return;
+		}
+		lastDestinationCount=newDestinationCount;
+
+		if (rebuildDecidePanelTimer!=null) {
+			rebuildDecidePanelTimer.stop();
+			rebuildDecidePanelTimer=null;
+		}
+
+		rebuildDecidePanelTimer=new Timer(200,e->{
+			rebuildDecidePanelTimer.stop();
+			rebuildDecidePanelTimer=null;
+			rebuildDecidePanelNow();
+		});
+		rebuildDecidePanelTimer.start();
 	}
 
 	@Override
