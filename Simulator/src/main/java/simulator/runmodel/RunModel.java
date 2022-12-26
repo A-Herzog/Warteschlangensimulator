@@ -319,6 +319,11 @@ public class RunModel {
 	public boolean isAnimation;
 
 	/**
+	 * Element zur Verbindung von Simulationsmodell und Animationssystem (ist nur mit einem Wert ungleich <code>null</code> belegt, wenn <code>isAnimation</code> auf <code>true</code> gesetzt ist)
+	 */
+	public ModelElementAnimationConnect animationConnect;
+
+	/**
 	 * Zeitabstand in dem für Bedingung- und ähnliche Stationen zusätzliche zeitabhängige Checks durchgeführt werden sollen.
 	 * Werte &le;0 bedeuten, dass keine Checks stattfinden. Sonst ist der Wert die Millisekundenanzahl zwischen zwei Checks.
 	 */
@@ -736,7 +741,10 @@ public class RunModel {
 						hasSource=true;
 						allSourcesLimited=allSourcesLimited && isLimitedSource(((ModelElementSource)element).getRecord());
 					}
-					if (element instanceof ModelElementAnimationConnect) runModel.isAnimation=true;
+					if (element instanceof ModelElementAnimationConnect) {
+						runModel.isAnimation=true;
+						runModel.animationConnect=(ModelElementAnimationConnect)element;
+					}
 					if (element instanceof ModelElementSourceMulti && !((ModelElementSourceMulti)element).getRecords().isEmpty()) {
 						hasSource=true;
 						for (ModelElementSourceRecord record: ((ModelElementSourceMulti)element).getRecords()) {

@@ -214,4 +214,9 @@ public class ModelElementSubAnimationDashboardWindow extends JFrame implements R
 		setVisible(false);
 		dispose();
 	}
+
+	@Override
+	public void pauseAnimation() {
+		mainAnimationPanel.pauseAnimation();
+	}
 }

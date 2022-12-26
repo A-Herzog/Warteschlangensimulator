@@ -1744,7 +1744,7 @@ public class AnimationPanel extends JPanel implements RunModelAnimationViewer {
 		continueAsSimulation=true;
 		if (!running) playPause();
 
-		if (running) { /* Wenn die Animation eigentlich schon zu Ende ist, läuft sich durcg playPause() nicht mehr an, dann müssen/können die folgenden beiden Zeile nicht mehr ausgeführt werden. */
+		if (running) { /* Wenn die Animation eigentlich schon zu Ende ist, läuft sich durch playPause() nicht mehr an, dann müssen/können die folgenden beiden Zeile nicht mehr ausgeführt werden. */
 			surfaceAnimator.setRecordSystem(null,1.0,false);
 			if (timer!=null) timer.cancel();
 		}
@@ -1754,6 +1754,9 @@ public class AnimationPanel extends JPanel implements RunModelAnimationViewer {
 			if (encoder instanceof MJPEGSystem) new AnimationRecordWaitDialog(this,(MJPEGSystem)encoder);
 			encoder=null;
 		}
+
+		/* Marker, dass es sich um eine Animation handelt (mit der interagiert werden kann) abschalten */
+		simulator.getRunModel().isAnimation=false;
 
 		animationTerminated();
 		if (animationDone!=null) SwingUtilities.invokeLater(animationDone);
@@ -2615,6 +2618,11 @@ public class AnimationPanel extends JPanel implements RunModelAnimationViewer {
 			viewers.addAll(subViewers);
 		}
 		for (RunModelAnimationViewer subViewer: viewers) subViewer.animationTerminated();
+	}
+
+	@Override
+	public void pauseAnimation() {
+		if (running) playPause();
 	}
 
 	/**

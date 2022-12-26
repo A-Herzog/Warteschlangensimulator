@@ -24,7 +24,6 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 import language.Language;
-import mathtools.NumberTools;
 import simulator.editmodel.EditModel;
 import simulator.editmodel.FullTextSearch;
 import ui.images.Images;
@@ -38,30 +37,18 @@ import ui.modeleditor.descriptionbuilder.ModelDescriptionBuilder;
 import ui.modeleditor.fastpaint.Shapes;
 
 /**
- * Löst einen akustischen Alarm aus, wenn ein Kunde die Station passiert.
+ * Pausiert die Animation, wenn ein Kunde die Station erreicht.
  * @author Alexander Herzog
- *
  */
-public class ModelElementAnimationAlarm extends ModelElementMultiInSingleOutBox {
-	/**
-	 * Abzuspielender Sound
-	 */
-	private String sound;
-
-	/**
-	 * Maximaldauer (in Sekunden) des abzuspielenden Sounds
-	 */
-	private int soundMaxSeconds;
+public class ModelElementAnimationPause extends ModelElementMultiInSingleOutBox {
 
 	/**
 	 * Konstruktor der Klasse
 	 * @param model	Modell zu dem dieses Element gehören soll (kann später nicht mehr geändert werden)
 	 * @param surface	Zeichenfläche zu dem dieses Element gehören soll (kann später nicht mehr geändert werden)
 	 */
-	public ModelElementAnimationAlarm(final EditModel model, final ModelSurface surface) {
-		super(model,surface,Shapes.ShapeType.SHAPE_ROUNDED_RECTANGLE_SPEAKER);
-		sound="";
-		soundMaxSeconds=10;
+	public ModelElementAnimationPause(final EditModel model, final ModelSurface surface) {
+		super(model,surface,Shapes.ShapeType.SHAPE_ROUNDED_RECTANGLE_PAUSE);
 	}
 
 	/**
@@ -70,7 +57,7 @@ public class ModelElementAnimationAlarm extends ModelElementMultiInSingleOutBox 
 	 */
 	@Override
 	public Icon getAddElementIcon() {
-		return Images.MODELEDITOR_ELEMENT_ANIMATION_ALARM.getIcon();
+		return Images.MODELEDITOR_ELEMENT_ANIMATION_PAUSE.getIcon();
 	}
 
 	/**
@@ -79,7 +66,7 @@ public class ModelElementAnimationAlarm extends ModelElementMultiInSingleOutBox 
 	 */
 	@Override
 	public String getToolTip() {
-		return Language.tr("Surface.AnimationAlarm.Tooltip");
+		return Language.tr("Surface.AnimationPause.Tooltip");
 	}
 
 	/**
@@ -90,25 +77,8 @@ public class ModelElementAnimationAlarm extends ModelElementMultiInSingleOutBox 
 	@Override
 	public boolean equalsModelElement(ModelElement element) {
 		if (!super.equalsModelElement(element)) return false;
-		if (!(element instanceof ModelElementAnimationAlarm)) return false;
-		final ModelElementAnimationAlarm otherAlarm=(ModelElementAnimationAlarm)element;
-		if (!sound.equals(otherAlarm.sound)) return false;
-		if (soundMaxSeconds!=otherAlarm.soundMaxSeconds) return false;
+		if (!(element instanceof ModelElementAnimationPause)) return false;
 		return true;
-	}
-
-
-	/**
-	 * Überträgt die Einstellungen von dem angegebenen Element auf dieses.
-	 * @param element	Element, von dem alle Einstellungen übernommen werden sollen
-	 */
-	@Override
-	public void copyDataFrom(ModelElement element) {
-		super.copyDataFrom(element);
-		if (element instanceof ModelElementAnimationAlarm) {
-			sound=((ModelElementAnimationAlarm)element).sound;
-			soundMaxSeconds=((ModelElementAnimationAlarm)element).soundMaxSeconds;
-		}
 	}
 
 	/**
@@ -118,62 +88,10 @@ public class ModelElementAnimationAlarm extends ModelElementMultiInSingleOutBox 
 	 * @return	Kopiertes Element
 	 */
 	@Override
-	public ModelElementAnimationAlarm clone(final EditModel model, final ModelSurface surface) {
-		final ModelElementAnimationAlarm element=new ModelElementAnimationAlarm(model,surface);
+	public ModelElementAnimationPause clone(final EditModel model, final ModelSurface surface) {
+		final ModelElementAnimationPause element=new ModelElementAnimationPause(model,surface);
 		element.copyDataFrom(this);
 		return element;
-	}
-
-	/**
-	 * Liefert den auszugebenden Sound.
-	 * @return	Auszugebender Sound
-	 * @see #setSound(String)
-	 * @see #getSoundMaxSeconds()
-	 */
-	public String getSound() {
-		return sound;
-	}
-
-	/**
-	 * Stellt den auszugebenden Sound ein.
-	 * @param sound	Auszugebender Sound
-	 * @see #getSound()
-	 * @see #setSoundMaxSeconds(int)
-	 */
-	public void setSound(final String sound) {
-		this.sound=(sound==null)?"":sound;
-	}
-
-	/**
-	 * Stellt den auszugebenden Sound ein.
-	 * @param sound	Auszugebender Sound
-	 * @param soundMaxSeconds	Maximale Anzahl an Sekunden für die Sound-Ausgabe (oder ein Wert &le;0 für keine Beschränkung)
-	 * @see #getSound()
-	 * @see #setSoundMaxSeconds(int)
-	 */
-	public void setSound(final String sound, final int soundMaxSeconds) {
-		this.sound=(sound==null)?"":sound;
-		this.soundMaxSeconds=soundMaxSeconds;
-	}
-
-	/**
-	 * Liefert die maximale Anzahl an Sekunden, die {@link #getSound()} ausgegeben werden soll.
-	 * @return	Maximale Anzahl an Sekunden für die Sound-Ausgabe (oder ein Wert &le;0 für keine Beschränkung)
-	 * @see #setSoundMaxSeconds(int)
-	 * @see #getSound()
-	 */
-	public int getSoundMaxSeconds() {
-		return soundMaxSeconds;
-	}
-
-	/**
-	 * Stellt die maximale Anzahl an Sekunden, die {@link #getSound()} ausgegeben werden soll, ein.
-	 * @param soundMaxSeconds	Maximale Anzahl an Sekunden für die Sound-Ausgabe (oder ein Wert &le;0 für keine Beschränkung)
-	 * @see #getSoundMaxSeconds()
-	 * @see #setSound(String)
-	 */
-	public void setSoundMaxSeconds(final int soundMaxSeconds) {
-		this.soundMaxSeconds=soundMaxSeconds;
 	}
 
 	/**
@@ -182,7 +100,7 @@ public class ModelElementAnimationAlarm extends ModelElementMultiInSingleOutBox 
 	 */
 	@Override
 	public String getContextMenuElementName() {
-		return Language.tr("Surface.AnimationAlarm.Name");
+		return Language.tr("Surface.AnimationPause.Name");
 	}
 
 	/**
@@ -191,7 +109,7 @@ public class ModelElementAnimationAlarm extends ModelElementMultiInSingleOutBox 
 	 */
 	@Override
 	public String getTypeName() {
-		return Language.tr("Surface.AnimationAlarm.Name");
+		return Language.tr("Surface.AnimationPause.Name");
 	}
 
 	/**
@@ -220,7 +138,7 @@ public class ModelElementAnimationAlarm extends ModelElementMultiInSingleOutBox 
 	@Override
 	public Runnable getProperties(final Component owner, final boolean readOnly, final ModelClientData clientData, final ModelSequences sequences) {
 		return ()->{
-			new ModelElementAnimationAlarmDialog(owner,ModelElementAnimationAlarm.this,readOnly);
+			new ModelElementAnimationPauseDialog(owner,ModelElementAnimationPause.this,readOnly);
 		};
 	}
 
@@ -230,7 +148,7 @@ public class ModelElementAnimationAlarm extends ModelElementMultiInSingleOutBox 
 	 */
 	@Override
 	public String[] getXMLNodeNames() {
-		return Language.trAll("Surface.AnimationAlarm.XML.Root");
+		return Language.trAll("Surface.AnimationPause.XML.Root");
 	}
 
 	/**
@@ -241,11 +159,6 @@ public class ModelElementAnimationAlarm extends ModelElementMultiInSingleOutBox 
 	@Override
 	protected void addPropertiesDataToXML(final Document doc, final Element node) {
 		super.addPropertiesDataToXML(doc,node);
-
-		final Element sub=doc.createElement(Language.trPrimary("Surface.AnimationAlarm.XML.Sound"));
-		node.appendChild(sub);
-		sub.setTextContent(sound);
-		if (soundMaxSeconds>0) sub.setAttribute(Language.trPrimary("Surface.AnimationAlarm.XML.SoundMaxSeconds"),""+soundMaxSeconds);
 	}
 
 	/**
@@ -259,14 +172,6 @@ public class ModelElementAnimationAlarm extends ModelElementMultiInSingleOutBox 
 	protected String loadProperty(final String name, final String content, final Element node) {
 		String error=super.loadProperty(name,content,node);
 		if (error!=null) return error;
-
-		if (Language.trAll("Surface.AnimationAlarm.XML.Sound",name)) {
-			sound=content;
-			final Long L=NumberTools.getPositiveLong(Language.trAllAttribute("Surface.AnimationAlarm.XML.SoundMaxSeconds",node));
-			if (L!=null) soundMaxSeconds=L.intValue();
-			return null;
-		}
-
 		return null;
 	}
 
@@ -281,7 +186,7 @@ public class ModelElementAnimationAlarm extends ModelElementMultiInSingleOutBox 
 
 	@Override
 	public String getHelpPageName() {
-		return "ModelElementAnimationAlarm";
+		return "ModelElementAnimationPause";
 	}
 
 	/**
@@ -291,7 +196,6 @@ public class ModelElementAnimationAlarm extends ModelElementMultiInSingleOutBox 
 	@Override
 	public void buildDescription(final ModelDescriptionBuilder descriptionBuilder) {
 		super.buildDescription(descriptionBuilder);
-		descriptionBuilder.addProperty(Language.tr("ModelDescription.AnimationAlarm"),Language.tr("ModelDescription.AnimationAlarm.Sound")+": "+sound,1000);
 	}
 
 	/**
@@ -301,6 +205,6 @@ public class ModelElementAnimationAlarm extends ModelElementMultiInSingleOutBox 
 	 * @see FullTextSearch
 	 */
 	public void search(final FullTextSearch searcher, final ModelElementBox station) {
-		searcher.testString(station,Language.tr("Editor.DialogBase.Search.Sound"),sound,newSound->{sound=newSound; soundMaxSeconds=-1;});
+		/* Keine eigenen Einstellungen */
 	}
 }

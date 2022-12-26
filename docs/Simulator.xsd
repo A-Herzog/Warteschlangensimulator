@@ -595,6 +595,7 @@
   <xs:element ref="ModellElementAnimationBild"/>
   <xs:element ref="ModellElementAnimationAufzeichnung"/>
   <xs:element ref="ModellElementAnimationAlarm"/>
+  <xs:element ref="ModellElementPause"/>
   <xs:element ref="ModellElementUntermodell"/>
   <xs:element ref="ModellElementUntermodellEingang"/>
   <xs:element ref="ModellElementUntermodellAusgang"/>
@@ -1884,6 +1885,8 @@
   </xs:extension>
 </xs:simpleContent></xs:complexType></xs:element>
 
+<xs:element name="ModellElementPause" type="ModellElementVerbundenBasis"/>
+
 <xs:element name="ModellElementUntermodell"><xs:complexType><xs:complexContent><xs:extension base="ModellElementVerbundenBasis">
   <xs:sequence minOccurs="0" maxOccurs="unbounded"><xs:choice>
     <xs:element ref="ModellElementUntermodellVerbindungen"/>
@@ -2952,6 +2955,7 @@
   <xs:element ref="ModelElementAnimationImage"/>
   <xs:element ref="ModelElementAnimationRecord"/>
   <xs:element ref="ModelElementAnimationAlarm"/>
+  <xs:element ref="ModelElementPause"/>
   <xs:element ref="ModelElementSubModel"/>
   <xs:element ref="ModelElementSubModelInput"/>
   <xs:element ref="ModelElementSubModelOutput"/>
@@ -4237,6 +4241,8 @@
     <xs:attribute name="SoundMaxSeconds" type="xs:integer"/>
   </xs:extension>
 </xs:simpleContent></xs:complexType></xs:element>
+
+<xs:element name="ModelElementPause" type="ModelElementConnectedBase"/>
 
 <xs:element name="ModelElementSubModel"><xs:complexType><xs:complexContent><xs:extension base="ModelElementConnectedBase">
   <xs:sequence minOccurs="0" maxOccurs="unbounded"><xs:choice>

@@ -24,58 +24,48 @@ import simulator.runmodel.RunDataClient;
 import simulator.runmodel.RunModel;
 import simulator.runmodel.SimulationData;
 import ui.modeleditor.coreelements.ModelElement;
-import ui.modeleditor.elements.ModelElementAnimationAlarm;
+import ui.modeleditor.elements.ModelElementAnimationPause;
 import ui.modeleditor.elements.ModelElementSub;
-import ui.tools.SoundSystem;
 
 /**
- * Äquivalent zu {@link ModelElementAnimationAlarm}
+ * Äquivalent zu {@link ModelElementAnimationPause}
  * @author Alexander Herzog
- * @see ModelElementAnimationAlarm
+ * @see ModelElementAnimationPause
  */
-public class RunElementAnimationAlarm extends RunElementPassThrough {
-	/** Abzuspielender Sound */
-	private String sound;
-	/** Maximaldauer des abzuspielenden Sounds */
-	private int soundMaxSeconds;
-
+public class RunElementAnimationPause extends RunElementPassThrough {
 	/**
 	 * Konstruktor der Klasse
 	 * @param element	Zugehöriges Editor-Element
 	 */
-	public RunElementAnimationAlarm(final ModelElementAnimationAlarm element) {
-		super(element,buildName(element,Language.tr("Simulation.Element.AnimationAlarm.Name")));
+	public RunElementAnimationPause(final ModelElementAnimationPause element) {
+		super(element,buildName(element,Language.tr("Simulation.Element.AnimationPause.Name")));
 	}
 
 	@Override
 	public Object build(EditModel editModel, RunModel runModel, ModelElement element, ModelElementSub parent, boolean testOnly) {
-		if (!(element instanceof ModelElementAnimationAlarm)) return null;
-		final ModelElementAnimationAlarm alarmElement=(ModelElementAnimationAlarm)element;
-		final RunElementAnimationAlarm alarm=new RunElementAnimationAlarm(alarmElement);
+		if (!(element instanceof ModelElementAnimationPause)) return null;
+		final ModelElementAnimationPause pauseElement=(ModelElementAnimationPause)element;
+		final RunElementAnimationPause pause=new RunElementAnimationPause(pauseElement);
 
 		/* Auslaufende Kanten */
-		final String edgeError=alarm.buildEdgeOut(alarmElement);
+		final String edgeError=pause.buildEdgeOut(pauseElement);
 		if (edgeError!=null) return edgeError;
 
-		/* Einstellungen zum abzuspielenden Sound */
-		alarm.sound=alarmElement.getSound();
-		alarm.soundMaxSeconds=alarmElement.getSoundMaxSeconds();
-
-		return alarm;
+		return pause;
 	}
 
 	@Override
 	public RunModelCreatorStatus test(ModelElement element) {
-		if (!(element instanceof ModelElementAnimationAlarm)) return null;
+		if (!(element instanceof ModelElementAnimationPause)) return null;
 
 		return RunModelCreatorStatus.ok;
 	}
 
 	@Override
 	public void processArrival(SimulationData simData, RunDataClient client) {
-		/* Bei Animation Sound abspielen */
+		/* Animation bei Kundenankunft pausieren */
 		if (simData.runModel.isAnimation) {
-			SoundSystem.getInstance().playAll(sound,soundMaxSeconds);
+			simData.runModel.animationConnect.animationViewer.pauseAnimation();
 		}
 
 		/* Kunde zur nächsten Station leiten */

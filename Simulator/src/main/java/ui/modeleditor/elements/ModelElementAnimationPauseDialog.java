@@ -19,37 +19,32 @@ import java.awt.Component;
 import java.io.Serializable;
 
 import javax.swing.JComponent;
+import javax.swing.JPanel;
 
 import language.Language;
 import ui.infopanel.InfoPanel;
 import ui.modeleditor.ModelElementBaseDialog;
-import ui.tools.SoundSystemPanel;
 
 /**
- * Dialog, der Einstellungen für ein {@link ModelElementAnimationAlarm}-Element anbietet
+ * Dialog, der Einstellungen für ein {@link ModelElementAnimationPause}-Element anbietet
  * @author Alexander Herzog
- * @see ModelElementAnimationAlarm
+ * @see ModelElementAnimationPause
  */
-public class ModelElementAnimationAlarmDialog extends ModelElementBaseDialog {
+public class ModelElementAnimationPauseDialog extends ModelElementBaseDialog {
 	/**
 	 * Serialisierungs-ID der Klasse
 	 * @see Serializable
 	 */
-	private static final long serialVersionUID=-8756803822304491805L;
-
-	/**
-	 * Panel in dem die eigentliche Konfiguration erfolgt
-	 */
-	private SoundSystemPanel soundPanel;
+	private static final long serialVersionUID=7445475635725548851L;
 
 	/**
 	 * Konstruktor der Klasse
 	 * @param owner	Übergeordnetes Fenster
-	 * @param element	Zu bearbeitendes {@link ModelElementAnimationAlarm}
+	 * @param element	Zu bearbeitendes {@link ModelElementAnimationPause}
 	 * @param readOnly	Wird dieser Parameter auf <code>true</code> gesetzt, so wird die "Ok"-Schaltfläche deaktiviert
 	 */
-	public ModelElementAnimationAlarmDialog(final Component owner, final ModelElementAnimationAlarm element, final boolean readOnly) {
-		super(owner,Language.tr("Surface.AnimationAlarm.Dialog.Title"),element,"ModelElementAnimationAlarm",readOnly);
+	public ModelElementAnimationPauseDialog(final Component owner, final ModelElementAnimationPause element, final boolean readOnly) {
+		super(owner,Language.tr("Surface.AnimationPause.Dialog.Title"),element,"ModelElementAnimationPause",readOnly);
 	}
 
 	/**
@@ -59,20 +54,18 @@ public class ModelElementAnimationAlarmDialog extends ModelElementBaseDialog {
 	protected void setDialogSize() {
 		pack();
 		final int h=getSize().height;
-		setMinSizeRespectingScreensize(800,h);
+		setMinSizeRespectingScreensize(600,h);
 		pack();
 	}
 
 	@Override
 	protected String getInfoPanelID() {
-		return InfoPanel.stationAnimationAlarm;
+		return InfoPanel.stationAnimationPause;
 	}
 
 	@Override
 	protected JComponent getContentPanel() {
-		final ModelElementAnimationAlarm alarm=(ModelElementAnimationAlarm)element;
-		soundPanel=new SoundSystemPanel(alarm.getSound(),alarm.getSoundMaxSeconds(),readOnly);
-		return soundPanel;
+		return new JPanel();
 	}
 
 	/**
@@ -83,7 +76,5 @@ public class ModelElementAnimationAlarmDialog extends ModelElementBaseDialog {
 	@Override
 	protected void storeData() {
 		super.storeData();
-		final ModelElementAnimationAlarm alarm=(ModelElementAnimationAlarm)element;
-		alarm.setSound(soundPanel.getSound(),soundPanel.getMaxSeconds());
 	}
 }

@@ -149,6 +149,7 @@ public final class RunModelCreator {
 		templatesList.add(new RunElementInteractiveCheckbox(null));
 		templatesList.add(new RunElementInteractiveRadiobutton(null));
 		templatesList.add(new RunElementAnimationAlarm(null));
+		templatesList.add(new RunElementAnimationPause(null));
 
 		templates=templatesList.toArray(new RunElement[0]);
 	}

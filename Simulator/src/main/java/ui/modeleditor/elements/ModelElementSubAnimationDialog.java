@@ -178,4 +178,9 @@ public class ModelElementSubAnimationDialog extends BaseDialog implements RunMod
 	public void animationTerminated() {
 		close(BaseDialog.CLOSED_BY_CANCEL);
 	}
+
+	@Override
+	public void pauseAnimation() {
+		mainAnimationPanel.pauseAnimation();
+	}
 }

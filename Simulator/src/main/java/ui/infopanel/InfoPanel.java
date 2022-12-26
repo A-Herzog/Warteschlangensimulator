@@ -526,6 +526,9 @@ public class InfoPanel {
 	/** Info-ID für den "Radiobutton"-Bearbeiten-Dialog (Gruppe "Animation - Interaktiv") */
 	public static final String stationInteractiveRadiobutton=groupElement+"InteractiveRadiobutton";
 
+	/** Info-ID für den "Alarm"-Bearbeiten-Dialog (Gruppe "Animation - Interaktiv") */
+	public static final String stationAnimationPause=groupElement+"AnimationPause";
+
 	/* Stationen - Sonstiges */
 
 	/** Info-ID für den "Statistik"-Bearbeiten-Dialog (Gruppe "Sonstiges") */
@@ -1252,6 +1255,10 @@ public class InfoPanel {
 		register(stationInteractiveRadiobutton,
 				()->Language.tr("HintsDialog.TreeNodeStations")+"|"+ModelElementCatalog.GROUP_INTERACTIVE+"|"+Language.tr("Surface.InteractiveRadiobutton.Name"),
 				()->Language.tr("Surface.InteractiveRadiobutton.Infotext"));
+
+		register(stationAnimationPause,
+				()->Language.tr("HintsDialog.TreeNodeStations")+"|"+ModelElementCatalog.GROUP_INTERACTIVE+"|"+Language.tr("Surface.AnimationPause.Name"),
+				()->Language.tr("Surface.AnimationPause.Infotext"));
 
 		/* Stationen - Sonstiges */
 

@@ -370,6 +370,7 @@ public final class ModelElementCatalog {
 				addElement(new ModelElementInteractiveSlider(null,null),Language.tr("Surface.InteractiveSlider.Name"),GROUP_INTERACTIVE);
 				addElement(new ModelElementInteractiveCheckbox(null,null),Language.tr("Surface.InteractiveCheckbox.Name"),GROUP_INTERACTIVE);
 				addElement(new ModelElementInteractiveRadiobutton(null,null),Language.tr("Surface.InteractiveRadiobutton.Name"),GROUP_INTERACTIVE);
+				addElement(new ModelElementAnimationPause(null,null),Language.tr("Surface.AnimationPause.Name"),GROUP_INTERACTIVE);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}

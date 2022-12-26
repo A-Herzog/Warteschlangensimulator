@@ -299,6 +299,7 @@ public class DrawIOExport {
 			break;
 		case SHAPE_ROUNDED_RECTANGLE:
 		case SHAPE_ROUNDED_RECTANGLE_SPEAKER:
+		case SHAPE_ROUNDED_RECTANGLE_PAUSE:
 			style.put("rounded","1");
 			break;
 		case SHAPE_ROUNDED_RECTANGLE_123:

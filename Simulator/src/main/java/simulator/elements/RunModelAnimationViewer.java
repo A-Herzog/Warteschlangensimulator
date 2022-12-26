@@ -64,4 +64,9 @@ public interface RunModelAnimationViewer {
 	 * Wird aufgerufen, wenn die Animation beendet wurde.
 	 */
 	void animationTerminated();
+
+	/**
+	 * Wird aufgerufen, wenn vom Modell her die Animation pausiert werden soll.
+	 */
+	void pauseAnimation();
 }

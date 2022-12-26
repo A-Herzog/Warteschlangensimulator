@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-12-23 18:26+0100\n"
+"POT-Creation-Date: 2022-12-25 11:54+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18346,6 +18346,9 @@ msgstr "Alarm"
 msgid "Simulation.Element.AnimationConnect.Name"
 msgstr "Animationsmodus"
 
+msgid "Simulation.Element.AnimationPause.Name"
+msgstr "Animation pausieren"
+
 msgid "Simulation.Element.Assign.Name"
 msgstr "Zuweisung"
 
@@ -25128,6 +25131,21 @@ msgstr "ModellElementAnimationLCDAusdruck"
 
 msgid "Surface.AnimationLCD.XML.Root"
 msgstr "ModellElementAnimationLCD"
+
+msgid "Surface.AnimationPause.Dialog.Title"
+msgstr "Animation pausieren bearbeiten"
+
+msgid "Surface.AnimationPause.Infotext"
+msgstr "Trifft ein Kunde an dieser Station ein, so wird eine laufende Animation pausiert. Im Simulationsmodus hat diese Station keine Wirkung."
+
+msgid "Surface.AnimationPause.Name"
+msgstr "Animation pausieren"
+
+msgid "Surface.AnimationPause.Tooltip"
+msgstr "Pausiert die Animation beim Eintreffen eines Kunden."
+
+msgid "Surface.AnimationPause.XML.Root"
+msgstr "ModellElementPause"
 
 msgid "Surface.AnimationPieChart.Dialog.Appearance"
 msgstr "Darstellung"
