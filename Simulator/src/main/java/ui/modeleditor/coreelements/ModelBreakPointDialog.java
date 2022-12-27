@@ -91,10 +91,11 @@ public class ModelBreakPointDialog extends BaseDialog {
 	 * @param owner	Übergeordnetes Element
 	 * @param model	Editor-Modell (für den Expression-Builder / Expression-Prüfung)
 	 * @param simData	Simulationsdatenobjekt (um die Liste der Kundentypen auszulesen)
+	 * @param allowEnableDisable	Soll die Möglichkeit geboten werden, den Haltepunkt ein- oder auszuschalten?
 	 * @param stationID	ID der Station auf die sich der Haltepunkt beziehen soll
 	 * @param breakPoint	Bisheriger Haltepunkt für diese Station (kann <code>null</code> sein)
 	 */
-	public ModelBreakPointDialog(final Component owner, final EditModel model, final SimulationData simData, final int stationID, final ModelSurfaceAnimatorBase.BreakPoint breakPoint) {
+	public ModelBreakPointDialog(final Component owner, final EditModel model, final SimulationData simData, final boolean allowEnableDisable, final int stationID, final ModelSurfaceAnimatorBase.BreakPoint breakPoint) {
 		super(owner,Language.tr("Surface.PopupMenu.BreakPoint.Title"));
 		this.stationID=stationID;
 		this.model=model;
@@ -110,8 +111,13 @@ public class ModelBreakPointDialog extends BaseDialog {
 		JLabel label;
 
 		/* Dialog aufbauen */
-		content.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
-		line.add(checkBoxActive=new JCheckBox("<html><body><b>"+Language.tr("Surface.PopupMenu.BreakPoint.Option.Active")+"</b></body></html>",breakPoint!=null));
+
+		if (allowEnableDisable) {
+			content.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
+			line.add(checkBoxActive=new JCheckBox("<html><body><b>"+Language.tr("Surface.PopupMenu.BreakPoint.Option.Active")+"</b></body></html>",breakPoint!=null));
+		} else {
+			checkBoxActive=new JCheckBox("",breakPoint!=null);
+		}
 
 		content.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
 		line.add(label=new JLabel(Language.tr("Surface.PopupMenu.BreakPoint.Option.ClientType")+":"));

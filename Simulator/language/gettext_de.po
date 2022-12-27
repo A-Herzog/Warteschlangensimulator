@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-12-25 11:54+0100\n"
+"POT-Creation-Date: 2022-12-26 21:30+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -3360,6 +3360,63 @@ msgstr "Zeigt einen Dialog zum Zugriff auf die Daten der laufenden Animation an.
 
 msgid "Editor.AnimationData.Short"
 msgstr "Daten"
+
+msgid "Editor.Breakpoints.Dialog.DialogHint"
+msgstr "In diesem Dialog werden alle Stationen und Haltepunkte, die eine laufende Animation unterbrechen können, aufgelistet."
+
+msgid "Editor.Breakpoints.Dialog.Title"
+msgstr "Haltepunkte bearbeiten"
+
+msgid "Editor.Breakpoints.Info"
+msgstr "Zeigt alle momentan definierten Haltepunkte für die Animation an."
+
+msgid "Editor.Breakpoints.NoBreakpoints.Info"
+msgstr "Es sind momentan keine Haltepunkte definiert und das Modell besitzt auch keine Animation-pausieren-Stationen."
+
+msgid "Editor.Breakpoints.NoBreakpoints.Title"
+msgstr "Keine Haltepunkte"
+
+msgid "Editor.Breakpoints.Short"
+msgstr "Haltepunkte"
+
+msgid "Editor.Breakpoints.TabBreakpoints"
+msgstr "Haltepunkte"
+
+msgid "Editor.Breakpoints.TabBreakpoints.Delete"
+msgstr "Löschen"
+
+msgid "Editor.Breakpoints.TabBreakpoints.Delete.ConfirmInfo"
+msgstr "Soll der Haltepunkt an Station Id=%d wirklich gelöscht werden?"
+
+msgid "Editor.Breakpoints.TabBreakpoints.Delete.ConfirmInfoNo"
+msgstr "Haltepunkt beibehalten."
+
+msgid "Editor.Breakpoints.TabBreakpoints.Delete.ConfirmInfoYes"
+msgstr "Haltepunkt jetzt löschen."
+
+msgid "Editor.Breakpoints.TabBreakpoints.Delete.ConfirmTitle"
+msgstr "Haltepunkt löschen"
+
+msgid "Editor.Breakpoints.TabBreakpoints.Delete.Tooltip"
+msgstr "Haltepunkt löschen"
+
+msgid "Editor.Breakpoints.TabBreakpoints.Edit"
+msgstr "Bearbeiten"
+
+msgid "Editor.Breakpoints.TabBreakpoints.Edit.Tooltip"
+msgstr "Haltepunkt bearbeiten"
+
+msgid "Editor.Breakpoints.TabBreakpoints.ModeAutoDelete"
+msgstr "Wird nach einmaliger Ausführung wieder deaktiviert."
+
+msgid "Editor.Breakpoints.TabBreakpoints.ModeClientType"
+msgstr "Nur wirksam für Kunden vom Typ <b>%s</b>."
+
+msgid "Editor.Breakpoints.TabBreakpoints.ModeCondition"
+msgstr "Nur wirksam, wenn die Bedingung <b>%s</b> erfüllt ist."
+
+msgid "Editor.Breakpoints.TabPauseStations"
+msgstr "Pause-Stationen"
 
 msgid "Editor.Check.Error"
 msgstr "Modell ist fehlerhaft."

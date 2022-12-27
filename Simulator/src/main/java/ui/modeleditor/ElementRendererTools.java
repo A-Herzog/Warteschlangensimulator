@@ -547,6 +547,24 @@ public class ElementRendererTools {
 	}
 
 	/**
+	 * Liefert eine kurze HTML-Beschreibung zu einer Station.
+	 * @param element	Station zu der die Beschreibung erstellt werden soll
+	 * @return	HTML-Beschreibung der Station
+	 */
+	public static String getElementHTMLInfo(final ModelElement element) {
+		final StringBuilder info=new StringBuilder();
+		info.append("<b><span style=\"font-size: larger;\">");
+		info.append(element.getContextMenuElementName());
+		info.append("</span> (");
+		final String name=element.getName();
+		if (name.isEmpty()) info.append(Language.tr("FindElement.NoName")); else info.append(name);
+		info.append(")</b><br><span style=\"color: orange;\">");
+		info.append("id="+element.getId());
+		info.append("</span>");
+		return info.toString();
+	}
+
+	/**
 	 * Liefert ein Beschreibungs-Label zu einer Station
 	 * @param surface	Haupt-Zeichenfläche
 	 * @param id	ID der Station
@@ -567,6 +585,29 @@ public class ElementRendererTools {
 		}
 
 		if (element==null) return new ElementRendererTools.InfoRecord(null,"");
+
+		/* Text aufbauen */
+		return new ElementRendererTools.InfoRecord(element,htmlHead+getElementHTMLInfo(element,parent)+htmlFoot);
+	}
+
+	/**
+	 * Liefert ein Beschreibungs-Label zu einer Station
+	 * @param surface	Haupt-Zeichenfläche
+	 * @param element	Station
+	 * @return	Beschreibungs-Label zu einer Station
+	 */
+	public static ElementRendererTools.InfoRecord getRecord(final ModelSurface surface, final ModelElement element) {
+		/* Element und übergeordnetes Element finden */
+		ModelElementSub parent=null;
+		for (ModelElement el: surface.getElements()) {
+			if (el==element) break;
+			if (el instanceof ModelElementSub) {
+				for (ModelElement sub: ((ModelElementSub)el).getSubSurface().getElements()) {
+					if (sub==element) {parent=(ModelElementSub)el; break;}
+				}
+				if (parent!=null) break;
+			}
+		}
 
 		/* Text aufbauen */
 		return new ElementRendererTools.InfoRecord(element,htmlHead+getElementHTMLInfo(element,parent)+htmlFoot);

@@ -975,7 +975,7 @@ public class ModelElement {
 		if (simData==null || animator==null) return;
 		final int id=getId();
 
-		final ModelBreakPointDialog dialog=new ModelBreakPointDialog(owner,model,simData,id,animator.getBreakPoint(id));
+		final ModelBreakPointDialog dialog=new ModelBreakPointDialog(owner,model,simData,true,id,animator.getBreakPoint(id));
 		if (dialog.getClosedBy()==BaseDialog.CLOSED_BY_OK) {
 			animator.setBreakPoint(id,dialog.getBreakPoint());
 		}

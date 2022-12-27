@@ -104,6 +104,7 @@ import tools.ButtonRotator;
 import tools.SetupData;
 import tools.UsageStatistics;
 import ui.dialogs.AnimationJSInfoDialog;
+import ui.dialogs.AnimationPanelBreakPointsDialog;
 import ui.dialogs.ExpressionCalculatorDialog;
 import ui.dialogs.LayersDialog;
 import ui.dialogs.NextEventsViewerDialog;
@@ -266,6 +267,8 @@ public class AnimationPanel extends JPanel implements RunModelAnimationViewer {
 	private final JButton buttonCurrentData;
 	/** Schaltfläche "Statistik" */
 	private final JButton buttonCurrentStatistics;
+	/** Schaltfläche "Haltepunkte" */
+	private final JButton buttonBreakpoints;
 
 	/* Statusleiste */
 
@@ -403,6 +406,7 @@ public class AnimationPanel extends JPanel implements RunModelAnimationViewer {
 		buttonProperties=createRotatedToolbarButton(leftToolBar,Language.tr("Editor.ModelProperties.Short"),Language.tr("Editor.ModelProperties.Info")+" ("+keyStrokeToString(KeyStroke.getKeyStroke(KeyEvent.VK_F2,InputEvent.CTRL_DOWN_MASK))+")",Images.MODEL.getIcon());
 		buttonCurrentData=createRotatedToolbarButton(leftToolBar,Language.tr("Editor.AnimationData.Short"),Language.tr("Editor.AnimationData.Info")+" ("+keyStrokeToString(KeyStroke.getKeyStroke(KeyEvent.VK_F3,0))+")",Images.ANIMATION_EVALUATE_EXPRESSION.getIcon());
 		buttonCurrentStatistics=createRotatedToolbarButton(leftToolBar,Language.tr("Editor.Statistics.Short"),Language.tr("Editor.Statistics.Info"),Images.STATISTICS.getIcon());
+		buttonBreakpoints=createRotatedToolbarButton(leftToolBar,Language.tr("Editor.Breakpoints.Short"),Language.tr("Editor.Breakpoints.Info"),Images.ANIMATION_BREAKPOINTS.getIcon());
 
 		/* Surface in der Mitte */
 		content.add(new RulerPanel(surfacePanel=new ModelSurfacePanel(true,false),SetupData.getSetup().showRulers),BorderLayout.CENTER);
@@ -1624,6 +1628,7 @@ public class AnimationPanel extends JPanel implements RunModelAnimationViewer {
 			buttonPlayPause.setToolTipText(Language.tr("Animation.Toolbar.Play.Info")+" ("+keyStrokeToString(KeyStroke.getKeyStroke(KeyEvent.VK_F6,0))+")");
 			buttonPlayPause.setIcon(Images.ANIMATION_PLAY.getIcon());
 			buttonCurrentStatistics.setEnabled(true);
+			buttonBreakpoints.setEnabled(true);
 		} else {
 			/* Play */
 			logArea.setVisible(false);
@@ -1633,6 +1638,7 @@ public class AnimationPanel extends JPanel implements RunModelAnimationViewer {
 			buttonPlayPause.setToolTipText(Language.tr("Animation.Toolbar.Pause.Info")+" ("+keyStrokeToString(KeyStroke.getKeyStroke(KeyEvent.VK_F6,0))+")");
 			buttonPlayPause.setIcon(Images.ANIMATION_PAUSE.getIcon());
 			buttonCurrentStatistics.setEnabled(false);
+			buttonBreakpoints.setEnabled(false);
 		}
 	}
 
@@ -2401,6 +2407,22 @@ public class AnimationPanel extends JPanel implements RunModelAnimationViewer {
 	}
 
 	/**
+	 * Zeigt einen Dialog zum Bearbeiten der Haltepunkte an.
+	 */
+	private void showBreakpoints() {
+		/* Gibt es überhaupt Haltepunkte / Pause-Stationen? */
+		final int breakpointCount=surfaceAnimator.getBreakPoints().size();
+		final int pauseStationCount=AnimationPanelBreakPointsDialog.getAllPauseStations(model).size();
+		if (breakpointCount==0 && pauseStationCount==0) {
+			MsgBox.error(this,Language.tr("Editor.Breakpoints.NoBreakpoints.Title"),Language.tr("Editor.Breakpoints.NoBreakpoints.Info"));
+			return;
+		}
+
+		/* Dialog zum Bearbeiten von Haltepunkten und zur Anzeige von Pause-Stationen anzeigen */
+		new AnimationPanelBreakPointsDialog(this,simData,model,surfaceAnimator);
+	}
+
+	/**
 	 * Liefert eine Liste der Kunden im System.
 	 * Der Abruf erfolgt dabei synchronisiert zu einem möglicherweise laufenden Simulator.
 	 * @param simulator	Simulatorinstanz
@@ -2596,6 +2618,7 @@ public class AnimationPanel extends JPanel implements RunModelAnimationViewer {
 			if (source==buttonProperties) {showModelPropertiesDialog(null); return;}
 			if (source==buttonCurrentData) {calcExpression(); return;}
 			if (source==buttonCurrentStatistics) {showStatistics(); return;}
+			if (source==buttonBreakpoints) {showBreakpoints(); return;}
 			if (source==logPrevious) {displayLogMessage(-1); return;}
 			if (source==logNext) {displayLogMessage(1); return;}
 			if (source==logCurrent) {displayLogMessage(0); return;}

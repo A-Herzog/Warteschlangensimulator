@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-12-25 11:54+0100\n"
+"POT-Creation-Date: 2022-12-26 21:30+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -3355,6 +3355,63 @@ msgstr "Displays a dialog for accessing the data of the running animation."
 
 msgid "Editor.AnimationData.Short"
 msgstr "Data"
+
+msgid "Editor.Breakpoints.Dialog.DialogHint"
+msgstr "This dialog lists all stations and breakpoints that can interrupt a running animation."
+
+msgid "Editor.Breakpoints.Dialog.Title"
+msgstr "Edit breakpoints"
+
+msgid "Editor.Breakpoints.Info"
+msgstr "Shows all currently defined animation breakpoints."
+
+msgid "Editor.Breakpoints.NoBreakpoints.Info"
+msgstr "The are no breakpoints defined and the model also does not contain any pause animation station."
+
+msgid "Editor.Breakpoints.NoBreakpoints.Title"
+msgstr "No breakpoints"
+
+msgid "Editor.Breakpoints.Short"
+msgstr "Breakpoints"
+
+msgid "Editor.Breakpoints.TabBreakpoints"
+msgstr "Breakpoints"
+
+msgid "Editor.Breakpoints.TabBreakpoints.Delete"
+msgstr "Delete"
+
+msgid "Editor.Breakpoints.TabBreakpoints.Delete.ConfirmInfo"
+msgstr "Do you really want to delete the breakpoint at station id=%d?"
+
+msgid "Editor.Breakpoints.TabBreakpoints.Delete.ConfirmInfoNo"
+msgstr "Keep breakpoint."
+
+msgid "Editor.Breakpoints.TabBreakpoints.Delete.ConfirmInfoYes"
+msgstr "Delete breakpoint now."
+
+msgid "Editor.Breakpoints.TabBreakpoints.Delete.ConfirmTitle"
+msgstr "Delete breakpoint"
+
+msgid "Editor.Breakpoints.TabBreakpoints.Delete.Tooltip"
+msgstr "Delete breakpoint"
+
+msgid "Editor.Breakpoints.TabBreakpoints.Edit"
+msgstr "Edit"
+
+msgid "Editor.Breakpoints.TabBreakpoints.Edit.Tooltip"
+msgstr "Edit breakpoint"
+
+msgid "Editor.Breakpoints.TabBreakpoints.ModeAutoDelete"
+msgstr "Will be deactivated after one execution."
+
+msgid "Editor.Breakpoints.TabBreakpoints.ModeClientType"
+msgstr "Only effective for clients of type <b>%s</b>."
+
+msgid "Editor.Breakpoints.TabBreakpoints.ModeCondition"
+msgstr "Only effective if condition <b>%s</b> is met."
+
+msgid "Editor.Breakpoints.TabPauseStations"
+msgstr "Pause stations"
 
 msgid "Editor.Check.Error"
 msgstr "The model is invalid."

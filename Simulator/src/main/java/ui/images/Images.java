@@ -688,6 +688,12 @@ public enum Images {
 	/** Symbol "Animation - Stationsdaten anzeigen - Auto-Update" */
 	ANIMATION_DATA_UPDATE_AUTO("action_go.gif"),
 
+	/** Symbol "Animation - Haltepunkte" */
+	ANIMATION_BREAKPOINTS("control_pause_blue.png"),
+
+	/** Symbol "Animation - Haltepunkte/Pause-Stationen" */
+	ANIMATION_BREAKPOINTS_PAUSE_STATIONS("station.png"),
+
 	/* Parameterreihe */
 
 	/** Symbol "Parameterreihe" */

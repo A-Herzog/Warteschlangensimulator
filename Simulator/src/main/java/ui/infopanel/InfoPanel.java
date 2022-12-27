@@ -205,6 +205,9 @@ public class InfoPanel {
 	/** Info-ID für den "Warteschlangensimulator-Installation kopieren"-Dialog */
 	public static final String globalCopyInstallation="CopyInstallation";
 
+	/** Info-ID für den "Haltepunkte bearbeiten"-Dialog */
+	public static final String globalEditBreakpoints="EditBreakpoints";
+
 	/* Stationen - Eingang/Ausgang */
 
 	/** Info-ID für den "Quelle"-Bearbeiten-Dialog (Gruppe "Eingang/Ausgang") */
@@ -836,6 +839,10 @@ public class InfoPanel {
 		register(globalCopyInstallation,
 				()->Language.tr("HintsDialog.TreeNodeMoreDialogs")+"|"+Language.tr("CopyInstallation.Title"),
 				()->Language.tr("CopyInstallation.DialogHint"));
+
+		register(globalEditBreakpoints,
+				()->Language.tr("HintsDialog.TreeNodeMoreDialogs")+"|"+Language.tr("Editor.Breakpoints.Dialog.Title"),
+				()->Language.tr("Editor.Breakpoints.Dialog.DialogHint"));
 
 		/* Stationen - Eingang/Ausgang */
 

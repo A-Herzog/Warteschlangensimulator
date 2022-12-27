@@ -2097,7 +2097,7 @@ public class ModelSurfaceAnimatorBase {
 	 */
 	public void setBreakPoints(final List<BreakPoint> breakPoints) {
 		synchronized(this) {
-			if (breakPoints==null) {
+			if (breakPoints==null || breakPoints.size()==0) {
 				this.breakPoints=null;
 			} else {
 				this.breakPoints=breakPoints.stream().map(breakPoint->new BreakPoint(breakPoint)).collect(Collectors.toList());
