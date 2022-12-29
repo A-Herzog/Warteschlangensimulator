@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-12-26 21:30+0100\n"
+"POT-Creation-Date: 2022-12-28 22:45+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -11897,6 +11897,9 @@ msgstr "Variable"
 msgid "ModelDescription.Logic.Condition"
 msgstr "Bedingung"
 
+msgid "ModelDescription.Match.Condition"
+msgstr "Bedingung für Freigabe von Kunden"
+
 msgid "ModelDescription.Match.Mode"
 msgstr "Modus"
 
@@ -18000,6 +18003,9 @@ msgstr "Die Flusssteuerungsbedingung \"%s\" an Station id=%d ist ab Zeichen %d f
 
 msgid "Simulation.Creator.LogicNoEnd"
 msgstr "Für das Flusssteuerungslogikelement id=%d wurde kein Abschlusselement gefunden."
+
+msgid "Simulation.Creator.MatchCondition"
+msgstr "Die zusätzliche Bedingung \"%s\" von Element id=%d enthält an Position %d einen Fehler."
 
 msgid "Simulation.Creator.MissingResourceInterDownTimeDistribution"
 msgstr "Interner Fehler: Es wurde für die Ressource \"%s\" angegeben, dass die Ausfällabstände gemäß einer Verteilung bestimmt werden sollen. Es wurde jedoch keine Verteilung angegeben."
@@ -28653,6 +28659,18 @@ msgstr "Logik While"
 msgid "Surface.LogicWhile.XML.Root"
 msgstr "ModellElementLogikWhile"
 
+msgid "Surface.Match.Dialog.Condition"
+msgstr "Bedingung"
+
+msgid "Surface.Match.Dialog.Condition.Error.Info"
+msgstr "Die eingegebene Bedingung \"%s\" ist an Zeichen %d fehlerhaft."
+
+msgid "Surface.Match.Dialog.Condition.Error.Title"
+msgstr "Bedingung fehlerhaft"
+
+msgid "Surface.Match.Dialog.ConditionEnabled"
+msgstr "Zusätzliche Bedingung vor dem Zusammenführen von Kunden prüfen"
+
 msgid "Surface.Match.Dialog.OptionBatch"
 msgstr "Zusammengeführte Kunden als einen neuen Kunden weiterleiten; Typ"
 
@@ -28721,6 +28739,9 @@ msgstr "Wartet bis an beiden Eingängen ein Kunde eingetroffen ist und leitet di
 
 msgid "Surface.Match.XML.ClientType"
 msgstr "ModellElementKundentyp"
+
+msgid "Surface.Match.XML.Condition"
+msgstr "ModellElementZusammenfuehrenBedingungText"
 
 msgid "Surface.Match.XML.MatchMode"
 msgstr "ModellElementBatchModus;BatchModus"

@@ -26,6 +26,7 @@ import simulator.events.StationLeaveEvent;
 import simulator.runmodel.RunDataClient;
 import simulator.runmodel.RunModel;
 import simulator.runmodel.SimulationData;
+import simulator.simparser.ExpressionMultiEval;
 import ui.modeleditor.coreelements.ModelElement;
 import ui.modeleditor.elements.ModelElementEdge;
 import ui.modeleditor.elements.ModelElementMatch;
@@ -37,7 +38,7 @@ import ui.modeleditor.elements.ModelElementSub;
  * @author Alexander Herzog
  * @see ModelElementMatch
  */
-public class RunElementMatch extends RunElementPassThrough {
+public class RunElementMatch extends RunElementPassThrough implements StateChangeListener {
 	/**
 	 * Array mit den einlaufenden Kanten in der ersten Ebene
 	 * und den IDs der Stationen, die über die jeweiligen Pfade
@@ -67,6 +68,9 @@ public class RunElementMatch extends RunElementPassThrough {
 	private ModelElementMatch.MatchMode batchMode;
 	/** Index des neuen Batch-Kundentyps (bei der temporären oder permanenten Batch-Bildung) */
 	private int newClientType;
+
+	/** Bedingung, die für eine Weitergabe der Kunden erfüllt sein muss */
+	private String condition;
 
 	/**
 	 * Konstruktor der Klasse
@@ -131,6 +135,16 @@ public class RunElementMatch extends RunElementPassThrough {
 			if (match.newClientType<0) return String.format(Language.tr("Simulation.Creator.InvalidBatchClientType"),element.getId(),matchElement.getNewClientType());
 		}
 
+		/* Bedingung */
+		final String condition=matchElement.getCondition();
+		if (condition==null || condition.trim().isEmpty()) {
+			match.condition=null;
+		} else {
+			final int error=ExpressionMultiEval.check(condition,runModel.variableNames);
+			if (error>=0) return String.format(Language.tr("Simulation.Creator.MatchCondition"),condition,element.getId(),error+1);
+			match.condition=condition;
+		}
+
 		return match;
 	}
 
@@ -163,7 +177,7 @@ public class RunElementMatch extends RunElementPassThrough {
 		RunElementMatchData data;
 		data=(RunElementMatchData)(simData.runData.getStationData(this));
 		if (data==null) {
-			data=new RunElementMatchData(this,connectionIn.length);
+			data=new RunElementMatchData(this,connectionIn.length,condition,simData.runModel.variableNames);
 			simData.runData.setStationData(this,data);
 		}
 		return data;
@@ -184,19 +198,22 @@ public class RunElementMatch extends RunElementPassThrough {
 		/* Logging */
 		if (simData.loggingActive) {
 			sb=new StringBuilder();
-			sb.append(Language.tr("Simulation.Log.MatchNewClientID")+": "+newClient.logInfo(simData));
+			if (newClient!=null) sb.append(Language.tr("Simulation.Log.MatchNewClientID")+": "+newClient.logInfo(simData));
+		}
+
+		/* Wenn es sich um eine Ankunft handelt und einer der Kunden überhaupt nicht in der Warteschlange war... */
+		if (newClientQueueNumber>=0) {
+			data.moveClientsList[newClientQueueNumber]=newClient;
+
+			/* Wartezeit in Statistik */
+			simData.runData.logStationProcess(simData,this,newClient,0,0,0,0);
+
+			/* Ist notwendig, damit die Anzahl-Zählung für die Warteschlange stimmt; sonst kann es sein, dass für bestimmte Kundentypen überhaupt keine Daten hinterlegt sind, was beim Zusammenführen der Multi-Thread-Statistik zu Fehlern führen kann. */
+			simData.runData.logClientEntersStationQueue(simData,this,data,newClient);
+			simData.runData.logClientLeavesStationQueue(simData,this,data,newClient);
 		}
 
 		/* Kunden weiterleiten */
-		data.moveClientsList[newClientQueueNumber]=newClient;
-
-		/* Wartezeit in Statistik */
-		simData.runData.logStationProcess(simData,this,newClient,0,0,0,0);
-
-		/* Ist notwendig, damit die Anzahl-Zählung für die Warteschlange stimmt; sonst kann es sein, dass für bestimmte Kundentypen überhaupt keine Daten hinterlegt sind, was beim Zusammenführen der Multi-Thread-Statistik zu Fehlern führen kann. */
-		simData.runData.logClientEntersStationQueue(simData,this,data,newClient);
-		simData.runData.logClientLeavesStationQueue(simData,this,data,newClient);
-
 		for (int i=0;i<data.waitingClients.length;i++) {
 			if (i==newClientQueueNumber) continue;
 
@@ -251,21 +268,24 @@ public class RunElementMatch extends RunElementPassThrough {
 		/* Logging */
 		if (simData.loggingActive) {
 			sb=new StringBuilder();
-			sb.append(Language.tr("Simulation.Log.MatchNewClientID")+": "+newClient.logInfo(simData));
+			if (newClient!=null) sb.append(Language.tr("Simulation.Log.MatchNewClientID")+": "+newClient.logInfo(simData));
 		}
 
-		/* Wartezeit in Statistik */
-		simData.runData.logStationProcess(simData,this,newClient,0,0,0,0);
+		/* Wenn es sich um eine Ankunft handelt und einer der Kunden überhaupt nicht in der Warteschlange war... */
+		if (newClientQueueNumber>=0 && newClient!=null) {
+			/* Wartezeit in Statistik */
+			simData.runData.logStationProcess(simData,this,newClient,0,0,0,0);
 
-		/* Ist notwendig, damit die Anzahl-Zählung für die Warteschlange stimmt; sonst kann es sein, dass für bestimmte Kundentypen überhaupt keine Daten hinterlegt sind, was beim Zusammenführen der Multi-Thread-Statistik zu Fehlern führen kann. */
-		simData.runData.logClientEntersStationQueue(simData,this,data,newClient);
-		simData.runData.logClientLeavesStationQueue(simData,this,data,newClient);
+			/* Ist notwendig, damit die Anzahl-Zählung für die Warteschlange stimmt; sonst kann es sein, dass für bestimmte Kundentypen überhaupt keine Daten hinterlegt sind, was beim Zusammenführen der Multi-Thread-Statistik zu Fehlern führen kann. */
+			simData.runData.logClientEntersStationQueue(simData,this,data,newClient);
+			simData.runData.logClientLeavesStationQueue(simData,this,data,newClient);
 
-		/* Ist der Kunde als "letzter Kunde" markiert? */
-		if (newClient.isLastClient) batchedClient.isLastClient=true;
+			/* Ist der Kunde als "letzter Kunde" markiert? */
+			if (newClient.isLastClient) batchedClient.isLastClient=true;
 
-		/* Kunde in Batch aufnehmen */
-		batchedClient.addBatchClient(newClient);
+			/* Kunde in Batch aufnehmen */
+			batchedClient.addBatchClient(newClient);
+		}
 
 		for (int i=0;i<data.waitingClients.length;i++) {
 			final RunDataClient currentClient;
@@ -336,21 +356,25 @@ public class RunElementMatch extends RunElementPassThrough {
 		/* Logging */
 		if (simData.loggingActive) {
 			sb=new StringBuilder();
-			sb.append(Language.tr("Simulation.Log.MatchNewClientID")+": "+newClient.logInfo(simData));
+			if (newClient!=null) sb.append(Language.tr("Simulation.Log.MatchNewClientID")+": "+newClient.logInfo(simData));
 		}
 
-		/* Wartezeit in Statistik */
-		simData.runData.logStationProcess(simData,this,newClient,0,0,0,0);
+		/* Wenn es sich um eine Ankunft handelt und einer der Kunden überhaupt nicht in der Warteschlange war... */
+		if (newClientQueueNumber>=0 && newClient!=null) {
 
-		/* Ist notwendig, damit die Anzahl-Zählung für die Warteschlange stimmt; sonst kann es sein, dass für bestimmte Kundentypen überhaupt keine Daten hinterlegt sind, was beim Zusammenführen der Multi-Thread-Statistik zu Fehlern führen kann. */
-		simData.runData.logClientEntersStationQueue(simData,this,data,newClient);
-		simData.runData.logClientLeavesStationQueue(simData,this,data,newClient);
+			/* Wartezeit in Statistik */
+			simData.runData.logStationProcess(simData,this,newClient,0,0,0,0);
 
-		/* Ist der Kunde als "letzter Kunde" markiert? */
-		isLastClient=isLastClient || newClient.isLastClient;
+			/* Ist notwendig, damit die Anzahl-Zählung für die Warteschlange stimmt; sonst kann es sein, dass für bestimmte Kundentypen überhaupt keine Daten hinterlegt sind, was beim Zusammenführen der Multi-Thread-Statistik zu Fehlern führen kann. */
+			simData.runData.logClientEntersStationQueue(simData,this,data,newClient);
+			simData.runData.logClientLeavesStationQueue(simData,this,data,newClient);
 
-		/* Kunde final in Statistik erfassen und Objekt recyceln */
-		simData.runData.clients.disposeClient(newClient,simData);
+			/* Ist der Kunde als "letzter Kunde" markiert? */
+			isLastClient=isLastClient || newClient.isLastClient;
+
+			/* Kunde final in Statistik erfassen und Objekt recyceln */
+			simData.runData.clients.disposeClient(newClient,simData);
+		}
 
 		for (int i=0;i<data.waitingClients.length;i++) {
 			final RunDataClient currentClient;
@@ -416,8 +440,8 @@ public class RunElementMatch extends RunElementPassThrough {
 	/**
 	 * Löst die Freigabe von Kunden aus.
 	 * @param simData	Simulationsdaten
-	 * @param newClient	Aktuell gerade eingetroffener Kunde
-	 * @param newClientQueueNumber	Index der Teilwarteschlange an der der Kunde eingetroffen ist
+	 * @param newClient	Aktuell gerade eingetroffener Kunde (kann <code>null</code> sein; dann muss auch die Warteschlangennummer &lt;0 sein)
+	 * @param newClientQueueNumber	Index der Teilwarteschlange an der der Kunde eingetroffen ist (kann &lt;0 sein; dann muss auch der Kunde <code>null</code> sein)
 	 * @param selectQueuedClients	Indices der zu sendenden Kunden in den Teilwarteschlangen (jeweils ein Eintrag pro Teilwarteschlange)
 	 */
 	private void processSendClients(final SimulationData simData, final RunDataClient newClient, final int newClientQueueNumber, final int[] selectQueuedClients) {
@@ -475,27 +499,27 @@ public class RunElementMatch extends RunElementPassThrough {
 	 * Modus: Kein Abgleich von Eigenschaften
 	 * @param simData	Simulationsdatenobjekt
 	 * @param data	Thread-lokales Datenobjekt zu der Station
-	 * @param newClient	Neu eingetroffener Kunde
-	 * @param newClientQueueNumber	Index der Teilwarteschlange an der der Kunde eingetroffen ist
+	 * @param newClientQueueNumber	Index der Teilwarteschlange an der der Kunde eingetroffen ist (-1, falls es sich um keine Prüfung bei einer Ankunft handelt)
 	 * @return	Indices der freizugebenden Kunden (jeweils ein Eintrag pro Teilwarteschlange) oder <code>null</code>, wenn keine Freigabe erfolgen kann
 	 * @see #testReadyToSend(SimulationData, RunDataClient, int)
 	 */
-	private int[] testReadyToSendSimple(final SimulationData simData, final RunElementMatchData data, final RunDataClient newClient, final int newClientQueueNumber) {
+	private int[] testReadyToSendSimple(final SimulationData simData, final RunElementMatchData data, final int newClientQueueNumber) {
 		/* Warten in allen anderen Schlangen Kunden? */
 		for (int i=0;i<data.waitingClients.length;i++) {
 			if (i==newClientQueueNumber) continue;
 			if (data.waitingClients[i].size()==0) return null;
 		}
-		return data.selectQueuedClients;
+		return data.selectQueuedClients; /* Ist in diesem Fall immer mit 0 gefüllt. */
 	}
 
 	/**
 	 * Gibt es passende Kunden, so dass eine Freigabe erfolgen kann?<br>
-	 * Modus: Abgleich eines Kundendatenfeldes
+	 * Modus: Abgleich eines Kundendatenfeldes<br>
+	 * (Wird bei Ankunft eines neuen Kunden aufgerufen.)
 	 * @param simData	Simulationsdatenobjekt
 	 * @param data	Thread-lokales Datenobjekt zu der Station
-	 * @param newClient	Neu eingetroffener Kunde
-	 * @param newClientQueueNumber	Index der Teilwarteschlange an der der Kunde eingetroffen ist
+	 * @param newClient	Neu eingetroffener Kunde (<code>null</code>, falls es sich um keine Prüfung bei einer Ankunft handelt)
+	 * @param newClientQueueNumber	Index der Teilwarteschlange an der der Kunde eingetroffen ist (-1, falls es sich um keine Prüfung bei einer Ankunft handelt)
 	 * @return	Indices der freizugebenden Kunden (jeweils ein Eintrag pro Teilwarteschlange) oder <code>null</code>, wenn keine Freigabe erfolgen kann
 	 * @see #testReadyToSend(SimulationData, RunDataClient, int)
 	 */
@@ -523,11 +547,52 @@ public class RunElementMatch extends RunElementPassThrough {
 
 	/**
 	 * Gibt es passende Kunden, so dass eine Freigabe erfolgen kann?<br>
-	 * Modus: Abgleich eines Kundendatentextfeldes
+	 * Modus: Abgleich eines Kundendatenfeldes<br>
+	 * (Wird bei Statusänderung ohne Ankunft eines neuen Kunden aufgerufen.)
 	 * @param simData	Simulationsdatenobjekt
 	 * @param data	Thread-lokales Datenobjekt zu der Station
-	 * @param newClient	Neu eingetroffener Kunde
-	 * @param newClientQueueNumber	Index der Teilwarteschlange an der der Kunde eingetroffen ist
+	 * @return	Indices der freizugebenden Kunden (jeweils ein Eintrag pro Teilwarteschlange) oder <code>null</code>, wenn keine Freigabe erfolgen kann
+	 * @see #testReadyToSend(SimulationData, RunDataClient, int)
+	 */
+	private int[] testReadyToSendNumberProperty(final SimulationData simData, final RunElementMatchData data) {
+		if (data.waitingClients[0].size()==0) return null;
+
+		final int[] selected=data.selectQueuedClients;
+
+		final List<RunDataClient> queue0=data.waitingClients[0];
+		for (int i=0;i<queue0.size();i++) {
+			final double clientReferenceValue=queue0.get(i).getUserData(matchPropertyNumberIndex);
+			selected[0]=i;
+
+			boolean ok=false;
+			for (int j=1;j<data.waitingClients.length;j++) {
+				final List<RunDataClient> queue=data.waitingClients[j];
+				ok=false;
+				for (int k=0;k<queue.size();k++) {
+					final RunDataClient client=queue.get(k);
+					if (client.getUserData(matchPropertyNumberIndex)==clientReferenceValue) {
+						selected[j]=k;
+						ok=true;
+						break;
+					}
+				}
+				if (!ok) break;
+			}
+
+			if (ok) return selected;
+		}
+
+		return null;
+	}
+
+	/**
+	 * Gibt es passende Kunden, so dass eine Freigabe erfolgen kann?<br>
+	 * Modus: Abgleich eines Kundendatentextfeldes<br>
+	 * (Wird bei Ankunft eines neuen Kunden aufgerufen.)
+	 * @param simData	Simulationsdatenobjekt
+	 * @param data	Thread-lokales Datenobjekt zu der Station
+	 * @param newClient	Neu eingetroffener Kunde (<code>null</code>, falls es sich um keine Prüfung bei einer Ankunft handelt)
+	 * @param newClientQueueNumber	Index der Teilwarteschlange an der der Kunde eingetroffen ist (-1, falls es sich um keine Prüfung bei einer Ankunft handelt)
 	 * @return	Indices der freizugebenden Kunden (jeweils ein Eintrag pro Teilwarteschlange) oder <code>null</code>, wenn keine Freigabe erfolgen kann
 	 * @see #testReadyToSend(SimulationData, RunDataClient, int)
 	 */
@@ -553,27 +618,109 @@ public class RunElementMatch extends RunElementPassThrough {
 	}
 
 	/**
+	 * Gibt es passende Kunden, so dass eine Freigabe erfolgen kann?<br>
+	 * Modus: Abgleich eines Kundendatentextfeldes<br>
+	 * (Wird bei Statusänderung ohne Ankunft eines neuen Kunden aufgerufen.)
+	 * @param simData	Simulationsdatenobjekt
+	 * @param data	Thread-lokales Datenobjekt zu der Station
+	 * @return	Indices der freizugebenden Kunden (jeweils ein Eintrag pro Teilwarteschlange) oder <code>null</code>, wenn keine Freigabe erfolgen kann
+	 * @see #testReadyToSend(SimulationData, RunDataClient, int)
+	 */
+	private int[] testReadyToSendTextProperty(final SimulationData simData, final RunElementMatchData data) {
+		if (data.waitingClients[0].size()==0) return null;
+
+		final int[] selected=data.selectQueuedClients;
+
+		final List<RunDataClient> queue0=data.waitingClients[0];
+		for (int i=0;i<queue0.size();i++) {
+			final String clientReferenceValue=queue0.get(i).getUserDataString(matchPropertyString);
+			selected[0]=i;
+
+			boolean ok=false;
+			for (int j=1;j<data.waitingClients.length;j++) {
+				final List<RunDataClient> queue=data.waitingClients[j];
+				ok=false;
+				for (int k=0;k<queue.size();k++) {
+					final RunDataClient client=queue.get(k);
+					if (client.getUserDataString(matchPropertyString).equals(clientReferenceValue)) {
+						selected[j]=k;
+						ok=true;
+						break;
+					}
+				}
+				if (!ok) break;
+			}
+
+			if (ok) return selected;
+		}
+
+		return null;
+	}
+
+	/**
 	 * Gibt es passende Kunden, so dass eine Freigabe erfolgen kann?
 	 * @param simData	Simulationsdatenobjekt
-	 * @param newClient	Neu eingetroffener Kunde
-	 * @param newClientQueueNumber	Index der Teilwarteschlange an der der Kunde eingetroffen ist
+	 * @param newClient	Neu eingetroffener Kunde (<code>null</code>, falls es sich um keine Prüfung bei einer Ankunft handelt)
+	 * @param newClientQueueNumber	Index der Teilwarteschlange an der der Kunde eingetroffen ist (-1, falls es sich um keine Prüfung bei einer Ankunft handelt)
 	 * @return	Indices der freizugebenden Kunden (jeweils ein Eintrag pro Teilwarteschlange) oder <code>null</code>, wenn keine Freigabe erfolgen kann
 	 */
 	private int[] testReadyToSend(final SimulationData simData, final RunDataClient newClient, final int newClientQueueNumber) {
 		final RunElementMatchData data=getData(simData);
 
 		switch (matchPropertyMode) {
-		case NONE: return testReadyToSendSimple(simData,data,newClient,newClientQueueNumber);
-		case NUMBER: return testReadyToSendNumberProperty(simData,data,newClient,newClientQueueNumber);
-		case TEXT: return testReadyToSendTextProperty(simData,data,newClient,newClientQueueNumber);
-		default: return testReadyToSendSimple(simData,data,newClient,newClientQueueNumber);
+		case NONE:
+			return testReadyToSendSimple(simData,data,newClientQueueNumber);
+		case NUMBER:
+			if (newClient==null) {
+				return testReadyToSendNumberProperty(simData,data);
+			} else {
+				return testReadyToSendNumberProperty(simData,data,newClient,newClientQueueNumber);
+			}
+		case TEXT:
+			if (newClient==null) {
+				return testReadyToSendTextProperty(simData,data);
+			} else {
+				return testReadyToSendTextProperty(simData,data,newClient,newClientQueueNumber);
+			}
+		default:
+			return testReadyToSendSimple(simData,data,newClientQueueNumber);
 		}
+	}
+
+	@Override
+	public boolean systemStateChangeNotify(final SimulationData simData) {
+		final RunElementMatchData data=getData(simData);
+
+		/* Keine Bedingung definiert? -> Dann brauchen wir hier auch nicht zu prüfen. Kunden werden jeweils sofort freigegeben, wenn diese passend eingetroffen sind. */
+		if (data.condition==null) return false;
+
+		/* Bedingung erfüllt? */
+		simData.runData.setClientVariableValues(null);
+		if (!data.condition.eval(simData.runData.variableValues,simData,null)) return false;
+
+		/* Warten passende Kunden? */
+		final int[] selectQueuedClients=testReadyToSend(simData,null,-1);
+		if (selectQueuedClients==null) return false;
+
+		processSendClients(simData,null,-1,selectQueuedClients);
+		return true;
 	}
 
 	@Override
 	public void processArrival(final SimulationData simData, final RunDataClient client) {
 		/* In welcher Schlange ist der Kunde eingetroffen? */
 		final int newClientQueueNumber=getClientQueueNumber(client);
+
+		/* Bedingung erfüllt? */
+		final RunElementMatchData data=getData(simData);
+		if (data.condition!=null) {
+			simData.runData.setClientVariableValues(null);
+			if (!data.condition.eval(simData.runData.variableValues,simData,null)) {
+				/* Neuen Kunden an Schlange anstellen */
+				addClientToQueue(simData,client,newClientQueueNumber);
+				return;
+			}
+		}
 
 		/* Passende Kunden in den anderen Schlangen finden */
 		final int[] selectQueuedClients=testReadyToSend(simData,client,newClientQueueNumber);

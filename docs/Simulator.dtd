@@ -739,7 +739,7 @@
   name	CDATA	#REQUIRED
 >
 
-<!ELEMENT ModellElementZusammenfuehren (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementBoxSchriftGross | ModellElementBoxSchriftKlein | ModellElementMaximalerDurchsatzSekunden | ModellElementWarteschlangeAnimationVollstaendig | ModellElementEbene | ModellElementHintergrundfarbe | ModellElementStationsbild | ModellElementVerbindung | ModellElementKundentyp | ModellElementBatchModus | ModellElementMatchEigenschaft)*>
+<!ELEMENT ModellElementZusammenfuehren (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementBoxSchriftGross | ModellElementBoxSchriftKlein | ModellElementMaximalerDurchsatzSekunden | ModellElementWarteschlangeAnimationVollstaendig | ModellElementEbene | ModellElementHintergrundfarbe | ModellElementStationsbild | ModellElementVerbindung | ModellElementKundentyp | ModellElementBatchModus | ModellElementMatchEigenschaft | ModellElementZusammenfuehrenBedingungText)*>
 <!ATTLIST ModellElementZusammenfuehren
   id			CDATA	#REQUIRED
   geschuetzt	CDATA	#IMPLIED
@@ -751,6 +751,8 @@
 <!ATTLIST ModellElementMatchEigenschaft
   Typ   CDATA	#IMPLIED
 >
+
+<!ELEMENT ModellElementZusammenfuehrenBedingungText (#PCDATA)>
 
 <!ELEMENT ModellElementZerteilen (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementBoxSchriftGross | ModellElementBoxSchriftKlein | ModellElementMaximalerDurchsatzSekunden | ModellElementEbene | ModellElementHintergrundfarbe | ModellElementStationsbild | ModellElementVerbindung | ModellElementZerteilenDaten | ModellElementZerteilenKundendatenKopieren)*>
 <!ATTLIST ModellElementZerteilen
@@ -3332,7 +3334,7 @@
   name	CDATA	#REQUIRED
 >
 
-<!ELEMENT ModelElementMatch (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBoxFontLarge | ModelElementBoxFontSmall | ModelElementMaximumThroughputSeconds | ModelElementQueueAnimationComplete | ModelElementLayer | ModelElementBackgroundColor | ModelElementStationimage | ModelElementConnection | ModelElementClientType | ModelElementBatchMode | ModelElementMatchProperty)*>
+<!ELEMENT ModelElementMatch (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBoxFontLarge | ModelElementBoxFontSmall | ModelElementMaximumThroughputSeconds | ModelElementQueueAnimationComplete | ModelElementLayer | ModelElementBackgroundColor | ModelElementStationimage | ModelElementConnection | ModelElementClientType | ModelElementBatchMode | ModelElementMatchProperty | ModelElementMatchCondition)*>
 <!ATTLIST ModelElementMatch
   id		CDATA	#REQUIRED
   protected	CDATA	#IMPLIED
@@ -3344,6 +3346,8 @@
 <!ATTLIST ModelElementMatchProperty
   Type  CDATA	#IMPLIED
 >
+
+<!ELEMENT ModelElementMatchCondition (#PCDATA)>
 
 <!ELEMENT ModelElementSplit (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBoxFontLarge | ModelElementBoxFontSmall | ModelElementMaximumThroughputSeconds | ModelElementLayer | ModelElementBackgroundColor | ModelElementStationimage | ModelElementConnection | ModelElementSplitData | ModelElementSplitCopyClientData)*>
 <!ATTLIST ModelElementSplit

@@ -138,6 +138,13 @@ public class ModelElementMatch extends ModelElementBox implements ElementWithNew
 	 */
 	private String newClientType;
 
+	/**
+	 * Bedingung, die für eine Weitergabe der Kunden erfüllt sein muss
+	 * @see #getCondition()
+	 * @see #setCondition(String)
+	 */
+	private String condition;
+
 	/** IDs der einlaufenden Kanten (Wird nur beim Laden und Clonen verwendet.) */
 	private List<Integer> connectionsInIds=null;
 	/** ID der auflaufenden Kante (Wird nur beim Laden und Clonen verwendet.) */
@@ -158,6 +165,8 @@ public class ModelElementMatch extends ModelElementBox implements ElementWithNew
 
 		matchMode=MatchMode.MATCH_MODE_COLLECT;
 		newClientType="";
+
+		condition="";
 	}
 
 	/**
@@ -317,6 +326,22 @@ public class ModelElementMatch extends ModelElementBox implements ElementWithNew
 	}
 
 	/**
+	 * Liefert die Bedingung, die erfüllt sein muss, damit Kunden weitergeleitet werden.
+	 * @return Bedingung, die für eine Weitergabe der Kunden erfüllt sein muss
+	 */
+	public String getCondition() {
+		return condition;
+	}
+
+	/**
+	 * Stellt die Bedingung ein, die erfüllt sein muss, damit Kunden weitergeleitet werden.
+	 * @param newCondition	Neue zu erfüllende Bedingung
+	 */
+	public void setCondition(final String newCondition) {
+		if (newCondition!=null) condition=newCondition;
+	}
+
+	/**
 	 * Überprüft, ob das Element mit dem angegebenen Element inhaltlich identisch ist.
 	 * @param element	Element mit dem dieses Element verglichen werden soll.
 	 * @return	Gibt <code>true</code> zurück, wenn die beiden Elemente identisch sind.
@@ -348,6 +373,8 @@ public class ModelElementMatch extends ModelElementBox implements ElementWithNew
 			if (connectionOut.getId()!=otherMatch.connectionOut.getId()) return false;
 		}
 
+		if (!otherMatch.condition.equalsIgnoreCase(condition)) return false;
+
 		final List<ModelElementEdge> connectionsIn2=otherMatch.connectionsIn;
 		if (connectionsIn==null || connectionsIn2==null || connectionsIn.size()!=connectionsIn2.size()) return false;
 		for (int i=0;i<connectionsIn.size();i++) if (connectionsIn.get(i).getId()!=connectionsIn2.get(i).getId()) return false;
@@ -375,6 +402,8 @@ public class ModelElementMatch extends ModelElementBox implements ElementWithNew
 			} else {
 				newClientType="";
 			}
+
+			condition=source.condition;
 
 			connectionsIn.clear();
 			final List<ModelElementEdge> connectionsIn2=source.connectionsIn;
@@ -542,6 +571,9 @@ public class ModelElementMatch extends ModelElementBox implements ElementWithNew
 			addVisualizationMenuItem(parentMenu,addElement,VisualizationType.BAR_NQ_CURRENT_3);
 			addVisualizationMenuItem(parentMenu,addElement,VisualizationType.BAR_NQ_AVERAGE_3);
 		}
+		if (!condition.trim().isEmpty()) {
+			addVisualizationTrafficLightsMenuItem("!("+condition+")",parentMenu,addElement);
+		}
 	}
 
 	/**
@@ -667,6 +699,11 @@ public class ModelElementMatch extends ModelElementBox implements ElementWithNew
 			}
 			break;
 		}
+
+		if (!condition.trim().isEmpty()) {
+			node.appendChild(sub=doc.createElement(Language.trPrimary("Surface.Match.XML.Condition")));
+			sub.setTextContent(condition);
+		}
 	}
 
 	/**
@@ -721,6 +758,11 @@ public class ModelElementMatch extends ModelElementBox implements ElementWithNew
 		if (Language.trAll("Surface.Match.XML.ClientType",name)) {
 			newClientType=content;
 			if (!content.trim().isEmpty() && matchMode==MatchMode.MATCH_MODE_COLLECT) matchMode=MatchMode.MATCH_MODE_PERMANENT;
+			return null;
+		}
+
+		if (Language.trAll("Surface.Match.XML.Condition",name)) {
+			condition=node.getTextContent();
 			return null;
 		}
 
@@ -878,6 +920,11 @@ public class ModelElementMatch extends ModelElementBox implements ElementWithNew
 			descriptionBuilder.addProperty(Language.tr("ModelDescription.Match.NewClientType"),newClientType,3000);
 		}
 
+		/* Bedingung */
+		if (!condition.trim().isEmpty()) {
+			descriptionBuilder.addProperty(Language.tr("ModelDescription.Match.Condition"),condition,1000);
+		}
+
 		/* Auslaufende Kante */
 		descriptionBuilder.addEdgeOut(connectionOut);
 	}
@@ -915,5 +962,9 @@ public class ModelElementMatch extends ModelElementBox implements ElementWithNew
 		if (matchMode!=MatchMode.MATCH_MODE_COLLECT) {
 			searcher.testString(this,Language.tr("Editor.DialogBase.Search.NewClientType"),newClientType,newNewClientType->{newClientType=newNewClientType;});
 		}
+
+		/* Bedingung */
+		searcher.testString(this,Language.tr("Surface.Match.Dialog.Condition"),condition,newCondition->{condition=newCondition;});
+
 	}
 }

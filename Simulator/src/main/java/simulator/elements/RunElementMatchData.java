@@ -22,6 +22,7 @@ import simulator.coreelements.RunElement;
 import simulator.coreelements.RunElementData;
 import simulator.coreelements.RunElementMultiQueueData;
 import simulator.runmodel.RunDataClient;
+import simulator.simparser.ExpressionMultiEval;
 
 /**
  * Laufzeitdaten eines <code>RunElementMatch</code>-Laufzeit-Objekts
@@ -54,12 +55,19 @@ public class RunElementMatchData extends RunElementData implements RunElementMul
 	public final int[] selectQueuedClients;
 
 	/**
+	 * Zu prüfende Bedingung
+	 */
+	public final ExpressionMultiEval condition;
+
+	/**
 	 * Konstruktor der Klasse <code>RunElementMatchData</code>
 	 * @param station	Station zu diesem Datenelement
 	 * @param numberOfQueues	Anzahl der einlaufenden Verbindungen
+	 * @param condition	Optionale zusätzliche Freigabebedingung (kann <code>null</code> sein)
+	 * @param variableNames	Liste der global verfügbaren Variablennamen
 	 */
 	@SuppressWarnings("unchecked")
-	public RunElementMatchData(final RunElement station, final int numberOfQueues) {
+	public RunElementMatchData(final RunElement station, final int numberOfQueues, final String condition, final String[] variableNames) {
 		super(station);
 
 		waitingClients=new ArrayList[numberOfQueues];
@@ -69,6 +77,13 @@ public class RunElementMatchData extends RunElementData implements RunElementMul
 
 		selectQueuedClients=new int[numberOfQueues];
 		Arrays.fill(selectQueuedClients,0);
+
+		if (condition==null || condition.trim().isEmpty()) {
+			this.condition=null;
+		} else {
+			this.condition=new ExpressionMultiEval(variableNames);
+			this.condition.parse(condition);
+		}
 	}
 
 	@Override

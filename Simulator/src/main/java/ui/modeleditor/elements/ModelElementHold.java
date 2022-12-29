@@ -414,6 +414,7 @@ public class ModelElementHold extends ModelElementMultiInSingleOutBox implements
 			if (clientBasedCheckString.equals("1")) clientBasedCheck=true;
 			final String useTimedChecksString=Language.trAllAttribute("Surface.Hold.XML.Condition.TimedChecks",node);
 			if (useTimedChecksString.equals("1")) useTimedChecks=true;
+			return null;
 		}
 
 		if (Language.trAll("Surface.Hold.XML.Priority",name)) {

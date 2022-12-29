@@ -957,6 +957,7 @@
     <xs:element name="ModellElementKundentyp" type="xs:string"/>
     <xs:element name="ModellElementBatchModus" type="xs:string"/>
     <xs:element ref="ModellElementMatchEigenschaft"/>
+	<xs:element name="ModellElementZusammenfuehrenBedingungText" type="xs:string"/>
   </xs:choice></xs:sequence>
 </xs:extension></xs:complexContent></xs:complexType></xs:element>
 
@@ -3314,6 +3315,7 @@
     <xs:element name="ModelElementClientType" type="xs:string"/>
     <xs:element name="ModelElementBatchMode" type="xs:string"/>
     <xs:element ref="ModelElementMatchProperty"/>
+	<xs:element name="ModelElementMatchCondition" type="xs:string"/>
   </xs:choice></xs:sequence>
 </xs:extension></xs:complexContent></xs:complexType></xs:element>
 

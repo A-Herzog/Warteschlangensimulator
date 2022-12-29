@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-12-26 21:30+0100\n"
+"POT-Creation-Date: 2022-12-28 22:45+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -11900,6 +11900,9 @@ msgstr "Variable"
 msgid "ModelDescription.Logic.Condition"
 msgstr "Condition"
 
+msgid "ModelDescription.Match.Condition"
+msgstr "Condition for releasing clients"
+
 msgid "ModelDescription.Match.Mode"
 msgstr "Mode"
 
@@ -17986,6 +17989,9 @@ msgstr "The flow control condition \"%s\" at station id=%d is invalid at charact
 
 msgid "Simulation.Creator.LogicNoEnd"
 msgstr "No end element was found for flow control logic element id=%d;"
+
+msgid "Simulation.Creator.MatchCondition"
+msgstr "The additional condition \"%s\" at element id=%d is invalid at character %d."
 
 msgid "Simulation.Creator.MissingResourceInterDownTimeDistribution"
 msgstr "Internal error: The distances between two down times for resource \"%s\" should be determined by a distribution. But no distribution was given."
@@ -28631,6 +28637,18 @@ msgstr "Logic While"
 msgid "Surface.LogicWhile.XML.Root"
 msgstr "ModelElementLogicWhile"
 
+msgid "Surface.Match.Dialog.Condition"
+msgstr "Condition"
+
+msgid "Surface.Match.Dialog.Condition.Error.Info"
+msgstr "The specified condition \"%s\" is invalid at character %d."
+
+msgid "Surface.Match.Dialog.Condition.Error.Title"
+msgstr "Invalid condition"
+
+msgid "Surface.Match.Dialog.ConditionEnabled"
+msgstr "Check additional condition before matching clients"
+
 msgid "Surface.Match.Dialog.OptionBatch"
 msgstr "Forward marched clients as new client type; type"
 
@@ -28699,6 +28717,9 @@ msgstr "Waits until clients have arrived at both input lanes and then forwards t
 
 msgid "Surface.Match.XML.ClientType"
 msgstr "ModelElementClientType"
+
+msgid "Surface.Match.XML.Condition"
+msgstr "ModelElementMatchCondition"
 
 msgid "Surface.Match.XML.MatchMode"
 msgstr "ModelElementBatchMode;BatchMode"

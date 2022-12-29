@@ -15,6 +15,7 @@
  */
 package ui.modeleditor.elements;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.FlowLayout;
@@ -24,6 +25,7 @@ import java.io.Serializable;
 
 import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
+import javax.swing.JCheckBox;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -32,6 +34,7 @@ import javax.swing.JTextField;
 
 import language.Language;
 import mathtools.NumberTools;
+import simulator.simparser.ExpressionMultiEval;
 import systemtools.MsgBox;
 import ui.infopanel.InfoPanel;
 import ui.modeleditor.ModelElementBaseDialog;
@@ -69,6 +72,11 @@ public class ModelElementMatchDialog extends ModelElementBaseDialog {
 	private JTextField optionPropertyNumberField;
 	/** Eingabefeld für den Schlüssel im Fall {@link #optionPropertyText} */
 	private JTextField optionPropertyTextField;
+
+	/** Soll zusätzlich für eine Freigabe eine Bedingung geprüft werden? */
+	private JCheckBox conditionEnabled;
+	/** Eingabefeld für die Bedingung */
+	private JTextField condition;
 
 	/**
 	 * Konstruktor der Klasse
@@ -184,35 +192,58 @@ public class ModelElementMatchDialog extends ModelElementBaseDialog {
 		buttonGroup.add(optionPropertyNumber);
 		buttonGroup.add(optionPropertyText);
 
+		/* Bedingung */
+
+		content.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
+		line.add(conditionEnabled=new JCheckBox("<html><body><b>"+Language.tr("Surface.Match.Dialog.ConditionEnabled")+"</b></body></html>"));
+		conditionEnabled.addActionListener(e->checkData(false));
+
+		final Object[] data=getInputPanel(Language.tr("Surface.Match.Dialog.Condition")+":","");
+		line=(JPanel)data[0];
+		condition=(JTextField)data[1];
+		condition.setEditable(!readOnly);
+		condition.addKeyListener(new KeyListener() {
+			@Override public void keyTyped(KeyEvent e) {if (!condition.getText().trim().isEmpty()) conditionEnabled.setSelected(true); checkData(false);}
+			@Override public void keyReleased(KeyEvent e) {if (!condition.getText().trim().isEmpty()) conditionEnabled.setSelected(true); checkData(false);}
+			@Override public void keyPressed(KeyEvent e) {if (!condition.getText().trim().isEmpty()) conditionEnabled.setSelected(true); checkData(false);}
+		});
+		line.add(getExpressionEditButton(this,condition,true,true,element.getModel(),element.getSurface()),BorderLayout.EAST);
+		content.add(line);
+
 		/* Daten laden */
 
-		switch (((ModelElementMatch)element).getMatchMode()) {
+		final ModelElementMatch match=(ModelElementMatch)element;
+
+		switch (match.getMatchMode()) {
 		case MATCH_MODE_COLLECT:
 			optionForward.setSelected(true);
 			break;
 		case MATCH_MODE_TEMPORARY:
 			optionTemporary.setSelected(true);
-			tempTypeField.setText(((ModelElementMatch)element).getNewClientType());
+			tempTypeField.setText(match.getNewClientType());
 			break;
 		case MATCH_MODE_PERMANENT:
 			optionNewType.setSelected(true);
-			newTypeField.setText(((ModelElementMatch)element).getNewClientType());
+			newTypeField.setText(match.getNewClientType());
 			break;
 		}
 
-		switch (((ModelElementMatch)element).getMatchPropertyMode()) {
+		switch (match.getMatchPropertyMode()) {
 		case NONE:
 			optionPropertyNone.setSelected(true);
 			break;
 		case NUMBER:
 			optionPropertyNumber.setSelected(true);
-			optionPropertyNumberField.setText(""+((ModelElementMatch)element).getMatchPropertyNumber());
+			optionPropertyNumberField.setText(""+match.getMatchPropertyNumber());
 			break;
 		case TEXT:
 			optionPropertyText.setSelected(true);
-			optionPropertyTextField.setText(((ModelElementMatch)element).getMatchPropertyString());
+			optionPropertyTextField.setText(match.getMatchPropertyString());
 			break;
 		}
+
+		conditionEnabled.setSelected(!match.getCondition().trim().isEmpty());
+		condition.setText(match.getCondition());
 
 		return content;
 	}
@@ -269,6 +300,27 @@ public class ModelElementMatchDialog extends ModelElementBaseDialog {
 			optionPropertyTextField.setBackground(NumberTools.getTextFieldDefaultBackground());
 		}
 
+		if (conditionEnabled.isSelected()) {
+			final String text=condition.getText();
+			if (text.trim().isEmpty()) {
+				condition.setBackground(NumberTools.getTextFieldDefaultBackground());
+			} else {
+				final int error=ExpressionMultiEval.check(text,element.getSurface().getMainSurfaceVariableNames(element.getModel().getModelVariableNames(),true));
+				if (error>=0) {
+					ok=false;
+					condition.setBackground(Color.RED);
+					if (showErrorMessage) {
+						MsgBox.error(this,Language.tr("Surface.Match.Dialog.Condition.Error.Title"),String.format(Language.tr("Surface.Match.Dialog.Condition.Error.Info"),text,error+1));
+						return false;
+					}
+				} else {
+					condition.setBackground(NumberTools.getTextFieldDefaultBackground());
+				}
+			}
+		} else {
+			condition.setBackground(NumberTools.getTextFieldDefaultBackground());
+		}
+
 		return ok;
 	}
 
@@ -310,6 +362,12 @@ public class ModelElementMatchDialog extends ModelElementBaseDialog {
 		if (optionPropertyText.isSelected()) {
 			match.setMatchPropertyMode(ModelElementMatch.MatchPropertyMode.TEXT);
 			match.setMatchPropertyString(optionPropertyTextField.getText());
+		}
+
+		if (conditionEnabled.isSelected()) {
+			match.setCondition(condition.getText());
+		} else {
+			match.setCondition("");
 		}
 	}
 }
