@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-12-28 22:45+0100\n"
+"POT-Creation-Date: 2022-12-30 15:36+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -26215,6 +26215,33 @@ msgstr "Missing name for client type"
 msgid "Surface.Batch.Dialog.Title"
 msgstr "Edit batching clients"
 
+msgid "Surface.Batch.Dialog.TransferData"
+msgstr "On batch building"
+
+msgid "Surface.Batch.Dialog.TransferData.Mode.Max"
+msgstr "Maximum of the invividual values"
+
+msgid "Surface.Batch.Dialog.TransferData.Mode.Mean"
+msgstr "Mean of the invividual values"
+
+msgid "Surface.Batch.Dialog.TransferData.Mode.Min"
+msgstr "Minimum of the invividual values"
+
+msgid "Surface.Batch.Dialog.TransferData.Mode.Multiply"
+msgstr "Product of the invividual values"
+
+msgid "Surface.Batch.Dialog.TransferData.Mode.Off"
+msgstr "Off"
+
+msgid "Surface.Batch.Dialog.TransferData.Mode.Sum"
+msgstr "Sum of the invividual values"
+
+msgid "Surface.Batch.Dialog.TransferData.Numbers"
+msgstr "Transfering user data fields to the batch client"
+
+msgid "Surface.Batch.Dialog.TransferData.Times"
+msgstr "Transfering times to the batch client"
+
 msgid "Surface.Batch.Dialog.TypeActive"
 msgstr "Batch processing active for this client type"
 
@@ -26268,6 +26295,30 @@ msgstr "Name"
 
 msgid "Surface.Batch.XML.Root"
 msgstr "ModelElementBatch"
+
+msgid "Surface.Batch.XML.TransferMode.Max"
+msgstr "Max"
+
+msgid "Surface.Batch.XML.TransferMode.Mean"
+msgstr "Mean"
+
+msgid "Surface.Batch.XML.TransferMode.Min"
+msgstr "Min"
+
+msgid "Surface.Batch.XML.TransferMode.Multiply"
+msgstr "Multiply"
+
+msgid "Surface.Batch.XML.TransferMode.Off"
+msgstr "Off"
+
+msgid "Surface.Batch.XML.TransferMode.Sum"
+msgstr "Sum"
+
+msgid "Surface.Batch.XML.TransferNumbers"
+msgstr "ModelElementBatchTransferNumbers"
+
+msgid "Surface.Batch.XML.TransferTimes"
+msgstr "ModelElementBatchTransferTimes"
 
 msgid "Surface.BatchMulti.Dialog.ClientType"
 msgstr "Client type"
@@ -28700,6 +28751,33 @@ msgstr "Missing name for client type"
 msgid "Surface.Match.Dialog.Title"
 msgstr "Edit match"
 
+msgid "Surface.Match.Dialog.TransferData"
+msgstr "On batch building"
+
+msgid "Surface.Match.Dialog.TransferData.Mode.Max"
+msgstr "Maximum of the invividual values"
+
+msgid "Surface.Match.Dialog.TransferData.Mode.Mean"
+msgstr "Mean of the invividual values"
+
+msgid "Surface.Match.Dialog.TransferData.Mode.Min"
+msgstr "Minimum of the invividual values"
+
+msgid "Surface.Match.Dialog.TransferData.Mode.Multiply"
+msgstr "Product of the invividual values"
+
+msgid "Surface.Match.Dialog.TransferData.Mode.Off"
+msgstr "Off"
+
+msgid "Surface.Match.Dialog.TransferData.Mode.Sum"
+msgstr "Sum of the invividual values"
+
+msgid "Surface.Match.Dialog.TransferData.Numbers"
+msgstr "Transfering user data fields to the batch client"
+
+msgid "Surface.Match.Dialog.TransferData.Times"
+msgstr "Transfering times to the batch client"
+
 msgid "Surface.Match.Infotext"
 msgstr "Matches the clients, arriving via the different incoming edges, to a new client. For generating a new client on each input at least one client has to be available."
 
@@ -28747,6 +28825,12 @@ msgstr "Text"
 
 msgid "Surface.Match.XML.Root"
 msgstr "ModelElementMatch"
+
+msgid "Surface.Match.XML.TransferNumbers"
+msgstr "ModelElementMatchTransferNumbers"
+
+msgid "Surface.Match.XML.TransferTimes"
+msgstr "ModelElementMatchTransferTimes"
 
 msgid "Surface.Model.DistributionRecordClientDataValues"
 msgstr "The value \"%s\" for the number of values to be recorded in distributions is invalid. A positive integer value has to be specified."

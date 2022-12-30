@@ -28,6 +28,7 @@ import simulator.runmodel.RunModel;
 import simulator.runmodel.SimulationData;
 import simulator.simparser.ExpressionMultiEval;
 import ui.modeleditor.coreelements.ModelElement;
+import ui.modeleditor.elements.BatchRecord;
 import ui.modeleditor.elements.ModelElementEdge;
 import ui.modeleditor.elements.ModelElementMatch;
 import ui.modeleditor.elements.ModelElementMatch.MatchPropertyMode;
@@ -71,6 +72,11 @@ public class RunElementMatch extends RunElementPassThrough implements StateChang
 
 	/** Bedingung, die für eine Weitergabe der Kunden erfüllt sein muss */
 	private String condition;
+
+	/** Wie sollen die Zeiten der Einzelkunden bei der Batch-Bildung auf den neuen Batch-Kunden übertragen werden? */
+	private BatchRecord.DataTransferMode transferTimes;
+	/** Wie sollen die numerischen Datenfelder der Einzelkunden bei der Batch-Bildung auf den neuen Batch-Kunden übertragen werden? */
+	private BatchRecord.DataTransferMode transferNumbers;
 
 	/**
 	 * Konstruktor der Klasse
@@ -144,6 +150,10 @@ public class RunElementMatch extends RunElementPassThrough implements StateChang
 			if (error>=0) return String.format(Language.tr("Simulation.Creator.MatchCondition"),condition,element.getId(),error+1);
 			match.condition=condition;
 		}
+
+		/* Daten zusammenführen */
+		match.transferTimes=matchElement.getTransferTimes();
+		match.transferNumbers=matchElement.getTransferNumbers();
 
 		return match;
 	}
@@ -271,6 +281,10 @@ public class RunElementMatch extends RunElementPassThrough implements StateChang
 			if (newClient!=null) sb.append(Language.tr("Simulation.Log.MatchNewClientID")+": "+newClient.logInfo(simData));
 		}
 
+		/* Listenobjekt aus Cache holen (wenn es verwendet werden soll) */
+		List<RunDataClient> processedClients=null;
+		if (transferTimes!=BatchRecord.DataTransferMode.OFF || transferNumbers!=BatchRecord.DataTransferMode.OFF) processedClients=data.processedClientsListCache;
+
 		/* Wenn es sich um eine Ankunft handelt und einer der Kunden überhaupt nicht in der Warteschlange war... */
 		if (newClientQueueNumber>=0 && newClient!=null) {
 			/* Wartezeit in Statistik */
@@ -285,6 +299,8 @@ public class RunElementMatch extends RunElementPassThrough implements StateChang
 
 			/* Kunde in Batch aufnehmen */
 			batchedClient.addBatchClient(newClient);
+
+			if (processedClients!=null) processedClients.add(newClient);
 		}
 
 		for (int i=0;i<data.waitingClients.length;i++) {
@@ -312,6 +328,8 @@ public class RunElementMatch extends RunElementPassThrough implements StateChang
 
 				/* Kunde in Batch aufnehmen */
 				batchedClient.addBatchClient(waitingClient);
+
+				if (processedClients!=null) processedClients.add(newClient);
 			} else {
 				currentClient=newClient;
 			}
@@ -319,6 +337,13 @@ public class RunElementMatch extends RunElementPassThrough implements StateChang
 			/* Kunde verlässt Station (wird sonst über die Events realisiert) */
 			simData.runData.logClientLeavesStation(simData,this,data,currentClient);
 			if (parentId>=0) simData.runData.logClientLeavesStation(simData,simData.runModel.elementsFast[parentId],null,currentClient);
+		}
+
+		/* Daten von den alten Kunden auf den neuen Batch-Kunden übertragen */
+		if (processedClients!=null) {
+			RunElementBatch.transferTimes(transferTimes,processedClients.size(),processedClients,batchedClient);
+			RunElementBatch.transferNumbers(transferNumbers,processedClients.size(),processedClients,batchedClient);
+			processedClients.clear();
 		}
 
 		/* Logging */
@@ -359,6 +384,9 @@ public class RunElementMatch extends RunElementPassThrough implements StateChang
 			if (newClient!=null) sb.append(Language.tr("Simulation.Log.MatchNewClientID")+": "+newClient.logInfo(simData));
 		}
 
+		/* Listenobjekt aus Cache holen */
+		final List<RunDataClient> processedClients=data.processedClientsListCache;
+
 		/* Wenn es sich um eine Ankunft handelt und einer der Kunden überhaupt nicht in der Warteschlange war... */
 		if (newClientQueueNumber>=0 && newClient!=null) {
 
@@ -371,9 +399,6 @@ public class RunElementMatch extends RunElementPassThrough implements StateChang
 
 			/* Ist der Kunde als "letzter Kunde" markiert? */
 			isLastClient=isLastClient || newClient.isLastClient;
-
-			/* Kunde final in Statistik erfassen und Objekt recyceln */
-			simData.runData.clients.disposeClient(newClient,simData);
 		}
 
 		for (int i=0;i<data.waitingClients.length;i++) {
@@ -400,9 +425,6 @@ public class RunElementMatch extends RunElementPassThrough implements StateChang
 				if (simData.loggingActive && sb!=null) {
 					sb.append(", "+Language.tr("Simulation.Log.MatchWaitingClientID")+": "+waitingClient.logInfo(simData));
 				}
-
-				/* Kunde final in Statistik erfassen und Objekt recyceln */
-				simData.runData.clients.disposeClient(waitingClient,simData);
 			} else {
 				currentClient=newClient;
 			}
@@ -410,21 +432,31 @@ public class RunElementMatch extends RunElementPassThrough implements StateChang
 			/* Kunde verlässt Station (wird sonst über die Events realisiert) */
 			simData.runData.logClientLeavesStation(simData,this,data,currentClient);
 			if (parentId>=0) simData.runData.logClientLeavesStation(simData,simData.runModel.elementsFast[parentId],null,currentClient);
-		}
 
-		/* Logging */
-		if (simData.loggingActive && sb!=null) {
-			StringBuilder sb2=new StringBuilder();
-			for (List<RunDataClient> queue: data.waitingClients) {if (sb2.length()!=0) sb2.append(" / "); sb2.append(queue.size());}
-			log(simData,Language.tr("Simulation.Log.MatchDisposeClient"),String.format(Language.tr("Simulation.Log.MatchDisposeClient.Info"),sb.toString(),name,sb2.toString()));
+			processedClients.add(currentClient);
 		}
 
 		/* Neuen Kunden anlegen */
 		final RunDataClient batchedClient=simData.runData.clients.getClient(newClientType,simData);
 		batchedClient.isLastClient=isLastClient;
 
+		/* Daten von den alten Kunden auf den neuen Batch-Kunden übertragen */
+		RunElementBatch.transferTimes(transferTimes,processedClients.size(),processedClients,batchedClient);
+		RunElementBatch.transferNumbers(transferNumbers,processedClients.size(),processedClients,batchedClient);
+
+		/* Kunde final in Statistik erfassen und Objekt recyceln */
+		for (RunDataClient client: processedClients) simData.runData.clients.disposeClient(client,simData);
+		processedClients.clear();
+
 		/* Logging */
-		if (simData.loggingActive) log(simData,Language.tr("Simulation.Log.MatchNewClient"),String.format(Language.tr("Simulation.Log.MatchNewClient.Info"),batchedClient.logInfo(simData),name));
+		if (simData.loggingActive) {
+			if (sb!=null) {
+				StringBuilder sb2=new StringBuilder();
+				for (List<RunDataClient> queue: data.waitingClients) {if (sb2.length()!=0) sb2.append(" / "); sb2.append(queue.size());}
+				log(simData,Language.tr("Simulation.Log.MatchDisposeClient"),String.format(Language.tr("Simulation.Log.MatchDisposeClient.Info"),sb.toString(),name,sb2.toString()));
+			}
+			log(simData,Language.tr("Simulation.Log.MatchNewClient"),String.format(Language.tr("Simulation.Log.MatchNewClient.Info"),batchedClient.logInfo(simData),name));
+		}
 
 		/* Kunde betritt Station (wird sonst über die Events realisiert) */
 		simData.runData.logClientEntersStation(simData,this,data,batchedClient);

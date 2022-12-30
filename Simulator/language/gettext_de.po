@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-12-28 22:45+0100\n"
+"POT-Creation-Date: 2022-12-30 15:36+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -26231,6 +26231,33 @@ msgstr "Name für Kundentyp fehlt"
 msgid "Surface.Batch.Dialog.Title"
 msgstr "Kundenzusammenfassung bearbeiten"
 
+msgid "Surface.Batch.Dialog.TransferData"
+msgstr "Bei Batch-Bildung"
+
+msgid "Surface.Batch.Dialog.TransferData.Mode.Max"
+msgstr "Maximum der Einzelwerte"
+
+msgid "Surface.Batch.Dialog.TransferData.Mode.Mean"
+msgstr "Mittelwert der Einzelwerte"
+
+msgid "Surface.Batch.Dialog.TransferData.Mode.Min"
+msgstr "Minimum der Einzelwerte"
+
+msgid "Surface.Batch.Dialog.TransferData.Mode.Multiply"
+msgstr "Produkt der Einzelwerte"
+
+msgid "Surface.Batch.Dialog.TransferData.Mode.Off"
+msgstr "Aus"
+
+msgid "Surface.Batch.Dialog.TransferData.Mode.Sum"
+msgstr "Summe der Einzelwerte"
+
+msgid "Surface.Batch.Dialog.TransferData.Numbers"
+msgstr "Übertragung der Nutzerdatenfelder auf den neuen Batch-Kunden"
+
+msgid "Surface.Batch.Dialog.TransferData.Times"
+msgstr "Übertragung der Zeitdauern auf den neuen Batch-Kunden"
+
 msgid "Surface.Batch.Dialog.TypeActive"
 msgstr "Batch-Bildung für diesen Kundentyp aktiv"
 
@@ -26284,6 +26311,30 @@ msgstr "Name"
 
 msgid "Surface.Batch.XML.Root"
 msgstr "ModellElementZusammenfassen"
+
+msgid "Surface.Batch.XML.TransferMode.Max"
+msgstr "Maximum"
+
+msgid "Surface.Batch.XML.TransferMode.Mean"
+msgstr "Mittelwert"
+
+msgid "Surface.Batch.XML.TransferMode.Min"
+msgstr "Minimum"
+
+msgid "Surface.Batch.XML.TransferMode.Multiply"
+msgstr "Multiplizieren"
+
+msgid "Surface.Batch.XML.TransferMode.Off"
+msgstr "Aus"
+
+msgid "Surface.Batch.XML.TransferMode.Sum"
+msgstr "Summe"
+
+msgid "Surface.Batch.XML.TransferNumbers"
+msgstr "ModellElementZusammenfassenUebertragenWerte"
+
+msgid "Surface.Batch.XML.TransferTimes"
+msgstr "ModellElementZusammenfassenUebertragenZeiten"
 
 msgid "Surface.BatchMulti.Dialog.ClientType"
 msgstr "Kundentyp"
@@ -28722,6 +28773,33 @@ msgstr "Name für Kundentyp fehlt"
 msgid "Surface.Match.Dialog.Title"
 msgstr "Zusammenführung bearbeiten"
 
+msgid "Surface.Match.Dialog.TransferData"
+msgstr "Bei Batch-Bildung"
+
+msgid "Surface.Match.Dialog.TransferData.Mode.Max"
+msgstr "Maximum der Einzelwerte"
+
+msgid "Surface.Match.Dialog.TransferData.Mode.Mean"
+msgstr "Mittelwert der Einzelwerte"
+
+msgid "Surface.Match.Dialog.TransferData.Mode.Min"
+msgstr "Minimum der Einzelwerte"
+
+msgid "Surface.Match.Dialog.TransferData.Mode.Multiply"
+msgstr "Produkt der Einzelwerte"
+
+msgid "Surface.Match.Dialog.TransferData.Mode.Off"
+msgstr "Aus"
+
+msgid "Surface.Match.Dialog.TransferData.Mode.Sum"
+msgstr "Summe der Einzelwerte"
+
+msgid "Surface.Match.Dialog.TransferData.Numbers"
+msgstr "Übertragung der Nutzerdatenfelder auf den neuen Batch-Kunden"
+
+msgid "Surface.Match.Dialog.TransferData.Times"
+msgstr "Übertragung der Zeitdauern auf den neuen Batch-Kunden"
+
 msgid "Surface.Match.Infotext"
 msgstr "Führt die Kunden, die über die verschiedenen Eingänge an der Station eintreffen, zu einem neuen Kunden zusammen. Um einen neuen Kunden zu erzeugen, muss an jedem Eingang ein oder mehrere Kunden warten."
 
@@ -28769,6 +28847,12 @@ msgstr "Text"
 
 msgid "Surface.Match.XML.Root"
 msgstr "ModellElementZusammenfuehren"
+
+msgid "Surface.Match.XML.TransferNumbers"
+msgstr "ModellElementZusammenfuehrenUebertragenWerte"
+
+msgid "Surface.Match.XML.TransferTimes"
+msgstr "ModellElementZusammenfuehrenUebertragenZeiten"
 
 msgid "Surface.Model.DistributionRecordClientDataValues"
 msgstr "Der angegebene Wert \"%s\" für die Anzahl an zu erfassenden Werten in Verteilungen ist ungültig. Es muss eine positive Ganzzahl angegeben werden."

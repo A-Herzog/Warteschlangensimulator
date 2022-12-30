@@ -26,6 +26,7 @@ import java.io.Serializable;
 import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
 import javax.swing.JCheckBox;
+import javax.swing.JComboBox;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -78,6 +79,11 @@ public class ModelElementMatchDialog extends ModelElementBaseDialog {
 	/** Eingabefeld für die Bedingung */
 	private JTextField condition;
 
+	/** Wie sollen die Zeiten der Einzelkunden bei der Batch-Bildung auf den neuen Batch-Kunden übertragen werden? */
+	private JComboBox<?> transferTimes;
+	/** Wie sollen die numerischen Datenfelder der Einzelkunden bei der Batch-Bildung auf den neuen Batch-Kunden übertragen werden? */
+	private JComboBox<?> transferNumbers;
+
 	/**
 	 * Konstruktor der Klasse
 	 * @param owner	Übergeordnetes Fenster
@@ -113,6 +119,7 @@ public class ModelElementMatchDialog extends ModelElementBaseDialog {
 
 		JPanel line;
 		ButtonGroup buttonGroup;
+		Object[] data;
 
 		/* Batch-Bildungsoptionen */
 
@@ -198,7 +205,7 @@ public class ModelElementMatchDialog extends ModelElementBaseDialog {
 		line.add(conditionEnabled=new JCheckBox("<html><body><b>"+Language.tr("Surface.Match.Dialog.ConditionEnabled")+"</b></body></html>"));
 		conditionEnabled.addActionListener(e->checkData(false));
 
-		final Object[] data=getInputPanel(Language.tr("Surface.Match.Dialog.Condition")+":","");
+		data=getInputPanel(Language.tr("Surface.Match.Dialog.Condition")+":","");
 		line=(JPanel)data[0];
 		condition=(JTextField)data[1];
 		condition.setEditable(!readOnly);
@@ -209,6 +216,34 @@ public class ModelElementMatchDialog extends ModelElementBaseDialog {
 		});
 		line.add(getExpressionEditButton(this,condition,true,true,element.getModel(),element.getSurface()),BorderLayout.EAST);
 		content.add(line);
+
+		/* Daten von Eingangskunden auf Batch-Kunden übertragen */
+
+		content.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
+		line.add(new JLabel("<html><body><b>"+Language.tr("Surface.Match.Dialog.TransferData")+"</b></body></html>"));
+		data=ModelElementBaseDialog.getComboBoxPanel(Language.tr("Surface.Match.Dialog.TransferData.Times")+":",new String[] {
+				Language.tr("Surface.Match.Dialog.TransferData.Mode.Off"),
+				Language.tr("Surface.Match.Dialog.TransferData.Mode.Min"),
+				Language.tr("Surface.Match.Dialog.TransferData.Mode.Max"),
+				Language.tr("Surface.Match.Dialog.TransferData.Mode.Mean"),
+				Language.tr("Surface.Match.Dialog.TransferData.Mode.Sum"),
+				Language.tr("Surface.Match.Dialog.TransferData.Mode.Multiply")
+		});
+		content.add((JPanel)data[0]);
+		transferTimes=(JComboBox<?>)data[1];
+		transferTimes.setEnabled(!readOnly);
+
+		data=ModelElementBaseDialog.getComboBoxPanel(Language.tr("Surface.Match.Dialog.TransferData.Numbers")+":",new String[] {
+				Language.tr("Surface.Match.Dialog.TransferData.Mode.Off"),
+				Language.tr("Surface.Match.Dialog.TransferData.Mode.Min"),
+				Language.tr("Surface.Match.Dialog.TransferData.Mode.Max"),
+				Language.tr("Surface.Match.Dialog.TransferData.Mode.Mean"),
+				Language.tr("Surface.Match.Dialog.TransferData.Mode.Sum"),
+				Language.tr("Surface.Match.Dialog.TransferData.Mode.Multiply")
+		});
+		content.add((JPanel)data[0]);
+		transferNumbers=(JComboBox<?>)data[1];
+		transferNumbers.setEnabled(!readOnly);
 
 		/* Daten laden */
 
@@ -244,6 +279,26 @@ public class ModelElementMatchDialog extends ModelElementBaseDialog {
 
 		conditionEnabled.setSelected(!match.getCondition().trim().isEmpty());
 		condition.setText(match.getCondition());
+
+		switch (match.getTransferTimes()) {
+		case OFF: transferTimes.setSelectedIndex(0); break;
+		case MIN: transferTimes.setSelectedIndex(1); break;
+		case MAX: transferTimes.setSelectedIndex(2); break;
+		case MEAN: transferTimes.setSelectedIndex(3); break;
+		case SUM: transferTimes.setSelectedIndex(4); break;
+		case MULTIPLY: transferTimes.setSelectedIndex(5); break;
+		default: transferTimes.setSelectedIndex(0); break;
+		}
+
+		switch (match.getTransferNumbers()) {
+		case OFF: transferNumbers.setSelectedIndex(0); break;
+		case MIN: transferNumbers.setSelectedIndex(1); break;
+		case MAX: transferNumbers.setSelectedIndex(2); break;
+		case MEAN: transferNumbers.setSelectedIndex(3); break;
+		case SUM: transferNumbers.setSelectedIndex(4); break;
+		case MULTIPLY: transferNumbers.setSelectedIndex(5); break;
+		default: transferNumbers.setSelectedIndex(0); break;
+		}
 
 		return content;
 	}
@@ -368,6 +423,23 @@ public class ModelElementMatchDialog extends ModelElementBaseDialog {
 			match.setCondition(condition.getText());
 		} else {
 			match.setCondition("");
+		}
+
+		switch (transferTimes.getSelectedIndex()) {
+		case 0: match.setTransferTimes(BatchRecord.DataTransferMode.OFF); break;
+		case 1: match.setTransferTimes(BatchRecord.DataTransferMode.MIN); break;
+		case 2: match.setTransferTimes(BatchRecord.DataTransferMode.MAX); break;
+		case 3: match.setTransferTimes(BatchRecord.DataTransferMode.MEAN); break;
+		case 4: match.setTransferTimes(BatchRecord.DataTransferMode.SUM); break;
+		case 5: match.setTransferTimes(BatchRecord.DataTransferMode.MULTIPLY); break;
+		}
+		switch (transferNumbers.getSelectedIndex()) {
+		case 0: match.setTransferNumbers(BatchRecord.DataTransferMode.OFF); break;
+		case 1: match.setTransferNumbers(BatchRecord.DataTransferMode.MIN); break;
+		case 2: match.setTransferNumbers(BatchRecord.DataTransferMode.MAX); break;
+		case 3: match.setTransferNumbers(BatchRecord.DataTransferMode.MEAN); break;
+		case 4: match.setTransferNumbers(BatchRecord.DataTransferMode.SUM); break;
+		case 5: match.setTransferNumbers(BatchRecord.DataTransferMode.MULTIPLY); break;
 		}
 	}
 }

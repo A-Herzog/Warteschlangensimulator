@@ -15,6 +15,8 @@
  */
 package ui.modeleditor.elements;
 
+import java.util.function.Supplier;
+
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -76,6 +78,76 @@ public class BatchRecord implements Cloneable {
 	private String newClientType;
 
 	/**
+	 * Verschiedene Modi, wie Zeiten und Kundendaten von den Ausgangskunden auf den neuen Batch-Kunden übertragen werden sollen
+	 */
+	public enum DataTransferMode {
+		/** Modus: Nicht übertragen */
+		OFF(()->Language.trPrimary("Surface.Batch.XML.TransferMode.Off"),()->Language.trAll("Surface.Batch.XML.TransferMode.Off")),
+		/** Modus: Minimalwert der Einzelwerte verwenden */
+		MIN(()->Language.trPrimary("Surface.Batch.XML.TransferMode.Min"),()->Language.trAll("Surface.Batch.XML.TransferMode.Min")),
+		/** Modus: Maximalwert der Einzelwerte verwenden */
+		MAX(()->Language.trPrimary("Surface.Batch.XML.TransferMode.Max"),()->Language.trAll("Surface.Batch.XML.TransferMode.Max")),
+		/** Modus: Durchschnitt der Einzelwerte verwenden */
+		MEAN(()->Language.trPrimary("Surface.Batch.XML.TransferMode.Mean"),()->Language.trAll("Surface.Batch.XML.TransferMode.Mean")),
+		/** Modus: Summe der Einzelwerte verwenden */
+		SUM(()->Language.trPrimary("Surface.Batch.XML.TransferMode.Sum"),()->Language.trAll("Surface.Batch.XML.TransferMode.Sum")),
+		/** Modus: Produkt der Einzelwerte verwenden */
+		MULTIPLY(()->Language.trPrimary("Surface.Batch.XML.TransferMode.Multiply"),()->Language.trAll("Surface.Batch.XML.TransferMode.Multiply"));
+
+		/**
+		 * Callback zur Ermittlung des primären XML-Namens für den Modus
+		 */
+		private final Supplier<String> getNameCallback;
+
+		/**
+		 * Callback zur Ermittlung aller XML-Namens für den Modus
+		 */
+		private final Supplier<String[]> getNamesCallback;
+
+		/**
+		 * Konstruktor des Enum
+		 * @param getName	Callback zur Ermittlung des primären XML-Namens für den Modus
+		 * @param getNames	Callback zur Ermittlung aller XML-Namens für den Modus
+		 */
+		DataTransferMode(final Supplier<String> getName, Supplier<String[]> getNames) {
+			getNameCallback=getName;
+			getNamesCallback=getNames;
+		}
+
+		/**
+		 * Liefert den primären XML-Namen für den Modus.
+		 * @return	Primärer XML-Namen für den Modus
+		 */
+		public String getName() {
+			return getNameCallback.get();
+		}
+
+		/**
+		 * Liefert zu einem XML-Namen der zugehörigen Modus (oder <code>OFF</code> als Fallback-Wert)
+		 * @param name	XML-Name zu dem der Modus ermittelt werden soll
+		 * @return	Modus zu dem XML-Namen
+		 */
+		public static DataTransferMode byName(final String name) {
+			for (DataTransferMode mode: values()) for(String testName: mode.getNamesCallback.get()) if (testName.equalsIgnoreCase(name)) return mode;
+			return DataTransferMode.OFF;
+		}
+	}
+
+	/**
+	 * Wie sollen die Zeiten der Einzelkunden bei der Batch-Bildung auf den neuen Batch-Kunden übertragen werden?
+	 * @see #getTransferTimes()
+	 * @see #setTransferTimes(DataTransferMode)
+	 */
+	private DataTransferMode transferTimes;
+
+	/**
+	 * Wie sollen die numerischen Datenfelder der Einzelkunden bei der Batch-Bildung auf den neuen Batch-Kunden übertragen werden?
+	 * @see #getTransferNumbers()
+	 * @see #setTransferNumbers(DataTransferMode)
+	 */
+	private DataTransferMode transferNumbers;
+
+	/**
 	 * Konstruktor der Klasse
 	 */
 	public BatchRecord() {
@@ -85,6 +157,8 @@ public class BatchRecord implements Cloneable {
 		batchMode=BatchMode.BATCH_MODE_COLLECT;
 		batchSizeMode=BatchSizeMode.FIXED;
 		newClientType="";
+		transferTimes=DataTransferMode.OFF;
+		transferNumbers=DataTransferMode.OFF;
 	}
 
 	/**
@@ -111,6 +185,9 @@ public class BatchRecord implements Cloneable {
 			break;
 		}
 
+		if (transferTimes!=otherBatchRecord.transferTimes) return false;
+		if (transferNumbers!=otherBatchRecord.transferNumbers) return false;
+
 		return true;
 	}
 
@@ -131,6 +208,9 @@ public class BatchRecord implements Cloneable {
 		batchSizeFixed=copySource.batchSizeFixed;
 		batchSizeMin=copySource.batchSizeMin;
 		batchSizeMax=copySource.batchSizeMax;
+
+		transferTimes=copySource.transferTimes;
+		transferNumbers=copySource.transferNumbers;
 	}
 
 	/**
@@ -268,6 +348,38 @@ public class BatchRecord implements Cloneable {
 	}
 
 	/**
+	 * Wie sollen die Zeiten der Einzelkunden bei der Batch-Bildung auf den neuen Batch-Kunden übertragen werden?
+	 * @return	Wie sollen die Zeiten der Einzelkunden bei der Batch-Bildung auf den neuen Batch-Kunden übertragen werden?
+	 */
+	public DataTransferMode getTransferTimes() {
+		return transferTimes;
+	}
+
+	/**
+	 * Stellt ein, wie die Zeiten der Einzelkunden bei der Batch-Bildung auf den neuen Batch-Kunden übertragen werden sollen.
+	 * @param transferTimes	Wie sollen die Zeiten der Einzelkunden bei der Batch-Bildung auf den neuen Batch-Kunden übertragen werden?
+	 */
+	public void setTransferTimes(final DataTransferMode transferTimes) {
+		this.transferTimes=(transferTimes==null)?DataTransferMode.OFF:transferTimes;
+	}
+
+	/**
+	 * Wie sollen die numerischen Datenfelder der Einzelkunden bei der Batch-Bildung auf den neuen Batch-Kunden übertragen werden?
+	 * @return	Wie sollen die numerischen Datenfelder der Einzelkunden bei der Batch-Bildung auf den neuen Batch-Kunden übertragen werden?
+	 */
+	public DataTransferMode getTransferNumbers() {
+		return transferNumbers;
+	}
+
+	/**
+	 * Stellt ein, wie die numerischen Datenfelder der Einzelkunden bei der Batch-Bildung auf den neuen Batch-Kunden übertragen werden sollen.
+	 * @param transferNumbers	Wie sollen die numerischen Datenfelder der Einzelkunden bei der Batch-Bildung auf den neuen Batch-Kunden übertragen werden?
+	 */
+	public void setTransferNumbers(final DataTransferMode transferNumbers) {
+		this.transferNumbers=(transferNumbers==null)?DataTransferMode.OFF:transferNumbers;
+	}
+
+	/**
 	 * Speichert die Einstellungen des Datensatzes als Untereinträge eines xml-Knotens.
 	 * @param doc	Übergeordnetes xml-Dokument
 	 * @param node	Übergeordneter xml-Knoten, in dessen Kindelementen die Daten des Objekts gespeichert werden sollen
@@ -315,6 +427,16 @@ public class BatchRecord implements Cloneable {
 			sub.setAttribute(Language.trPrimary("Surface.Batch.XML.Batch.SizeMin"),batchSizeMin);
 			sub.setAttribute(Language.trPrimary("Surface.Batch.XML.Batch.SizeMax"),batchSizeMax);
 			break;
+		}
+
+		if (transferTimes!=DataTransferMode.OFF) {
+			node.appendChild(sub=doc.createElement(Language.trPrimary("Surface.Batch.XML.TransferTimes")));
+			sub.setTextContent(transferTimes.getName());
+		}
+
+		if (transferNumbers!=DataTransferMode.OFF) {
+			node.appendChild(sub=doc.createElement(Language.trPrimary("Surface.Batch.XML.TransferNumbers")));
+			sub.setTextContent(transferNumbers.getName());
 		}
 	}
 
@@ -376,6 +498,16 @@ public class BatchRecord implements Cloneable {
 		if (Language.trAll("Surface.Batch.XML.ClientType",name)) {
 			newClientType=content;
 			if (!content.trim().isEmpty() && batchMode==BatchMode.BATCH_MODE_COLLECT) batchMode=BatchMode.BATCH_MODE_PERMANENT;
+			return null;
+		}
+
+		if (Language.trAll("Surface.Batch.XML.TransferTimes",name)) {
+			transferTimes=DataTransferMode.byName(content);
+			return null;
+		}
+
+		if (Language.trAll("Surface.Batch.XML.TransferNumbers",name)) {
+			transferNumbers=DataTransferMode.byName(content);
 			return null;
 		}
 
@@ -465,6 +597,34 @@ public class BatchRecord implements Cloneable {
 		/* Neuer Kundentyp */
 		if ((batchMode==BatchMode.BATCH_MODE_TEMPORARY || batchMode==BatchMode.BATCH_MODE_PERMANENT) && !newClientType.trim().isEmpty()) {
 			descriptionBuilder.addProperty(Language.tr("ModelDescription.Batch.NewClientType"),newClientType,level+2);
+		}
+
+		if (transferTimes!=DataTransferMode.OFF) {
+			final String mode;
+			switch(transferTimes) {
+			case OFF: mode=null; break;
+			case MIN: mode=Language.tr("Surface.Batch.Dialog.TransferData.Mode.Min"); break;
+			case MAX: mode=Language.tr("Surface.Batch.Dialog.TransferData.Mode.Max"); break;
+			case MEAN: mode=Language.tr("Surface.Batch.Dialog.TransferData.Mode.Mean"); break;
+			case SUM: mode=Language.tr("Surface.Batch.Dialog.TransferData.Mode.Sum"); break;
+			case MULTIPLY: mode=Language.tr("Surface.Batch.Dialog.TransferData.Mode.Multiply"); break;
+			default: mode=null; break;
+			}
+			if (mode!=null) descriptionBuilder.addProperty(Language.tr("Surface.Batch.Dialog.TransferData.Times"),mode,level+3);
+		}
+
+		if (transferNumbers!=DataTransferMode.OFF) {
+			final String mode;
+			switch(transferNumbers) {
+			case OFF: mode=null; break;
+			case MIN: mode=Language.tr("Surface.Batch.Dialog.TransferData.Mode.Min"); break;
+			case MAX: mode=Language.tr("Surface.Batch.Dialog.TransferData.Mode.Max"); break;
+			case MEAN: mode=Language.tr("Surface.Batch.Dialog.TransferData.Mode.Mean"); break;
+			case SUM: mode=Language.tr("Surface.Batch.Dialog.TransferData.Mode.Sum"); break;
+			case MULTIPLY: mode=Language.tr("Surface.Batch.Dialog.TransferData.Mode.Multiply"); break;
+			default: mode=null; break;
+			}
+			if (mode!=null) descriptionBuilder.addProperty(Language.tr("Surface.Batch.Dialog.TransferData.Numbers"),mode,level+3);
 		}
 	}
 

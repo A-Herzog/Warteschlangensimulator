@@ -717,7 +717,7 @@
   SymbolSpiegeln	CDATA	#IMPLIED
 >
 
-<!ELEMENT ModellElementZusammenfassen (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementBoxSchriftGross | ModellElementBoxSchriftKlein | ModellElementMaximalerDurchsatzSekunden | ModellElementWarteschlangeAnimationVollstaendig | ModellElementEbene | ModellElementHintergrundfarbe | ModellElementStationsbild | ModellElementVerbindung | ModellElementKundentyp | ModellElementBatchModus | ModellElementBatch)*>
+<!ELEMENT ModellElementZusammenfassen (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementBoxSchriftGross | ModellElementBoxSchriftKlein | ModellElementMaximalerDurchsatzSekunden | ModellElementWarteschlangeAnimationVollstaendig | ModellElementEbene | ModellElementHintergrundfarbe | ModellElementStationsbild | ModellElementVerbindung | ModellElementKundentyp | ModellElementBatchModus | ModellElementBatch | ModellElementZusammenfassenUebertragenZeiten | ModellElementZusammenfassenUebertragenWerte)*>
 <!ATTLIST ModellElementZusammenfassen
   id			CDATA	#REQUIRED
   geschuetzt	CDATA	#IMPLIED
@@ -725,8 +725,10 @@
   SymbolSpiegeln	CDATA	#IMPLIED
 >
 <!ELEMENT ModellElementBatchModus (#PCDATA)>
+<!ELEMENT ModellElementZusammenfassenUebertragenZeiten (#PCDATA)>
+<!ELEMENT ModellElementZusammenfassenUebertragenWerte (#PCDATA)>
 
-<!ELEMENT ModellElementMehrfachZusammenfassen (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementBoxSchriftGross | ModellElementBoxSchriftKlein | ModellElementMaximalerDurchsatzSekunden | ModellElementWarteschlangeAnimationVollstaendig | ModellElementEbene | ModellElementHintergrundfarbe | ModellElementStationsbild | ModellElementVerbindung | ModellElementZusammenfassenKundentyp)*>
+<!ELEMENT ModellElementMehrfachZusammenfassen (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementBoxSchriftGross | ModellElementBoxSchriftKlein | ModellElementMaximalerDurchsatzSekunden | ModellElementWarteschlangeAnimationVollstaendig | ModellElementEbene | ModellElementHintergrundfarbe | ModellElementStationsbild | ModellElementVerbindung | ModellElementZusammenfassenKundentyp | ModellElementZusammenfassenUebertragenZeiten | ModellElementZusammenfassenUebertragenWerte)*>
 <!ATTLIST ModellElementMehrfachZusammenfassen
   id			CDATA	#REQUIRED
   geschuetzt	CDATA	#IMPLIED
@@ -739,7 +741,7 @@
   name	CDATA	#REQUIRED
 >
 
-<!ELEMENT ModellElementZusammenfuehren (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementBoxSchriftGross | ModellElementBoxSchriftKlein | ModellElementMaximalerDurchsatzSekunden | ModellElementWarteschlangeAnimationVollstaendig | ModellElementEbene | ModellElementHintergrundfarbe | ModellElementStationsbild | ModellElementVerbindung | ModellElementKundentyp | ModellElementBatchModus | ModellElementMatchEigenschaft | ModellElementZusammenfuehrenBedingungText)*>
+<!ELEMENT ModellElementZusammenfuehren (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementBoxSchriftGross | ModellElementBoxSchriftKlein | ModellElementMaximalerDurchsatzSekunden | ModellElementWarteschlangeAnimationVollstaendig | ModellElementEbene | ModellElementHintergrundfarbe | ModellElementStationsbild | ModellElementVerbindung | ModellElementKundentyp | ModellElementBatchModus | ModellElementMatchEigenschaft | ModellElementZusammenfuehrenBedingungText | ModellElementZusammenfuehrenUebertragenZeiten | ModellElementZusammenfuehrenUebertragenWerte)*>
 <!ATTLIST ModellElementZusammenfuehren
   id			CDATA	#REQUIRED
   geschuetzt	CDATA	#IMPLIED
@@ -753,6 +755,10 @@
 >
 
 <!ELEMENT ModellElementZusammenfuehrenBedingungText (#PCDATA)>
+
+<!ELEMENT ModellElementZusammenfuehrenUebertragenZeiten (#PCDATA)>
+<!ELEMENT ModellElementZusammenfuehrenUebertragenWerte (#PCDATA)>
+
 
 <!ELEMENT ModellElementZerteilen (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementBoxSchriftGross | ModellElementBoxSchriftKlein | ModellElementMaximalerDurchsatzSekunden | ModellElementEbene | ModellElementHintergrundfarbe | ModellElementStationsbild | ModellElementVerbindung | ModellElementZerteilenDaten | ModellElementZerteilenKundendatenKopieren)*>
 <!ATTLIST ModellElementZerteilen
@@ -3312,7 +3318,7 @@
   MirrorSymbol	CDATA	#IMPLIED
 >
 
-<!ELEMENT ModelElementBatch (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBoxFontLarge | ModelElementBoxFontSmall | ModelElementMaximumThroughputSeconds | ModelElementQueueAnimationComplete | ModelElementLayer | ModelElementBackgroundColor | ModelElementStationimage | ModelElementConnection | ModelElementClientType | ModelElementBatchMode | ModelElementBatchData)*>
+<!ELEMENT ModelElementBatch (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBoxFontLarge | ModelElementBoxFontSmall | ModelElementMaximumThroughputSeconds | ModelElementQueueAnimationComplete | ModelElementLayer | ModelElementBackgroundColor | ModelElementStationimage | ModelElementConnection | ModelElementClientType | ModelElementBatchMode | ModelElementBatchData | ModelElementBatchTransferTimes | ModelElementBatchTransferNumbers)*>
 <!ATTLIST ModelElementBatch
   id		CDATA	#REQUIRED
   protected	CDATA	#IMPLIED
@@ -3320,8 +3326,10 @@
   MirrorSymbol	CDATA	#IMPLIED
 >
 <!ELEMENT ModelElementBatchMode (#PCDATA)>
+<!ELEMENT ModelElementBatchTransferTimes (#PCDATA)>
+<!ELEMENT ModelElementBatchTransferNumbers (#PCDATA)>
 
-<!ELEMENT ModelElementMultiBatch (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBoxFontLarge | ModelElementBoxFontSmall | ModelElementMaximumThroughputSeconds | ModelElementQueueAnimationComplete | ModelElementLayer | ModelElementBackgroundColor | ModelElementStationimage | ModelElementConnection | ModelElementBatchClientType)*>
+<!ELEMENT ModelElementMultiBatch (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBoxFontLarge | ModelElementBoxFontSmall | ModelElementMaximumThroughputSeconds | ModelElementQueueAnimationComplete | ModelElementLayer | ModelElementBackgroundColor | ModelElementStationimage | ModelElementConnection | ModelElementBatchClientType | ModelElementBatchTransferTimes | ModelElementBatchTransferNumbers)*>
 <!ATTLIST ModelElementMultiBatch
   id		CDATA	#REQUIRED
   protected	CDATA	#IMPLIED
@@ -3334,7 +3342,7 @@
   name	CDATA	#REQUIRED
 >
 
-<!ELEMENT ModelElementMatch (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBoxFontLarge | ModelElementBoxFontSmall | ModelElementMaximumThroughputSeconds | ModelElementQueueAnimationComplete | ModelElementLayer | ModelElementBackgroundColor | ModelElementStationimage | ModelElementConnection | ModelElementClientType | ModelElementBatchMode | ModelElementMatchProperty | ModelElementMatchCondition)*>
+<!ELEMENT ModelElementMatch (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBoxFontLarge | ModelElementBoxFontSmall | ModelElementMaximumThroughputSeconds | ModelElementQueueAnimationComplete | ModelElementLayer | ModelElementBackgroundColor | ModelElementStationimage | ModelElementConnection | ModelElementClientType | ModelElementBatchMode | ModelElementMatchProperty | ModelElementMatchCondition | ModelElementMatchTransferTimes | ModelElementMatchTransferNumbers)*>
 <!ATTLIST ModelElementMatch
   id		CDATA	#REQUIRED
   protected	CDATA	#IMPLIED
@@ -3348,6 +3356,9 @@
 >
 
 <!ELEMENT ModelElementMatchCondition (#PCDATA)>
+
+<!ELEMENT ModelElementMatchTransferTimes (#PCDATA)>
+<!ELEMENT ModelElementMatchTransferNumbers (#PCDATA)>
 
 <!ELEMENT ModelElementSplit (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBoxFontLarge | ModelElementBoxFontSmall | ModelElementMaximumThroughputSeconds | ModelElementLayer | ModelElementBackgroundColor | ModelElementStationimage | ModelElementConnection | ModelElementSplitData | ModelElementSplitCopyClientData)*>
 <!ATTLIST ModelElementSplit

@@ -46,6 +46,7 @@ import ui.modeleditor.coreelements.ModelElementEdgeMultiIn;
 import ui.modeleditor.coreelements.ModelElementEdgeOut;
 import ui.modeleditor.coreelements.ModelElementPosition;
 import ui.modeleditor.descriptionbuilder.ModelDescriptionBuilder;
+import ui.modeleditor.elements.BatchRecord.DataTransferMode;
 import ui.modeleditor.fastpaint.Shapes;
 
 /**
@@ -145,6 +146,20 @@ public class ModelElementMatch extends ModelElementBox implements ElementWithNew
 	 */
 	private String condition;
 
+	/**
+	 * Wie sollen die Zeiten der Einzelkunden bei der Batch-Bildung auf den neuen Batch-Kunden übertragen werden?
+	 * @see #getTransferTimes()
+	 * @see #setTransferTimes(DataTransferMode)
+	 */
+	private DataTransferMode transferTimes;
+
+	/**
+	 * Wie sollen die numerischen Datenfelder der Einzelkunden bei der Batch-Bildung auf den neuen Batch-Kunden übertragen werden?
+	 * @see #getTransferNumbers()
+	 * @see #setTransferNumbers(DataTransferMode)
+	 */
+	private DataTransferMode transferNumbers;
+
 	/** IDs der einlaufenden Kanten (Wird nur beim Laden und Clonen verwendet.) */
 	private List<Integer> connectionsInIds=null;
 	/** ID der auflaufenden Kante (Wird nur beim Laden und Clonen verwendet.) */
@@ -167,6 +182,9 @@ public class ModelElementMatch extends ModelElementBox implements ElementWithNew
 		newClientType="";
 
 		condition="";
+
+		transferTimes=DataTransferMode.OFF;
+		transferNumbers=DataTransferMode.OFF;
 	}
 
 	/**
@@ -342,6 +360,38 @@ public class ModelElementMatch extends ModelElementBox implements ElementWithNew
 	}
 
 	/**
+	 * Wie sollen die Zeiten der Einzelkunden bei der Batch-Bildung auf den neuen Batch-Kunden übertragen werden?
+	 * @return	Wie sollen die Zeiten der Einzelkunden bei der Batch-Bildung auf den neuen Batch-Kunden übertragen werden?
+	 */
+	public DataTransferMode getTransferTimes() {
+		return transferTimes;
+	}
+
+	/**
+	 * Stellt ein, wie die Zeiten der Einzelkunden bei der Batch-Bildung auf den neuen Batch-Kunden übertragen werden sollen.
+	 * @param transferTimes	Wie sollen die Zeiten der Einzelkunden bei der Batch-Bildung auf den neuen Batch-Kunden übertragen werden?
+	 */
+	public void setTransferTimes(final DataTransferMode transferTimes) {
+		this.transferTimes=(transferTimes==null)?DataTransferMode.OFF:transferTimes;
+	}
+
+	/**
+	 * Wie sollen die numerischen Datenfelder der Einzelkunden bei der Batch-Bildung auf den neuen Batch-Kunden übertragen werden?
+	 * @return	Wie sollen die numerischen Datenfelder der Einzelkunden bei der Batch-Bildung auf den neuen Batch-Kunden übertragen werden?
+	 */
+	public DataTransferMode getTransferNumbers() {
+		return transferNumbers;
+	}
+
+	/**
+	 * Stellt ein, wie die numerischen Datenfelder der Einzelkunden bei der Batch-Bildung auf den neuen Batch-Kunden übertragen werden sollen.
+	 * @param transferNumbers	Wie sollen die numerischen Datenfelder der Einzelkunden bei der Batch-Bildung auf den neuen Batch-Kunden übertragen werden?
+	 */
+	public void setTransferNumbers(final DataTransferMode transferNumbers) {
+		this.transferNumbers=(transferNumbers==null)?DataTransferMode.OFF:transferNumbers;
+	}
+
+	/**
 	 * Überprüft, ob das Element mit dem angegebenen Element inhaltlich identisch ist.
 	 * @param element	Element mit dem dieses Element verglichen werden soll.
 	 * @return	Gibt <code>true</code> zurück, wenn die beiden Elemente identisch sind.
@@ -375,6 +425,9 @@ public class ModelElementMatch extends ModelElementBox implements ElementWithNew
 
 		if (!otherMatch.condition.equalsIgnoreCase(condition)) return false;
 
+		if (transferTimes!=otherMatch.transferTimes) return false;
+		if (transferNumbers!=otherMatch.transferNumbers) return false;
+
 		final List<ModelElementEdge> connectionsIn2=otherMatch.connectionsIn;
 		if (connectionsIn==null || connectionsIn2==null || connectionsIn.size()!=connectionsIn2.size()) return false;
 		for (int i=0;i<connectionsIn.size();i++) if (connectionsIn.get(i).getId()!=connectionsIn2.get(i).getId()) return false;
@@ -404,6 +457,9 @@ public class ModelElementMatch extends ModelElementBox implements ElementWithNew
 			}
 
 			condition=source.condition;
+
+			transferTimes=source.transferTimes;
+			transferNumbers=source.transferNumbers;
 
 			connectionsIn.clear();
 			final List<ModelElementEdge> connectionsIn2=source.connectionsIn;
@@ -704,6 +760,16 @@ public class ModelElementMatch extends ModelElementBox implements ElementWithNew
 			node.appendChild(sub=doc.createElement(Language.trPrimary("Surface.Match.XML.Condition")));
 			sub.setTextContent(condition);
 		}
+
+		if (transferTimes!=DataTransferMode.OFF) {
+			node.appendChild(sub=doc.createElement(Language.trPrimary("Surface.Match.XML.TransferTimes")));
+			sub.setTextContent(transferTimes.getName());
+		}
+
+		if (transferNumbers!=DataTransferMode.OFF) {
+			node.appendChild(sub=doc.createElement(Language.trPrimary("Surface.Match.XML.TransferNumbers")));
+			sub.setTextContent(transferNumbers.getName());
+		}
 	}
 
 	/**
@@ -763,6 +829,16 @@ public class ModelElementMatch extends ModelElementBox implements ElementWithNew
 
 		if (Language.trAll("Surface.Match.XML.Condition",name)) {
 			condition=node.getTextContent();
+			return null;
+		}
+
+		if (Language.trAll("Surface.Match.XML.TransferTimes",name)) {
+			transferTimes=DataTransferMode.byName(content);
+			return null;
+		}
+
+		if (Language.trAll("Surface.Match.XML.TransferNumbers",name)) {
+			transferNumbers=DataTransferMode.byName(content);
 			return null;
 		}
 
@@ -922,7 +998,35 @@ public class ModelElementMatch extends ModelElementBox implements ElementWithNew
 
 		/* Bedingung */
 		if (!condition.trim().isEmpty()) {
-			descriptionBuilder.addProperty(Language.tr("ModelDescription.Match.Condition"),condition,1000);
+			descriptionBuilder.addProperty(Language.tr("ModelDescription.Match.Condition"),condition,4000);
+		}
+
+		/* Übertragung von Kundendaten */
+		if (transferTimes!=DataTransferMode.OFF) {
+			final String mode;
+			switch(transferTimes) {
+			case OFF: mode=null; break;
+			case MIN: mode=Language.tr("Surface.Match.Dialog.TransferData.Mode.Min"); break;
+			case MAX: mode=Language.tr("Surface.Match.Dialog.TransferData.Mode.Max"); break;
+			case MEAN: mode=Language.tr("Surface.Match.Dialog.TransferData.Mode.Mean"); break;
+			case SUM: mode=Language.tr("Surface.Match.Dialog.TransferData.Mode.Sum"); break;
+			case MULTIPLY: mode=Language.tr("Surface.Match.Dialog.TransferData.Mode.Multiply"); break;
+			default: mode=null; break;
+			}
+			if (mode!=null) descriptionBuilder.addProperty(Language.tr("Surface.Match.Dialog.TransferData.Times"),mode,5000);
+		}
+		if (transferNumbers!=DataTransferMode.OFF) {
+			final String mode;
+			switch(transferNumbers) {
+			case OFF: mode=null; break;
+			case MIN: mode=Language.tr("Surface.Match.Dialog.TransferData.Mode.Min"); break;
+			case MAX: mode=Language.tr("Surface.Match.Dialog.TransferData.Mode.Max"); break;
+			case MEAN: mode=Language.tr("Surface.Match.Dialog.TransferData.Mode.Mean"); break;
+			case SUM: mode=Language.tr("Surface.Match.Dialog.TransferData.Mode.Sum"); break;
+			case MULTIPLY: mode=Language.tr("Surface.Match.Dialog.TransferData.Mode.Multiply"); break;
+			default: mode=null; break;
+			}
+			if (mode!=null) descriptionBuilder.addProperty(Language.tr("Surface.Match.Dialog.TransferData.Numbers"),mode,5000);
 		}
 
 		/* Auslaufende Kante */

@@ -63,6 +63,16 @@ public class RunElementBatchMulti extends RunElementPassThrough {
 	public int[] newClientType;
 
 	/**
+	 * Wie sollen die Zeiten der Einzelkunden bei der Batch-Bildung auf den neuen Batch-Kunden übertragen werden?
+	 */
+	private BatchRecord.DataTransferMode[] transferTimes;
+
+	/**
+	 * Wie sollen die numerischen Datenfelder der Einzelkunden bei der Batch-Bildung auf den neuen Batch-Kunden übertragen werden?
+	 */
+	private BatchRecord.DataTransferMode[] transferNumbers;
+
+	/**
 	 * Konstruktor der Klasse
 	 * @param element	Zugehöriges Editor-Element
 	 */
@@ -85,6 +95,8 @@ public class RunElementBatchMulti extends RunElementPassThrough {
 		batch.batchSizeMax=new String[runModel.clientTypes.length];
 		batch.batchMode=new BatchRecord.BatchMode[runModel.clientTypes.length];
 		batch.newClientType=new int[runModel.clientTypes.length];
+		batch.transferTimes=new BatchRecord.DataTransferMode[runModel.clientTypes.length];
+		batch.transferNumbers=new BatchRecord.DataTransferMode[runModel.clientTypes.length];
 		for (Map.Entry<String,BatchRecord> entry: batchElement.getBatchRecords().entrySet()) {
 			final int index=runModel.getClientTypeNr(entry.getKey());
 			if (index<0) continue;
@@ -128,6 +140,9 @@ public class RunElementBatchMulti extends RunElementPassThrough {
 				batch.newClientType[index]=runModel.getClientTypeNr(batchRecord.getNewClientType());
 				if (batch.newClientType[index]<0) return String.format(Language.tr("Simulation.Creator.InvalidBatchClientType"),element.getId(),batchRecord.getNewClientType());
 			}
+
+			batch.transferTimes[index]=batchRecord.getTransferTimes();
+			batch.transferNumbers[index]=batchRecord.getTransferNumbers();
 		}
 
 		return batch;
@@ -248,7 +263,13 @@ public class RunElementBatchMulti extends RunElementPassThrough {
 			final long waitingTime=simData.currentTime-data.clientAddTime[type][i];
 			simData.runData.logStationProcess(simData,this,data.clients[type][i],waitingTime,0,0,waitingTime);
 			data.clients[type][i].addStationTime(id,waitingTime,0,0,waitingTime);
+		}
 
+		/* Daten von den alten Kunden auf den neuen Batch-Kunden übertragen */
+		RunElementBatch.transferTimes(transferTimes[type],data.waiting[type],data.clients[type],batchedClient);
+		RunElementBatch.transferNumbers(transferNumbers[type],data.waiting[type],data.clients[type],batchedClient);
+
+		for (int i=0;i<data.waiting[type];i++) {
 			/* Kunden an Station in Statistik */
 			simData.runData.logClientLeavesStationQueue(simData,this,data,data.clients[type][i]);
 
@@ -299,8 +320,21 @@ public class RunElementBatchMulti extends RunElementPassThrough {
 			}
 		}
 
-		boolean isLastClient=false;
+		/* Neuen Kunden anlegen */
+		final RunDataClient batchedClient=simData.runData.clients.getClient(newClientType[type],simData);
 
+		for (int i=0;i<data.waiting[type];i++) {
+			/* Wartezeit in Statistik */
+			final long waitingTime=simData.currentTime-data.clientAddTime[type][i];
+			simData.runData.logStationProcess(simData,this,data.clients[type][i],waitingTime,0,0,waitingTime);
+			data.clients[type][i].addStationTime(id,waitingTime,0,0,waitingTime);
+		}
+
+		/* Daten von den alten Kunden auf den neuen Batch-Kunden übertragen */
+		RunElementBatch.transferTimes(transferTimes[type],data.waiting[type],data.clients[type],batchedClient);
+		RunElementBatch.transferNumbers(transferNumbers[type],data.waiting[type],data.clients[type],batchedClient);
+
+		boolean isLastClient=false;
 		for (int i=0;i<data.waiting[type];i++) {
 			/* Wartezeit in Statistik */
 			final long waitingTime=simData.currentTime-data.clientAddTime[type][i];
@@ -323,8 +357,6 @@ public class RunElementBatchMulti extends RunElementPassThrough {
 		data.waitingTotal-=data.waiting[type];
 		data.waiting[type]=0;
 
-		/* Neuen Kunden anlegen */
-		final RunDataClient batchedClient=simData.runData.clients.getClient(newClientType[type],simData);
 		batchedClient.isLastClient=isLastClient;
 
 		/* Logging */

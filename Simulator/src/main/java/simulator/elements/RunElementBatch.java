@@ -15,6 +15,8 @@
  */
 package simulator.elements;
 
+import java.util.List;
+
 import language.Language;
 import mathtools.NumberTools;
 import simulator.builder.RunModelCreatorStatus;
@@ -45,6 +47,11 @@ public class RunElementBatch extends RunElementPassThrough {
 	private BatchRecord.BatchMode batchMode;
 	/** Index des neuen Batch-Kundentyps (bei der temporären oder permanenten Batch-Bildung) */
 	private int newClientType;
+
+	/** Wie sollen die Zeiten der Einzelkunden bei der Batch-Bildung auf den neuen Batch-Kunden übertragen werden? */
+	private BatchRecord.DataTransferMode transferTimes;
+	/** Wie sollen die numerischen Datenfelder der Einzelkunden bei der Batch-Bildung auf den neuen Batch-Kunden übertragen werden? */
+	private BatchRecord.DataTransferMode transferNumbers;
 
 	/**
 	 * Konstruktor der Klasse
@@ -106,6 +113,10 @@ public class RunElementBatch extends RunElementPassThrough {
 			if (batch.newClientType<0) return String.format(Language.tr("Simulation.Creator.InvalidBatchClientType"),element.getId(),batchRecord.getNewClientType());
 		}
 
+		/* Daten zusammenführen */
+		batch.transferTimes=batchRecord.getTransferTimes();
+		batch.transferNumbers=batchRecord.getTransferNumbers();
+
 		return batch;
 	}
 
@@ -144,6 +155,263 @@ public class RunElementBatch extends RunElementPassThrough {
 			simData.runData.setStationData(this,data);
 		}
 		return data;
+	}
+
+	/**
+	 * Überträge die erfassten Zeitdauern von den bisherigen Kundenobjekten gemäß der Konfiguration auf das Batch-Objekt.
+	 * @param transferTimes	Übertragungsmodus
+	 * @param waitingCount	Anzahl an Kunden im <code>clients</code>-Array
+	 * @param clients	Array der bisherigen Kunden (es müssen nicht alle Einträge belegt sein; siehe <code>waitingCount</code>)
+	 * @param batchedClient	Neues Batch-Kundenobjekt auf das die Zeitdauern übertragen werden sollen
+	 */
+	public static void transferTimes(final BatchRecord.DataTransferMode transferTimes, final int waitingCount, final RunDataClient[] clients, final RunDataClient batchedClient) {
+		if (transferTimes==BatchRecord.DataTransferMode.OFF || waitingCount==0) return;
+
+		long waitingTime=clients[0].waitingTime;
+		long transferTime=clients[0].transferTime;
+		long processTime=clients[0].processTime;
+		long residenceTime=clients[0].residenceTime;
+
+		for (int i=1;i<waitingCount;i++) {
+			long waitingTimeClient=clients[i].waitingTime;
+			long transferTimeClient=clients[i].transferTime;
+			long processTimeClient=clients[i].processTime;
+			long residenceTimeClient=clients[i].residenceTime;
+
+			switch (transferTimes) {
+			case OFF:
+				/* Kann nicht auftreten, haben wir oben schon ausgeschlossen. */
+				break;
+			case MIN:
+				waitingTime=Math.min(waitingTime,waitingTimeClient);
+				transferTime=Math.min(transferTime,transferTimeClient);
+				processTime=Math.min(processTime,processTimeClient);
+				residenceTime=Math.min(residenceTime,residenceTimeClient);
+				break;
+			case MAX:
+				waitingTime=Math.max(waitingTime,waitingTimeClient);
+				transferTime=Math.max(transferTime,transferTimeClient);
+				processTime=Math.max(processTime,processTimeClient);
+				residenceTime=Math.max(residenceTime,residenceTimeClient);
+				break;
+			case MEAN:
+				waitingTime+=waitingTimeClient;
+				transferTime+=transferTimeClient;
+				processTime+=processTimeClient;
+				residenceTime+=residenceTimeClient;
+				break;
+			case SUM:
+				waitingTime+=waitingTimeClient;
+				transferTime+=transferTimeClient;
+				processTime+=processTimeClient;
+				residenceTime+=residenceTimeClient;
+				break;
+			case MULTIPLY:
+				waitingTime*=waitingTimeClient;
+				transferTime*=transferTimeClient;
+				processTime*=processTimeClient;
+				residenceTime*=residenceTimeClient;
+				break;
+			}
+		}
+
+		if (transferTimes==BatchRecord.DataTransferMode.MEAN) {
+			waitingTime/=waitingCount;
+			transferTime/=waitingCount;
+			processTime/=waitingCount;
+			residenceTime/=waitingCount;
+		}
+
+		batchedClient.waitingTime=waitingTime;
+		batchedClient.transferTime=transferTime;
+		batchedClient.processTime=processTime;
+		batchedClient.residenceTime=residenceTime;
+	}
+
+	/**
+	 * Überträge die erfassten Zeitdauern von den bisherigen Kundenobjekten gemäß der Konfiguration auf das Batch-Objekt.
+	 * @param transferTimes	Übertragungsmodus
+	 * @param waitingCount	Anzahl an Kunden im <code>clients</code>-Array
+	 * @param clients	Array der bisherigen Kunden (es müssen nicht alle Einträge belegt sein; siehe <code>waitingCount</code>)
+	 * @param batchedClient	Neues Batch-Kundenobjekt auf das die Zeitdauern übertragen werden sollen
+	 */
+	public static void transferTimes(final BatchRecord.DataTransferMode transferTimes, final int waitingCount, final List<RunDataClient> clients, final RunDataClient batchedClient) {
+		if (transferTimes==BatchRecord.DataTransferMode.OFF || waitingCount==0) return;
+
+		RunDataClient client;
+
+		client=clients.get(0);
+		long waitingTime=client.waitingTime;
+		long transferTime=client.transferTime;
+		long processTime=client.processTime;
+		long residenceTime=client.residenceTime;
+
+		for (int i=1;i<waitingCount;i++) {
+			client=clients.get(i);
+
+			long waitingTimeClient=client.waitingTime;
+			long transferTimeClient=client.transferTime;
+			long processTimeClient=client.processTime;
+			long residenceTimeClient=client.residenceTime;
+
+			switch (transferTimes) {
+			case OFF:
+				/* Kann nicht auftreten, haben wir oben schon ausgeschlossen. */
+				break;
+			case MIN:
+				waitingTime=Math.min(waitingTime,waitingTimeClient);
+				transferTime=Math.min(transferTime,transferTimeClient);
+				processTime=Math.min(processTime,processTimeClient);
+				residenceTime=Math.min(residenceTime,residenceTimeClient);
+				break;
+			case MAX:
+				waitingTime=Math.max(waitingTime,waitingTimeClient);
+				transferTime=Math.max(transferTime,transferTimeClient);
+				processTime=Math.max(processTime,processTimeClient);
+				residenceTime=Math.max(residenceTime,residenceTimeClient);
+				break;
+			case MEAN:
+				waitingTime+=waitingTimeClient;
+				transferTime+=transferTimeClient;
+				processTime+=processTimeClient;
+				residenceTime+=residenceTimeClient;
+				break;
+			case SUM:
+				waitingTime+=waitingTimeClient;
+				transferTime+=transferTimeClient;
+				processTime+=processTimeClient;
+				residenceTime+=residenceTimeClient;
+				break;
+			case MULTIPLY:
+				waitingTime*=waitingTimeClient;
+				transferTime*=transferTimeClient;
+				processTime*=processTimeClient;
+				residenceTime*=residenceTimeClient;
+				break;
+			}
+		}
+
+		if (transferTimes==BatchRecord.DataTransferMode.MEAN) {
+			waitingTime/=waitingCount;
+			transferTime/=waitingCount;
+			processTime/=waitingCount;
+			residenceTime/=waitingCount;
+		}
+
+		batchedClient.waitingTime=waitingTime;
+		batchedClient.transferTime=transferTime;
+		batchedClient.processTime=processTime;
+		batchedClient.residenceTime=residenceTime;
+	}
+
+	/**
+	 * Überträge die erfassten Nutzerdaten von den bisherigen Kundenobjekten gemäß der Konfiguration auf das Batch-Objekt.
+	 * @param transferNumbers	Übertragungsmodus
+	 * @param waitingCount	Anzahl an Kunden im <code>clients</code>-Array
+	 * @param clients	Array der bisherigen Kunden (es müssen nicht alle Einträge belegt sein; siehe <code>waitingCount</code>)
+	 * @param batchedClient	Neues Batch-Kundenobjekt auf das die Nutzerdaten übertragen werden sollen
+	 */
+	public static void transferNumbers(final BatchRecord.DataTransferMode transferNumbers, final int waitingCount, final RunDataClient[] clients, final RunDataClient batchedClient) {
+		if (transferNumbers==BatchRecord.DataTransferMode.OFF || waitingCount==0) return;
+
+		int maxIndex=clients[0].getMaxUserDataIndex();
+		for (int i=1;i<waitingCount;i++) maxIndex=Math.max(maxIndex,clients[i].getMaxUserDataIndex());
+		if (maxIndex<0) return;
+
+		double[] userData=new double[maxIndex+1];
+		for (int i=0;i<=clients[0].getMaxUserDataIndex();i++) userData[i]=clients[0].getUserData(i);
+
+		double[] userDataClient=new double[maxIndex+1];
+		for (int i=1;i<waitingCount;i++) {
+			for (int j=0;j<=maxIndex;j++) userDataClient[j]=clients[i].getUserData(j);
+
+			switch (transferNumbers) {
+			case OFF:
+				/* Kann nicht auftreten, haben wir oben schon ausgeschlossen. */
+				return;
+			case MIN:
+				for (int j=0;j<=maxIndex;j++) userData[j]=Math.min(userData[j],userDataClient[j]);
+				break;
+			case MAX:
+				for (int j=0;j<=maxIndex;j++) userData[j]=Math.max(userData[j],userDataClient[j]);
+				break;
+			case MEAN:
+				for (int j=0;j<=maxIndex;j++) userData[j]+=userDataClient[j];
+				break;
+			case SUM:
+				for (int j=0;j<=maxIndex;j++) userData[j]+=userDataClient[j];
+				break;
+			case MULTIPLY:
+				for (int j=0;j<=maxIndex;j++) userData[j]*=userDataClient[j];
+				break;
+			}
+		}
+
+		if (transferNumbers==BatchRecord.DataTransferMode.MEAN) {
+			for (int j=0;j<=maxIndex;j++) userData[j]/=waitingCount;
+		}
+
+		final boolean[] userDataInUse=new boolean[maxIndex+1];
+		for (int i=0;i<=maxIndex;i++) userDataInUse[i]=(userData[i]!=0.0);
+		batchedClient.setUserData(userData,userDataInUse);
+	}
+
+	/**
+	 * Überträge die erfassten Nutzerdaten von den bisherigen Kundenobjekten gemäß der Konfiguration auf das Batch-Objekt.
+	 * @param transferNumbers	Übertragungsmodus
+	 * @param waitingCount	Anzahl an Kunden im <code>clients</code>-Array
+	 * @param clients	Array der bisherigen Kunden (es müssen nicht alle Einträge belegt sein; siehe <code>waitingCount</code>)
+	 * @param batchedClient	Neues Batch-Kundenobjekt auf das die Nutzerdaten übertragen werden sollen
+	 */
+	public static void transferNumbers(final BatchRecord.DataTransferMode transferNumbers, final int waitingCount, final List<RunDataClient> clients, final RunDataClient batchedClient) {
+		if (transferNumbers==BatchRecord.DataTransferMode.OFF || waitingCount==0) return;
+
+		RunDataClient client;
+
+		client=clients.get(0);
+
+		int maxIndex=client.getMaxUserDataIndex();
+		for (int i=1;i<waitingCount;i++) maxIndex=Math.max(maxIndex,clients.get(i).getMaxUserDataIndex());
+		if (maxIndex<0) return;
+
+		double[] userData=new double[maxIndex+1];
+		for (int i=0;i<=client.getMaxUserDataIndex();i++) userData[i]=client.getUserData(i);
+
+		double[] userDataClient=new double[maxIndex+1];
+		for (int i=1;i<waitingCount;i++) {
+			client=clients.get(i);
+
+			for (int j=0;j<=maxIndex;j++) userDataClient[j]=client.getUserData(j);
+
+			switch (transferNumbers) {
+			case OFF:
+				/* Kann nicht auftreten, haben wir oben schon ausgeschlossen. */
+				return;
+			case MIN:
+				for (int j=0;j<=maxIndex;j++) userData[j]=Math.min(userData[j],userDataClient[j]);
+				break;
+			case MAX:
+				for (int j=0;j<=maxIndex;j++) userData[j]=Math.max(userData[j],userDataClient[j]);
+				break;
+			case MEAN:
+				for (int j=0;j<=maxIndex;j++) userData[j]+=userDataClient[j];
+				break;
+			case SUM:
+				for (int j=0;j<=maxIndex;j++) userData[j]+=userDataClient[j];
+				break;
+			case MULTIPLY:
+				for (int j=0;j<=maxIndex;j++) userData[j]*=userDataClient[j];
+				break;
+			}
+		}
+
+		if (transferNumbers==BatchRecord.DataTransferMode.MEAN) {
+			for (int j=0;j<=maxIndex;j++) userData[j]/=waitingCount;
+		}
+
+		final boolean[] userDataInUse=new boolean[maxIndex+1];
+		for (int i=0;i<=maxIndex;i++) userDataInUse[i]=(userData[i]!=0.0);
+		batchedClient.setUserData(userData,userDataInUse);
 	}
 
 	/**
@@ -213,7 +481,13 @@ public class RunElementBatch extends RunElementPassThrough {
 			final long waitingTime=simData.currentTime-data.clientAddTime[i];
 			simData.runData.logStationProcess(simData,this,data.clients[i],waitingTime,0,0,waitingTime);
 			data.clients[i].addStationTime(id,waitingTime,0,0,waitingTime);
+		}
 
+		/* Daten von den alten Kunden auf den neuen Batch-Kunden übertragen */
+		transferTimes(transferTimes,data.waiting,data.clients,batchedClient);
+		transferNumbers(transferNumbers,data.waiting,data.clients,batchedClient);
+
+		for (int i=0;i<data.waiting;i++) {
 			/* Kunden an Station in Statistik */
 			simData.runData.logClientLeavesStationQueue(simData,this,data,data.clients[i]);
 
@@ -265,14 +539,22 @@ public class RunElementBatch extends RunElementPassThrough {
 			}
 		}
 
-		boolean isLastClient=false;
+		/* Neuen Kunden anlegen */
+		final RunDataClient batchedClient=simData.runData.clients.getClient(newClientType,simData);
 
 		for (int i=0;i<data.waiting;i++) {
 			/* Wartezeit in Statistik */
 			final long waitingTime=simData.currentTime-data.clientAddTime[i];
 			simData.runData.logStationProcess(simData,this,data.clients[i],waitingTime,0,0,waitingTime);
 			data.clients[i].addStationTime(id,waitingTime,0,0,waitingTime);
+		}
 
+		/* Daten von den alten Kunden auf den neuen Batch-Kunden übertragen */
+		transferTimes(transferTimes,data.waiting,data.clients,batchedClient);
+		transferNumbers(transferNumbers,data.waiting,data.clients,batchedClient);
+
+		boolean isLastClient=false;
+		for (int i=0;i<data.waiting;i++) {
 			/* Kunden an Station in Statistik */
 			simData.runData.logClientLeavesStationQueue(simData,this,data,data.clients[i]);
 
@@ -288,8 +570,6 @@ public class RunElementBatch extends RunElementPassThrough {
 		}
 		data.waiting=0;
 
-		/* Neuen Kunden anlegen */
-		final RunDataClient batchedClient=simData.runData.clients.getClient(newClientType,simData);
 		batchedClient.isLastClient=isLastClient;
 
 		/* Logging */

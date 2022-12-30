@@ -24,6 +24,7 @@ import java.io.Serializable;
 import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
 import javax.swing.JCheckBox;
+import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
@@ -79,6 +80,11 @@ public class BatchRecordPanel extends JPanel {
 	/** Eingabefeld für den neuen Kundentyp für einen permanenten Batch */
 	private final JTextField newTypeField;
 
+	/** Wie sollen die Zeiten der Einzelkunden bei der Batch-Bildung auf den neuen Batch-Kunden übertragen werden? */
+	private final JComboBox<?> transferTimes;
+	/** Wie sollen die numerischen Datenfelder der Einzelkunden bei der Batch-Bildung auf den neuen Batch-Kunden übertragen werden? */
+	private final JComboBox<?> transferNumbers;
+
 	/**
 	 * Konstruktor der Klasse
 	 * @param batchRecord	Batch-Datensatz der in diesem Panel zum Bearbeiten angeboten werden soll
@@ -98,6 +104,7 @@ public class BatchRecordPanel extends JPanel {
 		JPanel line;
 		JLabel label;
 		ButtonGroup buttonGroup;
+		Object[] data;
 
 		if (useActiveCheckbox) {
 			add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
@@ -210,6 +217,49 @@ public class BatchRecordPanel extends JPanel {
 			optionNewType.setSelected(true);
 			newTypeField.setText(batchRecord.getNewClientType());
 			break;
+		}
+
+		add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
+		line.add(new JLabel("<html><body><b>"+Language.tr("Surface.Batch.Dialog.TransferData")+"</b></body></html>"));
+		data=ModelElementBaseDialog.getComboBoxPanel(Language.tr("Surface.Batch.Dialog.TransferData.Times")+":",new String[] {
+				Language.tr("Surface.Batch.Dialog.TransferData.Mode.Off"),
+				Language.tr("Surface.Batch.Dialog.TransferData.Mode.Min"),
+				Language.tr("Surface.Batch.Dialog.TransferData.Mode.Max"),
+				Language.tr("Surface.Batch.Dialog.TransferData.Mode.Mean"),
+				Language.tr("Surface.Batch.Dialog.TransferData.Mode.Sum"),
+				Language.tr("Surface.Batch.Dialog.TransferData.Mode.Multiply")
+		});
+		add((JPanel)data[0]);
+		transferTimes=(JComboBox<?>)data[1];
+		transferTimes.setEnabled(!readOnly);
+		switch (batchRecord.getTransferTimes()) {
+		case OFF: transferTimes.setSelectedIndex(0); break;
+		case MIN: transferTimes.setSelectedIndex(1); break;
+		case MAX: transferTimes.setSelectedIndex(2); break;
+		case MEAN: transferTimes.setSelectedIndex(3); break;
+		case SUM: transferTimes.setSelectedIndex(4); break;
+		case MULTIPLY: transferTimes.setSelectedIndex(5); break;
+		default: transferTimes.setSelectedIndex(0); break;
+		}
+		data=ModelElementBaseDialog.getComboBoxPanel(Language.tr("Surface.Batch.Dialog.TransferData.Numbers")+":",new String[] {
+				Language.tr("Surface.Batch.Dialog.TransferData.Mode.Off"),
+				Language.tr("Surface.Batch.Dialog.TransferData.Mode.Min"),
+				Language.tr("Surface.Batch.Dialog.TransferData.Mode.Max"),
+				Language.tr("Surface.Batch.Dialog.TransferData.Mode.Mean"),
+				Language.tr("Surface.Batch.Dialog.TransferData.Mode.Sum"),
+				Language.tr("Surface.Batch.Dialog.TransferData.Mode.Multiply")
+		});
+		add((JPanel)data[0]);
+		transferNumbers=(JComboBox<?>)data[1];
+		transferNumbers.setEnabled(!readOnly);
+		switch (batchRecord.getTransferNumbers()) {
+		case OFF: transferNumbers.setSelectedIndex(0); break;
+		case MIN: transferNumbers.setSelectedIndex(1); break;
+		case MAX: transferNumbers.setSelectedIndex(2); break;
+		case MEAN: transferNumbers.setSelectedIndex(3); break;
+		case SUM: transferNumbers.setSelectedIndex(4); break;
+		case MULTIPLY: transferNumbers.setSelectedIndex(5); break;
+		default: transferNumbers.setSelectedIndex(0); break;
 		}
 	}
 
@@ -394,6 +444,22 @@ public class BatchRecordPanel extends JPanel {
 		if (optionNewType.isSelected()) {
 			batchRecord.setBatchMode(BatchRecord.BatchMode.BATCH_MODE_PERMANENT);
 			batchRecord.setNewClientType(newTypeField.getText());
+		}
+		switch (transferTimes.getSelectedIndex()) {
+		case 0: batchRecord.setTransferTimes(BatchRecord.DataTransferMode.OFF); break;
+		case 1: batchRecord.setTransferTimes(BatchRecord.DataTransferMode.MIN); break;
+		case 2: batchRecord.setTransferTimes(BatchRecord.DataTransferMode.MAX); break;
+		case 3: batchRecord.setTransferTimes(BatchRecord.DataTransferMode.MEAN); break;
+		case 4: batchRecord.setTransferTimes(BatchRecord.DataTransferMode.SUM); break;
+		case 5: batchRecord.setTransferTimes(BatchRecord.DataTransferMode.MULTIPLY); break;
+		}
+		switch (transferNumbers.getSelectedIndex()) {
+		case 0: batchRecord.setTransferNumbers(BatchRecord.DataTransferMode.OFF); break;
+		case 1: batchRecord.setTransferNumbers(BatchRecord.DataTransferMode.MIN); break;
+		case 2: batchRecord.setTransferNumbers(BatchRecord.DataTransferMode.MAX); break;
+		case 3: batchRecord.setTransferNumbers(BatchRecord.DataTransferMode.MEAN); break;
+		case 4: batchRecord.setTransferNumbers(BatchRecord.DataTransferMode.SUM); break;
+		case 5: batchRecord.setTransferNumbers(BatchRecord.DataTransferMode.MULTIPLY); break;
 		}
 	}
 

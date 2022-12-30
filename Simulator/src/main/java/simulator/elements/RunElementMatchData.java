@@ -17,11 +17,13 @@ package simulator.elements;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import simulator.coreelements.RunElement;
 import simulator.coreelements.RunElementData;
 import simulator.coreelements.RunElementMultiQueueData;
 import simulator.runmodel.RunDataClient;
+import simulator.runmodel.SimulationData;
 import simulator.simparser.ExpressionMultiEval;
 
 /**
@@ -60,6 +62,13 @@ public class RunElementMatchData extends RunElementData implements RunElementMul
 	public final ExpressionMultiEval condition;
 
 	/**
+	 * Cache für ein Listenobjekt, welches beim Erstellen von temporären und permanenten Batches verwendet wird.
+	 * @see RunElementMatch#processSendTemporaryBatchedClients(SimulationData, RunElementMatchData, RunDataClient, int, int[])
+	 * @see RunElementMatch#processSendPermanentBatchedClients(SimulationData, RunElementMatchData, RunDataClient, int, int[])
+	 */
+	public final List<RunDataClient> processedClientsListCache;
+
+	/**
 	 * Konstruktor der Klasse <code>RunElementMatchData</code>
 	 * @param station	Station zu diesem Datenelement
 	 * @param numberOfQueues	Anzahl der einlaufenden Verbindungen
@@ -84,6 +93,8 @@ public class RunElementMatchData extends RunElementData implements RunElementMul
 			this.condition=new ExpressionMultiEval(variableNames);
 			this.condition.parse(condition);
 		}
+
+		processedClientsListCache=new ArrayList<>();
 	}
 
 	@Override
