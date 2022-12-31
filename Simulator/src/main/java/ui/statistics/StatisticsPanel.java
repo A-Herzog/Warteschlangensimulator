@@ -708,6 +708,7 @@ public class StatisticsPanel extends StatisticsBasePanel {
 	private boolean testClientData(final Statistics[] statistics) {
 		for (Statistics statistic: statistics) {
 			if (statistic.clientData.size()>0) return true;
+			if (statistic.clientDataByClientTypes.size()>0) return true;
 		}
 		return false;
 	}
@@ -1464,7 +1465,7 @@ public class StatisticsPanel extends StatisticsBasePanel {
 
 			/* (Untergruppe) Verteilungen */
 
-			group.addChild(sub=new StatisticNode(Language.tr("Statistics.Distributions"),!setup.expandAllStatistics));
+			group.addChild(sub=new StatisticNode(Language.tr("Statistics.DistributionsValues"),!setup.expandAllStatistics));
 
 			viewer=new ArrayList<>();
 			for(Statistics statistic : statistics) viewer.add(new StatisticViewerTimeTable(statistic,StatisticViewerTimeTable.Mode.MODE_CLIENT_DATA_DISTRIBUTION));
@@ -1473,6 +1474,10 @@ public class StatisticsPanel extends StatisticsBasePanel {
 			viewer=new ArrayList<>();
 			for(Statistics statistic : statistics) viewer.add(new StatisticViewerDistributionTimeLineChart(statistic,StatisticViewerDistributionTimeLineChart.Mode.MODE_CLIENT_DATA_DISTRIBUTION));
 			sub.addChild(new StatisticNode(Language.tr("Statistics.ClientData.Distribution"),viewer));
+
+			viewer=new ArrayList<>();
+			for(Statistics statistic : statistics) viewer.add(new StatisticViewerDistributionTimeLineChart(statistic,StatisticViewerDistributionTimeLineChart.Mode.MODE_CLIENT_DATA_DISTRIBUTION_BY_CLIENT_TYPES));
+			sub.addChild(new StatisticNode(Language.tr("Statistics.ClientData.DistributionByClientTypes"),viewer));
 		}
 
 		/* Warte- und Bedienzeiten an den Stationen */

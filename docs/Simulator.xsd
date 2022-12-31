@@ -2032,6 +2032,7 @@
   <xs:element ref="StatistikDurchsatz"/>
   <xs:element ref="StatistikWerteaufzeichnung"/>
   <xs:element ref="StatistikKundendaten"/>
+  <xs:element ref="StatistikKundendatenNachKundentyp"/>
 </xs:choice></xs:sequence></xs:complexType></xs:element>
 
 <xs:element name="Simulation"><xs:complexType><xs:sequence minOccurs="0" maxOccurs="unbounded"><xs:choice>
@@ -2304,6 +2305,9 @@
 </xs:choice></xs:sequence></xs:complexType></xs:element>
 <xs:element name="StatistikWerteaufzeichnungName" type="StatistikBasis"/>
 <xs:element name="StatistikKundendaten"><xs:complexType><xs:sequence minOccurs="0" maxOccurs="unbounded"><xs:choice>
+  <xs:element ref="StatistikKundendatenfeld" minOccurs="0" maxOccurs="unbounded"/>
+</xs:choice></xs:sequence></xs:complexType></xs:element>
+<xs:element name="StatistikKundendatenNachKundentyp"><xs:complexType><xs:sequence minOccurs="0" maxOccurs="unbounded"><xs:choice>
   <xs:element ref="StatistikKundendatenfeld" minOccurs="0" maxOccurs="unbounded"/>
 </xs:choice></xs:sequence></xs:complexType></xs:element>
 
@@ -4396,6 +4400,7 @@
   <xs:element ref="StatisticsThroughput"/>
   <xs:element ref="StatisticsValueRecording"/>
   <xs:element ref="StatisticsClientData"/>
+  <xs:element ref="StatisticsClientDataByClientType"/>
 </xs:choice></xs:sequence></xs:complexType></xs:element>
 
 <xs:element name="SimulationData"><xs:complexType><xs:sequence minOccurs="0" maxOccurs="unbounded"><xs:choice>
@@ -4668,6 +4673,9 @@
 </xs:choice></xs:sequence></xs:complexType></xs:element>
 <xs:element name="StatisticsValueRecordingName" type="StatisticsBase"/>
 <xs:element name="StatisticsClientData"><xs:complexType><xs:sequence minOccurs="0" maxOccurs="unbounded"><xs:choice>
+  <xs:element ref="StatisticsClientDataField" minOccurs="0" maxOccurs="unbounded"/>
+</xs:choice></xs:sequence></xs:complexType></xs:element>
+<xs:element name="StatisticsClientDataByClientType"><xs:complexType><xs:sequence minOccurs="0" maxOccurs="unbounded"><xs:choice>
   <xs:element ref="StatisticsClientDataField" minOccurs="0" maxOccurs="unbounded"/>
 </xs:choice></xs:sequence></xs:complexType></xs:element>
 

@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-12-30 15:36+0100\n"
+"POT-Creation-Date: 2022-12-31 00:08+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -21481,6 +21481,9 @@ msgstr "Kundendatenfelder"
 msgid "Statistics.ClientData.Distribution"
 msgstr "Kundendatenfelder - Verteilung"
 
+msgid "Statistics.ClientData.DistributionByClientTypes"
+msgstr "Kundendatenfelder (nach Kundentypen) - Verteilung"
+
 msgid "Statistics.ClientData.Field"
 msgstr "Feld %s"
 
@@ -21507,6 +21510,9 @@ msgstr "Standardabweichung"
 
 msgid "Statistics.ClientData.Field.Variance"
 msgstr "Varianz"
+
+msgid "Statistics.ClientData.global"
+msgstr "global"
 
 msgid "Statistics.ClientMovement"
 msgstr "Kundenbewegungen"
@@ -21997,6 +22003,9 @@ msgstr "Verteilungen der Zeiten"
 
 msgid "Statistics.DistributionsNumbers"
 msgstr "Verteilungen der Zustände"
+
+msgid "Statistics.DistributionsValues"
+msgstr "Verteilungen der Werte"
 
 msgid "Statistics.EmergencyShutDown"
 msgstr "Die Simulation wurde vorzeitig abgebrochen. Die Statistik-Ergebnisse sind daher evtl. nicht valide."
@@ -23547,6 +23556,9 @@ msgstr "Das \"Verteilung\"-Attribut im \"%s\"-Element muss eine Häufigkeitsvert
 
 msgid "Statistics.XML.Element.ClientData"
 msgstr "StatistikKundendaten"
+
+msgid "Statistics.XML.Element.ClientDataByClientTypes"
+msgstr "StatistikKundendatenNachKundentyp"
 
 msgid "Statistics.XML.Element.ClientMovement"
 msgstr "StatistikKundenbewegung"

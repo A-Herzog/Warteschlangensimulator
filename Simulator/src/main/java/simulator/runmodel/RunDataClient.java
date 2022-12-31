@@ -30,6 +30,7 @@ import org.apache.commons.math3.util.FastMath;
 import mathtools.NumberTools;
 import simulator.coreelements.RunElementData;
 import simulator.elements.RunElementSectionStart;
+import statistics.StatisticsDataPerformanceIndicator;
 import statistics.StatisticsDataPerformanceIndicatorWithNegativeValues;
 import statistics.StatisticsMultiPerformanceIndicator;
 import statistics.StatisticsSimpleCountPerformanceIndicator;
@@ -215,7 +216,7 @@ public class RunDataClient {
 	 * Beim Zugriff über die setter Methoden wird es automatisch initialisiert.
 	 * @see RunDataClient#getUserData(int)
 	 * @see RunDataClient#setUserData(int, double)
-	 * @see RunDataClient#writeUserDataToStatistics(StatisticsMultiPerformanceIndicator)
+	 * @see RunDataClient#writeUserDataToStatistics(String, StatisticsMultiPerformanceIndicator, StatisticsMultiPerformanceIndicator)
 	 */
 	private boolean[] userDataInUse;
 
@@ -622,15 +623,20 @@ public class RunDataClient {
 
 	/**
 	 * Erfasst die Werte der Nutzerdaten-Felder in der Statistik.
-	 * @param indicators	Statistikobjekt (welches Unterobjekte vom Typ <code>StatisticsDataPerformanceIndicator</code> enthält), in dem Daten erfasst werden sollen
+	 * @param clientTypeName	Name des Kundentyps
+	 * @param indicators	Statistikobjekt (welches Unterobjekte vom Typ {@link StatisticsDataPerformanceIndicator} enthält), in dem die Daten globalen über alle Kundentypen erfasst werden sollen
+	 * @param indicatorsByClientType	Statistikobjekt (welches Unterobjekte vom Typ {@link StatisticsDataPerformanceIndicator} enthält), in dem die Daten pro Kundentyp erfasst werden sollen
 	 */
-	public void writeUserDataToStatistics(final StatisticsMultiPerformanceIndicator indicators) {
+	public void writeUserDataToStatistics(final String clientTypeName, final StatisticsMultiPerformanceIndicator indicators, final StatisticsMultiPerformanceIndicator indicatorsByClientType) {
 		if (userData==null || userData.length==0 || userDataInUse==null || userDataInUse.length==0 || indicators==null) return;
 
 		for (int i=0;i<FastMath.min(userData.length,userDataInUse.length);i++) if (userDataInUse[i]) {
+			final double value=userData[i];
 			final String name=NumberTools.formatLongNoGrouping(i);
 			final StatisticsDataPerformanceIndicatorWithNegativeValues indicator=(StatisticsDataPerformanceIndicatorWithNegativeValues)indicators.get(name);
-			indicator.add(userData[i]);
+			indicator.add(value);
+			final StatisticsDataPerformanceIndicatorWithNegativeValues indicatorByClientType=(StatisticsDataPerformanceIndicatorWithNegativeValues)indicatorsByClientType.get(name+"-"+clientTypeName);
+			indicatorByClientType.add(value);
 		}
 	}
 

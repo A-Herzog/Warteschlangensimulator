@@ -18,7 +18,9 @@ package ui.statistics;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.apache.commons.math3.util.FastMath;
 
@@ -302,13 +304,15 @@ public class StatisticViewerTimeTable extends StatisticViewerBaseTable {
 	/**
 	 * Erzeugt eine Datenzeile.
 	 * @param col1	Inhalt für Spalte 1 (kann <code>null</code> sein)
+	 * @param col2	Inhalt für Spalte 2 (kann <code>null</code> sein)
 	 * @param data	Statistikobjekt dem Mittelwert usw. entnommen werden sollen
 	 * @return	Datenzeile
 	 */
-	private String[] getDataLine(final String col1, final StatisticsDataPerformanceIndicatorWithNegativeValues data) {
+	private String[] getDataLine(final String col1, final String col2, final StatisticsDataPerformanceIndicatorWithNegativeValues data) {
 		final List<String> line=new ArrayList<>();
 
 		if (col1!=null) line.add(col1);
+		if (col2!=null) line.add(col2);
 		line.add(NumberTools.formatLongNoGrouping(data.getCount()));
 		line.add(StatisticTools.formatNumber(data.getMean()));
 		line.add(StatisticTools.formatNumber(data.getSD()));
@@ -1034,9 +1038,28 @@ public class StatisticViewerTimeTable extends StatisticViewerBaseTable {
 		final StatisticsMultiPerformanceIndicator indicators=statistics.clientData;
 		for (String name : indicators.getNames()) {
 			final StatisticsDataPerformanceIndicatorWithNegativeValues indicator=(StatisticsDataPerformanceIndicatorWithNegativeValues)(indicators.get(name));
-			table.addLine(getDataLine(String.format(Language.tr("Statistics.ClientData.Field"),name),indicator));
+			table.addLine(getDataLine(Language.tr("Statistics.ClientData.global"),String.format(Language.tr("Statistics.ClientData.Field"),name),indicator));
 		}
-		setData(table,getColumnNames(Language.tr("Statistics.ClientData"),null,null,null));
+
+		final StatisticsMultiPerformanceIndicator indicatorsByClientTypes=statistics.clientDataByClientTypes;
+		final Set<String> clientTypes=new HashSet<>();
+		for (String name : indicatorsByClientTypes.getNames()) {
+			final int index=name.indexOf("-");
+			if (index>0) clientTypes.add(name.substring(index+1));
+		}
+		for (String clientName: clientTypes.stream().sorted().toArray(String[]::new)) {
+			for (String name : indicatorsByClientTypes.getNames()) {
+				final int index=name.indexOf("-");
+				if (index<=0) continue;
+				final String testName=name.substring(index+1);
+				if (testName.equalsIgnoreCase(clientName)) {
+					final StatisticsDataPerformanceIndicatorWithNegativeValues indicator=(StatisticsDataPerformanceIndicatorWithNegativeValues)(indicatorsByClientTypes.get(name));
+					table.addLine(getDataLine(clientName,String.format(Language.tr("Statistics.ClientData.Field"),name.substring(0,index)),indicator));
+				}
+			}
+		}
+
+		setData(table,getColumnNames(Language.tr("Statistics.ClientType"),Language.tr("Statistics.ClientData"),null,null));
 
 		/* Infotext  */
 		addDescription("TableClientData");
@@ -1051,9 +1074,14 @@ public class StatisticViewerTimeTable extends StatisticViewerBaseTable {
 		final Table table=new Table();
 		final List<String> headers=new ArrayList<>();
 
+		/* Überschriften zusammenstellen */
+
 		double scale=1;
+
 		headers.add(Language.tr("Statistics.Value"));
+
 		List<DataDistributionImpl> dists=new ArrayList<>();
+
 		for (String name: statistics.clientData.getNames()) {
 			final String field=String.format(Language.tr("Statistics.ClientData.Field"),name);
 			headers.add(Language.tr("Statistics.Number")+" - "+field);
@@ -1064,6 +1092,34 @@ public class StatisticViewerTimeTable extends StatisticViewerBaseTable {
 				scale=dist.upperBound/dist.densityData.length;
 			}
 		}
+
+		final StatisticsMultiPerformanceIndicator indicatorsByClientTypes=statistics.clientDataByClientTypes;
+		final Set<String> clientTypes=new HashSet<>();
+		for (String name : indicatorsByClientTypes.getNames()) {
+			final int index=name.indexOf("-");
+			if (index>0) clientTypes.add(name.substring(index+1));
+		}
+
+		for (String clientName: clientTypes.stream().sorted().toArray(String[]::new)) {
+			for (String name : indicatorsByClientTypes.getNames()) {
+				final int index=name.indexOf("-");
+				if (index<=0) continue;
+				final String testName=name.substring(index+1);
+				if (testName.equalsIgnoreCase(clientName)) {
+
+					final String field=clientName+" - "+String.format(Language.tr("Statistics.ClientData.Field"),name.substring(0,index));
+					headers.add(Language.tr("Statistics.Number")+" - "+field);
+					headers.add(Language.tr("Statistics.Part")+" - "+field);
+					final DataDistributionImpl dist=((StatisticsDataPerformanceIndicatorWithNegativeValues)(indicatorsByClientTypes.get(name))).getDistribution();
+					if (dist!=null) {
+						dists.add(dist);
+						scale=dist.upperBound/dist.densityData.length;
+					}
+				}
+			}
+		}
+
+		/* Daten ausgeben */
 
 		final List<Double> sum=new ArrayList<>();
 		for (DataDistributionImpl dist: dists) sum.add(dist.sum());

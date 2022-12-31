@@ -197,6 +197,11 @@ public class Statistics extends StatisticsBase {
 	 */
 	public final StatisticsMultiPerformanceIndicator clientData;
 
+	/**
+	 * Kundenspezifische Werte (nach Kundentypen)
+	 */
+	public final StatisticsMultiPerformanceIndicator clientDataByClientTypes;
+
 	/* ====================================================
 	 * Zeiten auf Seiten der Stationen
 	 * ====================================================
@@ -629,6 +634,7 @@ public class Statistics extends StatisticsBase {
 
 		/* Kundendatenfelder */
 		addPerformanceIndicator(clientData=new StatisticsMultiPerformanceIndicator(Language.trAll("Statistics.XML.Element.ClientData"),new StatisticsDataPerformanceIndicatorWithNegativeValues(nameClientData,dataToRecordInClientDataDistribution,dataToRecordInClientDataDistribution,1,useWelford,true)));
+		addPerformanceIndicator(clientDataByClientTypes=new StatisticsMultiPerformanceIndicator(Language.trAll("Statistics.XML.Element.ClientDataByClientTypes"),new StatisticsDataPerformanceIndicatorWithNegativeValues(nameClientData,dataToRecordInClientDataDistribution,dataToRecordInClientDataDistribution,1,useWelford,true)));
 
 		/* Zeiten auf Seiten der Stationen */
 		addPerformanceIndicator(stationsWaitingTimes=new StatisticsMultiPerformanceIndicator(Language.trAll("Statistics.XML.Element.WaitingStations"),new StatisticsDataPerformanceIndicator(nameStation,secondsToRecordInDistributions,timeSteps,rangeFull,batchSize,useWelford,true)));

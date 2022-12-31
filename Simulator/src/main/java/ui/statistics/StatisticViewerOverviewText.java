@@ -4111,6 +4111,40 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 			outputQuantilInfoNumber(field,indicator);
 		}
 
+		final Set<String> clientTypes=new HashSet<>();
+		for (String name: statistics.clientDataByClientTypes.getNames()) {
+			final int index=name.indexOf("-");
+			if (index>0) clientTypes.add(name.substring(index+1));
+		}
+
+		for (String clientType: clientTypes.stream().sorted().toArray(String[]::new)) {
+			addHeading(2,clientType);
+
+			for (String name: statistics.clientDataByClientTypes.getNames()) {
+				final int index=name.indexOf("-");
+				if (index<=0) continue;
+				if (!name.substring(index+1).equals(clientType)) continue;
+				final String fieldName=name.substring(0,index);
+
+				final StatisticsDataPerformanceIndicatorWithNegativeValues indicator=(StatisticsDataPerformanceIndicatorWithNegativeValues)statistics.clientDataByClientTypes.get(name);
+				final String field=String.format(Language.tr("Statistics.ClientData.Field"),fieldName);
+				addHeading(3,field);
+				beginParagraph();
+				addLine(Language.tr("Statistics.Number")+": "+NumberTools.formatLong(indicator.getCount())+repeatInfo);
+				addLine(Language.tr("Statistics.ClientData.Field.Average")+": E["+field+"]="+StatisticTools.formatNumber(indicator.getMean()),xmlMean(indicator));
+				addLine(Language.tr("Statistics.ClientData.Field.StdDev")+": Std["+field+"]="+StatisticTools.formatNumber(indicator.getSD()),fastAccessBuilder.getXMLSelector(indicator,IndicatorMode.SD));
+				addLine(Language.tr("Statistics.ClientData.Field.Variance")+": Var["+field+"]="+StatisticTools.formatNumber(indicator.getVar()));
+				addLine(Language.tr("Statistics.ClientData.Field.CV")+": CV["+field+"]="+StatisticTools.formatNumber(indicator.getCV()),fastAccessBuilder.getXMLSelector(indicator,IndicatorMode.CV));
+				addLine(Language.tr("Statistics.ClientData.Field.Sk")+": Sk["+field+"]="+StatisticTools.formatNumber(indicator.getSk()),fastAccessBuilder.getXMLSelector(indicator,IndicatorMode.Sk));
+				addLine(Language.tr("Statistics.ClientData.Field.Kurt")+": Kurt["+field+"]="+StatisticTools.formatNumber(indicator.getKurt()),fastAccessBuilder.getXMLSelector(indicator,IndicatorMode.Kurt));
+				addLine(Language.tr("Statistics.ClientData.Field.Minimum")+": Min["+field+"]="+StatisticTools.formatNumber(indicator.getMin()),fastAccessBuilder.getXMLSelector(indicator,IndicatorMode.MINIMUM));
+				addLine(Language.tr("Statistics.ClientData.Field.Maximum")+": Max["+field+"]="+StatisticTools.formatNumber(indicator.getMax()),fastAccessBuilder.getXMLSelector(indicator,IndicatorMode.MAXIMUM));
+				endParagraph();
+
+				outputQuantilInfoNumber(field,indicator);
+			}
+		}
+
 		/* Infotext  */
 		addDescription("ClientData");
 	}

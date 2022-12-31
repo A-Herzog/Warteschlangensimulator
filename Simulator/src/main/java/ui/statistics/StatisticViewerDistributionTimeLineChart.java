@@ -127,6 +127,8 @@ public class StatisticViewerDistributionTimeLineChart extends StatisticViewerLin
 		MODE_ADDITIONAL_STATISTICS,
 		/** Verteilungsdiagramm mit den Werten der Kundendatenfelder */
 		MODE_CLIENT_DATA_DISTRIBUTION,
+		/** Verteilungsdiagramm mit den Werten der Kundendatenfelder (aufgeschlüsselt nach Kundentypen) */
+		MODE_CLIENT_DATA_DISTRIBUTION_BY_CLIENT_TYPES,
 		/** Verteilungsdiagramme der an den Datenaufzeichnung-Stationen erfassten Werten */
 		MODE_VALUE_RECORDING,
 	}
@@ -481,6 +483,11 @@ public class StatisticViewerDistributionTimeLineChart extends StatisticViewerLin
 			break;
 		case MODE_CLIENT_DATA_DISTRIBUTION:
 			requestDiagrammStateDistribution(Language.tr("Statistics.ClientData.Distribution")+" ("+Language.tr("Statistics.total")+")",statistics.clientData,null,Language.tr("Statistics.Value"),null);
+			plot.getDomainAxis().setLabel(Language.tr("Statistics.Value"));
+			addDescription("PlotClientDataDistribution");
+			break;
+		case MODE_CLIENT_DATA_DISTRIBUTION_BY_CLIENT_TYPES:
+			requestDiagrammStateDistribution(Language.tr("Statistics.ClientData.Distribution")+" ("+Language.tr("Statistics.total")+")",statistics.clientDataByClientTypes,null,Language.tr("Statistics.Value"),null);
 			plot.getDomainAxis().setLabel(Language.tr("Statistics.Value"));
 			addDescription("PlotClientDataDistribution");
 			break;

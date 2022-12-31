@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-12-30 15:36+0100\n"
+"POT-Creation-Date: 2022-12-31 00:08+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -21465,6 +21465,9 @@ msgstr "Client data fields"
 msgid "Statistics.ClientData.Distribution"
 msgstr "Client data fields - distribution"
 
+msgid "Statistics.ClientData.DistributionByClientTypes"
+msgstr "Client data fields (by client types) - distribution"
+
 msgid "Statistics.ClientData.Field"
 msgstr "Field %s"
 
@@ -21491,6 +21494,9 @@ msgstr "Standard deviation"
 
 msgid "Statistics.ClientData.Field.Variance"
 msgstr "Variance"
+
+msgid "Statistics.ClientData.global"
+msgstr "global"
 
 msgid "Statistics.ClientMovement"
 msgstr "Client movements"
@@ -21981,6 +21987,9 @@ msgstr "Distributions by time"
 
 msgid "Statistics.DistributionsNumbers"
 msgstr "Distributions by state"
+
+msgid "Statistics.DistributionsValues"
+msgstr "Distributions by values"
 
 msgid "Statistics.EmergencyShutDown"
 msgstr "The simulation was terminated prematurely. The statistics results may not be valid therefore."
@@ -23531,6 +23540,9 @@ msgstr "The \"Distribution\" attribute in the \"%s\" element has to be a probabi
 
 msgid "Statistics.XML.Element.ClientData"
 msgstr "StatisticsClientData"
+
+msgid "Statistics.XML.Element.ClientDataByClientTypes"
+msgstr "StatisticsClientDataByClientType"
 
 msgid "Statistics.XML.Element.ClientMovement"
 msgstr "StatisticsClientMovement"

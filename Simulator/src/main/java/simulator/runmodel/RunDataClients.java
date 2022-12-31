@@ -299,7 +299,7 @@ public final class RunDataClients {
 		if (d3!=0.0) ((StatisticsValuePerformanceIndicator)statistics.clientsCostsProcess.get(name)).add(d3);
 
 		/* Werte der Eigenschaften erfassen */
-		client.writeUserDataToStatistics(statistics.clientData);
+		client.writeUserDataToStatistics(name,statistics.clientData,statistics.clientDataByClientTypes);
 
 		/* Pfad erfassen */
 		client.storePathToStatistics(simData);

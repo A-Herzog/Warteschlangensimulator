@@ -451,6 +451,7 @@ public class StatisticViewerFastAccessDialog extends BaseDialog {
 
 				/* Kundendatenfelder */
 				Language.trPrimary("XML.Statistic.BaseElement")+","+Language.trPrimary("Statistics.XML.Element.ClientData")+","+Language.trPrimary("Statistics.XML.ClientDataRecord"),
+				Language.trPrimary("XML.Statistic.BaseElement")+","+Language.trPrimary("Statistics.XML.Element.ClientDataByClientTypes")+","+Language.trPrimary("Statistics.XML.ClientDataRecord"),
 
 				/* Zeiten auf Seiten der Stationen */
 				Language.trPrimary("XML.Statistic.BaseElement")+","+Language.trPrimary("Statistics.XML.Element.WaitingStations")+","+Language.trPrimary("Statistics.XML.Station"),
