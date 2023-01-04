@@ -105,6 +105,13 @@ public final class ModelElementText extends ModelElementPosition {
 	private boolean interpretMarkdown;
 
 	/**
+	 * Sollen LaTeX-Ausdrücke interpretiert werden?
+	 * @see #isInterpretLaTeX()
+	 * @see #setInterpretLaTeX(boolean)
+	 */
+	private boolean interpretLaTeX;
+
+	/**
 	 * Textfarbe
 	 * @see #getColor()
 	 * @see #setColor(Color)
@@ -188,6 +195,7 @@ public final class ModelElementText extends ModelElementPosition {
 		text=Language.tr("Surface.Text.DefaultText");
 		interpretSymbols=true;
 		interpretMarkdown=false;
+		interpretLaTeX=false;
 		textAlign=TextAlign.LEFT;
 	}
 
@@ -330,8 +338,24 @@ public final class ModelElementText extends ModelElementPosition {
 	 * Stellt ein, ob Markdown interpretiert werden soll.
 	 * @param interpretMarkdown	Markdown interpretieren
 	 */
-	public void setInterpretMarkdown(boolean interpretMarkdown) {
+	public void setInterpretMarkdown(final boolean interpretMarkdown) {
 		this.interpretMarkdown=interpretMarkdown;
+	}
+
+	/**
+	 * Sollen LaTeX-Formatierungen interpretiert werden?
+	 * @return	LaTeX-Formatierungen interpretieren
+	 */
+	public boolean isInterpretLaTeX() {
+		return interpretLaTeX;
+	}
+
+	/**
+	 * Stellt ein, ob LaTeX-Formatierungen interpretiert werden soll.
+	 * @param interpretLaTeX	LaTeX-Formatierungen interpretieren
+	 */
+	public void setInterpretLaTeX(final boolean interpretLaTeX) {
+		this.interpretLaTeX=interpretLaTeX;
 	}
 
 	/**
@@ -425,6 +449,7 @@ public final class ModelElementText extends ModelElementPosition {
 		if (italic!=otherText.italic) return false;
 		if (interpretSymbols!=otherText.interpretSymbols) return false;
 		if (interpretMarkdown!=otherText.interpretMarkdown) return false;
+		if (interpretLaTeX!=otherText.interpretLaTeX) return false;
 		if (textAlign!=otherText.textAlign) return false;
 		if (fillColor!=otherText.fillColor) return false;
 		if (fillAlpha!=otherText.fillAlpha) return false;
@@ -447,6 +472,7 @@ public final class ModelElementText extends ModelElementPosition {
 			italic=copySource.italic;
 			interpretSymbols=copySource.interpretSymbols;
 			interpretMarkdown=copySource.interpretMarkdown;
+			interpretLaTeX=copySource.interpretLaTeX;
 			color=copySource.color;
 			textAlign=copySource.textAlign;
 			fillColor=copySource.fillColor;
@@ -485,8 +511,9 @@ public final class ModelElementText extends ModelElementPosition {
 		setClip(graphics,drawRect,null);
 
 		/* Renderer vorbereiten */
-		if (interpretMarkdown) {
-			if (!(textRenderer instanceof ModelElementTextRendererMarkDown)) textRenderer=new ModelElementTextRendererMarkDown();
+		if (interpretMarkdown || interpretLaTeX) {
+			if (!(textRenderer instanceof ModelElementTextRendererMarkDownLaTeX)) textRenderer=new ModelElementTextRendererMarkDownLaTeX();
+			((ModelElementTextRendererMarkDownLaTeX)textRenderer).setRenderMode(interpretMarkdown,interpretLaTeX);
 		} else {
 			if (!(textRenderer instanceof ModelElementTextRendererPlain)) textRenderer=new ModelElementTextRendererPlain();
 		}
@@ -591,6 +618,7 @@ public final class ModelElementText extends ModelElementPosition {
 		if (italic) sub.setAttribute(Language.trPrimary("Surface.Text.XML.FontSize.Italic"),"1");
 		sub.setAttribute(Language.trPrimary("Surface.Text.XML.FontSize.Symbols"),interpretSymbols?"1":"0");
 		if (interpretMarkdown) sub.setAttribute(Language.trPrimary("Surface.Text.XML.FontSize.Markdown"),"1");
+		if (interpretLaTeX) sub.setAttribute(Language.trPrimary("Surface.Text.XML.FontSize.LaTeX"),"1");
 
 		/* Farbe */
 		sub=doc.createElement(Language.trPrimary("Surface.Text.XML.Color"));
@@ -649,6 +677,7 @@ public final class ModelElementText extends ModelElementPosition {
 			italic=Language.trAllAttribute("Surface.Text.XML.FontSize.Italic",node).equals("1");
 			interpretSymbols=!Language.trAllAttribute("Surface.Text.XML.FontSize.Symbols",node).equals("0");
 			interpretMarkdown=Language.trAllAttribute("Surface.Text.XML.FontSize.Markdown",node).equals("1");
+			interpretLaTeX=Language.trAllAttribute("Surface.Text.XML.FontSize.LaTeX",node).equals("1");
 			return null;
 		}
 

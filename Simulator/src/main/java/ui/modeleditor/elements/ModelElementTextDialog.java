@@ -70,6 +70,8 @@ public class ModelElementTextDialog extends ModelElementBaseDialog {
 	private JCheckBox optionInterpretSymbols;
 	/** Option: Markdown interpretieren */
 	private JCheckBox optionInterpretMarkdown;
+	/** Option: LaTeX-Formatierungen interpretieren */
+	private JCheckBox optionInterpretLaTeX;
 	/** Ausrichtung */
 	private JComboBox<String> textAlign;
 	/** Auswahl der Textfarbe */
@@ -161,10 +163,15 @@ public class ModelElementTextDialog extends ModelElementBaseDialog {
 				ScriptEditorAreaBuilder.setEntityAutoComplete(textField,optionInterpretSymbols.isSelected());
 			});
 
-			/* Interpretation von Mardown */
+			/* Interpretation von Markdown */
 			subPanel.add(optionInterpretMarkdown=new JCheckBox(Language.tr("Surface.Text.Dialog.FontSize.Markdown"),text.isInterpretMarkdown()));
 			optionInterpretMarkdown.setToolTipText(Language.tr("Surface.Text.Dialog.FontSize.Markdown.Info"));
 			optionInterpretMarkdown.setEnabled(!readOnly);
+
+			/* Interpretation von LaTeX-Formatierungen */
+			subPanel.add(optionInterpretLaTeX=new JCheckBox(Language.tr("Surface.Text.Dialog.FontSize.LaTeX"),text.isInterpretLaTeX()));
+			optionInterpretLaTeX.setToolTipText(Language.tr("Surface.Text.Dialog.FontSize.LaTeX.Info"));
+			optionInterpretLaTeX.setEnabled(!readOnly);
 
 			/* Ausrichtung */
 			bottomPanel.add(subPanel=new JPanel(new FlowLayout(FlowLayout.LEFT)));
@@ -284,6 +291,7 @@ public class ModelElementTextDialog extends ModelElementBaseDialog {
 		/* Interpretation von Symbolen */
 		text.setInterpretSymbols(optionInterpretSymbols.isSelected());
 		text.setInterpretMarkdown(optionInterpretMarkdown.isSelected());
+		text.setInterpretLaTeX(optionInterpretLaTeX.isSelected());
 
 		/* Ausrichtung */
 		switch (textAlign.getSelectedIndex()) {

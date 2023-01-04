@@ -109,7 +109,7 @@ public abstract class ModelElementTextRenderer {
 	 */
 	public final void setText(String text, final boolean processSymbols) {
 		if (text==null) text="";
-		if (text.equals(lastText) && lastInterpretSymbols==processSymbols) return;
+		if (text.equals(lastText) && lastInterpretSymbols==processSymbols && !needRecalc) return;
 
 		lastText=text;
 		lastInterpretSymbols=processSymbols;

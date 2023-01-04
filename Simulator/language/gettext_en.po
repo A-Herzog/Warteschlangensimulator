@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-01 00:15+0100\n"
+"POT-Creation-Date: 2023-01-04 08:13+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -32894,6 +32894,12 @@ msgstr "HTML and LaTeX symbols"
 msgid "Surface.Text.Dialog.FontSize.HTMLLaTeX.Info"
 msgstr "Interpret HTML and LaTeX symbols in input"
 
+msgid "Surface.Text.Dialog.FontSize.LaTeX"
+msgstr "LaTeX formating"
+
+msgid "Surface.Text.Dialog.FontSize.LaTeX.Info"
+msgstr "Interpret LaTeX formatings in input"
+
 msgid "Surface.Text.Dialog.FontSize.Markdown"
 msgstr "Markdown"
 
@@ -32941,6 +32947,9 @@ msgstr "bold"
 
 msgid "Surface.Text.XML.FontSize.Italic"
 msgstr "italic"
+
+msgid "Surface.Text.XML.FontSize.LaTeX"
+msgstr "LaTeX"
 
 msgid "Surface.Text.XML.FontSize.Markdown"
 msgstr "Markdown"

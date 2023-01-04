@@ -339,6 +339,7 @@
   kursiv	(0|1)	#IMPLIED
   Symbole	(0|1)	#IMPLIED
   Markdown	(0|1)	#IMPLIED
+  LaTeX		(0|1)	#IMPLIED
 >
 
 <!ELEMENT ModellElementVerteilung (#PCDATA)>
@@ -2945,6 +2946,7 @@
   italic	(0|1)	#IMPLIED
   Symbols	(0|1)	#IMPLIED
   Markdown	(0|1)	#IMPLIED
+  LaTeX		(0|1)	#IMPLIED
 >
 
 <!ELEMENT ModelElementDistribution (#PCDATA)>
