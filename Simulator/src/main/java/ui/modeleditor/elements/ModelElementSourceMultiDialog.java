@@ -23,6 +23,7 @@ import java.util.List;
 import java.util.Set;
 
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JComponent;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -51,6 +52,11 @@ public class ModelElementSourceMultiDialog extends ModelElementBaseDialog {
 	 * Tabelle zur Anzeige und Konfiguration der Kunden-Teil-Quellen-Daten
 	 */
 	private ModelElementSourceMultiTableModel recordsTableModel;
+
+	/**
+	 * Combobox zur Auswahl des Modus wie mit den Teil-Ankunftsströmen umgegangen werden soll
+	 */
+	private JComboBox<?> modeComboBox;
 
 	/**
 	 * Konstruktor der Klasse
@@ -110,6 +116,19 @@ public class ModelElementSourceMultiDialog extends ModelElementBaseDialog {
 		recordsTable.setIsPanelCellTable(1);
 		recordsTable.setEnabled(!readOnly);
 
+		final Object[] data=getComboBoxPanel(Language.tr("Surface.SourceMulti.Dialog.Mode")+":",new String[] {
+				Language.tr("Surface.SourceMulti.Dialog.Mode.All"),
+				Language.tr("Surface.SourceMulti.Dialog.Mode.InTurn")
+		});
+		content.add((JPanel)data[0],BorderLayout.SOUTH);
+		modeComboBox=(JComboBox<?>)data[1];
+		modeComboBox.setEnabled(!readOnly);
+		switch (((ModelElementSourceMulti)element).getMode()) {
+		case ALL: modeComboBox.setSelectedIndex(0); break;
+		case IN_TURN: modeComboBox.setSelectedIndex(1); break;
+		default: modeComboBox.setSelectedIndex(0); break;
+		}
+
 		return content;
 	}
 
@@ -122,6 +141,10 @@ public class ModelElementSourceMultiDialog extends ModelElementBaseDialog {
 	protected void storeData() {
 		super.storeData();
 		recordsTableModel.storeData((ModelElementSourceMulti)element);
+		switch (modeComboBox.getSelectedIndex()) {
+		case 0: ((ModelElementSourceMulti)element).setMode(ModelElementSourceMulti.MultiSourceMode.ALL); break;
+		case 1: ((ModelElementSourceMulti)element).setMode(ModelElementSourceMulti.MultiSourceMode.IN_TURN); break;
+		}
 	}
 
 	@Override

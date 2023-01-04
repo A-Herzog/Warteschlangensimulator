@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-12-31 00:08+0100\n"
+"POT-Creation-Date: 2023-01-01 00:15+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17858,6 +17858,9 @@ msgstr "At element id=%d the planned and the actual number of input edges are no
 msgid "Simulation.Creator.InputEdgeWithoutConnection"
 msgstr "The %dth input edge at element id=%d is connected to nothing."
 
+msgid "Simulation.Creator.InterArrivalTimeLimitationOnInTurnMode"
+msgstr "When generating arrivals in turn at id=%d, inter-arrival times may only be defined using distributions or calculation expressions."
+
 msgid "Simulation.Creator.InternalErrorAddingAdditionalStatistic"
 msgstr "An internal error occured while adding the additional statistics recorder."
 
@@ -32087,6 +32090,15 @@ msgstr "ModelElementDDESourceTable"
 msgid "Surface.SourceDDE.XML.Workbook"
 msgstr "ModelElementDDESourceWorkbook"
 
+msgid "Surface.SourceMulti.Dialog.Mode"
+msgstr "Mode"
+
+msgid "Surface.SourceMulti.Dialog.Mode.All"
+msgstr "Activate all partial sources simultaneously"
+
+msgid "Surface.SourceMulti.Dialog.Mode.InTurn"
+msgstr "Use partial sources in turn"
+
 msgid "Surface.SourceMulti.Dialog.Title"
 msgstr "Edit multiple source"
 
@@ -32098,6 +32110,9 @@ msgstr "Multi source"
 
 msgid "Surface.SourceMulti.Tooltip"
 msgstr "Source that generates arrivals for multiple types."
+
+msgid "Surface.SourceMulti.XML.Mode"
+msgstr "ModelElementMultiSourceMode"
 
 msgid "Surface.SourceMulti.XML.Root"
 msgstr "ModelElementMultiSource"

@@ -15,6 +15,8 @@
  */
 package simulator.elements;
 
+import java.util.Arrays;
+
 import simulator.coreelements.RunElement;
 import simulator.coreelements.RunElementData;
 import simulator.runmodel.SimulationData;
@@ -43,6 +45,11 @@ public class RunElementSourceMultiData extends RunElementData {
 	public RunElementSourceRecordData[] recordData;
 
 	/**
+	 * Speicher im Reihum-Modus, ob an der Teil-Quelle zuvor schon Ankünfte generiert wurden.
+	 */
+	public boolean[] isFirstArrival;
+
+	/**
 	 * Konstruktor der Klasse <code>RunElementSourceMultiData</code>
 	 * @param station	Station zu diesem Datenelement
 	 * @param simData	Simulationsdatenobjekt
@@ -54,5 +61,8 @@ public class RunElementSourceMultiData extends RunElementData {
 
 		recordData=new RunElementSourceRecordData[record.length];
 		for (int i=0;i<record.length;i++) recordData[i]=new RunElementSourceRecordData(simData,record[i],variableNames);
+
+		isFirstArrival=new boolean[record.length];
+		Arrays.fill(isFirstArrival,true);
 	}
 }

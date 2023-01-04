@@ -21,6 +21,7 @@ import java.awt.Point;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
+import java.util.function.Supplier;
 
 import javax.swing.Icon;
 import javax.swing.JMenu;
@@ -66,6 +67,63 @@ public class ModelElementSourceMulti extends ModelElementBox implements ElementW
 	private final List<ModelElementSourceRecord> records;
 
 	/**
+	 * Modus wie mit den Teil-Ankunftsströmen umgegangen werden soll
+	 * @see ModelElementSourceMulti.MultiSourceMode
+	 */
+	public enum MultiSourceMode {
+		/** Modus: Alle Quellen gleichzeitig aktivieren */
+		ALL(()->"All",()->new String[] {"All"}),
+		/** Modus: Quellen reihum aktivieren */
+		IN_TURN(()->"InTurn",()->new String[] {"InTurn"});
+
+		/**
+		 * Callback zur Ermittlung des primären XML-Namens für den Modus
+		 */
+		private final Supplier<String> getName;
+
+		/**
+		 * Callback zur Ermittlung aller XML-Namens für den Modus
+		 */
+		private final Supplier<String[]> getAllNames;
+
+		/**
+		 * Konstruktor des Enum
+		 * @param getName	Callback zur Ermittlung des primären XML-Namens für den Modus
+		 * @param getAllNames	Callback zur Ermittlung aller XML-Namens für den Modus
+		 */
+		MultiSourceMode(final Supplier<String> getName, final Supplier<String[]> getAllNames) {
+			this.getName=getName;
+			this.getAllNames=getAllNames;
+		}
+
+		/**
+		 * Liefert den primären XML-Namen für den Modus.
+		 * @return	Primärer XML-Namen für den Modus
+		 */
+		public String getName() {
+			return getName.get();
+		}
+
+		/**
+		 * Liefert zu einem XML-Namen der zugehörigen Modus (oder <code>ALL</code> als Fallback-Wert)
+		 * @param name	XML-Name zu dem der Modus ermittelt werden soll
+		 * @return	Modus zu dem XML-Namen
+		 */
+		public static MultiSourceMode byName(final String name) {
+			for (MultiSourceMode mode: values()) for (String test: mode.getAllNames.get()) if (test.equalsIgnoreCase(name)) return mode;
+			return ALL;
+		}
+	}
+
+	/**
+	 * Modus wie mit den Teil-Ankunftsströmen umgegangen werden soll
+	 * @see MultiSourceMode
+	 * @see #getMode()
+	 * @see #setMode(MultiSourceMode)
+	 */
+	private MultiSourceMode multiSourceMode;
+
+	/**
 	 * Konstruktor der Klasse <code>ModelElementSource</code>
 	 * @param model	Modell zu dem dieses Element gehören soll (kann später nicht mehr geändert werden)
 	 * @param surface	Zeichenfläche zu dem dieses Element gehören soll (kann später nicht mehr geändert werden)
@@ -73,6 +131,7 @@ public class ModelElementSourceMulti extends ModelElementBox implements ElementW
 	public ModelElementSourceMulti(final EditModel model, final ModelSurface surface) {
 		super(model,surface,Shapes.ShapeType.SHAPE_ARROW_RIGHT_DOUBLE);
 		records=new ArrayList<>();
+		multiSourceMode=MultiSourceMode.ALL;
 	}
 
 	/**
@@ -100,6 +159,26 @@ public class ModelElementSourceMulti extends ModelElementBox implements ElementW
 	 */
 	public List<ModelElementSourceRecord> getRecords() {
 		return records;
+	}
+
+	/**
+	 * Liefert den Modus wie mit den Teil-Ankunftsströmen umgegangen werden soll.
+	 * @return	Modus wie mit den Teil-Ankunftsströmen umgegangen werden soll
+	 * @see MultiSourceMode
+	 * @see #setMode(MultiSourceMode)
+	 */
+	public MultiSourceMode getMode() {
+		return multiSourceMode;
+	}
+
+	/**
+	 * Stellt den Modus wie mit den Teil-Ankunftsströmen umgegangen werden soll ein.
+	 * @param multiSourceMode	Modus wie mit den Teil-Ankunftsströmen umgegangen werden soll
+	 * @see MultiSourceMode
+	 * @see #getMode()
+	 */
+	public void setMode(final MultiSourceMode multiSourceMode) {
+		this.multiSourceMode=(multiSourceMode==null)?MultiSourceMode.ALL:multiSourceMode;
 	}
 
 	/**
@@ -133,6 +212,8 @@ public class ModelElementSourceMulti extends ModelElementBox implements ElementW
 		if (((ModelElementSourceMulti)element).records.size()!=records.size()) return false;
 		for (int i=0;i<records.size();i++) if (!((ModelElementSourceMulti)element).records.get(i).equalsRecord(records.get(i))) return false;
 
+		if (multiSourceMode!=((ModelElementSourceMulti)element).multiSourceMode) return false;
+
 		return true;
 	}
 
@@ -151,6 +232,7 @@ public class ModelElementSourceMulti extends ModelElementBox implements ElementW
 				record.addChangeListener(()->fireChanged());
 				records.add(record);
 			}
+			multiSourceMode=((ModelElementSourceMulti)element).multiSourceMode;
 		}
 	}
 
@@ -320,6 +402,11 @@ public class ModelElementSourceMulti extends ModelElementBox implements ElementW
 			node.appendChild(sub=doc.createElement(Language.trPrimary("Surface.SourceMulti.XML.Source")));
 			record.saveToXML(doc,sub);
 		}
+
+		if (multiSourceMode!=MultiSourceMode.ALL) {
+			node.appendChild(sub=doc.createElement(Language.trPrimary("Surface.SourceMulti.XML.Mode")));
+			sub.setTextContent(multiSourceMode.getName());
+		}
 	}
 
 	/**
@@ -350,6 +437,12 @@ public class ModelElementSourceMulti extends ModelElementBox implements ElementW
 			if (error!=null) return error;
 			record.addChangeListener(()->fireChanged());
 			records.add(record);
+			return null;
+		}
+
+		if (Language.trAll("Surface.SourceMulti.XML.Mode",name)) {
+			multiSourceMode=MultiSourceMode.byName(content);
+			return null;
 		}
 
 		return null;

@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-12-31 00:08+0100\n"
+"POT-Creation-Date: 2023-01-01 00:15+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17872,6 +17872,9 @@ msgstr "Bei Element id=%d stimmt die Anzahl an geplanten und an tatsächlichen e
 msgid "Simulation.Creator.InputEdgeWithoutConnection"
 msgstr "Die %d. Eingangskante von Element id=%d ist mit nichts verbunden."
 
+msgid "Simulation.Creator.InterArrivalTimeLimitationOnInTurnMode"
+msgstr "Bei einer Erzeugung von Ankünften reihum an id=%d dürfen Zwischenankunftszeiten nur über Verteilungen oder Rechenausdrücke definiert werden."
+
 msgid "Simulation.Creator.InternalErrorAddingAdditionalStatistic"
 msgstr "Es ist ein interner Fehler beim Hinzufügen der Statistikaufzeichnung aufgetreten."
 
@@ -32112,6 +32115,15 @@ msgstr "ModellElementDDEQuelleTabelle"
 msgid "Surface.SourceDDE.XML.Workbook"
 msgstr "ModellElementDDEQuelleArbeitsmappe"
 
+msgid "Surface.SourceMulti.Dialog.Mode"
+msgstr "Modus"
+
+msgid "Surface.SourceMulti.Dialog.Mode.All"
+msgstr "Alle Teilquellen gleichzeitig aktivieren"
+
+msgid "Surface.SourceMulti.Dialog.Mode.InTurn"
+msgstr "Teilquellen reihum verwenden"
+
 msgid "Surface.SourceMulti.Dialog.Title"
 msgstr "Mehrfachquelle bearbeiten"
 
@@ -32123,6 +32135,9 @@ msgstr "Mehrfachquelle"
 
 msgid "Surface.SourceMulti.Tooltip"
 msgstr "Quelle, die Ankünfte mehrerer Typen generiert."
+
+msgid "Surface.SourceMulti.XML.Mode"
+msgstr "ModellElementMehrfachQuelleModus"
 
 msgid "Surface.SourceMulti.XML.Root"
 msgstr "ModellElementMehrfachQuelle"

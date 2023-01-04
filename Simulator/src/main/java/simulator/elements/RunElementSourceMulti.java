@@ -50,6 +50,9 @@ public class RunElementSourceMulti extends RunElement implements StateChangeList
 	/** Kundenquelle-Datensätze */
 	private RunElementSourceRecord[] records;
 
+	/** Modus wie mit den Teil-Ankunftsströmen umgegangen werden soll */
+	private ModelElementSourceMulti.MultiSourceMode mode;
+
 	/**
 	 * Konstruktor der Klasse
 	 * @param element	Zugehöriges Editor-Element
@@ -62,10 +65,21 @@ public class RunElementSourceMulti extends RunElement implements StateChangeList
 	public Object build(final EditModel editModel, final RunModel runModel, final ModelElement element, final ModelElementSub parent, final boolean testOnly) {
 		if (!(element instanceof ModelElementSourceMulti)) return null;
 
-		RunElementSourceMulti run=new RunElementSourceMulti((ModelElementSourceMulti)element);
+		final ModelElementSourceMulti edit=(ModelElementSourceMulti)element;
+		final RunElementSourceMulti run=new RunElementSourceMulti(edit);
+
+		if (edit.getMode()==ModelElementSourceMulti.MultiSourceMode.IN_TURN) {
+			for (ModelElementSourceRecord editRecord: edit.getRecords()) {
+				if (!editRecord.isActive()) continue;
+				final ModelElementSourceRecord.NextMode nextMode=editRecord.getNextMode();
+				if (nextMode!=ModelElementSourceRecord.NextMode.NEXT_DISTRIBUTION && nextMode!=ModelElementSourceRecord.NextMode.NEXT_DISTRIBUTION) {
+					return String.format(Language.tr("Simulation.Creator.InterArrivalTimeLimitationOnInTurnMode"),element.getId());
+				}
+			}
+		}
 
 		final List<RunElementSourceRecord> list=new ArrayList<>();
-		for (ModelElementSourceRecord editRecord: ((ModelElementSourceMulti)element).getRecords()) {
+		for (ModelElementSourceRecord editRecord: edit.getRecords()) {
 			if (!editRecord.isActive()) continue;
 			final RunElementSourceRecord record=new RunElementSourceRecord();
 			final RunModelCreatorStatus error=record.load(editRecord,null,element.getId(),editModel,runModel,list.size());
@@ -74,7 +88,9 @@ public class RunElementSourceMulti extends RunElement implements StateChangeList
 		}
 		run.records=list.toArray(new RunElementSourceRecord[0]);
 
-		run.connectionId=findNextId(((ModelElementSourceMulti)element).getEdgeOut());
+		run.mode=edit.getMode();
+
+		run.connectionId=findNextId(edit.getEdgeOut());
 		if (run.connectionId<0) return String.format(Language.tr("Simulation.Creator.NoEdgeOut"),element.getId());
 
 		return run;
@@ -84,12 +100,24 @@ public class RunElementSourceMulti extends RunElement implements StateChangeList
 	public RunModelCreatorStatus test(ModelElement element) {
 		if (!(element instanceof ModelElementSourceMulti)) return null;
 
-		if (findNextId(((ModelElementSourceMulti)element).getEdgeOut())<0) return RunModelCreatorStatus.noEdgeOut(element);
+		final ModelElementSourceMulti edit=(ModelElementSourceMulti)element;
 
-		for (ModelElementSourceRecord editRecord: ((ModelElementSourceMulti)element).getRecords()) {
+		if (findNextId(edit.getEdgeOut())<0) return RunModelCreatorStatus.noEdgeOut(element);
+
+		for (ModelElementSourceRecord editRecord: edit.getRecords()) {
 			if (!editRecord.isActive()) continue;
 			final RunModelCreatorStatus error=RunElementSourceRecord.test(editRecord,null,element.getId());
 			if (!error.isOk()) return error;
+		}
+
+		if (edit.getMode()==ModelElementSourceMulti.MultiSourceMode.IN_TURN) {
+			for (ModelElementSourceRecord editRecord: edit.getRecords()) {
+				if (!editRecord.isActive()) continue;
+				final ModelElementSourceRecord.NextMode nextMode=editRecord.getNextMode();
+				if (nextMode!=ModelElementSourceRecord.NextMode.NEXT_DISTRIBUTION && nextMode!=ModelElementSourceRecord.NextMode.NEXT_DISTRIBUTION) {
+					return new RunModelCreatorStatus(String.format(Language.tr("Simulation.Creator.InterArrivalTimeLimitationOnInTurnMode"),element.getId()));
+				}
+			}
 		}
 
 		return RunModelCreatorStatus.ok;
@@ -148,14 +176,20 @@ public class RunElementSourceMulti extends RunElement implements StateChangeList
 	 */
 	@Override
 	public void scheduleInitialArrivals(SimulationData simData) {
-		for (int i=0;i<records.length;i++) scheduleNextArrival(simData,true,i);
+		if (mode==ModelElementSourceMulti.MultiSourceMode.ALL) {
+			for (int i=0;i<records.length;i++) scheduleNextArrival(simData,true,i);
+		} else {
+			scheduleNextArrival(simData,true,0);
+			final RunElementSourceMultiData data=getData(simData);
+			data.isFirstArrival[0]=false;
+		}
 	}
 
 	/**
 	 * Aufruf über das {@link SystemArrivalEvent} über das {@link RunSource}-Interface
 	 */
 	@Override
-	public void processArrivalEvent(final SimulationData simData, final boolean scheduleNext, final int index) {
+	public void processArrivalEvent(final SimulationData simData, final boolean scheduleNext, int index) {
 		final RunElementSourceMultiData data=getData(simData);
 		boolean isLastClient=false;
 
@@ -240,7 +274,14 @@ public class RunElementSourceMulti extends RunElement implements StateChangeList
 				if (!done) {
 					if (records[index].condition==null) {
 						/* Einplanung der nächsten Ankunft */
-						scheduleNextArrival(simData,false,index);
+						if (mode==ModelElementSourceMulti.MultiSourceMode.ALL) {
+							scheduleNextArrival(simData,false,index);
+						} else {
+							index++;
+							if (index>=records.length) index=0;
+							scheduleNextArrival(simData,data.isFirstArrival[index],index);
+							data.isFirstArrival[index]=false;
+						}
 					} else {
 						/* Prüfung der Bedingung zu passender Zeit auslösen */
 						SystemChangeEvent.triggerEvent(simData,data.recordData[index].getConditionMinDistanceMS(simData,name));

@@ -801,6 +801,7 @@
 <xs:element name="ModellElementMehrfachQuelle"><xs:complexType><xs:complexContent><xs:extension base="ModellElementVerbundenBasis">
   <xs:sequence minOccurs="0" maxOccurs="unbounded"><xs:choice>
     <xs:element ref="ModellElementMehrfachQuelleDaten"/>
+	<xs:element name="ModellElementMehrfachQuelleModus" type="xs:string"/>
   </xs:choice></xs:sequence>
 </xs:extension></xs:complexContent></xs:complexType></xs:element>
 
@@ -3169,6 +3170,7 @@
 <xs:element name="ModelElementMultiSource"><xs:complexType><xs:complexContent><xs:extension base="ModelElementConnectedBase">
   <xs:sequence minOccurs="0" maxOccurs="unbounded"><xs:choice>
     <xs:element ref="ModelElementMultiSourceData"/>
+	<xs:element name="ModelElementMultiSourceMode" type="xs:string"/>
   </xs:choice></xs:sequence>
 </xs:extension></xs:complexContent></xs:complexType></xs:element>
 
