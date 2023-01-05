@@ -117,15 +117,22 @@ public class RunElementInput extends RunElementPassThrough {
 	/**
 	 * Versucht eine Reihe von <code>double</code>-Werten aus einer einfachen Textdatei zu laden.
 	 * @param file	Zu ladende Datei
+	 * @param bottomUp	Tabelle von unten nach oben lesen
 	 * @return	Array mit <code>double</code>-Werten oder im Fehlerfall <code>null</code>
-	 * @see #loadDoubleData(File)
+	 * @see #loadDoubleData(File, boolean)
 	 */
-	private static double[] loadDoubleSimpleText(final File file) {
+	private static double[] loadDoubleSimpleText(final File file, final boolean bottomUp) {
 		double[] buffer=new double[10];
 		int size=0;
 
-		final List<String> lines=Table.loadTextLinesFromFile(file);
+		List<String> lines=Table.loadTextLinesFromFile(file);
 		if (lines==null) return null;
+
+		if (bottomUp) {
+			final List<String> lines2=new ArrayList<>(lines.size());
+			for (int i=lines.size()-1;i>=0;i--) lines2.add(lines.get(i));
+			lines=lines2;
+		}
 
 		for (String line: lines) {
 			line=line.trim();
@@ -144,18 +151,25 @@ public class RunElementInput extends RunElementPassThrough {
 	/**
 	 * Versucht eine Reihe von <code>double</code>-Werten aus einer komplexen Tabellendatei zu laden.
 	 * @param file	Zu ladende Datei
+	 * @param bottomUp	Tabelle von unten nach oben lesen
 	 * @return	Array mit <code>double</code>-Werten oder im Fehlerfall <code>null</code>
-	 * @see #loadDoubleData(File)
+	 * @see #loadDoubleData(File, boolean)
 	 */
-	private static double[] loadDoubleTable(final File file) {
+	private static double[] loadDoubleTable(final File file, final boolean bottomUp) {
 		final Table table=new Table();
 		if (!table.load(file)) return null;
 
 		double[] buffer=new double[10];
 		int size=0;
 
-		for (int i=0;i<table.getSize(0);i++) {
-			final List<String> line=table.getLine(i);
+		final int rows=table.getSize(0);
+		for (int i=0;i<rows;i++) {
+			final List<String> line;
+			if (bottomUp) {
+				line=table.getLine(rows-1-i);
+			} else {
+				line=table.getLine(i);
+			}
 			if (line.size()!=1) continue;
 			final Double D=NumberTools.getDouble(line.get(0));
 			if (D==null) continue;
@@ -171,28 +185,36 @@ public class RunElementInput extends RunElementPassThrough {
 	/**
 	 * Versucht eine Reihe von <code>double</code>-Werten aus einer Datei zu laden.
 	 * @param file	Zu ladende Datei
+	 * @param bottomUp	Tabelle von unten nach oben lesen
 	 * @return	Array mit <code>double</code>-Werten oder im Fehlerfall <code>null</code>
 	 */
-	public static double[] loadDoubleData(final File file) {
+	public static double[] loadDoubleData(final File file, final boolean bottomUp) {
 		final Table.SaveMode saveMode=Table.getSaveModeFromFileName(file,true,false);
 		if (saveMode!=Table.SaveMode.SAVEMODE_TABS) {
-			final double[] result=loadDoubleTable(file);
+			final double[] result=loadDoubleTable(file,bottomUp);
 			if (result!=null) return result;
 		}
-		return loadDoubleSimpleText(file);
+		return loadDoubleSimpleText(file,bottomUp);
 	}
 
 	/**
 	 * Versucht eine Reihe von Zeichenketten aus einer einfachen Textdatei zu laden.
 	 * @param file	Zu ladende Datei
+	 * @param bottomUp	Tabelle von unten nach oben lesen
 	 * @return	Array mit {@link String}-Werten oder im Fehlerfall <code>null</code>
-	 * @see #loadStringData(File)
+	 * @see #loadStringData(File, boolean)
 	 */
-	private static String[] loadStringSimpleText(final File file) {
+	private static String[] loadStringSimpleText(final File file, final boolean bottomUp) {
 		final List<String> buffer=new ArrayList<>();
 
-		final List<String> lines=Table.loadTextLinesFromFile(file);
+		List<String> lines=Table.loadTextLinesFromFile(file);
 		if (lines==null) return null;
+
+		if (bottomUp) {
+			final List<String> lines2=new ArrayList<>(lines.size());
+			for (int i=lines.size()-1;i>=0;i--) lines2.add(lines.get(i));
+			lines=lines2;
+		}
 
 		for (String line: lines) {
 			line=line.trim();
@@ -206,10 +228,11 @@ public class RunElementInput extends RunElementPassThrough {
 	/**
 	 * Versucht eine Reihe von Zeichenketten aus einer komplexen Tabellendatei zu laden.
 	 * @param file	Zu ladende Datei
+	 * @param bottomUp	Tabelle von unten nach oben lesen
 	 * @return	Array mit {@link String}-Werten oder im Fehlerfall <code>null</code>
-	 * @see #loadStringData(File)
+	 * @see #loadStringData(File, boolean)
 	 */
-	private static String[] loadStringTable(final File file) {
+	private static String[] loadStringTable(final File file, final boolean bottomUp) {
 		final Table table=new Table();
 		if (!table.load(file)) return null;
 
@@ -217,7 +240,12 @@ public class RunElementInput extends RunElementPassThrough {
 		final List<String> buffer=new ArrayList<>(size);
 
 		for (int i=0;i<size;i++) {
-			final List<String> line=table.getLine(i);
+			final List<String> line;
+			if (bottomUp) {
+				line=table.getLine(size-1-i);
+			} else {
+				line=table.getLine(i);
+			}
 			if (line.size()!=1) continue;
 			buffer.add(line.get(0));
 		}
@@ -228,15 +256,16 @@ public class RunElementInput extends RunElementPassThrough {
 	/**
 	 * Versucht eine Reihe von Zeichenketten aus einer Datei zu laden.
 	 * @param file	Zu ladende Datei
+	 * @param bottomUp	Tabelle von unten nach oben lesen
 	 * @return	Array mit {@link String}-Werten oder im Fehlerfall <code>null</code>
 	 */
-	public static String[] loadStringData(final File file) {
+	public static String[] loadStringData(final File file, final boolean bottomUp) {
 		final Table.SaveMode saveMode=Table.getSaveModeFromFileName(file,true,false);
 		if (saveMode!=Table.SaveMode.SAVEMODE_TABS) {
-			final String[] result=loadStringTable(file);
+			final String[] result=loadStringTable(file,bottomUp);
 			if (result!=null) return result;
 		}
-		return loadStringSimpleText(file);
+		return loadStringSimpleText(file,bottomUp);
 	}
 
 	@Override
@@ -289,10 +318,10 @@ public class RunElementInput extends RunElementPassThrough {
 		final File inputFile=new File(inputElement.getInputFile());
 		if (!testOnly) {
 			if (input.assignMode==AssignMode.CLIENT_TEXT) {
-				input.inputStrings=loadStringData(inputFile);
+				input.inputStrings=loadStringData(inputFile,inputElement.isReadBottomUp());
 				if (input.inputStrings==null || input.inputStrings.length==0) return String.format(Language.tr("Simulation.Creator.NoInputData"),element.getId(),inputFile.toString());
 			} else {
-				input.inputData=loadDoubleData(inputFile);
+				input.inputData=loadDoubleData(inputFile,inputElement.isReadBottomUp());
 				if (input.inputData==null || input.inputData.length==0) return String.format(Language.tr("Simulation.Creator.NoInputData"),element.getId(),inputFile.toString());
 			}
 		}

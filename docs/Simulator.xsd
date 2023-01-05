@@ -839,6 +839,7 @@
 <xs:element name="ModellElementTabellenDatei"><xs:complexType><xs:simpleContent>
   <xs:extension base="xs:string">
     <xs:attribute name="Zahlenwerte" type="xs:string"/>
+	<xs:attribute name="Leserichtung" type="xs:string"/>
   </xs:extension>
 </xs:simpleContent></xs:complexType></xs:element>
 
@@ -1224,6 +1225,7 @@
 <xs:element name="ModellElementEingabeDatei"><xs:complexType><xs:simpleContent>
   <xs:extension base="xs:string">
     <xs:attribute name="Dateiende" type="xs:string" use="required"/>
+	<xs:attribute name="Leserichtung" type="xs:string"/>
   </xs:extension>
 </xs:simpleContent></xs:complexType></xs:element>
 
@@ -1238,6 +1240,7 @@
 <xs:element name="ModellElementEingabeScriptDatei"><xs:complexType><xs:simpleContent>
   <xs:extension base="xs:string">
     <xs:attribute name="Dateiende" type="xs:string" use="required"/>
+	<xs:attribute name="Leserichtung" type="xs:string"/>
   </xs:extension>
 </xs:simpleContent></xs:complexType></xs:element>
 
@@ -3209,6 +3212,7 @@
 <xs:element name="ModelElementTableFile"><xs:complexType><xs:simpleContent>
   <xs:extension base="xs:string">
     <xs:attribute name="NumberValues" type="xs:string"/>
+	<xs:attribute name="ReadingDirection" type="xs:string"/>
   </xs:extension>
 </xs:simpleContent></xs:complexType></xs:element>
 
@@ -3594,6 +3598,7 @@
 <xs:element name="ModelElementInputFile"><xs:complexType><xs:simpleContent>
   <xs:extension base="xs:string">
     <xs:attribute name="EndOfFile" type="xs:string" use="required"/>
+	<xs:attribute name="ReadingDirection" type="xs:string"/>
   </xs:extension>
 </xs:simpleContent></xs:complexType></xs:element>
 
@@ -3608,6 +3613,7 @@
 <xs:element name="ModelElementInputScriptFile"><xs:complexType><xs:simpleContent>
   <xs:extension base="xs:string">
     <xs:attribute name="EndOfFile" type="xs:string" use="required"/>
+	<xs:attribute name="ReadingDirection" type="xs:string"/>
   </xs:extension>
 </xs:simpleContent></xs:complexType></xs:element>
 

@@ -98,9 +98,9 @@ public class ModelElementSourceTablePreviewDialog extends BaseDialog {
 		final RunElementSourceExtern.Arrival[][] arrivals;
 		final Object processResult=WaitDialog.workObject(owner,()->{
 			if (setup==null) {
-				return RunElementSourceExtern.loadTableToArrivals(stationId,table,Arrays.asList(clientTypes),isInterarrival);
+				return RunElementSourceExtern.loadTableToArrivals(stationId,table,Arrays.asList(clientTypes),isInterarrival,false);
 			} else {
-				return RunElementSourceExtern.loadTableToArrivals(stationId,table,setup,Arrays.asList(clientTypes),isInterarrival);
+				return RunElementSourceExtern.loadTableToArrivals(stationId,table,setup,Arrays.asList(clientTypes),isInterarrival,false);
 			}
 		},WaitDialog.Mode.PROCESS_DATA);
 		if (processResult instanceof String) {

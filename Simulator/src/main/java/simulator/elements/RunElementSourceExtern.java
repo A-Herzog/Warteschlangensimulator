@@ -100,9 +100,10 @@ public abstract class RunElementSourceExtern extends RunElement implements RunSo
 	 * @param table	Tabelle aus der die Daten geladen werden sollen
 	 * @param externalTypes	Liste der Kundentypnamen, die berücksichtigt werden sollen
 	 * @param numbersAreDistances	Gibt an, ob die Zahlen Zeitpunkte (<code>false</code>) oder Zwischenankunftszeiten (<code>true</code>) sind
+	 * @param bottomUp	Tabelle von unten nach oben lesen
 	 * @return	Liefert im Erfolgsfall ein Objekt vom Typ <code>Arrival[][]</code> zurück, sonst eine Fehlermeldung (<code>String</code>)
 	 */
-	public static final Object loadTableToArrivals(final int id, final Table table, final List<String> externalTypes, final boolean numbersAreDistances) {
+	public static final Object loadTableToArrivals(final int id, final Table table, final List<String> externalTypes, final boolean numbersAreDistances, final boolean bottomUp) {
 		final String[] types=getClientTypes(externalTypes,false);
 		final Map<String,Integer> typesMap=new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
 		for (int i=0;i<types.length;i++) typesMap.put(types[i],i);
@@ -117,7 +118,12 @@ public abstract class RunElementSourceExtern extends RunElement implements RunSo
 		boolean isSorted=true;
 		for (int i=0;i<rows;i++) {
 			/* Zeile laden */
-			final List<String> line=table.getLine(i);
+			final List<String> line;
+			if (bottomUp) {
+				line=table.getLine(rows-1-i);
+			} else {
+				line=table.getLine(i);
+			}
 			if (line==null || line.size()<2) continue;
 
 			/* Zahlenwert in erster Spalte? */
@@ -176,9 +182,10 @@ public abstract class RunElementSourceExtern extends RunElement implements RunSo
 	 * @param setup	Konfiguration der Spalten
 	 * @param externalTypes	Liste der Kundentypnamen, die berücksichtigt werden sollen
 	 * @param numbersAreDistances	Gibt an, ob die Zahlen Zeitpunkte (<code>false</code>) oder Zwischenankunftszeiten (<code>true</code>) sind
+	 * @param bottomUp	Tabelle von unten nach oben lesen
 	 * @return	Liefert im Erfolgsfall ein Objekt vom Typ <code>Arrival[][]</code> zurück, sonst eine Fehlermeldung (<code>String</code>)
 	 */
-	public static final Object loadTableToArrivals(final int id, final Table table, final String setup, final List<String> externalTypes, final boolean numbersAreDistances) {
+	public static final Object loadTableToArrivals(final int id, final Table table, final String setup, final List<String> externalTypes, final boolean numbersAreDistances, final boolean bottomUp) {
 		final String[] types=getClientTypes(externalTypes,false);
 		final Map<String,Integer> typesMap=new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
 		for (int i=0;i<types.length;i++) typesMap.put(types[i],i);
@@ -200,7 +207,12 @@ public abstract class RunElementSourceExtern extends RunElement implements RunSo
 		boolean isSorted=true;
 		for (int i=1;i<rows;i++) { /* Zeile 0 = Überschrift überspringen */
 			/* Zeile laden */
-			final List<String> line=table.getLine(i);
+			final List<String> line;
+			if (bottomUp) {
+				line=table.getLine(rows-i);
+			} else {
+				line=table.getLine(i);
+			}
 			if (line==null || line.size()<minimumNeededColumns) continue;
 
 			/* Zahlenwert in erster Spalte? */
@@ -258,14 +270,15 @@ public abstract class RunElementSourceExtern extends RunElement implements RunSo
 	 * @param setup	Konfiguration der Spalten (kann <code>null</code> sein, wenn eine bereits aufbereitete Tabelle verwendet werden soll)
 	 * @param externalTypes	Liste der Kundentypnamen, die berücksichtigt werden sollen
 	 * @param numbersAreDistances	Gibt an, ob die Zahlen Zeitpunkte (<code>false</code>) oder Zwischenankunftszeiten (<code>true</code>) sind
+	 * @param bottomUp	Tabelle von unten nach oben lesen
 	 * @return	Liefert im Erfolgsfall <code>null</code> zurück, sonst eine Fehlermeldung
 	 */
-	protected final String loadTable(final Table table, final String setup, final List<String> externalTypes, final boolean numbersAreDistances) {
+	protected final String loadTable(final Table table, final String setup, final List<String> externalTypes, final boolean numbersAreDistances, final boolean bottomUp) {
 		final Object result;
 		if (setup==null) {
-			result=loadTableToArrivals(id,table,externalTypes,numbersAreDistances);
+			result=loadTableToArrivals(id,table,externalTypes,numbersAreDistances,bottomUp);
 		} else {
-			result=loadTableToArrivals(id,table,setup,externalTypes,numbersAreDistances);
+			result=loadTableToArrivals(id,table,setup,externalTypes,numbersAreDistances,bottomUp);
 		}
 		if (result instanceof String) return (String)result;
 		arrivals=(Arrival[][])result;
@@ -278,10 +291,11 @@ public abstract class RunElementSourceExtern extends RunElement implements RunSo
 	 * @param table	Tabelle aus der die Daten geladen werden sollen
 	 * @param externalTypes	Liste der Kundentypnamen, die berücksichtigt werden sollen
 	 * @param numbersAreDistances	Gibt an, ob die Zahlen Zeitpunkte (<code>false</code>) oder Zwischenankunftszeiten (<code>true</code>) sind
+	 * @param bottomUp	Tabelle von unten nach oben lesen
 	 * @return	Liefert im Erfolgsfall <code>null</code> zurück, sonst eine Fehlermeldung
 	 */
-	protected final String loadTable(final Table table, final List<String> externalTypes, final boolean numbersAreDistances) {
-		return loadTable(table,null,externalTypes,numbersAreDistances);
+	protected final String loadTable(final Table table, final List<String> externalTypes, final boolean numbersAreDistances, final boolean bottomUp) {
+		return loadTable(table,null,externalTypes,numbersAreDistances,bottomUp);
 	}
 
 	/**
@@ -521,7 +535,7 @@ public abstract class RunElementSourceExtern extends RunElement implements RunSo
 	/**
 	 * Ankunftsdatensatz
 	 * @see RunElementSourceExtern#arrivals
-	 * @see RunElementSourceExtern#loadTable(Table, String, List, boolean)
+	 * @see RunElementSourceExtern#loadTable(Table, String, List, boolean, boolean)
 	 * @see RunElementSourceExtern#processArrivalEvent(SimulationData, boolean, int)
 	 */
 	public static class Arrival {

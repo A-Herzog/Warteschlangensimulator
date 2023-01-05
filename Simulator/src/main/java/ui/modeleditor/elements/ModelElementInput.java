@@ -99,6 +99,13 @@ public class ModelElementInput extends ModelElementMultiInSingleOutBox implement
 	}
 
 	/**
+	 * Gibt an, ob die Datei von unten nach oben gelesen werden soll.
+	 * @see #isReadBottomUp()
+	 * @see #setReadBottomUp(boolean)
+	 */
+	private boolean readBottomUp;
+
+	/**
 	 * Konstruktor der Klasse <code>ModelElementInput</code>
 	 * @param model	Modell zu dem dieses Element gehören soll (kann später nicht mehr geändert werden)
 	 * @param surface	Zeichenfläche zu dem dieses Element gehören soll (kann später nicht mehr geändert werden)
@@ -109,6 +116,7 @@ public class ModelElementInput extends ModelElementMultiInSingleOutBox implement
 		variable="";
 		eofMode=EofModes.EOF_MODE_SKIP;
 		defaultValue="0";
+		readBottomUp=false;
 	}
 
 	/**
@@ -138,11 +146,13 @@ public class ModelElementInput extends ModelElementMultiInSingleOutBox implement
 	public boolean equalsModelElement(ModelElement element) {
 		if (!super.equalsModelElement(element)) return false;
 		if (!(element instanceof ModelElementInput)) return false;
+		final ModelElementInput otherInput=(ModelElementInput)element;
 
-		if (!inputFile.equals(((ModelElementInput)element).inputFile)) return false;
-		if (!variable.equals(((ModelElementInput)element).variable)) return false;
-		if (eofMode!=((ModelElementInput)element).eofMode) return false;
-		if (!defaultValue.equals(((ModelElementInput)element).defaultValue)) return false;
+		if (!inputFile.equals(otherInput.inputFile)) return false;
+		if (!variable.equals(otherInput.variable)) return false;
+		if (eofMode!=otherInput.eofMode) return false;
+		if (!defaultValue.equals(otherInput.defaultValue)) return false;
+		if (readBottomUp!=otherInput.readBottomUp) return false;
 
 		return true;
 	}
@@ -155,10 +165,12 @@ public class ModelElementInput extends ModelElementMultiInSingleOutBox implement
 	public void copyDataFrom(ModelElement element) {
 		super.copyDataFrom(element);
 		if (element instanceof ModelElementInput) {
-			inputFile=((ModelElementInput)element).inputFile;
-			variable=((ModelElementInput)element).variable;
-			eofMode=((ModelElementInput)element).eofMode;
-			defaultValue=((ModelElementInput)element).defaultValue;
+			final ModelElementInput source=(ModelElementInput)element;
+			inputFile=source.inputFile;
+			variable=source.variable;
+			eofMode=source.eofMode;
+			defaultValue=source.defaultValue;
+			readBottomUp=source.readBottomUp;
 		}
 	}
 
@@ -287,6 +299,22 @@ public class ModelElementInput extends ModelElementMultiInSingleOutBox implement
 	}
 
 	/**
+	 * Gibt an, ob die Datei von unten nach oben gelesen werden soll.
+	 * @return	Datei von unten nach oben lesen
+	 */
+	public boolean isReadBottomUp() {
+		return readBottomUp;
+	}
+
+	/**
+	 * Stellt ein, ob die Datei von unten nach oben gelesen werden soll.
+	 * @param readBottomUp	Datei von unten nach oben lesen
+	 */
+	public void setReadBottomUp(final boolean readBottomUp) {
+		this.readBottomUp=readBottomUp;
+	}
+
+	/**
 	 * Liefert ein <code>Runnable</code>-Objekt zurück, welches aufgerufen werden kann, wenn die Eigenschaften des Elements verändert werden sollen.
 	 * @param owner	Übergeordnetes Fenster
 	 * @param readOnly	Wird dieser Parameter auf <code>true</code> gesetzt, so wird die "Ok"-Schaltfläche deaktiviert
@@ -371,7 +399,7 @@ public class ModelElementInput extends ModelElementMultiInSingleOutBox implement
 
 		Element sub;
 
-		if (!inputFile.isEmpty()) {
+		if (!inputFile.isEmpty() || readBottomUp) {
 			node.appendChild(sub=doc.createElement(Language.trPrimary("Surface.Input.XML.File")));
 			sub.setTextContent(inputFile);
 			String modeString=null;
@@ -390,6 +418,8 @@ public class ModelElementInput extends ModelElementMultiInSingleOutBox implement
 				break;
 			}
 			if (modeString!=null) sub.setAttribute(Language.trPrimary("Surface.Input.XML.EofMode"),modeString);
+
+			if (readBottomUp) sub.setAttribute(Language.trPrimary("Surface.Input.XML.ReadOrder"),Language.trPrimary("Surface.Input.XML.ReadOrder.BottomToTop"));
 		}
 
 		if (eofMode==EofModes.EOF_MODE_DEFAULT_VALUE) {
@@ -434,6 +464,9 @@ public class ModelElementInput extends ModelElementMultiInSingleOutBox implement
 			variable=content;
 			return null;
 		}
+
+		final String readOrder=Language.trAllAttribute("Surface.Input.XML.ReadOrder",node);
+		if (Language.trAll("Surface.Input.XML.ReadOrder.BottomToTop",readOrder)) readBottomUp=true;
 
 		return null;
 	}
@@ -483,6 +516,10 @@ public class ModelElementInput extends ModelElementMultiInSingleOutBox implement
 
 		if (!variable.trim().isEmpty()) {
 			descriptionBuilder.addProperty(Language.tr("ModelDescription.Input.Variable"),variable,4000);
+		}
+
+		if (readBottomUp) {
+			descriptionBuilder.addProperty(Language.tr("ModelDescription.Input.ReadDirection"),Language.tr("ModelDescription.Input.ReadDirection.BottomToTop"),5000);
 		}
 	}
 

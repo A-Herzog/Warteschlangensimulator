@@ -80,7 +80,7 @@ public class RunElementSourceDDE extends RunElementSourceExtern {
 
 		if (table.getSize(0)==0) return String.format(Language.tr("Simulation.Creator.DDEError.NoRows"),sourceElement.getId(),sourceElement.getTable());
 
-		return loadTable(table,clientTypes,false);
+		return loadTable(table,clientTypes,false,false);
 	}
 
 	@Override

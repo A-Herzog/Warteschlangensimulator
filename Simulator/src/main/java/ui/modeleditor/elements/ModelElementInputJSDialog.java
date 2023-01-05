@@ -27,6 +27,7 @@ import java.io.Serializable;
 import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JComponent;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
@@ -68,6 +69,8 @@ public class ModelElementInputJSDialog extends ModelElementBaseDialog {
 	private JRadioButton optionTerminate;
 	/** Vorgabewert für den Fall {@link #optionDefaultValue} */
 	private JTextField defaultValueEdit;
+	/** Checkbox: Datei von unten nach oben lesen */
+	private JCheckBox optionReadBottomUp;
 
 	/**
 	 * Skripteditor
@@ -163,6 +166,10 @@ public class ModelElementInputJSDialog extends ModelElementBaseDialog {
 			buttonGroup.add(optionDefaultValue);
 			buttonGroup.add(optionLoop);
 			buttonGroup.add(optionTerminate);
+
+			upperPanel.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
+			line.add(optionReadBottomUp=new JCheckBox(Language.tr("Surface.InputJS.Dialog.ReadBottomToTop"),input.isReadBottomUp()));
+			optionReadBottomUp.setEnabled(!readOnly);
 
 			/* === Center Area === */
 
@@ -289,6 +296,8 @@ public class ModelElementInputJSDialog extends ModelElementBaseDialog {
 			if (optionTerminate.isSelected()) {
 				input.setEofMode(ModelElementInput.EofModes.EOF_MODE_TERMINATE);
 			}
+
+			input.setReadBottomUp(optionReadBottomUp.isSelected());
 		}
 	}
 }

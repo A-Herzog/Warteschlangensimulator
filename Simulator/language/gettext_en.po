@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-04 08:13+0100\n"
+"POT-Creation-Date: 2023-01-05 00:17+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -11792,6 +11792,12 @@ msgstr "Terminate simulation"
 msgid "ModelDescription.Input.File"
 msgstr "Input file"
 
+msgid "ModelDescription.Input.ReadDirection"
+msgstr "Reading direction"
+
+msgid "ModelDescription.Input.ReadDirection.BottomToTop"
+msgstr "From bottom to top"
+
 msgid "ModelDescription.Input.Variable"
 msgstr "Variable for assignment"
 
@@ -11875,6 +11881,12 @@ msgstr "Terminate simulation"
 
 msgid "ModelDescription.InputJS.File"
 msgstr "Input file"
+
+msgid "ModelDescription.InputJS.ReadDirection"
+msgstr "Reading direction"
+
+msgid "ModelDescription.InputJS.ReadDirection.BottomToTop"
+msgstr "From bottom to top"
 
 msgid "ModelDescription.InteractiveCheckbox.Description.Values"
 msgstr "Values"
@@ -12169,6 +12181,12 @@ msgstr "Workbook"
 
 msgid "ModelDescription.SourceTable.ClientTypes"
 msgstr "Client types to be loaded from table"
+
+msgid "ModelDescription.SourceTable.ReadDirection"
+msgstr "Reading direction"
+
+msgid "ModelDescription.SourceTable.ReadDirection.BottomToTop"
+msgstr "From bottom to top"
 
 msgid "ModelDescription.SourceTable.Table"
 msgstr "Input table"
@@ -27993,6 +28011,9 @@ msgstr "Do not do any assignments after end of file."
 msgid "Surface.Input.Dialog.Mode.Terminate"
 msgstr "Terminate simulation at end of file."
 
+msgid "Surface.Input.Dialog.ReadBottomToTop"
+msgstr "Read file from bottom to top"
+
 msgid "Surface.Input.Dialog.Title"
 msgstr "Edit file input"
 
@@ -28043,6 +28064,12 @@ msgstr "Terminate"
 
 msgid "Surface.Input.XML.File"
 msgstr "ModelElementInputFile"
+
+msgid "Surface.Input.XML.ReadOrder"
+msgstr "ReadingDirection"
+
+msgid "Surface.Input.XML.ReadOrder.BottomToTop"
+msgstr "Up"
 
 msgid "Surface.Input.XML.Root"
 msgstr "ModelElementInput"
@@ -28290,6 +28317,9 @@ msgstr "Do not do any assignments after end of file."
 msgid "Surface.InputJS.Dialog.Mode.Terminate"
 msgstr "Terminate simulation at end of file."
 
+msgid "Surface.InputJS.Dialog.ReadBottomToTop"
+msgstr "Read file from bottom to top"
+
 msgid "Surface.InputJS.Dialog.Title"
 msgstr "Edit Javascript-based file input"
 
@@ -28325,6 +28355,12 @@ msgstr "Terminate"
 
 msgid "Surface.InputJS.XML.File"
 msgstr "ModelElementInputScriptFile"
+
+msgid "Surface.InputJS.XML.ReadOrder"
+msgstr "ReadingDirection"
+
+msgid "Surface.InputJS.XML.ReadOrder.BottomToTop"
+msgstr "Up"
 
 msgid "Surface.InputJS.XML.Root"
 msgstr "ModelElementInputScript"
@@ -32162,6 +32198,12 @@ msgstr "Values are distances between arrivals"
 msgid "Surface.SourceTable.Dialog.ColumnOne.TimeStamps"
 msgstr "Values are time stamps"
 
+msgid "Surface.SourceTable.Dialog.ReadBottomToTop"
+msgstr "Read table from bottom to top"
+
+msgid "Surface.SourceTable.Dialog.ReadBottomToTop.Info"
+msgstr "The order is only important if the numerical values in the first column are to be interpreted as time intervals."
+
 msgid "Surface.SourceTable.Dialog.Table"
 msgstr "Table file"
 
@@ -32269,6 +32311,12 @@ msgstr "NumberValues"
 
 msgid "Surface.SourceTable.XML.NumbersAre.Distances"
 msgstr "Distances"
+
+msgid "Surface.SourceTable.XML.ReadOrder"
+msgstr "ReadingDirection"
+
+msgid "Surface.SourceTable.XML.ReadOrder.BottomToTop"
+msgstr "Up"
 
 msgid "Surface.SourceTable.XML.Root"
 msgstr "ModelElementTableSource"

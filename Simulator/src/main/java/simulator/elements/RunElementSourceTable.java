@@ -47,12 +47,13 @@ public class RunElementSourceTable extends RunElementSourceExtern {
 	 * @param setup	Konfiguration der Spalten (kann <code>null</code> sein, wenn eine bereits aufbereitete Tabelle verwendet werden soll)
 	 * @param clientTypes	Liste der Kundentypnamen, die berücksichtigt werden sollen
 	 * @param numbersAreDistances	Gibt an, ob die Zahlen Zeitpunkte (<code>false</code>) oder Zwischenankunftszeiten (<code>true</code>) sind
+	 * @param bottomUp	Tabelle von unten nach oben lesen
 	 * @return	Liefert im Erfolgsfall <code>null</code> zurück, sonst eine Fehlermeldung
 	 */
-	private String loadTableFile(final File file, final String setup, final List<String> clientTypes, final boolean numbersAreDistances) {
+	private String loadTableFile(final File file, final String setup, final List<String> clientTypes, final boolean numbersAreDistances, final boolean bottomUp) {
 		final Table table=new Table();
 		if (!table.load(file)) return String.format(Language.tr("Simulation.Creator.TableFile.LoadFailed"),file.toString(),id);
-		return loadTable(table,setup,clientTypes,numbersAreDistances);
+		return loadTable(table,setup,clientTypes,numbersAreDistances,bottomUp);
 	}
 
 	@Override
@@ -82,7 +83,7 @@ public class RunElementSourceTable extends RunElementSourceExtern {
 
 		/* Tabelle verarbeiten */
 		if (!testOnly) {
-			error=source.loadTableFile(tableFile,setup,clientTypes,numbersAreDistances);
+			error=source.loadTableFile(tableFile,setup,clientTypes,numbersAreDistances,sourceElement.isReadBottomUp());
 			if (error!=null) return error;
 		}
 

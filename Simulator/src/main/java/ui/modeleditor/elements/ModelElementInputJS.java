@@ -85,6 +85,13 @@ public class ModelElementInputJS extends ModelElementMultiInSingleOutBox impleme
 	private double defaultValue;
 
 	/**
+	 * Gibt an, ob die Datei von unten nach oben gelesen werden soll.
+	 * @see #isReadBottomUp()
+	 * @see #setReadBottomUp(boolean)
+	 */
+	private boolean readBottomUp;
+
+	/**
 	 * Konstruktor der Klasse <code>ModelElementInputJS</code>
 	 * @param model	Modell zu dem dieses Element gehören soll (kann später nicht mehr geändert werden)
 	 * @param surface	Zeichenfläche zu dem dieses Element gehören soll (kann später nicht mehr geändert werden)
@@ -96,6 +103,7 @@ public class ModelElementInputJS extends ModelElementMultiInSingleOutBox impleme
 		inputFile="";
 		eofMode=ModelElementInput.EofModes.EOF_MODE_SKIP;
 		defaultValue=0;
+		readBottomUp=false;
 	}
 
 	/**
@@ -125,12 +133,14 @@ public class ModelElementInputJS extends ModelElementMultiInSingleOutBox impleme
 	public boolean equalsModelElement(ModelElement element) {
 		if (!super.equalsModelElement(element)) return false;
 		if (!(element instanceof ModelElementInputJS)) return false;
+		final ModelElementInputJS otherInput=(ModelElementInputJS)element;
 
-		if (!script.equals(((ModelElementInputJS)element).script)) return false;
-		if (((ModelElementInputJS)element).mode!=mode) return false;
-		if (!inputFile.equals(((ModelElementInputJS)element).inputFile)) return false;
-		if (eofMode!=((ModelElementInputJS)element).eofMode) return false;
-		if (defaultValue!=((ModelElementInputJS)element).defaultValue) return false;
+		if (!script.equals(otherInput.script)) return false;
+		if (otherInput.mode!=mode) return false;
+		if (!inputFile.equals(otherInput.inputFile)) return false;
+		if (eofMode!=otherInput.eofMode) return false;
+		if (defaultValue!=otherInput.defaultValue) return false;
+		if (readBottomUp!=otherInput.readBottomUp) return false;
 
 		return true;
 	}
@@ -143,11 +153,13 @@ public class ModelElementInputJS extends ModelElementMultiInSingleOutBox impleme
 	public void copyDataFrom(ModelElement element) {
 		super.copyDataFrom(element);
 		if (element instanceof ModelElementInputJS) {
-			script=((ModelElementInputJS)element).script;
-			mode=((ModelElementInputJS)element).mode;
-			inputFile=((ModelElementInputJS)element).inputFile;
-			eofMode=((ModelElementInputJS)element).eofMode;
-			defaultValue=((ModelElementInputJS)element).defaultValue;
+			final ModelElementInputJS source=(ModelElementInputJS)element;
+			script=source.script;
+			mode=source.mode;
+			inputFile=source.inputFile;
+			eofMode=source.eofMode;
+			defaultValue=source.defaultValue;
+			readBottomUp=source.readBottomUp;
 		}
 	}
 
@@ -294,6 +306,22 @@ public class ModelElementInputJS extends ModelElementMultiInSingleOutBox impleme
 	}
 
 	/**
+	 * Gibt an, ob die Datei von unten nach oben gelesen werden soll.
+	 * @return	Datei von unten nach oben lesen
+	 */
+	public boolean isReadBottomUp() {
+		return readBottomUp;
+	}
+
+	/**
+	 * Stellt ein, ob die Datei von unten nach oben gelesen werden soll.
+	 * @param readBottomUp	Datei von unten nach oben lesen
+	 */
+	public void setReadBottomUp(final boolean readBottomUp) {
+		this.readBottomUp=readBottomUp;
+	}
+
+	/**
 	 * Liefert ein <code>Runnable</code>-Objekt zurück, welches aufgerufen werden kann, wenn die Eigenschaften des Elements verändert werden sollen.
 	 * @param owner	Übergeordnetes Fenster
 	 * @param readOnly	Wird dieser Parameter auf <code>true</code> gesetzt, so wird die "Ok"-Schaltfläche deaktiviert
@@ -363,7 +391,7 @@ public class ModelElementInputJS extends ModelElementMultiInSingleOutBox impleme
 		}
 		sub.setTextContent(script);
 
-		if (!inputFile.isEmpty()) {
+		if (!inputFile.isEmpty() || readBottomUp) {
 			node.appendChild(sub=doc.createElement(Language.trPrimary("Surface.InputJS.XML.File")));
 			sub.setTextContent(inputFile);
 			String modeString=null;
@@ -382,6 +410,8 @@ public class ModelElementInputJS extends ModelElementMultiInSingleOutBox impleme
 				break;
 			}
 			if (modeString!=null) sub.setAttribute(Language.trPrimary("Surface.InputJS.XML.EofMode"),modeString);
+
+			if (readBottomUp) sub.setAttribute(Language.trPrimary("Surface.InputJS.XML.ReadOrder"),Language.trPrimary("Surface.InputJS.XML.ReadOrder.BottomToTop"));
 		}
 
 		if (eofMode==ModelElementInput.EofModes.EOF_MODE_DEFAULT_VALUE) {
@@ -426,6 +456,9 @@ public class ModelElementInputJS extends ModelElementMultiInSingleOutBox impleme
 			defaultValue=D.doubleValue();
 			return null;
 		}
+
+		final String readOrder=Language.trAllAttribute("Surface.InputJS.XML.ReadOrder",node);
+		if (Language.trAll("Surface.InputJS.XML.ReadOrder.BottomToTop",readOrder)) readBottomUp=true;
 
 		return null;
 	}
@@ -472,6 +505,10 @@ public class ModelElementInputJS extends ModelElementMultiInSingleOutBox impleme
 			break;
 		}
 		descriptionBuilder.addProperty(Language.tr("ModelDescription.InputJS.EOFMode"),modeInfo,3000);
+
+		if (readBottomUp) {
+			descriptionBuilder.addProperty(Language.tr("ModelDescription.InputJS.ReadDirection"),Language.tr("ModelDescription.InputJS.ReadDirection.BottomToTop"),4000);
+		}
 	}
 
 	@Override

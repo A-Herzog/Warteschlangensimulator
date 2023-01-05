@@ -31,6 +31,7 @@ import java.util.Set;
 import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
@@ -90,6 +91,11 @@ public class ModelElementSourceTableDialog extends ModelElementBaseDialog {
 	 * Option: Zeitangabenspalte beschreibt Zwischenankunftszeiten (Alternative: feste Zeitpunkte)
 	 */
 	private JRadioButton optionDistances;
+
+	/**
+	 * Checkbox: Tabelle von unten nach oben lesen
+	 */
+	private JCheckBox optionReadBottomUp;
 
 	/**
 	 * Eingabebereich für die Namen der zu ladenden Kundentypen
@@ -213,6 +219,12 @@ public class ModelElementSourceTableDialog extends ModelElementBaseDialog {
 		top.add(line);
 		line.add(optionDistances=new JRadioButton(Language.tr("Surface.SourceTable.Dialog.ColumnOne.Distances"),source.isNumbersAreDistances()));
 		optionDistances.setEnabled(!readOnly);
+
+		line=new JPanel(new FlowLayout(FlowLayout.LEFT));
+		top.add(line);
+		line.add(optionReadBottomUp=new JCheckBox(Language.tr("Surface.SourceTable.Dialog.ReadBottomToTop"),source.isReadBottomUp()));
+		optionReadBottomUp.setToolTipText(Language.tr("Surface.SourceTable.Dialog.ReadBottomToTop.Info"));
+		optionReadBottomUp.setEnabled(!readOnly);
 
 		final ButtonGroup buttonGroup=new ButtonGroup();
 		buttonGroup.add(optionTimeStamps);
@@ -396,6 +408,7 @@ public class ModelElementSourceTableDialog extends ModelElementBaseDialog {
 		if (mode.getSelectedIndex()==0) source.setImportSettings(importSettings); else source.setImportSettings("");
 		source.setInputFile(tableEdit.getText().trim());
 		source.setNumbersAreDistances(optionDistances.isSelected());
+		source.setReadBottomUp(optionReadBottomUp.isSelected());
 		final String s=clientsEdit.getText().trim();
 		final String[] lines=s.split("\n");
 		source.getClientTypeNames().clear();

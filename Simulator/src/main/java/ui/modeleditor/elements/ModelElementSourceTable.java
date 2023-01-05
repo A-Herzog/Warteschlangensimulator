@@ -83,6 +83,13 @@ public class ModelElementSourceTable extends ModelElementBox implements ElementW
 	private boolean numbersAreDistances=false;
 
 	/**
+	 * Gibt an, ob die Tabelle von unten nach oben gelesen werden soll.
+	 * @see #isReadBottomUp()
+	 * @see #setReadBottomUp(boolean)
+	 */
+	private boolean readBottomUp=false;
+
+	/**
 	 * Kundentypennamen, die in der Tabelle vorkommen
 	 * @see #getClientTypeNames()
 	 */
@@ -199,6 +206,22 @@ public class ModelElementSourceTable extends ModelElementBox implements ElementW
 	}
 
 	/**
+	 * Gibt an, ob die Tabelle von unten nach oben gelesen werden soll.
+	 * @return	Tabelle von unten nach oben lesen
+	 */
+	public boolean isReadBottomUp() {
+		return readBottomUp;
+	}
+
+	/**
+	 * Stellt ein, ob die Tabelle von unten nach oben gelesen werden soll.
+	 * @param readBottomUp	Tabelle von unten nach oben lesen
+	 */
+	public void setReadBottomUp(final boolean readBottomUp) {
+		this.readBottomUp=readBottomUp;
+	}
+
+	/**
 	 * Überprüft, ob das Element mit dem angegebenen Element inhaltlich identisch ist.
 	 * @param element	Element mit dem dieses Element verglichen werden soll.
 	 * @return	Gibt <code>true</code> zurück, wenn die beiden Elemente identisch sind.
@@ -207,19 +230,21 @@ public class ModelElementSourceTable extends ModelElementBox implements ElementW
 	public boolean equalsModelElement(ModelElement element) {
 		if (!super.equalsModelElement(element)) return false;
 		if (!(element instanceof ModelElementSourceTable)) return false;
+		final ModelElementSourceTable otherSource=(ModelElementSourceTable)element;
 
 		if (connection==null) {
-			if (((ModelElementSourceTable)element).connection!=null) return false;
+			if (otherSource.connection!=null) return false;
 		} else {
-			if (((ModelElementSourceTable)element).connection==null) return false;
-			if (connection.getId()!=((ModelElementSourceTable)element).connection.getId()) return false;
+			if (otherSource.connection==null) return false;
+			if (connection.getId()!=otherSource.connection.getId()) return false;
 		}
 
-		if (!tableFileName.equals(((ModelElementSourceTable)element).tableFileName)) return false;
-		if (!importSettings.equals(((ModelElementSourceTable)element).importSettings)) return false;
-		if (numbersAreDistances!=((ModelElementSourceTable)element).numbersAreDistances) return false;
-		if (clientTypeNames.size()!=((ModelElementSourceTable)element).clientTypeNames.size()) return false;
-		for (int i=0;i<clientTypeNames.size();i++) if (!clientTypeNames.get(i).equals(((ModelElementSourceTable)element).clientTypeNames.get(i))) return false;
+		if (!tableFileName.equals(otherSource.tableFileName)) return false;
+		if (!importSettings.equals(otherSource.importSettings)) return false;
+		if (numbersAreDistances!=otherSource.numbersAreDistances) return false;
+		if (readBottomUp!=otherSource.readBottomUp) return false;
+		if (clientTypeNames.size()!=otherSource.clientTypeNames.size()) return false;
+		for (int i=0;i<clientTypeNames.size();i++) if (!clientTypeNames.get(i).equals(otherSource.clientTypeNames.get(i))) return false;
 
 		return true;
 	}
@@ -232,12 +257,14 @@ public class ModelElementSourceTable extends ModelElementBox implements ElementW
 	public void copyDataFrom(ModelElement element) {
 		super.copyDataFrom(element);
 		if (element instanceof ModelElementSourceTable) {
-			if (((ModelElementSourceTable)element).connection!=null) connectionId=((ModelElementSourceTable)element).connection.getId();
-			tableFileName=((ModelElementSourceTable)element).tableFileName;
-			importSettings=((ModelElementSourceTable)element).importSettings;
-			numbersAreDistances=((ModelElementSourceTable)element).numbersAreDistances;
+			final ModelElementSourceTable source=(ModelElementSourceTable)element;
+			if (source.connection!=null) connectionId=source.connection.getId();
+			tableFileName=source.tableFileName;
+			importSettings=source.importSettings;
+			numbersAreDistances=source.numbersAreDistances;
+			readBottomUp=source.readBottomUp;
 			clientTypeNames.clear();
-			clientTypeNames.addAll(((ModelElementSourceTable)element).clientTypeNames);
+			clientTypeNames.addAll(source.clientTypeNames);
 		}
 	}
 
@@ -407,6 +434,7 @@ public class ModelElementSourceTable extends ModelElementBox implements ElementW
 		node.appendChild(sub=doc.createElement(Language.trPrimary("Surface.SourceTable.XML.TableFileName")));
 		sub.setTextContent(tableFileName);
 		if (numbersAreDistances) sub.setAttribute(Language.trPrimary("Surface.SourceTable.XML.NumbersAre"),Language.trPrimary("Surface.SourceTable.XML.NumbersAre.Distances"));
+		if (readBottomUp) sub.setAttribute(Language.trPrimary("Surface.SourceTable.XML.ReadOrder"),Language.trPrimary("Surface.SourceTable.XML.ReadOrder.BottomToTop"));
 		if (!importSettings.trim().isEmpty()) {
 			node.appendChild(sub=doc.createElement(Language.trPrimary("Surface.SourceTable.XML.ImportMode")));
 			sub.setTextContent(importSettings);
@@ -444,6 +472,8 @@ public class ModelElementSourceTable extends ModelElementBox implements ElementW
 			tableFileName=content.trim();
 			final String numbersAre=Language.trAllAttribute("Surface.SourceTable.XML.NumbersAre",node);
 			if (Language.trAll("Surface.SourceTable.XML.NumbersAre.Distances",numbersAre)) numbersAreDistances=true;
+			final String readOrder=Language.trAllAttribute("Surface.SourceTable.XML.ReadOrder",node);
+			if (Language.trAll("Surface.SourceTable.XML.ReadOrder.BottomToTop",readOrder)) readBottomUp=true;
 			return null;
 		}
 
@@ -513,6 +543,9 @@ public class ModelElementSourceTable extends ModelElementBox implements ElementW
 
 		if (tableFileName!=null && !tableFileName.trim().isEmpty()) {
 			descriptionBuilder.addProperty(Language.tr("ModelDescription.SourceTable.Table"),tableFileName,1000);
+			if (readBottomUp) {
+				descriptionBuilder.addProperty(Language.tr("ModelDescription.SourceTable.ReadDirection"),Language.tr("ModelDescription.SourceTable.ReadDirection.BottomToTop"),1500);
+			}
 		}
 
 		final StringBuilder sb=new StringBuilder();

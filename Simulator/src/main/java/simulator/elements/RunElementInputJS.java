@@ -92,7 +92,7 @@ public class RunElementInputJS extends RunElementPassThrough {
 		if (inputElement.getInputFile().trim().isEmpty()) return String.format(Language.tr("Simulation.Creator.NoInputFile"),element.getId());
 		final File inputFile=new File(inputElement.getInputFile());
 		if (!testOnly) {
-			input.inputData=RunElementInput.loadDoubleData(inputFile);
+			input.inputData=RunElementInput.loadDoubleData(inputFile,inputElement.isReadBottomUp());
 			if (input.inputData==null || input.inputData.length==0) return String.format(Language.tr("Simulation.Creator.NoInputData"),element.getId(),inputFile.toString());
 		}
 

@@ -597,6 +597,7 @@
 <!ELEMENT ModellElementTabellenDatei (#PCDATA)>
 <!ATTLIST ModellElementTabellenDatei
   Zahlenwerte	CDATA	#IMPLIED
+  Leserichtung	CDATA	#IMPLIED
 >
 <!ELEMENT ModellElementTabellenImportModus (#PCDATA)>
 <!ELEMENT ModellElementTabellenKundentyp (#PCDATA)>
@@ -1026,6 +1027,7 @@
 <!ELEMENT ModellElementEingabeDatei (#PCDATA)>
 <!ATTLIST ModellElementEingabeDatei
   Dateiende	CDATA	#REQUIRED
+  Leserichtung	CDATA	#IMPLIED
 >
 <!ELEMENT ModellElementEingabeVariable (#PCDATA)>
 <!ELEMENT ModellElementEingabeVorgabewert (#PCDATA)>
@@ -1040,6 +1042,7 @@
 <!ELEMENT ModellElementEingabeScriptDatei (#PCDATA)>
 <!ATTLIST ModellElementEingabeScriptDatei
   Dateiende	CDATA	#REQUIRED
+  Leserichtung	CDATA	#IMPLIED
 >
 <!ELEMENT ModellElementEingabeJSVorgabewert (#PCDATA)>
 
@@ -3202,6 +3205,7 @@
 <!ELEMENT ModelElementTableFile (#PCDATA)>
 <!ATTLIST ModelElementTableFile
   NumberValues	CDATA	#IMPLIED
+  ReadingDirection	CDATA	#IMPLIED
 >
 <!ELEMENT ModelElementTableImportMode (#PCDATA)>
 <!ELEMENT ModelElementTableClientType (#PCDATA)>
@@ -3630,6 +3634,7 @@
 <!ELEMENT ModelElementInputFile (#PCDATA)>
 <!ATTLIST ModelElementInputFile
   EndOfFile	CDATA	#REQUIRED
+  ReadingDirection	CDATA	#IMPLIED
 >
 <!ELEMENT ModelElementInputVariable (#PCDATA)>
 <!ELEMENT ModelElementInputDefaultValue (#PCDATA)>
@@ -3644,6 +3649,7 @@
 <!ELEMENT ModelElementInputScriptFile (#PCDATA)>
 <!ATTLIST ModelElementInputScriptFile
   EndOfFile	CDATA	#REQUIRED
+  ReadingDirection	CDATA	#IMPLIED
 >
 <!ELEMENT ModelElementInputJSDefaultValue (#PCDATA)>
 

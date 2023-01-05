@@ -27,6 +27,7 @@ import java.io.Serializable;
 import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -71,6 +72,8 @@ public class ModelElementInputDialog extends ModelElementBaseDialog {
 	private JRadioButton optionTerminate;
 	/** Vorgabewert für den Fall {@link #optionDefaultValue} */
 	private JTextField defaultValueEdit;
+	/** Checkbox: Datei von unten nach oben lesen */
+	private JCheckBox optionReadBottomUp;
 
 	/**
 	 * Eingabefeld für den Variablennamen an die die Zuweisung gerichtet werden soll
@@ -183,6 +186,10 @@ public class ModelElementInputDialog extends ModelElementBaseDialog {
 			buttonGroup.add(optionDefaultValue);
 			buttonGroup.add(optionLoop);
 			buttonGroup.add(optionTerminate);
+
+			upperPanel.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
+			line.add(optionReadBottomUp=new JCheckBox(Language.tr("Surface.Input.Dialog.ReadBottomToTop"),input.isReadBottomUp()));
+			optionReadBottomUp.setEnabled(!readOnly);
 
 			/* Variable */
 			data=getInputPanel(Language.tr("Surface.Input.Dialog.Variable")+":",input.getVariable());
@@ -310,6 +317,8 @@ public class ModelElementInputDialog extends ModelElementBaseDialog {
 			if (optionTerminate.isSelected()) {
 				input.setEofMode(ModelElementInput.EofModes.EOF_MODE_TERMINATE);
 			}
+
+			input.setReadBottomUp(optionReadBottomUp.isSelected());
 
 			/* Variable */
 			input.setVariable(variableEdit.getText());

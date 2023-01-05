@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-04 08:13+0100\n"
+"POT-Creation-Date: 2023-01-05 00:17+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -11789,6 +11789,12 @@ msgstr "Simulation beenden"
 msgid "ModelDescription.Input.File"
 msgstr "Eingabedatei"
 
+msgid "ModelDescription.Input.ReadDirection"
+msgstr "Leserichtung"
+
+msgid "ModelDescription.Input.ReadDirection.BottomToTop"
+msgstr "Von unten nach oben"
+
 msgid "ModelDescription.Input.Variable"
 msgstr "Zuzuweisende Variable"
 
@@ -11872,6 +11878,12 @@ msgstr "Simulation beenden"
 
 msgid "ModelDescription.InputJS.File"
 msgstr "Eingabedatei"
+
+msgid "ModelDescription.InputJS.ReadDirection"
+msgstr "Leserichtung"
+
+msgid "ModelDescription.InputJS.ReadDirection.BottomToTop"
+msgstr "Von unten nach oben"
 
 msgid "ModelDescription.InteractiveCheckbox.Description.Values"
 msgstr "Werte"
@@ -12166,6 +12178,12 @@ msgstr "Arbeitsmappe"
 
 msgid "ModelDescription.SourceTable.ClientTypes"
 msgstr "Aus der Tabelle zu ladende Kundentypen"
+
+msgid "ModelDescription.SourceTable.ReadDirection"
+msgstr "Leserichtung"
+
+msgid "ModelDescription.SourceTable.ReadDirection.BottomToTop"
+msgstr "Von unten nach oben"
 
 msgid "ModelDescription.SourceTable.Table"
 msgstr "Eingabetabelle"
@@ -28015,6 +28033,9 @@ msgstr "Nach Dateiende keine Zuweisungen mehr durchführen."
 msgid "Surface.Input.Dialog.Mode.Terminate"
 msgstr "Simulation beim Erreichen des Dateiendes beenden."
 
+msgid "Surface.Input.Dialog.ReadBottomToTop"
+msgstr "Datei von unten nach oben lesen"
+
 msgid "Surface.Input.Dialog.Title"
 msgstr "Dateieingabe bearbeiten"
 
@@ -28065,6 +28086,12 @@ msgstr "Beenden"
 
 msgid "Surface.Input.XML.File"
 msgstr "ModellElementEingabeDatei"
+
+msgid "Surface.Input.XML.ReadOrder"
+msgstr "Leserichtung"
+
+msgid "Surface.Input.XML.ReadOrder.BottomToTop"
+msgstr "Nach oben"
 
 msgid "Surface.Input.XML.Root"
 msgstr "ModellElementEingabe"
@@ -28312,6 +28339,9 @@ msgstr "Nach Dateiende keine Verarbeitung mehr durchführen."
 msgid "Surface.InputJS.Dialog.Mode.Terminate"
 msgstr "Simulation beim Erreichen des Dateiendes beenden."
 
+msgid "Surface.InputJS.Dialog.ReadBottomToTop"
+msgstr "Datei von unten nach oben lesen"
+
 msgid "Surface.InputJS.Dialog.Title"
 msgstr "Skript-basierende Dateieingabe bearbeiten"
 
@@ -28347,6 +28377,12 @@ msgstr "Beenden"
 
 msgid "Surface.InputJS.XML.File"
 msgstr "ModellElementEingabeScriptDatei"
+
+msgid "Surface.InputJS.XML.ReadOrder"
+msgstr "Leserichtung"
+
+msgid "Surface.InputJS.XML.ReadOrder.BottomToTop"
+msgstr "Nach oben"
 
 msgid "Surface.InputJS.XML.Root"
 msgstr "ModellElementEingabeScript"
@@ -32187,6 +32223,12 @@ msgstr "Zahlenwerte sind Abstände zwischen Ankunftszeitpunkten"
 msgid "Surface.SourceTable.Dialog.ColumnOne.TimeStamps"
 msgstr "Zahlenwerte sind Zeitangaben"
 
+msgid "Surface.SourceTable.Dialog.ReadBottomToTop"
+msgstr "Tabelle von unten nach oben lesen"
+
+msgid "Surface.SourceTable.Dialog.ReadBottomToTop.Info"
+msgstr "Die Reihenfolge ist nur von Bedeutung, wenn die Zahlenwerte in der ersten Spalte als zeitliche Abstände interpretiert werden soll."
+
 msgid "Surface.SourceTable.Dialog.Table"
 msgstr "Tabellendatei"
 
@@ -32294,6 +32336,12 @@ msgstr "Zahlenwerte"
 
 msgid "Surface.SourceTable.XML.NumbersAre.Distances"
 msgstr "Abstaende"
+
+msgid "Surface.SourceTable.XML.ReadOrder"
+msgstr "Leserichtung"
+
+msgid "Surface.SourceTable.XML.ReadOrder.BottomToTop"
+msgstr "Nach oben"
 
 msgid "Surface.SourceTable.XML.Root"
 msgstr "ModellElementTabellenQuelle"
@@ -32920,10 +32968,10 @@ msgid "Surface.Text.Dialog.FontSize.HTMLLaTeX.Info"
 msgstr "HTML- und LaTeX-Symbole in der Eingabe interpretieren"
 
 msgid "Surface.Text.Dialog.FontSize.LaTeX"
-msgstr "LaTeX-Formatierungen in der Eingabe interpretieren"
+msgstr "LaTeX-Formatierungen"
 
 msgid "Surface.Text.Dialog.FontSize.LaTeX.Info"
-msgstr ""
+msgstr "LaTeX-Formatierungen in der Eingabe interpretieren"
 
 msgid "Surface.Text.Dialog.FontSize.Markdown"
 msgstr "Markdown"
