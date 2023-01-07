@@ -66,9 +66,9 @@ public class ModelElementEllipseDialog extends ModelElementBaseDialog {
 	 * Konstruktor der Klasse
 	 * @param owner	Übergeordnetes Fenster
 	 * @param element	Zu bearbeitendes {@link ModelElementEllipse}
-	 * @param readOnly	Wird dieser Parameter auf <code>true</code> gesetzt, so wird die "Ok"-Schaltfläche deaktiviert
+	 * @param readOnly	Nur-Lese-Status
 	 */
-	public ModelElementEllipseDialog(final Component owner, final ModelElementEllipse element, final boolean readOnly) {
+	public ModelElementEllipseDialog(final Component owner, final ModelElementEllipse element, final ModelElementBaseDialog.ReadOnlyMode readOnly) {
 		super(owner,Language.tr("Surface.Ellipse.Dialog.Title"),element,"ModelElementEllipse",readOnly);
 	}
 

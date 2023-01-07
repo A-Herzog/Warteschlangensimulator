@@ -60,6 +60,11 @@ public class ModelElementSubAnimationDashboardWindow extends JFrame implements R
 	 */
 	private static final long serialVersionUID=-7075930103341643138L;
 
+	/**
+	 * Dashboard-Element im Editor
+	 */
+	private final ModelElementSub parentElement;
+
 	/** Editor-Modell */
 	private final EditModel model;
 	/** Panel zur Anzeige des Untermodells */
@@ -87,22 +92,25 @@ public class ModelElementSubAnimationDashboardWindow extends JFrame implements R
 	/**
 	 * Konstruktor der Klasse
 	 * @param owner	‹bergeordnetes Element
+	 * @param parentElement	Dashboard-Element im Editor
 	 * @param mainSurface	Haupt-Zeichenfl‰che
 	 * @param subSurface	Hier darzustellende Unter-Zeichenfl‰che
 	 * @param mainAnimationPanel	Animations-Panel der Haupt-Zeichenfl‰che
 	 */
-	public ModelElementSubAnimationDashboardWindow(final Component owner, final ModelSurface mainSurface, final ModelSurface subSurface, final AnimationPanel mainAnimationPanel) {
+	public ModelElementSubAnimationDashboardWindow(final Component owner, final ModelElementSub parentElement, final ModelSurface mainSurface, final ModelSurface subSurface, final AnimationPanel mainAnimationPanel) {
 		super(Language.tr("Surface.Dashboard.Dialog.Title.Animation"));
 
+		this.parentElement=parentElement;
 		this.mainAnimationPanel=mainAnimationPanel;
 		mainAnimator=mainAnimationPanel.getAnimator();
-		model=mainAnimationPanel.getSimulator().getEditModel();
+		model=mainAnimationPanel.getSimulator().getEditModel().clone();
 
 		/* Aktionen bei Schlieﬂen des Fensters */
 		setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 		addWindowListener(new WindowAdapter(){
 			@Override public void windowClosing(WindowEvent e){
 				mainAnimationPanel.removeSubViewer(ModelElementSubAnimationDashboardWindow.this);
+				parentElement.currentAnimationDashboardWindow=null;
 			}
 		});
 
@@ -211,6 +219,7 @@ public class ModelElementSubAnimationDashboardWindow extends JFrame implements R
 
 	@Override
 	public void animationTerminated() {
+		parentElement.currentAnimationDashboardWindow=null;
 		setVisible(false);
 		dispose();
 	}

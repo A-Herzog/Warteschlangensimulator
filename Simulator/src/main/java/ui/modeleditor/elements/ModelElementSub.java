@@ -336,6 +336,13 @@ public class ModelElementSub extends ModelElementBox implements ElementWithNewCl
 	}
 
 	/**
+	 * Referenz auf das aktuell im Animationsmodus sichtbare Diagramm-Dashboard
+	 * @see #showSubEditDialog(Component, boolean, boolean)
+	 * @see ModelElementSubAnimationDashboardWindow
+	 */
+	public ModelElementSubAnimationDashboardWindow currentAnimationDashboardWindow=null;
+
+	/**
 	 * Zeigt den Dialog zum Bearbeiten der Elemente des Untermodells an
 	 * @param owner	Übergeordnetes Fenster für den Dialog
 	 * @param readOnly	Wird dieser Parameter auf <code>true</code> gesetzt, so können die Einträge nur angezeigt und nicht geändert werden
@@ -397,9 +404,14 @@ public class ModelElementSub extends ModelElementBox implements ElementWithNewCl
 				dialog.setVisible(true);
 				mainAnimationPanel.removeSubViewer(dialog);
 			} else {
-				final ModelElementSubAnimationDashboardWindow window=new ModelElementSubAnimationDashboardWindow(owner,surface,subSurface,mainAnimationPanel);
-				mainAnimationPanel.addSubViewer(window);
-				window.setVisible(true);
+				if (currentAnimationDashboardWindow!=null) {
+					currentAnimationDashboardWindow.requestFocus();
+				} else {
+					final ModelElementSubAnimationDashboardWindow window=new ModelElementSubAnimationDashboardWindow(owner,this,surface,subSurface,mainAnimationPanel);
+					mainAnimationPanel.addSubViewer(window);
+					window.setVisible(true);
+					currentAnimationDashboardWindow=window;
+				}
 			}
 		}
 	}

@@ -34,13 +34,14 @@ import mathtools.NumberTools;
 import simulator.editmodel.EditModel;
 import simulator.editmodel.FullTextSearch;
 import ui.modeleditor.ModelSurface;
+import ui.modeleditor.elements.ElementWithAnimationEditOptions;
 import ui.modeleditor.fastpaint.Shapes;
 
 /**
  * Basisklasse für alle Dekorationselemente (Linie, Kasten, ...)
  * @author Alexander Herzog
  */
-public class ModelElementDecoration extends ModelElementPosition {
+public class ModelElementDecoration extends ModelElementPosition implements ElementWithAnimationEditOptions {
 	/**
 	 * Vorgabe Linienbreite
 	 */

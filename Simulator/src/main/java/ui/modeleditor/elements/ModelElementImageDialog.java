@@ -54,9 +54,9 @@ public class ModelElementImageDialog extends ModelElementBaseDialog {
 	 * Konstruktor der Klasse
 	 * @param owner	Übergeordnetes Fenster
 	 * @param element	Zu bearbeitendes {@link ModelElementImage}
-	 * @param readOnly	Wird dieser Parameter auf <code>true</code> gesetzt, so wird die "Ok"-Schaltfläche deaktiviert
+	 * @param readOnly	Nur-Lese-Status
 	 */
-	public ModelElementImageDialog(final Component owner, final ModelElementImage element, final boolean readOnly) {
+	public ModelElementImageDialog(final Component owner, final ModelElementImage element, final ModelElementBaseDialog.ReadOnlyMode readOnly) {
 		super(owner,Language.tr("Surface.Image.Dialog.Title"),element,"ModelElementImage",readOnly);
 	}
 

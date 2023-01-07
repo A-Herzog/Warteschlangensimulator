@@ -87,9 +87,9 @@ public class ModelElementTextDialog extends ModelElementBaseDialog {
 	 * Konstruktor der Klasse
 	 * @param owner	Übergeordnetes Fenster
 	 * @param element	Zu bearbeitendes {@link ModelElementText}
-	 * @param readOnly	Wird dieser Parameter auf <code>true</code> gesetzt, so wird die "Ok"-Schaltfläche deaktiviert
+	 * @param readOnly	Nur-Lese-Status
 	 */
-	public ModelElementTextDialog(final Component owner, final ModelElementText element, final boolean readOnly) {
+	public ModelElementTextDialog(final Component owner, final ModelElementText element, final ModelElementBaseDialog.ReadOnlyMode readOnly) {
 		super(owner,Language.tr("Surface.Text.Dialog.Title"),element,"ModelElementText",readOnly,false);
 		setMinimumSize(getSize());
 		setResizable(true);

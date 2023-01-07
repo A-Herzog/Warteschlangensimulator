@@ -71,9 +71,9 @@ public class ModelElementRectangleDialog extends ModelElementBaseDialog {
 	 * Konstruktor der Klasse
 	 * @param owner	Übergeordnetes Fenster
 	 * @param element	Zu bearbeitendes {@link ModelElementRectangle}
-	 * @param readOnly	Wird dieser Parameter auf <code>true</code> gesetzt, so wird die "Ok"-Schaltfläche deaktiviert
+	 * @param readOnly	Nur-Lese-Status
 	 */
-	public ModelElementRectangleDialog(final Component owner, final ModelElementRectangle element, final boolean readOnly) {
+	public ModelElementRectangleDialog(final Component owner, final ModelElementRectangle element, final ModelElementBaseDialog.ReadOnlyMode readOnly) {
 		super(owner,Language.tr("Surface.Rectangle.Dialog.Title"),element,"ModelElementRectangle",readOnly);
 	}
 

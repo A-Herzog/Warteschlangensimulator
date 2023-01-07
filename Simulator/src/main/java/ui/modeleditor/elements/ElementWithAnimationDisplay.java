@@ -23,7 +23,7 @@ import simulator.runmodel.SimulationData;
  * zu können.
  * @author Alexander Herzog
  */
-public interface ElementWithAnimationDisplay {
+public interface ElementWithAnimationDisplay extends ElementWithAnimationEditOptions {
 	/**
 	 * Diese Methode wird zu Beginn der Animation aufgerufen und ermöglicht es dem Element, sich zu initialisieren.
 	 * @param simData	Simulations-Laufzeit-Daten

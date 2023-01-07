@@ -121,9 +121,11 @@ import ui.modeleditor.coreelements.ModelElement;
 import ui.modeleditor.coreelements.ModelElementAnimationInfoDialog;
 import ui.modeleditor.coreelements.ModelElementAnimationInfoDialog.ClientInfo;
 import ui.modeleditor.elements.ElementWithAnimationDisplay;
+import ui.modeleditor.elements.ElementWithAnimationEditOptions;
 import ui.modeleditor.elements.ModelElementAnalogValue;
 import ui.modeleditor.elements.ModelElementAnimationConnect;
 import ui.modeleditor.elements.ModelElementConveyor;
+import ui.modeleditor.elements.ModelElementDashboard;
 import ui.modeleditor.elements.ModelElementSource;
 import ui.modeleditor.elements.ModelElementSourceMulti;
 import ui.modeleditor.elements.ModelElementSourceRecord;
@@ -1424,7 +1426,9 @@ public class AnimationPanel extends JPanel implements RunModelAnimationViewer {
 	 * Zeigt den Diagramme-Dashboard-Dialog an.
 	 */
 	private void showDashboard() {
-		model.getDiagramsDashboardOrNull().showSubEditDialog(AnimationPanel.this,true,false);
+		final ModelElementDashboard dashboard=model.getDiagramsDashboardOrNull();
+		if (dashboard==null) return;
+		dashboard.showSubEditDialog(AnimationPanel.this,true,false);
 	}
 
 	/**
@@ -2655,14 +2659,14 @@ public class AnimationPanel extends JPanel implements RunModelAnimationViewer {
 	 */
 	private void updateEditorModel(final ModelSurface editorSurface, final ModelSurface animationSurface) {
 		for (ModelElement element: editorSurface.getElements()) {
-			if (element instanceof ElementWithAnimationDisplay) {
+			if (element instanceof ElementWithAnimationEditOptions) {
 				if (element.getPropertiesSemiEditable(this,null,null)!=null) element.copyDataFrom(animationSurface.getById(element.getId()));
 			}
 			if (element instanceof ModelElementSub) {
 				final ModelSurface editorSubSurface=((ModelElementSub)element).getSubSurface();
 				final ModelSurface animationSubSurface=((ModelElementSub)animationSurface.getById(element.getId())).getSubSurface();
 				updateEditorModel(editorSubSurface,animationSubSurface);
-
+				((ModelElementSub)element).setSubSurface(editorSubSurface);
 			}
 		}
 	}

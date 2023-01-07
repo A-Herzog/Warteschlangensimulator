@@ -51,6 +51,7 @@ import ui.help.Help;
 import ui.images.Images;
 import ui.infopanel.InfoPanel;
 import ui.modeleditor.AnimationImageSource;
+import ui.modeleditor.ModelElementBaseDialog;
 import ui.modeleditor.ModelElementDescriptionDialog;
 import ui.modeleditor.ModelSurface;
 import ui.modeleditor.coreelements.ModelElement;
@@ -328,7 +329,7 @@ public class NotesDialog extends BaseDialog {
 
 		if (element instanceof ModelElementNote) {
 			final ModelElementNote note=(ModelElementNote)element;
-			new ModelElementNoteDialog(this,note,false);
+			new ModelElementNoteDialog(this,note,ModelElementBaseDialog.ReadOnlyMode.ALLOW_ALL);
 		} else {
 			final ModelElementDescriptionDialog dialog=new ModelElementDescriptionDialog(this,element.getDescription(),false,element.getHelpPageName());
 			if (dialog.getClosedBy()==BaseDialog.CLOSED_BY_OK) {

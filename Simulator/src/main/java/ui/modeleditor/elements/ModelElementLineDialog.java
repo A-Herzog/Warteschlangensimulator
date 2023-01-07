@@ -63,9 +63,9 @@ public class ModelElementLineDialog extends ModelElementBaseDialog {
 	 * Konstruktor der Klasse
 	 * @param owner	Übergeordnetes Fenster
 	 * @param element	Zu bearbeitendes {@link ModelElementLine}
-	 * @param readOnly	Wird dieser Parameter auf <code>true</code> gesetzt, so wird die "Ok"-Schaltfläche deaktiviert
+	 * @param readOnly	Nur-Lese-Status
 	 */
-	public ModelElementLineDialog(final Component owner, final ModelElementLine element, final boolean readOnly) {
+	public ModelElementLineDialog(final Component owner, final ModelElementLine element, final ModelElementBaseDialog.ReadOnlyMode readOnly) {
 		super(owner,Language.tr("Surface.Line.Dialog.Title"),element,"ModelElementLine",readOnly);
 	}
 

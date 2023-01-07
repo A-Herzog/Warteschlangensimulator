@@ -53,7 +53,7 @@ public class ModelElementAnimationClockDialog extends ModelElementBaseDialog {
 	 * Konstruktor der Klasse
 	 * @param owner	Übergeordnetes Fenster
 	 * @param element	Zu bearbeitendes {@link ModelElementAnimationClock}
-	 * @param readOnly	Nur-Lese-Statua
+	 * @param readOnly	Nur-Lese-Status
 	 */
 	public ModelElementAnimationClockDialog(final Component owner, final ModelElementAnimationClock element, final ModelElementBaseDialog.ReadOnlyMode readOnly) {
 		super(owner,Language.tr("Surface.AnimationClock.Dialog.Title"),element,"ModelElementAnimationClock",readOnly);

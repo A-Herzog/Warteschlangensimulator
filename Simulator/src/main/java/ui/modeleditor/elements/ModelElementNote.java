@@ -42,6 +42,7 @@ import simulator.editmodel.FullTextSearch;
 import ui.images.Images;
 import ui.modeleditor.AnimationImageSource;
 import ui.modeleditor.ModelClientData;
+import ui.modeleditor.ModelElementBaseDialog;
 import ui.modeleditor.ModelSequences;
 import ui.modeleditor.ModelSurface;
 import ui.modeleditor.coreelements.ModelElement;
@@ -54,7 +55,7 @@ import ui.modeleditor.outputbuilder.SpecialOutputBuilder;
  * Notiz-Element
  * @author Alexander Herzog
  */
-public class ModelElementNote extends ModelElementPosition {
+public class ModelElementNote extends ModelElementPosition implements ElementWithAnimationEditOptions {
 	/**
 	 * Größe des Icons auf der Zeichenfläche
 	 */
@@ -351,7 +352,14 @@ public class ModelElementNote extends ModelElementPosition {
 	@Override
 	public Runnable getProperties(final Component owner, final boolean readOnly, final ModelClientData clientData, final ModelSequences sequences) {
 		return ()->{
-			new ModelElementNoteDialog(owner,ModelElementNote.this,readOnly);
+			new ModelElementNoteDialog(owner,ModelElementNote.this,readOnly?ModelElementBaseDialog.ReadOnlyMode.FULL_READ_ONLY:ModelElementBaseDialog.ReadOnlyMode.ALLOW_ALL);
+		};
+	}
+
+	@Override
+	public Runnable getPropertiesSemiEditable(final Component owner, final ModelClientData clientData, final ModelSequences sequences) {
+		return ()->{
+			new ModelElementNoteDialog(owner,ModelElementNote.this,ModelElementBaseDialog.ReadOnlyMode.ALLOW_CONTENT_DATA_EDIT);
 		};
 	}
 
