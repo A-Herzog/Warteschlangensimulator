@@ -44,12 +44,44 @@ import ui.modeleditor.fastpaint.Shapes;
  */
 public class ModelElementAnimationAlarm extends ModelElementMultiInSingleOutBox {
 	/**
+	 * Soll der Sound nur einmal abgespielt werden?
+	 * @see #isOnlyOneActivation()
+	 * @see #setOnlyOneActivation(boolean)
+	 */
+	private boolean onlyOneActivation;
+
+	/**
+	 * Soll der Sound bei jedem Kundentyp oder nur bei einem bestimmten Kundentyp abgespielt werden?
+	 * @see #getClientType()
+	 * @see #setClientType(String)
+	 */
+	private String clientType;
+
+	/**
+	 * Bedingung, die für eine Sound-Ausgabe erfüllt sein muss
+	 * @see #getCondition()
+	 * @see #setCondition(String)
+	 */
+	private String condition;
+
+	/**
+	 * Soll der Sound bei jeder Ankunft (&le;0) oder nur bei jeder n-ten Ankunft (&gt;0) abgespielt werden?
+	 * @see #getCounter()
+	 * @see #setCounter(long)
+	 */
+	private long counter;
+
+	/**
 	 * Abzuspielender Sound
+	 * @see #getSound()
+	 * @see #setSound(String)
 	 */
 	private String sound;
 
 	/**
 	 * Maximaldauer (in Sekunden) des abzuspielenden Sounds
+	 * @see #getSoundMaxSeconds()
+	 * @see #setSoundMaxSeconds(int)
 	 */
 	private int soundMaxSeconds;
 
@@ -60,8 +92,12 @@ public class ModelElementAnimationAlarm extends ModelElementMultiInSingleOutBox 
 	 */
 	public ModelElementAnimationAlarm(final EditModel model, final ModelSurface surface) {
 		super(model,surface,Shapes.ShapeType.SHAPE_ROUNDED_RECTANGLE_SPEAKER);
+		onlyOneActivation=false;
+		clientType="";
+		condition="";
+		counter=0;
 		sound="";
-		soundMaxSeconds=10;
+		soundMaxSeconds=-1;
 	}
 
 	/**
@@ -92,8 +128,20 @@ public class ModelElementAnimationAlarm extends ModelElementMultiInSingleOutBox 
 		if (!super.equalsModelElement(element)) return false;
 		if (!(element instanceof ModelElementAnimationAlarm)) return false;
 		final ModelElementAnimationAlarm otherAlarm=(ModelElementAnimationAlarm)element;
-		if (!sound.equals(otherAlarm.sound)) return false;
-		if (soundMaxSeconds!=otherAlarm.soundMaxSeconds) return false;
+
+		if (onlyOneActivation!=otherAlarm.onlyOneActivation) return false;
+		if (!clientType.equals(otherAlarm.clientType)) return false;
+		if (!condition.equals(otherAlarm.condition)) return false;
+		if (counter!=otherAlarm.counter) return false;
+
+		if (!sound.equals(otherAlarm.sound)) {
+			System.out.println(sound+"\t"+otherAlarm.sound);
+			return false;
+		}
+		if (soundMaxSeconds!=otherAlarm.soundMaxSeconds) {
+			System.out.println(soundMaxSeconds+"\t"+otherAlarm.soundMaxSeconds);
+			return false;
+		}
 		return true;
 	}
 
@@ -106,8 +154,15 @@ public class ModelElementAnimationAlarm extends ModelElementMultiInSingleOutBox 
 	public void copyDataFrom(ModelElement element) {
 		super.copyDataFrom(element);
 		if (element instanceof ModelElementAnimationAlarm) {
-			sound=((ModelElementAnimationAlarm)element).sound;
-			soundMaxSeconds=((ModelElementAnimationAlarm)element).soundMaxSeconds;
+			final ModelElementAnimationAlarm source=(ModelElementAnimationAlarm)element;
+
+			onlyOneActivation=source.onlyOneActivation;
+			clientType=source.clientType;
+			condition=source.condition;
+			counter=source.counter;
+
+			sound=source.sound;
+			soundMaxSeconds=source.soundMaxSeconds;
 		}
 	}
 
@@ -122,6 +177,70 @@ public class ModelElementAnimationAlarm extends ModelElementMultiInSingleOutBox 
 		final ModelElementAnimationAlarm element=new ModelElementAnimationAlarm(model,surface);
 		element.copyDataFrom(this);
 		return element;
+	}
+
+	/**
+	 * Soll der Sound nur einmal abgespielt werden?
+	 * @return	Soll der Sound nur einmal abgespielt werden?
+	 */
+	public boolean isOnlyOneActivation() {
+		return onlyOneActivation;
+	}
+
+	/**
+	 * Stellt ein, ob der Sound nur einmal abgespielt werden soll oder bei jeder Kundenankunft.
+	 * @param onlyOneActivation	Soll der Sound nur einmal abgespielt werden?
+	 */
+	public void setOnlyOneActivation(final boolean onlyOneActivation) {
+		this.onlyOneActivation=onlyOneActivation;
+	}
+
+	/**
+	 * Soll der Sound bei jedem Kundentyp oder nur bei einem bestimmten Kundentyp abgespielt werden?
+	 * @return	Kundentyp, bei dem der Sound abgespielt werden soll (oder leerer String für alle Kundentypen)
+	 */
+	public String getClientType() {
+		return clientType;
+	}
+
+	/**
+	 * Stellt ein, ob der Sound bei jedem Kundentyp oder nur bei einem bestimmten Kundentyp abgespielt werden soll.
+	 * @param clientType	Kundentyp, bei dem der Sound abgespielt werden soll (oder leerer String für alle Kundentypen)
+	 */
+	public void setClientType(final String clientType) {
+		this.clientType=(clientType==null)?"":clientType;
+	}
+
+	/**
+	 * Liefert die Bedingung, die für eine Sound-Ausgabe erfüllt sein muss.
+	 * @return	Bedingung, die für eine Sound-Ausgabe erfüllt sein muss (kann <code>null</code> sein)
+	 */
+	public String getCondition() {
+		return condition;
+	}
+
+	/**
+	 * Stellt die Bedingung, die für eine Sound-Ausgabe erfüllt sein muss, ein.
+	 * @param condition	Bedingung, die für eine Sound-Ausgabe erfüllt sein muss (kann <code>null</code> sein)
+	 */
+	public void setCondition(final String condition) {
+		this.condition=(condition==null)?"":condition;
+	}
+
+	/**
+	 * Soll der Sound bei jeder Ankunft (&le;0) oder nur bei jeder n-ten Ankunft (&gt;0) abgespielt werden?
+	 * @return	Soll der Sound bei jeder Ankunft (&le;0) oder nur bei jeder n-ten Ankunft (&gt;0) abgespielt werden?
+	 */
+	public long getCounter() {
+		return counter;
+	}
+
+	/**
+	 * Stellt ein, ob der Sound bei jeder Ankunft (&le;0) oder nur bei jeder n-ten Ankunft (&gt;0) abgespielt werden soll.
+	 * @param counter	Soll der Sound bei jeder Ankunft (&le;0) oder nur bei jeder n-ten Ankunft (&gt;0) abgespielt werden?
+	 */
+	public void setCounter(final long counter) {
+		this.counter=(counter<0)?0:counter;
 	}
 
 	/**
@@ -242,6 +361,15 @@ public class ModelElementAnimationAlarm extends ModelElementMultiInSingleOutBox 
 	protected void addPropertiesDataToXML(final Document doc, final Element node) {
 		super.addPropertiesDataToXML(doc,node);
 
+		if (onlyOneActivation || !clientType.isEmpty() || !condition.isEmpty() || counter>1) {
+			final Element sub=doc.createElement(Language.trPrimary("Surface.AnimationAlarm.XML.Condition"));
+			node.appendChild(sub);
+			if (onlyOneActivation) sub.setAttribute(Language.tr("Surface.AnimationAlarm.XML.Condition.OnlyOnce"),"1");
+			if (!clientType.isEmpty()) sub.setAttribute(Language.tr("Surface.AnimationAlarm.XML.Condition.ClientType"),clientType);
+			if (counter>1) sub.setAttribute(Language.tr("Surface.AnimationAlarm.XML.Condition.Counter"),""+counter);
+			if (!condition.isEmpty()) sub.setTextContent(condition);
+		}
+
 		final Element sub=doc.createElement(Language.trPrimary("Surface.AnimationAlarm.XML.Sound"));
 		node.appendChild(sub);
 		sub.setTextContent(sound);
@@ -259,6 +387,18 @@ public class ModelElementAnimationAlarm extends ModelElementMultiInSingleOutBox 
 	protected String loadProperty(final String name, final String content, final Element node) {
 		String error=super.loadProperty(name,content,node);
 		if (error!=null) return error;
+
+		if (Language.trAll("Surface.AnimationAlarm.XML.Condition",name)) {
+			onlyOneActivation=Language.trAllAttribute("Surface.AnimationAlarm.XML.Condition.OnlyOnce",node).equals("1");
+			clientType=Language.trAllAttribute("Surface.AnimationAlarm.XML.Condition.ClientType",node);
+			final String counterString=Language.trAllAttribute("Surface.AnimationAlarm.XML.Condition.Counter",node);
+			if (!counterString.isEmpty()) {
+				final Long L=NumberTools.getNotNegativeLong(counterString);
+				if (L==null || L<2) counter=0; else counter=L;
+			}
+			condition=content;
+			return null;
+		}
 
 		if (Language.trAll("Surface.AnimationAlarm.XML.Sound",name)) {
 			sound=content;
@@ -291,7 +431,13 @@ public class ModelElementAnimationAlarm extends ModelElementMultiInSingleOutBox 
 	@Override
 	public void buildDescription(final ModelDescriptionBuilder descriptionBuilder) {
 		super.buildDescription(descriptionBuilder);
-		descriptionBuilder.addProperty(Language.tr("ModelDescription.AnimationAlarm"),Language.tr("ModelDescription.AnimationAlarm.Sound")+": "+sound,1000);
+
+		if (onlyOneActivation) descriptionBuilder.addProperty(Language.tr("ModelDescription.AnimationAlarm.OnlyOnce"),Language.tr("ModelDescription.AnimationAlarm.OnlyOnce.Yes"),1000);
+		if (!clientType.isEmpty()) descriptionBuilder.addProperty(Language.tr("ModelDescription.AnimationAlarm.ClientType"),clientType,2000);
+		if (counter>1) descriptionBuilder.addProperty(Language.tr("ModelDescription.AnimationAlarm.Counter"),NumberTools.formatLong(counter),3000);
+		if (!condition.isEmpty()) descriptionBuilder.addProperty(Language.tr("ModelDescription.AnimationAlarm.Condition"),clientType,4000);
+
+		descriptionBuilder.addProperty(Language.tr("ModelDescription.AnimationAlarm"),Language.tr("ModelDescription.AnimationAlarm.Sound")+": "+sound,5000);
 	}
 
 	/**
@@ -301,6 +447,10 @@ public class ModelElementAnimationAlarm extends ModelElementMultiInSingleOutBox 
 	 * @see FullTextSearch
 	 */
 	public void search(final FullTextSearch searcher, final ModelElementBox station) {
+		if (!clientType.isEmpty()) searcher.testString(station,Language.tr("Editor.DialogBase.Search.ClientType"),clientType,newClientType->clientType=newClientType);
+		if (!condition.isEmpty()) searcher.testString(station,Language.tr("Editor.DialogBase.Search.Condition"),condition,newCondition->condition=newCondition);
+		if (counter>0) searcher.testLong(station,Language.tr("Editor.DialogBase.Search.TriggerDistanceCount"),counter,newCounter->counter=(newCounter>1)?newCounter:0);
+
 		searcher.testString(station,Language.tr("Editor.DialogBase.Search.Sound"),sound,newSound->{sound=newSound; soundMaxSeconds=-1;});
 	}
 }

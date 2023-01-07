@@ -116,6 +116,7 @@ public class SoundSystemPanel extends JPanel {
 
 		JPanel line, subArea;
 		JButton button;
+		List<Images> icons;
 
 		setLayout(new BorderLayout());
 
@@ -148,6 +149,9 @@ public class SoundSystemPanel extends JPanel {
 		line=new JPanel(new FlowLayout(FlowLayout.LEFT));
 		cards.add(line,"1");
 		line.add(systemEventSoundSelect=new JComboBox<>(soundSystem.getSystemSounds()));
+		icons=new ArrayList<>();
+		for (int i=0;i<systemEventSoundSelect.getItemCount();i++) icons.add(Images.SOUND);
+		systemEventSoundSelect.setRenderer(new IconListCellRenderer(icons.toArray(new Images[0])));
 		systemEventSoundSelect.setEnabled(!readOnly);
 		systemEventSoundSelect.setSelectedIndex(0);
 
@@ -156,6 +160,9 @@ public class SoundSystemPanel extends JPanel {
 			line=new JPanel(new FlowLayout(FlowLayout.LEFT));
 			cards.add(line,"2");
 			line.add(systemSoundFileSelect=new JComboBox<>(Stream.of(soundSystem.getSoundFiles()).map(file->file.toString()).toArray(String[]::new)));
+			icons=new ArrayList<>();
+			for (int i=0;i<systemSoundFileSelect.getItemCount();i++) icons.add(Images.SOUND);
+			systemSoundFileSelect.setRenderer(new IconListCellRenderer(icons.toArray(new Images[0])));
 			systemSoundFileSelect.setEnabled(!readOnly);
 			systemSoundFileSelect.setSelectedIndex(0);
 		} else {

@@ -27,6 +27,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import javax.swing.BoxLayout;
+import javax.swing.Icon;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -36,10 +37,13 @@ import javax.swing.JTextField;
 import language.Language;
 import mathtools.NumberTools;
 import simulator.editmodel.EditModel;
+import simulator.runmodel.RunModel;
 import simulator.runmodel.SimulationData;
 import simulator.simparser.ExpressionMultiEval;
 import systemtools.BaseDialog;
 import systemtools.MsgBox;
+import tools.IconListCellRenderer;
+import ui.images.Images;
 import ui.modeleditor.ModelElementBaseDialog;
 import ui.modeleditor.ModelSurfaceAnimatorBase;
 
@@ -74,7 +78,7 @@ public class ModelBreakPointDialog extends BaseDialog {
 	/**
 	 * Kundentyp (kann "alle" sein) bei dessen Ankunft der Haltepunkt wirksam werden soll
 	 */
-	private final JComboBox<String> comboBoxClientTypes;
+	private final JComboBox<?> comboBoxClientTypes;
 
 	/**
 	 * Bedingung, die für die Auslösung des Haltepunktes erfüllt sein muss
@@ -108,7 +112,7 @@ public class ModelBreakPointDialog extends BaseDialog {
 		content.setLayout(new BoxLayout(content,BoxLayout.PAGE_AXIS));
 
 		JPanel line;
-		JLabel label;
+		Object[] data;
 
 		/* Dialog aufbauen */
 
@@ -119,14 +123,13 @@ public class ModelBreakPointDialog extends BaseDialog {
 			checkBoxActive=new JCheckBox("",breakPoint!=null);
 		}
 
-		content.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
-		line.add(label=new JLabel(Language.tr("Surface.PopupMenu.BreakPoint.Option.ClientType")+":"));
-		line.add(comboBoxClientTypes=new JComboBox<>(getClientTypesList(simData.runModel.clientTypes)));
-		label.setLabelFor(comboBoxClientTypes);
+		data=getClientTypesComboBox(model,simData.runModel);
+		content.add((JPanel)data[0]);
+		comboBoxClientTypes=(JComboBox<?>)data[1];
 		comboBoxClientTypes.setSelectedIndex((breakPoint==null)?0:(breakPoint.clientType+1));
 		comboBoxClientTypes.addActionListener(e->checkBoxActive.setSelected(true));
 
-		final Object[] data=ModelElementBaseDialog.getInputPanel(Language.tr("Surface.PopupMenu.BreakPoint.Condition")+":",(breakPoint==null)?"":breakPoint.condition);
+		data=ModelElementBaseDialog.getInputPanel(Language.tr("Surface.PopupMenu.BreakPoint.Condition")+":",(breakPoint==null)?"":breakPoint.condition);
 		content.add(line=(JPanel)data[0]);
 		editCondition=(JTextField)data[1];
 		editCondition.addKeyListener(new KeyListener() {
@@ -152,10 +155,90 @@ public class ModelBreakPointDialog extends BaseDialog {
 	 * @param list	Liste der Kundentypennamen
 	 * @return	Liste bestehen aus "Alle" als erstem Eintrag und dann den Kundentypennamen
 	 */
-	private static String[] getClientTypesList(final String[] list) {
+	public static String[] getClientTypesList(final String[] list) {
 		final List<String> temp=new ArrayList<>(Arrays.asList(list));
 		temp.add(0,Language.tr("Surface.PopupMenu.BreakPoint.Option.ClientType.All"));
 		return temp.toArray(new String[0]);
+	}
+
+	/**
+	 * Liste der Kundentypen für die Combobox für die Kundentypauswahl (Kundentypen und vorab "Alle")
+	 * @param runModel	Laufzeitmodell
+	 * @return	Liste bestehen aus "Alle" als erstem Eintrag und dann den Kundentypennamen
+	 */
+	public static String[] getClientTypesList(final RunModel runModel) {
+		return getClientTypesList(runModel.clientTypes);
+	}
+
+	/**
+	 * Liste der Kundentypen für die Combobox für die Kundentypauswahl (Kundentypen und vorab "Alle")
+	 * @param editModel	Editor-Modell
+	 * @return	Liste bestehen aus "Alle" als erstem Eintrag und dann den Kundentypennamen
+	 */
+	public static String[] getClientTypesList(final EditModel editModel) {
+		return getClientTypesList(editModel.surface.getClientTypes().toArray(new String[0]));
+	}
+
+	/**
+	 * Liste der Icons Kundentypen für die Combobox für die Kundentypauswahl (Kundentypen und vorab "Alle")
+	 * @param editModel	Editor-Modell
+	 * @param runModel	Laufzeitmodell
+	 * @return	Icons-Liste bestehen aus "Alle" als erstem Eintrag und dann den Kundentypennamen
+	 */
+	public static Icon[] getClientTypesListIcons(final EditModel editModel, final RunModel runModel) {
+		final String[] clientTypes=runModel.clientTypes;
+		final List<Icon> icons=new ArrayList<>(Arrays.asList(IconListCellRenderer.buildClientTypeIcons(clientTypes,editModel)));
+
+		icons.add(0,Images.MODELPROPERTIES_CLIENTS_GROUPS.getIcon());
+
+		return icons.toArray(new Icon[0]);
+	}
+
+	/**
+	 * Liste der Icons Kundentypen für die Combobox für die Kundentypauswahl (Kundentypen und vorab "Alle")
+	 * @param editModel	Editor-Modell
+	 * @return	Icons-Liste bestehen aus "Alle" als erstem Eintrag und dann den Kundentypennamen
+	 */
+	public static Icon[] getClientTypesListIcons(final EditModel editModel) {
+		final String[] clientTypes=editModel.surface.getClientTypes().toArray(new String[0]);
+		final List<Icon> icons=new ArrayList<>(Arrays.asList(IconListCellRenderer.buildClientTypeIcons(clientTypes,editModel)));
+
+		icons.add(0,Images.MODELPROPERTIES_CLIENTS_GROUPS.getIcon());
+
+		return icons.toArray(new Icon[0]);
+	}
+
+	/**
+	 * Erzeugt ein Panel mit einer Combobox zur Kundentypauswahl (Kundentypen und vorab "Alle")
+	 * @param editModel	Editor-Modell
+	 * @param runModel	Laufzeitmodell
+	 * @return	Array aus zwei Elementen: {@link JPanel} und {@link JComboBox}
+	 */
+	public static Object[] getClientTypesComboBox(final EditModel editModel, final RunModel runModel) {
+		final JPanel line=new JPanel(new FlowLayout(FlowLayout.LEFT));
+		final JLabel label=new JLabel(Language.tr("Surface.PopupMenu.BreakPoint.Option.ClientType")+":");
+		line.add(label);
+		final JComboBox<?> comboBox=new JComboBox<>(getClientTypesList(runModel));
+		line.add(comboBox);
+		label.setLabelFor(comboBox);
+		comboBox.setRenderer(new IconListCellRenderer(getClientTypesListIcons(editModel,runModel)));
+		return new Object[] {line, comboBox};
+	}
+
+	/**
+	 * Erzeugt ein Panel mit einer Combobox zur Kundentypauswahl (Kundentypen und vorab "Alle")
+	 * @param editModel	Editor-Modell
+	 * @return	Array aus zwei Elementen: {@link JPanel} und {@link JComboBox}
+	 */
+	public static Object[] getClientTypesComboBox(final EditModel editModel) {
+		final JPanel line=new JPanel(new FlowLayout(FlowLayout.LEFT));
+		final JLabel label=new JLabel(Language.tr("Surface.PopupMenu.BreakPoint.Option.ClientType")+":");
+		line.add(label);
+		final JComboBox<?> comboBox=new JComboBox<>(getClientTypesList(editModel));
+		line.add(comboBox);
+		label.setLabelFor(comboBox);
+		comboBox.setRenderer(new IconListCellRenderer(getClientTypesListIcons(editModel)));
+		return new Object[] {line, comboBox};
 	}
 
 	/**

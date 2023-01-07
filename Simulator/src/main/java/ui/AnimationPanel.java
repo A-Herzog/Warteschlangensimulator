@@ -134,6 +134,7 @@ import ui.modeleditor.elements.ModelElementTank;
 import ui.modelproperties.ModelPropertiesDialog;
 import ui.tools.FlatLaFHelper;
 import ui.tools.GlassInfo;
+import ui.tools.SoundSystem;
 
 /**
  * Diese Klasse zeigt die Animation der Simulation in einem eingebetteten
@@ -955,6 +956,7 @@ public class AnimationPanel extends JPanel implements RunModelAnimationViewer {
 		}
 		surfaceAnimator=null;
 		animationTerminated();
+		SoundSystem.getInstance().stopSoundFile();
 		if (animationDone!=null) SwingUtilities.invokeLater(animationDone);
 	}
 

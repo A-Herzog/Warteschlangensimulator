@@ -152,6 +152,9 @@ public enum Images {
 	/** Symbol "Maus" */
 	GENERAL_MOUSE("mouse.png"),
 
+	/** Sound */
+	SOUND("music.png"),
+
 	/** Sound-Typ-Auswahl "Systemereignis-Sounds" */
 	SOUND_EVENT("flag_red.png"),
 

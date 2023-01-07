@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-05 00:17+0100\n"
+"POT-Creation-Date: 2023-01-06 17:57+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -4272,6 +4272,9 @@ msgstr "Batch means size"
 msgid "Editor.DialogBase.Search.BorderWidth"
 msgstr "Border width"
 
+msgid "Editor.DialogBase.Search.ClientType"
+msgstr "Client type"
+
 msgid "Editor.DialogBase.Search.ClientType.CostsProcess"
 msgstr "Process time costs for client type \"%s\""
 
@@ -4619,6 +4622,9 @@ msgstr "Unloading times distribution for transporter group \"%s\""
 
 msgid "Editor.DialogBase.Search.TransporterGroup.UnloadExpression"
 msgstr "Unloading times expression for transporter group \"%s\""
+
+msgid "Editor.DialogBase.Search.TriggerDistanceCount"
+msgstr "Distance (in client arrivals) between two triggers"
 
 msgid "Editor.DialogBase.Search.ValueForCondition"
 msgstr "Value for condition \"%s\""
@@ -11378,6 +11384,21 @@ msgstr "Update notify (seconds distance)"
 msgid "ModelDescription.AnimationAlarm"
 msgstr "Alarm"
 
+msgid "ModelDescription.AnimationAlarm.ClientType"
+msgstr "Trigger on client type"
+
+msgid "ModelDescription.AnimationAlarm.Condition"
+msgstr "Trigger when condition is met"
+
+msgid "ModelDescription.AnimationAlarm.Counter"
+msgstr "Distance (in client arrivals) between two triggers"
+
+msgid "ModelDescription.AnimationAlarm.OnlyOnce"
+msgstr "Trigger only once"
+
+msgid "ModelDescription.AnimationAlarm.OnlyOnce.Yes"
+msgstr "Yes"
+
 msgid "ModelDescription.AnimationAlarm.Sound"
 msgstr "Sound"
 
@@ -17701,6 +17722,9 @@ msgstr "No variable name name was given."
 
 msgid "Simulation.Creator.Action.NotAnalogElement"
 msgstr "The element with the specified id %d has no analog value."
+
+msgid "Simulation.Creator.AlarmCondition"
+msgstr "The condition \"%s\" at element id=%d is invalid at character %d."
 
 msgid "Simulation.Creator.AnalogAssignCannotChangeRateOnTank"
 msgstr "At element id=%d for an analog value assignment ID %d was specified for changing the rate. But the element with this ID is no analog value with configureable rate."
@@ -24570,6 +24594,39 @@ msgstr "Analog changing value"
 msgid "Surface.AnalogValue.XML.Root"
 msgstr "ModelElementAnalogValue"
 
+msgid "Surface.AnimationAlarm.Dialog.Section.Condition"
+msgstr "Condition for sound output"
+
+msgid "Surface.AnimationAlarm.Dialog.Section.Condition.Condition"
+msgstr "Condition"
+
+msgid "Surface.AnimationAlarm.Dialog.Section.Condition.Condition.Error.Info"
+msgstr "The specified condition \"%s\" is invalid at character %d."
+
+msgid "Surface.AnimationAlarm.Dialog.Section.Condition.Condition.Error.Title"
+msgstr "Invalid condition"
+
+msgid "Surface.AnimationAlarm.Dialog.Section.Condition.CounterPart1"
+msgstr "Trigger sound every"
+
+msgid "Surface.AnimationAlarm.Dialog.Section.Condition.CounterPart2"
+msgstr "client arrivals"
+
+msgid "Surface.AnimationAlarm.Dialog.Section.Condition.Repeat"
+msgstr "Repetition"
+
+msgid "Surface.AnimationAlarm.Dialog.Section.Condition.Repeat.Multi"
+msgstr "At each client arrival (if the conditions are met)"
+
+msgid "Surface.AnimationAlarm.Dialog.Section.Condition.Repeat.OnlyOnce"
+msgstr "Only once"
+
+msgid "Surface.AnimationAlarm.Dialog.Section.Condition.UseCondition"
+msgstr "Only play sound if condition is met"
+
+msgid "Surface.AnimationAlarm.Dialog.Section.Sound"
+msgstr "Sound output"
+
 msgid "Surface.AnimationAlarm.Dialog.Title"
 msgstr "Edit alarm"
 
@@ -24581,6 +24638,18 @@ msgstr "Alarm"
 
 msgid "Surface.AnimationAlarm.Tooltip"
 msgstr "Plays a sound when a client passes the station."
+
+msgid "Surface.AnimationAlarm.XML.Condition"
+msgstr "ModelElementAnimationAlarmCondition"
+
+msgid "Surface.AnimationAlarm.XML.Condition.ClientType"
+msgstr "ClientType"
+
+msgid "Surface.AnimationAlarm.XML.Condition.Counter"
+msgstr "Zaehler"
+
+msgid "Surface.AnimationAlarm.XML.Condition.OnlyOnce"
+msgstr "NurEinmal"
 
 msgid "Surface.AnimationAlarm.XML.Root"
 msgstr "ModelElementAnimationAlarm"

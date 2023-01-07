@@ -1889,11 +1889,19 @@
 <xs:element name="ModellElementAnimationAlarm"><xs:complexType><xs:complexContent><xs:extension base="ModellElementVerbundenBasis">
   <xs:sequence minOccurs="0" maxOccurs="unbounded"><xs:choice>
     <xs:element ref="ModellElementAnimationAlarmSound"/>
+	<xs:element ref="ModellElementAnimationAlarmBedingung"/>
   </xs:choice></xs:sequence>
 </xs:extension></xs:complexContent></xs:complexType></xs:element>
 <xs:element name="ModellElementAnimationAlarmSound"><xs:complexType><xs:simpleContent>
   <xs:extension base="xs:string">
     <xs:attribute name="SoundMaxSekunden" type="xs:integer"/>
+  </xs:extension>
+</xs:simpleContent></xs:complexType></xs:element>
+<xs:element name="ModellElementAnimationAlarmBedingung"><xs:complexType><xs:simpleContent>
+  <xs:extension base="xs:string">
+    <xs:attribute name="NurEinmal" type="xs:string"/>
+	<xs:attribute name="Kundentyp" type="xs:string"/>
+	<xs:attribute name="Zaehler" type="xs:string"/>
   </xs:extension>
 </xs:simpleContent></xs:complexType></xs:element>
 
@@ -4262,11 +4270,19 @@
 <xs:element name="ModelElementAnimationAlarm"><xs:complexType><xs:complexContent><xs:extension base="ModelElementConnectedBase">
   <xs:sequence minOccurs="0" maxOccurs="unbounded"><xs:choice>
     <xs:element ref="ModelElementAnimationAlarmSound"/>
+	<xs:element ref="ModelElementAnimationAlarmCondition"/>
   </xs:choice></xs:sequence>
 </xs:extension></xs:complexContent></xs:complexType></xs:element>
 <xs:element name="ModelElementAnimationAlarmSound"><xs:complexType><xs:simpleContent>
   <xs:extension base="xs:string">
     <xs:attribute name="SoundMaxSeconds" type="xs:integer"/>
+  </xs:extension>
+</xs:simpleContent></xs:complexType></xs:element>
+<xs:element name="ModelElementAnimationAlarmCondition"><xs:complexType><xs:simpleContent>
+  <xs:extension base="xs:string">
+    <xs:attribute name="OnlyOnce" type="xs:string"/>
+	<xs:attribute name="ClientType" type="xs:string"/>
+	<xs:attribute name="Counter" type="xs:string"/>
   </xs:extension>
 </xs:simpleContent></xs:complexType></xs:element>
 

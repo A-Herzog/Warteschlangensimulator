@@ -1733,7 +1733,7 @@
 <!ELEMENT ModellElementAnimationAufzeichnungAnzahlPunkte (#PCDATA)>
 <!ELEMENT ModellElementAnimationAufzeichnungDatenfarbe (#PCDATA)>
 
-<!ELEMENT ModellElementAnimationAlarm (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementBoxSchriftGross | ModellElementBoxSchriftKlein | ModellElementMaximalerDurchsatzSekunden | ModellElementEbene | ModellElementLinienBreite | ModellElementLinienFarbe | ModellElementHintergrundfarbe | ModellElementStationsbild | ModellElementVerbindung | ModellElementAnimationAlarmSound)*>
+<!ELEMENT ModellElementAnimationAlarm (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementBoxSchriftGross | ModellElementBoxSchriftKlein | ModellElementMaximalerDurchsatzSekunden | ModellElementEbene | ModellElementLinienBreite | ModellElementLinienFarbe | ModellElementHintergrundfarbe | ModellElementStationsbild | ModellElementVerbindung | ModellElementAnimationAlarmSound | ModellElementAnimationAlarmBedingung)*>
 <!ATTLIST ModellElementAnimationAlarm
   id			CDATA	#REQUIRED
   geschuetzt	CDATA	#IMPLIED
@@ -1743,6 +1743,12 @@
 <!ELEMENT ModellElementAnimationAlarmSound (#PCDATA)>
 <!ATTLIST ModellElementAnimationAlarmSound
   SoundMaxSekunden	CDATA	#IMPLIED
+>
+<!ELEMENT ModellElementAnimationAlarmBedingung (#PCDATA)>
+<!ATTLIST ModellElementAnimationAlarmBedingung
+  NurEinmal	CDATA	#IMPLIED
+  Kundentyp	CDATA	#IMPLIED
+  Zaehler	CDATA	#IMPLIED
 >
 
 <!ELEMENT ModellElementPause (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementBoxSchriftGross | ModellElementBoxSchriftKlein | ModellElementMaximalerDurchsatzSekunden | ModellElementEbene | ModellElementLinienBreite | ModellElementLinienFarbe | ModellElementHintergrundfarbe | ModellElementStationsbild | ModellElementVerbindung)*>
@@ -4340,7 +4346,7 @@
 <!ELEMENT ModelElementAnimationRecordDataPoints (#PCDATA)>
 <!ELEMENT ModelElementAnimationRecordDataColor (#PCDATA)>
 
-<!ELEMENT ModelElementAnimationAlarm (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBoxFontLarge | ModelElementBoxFontSmall | ModelElementMaximumThroughputSeconds | ModelElementLayer | ModelElementBackgroundColor | ModelElementStationimage | ModelElementConnection | ModelElementAnimationAlarmSound)*>
+<!ELEMENT ModelElementAnimationAlarm (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBoxFontLarge | ModelElementBoxFontSmall | ModelElementMaximumThroughputSeconds | ModelElementLayer | ModelElementBackgroundColor | ModelElementStationimage | ModelElementConnection | ModelElementAnimationAlarmSound | ModelElementAnimationAlarmCondition)*>
 <!ATTLIST ModelElementAnimationAlarm
   id		CDATA	#REQUIRED
   protected	CDATA	#IMPLIED
@@ -4350,6 +4356,12 @@
 <!ELEMENT ModelElementAnimationAlarmSound (#PCDATA)>
 <!ATTLIST ModelElementAnimationAlarmSound
   SoundMaxSeconds	CDATA	#IMPLIED
+>
+<!ELEMENT ModelElementAnimationAlarmCondition (#PCDATA)>
+<!ATTLIST ModelElementAnimationAlarmCondition
+  OnlyOnce		CDATA	#IMPLIED
+  ClientType	CDATA	#IMPLIED
+  Counter		CDATA	#IMPLIED
 >
 
 <!ELEMENT ModelElementPause (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBoxFontLarge | ModelElementBoxFontSmall | ModelElementMaximumThroughputSeconds | ModelElementLayer | ModelElementBackgroundColor | ModelElementStationimage | ModelElementConnection)*>

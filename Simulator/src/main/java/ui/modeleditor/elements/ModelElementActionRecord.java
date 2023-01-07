@@ -218,6 +218,8 @@ public class ModelElementActionRecord {
 		analogValue="";
 		script="";
 		scriptMode=ScriptMode.Javascript;
+		sound="";
+		soundMaxSeconds=-1;
 	}
 
 	/**

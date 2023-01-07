@@ -26,6 +26,11 @@ import java.util.List;
 import java.util.Set;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.ThreadFactory;
+import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.Stream;
 
 import javax.sound.sampled.AudioInputStream;
@@ -202,7 +207,13 @@ public class SoundSystem {
 	public synchronized void stopSoundFile() {
 		if (lastClip!=null) {
 			lastClip.stop();
-			lastClip.close();
+			if (executor==null) {
+				final int coreCount=Runtime.getRuntime().availableProcessors();
+				executor=new ThreadPoolExecutor(coreCount,coreCount,2,TimeUnit.SECONDS,new LinkedBlockingQueue<>(),(ThreadFactory)r->new Thread(r,"SoundClipCloser"));
+				((ThreadPoolExecutor)executor).allowCoreThreadTimeOut(true);
+			}
+			final Clip clipToClose=lastClip;
+			executor.execute(()->clipToClose.close());
 			lastClip=null;
 		}
 	}
@@ -241,6 +252,12 @@ public class SoundSystem {
 	}
 
 	/**
+	 * Executor-Pool zum asynchronen Schließen der einzelnen Clips
+	 * @see #playSoundFile(File, int)
+	 */
+	private ExecutorService executor;
+
+	/**
 	 * Spielt eine Sound-Datei bis zum Ende ab bzw. bis zu einer bestimmten Dauer ab.
 	 * @param file	Abzuspielende Datei
 	 * @param maxSeconds	Maximal abzuspielende Dauer (ohne Begrenzung, wenn ein Wert &le;0 übergeben wird)
@@ -256,7 +273,13 @@ public class SoundSystem {
 		}
 		if (lastClip!=null) {
 			lastClip.stop();
-			lastClip.close();
+			if (executor==null) {
+				final int coreCount=Runtime.getRuntime().availableProcessors();
+				executor=new ThreadPoolExecutor(coreCount,coreCount,2,TimeUnit.SECONDS,new LinkedBlockingQueue<>(),(ThreadFactory)r->new Thread(r,"SoundClipCloser"));
+				((ThreadPoolExecutor)executor).allowCoreThreadTimeOut(true);
+			}
+			final Clip clipToClose=lastClip;
+			executor.execute(()->clipToClose.close());
 			lastClip=null;
 		}
 

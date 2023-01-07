@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-05 00:17+0100\n"
+"POT-Creation-Date: 2023-01-06 17:57+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -4279,6 +4279,9 @@ msgstr "Batch-Means-Größe"
 msgid "Editor.DialogBase.Search.BorderWidth"
 msgstr "Rahmenbreite"
 
+msgid "Editor.DialogBase.Search.ClientType"
+msgstr "Kundentyp"
+
 msgid "Editor.DialogBase.Search.ClientType.CostsProcess"
 msgstr "Bedienzeitkosten für Kundentyp \"%s\""
 
@@ -4626,6 +4629,9 @@ msgstr "Entladezeiten-Verteilung für Transportergruppe \"%s\""
 
 msgid "Editor.DialogBase.Search.TransporterGroup.UnloadExpression"
 msgstr "Entladezeiten-Ausdruck für Transportergruppe \"%s\""
+
+msgid "Editor.DialogBase.Search.TriggerDistanceCount"
+msgstr "Abstand (in Kundenankünften) zwischen zwei Auslösungen"
 
 msgid "Editor.DialogBase.Search.ValueForCondition"
 msgstr "Wert für Bedingung \"%s\""
@@ -11375,6 +11381,21 @@ msgstr "Aktualisierungsbenachrichtigung (Sekundenabstand)"
 msgid "ModelDescription.AnimationAlarm"
 msgstr "Alarm"
 
+msgid "ModelDescription.AnimationAlarm.ClientType"
+msgstr "Auslösen bei Kundentyp"
+
+msgid "ModelDescription.AnimationAlarm.Condition"
+msgstr "Auslösen wenn Bedingung erfüllt ist"
+
+msgid "ModelDescription.AnimationAlarm.Counter"
+msgstr "Abstand (in Kundenankünften) zwischen zwei Auslösungen"
+
+msgid "ModelDescription.AnimationAlarm.OnlyOnce"
+msgstr "Nur einmal auslösen"
+
+msgid "ModelDescription.AnimationAlarm.OnlyOnce.Yes"
+msgstr "Ja"
+
 msgid "ModelDescription.AnimationAlarm.Sound"
 msgstr "Sound"
 
@@ -17715,6 +17736,9 @@ msgstr "Es wurde kein Variablenname angegeben."
 
 msgid "Simulation.Creator.Action.NotAnalogElement"
 msgstr "Das Element mit der angegebenen id %d besitzt keinen analogen Wert."
+
+msgid "Simulation.Creator.AlarmCondition"
+msgstr "Die Bedingung \"%s\" von Element id=%d enthält an Position %d einen Fehler."
 
 msgid "Simulation.Creator.AnalogAssignCannotChangeRateOnTank"
 msgstr "An Element id=%d wurde für eine Analogwertzuweisung die ID %d als Ziel für die Ratenänderung angegeben. Das Element mit dieser ID ist jedoch kein Analogwert bei dem die Rate geändert werden kann."
@@ -24586,6 +24610,39 @@ msgstr "Zahlenwert, der sich im Zeitverlauf ändert"
 msgid "Surface.AnalogValue.XML.Root"
 msgstr "ModellElementAnalogerWert"
 
+msgid "Surface.AnimationAlarm.Dialog.Section.Condition"
+msgstr "Bedingung für Sound-Ausgabe"
+
+msgid "Surface.AnimationAlarm.Dialog.Section.Condition.Condition"
+msgstr "Bedingung"
+
+msgid "Surface.AnimationAlarm.Dialog.Section.Condition.Condition.Error.Info"
+msgstr "Die angegebene Bedingung \"%s\" ist ab Zeichen %d fehlerhaft."
+
+msgid "Surface.AnimationAlarm.Dialog.Section.Condition.Condition.Error.Title"
+msgstr "Ungültige Bedingung"
+
+msgid "Surface.AnimationAlarm.Dialog.Section.Condition.CounterPart1"
+msgstr "Sound alle"
+
+msgid "Surface.AnimationAlarm.Dialog.Section.Condition.CounterPart2"
+msgstr "Kundenankünfte auslösen"
+
+msgid "Surface.AnimationAlarm.Dialog.Section.Condition.Repeat"
+msgstr "Wiederholung"
+
+msgid "Surface.AnimationAlarm.Dialog.Section.Condition.Repeat.Multi"
+msgstr "Bei jeder Kundenankunft (bei Erfüllung der Bedingungen)"
+
+msgid "Surface.AnimationAlarm.Dialog.Section.Condition.Repeat.OnlyOnce"
+msgstr "Nur Einmal"
+
+msgid "Surface.AnimationAlarm.Dialog.Section.Condition.UseCondition"
+msgstr "Nur Sound ausgeben, wenn Bedingung erfüllt ist"
+
+msgid "Surface.AnimationAlarm.Dialog.Section.Sound"
+msgstr "Sound-Ausgabe"
+
 msgid "Surface.AnimationAlarm.Dialog.Title"
 msgstr "Alarm bearbeiten"
 
@@ -24597,6 +24654,18 @@ msgstr "Alarm"
 
 msgid "Surface.AnimationAlarm.Tooltip"
 msgstr "Spielt einen Sound ab, wenn ein Kunde die Station passiert."
+
+msgid "Surface.AnimationAlarm.XML.Condition"
+msgstr "ModellElementAnimationAlarmBedingung"
+
+msgid "Surface.AnimationAlarm.XML.Condition.ClientType"
+msgstr "Kundentyp"
+
+msgid "Surface.AnimationAlarm.XML.Condition.Counter"
+msgstr "Zaehler"
+
+msgid "Surface.AnimationAlarm.XML.Condition.OnlyOnce"
+msgstr "NurEinmal"
 
 msgid "Surface.AnimationAlarm.XML.Root"
 msgstr "ModellElementAnimationAlarm"

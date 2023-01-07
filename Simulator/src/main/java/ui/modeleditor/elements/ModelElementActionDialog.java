@@ -27,6 +27,7 @@ import language.Language;
 import tools.JTableExt;
 import ui.infopanel.InfoPanel;
 import ui.modeleditor.ModelElementBaseDialog;
+import ui.tools.SoundSystem;
 
 /**
  * Dialog, der Einstellungen für ein {@link ModelElementAction}-Element anbietet
@@ -101,5 +102,11 @@ public class ModelElementActionDialog extends ModelElementBaseDialog {
 		super.storeData();
 
 		tableData.storeData();
+	}
+
+	@Override
+	public void setVisible(final boolean visible) {
+		if (!visible) SoundSystem.getInstance().stopSoundFile();
+		super.setVisible(visible);
 	}
 }
