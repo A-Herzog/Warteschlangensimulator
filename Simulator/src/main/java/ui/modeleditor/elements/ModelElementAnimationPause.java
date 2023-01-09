@@ -24,6 +24,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 import language.Language;
+import mathtools.NumberTools;
 import simulator.editmodel.EditModel;
 import simulator.editmodel.FullTextSearch;
 import ui.images.Images;
@@ -41,6 +42,33 @@ import ui.modeleditor.fastpaint.Shapes;
  * @author Alexander Herzog
  */
 public class ModelElementAnimationPause extends ModelElementMultiInSingleOutBox {
+	/**
+	 * Soll nur einmal oder immer angehalten werden?
+	 * @see #isOnlyOneActivation()
+	 * @see #setOnlyOneActivation(boolean)
+	 */
+	private boolean onlyOneActivation;
+
+	/**
+	 * Soll bei jedem Kundentyp oder nur bei einem bestimmten Kundentyp angehalten werden?
+	 * @see #getClientType()
+	 * @see #setClientType(String)
+	 */
+	private String clientType;
+
+	/**
+	 * Bedingung, die für das Anhalten erfüllt sein muss
+	 * @see #getCondition()
+	 * @see #setCondition(String)
+	 */
+	private String condition;
+
+	/**
+	 * Soll bei jeder Ankunft (&le;0) oder nur bei jeder n-ten Ankunft (&gt;0) angehalten werden?
+	 * @see #getCounter()
+	 * @see #setCounter(long)
+	 */
+	private long counter;
 
 	/**
 	 * Konstruktor der Klasse
@@ -49,6 +77,10 @@ public class ModelElementAnimationPause extends ModelElementMultiInSingleOutBox 
 	 */
 	public ModelElementAnimationPause(final EditModel model, final ModelSurface surface) {
 		super(model,surface,Shapes.ShapeType.SHAPE_ROUNDED_RECTANGLE_PAUSE);
+		onlyOneActivation=false;
+		clientType="";
+		condition="";
+		counter=0;
 	}
 
 	/**
@@ -78,7 +110,31 @@ public class ModelElementAnimationPause extends ModelElementMultiInSingleOutBox 
 	public boolean equalsModelElement(ModelElement element) {
 		if (!super.equalsModelElement(element)) return false;
 		if (!(element instanceof ModelElementAnimationPause)) return false;
+		final ModelElementAnimationPause otherPause=(ModelElementAnimationPause)element;
+
+		if (onlyOneActivation!=otherPause.onlyOneActivation) return false;
+		if (!clientType.equals(otherPause.clientType)) return false;
+		if (!condition.equals(otherPause.condition)) return false;
+		if (counter!=otherPause.counter) return false;
+
 		return true;
+	}
+
+	/**
+	 * Überträgt die Einstellungen von dem angegebenen Element auf dieses.
+	 * @param element	Element, von dem alle Einstellungen übernommen werden sollen
+	 */
+	@Override
+	public void copyDataFrom(ModelElement element) {
+		super.copyDataFrom(element);
+		if (element instanceof ModelElementAnimationPause) {
+			final ModelElementAnimationPause source=(ModelElementAnimationPause)element;
+
+			onlyOneActivation=source.onlyOneActivation;
+			clientType=source.clientType;
+			condition=source.condition;
+			counter=source.counter;
+		}
 	}
 
 	/**
@@ -92,6 +148,70 @@ public class ModelElementAnimationPause extends ModelElementMultiInSingleOutBox 
 		final ModelElementAnimationPause element=new ModelElementAnimationPause(model,surface);
 		element.copyDataFrom(this);
 		return element;
+	}
+
+	/**
+	 * Soll nur einmal oder immer angehalten werden?
+	 * @return	Soll nur einmal oder immer angehalten werden?
+	 */
+	public boolean isOnlyOneActivation() {
+		return onlyOneActivation;
+	}
+
+	/**
+	 * Stellt ein, ob nur einmal oder bei jeder Kundenankunft angehalten werden soll.
+	 * @param onlyOneActivation	Soll nur einmal oder immer angehalten werden?
+	 */
+	public void setOnlyOneActivation(final boolean onlyOneActivation) {
+		this.onlyOneActivation=onlyOneActivation;
+	}
+
+	/**
+	 * Soll bei jedem Kundentyp oder nur bei einem bestimmten Kundentyp angehalten werden?
+	 * @return	Kundentyp, bei dem angehalten werden soll (oder leerer String für alle Kundentypen)
+	 */
+	public String getClientType() {
+		return clientType;
+	}
+
+	/**
+	 * Stellt ein, ob bei jedem Kundentyp oder nur bei einem bestimmten Kundentyp angehalten werden soll.
+	 * @param clientType	Kundentyp, bei dem angehalten werden soll (oder leerer String für alle Kundentypen)
+	 */
+	public void setClientType(final String clientType) {
+		this.clientType=(clientType==null)?"":clientType;
+	}
+
+	/**
+	 * Liefert die Bedingung, die für das Anhalten erfüllt sein muss.
+	 * @return	Bedingung, die für das Anhalten erfüllt sein muss (kann <code>null</code> sein)
+	 */
+	public String getCondition() {
+		return condition;
+	}
+
+	/**
+	 * Stellt die Bedingung, die für das Anhalten erfüllt sein muss, ein.
+	 * @param condition	Bedingung, die für das Anhalten erfüllt sein muss (kann <code>null</code> sein)
+	 */
+	public void setCondition(final String condition) {
+		this.condition=(condition==null)?"":condition;
+	}
+
+	/**
+	 * Soll bei jeder Ankunft (&le;0) oder nur bei jeder n-ten Ankunft (&gt;0) angehalten werden?
+	 * @return	Soll bei jeder Ankunft (&le;0) oder nur bei jeder n-ten Ankunft (&gt;0) angehalten werden?
+	 */
+	public long getCounter() {
+		return counter;
+	}
+
+	/**
+	 * Stellt ein, ob bei jeder Ankunft (&le;0) oder nur bei jeder n-ten Ankunft (&gt;0) angehalten werden.
+	 * @param counter	Soll bei jeder Ankunft (&le;0) oder nur bei jeder n-ten Ankunft (&gt;0) angehalten werden?
+	 */
+	public void setCounter(final long counter) {
+		this.counter=(counter<0)?0:counter;
 	}
 
 	/**
@@ -159,6 +279,15 @@ public class ModelElementAnimationPause extends ModelElementMultiInSingleOutBox 
 	@Override
 	protected void addPropertiesDataToXML(final Document doc, final Element node) {
 		super.addPropertiesDataToXML(doc,node);
+
+		if (onlyOneActivation || !clientType.isEmpty() || !condition.isEmpty() || counter>1) {
+			final Element sub=doc.createElement(Language.trPrimary("Surface.AnimationPause.XML.Condition"));
+			node.appendChild(sub);
+			if (onlyOneActivation) sub.setAttribute(Language.tr("Surface.AnimationPause.XML.Condition.OnlyOnce"),"1");
+			if (!clientType.isEmpty()) sub.setAttribute(Language.tr("Surface.AnimationPause.XML.Condition.ClientType"),clientType);
+			if (counter>1) sub.setAttribute(Language.tr("Surface.AnimationPause.XML.Condition.Counter"),""+counter);
+			if (!condition.isEmpty()) sub.setTextContent(condition);
+		}
 	}
 
 	/**
@@ -172,6 +301,19 @@ public class ModelElementAnimationPause extends ModelElementMultiInSingleOutBox 
 	protected String loadProperty(final String name, final String content, final Element node) {
 		String error=super.loadProperty(name,content,node);
 		if (error!=null) return error;
+
+		if (Language.trAll("Surface.AnimationPause.XML.Condition",name)) {
+			onlyOneActivation=Language.trAllAttribute("Surface.AnimationPause.XML.Condition.OnlyOnce",node).equals("1");
+			clientType=Language.trAllAttribute("Surface.AnimationPause.XML.Condition.ClientType",node);
+			final String counterString=Language.trAllAttribute("Surface.AnimationPause.XML.Condition.Counter",node);
+			if (!counterString.isEmpty()) {
+				final Long L=NumberTools.getNotNegativeLong(counterString);
+				if (L==null || L<2) counter=0; else counter=L;
+			}
+			condition=content;
+			return null;
+		}
+
 		return null;
 	}
 
@@ -196,6 +338,11 @@ public class ModelElementAnimationPause extends ModelElementMultiInSingleOutBox 
 	@Override
 	public void buildDescription(final ModelDescriptionBuilder descriptionBuilder) {
 		super.buildDescription(descriptionBuilder);
+
+		if (onlyOneActivation) descriptionBuilder.addProperty(Language.tr("ModelDescription.AnimationPause.OnlyOnce"),Language.tr("ModelDescription.AnimationPause.OnlyOnce.Yes"),1000);
+		if (!clientType.isEmpty()) descriptionBuilder.addProperty(Language.tr("ModelDescription.AnimationPause.ClientType"),clientType,2000);
+		if (counter>1) descriptionBuilder.addProperty(Language.tr("ModelDescription.AnimationPause.Counter"),NumberTools.formatLong(counter),3000);
+		if (!condition.isEmpty()) descriptionBuilder.addProperty(Language.tr("ModelDescription.AnimationPause.Condition"),clientType,4000);
 	}
 
 	/**
@@ -205,6 +352,8 @@ public class ModelElementAnimationPause extends ModelElementMultiInSingleOutBox 
 	 * @see FullTextSearch
 	 */
 	public void search(final FullTextSearch searcher, final ModelElementBox station) {
-		/* Keine eigenen Einstellungen */
+		if (!clientType.isEmpty()) searcher.testString(station,Language.tr("Editor.DialogBase.Search.ClientType"),clientType,newClientType->clientType=newClientType);
+		if (!condition.isEmpty()) searcher.testString(station,Language.tr("Editor.DialogBase.Search.Condition"),condition,newCondition->condition=newCondition);
+		if (counter>0) searcher.testLong(station,Language.tr("Editor.DialogBase.Search.TriggerDistanceCount"),counter,newCounter->counter=(newCounter>1)?newCounter:0);
 	}
 }

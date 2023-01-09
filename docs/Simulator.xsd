@@ -1905,7 +1905,19 @@
   </xs:extension>
 </xs:simpleContent></xs:complexType></xs:element>
 
-<xs:element name="ModellElementPause" type="ModellElementVerbundenBasis"/>
+<xs:element name="ModellElementPause"><xs:complexType><xs:complexContent><xs:extension base="ModellElementVerbundenBasis">
+  <xs:sequence minOccurs="0" maxOccurs="unbounded"><xs:choice>
+    <xs:element ref="ModellElementAnimationPauseBedingung"/>
+  </xs:choice></xs:sequence>
+</xs:extension></xs:complexContent></xs:complexType></xs:element>
+
+<xs:element name="ModellElementAnimationPauseBedingung"><xs:complexType><xs:simpleContent>
+  <xs:extension base="xs:string">
+    <xs:attribute name="NurEinmal" type="xs:string"/>
+	<xs:attribute name="Kundentyp" type="xs:string"/>
+	<xs:attribute name="Zaehler" type="xs:string"/>
+  </xs:extension>
+</xs:simpleContent></xs:complexType></xs:element>
 
 <xs:element name="ModellElementUntermodell"><xs:complexType><xs:complexContent><xs:extension base="ModellElementVerbundenBasis">
   <xs:sequence minOccurs="0" maxOccurs="unbounded"><xs:choice>
@@ -4286,7 +4298,19 @@
   </xs:extension>
 </xs:simpleContent></xs:complexType></xs:element>
 
-<xs:element name="ModelElementPause" type="ModelElementConnectedBase"/>
+<xs:element name="ModelElementPause"><xs:complexType><xs:complexContent><xs:extension base="ModelElementConnectedBase">
+  <xs:sequence minOccurs="0" maxOccurs="unbounded"><xs:choice>
+    <xs:element ref="ModelElementAnimationPauseCondition"/>
+  </xs:choice></xs:sequence>
+</xs:extension></xs:complexContent></xs:complexType></xs:element>
+
+<xs:element name="ModelElementAnimationPauseCondition"><xs:complexType><xs:simpleContent>
+  <xs:extension base="xs:string">
+    <xs:attribute name="OnlyOnce" type="xs:string"/>
+	<xs:attribute name="ClientType" type="xs:string"/>
+	<xs:attribute name="Counter" type="xs:string"/>
+  </xs:extension>
+</xs:simpleContent></xs:complexType></xs:element>
 
 <xs:element name="ModelElementSubModel"><xs:complexType><xs:complexContent><xs:extension base="ModelElementConnectedBase">
   <xs:sequence minOccurs="0" maxOccurs="unbounded"><xs:choice>

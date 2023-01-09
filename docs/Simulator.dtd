@@ -1751,12 +1751,18 @@
   Zaehler	CDATA	#IMPLIED
 >
 
-<!ELEMENT ModellElementPause (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementBoxSchriftGross | ModellElementBoxSchriftKlein | ModellElementMaximalerDurchsatzSekunden | ModellElementEbene | ModellElementLinienBreite | ModellElementLinienFarbe | ModellElementHintergrundfarbe | ModellElementStationsbild | ModellElementVerbindung)*>
+<!ELEMENT ModellElementPause (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementBoxSchriftGross | ModellElementBoxSchriftKlein | ModellElementMaximalerDurchsatzSekunden | ModellElementEbene | ModellElementLinienBreite | ModellElementLinienFarbe | ModellElementHintergrundfarbe | ModellElementStationsbild | ModellElementVerbindung | ModellElementAnimationPauseBedingung)*>
 <!ATTLIST ModellElementPause
   id			CDATA	#REQUIRED
   geschuetzt	CDATA	#IMPLIED
   statistik		CDATA	#IMPLIED
   SymbolSpiegeln	CDATA	#IMPLIED
+>
+<!ELEMENT ModellElementAnimationPauseBedingung (#PCDATA)>
+<!ATTLIST ModellElementAnimationPauseBedingung
+  NurEinmal	CDATA	#IMPLIED
+  Kundentyp	CDATA	#IMPLIED
+  Zaehler	CDATA	#IMPLIED
 >
 
 <!ELEMENT ModellElementUntermodell (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementBoxSchriftGross | ModellElementBoxSchriftKlein | ModellElementMaximalerDurchsatzSekunden | ModellElementWarteschlangeAnimationVollstaendig | ModellElementEbene | ModellElementHintergrundfarbe | ModellElementStationsbild | ModellElementVerbindung | ModellElementUntermodellVerbindungen | ModellElemente)*>
@@ -4364,12 +4370,18 @@
   Counter		CDATA	#IMPLIED
 >
 
-<!ELEMENT ModelElementPause (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBoxFontLarge | ModelElementBoxFontSmall | ModelElementMaximumThroughputSeconds | ModelElementLayer | ModelElementBackgroundColor | ModelElementStationimage | ModelElementConnection)*>
+<!ELEMENT ModelElementPause (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBoxFontLarge | ModelElementBoxFontSmall | ModelElementMaximumThroughputSeconds | ModelElementLayer | ModelElementBackgroundColor | ModelElementStationimage | ModelElementConnection | ModelElementAnimationPauseCondition)*>
 <!ATTLIST ModelElementPause
   id		CDATA	#REQUIRED
   protected	CDATA	#IMPLIED
   statistics	CDATA	#IMPLIED
   MirrorSymbol	CDATA	#IMPLIED
+>
+<!ELEMENT ModelElementAnimationPauseCondition (#PCDATA)>
+<!ATTLIST ModelElementAnimationPauseCondition
+  OnlyOnce		CDATA	#IMPLIED
+  ClientType	CDATA	#IMPLIED
+  Counter		CDATA	#IMPLIED
 >
 
 <!ELEMENT ModelElementSubModel (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBoxFontLarge | ModelElementBoxFontSmall | ModelElementMaximumThroughputSeconds | ModelElementQueueAnimationComplete | ModelElementLayer | ModelElementBackgroundColor | ModelElementStationimage | ModelElementConnection | ModelElementSubModelConnections | ModelElements)*>

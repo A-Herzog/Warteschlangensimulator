@@ -108,6 +108,16 @@ public class AnimationPanelBreakPointsDialog extends BaseDialog {
 	private final JList<ModelSurfaceAnimatorBase.BreakPoint> breakpointList;
 
 	/**
+	 * Datenliste aller Pause-Stationen
+	 */
+	private final List<ModelElementAnimationPause> pauseStations;
+
+	/**
+	 * Liste der Pause-Stationen
+	 */
+	private final JList<ElementRendererTools.InfoRecord> pauseList;
+
+	/**
 	 * Schaltfläche: Haltepunkt bearbeiten
 	 */
 	private final JButton breakpointButtonEdit;
@@ -116,6 +126,11 @@ public class AnimationPanelBreakPointsDialog extends BaseDialog {
 	 * Schaltfläche: Haltepunkt löschen
 	 */
 	private final JButton breakpointButtonDelete;
+
+	/**
+	 * Schaltfläche: Pause-Station anzeigen
+	 */
+	private final JButton pauseButtonShow;
 
 	/**
 	 * Konstruktor der Klasse
@@ -132,7 +147,7 @@ public class AnimationPanelBreakPointsDialog extends BaseDialog {
 		this.animator=animator;
 		clientTypes=simData.runModel.clientTypes;
 		breakpoints=animator.getBreakPoints();
-		final List<ModelElementAnimationPause> pauseStations=getAllPauseStations(model);
+		pauseStations=getAllPauseStations(model);
 
 		/* GUI */
 		final JPanel all=createGUI(()->Help.topicModal(this.owner,"AnimationBreakpoints"));
@@ -144,13 +159,13 @@ public class AnimationPanelBreakPointsDialog extends BaseDialog {
 		content.add(tabs,BorderLayout.CENTER);
 
 		JPanel tab;
+		JToolBar toolBar;
 
 		/* Tab "Haltepunkte" */
 		if (breakpoints.size()>0) {
 			tabs.addTab(Language.tr("Editor.Breakpoints.TabBreakpoints"),tab=new JPanel(new BorderLayout()));
-			final JToolBar toolBar=new JToolBar(SwingConstants.HORIZONTAL);
+			tab.add(toolBar=new JToolBar(SwingConstants.HORIZONTAL),BorderLayout.NORTH);
 			toolBar.setFloatable(false);
-			tab.add(toolBar,BorderLayout.NORTH);
 			toolBar.add(breakpointButtonEdit=new JButton(Language.tr("Editor.Breakpoints.TabBreakpoints.Edit"),Images.GENERAL_EDIT.getIcon()));
 			breakpointButtonEdit.setToolTipText(Language.tr("Editor.Breakpoints.TabBreakpoints.Edit.Tooltip"));
 			breakpointButtonEdit.addActionListener(e->editBreakpoint());
@@ -186,12 +201,35 @@ public class AnimationPanelBreakPointsDialog extends BaseDialog {
 		/* Tab "Pause-Stationen" */
 		if (pauseStations.size()>0) {
 			tabs.addTab(Language.tr("Editor.Breakpoints.TabPauseStations"),tab=new JPanel(new BorderLayout()));
+			tab.add(toolBar=new JToolBar(SwingConstants.HORIZONTAL),BorderLayout.NORTH);
+			toolBar.setFloatable(false);
+			toolBar.add(pauseButtonShow=new JButton(Language.tr("Editor.Breakpoints.TabPauseStations.Show"),Images.ANIMATION_BREAKPOINTS_PAUSE_STATIONS.getIcon()));
+			pauseButtonShow.setToolTipText(Language.tr("Editor.Breakpoints.TabPauseStations.Show.Tooltip"));
+			pauseButtonShow.addActionListener(e->showPauseStation());
 			final DefaultListModel<ElementRendererTools.InfoRecord> data=new DefaultListModel<>();
 			for (ModelElementAnimationPause station: pauseStations) data.addElement(ElementRendererTools.getRecord(model.surface,station));
-			final JList<ElementRendererTools.InfoRecord> list=new JList<>(data);
-			tab.add(new JScrollPane(list));
-			list.setCellRenderer(new ElementRendererTools.InfoRecordListCellRenderer(ElementRendererTools.GradientStyle.OFF));
+			pauseList=new JList<>(data);
+			tab.add(new JScrollPane(pauseList),BorderLayout.CENTER);
+			pauseList.setCellRenderer(new ElementRendererTools.InfoRecordListCellRenderer(ElementRendererTools.GradientStyle.OFF));
+			pauseList.addListSelectionListener(e->updateButtons());
+			pauseList.addKeyListener(new KeyAdapter() {
+				@Override
+				public void keyPressed(KeyEvent e) {
+					if (e.getKeyCode()==KeyEvent.VK_ENTER) {showPauseStation(); e.consume(); return;}
+				}
+			});
+			pauseList.addMouseListener(new MouseAdapter() {
+				@Override
+				public void mousePressed(MouseEvent e) {
+					if (e.getClickCount()==2 && SwingUtilities.isLeftMouseButton(e)) {showPauseStation(); e.consume(); return;}
+				}
+			});
+		} else {
+			pauseButtonShow=null;
+			pauseList=null;
 		}
+
+		updateButtons();
 
 		/* Icons auf Tabs */
 		int index=0;
@@ -236,9 +274,13 @@ public class AnimationPanelBreakPointsDialog extends BaseDialog {
 	 * Aktualisiert den Aktivierungsstatus der Schaltflächen
 	 */
 	private void updateButtons() {
-		if (breakpointList==null) return;
-		if (breakpointButtonEdit!=null) breakpointButtonEdit.setEnabled(breakpointList.getSelectedIndex()>=0);
-		if (breakpointButtonDelete!=null) breakpointButtonDelete.setEnabled(breakpointList.getSelectedIndex()>=0);
+		if (breakpointList!=null) {
+			if (breakpointButtonEdit!=null) breakpointButtonEdit.setEnabled(breakpointList.getSelectedIndex()>=0);
+			if (breakpointButtonDelete!=null) breakpointButtonDelete.setEnabled(breakpointList.getSelectedIndex()>=0);
+		}
+		if (pauseList!=null) {
+			if (pauseButtonShow!=null) pauseButtonShow.setEnabled(pauseList.getSelectedIndex()>=0);
+		}
 	}
 
 	/**
@@ -269,6 +311,16 @@ public class AnimationPanelBreakPointsDialog extends BaseDialog {
 
 		breakpoints.remove(index);
 		updateBreakpointsList(-1);
+	}
+
+	/**
+	 * Befehl: Pause-Station anzeigen
+	 */
+	private void showPauseStation() {
+		if (pauseList==null || pauseList.getSelectedIndex()<0) return;
+
+		final int index=pauseList.getSelectedIndex();
+		pauseStations.get(index).getProperties(this,true,model.clientData,model.sequences).run();
 	}
 
 	/**

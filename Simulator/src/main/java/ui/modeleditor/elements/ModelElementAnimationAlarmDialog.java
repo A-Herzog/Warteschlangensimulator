@@ -139,6 +139,7 @@ public class ModelElementAnimationAlarmDialog extends ModelElementBaseDialog {
 		content.add((JPanel)data[0]);
 		onlyOneActivation=(JComboBox<?>)data[1];
 		onlyOneActivation.setSelectedIndex(alarm.isOnlyOneActivation()?0:1);
+		onlyOneActivation.setEnabled(!readOnly);
 
 		data=ModelBreakPointDialog.getClientTypesComboBox(model);
 		content.add((JPanel)data[0]);
@@ -150,14 +151,17 @@ public class ModelElementAnimationAlarmDialog extends ModelElementBaseDialog {
 			final int index=clientTypesNames.indexOf(clientTypeName);
 			if (index<0) clientType.setSelectedIndex(0); else clientType.setSelectedIndex(1+index);
 		}
+		clientType.setEnabled(!readOnly);
 
 		content.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
 		line.add(useCondition=new JCheckBox(Language.tr("Surface.AnimationAlarm.Dialog.Section.Condition.UseCondition")+":",!alarm.getCondition().isEmpty()));
 		useCondition.addActionListener(e->checkData(false));
+		useCondition.setEnabled(!readOnly);
 
 		data=ModelElementBaseDialog.getInputPanel(Language.tr("Surface.AnimationAlarm.Dialog.Section.Condition.Condition")+":",alarm.getCondition());
 		content.add(line=(JPanel)data[0]);
 		condition=(JTextField)data[1];
+		condition.setEnabled(!readOnly);
 		condition.addKeyListener(new KeyListener() {
 			@Override public void keyTyped(KeyEvent e) {checkData(false); useCondition.setSelected(true);}
 			@Override public void keyReleased(KeyEvent e) {checkData(false); useCondition.setSelected(true);}
@@ -172,6 +176,7 @@ public class ModelElementAnimationAlarmDialog extends ModelElementBaseDialog {
 		editor.getFormat().setGroupingUsed(false);
 		editor.getTextField().setColumns(8);
 		counterSpinner.setEditor(editor);
+		counterSpinner.setEnabled(!readOnly);
 		line.add(counterSpinner);
 		label.setLabelFor(counterSpinner);
 		line.add(new JLabel(Language.tr("Surface.AnimationAlarm.Dialog.Section.Condition.CounterPart2")));

@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-06 17:57+0100\n"
+"POT-Creation-Date: 2023-01-08 14:02+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -3412,6 +3412,12 @@ msgstr "Only effective if condition <b>%s</b> is met."
 
 msgid "Editor.Breakpoints.TabPauseStations"
 msgstr "Pause stations"
+
+msgid "Editor.Breakpoints.TabPauseStations.Show"
+msgstr "Show station"
+
+msgid "Editor.Breakpoints.TabPauseStations.Show.Tooltip"
+msgstr "Opens the station data dialog."
 
 msgid "Editor.Check.Error"
 msgstr "The model is invalid."
@@ -11402,6 +11408,21 @@ msgstr "Yes"
 msgid "ModelDescription.AnimationAlarm.Sound"
 msgstr "Sound"
 
+msgid "ModelDescription.AnimationPause.ClientType"
+msgstr "Trigger on client type"
+
+msgid "ModelDescription.AnimationPause.Condition"
+msgstr "Trigger when condition is met"
+
+msgid "ModelDescription.AnimationPause.Counter"
+msgstr "Distance (in client arrivals) between two triggers"
+
+msgid "ModelDescription.AnimationPause.OnlyOnce"
+msgstr "Trigger only once"
+
+msgid "ModelDescription.AnimationPause.OnlyOnce.Yes"
+msgstr "Yes"
+
 msgid "ModelDescription.Arrival"
 msgstr "Arrivals"
 
@@ -18163,6 +18184,9 @@ msgstr "At element id=%d no table to write the data to was specified."
 
 msgid "Simulation.Creator.OutputDDE.NoWorkbook"
 msgstr "At element id=%d no workbook to write the data to was specified."
+
+msgid "Simulation.Creator.PauseCondition"
+msgstr "The condition \"%s\" at element id=%d is invalid at character %d."
 
 msgid "Simulation.Creator.ProcessBatchRange"
 msgstr "For element id=%d a smaller maximum batch size than a minimum batch size was specified."
@@ -25281,6 +25305,33 @@ msgstr "ModelElementAnimationLCDExpression"
 msgid "Surface.AnimationLCD.XML.Root"
 msgstr "ModelElementAnimationLCD"
 
+msgid "Surface.AnimationPause.Dialog.Condition"
+msgstr "Condition"
+
+msgid "Surface.AnimationPause.Dialog.Condition.Error.Info"
+msgstr "The specified condition \"%s\" is invalid at character %d."
+
+msgid "Surface.AnimationPause.Dialog.Condition.Error.Title"
+msgstr "Invalid condition"
+
+msgid "Surface.AnimationPause.Dialog.Condition.Use"
+msgstr "Stop only if condition is met"
+
+msgid "Surface.AnimationPause.Dialog.CounterPart1"
+msgstr "Trigger breakpoint every"
+
+msgid "Surface.AnimationPause.Dialog.CounterPart2"
+msgstr "client arrivals"
+
+msgid "Surface.AnimationPause.Dialog.Repetition"
+msgstr "Repetition"
+
+msgid "Surface.AnimationPause.Dialog.Repetition.OnEachClientArrival"
+msgstr "At each client arrival (if the conditions are met)"
+
+msgid "Surface.AnimationPause.Dialog.Repetition.OnlyOnce"
+msgstr "Only once"
+
 msgid "Surface.AnimationPause.Dialog.Title"
 msgstr "Edit pause animation"
 
@@ -25292,6 +25343,18 @@ msgstr "Pause animation"
 
 msgid "Surface.AnimationPause.Tooltip"
 msgstr "Pause animation on client arrival."
+
+msgid "Surface.AnimationPause.XML.Condition"
+msgstr "ModelElementAnimationPauseCondition"
+
+msgid "Surface.AnimationPause.XML.Condition.ClientType"
+msgstr "ClientType"
+
+msgid "Surface.AnimationPause.XML.Condition.Counter"
+msgstr "Counter"
+
+msgid "Surface.AnimationPause.XML.Condition.OnlyOnce"
+msgstr "OnlyOnce"
 
 msgid "Surface.AnimationPause.XML.Root"
 msgstr "ModelElementPause"

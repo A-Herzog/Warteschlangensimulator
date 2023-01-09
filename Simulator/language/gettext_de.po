@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-06 17:57+0100\n"
+"POT-Creation-Date: 2023-01-08 14:02+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -3417,6 +3417,12 @@ msgstr "Nur wirksam, wenn die Bedingung <b>%s</b> erfüllt ist."
 
 msgid "Editor.Breakpoints.TabPauseStations"
 msgstr "Pause-Stationen"
+
+msgid "Editor.Breakpoints.TabPauseStations.Show"
+msgstr "Station anzeigen"
+
+msgid "Editor.Breakpoints.TabPauseStations.Show.Tooltip"
+msgstr "Öffnet den Stationsdatendialog."
 
 msgid "Editor.Check.Error"
 msgstr "Modell ist fehlerhaft."
@@ -11399,6 +11405,21 @@ msgstr "Ja"
 msgid "ModelDescription.AnimationAlarm.Sound"
 msgstr "Sound"
 
+msgid "ModelDescription.AnimationPause.ClientType"
+msgstr "Auslösen bei Kundentyp"
+
+msgid "ModelDescription.AnimationPause.Condition"
+msgstr "Auslösen wenn Bedingung erfüllt ist"
+
+msgid "ModelDescription.AnimationPause.Counter"
+msgstr "Abstand (in Kundenankünften) zwischen zwei Auslösungen"
+
+msgid "ModelDescription.AnimationPause.OnlyOnce"
+msgstr "Nur einmal auslösen"
+
+msgid "ModelDescription.AnimationPause.OnlyOnce.Yes"
+msgstr "Ja"
+
 msgid "ModelDescription.Arrival"
 msgstr "Ankünfte"
 
@@ -18177,6 +18198,9 @@ msgstr "Bei Element id=%d wurde keine Tabelle, in die die Daten geschrieben werd
 
 msgid "Simulation.Creator.OutputDDE.NoWorkbook"
 msgstr "Bei Element id=%d wurde keine Arbeitsmappe, in die die Daten geschrieben werden sollen, angegeben."
+
+msgid "Simulation.Creator.PauseCondition"
+msgstr "Die Bedingung \"%s\" von Element id=%d enthält an Position %d einen Fehler."
 
 msgid "Simulation.Creator.ProcessBatchRange"
 msgstr "Für Element id=%d ist kleinere maximale Batch-Größe als die minimale Batch-Größe angegeben."
@@ -25297,6 +25321,33 @@ msgstr "ModellElementAnimationLCDAusdruck"
 msgid "Surface.AnimationLCD.XML.Root"
 msgstr "ModellElementAnimationLCD"
 
+msgid "Surface.AnimationPause.Dialog.Condition"
+msgstr "Bedingung"
+
+msgid "Surface.AnimationPause.Dialog.Condition.Error.Info"
+msgstr "Die angegebene Bedingung \"%s\" ist ab Zeichen %d fehlerhaft."
+
+msgid "Surface.AnimationPause.Dialog.Condition.Error.Title"
+msgstr "Ungültige Bedingung"
+
+msgid "Surface.AnimationPause.Dialog.Condition.Use"
+msgstr "Nur anhalten, wenn Bedingung erfüllt ist"
+
+msgid "Surface.AnimationPause.Dialog.CounterPart1"
+msgstr "Haltepunkt alle"
+
+msgid "Surface.AnimationPause.Dialog.CounterPart2"
+msgstr "Kundenankünfte auslösen"
+
+msgid "Surface.AnimationPause.Dialog.Repetition"
+msgstr "Wiederholung"
+
+msgid "Surface.AnimationPause.Dialog.Repetition.OnEachClientArrival"
+msgstr "Bei jeder Kundenankunft (bei Erfüllung der Bedingungen)"
+
+msgid "Surface.AnimationPause.Dialog.Repetition.OnlyOnce"
+msgstr "Nur Einmal"
+
 msgid "Surface.AnimationPause.Dialog.Title"
 msgstr "Animation pausieren bearbeiten"
 
@@ -25308,6 +25359,18 @@ msgstr "Animation pausieren"
 
 msgid "Surface.AnimationPause.Tooltip"
 msgstr "Pausiert die Animation beim Eintreffen eines Kunden."
+
+msgid "Surface.AnimationPause.XML.Condition"
+msgstr "ModellElementAnimationPauseBedingung"
+
+msgid "Surface.AnimationPause.XML.Condition.ClientType"
+msgstr "Kundentyp"
+
+msgid "Surface.AnimationPause.XML.Condition.Counter"
+msgstr "Zaehler"
+
+msgid "Surface.AnimationPause.XML.Condition.OnlyOnce"
+msgstr "NurEinmal"
 
 msgid "Surface.AnimationPause.XML.Root"
 msgstr "ModellElementPause"
