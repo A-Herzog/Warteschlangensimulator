@@ -166,9 +166,10 @@ public final class RunDataClients {
 	 * Liefert ein neues <code>RunDataClient</code>-Objekt (entweder in dem es angelegt wird oder aber aus dem Cache)
 	 * @param type	Kundentyp (Index im <code>RunModel.clientTypes</code>-Array)
 	 * @param simData	Simulationsdaten
+	 * @param sourceStationID	ID der Station, an der der Kunde erzeugt wurde oder der Typ neu zugewiesen wurde
 	 * @return	Liefert das neue Kundendaten-Objekt
 	 */
-	public RunDataClient getClient(final int type, final SimulationData simData) {
+	public RunDataClient getClient(final int type, final SimulationData simData, final int sourceStationID) {
 		clientNumber++;
 		RunDataClient client;
 		if (clientCacheUsed>0) {
@@ -193,6 +194,8 @@ public final class RunDataClients {
 
 		if (clientsInUse!=null) clientsInUse.add(client);
 		if (clientsInUseFast!=null) clientsInUseFast.add(client);
+
+		client.sourceStationID=sourceStationID;
 		return client;
 	}
 
@@ -216,7 +219,7 @@ public final class RunDataClients {
 	 * @return	Neues Kundendatenobjekt
 	 */
 	public RunDataClient getClone(final RunDataClient client, final SimulationData simData) {
-		RunDataClient clone=getClient(client.type,simData);
+		RunDataClient clone=getClient(client.type,simData,client.sourceStationID);
 		clone.copyDataFrom(client,simData,this);
 		return clone;
 	}

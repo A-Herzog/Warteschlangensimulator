@@ -206,7 +206,7 @@ public class RunElementPickUp extends RunElementPassThrough implements StateChan
 				boolean isLastClient=client.isLastClient || otherClient.isLastClient;
 
 				/* Neuen Kunden anlegen */
-				batchedClient=simData.runData.clients.getClient(newClientType,simData);
+				batchedClient=simData.runData.clients.getClient(newClientType,simData,id);
 				batchedClient.isLastClient=isLastClient;
 
 				/* Kunde in Batch aufnehmen */
@@ -227,7 +227,7 @@ public class RunElementPickUp extends RunElementPassThrough implements StateChan
 				simData.runData.clients.disposeClient(otherClient,simData);
 
 				/* Neuen Kunden anlegen */
-				batchedClient=simData.runData.clients.getClient(newClientType,simData);
+				batchedClient=simData.runData.clients.getClient(newClientType,simData,id);
 				batchedClient.isLastClient=isLastClient;
 			}
 

@@ -1824,6 +1824,10 @@ Liefert 0 oder 1 zurück in Abhängigkeit davon, ob der Kunde in der Statistik e
 Liefert die 1-basierende fortlaufende Nummer des aktuellen Kunden. Bei der Verwendung von mehreren Simulationsthreads ist diese Zahl thread-lokal.
 
 \item
+\cmd{KundeQuelleID()} oder \cmd{ClientSourceID()}:\\
+Liefert die ID der Station, an der der aktuelle Kunde erzeugt wurde oder an der ihm sein aktueller Typ zugewiesen wurde.
+
+\item
 \cmd{ClientData(index)} oder \cmd{KundenDaten(index)}:\\
 Liefert das an Stelle \cm{index} im aktuellen Kundenobjekt hinterlegte Datenfeld.\\
 In den ,,Variable''-Elementen kann schreibend auf diese Felder zugegriffen werden.

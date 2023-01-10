@@ -174,7 +174,7 @@ public class RunElementSplit extends RunElementPassThrough {
 		for (int i=1;i<=batchSize;i++) {
 
 			/* Kunde anlegen */
-			final RunDataClient newClient=simData.runData.clients.getClient(records[index].clientType,simData);
+			final RunDataClient newClient=simData.runData.clients.getClient(records[index].clientType,simData,id);
 			newClient.isWarmUp=isWarmUpClient;
 			newClient.isLastClient=isLastClient;
 

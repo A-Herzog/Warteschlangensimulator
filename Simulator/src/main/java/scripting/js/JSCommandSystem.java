@@ -234,6 +234,15 @@ public final class JSCommandSystem extends JSBaseCommand {
 	}
 
 	/**
+	 * Liefert die ID der Station, an der der aktuelle Kunde erzeugt wurde oder an der ihm sein aktueller Typ zugewiesen wurde.
+	 * @return	ID der Station
+	 */
+	public int getSourceStationID() {
+		if (client==null) return 0;
+		return client.sourceStationID;
+	}
+
+	/**
 	 * Liefert die bisherige Wartezeit des aktuellen Kunden in Sekunden als Zahlenwert
 	 * @return Bisherige Wartezeit des aktuellen Kunden
 	 * @see JSCommandSystem#setSimulationData(SimulationData, int, RunDataClient)

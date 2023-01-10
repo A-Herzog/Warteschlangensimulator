@@ -38,6 +38,14 @@ public interface ClientsInterface {
 	 * @return	Type name of the client 
 	 */
 	String clientTypeName(final int index);
+	
+	/**
+	 * Returns the ID of the station where the current client was created
+	 * or where it was assigned its current type.
+	 * @param index	0-based index of the client
+	 * @return	ID of the station
+	 */	
+	int clientSourceStationID(final int index);
 
 	/**
 	 * Returns the content of a client data field.

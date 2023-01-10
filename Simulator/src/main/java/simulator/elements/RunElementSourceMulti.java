@@ -215,7 +215,7 @@ public class RunElementSourceMulti extends RunElement implements StateChangeList
 		for (int i=1;i<=batchSize;i++) {
 
 			/* Kunde anlegen */
-			final RunDataClient newClient=simData.runData.clients.getClient(records[index].clientType,simData);
+			final RunDataClient newClient=simData.runData.clients.getClient(records[index].clientType,simData,id);
 
 			/* Zahlen und Strings zuweisen */
 			records[index].writeStringsToClient(newClient);

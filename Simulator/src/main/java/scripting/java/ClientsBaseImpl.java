@@ -67,6 +67,12 @@ public abstract class ClientsBaseImpl implements ClientsInterface {
 	}
 
 	@Override
+	public int clientSourceStationID(final int index) {
+		if (index<0 || index>=count) return 0;
+		return clients.get(index).sourceStationID;
+	}
+
+	@Override
 	public double clientData(final int index, final int data) {
 		if (index<0 || index>=count) return 0.0;
 		return clients.get(index).getUserData(data);

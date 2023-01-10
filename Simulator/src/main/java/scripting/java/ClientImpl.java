@@ -126,6 +126,12 @@ public class ClientImpl implements ClientInterface {
 	}
 
 	@Override
+	public int getSourceStationID() {
+		if (client==null) return 0;
+		return client.sourceStationID;
+	}
+
+	@Override
 	public double getWaitingSeconds() {
 		if (client==null) return 0;
 		return client.waitingTime*toSec;

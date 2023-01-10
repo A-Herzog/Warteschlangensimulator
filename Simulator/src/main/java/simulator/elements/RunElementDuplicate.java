@@ -145,7 +145,7 @@ public class RunElementDuplicate extends RunElement {
 			if (nr>=0) {
 				/* Kundentyp zuweisen */
 				RunDataClient newClient=data.newClientsList[i];
-				newClient.changeType(nr,simData);
+				newClient.changeType(nr,simData,id);
 				newClient.iconLast=newClient.icon;
 				newClient.icon=clientTypeIcons[i];
 

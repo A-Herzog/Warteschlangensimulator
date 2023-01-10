@@ -411,6 +411,10 @@ was triggered by a client. The following methods are available in this interface
   Gets the name of the type of the client who has triggered the processing of the script.
   </li>
   
+  <li><tt>int getSourceStationID()</tt><br>
+  Returns the ID of the station where the current client was created or where it was assigned its current type.
+  </li>
+  
   <li><tt>boolean isWarmUp()</tt><br>
   Gets true of false depending if the current client was generated during the warm-up phase and
   therefore will not be recorded in the statistics.
@@ -612,6 +616,9 @@ and allows to access the waiting clients and to release them.
   </li>
   <li><tt>String clientTypeName(final int index)</tt><br>
   Gets the name of the type of the client.
+  </li>
+  <li><tt>int clientSourceStationID(final int index)</tt><br>
+  Returns the ID of the station where the current client was created or where it was assigned its current type.
   </li>
   <li><tt>double clientWaitingSeconds(final int index)</tt><br>
   Gets the current waiting time of the client as a seconds numerical value.

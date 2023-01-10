@@ -2476,6 +2476,12 @@ public class ExpressionBuilderSimulationData {
 			addTreeNodeClient(
 					sub,
 					filterUpper,
+					Language.tr("ExpressionBuilder.SimulationCharacteristics.ClientData.ClientSourceID")+" (ClientSourceID)",
+					"ClientSourceID()",
+					Language.tr("ExpressionBuilder.SimulationCharacteristics.ClientData.ClientSourceID.Info"));
+			addTreeNodeClient(
+					sub,
+					filterUpper,
 					Language.tr("ExpressionBuilder.SimulationCharacteristics.ClientData.ClientData")+" (ClientData)",
 					"ClientData(index)",
 					Language.tr("ExpressionBuilder.SimulationCharacteristics.ClientData.ClientData.Info"));

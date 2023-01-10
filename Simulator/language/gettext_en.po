@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-08 14:02+0100\n"
+"POT-Creation-Date: 2023-01-09 08:03+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -6601,6 +6601,12 @@ msgstr "Consecutive number"
 
 msgid "ExpressionBuilder.SimulationCharacteristics.ClientData.ClientNumber.Info"
 msgstr "Returns the 1-based consecutive number of the current client. If using multiple simulation threads this number is thread-local."
+
+msgid "ExpressionBuilder.SimulationCharacteristics.ClientData.ClientSourceID"
+msgstr "Source station ID"
+
+msgid "ExpressionBuilder.SimulationCharacteristics.ClientData.ClientSourceID.Info"
+msgstr "Returns the ID of the station where the current client was created or where it was assigned its current type."
 
 msgid "ExpressionBuilder.SimulationCharacteristics.ClientData.PreviousStation"
 msgstr "Previous station"
@@ -16283,6 +16289,12 @@ msgstr "Consecutive number of the client"
 msgid "ScriptPopup.Client.getNumber.Hint"
 msgstr "Get the consecutive number of the client"
 
+msgid "ScriptPopup.Client.getSourceStationID"
+msgstr "Source station ID"
+
+msgid "ScriptPopup.Client.getSourceStationID.Hint"
+msgstr "Returns the ID of the station where the current client was created or where it was assigned its current type."
+
 msgid "ScriptPopup.Client.getTypeName"
 msgstr "Name of the type of the client"
 
@@ -16348,6 +16360,12 @@ msgstr "Set client data (number)"
 
 msgid "ScriptPopup.Clients.clientDataSet.Hint"
 msgstr "Sets a number-based client property"
+
+msgid "ScriptPopup.Clients.clientSourceStationID"
+msgstr "Source station ID"
+
+msgid "ScriptPopup.Clients.clientSourceStationID.Hint"
+msgstr "Returns the ID of the station where the current client was created or where it was assigned its current type."
 
 msgid "ScriptPopup.Clients.clientTextData"
 msgstr "Get client data (text)"

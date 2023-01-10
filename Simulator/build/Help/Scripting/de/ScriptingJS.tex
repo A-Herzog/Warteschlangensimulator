@@ -357,6 +357,11 @@ Liefert den Namen des Typs des Kunden, der die Verarbeitung des Skripts ausgelö
 (Sofern das Ereignis direkt durch einen Kunden ausgelöst wurde.)
 
 \item
+\cmd{Simulation.int getSourceStationID()}:\\
+Liefert die ID der Station, an der der aktuelle Kunde erzeugt wurde oder an der ihm sein aktueller Typ zugewiesen wurde.\\
+(Sofern das Ereignis direkt durch einen Kunden ausgelöst wurde.)
+
+\item
 \cmd{Simulation.isWarmUpClient()}:\\
 Liefert wahr oder falsch zurück in Abhängigkeit, ob der Kunde während der Einschwingphase generiert wurde und
 daher nicht in der Statistik erfasst werden soll.\\
@@ -714,6 +719,10 @@ Kunden zugegriffen werden.
 \item
 \cmd{Clients.clientTypeName(index)}:\\
 Liefert den Namen des Typs des Kunden.
+
+\item
+\cmd{clientSourceStationID(index):}\\
+Liefert die ID der Station, an der der aktuelle Kunde erzeugt wurde oder an der ihm sein aktueller Typ zugewiesen wurde.
 
 \item
 \cmd{Clients.clientWaitingSeconds(index)}:\\

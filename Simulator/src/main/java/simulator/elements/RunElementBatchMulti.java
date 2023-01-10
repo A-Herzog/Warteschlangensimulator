@@ -256,7 +256,7 @@ public class RunElementBatchMulti extends RunElementPassThrough {
 		}
 
 		/* Neuen Kunden anlegen */
-		final RunDataClient batchedClient=simData.runData.clients.getClient(newClientType[type],simData);
+		final RunDataClient batchedClient=simData.runData.clients.getClient(newClientType[type],simData,id);
 
 		for (int i=0;i<data.waiting[type];i++) {
 			/* Wartezeit in Statistik */
@@ -321,7 +321,7 @@ public class RunElementBatchMulti extends RunElementPassThrough {
 		}
 
 		/* Neuen Kunden anlegen */
-		final RunDataClient batchedClient=simData.runData.clients.getClient(newClientType[type],simData);
+		final RunDataClient batchedClient=simData.runData.clients.getClient(newClientType[type],simData,id);
 
 		for (int i=0;i<data.waiting[type];i++) {
 			/* Wartezeit in Statistik */

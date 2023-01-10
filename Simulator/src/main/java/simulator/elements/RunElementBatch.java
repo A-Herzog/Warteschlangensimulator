@@ -474,7 +474,7 @@ public class RunElementBatch extends RunElementPassThrough {
 		}
 
 		/* Neuen Kunden anlegen */
-		final RunDataClient batchedClient=simData.runData.clients.getClient(newClientType,simData);
+		final RunDataClient batchedClient=simData.runData.clients.getClient(newClientType,simData,id);
 
 		for (int i=0;i<data.waiting;i++) {
 			/* Wartezeit in Statistik */
@@ -540,7 +540,7 @@ public class RunElementBatch extends RunElementPassThrough {
 		}
 
 		/* Neuen Kunden anlegen */
-		final RunDataClient batchedClient=simData.runData.clients.getClient(newClientType,simData);
+		final RunDataClient batchedClient=simData.runData.clients.getClient(newClientType,simData,id);
 
 		for (int i=0;i<data.waiting;i++) {
 			/* Wartezeit in Statistik */

@@ -319,6 +319,11 @@ Gets the name of the type of the client who has triggered the processing of the 
 (If the event was triggered by a client.)
 
 \item
+\cmd{Simulation.int getSourceStationID()}:\\
+Returns the ID of the station where the current client was created or where it was assigned its current type.\\
+(If the event was triggered by a client.)
+
+\item
 \cmd{Simulation.isWarmUpClient()}:\\
 Gets true of false depending if the current client was generated during the warm-up phase and
 therefore will not be recorded in the statistics.\\
@@ -679,6 +684,10 @@ methods a single client can be accessed via the index parameter
 \item
 \cmd{Clients.clientTypeName(index)}:\\
 Gets the name of the type of the client.
+
+\item
+\cmd{clientSourceStationID(index):}\\
+Returns the ID of the station where the current client was created or where it was assigned its current type.
 
 \item
 \cmd{Clients.clientWaitingSeconds(index)}:\\

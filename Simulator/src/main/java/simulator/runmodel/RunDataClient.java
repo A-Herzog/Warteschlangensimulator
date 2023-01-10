@@ -68,6 +68,11 @@ public class RunDataClient {
 	public int typeLast;
 
 	/**
+	 * ID der Station, an der der Kunde erzeugt wurde oder der Typ neu zugewiesen wurde
+	 */
+	public int sourceStationID;
+
+	/**
 	 * Handelt es sich um einen Kunden, der während der Warm-Up-Phase erstellt wurde?
 	 * Wenn ja, nicht in der Statistik erfassen.
 	 */
@@ -908,21 +913,24 @@ public class RunDataClient {
 	/**
 	 * Ändert den Typ des aktuellen Kunden und benachrichtigt die Statistik für die
 	 * Zählung der Anzahl an Kunden im System pro Typ. Beim Erstellen von Kunden
-	 * ({@link RunDataClients#getClient(int, SimulationData)}) und bei der Freigabe von
+	 * ({@link RunDataClients#getClient(int, SimulationData, int)}) und bei der Freigabe von
 	 * Kunden ({@link RunDataClients#disposeClientWithoutStatistics(RunDataClient, SimulationData)})
 	 * erfolgt diese Statistikzählung automatisch.
 	 * @param newType	Neuer Kundentyp
 	 * @param simData	Simulationsdatenobjekt
+	 * @param stationID	ID der Station, an der die Zuweisung erfolgt ist
 	 * @see #type
 	 * @see #typeLast
 	 */
-	public void changeType(final int newType, final SimulationData simData) {
+	public void changeType(final int newType, final SimulationData simData, final int stationID) {
 		if (type==newType) return;
 
 		typeLast=type;
 		simData.runData.logClientsInSystemChange(simData,type,-1);
 		type=newType;
 		simData.runData.logClientsInSystemChange(simData,type,1);
+
+		sourceStationID=stationID;
 	}
 
 	/**

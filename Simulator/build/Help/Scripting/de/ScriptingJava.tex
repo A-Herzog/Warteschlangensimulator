@@ -520,7 +520,11 @@ Wahrscheinlichkeitsverteilungen, den Erlang-C-Rechner usw.
 \item
 \cmd{String getTypeName()}:\\
 Liefert den Namen des Typs des Kunden, der die Verarbeitung des Skripts ausgelöst hat.
-    
+
+\item
+\cmd{int getSourceStationID()}:\\
+Liefert die ID der Station, an der der aktuelle Kunde erzeugt wurde oder an der ihm sein aktueller Typ zugewiesen wurde.
+
 \item
 \cmd{boolean isWarmUp()}:\\
 Liefert wahr oder falsch zurück in Abhängigkeit, ob der Kunde während der Einschwingphase generiert wurde und
@@ -723,6 +727,10 @@ Kunden zugegriffen werden.
 \item
 \cmd{String clientTypeName(final int index)}:\\
 Liefert den Namen des Typs des Kunden.
+
+\item
+\cmd{int clientSourceStationID(final int index)}:\\
+Liefert die ID der Station, an der der aktuelle Kunde erzeugt wurde oder an der ihm sein aktueller Typ zugewiesen wurde.
 
 \item
 \cmd{double clientWaitingSeconds(final int index)}:\\

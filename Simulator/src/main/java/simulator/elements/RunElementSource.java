@@ -181,7 +181,7 @@ public class RunElementSource extends RunElement implements StateChangeListener,
 			}
 
 			/* Kunde anlegen */
-			final RunDataClient newClient=simData.runData.clients.getClient(record.clientType,simData);
+			final RunDataClient newClient=simData.runData.clients.getClient(record.clientType,simData,id);
 
 			/* Zahlen und Strings zuweisen */
 			data.recordData.setData.writeNumbersToClient(simData,newClient,name);

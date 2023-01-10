@@ -1835,6 +1835,10 @@ Gets 0 or 1 depending on whether the client is to be recorded in the statistics 
 Returns the 1-based consecutive number of the current client. If using multiple simulation threads this number is thread-local.
 
 \item
+\cmd{KundeQuelleID()} or \cmd{ClientSourceID()}:\\
+Returns the ID of the station where the current client was created or where it was assigned its current type.
+
+\item
 \cmd{ClientData(index)}:\\
 Gets the data field at position \cm{index} from the current client object.\\
 The "Variable" elements can be used to write to these fields.

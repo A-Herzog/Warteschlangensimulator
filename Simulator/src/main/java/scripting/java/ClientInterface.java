@@ -66,6 +66,12 @@ public interface ClientInterface {
 	String getTypeName();
 
 	/**
+	 * Liefert die ID der Station, an der der aktuelle Kunde erzeugt wurde oder an der ihm sein aktueller Typ zugewiesen wurde.
+	 * @return	ID der Station
+	 */
+	int getSourceStationID();
+
+	/**
 	 * Liefert die bisherige Wartezeit des aktuellen Kunden in Sekunden als Zahlenwert
 	 * @return Bisherige Wartezeit des aktuellen Kunden
 	 * @see ClientInterface#getWaitingTime()

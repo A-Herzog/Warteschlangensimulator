@@ -41,6 +41,13 @@ public interface ClientsInterface {
 	String clientTypeName(final int index);
 
 	/**
+	 * Liefert die ID der Station, an der der aktuelle Kunde erzeugt wurde oder an der ihm sein aktueller Typ zugewiesen wurde.
+	 * @param index	0-basierender Index des Kunden
+	 * @return	ID der Station
+	 */
+	int clientSourceStationID(final int index);
+
+	/**
 	 * Liefert ein Client-Daten-Element eines Kunden
 	 * @param index	0-basierender Index des Kunden
 	 * @param data	Index des Datenelements

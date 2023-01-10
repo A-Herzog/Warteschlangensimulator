@@ -65,6 +65,13 @@ public interface ClientInterface {
 	 * @return	Name of the client type
 	 */
 	String getTypeName();
+	
+	/**
+	 * Returns the ID of the station where the current client was created
+	 * or where it was assigned its current type.
+	 * @return	ID of the station
+	 */
+	int getSourceStationID();
 
 	/**
 	 * Returns the current waiting time of the client who has triggered the processing of the script as a seconds numerical value.

@@ -285,6 +285,11 @@ späteren Filterung der Ergebnisse nicht verwendet werden. Das Objekt stellt fol
   Liefert den Namen des Typs des Kunden, der die Verarbeitung des Skripts ausgelöst hat.<br>
   (Sofern das Ereignis direkt durch einen Kunden ausgelöst wurde.)
   </li>
+  
+  <li><tt>Simulation.getSourceStationID()</tt><br>
+  Liefert die ID der Station, an der der aktuelle Kunde erzeugt wurde oder an der ihm sein aktueller Typ zugewiesen wurde.
+  (Sofern das Ereignis direkt durch einen Kunden ausgelöst wurde.)
+  </li>
 
   <li><tt>Simulation.isWarmUpClient()</tt><br>
   Liefert wahr oder falsch zurück in Abhängigkeit, ob der Kunde während der Einschwingphase generiert wurde und
@@ -626,6 +631,9 @@ einzelne Kunden freizugeben.
   </li>  
   <li><tt>Clients.clientTypeName(index)</tt><br>
   Liefert den Namen des Typs des Kunden.
+  </li>
+  <li><tt>Clients.clientSourceStationID(index)</tt><br>
+  Liefert die ID der Station, an der der aktuelle Kunde erzeugt wurde oder an der ihm sein aktueller Typ zugewiesen wurde.
   </li>
   <li><tt>Clients.clientWaitingSeconds(index)</tt><br>
   Liefert die bisherige Wartezeit des Kunden als Sekunden-Zahlenwert zurück.

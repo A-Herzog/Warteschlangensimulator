@@ -641,6 +641,7 @@ public class ScriptEditorAreaBuilder {
 		String clientsDelayCount="";
 		String clientsDelayRelease="";
 		String clientsDelayTypeName="";
+		String clientsDelaySourceStationID="";
 		String clientsDelayDataGet="";
 		String clientsDelayDataSet="";
 		String clientsDelayTextDataGet="";
@@ -654,6 +655,7 @@ public class ScriptEditorAreaBuilder {
 
 		String clientsProcessQueueCount="";
 		String clientsProcessQueueTypeName="";
+		String clientsProcessQueueSourceStationID="";
 		String clientsProcessQueueDataGet="";
 		String clientsProcessQueueDataSet="";
 		String clientsProcessQueueTextDataGet="";
@@ -694,6 +696,7 @@ public class ScriptEditorAreaBuilder {
 			clientsDelayCount="Simulation.getDelayStationData(id).count();";
 			clientsDelayRelease="Simulation.getDelayStationData(id).release(index);";
 			clientsDelayTypeName="Simulation.getDelayStationData(id).clientTypeName(index);";
+			clientsDelaySourceStationID="Simulation.getDelayStationData(id).clientSourceStationID(index);";
 			clientsDelayDataGet="Simulation.getDelayStationData(id).clientData(index,data);";
 			clientsDelayDataSet="Simulation.getDelayStationData(id).clientData(index,data,value);";
 			clientsDelayTextDataGet="Simulation.getDelayStationData(id).clientTextData(index,key);";
@@ -706,6 +709,7 @@ public class ScriptEditorAreaBuilder {
 			clientsDelayProcessTime="Simulation.getDelayStationData(id).clientProcessTime(index);";
 			clientsProcessQueueCount="Simulation.getProcessStationQueueData(id).count();";
 			clientsProcessQueueTypeName="Simulation.getProcessStationQueueData(id).clientTypeName(index);";
+			clientsProcessQueueSourceStationID="Simulation.getProcessStationQueueData(id).clientSourceStationID(index);";
 			clientsProcessQueueDataGet="Simulation.getProcessStationQueueData(id).clientData(index,data);";
 			clientsProcessQueueDataSet="Simulation.getProcessStationQueueData(id).clientData(index,data,value);";
 			clientsProcessQueueTextDataGet="Simulation.getProcessStationQueueData(id).clientTextData(index,key);";
@@ -748,6 +752,7 @@ public class ScriptEditorAreaBuilder {
 			clientsDelayCount="sim.getSystem().getDelayStationData(id).count();";
 			clientsDelayRelease="sim.getSystem().getDelayStationData(id).release(index);";
 			clientsDelayTypeName="sim.getSystem().getDelayStationData(id).clientTypeName(index);";
+			clientsDelaySourceStationID="sim.getSystem().getDelayStationData(id).clientSourceStationID(index);";
 			clientsDelayDataGet="sim.getSystem().getDelayStationData(id).clientData(index,data);";
 			clientsDelayDataSet="sim.getSystem().getDelayStationData(id).clientData(index,data,value);";
 			clientsDelayTextDataGet="sim.getSystem().getDelayStationData(id).clientTextData(index,key);";
@@ -760,6 +765,7 @@ public class ScriptEditorAreaBuilder {
 			clientsDelayProcessTime="sim.getSystem().getDelayStationData(id).clientProcessTime(index);";
 			clientsProcessQueueCount="sim.getSystem().getProcessStationQueueData(id).count();";
 			clientsProcessQueueTypeName="sim.getSystem().getProcessStationQueueData(id).clientTypeName(index);";
+			clientsProcessQueueSourceStationID="sim.getSystem().getProcessStationQueueData(id).clientSourceStationID(index);";
 			clientsProcessQueueDataGet="sim.getSystem().getProcessStationQueueData(id).clientData(index,data);";
 			clientsProcessQueueDataSet="sim.getSystem().getProcessStationQueueData(id).clientData(index,data,value);";
 			clientsProcessQueueTextDataGet="sim.getSystem().getProcessStationQueueData(id).clientTextData(index,key);";
@@ -814,6 +820,7 @@ public class ScriptEditorAreaBuilder {
 
 		addAutoComplete(Language.tr("ScriptPopup.Clients.release"),Language.tr("ScriptPopup.Clients.release.Hint"),Images.SCRIPT_RECORD_RELEASE.getIcon(),clientsDelayRelease);
 		addAutoComplete(Language.tr("ScriptPopup.Clients.clientTypeName"),Language.tr("ScriptPopup.Clients.clientTypeName.Hint"),Images.SCRIPT_RECORD_DATA_CLIENT.getIcon(),clientsDelayTypeName);
+		addAutoComplete(Language.tr("ScriptPopup.Clients.clientSourceStationID"),Language.tr("ScriptPopup.Clients.clientSourceStationID.Hint"),Images.SCRIPT_RECORD_DATA_CLIENT.getIcon(),clientsDelaySourceStationID);
 		addAutoComplete(Language.tr("ScriptPopup.Clients.clientData"),Language.tr("ScriptPopup.Clients.clientData.Hint"),Images.SCRIPT_RECORD_DATA_CLIENT.getIcon(),clientsDelayDataGet);
 		addAutoComplete(Language.tr("ScriptPopup.Clients.clientDataSet"),Language.tr("ScriptPopup.Clients.clientDataSet.Hint"),Images.SCRIPT_RECORD_DATA_CLIENT.getIcon(),clientsDelayDataSet);
 		addAutoComplete(Language.tr("ScriptPopup.Clients.clientTextData"),Language.tr("ScriptPopup.Clients.clientTextData.Hint"),Images.SCRIPT_RECORD_DATA_CLIENT.getIcon(),clientsDelayTextDataGet);
@@ -832,6 +839,7 @@ public class ScriptEditorAreaBuilder {
 		addAutoComplete(Language.tr("ScriptPopup.Clients.count"),Language.tr("ScriptPopup.Clients.count.Hint"),Images.SCRIPT_RECORD_DATA_COUNTER.getIcon(),clientsProcessQueueCount);
 
 		addAutoComplete(Language.tr("ScriptPopup.Clients.clientTypeName"),Language.tr("ScriptPopup.Clients.clientTypeName.Hint"),Images.SCRIPT_RECORD_DATA_CLIENT.getIcon(),clientsProcessQueueTypeName);
+		addAutoComplete(Language.tr("ScriptPopup.Clients.clientSourceStationID"),Language.tr("ScriptPopup.Clients.clientSourceStationID.Hint"),Images.SCRIPT_RECORD_DATA_CLIENT.getIcon(),clientsProcessQueueSourceStationID);
 		addAutoComplete(Language.tr("ScriptPopup.Clients.clientData"),Language.tr("ScriptPopup.Clients.clientData.Hint"),Images.SCRIPT_RECORD_DATA_CLIENT.getIcon(),clientsProcessQueueDataGet);
 		addAutoComplete(Language.tr("ScriptPopup.Clients.clientDataSet"),Language.tr("ScriptPopup.Clients.clientDataSet.Hint"),Images.SCRIPT_RECORD_DATA_CLIENT.getIcon(),clientsProcessQueueDataSet);
 		addAutoComplete(Language.tr("ScriptPopup.Clients.clientTextData"),Language.tr("ScriptPopup.Clients.clientTextData.Hint"),Images.SCRIPT_RECORD_DATA_CLIENT.getIcon(),clientsProcessQueueTextDataGet);
@@ -857,6 +865,7 @@ public class ScriptEditorAreaBuilder {
 
 		String clientCalc="";
 		String clientTypeName="";
+		String clientSourceStationID="";
 		String clientWarmUp="";
 		String clientInStatistics="";
 		String clientSetInStatistics="";
@@ -894,6 +903,7 @@ public class ScriptEditorAreaBuilder {
 		if (language==ScriptMode.Javascript) {
 			clientCalc="Simulation.calc(\"1+2\");";
 			clientTypeName="Simulation.clientTypeName();";
+			clientSourceStationID="Simulation.getSourceStationID();";
 			clientWarmUp="Simulation.isWarmUpClient();";
 			clientInStatistics="Simulation.isClientInStatistics();";
 			clientSetInStatistics="Simulation.setClientInStatistics(true);";
@@ -936,6 +946,7 @@ public class ScriptEditorAreaBuilder {
 		if (language==ScriptMode.Java) {
 			clientCalc="sim.getClient().calc(\"1+2\");";
 			clientTypeName="sim.getClient().getTypeName();";
+			clientSourceStationID="sim.getClient().getSourceStationID();";
 			clientWarmUp="sim.getClient().isWarmUp();";
 			clientInStatistics="sim.getClient().isInStatistics();";
 			clientSetInStatistics="sim.getClient().setInStatistics(true);";
@@ -978,6 +989,7 @@ public class ScriptEditorAreaBuilder {
 		addAutoComplete(Language.tr("ScriptPopup.Client.Calc"),Language.tr("ScriptPopup.Client.Calc.Hint"),Images.SCRIPT_RECORD_EXPRESSION.getIcon(),clientCalc);
 
 		addAutoComplete(Language.tr("ScriptPopup.Client.getTypeName"),Language.tr("ScriptPopup.Client.getTypeName.Hint"),Images.SCRIPT_RECORD_DATA_CLIENT.getIcon(),clientTypeName);
+		addAutoComplete(Language.tr("ScriptPopup.Client.getSourceStationID"),Language.tr("ScriptPopup.Client.getSourceStationID.Hint"),Images.SCRIPT_RECORD_DATA_CLIENT.getIcon(),clientSourceStationID);
 		addAutoComplete(Language.tr("ScriptPopup.Client.getNumber"),Language.tr("ScriptPopup.Client.getNumber.Hint"),Images.SCRIPT_RECORD_DATA_CLIENT.getIcon(),clientNumber);
 		addAutoComplete(Language.tr("ScriptPopup.Client.isWarmUp"),Language.tr("ScriptPopup.Client.isWarmUp.Hint"),Images.SCRIPT_RECORD_DATA_CLIENT.getIcon(),clientWarmUp);
 		addAutoComplete(Language.tr("ScriptPopup.Client.isInStatistics"),Language.tr("ScriptPopup.Client.isInStatistics.Hint"),Images.SCRIPT_RECORD_DATA_CLIENT.getIcon(),clientInStatistics);
@@ -1037,6 +1049,7 @@ public class ScriptEditorAreaBuilder {
 		String clientsCount="";
 		String clientsRelease="";
 		String clientsTypeName="";
+		String clientsSourceStationID="";
 		String clientsDataGet="";
 		String clientsDataSet="";
 		String clientsTextDataGet="";
@@ -1058,6 +1071,7 @@ public class ScriptEditorAreaBuilder {
 			clientsCount="Clients.count();";
 			clientsRelease="Clients.release(index);";
 			clientsTypeName="Clients.clientTypeName(index);";
+			clientsSourceStationID="Clients.clientSourceStationID(index);";
 			clientsDataGet="Clients.clientData(index,data);";
 			clientsDataSet="Clients.clientData(index,data,value);";
 			clientsTextDataGet="Clients.clientTextData(index,key);";
@@ -1080,6 +1094,7 @@ public class ScriptEditorAreaBuilder {
 			clientsCount="sim.getClients().count();";
 			clientsRelease="sim.getClients().release(index);";
 			clientsTypeName="sim.getClients().clientTypeName(index);";
+			clientsSourceStationID="sim.getClients().clientSourceStationID(index);";
 			clientsDataGet="sim.getClients().clientData(index,data);";
 			clientsDataSet="sim.getClients().clientData(index,data,value);";
 			clientsTextDataGet="sim.getClients().clientTextData(index,key);";
@@ -1102,6 +1117,7 @@ public class ScriptEditorAreaBuilder {
 
 		addAutoComplete(Language.tr("ScriptPopup.Clients.release"),Language.tr("ScriptPopup.Clients.release.Hint"),Images.SCRIPT_RECORD_RELEASE.getIcon(),clientsRelease);
 		addAutoComplete(Language.tr("ScriptPopup.Clients.clientTypeName"),Language.tr("ScriptPopup.Clients.clientTypeName.Hint"),Images.SCRIPT_RECORD_DATA_CLIENT.getIcon(),clientsTypeName);
+		addAutoComplete(Language.tr("ScriptPopup.Clients.clientSourceStationID"),Language.tr("ScriptPopup.Clients.clientSourceStationID.Hint"),Images.SCRIPT_RECORD_DATA_CLIENT.getIcon(),clientsSourceStationID);
 		addAutoComplete(Language.tr("ScriptPopup.Clients.clientData"),Language.tr("ScriptPopup.Clients.clientData.Hint"),Images.SCRIPT_RECORD_DATA_CLIENT.getIcon(),clientsDataGet);
 		addAutoComplete(Language.tr("ScriptPopup.Clients.clientDataSet"),Language.tr("ScriptPopup.Clients.clientDataSet.Hint"),Images.SCRIPT_RECORD_DATA_CLIENT.getIcon(),clientsDataSet);
 		addAutoComplete(Language.tr("ScriptPopup.Clients.clientTextData"),Language.tr("ScriptPopup.Clients.clientTextData.Hint"),Images.SCRIPT_RECORD_DATA_CLIENT.getIcon(),clientsTextDataGet);

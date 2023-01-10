@@ -265,6 +265,11 @@ The following methods are in this object available:
   (If the event was triggered by a client.)
   </li>
   
+  <li><tt>Simulation.getSourceStationID()</tt><br>
+  Returns the ID of the station where the current client was created or where it was assigned its current type.
+  (If the event was triggered by a client.)
+  </li>
+  
   <li><tt>Simulation.isWarmUpClient()</tt><br>
   Gets true of false depending if the current client was generated during the warm-up phase and
   therefore will not be recorded in the statistics.<br>
@@ -607,6 +612,9 @@ and allows to access the waiting clients and to release them.
   </li>
   <li><tt>Clients.clientTypeName(index)</tt><br>
   Gets the name of the type of the client.
+  </li>
+  <li><tt>Clients.clientSourceStationID(index)</tt><br>
+  Returns the ID of the station where the current client was created or where it was assigned its current type.
   </li>
   <li><tt>Clients.clientWaitingSeconds(index)</tt><br>
   Gets the current waiting time of the client as a seconds numerical value.

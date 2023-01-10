@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-08 14:02+0100\n"
+"POT-Creation-Date: 2023-01-09 08:03+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -6594,6 +6594,12 @@ msgstr "Fortlaufende Nummer"
 
 msgid "ExpressionBuilder.SimulationCharacteristics.ClientData.ClientNumber.Info"
 msgstr "Liefert die 1-basierende fortlaufende Nummer des aktuellen Kunden. Bei der Verwendung von mehreren Simulationsthreads ist diese Zahl thread-lokal."
+
+msgid "ExpressionBuilder.SimulationCharacteristics.ClientData.ClientSourceID"
+msgstr "Quellstations ID"
+
+msgid "ExpressionBuilder.SimulationCharacteristics.ClientData.ClientSourceID.Info"
+msgstr "Liefert die ID der Station, an der der aktuelle Kunde erzeugt wurde oder an der ihm sein aktueller Typ zugewiesen wurde."
 
 msgid "ExpressionBuilder.SimulationCharacteristics.ClientData.PreviousStation"
 msgstr "Vorherige Station"
@@ -16292,6 +16298,12 @@ msgstr "Fortlaufende Nummer des Kunden"
 msgid "ScriptPopup.Client.getNumber.Hint"
 msgstr "Liefert die fortlaufende Nummer des aktuellen Kunden"
 
+msgid "ScriptPopup.Client.getSourceStationID"
+msgstr "Quellstations ID"
+
+msgid "ScriptPopup.Client.getSourceStationID.Hint"
+msgstr "Liefert die ID der Station, an der der aktuelle Kunde erzeugt wurde oder an der ihm sein aktueller Typ zugewiesen wurde."
+
 msgid "ScriptPopup.Client.getTypeName"
 msgstr "Namen des Typs des Kunden"
 
@@ -16357,6 +16369,12 @@ msgstr "Kundendaten einstellen (Zahl)"
 
 msgid "ScriptPopup.Clients.clientDataSet.Hint"
 msgstr "Stellt eine zahlenbasierte Kundeneigenschaft ein"
+
+msgid "ScriptPopup.Clients.clientSourceStationID"
+msgstr "Quellstations ID"
+
+msgid "ScriptPopup.Clients.clientSourceStationID.Hint"
+msgstr "Liefert die ID der Station, an der der aktuelle Kunde erzeugt wurde oder an der ihm sein aktueller Typ zugewiesen wurde."
 
 msgid "ScriptPopup.Clients.clientTextData"
 msgstr "Kundendaten (Text)"

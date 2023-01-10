@@ -501,7 +501,11 @@ the Erlang C calculator, etc.
 \item
 \cmd{String getTypeName()}:\\
 Gets the name of the type of the client who has triggered the processing of the script.
-  
+
+\item
+\cmd{int getSourceStationID()}:\\
+Returns the ID of the station where the current client was created or where it was assigned its current type.
+
 \item
 \cmd{boolean isWarmUp()}:\\
 Gets \cm{true} of \cm{false} depending if the current client was generated during the warm-up phase and
@@ -701,6 +705,10 @@ methods a single client can be accessed via the index parameter
 \item
 \cmd{String clientTypeName(final int index)}:\\
 Gets the name of the type of the client.
+
+\item
+\cmd{int clientSourceStationID(final int index)}:\\
+Returns the ID of the station where the current client was created or where it was assigned its current type.
 
 \item
 \cmd{double clientWaitingSeconds(final int index)}:\\

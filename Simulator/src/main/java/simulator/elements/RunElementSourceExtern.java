@@ -446,7 +446,7 @@ public abstract class RunElementSourceExtern extends RunElement implements RunSo
 		}
 
 		/* Kunde anlegen */
-		final RunDataClient newClient=simData.runData.clients.getClient(clientTypes[index],simData);
+		final RunDataClient newClient=simData.runData.clients.getClient(clientTypes[index],simData,id);
 
 		final Arrival arrival=arrivals[index][data.nextIndex[index]-1];
 

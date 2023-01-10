@@ -269,7 +269,7 @@ public class RunElementMatch extends RunElementPassThrough implements StateChang
 	 */
 	private void processSendTemporaryBatchedClients(final SimulationData simData, final RunElementMatchData data, final RunDataClient newClient, final int newClientQueueNumber, final int[] selectQueuedClients) {
 		/* Neuen Kunden anlegen */
-		final RunDataClient batchedClient=simData.runData.clients.getClient(newClientType,simData);
+		final RunDataClient batchedClient=simData.runData.clients.getClient(newClientType,simData,id);
 
 		/* Logging */
 		if (simData.loggingActive) log(simData,Language.tr("Simulation.Log.MatchNewClient"),String.format(Language.tr("Simulation.Log.MatchNewClient.Info"),batchedClient.logInfo(simData),name));
@@ -437,7 +437,7 @@ public class RunElementMatch extends RunElementPassThrough implements StateChang
 		}
 
 		/* Neuen Kunden anlegen */
-		final RunDataClient batchedClient=simData.runData.clients.getClient(newClientType,simData);
+		final RunDataClient batchedClient=simData.runData.clients.getClient(newClientType,simData,id);
 		batchedClient.isLastClient=isLastClient;
 
 		/* Daten von den alten Kunden auf den neuen Batch-Kunden übertragen */

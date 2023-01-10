@@ -1916,6 +1916,8 @@ using the Allen-Cunneen approximation formula:
 
   <tr><td>ClientNumber()</td><td rowspan="1">Returns the 1-based consecutive number of the current client. If using multiple simulation threads this number is thread-local.</td></tr>
   
+  <tr><td>ClientSourceID()</td><td rowspan="1">Returns the ID of the station where the current client was created or where it was assigned its current type.</td></tr>
+  
   <tr><td>ClientData(index)</td><td rowspan="1">Gets the data field at position <tt>index</tt> from the current client object.<br>The "Variable" elements can be used to write to these fields.</td></tr>
   
   <tr><td>Alternative()</td><td rowspan="1">Indicates which operator alternative has been chosen at the last process station the client has passed to serve the client. If the client has not passed any process station yet, the function will return 0. Otherwise a value of 1 or larger will be returned.</td></tr>

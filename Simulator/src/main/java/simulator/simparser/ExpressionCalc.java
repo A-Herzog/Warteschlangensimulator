@@ -355,6 +355,7 @@ public class ExpressionCalc extends CalcSystem {
 		functions.add(new CalcSymbolClientCostProcess_current());
 		functions.add(new CalcSymbolClientCurrentWaitingTime());
 		functions.add(new CalcSymbolClientBatchSize());
+		functions.add(new CalcSymbolClientSourceStationID());
 
 		functions.add(new CalcSymbolUserStatistics_current());
 		functions.add(new CalcSymbolUserStatistics_avg());
@@ -373,7 +374,7 @@ public class ExpressionCalc extends CalcSystem {
 	/**
 	 * Sollten nutzerdefinierte Funktionen zum Zusammenstellen
 	 * der Liste aller Symbole berücksichtigt werden (<code>false</code>)
-	 * oder sollen diese übersprüngen werden (<code>true</code>)?
+	 * oder sollen diese übersprungen werden (<code>true</code>)?
 	 * @see #userFunctions
 	 * @see #getUserFunctions()
 	 */

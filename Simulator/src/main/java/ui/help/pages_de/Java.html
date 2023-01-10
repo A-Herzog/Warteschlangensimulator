@@ -432,6 +432,10 @@ einen Kunden ausgelöst wurde. Das Interface stellt folgende Methoden zur Verfü
   <li><tt>String getTypeName()</tt><br>
   Liefert den Namen des Typs des Kunden, der die Verarbeitung des Skripts ausgelöst hat.
   </li>
+  
+  <li><tt>int getSourceStationID()</tt><br>
+  Liefert die ID der Station, an der der aktuelle Kunde erzeugt wurde oder an der ihm sein aktueller Typ zugewiesen wurde.
+  </li>
     
   <li><tt>boolean isWarmUp()</tt><br>
   Liefert wahr oder falsch zurück in Abhängigkeit, ob der Kunde während der Einschwingphase generiert wurde und
@@ -634,6 +638,9 @@ und hält alle Informationen zu den wartenden Kunden vor. Des Weiteren ermöglic
   </li>  
   <li><tt>String clientTypeName(final int index)</tt><br>
   Liefert den Namen des Typs des Kunden.
+  </li>
+  <li><tt>int clientSourceStationID(final int index)</tt><br>
+  Liefert die ID der Station, an der der aktuelle Kunde erzeugt wurde oder an der ihm sein aktueller Typ zugewiesen wurde.
   </li>
   <li><tt>double clientWaitingSeconds(final int index)</tt><br>
   Liefert die bisherige Wartezeit des Kunden als Sekunden-Zahlenwert zurück.
