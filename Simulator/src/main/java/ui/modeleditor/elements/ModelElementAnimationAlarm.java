@@ -435,7 +435,7 @@ public class ModelElementAnimationAlarm extends ModelElementMultiInSingleOutBox 
 		if (onlyOneActivation) descriptionBuilder.addProperty(Language.tr("ModelDescription.AnimationAlarm.OnlyOnce"),Language.tr("ModelDescription.AnimationAlarm.OnlyOnce.Yes"),1000);
 		if (!clientType.isEmpty()) descriptionBuilder.addProperty(Language.tr("ModelDescription.AnimationAlarm.ClientType"),clientType,2000);
 		if (counter>1) descriptionBuilder.addProperty(Language.tr("ModelDescription.AnimationAlarm.Counter"),NumberTools.formatLong(counter),3000);
-		if (!condition.isEmpty()) descriptionBuilder.addProperty(Language.tr("ModelDescription.AnimationAlarm.Condition"),clientType,4000);
+		if (!condition.isEmpty()) descriptionBuilder.addProperty(Language.tr("ModelDescription.AnimationAlarm.Condition"),condition,4000);
 
 		descriptionBuilder.addProperty(Language.tr("ModelDescription.AnimationAlarm"),Language.tr("ModelDescription.AnimationAlarm.Sound")+": "+sound,5000);
 	}

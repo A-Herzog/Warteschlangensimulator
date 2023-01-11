@@ -19,6 +19,7 @@ import simulator.coreelements.RunElement;
 import simulator.coreelements.RunElementData;
 import simulator.runmodel.RunModel;
 import simulator.simparser.ExpressionCalc;
+import simulator.simparser.ExpressionMultiEval;
 import ui.modeleditor.elements.ModelElementSetRecord;
 
 /**
@@ -58,13 +59,20 @@ public class RunElementSetData extends RunElementData {
 	public SetMode[] mode;
 
 	/**
+	 * Zu prüfende Bedingung (kann <code>null</code> sein)
+	 */
+	public ExpressionMultiEval condition;
+
+	/**
 	 * Konstruktor der Klasse <code>RunElementSetData</code>
 	 * @param station	Zu dem Datenobjekt zugehöriges <code>RunElementSet</code>-Element
 	 * @param expressions	Auszuwertende Ausdrücke als String
+	 * @param condition	Optionale zusätzliche Bedingung, die für eine Zuweisung erfüllt sein muss (kann <code>null</code> sein)
 	 * @param runModel	Laufzeitmodell, dem u.a. die Variablennamen entnommen werden
 	 */
-	public RunElementSetData(final RunElement station, final String[] expressions, final RunModel runModel) {
+	public RunElementSetData(final RunElement station, final String[] expressions, final String condition, final RunModel runModel) {
 		super(station);
+
 		this.expressions=new ExpressionCalc[expressions.length];
 		this.mode=new SetMode[expressions.length];
 		for (int i=0;i<expressions.length;i++) {
@@ -77,6 +85,13 @@ public class RunElementSetData extends RunElementData {
 				this.expressions[i]=new ExpressionCalc(runModel.variableNames);
 				this.expressions[i].parse(expressions[i]);
 			}
+		}
+
+		if (condition==null || condition.trim().isEmpty()) {
+			this.condition=null;
+		} else {
+			this.condition=new ExpressionMultiEval(runModel.variableNames);
+			this.condition.parse(condition);
 		}
 	}
 }

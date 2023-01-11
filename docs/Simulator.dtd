@@ -945,7 +945,7 @@
   Modus	CDATA	#IMPLIED
 >
 
-<!ELEMENT ModellElementVariable (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementBoxSchriftGross | ModellElementBoxSchriftKlein | ModellElementMaximalerDurchsatzSekunden | ModellElementEbene | ModellElementHintergrundfarbe | ModellElementStationsbild | ModellElementVerbindung | ModellElementVariablenzuweisung)*>
+<!ELEMENT ModellElementVariable (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementBoxSchriftGross | ModellElementBoxSchriftKlein | ModellElementMaximalerDurchsatzSekunden | ModellElementEbene | ModellElementHintergrundfarbe | ModellElementStationsbild | ModellElementVerbindung | ModellElementVariablenzuweisung | ModellElementVariableBedingung)*>
 <!ATTLIST ModellElementVariable
   id			CDATA	#REQUIRED
   geschuetzt	CDATA	#IMPLIED
@@ -957,6 +957,7 @@
   Variable	CDATA	#REQUIRED
   Wert		CDATA	#IMPLIED
 >
+<!ELEMENT ModellElementVariableBedingung (#PCDATA)>
 
 <!ELEMENT ModellElementSkript (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementBoxSchriftGross | ModellElementBoxSchriftKlein | ModellElementMaximalerDurchsatzSekunden | ModellElementEbene | ModellElementHintergrundfarbe | ModellElementStationsbild | ModellElementVerbindung | ModellElementSkriptText)*>
 <!ATTLIST ModellElementSkript
@@ -3564,7 +3565,7 @@
   Mode	CDATA	#IMPLIED
 >
 
-<!ELEMENT ModelElementVariable (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBoxFontLarge | ModelElementBoxFontSmall | ModelElementMaximumThroughputSeconds | ModelElementLayer | ModelElementBackgroundColor | ModelElementStationimage | ModelElementConnection | ModelElementAssignmentData)*>
+<!ELEMENT ModelElementVariable (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBoxFontLarge | ModelElementBoxFontSmall | ModelElementMaximumThroughputSeconds | ModelElementLayer | ModelElementBackgroundColor | ModelElementStationimage | ModelElementConnection | ModelElementAssignmentData | ModelElementVariableCondition)*>
 <!ATTLIST ModelElementVariable
   id		CDATA	#REQUIRED
   protected	CDATA	#IMPLIED
@@ -3576,6 +3577,7 @@
   Variable	CDATA	#REQUIRED
   Value		CDATA	#IMPLIED
 >
+<!ELEMENT ModelElementVariableCondition (#PCDATA)>
 
 <!ELEMENT ModelElementScript (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBoxFontLarge | ModelElementBoxFontSmall | ModelElementMaximumThroughputSeconds | ModelElementLayer | ModelElementBackgroundColor | ModelElementStationimage | ModelElementConnection | ModelElementScriptText)*>
 <!ATTLIST ModelElementScript

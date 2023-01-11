@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-09 08:03+0100\n"
+"POT-Creation-Date: 2023-01-10 08:36+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -12173,6 +12173,9 @@ msgstr "Maximale Wartezeit auf das Freiwerden der Ressourcen"
 msgid "ModelDescription.Set"
 msgstr "Zuweisung"
 
+msgid "ModelDescription.Set.Condition"
+msgstr "Bedingung"
+
 msgid "ModelDescription.Set.ProcessTime"
 msgstr "Bedienzeit"
 
@@ -18339,6 +18342,9 @@ msgstr "In Fertigungsplan %s ist in Schritt %d keine Zielstation angegeben."
 
 msgid "Simulation.Creator.SequenceUnknownStation"
 msgstr "Die in Fertigungsplan %s in Schritt %d angegebene Zielstation \"%s\" existiert nicht."
+
+msgid "Simulation.Creator.SetCondition"
+msgstr "Die Bedingung \"%s\" von Element id=%d enthält an Position %d einen Fehler."
 
 msgid "Simulation.Creator.SetInternalError"
 msgstr "Interner Fehler beim Erstellen von Element id=%d"
@@ -31278,6 +31284,18 @@ msgstr "Löst einen Batch wieder in die individuellen Kunden auf."
 msgid "Surface.Separate.XML.Root"
 msgstr "ModellElementTrennen"
 
+msgid "Surface.Set.Dialog.Condition.Condition"
+msgstr "Bedingung"
+
+msgid "Surface.Set.Dialog.Condition.Error.Info"
+msgstr "Die angegebene Bedingung \"%s\" ist ab Zeichen %d fehlerhaft."
+
+msgid "Surface.Set.Dialog.Condition.Error.Title"
+msgstr "Ungültige Bedingung"
+
+msgid "Surface.Set.Dialog.Condition.UseCondition"
+msgstr "Zuweisung nur durchführen, wenn Bedingung erfüllt ist"
+
 msgid "Surface.Set.Dialog.Title"
 msgstr "Variablenzuweisung bearbeiten"
 
@@ -31397,6 +31415,9 @@ msgstr "Wartezeit"
 
 msgid "Surface.Set.XML.Assignment.Variable"
 msgstr "Variable"
+
+msgid "Surface.Set.XML.Condition"
+msgstr "ModellElementVariableBedingung"
 
 msgid "Surface.Set.XML.Root"
 msgstr "ModellElementVariable"

@@ -342,7 +342,7 @@ public class ModelElementAnimationPause extends ModelElementMultiInSingleOutBox 
 		if (onlyOneActivation) descriptionBuilder.addProperty(Language.tr("ModelDescription.AnimationPause.OnlyOnce"),Language.tr("ModelDescription.AnimationPause.OnlyOnce.Yes"),1000);
 		if (!clientType.isEmpty()) descriptionBuilder.addProperty(Language.tr("ModelDescription.AnimationPause.ClientType"),clientType,2000);
 		if (counter>1) descriptionBuilder.addProperty(Language.tr("ModelDescription.AnimationPause.Counter"),NumberTools.formatLong(counter),3000);
-		if (!condition.isEmpty()) descriptionBuilder.addProperty(Language.tr("ModelDescription.AnimationPause.Condition"),clientType,4000);
+		if (!condition.isEmpty()) descriptionBuilder.addProperty(Language.tr("ModelDescription.AnimationPause.Condition"),condition,4000);
 	}
 
 	/**

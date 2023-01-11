@@ -57,6 +57,13 @@ public class ModelElementSet extends ModelElementMultiInSingleOutBox implements 
 	private final ModelElementSetRecord record;
 
 	/**
+	 * Zusätzliche optionale Bedingung, die für die Zuweisung erfüllt sein muss (kann <code>null</code> sein)
+	 * @see #getCondition()
+	 * @see #setCondition(String)
+	 */
+	private String condition;
+
+	/**
 	 * Konstruktor der Klasse <code>ModelElementSet</code>
 	 * @param model	Modell zu dem dieses Element gehören soll (kann später nicht mehr geändert werden)
 	 * @param surface	Zeichenfläche zu dem dieses Element gehören soll (kann später nicht mehr geändert werden)
@@ -64,6 +71,7 @@ public class ModelElementSet extends ModelElementMultiInSingleOutBox implements 
 	public ModelElementSet(final EditModel model, final ModelSurface surface) {
 		super(model,surface,Shapes.ShapeType.SHAPE_ROUNDED_RECTANGLE);
 		record=new ModelElementSetRecord();
+		condition="";
 	}
 
 	/**
@@ -93,8 +101,10 @@ public class ModelElementSet extends ModelElementMultiInSingleOutBox implements 
 	public boolean equalsModelElement(ModelElement element) {
 		if (!super.equalsModelElement(element)) return false;
 		if (!(element instanceof ModelElementSet)) return false;
+		final ModelElementSet otherSet=(ModelElementSet)element;
 
-		if (!((ModelElementSet)element).record.equalsModelElementSetRecord(record)) return false;
+		if (!otherSet.record.equalsModelElementSetRecord(record)) return false;
+		if (!otherSet.condition.equals(condition)) return false;
 
 		return true;
 	}
@@ -107,7 +117,9 @@ public class ModelElementSet extends ModelElementMultiInSingleOutBox implements 
 	public void copyDataFrom(ModelElement element) {
 		super.copyDataFrom(element);
 		if (element instanceof ModelElementSet) {
-			record.copyDataFrom(((ModelElementSet)element).record);
+			final ModelElementSet source=(ModelElementSet)element;
+			record.copyDataFrom(source.record);
+			condition=source.condition;
 		}
 	}
 
@@ -215,6 +227,12 @@ public class ModelElementSet extends ModelElementMultiInSingleOutBox implements 
 		super.addPropertiesDataToXML(doc,node);
 
 		record.saveToXML(doc,node);
+
+		if (!condition.isEmpty()) {
+			final Element sub=doc.createElement(Language.trPrimary("Surface.Set.XML.Condition"));
+			node.appendChild(sub);
+			sub.setTextContent(condition);
+		}
 	}
 
 	/**
@@ -232,6 +250,12 @@ public class ModelElementSet extends ModelElementMultiInSingleOutBox implements 
 		if (ModelElementSetRecord.isSetNode(node)) {
 			error=record.loadXMLNode(node);
 			if (error!=null) return error;
+			return null;
+		}
+
+		if (Language.trAll("Surface.Set.XML.Condition",name)) {
+			condition=content;
+			return null;
 		}
 
 		return null;
@@ -288,7 +312,9 @@ public class ModelElementSet extends ModelElementMultiInSingleOutBox implements 
 	public void buildDescription(final ModelDescriptionBuilder descriptionBuilder) {
 		super.buildDescription(descriptionBuilder);
 
-		for (String line: record.getDescription()) descriptionBuilder.addProperty(Language.tr("ModelDescription.Set"),line,1000);
+		if (!condition.isEmpty()) descriptionBuilder.addProperty(Language.tr("ModelDescription.Set.Condition"),condition,1000);
+
+		for (String line: record.getDescription()) descriptionBuilder.addProperty(Language.tr("ModelDescription.Set"),line,2000);
 	}
 
 	/**
@@ -325,6 +351,22 @@ public class ModelElementSet extends ModelElementMultiInSingleOutBox implements 
 		return record;
 	}
 
+	/**
+	 * Liefert die optionale Bedingung, die für die Zuweisung erfüllt sein muss.
+	 * @return	Bedingung, die für die Zuweisung erfüllt sein muss (kann <code>null</code> sein)
+	 */
+	public String getCondition() {
+		return condition;
+	}
+
+	/**
+	 * Stellt die Bedingung, die für die Zuweisung erfüllt sein muss, ein.
+	 * @param condition	Optionale Bedingung, die für die Zuweisung erfüllt sein muss (kann <code>null</code> sein oder leer sein)
+	 */
+	public void setCondition(final String condition) {
+		this.condition=(condition==null)?"":condition;
+	}
+
 	@Override
 	protected void addEdgeOutFixes(final List<RunModelFixer> fixer) {
 		findEdgesTo(QuickFixNextElements.hold,fixer);
@@ -333,6 +375,8 @@ public class ModelElementSet extends ModelElementMultiInSingleOutBox implements 
 	@Override
 	public void search(final FullTextSearch searcher) {
 		super.search(searcher);
+
+		if (!condition.isEmpty()) searcher.testString(this,Language.tr("Editor.DialogBase.Search.Condition"),condition,newCondition->condition=newCondition);
 
 		record.search(searcher,this);
 	}

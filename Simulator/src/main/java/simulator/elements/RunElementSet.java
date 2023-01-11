@@ -28,6 +28,7 @@ import simulator.runmodel.RunDataClient;
 import simulator.runmodel.RunModel;
 import simulator.runmodel.SimulationData;
 import simulator.simparser.ExpressionCalc;
+import simulator.simparser.ExpressionMultiEval;
 import simulator.simparser.symbols.CalcSymbolClientUserData;
 import ui.modeleditor.coreelements.ModelElement;
 import ui.modeleditor.elements.ModelElementSet;
@@ -50,6 +51,11 @@ public class RunElementSet extends RunElementPassThrough {
 	 * bezeichneten Variablen zugewiesen werden sollen
 	 */
 	private String[] expressions;
+
+	/**
+	 * Optionale zusätzliche Bedingung, die für eine Zuweisung erfüllt sein muss (kann <code>null</code> sein)
+	 */
+	private String condition;
 
 	/**
 	 * Konstruktor der Klasse
@@ -96,6 +102,16 @@ public class RunElementSet extends RunElementPassThrough {
 			set.expressions[i]=expressions[i];
 		}
 
+		/* Optionale Bedingung */
+		final String condition=setElement.getCondition();
+		if (condition==null || condition.trim().isEmpty()) {
+			set.condition=null;
+		} else {
+			final int error=ExpressionMultiEval.check(condition,runModel.variableNames);
+			if (error>=0) return String.format(Language.tr("Simulation.Creator.SetCondition"),condition,element.getId(),error+1);
+			set.condition=condition;
+		}
+
 		return set;
 	}
 
@@ -116,7 +132,7 @@ public class RunElementSet extends RunElementPassThrough {
 		RunElementSetData data;
 		data=(RunElementSetData)(simData.runData.getStationData(this));
 		if (data==null) {
-			data=new RunElementSetData(this,expressions,simData.runModel);
+			data=new RunElementSetData(this,expressions,condition,simData.runModel);
 			simData.runData.setStationData(this,data);
 		}
 		return data;
@@ -125,10 +141,13 @@ public class RunElementSet extends RunElementPassThrough {
 	/** Umrechnungsfaktor von Millisekunden auf Sekunden, um die Division während der Simulation zu vermeiden */
 	private static final double toSec=1.0/1000.0;
 
-	@Override
-	public void processArrival(final SimulationData simData, final RunDataClient client) {
-		final RunElementSetData data=getData(simData);
-
+	/**
+	 * Führt die eigentlichen Zuweisungen durch.
+	 * @param simData	Simulationsdatenobjekt
+	 * @param data	Thread-lokales Datenobjekt zu der Station
+	 * @param client	Kunde
+	 */
+	private void applySet(final SimulationData simData, final RunElementSetData data, final RunDataClient client) {
 		for (int i=0;i<variableIndex.length;i++) {
 			/* Zuweisungen durchführen */
 			double d=0.0;
@@ -204,6 +223,19 @@ public class RunElementSet extends RunElementPassThrough {
 					if (simData.loggingActive) log(simData,Language.tr("Simulation.Log.Set"),String.format(Language.tr("Simulation.Log.Set.Info"),client.logInfo(simData),name,simData.runModel.variableNames[variableIndex[i]],NumberTools.formatNumber(d)));
 				}
 			}
+		}
+	}
+
+	@Override
+	public void processArrival(final SimulationData simData, final RunDataClient client) {
+		final RunElementSetData data=getData(simData);
+
+		/* Zuweisung durchführen */
+		if (condition!=null) {
+			simData.runData.setClientVariableValues(client);
+			if (data.condition.eval(simData.runData.variableValues,simData,client)) applySet(simData,data,client);
+		} else {
+			applySet(simData,data,client);
 		}
 
 		/* Kunde zur nächsten Station leiten */

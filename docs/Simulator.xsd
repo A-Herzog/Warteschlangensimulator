@@ -1162,6 +1162,7 @@
 <xs:element name="ModellElementVariable"><xs:complexType><xs:complexContent><xs:extension base="ModellElementVerbundenBasis">
   <xs:sequence minOccurs="0" maxOccurs="unbounded"><xs:choice>
     <xs:element ref="ModellElementVariablenzuweisung"/>
+	<xs:element name="ModellElementVariableBedingung" type="xs:string"/>
   </xs:choice></xs:sequence>
 </xs:extension></xs:complexContent></xs:complexType></xs:element>
 
@@ -3555,6 +3556,7 @@
 <xs:element name="ModelElementVariable"><xs:complexType><xs:complexContent><xs:extension base="ModelElementConnectedBase">
   <xs:sequence minOccurs="0" maxOccurs="unbounded"><xs:choice>
     <xs:element ref="ModelElementAssignmentData"/>
+	<xs:element name="ModelElementVariableCondition" type="xs:string"/>
   </xs:choice></xs:sequence>
 </xs:extension></xs:complexContent></xs:complexType></xs:element>
 

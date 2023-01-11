@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-09 08:03+0100\n"
+"POT-Creation-Date: 2023-01-10 08:36+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -12176,6 +12176,9 @@ msgstr "Maximum waiting time for the resources to be released"
 msgid "ModelDescription.Set"
 msgstr "Assignment"
 
+msgid "ModelDescription.Set.Condition"
+msgstr "Condition"
+
 msgid "ModelDescription.Set.ProcessTime"
 msgstr "Process time"
 
@@ -18325,6 +18328,9 @@ msgstr "In sequence %s in step %d no destination station is defined."
 
 msgid "Simulation.Creator.SequenceUnknownStation"
 msgstr "In sequence %s in step %d \"%s\" is selected as destination station. But there is no station with this name."
+
+msgid "Simulation.Creator.SetCondition"
+msgstr "The condition \"%s\" at element id=%d is invalid at character %d."
 
 msgid "Simulation.Creator.SetInternalError"
 msgstr "Internal error on creating element id=%d"
@@ -31253,6 +31259,18 @@ msgstr "Dissolves a batch back to individual clients."
 msgid "Surface.Separate.XML.Root"
 msgstr "ModelElementSeparate"
 
+msgid "Surface.Set.Dialog.Condition.Condition"
+msgstr "Condition"
+
+msgid "Surface.Set.Dialog.Condition.Error.Info"
+msgstr "The specified condition \\\"%s\\\" is invalid at character %d."
+
+msgid "Surface.Set.Dialog.Condition.Error.Title"
+msgstr "Invalid condition"
+
+msgid "Surface.Set.Dialog.Condition.UseCondition"
+msgstr "Only apply settings if condition is met"
+
 msgid "Surface.Set.Dialog.Title"
 msgstr "Edit variable assignment"
 
@@ -31372,6 +31390,9 @@ msgstr "WaitingTime"
 
 msgid "Surface.Set.XML.Assignment.Variable"
 msgstr "Variable"
+
+msgid "Surface.Set.XML.Condition"
+msgstr "ModelElementVariableCondition"
 
 msgid "Surface.Set.XML.Root"
 msgstr "ModelElementVariable"
