@@ -26,6 +26,7 @@ import simulator.runmodel.RunDataClient;
 import simulator.runmodel.RunModel;
 import simulator.runmodel.SimulationData;
 import simulator.simparser.ExpressionCalc;
+import simulator.simparser.ExpressionMultiEval;
 import ui.modeleditor.coreelements.ModelElement;
 import ui.modeleditor.elements.ModelElementCosts;
 import ui.modeleditor.elements.ModelElementSub;
@@ -59,6 +60,11 @@ public class RunElementCosts extends RunElementPassThrough {
 	 * @see RunElementCostsData#clientProcessCosts
 	 */
 	private String clientProcessCosts;
+
+	/**
+	 * Optionale zusätzliche Bedingung, die für eine Zuweisung erfüllt sein muss (kann <code>null</code> sein)
+	 */
+	private String condition;
 
 	/**
 	 * Konstruktor der Klasse
@@ -117,6 +123,16 @@ public class RunElementCosts extends RunElementPassThrough {
 			costs.clientProcessCosts=text;
 		}
 
+		/* Optionale Bedingung */
+		final String condition=costsElement.getCondition();
+		if (condition==null || condition.trim().isEmpty()) {
+			costs.condition=null;
+		} else {
+			final int error=ExpressionMultiEval.check(condition,runModel.variableNames);
+			if (error>=0) return String.format(Language.tr("Simulation.Creator.CostsCondition"),condition,element.getId(),error+1);
+			costs.condition=condition;
+		}
+
 		return costs;
 	}
 
@@ -137,16 +153,19 @@ public class RunElementCosts extends RunElementPassThrough {
 		RunElementCostsData data;
 		data=(RunElementCostsData)(simData.runData.getStationData(this));
 		if (data==null) {
-			data=new RunElementCostsData(this,stationCosts,clientWaitingCosts,clientTransferCosts,clientProcessCosts,simData.runModel.variableNames);
+			data=new RunElementCostsData(this,stationCosts,clientWaitingCosts,clientTransferCosts,clientProcessCosts,condition,simData.runModel.variableNames);
 			simData.runData.setStationData(this,data);
 		}
 		return data;
 	}
 
-	@Override
-	public void processArrival(final SimulationData simData, final RunDataClient client) {
-		final RunElementCostsData data=getData(simData);
-
+	/**
+	 * Führt die eigentliche Kostenzuweisung durch.
+	 * @param simData	Simulationsdatenobjekt
+	 * @param data	Thread-lokales Datenobjekt zu der Station
+	 * @param client	Kunde
+	 */
+	private void applyCosts(final SimulationData simData, final RunElementCostsData data, final RunDataClient client) {
 		simData.runData.setClientVariableValues(client);
 
 		double stationCosts;
@@ -205,6 +224,19 @@ public class RunElementCosts extends RunElementPassThrough {
 			client.waitingAdditionalCosts+=clientWaitingCosts;
 			client.transferAdditionalCosts+=clientTransferCosts;
 			client.processAdditionalCosts+=clientProcessCosts;
+		}
+	}
+
+	@Override
+	public void processArrival(final SimulationData simData, final RunDataClient client) {
+		final RunElementCostsData data=getData(simData);
+
+		/* Zuweisung durchführen */
+		if (condition!=null) {
+			simData.runData.setClientVariableValues(client);
+			if (data.condition.eval(simData.runData.variableValues,simData,client)) applyCosts(simData,data,client);
+		} else {
+			applyCosts(simData,data,client);
 		}
 
 		/* Kunde zur nächsten Station leiten */

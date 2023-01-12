@@ -682,7 +682,7 @@
 >
 <!ELEMENT ModellElementFertigungsplan (#PCDATA)>
 
-<!ELEMENT ModellElementKosten (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementBoxSchriftGross | ModellElementBoxSchriftKlein | ModellElementMaximalerDurchsatzSekunden | ModellElementEbene | ModellElementHintergrundfarbe | ModellElementStationsbild | ModellElementVerbindung | ModellElementKostenKundenWartezeit | ModellElementKostenKundenTransferzeit | ModellElementKostenKundenBedienzeit | ModellElementKostenStation)*>
+<!ELEMENT ModellElementKosten (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementBoxSchriftGross | ModellElementBoxSchriftKlein | ModellElementMaximalerDurchsatzSekunden | ModellElementEbene | ModellElementHintergrundfarbe | ModellElementStationsbild | ModellElementVerbindung | ModellElementKostenKundenWartezeit | ModellElementKostenKundenTransferzeit | ModellElementKostenKundenBedienzeit | ModellElementKostenStation | ModellElementKostenBedingung)*>
 <!ATTLIST ModellElementKosten
   id			CDATA	#REQUIRED
   geschuetzt	CDATA	#IMPLIED
@@ -693,6 +693,7 @@
 <!ELEMENT ModellElementKostenKundenTransferzeit (#PCDATA)>
 <!ELEMENT ModellElementKostenKundenBedienzeit (#PCDATA)>
 <!ELEMENT ModellElementKostenStation (#PCDATA)>
+<!ELEMENT ModellElementKostenBedingung (#PCDATA)>
 
 <!ELEMENT ModellElementVerzoegerung (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementBoxSchriftGross | ModellElementBoxSchriftKlein | ModellElementMaximalerDurchsatzSekunden | ModellElementWarteschlangeAnimationVollstaendig | ModellElementEbene | ModellElementHintergrundfarbe | ModellElementStationsbild | ModellElementVerbindung | ModellElementVerteilung | ModellElementAusdruck | ModellElementVerzoegerungKosten | ModellElementVerzoegerungKundenliste)*>
 <!ATTLIST ModellElementVerzoegerung
@@ -3303,7 +3304,7 @@
 >
 <!ELEMENT ModelElementSequence (#PCDATA)>
 
-<!ELEMENT ModelElementCosts (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBoxFontLarge | ModelElementBoxFontSmall | ModelElementMaximumThroughputSeconds | ModelElementLayer | ModelElementBackgroundColor | ModelElementStationimage | ModelElementConnection | ModelElementCostsClientsWaitingTime | ModelElementCostsClientsTransferTime | ModelElementCostsClientsProcessingTime | ModelElementCostsStation)*>
+<!ELEMENT ModelElementCosts (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBoxFontLarge | ModelElementBoxFontSmall | ModelElementMaximumThroughputSeconds | ModelElementLayer | ModelElementBackgroundColor | ModelElementStationimage | ModelElementConnection | ModelElementCostsClientsWaitingTime | ModelElementCostsClientsTransferTime | ModelElementCostsClientsProcessingTime | ModelElementCostsStation | ModelElementCostsCondition)*>
 <!ATTLIST ModelElementCosts
   id		CDATA	#REQUIRED
   protected	CDATA	#IMPLIED
@@ -3314,6 +3315,7 @@
 <!ELEMENT ModelElementCostsClientsTransferTime (#PCDATA)>
 <!ELEMENT ModelElementCostsClientsProcessingTime (#PCDATA)>
 <!ELEMENT ModelElementCostsStation (#PCDATA)>
+<!ELEMENT ModelElementCostsCondition (#PCDATA)>
 
 <!ELEMENT ModelElementDelay (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBoxFontLarge | ModelElementBoxFontSmall | ModelElementMaximumThroughputSeconds | ModelElementQueueAnimationComplete | ModelElementLayer | ModelElementBackgroundColor | ModelElementStationimage | ModelElementConnection | ModelElementDistribution | ModelElementExpression | ModelElementDelayCosts | ModelElementDelayClientsList)*>
 <!ATTLIST ModelElementDelay

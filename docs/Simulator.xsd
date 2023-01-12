@@ -910,6 +910,7 @@
 	<xs:element name="ModellElementKostenKundenTransferzeit" type="xs:string"/>
 	<xs:element name="ModellElementKostenKundenBedienzeit" type="xs:string"/>
 	<xs:element name="ModellElementKostenStation" type="xs:string"/>
+	<xs:element name="ModellElementKostenBedingung" type="xs:string"/>
   </xs:choice></xs:sequence>
 </xs:extension></xs:complexContent></xs:complexType></xs:element>
 
@@ -3304,6 +3305,7 @@
 	<xs:element name="ModelElementCostsClientsTransferTime" type="xs:string"/>
 	<xs:element name="ModelElementCostsClientsProcessingTime" type="xs:string"/>
 	<xs:element name="ModelElementCostsStation" type="xs:string"/>
+	<xs:element name="ModelElementCostsCondition" type="xs:string"/>
   </xs:choice></xs:sequence>
 </xs:extension></xs:complexContent></xs:complexType></xs:element>
 

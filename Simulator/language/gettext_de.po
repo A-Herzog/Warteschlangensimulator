@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-10 08:36+0100\n"
+"POT-Creation-Date: 2023-01-11 08:22+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -11603,6 +11603,9 @@ msgstr "Transferzeitkosten für Kunden"
 msgid "ModelDescription.Costs.ClientWaiting"
 msgstr "Wartezeitkosten für Kunden"
 
+msgid "ModelDescription.Costs.Condition"
+msgstr "Bedingung"
+
 msgid "ModelDescription.Costs.Station"
 msgstr "Stationskosten"
 
@@ -17871,6 +17874,9 @@ msgstr "Für Element id=%d wurde eine Ausgangskante für Warteabbrecher eingetra
 
 msgid "Simulation.Creator.CheckboxNoVariable"
 msgstr "An Station id=%d wurde kein Name für die zu ändernde Variable angegeben."
+
+msgid "Simulation.Creator.CostsCondition"
+msgstr "Die Bedingung \"%s\" von Element id=%d enthält an Position %d einen Fehler."
 
 msgid "Simulation.Creator.CostsErrorDelay"
 msgstr "Die angegebenen Kosten pro Kunde \\\"%s\\\" sind ab Zeichen %d ungültig."
@@ -26750,6 +26756,21 @@ msgstr "Transferzeit"
 msgid "Surface.Conveyor.XML.TransportTime.Type.WaitingTime"
 msgstr "Wartezeit"
 
+msgid "Surface.Costs.Condition.Error.Info"
+msgstr "Die angegebene Bedingung \"%s\" ist ab Zeichen %d fehlerhaft."
+
+msgid "Surface.Costs.Dialog.Condition.Condition"
+msgstr "Bedingung"
+
+msgid "Surface.Costs.Dialog.Condition.Error.Info"
+msgstr "Die angegebene Bedingung \"%s\" ist ab Zeichen %d fehlerhaft."
+
+msgid "Surface.Costs.Dialog.Condition.Error.Title"
+msgstr "Ungültige Bedingung"
+
+msgid "Surface.Costs.Dialog.Condition.UseCondition"
+msgstr "Zuweisung nur durchführen, wenn Bedingung erfüllt ist"
+
 msgid "Surface.Costs.Dialog.CostsError.Title"
 msgstr "Kosten fehlerhaft"
 
@@ -26788,6 +26809,9 @@ msgstr "Kosten"
 
 msgid "Surface.Costs.Tooltip"
 msgstr "Erfasst Kosten, wenn ein Kunde dieses Element durchläuft."
+
+msgid "Surface.Costs.XML.Condition"
+msgstr "ModellElementKostenBedingung"
 
 msgid "Surface.Costs.XML.ProcessTimeCosts"
 msgstr "ModellElementKostenKundenBedienzeit"

@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-10 08:36+0100\n"
+"POT-Creation-Date: 2023-01-11 08:22+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -11606,6 +11606,9 @@ msgstr "Client transfer time costs"
 msgid "ModelDescription.Costs.ClientWaiting"
 msgstr "Client waiting time costs"
 
+msgid "ModelDescription.Costs.Condition"
+msgstr "Condition"
+
 msgid "ModelDescription.Costs.Station"
 msgstr "Station costs"
 
@@ -17857,6 +17860,9 @@ msgstr "For element id=%d an output edge for waiting cancelation is conencted. B
 
 msgid "Simulation.Creator.CheckboxNoVariable"
 msgstr "At station id=%d no name was specified for the variable to be changed."
+
+msgid "Simulation.Creator.CostsCondition"
+msgstr "The condition \"%s\" at element id=%d is invalid at character %d."
 
 msgid "Simulation.Creator.CostsErrorDelay"
 msgstr "The specified costs per client \\\"%s\\\" are invalid at character %d."
@@ -26734,6 +26740,21 @@ msgstr "TransferTime"
 msgid "Surface.Conveyor.XML.TransportTime.Type.WaitingTime"
 msgstr "WaitingTime"
 
+msgid "Surface.Costs.Condition.Error.Info"
+msgstr "The specified condition \\\"%s\\\" is invalid at character %d."
+
+msgid "Surface.Costs.Dialog.Condition.Condition"
+msgstr "Condition"
+
+msgid "Surface.Costs.Dialog.Condition.Error.Info"
+msgstr "The specified condition \\\"%s\\\" is invalid at character %d."
+
+msgid "Surface.Costs.Dialog.Condition.Error.Title"
+msgstr "Invalid condition"
+
+msgid "Surface.Costs.Dialog.Condition.UseCondition"
+msgstr "Only apply settings if condition is met"
+
 msgid "Surface.Costs.Dialog.CostsError.Title"
 msgstr "Invalid costs"
 
@@ -26772,6 +26793,9 @@ msgstr "Costs"
 
 msgid "Surface.Costs.Tooltip"
 msgstr "Gathers costs when a client passes this element."
+
+msgid "Surface.Costs.XML.Condition"
+msgstr "ModelElementCostsCondition"
 
 msgid "Surface.Costs.XML.ProcessTimeCosts"
 msgstr "ModelElementCostsClientsProcessingTime"

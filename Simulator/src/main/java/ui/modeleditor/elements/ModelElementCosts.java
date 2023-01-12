@@ -78,6 +78,13 @@ public class ModelElementCosts extends ModelElementMultiInSingleOutBox {
 	private String clientProcessCosts;
 
 	/**
+	 * Zusätzliche optionale Bedingung, die für die Zuweisung erfüllt sein muss (kann <code>null</code> sein)
+	 * @see #getCondition()
+	 * @see #setCondition(String)
+	 */
+	private String condition;
+
+	/**
 	 * Konstruktor der Klasse <code>ModelElementCosts</code>
 	 * @param model	Modell zu dem dieses Element gehören soll (kann später nicht mehr geändert werden)
 	 * @param surface	Zeichenfläche zu dem dieses Element gehören soll (kann später nicht mehr geändert werden)
@@ -88,6 +95,7 @@ public class ModelElementCosts extends ModelElementMultiInSingleOutBox {
 		clientWaitingCosts="";
 		clientTransferCosts="";
 		clientProcessCosts="";
+		condition="";
 	}
 
 	/**
@@ -117,11 +125,13 @@ public class ModelElementCosts extends ModelElementMultiInSingleOutBox {
 	public boolean equalsModelElement(ModelElement element) {
 		if (!super.equalsModelElement(element)) return false;
 		if (!(element instanceof ModelElementCosts)) return false;
+		final ModelElementCosts otherCosts=(ModelElementCosts)element;
 
-		if (!stationCosts.equals(((ModelElementCosts)element).stationCosts)) return false;
-		if (!clientWaitingCosts.equals(((ModelElementCosts)element).clientWaitingCosts)) return false;
-		if (!clientTransferCosts.equals(((ModelElementCosts)element).clientTransferCosts)) return false;
-		if (!clientProcessCosts.equals(((ModelElementCosts)element).clientProcessCosts)) return false;
+		if (!stationCosts.equals(otherCosts.stationCosts)) return false;
+		if (!clientWaitingCosts.equals(otherCosts.clientWaitingCosts)) return false;
+		if (!clientTransferCosts.equals(otherCosts.clientTransferCosts)) return false;
+		if (!clientProcessCosts.equals(otherCosts.clientProcessCosts)) return false;
+		if (!otherCosts.condition.equals(condition)) return false;
 
 		return true;
 	}
@@ -134,10 +144,12 @@ public class ModelElementCosts extends ModelElementMultiInSingleOutBox {
 	public void copyDataFrom(ModelElement element) {
 		super.copyDataFrom(element);
 		if (element instanceof ModelElementCosts) {
-			stationCosts=((ModelElementCosts)element).stationCosts;
-			clientWaitingCosts=((ModelElementCosts)element).clientWaitingCosts;
-			clientTransferCosts=((ModelElementCosts)element).clientTransferCosts;
-			clientProcessCosts=((ModelElementCosts)element).clientProcessCosts;
+			final ModelElementCosts source=(ModelElementCosts)element;
+			stationCosts=source.stationCosts;
+			clientWaitingCosts=source.clientWaitingCosts;
+			clientTransferCosts=source.clientTransferCosts;
+			clientProcessCosts=source.clientProcessCosts;
+			condition=source.condition;
 		}
 	}
 
@@ -265,6 +277,11 @@ public class ModelElementCosts extends ModelElementMultiInSingleOutBox {
 			node.appendChild(sub=doc.createElement(Language.trPrimary("Surface.Costs.XML.StationCosts")));
 			sub.setTextContent(stationCosts);
 		}
+
+		if (!condition.isEmpty()) {
+			node.appendChild(sub=doc.createElement(Language.trPrimary("Surface.Costs.XML.Condition")));
+			sub.setTextContent(condition);
+		}
 	}
 
 	/**
@@ -296,6 +313,11 @@ public class ModelElementCosts extends ModelElementMultiInSingleOutBox {
 
 		if (Language.trAll("Surface.Costs.XML.ProcessTimeCosts",name)) {
 			clientProcessCosts=content;
+			return null;
+		}
+
+		if (Language.trAll("Surface.Costs.XML.Condition",name)) {
+			condition=content;
 			return null;
 		}
 
@@ -375,6 +397,22 @@ public class ModelElementCosts extends ModelElementMultiInSingleOutBox {
 	}
 
 	/**
+	 * Liefert die optionale Bedingung, die für die Zuweisung erfüllt sein muss.
+	 * @return	Bedingung, die für die Zuweisung erfüllt sein muss (kann <code>null</code> sein)
+	 */
+	public String getCondition() {
+		return condition;
+	}
+
+	/**
+	 * Stellt die Bedingung, die für die Zuweisung erfüllt sein muss, ein.
+	 * @param condition	Optionale Bedingung, die für die Zuweisung erfüllt sein muss (kann <code>null</code> sein oder leer sein)
+	 */
+	public void setCondition(final String condition) {
+		this.condition=(condition==null)?"":condition;
+	}
+
+	/**
 	 * Gibt an, ob Laufzeitdaten zu der Station während der Animation ausgegeben werden sollen
 	 * @return Laufzeitdaten zur Station ausgeben
 	 */
@@ -400,6 +438,7 @@ public class ModelElementCosts extends ModelElementMultiInSingleOutBox {
 		if (!clientWaitingCosts.trim().isEmpty()) descriptionBuilder.addProperty(Language.tr("ModelDescription.Costs.ClientWaiting"),clientWaitingCosts,2000);
 		if (!clientTransferCosts.trim().isEmpty()) descriptionBuilder.addProperty(Language.tr("ModelDescription.Costs.ClientTransfer"),clientTransferCosts,3000);
 		if (!clientProcessCosts.trim().isEmpty()) descriptionBuilder.addProperty(Language.tr("ModelDescription.Costs.ClientProcess"),clientProcessCosts,4000);
+		if (!condition.isEmpty()) descriptionBuilder.addProperty(Language.tr("ModelDescription.Costs.Condition"),condition,5000);
 	}
 
 	@Override
@@ -415,5 +454,6 @@ public class ModelElementCosts extends ModelElementMultiInSingleOutBox {
 		searcher.testString(this,Language.tr("Surface.Costs.Dialog.WaitingCosts"),clientWaitingCosts,newClientWaitingCosts->{clientWaitingCosts=newClientWaitingCosts;});
 		searcher.testString(this,Language.tr("Surface.Costs.Dialog.TransferCosts"),clientTransferCosts,newClientTransferCosts->{clientTransferCosts=newClientTransferCosts;});
 		searcher.testString(this,Language.tr("Surface.Costs.Dialog.ProcessCosts"),clientProcessCosts,newClientProcessCosts->{clientProcessCosts=newClientProcessCosts;});
+		if (!condition.isEmpty()) searcher.testString(this,Language.tr("Editor.DialogBase.Search.Condition"),condition,newCondition->condition=newCondition);
 	}
 }

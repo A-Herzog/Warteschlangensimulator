@@ -18,6 +18,7 @@ package simulator.elements;
 import simulator.coreelements.RunElement;
 import simulator.coreelements.RunElementData;
 import simulator.simparser.ExpressionCalc;
+import simulator.simparser.ExpressionMultiEval;
 
 /**
  * Laufzeitdaten eines <code>RunElementCosts</code>-Laufzeit-Objekts
@@ -47,15 +48,21 @@ public class RunElementCostsData extends RunElementData {
 	public ExpressionCalc clientProcessCosts;
 
 	/**
-	 * Konstruktor der Klasse <code>RunElementHoldData</code>
+	 * Zu prüfende Bedingung (kann <code>null</code> sein)
+	 */
+	public ExpressionMultiEval condition;
+
+	/**
+	 * Konstruktor der Klasse
 	 * @param station Station zu diesem Datenelement
 	 * @param stationCosts	Allgemeine Kosten an der Station (erfasst bei der Station)
 	 * @param clientWaitingCosts	Wartezeit-Kosten (bei den Kunden)
 	 * @param clientTransferCosts	Transferzeit-Kosten (bei den Kunden)
 	 * @param clientProcessCosts	Bedienzeit-Kosten (bei den Kunden)
+	 * @param condition	Optionale zusätzliche Bedingung, die für eine Zuweisung erfüllt sein muss (kann <code>null</code> sein)
 	 * @param variableNames	Liste der global verfügbaren Variablennamen
 	 */
-	public RunElementCostsData(final RunElement station, final String stationCosts, final String clientWaitingCosts, final String clientTransferCosts, final String clientProcessCosts, final String[] variableNames) {
+	public RunElementCostsData(final RunElement station, final String stationCosts, final String clientWaitingCosts, final String clientTransferCosts, final String clientProcessCosts, final String condition, final String[] variableNames) {
 		super(station);
 
 		if (stationCosts==null || stationCosts.trim().isEmpty()) {
@@ -84,6 +91,13 @@ public class RunElementCostsData extends RunElementData {
 		} else {
 			this.clientProcessCosts=new ExpressionCalc(variableNames);
 			this.clientProcessCosts.parse(clientProcessCosts);
+		}
+
+		if (condition==null || condition.trim().isEmpty()) {
+			this.condition=null;
+		} else {
+			this.condition=new ExpressionMultiEval(variableNames);
+			this.condition.parse(condition);
 		}
 	}
 }

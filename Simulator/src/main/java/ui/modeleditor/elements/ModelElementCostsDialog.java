@@ -18,18 +18,22 @@ package ui.modeleditor.elements;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.FlowLayout;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.Serializable;
 
 import javax.swing.BoxLayout;
+import javax.swing.JCheckBox;
 import javax.swing.JComponent;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import language.Language;
 import mathtools.NumberTools;
+import simulator.editmodel.EditModel;
 import simulator.simparser.ExpressionCalc;
+import simulator.simparser.ExpressionMultiEval;
 import systemtools.MsgBox;
 import ui.infopanel.InfoPanel;
 import ui.modeleditor.ModelElementBaseDialog;
@@ -59,6 +63,16 @@ public class ModelElementCostsDialog extends ModelElementBaseDialog {
 	private JTextField clientProcessCosts;
 
 	/**
+	 * Checkbox: Soll die Bedingung verwendet werden?
+	 */
+	private JCheckBox useCondition;
+
+	/**
+	 * Eingabefeld für die Bedingung zur Auslösung der Aktion
+	 */
+	private JTextField condition;
+
+	/**
 	 * Konstruktor der Klasse
 	 * @param owner	Übergeordnetes Fenster
 	 * @param element	Zu bearbeitendes {@link ModelElementCosts}
@@ -81,15 +95,18 @@ public class ModelElementCostsDialog extends ModelElementBaseDialog {
 
 	@Override
 	protected JComponent getContentPanel() {
+		final ModelElementCosts costs=(ModelElementCosts)element;
+		final EditModel model=costs.getModel();
+
 		final JPanel content=new JPanel();
 		content.setLayout(new BoxLayout(content,BoxLayout.PAGE_AXIS));
 
-		variables=element.getSurface().getMainSurfaceVariableNames(element.getModel().getModelVariableNames(),true);
+		variables=element.getSurface().getMainSurfaceVariableNames(model.getModelVariableNames(),true);
 
 		Object[] data;
 		JPanel line;
 
-		data=getInputPanel(Language.tr("Surface.Costs.Dialog.StationCosts")+":",((ModelElementCosts)element).getStationCosts());
+		data=getInputPanel(Language.tr("Surface.Costs.Dialog.StationCosts")+":",costs.getStationCosts());
 		content.add(line=(JPanel)data[0]);
 		stationCosts=(JTextField)data[1];
 		stationCosts.setEditable(!readOnly);
@@ -98,9 +115,9 @@ public class ModelElementCostsDialog extends ModelElementBaseDialog {
 			@Override public void keyReleased(KeyEvent e) {checkData(false);}
 			@Override public void keyPressed(KeyEvent e) {checkData(false);}
 		});
-		line.add(getExpressionEditButton(this,stationCosts,false,true,element.getModel(),element.getSurface()),BorderLayout.EAST);
+		line.add(getExpressionEditButton(this,stationCosts,false,true,model,element.getSurface()),BorderLayout.EAST);
 
-		data=getInputPanel(Language.tr("Surface.Costs.Dialog.WaitingCosts")+":",((ModelElementCosts)element).getClientWaitingCosts());
+		data=getInputPanel(Language.tr("Surface.Costs.Dialog.WaitingCosts")+":",costs.getClientWaitingCosts());
 		content.add(line=(JPanel)data[0]);
 		clientWaitingCosts=(JTextField)data[1];
 		clientWaitingCosts.setEditable(!readOnly);
@@ -109,9 +126,9 @@ public class ModelElementCostsDialog extends ModelElementBaseDialog {
 			@Override public void keyReleased(KeyEvent e) {checkData(false);}
 			@Override public void keyPressed(KeyEvent e) {checkData(false);}
 		});
-		line.add(getExpressionEditButton(this,clientWaitingCosts,false,true,element.getModel(),element.getSurface()),BorderLayout.EAST);
+		line.add(getExpressionEditButton(this,clientWaitingCosts,false,true,model,element.getSurface()),BorderLayout.EAST);
 
-		data=getInputPanel(Language.tr("Surface.Costs.Dialog.TransferCosts")+":",((ModelElementCosts)element).getClientTransferCosts());
+		data=getInputPanel(Language.tr("Surface.Costs.Dialog.TransferCosts")+":",costs.getClientTransferCosts());
 		content.add(line=(JPanel)data[0]);
 		clientTransferCosts=(JTextField)data[1];
 		clientTransferCosts.setEditable(!readOnly);
@@ -120,9 +137,9 @@ public class ModelElementCostsDialog extends ModelElementBaseDialog {
 			@Override public void keyReleased(KeyEvent e) {checkData(false);}
 			@Override public void keyPressed(KeyEvent e) {checkData(false);}
 		});
-		line.add(getExpressionEditButton(this,clientTransferCosts,false,true,element.getModel(),element.getSurface()),BorderLayout.EAST);
+		line.add(getExpressionEditButton(this,clientTransferCosts,false,true,model,element.getSurface()),BorderLayout.EAST);
 
-		data=getInputPanel(Language.tr("Surface.Costs.Dialog.ProcessCosts")+":",((ModelElementCosts)element).getClientProcessCosts());
+		data=getInputPanel(Language.tr("Surface.Costs.Dialog.ProcessCosts")+":",costs.getClientProcessCosts());
 		content.add(line=(JPanel)data[0]);
 		clientProcessCosts=(JTextField)data[1];
 		clientProcessCosts.setEditable(!readOnly);
@@ -131,7 +148,29 @@ public class ModelElementCostsDialog extends ModelElementBaseDialog {
 			@Override public void keyReleased(KeyEvent e) {checkData(false);}
 			@Override public void keyPressed(KeyEvent e) {checkData(false);}
 		});
-		line.add(getExpressionEditButton(this,clientProcessCosts,false,true,element.getModel(),element.getSurface()),BorderLayout.EAST);
+		line.add(getExpressionEditButton(this,clientProcessCosts,false,true,model,element.getSurface()),BorderLayout.EAST);
+
+		/* Optionale Bedingung */
+		final JPanel bottomArea=new JPanel();
+		bottomArea.setLayout(new BoxLayout(bottomArea,BoxLayout.PAGE_AXIS));
+		content.add(bottomArea,BorderLayout.SOUTH);
+
+		bottomArea.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
+		line.add(useCondition=new JCheckBox(Language.tr("Surface.Costs.Dialog.Condition.UseCondition")+":",!costs.getCondition().isEmpty()));
+		useCondition.addActionListener(e->checkData(false));
+		useCondition.setEnabled(!readOnly);
+
+		data=ModelElementBaseDialog.getInputPanel(Language.tr("Surface.Costs.Dialog.Condition.Condition")+":",costs.getCondition());
+		bottomArea.add(line=(JPanel)data[0]);
+		condition=(JTextField)data[1];
+		condition.setEnabled(!readOnly);
+		condition.addKeyListener(new KeyListener() {
+			@Override public void keyTyped(KeyEvent e) {checkData(false); useCondition.setSelected(true);}
+			@Override public void keyReleased(KeyEvent e) {checkData(false); useCondition.setSelected(true);}
+			@Override public void keyPressed(KeyEvent e) {checkData(false); useCondition.setSelected(true);}
+		});
+		line.add(ModelElementBaseDialog.getExpressionEditButton(this,condition,true,true,model,model.surface),BorderLayout.EAST);
+
 
 		checkData(false);
 		return content;
@@ -145,6 +184,8 @@ public class ModelElementCostsDialog extends ModelElementBaseDialog {
 	private boolean checkData(final boolean showErrorMessage) {
 		if (readOnly) return false;
 
+		final EditModel model=element.getModel();
+
 		String text;
 
 		boolean ok=true;
@@ -153,7 +194,7 @@ public class ModelElementCostsDialog extends ModelElementBaseDialog {
 		if (!text.trim().isEmpty()) {
 			final int error=ExpressionCalc.check(text,variables);
 			if (error>=0) {
-				stationCosts.setBackground(Color.red);
+				stationCosts.setBackground(Color.RED);
 				if (showErrorMessage) {
 					MsgBox.error(this,Language.tr("Surface.Costs.Dialog.CostsError.Title"),String.format(Language.tr("Surface.Costs.Dialog.StationCosts.ErrorInfo"),text,error+1));
 					return false;
@@ -170,7 +211,7 @@ public class ModelElementCostsDialog extends ModelElementBaseDialog {
 		if (!text.trim().isEmpty()) {
 			final int error=ExpressionCalc.check(text,variables);
 			if (error>=0) {
-				clientWaitingCosts.setBackground(Color.red);
+				clientWaitingCosts.setBackground(Color.RED);
 				if (showErrorMessage) {
 					MsgBox.error(this,Language.tr("Surface.Costs.Dialog.CostsError.Title"),String.format(Language.tr("Surface.Costs.Dialog.WaitingCosts.ErrorInfo"),text,error+1));
 					return false;
@@ -187,7 +228,7 @@ public class ModelElementCostsDialog extends ModelElementBaseDialog {
 		if (!text.trim().isEmpty()) {
 			final int error=ExpressionCalc.check(text,variables);
 			if (error>=0) {
-				clientTransferCosts.setBackground(Color.red);
+				clientTransferCosts.setBackground(Color.RED);
 				if (showErrorMessage) {
 					MsgBox.error(this,Language.tr("Surface.Costs.Dialog.CostsError.Title"),String.format(Language.tr("Surface.Costs.Dialog.TransferCosts.ErrorInfo"),text,error+1));
 					return false;
@@ -204,7 +245,7 @@ public class ModelElementCostsDialog extends ModelElementBaseDialog {
 		if (!text.trim().isEmpty()) {
 			final int error=ExpressionCalc.check(text,variables);
 			if (error>=0) {
-				clientProcessCosts.setBackground(Color.red);
+				clientProcessCosts.setBackground(Color.RED);
 				if (showErrorMessage) {
 					MsgBox.error(this,Language.tr("Surface.Costs.Dialog.CostsError.Title"),String.format(Language.tr("Surface.Costs.Dialog.ProcessCosts.ErrorInfo"),text,error+1));
 					return false;
@@ -215,6 +256,23 @@ public class ModelElementCostsDialog extends ModelElementBaseDialog {
 			}
 		} else {
 			clientProcessCosts.setBackground(NumberTools.getTextFieldDefaultBackground());
+		}
+
+		final String conditionString=condition.getText().trim();
+		if (!useCondition.isSelected() || conditionString.isEmpty()) {
+			condition.setBackground(NumberTools.getTextFieldDefaultBackground());
+		} else {
+			final int error=ExpressionMultiEval.check(conditionString,model.surface.getMainSurfaceVariableNames(model.getModelVariableNames(),false));
+			if (error>=0) {
+				condition.setBackground(Color.RED);
+				if (showErrorMessage) {
+					MsgBox.error(this,Language.tr("Surface.Costs.Dialog.Condition.Error.Title"),String.format(Language.tr("Surface.Costs.Dialog.Condition.Error.Info"),condition,error+1));
+					return false;
+				}
+				ok=false;
+			} else {
+				condition.setBackground(NumberTools.getTextFieldDefaultBackground());
+			}
 		}
 
 		return ok;
@@ -238,9 +296,13 @@ public class ModelElementCostsDialog extends ModelElementBaseDialog {
 	@Override
 	protected void storeData() {
 		super.storeData();
-		((ModelElementCosts)element).setStationCosts(stationCosts.getText().trim());
-		((ModelElementCosts)element).setClientWaitingCosts(clientWaitingCosts.getText().trim());
-		((ModelElementCosts)element).setClientTransferCosts(clientTransferCosts.getText().trim());
-		((ModelElementCosts)element).setClientProcessCosts(clientProcessCosts.getText().trim());
+
+		final ModelElementCosts costs=(ModelElementCosts)element;
+
+		costs.setStationCosts(stationCosts.getText().trim());
+		costs.setClientWaitingCosts(clientWaitingCosts.getText().trim());
+		costs.setClientTransferCosts(clientTransferCosts.getText().trim());
+		costs.setClientProcessCosts(clientProcessCosts.getText().trim());
+		if (useCondition.isSelected()) costs.setCondition(condition.getText().trim()); else costs.setCondition("");
 	}
 }
