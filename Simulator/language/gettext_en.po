@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-11 08:22+0100\n"
+"POT-Creation-Date: 2023-01-12 10:37+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -11570,6 +11570,9 @@ msgstr "Batch size"
 msgid "ModelDescription.Batch.SourceClientType"
 msgstr "Initial client type"
 
+msgid "ModelDescription.ClientIcon.Condition"
+msgstr "Condition"
+
 msgid "ModelDescription.ClientIcon.Icon"
 msgstr "New icon for clients"
 
@@ -17941,6 +17944,9 @@ msgstr "The additional condition \"%s\" at element id=%d is invalid at character
 
 msgid "Simulation.Creator.HoldMultiCondition"
 msgstr "The %d. branching condition \"%s\" at element id=%d is invalid at character %d."
+
+msgid "Simulation.Creator.Icon.Condition"
+msgstr "The condition \"%s\" at element id=%d is invalid at character %d."
 
 msgid "Simulation.Creator.InputConnectionsNotMatching"
 msgstr "At element id=%d the planned and the actual number of input edges are not matching."
@@ -26539,6 +26545,18 @@ msgstr "ModelElementMultiBatch"
 msgid "Surface.Box.Name"
 msgstr "Box"
 
+msgid "Surface.ClientIcon.Dialog.Condition.Condition"
+msgstr "Condition"
+
+msgid "Surface.ClientIcon.Dialog.Condition.Error.Info"
+msgstr "The specified condition \\\"%s\\\" is invalid at character %d."
+
+msgid "Surface.ClientIcon.Dialog.Condition.Error.Title"
+msgstr "Invalid condition"
+
+msgid "Surface.ClientIcon.Dialog.Condition.UseCondition"
+msgstr "Only apply settings if condition is met"
+
 msgid "Surface.ClientIcon.Dialog.IconForClient"
 msgstr "Icon for the clients"
 
@@ -26553,6 +26571,9 @@ msgstr "Icon"
 
 msgid "Surface.ClientIcon.Tooltip"
 msgstr "Assigns a new icon to the clients who are passing this element."
+
+msgid "Surface.ClientIcon.XML.Condition"
+msgstr "ModelElementIconCondition"
 
 msgid "Surface.ClientIcon.XML.IconName"
 msgstr "ModelElementIconName"

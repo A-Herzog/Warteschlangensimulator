@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-11 08:22+0100\n"
+"POT-Creation-Date: 2023-01-12 10:37+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -11567,6 +11567,9 @@ msgstr "Batch-Größe"
 msgid "ModelDescription.Batch.SourceClientType"
 msgstr "Ausgangskundentyp"
 
+msgid "ModelDescription.ClientIcon.Condition"
+msgstr "Bedingung"
+
 msgid "ModelDescription.ClientIcon.Icon"
 msgstr "Neues Icon für die Kunden"
 
@@ -17955,6 +17958,9 @@ msgstr "Die zusätzliche Bedingung \"%s\" von Element id=%d enthält an Position
 
 msgid "Simulation.Creator.HoldMultiCondition"
 msgstr "Die %d. Übergangsbedingung \"%s\" von Element id=%d aus enthält an Position %d einen Fehler."
+
+msgid "Simulation.Creator.Icon.Condition"
+msgstr "Die Bedingung \"%s\" von Element id=%d enthält an Position %d einen Fehler."
 
 msgid "Simulation.Creator.InputConnectionsNotMatching"
 msgstr "Bei Element id=%d stimmt die Anzahl an geplanten und an tatsächlichen einlaufenden Kanten nicht überein."
@@ -26555,6 +26561,18 @@ msgstr "ModellElementMehrfachZusammenfassen"
 msgid "Surface.Box.Name"
 msgstr "Box"
 
+msgid "Surface.ClientIcon.Dialog.Condition.Condition"
+msgstr "Bedingung"
+
+msgid "Surface.ClientIcon.Dialog.Condition.Error.Info"
+msgstr "Die angegebene Bedingung \"%s\" ist ab Zeichen %d fehlerhaft."
+
+msgid "Surface.ClientIcon.Dialog.Condition.Error.Title"
+msgstr "Ungültige Bedingung"
+
+msgid "Surface.ClientIcon.Dialog.Condition.UseCondition"
+msgstr "Zuweisung nur durchführen, wenn Bedingung erfüllt ist"
+
 msgid "Surface.ClientIcon.Dialog.IconForClient"
 msgstr "Icon für Kunden"
 
@@ -26569,6 +26587,9 @@ msgstr "Icon"
 
 msgid "Surface.ClientIcon.Tooltip"
 msgstr "Weist den Kunden, die dieses Element durchlaufen, einen neues Icon zu."
+
+msgid "Surface.ClientIcon.XML.Condition"
+msgstr "ModellElementIconBedingung"
 
 msgid "Surface.ClientIcon.XML.IconName"
 msgstr "ModellElementIconName"

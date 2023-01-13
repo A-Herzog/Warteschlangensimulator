@@ -1542,7 +1542,7 @@
   SoundMaxSekunden			CDATA   #IMPLIED
 >
 
-<!ELEMENT ModellElementIcon (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementBoxSchriftGross | ModellElementBoxSchriftKlein | ModellElementMaximalerDurchsatzSekunden | ModellElementEbene | ModellElementHintergrundfarbe | ModellElementStationsbild | ModellElementVerbindung | ModellElementIconName)*>
+<!ELEMENT ModellElementIcon (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementBoxSchriftGross | ModellElementBoxSchriftKlein | ModellElementMaximalerDurchsatzSekunden | ModellElementEbene | ModellElementHintergrundfarbe | ModellElementStationsbild | ModellElementVerbindung | ModellElementIconName | ModellElementIconBedingung)*>
 <!ATTLIST ModellElementIcon
   id			CDATA	#REQUIRED
   geschuetzt	CDATA	#IMPLIED
@@ -1550,6 +1550,7 @@
   SymbolSpiegeln	CDATA	#IMPLIED
 >
 <!ELEMENT ModellElementIconName (#PCDATA)>
+<!ELEMENT ModellElementIconBedingung (#PCDATA)>
 
 <!ELEMENT ModellElementAnimationText (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementBoxSchriftGross | ModellElementBoxSchriftKlein | ModellElementMaximalerDurchsatzSekunden | ModellElementEbene | ModellElementSchriftart | ModellElementSchriftgrosse | ModellElementFarbe | ModellElementAnimationsmodus | ModellElementHintergrundfarbe)*>
 <!ATTLIST ModellElementAnimationText
@@ -4163,7 +4164,7 @@
   SoundMaxSeconds			CDATA   #IMPLIED
 >
 
-<!ELEMENT ModelElementIcon (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBoxFontLarge | ModelElementBoxFontSmall | ModelElementMaximumThroughputSeconds | ModelElementLayer | ModelElementBackgroundColor | ModelElementStationimage | ModelElementConnection | ModelElementIconName)*>
+<!ELEMENT ModelElementIcon (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBoxFontLarge | ModelElementBoxFontSmall | ModelElementMaximumThroughputSeconds | ModelElementLayer | ModelElementBackgroundColor | ModelElementStationimage | ModelElementConnection | ModelElementIconName | ModelElementIconCondition)*>
 <!ATTLIST ModelElementIcon
   id		CDATA	#REQUIRED
   protected	CDATA	#IMPLIED
@@ -4171,6 +4172,7 @@
   MirrorSymbol	CDATA	#IMPLIED
 >
 <!ELEMENT ModelElementIconName (#PCDATA)>
+<!ELEMENT ModelElementIconCondition (#PCDATA)>
 
 <!ELEMENT ModelElementAnimationText (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBoxFontLarge | ModelElementBoxFontSmall | ModelElementMaximumThroughputSeconds | ModelElementLayer | ModelElementFontFamily | ModelElementFontSize | ModelElementColor | ModelElementAnimationMode | ModelElementBackgroundColor)*>
 <!ATTLIST ModelElementAnimationText

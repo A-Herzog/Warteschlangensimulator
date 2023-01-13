@@ -1681,6 +1681,7 @@
 <xs:element name="ModellElementIcon"><xs:complexType><xs:complexContent><xs:extension base="ModellElementVerbundenBasis">
   <xs:sequence minOccurs="0" maxOccurs="unbounded"><xs:choice>
     <xs:element name="ModellElementIconName" type="xs:string"/>
+	<xs:element name="ModellElementIconBedingung" type="xs:string"/>
   </xs:choice></xs:sequence>
 </xs:extension></xs:complexContent></xs:complexType></xs:element>
 
@@ -4076,6 +4077,7 @@
 <xs:element name="ModelElementIcon"><xs:complexType><xs:complexContent><xs:extension base="ModelElementConnectedBase">
   <xs:sequence minOccurs="0" maxOccurs="unbounded"><xs:choice>
     <xs:element name="ModelElementIconName" type="xs:string"/>
+	<xs:element name="ModelElementIconCondition" type="xs:string"/>
   </xs:choice></xs:sequence>
 </xs:extension></xs:complexContent></xs:complexType></xs:element>
 

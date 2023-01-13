@@ -23,6 +23,7 @@ import simulator.events.StationLeaveEvent;
 import simulator.runmodel.RunDataClient;
 import simulator.runmodel.RunModel;
 import simulator.runmodel.SimulationData;
+import simulator.simparser.ExpressionMultiEval;
 import ui.modeleditor.coreelements.ModelElement;
 import ui.modeleditor.elements.ModelElementClientIcon;
 import ui.modeleditor.elements.ModelElementSub;
@@ -37,6 +38,11 @@ public class RunElementClientIcon extends RunElementPassThrough {
 	 * Zuzuweisendes Icon für die Kunden
 	 */
 	private String icon;
+
+	/**
+	 * Optionale zusätzliche Bedingung, die für eine Zuweisung erfüllt sein muss (kann <code>null</code> sein)
+	 */
+	private String condition;
 
 	/**
 	 * Konstruktor der Klasse
@@ -61,6 +67,16 @@ public class RunElementClientIcon extends RunElementPassThrough {
 		if (icon==null || icon.isEmpty()) return String.format(Language.tr("Simulation.Creator.NoIconName"),element.getId());
 		assignIcon.icon=icon;
 
+		/* Optionale Bedingung */
+		final String condition=assignIconElement.getCondition();
+		if (condition==null || condition.trim().isEmpty()) {
+			assignIcon.condition=null;
+		} else {
+			final int error=ExpressionMultiEval.check(condition,runModel.variableNames);
+			if (error>=0) return String.format(Language.tr("Simulation.Creator.Icon.Condition"),condition,element.getId(),error+1);
+			assignIcon.condition=condition;
+		}
+
 		return assignIcon;
 	}
 
@@ -81,13 +97,40 @@ public class RunElementClientIcon extends RunElementPassThrough {
 	}
 
 	@Override
-	public void processArrival(final SimulationData simData, final RunDataClient client) {
-		/* Kundentyp ändern */
+	public RunElementClientIconData getData(final SimulationData simData) {
+		RunElementClientIconData data;
+		data=(RunElementClientIconData)(simData.runData.getStationData(this));
+		if (data==null) {
+			data=new RunElementClientIconData(this,condition,simData.runModel.variableNames);
+			simData.runData.setStationData(this,data);
+		}
+		return data;
+	}
+
+	/**
+	 * Führt die eigentliche Icon-Zuweisung durch.
+	 * @param simData	Simulationsdatenobjekt
+	 * @param client	Kunde
+	 */
+	private void applyClientIcon(final SimulationData simData, final RunDataClient client) {
+		/* Icon zuweisen */
 		client.iconLast=client.icon;
 		client.icon=icon;
 
 		/* Logging */
 		if (simData.loggingActive) log(simData,Language.tr("Simulation.Log.Icon"),String.format(Language.tr("Simulation.Log.Icon.Info"),client.logInfo(simData),((client.icon==null)?Language.tr("Simulation.Log.Icon.Default"):client.icon),icon,name));
+	}
+
+	@Override
+	public void processArrival(final SimulationData simData, final RunDataClient client) {
+		final RunElementClientIconData data=getData(simData);
+
+		if (condition!=null) {
+			simData.runData.setClientVariableValues(client);
+			if (data.condition.eval(simData.runData.variableValues,simData,client)) applyClientIcon(simData,client);
+		} else {
+			applyClientIcon(simData,client);
+		}
 
 		/* Kunde zur nächsten Station leiten */
 		StationLeaveEvent.addLeaveEvent(simData,client,this,0);

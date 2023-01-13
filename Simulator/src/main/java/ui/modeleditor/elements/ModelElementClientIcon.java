@@ -28,6 +28,7 @@ import org.w3c.dom.Element;
 
 import language.Language;
 import simulator.editmodel.EditModel;
+import simulator.editmodel.FullTextSearch;
 import ui.images.Images;
 import ui.modeleditor.AnimationImageSource;
 import ui.modeleditor.ModelClientData;
@@ -53,6 +54,13 @@ public class ModelElementClientIcon extends ModelElementMultiInSingleOutBox  {
 	private String icon;
 
 	/**
+	 * Zusätzliche optionale Bedingung, die für die Zuweisung erfüllt sein muss (kann <code>null</code> sein)
+	 * @see #getCondition()
+	 * @see #setCondition(String)
+	 */
+	private String condition;
+
+	/**
 	 * Konstruktor der Klasse <code>ModelElementClientIcon</code>
 	 * @param model	Modell zu dem dieses Element gehören soll (kann später nicht mehr geändert werden)
 	 * @param surface	Zeichenfläche zu dem dieses Element gehören soll (kann später nicht mehr geändert werden)
@@ -60,6 +68,7 @@ public class ModelElementClientIcon extends ModelElementMultiInSingleOutBox  {
 	public ModelElementClientIcon(final EditModel model, final ModelSurface surface) {
 		super(model,surface,Shapes.ShapeType.SHAPE_ROUNDED_RECTANGLE);
 		icon=ModelSurfaceAnimatorBase.DEFAULT_CLIENT_ICON_NAME;
+		condition="";
 	}
 
 	/**
@@ -106,8 +115,10 @@ public class ModelElementClientIcon extends ModelElementMultiInSingleOutBox  {
 	public boolean equalsModelElement(ModelElement element) {
 		if (!super.equalsModelElement(element)) return false;
 		if (!(element instanceof ModelElementClientIcon)) return false;
+		final ModelElementClientIcon otherClientIcon=(ModelElementClientIcon)element;
 
-		if (!icon.equals(((ModelElementClientIcon)element).icon)) return false;
+		if (!icon.equals(otherClientIcon.icon)) return false;
+		if (!condition.equals(otherClientIcon.condition)) return false;
 
 		return true;
 	}
@@ -120,7 +131,9 @@ public class ModelElementClientIcon extends ModelElementMultiInSingleOutBox  {
 	public void copyDataFrom(ModelElement element) {
 		super.copyDataFrom(element);
 		if (element instanceof ModelElementClientIcon) {
-			icon=((ModelElementClientIcon)element).icon;
+			final ModelElementClientIcon source=(ModelElementClientIcon)element;
+			icon=source.icon;
+			condition=source.condition;
 		}
 	}
 
@@ -248,8 +261,14 @@ public class ModelElementClientIcon extends ModelElementMultiInSingleOutBox  {
 		super.addPropertiesDataToXML(doc,node);
 
 		Element sub;
+
 		node.appendChild(sub=doc.createElement(Language.trPrimary("Surface.ClientIcon.XML.IconName")));
 		sub.setTextContent(icon);
+
+		if (!condition.isEmpty()) {
+			node.appendChild(sub=doc.createElement(Language.trPrimary("Surface.ClientIcon.XML.Condition")));
+			sub.setTextContent(condition);
+		}
 	}
 
 	/**
@@ -267,6 +286,12 @@ public class ModelElementClientIcon extends ModelElementMultiInSingleOutBox  {
 		if (Language.trAll("Surface.ClientIcon.XML.IconName",name)) {
 			icon=node.getTextContent();
 			/* if (!AnimationImageSource.ICONS.values().contains(icon)) icon=ModelSurfaceAnimatorBase.DEFAULT_CLIENT_ICON_NAME; */
+			return null;
+		}
+
+		if (Language.trAll("Surface.ClientIcon.XML.Condition",name)) {
+			condition=content;
+			return null;
 		}
 
 		return null;
@@ -287,6 +312,22 @@ public class ModelElementClientIcon extends ModelElementMultiInSingleOutBox  {
 	public void setIcon(final String icon) {
 		if (icon!=null) this.icon=icon;
 		fireChanged();
+	}
+
+	/**
+	 * Liefert die optionale Bedingung, die für die Zuweisung erfüllt sein muss.
+	 * @return	Bedingung, die für die Zuweisung erfüllt sein muss (kann <code>null</code> sein)
+	 */
+	public String getCondition() {
+		return condition;
+	}
+
+	/**
+	 * Stellt die Bedingung, die für die Zuweisung erfüllt sein muss, ein.
+	 * @param condition	Optionale Bedingung, die für die Zuweisung erfüllt sein muss (kann <code>null</code> sein oder leer sein)
+	 */
+	public void setCondition(final String condition) {
+		this.condition=(condition==null)?"":condition;
 	}
 
 	@Override
@@ -311,5 +352,14 @@ public class ModelElementClientIcon extends ModelElementMultiInSingleOutBox  {
 	public void buildDescription(final ModelDescriptionBuilder descriptionBuilder) {
 		super.buildDescription(descriptionBuilder);
 		if (!icon.trim().isEmpty()) descriptionBuilder.addProperty(Language.tr("ModelDescription.ClientIcon.Icon"),icon,1000);
+		if (!condition.isEmpty()) descriptionBuilder.addProperty(Language.tr("ModelDescription.ClientIcon.Condition"),condition,2000);
+	}
+
+	@Override
+	public void search(final FullTextSearch searcher) {
+		super.search(searcher);
+
+		searcher.testString(this,Language.tr("Surface.ClientIcon.Dialog.IconForClient"),icon,newIcon->{icon=newIcon;});
+		if (!condition.isEmpty()) searcher.testString(this,Language.tr("Editor.DialogBase.Search.Condition"),condition,newCondition->condition=newCondition);
 	}
 }
