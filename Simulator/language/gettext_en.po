@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-12 10:37+0100\n"
+"POT-Creation-Date: 2023-01-13 09:00+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -11498,6 +11498,9 @@ msgstr "falls below threshold value"
 msgid "ModelDescription.Arrival.Threshold.Up"
 msgstr "exceeds threshold value"
 
+msgid "ModelDescription.Assign.Condition"
+msgstr "Condition"
+
 msgid "ModelDescription.AssignString.Assignment"
 msgstr "Assignment"
 
@@ -12768,7 +12771,7 @@ msgid "ModelLoadData.ProcessError.FileLoadError"
 msgstr "The file \"%s\" could not be loaded."
 
 msgid "ModelLoadData.ProcessError.InvalidCellID"
-msgstr "The cell identifier \\\"%s\\\" for record %d is invalid."
+msgstr "The cell identifier \"%s\" for record %d is invalid."
 
 msgid "ModelLoadData.ProcessError.NoCellID"
 msgstr "No cell identifier was specified for record %d."
@@ -17843,6 +17846,9 @@ msgstr "At element id=%d the invalid system update notify distance %d was specif
 msgid "Simulation.Creator.ArrivalStream"
 msgstr "The %d. arrival value \"%s\" at station id=%d is invalid."
 
+msgid "Simulation.Creator.AssignCondition"
+msgstr "The condition \"%s\" at element id=%d is invalid at character %d."
+
 msgid "Simulation.Creator.BalkingCondition"
 msgstr "The balking condition \"%s\" at element id=%d is invalid at character %d."
 
@@ -17868,7 +17874,7 @@ msgid "Simulation.Creator.CostsCondition"
 msgstr "The condition \"%s\" at element id=%d is invalid at character %d."
 
 msgid "Simulation.Creator.CostsErrorDelay"
-msgstr "The specified costs per client \\\"%s\\\" are invalid at character %d."
+msgstr "The specified costs per client \"%s\" are invalid at character %d."
 
 msgid "Simulation.Creator.CostsErrorProcess"
 msgstr "The process time costs \"%s\" of element id=%d are invalid at character %d."
@@ -25984,6 +25990,18 @@ msgstr "yellow"
 msgid "Surface.AnimationTrafficLights.XML.Root"
 msgstr "ModelElementAnimationTrafficLights"
 
+msgid "Surface.Assign.Dialog.Condition.Condition"
+msgstr "Condition"
+
+msgid "Surface.Assign.Dialog.Condition.Error.Info"
+msgstr "The specified condition \"%s\" is invalid at character %d."
+
+msgid "Surface.Assign.Dialog.Condition.Error.Title"
+msgstr "Invalid condition"
+
+msgid "Surface.Assign.Dialog.Condition.UseCondition"
+msgstr "Only apply settings if condition is met"
+
 msgid "Surface.Assign.Dialog.Title"
 msgstr "Edit assignment"
 
@@ -25998,6 +26016,9 @@ msgstr "New client type"
 
 msgid "Surface.Assign.Tooltip"
 msgstr "Assigns a new client type to the clients who are passing this element."
+
+msgid "Surface.Assign.XML.Condition"
+msgstr "ModelElementAssignmentCondition"
 
 msgid "Surface.Assign.XML.Root"
 msgstr "ModelElementAssignment"
@@ -26549,7 +26570,7 @@ msgid "Surface.ClientIcon.Dialog.Condition.Condition"
 msgstr "Condition"
 
 msgid "Surface.ClientIcon.Dialog.Condition.Error.Info"
-msgstr "The specified condition \\\"%s\\\" is invalid at character %d."
+msgstr "The specified condition \"%s\" is invalid at character %d."
 
 msgid "Surface.ClientIcon.Dialog.Condition.Error.Title"
 msgstr "Invalid condition"
@@ -26571,6 +26592,9 @@ msgstr "Icon"
 
 msgid "Surface.ClientIcon.Tooltip"
 msgstr "Assigns a new icon to the clients who are passing this element."
+
+msgid "Surface.ClientIcon.XML.Assign"
+msgstr "ModelElementIconCondition"
 
 msgid "Surface.ClientIcon.XML.Condition"
 msgstr "ModelElementIconCondition"
@@ -26761,14 +26785,11 @@ msgstr "TransferTime"
 msgid "Surface.Conveyor.XML.TransportTime.Type.WaitingTime"
 msgstr "WaitingTime"
 
-msgid "Surface.Costs.Condition.Error.Info"
-msgstr "The specified condition \\\"%s\\\" is invalid at character %d."
-
 msgid "Surface.Costs.Dialog.Condition.Condition"
 msgstr "Condition"
 
 msgid "Surface.Costs.Dialog.Condition.Error.Info"
-msgstr "The specified condition \\\"%s\\\" is invalid at character %d."
+msgstr "The specified condition \"%s\" is invalid at character %d."
 
 msgid "Surface.Costs.Dialog.Condition.Error.Title"
 msgstr "Invalid condition"
@@ -28429,7 +28450,7 @@ msgid "Surface.InputDDE.Dialog.Variable"
 msgstr "Variable"
 
 msgid "Surface.InputDDE.Dialog.Variable.ErrorInfo"
-msgstr "The choosen variable name \\\"%s\\\" is invalid."
+msgstr "The choosen variable name \"%s\" is invalid."
 
 msgid "Surface.InputDDE.Dialog.Variable.ErrorTitle"
 msgstr "Invalid variable name"
@@ -31308,7 +31329,7 @@ msgid "Surface.Set.Dialog.Condition.Condition"
 msgstr "Condition"
 
 msgid "Surface.Set.Dialog.Condition.Error.Info"
-msgstr "The specified condition \\\"%s\\\" is invalid at character %d."
+msgstr "The specified condition \"%s\" is invalid at character %d."
 
 msgid "Surface.Set.Dialog.Condition.Error.Title"
 msgstr "Invalid condition"
@@ -36402,6 +36423,9 @@ msgstr "The file format is unknown respectively is not matching to any of the fi
 
 #~ msgid "Surface.AnimationText.Dialog.FontColor"
 #~ msgstr "Font color"
+
+#~ msgid "Surface.Costs.Condition.Error.Info"
+#~ msgstr "The specified condition \"%s\" is invalid at character %d."
 
 #~ msgid "Surface.ExpressionTableModel.Dialog.Expression"
 #~ msgstr "Expression"

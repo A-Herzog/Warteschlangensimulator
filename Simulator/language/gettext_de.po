@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-12 10:37+0100\n"
+"POT-Creation-Date: 2023-01-13 09:00+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -11495,6 +11495,9 @@ msgstr "den folgenden Schwellenwert unterschreitet:"
 msgid "ModelDescription.Arrival.Threshold.Up"
 msgstr "den folgenden Schwellenwert überschreitet:"
 
+msgid "ModelDescription.Assign.Condition"
+msgstr "Bedingung"
+
 msgid "ModelDescription.AssignString.Assignment"
 msgstr "Zuweisung"
 
@@ -12765,7 +12768,7 @@ msgid "ModelLoadData.ProcessError.FileLoadError"
 msgstr "Die Datei \"%s\" konnte nicht geladen werden."
 
 msgid "ModelLoadData.ProcessError.InvalidCellID"
-msgstr "Der Zellbezeichner \\\"%s\\\" für Datensatz %d ist ungültig."
+msgstr "Der Zellbezeichner \"%s\" für Datensatz %d ist ungültig."
 
 msgid "ModelLoadData.ProcessError.NoCellID"
 msgstr "Es wurde kein Zellbezeichner für Datensatz %d angegeben."
@@ -17857,6 +17860,9 @@ msgstr "An Element id=%d wurde der ungültige Systembenachrichtigungsabstand %s 
 msgid "Simulation.Creator.ArrivalStream"
 msgstr "Der %d. Ankunftszeitenwert \"%s\" an Station id=%d ist ungültig."
 
+msgid "Simulation.Creator.AssignCondition"
+msgstr "Die Bedingung \"%s\" von Element id=%d enthält an Position %d einen Fehler."
+
 msgid "Simulation.Creator.BalkingCondition"
 msgstr "Die Zurückschreckbedingung \"%s\" von Element id=%d enthält an Position %d einen Fehler."
 
@@ -17882,7 +17888,7 @@ msgid "Simulation.Creator.CostsCondition"
 msgstr "Die Bedingung \"%s\" von Element id=%d enthält an Position %d einen Fehler."
 
 msgid "Simulation.Creator.CostsErrorDelay"
-msgstr "Die angegebenen Kosten pro Kunde \\\"%s\\\" sind ab Zeichen %d ungültig."
+msgstr "Die angegebenen Kosten pro Kunde \"%s\" sind ab Zeichen %d ungültig."
 
 msgid "Simulation.Creator.CostsErrorProcess"
 msgstr "Die Bedienzeit-Kosten \"%s\" von Element id=%d enthalten an Position %d einen Fehler."
@@ -26000,6 +26006,18 @@ msgstr "gelb"
 msgid "Surface.AnimationTrafficLights.XML.Root"
 msgstr "ModellElementAnimationAmpel"
 
+msgid "Surface.Assign.Dialog.Condition.Condition"
+msgstr "Bedingung"
+
+msgid "Surface.Assign.Dialog.Condition.Error.Info"
+msgstr "Die angegebene Bedingung \"%s\" ist ab Zeichen %d fehlerhaft."
+
+msgid "Surface.Assign.Dialog.Condition.Error.Title"
+msgstr "Ungültige Bedingung"
+
+msgid "Surface.Assign.Dialog.Condition.UseCondition"
+msgstr "Zuweisung nur durchführen, wenn Bedingung erfüllt ist"
+
 msgid "Surface.Assign.Dialog.Title"
 msgstr "Zuweisung bearbeiten"
 
@@ -26014,6 +26032,9 @@ msgstr "Neuer Kundentyp"
 
 msgid "Surface.Assign.Tooltip"
 msgstr "Weist den Kunden, die dieses Element durchlaufen, einen neuen Kundentyp zu."
+
+msgid "Surface.Assign.XML.Condition"
+msgstr "ModellElementZuweisungBedingung"
 
 msgid "Surface.Assign.XML.Root"
 msgstr "ModellElementZuweisung"
@@ -26588,6 +26609,9 @@ msgstr "Icon"
 msgid "Surface.ClientIcon.Tooltip"
 msgstr "Weist den Kunden, die dieses Element durchlaufen, einen neues Icon zu."
 
+msgid "Surface.ClientIcon.XML.Assign"
+msgstr "ModellElementIconBedingung"
+
 msgid "Surface.ClientIcon.XML.Condition"
 msgstr "ModellElementIconBedingung"
 
@@ -26776,9 +26800,6 @@ msgstr "Transferzeit"
 
 msgid "Surface.Conveyor.XML.TransportTime.Type.WaitingTime"
 msgstr "Wartezeit"
-
-msgid "Surface.Costs.Condition.Error.Info"
-msgstr "Die angegebene Bedingung \"%s\" ist ab Zeichen %d fehlerhaft."
 
 msgid "Surface.Costs.Dialog.Condition.Condition"
 msgstr "Bedingung"
@@ -36452,6 +36473,9 @@ msgstr "Das Dateiformat wurde nicht erkannt bzw. passt zu keinem Dateiformat die
 
 #~ msgid "Surface.AnimationText.Dialog.FontColor"
 #~ msgstr "Schriftfarbe"
+
+#~ msgid "Surface.Costs.Condition.Error.Info"
+#~ msgstr "Die angegebene Bedingung \"%s\" ist ab Zeichen %d fehlerhaft."
 
 #~ msgid "Surface.ExpressionTableModel.Dialog.Expression"
 #~ msgstr "Ausdruck"

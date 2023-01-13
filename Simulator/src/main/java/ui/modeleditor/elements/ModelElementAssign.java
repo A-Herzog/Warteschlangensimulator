@@ -25,8 +25,12 @@ import javax.swing.Icon;
 import javax.swing.JMenu;
 import javax.swing.JPopupMenu;
 
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+
 import language.Language;
 import simulator.editmodel.EditModel;
+import simulator.editmodel.FullTextSearch;
 import simulator.runmodel.RunModelFixer;
 import ui.images.Images;
 import ui.modeleditor.ModelClientData;
@@ -38,6 +42,7 @@ import ui.modeleditor.coreelements.ModelElementBox;
 import ui.modeleditor.coreelements.ModelElementMultiInSingleOutBox;
 import ui.modeleditor.coreelements.ModelElementPosition;
 import ui.modeleditor.coreelements.QuickFixNextElements;
+import ui.modeleditor.descriptionbuilder.ModelDescriptionBuilder;
 import ui.modeleditor.fastpaint.Shapes;
 
 /**
@@ -46,12 +51,20 @@ import ui.modeleditor.fastpaint.Shapes;
  */
 public class ModelElementAssign extends ModelElementMultiInSingleOutBox implements ElementWithNewClientNames {
 	/**
+	 * Zusätzliche optionale Bedingung, die für die Zuweisung erfüllt sein muss (kann <code>null</code> sein)
+	 * @see #getCondition()
+	 * @see #setCondition(String)
+	 */
+	private String condition;
+
+	/**
 	 * Konstruktor der Klasse <code>ModelElementAssign</code>
 	 * @param model	Modell zu dem dieses Element gehören soll (kann später nicht mehr geändert werden)
 	 * @param surface	Zeichenfläche zu dem dieses Element gehören soll (kann später nicht mehr geändert werden)
 	 */
 	public ModelElementAssign(final EditModel model, final ModelSurface surface) {
 		super(model,surface,Shapes.ShapeType.SHAPE_ROUNDED_RECTANGLE);
+		condition="";
 	}
 
 	/**
@@ -107,8 +120,24 @@ public class ModelElementAssign extends ModelElementMultiInSingleOutBox implemen
 	public boolean equalsModelElement(ModelElement element) {
 		if (!super.equalsModelElement(element)) return false;
 		if (!(element instanceof ModelElementAssign)) return false;
+		final ModelElementAssign otherAssign=(ModelElementAssign)element;
+
+		if (!otherAssign.condition.equals(condition)) return false;
 
 		return true;
+	}
+
+	/**
+	 * Überträgt die Einstellungen von dem angegebenen Element auf dieses.
+	 * @param element	Element, von dem alle Einstellungen übernommen werden sollen
+	 */
+	@Override
+	public void copyDataFrom(ModelElement element) {
+		super.copyDataFrom(element);
+		if (element instanceof ModelElementAssign) {
+			final ModelElementAssign source=(ModelElementAssign)element;
+			condition=source.condition;
+		}
 	}
 
 	/**
@@ -155,6 +184,22 @@ public class ModelElementAssign extends ModelElementMultiInSingleOutBox implemen
 	@Override
 	public Color getTypeDefaultBackgroundColor() {
 		return defaultBackgroundColor;
+	}
+
+	/**
+	 * Liefert die optionale Bedingung, die für die Zuweisung erfüllt sein muss.
+	 * @return	Bedingung, die für die Zuweisung erfüllt sein muss (kann <code>null</code> sein)
+	 */
+	public String getCondition() {
+		return condition;
+	}
+
+	/**
+	 * Stellt die Bedingung, die für die Zuweisung erfüllt sein muss, ein.
+	 * @param condition	Optionale Bedingung, die für die Zuweisung erfüllt sein muss (kann <code>null</code> sein oder leer sein)
+	 */
+	public void setCondition(final String condition) {
+		this.condition=(condition==null)?"":condition;
 	}
 
 	/**
@@ -233,6 +278,43 @@ public class ModelElementAssign extends ModelElementMultiInSingleOutBox implemen
 		return Language.trAll("Surface.Assign.XML.Root");
 	}
 
+	/**
+	 * Speichert die Eigenschaften des Modell-Elements als Untereinträge eines xml-Knotens
+	 * @param doc	Übergeordnetes xml-Dokument
+	 * @param node	Übergeordneter xml-Knoten, in dessen Kindelementen die Daten des Objekts gespeichert werden sollen
+	 */
+	@Override
+	protected void addPropertiesDataToXML(final Document doc, final Element node) {
+		super.addPropertiesDataToXML(doc,node);
+
+		Element sub;
+
+		if (!condition.isEmpty()) {
+			node.appendChild(sub=doc.createElement(Language.trPrimary("Surface.Assign.XML.Condition")));
+			sub.setTextContent(condition);
+		}
+	}
+
+	/**
+	 * Lädt eine einzelne Einstellung des Modell-Elements aus einem einzelnen xml-Element.
+	 * @param name	Name des xml-Elements
+	 * @param content	Inhalt des xml-Elements als Text
+	 * @param node	xml-Element, aus dem das Datum geladen werden soll
+	 * @return	Tritt ein Fehler auf, so wird die Fehlermeldung als String zurückgegeben. Im Erfolgsfall wird <code>null</code> zurückgegeben.
+	 */
+	@Override
+	protected String loadProperty(final String name, final String content, final Element node) {
+		String error=super.loadProperty(name,content,node);
+		if (error!=null) return error;
+
+		if (Language.trAll("Surface.ClientIcon.XML.Assign",name)) {
+			condition=content;
+			return null;
+		}
+
+		return null;
+	}
+
 	@Override
 	public String[] getNewClientTypes() {
 		return new String[]{getName()};
@@ -250,6 +332,24 @@ public class ModelElementAssign extends ModelElementMultiInSingleOutBox implemen
 	@Override
 	public String getHelpPageName() {
 		return "ModelElementAssign";
+	}
+
+	/**
+	 * Erstellt eine Beschreibung für das aktuelle Element
+	 * @param descriptionBuilder	Description-Builder, der die Beschreibungsdaten zusammenfasst
+	 */
+	@Override
+	public void buildDescription(final ModelDescriptionBuilder descriptionBuilder) {
+		super.buildDescription(descriptionBuilder);
+
+		if (!condition.isEmpty()) descriptionBuilder.addProperty(Language.tr("ModelDescription.Assign.Condition"),condition,1000);
+	}
+
+	@Override
+	public void search(final FullTextSearch searcher) {
+		super.search(searcher);
+
+		if (!condition.isEmpty()) searcher.testString(this,Language.tr("Editor.DialogBase.Search.Condition"),condition,newCondition->condition=newCondition);
 	}
 
 	@Override

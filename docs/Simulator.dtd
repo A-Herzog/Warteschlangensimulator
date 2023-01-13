@@ -653,13 +653,14 @@
 >
 <!ELEMENT ModellElementSpeichernEndeTabelle (#PCDATA)>
 
-<!ELEMENT ModellElementZuweisung (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementBoxSchriftGross | ModellElementBoxSchriftKlein | ModellElementMaximalerDurchsatzSekunden | ModellElementEbene | ModellElementHintergrundfarbe | ModellElementStationsbild | ModellElementVerbindung)*>
+<!ELEMENT ModellElementZuweisung (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementBoxSchriftGross | ModellElementBoxSchriftKlein | ModellElementMaximalerDurchsatzSekunden | ModellElementEbene | ModellElementHintergrundfarbe | ModellElementStationsbild | ModellElementVerbindung | ModellElementZuweisungBedingung)*>
 <!ATTLIST ModellElementZuweisung
   id			CDATA	#REQUIRED
   geschuetzt	CDATA	#IMPLIED
   statistik		CDATA	#IMPLIED
   SymbolSpiegeln	CDATA	#IMPLIED
 >
+<!ELEMENT ModellElementZuweisungBedingung (#PCDATA)>
 
 <!ELEMENT ModellElementZuweisungText (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementBoxSchriftGross | ModellElementBoxSchriftKlein | ModellElementMaximalerDurchsatzSekunden | ModellElementEbene | ModellElementHintergrundfarbe | ModellElementStationsbild | ModellElementVerbindung | ModellElementZuweisungTextEintrag)*>
 <!ATTLIST ModellElementZuweisungText
@@ -3276,13 +3277,14 @@
 >
 <!ELEMENT ModelElementSaveDisposeTable (#PCDATA)>
 
-<!ELEMENT ModelElementAssignment (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBoxFontLarge | ModelElementBoxFontSmall | ModelElementMaximumThroughputSeconds | ModelElementLayer | ModelElementBackgroundColor | ModelElementStationimage | ModelElementConnection)*>
+<!ELEMENT ModelElementAssignment (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBoxFontLarge | ModelElementBoxFontSmall | ModelElementMaximumThroughputSeconds | ModelElementLayer | ModelElementBackgroundColor | ModelElementStationimage | ModelElementConnection | ModelElementAssignmentCondition)*>
 <!ATTLIST ModelElementAssignment
   id		CDATA	#REQUIRED
   protected	CDATA	#IMPLIED
   statistics	CDATA	#IMPLIED
   MirrorSymbol	CDATA	#IMPLIED
 >
+<!ELEMENT ModelElementAssignmentCondition (#PCDATA)>
 
 <!ELEMENT ModelElementAssignmentText (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBoxFontLarge | ModelElementBoxFontSmall | ModelElementMaximumThroughputSeconds | ModelElementLayer | ModelElementBackgroundColor | ModelElementStationimage | ModelElementConnection | ModelElementAssignmentTextRecord)*>
 <!ATTLIST ModelElementAssignmentText

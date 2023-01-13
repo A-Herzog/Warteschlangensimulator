@@ -884,7 +884,11 @@
   </xs:choice></xs:sequence>
 </xs:extension></xs:complexContent></xs:complexType></xs:element>
 
-<xs:element name="ModellElementZuweisung" type="ModellElementVerbundenBasis"/>
+<xs:element name="ModellElementZuweisung"><xs:complexType><xs:complexContent><xs:extension base="ModellElementVerbundenBasis">
+  <xs:sequence minOccurs="0" maxOccurs="1"><xs:choice>
+	<xs:element name="ModellElementZuweisungBedingung" type="xs:string"/>
+  </xs:choice></xs:sequence>
+</xs:extension></xs:complexContent></xs:complexType></xs:element>
 
 <xs:element name="ModellElementZuweisungText"><xs:complexType><xs:complexContent><xs:extension base="ModellElementVerbundenBasis">
   <xs:sequence minOccurs="0" maxOccurs="unbounded"><xs:choice>
@@ -3280,7 +3284,11 @@
   </xs:choice></xs:sequence>
 </xs:extension></xs:complexContent></xs:complexType></xs:element>
 
-<xs:element name="ModelElementAssignment" type="ModelElementConnectedBase"/>
+<xs:element name="ModelElementAssignment"><xs:complexType><xs:complexContent><xs:extension base="ModelElementConnectedBase">
+  <xs:sequence minOccurs="0" maxOccurs="1"><xs:choice>
+	<xs:element name="ModelElementAssignmentCondition" type="xs:string"/>
+  </xs:choice></xs:sequence>
+</xs:extension></xs:complexContent></xs:complexType></xs:element>
 
 <xs:element name="ModelElementAssignmentText"><xs:complexType><xs:complexContent><xs:extension base="ModelElementConnectedBase">
   <xs:sequence minOccurs="0" maxOccurs="unbounded"><xs:choice>

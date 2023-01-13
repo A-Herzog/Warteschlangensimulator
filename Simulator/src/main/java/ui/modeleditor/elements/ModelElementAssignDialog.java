@@ -15,14 +15,25 @@
  */
 package ui.modeleditor.elements;
 
+import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Component;
+import java.awt.FlowLayout;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.io.Serializable;
 
+import javax.swing.BoxLayout;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JComponent;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 
 import language.Language;
+import mathtools.NumberTools;
+import simulator.editmodel.EditModel;
+import simulator.simparser.ExpressionMultiEval;
 import systemtools.MsgBox;
 import ui.infopanel.InfoPanel;
 import ui.modeleditor.ModelClientData;
@@ -61,6 +72,16 @@ public class ModelElementAssignDialog extends ModelElementBaseDialog {
 	private JButton editClientDataButton;
 
 	/**
+	 * Checkbox: Soll die Bedingung verwendet werden?
+	 */
+	private JCheckBox useCondition;
+
+	/**
+	 * Eingabefeld für die Bedingung zur Auslösung der Aktion
+	 */
+	private JTextField condition;
+
+	/**
 	 * Konstruktor der Klasse
 	 * @param owner	Übergeordnetes Fenster
 	 * @param element	Zu bearbeitendes {@link ModelElementAssign}
@@ -93,13 +114,83 @@ public class ModelElementAssignDialog extends ModelElementBaseDialog {
 	 */
 	@Override
 	protected JComponent getContentPanel() {
-		return new JPanel();
+		final ModelElementAssign assign=(ModelElementAssign)element;
+		final EditModel model=assign.getModel();
+
+		final JPanel content=new JPanel(new BorderLayout());
+
+		JPanel line;
+
+		/* Optionale Bedingung */
+		final JPanel bottomArea=new JPanel();
+		bottomArea.setLayout(new BoxLayout(bottomArea,BoxLayout.PAGE_AXIS));
+		content.add(bottomArea,BorderLayout.NORTH);
+
+		bottomArea.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
+		line.add(useCondition=new JCheckBox(Language.tr("Surface.Assign.Dialog.Condition.UseCondition")+":",!assign.getCondition().isEmpty()));
+		useCondition.addActionListener(e->checkData(false));
+		useCondition.setEnabled(!readOnly);
+
+		final Object[] data=ModelElementBaseDialog.getInputPanel(Language.tr("Surface.Assign.Dialog.Condition.Condition")+":",assign.getCondition());
+		bottomArea.add(line=(JPanel)data[0]);
+		condition=(JTextField)data[1];
+		condition.setEnabled(!readOnly);
+		condition.addKeyListener(new KeyListener() {
+			@Override public void keyTyped(KeyEvent e) {checkData(false); useCondition.setSelected(true);}
+			@Override public void keyReleased(KeyEvent e) {checkData(false); useCondition.setSelected(true);}
+			@Override public void keyPressed(KeyEvent e) {checkData(false); useCondition.setSelected(true);}
+		});
+		line.add(ModelElementBaseDialog.getExpressionEditButton(this,condition,true,true,model,model.surface),BorderLayout.EAST);
+
+		return content;
 	}
 
 	@Override
 	protected void setDialogSize() {
 		setMinSizeRespectingScreensize(600,0);
 		pack();
+	}
+
+	/**
+	 * Prüft, ob die eingegebenen Daten in Ordnung sind.
+	 * @param showErrorMessage	Wird hier <code>true</code> übergeben, so wird eine Fehlermeldung ausgegeben, wenn die Daten nicht in Ordnung sind.
+	 * @return	Gibt <code>true</code> zurück, wenn die Daten in Ordnung sind.
+	 */
+	private boolean checkData(final boolean showErrorMessage) {
+		if (readOnly) return false;
+
+		final EditModel model=element.getModel();
+
+		boolean ok=true;
+
+		final String conditionString=condition.getText().trim();
+		if (!useCondition.isSelected() || conditionString.isEmpty()) {
+			condition.setBackground(NumberTools.getTextFieldDefaultBackground());
+		} else {
+			final int error=ExpressionMultiEval.check(conditionString,model.surface.getMainSurfaceVariableNames(model.getModelVariableNames(),false));
+			if (error>=0) {
+				condition.setBackground(Color.RED);
+				if (showErrorMessage) {
+					MsgBox.error(this,Language.tr("Surface.Assign.Dialog.Condition.Error.Title"),String.format(Language.tr("Surface.Assign.Dialog.Condition.Error.Info"),condition,error+1));
+					return false;
+				}
+				ok=false;
+			} else {
+				condition.setBackground(NumberTools.getTextFieldDefaultBackground());
+			}
+		}
+
+		return ok;
+	}
+
+	/**
+	 * Wird beim Klicken auf "Ok" aufgerufen, um zu prüfen, ob die Daten in der aktuellen Form
+	 * in Ordnung sind und gespeichert werden können.
+	 * @return	Gibt <code>true</code> zurück, wenn die Daten in Ordnung sind.
+	 */
+	@Override
+	protected boolean checkData() {
+		return checkData(true);
 	}
 
 	/**
@@ -115,6 +206,8 @@ public class ModelElementAssignDialog extends ModelElementBaseDialog {
 			if (clientData!=null) clientData.copyDataIfNotExistent(oldName,element.getName());
 			element.getSurface().objectRenamed(oldName,element.getName(),ModelDataRenameListener.RenameType.RENAME_TYPE_CLIENT_TYPE,true);
 		}
+
+		if (useCondition.isSelected()) ((ModelElementAssign)element).setCondition(condition.getText().trim()); else ((ModelElementAssign)element).setCondition("");
 	}
 
 	/**
