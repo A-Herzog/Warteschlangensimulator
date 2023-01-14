@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-13 09:00+0100\n"
+"POT-Creation-Date: 2023-01-14 00:08+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -11501,6 +11501,9 @@ msgstr "Bedingung"
 msgid "ModelDescription.AssignString.Assignment"
 msgstr "Zuweisung"
 
+msgid "ModelDescription.AssignString.Condition"
+msgstr "Bedingung"
+
 msgid "ModelDescription.Balking.Expression"
 msgstr "Zurückschrecken gemäß Ausdruck"
 
@@ -17861,6 +17864,9 @@ msgid "Simulation.Creator.ArrivalStream"
 msgstr "Der %d. Ankunftszeitenwert \"%s\" an Station id=%d ist ungültig."
 
 msgid "Simulation.Creator.AssignCondition"
+msgstr "Die Bedingung \"%s\" von Element id=%d enthält an Position %d einen Fehler."
+
+msgid "Simulation.Creator.AssignStringCondition"
 msgstr "Die Bedingung \"%s\" von Element id=%d enthält an Position %d einen Fehler."
 
 msgid "Simulation.Creator.BalkingCondition"
@@ -26066,6 +26072,18 @@ msgstr "ModellElementFertigungsplanZuweisung"
 msgid "Surface.AssignSequence.XML.Sequence"
 msgstr "ModellElementFertigungsplan"
 
+msgid "Surface.AssignString.Dialog.Condition.Condition"
+msgstr "Bedingung"
+
+msgid "Surface.AssignString.Dialog.Condition.Error.Info"
+msgstr "Die angegebene Bedingung \"%s\" ist ab Zeichen %d fehlerhaft."
+
+msgid "Surface.AssignString.Dialog.Condition.Error.Title"
+msgstr "Ungültige Bedingung"
+
+msgid "Surface.AssignString.Dialog.Condition.UseCondition"
+msgstr "Zuweisung nur durchführen, wenn Bedingung erfüllt ist"
+
 msgid "Surface.AssignString.Dialog.Title"
 msgstr "Textzuweisung bearbeiten"
 
@@ -26128,6 +26146,9 @@ msgstr "ModellElementZuweisungTextEintrag"
 
 msgid "Surface.AssignString.XML.Assignment.Key"
 msgstr "Schluessel"
+
+msgid "Surface.AssignString.XML.Condition"
+msgstr "ModellElementZuweisungTextBedingung"
 
 msgid "Surface.AssignString.XML.Key"
 msgstr "ModellElementZuweisungTextSchluessel"

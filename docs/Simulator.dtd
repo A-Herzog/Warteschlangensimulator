@@ -662,7 +662,7 @@
 >
 <!ELEMENT ModellElementZuweisungBedingung (#PCDATA)>
 
-<!ELEMENT ModellElementZuweisungText (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementBoxSchriftGross | ModellElementBoxSchriftKlein | ModellElementMaximalerDurchsatzSekunden | ModellElementEbene | ModellElementHintergrundfarbe | ModellElementStationsbild | ModellElementVerbindung | ModellElementZuweisungTextEintrag)*>
+<!ELEMENT ModellElementZuweisungText (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementBoxSchriftGross | ModellElementBoxSchriftKlein | ModellElementMaximalerDurchsatzSekunden | ModellElementEbene | ModellElementHintergrundfarbe | ModellElementStationsbild | ModellElementVerbindung | ModellElementZuweisungTextEintrag | ModellElementZuweisungTextBedingung)*>
 <!ATTLIST ModellElementZuweisungText
   id			CDATA	#REQUIRED
   geschuetzt	CDATA	#IMPLIED
@@ -673,6 +673,7 @@
 <!ATTLIST ModellElementZuweisungTextEintrag
   schluessel    CDATA	#REQUIRED
 >
+<!ELEMENT ModellElementZuweisungTextBedingung (#PCDATA)>
 
 <!ELEMENT ModellElementFertigungsplanZuweisung (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementBoxSchriftGross | ModellElementBoxSchriftKlein | ModellElementMaximalerDurchsatzSekunden | ModellElementEbene | ModellElementHintergrundfarbe | ModellElementStationsbild | ModellElementVerbindung | ModellElementFertigungsplan)*>
 <!ATTLIST ModellElementFertigungsplanZuweisung
@@ -3286,7 +3287,7 @@
 >
 <!ELEMENT ModelElementAssignmentCondition (#PCDATA)>
 
-<!ELEMENT ModelElementAssignmentText (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBoxFontLarge | ModelElementBoxFontSmall | ModelElementMaximumThroughputSeconds | ModelElementLayer | ModelElementBackgroundColor | ModelElementStationimage | ModelElementConnection | ModelElementAssignmentTextRecord)*>
+<!ELEMENT ModelElementAssignmentText (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBoxFontLarge | ModelElementBoxFontSmall | ModelElementMaximumThroughputSeconds | ModelElementLayer | ModelElementBackgroundColor | ModelElementStationimage | ModelElementConnection | ModelElementAssignmentTextRecord | ModelElementAssignmentTextCondition)*>
 <!ATTLIST ModelElementAssignmentText
   id		CDATA	#REQUIRED
   protected	CDATA	#IMPLIED
@@ -3297,6 +3298,7 @@
 <!ATTLIST ModelElementAssignmentTextRecord
   key   CDATA	#REQUIRED
 >
+<!ELEMENT ModelElementAssignmentTextCondition (#PCDATA)>
 
 <!ELEMENT ModelElementSequenceAssignment (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBoxFontLarge | ModelElementBoxFontSmall | ModelElementMaximumThroughputSeconds | ModelElementLayer | ModelElementBackgroundColor | ModelElementStationimage | ModelElementConnection | ModelElementSequence)*>
 <!ATTLIST ModelElementSequenceAssignment

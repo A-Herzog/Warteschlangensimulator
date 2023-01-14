@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-13 09:00+0100\n"
+"POT-Creation-Date: 2023-01-14 00:08+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -11504,6 +11504,9 @@ msgstr "Condition"
 msgid "ModelDescription.AssignString.Assignment"
 msgstr "Assignment"
 
+msgid "ModelDescription.AssignString.Condition"
+msgstr "Condition"
+
 msgid "ModelDescription.Balking.Expression"
 msgstr "Balking by expression"
 
@@ -17847,6 +17850,9 @@ msgid "Simulation.Creator.ArrivalStream"
 msgstr "The %d. arrival value \"%s\" at station id=%d is invalid."
 
 msgid "Simulation.Creator.AssignCondition"
+msgstr "The condition \"%s\" at element id=%d is invalid at character %d."
+
+msgid "Simulation.Creator.AssignStringCondition"
 msgstr "The condition \"%s\" at element id=%d is invalid at character %d."
 
 msgid "Simulation.Creator.BalkingCondition"
@@ -26050,6 +26056,18 @@ msgstr "ModelElementSequenceAssignment"
 msgid "Surface.AssignSequence.XML.Sequence"
 msgstr "ModelElementSequence"
 
+msgid "Surface.AssignString.Dialog.Condition.Condition"
+msgstr "Condition"
+
+msgid "Surface.AssignString.Dialog.Condition.Error.Info"
+msgstr "The specified condition \"%s\" is invalid at character %d."
+
+msgid "Surface.AssignString.Dialog.Condition.Error.Title"
+msgstr "Invalid condition"
+
+msgid "Surface.AssignString.Dialog.Condition.UseCondition"
+msgstr "Only apply settings if condition is met"
+
 msgid "Surface.AssignString.Dialog.Title"
 msgstr "Edit string assignment"
 
@@ -26112,6 +26130,9 @@ msgstr "ModelElementAssignmentTextRecord"
 
 msgid "Surface.AssignString.XML.Assignment.Key"
 msgstr "Key"
+
+msgid "Surface.AssignString.XML.Condition"
+msgstr "ModelElementAssignmentTextCondition"
 
 msgid "Surface.AssignString.XML.Key"
 msgstr "ModelElementAssignmentTextKey"

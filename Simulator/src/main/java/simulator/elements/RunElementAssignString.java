@@ -26,6 +26,7 @@ import simulator.events.StationLeaveEvent;
 import simulator.runmodel.RunDataClient;
 import simulator.runmodel.RunModel;
 import simulator.runmodel.SimulationData;
+import simulator.simparser.ExpressionMultiEval;
 import ui.modeleditor.coreelements.ModelElement;
 import ui.modeleditor.elements.ModelElementAssignString;
 import ui.modeleditor.elements.ModelElementSub;
@@ -49,6 +50,11 @@ public class RunElementAssignString extends RunElementPassThrough {
 	 * @see RunDataClient#setUserDataString(String, String)
 	 */
 	private String[] stringValues;
+
+	/**
+	 * Optionale zusätzliche Bedingung, die für eine Zuweisung erfüllt sein muss (kann <code>null</code> sein)
+	 */
+	private String condition;
 
 	/**
 	 * Konstruktor der Klasse
@@ -81,6 +87,16 @@ public class RunElementAssignString extends RunElementPassThrough {
 		assign.stringKeys=keys.toArray(new String[0]);
 		assign.stringValues=values.toArray(new String[0]);
 
+		/* Optionale Bedingung */
+		final String condition=assignElement.getCondition();
+		if (condition==null || condition.trim().isEmpty()) {
+			assign.condition=null;
+		} else {
+			final int error=ExpressionMultiEval.check(condition,runModel.variableNames);
+			if (error>=0) return String.format(Language.tr("Simulation.Creator.AssignStringCondition"),condition,element.getId(),error+1);
+			assign.condition=condition;
+		}
+
 		return assign;
 	}
 
@@ -104,7 +120,22 @@ public class RunElementAssignString extends RunElementPassThrough {
 	}
 
 	@Override
-	public void processArrival(SimulationData simData, RunDataClient client) {
+	public RunElementAssignStringData getData(final SimulationData simData) {
+		RunElementAssignStringData data;
+		data=(RunElementAssignStringData)(simData.runData.getStationData(this));
+		if (data==null) {
+			data=new RunElementAssignStringData(this,condition,simData.runModel.variableNames);
+			simData.runData.setStationData(this,data);
+		}
+		return data;
+	}
+
+	/**
+	 * Führt die eigentliche Zuweisung durch.
+	 * @param simData	Simulationsdatenobjekt
+	 * @param client	Kunde
+	 */
+	private void applyAssignment(final SimulationData simData, final RunDataClient client) {
 		/* Logging */
 		if (simData.loggingActive) {
 			for (int i=0;i<stringKeys.length;i++) {
@@ -114,6 +145,18 @@ public class RunElementAssignString extends RunElementPassThrough {
 
 		/* Kundentexte ändern */
 		for (int i=0;i<stringKeys.length;i++) client.setUserDataString(stringKeys[i],stringValues[i]);
+	}
+
+	@Override
+	public void processArrival(SimulationData simData, RunDataClient client) {
+		final RunElementAssignStringData data=getData(simData);
+
+		if (condition!=null) {
+			simData.runData.setClientVariableValues(client);
+			if (data.condition.eval(simData.runData.variableValues,simData,client)) applyAssignment(simData,client);
+		} else {
+			applyAssignment(simData,client);
+		}
 
 		/* Kunde zur nächsten Station leiten */
 		StationLeaveEvent.addLeaveEvent(simData,client,this,0);
