@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-14 00:08+0100\n"
+"POT-Creation-Date: 2023-01-15 13:23+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -5737,6 +5737,12 @@ msgstr "Integer part"
 msgid "ExpressionBuilder.MathematicalFunctions.IntegerPart.Info"
 msgstr "<p>Returns the integer part of the value passed as parameter.</p> <p>Example: <tt>int(3.4)</tt> returns 3.</p>"
 
+msgid "ExpressionBuilder.MathematicalFunctions.IsPrime"
+msgstr "Prime number check"
+
+msgid "ExpressionBuilder.MathematicalFunctions.IsPrime.Info"
+msgstr "Returns 1, if n is a prime number, 0 otherwise."
+
 msgid "ExpressionBuilder.MathematicalFunctions.Lcm"
 msgstr "Least common multiple"
 
@@ -5756,6 +5762,18 @@ msgid "ExpressionBuilder.MathematicalFunctions.Random.Info"
 msgstr ""
 "<p>If the functions is called without a parameter, it will return a random number in the range from 0 (inclusive) to 1 (exclusive).</p>\n"
 "<p>As an alternative one parameter can be specified. The random number then will be scaled with this parameter.</p>"
+
+msgid "ExpressionBuilder.MathematicalFunctions.RandomRange"
+msgstr "Random number in range"
+
+msgid "ExpressionBuilder.MathematicalFunctions.RandomRange.Info"
+msgstr "Random number between x (inclusive) and y (exclusive). Thereby x<y has to be satisfied."
+
+msgid "ExpressionBuilder.MathematicalFunctions.RandomRangeInt"
+msgstr "Integer random number in range"
+
+msgid "ExpressionBuilder.MathematicalFunctions.RandomRangeInt.Info"
+msgstr "Integer random number in range x and y (both inclusive). Thereby x<=y has to be satisfied."
 
 msgid "ExpressionBuilder.MathematicalFunctions.Sign"
 msgstr "Sign"

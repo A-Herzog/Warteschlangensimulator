@@ -138,8 +138,11 @@ public class ExpressionBuilderBasics {
 		addTreeNode(group,filterUpper,Language.tr("ExpressionBuilder.MathematicalFunctions.GammaFunction")+" (gamma)","gamma("+value+")",Language.tr("ExpressionBuilder.MathematicalFunctions.GammaFunction.Info"));
 		addTreeNode(group,filterUpper,Language.tr("ExpressionBuilder.MathematicalFunctions.ZetaFunction")+" (zeta)","zeta("+value+")",Language.tr("ExpressionBuilder.MathematicalFunctions.ZetaFunction.Info"));
 		addTreeNode(group,filterUpper,Language.tr("ExpressionBuilder.MathematicalFunctions.Random")+" (random)","random()",Language.tr("ExpressionBuilder.MathematicalFunctions.Random.Info"));
+		addTreeNode(group,filterUpper,Language.tr("ExpressionBuilder.MathematicalFunctions.RandomRange")+" (randomRange)","randomRange("+value+";"+value+")",Language.tr("ExpressionBuilder.MathematicalFunctions.RandomRange.Info"));
+		addTreeNode(group,filterUpper,Language.tr("ExpressionBuilder.MathematicalFunctions.RandomRangeInt")+" (randomIntRange)","randomIntRange("+value+";"+value+")",Language.tr("ExpressionBuilder.MathematicalFunctions.RandomRangeInt.Info"));
 		addTreeNode(group,filterUpper,Language.tr("ExpressionBuilder.MathematicalFunctions.Gcd")+" (gcd)","gcd("+value+";"+value+")",Language.tr("ExpressionBuilder.MathematicalFunctions.Gcd.Info"));
 		addTreeNode(group,filterUpper,Language.tr("ExpressionBuilder.MathematicalFunctions.Lcm")+" (lcm)","lcm("+value+";"+value+")",Language.tr("ExpressionBuilder.MathematicalFunctions.Lcm.Info"));
+		addTreeNode(group,filterUpper,Language.tr("ExpressionBuilder.MathematicalFunctions.IsPrime")+" (isPrime)","isPrime("+value+")",Language.tr("ExpressionBuilder.MathematicalFunctions.IsPrime.Info"));
 
 		/* Mathematische Funktionen -> Exponential- und Logarithmus-Funktionen */
 

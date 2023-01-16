@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-14 00:08+0100\n"
+"POT-Creation-Date: 2023-01-15 13:23+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -5740,6 +5740,12 @@ msgstr "Ganzzahl-Anteil"
 msgid "ExpressionBuilder.MathematicalFunctions.IntegerPart.Info"
 msgstr "<p>Liefert den Ganzzahl-Anteil des als Parameters übergebenen Wertes.</p><p>Beispiel: <tt>int(3,4)</tt> liefert 3.</p>"
 
+msgid "ExpressionBuilder.MathematicalFunctions.IsPrime"
+msgstr "Primzahlprüfung"
+
+msgid "ExpressionBuilder.MathematicalFunctions.IsPrime.Info"
+msgstr "Liefert 1, wenn es sich bei n um eine Primzahl handelt, sonst 0."
+
 msgid "ExpressionBuilder.MathematicalFunctions.Lcm"
 msgstr "Kleinstes gemeinsames Vielfaches"
 
@@ -5759,6 +5765,18 @@ msgid "ExpressionBuilder.MathematicalFunctions.Random.Info"
 msgstr ""
 "<p>Wird die Funktion ohne Parameter aufgerufen, so liefert sie eine Zufallszahl zwischen 0 (einschließlich) und 1 (ausschließlich).</p>\n"
 "<p>Alternativ kann ein Parameter angegeben werden. In diesem Fall wird die Zufallszahl mit diesem Wert skaliert.</p>"
+
+msgid "ExpressionBuilder.MathematicalFunctions.RandomRange"
+msgstr "Zufallszahl in Bereich"
+
+msgid "ExpressionBuilder.MathematicalFunctions.RandomRange.Info"
+msgstr "Liefert eine Zufallszahl zwischen x (einschließlich) und y (ausschließlich), dabei muss x<y sein."
+
+msgid "ExpressionBuilder.MathematicalFunctions.RandomRangeInt"
+msgstr "Zufällige Ganzzahl in Bereich"
+
+msgid "ExpressionBuilder.MathematicalFunctions.RandomRangeInt.Info"
+msgstr "Liefert eine zufällige Ganzzahl x und y (jeweils einschließlich). Es muss x<=y sein."
 
 msgid "ExpressionBuilder.MathematicalFunctions.Sign"
 msgstr "Vorzeichen"

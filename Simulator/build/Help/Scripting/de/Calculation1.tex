@@ -180,6 +180,14 @@ Liefert eine Zufallszahl zwischen 0 (einschließlich) und 1 (ausschließlich).
 Liefert eine Zufallszahl zwischen 0 (einschließlich) und x (ausschließlich).
 
 \item
+\cmd{randomRange(x;y)}:
+Liefert eine Zufallszahl zwischen x (einschließlich) und y (ausschließlich), dabei muss x$\le$y sein.
+
+\item
+\cmd{randomIntRange(x;y)}:
+Liefert eine zufällige Ganzzahl x und y (jeweils einschließlich). Es muss x$\leq$y sein.
+
+\item
 \cmd{round(x)}:
 Runden, z.B.\ \cm{round(4{,}4)=4} und \cm{round(4{,}5)=5}.
 
@@ -198,6 +206,10 @@ Quadratwurzel, z.B.\ \cm{sqrt{81}=9}.
 \item
 \cmd{zeta(x)}:
 Zeta-Funktion, z.B.\ \cm{zeta(2)=1{,}64493=$\frac{\pi^2}{6}$}
+
+\item
+\cmd{isPrime(n)}:
+Liefert 1, wenn es sich bei n um eine Primzahl handelt, sonst 0.
 
 \end{itemize}
 
