@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-15 13:23+0100\n"
+"POT-Creation-Date: 2023-01-16 08:27+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -9841,11 +9841,35 @@ msgstr "Number of lines"
 msgid "LoadCalculator.OfferedWorkLoad"
 msgstr "Offered work load"
 
+msgid "LoadCalculator.OptionHanschke"
+msgstr "Use Hanschke correction term"
+
+msgid "LoadCalculator.OptionHanschke.Info"
+msgstr "The correction factor applies only when b(I)&gt;b(S)*c."
+
+msgid "LoadCalculator.OptionHanschke.Paper"
+msgstr "Paper on the correction formula"
+
+msgid "LoadCalculator.OptionKLB"
+msgstr "Use Krämer, Langenbach-Belz correction factor"
+
+msgid "LoadCalculator.OptionKLB.Info"
+msgstr "The correction factor applies only when b(I)&gt;1, b(S)&gt;1, CV[I]&ne;1 or CV[S]&ne;1."
+
+msgid "LoadCalculator.OptionKLB.Paper"
+msgstr "Paper on the correction formula"
+
 msgid "LoadCalculator.PartOfLoadForTheCallcenter"
 msgstr "Part of the complete load for this call center"
 
 msgid "LoadCalculator.ProbabilityOfBlocking"
 msgstr "Probability of blocking"
+
+msgid "LoadCalculator.ResultFactorHanschke"
+msgstr "Hanschke correction term"
+
+msgid "LoadCalculator.ResultFactorKLB"
+msgstr "Krämer, Langenbach-Belz correction factor"
 
 msgid "LoadCalculator.Results"
 msgstr "Results"

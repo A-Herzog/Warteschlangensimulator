@@ -17,6 +17,8 @@ package ui.calculator;
 
 import java.io.Serializable;
 
+import javax.swing.JCheckBox;
+
 import language.Language;
 import mathtools.NumberTools;
 
@@ -48,6 +50,11 @@ public class QueueingCalculatorTabAllenCunneen extends QueueingCalculatorTabBase
 	private final QueueingCalculatorInputPanel cvIInput;
 	/** cvS (Variationskoeffizient der Bedienzeiten) */
 	private final QueueingCalculatorInputPanel cvSInput;
+
+	/** KLB-Korrektur verwenden? */
+	private final JCheckBox useKLBCorrection;
+	/** Hanschke-Korrektur verwenden? */
+	private final JCheckBox useHanschkeCorrection;
 
 	/**
 	 * Konstruktor der Klasse
@@ -101,6 +108,13 @@ public class QueueingCalculatorTabAllenCunneen extends QueueingCalculatorTabBase
 		cvSInput=getPanel(Language.tr("LoadCalculator.WorkingRateCV"),false);
 		cvSInput.addDefault("CV[S]=",QueueingCalculatorInputPanel.NumberMode.NOT_NEGATIVE_DOUBLE,1,null);
 		add(cvSInput.get());
+
+		/* Korrekturfaktoren */
+		addSection("Korrekturfaktoren");
+		useKLBCorrection=addCheckBox(Language.tr("LoadCalculator.OptionKLB"),Language.tr("LoadCalculator.OptionKLB.Paper"),"http://content.ikr.uni-stuttgart.de/en/Content/Publications/Archive/Kraemer_ITC8_40421.pdf");
+		useKLBCorrection.setToolTipText("<html><body>"+Language.tr("LoadCalculator.OptionKLB.Info")+"</body></html>");
+		useHanschkeCorrection=addCheckBox(Language.tr("LoadCalculator.OptionHanschke"),Language.tr("LoadCalculator.OptionHanschke.Paper"),"https://www.sciencedirect.com/science/article/abs/pii/S0167637705000441");
+		useHanschkeCorrection.setToolTipText("<html><body>"+Language.tr("LoadCalculator.OptionHanschke.Info")+"</body></html>");
 	}
 
 	@Override
@@ -121,28 +135,50 @@ public class QueueingCalculatorTabAllenCunneen extends QueueingCalculatorTabBase
 		double cvI=cvIInput.getDouble();
 		final double cvS=cvSInput.getDouble();
 
+		/*
+		 * Rechnungen sind mit
+		 * Hanschke: "Approximations for the mean queue length of the GIX/G(b,b)/c queue" abgeglichen.
+		 */
+
 		/* Umrechnung von Arrival-Batches auf einzelne Kunden */
 		lambda=lambda*bI;
-		cvI=Math.sqrt(bI*cvI*cvI+bI-1);
 
-		double a=lambda/mu;
-		double rho=lambda/mu/(bS*c);
+		final double a=lambda/mu;
+		final double rho=lambda/mu/(bS*c);
+
+		final double scvI=cvI*cvI;
+		final double scvS=cvS*cvS;
 
 		/*
 		PC1=(c*rho)^c/(c!(1-rho));
 		PC=PC1/(PC1+sum(k=0...c-1; (c*rho)^k/k!))
-		E[NQ]=rho/(1-rho)*PC*(SCV[I]+b*SCV[S])/2+(b-1)/2
-		E[N]=E[NQ]+b*c*rho
+		E[NQ]=rho/(1-rho)*PC*(bI*SCV[I]+bS*SCV[S])/2+(bI-1)/2+(bS-1)/2
+		E[N]=E[NQ]+bS*c*rho
 		 */
 
-		double PC1=powerFactorial(c*rho,c)/(1-rho);
+		final double PC1=powerFactorial(c*rho,c)/(1-rho);
 		double PC=0; for(int i=0;i<=c-1;i++) PC+=powerFactorial(c*rho,i);
 		PC=PC1/(PC1+PC);
 
-		double ENQ=rho/(1-rho)*PC*(cvI*cvI+bS*cvS*cvS)/2+(((double)bS)-1)/2;
-		double EN=ENQ+((double)bS)*((double)c)*rho;
-		double EW=ENQ/lambda;
-		double EV=EW+1/mu;
+		double KLB=1; /* W. Kraemer, M. Langenbach-Belz, Approximate formulae for the delay in the queueing system G/G/1. in: Proceedings of the Eighth International Teletraffic Congress, Melbourne, 1976, pp. 235.1–235.8. */
+		if (useKLBCorrection.isSelected()) {
+			final double scvIstar=bI/((double)bS)*scvI;
+			if (scvIstar<=1) {
+				KLB=Math.exp(-2/3*(1-rho)/PC*Math.pow(1-scvIstar,2)/(scvIstar+scvS));
+			} else {
+				KLB=Math.exp(-(1-rho)*(scvIstar-1)/(scvIstar+4*scvS));
+			}
+		}
+
+		double H=0; /* Th. Hanschke, Approximations for the mean queue length of the GIX/G(b,b)/c queue. in: Operations Research Letters 34 (2006) 205 – 213. */
+		if (useHanschkeCorrection.isSelected()) {
+			H=Math.max(bI-bS*c,0)*rho/2;
+		}
+
+		final double ENQ=rho/(1-rho)*PC*(bI*scvI+bS*scvS)/2*KLB+(((double)bI)-1)/2+(((double)bS)-1)/2+H;
+		final double EN=ENQ+((double)bS)*((double)c)*rho;
+		final double EW=ENQ/lambda;
+		final double EV=EW+1/mu;
 
 		final StringBuilder result=new StringBuilder();
 
@@ -156,6 +192,12 @@ public class QueueingCalculatorTabAllenCunneen extends QueueingCalculatorTabBase
 			result.append(Language.tr("LoadCalculator.AverageWaitingTime")+" E[W]="+NumberTools.formatNumber(EW,2)+" ("+Language.tr("LoadCalculator.Units.InSeconds")+")<br>");
 			result.append(Language.tr("LoadCalculator.AverageResidenceTime")+" E[V]="+NumberTools.formatNumber(EV,2)+" ("+Language.tr("LoadCalculator.Units.InSeconds")+")<br>");
 			result.append(Language.tr("LoadCalculator.FlowFactor")+" E[V]/E[S]="+NumberTools.formatNumber(EV*mu,2)+"<br>");
+			if (useKLBCorrection.isSelected()) {
+				result.append(Language.tr("LoadCalculator.ResultFactorKLB")+"="+NumberTools.formatNumber(KLB,2)+"<br>");
+			}
+			if (useHanschkeCorrection.isSelected()) {
+				result.append(Language.tr("LoadCalculator.ResultFactorHanschke")+"="+NumberTools.formatNumber(H,2)+"<br>");
+			}
 		}
 
 		setResult(result.toString());

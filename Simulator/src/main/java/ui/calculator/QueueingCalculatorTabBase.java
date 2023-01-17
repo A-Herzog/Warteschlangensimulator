@@ -30,6 +30,7 @@ import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.Icon;
+import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
@@ -130,6 +131,16 @@ public abstract class QueueingCalculatorTabBase extends JPanel {
 	}
 
 	/**
+	 * Fügt eine Überschriftzeile zu dem Panel hinzu.
+	 * @param title	Überschrift
+	 */
+	protected final void addSection(final String title) {
+		final JPanel panel=new JPanel(new FlowLayout(FlowLayout.LEFT));
+		add(panel);
+		panel.add(new JLabel("<html><body><b>"+title+"</b></body></html>"));
+	}
+
+	/**
 	 * Fügt eine Eingabezeile inkl. Beschriftung zu einem Panel hinzu
 	 * @param parent	Panel zu dem die Eingabezeile hinzugefügt werden soll
 	 * @param title	Überschrift über der Eingabezeile (wird <code>null</code> übergeben, so wird keine Überschrift ausgegeben)
@@ -149,7 +160,6 @@ public abstract class QueueingCalculatorTabBase extends JPanel {
 		parent.add(panel=new JPanel(new FlowLayout(FlowLayout.LEFT)));
 		panel.add(new JLabel(label));
 		panel.add(field=new JTextField(defaultValue,7));
-		//panel.setAlignmentX(0);
 		field.addKeyListener(new KeyListener() {
 			@Override public void keyTyped(KeyEvent e) {calc();}
 			@Override public void keyPressed(KeyEvent e) {calc();}
@@ -157,6 +167,27 @@ public abstract class QueueingCalculatorTabBase extends JPanel {
 		});
 
 		return field;
+	}
+
+	/**
+	 * Fügt eine Checkbox zu dem Panel hinzu.
+	 * @param label	Beschriftung der Checkbox
+	 * @param linkTitle	Name des optionalen Links rechts neben der Beschriftung (kann leer oder <code>null</code> sein)
+	 * @param linkHref	Linkziel	des optionalen Links rechts neben der Beschriftung (kann leer oder <code>null</code> sein)
+	 * @return	Checkbox (bereits in der übergeordnete Panel eingefügt)
+	 */
+	protected final JCheckBox addCheckBox(final String label, final String linkTitle, final String linkHref) {
+		JPanel panel;
+		JCheckBox checkBox;
+
+		add(panel=new JPanel(new FlowLayout(FlowLayout.LEFT)));
+		panel.add(checkBox=new JCheckBox(label));
+		checkBox.addActionListener(e->calc());
+		if (linkTitle!=null && !linkTitle.trim().isEmpty() && linkHref!=null && !linkHref.trim().isEmpty()) {
+			panel.add(buildInfoLink(linkTitle,linkHref));
+		}
+
+		return checkBox;
 	}
 
 	/**
@@ -190,6 +221,21 @@ public abstract class QueueingCalculatorTabBase extends JPanel {
 	}
 
 	/**
+	 * Erzeugt ein anklickbares {@link JLabel}-Element
+	 * @param text	Anzuzeigende Beschriftung
+	 * @param link	Linkziel
+	 * @return	Label
+	 */
+	private JLabel buildInfoLink(final String text, final String link) {
+		final JLabel info=new JLabel("<html><body><a href=\"\">"+text+"</a></body></html>");
+		info.addMouseListener(new MouseAdapter() {
+			@Override public void mouseClicked(MouseEvent e) {JOpenURL.open(QueueingCalculatorTabBase.this,link);}
+		});
+		info.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		return info;
+	}
+
+	/**
 	 * Für auf einem Panel einen Info-Link ein
 	 * @param parent	Panel auf dem der Link eingefügt werden soll
 	 * @param text	Beschriftung des Links
@@ -200,12 +246,8 @@ public abstract class QueueingCalculatorTabBase extends JPanel {
 		parent.add(Box.createVerticalStrut(10));
 		final JPanel line;
 		parent.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
-		final JLabel info;
-		line.add(info=new JLabel("<html><body><a href=\"\">"+text+"</a></body></html>"));
-		info.addMouseListener(new MouseAdapter() {
-			@Override public void mouseClicked(MouseEvent e) {JOpenURL.open(QueueingCalculatorTabBase.this,link);}
-		});
-		info.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		final JLabel info=buildInfoLink(text,link);
+		line.add(info);
 		info.setAlignmentX(0);
 		parent.add(Box.createVerticalStrut(5));
 		parent.add(Box.createVerticalGlue());
