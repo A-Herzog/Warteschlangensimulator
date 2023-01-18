@@ -1,0 +1,305 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE Model SYSTEM "https://a-herzog.github.io/Warteschlangensimulator/Simulator.dtd">
+<Model xmlns="https://a-herzog.github.io" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://a-herzog.github.io https://a-herzog.github.io/Warteschlangensimulator/Simulator.xsd">
+  <!-- This file was created using Warteschlangensimulator. Download address: https://github.com/A-Herzog/Warteschlangensimulator -->
+  <ModelVersion>5.3.0</ModelVersion>
+  <ModelName>Effects of the variation of the service times</ModelName>
+  <ModelDescription>In the model, inter-arrival times (E[I]=100 seconds) and service times
+(E[S]=80 seconds, c=1 operator) are chosen to result in a utilization
+of rho=80%. All 5 submodels receive exactly the same client arrival
+stream. The 5 process stations differ only in the variation of the
+service times. The standard deviation of the service times ranges
+from 48 seconds (coefficient of variation 0.6) to 112 seconds
+(coefficient of variation 1.4).
+
+The influence of the variation in service times on the average
+waiting times of the clients can be clearly seen: The greater
+the variation in service times, the longer the average clients
+waiting times for otherwise identical service parameters.</ModelDescription>
+  <ModelAuthor>Alexander Herzog</ModelAuthor>
+  <ModelClients Active="1">10000000</ModelClients>
+  <ModelWarmUpPhase>0.01</ModelWarmUpPhase>
+  <ModelTerminationTime Active="0">10:00:00:00</ModelTerminationTime>
+  <ModelElements>
+    <ModelElementRectangle id="25">
+      <ModelElementSize h="180" w="130" x="535" y="135"/>
+      <ModelElementLineWidth>2</ModelElementLineWidth>
+      <ModelElementColor>0,180,0</ModelElementColor>
+      <ModelElementBackgroundColor Alpha="0.1">0,180,0</ModelElementBackgroundColor>
+    </ModelElementRectangle>
+    <ModelElementSource id="2">
+      <ModelElementName>Clients</ModelElementName>
+      <ModelElementSize h="50" w="100" x="50" y="350"/>
+      <ModelElementConnection Element="5" Type="Out"/>
+      <ModelElementDistribution TimeBase="Seconds">Exponential distribution (100)</ModelElementDistribution>
+      <ModelElementBatchData Size="1"/>
+    </ModelElementSource>
+    <ModelElementDuplicate id="3">
+      <ModelElementSize h="50" w="100" x="300" y="350"/>
+      <ModelElementConnection Element="5" Type="In"/>
+      <ModelElementConnection Element="7" Type="Out"/>
+      <ModelElementConnection Element="10" Type="Out"/>
+      <ModelElementConnection Element="13" Type="Out"/>
+      <ModelElementConnection Element="18" Type="Out"/>
+      <ModelElementConnection Element="20" Type="Out"/>
+    </ModelElementDuplicate>
+    <ModelElementProcessStation id="4">
+      <ModelElementName>CV=0.6</ModelElementName>
+      <ModelElementSize h="50" w="100" x="550" y="150"/>
+      <ModelElementConnection Element="7" Type="In"/>
+      <ModelElementConnection Element="8" Type="Out"/>
+      <ModelElementDistribution Status="ProcessTime" TimeBase="Seconds" Type="ProcessingTime">Lognormal distribution (80;48)</ModelElementDistribution>
+      <ModelElementPriority ClientType="Clients">w</ModelElementPriority>
+      <ModelElementPriority ClientType="Kunden">w</ModelElementPriority>
+      <ModelElementOperators Alternative="1" Count="1" Group="Group1"/>
+      <ModelElementOperatorsPriority>1</ModelElementOperatorsPriority>
+    </ModelElementProcessStation>
+    <ModelElementEdge id="5">
+      <ModelElementName>Arrivals (Clients)</ModelElementName>
+      <ModelElementConnection Element1="2" Element2="3" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementDispose id="6">
+      <ModelElementSize h="50" w="100" x="800" y="350"/>
+      <ModelElementConnection Element="8" Type="In"/>
+      <ModelElementConnection Element="11" Type="In"/>
+      <ModelElementConnection Element="14" Type="In"/>
+      <ModelElementConnection Element="19" Type="In"/>
+      <ModelElementConnection Element="21" Type="In"/>
+    </ModelElementDispose>
+    <ModelElementEdge id="7">
+      <ModelElementName>Original</ModelElementName>
+      <ModelElementConnection Element1="3" Element2="4" Type="Edge"/>
+      <ModelElementConnectionDrawStyle>Direct</ModelElementConnectionDrawStyle>
+    </ModelElementEdge>
+    <ModelElementEdge id="8">
+      <ModelElementConnection Element1="4" Element2="6" Type="Edge"/>
+      <ModelElementConnectionDrawStyle>Direct</ModelElementConnectionDrawStyle>
+    </ModelElementEdge>
+    <ModelElementProcessStation id="9">
+      <ModelElementName>CV=0.8</ModelElementName>
+      <ModelElementSize h="50" w="100" x="550" y="250"/>
+      <ModelElementConnection Element="10" Type="In"/>
+      <ModelElementConnection Element="11" Type="Out"/>
+      <ModelElementDistribution Status="ProcessTime" TimeBase="Seconds" Type="ProcessingTime">Lognormal distribution (80;64)</ModelElementDistribution>
+      <ModelElementPriority ClientType="Clients">w</ModelElementPriority>
+      <ModelElementPriority ClientType="Kunden">w</ModelElementPriority>
+      <ModelElementOperators Alternative="1" Count="1" Group="Group2"/>
+      <ModelElementOperatorsPriority>1</ModelElementOperatorsPriority>
+    </ModelElementProcessStation>
+    <ModelElementEdge id="10">
+      <ModelElementName>Copy 1</ModelElementName>
+      <ModelElementConnection Element1="3" Element2="9" Type="Edge"/>
+      <ModelElementConnectionDrawStyle>Direct</ModelElementConnectionDrawStyle>
+    </ModelElementEdge>
+    <ModelElementEdge id="11">
+      <ModelElementConnection Element1="9" Element2="6" Type="Edge"/>
+      <ModelElementConnectionDrawStyle>Direct</ModelElementConnectionDrawStyle>
+    </ModelElementEdge>
+    <ModelElementProcessStation id="12">
+      <ModelElementName>CV=1.0</ModelElementName>
+      <ModelElementSize h="50" w="100" x="550" y="350"/>
+      <ModelElementConnection Element="13" Type="In"/>
+      <ModelElementConnection Element="14" Type="Out"/>
+      <ModelElementDistribution Status="ProcessTime" TimeBase="Seconds" Type="ProcessingTime">Lognormal distribution (80;80)</ModelElementDistribution>
+      <ModelElementPriority ClientType="Clients">w</ModelElementPriority>
+      <ModelElementPriority ClientType="Kunden">w</ModelElementPriority>
+      <ModelElementOperators Alternative="1" Count="1" Group="Group3"/>
+      <ModelElementOperatorsPriority>1</ModelElementOperatorsPriority>
+    </ModelElementProcessStation>
+    <ModelElementEdge id="13">
+      <ModelElementName>Copy 2</ModelElementName>
+      <ModelElementConnection Element1="3" Element2="12" Type="Edge"/>
+      <ModelElementConnectionDrawStyle>Direct</ModelElementConnectionDrawStyle>
+    </ModelElementEdge>
+    <ModelElementEdge id="14">
+      <ModelElementConnection Element1="12" Element2="6" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementAnimationBarDiagram id="15">
+      <ModelElementSize h="250" w="150" x="1000" y="150"/>
+      <ModelElementLineWidth>1</ModelElementLineWidth>
+      <ModelElementLineColor>0,0,0</ModelElementLineColor>
+      <ModelElementBackgroundColor>240,240,240</ModelElementBackgroundColor>
+      <ModelElementUse3D>1</ModelElementUse3D>
+      <ModelElementMinimumValue>0</ModelElementMinimumValue>
+      <ModelElementMaximumValue>500</ModelElementMaximumValue>
+      <ModelElementAxisLabels Text="Average waiting times E[W] (in sec.)">2</ModelElementAxisLabels>
+      <ModelElementDiagramElement BarColor="0,180,0">WaitingTime_avg(4)</ModelElementDiagramElement>
+      <ModelElementDiagramElement BarColor="0,180,0">WaitingTime_avg(9)</ModelElementDiagramElement>
+      <ModelElementDiagramElement BarColor="0,0,255">WaitingTime_avg(12)</ModelElementDiagramElement>
+      <ModelElementDiagramElement BarColor="255,0,0">WaitingTime_avg(16)</ModelElementDiagramElement>
+      <ModelElementDiagramElement BarColor="255,0,0">WaitingTime_avg(17)</ModelElementDiagramElement>
+    </ModelElementAnimationBarDiagram>
+    <ModelElementProcessStation id="16">
+      <ModelElementName>CV=1.2</ModelElementName>
+      <ModelElementSize h="50" w="100" x="550" y="450"/>
+      <ModelElementConnection Element="18" Type="In"/>
+      <ModelElementConnection Element="19" Type="Out"/>
+      <ModelElementDistribution Status="ProcessTime" TimeBase="Seconds" Type="ProcessingTime">Lognormal distribution (80;96)</ModelElementDistribution>
+      <ModelElementPriority ClientType="Clients">w</ModelElementPriority>
+      <ModelElementPriority ClientType="Kunden">w</ModelElementPriority>
+      <ModelElementOperators Alternative="1" Count="1" Group="Group4"/>
+      <ModelElementOperatorsPriority>1</ModelElementOperatorsPriority>
+    </ModelElementProcessStation>
+    <ModelElementProcessStation id="17">
+      <ModelElementName>CV=1.4</ModelElementName>
+      <ModelElementSize h="50" w="100" x="550" y="550"/>
+      <ModelElementConnection Element="20" Type="In"/>
+      <ModelElementConnection Element="21" Type="Out"/>
+      <ModelElementDistribution Status="ProcessTime" TimeBase="Seconds" Type="ProcessingTime">Lognormal distribution (80;112)</ModelElementDistribution>
+      <ModelElementPriority ClientType="Clients">w</ModelElementPriority>
+      <ModelElementPriority ClientType="Kunden">w</ModelElementPriority>
+      <ModelElementOperators Alternative="1" Count="1" Group="Group5"/>
+      <ModelElementOperatorsPriority>1</ModelElementOperatorsPriority>
+    </ModelElementProcessStation>
+    <ModelElementEdge id="18">
+      <ModelElementName>Copy 3</ModelElementName>
+      <ModelElementConnection Element1="3" Element2="16" Type="Edge"/>
+      <ModelElementConnectionDrawStyle>Direct</ModelElementConnectionDrawStyle>
+    </ModelElementEdge>
+    <ModelElementEdge id="19">
+      <ModelElementConnection Element1="16" Element2="6" Type="Edge"/>
+      <ModelElementConnectionDrawStyle>Direct</ModelElementConnectionDrawStyle>
+    </ModelElementEdge>
+    <ModelElementEdge id="20">
+      <ModelElementName>Copy 4</ModelElementName>
+      <ModelElementConnection Element1="3" Element2="17" Type="Edge"/>
+      <ModelElementConnectionDrawStyle>Direct</ModelElementConnectionDrawStyle>
+    </ModelElementEdge>
+    <ModelElementEdge id="21">
+      <ModelElementConnection Element1="17" Element2="6" Type="Edge"/>
+      <ModelElementConnectionDrawStyle>Direct</ModelElementConnectionDrawStyle>
+    </ModelElementEdge>
+    <ModelElementText id="22">
+      <ModelElementSize h="171" w="389" x="50" y="100"/>
+      <ModelElementTextLine>As input parameters E[I]:=100 sec., E[S]:=80 sec. and c:=1</ModelElementTextLine>
+      <ModelElementTextLine>have been chosen. All 5 submodels receive exactly the same</ModelElementTextLine>
+      <ModelElementTextLine>client arrival stream. The utilization in all submodels</ModelElementTextLine>
+      <ModelElementTextLine>is &amp;rho;=80% in each case. The model with coefficient of</ModelElementTextLine>
+      <ModelElementTextLine>variation CV=1 corresponds to the Erlang C model and can</ModelElementTextLine>
+      <ModelElementTextLine>therefore be calculated using the Erlang C formula.</ModelElementTextLine>
+      <ModelElementTextLine/>
+      <ModelElementTextLine>The differences in the mean waiting times therefore arise</ModelElementTextLine>
+      <ModelElementTextLine>exclusively due to the different variations in the service times.</ModelElementTextLine>
+      <ModelElementFontSize LaTeX="1" Symbols="1" italic="1">14</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementText id="23">
+      <ModelElementSize h="15" w="79" x="1000" y="400"/>
+      <ModelElementTextLine>CV[S] 0.6 to 1.4</ModelElementTextLine>
+      <ModelElementFontSize Symbols="1">11</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementText id="24">
+      <ModelElementSize h="144" w="221" x="1000" y="450"/>
+      <ModelElementTextLine>The CV=1.0 value (blue bar) corresponds</ModelElementTextLine>
+      <ModelElementTextLine>to 320 seconds according to the</ModelElementTextLine>
+      <ModelElementTextLine>Erlang C formula.</ModelElementTextLine>
+      <ModelElementTextLine/>
+      <ModelElementTextLine>Lower coefficients of variation lead to</ModelElementTextLine>
+      <ModelElementTextLine>shorter mean waiting times; higher</ModelElementTextLine>
+      <ModelElementTextLine>coefficients of variation lead to longer</ModelElementTextLine>
+      <ModelElementTextLine>mean waiting times. **The mean service**</ModelElementTextLine>
+      <ModelElementTextLine>**times are identical in all cases.**</ModelElementTextLine>
+      <ModelElementFontSize Markdown="1" Symbols="1">12</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementText id="1">
+      <ModelElementSize h="23" w="375" x="50" y="50"/>
+      <ModelElementTextLine>Effects of the variation of the service times</ModelElementTextLine>
+      <ModelElementFontSize Symbols="1" bold="1">18</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementRectangle id="26">
+      <ModelElementSize h="180" w="130" x="535" y="440"/>
+      <ModelElementLineWidth>2</ModelElementLineWidth>
+      <ModelElementColor>255,0,0</ModelElementColor>
+      <ModelElementBackgroundColor Alpha="0.1">255,0,0</ModelElementBackgroundColor>
+    </ModelElementRectangle>
+    <ModelElementAnimationText id="27">
+      <ModelElementName>E[W] in sec.</ModelElementName>
+      <ModelElementSize h="30" w="50" x="750" y="150"/>
+      <ModelElementFontSize>14</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+      <ModelElementAnimationMode Type="Number">WaitingTime_avg(4)</ModelElementAnimationMode>
+    </ModelElementAnimationText>
+    <ModelElementAnimationText id="28">
+      <ModelElementName>E[W] in sec.</ModelElementName>
+      <ModelElementSize h="30" w="50" x="750" y="250"/>
+      <ModelElementFontSize>14</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+      <ModelElementAnimationMode Type="Number">WaitingTime_avg(9)</ModelElementAnimationMode>
+    </ModelElementAnimationText>
+    <ModelElementAnimationText id="29">
+      <ModelElementName>E[W] in sec.</ModelElementName>
+      <ModelElementSize h="30" w="50" x="750" y="470"/>
+      <ModelElementFontSize>14</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+      <ModelElementAnimationMode Type="Number">WaitingTime_avg(16)</ModelElementAnimationMode>
+    </ModelElementAnimationText>
+    <ModelElementAnimationText id="30">
+      <ModelElementName>E[W] in sec.</ModelElementName>
+      <ModelElementSize h="30" w="50" x="750" y="570"/>
+      <ModelElementFontSize>14</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+      <ModelElementAnimationMode Type="Number">WaitingTime_avg(17)</ModelElementAnimationMode>
+    </ModelElementAnimationText>
+    <ModelElementAnimationText id="31">
+      <ModelElementName>E[W] in sec.</ModelElementName>
+      <ModelElementSize h="30" w="50" x="705" y="360"/>
+      <ModelElementFontSize>14</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+      <ModelElementAnimationMode Type="Number">WaitingTime_avg(12)</ModelElementAnimationMode>
+    </ModelElementAnimationText>
+    <ModelElementText id="32">
+      <ModelElementSize h="38" w="137" x="1000" y="110"/>
+      <ModelElementTextLine>Average waiting times</ModelElementTextLine>
+      <ModelElementTextLine>in the submodels</ModelElementTextLine>
+      <ModelElementFontSize Symbols="1">14</ModelElementFontSize>
+      <ModelElementColor>0,0,255</ModelElementColor>
+    </ModelElementText>
+    <ModelElementAnimationText id="33">
+      <ModelElementName>Simulation value</ModelElementName>
+      <ModelElementSize h="30" w="69" x="1015" y="670"/>
+      <ModelElementFontSize>14</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+      <ModelElementAnimationMode Type="Number">WaitingTime_avg(12)</ModelElementAnimationMode>
+    </ModelElementAnimationText>
+    <ModelElementAnimationText id="34">
+      <ModelElementName>Erlang C value</ModelElementName>
+      <ModelElementSize h="30" w="62" x="1015" y="725"/>
+      <ModelElementFontSize>14</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+      <ModelElementAnimationMode Type="Number">320</ModelElementAnimationMode>
+    </ModelElementAnimationText>
+    <ModelElementText id="35">
+      <ModelElementSize h="38" w="184" x="1000" y="620"/>
+      <ModelElementTextLine>Average waiting time (in sec.)</ModelElementTextLine>
+      <ModelElementTextLine>in the CV=1.0 model</ModelElementTextLine>
+      <ModelElementFontSize Symbols="1">14</ModelElementFontSize>
+      <ModelElementColor>0,0,255</ModelElementColor>
+    </ModelElementText>
+    <ModelElementRectangle id="36">
+      <ModelElementSize h="105" w="100" x="1000" y="660"/>
+      <ModelElementLineWidth>2</ModelElementLineWidth>
+      <ModelElementColor>0,0,255</ModelElementColor>
+      <ModelElementBackgroundColor Alpha="0.1">0,0,255</ModelElementBackgroundColor>
+    </ModelElementRectangle>
+    <ModelElementRectangle id="37">
+      <ModelElementSize h="85" w="130" x="535" y="335"/>
+      <ModelElementLineWidth>2</ModelElementLineWidth>
+      <ModelElementColor>0,0,255</ModelElementColor>
+      <ModelElementBackgroundColor Alpha="0.1">0,0,255</ModelElementBackgroundColor>
+    </ModelElementRectangle>
+  </ModelElements>
+  <Resources SecondaryPriority="Random">
+    <Resource Icon="status_online" Name="Group1" Type="Number" Value="1"/>
+    <Resource Icon="status_online" Name="Group2" Type="Number" Value="1"/>
+    <Resource Icon="status_online" Name="Group3" Type="Number" Value="1"/>
+    <Resource Icon="status_online" Name="Group4" Type="Number" Value="1"/>
+    <Resource Icon="status_online" Name="Group5" Type="Number" Value="1"/>
+  </Resources>
+  <ClientTypeData/>
+  <ModelEdgesNormal Color="0,0,0" Type="0" Width="1"/>
+  <ModelEdgesSelected Type="0" Width="1"/>
+  <ModelElementConnectionDrawStyle>Angled around</ModelElementConnectionDrawStyle>
+</Model>

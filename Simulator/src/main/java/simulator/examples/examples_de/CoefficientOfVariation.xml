@@ -1,0 +1,301 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE Modell SYSTEM "https://a-herzog.github.io/Warteschlangensimulator/Simulator.dtd">
+<Modell xmlns="https://a-herzog.github.io" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://a-herzog.github.io https://a-herzog.github.io/Warteschlangensimulator/Simulator.xsd">
+  <!-- Diese Datei wurde mit Warteschlangensimulator erstellt. Download-Adresse: https://github.com/A-Herzog/Warteschlangensimulator -->
+  <ModellVersion>5.3.0</ModellVersion>
+  <ModellName>Auswirkungen der Streuung der Bedienzeiten</ModellName>
+  <ModellBeschreibung>In dem Modell sind Zwischenankunftszeiten (E[I]=100 Sekunden) und
+Bedienzeiten (E[S]=80 Sekunden, c=1 Bediener) so gewählt, dass sich
+eine Auslastung von rho=80% ergibt. Alle 5 Teilmodelle erhalten exakt
+denselben Kundenankunftsstrom. Die 5 Bedienstationen unterscheiden
+sich lediglich in der Streuung der Bediendauern. Die Standardabweichung
+der Bediendauern reicht von 48 Sekunden (Variationskoeffizient 0,6)
+bis 112 Sekunden (Variationskoeffizient 1,4).
+
+Der Einfluss der Streuung der Bediendauern auf die mittleren Wartezeiten
+der Kunden ist deutlich zu erkennen: Je stärker die Bediendauern
+streuen, desto länger fallen die mittleren Wartezeiten der Kunden
+bei sonst identischen Leistungskenngrößen aus.</ModellBeschreibung>
+  <ModellAutor>Alexander Herzog</ModellAutor>
+  <ModellKunden Aktiv="1">10000000</ModellKunden>
+  <ModellAufwaermphase>0.01</ModellAufwaermphase>
+  <ModellAbbruchzeit Aktiv="0">10:00:00:00</ModellAbbruchzeit>
+  <ModellElemente>
+    <ModellElementKasten id="25">
+      <ModellElementGroesse h="180" w="130" x="535" y="135"/>
+      <ModellElementLinienBreite>2</ModellElementLinienBreite>
+      <ModellElementFarbe>0,180,0</ModellElementFarbe>
+      <ModellElementHintergrundfarbe Alpha="0.1">0,180,0</ModellElementHintergrundfarbe>
+    </ModellElementKasten>
+    <ModellElementQuelle id="2">
+      <ModellElementName>Kunden</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="50" y="350"/>
+      <ModellElementVerbindung Element="5" Typ="Auslaufend"/>
+      <ModellElementVerteilung Zeitbasis="Sekunden">Exponentialverteilung (100)</ModellElementVerteilung>
+      <ModellElementBatch Groesse="1"/>
+    </ModellElementQuelle>
+    <ModellElementDuplizieren id="3">
+      <ModellElementGroesse h="50" w="100" x="300" y="350"/>
+      <ModellElementVerbindung Element="5" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="7" Typ="Auslaufend"/>
+      <ModellElementVerbindung Element="10" Typ="Auslaufend"/>
+      <ModellElementVerbindung Element="13" Typ="Auslaufend"/>
+      <ModellElementVerbindung Element="18" Typ="Auslaufend"/>
+      <ModellElementVerbindung Element="20" Typ="Auslaufend"/>
+    </ModellElementDuplizieren>
+    <ModellElementBedienstation id="4">
+      <ModellElementName>CV=0,6</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="550" y="150"/>
+      <ModellElementVerbindung Element="7" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="8" Typ="Auslaufend"/>
+      <ModellElementVerteilung Status="Bedienzeit" Typ="Bedienzeiten" Zeitbasis="Sekunden">Lognormalverteilung (80;48)</ModellElementVerteilung>
+      <ModellElementPrioritaet Kundentyp="Kunden">w</ModellElementPrioritaet>
+      <ModellElementBediener Alternative="1" Anzahl="1" Gruppe="Gruppe1"/>
+      <ModellElementBedienerPrioritaet>1</ModellElementBedienerPrioritaet>
+    </ModellElementBedienstation>
+    <ModellElementKante id="5">
+      <ModellElementName>Ankünfte (Kunden)</ModellElementName>
+      <ModellElementVerbindung Element1="2" Element2="3" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementEnde id="6">
+      <ModellElementGroesse h="50" w="100" x="800" y="350"/>
+      <ModellElementVerbindung Element="8" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="11" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="14" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="19" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="21" Typ="Einlaufend"/>
+    </ModellElementEnde>
+    <ModellElementKante id="7">
+      <ModellElementName>Original</ModellElementName>
+      <ModellElementVerbindung Element1="3" Element2="4" Typ="Kante"/>
+      <ModellElementVerbindungsdarstellungsart>Direkt</ModellElementVerbindungsdarstellungsart>
+    </ModellElementKante>
+    <ModellElementKante id="8">
+      <ModellElementVerbindung Element1="4" Element2="6" Typ="Kante"/>
+      <ModellElementVerbindungsdarstellungsart>Direkt</ModellElementVerbindungsdarstellungsart>
+    </ModellElementKante>
+    <ModellElementBedienstation id="9">
+      <ModellElementName>CV=0,8</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="550" y="250"/>
+      <ModellElementVerbindung Element="10" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="11" Typ="Auslaufend"/>
+      <ModellElementVerteilung Status="Bedienzeit" Typ="Bedienzeiten" Zeitbasis="Sekunden">Lognormalverteilung (80;64)</ModellElementVerteilung>
+      <ModellElementPrioritaet Kundentyp="Kunden">w</ModellElementPrioritaet>
+      <ModellElementBediener Alternative="1" Anzahl="1" Gruppe="Gruppe2"/>
+      <ModellElementBedienerPrioritaet>1</ModellElementBedienerPrioritaet>
+    </ModellElementBedienstation>
+    <ModellElementKante id="10">
+      <ModellElementName>Kopie 1</ModellElementName>
+      <ModellElementVerbindung Element1="3" Element2="9" Typ="Kante"/>
+      <ModellElementVerbindungsdarstellungsart>Direkt</ModellElementVerbindungsdarstellungsart>
+    </ModellElementKante>
+    <ModellElementKante id="11">
+      <ModellElementVerbindung Element1="9" Element2="6" Typ="Kante"/>
+      <ModellElementVerbindungsdarstellungsart>Direkt</ModellElementVerbindungsdarstellungsart>
+    </ModellElementKante>
+    <ModellElementBedienstation id="12">
+      <ModellElementName>CV=1,0</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="550" y="350"/>
+      <ModellElementVerbindung Element="13" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="14" Typ="Auslaufend"/>
+      <ModellElementVerteilung Status="Bedienzeit" Typ="Bedienzeiten" Zeitbasis="Sekunden">Lognormalverteilung (80;80)</ModellElementVerteilung>
+      <ModellElementPrioritaet Kundentyp="Kunden">w</ModellElementPrioritaet>
+      <ModellElementBediener Alternative="1" Anzahl="1" Gruppe="Gruppe3"/>
+      <ModellElementBedienerPrioritaet>1</ModellElementBedienerPrioritaet>
+    </ModellElementBedienstation>
+    <ModellElementKante id="13">
+      <ModellElementName>Kopie 2</ModellElementName>
+      <ModellElementVerbindung Element1="3" Element2="12" Typ="Kante"/>
+      <ModellElementVerbindungsdarstellungsart>Direkt</ModellElementVerbindungsdarstellungsart>
+    </ModellElementKante>
+    <ModellElementKante id="14">
+      <ModellElementVerbindung Element1="12" Element2="6" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementAnimationBalkenDiagramm id="15">
+      <ModellElementGroesse h="250" w="150" x="1000" y="150"/>
+      <ModellElementLinienBreite>1</ModellElementLinienBreite>
+      <ModellElementLinienFarbe>0,0,0</ModellElementLinienFarbe>
+      <ModellElementHintergrundfarbe>240,240,240</ModellElementHintergrundfarbe>
+      <ModellElement3DEffekt>1</ModellElement3DEffekt>
+      <ModellElementMinimalwert>0</ModellElementMinimalwert>
+      <ModellElementMaximalwert>500</ModellElementMaximalwert>
+      <ModellElementAchsenbeschriftung Text="Mittlere Wartezeit E[W] (in Sek.)">2</ModellElementAchsenbeschriftung>
+      <ModellElementDiagrammElement Balkenfarbe="0,180,0">WaitingTime_avg(4)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,180,0">WaitingTime_avg(9)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">WaitingTime_avg(12)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="255,0,0">WaitingTime_avg(16)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="255,0,0">WaitingTime_avg(17)</ModellElementDiagrammElement>
+    </ModellElementAnimationBalkenDiagramm>
+    <ModellElementBedienstation id="16">
+      <ModellElementName>CV=1,2</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="550" y="450"/>
+      <ModellElementVerbindung Element="18" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="19" Typ="Auslaufend"/>
+      <ModellElementVerteilung Status="Bedienzeit" Typ="Bedienzeiten" Zeitbasis="Sekunden">Lognormalverteilung (80;96)</ModellElementVerteilung>
+      <ModellElementPrioritaet Kundentyp="Kunden">w</ModellElementPrioritaet>
+      <ModellElementBediener Alternative="1" Anzahl="1" Gruppe="Gruppe4"/>
+      <ModellElementBedienerPrioritaet>1</ModellElementBedienerPrioritaet>
+    </ModellElementBedienstation>
+    <ModellElementBedienstation id="17">
+      <ModellElementName>CV=1,4</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="550" y="550"/>
+      <ModellElementVerbindung Element="20" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="21" Typ="Auslaufend"/>
+      <ModellElementVerteilung Status="Bedienzeit" Typ="Bedienzeiten" Zeitbasis="Sekunden">Lognormalverteilung (80;112)</ModellElementVerteilung>
+      <ModellElementPrioritaet Kundentyp="Kunden">w</ModellElementPrioritaet>
+      <ModellElementBediener Alternative="1" Anzahl="1" Gruppe="Gruppe5"/>
+      <ModellElementBedienerPrioritaet>1</ModellElementBedienerPrioritaet>
+    </ModellElementBedienstation>
+    <ModellElementKante id="18">
+      <ModellElementName>Kopie 3</ModellElementName>
+      <ModellElementVerbindung Element1="3" Element2="16" Typ="Kante"/>
+      <ModellElementVerbindungsdarstellungsart>Direkt</ModellElementVerbindungsdarstellungsart>
+    </ModellElementKante>
+    <ModellElementKante id="19">
+      <ModellElementVerbindung Element1="16" Element2="6" Typ="Kante"/>
+      <ModellElementVerbindungsdarstellungsart>Direkt</ModellElementVerbindungsdarstellungsart>
+    </ModellElementKante>
+    <ModellElementKante id="20">
+      <ModellElementName>Kopie 4</ModellElementName>
+      <ModellElementVerbindung Element1="3" Element2="17" Typ="Kante"/>
+      <ModellElementVerbindungsdarstellungsart>Direkt</ModellElementVerbindungsdarstellungsart>
+    </ModellElementKante>
+    <ModellElementKante id="21">
+      <ModellElementVerbindung Element1="17" Element2="6" Typ="Kante"/>
+      <ModellElementVerbindungsdarstellungsart>Direkt</ModellElementVerbindungsdarstellungsart>
+    </ModellElementKante>
+    <ModellElementText id="22">
+      <ModellElementGroesse h="190" w="396" x="50" y="100"/>
+      <ModellElementTextzeile>Als Eingabeparameter sind E[I]:=100 Sek., E[S]:=80 Sek.</ModellElementTextzeile>
+      <ModellElementTextzeile>und c:=1 gewählt. Alle 5 Teilmodelle erhalten exakt denselben</ModellElementTextzeile>
+      <ModellElementTextzeile>Kundenankunftsstrom. Die Auslastung in allen Teilmodellen</ModellElementTextzeile>
+      <ModellElementTextzeile>beträgt jeweils &amp;rho;=80%. Das Modell mit Variationskoeffizient</ModellElementTextzeile>
+      <ModellElementTextzeile>CV=1 entspricht dem Erlang-C-Modell und kann daher mit der</ModellElementTextzeile>
+      <ModellElementTextzeile>Erlang-C-Formel berechnet werden.</ModellElementTextzeile>
+      <ModellElementTextzeile/>
+      <ModellElementTextzeile>Die Unterschiede in den mittleren Wartezeiten entstehen daher</ModellElementTextzeile>
+      <ModellElementTextzeile>ausschließlich aufgrund der verschiedenen Streuungen der</ModellElementTextzeile>
+      <ModellElementTextzeile>Bediendauern.</ModellElementTextzeile>
+      <ModellElementSchriftgrosse LaTeX="1" Symbole="1" kursiv="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementText id="23">
+      <ModellElementGroesse h="15" w="84" x="1000" y="400"/>
+      <ModellElementTextzeile>CV[S] 0,6 bis 1,4</ModellElementTextzeile>
+      <ModellElementSchriftgrosse Symbole="1">11</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementText id="24">
+      <ModellElementGroesse h="144" w="233" x="1000" y="450"/>
+      <ModellElementTextzeile>Der CV=1,0 Wert (blauer Balken) muss</ModellElementTextzeile>
+      <ModellElementTextzeile>laut Erlang-C-Formel 320 Sekunden</ModellElementTextzeile>
+      <ModellElementTextzeile>entsprechen.</ModellElementTextzeile>
+      <ModellElementTextzeile/>
+      <ModellElementTextzeile>Geringere Variationskoeffizienten führen</ModellElementTextzeile>
+      <ModellElementTextzeile>zu kürzeren mittleren Wartezeiten; höhere</ModellElementTextzeile>
+      <ModellElementTextzeile>Variationskoeffizienten zu längeren mittleren</ModellElementTextzeile>
+      <ModellElementTextzeile>Wartezeiten. **Die mittleren Bediendauern**</ModellElementTextzeile>
+      <ModellElementTextzeile>**sind dabei in allen Fällen identisch.**</ModellElementTextzeile>
+      <ModellElementSchriftgrosse Markdown="1" Symbole="1">12</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementText id="1">
+      <ModellElementGroesse h="23" w="399" x="50" y="50"/>
+      <ModellElementTextzeile>Auswirkungen der Streuung der Bedienzeiten</ModellElementTextzeile>
+      <ModellElementSchriftgrosse Symbole="1" fett="1">18</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementKasten id="26">
+      <ModellElementGroesse h="180" w="130" x="535" y="440"/>
+      <ModellElementLinienBreite>2</ModellElementLinienBreite>
+      <ModellElementFarbe>255,0,0</ModellElementFarbe>
+      <ModellElementHintergrundfarbe Alpha="0.1">255,0,0</ModellElementHintergrundfarbe>
+    </ModellElementKasten>
+    <ModellElementAnimationText id="27">
+      <ModellElementName>E[W] in Sek.</ModellElementName>
+      <ModellElementGroesse h="30" w="69" x="750" y="150"/>
+      <ModellElementSchriftgrosse>14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+      <ModellElementAnimationsmodus Art="Zahlenwert">WaitingTime_avg(4)</ModellElementAnimationsmodus>
+    </ModellElementAnimationText>
+    <ModellElementAnimationText id="28">
+      <ModellElementName>E[W] in Sek.</ModellElementName>
+      <ModellElementGroesse h="30" w="69" x="750" y="250"/>
+      <ModellElementSchriftgrosse>14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+      <ModellElementAnimationsmodus Art="Zahlenwert">WaitingTime_avg(9)</ModellElementAnimationsmodus>
+    </ModellElementAnimationText>
+    <ModellElementAnimationText id="29">
+      <ModellElementName>E[W] in Sek.</ModellElementName>
+      <ModellElementGroesse h="30" w="69" x="750" y="470"/>
+      <ModellElementSchriftgrosse>14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+      <ModellElementAnimationsmodus Art="Zahlenwert">WaitingTime_avg(16)</ModellElementAnimationsmodus>
+    </ModellElementAnimationText>
+    <ModellElementAnimationText id="30">
+      <ModellElementName>E[W] in Sek.</ModellElementName>
+      <ModellElementGroesse h="30" w="69" x="750" y="570"/>
+      <ModellElementSchriftgrosse>14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+      <ModellElementAnimationsmodus Art="Zahlenwert">WaitingTime_avg(17)</ModellElementAnimationsmodus>
+    </ModellElementAnimationText>
+    <ModellElementAnimationText id="31">
+      <ModellElementName>E[W] in Sek.</ModellElementName>
+      <ModellElementGroesse h="30" w="69" x="705" y="360"/>
+      <ModellElementSchriftgrosse>14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+      <ModellElementAnimationsmodus Art="Zahlenwert">WaitingTime_avg(12)</ModellElementAnimationsmodus>
+    </ModellElementAnimationText>
+    <ModellElementText id="32">
+      <ModellElementGroesse h="38" w="125" x="1000" y="110"/>
+      <ModellElementTextzeile>Mittlere Wartezeiten</ModellElementTextzeile>
+      <ModellElementTextzeile>in den Teilmodellen</ModellElementTextzeile>
+      <ModellElementSchriftgrosse Symbole="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,255</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementAnimationText id="33">
+      <ModellElementName>Simulationswert</ModellElementName>
+      <ModellElementGroesse h="30" w="69" x="1015" y="670"/>
+      <ModellElementSchriftgrosse>14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+      <ModellElementAnimationsmodus Art="Zahlenwert">WaitingTime_avg(12)</ModellElementAnimationsmodus>
+    </ModellElementAnimationText>
+    <ModellElementAnimationText id="34">
+      <ModellElementName>Erlang-C-Wert</ModellElementName>
+      <ModellElementGroesse h="30" w="69" x="1015" y="725"/>
+      <ModellElementSchriftgrosse>14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+      <ModellElementAnimationsmodus Art="Zahlenwert">320</ModellElementAnimationsmodus>
+    </ModellElementAnimationText>
+    <ModellElementText id="35">
+      <ModellElementGroesse h="38" w="166" x="1000" y="620"/>
+      <ModellElementTextzeile>Mittlere Wartezeit (in Sek.)</ModellElementTextzeile>
+      <ModellElementTextzeile>im CV=1,0 Modell</ModellElementTextzeile>
+      <ModellElementSchriftgrosse Symbole="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,255</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementKasten id="36">
+      <ModellElementGroesse h="105" w="100" x="1000" y="660"/>
+      <ModellElementLinienBreite>2</ModellElementLinienBreite>
+      <ModellElementFarbe>0,0,255</ModellElementFarbe>
+      <ModellElementHintergrundfarbe Alpha="0.1">0,0,255</ModellElementHintergrundfarbe>
+    </ModellElementKasten>
+    <ModellElementKasten id="37">
+      <ModellElementGroesse h="85" w="130" x="535" y="335"/>
+      <ModellElementLinienBreite>2</ModellElementLinienBreite>
+      <ModellElementFarbe>0,0,255</ModellElementFarbe>
+      <ModellElementHintergrundfarbe Alpha="0.1">0,0,255</ModellElementHintergrundfarbe>
+    </ModellElementKasten>
+  </ModellElemente>
+  <Ressourcen UntergeordnetePrioritaet="Zufaellig">
+    <Ressource Name="Gruppe1" Typ="Anzahl" Wert="1"/>
+    <Ressource Name="Gruppe2" Typ="Anzahl" Wert="1"/>
+    <Ressource Name="Gruppe3" Typ="Anzahl" Wert="1"/>
+    <Ressource Name="Gruppe4" Typ="Anzahl" Wert="1"/>
+    <Ressource Name="Gruppe5" Typ="Anzahl" Wert="1"/>
+  </Ressourcen>
+  <KundentypenDaten/>
+  <ModellKantenNormal Breite="1" Farbe="0,0,0" Typ="0"/>
+  <ModellKantenSelektiert Breite="1" Typ="0"/>
+  <ModellElementVerbindungsdarstellungsart>Abgerundet abgewinkelt</ModellElementVerbindungsdarstellungsart>
+</Modell>
