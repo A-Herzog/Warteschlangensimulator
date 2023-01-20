@@ -13930,6 +13930,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[32429] = "Only save last result";
     t[32432] = "ModelDescription.Action.EnabledStatus";
     t[32433] = "Activation status";
+    t[32442] = "LoadCalculator.CopyResults";
+    t[32443] = "Copy results";
     t[32444] = "Surface.DistributionByClientTypeEditor.UseGlobal";
     t[32445] = "Use global default";
     t[32452] = "Schedule.EditName";
@@ -14044,14 +14046,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[32695] = "Purple";
     t[32696] = "Git.List.Tab.LocalFolder.LocalFolder.Info.FolderIsGit";
     t[32697] = "The directory does contain a Git repository.";
-    t[32700] = "Statistics.SystemData.Info1";
-    t[32701] = "The data marked with (*) indicate the real";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_7 (java.lang.String[] t) {
+    t[32700] = "Statistics.SystemData.Info1";
+    t[32701] = "The data marked with (*) indicate the real";
     t[32702] = "Statistics.SystemData.Info2";
     t[32703] = "computing time on a CPU core.";
     t[32706] = "Surface.AssignString.Table.Down";
@@ -16050,14 +16052,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[37281] = "<p>Calculates the value of the density of the Laplace distribution at the location specified as the first parameter with the parameters according to the second (mean) and third (scale) parameters.</p>";
     t[37292] = "Statistic.Viewer.Report.Settings.Footer.PageNumber";
     t[37293] = "Page number in footer";
-    t[37294] = "CopyInstallation.DestinationFolder.ConfirmOverwriteInfoNo";
-    t[37295] = "Do not perform copy action.";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_8 (java.lang.String[] t) {
+    t[37294] = "CopyInstallation.DestinationFolder.ConfirmOverwriteInfoNo";
+    t[37295] = "Do not perform copy action.";
     t[37298] = "Surface.Line.XML.ArrowStart";
     t[37299] = "ModelElementLineArrowStart";
     t[37300] = "Statistic.Viewer.Toolbar.OpenODT.Hint";
@@ -18056,14 +18058,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[41775] = "An error occurred while encrypting file %s.";
     t[41778] = "ExpressionBuilder.SimulationCharacteristics.ClientData.PreviousStation";
     t[41779] = "Previous station";
-    t[41782] = "Statistic.FastAccess.Template.Save.Tooltip";
-    t[41783] = "Saves the statistic results";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_9 (java.lang.String[] t) {
+    t[41782] = "Statistic.FastAccess.Template.Save.Tooltip";
+    t[41783] = "Saves the statistic results";
     t[41788] = "Examples.ClientTypePriorities";
     t[41789] = "Client types with different priorities";
     t[41790] = "Surface.TankValveSetup.Table.Delete.ConfirmTitle";
@@ -19744,6 +19746,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[45647] = "Remove model from list.";
     t[45648] = "Statistic.Viewer.Toolbar.Save.DefaultSize";
     t[45649] = "Save using default size (%dx%d pixels)";
+    t[45658] = "LoadCalculator.CopyResults.Info";
+    t[45659] = "Copies the calculation results to clipboard";
     t[45662] = "Surface.XML.Transporter.LoadDistribution";
     t[45663] = "ModelTransporterLoadingDistribution";
     t[45664] = "Surface.TransportDestination.Tooltip";
@@ -20060,16 +20064,16 @@ public class Messages_en extends java.util.ResourceBundle {
     t[46337] = "Invalid font size";
     t[46338] = "Statistic.FastAccess.Template.StatisticsXMLMode.Hint";
     t[46339] = "Returns the mode value of a distribution stored in an XML element.";
-    t[46342] = "ExpressionBuilder.ProbabilityDistributions.FDistribution.DistributionFunctionInfo";
-    t[46343] = "<p>Calculates the value of the distribution function of the F distribution at the location specified as the first parameter with the parameters according to the second and third parameters.</p>";
-    t[46348] = "Animation.Icon.Soccer";
-    t[46349] = "Soccer";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_10 (java.lang.String[] t) {
+    t[46342] = "ExpressionBuilder.ProbabilityDistributions.FDistribution.DistributionFunctionInfo";
+    t[46343] = "<p>Calculates the value of the distribution function of the F distribution at the location specified as the first parameter with the parameters according to the second and third parameters.</p>";
+    t[46348] = "Animation.Icon.Soccer";
+    t[46349] = "Soccer";
     t[46350] = "Main.Menu.View.ListElements";
     t[46351] = "Elements list...";
     t[46352] = "SettingsDialog.LoadModelOnProgramStart.EmptyModel";
@@ -22066,16 +22070,16 @@ public class Messages_en extends java.util.ResourceBundle {
     t[50903] = "ModelElementInputDBVariable";
     t[50912] = "ParameterCompare.Templates.Step";
     t[50913] = "Step wide";
-    t[50914] = "FitDialog.InfoValuesRounded";
-    t[50915] = "The input values have been rounded to integer numbers.";
-    t[50916] = "ModelDescription.Process.ProcessTimeType.Process";
-    t[50917] = "Process time";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_11 (java.lang.String[] t) {
+    t[50914] = "FitDialog.InfoValuesRounded";
+    t[50915] = "The input values have been rounded to integer numbers.";
+    t[50916] = "ModelDescription.Process.ProcessTimeType.Process";
+    t[50917] = "Process time";
     t[50920] = "ExpressionBuilder.MathematicalFunctions.Factorial.Info";
     t[50921] = "<p>Calculates the factorial of the value preceding the ! sign.</p> <p>Example: <tt>6!</tt> returns 720.</p>";
     t[50922] = "Editor.DialogBase.Search.Description";

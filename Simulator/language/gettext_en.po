@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-17 08:59+0100\n"
+"POT-Creation-Date: 2023-01-18 08:19+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -9822,6 +9822,12 @@ msgstr "Service batch size"
 
 msgid "LoadCalculator.CancelRate"
 msgstr "Cancel rate"
+
+msgid "LoadCalculator.CopyResults"
+msgstr "Copy results"
+
+msgid "LoadCalculator.CopyResults.Info"
+msgstr "Copies the calculation results to clipboard"
 
 msgid "LoadCalculator.ErlangCNotCalculateable"
 msgstr "not calculateable (to few agents)"

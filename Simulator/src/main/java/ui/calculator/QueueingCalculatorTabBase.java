@@ -19,6 +19,8 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.FlowLayout;
+import java.awt.Toolkit;
+import java.awt.datatransfer.StringSelection;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
@@ -59,6 +61,9 @@ public abstract class QueueingCalculatorTabBase extends JPanel {
 	private final String infoLinkText;
 	/** URL für einen möglichen Info-Link unten im Tab (darf leer oder <code>null</code> sein) */
 	private final String infoLinkURL;
+
+	/** Rechenergebnisse als einfacher Text */
+	private String resultsPlainText;
 
 	/** Feld für die Rechenergebnisse */
 	private JLabel result;
@@ -314,6 +319,7 @@ public abstract class QueueingCalculatorTabBase extends JPanel {
 	 */
 	protected final void setResult(final String text) {
 		initResults();
+		resultsPlainText=text.replace("<br>","\n");
 		result.setText("<html><body><b>"+Language.tr("LoadCalculator.Results")+"</b><br>"+text+"</body></html>");
 	}
 
@@ -380,5 +386,14 @@ public abstract class QueueingCalculatorTabBase extends JPanel {
 	 */
 	public URL getHelpPage() {
 		return QueueingCalculatorTabBase.class.getResource("description_"+Language.getCurrentLanguage()+"/"+getHelpPageName()+".html");
+	}
+
+	/**
+	 * Kopiert die per {@link #setResult(String)} eingestellten Ergebnisse
+	 * als unformatierten Text in die Zwischenablage.
+	 * @see #setResult(String)
+	 */
+	public void copyResultsToClipboard() {
+		if (resultsPlainText!=null) Toolkit.getDefaultToolkit().getSystemClipboard().setContents(new StringSelection(resultsPlainText),null);
 	}
 }
