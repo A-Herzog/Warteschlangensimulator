@@ -1,0 +1,612 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE Modell SYSTEM "https://a-herzog.github.io/Warteschlangensimulator/Simulator.dtd">
+<Modell xmlns="https://a-herzog.github.io" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://a-herzog.github.io https://a-herzog.github.io/Warteschlangensimulator/Simulator.xsd">
+  <!-- Diese Datei wurde mit Warteschlangensimulator erstellt. Download-Adresse: https://github.com/A-Herzog/Warteschlangensimulator -->
+  <ModellVersion>5.3.0</ModellVersion>
+  <ModellName>Histogramme verschiedener Wahrscheinlichkeitsverteilungen</ModellName>
+  <ModellBeschreibung>In diesem Modell werden Kunden an mehreren Verzögerung-Stationen jeweils
+gemäß verschiedenen Wahrscheinlichkeitsverteilungen verzögert. Die Zeitdauern
+werden erfasst und in Form von Histogrammen dargestellt.
+
+Während der Animation ist zu beobachten, wie sich die Histogramme immer
+mehr den theoretischen Verteilungen annähern, aber selbst nach längerer
+Animationslaufzeit immer noch vereinzelt Abweichungen zwischen den exakten
+Werten und den Histogrammwerten vorliegen.</ModellBeschreibung>
+  <ModellAutor>Alexander Herzog</ModellAutor>
+  <ModellKunden Aktiv="1">2000000</ModellKunden>
+  <ModellAufwaermphase>0.01</ModellAufwaermphase>
+  <ModellAbbruchzeit Aktiv="0">10:00:00:00</ModellAbbruchzeit>
+  <ModellElemente>
+    <ModellElementQuelle id="1">
+      <ModellElementName>Gleichv.</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="100" y="100"/>
+      <ModellElementVerbindung Element="13" Typ="Auslaufend"/>
+      <ModellElementVerteilung Zeitbasis="Sekunden">Ein-Punkt-Verteilung (60)</ModellElementVerteilung>
+      <ModellElementBatch Groesse="1"/>
+    </ModellElementQuelle>
+    <ModellElementQuelle id="2">
+      <ModellElementName>Dreieck</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="100" y="200"/>
+      <ModellElementVerbindung Element="14" Typ="Auslaufend"/>
+      <ModellElementVerteilung Zeitbasis="Sekunden">Ein-Punkt-Verteilung (60)</ModellElementVerteilung>
+      <ModellElementBatch Groesse="1"/>
+    </ModellElementQuelle>
+    <ModellElementQuelle id="3">
+      <ModellElementName>Lognormal</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="100" y="300"/>
+      <ModellElementVerbindung Element="15" Typ="Auslaufend"/>
+      <ModellElementVerteilung Zeitbasis="Sekunden">Ein-Punkt-Verteilung (60)</ModellElementVerteilung>
+      <ModellElementBatch Groesse="1"/>
+    </ModellElementQuelle>
+    <ModellElementQuelle id="4">
+      <ModellElementName>Exp</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="100" y="400"/>
+      <ModellElementVerbindung Element="16" Typ="Auslaufend"/>
+      <ModellElementVerteilung Zeitbasis="Sekunden">Ein-Punkt-Verteilung (60)</ModellElementVerteilung>
+      <ModellElementBatch Groesse="1"/>
+    </ModellElementQuelle>
+    <ModellElementQuelle id="5">
+      <ModellElementName>Gamma</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="100" y="500"/>
+      <ModellElementVerbindung Element="17" Typ="Auslaufend"/>
+      <ModellElementVerteilung Zeitbasis="Sekunden">Ein-Punkt-Verteilung (60)</ModellElementVerteilung>
+      <ModellElementBatch Groesse="1"/>
+    </ModellElementQuelle>
+    <ModellElementQuelle id="6">
+      <ModellElementName>Weibull</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="100" y="600"/>
+      <ModellElementVerbindung Element="18" Typ="Auslaufend"/>
+      <ModellElementVerteilung Zeitbasis="Sekunden">Ein-Punkt-Verteilung (60)</ModellElementVerteilung>
+      <ModellElementBatch Groesse="1"/>
+    </ModellElementQuelle>
+    <ModellElementVerzoegerung id="7">
+      <ModellElementGroesse h="50" w="100" x="300" y="100"/>
+      <ModellElementVerbindung Element="13" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="25" Typ="Auslaufend"/>
+      <ModellElementVerteilung Typ="Bedienzeit" Zeitbasis="Sekunden">Gleichverteilung (20;80)</ModellElementVerteilung>
+    </ModellElementVerzoegerung>
+    <ModellElementVerzoegerung id="8">
+      <ModellElementGroesse h="50" w="100" x="300" y="200"/>
+      <ModellElementVerbindung Element="14" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="26" Typ="Auslaufend"/>
+      <ModellElementVerteilung Typ="Bedienzeit" Zeitbasis="Sekunden">Dreiecksverteilung (20;60;80)</ModellElementVerteilung>
+    </ModellElementVerzoegerung>
+    <ModellElementVerzoegerung id="9">
+      <ModellElementGroesse h="50" w="100" x="300" y="300"/>
+      <ModellElementVerbindung Element="15" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="27" Typ="Auslaufend"/>
+      <ModellElementVerteilung Typ="Bedienzeit" Zeitbasis="Sekunden">Lognormalverteilung (50;30)</ModellElementVerteilung>
+    </ModellElementVerzoegerung>
+    <ModellElementVerzoegerung id="10">
+      <ModellElementGroesse h="50" w="100" x="300" y="400"/>
+      <ModellElementVerbindung Element="16" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="28" Typ="Auslaufend"/>
+      <ModellElementVerteilung Typ="Bedienzeit" Zeitbasis="Sekunden">Exponentialverteilung (20)</ModellElementVerteilung>
+    </ModellElementVerzoegerung>
+    <ModellElementVerzoegerung id="11">
+      <ModellElementGroesse h="50" w="100" x="300" y="500"/>
+      <ModellElementVerbindung Element="17" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="29" Typ="Auslaufend"/>
+      <ModellElementVerteilung Typ="Bedienzeit" Zeitbasis="Sekunden">Gamma-Verteilung (2.77777777777778;18)</ModellElementVerteilung>
+    </ModellElementVerzoegerung>
+    <ModellElementVerzoegerung id="12">
+      <ModellElementGroesse h="50" w="100" x="300" y="600"/>
+      <ModellElementVerbindung Element="18" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="30" Typ="Auslaufend"/>
+      <ModellElementVerteilung Typ="Bedienzeit" Zeitbasis="Sekunden">Weibull-Verteilung (0.025;1.5)</ModellElementVerteilung>
+    </ModellElementVerzoegerung>
+    <ModellElementKante id="13">
+      <ModellElementName>Ankünfte (Gleichv.)</ModellElementName>
+      <ModellElementVerbindung Element1="1" Element2="7" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="14">
+      <ModellElementName>Ankünfte (Dreieck)</ModellElementName>
+      <ModellElementVerbindung Element1="2" Element2="8" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="15">
+      <ModellElementName>Ankünfte (Lognormal)</ModellElementName>
+      <ModellElementVerbindung Element1="3" Element2="9" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="16">
+      <ModellElementName>Ankünfte (Exp)</ModellElementName>
+      <ModellElementVerbindung Element1="4" Element2="10" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="17">
+      <ModellElementName>Ankünfte (Gamma)</ModellElementName>
+      <ModellElementVerbindung Element1="5" Element2="11" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="18">
+      <ModellElementName>Ankünfte (Weibull)</ModellElementName>
+      <ModellElementVerbindung Element1="6" Element2="12" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementEnde id="19">
+      <ModellElementGroesse h="50" w="100" x="450" y="100"/>
+      <ModellElementVerbindung Element="25" Typ="Einlaufend"/>
+    </ModellElementEnde>
+    <ModellElementEnde id="20">
+      <ModellElementGroesse h="50" w="100" x="450" y="200"/>
+      <ModellElementVerbindung Element="26" Typ="Einlaufend"/>
+    </ModellElementEnde>
+    <ModellElementEnde id="21">
+      <ModellElementGroesse h="50" w="100" x="450" y="300"/>
+      <ModellElementVerbindung Element="27" Typ="Einlaufend"/>
+    </ModellElementEnde>
+    <ModellElementEnde id="22">
+      <ModellElementGroesse h="50" w="100" x="450" y="400"/>
+      <ModellElementVerbindung Element="28" Typ="Einlaufend"/>
+    </ModellElementEnde>
+    <ModellElementEnde id="23">
+      <ModellElementGroesse h="50" w="100" x="450" y="500"/>
+      <ModellElementVerbindung Element="29" Typ="Einlaufend"/>
+    </ModellElementEnde>
+    <ModellElementEnde id="24">
+      <ModellElementGroesse h="50" w="100" x="450" y="600"/>
+      <ModellElementVerbindung Element="30" Typ="Einlaufend"/>
+    </ModellElementEnde>
+    <ModellElementKante id="25">
+      <ModellElementVerbindung Element1="7" Element2="19" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="26">
+      <ModellElementVerbindung Element1="8" Element2="20" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="27">
+      <ModellElementVerbindung Element1="9" Element2="21" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="28">
+      <ModellElementVerbindung Element1="10" Element2="22" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="29">
+      <ModellElementVerbindung Element1="11" Element2="23" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="30">
+      <ModellElementVerbindung Element1="12" Element2="24" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementText id="31">
+      <ModellElementGroesse h="23" w="542" x="100" y="50"/>
+      <ModellElementTextzeile>Histogramme verschiedener Wahrscheinlichkeitsverteilungen</ModellElementTextzeile>
+      <ModellElementSchriftgrosse Symbole="1" fett="1">18</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementText id="34">
+      <ModellElementGroesse h="19" w="156" x="650" y="100"/>
+      <ModellElementTextzeile>Gleichverteilung (20..80)</ModellElementTextzeile>
+      <ModellElementSchriftgrosse Symbole="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,255</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementAnimationBalkenDiagramm id="32">
+      <ModellElementGroesse h="230" w="550" x="650" y="120"/>
+      <ModellElementLinienBreite>1</ModellElementLinienBreite>
+      <ModellElementLinienFarbe>0,0,0</ModellElementLinienFarbe>
+      <ModellElementHintergrundfarbe>240,240,240</ModellElementHintergrundfarbe>
+      <ModellElement3DEffekt>1</ModellElement3DEffekt>
+      <ModellElementMinimalwert>0</ModellElementMinimalwert>
+      <ModellElementMaximalwert>0.05</ModellElementMaximalwert>
+      <ModellElementAchsenbeschriftung Text="Anteil">1</ModellElementAchsenbeschriftung>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(1;0)+Bedienzeit_hist(1;0;1)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(1;1;3)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(1;3;5)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(1;5;7)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(1;7;9)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(1;9;11)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(1;11;13)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(1;13;15)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(1;15;17)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(1;17;19)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(1;19;21)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(1;21;23)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(1;23;25)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(1;25;27)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(1;27;29)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(1;29;31)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(1;31;33)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(1;33;35)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(1;35;37)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(1;37;39)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(1;39;41)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(1;41;43)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(1;43;45)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(1;45;47)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(1;47;49)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(1;49;51)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(1;51;53)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(1;53;55)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(1;55;57)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(1;57;59)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(1;59;61)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(1;61;63)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(1;63;65)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(1;65;67)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(1;67;69)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(1;69;71)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(1;71;73)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(1;73;75)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(1;75;77)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(1;77;79)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(1;79;81)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(1;81;83)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(1;83;85)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(1;85;87)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(1;87;89)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(1;89;91)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(1;91;93)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(1;93;95)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(1;95;97)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(1;97;99)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="150,150,150">Bedienzeit_hist(1;99;9999999)</ModellElementDiagrammElement>
+    </ModellElementAnimationBalkenDiagramm>
+    <ModellElementText id="33">
+      <ModellElementGroesse h="19" w="187" x="1250" y="100"/>
+      <ModellElementTextzeile>Dreiecksverteilung (20;60;80)</ModellElementTextzeile>
+      <ModellElementSchriftgrosse Symbole="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,255</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementAnimationBalkenDiagramm id="35">
+      <ModellElementGroesse h="230" w="550" x="1250" y="120"/>
+      <ModellElementLinienBreite>1</ModellElementLinienBreite>
+      <ModellElementLinienFarbe>0,0,0</ModellElementLinienFarbe>
+      <ModellElementHintergrundfarbe>240,240,240</ModellElementHintergrundfarbe>
+      <ModellElement3DEffekt>1</ModellElement3DEffekt>
+      <ModellElementMinimalwert>0</ModellElementMinimalwert>
+      <ModellElementMaximalwert>0.05</ModellElementMaximalwert>
+      <ModellElementAchsenbeschriftung Text="Anteil">1</ModellElementAchsenbeschriftung>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(2;0)+Bedienzeit_hist(2;0;1)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(2;1;3)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(2;3;5)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(2;5;7)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(2;7;9)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(2;9;11)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(2;11;13)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(2;13;15)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(2;15;17)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(2;17;19)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(2;19;21)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(2;21;23)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(2;23;25)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(2;25;27)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(2;27;29)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(2;29;31)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(2;31;33)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(2;33;35)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(2;35;37)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(2;37;39)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(2;39;41)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(2;41;43)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(2;43;45)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(2;45;47)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(2;47;49)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(2;49;51)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(2;51;53)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(2;53;55)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(2;55;57)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(2;57;59)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(2;59;61)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(2;61;63)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(2;63;65)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(2;65;67)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(2;67;69)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(2;69;71)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(2;71;73)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(2;73;75)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(2;75;77)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(2;77;79)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(2;79;81)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(2;81;83)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(2;83;85)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(2;85;87)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(2;87;89)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(2;89;91)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(2;91;93)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(2;93;95)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(2;95;97)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(2;97;99)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="150,150,150">Bedienzeit_hist(2;99;9999999)</ModellElementDiagrammElement>
+    </ModellElementAnimationBalkenDiagramm>
+    <ModellElementText id="36">
+      <ModellElementGroesse h="19" w="227" x="650" y="400"/>
+      <ModellElementTextzeile>Lognormalverteilung (E=50, SD=30)</ModellElementTextzeile>
+      <ModellElementSchriftgrosse Symbole="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,255</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementAnimationBalkenDiagramm id="37">
+      <ModellElementGroesse h="230" w="550" x="650" y="420"/>
+      <ModellElementLinienBreite>1</ModellElementLinienBreite>
+      <ModellElementLinienFarbe>0,0,0</ModellElementLinienFarbe>
+      <ModellElementHintergrundfarbe>240,240,240</ModellElementHintergrundfarbe>
+      <ModellElement3DEffekt>1</ModellElement3DEffekt>
+      <ModellElementMinimalwert>0</ModellElementMinimalwert>
+      <ModellElementMaximalwert>0.05</ModellElementMaximalwert>
+      <ModellElementAchsenbeschriftung Text="Anteil">1</ModellElementAchsenbeschriftung>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(3;0)+Bedienzeit_hist(3;0;1)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(3;1;3)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(3;3;5)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(3;5;7)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(3;7;9)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(3;9;11)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(3;11;13)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(3;13;15)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(3;15;17)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(3;17;19)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(3;19;21)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(3;21;23)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(3;23;25)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(3;25;27)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(3;27;29)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(3;29;31)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(3;31;33)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(3;33;35)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(3;35;37)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(3;37;39)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(3;39;41)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(3;41;43)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(3;43;45)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(3;45;47)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(3;47;49)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(3;49;51)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(3;51;53)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(3;53;55)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(3;55;57)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(3;57;59)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(3;59;61)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(3;61;63)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(3;63;65)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(3;65;67)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(3;67;69)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(3;69;71)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(3;71;73)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(3;73;75)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(3;75;77)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(3;77;79)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(3;79;81)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(3;81;83)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(3;83;85)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(3;85;87)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(3;87;89)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(3;89;91)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(3;91;93)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(3;93;95)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(3;95;97)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(3;97;99)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="150,150,150">Bedienzeit_hist(3;99;9999999)</ModellElementDiagrammElement>
+    </ModellElementAnimationBalkenDiagramm>
+    <ModellElementText id="38">
+      <ModellElementGroesse h="19" w="182" x="1250" y="400"/>
+      <ModellElementTextzeile>Exponentialverteilung (E=20)</ModellElementTextzeile>
+      <ModellElementSchriftgrosse Symbole="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,255</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementAnimationBalkenDiagramm id="41">
+      <ModellElementGroesse h="230" w="550" x="1250" y="420"/>
+      <ModellElementLinienBreite>1</ModellElementLinienBreite>
+      <ModellElementLinienFarbe>0,0,0</ModellElementLinienFarbe>
+      <ModellElementHintergrundfarbe>240,240,240</ModellElementHintergrundfarbe>
+      <ModellElement3DEffekt>1</ModellElement3DEffekt>
+      <ModellElementMinimalwert>0</ModellElementMinimalwert>
+      <ModellElementMaximalwert>0.1</ModellElementMaximalwert>
+      <ModellElementAchsenbeschriftung Text="Anteil">1</ModellElementAchsenbeschriftung>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(4;0)+Bedienzeit_hist(4;0;1)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(4;1;3)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(4;3;5)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(4;5;7)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(4;7;9)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(4;9;11)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(4;11;13)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(4;13;15)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(4;15;17)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(4;17;19)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(4;19;21)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(4;21;23)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(4;23;25)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(4;25;27)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(4;27;29)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(4;29;31)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(4;31;33)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(4;33;35)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(4;35;37)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(4;37;39)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(4;39;41)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(4;41;43)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(4;43;45)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(4;45;47)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(4;47;49)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(4;49;51)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(4;51;53)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(4;53;55)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(4;55;57)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(4;57;59)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(4;59;61)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(4;61;63)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(4;63;65)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(4;65;67)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(4;67;69)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(4;69;71)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(4;71;73)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(4;73;75)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(4;75;77)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(4;77;79)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(4;79;81)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(4;81;83)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(4;83;85)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(4;85;87)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(4;87;89)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(4;89;91)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(4;91;93)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(4;93;95)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(4;95;97)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(4;97;99)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="150,150,150">Bedienzeit_hist(4;99;9999999)</ModellElementDiagrammElement>
+    </ModellElementAnimationBalkenDiagramm>
+    <ModellElementText id="42">
+      <ModellElementGroesse h="19" w="216" x="650" y="700"/>
+      <ModellElementTextzeile>Gamma-Verteilung (E=50, SD=30)</ModellElementTextzeile>
+      <ModellElementSchriftgrosse Symbole="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,255</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementAnimationBalkenDiagramm id="44">
+      <ModellElementGroesse h="230" w="550" x="650" y="720"/>
+      <ModellElementLinienBreite>1</ModellElementLinienBreite>
+      <ModellElementLinienFarbe>0,0,0</ModellElementLinienFarbe>
+      <ModellElementHintergrundfarbe>240,240,240</ModellElementHintergrundfarbe>
+      <ModellElement3DEffekt>1</ModellElement3DEffekt>
+      <ModellElementMinimalwert>0</ModellElementMinimalwert>
+      <ModellElementMaximalwert>0.05</ModellElementMaximalwert>
+      <ModellElementAchsenbeschriftung Text="Anteil">1</ModellElementAchsenbeschriftung>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(5;0)+Bedienzeit_hist(5;0;1)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(5;1;3)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(5;3;5)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(5;5;7)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(5;7;9)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(5;9;11)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(5;11;13)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(5;13;15)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(5;15;17)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(5;17;19)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(5;19;21)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(5;21;23)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(5;23;25)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(5;25;27)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(5;27;29)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(5;29;31)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(5;31;33)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(5;33;35)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(5;35;37)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(5;37;39)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(5;39;41)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(5;41;43)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(5;43;45)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(5;45;47)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(5;47;49)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(5;49;51)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(5;51;53)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(5;53;55)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(5;55;57)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(5;57;59)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(5;59;61)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(5;61;63)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(5;63;65)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(5;65;67)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(5;67;69)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(5;69;71)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(5;71;73)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(5;73;75)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(5;75;77)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(5;77;79)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(5;79;81)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(5;81;83)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(5;83;85)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(5;85;87)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(5;87;89)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(5;89;91)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(5;91;93)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(5;93;95)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(5;95;97)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(5;97;99)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="150,150,150">Bedienzeit_hist(5;99;9999999)</ModellElementDiagrammElement>
+    </ModellElementAnimationBalkenDiagramm>
+    <ModellElementText id="45">
+      <ModellElementGroesse h="19" w="302" x="1250" y="700"/>
+      <ModellElementTextzeile>Weibullverteilung (Skalierung=0,025; Form=1,5)</ModellElementTextzeile>
+      <ModellElementSchriftgrosse Symbole="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,255</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementAnimationBalkenDiagramm id="46">
+      <ModellElementGroesse h="230" w="550" x="1250" y="720"/>
+      <ModellElementLinienBreite>1</ModellElementLinienBreite>
+      <ModellElementLinienFarbe>0,0,0</ModellElementLinienFarbe>
+      <ModellElementHintergrundfarbe>240,240,240</ModellElementHintergrundfarbe>
+      <ModellElement3DEffekt>1</ModellElement3DEffekt>
+      <ModellElementMinimalwert>0</ModellElementMinimalwert>
+      <ModellElementMaximalwert>0.05</ModellElementMaximalwert>
+      <ModellElementAchsenbeschriftung Text="Anteil">1</ModellElementAchsenbeschriftung>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(6;0)+Bedienzeit_hist(6;0;1)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(6;1;3)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(6;3;5)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(6;5;7)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(6;7;9)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(6;9;11)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(6;11;13)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(6;13;15)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(6;15;17)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(6;17;19)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(6;19;21)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(6;21;23)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(6;23;25)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(6;25;27)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(6;27;29)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(6;29;31)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(6;31;33)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(6;33;35)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(6;35;37)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(6;37;39)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(6;39;41)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(6;41;43)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(6;43;45)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(6;45;47)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(6;47;49)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(6;49;51)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(6;51;53)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(6;53;55)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(6;55;57)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(6;57;59)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(6;59;61)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(6;61;63)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(6;63;65)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(6;65;67)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(6;67;69)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(6;69;71)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(6;71;73)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(6;73;75)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(6;75;77)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(6;77;79)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(6;79;81)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(6;81;83)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(6;83;85)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(6;85;87)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(6;87;89)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(6;89;91)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(6;91;93)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(6;93;95)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(6;95;97)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(6;97;99)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="150,150,150">Bedienzeit_hist(6;99;9999999)</ModellElementDiagrammElement>
+    </ModellElementAnimationBalkenDiagramm>
+    <ModellElementText id="40">
+      <ModellElementGroesse h="160" w="502" x="100" y="835"/>
+      <ModellElementTextzeile>**Erkenntnis:**</ModellElementTextzeile>
+      <ModellElementTextzeile>Auch nach mehreren Tausend Kundenankünften bzw. in diesem Fall nach mehreren</ModellElementTextzeile>
+      <ModellElementTextzeile>Tausend erzeugten Zufallszahlen pro betrachteter Wahrscheinlichkeitsverteilung</ModellElementTextzeile>
+      <ModellElementTextzeile>stellen sich noch nicht die exakten theoretischen Werte ein. Bis die Histogramme</ModellElementTextzeile>
+      <ModellElementTextzeile>der Messwerte den theoretischen Verteilungen perfekt entsprechen, sind sehr viele</ModellElementTextzeile>
+      <ModellElementTextzeile>Kundenankünfte notwendig.</ModellElementTextzeile>
+      <ModellElementTextzeile/>
+      <ModellElementTextzeile>Daher kann auch bei der Simulation von Warteschlangenmodellen mit jeweils begrenzten</ModellElementTextzeile>
+      <ModellElementTextzeile>Zahlen an Kundenankünften nicht damit gerechnet werden, dass sich exakte Werte ergeben</ModellElementTextzeile>
+      <ModellElementTextzeile>bzw. sich bei jeder Wiederholung der Simulation exakt dieselben Ergebniswerte ergeben.</ModellElementTextzeile>
+      <ModellElementSchriftgrosse Markdown="1" Symbole="1">12</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementText id="43">
+      <ModellElementGroesse h="30" w="369" x="650" y="955"/>
+      <ModellElementTextzeile>Der x-Achsenbereich reicht in alle Diagrammen jeweils von 0 bis 100.</ModellElementTextzeile>
+      <ModellElementTextzeile>Die grauen Histogrammbalken ganz rechts geben jeweils den Anteil &gt;100 an.</ModellElementTextzeile>
+      <ModellElementSchriftgrosse Markdown="1" Symbole="1">11</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementAnimationLCD id="47">
+      <ModellElementGroesse h="70" w="100" x="100" y="720"/>
+      <ModellElementAnimationLCDAusdruck>NumberIn(1)/1000</ModellElementAnimationLCDAusdruck>
+      <ModellElementAnimationLCDZiffern>3</ModellElementAnimationLCDZiffern>
+      <ModellElementAnimationLCDFarbe>0,255,255</ModellElementAnimationLCDFarbe>
+    </ModellElementAnimationLCD>
+    <ModellElementText id="39">
+      <ModellElementGroesse h="19" w="337" x="100" y="700"/>
+      <ModellElementTextzeile>Bisher erzeugte Ankünfte pro Verteilung (in Tausend)</ModellElementTextzeile>
+      <ModellElementSchriftgrosse Symbole="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,255</ModellElementFarbe>
+    </ModellElementText>
+  </ModellElemente>
+  <Ressourcen UntergeordnetePrioritaet="Zufaellig"/>
+  <KundentypenDaten/>
+  <ModellKantenNormal Breite="1" Farbe="0,0,0" Typ="0"/>
+  <ModellKantenSelektiert Breite="1" Typ="0"/>
+  <ModellElementVerbindungsdarstellungsart>Abgerundet abgewinkelt</ModellElementVerbindungsdarstellungsart>
+</Modell>

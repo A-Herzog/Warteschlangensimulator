@@ -16792,6 +16792,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[38939] = "Freiheitsgrade (Nenner)";
     t[38942] = "Transporters.Group.Edit.Dialog.Times.LoadingExpression.ErrorInfoEmpty";
     t[38943] = "Es wurde kein Ausdruck angegeben.";
+    t[38946] = "SystemInfo.Tools.NextStationTraining.DeleteData.Title";
+    t[38947] = "Trainingsdaten l\u00f6schen";
     t[38964] = "ExpressionBuilder.SimulationCharacteristics.TransferTimesAtStations.HistogramSingle";
     t[38965] = "<p>Liefert den Anteil der Kunden, der an der Bedienstation, deren ID in dem Parameter angegeben wurde, eine bestimmte Sekundenanzahl als Transferzeit verbracht haben.</p>";
     t[38974] = "ModelDescription.Set.ProcessTime";
@@ -18056,14 +18058,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[41773] = "Mittlere Wartezeit der Kunden";
     t[41774] = "XML.ErrorEncryptingFile";
     t[41775] = "Es ist ein Fehler beim Vertschl\u00fcsseln der Datei\n%s\naufgetreten.";
-    t[41778] = "ExpressionBuilder.SimulationCharacteristics.ClientData.PreviousStation";
-    t[41779] = "Vorherige Station";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_9 (java.lang.String[] t) {
+    t[41778] = "ExpressionBuilder.SimulationCharacteristics.ClientData.PreviousStation";
+    t[41779] = "Vorherige Station";
     t[41782] = "Statistic.FastAccess.Template.Save.Tooltip";
     t[41783] = "Speichert die Statistikergebnisse";
     t[41788] = "Examples.ClientTypePriorities";
@@ -20062,14 +20064,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[46335] = "L\u00f6schen";
     t[46336] = "Surface.AnimationTextSelect.Dialog.FontSize.Error.Title";
     t[46337] = "Ung\u00fcltige Schriftgr\u00f6\u00dfe";
-    t[46338] = "Statistic.FastAccess.Template.StatisticsXMLMode.Hint";
-    t[46339] = "Liefert den Modalwert einer in einem XML-Element gespeicherten Verteilung.";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_10 (java.lang.String[] t) {
+    t[46338] = "Statistic.FastAccess.Template.StatisticsXMLMode.Hint";
+    t[46339] = "Liefert den Modalwert einer in einem XML-Element gespeicherten Verteilung.";
     t[46342] = "ExpressionBuilder.ProbabilityDistributions.FDistribution.DistributionFunctionInfo";
     t[46343] = "<p>Berechnet den Wert der Verteilungsfunktion der F-Verteilung an der als ersten Parameter angegebenen Stelle mit den Parametern gem\u00e4\u00df dem zweiten und dritten Parameter.</p>";
     t[46348] = "Animation.Icon.Soccer";
@@ -22068,14 +22070,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[50901] = "Aktueller Wert (Histogramm)";
     t[50902] = "Surface.InputDB.XML.Variable";
     t[50903] = "ModellElementEingabeDBVariable";
-    t[50912] = "ParameterCompare.Templates.Step";
-    t[50913] = "Schrittweite";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_11 (java.lang.String[] t) {
+    t[50912] = "ParameterCompare.Templates.Step";
+    t[50913] = "Schrittweite";
     t[50914] = "FitDialog.InfoValuesRounded";
     t[50915] = "Die Eingabewerte wurden auf ganze Zahlen gerundet.";
     t[50916] = "ModelDescription.Process.ProcessTimeType.Process";
@@ -22990,8 +22992,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[53019] = "Systemzustand";
     t[53022] = "Surface.Source.AverageInterArrivalTime";
     t[53023] = "Mittlere Zwischenankunftszeit";
-    t[53026] = "SystemInfo.Tools.NextStationTraining.DeleteData.Title";
-    t[53027] = "Trainingsdaten l\u00f6schen";
+    t[53026] = "Examples.RandomNumberGenerators";
+    t[53027] = "Histogramme verschiedener Wahrscheinlichkeitsverteilungen";
     t[53032] = "Main.Menu.Extras.TestDatabaseConnection.Mnemonic";
     t[53033] = "D";
     t[53034] = "Git.List.Tab.StoreFiles.Statistics";
