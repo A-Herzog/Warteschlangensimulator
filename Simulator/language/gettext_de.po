@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-21 00:06+0100\n"
+"POT-Creation-Date: 2023-01-22 12:54+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20183,6 +20183,18 @@ msgstr "Dateien"
 msgid "SoundSelectDialog.Title"
 msgstr "Sound-Datei auswählen"
 
+msgid "SoundSelectPanel.Frequency"
+msgstr "Frequenz"
+
+msgid "SoundSelectPanel.Frequency.InvalidInfo"
+msgstr "Es muss eine positive Zahl als Frequenz angegeben werden."
+
+msgid "SoundSelectPanel.Frequency.InvalidTitle"
+msgstr "Ungültige Frequenz"
+
+msgid "SoundSelectPanel.Hz"
+msgstr "Hz"
+
 msgid "SoundSelectPanel.MaxSeconds"
 msgstr "Maximale Abspieldauer (in Sekunden)"
 
@@ -20209,6 +20221,9 @@ msgstr "Sound-Ausgabefehler"
 
 msgid "SoundSelectPanel.Play.Info"
 msgstr "Die maximale Abspieldauer für Dateien wird in dieser Vorschau auf 10 Sekunden begrenzt."
+
+msgid "SoundSelectPanel.Tone"
+msgstr "Ton"
 
 msgid "StationStatistics.DialogHint"
 msgstr "Durch die gezielte Deaktivierung der Statistikerfassung an einzelnen Stationen kann die Simulation beschleunigt und der Statistikumfang reduziert werden. Im Standardfall wird empfohlen, die Erfassung an allen Stationen im aktiv Zustand zubelassen. Die Erfassung des maximalen Durchsatzes setzt die Festlegung von jeweils zu betrachtenden Intervallen voraus. Diese Intervalllängen können individuell pro Station festgelegt werden. Zwecks besserer Vergleichbarkeit der Werte wird jedoch die Verwendung eines einheitlichen Wertes empfohlen."

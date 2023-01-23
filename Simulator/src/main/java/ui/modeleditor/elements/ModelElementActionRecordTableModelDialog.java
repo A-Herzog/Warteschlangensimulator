@@ -756,6 +756,13 @@ public class ModelElementActionRecordTableModelDialog extends BaseDialog {
 			}
 		}
 
+		if (actionSound.isSelected()) {
+			if (!soundEdit.checkData(showErrorMessages)) {
+				ok=false;
+				if (showErrorMessages) return false;
+			}
+		}
+
 		return ok;
 	}
 

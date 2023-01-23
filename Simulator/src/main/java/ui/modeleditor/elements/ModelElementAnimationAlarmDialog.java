@@ -219,6 +219,11 @@ public class ModelElementAnimationAlarmDialog extends ModelElementBaseDialog {
 			}
 		}
 
+		if (!soundPanel.checkData(showErrorMessages)) {
+			ok=false;
+			if (showErrorMessages) return false;
+		}
+
 		return ok;
 	}
 

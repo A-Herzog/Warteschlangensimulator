@@ -19,6 +19,8 @@ import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -40,9 +42,11 @@ import javax.swing.SpinnerNumberModel;
 import javax.swing.SwingUtilities;
 
 import language.Language;
+import mathtools.NumberTools;
 import systemtools.MsgBox;
 import tools.IconListCellRenderer;
 import ui.images.Images;
+import ui.modeleditor.ModelElementBaseDialog;
 
 /**
  * Konfigurations-Panel zur Auswahl und Konfiguration eines auszugebenden Sounds.
@@ -103,6 +107,15 @@ public class SoundSystemPanel extends JPanel {
 	 */
 	private final SpinnerModel soundFileMaxSeconds;
 
+	/**
+	 * Auswahlfeld für einen Ton
+	 */
+	private final JComboBox<String> toneSelect;
+
+	/**
+	 * Eingabefeld für eine Frequenz
+	 */
+	private final JTextField frequencyEdit;
 
 	/**
 	 * Konstruktor der Klasse
@@ -129,17 +142,29 @@ public class SoundSystemPanel extends JPanel {
 		line=new JPanel(new FlowLayout(FlowLayout.LEFT));
 		main.add(line);
 		final List<String> modes=new ArrayList<>();
+		final List<Images> modesImages=new ArrayList<>();
+
 		modes.add(Language.tr("SoundSelectPanel.ModeSystem"));
-		if (hasWindowsSounds) modes.add(Language.tr("SoundSelectPanel.ModeWindows"));
+		modesImages.add(Images.SOUND_EVENT);
+
+		if (hasWindowsSounds) {
+			modes.add(Language.tr("SoundSelectPanel.ModeWindows"));
+			modesImages.add(Images.SOUND_WINDOWS);
+		}
+
 		modes.add(Language.tr("SoundSelectPanel.ModeFile"));
+		modesImages.add(Images.SOUND_FILE);
+
+		modes.add(Language.tr("SoundSelectPanel.Tone"));
+		modesImages.add(Images.SOUND);
+
+		modes.add(Language.tr("SoundSelectPanel.Frequency"));
+		modesImages.add(Images.SOUND);
+
 		line.add(modeSelect=new JComboBox<>(modes.toArray(new String[0])));
 		modeSelect.setEnabled(!readOnly);
 		modeSelect.setSelectedIndex(0);
-		modeSelect.setRenderer(new IconListCellRenderer(new Images[]{
-				Images.SOUND_EVENT,
-				Images.SOUND_WINDOWS,
-				Images.SOUND_FILE
-		}));
+		modeSelect.setRenderer(new IconListCellRenderer(modesImages.toArray(new Images[0])));
 
 		/* Cards */
 		cards=new JPanel(cardLayout=new CardLayout());
@@ -197,26 +222,34 @@ public class SoundSystemPanel extends JPanel {
 		soundFileMaxSeconds.setValue(10);
 		subArea.add(spinner);
 
+		/* Card: Ton */
+		line=new JPanel(new FlowLayout(FlowLayout.LEFT));
+		cards.add(line,hasWindowsSounds?"4":"3");
+		final List<String> toneList=new ArrayList<>();
+		for (int i=0;i<SoundSystem.fullToneNameList.size();i++) toneList.add(SoundSystem.fullToneNameList.get(i)+" ("+NumberTools.formatNumber(SoundSystem.fullToneFrequencyList.get(i),2)+Language.tr("SoundSelectPanel.Hz")+")");
+		line.add(toneSelect=new JComboBox<>(toneList.toArray(new String[0])));
+		icons=new ArrayList<>();
+		for (int i=0;i<toneSelect.getItemCount();i++) icons.add(Images.SOUND);
+		toneSelect.setRenderer(new IconListCellRenderer(icons.toArray(new Images[0])));
+		toneSelect.setEnabled(!readOnly);
+		toneSelect.setSelectedIndex(57);
+
+		/* Card: Frequenz */
+		final Object[] data=ModelElementBaseDialog.getInputPanel(Language.tr("SoundSelectPanel.Frequency")+":","440",10);
+		cards.add((JPanel)data[0],hasWindowsSounds?"5":"4");
+		((JPanel)data[0]).add(new JLabel(Language.tr("SoundSelectPanel.Hz")));
+		frequencyEdit=(JTextField)data[1];
+		frequencyEdit.setEnabled(!readOnly);
+		frequencyEdit.addKeyListener(new KeyAdapter() {
+			@Override public void keyTyped(KeyEvent e) {checkData(false);}
+			@Override public void keyReleased(KeyEvent e) {checkData(false);}
+			@Override public void keyPressed(KeyEvent e) {checkData(false);}
+		});
+
 		/* Daten laden */
 		if (oldSound==null || oldSound.trim().isEmpty()) oldSound=SoundSystem.BEEP_SOUND;
-		final List<String> systemSounds=Arrays.asList(soundSystem.getSystemSounds());
-		final List<String> systemFiles=Stream.of(soundSystem.getSoundFiles()).map(file->file.toString()).collect(Collectors.toList());
-		int index;
-		index=systemSounds.indexOf(oldSound);
-		if (index>=0) {
-			modeSelect.setSelectedIndex(0);
-			systemEventSoundSelect.setSelectedIndex(index);
-		} else {
-			index=systemFiles.indexOf(oldSound);
-			if (index>=0) {
-				modeSelect.setSelectedIndex(1);
-				systemSoundFileSelect.setSelectedIndex(index);
-			} else {
-				modeSelect.setSelectedIndex(hasWindowsSounds?2:1);
-				soundFileEdit.setText(oldSound);
-				if (maxSeconds<=0) soundFileMaxSeconds.setValue(999); else soundFileMaxSeconds.setValue(maxSeconds);
-			}
-		}
+		setSound(oldSound,maxSeconds);
+
 		modeChanged();
 		modeSelect.addActionListener(e->modeChanged());
 
@@ -241,6 +274,53 @@ public class SoundSystemPanel extends JPanel {
 	}
 
 	/**
+	 * Stellt den in der GUI anzuzeigenden Sound ein.
+	 * @param sound	Bisheriger Sound
+	 * @param maxSeconds	Bei Sound-Dateien maximal abzuspielende Sekunden (oder ein Wert &le;0 für keine Einschränkung)
+	 */
+	private void setSound(final String sound, final int maxSeconds) {
+		int index;
+
+		/* Systemereignis-Sounds */
+		final List<String> systemSounds=Arrays.asList(soundSystem.getSystemSounds());
+		index=systemSounds.indexOf(sound);
+		if (index>=0) {
+			modeSelect.setSelectedIndex(0);
+			systemEventSoundSelect.setSelectedIndex(index);
+			return;
+		}
+
+		/* Windows-Sounds */
+		final List<String> systemFiles=Stream.of(soundSystem.getSoundFiles()).map(file->file.toString()).collect(Collectors.toList());
+		index=systemFiles.indexOf(sound);
+		if (index>=0) {
+			modeSelect.setSelectedIndex(1);
+			systemSoundFileSelect.setSelectedIndex(index);
+			return;
+		}
+
+		/* Ton */
+		if (SoundSystem.fullToneNameSet.contains(sound)) {
+			modeSelect.setSelectedIndex(hasWindowsSounds?3:2);
+			toneSelect.setSelectedIndex(SoundSystem.fullToneNameList.indexOf(sound));
+			return;
+		}
+
+		/* Frequenz */
+		final Double D=NumberTools.getPositiveDouble(sound);
+		if (D!=null) {
+			modeSelect.setSelectedIndex(hasWindowsSounds?4:3);
+			frequencyEdit.setText(sound);
+			return;
+		}
+
+		/* Sound-Dateien */
+		modeSelect.setSelectedIndex(hasWindowsSounds?2:1);
+		soundFileEdit.setText(sound);
+		if (maxSeconds<=0) soundFileMaxSeconds.setValue(999); else soundFileMaxSeconds.setValue(maxSeconds);
+	}
+
+	/**
 	 * Wählt einen anderen Inhalt für die Cards aus,
 	 * wenn ein anderer Modus eingestellt wurde.
 	 * @see #modeSelect
@@ -249,6 +329,7 @@ public class SoundSystemPanel extends JPanel {
 	private void modeChanged() {
 		final int mode=modeSelect.getSelectedIndex();
 		cardLayout.show(cards,""+(mode+1));
+		checkData(false);
 	}
 
 	/**
@@ -266,6 +347,28 @@ public class SoundSystemPanel extends JPanel {
 		}
 		final File newSound=soundSystem.selectFile(this,initialDirectory);
 		if (newSound!=null) soundFileEdit.setText(newSound.toString());
+	}
+
+	/**
+	 * Prüft, ob die eingegebenen Daten in Ordnung sind.
+	 * @param showErrorMessage	Wird hier <code>true</code> übergeben, so wird eine Fehlermeldung ausgegeben, wenn die Daten nicht in Ordnung sind.
+	 * @return	Gibt <code>true</code> zurück, wenn die Daten in Ordnung sind.
+	 */
+	public boolean checkData(final boolean showErrorMessage) {
+		final int mode=modeSelect.getSelectedIndex();
+
+		/* Frequenz */
+		if ((mode==4 && hasWindowsSounds) || (mode==3 && !hasWindowsSounds)) {
+			if (NumberTools.getPositiveDouble(frequencyEdit,true)==null) {
+				if (showErrorMessage) {
+					MsgBox.error(this,Language.tr("SoundSelectPanel.Frequency.InvalidTitle"),Language.tr("SoundSelectPanel.Frequency.InvalidInfo"));
+				}
+				return false;
+			}
+			return true;
+		}
+
+		return true;
 	}
 
 	/**
@@ -288,6 +391,17 @@ public class SoundSystemPanel extends JPanel {
 		/* Sound-Dateien */
 		if ((mode==2 && hasWindowsSounds) || (mode==1 && !hasWindowsSounds)) {
 			return soundFileEdit.getText().trim();
+		}
+
+		/* Ton */
+		if ((mode==3 && hasWindowsSounds) || (mode==2 && !hasWindowsSounds)) {
+			return SoundSystem.fullToneNameList.get(toneSelect.getSelectedIndex());
+		}
+
+		/* Frequenz */
+		if ((mode==4 && hasWindowsSounds) || (mode==3 && !hasWindowsSounds)) {
+			final Double D=NumberTools.getPositiveDouble(frequencyEdit,true);
+			return NumberTools.formatNumberMax((D==null)?440:D.doubleValue());
 		}
 
 		return SoundSystem.BEEP_SOUND;

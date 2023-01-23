@@ -33,16 +33,19 @@ import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Stream;
 
+import javax.sound.sampled.AudioFormat;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.SourceDataLine;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 import language.Language;
+import mathtools.NumberTools;
 import mathtools.distribution.swing.CommonVariables;
 
 /**
@@ -112,6 +115,7 @@ public class SoundSystem {
 	 */
 	private SoundSystem() {
 		toolkit=Toolkit.getDefaultToolkit();
+		systemSoundsSet=new HashSet<>(Arrays.asList(getSystemSounds()));
 		final String winDir=System.getenv("windir");
 		if (winDir==null) {
 			winSoundFilesFolder=null;
@@ -147,9 +151,11 @@ public class SoundSystem {
 	public synchronized String[] getSystemSounds() {
 		if (systemSounds==null) {
 			final List<String> list=new ArrayList<>();
-			list.add(BEEP_SOUND);
-			final String propNames[]=(String[])toolkit.getDesktopProperty("win.propNames");
-			if (propNames!=null) Arrays.asList(propNames).stream().filter(propName->propName.startsWith(WIN_SOUND_PREFIX)).map(propName->propName.substring(WIN_SOUND_PREFIX.length())).forEach(list::add);
+			if (toolkit!=null) {
+				list.add(BEEP_SOUND);
+				final String propNames[]=(String[])toolkit.getDesktopProperty("win.propNames");
+				if (propNames!=null) Arrays.asList(propNames).stream().filter(propName->propName.startsWith(WIN_SOUND_PREFIX)).map(propName->propName.substring(WIN_SOUND_PREFIX.length())).forEach(list::add);
+			}
 			systemSounds=list.toArray(new String[0]);
 		}
 		return systemSounds;
@@ -160,6 +166,8 @@ public class SoundSystem {
 	 * @param name	Name des abzuspielenden System-Sounds. Wird ein ungültiger Name oder <code>null</code> übergeben, so wird der Standard-Piepton abgespielt.
 	 */
 	public void playSystemSound(final String name) {
+		if (toolkit==null) return;
+
 		if (name==null || name.equals(BEEP_SOUND)) {
 			toolkit.beep();
 			return;
@@ -316,19 +324,249 @@ public class SoundSystem {
 	}
 
 	/**
+	 * In {@link #createSinWaveBuffer(double, int)} zu verwendende Sample-Rate.
+	 * @see #createSinWaveBuffer(double, int)
+	 */
+	private static final int SAMPLE_RATE=22_050;
+
+	/**
+	 * Ausgabeformat für {@link #playSoundFrequency(double, int)}
+	 * @see #playSoundFrequency(double, int)
+	 */
+	private static AudioFormat frequencyAudioFormat=new AudioFormat(SAMPLE_RATE,8,1,true,true);
+
+	/**
+	 * Erzeugt einen Sound-Puffer mit einer vorgegebenen Frequenz.
+	 * @param frequency	Frequenz des Tons
+	 * @param durationMS	Dauer in Millisekunden
+	 * @return	Sound-Puffer mit Sample-Rate {@link #SAMPLE_RATE}
+	 */
+	private static byte[] createSinWaveBuffer(final double frequency, final int durationMS) {
+		final int samples=durationMS*SAMPLE_RATE/1000;
+		final byte[] output=new byte[samples];
+		final double period=SAMPLE_RATE/frequency;
+
+		final int len=output.length;
+		for (int i=0;i<len;i++) {
+			final double angle=2.0*Math.PI*i/period;
+			double scale=1;
+			if (len>1000) {
+				if (i<500) scale=i/500.0;
+				if (i>=len-500) scale=(len-1-i)/500.0;
+			}
+			output[i]=(byte)(Math.sin(angle)*scale*127f);
+		}
+
+		return output;
+	}
+
+	/**
+	 * Verwendete Frequenz beim letzten Aufruf von {@link #playSoundFrequency(double, int)}
+	 * @see #playSoundFrequency(double, int)
+	 */
+	private double lastFrequency=0;
+
+	/**
+	 * Verwendete Dauer beim letzten Aufruf von {@link #playSoundFrequency(double, int)}
+	 * @see #playSoundFrequency(double, int)
+	 */
+	private int lastDurationMS=0;
+
+	/**
+	 * Verwendeter Sound-Puffer beim letzten Aufruf von {@link #playSoundFrequency(double, int)}
+	 * @see #playSoundFrequency(double, int)
+	 */
+	private byte[] lastBuffer;
+
+	/**
+	 * Spielt einen Ton mit einer vorgegebenen Frequenz ab.
+	 * @param frequency	Frequenz des Tons
+	 * @param durationMS	Dauer in Millisekunden
+	 * @return	Liefert <code>true</code>, wenn die Ausgabe erfolgreich war
+	 */
+	public synchronized boolean playSoundFrequency(final double frequency, final int durationMS) {
+		if (frequency!=lastFrequency || durationMS!=lastDurationMS) {
+			lastBuffer=createSinWaveBuffer(frequency,durationMS);
+			lastFrequency=frequency;
+			lastDurationMS=durationMS;
+		}
+
+		try(SourceDataLine line=AudioSystem.getSourceDataLine(frequencyAudioFormat)) {
+			line.open(frequencyAudioFormat,SAMPLE_RATE);
+			line.start();
+			line.write(lastBuffer,0,lastBuffer.length);
+			line.drain();
+			return true;
+
+		} catch (LineUnavailableException e) {
+			return false;
+		}
+	}
+
+	/**
+	 * Spielt einen Ton mit einer vorgegebenen Frequenz für die Dauer von 0,5 Sekunden ab.
+	 * @param frequency	Frequenz des Tons
+	 * @return	Liefert <code>true</code>, wenn die Ausgabe erfolgreich war
+	 */
+	public synchronized boolean playSoundFrequency(final double frequency) {
+		return playSoundFrequency(frequency,defaultToneDurationMS);
+	}
+
+	/**
+	 * Wandelt den ersten Buchstaben einer Zeichenkette in einen Großbuchstaben um.
+	 * @param str	Umzuwandelnde Zeichenkette
+	 * @return	Neue Zeichenkette mit Großbuchstaben am Anfang
+	 */
+	private static String upperCaseFirst(final String str) {
+		if (str.length()==1) return str.toUpperCase();
+		return str.substring(0,1).toUpperCase()+str.substring(1);
+	}
+
+	/**
+	 * Rundet eine Zahl auf zwei Nachkommastellen.
+	 * @param d	Zu rundende Zahl
+	 * @return	Zahl auf zwei Nachkommastellen gerundet
+	 */
+	private static double truncateFrequency(final double d) {
+		return Math.round(d*100.0)/100.0;
+	}
+
+	/**
+	 * Standard-Tonlänge für über eine feste Frequenz definierte Tonausgaben
+	 * @see #playSoundFrequency(double)
+	 */
+	private static final int defaultToneDurationMS=500;
+
+	/**
+	 * Namen der Töne einer Oktave in Kleinbuchstaben
+	 */
+	private static final String[] toneNameList=new String[] {"c", "des", "d", "es", "e", "f", "ges", "g", "as", "a", "b", "h"};
+
+	/**
+	 * Liste mit offiziellen Bezeichnungen von Tonnamen
+	 * @see #fullToneFrequencyList
+	 */
+	public static final List<String> fullToneNameList=new ArrayList<>();
+
+	/**
+	 * Hash-Set der offiziellen Bezeichnungen von Tonnamen
+	 * @see #fullToneNameList
+	 * @see #playAll(String, int)
+	 */
+	public static final Set<String> fullToneNameSet=new HashSet<>();
+
+	/**
+	 * Liste mit den Frequenzen der Töne aus {@link #fullToneNameList}
+	 * @see #fullToneNameList
+	 */
+	public static final List<Double> fullToneFrequencyList=new ArrayList<>();
+
+	static {
+		/* a' -> c': 1/2^9/12 */
+		final double baseFreq=440.0/Math.pow(2,9.0/12.0);
+		final double factor=Math.pow(2,1.0/12.0);
+
+		double freq;
+
+		/* c' -> ''C: 1/2^4 */
+		freq=baseFreq/Math.pow(2,4);
+		for (String tone: toneNameList) {
+			fullToneNameList.add("''"+upperCaseFirst(tone));
+			fullToneFrequencyList.add(truncateFrequency(freq));
+			freq*=factor;
+		}
+
+		/* c' -> 'C: 1/2^3 */
+		freq=baseFreq/Math.pow(2,3);
+		for (String tone: toneNameList) {
+			fullToneNameList.add("'"+upperCaseFirst(tone));
+			fullToneFrequencyList.add(truncateFrequency(freq));
+			freq*=factor;
+		}
+
+		/* c' -> C: 1/2^2 */
+		freq=baseFreq/Math.pow(2,2);
+		for (String tone: toneNameList) {
+			fullToneNameList.add(upperCaseFirst(tone));
+			fullToneFrequencyList.add(truncateFrequency(freq));
+			freq*=factor;
+		}
+
+		/* c' -> c: 1/2 */
+		freq=baseFreq/2;
+		for (String tone: toneNameList) {
+			fullToneNameList.add(tone);
+			fullToneFrequencyList.add(truncateFrequency(freq));
+			freq*=factor;
+		}
+
+		/* c' -> c': 1 */
+		freq=baseFreq;
+		for (String tone: toneNameList) {
+			fullToneNameList.add(tone+"'");
+			fullToneFrequencyList.add(truncateFrequency(freq));
+			freq*=factor;
+		}
+
+		/* c' -> c'': 2 */
+		freq=baseFreq*2;
+		for (String tone: toneNameList) {
+			fullToneNameList.add(tone+"''");
+			fullToneFrequencyList.add(truncateFrequency(freq));
+			freq*=factor;
+		}
+
+		/* c' -> c''': 2^2 */
+		freq=baseFreq*Math.pow(2,2);
+		for (String tone: toneNameList) {
+			fullToneNameList.add(tone+"'''");
+			fullToneFrequencyList.add(truncateFrequency(freq));
+			freq*=factor;
+		}
+
+		/* c' -> c'''': 2^3 */
+		freq=baseFreq*Math.pow(2,3);
+		for (String tone: toneNameList) {
+			fullToneNameList.add(tone+"''''");
+			fullToneFrequencyList.add(truncateFrequency(freq));
+			freq*=factor;
+		}
+
+		fullToneNameSet.addAll(fullToneNameList);
+	}
+
+	/**
+	 * Hash-Set der Namen der System-Sounds
+	 */
+	private final Set<String> systemSoundsSet;
+
+	/**
 	 * Spielt einen System-Sound oder eine Sound-Datei ab.
 	 * @param sound	Bezeichner für den System-Sound oder Dateiname der Sound-Datei
 	 * @param maxSeconds	Bei Sound-Dateien maximal abzuspielende Sekunden (Werte &le;0 für keine Begrenzung)
 	 * @return	Liefert <code>true</code>, wenn der Sound erfolgreich abgespielt werden konnte
 	 */
 	public boolean playAll(final String sound, final int maxSeconds) {
-		final Set<String> systemSounds=new HashSet<>(Arrays.asList(getSystemSounds()));
-		if (systemSounds.contains(sound)) {
+		if (systemSoundsSet.contains(sound)) {
 			playSystemSound(sound);
 			return true;
-		} else {
-			return playSoundFile(sound,maxSeconds);
 		}
+
+		if (fullToneNameSet.contains(sound)) {
+			final int index=fullToneNameList.indexOf(sound);
+			if (index>=0) {
+				playSoundFrequency(fullToneFrequencyList.get(index));
+				return true;
+			}
+		}
+
+		final Double frequency=NumberTools.getPositiveDouble(sound);
+		if (frequency!=null) {
+			playSoundFrequency(frequency);
+			return true;
+		}
+
+		return playSoundFile(sound,maxSeconds);
 	}
 
 	/**

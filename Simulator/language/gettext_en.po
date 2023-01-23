@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-21 00:06+0100\n"
+"POT-Creation-Date: 2023-01-22 12:54+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20169,6 +20169,18 @@ msgstr "files"
 msgid "SoundSelectDialog.Title"
 msgstr "Select sound file"
 
+msgid "SoundSelectPanel.Frequency"
+msgstr "Frequency"
+
+msgid "SoundSelectPanel.Frequency.InvalidInfo"
+msgstr "A positive number has to be entered as frequency."
+
+msgid "SoundSelectPanel.Frequency.InvalidTitle"
+msgstr "Invalid frequency"
+
+msgid "SoundSelectPanel.Hz"
+msgstr "Hz"
+
 msgid "SoundSelectPanel.MaxSeconds"
 msgstr "Maximum playback duration (in seconds)"
 
@@ -20195,6 +20207,9 @@ msgstr "Sound output error"
 
 msgid "SoundSelectPanel.Play.Info"
 msgstr "The maximum playback time for files is limited to 10 seconds in this preview."
+
+msgid "SoundSelectPanel.Tone"
+msgstr "Tone"
 
 msgid "StationStatistics.DialogHint"
 msgstr "The simulation can be accelerated and the scope of statistics reduced by deactivating the statistics recording at individual stations. In the default case it is recommended to leave the recording at all stations in the active state. The recording of the maximum throughput requires the definition of intervals to be considered in each case. These interval lengths can be defined individually for each station. For better comparability of the values, however, the use of a uniform value is recommended."

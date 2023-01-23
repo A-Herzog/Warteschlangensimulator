@@ -133,15 +133,9 @@ public class ModelElementAnimationAlarm extends ModelElementMultiInSingleOutBox 
 		if (!clientType.equals(otherAlarm.clientType)) return false;
 		if (!condition.equals(otherAlarm.condition)) return false;
 		if (counter!=otherAlarm.counter) return false;
+		if (!sound.equals(otherAlarm.sound)) return false;
+		if (soundMaxSeconds!=otherAlarm.soundMaxSeconds) return false;
 
-		if (!sound.equals(otherAlarm.sound)) {
-			System.out.println(sound+"\t"+otherAlarm.sound);
-			return false;
-		}
-		if (soundMaxSeconds!=otherAlarm.soundMaxSeconds) {
-			System.out.println(soundMaxSeconds+"\t"+otherAlarm.soundMaxSeconds);
-			return false;
-		}
 		return true;
 	}
 
