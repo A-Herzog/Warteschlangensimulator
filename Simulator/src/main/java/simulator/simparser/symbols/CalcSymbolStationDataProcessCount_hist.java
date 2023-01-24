@@ -18,7 +18,6 @@ package simulator.simparser.symbols;
 import mathtools.distribution.DataDistributionImpl;
 import simulator.coreelements.RunElementData;
 import simulator.simparser.coresymbols.CalcSymbolStationDataHistogram;
-import statistics.StatisticsPerformanceIndicator;
 import statistics.StatisticsTimePerformanceIndicator;
 
 /**
@@ -57,18 +56,42 @@ public class CalcSymbolStationDataProcessCount_hist extends CalcSymbolStationDat
 		return true;
 	}
 
+	/**
+	 * Kundentyp beim letzten Aufruf von {@link #getDistributionForClientType(String)}
+	 * oder {@link #getDistributionSumForClientType(String)}
+	 * @see #getDistributionForClientType(String)
+	 * @see #getDistributionForClientType(String)
+	 * @see #lastIndicator
+	 */
+	private String lastClientType;
+
+	/**
+	 * Zurückgeliefertes Statistikobjekt beim letzten Aufruf von {@link #getDistributionForClientType(String)}
+	 * oder {@link #getDistributionSumForClientType(String)}
+	 * @see #getDistributionForClientType(String)
+	 * @see #getDistributionForClientType(String)
+	 * @see #lastClientType
+	 */
+	private StatisticsTimePerformanceIndicator lastIndicator;
+
 	@Override
 	protected DataDistributionImpl getDistributionForClientType(final String name) {
-		StatisticsPerformanceIndicator indicator=getSimData().statistics.clientsAtStationProcessByClient.get(name);
-		if (indicator==null) return null;
-		return ((StatisticsTimePerformanceIndicator)indicator).getReadOnlyDistribution();
+		if (lastClientType==null || !name.equals(lastClientType)) {
+			lastIndicator=((StatisticsTimePerformanceIndicator)getSimData().statistics.clientsAtStationProcessByClient.get(name));
+			if (lastIndicator==null) return null;
+			lastClientType=name;
+		}
+		return lastIndicator.getReadOnlyDistribution();
 	}
 
 	@Override
 	protected double getDistributionSumForClientType(final String name) {
-		StatisticsPerformanceIndicator indicator=getSimData().statistics.clientsAtStationProcessByClient.get(name);
-		if (indicator==null) return 0.0;
-		return ((StatisticsTimePerformanceIndicator)indicator).getSum();
+		if (lastClientType==null || !name.equals(lastClientType)) {
+			lastIndicator=((StatisticsTimePerformanceIndicator)getSimData().statistics.clientsAtStationProcessByClient.get(name));
+			if (lastIndicator==null) return 0.0;
+			lastClientType=name;
+		}
+		return lastIndicator.getSum();
 	}
 
 	@Override

@@ -15,8 +15,6 @@
  */
 package simulator.simparser.coresymbols;
 
-import org.apache.commons.math3.util.FastMath;
-
 import mathtools.distribution.DataDistributionImpl;
 import parser.MathCalcError;
 import simulator.coreelements.RunElement;
@@ -113,10 +111,12 @@ public abstract class CalcSymbolStationDataHistogram extends CalcSymbolSimData {
 	 * @return	Verteilung auf deren Basis das Histogramm erstellt werden soll
 	 */
 	protected DataDistributionImpl getDistributionByID(final double id) {
-		if (lastDistributionId==id && lastDistributionRunElement!=null) return getDistribution(lastDistributionRunElement);
+		if (lastDistributionId==id) {
+			if (lastDistributionRunElement!=null) return getDistribution(lastDistributionRunElement);
+			if (lastDistributionClientTypeName!=null) return getDistributionForClientType(lastDistributionClientTypeName);
+		}
 
 		if (hasSingleClientData()) {
-			if (lastDistributionId==id && lastDistributionClientTypeName!=null) return getDistributionForClientType(lastDistributionClientTypeName);
 			final RunElement element=getRunElementForID(id);
 			if (element==null) return null;
 			String name=null;
@@ -143,10 +143,12 @@ public abstract class CalcSymbolStationDataHistogram extends CalcSymbolSimData {
 	 * @return	Summe der Verteilungswerte
 	 */
 	protected double getDistributionSumByID(final double id) {
-		if (lastDistributionId==id && lastDistributionRunElement!=null) return getDistributionSum(lastDistributionRunElement);
+		if (lastDistributionId==id) {
+			if (lastDistributionRunElement!=null) return getDistributionSum(lastDistributionRunElement);
+			if (lastDistributionClientTypeName!=null) return getDistributionSumForClientType(lastDistributionClientTypeName);
+		}
 
 		if (hasSingleClientData()) {
-			if (lastDistributionId==id && lastDistributionClientTypeName!=null) return getDistributionSumForClientType(lastDistributionClientTypeName);
 			final RunElement element=getRunElementForID(id);
 			if (element==null) return 0.0;
 			String name=null;
@@ -187,7 +189,7 @@ public abstract class CalcSymbolStationDataHistogram extends CalcSymbolSimData {
 	 * @see #calcOrDefault(double[], double)
 	 * @see #lastResult
 	 */
-	private long lastParam1;
+	private double lastParam1;
 
 	/**
 	 * Endindex beim letzten Aufruf von {@link #calc(double[])} oder
@@ -198,7 +200,7 @@ public abstract class CalcSymbolStationDataHistogram extends CalcSymbolSimData {
 	 * @see #calcOrDefault(double[], double)
 	 * @see #lastResult
 	 */
-	private long lastParam2;
+	private double lastParam2;
 
 	/**
 	 * Ergebniswert beim letzten Aufruf von {@link #calc(double[])} oder
@@ -209,70 +211,92 @@ public abstract class CalcSymbolStationDataHistogram extends CalcSymbolSimData {
 	private double lastResult;
 
 	@Override
-	protected double calc(double[] parameters) throws MathCalcError {
+	protected double calc(final double[] parameters) throws MathCalcError {
 		if (parameters.length<2 || parameters.length>3) throw error();
+
+		final double sum=getDistributionSumByID(parameters[0]);
+		if (sum<1) return 0.0;
+
+		if (lastSum==sum) {
+			if (parameters.length==3 && lastParam1==parameters[1] && lastParam2==parameters[2]) return lastResult;
+			if (parameters.length==2 && lastParam1==parameters[1]) return lastResult;
+		}
 
 		final DataDistributionImpl dist=getDistributionByID(parameters[0]);
 		if (dist==null) return 0.0;
 		final double[] densityData=dist.densityData;
-		final double sum=getDistributionSumByID(parameters[0]);
-		if (sum<1) return 0.0;
 
-		final double scale=densityData.length/dist.upperBound;
+		final int densityDataLength=densityData.length;
+		final double scale=densityDataLength/dist.upperBound;
+
 		if (parameters.length==2) {
 			final int index=(int)(parameters[1]*scale+0.5);
-			if (index<0 || index>=densityData.length) return 0.0;
-			return dist.densityData[index]/sum;
+			if (index<0 || index>=densityDataLength) return 0.0;
+
+			lastSum=sum;
+			lastParam1=parameters[1];
+			lastResult=dist.densityData[index]/sum;
 		} else {
 			final int index1=(int)(parameters[1]*scale+0.5);
 			int index2=(int)(parameters[2]*scale+0.5);
-			if (index1<0 || index1>=densityData.length) return 0.0;
-			if (index2>=densityData.length) index2=densityData.length-1;
+			if (index1<0 || index1>=densityDataLength) return 0.0;
+			if (index2>=densityDataLength) index2=densityDataLength-1;
 			if (index2<index1) return 0.0;
 
-			if (lastSum!=sum || lastParam1!=index1 || lastParam2!=index2) {
-				double part=0;
-				for (int i=index1+1;i<=index2;i++) part+=densityData[i];
-				lastSum=sum;
-				lastParam1=index1;
-				lastParam2=index2;
-				lastResult=part/sum;
-			}
-			return lastResult;
+			double part=0;
+			for (int i=index1+1;i<=index2;i++) part+=densityData[i];
+
+			lastSum=sum;
+			lastParam1=parameters[1];
+			lastParam2=parameters[2];
+			lastResult=part/sum;
 		}
+
+		return lastResult;
 	}
 
 	@Override
 	protected double calcOrDefault(final double[] parameters, final double fallbackValue) {
 		if (parameters.length<2 || parameters.length>3) return fallbackValue;
 
-		final DataDistributionImpl dist=getDistributionByID(parameters[0]);
-		if (dist==null) return 0;
-		final double[] densityData=dist.densityData;
 		final double sum=getDistributionSumByID(parameters[0]);
-		if (sum<1) return 0;
+		if (sum<1) return 0.0;
 
-		final double scale=densityData.length/dist.upperBound;
-		if (parameters.length==2) {
-			final int index=(int)FastMath.round(parameters[1]*scale);
-			if (index<0 || index>=densityData.length) return 0;
-			return densityData[index]/sum;
-		} else {
-			final int index1=FastMath.max(-1,(int)FastMath.round(parameters[1]*scale));
-			int index2=FastMath.max(0,(int)FastMath.round(parameters[2]*scale));
-			if (index1<0 || index1>=densityData.length) return 0;
-			if (index2>=densityData.length) index2=densityData.length-1;
-			if (index2<=index1) return 0;
-
-			if (lastSum!=sum || lastParam1!=index1 || lastParam2!=index2) {
-				double part=0;
-				for (int i=index1+1;i<=index2;i++) part+=densityData[i];
-				lastSum=sum;
-				lastParam1=index1;
-				lastParam2=index2;
-				lastResult=part/sum;
-			}
-			return lastResult;
+		if (lastSum==sum) {
+			if (parameters.length==3 && lastParam1==parameters[1] && lastParam2==parameters[2]) return lastResult;
+			if (parameters.length==2 && lastParam1==parameters[1]) return lastResult;
 		}
+
+		final DataDistributionImpl dist=getDistributionByID(parameters[0]);
+		if (dist==null) return 0.0;
+		final double[] densityData=dist.densityData;
+
+		final int densityDataLength=densityData.length;
+		final double scale=densityDataLength/dist.upperBound;
+
+		if (parameters.length==2) {
+			final int index=(int)(parameters[1]*scale+0.5);
+			if (index<0 || index>=densityDataLength) return 0.0;
+
+			lastSum=sum;
+			lastParam1=parameters[1];
+			lastResult=dist.densityData[index]/sum;
+		} else {
+			final int index1=(int)(parameters[1]*scale+0.5);
+			int index2=(int)(parameters[2]*scale+0.5);
+			if (index1<0 || index1>=densityDataLength) return 0.0;
+			if (index2>=densityDataLength) index2=densityDataLength-1;
+			if (index2<index1) return 0.0;
+
+			double part=0;
+			for (int i=index1+1;i<=index2;i++) part+=densityData[i];
+
+			lastSum=sum;
+			lastParam1=parameters[1];
+			lastParam2=parameters[2];
+			lastResult=part/sum;
+		}
+
+		return lastResult;
 	}
 }

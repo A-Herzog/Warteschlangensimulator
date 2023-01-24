@@ -608,13 +608,13 @@ public class ModelElementAnimationBarChart extends ModelElementPosition implemen
 	 * Cache für die x-Koordinaten der Balken in {@link #drawDiagramBars(Graphics2D, Rectangle)}
 	 * @see #drawDiagramBars(Graphics2D, Rectangle)
 	 */
-	private int[] xPoints=new int[4];
+	private final int[] xPoints=new int[4];
 
 	/**
 	 * Cache für die y-Koordinaten der Balken in {@link #drawDiagramBars(Graphics2D, Rectangle)}
 	 * @see #drawDiagramBars(Graphics2D, Rectangle)
 	 */
-	private int[] yPoints=new int[4];
+	private final int[] yPoints=new int[4];
 
 	/**
 	 * Tatsächlicher Minimalwert
@@ -667,9 +667,9 @@ public class ModelElementAnimationBarChart extends ModelElementPosition implemen
 			drawMax=max;
 			if (max==min) return;
 
-			final int gap=Math.max(1,Math.min(use3D?10:5,rectangle.width/(2*recordedValues.length)));
+			final int gap=Math.max(1,FastMath.min(use3D?10:5,rectangle.width/(2*recordedValues.length)));
 
-			final int w=Math.max(1,(rectangle.width-2*10-(recordedValues.length-1)*gap)/recordedValues.length);
+			final int w=FastMath.max(1,(rectangle.width-2*10-(recordedValues.length-1)*gap)/recordedValues.length);
 			double x=rectangle.x+10;
 			final int shadow=w/5;
 			final double wDelta=gap+(rectangle.width-2*10-(recordedValues.length-1)*gap)/((double)recordedValues.length);
@@ -679,44 +679,47 @@ public class ModelElementAnimationBarChart extends ModelElementPosition implemen
 				for (int i=0;i<filler.length;i++) filler[i]=new GradientFill(false);
 			}
 
+			final int expressionColorSize=expressionColor.size();
 			for (int i=0;i<recordedValues.length;i++) {
 				final double value=recordedValues[i];
-				final int h=(int)FastMath.round(rectangle.height*(value-min)/(max-min));
-				final Color c=expressionColor.get(i%expressionColor.size());
+				final int h=(int)(rectangle.height*(value-min)/(max-min)+0.5);
+				if (h>0) {
+					final Color c=expressionColor.get(i%expressionColorSize);
 
-				final int startX=(int)Math.round(x);
-				final int startY=rectangle.y+rectangle.height-h;
+					final int startX=(int)(x+0.5);
+					final int startY=rectangle.y+rectangle.height-h;
 
-				if (use3D) {
-					/* Rechte Seite des Balkens */
-					xPoints[0]=startX+w;
-					yPoints[0]=startY+h;
-					xPoints[1]=startX+w+shadow;
-					yPoints[1]=startY+h-shadow;
-					xPoints[2]=startX+w+shadow;
-					yPoints[2]=startY-shadow;
-					xPoints[3]=startX+w;
-					yPoints[3]=startY;
-					g.setColor(c);
-					g.fillPolygon(xPoints,yPoints,4);
+					if (use3D) {
+						g.setColor(c);
 
-					/* Obere Seite des Balkens */
-					xPoints[0]=startX;
-					yPoints[0]=startY;
-					xPoints[1]=startX+w;
-					yPoints[1]=startY;
-					xPoints[2]=startX+w+shadow;
-					yPoints[2]=startY-shadow;
-					xPoints[3]=startX+shadow;
-					yPoints[3]=startY-shadow;
-					g.setColor(c);
-					g.fillPolygon(xPoints,yPoints,4);
+						/* Rechte Seite des Balkens */
+						xPoints[0]=startX+w;
+						yPoints[0]=startY+h;
+						xPoints[1]=startX+w+shadow;
+						yPoints[1]=startY+h-shadow;
+						xPoints[2]=startX+w+shadow;
+						yPoints[2]=startY-shadow;
+						xPoints[3]=startX+w;
+						yPoints[3]=startY;
+						g.fillPolygon(xPoints,yPoints,4);
+
+						/* Obere Seite des Balkens */
+						xPoints[0]=startX;
+						yPoints[0]=startY;
+						xPoints[1]=startX+w;
+						yPoints[1]=startY;
+						xPoints[2]=startX+w+shadow;
+						yPoints[2]=startY-shadow;
+						xPoints[3]=startX+shadow;
+						yPoints[3]=startY-shadow;
+						g.fillPolygon(xPoints,yPoints,4);
+					}
+
+					/* Vorderseite des Balkens */
+					barDrawRect.setBounds(startX,startY,w,h);
+					filler[i].set(g,barDrawRect,c,true);
+					g.fill(barDrawRect);
 				}
-
-				/* Vorderseite des Balkens */
-				barDrawRect.setBounds(startX,startY,w,h);
-				filler[i].set(g,barDrawRect,c,true);
-				g.fill(barDrawRect);
 
 				/* Abstand zwischen den Balken */
 				x+=wDelta;

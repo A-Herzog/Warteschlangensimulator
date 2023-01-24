@@ -18,6 +18,7 @@ package simulator.simparser.symbols;
 import mathtools.distribution.DataDistributionImpl;
 import simulator.coreelements.RunElementData;
 import simulator.simparser.coresymbols.CalcSymbolStationDataHistogram;
+import statistics.StatisticsDataPerformanceIndicator;
 
 /**
  * Im Falle von drei Parametern:<br>
@@ -49,6 +50,49 @@ public class CalcSymbolStationDataResidence_hist extends CalcSymbolStationDataHi
 	}
 
 	@Override
+	protected boolean hasSingleClientData() {
+		return true;
+	}
+
+	/**
+	 * Kundentyp beim letzten Aufruf von {@link #getDistributionForClientType(String)}
+	 * oder {@link #getDistributionSumForClientType(String)}
+	 * @see #getDistributionForClientType(String)
+	 * @see #getDistributionForClientType(String)
+	 * @see #lastIndicator
+	 */
+	private String lastClientType;
+
+	/**
+	 * Zurückgeliefertes Statistikobjekt beim letzten Aufruf von {@link #getDistributionForClientType(String)}
+	 * oder {@link #getDistributionSumForClientType(String)}
+	 * @see #getDistributionForClientType(String)
+	 * @see #getDistributionForClientType(String)
+	 * @see #lastClientType
+	 */
+	private StatisticsDataPerformanceIndicator lastIndicator;
+
+	@Override
+	protected DataDistributionImpl getDistributionForClientType(final String name) {
+		if (lastClientType==null || !name.equals(lastClientType)) {
+			lastIndicator=((StatisticsDataPerformanceIndicator)getSimData().statistics.clientsResidenceTimes.get(name));
+			if (lastIndicator==null) return null;
+			lastClientType=name;
+		}
+		return lastIndicator.getDistribution();
+	}
+
+	@Override
+	protected double getDistributionSumForClientType(final String name) {
+		if (lastClientType==null || !name.equals(lastClientType)) {
+			lastIndicator=((StatisticsDataPerformanceIndicator)getSimData().statistics.clientsResidenceTimes.get(name));
+			if (lastIndicator==null) return 0.0;
+			lastClientType=name;
+		}
+		return lastIndicator.getCount();
+	}
+
+	@Override
 	protected DataDistributionImpl getDistribution(RunElementData data) {
 		if (data.statisticResidence==null) return null;
 		return data.statisticResidence.getDistribution();
@@ -57,6 +101,6 @@ public class CalcSymbolStationDataResidence_hist extends CalcSymbolStationDataHi
 	@Override
 	protected double getDistributionSum(RunElementData data) {
 		if (data.statisticResidence==null) return 0;
-		return data.statisticResidence.getSum();
+		return data.statisticResidence.getCount();
 	}
 }
