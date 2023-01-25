@@ -16854,6 +16854,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[39077] = "Problemreport erstellen...";
     t[39078] = "Statistics.SystemData.SimulatedArrivals";
     t[39079] = "Simulierte Kundenank\u00fcnfte (ohne Warm-Up-Phase)";
+    t[39080] = "Examples.ParallelSerial";
+    t[39081] = "Serielle versus parallele Verarbeitung";
     t[39082] = "ModelDescription.TankSensor.Threshold.Direction";
     t[39083] = "Signalausl\u00f6sen bei";
     t[39098] = "Transporters.Group.ID";
@@ -18056,14 +18058,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[41759] = "<p>Liefert die minimale Anzahl an belegten Bedienern in der angegebenen Ressource.</p>";
     t[41760] = "SettingsDialog.Tabs.Statistics.IncompleteStatistics.Mode.Off";
     t[41761] = "Unvollst\u00e4ndige Statistik verwerfen";
-    t[41766] = "Editor.Dialog.Tab.ModelDescription.AuthorEMail";
-    t[41767] = "E-Mail-Adresse des Autors des Modells";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_9 (java.lang.String[] t) {
+    t[41766] = "Editor.Dialog.Tab.ModelDescription.AuthorEMail";
+    t[41767] = "E-Mail-Adresse des Autors des Modells";
     t[41768] = "ExpressionBuilder.ProbabilityDistributions.PoissonDistribution.DensityInfo";
     t[41769] = "<p>Berechnet den Wert der Z\u00e4hldichte der Poisson-Verteilung an der als ersten Parameter angegebenen Stelle mit den Verteilungsparametern gem\u00e4\u00df den weiteren Funktionsparametern.</p>";
     t[41770] = "ExpressionBuilder.SimulationCharacteristics.ClientData.ClientBatchSize.Info";
@@ -20062,14 +20064,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[46301] = "Elemente";
     t[46302] = "Surface.HoldJS.XML.Condition.Javascript";
     t[46303] = "Javascript";
-    t[46304] = "Simulation.Creator.HoldJSCondition";
-    t[46305] = "Die zus\u00e4tzliche Bedingung \"%s\" von Element id=%d enth\u00e4lt an Position %d einen Fehler.";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_10 (java.lang.String[] t) {
+    t[46304] = "Simulation.Creator.HoldJSCondition";
+    t[46305] = "Die zus\u00e4tzliche Bedingung \"%s\" von Element id=%d enth\u00e4lt an Position %d einen Fehler.";
     t[46322] = "Statistic.Interval";
     t[46323] = "Intervall";
     t[46328] = "ModelDescription.Delay.Mode.Process";
@@ -22068,14 +22070,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[50887] = "<p>Liefert den Variationskoeffizienten der Anzahl an Kunden in der Warteschlange an der Bedienstation, deren ID in dem Parameter angegeben wurde.</p>\n<p>Alternativ kann auch die ID einer Kundenquelle angegeben werden, dann beziehen sich die Ergebnisse auf die Kunden des dort erzeugten Kundentyps.</p>";
     t[50890] = "ModelDescription.TransportResourceRecord.DelayedRelease.ClientType";
     t[50891] = "Verz\u00f6gerte Ressourcenfreigabe bei Kundentyp \"%s\"";
-    t[50892] = "Editor.Dialog.Tab.RunTimeStatistics.Table.Edit.Mode";
-    t[50893] = "Erfassungsart pro Intervall";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_11 (java.lang.String[] t) {
+    t[50892] = "Editor.Dialog.Tab.RunTimeStatistics.Table.Edit.Mode";
+    t[50893] = "Erfassungsart pro Intervall";
     t[50894] = "Surface.TransportDestination.XML.Root";
     t[50895] = "ModellElementTransportZiel";
     t[50896] = "Main.Menu.Edit.Delete";

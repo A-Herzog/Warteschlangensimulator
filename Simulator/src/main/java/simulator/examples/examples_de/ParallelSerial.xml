@@ -1,0 +1,607 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE Modell SYSTEM "https://a-herzog.github.io/Warteschlangensimulator/Simulator.dtd">
+<Modell xmlns="https://a-herzog.github.io" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://a-herzog.github.io https://a-herzog.github.io/Warteschlangensimulator/Simulator.xsd">
+  <!-- Diese Datei wurde mit Warteschlangensimulator erstellt. Download-Adresse: https://github.com/A-Herzog/Warteschlangensimulator -->
+  <ModellVersion>5.3.0</ModellVersion>
+  <ModellName>Serielle versus parallele Verarbeitung</ModellName>
+  <ModellBeschreibung>Am System eintreffende Aufträge werden in drei Stufen geprüft.
+Nur die Aufträge, die alle drei Prüfungen bestehen, werden zum Ausgang
+"Annahme" geleitet.
+
+Die Prüfungen können nacheinander oder gleichzeitig erfolgen.
+
+In dem Modell werden beide mögliche Vorgehensweisen abgebildet.</ModellBeschreibung>
+  <ModellAutor>Alexander Herzog</ModellAutor>
+  <ModellKunden Aktiv="1">10000000</ModellKunden>
+  <ModellAufwaermphase>0.01</ModellAufwaermphase>
+  <ModellAbbruchzeit Aktiv="0">10:00:00:00</ModellAbbruchzeit>
+  <ModellElemente>
+    <ModellElementQuelle id="1">
+      <ModellElementName>Aufträge</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="50" y="450"/>
+      <ModellElementVerbindung Element="23" Typ="Auslaufend"/>
+      <ModellElementVerteilung Zeitbasis="Sekunden">Exponentialverteilung (60)</ModellElementVerteilung>
+      <ModellElementBatch Groesse="1"/>
+    </ModellElementQuelle>
+    <ModellElementBedienstation id="2">
+      <ModellElementName>Level 1s</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="450" y="200"/>
+      <ModellElementVerbindung Element="78" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="6" Typ="Auslaufend"/>
+      <ModellElementVerteilung Status="Bedienzeit" Typ="Bedienzeiten" Zeitbasis="Minuten">Gleichverteilung (2;5)</ModellElementVerteilung>
+      <ModellElementPrioritaet Kundentyp="Accept p">w</ModellElementPrioritaet>
+      <ModellElementPrioritaet Kundentyp="Annahme p">w</ModellElementPrioritaet>
+      <ModellElementPrioritaet Kundentyp="Annahme s">w</ModellElementPrioritaet>
+      <ModellElementPrioritaet Kundentyp="Aufträge">w</ModellElementPrioritaet>
+      <ModellElementBediener Alternative="1" Anzahl="1" Gruppe="Bediener Level 1s"/>
+      <ModellElementBedienerPrioritaet>1</ModellElementBedienerPrioritaet>
+    </ModellElementBedienstation>
+    <ModellElementVerzweigen id="5">
+      <ModellElementName>Annahme 1?</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="600" y="200"/>
+      <ModellElementVerzweigungsmodus>Zufall</ModellElementVerzweigungsmodus>
+      <ModellElementVerbindung Element="6" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="10" Rate="acceptLevel1" Typ="Auslaufend"/>
+      <ModellElementVerbindung Element="11" Rate="1-acceptLevel1" Typ="Auslaufend"/>
+    </ModellElementVerzweigen>
+    <ModellElementKante id="6">
+      <ModellElementVerbindung Element1="2" Element2="5" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementBedienstation id="7">
+      <ModellElementName>Level 2s</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="800" y="200"/>
+      <ModellElementVerbindung Element="10" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="12" Typ="Auslaufend"/>
+      <ModellElementVerteilung Status="Bedienzeit" Typ="Bedienzeiten" Zeitbasis="Minuten">Gleichverteilung (5;7)</ModellElementVerteilung>
+      <ModellElementPrioritaet Kundentyp="Accept p">w</ModellElementPrioritaet>
+      <ModellElementPrioritaet Kundentyp="Annahme p">w</ModellElementPrioritaet>
+      <ModellElementPrioritaet Kundentyp="Annahme s">w</ModellElementPrioritaet>
+      <ModellElementPrioritaet Kundentyp="Aufträge">w</ModellElementPrioritaet>
+      <ModellElementBediener Alternative="1" Anzahl="1" Gruppe="Bediener Level 2s"/>
+      <ModellElementBedienerPrioritaet>1</ModellElementBedienerPrioritaet>
+    </ModellElementBedienstation>
+    <ModellElementVerzweigen id="8">
+      <ModellElementName>Annahme 2?</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="950" y="200"/>
+      <ModellElementVerzweigungsmodus>Zufall</ModellElementVerzweigungsmodus>
+      <ModellElementVerbindung Element="12" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="13" Rate="acceptLevel2" Typ="Auslaufend"/>
+      <ModellElementVerbindung Element="15" Rate="1-acceptLevel2" Typ="Auslaufend"/>
+    </ModellElementVerzweigen>
+    <ModellElementBedienstation id="9">
+      <ModellElementName>Level 3s</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="1150" y="200"/>
+      <ModellElementVerbindung Element="13" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="19" Typ="Auslaufend"/>
+      <ModellElementVerteilung Status="Bedienzeit" Typ="Bedienzeiten" Zeitbasis="Minuten">Gleichverteilung (5;10)</ModellElementVerteilung>
+      <ModellElementPrioritaet Kundentyp="Accept p">w</ModellElementPrioritaet>
+      <ModellElementPrioritaet Kundentyp="Annahme p">w</ModellElementPrioritaet>
+      <ModellElementPrioritaet Kundentyp="Annahme s">w</ModellElementPrioritaet>
+      <ModellElementPrioritaet Kundentyp="Aufträge">w</ModellElementPrioritaet>
+      <ModellElementBediener Alternative="1" Anzahl="1" Gruppe="Bediener Level 3s"/>
+      <ModellElementBedienerPrioritaet>1</ModellElementBedienerPrioritaet>
+    </ModellElementBedienstation>
+    <ModellElementKante id="10">
+      <ModellElementName>Rate acceptLevel1</ModellElementName>
+      <ModellElementVerbindung Element1="5" Element2="7" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="12">
+      <ModellElementVerbindung Element1="7" Element2="8" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="13">
+      <ModellElementName>Rate acceptLevel2</ModellElementName>
+      <ModellElementVerbindung Element1="8" Element2="9" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementEnde id="16">
+      <ModellElementName>Annahme  s</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="1700" y="200"/>
+      <ModellElementVerbindung Element="59" Typ="Einlaufend"/>
+    </ModellElementEnde>
+    <ModellElementText id="18">
+      <ModellElementGroesse h="23" w="328" x="50" y="50"/>
+      <ModellElementTextzeile>Serielle versus parallele Verarbeitung</ModellElementTextzeile>
+      <ModellElementSchriftgrosse Symbole="1" fett="1">18</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementVerzweigen id="17">
+      <ModellElementName>Annahme 3?</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="1300" y="200"/>
+      <ModellElementVerzweigungsmodus>Zufall</ModellElementVerzweigungsmodus>
+      <ModellElementVerbindung Element="19" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="20" Rate="acceptLevel3" Typ="Auslaufend"/>
+      <ModellElementVerbindung Element="22" Rate="1-acceptLevel3" Typ="Auslaufend"/>
+    </ModellElementVerzweigen>
+    <ModellElementKante id="19">
+      <ModellElementVerbindung Element1="9" Element2="17" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementEnde id="21">
+      <ModellElementName>Ablehnung s</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="1300" y="300"/>
+      <ModellElementVerbindung Element="22" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="64" Typ="Einlaufend"/>
+    </ModellElementEnde>
+    <ModellElementDuplizieren id="3">
+      <ModellElementGroesse h="50" w="100" x="250" y="450"/>
+      <ModellElementVerbindung Element="23" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="69" Typ="Auslaufend"/>
+      <ModellElementVerbindung Element="68" Typ="Auslaufend"/>
+    </ModellElementDuplizieren>
+    <ModellElementKante id="23">
+      <ModellElementName>Ankünfte (Aufträge)</ModellElementName>
+      <ModellElementVerbindung Element1="1" Element2="3" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementVariable id="24">
+      <ModellElementName>Set ID</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="450" y="650"/>
+      <ModellElementVerbindung Element="80" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="38" Typ="Auslaufend"/>
+      <ModellElementVariablenzuweisung Variable="ClientData(1)">ClientNumber()</ModellElementVariablenzuweisung>
+    </ModellElementVariable>
+    <ModellElementDuplizieren id="25">
+      <ModellElementGroesse h="50" w="100" x="600" y="650"/>
+      <ModellElementVerbindung Element="38" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="35" Typ="Auslaufend"/>
+      <ModellElementVerbindung Element="36" Typ="Auslaufend"/>
+      <ModellElementVerbindung Element="37" Typ="Auslaufend"/>
+    </ModellElementDuplizieren>
+    <ModellElementBedienstation id="26">
+      <ModellElementName>Level 1p</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="800" y="500"/>
+      <ModellElementVerbindung Element="35" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="29" Typ="Auslaufend"/>
+      <ModellElementVerteilung Status="Bedienzeit" Typ="Bedienzeiten" Zeitbasis="Minuten">Gleichverteilung (2;5)</ModellElementVerteilung>
+      <ModellElementPrioritaet Kundentyp="Accept p">w</ModellElementPrioritaet>
+      <ModellElementPrioritaet Kundentyp="Annahme p">w</ModellElementPrioritaet>
+      <ModellElementPrioritaet Kundentyp="Annahme s">w</ModellElementPrioritaet>
+      <ModellElementPrioritaet Kundentyp="Aufträge">w</ModellElementPrioritaet>
+      <ModellElementPrioritaet Kundentyp="Result">w</ModellElementPrioritaet>
+      <ModellElementBediener Alternative="1" Anzahl="1" Gruppe="Bediener Level 1p"/>
+      <ModellElementBedienerPrioritaet>1</ModellElementBedienerPrioritaet>
+    </ModellElementBedienstation>
+    <ModellElementBedienstation id="27">
+      <ModellElementName>Level 2p</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="800" y="650"/>
+      <ModellElementVerbindung Element="36" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="30" Typ="Auslaufend"/>
+      <ModellElementVerteilung Status="Bedienzeit" Typ="Bedienzeiten" Zeitbasis="Minuten">Gleichverteilung (5;7)</ModellElementVerteilung>
+      <ModellElementPrioritaet Kundentyp="Accept p">w</ModellElementPrioritaet>
+      <ModellElementPrioritaet Kundentyp="Annahme p">w</ModellElementPrioritaet>
+      <ModellElementPrioritaet Kundentyp="Annahme s">w</ModellElementPrioritaet>
+      <ModellElementPrioritaet Kundentyp="Aufträge">w</ModellElementPrioritaet>
+      <ModellElementPrioritaet Kundentyp="Result">w</ModellElementPrioritaet>
+      <ModellElementBediener Alternative="1" Anzahl="1" Gruppe="Bediener Level 2p"/>
+      <ModellElementBedienerPrioritaet>1</ModellElementBedienerPrioritaet>
+    </ModellElementBedienstation>
+    <ModellElementBedienstation id="28">
+      <ModellElementName>Level 3p</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="800" y="800"/>
+      <ModellElementVerbindung Element="37" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="31" Typ="Auslaufend"/>
+      <ModellElementVerteilung Status="Bedienzeit" Typ="Bedienzeiten" Zeitbasis="Minuten">Gleichverteilung (5;10)</ModellElementVerteilung>
+      <ModellElementPrioritaet Kundentyp="Accept p">w</ModellElementPrioritaet>
+      <ModellElementPrioritaet Kundentyp="Annahme p">w</ModellElementPrioritaet>
+      <ModellElementPrioritaet Kundentyp="Annahme s">w</ModellElementPrioritaet>
+      <ModellElementPrioritaet Kundentyp="Aufträge">w</ModellElementPrioritaet>
+      <ModellElementPrioritaet Kundentyp="Result">w</ModellElementPrioritaet>
+      <ModellElementBediener Alternative="1" Anzahl="1" Gruppe="Bediener Level 3p"/>
+      <ModellElementBedienerPrioritaet>1</ModellElementBedienerPrioritaet>
+    </ModellElementBedienstation>
+    <ModellElementKante id="38">
+      <ModellElementVerbindung Element1="24" Element2="25" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementVariable id="39">
+      <ModellElementName>Annahme 1p</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="950" y="500"/>
+      <ModellElementVerbindung Element="29" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="54" Typ="Auslaufend"/>
+      <ModellElementVariablenzuweisung Variable="ClientData(2)">if(acceptLevel1-random();1;0)</ModellElementVariablenzuweisung>
+    </ModellElementVariable>
+    <ModellElementVariable id="43">
+      <ModellElementName>Annahme 2p</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="950" y="650"/>
+      <ModellElementVerbindung Element="30" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="53" Typ="Auslaufend"/>
+      <ModellElementVariablenzuweisung Variable="ClientData(3)">if(acceptLevel2-random();1;0)</ModellElementVariablenzuweisung>
+    </ModellElementVariable>
+    <ModellElementVariable id="47">
+      <ModellElementName>Annahme 3p</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="950" y="800"/>
+      <ModellElementVerbindung Element="31" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="56" Typ="Auslaufend"/>
+      <ModellElementVariablenzuweisung Variable="ClientData(4)">if(acceptLevel3-random();1;0)</ModellElementVariablenzuweisung>
+    </ModellElementVariable>
+    <ModellElementEnde id="66">
+      <ModellElementName>Annahme p</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="1700" y="650"/>
+      <ModellElementVerbindung Element="32" Typ="Einlaufend"/>
+    </ModellElementEnde>
+    <ModellElementKante id="69">
+      <ModellElementName>Original</ModellElementName>
+      <ModellElementVerbindung Element1="3" Element2="79" Typ="Kante"/>
+      <ModellElementVerbindungsdarstellungsart>Direkt</ModellElementVerbindungsdarstellungsart>
+    </ModellElementKante>
+    <ModellElementKasten id="76">
+      <ModellElementGroesse h="250" w="1450" x="400" y="150"/>
+      <ModellElementLinienBreite>2</ModellElementLinienBreite>
+      <ModellElementFarbe>255,0,0</ModellElementFarbe>
+    </ModellElementKasten>
+    <ModellElementKante id="68">
+      <ModellElementName>Kopie 1</ModellElementName>
+      <ModellElementVerbindung Element1="3" Element2="77" Typ="Kante"/>
+      <ModellElementVerbindungsdarstellungsart>Direkt</ModellElementVerbindungsdarstellungsart>
+    </ModellElementKante>
+    <ModellElementEcke id="77">
+      <ModellElementGroesse h="10" w="10" x="395" y="220"/>
+      <ModellElementVerbindung Element="68" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="78" Typ="Auslaufend"/>
+    </ModellElementEcke>
+    <ModellElementKante id="78">
+      <ModellElementVerbindung Element1="77" Element2="2" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementEcke id="79">
+      <ModellElementGroesse h="10" w="10" x="395" y="670"/>
+      <ModellElementVerbindung Element="69" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="80" Typ="Auslaufend"/>
+    </ModellElementEcke>
+    <ModellElementKante id="80">
+      <ModellElementVerbindung Element1="79" Element2="24" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKasten id="81">
+      <ModellElementGroesse h="500" w="1450" x="400" y="450"/>
+      <ModellElementLinienBreite>2</ModellElementLinienBreite>
+      <ModellElementFarbe>0,180,0</ModellElementFarbe>
+    </ModellElementKasten>
+    <ModellElementText id="82">
+      <ModellElementGroesse h="19" w="107" x="405" y="155"/>
+      <ModellElementTextzeile>Serielle Prüfung</ModellElementTextzeile>
+      <ModellElementSchriftgrosse Symbole="1" fett="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>255,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementText id="83">
+      <ModellElementGroesse h="19" w="115" x="405" y="455"/>
+      <ModellElementTextzeile>Parallele Prüfung</ModellElementTextzeile>
+      <ModellElementSchriftgrosse Symbole="1" fett="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,180,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementKante id="54">
+      <ModellElementVerbindung Element1="39" Element2="61" Typ="Kante"/>
+      <ModellElementVerbindungsdarstellungsart>Direkt</ModellElementVerbindungsdarstellungsart>
+    </ModellElementKante>
+    <ModellElementKante id="53">
+      <ModellElementVerbindung Element1="43" Element2="61" Typ="Kante"/>
+      <ModellElementVerbindungsdarstellungsart>Direkt</ModellElementVerbindungsdarstellungsart>
+    </ModellElementKante>
+    <ModellElementKante id="56">
+      <ModellElementVerbindung Element1="47" Element2="61" Typ="Kante"/>
+      <ModellElementVerbindungsdarstellungsart>Direkt</ModellElementVerbindungsdarstellungsart>
+    </ModellElementKante>
+    <ModellElementZuweisung id="58">
+      <ModellElementName>Annahme s</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="1495" y="200"/>
+      <ModellElementVerbindung Element="20" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="59" Typ="Auslaufend"/>
+    </ModellElementZuweisung>
+    <ModellElementKante id="59">
+      <ModellElementName>Neuer Kundentyp: Annahme s</ModellElementName>
+      <ModellElementVerbindung Element1="58" Element2="16" Typ="Kante"/>
+      <ModellElementVerbindungsbeschriftung>0</ModellElementVerbindungsbeschriftung>
+    </ModellElementKante>
+    <ModellElementAnimationText id="60">
+      <ModellElementName>Mittlere Verweilzeit (angenommene Aufträge)</ModellElementName>
+      <ModellElementGroesse h="30" w="188" x="1655" y="350"/>
+      <ModellElementSchriftgrosse fett="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>255,0,0</ModellElementFarbe>
+      <ModellElementAnimationsmodus Art="Zahlenwert">Verweilzeit_avg(58)</ModellElementAnimationsmodus>
+    </ModellElementAnimationText>
+    <ModellElementKante id="20">
+      <ModellElementName>Rate acceptLevel3</ModellElementName>
+      <ModellElementVerbindung Element1="17" Element2="58" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="22">
+      <ModellElementName>Rate 1-acceptLevel3</ModellElementName>
+      <ModellElementVerbindung Element1="17" Element2="21" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementAnimationText id="63">
+      <ModellElementName>Anzahl angenommen</ModellElementName>
+      <ModellElementGroesse h="30" w="88" x="1650" y="300"/>
+      <ModellElementSchriftgrosse fett="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>255,0,0</ModellElementFarbe>
+      <ModellElementAnimationsmodus Art="Zahlenwert">NumberIn(16)</ModellElementAnimationsmodus>
+    </ModellElementAnimationText>
+    <ModellElementAnimationText id="70">
+      <ModellElementName>Anzahl abgelehnt</ModellElementName>
+      <ModellElementGroesse h="30" w="73" x="1500" y="300"/>
+      <ModellElementSchriftgrosse fett="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>255,0,0</ModellElementFarbe>
+      <ModellElementAnimationsmodus Art="Zahlenwert">NumberIn(21)</ModellElementAnimationsmodus>
+    </ModellElementAnimationText>
+    <ModellElementVerzweigen id="73">
+      <ModellElementName>Angenommen?</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="1350" y="650"/>
+      <ModellElementVerzweigungsmodus>Bedingung</ModellElementVerzweigungsmodus>
+      <ModellElementVerbindung Element="57" Typ="Einlaufend"/>
+      <ModellElementVerbindung Bedingung="ClientData(2)==1 &amp;&amp; ClientData(3)==1 &amp;&amp; ClientData(4)==1" Element="86" Typ="Auslaufend"/>
+      <ModellElementVerbindung Element="88" Typ="Auslaufend"/>
+    </ModellElementVerzweigen>
+    <ModellElementEnde id="84">
+      <ModellElementName>Ablehnung p</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="1350" y="755"/>
+      <ModellElementVerbindung Element="88" Typ="Einlaufend"/>
+    </ModellElementEnde>
+    <ModellElementZuweisung id="85">
+      <ModellElementName>Annahme p</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="1500" y="650"/>
+      <ModellElementVerbindung Element="86" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="32" Typ="Auslaufend"/>
+    </ModellElementZuweisung>
+    <ModellElementKante id="86">
+      <ModellElementName>Bedingung 1</ModellElementName>
+      <ModellElementVerbindung Element1="73" Element2="85" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="88">
+      <ModellElementName>Fall "sonst"</ModellElementName>
+      <ModellElementVerbindung Element1="73" Element2="84" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementAnimationText id="89">
+      <ModellElementName>Mittlere Verweilzeit (angenommene Aufträge)</ModellElementName>
+      <ModellElementGroesse h="30" w="188" x="1650" y="800"/>
+      <ModellElementSchriftgrosse fett="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,180,0</ModellElementFarbe>
+      <ModellElementAnimationsmodus Art="Zahlenwert">Verweilzeit_avg(85)</ModellElementAnimationsmodus>
+    </ModellElementAnimationText>
+    <ModellElementAnimationText id="90">
+      <ModellElementName>Anzahl angenommen</ModellElementName>
+      <ModellElementGroesse h="30" w="88" x="1650" y="750"/>
+      <ModellElementSchriftgrosse fett="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,180,0</ModellElementFarbe>
+      <ModellElementAnimationsmodus Art="Zahlenwert">NumberIn(66)</ModellElementAnimationsmodus>
+    </ModellElementAnimationText>
+    <ModellElementAnimationText id="91">
+      <ModellElementName>Anzahl abgelehnt</ModellElementName>
+      <ModellElementGroesse h="30" w="73" x="1500" y="750"/>
+      <ModellElementSchriftgrosse fett="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,180,0</ModellElementFarbe>
+      <ModellElementAnimationsmodus Art="Zahlenwert">NumberIn(84)</ModellElementAnimationsmodus>
+    </ModellElementAnimationText>
+    <ModellElementAnimationText id="94">
+      <ModellElementName>Mittlere Verweilzeit</ModellElementName>
+      <ModellElementGroesse h="30" w="77" x="450" y="275"/>
+      <ModellElementSchriftgrosse fett="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>255,0,0</ModellElementFarbe>
+      <ModellElementAnimationsmodus Art="Zahlenwert">Verweilzeit_avg(2)</ModellElementAnimationsmodus>
+    </ModellElementAnimationText>
+    <ModellElementAnimationText id="95">
+      <ModellElementName>Mittlere Verweilzeit</ModellElementName>
+      <ModellElementGroesse h="30" w="77" x="800" y="270"/>
+      <ModellElementSchriftgrosse fett="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>255,0,0</ModellElementFarbe>
+      <ModellElementAnimationsmodus Art="Zahlenwert">Verweilzeit_avg(7)</ModellElementAnimationsmodus>
+    </ModellElementAnimationText>
+    <ModellElementAnimationText id="96">
+      <ModellElementName>Mittlere Verweilzeit</ModellElementName>
+      <ModellElementGroesse h="30" w="77" x="1150" y="270"/>
+      <ModellElementSchriftgrosse fett="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>255,0,0</ModellElementFarbe>
+      <ModellElementAnimationsmodus Art="Zahlenwert">Verweilzeit_avg(9)</ModellElementAnimationsmodus>
+    </ModellElementAnimationText>
+    <ModellElementAnimationText id="97">
+      <ModellElementName>Mittlere Verweilzeit</ModellElementName>
+      <ModellElementGroesse h="30" w="77" x="800" y="570"/>
+      <ModellElementSchriftgrosse fett="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,180,0</ModellElementFarbe>
+      <ModellElementAnimationsmodus Art="Zahlenwert">Verweilzeit_avg(26)</ModellElementAnimationsmodus>
+    </ModellElementAnimationText>
+    <ModellElementAnimationText id="98">
+      <ModellElementName>Mittlere Verweilzeit</ModellElementName>
+      <ModellElementGroesse h="30" w="77" x="800" y="720"/>
+      <ModellElementSchriftgrosse fett="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,180,0</ModellElementFarbe>
+      <ModellElementAnimationsmodus Art="Zahlenwert">Verweilzeit_avg(27)</ModellElementAnimationsmodus>
+    </ModellElementAnimationText>
+    <ModellElementAnimationText id="99">
+      <ModellElementName>Mittlere Verweilzeit</ModellElementName>
+      <ModellElementGroesse h="30" w="77" x="800" y="870"/>
+      <ModellElementSchriftgrosse fett="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,180,0</ModellElementFarbe>
+      <ModellElementAnimationsmodus Art="Zahlenwert">Verweilzeit_avg(28)</ModellElementAnimationsmodus>
+    </ModellElementAnimationText>
+    <ModellElementText id="100">
+      <ModellElementGroesse h="95" w="415" x="1200" y="500"/>
+      <ModellElementTextzeile>Das Parallel-Modell führt bei den voreingestellten Annahmeraten</ModellElementTextzeile>
+      <ModellElementTextzeile>und Bedieneranzahlen zu etwas kürzeren Durchlaufzeiten (da alle</ModellElementTextzeile>
+      <ModellElementTextzeile>drei Schritte parallel ausgeführt werden). Dafür sind die</ModellElementTextzeile>
+      <ModellElementTextzeile>Auslastungen und damit die Durchlaufzeiten) durch Level 2+3</ModellElementTextzeile>
+      <ModellElementTextzeile>höher als im seriellen Fall.</ModellElementTextzeile>
+      <ModellElementSchriftgrosse Symbole="1" kursiv="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementKante id="35">
+      <ModellElementName>Original</ModellElementName>
+      <ModellElementVerbindung Element1="25" Element2="26" Typ="Kante"/>
+      <ModellElementVerbindungsdarstellungsart>Direkt</ModellElementVerbindungsdarstellungsart>
+    </ModellElementKante>
+    <ModellElementKante id="36">
+      <ModellElementName>Kopie 1</ModellElementName>
+      <ModellElementVerbindung Element1="25" Element2="27" Typ="Kante"/>
+      <ModellElementVerbindungsdarstellungsart>Direkt</ModellElementVerbindungsdarstellungsart>
+    </ModellElementKante>
+    <ModellElementKante id="37">
+      <ModellElementName>Kopie 2</ModellElementName>
+      <ModellElementVerbindung Element1="25" Element2="28" Typ="Kante"/>
+      <ModellElementVerbindungsdarstellungsart>Direkt</ModellElementVerbindungsdarstellungsart>
+    </ModellElementKante>
+    <ModellElementZusammenfuehren id="61">
+      <ModellElementGroesse h="50" w="100" x="1150" y="650"/>
+      <ModellElementVerbindung Element="54" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="53" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="56" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="57" Typ="Auslaufend"/>
+      <ModellElementMatchEigenschaft Typ="Zahl">1</ModellElementMatchEigenschaft>
+      <ModellElementBatchModus>Dauerhaft</ModellElementBatchModus>
+      <ModellElementKundentyp>Result</ModellElementKundentyp>
+      <ModellElementZusammenfuehrenUebertragenZeiten>Mittelwert</ModellElementZusammenfuehrenUebertragenZeiten>
+      <ModellElementZusammenfuehrenUebertragenWerte>Summe</ModellElementZusammenfuehrenUebertragenWerte>
+    </ModellElementZusammenfuehren>
+    <ModellElementKante id="57">
+      <ModellElementName>Neuer Kundentyp "Result"</ModellElementName>
+      <ModellElementVerbindung Element1="61" Element2="73" Typ="Kante"/>
+      <ModellElementVerbindungsbeschriftung>0</ModellElementVerbindungsbeschriftung>
+    </ModellElementKante>
+    <ModellElementEcke id="4">
+      <ModellElementGroesse h="10" w="10" x="645" y="320"/>
+      <ModellElementVerbindung Element="11" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="62" Typ="Auslaufend"/>
+    </ModellElementEcke>
+    <ModellElementKante id="11">
+      <ModellElementName>Rate 1-acceptLevel1</ModellElementName>
+      <ModellElementVerbindung Element1="5" Element2="4" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementEcke id="14">
+      <ModellElementGroesse h="10" w="10" x="995" y="320"/>
+      <ModellElementVerbindung Element="15" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="62" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="64" Typ="Auslaufend"/>
+    </ModellElementEcke>
+    <ModellElementKante id="15">
+      <ModellElementName>Rate 1-acceptLevel2</ModellElementName>
+      <ModellElementVerbindung Element1="8" Element2="14" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="62">
+      <ModellElementVerbindung Element1="4" Element2="14" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="64">
+      <ModellElementVerbindung Element1="14" Element2="21" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="29">
+      <ModellElementVerbindung Element1="26" Element2="39" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="30">
+      <ModellElementVerbindung Element1="27" Element2="43" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="31">
+      <ModellElementVerbindung Element1="28" Element2="47" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="32">
+      <ModellElementName>Neuer Kundentyp: Annahme p</ModellElementName>
+      <ModellElementVerbindung Element1="85" Element2="66" Typ="Kante"/>
+      <ModellElementVerbindungsbeschriftung>0</ModellElementVerbindungsbeschriftung>
+    </ModellElementKante>
+    <ModellElementAnimationText id="33">
+      <ModellElementName>Annahmewahrscheinlichkeit Level 1</ModellElementName>
+      <ModellElementGroesse h="30" w="149" x="50" y="550"/>
+      <ModellElementSchriftgrosse>14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+      <ModellElementAnimationsmodus Art="Prozentwert" Nachkommastellen="0">acceptLevel1</ModellElementAnimationsmodus>
+    </ModellElementAnimationText>
+    <ModellElementAnimationText id="34">
+      <ModellElementName>Annahmewahrscheinlichkeit Level 2</ModellElementName>
+      <ModellElementGroesse h="30" w="149" x="50" y="600"/>
+      <ModellElementSchriftgrosse>14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+      <ModellElementAnimationsmodus Art="Prozentwert" Nachkommastellen="0">acceptLevel2</ModellElementAnimationsmodus>
+    </ModellElementAnimationText>
+    <ModellElementAnimationText id="40">
+      <ModellElementName>Annahmewahrscheinlichkeit Level 3</ModellElementName>
+      <ModellElementGroesse h="30" w="149" x="50" y="650"/>
+      <ModellElementSchriftgrosse>14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+      <ModellElementAnimationsmodus Art="Prozentwert" Nachkommastellen="0">acceptLevel3</ModellElementAnimationsmodus>
+    </ModellElementAnimationText>
+    <ModellElementAnimationText id="41">
+      <ModellElementName>Mittlere Auslastung</ModellElementName>
+      <ModellElementGroesse h="30" w="80" x="450" y="320"/>
+      <ModellElementSchriftgrosse fett="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>255,0,0</ModellElementFarbe>
+      <ModellElementAnimationsmodus Art="Prozentwert">Resource_avg(1)/Resource_count(1)</ModellElementAnimationsmodus>
+    </ModellElementAnimationText>
+    <ModellElementAnimationText id="42">
+      <ModellElementName>Mittlere Auslastung</ModellElementName>
+      <ModellElementGroesse h="30" w="80" x="800" y="335"/>
+      <ModellElementSchriftgrosse fett="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>255,0,0</ModellElementFarbe>
+      <ModellElementAnimationsmodus Art="Prozentwert">Resource_avg(2)/Resource_count(2)</ModellElementAnimationsmodus>
+    </ModellElementAnimationText>
+    <ModellElementAnimationText id="44">
+      <ModellElementName>Mittlere Auslastung</ModellElementName>
+      <ModellElementGroesse h="30" w="80" x="1150" y="335"/>
+      <ModellElementSchriftgrosse fett="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>255,0,0</ModellElementFarbe>
+      <ModellElementAnimationsmodus Art="Prozentwert">Resource_avg(3)/Resource_count(3)</ModellElementAnimationsmodus>
+    </ModellElementAnimationText>
+    <ModellElementAnimationText id="45">
+      <ModellElementName>Mittlere Auslastung</ModellElementName>
+      <ModellElementGroesse h="30" w="80" x="900" y="570"/>
+      <ModellElementSchriftgrosse fett="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,180,0</ModellElementFarbe>
+      <ModellElementAnimationsmodus Art="Prozentwert">Resource_avg(4)/Resource_count(4)</ModellElementAnimationsmodus>
+    </ModellElementAnimationText>
+    <ModellElementAnimationText id="46">
+      <ModellElementName>Mittlere Auslastung</ModellElementName>
+      <ModellElementGroesse h="30" w="80" x="900" y="720"/>
+      <ModellElementSchriftgrosse fett="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,180,0</ModellElementFarbe>
+      <ModellElementAnimationsmodus Art="Prozentwert">Resource_avg(5)/Resource_count(5)</ModellElementAnimationsmodus>
+    </ModellElementAnimationText>
+    <ModellElementAnimationText id="48">
+      <ModellElementName>Mittlere Auslastung</ModellElementName>
+      <ModellElementGroesse h="30" w="80" x="900" y="870"/>
+      <ModellElementSchriftgrosse fett="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,180,0</ModellElementFarbe>
+      <ModellElementAnimationsmodus Art="Prozentwert">Resource_avg(6)/Resource_count(6)</ModellElementAnimationsmodus>
+    </ModellElementAnimationText>
+    <ModellElementText id="49">
+      <ModellElementGroesse h="190" w="301" x="50" y="150"/>
+      <ModellElementTextzeile>Am System eintreffende Aufträge werden in drei</ModellElementTextzeile>
+      <ModellElementTextzeile>Stufen geprüft. Nur die Aufträge, die alle drei</ModellElementTextzeile>
+      <ModellElementTextzeile>Prüfungen bestehen, werden zum Ausgang</ModellElementTextzeile>
+      <ModellElementTextzeile>"Annahme" geleitet.</ModellElementTextzeile>
+      <ModellElementTextzeile/>
+      <ModellElementTextzeile>Die Prüfungen können nacheinander oder</ModellElementTextzeile>
+      <ModellElementTextzeile>gleichzeitig erfolgen.</ModellElementTextzeile>
+      <ModellElementTextzeile/>
+      <ModellElementTextzeile>In dem Modell werden beide mögliche</ModellElementTextzeile>
+      <ModellElementTextzeile>Vorgehensweisen abgebildet.</ModellElementTextzeile>
+      <ModellElementSchriftgrosse Symbole="1" kursiv="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementText id="50">
+      <ModellElementGroesse h="209" w="331" x="50" y="740"/>
+      <ModellElementTextzeile>Bei der seriellen Prüfung, werden die Aufträge,</ModellElementTextzeile>
+      <ModellElementTextzeile>die bereits die erste Prüfung nicht bestanden haben,</ModellElementTextzeile>
+      <ModellElementTextzeile>sofort verworfen. An den Prüfstationen 2 und 3 ist</ModellElementTextzeile>
+      <ModellElementTextzeile>daher die Arbeitslast entsprechend geringer.</ModellElementTextzeile>
+      <ModellElementTextzeile>Bei der parallelen Prüfung erfolgen für jeden Auftrag</ModellElementTextzeile>
+      <ModellElementTextzeile>immer alle drei Prüfungen parallel. Dies bedeutet,</ModellElementTextzeile>
+      <ModellElementTextzeile>dass evtl. die Prüfungen 2 und 3 unnötigerweise</ModellElementTextzeile>
+      <ModellElementTextzeile>durchgeführt werden (wenn sich später herausstellt,</ModellElementTextzeile>
+      <ModellElementTextzeile>dass bereits die erste Prüfung fehlgeschlagen ist).</ModellElementTextzeile>
+      <ModellElementTextzeile>Daher ist hier an den Prüfstationen 2 und 3 die</ModellElementTextzeile>
+      <ModellElementTextzeile>Auslastung höher.</ModellElementTextzeile>
+      <ModellElementSchriftgrosse Symbole="1" kursiv="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+  </ModellElemente>
+  <Ressourcen UntergeordnetePrioritaet="Zufaellig">
+    <Ressource Icon="status_online" Name="Bediener Level 1s" Typ="Anzahl" Wert="8"/>
+    <Ressource Icon="status_online" Name="Bediener Level 2s" Typ="Anzahl" Wert="8"/>
+    <Ressource Icon="status_online" Name="Bediener Level 3s" Typ="Anzahl" Wert="8"/>
+    <Ressource Name="Bediener Level 1p" Typ="Anzahl" Wert="8"/>
+    <Ressource Name="Bediener Level 2p" Typ="Anzahl" Wert="8"/>
+    <Ressource Icon="status_online" Name="Bediener Level 3p" Typ="Anzahl" Wert="8"/>
+  </Ressourcen>
+  <KundentypenDaten>
+    <KundenDaten Icon="folder-green" Name="Accept p"/>
+    <KundenDaten Icon="folder-green" Name="Accept s"/>
+    <KundenDaten Icon="folder-green" Name="Accept t"/>
+    <KundenDaten Icon="folder-green" Name="Annahme p"/>
+    <KundenDaten Icon="folder-green" Name="Annahme s"/>
+    <KundenDaten Icon="folder-orange" Name="Aufträge"/>
+    <KundenDaten Icon="folder-orange" Name="Result"/>
+  </KundentypenDaten>
+  <InitialeVariable Name="acceptLevel1">0,7</InitialeVariable>
+  <InitialeVariable Name="acceptLevel2">0,8</InitialeVariable>
+  <InitialeVariable Name="acceptLevel3">0,9</InitialeVariable>
+  <ModellKantenNormal Breite="1" Farbe="0,0,0" Typ="0"/>
+  <ModellKantenSelektiert Breite="1" Typ="0"/>
+  <ModellElementVerbindungsdarstellungsart>Abgerundet abgewinkelt</ModellElementVerbindungsdarstellungsart>
+</Modell>

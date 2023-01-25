@@ -188,6 +188,7 @@ public class EditModelExamples {
 		addExample(Language.trAll("Examples.ZentralerGrenzwertsatz"),"ZentralerGrenzwertsatz.xml",ExampleType.TYPE_MATH);
 		addExample(Language.trAll("Examples.BusStoppParadoxon"),"BusStoppParadoxon.xml",ExampleType.TYPE_MATH);
 		addExample(Language.trAll("Examples.RandomNumberGenerators"),"RandomNumberGenerators.xml",ExampleType.TYPE_MATH);
+		addExample(Language.trAll("Examples.ParallelSerial"),"ParallelSerial.xml",ExampleType.TYPE_COMPARE);
 	}
 
 	/**

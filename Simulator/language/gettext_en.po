@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-22 12:54+0100\n"
+"POT-Creation-Date: 2023-01-23 08:21+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -5051,6 +5051,9 @@ msgstr "Operators as simulation objects"
 
 msgid "Examples.PASTA"
 msgstr "Poisson arrivals see time averages"
+
+msgid "Examples.ParallelSerial"
+msgstr "Serial versus parallel processing"
 
 msgid "Examples.PushAndPullProduction"
 msgstr "Push and pull production"

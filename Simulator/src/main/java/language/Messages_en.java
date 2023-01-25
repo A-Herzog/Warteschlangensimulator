@@ -16854,6 +16854,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[39077] = "Generate problem report...";
     t[39078] = "Statistics.SystemData.SimulatedArrivals";
     t[39079] = "Simulated client arrivals (without warm-up phase)";
+    t[39080] = "Examples.ParallelSerial";
+    t[39081] = "Serial versus parallel processing";
     t[39082] = "ModelDescription.TankSensor.Threshold.Direction";
     t[39083] = "Trigger signal at";
     t[39098] = "Transporters.Group.ID";
@@ -18056,14 +18058,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[41759] = "<p>Returns the minimum number of busy operators in the specified resource.</p>";
     t[41760] = "SettingsDialog.Tabs.Statistics.IncompleteStatistics.Mode.Off";
     t[41761] = "Discard incomplete statistics";
-    t[41766] = "Editor.Dialog.Tab.ModelDescription.AuthorEMail";
-    t[41767] = "E-mail address of the author of the model";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_9 (java.lang.String[] t) {
+    t[41766] = "Editor.Dialog.Tab.ModelDescription.AuthorEMail";
+    t[41767] = "E-mail address of the author of the model";
     t[41768] = "ExpressionBuilder.ProbabilityDistributions.PoissonDistribution.DensityInfo";
     t[41769] = "<p>Calculates the value of the count density of the Poisson distribution at the location specified as the first parameter with the distribution parameters according to the next function parameters.</p>";
     t[41770] = "ExpressionBuilder.SimulationCharacteristics.ClientData.ClientBatchSize.Info";
@@ -20062,14 +20064,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[46301] = "Elements";
     t[46302] = "Surface.HoldJS.XML.Condition.Javascript";
     t[46303] = "Javascript";
-    t[46304] = "Simulation.Creator.HoldJSCondition";
-    t[46305] = "The additional condition \"%s\" at element id=%d is invalid at character %d.";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_10 (java.lang.String[] t) {
+    t[46304] = "Simulation.Creator.HoldJSCondition";
+    t[46305] = "The additional condition \"%s\" at element id=%d is invalid at character %d.";
     t[46322] = "Statistic.Interval";
     t[46323] = "Interval";
     t[46328] = "ModelDescription.Delay.Mode.Process";
@@ -22068,14 +22070,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[50887] = "<p>Returns the coefficient of variation of the number of clients at the queue of the station whose ID is specified in the parameter.</p>\n<p>Alternatively, the ID of a client source can be specified, in which case the results refer to the clients which are created created at the selected source.</p>";
     t[50890] = "ModelDescription.TransportResourceRecord.DelayedRelease.ClientType";
     t[50891] = "Delayed resource release at client type \"%s\"";
-    t[50892] = "Editor.Dialog.Tab.RunTimeStatistics.Table.Edit.Mode";
-    t[50893] = "Record type per interval";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_11 (java.lang.String[] t) {
+    t[50892] = "Editor.Dialog.Tab.RunTimeStatistics.Table.Edit.Mode";
+    t[50893] = "Record type per interval";
     t[50894] = "Surface.TransportDestination.XML.Root";
     t[50895] = "ModelElementTransportDestination";
     t[50896] = "Main.Menu.Edit.Delete";

@@ -1,0 +1,611 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE Model SYSTEM "https://a-herzog.github.io/Warteschlangensimulator/Simulator.dtd">
+<Model xmlns="https://a-herzog.github.io" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://a-herzog.github.io https://a-herzog.github.io/Warteschlangensimulator/Simulator.xsd">
+  <!-- This file was created using Warteschlangensimulator. Download address: https://github.com/A-Herzog/Warteschlangensimulator -->
+  <ModelVersion>5.3.0</ModelVersion>
+  <ModelName>Serial versus parallel processing</ModelName>
+  <ModelDescription>Orders arriving at the system are checked in three stages.
+Only the orders that pass all three checks are routed to the "Accept" output.
+
+The checks can be performed one after the other or simultaneously.
+
+Both possible procedures are represented in the model.</ModelDescription>
+  <ModelAuthor>Alexander Herzog</ModelAuthor>
+  <ModelClients Active="1">10000000</ModelClients>
+  <ModelWarmUpPhase>0.01</ModelWarmUpPhase>
+  <ModelTerminationTime Active="0">10:00:00:00</ModelTerminationTime>
+  <ModelElements>
+    <ModelElementSource id="1">
+      <ModelElementName>Orders</ModelElementName>
+      <ModelElementSize h="50" w="100" x="50" y="450"/>
+      <ModelElementConnection Element="23" Type="Out"/>
+      <ModelElementDistribution TimeBase="Seconds">Exponential distribution (60)</ModelElementDistribution>
+      <ModelElementBatchData Size="1"/>
+    </ModelElementSource>
+    <ModelElementProcessStation id="2">
+      <ModelElementName>Level 1s</ModelElementName>
+      <ModelElementSize h="50" w="100" x="450" y="200"/>
+      <ModelElementConnection Element="78" Type="In"/>
+      <ModelElementConnection Element="6" Type="Out"/>
+      <ModelElementDistribution Status="ProcessTime" TimeBase="Minutes" Type="ProcessingTime">Uniform distribution (2;5)</ModelElementDistribution>
+      <ModelElementPriority ClientType="Accept p">w</ModelElementPriority>
+      <ModelElementPriority ClientType="Annahme p">w</ModelElementPriority>
+      <ModelElementPriority ClientType="Annahme s">w</ModelElementPriority>
+      <ModelElementPriority ClientType="Aufträge">w</ModelElementPriority>
+      <ModelElementPriority ClientType="Orders">w</ModelElementPriority>
+      <ModelElementOperators Alternative="1" Count="1" Group="Bediener Level 1s"/>
+      <ModelElementOperatorsPriority>1</ModelElementOperatorsPriority>
+    </ModelElementProcessStation>
+    <ModelElementDecide id="5">
+      <ModelElementName>Accept 1?</ModelElementName>
+      <ModelElementSize h="50" w="100" x="600" y="200"/>
+      <ModelElementDecideMode>Random</ModelElementDecideMode>
+      <ModelElementConnection Element="6" Type="In"/>
+      <ModelElementConnection Element="10" Rate="acceptLevel1" Type="Out"/>
+      <ModelElementConnection Element="11" Rate="1-acceptLevel1" Type="Out"/>
+    </ModelElementDecide>
+    <ModelElementEdge id="6">
+      <ModelElementConnection Element1="2" Element2="5" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementProcessStation id="7">
+      <ModelElementName>Level 2s</ModelElementName>
+      <ModelElementSize h="50" w="100" x="800" y="200"/>
+      <ModelElementConnection Element="10" Type="In"/>
+      <ModelElementConnection Element="12" Type="Out"/>
+      <ModelElementDistribution Status="ProcessTime" TimeBase="Minutes" Type="ProcessingTime">Uniform distribution (5;7)</ModelElementDistribution>
+      <ModelElementPriority ClientType="Accept p">w</ModelElementPriority>
+      <ModelElementPriority ClientType="Annahme p">w</ModelElementPriority>
+      <ModelElementPriority ClientType="Annahme s">w</ModelElementPriority>
+      <ModelElementPriority ClientType="Aufträge">w</ModelElementPriority>
+      <ModelElementPriority ClientType="Orders">w</ModelElementPriority>
+      <ModelElementOperators Alternative="1" Count="1" Group="Bediener Level 2s"/>
+      <ModelElementOperatorsPriority>1</ModelElementOperatorsPriority>
+    </ModelElementProcessStation>
+    <ModelElementDecide id="8">
+      <ModelElementName>Accept 2?</ModelElementName>
+      <ModelElementSize h="50" w="100" x="950" y="200"/>
+      <ModelElementDecideMode>Random</ModelElementDecideMode>
+      <ModelElementConnection Element="12" Type="In"/>
+      <ModelElementConnection Element="13" Rate="acceptLevel2" Type="Out"/>
+      <ModelElementConnection Element="15" Rate="1-acceptLevel2" Type="Out"/>
+    </ModelElementDecide>
+    <ModelElementProcessStation id="9">
+      <ModelElementName>Level 3s</ModelElementName>
+      <ModelElementSize h="50" w="100" x="1150" y="200"/>
+      <ModelElementConnection Element="13" Type="In"/>
+      <ModelElementConnection Element="19" Type="Out"/>
+      <ModelElementDistribution Status="ProcessTime" TimeBase="Minutes" Type="ProcessingTime">Uniform distribution (5;10)</ModelElementDistribution>
+      <ModelElementPriority ClientType="Accept p">w</ModelElementPriority>
+      <ModelElementPriority ClientType="Annahme p">w</ModelElementPriority>
+      <ModelElementPriority ClientType="Annahme s">w</ModelElementPriority>
+      <ModelElementPriority ClientType="Aufträge">w</ModelElementPriority>
+      <ModelElementPriority ClientType="Orders">w</ModelElementPriority>
+      <ModelElementOperators Alternative="1" Count="1" Group="Bediener Level 3s"/>
+      <ModelElementOperatorsPriority>1</ModelElementOperatorsPriority>
+    </ModelElementProcessStation>
+    <ModelElementEdge id="10">
+      <ModelElementName>Rate acceptLevel1</ModelElementName>
+      <ModelElementConnection Element1="5" Element2="7" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="12">
+      <ModelElementConnection Element1="7" Element2="8" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="13">
+      <ModelElementName>Rate acceptLevel2</ModelElementName>
+      <ModelElementConnection Element1="8" Element2="9" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementDispose id="16">
+      <ModelElementName>Accept  s</ModelElementName>
+      <ModelElementSize h="50" w="100" x="1700" y="200"/>
+      <ModelElementConnection Element="59" Type="In"/>
+    </ModelElementDispose>
+    <ModelElementText id="18">
+      <ModelElementSize h="23" w="287" x="50" y="50"/>
+      <ModelElementTextLine>Serial versus parallel processing</ModelElementTextLine>
+      <ModelElementFontSize Symbols="1" bold="1">18</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementDecide id="17">
+      <ModelElementName>Accept 3?</ModelElementName>
+      <ModelElementSize h="50" w="100" x="1300" y="200"/>
+      <ModelElementDecideMode>Random</ModelElementDecideMode>
+      <ModelElementConnection Element="19" Type="In"/>
+      <ModelElementConnection Element="20" Rate="acceptLevel3" Type="Out"/>
+      <ModelElementConnection Element="22" Rate="1-acceptLevel3" Type="Out"/>
+    </ModelElementDecide>
+    <ModelElementEdge id="19">
+      <ModelElementConnection Element1="9" Element2="17" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementDispose id="21">
+      <ModelElementName>Reject s</ModelElementName>
+      <ModelElementSize h="50" w="100" x="1300" y="300"/>
+      <ModelElementConnection Element="22" Type="In"/>
+      <ModelElementConnection Element="64" Type="In"/>
+    </ModelElementDispose>
+    <ModelElementDuplicate id="3">
+      <ModelElementSize h="50" w="100" x="250" y="450"/>
+      <ModelElementConnection Element="23" Type="In"/>
+      <ModelElementConnection Element="69" Type="Out"/>
+      <ModelElementConnection Element="68" Type="Out"/>
+    </ModelElementDuplicate>
+    <ModelElementEdge id="23">
+      <ModelElementName>Arrivals (Orders)</ModelElementName>
+      <ModelElementConnection Element1="1" Element2="3" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementVariable id="24">
+      <ModelElementName>Set ID</ModelElementName>
+      <ModelElementSize h="50" w="100" x="450" y="650"/>
+      <ModelElementConnection Element="80" Type="In"/>
+      <ModelElementConnection Element="38" Type="Out"/>
+      <ModelElementAssignmentData Variable="ClientData(1)">ClientNumber()</ModelElementAssignmentData>
+    </ModelElementVariable>
+    <ModelElementDuplicate id="25">
+      <ModelElementSize h="50" w="100" x="600" y="650"/>
+      <ModelElementConnection Element="38" Type="In"/>
+      <ModelElementConnection Element="35" Type="Out"/>
+      <ModelElementConnection Element="36" Type="Out"/>
+      <ModelElementConnection Element="37" Type="Out"/>
+    </ModelElementDuplicate>
+    <ModelElementProcessStation id="26">
+      <ModelElementName>Level 1p</ModelElementName>
+      <ModelElementSize h="50" w="100" x="800" y="500"/>
+      <ModelElementConnection Element="35" Type="In"/>
+      <ModelElementConnection Element="29" Type="Out"/>
+      <ModelElementDistribution Status="ProcessTime" TimeBase="Minutes" Type="ProcessingTime">Uniform distribution (2;5)</ModelElementDistribution>
+      <ModelElementPriority ClientType="Accept p">w</ModelElementPriority>
+      <ModelElementPriority ClientType="Annahme p">w</ModelElementPriority>
+      <ModelElementPriority ClientType="Annahme s">w</ModelElementPriority>
+      <ModelElementPriority ClientType="Aufträge">w</ModelElementPriority>
+      <ModelElementPriority ClientType="Orders">w</ModelElementPriority>
+      <ModelElementPriority ClientType="Result">w</ModelElementPriority>
+      <ModelElementOperators Alternative="1" Count="1" Group="Bediener Level 1p"/>
+      <ModelElementOperatorsPriority>1</ModelElementOperatorsPriority>
+    </ModelElementProcessStation>
+    <ModelElementProcessStation id="27">
+      <ModelElementName>Level 2p</ModelElementName>
+      <ModelElementSize h="50" w="100" x="800" y="650"/>
+      <ModelElementConnection Element="36" Type="In"/>
+      <ModelElementConnection Element="30" Type="Out"/>
+      <ModelElementDistribution Status="ProcessTime" TimeBase="Minutes" Type="ProcessingTime">Uniform distribution (5;7)</ModelElementDistribution>
+      <ModelElementPriority ClientType="Accept p">w</ModelElementPriority>
+      <ModelElementPriority ClientType="Annahme p">w</ModelElementPriority>
+      <ModelElementPriority ClientType="Annahme s">w</ModelElementPriority>
+      <ModelElementPriority ClientType="Aufträge">w</ModelElementPriority>
+      <ModelElementPriority ClientType="Orders">w</ModelElementPriority>
+      <ModelElementPriority ClientType="Result">w</ModelElementPriority>
+      <ModelElementOperators Alternative="1" Count="1" Group="Bediener Level 2p"/>
+      <ModelElementOperatorsPriority>1</ModelElementOperatorsPriority>
+    </ModelElementProcessStation>
+    <ModelElementProcessStation id="28">
+      <ModelElementName>Level 3p</ModelElementName>
+      <ModelElementSize h="50" w="100" x="800" y="800"/>
+      <ModelElementConnection Element="37" Type="In"/>
+      <ModelElementConnection Element="31" Type="Out"/>
+      <ModelElementDistribution Status="ProcessTime" TimeBase="Minutes" Type="ProcessingTime">Uniform distribution (5;10)</ModelElementDistribution>
+      <ModelElementPriority ClientType="Accept p">w</ModelElementPriority>
+      <ModelElementPriority ClientType="Annahme p">w</ModelElementPriority>
+      <ModelElementPriority ClientType="Annahme s">w</ModelElementPriority>
+      <ModelElementPriority ClientType="Aufträge">w</ModelElementPriority>
+      <ModelElementPriority ClientType="Orders">w</ModelElementPriority>
+      <ModelElementPriority ClientType="Result">w</ModelElementPriority>
+      <ModelElementOperators Alternative="1" Count="1" Group="Bediener Level 3p"/>
+      <ModelElementOperatorsPriority>1</ModelElementOperatorsPriority>
+    </ModelElementProcessStation>
+    <ModelElementEdge id="38">
+      <ModelElementConnection Element1="24" Element2="25" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementVariable id="39">
+      <ModelElementName>Accept 1p</ModelElementName>
+      <ModelElementSize h="50" w="100" x="950" y="500"/>
+      <ModelElementConnection Element="29" Type="In"/>
+      <ModelElementConnection Element="54" Type="Out"/>
+      <ModelElementAssignmentData Variable="ClientData(2)">if(acceptLevel1-random();1;0)</ModelElementAssignmentData>
+    </ModelElementVariable>
+    <ModelElementVariable id="43">
+      <ModelElementName>Accept 2p</ModelElementName>
+      <ModelElementSize h="50" w="100" x="950" y="650"/>
+      <ModelElementConnection Element="30" Type="In"/>
+      <ModelElementConnection Element="53" Type="Out"/>
+      <ModelElementAssignmentData Variable="ClientData(3)">if(acceptLevel2-random();1;0)</ModelElementAssignmentData>
+    </ModelElementVariable>
+    <ModelElementVariable id="47">
+      <ModelElementName>Accept 3p</ModelElementName>
+      <ModelElementSize h="50" w="100" x="950" y="800"/>
+      <ModelElementConnection Element="31" Type="In"/>
+      <ModelElementConnection Element="56" Type="Out"/>
+      <ModelElementAssignmentData Variable="ClientData(4)">if(acceptLevel3-random();1;0)</ModelElementAssignmentData>
+    </ModelElementVariable>
+    <ModelElementDispose id="66">
+      <ModelElementName>Accept p</ModelElementName>
+      <ModelElementSize h="50" w="100" x="1700" y="650"/>
+      <ModelElementConnection Element="32" Type="In"/>
+    </ModelElementDispose>
+    <ModelElementEdge id="69">
+      <ModelElementName>Original</ModelElementName>
+      <ModelElementConnection Element1="3" Element2="79" Type="Edge"/>
+      <ModelElementConnectionDrawStyle>Direct</ModelElementConnectionDrawStyle>
+    </ModelElementEdge>
+    <ModelElementRectangle id="76">
+      <ModelElementSize h="250" w="1450" x="400" y="150"/>
+      <ModelElementLineWidth>2</ModelElementLineWidth>
+      <ModelElementColor>255,0,0</ModelElementColor>
+    </ModelElementRectangle>
+    <ModelElementEdge id="68">
+      <ModelElementName>Copy 1</ModelElementName>
+      <ModelElementConnection Element1="3" Element2="77" Type="Edge"/>
+      <ModelElementConnectionDrawStyle>Direct</ModelElementConnectionDrawStyle>
+    </ModelElementEdge>
+    <ModelElementVertex id="77">
+      <ModelElementSize h="10" w="10" x="395" y="220"/>
+      <ModelElementConnection Element="68" Type="In"/>
+      <ModelElementConnection Element="78" Type="Out"/>
+    </ModelElementVertex>
+    <ModelElementEdge id="78">
+      <ModelElementConnection Element1="77" Element2="2" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementVertex id="79">
+      <ModelElementSize h="10" w="10" x="395" y="670"/>
+      <ModelElementConnection Element="69" Type="In"/>
+      <ModelElementConnection Element="80" Type="Out"/>
+    </ModelElementVertex>
+    <ModelElementEdge id="80">
+      <ModelElementConnection Element1="79" Element2="24" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementRectangle id="81">
+      <ModelElementSize h="500" w="1450" x="400" y="450"/>
+      <ModelElementLineWidth>2</ModelElementLineWidth>
+      <ModelElementColor>0,180,0</ModelElementColor>
+    </ModelElementRectangle>
+    <ModelElementText id="82">
+      <ModelElementSize h="19" w="87" x="405" y="155"/>
+      <ModelElementTextLine>Serial testing</ModelElementTextLine>
+      <ModelElementFontSize Symbols="1" bold="1">14</ModelElementFontSize>
+      <ModelElementColor>255,0,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementText id="83">
+      <ModelElementSize h="19" w="99" x="405" y="455"/>
+      <ModelElementTextLine>Parallel testing</ModelElementTextLine>
+      <ModelElementFontSize Symbols="1" bold="1">14</ModelElementFontSize>
+      <ModelElementColor>0,180,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementEdge id="54">
+      <ModelElementConnection Element1="39" Element2="61" Type="Edge"/>
+      <ModelElementConnectionDrawStyle>Direct</ModelElementConnectionDrawStyle>
+    </ModelElementEdge>
+    <ModelElementEdge id="53">
+      <ModelElementConnection Element1="43" Element2="61" Type="Edge"/>
+      <ModelElementConnectionDrawStyle>Direct</ModelElementConnectionDrawStyle>
+    </ModelElementEdge>
+    <ModelElementEdge id="56">
+      <ModelElementConnection Element1="47" Element2="61" Type="Edge"/>
+      <ModelElementConnectionDrawStyle>Direct</ModelElementConnectionDrawStyle>
+    </ModelElementEdge>
+    <ModelElementAssignment id="58">
+      <ModelElementName>Annahme s</ModelElementName>
+      <ModelElementSize h="50" w="100" x="1495" y="200"/>
+      <ModelElementConnection Element="20" Type="In"/>
+      <ModelElementConnection Element="59" Type="Out"/>
+    </ModelElementAssignment>
+    <ModelElementEdge id="59">
+      <ModelElementName>New client type: Annahme s</ModelElementName>
+      <ModelElementConnection Element1="58" Element2="16" Type="Edge"/>
+      <ModelElementConnectionLabel>0</ModelElementConnectionLabel>
+    </ModelElementEdge>
+    <ModelElementAnimationText id="60">
+      <ModelElementName>Average residence time (accepted orders)</ModelElementName>
+      <ModelElementSize h="30" w="177" x="1655" y="350"/>
+      <ModelElementFontSize bold="1">14</ModelElementFontSize>
+      <ModelElementColor>255,0,0</ModelElementColor>
+      <ModelElementAnimationMode Type="Number">Verweilzeit_avg(58)</ModelElementAnimationMode>
+    </ModelElementAnimationText>
+    <ModelElementEdge id="20">
+      <ModelElementName>Rate acceptLevel3</ModelElementName>
+      <ModelElementConnection Element1="17" Element2="58" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="22">
+      <ModelElementName>Rate 1-acceptLevel3</ModelElementName>
+      <ModelElementConnection Element1="17" Element2="21" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementAnimationText id="63">
+      <ModelElementName>Number accepted</ModelElementName>
+      <ModelElementSize h="30" w="74" x="1650" y="300"/>
+      <ModelElementFontSize bold="1">14</ModelElementFontSize>
+      <ModelElementColor>255,0,0</ModelElementColor>
+      <ModelElementAnimationMode Type="Number">NumberIn(16)</ModelElementAnimationMode>
+    </ModelElementAnimationText>
+    <ModelElementAnimationText id="70">
+      <ModelElementName>Number rejected</ModelElementName>
+      <ModelElementSize h="30" w="69" x="1500" y="300"/>
+      <ModelElementFontSize bold="1">14</ModelElementFontSize>
+      <ModelElementColor>255,0,0</ModelElementColor>
+      <ModelElementAnimationMode Type="Number">NumberIn(21)</ModelElementAnimationMode>
+    </ModelElementAnimationText>
+    <ModelElementDecide id="73">
+      <ModelElementName>Accepted?</ModelElementName>
+      <ModelElementSize h="50" w="100" x="1350" y="650"/>
+      <ModelElementDecideMode>Condition</ModelElementDecideMode>
+      <ModelElementConnection Element="57" Type="In"/>
+      <ModelElementConnection Condition="ClientData(2)==1 &amp;&amp; ClientData(3)==1 &amp;&amp; ClientData(4)==1" Element="86" Type="Out"/>
+      <ModelElementConnection Element="88" Type="Out"/>
+    </ModelElementDecide>
+    <ModelElementDispose id="84">
+      <ModelElementName>Reject p</ModelElementName>
+      <ModelElementSize h="50" w="100" x="1350" y="755"/>
+      <ModelElementConnection Element="88" Type="In"/>
+    </ModelElementDispose>
+    <ModelElementAssignment id="85">
+      <ModelElementName>Accept p</ModelElementName>
+      <ModelElementSize h="50" w="100" x="1500" y="650"/>
+      <ModelElementConnection Element="86" Type="In"/>
+      <ModelElementConnection Element="32" Type="Out"/>
+    </ModelElementAssignment>
+    <ModelElementEdge id="86">
+      <ModelElementName>Condition 1</ModelElementName>
+      <ModelElementConnection Element1="73" Element2="85" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="88">
+      <ModelElementName>Case "else"</ModelElementName>
+      <ModelElementConnection Element1="73" Element2="84" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementAnimationText id="89">
+      <ModelElementName>Average residence time (accepted orders)</ModelElementName>
+      <ModelElementSize h="30" w="177" x="1650" y="800"/>
+      <ModelElementFontSize bold="1">14</ModelElementFontSize>
+      <ModelElementColor>0,180,0</ModelElementColor>
+      <ModelElementAnimationMode Type="Number">Verweilzeit_avg(85)</ModelElementAnimationMode>
+    </ModelElementAnimationText>
+    <ModelElementAnimationText id="90">
+      <ModelElementName>Number accepted</ModelElementName>
+      <ModelElementSize h="30" w="74" x="1650" y="750"/>
+      <ModelElementFontSize bold="1">14</ModelElementFontSize>
+      <ModelElementColor>0,180,0</ModelElementColor>
+      <ModelElementAnimationMode Type="Number">NumberIn(66)</ModelElementAnimationMode>
+    </ModelElementAnimationText>
+    <ModelElementAnimationText id="91">
+      <ModelElementName>Number rejected</ModelElementName>
+      <ModelElementSize h="30" w="69" x="1500" y="750"/>
+      <ModelElementFontSize bold="1">14</ModelElementFontSize>
+      <ModelElementColor>0,180,0</ModelElementColor>
+      <ModelElementAnimationMode Type="Number">NumberIn(84)</ModelElementAnimationMode>
+    </ModelElementAnimationText>
+    <ModelElementAnimationText id="94">
+      <ModelElementName>Average residence time</ModelElementName>
+      <ModelElementSize h="30" w="99" x="450" y="275"/>
+      <ModelElementFontSize bold="1">14</ModelElementFontSize>
+      <ModelElementColor>255,0,0</ModelElementColor>
+      <ModelElementAnimationMode Type="Number">Verweilzeit_avg(2)</ModelElementAnimationMode>
+    </ModelElementAnimationText>
+    <ModelElementAnimationText id="95">
+      <ModelElementName>Average residence time</ModelElementName>
+      <ModelElementSize h="30" w="99" x="800" y="270"/>
+      <ModelElementFontSize bold="1">14</ModelElementFontSize>
+      <ModelElementColor>255,0,0</ModelElementColor>
+      <ModelElementAnimationMode Type="Number">Verweilzeit_avg(7)</ModelElementAnimationMode>
+    </ModelElementAnimationText>
+    <ModelElementAnimationText id="96">
+      <ModelElementName>Average residence time</ModelElementName>
+      <ModelElementSize h="30" w="99" x="1150" y="270"/>
+      <ModelElementFontSize bold="1">14</ModelElementFontSize>
+      <ModelElementColor>255,0,0</ModelElementColor>
+      <ModelElementAnimationMode Type="Number">Verweilzeit_avg(9)</ModelElementAnimationMode>
+    </ModelElementAnimationText>
+    <ModelElementAnimationText id="97">
+      <ModelElementName>Average residence time</ModelElementName>
+      <ModelElementSize h="30" w="99" x="800" y="570"/>
+      <ModelElementFontSize bold="1">14</ModelElementFontSize>
+      <ModelElementColor>0,180,0</ModelElementColor>
+      <ModelElementAnimationMode Type="Number">Verweilzeit_avg(26)</ModelElementAnimationMode>
+    </ModelElementAnimationText>
+    <ModelElementAnimationText id="98">
+      <ModelElementName>Average residence time</ModelElementName>
+      <ModelElementSize h="30" w="99" x="800" y="720"/>
+      <ModelElementFontSize bold="1">14</ModelElementFontSize>
+      <ModelElementColor>0,180,0</ModelElementColor>
+      <ModelElementAnimationMode Type="Number">Verweilzeit_avg(27)</ModelElementAnimationMode>
+    </ModelElementAnimationText>
+    <ModelElementAnimationText id="99">
+      <ModelElementName>Average residence time</ModelElementName>
+      <ModelElementSize h="30" w="99" x="800" y="870"/>
+      <ModelElementFontSize bold="1">14</ModelElementFontSize>
+      <ModelElementColor>0,180,0</ModelElementColor>
+      <ModelElementAnimationMode Type="Number">Verweilzeit_avg(28)</ModelElementAnimationMode>
+    </ModelElementAnimationText>
+    <ModelElementText id="100">
+      <ModelElementSize h="95" w="396" x="1200" y="500"/>
+      <ModelElementTextLine>The parallel model leads to somewhat shorter throughput times</ModelElementTextLine>
+      <ModelElementTextLine>at the preset acceptance rates and operator numbers (since</ModelElementTextLine>
+      <ModelElementTextLine>all three steps are executed in parallel). In return, the</ModelElementTextLine>
+      <ModelElementTextLine>workloads and thus the throughput times) through Level 2+3</ModelElementTextLine>
+      <ModelElementTextLine>are higher than in the serial case.</ModelElementTextLine>
+      <ModelElementFontSize Symbols="1" italic="1">14</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementEdge id="35">
+      <ModelElementName>Original</ModelElementName>
+      <ModelElementConnection Element1="25" Element2="26" Type="Edge"/>
+      <ModelElementConnectionDrawStyle>Direct</ModelElementConnectionDrawStyle>
+    </ModelElementEdge>
+    <ModelElementEdge id="36">
+      <ModelElementName>Copy 1</ModelElementName>
+      <ModelElementConnection Element1="25" Element2="27" Type="Edge"/>
+      <ModelElementConnectionDrawStyle>Direct</ModelElementConnectionDrawStyle>
+    </ModelElementEdge>
+    <ModelElementEdge id="37">
+      <ModelElementName>Copy 2</ModelElementName>
+      <ModelElementConnection Element1="25" Element2="28" Type="Edge"/>
+      <ModelElementConnectionDrawStyle>Direct</ModelElementConnectionDrawStyle>
+    </ModelElementEdge>
+    <ModelElementMatch id="61">
+      <ModelElementSize h="50" w="100" x="1150" y="650"/>
+      <ModelElementConnection Element="54" Type="In"/>
+      <ModelElementConnection Element="53" Type="In"/>
+      <ModelElementConnection Element="56" Type="In"/>
+      <ModelElementConnection Element="57" Type="Out"/>
+      <ModelElementMatchProperty Type="Number">1</ModelElementMatchProperty>
+      <ModelElementBatchMode>Permanent</ModelElementBatchMode>
+      <ModelElementClientType>Result</ModelElementClientType>
+      <ModelElementMatchTransferTimes>Mean</ModelElementMatchTransferTimes>
+      <ModelElementMatchTransferNumbers>Sum</ModelElementMatchTransferNumbers>
+    </ModelElementMatch>
+    <ModelElementEdge id="57">
+      <ModelElementName>New client type "Result"</ModelElementName>
+      <ModelElementConnection Element1="61" Element2="73" Type="Edge"/>
+      <ModelElementConnectionLabel>0</ModelElementConnectionLabel>
+    </ModelElementEdge>
+    <ModelElementVertex id="4">
+      <ModelElementSize h="10" w="10" x="645" y="320"/>
+      <ModelElementConnection Element="11" Type="In"/>
+      <ModelElementConnection Element="62" Type="Out"/>
+    </ModelElementVertex>
+    <ModelElementEdge id="11">
+      <ModelElementName>Rate 1-acceptLevel1</ModelElementName>
+      <ModelElementConnection Element1="5" Element2="4" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementVertex id="14">
+      <ModelElementSize h="10" w="10" x="995" y="320"/>
+      <ModelElementConnection Element="15" Type="In"/>
+      <ModelElementConnection Element="62" Type="In"/>
+      <ModelElementConnection Element="64" Type="Out"/>
+    </ModelElementVertex>
+    <ModelElementEdge id="15">
+      <ModelElementName>Rate 1-acceptLevel2</ModelElementName>
+      <ModelElementConnection Element1="8" Element2="14" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="62">
+      <ModelElementConnection Element1="4" Element2="14" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="64">
+      <ModelElementConnection Element1="14" Element2="21" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="29">
+      <ModelElementConnection Element1="26" Element2="39" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="30">
+      <ModelElementConnection Element1="27" Element2="43" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="31">
+      <ModelElementConnection Element1="28" Element2="47" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="32">
+      <ModelElementName>New client type: Accept p</ModelElementName>
+      <ModelElementConnection Element1="85" Element2="66" Type="Edge"/>
+      <ModelElementConnectionLabel>0</ModelElementConnectionLabel>
+    </ModelElementEdge>
+    <ModelElementAnimationText id="33">
+      <ModelElementName>Acceptance probability level 1</ModelElementName>
+      <ModelElementSize h="30" w="125" x="50" y="550"/>
+      <ModelElementFontSize>14</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+      <ModelElementAnimationMode Digits="0" Type="Percent value">acceptLevel1</ModelElementAnimationMode>
+    </ModelElementAnimationText>
+    <ModelElementAnimationText id="34">
+      <ModelElementName>Acceptance probability level 2</ModelElementName>
+      <ModelElementSize h="30" w="125" x="50" y="600"/>
+      <ModelElementFontSize>14</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+      <ModelElementAnimationMode Digits="0" Type="Percent value">acceptLevel2</ModelElementAnimationMode>
+    </ModelElementAnimationText>
+    <ModelElementAnimationText id="40">
+      <ModelElementName>Acceptance probability level 3</ModelElementName>
+      <ModelElementSize h="30" w="125" x="50" y="650"/>
+      <ModelElementFontSize>14</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+      <ModelElementAnimationMode Digits="0" Type="Percent value">acceptLevel3</ModelElementAnimationMode>
+    </ModelElementAnimationText>
+    <ModelElementAnimationText id="41">
+      <ModelElementName>Average utilization</ModelElementName>
+      <ModelElementSize h="30" w="93" x="450" y="320"/>
+      <ModelElementFontSize bold="1">14</ModelElementFontSize>
+      <ModelElementColor>255,0,0</ModelElementColor>
+      <ModelElementAnimationMode Type="Percent value">Resource_avg(1)/Resource_count(1)</ModelElementAnimationMode>
+    </ModelElementAnimationText>
+    <ModelElementAnimationText id="42">
+      <ModelElementName>Average utilization</ModelElementName>
+      <ModelElementSize h="30" w="93" x="800" y="335"/>
+      <ModelElementFontSize bold="1">14</ModelElementFontSize>
+      <ModelElementColor>255,0,0</ModelElementColor>
+      <ModelElementAnimationMode Type="Percent value">Resource_avg(2)/Resource_count(2)</ModelElementAnimationMode>
+    </ModelElementAnimationText>
+    <ModelElementAnimationText id="44">
+      <ModelElementName>Average utilization</ModelElementName>
+      <ModelElementSize h="30" w="93" x="1150" y="335"/>
+      <ModelElementFontSize bold="1">14</ModelElementFontSize>
+      <ModelElementColor>255,0,0</ModelElementColor>
+      <ModelElementAnimationMode Type="Percent value">Resource_avg(3)/Resource_count(3)</ModelElementAnimationMode>
+    </ModelElementAnimationText>
+    <ModelElementAnimationText id="45">
+      <ModelElementName>Average utilization</ModelElementName>
+      <ModelElementSize h="30" w="93" x="910" y="570"/>
+      <ModelElementFontSize bold="1">14</ModelElementFontSize>
+      <ModelElementColor>0,180,0</ModelElementColor>
+      <ModelElementAnimationMode Type="Percent value">Resource_avg(4)/Resource_count(4)</ModelElementAnimationMode>
+    </ModelElementAnimationText>
+    <ModelElementAnimationText id="46">
+      <ModelElementName>Average utilization</ModelElementName>
+      <ModelElementSize h="30" w="93" x="910" y="720"/>
+      <ModelElementFontSize bold="1">14</ModelElementFontSize>
+      <ModelElementColor>0,180,0</ModelElementColor>
+      <ModelElementAnimationMode Type="Percent value">Resource_avg(5)/Resource_count(5)</ModelElementAnimationMode>
+    </ModelElementAnimationText>
+    <ModelElementAnimationText id="48">
+      <ModelElementName>Average utilization</ModelElementName>
+      <ModelElementSize h="30" w="93" x="910" y="870"/>
+      <ModelElementFontSize bold="1">14</ModelElementFontSize>
+      <ModelElementColor>0,180,0</ModelElementColor>
+      <ModelElementAnimationMode Type="Percent value">Resource_avg(6)/Resource_count(6)</ModelElementAnimationMode>
+    </ModelElementAnimationText>
+    <ModelElementText id="49">
+      <ModelElementSize h="171" w="316" x="50" y="150"/>
+      <ModelElementTextLine>Orders arriving at the system are checked in three</ModelElementTextLine>
+      <ModelElementTextLine>stages. Only the orders that pass all three checks</ModelElementTextLine>
+      <ModelElementTextLine>are routed to the "Accept" output.</ModelElementTextLine>
+      <ModelElementTextLine/>
+      <ModelElementTextLine>The checks can be performed one after the other</ModelElementTextLine>
+      <ModelElementTextLine>or simultaneously.</ModelElementTextLine>
+      <ModelElementTextLine/>
+      <ModelElementTextLine>Both possible procedures are represented in</ModelElementTextLine>
+      <ModelElementTextLine>the model.</ModelElementTextLine>
+      <ModelElementFontSize Symbols="1" italic="1">14</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementText id="50">
+      <ModelElementSize h="190" w="323" x="50" y="760"/>
+      <ModelElementTextLine>In serial checking, the jobs that have already</ModelElementTextLine>
+      <ModelElementTextLine>failed the first check are discarded immediately.</ModelElementTextLine>
+      <ModelElementTextLine>The workload at test stations 2 and 3 is therefore</ModelElementTextLine>
+      <ModelElementTextLine>correspondingly lower.</ModelElementTextLine>
+      <ModelElementTextLine>In parallel checking, all three checks are always</ModelElementTextLine>
+      <ModelElementTextLine>carried out in parallel for each order. This means</ModelElementTextLine>
+      <ModelElementTextLine>that tests 2 and 3 may be carried out unnecessarily</ModelElementTextLine>
+      <ModelElementTextLine>(if it later turns out that the first test has already</ModelElementTextLine>
+      <ModelElementTextLine>failed). Therefore, the load is higher here at test</ModelElementTextLine>
+      <ModelElementTextLine>stations 2 and 3.</ModelElementTextLine>
+      <ModelElementFontSize Symbols="1" italic="1">14</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+    </ModelElementText>
+  </ModelElements>
+  <Resources SecondaryPriority="Random">
+    <Resource Icon="status_online" Name="Bediener Level 1s" Type="Number" Value="8"/>
+    <Resource Icon="status_online" Name="Bediener Level 2s" Type="Number" Value="8"/>
+    <Resource Icon="status_online" Name="Bediener Level 3s" Type="Number" Value="8"/>
+    <Resource Name="Bediener Level 1p" Type="Number" Value="8"/>
+    <Resource Name="Bediener Level 2p" Type="Number" Value="8"/>
+    <Resource Icon="status_online" Name="Bediener Level 3p" Type="Number" Value="8"/>
+  </Resources>
+  <ClientTypeData>
+    <ClientData Icon="folder-green" Name="Accept p"/>
+    <ClientData Icon="folder-green" Name="Accept s"/>
+    <ClientData Icon="folder-green" Name="Accept t"/>
+    <ClientData Icon="folder-green" Name="Annahme p"/>
+    <ClientData Icon="folder-green" Name="Annahme s"/>
+    <ClientData Icon="folder-orange" Name="Aufträge"/>
+    <ClientData Icon="folder-orange" Name="Orders"/>
+    <ClientData Icon="folder-orange" Name="Result"/>
+  </ClientTypeData>
+  <InitialVariable Name="acceptLevel1">0,7</InitialVariable>
+  <InitialVariable Name="acceptLevel2">0,8</InitialVariable>
+  <InitialVariable Name="acceptLevel3">0,9</InitialVariable>
+  <ModelEdgesNormal Color="0,0,0" Type="0" Width="1"/>
+  <ModelEdgesSelected Type="0" Width="1"/>
+  <ModelElementConnectionDrawStyle>Angled around</ModelElementConnectionDrawStyle>
+</Model>
