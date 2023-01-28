@@ -17,7 +17,6 @@ package simulator.simparser.symbols;
 
 import simulator.coreelements.RunElementData;
 import simulator.simparser.coresymbols.CalcSymbolStationData;
-import statistics.StatisticsPerformanceIndicator;
 import statistics.StatisticsTimePerformanceIndicator;
 
 /**
@@ -67,14 +66,13 @@ public class CalcSymbolStationDataWIP_avg extends CalcSymbolStationData {
 
 	@Override
 	protected double calcSingleClient(final String name) {
-		StatisticsPerformanceIndicator indicator=getSimData().statistics.clientsInSystemByClient.get(name);
-		if (indicator==null) return 0.0;
-		return ((StatisticsTimePerformanceIndicator)indicator).getTimeMean();
+		final StatisticsTimePerformanceIndicator indicator=getClientTimeIndicator(name,getSimData().statistics.clientsInSystemByClient);
+		return (indicator==null)?0.0:indicator.getTimeMean();
 	}
 
 	@Override
 	protected double calc(final RunElementData data) {
-		if (data.statisticClientsAtStation==null) return 0;
+		if (data.statisticClientsAtStation==null) return 0.0;
 		return data.statisticClientsAtStation.getTimeMean();
 	}
 }

@@ -59,6 +59,22 @@ public class CalcSymbolStationDataQueue extends CalcSymbolSimData {
 		return names;
 	}
 
+	/**
+	 * Kundentyp beim letzten Aufruf von {@link #calc(double[])} oder {@link #calcOrDefault(double[], double)}
+	 * @see #calc(double[])
+	 * @see #calcOrDefault(double[], double)
+	 * @see #lastClientTypeIndex
+	 */
+	private String lastClientType;
+
+	/**
+	 * Index des Kundentyps {@link #lastClientTypeIndex}
+	 * @see #calc(double[])
+	 * @see #calcOrDefault(double[], double)
+	 * @see #lastClientTypeIndex
+	 */
+	private int lastClientTypeIndex;
+
 	@Override
 	protected double calc(double[] parameters) throws MathCalcError {
 		final SimulationData simData=getSimData();
@@ -81,13 +97,17 @@ public class CalcSymbolStationDataQueue extends CalcSymbolSimData {
 			if (element instanceof RunElementSource) {
 				final String name=((RunElementSource)element).clientTypeName;
 
-				final Integer I=simData.runModel.clientTypesMap.get(name);
-				if (I==null) return 0.0;
+				if (lastClientType==null || !name.equals(lastClientType)) {
+					final Integer I=simData.runModel.clientTypesMap.get(name);
+					lastClientTypeIndex=(I==null)?-1:I.intValue();
+					lastClientType=name;
+				}
+				if (lastClientTypeIndex<0) return 0.0;
 
 				final int[] count=simData.runData.clientsInQueuesByType;
 				if (count==null) return 0.0;
 
-				return count[I];
+				return count[lastClientTypeIndex];
 
 				/*
 				Funktioniert nicht während Warmup:
@@ -99,13 +119,17 @@ public class CalcSymbolStationDataQueue extends CalcSymbolSimData {
 			if (element instanceof RunElementAssign) {
 				final String name=((RunElementAssign)element).clientTypeName;
 
-				final Integer I=simData.runModel.clientTypesMap.get(name);
-				if (I==null) return 0.0;
+				if (lastClientType==null || !name.equals(lastClientType)) {
+					final Integer I=simData.runModel.clientTypesMap.get(name);
+					lastClientTypeIndex=(I==null)?-1:I.intValue();
+					lastClientType=name;
+				}
+				if (lastClientTypeIndex<0) return 0.0;
 
 				final int[] count=simData.runData.clientsInQueuesByType;
 				if (count==null) return 0.0;
 
-				return count[I];
+				return count[lastClientTypeIndex];
 
 				/*
 				Funktioniert nicht während Warmup:
@@ -153,13 +177,17 @@ public class CalcSymbolStationDataQueue extends CalcSymbolSimData {
 			if (element instanceof RunElementSource) {
 				final String name=((RunElementSource)element).clientTypeName;
 
-				final Integer I=simData.runModel.clientTypesMap.get(name);
-				if (I==null) return 0.0;
+				if (lastClientType==null || !name.equals(lastClientType)) {
+					final Integer I=simData.runModel.clientTypesMap.get(name);
+					lastClientTypeIndex=(I==null)?-1:I.intValue();
+					lastClientType=name;
+				}
+				if (lastClientTypeIndex<0) return 0.0;
 
 				final int[] count=simData.runData.clientsInQueuesByType;
 				if (count==null) return 0.0;
 
-				return count[I];
+				return count[lastClientTypeIndex];
 
 				/*
 				Funktioniert nicht während Warmup:
@@ -171,13 +199,17 @@ public class CalcSymbolStationDataQueue extends CalcSymbolSimData {
 			if (element instanceof RunElementAssign) {
 				final String name=((RunElementAssign)element).clientTypeName;
 
-				final Integer I=simData.runModel.clientTypesMap.get(name);
-				if (I==null) return 0.0;
+				if (lastClientType==null || !name.equals(lastClientType)) {
+					final Integer I=simData.runModel.clientTypesMap.get(name);
+					lastClientTypeIndex=(I==null)?-1:I.intValue();
+					lastClientType=name;
+				}
+				if (lastClientTypeIndex<0) return 0.0;
 
 				final int[] count=simData.runData.clientsInQueuesByType;
 				if (count==null) return 0.0;
 
-				return count[I];
+				return count[lastClientTypeIndex];
 
 				/*
 				Funktioniert nicht während Warmup:

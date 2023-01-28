@@ -17,7 +17,6 @@ package simulator.simparser.symbols;
 
 import simulator.coreelements.RunElementData;
 import simulator.simparser.coresymbols.CalcSymbolStationData;
-import statistics.StatisticsPerformanceIndicator;
 import statistics.StatisticsTimePerformanceIndicator;
 
 /**
@@ -65,9 +64,8 @@ public class CalcSymbolStationDataProcessCount_sk extends CalcSymbolStationData 
 
 	@Override
 	protected double calcSingleClient(final String name) {
-		StatisticsPerformanceIndicator indicator=getSimData().statistics.clientsAtStationProcessByClient.get(name);
-		if (indicator==null) return 0.0;
-		return ((StatisticsTimePerformanceIndicator)indicator).getTimeSk();
+		final StatisticsTimePerformanceIndicator indicator=getClientTimeIndicator(name,getSimData().statistics.clientsAtStationProcessByClient);
+		return (indicator==null)?0.0:indicator.getTimeSk();
 	}
 
 	@Override

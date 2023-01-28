@@ -17,7 +17,6 @@ package simulator.simparser.symbols;
 
 import simulator.coreelements.RunElementData;
 import simulator.simparser.coresymbols.CalcSymbolStationData;
-import statistics.StatisticsPerformanceIndicator;
 import statistics.StatisticsTimePerformanceIndicator;
 
 /**
@@ -68,9 +67,8 @@ public class CalcSymbolStationDataQueue_scv extends CalcSymbolStationData {
 
 	@Override
 	protected double calcSingleClient(final String name) {
-		StatisticsPerformanceIndicator indicator=getSimData().statistics.clientsAtStationQueueByClient.get(name);
-		if (indicator==null) return 0.0;
-		final double cv=((StatisticsTimePerformanceIndicator)indicator).getTimeCV();
+		final StatisticsTimePerformanceIndicator indicator=getClientTimeIndicator(name,getSimData().statistics.clientsAtStationQueueByClient);
+		final double cv=(indicator==null)?0.0:indicator.getTimeCV();
 		return cv*cv;
 	}
 

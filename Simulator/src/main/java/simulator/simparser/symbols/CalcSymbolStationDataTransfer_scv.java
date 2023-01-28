@@ -18,7 +18,6 @@ package simulator.simparser.symbols;
 import simulator.coreelements.RunElementData;
 import simulator.simparser.coresymbols.CalcSymbolStationData;
 import statistics.StatisticsDataPerformanceIndicator;
-import statistics.StatisticsPerformanceIndicator;
 
 /**
  * Im Falle von einem Parameter:<br>
@@ -75,9 +74,8 @@ public class CalcSymbolStationDataTransfer_scv extends CalcSymbolStationData {
 
 	@Override
 	protected double calcSingleClient(final String name) {
-		StatisticsPerformanceIndicator indicator=getSimData().statistics.clientsTransferTimes.get(name);
-		if (indicator==null) return 0.0;
-		final double d=((StatisticsDataPerformanceIndicator)indicator).getCV();
+		final StatisticsDataPerformanceIndicator indicator=getClientDataIndicator(name,getSimData().statistics.clientsTransferTimes);
+		final double d=(indicator==null)?0.0:indicator.getCV();
 		return d*d;
 	}
 }

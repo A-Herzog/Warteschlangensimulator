@@ -23,6 +23,9 @@ import simulator.coreelements.RunElementData;
 import simulator.elements.RunElementAssign;
 import simulator.elements.RunElementSource;
 import simulator.runmodel.SimulationData;
+import statistics.StatisticsDataPerformanceIndicator;
+import statistics.StatisticsMultiPerformanceIndicator;
+import statistics.StatisticsTimePerformanceIndicator;
 
 /**
  * Basisklasse für Funktionen, die Stationsdaten aus den Simulationsdaten auslesen.
@@ -233,5 +236,59 @@ public abstract class CalcSymbolStationData extends CalcSymbolSimData {
 		}
 
 		return fallbackValue;
+	}
+
+	/**
+	 * Kundentyp beim letzten Aufruf von {@link #getClientDataIndicator(String, StatisticsMultiPerformanceIndicator)}
+	 * oder {@link #getClientTimeIndicator(String, StatisticsMultiPerformanceIndicator)}
+	 * @see #getClientDataIndicator(String, StatisticsMultiPerformanceIndicator)
+	 * @see #getClientTimeIndicator(String, StatisticsMultiPerformanceIndicator)
+	 * @see #lastDataIndicator
+	 * @see #lastTimeIndicator
+	 */
+	private String lastClientType;
+
+	/**
+	 * Zurückgeliefertes Statistikobjekt beim letzten Aufruf von {@link #getClientDataIndicator(String, StatisticsMultiPerformanceIndicator)}
+	 * @see #getClientDataIndicator(String, StatisticsMultiPerformanceIndicator)
+	 * @see #lastClientType
+	 */
+	private StatisticsDataPerformanceIndicator lastDataIndicator;
+
+	/**
+	 * Zurückgeliefertes Statistikobjekt beim letzten Aufruf von {@link #getClientTimeIndicator(String, StatisticsMultiPerformanceIndicator)}
+	 * @see #getClientTimeIndicator(String, StatisticsMultiPerformanceIndicator)
+	 * @see #lastClientType
+	 */
+	private StatisticsTimePerformanceIndicator lastTimeIndicator;
+
+	/**
+	 * Liefert das zu einem Kundentyp gehörige Statistikobjekt.
+	 * Dabei wird, wenn möglich ein Cache verwendet, statt die Map abfragen zu müssen.
+	 * @param clientTypeName	Kundentyp, für den das zugehörige Statistikobjekt ermittelt werden soll
+	 * @param indicators	Statistikobjekte-Sammlung aus der das konkrete Statistikobjekt geholt werden soll
+	 * @return	Statistikobjekt zu dem Kundentyp
+	 */
+	protected final StatisticsDataPerformanceIndicator getClientDataIndicator(final String clientTypeName, final StatisticsMultiPerformanceIndicator indicators) {
+		if (lastClientType==null || !clientTypeName.equals(lastClientType)) {
+			lastDataIndicator=((StatisticsDataPerformanceIndicator)indicators.get(clientTypeName));
+			lastClientType=clientTypeName;
+		}
+		return lastDataIndicator;
+	}
+
+	/**
+	 * Liefert das zu einem Kundentyp gehörige Statistikobjekt.
+	 * Dabei wird, wenn möglich ein Cache verwendet, statt die Map abfragen zu müssen.
+	 * @param clientTypeName	Kundentyp, für den das zugehörige Statistikobjekt ermittelt werden soll
+	 * @param indicators	Statistikobjekte-Sammlung aus der das konkrete Statistikobjekt geholt werden soll
+	 * @return	Statistikobjekt zu dem Kundentyp
+	 */
+	protected final StatisticsTimePerformanceIndicator getClientTimeIndicator(final String clientTypeName, final StatisticsMultiPerformanceIndicator indicators) {
+		if (lastClientType==null || !clientTypeName.equals(lastClientType)) {
+			lastTimeIndicator=((StatisticsTimePerformanceIndicator)indicators.get(clientTypeName));
+			lastClientType=clientTypeName;
+		}
+		return lastTimeIndicator;
 	}
 }

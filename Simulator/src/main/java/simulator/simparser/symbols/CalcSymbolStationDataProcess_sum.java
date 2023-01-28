@@ -18,7 +18,6 @@ package simulator.simparser.symbols;
 import simulator.coreelements.RunElementData;
 import simulator.simparser.coresymbols.CalcSymbolStationData;
 import statistics.StatisticsDataPerformanceIndicator;
-import statistics.StatisticsPerformanceIndicator;
 
 /**
  * (a) Liefert die Summe der Bedienzeiten der Kunden, deren Name an Quelle bzw. Namenszuweisung id (1. Parameter) auftritt (in Sekunden).
@@ -74,8 +73,7 @@ public class CalcSymbolStationDataProcess_sum extends CalcSymbolStationData {
 
 	@Override
 	protected double calcSingleClient(final String name) {
-		StatisticsPerformanceIndicator indicator=getSimData().statistics.clientsProcessingTimes.get(name);
-		if (indicator==null) return 0.0;
-		return ((StatisticsDataPerformanceIndicator)indicator).getSum();
+		final StatisticsDataPerformanceIndicator indicator=getClientDataIndicator(name,getSimData().statistics.clientsProcessingTimes);
+		return (indicator==null)?0.0:indicator.getSum();
 	}
 }

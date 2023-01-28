@@ -18,7 +18,6 @@ package simulator.simparser.symbols;
 import simulator.coreelements.RunElementData;
 import simulator.simparser.coresymbols.CalcSymbolStationData;
 import statistics.StatisticsDataPerformanceIndicator;
-import statistics.StatisticsPerformanceIndicator;
 
 /**
  * Im Falle von einem Parameter:<br>
@@ -76,8 +75,7 @@ public class CalcSymbolStationDataResidence_avg extends CalcSymbolStationData {
 
 	@Override
 	protected double calcSingleClient(final String name) {
-		StatisticsPerformanceIndicator indicator=getSimData().statistics.clientsResidenceTimes.get(name);
-		if (indicator==null) return 0.0;
-		return ((StatisticsDataPerformanceIndicator)indicator).getMean();
+		final StatisticsDataPerformanceIndicator indicator=getClientDataIndicator(name,getSimData().statistics.clientsResidenceTimes);
+		return (indicator==null)?0.0:indicator.getMean();
 	}
 }

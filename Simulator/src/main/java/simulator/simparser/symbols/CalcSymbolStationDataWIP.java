@@ -75,17 +75,35 @@ public class CalcSymbolStationDataWIP extends CalcSymbolStationData {
 		return true;
 	}
 
+	/**
+	 * Kundentyp beim letzten Aufruf von {@link #calcSingleClient(String)}
+	 * @see #calcSingleClient(String)
+	 * @see #lastClientTypeIndex
+	 */
+	private String lastClientType;
+
+	/**
+	 * Index des Kundentyps {@link #lastClientTypeIndex}
+	 * @see #calcSingleClient(String)
+	 * @see #lastClientTypeIndex
+	 */
+	private int lastClientTypeIndex;
+
 	@Override
 	protected double calcSingleClient(final String name) {
 		final SimulationData simData=getSimData();
 
-		final Integer I=simData.runModel.clientTypesMap.get(name);
-		if (I==null) return 0.0;
+		if (lastClientType==null || !name.equals(lastClientType)) {
+			final Integer I=simData.runModel.clientTypesMap.get(name);
+			lastClientTypeIndex=(I==null)?-1:I.intValue();
+			lastClientType=name;
+		}
+		if (lastClientTypeIndex<0) return 0.0;
 
 		final int[] count=simData.runData.clientsInSystemByType;
 		if (count==null) return 0.0;
 
-		return count[I];
+		return count[lastClientTypeIndex];
 
 		/*
 		Funktioniert nicht während Warmup:
