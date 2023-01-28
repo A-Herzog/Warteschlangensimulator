@@ -4743,7 +4743,7 @@ public class Messages_de extends java.util.ResourceBundle {
     t[11114] = "Surface.Tank.Dialog.Title";
     t[11115] = "Tank bearbeiten";
     t[11120] = "ExpressionBuilder.MathematicalFunctions.RandomRangeInt.Info";
-    t[11121] = "Liefert eine zuf\u00e4llige Ganzzahl x und y (jeweils einschlie\u00dflich). Es muss x<=y sein.";
+    t[11121] = "<p>Liefert eine zuf\u00e4llige Ganzzahl x und y (jeweils einschlie\u00dflich). Es muss x<=y sein.</p>";
     t[11128] = "Surface.Set.Dialog.Title";
     t[11129] = "Variablenzuweisung bearbeiten";
     t[11130] = "ExpressionBuilder.SimulationCharacteristics.TransferTimesOverAll.VarianceOfTheTime";
@@ -13185,7 +13185,7 @@ public class Messages_de extends java.util.ResourceBundle {
     t[30756] = "Surface.Note.XML.Icon";
     t[30757] = "ModellElementIconName";
     t[30760] = "ExpressionBuilder.MathematicalFunctions.RandomRange.Info";
-    t[30761] = "Liefert eine Zufallszahl zwischen x (einschlie\u00dflich) und y (ausschlie\u00dflich), dabei muss x<y sein.";
+    t[30761] = "<p>Liefert eine Zufallszahl zwischen x (einschlie\u00dflich) und y (ausschlie\u00dflich), dabei muss x<y sein.</p>";
     t[30768] = "ModelLoadData.ProcessError.NoMode";
     t[30769] = "Es wurde kein Datenlademodus angegeben.";
     t[30770] = "Editor.Dialog.Tab.OutputAnalysis.BatchMeans.Size.Auto.Hint";
@@ -15439,7 +15439,7 @@ public class Messages_de extends java.util.ResourceBundle {
     t[35896] = "Surface.Action.Dialog.Edit.Tabs.Action.PlaySound";
     t[35897] = "Sound abspielen";
     t[35900] = "ExpressionBuilder.MathematicalFunctions.IsPrime.Info";
-    t[35901] = "Liefert 1, wenn es sich bei n um eine Primzahl handelt, sonst 0.";
+    t[35901] = "<p>Liefert 1, wenn es sich bei n um eine Primzahl handelt, sonst 0.</p>";
     t[35902] = "Distribution.Gamma";
     t[35903] = "Gamma-Verteilung";
     t[35904] = "Simulation.Creator.EdgeToNowhere";

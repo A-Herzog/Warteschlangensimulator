@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-23 08:21+0100\n"
+"POT-Creation-Date: 2023-01-25 22:34+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -5753,7 +5753,7 @@ msgid "ExpressionBuilder.MathematicalFunctions.IsPrime"
 msgstr "Primzahlprüfung"
 
 msgid "ExpressionBuilder.MathematicalFunctions.IsPrime.Info"
-msgstr "Liefert 1, wenn es sich bei n um eine Primzahl handelt, sonst 0."
+msgstr "<p>Liefert 1, wenn es sich bei n um eine Primzahl handelt, sonst 0.</p>"
 
 msgid "ExpressionBuilder.MathematicalFunctions.Lcm"
 msgstr "Kleinstes gemeinsames Vielfaches"
@@ -5779,13 +5779,13 @@ msgid "ExpressionBuilder.MathematicalFunctions.RandomRange"
 msgstr "Zufallszahl in Bereich"
 
 msgid "ExpressionBuilder.MathematicalFunctions.RandomRange.Info"
-msgstr "Liefert eine Zufallszahl zwischen x (einschließlich) und y (ausschließlich), dabei muss x<y sein."
+msgstr "<p>Liefert eine Zufallszahl zwischen x (einschließlich) und y (ausschließlich), dabei muss x<y sein.</p>"
 
 msgid "ExpressionBuilder.MathematicalFunctions.RandomRangeInt"
 msgstr "Zufällige Ganzzahl in Bereich"
 
 msgid "ExpressionBuilder.MathematicalFunctions.RandomRangeInt.Info"
-msgstr "Liefert eine zufällige Ganzzahl x und y (jeweils einschließlich). Es muss x<=y sein."
+msgstr "<p>Liefert eine zufällige Ganzzahl x und y (jeweils einschließlich). Es muss x<=y sein.</p>"
 
 msgid "ExpressionBuilder.MathematicalFunctions.Sign"
 msgstr "Vorzeichen"

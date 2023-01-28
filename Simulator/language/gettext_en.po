@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-23 08:21+0100\n"
+"POT-Creation-Date: 2023-01-25 22:34+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -5750,7 +5750,7 @@ msgid "ExpressionBuilder.MathematicalFunctions.IsPrime"
 msgstr "Prime number check"
 
 msgid "ExpressionBuilder.MathematicalFunctions.IsPrime.Info"
-msgstr "Returns 1, if n is a prime number, 0 otherwise."
+msgstr "<p>Returns 1, if n is a prime number, 0 otherwise.</p>"
 
 msgid "ExpressionBuilder.MathematicalFunctions.Lcm"
 msgstr "Least common multiple"
@@ -5776,13 +5776,13 @@ msgid "ExpressionBuilder.MathematicalFunctions.RandomRange"
 msgstr "Random number in range"
 
 msgid "ExpressionBuilder.MathematicalFunctions.RandomRange.Info"
-msgstr "Random number between x (inclusive) and y (exclusive). Thereby x<y has to be satisfied."
+msgstr "<p>Random number between x (inclusive) and y (exclusive). Thereby x<y has to be satisfied.</p>"
 
 msgid "ExpressionBuilder.MathematicalFunctions.RandomRangeInt"
 msgstr "Integer random number in range"
 
 msgid "ExpressionBuilder.MathematicalFunctions.RandomRangeInt.Info"
-msgstr "Integer random number in range x and y (both inclusive). Thereby x<=y has to be satisfied."
+msgstr "<p>Integer random number in range x and y (both inclusive). Thereby x<=y has to be satisfied.</p>"
 
 msgid "ExpressionBuilder.MathematicalFunctions.Sign"
 msgstr "Sign"

@@ -74,24 +74,8 @@ public class ExpressionBuilder extends BaseDialog {
 	 */
 	private static final long serialVersionUID = -8629304820144439899L;
 
-	/** Gibt an, ob es sich bei dem Ausdruck um einen Vergleich (<code>true</code>) oder um einen zu einer Zahl auszurechnenden Ausdruck (<code>false</code>) handelt */
-	private final boolean isCompare;
-	/** Nutzerdefinierte Funktionen anzeigen? */
-	private final boolean allowUserDefinedFunctions;
-	/** Liste mit den im System vorhandenen Variablen */
-	private final String[] variables;
-	/** Liste der initialen Variablen mit Werten */
-	private final Map<String,String> initialVariableValues;
-	/** Zuordnung von Stations-IDs und Stationsnamen (kann über die statische Funktion <code>getStationIDs(surface)</code> erstellt werden) */
-	private final Map<Integer,String> stations;
-	/** Zuordnung von Stations-IDs zu vom Nutzer angegebenen Stationsnamen */
-	private final Map<Integer,String> stationNames;
-	/** Gibt an, ob Funktionen zum Zugriff auf Kundenobjekt-spezifische Datenfelder angeboten werden sollen */
-	private final boolean hasClientData;
-	/** Gibt an, dass nur Funktionen angeboten werden sollen, deren Ergebnisse aus Statistikdaten gewonnen werden können (keine reinen Runtime-Daten) */
-	private final boolean statisticsOnly;
-	/** Gibt an, dass überhaupt keine Funktionen, die sich auf Simulation oder Ergebnisse beziehen, angeboten werden sollen. */
-	private final boolean noSimulator;
+	/** Zu dem ExpressionBuilder gehörendes Einstellungenobjekt */
+	private final ExpressionBuilderSettings settings;
 
 	/** Schnellfilter-Eingabefeld */
 	private final JPlaceholderTextField quickFilter;
@@ -106,13 +90,7 @@ public class ExpressionBuilder extends BaseDialog {
 	private final JTextArea input;
 
 	/**
-	 * Initial in der Baumstruktur zu öffnende Pfade
-	 * @see #buildTreeData(String)
-	 */
-	private final List<TreePath> pathsToOpen;
-
-	/**
-	 * Konstruktor der Klasse <code>ExpressionBuilder</code>
+	 * Konstruktor der Klasse
 	 * @param owner	Übergeordnetes Element
 	 * @param expression	Bisheriger Ausdruck, wird initial im Eingabefeld angezeigt
 	 * @param isCompare	Gibt an, ob es sich bei dem Ausdruck um einen Vergleich (<code>true</code>) oder um einen zu einer Zahl auszurechnenden Ausdruck (<code>false</code>) handelt
@@ -145,25 +123,7 @@ public class ExpressionBuilder extends BaseDialog {
 	public ExpressionBuilder(final Component owner, final String expression, final boolean isCompare, final String[] variables, final Map<String,String> initialVariables, final Map<Integer,String> stations, final Map<Integer,String> stationNames, final boolean hasClientData, final boolean statisticsOnly, final boolean noSimulator, final boolean allowUserDefinedFunctions) {
 		super(owner,Language.tr("ExpressionBuilder.Title"));
 
-		this.isCompare=isCompare;
-		this.allowUserDefinedFunctions=allowUserDefinedFunctions;
-		final Set<String> tempVariables=new HashSet<>();
-		if (variables!=null) tempVariables.addAll(Arrays.asList(variables));
-		if (hasClientData) for (String var: RunModel.additionalVariables) {
-			boolean inList=false;
-			for (String s: tempVariables) if (s.equalsIgnoreCase(var)) {inList=true; break;}
-			if (!inList) tempVariables.add(var);
-		}
-		if (initialVariables!=null) tempVariables.addAll(initialVariables.keySet());
-		this.variables=tempVariables.toArray(new String[0]);
-		this.initialVariableValues=initialVariables;
-		if (stations==null) this.stations=new HashMap<>(); else this.stations=stations;
-		if (stationNames==null) this.stationNames=new HashMap<>(); else this.stationNames=stationNames;
-		this.hasClientData=hasClientData;
-		this.statisticsOnly=statisticsOnly;
-		this.noSimulator=noSimulator;
-
-		pathsToOpen=new ArrayList<>();
+		settings=new ExpressionBuilderSettings(isCompare,variables,initialVariables,stations,stationNames,hasClientData,statisticsOnly,noSimulator,allowUserDefinedFunctions);
 
 		/* GUI */
 
@@ -180,7 +140,7 @@ public class ExpressionBuilder extends BaseDialog {
 
 		tree=new JTree();
 		tree.setRootVisible(false);
-		((DefaultTreeModel)(tree.getModel())).setRoot(buildTreeData(null));
+		((DefaultTreeModel)(tree.getModel())).setRoot(buildTreeData(null,settings));
 		tree.addTreeSelectionListener(e->{
 			if (e.getPath()!=null && e.getPath().getLastPathComponent()!=null && e.getPath().getLastPathComponent() instanceof DefaultMutableTreeNode && ((DefaultMutableTreeNode)e.getPath().getLastPathComponent()).getUserObject()!=null && ((DefaultMutableTreeNode)e.getPath().getLastPathComponent()).getUserObject() instanceof ExpressionSymbol) {
 				selectTreeNode((ExpressionSymbol)((DefaultMutableTreeNode)e.getPath().getLastPathComponent()).getUserObject());
@@ -190,7 +150,7 @@ public class ExpressionBuilder extends BaseDialog {
 		});
 		tree.setCellRenderer(new ExpressionBuilderTreeCellRenderer());
 		tree.addMouseListener(new TreeMouseListener());
-		for (TreePath path: pathsToOpen) tree.expandPath(path);
+		for (TreePath path: settings.pathsToOpen) tree.expandPath(path);
 
 		info=new JTextPane();
 		info.setEditable(false);
@@ -232,7 +192,7 @@ public class ExpressionBuilder extends BaseDialog {
 		});
 		ModelElementBaseDialog.addUndoFeature(input);
 
-		ExpressionBuilderAutoComplete.process(this,input);
+		ExpressionBuilderAutoComplete.process(settings,input);
 
 		/* Infozeile */
 
@@ -256,7 +216,7 @@ public class ExpressionBuilder extends BaseDialog {
 	 * @see #quickFilter
 	 */
 	private void updateTemplatesFilter() {
-		((DefaultTreeModel)(tree.getModel())).setRoot(buildTreeData(quickFilter.getText().trim()));
+		((DefaultTreeModel)(tree.getModel())).setRoot(buildTreeData(quickFilter.getText().trim(),settings));
 	}
 
 	/**
@@ -268,7 +228,7 @@ public class ExpressionBuilder extends BaseDialog {
 	 * @return	Neuer Eintrag für die Baumstruktur
 	 * @see #addTreeNode(DefaultMutableTreeNode, String, String, String, String, ExpressionSymbolType)
 	 */
-	private DefaultMutableTreeNode getTreeNode(final String name, final String symbol, final String description, final ExpressionSymbolType type) {
+	private static DefaultMutableTreeNode getTreeNode(final String name, final String symbol, final String description, final ExpressionSymbolType type) {
 		return new DefaultMutableTreeNode(new ExpressionSymbol(name,symbol,description,type));
 	}
 
@@ -281,7 +241,7 @@ public class ExpressionBuilder extends BaseDialog {
 	 * @param description	Anzuzeigende Beschreibung wenn der Eintrag ausgewählt wird
 	 * @param type	Typ des Symbols
 	 */
-	private void addTreeNode(final DefaultMutableTreeNode group, final String filterUpper, final String name, final String symbol, final String description, final ExpressionSymbolType type) {
+	private static void addTreeNode(final DefaultMutableTreeNode group, final String filterUpper, final String name, final String symbol, final String description, final ExpressionSymbolType type) {
 		if (filterUpper==null || name.toUpperCase().contains(filterUpper) || symbol.toUpperCase().contains(filterUpper)) {
 			group.add(getTreeNode(name,symbol,description,type));
 		}
@@ -291,14 +251,15 @@ public class ExpressionBuilder extends BaseDialog {
 	 * Fügt Variablen zur Baumstruktur hinzu
 	 * @param root	Wurzelelement der Baumstruktur
 	 * @param filterUpper	Filtertext (kann <code>null</code> sein); ist ein Filtertext angegeben, so wird ein Eintrag nur in die Baumstruktur aufgenommen, wenn er zum Filtertext passt
+	 * @param settings	Einstellungenobjekt
 	 */
-	private void buildTreeDataVariables(final DefaultMutableTreeNode root, final String filterUpper) {
-		if (variables==null || variables.length==0) return;
+	private static void buildTreeDataVariables(final DefaultMutableTreeNode root, final String filterUpper, final ExpressionBuilderSettings settings) {
+		if (settings.variables==null || settings.variables.length==0) return;
 
 		final DefaultMutableTreeNode group=new DefaultMutableTreeNode(Language.tr("ExpressionBuilder.Variables.Plural"));
-		for (String variable: variables) {
+		for (String variable: settings.variables) {
 			String expression=null;
-			if (initialVariableValues!=null) expression=initialVariableValues.get(variable);
+			if (settings.initialVariableValues!=null) expression=settings.initialVariableValues.get(variable);
 			if (expression==null) {
 				expression=String.format(Language.tr("ExpressionBuilder.Variables.InitialValueImplicite"),variable);
 			} else {
@@ -313,12 +274,13 @@ public class ExpressionBuilder extends BaseDialog {
 	 * Fügt die Stations-IDs zur Baumstruktur hinzu
 	 * @param root	Wurzelelement der Baumstruktur
 	 * @param filterUpper	Filtertext (kann <code>null</code> sein); ist ein Filtertext angegeben, so wird ein Eintrag nur in die Baumstruktur aufgenommen, wenn er zum Filtertext passt
+	 * @param settings	Einstellungenobjekt
 	 */
-	private void buildTreeDataStationIDs(final DefaultMutableTreeNode root, final String filterUpper) {
-		if (stations!=null && stations.size()>0) {
+	private static void buildTreeDataStationIDs(final DefaultMutableTreeNode root, final String filterUpper, final ExpressionBuilderSettings settings) {
+		if (settings.stations!=null && settings.stations.size()>0) {
 			final DefaultMutableTreeNode group=new DefaultMutableTreeNode(Language.tr("ExpressionBuilder.SimulationCharacteristics.StationIDs"));
 			final Map<String,String[]> tempMap=new HashMap<>();
-			for (Map.Entry<Integer,String> entry: stations.entrySet()) {
+			for (Map.Entry<Integer,String> entry: settings.stations.entrySet()) {
 				String title=entry.getValue();
 				title=title.replaceAll("<","&lt;");
 				title=title.replaceAll(">","&gt;");
@@ -335,14 +297,14 @@ public class ExpressionBuilder extends BaseDialog {
 			if (group.getChildCount()>0) root.add(group);
 		}
 
-		if (stations!=null && stationNames!=null && stationNames.size()>0) {
+		if (settings.stations!=null && settings.stationNames!=null && settings.stationNames.size()>0) {
 			DefaultMutableTreeNode group=null;
 			final Map<String,String[]> tempMap=new HashMap<>();
-			for (Map.Entry<Integer,String> entry: stationNames.entrySet()) {
+			for (Map.Entry<Integer,String> entry: settings.stationNames.entrySet()) {
 				String title=entry.getValue();
 				if (title.trim().isEmpty()) continue;
 				if (group==null) group=new DefaultMutableTreeNode(Language.tr("ExpressionBuilder.SimulationCharacteristics.StationIDsByNames"));
-				String longTitle=stations.get(entry.getKey());
+				String longTitle=settings.stations.get(entry.getKey());
 				if (longTitle==null) longTitle=title;
 				tempMap.put(longTitle+" (id="+entry.getKey()+")",new String[] {
 						"$(\""+title.replaceAll("\"","\\\\\"")+"\")",
@@ -363,7 +325,7 @@ public class ExpressionBuilder extends BaseDialog {
 	 * @param root	Wurzelelement der Baumstruktur
 	 * @param filterUpper	Filtertext (kann <code>null</code> sein); ist ein Filtertext angegeben, so wird ein Eintrag nur in die Baumstruktur aufgenommen, wenn er zum Filtertext passt
 	 */
-	private void buildTreeDataGlobalMapKeys(final DefaultMutableTreeNode root, final String filterUpper) {
+	private static void buildTreeDataGlobalMapKeys(final DefaultMutableTreeNode root, final String filterUpper) {
 		DefaultMutableTreeNode group=new DefaultMutableTreeNode(Language.tr("ExpressionBuilder.SimulationCharacteristics.GlobalMapKeys"));
 		addTreeNode(group,filterUpper,Language.tr("ExpressionBuilder.SimulationCharacteristics.GlobalMapKeys"),"§(\"key\")","<p>"+Language.tr("ExpressionBuilder.SimulationCharacteristics.GlobalMap.Info")+"</p>",ExpressionSymbolType.TYPE_GLOBAL_MAP);
 		if (group.getChildCount()>0) root.add(group);
@@ -372,24 +334,25 @@ public class ExpressionBuilder extends BaseDialog {
 	/**
 	 * Erstellt die Baumstruktur
 	 * @param filter	Optionaler Filter (kann <code>null</code> sein)
+	 * @param settings	Einstellungenobjekt
 	 * @return	Wurzelelement der neuen Baumstruktur
 	 */
-	public TreeNode buildTreeData(final String filter) {
+	public static TreeNode buildTreeData(final String filter, final ExpressionBuilderSettings settings) {
 		final String filterUpper=(filter!=null && !filter.trim().isEmpty())?filter.trim().toUpperCase():null;
 
 		final DefaultMutableTreeNode root=new DefaultMutableTreeNode();
 
-		buildTreeDataVariables(root,filterUpper);
-		ExpressionBuilderBasics.build(root,pathsToOpen,filterUpper);
-		if (allowUserDefinedFunctions) ExpressionBuilderUserFunctions.build(root,pathsToOpen,filterUpper);
-		ExpressionBuilderDistributions.build(root,pathsToOpen,filterUpper);
-		ExpressionBuilderQueueingTheory.build(root,pathsToOpen,filterUpper);
-		if (!noSimulator) {
-			ExpressionBuilderSimulationData.build(root,pathsToOpen,statisticsOnly,hasClientData,filterUpper);
-			buildTreeDataStationIDs(root,filterUpper);
+		buildTreeDataVariables(root,filterUpper,settings);
+		ExpressionBuilderBasics.build(root,settings.pathsToOpen,filterUpper);
+		if (settings.allowUserDefinedFunctions) ExpressionBuilderUserFunctions.build(root,settings.pathsToOpen,filterUpper);
+		ExpressionBuilderDistributions.build(root,settings.pathsToOpen,filterUpper);
+		ExpressionBuilderQueueingTheory.build(root,settings.pathsToOpen,filterUpper);
+		if (!settings.noSimulator) {
+			ExpressionBuilderSimulationData.build(root,settings.pathsToOpen,settings.statisticsOnly,settings.hasClientData,filterUpper);
+			buildTreeDataStationIDs(root,filterUpper,settings);
 			buildTreeDataGlobalMapKeys(root,filterUpper);
 		}
-		if (isCompare) ExpressionBuilderCompare.build(root,pathsToOpen,filterUpper);
+		if (settings.isCompare) ExpressionBuilderCompare.build(root,settings.pathsToOpen,filterUpper);
 
 		return root;
 	}
@@ -420,7 +383,20 @@ public class ExpressionBuilder extends BaseDialog {
 			String title=symbol.toString();
 			title=title.replaceAll("<","&lt;");
 			title=title.replaceAll(">","&gt;");
-			info.setText(htmlHeader+"<h1 style=\"font-size: larger; margin: 0; padding: 2px;\">"+title+"</h1>"+symbol.description+htmlFooter);
+
+			final StringBuilder text=new StringBuilder();
+			text.append(htmlHeader);
+			text.append("<h1 style=\"font-size: larger; margin: 0; padding: 2px;\">");
+			text.append(title);
+			text.append("</h1>");
+			if (symbol.symbol.indexOf("(")>=0) {
+				text.append("<p><tt>");
+				text.append(symbol.symbol);
+				text.append("</tt></p>");
+			}
+			text.append(symbol.description);
+			text.append(htmlFooter);
+			info.setText(text.toString());
 		}
 	}
 
@@ -432,10 +408,10 @@ public class ExpressionBuilder extends BaseDialog {
 	private boolean checkData(final boolean showErrorMessage) {
 		final String expression=getExpression();
 		int error=-1;
-		if (isCompare) {
-			error=ExpressionMultiEval.check(expression,variables);
+		if (settings.isCompare) {
+			error=ExpressionMultiEval.check(expression,settings.variables);
 		} else {
-			error=ExpressionCalc.check(expression,variables);
+			error=ExpressionCalc.check(expression,settings.variables);
 		}
 
 		if (error<0) {
@@ -522,7 +498,7 @@ public class ExpressionBuilder extends BaseDialog {
 	 */
 	public static class ExpressionSymbol {
 		/** Name des Symbols (zur Anzeige in der Baumstruktur) */
-		private final String name;
+		public final String name;
 
 		/**
 		 * Darzustellender Beispieltext für das Symbol
@@ -676,5 +652,73 @@ public class ExpressionBuilder extends BaseDialog {
 			if (surface.getParentSurface()!=null) addStationNameIDs(map,surface.getParentSurface()); else addStationNameIDs(map,surface);
 		}
 		return map;
+	}
+
+	/**
+	 * Liefert das Einstellungenobjekt zu dem Dialog.
+	 * @return	Einstellungenobjekt zu dem Dialog
+	 */
+	public ExpressionBuilderSettings getSettings() {
+		return settings;
+	}
+
+	/**
+	 * Einstellungenobjekt für den ExpressionBuilder
+	 */
+	public static class ExpressionBuilderSettings {
+		/** Gibt an, ob es sich bei dem Ausdruck um einen Vergleich (<code>true</code>) oder um einen zu einer Zahl auszurechnenden Ausdruck (<code>false</code>) handelt */
+		public final boolean isCompare;
+		/** Nutzerdefinierte Funktionen anzeigen? */
+		public final boolean allowUserDefinedFunctions;
+		/** Liste mit den im System vorhandenen Variablen */
+		public final String[] variables;
+		/** Liste der initialen Variablen mit Werten */
+		public final Map<String,String> initialVariableValues;
+		/** Zuordnung von Stations-IDs und Stationsnamen (kann über die statische Funktion <code>getStationIDs(surface)</code> erstellt werden) */
+		public final Map<Integer,String> stations;
+		/** Zuordnung von Stations-IDs zu vom Nutzer angegebenen Stationsnamen */
+		public final Map<Integer,String> stationNames;
+		/** Gibt an, ob Funktionen zum Zugriff auf Kundenobjekt-spezifische Datenfelder angeboten werden sollen */
+		public final boolean hasClientData;
+		/** Gibt an, dass nur Funktionen angeboten werden sollen, deren Ergebnisse aus Statistikdaten gewonnen werden können (keine reinen Runtime-Daten) */
+		public final boolean statisticsOnly;
+		/** Gibt an, dass überhaupt keine Funktionen, die sich auf Simulation oder Ergebnisse beziehen, angeboten werden sollen. */
+		public final boolean noSimulator;
+		/** Initial in der Baumstruktur zu öffnende Pfade */
+		public final List<TreePath> pathsToOpen;
+
+		/**
+		 * Konstruktor der Klasse
+		 * @param isCompare	Gibt an, ob es sich bei dem Ausdruck um einen Vergleich (<code>true</code>) oder um einen zu einer Zahl auszurechnenden Ausdruck (<code>false</code>) handelt
+		 * @param variables	Liste mit den im System vorhandenen Variablen
+		 * @param initialVariables	Liste der initialen Variablen mit Werten
+		 * @param stations	Zuordnung von Stations-IDs und Stationsnamen (kann über die statische Funktion <code>getStationIDs(surface)</code> erstellt werden)
+		 * @param stationNames	Zuordnung von Stations-IDs zu vom Nutzer angegebenen Stationsnamen
+		 * @param hasClientData	Gibt an, ob Funktionen zum Zugriff auf Kundenobjekt-spezifische Datenfelder angeboten werden sollen
+		 * @param statisticsOnly	Gibt an, dass nur Funktionen angeboten werden sollen, deren Ergebnisse aus Statistikdaten gewonnen werden können (keine reinen Runtime-Daten)
+		 * @param noSimulator	Gibt an, dass überhaupt keine Funktionen, die sich auf Simulation oder Ergebnisse beziehen, angeboten werden sollen.
+		 * @param allowUserDefinedFunctions	Nutzerdefinierte Funktionen anzeigen?
+		 */
+		public ExpressionBuilderSettings(final boolean isCompare, final String[] variables, final Map<String,String> initialVariables, final Map<Integer,String> stations, final Map<Integer,String> stationNames, final boolean hasClientData, final boolean statisticsOnly, final boolean noSimulator, final boolean allowUserDefinedFunctions) {
+			this.isCompare=isCompare;
+			this.allowUserDefinedFunctions=allowUserDefinedFunctions;
+			final Set<String> tempVariables=new HashSet<>();
+			if (variables!=null) tempVariables.addAll(Arrays.asList(variables));
+			if (hasClientData) for (String var: RunModel.additionalVariables) {
+				boolean inList=false;
+				for (String s: tempVariables) if (s.equalsIgnoreCase(var)) {inList=true; break;}
+				if (!inList) tempVariables.add(var);
+			}
+			if (initialVariables!=null) tempVariables.addAll(initialVariables.keySet());
+			this.variables=tempVariables.toArray(new String[0]);
+			this.initialVariableValues=initialVariables;
+			if (stations==null) this.stations=new HashMap<>(); else this.stations=stations;
+			if (stationNames==null) this.stationNames=new HashMap<>(); else this.stationNames=stationNames;
+			this.hasClientData=hasClientData;
+			this.statisticsOnly=statisticsOnly;
+			this.noSimulator=noSimulator;
+
+			this.pathsToOpen=new ArrayList<>();
+		}
 	}
 }

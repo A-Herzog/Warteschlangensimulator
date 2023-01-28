@@ -4743,7 +4743,7 @@ public class Messages_en extends java.util.ResourceBundle {
     t[11114] = "Surface.Tank.Dialog.Title";
     t[11115] = "Edit tank";
     t[11120] = "ExpressionBuilder.MathematicalFunctions.RandomRangeInt.Info";
-    t[11121] = "Integer random number in range x and y (both inclusive). Thereby x<=y has to be satisfied.";
+    t[11121] = "<p>Integer random number in range x and y (both inclusive). Thereby x<=y has to be satisfied.</p>";
     t[11128] = "Surface.Set.Dialog.Title";
     t[11129] = "Edit variable assignment";
     t[11130] = "ExpressionBuilder.SimulationCharacteristics.TransferTimesOverAll.VarianceOfTheTime";
@@ -13185,7 +13185,7 @@ public class Messages_en extends java.util.ResourceBundle {
     t[30756] = "Surface.Note.XML.Icon";
     t[30757] = "ModelElementIconName";
     t[30760] = "ExpressionBuilder.MathematicalFunctions.RandomRange.Info";
-    t[30761] = "Random number between x (inclusive) and y (exclusive). Thereby x<y has to be satisfied.";
+    t[30761] = "<p>Random number between x (inclusive) and y (exclusive). Thereby x<y has to be satisfied.</p>";
     t[30768] = "ModelLoadData.ProcessError.NoMode";
     t[30769] = "No data loading mode was specified.";
     t[30770] = "Editor.Dialog.Tab.OutputAnalysis.BatchMeans.Size.Auto.Hint";
@@ -15439,7 +15439,7 @@ public class Messages_en extends java.util.ResourceBundle {
     t[35896] = "Surface.Action.Dialog.Edit.Tabs.Action.PlaySound";
     t[35897] = "Play sound";
     t[35900] = "ExpressionBuilder.MathematicalFunctions.IsPrime.Info";
-    t[35901] = "Returns 1, if n is a prime number, 0 otherwise.";
+    t[35901] = "<p>Returns 1, if n is a prime number, 0 otherwise.</p>";
     t[35902] = "Distribution.Gamma";
     t[35903] = "Gamma distribution";
     t[35904] = "Simulation.Creator.EdgeToNowhere";
