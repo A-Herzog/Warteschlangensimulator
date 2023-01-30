@@ -65,6 +65,11 @@ public class EditModelExamples {
 		TYPE_DEFAULT,
 
 		/**
+		 * Beispiele, die sich auf reale Modelle bzw. Fragen beziehen
+		 */
+		TYPE_REAL_MODELS,
+
+		/**
 		 * Beispiele, die bestimmte Modellierungseigenschaften verdeutlichen
 		 */
 		TYPE_PROPERTIES,
@@ -73,11 +78,6 @@ public class EditModelExamples {
 		 * Beispiele zum Vergleich verschiedener Steuerungsstrategien
 		 */
 		TYPE_COMPARE,
-
-		/**
-		 * Beispiele, die sich auf reale Modelle bzw. Fragen beziehen
-		 */
-		TYPE_REAL_MODELS,
 
 		/**
 		 * Beispiele, die mathematische Zusammenh‰nge verdeutlichen
@@ -152,43 +152,52 @@ public class EditModelExamples {
 	 * @see #list
 	 */
 	private void addExamples() {
+		/* Standardbeispiele */
 		addExample(Language.trAll("Examples.ErlangC"),"ErlangC1.xml",ExampleType.TYPE_DEFAULT);
+
+		/* Beispiele, die sich auf reale Modelle bzw. Fragen beziehen */
+		addExample(Language.trAll("Examples.Callcenter"),"Callcenter.xml",ExampleType.TYPE_REAL_MODELS);
+		addExample(Language.trAll("Examples.Restaurant"),"Restaurant.xml",ExampleType.TYPE_REAL_MODELS);
+		addExample(Language.trAll("Examples.Baustellenampel"),"Baustellenampel.xml",ExampleType.TYPE_REAL_MODELS);
+
+		/* Beispiele, die bestimmte Modellierungseigenschaften verdeutlichen */
 		addExample(Language.trAll("Examples.ClientTypePriorities"),"Kundentypen.xml",ExampleType.TYPE_PROPERTIES);
 		addExample(Language.trAll("Examples.ImpatientClientsAndRetry"),"Warteabbrecher.xml",ExampleType.TYPE_PROPERTIES);
 		addExample(Language.trAll("Examples.SharedResources"),"SharedResources.xml",ExampleType.TYPE_PROPERTIES);
+		addExample(Language.trAll("Examples.LimitedNumberOfClientsAtAStation"),"Variable.xml",ExampleType.TYPE_PROPERTIES);
+		addExample(Language.trAll("Examples.OperatorsAsSimulationObjects"),"BedienerAlsSimulationsobjekte.xml",ExampleType.TYPE_PROPERTIES);
+		addExample(Language.trAll("Examples.Transport"),"Transport.xml",ExampleType.TYPE_PROPERTIES);
+		addExample(Language.trAll("Examples.Transporter"),"Transporter.xml",ExampleType.TYPE_PROPERTIES);
+		addExample(Language.trAll("Examples.CombiningOrdersAndItems"),"MultiSignalBarrier.xml",ExampleType.TYPE_PROPERTIES);
+		addExample(Language.trAll("Examples.Batch"),"Batch.xml",ExampleType.TYPE_PROPERTIES);
+		addExample(Language.trAll("Examples.Failure"),"Failure.xml",ExampleType.TYPE_PROPERTIES);
+		addExample(Language.trAll("Examples.SetUpTimes"),"SetUpTimes.xml",ExampleType.TYPE_PROPERTIES);
+		addExample(Language.trAll("Examples.Rework"),"Rework.xml",ExampleType.TYPE_PROPERTIES);
+		addExample(Language.trAll("Examples.HoldJS"),"HoldJS.xml",ExampleType.TYPE_PROPERTIES);
+		addExample(Language.trAll("Examples.RestrictedBuffer"),"RestriktierterPuffer.xml",ExampleType.TYPE_PROPERTIES);
+		addExample(Language.trAll("Examples.Analog"),"Analog.xml",ExampleType.TYPE_PROPERTIES);
+		addExample(Language.trAll("Examples.Jockeying"),"Jockeying.xml",ExampleType.TYPE_PROPERTIES);
+		addExample(Language.trAll("Examples.QueueingDiscipline"),"QueueingDiscipline.xml",ExampleType.TYPE_PROPERTIES);
+		addExample(Language.trAll("Examples.Shiftplan"),"Shiftplan.xml",ExampleType.TYPE_PROPERTIES);
+
+		/* Beispiele zum Vergleich verschiedener Steuerungsstrategien */
 		addExample(Language.trAll("Examples.SystemDesign"),"Vergleiche2.xml",ExampleType.TYPE_COMPARE);
 		addExample(Language.trAll("Examples.SystemDesignWithControl"),"Vergleiche3.xml",ExampleType.TYPE_COMPARE);
 		addExample(Language.trAll("Examples.PushAndPullProduction"),"PushPull.xml",ExampleType.TYPE_COMPARE);
 		addExample(Language.trAll("Examples.PushAndPullProductionMultiBarriers"),"PushPullMulti.xml",ExampleType.TYPE_COMPARE);
 		addExample(Language.trAll("Examples.PushPullThroughput"),"PushPullThroughput.xml",ExampleType.TYPE_COMPARE);
 		addExample(Language.trAll("Examples.ChangeResourceCountCompare"),"ChangeResourceCountCompare.xml",ExampleType.TYPE_COMPARE);
-		addExample(Language.trAll("Examples.LimitedNumberOfClientsAtAStation"),"Variable.xml",ExampleType.TYPE_PROPERTIES);
+		addExample(Language.trAll("Examples.DelayJS"),"DelayJS.xml",ExampleType.TYPE_COMPARE);
+		addExample(Language.trAll("Examples.ParallelSerial"),"ParallelSerial.xml",ExampleType.TYPE_COMPARE);
+
+		/* Beispiele, die mathematische Zusammenh‰nge verdeutlichen */
 		addExample(Language.trAll("Examples.LawOfLargeNumbers"),"GesetzDerGroﬂenZahlen.xml",ExampleType.TYPE_MATH);
 		addExample(Language.trAll("Examples.Galton"),"Galton.xml",ExampleType.TYPE_MATH);
-		addExample(Language.trAll("Examples.Callcenter"),"Callcenter.xml",ExampleType.TYPE_REAL_MODELS);
-		addExample(Language.trAll("Examples.OperatorsAsSimulationObjects"),"BedienerAlsSimulationsobjekte.xml",ExampleType.TYPE_PROPERTIES);
-		addExample(Language.trAll("Examples.Transport"),"Transport.xml",ExampleType.TYPE_PROPERTIES);
-		addExample(Language.trAll("Examples.Transporter"),"Transporter.xml",ExampleType.TYPE_PROPERTIES);
-		addExample(Language.trAll("Examples.CombiningOrdersAndItems"),"MultiSignalBarrier.xml",ExampleType.TYPE_PROPERTIES);
-		addExample(Language.trAll("Examples.Restaurant"),"Restaurant.xml",ExampleType.TYPE_REAL_MODELS);
-		addExample(Language.trAll("Examples.Baustellenampel"),"Baustellenampel.xml",ExampleType.TYPE_REAL_MODELS);
-		addExample(Language.trAll("Examples.Batch"),"Batch.xml",ExampleType.TYPE_PROPERTIES);
-		addExample(Language.trAll("Examples.Failure"),"Failure.xml",ExampleType.TYPE_PROPERTIES);
-		addExample(Language.trAll("Examples.SetUpTimes"),"SetUpTimes.xml",ExampleType.TYPE_PROPERTIES);
-		addExample(Language.trAll("Examples.Rework"),"Rework.xml",ExampleType.TYPE_PROPERTIES);
-		addExample(Language.trAll("Examples.HoldJS"),"HoldJS.xml",ExampleType.TYPE_PROPERTIES);
-		addExample(Language.trAll("Examples.DelayJS"),"DelayJS.xml",ExampleType.TYPE_COMPARE);
-		addExample(Language.trAll("Examples.RestrictedBuffer"),"RestriktierterPuffer.xml",ExampleType.TYPE_PROPERTIES);
-		addExample(Language.trAll("Examples.Analog"),"Analog.xml",ExampleType.TYPE_PROPERTIES);
-		addExample(Language.trAll("Examples.Jockeying"),"Jockeying.xml",ExampleType.TYPE_PROPERTIES);
-		addExample(Language.trAll("Examples.QueueingDiscipline"),"QueueingDiscipline.xml",ExampleType.TYPE_PROPERTIES);
-		addExample(Language.trAll("Examples.Shiftplan"),"Shiftplan.xml",ExampleType.TYPE_PROPERTIES);
 		addExample(Language.trAll("Examples.CoefficientOfVariation"),"CoefficientOfVariation.xml",ExampleType.TYPE_MATH);
 		addExample(Language.trAll("Examples.PASTA"),"PASTA.xml",ExampleType.TYPE_MATH);
 		addExample(Language.trAll("Examples.ZentralerGrenzwertsatz"),"ZentralerGrenzwertsatz.xml",ExampleType.TYPE_MATH);
 		addExample(Language.trAll("Examples.BusStoppParadoxon"),"BusStoppParadoxon.xml",ExampleType.TYPE_MATH);
 		addExample(Language.trAll("Examples.RandomNumberGenerators"),"RandomNumberGenerators.xml",ExampleType.TYPE_MATH);
-		addExample(Language.trAll("Examples.ParallelSerial"),"ParallelSerial.xml",ExampleType.TYPE_COMPARE);
 	}
 
 	/**
@@ -277,8 +286,6 @@ public class EditModelExamples {
 	 * @see #addToMenu(Component, JMenu, Consumer)
 	 */
 	private void addGroupToMenu(final Component owner, final JMenu menu, final Consumer<EditModel> listener, final ExampleType group) {
-		if (menu.getItemCount()>0) menu.addSeparator();
-
 		final JMenuItem caption=new JMenuItem(getGroupName(group));
 		menu.add(caption);
 		Font font=caption.getFont();
@@ -352,11 +359,22 @@ public class EditModelExamples {
 	public static void addToMenu(final Component owner, final JMenu menu, final Consumer<EditModel> listener) {
 		final EditModelExamples examples=new EditModelExamples();
 		final Dimension screenSize=Toolkit.getDefaultToolkit().getScreenSize();
-		if (screenSize.height>1080) {
-			for (ExampleType type: ExampleType.values()) examples.addGroupToMenu(owner,menu,listener,type);
-		} else {
-			menu.addSeparator();
-			for (ExampleType type: ExampleType.values()) examples.addGroupToSubMenu(owner,menu,listener,type);
+
+		boolean lastWasFullMenu=(menu.getItemCount()>0);
+		for (ExampleType type: ExampleType.values()) {
+			final long count=examples.list.stream().filter(example->example.type==type).count();
+			boolean useSubMenu=true;
+			if (count==1) useSubMenu=false;
+			if (count<=5 && screenSize.height>1080) useSubMenu=false;
+			if (count<=8 && screenSize.height>1200) useSubMenu=false;
+			if (useSubMenu) {
+				if (lastWasFullMenu) menu.addSeparator();
+				examples.addGroupToSubMenu(owner,menu,listener,type);
+			} else {
+				menu.addSeparator();
+				examples.addGroupToMenu(owner,menu,listener,type);
+			}
+			lastWasFullMenu=!useSubMenu;
 		}
 	}
 
