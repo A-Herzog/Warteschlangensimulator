@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE Modell SYSTEM "https://a-herzog.github.io/Warteschlangensimulator/Simulator.dtd">
+<Modell xmlns="https://a-herzog.github.io" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://a-herzog.github.io https://a-herzog.github.io/Warteschlangensimulator/Simulator.xsd">
+  <!-- Diese Datei wurde mit Warteschlangensimulator erstellt. Download-Adresse: https://github.com/A-Herzog/Warteschlangensimulator -->
+  <ModellVersion>5.3.0</ModellVersion>
+  <ModellName>Batch-Ankünfte und Batch-Bedienungen</ModellName>
+  <ModellBeschreibung>In diesem Modell entstehen Wartezeiten nicht nur dann, wenn alle Bediener belegt sind, sondern
+auch, wenn noch nicht genug Kunden an der Bedienstation eingetroffen sind, um einen Batch zu
+bilden. D.h. es kann passieren, dass Kunden warten müssen, obwohl sich der Bediener im
+Leerlauf befindet.</ModellBeschreibung>
+  <ModellAutor>Alexander Herzog</ModellAutor>
+  <ModellKunden Aktiv="1">5000000</ModellKunden>
+  <ModellAufwaermphase>0.01</ModellAufwaermphase>
+  <ModellAbbruchzeit Aktiv="0">10:00:00:00</ModellAbbruchzeit>
+  <ModellElemente>
+    <ModellElementBedienstation id="1">
+      <ModellElementGroesse h="50" w="100" x="300" y="100"/>
+      <ModellElementVerbindung Element="4" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="5" Typ="Auslaufend"/>
+      <ModellElementBatch Maximum="3" Minimum="3"/>
+      <ModellElementVerteilung Status="Bedienzeit" Typ="Bedienzeiten" Zeitbasis="Sekunden">Exponentialverteilung (240)</ModellElementVerteilung>
+      <ModellElementPrioritaet Kundentyp="Kunden">w</ModellElementPrioritaet>
+      <ModellElementBediener Alternative="1" Anzahl="1" Gruppe="Bedienergruppe"/>
+      <ModellElementBedienerPrioritaet>1</ModellElementBedienerPrioritaet>
+    </ModellElementBedienstation>
+    <ModellElementQuelle id="2">
+      <ModellElementName>Kunden</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="50" y="100"/>
+      <ModellElementVerbindung Element="4" Typ="Auslaufend"/>
+      <ModellElementAusdruck Zeitbasis="Sekunden">ExpDist(100*bI)</ModellElementAusdruck>
+      <ModellElementBatch Groesse="bI"/>
+    </ModellElementQuelle>
+    <ModellElementEnde id="3">
+      <ModellElementGroesse h="50" w="100" x="550" y="100"/>
+      <ModellElementVerbindung Element="5" Typ="Einlaufend"/>
+    </ModellElementEnde>
+    <ModellElementKante id="4">
+      <ModellElementName>Ankünfte (Kunden)</ModellElementName>
+      <ModellElementVerbindung Element1="2" Element2="1" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="5">
+      <ModellElementVerbindung Element1="1" Element2="3" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementText id="6">
+      <ModellElementGroesse h="23" w="351" x="50" y="50"/>
+      <ModellElementTextzeile>Batch-Ankünfte und Batch-Bedienungen</ModellElementTextzeile>
+      <ModellElementSchriftgrosse Symbole="1" fett="1">18</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementText id="7">
+      <ModellElementGroesse h="114" w="611" x="50" y="250"/>
+      <ModellElementTextzeile>Als Eingabeparameter sind bI=2, bS=3, E[I]:=100*bI Sek., E[S]:=bS*80 Sek. und c:=1 gewählt.</ModellElementTextzeile>
+      <ModellElementTextzeile>Damit ergibt sich stets eine Auslastung von 80%.</ModellElementTextzeile>
+      <ModellElementTextzeile>In diesem Modell entstehen Wartezeiten nicht nur dann, wenn alle Bediener belegt sind, sondern</ModellElementTextzeile>
+      <ModellElementTextzeile>auch, wenn noch nicht genug Kunden an der Bedienstation eingetroffen sind, um einen Batch zu</ModellElementTextzeile>
+      <ModellElementTextzeile>bilden. D.h. es kann passieren, dass Kunden warten müssen, obwohl sich der Bediener im</ModellElementTextzeile>
+      <ModellElementTextzeile>Leerlauf befindet.</ModellElementTextzeile>
+      <ModellElementSchriftgrosse Symbole="1" kursiv="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementAnimationText id="8">
+      <ModellElementName>Bedien-Batch-Größe</ModellElementName>
+      <ModellElementGroesse h="30" w="84" x="300" y="170"/>
+      <ModellElementSchriftgrosse>14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+      <ModellElementAnimationsmodus Art="Zahlenwert">3</ModellElementAnimationsmodus>
+    </ModellElementAnimationText>
+    <ModellElementAnimationText id="9">
+      <ModellElementName>Ankunfts-Batch-Größe</ModellElementName>
+      <ModellElementGroesse h="30" w="94" x="50" y="170"/>
+      <ModellElementSchriftgrosse>14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+      <ModellElementAnimationsmodus Art="Zahlenwert">bI</ModellElementAnimationsmodus>
+    </ModellElementAnimationText>
+    <ModellElementText id="10">
+      <ModellElementGroesse h="144" w="653" x="50" y="400"/>
+      <ModellElementTextzeile>**Mögliche Untersuchungsfragestellung:**</ModellElementTextzeile>
+      <ModellElementTextzeile>Batch-Ankünfte und Batch-Bedienungen wirken sich generell negativ auf die Leistungsgrößen des Systems aus.</ModellElementTextzeile>
+      <ModellElementTextzeile>Die Ankunfts-Batch-Größe kann über die globale Variable bI eingestellt werden.</ModellElementTextzeile>
+      <ModellElementTextzeile>Ist bI so gewählt, dass diese kein Vielfaches der Bedien-Batch-Größe 3 ist, so bleiben bei der Batch-Bildung</ModellElementTextzeile>
+      <ModellElementTextzeile>zwangsweise Kunden übrig und muss auf die nächste Ankunft warten. Im Umkehrschluss sind Ankunfts-Batch-Größen,</ModellElementTextzeile>
+      <ModellElementTextzeile>die ein Vielfaches von 3 sind, weniger schlimm, als andere.</ModellElementTextzeile>
+      <ModellElementTextzeile>Dieses Verhalten lässt sich besonders gut über eine Parameterreihe visualisieren. Dafür mit der rechten Maustaste</ModellElementTextzeile>
+      <ModellElementTextzeile>auf eine leere Stelle der Zeichenfläche klicken und "Parameterreihe: Initiale Variablenwerte - bI" wählen. Dann als</ModellElementTextzeile>
+      <ModellElementTextzeile>Untersuchungsbereich z.B. 1...10 (mit Schrittweite 1) wählen.</ModellElementTextzeile>
+      <ModellElementSchriftgrosse Markdown="1" Symbole="1">12</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementAnimationText id="11">
+      <ModellElementName>Mittlere Wartezeit (in Sek.; ohne Batch-Ankünfte und -Bedienungen)</ModellElementName>
+      <ModellElementGroesse h="30" w="281" x="750" y="100"/>
+      <ModellElementSchriftgrosse fett="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>120,120,120</ModellElementFarbe>
+      <ModellElementAnimationsmodus Art="Zahlenwert">320</ModellElementAnimationsmodus>
+    </ModellElementAnimationText>
+    <ModellElementAnimationText id="12">
+      <ModellElementName>Mittlere Wartezeit (in Sek.; aktuelles Modell)</ModellElementName>
+      <ModellElementGroesse h="30" w="182" x="750" y="150"/>
+      <ModellElementSchriftgrosse fett="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,255</ModellElementFarbe>
+      <ModellElementAnimationsmodus Art="Zahlenwert">WaitingTime_avg()</ModellElementAnimationsmodus>
+    </ModellElementAnimationText>
+  </ModellElemente>
+  <Ressourcen UntergeordnetePrioritaet="Zufaellig">
+    <Ressource Name="Bedienergruppe" Typ="Anzahl" Wert="1"/>
+  </Ressourcen>
+  <KundentypenDaten/>
+  <InitialeVariable Name="bI">2</InitialeVariable>
+  <ModellKantenNormal Breite="1" Farbe="0,0,0" Typ="0"/>
+  <ModellKantenSelektiert Breite="1" Typ="0"/>
+  <ModellElementVerbindungsdarstellungsart>Abgerundet abgewinkelt</ModellElementVerbindungsdarstellungsart>
+</Modell>

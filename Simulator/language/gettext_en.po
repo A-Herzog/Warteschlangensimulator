@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-25 22:34+0100\n"
+"POT-Creation-Date: 2023-01-30 15:51+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -4994,6 +4994,9 @@ msgstr "Transport"
 
 msgid "Examples.Analog"
 msgstr "Continuous time values"
+
+msgid "Examples.ArrivalAndServiceBatch"
+msgstr "Batch arrivals and batch service"
 
 msgid "Examples.Batch"
 msgstr "Temporary batches"

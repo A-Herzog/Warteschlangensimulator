@@ -4938,6 +4938,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[11591] = "Input file";
     t[11592] = "Editor.Dialog.Sequences.Edit.MoveUpHint";
     t[11593] = "Move step up";
+    t[11594] = "Examples.ArrivalAndServiceBatch";
+    t[11595] = "Batch arrivals and batch service";
     t[11598] = "ExpressionBuilder.MathematicalFunctions.Potentiate.Info";
     t[11599] = "<p>Potentiates the value passed as the first parameter by exponent value passed as the second parameter.</p> <p>Example: <tt>power(5;4)</tt> returns 625.</p><p>This function is equivalent to <tt>valueA^valueB</tt>.</p>";
     t[11606] = "Surface.WayPoint.Table.Add";
@@ -6020,14 +6022,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[14161] = "Costs";
     t[14166] = "Surface.Popup.AddLongRunStatistics.Counter";
     t[14167] = "Counter value";
-    t[14174] = "Editor.Dialog.Tab.Simulation.Criteria.ErrorWarmUp";
-    t[14175] = "The specified duration of the warm-up phase \"%s\" is invalid. A non-negative value has to be specified.";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_3 (java.lang.String[] t) {
+    t[14174] = "Editor.Dialog.Tab.Simulation.Criteria.ErrorWarmUp";
+    t[14175] = "The specified duration of the warm-up phase \"%s\" is invalid. A non-negative value has to be specified.";
     t[14178] = "Simulation.Creator.InternalInputNotConnected";
     t[14179] = "At element id=%d the %dth input edge is internal not connected to any element.";
     t[14180] = "Window.SimulationCanceled.InfoYes";
@@ -8026,14 +8028,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[18855] = "From element id=%d the connection edge id=%d is leading to no valid next element.";
     t[18856] = "Window.SimulationCanceled.Info";
     t[18857] = "The simulation was terminated prematurely.\nDo you want to show the incomplete statistics data anyway?";
-    t[18862] = "CommandLine.Error.File.OptimizerInputDoesNotExist";
-    t[18863] = "The optimizer settings file %s does not exist.";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_4 (java.lang.String[] t) {
+    t[18862] = "CommandLine.Error.File.OptimizerInputDoesNotExist";
+    t[18863] = "The optimizer settings file %s does not exist.";
     t[18864] = "Editor.DialogBase.Search.ClientTypeClientTypeExpression";
     t[18865] = "Expression for client types \"%s\" -> \"%s\"";
     t[18884] = "Surface.WayPoint.XML.Record.InvalidIndex";
@@ -10032,14 +10034,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[23527] = "Condition for sound output";
     t[23528] = "Examples.Type.Simple";
     t[23529] = "Simple models";
-    t[23530] = "Simulation.Creator.NoAssignName";
-    t[23531] = "The clients renamed by element id=%d do not have a new name.";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_5 (java.lang.String[] t) {
+    t[23530] = "Simulation.Creator.NoAssignName";
+    t[23531] = "The clients renamed by element id=%d do not have a new name.";
     t[23532] = "Surface.Batch.Dialog.BatchSize.Error.Title";
     t[23533] = "Invalid batch size";
     t[23536] = "ExpressionBuilder.SimulationCharacteristics.Comparisons.NotEqual.Info";
@@ -12038,14 +12040,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[28127] = "Costs for the availability of the resources";
     t[28136] = "Animation.Icon.LightbulbOn";
     t[28137] = "Lightbulb - on";
-    t[28138] = "Surface.AnimationBarChart.XML.Set";
-    t[28139] = "ModelElementDiagramElement";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_6 (java.lang.String[] t) {
+    t[28138] = "Surface.AnimationBarChart.XML.Set";
+    t[28139] = "ModelElementDiagramElement";
     t[28140] = "Surface.XML.VariableRecording.Off";
     t[28141] = "Off";
     t[28142] = "Surface.ScriptEditor.Search";
@@ -14044,14 +14046,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[32663] = "C";
     t[32666] = "Surface.Resource.EditName.Dialog.UseExisting";
     t[32667] = "Use existing operators group";
-    t[32670] = "ModelDescription.Action.Condition.Signal";
-    t[32671] = "Signal to trigger the action";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_7 (java.lang.String[] t) {
+    t[32670] = "ModelDescription.Action.Condition.Signal";
+    t[32671] = "Signal to trigger the action";
     t[32682] = "Surface.AnalogAssign.Dialog.Station";
     t[32683] = "Station";
     t[32692] = "ExternalConnect.Dialog.CopyExampleFiles.SelectDestinationDialogTitle";
@@ -16050,14 +16052,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[37265] = "Pick up";
     t[37266] = "Color.FF8C00";
     t[37267] = "Dark orange";
-    t[37270] = "Surface.Source.Dialog.Tab.NumberOfArrivals.Infinite";
-    t[37271] = "infinite";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_8 (java.lang.String[] t) {
+    t[37270] = "Surface.Source.Dialog.Tab.NumberOfArrivals.Infinite";
+    t[37271] = "infinite";
     t[37272] = "ParameterCompare.Settings.Input.Mode.GlobalVariable";
     t[37273] = "Global variable";
     t[37274] = "Simulation.Log.HoldMulti.InfoLeave";
@@ -18056,14 +18058,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[41757] = "Queue display during animation";
     t[41758] = "ExpressionBuilder.SimulationCharacteristics.ResourceUtilization.MinimalNumber";
     t[41759] = "<p>Returns the minimum number of busy operators in the specified resource.</p>";
-    t[41760] = "SettingsDialog.Tabs.Statistics.IncompleteStatistics.Mode.Off";
-    t[41761] = "Discard incomplete statistics";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_9 (java.lang.String[] t) {
+    t[41760] = "SettingsDialog.Tabs.Statistics.IncompleteStatistics.Mode.Off";
+    t[41761] = "Discard incomplete statistics";
     t[41766] = "Editor.Dialog.Tab.ModelDescription.AuthorEMail";
     t[41767] = "E-mail address of the author of the model";
     t[41768] = "ExpressionBuilder.ProbabilityDistributions.PoissonDistribution.DensityInfo";
@@ -20062,14 +20064,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[46299] = "Matching - new client created";
     t[46300] = "HintsDialog.TreeNodeStations";
     t[46301] = "Elements";
-    t[46302] = "Surface.HoldJS.XML.Condition.Javascript";
-    t[46303] = "Javascript";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_10 (java.lang.String[] t) {
+    t[46302] = "Surface.HoldJS.XML.Condition.Javascript";
+    t[46303] = "Javascript";
     t[46304] = "Simulation.Creator.HoldJSCondition";
     t[46305] = "The additional condition \"%s\" at element id=%d is invalid at character %d.";
     t[46322] = "Statistic.Interval";
@@ -22068,14 +22070,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[50881] = "Residence time";
     t[50886] = "ExpressionBuilder.ClientsAtQueue.CoefficientOfVariationOfTheNumber";
     t[50887] = "<p>Returns the coefficient of variation of the number of clients at the queue of the station whose ID is specified in the parameter.</p>\n<p>Alternatively, the ID of a client source can be specified, in which case the results refer to the clients which are created created at the selected source.</p>";
-    t[50890] = "ModelDescription.TransportResourceRecord.DelayedRelease.ClientType";
-    t[50891] = "Delayed resource release at client type \"%s\"";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_11 (java.lang.String[] t) {
+    t[50890] = "ModelDescription.TransportResourceRecord.DelayedRelease.ClientType";
+    t[50891] = "Delayed resource release at client type \"%s\"";
     t[50892] = "Editor.Dialog.Tab.RunTimeStatistics.Table.Edit.Mode";
     t[50893] = "Record type per interval";
     t[50894] = "Surface.TransportDestination.XML.Root";

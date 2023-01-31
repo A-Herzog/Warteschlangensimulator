@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE Model SYSTEM "https://a-herzog.github.io/Warteschlangensimulator/Simulator.dtd">
+<Model xmlns="https://a-herzog.github.io" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://a-herzog.github.io https://a-herzog.github.io/Warteschlangensimulator/Simulator.xsd">
+  <!-- This file was created using Warteschlangensimulator. Download address: https://github.com/A-Herzog/Warteschlangensimulator -->
+  <ModelVersion>5.3.0</ModelVersion>
+  <ModelName>Batch arrivals and batch service</ModelName>
+  <ModelDescription>In this model, waiting times occur not only when all operators are busy,
+but also also when not enough clients have arrived at the process station
+to form a batch. form a batch. This means that clients may have to wait
+even though the operator is idle.</ModelDescription>
+  <ModelAuthor>Alexander Herzog</ModelAuthor>
+  <ModelClients Active="1">5000000</ModelClients>
+  <ModelWarmUpPhase>0.01</ModelWarmUpPhase>
+  <ModelTerminationTime Active="0">10:00:00:00</ModelTerminationTime>
+  <ModelElements>
+    <ModelElementProcessStation id="1">
+      <ModelElementSize h="50" w="100" x="300" y="100"/>
+      <ModelElementConnection Element="4" Type="In"/>
+      <ModelElementConnection Element="5" Type="Out"/>
+      <ModelElementBatchData Maximum="3" Minimum="3"/>
+      <ModelElementDistribution Status="ProcessTime" TimeBase="Seconds" Type="ProcessingTime">Exponential distribution (240)</ModelElementDistribution>
+      <ModelElementPriority ClientType="Clients">w</ModelElementPriority>
+      <ModelElementPriority ClientType="Kunden">w</ModelElementPriority>
+      <ModelElementOperators Alternative="1" Count="1" Group="Bedienergruppe"/>
+      <ModelElementOperatorsPriority>1</ModelElementOperatorsPriority>
+    </ModelElementProcessStation>
+    <ModelElementSource id="2">
+      <ModelElementName>Clients</ModelElementName>
+      <ModelElementSize h="50" w="100" x="50" y="100"/>
+      <ModelElementConnection Element="4" Type="Out"/>
+      <ModelElementExpression TimeBase="Seconds">ExpDist(100*bI)</ModelElementExpression>
+      <ModelElementBatchData Size="bI"/>
+    </ModelElementSource>
+    <ModelElementDispose id="3">
+      <ModelElementSize h="50" w="100" x="550" y="100"/>
+      <ModelElementConnection Element="5" Type="In"/>
+    </ModelElementDispose>
+    <ModelElementEdge id="4">
+      <ModelElementName>Arrivals (Clients)</ModelElementName>
+      <ModelElementConnection Element1="2" Element2="1" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="5">
+      <ModelElementConnection Element1="1" Element2="3" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementText id="6">
+      <ModelElementSize h="23" w="281" x="50" y="50"/>
+      <ModelElementTextLine>Batch arrivals and batch service</ModelElementTextLine>
+      <ModelElementFontSize Symbols="1" bold="1">18</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementText id="7">
+      <ModelElementSize h="95" w="573" x="50" y="250"/>
+      <ModelElementTextLine>As input parameters bI=2, bS=3, E[I]:=100*bI sec., E[S]:=bS*80 sec. and c:=1 are selected.</ModelElementTextLine>
+      <ModelElementTextLine>This results in a utilization of 80%.</ModelElementTextLine>
+      <ModelElementTextLine>In this model, waiting times occur not only when all operators are busy, but also also when</ModelElementTextLine>
+      <ModelElementTextLine>not enough clients have arrived at the process station to form a batch. form a batch.</ModelElementTextLine>
+      <ModelElementTextLine>This means that clients may have to wait even though the operator is idle.</ModelElementTextLine>
+      <ModelElementFontSize Symbols="1" italic="1">14</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementAnimationText id="8">
+      <ModelElementName>Service batch size</ModelElementName>
+      <ModelElementSize h="30" w="76" x="300" y="170"/>
+      <ModelElementFontSize>14</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+      <ModelElementAnimationMode Type="Number">3</ModelElementAnimationMode>
+    </ModelElementAnimationText>
+    <ModelElementAnimationText id="9">
+      <ModelElementName>Arrival batch size</ModelElementName>
+      <ModelElementSize h="30" w="71" x="50" y="170"/>
+      <ModelElementFontSize>14</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+      <ModelElementAnimationMode Type="Number">bI</ModelElementAnimationMode>
+    </ModelElementAnimationText>
+    <ModelElementText id="10">
+      <ModelElementSize h="144" w="493" x="50" y="400"/>
+      <ModelElementTextLine>**Possible research question:**</ModelElementTextLine>
+      <ModelElementTextLine>Batch arrivals and batch service generally have a negative effect on the system performance.</ModelElementTextLine>
+      <ModelElementTextLine>The arrival batch size can be set via the global variable bI. If bI is selected to not be a</ModelElementTextLine>
+      <ModelElementTextLine>multiple of the service batch size 3, then clients will have to remain in the batch formation</ModelElementTextLine>
+      <ModelElementTextLine>area and will have to wait for the next arrival. Conversely, arrival batch sizes that are</ModelElementTextLine>
+      <ModelElementTextLine>multiples of 3 are less worse than others. This behavior can be visualized using a parameter</ModelElementTextLine>
+      <ModelElementTextLine>series. To do this, click with the right mouse button on an empty area of the drawing surface</ModelElementTextLine>
+      <ModelElementTextLine>and select "Parameter series: Initial variable values - bI". Then select e.g. 1...10</ModelElementTextLine>
+      <ModelElementTextLine>with step size 1) as examination range.</ModelElementTextLine>
+      <ModelElementFontSize Markdown="1" Symbols="1">12</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementAnimationText id="11">
+      <ModelElementName>Average waiting time (in sec.; without batch arrival and batch service)</ModelElementName>
+      <ModelElementSize h="30" w="290" x="750" y="100"/>
+      <ModelElementFontSize bold="1">14</ModelElementFontSize>
+      <ModelElementColor>120,120,120</ModelElementColor>
+      <ModelElementAnimationMode Type="Number">320</ModelElementAnimationMode>
+    </ModelElementAnimationText>
+    <ModelElementAnimationText id="12">
+      <ModelElementName>Average waiting time (in sec.; current model)</ModelElementName>
+      <ModelElementSize h="30" w="187" x="750" y="150"/>
+      <ModelElementFontSize bold="1">14</ModelElementFontSize>
+      <ModelElementColor>0,0,255</ModelElementColor>
+      <ModelElementAnimationMode Type="Number">WaitingTime_avg()</ModelElementAnimationMode>
+    </ModelElementAnimationText>
+  </ModelElements>
+  <Resources SecondaryPriority="Random">
+    <Resource Name="Bedienergruppe" Type="Number" Value="1"/>
+  </Resources>
+  <ClientTypeData/>
+  <InitialVariable Name="bI">2</InitialVariable>
+  <ModelEdgesNormal Color="0,0,0" Type="0" Width="1"/>
+  <ModelEdgesSelected Type="0" Width="1"/>
+  <ModelElementConnectionDrawStyle>Angled around</ModelElementConnectionDrawStyle>
+</Model>
