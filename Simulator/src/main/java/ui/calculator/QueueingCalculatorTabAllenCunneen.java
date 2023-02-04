@@ -21,6 +21,11 @@ import javax.swing.JCheckBox;
 
 import language.Language;
 import mathtools.NumberTools;
+import simulator.editmodel.EditModel;
+import ui.modeleditor.elements.ModelElementAnimationTextValue;
+import ui.modeleditor.elements.ModelElementDispose;
+import ui.modeleditor.elements.ModelElementProcess;
+import ui.modeleditor.elements.ModelElementSource;
 
 /**
  * Panel zur Berechnung von Kenngrößen in einem Warteschlangensystem
@@ -55,6 +60,48 @@ public class QueueingCalculatorTabAllenCunneen extends QueueingCalculatorTabBase
 	private final JCheckBox useKLBCorrection;
 	/** Hanschke-Korrektur verwenden? */
 	private final JCheckBox useHanschkeCorrection;
+
+	/**
+	 * Aktuell eingestellter Wert für lambda
+	 * @see #calc()
+	 */
+	private double lambda;
+
+	/**
+	 * Aktuell eingestellter Wert für bI
+	 * @see #calc()
+	 */
+	private int bI;
+
+	/**
+	 * Aktuell eingestellter Wert für mu
+	 * @see #calc()
+	 */
+	private double mu;
+
+	/**
+	 * Aktuell eingestellter Wert für c
+	 * @see #calc()
+	 */
+	private int c;
+
+	/**
+	 * Aktuell eingestellter Wert für bS
+	 * @see #calc()
+	 */
+	private int bS;
+
+	/**
+	 * Aktuell eingestellter Wert für CV[I]
+	 * @see #calc()
+	 */
+	private double cvI;
+
+	/**
+	 * Aktuell eingestellter Wert für CV[S]
+	 * @see #calc()
+	 */
+	private double cvS;
 
 	/**
 	 * Konstruktor der Klasse
@@ -127,13 +174,13 @@ public class QueueingCalculatorTabAllenCunneen extends QueueingCalculatorTabBase
 		if (!cvIInput.isValueOk()) {setError(); return;}
 		if (!cvSInput.isValueOk()) {setError(); return;}
 
-		double lambda=lambdaInput.getDouble();
-		final long bI=bIInput.getLong();
-		final double mu=muInput.getDouble();
-		final long c=cInput.getLong();
-		final long bS=bSInput.getLong();
-		double cvI=cvIInput.getDouble();
-		final double cvS=cvSInput.getDouble();
+		lambda=lambdaInput.getDouble();
+		bI=(int)bIInput.getLong();
+		mu=muInput.getDouble();
+		c=(int)cInput.getLong();
+		bS=(int)bSInput.getLong();
+		cvI=cvIInput.getDouble();
+		cvS=cvSInput.getDouble();
 
 		/*
 		 * Rechnungen sind mit
@@ -176,7 +223,7 @@ public class QueueingCalculatorTabAllenCunneen extends QueueingCalculatorTabBase
 		}
 
 		final double ENQ=rho/(1-rho)*PC*(bI*scvI+bS*scvS)/2*KLB+(((double)bI)-1)/2+(((double)bS)-1)/2+H;
-		final double EN=ENQ+((double)bS)*((double)c)*rho;
+		final double EN=ENQ+((double)bS)*(c)*rho;
 		final double EW=ENQ/lambda;
 		final double EV=EW+1/mu;
 
@@ -206,5 +253,34 @@ public class QueueingCalculatorTabAllenCunneen extends QueueingCalculatorTabBase
 	@Override
 	protected String getHelpPageName() {
 		return "allenCunneen";
+	}
+
+	@Override
+	public EditModel buildModel() {
+		final EditModel model=super.buildModel();
+
+		final double meanInterArrivalTime=1/lambda;
+		final ModelElementSource source=addSource(model,meanInterArrivalTime,bI,cvI,50,100);
+
+		final double meanServiceTime=1/mu;
+		final ModelElementProcess process=addProcess(model,meanServiceTime,cvS,bS,c,Language.tr("Editor.Operator.Plural"),250,100);
+
+		final ModelElementDispose dispose=addExit(model,450,100);
+
+		addEdge(model,source,process);
+		addEdge(model,process,dispose);
+
+		addText(model,"E[I]="+NumberTools.formatNumber(meanInterArrivalTime)+" "+Language.tr("LoadCalculator.Units.Seconds"),false,50,200);
+		addText(model,"E[S]="+NumberTools.formatNumber(meanServiceTime)+" "+Language.tr("LoadCalculator.Units.Seconds"),false,50,220);
+		addText(model,"c="+c,false,50,240);
+		addText(model,"&rho;="+NumberTools.formatPercent(meanServiceTime*bS/meanInterArrivalTime/bI/c),false,50,260);
+
+		addExpression(model,Language.tr("LoadCalculator.ModelBuilder.SimRho"),"Resource_avg()/Resource_count()",50,300).setMode(ModelElementAnimationTextValue.ModeExpression.MODE_EXPRESSION_PERCENT);
+		addExpression(model,Language.tr("LoadCalculator.ModelBuilder.SimEW"),"waitingTime_avg()",50,340);
+		addExpression(model,Language.tr("LoadCalculator.ModelBuilder.SimEV"),"residenceTime_avg()",50,380);
+		addExpression(model,Language.tr("LoadCalculator.ModelBuilder.SimENQ"),"NQ_avg()",50,420);
+		addExpression(model,Language.tr("LoadCalculator.ModelBuilder.SimEN"),"WIP_avg()",50,460);
+
+		return model;
 	}
 }

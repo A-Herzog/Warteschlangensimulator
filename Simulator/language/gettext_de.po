@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-30 15:51+0100\n"
+"POT-Creation-Date: 2023-01-31 09:36+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -9849,6 +9849,54 @@ msgstr "Die Eingaben sind ungültig."
 
 msgid "LoadCalculator.MinimumNumberOfAgents"
 msgstr "Mindestens benötigte Agenten: %s"
+
+msgid "LoadCalculator.ModelBuilder.Button"
+msgstr "Simulationmodell erstellen"
+
+msgid "LoadCalculator.ModelBuilder.Button.Confirm"
+msgstr "Soll jetzt ein Simulationsmodell, dass zu den Einstellungen auf dieser Dialogseite passt, erstellt werden und dann der Dialog geschlossen werden?"
+
+msgid "LoadCalculator.ModelBuilder.Button.Confirm.NoInfo"
+msgstr "Kein Modell erstellen, Dialog geöffnet lassen."
+
+msgid "LoadCalculator.ModelBuilder.Button.Confirm.YesInfo"
+msgstr "Modell erstellen und Dialog schließen."
+
+msgid "LoadCalculator.ModelBuilder.Button.Info"
+msgstr "Erstellt basierend auf den Einstellungen ein Simulationsmodell"
+
+msgid "LoadCalculator.ModelBuilder.DecideCounter"
+msgstr "Verzweigung"
+
+msgid "LoadCalculator.ModelBuilder.DecideCounter.Blocked"
+msgstr "Blockiert"
+
+msgid "LoadCalculator.ModelBuilder.DecideCounter.Canceled"
+msgstr "Abbruch"
+
+msgid "LoadCalculator.ModelBuilder.DecideCounter.Success"
+msgstr "Erfolg"
+
+msgid "LoadCalculator.ModelBuilder.SimBlocked"
+msgstr "Blockierte Kunden laut Simulation"
+
+msgid "LoadCalculator.ModelBuilder.SimCancelationRate"
+msgstr "Abbrecherquote"
+
+msgid "LoadCalculator.ModelBuilder.SimEN"
+msgstr "Mittlere Anzahl an Kunden im System laut Simulation"
+
+msgid "LoadCalculator.ModelBuilder.SimENQ"
+msgstr "Mittlere Warteschlangenlänge laut Simulation"
+
+msgid "LoadCalculator.ModelBuilder.SimEV"
+msgstr "Mittlere Verweilzeit laut Simulation"
+
+msgid "LoadCalculator.ModelBuilder.SimEW"
+msgstr "Mittlere Wartezeit laut Simulation"
+
+msgid "LoadCalculator.ModelBuilder.SimRho"
+msgstr "Auslastung laut Simulation"
 
 msgid "LoadCalculator.NumberOfLines"
 msgstr "Anzahl der Leitungen"

@@ -19,6 +19,13 @@ import java.io.Serializable;
 
 import language.Language;
 import mathtools.NumberTools;
+import simulator.editmodel.EditModel;
+import ui.modeleditor.elements.ModelElementAnimationTextValue;
+import ui.modeleditor.elements.ModelElementCounter;
+import ui.modeleditor.elements.ModelElementDecide;
+import ui.modeleditor.elements.ModelElementDispose;
+import ui.modeleditor.elements.ModelElementProcess;
+import ui.modeleditor.elements.ModelElementSource;
 
 /**
  * Panel zur Berechnung von Kenngrößen in einem Warteschlangensystem
@@ -38,6 +45,24 @@ public class QueueingCalculatorTabErlangB extends QueueingCalculatorTabBase {
 	private final QueueingCalculatorInputPanel aInput;
 	/** n (Systemgröße) */
 	private final QueueingCalculatorInputPanel nInput;
+
+	/**
+	 * Aktuell eingestellter Wert für a
+	 * @see #calc()
+	 */
+	private double a;
+
+	/**
+	 * Aktuell eingestellter Wert für n
+	 * @see #calc()
+	 */
+	private int n;
+
+	/**
+	 * Aktuell berechneter Wert für b
+	 * @see #calc()
+	 */
+	private double b;
 
 	/**
 	 * Konstruktor der Klasse
@@ -60,8 +85,8 @@ public class QueueingCalculatorTabErlangB extends QueueingCalculatorTabBase {
 	public void calc() {
 		if (!aInput.isValueOk()) {setError(); return;}
 		if (!nInput.isValueOk()) {setError(); return;}
-		final double a=aInput.getDouble();
-		final double n=nInput.getDouble();
+		a=aInput.getDouble();
+		n=(int)Math.round(nInput.getDouble());
 
 		/* B=(A^N/N!) / sum (i=0..N; A^i/i!) */
 		/* 1/B=sum(i=0..N; prod(j)i+1..N; j/A) [Termumformung] */
@@ -73,12 +98,51 @@ public class QueueingCalculatorTabErlangB extends QueueingCalculatorTabBase {
 		}
 
 		if (invB>0) {
-			setResult(Language.tr("LoadCalculator.ProbabilityOfBlocking")+": P(B)="+NumberTools.formatPercent(1/invB));
+			b=1/invB;
+			setResult(Language.tr("LoadCalculator.ProbabilityOfBlocking")+": P(B)="+NumberTools.formatPercent(b));
 		}
 	}
 
 	@Override
 	protected String getHelpPageName() {
 		return "erlangB";
+	}
+
+	@Override
+	public EditModel buildModel() {
+		final EditModel model=super.buildModel();
+
+		final double meanInterArrivalTime=100;
+		final ModelElementSource source=addSource(model,meanInterArrivalTime,1,1,50,100);
+
+		final ModelElementCounter counterSuccess=addCounter(model,Language.tr("LoadCalculator.ModelBuilder.DecideCounter.Success"),Language.tr("LoadCalculator.ModelBuilder.DecideCounter"),450,100);
+		final ModelElementCounter counterBlocked=addCounter(model,Language.tr("LoadCalculator.ModelBuilder.DecideCounter.Blocked"),Language.tr("LoadCalculator.ModelBuilder.DecideCounter"),250,200);
+
+		final double meanServiceTime=a*100;
+		final ModelElementProcess process=addProcess(model,meanServiceTime,1,1,n,Language.tr("Editor.Operator.Plural"),650,100);
+
+		final ModelElementDecide decide=addDecide(model,"WIP("+process.getId()+")<"+n,250,100);
+
+		final ModelElementDispose disposeSuccess=addExit(model,850,100);
+		final ModelElementDispose disposeBlocked=addExit(model,850,200);
+
+		addEdge(model,source,decide);
+		addEdge(model,decide,counterSuccess);
+		addEdge(model,decide,counterBlocked);
+		addEdge(model,counterSuccess,process);
+		addEdge(model,process,disposeSuccess);
+		addEdge(model,counterBlocked,disposeBlocked);
+
+		addText(model,"E[I]="+NumberTools.formatNumber(meanInterArrivalTime)+" "+Language.tr("LoadCalculator.Units.Seconds"),false,50,300);
+		addText(model,"E[S]="+NumberTools.formatNumber(meanServiceTime)+" "+Language.tr("LoadCalculator.Units.Seconds"),false,50,320);
+		addText(model,"a="+NumberTools.formatNumber(a),false,50,340);
+		addText(model,"K=c="+n,false,50,360);
+		addText(model,"&rho;="+NumberTools.formatPercent(meanServiceTime*(1-b)/meanInterArrivalTime/n),false,50,380);
+		addText(model,Language.tr("LoadCalculator.ProbabilityOfBlocking")+": P(B)="+NumberTools.formatPercent(b),false,50,400);
+
+		addExpression(model,Language.tr("LoadCalculator.ModelBuilder.SimRho"),"Resource_avg()/Resource_count()",50,440).setMode(ModelElementAnimationTextValue.ModeExpression.MODE_EXPRESSION_PERCENT);
+		addExpression(model,Language.tr("LoadCalculator.ModelBuilder.SimBlocked"),"part("+counterBlocked.getId()+")",50,500).setMode(ModelElementAnimationTextValue.ModeExpression.MODE_EXPRESSION_PERCENT);
+
+		return model;
 	}
 }

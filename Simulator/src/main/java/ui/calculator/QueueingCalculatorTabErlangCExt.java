@@ -22,6 +22,13 @@ import org.apache.commons.math3.special.Gamma;
 import language.Language;
 import mathtools.ErlangC;
 import mathtools.NumberTools;
+import mathtools.distribution.tools.WrapperExponentialDistribution;
+import simulator.editmodel.EditModel;
+import ui.modeleditor.elements.ModelElementAnimationTextValue;
+import ui.modeleditor.elements.ModelElementCounter;
+import ui.modeleditor.elements.ModelElementDispose;
+import ui.modeleditor.elements.ModelElementProcess;
+import ui.modeleditor.elements.ModelElementSource;
 
 /**
  * Panel zur Berechnung von Kenngrößen in einem Warteschlangensystem
@@ -47,6 +54,36 @@ public class QueueingCalculatorTabErlangCExt extends QueueingCalculatorTabBase {
 	private final QueueingCalculatorInputPanel cInput;
 	/** t (Wartezeit zu dem der Service-Level berechnet werden soll) */
 	private final QueueingCalculatorInputPanel tInput;
+
+	/**
+	 * Aktuell eingestellter Wert für lambda
+	 * @see #calc()
+	 */
+	private double lambda;
+
+	/**
+	 * Aktuell eingestellter Wert für nu
+	 * @see #calc()
+	 */
+	private double nu;
+
+	/**
+	 * Aktuell eingestellter Wert für mu
+	 * @see #calc()
+	 */
+	private double mu;
+
+	/**
+	 * Aktuell eingestellter Wert für c
+	 * @see #calc()
+	 */
+	private int c;
+
+	/**
+	 * Berechneter Wert für rho (unter Berücksichtigung der Warteabbrecher)
+	 * @see #calc()
+	 */
+	private double rhoCorrected;
 
 	/**
 	 * Konstruktor der Klasse
@@ -107,24 +144,24 @@ public class QueueingCalculatorTabErlangCExt extends QueueingCalculatorTabBase {
 		if (!nuInput.isValueOk()) {setError(); return;}
 		if (!cInput.isValueOk()) {setError(); return;}
 		if (!tInput.isValueOk()) {setError(); return;}
-		final double lambda=lambdaInput.getDouble();
-		final double mu=muInput.getDouble();
-		final double nu=nuInput.getDouble();
-		final long c=cInput.getLong();
+		lambda=lambdaInput.getDouble();
+		mu=muInput.getDouble();
+		nu=nuInput.getDouble();
+		c=(int)cInput.getLong();
 		final double t=tInput.getDouble();
 
 		double a=lambda/mu;
 
 		final int K=1000;
 
-		double[] Cn=ErlangC.extErlangCCn(lambda,mu,nu,(int)c,K);
+		double[] Cn=ErlangC.extErlangCCn(lambda,mu,nu,c,K);
 		double pi0=0;
 		for (int i=0;i<Cn.length;i++) pi0+=Cn[i];
 		pi0=1/pi0;
 
 		double Plet;
 		if (pi0==0) Plet=1; else Plet=1-Cn[K]*pi0;
-		for (int n=(int)c;n<=K-1;n++) {
+		for (int n=c;n<=K-1;n++) {
 			final Double g=Gamma.regularizedGammaQ(n-c+1,(c*mu+nu)*t);
 			Plet-=pi0*Cn[n]*g;
 		}
@@ -132,14 +169,14 @@ public class QueueingCalculatorTabErlangCExt extends QueueingCalculatorTabBase {
 
 		double Pgt0;
 		if (pi0==0) Pgt0=1; else Pgt0=1-Cn[K]*pi0;
-		for (int n=(int)c;n<=K-1;n++) {
+		for (int n=c;n<=K-1;n++) {
 			final Double g=Gamma.regularizedGammaQ(n-c+1,0);
 			Pgt0-=pi0*Cn[n]*g;
 		}
 		if (Double.isNaN(Pgt0) || Pgt0<0) Pgt0=0;
 		Pgt0=1-Pgt0;
 
-		double ENQ=0; for (int i=(int)(c+1);i<Cn.length;i++) ENQ+=(i-c)*Cn[i]*pi0;
+		double ENQ=0; for (int i=c+1;i<Cn.length;i++) ENQ+=(i-c)*Cn[i]*pi0;
 		double EN=0; for (int i=1;i<Cn.length;i++) EN+=i*Cn[i]*pi0;
 		double EW=ENQ/lambda;
 		double EV=EN/lambda;
@@ -148,7 +185,8 @@ public class QueueingCalculatorTabErlangCExt extends QueueingCalculatorTabBase {
 
 		if (!Double.isNaN(ENQ)) {
 			result.append(Language.tr("LoadCalculator.OfferedWorkLoad")+" a="+NumberTools.formatNumber(a,2)+"<br>");
-			result.append(Language.tr("LoadCalculator.WorkLoad")+" (rho) &rho;="+NumberTools.formatPercent((lambda-ENQ*nu)/mu/c,2)+"<br>");
+			rhoCorrected=(lambda-ENQ*nu)/mu/c;
+			result.append(Language.tr("LoadCalculator.WorkLoad")+" (rho) &rho;="+NumberTools.formatPercent(rhoCorrected,2)+"<br>");
 			result.append(Language.tr("LoadCalculator.AverageQueueLength")+" E[N<sub>Q</sub>]="+NumberTools.formatNumber(ENQ,2)+"<br>");
 			result.append(Language.tr("LoadCalculator.AverageNumberOfClientsInTheSystem")+" E[N]="+NumberTools.formatNumber(EN,2)+"<br>");
 			result.append(Language.tr("LoadCalculator.AverageWaitingTime")+" E[W]="+NumberTools.formatNumber(EW,2)+" ("+Language.tr("LoadCalculator.Units.InSeconds")+")<br>");
@@ -165,5 +203,44 @@ public class QueueingCalculatorTabErlangCExt extends QueueingCalculatorTabBase {
 	@Override
 	protected String getHelpPageName() {
 		return "erlangCExt";
+	}
+
+	@Override
+	public EditModel buildModel() {
+		final EditModel model=super.buildModel();
+
+		final double meanInterArrivalTime=1/lambda;
+		final ModelElementSource source=addSource(model,meanInterArrivalTime,1,1,50,100);
+
+		final double meanServiceTime=1/mu;
+		final double meanCancelTime=1/nu;
+		final ModelElementProcess process=addProcess(model,meanServiceTime,1,1,c,Language.tr("Editor.Operator.Plural"),250,100);
+		process.getCancel().set(new WrapperExponentialDistribution().getDistribution(meanCancelTime,meanCancelTime));
+
+		final ModelElementCounter counterSuccess=addCounter(model,Language.tr("LoadCalculator.ModelBuilder.DecideCounter.Success"),Language.tr("LoadCalculator.ModelBuilder.DecideCounter"),450,100);
+		final ModelElementCounter counterCanceled=addCounter(model,Language.tr("LoadCalculator.ModelBuilder.DecideCounter.Canceled"),Language.tr("LoadCalculator.ModelBuilder.DecideCounter"),250,200);
+
+		final ModelElementDispose disposeSuccess=addExit(model,650,100);
+		final ModelElementDispose disposeCanceled=addExit(model,650,200);
+
+		addEdge(model,source,process);
+		addEdge(model,process,counterSuccess);
+		addEdge(model,process,counterCanceled);
+		addEdge(model,counterSuccess,disposeSuccess);
+		addEdge(model,counterCanceled,disposeCanceled);
+
+		addText(model,"E[I]="+NumberTools.formatNumber(meanInterArrivalTime)+" "+Language.tr("LoadCalculator.Units.Seconds"),false,50,300);
+		addText(model,"E[S]="+NumberTools.formatNumber(meanServiceTime)+" "+Language.tr("LoadCalculator.Units.Seconds"),false,50,320);
+		addText(model,"c="+c,false,50,340);
+		addText(model,"&rho;="+NumberTools.formatPercent(rhoCorrected),false,50,360);
+
+		addExpression(model,Language.tr("LoadCalculator.ModelBuilder.SimRho"),"Resource_avg()/Resource_count()",50,400).setMode(ModelElementAnimationTextValue.ModeExpression.MODE_EXPRESSION_PERCENT);
+		addExpression(model,Language.tr("LoadCalculator.ModelBuilder.SimEW"),"waitingTime_avg()",50,440);
+		addExpression(model,Language.tr("LoadCalculator.ModelBuilder.SimEV"),"residenceTime_avg()",50,480);
+		addExpression(model,Language.tr("LoadCalculator.ModelBuilder.SimENQ"),"NQ_avg()",50,520);
+		addExpression(model,Language.tr("LoadCalculator.ModelBuilder.SimEN"),"WIP_avg()",50,560);
+		addExpression(model,Language.tr("LoadCalculator.ModelBuilder.SimCancelationRate"),"part("+counterCanceled.getId()+")",50,600).setMode(ModelElementAnimationTextValue.ModeExpression.MODE_EXPRESSION_PERCENT);
+
+		return model;
 	}
 }

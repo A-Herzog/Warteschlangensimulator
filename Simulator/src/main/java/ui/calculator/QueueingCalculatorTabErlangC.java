@@ -21,6 +21,11 @@ import org.apache.commons.math3.util.FastMath;
 
 import language.Language;
 import mathtools.NumberTools;
+import simulator.editmodel.EditModel;
+import ui.modeleditor.elements.ModelElementAnimationTextValue;
+import ui.modeleditor.elements.ModelElementDispose;
+import ui.modeleditor.elements.ModelElementProcess;
+import ui.modeleditor.elements.ModelElementSource;
 
 /**
  * Panel zur Berechnung von Kenngrößen in einem Warteschlangensystem
@@ -44,6 +49,24 @@ public class QueueingCalculatorTabErlangC extends QueueingCalculatorTabBase {
 	private final QueueingCalculatorInputPanel cInput;
 	/** t (Wartezeit zu dem der Service-Level berechnet werden soll) */
 	private final QueueingCalculatorInputPanel tInput;
+
+	/**
+	 * Aktuell eingestellter Wert für lambda
+	 * @see #calc()
+	 */
+	private double lambda;
+
+	/**
+	 * Aktuell eingestellter Wert für mu
+	 * @see #calc()
+	 */
+	private double mu;
+
+	/**
+	 * Aktuell eingestellter Wert für c
+	 * @see #calc()
+	 */
+	private int c;
 
 	/**
 	 * Konstruktor der Klasse
@@ -92,9 +115,9 @@ public class QueueingCalculatorTabErlangC extends QueueingCalculatorTabBase {
 		if (!muInput.isValueOk()) {setError(); return;}
 		if (!cInput.isValueOk()) {setError(); return;}
 		if (!tInput.isValueOk()) {setError(); return;}
-		final double lambda=lambdaInput.getDouble();
-		final double mu=muInput.getDouble();
-		final long c=cInput.getLong();
+		lambda=lambdaInput.getDouble();
+		mu=muInput.getDouble();
+		c=(int)cInput.getLong();
 		final double t=tInput.getDouble();
 
 		double a=lambda/mu;
@@ -141,5 +164,34 @@ public class QueueingCalculatorTabErlangC extends QueueingCalculatorTabBase {
 	@Override
 	protected String getHelpPageName() {
 		return "erlangC";
+	}
+
+	@Override
+	public EditModel buildModel() {
+		final EditModel model=super.buildModel();
+
+		final double meanInterArrivalTime=1/lambda;
+		final ModelElementSource source=addSource(model,meanInterArrivalTime,1,1,50,100);
+
+		final double meanServiceTime=1/mu;
+		final ModelElementProcess process=addProcess(model,meanServiceTime,1,1,c,Language.tr("Editor.Operator.Plural"),250,100);
+
+		final ModelElementDispose dispose=addExit(model,450,100);
+
+		addEdge(model,source,process);
+		addEdge(model,process,dispose);
+
+		addText(model,"E[I]="+NumberTools.formatNumber(meanInterArrivalTime)+" "+Language.tr("LoadCalculator.Units.Seconds"),false,50,200);
+		addText(model,"E[S]="+NumberTools.formatNumber(meanServiceTime)+" "+Language.tr("LoadCalculator.Units.Seconds"),false,50,220);
+		addText(model,"c="+c,false,50,240);
+		addText(model,"&rho;="+NumberTools.formatPercent(meanServiceTime/meanInterArrivalTime/c),false,50,260);
+
+		addExpression(model,Language.tr("LoadCalculator.ModelBuilder.SimRho"),"Resource_avg()/Resource_count()",50,300).setMode(ModelElementAnimationTextValue.ModeExpression.MODE_EXPRESSION_PERCENT);
+		addExpression(model,Language.tr("LoadCalculator.ModelBuilder.SimEW"),"waitingTime_avg()",50,340);
+		addExpression(model,Language.tr("LoadCalculator.ModelBuilder.SimEV"),"residenceTime_avg()",50,380);
+		addExpression(model,Language.tr("LoadCalculator.ModelBuilder.SimENQ"),"NQ_avg()",50,420);
+		addExpression(model,Language.tr("LoadCalculator.ModelBuilder.SimEN"),"WIP_avg()",50,460);
+
+		return model;
 	}
 }

@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-30 15:51+0100\n"
+"POT-Creation-Date: 2023-01-31 09:36+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -9852,6 +9852,54 @@ msgstr "Invalid input."
 
 msgid "LoadCalculator.MinimumNumberOfAgents"
 msgstr "Minimum number of agents: %s"
+
+msgid "LoadCalculator.ModelBuilder.Button"
+msgstr "Generate simulation model"
+
+msgid "LoadCalculator.ModelBuilder.Button.Confirm"
+msgstr "Do you want to create a simulation model that matches the settings on this dialog page and then close the dialog?"
+
+msgid "LoadCalculator.ModelBuilder.Button.Confirm.NoInfo"
+msgstr "Do not create a model, leave dialog open."
+
+msgid "LoadCalculator.ModelBuilder.Button.Confirm.YesInfo"
+msgstr "Generate model and close dialog."
+
+msgid "LoadCalculator.ModelBuilder.Button.Info"
+msgstr "Creates a simulation model based on the settings"
+
+msgid "LoadCalculator.ModelBuilder.DecideCounter"
+msgstr "Decision"
+
+msgid "LoadCalculator.ModelBuilder.DecideCounter.Blocked"
+msgstr "Blocked"
+
+msgid "LoadCalculator.ModelBuilder.DecideCounter.Canceled"
+msgstr "Canceled"
+
+msgid "LoadCalculator.ModelBuilder.DecideCounter.Success"
+msgstr "Success"
+
+msgid "LoadCalculator.ModelBuilder.SimBlocked"
+msgstr "Blocked clients according to simulation"
+
+msgid "LoadCalculator.ModelBuilder.SimCancelationRate"
+msgstr "Cancelation rate"
+
+msgid "LoadCalculator.ModelBuilder.SimEN"
+msgstr "Average number of clients in system according to simulation"
+
+msgid "LoadCalculator.ModelBuilder.SimENQ"
+msgstr "Average queue length according to simulation"
+
+msgid "LoadCalculator.ModelBuilder.SimEV"
+msgstr "Average residence time according to simulation"
+
+msgid "LoadCalculator.ModelBuilder.SimEW"
+msgstr "Average waiting time according to simulation"
+
+msgid "LoadCalculator.ModelBuilder.SimRho"
+msgstr "Utilization according to simulation"
 
 msgid "LoadCalculator.NumberOfLines"
 msgstr "Number of lines"

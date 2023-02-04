@@ -3829,7 +3829,15 @@ public class MainPanel extends MainPanelBase {
 	 * Befehl: Extras - Warteschlangenrechner
 	 */
 	private void commandExtrasQueueingCalculator() {
-		final QueueingCalculatorDialog dialog=new QueueingCalculatorDialog(this);
+		final QueueingCalculatorDialog dialog=new QueueingCalculatorDialog(this,newModel->{
+			if (!isDiscardModelOk()) return;
+			editorPanel.setModel(newModel);
+			statisticsPanel.setStatistics(null);
+			for (AbstractButton button: enabledOnStatisticsAvailable) button.setEnabled(false);
+			setAdditionalTitle(UNSAVED_MODEL);
+			setCurrentPanel(editorPanel);
+			editorPanel.scrollToTop();
+		});
 		dialog.setVisible(true);
 	}
 

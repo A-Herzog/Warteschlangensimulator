@@ -75,4 +75,9 @@ public class QueueingCalculatorTabWaitingTimeTolerance extends QueueingCalculato
 	protected String getHelpPageName() {
 		return "waitingTimeTolerance";
 	}
+
+	@Override
+	public boolean hasModelBuilder() {
+		return false;
+	}
 }

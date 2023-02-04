@@ -22,6 +22,11 @@ import javax.swing.JTabbedPane;
 
 import language.Language;
 import mathtools.NumberTools;
+import simulator.editmodel.EditModel;
+import ui.modeleditor.elements.ModelElementAnimationTextValue;
+import ui.modeleditor.elements.ModelElementDispose;
+import ui.modeleditor.elements.ModelElementProcess;
+import ui.modeleditor.elements.ModelElementSource;
 
 /**
  * Panel zur Berechnung der Auslastung eines Bediensystems auf
@@ -54,6 +59,24 @@ public class QueueingCalculatorTabLoad extends QueueingCalculatorTabBase {
 	private final QueueingCalculatorInputPanel muInput;
 	/** rho (Auslastung) */
 	private final QueueingCalculatorInputPanel rhoInput;
+
+	/**
+	 * Aktuell eingestellter Wert für lambda (bzw. indirekt ermittelter Wert)
+	 * @see #calc()
+	 */
+	private double lambda;
+
+	/**
+	 * Aktuell eingestellter Wert für mu
+	 * @see #calc()
+	 */
+	private double mu;
+
+	/**
+	 * Aktuell berechneter Wert für rho
+	 * @see #calc()
+	 */
+	private double rho;
 
 	/**
 	 * Konstruktor der Klasse
@@ -121,8 +144,6 @@ public class QueueingCalculatorTabLoad extends QueueingCalculatorTabBase {
 	public void calc() {
 		final int index=tabs.getSelectedIndex();
 
-		final double lambda;
-
 		if (index==0) {
 			if (!lambdaInput.isValueOk()) {setError(); return;}
 			lambda=lambdaInput.getDouble();
@@ -138,8 +159,8 @@ public class QueueingCalculatorTabLoad extends QueueingCalculatorTabBase {
 
 		if (!muInput.isValueOk()) {setError(); return;}
 		if (!rhoInput.isValueOk()) {setError(); return;}
-		final double mu=muInput.getDouble();
-		final double rho=rhoInput.getDouble();
+		mu=muInput.getDouble();
+		rho=rhoInput.getDouble();
 
 		setResult(String.format(Language.tr("LoadCalculator.MinimumNumberOfAgents"),NumberTools.formatNumber(lambda/mu/rho,2)));
 	}
@@ -147,5 +168,31 @@ public class QueueingCalculatorTabLoad extends QueueingCalculatorTabBase {
 	@Override
 	protected String getHelpPageName() {
 		return "load";
+	}
+
+	@Override
+	public EditModel buildModel() {
+		final EditModel model=super.buildModel();
+
+		final double meanInterArrivalTime=1/lambda;
+		final ModelElementSource source=addSource(model,meanInterArrivalTime,1,1,50,100);
+
+		final double meanServiceTime=1/mu;
+		final int c=(int)Math.round(Math.ceil(lambda/mu/rho));
+		final ModelElementProcess process=addProcess(model,meanServiceTime,1,1,c,Language.tr("Editor.Operator.Plural"),250,100);
+
+		final ModelElementDispose dispose=addExit(model,450,100);
+
+		addEdge(model,source,process);
+		addEdge(model,process,dispose);
+
+		addText(model,"E[I]="+NumberTools.formatNumber(meanInterArrivalTime)+" "+Language.tr("LoadCalculator.Units.Seconds"),false,50,200);
+		addText(model,"E[S]="+NumberTools.formatNumber(meanServiceTime)+" "+Language.tr("LoadCalculator.Units.Seconds"),false,50,220);
+		addText(model,"c="+c,false,50,240);
+		addText(model,"&rho;="+NumberTools.formatPercent(meanServiceTime/meanInterArrivalTime/c),false,50,260);
+
+		addExpression(model,Language.tr("LoadCalculator.ModelBuilder.SimRho"),"Resource_avg()/Resource_count()",50,300).setMode(ModelElementAnimationTextValue.ModeExpression.MODE_EXPRESSION_PERCENT);
+
+		return model;
 	}
 }

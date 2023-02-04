@@ -19,6 +19,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.FlowLayout;
+import java.awt.Point;
 import java.awt.Toolkit;
 import java.awt.datatransfer.StringSelection;
 import java.awt.event.KeyEvent;
@@ -27,6 +28,8 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.Serializable;
 import java.net.URL;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.swing.BorderFactory;
 import javax.swing.Box;
@@ -40,7 +43,21 @@ import javax.swing.JTextField;
 
 import language.Language;
 import mathtools.distribution.swing.JOpenURL;
+import mathtools.distribution.tools.AbstractDistributionWrapper;
+import mathtools.distribution.tools.WrapperExponentialDistribution;
+import mathtools.distribution.tools.WrapperLogNormalDistribution;
+import simulator.editmodel.EditModel;
 import ui.images.Images;
+import ui.modeleditor.ModelResource;
+import ui.modeleditor.coreelements.ModelElementBox;
+import ui.modeleditor.elements.ModelElementAnimationTextValue;
+import ui.modeleditor.elements.ModelElementCounter;
+import ui.modeleditor.elements.ModelElementDecide;
+import ui.modeleditor.elements.ModelElementDispose;
+import ui.modeleditor.elements.ModelElementEdge;
+import ui.modeleditor.elements.ModelElementProcess;
+import ui.modeleditor.elements.ModelElementSource;
+import ui.modeleditor.elements.ModelElementText;
 import ui.tools.FlatLaFHelper;
 
 /**
@@ -395,5 +412,173 @@ public abstract class QueueingCalculatorTabBase extends JPanel {
 	 */
 	public void copyResultsToClipboard() {
 		if (resultsPlainText!=null) Toolkit.getDefaultToolkit().getSystemClipboard().setContents(new StringSelection(resultsPlainText),null);
+	}
+
+	/**
+	 * Fügt in dem Modell eine Verbindungskante zwischen zwei Stationen ein.
+	 * @param model	Modell bei dem die Kante auf der Hauptzeichenfläche eingefügt werden soll
+	 * @param station1	Ausgangsstation
+	 * @param station2	Zielstation
+	 * @see #buildModel()
+	 */
+	protected static final void addEdge(final EditModel model, final ModelElementBox station1, final ModelElementBox station2) {
+		final ModelElementEdge edge=new ModelElementEdge(model,model.surface,station1,station2);
+		station1.addEdgeOut(edge);
+		station2.addEdgeIn(edge);
+		model.surface.add(edge);
+	}
+
+	/**
+	 * Fügt in ein Modell ein Textelement ein.
+	 * @param model	Modell in das das Element auf der Hauptzeichenfläche eingefügt werden soll
+	 * @param text	Anzuzeigender Text
+	 * @param bold	Text fett und etwas größer ausgeben?
+	 * @param x	x-Position auf der Zeichenfläche
+	 * @param y	y-Position auf der Zeichenfläche
+	 * @return	Neues Textelement
+	 */
+	protected static final ModelElementText addText(final EditModel model, final String text, final boolean bold, final int x, final int y) {
+		final ModelElementText label=new ModelElementText(model,model.surface);
+		model.surface.add(label);
+		label.setPosition(new Point(x,y));
+		label.setText(text);
+		label.setTextBold(bold);
+		if (bold) label.setTextSize(label.getTextSize()+2);
+		return label;
+	}
+
+	/**
+	 * Fügt in ein Modell ein Simulationdatenausgabeelement ein.
+	 * @param model	Modell in das das Element auf der Hauptzeichenfläche eingefügt werden soll
+	 * @param title	Über der Wertausgabe anzuzeigender Titel
+	 * @param expression	Zu berechnender und auszugebender Text
+	 * @param x	x-Position auf der Zeichenfläche
+	 * @param y	y-Position auf der Zeichenfläche
+	 * @return	Neues Simulationdatenausgabeelement
+	 */
+	protected static final ModelElementAnimationTextValue addExpression(final EditModel model, final String title, final String expression, final int x, final int y) {
+		final ModelElementAnimationTextValue textValue=new ModelElementAnimationTextValue(model,model.surface);
+		model.surface.add(textValue);
+		textValue.setPosition(new Point(x,y));
+		textValue.setName(title);
+		textValue.setExpression(expression);
+		return textValue;
+	}
+
+	/**
+	 * Fügt in ein Modell eine Quelle ein.
+	 * @param model	Modell in das das Element auf der Hauptzeichenfläche eingefügt werden soll
+	 * @param meanInterArrivalTime	Mittlere Zwischenankunftszeit (in Sekunden)
+	 * @param b	Batch-Größe
+	 * @param cvI	Variationskoeffizient der Zwischenankunftszeiten
+	 * @param x	x-Position auf der Zeichenfläche
+	 * @param y	y-Position auf der Zeichenfläche
+	 * @return	Neue Quelle
+	 */
+	protected static final ModelElementSource addSource(final EditModel model, final double meanInterArrivalTime, final int b, final double cvI, final int x, final int y) {
+		final ModelElementSource source=new ModelElementSource(model,model.surface);
+		model.surface.add(source);
+		source.setPosition(new Point(x,y));
+		final AbstractDistributionWrapper wrapper=(cvI==1.0)?new WrapperExponentialDistribution():new WrapperLogNormalDistribution();
+		source.getRecord().setInterarrivalTimeDistribution(wrapper.getDistribution(meanInterArrivalTime,cvI*meanInterArrivalTime));
+		if (b!=1) source.getRecord().setBatchSize(""+b);
+		return source;
+	}
+
+	/**
+	 * Fügt in ein Modell eine Bedienstation ein.
+	 * @param model	Modell in das das Element auf der Hauptzeichenfläche eingefügt werden soll
+	 * @param meanServiceTime	Mittlere Bediendauer
+	 * @param cvS	Variationskoeffizient der Bediendauern
+	 * @param b	Batch-Größe
+	 * @param c	Anzahl an vorhandenen Bedienern
+	 * @param cName	Name der Bedienergruppe
+	 * @param x	x-Position auf der Zeichenfläche
+	 * @param y	y-Position auf der Zeichenfläche
+	 * @return	Neue Bedienstation
+	 */
+	protected static final ModelElementProcess addProcess(final EditModel model, final double meanServiceTime, final double cvS, final int b, final int c, final String cName, final int x, final int y) {
+		final ModelElementProcess process=new ModelElementProcess(model,model.surface);
+		model.surface.add(process);
+		process.setPosition(new Point(x,y));
+		final AbstractDistributionWrapper wrapper=(cvS==1.0)?new WrapperExponentialDistribution():new WrapperLogNormalDistribution();
+		process.getWorking().set(wrapper.getDistribution(meanServiceTime,cvS*meanServiceTime));
+		if (b!=1) {
+			process.setBatchMinimum(b);
+			process.setBatchMaximum(b);
+		}
+		final Map<String,Integer> resourceRecord=new HashMap<>();
+		resourceRecord.put(cName,1);
+		process.getNeededResources().set(0,resourceRecord);
+		model.resources.add(new ModelResource(cName,c));
+		return process;
+	}
+
+	/**
+	 * Fügt in ein Modell ein Ausgang-Element ein.
+	 * @param model	Modell in das das Element auf der Hauptzeichenfläche eingefügt werden soll
+	 * @param x	x-Position auf der Zeichenfläche
+	 * @param y	y-Position auf der Zeichenfläche
+	 * @return	Neues Ausgang-Element
+	 */
+	protected static final ModelElementDispose addExit(final EditModel model, final int x, final int y) {
+		final ModelElementDispose dispose=new ModelElementDispose(model,model.surface);
+		model.surface.add(dispose);
+		dispose.setPosition(new Point(x,y));
+		return dispose;
+	}
+
+	/**
+	 * Fügt in ein Modell ein Verzweigen-Element ein.
+	 * @param model	Modell in das das Element auf der Hauptzeichenfläche eingefügt werden soll
+	 * @param condition	Bedingung für eine Verzweigung in die erste der möglichen Richtungen
+	 * @param x	x-Position auf der Zeichenfläche
+	 * @param y	y-Position auf der Zeichenfläche
+	 * @return	Neues Verzweigen-Element
+	 */
+	protected static final ModelElementDecide addDecide(final EditModel model, final String condition, final int x, final int y) {
+		final ModelElementDecide decide=new ModelElementDecide(model,model.surface);
+		model.surface.add(decide);
+		decide.setPosition(new Point(x,y));
+		decide.getConditions().add(condition);
+		decide.setMode(ModelElementDecide.DecideMode.MODE_CONDITION);
+		return decide;
+	}
+
+	/**
+	 * Fügt in ein Modell ein Zähler-Element ein.
+	 * @param model	Modell in das das Element auf der Hauptzeichenfläche eingefügt werden soll
+	 * @param name	Name des Zählers
+	 * @param groupName	Name der Zählergruppe
+	 * @param x	x-Position auf der Zeichenfläche
+	 * @param y	y-Position auf der Zeichenfläche
+	 * @return	Neues Zähler-Element
+	 */
+	protected static final ModelElementCounter addCounter(final EditModel model, final String name, final String groupName, final int x, final int y) {
+		final ModelElementCounter counter=new ModelElementCounter(model,model.surface);
+		model.surface.add(counter);
+		counter.setPosition(new Point(x,y));
+		counter.setName(name);
+		counter.setGroupName(groupName);
+		return counter;
+	}
+
+	/**
+	 * Kann auf Basis der Eingaben auf der Dialogseite ein Simulationsmodell erstellt werden?
+	 * @return	Simulationsmodell erstellbar
+	 * @see #buildModel()
+	 */
+	public boolean hasModelBuilder() {
+		return true;
+	}
+
+	/**
+	 * Erzeugt auf Basis der Eingaben auf der Dialogseite ein Simulationsmodell.
+	 * @return	Neues Simulationsmodell
+	 */
+	public EditModel buildModel() {
+		final EditModel model=new EditModel();
+		addText(model,tabName,true,50,50);
+		return model;
 	}
 }

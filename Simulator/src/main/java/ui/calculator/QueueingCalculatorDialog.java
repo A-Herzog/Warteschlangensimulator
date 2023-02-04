@@ -23,6 +23,7 @@ import java.io.Serializable;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Consumer;
 
 import javax.swing.Icon;
 import javax.swing.JButton;
@@ -32,7 +33,9 @@ import javax.swing.JTabbedPane;
 import javax.swing.JTextPane;
 
 import language.Language;
+import simulator.editmodel.EditModel;
 import systemtools.BaseDialog;
+import systemtools.MsgBox;
 import ui.help.Help;
 import ui.images.Images;
 
@@ -54,18 +57,25 @@ public class QueueingCalculatorDialog extends BaseDialog {
 	private final JTabbedPane tabs;
 	/** Seiten des Dialogs */
 	private final List<QueueingCalculatorTabBase> pages;
+	/** Callback zur Übermittlung von neuen Modellen an die Zeichenfläche */
+	private final Consumer<EditModel> newModelGetter;
 
 	/**
 	 * Konstruktor der Klasse
 	 * @param owner	Übergeordnetes Element
+	 * @param newModelGetter	Callback zur Übermittlung von neuen Modellen an die Zeichenfläche
 	 */
-	public QueueingCalculatorDialog(final Component owner) {
+	public QueueingCalculatorDialog(final Component owner, final Consumer<EditModel> newModelGetter) {
 		super(owner,Language.tr("LoadCalculator.Title"));
+		this.newModelGetter=newModelGetter;
 
 		pages=new ArrayList<>();
 
 		showCloseButton=true;
 		addUserButton(Language.tr("LoadCalculator.CopyResults"),Images.EDIT_COPY.getIcon()).setToolTipText(Language.tr("LoadCalculator.CopyResults.Info"));
+		if (newModelGetter!=null) {
+			addUserButton(Language.tr("LoadCalculator.ModelBuilder.Button"),Images.MODEL.getIcon()).setToolTipText(Language.tr("LoadCalculator.ModelBuilder.Button.Info"));
+		}
 		final JPanel content=createGUI(()->Help.topicModal(this,"QueueingCalculator"));
 		content.setLayout(new BorderLayout());
 
@@ -85,6 +95,14 @@ public class QueueingCalculatorDialog extends BaseDialog {
 		size.height+=50;
 		setSize(size);
 		setLocationRelativeTo(this.owner);
+	}
+
+	/**
+	 * Konstruktor der Klasse
+	 * @param owner	Übergeordnetes Element
+	 */
+	public QueueingCalculatorDialog(final Component owner) {
+		this(owner,null);
 	}
 
 	/**
@@ -122,13 +140,26 @@ public class QueueingCalculatorDialog extends BaseDialog {
 	 * Berechnet die Daten auf allen Seiten neu.
 	 */
 	private void calc() {
-		setHelpPage(pages.get(tabs.getSelectedIndex()).getHelpPage());
+		final QueueingCalculatorTabBase currentPage=pages.get(tabs.getSelectedIndex());
+		setHelpPage(currentPage.getHelpPage());
+		getUserButton(1).setVisible(currentPage.hasModelBuilder());
 		pages.stream().forEach(page->page.calc());
 	}
 
 	@Override
 	protected void userButtonClick(final int nr, final JButton button) {
-		pages.get(tabs.getSelectedIndex()).copyResultsToClipboard();
+		final QueueingCalculatorTabBase currentPage=pages.get(tabs.getSelectedIndex());
+		switch (nr) {
+		case 0:
+			currentPage.copyResultsToClipboard();
+			break;
+		case 1:
+			if (newModelGetter==null) return;
+			if (!MsgBox.confirm(this,Language.tr("LoadCalculator.ModelBuilder.Button"),Language.tr("LoadCalculator.ModelBuilder.Button.Confirm"),Language.tr("LoadCalculator.ModelBuilder.Button.Confirm.YesInfo"),Language.tr("LoadCalculator.ModelBuilder.Button.Confirm.NoInfo"))) return;
+			newModelGetter.accept(currentPage.buildModel());
+			close(BaseDialog.CLOSED_BY_OK);
+			break;
+		}
 	}
 
 	/**
