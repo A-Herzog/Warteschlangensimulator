@@ -8060,6 +8060,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[18915] = "Die angegebene Anzahl an ben\u00f6tigten Bedienern \"%s\" ist ung\u00fcltig. Es muss eine ganze Zahl im Bereich von 1 bis %d angegeben werden.";
     t[18918] = "Statistics.XML.Element.ResidenceClients";
     t[18919] = "StatistikVerweilzeitenKunden";
+    t[18920] = "Examples.FIFO-LIFO-Switch";
+    t[18921] = "Kombinierte FIFO-LIFO-Produktion";
     t[18922] = "Editor.DialogBase.Search.ID";
     t[18923] = "Stations-ID";
     t[18926] = "Surface.Source.Dialog.ErrorName.Info";
@@ -10032,14 +10034,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[23487] = "ModellElementLinienFarbe";
     t[23488] = "ExternalConnect.Dialog.Compile";
     t[23489] = "Kompilieren";
-    t[23502] = "Surface.XML.StoppOnCalcError";
-    t[23503] = "ModellBeiRechenfehlerAbbrechen";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_5 (java.lang.String[] t) {
+    t[23502] = "Surface.XML.StoppOnCalcError";
+    t[23503] = "ModellBeiRechenfehlerAbbrechen";
     t[23512] = "LogSimulation.Mode.File";
     t[23513] = "Datei";
     t[23518] = "ExpressionCalculator.DiscardConfirmationJavascript.Title";
@@ -12038,14 +12040,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[28071] = "Das \"Verteilung\"-Attribut im \"%s\"-Element muss eine H\u00e4ufigkeitsverteilung enthalten.";
     t[28078] = "ParameterCompare.Settings.Input.Mode.Label";
     t[28079] = "Art des Parameters";
-    t[28084] = "Simulation.Element.SubConnect.Name";
-    t[28085] = "Untermodell-Verkn\u00fcpfung";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_6 (java.lang.String[] t) {
+    t[28084] = "Simulation.Element.SubConnect.Name";
+    t[28085] = "Untermodell-Verkn\u00fcpfung";
     t[28088] = "ExpressionCalculator.Tab.Map.Column.Value";
     t[28089] = "Wert";
     t[28090] = "Surface.SubConnect.Input";
@@ -14044,14 +14046,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[32627] = "den folgenden Schwellenwert \u00fcberschreitet:";
     t[32628] = "Optimizer.XML.IntegerNumber";
     t[32629] = "Ganzzahl";
-    t[32630] = "Statistics.ModelRemarks.TruncatedValues.Info1";
-    t[32631] = "Bei den oben genannten H\u00e4ufigkeitsverteilungen liegen jeweils mindestens %s der Werte im h\u00f6chsten erfassten Bereich, d.h. es wurden wahrscheinlich relativ viele Werte bei der Erfassung gekappt.";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_7 (java.lang.String[] t) {
+    t[32630] = "Statistics.ModelRemarks.TruncatedValues.Info1";
+    t[32631] = "Bei den oben genannten H\u00e4ufigkeitsverteilungen liegen jeweils mindestens %s der Werte im h\u00f6chsten erfassten Bereich, d.h. es wurden wahrscheinlich relativ viele Werte bei der Erfassung gekappt.";
     t[32632] = "Statistics.ModelRemarks.TruncatedValues.Info2";
     t[32633] = "Es sollte daher erwogen werden, die Erfassungsobergrenze in den Modelleigenschaften anzuheben.";
     t[32634] = "ExpressionBuilder.SimulationCharacteristics.ProcessingTimesOverAll.MinimalTime";
@@ -16050,14 +16052,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[37229] = "Alle abw\u00e4hlen";
     t[37232] = "Optimizer.XML.Mode";
     t[37233] = "Modus";
-    t[37234] = "Statistics.ModelRemarks.LargeWRelative";
-    t[37235] = "Lange Wartezeiten";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_8 (java.lang.String[] t) {
+    t[37234] = "Statistics.ModelRemarks.LargeWRelative";
+    t[37235] = "Lange Wartezeiten";
     t[37238] = "Surface.Decide.Dialog.OutgoingEdge.Key.ErrorMissing.Title";
     t[37239] = "Kein Schl\u00fcssel angegeben";
     t[37240] = "ExpressionBuilder.ProbabilityDistributions.FrechetDistribution.DensityInfo";
@@ -18056,14 +18058,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[41707] = "Numerische Kundendatenfelder";
     t[41718] = "Main.Menu.ParameterSeries";
     t[41719] = "Parameterreihe simulieren";
-    t[41720] = "Simulation.Log.Release.InfoDelay1";
-    t[41721] = "Kunde: %s, Station: %s, Ressourcenfreigabe in: %s";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_9 (java.lang.String[] t) {
+    t[41720] = "Simulation.Log.Release.InfoDelay1";
+    t[41721] = "Kunde: %s, Station: %s, Ressourcenfreigabe in: %s";
     t[41722] = "Simulation.Log.Release.InfoDelay2";
     t[41723] = "Station: %s";
     t[41724] = "ParameterCompare.Settings.Input.Mode.XML.InfoError";
@@ -20062,14 +20064,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[46237] = "Roter Bereich";
     t[46238] = "Animation.Icon.BallGreen";
     t[46239] = "Kreis - Gr\u00fcn";
-    t[46240] = "ParameterCompare.Settings.Input.List.MoveDown";
-    t[46241] = "Nach unten";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_10 (java.lang.String[] t) {
+    t[46240] = "ParameterCompare.Settings.Input.List.MoveDown";
+    t[46241] = "Nach unten";
     t[46246] = "Surface.AnimationBarStack.Name";
     t[46247] = "Simulationsdaten als gestapelter Balken";
     t[46248] = "Statistics.DistributionOfStationsWaitingTimesTotal";
@@ -22068,14 +22070,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[50793] = "BedingungMindestabstand";
     t[50794] = "AxisDrawer.Mode.Off";
     t[50795] = "Nicht anzeigen";
-    t[50806] = "QuickAccess.Menu";
-    t[50807] = "Programmfunktionen";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_11 (java.lang.String[] t) {
+    t[50806] = "QuickAccess.Menu";
+    t[50807] = "Programmfunktionen";
     t[50810] = "Surface.DistributionSystemSetupTimes.XML.Distribution";
     t[50811] = "ModellElementRuestzeitVerteilung";
     t[50812] = "Surface.AnimationBarStack.Dialog.Bar.up";

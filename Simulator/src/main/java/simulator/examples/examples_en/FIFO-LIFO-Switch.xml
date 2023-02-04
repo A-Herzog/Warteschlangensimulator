@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE Model SYSTEM "https://a-herzog.github.io/Warteschlangensimulator/Simulator.dtd">
+<Model xmlns="https://a-herzog.github.io" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://a-herzog.github.io https://a-herzog.github.io/Warteschlangensimulator/Simulator.xsd">
+  <!-- This file was created using Warteschlangensimulator. Download address: https://github.com/A-Herzog/Warteschlangensimulator -->
+  <ModelVersion>5.3.0</ModelVersion>
+  <ModelName>Combined FIFO LIFO production</ModelName>
+  <ModelDescription>The average service time at the process station is E[S]:=75 seconds.
+The process station can take clients from the queue in FIFO or LIFO mode.
+If the process station operates in FIFO mode, the average service time is
+extended by 2 seconds per waiting client. In LIFO mode, the service times do
+not increase, but the coefficient of variation of the waiting times increases.</ModelDescription>
+  <ModelAuthor>Alexander Herzog</ModelAuthor>
+  <ModelClients Active="1">10000000</ModelClients>
+  <ModelWarmUpPhase>0.01</ModelWarmUpPhase>
+  <ModelTerminationTime Active="0">10:00:00:00</ModelTerminationTime>
+  <ModelElements>
+    <ModelElementSource id="1">
+      <ModelElementName>Clients</ModelElementName>
+      <ModelElementSize h="50" w="100" x="50" y="100"/>
+      <ModelElementConnection Element="4" Type="Out"/>
+      <ModelElementDistribution TimeBase="Seconds">Exponential distribution (100)</ModelElementDistribution>
+      <ModelElementBatchData Size="1"/>
+    </ModelElementSource>
+    <ModelElementProcessStation id="2">
+      <ModelElementSize h="50" w="100" x="300" y="100"/>
+      <ModelElementConnection Element="4" Type="In"/>
+      <ModelElementConnection Element="5" Type="Out"/>
+      <ModelElementExpression Status="ProcessTime" TimeBase="Seconds" Type="ProcessingTime">If(FIFOLimit-NQ();ExpDist(75+min(24;2*NQ()));ExpDist(75))</ModelElementExpression>
+      <ModelElementPriority ClientType="Clients">If(FIFOLimit-NQ();w;-w)</ModelElementPriority>
+      <ModelElementPriority ClientType="Kunden">If(FIFOLimit-NQ();w;-w)</ModelElementPriority>
+      <ModelElementOperators Alternative="1" Count="1" Group="Operator group"/>
+      <ModelElementOperatorsPriority>1</ModelElementOperatorsPriority>
+    </ModelElementProcessStation>
+    <ModelElementDispose id="3">
+      <ModelElementSize h="50" w="100" x="550" y="100"/>
+      <ModelElementConnection Element="5" Type="In"/>
+    </ModelElementDispose>
+    <ModelElementEdge id="4">
+      <ModelElementName>Arrivals (Clients)</ModelElementName>
+      <ModelElementConnection Element1="1" Element2="2" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="5">
+      <ModelElementConnection Element1="2" Element2="3" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementText id="6">
+      <ModelElementSize h="23" w="288" x="50" y="50"/>
+      <ModelElementTextLine>Combined FIFO LIFO production</ModelElementTextLine>
+      <ModelElementFontSize Symbols="1" bold="1">18</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementText id="7">
+      <ModelElementSize h="95" w="485" x="50" y="200"/>
+      <ModelElementTextLine>The average service time at the process station is E[S]:=75 seconds.</ModelElementTextLine>
+      <ModelElementTextLine>The process station can take clients from the queue in FIFO or LIFO mode.</ModelElementTextLine>
+      <ModelElementTextLine>If the process station operates in FIFO mode, the average service time is</ModelElementTextLine>
+      <ModelElementTextLine>extended by 2 seconds per waiting client. In LIFO mode, the service times do</ModelElementTextLine>
+      <ModelElementTextLine>not increase, but the coefficient of variation of the waiting times increases.</ModelElementTextLine>
+      <ModelElementFontSize LaTeX="1" Symbols="1" italic="1">14</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementAnimationTextSelect id="8">
+      <ModelElementName>Current mode</ModelElementName>
+      <ModelElementSize h="30" w="58" x="750" y="250"/>
+      <ModelElementFontSize Symbols="1">14</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+      <TextExpression Expression="NQ()&lt;=FIFOLimit">FIFO</TextExpression>
+      <TextExpression Expression="NQ()&gt;FIFOLimit">LIFO</TextExpression>
+    </ModelElementAnimationTextSelect>
+    <ModelElementAnimationText id="9">
+      <ModelElementName>Switching point between FIFO and LIFO</ModelElementName>
+      <ModelElementSize h="30" w="167" x="750" y="200"/>
+      <ModelElementFontSize>14</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+      <ModelElementAnimationMode Type="Number">FIFOLimit</ModelElementAnimationMode>
+    </ModelElementAnimationText>
+    <ModelElementAnimationText id="10">
+      <ModelElementName>Average residence time E[V] (in sec.)</ModelElementName>
+      <ModelElementSize h="30" w="156" x="750" y="100"/>
+      <ModelElementFontSize>14</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+      <ModelElementAnimationMode Type="Number">ResidenceTime_avg()</ModelElementAnimationMode>
+    </ModelElementAnimationText>
+    <ModelElementAnimationText id="11">
+      <ModelElementName>Coefficient of variation of the residence times CV[V]</ModelElementName>
+      <ModelElementSize h="30" w="216" x="750" y="150"/>
+      <ModelElementFontSize>14</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+      <ModelElementAnimationMode Type="Number">ResidenceTime_cv()</ModelElementAnimationMode>
+    </ModelElementAnimationText>
+    <ModelElementText id="12">
+      <ModelElementSize h="96" w="541" x="50" y="650"/>
+      <ModelElementTextLine>**Possible research question:**</ModelElementTextLine>
+      <ModelElementTextLine>How does a variation of the switching point affect the mean residence time E[V] and the</ModelElementTextLine>
+      <ModelElementTextLine>coefficient of variation of the residence times CV[V]?</ModelElementTextLine>
+      <ModelElementTextLine>This can be investigated using a parameter series. To do this, click with the right mouse button</ModelElementTextLine>
+      <ModelElementTextLine>on an empty area of the drawing area and select "Parameter series: Initial variable values - FIFOLimit".</ModelElementTextLine>
+      <ModelElementTextLine>Then select e.g. 1...50 (with step size 1) as examination range.</ModelElementTextLine>
+      <ModelElementFontSize Markdown="1" Symbols="1">12</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementAnimationLineDiagram id="13">
+      <ModelElementSize h="230" w="600" x="50" y="370"/>
+      <ModelElementLineWidth>1</ModelElementLineWidth>
+      <ModelElementLineColor>0,0,0</ModelElementLineColor>
+      <ModelElementBackgroundColor>240,240,240</ModelElementBackgroundColor>
+      <ModelElementDiagramElement LineColor="0,0,255" LineWidth="2" Maximum="3" Minimum="0">If(FIFOLimit-NQ();1;2)</ModelElementDiagramElement>
+      <ModelElementDiagramTimeRange>18000</ModelElementDiagramTimeRange>
+      <ModelElementAxisLabelsTime>2</ModelElementAxisLabelsTime>
+      <ModelElementAxisLabels>1</ModelElementAxisLabels>
+    </ModelElementAnimationLineDiagram>
+    <ModelElementText id="14">
+      <ModelElementSize h="19" w="243" x="50" y="350"/>
+      <ModelElementTextLine>Current operating mode (FIFO or LIFO)</ModelElementTextLine>
+      <ModelElementFontSize Symbols="1">14</ModelElementFontSize>
+      <ModelElementColor>0,0,255</ModelElementColor>
+    </ModelElementText>
+    <ModelElementText id="15">
+      <ModelElementSize h="16" w="27" x="655" y="515"/>
+      <ModelElementTextLine>FIFO</ModelElementTextLine>
+      <ModelElementFontSize Symbols="1" bold="1">12</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementText id="16">
+      <ModelElementSize h="16" w="27" x="655" y="440"/>
+      <ModelElementTextLine>LIFO</ModelElementTextLine>
+      <ModelElementFontSize Symbols="1" bold="1">12</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+    </ModelElementText>
+  </ModelElements>
+  <Resources SecondaryPriority="Random">
+    <Resource Icon="status_online" Name="Operator group" Type="Number" Value="1"/>
+  </Resources>
+  <ClientTypeData/>
+  <InitialVariable Name="FIFOLimit">20</InitialVariable>
+  <ModelEdgesNormal Color="0,0,0" Type="0" Width="1"/>
+  <ModelEdgesSelected Type="0" Width="1"/>
+  <ModelElementConnectionDrawStyle>Angled around</ModelElementConnectionDrawStyle>
+</Model>

@@ -8060,6 +8060,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[18915] = "The specified number of needed operators \"%s\" is invalid. An integer number in the range from 1 up to %d has to be entered.";
     t[18918] = "Statistics.XML.Element.ResidenceClients";
     t[18919] = "StatisticsResidenceTimesClients";
+    t[18920] = "Examples.FIFO-LIFO-Switch";
+    t[18921] = "Combined FIFO LIFO production";
     t[18922] = "Editor.DialogBase.Search.ID";
     t[18923] = "Station ID";
     t[18926] = "Surface.Source.Dialog.ErrorName.Info";
@@ -10032,14 +10034,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[23487] = "ModelElementLineColor";
     t[23488] = "ExternalConnect.Dialog.Compile";
     t[23489] = "Compile";
-    t[23502] = "Surface.XML.StoppOnCalcError";
-    t[23503] = "ModelStoppOnCalcError";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_5 (java.lang.String[] t) {
+    t[23502] = "Surface.XML.StoppOnCalcError";
+    t[23503] = "ModelStoppOnCalcError";
     t[23512] = "LogSimulation.Mode.File";
     t[23513] = "File";
     t[23518] = "ExpressionCalculator.DiscardConfirmationJavascript.Title";
@@ -12038,14 +12040,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[28071] = "The \"Distribution\" attribute in the \"%s\" element has to be a probability distribution.";
     t[28078] = "ParameterCompare.Settings.Input.Mode.Label";
     t[28079] = "Type of parameter";
-    t[28084] = "Simulation.Element.SubConnect.Name";
-    t[28085] = "Sub model connection";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_6 (java.lang.String[] t) {
+    t[28084] = "Simulation.Element.SubConnect.Name";
+    t[28085] = "Sub model connection";
     t[28088] = "ExpressionCalculator.Tab.Map.Column.Value";
     t[28089] = "Value";
     t[28090] = "Surface.SubConnect.Input";
@@ -14044,14 +14046,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[32627] = "exceeds threshold value";
     t[32628] = "Optimizer.XML.IntegerNumber";
     t[32629] = "IntegerValue";
-    t[32630] = "Statistics.ModelRemarks.TruncatedValues.Info1";
-    t[32631] = "In each of the above frequency distributions, at least %s of the values are in the highest recorded range, i.e., a relatively large number of values were probably clipped during recording.";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_7 (java.lang.String[] t) {
+    t[32630] = "Statistics.ModelRemarks.TruncatedValues.Info1";
+    t[32631] = "In each of the above frequency distributions, at least %s of the values are in the highest recorded range, i.e., a relatively large number of values were probably clipped during recording.";
     t[32632] = "Statistics.ModelRemarks.TruncatedValues.Info2";
     t[32633] = "Therefore, it should be considered to raise the collection limit in the model properties.";
     t[32634] = "ExpressionBuilder.SimulationCharacteristics.ProcessingTimesOverAll.MinimalTime";
@@ -16050,14 +16052,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[37229] = "Select none";
     t[37232] = "Optimizer.XML.Mode";
     t[37233] = "Mode";
-    t[37234] = "Statistics.ModelRemarks.LargeWRelative";
-    t[37235] = "Long waiting times";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_8 (java.lang.String[] t) {
+    t[37234] = "Statistics.ModelRemarks.LargeWRelative";
+    t[37235] = "Long waiting times";
     t[37238] = "Surface.Decide.Dialog.OutgoingEdge.Key.ErrorMissing.Title";
     t[37239] = "No key specified";
     t[37240] = "ExpressionBuilder.ProbabilityDistributions.FrechetDistribution.DensityInfo";
@@ -18056,14 +18058,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[41707] = "Numeric client data fields";
     t[41718] = "Main.Menu.ParameterSeries";
     t[41719] = "Parameter series";
-    t[41720] = "Simulation.Log.Release.InfoDelay1";
-    t[41721] = "Client: %s, station: %s, resource release in: %s";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_9 (java.lang.String[] t) {
+    t[41720] = "Simulation.Log.Release.InfoDelay1";
+    t[41721] = "Client: %s, station: %s, resource release in: %s";
     t[41722] = "Simulation.Log.Release.InfoDelay2";
     t[41723] = "Station: %s";
     t[41724] = "ParameterCompare.Settings.Input.Mode.XML.InfoError";
@@ -20062,14 +20064,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[46237] = "Red range";
     t[46238] = "Animation.Icon.BallGreen";
     t[46239] = "Ball - Green";
-    t[46240] = "ParameterCompare.Settings.Input.List.MoveDown";
-    t[46241] = "Move down";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_10 (java.lang.String[] t) {
+    t[46240] = "ParameterCompare.Settings.Input.List.MoveDown";
+    t[46241] = "Move down";
     t[46246] = "Surface.AnimationBarStack.Name";
     t[46247] = "Simulation data as stacked bar plot";
     t[46248] = "Statistics.DistributionOfStationsWaitingTimesTotal";
@@ -22068,14 +22070,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[50793] = "ConditionMinimumDistance";
     t[50794] = "AxisDrawer.Mode.Off";
     t[50795] = "Do not show";
-    t[50806] = "QuickAccess.Menu";
-    t[50807] = "Program functions";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_11 (java.lang.String[] t) {
+    t[50806] = "QuickAccess.Menu";
+    t[50807] = "Program functions";
     t[50810] = "Surface.DistributionSystemSetupTimes.XML.Distribution";
     t[50811] = "ModelElementSetupTimesDistribution";
     t[50812] = "Surface.AnimationBarStack.Dialog.Bar.up";

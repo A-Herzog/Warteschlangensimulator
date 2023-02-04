@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE Modell SYSTEM "https://a-herzog.github.io/Warteschlangensimulator/Simulator.dtd">
+<Modell xmlns="https://a-herzog.github.io" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://a-herzog.github.io https://a-herzog.github.io/Warteschlangensimulator/Simulator.xsd">
+  <!-- Diese Datei wurde mit Warteschlangensimulator erstellt. Download-Adresse: https://github.com/A-Herzog/Warteschlangensimulator -->
+  <ModellVersion>5.3.0</ModellVersion>
+  <ModellName>Kombinierte FIFO-LIFO-Produktion</ModellName>
+  <ModellBeschreibung>Die mittlere Bediendauer an der Bedienstation beträgt E[S]:=75 Sekunden.
+Die Bedienstation kann Kunden im FIFO- oder im LIFO-Modus der Warteschlange
+entnehmen. Arbeitet die Bedienstation im FIFO-Modus, so verlängert sich die
+mittlere Bediendauer um 2 Sekunden pro wartendem Kunden. Im LIFO-Modus
+verlängern sich die Bediendauern nicht; dafür steigt der Variationskoeffizient
+der Wartezeiten an.</ModellBeschreibung>
+  <ModellAutor>Alexander Herzog</ModellAutor>
+  <ModellKunden Aktiv="1">10000000</ModellKunden>
+  <ModellAufwaermphase>0.01</ModellAufwaermphase>
+  <ModellAbbruchzeit Aktiv="0">10:00:00:00</ModellAbbruchzeit>
+  <ModellElemente>
+    <ModellElementQuelle id="1">
+      <ModellElementName>Kunden</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="50" y="100"/>
+      <ModellElementVerbindung Element="4" Typ="Auslaufend"/>
+      <ModellElementVerteilung Zeitbasis="Sekunden">Exponentialverteilung (100)</ModellElementVerteilung>
+      <ModellElementBatch Groesse="1"/>
+    </ModellElementQuelle>
+    <ModellElementBedienstation id="2">
+      <ModellElementGroesse h="50" w="100" x="300" y="100"/>
+      <ModellElementVerbindung Element="4" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="5" Typ="Auslaufend"/>
+      <ModellElementAusdruck Status="Bedienzeit" Typ="Bedienzeiten" Zeitbasis="Sekunden">If(FIFOLimit-NQ();ExpDist(75+min(24;2*NQ()));ExpDist(75))</ModellElementAusdruck>
+      <ModellElementPrioritaet Kundentyp="Kunden">If(FIFOLimit-NQ();w;-w)</ModellElementPrioritaet>
+      <ModellElementBediener Alternative="1" Anzahl="1" Gruppe="Neue Bedienergruppe"/>
+      <ModellElementBedienerPrioritaet>1</ModellElementBedienerPrioritaet>
+    </ModellElementBedienstation>
+    <ModellElementEnde id="3">
+      <ModellElementGroesse h="50" w="100" x="550" y="100"/>
+      <ModellElementVerbindung Element="5" Typ="Einlaufend"/>
+    </ModellElementEnde>
+    <ModellElementKante id="4">
+      <ModellElementName>Ankünfte (Kunden)</ModellElementName>
+      <ModellElementVerbindung Element1="1" Element2="2" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="5">
+      <ModellElementVerbindung Element1="2" Element2="3" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementText id="6">
+      <ModellElementGroesse h="23" w="307" x="50" y="50"/>
+      <ModellElementTextzeile>Kombinierte FIFO-LIFO-Produktion</ModellElementTextzeile>
+      <ModellElementSchriftgrosse Symbole="1" fett="1">18</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementText id="7">
+      <ModellElementGroesse h="114" w="517" x="50" y="200"/>
+      <ModellElementTextzeile>Die mittlere Bediendauer an der Bedienstation beträgt E[S]:=75 Sekunden.</ModellElementTextzeile>
+      <ModellElementTextzeile>Die Bedienstation kann Kunden im FIFO- oder im LIFO-Modus der Warteschlange</ModellElementTextzeile>
+      <ModellElementTextzeile>entnehmen. Arbeitet die Bedienstation im FIFO-Modus, so verlängert sich die</ModellElementTextzeile>
+      <ModellElementTextzeile>mittlere Bediendauer um 2 Sekunden pro wartendem Kunden. Im LIFO-Modus</ModellElementTextzeile>
+      <ModellElementTextzeile>verlängern sich die Bediendauern nicht; dafür steigt der Variationskoeffizient</ModellElementTextzeile>
+      <ModellElementTextzeile>der Wartezeiten an.</ModellElementTextzeile>
+      <ModellElementSchriftgrosse LaTeX="1" Symbole="1" kursiv="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementAnimationTextAuswahl id="8">
+      <ModellElementName>Aktueller Modus</ModellElementName>
+      <ModellElementGroesse h="30" w="67" x="750" y="250"/>
+      <ModellElementSchriftgrosse Symbole="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+      <TextAusdruck Ausdruck="NQ()&lt;=FIFOLimit">FIFO</TextAusdruck>
+      <TextAusdruck Ausdruck="NQ()&gt;FIFOLimit">LIFO</TextAusdruck>
+    </ModellElementAnimationTextAuswahl>
+    <ModellElementAnimationText id="9">
+      <ModellElementName>Umschaltpunkt zwischen FIFO und LIFO</ModellElementName>
+      <ModellElementGroesse h="30" w="167" x="750" y="200"/>
+      <ModellElementSchriftgrosse>14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+      <ModellElementAnimationsmodus Art="Zahlenwert">FIFOLimit</ModellElementAnimationsmodus>
+    </ModellElementAnimationText>
+    <ModellElementAnimationText id="10">
+      <ModellElementName>Mittlere Verweilzeit E[V] (in Sek.)</ModellElementName>
+      <ModellElementGroesse h="30" w="135" x="750" y="100"/>
+      <ModellElementSchriftgrosse>14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+      <ModellElementAnimationsmodus Art="Zahlenwert">ResidenceTime_avg()</ModellElementAnimationsmodus>
+    </ModellElementAnimationText>
+    <ModellElementAnimationText id="11">
+      <ModellElementName>Variationskoeffizient der Verweilzeiten CV[V]</ModellElementName>
+      <ModellElementGroesse h="30" w="185" x="750" y="150"/>
+      <ModellElementSchriftgrosse>14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+      <ModellElementAnimationsmodus Art="Zahlenwert">ResidenceTime_cv()</ModellElementAnimationsmodus>
+    </ModellElementAnimationText>
+    <ModellElementText id="12">
+      <ModellElementGroesse h="96" w="508" x="50" y="650"/>
+      <ModellElementTextzeile>**Mögliche Untersuchungsfragestellung:**</ModellElementTextzeile>
+      <ModellElementTextzeile>Wie wirkt sich eine Veränderung des Umschaltpunktes auf die mittlere Verweilzeit E[V]</ModellElementTextzeile>
+      <ModellElementTextzeile>und den Variationskoeffizienten der Verweilzeiten CV[V] aus?</ModellElementTextzeile>
+      <ModellElementTextzeile>Dies lässt sich über eine Parameterreihe untersuchen. Dafür mit der rechten Maustaste auf eine</ModellElementTextzeile>
+      <ModellElementTextzeile>leere Stelle der Zeichenfläche klicken und "Parameterreihe: Initiale Variablenwerte - FIFOLimit"</ModellElementTextzeile>
+      <ModellElementTextzeile>wählen. Dann als Untersuchungsbereich z.B. 1...50 (mit Schrittweite 1) wählen.</ModellElementTextzeile>
+      <ModellElementSchriftgrosse Markdown="1" Symbole="1">12</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementAnimationLinienDiagramm id="13">
+      <ModellElementGroesse h="230" w="600" x="50" y="370"/>
+      <ModellElementLinienBreite>1</ModellElementLinienBreite>
+      <ModellElementLinienFarbe>0,0,0</ModellElementLinienFarbe>
+      <ModellElementHintergrundfarbe>240,240,240</ModellElementHintergrundfarbe>
+      <ModellElementDiagrammElement Linienbreite="2" Linienfarbe="0,0,255" Maximum="3" Minimum="0">If(FIFOLimit-NQ();1;2)</ModellElementDiagrammElement>
+      <ModellElementDiagrammZeitbereich>18000</ModellElementDiagrammZeitbereich>
+      <ModellElementAchsenbeschriftungZeit>2</ModellElementAchsenbeschriftungZeit>
+      <ModellElementAchsenbeschriftung>1</ModellElementAchsenbeschriftung>
+    </ModellElementAnimationLinienDiagramm>
+    <ModellElementText id="14">
+      <ModellElementGroesse h="19" w="257" x="50" y="350"/>
+      <ModellElementTextzeile>Aktueller Bedienmodus (FIFO  oder LIFO)</ModellElementTextzeile>
+      <ModellElementSchriftgrosse Symbole="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,255</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementText id="15">
+      <ModellElementGroesse h="16" w="27" x="655" y="515"/>
+      <ModellElementTextzeile>FIFO</ModellElementTextzeile>
+      <ModellElementSchriftgrosse Symbole="1" fett="1">12</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementText id="16">
+      <ModellElementGroesse h="16" w="27" x="655" y="440"/>
+      <ModellElementTextzeile>LIFO</ModellElementTextzeile>
+      <ModellElementSchriftgrosse Symbole="1" fett="1">12</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+  </ModellElemente>
+  <Ressourcen UntergeordnetePrioritaet="Zufaellig">
+    <Ressource Name="Neue Bedienergruppe" Typ="Anzahl" Wert="1"/>
+  </Ressourcen>
+  <KundentypenDaten/>
+  <InitialeVariable Name="FIFOLimit">20</InitialeVariable>
+  <ModellKantenNormal Breite="1" Farbe="0,0,0" Typ="0"/>
+  <ModellKantenSelektiert Breite="1" Typ="0"/>
+  <ModellElementVerbindungsdarstellungsart>Abgerundet abgewinkelt</ModellElementVerbindungsdarstellungsart>
+</Modell>

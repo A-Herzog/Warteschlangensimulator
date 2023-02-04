@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-31 09:36+0100\n"
+"POT-Creation-Date: 2023-02-04 11:13+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -5027,6 +5027,9 @@ msgstr "Homogenization of the number of clients"
 
 msgid "Examples.ErlangC"
 msgstr "Erlang C comparison model"
+
+msgid "Examples.FIFO-LIFO-Switch"
+msgstr "Combined FIFO LIFO production"
 
 msgid "Examples.Failure"
 msgstr "Model with break times for the operator"
